@@ -1,0 +1,205 @@
+{
+  "schema_version": 1,
+  "retrieved_date": "2026-10-27",
+  "sources": [
+    {
+      "id": "ccgs",
+      "url": "https://github.com/Donchitos/Claude-Code-Game-Studios",
+      "commit": "05ad7c8a5b8aa2aa86bbd3439ae7cf7295cac418",
+      "license_path": "references/vendor/ccgs/LICENSE",
+      "files": [
+        {
+          "upstream_path": "LICENSE",
+          "path": "references/vendor/ccgs/LICENSE",
+          "sha256": "6ecc068715c0edffc4bc21e5dca450803e0a45af145f72221da23d14e7588359"
+        },
+        {
+          "upstream_path": ".claude/docs/workflow-catalog.yaml",
+          "path": "references/vendor/ccgs/files/.claude/docs/workflow-catalog.yaml",
+          "sha256": "3e87564320fae7f46f3f5c010b8c9c0b32674b0a8cdd1ab1dc76475020c2739a"
+        },
+        {
+          "upstream_path": ".claude/docs/config-resolution.md",
+          "path": "references/vendor/ccgs/files/.claude/docs/config-resolution.md",
+          "sha256": "2881c5db839c5b65acea8378d3810a1a80d8883226cb3e830b2199877faba3a1"
+        },
+        {
+          "upstream_path": ".claude/docs/coordination-rules.md",
+          "path": "references/vendor/ccgs/files/.claude/docs/coordination-rules.md",
+          "sha256": "188ff1e8b93355af4a578253e637dd7926b804919c68eeae9c9f47a987d73792"
+        },
+        {
+          "upstream_path": ".claude/docs/templates/game-design-document.md",
+          "path": "references/vendor/ccgs/files/.claude/docs/templates/game-design-document.md",
+          "sha256": "8631250debc1b322f6ae3795296ea7fdf18aba14b9430cfa21abd18e92629f43"
+        },
+        {
+          "upstream_path": ".claude/docs/templates/guidance/game-design-document-guide.md",
+          "path": "references/vendor/ccgs/files/.claude/docs/templates/guidance/game-design-document-guide.md",
+          "sha256": "107a32667a114dbb6cd49d48bf14491899fbd8a77f34bb592011beef2615624a"
+        },
+        {
+          "upstream_path": ".claude/docs/templates/art-bible.md",
+          "path": "references/vendor/ccgs/files/.claude/docs/templates/art-bible.md",
+          "sha256": "a28c30415db944f38fb08c27c05543cc79f207ccfd9b5343680b15ab7665e6f6"
+        },
+        {
+          "upstream_path": ".claude/docs/templates/architecture-traceability.md",
+          "path": "references/vendor/ccgs/files/.claude/docs/templates/architecture-traceability.md",
+          "sha256": "ab11b121a108af6c9f4e5cd232189318fafb2105fd00589c7ea695e79f02b00e"
+        },
+        {
+          "upstream_path": ".claude/docs/templates/risk-register-entry.md",
+          "path": "references/vendor/ccgs/files/.claude/docs/templates/risk-register-entry.md",
+          "sha256": "0d4460ea5b5a3b2a87506fab8db2344efbffb9cf39b4ece285025038f9e0ff34"
+        },
+        {
+          "upstream_path": ".claude/docs/templates/prototype-report.md",
+          "path": "references/vendor/ccgs/files/.claude/docs/templates/prototype-report.md",
+          "sha256": "2228475bd6122e826affd20039ab117acaea064872893a21b2b70e7f8d510145"
+        },
+        {
+          "upstream_path": ".claude/docs/templates/vertical-slice-report.md",
+          "path": "references/vendor/ccgs/files/.claude/docs/templates/vertical-slice-report.md",
+          "sha256": "fec321cce5380d3bd99a90175b6457ef22e7ca199fa0f04ff2636c344ff2ce47"
+        },
+        {
+          "upstream_path": ".claude/docs/templates/session-state.md",
+          "path": "references/vendor/ccgs/files/.claude/docs/templates/session-state.md",
+          "sha256": "68b8d7ccd6a09f600facc73607bcffd449277633f3a956149b7122419c47487a"
+        },
+        {
+          "upstream_path": ".claude/docs/templates/story.md",
+          "path": "references/vendor/ccgs/files/.claude/docs/templates/story.md",
+          "sha256": "312132c53a67d903609fe33644ea342feeaff47fecffb07851cb20a44e66644f"
+        },
+        {
+          "upstream_path": ".claude/skills/story-readiness/SKILL.md",
+          "path": "references/vendor/ccgs/files/.claude/skills/story-readiness/SKILL.md",
+          "sha256": "0c73e0a2c22b13a711a40ea4682a1d31c3c61cd8ad4a5a5115c41f8270659d12"
+        },
+        {
+          "upstream_path": ".claude/skills/design-review/SKILL.md",
+          "path": "references/vendor/ccgs/files/.claude/skills/design-review/SKILL.md",
+          "sha256": "8ed70a1d109fdd5e1a765ae4b2198730c033fb183ac3e3539fa339c106cebe1f"
+        },
+        {
+          "upstream_path": ".claude/skills/asset-spec/SKILL.md",
+          "path": "references/vendor/ccgs/files/.claude/skills/asset-spec/SKILL.md",
+          "sha256": "8e9126653dcf25bdd2e197ee9df6587e3ffd7ee67de7103087cf8971c59fe025"
+        },
+        {
+          "upstream_path": ".claude/skills/propagate-design-change/SKILL.md",
+          "path": "references/vendor/ccgs/files/.claude/skills/propagate-design-change/SKILL.md",
+          "sha256": "bf110550ddd1ca9c8bbd266cda2808b40aec02646b6ff9886d850ab9f1f1d7c9"
+        },
+        {
+          "upstream_path": ".claude/skills/review-all-gdds/references/4-scenarios.md",
+          "path": "references/vendor/ccgs/files/.claude/skills/review-all-gdds/references/4-scenarios.md",
+          "sha256": "6cbabdb03c253ab2c2fe384ae075d68fbeeef705fc5acd60fcb60f9784ae286d"
+        },
+        {
+          "upstream_path": ".claude/skills/story-done/SKILL.md",
+          "path": "references/vendor/ccgs/files/.claude/skills/story-done/SKILL.md",
+          "sha256": "3946b6770a8f27fd679a0a2f5d9c8aec6096bba6ee7982827700d1b542c9e74f"
+        },
+        {
+          "upstream_path": ".claude/scripts/test-run.sh",
+          "path": "references/vendor/ccgs/files/.claude/scripts/test-run.sh",
+          "sha256": "70d5f44707304f2cba93607f0b52e6747e25d6349d771c928dc1f31884a438b9"
+        }
+      ]
+    },
+    {
+      "id": "bmad-game-dev-studio",
+      "url": "https://github.com/bmad-code-org/bmad-module-game-dev-studio",
+      "commit": "ff8870955203e1665f4bf75a64049078e6d4080c",
+      "license_path": "references/vendor/bmad-game-dev-studio/LICENSE",
+      "files": [
+        {
+          "upstream_path": "LICENSE",
+          "path": "references/vendor/bmad-game-dev-studio/LICENSE",
+          "sha256": "055a02910a555192a4b6e2f9b5436fe888f49c000ab6baaf372c2f842cccf93a"
+        },
+        {
+          "upstream_path": "src/workflows/3-technical/gds-check-implementation-readiness/steps/step-03-epic-coverage-validation.md",
+          "path": "references/vendor/bmad-game-dev-studio/files/src/workflows/3-technical/gds-check-implementation-readiness/steps/step-03-epic-coverage-validation.md",
+          "sha256": "300a9c39dc879d3265f2b753bbf11439b8a8f35d9fb3bb8223f55af19cba1bc0"
+        },
+        {
+          "upstream_path": "src/workflows/3-technical/gds-check-implementation-readiness/steps/step-05-epic-quality-review.md",
+          "path": "references/vendor/bmad-game-dev-studio/files/src/workflows/3-technical/gds-check-implementation-readiness/steps/step-05-epic-quality-review.md",
+          "sha256": "c08c2a8971947e08c20bb2921daaf6ba2343241dc94abcbfab9f98b82d36bf83"
+        },
+        {
+          "upstream_path": "src/workflows/4-production/gds-create-story/template.md",
+          "path": "references/vendor/bmad-game-dev-studio/files/src/workflows/4-production/gds-create-story/template.md",
+          "sha256": "bb22dc83535c732675a3609638a8af7c7da2df2b65e0dc588d3b22800539d45a"
+        },
+        {
+          "upstream_path": "src/workflows/4-production/gds-create-story/checklist.md",
+          "path": "references/vendor/bmad-game-dev-studio/files/src/workflows/4-production/gds-create-story/checklist.md",
+          "sha256": "0694a44014e15c7724b6268b6d96a41cbbdb7a9a33597d787078e652f4223280"
+        },
+        {
+          "upstream_path": "src/workflows/4-production/gds-code-review/steps/step-03-triage.md",
+          "path": "references/vendor/bmad-game-dev-studio/files/src/workflows/4-production/gds-code-review/steps/step-03-triage.md",
+          "sha256": "f8dfcba535cd65a053146f96965324d88ed01a790d2aa4bc352869eb90f80a45"
+        },
+        {
+          "upstream_path": "src/workflows/gametest/gds-playtest-plan/playtest-template.md",
+          "path": "references/vendor/bmad-game-dev-studio/files/src/workflows/gametest/gds-playtest-plan/playtest-template.md",
+          "sha256": "8fa7654007f4f881f0167cb252b6b9ca63c0735fb9e6ef63a4bc81954b428f47"
+        }
+      ]
+    },
+    {
+      "id": "superpowers",
+      "url": "https://github.com/obra/superpowers",
+      "commit": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
+      "license_path": "references/vendor/superpowers/LICENSE",
+      "files": [
+        {
+          "upstream_path": "LICENSE",
+          "path": "references/vendor/superpowers/LICENSE",
+          "sha256": "a37e0e9697144819e1d965176ac4ae5bc3fa02d11e7812036bbcadf6dafe2400"
+        },
+        {
+          "upstream_path": "skills/subagent-driven-development/SKILL.md",
+          "path": "references/vendor/superpowers/files/skills/subagent-driven-development/SKILL.md",
+          "sha256": "ba41f697136cba88a7962d60c8e2f97488ba04a8688b1d0fbeb27f6953808e75"
+        },
+        {
+          "upstream_path": "skills/subagent-driven-development/references/preflight.md",
+          "path": "references/vendor/superpowers/files/skills/subagent-driven-development/references/preflight.md",
+          "sha256": "3ea21c5fc1af1a190ac8a9d19ceb0849b47bf2ffe27b87dffcc21b6a0539776c"
+        },
+        {
+          "upstream_path": "skills/subagent-driven-development/task-reviewer-prompt.md",
+          "path": "references/vendor/superpowers/files/skills/subagent-driven-development/task-reviewer-prompt.md",
+          "sha256": "bfed55c8f19d0ff6ed57b0fe09127c92890e9311c6c73917129598826bf9ebe8"
+        },
+        {
+          "upstream_path": "skills/subagent-driven-development/re-review-prompt.md",
+          "path": "references/vendor/superpowers/files/skills/subagent-driven-development/re-review-prompt.md",
+          "sha256": "0828a5e9cbb12ba49f14621dd8c3953c48c0fc383e75bb5494f055ed0d6d824f"
+        },
+        {
+          "upstream_path": "skills/subagent-driven-development/references/fix-loop.md",
+          "path": "references/vendor/superpowers/files/skills/subagent-driven-development/references/fix-loop.md",
+          "sha256": "eafff1f801af2ced86e8761f3eeef04b701860d986ba5d0a8b20d506a75104bb"
+        },
+        {
+          "upstream_path": "skills/systematic-debugging/SKILL.md",
+          "path": "references/vendor/superpowers/files/skills/systematic-debugging/SKILL.md",
+          "sha256": "51c6435d98c83c42c96ba7c35725a0b2c376cd487fb1a4e6bd0ddbe7e33ef202"
+        },
+        {
+          "upstream_path": "skills/verification-before-completion/SKILL.md",
+          "path": "references/vendor/superpowers/files/skills/verification-before-completion/SKILL.md",
+          "sha256": "2befe7fc55bcadaa3d97dd9e8efeb633d2561c0ebe74c5a8b17c4d9e7e4520b3"
+        }
+      ]
+    }
+  ]
+}

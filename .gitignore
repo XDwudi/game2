@@ -1,0 +1,24 @@
+# Full upstream inspection clones are not the project's source tree.
+references/upstream/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Unity caches and generated builds; evidence is kept separately.
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Ll]ogs/
+[Uu]ser[Ss]ettings/
+[Bb]uilds/
+[Bb]uild/
+*.csproj
+*.sln
+*.slnx
+.vs/
+.idea/
+.DS_Store
+artifacts/cache/
+tools/CoreHarness/bin/
+tools/CoreHarness/obj/
+!tools/CoreHarness/*.csproj
