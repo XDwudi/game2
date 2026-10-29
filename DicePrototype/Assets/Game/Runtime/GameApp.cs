@@ -43,9 +43,10 @@ namespace DiceCraft
         void Awake()
         {
             Application.runInBackground=true;
-            // Desktop ignores targetFrameRate when vSyncCount is nonzero. Use the explicit
-            // P0 60 Hz cap even on a desktop/driver that does not honor swapchain vSync.
+            // Use the native 60 FPS cap as a safe fallback. The Windows scheduler owns
+            // pacing only after successful installation, independently of game/probe state.
             QualitySettings.vSyncCount=0; Application.targetFrameRate=60;
+            FramePacer.Install();
             UiKit.Font=uiFont;
             GameConfig.ValidateJson(configAsset.text);
             Config=JsonUtility.FromJson<GameConfig>(configAsset.text); Config.Validate();
@@ -281,7 +282,7 @@ namespace DiceCraft
         }
         private void ReturnMenu(){if(IsBusy)SkipVisual();CloseModal();inMenu=true; if(tutorial){tutorial=false;Session=new GameSession(Config,saves,saves.Load());}Refresh();}
         private void OnApplicationPause(bool paused){if(paused&&IsBusy)SkipVisual();}
-        private void OnDestroy(){UiKit.Font=null;}
+        private void OnDestroy(){FramePacer.Stop();UiKit.Font=null;}
         private void LogCommand(SessionCommand command,CommandResult result)
         {
             try {var s=ViewState;string file=Path.Combine(SaveDirectoryOverride??Application.persistentDataPath,(tutorial||s.isDebug?"debug":"normal")+"-actions.jsonl");

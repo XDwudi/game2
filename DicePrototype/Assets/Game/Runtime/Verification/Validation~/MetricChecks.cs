@@ -60,7 +60,40 @@ internal static class MetricChecks
         var frameCapacity = type.GetMethod("RequiredFrameCapacity", BindingFlags.NonPublic | BindingFlags.Static);
         Check((int)frameCapacity.Invoke(null, new object[] { 60d }) == 60000, "frame_preallocation_keeps_minimum_at_60fps");
         Check((int)frameCapacity.Invoke(null, new object[] { 1600d }) == 576000, "frame_preallocation_has_double_observed_180s_capacity");
-        Console.WriteLine("18 managed report/capture checks passed. Unity player behavior was not executed.");
+        var chainType = type.GetNestedType("CpuClockChain", BindingFlags.NonPublic);
+        var observe = chainType.GetMethod("Observe");
+        object chain = Activator.CreateInstance(chainType);
+        object Observe(bool received, ulong start, ulong present, ulong end, int frame, ulong frequency = 10000000) =>
+            observe.Invoke(chain, new object[] { received, start, present, end, frequency, frame });
+        int Status(object row, string name) => (int)row.GetType().GetField(name).GetValue(row);
+        double Delta(object row, string name) => (double)row.GetType().GetField(name).GetValue(row);
+        var first = Observe(true, 1000000, 1000100, 1000200, 1);
+        Check(Status(first,"observationStatus")==4 && Status(first,"startStatus")==1 && double.IsNaN(Delta(first,"startDelta")), "clock_first_valid_observation_keeps_raw_without_inventing_interval");
+        var next = Observe(true, 1166667, 1166767, 1166867, 2);
+        Check(Status(next,"startStatus")==2 && Math.Abs(Delta(next,"startDelta")-16.6667)<1e-8
+            && Math.Abs(Delta(next,"presentDelta")-16.6667)<1e-8 && Math.Abs(Delta(next,"completeDelta")-16.6667)<1e-8, "clock_three_axes_convert_cpu_ticks_independently");
+        var duplicate = Observe(true, 1166667, 1166767, 1166867, 3);
+        Check(Status(duplicate,"observationStatus")==2 && double.IsNaN(Delta(duplicate,"presentDelta")), "clock_duplicate_breaks_interval_chain");
+        var afterDuplicate = Observe(true, 1333334, 1333434, 1333534, 4);
+        Check(Status(afterDuplicate,"startStatus")==1 && double.IsNaN(Delta(afterDuplicate,"startDelta")), "clock_after_duplicate_does_not_bridge_gap");
+        Observe(false,0,0,0,5);
+        var repeatedAfterGap=Observe(true,1333334,1333434,1333534,6);
+        Check(Status(repeatedAfterGap,"observationStatus")==2, "clock_seen_timestamp_survives_missing_observation");
+        var nonAdjacent=Observe(true,1500001,1500101,1500201,9);
+        Check(Status(nonAdjacent,"observationStatus")==5 && Status(nonAdjacent,"startStatus")==1, "clock_skipped_unity_observation_resets_baseline");
+        var backward=Observe(true,1490000,1490100,1490200,10);
+        Check(Status(backward,"observationStatus")==3 && double.IsNaN(Delta(backward,"completeDelta")), "clock_backward_start_is_gap_not_negative_duration");
+        chain=Activator.CreateInstance(chainType);
+        Observe(true,1000,1100,1200,1);
+        var backwardsAxis=Observe(true,2000,1050,2200,2);
+        Check(Status(backwardsAxis,"presentStatus")==3 && double.IsNaN(Delta(backwardsAxis,"presentDelta")) && Status(backwardsAxis,"completeStatus")==2,
+            "clock_bad_present_axis_does_not_erase_valid_complete_axis");
+        var axisRecovery=Observe(true,3000,3100,3200,3);
+        Check(Status(axisRecovery,"presentStatus")==1 && double.IsNaN(Delta(axisRecovery,"presentDelta")), "clock_nonmonotonic_axis_needs_new_baseline");
+        chain=Activator.CreateInstance(chainType);
+        var noFrequency=Observe(true,1000,1100,1200,1,0);
+        Check(Status(noFrequency,"startStatus")==4 && double.IsNaN(Delta(noFrequency,"startDelta")), "clock_missing_frequency_is_null_not_zero");
+        Console.WriteLine("28 managed report/capture checks passed. Unity player behavior was not executed.");
         return 0;
     }
 }

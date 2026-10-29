@@ -1,17 +1,17 @@
 {
   "kind": "offline-probe-api-and-report-validation",
-  "utc": "2026-10-29T01:26:51.3957213Z",
+  "utc": "2026-10-29T02:34:22.540145+00:00",
   "unity": "6000.6.7f1",
   "dotnet": "10.0.403",
-  "probeRevision": "p0-player-preallocated-capture-4",
+  "probeRevision": "p0-player-independent-clocks-5",
   "compileErrors": 0,
   "compileWarnings": 0,
-  "managedReportChecksPassed": 18,
+  "managedReportChecksPassed": 28,
   "unityPlayerExecuted": false,
   "inputs": [
     {
       "path": "DicePrototype/Assets/Game/Runtime/Verification/PlayerVerification.cs",
-      "sha256": "28162622312d1a81c8636a8f411def69bccd0fbd7028363fbfa117c023c717c6"
+      "sha256": "d1a236372197964d5cef1a468c4572e0e174f68d98c73b730132d2a5b26887e5"
     },
     {
       "path": "DicePrototype/Assets/Game/Runtime/Verification/Validation~/ProbeCompile.csproj",
@@ -19,19 +19,25 @@
     },
     {
       "path": "DicePrototype/Assets/Game/Runtime/Verification/Validation~/MetricChecks.cs",
-      "sha256": "18c9eef7e124fb3c273653c251a75f23a8a40085cf27b58414da8d8cd6ef711e"
+      "sha256": "935947e4b586e2be0d4559711123a777ba8cf0c17c964ce4b30220e5a479ee21"
     },
     {
       "path": "DicePrototype/Assets/Game/Runtime/Verification/Validation~/bin/Release/net10.0/ProbeCompile.dll",
-      "sha256": "ae3b3fcce1a76f63fcdb64856fce2772b2df8319d1664d702a36f4add77d1fa2"
+      "sha256": "eaaa4f2a1e9c6c793af65a8285796c98d2ca5ed4b96bd098006907c9e4cda4d5"
     },
     {
       "path": "DicePrototype/Assets/Game/Runtime/Verification/Validation~/bin/Release/net10.0/DiceCraft.Runtime.dll",
-      "sha256": "f0451968c120c237826c4e05923484f323c52d4fea36395e2d58ffd02a670f34"
+      "sha256": "33428449b098db883fa85d97f55d147568ef40897f6e766dabb5f32e7a9f7bad"
     },
     {
       "path": "DicePrototype/Assets/Game/Runtime/Verification/Validation~/bin/Release/net10.0/DiceCraft.Core.dll",
-      "sha256": "3365c4409fa030a616616f94bfc5868998e8267a23698f94246c85c95729d322"
+      "sha256": "b407bd76776eaca668be3fcd6e92c143d83f5cac547b0d1b0f5407125ecf38a5"
     }
-  ]
+  ],
+  "reportSchema": "p0-player-verification-4",
+  "logs": {
+    "compile.log": "52e8333c6f1866112ba50a7a677f301ccf538d01c62f9d6b61b9007f1ad0de48",
+    "metric-checks.log": "d08ad236cf7ba0d7e27ac3c222ef8fd694bed1e6b32333306680fa917f276ab6"
+  },
+  "scope": "Offline API/report validation only. Original LateUpdate sampling point, target, operation schedule and acceptance gates unchanged. Three FTM clock series are additive diagnostics."
 }

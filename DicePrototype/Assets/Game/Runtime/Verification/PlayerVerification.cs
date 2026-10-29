@@ -24,7 +24,7 @@ namespace DiceCraft.Verification
     /// </summary>
     public sealed class PlayerVerification : MonoBehaviour
     {
-        private const string ProbeRevision = "p0-player-preallocated-capture-4";
+        private const string ProbeRevision = "p0-player-independent-clocks-5";
         private const double WarmupSeconds = 10;
         private const double SampleSeconds = 180;
         private const double FrameBudgetMs = 16.7;
@@ -44,7 +44,7 @@ namespace DiceCraft.Verification
         private readonly List<FrameSample> frames = new List<FrameSample>();
         private readonly List<Marker> markers = new List<Marker>();
         private readonly FrameTiming[] frameTimings = new FrameTiming[1];
-        private Dictionary<string, object> environment, performance;
+        private Dictionary<string, object> environment, performance, productionPacing;
         private string configHash, traceHash, normalSave, normalSaveHash, stressSave, phase = "Starting";
         private bool finished, sampling, normalPassed, stressCompleted, frameTimingEnabled;
         private int currentStep = -1, rollAnimations, skippedAnimations, stressRolls, stressReorders, stressSelections;
@@ -61,6 +61,8 @@ namespace DiceCraft.Verification
         private int collected0, collected1, collected2;
         private double samplingStart, samplingEnd, stressStart, lastTick;
         private ulong lastFrameTimestamp;
+        private ulong cpuTimerFrequency;
+        private CpuClockChain cpuClocks;
         private Marker mainThread, renderThread, gcAllocated, gcUsed, uiBuild, gpuCounter;
 
         [Serializable] private sealed class Trace
@@ -98,6 +100,60 @@ namespace DiceCraft.Verification
             public double gpuRawMs, gpuCounterMs;
             public int gpuSampleStatus, uiSampleBatch;
             public double gcAllocatedBytes, gcUsedBytes, uiBuildMs, uiBuildCalls, monoUsedBytes;
+            public ulong frameStartTimestamp, presentCalledTimestamp, frameCompleteTimestamp;
+            public double frameStartDeltaMs, presentCalledDeltaMs, frameCompleteDeltaMs;
+            public int timingObservationStatus, frameStartDeltaStatus, presentDeltaStatus, completeDeltaStatus;
+        }
+        private struct CpuClockObservation
+        {
+            public ulong frameStart, present, complete;
+            public double startDelta, presentDelta, completeDelta;
+            public int observationStatus, startStatus, presentStatus, completeStatus;
+        }
+        // Value types only: this observer adds no per-frame managed allocations and
+        // consumes the existing GetLatestTimings result, without a new capture call.
+        private struct CpuClockChain
+        {
+            private ulong seenStart, previousStart, previousPresent, previousComplete;
+            private int previousUnityFrame;
+            public CpuClockObservation Observe(bool received, ulong start, ulong present, ulong complete, ulong frequency, int unityFrame)
+            {
+                var result = new CpuClockObservation { frameStart = start, present = present, complete = complete,
+                    startDelta = double.NaN, presentDelta = double.NaN, completeDelta = double.NaN };
+                if (!received) result.observationStatus = 0;
+                else if (start == 0) result.observationStatus = 1;
+                else if (start == seenStart) result.observationStatus = 2;
+                else if (seenStart != 0 && start < seenStart) result.observationStatus = 3;
+                else
+                {
+                    result.observationStatus = 4;
+                    if (previousUnityFrame != 0 && unityFrame != previousUnityFrame + 1)
+                    {
+                        result.observationStatus = 5;
+                        previousStart = previousPresent = previousComplete = 0;
+                    }
+                    result.startDelta = ClockDelta(start, previousStart, frequency, out result.startStatus);
+                    result.presentDelta = ClockDelta(present, previousPresent, frequency, out result.presentStatus);
+                    result.completeDelta = ClockDelta(complete, previousComplete, frequency, out result.completeStatus);
+                    seenStart = previousStart = start;
+                    previousPresent = result.presentStatus == 3 ? 0 : present;
+                    previousComplete = result.completeStatus == 3 ? 0 : complete;
+                    previousUnityFrame = unityFrame;
+                    return result;
+                }
+                // Keep seenStart to reject repeated native samples after an explicit gap.
+                previousStart = previousPresent = previousComplete = 0;
+                previousUnityFrame = unityFrame;
+                return result;
+            }
+        }
+        private static double ClockDelta(ulong current, ulong previous, ulong frequency, out int status)
+        {
+            if (current == 0) { status = 0; return double.NaN; }
+            if (frequency == 0) { status = 4; return double.NaN; }
+            if (previous == 0) { status = 1; return double.NaN; }
+            if (current <= previous) { status = 3; return double.NaN; }
+            status = 2; return (current - previous) * 1000d / frequency;
         }
         [Serializable] private sealed class CaptureContent
         {
@@ -426,6 +482,8 @@ namespace DiceCraft.Verification
             yield return CaptureResolutionSet("debug-score-preview", () => InvokePrivate("ShowBreakdown", stressSnapshot, stressBreakdown), true);
             DiscoverMarkers();
             frameTimingEnabled = FrameTimingManager.IsFeatureEnabled();
+            cpuTimerFrequency = FrameTimingManager.GetCpuTimerFrequency();
+            productionPacing = ReadProductionPacing();
             stressStart = Time.realtimeSinceStartupAsDouble;
             int warmupStartFrame = Time.frameCount;
             int cycle = -1, operation = 0;
@@ -630,11 +688,13 @@ namespace DiceCraft.Verification
                 double now = Time.realtimeSinceStartupAsDouble;
                 double cpu = double.NaN, gpu = double.NaN, rawGpu = double.NaN;
                 int gpuStatus = 0;
+                bool receivedTiming = false;
                 if (frameTimingEnabled)
                 {
                     FrameTimingManager.CaptureFrameTimings();
                     if (FrameTimingManager.GetLatestTimings(1, frameTimings) > 0)
                     {
+                        receivedTiming = true;
                         timingReadFrames++;
                         rawGpu = frameTimings[0].gpuFrameTime;
                         if (frameTimings[0].frameStartTimestamp != lastFrameTimestamp)
@@ -648,6 +708,10 @@ namespace DiceCraft.Verification
                         else { gpuStatus = 5; gpuDuplicateTimestamps++; }
                     }
                 }
+                CpuClockObservation clocks = cpuClocks.Observe(receivedTiming,
+                    receivedTiming ? frameTimings[0].frameStartTimestamp : 0,
+                    receivedTiming ? frameTimings[0].cpuTimePresentCalled : 0,
+                    receivedTiming ? frameTimings[0].cpuTimeFrameComplete : 0, cpuTimerFrequency, Time.frameCount);
                 if (gpuStatus == 0 || gpuStatus == 2 || gpuStatus == 5) gpuMissingSamples++;
                 if (Application.isFocused) focusedSampleFrames++;
                 double uiMs = uiBuild.ReadNewUiFrame(out double uiCalls);
@@ -658,7 +722,11 @@ namespace DiceCraft.Verification
                     mainMs = mainThread.TimeValue(), renderMs = renderThread.TimeValue(), timingCpuMs = cpu, gpuMs = gpu,
                     gpuRawMs = rawGpu, gpuCounterMs = gpuCounter.TimeValue(), gpuSampleStatus = gpuStatus, uiSampleBatch = uiBuild.lastBatchSize,
                     gcAllocatedBytes = gcAllocated.Value(), gcUsedBytes = gcUsed.Value(),
-                    uiBuildMs = uiMs, uiBuildCalls = uiCalls, monoUsedBytes = Profiler.GetMonoUsedSizeLong()
+                    uiBuildMs = uiMs, uiBuildCalls = uiCalls, monoUsedBytes = Profiler.GetMonoUsedSizeLong(),
+                    frameStartTimestamp = clocks.frameStart, presentCalledTimestamp = clocks.present, frameCompleteTimestamp = clocks.complete,
+                    frameStartDeltaMs = clocks.startDelta, presentCalledDeltaMs = clocks.presentDelta, frameCompleteDeltaMs = clocks.completeDelta,
+                    timingObservationStatus = clocks.observationStatus, frameStartDeltaStatus = clocks.startStatus,
+                    presentDeltaStatus = clocks.presentStatus, completeDeltaStatus = clocks.completeStatus
                 });
                 lastTick = now;
             }
@@ -723,6 +791,8 @@ namespace DiceCraft.Verification
                     ["2"] = "zero/unavailable", ["3"] = "invalid negative or non-finite", ["4"] = "invalid: exceeds process lifetime", ["5"] = "duplicate timing timestamp" },
                 ["mainThread"] = cpu, ["renderThread"] = Metric(validFrames.Select(x => x.renderMs), "ms", renderThread.name, renderThread.unavailableReason),
                 ["frameTimingCpu"] = timingCpu, ["gpu"] = gpu, ["gcAllocated"] = allocation, ["gcUsed"] = used,
+                ["independentFrameClocks"] = BuildFrameClockReport(validFrames), ["productionFramePacing"] = productionPacing,
+                ["productionFramePacingAfterSampling"] = ReadProductionPacing(),
                 ["gpuRawApiValues"] = Metric(validFrames.Select(x => x.gpuRawMs), "ms (unvalidated)", "Raw FrameTimingManager.gpuFrameTime; diagnostic only, may contain invalid values"),
                 ["gpuProfilerCounter"] = Metric(validFrames.Select(x => x.gpuCounterMs), "ms (diagnostic)", gpuCounter.name, gpuCounter.unavailableReason),
                 ["monoUsed"] = Metric(validFrames.Select(x => x.monoUsedBytes), "bytes", "Profiler.GetMonoUsedSizeLong"),
@@ -732,6 +802,7 @@ namespace DiceCraft.Verification
                 ["limitations"] = new[] {
                     "This is automated player operation, not human playtesting, player win rate, or a mobile performance result.",
                     "The frame budget check uses P95 of measured frame intervals; CPU Main Thread may include presentation waits. Raw CPU/GPU metrics remain separately available for diagnosis.",
+                    "Frame-start, Present-called and frame-complete timestamp differences are diagnostic peers of LateUpdate, never replacements for its original verdict. Present-called is not scanout; frame-complete is GPU completion interrupting the CPU. Adjacent unique GetLatestTimings(1) observations may still skip native records; explicit gaps are broken but native adjacency is not guaranteed.",
                     "Recorder units and exact marker names are retained. UI marker invocation count is not the number of individual rebuilt elements.",
                     "Before sampling, the probe allocates max(60000, ceil(warmup FPS * 180 seconds * 2)) frame records once. Estimated observer bytes cover record payload, not object headers or all profiler overhead. Any expansion during sampling still forces a gap.",
                     "GPU durations that are negative, non-finite or longer than the process lifetime are invalid, retained in raw CSV and force a measurement gap; no merely slow frame is filtered by the 16.7ms budget.",
@@ -739,6 +810,57 @@ namespace DiceCraft.Verification
                     "Unavailable metrics are null; availability gaps or a non-1080p run cannot certify the complete performance condition. Independent review remains required."
                 }
             };
+        }
+        private Dictionary<string, object> BuildFrameClockReport(FrameSample[] values)
+        {
+            const string missing = "Timestamp absent, duplicate, non-increasing, no CPU frequency, or no adjacent valid observation. See raw values and status counts.";
+            return new Dictionary<string, object>
+            {
+                ["diagnosticOnly"] = true, ["cpuTimerFrequencyHz"] = cpuTimerFrequency,
+                ["rawRowsIncludingInitialPartialInterval"] = frames.Count,
+                ["frameStart"] = Metric(values.Select(x => x.frameStartDeltaMs), "ms", "FrameTiming.frameStartTimestamp difference", missing),
+                ["presentCalled"] = Metric(values.Select(x => x.presentCalledDeltaMs), "ms", "FrameTiming.cpuTimePresentCalled difference", missing),
+                ["frameComplete"] = Metric(values.Select(x => x.frameCompleteDeltaMs), "ms", "FrameTiming.cpuTimeFrameComplete difference", missing),
+                ["observationStatusCounts"] = StatusCounts(values.Select(x => x.timingObservationStatus)),
+                ["frameStartDeltaStatusCounts"] = StatusCounts(values.Select(x => x.frameStartDeltaStatus)),
+                ["presentDeltaStatusCounts"] = StatusCounts(values.Select(x => x.presentDeltaStatus)),
+                ["completeDeltaStatusCounts"] = StatusCounts(values.Select(x => x.completeDeltaStatus)),
+                ["zeroFrameStartRows"] = values.Count(x => x.frameStartTimestamp == 0),
+                ["zeroPresentRows"] = values.Count(x => x.presentCalledTimestamp == 0),
+                ["zeroCompleteRows"] = values.Count(x => x.frameCompleteTimestamp == 0),
+                ["observationStatusLegend"] = "0 no timing; 1 zero frame-start; 2 repeated frame-start; 3 backward frame-start; 4 new frame-start; 5 new frame-start after skipped Unity observation (delta baseline reset).",
+                ["deltaStatusLegend"] = "0 unavailable observation or zero axis; 1 valid current timestamp without adjacent baseline; 2 valid positive difference; 3 non-increasing axis; 4 CPU frequency unavailable.",
+                ["definitions"] = "Unity 6000.6: frameStartTimestamp is CPU clock when frame started; cpuTimePresentCalled is CPU clock at Present call; cpuTimeFrameComplete is CPU clock when GPU finished rendering and interrupted CPU. Units are converted using GetCpuTimerFrequency.",
+                ["adjacencyLimit"] = "Differences require adjacent Unity observations with new monotonic frame-start values and a valid monotonic axis. GetLatestTimings(1) does not prove no native records were skipped. No clock replaces the original LateUpdate interval or acceptance criteria."
+            };
+        }
+        private static Dictionary<string, object> StatusCounts(IEnumerable<int> statuses)
+        {
+            return statuses.GroupBy(x => x).ToDictionary(x => x.Key.ToString(CultureInfo.InvariantCulture), x => (object)x.Count());
+        }
+        private static Dictionary<string, object> ReadProductionPacing()
+        {
+            // Read only, outside the measured window. Never installs, stops or configures a pacer.
+            Type type = typeof(GameApp).Assembly.GetType("DiceCraft.FramePacer", false);
+            var result = new Dictionary<string, object> {
+                ["classPresent"] = type != null, ["installed"] = type == null ? (object)false : null,
+                ["strategyDescription"] = null, ["metadataIssue"] = null,
+                ["stopwatchFrequencyHz"] = System.Diagnostics.Stopwatch.Frequency,
+                ["vSyncCount"] = QualitySettings.vSyncCount, ["applicationTargetFrameRate"] = Application.targetFrameRate,
+                ["readTiming"] = "Outside sampling only; public static read-only metadata, never a per-frame reflection call." };
+            if (type == null) return result;
+            try
+            {
+                var installed = type.GetProperty("IsInstalled", BindingFlags.Public | BindingFlags.Static);
+                if (installed != null && installed.PropertyType == typeof(bool)) result["installed"] = installed.GetValue(null);
+                else result["metadataIssue"] = "FramePacer class exists but IsInstalled metadata is unavailable.";
+                var strategyProperty = type.GetProperty("StrategyDescription", BindingFlags.Public | BindingFlags.Static);
+                var strategyField = type.GetField("StrategyDescription", BindingFlags.Public | BindingFlags.Static);
+                result["strategyDescription"] = strategyProperty != null ? strategyProperty.GetValue(null) : strategyField?.GetValue(null);
+                if (result["strategyDescription"] == null) result["metadataIssue"] = "StrategyDescription metadata is unavailable; class presence alone does not establish the active pacing policy.";
+            }
+            catch (Exception e) { result["metadataIssue"] = e.GetType().Name + ": " + e.Message; }
+            return result;
         }
         private static bool CompleteCoverage(Dictionary<string, object> metric)
         {
@@ -764,9 +886,12 @@ namespace DiceCraft.Verification
         {
             using (var writer = new StreamWriter(Path.Combine(configuredDirectory, "performance-frames.csv"), false, new UTF8Encoding(false)))
             {
-                writer.WriteLine("frame,elapsed_s,interval_ms,main_thread_ms,render_thread_ms,frame_timing_cpu_ms,gpu_ms,gc_alloc_bytes,gc_used_bytes,ui_build_ms,ui_build_marker_calls,mono_used_bytes,gpu_raw_ms,gpu_sample_status,gpu_counter_ms,ui_sample_batch");
+                writer.WriteLine("frame,elapsed_s,interval_ms,main_thread_ms,render_thread_ms,frame_timing_cpu_ms,gpu_ms,gc_alloc_bytes,gc_used_bytes,ui_build_ms,ui_build_marker_calls,mono_used_bytes,gpu_raw_ms,gpu_sample_status,gpu_counter_ms,ui_sample_batch,frame_start_timestamp,present_called_timestamp,frame_complete_timestamp,frame_start_delta_ms,present_called_delta_ms,frame_complete_delta_ms,timing_observation_status,frame_start_delta_status,present_delta_status,complete_delta_status,cpu_timer_frequency_hz");
                 foreach (var f in frames)
-                    writer.WriteLine(string.Join(",", f.frame.ToString(CultureInfo.InvariantCulture), Number(f.elapsed), Number(f.frameMs), Number(f.mainMs), Number(f.renderMs), Number(f.timingCpuMs), Number(f.gpuMs), Number(f.gcAllocatedBytes), Number(f.gcUsedBytes), Number(f.uiBuildMs), Number(f.uiBuildCalls), Number(f.monoUsedBytes), f.gpuRawMs.ToString("R", CultureInfo.InvariantCulture), f.gpuSampleStatus.ToString(CultureInfo.InvariantCulture), Number(f.gpuCounterMs), f.uiSampleBatch.ToString(CultureInfo.InvariantCulture)));
+                    writer.WriteLine(string.Join(",", f.frame.ToString(CultureInfo.InvariantCulture), Number(f.elapsed), Number(f.frameMs), Number(f.mainMs), Number(f.renderMs), Number(f.timingCpuMs), Number(f.gpuMs), Number(f.gcAllocatedBytes), Number(f.gcUsedBytes), Number(f.uiBuildMs), Number(f.uiBuildCalls), Number(f.monoUsedBytes), f.gpuRawMs.ToString("R", CultureInfo.InvariantCulture), f.gpuSampleStatus.ToString(CultureInfo.InvariantCulture), Number(f.gpuCounterMs), f.uiSampleBatch.ToString(CultureInfo.InvariantCulture),
+                        f.frameStartTimestamp.ToString(CultureInfo.InvariantCulture), f.presentCalledTimestamp.ToString(CultureInfo.InvariantCulture), f.frameCompleteTimestamp.ToString(CultureInfo.InvariantCulture),
+                        Number(f.frameStartDeltaMs), Number(f.presentCalledDeltaMs), Number(f.frameCompleteDeltaMs),
+                        f.timingObservationStatus.ToString(CultureInfo.InvariantCulture), f.frameStartDeltaStatus.ToString(CultureInfo.InvariantCulture), f.presentDeltaStatus.ToString(CultureInfo.InvariantCulture), f.completeDeltaStatus.ToString(CultureInfo.InvariantCulture), cpuTimerFrequency.ToString(CultureInfo.InvariantCulture)));
             }
         }
 
@@ -1035,7 +1160,7 @@ namespace DiceCraft.Verification
         {
             var report = new Dictionary<string, object>
             {
-                ["schema"] = "p0-player-verification-3", ["probeRevision"] = ProbeRevision,
+                ["schema"] = "p0-player-verification-4", ["probeRevision"] = ProbeRevision,
                 ["probeAssemblyMvid"] = typeof(PlayerVerification).Module.ModuleVersionId.ToString(),
                 ["status"] = status, ["phase"] = phase, ["exitCode"] = exitCode,
                 ["updatedUtc"] = DateTime.UtcNow.ToString("O"), ["environment"] = environment,

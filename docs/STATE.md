@@ -1,37 +1,40 @@
 # 当前项目状态
 
-更新：2026-10-28（America/New_York）。任务 P0-IMPLEMENTATION 正在 VERIFYING / REWORK，尚未整体验收。
+更新：2026-10-28（America/New_York）。任务 P0-001 处于 **VERIFYING / REWORK**；核心功能已通过独立技术复核，性能与最终交接仍在进行，未整体验收。
 
-## 当前权威输入与范围
+## 权威输入与范围
 
-用户本轮要求依据已有框架完成骰子构筑原型并以 Git 管理。原始 P0 v0.4 Markdown 与 Word 已原样保存至 docs/specs，SHA-256 见 source_manifest.json。规格采用 Markdown 内 p0.4.0 / schema 2；旧聊天作为来历资料，不覆盖 v0.4。完整任务与验收见 docs/tasks/P0-IMPLEMENTATION.md。
+用户要求依照已有框架和两份 v0.4 文件完成骰子构筑原型，主 agent 负责切片、集成和验收。原始文件保存在 `docs/specs/`，SHA-256见 `source_manifest.json`；Markdown 内 p0.4.0 / save schema 2 为权威，旧聊天只作背景。验收条件见 `docs/tasks/P0-IMPLEMENTATION.md`。
 
-本轮平台为 Windows x64，Unity 6000.6.7f1 URP / uGUI / TMP / Input System；Blender 5.2.3 LTS 已实跑。长期 PC/iOS/Android 意图保留，本轮没有移动端通过结论。玩法目标、数值和38项内容遵循原规格。
+本轮 Windows x64，Unity 6000.6.7f1 URP / uGUI / TMP / Input System，Blender 5.2.3 LTS。六关及38项内容按原规格实现。长期 PC/iOS/Android 意图保留，移动端本轮未验证。
 
-## 当前产物与真实证据
+## 当前产物与结论
 
-- DicePrototype：Unity工程、纯C#计分/概率/配置、事务状态机、商店与原子存档、运行时UI、骰子网格显示、场景生成与构建工具。
-- art：可编辑Blender源、导出FBX、两套翻滚动画、38图标、12点阵和10个音效；离线资产校验通过。引擎外观仍在验证。
-- 纯逻辑验证：52黄金计分、概率向量及2916纹理组合、114事务场景运行通过。独立审核已修复并重验两处损坏存档备份问题，证据 evidence/review。
-- 正常规则六关流程：seed 20261032、97合法命令、逐步恢复和幂等重放通过，见 evidence/runs。Windows Player 第二轮也实际完成97步，31次投掷动画及减少动态/跳过检查通过；5种子搜索不表示玩家胜率。
-- Unity实际接通、许可和URP导入成功；Bootstrap已生成。真实EditMode05为325/325通过（规则200、事务114、Unity存档11），PlayMode07为18/18通过，包含遥控、真实数字输入、故障重试和商店目标/动态价格。新增逐步计分解释及52黄金×18字段保持一致；原始失败与预期保留。
-- Windows Player第三轮实际完成97步正常六关和180秒最大容量持续操作；UI采样100%、GPU98.12%，已修黑图和采集容量故障。该轮性能仍未通过：探针帧列表扩容3次，产生观察者分配。原vSync=1没有兑现限帧，现改vSync=0/60FPS并在预热后预分配记录，等待第四轮。
-- UI独立复核第三轮实看18图，骰子标签、详情预览、水印遮挡和逐步计分说明缺口已在build04关闭；22组原始CSV/trace/hash检查通过。最新帧率/采集器变更待新构建复验，不能沿用旧版本整体结论。
-- Git main基线 be2be52；origin为用户指定GitHub地址，已配置姓名XDwudi及指定邮箱；开发改动尚未提交/推送。
-- 固定研究来源校验35文件/3来源通过；它只证明来源一致性，不代表游戏验收。
+- `DicePrototype/`：完整可玩的 Unity 工程，确定性规则与三路 RNG、事务状态机、固定商店、原子存档、中文界面、逐步计分解释、3D 骰子与练习模式。运行方法见工程 README。
+- `art/`：可编辑 Blender 源、FBX、两套翻滚动作、38个图标 SVG/PNG、12点阵和10音效。资产实际重开/导出/检查通过；模型与动画已进入真实播放器，三分辨率画面通过技术复核。用户尚未签署美术风格。
+- 最新正式 Unity 测试：EditMode06 **325/325**、PlayMode09 **20/20**；NUnit分别为 `nunit-20261029-015006.xml` / `nunit-20261029-014917.xml`。包括52黄金×18字段、概率、114事务、11存档、计分解释与真实输入/故障重试/商店/池化回归。独立复核详见 `evidence/review/PLAYER05_REVIEW.md`。
+- 附录C全部70个验收ID已映射到实际通过用例；独立计分解释 oracle 3072组合通过。映射和静态检查不能替代实际运行。
+- 最新正式播放器 Player05：`evidence/runs/player/player-20261029-015104-31d8ee23`，build06。正常种子20261032完成97个合法命令、六关得分208/424/528/884/1250/1908；每步磁盘与显示快照一致，31次实际动画落地通过。种子经过搜索，不能作为胜率证据。
+- 最大容量1080p连续180秒，10骰/7栏/10控制器/5道具、真实自动保存和190轮操作。Player05帧间隔P95 **18.3322ms，仍超过16.7ms**；GC P95 56,280B，GPU覆盖97.47%，UI覆盖100%，观察者缓冲扩容0。较旧版本有实质改善，但AC-PERF仍失败。
+- 窗口空闲60FPS的两次技术试验，多个独立时钟P95约17ms。Unity独占60Hz请求在本机回退到144Hz无边框，包含BitBlt路径；均已确认恢复原桌面/窗口模式。原始证据 `evidence/runs/pacing/`。这些20秒空闲试验不算正式压力验收。
+- 本地检查器20项自测、35文件/3来源校验、38图标/12点阵/10音效检查通过。它们仅证明各自覆盖内容。
 
-## 剩余工作与下一步
+## 当前返工与下一步
 
-完成第四轮Windows播放器三分辨率、正常六关和180秒验证及独立复核；清理日志中的本机敏感启动参数后提交/推送源代码、测试证据与运行说明。
+正在评估通用精确60Hz帧调度的最小试验，以及长会话事务/存档的重复工作成本。保持正式探针的16.7ms阈值、180秒场景、采样时点与95%覆盖要求；不能只令一个计时器好看。新候选需实际构建、多时钟记录与独立复核，再决定是否采用。
 
-人工5–8人每人至少2局体验测试未运行；AI不能代签体验与风格结论。没有发布或移动端验收结论。
+之后完成最终构建、源/构建哈希绑定、日志脱敏、证据索引、可玩压缩包和Git推送。旧失败日志与截图保留，不用新结果覆盖失败历史。
 
-## 文件写入锁
+真人5–8人每人至少2局尚未运行，需真实参与者和用户判断；AI不代签体验，也不自动转入量产或发布。
 
-- root：Runtime（除Verification）、UI、Editor、场景、ProjectSettings、Packages、docs、Git集成；Unity编辑器唯一写者。
-- core_rules：Core/Rules、Data、Tests/EditMode/Rules和Persistence、Tests/PlayMode；编写回归测试，不操作编辑器。
-- session_engine：Core/Session、Runtime/Verification、evidence/runs；播放器验证组件，不操作编辑器。
-- spec_audit：生产文件只读；仅evidence/review写审查证据。
-- dice_art：美术交付已完成，当前无活动写入。
+## 版本与文件所有权
 
-结束或交接时以实际结果替换上述待验证项；不得把框架检查、静态审查或零项测试标为整体通过。
+Git main：`be2be52`框架/规格，`cb589f2`完整原型，`27e4b34`界面池化与显示缓存。origin为用户指定 `https://github.com/XDwudi/game2.git`，作者XDwudi / lxd199541@126.com。尚未push；当前未提交改动包含帧节奏试验、文档和证据。
+
+- root：GameApp/UI、AtomicSaveStore、Editor/场景/全局设置、文档、Git集成；唯一Unity编辑器写入者。
+- core_rules：本轮仅新候选 `Runtime/FramePacer.cs` 与对应EditMode测试；原核心规则暂不修改。
+- session_engine：`Runtime/Verification/` 与 `evidence/runs/`，诊断采集扩充；不改规则/验收阈值。
+- spec_audit：生产文件只读，仅 `evidence/review/` 输出独立复核。
+- dice_art：交付完成，无活动写入。
+
+本状态的“已通过”仅限绑定版本和指定范围，后续修改使相关旧证据失效。最终结果以新构建和独立复核更新。

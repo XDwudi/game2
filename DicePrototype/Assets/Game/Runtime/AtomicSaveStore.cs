@@ -19,7 +19,15 @@ namespace DiceCraft
         public string SavePath { get; }
         public string LastLoadNotice { get; private set; }
         private readonly GameConfig config;
-        public AtomicSaveStore(string path, GameConfig cfg) { SavePath = path; config = cfg; }
+        private readonly GameSession validator;
+        public AtomicSaveStore(string path, GameConfig cfg)
+        {
+            SavePath = path; config = cfg;
+            // This private session never receives commands or a restored state. Reuse
+            // the exact production validator without cloning all historical receipts
+            // merely to decide whether the old active file is a safe backup.
+            validator = new GameSession(cfg, new MemorySaveStore());
+        }
         public void Save(RunState snapshot)
         {
             Directory.CreateDirectory(Path.GetDirectoryName(SavePath));
@@ -75,7 +83,7 @@ namespace DiceCraft
                 if(state==null||state.configVersion!=config.configVersion||state.saveSchemaVersion!=config.saveSchemaVersion||
                    string.IsNullOrEmpty(state.runId)||state.dice==null||state.stage==null||state.gold<0)throw new InvalidDataException("存档内容不完整");
                 // Use the production invariants before trusting a file as a valid backup.
-                new GameSession(config,new MemorySaveStore(),state);
+                validator.ValidateState(state);
                 return true;
             }
             catch(Exception ex){state=null;error=ex;return false;}

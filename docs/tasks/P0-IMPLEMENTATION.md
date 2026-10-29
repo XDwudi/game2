@@ -1,6 +1,6 @@
 # P0 v0.4 原型实施契约
 
-- 任务：P0-001，2026-10-28；状态 DRAFT → READY（规则模块）→ IMPLEMENTING。工具/资产任务需实际接通后进入制作。
+- 任务：P0-001，2026-10-28；已走过 DRAFT → READY → IMPLEMENTING → VERIFYING → REVIEW，当前性能项 REWORK。核心技术结论和最新绑定版本见 `../STATE.md`；下方冻结验收表保持原样。
 - 用户来源：本会话要求依照既有框架和两份 v0.4 文件开发，主 agent 负责管理、切片、集成和验收；核心逻辑优先；GitHub XDwudi/game2，提交邮箱 lxd199541@126.com。
 - 设计权威：`docs/specs/P0_v0.4.md`，配置 p0.4.0、存档结构2；Word为阅读版。原件哈希见 `docs/specs/source_manifest.json`。引用聊天仅作为背景，旧版不覆盖 v0.4。
 - 范围：Windows x64 Unity原型；6关、不可逆锁定及调序、完整计分、38项内容、11类牌型成长、关间商店、确定性随机、原子存档、3D骰子/uGUI、操作说明、可运行构建。
