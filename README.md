@@ -8,6 +8,7 @@
 
 ## 当前原型
 
+- [交付说明、实测结果与限制](docs/DELIVERY.md)；本机可运行 `Builds/Windows/DiceCraft.exe`，便携包为 `Builds/DiceCraft-P0-Windows.zip`。构建二进制不提交Git，克隆后按工程说明重新构建。
 - [运行、开发与复现说明](DicePrototype/README.md)
 - [权威 P0 v0.4 规格](docs/specs/P0_v0.4.md)与[实施验收契约](docs/tasks/P0-IMPLEMENTATION.md)
 - [当前状态和剩余工作](docs/STATE.md)

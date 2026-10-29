@@ -1,0 +1,97 @@
+{
+  "status": "completed",
+  "duration": 1.78,
+  "summary": {
+    "total": 12,
+    "passed": 0,
+    "failed": 12,
+    "skipped": 0,
+    "inconclusive": 0
+  },
+  "results": [
+    {
+      "FullName": "DiceCraft.Tests.GameplayPlayModeTests.PLAY_Bootstrap_RealReferences38IconsFontAndSingleInputSystem",
+      "Status": "Failed",
+      "Duration": 0.5646654,
+      "Message": "SetUp : Unhandled log message: '[Exception] UnityException: CreateImpl is not allowed to be called during serialization, call it from Awake or Start instead. Called from MonoBehaviour 'GameApp' on game object 'Game'.\nSee \"Script Serialization\" page in the Unity Manual for further details.'. Use UnityEngine.TestTools.LogAssert.Expect",
+      "StackTrace": "UnityEngine.MaterialPropertyBlock..ctor () (at <2a0aacfdb6844320ae79174c32157248>:0)\r\nDiceCraft.DiceTable..ctor () (at Assets/Game/Runtime/DiceTable.cs:18)\r\nUnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)\r\n\r\n"
+    },
+    {
+      "FullName": "DiceCraft.Tests.GameplayPlayModeTests.PLAY_BusyRejectsBypassedUiAndSkipPreservesCommittedRandomness",
+      "Status": "Failed",
+      "Duration": 0.1028449,
+      "Message": "SetUp : Unhandled log message: '[Exception] UnityException: CreateImpl is not allowed to be called during serialization, call it from Awake or Start instead. Called from MonoBehaviour 'GameApp' on game object 'Game'.\nSee \"Script Serialization\" page in the Unity Manual for further details.'. Use UnityEngine.TestTools.LogAssert.Expect",
+      "StackTrace": "UnityEngine.MaterialPropertyBlock..ctor () (at <2a0aacfdb6844320ae79174c32157248>:0)\r\nDiceCraft.DiceTable..ctor () (at Assets/Game/Runtime/DiceTable.cs:18)\r\nUnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)\r\n\r\n"
+    },
+    {
+      "FullName": "DiceCraft.Tests.GameplayPlayModeTests.PLAY_CoreLoop_ClickLockReorderAndSubmitMatchesPreview",
+      "Status": "Failed",
+      "Duration": 0.1126294,
+      "Message": "SetUp : Unhandled log message: '[Exception] UnityException: CreateImpl is not allowed to be called during serialization, call it from Awake or Start instead. Called from MonoBehaviour 'GameApp' on game object 'Game'.\nSee \"Script Serialization\" page in the Unity Manual for further details.'. Use UnityEngine.TestTools.LogAssert.Expect",
+      "StackTrace": "UnityEngine.MaterialPropertyBlock..ctor () (at <2a0aacfdb6844320ae79174c32157248>:0)\r\nDiceCraft.DiceTable..ctor () (at Assets/Game/Runtime/DiceTable.cs:18)\r\nUnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)\r\n\r\n"
+    },
+    {
+      "FullName": "DiceCraft.Tests.GameplayPlayModeTests.PLAY_FastAnimationUsesSameSeedResultsAndDoesNotConsumeExtraRolls",
+      "Status": "Failed",
+      "Duration": 0.1160415,
+      "Message": "SetUp : Unhandled log message: '[Exception] UnityException: CreateImpl is not allowed to be called during serialization, call it from Awake or Start instead. Called from MonoBehaviour 'GameApp' on game object 'Game'.\nSee \"Script Serialization\" page in the Unity Manual for further details.'. Use UnityEngine.TestTools.LogAssert.Expect",
+      "StackTrace": "UnityEngine.MaterialPropertyBlock..ctor () (at <2a0aacfdb6844320ae79174c32157248>:0)\r\nDiceCraft.DiceTable..ctor () (at Assets/Game/Runtime/DiceTable.cs:18)\r\nUnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)\r\n\r\n"
+    },
+    {
+      "FullName": "DiceCraft.Tests.GameplayPlayModeTests.PLAY_FirstNewRunSaveFailureOffersRetryAndBlocksBothReplacementEntrances",
+      "Status": "Failed",
+      "Duration": 0.1272203,
+      "Message": "SetUp : Unhandled log message: '[Exception] UnityException: CreateImpl is not allowed to be called during serialization, call it from Awake or Start instead. Called from MonoBehaviour 'GameApp' on game object 'Game'.\nSee \"Script Serialization\" page in the Unity Manual for further details.'. Use UnityEngine.TestTools.LogAssert.Expect",
+      "StackTrace": "UnityEngine.MaterialPropertyBlock..ctor () (at <2a0aacfdb6844320ae79174c32157248>:0)\r\nDiceCraft.DiceTable..ctor () (at Assets/Game/Runtime/DiceTable.cs:18)\r\nUnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)\r\n\r\n"
+    },
+    {
+      "FullName": "DiceCraft.Tests.GameplayPlayModeTests.PLAY_IndependentTutorialCompletesRealPurchaseAndPreservesFormalRun",
+      "Status": "Failed",
+      "Duration": 0.1126195,
+      "Message": "SetUp : Unhandled log message: '[Exception] UnityException: CreateImpl is not allowed to be called during serialization, call it from Awake or Start instead. Called from MonoBehaviour 'GameApp' on game object 'Game'.\nSee \"Script Serialization\" page in the Unity Manual for further details.'. Use UnityEngine.TestTools.LogAssert.Expect",
+      "StackTrace": "UnityEngine.MaterialPropertyBlock..ctor () (at <2a0aacfdb6844320ae79174c32157248>:0)\r\nDiceCraft.DiceTable..ctor () (at Assets/Game/Runtime/DiceTable.cs:18)\r\nUnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)\r\n\r\n"
+    },
+    {
+      "FullName": "DiceCraft.Tests.GameplayPlayModeTests.PLAY_ReadOnlyActionLogCannotAbortAnAlreadySavedUiCommand",
+      "Status": "Failed",
+      "Duration": 0.1096608,
+      "Message": "SetUp : Unhandled log message: '[Exception] UnityException: CreateImpl is not allowed to be called during serialization, call it from Awake or Start instead. Called from MonoBehaviour 'GameApp' on game object 'Game'.\nSee \"Script Serialization\" page in the Unity Manual for further details.'. Use UnityEngine.TestTools.LogAssert.Expect",
+      "StackTrace": "UnityEngine.MaterialPropertyBlock..ctor () (at <2a0aacfdb6844320ae79174c32157248>:0)\r\nDiceCraft.DiceTable..ctor () (at Assets/Game/Runtime/DiceTable.cs:18)\r\nUnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)\r\n\r\n"
+    },
+    {
+      "FullName": "DiceCraft.Tests.GameplayPlayModeTests.PLAY_RealEnterKeySubmitsOnceWithoutInvokingSelectedPauseButton",
+      "Status": "Failed",
+      "Duration": 0.1114533,
+      "Message": "SetUp : Unhandled log message: '[Exception] UnityException: CreateImpl is not allowed to be called during serialization, call it from Awake or Start instead. Called from MonoBehaviour 'GameApp' on game object 'Game'.\nSee \"Script Serialization\" page in the Unity Manual for further details.'. Use UnityEngine.TestTools.LogAssert.Expect",
+      "StackTrace": "UnityEngine.MaterialPropertyBlock..ctor () (at <2a0aacfdb6844320ae79174c32157248>:0)\r\nDiceCraft.DiceTable..ctor () (at Assets/Game/Runtime/DiceTable.cs:18)\r\nUnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)\r\n\r\n"
+    },
+    {
+      "FullName": "DiceCraft.Tests.GameplayPlayModeTests.PLAY_ReloadDuringRollRestoresLocksOrderAndAcceptedFaceResults",
+      "Status": "Failed",
+      "Duration": 0.1043566,
+      "Message": "SetUp : Unhandled log message: '[Exception] UnityException: CreateImpl is not allowed to be called during serialization, call it from Awake or Start instead. Called from MonoBehaviour 'GameApp' on game object 'Game'.\nSee \"Script Serialization\" page in the Unity Manual for further details.'. Use UnityEngine.TestTools.LogAssert.Expect",
+      "StackTrace": "UnityEngine.MaterialPropertyBlock..ctor () (at <2a0aacfdb6844320ae79174c32157248>:0)\r\nDiceCraft.DiceTable..ctor () (at Assets/Game/Runtime/DiceTable.cs:18)\r\nUnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)\r\n\r\n"
+    },
+    {
+      "FullName": "DiceCraft.Tests.GameplayPlayModeTests.PLAY_SceneUnloadReloadResetsStaticUiAndDoesNotLeakSession",
+      "Status": "Failed",
+      "Duration": 0.1045354,
+      "Message": "SetUp : Unhandled log message: '[Exception] UnityException: CreateImpl is not allowed to be called during serialization, call it from Awake or Start instead. Called from MonoBehaviour 'GameApp' on game object 'Game'.\nSee \"Script Serialization\" page in the Unity Manual for further details.'. Use UnityEngine.TestTools.LogAssert.Expect",
+      "StackTrace": "UnityEngine.MaterialPropertyBlock..ctor () (at <2a0aacfdb6844320ae79174c32157248>:0)\r\nDiceCraft.DiceTable..ctor () (at Assets/Game/Runtime/DiceTable.cs:18)\r\nUnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)\r\n\r\n"
+    },
+    {
+      "FullName": "DiceCraft.Tests.GameplayPlayModeTests.PLAY_ShopPurchaseFooterShowsSlotAndDuplicateFailuresBeforeConfirm",
+      "Status": "Failed",
+      "Duration": 0.1046632,
+      "Message": "SetUp : Unhandled log message: '[Exception] UnityException: CreateImpl is not allowed to be called during serialization, call it from Awake or Start instead. Called from MonoBehaviour 'GameApp' on game object 'Game'.\nSee \"Script Serialization\" page in the Unity Manual for further details.'. Use UnityEngine.TestTools.LogAssert.Expect",
+      "StackTrace": "UnityEngine.MaterialPropertyBlock..ctor () (at <2a0aacfdb6844320ae79174c32157248>:0)\r\nDiceCraft.DiceTable..ctor () (at Assets/Game/Runtime/DiceTable.cs:18)\r\nUnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)\r\n\r\n"
+    },
+    {
+      "FullName": "DiceCraft.Tests.GameplayPlayModeTests.PLAY_SixPhysicalFacesAndRemotePipsHaveCorrectOrientationAndDotCount",
+      "Status": "Failed",
+      "Duration": 0.1043185,
+      "Message": "SetUp : Unhandled log message: '[Exception] UnityException: CreateImpl is not allowed to be called during serialization, call it from Awake or Start instead. Called from MonoBehaviour 'GameApp' on game object 'Game'.\nSee \"Script Serialization\" page in the Unity Manual for further details.'. Use UnityEngine.TestTools.LogAssert.Expect",
+      "StackTrace": "UnityEngine.MaterialPropertyBlock..ctor () (at <2a0aacfdb6844320ae79174c32157248>:0)\r\nDiceCraft.DiceTable..ctor () (at Assets/Game/Runtime/DiceTable.cs:18)\r\nUnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)\r\n\r\n"
+    }
+  ]
+}

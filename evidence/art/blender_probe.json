@@ -1,0 +1,180 @@
+{
+  "version": [
+    5,
+    2,
+    3
+  ],
+  "version_string": "5.2.3 LTS",
+  "cycle": "release",
+  "build_hash": "e13b728c6880",
+  "export_fbx": {
+    "filepath": {
+      "type": "STRING",
+      "default": ""
+    },
+    "check_existing": {
+      "type": "BOOLEAN",
+      "default": "True"
+    },
+    "filter_glob": {
+      "type": "STRING",
+      "default": "*.fbx"
+    },
+    "use_selection": {
+      "type": "BOOLEAN",
+      "default": "False"
+    },
+    "use_visible": {
+      "type": "BOOLEAN",
+      "default": "False"
+    },
+    "use_active_collection": {
+      "type": "BOOLEAN",
+      "default": "False"
+    },
+    "collection": {
+      "type": "STRING",
+      "default": ""
+    },
+    "global_scale": {
+      "type": "FLOAT",
+      "default": "1.0"
+    },
+    "apply_unit_scale": {
+      "type": "BOOLEAN",
+      "default": "True"
+    },
+    "apply_scale_options": {
+      "type": "ENUM",
+      "default": "FBX_SCALE_NONE"
+    },
+    "use_space_transform": {
+      "type": "BOOLEAN",
+      "default": "True"
+    },
+    "bake_space_transform": {
+      "type": "BOOLEAN",
+      "default": "False"
+    },
+    "object_types": {
+      "type": "ENUM",
+      "default": ""
+    },
+    "use_mesh_modifiers": {
+      "type": "BOOLEAN",
+      "default": "True"
+    },
+    "use_mesh_modifiers_render": {
+      "type": "BOOLEAN",
+      "default": "True"
+    },
+    "mesh_smooth_type": {
+      "type": "ENUM",
+      "default": "OFF"
+    },
+    "colors_type": {
+      "type": "ENUM",
+      "default": "SRGB"
+    },
+    "prioritize_active_color": {
+      "type": "BOOLEAN",
+      "default": "False"
+    },
+    "use_subsurf": {
+      "type": "BOOLEAN",
+      "default": "False"
+    },
+    "use_mesh_edges": {
+      "type": "BOOLEAN",
+      "default": "False"
+    },
+    "use_tspace": {
+      "type": "BOOLEAN",
+      "default": "False"
+    },
+    "use_triangles": {
+      "type": "BOOLEAN",
+      "default": "False"
+    },
+    "use_custom_props": {
+      "type": "BOOLEAN",
+      "default": "False"
+    },
+    "add_leaf_bones": {
+      "type": "BOOLEAN",
+      "default": "True"
+    },
+    "primary_bone_axis": {
+      "type": "ENUM",
+      "default": "Y"
+    },
+    "secondary_bone_axis": {
+      "type": "ENUM",
+      "default": "X"
+    },
+    "use_armature_deform_only": {
+      "type": "BOOLEAN",
+      "default": "False"
+    },
+    "armature_nodetype": {
+      "type": "ENUM",
+      "default": "NULL"
+    },
+    "bake_anim": {
+      "type": "BOOLEAN",
+      "default": "True"
+    },
+    "bake_anim_use_all_bones": {
+      "type": "BOOLEAN",
+      "default": "True"
+    },
+    "bake_anim_use_nla_strips": {
+      "type": "BOOLEAN",
+      "default": "True"
+    },
+    "bake_anim_use_all_actions": {
+      "type": "BOOLEAN",
+      "default": "True"
+    },
+    "bake_anim_force_startend_keying": {
+      "type": "BOOLEAN",
+      "default": "True"
+    },
+    "bake_anim_step": {
+      "type": "FLOAT",
+      "default": "1.0"
+    },
+    "bake_anim_simplify_factor": {
+      "type": "FLOAT",
+      "default": "1.0"
+    },
+    "path_mode": {
+      "type": "ENUM",
+      "default": "AUTO"
+    },
+    "embed_textures": {
+      "type": "BOOLEAN",
+      "default": "False"
+    },
+    "batch_mode": {
+      "type": "ENUM",
+      "default": "OFF"
+    },
+    "use_batch_own_dir": {
+      "type": "BOOLEAN",
+      "default": "True"
+    },
+    "use_metadata": {
+      "type": "BOOLEAN",
+      "default": "True"
+    },
+    "axis_forward": {
+      "type": "ENUM",
+      "default": "-Z"
+    },
+    "axis_up": {
+      "type": "ENUM",
+      "default": "Y"
+    }
+  }
+}

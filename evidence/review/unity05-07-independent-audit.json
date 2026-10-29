@@ -1,0 +1,85 @@
+{
+  "reviewerRanUnity": false,
+  "actualReports": [
+    {
+      "file": "editmode-05.json",
+      "xml": "nunit-20261029-011333.xml",
+      "total": 325,
+      "passed": 325,
+      "jsonSha256": "d01cdc7fe4073a26d3babcddb47dc360a81b87997646135a605591160e59801f",
+      "xmlSha256": "6da72dd1180a6f351b1990fd2518b6500e2fea5e7ed2583306f244022f4e888a",
+      "started": "2026-10-29 01:13:31Z",
+      "ended": "2026-10-29 01:13:33Z"
+    },
+    {
+      "file": "playmode-07.json",
+      "xml": "nunit-20261029-011413.xml",
+      "total": 18,
+      "passed": 18,
+      "jsonSha256": "55990989d9dbbc862ab9e7fd5a65bc9750da473446cf99bb1aaa9289d06f4caf",
+      "xmlSha256": "80babe31218d013625b2cd8fb9db7a9d07baf23a677d3a27ed9949777a78c66d",
+      "started": "2026-10-29 01:13:57Z",
+      "ended": "2026-10-29 01:14:13Z"
+    }
+  ],
+  "sourcePdbManifest": "unity05-07-pdb-independent.json",
+  "specSha256": "57ce15488dad390ad46f1ee57afc63482c6890502eabb0eacd30b940fab9d762",
+  "goldenUnchanged": true,
+  "failuresRetained": [
+    {
+      "file": "editmode-01.json",
+      "sha256": "42d513dccf1ef0531ba9034d198cb8b92d828f8e82c691b1e98d31221f76f9f7",
+      "summary": {
+        "total": 255,
+        "passed": 229,
+        "failed": 26,
+        "skipped": 0,
+        "inconclusive": 0
+      }
+    },
+    {
+      "file": "editmode-02-stale.json",
+      "sha256": "81f3c887cb8b857c3152cb47d039b10ba787a1dda07bef859bc7b32677918e1b",
+      "summary": {
+        "total": 255,
+        "passed": 229,
+        "failed": 26,
+        "skipped": 0,
+        "inconclusive": 0
+      }
+    },
+    {
+      "file": "playmode-01.json",
+      "sha256": "a6206c7439cf6f83049cde19c28e1a0aaf6351b61c4402ae129001021ce20794",
+      "summary": {
+        "total": 12,
+        "passed": 0,
+        "failed": 12,
+        "skipped": 0,
+        "inconclusive": 0
+      }
+    },
+    {
+      "file": "playmode-02.json",
+      "sha256": "0440a77711377f68af949c8b1f853d8663b9387813336463bee75c47703feab5",
+      "summary": {
+        "total": 12,
+        "passed": 10,
+        "failed": 2,
+        "skipped": 0,
+        "inconclusive": 0
+      }
+    },
+    {
+      "file": "playmode-03.json",
+      "sha256": "d09a73e6b7992f33a246e3abf4735aae7452e92344c15622188311765d5c3bd0",
+      "summary": {
+        "total": 13,
+        "passed": 11,
+        "failed": 2,
+        "skipped": 0,
+        "inconclusive": 0
+      }
+    }
+  ]
+}

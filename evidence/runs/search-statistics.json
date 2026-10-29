@@ -1,0 +1,47 @@
+{
+  "purpose": "Automated legal-action integration validation; searched seeds are not a player win-rate sample",
+  "policy": "Visible-state one-step Monte Carlo with independent Random(731); no rule RNG introspection",
+  "configVersion": "p0.4.0",
+  "results": [
+    {
+      "seed": 20261028,
+      "won": false,
+      "reachedStage": 3,
+      "actions": 52,
+      "finalPhase": "RunFailed",
+      "gold": 5
+    },
+    {
+      "seed": 20261029,
+      "won": false,
+      "reachedStage": 4,
+      "actions": 81,
+      "finalPhase": "RunFailed",
+      "gold": 0
+    },
+    {
+      "seed": 20261030,
+      "won": false,
+      "reachedStage": 4,
+      "actions": 69,
+      "finalPhase": "RunFailed",
+      "gold": 0
+    },
+    {
+      "seed": 20261031,
+      "won": false,
+      "reachedStage": 4,
+      "actions": 66,
+      "finalPhase": "RunFailed",
+      "gold": 1
+    },
+    {
+      "seed": 20261032,
+      "won": true,
+      "reachedStage": 6,
+      "actions": 97,
+      "finalPhase": "RunWon",
+      "gold": 9
+    }
+  ]
+}

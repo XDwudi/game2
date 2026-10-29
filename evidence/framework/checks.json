@@ -1,0 +1,30 @@
+[
+  {
+    "check": "unit-tests",
+    "command": [
+      "E:\\anaconda3\\python.exe",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tests",
+      "-p",
+      "test_quality_check.py",
+      "-v"
+    ],
+    "exit_code": 0,
+    "log": "evidence/framework/unit-tests.log"
+  },
+  {
+    "check": "sources",
+    "command": [
+      "E:\\anaconda3\\python.exe",
+      "tools/quality_check.py",
+      "sources",
+      "--manifest",
+      "references/sources.lock.json"
+    ],
+    "exit_code": 0,
+    "log": "evidence/framework/sources.log"
+  }
+]

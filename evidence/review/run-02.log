@@ -1,0 +1,26 @@
+未能将“E:/agent_workspace/gpt/game2/evidence/review/.dotnet\.dotnet\tools”添加到 PATH 环境变量。请将此目录添加到 PATH，以使用通过 "dotnet tool install" 安装的工具。
+
+欢迎使用 .NET 10.0!
+---------------------
+SDK 版本: 10.0.403
+
+----------------
+已安装 ASP.NET Core HTTPS 开发证书。
+若要信任该证书，请运行 "dotnet dev-certs https --trust"
+了解 HTTPS: https://aka.ms/dotnet-https
+
+----------------
+编写第一个应用: https://aka.ms/dotnet-hello-world
+了解新增功能: https://aka.ms/dotnet-whats-new
+浏览文档: https://aka.ms/dotnet-docs
+报告问题并在 GitHub 上查找来源: https://github.com/dotnet/core
+使用 "dotnet --help" 查看可用命令或访问: https://aka.ms/dotnet-cli
+--------------------------------------------------------------------------------------
+PASS GOLD-52-all-fields
+PASS CORE-invalid-commands-have-no-effects
+PASS CORE-receipt-replay-survives-restore
+PASS CORE-save-retry-keeps-candidate-rng-and-events
+PASS CORE-preview-does-not-consume-rng-or-mutate
+FAIL IO-recovered-backup-survives-next-commit: valid backup replaced with corrupt old active
+FAIL IO-corrupt-active-not-promoted-without-load: valid backup replaced with corrupt old active
+REVIEW 5 passed / 2 failed

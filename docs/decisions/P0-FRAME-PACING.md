@@ -1,6 +1,6 @@
 # P0 Windows 帧调度
 
-状态：候选已通过空闲实机比较，正在进行最大场景验收。输入为P0 v0.4第30节、AC-PERF和既有播放器探针；没有改变玩法、目标帧率、16.7ms探针门槛、180秒场景或采样覆盖要求。
+状态：build10 / Player07最大场景已完成独立技术验收，本轮Windows P0采用此策略；完整结论见 `../../evidence/review/FINAL_REVIEW.md`。输入为P0 v0.4第30节、AC-PERF和既有播放器探针；没有改变玩法、目标帧率、16.7ms探针门槛、180秒场景或采样覆盖要求。
 
 ## 问题和证据
 
@@ -23,3 +23,9 @@ Windows Player成功安装通用 `FramePacer` 后接管节拍，停用原生软�
 正式验收继续保留原LateUpdate判据，三个新增轴用于交叉检查改善是否真实，不挑选最好指标，也不在事后新增三个同门槛硬判据。PresentCalled是CPU调用，FrameComplete是GPU完成通知，均不等同物理显示扫描；当前未测量物理scanout。实际结果须同时报告正常流程、180秒最大场景、CPU/GPU/GC/UI、所有时间轴与缺失率，最后由独立复核判断。
 
 官方依据：[Unity targetFrameRate](https://docs.unity.com/en-us/engine/6000.6/script-reference/unityengine/application/targetframerate)、[PlayerLoop.SetPlayerLoop](https://docs.unity.com/en-us/engine/6000.6/script-reference/unityengine/lowlevel/playerloop/setplayerloop)、[Windows Sleep](https://learn.microsoft.com/en-us/windows/win32/api/synchapi/nf-synchapi-sleep)、[高精度时间戳](https://learn.microsoft.com/en-us/windows/win32/sysinfo/acquiring-high-resolution-time-stamps)。具体取舍及独立审查见 `evidence/review/FRAME_PACING_DECISION_REVIEW.md`。
+
+## 正式场景中的返工
+
+build09 / Player06完成180秒且原LateUpdate判据通过，但Present/Complete P95约18.75ms，协调者拒绝仅据exit0放行。独立分析找到5次/秒刷新后的长短呈现摆动；本机TMP源码确认布局和网格队列在Canvas.willRenderCanvases才处理。
+
+build10 / `f060098`保持调度和探针不变，只让每次GameApp.Refresh统一完成Canvas/TMP更新。Player07相同场景180.0146秒：LateUpdate P95 16.6807ms，FrameStart16.9825、Present16.9369、Complete16.9452ms，三类纯刷新的>18ms呈现摆动已消除。平均周期16.7440ms和最大帧24.5388ms仍如实保留；长历史事务慢帧仍在，不能称所有帧都已稳定在16.7ms以内。最终接受范围以独立 `FINAL_REVIEW.md` 为准，硬件与各项指标见 `../DELIVERY.md`。

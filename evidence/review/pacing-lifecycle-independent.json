@@ -1,0 +1,219 @@
+{
+  "kind": "independent-deadline-idle-review",
+  "reviewerRanUnity": false,
+  "reportSha256": "1d52b668567d6cd08fe2fcc0fdc8d0e5d4422e7168d57a814f7c1c52f3044329",
+  "buildGuid": "f7f0381585684fde8b60e3a4929dd73a",
+  "runtimeMvid": "e9934261-27a7-450a-8a49-f195050d6b4f",
+  "checks": [
+    {
+      "name": "successful experiment explicitly not AC-PERF",
+      "passed": true
+    },
+    {
+      "name": "all nine post-sampling lifecycle checks reported honestly",
+      "passed": true
+    },
+    {
+      "name": "original production pacer and native settings restored",
+      "passed": true
+    },
+    {
+      "name": "both intended modes in original order",
+      "passed": true
+    },
+    {
+      "name": "windowed-software-60 row count and nonzero duration",
+      "passed": true
+    },
+    {
+      "name": "windowed-software-60 stable visible full capture",
+      "passed": true
+    },
+    {
+      "name": "windowed-software-60 consecutive observed Unity frames",
+      "passed": true
+    },
+    {
+      "name": "windowed-software-60 expected caps at both ends",
+      "passed": true
+    },
+    {
+      "name": "windowed-software-60/lateUpdateInterval every raw delta matches CSV",
+      "passed": true
+    },
+    {
+      "name": "windowed-software-60/lateUpdateInterval full report statistics match",
+      "passed": true
+    },
+    {
+      "name": "windowed-software-60/frameStartInterval every raw delta matches CSV",
+      "passed": true
+    },
+    {
+      "name": "windowed-software-60/frameStartInterval full report statistics match",
+      "passed": true
+    },
+    {
+      "name": "windowed-software-60/presentCalledInterval every raw delta matches CSV",
+      "passed": true
+    },
+    {
+      "name": "windowed-software-60/presentCalledInterval full report statistics match",
+      "passed": true
+    },
+    {
+      "name": "windowed-software-60/frameCompleteInterval every raw delta matches CSV",
+      "passed": true
+    },
+    {
+      "name": "windowed-software-60/frameCompleteInterval full report statistics match",
+      "passed": true
+    },
+    {
+      "name": "windowed-deadline-60 row count and nonzero duration",
+      "passed": true
+    },
+    {
+      "name": "windowed-deadline-60 stable visible full capture",
+      "passed": true
+    },
+    {
+      "name": "windowed-deadline-60 consecutive observed Unity frames",
+      "passed": true
+    },
+    {
+      "name": "windowed-deadline-60 expected caps at both ends",
+      "passed": true
+    },
+    {
+      "name": "windowed-deadline-60/lateUpdateInterval every raw delta matches CSV",
+      "passed": true
+    },
+    {
+      "name": "windowed-deadline-60/lateUpdateInterval full report statistics match",
+      "passed": true
+    },
+    {
+      "name": "windowed-deadline-60/frameStartInterval every raw delta matches CSV",
+      "passed": true
+    },
+    {
+      "name": "windowed-deadline-60/frameStartInterval full report statistics match",
+      "passed": true
+    },
+    {
+      "name": "windowed-deadline-60/presentCalledInterval every raw delta matches CSV",
+      "passed": true
+    },
+    {
+      "name": "windowed-deadline-60/presentCalledInterval full report statistics match",
+      "passed": true
+    },
+    {
+      "name": "windowed-deadline-60/frameCompleteInterval every raw delta matches CSV",
+      "passed": true
+    },
+    {
+      "name": "windowed-deadline-60/frameCompleteInterval full report statistics match",
+      "passed": true
+    }
+  ],
+  "failedChecks": 0,
+  "modes": [
+    {
+      "name": "windowed-software-60",
+      "csvSha256": "4936ff036a5218cb7dd6ba106d69e7b9155e5197c724c5c003e3a1b5b2433000",
+      "rows": 1197,
+      "metrics": {
+        "lateUpdateInterval": {
+          "samples": 1196,
+          "meanMs": 16.71587809364549,
+          "p50Ms": 16.6681999999998,
+          "p95Ms": 17.01230000000109,
+          "maxMs": 17.14009999999888,
+          "minMs": 16.54140000000126,
+          "over16_7Count": 283,
+          "effectiveHz": 59.82336042401196
+        },
+        "frameStartInterval": {
+          "samples": 1196,
+          "meanMs": 16.715926505016743,
+          "p50Ms": 16.666900000000002,
+          "p95Ms": 17.0154,
+          "maxMs": 17.0853,
+          "minMs": 16.6389,
+          "over16_7Count": 253,
+          "effectiveHz": 59.8231871682304
+        },
+        "presentCalledInterval": {
+          "samples": 1196,
+          "meanMs": 16.71593168896321,
+          "p50Ms": 16.6732,
+          "p95Ms": 17.0239,
+          "maxMs": 17.375,
+          "minMs": 16.0314,
+          "over16_7Count": 428,
+          "effectiveHz": 59.8231686158574
+        },
+        "frameCompleteInterval": {
+          "samples": 1196,
+          "meanMs": 16.715927424749143,
+          "p50Ms": 16.672900000000002,
+          "p95Ms": 17.023500000000002,
+          "maxMs": 17.3707,
+          "minMs": 16.0299,
+          "over16_7Count": 409,
+          "effectiveHz": 59.82318387667964
+        }
+      }
+    },
+    {
+      "name": "windowed-deadline-60",
+      "csvSha256": "b90cf2f35ac38d918325d4bc85428c8702898112e656493a06b5fe24441b61f1",
+      "rows": 1200,
+      "metrics": {
+        "lateUpdateInterval": {
+          "samples": 1199,
+          "meanMs": 16.668842368640462,
+          "p50Ms": 16.66680000000298,
+          "p95Ms": 16.67260000000681,
+          "maxMs": 17.153700000001493,
+          "minMs": 16.601899999997727,
+          "over16_7Count": 13,
+          "effectiveHz": 59.99216849523556
+        },
+        "frameStartInterval": {
+          "samples": 1199,
+          "meanMs": 16.669054378648863,
+          "p50Ms": 16.6681,
+          "p95Ms": 16.7665,
+          "maxMs": 17.2665,
+          "minMs": 15.9007,
+          "over16_7Count": 345,
+          "effectiveHz": 59.991405468140094
+        },
+        "presentCalledInterval": {
+          "samples": 1199,
+          "meanMs": 16.669107756463706,
+          "p50Ms": 16.6681,
+          "p95Ms": 16.7588,
+          "maxMs": 17.225,
+          "minMs": 15.923100000000002,
+          "over16_7Count": 329,
+          "effectiveHz": 59.991213363668756
+        },
+        "frameCompleteInterval": {
+          "samples": 1199,
+          "meanMs": 16.669107256046722,
+          "p50Ms": 16.6658,
+          "p95Ms": 16.825300000000002,
+          "maxMs": 17.221500000000002,
+          "minMs": 15.975900000000001,
+          "over16_7Count": 377,
+          "effectiveHz": 59.991215164642355
+        }
+      }
+    }
+  ],
+  "conclusion": "All axes improve; only LateUpdate P95 is <=16.7ms. This idle experiment is not AC-PERF and does not establish physical scanout cadence."
+}

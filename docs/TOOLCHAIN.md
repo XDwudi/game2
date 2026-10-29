@@ -101,4 +101,4 @@ Unity 的 Android 开发依赖对应的构建支持、SDK、NDK 和 JDK，并支
 
 每个实际使用的工具登记：名称、用途、来源、精确版本、安装状态、连接状态、验证日期、调用方式、输入输出、日志位置、失败表现、可重跑条件、已验证平台和负责人。状态采用未验证、通过或失败。
 
-Blender 可作为脚本化制作候选；具体 Python 和命令行参数应按选定版本核对并实机试验。后续文档入口：[Blender 命令行](https://docs.blender.org/manual/en/latest/advanced/command_line/arguments.html)、[Blender Python](https://docs.blender.org/api/main/info_tips_and_tricks.html)。当前未把其视为已接通能力。
+后续项目采用Blender脚本化制作时，仍须按选定版本核对Python与命令行参数并实机试验。入口：[Blender 命令行](https://docs.blender.org/manual/en/latest/advanced/command_line/arguments.html)、[Blender Python](https://docs.blender.org/api/main/info_tips_and_tricks.html)。本轮P0的5.2.3已完成实际制作、重开、FBX导出与Unity导入，具体证据见 `../art/README.md`，不能将这一结论外推到未测版本。

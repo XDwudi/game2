@@ -1,0 +1,448 @@
+{
+  "source_run": "evidence\\runs\\player\\player-20261029-012720-f50658f6",
+  "environment": {
+    "utc": "2026-10-29T01:27:22.2786465Z",
+    "unityVersion": "6000.6.7f1",
+    "buildGuid": "1ece7f2b268b4656b12e498d74f0841c",
+    "developmentBuild": true,
+    "isEditor": false,
+    "platform": "WindowsPlayer",
+    "os": "Windows 10  (10.0.19045) 64bit",
+    "cpu": "AMD Ryzen 9 5900X 12-Core Processor ",
+    "cpuThreads": 24,
+    "systemMemoryMB": 65457,
+    "gpu": "NVIDIA GeForce RTX 3080",
+    "gpuMemoryMB": 10053,
+    "graphicsVersion": "Direct3D 11.0 [level 11.1]",
+    "graphicsApi": "Direct3D11",
+    "width": 1920,
+    "height": 1080,
+    "fullscreenMode": "Windowed",
+    "quality": "PC",
+    "vSyncCount": 0,
+    "targetFrameRate": 60,
+    "presentationFast": false,
+    "presentationReducedMotion": false,
+    "probeArguments": [
+      "--verify-p0",
+      "E:\\agent_workspace\\gpt\\game2\\evidence\\runs\\normal-win.json",
+      "--evidence-dir",
+      "E:\\agent_workspace\\gpt\\game2\\evidence\\runs\\player\\player-20261029-012720-f50658f6"
+    ]
+  },
+  "probe_revision_measured": "p0-player-preallocated-capture-4",
+  "probe_assembly_mvid_measured": "d7c43013-9527-44a4-b3f4-0f78289a9711",
+  "raw_csv_sha256": "00923ffc1ca26e7cff30e35936a96035a0c0de3a49584bae0c6c3bd8f9ee9510",
+  "report_sha256": "df0c23368a967b55f25bf987b1915b9a82fbc53f500e7c1021af377c21cfb9df",
+  "method": "Nearest-rank quantiles. High allocation event >100000 bytes, paired with preceding frame. Phase inferred by closest nominal scheduled operation; not captured method timestamps. Original CSV and acceptance result unchanged.",
+  "first_measured_gc_boundary": {
+    "frame": 2344.0,
+    "elapsed_s": 0.006152499999998895,
+    "gc_alloc_bytes": 8946498.0,
+    "interval_ms": 5.12069999999909
+  },
+  "events": 899,
+  "maximum_phase_assignment_distance_s": 0.024128399999995054,
+  "correlations": [
+    {
+      "gc_row_offset_from_interval": -4,
+      "pearson_r": -0.014026315405684876
+    },
+    {
+      "gc_row_offset_from_interval": -3,
+      "pearson_r": -0.014323209999467195
+    },
+    {
+      "gc_row_offset_from_interval": -2,
+      "pearson_r": -0.013892544004397557
+    },
+    {
+      "gc_row_offset_from_interval": -1,
+      "pearson_r": -0.014258721455521182
+    },
+    {
+      "gc_row_offset_from_interval": 0,
+      "pearson_r": -0.570049811661527
+    },
+    {
+      "gc_row_offset_from_interval": 1,
+      "pearson_r": 0.8267849890566882
+    },
+    {
+      "gc_row_offset_from_interval": 2,
+      "pearson_r": -0.013986081719149796
+    },
+    {
+      "gc_row_offset_from_interval": 3,
+      "pearson_r": -0.01416966699655035
+    },
+    {
+      "gc_row_offset_from_interval": 4,
+      "pearson_r": -0.013751023560965765
+    }
+  ],
+  "by_phase": {
+    "Roll": {
+      "events": 179,
+      "interval_ms": {
+        "count": 179,
+        "mean": 37.52218659217836,
+        "p50": 37.25710000000504,
+        "p95": 41.12789999999222,
+        "max": 45.36769999998569
+      },
+      "next_interval_ms": {
+        "count": 179,
+        "mean": 3.758522346369113,
+        "p50": 3.510399999981928,
+        "p95": 5.065000000001874,
+        "max": 5.397400000006769
+      },
+      "gc_bytes": {
+        "count": 179,
+        "mean": 3442452.2737430166,
+        "p50": 3435790.0,
+        "p95": 4960683.0,
+        "max": 5109470.0
+      },
+      "first_30s_mean_gc_bytes": 2036019.2758620689,
+      "last_30s_mean_gc_bytes": 4839630.733333333,
+      "first_30s_mean_interval_ms": 34.91887586206745,
+      "last_30s_mean_interval_ms": 40.73846333333032,
+      "completed_frame_main_ms": {
+        "count": 179,
+        "mean": 24.48716033519553,
+        "p50": 24.2627,
+        "p95": 28.0732,
+        "max": 32.3323
+      },
+      "gc_linear_slope_bytes_per_second": 18769.55764793222
+    },
+    "SkipVisual": {
+      "events": 180,
+      "interval_ms": {
+        "count": 180,
+        "mean": 23.0804911111111,
+        "p50": 23.104200000005903,
+        "p95": 24.40119999999979,
+        "max": 26.423400000012975
+      },
+      "next_interval_ms": {
+        "count": 180,
+        "mean": 10.327369444444775,
+        "p50": 10.321799999999826,
+        "p95": 11.393400000002885,
+        "max": 11.622799999997824
+      },
+      "gc_bytes": {
+        "count": 180,
+        "mean": 1240286.4666666666,
+        "p50": 1240258.0,
+        "p95": 1303854.0,
+        "max": 1311654.0
+      },
+      "first_30s_mean_gc_bytes": 1180535.2666666666,
+      "last_30s_mean_gc_bytes": 1299382.0,
+      "first_30s_mean_interval_ms": 23.157063333334097,
+      "last_30s_mean_interval_ms": 23.125210000000607,
+      "completed_frame_main_ms": {
+        "count": 180,
+        "mean": 16.72419111111111,
+        "p50": 16.6654,
+        "p95": 17.0108,
+        "max": 17.4544
+      },
+      "gc_linear_slope_bytes_per_second": 792.1966916595961
+    },
+    "Reorder": {
+      "events": 180,
+      "interval_ms": {
+        "count": 180,
+        "mean": 37.634218333333465,
+        "p50": 37.38799999999287,
+        "p95": 41.26819999999043,
+        "max": 48.3831999999893
+      },
+      "next_interval_ms": {
+        "count": 180,
+        "mean": 3.6558644444445085,
+        "p50": 3.4484999999904176,
+        "p95": 4.698500000017702,
+        "max": 5.617699999987735
+      },
+      "gc_bytes": {
+        "count": 180,
+        "mean": 3432942.1611111113,
+        "p50": 3417833.0,
+        "p95": 4942741.0,
+        "max": 5105741.0
+      },
+      "first_30s_mean_gc_bytes": 2026704.6333333333,
+      "last_30s_mean_gc_bytes": 4839275.466666667,
+      "first_30s_mean_interval_ms": 35.220830000001506,
+      "last_30s_mean_interval_ms": 40.72579333333503,
+      "completed_frame_main_ms": {
+        "count": 180,
+        "mean": 24.56272,
+        "p50": 24.261,
+        "p95": 28.2603,
+        "max": 34.8659
+      },
+      "gc_linear_slope_bytes_per_second": 18765.834146271674
+    },
+    "TogglePending_Refresh": {
+      "events": 180,
+      "interval_ms": {
+        "count": 180,
+        "mean": 23.31474666666631,
+        "p50": 23.380099999997128,
+        "p95": 24.523900000005483,
+        "max": 25.651199999998653
+      },
+      "next_interval_ms": {
+        "count": 180,
+        "mean": 10.14574888888882,
+        "p50": 10.071500000009337,
+        "p95": 11.400999999992223,
+        "max": 11.623899999989362
+      },
+      "gc_bytes": {
+        "count": 180,
+        "mean": 1236276.9444444445,
+        "p50": 1235574.0,
+        "p95": 1299698.0,
+        "max": 1306934.0
+      },
+      "first_30s_mean_gc_bytes": 1176516.8666666667,
+      "last_30s_mean_gc_bytes": 1295275.2,
+      "first_30s_mean_interval_ms": 23.29218333333382,
+      "last_30s_mean_interval_ms": 23.351303333333817,
+      "completed_frame_main_ms": {
+        "count": 180,
+        "mean": 16.725684444444443,
+        "p50": 16.6652,
+        "p95": 17.0275,
+        "max": 17.1927
+      },
+      "gc_linear_slope_bytes_per_second": 791.4812659262388
+    },
+    "ClearPending_Refresh": {
+      "events": 180,
+      "interval_ms": {
+        "count": 180,
+        "mean": 22.946896111112103,
+        "p50": 22.918000000004213,
+        "p95": 24.28000000000452,
+        "max": 25.54149999998856
+      },
+      "next_interval_ms": {
+        "count": 180,
+        "mean": 10.518177777776572,
+        "p50": 10.565000000013924,
+        "p95": 11.494499999997743,
+        "max": 11.841200000006324
+      },
+      "gc_bytes": {
+        "count": 180,
+        "mean": 1239599.3444444444,
+        "p50": 1238806.0,
+        "p95": 1303026.0,
+        "max": 1310166.0
+      },
+      "first_30s_mean_gc_bytes": 1179857.6666666667,
+      "last_30s_mean_gc_bytes": 1298603.2,
+      "first_30s_mean_interval_ms": 22.96094666666804,
+      "last_30s_mean_interval_ms": 23.20200000000246,
+      "completed_frame_main_ms": {
+        "count": 180,
+        "mean": 16.72345,
+        "p50": 16.6654,
+        "p95": 17.0147,
+        "max": 17.0717
+      },
+      "gc_linear_slope_bytes_per_second": 791.4216003284442
+    }
+  },
+  "blocks_30s": [
+    {
+      "from_s": 0,
+      "to_s": 30,
+      "interval_ms": {
+        "count": 1775,
+        "mean": 16.88621143661971,
+        "p50": 16.668600000002698,
+        "p95": 23.50280000000282,
+        "max": 37.922600000001694
+      },
+      "gc_bytes_sum": 234899586.0,
+      "gc_bytes": {
+        "count": 1775,
+        "mean": 132337.79492957747,
+        "p50": 0.0,
+        "p95": 1183370.0,
+        "max": 8946498.0
+      }
+    },
+    {
+      "from_s": 30,
+      "to_s": 60,
+      "interval_ms": {
+        "count": 1772,
+        "mean": 16.927657787810386,
+        "p50": 16.669299999989562,
+        "p95": 23.297299999995857,
+        "max": 39.43149999999207
+      },
+      "gc_bytes_sum": 263547884.0,
+      "gc_bytes": {
+        "count": 1772,
+        "mean": 148729.05417607224,
+        "p50": 0.0,
+        "p95": 1207436.0,
+        "max": 2873203.0
+      }
+    },
+    {
+      "from_s": 60,
+      "to_s": 90,
+      "interval_ms": {
+        "count": 1769,
+        "mean": 16.95893663086491,
+        "p50": 16.66830000002051,
+        "p95": 23.540800000006357,
+        "max": 41.6455999999954
+      },
+      "gc_bytes_sum": 299536654.0,
+      "gc_bytes": {
+        "count": 1769,
+        "mean": 169325.4120972301,
+        "p50": 0.0,
+        "p95": 1231494.0,
+        "max": 3417833.0
+      }
+    },
+    {
+      "from_s": 90,
+      "to_s": 120,
+      "interval_ms": {
+        "count": 1766,
+        "mean": 16.99150679501699,
+        "p50": 16.667600000005223,
+        "p95": 23.7527999999827,
+        "max": 40.22960000000353
+      },
+      "gc_bytes_sum": 335126206.0,
+      "gc_bytes": {
+        "count": 1766,
+        "mean": 189765.6885617214,
+        "p50": 0.0,
+        "p95": 1255294.0,
+        "max": 4000570.0
+      }
+    },
+    {
+      "from_s": 120,
+      "to_s": 150,
+      "interval_ms": {
+        "count": 1760,
+        "mean": 17.046246761363644,
+        "p50": 16.66839999998615,
+        "p95": 23.523899999986497,
+        "max": 48.3831999999893
+      },
+      "gc_bytes_sum": 371709108.0,
+      "gc_bytes": {
+        "count": 1760,
+        "mean": 211198.3568181818,
+        "p50": 0.0,
+        "p95": 1279098.0,
+        "max": 4546591.0
+      }
+    },
+    {
+      "from_s": 150,
+      "to_s": 180,
+      "interval_ms": {
+        "count": 1756,
+        "mean": 17.09193428246014,
+        "p50": 16.667399999988675,
+        "p95": 23.61209999997982,
+        "max": 45.36769999998569
+      },
+      "gc_bytes_sum": 407164998.0,
+      "gc_bytes": {
+        "count": 1756,
+        "mean": 231870.7277904328,
+        "p50": 0.0,
+        "p95": 1302198.0,
+        "max": 5109470.0
+      }
+    }
+  ],
+  "all_frame_interval_ms": {
+    "count": 10598,
+    "mean": 16.9834898754482,
+    "p50": 16.668299999992087,
+    "p95": 23.546699999997145,
+    "max": 48.3831999999893
+  },
+  "operation_interval_ms": {
+    "count": 899,
+    "mean": 28.890116573971145,
+    "p50": 23.953200000001118,
+    "p95": 40.41580000000522,
+    "max": 48.3831999999893
+  },
+  "next_frame_interval_ms": {
+    "count": 899,
+    "mean": 7.6854998887651975,
+    "p50": 9.529499999985092,
+    "p95": 11.39129999998545,
+    "max": 11.841200000006324
+  },
+  "other_frame_interval_ms": {
+    "count": 8800,
+    "mean": 16.716993920454552,
+    "p50": 16.668299999992087,
+    "p95": 17.009500000000344,
+    "max": 22.379600000022037
+  },
+  "long_frames": {
+    "16.7": {
+      "total": 3200,
+      "assigned_operation": 899
+    },
+    "20": {
+      "total": 900,
+      "assigned_operation": 899
+    },
+    "23.5467": {
+      "total": 529,
+      "assigned_operation": 529
+    },
+    "25": {
+      "total": 364,
+      "assigned_operation": 364
+    },
+    "30": {
+      "total": 359,
+      "assigned_operation": 359
+    },
+    "40": {
+      "total": 66,
+      "assigned_operation": 66
+    }
+  },
+  "gc_alloc_bytes_sum": 1911984436.0,
+  "high_allocation_rows": 900,
+  "read_source_hashes": {
+    "DicePrototype/Assets/Game/Core/Session/GameSession.cs": "38c6eeb7060da1e46680bd5472126087adfae743289da00f51e7a78675fcc5f9",
+    "DicePrototype/Assets/Game/Core/Session/GameSession.Validation.cs": "8bc2ce3cfc8d4114846b19dc4aea13a8c190d47fb1f8d90f9d98beeafbaafb48",
+    "DicePrototype/Assets/Game/Core/Session/GameSession.Submission.cs": "f0eac9d324e8d9edd631bc31b50db2f4b003271770c299e03a9b8092ad869478",
+    "DicePrototype/Assets/Game/Core/Session/SessionModels.cs": "15e5800c069b88b45471936420d1a974c2849360336fe5f387f61727c347e1e8",
+    "DicePrototype/Assets/Game/Runtime/GameApp.cs": "094840aaf38ce2df90b1252bab8356f22e805353e576a3f798992c67a5b4a6a7",
+    "DicePrototype/Assets/Game/Runtime/AtomicSaveStore.cs": "a1f86f5d162422a0336a15612271379e44cd2eb0fc44c339d52d0cf6ac2877d0",
+    "DicePrototype/Assets/Game/Runtime/Verification/PlayerVerification.cs": "75fe1bfb97a279224b1ab8357ced9936e534ce652e4ce7cea06a55ea56a53287"
+  },
+  "source_caveat": "Hashes identify read source at analysis time, not Player04 source bundle. Root is concurrently changing GameApp/UI pooling; measured build GUID and raw evidence identify tested binary. Probe two-frame warmup drain is also newer than Player04."
+}

@@ -1,0 +1,102 @@
+{
+  "results": {
+    "Player06": {
+      "csvSha256": "7127fa262013bf0651ffc8b1e7dbf14d55629139bf320e7f2e046f709bda52e0",
+      "frames": 10777,
+      "clocks": {
+        "interval_ms": {
+          "n": 10777,
+          "mean": 16.701061204416813,
+          "p95": 16.675100000000498,
+          "max": 21.965999999991936,
+          "over18ms": 108,
+          "over20ms": 26
+        },
+        "main_thread_ms": {
+          "n": 10777,
+          "mean": 16.699696835854134,
+          "p95": 18.7536,
+          "max": 24.262,
+          "over18ms": 901,
+          "over20ms": 119
+        },
+        "frame_start_delta_ms": {
+          "n": 10777,
+          "mean": 16.701063533450867,
+          "p95": 18.7553,
+          "max": 24.2659,
+          "over18ms": 901,
+          "over20ms": 120
+        },
+        "present_called_delta_ms": {
+          "n": 10777,
+          "mean": 16.701060554885405,
+          "p95": 18.752,
+          "max": 24.2804,
+          "over18ms": 901,
+          "over20ms": 118
+        },
+        "frame_complete_delta_ms": {
+          "n": 10777,
+          "mean": 16.701068024496614,
+          "p95": 18.7508,
+          "max": 24.2087,
+          "over18ms": 901,
+          "over20ms": 117
+        }
+      },
+      "entire_series_adjacent_present_over18_then_under15_5": 901,
+      "totalAllocatedBytes": 767387056.0
+    },
+    "Player07": {
+      "csvSha256": "ba38ffbdf63be2e8195f15d13dfa150132495a291e2a56524e1325fcb5b93178",
+      "frames": 10750,
+      "clocks": {
+        "interval_ms": {
+          "n": 10750,
+          "mean": 16.74400609302326,
+          "p95": 16.680699999994886,
+          "max": 24.53880000001618,
+          "over18ms": 224,
+          "over20ms": 105
+        },
+        "main_thread_ms": {
+          "n": 10750,
+          "mean": 16.742503804651165,
+          "p95": 16.9783,
+          "max": 24.7554,
+          "over18ms": 245,
+          "over20ms": 120
+        },
+        "frame_start_delta_ms": {
+          "n": 10750,
+          "mean": 16.744020651162792,
+          "p95": 16.9825,
+          "max": 24.7582,
+          "over18ms": 246,
+          "over20ms": 122
+        },
+        "present_called_delta_ms": {
+          "n": 10750,
+          "mean": 16.74402931162791,
+          "p95": 16.9369,
+          "max": 24.7138,
+          "over18ms": 242,
+          "over20ms": 119
+        },
+        "frame_complete_delta_ms": {
+          "n": 10750,
+          "mean": 16.744037786046512,
+          "p95": 16.9452,
+          "max": 24.7165,
+          "over18ms": 242,
+          "over20ms": 119
+        }
+      },
+      "entire_series_adjacent_present_over18_then_under15_5": 1,
+      "totalAllocatedBytes": 767385472.0
+    }
+  },
+  "nativeLogSuspectLines": [],
+  "caveat": "Counts above 18/20 ms describe retained tails; they are not additional acceptance thresholds. Entire-series adjacent pair counting is independent of operation inference. No native frame identity or physical scanout is asserted."
+}

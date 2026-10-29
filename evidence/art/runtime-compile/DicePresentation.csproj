@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <LangVersion>9.0</LangVersion>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <AssemblyName>DiceCraft.PresentationCompileCheck</AssemblyName>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="../../../DicePrototype/Assets/Game/Runtime/DiceTable.cs" />
+    <Reference Include="UnityEngine.CoreModule"><HintPath>E:/unity/6000.6.7f1/Editor/Data/Managed/UnityEngine/UnityEngine.CoreModule.dll</HintPath></Reference>
+    <Reference Include="UnityEngine.AnimationModule"><HintPath>E:/unity/6000.6.7f1/Editor/Data/Managed/UnityEngine/UnityEngine.AnimationModule.dll</HintPath></Reference>
+    <Reference Include="DiceCraft.Core"><HintPath>../../../DicePrototype/Library/ScriptAssemblies/DiceCraft.Core.dll</HintPath></Reference>
+    <Reference Include="DiceCraft.Runtime"><HintPath>../../../DicePrototype/Library/ScriptAssemblies/DiceCraft.Runtime.dll</HintPath></Reference>
+  </ItemGroup>
+</Project>

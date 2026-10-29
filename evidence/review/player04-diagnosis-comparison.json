@@ -1,0 +1,17 @@
+{
+  "metricsMatch": {
+    "events": true,
+    "maximum_phase_assignment_distance_s": true,
+    "correlations": true,
+    "by_phase": true,
+    "blocks_30s": true,
+    "all_frame_interval_ms": true,
+    "operation_interval_ms": true,
+    "next_frame_interval_ms": true,
+    "other_frame_interval_ms": true,
+    "long_frames": true,
+    "gc_alloc_bytes_sum": true,
+    "high_allocation_rows": true
+  },
+  "note": "Read source hashes may change during root UI implementation; not used to bind Player04."
+}

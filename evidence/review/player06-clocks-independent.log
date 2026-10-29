@@ -1,0 +1,30 @@
+{
+  "rawRows": 10778,
+  "mismatches": [],
+  "metrics": {
+    "frameStart": {
+      "samples": 10777,
+      "expectedFrames": 10777,
+      "validFrameCoverage": 1.0,
+      "p95": 18.7553,
+      "mean": 16.701063533450867,
+      "max": 24.2659
+    },
+    "presentCalled": {
+      "samples": 10777,
+      "expectedFrames": 10777,
+      "validFrameCoverage": 1.0,
+      "p95": 18.752,
+      "mean": 16.701060554885405,
+      "max": 24.2804
+    },
+    "frameComplete": {
+      "samples": 10777,
+      "expectedFrames": 10777,
+      "validFrameCoverage": 1.0,
+      "p95": 18.7508,
+      "mean": 16.701068024496614,
+      "max": 24.2087
+    }
+  }
+}

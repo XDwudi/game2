@@ -1,0 +1,453 @@
+{
+  "inputCsvSha256": "7127fa262013bf0651ffc8b1e7dbf14d55629139bf320e7f2e046f709bda52e0",
+  "scope": "Diagnostic only; all original performance frames remain in the verdict. Lag aligns observed counters, not exact native frame ownership. Allocation events >10KB infer refresh/transaction work, not measured TMP method cost.",
+  "frames": 10777,
+  "allocationEvents": 901,
+  "metrics": {
+    "interval_ms": {
+      "over18ms": 108,
+      "lags": [
+        {
+          "gcIndexOffset": -6,
+          "pearson": -0.01899385422523097,
+          "longOver18": 108,
+          "longNearAllocationEvent": 0
+        },
+        {
+          "gcIndexOffset": -5,
+          "pearson": -0.01737912673310395,
+          "longOver18": 108,
+          "longNearAllocationEvent": 0
+        },
+        {
+          "gcIndexOffset": -4,
+          "pearson": -0.01842370002228422,
+          "longOver18": 108,
+          "longNearAllocationEvent": 0
+        },
+        {
+          "gcIndexOffset": -3,
+          "pearson": -0.02046857754452277,
+          "longOver18": 108,
+          "longNearAllocationEvent": 0
+        },
+        {
+          "gcIndexOffset": -2,
+          "pearson": -0.01858060560227785,
+          "longOver18": 108,
+          "longNearAllocationEvent": 0
+        },
+        {
+          "gcIndexOffset": -1,
+          "pearson": -0.018849242410392434,
+          "longOver18": 108,
+          "longNearAllocationEvent": 0
+        },
+        {
+          "gcIndexOffset": 0,
+          "pearson": -0.01962029285585697,
+          "longOver18": 108,
+          "longNearAllocationEvent": 0
+        },
+        {
+          "gcIndexOffset": 1,
+          "pearson": 0.7450899675802747,
+          "longOver18": 108,
+          "longNearAllocationEvent": 108
+        },
+        {
+          "gcIndexOffset": 2,
+          "pearson": -0.018298137632240093,
+          "longOver18": 108,
+          "longNearAllocationEvent": 0
+        },
+        {
+          "gcIndexOffset": 3,
+          "pearson": -0.020474239363071692,
+          "longOver18": 108,
+          "longNearAllocationEvent": 0
+        },
+        {
+          "gcIndexOffset": 4,
+          "pearson": -0.01959389141909441,
+          "longOver18": 108,
+          "longNearAllocationEvent": 0
+        },
+        {
+          "gcIndexOffset": 5,
+          "pearson": -0.020336665927367815,
+          "longOver18": 108,
+          "longNearAllocationEvent": 0
+        },
+        {
+          "gcIndexOffset": 6,
+          "pearson": -0.02053040791821639,
+          "longOver18": 108,
+          "longNearAllocationEvent": 0
+        }
+      ],
+      "best": {
+        "gcIndexOffset": 1,
+        "pearson": 0.7450899675802747,
+        "longOver18": 108,
+        "longNearAllocationEvent": 108
+      }
+    },
+    "main_thread_ms": {
+      "over18ms": 901,
+      "lags": [
+        {
+          "gcIndexOffset": -6,
+          "pearson": -0.0035044517595668244,
+          "longOver18": 900,
+          "longNearAllocationEvent": 0
+        },
+        {
+          "gcIndexOffset": -5,
+          "pearson": -0.007415586621572789,
+          "longOver18": 900,
+          "longNearAllocationEvent": 0
+        },
+        {
+          "gcIndexOffset": -4,
+          "pearson": -0.0075505215476910454,
+          "longOver18": 900,
+          "longNearAllocationEvent": 0
+        },
+        {
+          "gcIndexOffset": -3,
+          "pearson": -0.0035969184920257424,
+          "longOver18": 900,
+          "longNearAllocationEvent": 0
+        },
+        {
+          "gcIndexOffset": -2,
+          "pearson": -0.015126617383466488,
+          "longOver18": 900,
+          "longNearAllocationEvent": 0
+        },
+        {
+          "gcIndexOffset": -1,
+          "pearson": -0.3998664998487767,
+          "longOver18": 900,
+          "longNearAllocationEvent": 0
+        },
+        {
+          "gcIndexOffset": 0,
+          "pearson": 0.6207239127613531,
+          "longOver18": 901,
+          "longNearAllocationEvent": 900
+        },
+        {
+          "gcIndexOffset": 1,
+          "pearson": -0.0039002027820120846,
+          "longOver18": 901,
+          "longNearAllocationEvent": 1
+        },
+        {
+          "gcIndexOffset": 2,
+          "pearson": -0.007060647807409577,
+          "longOver18": 900,
+          "longNearAllocationEvent": 0
+        },
+        {
+          "gcIndexOffset": 3,
+          "pearson": -0.003444648288928434,
+          "longOver18": 900,
+          "longNearAllocationEvent": 0
+        },
+        {
+          "gcIndexOffset": 4,
+          "pearson": -0.008116718502516055,
+          "longOver18": 900,
+          "longNearAllocationEvent": 0
+        },
+        {
+          "gcIndexOffset": 5,
+          "pearson": -0.005705834889368637,
+          "longOver18": 900,
+          "longNearAllocationEvent": 0
+        },
+        {
+          "gcIndexOffset": 6,
+          "pearson": -0.002859872018446786,
+          "longOver18": 900,
+          "longNearAllocationEvent": 0
+        }
+      ],
+      "best": {
+        "gcIndexOffset": 0,
+        "pearson": 0.6207239127613531,
+        "longOver18": 901,
+        "longNearAllocationEvent": 900
+      }
+    },
+    "frame_start_delta_ms": {
+      "over18ms": 901,
+      "lags": [
+        {
+          "gcIndexOffset": -6,
+          "pearson": -0.015107348240063377,
+          "longOver18": 899,
+          "longNearAllocationEvent": 0
+        },
+        {
+          "gcIndexOffset": -5,
+          "pearson": -0.3997965489121232,
+          "longOver18": 899,
+          "longNearAllocationEvent": 0
+        },
+        {
+          "gcIndexOffset": -4,
+          "pearson": 0.6209292008805959,
+          "longOver18": 900,
+          "longNearAllocationEvent": 899
+        },
+        {
+          "gcIndexOffset": -3,
+          "pearson": -0.0038442940546571484,
+          "longOver18": 900,
+          "longNearAllocationEvent": 0
+        },
+        {
+          "gcIndexOffset": -2,
+          "pearson": -0.007062358777498704,
+          "longOver18": 901,
+          "longNearAllocationEvent": 0
+        },
+        {
+          "gcIndexOffset": -1,
+          "pearson": -0.0034442170658631776,
+          "longOver18": 901,
+          "longNearAllocationEvent": 0
+        },
+        {
+          "gcIndexOffset": 0,
+          "pearson": -0.008132039181095618,
+          "longOver18": 901,
+          "longNearAllocationEvent": 0
+        },
+        {
+          "gcIndexOffset": 1,
+          "pearson": -0.005722563768551854,
+          "longOver18": 901,
+          "longNearAllocationEvent": 0
+        },
+        {
+          "gcIndexOffset": 2,
+          "pearson": -0.0028687969616845088,
+          "longOver18": 901,
+          "longNearAllocationEvent": 0
+        },
+        {
+          "gcIndexOffset": 3,
+          "pearson": -0.007854173556778697,
+          "longOver18": 901,
+          "longNearAllocationEvent": 0
+        },
+        {
+          "gcIndexOffset": 4,
+          "pearson": -0.17786277828001815,
+          "longOver18": 901,
+          "longNearAllocationEvent": 2
+        },
+        {
+          "gcIndexOffset": 5,
+          "pearson": 0.16795929766469633,
+          "longOver18": 901,
+          "longNearAllocationEvent": 358
+        },
+        {
+          "gcIndexOffset": 6,
+          "pearson": -0.005784103877345557,
+          "longOver18": 901,
+          "longNearAllocationEvent": 1
+        }
+      ],
+      "best": {
+        "gcIndexOffset": -4,
+        "pearson": 0.6209292008805959,
+        "longOver18": 900,
+        "longNearAllocationEvent": 899
+      }
+    },
+    "present_called_delta_ms": {
+      "over18ms": 901,
+      "lags": [
+        {
+          "gcIndexOffset": -6,
+          "pearson": -0.007260987756592884,
+          "longOver18": 899,
+          "longNearAllocationEvent": 0
+        },
+        {
+          "gcIndexOffset": -5,
+          "pearson": -0.004603117073305506,
+          "longOver18": 899,
+          "longNearAllocationEvent": 0
+        },
+        {
+          "gcIndexOffset": -4,
+          "pearson": -0.01299214655914545,
+          "longOver18": 899,
+          "longNearAllocationEvent": 0
+        },
+        {
+          "gcIndexOffset": -3,
+          "pearson": -0.39842696231480584,
+          "longOver18": 899,
+          "longNearAllocationEvent": 0
+        },
+        {
+          "gcIndexOffset": -2,
+          "pearson": 0.6204033521890037,
+          "longOver18": 900,
+          "longNearAllocationEvent": 899
+        },
+        {
+          "gcIndexOffset": -1,
+          "pearson": -0.004010376971313346,
+          "longOver18": 900,
+          "longNearAllocationEvent": 0
+        },
+        {
+          "gcIndexOffset": 0,
+          "pearson": -0.006883552661978988,
+          "longOver18": 901,
+          "longNearAllocationEvent": 0
+        },
+        {
+          "gcIndexOffset": 1,
+          "pearson": -0.0038522577038292735,
+          "longOver18": 901,
+          "longNearAllocationEvent": 0
+        },
+        {
+          "gcIndexOffset": 2,
+          "pearson": -0.008126458708043705,
+          "longOver18": 901,
+          "longNearAllocationEvent": 0
+        },
+        {
+          "gcIndexOffset": 3,
+          "pearson": -0.005832282642575737,
+          "longOver18": 901,
+          "longNearAllocationEvent": 0
+        },
+        {
+          "gcIndexOffset": 4,
+          "pearson": -0.0027931072415719235,
+          "longOver18": 901,
+          "longNearAllocationEvent": 0
+        },
+        {
+          "gcIndexOffset": 5,
+          "pearson": -0.007828527092767735,
+          "longOver18": 901,
+          "longNearAllocationEvent": 0
+        },
+        {
+          "gcIndexOffset": 6,
+          "pearson": -0.17968035626924708,
+          "longOver18": 901,
+          "longNearAllocationEvent": 2
+        }
+      ],
+      "best": {
+        "gcIndexOffset": -2,
+        "pearson": 0.6204033521890037,
+        "longOver18": 900,
+        "longNearAllocationEvent": 899
+      }
+    },
+    "frame_complete_delta_ms": {
+      "over18ms": 901,
+      "lags": [
+        {
+          "gcIndexOffset": -6,
+          "pearson": -0.007166827315217401,
+          "longOver18": 899,
+          "longNearAllocationEvent": 0
+        },
+        {
+          "gcIndexOffset": -5,
+          "pearson": -0.003870926198388563,
+          "longOver18": 899,
+          "longNearAllocationEvent": 0
+        },
+        {
+          "gcIndexOffset": -4,
+          "pearson": -0.01266477492338129,
+          "longOver18": 899,
+          "longNearAllocationEvent": 0
+        },
+        {
+          "gcIndexOffset": -3,
+          "pearson": -0.39904938411290153,
+          "longOver18": 899,
+          "longNearAllocationEvent": 0
+        },
+        {
+          "gcIndexOffset": -2,
+          "pearson": 0.6195871963917677,
+          "longOver18": 900,
+          "longNearAllocationEvent": 899
+        },
+        {
+          "gcIndexOffset": -1,
+          "pearson": -0.0041756275795987,
+          "longOver18": 900,
+          "longNearAllocationEvent": 0
+        },
+        {
+          "gcIndexOffset": 0,
+          "pearson": -0.0072642654322406935,
+          "longOver18": 901,
+          "longNearAllocationEvent": 0
+        },
+        {
+          "gcIndexOffset": 1,
+          "pearson": -0.0038495634524191177,
+          "longOver18": 901,
+          "longNearAllocationEvent": 0
+        },
+        {
+          "gcIndexOffset": 2,
+          "pearson": -0.0080153378058672,
+          "longOver18": 901,
+          "longNearAllocationEvent": 0
+        },
+        {
+          "gcIndexOffset": 3,
+          "pearson": -0.005531209836256353,
+          "longOver18": 901,
+          "longNearAllocationEvent": 0
+        },
+        {
+          "gcIndexOffset": 4,
+          "pearson": -0.003008962051085844,
+          "longOver18": 901,
+          "longNearAllocationEvent": 0
+        },
+        {
+          "gcIndexOffset": 5,
+          "pearson": -0.0077343421776587375,
+          "longOver18": 901,
+          "longNearAllocationEvent": 0
+        },
+        {
+          "gcIndexOffset": 6,
+          "pearson": -0.18001301828502303,
+          "longOver18": 901,
+          "longNearAllocationEvent": 2
+        }
+      ],
+      "best": {
+        "gcIndexOffset": -2,
+        "pearson": 0.6195871963917677,
+        "longOver18": 900,
+        "longNearAllocationEvent": 899
+      }
+    }
+  }
+}

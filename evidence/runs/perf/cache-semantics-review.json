@@ -1,0 +1,20 @@
+{
+  "kind": "read-only-cache-semantics-review",
+  "utc": "2026-10-29T01:47:54.171995+00:00",
+  "conclusion": "No blocking semantic issue found in static review; native Unity tests pending root execution.",
+  "production_modified_by_reviewer": false,
+  "source_sha256": {
+    "DicePrototype/Assets/Game/Core/Session/GameSession.cs": "38c6eeb7060da1e46680bd5472126087adfae743289da00f51e7a78675fcc5f9",
+    "DicePrototype/Assets/Game/Runtime/GameApp.cs": "094840aaf38ce2df90b1252bab8356f22e805353e576a3f798992c67a5b4a6a7",
+    "DicePrototype/Assets/Game/Runtime/AtomicSaveStore.cs": "a1f86f5d162422a0336a15612271379e44cd2eb0fc44c339d52d0cf6ac2877d0"
+  },
+  "checks": [
+    "ActionSequence reads committed state under gate",
+    "cache uses session identity and committed sequence",
+    "pending/busy remain live reads",
+    "failed saves retain old committed snapshot",
+    "successful retry increments sequence and refreshes",
+    "log follows Refresh and skips duplicate",
+    "transaction clone, save adapter isolation and old-save backup validation retained"
+  ]
+}

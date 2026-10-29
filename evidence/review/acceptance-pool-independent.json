@@ -1,0 +1,538 @@
+{
+  "reviewerRanUnity": false,
+  "flowIdMapping": {
+    "A01": [
+      "DiceCraft.Tests.FlowTests.FLOW_A01_InitialStateAndNoSubmitBeforeRoll"
+    ],
+    "A02": [
+      "DiceCraft.Tests.FlowTests.FLOW_A02_A03_A04_OrderedIrreversibleLocks"
+    ],
+    "A03": [
+      "DiceCraft.Tests.FlowTests.FLOW_A02_A03_A04_OrderedIrreversibleLocks"
+    ],
+    "A04": [
+      "DiceCraft.Tests.FlowTests.FLOW_A02_A03_A04_OrderedIrreversibleLocks"
+    ],
+    "A05": [
+      "DiceCraft.Tests.FlowTests.FLOW_A05_PendingBlocksEveryPersistentActionExceptConfirm"
+    ],
+    "A06": [
+      "DiceCraft.Tests.FlowTests.FLOW_A06_OverCapacityRejectsWholeBatch"
+    ],
+    "A07": [
+      "DiceCraft.Tests.FlowTests.FLOW_A07_TemporaryDiceDoNotExpandCapacity"
+    ],
+    "A08": [
+      "DiceCraft.Tests.FlowTests.FLOW_A08_ControllerBudgetsCombine"
+    ],
+    "A09": [
+      "DiceCraft.Tests.FlowTests.FLOW_A09_A11_C05OnlyAfterRollOnceAndSurvivesLoad"
+    ],
+    "A10": [
+      "DiceCraft.Tests.FlowTests.FLOW_A10_LockingAfterLastRollDoesNotGrantC05"
+    ],
+    "A11": [
+      "DiceCraft.Tests.FlowTests.FLOW_A09_A11_C05OnlyAfterRollOnceAndSurvivesLoad"
+    ],
+    "A12": [
+      "DiceCraft.Tests.FlowTests.FLOW_A12_ExtraRollAndSubmissionPersistForStage"
+    ],
+    "B01": [
+      "DiceCraft.Core.Tests.RulesTests.FLOW-B01"
+    ],
+    "B02": [
+      "DiceCraft.Core.Tests.RulesTests.FLOW-B02"
+    ],
+    "B03": [
+      "DiceCraft.Core.Tests.RulesTests.FLOW-B03"
+    ],
+    "B04": [
+      "DiceCraft.Core.Tests.RulesTests.FLOW-B04"
+    ],
+    "B05": [
+      "DiceCraft.Core.Tests.RulesTests.FLOW-B05"
+    ],
+    "B06": [
+      "DiceCraft.Core.Tests.RulesTests.FLOW-B06"
+    ],
+    "B07": [
+      "DiceCraft.Core.Tests.RulesTests.FLOW-B07"
+    ],
+    "B08": [
+      "DiceCraft.Core.Tests.RulesTests.FLOW-B08"
+    ],
+    "B09": [
+      "DiceCraft.Core.Tests.RulesTests.FLOW-B09"
+    ],
+    "B10": [
+      "DiceCraft.Core.Tests.RulesTests.FLOW-B10"
+    ],
+    "B11": [
+      "DiceCraft.Core.Tests.RulesTests.FLOW-B11"
+    ],
+    "B12": [
+      "DiceCraft.Core.Tests.RulesTests.FLOW-B12"
+    ],
+    "B13": [
+      "DiceCraft.Core.Tests.RulesTests.FLOW-B13"
+    ],
+    "B14": [
+      "DiceCraft.Core.Tests.RulesTests.FLOW-B14"
+    ],
+    "B15": [
+      "DiceCraft.Core.Tests.RulesTests.FLOW-B15"
+    ],
+    "B16": [
+      "DiceCraft.Core.Tests.RulesTests.FLOW-B16"
+    ],
+    "B17": [
+      "DiceCraft.Core.Tests.RulesTests.FLOW-B17"
+    ],
+    "B18": [
+      "DiceCraft.Core.Tests.RulesTests.FLOW-B18"
+    ],
+    "B19": [
+      "DiceCraft.Core.Tests.RulesTests.FLOW-B19-partial",
+      "DiceCraft.Core.Tests.RulesTests.FLOW-B19-full"
+    ],
+    "B20": [
+      "DiceCraft.Core.Tests.RulesTests.FLOW-B20"
+    ],
+    "C01": [
+      "DiceCraft.Tests.FlowTests.FLOW_C01_C02_CopyUsesFrozenScoreAndDeepCopies"
+    ],
+    "C02": [
+      "DiceCraft.Tests.FlowTests.FLOW_C01_C02_CopyUsesFrozenScoreAndDeepCopies"
+    ],
+    "C03": [
+      "DiceCraft.Tests.FlowTests.FLOW_C03_C04_CopyDoesNotTriggerLaterOrOnEffectivePair"
+    ],
+    "C04": [
+      "DiceCraft.Tests.FlowTests.FLOW_C03_C04_CopyDoesNotTriggerLaterOrOnEffectivePair"
+    ],
+    "C05": [
+      "DiceCraft.Tests.FlowTests.FLOW_A09_A11_C05OnlyAfterRollOnceAndSurvivesLoad",
+      "DiceCraft.Tests.FlowTests.FLOW_C05_C06_DiffusionUsesPhysicalFaceAfterScoring"
+    ],
+    "C06": [
+      "DiceCraft.Tests.FlowTests.FLOW_C05_C06_DiffusionUsesPhysicalFaceAfterScoring"
+    ],
+    "C07": [
+      "DiceCraft.Tests.FlowTests.FLOW_C07_RemoteAllowsAbsentPipAndPreservesPhysicalFace"
+    ],
+    "C08": [
+      "DiceCraft.Tests.FlowTests.FLOW_C08_RemoteRejectsBadTargetsAtomically"
+    ],
+    "C09": [
+      "DiceCraft.Tests.FlowTests.FLOW_C09_C11_BrokenRemoteTargetsConsumeItemAndNoDiceFails",
+      "DiceCraft.Tests.ShopTests.FLOW_E15_C09RechecksDisplayedHandQualification"
+    ],
+    "C10": [
+      "DiceCraft.Tests.FlowTests.FLOW_C10_LockedGlassNeverRollsOrBreaks"
+    ],
+    "C11": [
+      "DiceCraft.Tests.FlowTests.FLOW_C09_C11_BrokenRemoteTargetsConsumeItemAndNoDiceFails"
+    ],
+    "C12": [
+      "DiceCraft.Tests.FlowTests.FLOW_C12_TemporaryLimitIsSimultaneousNotHistorical"
+    ],
+    "C13": [
+      "DiceCraft.Tests.FlowTests.FLOW_C13_CopyPreservesTemporaryTargetLifetime"
+    ],
+    "C14": [
+      "DiceCraft.Tests.FlowTests.FLOW_C14_C15_SettlementClearsTemporaryDiceWithFinalWinPriority(False)",
+      "DiceCraft.Tests.FlowTests.FLOW_C14_C15_SettlementClearsTemporaryDiceWithFinalWinPriority(True)"
+    ],
+    "C15": [
+      "DiceCraft.Tests.FlowTests.FLOW_C14_C15_SettlementClearsTemporaryDiceWithFinalWinPriority(False)",
+      "DiceCraft.Tests.FlowTests.FLOW_C14_C15_SettlementClearsTemporaryDiceWithFinalWinPriority(True)"
+    ],
+    "D01": [
+      "DiceCraft.Core.Tests.RulesTests.Probability_FiveContractVectors(\"none\",False,False,System.Int32[])"
+    ],
+    "D02": [
+      "DiceCraft.Core.Tests.RulesTests.Probability_FiveContractVectors(\"smooth\",False,False,System.Int32[])"
+    ],
+    "D03": [
+      "DiceCraft.Core.Tests.RulesTests.Probability_FiveContractVectors(\"rough\",False,False,System.Int32[])"
+    ],
+    "D04": [
+      "DiceCraft.Core.Tests.RulesTests.Probability_FiveContractVectors(\"none\",True,False,System.Int32[])"
+    ],
+    "D05": [
+      "DiceCraft.Tests.ItemAndSaveTests.FLOW_D05_D06_ProbabilityBuffsUsePermanentPipsAndDoNotStack"
+    ],
+    "D06": [
+      "DiceCraft.Tests.ItemAndSaveTests.FLOW_D05_D06_ProbabilityBuffsUsePermanentPipsAndDoNotStack"
+    ],
+    "D07": [
+      "DiceCraft.Tests.ItemAndSaveTests.FLOW_D07_TextureReplacementPreservesOtherAttributes"
+    ],
+    "D08": [
+      "DiceCraft.Tests.ItemAndSaveTests.FLOW_D08_RepeatedLoadsNeverCompoundProbabilityWeights"
+    ],
+    "E01": [
+      "DiceCraft.Tests.ShopTests.FLOW_E01_RewardUsesOldBalance(False,36)",
+      "DiceCraft.Tests.ShopTests.FLOW_E01_RewardUsesOldBalance(True,38)"
+    ],
+    "E02": [
+      "DiceCraft.Tests.ShopTests.FLOW_E02_BuyingPigNeverChangesPriorSettlement"
+    ],
+    "E03": [
+      "DiceCraft.Tests.ShopTests.FLOW_E03_ControllerFullRejectsWithoutRestocking"
+    ],
+    "E04": [
+      "DiceCraft.Tests.ShopTests.FLOW_E04_SellOnceAndConsumedCannotSell"
+    ],
+    "E05": [
+      "DiceCraft.Tests.ShopTests.FLOW_E05_E06_DiscountChargesOldPriceAndMinimumTwo"
+    ],
+    "E06": [
+      "DiceCraft.Tests.ShopTests.FLOW_E05_E06_DiscountChargesOldPriceAndMinimumTwo"
+    ],
+    "E07": [
+      "DiceCraft.Tests.ShopTests.FLOW_E07_DiscountDoesNotAffectControllersOrUpgrades"
+    ],
+    "E08": [
+      "DiceCraft.Tests.ShopTests.FLOW_E08_MaxedServiceRejects(\"O01\")",
+      "DiceCraft.Tests.ShopTests.FLOW_E08_MaxedServiceRejects(\"O02\")"
+    ],
+    "E09": [
+      "DiceCraft.Tests.ShopTests.FLOW_E09_IdenticalUpgradeRejectsWithoutMoneyOrRandomness(\"U01\")",
+      "DiceCraft.Tests.ShopTests.FLOW_E09_IdenticalUpgradeRejectsWithoutMoneyOrRandomness(\"U02\")",
+      "DiceCraft.Tests.ShopTests.FLOW_E09_IdenticalUpgradeRejectsWithoutMoneyOrRandomness(\"U03\")",
+      "DiceCraft.Tests.ShopTests.FLOW_E09_IdenticalUpgradeRejectsWithoutMoneyOrRandomness(\"U04\")",
+      "DiceCraft.Tests.ShopTests.FLOW_E09_IdenticalUpgradeRejectsWithoutMoneyOrRandomness(\"U05\")",
+      "DiceCraft.Tests.ShopTests.FLOW_E09_IdenticalUpgradeRejectsWithoutMoneyOrRandomness(\"U06\")"
+    ],
+    "E10": [
+      "DiceCraft.Tests.ShopTests.FLOW_E10_TransformExcludesOldPipAndPreservesAttributes"
+    ],
+    "E11": [
+      "DiceCraft.Tests.ShopTests.FLOW_E11_NewDiePreviewFixedAndPurchaseClones"
+    ],
+    "E12": [
+      "DiceCraft.Tests.ShopTests.FLOW_E12_LastPermanentDieCannotBeDeletedEvenWithTemporaryDie"
+    ],
+    "E13": [
+      "DiceCraft.Tests.ItemAndSaveTests.FLOW_E13_CopySaveFailureDoesNotApplyUntilCommitOrRepeatOnRetry",
+      "DiceCraft.Tests.ItemAndSaveTests.FLOW_E13_TransformSaveFailureRetainsExactCandidateAndBlocksNewActions"
+    ],
+    "E14": [
+      "DiceCraft.Tests.ItemAndSaveTests.FLOW_E14_LocksOrderBuffsAndRngSurviveRestore"
+    ],
+    "E15": [
+      "DiceCraft.Tests.ShopTests.FLOW_E15_C09RechecksDisplayedHandQualification"
+    ]
+  },
+  "flowCount": 70,
+  "editReport": "nunit-20261029-015006.xml",
+  "playReport": "nunit-20261029-014917.xml",
+  "editCount": 325,
+  "playCount": 20,
+  "contentAssetMapping": [
+    {
+      "id": "C01",
+      "png": "DicePrototype\\Assets\\Game\\Art\\Icons\\C01.png",
+      "pngSha256": "456ecb5e5abc1ad845c6c9abe57f0410cab57a8544b19e8e1077a520bc63094f",
+      "editableSource": "art\\source_icons\\C01.svg",
+      "sourceSha256": "8919f3296da48e56f0c4acbaae0899a5f30d4649beee88b31bc6618c19de250a"
+    },
+    {
+      "id": "C02",
+      "png": "DicePrototype\\Assets\\Game\\Art\\Icons\\C02.png",
+      "pngSha256": "3a5de48d1f3a09ff9dc6103206f9fb56fcd1bfe4821984ef7f6ff031489c40bd",
+      "editableSource": "art\\source_icons\\C02.svg",
+      "sourceSha256": "2663c5a2e91952bd262da9e468519f786bb6eb3eeac39cd5c79b84bf16df859a"
+    },
+    {
+      "id": "C03",
+      "png": "DicePrototype\\Assets\\Game\\Art\\Icons\\C03.png",
+      "pngSha256": "765fbb1b8ff5fcd81c798e8384bfab4194f71c6e778561f3b95fd321c318ee83",
+      "editableSource": "art\\source_icons\\C03.svg",
+      "sourceSha256": "b3d2cdf5dff9938f8f0d128e44478f07adfab5decbe44f835b95ddf0c48a6b5c"
+    },
+    {
+      "id": "C04",
+      "png": "DicePrototype\\Assets\\Game\\Art\\Icons\\C04.png",
+      "pngSha256": "7758a120221ece87080c834597aff42b5e84b6f8cbf0bd7008321f07bde21328",
+      "editableSource": "art\\source_icons\\C04.svg",
+      "sourceSha256": "6770f4ff050814f16ec5acb8078243965f8c38cfd42ab9227938a074208dfdf2"
+    },
+    {
+      "id": "C05",
+      "png": "DicePrototype\\Assets\\Game\\Art\\Icons\\C05.png",
+      "pngSha256": "f87134356939a10f6f592092c6332fbd1be6ccdc6b2ca7a1e8ff140c919be2df",
+      "editableSource": "art\\source_icons\\C05.svg",
+      "sourceSha256": "b4829cd71c87fdf3d7879480d5000db0087699b2f3ee881bba0f4412ec48bacc"
+    },
+    {
+      "id": "C06",
+      "png": "DicePrototype\\Assets\\Game\\Art\\Icons\\C06.png",
+      "pngSha256": "7dd37a0686658e6d1d87a80a0de71bb20bb09bc6d0536df317a0e53e3f1923d8",
+      "editableSource": "art\\source_icons\\C06.svg",
+      "sourceSha256": "431471de139f9a4cf63d6ae88fb9f13c4717766e103922e0a012ec71dd322360"
+    },
+    {
+      "id": "C07",
+      "png": "DicePrototype\\Assets\\Game\\Art\\Icons\\C07.png",
+      "pngSha256": "d861f11aeebc438000f536c59f6f32e2cacb859cade8635a3e5ebc88b1226d9b",
+      "editableSource": "art\\source_icons\\C07.svg",
+      "sourceSha256": "ed5d694f81316d8fc646389186683a4f81f6e920635b66dfe29c03addb69d208"
+    },
+    {
+      "id": "C08",
+      "png": "DicePrototype\\Assets\\Game\\Art\\Icons\\C08.png",
+      "pngSha256": "0b1e84d1565bfe12e72618b0e82ea629082b522b243f422e4b25728b9860ebc0",
+      "editableSource": "art\\source_icons\\C08.svg",
+      "sourceSha256": "82064c77cf4e07bd606133a31e98b97f70e54ef8609eabe302918eb74fe6a98d"
+    },
+    {
+      "id": "C09",
+      "png": "DicePrototype\\Assets\\Game\\Art\\Icons\\C09.png",
+      "pngSha256": "23a7c97300c24c2d444d495bc2d2f778fd5fbc132b26d340f574310e52502cc9",
+      "editableSource": "art\\source_icons\\C09.svg",
+      "sourceSha256": "805bf19599ec6ab44c452d7d08a91dbbb51718479bb550400a3ea5b5bb46e657"
+    },
+    {
+      "id": "C10",
+      "png": "DicePrototype\\Assets\\Game\\Art\\Icons\\C10.png",
+      "pngSha256": "d3bee5adf83d07d1f64039a5ded4c8b7588c765fae3348bc03373dcb723d1e28",
+      "editableSource": "art\\source_icons\\C10.svg",
+      "sourceSha256": "4df3682e31944ba2e16d4446191fca4763a65315eb06996613e48d6a2cd5383e"
+    },
+    {
+      "id": "C11",
+      "png": "DicePrototype\\Assets\\Game\\Art\\Icons\\C11.png",
+      "pngSha256": "91d6969dc1c126a18f33044afb62cc3c65af2784ac07773affc0d547e4ed949b",
+      "editableSource": "art\\source_icons\\C11.svg",
+      "sourceSha256": "4fe6db5ef2f9c8aed8576a5d6c450a99215294f32913973d696649efa2584a5a"
+    },
+    {
+      "id": "C12",
+      "png": "DicePrototype\\Assets\\Game\\Art\\Icons\\C12.png",
+      "pngSha256": "4654916ac33bce69e88b5012cd7bb1fd8f48e2711c4d67c78686f84941cd4e24",
+      "editableSource": "art\\source_icons\\C12.svg",
+      "sourceSha256": "6f88b637a5d1b2b3aede72b90702b5aa6c22cf6fe13ab074c318d3290833a3a8"
+    },
+    {
+      "id": "C13",
+      "png": "DicePrototype\\Assets\\Game\\Art\\Icons\\C13.png",
+      "pngSha256": "da6a37b8de86b5fe0a696b02fbc6662b2cb0e7452324ac2f5bd40e156b6e30d9",
+      "editableSource": "art\\source_icons\\C13.svg",
+      "sourceSha256": "2191b58213171d0fb200d079b02577c92d56e60e8f3282d8de7eceaad26c08ca"
+    },
+    {
+      "id": "C14",
+      "png": "DicePrototype\\Assets\\Game\\Art\\Icons\\C14.png",
+      "pngSha256": "b8a6758d5b758e7e637cb7065cf8cd11826ca58546c0a464e5bf6fb6c3ef3695",
+      "editableSource": "art\\source_icons\\C14.svg",
+      "sourceSha256": "2718685e6943c2f1042af0b8c892744881ddd49476b1961d5980b4056acf6af0"
+    },
+    {
+      "id": "C15",
+      "png": "DicePrototype\\Assets\\Game\\Art\\Icons\\C15.png",
+      "pngSha256": "15a7029f6cbd41c56d0073590def1fd236ceb3ce4cefb9d6d17d28fb9886c756",
+      "editableSource": "art\\source_icons\\C15.svg",
+      "sourceSha256": "f75c4378a11786fc565266349c96125d70f8b07c361a47c015057725c24548ea"
+    },
+    {
+      "id": "C16",
+      "png": "DicePrototype\\Assets\\Game\\Art\\Icons\\C16.png",
+      "pngSha256": "a302087054287888a5db290723896e0768dcb96c33befde6604e079372499d90",
+      "editableSource": "art\\source_icons\\C16.svg",
+      "sourceSha256": "a3808e44d32fcb698bcdd151af1f9902c0aa203e6a3a18370787dfa603ecc24c"
+    },
+    {
+      "id": "C17",
+      "png": "DicePrototype\\Assets\\Game\\Art\\Icons\\C17.png",
+      "pngSha256": "391720e20ae8f2de947c01dfc2245db1625dbc24da744e31839dca22271f6358",
+      "editableSource": "art\\source_icons\\C17.svg",
+      "sourceSha256": "a58c0ee235a07f33ec3b65bc966a0eb5465d474130c4ddeee4755a10ded24a89"
+    },
+    {
+      "id": "C18",
+      "png": "DicePrototype\\Assets\\Game\\Art\\Icons\\C18.png",
+      "pngSha256": "371a2b62bb2090a788f74b47dafcd4a120b342a15fec021f536c7ee686692465",
+      "editableSource": "art\\source_icons\\C18.svg",
+      "sourceSha256": "17e9911963947c54de921769584e291bcf10d7e985db829816f633ef3a309cad"
+    },
+    {
+      "id": "C19",
+      "png": "DicePrototype\\Assets\\Game\\Art\\Icons\\C19.png",
+      "pngSha256": "f3b59b442d16e92253da186017f9ff0e3b977d70911a0063537f209b2fa69383",
+      "editableSource": "art\\source_icons\\C19.svg",
+      "sourceSha256": "3c5500cc633cac6cffb3c9fca721d52adac9ddd5d80c1535fc0ad4cbc823aac3"
+    },
+    {
+      "id": "C20",
+      "png": "DicePrototype\\Assets\\Game\\Art\\Icons\\C20.png",
+      "pngSha256": "1f3c9529ea21d17776de557c71720377c92303209f55521a24ebd80036fef54f",
+      "editableSource": "art\\source_icons\\C20.svg",
+      "sourceSha256": "fcf2fb8370002a76b2648c23a1afb8cc6926e38459cf4841edee2f522f7916a9"
+    },
+    {
+      "id": "I01",
+      "png": "DicePrototype\\Assets\\Game\\Art\\Icons\\I01.png",
+      "pngSha256": "6a472adab72484a012a3798da69522feffcf8df8c7ea581e99e60fdc44bc27bd",
+      "editableSource": "art\\source_icons\\I01.svg",
+      "sourceSha256": "7c6eeab55e9f8f4b0370c8410a72bcea583f27379a78950e1b3fe01958c476dc"
+    },
+    {
+      "id": "I02",
+      "png": "DicePrototype\\Assets\\Game\\Art\\Icons\\I02.png",
+      "pngSha256": "e30136998ed38d82dc99942be851f801830c52321baf8e7705b304530357a09b",
+      "editableSource": "art\\source_icons\\I02.svg",
+      "sourceSha256": "f20555aa22dac8eef0291f512688b18a024b21827880daef35791f65778d8393"
+    },
+    {
+      "id": "I03",
+      "png": "DicePrototype\\Assets\\Game\\Art\\Icons\\I03.png",
+      "pngSha256": "30eee8457ffe90c10bb894e491f25b363f7bf21c520a9e85bec22705822d87c7",
+      "editableSource": "art\\source_icons\\I03.svg",
+      "sourceSha256": "0172f65870a2517daee4a865d677d88766c02d558cfc7884ab6b1e44edb1d332"
+    },
+    {
+      "id": "I04",
+      "png": "DicePrototype\\Assets\\Game\\Art\\Icons\\I04.png",
+      "pngSha256": "c4a58c52edd634db8d03fafcbc9a0b6aa19fb083947edc20611a1424a70655e0",
+      "editableSource": "art\\source_icons\\I04.svg",
+      "sourceSha256": "5fc7dc72a7a6aa8b5e20b393aafdd8c4dbf534bc6541c81ed4b578c15dcbe671"
+    },
+    {
+      "id": "I05",
+      "png": "DicePrototype\\Assets\\Game\\Art\\Icons\\I05.png",
+      "pngSha256": "381e324434c9d4fd5f19430dcdd8b9568db4ae789ad6a40e0e86bcdb98ae87c0",
+      "editableSource": "art\\source_icons\\I05.svg",
+      "sourceSha256": "93d3f3217304d9170a349b179f12fe90862b050432e363b015ddd81fd3a28e64"
+    },
+    {
+      "id": "I06",
+      "png": "DicePrototype\\Assets\\Game\\Art\\Icons\\I06.png",
+      "pngSha256": "d0d6aa7e8018a7731cd079cec29105dc5e8a67d0fe35752ac17f24c3951e8258",
+      "editableSource": "art\\source_icons\\I06.svg",
+      "sourceSha256": "c5137bfbad826359abf4b7d945c1eff9ad5c279732cc3459c44717e38c4eb73f"
+    },
+    {
+      "id": "I07",
+      "png": "DicePrototype\\Assets\\Game\\Art\\Icons\\I07.png",
+      "pngSha256": "754825b96cdf894a4b718f0134341006bd5944ae9b146fb747b759c0203b6e5d",
+      "editableSource": "art\\source_icons\\I07.svg",
+      "sourceSha256": "39fe025c027b2c5ea1d7ab81970ddf2b62a83d2167499cd46c46368bbcb59d9d"
+    },
+    {
+      "id": "O01",
+      "png": "DicePrototype\\Assets\\Game\\Art\\Icons\\O01.png",
+      "pngSha256": "3a6c45a1b4e531953c3fe52655b193803d181aaad42a14bb20fd726dbf1dffba",
+      "editableSource": "art\\source_icons\\O01.svg",
+      "sourceSha256": "c2dbbba52293597cb7d9fcffd2ee045d6296bb96f2c3de3b6655cdd592eaa7b8"
+    },
+    {
+      "id": "O02",
+      "png": "DicePrototype\\Assets\\Game\\Art\\Icons\\O02.png",
+      "pngSha256": "64e8c827bcebc15883a3bc7582c3d53e085e8d8f62b6e6f78fef8f45409ef5da",
+      "editableSource": "art\\source_icons\\O02.svg",
+      "sourceSha256": "7b25517d49b18e73224e7f5a0858637a181c0636aa88a257cbeb11a1480977f6"
+    },
+    {
+      "id": "O03",
+      "png": "DicePrototype\\Assets\\Game\\Art\\Icons\\O03.png",
+      "pngSha256": "eec04709390c9482ed9879b1fdcb812e514313423e748fffccc76cb0d36b861b",
+      "editableSource": "art\\source_icons\\O03.svg",
+      "sourceSha256": "dffe4e04ba8817f73300c4010c63605d2f6c02b1e8cb87c6aacdde5212466509"
+    },
+    {
+      "id": "O04",
+      "png": "DicePrototype\\Assets\\Game\\Art\\Icons\\O04.png",
+      "pngSha256": "4c8e78d9743558e12e11465873f51d595c24272272585a20c217093e2a573556",
+      "editableSource": "art\\source_icons\\O04.svg",
+      "sourceSha256": "98971b0324ce6ef01991125b5f75f63a7c67fdd0477b6e34aa2eb224c348049c"
+    },
+    {
+      "id": "U01",
+      "png": "DicePrototype\\Assets\\Game\\Art\\Icons\\U01.png",
+      "pngSha256": "12aaaff50cb028e791292c4d3ea295b7a05717a07e02ec12a3f864af319ed924",
+      "editableSource": "art\\source_icons\\U01.svg",
+      "sourceSha256": "46d5d9389c6ef4cfd8839fbad9bf608d4bb40456db6c5df8bc45260ad7688756"
+    },
+    {
+      "id": "U02",
+      "png": "DicePrototype\\Assets\\Game\\Art\\Icons\\U02.png",
+      "pngSha256": "87b2ef92ad4cf63a246779c16abc27373338931f6a24cd2a83214d13aeb7a2cb",
+      "editableSource": "art\\source_icons\\U02.svg",
+      "sourceSha256": "e0fc328a3495cd0cb46a905e8f361336447fcd7958a80407bac793e91eb0b538"
+    },
+    {
+      "id": "U03",
+      "png": "DicePrototype\\Assets\\Game\\Art\\Icons\\U03.png",
+      "pngSha256": "bf3a2e635dcbbfd39288489f34f0ea01c7bfd0be2bedad6932387cc5e9bda8d4",
+      "editableSource": "art\\source_icons\\U03.svg",
+      "sourceSha256": "868dd87211a3d4b5f45d9f4974b6a1d28c60796b8fe2e172f887839b14729376"
+    },
+    {
+      "id": "U04",
+      "png": "DicePrototype\\Assets\\Game\\Art\\Icons\\U04.png",
+      "pngSha256": "953382b14dfaa937d28c75155e51c854996f8729bc0b5e0932d32cee2c5f337f",
+      "editableSource": "art\\source_icons\\U04.svg",
+      "sourceSha256": "c6f0eaacae7f5dda079fa03ab5abf47b1d4c4787004a7971a1747e71a0a75b9a"
+    },
+    {
+      "id": "U05",
+      "png": "DicePrototype\\Assets\\Game\\Art\\Icons\\U05.png",
+      "pngSha256": "1ee0447ff289fd43d2e492c6ff381ae55afa56af903a8d8386c1758bbdc9f7ce",
+      "editableSource": "art\\source_icons\\U05.svg",
+      "sourceSha256": "3468396efda20f191c0393598ca174b0b5cce8c0afb817c573b833bb05baaa88"
+    },
+    {
+      "id": "U06",
+      "png": "DicePrototype\\Assets\\Game\\Art\\Icons\\U06.png",
+      "pngSha256": "2166a7660a08f4f579b2223ba84726fcc30b3e49d86d82dcb89d7463c95e94dc",
+      "editableSource": "art\\source_icons\\U06.svg",
+      "sourceSha256": "bd2a1e10b30de95e9bd5fb1dd8d2b89f9c2b4d626d71efcea91b466e126dabfe"
+    },
+    {
+      "id": "U07",
+      "png": "DicePrototype\\Assets\\Game\\Art\\Icons\\U07.png",
+      "pngSha256": "d853328c8ba8c8ab40029bbf3247777b36570360568f67bfbc73ca59bc962150",
+      "editableSource": "art\\source_icons\\U07.svg",
+      "sourceSha256": "d1d6bc606e69cb8d4f2d1ba6772d98c5383c961a1bf47d4463957258270e3b32"
+    }
+  ],
+  "assetSourceHashesStillMatch": [
+    {
+      "path": "art/blender/Dice_P0.blend",
+      "sha256": "f18c2bd46779dff2757542361859e6e1e3a685ca527fe29d14e3597650b728a5"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Art/Models/DiceBody.fbx",
+      "sha256": "98d72afb26b0b79e0f94fd0332b6a900f499e2a6bb333da7810e9474b770748c"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Art/Models/face_map.json",
+      "sha256": "d902790f6bf58a9697288875281c43bf30fb9d5ddf80aad6f1cb0664c7fe698d"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Art/Models/Roll_A.fbx",
+      "sha256": "23e17817eaad0a82de9a23fb158d20d427e622934c4151f07b7920823cadfd97"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Art/Models/Roll_B.fbx",
+      "sha256": "45e4bf8e976cb322f3d177d4007880e43925538eebf3d4e521580bc31af2024a"
+    }
+  ],
+  "currentPlayerPdbAll20Match": true,
+  "currentEditorPdbAll36Match": true,
+  "buildReport": {
+    "result": "Succeeded",
+    "errors": 0,
+    "warnings": 0,
+    "bytes": 195158794,
+    "seconds": 9.394020399999999
+  },
+  "acceptanceContract": "docs/tasks/P0-IMPLEMENTATION.md",
+  "notes": [
+    "Flow mapping names are execution traceability, not proof solely from names; source assertions were independently reviewed during the task.",
+    "Asset report hashes bind source BLEND and exported FBX; the reviewer did not launch Blender in this final check.",
+    "No human experience or mobile acceptance is inferred."
+  ]
+}

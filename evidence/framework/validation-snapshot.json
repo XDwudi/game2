@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "inputs": [
+    {
+      "path": "tools/quality_check.py",
+      "sha256": "2a6aa3e5d5e5edb62b2a456ea7514df44d56d943dc168b4b086039092c33fed9"
+    },
+    {
+      "path": "tests/test_quality_check.py",
+      "sha256": "dbbffa452814f1c97a20ee5b3ff971cecdea3eb48392ca73f7b092ee8e5702c6"
+    },
+    {
+      "path": "tools/QUALITY_CHECK.md",
+      "sha256": "052d2e098fe6743b2bac38b0ded3b17d8f6aea6c68778f54e3b20201648820c3"
+    },
+    {
+      "path": "references/sources.lock.json",
+      "sha256": "c1d86755afa50986b1956cf9cea3826df91a2bc4ecc2b8137888edd03d7dd33d"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "evidence/framework/unit-tests.log",
+      "sha256": "56daaa4edf11e862deaaed78f6d46a7ee1c4dd4159493f50f9a41220d77515ca"
+    },
+    {
+      "path": "evidence/framework/sources.log",
+      "sha256": "63c5d75b8d82665955d0bd59568de36b4dfbd1ce7f4c2565dd5f426910f7907c"
+    },
+    {
+      "path": "evidence/framework/checks.json",
+      "sha256": "9499f1ef90daa97e7e2214664a6d91b772f92f02fccd9041286603197e76b978"
+    },
+    {
+      "path": "evidence/framework/checker-review.md",
+      "sha256": "1622ae3cab353e4c4851769996fb0dc35e85cfd62ed934b90b41ff714e6c7ea1"
+    }
+  ]
+}

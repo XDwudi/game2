@@ -1,0 +1,34 @@
+{
+  "reviewerRanUnity": false,
+  "newPerformanceThreshold": false,
+  "rawRows": 10778,
+  "csvSha256": "7127fa262013bf0651ffc8b1e7dbf14d55629139bf320e7f2e046f709bda52e0",
+  "metrics": {
+    "frameStart": {
+      "samples": 10777,
+      "expectedFrames": 10777,
+      "validFrameCoverage": 1.0,
+      "p95": 18.7553,
+      "mean": 16.701063533450867,
+      "max": 24.2659
+    },
+    "presentCalled": {
+      "samples": 10777,
+      "expectedFrames": 10777,
+      "validFrameCoverage": 1.0,
+      "p95": 18.752,
+      "mean": 16.701060554885405,
+      "max": 24.2804
+    },
+    "frameComplete": {
+      "samples": 10777,
+      "expectedFrames": 10777,
+      "validFrameCoverage": 1.0,
+      "p95": 18.7508,
+      "mean": 16.701068024496614,
+      "max": 24.2087
+    }
+  },
+  "mismatches": [],
+  "limitations": "FTM delayed adjacent observations may skip native records. Present call and frame completion are not physical scanout. Diagnostic P95 values do not replace the original LateUpdate verdict."
+}

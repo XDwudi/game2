@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="12" result="Failed(Child)" total="12" passed="0" failed="12" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-29 00:31:51Z" end-time="2026-10-29 00:31:53Z" duration="1.7811672">
+  <test-suite type="TestSuite" id="1330" name="DiceCraft P0" fullname="DiceCraft P0" runstate="Runnable" testcasecount="12" result="Failed" site="Child" start-time="2026-10-29 00:31:51Z" end-time="2026-10-29 00:31:53Z" duration="1.781167" total="12" passed="0" failed="12" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <failure>
+      <message><![CDATA[One or more child tests had errors]]></message>
+    </failure>
+    <test-suite type="Assembly" id="1344" name="DiceCraft.PlayModeTests.dll" fullname="E:/agent_workspace/gpt/game2/DicePrototype/Library/ScriptAssemblies/DiceCraft.PlayModeTests.dll" runstate="Runnable" testcasecount="12" result="Failed" site="Child" start-time="2026-10-29 00:31:51Z" end-time="2026-10-29 00:31:53Z" duration="1.780595" total="12" passed="0" failed="12" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="43452" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <failure>
+        <message><![CDATA[One or more child tests had errors]]></message>
+      </failure>
+      <test-suite type="TestSuite" id="1345" name="DiceCraft" fullname="DiceCraft" runstate="Runnable" testcasecount="12" result="Failed" site="Child" start-time="2026-10-29 00:31:51Z" end-time="2026-10-29 00:31:53Z" duration="1.780239" total="12" passed="0" failed="12" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <failure>
+          <message><![CDATA[One or more child tests had errors]]></message>
+        </failure>
+        <test-suite type="TestSuite" id="1346" name="Tests" fullname="DiceCraft.Tests" runstate="Runnable" testcasecount="12" result="Failed" site="Child" start-time="2026-10-29 00:31:51Z" end-time="2026-10-29 00:31:53Z" duration="1.779881" total="12" passed="0" failed="12" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <failure>
+            <message><![CDATA[One or more child tests had errors]]></message>
+          </failure>
+          <test-suite type="TestFixture" id="1331" name="GameplayPlayModeTests" fullname="DiceCraft.Tests.GameplayPlayModeTests" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" testcasecount="12" result="Failed" site="Child" start-time="2026-10-29 00:31:51Z" end-time="2026-10-29 00:31:53Z" duration="1.779439" total="12" passed="0" failed="12" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <failure>
+              <message><![CDATA[One or more child tests had errors]]></message>
+            </failure>
+            <test-case id="1336" name="PLAY_Bootstrap_RealReferences38IconsFontAndSingleInputSystem" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_Bootstrap_RealReferences38IconsFontAndSingleInputSystem" methodname="PLAY_Bootstrap_RealReferences38IconsFontAndSingleInputSystem" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="1543354506" result="Failed" start-time="2026-10-29 00:31:51Z" end-time="2026-10-29 00:31:52Z" duration="0.564665" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <failure>
+                <message><![CDATA[SetUp : Unhandled log message: '[Exception] UnityException: CreateImpl is not allowed to be called during serialization, call it from Awake or Start instead. Called from MonoBehaviour 'GameApp' on game object 'Game'.
+See "Script Serialization" page in the Unity Manual for further details.'. Use UnityEngine.TestTools.LogAssert.Expect]]></message>
+                <stack-trace><![CDATA[UnityEngine.MaterialPropertyBlock..ctor () (at <2a0aacfdb6844320ae79174c32157248>:0)
+DiceCraft.DiceTable..ctor () (at Assets/Game/Runtime/DiceTable.cs:18)
+UnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)
+
+]]></stack-trace>
+              </failure>
+              <output><![CDATA[Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_d60a681582b84698826dbf426eee4b5e
+]]></output>
+            </test-case>
+            <test-case id="1338" name="PLAY_BusyRejectsBypassedUiAndSkipPreservesCommittedRandomness" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_BusyRejectsBypassedUiAndSkipPreservesCommittedRandomness" methodname="PLAY_BusyRejectsBypassedUiAndSkipPreservesCommittedRandomness" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="589816194" result="Failed" start-time="2026-10-29 00:31:52Z" end-time="2026-10-29 00:31:52Z" duration="0.102845" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <failure>
+                <message><![CDATA[SetUp : Unhandled log message: '[Exception] UnityException: CreateImpl is not allowed to be called during serialization, call it from Awake or Start instead. Called from MonoBehaviour 'GameApp' on game object 'Game'.
+See "Script Serialization" page in the Unity Manual for further details.'. Use UnityEngine.TestTools.LogAssert.Expect]]></message>
+                <stack-trace><![CDATA[UnityEngine.MaterialPropertyBlock..ctor () (at <2a0aacfdb6844320ae79174c32157248>:0)
+DiceCraft.DiceTable..ctor () (at Assets/Game/Runtime/DiceTable.cs:18)
+UnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)
+
+]]></stack-trace>
+              </failure>
+              <output><![CDATA[Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_fc3025fb6f0b4074a68f72b600cc26d4
+]]></output>
+            </test-case>
+            <test-case id="1337" name="PLAY_CoreLoop_ClickLockReorderAndSubmitMatchesPreview" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_CoreLoop_ClickLockReorderAndSubmitMatchesPreview" methodname="PLAY_CoreLoop_ClickLockReorderAndSubmitMatchesPreview" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="263250467" result="Failed" start-time="2026-10-29 00:31:52Z" end-time="2026-10-29 00:31:52Z" duration="0.112629" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <failure>
+                <message><![CDATA[SetUp : Unhandled log message: '[Exception] UnityException: CreateImpl is not allowed to be called during serialization, call it from Awake or Start instead. Called from MonoBehaviour 'GameApp' on game object 'Game'.
+See "Script Serialization" page in the Unity Manual for further details.'. Use UnityEngine.TestTools.LogAssert.Expect]]></message>
+                <stack-trace><![CDATA[UnityEngine.MaterialPropertyBlock..ctor () (at <2a0aacfdb6844320ae79174c32157248>:0)
+DiceCraft.DiceTable..ctor () (at Assets/Game/Runtime/DiceTable.cs:18)
+UnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)
+
+]]></stack-trace>
+              </failure>
+              <output><![CDATA[Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_b7ed7b8ecef24b36b725364f03ad113f
+]]></output>
+            </test-case>
+            <test-case id="1339" name="PLAY_FastAnimationUsesSameSeedResultsAndDoesNotConsumeExtraRolls" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_FastAnimationUsesSameSeedResultsAndDoesNotConsumeExtraRolls" methodname="PLAY_FastAnimationUsesSameSeedResultsAndDoesNotConsumeExtraRolls" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="806666363" result="Failed" start-time="2026-10-29 00:31:52Z" end-time="2026-10-29 00:31:52Z" duration="0.116042" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <failure>
+                <message><![CDATA[SetUp : Unhandled log message: '[Exception] UnityException: CreateImpl is not allowed to be called during serialization, call it from Awake or Start instead. Called from MonoBehaviour 'GameApp' on game object 'Game'.
+See "Script Serialization" page in the Unity Manual for further details.'. Use UnityEngine.TestTools.LogAssert.Expect]]></message>
+                <stack-trace><![CDATA[UnityEngine.MaterialPropertyBlock..ctor () (at <2a0aacfdb6844320ae79174c32157248>:0)
+DiceCraft.DiceTable..ctor () (at Assets/Game/Runtime/DiceTable.cs:18)
+UnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)
+
+]]></stack-trace>
+              </failure>
+              <output><![CDATA[Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_25e0feaff79d44b3927117d5e9a0ac56
+]]></output>
+            </test-case>
+            <test-case id="1332" name="PLAY_FirstNewRunSaveFailureOffersRetryAndBlocksBothReplacementEntrances" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_FirstNewRunSaveFailureOffersRetryAndBlocksBothReplacementEntrances" methodname="PLAY_FirstNewRunSaveFailureOffersRetryAndBlocksBothReplacementEntrances" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="618652106" result="Failed" start-time="2026-10-29 00:31:52Z" end-time="2026-10-29 00:31:52Z" duration="0.127220" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <failure>
+                <message><![CDATA[SetUp : Unhandled log message: '[Exception] UnityException: CreateImpl is not allowed to be called during serialization, call it from Awake or Start instead. Called from MonoBehaviour 'GameApp' on game object 'Game'.
+See "Script Serialization" page in the Unity Manual for further details.'. Use UnityEngine.TestTools.LogAssert.Expect]]></message>
+                <stack-trace><![CDATA[UnityEngine.MaterialPropertyBlock..ctor () (at <2a0aacfdb6844320ae79174c32157248>:0)
+DiceCraft.DiceTable..ctor () (at Assets/Game/Runtime/DiceTable.cs:18)
+UnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)
+
+]]></stack-trace>
+              </failure>
+              <output><![CDATA[Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_edda740c214b4c5e9755051fbbb8a03e
+]]></output>
+            </test-case>
+            <test-case id="1343" name="PLAY_IndependentTutorialCompletesRealPurchaseAndPreservesFormalRun" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_IndependentTutorialCompletesRealPurchaseAndPreservesFormalRun" methodname="PLAY_IndependentTutorialCompletesRealPurchaseAndPreservesFormalRun" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="593427365" result="Failed" start-time="2026-10-29 00:31:52Z" end-time="2026-10-29 00:31:52Z" duration="0.112620" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <failure>
+                <message><![CDATA[SetUp : Unhandled log message: '[Exception] UnityException: CreateImpl is not allowed to be called during serialization, call it from Awake or Start instead. Called from MonoBehaviour 'GameApp' on game object 'Game'.
+See "Script Serialization" page in the Unity Manual for further details.'. Use UnityEngine.TestTools.LogAssert.Expect]]></message>
+                <stack-trace><![CDATA[UnityEngine.MaterialPropertyBlock..ctor () (at <2a0aacfdb6844320ae79174c32157248>:0)
+DiceCraft.DiceTable..ctor () (at Assets/Game/Runtime/DiceTable.cs:18)
+UnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)
+
+]]></stack-trace>
+              </failure>
+              <output><![CDATA[Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_c16aa91716594dc7b73d0b9a42d8b8ba
+]]></output>
+            </test-case>
+            <test-case id="1333" name="PLAY_ReadOnlyActionLogCannotAbortAnAlreadySavedUiCommand" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ReadOnlyActionLogCannotAbortAnAlreadySavedUiCommand" methodname="PLAY_ReadOnlyActionLogCannotAbortAnAlreadySavedUiCommand" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="1130042599" result="Failed" start-time="2026-10-29 00:31:52Z" end-time="2026-10-29 00:31:53Z" duration="0.109661" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <failure>
+                <message><![CDATA[SetUp : Unhandled log message: '[Exception] UnityException: CreateImpl is not allowed to be called during serialization, call it from Awake or Start instead. Called from MonoBehaviour 'GameApp' on game object 'Game'.
+See "Script Serialization" page in the Unity Manual for further details.'. Use UnityEngine.TestTools.LogAssert.Expect]]></message>
+                <stack-trace><![CDATA[UnityEngine.MaterialPropertyBlock..ctor () (at <2a0aacfdb6844320ae79174c32157248>:0)
+DiceCraft.DiceTable..ctor () (at Assets/Game/Runtime/DiceTable.cs:18)
+UnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)
+
+]]></stack-trace>
+              </failure>
+              <output><![CDATA[Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_58438b75424d438781a50b0dc880e113
+]]></output>
+            </test-case>
+            <test-case id="1335" name="PLAY_RealEnterKeySubmitsOnceWithoutInvokingSelectedPauseButton" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_RealEnterKeySubmitsOnceWithoutInvokingSelectedPauseButton" methodname="PLAY_RealEnterKeySubmitsOnceWithoutInvokingSelectedPauseButton" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="878053164" result="Failed" start-time="2026-10-29 00:31:53Z" end-time="2026-10-29 00:31:53Z" duration="0.111453" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <failure>
+                <message><![CDATA[SetUp : Unhandled log message: '[Exception] UnityException: CreateImpl is not allowed to be called during serialization, call it from Awake or Start instead. Called from MonoBehaviour 'GameApp' on game object 'Game'.
+See "Script Serialization" page in the Unity Manual for further details.'. Use UnityEngine.TestTools.LogAssert.Expect]]></message>
+                <stack-trace><![CDATA[UnityEngine.MaterialPropertyBlock..ctor () (at <2a0aacfdb6844320ae79174c32157248>:0)
+DiceCraft.DiceTable..ctor () (at Assets/Game/Runtime/DiceTable.cs:18)
+UnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)
+
+]]></stack-trace>
+              </failure>
+              <output><![CDATA[Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_3d2cbc6e49e44191a6f0797238394c53
+]]></output>
+            </test-case>
+            <test-case id="1340" name="PLAY_ReloadDuringRollRestoresLocksOrderAndAcceptedFaceResults" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ReloadDuringRollRestoresLocksOrderAndAcceptedFaceResults" methodname="PLAY_ReloadDuringRollRestoresLocksOrderAndAcceptedFaceResults" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="2047557218" result="Failed" start-time="2026-10-29 00:31:53Z" end-time="2026-10-29 00:31:53Z" duration="0.104357" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <failure>
+                <message><![CDATA[SetUp : Unhandled log message: '[Exception] UnityException: CreateImpl is not allowed to be called during serialization, call it from Awake or Start instead. Called from MonoBehaviour 'GameApp' on game object 'Game'.
+See "Script Serialization" page in the Unity Manual for further details.'. Use UnityEngine.TestTools.LogAssert.Expect]]></message>
+                <stack-trace><![CDATA[UnityEngine.MaterialPropertyBlock..ctor () (at <2a0aacfdb6844320ae79174c32157248>:0)
+DiceCraft.DiceTable..ctor () (at Assets/Game/Runtime/DiceTable.cs:18)
+UnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)
+
+]]></stack-trace>
+              </failure>
+              <output><![CDATA[Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_edf138d903e947e786581a9220a534cf
+]]></output>
+            </test-case>
+            <test-case id="1341" name="PLAY_SceneUnloadReloadResetsStaticUiAndDoesNotLeakSession" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_SceneUnloadReloadResetsStaticUiAndDoesNotLeakSession" methodname="PLAY_SceneUnloadReloadResetsStaticUiAndDoesNotLeakSession" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="1085583535" result="Failed" start-time="2026-10-29 00:31:53Z" end-time="2026-10-29 00:31:53Z" duration="0.104535" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <failure>
+                <message><![CDATA[SetUp : Unhandled log message: '[Exception] UnityException: CreateImpl is not allowed to be called during serialization, call it from Awake or Start instead. Called from MonoBehaviour 'GameApp' on game object 'Game'.
+See "Script Serialization" page in the Unity Manual for further details.'. Use UnityEngine.TestTools.LogAssert.Expect]]></message>
+                <stack-trace><![CDATA[UnityEngine.MaterialPropertyBlock..ctor () (at <2a0aacfdb6844320ae79174c32157248>:0)
+DiceCraft.DiceTable..ctor () (at Assets/Game/Runtime/DiceTable.cs:18)
+UnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)
+
+]]></stack-trace>
+              </failure>
+              <output><![CDATA[Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_94e1bce664fc4db485d1b18608c5e65a
+]]></output>
+            </test-case>
+            <test-case id="1334" name="PLAY_ShopPurchaseFooterShowsSlotAndDuplicateFailuresBeforeConfirm" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ShopPurchaseFooterShowsSlotAndDuplicateFailuresBeforeConfirm" methodname="PLAY_ShopPurchaseFooterShowsSlotAndDuplicateFailuresBeforeConfirm" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="846937150" result="Failed" start-time="2026-10-29 00:31:53Z" end-time="2026-10-29 00:31:53Z" duration="0.104663" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <failure>
+                <message><![CDATA[SetUp : Unhandled log message: '[Exception] UnityException: CreateImpl is not allowed to be called during serialization, call it from Awake or Start instead. Called from MonoBehaviour 'GameApp' on game object 'Game'.
+See "Script Serialization" page in the Unity Manual for further details.'. Use UnityEngine.TestTools.LogAssert.Expect]]></message>
+                <stack-trace><![CDATA[UnityEngine.MaterialPropertyBlock..ctor () (at <2a0aacfdb6844320ae79174c32157248>:0)
+DiceCraft.DiceTable..ctor () (at Assets/Game/Runtime/DiceTable.cs:18)
+UnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)
+
+]]></stack-trace>
+              </failure>
+              <output><![CDATA[Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_81b3162935e64c1bae9a3f4df0e13913
+]]></output>
+            </test-case>
+            <test-case id="1342" name="PLAY_SixPhysicalFacesAndRemotePipsHaveCorrectOrientationAndDotCount" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_SixPhysicalFacesAndRemotePipsHaveCorrectOrientationAndDotCount" methodname="PLAY_SixPhysicalFacesAndRemotePipsHaveCorrectOrientationAndDotCount" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="1484752183" result="Failed" start-time="2026-10-29 00:31:53Z" end-time="2026-10-29 00:31:53Z" duration="0.104319" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <failure>
+                <message><![CDATA[SetUp : Unhandled log message: '[Exception] UnityException: CreateImpl is not allowed to be called during serialization, call it from Awake or Start instead. Called from MonoBehaviour 'GameApp' on game object 'Game'.
+See "Script Serialization" page in the Unity Manual for further details.'. Use UnityEngine.TestTools.LogAssert.Expect]]></message>
+                <stack-trace><![CDATA[UnityEngine.MaterialPropertyBlock..ctor () (at <2a0aacfdb6844320ae79174c32157248>:0)
+DiceCraft.DiceTable..ctor () (at Assets/Game/Runtime/DiceTable.cs:18)
+UnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)
+
+]]></stack-trace>
+              </failure>
+              <output><![CDATA[Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_1f4c2dca2f8541d18ef2d22869bb2c40
+Saving results to: E:\agent_workspace\gpt\game2\evidence\unity\nunit-20261029-003153.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

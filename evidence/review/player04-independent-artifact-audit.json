@@ -1,0 +1,1306 @@
+{
+  "reviewerRanUnity": false,
+  "playerReportSha256": "df0c23368a967b55f25bf987b1915b9a82fbc53f500e7c1021af377c21cfb9df",
+  "environment": {
+    "utc": "2026-10-29T01:27:22.2786465Z",
+    "unityVersion": "6000.6.7f1",
+    "buildGuid": "1ece7f2b268b4656b12e498d74f0841c",
+    "developmentBuild": true,
+    "isEditor": false,
+    "platform": "WindowsPlayer",
+    "os": "Windows 10  (10.0.19045) 64bit",
+    "cpu": "AMD Ryzen 9 5900X 12-Core Processor ",
+    "cpuThreads": 24,
+    "systemMemoryMB": 65457,
+    "gpu": "NVIDIA GeForce RTX 3080",
+    "gpuMemoryMB": 10053,
+    "graphicsVersion": "Direct3D 11.0 [level 11.1]",
+    "graphicsApi": "Direct3D11",
+    "width": 1920,
+    "height": 1080,
+    "fullscreenMode": "Windowed",
+    "quality": "PC",
+    "vSyncCount": 0,
+    "targetFrameRate": 60,
+    "presentationFast": false,
+    "presentationReducedMotion": false,
+    "probeArguments": [
+      "--verify-p0",
+      "E:\\agent_workspace\\gpt\\game2\\evidence\\runs\\normal-win.json",
+      "--evidence-dir",
+      "E:\\agent_workspace\\gpt\\game2\\evidence\\runs\\player\\player-20261029-012720-f50658f6"
+    ]
+  },
+  "checks": [
+    {
+      "name": "normal97_trace_equal",
+      "passed": true
+    },
+    {
+      "name": "normal97_saved_rendered_non_debug",
+      "passed": true
+    },
+    {
+      "name": "normal_save_isolated_unchanged",
+      "passed": true
+    },
+    {
+      "name": "actual_runtime_mvid_equals_report",
+      "passed": true
+    },
+    {
+      "name": "config_trace_hashes",
+      "passed": true
+    },
+    {
+      "name": "31_final_pose_records_consistent",
+      "passed": true
+    },
+    {
+      "name": "accepted_images_nonblack_native_size",
+      "passed": true,
+      "accepted": 46,
+      "total": 48,
+      "visuallyInspected": 9
+    },
+    {
+      "name": "no_rejected_frames_or_unity_errors",
+      "passed": true
+    },
+    {
+      "name": "count_duration_contiguous",
+      "passed": true
+    },
+    {
+      "name": "raw_metric_frameInterval",
+      "passed": true
+    },
+    {
+      "name": "raw_metric_mainThread",
+      "passed": true
+    },
+    {
+      "name": "raw_metric_renderThread",
+      "passed": true
+    },
+    {
+      "name": "raw_metric_frameTimingCpu",
+      "passed": true
+    },
+    {
+      "name": "raw_metric_gpu",
+      "passed": true
+    },
+    {
+      "name": "raw_metric_gcAllocated",
+      "passed": true
+    },
+    {
+      "name": "raw_metric_gcUsed",
+      "passed": true
+    },
+    {
+      "name": "raw_metric_uiRebuild",
+      "passed": true
+    },
+    {
+      "name": "raw_metric_uiRebuildMarkerCalls",
+      "passed": true
+    },
+    {
+      "name": "raw_metric_monoUsed",
+      "passed": true
+    },
+    {
+      "name": "UI_stream_no_stale_batches_or_gap",
+      "passed": true
+    },
+    {
+      "name": "GPU_complete_no_invalid",
+      "passed": true
+    },
+    {
+      "name": "complete_capture_correctly_reports_budget_failure",
+      "passed": true
+    }
+  ],
+  "images": [
+    {
+      "file": "debug-die-detail-permanent-preview-1280x720.png",
+      "sha256": "2772607e38d539c238f97d745e098bd00fea5fc4c55d41fa102bfc6c36aa26f6",
+      "size": [
+        1280,
+        720
+      ],
+      "rgbExtrema": [
+        [
+          0,
+          255
+        ],
+        [
+          5,
+          255
+        ],
+        [
+          5,
+          255
+        ]
+      ],
+      "visuallyInspected": false
+    },
+    {
+      "file": "debug-die-detail-permanent-preview-1920x1080.png",
+      "sha256": "23df0e974febff448b918ecdbb7751ae96de4216101db53a7568f94eb120cb76",
+      "size": [
+        1920,
+        1080
+      ],
+      "rgbExtrema": [
+        [
+          0,
+          255
+        ],
+        [
+          5,
+          255
+        ],
+        [
+          5,
+          255
+        ]
+      ],
+      "visuallyInspected": false
+    },
+    {
+      "file": "debug-die-detail-permanent-preview-2560x1440.png",
+      "sha256": "5c3969b0324516934751b32aad374428de73af7f21b46f4b933e6541460327e8",
+      "size": [
+        2560,
+        1440
+      ],
+      "rgbExtrema": [
+        [
+          0,
+          255
+        ],
+        [
+          5,
+          255
+        ],
+        [
+          5,
+          255
+        ]
+      ],
+      "visuallyInspected": true
+    },
+    {
+      "file": "debug-score-preview-1280x720.png",
+      "sha256": "587b495488de89ce30fee129ca2d55466ccc85b47b4f2a30b877e868d94f5417",
+      "size": [
+        1280,
+        720
+      ],
+      "rgbExtrema": [
+        [
+          0,
+          255
+        ],
+        [
+          5,
+          255
+        ],
+        [
+          5,
+          255
+        ]
+      ],
+      "visuallyInspected": true
+    },
+    {
+      "file": "debug-score-preview-1920x1080.png",
+      "sha256": "46f1c4ae504fa46b9f6d31cfdf3ae981f65be10290ce302d146ef722968aa870",
+      "size": [
+        1920,
+        1080
+      ],
+      "rgbExtrema": [
+        [
+          0,
+          255
+        ],
+        [
+          5,
+          255
+        ],
+        [
+          5,
+          255
+        ]
+      ],
+      "visuallyInspected": false
+    },
+    {
+      "file": "debug-score-preview-2560x1440.png",
+      "sha256": "e7f0d49b63a6d1e2e145f7f42f02c140b4ad4ea81e38328245f83a01d71fbbdd",
+      "size": [
+        2560,
+        1440
+      ],
+      "rgbExtrema": [
+        [
+          0,
+          255
+        ],
+        [
+          5,
+          255
+        ],
+        [
+          5,
+          255
+        ]
+      ],
+      "visuallyInspected": false
+    },
+    {
+      "file": "debug-score-preview-bottom-1280x720.png",
+      "sha256": "400c2d8984a6df6948cabccc26275416ec336263b319ac90f529db98ac45a6c0",
+      "size": [
+        1280,
+        720
+      ],
+      "rgbExtrema": [
+        [
+          0,
+          255
+        ],
+        [
+          5,
+          255
+        ],
+        [
+          5,
+          255
+        ]
+      ],
+      "visuallyInspected": true
+    },
+    {
+      "file": "debug-score-preview-bottom-1920x1080.png",
+      "sha256": "a452cfc29eb52126aa631794c6fc6ff9089ac37f52b82c241563258a9aec2d83",
+      "size": [
+        1920,
+        1080
+      ],
+      "rgbExtrema": [
+        [
+          0,
+          255
+        ],
+        [
+          5,
+          255
+        ],
+        [
+          5,
+          255
+        ]
+      ],
+      "visuallyInspected": false
+    },
+    {
+      "file": "debug-score-preview-bottom-2560x1440.png",
+      "sha256": "98e19ea57d37bef73a15f7f24c82b612f61f076492688af16663017bd519ba53",
+      "size": [
+        2560,
+        1440
+      ],
+      "rgbExtrema": [
+        [
+          0,
+          255
+        ],
+        [
+          5,
+          255
+        ],
+        [
+          5,
+          255
+        ]
+      ],
+      "visuallyInspected": false
+    },
+    {
+      "file": "debug-score-preview-middle-1280x720.png",
+      "sha256": "6688de42132e47b8f8ddef0278e8a8e50646db6a4ebcdfa52bea3ddae9340001",
+      "size": [
+        1280,
+        720
+      ],
+      "rgbExtrema": [
+        [
+          0,
+          255
+        ],
+        [
+          5,
+          255
+        ],
+        [
+          5,
+          255
+        ]
+      ],
+      "visuallyInspected": true
+    },
+    {
+      "file": "debug-score-preview-middle-1920x1080.png",
+      "sha256": "cb7f553a107deda7d6b2a1bb615bca6c8327d0f0fc135987525e448c19ad01ed",
+      "size": [
+        1920,
+        1080
+      ],
+      "rgbExtrema": [
+        [
+          0,
+          255
+        ],
+        [
+          5,
+          255
+        ],
+        [
+          5,
+          255
+        ]
+      ],
+      "visuallyInspected": false
+    },
+    {
+      "file": "debug-score-preview-middle-2560x1440.png",
+      "sha256": "034e3cec01c333cebbf0e13e45864de16a67abfeb5abf3add6013c69b881ddd0",
+      "size": [
+        2560,
+        1440
+      ],
+      "rgbExtrema": [
+        [
+          0,
+          255
+        ],
+        [
+          5,
+          255
+        ],
+        [
+          5,
+          255
+        ]
+      ],
+      "visuallyInspected": false
+    },
+    {
+      "file": "debug-stress-capacity-1280x720.png",
+      "sha256": "e13dd2bd582c1e7d52ebc5db2abb43c6728b87418acf2c62d280cb1912c473f7",
+      "size": [
+        1280,
+        720
+      ],
+      "rgbExtrema": [
+        [
+          6,
+          255
+        ],
+        [
+          10,
+          255
+        ],
+        [
+          11,
+          255
+        ]
+      ],
+      "visuallyInspected": false
+    },
+    {
+      "file": "debug-stress-capacity-1920x1080.png",
+      "sha256": "51ab427bffb9ab0d7456e7758ee4b6f2c222c49a571b288b538eedc46e048a46",
+      "size": [
+        1920,
+        1080
+      ],
+      "rgbExtrema": [
+        [
+          6,
+          255
+        ],
+        [
+          10,
+          255
+        ],
+        [
+          11,
+          255
+        ]
+      ],
+      "visuallyInspected": true
+    },
+    {
+      "file": "debug-stress-capacity-2560x1440.png",
+      "sha256": "c4e1066d1cf77f4f7377428883c6caf8daee133ff20422a6f49fc7573cb73d2b",
+      "size": [
+        2560,
+        1440
+      ],
+      "rgbExtrema": [
+        [
+          6,
+          255
+        ],
+        [
+          10,
+          255
+        ],
+        [
+          11,
+          255
+        ]
+      ],
+      "visuallyInspected": false
+    },
+    {
+      "file": "debug-stress-final.png",
+      "sha256": "9c771b2547df1b032beb153e2ab575ad59537e5aba0d76c591ac5a4f9a748fe4",
+      "size": [
+        1920,
+        1080
+      ],
+      "rgbExtrema": [
+        [
+          6,
+          255
+        ],
+        [
+          10,
+          255
+        ],
+        [
+          11,
+          255
+        ]
+      ],
+      "visuallyInspected": true
+    },
+    {
+      "file": "debug-ten-dice-unlocked-pool-1280x720.png",
+      "sha256": "33c749c3173c0fefea5e01ba9d46a90762be3c46afbdab11241d5c4964c36276",
+      "size": [
+        1280,
+        720
+      ],
+      "rgbExtrema": [
+        [
+          6,
+          255
+        ],
+        [
+          10,
+          255
+        ],
+        [
+          11,
+          255
+        ]
+      ],
+      "visuallyInspected": true
+    },
+    {
+      "file": "debug-ten-dice-unlocked-pool-1920x1080.png",
+      "sha256": "fd55ffa7f8dafa131112fa8b32f318f972be1b023bbde2b13003aea8f88d2712",
+      "size": [
+        1920,
+        1080
+      ],
+      "rgbExtrema": [
+        [
+          6,
+          255
+        ],
+        [
+          10,
+          255
+        ],
+        [
+          11,
+          255
+        ]
+      ],
+      "visuallyInspected": false
+    },
+    {
+      "file": "debug-ten-dice-unlocked-pool-2560x1440.png",
+      "sha256": "c6978e88ce50fba39b3b0c4f39230db5959bd794b0dd291e22990fc65d63a611",
+      "size": [
+        2560,
+        1440
+      ],
+      "rgbExtrema": [
+        [
+          6,
+          255
+        ],
+        [
+          10,
+          255
+        ],
+        [
+          11,
+          255
+        ]
+      ],
+      "visuallyInspected": false
+    },
+    {
+      "file": "main-menu-1920x1080.png",
+      "sha256": "123b4231c250763ba0c1d05859a76efcc2f6e1ecb9b7f8899d2a413ebc5cad22",
+      "size": [
+        1920,
+        1080
+      ],
+      "rgbExtrema": [
+        [
+          6,
+          255
+        ],
+        [
+          10,
+          255
+        ],
+        [
+          11,
+          255
+        ]
+      ],
+      "visuallyInspected": false
+    },
+    {
+      "file": "normal-die-detail-permanent-preview-1280x720.png",
+      "sha256": "5a594751bf308f181012a6432127050b58d9f4a3fcfd1cb4771585ddf7b2567a",
+      "size": [
+        1280,
+        720
+      ],
+      "rgbExtrema": [
+        [
+          0,
+          255
+        ],
+        [
+          5,
+          255
+        ],
+        [
+          5,
+          255
+        ]
+      ],
+      "visuallyInspected": false
+    },
+    {
+      "file": "normal-die-detail-permanent-preview-1920x1080.png",
+      "sha256": "9e9d155596904fff9068a4d0ecb619ab538d18dfcbc5020fa4dbd21b8b8b5c7a",
+      "size": [
+        1920,
+        1080
+      ],
+      "rgbExtrema": [
+        [
+          0,
+          255
+        ],
+        [
+          5,
+          255
+        ],
+        [
+          5,
+          255
+        ]
+      ],
+      "visuallyInspected": false
+    },
+    {
+      "file": "normal-die-detail-permanent-preview-2560x1440.png",
+      "sha256": "591076011c8ea565ff5dbcb47886aeb396729613dd14f95343604adfe7aa307c",
+      "size": [
+        2560,
+        1440
+      ],
+      "rgbExtrema": [
+        [
+          0,
+          255
+        ],
+        [
+          5,
+          255
+        ],
+        [
+          5,
+          255
+        ]
+      ],
+      "visuallyInspected": false
+    },
+    {
+      "file": "normal-run-won.png",
+      "sha256": "b020734ab47b49613a69f58307e27abb4fa99fa50cd2b80e8cc5912d7bc2c332",
+      "size": [
+        1920,
+        1080
+      ],
+      "rgbExtrema": [
+        [
+          6,
+          255
+        ],
+        [
+          10,
+          255
+        ],
+        [
+          11,
+          255
+        ]
+      ],
+      "visuallyInspected": false
+    },
+    {
+      "file": "normal-score-preview-1280x720.png",
+      "sha256": "dafa88355f8210269bed9efb07a5755c1292e79f0997f3c816b44224fe388bde",
+      "size": [
+        1280,
+        720
+      ],
+      "rgbExtrema": [
+        [
+          0,
+          255
+        ],
+        [
+          5,
+          255
+        ],
+        [
+          5,
+          255
+        ]
+      ],
+      "visuallyInspected": false
+    },
+    {
+      "file": "normal-score-preview-1920x1080.png",
+      "sha256": "df5930828668d7a463a652f850a92bfdaa60de4a6e6915613443ed37ab2e0cf0",
+      "size": [
+        1920,
+        1080
+      ],
+      "rgbExtrema": [
+        [
+          0,
+          255
+        ],
+        [
+          5,
+          255
+        ],
+        [
+          5,
+          255
+        ]
+      ],
+      "visuallyInspected": false
+    },
+    {
+      "file": "normal-score-preview-2560x1440.png",
+      "sha256": "1e5ae09aca108928b1ee01ab0277ca350c6b4b2f0e4b0ace86e16c36ecff8db5",
+      "size": [
+        2560,
+        1440
+      ],
+      "rgbExtrema": [
+        [
+          0,
+          255
+        ],
+        [
+          5,
+          255
+        ],
+        [
+          5,
+          255
+        ]
+      ],
+      "visuallyInspected": false
+    },
+    {
+      "file": "normal-score-preview-bottom-1280x720.png",
+      "sha256": "310c333493cc3f945362f4407c68e6c23d32b99a7eb4e032148cd5f58f0e5cac",
+      "size": [
+        1280,
+        720
+      ],
+      "rgbExtrema": [
+        [
+          0,
+          255
+        ],
+        [
+          5,
+          255
+        ],
+        [
+          5,
+          255
+        ]
+      ],
+      "visuallyInspected": false
+    },
+    {
+      "file": "normal-score-preview-bottom-1920x1080.png",
+      "sha256": "d580318a8b476b5c56bb01fd2b49eb16e791db513b9e00d2dfdd866be1aa3936",
+      "size": [
+        1920,
+        1080
+      ],
+      "rgbExtrema": [
+        [
+          0,
+          255
+        ],
+        [
+          5,
+          255
+        ],
+        [
+          5,
+          255
+        ]
+      ],
+      "visuallyInspected": false
+    },
+    {
+      "file": "normal-score-preview-bottom-2560x1440.png",
+      "sha256": "23797383d9f0c052f1fa77db7e1d8350e3c6dbd530ae3ded406fa04a324163f8",
+      "size": [
+        2560,
+        1440
+      ],
+      "rgbExtrema": [
+        [
+          0,
+          255
+        ],
+        [
+          5,
+          255
+        ],
+        [
+          5,
+          255
+        ]
+      ],
+      "visuallyInspected": false
+    },
+    {
+      "file": "normal-score-preview-middle-1280x720.png",
+      "sha256": "20c66933350d0a193377f3d99d351a6b1528683968c339e3d78080c749579210",
+      "size": [
+        1280,
+        720
+      ],
+      "rgbExtrema": [
+        [
+          0,
+          255
+        ],
+        [
+          5,
+          255
+        ],
+        [
+          5,
+          255
+        ]
+      ],
+      "visuallyInspected": false
+    },
+    {
+      "file": "normal-score-preview-middle-1920x1080.png",
+      "sha256": "3aa8873dc55ebc1ccb0dc006506fd95075b99c1ade6da4fa75273fe1fac6bbb6",
+      "size": [
+        1920,
+        1080
+      ],
+      "rgbExtrema": [
+        [
+          0,
+          255
+        ],
+        [
+          5,
+          255
+        ],
+        [
+          5,
+          255
+        ]
+      ],
+      "visuallyInspected": false
+    },
+    {
+      "file": "normal-score-preview-middle-2560x1440.png",
+      "sha256": "b9bfec7fa2102687148596094872d4f1584a82ccdb8f8abd0df057e414eae289",
+      "size": [
+        2560,
+        1440
+      ],
+      "rgbExtrema": [
+        [
+          0,
+          255
+        ],
+        [
+          5,
+          255
+        ],
+        [
+          5,
+          255
+        ]
+      ],
+      "visuallyInspected": false
+    },
+    {
+      "file": "normal-selecting-1280x720.png",
+      "sha256": "266eb3201f02246dccad88b79fb1176b5bde8f60075ed534e221fc6e5076f9f6",
+      "size": [
+        1280,
+        720
+      ],
+      "rgbExtrema": [
+        [
+          6,
+          255
+        ],
+        [
+          10,
+          255
+        ],
+        [
+          11,
+          255
+        ]
+      ],
+      "visuallyInspected": false
+    },
+    {
+      "file": "normal-selecting-1920x1080.png",
+      "sha256": "380d21208150d7f51f33ae3a7fdfbe9ded78042205ec82b5f8b8c0fc908be4ef",
+      "size": [
+        1920,
+        1080
+      ],
+      "rgbExtrema": [
+        [
+          6,
+          255
+        ],
+        [
+          10,
+          255
+        ],
+        [
+          11,
+          255
+        ]
+      ],
+      "visuallyInspected": true
+    },
+    {
+      "file": "normal-selecting-2560x1440.png",
+      "sha256": "2e67bf9d8f0063447d4f7941d59fbabd7fc4ebb580ac28eb2c2a32c57752e83b",
+      "size": [
+        2560,
+        1440
+      ],
+      "rgbExtrema": [
+        [
+          6,
+          255
+        ],
+        [
+          10,
+          255
+        ],
+        [
+          11,
+          255
+        ]
+      ],
+      "visuallyInspected": false
+    },
+    {
+      "file": "normal-shop-1280x720.png",
+      "sha256": "321bb391912d9673d4420a6d1fa422f0e1426a4712fbfbe94d227f8825bf7346",
+      "size": [
+        1280,
+        720
+      ],
+      "rgbExtrema": [
+        [
+          6,
+          255
+        ],
+        [
+          10,
+          255
+        ],
+        [
+          11,
+          255
+        ]
+      ],
+      "visuallyInspected": true
+    },
+    {
+      "file": "normal-shop-1920x1080.png",
+      "sha256": "052df0ee6c6d2c88c841ea54f062b4a4cbe5e18fa380053f0f88f1bbafc3e152",
+      "size": [
+        1920,
+        1080
+      ],
+      "rgbExtrema": [
+        [
+          6,
+          255
+        ],
+        [
+          10,
+          255
+        ],
+        [
+          11,
+          255
+        ]
+      ],
+      "visuallyInspected": false
+    },
+    {
+      "file": "normal-shop-2560x1440.png",
+      "sha256": "6100836de6b9e84cbdf50d473891ddec15e8ce3e6b6a2b9a45b617aa32c5716f",
+      "size": [
+        2560,
+        1440
+      ],
+      "rgbExtrema": [
+        [
+          6,
+          255
+        ],
+        [
+          10,
+          255
+        ],
+        [
+          11,
+          255
+        ]
+      ],
+      "visuallyInspected": false
+    },
+    {
+      "file": "normal-stage-1.png",
+      "sha256": "ae695629baa99b1ab7f7fa0685b758db0754c6740372db52695f1d4b911ff432",
+      "size": [
+        1920,
+        1080
+      ],
+      "rgbExtrema": [
+        [
+          6,
+          255
+        ],
+        [
+          10,
+          255
+        ],
+        [
+          11,
+          255
+        ]
+      ],
+      "visuallyInspected": false
+    },
+    {
+      "file": "normal-stage-2.png",
+      "sha256": "4ee2e5d2951df20b6de2c8852cb5c158a55bfbc2f83fbee8b081a1a79f90cfde",
+      "size": [
+        1920,
+        1080
+      ],
+      "rgbExtrema": [
+        [
+          6,
+          255
+        ],
+        [
+          10,
+          255
+        ],
+        [
+          11,
+          255
+        ]
+      ],
+      "visuallyInspected": false
+    },
+    {
+      "file": "normal-stage-3.png",
+      "sha256": "5eec89bb7c0242432ad4997925828c3e08dd6fdf1ef9d72d2d5e2d1c214e1217",
+      "size": [
+        1920,
+        1080
+      ],
+      "rgbExtrema": [
+        [
+          6,
+          255
+        ],
+        [
+          10,
+          255
+        ],
+        [
+          11,
+          255
+        ]
+      ],
+      "visuallyInspected": false
+    },
+    {
+      "file": "normal-stage-4.png",
+      "sha256": "df301f9bd1c230a6da792b749088d9efd9f75ee4b3e0418ac4e6899c3a04a7c8",
+      "size": [
+        1920,
+        1080
+      ],
+      "rgbExtrema": [
+        [
+          6,
+          255
+        ],
+        [
+          10,
+          255
+        ],
+        [
+          11,
+          255
+        ]
+      ],
+      "visuallyInspected": false
+    },
+    {
+      "file": "normal-stage-5.png",
+      "sha256": "2916a2828f164a5574c435c20eba2903f3d1bf87564adcd0927a932e647ab571",
+      "size": [
+        1920,
+        1080
+      ],
+      "rgbExtrema": [
+        [
+          6,
+          255
+        ],
+        [
+          10,
+          255
+        ],
+        [
+          11,
+          255
+        ]
+      ],
+      "visuallyInspected": false
+    },
+    {
+      "file": "normal-stage-6.png",
+      "sha256": "efad00bacfc47d7bed2357ba916e37e91c70aa10329cf2f4205d54bd98402aed",
+      "size": [
+        1920,
+        1080
+      ],
+      "rgbExtrema": [
+        [
+          6,
+          255
+        ],
+        [
+          10,
+          255
+        ],
+        [
+          11,
+          255
+        ]
+      ],
+      "visuallyInspected": false
+    },
+    {
+      "file": "startup-render-ready-warmup-1.png",
+      "sha256": "d66ce4fa359fca0642909910a624df381409f5206f6507908bd18c21a2b1c370",
+      "size": [
+        1920,
+        1080
+      ],
+      "rgbExtrema": [
+        [
+          6,
+          255
+        ],
+        [
+          10,
+          255
+        ],
+        [
+          11,
+          255
+        ]
+      ],
+      "visuallyInspected": false
+    },
+    {
+      "file": "startup-render-ready-warmup-2.png",
+      "sha256": "123b4231c250763ba0c1d05859a76efcc2f6e1ecb9b7f8899d2a413ebc5cad22",
+      "size": [
+        1920,
+        1080
+      ],
+      "rgbExtrema": [
+        [
+          6,
+          255
+        ],
+        [
+          10,
+          255
+        ],
+        [
+          11,
+          255
+        ]
+      ],
+      "visuallyInspected": false
+    },
+    {
+      "file": "startup-render-ready.png",
+      "sha256": "123b4231c250763ba0c1d05859a76efcc2f6e1ecb9b7f8899d2a413ebc5cad22",
+      "size": [
+        1920,
+        1080
+      ],
+      "rgbExtrema": [
+        [
+          6,
+          255
+        ],
+        [
+          10,
+          255
+        ],
+        [
+          11,
+          255
+        ]
+      ],
+      "visuallyInspected": false
+    }
+  ],
+  "computedMetrics": {
+    "frameInterval": {
+      "samples": 10598,
+      "validFrameCoverage": 1.0,
+      "p95": 23.546699999997145,
+      "max": 48.3831999999893,
+      "mean": 16.9834898754482
+    },
+    "mainThread": {
+      "samples": 10598,
+      "validFrameCoverage": 1.0,
+      "p95": 17.0496,
+      "max": 34.8659,
+      "mean": 16.98250475561427
+    },
+    "renderThread": {
+      "samples": 10598,
+      "validFrameCoverage": 1.0,
+      "p95": 0.3123,
+      "max": 0.6994,
+      "mean": 0.24649035487827892
+    },
+    "frameTimingCpu": {
+      "samples": 10598,
+      "validFrameCoverage": 1.0,
+      "p95": 17.0526,
+      "max": 34.8684,
+      "mean": 16.98488387431591
+    },
+    "gpu": {
+      "samples": 10240,
+      "validFrameCoverage": 0.9662200415172674,
+      "p95": 0.232448,
+      "max": 0.521216,
+      "mean": 0.230163825
+    },
+    "gcAllocated": {
+      "samples": 10598,
+      "validFrameCoverage": 1.0,
+      "p95": 1265626.0,
+      "max": 8946498.0,
+      "mean": 180409.9297980751
+    },
+    "gcUsed": {
+      "samples": 10598,
+      "validFrameCoverage": 1.0,
+      "p95": 18075648.0,
+      "max": 20283392.0,
+      "mean": 16065491.747122098
+    },
+    "uiRebuild": {
+      "samples": 10598,
+      "validFrameCoverage": 1.0,
+      "p95": 0.0065,
+      "max": 0.0223,
+      "mean": 0.0033792036233251557
+    },
+    "uiRebuildMarkerCalls": {
+      "samples": 10598,
+      "validFrameCoverage": 1.0,
+      "p95": 1.0,
+      "max": 1.0,
+      "mean": 0.5971881487073033
+    },
+    "monoUsed": {
+      "samples": 10598,
+      "validFrameCoverage": 1.0,
+      "p95": 18075648.0,
+      "max": 20283392.0,
+      "mean": 16057268.441592753
+    }
+  },
+  "conclusion": "Functional records and inspected visuals accepted for build05. Capture is complete, but measured frame-time P95 exceeds the unchanged 16.7 ms budget. AC-PERF is failed and requires rework."
+}

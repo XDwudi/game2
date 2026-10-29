@@ -1,0 +1,15 @@
+{
+  "kind": "authorized-observer-counter-boundary-fix",
+  "utc": "2026-10-29T01:46:29.077497+00:00",
+  "source": "DicePrototype\\Assets\\Game\\Runtime\\Verification\\PlayerVerification.cs",
+  "source_sha256": "75fe1bfb97a279224b1ab8357ced9936e534ce652e4ce7cea06a55ea56a53287",
+  "change": "After frame-record preallocation yield two frames before samplingStart / GC collection baselines / sampling=true. Thresholds and captured-frame retention unchanged.",
+  "offline_validation": {
+    "command": "dotnet run --project DicePrototype/Assets/Game/Runtime/Verification/Validation~/ProbeCompile.csproj -c Release",
+    "exit_code": 0,
+    "passed_managed_checks": 18,
+    "log_sha256": "2c1548143d68a6857fa273e2148dd31cf98b9d392d1a3caf46c96fba4fcd4a5e",
+    "native_player_executed_by_this_validation": false
+  },
+  "previous_player04_evidence_unchanged": true
+}

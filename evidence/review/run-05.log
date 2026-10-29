@@ -1,0 +1,16 @@
+PASS GOLD-52-all-fields
+PASS CORE-invalid-commands-have-no-effects
+PASS CORE-receipt-replay-survives-restore
+PASS CORE-save-retry-keeps-candidate-rng-and-events
+PASS CORE-preview-does-not-consume-rng-or-mutate
+PASS SHOP-independent-python-exact-oracle
+PASS SHOP-qualification-and-prices-rechecked-no-restock
+Independent Session NUnit rerun count=114
+PASS SESSION-author-NUnit-cases-independently-rerun
+PASS IO-recovered-backup-survives-next-commit
+PASS IO-corrupt-active-not-promoted-without-load
+PASS IO-checksum-mismatch-falls-back
+PASS IO-schema-incompatible-falls-back
+PASS IO-semantic-corruption-falls-back
+PASS IO-both-invalid-return-notice-no-throw
+REVIEW 14 passed / 0 failed

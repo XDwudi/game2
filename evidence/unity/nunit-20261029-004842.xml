@@ -1,0 +1,1734 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="268" result="Passed" total="268" passed="268" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:42Z" duration="1.7755045">
+  <test-suite type="TestSuite" id="1308" name="DiceCraft P0" fullname="DiceCraft P0" runstate="Runnable" testcasecount="268" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:42Z" duration="1.775505" total="268" passed="268" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <test-suite type="Assembly" id="1293" name="DiceCraft.EditMode.dll" fullname="E:/agent_workspace/gpt/game2/DicePrototype/Library/ScriptAssemblies/DiceCraft.EditMode.dll" runstate="Runnable" testcasecount="268" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:42Z" duration="1.766726" total="268" passed="268" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="43452" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="1294" name="DiceCraft" fullname="DiceCraft" runstate="Runnable" testcasecount="268" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:42Z" duration="1.764728" total="268" passed="268" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1295" name="Core" fullname="DiceCraft.Core" runstate="Runnable" testcasecount="143" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.586040" total="143" passed="143" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestSuite" id="1296" name="Tests" fullname="DiceCraft.Core.Tests" runstate="Runnable" testcasecount="143" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.585035" total="143" passed="143" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-suite type="TestFixture" id="1001" name="ControllerScoreTests" fullname="DiceCraft.Core.Tests.ControllerScoreTests" classname="DiceCraft.Core.Tests.ControllerScoreTests" runstate="Runnable" testcasecount="42" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.193731" total="42" passed="42" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-suite type="ParameterizedMethod" id="1044" name="ExplicitControllerOutcomes" fullname="DiceCraft.Core.Tests.ControllerScoreTests.ExplicitControllerOutcomes" classname="DiceCraft.Core.Tests.ControllerScoreTests" runstate="Runnable" testcasecount="42" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.189891" total="42" passed="42" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1002" name="CONTENT-C02-hit" fullname="DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C02-hit" methodname="ExplicitControllerOutcomes" classname="DiceCraft.Core.Tests.ControllerScoreTests" runstate="Runnable" seed="499940853" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.045829" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1003" name="CONTENT-C02-miss-red" fullname="DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C02-miss-red" methodname="ExplicitControllerOutcomes" classname="DiceCraft.Core.Tests.ControllerScoreTests" runstate="Runnable" seed="841030484" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.009463" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1004" name="CONTENT-C02-boundary-single" fullname="DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C02-boundary-single" methodname="ExplicitControllerOutcomes" classname="DiceCraft.Core.Tests.ControllerScoreTests" runstate="Runnable" seed="2135444190" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.002289" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1005" name="CONTENT-C03-hit" fullname="DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C03-hit" methodname="ExplicitControllerOutcomes" classname="DiceCraft.Core.Tests.ControllerScoreTests" runstate="Runnable" seed="840146292" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.004170" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1006" name="CONTENT-C03-not-equipped" fullname="DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C03-not-equipped" methodname="ExplicitControllerOutcomes" classname="DiceCraft.Core.Tests.ControllerScoreTests" runstate="Runnable" seed="535359734" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.002232" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1007" name="CONTENT-C03-boundary-single" fullname="DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C03-boundary-single" methodname="ExplicitControllerOutcomes" classname="DiceCraft.Core.Tests.ControllerScoreTests" runstate="Runnable" seed="1648737093" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.002186" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1008" name="CONTENT-C06-hit" fullname="DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C06-hit" methodname="ExplicitControllerOutcomes" classname="DiceCraft.Core.Tests.ControllerScoreTests" runstate="Runnable" seed="1280151319" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.002374" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1009" name="CONTENT-C06-miss-three-distinct" fullname="DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C06-miss-three-distinct" methodname="ExplicitControllerOutcomes" classname="DiceCraft.Core.Tests.ControllerScoreTests" runstate="Runnable" seed="1041879257" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.002191" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1010" name="CONTENT-C06-boundary-duplicate-with-four-distinct" fullname="DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C06-boundary-duplicate-with-four-distinct" methodname="ExplicitControllerOutcomes" classname="DiceCraft.Core.Tests.ControllerScoreTests" runstate="Runnable" seed="2031872777" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.002113" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1011" name="CONTENT-C08-hit" fullname="DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C08-hit" methodname="ExplicitControllerOutcomes" classname="DiceCraft.Core.Tests.ControllerScoreTests" runstate="Runnable" seed="515100993" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.002052" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1012" name="CONTENT-C08-miss-full" fullname="DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C08-miss-full" methodname="ExplicitControllerOutcomes" classname="DiceCraft.Core.Tests.ControllerScoreTests" runstate="Runnable" seed="1032936883" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.002099" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1013" name="CONTENT-C08-boundary-one-empty-slot" fullname="DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C08-boundary-one-empty-slot" methodname="ExplicitControllerOutcomes" classname="DiceCraft.Core.Tests.ControllerScoreTests" runstate="Runnable" seed="199616780" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.002195" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1014" name="CONTENT-C09-hit" fullname="DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C09-hit" methodname="ExplicitControllerOutcomes" classname="DiceCraft.Core.Tests.ControllerScoreTests" runstate="Runnable" seed="1742820186" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.002041" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1015" name="CONTENT-C09-not-equipped" fullname="DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C09-not-equipped" methodname="ExplicitControllerOutcomes" classname="DiceCraft.Core.Tests.ControllerScoreTests" runstate="Runnable" seed="1253966770" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.005673" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1016" name="CONTENT-C09-boundary-full-reduced-capacity" fullname="DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C09-boundary-full-reduced-capacity" methodname="ExplicitControllerOutcomes" classname="DiceCraft.Core.Tests.ControllerScoreTests" runstate="Runnable" seed="1134910215" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.009583" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1017" name="CONTENT-C10-hit" fullname="DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C10-hit" methodname="ExplicitControllerOutcomes" classname="DiceCraft.Core.Tests.ControllerScoreTests" runstate="Runnable" seed="196373225" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.002443" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1018" name="CONTENT-C10-miss-pip-two" fullname="DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C10-miss-pip-two" methodname="ExplicitControllerOutcomes" classname="DiceCraft.Core.Tests.ControllerScoreTests" runstate="Runnable" seed="474690010" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.002207" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1019" name="CONTENT-C10-boundary-contribution-does-not-change-pair" fullname="DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C10-boundary-contribution-does-not-change-pair" methodname="ExplicitControllerOutcomes" classname="DiceCraft.Core.Tests.ControllerScoreTests" runstate="Runnable" seed="437276825" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.002108" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1020" name="CONTENT-C11-hit" fullname="DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C11-hit" methodname="ExplicitControllerOutcomes" classname="DiceCraft.Core.Tests.ControllerScoreTests" runstate="Runnable" seed="269997613" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.002040" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1021" name="CONTENT-C11-miss-one-three" fullname="DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C11-miss-one-three" methodname="ExplicitControllerOutcomes" classname="DiceCraft.Core.Tests.ControllerScoreTests" runstate="Runnable" seed="203403580" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.001967" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1022" name="CONTENT-C11-boundary-extra-die-allowed" fullname="DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C11-boundary-extra-die-allowed" methodname="ExplicitControllerOutcomes" classname="DiceCraft.Core.Tests.ControllerScoreTests" runstate="Runnable" seed="1436009156" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.002101" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1023" name="CONTENT-C12-hit" fullname="DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C12-hit" methodname="ExplicitControllerOutcomes" classname="DiceCraft.Core.Tests.ControllerScoreTests" runstate="Runnable" seed="1982170067" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.002821" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1024" name="CONTENT-C12-miss-even-unchanged" fullname="DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C12-miss-even-unchanged" methodname="ExplicitControllerOutcomes" classname="DiceCraft.Core.Tests.ControllerScoreTests" runstate="Runnable" seed="1669931414" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.002105" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1025" name="CONTENT-C12-boundary-five-to-six" fullname="DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C12-boundary-five-to-six" methodname="ExplicitControllerOutcomes" classname="DiceCraft.Core.Tests.ControllerScoreTests" runstate="Runnable" seed="955674279" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.002067" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1026" name="CONTENT-C13-hit" fullname="DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C13-hit" methodname="ExplicitControllerOutcomes" classname="DiceCraft.Core.Tests.ControllerScoreTests" runstate="Runnable" seed="850853951" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.002035" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1027" name="CONTENT-C13-miss-even" fullname="DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C13-miss-even" methodname="ExplicitControllerOutcomes" classname="DiceCraft.Core.Tests.ControllerScoreTests" runstate="Runnable" seed="337487440" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.002000" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1028" name="CONTENT-C13-boundary-red-group-uses-original-one" fullname="DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C13-boundary-red-group-uses-original-one" methodname="ExplicitControllerOutcomes" classname="DiceCraft.Core.Tests.ControllerScoreTests" runstate="Runnable" seed="165560856" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.002034" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1029" name="CONTENT-C14-hit" fullname="DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C14-hit" methodname="ExplicitControllerOutcomes" classname="DiceCraft.Core.Tests.ControllerScoreTests" runstate="Runnable" seed="452101209" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.005725" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1030" name="CONTENT-C14-miss-mixed-parity" fullname="DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C14-miss-mixed-parity" methodname="ExplicitControllerOutcomes" classname="DiceCraft.Core.Tests.ControllerScoreTests" runstate="Runnable" seed="325743496" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.008053" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1031" name="CONTENT-C14-boundary-single-one" fullname="DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C14-boundary-single-one" methodname="ExplicitControllerOutcomes" classname="DiceCraft.Core.Tests.ControllerScoreTests" runstate="Runnable" seed="1273799112" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.002457" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1032" name="CONTENT-C17-hit" fullname="DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C17-hit" methodname="ExplicitControllerOutcomes" classname="DiceCraft.Core.Tests.ControllerScoreTests" runstate="Runnable" seed="1752754280" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.002102" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1033" name="CONTENT-C17-miss-four" fullname="DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C17-miss-four" methodname="ExplicitControllerOutcomes" classname="DiceCraft.Core.Tests.ControllerScoreTests" runstate="Runnable" seed="1478705629" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.002030" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1034" name="CONTENT-C17-boundary-all-three-small-values" fullname="DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C17-boundary-all-three-small-values" methodname="ExplicitControllerOutcomes" classname="DiceCraft.Core.Tests.ControllerScoreTests" runstate="Runnable" seed="327482554" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.002203" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1035" name="CONTENT-C18-hit" fullname="DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C18-hit" methodname="ExplicitControllerOutcomes" classname="DiceCraft.Core.Tests.ControllerScoreTests" runstate="Runnable" seed="818174012" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.002065" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1036" name="CONTENT-C18-miss-unequal" fullname="DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C18-miss-unequal" methodname="ExplicitControllerOutcomes" classname="DiceCraft.Core.Tests.ControllerScoreTests" runstate="Runnable" seed="1690349153" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.002176" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1037" name="CONTENT-C18-boundary-two-different-pips" fullname="DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C18-boundary-two-different-pips" methodname="ExplicitControllerOutcomes" classname="DiceCraft.Core.Tests.ControllerScoreTests" runstate="Runnable" seed="41148848" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.002147" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1038" name="CONTENT-C19-hit-threshold" fullname="DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C19-hit-threshold" methodname="ExplicitControllerOutcomes" classname="DiceCraft.Core.Tests.ControllerScoreTests" runstate="Runnable" seed="1899507026" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.002013" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1039" name="CONTENT-C19-miss-above-threshold" fullname="DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C19-miss-above-threshold" methodname="ExplicitControllerOutcomes" classname="DiceCraft.Core.Tests.ControllerScoreTests" runstate="Runnable" seed="1536588220" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.002002" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1040" name="CONTENT-C19-boundary-remote-current-six-permanent-ones" fullname="DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C19-boundary-remote-current-six-permanent-ones" methodname="ExplicitControllerOutcomes" classname="DiceCraft.Core.Tests.ControllerScoreTests" runstate="Runnable" seed="1005603320" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.002011" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1041" name="CONTENT-C20-hit" fullname="DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C20-hit" methodname="ExplicitControllerOutcomes" classname="DiceCraft.Core.Tests.ControllerScoreTests" runstate="Runnable" seed="456885535" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.002008" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1042" name="CONTENT-C20-miss-last-five" fullname="DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C20-miss-last-five" methodname="ExplicitControllerOutcomes" classname="DiceCraft.Core.Tests.ControllerScoreTests" runstate="Runnable" seed="930580585" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.005180" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1043" name="CONTENT-C20-boundary-last-occupied-not-capacity-slot" fullname="DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C20-boundary-last-occupied-not-capacity-slot" methodname="ExplicitControllerOutcomes" classname="DiceCraft.Core.Tests.ControllerScoreTests" runstate="Runnable" seed="1225306007" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.007359" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+              </test-suite>
+            </test-suite>
+            <test-suite type="TestFixture" id="1045" name="RulesTests" fullname="DiceCraft.Core.Tests.RulesTests" classname="DiceCraft.Core.Tests.RulesTests" runstate="Runnable" testcasecount="101" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.389181" total="101" passed="101" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1123" name="Configuration_ContainsExactly38SupportedItemsAnd11Hands" fullname="DiceCraft.Core.Tests.RulesTests.Configuration_ContainsExactly38SupportedItemsAnd11Hands" methodname="Configuration_ContainsExactly38SupportedItemsAnd11Hands" classname="DiceCraft.Core.Tests.RulesTests" runstate="Runnable" seed="2093809850" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.002526" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1132" name="Configuration_RejectsInvalidWeightsAndFaces" fullname="DiceCraft.Core.Tests.RulesTests.Configuration_RejectsInvalidWeightsAndFaces" methodname="Configuration_RejectsInvalidWeightsAndFaces" classname="DiceCraft.Core.Tests.RulesTests" runstate="Runnable" seed="1026571861" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.006013" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-suite type="ParameterizedMethod" id="1131" name="Configuration_RejectsMalformedOrIncompleteJson" fullname="DiceCraft.Core.Tests.RulesTests.Configuration_RejectsMalformedOrIncompleteJson" classname="DiceCraft.Core.Tests.RulesTests" runstate="Runnable" testcasecount="5" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.010875" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1126" name="Configuration_RejectsMalformedOrIncompleteJson(&quot;{}&quot;)" fullname="DiceCraft.Core.Tests.RulesTests.Configuration_RejectsMalformedOrIncompleteJson(&quot;{}&quot;)" methodname="Configuration_RejectsMalformedOrIncompleteJson" classname="DiceCraft.Core.Tests.RulesTests" runstate="Runnable" seed="1462137606" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.002250" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1127" name="Configuration_RejectsMalformedOrIncompleteJson(&quot;{\&quot;configVersion\&quot;:null}&quot;)" fullname="DiceCraft.Core.Tests.RulesTests.Configuration_RejectsMalformedOrIncompleteJson(&quot;{\&quot;configVersion\&quot;:null}&quot;)" methodname="Configuration_RejectsMalformedOrIncompleteJson" classname="DiceCraft.Core.Tests.RulesTests" runstate="Runnable" seed="695732336" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.001946" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1128" name="Configuration_RejectsMalformedOrIncompleteJson(&quot;{\&quot;a\&quot;:1,\&quot;a\&quot;:2}&quot;)" fullname="DiceCraft.Core.Tests.RulesTests.Configuration_RejectsMalformedOrIncompleteJson(&quot;{\&quot;a\&quot;:1,\&quot;a\&quot;:2}&quot;)" methodname="Configuration_RejectsMalformedOrIncompleteJson" classname="DiceCraft.Core.Tests.RulesTests" runstate="Runnable" seed="892888445" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.001911" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1129" name="Configuration_RejectsMalformedOrIncompleteJson(&quot;{\&quot;a\&quot;:1,}&quot;)" fullname="DiceCraft.Core.Tests.RulesTests.Configuration_RejectsMalformedOrIncompleteJson(&quot;{\&quot;a\&quot;:1,}&quot;)" methodname="Configuration_RejectsMalformedOrIncompleteJson" classname="DiceCraft.Core.Tests.RulesTests" runstate="Runnable" seed="1673491365" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.001914" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1130" name="Configuration_RejectsMalformedOrIncompleteJson(&quot;[]&quot;)" fullname="DiceCraft.Core.Tests.RulesTests.Configuration_RejectsMalformedOrIncompleteJson(&quot;[]&quot;)" methodname="Configuration_RejectsMalformedOrIncompleteJson" classname="DiceCraft.Core.Tests.RulesTests" runstate="Runnable" seed="1883602185" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.001928" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+              </test-suite>
+              <test-case id="1124" name="Configuration_RejectsMissingZeroOrFalseFields" fullname="DiceCraft.Core.Tests.RulesTests.Configuration_RejectsMissingZeroOrFalseFields" methodname="Configuration_RejectsMissingZeroOrFalseFields" classname="DiceCraft.Core.Tests.RulesTests" runstate="Runnable" seed="242159836" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.004117" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1125" name="Configuration_RejectsUnknownMissingDuplicateIds" fullname="DiceCraft.Core.Tests.RulesTests.Configuration_RejectsUnknownMissingDuplicateIds" methodname="Configuration_RejectsUnknownMissingDuplicateIds" classname="DiceCraft.Core.Tests.RulesTests" runstate="Runnable" seed="1546641741" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.015181" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1147" name="FactoryAndClone_HaveNoSharedMutableFaces" fullname="DiceCraft.Core.Tests.RulesTests.FactoryAndClone_HaveNoSharedMutableFaces" methodname="FactoryAndClone_HaveNoSharedMutableFaces" classname="DiceCraft.Core.Tests.RulesTests" runstate="Runnable" seed="744099994" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.002847" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-suite type="ParameterizedMethod" id="1119" name="Golden_All18Fields_AndNoMutation" fullname="DiceCraft.Core.Tests.RulesTests.Golden_All18Fields_AndNoMutation" classname="DiceCraft.Core.Tests.RulesTests" runstate="Runnable" testcasecount="73" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.218965" total="73" passed="73" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1046" name="GOLD-S01" fullname="DiceCraft.Core.Tests.RulesTests.GOLD-S01" methodname="Golden_All18Fields_AndNoMutation" classname="DiceCraft.Core.Tests.RulesTests" runstate="Runnable" seed="709517387" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.004283" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1047" name="GOLD-S02" fullname="DiceCraft.Core.Tests.RulesTests.GOLD-S02" methodname="Golden_All18Fields_AndNoMutation" classname="DiceCraft.Core.Tests.RulesTests" runstate="Runnable" seed="1850630715" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.002047" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1048" name="GOLD-S03" fullname="DiceCraft.Core.Tests.RulesTests.GOLD-S03" methodname="Golden_All18Fields_AndNoMutation" classname="DiceCraft.Core.Tests.RulesTests" runstate="Runnable" seed="957481551" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.002010" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1049" name="GOLD-S04" fullname="DiceCraft.Core.Tests.RulesTests.GOLD-S04" methodname="Golden_All18Fields_AndNoMutation" classname="DiceCraft.Core.Tests.RulesTests" runstate="Runnable" seed="1912924644" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.001989" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1050" name="GOLD-S05" fullname="DiceCraft.Core.Tests.RulesTests.GOLD-S05" methodname="Golden_All18Fields_AndNoMutation" classname="DiceCraft.Core.Tests.RulesTests" runstate="Runnable" seed="591840503" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.002009" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1051" name="GOLD-S06" fullname="DiceCraft.Core.Tests.RulesTests.GOLD-S06" methodname="Golden_All18Fields_AndNoMutation" classname="DiceCraft.Core.Tests.RulesTests" runstate="Runnable" seed="1280221919" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.002043" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1052" name="GOLD-S07" fullname="DiceCraft.Core.Tests.RulesTests.GOLD-S07" methodname="Golden_All18Fields_AndNoMutation" classname="DiceCraft.Core.Tests.RulesTests" runstate="Runnable" seed="569916129" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.002045" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1053" name="GOLD-S08" fullname="DiceCraft.Core.Tests.RulesTests.GOLD-S08" methodname="Golden_All18Fields_AndNoMutation" classname="DiceCraft.Core.Tests.RulesTests" runstate="Runnable" seed="2102646326" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.002050" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1054" name="GOLD-S09" fullname="DiceCraft.Core.Tests.RulesTests.GOLD-S09" methodname="Golden_All18Fields_AndNoMutation" classname="DiceCraft.Core.Tests.RulesTests" runstate="Runnable" seed="1900976050" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.002019" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1055" name="GOLD-S10" fullname="DiceCraft.Core.Tests.RulesTests.GOLD-S10" methodname="Golden_All18Fields_AndNoMutation" classname="DiceCraft.Core.Tests.RulesTests" runstate="Runnable" seed="2121640434" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.001977" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1056" name="GOLD-S11" fullname="DiceCraft.Core.Tests.RulesTests.GOLD-S11" methodname="Golden_All18Fields_AndNoMutation" classname="DiceCraft.Core.Tests.RulesTests" runstate="Runnable" seed="1286217015" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.005306" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1057" name="GOLD-S12" fullname="DiceCraft.Core.Tests.RulesTests.GOLD-S12" methodname="Golden_All18Fields_AndNoMutation" classname="DiceCraft.Core.Tests.RulesTests" runstate="Runnable" seed="2029387374" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.007296" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1058" name="GOLD-S13" fullname="DiceCraft.Core.Tests.RulesTests.GOLD-S13" methodname="Golden_All18Fields_AndNoMutation" classname="DiceCraft.Core.Tests.RulesTests" runstate="Runnable" seed="248981139" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.002501" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1059" name="GOLD-S14" fullname="DiceCraft.Core.Tests.RulesTests.GOLD-S14" methodname="Golden_All18Fields_AndNoMutation" classname="DiceCraft.Core.Tests.RulesTests" runstate="Runnable" seed="1358911147" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.002097" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1060" name="GOLD-S15" fullname="DiceCraft.Core.Tests.RulesTests.GOLD-S15" methodname="Golden_All18Fields_AndNoMutation" classname="DiceCraft.Core.Tests.RulesTests" runstate="Runnable" seed="1314129154" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.002022" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1061" name="GOLD-S16" fullname="DiceCraft.Core.Tests.RulesTests.GOLD-S16" methodname="Golden_All18Fields_AndNoMutation" classname="DiceCraft.Core.Tests.RulesTests" runstate="Runnable" seed="2001963707" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.002064" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1062" name="GOLD-S17" fullname="DiceCraft.Core.Tests.RulesTests.GOLD-S17" methodname="Golden_All18Fields_AndNoMutation" classname="DiceCraft.Core.Tests.RulesTests" runstate="Runnable" seed="2014653179" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.002049" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1063" name="GOLD-S18" fullname="DiceCraft.Core.Tests.RulesTests.GOLD-S18" methodname="Golden_All18Fields_AndNoMutation" classname="DiceCraft.Core.Tests.RulesTests" runstate="Runnable" seed="1203883500" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.002018" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1064" name="GOLD-S19" fullname="DiceCraft.Core.Tests.RulesTests.GOLD-S19" methodname="Golden_All18Fields_AndNoMutation" classname="DiceCraft.Core.Tests.RulesTests" runstate="Runnable" seed="607574455" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.002049" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1065" name="GOLD-S20" fullname="DiceCraft.Core.Tests.RulesTests.GOLD-S20" methodname="Golden_All18Fields_AndNoMutation" classname="DiceCraft.Core.Tests.RulesTests" runstate="Runnable" seed="208273116" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.002049" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1066" name="GOLD-S21" fullname="DiceCraft.Core.Tests.RulesTests.GOLD-S21" methodname="Golden_All18Fields_AndNoMutation" classname="DiceCraft.Core.Tests.RulesTests" runstate="Runnable" seed="176514043" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.002019" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1067" name="GOLD-S22" fullname="DiceCraft.Core.Tests.RulesTests.GOLD-S22" methodname="Golden_All18Fields_AndNoMutation" classname="DiceCraft.Core.Tests.RulesTests" runstate="Runnable" seed="1026988856" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.002004" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1068" name="GOLD-S23" fullname="DiceCraft.Core.Tests.RulesTests.GOLD-S23" methodname="Golden_All18Fields_AndNoMutation" classname="DiceCraft.Core.Tests.RulesTests" runstate="Runnable" seed="213102028" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.001992" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1069" name="GOLD-S24" fullname="DiceCraft.Core.Tests.RulesTests.GOLD-S24" methodname="Golden_All18Fields_AndNoMutation" classname="DiceCraft.Core.Tests.RulesTests" runstate="Runnable" seed="1713186664" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.005156" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1070" name="GOLD-S25" fullname="DiceCraft.Core.Tests.RulesTests.GOLD-S25" methodname="Golden_All18Fields_AndNoMutation" classname="DiceCraft.Core.Tests.RulesTests" runstate="Runnable" seed="239841809" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.002926" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1071" name="GOLD-S26" fullname="DiceCraft.Core.Tests.RulesTests.GOLD-S26" methodname="Golden_All18Fields_AndNoMutation" classname="DiceCraft.Core.Tests.RulesTests" runstate="Runnable" seed="1503274699" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.006049" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1072" name="GOLD-S27" fullname="DiceCraft.Core.Tests.RulesTests.GOLD-S27" methodname="Golden_All18Fields_AndNoMutation" classname="DiceCraft.Core.Tests.RulesTests" runstate="Runnable" seed="827706922" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.002385" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1073" name="GOLD-S28" fullname="DiceCraft.Core.Tests.RulesTests.GOLD-S28" methodname="Golden_All18Fields_AndNoMutation" classname="DiceCraft.Core.Tests.RulesTests" runstate="Runnable" seed="113193165" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.002205" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1074" name="GOLD-S29" fullname="DiceCraft.Core.Tests.RulesTests.GOLD-S29" methodname="Golden_All18Fields_AndNoMutation" classname="DiceCraft.Core.Tests.RulesTests" runstate="Runnable" seed="1957174032" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.002161" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1075" name="GOLD-S30" fullname="DiceCraft.Core.Tests.RulesTests.GOLD-S30" methodname="Golden_All18Fields_AndNoMutation" classname="DiceCraft.Core.Tests.RulesTests" runstate="Runnable" seed="760188609" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.002154" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1076" name="GOLD-S31" fullname="DiceCraft.Core.Tests.RulesTests.GOLD-S31" methodname="Golden_All18Fields_AndNoMutation" classname="DiceCraft.Core.Tests.RulesTests" runstate="Runnable" seed="1097427030" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.002159" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1077" name="GOLD-S32" fullname="DiceCraft.Core.Tests.RulesTests.GOLD-S32" methodname="Golden_All18Fields_AndNoMutation" classname="DiceCraft.Core.Tests.RulesTests" runstate="Runnable" seed="171922993" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.002142" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1078" name="GOLD-S33" fullname="DiceCraft.Core.Tests.RulesTests.GOLD-S33" methodname="Golden_All18Fields_AndNoMutation" classname="DiceCraft.Core.Tests.RulesTests" runstate="Runnable" seed="789196492" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.002124" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1079" name="GOLD-S34" fullname="DiceCraft.Core.Tests.RulesTests.GOLD-S34" methodname="Golden_All18Fields_AndNoMutation" classname="DiceCraft.Core.Tests.RulesTests" runstate="Runnable" seed="630422779" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.002160" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1080" name="GOLD-S35" fullname="DiceCraft.Core.Tests.RulesTests.GOLD-S35" methodname="Golden_All18Fields_AndNoMutation" classname="DiceCraft.Core.Tests.RulesTests" runstate="Runnable" seed="2131162405" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.002151" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1081" name="GOLD-S36" fullname="DiceCraft.Core.Tests.RulesTests.GOLD-S36" methodname="Golden_All18Fields_AndNoMutation" classname="DiceCraft.Core.Tests.RulesTests" runstate="Runnable" seed="935593075" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.002184" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1082" name="GOLD-S37" fullname="DiceCraft.Core.Tests.RulesTests.GOLD-S37" methodname="Golden_All18Fields_AndNoMutation" classname="DiceCraft.Core.Tests.RulesTests" runstate="Runnable" seed="1925511864" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.002183" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1083" name="GOLD-S38" fullname="DiceCraft.Core.Tests.RulesTests.GOLD-S38" methodname="Golden_All18Fields_AndNoMutation" classname="DiceCraft.Core.Tests.RulesTests" runstate="Runnable" seed="2052727909" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.005438" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1084" name="GOLD-S39" fullname="DiceCraft.Core.Tests.RulesTests.GOLD-S39" methodname="Golden_All18Fields_AndNoMutation" classname="DiceCraft.Core.Tests.RulesTests" runstate="Runnable" seed="251319686" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.010589" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1085" name="GOLD-S40" fullname="DiceCraft.Core.Tests.RulesTests.GOLD-S40" methodname="Golden_All18Fields_AndNoMutation" classname="DiceCraft.Core.Tests.RulesTests" runstate="Runnable" seed="1718893903" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.002495" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1086" name="GOLD-S41" fullname="DiceCraft.Core.Tests.RulesTests.GOLD-S41" methodname="Golden_All18Fields_AndNoMutation" classname="DiceCraft.Core.Tests.RulesTests" runstate="Runnable" seed="1058924306" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.002183" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1087" name="GOLD-S42" fullname="DiceCraft.Core.Tests.RulesTests.GOLD-S42" methodname="Golden_All18Fields_AndNoMutation" classname="DiceCraft.Core.Tests.RulesTests" runstate="Runnable" seed="408032327" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.002083" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1088" name="GOLD-S43" fullname="DiceCraft.Core.Tests.RulesTests.GOLD-S43" methodname="Golden_All18Fields_AndNoMutation" classname="DiceCraft.Core.Tests.RulesTests" runstate="Runnable" seed="1042193850" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.002012" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1089" name="GOLD-S44" fullname="DiceCraft.Core.Tests.RulesTests.GOLD-S44" methodname="Golden_All18Fields_AndNoMutation" classname="DiceCraft.Core.Tests.RulesTests" runstate="Runnable" seed="1988367901" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.002010" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1090" name="GOLD-S45" fullname="DiceCraft.Core.Tests.RulesTests.GOLD-S45" methodname="Golden_All18Fields_AndNoMutation" classname="DiceCraft.Core.Tests.RulesTests" runstate="Runnable" seed="290417104" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.001963" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1091" name="GOLD-S46" fullname="DiceCraft.Core.Tests.RulesTests.GOLD-S46" methodname="Golden_All18Fields_AndNoMutation" classname="DiceCraft.Core.Tests.RulesTests" runstate="Runnable" seed="250339219" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.002008" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1092" name="GOLD-S47" fullname="DiceCraft.Core.Tests.RulesTests.GOLD-S47" methodname="Golden_All18Fields_AndNoMutation" classname="DiceCraft.Core.Tests.RulesTests" runstate="Runnable" seed="599832666" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.002010" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1093" name="GOLD-S48" fullname="DiceCraft.Core.Tests.RulesTests.GOLD-S48" methodname="Golden_All18Fields_AndNoMutation" classname="DiceCraft.Core.Tests.RulesTests" runstate="Runnable" seed="3596859" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.002054" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1094" name="GOLD-S49" fullname="DiceCraft.Core.Tests.RulesTests.GOLD-S49" methodname="Golden_All18Fields_AndNoMutation" classname="DiceCraft.Core.Tests.RulesTests" runstate="Runnable" seed="1072405962" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.002040" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1095" name="GOLD-S50" fullname="DiceCraft.Core.Tests.RulesTests.GOLD-S50" methodname="Golden_All18Fields_AndNoMutation" classname="DiceCraft.Core.Tests.RulesTests" runstate="Runnable" seed="1795459977" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.001989" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1096" name="GOLD-S51" fullname="DiceCraft.Core.Tests.RulesTests.GOLD-S51" methodname="Golden_All18Fields_AndNoMutation" classname="DiceCraft.Core.Tests.RulesTests" runstate="Runnable" seed="1121705802" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.002021" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1097" name="GOLD-S52" fullname="DiceCraft.Core.Tests.RulesTests.GOLD-S52" methodname="Golden_All18Fields_AndNoMutation" classname="DiceCraft.Core.Tests.RulesTests" runstate="Runnable" seed="751862342" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.005286" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1098" name="FLOW-B01" fullname="DiceCraft.Core.Tests.RulesTests.FLOW-B01" methodname="Golden_All18Fields_AndNoMutation" classname="DiceCraft.Core.Tests.RulesTests" runstate="Runnable" seed="1903128411" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.007887" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1099" name="FLOW-B02" fullname="DiceCraft.Core.Tests.RulesTests.FLOW-B02" methodname="Golden_All18Fields_AndNoMutation" classname="DiceCraft.Core.Tests.RulesTests" runstate="Runnable" seed="1618511124" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.002333" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1100" name="FLOW-B03" fullname="DiceCraft.Core.Tests.RulesTests.FLOW-B03" methodname="Golden_All18Fields_AndNoMutation" classname="DiceCraft.Core.Tests.RulesTests" runstate="Runnable" seed="1483116794" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.002287" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1101" name="FLOW-B04" fullname="DiceCraft.Core.Tests.RulesTests.FLOW-B04" methodname="Golden_All18Fields_AndNoMutation" classname="DiceCraft.Core.Tests.RulesTests" runstate="Runnable" seed="1830012178" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.002219" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1102" name="FLOW-B05" fullname="DiceCraft.Core.Tests.RulesTests.FLOW-B05" methodname="Golden_All18Fields_AndNoMutation" classname="DiceCraft.Core.Tests.RulesTests" runstate="Runnable" seed="1637528687" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.002207" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1103" name="FLOW-B06" fullname="DiceCraft.Core.Tests.RulesTests.FLOW-B06" methodname="Golden_All18Fields_AndNoMutation" classname="DiceCraft.Core.Tests.RulesTests" runstate="Runnable" seed="1391778534" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.002209" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1104" name="FLOW-B07" fullname="DiceCraft.Core.Tests.RulesTests.FLOW-B07" methodname="Golden_All18Fields_AndNoMutation" classname="DiceCraft.Core.Tests.RulesTests" runstate="Runnable" seed="1673082835" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.002166" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1105" name="FLOW-B08" fullname="DiceCraft.Core.Tests.RulesTests.FLOW-B08" methodname="Golden_All18Fields_AndNoMutation" classname="DiceCraft.Core.Tests.RulesTests" runstate="Runnable" seed="1236049451" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.002159" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1106" name="FLOW-B09" fullname="DiceCraft.Core.Tests.RulesTests.FLOW-B09" methodname="Golden_All18Fields_AndNoMutation" classname="DiceCraft.Core.Tests.RulesTests" runstate="Runnable" seed="452514997" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.002184" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1107" name="FLOW-B10" fullname="DiceCraft.Core.Tests.RulesTests.FLOW-B10" methodname="Golden_All18Fields_AndNoMutation" classname="DiceCraft.Core.Tests.RulesTests" runstate="Runnable" seed="456722964" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.002158" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1108" name="FLOW-B11" fullname="DiceCraft.Core.Tests.RulesTests.FLOW-B11" methodname="Golden_All18Fields_AndNoMutation" classname="DiceCraft.Core.Tests.RulesTests" runstate="Runnable" seed="145472294" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.002156" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1109" name="FLOW-B12" fullname="DiceCraft.Core.Tests.RulesTests.FLOW-B12" methodname="Golden_All18Fields_AndNoMutation" classname="DiceCraft.Core.Tests.RulesTests" runstate="Runnable" seed="1140787441" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.002158" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1110" name="FLOW-B13" fullname="DiceCraft.Core.Tests.RulesTests.FLOW-B13" methodname="Golden_All18Fields_AndNoMutation" classname="DiceCraft.Core.Tests.RulesTests" runstate="Runnable" seed="1024213404" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.002140" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1111" name="FLOW-B14" fullname="DiceCraft.Core.Tests.RulesTests.FLOW-B14" methodname="Golden_All18Fields_AndNoMutation" classname="DiceCraft.Core.Tests.RulesTests" runstate="Runnable" seed="1114294022" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.005597" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1112" name="FLOW-B15" fullname="DiceCraft.Core.Tests.RulesTests.FLOW-B15" methodname="Golden_All18Fields_AndNoMutation" classname="DiceCraft.Core.Tests.RulesTests" runstate="Runnable" seed="1240190882" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.009802" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1113" name="FLOW-B16" fullname="DiceCraft.Core.Tests.RulesTests.FLOW-B16" methodname="Golden_All18Fields_AndNoMutation" classname="DiceCraft.Core.Tests.RulesTests" runstate="Runnable" seed="1766042007" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.002570" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1114" name="FLOW-B17" fullname="DiceCraft.Core.Tests.RulesTests.FLOW-B17" methodname="Golden_All18Fields_AndNoMutation" classname="DiceCraft.Core.Tests.RulesTests" runstate="Runnable" seed="1375232389" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.002279" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1115" name="FLOW-B18" fullname="DiceCraft.Core.Tests.RulesTests.FLOW-B18" methodname="Golden_All18Fields_AndNoMutation" classname="DiceCraft.Core.Tests.RulesTests" runstate="Runnable" seed="378536079" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.002254" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1116" name="FLOW-B19-partial" fullname="DiceCraft.Core.Tests.RulesTests.FLOW-B19-partial" methodname="Golden_All18Fields_AndNoMutation" classname="DiceCraft.Core.Tests.RulesTests" runstate="Runnable" seed="76451843" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.002202" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1117" name="FLOW-B19-full" fullname="DiceCraft.Core.Tests.RulesTests.FLOW-B19-full" methodname="Golden_All18Fields_AndNoMutation" classname="DiceCraft.Core.Tests.RulesTests" runstate="Runnable" seed="2109408917" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.002200" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1118" name="FLOW-B20" fullname="DiceCraft.Core.Tests.RulesTests.FLOW-B20" methodname="Golden_All18Fields_AndNoMutation" classname="DiceCraft.Core.Tests.RulesTests" runstate="Runnable" seed="952563814" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.002155" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+              </test-suite>
+              <test-case id="1120" name="GoldenFile_HasExactly52UniqueCases" fullname="DiceCraft.Core.Tests.RulesTests.GoldenFile_HasExactly52UniqueCases" methodname="GoldenFile_HasExactly52UniqueCases" classname="DiceCraft.Core.Tests.RulesTests" runstate="Runnable" seed="475646965" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.004940" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1122" name="GoldenJson_AllOriginalNullTokensAreAccountedFor" fullname="DiceCraft.Core.Tests.RulesTests.GoldenJson_AllOriginalNullTokensAreAccountedFor" methodname="GoldenJson_AllOriginalNullTokensAreAccountedFor" classname="DiceCraft.Core.Tests.RulesTests" runstate="Runnable" seed="125406405" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.005804" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1121" name="GoldenJson_PreservesNullEmptyAndNonemptyGroupIdsExactly" fullname="DiceCraft.Core.Tests.RulesTests.GoldenJson_PreservesNullEmptyAndNonemptyGroupIdsExactly" methodname="GoldenJson_PreservesNullEmptyAndNonemptyGroupIdsExactly" classname="DiceCraft.Core.Tests.RulesTests" runstate="Runnable" seed="123419695" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.002409" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1139" name="Probability_All2916TextureAndBuffCombinations" fullname="DiceCraft.Core.Tests.RulesTests.Probability_All2916TextureAndBuffCombinations" methodname="Probability_All2916TextureAndBuffCombinations" classname="DiceCraft.Core.Tests.RulesTests" runstate="Runnable" seed="1361818445" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.061005" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[2916 combinations; smallest face allocation = 93023
+]]></output>
+              </test-case>
+              <test-suite type="ParameterizedMethod" id="1138" name="Probability_FiveContractVectors" fullname="DiceCraft.Core.Tests.RulesTests.Probability_FiveContractVectors" classname="DiceCraft.Core.Tests.RulesTests" runstate="Runnable" testcasecount="5" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.011869" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1133" name="Probability_FiveContractVectors(&quot;none&quot;,False,False,System.Int32[])" fullname="DiceCraft.Core.Tests.RulesTests.Probability_FiveContractVectors(&quot;none&quot;,False,False,System.Int32[])" methodname="Probability_FiveContractVectors" classname="DiceCraft.Core.Tests.RulesTests" runstate="Runnable" seed="70743361" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.002472" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1134" name="Probability_FiveContractVectors(&quot;smooth&quot;,False,False,System.Int32[])" fullname="DiceCraft.Core.Tests.RulesTests.Probability_FiveContractVectors(&quot;smooth&quot;,False,False,System.Int32[])" methodname="Probability_FiveContractVectors" classname="DiceCraft.Core.Tests.RulesTests" runstate="Runnable" seed="372695538" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.002019" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1135" name="Probability_FiveContractVectors(&quot;rough&quot;,False,False,System.Int32[])" fullname="DiceCraft.Core.Tests.RulesTests.Probability_FiveContractVectors(&quot;rough&quot;,False,False,System.Int32[])" methodname="Probability_FiveContractVectors" classname="DiceCraft.Core.Tests.RulesTests" runstate="Runnable" seed="930295570" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.001984" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1136" name="Probability_FiveContractVectors(&quot;none&quot;,True,False,System.Int32[])" fullname="DiceCraft.Core.Tests.RulesTests.Probability_FiveContractVectors(&quot;none&quot;,True,False,System.Int32[])" methodname="Probability_FiveContractVectors" classname="DiceCraft.Core.Tests.RulesTests" runstate="Runnable" seed="36123132" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.001957" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1137" name="Probability_FiveContractVectors(&quot;none&quot;,True,True,System.Int32[])" fullname="DiceCraft.Core.Tests.RulesTests.Probability_FiveContractVectors(&quot;none&quot;,True,True,System.Int32[])" methodname="Probability_FiveContractVectors" classname="DiceCraft.Core.Tests.RulesTests" runstate="Runnable" seed="342085516" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.001994" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+              </test-suite>
+              <test-case id="1143" name="Probability_RejectsIllegalPhysicalData" fullname="DiceCraft.Core.Tests.RulesTests.Probability_RejectsIllegalPhysicalData" methodname="Probability_RejectsIllegalPhysicalData" classname="DiceCraft.Core.Tests.RulesTests" runstate="Runnable" seed="1564722561" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.002192" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1141" name="Probability_RepeatedPreviewDoesNotCompoundOrMutate" fullname="DiceCraft.Core.Tests.RulesTests.Probability_RepeatedPreviewDoesNotCompoundOrMutate" methodname="Probability_RepeatedPreviewDoesNotCompoundOrMutate" classname="DiceCraft.Core.Tests.RulesTests" runstate="Runnable" seed="818066499" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.002553" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1140" name="Probability_TieBreakUsesPhysicalFaceId_NotArrayOrder" fullname="DiceCraft.Core.Tests.RulesTests.Probability_TieBreakUsesPhysicalFaceId_NotArrayOrder" methodname="Probability_TieBreakUsesPhysicalFaceId_NotArrayOrder" classname="DiceCraft.Core.Tests.RulesTests" runstate="Runnable" seed="2028456214" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.002298" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1142" name="Probability_UsesPermanentPips" fullname="DiceCraft.Core.Tests.RulesTests.Probability_UsesPermanentPips" methodname="Probability_UsesPermanentPips" classname="DiceCraft.Core.Tests.RulesTests" runstate="Runnable" seed="1348293155" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.007745" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1144" name="Rng_ExactFirstFiveOutputs" fullname="DiceCraft.Core.Tests.RulesTests.Rng_ExactFirstFiveOutputs" methodname="Rng_ExactFirstFiveOutputs" classname="DiceCraft.Core.Tests.RulesTests" runstate="Runnable" seed="1303058839" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.008760" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1145" name="Rng_RejectionSamplingContractAndClone" fullname="DiceCraft.Core.Tests.RulesTests.Rng_RejectionSamplingContractAndClone" methodname="Rng_RejectionSamplingContractAndClone" classname="DiceCraft.Core.Tests.RulesTests" runstate="Runnable" seed="175731506" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.003471" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1146" name="Rng_SeedOnlyAcceptsUintDecimal" fullname="DiceCraft.Core.Tests.RulesTests.Rng_SeedOnlyAcceptsUintDecimal" methodname="Rng_SeedOnlyAcceptsUintDecimal" classname="DiceCraft.Core.Tests.RulesTests" runstate="Runnable" seed="280079487" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.002430" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1149" name="Score_EqualUpgradedMultipliersPreferHigherStructuralRank" fullname="DiceCraft.Core.Tests.RulesTests.Score_EqualUpgradedMultipliersPreferHigherStructuralRank" methodname="Score_EqualUpgradedMultipliersPreferHigherStructuralRank" classname="DiceCraft.Core.Tests.RulesTests" runstate="Runnable" seed="435108918" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.002376" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1148" name="Score_RejectsEmptyDuplicateOverCapacityAndInvalidLevels" fullname="DiceCraft.Core.Tests.RulesTests.Score_RejectsEmptyDuplicateOverCapacityAndInvalidLevels" methodname="Score_RejectsEmptyDuplicateOverCapacityAndInvalidLevels" classname="DiceCraft.Core.Tests.RulesTests" runstate="Runnable" seed="1789788325" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.003376" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+        <test-suite type="TestSuite" id="1297" name="Tests" fullname="DiceCraft.Tests" runstate="Runnable" testcasecount="125" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:42Z" duration="1.174704" total="125" passed="125" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="1150" name="AtomicSaveStoreTests" fullname="DiceCraft.Tests.AtomicSaveStoreTests" classname="DiceCraft.Tests.AtomicSaveStoreTests" runstate="Runnable" testcasecount="11" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:42Z" duration="0.458684" total="11" passed="11" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-suite type="ParameterizedMethod" id="1159" name="SAVE_BackupRecoveryThenSavePreservesLastValidBackup" fullname="DiceCraft.Tests.AtomicSaveStoreTests.SAVE_BackupRecoveryThenSavePreservesLastValidBackup" classname="DiceCraft.Tests.AtomicSaveStoreTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.180417" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1156" name="SAVE_BackupRecoveryThenSavePreservesLastValidBackup(&quot;schema&quot;)" fullname="DiceCraft.Tests.AtomicSaveStoreTests.SAVE_BackupRecoveryThenSavePreservesLastValidBackup(&quot;schema&quot;)" methodname="SAVE_BackupRecoveryThenSavePreservesLastValidBackup" classname="DiceCraft.Tests.AtomicSaveStoreTests" runstate="Runnable" seed="22859127" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.071997" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[Isolated persistence evidence retained: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftPersistence_299044f64eaa49e1a031fdc754c90256
+]]></output>
+              </test-case>
+              <test-case id="1157" name="SAVE_BackupRecoveryThenSavePreservesLastValidBackup(&quot;hash&quot;)" fullname="DiceCraft.Tests.AtomicSaveStoreTests.SAVE_BackupRecoveryThenSavePreservesLastValidBackup(&quot;hash&quot;)" methodname="SAVE_BackupRecoveryThenSavePreservesLastValidBackup" classname="DiceCraft.Tests.AtomicSaveStoreTests" runstate="Runnable" seed="914398157" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.060966" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[Isolated persistence evidence retained: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftPersistence_512df20c56504c9abeb16411073dd889
+]]></output>
+              </test-case>
+              <test-case id="1158" name="SAVE_BackupRecoveryThenSavePreservesLastValidBackup(&quot;structure&quot;)" fullname="DiceCraft.Tests.AtomicSaveStoreTests.SAVE_BackupRecoveryThenSavePreservesLastValidBackup(&quot;structure&quot;)" methodname="SAVE_BackupRecoveryThenSavePreservesLastValidBackup" classname="DiceCraft.Tests.AtomicSaveStoreTests" runstate="Runnable" seed="375693401" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.046312" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[Isolated persistence evidence retained: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftPersistence_76fac2c0bfd74b39b5d6cdaf2bba98b4
+]]></output>
+              </test-case>
+            </test-suite>
+            <test-suite type="ParameterizedMethod" id="1155" name="SAVE_BothFilesCorruptReturnsNullAndNoticeWithoutOverwritingEvidence" fullname="DiceCraft.Tests.AtomicSaveStoreTests.SAVE_BothFilesCorruptReturnsNullAndNoticeWithoutOverwritingEvidence" classname="DiceCraft.Tests.AtomicSaveStoreTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.100668" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1152" name="SAVE_BothFilesCorruptReturnsNullAndNoticeWithoutOverwritingEvidence(&quot;schema&quot;)" fullname="DiceCraft.Tests.AtomicSaveStoreTests.SAVE_BothFilesCorruptReturnsNullAndNoticeWithoutOverwritingEvidence(&quot;schema&quot;)" methodname="SAVE_BothFilesCorruptReturnsNullAndNoticeWithoutOverwritingEvidence" classname="DiceCraft.Tests.AtomicSaveStoreTests" runstate="Runnable" seed="196571147" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.029685" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[Isolated persistence evidence retained: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftPersistence_eb7302ce72d14d998aeaaab97bd88c72
+]]></output>
+              </test-case>
+              <test-case id="1153" name="SAVE_BothFilesCorruptReturnsNullAndNoticeWithoutOverwritingEvidence(&quot;hash&quot;)" fullname="DiceCraft.Tests.AtomicSaveStoreTests.SAVE_BothFilesCorruptReturnsNullAndNoticeWithoutOverwritingEvidence(&quot;hash&quot;)" methodname="SAVE_BothFilesCorruptReturnsNullAndNoticeWithoutOverwritingEvidence" classname="DiceCraft.Tests.AtomicSaveStoreTests" runstate="Runnable" seed="1242734849" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.030499" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[Isolated persistence evidence retained: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftPersistence_440887c0fa034e9d95ef762edf5228f1
+]]></output>
+              </test-case>
+              <test-case id="1154" name="SAVE_BothFilesCorruptReturnsNullAndNoticeWithoutOverwritingEvidence(&quot;structure&quot;)" fullname="DiceCraft.Tests.AtomicSaveStoreTests.SAVE_BothFilesCorruptReturnsNullAndNoticeWithoutOverwritingEvidence(&quot;structure&quot;)" methodname="SAVE_BothFilesCorruptReturnsNullAndNoticeWithoutOverwritingEvidence" classname="DiceCraft.Tests.AtomicSaveStoreTests" runstate="Runnable" seed="367568523" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.039041" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[Isolated persistence evidence retained: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftPersistence_6c649727be1e41edbd5094309f9b2584
+]]></output>
+              </test-case>
+            </test-suite>
+            <test-suite type="ParameterizedMethod" id="1163" name="SAVE_DirectWriteWithoutLoadStillPreservesBackupWhenActiveIsCorrupt" fullname="DiceCraft.Tests.AtomicSaveStoreTests.SAVE_DirectWriteWithoutLoadStillPreservesBackupWhenActiveIsCorrupt" classname="DiceCraft.Tests.AtomicSaveStoreTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:42Z" duration="0.139797" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1160" name="SAVE_DirectWriteWithoutLoadStillPreservesBackupWhenActiveIsCorrupt(&quot;schema&quot;)" fullname="DiceCraft.Tests.AtomicSaveStoreTests.SAVE_DirectWriteWithoutLoadStillPreservesBackupWhenActiveIsCorrupt(&quot;schema&quot;)" methodname="SAVE_DirectWriteWithoutLoadStillPreservesBackupWhenActiveIsCorrupt" classname="DiceCraft.Tests.AtomicSaveStoreTests" runstate="Runnable" seed="545610769" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.041754" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[Isolated persistence evidence retained: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftPersistence_f3c059346a0743a3ac6df367aeea48a3
+]]></output>
+              </test-case>
+              <test-case id="1161" name="SAVE_DirectWriteWithoutLoadStillPreservesBackupWhenActiveIsCorrupt(&quot;hash&quot;)" fullname="DiceCraft.Tests.AtomicSaveStoreTests.SAVE_DirectWriteWithoutLoadStillPreservesBackupWhenActiveIsCorrupt(&quot;hash&quot;)" methodname="SAVE_DirectWriteWithoutLoadStillPreservesBackupWhenActiveIsCorrupt" classname="DiceCraft.Tests.AtomicSaveStoreTests" runstate="Runnable" seed="291444532" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:41Z" duration="0.047026" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[Isolated persistence evidence retained: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftPersistence_63fc2fc4e98c4d3ca4fdf2e7642c37b8
+]]></output>
+              </test-case>
+              <test-case id="1162" name="SAVE_DirectWriteWithoutLoadStillPreservesBackupWhenActiveIsCorrupt(&quot;structure&quot;)" fullname="DiceCraft.Tests.AtomicSaveStoreTests.SAVE_DirectWriteWithoutLoadStillPreservesBackupWhenActiveIsCorrupt(&quot;structure&quot;)" methodname="SAVE_DirectWriteWithoutLoadStillPreservesBackupWhenActiveIsCorrupt" classname="DiceCraft.Tests.AtomicSaveStoreTests" runstate="Runnable" seed="331710506" result="Passed" start-time="2026-10-29 00:48:41Z" end-time="2026-10-29 00:48:42Z" duration="0.049576" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[Isolated persistence evidence retained: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftPersistence_4d7cc74170294f94a945840d15e7a891
+]]></output>
+              </test-case>
+            </test-suite>
+            <test-case id="1164" name="SAVE_NullGroupHistoryRemainsNoGroupAndCannotChangeNextHandOrScore" fullname="DiceCraft.Tests.AtomicSaveStoreTests.SAVE_NullGroupHistoryRemainsNoGroupAndCannotChangeNextHandOrScore" methodname="SAVE_NullGroupHistoryRemainsNoGroupAndCannotChangeNextHandOrScore" classname="DiceCraft.Tests.AtomicSaveStoreTests" runstate="Runnable" seed="4535950" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.024614" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Isolated persistence evidence retained: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftPersistence_ed1d5324178246208a68e22550105bb7
+]]></output>
+            </test-case>
+            <test-case id="1151" name="SAVE_RealJsonUtilityRoundTripPreservesDiceRngReceiptsAndPhysicalResults" fullname="DiceCraft.Tests.AtomicSaveStoreTests.SAVE_RealJsonUtilityRoundTripPreservesDiceRngReceiptsAndPhysicalResults" methodname="SAVE_RealJsonUtilityRoundTripPreservesDiceRngReceiptsAndPhysicalResults" classname="DiceCraft.Tests.AtomicSaveStoreTests" runstate="Runnable" seed="2054043992" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.011302" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Isolated persistence evidence retained: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftPersistence_fc500a640eab432d95240147e297f738
+]]></output>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1165" name="FlowTests" fullname="DiceCraft.Tests.FlowTests" classname="DiceCraft.Tests.FlowTests" runstate="Runnable" testcasecount="22" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.132308" total="22" passed="22" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1166" name="FLOW_A01_InitialStateAndNoSubmitBeforeRoll" fullname="DiceCraft.Tests.FlowTests.FLOW_A01_InitialStateAndNoSubmitBeforeRoll" methodname="FLOW_A01_InitialStateAndNoSubmitBeforeRoll" classname="DiceCraft.Tests.FlowTests" runstate="Runnable" seed="1461214087" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.003692" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1167" name="FLOW_A02_A03_A04_OrderedIrreversibleLocks" fullname="DiceCraft.Tests.FlowTests.FLOW_A02_A03_A04_OrderedIrreversibleLocks" methodname="FLOW_A02_A03_A04_OrderedIrreversibleLocks" classname="DiceCraft.Tests.FlowTests" runstate="Runnable" seed="207230228" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.004432" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1168" name="FLOW_A05_PendingBlocksEveryPersistentActionExceptConfirm" fullname="DiceCraft.Tests.FlowTests.FLOW_A05_PendingBlocksEveryPersistentActionExceptConfirm" methodname="FLOW_A05_PendingBlocksEveryPersistentActionExceptConfirm" classname="DiceCraft.Tests.FlowTests" runstate="Runnable" seed="803261409" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.003117" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1169" name="FLOW_A06_OverCapacityRejectsWholeBatch" fullname="DiceCraft.Tests.FlowTests.FLOW_A06_OverCapacityRejectsWholeBatch" methodname="FLOW_A06_OverCapacityRejectsWholeBatch" classname="DiceCraft.Tests.FlowTests" runstate="Runnable" seed="1018511868" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.003248" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1170" name="FLOW_A07_TemporaryDiceDoNotExpandCapacity" fullname="DiceCraft.Tests.FlowTests.FLOW_A07_TemporaryDiceDoNotExpandCapacity" methodname="FLOW_A07_TemporaryDiceDoNotExpandCapacity" classname="DiceCraft.Tests.FlowTests" runstate="Runnable" seed="370485518" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.004249" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1171" name="FLOW_A08_ControllerBudgetsCombine" fullname="DiceCraft.Tests.FlowTests.FLOW_A08_ControllerBudgetsCombine" methodname="FLOW_A08_ControllerBudgetsCombine" classname="DiceCraft.Tests.FlowTests" runstate="Runnable" seed="1569633653" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.002390" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1172" name="FLOW_A09_A11_C05OnlyAfterRollOnceAndSurvivesLoad" fullname="DiceCraft.Tests.FlowTests.FLOW_A09_A11_C05OnlyAfterRollOnceAndSurvivesLoad" methodname="FLOW_A09_A11_C05OnlyAfterRollOnceAndSurvivesLoad" classname="DiceCraft.Tests.FlowTests" runstate="Runnable" seed="1611413788" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.003470" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1173" name="FLOW_A10_LockingAfterLastRollDoesNotGrantC05" fullname="DiceCraft.Tests.FlowTests.FLOW_A10_LockingAfterLastRollDoesNotGrantC05" methodname="FLOW_A10_LockingAfterLastRollDoesNotGrantC05" classname="DiceCraft.Tests.FlowTests" runstate="Runnable" seed="424209695" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.006228" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1174" name="FLOW_A12_ExtraRollAndSubmissionPersistForStage" fullname="DiceCraft.Tests.FlowTests.FLOW_A12_ExtraRollAndSubmissionPersistForStage" methodname="FLOW_A12_ExtraRollAndSubmissionPersistForStage" classname="DiceCraft.Tests.FlowTests" runstate="Runnable" seed="1583271992" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.012899" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1175" name="FLOW_C01_C02_CopyUsesFrozenScoreAndDeepCopies" fullname="DiceCraft.Tests.FlowTests.FLOW_C01_C02_CopyUsesFrozenScoreAndDeepCopies" methodname="FLOW_C01_C02_CopyUsesFrozenScoreAndDeepCopies" classname="DiceCraft.Tests.FlowTests" runstate="Runnable" seed="508585011" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.003159" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1176" name="FLOW_C03_C04_CopyDoesNotTriggerLaterOrOnEffectivePair" fullname="DiceCraft.Tests.FlowTests.FLOW_C03_C04_CopyDoesNotTriggerLaterOrOnEffectivePair" methodname="FLOW_C03_C04_CopyDoesNotTriggerLaterOrOnEffectivePair" classname="DiceCraft.Tests.FlowTests" runstate="Runnable" seed="497435469" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.003539" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1177" name="FLOW_C05_C06_DiffusionUsesPhysicalFaceAfterScoring" fullname="DiceCraft.Tests.FlowTests.FLOW_C05_C06_DiffusionUsesPhysicalFaceAfterScoring" methodname="FLOW_C05_C06_DiffusionUsesPhysicalFaceAfterScoring" classname="DiceCraft.Tests.FlowTests" runstate="Runnable" seed="362224170" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.004357" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1178" name="FLOW_C07_RemoteAllowsAbsentPipAndPreservesPhysicalFace" fullname="DiceCraft.Tests.FlowTests.FLOW_C07_RemoteAllowsAbsentPipAndPreservesPhysicalFace" methodname="FLOW_C07_RemoteAllowsAbsentPipAndPreservesPhysicalFace" classname="DiceCraft.Tests.FlowTests" runstate="Runnable" seed="1807375483" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.003332" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1179" name="FLOW_C08_RemoteRejectsBadTargetsAtomically" fullname="DiceCraft.Tests.FlowTests.FLOW_C08_RemoteRejectsBadTargetsAtomically" methodname="FLOW_C08_RemoteRejectsBadTargetsAtomically" classname="DiceCraft.Tests.FlowTests" runstate="Runnable" seed="1998788855" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.002740" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1180" name="FLOW_C09_C11_BrokenRemoteTargetsConsumeItemAndNoDiceFails" fullname="DiceCraft.Tests.FlowTests.FLOW_C09_C11_BrokenRemoteTargetsConsumeItemAndNoDiceFails" methodname="FLOW_C09_C11_BrokenRemoteTargetsConsumeItemAndNoDiceFails" classname="DiceCraft.Tests.FlowTests" runstate="Runnable" seed="851114284" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.003082" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1181" name="FLOW_C10_LockedGlassNeverRollsOrBreaks" fullname="DiceCraft.Tests.FlowTests.FLOW_C10_LockedGlassNeverRollsOrBreaks" methodname="FLOW_C10_LockedGlassNeverRollsOrBreaks" classname="DiceCraft.Tests.FlowTests" runstate="Runnable" seed="247765739" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.003157" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1182" name="FLOW_C12_TemporaryLimitIsSimultaneousNotHistorical" fullname="DiceCraft.Tests.FlowTests.FLOW_C12_TemporaryLimitIsSimultaneousNotHistorical" methodname="FLOW_C12_TemporaryLimitIsSimultaneousNotHistorical" classname="DiceCraft.Tests.FlowTests" runstate="Runnable" seed="136052649" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.004110" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1186" name="FLOW_C13_CopyPreservesTemporaryTargetLifetime" fullname="DiceCraft.Tests.FlowTests.FLOW_C13_CopyPreservesTemporaryTargetLifetime" methodname="FLOW_C13_CopyPreservesTemporaryTargetLifetime" classname="DiceCraft.Tests.FlowTests" runstate="Runnable" seed="1663946349" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.016420" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-suite type="ParameterizedMethod" id="1185" name="FLOW_C14_C15_SettlementClearsTemporaryDiceWithFinalWinPriority" fullname="DiceCraft.Tests.FlowTests.FLOW_C14_C15_SettlementClearsTemporaryDiceWithFinalWinPriority" classname="DiceCraft.Tests.FlowTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.026487" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1183" name="FLOW_C14_C15_SettlementClearsTemporaryDiceWithFinalWinPriority(False)" fullname="DiceCraft.Tests.FlowTests.FLOW_C14_C15_SettlementClearsTemporaryDiceWithFinalWinPriority(False)" methodname="FLOW_C14_C15_SettlementClearsTemporaryDiceWithFinalWinPriority" classname="DiceCraft.Tests.FlowTests" runstate="Runnable" seed="2025198976" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.014351" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1184" name="FLOW_C14_C15_SettlementClearsTemporaryDiceWithFinalWinPriority(True)" fullname="DiceCraft.Tests.FlowTests.FLOW_C14_C15_SettlementClearsTemporaryDiceWithFinalWinPriority(True)" methodname="FLOW_C14_C15_SettlementClearsTemporaryDiceWithFinalWinPriority" classname="DiceCraft.Tests.FlowTests" runstate="Runnable" seed="583508010" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.010913" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-case id="1187" name="FullSlotsWithUnlockedDiceCanStillRollButAllLockedCannot" fullname="DiceCraft.Tests.FlowTests.FullSlotsWithUnlockedDiceCanStillRollButAllLockedCannot" methodname="FullSlotsWithUnlockedDiceCanStillRollButAllLockedCannot" classname="DiceCraft.Tests.FlowTests" runstate="Runnable" seed="835091288" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.009352" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1188" name="LastSubmissionTargetWinsBeforeExhaustionAndNewHandClearsEffects" fullname="DiceCraft.Tests.FlowTests.LastSubmissionTargetWinsBeforeExhaustionAndNewHandClearsEffects" methodname="LastSubmissionTargetWinsBeforeExhaustionAndNewHandClearsEffects" classname="DiceCraft.Tests.FlowTests" runstate="Runnable" seed="73052877" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.003549" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1189" name="ItemAndSaveTests" fullname="DiceCraft.Tests.ItemAndSaveTests" classname="DiceCraft.Tests.ItemAndSaveTests" runstate="Runnable" testcasecount="30" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.141822" total="30" passed="30" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-suite type="ParameterizedMethod" id="1209" name="CONTENT_HandBuffDoesNotStack" fullname="DiceCraft.Tests.ItemAndSaveTests.CONTENT_HandBuffDoesNotStack" classname="DiceCraft.Tests.ItemAndSaveTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.009638" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1206" name="CONTENT_HandBuffDoesNotStack(&quot;I01&quot;)" fullname="DiceCraft.Tests.ItemAndSaveTests.CONTENT_HandBuffDoesNotStack(&quot;I01&quot;)" methodname="CONTENT_HandBuffDoesNotStack" classname="DiceCraft.Tests.ItemAndSaveTests" runstate="Runnable" seed="1949110286" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.003351" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1207" name="CONTENT_HandBuffDoesNotStack(&quot;I04&quot;)" fullname="DiceCraft.Tests.ItemAndSaveTests.CONTENT_HandBuffDoesNotStack(&quot;I04&quot;)" methodname="CONTENT_HandBuffDoesNotStack" classname="DiceCraft.Tests.ItemAndSaveTests" runstate="Runnable" seed="1548928665" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.002770" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1208" name="CONTENT_HandBuffDoesNotStack(&quot;I05&quot;)" fullname="DiceCraft.Tests.ItemAndSaveTests.CONTENT_HandBuffDoesNotStack(&quot;I05&quot;)" methodname="CONTENT_HandBuffDoesNotStack" classname="DiceCraft.Tests.ItemAndSaveTests" runstate="Runnable" seed="397125963" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.002812" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="ParameterizedMethod" id="1205" name="CONTENT_ItemRejectsOutsideWindowWithoutConsumption" fullname="DiceCraft.Tests.ItemAndSaveTests.CONTENT_ItemRejectsOutsideWindowWithoutConsumption" classname="DiceCraft.Tests.ItemAndSaveTests" runstate="Runnable" testcasecount="7" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.027543" total="7" passed="7" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1198" name="CONTENT_ItemRejectsOutsideWindowWithoutConsumption(&quot;I01&quot;)" fullname="DiceCraft.Tests.ItemAndSaveTests.CONTENT_ItemRejectsOutsideWindowWithoutConsumption(&quot;I01&quot;)" methodname="CONTENT_ItemRejectsOutsideWindowWithoutConsumption" classname="DiceCraft.Tests.ItemAndSaveTests" runstate="Runnable" seed="1819029294" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.002411" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1199" name="CONTENT_ItemRejectsOutsideWindowWithoutConsumption(&quot;I02&quot;)" fullname="DiceCraft.Tests.ItemAndSaveTests.CONTENT_ItemRejectsOutsideWindowWithoutConsumption(&quot;I02&quot;)" methodname="CONTENT_ItemRejectsOutsideWindowWithoutConsumption" classname="DiceCraft.Tests.ItemAndSaveTests" runstate="Runnable" seed="1544655092" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.002207" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1200" name="CONTENT_ItemRejectsOutsideWindowWithoutConsumption(&quot;I03&quot;)" fullname="DiceCraft.Tests.ItemAndSaveTests.CONTENT_ItemRejectsOutsideWindowWithoutConsumption(&quot;I03&quot;)" methodname="CONTENT_ItemRejectsOutsideWindowWithoutConsumption" classname="DiceCraft.Tests.ItemAndSaveTests" runstate="Runnable" seed="1463938712" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.002233" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1201" name="CONTENT_ItemRejectsOutsideWindowWithoutConsumption(&quot;I04&quot;)" fullname="DiceCraft.Tests.ItemAndSaveTests.CONTENT_ItemRejectsOutsideWindowWithoutConsumption(&quot;I04&quot;)" methodname="CONTENT_ItemRejectsOutsideWindowWithoutConsumption" classname="DiceCraft.Tests.ItemAndSaveTests" runstate="Runnable" seed="323305545" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.005503" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1202" name="CONTENT_ItemRejectsOutsideWindowWithoutConsumption(&quot;I05&quot;)" fullname="DiceCraft.Tests.ItemAndSaveTests.CONTENT_ItemRejectsOutsideWindowWithoutConsumption(&quot;I05&quot;)" methodname="CONTENT_ItemRejectsOutsideWindowWithoutConsumption" classname="DiceCraft.Tests.ItemAndSaveTests" runstate="Runnable" seed="1250479882" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.008804" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1203" name="CONTENT_ItemRejectsOutsideWindowWithoutConsumption(&quot;I06&quot;)" fullname="DiceCraft.Tests.ItemAndSaveTests.CONTENT_ItemRejectsOutsideWindowWithoutConsumption(&quot;I06&quot;)" methodname="CONTENT_ItemRejectsOutsideWindowWithoutConsumption" classname="DiceCraft.Tests.ItemAndSaveTests" runstate="Runnable" seed="937837801" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.002584" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1204" name="CONTENT_ItemRejectsOutsideWindowWithoutConsumption(&quot;I07&quot;)" fullname="DiceCraft.Tests.ItemAndSaveTests.CONTENT_ItemRejectsOutsideWindowWithoutConsumption(&quot;I07&quot;)" methodname="CONTENT_ItemRejectsOutsideWindowWithoutConsumption" classname="DiceCraft.Tests.ItemAndSaveTests" runstate="Runnable" seed="1168647966" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.002156" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="ParameterizedMethod" id="1197" name="CONTENT_ItemSuccessfulUseAndDuplicateReceiptDoNotConsumeAgain" fullname="DiceCraft.Tests.ItemAndSaveTests.CONTENT_ItemSuccessfulUseAndDuplicateReceiptDoNotConsumeAgain" classname="DiceCraft.Tests.ItemAndSaveTests" runstate="Runnable" testcasecount="7" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.022936" total="7" passed="7" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1190" name="CONTENT_ItemSuccessfulUseAndDuplicateReceiptDoNotConsumeAgain(&quot;I01&quot;)" fullname="DiceCraft.Tests.ItemAndSaveTests.CONTENT_ItemSuccessfulUseAndDuplicateReceiptDoNotConsumeAgain(&quot;I01&quot;)" methodname="CONTENT_ItemSuccessfulUseAndDuplicateReceiptDoNotConsumeAgain" classname="DiceCraft.Tests.ItemAndSaveTests" runstate="Runnable" seed="652500029" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.003158" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1191" name="CONTENT_ItemSuccessfulUseAndDuplicateReceiptDoNotConsumeAgain(&quot;I02&quot;)" fullname="DiceCraft.Tests.ItemAndSaveTests.CONTENT_ItemSuccessfulUseAndDuplicateReceiptDoNotConsumeAgain(&quot;I02&quot;)" methodname="CONTENT_ItemSuccessfulUseAndDuplicateReceiptDoNotConsumeAgain" classname="DiceCraft.Tests.ItemAndSaveTests" runstate="Runnable" seed="773163175" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.002511" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1192" name="CONTENT_ItemSuccessfulUseAndDuplicateReceiptDoNotConsumeAgain(&quot;I03&quot;)" fullname="DiceCraft.Tests.ItemAndSaveTests.CONTENT_ItemSuccessfulUseAndDuplicateReceiptDoNotConsumeAgain(&quot;I03&quot;)" methodname="CONTENT_ItemSuccessfulUseAndDuplicateReceiptDoNotConsumeAgain" classname="DiceCraft.Tests.ItemAndSaveTests" runstate="Runnable" seed="1162754505" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.002528" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1193" name="CONTENT_ItemSuccessfulUseAndDuplicateReceiptDoNotConsumeAgain(&quot;I04&quot;)" fullname="DiceCraft.Tests.ItemAndSaveTests.CONTENT_ItemSuccessfulUseAndDuplicateReceiptDoNotConsumeAgain(&quot;I04&quot;)" methodname="CONTENT_ItemSuccessfulUseAndDuplicateReceiptDoNotConsumeAgain" classname="DiceCraft.Tests.ItemAndSaveTests" runstate="Runnable" seed="1111978693" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.002411" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1194" name="CONTENT_ItemSuccessfulUseAndDuplicateReceiptDoNotConsumeAgain(&quot;I05&quot;)" fullname="DiceCraft.Tests.ItemAndSaveTests.CONTENT_ItemSuccessfulUseAndDuplicateReceiptDoNotConsumeAgain(&quot;I05&quot;)" methodname="CONTENT_ItemSuccessfulUseAndDuplicateReceiptDoNotConsumeAgain" classname="DiceCraft.Tests.ItemAndSaveTests" runstate="Runnable" seed="326050374" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.002446" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1195" name="CONTENT_ItemSuccessfulUseAndDuplicateReceiptDoNotConsumeAgain(&quot;I06&quot;)" fullname="DiceCraft.Tests.ItemAndSaveTests.CONTENT_ItemSuccessfulUseAndDuplicateReceiptDoNotConsumeAgain(&quot;I06&quot;)" methodname="CONTENT_ItemSuccessfulUseAndDuplicateReceiptDoNotConsumeAgain" classname="DiceCraft.Tests.ItemAndSaveTests" runstate="Runnable" seed="1544138781" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.002494" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1196" name="CONTENT_ItemSuccessfulUseAndDuplicateReceiptDoNotConsumeAgain(&quot;I07&quot;)" fullname="DiceCraft.Tests.ItemAndSaveTests.CONTENT_ItemSuccessfulUseAndDuplicateReceiptDoNotConsumeAgain(&quot;I07&quot;)" methodname="CONTENT_ItemSuccessfulUseAndDuplicateReceiptDoNotConsumeAgain" classname="DiceCraft.Tests.ItemAndSaveTests" runstate="Runnable" seed="73239147" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.005820" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-case id="1218" name="DuplicateReceiptPrecedesSequenceAndBusyChecks" fullname="DiceCraft.Tests.ItemAndSaveTests.DuplicateReceiptPrecedesSequenceAndBusyChecks" methodname="DuplicateReceiptPrecedesSequenceAndBusyChecks" classname="DiceCraft.Tests.ItemAndSaveTests" runstate="Runnable" seed="1370601322" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.009285" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1211" name="FLOW_D05_D06_ProbabilityBuffsUsePermanentPipsAndDoNotStack" fullname="DiceCraft.Tests.ItemAndSaveTests.FLOW_D05_D06_ProbabilityBuffsUsePermanentPipsAndDoNotStack" methodname="FLOW_D05_D06_ProbabilityBuffsUsePermanentPipsAndDoNotStack" classname="DiceCraft.Tests.ItemAndSaveTests" runstate="Runnable" seed="1005925440" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.003794" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1212" name="FLOW_D07_TextureReplacementPreservesOtherAttributes" fullname="DiceCraft.Tests.ItemAndSaveTests.FLOW_D07_TextureReplacementPreservesOtherAttributes" methodname="FLOW_D07_TextureReplacementPreservesOtherAttributes" classname="DiceCraft.Tests.ItemAndSaveTests" runstate="Runnable" seed="1794181684" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.010658" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1213" name="FLOW_D08_RepeatedLoadsNeverCompoundProbabilityWeights" fullname="DiceCraft.Tests.ItemAndSaveTests.FLOW_D08_RepeatedLoadsNeverCompoundProbabilityWeights" methodname="FLOW_D08_RepeatedLoadsNeverCompoundProbabilityWeights" classname="DiceCraft.Tests.ItemAndSaveTests" runstate="Runnable" seed="990785329" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.003880" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1215" name="FLOW_E13_CopySaveFailureDoesNotApplyUntilCommitOrRepeatOnRetry" fullname="DiceCraft.Tests.ItemAndSaveTests.FLOW_E13_CopySaveFailureDoesNotApplyUntilCommitOrRepeatOnRetry" methodname="FLOW_E13_CopySaveFailureDoesNotApplyUntilCommitOrRepeatOnRetry" classname="DiceCraft.Tests.ItemAndSaveTests" runstate="Runnable" seed="1364071728" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.003162" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1214" name="FLOW_E13_TransformSaveFailureRetainsExactCandidateAndBlocksNewActions" fullname="DiceCraft.Tests.ItemAndSaveTests.FLOW_E13_TransformSaveFailureRetainsExactCandidateAndBlocksNewActions" methodname="FLOW_E13_TransformSaveFailureRetainsExactCandidateAndBlocksNewActions" classname="DiceCraft.Tests.ItemAndSaveTests" runstate="Runnable" seed="532893690" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.004028" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1216" name="FLOW_E14_LocksOrderBuffsAndRngSurviveRestore" fullname="DiceCraft.Tests.ItemAndSaveTests.FLOW_E14_LocksOrderBuffsAndRngSurviveRestore" methodname="FLOW_E14_LocksOrderBuffsAndRngSurviveRestore" classname="DiceCraft.Tests.ItemAndSaveTests" runstate="Runnable" seed="480425875" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.003589" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1221" name="IdenticalSeedAndCommandsReproduceResultsShopAndRng" fullname="DiceCraft.Tests.ItemAndSaveTests.IdenticalSeedAndCommandsReproduceResultsShopAndRng" methodname="IdenticalSeedAndCommandsReproduceResultsShopAndRng" classname="DiceCraft.Tests.ItemAndSaveTests" runstate="Runnable" seed="1336632800" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.003578" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1210" name="ItemWindowsAndAbsentPermanentPipRejected" fullname="DiceCraft.Tests.ItemAndSaveTests.ItemWindowsAndAbsentPermanentPipRejected" methodname="ItemWindowsAndAbsentPermanentPipRejected" classname="DiceCraft.Tests.ItemAndSaveTests" runstate="Runnable" seed="635979372" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.014208" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1217" name="PreviewDoesNotAdvanceAnyRngOrApplyCopyOrDye" fullname="DiceCraft.Tests.ItemAndSaveTests.PreviewDoesNotAdvanceAnyRngOrApplyCopyOrDye" methodname="PreviewDoesNotAdvanceAnyRngOrApplyCopyOrDye" classname="DiceCraft.Tests.ItemAndSaveTests" runstate="Runnable" seed="76013082" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.004184" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1220" name="RestoreRejectsWrongSchemaUnknownContentAndDuplicateDice" fullname="DiceCraft.Tests.ItemAndSaveTests.RestoreRejectsWrongSchemaUnknownContentAndDuplicateDice" methodname="RestoreRejectsWrongSchemaUnknownContentAndDuplicateDice" classname="DiceCraft.Tests.ItemAndSaveTests" runstate="Runnable" seed="389212761" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.004561" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1222" name="SixStageFlowSupportsHighPressureAndFinalWinWithoutSixthShop" fullname="DiceCraft.Tests.ItemAndSaveTests.SixStageFlowSupportsHighPressureAndFinalWinWithoutSixthShop" methodname="SixStageFlowSupportsHighPressureAndFinalWinWithoutSixthShop" classname="DiceCraft.Tests.ItemAndSaveTests" runstate="Runnable" seed="821925821" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.009996" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1219" name="StateCopiesCannotMutateAuthoritativeData" fullname="DiceCraft.Tests.ItemAndSaveTests.StateCopiesCannotMutateAuthoritativeData" methodname="StateCopiesCannotMutateAuthoritativeData" classname="DiceCraft.Tests.ItemAndSaveTests" runstate="Runnable" seed="1952721229" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.002439" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1223" name="ShopTests" fullname="DiceCraft.Tests.ShopTests" classname="DiceCraft.Tests.ShopTests" runstate="Runnable" testcasecount="62" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.437089" total="62" passed="62" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-suite type="ParameterizedMethod" id="1248" name="CONTENT_ControllerPurchaseDuplicateAndSell" fullname="DiceCraft.Tests.ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell" classname="DiceCraft.Tests.ShopTests" runstate="Runnable" testcasecount="20" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.101537" total="20" passed="20" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1228" name="CONTENT_ControllerPurchaseDuplicateAndSell(&quot;C01&quot;)" fullname="DiceCraft.Tests.ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(&quot;C01&quot;)" methodname="CONTENT_ControllerPurchaseDuplicateAndSell" classname="DiceCraft.Tests.ShopTests" runstate="Runnable" seed="924255671" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.012252" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1229" name="CONTENT_ControllerPurchaseDuplicateAndSell(&quot;C02&quot;)" fullname="DiceCraft.Tests.ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(&quot;C02&quot;)" methodname="CONTENT_ControllerPurchaseDuplicateAndSell" classname="DiceCraft.Tests.ShopTests" runstate="Runnable" seed="161208423" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.003346" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1230" name="CONTENT_ControllerPurchaseDuplicateAndSell(&quot;C03&quot;)" fullname="DiceCraft.Tests.ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(&quot;C03&quot;)" methodname="CONTENT_ControllerPurchaseDuplicateAndSell" classname="DiceCraft.Tests.ShopTests" runstate="Runnable" seed="669784432" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.003286" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1231" name="CONTENT_ControllerPurchaseDuplicateAndSell(&quot;C04&quot;)" fullname="DiceCraft.Tests.ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(&quot;C04&quot;)" methodname="CONTENT_ControllerPurchaseDuplicateAndSell" classname="DiceCraft.Tests.ShopTests" runstate="Runnable" seed="1684531440" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.003260" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1232" name="CONTENT_ControllerPurchaseDuplicateAndSell(&quot;C05&quot;)" fullname="DiceCraft.Tests.ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(&quot;C05&quot;)" methodname="CONTENT_ControllerPurchaseDuplicateAndSell" classname="DiceCraft.Tests.ShopTests" runstate="Runnable" seed="404181563" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.003225" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1233" name="CONTENT_ControllerPurchaseDuplicateAndSell(&quot;C06&quot;)" fullname="DiceCraft.Tests.ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(&quot;C06&quot;)" methodname="CONTENT_ControllerPurchaseDuplicateAndSell" classname="DiceCraft.Tests.ShopTests" runstate="Runnable" seed="732003224" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.003317" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1234" name="CONTENT_ControllerPurchaseDuplicateAndSell(&quot;C07&quot;)" fullname="DiceCraft.Tests.ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(&quot;C07&quot;)" methodname="CONTENT_ControllerPurchaseDuplicateAndSell" classname="DiceCraft.Tests.ShopTests" runstate="Runnable" seed="1096009979" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.003251" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1235" name="CONTENT_ControllerPurchaseDuplicateAndSell(&quot;C08&quot;)" fullname="DiceCraft.Tests.ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(&quot;C08&quot;)" methodname="CONTENT_ControllerPurchaseDuplicateAndSell" classname="DiceCraft.Tests.ShopTests" runstate="Runnable" seed="922703030" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.013153" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1236" name="CONTENT_ControllerPurchaseDuplicateAndSell(&quot;C09&quot;)" fullname="DiceCraft.Tests.ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(&quot;C09&quot;)" methodname="CONTENT_ControllerPurchaseDuplicateAndSell" classname="DiceCraft.Tests.ShopTests" runstate="Runnable" seed="213179001" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.003877" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1237" name="CONTENT_ControllerPurchaseDuplicateAndSell(&quot;C10&quot;)" fullname="DiceCraft.Tests.ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(&quot;C10&quot;)" methodname="CONTENT_ControllerPurchaseDuplicateAndSell" classname="DiceCraft.Tests.ShopTests" runstate="Runnable" seed="1676774541" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.003335" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1238" name="CONTENT_ControllerPurchaseDuplicateAndSell(&quot;C11&quot;)" fullname="DiceCraft.Tests.ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(&quot;C11&quot;)" methodname="CONTENT_ControllerPurchaseDuplicateAndSell" classname="DiceCraft.Tests.ShopTests" runstate="Runnable" seed="155413233" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.003361" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1239" name="CONTENT_ControllerPurchaseDuplicateAndSell(&quot;C12&quot;)" fullname="DiceCraft.Tests.ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(&quot;C12&quot;)" methodname="CONTENT_ControllerPurchaseDuplicateAndSell" classname="DiceCraft.Tests.ShopTests" runstate="Runnable" seed="910724072" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.003409" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1240" name="CONTENT_ControllerPurchaseDuplicateAndSell(&quot;C13&quot;)" fullname="DiceCraft.Tests.ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(&quot;C13&quot;)" methodname="CONTENT_ControllerPurchaseDuplicateAndSell" classname="DiceCraft.Tests.ShopTests" runstate="Runnable" seed="1849851879" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.003432" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1241" name="CONTENT_ControllerPurchaseDuplicateAndSell(&quot;C14&quot;)" fullname="DiceCraft.Tests.ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(&quot;C14&quot;)" methodname="CONTENT_ControllerPurchaseDuplicateAndSell" classname="DiceCraft.Tests.ShopTests" runstate="Runnable" seed="314273030" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.003435" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1242" name="CONTENT_ControllerPurchaseDuplicateAndSell(&quot;C15&quot;)" fullname="DiceCraft.Tests.ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(&quot;C15&quot;)" methodname="CONTENT_ControllerPurchaseDuplicateAndSell" classname="DiceCraft.Tests.ShopTests" runstate="Runnable" seed="290979644" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.006772" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1243" name="CONTENT_ControllerPurchaseDuplicateAndSell(&quot;C16&quot;)" fullname="DiceCraft.Tests.ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(&quot;C16&quot;)" methodname="CONTENT_ControllerPurchaseDuplicateAndSell" classname="DiceCraft.Tests.ShopTests" runstate="Runnable" seed="1789386421" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.010626" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1244" name="CONTENT_ControllerPurchaseDuplicateAndSell(&quot;C17&quot;)" fullname="DiceCraft.Tests.ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(&quot;C17&quot;)" methodname="CONTENT_ControllerPurchaseDuplicateAndSell" classname="DiceCraft.Tests.ShopTests" runstate="Runnable" seed="1491781557" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.003428" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1245" name="CONTENT_ControllerPurchaseDuplicateAndSell(&quot;C18&quot;)" fullname="DiceCraft.Tests.ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(&quot;C18&quot;)" methodname="CONTENT_ControllerPurchaseDuplicateAndSell" classname="DiceCraft.Tests.ShopTests" runstate="Runnable" seed="480818454" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.003478" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1246" name="CONTENT_ControllerPurchaseDuplicateAndSell(&quot;C19&quot;)" fullname="DiceCraft.Tests.ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(&quot;C19&quot;)" methodname="CONTENT_ControllerPurchaseDuplicateAndSell" classname="DiceCraft.Tests.ShopTests" runstate="Runnable" seed="902110030" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.003444" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1247" name="CONTENT_ControllerPurchaseDuplicateAndSell(&quot;C20&quot;)" fullname="DiceCraft.Tests.ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(&quot;C20&quot;)" methodname="CONTENT_ControllerPurchaseDuplicateAndSell" classname="DiceCraft.Tests.ShopTests" runstate="Runnable" seed="1901849549" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.003275" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-case id="1287" name="CONTENT_O03_FullPermanentPoolRejectsAndExistingCandidatesNeverRefresh" fullname="DiceCraft.Tests.ShopTests.CONTENT_O03_FullPermanentPoolRejectsAndExistingCandidatesNeverRefresh" methodname="CONTENT_O03_FullPermanentPoolRejectsAndExistingCandidatesNeverRefresh" classname="DiceCraft.Tests.ShopTests" runstate="Runnable" seed="1433684344" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.004376" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-suite type="ParameterizedMethod" id="1291" name="CONTENT_ServiceDuplicateReceiptDoesNotRepeatMutation" fullname="DiceCraft.Tests.ShopTests.CONTENT_ServiceDuplicateReceiptDoesNotRepeatMutation" classname="DiceCraft.Tests.ShopTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.021355" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1288" name="CONTENT_ServiceDuplicateReceiptDoesNotRepeatMutation(&quot;O01&quot;)" fullname="DiceCraft.Tests.ShopTests.CONTENT_ServiceDuplicateReceiptDoesNotRepeatMutation(&quot;O01&quot;)" methodname="CONTENT_ServiceDuplicateReceiptDoesNotRepeatMutation" classname="DiceCraft.Tests.ShopTests" runstate="Runnable" seed="927105690" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.006475" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1289" name="CONTENT_ServiceDuplicateReceiptDoesNotRepeatMutation(&quot;O02&quot;)" fullname="DiceCraft.Tests.ShopTests.CONTENT_ServiceDuplicateReceiptDoesNotRepeatMutation(&quot;O02&quot;)" methodname="CONTENT_ServiceDuplicateReceiptDoesNotRepeatMutation" classname="DiceCraft.Tests.ShopTests" runstate="Runnable" seed="119144405" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.010053" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1290" name="CONTENT_ServiceDuplicateReceiptDoesNotRepeatMutation(&quot;O04&quot;)" fullname="DiceCraft.Tests.ShopTests.CONTENT_ServiceDuplicateReceiptDoesNotRepeatMutation(&quot;O04&quot;)" methodname="CONTENT_ServiceDuplicateReceiptDoesNotRepeatMutation" classname="DiceCraft.Tests.ShopTests" runstate="Runnable" seed="651439501" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.003594" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="ParameterizedMethod" id="1263" name="CONTENT_UpgradeAppliesOnlyToTargetAndIsIdempotent" fullname="DiceCraft.Tests.ShopTests.CONTENT_UpgradeAppliesOnlyToTargetAndIsIdempotent" classname="DiceCraft.Tests.ShopTests" runstate="Runnable" testcasecount="7" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.035808" total="7" passed="7" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1256" name="CONTENT_UpgradeAppliesOnlyToTargetAndIsIdempotent(&quot;U01&quot;)" fullname="DiceCraft.Tests.ShopTests.CONTENT_UpgradeAppliesOnlyToTargetAndIsIdempotent(&quot;U01&quot;)" methodname="CONTENT_UpgradeAppliesOnlyToTargetAndIsIdempotent" classname="DiceCraft.Tests.ShopTests" runstate="Runnable" seed="1800218367" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.004330" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1257" name="CONTENT_UpgradeAppliesOnlyToTargetAndIsIdempotent(&quot;U02&quot;)" fullname="DiceCraft.Tests.ShopTests.CONTENT_UpgradeAppliesOnlyToTargetAndIsIdempotent(&quot;U02&quot;)" methodname="CONTENT_UpgradeAppliesOnlyToTargetAndIsIdempotent" classname="DiceCraft.Tests.ShopTests" runstate="Runnable" seed="779234321" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.003295" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1258" name="CONTENT_UpgradeAppliesOnlyToTargetAndIsIdempotent(&quot;U03&quot;)" fullname="DiceCraft.Tests.ShopTests.CONTENT_UpgradeAppliesOnlyToTargetAndIsIdempotent(&quot;U03&quot;)" methodname="CONTENT_UpgradeAppliesOnlyToTargetAndIsIdempotent" classname="DiceCraft.Tests.ShopTests" runstate="Runnable" seed="91048660" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.003451" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1259" name="CONTENT_UpgradeAppliesOnlyToTargetAndIsIdempotent(&quot;U04&quot;)" fullname="DiceCraft.Tests.ShopTests.CONTENT_UpgradeAppliesOnlyToTargetAndIsIdempotent(&quot;U04&quot;)" methodname="CONTENT_UpgradeAppliesOnlyToTargetAndIsIdempotent" classname="DiceCraft.Tests.ShopTests" runstate="Runnable" seed="989425509" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.003240" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1260" name="CONTENT_UpgradeAppliesOnlyToTargetAndIsIdempotent(&quot;U05&quot;)" fullname="DiceCraft.Tests.ShopTests.CONTENT_UpgradeAppliesOnlyToTargetAndIsIdempotent(&quot;U05&quot;)" methodname="CONTENT_UpgradeAppliesOnlyToTargetAndIsIdempotent" classname="DiceCraft.Tests.ShopTests" runstate="Runnable" seed="78624487" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.003355" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1261" name="CONTENT_UpgradeAppliesOnlyToTargetAndIsIdempotent(&quot;U06&quot;)" fullname="DiceCraft.Tests.ShopTests.CONTENT_UpgradeAppliesOnlyToTargetAndIsIdempotent(&quot;U06&quot;)" methodname="CONTENT_UpgradeAppliesOnlyToTargetAndIsIdempotent" classname="DiceCraft.Tests.ShopTests" runstate="Runnable" seed="2073265231" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.003335" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1262" name="CONTENT_UpgradeAppliesOnlyToTargetAndIsIdempotent(&quot;U07&quot;)" fullname="DiceCraft.Tests.ShopTests.CONTENT_UpgradeAppliesOnlyToTargetAndIsIdempotent(&quot;U07&quot;)" methodname="CONTENT_UpgradeAppliesOnlyToTargetAndIsIdempotent" classname="DiceCraft.Tests.ShopTests" runstate="Runnable" seed="2110457195" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.012658" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="ParameterizedMethod" id="1286" name="CONTENT_UpgradeRejectsMissingTargetWithoutConsumingOffer" fullname="DiceCraft.Tests.ShopTests.CONTENT_UpgradeRejectsMissingTargetWithoutConsumingOffer" classname="DiceCraft.Tests.ShopTests" runstate="Runnable" testcasecount="7" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.023585" total="7" passed="7" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1279" name="CONTENT_UpgradeRejectsMissingTargetWithoutConsumingOffer(&quot;U01&quot;)" fullname="DiceCraft.Tests.ShopTests.CONTENT_UpgradeRejectsMissingTargetWithoutConsumingOffer(&quot;U01&quot;)" methodname="CONTENT_UpgradeRejectsMissingTargetWithoutConsumingOffer" classname="DiceCraft.Tests.ShopTests" runstate="Runnable" seed="597706560" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.004238" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1280" name="CONTENT_UpgradeRejectsMissingTargetWithoutConsumingOffer(&quot;U02&quot;)" fullname="DiceCraft.Tests.ShopTests.CONTENT_UpgradeRejectsMissingTargetWithoutConsumingOffer(&quot;U02&quot;)" methodname="CONTENT_UpgradeRejectsMissingTargetWithoutConsumingOffer" classname="DiceCraft.Tests.ShopTests" runstate="Runnable" seed="877115083" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.003128" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1281" name="CONTENT_UpgradeRejectsMissingTargetWithoutConsumingOffer(&quot;U03&quot;)" fullname="DiceCraft.Tests.ShopTests.CONTENT_UpgradeRejectsMissingTargetWithoutConsumingOffer(&quot;U03&quot;)" methodname="CONTENT_UpgradeRejectsMissingTargetWithoutConsumingOffer" classname="DiceCraft.Tests.ShopTests" runstate="Runnable" seed="1537994455" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.002912" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1282" name="CONTENT_UpgradeRejectsMissingTargetWithoutConsumingOffer(&quot;U04&quot;)" fullname="DiceCraft.Tests.ShopTests.CONTENT_UpgradeRejectsMissingTargetWithoutConsumingOffer(&quot;U04&quot;)" methodname="CONTENT_UpgradeRejectsMissingTargetWithoutConsumingOffer" classname="DiceCraft.Tests.ShopTests" runstate="Runnable" seed="679235491" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.002841" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1283" name="CONTENT_UpgradeRejectsMissingTargetWithoutConsumingOffer(&quot;U05&quot;)" fullname="DiceCraft.Tests.ShopTests.CONTENT_UpgradeRejectsMissingTargetWithoutConsumingOffer(&quot;U05&quot;)" methodname="CONTENT_UpgradeRejectsMissingTargetWithoutConsumingOffer" classname="DiceCraft.Tests.ShopTests" runstate="Runnable" seed="656274554" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.002842" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1284" name="CONTENT_UpgradeRejectsMissingTargetWithoutConsumingOffer(&quot;U06&quot;)" fullname="DiceCraft.Tests.ShopTests.CONTENT_UpgradeRejectsMissingTargetWithoutConsumingOffer(&quot;U06&quot;)" methodname="CONTENT_UpgradeRejectsMissingTargetWithoutConsumingOffer" classname="DiceCraft.Tests.ShopTests" runstate="Runnable" seed="1981116901" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.002803" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1285" name="CONTENT_UpgradeRejectsMissingTargetWithoutConsumingOffer(&quot;U07&quot;)" fullname="DiceCraft.Tests.ShopTests.CONTENT_UpgradeRejectsMissingTargetWithoutConsumingOffer(&quot;U07&quot;)" methodname="CONTENT_UpgradeRejectsMissingTargetWithoutConsumingOffer" classname="DiceCraft.Tests.ShopTests" runstate="Runnable" seed="58390066" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.002852" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="ParameterizedMethod" id="1226" name="FLOW_E01_RewardUsesOldBalance" fullname="DiceCraft.Tests.ShopTests.FLOW_E01_RewardUsesOldBalance" classname="DiceCraft.Tests.ShopTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.016351" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1224" name="FLOW_E01_RewardUsesOldBalance(False,36)" fullname="DiceCraft.Tests.ShopTests.FLOW_E01_RewardUsesOldBalance(False,36)" methodname="FLOW_E01_RewardUsesOldBalance" classname="DiceCraft.Tests.ShopTests" runstate="Runnable" seed="913839348" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.006213" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1225" name="FLOW_E01_RewardUsesOldBalance(True,38)" fullname="DiceCraft.Tests.ShopTests.FLOW_E01_RewardUsesOldBalance(True,38)" methodname="FLOW_E01_RewardUsesOldBalance" classname="DiceCraft.Tests.ShopTests" runstate="Runnable" seed="1337717873" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.009353" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-case id="1227" name="FLOW_E02_BuyingPigNeverChangesPriorSettlement" fullname="DiceCraft.Tests.ShopTests.FLOW_E02_BuyingPigNeverChangesPriorSettlement" methodname="FLOW_E02_BuyingPigNeverChangesPriorSettlement" classname="DiceCraft.Tests.ShopTests" runstate="Runnable" seed="1780704755" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.003645" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1249" name="FLOW_E03_ControllerFullRejectsWithoutRestocking" fullname="DiceCraft.Tests.ShopTests.FLOW_E03_ControllerFullRejectsWithoutRestocking" methodname="FLOW_E03_ControllerFullRejectsWithoutRestocking" classname="DiceCraft.Tests.ShopTests" runstate="Runnable" seed="161261452" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.003607" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1250" name="FLOW_E04_SellOnceAndConsumedCannotSell" fullname="DiceCraft.Tests.ShopTests.FLOW_E04_SellOnceAndConsumedCannotSell" methodname="FLOW_E04_SellOnceAndConsumedCannotSell" classname="DiceCraft.Tests.ShopTests" runstate="Runnable" seed="2108477685" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.003241" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1251" name="FLOW_E05_E06_DiscountChargesOldPriceAndMinimumTwo" fullname="DiceCraft.Tests.ShopTests.FLOW_E05_E06_DiscountChargesOldPriceAndMinimumTwo" methodname="FLOW_E05_E06_DiscountChargesOldPriceAndMinimumTwo" classname="DiceCraft.Tests.ShopTests" runstate="Runnable" seed="1514820327" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.003790" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1252" name="FLOW_E07_DiscountDoesNotAffectControllersOrUpgrades" fullname="DiceCraft.Tests.ShopTests.FLOW_E07_DiscountDoesNotAffectControllersOrUpgrades" methodname="FLOW_E07_DiscountDoesNotAffectControllersOrUpgrades" classname="DiceCraft.Tests.ShopTests" runstate="Runnable" seed="390834185" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.003334" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-suite type="ParameterizedMethod" id="1255" name="FLOW_E08_MaxedServiceRejects" fullname="DiceCraft.Tests.ShopTests.FLOW_E08_MaxedServiceRejects" classname="DiceCraft.Tests.ShopTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.006686" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1253" name="FLOW_E08_MaxedServiceRejects(&quot;O01&quot;)" fullname="DiceCraft.Tests.ShopTests.FLOW_E08_MaxedServiceRejects(&quot;O01&quot;)" methodname="FLOW_E08_MaxedServiceRejects" classname="DiceCraft.Tests.ShopTests" runstate="Runnable" seed="1306949823" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.003053" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1254" name="FLOW_E08_MaxedServiceRejects(&quot;O02&quot;)" fullname="DiceCraft.Tests.ShopTests.FLOW_E08_MaxedServiceRejects(&quot;O02&quot;)" methodname="FLOW_E08_MaxedServiceRejects" classname="DiceCraft.Tests.ShopTests" runstate="Runnable" seed="501577591" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.002902" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="ParameterizedMethod" id="1270" name="FLOW_E09_IdenticalUpgradeRejectsWithoutMoneyOrRandomness" fullname="DiceCraft.Tests.ShopTests.FLOW_E09_IdenticalUpgradeRejectsWithoutMoneyOrRandomness" classname="DiceCraft.Tests.ShopTests" runstate="Runnable" testcasecount="6" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.029322" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1264" name="FLOW_E09_IdenticalUpgradeRejectsWithoutMoneyOrRandomness(&quot;U01&quot;)" fullname="DiceCraft.Tests.ShopTests.FLOW_E09_IdenticalUpgradeRejectsWithoutMoneyOrRandomness(&quot;U01&quot;)" methodname="FLOW_E09_IdenticalUpgradeRejectsWithoutMoneyOrRandomness" classname="DiceCraft.Tests.ShopTests" runstate="Runnable" seed="34971603" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.009689" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1265" name="FLOW_E09_IdenticalUpgradeRejectsWithoutMoneyOrRandomness(&quot;U02&quot;)" fullname="DiceCraft.Tests.ShopTests.FLOW_E09_IdenticalUpgradeRejectsWithoutMoneyOrRandomness(&quot;U02&quot;)" methodname="FLOW_E09_IdenticalUpgradeRejectsWithoutMoneyOrRandomness" classname="DiceCraft.Tests.ShopTests" runstate="Runnable" seed="1107926998" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.003322" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1266" name="FLOW_E09_IdenticalUpgradeRejectsWithoutMoneyOrRandomness(&quot;U03&quot;)" fullname="DiceCraft.Tests.ShopTests.FLOW_E09_IdenticalUpgradeRejectsWithoutMoneyOrRandomness(&quot;U03&quot;)" methodname="FLOW_E09_IdenticalUpgradeRejectsWithoutMoneyOrRandomness" classname="DiceCraft.Tests.ShopTests" runstate="Runnable" seed="302307435" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.002963" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1267" name="FLOW_E09_IdenticalUpgradeRejectsWithoutMoneyOrRandomness(&quot;U04&quot;)" fullname="DiceCraft.Tests.ShopTests.FLOW_E09_IdenticalUpgradeRejectsWithoutMoneyOrRandomness(&quot;U04&quot;)" methodname="FLOW_E09_IdenticalUpgradeRejectsWithoutMoneyOrRandomness" classname="DiceCraft.Tests.ShopTests" runstate="Runnable" seed="711998200" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.002927" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1268" name="FLOW_E09_IdenticalUpgradeRejectsWithoutMoneyOrRandomness(&quot;U05&quot;)" fullname="DiceCraft.Tests.ShopTests.FLOW_E09_IdenticalUpgradeRejectsWithoutMoneyOrRandomness(&quot;U05&quot;)" methodname="FLOW_E09_IdenticalUpgradeRejectsWithoutMoneyOrRandomness" classname="DiceCraft.Tests.ShopTests" runstate="Runnable" seed="2145392818" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.002881" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1269" name="FLOW_E09_IdenticalUpgradeRejectsWithoutMoneyOrRandomness(&quot;U06&quot;)" fullname="DiceCraft.Tests.ShopTests.FLOW_E09_IdenticalUpgradeRejectsWithoutMoneyOrRandomness(&quot;U06&quot;)" methodname="FLOW_E09_IdenticalUpgradeRejectsWithoutMoneyOrRandomness" classname="DiceCraft.Tests.ShopTests" runstate="Runnable" seed="2065975879" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.002841" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-case id="1271" name="FLOW_E10_TransformExcludesOldPipAndPreservesAttributes" fullname="DiceCraft.Tests.ShopTests.FLOW_E10_TransformExcludesOldPipAndPreservesAttributes" methodname="FLOW_E10_TransformExcludesOldPipAndPreservesAttributes" classname="DiceCraft.Tests.ShopTests" runstate="Runnable" seed="175106118" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.125706" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1272" name="FLOW_E11_NewDiePreviewFixedAndPurchaseClones" fullname="DiceCraft.Tests.ShopTests.FLOW_E11_NewDiePreviewFixedAndPurchaseClones" methodname="FLOW_E11_NewDiePreviewFixedAndPurchaseClones" classname="DiceCraft.Tests.ShopTests" runstate="Runnable" seed="2002783071" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.005536" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1273" name="FLOW_E12_LastPermanentDieCannotBeDeletedEvenWithTemporaryDie" fullname="DiceCraft.Tests.ShopTests.FLOW_E12_LastPermanentDieCannotBeDeletedEvenWithTemporaryDie" methodname="FLOW_E12_LastPermanentDieCannotBeDeletedEvenWithTemporaryDie" classname="DiceCraft.Tests.ShopTests" runstate="Runnable" seed="257954220" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.003189" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1274" name="FLOW_E15_C09RechecksDisplayedHandQualification" fullname="DiceCraft.Tests.ShopTests.FLOW_E15_C09RechecksDisplayedHandQualification" methodname="FLOW_E15_C09RechecksDisplayedHandQualification" classname="DiceCraft.Tests.ShopTests" runstate="Runnable" seed="871129593" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.004268" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1277" name="GeneratedShopHasExactCategoriesNoReplacementAndAffordableFirstController" fullname="DiceCraft.Tests.ShopTests.GeneratedShopHasExactCategoriesNoReplacementAndAffordableFirstController" methodname="GeneratedShopHasExactCategoriesNoReplacementAndAffordableFirstController" classname="DiceCraft.Tests.ShopTests" runstate="Runnable" seed="1845028833" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.003459" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1292" name="NewlyPurchasedSixthDieImmediatelyEnablesSixKindStudy" fullname="DiceCraft.Tests.ShopTests.NewlyPurchasedSixthDieImmediatelyEnablesSixKindStudy" methodname="NewlyPurchasedSixthDieImmediatelyEnablesSixKindStudy" classname="DiceCraft.Tests.ShopTests" runstate="Runnable" seed="310712553" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.004291" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1276" name="SelfStudyAndRandomHandUseCurrentLevelAndEligibility" fullname="DiceCraft.Tests.ShopTests.SelfStudyAndRandomHandUseCurrentLevelAndEligibility" methodname="SelfStudyAndRandomHandUseCurrentLevelAndEligibility" classname="DiceCraft.Tests.ShopTests" runstate="Runnable" seed="530557194" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.003717" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1275" name="ServicesO01O02O04AndNewDieCapacityRespectLimits" fullname="DiceCraft.Tests.ShopTests.ServicesO01O02O04AndNewDieCapacityRespectLimits" methodname="ServicesO01O02O04AndNewDieCapacityRespectLimits" classname="DiceCraft.Tests.ShopTests" runstate="Runnable" seed="1744427280" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.015048" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1278" name="ShopGoldDoesNotLimitPurchaseCountAndInventoryFullDoesNotEraseSupply" fullname="DiceCraft.Tests.ShopTests.ShopGoldDoesNotLimitPurchaseCountAndInventoryFullDoesNotEraseSupply" methodname="ShopGoldDoesNotLimitPurchaseCountAndInventoryFullDoesNotEraseSupply" classname="DiceCraft.Tests.ShopTests" runstate="Runnable" seed="2044147543" result="Passed" start-time="2026-10-29 00:48:42Z" end-time="2026-10-29 00:48:42Z" duration="0.004654" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Saving results to: E:\agent_workspace\gpt\game2\evidence\unity\nunit-20261029-004842.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

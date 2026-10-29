@@ -1,0 +1,1541 @@
+{
+  "reviewerRanUnity": false,
+  "playerReportSha256": "c30e7cdc9705a4af48839e918f192af0e3c5bee5faa9aaa2730bdc316169c5d8",
+  "environment": {
+    "utc": "2026-10-29T00:51:43.4259202Z",
+    "unityVersion": "6000.6.7f1",
+    "buildGuid": "4f8ffc07be074280b4d4f2e40a53a767",
+    "developmentBuild": true,
+    "isEditor": false,
+    "platform": "WindowsPlayer",
+    "os": "Windows 10  (10.0.19045) 64bit",
+    "cpu": "AMD Ryzen 9 5900X 12-Core Processor ",
+    "cpuThreads": 24,
+    "systemMemoryMB": 65457,
+    "gpu": "NVIDIA GeForce RTX 3080",
+    "gpuMemoryMB": 10053,
+    "graphicsVersion": "Direct3D 11.0 [level 11.1]",
+    "graphicsApi": "Direct3D11",
+    "width": 1920,
+    "height": 1080,
+    "fullscreenMode": "Windowed",
+    "quality": "PC",
+    "vSyncCount": 1,
+    "targetFrameRate": 60,
+    "presentationFast": false,
+    "presentationReducedMotion": false,
+    "probeArguments": [
+      "--verify-p0",
+      "E:\\agent_workspace\\gpt\\game2\\evidence\\runs\\normal-win.json",
+      "--evidence-dir",
+      "E:\\agent_workspace\\gpt\\game2\\evidence\\runs\\player\\player-20261029-005142-873bffd3"
+    ]
+  },
+  "checks": [
+    {
+      "name": "actual_97_step_records_equal_reference_trace",
+      "passed": true
+    },
+    {
+      "name": "records_contiguous_not_debug_saved_and_rendered_equal",
+      "passed": true
+    },
+    {
+      "name": "trace_and_config_hash_binding",
+      "passed": true
+    },
+    {
+      "name": "normal_save_unchanged_by_debug_stress",
+      "passed": true
+    },
+    {
+      "name": "normal_debug_run_ids_and_flags_isolated",
+      "passed": true
+    },
+    {
+      "name": "31_landed_roll_records_have_exact_final_trs_and_upface",
+      "passed": true
+    },
+    {
+      "name": "first_roll_motion_032_045_different",
+      "passed": true
+    },
+    {
+      "name": "known_two_black_captures_reproduced",
+      "passed": true,
+      "black": [
+        "main-menu-1920x1080.png",
+        "normal-selecting-1920x1080.png"
+      ]
+    },
+    {
+      "name": "raw_minus_initial_partial_frame_count_matches_report",
+      "passed": true,
+      "rawRows": 286833,
+      "excludedInitialPartialFrame": {
+        "frame": "64520",
+        "elapsed_s": "2.5399999998398926E-05",
+        "interval_ms": "0.025399999998398926",
+        "main_thread_ms": "0.6053",
+        "render_thread_ms": "",
+        "frame_timing_cpu_ms": "0.5838",
+        "gpu_ms": "0.198656",
+        "gc_alloc_bytes": "0",
+        "gc_used_bytes": "13266944",
+        "ui_build_ms": "0",
+        "ui_build_marker_calls": "0",
+        "mono_used_bytes": "13848576"
+      }
+    },
+    {
+      "name": "raw_frame_ids_contiguous",
+      "passed": true
+    },
+    {
+      "name": "ui_raw_coverage_matches_report",
+      "passed": true,
+      "samples": 85445,
+      "coverage": 0.29789214592514085
+    },
+    {
+      "name": "gpu_impossible_sample_preserved_in_raw",
+      "passed": true,
+      "anomalies": [
+        {
+          "frame": 133248,
+          "elapsed": 42.95940019999999,
+          "gpuMs": 13163700653408.648
+        }
+      ]
+    },
+    {
+      "name": "report_correctly_does_not_claim_complete_pass",
+      "passed": true
+    },
+    {
+      "name": "editmode-04.json_nonzero_all_pass_and_same_test_names",
+      "passed": true
+    },
+    {
+      "name": "playmode-06.json_nonzero_all_pass_and_same_test_names",
+      "passed": true
+    }
+  ],
+  "images": [
+    {
+      "file": "debug-die-detail-permanent-preview-1280x720.png",
+      "sha256": "2849a78e1f6c834bdd2e697ad38e3979ce6e850d9e44247808cd89c4c58e06cb",
+      "size": [
+        1280,
+        720
+      ],
+      "rgbExtrema": [
+        [
+          0,
+          255
+        ],
+        [
+          5,
+          255
+        ],
+        [
+          5,
+          255
+        ]
+      ],
+      "rgbMean": [
+        23.258561197916666,
+        37.671702473958334,
+        41.609461805555554
+      ],
+      "visuallyInspected": false
+    },
+    {
+      "file": "debug-die-detail-permanent-preview-1920x1080.png",
+      "sha256": "be926ef716e4c93483b6eb4de0c93fb6cefdc3628783627ea1c8cccaf4bf37c4",
+      "size": [
+        1920,
+        1080
+      ],
+      "rgbExtrema": [
+        [
+          0,
+          255
+        ],
+        [
+          5,
+          255
+        ],
+        [
+          5,
+          255
+        ]
+      ],
+      "rgbMean": [
+        22.87462962962963,
+        37.38191792052469,
+        41.39890383873457
+      ],
+      "visuallyInspected": false
+    },
+    {
+      "file": "debug-die-detail-permanent-preview-2560x1440.png",
+      "sha256": "92c195586481e5286c95adf0ee699b7b02d5fc7660aa91858b61fc9d7b0f071f",
+      "size": [
+        2560,
+        1440
+      ],
+      "rgbExtrema": [
+        [
+          0,
+          255
+        ],
+        [
+          5,
+          255
+        ],
+        [
+          5,
+          255
+        ]
+      ],
+      "rgbMean": [
+        22.704808213975696,
+        37.25686713324653,
+        41.31468777126736
+      ],
+      "visuallyInspected": true
+    },
+    {
+      "file": "debug-score-preview-1280x720.png",
+      "sha256": "da51b74ac46d5d2f1dc921938743724c3e76b2d914220539c277e1f6b48e105e",
+      "size": [
+        1280,
+        720
+      ],
+      "rgbExtrema": [
+        [
+          0,
+          255
+        ],
+        [
+          5,
+          255
+        ],
+        [
+          5,
+          255
+        ]
+      ],
+      "rgbMean": [
+        22.98400390625,
+        36.184917534722224,
+        40.83621853298611
+      ],
+      "visuallyInspected": true
+    },
+    {
+      "file": "debug-score-preview-1920x1080.png",
+      "sha256": "4f87e22d654e359cd4a4605cfbd538897ea8e8b970c71f9315fb5f176e41def5",
+      "size": [
+        1920,
+        1080
+      ],
+      "rgbExtrema": [
+        [
+          0,
+          255
+        ],
+        [
+          5,
+          255
+        ],
+        [
+          5,
+          255
+        ]
+      ],
+      "rgbMean": [
+        22.48565731095679,
+        35.77169319058642,
+        40.49113811728395
+      ],
+      "visuallyInspected": false
+    },
+    {
+      "file": "debug-score-preview-2560x1440.png",
+      "sha256": "e9f806dfee4db62a17372aa09cf4546aa3de575507fb6885f04f10e24ced6886",
+      "size": [
+        2560,
+        1440
+      ],
+      "rgbExtrema": [
+        [
+          0,
+          255
+        ],
+        [
+          5,
+          255
+        ],
+        [
+          5,
+          255
+        ]
+      ],
+      "rgbMean": [
+        22.25208740234375,
+        35.58286295572917,
+        40.339184027777776
+      ],
+      "visuallyInspected": false
+    },
+    {
+      "file": "debug-score-preview-bottom-1280x720.png",
+      "sha256": "6d6999f9003dd7537bd5a71b16e9b5563341f6548f7915d969448b0f67df441a",
+      "size": [
+        1280,
+        720
+      ],
+      "rgbExtrema": [
+        [
+          0,
+          255
+        ],
+        [
+          5,
+          255
+        ],
+        [
+          5,
+          255
+        ]
+      ],
+      "rgbMean": [
+        21.80898003472222,
+        35.53131618923611,
+        40.32393446180556
+      ],
+      "visuallyInspected": true
+    },
+    {
+      "file": "debug-score-preview-bottom-1920x1080.png",
+      "sha256": "0ec2698f5c81917c5e9327000f5e3508087cac8b97126d8d9c4d664ce80df8cd",
+      "size": [
+        1920,
+        1080
+      ],
+      "rgbExtrema": [
+        [
+          0,
+          255
+        ],
+        [
+          5,
+          255
+        ],
+        [
+          5,
+          255
+        ]
+      ],
+      "rgbMean": [
+        21.402395351080248,
+        35.15924575617284,
+        40.010049189814815
+      ],
+      "visuallyInspected": false
+    },
+    {
+      "file": "debug-score-preview-bottom-2560x1440.png",
+      "sha256": "86d8fb072c8ed9c9d7206626c7c3170d917160a6aef93c7e045f906974f6d36b",
+      "size": [
+        2560,
+        1440
+      ],
+      "rgbExtrema": [
+        [
+          0,
+          255
+        ],
+        [
+          5,
+          255
+        ],
+        [
+          5,
+          255
+        ]
+      ],
+      "rgbMean": [
+        21.216237250434027,
+        34.99073920355903,
+        39.87252224392361
+      ],
+      "visuallyInspected": true
+    },
+    {
+      "file": "debug-stress-capacity-1280x720.png",
+      "sha256": "dc9cb90e5b0ca8889715913f394f3059f14f47020ff9f8c00989bfb2055fb450",
+      "size": [
+        1280,
+        720
+      ],
+      "rgbExtrema": [
+        [
+          6,
+          255
+        ],
+        [
+          10,
+          255
+        ],
+        [
+          11,
+          255
+        ]
+      ],
+      "rgbMean": [
+        37.19431206597222,
+        49.85244140625,
+        53.319790581597225
+      ],
+      "visuallyInspected": true
+    },
+    {
+      "file": "debug-stress-capacity-1920x1080.png",
+      "sha256": "3d71bcb51808153ec31902f9607b9e98ae8f74236a7689e9ed396e8b6aca605b",
+      "size": [
+        1920,
+        1080
+      ],
+      "rgbExtrema": [
+        [
+          6,
+          255
+        ],
+        [
+          10,
+          255
+        ],
+        [
+          11,
+          255
+        ]
+      ],
+      "rgbMean": [
+        36.53530044367284,
+        49.282535686728394,
+        52.89605324074074
+      ],
+      "visuallyInspected": true
+    },
+    {
+      "file": "debug-stress-capacity-2560x1440.png",
+      "sha256": "97fc45694f94f4fcbc9d686c3de1d392687a29084d012aa315e3e5a27abe6505",
+      "size": [
+        2560,
+        1440
+      ],
+      "rgbExtrema": [
+        [
+          6,
+          255
+        ],
+        [
+          10,
+          255
+        ],
+        [
+          11,
+          255
+        ]
+      ],
+      "rgbMean": [
+        36.251246744791665,
+        49.05332248263889,
+        52.689517686631945
+      ],
+      "visuallyInspected": false
+    },
+    {
+      "file": "debug-stress-final.png",
+      "sha256": "31e52b14565e2f85fec63d6beabcb25a3836a8fbc7e25fbb4e2dfcdcaa8decc3",
+      "size": [
+        1920,
+        1080
+      ],
+      "rgbExtrema": [
+        [
+          6,
+          255
+        ],
+        [
+          10,
+          255
+        ],
+        [
+          11,
+          255
+        ]
+      ],
+      "rgbMean": [
+        36.3008381558642,
+        48.980439814814815,
+        52.54217737268519
+      ],
+      "visuallyInspected": false
+    },
+    {
+      "file": "debug-ten-dice-unlocked-pool-1280x720.png",
+      "sha256": "1d4e3aa0c2d1b8ca181061ee15104c47e6ac02b466b451326fa45d49a86d50ab",
+      "size": [
+        1280,
+        720
+      ],
+      "rgbExtrema": [
+        [
+          6,
+          255
+        ],
+        [
+          10,
+          255
+        ],
+        [
+          11,
+          255
+        ]
+      ],
+      "rgbMean": [
+        37.13302083333333,
+        50.24485026041667,
+        54.12238498263889
+      ],
+      "visuallyInspected": true
+    },
+    {
+      "file": "debug-ten-dice-unlocked-pool-1920x1080.png",
+      "sha256": "db9baa8c1f9b86a78a12bd9022fed1db651054e07249cfd3a8119e96f0c98c84",
+      "size": [
+        1920,
+        1080
+      ],
+      "rgbExtrema": [
+        [
+          6,
+          255
+        ],
+        [
+          10,
+          255
+        ],
+        [
+          11,
+          255
+        ]
+      ],
+      "rgbMean": [
+        36.6503231095679,
+        49.82672646604938,
+        53.76460841049383
+      ],
+      "visuallyInspected": false
+    },
+    {
+      "file": "debug-ten-dice-unlocked-pool-2560x1440.png",
+      "sha256": "c6a33af4bde29dae04f350ac00f3fd1352b37866fa0e32ef5c99f18051fac75a",
+      "size": [
+        2560,
+        1440
+      ],
+      "rgbExtrema": [
+        [
+          6,
+          255
+        ],
+        [
+          10,
+          255
+        ],
+        [
+          11,
+          255
+        ]
+      ],
+      "rgbMean": [
+        36.31317057291667,
+        49.536587727864585,
+        53.54441731770833
+      ],
+      "visuallyInspected": true
+    },
+    {
+      "file": "main-menu-1920x1080.png",
+      "sha256": "3d317c56969b387a9f70888105a23235d7bf9a28ecaa8260e7222c8b98780871",
+      "size": [
+        1920,
+        1080
+      ],
+      "rgbExtrema": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "rgbMean": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "visuallyInspected": false
+    },
+    {
+      "file": "normal-die-detail-permanent-preview-1280x720.png",
+      "sha256": "390b736f631543e7dc8167903899eed7ad3978bd529259bd0f2b0791b336da2a",
+      "size": [
+        1280,
+        720
+      ],
+      "rgbExtrema": [
+        [
+          0,
+          255
+        ],
+        [
+          5,
+          255
+        ],
+        [
+          5,
+          255
+        ]
+      ],
+      "rgbMean": [
+        22.690987413194446,
+        37.34252712673611,
+        41.518536241319445
+      ],
+      "visuallyInspected": true
+    },
+    {
+      "file": "normal-die-detail-permanent-preview-1920x1080.png",
+      "sha256": "e0430a5beec2f5367a21c48a57b328a2506a0b0c8168552e63d60b8b4884ecb9",
+      "size": [
+        1920,
+        1080
+      ],
+      "rgbExtrema": [
+        [
+          0,
+          255
+        ],
+        [
+          5,
+          255
+        ],
+        [
+          5,
+          255
+        ]
+      ],
+      "rgbMean": [
+        22.40211226851852,
+        37.110982831790125,
+        41.34379677854938
+      ],
+      "visuallyInspected": false
+    },
+    {
+      "file": "normal-die-detail-permanent-preview-2560x1440.png",
+      "sha256": "12eb5bbf858b6b6b41f36783d1979a7058ac7d3b3e58022a1419df05ea408deb",
+      "size": [
+        2560,
+        1440
+      ],
+      "rgbExtrema": [
+        [
+          0,
+          255
+        ],
+        [
+          5,
+          255
+        ],
+        [
+          5,
+          255
+        ]
+      ],
+      "rgbMean": [
+        22.28447238498264,
+        37.018948838975696,
+        41.28020209418403
+      ],
+      "visuallyInspected": false
+    },
+    {
+      "file": "normal-run-won.png",
+      "sha256": "faed421dd4d0f4a7744f19198425dfbb1fe6991235b9585745451748740ae92d",
+      "size": [
+        1920,
+        1080
+      ],
+      "rgbExtrema": [
+        [
+          6,
+          255
+        ],
+        [
+          10,
+          255
+        ],
+        [
+          11,
+          255
+        ]
+      ],
+      "rgbMean": [
+        26.09405574845679,
+        37.08119791666667,
+        39.44355613425926
+      ],
+      "visuallyInspected": true
+    },
+    {
+      "file": "normal-score-preview-1280x720.png",
+      "sha256": "b95aeeb0f562d5cfcf2448231eb5c5676f0e9fc8d6fe46b75f7125c6605f43fc",
+      "size": [
+        1280,
+        720
+      ],
+      "rgbExtrema": [
+        [
+          0,
+          255
+        ],
+        [
+          5,
+          255
+        ],
+        [
+          5,
+          255
+        ]
+      ],
+      "rgbMean": [
+        21.516729600694443,
+        34.955616319444445,
+        39.73594401041667
+      ],
+      "visuallyInspected": true
+    },
+    {
+      "file": "normal-score-preview-1920x1080.png",
+      "sha256": "3390a6adf97c4c06b3d5bfe6c40c948fa6964e6823435145a75c06916e10c687",
+      "size": [
+        1920,
+        1080
+      ],
+      "rgbExtrema": [
+        [
+          0,
+          255
+        ],
+        [
+          5,
+          255
+        ],
+        [
+          5,
+          255
+        ]
+      ],
+      "rgbMean": [
+        21.128333333333334,
+        34.62372202932099,
+        39.45911072530864
+      ],
+      "visuallyInspected": false
+    },
+    {
+      "file": "normal-score-preview-2560x1440.png",
+      "sha256": "bb1b70d5d75ecfe50b368b6a9a3200613b22e4335ac4a5bcb3a1400d1ddee34e",
+      "size": [
+        2560,
+        1440
+      ],
+      "rgbExtrema": [
+        [
+          0,
+          255
+        ],
+        [
+          5,
+          255
+        ],
+        [
+          5,
+          255
+        ]
+      ],
+      "rgbMean": [
+        20.959798448350693,
+        34.48364230685764,
+        39.34777560763889
+      ],
+      "visuallyInspected": false
+    },
+    {
+      "file": "normal-score-preview-bottom-1280x720.png",
+      "sha256": "44220fbfff47d036f5b87a6ade7435c6d28ad876a8ba351fc7f1fbb637464d4e",
+      "size": [
+        1280,
+        720
+      ],
+      "rgbExtrema": [
+        [
+          0,
+          255
+        ],
+        [
+          5,
+          255
+        ],
+        [
+          5,
+          255
+        ]
+      ],
+      "rgbMean": [
+        21.002962239583333,
+        34.75606336805556,
+        39.62882052951389
+      ],
+      "visuallyInspected": false
+    },
+    {
+      "file": "normal-score-preview-bottom-1920x1080.png",
+      "sha256": "7454ca14ea305feea83ff00820d88f38833294d41f3ba511bb454d2f6328fb10",
+      "size": [
+        1920,
+        1080
+      ],
+      "rgbExtrema": [
+        [
+          0,
+          255
+        ],
+        [
+          5,
+          255
+        ],
+        [
+          5,
+          255
+        ]
+      ],
+      "rgbMean": [
+        20.653138985339506,
+        34.42711323302469,
+        39.35069733796296
+      ],
+      "visuallyInspected": false
+    },
+    {
+      "file": "normal-score-preview-bottom-2560x1440.png",
+      "sha256": "12465230cbd38475d2ab1c007956203f6851d0983429da5539f1934696c993fc",
+      "size": [
+        2560,
+        1440
+      ],
+      "rgbExtrema": [
+        [
+          0,
+          255
+        ],
+        [
+          5,
+          255
+        ],
+        [
+          5,
+          255
+        ]
+      ],
+      "rgbMean": [
+        20.50495062934028,
+        34.289105088975695,
+        39.23872938368056
+      ],
+      "visuallyInspected": true
+    },
+    {
+      "file": "normal-selecting-1280x720.png",
+      "sha256": "28d835e86cd0c5d35380638c03b83b1010131e5a85b93819087adb90d52fefdf",
+      "size": [
+        1280,
+        720
+      ],
+      "rgbExtrema": [
+        [
+          6,
+          255
+        ],
+        [
+          10,
+          255
+        ],
+        [
+          11,
+          255
+        ]
+      ],
+      "rgbMean": [
+        30.535741102430556,
+        43.05841145833333,
+        47.65879231770833
+      ],
+      "visuallyInspected": true
+    },
+    {
+      "file": "normal-selecting-1920x1080.png",
+      "sha256": "3d317c56969b387a9f70888105a23235d7bf9a28ecaa8260e7222c8b98780871",
+      "size": [
+        1920,
+        1080
+      ],
+      "rgbExtrema": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "rgbMean": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "visuallyInspected": true
+    },
+    {
+      "file": "normal-selecting-2560x1440.png",
+      "sha256": "4ece9f46bab979b7cbf1ec13645a595ef4189ddcb122630beb8b0852dd74a828",
+      "size": [
+        2560,
+        1440
+      ],
+      "rgbExtrema": [
+        [
+          6,
+          255
+        ],
+        [
+          10,
+          255
+        ],
+        [
+          11,
+          255
+        ]
+      ],
+      "rgbMean": [
+        30.02109103732639,
+        42.591974283854164,
+        47.25450005425347
+      ],
+      "visuallyInspected": false
+    },
+    {
+      "file": "normal-shop-1280x720.png",
+      "sha256": "1d9b564c7cf1248954968aa92f55e4ab369546518348462f4febd3ed7601b392",
+      "size": [
+        1280,
+        720
+      ],
+      "rgbExtrema": [
+        [
+          6,
+          255
+        ],
+        [
+          10,
+          255
+        ],
+        [
+          11,
+          255
+        ]
+      ],
+      "rgbMean": [
+        29.800008680555557,
+        41.71740125868055,
+        45.60156141493056
+      ],
+      "visuallyInspected": true
+    },
+    {
+      "file": "normal-shop-1920x1080.png",
+      "sha256": "e2d0add10ec1dfc50e8fedd4e1ff665df65e3d0fd27154366fbcb4fa7e7fcaae",
+      "size": [
+        1920,
+        1080
+      ],
+      "rgbExtrema": [
+        [
+          6,
+          255
+        ],
+        [
+          10,
+          255
+        ],
+        [
+          11,
+          255
+        ]
+      ],
+      "rgbMean": [
+        29.332113233024693,
+        41.302043306327164,
+        45.261619405864195
+      ],
+      "visuallyInspected": false
+    },
+    {
+      "file": "normal-shop-2560x1440.png",
+      "sha256": "be418de21159c1e69c834f4f94e0d5f5eb14cac280c7fb0a3f0fb34bdb1306f6",
+      "size": [
+        2560,
+        1440
+      ],
+      "rgbExtrema": [
+        [
+          6,
+          255
+        ],
+        [
+          10,
+          255
+        ],
+        [
+          11,
+          255
+        ]
+      ],
+      "rgbMean": [
+        29.10387396918403,
+        41.10257052951389,
+        45.10282687717014
+      ],
+      "visuallyInspected": true
+    },
+    {
+      "file": "normal-stage-1.png",
+      "sha256": "194ee563a9f51ade19aaad3557a6d4acf8193e7856c60644bf92ebc7a1bff0e2",
+      "size": [
+        1920,
+        1080
+      ],
+      "rgbExtrema": [
+        [
+          6,
+          255
+        ],
+        [
+          10,
+          255
+        ],
+        [
+          11,
+          255
+        ]
+      ],
+      "rgbMean": [
+        27.68895351080247,
+        39.11317708333333,
+        42.46819540895062
+      ],
+      "visuallyInspected": false
+    },
+    {
+      "file": "normal-stage-2.png",
+      "sha256": "c2da45fb23857696f2bcaa0e909cf815d034b727fb883bf8fba4967c81deecaf",
+      "size": [
+        1920,
+        1080
+      ],
+      "rgbExtrema": [
+        [
+          6,
+          255
+        ],
+        [
+          10,
+          255
+        ],
+        [
+          11,
+          255
+        ]
+      ],
+      "rgbMean": [
+        27.686925636574074,
+        39.10725067515432,
+        42.45603973765432
+      ],
+      "visuallyInspected": false
+    },
+    {
+      "file": "normal-stage-3.png",
+      "sha256": "9e52069513cc8651d7e9bb0bb24be382e6a3224bcfefa2b2902d79462094e453",
+      "size": [
+        1920,
+        1080
+      ],
+      "rgbExtrema": [
+        [
+          6,
+          255
+        ],
+        [
+          10,
+          255
+        ],
+        [
+          11,
+          255
+        ]
+      ],
+      "rgbMean": [
+        27.696434220679013,
+        39.11664592978395,
+        42.465311535493825
+      ],
+      "visuallyInspected": false
+    },
+    {
+      "file": "normal-stage-4.png",
+      "sha256": "cb7e4a61c66bdd9eba23bf1cb9de344679e4e36956c8b2c887bec60c20232345",
+      "size": [
+        1920,
+        1080
+      ],
+      "rgbExtrema": [
+        [
+          6,
+          255
+        ],
+        [
+          10,
+          255
+        ],
+        [
+          11,
+          255
+        ]
+      ],
+      "rgbMean": [
+        27.729475790895062,
+        39.14758728780864,
+        42.49336660879629
+      ],
+      "visuallyInspected": false
+    },
+    {
+      "file": "normal-stage-5.png",
+      "sha256": "b8d24be70d67525d24e7e78a84bd2731b3ec27b40e0f9d15783cf20725dbcce0",
+      "size": [
+        1920,
+        1080
+      ],
+      "rgbExtrema": [
+        [
+          6,
+          255
+        ],
+        [
+          10,
+          255
+        ],
+        [
+          11,
+          255
+        ]
+      ],
+      "rgbMean": [
+        27.803002989969137,
+        39.216188271604935,
+        42.555033757716046
+      ],
+      "visuallyInspected": false
+    },
+    {
+      "file": "normal-stage-6.png",
+      "sha256": "2f18596e47686ff62420d91a26835ad374fd571d8facf39865837c9ecde5ce45",
+      "size": [
+        1920,
+        1080
+      ],
+      "rgbExtrema": [
+        [
+          6,
+          255
+        ],
+        [
+          10,
+          255
+        ],
+        [
+          11,
+          255
+        ]
+      ],
+      "rgbMean": [
+        27.776586130401235,
+        39.203781828703704,
+        42.562750289351854
+      ],
+      "visuallyInspected": false
+    }
+  ],
+  "metrics": {
+    "frameCount": 286832,
+    "elapsedFirst": 0.004815999999998155,
+    "elapsedLast": 180.00510590000002,
+    "framesPerSecond": 1593.4386459477118,
+    "uiCoverage": 0.29789214592514085,
+    "gpuAnomalies": [
+      {
+        "frame": 133248,
+        "elapsed": 42.95940019999999,
+        "gpuMs": 13163700653408.648
+      }
+    ]
+  },
+  "unityReports": [
+    {
+      "json": "editmode-04.json",
+      "xml": "nunit-20261029-004842.xml",
+      "jsonSha256": "a1ba15a71ee8695d1f32714e1fc713a5353e4d7c32b322033d075b27cb2a1351",
+      "xmlSha256": "0e222f546549e0ebc362d22173b20acc6149141b36f399f14084b18b174ac45b",
+      "started": "2026-10-29 00:48:41Z",
+      "ended": "2026-10-29 00:48:42Z",
+      "total": 268,
+      "cases": [
+        "DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C02-hit",
+        "DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C02-miss-red",
+        "DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C02-boundary-single",
+        "DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C03-hit",
+        "DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C03-not-equipped",
+        "DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C03-boundary-single",
+        "DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C06-hit",
+        "DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C06-miss-three-distinct",
+        "DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C06-boundary-duplicate-with-four-distinct",
+        "DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C08-hit",
+        "DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C08-miss-full",
+        "DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C08-boundary-one-empty-slot",
+        "DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C09-hit",
+        "DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C09-not-equipped",
+        "DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C09-boundary-full-reduced-capacity",
+        "DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C10-hit",
+        "DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C10-miss-pip-two",
+        "DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C10-boundary-contribution-does-not-change-pair",
+        "DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C11-hit",
+        "DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C11-miss-one-three",
+        "DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C11-boundary-extra-die-allowed",
+        "DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C12-hit",
+        "DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C12-miss-even-unchanged",
+        "DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C12-boundary-five-to-six",
+        "DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C13-hit",
+        "DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C13-miss-even",
+        "DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C13-boundary-red-group-uses-original-one",
+        "DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C14-hit",
+        "DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C14-miss-mixed-parity",
+        "DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C14-boundary-single-one",
+        "DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C17-hit",
+        "DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C17-miss-four",
+        "DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C17-boundary-all-three-small-values",
+        "DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C18-hit",
+        "DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C18-miss-unequal",
+        "DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C18-boundary-two-different-pips",
+        "DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C19-hit-threshold",
+        "DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C19-miss-above-threshold",
+        "DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C19-boundary-remote-current-six-permanent-ones",
+        "DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C20-hit",
+        "DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C20-miss-last-five",
+        "DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C20-boundary-last-occupied-not-capacity-slot",
+        "DiceCraft.Core.Tests.RulesTests.Configuration_ContainsExactly38SupportedItemsAnd11Hands",
+        "DiceCraft.Core.Tests.RulesTests.Configuration_RejectsInvalidWeightsAndFaces",
+        "DiceCraft.Core.Tests.RulesTests.Configuration_RejectsMalformedOrIncompleteJson(\"{}\")",
+        "DiceCraft.Core.Tests.RulesTests.Configuration_RejectsMalformedOrIncompleteJson(\"{\\\"configVersion\\\":null}\")",
+        "DiceCraft.Core.Tests.RulesTests.Configuration_RejectsMalformedOrIncompleteJson(\"{\\\"a\\\":1,\\\"a\\\":2}\")",
+        "DiceCraft.Core.Tests.RulesTests.Configuration_RejectsMalformedOrIncompleteJson(\"{\\\"a\\\":1,}\")",
+        "DiceCraft.Core.Tests.RulesTests.Configuration_RejectsMalformedOrIncompleteJson(\"[]\")",
+        "DiceCraft.Core.Tests.RulesTests.Configuration_RejectsMissingZeroOrFalseFields",
+        "DiceCraft.Core.Tests.RulesTests.Configuration_RejectsUnknownMissingDuplicateIds",
+        "DiceCraft.Core.Tests.RulesTests.FactoryAndClone_HaveNoSharedMutableFaces",
+        "DiceCraft.Core.Tests.RulesTests.GOLD-S01",
+        "DiceCraft.Core.Tests.RulesTests.GOLD-S02",
+        "DiceCraft.Core.Tests.RulesTests.GOLD-S03",
+        "DiceCraft.Core.Tests.RulesTests.GOLD-S04",
+        "DiceCraft.Core.Tests.RulesTests.GOLD-S05",
+        "DiceCraft.Core.Tests.RulesTests.GOLD-S06",
+        "DiceCraft.Core.Tests.RulesTests.GOLD-S07",
+        "DiceCraft.Core.Tests.RulesTests.GOLD-S08",
+        "DiceCraft.Core.Tests.RulesTests.GOLD-S09",
+        "DiceCraft.Core.Tests.RulesTests.GOLD-S10",
+        "DiceCraft.Core.Tests.RulesTests.GOLD-S11",
+        "DiceCraft.Core.Tests.RulesTests.GOLD-S12",
+        "DiceCraft.Core.Tests.RulesTests.GOLD-S13",
+        "DiceCraft.Core.Tests.RulesTests.GOLD-S14",
+        "DiceCraft.Core.Tests.RulesTests.GOLD-S15",
+        "DiceCraft.Core.Tests.RulesTests.GOLD-S16",
+        "DiceCraft.Core.Tests.RulesTests.GOLD-S17",
+        "DiceCraft.Core.Tests.RulesTests.GOLD-S18",
+        "DiceCraft.Core.Tests.RulesTests.GOLD-S19",
+        "DiceCraft.Core.Tests.RulesTests.GOLD-S20",
+        "DiceCraft.Core.Tests.RulesTests.GOLD-S21",
+        "DiceCraft.Core.Tests.RulesTests.GOLD-S22",
+        "DiceCraft.Core.Tests.RulesTests.GOLD-S23",
+        "DiceCraft.Core.Tests.RulesTests.GOLD-S24",
+        "DiceCraft.Core.Tests.RulesTests.GOLD-S25",
+        "DiceCraft.Core.Tests.RulesTests.GOLD-S26",
+        "DiceCraft.Core.Tests.RulesTests.GOLD-S27",
+        "DiceCraft.Core.Tests.RulesTests.GOLD-S28",
+        "DiceCraft.Core.Tests.RulesTests.GOLD-S29",
+        "DiceCraft.Core.Tests.RulesTests.GOLD-S30",
+        "DiceCraft.Core.Tests.RulesTests.GOLD-S31",
+        "DiceCraft.Core.Tests.RulesTests.GOLD-S32",
+        "DiceCraft.Core.Tests.RulesTests.GOLD-S33",
+        "DiceCraft.Core.Tests.RulesTests.GOLD-S34",
+        "DiceCraft.Core.Tests.RulesTests.GOLD-S35",
+        "DiceCraft.Core.Tests.RulesTests.GOLD-S36",
+        "DiceCraft.Core.Tests.RulesTests.GOLD-S37",
+        "DiceCraft.Core.Tests.RulesTests.GOLD-S38",
+        "DiceCraft.Core.Tests.RulesTests.GOLD-S39",
+        "DiceCraft.Core.Tests.RulesTests.GOLD-S40",
+        "DiceCraft.Core.Tests.RulesTests.GOLD-S41",
+        "DiceCraft.Core.Tests.RulesTests.GOLD-S42",
+        "DiceCraft.Core.Tests.RulesTests.GOLD-S43",
+        "DiceCraft.Core.Tests.RulesTests.GOLD-S44",
+        "DiceCraft.Core.Tests.RulesTests.GOLD-S45",
+        "DiceCraft.Core.Tests.RulesTests.GOLD-S46",
+        "DiceCraft.Core.Tests.RulesTests.GOLD-S47",
+        "DiceCraft.Core.Tests.RulesTests.GOLD-S48",
+        "DiceCraft.Core.Tests.RulesTests.GOLD-S49",
+        "DiceCraft.Core.Tests.RulesTests.GOLD-S50",
+        "DiceCraft.Core.Tests.RulesTests.GOLD-S51",
+        "DiceCraft.Core.Tests.RulesTests.GOLD-S52",
+        "DiceCraft.Core.Tests.RulesTests.FLOW-B01",
+        "DiceCraft.Core.Tests.RulesTests.FLOW-B02",
+        "DiceCraft.Core.Tests.RulesTests.FLOW-B03",
+        "DiceCraft.Core.Tests.RulesTests.FLOW-B04",
+        "DiceCraft.Core.Tests.RulesTests.FLOW-B05",
+        "DiceCraft.Core.Tests.RulesTests.FLOW-B06",
+        "DiceCraft.Core.Tests.RulesTests.FLOW-B07",
+        "DiceCraft.Core.Tests.RulesTests.FLOW-B08",
+        "DiceCraft.Core.Tests.RulesTests.FLOW-B09",
+        "DiceCraft.Core.Tests.RulesTests.FLOW-B10",
+        "DiceCraft.Core.Tests.RulesTests.FLOW-B11",
+        "DiceCraft.Core.Tests.RulesTests.FLOW-B12",
+        "DiceCraft.Core.Tests.RulesTests.FLOW-B13",
+        "DiceCraft.Core.Tests.RulesTests.FLOW-B14",
+        "DiceCraft.Core.Tests.RulesTests.FLOW-B15",
+        "DiceCraft.Core.Tests.RulesTests.FLOW-B16",
+        "DiceCraft.Core.Tests.RulesTests.FLOW-B17",
+        "DiceCraft.Core.Tests.RulesTests.FLOW-B18",
+        "DiceCraft.Core.Tests.RulesTests.FLOW-B19-partial",
+        "DiceCraft.Core.Tests.RulesTests.FLOW-B19-full",
+        "DiceCraft.Core.Tests.RulesTests.FLOW-B20",
+        "DiceCraft.Core.Tests.RulesTests.GoldenFile_HasExactly52UniqueCases",
+        "DiceCraft.Core.Tests.RulesTests.GoldenJson_AllOriginalNullTokensAreAccountedFor",
+        "DiceCraft.Core.Tests.RulesTests.GoldenJson_PreservesNullEmptyAndNonemptyGroupIdsExactly",
+        "DiceCraft.Core.Tests.RulesTests.Probability_All2916TextureAndBuffCombinations",
+        "DiceCraft.Core.Tests.RulesTests.Probability_FiveContractVectors(\"none\",False,False,System.Int32[])",
+        "DiceCraft.Core.Tests.RulesTests.Probability_FiveContractVectors(\"smooth\",False,False,System.Int32[])",
+        "DiceCraft.Core.Tests.RulesTests.Probability_FiveContractVectors(\"rough\",False,False,System.Int32[])",
+        "DiceCraft.Core.Tests.RulesTests.Probability_FiveContractVectors(\"none\",True,False,System.Int32[])",
+        "DiceCraft.Core.Tests.RulesTests.Probability_FiveContractVectors(\"none\",True,True,System.Int32[])",
+        "DiceCraft.Core.Tests.RulesTests.Probability_RejectsIllegalPhysicalData",
+        "DiceCraft.Core.Tests.RulesTests.Probability_RepeatedPreviewDoesNotCompoundOrMutate",
+        "DiceCraft.Core.Tests.RulesTests.Probability_TieBreakUsesPhysicalFaceId_NotArrayOrder",
+        "DiceCraft.Core.Tests.RulesTests.Probability_UsesPermanentPips",
+        "DiceCraft.Core.Tests.RulesTests.Rng_ExactFirstFiveOutputs",
+        "DiceCraft.Core.Tests.RulesTests.Rng_RejectionSamplingContractAndClone",
+        "DiceCraft.Core.Tests.RulesTests.Rng_SeedOnlyAcceptsUintDecimal",
+        "DiceCraft.Core.Tests.RulesTests.Score_EqualUpgradedMultipliersPreferHigherStructuralRank",
+        "DiceCraft.Core.Tests.RulesTests.Score_RejectsEmptyDuplicateOverCapacityAndInvalidLevels",
+        "DiceCraft.Tests.AtomicSaveStoreTests.SAVE_BackupRecoveryThenSavePreservesLastValidBackup(\"schema\")",
+        "DiceCraft.Tests.AtomicSaveStoreTests.SAVE_BackupRecoveryThenSavePreservesLastValidBackup(\"hash\")",
+        "DiceCraft.Tests.AtomicSaveStoreTests.SAVE_BackupRecoveryThenSavePreservesLastValidBackup(\"structure\")",
+        "DiceCraft.Tests.AtomicSaveStoreTests.SAVE_BothFilesCorruptReturnsNullAndNoticeWithoutOverwritingEvidence(\"schema\")",
+        "DiceCraft.Tests.AtomicSaveStoreTests.SAVE_BothFilesCorruptReturnsNullAndNoticeWithoutOverwritingEvidence(\"hash\")",
+        "DiceCraft.Tests.AtomicSaveStoreTests.SAVE_BothFilesCorruptReturnsNullAndNoticeWithoutOverwritingEvidence(\"structure\")",
+        "DiceCraft.Tests.AtomicSaveStoreTests.SAVE_DirectWriteWithoutLoadStillPreservesBackupWhenActiveIsCorrupt(\"schema\")",
+        "DiceCraft.Tests.AtomicSaveStoreTests.SAVE_DirectWriteWithoutLoadStillPreservesBackupWhenActiveIsCorrupt(\"hash\")",
+        "DiceCraft.Tests.AtomicSaveStoreTests.SAVE_DirectWriteWithoutLoadStillPreservesBackupWhenActiveIsCorrupt(\"structure\")",
+        "DiceCraft.Tests.AtomicSaveStoreTests.SAVE_NullGroupHistoryRemainsNoGroupAndCannotChangeNextHandOrScore",
+        "DiceCraft.Tests.AtomicSaveStoreTests.SAVE_RealJsonUtilityRoundTripPreservesDiceRngReceiptsAndPhysicalResults",
+        "DiceCraft.Tests.FlowTests.FLOW_A01_InitialStateAndNoSubmitBeforeRoll",
+        "DiceCraft.Tests.FlowTests.FLOW_A02_A03_A04_OrderedIrreversibleLocks",
+        "DiceCraft.Tests.FlowTests.FLOW_A05_PendingBlocksEveryPersistentActionExceptConfirm",
+        "DiceCraft.Tests.FlowTests.FLOW_A06_OverCapacityRejectsWholeBatch",
+        "DiceCraft.Tests.FlowTests.FLOW_A07_TemporaryDiceDoNotExpandCapacity",
+        "DiceCraft.Tests.FlowTests.FLOW_A08_ControllerBudgetsCombine",
+        "DiceCraft.Tests.FlowTests.FLOW_A09_A11_C05OnlyAfterRollOnceAndSurvivesLoad",
+        "DiceCraft.Tests.FlowTests.FLOW_A10_LockingAfterLastRollDoesNotGrantC05",
+        "DiceCraft.Tests.FlowTests.FLOW_A12_ExtraRollAndSubmissionPersistForStage",
+        "DiceCraft.Tests.FlowTests.FLOW_C01_C02_CopyUsesFrozenScoreAndDeepCopies",
+        "DiceCraft.Tests.FlowTests.FLOW_C03_C04_CopyDoesNotTriggerLaterOrOnEffectivePair",
+        "DiceCraft.Tests.FlowTests.FLOW_C05_C06_DiffusionUsesPhysicalFaceAfterScoring",
+        "DiceCraft.Tests.FlowTests.FLOW_C07_RemoteAllowsAbsentPipAndPreservesPhysicalFace",
+        "DiceCraft.Tests.FlowTests.FLOW_C08_RemoteRejectsBadTargetsAtomically",
+        "DiceCraft.Tests.FlowTests.FLOW_C09_C11_BrokenRemoteTargetsConsumeItemAndNoDiceFails",
+        "DiceCraft.Tests.FlowTests.FLOW_C10_LockedGlassNeverRollsOrBreaks",
+        "DiceCraft.Tests.FlowTests.FLOW_C12_TemporaryLimitIsSimultaneousNotHistorical",
+        "DiceCraft.Tests.FlowTests.FLOW_C13_CopyPreservesTemporaryTargetLifetime",
+        "DiceCraft.Tests.FlowTests.FLOW_C14_C15_SettlementClearsTemporaryDiceWithFinalWinPriority(False)",
+        "DiceCraft.Tests.FlowTests.FLOW_C14_C15_SettlementClearsTemporaryDiceWithFinalWinPriority(True)",
+        "DiceCraft.Tests.FlowTests.FullSlotsWithUnlockedDiceCanStillRollButAllLockedCannot",
+        "DiceCraft.Tests.FlowTests.LastSubmissionTargetWinsBeforeExhaustionAndNewHandClearsEffects",
+        "DiceCraft.Tests.ItemAndSaveTests.CONTENT_HandBuffDoesNotStack(\"I01\")",
+        "DiceCraft.Tests.ItemAndSaveTests.CONTENT_HandBuffDoesNotStack(\"I04\")",
+        "DiceCraft.Tests.ItemAndSaveTests.CONTENT_HandBuffDoesNotStack(\"I05\")",
+        "DiceCraft.Tests.ItemAndSaveTests.CONTENT_ItemRejectsOutsideWindowWithoutConsumption(\"I01\")",
+        "DiceCraft.Tests.ItemAndSaveTests.CONTENT_ItemRejectsOutsideWindowWithoutConsumption(\"I02\")",
+        "DiceCraft.Tests.ItemAndSaveTests.CONTENT_ItemRejectsOutsideWindowWithoutConsumption(\"I03\")",
+        "DiceCraft.Tests.ItemAndSaveTests.CONTENT_ItemRejectsOutsideWindowWithoutConsumption(\"I04\")",
+        "DiceCraft.Tests.ItemAndSaveTests.CONTENT_ItemRejectsOutsideWindowWithoutConsumption(\"I05\")",
+        "DiceCraft.Tests.ItemAndSaveTests.CONTENT_ItemRejectsOutsideWindowWithoutConsumption(\"I06\")",
+        "DiceCraft.Tests.ItemAndSaveTests.CONTENT_ItemRejectsOutsideWindowWithoutConsumption(\"I07\")",
+        "DiceCraft.Tests.ItemAndSaveTests.CONTENT_ItemSuccessfulUseAndDuplicateReceiptDoNotConsumeAgain(\"I01\")",
+        "DiceCraft.Tests.ItemAndSaveTests.CONTENT_ItemSuccessfulUseAndDuplicateReceiptDoNotConsumeAgain(\"I02\")",
+        "DiceCraft.Tests.ItemAndSaveTests.CONTENT_ItemSuccessfulUseAndDuplicateReceiptDoNotConsumeAgain(\"I03\")",
+        "DiceCraft.Tests.ItemAndSaveTests.CONTENT_ItemSuccessfulUseAndDuplicateReceiptDoNotConsumeAgain(\"I04\")",
+        "DiceCraft.Tests.ItemAndSaveTests.CONTENT_ItemSuccessfulUseAndDuplicateReceiptDoNotConsumeAgain(\"I05\")",
+        "DiceCraft.Tests.ItemAndSaveTests.CONTENT_ItemSuccessfulUseAndDuplicateReceiptDoNotConsumeAgain(\"I06\")",
+        "DiceCraft.Tests.ItemAndSaveTests.CONTENT_ItemSuccessfulUseAndDuplicateReceiptDoNotConsumeAgain(\"I07\")",
+        "DiceCraft.Tests.ItemAndSaveTests.DuplicateReceiptPrecedesSequenceAndBusyChecks",
+        "DiceCraft.Tests.ItemAndSaveTests.FLOW_D05_D06_ProbabilityBuffsUsePermanentPipsAndDoNotStack",
+        "DiceCraft.Tests.ItemAndSaveTests.FLOW_D07_TextureReplacementPreservesOtherAttributes",
+        "DiceCraft.Tests.ItemAndSaveTests.FLOW_D08_RepeatedLoadsNeverCompoundProbabilityWeights",
+        "DiceCraft.Tests.ItemAndSaveTests.FLOW_E13_CopySaveFailureDoesNotApplyUntilCommitOrRepeatOnRetry",
+        "DiceCraft.Tests.ItemAndSaveTests.FLOW_E13_TransformSaveFailureRetainsExactCandidateAndBlocksNewActions",
+        "DiceCraft.Tests.ItemAndSaveTests.FLOW_E14_LocksOrderBuffsAndRngSurviveRestore",
+        "DiceCraft.Tests.ItemAndSaveTests.IdenticalSeedAndCommandsReproduceResultsShopAndRng",
+        "DiceCraft.Tests.ItemAndSaveTests.ItemWindowsAndAbsentPermanentPipRejected",
+        "DiceCraft.Tests.ItemAndSaveTests.PreviewDoesNotAdvanceAnyRngOrApplyCopyOrDye",
+        "DiceCraft.Tests.ItemAndSaveTests.RestoreRejectsWrongSchemaUnknownContentAndDuplicateDice",
+        "DiceCraft.Tests.ItemAndSaveTests.SixStageFlowSupportsHighPressureAndFinalWinWithoutSixthShop",
+        "DiceCraft.Tests.ItemAndSaveTests.StateCopiesCannotMutateAuthoritativeData",
+        "DiceCraft.Tests.ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(\"C01\")",
+        "DiceCraft.Tests.ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(\"C02\")",
+        "DiceCraft.Tests.ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(\"C03\")",
+        "DiceCraft.Tests.ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(\"C04\")",
+        "DiceCraft.Tests.ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(\"C05\")",
+        "DiceCraft.Tests.ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(\"C06\")",
+        "DiceCraft.Tests.ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(\"C07\")",
+        "DiceCraft.Tests.ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(\"C08\")",
+        "DiceCraft.Tests.ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(\"C09\")",
+        "DiceCraft.Tests.ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(\"C10\")",
+        "DiceCraft.Tests.ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(\"C11\")",
+        "DiceCraft.Tests.ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(\"C12\")",
+        "DiceCraft.Tests.ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(\"C13\")",
+        "DiceCraft.Tests.ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(\"C14\")",
+        "DiceCraft.Tests.ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(\"C15\")",
+        "DiceCraft.Tests.ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(\"C16\")",
+        "DiceCraft.Tests.ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(\"C17\")",
+        "DiceCraft.Tests.ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(\"C18\")",
+        "DiceCraft.Tests.ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(\"C19\")",
+        "DiceCraft.Tests.ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(\"C20\")",
+        "DiceCraft.Tests.ShopTests.CONTENT_O03_FullPermanentPoolRejectsAndExistingCandidatesNeverRefresh",
+        "DiceCraft.Tests.ShopTests.CONTENT_ServiceDuplicateReceiptDoesNotRepeatMutation(\"O01\")",
+        "DiceCraft.Tests.ShopTests.CONTENT_ServiceDuplicateReceiptDoesNotRepeatMutation(\"O02\")",
+        "DiceCraft.Tests.ShopTests.CONTENT_ServiceDuplicateReceiptDoesNotRepeatMutation(\"O04\")",
+        "DiceCraft.Tests.ShopTests.CONTENT_UpgradeAppliesOnlyToTargetAndIsIdempotent(\"U01\")",
+        "DiceCraft.Tests.ShopTests.CONTENT_UpgradeAppliesOnlyToTargetAndIsIdempotent(\"U02\")",
+        "DiceCraft.Tests.ShopTests.CONTENT_UpgradeAppliesOnlyToTargetAndIsIdempotent(\"U03\")",
+        "DiceCraft.Tests.ShopTests.CONTENT_UpgradeAppliesOnlyToTargetAndIsIdempotent(\"U04\")",
+        "DiceCraft.Tests.ShopTests.CONTENT_UpgradeAppliesOnlyToTargetAndIsIdempotent(\"U05\")",
+        "DiceCraft.Tests.ShopTests.CONTENT_UpgradeAppliesOnlyToTargetAndIsIdempotent(\"U06\")",
+        "DiceCraft.Tests.ShopTests.CONTENT_UpgradeAppliesOnlyToTargetAndIsIdempotent(\"U07\")",
+        "DiceCraft.Tests.ShopTests.CONTENT_UpgradeRejectsMissingTargetWithoutConsumingOffer(\"U01\")",
+        "DiceCraft.Tests.ShopTests.CONTENT_UpgradeRejectsMissingTargetWithoutConsumingOffer(\"U02\")",
+        "DiceCraft.Tests.ShopTests.CONTENT_UpgradeRejectsMissingTargetWithoutConsumingOffer(\"U03\")",
+        "DiceCraft.Tests.ShopTests.CONTENT_UpgradeRejectsMissingTargetWithoutConsumingOffer(\"U04\")",
+        "DiceCraft.Tests.ShopTests.CONTENT_UpgradeRejectsMissingTargetWithoutConsumingOffer(\"U05\")",
+        "DiceCraft.Tests.ShopTests.CONTENT_UpgradeRejectsMissingTargetWithoutConsumingOffer(\"U06\")",
+        "DiceCraft.Tests.ShopTests.CONTENT_UpgradeRejectsMissingTargetWithoutConsumingOffer(\"U07\")",
+        "DiceCraft.Tests.ShopTests.FLOW_E01_RewardUsesOldBalance(False,36)",
+        "DiceCraft.Tests.ShopTests.FLOW_E01_RewardUsesOldBalance(True,38)",
+        "DiceCraft.Tests.ShopTests.FLOW_E02_BuyingPigNeverChangesPriorSettlement",
+        "DiceCraft.Tests.ShopTests.FLOW_E03_ControllerFullRejectsWithoutRestocking",
+        "DiceCraft.Tests.ShopTests.FLOW_E04_SellOnceAndConsumedCannotSell",
+        "DiceCraft.Tests.ShopTests.FLOW_E05_E06_DiscountChargesOldPriceAndMinimumTwo",
+        "DiceCraft.Tests.ShopTests.FLOW_E07_DiscountDoesNotAffectControllersOrUpgrades",
+        "DiceCraft.Tests.ShopTests.FLOW_E08_MaxedServiceRejects(\"O01\")",
+        "DiceCraft.Tests.ShopTests.FLOW_E08_MaxedServiceRejects(\"O02\")",
+        "DiceCraft.Tests.ShopTests.FLOW_E09_IdenticalUpgradeRejectsWithoutMoneyOrRandomness(\"U01\")",
+        "DiceCraft.Tests.ShopTests.FLOW_E09_IdenticalUpgradeRejectsWithoutMoneyOrRandomness(\"U02\")",
+        "DiceCraft.Tests.ShopTests.FLOW_E09_IdenticalUpgradeRejectsWithoutMoneyOrRandomness(\"U03\")",
+        "DiceCraft.Tests.ShopTests.FLOW_E09_IdenticalUpgradeRejectsWithoutMoneyOrRandomness(\"U04\")",
+        "DiceCraft.Tests.ShopTests.FLOW_E09_IdenticalUpgradeRejectsWithoutMoneyOrRandomness(\"U05\")",
+        "DiceCraft.Tests.ShopTests.FLOW_E09_IdenticalUpgradeRejectsWithoutMoneyOrRandomness(\"U06\")",
+        "DiceCraft.Tests.ShopTests.FLOW_E10_TransformExcludesOldPipAndPreservesAttributes",
+        "DiceCraft.Tests.ShopTests.FLOW_E11_NewDiePreviewFixedAndPurchaseClones",
+        "DiceCraft.Tests.ShopTests.FLOW_E12_LastPermanentDieCannotBeDeletedEvenWithTemporaryDie",
+        "DiceCraft.Tests.ShopTests.FLOW_E15_C09RechecksDisplayedHandQualification",
+        "DiceCraft.Tests.ShopTests.GeneratedShopHasExactCategoriesNoReplacementAndAffordableFirstController",
+        "DiceCraft.Tests.ShopTests.NewlyPurchasedSixthDieImmediatelyEnablesSixKindStudy",
+        "DiceCraft.Tests.ShopTests.SelfStudyAndRandomHandUseCurrentLevelAndEligibility",
+        "DiceCraft.Tests.ShopTests.ServicesO01O02O04AndNewDieCapacityRespectLimits",
+        "DiceCraft.Tests.ShopTests.ShopGoldDoesNotLimitPurchaseCountAndInventoryFullDoesNotEraseSupply"
+      ]
+    },
+    {
+      "json": "playmode-06.json",
+      "xml": "nunit-20261029-010244.xml",
+      "jsonSha256": "ede835a0c96de242bef1c15aca8964f5aaa03f0efb80bc4ed5c3643a911a5830",
+      "xmlSha256": "e4bf52c80258baeb791f0727e5b3ddf2b4521435e0b29fa8133da05a566a8960",
+      "started": "2026-10-29 01:02:29Z",
+      "ended": "2026-10-29 01:02:44Z",
+      "total": 16,
+      "cases": [
+        "DiceCraft.Tests.GameplayPlayModeTests.PLAY_Bootstrap_RealReferences38IconsFontAndSingleInputSystem",
+        "DiceCraft.Tests.GameplayPlayModeTests.PLAY_BusyRejectsBypassedUiAndSkipPreservesCommittedRandomness",
+        "DiceCraft.Tests.GameplayPlayModeTests.PLAY_CoreLoop_ClickLockReorderAndSubmitMatchesPreview",
+        "DiceCraft.Tests.GameplayPlayModeTests.PLAY_ExistingRunRollAndSubmitSaveFailureRetriesExactCandidateAndPresentsOnce",
+        "DiceCraft.Tests.GameplayPlayModeTests.PLAY_FastAnimationUsesSameSeedResultsAndDoesNotConsumeExtraRolls",
+        "DiceCraft.Tests.GameplayPlayModeTests.PLAY_FirstNewRunSaveFailureOffersRetryAndBlocksBothReplacementEntrances",
+        "DiceCraft.Tests.GameplayPlayModeTests.PLAY_IndependentTutorialCompletesRealPurchaseAndPreservesFormalRun",
+        "DiceCraft.Tests.GameplayPlayModeTests.PLAY_PreviousSubmissionRetainsOriginalScoreAndPermanentEffectsAfterNextRollAndReload",
+        "DiceCraft.Tests.GameplayPlayModeTests.PLAY_ReadOnlyActionLogCannotAbortAnAlreadySavedUiCommand",
+        "DiceCraft.Tests.GameplayPlayModeTests.PLAY_RealEnterKeySubmitsOnceWithoutInvokingSelectedPauseButton",
+        "DiceCraft.Tests.GameplayPlayModeTests.PLAY_RealKeyboardTenDiceMappingModalSeedFocusAndHeldKeys",
+        "DiceCraft.Tests.GameplayPlayModeTests.PLAY_ReloadDuringRollRestoresLocksOrderAndAcceptedFaceResults",
+        "DiceCraft.Tests.GameplayPlayModeTests.PLAY_RemoteItemTargetsCancelC12LabelsAndBrokenTargetMatchActualUi",
+        "DiceCraft.Tests.GameplayPlayModeTests.PLAY_SceneUnloadReloadResetsStaticUiAndDoesNotLeakSession",
+        "DiceCraft.Tests.GameplayPlayModeTests.PLAY_ShopPurchaseFooterShowsSlotAndDuplicateFailuresBeforeConfirm",
+        "DiceCraft.Tests.GameplayPlayModeTests.PLAY_SixPhysicalFacesAndRemotePipsHaveCorrectOrientationAndDotCount"
+      ]
+    }
+  ],
+  "conclusion": "Artifact consistency checked. Visual defects and performance gaps remain; not overall acceptance."
+}

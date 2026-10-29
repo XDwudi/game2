@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType><TargetFramework>net10.0</TargetFramework>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems><Nullable>disable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings><LangVersion>9.0</LangVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="../../DicePrototype/Assets/Game/Core/Rules/*.cs" />
+    <Compile Include="../../DicePrototype/Assets/Game/Core/Session/*.cs" />
+    <Compile Include="../../DicePrototype/Assets/Game/Runtime/AtomicSaveStore.cs" />
+    <Compile Include="ReviewHarness.cs" /><Compile Include="UnityJsonShim.cs" />
+    <Compile Include="../../DicePrototype/Assets/Game/Tests/EditMode/Session/*.cs" />
+    <Reference Include="nunit.framework"><HintPath>../../DicePrototype/Library/PackageCache/com.unity.ext.nunit@0198eae3b53e/net472/unity-custom/nunit.framework.dll</HintPath></Reference>
+  </ItemGroup>
+</Project>

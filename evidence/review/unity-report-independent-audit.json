@@ -1,0 +1,168 @@
+{
+  "checks": [
+    {
+      "id": "editmode-03.json_json_xml_same_cases",
+      "passed": true,
+      "expected": 268,
+      "actual": 268,
+      "jsonSha256": "679a4a9ff43db3e688ab7b2ce476f301dc12cdac744af5442d97a49f3e5f9cf6",
+      "xmlSha256": "9858e91d27d390b023e975981f1a2b0b97e1db67910324af1c9f9ce49884a164",
+      "started": "2026-10-29 00:31:05Z",
+      "ended": "2026-10-29 00:31:07Z"
+    },
+    {
+      "id": "editmode-03.json_all_pass_no_skip",
+      "passed": true
+    },
+    {
+      "id": "all_52_golden_ids_executed",
+      "passed": true,
+      "count": 52
+    },
+    {
+      "id": "null_adapter_and_real_save_cases_executed",
+      "passed": true,
+      "saveCases": 11
+    },
+    {
+      "id": "playmode-04.json_json_xml_same_cases",
+      "passed": true,
+      "expected": 13,
+      "actual": 13,
+      "jsonSha256": "0521813bde55d259f05fab89315a05f8e995e2e44a5c075a0e46f7e55e55c1a0",
+      "xmlSha256": "79e403a96b615a5e803e0eddeeff4253d5df9962ff2d3acccc981e0afeb85cc6",
+      "started": "2026-10-29 00:40:15Z",
+      "ended": "2026-10-29 00:40:24Z"
+    },
+    {
+      "id": "playmode-04.json_all_pass_no_skip",
+      "passed": true
+    },
+    {
+      "id": "all_five_ui_regressions_executed",
+      "passed": true,
+      "required": [
+        "PLAY_FirstNewRunSaveFailure",
+        "PLAY_ReadOnlyActionLog",
+        "PLAY_ShopPurchaseFooter",
+        "PLAY_RealEnterKey",
+        "PLAY_PreviousSubmission"
+      ]
+    },
+    {
+      "id": "failed_history_retained",
+      "passed": true,
+      "history": [
+        {
+          "file": "editmode-01.json",
+          "summary": {
+            "total": 255,
+            "passed": 229,
+            "failed": 26,
+            "skipped": 0,
+            "inconclusive": 0
+          },
+          "sha256": "42d513dccf1ef0531ba9034d198cb8b92d828f8e82c691b1e98d31221f76f9f7"
+        },
+        {
+          "file": "editmode-02-stale.json",
+          "summary": {
+            "total": 255,
+            "passed": 229,
+            "failed": 26,
+            "skipped": 0,
+            "inconclusive": 0
+          },
+          "sha256": "81f3c887cb8b857c3152cb47d039b10ba787a1dda07bef859bc7b32677918e1b"
+        },
+        {
+          "file": "playmode-01.json",
+          "summary": {
+            "total": 12,
+            "passed": 0,
+            "failed": 12,
+            "skipped": 0,
+            "inconclusive": 0
+          },
+          "sha256": "a6206c7439cf6f83049cde19c28e1a0aaf6351b61c4402ae129001021ce20794"
+        },
+        {
+          "file": "playmode-02.json",
+          "summary": {
+            "total": 12,
+            "passed": 10,
+            "failed": 2,
+            "skipped": 0,
+            "inconclusive": 0
+          },
+          "sha256": "0440a77711377f68af949c8b1f853d8663b9387813336463bee75c47703feab5"
+        },
+        {
+          "file": "playmode-03.json",
+          "summary": {
+            "total": 13,
+            "passed": 11,
+            "failed": 2,
+            "skipped": 0,
+            "inconclusive": 0
+          },
+          "sha256": "d09a73e6b7992f33a246e3abf4735aae7452e92344c15622188311765d5c3bd0"
+        }
+      ]
+    },
+    {
+      "id": "spec_original_unchanged",
+      "passed": true,
+      "sha256": "57ce15488dad390ad46f1ee57afc63482c6890502eabb0eacd30b940fab9d762"
+    },
+    {
+      "id": "config_equals_spec_json",
+      "passed": true,
+      "sha256": "233ee06b77d46d904698a81f14f0531d0f3f8a6a2e0b98b1389116f92bd61d0f"
+    },
+    {
+      "id": "golden_equals_spec_json",
+      "passed": true,
+      "sha256": "2bf56f60e30452a87d605de5a5a588fce30f510e9eec5245e6939acc1ae317f7"
+    }
+  ],
+  "pdbCurrentDifferences": [
+    {
+      "assembly": "DiceCraft.Runtime",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Runtime\\DiceTable.cs",
+      "algorithm": "8829d00f-11b8-4213-878b-770e8597ac16",
+      "compiledChecksum": "a85d6b4d08ac80698bdfe0fb9a811b86df3e0fe151bb5c003829d9d5af01f0fc",
+      "currentChecksum": "78baef9cd0834a403ff7dfcd07f412c539e07cc9814a419744c690707ef55dc6",
+      "matches": false,
+      "pdbSha256": "9a76f5e465d56efe9567658cb3f74f04ea954d1091c2d6eac56f6b00b1246988"
+    },
+    {
+      "assembly": "DiceCraft.Runtime",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Runtime\\GameApp.cs",
+      "algorithm": "8829d00f-11b8-4213-878b-770e8597ac16",
+      "compiledChecksum": "b5b469ad0acdb33a73caba2d833639114d7624ed19bac0f8ab104c56ebb80460",
+      "currentChecksum": "5ca9c2f1fe6aa13130671d3e8b770092386c61d7154213a0429861867be784ad",
+      "matches": false,
+      "pdbSha256": "9a76f5e465d56efe9567658cb3f74f04ea954d1091c2d6eac56f6b00b1246988"
+    },
+    {
+      "assembly": "DiceCraft.Runtime",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Runtime\\Verification\\PlayerVerification.cs",
+      "algorithm": "8829d00f-11b8-4213-878b-770e8597ac16",
+      "compiledChecksum": "11db2568db5f830b42a20f681e0a05b05b15f0fe299431174e3acd3c4a68e3e2",
+      "currentChecksum": "d65df748bab8df2e5bb710c1a3b9e377e799a845084811f3aecd8a512f705ee2",
+      "matches": false,
+      "pdbSha256": "9a76f5e465d56efe9567658cb3f74f04ea954d1091c2d6eac56f6b00b1246988"
+    },
+    {
+      "assembly": "DiceCraft.Runtime",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\UI\\GameApp.Modals.cs",
+      "algorithm": "8829d00f-11b8-4213-878b-770e8597ac16",
+      "compiledChecksum": "54cc84265f07a1c9473a9b0649f1629d6fb7e33d494caf2dba7db3c77d8ea3de",
+      "currentChecksum": "db381de4c3b795bdcff92bb642f3d56f83f45dbd44e37f91f8aee232ec6c89f2",
+      "matches": false,
+      "pdbSha256": "9a76f5e465d56efe9567658cb3f74f04ea954d1091c2d6eac56f6b00b1246988"
+    }
+  ],
+  "reviewerRanUnity": false
+}

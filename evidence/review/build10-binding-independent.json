@@ -1,0 +1,44 @@
+{
+  "sourceCommit": "f060098533d26e99e7eba7d0360ecfea78cbe517",
+  "reviewerRanUnity": false,
+  "build": {
+    "result": "Succeeded",
+    "errors": 0,
+    "warnings": 0,
+    "bytes": 195201465,
+    "seconds": 9.3256084
+  },
+  "changedProductionDocuments": [
+    {
+      "assembly": "DiceCraft.Runtime",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Runtime\\GameApp.cs",
+      "before": "d7644470a8e49f7ad629567c042c88ce547a8ce62bea04796558a27ede559b88",
+      "after": "eb4529d315f2883544ccec23988fcf4523d7eb8b67c3b0c83dd2737d75717b71"
+    }
+  ],
+  "playerPdbDocuments": 22,
+  "editorPdbDocuments": 39,
+  "currentSourcePdbMismatches": 0,
+  "actualPlayMode": 20,
+  "inheritedEditMode": 341,
+  "editModeReuseReason": "Only GameApp.cs changed; Core DLL and every EditMode test/Core/AtomicSaveStore/FramePacer source unchanged. Affected GameApp/UI actual PlayMode suite reran 20/20.",
+  "playerAssemblies": [
+    {
+      "name": "DiceCraft.Core",
+      "mvid": "7b2cb202-4b0d-4afb-9e15-607b9676df33",
+      "dllSha256": "db7798eb8ceec1febb0e020558155a24a533c23fd1229afe21ee9f82ed9c5dac",
+      "pdbSha256": "f762bacec99234228c95eaae17e642b99b9876ef8bd211dd552dea824673dc55",
+      "dllLastWriteUtc": "2026-10-29T01:50:33.886845Z",
+      "projectDocuments": 13
+    },
+    {
+      "name": "DiceCraft.Runtime",
+      "mvid": "25bd34a0-8ad3-40f3-acb3-097ef4cd6fab",
+      "dllSha256": "346b4c1ec85e75ad4f7f15d10f2968c97b1d836e235474878718fab886b43d59",
+      "pdbSha256": "a33f57ac7d2134b11009a402880af91d2ada7373550fdb09f76c68bf76170544",
+      "dllLastWriteUtc": "2026-10-29T02:56:41.9659006Z",
+      "projectDocuments": 9
+    }
+  ],
+  "player06FailureHistoryRetained": true
+}

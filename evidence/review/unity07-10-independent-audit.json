@@ -1,0 +1,197 @@
+{
+  "reviewerRanUnity": false,
+  "actualReports": [
+    {
+      "file": "editmode-07.json",
+      "xml": "nunit-20261029-023222.xml",
+      "total": 339,
+      "passed": 339,
+      "jsonSha256": "0aeca42db1ea291cb2d612fdcfe7b9e9977ece4c8a58c1f15494a13713cf0619",
+      "xmlSha256": "486ab2de573b0947c11c8fe24f6d9447c4d91327f53853208f40e9206cf07b50",
+      "started": "2026-10-29 02:32:20Z",
+      "ended": "2026-10-29 02:32:22Z",
+      "coverage": {
+        "FramePacerTests": [
+          "DiceCraft.Tests.FramePacerTests.PACER_BackgroundWrapperSleepsWithoutSpinningOrAnchoringThenResumesFresh",
+          "DiceCraft.Tests.FramePacerTests.PACER_ClockResetDuringWaitStopsTheOldDeadlineImmediately",
+          "DiceCraft.Tests.FramePacerTests.PACER_EditorInstallIsExplicitlyInertAndKeepsNativeSettings",
+          "DiceCraft.Tests.FramePacerTests.PACER_FirstReleaseIsImmediateThenUsesCoarseSleepAndBoundedTail",
+          "DiceCraft.Tests.FramePacerTests.PACER_FractionalClockPeriodRoundsUpByLessThanOneTick",
+          "DiceCraft.Tests.FramePacerTests.PACER_InvalidClockAndRateAreRejected",
+          "DiceCraft.Tests.FramePacerTests.PACER_LateWorkReanchorsNextFullPeriodInsteadOfCatchingUp",
+          "DiceCraft.Tests.FramePacerTests.PACER_LoopInstallationIsIdempotentAndPrecedesAnimationAndLateUpdate",
+          "DiceCraft.Tests.FramePacerTests.PACER_MissingAnchorLeavesTheProvidedLoopUntouched",
+          "DiceCraft.Tests.FramePacerTests.PACER_NegativeBackwardAndOverflowingClockValuesResetWithoutWaiting",
+          "DiceCraft.Tests.FramePacerTests.PACER_PauseAndFocusMustBothRecoverBeforeSchedulingRestarts",
+          "DiceCraft.Tests.FramePacerTests.PACER_SleepOvershootIsPreservedAndNeverFollowedByAShortInterval",
+          "DiceCraft.Tests.FramePacerTests.PACER_SpinOvershootAlsoReanchorsAtActualRelease",
+          "DiceCraft.Tests.FramePacerTests.PACER_UninstallPreservesNodesAddedByOtherOwnersAfterInstallation"
+        ],
+        "AtomicSaveStoreTests": [
+          "DiceCraft.Tests.AtomicSaveStoreTests.SAVE_BackupRecoveryThenSavePreservesLastValidBackup(\"schema\")",
+          "DiceCraft.Tests.AtomicSaveStoreTests.SAVE_BackupRecoveryThenSavePreservesLastValidBackup(\"hash\")",
+          "DiceCraft.Tests.AtomicSaveStoreTests.SAVE_BackupRecoveryThenSavePreservesLastValidBackup(\"structure\")",
+          "DiceCraft.Tests.AtomicSaveStoreTests.SAVE_BothFilesCorruptReturnsNullAndNoticeWithoutOverwritingEvidence(\"schema\")",
+          "DiceCraft.Tests.AtomicSaveStoreTests.SAVE_BothFilesCorruptReturnsNullAndNoticeWithoutOverwritingEvidence(\"hash\")",
+          "DiceCraft.Tests.AtomicSaveStoreTests.SAVE_BothFilesCorruptReturnsNullAndNoticeWithoutOverwritingEvidence(\"structure\")",
+          "DiceCraft.Tests.AtomicSaveStoreTests.SAVE_DirectWriteWithoutLoadStillPreservesBackupWhenActiveIsCorrupt(\"schema\")",
+          "DiceCraft.Tests.AtomicSaveStoreTests.SAVE_DirectWriteWithoutLoadStillPreservesBackupWhenActiveIsCorrupt(\"hash\")",
+          "DiceCraft.Tests.AtomicSaveStoreTests.SAVE_DirectWriteWithoutLoadStillPreservesBackupWhenActiveIsCorrupt(\"structure\")",
+          "DiceCraft.Tests.AtomicSaveStoreTests.SAVE_NullGroupHistoryRemainsNoGroupAndCannotChangeNextHandOrScore",
+          "DiceCraft.Tests.AtomicSaveStoreTests.SAVE_RealJsonUtilityRoundTripPreservesDiceRngReceiptsAndPhysicalResults"
+        ],
+        "ScoreExplanationTests": [
+          "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-S01",
+          "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-S02",
+          "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-S03",
+          "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-S04",
+          "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-S05",
+          "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-S06",
+          "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-S07",
+          "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-S08",
+          "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-S09",
+          "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-S10",
+          "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-S11",
+          "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-S12",
+          "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-S13",
+          "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-S14",
+          "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-S15",
+          "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-S16",
+          "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-S17",
+          "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-S18",
+          "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-S19",
+          "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-S20",
+          "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-S21",
+          "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-S22",
+          "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-S23",
+          "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-S24",
+          "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-S25",
+          "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-S26",
+          "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-S27",
+          "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-S28",
+          "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-S29",
+          "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-S30",
+          "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-S31",
+          "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-S32",
+          "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-S33",
+          "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-S34",
+          "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-S35",
+          "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-S36",
+          "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-S37",
+          "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-S38",
+          "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-S39",
+          "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-S40",
+          "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-S41",
+          "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-S42",
+          "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-S43",
+          "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-S44",
+          "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-S45",
+          "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-S46",
+          "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-S47",
+          "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-S48",
+          "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-S49",
+          "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-S50",
+          "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-S51",
+          "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-S52",
+          "DiceCraft.Core.Tests.ScoreExplanationTests.Trace_C12EffectivePipsSuppressOldOddAndOnePointAdditions",
+          "DiceCraft.Core.Tests.ScoreExplanationTests.Trace_GlobalFractionsSurviveEveryControllerAndC20AddsOnlyAfterFloor",
+          "DiceCraft.Core.Tests.ScoreExplanationTests.Trace_RejectsInconsistentFrozenBreakdown(\"contribution\")",
+          "DiceCraft.Core.Tests.ScoreExplanationTests.Trace_RejectsInconsistentFrozenBreakdown(\"total\")",
+          "DiceCraft.Core.Tests.ScoreExplanationTests.Trace_StackedContributionsAddBeforeGlassThenGold"
+        ]
+      }
+    },
+    {
+      "file": "playmode-10.json",
+      "xml": "nunit-20261029-023256.xml",
+      "total": 20,
+      "passed": 20,
+      "jsonSha256": "93f0539448b4e7db07e252a3aa632d7f95ada93efcb938e8d392a61ce674e4ca",
+      "xmlSha256": "69dbb2f22ad457c7de6adc9b6040dca373cebe3f950147f875cdd5d8593e2d94",
+      "started": "2026-10-29 02:32:41Z",
+      "ended": "2026-10-29 02:32:56Z",
+      "coverage": {
+        "checked_regressions": [
+          "PLAY_ExistingRunRollAndSubmitSaveFailureRetriesExactCandidateAndPresentsOnce",
+          "PLAY_PooledRefreshKeepsNodeIdentitiesAndResetsScrollInputAndSlider",
+          "PLAY_PooledPurchaseAndReadonlyFacesCannotRetainOldTargetsOrListeners",
+          "PLAY_ShopCapacityDiscountAndStudyUiRefreshAcrossTransactions",
+          "PLAY_ShopTargetCancellationAndPermanentDiceBoundariesPreserveOffers"
+        ]
+      }
+    }
+  ],
+  "sourcePdbManifests": [
+    "unity07-10-pdb-independent.json",
+    "build08-pdb-independent.json"
+  ],
+  "editorProjectDocuments": 39,
+  "playerProjectDocuments": 22,
+  "build": {
+    "result": "Succeeded",
+    "errors": 0,
+    "warnings": 0,
+    "bytes": 195197225,
+    "seconds": 10.0794471
+  },
+  "actualSpikeRuntimeMvid": "7941fe85-19c1-4a9d-89b3-9f4d7d93180a",
+  "specSha256": "57ce15488dad390ad46f1ee57afc63482c6890502eabb0eacd30b940fab9d762",
+  "goldenUnchanged": true,
+  "failuresRetained": [
+    {
+      "file": "editmode-01.json",
+      "sha256": "42d513dccf1ef0531ba9034d198cb8b92d828f8e82c691b1e98d31221f76f9f7",
+      "summary": {
+        "total": 255,
+        "passed": 229,
+        "failed": 26,
+        "skipped": 0,
+        "inconclusive": 0
+      }
+    },
+    {
+      "file": "editmode-02-stale.json",
+      "sha256": "81f3c887cb8b857c3152cb47d039b10ba787a1dda07bef859bc7b32677918e1b",
+      "summary": {
+        "total": 255,
+        "passed": 229,
+        "failed": 26,
+        "skipped": 0,
+        "inconclusive": 0
+      }
+    },
+    {
+      "file": "playmode-01.json",
+      "sha256": "a6206c7439cf6f83049cde19c28e1a0aaf6351b61c4402ae129001021ce20794",
+      "summary": {
+        "total": 12,
+        "passed": 0,
+        "failed": 12,
+        "skipped": 0,
+        "inconclusive": 0
+      }
+    },
+    {
+      "file": "playmode-02.json",
+      "sha256": "0440a77711377f68af949c8b1f853d8663b9387813336463bee75c47703feab5",
+      "summary": {
+        "total": 12,
+        "passed": 10,
+        "failed": 2,
+        "skipped": 0,
+        "inconclusive": 0
+      }
+    },
+    {
+      "file": "playmode-03.json",
+      "sha256": "d09a73e6b7992f33a246e3abf4735aae7452e92344c15622188311765d5c3bd0",
+      "summary": {
+        "total": 13,
+        "passed": 11,
+        "failed": 2,
+        "skipped": 0,
+        "inconclusive": 0
+      }
+    }
+  ]
+}

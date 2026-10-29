@@ -1,0 +1,104 @@
+{
+  "createdUtc": "2026-10-28T20:59:54.193297+00:00",
+  "runner": ".NET 10.0.403",
+  "configVersion": "p0.4.0",
+  "seed": 20261032,
+  "normalRun": true,
+  "steps": 97,
+  "restoreChecks": 97,
+  "duplicateChecks": 97,
+  "files": [
+    {
+      "path": "DicePrototype/Assets/Game/Core/Rules/ConfigJsonContract.cs",
+      "sha256": "6cb39d9fd7aea50ca61b32edfcb17ffd30f1cdfbdff6c9620c29831fe970be8f"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Core/Rules/ConfigValidation.cs",
+      "sha256": "94a4d5e0e2a3dff6e9eb74686403e282a99cbb140554cbe45e7208a088871a54"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Core/Rules/GameConfig.cs",
+      "sha256": "f432afb1b16492cb1a8c0e55bc01d257c4b7c22c7517e56e6efd72161d2758d2"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Core/Rules/GameRng.cs",
+      "sha256": "41614b1946d1c4d7b31b4a20957ef285b1bafa5a6ef7e250d05f8c79ae38e042"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Core/Rules/Models.cs",
+      "sha256": "bbe468bd6c3b2fcfe301a6e65851598d922029935fc286d5ce373199d3679db2"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Core/Rules/ProbabilityCalculator.cs",
+      "sha256": "aeeba98c1e8fb218b415c49cd50b894f8f255ed883f03947be90ee10813cdefc"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Core/Rules/ScoreCalculator.cs",
+      "sha256": "5951b20073bd3232fdd16c820c60501596ec80302efedb13610966bf0839abf0"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Core/Session/GameSession.cs",
+      "sha256": "3b1346d9213cf6137cb998dc92c0af21abfd87c73c6d39345d5962e30e85ac42"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Core/Session/GameSession.Shop.cs",
+      "sha256": "451480e86368fc0475991db68898b63bf6984fee2268a36c1040ecd84a8a36a5"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Core/Session/GameSession.Submission.cs",
+      "sha256": "f0eac9d324e8d9edd631bc31b50db2f4b003271770c299e03a9b8092ad869478"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Core/Session/GameSession.Validation.cs",
+      "sha256": "8bc2ce3cfc8d4114846b19dc4aea13a8c190d47fb1f8d90f9d98beeafbaafb48"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Core/Session/SessionModels.cs",
+      "sha256": "15e5800c069b88b45471936420d1a974c2849360336fe5f387f61727c347e1e8"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Core/Session/Validation~/NormalRunReplay.cs",
+      "sha256": "33c42cb0d4b99e3032a0c5d397cccbb11586ac96cb00bffc51046514d86e81ca"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Core/Session/Validation~/NormalRunReplay.csproj",
+      "sha256": "36ecdf052482fd93452618d1b71896b6a1f1d65811f667bf42dd3bd7e1da8cc6"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Core/Session/Validation~/NormalRunSearch.cs",
+      "sha256": "67005c5b9cf61bf5e2f946f5a372d6db5a4eb55edbf1437c484c56238210c7d7"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Core/Session/Validation~/NormalRunSearch.csproj",
+      "sha256": "def92a89b08b609a86244c1f3c614976f473489a0e45b4dec244ce4b0841302e"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Data/P0Config.json",
+      "sha256": "233ee06b77d46d904698a81f14f0531d0f3f8a6a2e0b98b1389116f92bd61d0f"
+    },
+    {
+      "path": "evidence/runs/normal-replay-report.json",
+      "sha256": "e44eb056519394f632acad416b8d64ee78b7326968798ef6b483728ea2c8e63a"
+    },
+    {
+      "path": "evidence/runs/normal-win-final-state.json",
+      "sha256": "36791514f01b405613efee7b225ece619a90f427a04ab71e11e4c2ae1e1e96c5"
+    },
+    {
+      "path": "evidence/runs/normal-win.json",
+      "sha256": "509fed24493ad47e89d3f78bdda85442429041e56c8ad3fbab33d774422bf9ff"
+    },
+    {
+      "path": "evidence/runs/replay.log",
+      "sha256": "8e7f1c01c28741d7f677d8c7b9049f67211fd152c0dd70e8fec4bb4ca121fd97"
+    },
+    {
+      "path": "evidence/runs/search-statistics.json",
+      "sha256": "845a1c4b142cb435e99ecf973420670cac08b201f151988b3bc22f2af00fcdb0"
+    },
+    {
+      "path": "evidence/runs/search.log",
+      "sha256": "d60ea4b31d43436079d17a8379ce625a6768562eaa075a699ee2321712718a74"
+    }
+  ]
+}

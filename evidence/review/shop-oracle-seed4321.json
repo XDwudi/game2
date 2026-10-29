@@ -1,0 +1,110 @@
+{
+  "seed": 4321,
+  "initialState": 3355520581,
+  "expectedFinalState": 3981651957,
+  "offers": [
+    {
+      "category": "controller",
+      "id": "C01"
+    },
+    {
+      "category": "controller",
+      "id": "C20"
+    },
+    {
+      "category": "controller",
+      "id": "C19"
+    },
+    {
+      "category": "consumable",
+      "id": "I06"
+    },
+    {
+      "category": "consumable",
+      "id": "I02"
+    },
+    {
+      "category": "hand_upgrade",
+      "id": "pair"
+    },
+    {
+      "category": "hand_upgrade",
+      "id": "all_red"
+    },
+    {
+      "category": "die_upgrade",
+      "id": "U03"
+    },
+    {
+      "category": "die_upgrade",
+      "id": "U05"
+    },
+    {
+      "category": "service",
+      "id": "O04"
+    },
+    {
+      "category": "new_die",
+      "id": "O03",
+      "faces": [
+        {
+          "p": 1,
+          "c": "blue"
+        },
+        {
+          "p": 1,
+          "c": "red"
+        },
+        {
+          "p": 2,
+          "c": "blue"
+        },
+        {
+          "p": 3,
+          "c": "blue"
+        },
+        {
+          "p": 2,
+          "c": "blue"
+        },
+        {
+          "p": 3,
+          "c": "blue"
+        }
+      ],
+      "price": 10
+    },
+    {
+      "category": "new_die",
+      "id": "O03",
+      "faces": [
+        {
+          "p": 4,
+          "c": "blue"
+        },
+        {
+          "p": 4,
+          "c": "blue"
+        },
+        {
+          "p": 5,
+          "c": "blue"
+        },
+        {
+          "p": 6,
+          "c": "blue"
+        },
+        {
+          "p": 4,
+          "c": "red"
+        },
+        {
+          "p": 5,
+          "c": "blue"
+        }
+      ],
+      "price": 12
+    }
+  ],
+  "oracle": "Independent Python xorshift/CDF; first normal stage, default dice/equipment"
+}

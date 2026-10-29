@@ -1,0 +1,31 @@
+{
+  "utc": "2026-10-28T20:49:11.81107Z",
+  "runtime": ".NET 10.0.14",
+  "limitation": "Pure C# and real file IO; JsonUtility shim; no Unity Player verification",
+  "passed": [
+    "GOLD-52-all-fields",
+    "CORE-invalid-commands-have-no-effects",
+    "CORE-receipt-replay-survives-restore",
+    "CORE-save-retry-keeps-candidate-rng-and-events",
+    "CORE-preview-does-not-consume-rng-or-mutate"
+  ],
+  "failed": [
+    "IO-recovered-backup-survives-next-commit: System.Exception: valid backup replaced with corrupt old active\r\n   at ReviewHarness.Check(Boolean yes, String message) in E:\\agent_workspace\\gpt\\game2\\evidence\\review\\ReviewHarness.cs:line 16\r\n   at ReviewHarness.BackupPreservation(Boolean loadFirst) in E:\\agent_workspace\\gpt\\game2\\evidence\\review\\ReviewHarness.cs:line 95\r\n   at ReviewHarness.\u003C\u003Ec.\u003CMain\u003Eb__13_0() in E:\\agent_workspace\\gpt\\game2\\evidence\\review\\ReviewHarness.cs:line 35\r\n   at ReviewHarness.Test(String id, Action action) in E:\\agent_workspace\\gpt\\game2\\evidence\\review\\ReviewHarness.cs:line 24",
+    "IO-corrupt-active-not-promoted-without-load: System.Exception: valid backup replaced with corrupt old active\r\n   at ReviewHarness.Check(Boolean yes, String message) in E:\\agent_workspace\\gpt\\game2\\evidence\\review\\ReviewHarness.cs:line 16\r\n   at ReviewHarness.BackupPreservation(Boolean loadFirst) in E:\\agent_workspace\\gpt\\game2\\evidence\\review\\ReviewHarness.cs:line 95\r\n   at ReviewHarness.\u003C\u003Ec.\u003CMain\u003Eb__13_1() in E:\\agent_workspace\\gpt\\game2\\evidence\\review\\ReviewHarness.cs:line 36\r\n   at ReviewHarness.Test(String id, Action action) in E:\\agent_workspace\\gpt\\game2\\evidence\\review\\ReviewHarness.cs:line 24"
+  ],
+  "sourceHashes": {
+    "DicePrototype\\Assets\\Game\\Core\\Rules\\ConfigJsonContract.cs": "6cb39d9fd7aea50ca61b32edfcb17ffd30f1cdfbdff6c9620c29831fe970be8f",
+    "DicePrototype\\Assets\\Game\\Core\\Rules\\ConfigValidation.cs": "94a4d5e0e2a3dff6e9eb74686403e282a99cbb140554cbe45e7208a088871a54",
+    "DicePrototype\\Assets\\Game\\Core\\Rules\\GameConfig.cs": "f432afb1b16492cb1a8c0e55bc01d257c4b7c22c7517e56e6efd72161d2758d2",
+    "DicePrototype\\Assets\\Game\\Core\\Rules\\GameRng.cs": "41614b1946d1c4d7b31b4a20957ef285b1bafa5a6ef7e250d05f8c79ae38e042",
+    "DicePrototype\\Assets\\Game\\Core\\Rules\\Models.cs": "bbe468bd6c3b2fcfe301a6e65851598d922029935fc286d5ce373199d3679db2",
+    "DicePrototype\\Assets\\Game\\Core\\Rules\\ProbabilityCalculator.cs": "aeeba98c1e8fb218b415c49cd50b894f8f255ed883f03947be90ee10813cdefc",
+    "DicePrototype\\Assets\\Game\\Core\\Rules\\ScoreCalculator.cs": "5951b20073bd3232fdd16c820c60501596ec80302efedb13610966bf0839abf0",
+    "DicePrototype\\Assets\\Game\\Core\\Session\\GameSession.cs": "0e677fb252d23c3e3986137a01ec84884cb2970b0b2c17211962e3f5fd494f1d",
+    "DicePrototype\\Assets\\Game\\Core\\Session\\GameSession.Shop.cs": "451480e86368fc0475991db68898b63bf6984fee2268a36c1040ecd84a8a36a5",
+    "DicePrototype\\Assets\\Game\\Core\\Session\\GameSession.Submission.cs": "f0eac9d324e8d9edd631bc31b50db2f4b003271770c299e03a9b8092ad869478",
+    "DicePrototype\\Assets\\Game\\Core\\Session\\GameSession.Validation.cs": "a9c9950ee5c5f972da438e5b9ebff5dbc43aadb7637f7c0bcff7ba5cab0756b0",
+    "DicePrototype\\Assets\\Game\\Core\\Session\\SessionModels.cs": "15e5800c069b88b45471936420d1a974c2849360336fe5f387f61727c347e1e8",
+    "DicePrototype\\Assets\\Game\\Runtime\\AtomicSaveStore.cs": "aed6b104748c9023978ada604329ae8d114e695c1b8db17ddd4679babeba42a0"
+  }
+}

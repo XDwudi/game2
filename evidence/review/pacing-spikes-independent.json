@@ -1,0 +1,279 @@
+{
+  "kind": "independent-idle-pacing-recalculation",
+  "sourceOnly": true,
+  "actualPlayerLaunchedByReviewer": false,
+  "thresholdChanged": false,
+  "limitations": "20-second idle experiments; no AC-PERF verdict. Present call and GPU completion are not physical scanout.",
+  "runs": [
+    {
+      "folder": "spike-01",
+      "csvSha256": "0647a54c5dff9ac3bf62a02c792a48b15c08e770b7f45097a940e6a94aa9b443",
+      "reportSha256": "d0207f8e80d0ec5b32fc405f5995bfa3f053e2bf6db7c9437790166c55148205",
+      "buildGuid": "2fc258646da4436f8c59632326984bcc",
+      "assemblyMvid": "944b9ee8-71e5-4a51-9aa5-b4a2fd9ee237",
+      "rows": 1197,
+      "metrics": {
+        "lateUpdateInterval": {
+          "samples": 1196,
+          "meanMs": 16.71598436454849,
+          "p50Ms": 16.668099999996855,
+          "p95Ms": 17.00609999999969,
+          "maxMs": 17.44730000000061
+        },
+        "frameStartInterval": {
+          "samples": 1196,
+          "meanMs": 16.71638377926423,
+          "p50Ms": 16.666800000000002,
+          "p95Ms": 17.0025,
+          "maxMs": 17.4451
+        },
+        "presentCalledInterval": {
+          "samples": 1196,
+          "meanMs": 16.71626613712372,
+          "p50Ms": 16.671300000000002,
+          "p95Ms": 17.0178,
+          "maxMs": 17.5759
+        },
+        "frameCompleteInterval": {
+          "samples": 1196,
+          "meanMs": 16.71627658862878,
+          "p50Ms": 16.6719,
+          "p95Ms": 17.017500000000002,
+          "maxMs": 17.508100000000002
+        }
+      },
+      "checks": [
+        {
+          "name": "actual nonzero 1197 rows and 1196 intervals",
+          "passed": true
+        },
+        {
+          "name": "all focused",
+          "passed": true
+        },
+        {
+          "name": "all native timings unique",
+          "passed": true
+        },
+        {
+          "name": "unity frame IDs consecutive",
+          "passed": true
+        },
+        {
+          "name": "10MHz CPU clock consistent",
+          "passed": true
+        },
+        {
+          "name": "exclusive failure retained",
+          "passed": true
+        },
+        {
+          "name": "restoration confirmed",
+          "passed": true
+        },
+        {
+          "name": "lateUpdateInterval all positive raw adjacent deltas",
+          "passed": true
+        },
+        {
+          "name": "lateUpdateInterval first partial delta blank",
+          "passed": true
+        },
+        {
+          "name": "lateUpdateInterval raw recomputation matches every CSV delta",
+          "passed": true
+        },
+        {
+          "name": "lateUpdateInterval all report statistics match",
+          "passed": true
+        },
+        {
+          "name": "frameStartInterval all positive raw adjacent deltas",
+          "passed": true
+        },
+        {
+          "name": "frameStartInterval first partial delta blank",
+          "passed": true
+        },
+        {
+          "name": "frameStartInterval raw recomputation matches every CSV delta",
+          "passed": true
+        },
+        {
+          "name": "frameStartInterval all report statistics match",
+          "passed": true
+        },
+        {
+          "name": "presentCalledInterval all positive raw adjacent deltas",
+          "passed": true
+        },
+        {
+          "name": "presentCalledInterval first partial delta blank",
+          "passed": true
+        },
+        {
+          "name": "presentCalledInterval raw recomputation matches every CSV delta",
+          "passed": true
+        },
+        {
+          "name": "presentCalledInterval all report statistics match",
+          "passed": true
+        },
+        {
+          "name": "frameCompleteInterval all positive raw adjacent deltas",
+          "passed": true
+        },
+        {
+          "name": "frameCompleteInterval first partial delta blank",
+          "passed": true
+        },
+        {
+          "name": "frameCompleteInterval raw recomputation matches every CSV delta",
+          "passed": true
+        },
+        {
+          "name": "frameCompleteInterval all report statistics match",
+          "passed": true
+        }
+      ],
+      "passCount": 23,
+      "failCount": 0
+    },
+    {
+      "folder": "spike-02-bitblt",
+      "csvSha256": "fe40a0fb84cad51eb34b2b89666a0ea3db2aa5ab9a0021ba008cf2e1c0047f2a",
+      "reportSha256": "f4523ac02b84333801ef29724e70e8ee595c88ed6aa8820d960604160d599d31",
+      "buildGuid": "2fc258646da4436f8c59632326984bcc",
+      "assemblyMvid": "944b9ee8-71e5-4a51-9aa5-b4a2fd9ee237",
+      "rows": 1197,
+      "metrics": {
+        "lateUpdateInterval": {
+          "samples": 1196,
+          "meanMs": 16.717086120401316,
+          "p50Ms": 16.668599999999145,
+          "p95Ms": 17.01930000000118,
+          "maxMs": 17.115399999998004
+        },
+        "frameStartInterval": {
+          "samples": 1196,
+          "meanMs": 16.717387876254183,
+          "p50Ms": 16.666900000000002,
+          "p95Ms": 17.017300000000002,
+          "maxMs": 17.1108
+        },
+        "presentCalledInterval": {
+          "samples": 1196,
+          "meanMs": 16.71708018394652,
+          "p50Ms": 16.6751,
+          "p95Ms": 17.0377,
+          "maxMs": 17.564
+        },
+        "frameCompleteInterval": {
+          "samples": 1196,
+          "meanMs": 16.717102675585288,
+          "p50Ms": 16.6736,
+          "p95Ms": 17.0308,
+          "maxMs": 17.5802
+        }
+      },
+      "checks": [
+        {
+          "name": "actual nonzero 1197 rows and 1196 intervals",
+          "passed": true
+        },
+        {
+          "name": "all focused",
+          "passed": true
+        },
+        {
+          "name": "all native timings unique",
+          "passed": true
+        },
+        {
+          "name": "unity frame IDs consecutive",
+          "passed": true
+        },
+        {
+          "name": "10MHz CPU clock consistent",
+          "passed": true
+        },
+        {
+          "name": "exclusive failure retained",
+          "passed": true
+        },
+        {
+          "name": "restoration confirmed",
+          "passed": true
+        },
+        {
+          "name": "lateUpdateInterval all positive raw adjacent deltas",
+          "passed": true
+        },
+        {
+          "name": "lateUpdateInterval first partial delta blank",
+          "passed": true
+        },
+        {
+          "name": "lateUpdateInterval raw recomputation matches every CSV delta",
+          "passed": true
+        },
+        {
+          "name": "lateUpdateInterval all report statistics match",
+          "passed": true
+        },
+        {
+          "name": "frameStartInterval all positive raw adjacent deltas",
+          "passed": true
+        },
+        {
+          "name": "frameStartInterval first partial delta blank",
+          "passed": true
+        },
+        {
+          "name": "frameStartInterval raw recomputation matches every CSV delta",
+          "passed": true
+        },
+        {
+          "name": "frameStartInterval all report statistics match",
+          "passed": true
+        },
+        {
+          "name": "presentCalledInterval all positive raw adjacent deltas",
+          "passed": true
+        },
+        {
+          "name": "presentCalledInterval first partial delta blank",
+          "passed": true
+        },
+        {
+          "name": "presentCalledInterval raw recomputation matches every CSV delta",
+          "passed": true
+        },
+        {
+          "name": "presentCalledInterval all report statistics match",
+          "passed": true
+        },
+        {
+          "name": "frameCompleteInterval all positive raw adjacent deltas",
+          "passed": true
+        },
+        {
+          "name": "frameCompleteInterval first partial delta blank",
+          "passed": true
+        },
+        {
+          "name": "frameCompleteInterval raw recomputation matches every CSV delta",
+          "passed": true
+        },
+        {
+          "name": "frameCompleteInterval all report statistics match",
+          "passed": true
+        }
+      ],
+      "passCount": 23,
+      "failCount": 0
+    }
+  ],
+  "totalChecks": 46,
+  "failedChecks": 0
+}

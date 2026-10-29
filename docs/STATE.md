@@ -1,42 +1,41 @@
 # 当前项目状态
 
-更新：2026-10-28（America/New_York）。任务 P0-001 处于 **VERIFYING / REWORK**；核心功能已通过独立技术复核，性能与最终交接仍在进行，未整体验收。
+更新：2026-10-28（America/New_York）。P0-001 已完成开发和技术返工，当前处于 **REVIEW（人工体验待验）**。Windows技术范围的独立结论见 `evidence/review/FINAL_REVIEW.md`；不能把技术通过写成真人体验、美术风格或商业发布批准。
 
-最新返工（Player06完成后）：`ba848b2` / build09已实跑341项EditMode和20项PlayMode全过，Player06完成正常六关与180秒压力，原探针返回exit0、LateUpdate P95 16.6751ms。但独立FTM Present/Complete P95约18.75ms，root未据单轴通过放行性能。正在验证让GameApp.Refresh立即完成已排队的Canvas/TMP布局，再进入节拍等待，避免可变UI工作留在渲染尾段。原测点、阈值和操作日程保持不变；Player06原始“passed”报告保留并明确限制。
+## 运行与权威输入
 
-## 权威输入与范围
+- 本机启动：`Builds/Windows/DiceCraft.exe`；便携包：`Builds/DiceCraft-P0-Windows.zip`。完整解压并保留Data目录和DLL。
+- 交付入口：`docs/DELIVERY.md`；操作/存档/构建：`DicePrototype/README.md`；原始证据：`evidence/README.md`。
+- 原始MD/Word原样保存在 `docs/specs/`，SHA见source_manifest；MD配置 p0.4.0 / save schema 2 为权威。原聊天只作背景，没有覆盖v0.4。
+- 本轮Windows x64，Unity 6000.6.7f1 URP/uGUI/TMP/Input System，Blender 5.2.3 LTS。六关、38内容和所有冻结规则按策划实现。长期PC/iOS/Android意图保留，移动端未验收。
 
-用户要求依照已有框架和两份 v0.4 文件完成骰子构筑原型，主 agent 负责切片、集成和验收。原始文件保存在 `docs/specs/`，SHA-256见 `source_manifest.json`；Markdown 内 p0.4.0 / save schema 2 为权威，旧聊天只作背景。验收条件见 `docs/tasks/P0-IMPLEMENTATION.md`。
+## 最终技术证据
 
-本轮 Windows x64，Unity 6000.6.7f1 URP / uGUI / TMP / Input System，Blender 5.2.3 LTS。六关及38项内容按原规格实现。长期 PC/iOS/Android 意图保留，移动端本轮未验证。
+- 代码：`f060098533d26e99e7eba7d0360ecfea78cbe517`；build10，0错误/0警告，buildGuid `ee0c4c6ab89e41008cade950261da73a`，Runtime MVID `25bd34a0-8ad3-40f3-acb3-097ef4cd6fab`。
+- EditMode08 **341/341**，NUnit `nunit-20261029-024239.xml`；PlayMode12 **20/20**，NUnit `nunit-20261029-025518.xml`。最后修改只涉及GameApp UI布局；341项覆盖源未变，经独立PDB核对合理复用，UI20项实际重跑。
+- 规则含原52黄金×18字段、概率/配置、114事务、11真实存档与16帧调度边界；独立计分解释3072组合、附录C全部70ID及38项内容/源资产映射通过。完整源码/测试/构建绑定见独立评审。
+- Player07：`evidence/runs/player/player-20261029-025732-31091505`。非Debug种子20261032、97合法命令六关完成，得分208/424/528/884/1250/1908；逐步规则/显示/磁盘一致，31次真实动画落地通过。种子经过搜索，不是玩家胜率证据。
+- 720p/1080p/1440p实际截图覆盖普通流程、10骰/7栏/10控制器/5道具、永久/当前/有效分层、详情、商店与逐步公式。可编辑Blender/FBX、两动作、38SVG/PNG、12点阵、10音效已交接并实测集成。风格和听感仍由用户/真人判断。
+- 1080p最大场景连续 **180.0146秒**，10,750完整帧。原LateUpdate帧间隔P95 **16.6807ms** 满足冻结≤16.7ms；平均16.7440ms（约59.72FPS），最大24.5388ms。MainThread P95 16.9783ms；FTM开始/Present/完成P95 16.9825/16.9369/16.9452ms，不能当成物理scanout。
+- GPU P95 0.23552ms、覆盖98.52%；UI覆盖100%、P95 0.0066ms；GC P95 56,280B、最大3,519,296B。Unity错误、拒收黑图、采样计时警告、帧记录扩容均0。没有删掉慢帧或把缺失GPU值补零。
+- 真实生命周期检查覆盖重复安装/停止、同帧重装、宿主实际销毁和原生帧率恢复。focus/pause为实际组件回调注入，OS切窗未实测。失焦不忙等空转。
 
-## 当前产物与结论
+## 保留的限制和失败来历
 
-- `DicePrototype/`：完整可玩的 Unity 工程，确定性规则与三路 RNG、事务状态机、固定商店、原子存档、中文界面、逐步计分解释、3D 骰子与练习模式。运行方法见工程 README。
-- `art/`：可编辑 Blender 源、FBX、两套翻滚动作、38个图标 SVG/PNG、12点阵和10音效。资产实际重开/导出/检查通过；模型与动画已进入真实播放器，三分辨率画面通过技术复核。用户尚未签署美术风格。
-- 最新正式 Unity 测试：EditMode06 **325/325**、PlayMode09 **20/20**；NUnit分别为 `nunit-20261029-015006.xml` / `nunit-20261029-014917.xml`。包括52黄金×18字段、概率、114事务、11存档、计分解释与真实输入/故障重试/商店/池化回归。独立复核详见 `evidence/review/PLAYER05_REVIEW.md`。
-- 附录C全部70个验收ID已映射到实际通过用例；独立计分解释 oracle 3072组合通过。映射和静态检查不能替代实际运行。
-- 最新正式播放器 Player05：`evidence/runs/player/player-20261029-015104-31d8ee23`，build06。正常种子20261032完成97个合法命令、六关得分208/424/528/884/1250/1908；每步磁盘与显示快照一致，31次实际动画落地通过。种子经过搜索，不能作为胜率证据。
-- 最大容量1080p连续180秒，10骰/7栏/10控制器/5道具、真实自动保存和190轮操作。Player05帧间隔P95 **18.3322ms，仍超过16.7ms**；GC P95 56,280B，GPU覆盖97.47%，UI覆盖100%，观察者缓冲扩容0。较旧版本有实质改善，但AC-PERF仍失败。
-- 窗口空闲60FPS的两次技术试验，多个独立时钟P95约17ms。Unity独占60Hz请求在本机回退到144Hz无边框，包含BitBlt路径；均已确认恢复原桌面/窗口模式。原始证据 `evidence/runs/pacing/`。这些20秒空闲试验不算正式压力验收。
-- 本地检查器20项自测、35文件/3来源校验、38图标/12点阵/10音效检查通过。它们仅证明各自覆盖内容。
+原Player04/05分别P95 23.5467/18.3322ms失败。Player06原探针虽exit0，但Present/Complete约18.75ms，协调者没有放行。最终在每次Refresh完成已排队Canvas/TMP布局，原pacer、采样点、阈值、压力日程均不变；独立比较确认899组旧刷新长短摆动消失。全部旧报告、失败日志与截图保留。
 
-## 当前返工与下一步
+长历史事务仍有少量慢帧和约3.5MB分配峰值，没有声称全部帧≤16.7ms；测试机器为Ryzen 9 5900X/RTX 3080/约64GB内存。其他硬件、物理显示延迟、长期功耗/温升尚未测。后续扩内容或平台须重新验收。
 
-正在评估通用精确60Hz帧调度的最小试验，以及长会话事务/存档的重复工作成本。保持正式探针的16.7ms阈值、180秒场景、采样时点与95%覆盖要求；不能只令一个计时器好看。新候选需实际构建、多时钟记录与独立复核，再决定是否采用。
+真人5–8名未参与设计者、每人至少2局 **未执行**；已准备 `docs/tasks/P0-PLAYTEST.md`。10–20分钟局长、难度节奏、误锁理解、购买价值与乐趣需实际玩家反馈。AI不代签体验，不自动进入量产或发布。
 
-之后完成最终构建、源/构建哈希绑定、日志脱敏、证据索引、可玩压缩包和Git推送。旧失败日志与截图保留，不用新结果覆盖失败历史。
+## Git与交接
 
-真人5–8人每人至少2局尚未运行，需真实参与者和用户判断；AI不代签体验，也不自动转入量产或发布。
+origin为用户指定 `https://github.com/XDwudi/game2.git`，作者XDwudi / lxd199541@126.com。源码历史已推送main；最终文档、脱敏证据与包清单继续随交接提交。代码最后变化为f060098，后续文档/证据提交不改变构建。`evidence/delivery/verification-binding.json`绑定规格、配置、NUnit、实际EXE/DLL和运行CSV；包清单与SHA在同目录。
 
-## 版本与文件所有权
+源工程、可编辑美术、配置和测试证据入Git；Unity缓存、完整构建、个人存档、原始含账户参数Editor日志不入Git。发布日志仅做必要脱敏，原/发布SHA保留。构建包包含字体许可。
 
-Git main：`be2be52`框架/规格，`cb589f2`完整原型，`27e4b34`界面池化与显示缓存。origin为用户指定 `https://github.com/XDwudi/game2.git`，作者XDwudi / lxd199541@126.com。尚未push；当前未提交改动包含帧节奏试验、文档和证据。
+## 文件锁与下一步
 
-- root：GameApp/UI、AtomicSaveStore、Editor/场景/全局设置、文档、Git集成；唯一Unity编辑器写入者。
-- core_rules：本轮仅新候选 `Runtime/FramePacer.cs` 与对应EditMode测试；原核心规则暂不修改。
-- session_engine：`Runtime/Verification/` 与 `evidence/runs/`，诊断采集扩充；不改规则/验收阈值。
-- spec_audit：生产文件只读，仅 `evidence/review/` 输出独立复核。
-- dice_art：交付完成，无活动写入。
+生产文件已冻结，无活动Unity/Blender写入者。本任务启动的Editor和验证Player均已退出；没有停止其他项目的进程。各子agent生产写入锁释放，独立评审只保留证据输出。
 
-本状态的“已通过”仅限绑定版本和指定范围，后续修改使相关旧证据失效。最终结果以新构建和独立复核更新。
+下一步由真人使用当前构建完成试玩工作表，再按真实问题决定修复或设计变更。已确认的玩法输入无需重复补填；普通缺陷可沿现有测试、构建和独立复核流程继续。

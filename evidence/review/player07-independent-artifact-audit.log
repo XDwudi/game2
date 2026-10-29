@@ -1,0 +1,24 @@
+PASS normal97_trace_equal
+PASS normal97_saved_rendered_non_debug
+PASS normal_save_isolated_unchanged
+PASS actual_runtime_mvid_equals_report
+PASS config_trace_hashes
+PASS 31_final_pose_records_consistent
+PASS accepted_images_nonblack_native_size
+PASS no_rejected_frames_or_unity_errors
+PASS count_duration_contiguous
+PASS raw_metric_frameInterval
+PASS raw_metric_mainThread
+PASS raw_metric_renderThread
+PASS raw_metric_frameTimingCpu
+PASS raw_metric_gpu
+PASS raw_metric_gcAllocated
+PASS raw_metric_gcUsed
+PASS raw_metric_uiRebuild
+PASS raw_metric_uiRebuildMarkerCalls
+PASS raw_metric_monoUsed
+PASS UI_stream_no_stale_batches_or_gap
+PASS GPU_classification_counts_match
+PASS unchanged_budget_and_capture_verdict
+PASS production_pacer_metadata
+Completed 23 artifact checks. No overall performance acceptance.

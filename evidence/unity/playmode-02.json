@@ -1,0 +1,97 @@
+{
+  "status": "completed",
+  "duration": 7.21,
+  "summary": {
+    "total": 12,
+    "passed": 10,
+    "failed": 2,
+    "skipped": 0,
+    "inconclusive": 0
+  },
+  "results": [
+    {
+      "FullName": "DiceCraft.Tests.GameplayPlayModeTests.PLAY_Bootstrap_RealReferences38IconsFontAndSingleInputSystem",
+      "Status": "Failed",
+      "Duration": 0.32982,
+      "Message": "Unhandled log message: '[Error] Not allowed to access triangles/indices on mesh 'DiceBody' (isReadable is false; Read/Write must be enabled in import settings)'. Use UnityEngine.TestTools.LogAssert.Expect",
+      "StackTrace": "UnityEngine.Mesh:get_triangles ()\r\nDiceCraft.Tests.GameplayPlayModeTests/<PLAY_Bootstrap_RealReferences38IconsFontAndSingleInputSystem>d__12:MoveNext () (at Assets/Game/Tests/PlayMode/GameplayPlayModeTests.cs:86)\r\nUnityEngine.SetupCoroutine:InvokeMoveNext (System.Collections.IEnumerator,intptr)\r\n\r\n"
+    },
+    {
+      "FullName": "DiceCraft.Tests.GameplayPlayModeTests.PLAY_BusyRejectsBypassedUiAndSkipPreservesCommittedRandomness",
+      "Status": "Passed",
+      "Duration": 1.3402096,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.GameplayPlayModeTests.PLAY_CoreLoop_ClickLockReorderAndSubmitMatchesPreview",
+      "Status": "Passed",
+      "Duration": 1.5118421,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.GameplayPlayModeTests.PLAY_FastAnimationUsesSameSeedResultsAndDoesNotConsumeExtraRolls",
+      "Status": "Passed",
+      "Duration": 1.3228968,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.GameplayPlayModeTests.PLAY_FirstNewRunSaveFailureOffersRetryAndBlocksBothReplacementEntrances",
+      "Status": "Passed",
+      "Duration": 0.1533802,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.GameplayPlayModeTests.PLAY_IndependentTutorialCompletesRealPurchaseAndPreservesFormalRun",
+      "Status": "Passed",
+      "Duration": 0.6143081,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.GameplayPlayModeTests.PLAY_ReadOnlyActionLogCannotAbortAnAlreadySavedUiCommand",
+      "Status": "Passed",
+      "Duration": 0.1551948,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.GameplayPlayModeTests.PLAY_RealEnterKeySubmitsOnceWithoutInvokingSelectedPauseButton",
+      "Status": "Failed",
+      "Duration": 0.2772419,
+      "Message": "  Enter must execute exactly one rules command.\r\n  Expected: 5\r\n  But was:  4\r\n",
+      "StackTrace": "at DiceCraft.Tests.GameplayPlayModeTests+<PLAY_RealEnterKeySubmitsOnceWithoutInvokingSelectedPauseButton>d__3.MoveNext () [0x001e6] in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Tests\\PlayMode\\FailureAndInputPlayModeTests.cs:140\r\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@ee3fe9477490\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:52\r\n"
+    },
+    {
+      "FullName": "DiceCraft.Tests.GameplayPlayModeTests.PLAY_ReloadDuringRollRestoresLocksOrderAndAcceptedFaceResults",
+      "Status": "Passed",
+      "Duration": 0.3284512,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.GameplayPlayModeTests.PLAY_SceneUnloadReloadResetsStaticUiAndDoesNotLeakSession",
+      "Status": "Passed",
+      "Duration": 0.279786,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.GameplayPlayModeTests.PLAY_ShopPurchaseFooterShowsSlotAndDuplicateFailuresBeforeConfirm",
+      "Status": "Passed",
+      "Duration": 0.6264674,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.GameplayPlayModeTests.PLAY_SixPhysicalFacesAndRemotePipsHaveCorrectOrientationAndDotCount",
+      "Status": "Passed",
+      "Duration": 0.2419494,
+      "Message": null,
+      "StackTrace": null
+    }
+  ]
+}

@@ -1,0 +1,219 @@
+{
+  "by_phase": {
+    "Roll": {
+      "events": 179,
+      "interval_ms": {
+        "count": 179,
+        "mean": 37.52218659217836,
+        "p50": 37.25710000000504,
+        "p95": 41.12789999999222,
+        "max": 45.36769999998569
+      },
+      "next_interval_ms": {
+        "count": 179,
+        "mean": 3.758522346369113,
+        "p50": 3.510399999981928,
+        "p95": 5.065000000001874,
+        "max": 5.397400000006769
+      },
+      "gc_bytes": {
+        "count": 179,
+        "mean": 3442452.2737430166,
+        "p50": 3435790.0,
+        "p95": 4960683.0,
+        "max": 5109470.0
+      },
+      "first_30s_mean_gc_bytes": 2036019.2758620689,
+      "last_30s_mean_gc_bytes": 4839630.733333333,
+      "first_30s_mean_interval_ms": 34.91887586206745,
+      "last_30s_mean_interval_ms": 40.73846333333032,
+      "completed_frame_main_ms": {
+        "count": 179,
+        "mean": 24.48716033519553,
+        "p50": 24.2627,
+        "p95": 28.0732,
+        "max": 32.3323
+      },
+      "gc_linear_slope_bytes_per_second": 18769.55764793222
+    },
+    "SkipVisual": {
+      "events": 180,
+      "interval_ms": {
+        "count": 180,
+        "mean": 23.0804911111111,
+        "p50": 23.104200000005903,
+        "p95": 24.40119999999979,
+        "max": 26.423400000012975
+      },
+      "next_interval_ms": {
+        "count": 180,
+        "mean": 10.327369444444775,
+        "p50": 10.321799999999826,
+        "p95": 11.393400000002885,
+        "max": 11.622799999997824
+      },
+      "gc_bytes": {
+        "count": 180,
+        "mean": 1240286.4666666666,
+        "p50": 1240258.0,
+        "p95": 1303854.0,
+        "max": 1311654.0
+      },
+      "first_30s_mean_gc_bytes": 1180535.2666666666,
+      "last_30s_mean_gc_bytes": 1299382.0,
+      "first_30s_mean_interval_ms": 23.157063333334097,
+      "last_30s_mean_interval_ms": 23.125210000000607,
+      "completed_frame_main_ms": {
+        "count": 180,
+        "mean": 16.72419111111111,
+        "p50": 16.6654,
+        "p95": 17.0108,
+        "max": 17.4544
+      },
+      "gc_linear_slope_bytes_per_second": 792.1966916595961
+    },
+    "Reorder": {
+      "events": 180,
+      "interval_ms": {
+        "count": 180,
+        "mean": 37.634218333333465,
+        "p50": 37.38799999999287,
+        "p95": 41.26819999999043,
+        "max": 48.3831999999893
+      },
+      "next_interval_ms": {
+        "count": 180,
+        "mean": 3.6558644444445085,
+        "p50": 3.4484999999904176,
+        "p95": 4.698500000017702,
+        "max": 5.617699999987735
+      },
+      "gc_bytes": {
+        "count": 180,
+        "mean": 3432942.1611111113,
+        "p50": 3417833.0,
+        "p95": 4942741.0,
+        "max": 5105741.0
+      },
+      "first_30s_mean_gc_bytes": 2026704.6333333333,
+      "last_30s_mean_gc_bytes": 4839275.466666667,
+      "first_30s_mean_interval_ms": 35.220830000001506,
+      "last_30s_mean_interval_ms": 40.72579333333503,
+      "completed_frame_main_ms": {
+        "count": 180,
+        "mean": 24.56272,
+        "p50": 24.261,
+        "p95": 28.2603,
+        "max": 34.8659
+      },
+      "gc_linear_slope_bytes_per_second": 18765.834146271674
+    },
+    "TogglePending_Refresh": {
+      "events": 180,
+      "interval_ms": {
+        "count": 180,
+        "mean": 23.31474666666631,
+        "p50": 23.380099999997128,
+        "p95": 24.523900000005483,
+        "max": 25.651199999998653
+      },
+      "next_interval_ms": {
+        "count": 180,
+        "mean": 10.14574888888882,
+        "p50": 10.071500000009337,
+        "p95": 11.400999999992223,
+        "max": 11.623899999989362
+      },
+      "gc_bytes": {
+        "count": 180,
+        "mean": 1236276.9444444445,
+        "p50": 1235574.0,
+        "p95": 1299698.0,
+        "max": 1306934.0
+      },
+      "first_30s_mean_gc_bytes": 1176516.8666666667,
+      "last_30s_mean_gc_bytes": 1295275.2,
+      "first_30s_mean_interval_ms": 23.29218333333382,
+      "last_30s_mean_interval_ms": 23.351303333333817,
+      "completed_frame_main_ms": {
+        "count": 180,
+        "mean": 16.725684444444443,
+        "p50": 16.6652,
+        "p95": 17.0275,
+        "max": 17.1927
+      },
+      "gc_linear_slope_bytes_per_second": 791.4812659262388
+    },
+    "ClearPending_Refresh": {
+      "events": 180,
+      "interval_ms": {
+        "count": 180,
+        "mean": 22.946896111112103,
+        "p50": 22.918000000004213,
+        "p95": 24.28000000000452,
+        "max": 25.54149999998856
+      },
+      "next_interval_ms": {
+        "count": 180,
+        "mean": 10.518177777776572,
+        "p50": 10.565000000013924,
+        "p95": 11.494499999997743,
+        "max": 11.841200000006324
+      },
+      "gc_bytes": {
+        "count": 180,
+        "mean": 1239599.3444444444,
+        "p50": 1238806.0,
+        "p95": 1303026.0,
+        "max": 1310166.0
+      },
+      "first_30s_mean_gc_bytes": 1179857.6666666667,
+      "last_30s_mean_gc_bytes": 1298603.2,
+      "first_30s_mean_interval_ms": 22.96094666666804,
+      "last_30s_mean_interval_ms": 23.20200000000246,
+      "completed_frame_main_ms": {
+        "count": 180,
+        "mean": 16.72345,
+        "p50": 16.6654,
+        "p95": 17.0147,
+        "max": 17.0717
+      },
+      "gc_linear_slope_bytes_per_second": 791.4216003284442
+    }
+  },
+  "long_frames": {
+    "16.7": {
+      "total": 3200,
+      "assigned_operation": 899
+    },
+    "20": {
+      "total": 900,
+      "assigned_operation": 899
+    },
+    "23.5467": {
+      "total": 529,
+      "assigned_operation": 529
+    },
+    "25": {
+      "total": 364,
+      "assigned_operation": 364
+    },
+    "30": {
+      "total": 359,
+      "assigned_operation": 359
+    },
+    "40": {
+      "total": 66,
+      "assigned_operation": 66
+    }
+  },
+  "other_frames": {
+    "count": 8800,
+    "mean": 16.716993920454552,
+    "p50": 16.668299999992087,
+    "p95": 17.009500000000344,
+    "max": 22.379600000022037
+  },
+  "events": 899,
+  "max_phase_distance": 0.024128399999995054
+}

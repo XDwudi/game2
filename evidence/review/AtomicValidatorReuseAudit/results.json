@@ -1,0 +1,42 @@
+{
+  "utc": "2026-10-29T02:28:47.5721775Z",
+  "runtime": ".NET 10.0.14",
+  "limitation": "Real Windows IO and production C#; System.Text.Json shim replaces Unity JsonUtility. No Unity runtime was launched.",
+  "results": [
+    {
+      "name": "IO prior independent regression / recovered backup preserved",
+      "passed": true
+    },
+    {
+      "name": "IO prior independent regression / direct write without Load",
+      "passed": true
+    },
+    {
+      "name": "IO prior independent regression / checksum",
+      "passed": true
+    },
+    {
+      "name": "IO prior independent regression / schema",
+      "passed": true
+    },
+    {
+      "name": "IO prior independent regression / semantic",
+      "passed": true
+    },
+    {
+      "name": "IO prior independent regression / both",
+      "passed": true
+    },
+    {
+      "name": "Reusable validator stays stateless and input-pure across valid/invalid/repeated calls",
+      "passed": true
+    }
+  ],
+  "total": 7,
+  "failures": 0,
+  "sourceHashes": {
+    "DicePrototype/Assets/Game/Runtime/AtomicSaveStore.cs": "54ce2bd243b4692244e1a2157ee0f76dedc330bd949743c3551340a23cfd5ba0",
+    "DicePrototype/Assets/Game/Core/Session/GameSession.Validation.cs": "8bc2ce3cfc8d4114846b19dc4aea13a8c190d47fb1f8d90f9d98beeafbaafb48",
+    "DicePrototype/Assets/Game/Core/Session/GameSession.cs": "38c6eeb7060da1e46680bd5472126087adfae743289da00f51e7a78675fcc5f9"
+  }
+}

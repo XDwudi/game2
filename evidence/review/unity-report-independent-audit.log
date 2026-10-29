@@ -1,0 +1,16 @@
+PASS editmode-03.json_json_xml_same_cases
+PASS editmode-03.json_all_pass_no_skip
+PASS all_52_golden_ids_executed
+PASS null_adapter_and_real_save_cases_executed
+PASS playmode-04.json_json_xml_same_cases
+PASS playmode-04.json_all_pass_no_skip
+PASS all_five_ui_regressions_executed
+PASS failed_history_retained
+PASS spec_original_unchanged
+PASS config_equals_spec_json
+PASS golden_equals_spec_json
+PDB latest-source differences: 4
+DiceCraft.Runtime E:\agent_workspace\gpt\game2\DicePrototype\Assets\Game\Runtime\DiceTable.cs
+DiceCraft.Runtime E:\agent_workspace\gpt\game2\DicePrototype\Assets\Game\Runtime\GameApp.cs
+DiceCraft.Runtime E:\agent_workspace\gpt\game2\DicePrototype\Assets\Game\Runtime\Verification\PlayerVerification.cs
+DiceCraft.Runtime E:\agent_workspace\gpt\game2\DicePrototype\Assets\Game\UI\GameApp.Modals.cs

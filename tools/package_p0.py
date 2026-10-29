@@ -35,6 +35,8 @@ def main():
             archive.write(p, "DiceCraft-P0/" + p.relative_to(BUILD).as_posix())
         archive.writestr("DiceCraft-P0/build-manifest.json", encoded)
         archive.write(ROOT / "docs/PLAYER_README.txt", "DiceCraft-P0/开始游玩.txt")
+        archive.write(ROOT / "DicePrototype/Assets/Game/Fonts/LICENSE.txt", "DiceCraft-P0/Licenses/NotoSansCJK-OFL.txt")
+        archive.write(ROOT / "DicePrototype/Assets/Game/Fonts/SOURCE.json", "DiceCraft-P0/Licenses/NotoSansCJK-source.json")
     with zipfile.ZipFile(OUTPUT) as archive:
         bad = archive.testzip()
         if bad:
