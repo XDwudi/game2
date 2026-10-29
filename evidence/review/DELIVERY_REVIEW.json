@@ -1,0 +1,3231 @@
+{
+  "scope": "Archive integrity and build identity only; no new gameplay/performance run.",
+  "sourceCommit": "f060098533d26e99e7eba7d0360ecfea78cbe517",
+  "packagingCommit": "821e8631a9e7bde1c68837aedfabd5a2eab1ffa0",
+  "archive": {
+    "archive": "Builds/DiceCraft-P0-Windows.zip",
+    "bytes": 84571347,
+    "sha256": "d0bf25b18326a9a02f28326be1151895768bce22d5ad1c9ffa9e9eddbaa0cbde",
+    "runtimeFiles": 313,
+    "zipCrc": "passed"
+  },
+  "checks": [
+    {
+      "name": "archive_SHA256_and_bytes",
+      "passed": true
+    },
+    {
+      "name": "manifest_313_unique_paths",
+      "passed": true
+    },
+    {
+      "name": "safe_relative_paths_no_case_collisions_or_symlinks",
+      "passed": true,
+      "unsafe": [],
+      "specialEntries": []
+    },
+    {
+      "name": "exact_313_runtime_plus_four_handoff_entries",
+      "passed": true
+    },
+    {
+      "name": "all_runtime_files_decompressed_SHA_match_build_and_manifest",
+      "passed": true,
+      "checked": 313
+    },
+    {
+      "name": "zip_CRC_full_archive",
+      "passed": true
+    },
+    {
+      "name": "embedded_manifest_exact",
+      "passed": true
+    },
+    {
+      "name": "font_license_and_source_exact",
+      "passed": true
+    },
+    {
+      "name": "readme_is_valid_UTF8_and_contains_launch_controls_save_and_limits",
+      "passed": true
+    },
+    {
+      "name": "no_backup_folder_user_saves_or_workspace_cache",
+      "passed": true,
+      "unexpected": []
+    },
+    {
+      "name": "only_known_Unity_do_not_ship_folder_excluded",
+      "passed": true,
+      "excluded": [
+        "DiceCraft_BackUpThisFolder_ButDontShipItWithYourGame/x86_64/lib_burst_generated.txt"
+      ]
+    },
+    {
+      "name": "exe_core_runtime_equal_reviewed_build10",
+      "passed": true
+    },
+    {
+      "name": "packaging_commit_no_production_delta_clean_current_source",
+      "passed": true,
+      "productionDiff": "",
+      "sourceStatus": ""
+    }
+  ],
+  "runtimeFiles": [
+    {
+      "path": "D3D12/D3D12Core.dll",
+      "zipBytes": 4725304,
+      "zipSha256": "625bd40005b1c3708695d5256ecf230d278e6b8edba5a88af70f3d91324f3052",
+      "diskBytes": 4725304,
+      "diskSha256": "625bd40005b1c3708695d5256ecf230d278e6b8edba5a88af70f3d91324f3052",
+      "manifestBytes": 4725304,
+      "manifestSha256": "625bd40005b1c3708695d5256ecf230d278e6b8edba5a88af70f3d91324f3052",
+      "passed": true
+    },
+    {
+      "path": "D3D12/d3d12SDKLayers.dll",
+      "zipBytes": 4930104,
+      "zipSha256": "c0730cc70d3250d3de19c04c17845ba9e70eecaf502d684d1409195ebc5b5959",
+      "diskBytes": 4930104,
+      "diskSha256": "c0730cc70d3250d3de19c04c17845ba9e70eecaf502d684d1409195ebc5b5959",
+      "manifestBytes": 4930104,
+      "manifestSha256": "c0730cc70d3250d3de19c04c17845ba9e70eecaf502d684d1409195ebc5b5959",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft.exe",
+      "zipBytes": 667136,
+      "zipSha256": "3726509af94bdacbfe23f85da13109a7e70fb7d61913506e98690bd3208b2fd7",
+      "diskBytes": 667136,
+      "diskSha256": "3726509af94bdacbfe23f85da13109a7e70fb7d61913506e98690bd3208b2fd7",
+      "manifestBytes": 667136,
+      "manifestSha256": "3726509af94bdacbfe23f85da13109a7e70fb7d61913506e98690bd3208b2fd7",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/app.info",
+      "zipBytes": 19,
+      "zipSha256": "c8f4d1f492e8e609b3ad9ea4439542921153641d84003832363e33b698a12f34",
+      "diskBytes": 19,
+      "diskSha256": "c8f4d1f492e8e609b3ad9ea4439542921153641d84003832363e33b698a12f34",
+      "manifestBytes": 19,
+      "manifestSha256": "c8f4d1f492e8e609b3ad9ea4439542921153641d84003832363e33b698a12f34",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/boot.config",
+      "zipBytes": 358,
+      "zipSha256": "1f56a6f9b3353411afe2b772188e94633403b0b90b7ed49a5d5d33492c877b07",
+      "diskBytes": 358,
+      "diskSha256": "1f56a6f9b3353411afe2b772188e94633403b0b90b7ed49a5d5d33492c877b07",
+      "manifestBytes": 358,
+      "manifestSha256": "1f56a6f9b3353411afe2b772188e94633403b0b90b7ed49a5d5d33492c877b07",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/globalgamemanagers",
+      "zipBytes": 89476,
+      "zipSha256": "1fbbe841f01f82674647e0d5eae42e73219e8e2a3aa78a06b5cd7e9cd0e676eb",
+      "diskBytes": 89476,
+      "diskSha256": "1fbbe841f01f82674647e0d5eae42e73219e8e2a3aa78a06b5cd7e9cd0e676eb",
+      "manifestBytes": 89476,
+      "manifestSha256": "1fbbe841f01f82674647e0d5eae42e73219e8e2a3aa78a06b5cd7e9cd0e676eb",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/globalgamemanagers.assets",
+      "zipBytes": 789992,
+      "zipSha256": "48fc28f9752afcbf03ebe85ad716a4a06493338dc87955735439b7855a78dbb8",
+      "diskBytes": 789992,
+      "diskSha256": "48fc28f9752afcbf03ebe85ad716a4a06493338dc87955735439b7855a78dbb8",
+      "manifestBytes": 789992,
+      "manifestSha256": "48fc28f9752afcbf03ebe85ad716a4a06493338dc87955735439b7855a78dbb8",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/globalgamemanagers.assets.resS",
+      "zipBytes": 3553504,
+      "zipSha256": "d39bc2dc060377debd226e7a96002e7d9a37f7dd6a2aeaa324b085972564d143",
+      "diskBytes": 3553504,
+      "diskSha256": "d39bc2dc060377debd226e7a96002e7d9a37f7dd6a2aeaa324b085972564d143",
+      "manifestBytes": 3553504,
+      "manifestSha256": "d39bc2dc060377debd226e7a96002e7d9a37f7dd6a2aeaa324b085972564d143",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/level0",
+      "zipBytes": 14188,
+      "zipSha256": "c1970103967fd2562bc01a2e02055b4f933905e533f98fa75af342e45d2fac52",
+      "diskBytes": 14188,
+      "diskSha256": "c1970103967fd2562bc01a2e02055b4f933905e533f98fa75af342e45d2fac52",
+      "manifestBytes": 14188,
+      "manifestSha256": "c1970103967fd2562bc01a2e02055b4f933905e533f98fa75af342e45d2fac52",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Assembly-CSharp.dll",
+      "zipBytes": 3584,
+      "zipSha256": "76b325463fda79f60bb1f8856eaeabda714b8ddd13160741d6e8c8067cfdf396",
+      "diskBytes": 3584,
+      "diskSha256": "76b325463fda79f60bb1f8856eaeabda714b8ddd13160741d6e8c8067cfdf396",
+      "manifestBytes": 3584,
+      "manifestSha256": "76b325463fda79f60bb1f8856eaeabda714b8ddd13160741d6e8c8067cfdf396",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Assembly-CSharp.pdb",
+      "zipBytes": 18780,
+      "zipSha256": "1c7ca6232fe350691853d158ebf7b5dc367f505e0bd97b2c4887a263bd123454",
+      "diskBytes": 18780,
+      "diskSha256": "1c7ca6232fe350691853d158ebf7b5dc367f505e0bd97b2c4887a263bd123454",
+      "manifestBytes": 18780,
+      "manifestSha256": "1c7ca6232fe350691853d158ebf7b5dc367f505e0bd97b2c4887a263bd123454",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/DiceCraft.Core.dll",
+      "zipBytes": 95232,
+      "zipSha256": "db7798eb8ceec1febb0e020558155a24a533c23fd1229afe21ee9f82ed9c5dac",
+      "diskBytes": 95232,
+      "diskSha256": "db7798eb8ceec1febb0e020558155a24a533c23fd1229afe21ee9f82ed9c5dac",
+      "manifestBytes": 95232,
+      "manifestSha256": "db7798eb8ceec1febb0e020558155a24a533c23fd1229afe21ee9f82ed9c5dac",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/DiceCraft.Core.pdb",
+      "zipBytes": 32732,
+      "zipSha256": "f762bacec99234228c95eaae17e642b99b9876ef8bd211dd552dea824673dc55",
+      "diskBytes": 32732,
+      "diskSha256": "f762bacec99234228c95eaae17e642b99b9876ef8bd211dd552dea824673dc55",
+      "manifestBytes": 32732,
+      "manifestSha256": "f762bacec99234228c95eaae17e642b99b9876ef8bd211dd552dea824673dc55",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/DiceCraft.Runtime.dll",
+      "zipBytes": 177664,
+      "zipSha256": "346b4c1ec85e75ad4f7f15d10f2968c97b1d836e235474878718fab886b43d59",
+      "diskBytes": 177664,
+      "diskSha256": "346b4c1ec85e75ad4f7f15d10f2968c97b1d836e235474878718fab886b43d59",
+      "manifestBytes": 177664,
+      "manifestSha256": "346b4c1ec85e75ad4f7f15d10f2968c97b1d836e235474878718fab886b43d59",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/DiceCraft.Runtime.pdb",
+      "zipBytes": 49852,
+      "zipSha256": "a33f57ac7d2134b11009a402880af91d2ada7373550fdb09f76c68bf76170544",
+      "diskBytes": 49852,
+      "diskSha256": "a33f57ac7d2134b11009a402880af91d2ada7373550fdb09f76c68bf76170544",
+      "manifestBytes": 49852,
+      "manifestSha256": "a33f57ac7d2134b11009a402880af91d2ada7373550fdb09f76c68bf76170544",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Mono.Security.dll",
+      "zipBytes": 241152,
+      "zipSha256": "e912bcd94b398ba750f74a12b7c61b530720f66e4ff992e62628dd42edf50ae1",
+      "diskBytes": 241152,
+      "diskSha256": "e912bcd94b398ba750f74a12b7c61b530720f66e4ff992e62628dd42edf50ae1",
+      "manifestBytes": 241152,
+      "manifestSha256": "e912bcd94b398ba750f74a12b7c61b530720f66e4ff992e62628dd42edf50ae1",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/mscorlib.dll",
+      "zipBytes": 4632064,
+      "zipSha256": "ed3bd3b757069e96c26bfdec8179abd00feef8839ae3ad97f51637c12d83efd8",
+      "diskBytes": 4632064,
+      "diskSha256": "ed3bd3b757069e96c26bfdec8179abd00feef8839ae3ad97f51637c12d83efd8",
+      "manifestBytes": 4632064,
+      "manifestSha256": "ed3bd3b757069e96c26bfdec8179abd00feef8839ae3ad97f51637c12d83efd8",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/netstandard.dll",
+      "zipBytes": 90112,
+      "zipSha256": "6ae62e082dc494a2433984177f60ca4db5fae69b1f360a8b33754172b310b8c5",
+      "diskBytes": 90112,
+      "diskSha256": "6ae62e082dc494a2433984177f60ca4db5fae69b1f360a8b33754172b310b8c5",
+      "manifestBytes": 90112,
+      "manifestSha256": "6ae62e082dc494a2433984177f60ca4db5fae69b1f360a8b33754172b310b8c5",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Newtonsoft.Json.dll",
+      "zipBytes": 691712,
+      "zipSha256": "a56146202232958f46bd6a28b5a7da166aea123ee0d646735a46e5c341dfbf1f",
+      "diskBytes": 691712,
+      "diskSha256": "a56146202232958f46bd6a28b5a7da166aea123ee0d646735a46e5c341dfbf1f",
+      "manifestBytes": 691712,
+      "manifestSha256": "a56146202232958f46bd6a28b5a7da166aea123ee0d646735a46e5c341dfbf1f",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Newtonsoft.Json.pdb",
+      "zipBytes": 2174464,
+      "zipSha256": "17cbab4d4207187ed94173c0d59d7a39fabed7c9035b73634c1f02188dd60168",
+      "diskBytes": 2174464,
+      "diskSha256": "17cbab4d4207187ed94173c0d59d7a39fabed7c9035b73634c1f02188dd60168",
+      "manifestBytes": 2174464,
+      "manifestSha256": "17cbab4d4207187ed94173c0d59d7a39fabed7c9035b73634c1f02188dd60168",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/System.Buffers.dll",
+      "zipBytes": 4608,
+      "zipSha256": "762f8fdbe975e05b76be5fe996c53ce7c75e4a2830f2f50b02a5948ef6ba0aeb",
+      "diskBytes": 4608,
+      "diskSha256": "762f8fdbe975e05b76be5fe996c53ce7c75e4a2830f2f50b02a5948ef6ba0aeb",
+      "manifestBytes": 4608,
+      "manifestSha256": "762f8fdbe975e05b76be5fe996c53ce7c75e4a2830f2f50b02a5948ef6ba0aeb",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/System.Collections.Immutable.dll",
+      "zipBytes": 252680,
+      "zipSha256": "5b1b1c83ba3d135c2fdfe425842fbe9c7432878b7e468623acb554c69b4c130f",
+      "diskBytes": 252680,
+      "diskSha256": "5b1b1c83ba3d135c2fdfe425842fbe9c7432878b7e468623acb554c69b4c130f",
+      "manifestBytes": 252680,
+      "manifestSha256": "5b1b1c83ba3d135c2fdfe425842fbe9c7432878b7e468623acb554c69b4c130f",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/System.ComponentModel.Composition.dll",
+      "zipBytes": 257024,
+      "zipSha256": "614793b018e061527e53941045f3d44abb2856591a7982ee3479f08df3237322",
+      "diskBytes": 257024,
+      "diskSha256": "614793b018e061527e53941045f3d44abb2856591a7982ee3479f08df3237322",
+      "manifestBytes": 257024,
+      "manifestSha256": "614793b018e061527e53941045f3d44abb2856591a7982ee3479f08df3237322",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/System.Configuration.dll",
+      "zipBytes": 124928,
+      "zipSha256": "548ac87e81788971c06463779c82ce735da2be71cdd8d59fe75a226f63981d82",
+      "diskBytes": 124928,
+      "diskSha256": "548ac87e81788971c06463779c82ce735da2be71cdd8d59fe75a226f63981d82",
+      "manifestBytes": 124928,
+      "manifestSha256": "548ac87e81788971c06463779c82ce735da2be71cdd8d59fe75a226f63981d82",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/System.Core.dll",
+      "zipBytes": 1113088,
+      "zipSha256": "f8a67453fe15cdbe58fd459be18af2600b84d465fe9dc7ef0bceebbb92137a05",
+      "diskBytes": 1113088,
+      "diskSha256": "f8a67453fe15cdbe58fd459be18af2600b84d465fe9dc7ef0bceebbb92137a05",
+      "manifestBytes": 1113088,
+      "manifestSha256": "f8a67453fe15cdbe58fd459be18af2600b84d465fe9dc7ef0bceebbb92137a05",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/System.Data.DataSetExtensions.dll",
+      "zipBytes": 29696,
+      "zipSha256": "3ef867092db854496c3a119e2a0c9c929eadd64e4f82cc590a2defbc0ffd8885",
+      "diskBytes": 29696,
+      "diskSha256": "3ef867092db854496c3a119e2a0c9c929eadd64e4f82cc590a2defbc0ffd8885",
+      "manifestBytes": 29696,
+      "manifestSha256": "3ef867092db854496c3a119e2a0c9c929eadd64e4f82cc590a2defbc0ffd8885",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/System.Data.dll",
+      "zipBytes": 2125312,
+      "zipSha256": "0327833c231a3c2c989ba95651d02bd35417e9579e421adb5ea63182f1741b30",
+      "diskBytes": 2125312,
+      "diskSha256": "0327833c231a3c2c989ba95651d02bd35417e9579e421adb5ea63182f1741b30",
+      "manifestBytes": 2125312,
+      "manifestSha256": "0327833c231a3c2c989ba95651d02bd35417e9579e421adb5ea63182f1741b30",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/System.dll",
+      "zipBytes": 2641920,
+      "zipSha256": "f7a66d1ecb77d1d74840b7100eef17ebdb5aefa2957acc7d3a6cad6d2ac12304",
+      "diskBytes": 2641920,
+      "diskSha256": "f7a66d1ecb77d1d74840b7100eef17ebdb5aefa2957acc7d3a6cad6d2ac12304",
+      "manifestBytes": 2641920,
+      "manifestSha256": "f7a66d1ecb77d1d74840b7100eef17ebdb5aefa2957acc7d3a6cad6d2ac12304",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/System.Drawing.dll",
+      "zipBytes": 489984,
+      "zipSha256": "70dd9d25249ec173db45a94cce4e3d66a49dbc47bcedaf56be0a1a3193f013c3",
+      "diskBytes": 489984,
+      "diskSha256": "70dd9d25249ec173db45a94cce4e3d66a49dbc47bcedaf56be0a1a3193f013c3",
+      "manifestBytes": 489984,
+      "manifestSha256": "70dd9d25249ec173db45a94cce4e3d66a49dbc47bcedaf56be0a1a3193f013c3",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/System.EnterpriseServices.dll",
+      "zipBytes": 44544,
+      "zipSha256": "4abd633b3749f92df1dc7c8ed0083515d8c4815220d619ff7491ed617a90b70e",
+      "diskBytes": 44544,
+      "diskSha256": "4abd633b3749f92df1dc7c8ed0083515d8c4815220d619ff7491ed617a90b70e",
+      "manifestBytes": 44544,
+      "manifestSha256": "4abd633b3749f92df1dc7c8ed0083515d8c4815220d619ff7491ed617a90b70e",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/System.IO.Compression.dll",
+      "zipBytes": 114688,
+      "zipSha256": "ce68e338cd2111d37296ab573e07296f46d0ab1d62140157012662f5c1631bbf",
+      "diskBytes": 114688,
+      "diskSha256": "ce68e338cd2111d37296ab573e07296f46d0ab1d62140157012662f5c1631bbf",
+      "manifestBytes": 114688,
+      "manifestSha256": "ce68e338cd2111d37296ab573e07296f46d0ab1d62140157012662f5c1631bbf",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/System.IO.Compression.FileSystem.dll",
+      "zipBytes": 18432,
+      "zipSha256": "d221d8ede654d31bc9d172050aebcf6583389df49ea9ca3c64b892b4d431aa93",
+      "diskBytes": 18432,
+      "diskSha256": "d221d8ede654d31bc9d172050aebcf6583389df49ea9ca3c64b892b4d431aa93",
+      "manifestBytes": 18432,
+      "manifestSha256": "d221d8ede654d31bc9d172050aebcf6583389df49ea9ca3c64b892b4d431aa93",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/System.Memory.dll",
+      "zipBytes": 4608,
+      "zipSha256": "c4f030a2cba7da7cdcf493257c24560e203d355904aee490d645a935842f834a",
+      "diskBytes": 4608,
+      "diskSha256": "c4f030a2cba7da7cdcf493257c24560e203d355904aee490d645a935842f834a",
+      "manifestBytes": 4608,
+      "manifestSha256": "c4f030a2cba7da7cdcf493257c24560e203d355904aee490d645a935842f834a",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/System.Net.Http.dll",
+      "zipBytes": 122880,
+      "zipSha256": "fc1d9895a57c89690cdbb390ff0e2a33139e6d55b3585ce27a975919b782f384",
+      "diskBytes": 122880,
+      "diskSha256": "fc1d9895a57c89690cdbb390ff0e2a33139e6d55b3585ce27a975919b782f384",
+      "manifestBytes": 122880,
+      "manifestSha256": "fc1d9895a57c89690cdbb390ff0e2a33139e6d55b3585ce27a975919b782f384",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/System.Numerics.dll",
+      "zipBytes": 119296,
+      "zipSha256": "10ad242e00ccc5842a18f23a5db7cb98994bb9adc9cb8e928bfa983017f7b84d",
+      "diskBytes": 119296,
+      "diskSha256": "10ad242e00ccc5842a18f23a5db7cb98994bb9adc9cb8e928bfa983017f7b84d",
+      "manifestBytes": 119296,
+      "manifestSha256": "10ad242e00ccc5842a18f23a5db7cb98994bb9adc9cb8e928bfa983017f7b84d",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/System.Reflection.Metadata.dll",
+      "zipBytes": 487584,
+      "zipSha256": "afcfd6c166fe0d59f45cc6363082806f6a7ea8ceed9dc6c75eec9fd79ccb5717",
+      "diskBytes": 487584,
+      "diskSha256": "afcfd6c166fe0d59f45cc6363082806f6a7ea8ceed9dc6c75eec9fd79ccb5717",
+      "manifestBytes": 487584,
+      "manifestSha256": "afcfd6c166fe0d59f45cc6363082806f6a7ea8ceed9dc6c75eec9fd79ccb5717",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/System.Runtime.CompilerServices.Unsafe.dll",
+      "zipBytes": 19256,
+      "zipSha256": "fd67abc4c4af10affbcd42fd68a2a7bc361b26714afe6965d4d0d139459d8297",
+      "diskBytes": 19256,
+      "diskSha256": "fd67abc4c4af10affbcd42fd68a2a7bc361b26714afe6965d4d0d139459d8297",
+      "manifestBytes": 19256,
+      "manifestSha256": "fd67abc4c4af10affbcd42fd68a2a7bc361b26714afe6965d4d0d139459d8297",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/System.Runtime.Serialization.dll",
+      "zipBytes": 934400,
+      "zipSha256": "b5e613632bb6740233ef64eda07a9012b4b760bdbdb382cc9e8401bec181c3cd",
+      "diskBytes": 934400,
+      "diskSha256": "b5e613632bb6740233ef64eda07a9012b4b760bdbdb382cc9e8401bec181c3cd",
+      "manifestBytes": 934400,
+      "manifestSha256": "b5e613632bb6740233ef64eda07a9012b4b760bdbdb382cc9e8401bec181c3cd",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/System.Security.dll",
+      "zipBytes": 320000,
+      "zipSha256": "a2b5d9892a204c55cac80a97f115f2ed69c33616b5bc913a329d3a69e3306e33",
+      "diskBytes": 320000,
+      "diskSha256": "a2b5d9892a204c55cac80a97f115f2ed69c33616b5bc913a329d3a69e3306e33",
+      "manifestBytes": 320000,
+      "manifestSha256": "a2b5d9892a204c55cac80a97f115f2ed69c33616b5bc913a329d3a69e3306e33",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/System.ServiceModel.Internals.dll",
+      "zipBytes": 215040,
+      "zipSha256": "aaa9fa4c9037fb65c82d87b6ff1b5666e41e8a2706cb4fa1669856ed546272f9",
+      "diskBytes": 215040,
+      "diskSha256": "aaa9fa4c9037fb65c82d87b6ff1b5666e41e8a2706cb4fa1669856ed546272f9",
+      "manifestBytes": 215040,
+      "manifestSha256": "aaa9fa4c9037fb65c82d87b6ff1b5666e41e8a2706cb4fa1669856ed546272f9",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/System.Transactions.dll",
+      "zipBytes": 35328,
+      "zipSha256": "e10e97aa9723c7c6c48c96d066029ad274094ebca433768b852840455c9bf241",
+      "diskBytes": 35328,
+      "diskSha256": "e10e97aa9723c7c6c48c96d066029ad274094ebca433768b852840455c9bf241",
+      "manifestBytes": 35328,
+      "manifestSha256": "e10e97aa9723c7c6c48c96d066029ad274094ebca433768b852840455c9bf241",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/System.Xml.dll",
+      "zipBytes": 3160064,
+      "zipSha256": "fdead0bddf7d8817a616c09cc603868b4a44645bbc9834775c9309b059576345",
+      "diskBytes": 3160064,
+      "diskSha256": "fdead0bddf7d8817a616c09cc603868b4a44645bbc9834775c9309b059576345",
+      "manifestBytes": 3160064,
+      "manifestSha256": "fdead0bddf7d8817a616c09cc603868b4a44645bbc9834775c9309b059576345",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/System.Xml.Linq.dll",
+      "zipBytes": 136704,
+      "zipSha256": "d1f14ecf3ce7b6584f409203a474fd32bea20b8c57a64160e419c30cc0eb3ede",
+      "diskBytes": 136704,
+      "diskSha256": "d1f14ecf3ce7b6584f409203a474fd32bea20b8c57a64160e419c30cc0eb3ede",
+      "manifestBytes": 136704,
+      "manifestSha256": "d1f14ecf3ce7b6584f409203a474fd32bea20b8c57a64160e419c30cc0eb3ede",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Unity.Burst.dll",
+      "zipBytes": 5120,
+      "zipSha256": "e0e7fd1d83fc55e919b998ad02c1bc197ae8b2557fda4c5e8d95e4c51822f7b2",
+      "diskBytes": 5120,
+      "diskSha256": "e0e7fd1d83fc55e919b998ad02c1bc197ae8b2557fda4c5e8d95e4c51822f7b2",
+      "manifestBytes": 5120,
+      "manifestSha256": "e0e7fd1d83fc55e919b998ad02c1bc197ae8b2557fda4c5e8d95e4c51822f7b2",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Unity.Burst.pdb",
+      "zipBytes": 16724,
+      "zipSha256": "88bd6550040414d801b4b7d88972dd1276b522d8559f018fb284216895f3401f",
+      "diskBytes": 16724,
+      "diskSha256": "88bd6550040414d801b4b7d88972dd1276b522d8559f018fb284216895f3401f",
+      "manifestBytes": 16724,
+      "manifestSha256": "88bd6550040414d801b4b7d88972dd1276b522d8559f018fb284216895f3401f",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Unity.Collections.dll",
+      "zipBytes": 443904,
+      "zipSha256": "7a320c3d04eb190bbd523a152d15d8f3fdcabcb8dd8a189f7979a5e0ec0d65dc",
+      "diskBytes": 443904,
+      "diskSha256": "7a320c3d04eb190bbd523a152d15d8f3fdcabcb8dd8a189f7979a5e0ec0d65dc",
+      "manifestBytes": 443904,
+      "manifestSha256": "7a320c3d04eb190bbd523a152d15d8f3fdcabcb8dd8a189f7979a5e0ec0d65dc",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Unity.Collections.LowLevel.ILSupport.dll",
+      "zipBytes": 5120,
+      "zipSha256": "ff50383f807f9692e4913b97e47d86fefcb8faa33d6d48cd3e3fd6fc7ffb448d",
+      "diskBytes": 5120,
+      "diskSha256": "ff50383f807f9692e4913b97e47d86fefcb8faa33d6d48cd3e3fd6fc7ffb448d",
+      "manifestBytes": 5120,
+      "manifestSha256": "ff50383f807f9692e4913b97e47d86fefcb8faa33d6d48cd3e3fd6fc7ffb448d",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Unity.Collections.pdb",
+      "zipBytes": 233796,
+      "zipSha256": "31fe073923eba59d2b4ca91a8407ae5aa06b7bf89198dcec7debef2e26e10f3a",
+      "diskBytes": 233796,
+      "diskSha256": "31fe073923eba59d2b4ca91a8407ae5aa06b7bf89198dcec7debef2e26e10f3a",
+      "manifestBytes": 233796,
+      "manifestSha256": "31fe073923eba59d2b4ca91a8407ae5aa06b7bf89198dcec7debef2e26e10f3a",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Unity.Collections.Tests.CoreCLR.InternalJobNestedPrivate.dll",
+      "zipBytes": 4608,
+      "zipSha256": "9d1a345a7b9eb079032631128df9ee3ddb5c7061ed1fca4a352b25b6b86d6d09",
+      "diskBytes": 4608,
+      "diskSha256": "9d1a345a7b9eb079032631128df9ee3ddb5c7061ed1fca4a352b25b6b86d6d09",
+      "manifestBytes": 4608,
+      "manifestSha256": "9d1a345a7b9eb079032631128df9ee3ddb5c7061ed1fca4a352b25b6b86d6d09",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Unity.Collections.Tests.CoreCLR.InternalJobNestedPrivate.pdb",
+      "zipBytes": 16992,
+      "zipSha256": "6569d854e699c18ce1a7fe20944bd0d510bcef5f7e9382f8f138ca95fa125393",
+      "diskBytes": 16992,
+      "diskSha256": "6569d854e699c18ce1a7fe20944bd0d510bcef5f7e9382f8f138ca95fa125393",
+      "manifestBytes": 16992,
+      "manifestSha256": "6569d854e699c18ce1a7fe20944bd0d510bcef5f7e9382f8f138ca95fa125393",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Unity.Collections.Tests.CoreCLR.PrivateJobNested.dll",
+      "zipBytes": 4096,
+      "zipSha256": "09003c37fb5d99dce9dd4a75d9b06aff5ae3fc6990ba2b3b13e31a5f1e7a0c98",
+      "diskBytes": 4096,
+      "diskSha256": "09003c37fb5d99dce9dd4a75d9b06aff5ae3fc6990ba2b3b13e31a5f1e7a0c98",
+      "manifestBytes": 4096,
+      "manifestSha256": "09003c37fb5d99dce9dd4a75d9b06aff5ae3fc6990ba2b3b13e31a5f1e7a0c98",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Unity.Collections.Tests.CoreCLR.PrivateJobNested.pdb",
+      "zipBytes": 16980,
+      "zipSha256": "ca7fb115d364e1b72c23d67bc4fed71488bacbf3d782a667cf4e578588ea8f49",
+      "diskBytes": 16980,
+      "diskSha256": "ca7fb115d364e1b72c23d67bc4fed71488bacbf3d782a667cf4e578588ea8f49",
+      "manifestBytes": 16980,
+      "manifestSha256": "ca7fb115d364e1b72c23d67bc4fed71488bacbf3d782a667cf4e578588ea8f49",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Unity.Collections.Tests.CoreCLR.ProtectedJobNested.dll",
+      "zipBytes": 4096,
+      "zipSha256": "99bdf46ec28b4c0ea2542d21615e17e9a9eb4adbb854f0c9282ce0b952749eee",
+      "diskBytes": 4096,
+      "diskSha256": "99bdf46ec28b4c0ea2542d21615e17e9a9eb4adbb854f0c9282ce0b952749eee",
+      "manifestBytes": 4096,
+      "manifestSha256": "99bdf46ec28b4c0ea2542d21615e17e9a9eb4adbb854f0c9282ce0b952749eee",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Unity.Collections.Tests.CoreCLR.ProtectedJobNested.pdb",
+      "zipBytes": 16984,
+      "zipSha256": "47267b8512bf2507ee51814259a86f73dd73d9d6acd654a6b545741daffec7cc",
+      "diskBytes": 16984,
+      "diskSha256": "47267b8512bf2507ee51814259a86f73dd73d9d6acd654a6b545741daffec7cc",
+      "manifestBytes": 16984,
+      "manifestSha256": "47267b8512bf2507ee51814259a86f73dd73d9d6acd654a6b545741daffec7cc",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Unity.Collections.Tests.CoreCLR.PublicJobPrivateGeneric.dll",
+      "zipBytes": 4608,
+      "zipSha256": "cb4c8940f0f0e06dbad13bdaf4b06a8094aced2cb6912d3fd718589f4e26e5c2",
+      "diskBytes": 4608,
+      "diskSha256": "cb4c8940f0f0e06dbad13bdaf4b06a8094aced2cb6912d3fd718589f4e26e5c2",
+      "manifestBytes": 4608,
+      "manifestSha256": "cb4c8940f0f0e06dbad13bdaf4b06a8094aced2cb6912d3fd718589f4e26e5c2",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Unity.Collections.Tests.CoreCLR.PublicJobPrivateGeneric.pdb",
+      "zipBytes": 17104,
+      "zipSha256": "4bdb8f343860951d61d3ec01a97dfae42e8cbe3728104a532527f8988aaab190",
+      "diskBytes": 17104,
+      "diskSha256": "4bdb8f343860951d61d3ec01a97dfae42e8cbe3728104a532527f8988aaab190",
+      "manifestBytes": 17104,
+      "manifestSha256": "4bdb8f343860951d61d3ec01a97dfae42e8cbe3728104a532527f8988aaab190",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Unity.InputSystem.dll",
+      "zipBytes": 1133056,
+      "zipSha256": "ae571f14b59260dfa4802442f68febf044535752992d33192af002c674176ca0",
+      "diskBytes": 1133056,
+      "diskSha256": "ae571f14b59260dfa4802442f68febf044535752992d33192af002c674176ca0",
+      "manifestBytes": 1133056,
+      "manifestSha256": "ae571f14b59260dfa4802442f68febf044535752992d33192af002c674176ca0",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Unity.InputSystem.ForUI.dll",
+      "zipBytes": 15360,
+      "zipSha256": "08b1c67df88f163c5948e79f0a45228fdcd29890992ff4dc6bdf66fc04470529",
+      "diskBytes": 15360,
+      "diskSha256": "08b1c67df88f163c5948e79f0a45228fdcd29890992ff4dc6bdf66fc04470529",
+      "manifestBytes": 15360,
+      "manifestSha256": "08b1c67df88f163c5948e79f0a45228fdcd29890992ff4dc6bdf66fc04470529",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Unity.InputSystem.ForUI.pdb",
+      "zipBytes": 20312,
+      "zipSha256": "087118cc6e5e2641c742e1170276490eb70e42ebf983bd15bf2cf21ee37527ee",
+      "diskBytes": 20312,
+      "diskSha256": "087118cc6e5e2641c742e1170276490eb70e42ebf983bd15bf2cf21ee37527ee",
+      "manifestBytes": 20312,
+      "manifestSha256": "087118cc6e5e2641c742e1170276490eb70e42ebf983bd15bf2cf21ee37527ee",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Unity.InputSystem.pdb",
+      "zipBytes": 429044,
+      "zipSha256": "a5fb7750a50f7cf1963ab202cdeb13ebfbc66b84147cb79fe899482706acd455",
+      "diskBytes": 429044,
+      "diskSha256": "a5fb7750a50f7cf1963ab202cdeb13ebfbc66b84147cb79fe899482706acd455",
+      "manifestBytes": 429044,
+      "manifestSha256": "a5fb7750a50f7cf1963ab202cdeb13ebfbc66b84147cb79fe899482706acd455",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Unity.InternalAPIEngineBridge.004.dll",
+      "zipBytes": 4096,
+      "zipSha256": "f72c0cb5a5a59fc5e237dcdc3aa23410a590737384aec9a0be6f1bdc42279cc2",
+      "diskBytes": 4096,
+      "diskSha256": "f72c0cb5a5a59fc5e237dcdc3aa23410a590737384aec9a0be6f1bdc42279cc2",
+      "manifestBytes": 4096,
+      "manifestSha256": "f72c0cb5a5a59fc5e237dcdc3aa23410a590737384aec9a0be6f1bdc42279cc2",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Unity.InternalAPIEngineBridge.004.pdb",
+      "zipBytes": 17000,
+      "zipSha256": "699ef4944bdc2a09972779a86a48441af97b6f96b29034e17b02e9f202f03de1",
+      "diskBytes": 17000,
+      "diskSha256": "699ef4944bdc2a09972779a86a48441af97b6f96b29034e17b02e9f202f03de1",
+      "manifestBytes": 17000,
+      "manifestSha256": "699ef4944bdc2a09972779a86a48441af97b6f96b29034e17b02e9f202f03de1",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Unity.InternalAPIEngineBridge.ObjectDispatcher.Runtime.dll",
+      "zipBytes": 5632,
+      "zipSha256": "7966b5a02b1ee7b557d3081c18e82b0c3c02b9c8941f6235d879774b9a8c0d05",
+      "diskBytes": 5632,
+      "diskSha256": "7966b5a02b1ee7b557d3081c18e82b0c3c02b9c8941f6235d879774b9a8c0d05",
+      "manifestBytes": 5632,
+      "manifestSha256": "7966b5a02b1ee7b557d3081c18e82b0c3c02b9c8941f6235d879774b9a8c0d05",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Unity.InternalAPIEngineBridge.ObjectDispatcher.Runtime.pdb",
+      "zipBytes": 17348,
+      "zipSha256": "56447e8f6ac418f28e3015cb7b7b6ddb25c540d5455079f68224966fe389d212",
+      "diskBytes": 17348,
+      "diskSha256": "56447e8f6ac418f28e3015cb7b7b6ddb25c540d5455079f68224966fe389d212",
+      "manifestBytes": 17348,
+      "manifestSha256": "56447e8f6ac418f28e3015cb7b7b6ddb25c540d5455079f68224966fe389d212",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Unity.InternalAPIEngineBridge.RenderPipelines.Core.Runtime.Shared.dll",
+      "zipBytes": 3584,
+      "zipSha256": "58252e36ca3beb8a2a7d759e6037364d6d4456ea3baf1269b44b2a788a63a30d",
+      "diskBytes": 3584,
+      "diskSha256": "58252e36ca3beb8a2a7d759e6037364d6d4456ea3baf1269b44b2a788a63a30d",
+      "manifestBytes": 3584,
+      "manifestSha256": "58252e36ca3beb8a2a7d759e6037364d6d4456ea3baf1269b44b2a788a63a30d",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Unity.InternalAPIEngineBridge.RenderPipelines.Core.Runtime.Shared.pdb",
+      "zipBytes": 16836,
+      "zipSha256": "86f0ccf0a0b248a4305ff80da44fc51c2d0758b02553d7c4b850cf13e3954067",
+      "diskBytes": 16836,
+      "diskSha256": "86f0ccf0a0b248a4305ff80da44fc51c2d0758b02553d7c4b850cf13e3954067",
+      "manifestBytes": 16836,
+      "manifestSha256": "86f0ccf0a0b248a4305ff80da44fc51c2d0758b02553d7c4b850cf13e3954067",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Unity.PathTracing.Runtime.dll",
+      "zipBytes": 159744,
+      "zipSha256": "954af520747f25f782b9f98e09f1a092735f3d9b9cbc95af12dfd0978640a124",
+      "diskBytes": 159744,
+      "diskSha256": "954af520747f25f782b9f98e09f1a092735f3d9b9cbc95af12dfd0978640a124",
+      "manifestBytes": 159744,
+      "manifestSha256": "954af520747f25f782b9f98e09f1a092735f3d9b9cbc95af12dfd0978640a124",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Unity.PathTracing.Runtime.pdb",
+      "zipBytes": 66848,
+      "zipSha256": "2b909fb5792a2a13b5ca8125efc557b96ad8a5508fe61d05a78b57e9bc1553c1",
+      "diskBytes": 66848,
+      "diskSha256": "2b909fb5792a2a13b5ca8125efc557b96ad8a5508fe61d05a78b57e9bc1553c1",
+      "manifestBytes": 66848,
+      "manifestSha256": "2b909fb5792a2a13b5ca8125efc557b96ad8a5508fe61d05a78b57e9bc1553c1",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Unity.Pipeline.Attributes.dll",
+      "zipBytes": 7168,
+      "zipSha256": "f48f1942eb63be487ca34bbc088894e0a89167013d7f4c574d023616e34cdbec",
+      "diskBytes": 7168,
+      "diskSha256": "f48f1942eb63be487ca34bbc088894e0a89167013d7f4c574d023616e34cdbec",
+      "manifestBytes": 7168,
+      "manifestSha256": "f48f1942eb63be487ca34bbc088894e0a89167013d7f4c574d023616e34cdbec",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Unity.Pipeline.Attributes.pdb",
+      "zipBytes": 18176,
+      "zipSha256": "994b02b654d83f7de0e6116659cab9745355c1ed9a17c09dedcf55007376d979",
+      "diskBytes": 18176,
+      "diskSha256": "994b02b654d83f7de0e6116659cab9745355c1ed9a17c09dedcf55007376d979",
+      "manifestBytes": 18176,
+      "manifestSha256": "994b02b654d83f7de0e6116659cab9745355c1ed9a17c09dedcf55007376d979",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Unity.Profiling.Core.dll",
+      "zipBytes": 10240,
+      "zipSha256": "00183e02a7065c77139e3c2741d3bb329baf1a478a091220ad4770cc599bd5be",
+      "diskBytes": 10240,
+      "diskSha256": "00183e02a7065c77139e3c2741d3bb329baf1a478a091220ad4770cc599bd5be",
+      "manifestBytes": 10240,
+      "manifestSha256": "00183e02a7065c77139e3c2741d3bb329baf1a478a091220ad4770cc599bd5be",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Unity.Profiling.Core.pdb",
+      "zipBytes": 19564,
+      "zipSha256": "5cce4a2598317bde28a9d217e4b5ebe941dc97267a5779591d259c5faaa2dbdc",
+      "diskBytes": 19564,
+      "diskSha256": "5cce4a2598317bde28a9d217e4b5ebe941dc97267a5779591d259c5faaa2dbdc",
+      "manifestBytes": 19564,
+      "manifestSha256": "5cce4a2598317bde28a9d217e4b5ebe941dc97267a5779591d259c5faaa2dbdc",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Unity.RenderPipeline.Universal.ShaderLibrary.dll",
+      "zipBytes": 7680,
+      "zipSha256": "64e152698cafb29dd934dc5a7be50f2b80def20bf7128d084077bb2e40b1b19f",
+      "diskBytes": 7680,
+      "diskSha256": "64e152698cafb29dd934dc5a7be50f2b80def20bf7128d084077bb2e40b1b19f",
+      "manifestBytes": 7680,
+      "manifestSha256": "64e152698cafb29dd934dc5a7be50f2b80def20bf7128d084077bb2e40b1b19f",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Unity.RenderPipeline.Universal.ShaderLibrary.pdb",
+      "zipBytes": 17064,
+      "zipSha256": "5f90205fdfa2b2ce4ef2578c950d04d4dfcf723ad0358537b3dc91e1a1e78cf2",
+      "diskBytes": 17064,
+      "diskSha256": "5f90205fdfa2b2ce4ef2578c950d04d4dfcf723ad0358537b3dc91e1a1e78cf2",
+      "manifestBytes": 17064,
+      "manifestSha256": "5f90205fdfa2b2ce4ef2578c950d04d4dfcf723ad0358537b3dc91e1a1e78cf2",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Unity.RenderPipelines.Core.Runtime.dll",
+      "zipBytes": 1094656,
+      "zipSha256": "44acced7ce181670b392b48b3f06eb0cf41677e970604f94fcc60ac8781354f6",
+      "diskBytes": 1094656,
+      "diskSha256": "44acced7ce181670b392b48b3f06eb0cf41677e970604f94fcc60ac8781354f6",
+      "manifestBytes": 1094656,
+      "manifestSha256": "44acced7ce181670b392b48b3f06eb0cf41677e970604f94fcc60ac8781354f6",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Unity.RenderPipelines.Core.Runtime.pdb",
+      "zipBytes": 325036,
+      "zipSha256": "21cad0f3efc26ddade8e1012011ef23e8956830d25442eb54e18073c0109b939",
+      "diskBytes": 325036,
+      "diskSha256": "21cad0f3efc26ddade8e1012011ef23e8956830d25442eb54e18073c0109b939",
+      "manifestBytes": 325036,
+      "manifestSha256": "21cad0f3efc26ddade8e1012011ef23e8956830d25442eb54e18073c0109b939",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Unity.RenderPipelines.Core.Runtime.Shared.dll",
+      "zipBytes": 11264,
+      "zipSha256": "b367d05b2deb653dcad41646766e5c255894498543f1401d6292ff3ae3bf6e38",
+      "diskBytes": 11264,
+      "diskSha256": "b367d05b2deb653dcad41646766e5c255894498543f1401d6292ff3ae3bf6e38",
+      "manifestBytes": 11264,
+      "manifestSha256": "b367d05b2deb653dcad41646766e5c255894498543f1401d6292ff3ae3bf6e38",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Unity.RenderPipelines.Core.Runtime.Shared.pdb",
+      "zipBytes": 19260,
+      "zipSha256": "17c0f9572a4ac34748174d879151a846183982cf39e7a74d856456e9a390a6c3",
+      "diskBytes": 19260,
+      "diskSha256": "17c0f9572a4ac34748174d879151a846183982cf39e7a74d856456e9a390a6c3",
+      "manifestBytes": 19260,
+      "manifestSha256": "17c0f9572a4ac34748174d879151a846183982cf39e7a74d856456e9a390a6c3",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Unity.RenderPipelines.Core.ShaderLibrary.dll",
+      "zipBytes": 3584,
+      "zipSha256": "196909e6bd269da3e60e1d095306355e8aef7e8c2237ab2ec4efdd36660ce72b",
+      "diskBytes": 3584,
+      "diskSha256": "196909e6bd269da3e60e1d095306355e8aef7e8c2237ab2ec4efdd36660ce72b",
+      "manifestBytes": 3584,
+      "manifestSha256": "196909e6bd269da3e60e1d095306355e8aef7e8c2237ab2ec4efdd36660ce72b",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Unity.RenderPipelines.Core.ShaderLibrary.pdb",
+      "zipBytes": 16764,
+      "zipSha256": "dfd268b8887ea71aaecb07dc0af9612e47f59f24fe2c21fa63f9d1d4b7b63f9d",
+      "diskBytes": 16764,
+      "diskSha256": "dfd268b8887ea71aaecb07dc0af9612e47f59f24fe2c21fa63f9d1d4b7b63f9d",
+      "manifestBytes": 16764,
+      "manifestSha256": "dfd268b8887ea71aaecb07dc0af9612e47f59f24fe2c21fa63f9d1d4b7b63f9d",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Unity.RenderPipelines.GPUDriven.Runtime.dll",
+      "zipBytes": 299520,
+      "zipSha256": "4594b86b6eb0b7b88351510725571bf5f29b27c527c6157fe4f89391105f0490",
+      "diskBytes": 299520,
+      "diskSha256": "4594b86b6eb0b7b88351510725571bf5f29b27c527c6157fe4f89391105f0490",
+      "manifestBytes": 299520,
+      "manifestSha256": "4594b86b6eb0b7b88351510725571bf5f29b27c527c6157fe4f89391105f0490",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Unity.RenderPipelines.GPUDriven.Runtime.pdb",
+      "zipBytes": 117660,
+      "zipSha256": "176f08fdf1ceb5054fc9c5e092d3c975a8935cebc38744eda9ffa7ee2a135a65",
+      "diskBytes": 117660,
+      "diskSha256": "176f08fdf1ceb5054fc9c5e092d3c975a8935cebc38744eda9ffa7ee2a135a65",
+      "manifestBytes": 117660,
+      "manifestSha256": "176f08fdf1ceb5054fc9c5e092d3c975a8935cebc38744eda9ffa7ee2a135a65",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary.dll",
+      "zipBytes": 3584,
+      "zipSha256": "f7106d60c3caf51bf50271759ceb75a89273f9743ee089a22ebd8a97234d0d10",
+      "diskBytes": 3584,
+      "diskSha256": "f7106d60c3caf51bf50271759ceb75a89273f9743ee089a22ebd8a97234d0d10",
+      "manifestBytes": 3584,
+      "manifestSha256": "f7106d60c3caf51bf50271759ceb75a89273f9743ee089a22ebd8a97234d0d10",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary.pdb",
+      "zipBytes": 16764,
+      "zipSha256": "a78fdc35c38f856c3d07b6dca2610db1c8e7f91c131cac8ee8eec9b970865386",
+      "diskBytes": 16764,
+      "diskSha256": "a78fdc35c38f856c3d07b6dca2610db1c8e7f91c131cac8ee8eec9b970865386",
+      "manifestBytes": 16764,
+      "manifestSha256": "a78fdc35c38f856c3d07b6dca2610db1c8e7f91c131cac8ee8eec9b970865386",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Unity.RenderPipelines.Universal.2D.Runtime.dll",
+      "zipBytes": 218624,
+      "zipSha256": "546c7e02eaa76a454669b7f963d307ab6e8715bebb679a86090f8cbb601db5f3",
+      "diskBytes": 218624,
+      "diskSha256": "546c7e02eaa76a454669b7f963d307ab6e8715bebb679a86090f8cbb601db5f3",
+      "manifestBytes": 218624,
+      "manifestSha256": "546c7e02eaa76a454669b7f963d307ab6e8715bebb679a86090f8cbb601db5f3",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Unity.RenderPipelines.Universal.2D.Runtime.pdb",
+      "zipBytes": 108864,
+      "zipSha256": "b058220d503b6210ada3cdbceede98ba7df590a32a5b4418566abf2994b12e39",
+      "diskBytes": 108864,
+      "diskSha256": "b058220d503b6210ada3cdbceede98ba7df590a32a5b4418566abf2994b12e39",
+      "manifestBytes": 108864,
+      "manifestSha256": "b058220d503b6210ada3cdbceede98ba7df590a32a5b4418566abf2994b12e39",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Unity.RenderPipelines.Universal.Config.Runtime.dll",
+      "zipBytes": 4096,
+      "zipSha256": "1c7a79377525b1d785b911a74c6054f9f2becdb08b6ea394c8ea81fc1261387b",
+      "diskBytes": 4096,
+      "diskSha256": "1c7a79377525b1d785b911a74c6054f9f2becdb08b6ea394c8ea81fc1261387b",
+      "manifestBytes": 4096,
+      "manifestSha256": "1c7a79377525b1d785b911a74c6054f9f2becdb08b6ea394c8ea81fc1261387b",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Unity.RenderPipelines.Universal.Config.Runtime.pdb",
+      "zipBytes": 16844,
+      "zipSha256": "2b288e50f27ad68c43ce9a93e68b3fcdf7bc2d24c9c7b72fc8e9b9ff43856cf2",
+      "diskBytes": 16844,
+      "diskSha256": "2b288e50f27ad68c43ce9a93e68b3fcdf7bc2d24c9c7b72fc8e9b9ff43856cf2",
+      "manifestBytes": 16844,
+      "manifestSha256": "2b288e50f27ad68c43ce9a93e68b3fcdf7bc2d24c9c7b72fc8e9b9ff43856cf2",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Unity.RenderPipelines.Universal.Runtime.dll",
+      "zipBytes": 759808,
+      "zipSha256": "985c4e7b2239a9e247470928352da2373f40a097d89297fae230c8ea463e8c1a",
+      "diskBytes": 759808,
+      "diskSha256": "985c4e7b2239a9e247470928352da2373f40a097d89297fae230c8ea463e8c1a",
+      "manifestBytes": 759808,
+      "manifestSha256": "985c4e7b2239a9e247470928352da2373f40a097d89297fae230c8ea463e8c1a",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Unity.RenderPipelines.Universal.Runtime.pdb",
+      "zipBytes": 255240,
+      "zipSha256": "c6681455257470939189b0b83a5bf112b98912156e0b787b7258c7730c3572fd",
+      "diskBytes": 255240,
+      "diskSha256": "c6681455257470939189b0b83a5bf112b98912156e0b787b7258c7730c3572fd",
+      "manifestBytes": 255240,
+      "manifestSha256": "c6681455257470939189b0b83a5bf112b98912156e0b787b7258c7730c3572fd",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Unity.RenderPipelines.Universal.Shaders.dll",
+      "zipBytes": 3584,
+      "zipSha256": "bea0c4309bc7ba039d7dba13f5b75bca45d545f7dc84587bb65b38c7f6c4d0a8",
+      "diskBytes": 3584,
+      "diskSha256": "bea0c4309bc7ba039d7dba13f5b75bca45d545f7dc84587bb65b38c7f6c4d0a8",
+      "manifestBytes": 3584,
+      "manifestSha256": "bea0c4309bc7ba039d7dba13f5b75bca45d545f7dc84587bb65b38c7f6c4d0a8",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Unity.RenderPipelines.Universal.Shaders.pdb",
+      "zipBytes": 16752,
+      "zipSha256": "ac0856bebdf08a01aaa12cc169343134199b33727c0d1ed367d3e614e6a04c55",
+      "diskBytes": 16752,
+      "diskSha256": "ac0856bebdf08a01aaa12cc169343134199b33727c0d1ed367d3e614e6a04c55",
+      "manifestBytes": 16752,
+      "manifestSha256": "ac0856bebdf08a01aaa12cc169343134199b33727c0d1ed367d3e614e6a04c55",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Unity.Scripting.dll",
+      "zipBytes": 70576,
+      "zipSha256": "53ab214b5cc329702c20e64f71f31bb991fd94fa93f9befa498610b8236c82e0",
+      "diskBytes": 70576,
+      "diskSha256": "53ab214b5cc329702c20e64f71f31bb991fd94fa93f9befa498610b8236c82e0",
+      "manifestBytes": 70576,
+      "manifestSha256": "53ab214b5cc329702c20e64f71f31bb991fd94fa93f9befa498610b8236c82e0",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Unity.Scripting.pdb",
+      "zipBytes": 29032,
+      "zipSha256": "0ebc5742e3d2bab2ab06ba0e021fea55287dce4de0468a215c53f42e9db46da3",
+      "diskBytes": 29032,
+      "diskSha256": "0ebc5742e3d2bab2ab06ba0e021fea55287dce4de0468a215c53f42e9db46da3",
+      "manifestBytes": 29032,
+      "manifestSha256": "0ebc5742e3d2bab2ab06ba0e021fea55287dce4de0468a215c53f42e9db46da3",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Unity.SurfaceCache.Runtime.dll",
+      "zipBytes": 36864,
+      "zipSha256": "d54bf12003a0842ec9fd7c84327862c91b5e38fce8ef57a663d18b49e7a40327",
+      "diskBytes": 36864,
+      "diskSha256": "d54bf12003a0842ec9fd7c84327862c91b5e38fce8ef57a663d18b49e7a40327",
+      "manifestBytes": 36864,
+      "manifestSha256": "d54bf12003a0842ec9fd7c84327862c91b5e38fce8ef57a663d18b49e7a40327",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Unity.SurfaceCache.Runtime.pdb",
+      "zipBytes": 26528,
+      "zipSha256": "a1d12bae688defaaba9799dff45571701847b75b5084b7ad683ed5a9a321f8f8",
+      "diskBytes": 26528,
+      "diskSha256": "a1d12bae688defaaba9799dff45571701847b75b5084b7ad683ed5a9a321f8f8",
+      "manifestBytes": 26528,
+      "manifestSha256": "a1d12bae688defaaba9799dff45571701847b75b5084b7ad683ed5a9a321f8f8",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Unity.TextMeshPro.dll",
+      "zipBytes": 445440,
+      "zipSha256": "9458d88ff2a3fe858726d93da0a26c7dba19515d9f86a5147b1e2cca72163fb7",
+      "diskBytes": 445440,
+      "diskSha256": "9458d88ff2a3fe858726d93da0a26c7dba19515d9f86a5147b1e2cca72163fb7",
+      "manifestBytes": 445440,
+      "manifestSha256": "9458d88ff2a3fe858726d93da0a26c7dba19515d9f86a5147b1e2cca72163fb7",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Unity.TextMeshPro.pdb",
+      "zipBytes": 184772,
+      "zipSha256": "cff9b3287921dcda24d94ffc7f7093ac2e890379f70bc035f9cba74df843ff59",
+      "diskBytes": 184772,
+      "diskSha256": "cff9b3287921dcda24d94ffc7f7093ac2e890379f70bc035f9cba74df843ff59",
+      "manifestBytes": 184772,
+      "manifestSha256": "cff9b3287921dcda24d94ffc7f7093ac2e890379f70bc035f9cba74df843ff59",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Unity.UnifiedRayTracing.Runtime.dll",
+      "zipBytes": 106496,
+      "zipSha256": "6ebc92c48292b41b253059f144fb11c24686bf33991187e6aaa4a6881d550c8c",
+      "diskBytes": 106496,
+      "diskSha256": "6ebc92c48292b41b253059f144fb11c24686bf33991187e6aaa4a6881d550c8c",
+      "manifestBytes": 106496,
+      "manifestSha256": "6ebc92c48292b41b253059f144fb11c24686bf33991187e6aaa4a6881d550c8c",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Unity.UnifiedRayTracing.Runtime.pdb",
+      "zipBytes": 51904,
+      "zipSha256": "284642890ed159d8bb2a3b900023a92516057c93dab832d2d53cca4dd440afdd",
+      "diskBytes": 51904,
+      "diskSha256": "284642890ed159d8bb2a3b900023a92516057c93dab832d2d53cca4dd440afdd",
+      "manifestBytes": 51904,
+      "manifestSha256": "284642890ed159d8bb2a3b900023a92516057c93dab832d2d53cca4dd440afdd",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.AccessibilityModule.dll",
+      "zipBytes": 49584,
+      "zipSha256": "c00102f94241fec153db08939d9412acc800500b50b800684682b8267e9d98e6",
+      "diskBytes": 49584,
+      "diskSha256": "c00102f94241fec153db08939d9412acc800500b50b800684682b8267e9d98e6",
+      "manifestBytes": 49584,
+      "manifestSha256": "c00102f94241fec153db08939d9412acc800500b50b800684682b8267e9d98e6",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.AccessibilityModule.pdb",
+      "zipBytes": 20772,
+      "zipSha256": "2eea5c95b4ebb2fb3ae596a8830e4b1d095bf7a23a13038101d2a162cffe0d53",
+      "diskBytes": 20772,
+      "diskSha256": "2eea5c95b4ebb2fb3ae596a8830e4b1d095bf7a23a13038101d2a162cffe0d53",
+      "manifestBytes": 20772,
+      "manifestSha256": "2eea5c95b4ebb2fb3ae596a8830e4b1d095bf7a23a13038101d2a162cffe0d53",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.AdaptivePerformanceModule.dll",
+      "zipBytes": 122280,
+      "zipSha256": "f1a7ef51f7ef4348a8032fe8fd2c7805b1b98a5e08bc8914e2cc4ada9c22d0f6",
+      "diskBytes": 122280,
+      "diskSha256": "f1a7ef51f7ef4348a8032fe8fd2c7805b1b98a5e08bc8914e2cc4ada9c22d0f6",
+      "manifestBytes": 122280,
+      "manifestSha256": "f1a7ef51f7ef4348a8032fe8fd2c7805b1b98a5e08bc8914e2cc4ada9c22d0f6",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.AdaptivePerformanceModule.pdb",
+      "zipBytes": 48720,
+      "zipSha256": "6ed36b66b4b0f9d4f00788a9e769cf1a73d2493b381f9438b19cbeaaf9dc0246",
+      "diskBytes": 48720,
+      "diskSha256": "6ed36b66b4b0f9d4f00788a9e769cf1a73d2493b381f9438b19cbeaaf9dc0246",
+      "manifestBytes": 48720,
+      "manifestSha256": "6ed36b66b4b0f9d4f00788a9e769cf1a73d2493b381f9438b19cbeaaf9dc0246",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.AIModule.dll",
+      "zipBytes": 87472,
+      "zipSha256": "1bcf1b74532457ee06422c44144c55a9bc470dc8f4bbc50b476858c2e4848ca3",
+      "diskBytes": 87472,
+      "diskSha256": "1bcf1b74532457ee06422c44144c55a9bc470dc8f4bbc50b476858c2e4848ca3",
+      "manifestBytes": 87472,
+      "manifestSha256": "1bcf1b74532457ee06422c44144c55a9bc470dc8f4bbc50b476858c2e4848ca3",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.AIModule.pdb",
+      "zipBytes": 23060,
+      "zipSha256": "49fbcbf2779967b04b58e129670ca734692b128830721834775dde99a4811467",
+      "diskBytes": 23060,
+      "diskSha256": "49fbcbf2779967b04b58e129670ca734692b128830721834775dde99a4811467",
+      "manifestBytes": 23060,
+      "manifestSha256": "49fbcbf2779967b04b58e129670ca734692b128830721834775dde99a4811467",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.AMDModule.dll",
+      "zipBytes": 21936,
+      "zipSha256": "c1833db6062471ca3a1a5259979f07f9d4d5b5bbd08535a21f1ebd18d4cc4ddf",
+      "diskBytes": 21936,
+      "diskSha256": "c1833db6062471ca3a1a5259979f07f9d4d5b5bbd08535a21f1ebd18d4cc4ddf",
+      "manifestBytes": 21936,
+      "manifestSha256": "c1833db6062471ca3a1a5259979f07f9d4d5b5bbd08535a21f1ebd18d4cc4ddf",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.AMDModule.pdb",
+      "zipBytes": 12376,
+      "zipSha256": "078f0dba17e79807c53eae7235579b81c79495f3c51c880c59291a0f0ddbafa9",
+      "diskBytes": 12376,
+      "diskSha256": "078f0dba17e79807c53eae7235579b81c79495f3c51c880c59291a0f0ddbafa9",
+      "manifestBytes": 12376,
+      "manifestSha256": "078f0dba17e79807c53eae7235579b81c79495f3c51c880c59291a0f0ddbafa9",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.AndroidJNIModule.dll",
+      "zipBytes": 121256,
+      "zipSha256": "840113117ebef4831c885c2fbeae1ff8dc270318ff4a4a49420f41fc7e450f6a",
+      "diskBytes": 121256,
+      "diskSha256": "840113117ebef4831c885c2fbeae1ff8dc270318ff4a4a49420f41fc7e450f6a",
+      "manifestBytes": 121256,
+      "manifestSha256": "840113117ebef4831c885c2fbeae1ff8dc270318ff4a4a49420f41fc7e450f6a",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.AndroidJNIModule.pdb",
+      "zipBytes": 40944,
+      "zipSha256": "cf92376e05961db9eccb1b370f50d391ffdeac66b3c039614fd6a079e89423ea",
+      "diskBytes": 40944,
+      "diskSha256": "cf92376e05961db9eccb1b370f50d391ffdeac66b3c039614fd6a079e89423ea",
+      "manifestBytes": 40944,
+      "manifestSha256": "cf92376e05961db9eccb1b370f50d391ffdeac66b3c039614fd6a079e89423ea",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.AnimationModule.dll",
+      "zipBytes": 218024,
+      "zipSha256": "fba418a32ecbcf46d175961e27618677c26e7e2efbd8c227b042ee6da9d85b20",
+      "diskBytes": 218024,
+      "diskSha256": "fba418a32ecbcf46d175961e27618677c26e7e2efbd8c227b042ee6da9d85b20",
+      "manifestBytes": 218024,
+      "manifestSha256": "fba418a32ecbcf46d175961e27618677c26e7e2efbd8c227b042ee6da9d85b20",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.AnimationModule.pdb",
+      "zipBytes": 49452,
+      "zipSha256": "140a31ca0847d9a58aa8e61bbdf22e50c3a646841c0842d66c583e690652346d",
+      "diskBytes": 49452,
+      "diskSha256": "140a31ca0847d9a58aa8e61bbdf22e50c3a646841c0842d66c583e690652346d",
+      "manifestBytes": 49452,
+      "manifestSha256": "140a31ca0847d9a58aa8e61bbdf22e50c3a646841c0842d66c583e690652346d",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.ARModule.dll",
+      "zipBytes": 27568,
+      "zipSha256": "d8f08fa3d63621acdfba3d641acf819ba262f48995eea36e1d3a4e5450fba6ad",
+      "diskBytes": 27568,
+      "diskSha256": "d8f08fa3d63621acdfba3d641acf819ba262f48995eea36e1d3a4e5450fba6ad",
+      "manifestBytes": 27568,
+      "manifestSha256": "d8f08fa3d63621acdfba3d641acf819ba262f48995eea36e1d3a4e5450fba6ad",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.ARModule.pdb",
+      "zipBytes": 10812,
+      "zipSha256": "46876c9a1d8aec08ae501800136a9926b6c48c57da10428ee4299d383e087b21",
+      "diskBytes": 10812,
+      "diskSha256": "46876c9a1d8aec08ae501800136a9926b6c48c57da10428ee4299d383e087b21",
+      "manifestBytes": 10812,
+      "manifestSha256": "46876c9a1d8aec08ae501800136a9926b6c48c57da10428ee4299d383e087b21",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.AssetBundleModule.dll",
+      "zipBytes": 42928,
+      "zipSha256": "76aba452ddef51b758dc7162dfb4291b4213a8ab2cae824abde725a55b9737ef",
+      "diskBytes": 42928,
+      "diskSha256": "76aba452ddef51b758dc7162dfb4291b4213a8ab2cae824abde725a55b9737ef",
+      "manifestBytes": 42928,
+      "manifestSha256": "76aba452ddef51b758dc7162dfb4291b4213a8ab2cae824abde725a55b9737ef",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.AssetBundleModule.pdb",
+      "zipBytes": 13948,
+      "zipSha256": "198194686f274c6ec60bd3e8d541cc4eadbc7b94ae3854329b2bbe43822e7b45",
+      "diskBytes": 13948,
+      "diskSha256": "198194686f274c6ec60bd3e8d541cc4eadbc7b94ae3854329b2bbe43822e7b45",
+      "manifestBytes": 13948,
+      "manifestSha256": "198194686f274c6ec60bd3e8d541cc4eadbc7b94ae3854329b2bbe43822e7b45",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.AudioModule.dll",
+      "zipBytes": 142248,
+      "zipSha256": "5cea0fa111f6a594f1ba70ab059d2d1317972213e62ef99879693134b5400226",
+      "diskBytes": 142248,
+      "diskSha256": "5cea0fa111f6a594f1ba70ab059d2d1317972213e62ef99879693134b5400226",
+      "manifestBytes": 142248,
+      "manifestSha256": "5cea0fa111f6a594f1ba70ab059d2d1317972213e62ef99879693134b5400226",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.AudioModule.pdb",
+      "zipBytes": 31032,
+      "zipSha256": "78b8c4ac9866d8d6f132cf64f6fb31c41b91fb11cba4db2adf5fbbbfa3c8f01b",
+      "diskBytes": 31032,
+      "diskSha256": "78b8c4ac9866d8d6f132cf64f6fb31c41b91fb11cba4db2adf5fbbbfa3c8f01b",
+      "manifestBytes": 31032,
+      "manifestSha256": "78b8c4ac9866d8d6f132cf64f6fb31c41b91fb11cba4db2adf5fbbbfa3c8f01b",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.BurstModule.dll",
+      "zipBytes": 337832,
+      "zipSha256": "6db1906c74890ba3d6c8fd5cd1fa46b870e48433e2476be1a17db02f8499709b",
+      "diskBytes": 337832,
+      "diskSha256": "6db1906c74890ba3d6c8fd5cd1fa46b870e48433e2476be1a17db02f8499709b",
+      "manifestBytes": 337832,
+      "manifestSha256": "6db1906c74890ba3d6c8fd5cd1fa46b870e48433e2476be1a17db02f8499709b",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.BurstModule.pdb",
+      "zipBytes": 170492,
+      "zipSha256": "a42bdf86784aaa511368facf14af734b23e702b9408ecda667f87624b461addf",
+      "diskBytes": 170492,
+      "diskSha256": "a42bdf86784aaa511368facf14af734b23e702b9408ecda667f87624b461addf",
+      "manifestBytes": 170492,
+      "manifestSha256": "a42bdf86784aaa511368facf14af734b23e702b9408ecda667f87624b461addf",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.ClothModule.dll",
+      "zipBytes": 38320,
+      "zipSha256": "c3359d2506f61d7c99c0f83cd41cea85c264f1b5fa6b95efa64331161cc72520",
+      "diskBytes": 38320,
+      "diskSha256": "c3359d2506f61d7c99c0f83cd41cea85c264f1b5fa6b95efa64331161cc72520",
+      "manifestBytes": 38320,
+      "manifestSha256": "c3359d2506f61d7c99c0f83cd41cea85c264f1b5fa6b95efa64331161cc72520",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.ClothModule.pdb",
+      "zipBytes": 11392,
+      "zipSha256": "9b353561a1f1ea8bee53789108714e94a470f60363f2cfccba65e4165a5eeaaf",
+      "diskBytes": 11392,
+      "diskSha256": "9b353561a1f1ea8bee53789108714e94a470f60363f2cfccba65e4165a5eeaaf",
+      "manifestBytes": 11392,
+      "manifestSha256": "9b353561a1f1ea8bee53789108714e94a470f60363f2cfccba65e4165a5eeaaf",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.ClusterInputModule.dll",
+      "zipBytes": 30120,
+      "zipSha256": "3021503f52a1ce9b6de1ae4402b1935f3f9e5c2b3f3963073811b56aa0f3472e",
+      "diskBytes": 30120,
+      "diskSha256": "3021503f52a1ce9b6de1ae4402b1935f3f9e5c2b3f3963073811b56aa0f3472e",
+      "manifestBytes": 30120,
+      "manifestSha256": "3021503f52a1ce9b6de1ae4402b1935f3f9e5c2b3f3963073811b56aa0f3472e",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.ClusterInputModule.pdb",
+      "zipBytes": 10260,
+      "zipSha256": "747945ca0c043bce02883e67ee09f84ff277e495a61ab2cf67829aa9173d3874",
+      "diskBytes": 10260,
+      "diskSha256": "747945ca0c043bce02883e67ee09f84ff277e495a61ab2cf67829aa9173d3874",
+      "manifestBytes": 10260,
+      "manifestSha256": "747945ca0c043bce02883e67ee09f84ff277e495a61ab2cf67829aa9173d3874",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.ClusterRendererModule.dll",
+      "zipBytes": 28592,
+      "zipSha256": "4548e8cbba37a6efe6bb799acebd14dfc780ac6bb7cd61a79fbb78cd6105f626",
+      "diskBytes": 28592,
+      "diskSha256": "4548e8cbba37a6efe6bb799acebd14dfc780ac6bb7cd61a79fbb78cd6105f626",
+      "manifestBytes": 28592,
+      "manifestSha256": "4548e8cbba37a6efe6bb799acebd14dfc780ac6bb7cd61a79fbb78cd6105f626",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.ClusterRendererModule.pdb",
+      "zipBytes": 10728,
+      "zipSha256": "afe0d41ff7f5f0b4359d4fd0367f136091a272ecea2f888504217a40fc8dd6cb",
+      "diskBytes": 10728,
+      "diskSha256": "afe0d41ff7f5f0b4359d4fd0367f136091a272ecea2f888504217a40fc8dd6cb",
+      "manifestBytes": 10728,
+      "manifestSha256": "afe0d41ff7f5f0b4359d4fd0367f136091a272ecea2f888504217a40fc8dd6cb",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.ContentLoadModule.dll",
+      "zipBytes": 56232,
+      "zipSha256": "c87fa9927dd947d515437aaff0a02519df0b3cf5b075daf5a980dbb88c79e67f",
+      "diskBytes": 56232,
+      "diskSha256": "c87fa9927dd947d515437aaff0a02519df0b3cf5b075daf5a980dbb88c79e67f",
+      "manifestBytes": 56232,
+      "manifestSha256": "c87fa9927dd947d515437aaff0a02519df0b3cf5b075daf5a980dbb88c79e67f",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.ContentLoadModule.pdb",
+      "zipBytes": 18096,
+      "zipSha256": "79afbd514cc9602eba49f18cb26ab46b72b0a9e9017e301a65cc3ad9d1aa344e",
+      "diskBytes": 18096,
+      "diskSha256": "79afbd514cc9602eba49f18cb26ab46b72b0a9e9017e301a65cc3ad9d1aa344e",
+      "manifestBytes": 18096,
+      "manifestSha256": "79afbd514cc9602eba49f18cb26ab46b72b0a9e9017e301a65cc3ad9d1aa344e",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.CoreModule.dll",
+      "zipBytes": 2030504,
+      "zipSha256": "957c23d330e2178effe4bda021cb8749f8d8d406bc2012ab8c98a6db0eba175f",
+      "diskBytes": 2030504,
+      "diskSha256": "957c23d330e2178effe4bda021cb8749f8d8d406bc2012ab8c98a6db0eba175f",
+      "manifestBytes": 2030504,
+      "manifestSha256": "957c23d330e2178effe4bda021cb8749f8d8d406bc2012ab8c98a6db0eba175f",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.CoreModule.pdb",
+      "zipBytes": 499956,
+      "zipSha256": "23f296787cdcdcda1a8ebc430035c48cf41b5ba5223b404a24b1c13b2c506482",
+      "diskBytes": 499956,
+      "diskSha256": "23f296787cdcdcda1a8ebc430035c48cf41b5ba5223b404a24b1c13b2c506482",
+      "manifestBytes": 499956,
+      "manifestSha256": "23f296787cdcdcda1a8ebc430035c48cf41b5ba5223b404a24b1c13b2c506482",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.CrashReportingModule.dll",
+      "zipBytes": 28584,
+      "zipSha256": "3ba8d5bea102a35c0f0e4c3ca2fb97d8ecca4eaa76060433ce25cc33a6603384",
+      "diskBytes": 28584,
+      "diskSha256": "3ba8d5bea102a35c0f0e4c3ca2fb97d8ecca4eaa76060433ce25cc33a6603384",
+      "manifestBytes": 28584,
+      "manifestSha256": "3ba8d5bea102a35c0f0e4c3ca2fb97d8ecca4eaa76060433ce25cc33a6603384",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.CrashReportingModule.pdb",
+      "zipBytes": 10892,
+      "zipSha256": "957c93fc04feb57270875888d288799f9c3fa86c039fb0d52f72e1444e241c13",
+      "diskBytes": 10892,
+      "diskSha256": "957c93fc04feb57270875888d288799f9c3fa86c039fb0d52f72e1444e241c13",
+      "manifestBytes": 10892,
+      "manifestSha256": "957c93fc04feb57270875888d288799f9c3fa86c039fb0d52f72e1444e241c13",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.DirectorModule.dll",
+      "zipBytes": 42928,
+      "zipSha256": "5c0a7a625977c9307a778e1c5013917a439e606ae299b0706a3434d5b15f86ad",
+      "diskBytes": 42928,
+      "diskSha256": "5c0a7a625977c9307a778e1c5013917a439e606ae299b0706a3434d5b15f86ad",
+      "manifestBytes": 42928,
+      "manifestSha256": "5c0a7a625977c9307a778e1c5013917a439e606ae299b0706a3434d5b15f86ad",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.DirectorModule.pdb",
+      "zipBytes": 13808,
+      "zipSha256": "395828bf8063f1e98b706a88d420bd8943eeee30bea9dd8270b0ec7776d2edc6",
+      "diskBytes": 13808,
+      "diskSha256": "395828bf8063f1e98b706a88d420bd8943eeee30bea9dd8270b0ec7776d2edc6",
+      "manifestBytes": 13808,
+      "manifestSha256": "395828bf8063f1e98b706a88d420bd8943eeee30bea9dd8270b0ec7776d2edc6",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.dll",
+      "zipBytes": 226216,
+      "zipSha256": "0b5700b6f374e0f13740b11d1777051d5aa67b899184940bb9fadb5522df4915",
+      "diskBytes": 226216,
+      "diskSha256": "0b5700b6f374e0f13740b11d1777051d5aa67b899184940bb9fadb5522df4915",
+      "manifestBytes": 226216,
+      "manifestSha256": "0b5700b6f374e0f13740b11d1777051d5aa67b899184940bb9fadb5522df4915",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.DSPGraphModule.dll",
+      "zipBytes": 33704,
+      "zipSha256": "0de3bbc63ccf3682f68fb576467584de44cad9273ebd9a8f39ec04eaf2d3ad99",
+      "diskBytes": 33704,
+      "diskSha256": "0de3bbc63ccf3682f68fb576467584de44cad9273ebd9a8f39ec04eaf2d3ad99",
+      "manifestBytes": 33704,
+      "manifestSha256": "0de3bbc63ccf3682f68fb576467584de44cad9273ebd9a8f39ec04eaf2d3ad99",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.DSPGraphModule.pdb",
+      "zipBytes": 10472,
+      "zipSha256": "0160ef74aec68516bb7882f0ad927c4cb9dd375a86f3364bf4a4846a13465c44",
+      "diskBytes": 10472,
+      "diskSha256": "0160ef74aec68516bb7882f0ad927c4cb9dd375a86f3364bf4a4846a13465c44",
+      "manifestBytes": 10472,
+      "manifestSha256": "0160ef74aec68516bb7882f0ad927c4cb9dd375a86f3364bf4a4846a13465c44",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.GameCenterModule.dll",
+      "zipBytes": 46504,
+      "zipSha256": "85d274d5839f328c77de2a9a411b6ff5c3273c5abecf207581cdf2cc6a0b6554",
+      "diskBytes": 46504,
+      "diskSha256": "85d274d5839f328c77de2a9a411b6ff5c3273c5abecf207581cdf2cc6a0b6554",
+      "manifestBytes": 46504,
+      "manifestSha256": "85d274d5839f328c77de2a9a411b6ff5c3273c5abecf207581cdf2cc6a0b6554",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.GameCenterModule.pdb",
+      "zipBytes": 16572,
+      "zipSha256": "944845a2b9dfce8bb3f32bcb0033c97518037acefd39e2b9d713113e8f8e4636",
+      "diskBytes": 16572,
+      "diskSha256": "944845a2b9dfce8bb3f32bcb0033c97518037acefd39e2b9d713113e8f8e4636",
+      "manifestBytes": 16572,
+      "manifestSha256": "944845a2b9dfce8bb3f32bcb0033c97518037acefd39e2b9d713113e8f8e4636",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.GIModule.dll",
+      "zipBytes": 26032,
+      "zipSha256": "8ba968f1c0ce3813ea829f692d8f391a7baa0f44413803e1c555510942702456",
+      "diskBytes": 26032,
+      "diskSha256": "8ba968f1c0ce3813ea829f692d8f391a7baa0f44413803e1c555510942702456",
+      "manifestBytes": 26032,
+      "manifestSha256": "8ba968f1c0ce3813ea829f692d8f391a7baa0f44413803e1c555510942702456",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.GIModule.pdb",
+      "zipBytes": 10132,
+      "zipSha256": "e49099d6d5ee968fc50a33a00ce01aa70393a9ccf7606cb2f774785cbec6f475",
+      "diskBytes": 10132,
+      "diskSha256": "e49099d6d5ee968fc50a33a00ce01aa70393a9ccf7606cb2f774785cbec6f475",
+      "manifestBytes": 10132,
+      "manifestSha256": "e49099d6d5ee968fc50a33a00ce01aa70393a9ccf7606cb2f774785cbec6f475",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.GraphicsStateCollectionSerializerModule.dll",
+      "zipBytes": 14256,
+      "zipSha256": "8b36edd5cb4745844fe84732f68b59a6efaa0e64003ba8403693499aabe6a631",
+      "diskBytes": 14256,
+      "diskSha256": "8b36edd5cb4745844fe84732f68b59a6efaa0e64003ba8403693499aabe6a631",
+      "manifestBytes": 14256,
+      "manifestSha256": "8b36edd5cb4745844fe84732f68b59a6efaa0e64003ba8403693499aabe6a631",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.GraphicsStateCollectionSerializerModule.pdb",
+      "zipBytes": 10164,
+      "zipSha256": "7d584bad173f4fde08f1cb25934e68d408585b707d80cb199e0e709b499a26f2",
+      "diskBytes": 10164,
+      "diskSha256": "7d584bad173f4fde08f1cb25934e68d408585b707d80cb199e0e709b499a26f2",
+      "manifestBytes": 10164,
+      "manifestSha256": "7d584bad173f4fde08f1cb25934e68d408585b707d80cb199e0e709b499a26f2",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.GridModule.dll",
+      "zipBytes": 32688,
+      "zipSha256": "83e2ca067f5db330ac534b9144f6bbad0bd44dc23a6b5663639f86da0534d37f",
+      "diskBytes": 32688,
+      "diskSha256": "83e2ca067f5db330ac534b9144f6bbad0bd44dc23a6b5663639f86da0534d37f",
+      "manifestBytes": 32688,
+      "manifestSha256": "83e2ca067f5db330ac534b9144f6bbad0bd44dc23a6b5663639f86da0534d37f",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.GridModule.pdb",
+      "zipBytes": 10912,
+      "zipSha256": "92daf5afebaf58cd2134e6b6ec5500c5eaab902c42229a668173a17cc7d08f31",
+      "diskBytes": 10912,
+      "diskSha256": "92daf5afebaf58cd2134e6b6ec5500c5eaab902c42229a668173a17cc7d08f31",
+      "manifestBytes": 10912,
+      "manifestSha256": "92daf5afebaf58cd2134e6b6ec5500c5eaab902c42229a668173a17cc7d08f31",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.HierarchyCoreModule.dll",
+      "zipBytes": 114608,
+      "zipSha256": "9103aeda2704b9dd97052496398bc54a640785c790af6a7249d98a2734e17f04",
+      "diskBytes": 114608,
+      "diskSha256": "9103aeda2704b9dd97052496398bc54a640785c790af6a7249d98a2734e17f04",
+      "manifestBytes": 114608,
+      "manifestSha256": "9103aeda2704b9dd97052496398bc54a640785c790af6a7249d98a2734e17f04",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.HierarchyCoreModule.pdb",
+      "zipBytes": 35324,
+      "zipSha256": "c8a9bd6b808f3331e63854660fb6b3001b585f963ea2404d0724c469731e4be9",
+      "diskBytes": 35324,
+      "diskSha256": "c8a9bd6b808f3331e63854660fb6b3001b585f963ea2404d0724c469731e4be9",
+      "manifestBytes": 35324,
+      "manifestSha256": "c8a9bd6b808f3331e63854660fb6b3001b585f963ea2404d0724c469731e4be9",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.HierarchyModule.dll",
+      "zipBytes": 117168,
+      "zipSha256": "99ae2a5cce3b492c6c26818c53691b5c57f5b4cf6e6002b314c9d0459859e288",
+      "diskBytes": 117168,
+      "diskSha256": "99ae2a5cce3b492c6c26818c53691b5c57f5b4cf6e6002b314c9d0459859e288",
+      "manifestBytes": 117168,
+      "manifestSha256": "99ae2a5cce3b492c6c26818c53691b5c57f5b4cf6e6002b314c9d0459859e288",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.HierarchyModule.pdb",
+      "zipBytes": 47580,
+      "zipSha256": "8e667e79145bd5c36f483309878d719818e8336be540332d3589800557fcf04f",
+      "diskBytes": 47580,
+      "diskSha256": "8e667e79145bd5c36f483309878d719818e8336be540332d3589800557fcf04f",
+      "manifestBytes": 47580,
+      "manifestSha256": "8e667e79145bd5c36f483309878d719818e8336be540332d3589800557fcf04f",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.HotReloadModule.dll",
+      "zipBytes": 26024,
+      "zipSha256": "74e637bf13b34e586dcfa6584395eb5d6e210e77878cc495d4950d53f1e4df24",
+      "diskBytes": 26024,
+      "diskSha256": "74e637bf13b34e586dcfa6584395eb5d6e210e77878cc495d4950d53f1e4df24",
+      "manifestBytes": 26024,
+      "manifestSha256": "74e637bf13b34e586dcfa6584395eb5d6e210e77878cc495d4950d53f1e4df24",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.HotReloadModule.pdb",
+      "zipBytes": 10132,
+      "zipSha256": "db50f3c1078d1a0f76df4f9bded58a1de68409375b87370ba60f48d34ec0afb0",
+      "diskBytes": 10132,
+      "diskSha256": "db50f3c1078d1a0f76df4f9bded58a1de68409375b87370ba60f48d34ec0afb0",
+      "manifestBytes": 10132,
+      "manifestSha256": "db50f3c1078d1a0f76df4f9bded58a1de68409375b87370ba60f48d34ec0afb0",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.IdentifiersModule.dll",
+      "zipBytes": 16816,
+      "zipSha256": "245fe9769bb2d51a737e9f71899cde96399069b62568d680df619d6554d8213c",
+      "diskBytes": 16816,
+      "diskSha256": "245fe9769bb2d51a737e9f71899cde96399069b62568d680df619d6554d8213c",
+      "manifestBytes": 16816,
+      "manifestSha256": "245fe9769bb2d51a737e9f71899cde96399069b62568d680df619d6554d8213c",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.IdentifiersModule.pdb",
+      "zipBytes": 10564,
+      "zipSha256": "8509196ebadea5eafa1c12f4d6a2bfcdc8eeed6c9110628c5a0bc15f692c782b",
+      "diskBytes": 10564,
+      "diskSha256": "8509196ebadea5eafa1c12f4d6a2bfcdc8eeed6c9110628c5a0bc15f692c782b",
+      "manifestBytes": 10564,
+      "manifestSha256": "8509196ebadea5eafa1c12f4d6a2bfcdc8eeed6c9110628c5a0bc15f692c782b",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.ImageConversionModule.dll",
+      "zipBytes": 34224,
+      "zipSha256": "6a4ff449ce3fd1ccc9ad46aad7686ff01b0092842718797c753209cb39093d4e",
+      "diskBytes": 34224,
+      "diskSha256": "6a4ff449ce3fd1ccc9ad46aad7686ff01b0092842718797c753209cb39093d4e",
+      "manifestBytes": 34224,
+      "manifestSha256": "6a4ff449ce3fd1ccc9ad46aad7686ff01b0092842718797c753209cb39093d4e",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.ImageConversionModule.pdb",
+      "zipBytes": 11344,
+      "zipSha256": "508c5d9b659429df2720bf7468fdd831de91221c0d4f9c23623b7f42c606b352",
+      "diskBytes": 11344,
+      "diskSha256": "508c5d9b659429df2720bf7468fdd831de91221c0d4f9c23623b7f42c606b352",
+      "manifestBytes": 11344,
+      "manifestSha256": "508c5d9b659429df2720bf7468fdd831de91221c0d4f9c23623b7f42c606b352",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.IMGUIModule.dll",
+      "zipBytes": 191920,
+      "zipSha256": "ace052a9426fdf9c41e64b9619818c802541b888fcb34035876915ef40267c37",
+      "diskBytes": 191920,
+      "diskSha256": "ace052a9426fdf9c41e64b9619818c802541b888fcb34035876915ef40267c37",
+      "manifestBytes": 191920,
+      "manifestSha256": "ace052a9426fdf9c41e64b9619818c802541b888fcb34035876915ef40267c37",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.IMGUIModule.pdb",
+      "zipBytes": 65780,
+      "zipSha256": "6228c582d4b52fa0bb5b76749b96e128a82e4047b6fdc98c314b54ec9a907799",
+      "diskBytes": 65780,
+      "diskSha256": "6228c582d4b52fa0bb5b76749b96e128a82e4047b6fdc98c314b54ec9a907799",
+      "manifestBytes": 65780,
+      "manifestSha256": "6228c582d4b52fa0bb5b76749b96e128a82e4047b6fdc98c314b54ec9a907799",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.InputForUIModule.dll",
+      "zipBytes": 56752,
+      "zipSha256": "7f051c08279f409b25fdbad976fa01f6ee873c91e0fa9f31c583481f065f1449",
+      "diskBytes": 56752,
+      "diskSha256": "7f051c08279f409b25fdbad976fa01f6ee873c91e0fa9f31c583481f065f1449",
+      "manifestBytes": 56752,
+      "manifestSha256": "7f051c08279f409b25fdbad976fa01f6ee873c91e0fa9f31c583481f065f1449",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.InputForUIModule.pdb",
+      "zipBytes": 24260,
+      "zipSha256": "f5f54fda7c88746580beab4b963344169caedd502cdf7cac397d00cface6da86",
+      "diskBytes": 24260,
+      "diskSha256": "f5f54fda7c88746580beab4b963344169caedd502cdf7cac397d00cface6da86",
+      "manifestBytes": 24260,
+      "manifestSha256": "f5f54fda7c88746580beab4b963344169caedd502cdf7cac397d00cface6da86",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.InputLegacyModule.dll",
+      "zipBytes": 42928,
+      "zipSha256": "b36fc67eddadde63d9c0bf53af314eea74883386ae8406d27567ef26b89b8b28",
+      "diskBytes": 42928,
+      "diskSha256": "b36fc67eddadde63d9c0bf53af314eea74883386ae8406d27567ef26b89b8b28",
+      "manifestBytes": 42928,
+      "manifestSha256": "b36fc67eddadde63d9c0bf53af314eea74883386ae8406d27567ef26b89b8b28",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.InputLegacyModule.pdb",
+      "zipBytes": 14284,
+      "zipSha256": "f9d760901624283a3fb93ff4c64e55ef41ffd3a56455bca6bf93d4e0e4f6b3a6",
+      "diskBytes": 14284,
+      "diskSha256": "f9d760901624283a3fb93ff4c64e55ef41ffd3a56455bca6bf93d4e0e4f6b3a6",
+      "manifestBytes": 14284,
+      "manifestSha256": "f9d760901624283a3fb93ff4c64e55ef41ffd3a56455bca6bf93d4e0e4f6b3a6",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.InputModule.dll",
+      "zipBytes": 32680,
+      "zipSha256": "510fe0623c4f8bf39221861605c29be74b6cd4a02c9d751f24e879951cf05226",
+      "diskBytes": 32680,
+      "diskSha256": "510fe0623c4f8bf39221861605c29be74b6cd4a02c9d751f24e879951cf05226",
+      "manifestBytes": 32680,
+      "manifestSha256": "510fe0623c4f8bf39221861605c29be74b6cd4a02c9d751f24e879951cf05226",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.InputModule.pdb",
+      "zipBytes": 13440,
+      "zipSha256": "0d124c6925752ec6fa703cb6b3c227106a291f1ed46dcef9b1d9e54c5a42b5b4",
+      "diskBytes": 13440,
+      "diskSha256": "0d124c6925752ec6fa703cb6b3c227106a291f1ed46dcef9b1d9e54c5a42b5b4",
+      "manifestBytes": 13440,
+      "manifestSha256": "0d124c6925752ec6fa703cb6b3c227106a291f1ed46dcef9b1d9e54c5a42b5b4",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.InsightsModule.dll",
+      "zipBytes": 15784,
+      "zipSha256": "3793290b8ec42954eb780d5501479e6e242eb516ba304e6521f7678e01cc965a",
+      "diskBytes": 15784,
+      "diskSha256": "3793290b8ec42954eb780d5501479e6e242eb516ba304e6521f7678e01cc965a",
+      "manifestBytes": 15784,
+      "manifestSha256": "3793290b8ec42954eb780d5501479e6e242eb516ba304e6521f7678e01cc965a",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.InsightsModule.pdb",
+      "zipBytes": 10924,
+      "zipSha256": "ab2b6dba751ef3cfabff4365aa9bd80ad9397cce1a82ad335ad442d79a335e8a",
+      "diskBytes": 10924,
+      "diskSha256": "ab2b6dba751ef3cfabff4365aa9bd80ad9397cce1a82ad335ad442d79a335e8a",
+      "manifestBytes": 10924,
+      "manifestSha256": "ab2b6dba751ef3cfabff4365aa9bd80ad9397cce1a82ad335ad442d79a335e8a",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.JSONSerializeModule.dll",
+      "zipBytes": 29096,
+      "zipSha256": "55c7afef07c8872f8e110b2b61836c050a4e3b87b24228b282141f621472b00f",
+      "diskBytes": 29096,
+      "diskSha256": "55c7afef07c8872f8e110b2b61836c050a4e3b87b24228b282141f621472b00f",
+      "manifestBytes": 29096,
+      "manifestSha256": "55c7afef07c8872f8e110b2b61836c050a4e3b87b24228b282141f621472b00f",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.JSONSerializeModule.pdb",
+      "zipBytes": 10620,
+      "zipSha256": "ec91ad463e865fdb2da39f57dced58a7040bd39d3cbeae19ac5b4f8628814e43",
+      "diskBytes": 10620,
+      "diskSha256": "ec91ad463e865fdb2da39f57dced58a7040bd39d3cbeae19ac5b4f8628814e43",
+      "manifestBytes": 10620,
+      "manifestSha256": "ec91ad463e865fdb2da39f57dced58a7040bd39d3cbeae19ac5b4f8628814e43",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.LocalizationModule.dll",
+      "zipBytes": 29104,
+      "zipSha256": "789d956c0c403406a9229c5a026897cd7c883b02f5d807b381bc65ec76d7c67b",
+      "diskBytes": 29104,
+      "diskSha256": "789d956c0c403406a9229c5a026897cd7c883b02f5d807b381bc65ec76d7c67b",
+      "manifestBytes": 29104,
+      "manifestSha256": "789d956c0c403406a9229c5a026897cd7c883b02f5d807b381bc65ec76d7c67b",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.LocalizationModule.pdb",
+      "zipBytes": 10560,
+      "zipSha256": "9960e4ac3eb9f100e58da361a6c658f3696253a9750989b8dd3eb6902af781a3",
+      "diskBytes": 10560,
+      "diskSha256": "9960e4ac3eb9f100e58da361a6c658f3696253a9750989b8dd3eb6902af781a3",
+      "manifestBytes": 10560,
+      "manifestSha256": "9960e4ac3eb9f100e58da361a6c658f3696253a9750989b8dd3eb6902af781a3",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.ManagedKernelModule.dll",
+      "zipBytes": 14256,
+      "zipSha256": "6eae37905bc1a8132d2d9fc1043b0ac05ab8ab4a4c528c9bdbe5b6efae0b0f52",
+      "diskBytes": 14256,
+      "diskSha256": "6eae37905bc1a8132d2d9fc1043b0ac05ab8ab4a4c528c9bdbe5b6efae0b0f52",
+      "manifestBytes": 14256,
+      "manifestSha256": "6eae37905bc1a8132d2d9fc1043b0ac05ab8ab4a4c528c9bdbe5b6efae0b0f52",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.ManagedKernelModule.pdb",
+      "zipBytes": 10164,
+      "zipSha256": "06ba63f7d13aade1b4ae7dfc39423d11a31b76da7ec0dc5b354991e1688e1c17",
+      "diskBytes": 10164,
+      "diskSha256": "06ba63f7d13aade1b4ae7dfc39423d11a31b76da7ec0dc5b354991e1688e1c17",
+      "manifestBytes": 10164,
+      "manifestSha256": "06ba63f7d13aade1b4ae7dfc39423d11a31b76da7ec0dc5b354991e1688e1c17",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.MarshallingModule.dll",
+      "zipBytes": 100784,
+      "zipSha256": "17992d81bb146144c3f3ac39a2c02474f2e3615d33368694a3973451ea824c40",
+      "diskBytes": 100784,
+      "diskSha256": "17992d81bb146144c3f3ac39a2c02474f2e3615d33368694a3973451ea824c40",
+      "manifestBytes": 100784,
+      "manifestSha256": "17992d81bb146144c3f3ac39a2c02474f2e3615d33368694a3973451ea824c40",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.MarshallingModule.pdb",
+      "zipBytes": 17104,
+      "zipSha256": "c424a4a08f2a887deaa3b9a3fb44d45bdd876b5574e13dc03f00f5959855f361",
+      "diskBytes": 17104,
+      "diskSha256": "c424a4a08f2a887deaa3b9a3fb44d45bdd876b5574e13dc03f00f5959855f361",
+      "manifestBytes": 17104,
+      "manifestSha256": "c424a4a08f2a887deaa3b9a3fb44d45bdd876b5574e13dc03f00f5959855f361",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.MathematicsModule.dll",
+      "zipBytes": 740784,
+      "zipSha256": "91d9baed094baeb44534eb143c6bd0512caf2697f6942ccc76007b1b6fc24a28",
+      "diskBytes": 740784,
+      "diskSha256": "91d9baed094baeb44534eb143c6bd0512caf2697f6942ccc76007b1b6fc24a28",
+      "manifestBytes": 740784,
+      "manifestSha256": "91d9baed094baeb44534eb143c6bd0512caf2697f6942ccc76007b1b6fc24a28",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.MathematicsModule.pdb",
+      "zipBytes": 324472,
+      "zipSha256": "86e910a1136c1d760077e0e39638e604038157d5485b3bc7f116f3372d5e2714",
+      "diskBytes": 324472,
+      "diskSha256": "86e910a1136c1d760077e0e39638e604038157d5485b3bc7f116f3372d5e2714",
+      "manifestBytes": 324472,
+      "manifestSha256": "86e910a1136c1d760077e0e39638e604038157d5485b3bc7f116f3372d5e2714",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.MultiplayerModule.dll",
+      "zipBytes": 18352,
+      "zipSha256": "c94981260578bca956026161304ad88fae7de4c6c4bc484d3fc5f1082f75d0bd",
+      "diskBytes": 18352,
+      "diskSha256": "c94981260578bca956026161304ad88fae7de4c6c4bc484d3fc5f1082f75d0bd",
+      "manifestBytes": 18352,
+      "manifestSha256": "c94981260578bca956026161304ad88fae7de4c6c4bc484d3fc5f1082f75d0bd",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.MultiplayerModule.pdb",
+      "zipBytes": 11320,
+      "zipSha256": "57108f1f6c8d3d87b1840a9e7d79f84af651c8f97f0ba4db1efe76d6c28f6423",
+      "diskBytes": 11320,
+      "diskSha256": "57108f1f6c8d3d87b1840a9e7d79f84af651c8f97f0ba4db1efe76d6c28f6423",
+      "manifestBytes": 11320,
+      "manifestSha256": "57108f1f6c8d3d87b1840a9e7d79f84af651c8f97f0ba4db1efe76d6c28f6423",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.NVIDIAModule.dll",
+      "zipBytes": 41392,
+      "zipSha256": "803fd6bae6a7f5ce511c2ad876f37d01f3f1894da445504b20cac40b086f59e3",
+      "diskBytes": 41392,
+      "diskSha256": "803fd6bae6a7f5ce511c2ad876f37d01f3f1894da445504b20cac40b086f59e3",
+      "manifestBytes": 41392,
+      "manifestSha256": "803fd6bae6a7f5ce511c2ad876f37d01f3f1894da445504b20cac40b086f59e3",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.NVIDIAModule.pdb",
+      "zipBytes": 15572,
+      "zipSha256": "2226c5377590d82d4714c23bbdae42b02c2d7aceee03e74b8a2e0725a3a64c53",
+      "diskBytes": 15572,
+      "diskSha256": "2226c5377590d82d4714c23bbdae42b02c2d7aceee03e74b8a2e0725a3a64c53",
+      "manifestBytes": 15572,
+      "manifestSha256": "2226c5377590d82d4714c23bbdae42b02c2d7aceee03e74b8a2e0725a3a64c53",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.ParticleSystemModule.dll",
+      "zipBytes": 170416,
+      "zipSha256": "378f770a4633d2628105a5c9f2fbe0ca1712a6402114ac2cb34950b4ca4f076b",
+      "diskBytes": 170416,
+      "diskSha256": "378f770a4633d2628105a5c9f2fbe0ca1712a6402114ac2cb34950b4ca4f076b",
+      "manifestBytes": 170416,
+      "manifestSha256": "378f770a4633d2628105a5c9f2fbe0ca1712a6402114ac2cb34950b4ca4f076b",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.ParticleSystemModule.pdb",
+      "zipBytes": 37184,
+      "zipSha256": "723d74fb37594c62550cb3871c25c149260e18bacfad635749080b37fcbbd4c3",
+      "diskBytes": 37184,
+      "diskSha256": "723d74fb37594c62550cb3871c25c149260e18bacfad635749080b37fcbbd4c3",
+      "manifestBytes": 37184,
+      "manifestSha256": "723d74fb37594c62550cb3871c25c149260e18bacfad635749080b37fcbbd4c3",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.pdb",
+      "zipBytes": 13180,
+      "zipSha256": "293c4de15c553e6174d3e68fc7e5b41f4ce483459f4c7df6081888ad56a43f90",
+      "diskBytes": 13180,
+      "diskSha256": "293c4de15c553e6174d3e68fc7e5b41f4ce483459f4c7df6081888ad56a43f90",
+      "manifestBytes": 13180,
+      "manifestSha256": "293c4de15c553e6174d3e68fc7e5b41f4ce483459f4c7df6081888ad56a43f90",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.PerformanceReportingModule.dll",
+      "zipBytes": 27056,
+      "zipSha256": "32db47ceb72b497f2e0036cc93e70ba80f2d9a4147a2eea763e0b60087501377",
+      "diskBytes": 27056,
+      "diskSha256": "32db47ceb72b497f2e0036cc93e70ba80f2d9a4147a2eea763e0b60087501377",
+      "manifestBytes": 27056,
+      "manifestSha256": "32db47ceb72b497f2e0036cc93e70ba80f2d9a4147a2eea763e0b60087501377",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.PerformanceReportingModule.pdb",
+      "zipBytes": 10380,
+      "zipSha256": "341771d9e9daf933e70597d0d331f5fec8e2b870286d94457e30847705b302ed",
+      "diskBytes": 10380,
+      "diskSha256": "341771d9e9daf933e70597d0d331f5fec8e2b870286d94457e30847705b302ed",
+      "manifestBytes": 10380,
+      "manifestSha256": "341771d9e9daf933e70597d0d331f5fec8e2b870286d94457e30847705b302ed",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.Physics2DModule.dll",
+      "zipBytes": 222640,
+      "zipSha256": "75842b91c28c4c9202df446ce0bf6efb00f4e80ac2250bd734cdbe4967127a00",
+      "diskBytes": 222640,
+      "diskSha256": "75842b91c28c4c9202df446ce0bf6efb00f4e80ac2250bd734cdbe4967127a00",
+      "manifestBytes": 222640,
+      "manifestSha256": "75842b91c28c4c9202df446ce0bf6efb00f4e80ac2250bd734cdbe4967127a00",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.Physics2DModule.pdb",
+      "zipBytes": 43444,
+      "zipSha256": "ad0fb6852f93caee420accc30164b2808a9eb3facafa7e518cdaffe916e840bc",
+      "diskBytes": 43444,
+      "diskSha256": "ad0fb6852f93caee420accc30164b2808a9eb3facafa7e518cdaffe916e840bc",
+      "manifestBytes": 43444,
+      "manifestSha256": "ad0fb6852f93caee420accc30164b2808a9eb3facafa7e518cdaffe916e840bc",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.PhysicsBackendPhysXModule.dll",
+      "zipBytes": 14256,
+      "zipSha256": "8ae8cdad4c8c0c1d28febb463cd1e41d76c95482040dc2bee992902586a248f7",
+      "diskBytes": 14256,
+      "diskSha256": "8ae8cdad4c8c0c1d28febb463cd1e41d76c95482040dc2bee992902586a248f7",
+      "manifestBytes": 14256,
+      "manifestSha256": "8ae8cdad4c8c0c1d28febb463cd1e41d76c95482040dc2bee992902586a248f7",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.PhysicsBackendPhysXModule.pdb",
+      "zipBytes": 10156,
+      "zipSha256": "3a435b58aefb116a17598fd8fea8b39eb7068ff1de20fab5ac34fc38aa05a9db",
+      "diskBytes": 10156,
+      "diskSha256": "3a435b58aefb116a17598fd8fea8b39eb7068ff1de20fab5ac34fc38aa05a9db",
+      "manifestBytes": 10156,
+      "manifestSha256": "3a435b58aefb116a17598fd8fea8b39eb7068ff1de20fab5ac34fc38aa05a9db",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.PhysicsCore2DModule.dll",
+      "zipBytes": 481192,
+      "zipSha256": "9c329c52a02962cee6aa2d8c7fdc40f40fcae9d139f52e20be8381d150f3cd1b",
+      "diskBytes": 481192,
+      "diskSha256": "9c329c52a02962cee6aa2d8c7fdc40f40fcae9d139f52e20be8381d150f3cd1b",
+      "manifestBytes": 481192,
+      "manifestSha256": "9c329c52a02962cee6aa2d8c7fdc40f40fcae9d139f52e20be8381d150f3cd1b",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.PhysicsCore2DModule.pdb",
+      "zipBytes": 114992,
+      "zipSha256": "da10644e4f498b8527c4fd62345f508095e8f747c4dd94a2903675db47b0f2b5",
+      "diskBytes": 114992,
+      "diskSha256": "da10644e4f498b8527c4fd62345f508095e8f747c4dd94a2903675db47b0f2b5",
+      "manifestBytes": 114992,
+      "manifestSha256": "da10644e4f498b8527c4fd62345f508095e8f747c4dd94a2903675db47b0f2b5",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.PhysicsModule.dll",
+      "zipBytes": 181672,
+      "zipSha256": "2a0adcddf1a0c0a0687445e9a06e187249289e4e788ea315a1d8784f393946ee",
+      "diskBytes": 181672,
+      "diskSha256": "2a0adcddf1a0c0a0687445e9a06e187249289e4e788ea315a1d8784f393946ee",
+      "manifestBytes": 181672,
+      "manifestSha256": "2a0adcddf1a0c0a0687445e9a06e187249289e4e788ea315a1d8784f393946ee",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.PhysicsModule.pdb",
+      "zipBytes": 39968,
+      "zipSha256": "fced7ae0ea8652b4c48cbc029cf365398af53063564dca13dbbe93304fb54194",
+      "diskBytes": 39968,
+      "diskSha256": "fced7ae0ea8652b4c48cbc029cf365398af53063564dca13dbbe93304fb54194",
+      "manifestBytes": 39968,
+      "manifestSha256": "fced7ae0ea8652b4c48cbc029cf365398af53063564dca13dbbe93304fb54194",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.PropertiesModule.dll",
+      "zipBytes": 124840,
+      "zipSha256": "ab289a26978bc28ad743d87f6cd6445fccb1b4f588fbaed0801cb563a447504a",
+      "diskBytes": 124840,
+      "diskSha256": "ab289a26978bc28ad743d87f6cd6445fccb1b4f588fbaed0801cb563a447504a",
+      "manifestBytes": 124840,
+      "manifestSha256": "ab289a26978bc28ad743d87f6cd6445fccb1b4f588fbaed0801cb563a447504a",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.PropertiesModule.pdb",
+      "zipBytes": 51876,
+      "zipSha256": "fbee2dcacf0fa1362f76870ff7304dfb14d38d8f743ef2cec809bd324e71b975",
+      "diskBytes": 51876,
+      "diskSha256": "fbee2dcacf0fa1362f76870ff7304dfb14d38d8f743ef2cec809bd324e71b975",
+      "manifestBytes": 51876,
+      "manifestSha256": "fbee2dcacf0fa1362f76870ff7304dfb14d38d8f743ef2cec809bd324e71b975",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.RenderAs2DModule.dll",
+      "zipBytes": 27560,
+      "zipSha256": "eeec4b59e3c673d061e4f75ef376cffd8e52c494e68f119323177b5c0283b155",
+      "diskBytes": 27560,
+      "diskSha256": "eeec4b59e3c673d061e4f75ef376cffd8e52c494e68f119323177b5c0283b155",
+      "manifestBytes": 27560,
+      "manifestSha256": "eeec4b59e3c673d061e4f75ef376cffd8e52c494e68f119323177b5c0283b155",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.RenderAs2DModule.pdb",
+      "zipBytes": 10192,
+      "zipSha256": "cac683f1e289c15bf321e18e9ffed7f717ddf74a65b960fa1be625be2900ac95",
+      "diskBytes": 10192,
+      "diskSha256": "cac683f1e289c15bf321e18e9ffed7f717ddf74a65b960fa1be625be2900ac95",
+      "manifestBytes": 10192,
+      "manifestSha256": "cac683f1e289c15bf321e18e9ffed7f717ddf74a65b960fa1be625be2900ac95",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.RuntimeInitializeOnLoadManagerInitializerModule.dll",
+      "zipBytes": 26032,
+      "zipSha256": "a728c2f3a28edf711494783cf5c86821715a10dd6874371660139104e240d642",
+      "diskBytes": 26032,
+      "diskSha256": "a728c2f3a28edf711494783cf5c86821715a10dd6874371660139104e240d642",
+      "manifestBytes": 26032,
+      "manifestSha256": "a728c2f3a28edf711494783cf5c86821715a10dd6874371660139104e240d642",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.RuntimeInitializeOnLoadManagerInitializerModule.pdb",
+      "zipBytes": 10200,
+      "zipSha256": "4beee22a8ae5abf44011d1f6ddb2d52154cc5470482ef01aa356304c573b83f2",
+      "diskBytes": 10200,
+      "diskSha256": "4beee22a8ae5abf44011d1f6ddb2d52154cc5470482ef01aa356304c573b83f2",
+      "manifestBytes": 10200,
+      "manifestSha256": "4beee22a8ae5abf44011d1f6ddb2d52154cc5470482ef01aa356304c573b83f2",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.ScreenCaptureModule.dll",
+      "zipBytes": 28080,
+      "zipSha256": "f76237cdc7b2f5d2dc3fc3e04feddf87cc4dbab96185e98774edcc86397abe3d",
+      "diskBytes": 28080,
+      "diskSha256": "f76237cdc7b2f5d2dc3fc3e04feddf87cc4dbab96185e98774edcc86397abe3d",
+      "manifestBytes": 28080,
+      "manifestSha256": "f76237cdc7b2f5d2dc3fc3e04feddf87cc4dbab96185e98774edcc86397abe3d",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.ScreenCaptureModule.pdb",
+      "zipBytes": 10664,
+      "zipSha256": "cd687be2d50c3218608a72988cc4907efb5ca2f41a337a5cf412d775f89da434",
+      "diskBytes": 10664,
+      "diskSha256": "cd687be2d50c3218608a72988cc4907efb5ca2f41a337a5cf412d775f89da434",
+      "manifestBytes": 10664,
+      "manifestSha256": "cd687be2d50c3218608a72988cc4907efb5ca2f41a337a5cf412d775f89da434",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.ScriptingModule.dll",
+      "zipBytes": 65968,
+      "zipSha256": "198355e3872f0a5f1fb6e0c41a221f7d8b254e33eace8a1e7a067184b21118fe",
+      "diskBytes": 65968,
+      "diskSha256": "198355e3872f0a5f1fb6e0c41a221f7d8b254e33eace8a1e7a067184b21118fe",
+      "manifestBytes": 65968,
+      "manifestSha256": "198355e3872f0a5f1fb6e0c41a221f7d8b254e33eace8a1e7a067184b21118fe",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.ScriptingModule.pdb",
+      "zipBytes": 24592,
+      "zipSha256": "e1f9edf6959be52e93e14b7fb8c494149cb13989c66ed0e90b30df05b7fb5489",
+      "diskBytes": 24592,
+      "diskSha256": "e1f9edf6959be52e93e14b7fb8c494149cb13989c66ed0e90b30df05b7fb5489",
+      "manifestBytes": 24592,
+      "manifestSha256": "e1f9edf6959be52e93e14b7fb8c494149cb13989c66ed0e90b30df05b7fb5489",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.ShaderVariantAnalyticsModule.dll",
+      "zipBytes": 26032,
+      "zipSha256": "9df089927e6d80cec2aa89c3f488d2283be0b256dd8bd04306c207799aa15dbe",
+      "diskBytes": 26032,
+      "diskSha256": "9df089927e6d80cec2aa89c3f488d2283be0b256dd8bd04306c207799aa15dbe",
+      "manifestBytes": 26032,
+      "manifestSha256": "9df089927e6d80cec2aa89c3f488d2283be0b256dd8bd04306c207799aa15dbe",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.ShaderVariantAnalyticsModule.pdb",
+      "zipBytes": 10264,
+      "zipSha256": "bbd657709b8cacd6e7bcf3687f81713acafa8e3edc30cc664779c56c5abc4b0f",
+      "diskBytes": 10264,
+      "diskSha256": "bbd657709b8cacd6e7bcf3687f81713acafa8e3edc30cc664779c56c5abc4b0f",
+      "manifestBytes": 10264,
+      "manifestSha256": "bbd657709b8cacd6e7bcf3687f81713acafa8e3edc30cc664779c56c5abc4b0f",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.SpriteMaskModule.dll",
+      "zipBytes": 30632,
+      "zipSha256": "83e5fd0c9b92fcf07b188419dcc4f21db8f645050cda1cb95e10d88e5a94c4cc",
+      "diskBytes": 30632,
+      "diskSha256": "83e5fd0c9b92fcf07b188419dcc4f21db8f645050cda1cb95e10d88e5a94c4cc",
+      "manifestBytes": 30632,
+      "manifestSha256": "83e5fd0c9b92fcf07b188419dcc4f21db8f645050cda1cb95e10d88e5a94c4cc",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.SpriteMaskModule.pdb",
+      "zipBytes": 10480,
+      "zipSha256": "1e31719bb657eb04c3aa66d30a771bec187fdce0bf71737e9263a4accd3d836a",
+      "diskBytes": 10480,
+      "diskSha256": "1e31719bb657eb04c3aa66d30a771bec187fdce0bf71737e9263a4accd3d836a",
+      "manifestBytes": 10480,
+      "manifestSha256": "1e31719bb657eb04c3aa66d30a771bec187fdce0bf71737e9263a4accd3d836a",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.SpriteShapeModule.dll",
+      "zipBytes": 34216,
+      "zipSha256": "83b86c99d01ef30f550bd7e3605c19141e7ee050dbcad42519520f74adc9a7db",
+      "diskBytes": 34216,
+      "diskSha256": "83b86c99d01ef30f550bd7e3605c19141e7ee050dbcad42519520f74adc9a7db",
+      "manifestBytes": 34216,
+      "manifestSha256": "83b86c99d01ef30f550bd7e3605c19141e7ee050dbcad42519520f74adc9a7db",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.SpriteShapeModule.pdb",
+      "zipBytes": 11528,
+      "zipSha256": "c4e90338a319a69ab348180637df46110806738ad8ccc56d5bbd6c6a5bb75a77",
+      "diskBytes": 11528,
+      "diskSha256": "c4e90338a319a69ab348180637df46110806738ad8ccc56d5bbd6c6a5bb75a77",
+      "manifestBytes": 11528,
+      "manifestSha256": "c4e90338a319a69ab348180637df46110806738ad8ccc56d5bbd6c6a5bb75a77",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.StreamingModule.dll",
+      "zipBytes": 28080,
+      "zipSha256": "4ffadc5cfac944f26c1dd2d892b5920f3d775eddec6f563cd52170b05195e58d",
+      "diskBytes": 28080,
+      "diskSha256": "4ffadc5cfac944f26c1dd2d892b5920f3d775eddec6f563cd52170b05195e58d",
+      "manifestBytes": 28080,
+      "manifestSha256": "4ffadc5cfac944f26c1dd2d892b5920f3d775eddec6f563cd52170b05195e58d",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.StreamingModule.pdb",
+      "zipBytes": 10220,
+      "zipSha256": "1e18a911665c207d9ae6169f76d2cdc71588aad92252d52e75a29ca148b0d301",
+      "diskBytes": 10220,
+      "diskSha256": "1e18a911665c207d9ae6169f76d2cdc71588aad92252d52e75a29ca148b0d301",
+      "manifestBytes": 10220,
+      "manifestSha256": "1e18a911665c207d9ae6169f76d2cdc71588aad92252d52e75a29ca148b0d301",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.SubstanceModule.dll",
+      "zipBytes": 31144,
+      "zipSha256": "cc1570a65360eda153ee34c566fadb16055e537cbfe48ae01a60abc3cefc3aae",
+      "diskBytes": 31144,
+      "diskSha256": "cc1570a65360eda153ee34c566fadb16055e537cbfe48ae01a60abc3cefc3aae",
+      "manifestBytes": 31144,
+      "manifestSha256": "cc1570a65360eda153ee34c566fadb16055e537cbfe48ae01a60abc3cefc3aae",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.SubstanceModule.pdb",
+      "zipBytes": 12088,
+      "zipSha256": "e22bbe9f3778f3401f62959a827622cc9470888c55fbedc923762d87452e1f10",
+      "diskBytes": 12088,
+      "diskSha256": "e22bbe9f3778f3401f62959a827622cc9470888c55fbedc923762d87452e1f10",
+      "manifestBytes": 12088,
+      "manifestSha256": "e22bbe9f3778f3401f62959a827622cc9470888c55fbedc923762d87452e1f10",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.SubsystemsModule.dll",
+      "zipBytes": 42928,
+      "zipSha256": "4a2a55dfcd7397df166af405c4a42c2d9913ddd63d33dac5e480b2d367aeda93",
+      "diskBytes": 42928,
+      "diskSha256": "4a2a55dfcd7397df166af405c4a42c2d9913ddd63d33dac5e480b2d367aeda93",
+      "manifestBytes": 42928,
+      "manifestSha256": "4a2a55dfcd7397df166af405c4a42c2d9913ddd63d33dac5e480b2d367aeda93",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.SubsystemsModule.pdb",
+      "zipBytes": 16104,
+      "zipSha256": "7a9f2ac9306d50969973649041a753f1080bd4774a3c7d4bd27a47369ea5f4ac",
+      "diskBytes": 16104,
+      "diskSha256": "7a9f2ac9306d50969973649041a753f1080bd4774a3c7d4bd27a47369ea5f4ac",
+      "manifestBytes": 16104,
+      "manifestSha256": "7a9f2ac9306d50969973649041a753f1080bd4774a3c7d4bd27a47369ea5f4ac",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.TerrainModule.dll",
+      "zipBytes": 132520,
+      "zipSha256": "05a55f2e7daf41201c4b2ae8c8c271829d358dcb23cf21e06d9d27ae6022399d",
+      "diskBytes": 132520,
+      "diskSha256": "05a55f2e7daf41201c4b2ae8c8c271829d358dcb23cf21e06d9d27ae6022399d",
+      "manifestBytes": 132520,
+      "manifestSha256": "05a55f2e7daf41201c4b2ae8c8c271829d358dcb23cf21e06d9d27ae6022399d",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.TerrainModule.pdb",
+      "zipBytes": 29136,
+      "zipSha256": "c0330236096f0173a923bac8e5ab724251039f91ed2c2d1094cdf39d8f9a4d2e",
+      "diskBytes": 29136,
+      "diskSha256": "c0330236096f0173a923bac8e5ab724251039f91ed2c2d1094cdf39d8f9a4d2e",
+      "manifestBytes": 29136,
+      "manifestSha256": "c0330236096f0173a923bac8e5ab724251039f91ed2c2d1094cdf39d8f9a4d2e",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.TerrainPhysicsModule.dll",
+      "zipBytes": 27568,
+      "zipSha256": "fc99213b48e93f6116d9199285f7ce92788ce9e07554aefbed8e643860b3cfe8",
+      "diskBytes": 27568,
+      "diskSha256": "fc99213b48e93f6116d9199285f7ce92788ce9e07554aefbed8e643860b3cfe8",
+      "manifestBytes": 27568,
+      "manifestSha256": "fc99213b48e93f6116d9199285f7ce92788ce9e07554aefbed8e643860b3cfe8",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.TerrainPhysicsModule.pdb",
+      "zipBytes": 10580,
+      "zipSha256": "19cee5a77d110961be1aa47844f98b326b0bdf9f33fada083adbb5fab4e19943",
+      "diskBytes": 10580,
+      "diskSha256": "19cee5a77d110961be1aa47844f98b326b0bdf9f33fada083adbb5fab4e19943",
+      "manifestBytes": 10580,
+      "manifestSha256": "19cee5a77d110961be1aa47844f98b326b0bdf9f33fada083adbb5fab4e19943",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.TetgenModule.dll",
+      "zipBytes": 26032,
+      "zipSha256": "da099d65a6a2351ea1eda129f3c5e258bcc929883a30d797f39e9f3c09fb568c",
+      "diskBytes": 26032,
+      "diskSha256": "da099d65a6a2351ea1eda129f3c5e258bcc929883a30d797f39e9f3c09fb568c",
+      "manifestBytes": 26032,
+      "manifestSha256": "da099d65a6a2351ea1eda129f3c5e258bcc929883a30d797f39e9f3c09fb568c",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.TetgenModule.pdb",
+      "zipBytes": 10132,
+      "zipSha256": "93c4d5c1966405ac8215369a9d6ff710b2ce0df526daf17c06bbb332fc1adc74",
+      "diskBytes": 10132,
+      "diskSha256": "93c4d5c1966405ac8215369a9d6ff710b2ce0df526daf17c06bbb332fc1adc74",
+      "manifestBytes": 10132,
+      "manifestSha256": "93c4d5c1966405ac8215369a9d6ff710b2ce0df526daf17c06bbb332fc1adc74",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.TextCoreFontEngineModule.dll",
+      "zipBytes": 86440,
+      "zipSha256": "f090fe8e906210ce38740c027e867b2ec3f52bba2337541af86b28708f817e2f",
+      "diskBytes": 86440,
+      "diskSha256": "f090fe8e906210ce38740c027e867b2ec3f52bba2337541af86b28708f817e2f",
+      "manifestBytes": 86440,
+      "manifestSha256": "f090fe8e906210ce38740c027e867b2ec3f52bba2337541af86b28708f817e2f",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.TextCoreFontEngineModule.pdb",
+      "zipBytes": 26484,
+      "zipSha256": "563ad9dbc702238e2e83824f1a30585aaad0dd2f6d0f87d4979742e77c0ceb1d",
+      "diskBytes": 26484,
+      "diskSha256": "563ad9dbc702238e2e83824f1a30585aaad0dd2f6d0f87d4979742e77c0ceb1d",
+      "manifestBytes": 26484,
+      "manifestSha256": "563ad9dbc702238e2e83824f1a30585aaad0dd2f6d0f87d4979742e77c0ceb1d",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.TextCoreTextEngineModule.dll",
+      "zipBytes": 314800,
+      "zipSha256": "f4bd7432613b2779e399a38db06498a24e53b72cf7fcf2faab6a256812ef9502",
+      "diskBytes": 314800,
+      "diskSha256": "f4bd7432613b2779e399a38db06498a24e53b72cf7fcf2faab6a256812ef9502",
+      "manifestBytes": 314800,
+      "manifestSha256": "f4bd7432613b2779e399a38db06498a24e53b72cf7fcf2faab6a256812ef9502",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.TextCoreTextEngineModule.pdb",
+      "zipBytes": 117020,
+      "zipSha256": "afa791b73cbf6a3507ac7f9f64e288c6c500f162b942dbb839fd5c923e4b3cb0",
+      "diskBytes": 117020,
+      "diskSha256": "afa791b73cbf6a3507ac7f9f64e288c6c500f162b942dbb839fd5c923e4b3cb0",
+      "manifestBytes": 117020,
+      "manifestSha256": "afa791b73cbf6a3507ac7f9f64e288c6c500f162b942dbb839fd5c923e4b3cb0",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.TextRenderingModule.dll",
+      "zipBytes": 39344,
+      "zipSha256": "b5fedb246c07e2f79b00681362e22ed8e902396621671c421750edf8138e21ed",
+      "diskBytes": 39344,
+      "diskSha256": "b5fedb246c07e2f79b00681362e22ed8e902396621671c421750edf8138e21ed",
+      "manifestBytes": 39344,
+      "manifestSha256": "b5fedb246c07e2f79b00681362e22ed8e902396621671c421750edf8138e21ed",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.TextRenderingModule.pdb",
+      "zipBytes": 14660,
+      "zipSha256": "b667fea1f38b378e94bcaa892751fd3e64264f986127013a531e01c819c6ded0",
+      "diskBytes": 14660,
+      "diskSha256": "b667fea1f38b378e94bcaa892751fd3e64264f986127013a531e01c819c6ded0",
+      "manifestBytes": 14660,
+      "manifestSha256": "b667fea1f38b378e94bcaa892751fd3e64264f986127013a531e01c819c6ded0",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.TilemapModule.dll",
+      "zipBytes": 75688,
+      "zipSha256": "99c21b2145a8ea5b75a33e5d1cf6c5da742ced302040807f0e12b5649cbd0bce",
+      "diskBytes": 75688,
+      "diskSha256": "99c21b2145a8ea5b75a33e5d1cf6c5da742ced302040807f0e12b5649cbd0bce",
+      "manifestBytes": 75688,
+      "manifestSha256": "99c21b2145a8ea5b75a33e5d1cf6c5da742ced302040807f0e12b5649cbd0bce",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.TilemapModule.pdb",
+      "zipBytes": 22984,
+      "zipSha256": "e13f62256de4f0f8c7bacadf322224d089d6a0efe34c94edddf3f0df88f474e4",
+      "diskBytes": 22984,
+      "diskSha256": "e13f62256de4f0f8c7bacadf322224d089d6a0efe34c94edddf3f0df88f474e4",
+      "manifestBytes": 22984,
+      "manifestSha256": "e13f62256de4f0f8c7bacadf322224d089d6a0efe34c94edddf3f0df88f474e4",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.TimelineFoundationModule.dll",
+      "zipBytes": 167344,
+      "zipSha256": "764b3e2b2887c041330f0007ee86c8e92d5eec94c8bcba8534d645db21728b0a",
+      "diskBytes": 167344,
+      "diskSha256": "764b3e2b2887c041330f0007ee86c8e92d5eec94c8bcba8534d645db21728b0a",
+      "manifestBytes": 167344,
+      "manifestSha256": "764b3e2b2887c041330f0007ee86c8e92d5eec94c8bcba8534d645db21728b0a",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.TimelineFoundationModule.pdb",
+      "zipBytes": 81040,
+      "zipSha256": "43e7750e30d059cb40933e2357624e4ff19163f013b3ccc4cd66f3977c48b8b9",
+      "diskBytes": 81040,
+      "diskSha256": "43e7750e30d059cb40933e2357624e4ff19163f013b3ccc4cd66f3977c48b8b9",
+      "manifestBytes": 81040,
+      "manifestSha256": "43e7750e30d059cb40933e2357624e4ff19163f013b3ccc4cd66f3977c48b8b9",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.TLSModule.dll",
+      "zipBytes": 34224,
+      "zipSha256": "67821ae08f3e702d156ce93ee3025150ba01a45d57be8280d2162e451ef52887",
+      "diskBytes": 34224,
+      "diskSha256": "67821ae08f3e702d156ce93ee3025150ba01a45d57be8280d2162e451ef52887",
+      "manifestBytes": 34224,
+      "manifestSha256": "67821ae08f3e702d156ce93ee3025150ba01a45d57be8280d2162e451ef52887",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.TLSModule.pdb",
+      "zipBytes": 10320,
+      "zipSha256": "3c9bb0d08983c2c6a0917973ab590b8374d24ff090ba0fe17cb5718335bd175b",
+      "diskBytes": 10320,
+      "diskSha256": "3c9bb0d08983c2c6a0917973ab590b8374d24ff090ba0fe17cb5718335bd175b",
+      "manifestBytes": 10320,
+      "manifestSha256": "3c9bb0d08983c2c6a0917973ab590b8374d24ff090ba0fe17cb5718335bd175b",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.U2DRuntimeModule.dll",
+      "zipBytes": 73648,
+      "zipSha256": "ab889bdc7a6922f0ecbc269b955064faba48d2fbffb5897846249a9c716f4286",
+      "diskBytes": 73648,
+      "diskSha256": "ab889bdc7a6922f0ecbc269b955064faba48d2fbffb5897846249a9c716f4286",
+      "manifestBytes": 73648,
+      "manifestSha256": "ab889bdc7a6922f0ecbc269b955064faba48d2fbffb5897846249a9c716f4286",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.U2DRuntimeModule.pdb",
+      "zipBytes": 34080,
+      "zipSha256": "db14f9e6f17f5b247a36a0336b8428461889f403528755bad2f33d8c803e2f1d",
+      "diskBytes": 34080,
+      "diskSha256": "db14f9e6f17f5b247a36a0336b8428461889f403528755bad2f33d8c803e2f1d",
+      "manifestBytes": 34080,
+      "manifestSha256": "db14f9e6f17f5b247a36a0336b8428461889f403528755bad2f33d8c803e2f1d",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.UI.dll",
+      "zipBytes": 269824,
+      "zipSha256": "5d5b6e615cabea034f2202aa6f2b49ed0535b526aaf626c8a20361c96de284df",
+      "diskBytes": 269824,
+      "diskSha256": "5d5b6e615cabea034f2202aa6f2b49ed0535b526aaf626c8a20361c96de284df",
+      "manifestBytes": 269824,
+      "manifestSha256": "5d5b6e615cabea034f2202aa6f2b49ed0535b526aaf626c8a20361c96de284df",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.UI.pdb",
+      "zipBytes": 139308,
+      "zipSha256": "ccd7a2e95f64ddbaef357532dda099395c115f4815a59176283a671f9423f672",
+      "diskBytes": 139308,
+      "diskSha256": "ccd7a2e95f64ddbaef357532dda099395c115f4815a59176283a671f9423f672",
+      "manifestBytes": 139308,
+      "manifestSha256": "ccd7a2e95f64ddbaef357532dda099395c115f4815a59176283a671f9423f672",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.UIElementsModule.dll",
+      "zipBytes": 2552232,
+      "zipSha256": "94f1103ee1538fb226a3159d6cdbbd7bb72a8f18c46c8c09f02de9907849f245",
+      "diskBytes": 2552232,
+      "diskSha256": "94f1103ee1538fb226a3159d6cdbbd7bb72a8f18c46c8c09f02de9907849f245",
+      "manifestBytes": 2552232,
+      "manifestSha256": "94f1103ee1538fb226a3159d6cdbbd7bb72a8f18c46c8c09f02de9907849f245",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.UIElementsModule.pdb",
+      "zipBytes": 1012660,
+      "zipSha256": "d86caecd4e372f11f6dff0437faabc7464c10cf79e472dbd5b01fe4f73800809",
+      "diskBytes": 1012660,
+      "diskSha256": "d86caecd4e372f11f6dff0437faabc7464c10cf79e472dbd5b01fe4f73800809",
+      "manifestBytes": 1012660,
+      "manifestSha256": "d86caecd4e372f11f6dff0437faabc7464c10cf79e472dbd5b01fe4f73800809",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.UIModule.dll",
+      "zipBytes": 57264,
+      "zipSha256": "3ab5610e834dac2dded955357a912f40dc9571cb8e58ac17679f28a85faef308",
+      "diskBytes": 57264,
+      "diskSha256": "3ab5610e834dac2dded955357a912f40dc9571cb8e58ac17679f28a85faef308",
+      "manifestBytes": 57264,
+      "manifestSha256": "3ab5610e834dac2dded955357a912f40dc9571cb8e58ac17679f28a85faef308",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.UIModule.pdb",
+      "zipBytes": 15704,
+      "zipSha256": "e6f19c770c76f34f6ecaa087db1fd0a353f44bc9bde00ff7b854d16391ffe319",
+      "diskBytes": 15704,
+      "diskSha256": "e6f19c770c76f34f6ecaa087db1fd0a353f44bc9bde00ff7b854d16391ffe319",
+      "manifestBytes": 15704,
+      "manifestSha256": "e6f19c770c76f34f6ecaa087db1fd0a353f44bc9bde00ff7b854d16391ffe319",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.UmbraModule.dll",
+      "zipBytes": 26032,
+      "zipSha256": "3e7743dcd17ae9ab30071e4c7be81e39ff66c57f0439122e7c21803ba86f6d61",
+      "diskBytes": 26032,
+      "diskSha256": "3e7743dcd17ae9ab30071e4c7be81e39ff66c57f0439122e7c21803ba86f6d61",
+      "manifestBytes": 26032,
+      "manifestSha256": "3e7743dcd17ae9ab30071e4c7be81e39ff66c57f0439122e7c21803ba86f6d61",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.UmbraModule.pdb",
+      "zipBytes": 10132,
+      "zipSha256": "ef6506f01a996255764a625704c67d724e83f63eb2c5fbf30ff9350b7e1ed805",
+      "diskBytes": 10132,
+      "diskSha256": "ef6506f01a996255764a625704c67d724e83f63eb2c5fbf30ff9350b7e1ed805",
+      "manifestBytes": 10132,
+      "manifestSha256": "ef6506f01a996255764a625704c67d724e83f63eb2c5fbf30ff9350b7e1ed805",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.UnityAnalyticsCommonModule.dll",
+      "zipBytes": 36776,
+      "zipSha256": "8ebbcb289293c6443ee4a6a39397da27acddda82f5e3fb1f3b34586b0f9fbd7c",
+      "diskBytes": 36776,
+      "diskSha256": "8ebbcb289293c6443ee4a6a39397da27acddda82f5e3fb1f3b34586b0f9fbd7c",
+      "manifestBytes": 36776,
+      "manifestSha256": "8ebbcb289293c6443ee4a6a39397da27acddda82f5e3fb1f3b34586b0f9fbd7c",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.UnityAnalyticsCommonModule.pdb",
+      "zipBytes": 13908,
+      "zipSha256": "d1b6041e5d5f86b66ae4a9394f46903ef152a3ce294d3663aefeca7defcc7454",
+      "diskBytes": 13908,
+      "diskSha256": "d1b6041e5d5f86b66ae4a9394f46903ef152a3ce294d3663aefeca7defcc7454",
+      "manifestBytes": 13908,
+      "manifestSha256": "d1b6041e5d5f86b66ae4a9394f46903ef152a3ce294d3663aefeca7defcc7454",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.UnityAnalyticsModule.dll",
+      "zipBytes": 61864,
+      "zipSha256": "993e7b95c963eafa0ea03d728e05a1470bd18bf4ddfe8d9dc11b8376c3d6f37b",
+      "diskBytes": 61864,
+      "diskSha256": "993e7b95c963eafa0ea03d728e05a1470bd18bf4ddfe8d9dc11b8376c3d6f37b",
+      "manifestBytes": 61864,
+      "manifestSha256": "993e7b95c963eafa0ea03d728e05a1470bd18bf4ddfe8d9dc11b8376c3d6f37b",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.UnityAnalyticsModule.pdb",
+      "zipBytes": 18588,
+      "zipSha256": "fe222b1d89ec94a86eed94dfb01393f8faba793332ee308937e958dc57c94fe8",
+      "diskBytes": 18588,
+      "diskSha256": "fe222b1d89ec94a86eed94dfb01393f8faba793332ee308937e958dc57c94fe8",
+      "manifestBytes": 18588,
+      "manifestSha256": "fe222b1d89ec94a86eed94dfb01393f8faba793332ee308937e958dc57c94fe8",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.UnityConnectModule.dll",
+      "zipBytes": 29616,
+      "zipSha256": "59bd862d6ff02ecd0536e40a4696e6b6eb3b5fe9e0c7d41eeeae62e163731a42",
+      "diskBytes": 29616,
+      "diskSha256": "59bd862d6ff02ecd0536e40a4696e6b6eb3b5fe9e0c7d41eeeae62e163731a42",
+      "manifestBytes": 29616,
+      "manifestSha256": "59bd862d6ff02ecd0536e40a4696e6b6eb3b5fe9e0c7d41eeeae62e163731a42",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.UnityConnectModule.pdb",
+      "zipBytes": 10700,
+      "zipSha256": "52b5891e3ef65e5d09c87c406c48c19cec690e41a30aecd6173ee3a933dff664",
+      "diskBytes": 10700,
+      "diskSha256": "52b5891e3ef65e5d09c87c406c48c19cec690e41a30aecd6173ee3a933dff664",
+      "manifestBytes": 10700,
+      "manifestSha256": "52b5891e3ef65e5d09c87c406c48c19cec690e41a30aecd6173ee3a933dff664",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.UnityConsentModule.dll",
+      "zipBytes": 16304,
+      "zipSha256": "c5f8784a2e52b9f20330b507295ba4cbefe6a70a5a91f39a87610c0a6042dab8",
+      "diskBytes": 16304,
+      "diskSha256": "c5f8784a2e52b9f20330b507295ba4cbefe6a70a5a91f39a87610c0a6042dab8",
+      "manifestBytes": 16304,
+      "manifestSha256": "c5f8784a2e52b9f20330b507295ba4cbefe6a70a5a91f39a87610c0a6042dab8",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.UnityConsentModule.pdb",
+      "zipBytes": 10704,
+      "zipSha256": "c473b0fff03dbb282672e0737854abda2e0390162f17d827a4b2283c32f5963d",
+      "diskBytes": 10704,
+      "diskSha256": "c473b0fff03dbb282672e0737854abda2e0390162f17d827a4b2283c32f5963d",
+      "manifestBytes": 10704,
+      "manifestSha256": "c473b0fff03dbb282672e0737854abda2e0390162f17d827a4b2283c32f5963d",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.UnityCurlModule.dll",
+      "zipBytes": 28072,
+      "zipSha256": "fbebe3cd6f3bb6693b137268be0b73ba4e2eed81e8f18397ae99078918fd7323",
+      "diskBytes": 28072,
+      "diskSha256": "fbebe3cd6f3bb6693b137268be0b73ba4e2eed81e8f18397ae99078918fd7323",
+      "manifestBytes": 28072,
+      "manifestSha256": "fbebe3cd6f3bb6693b137268be0b73ba4e2eed81e8f18397ae99078918fd7323",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.UnityCurlModule.pdb",
+      "zipBytes": 10528,
+      "zipSha256": "46e295d774aef23c69bc0a814c1a3d1d479305c46dfc801628b58235a4d0193e",
+      "diskBytes": 10528,
+      "diskSha256": "46e295d774aef23c69bc0a814c1a3d1d479305c46dfc801628b58235a4d0193e",
+      "manifestBytes": 10528,
+      "manifestSha256": "46e295d774aef23c69bc0a814c1a3d1d479305c46dfc801628b58235a4d0193e",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.UnityWebRequestAssetBundleModule.dll",
+      "zipBytes": 30640,
+      "zipSha256": "f1cc2c9beaccf363d8bcd61bfa18a685e40ea1af55ec6576e25134d3f7bbd79b",
+      "diskBytes": 30640,
+      "diskSha256": "f1cc2c9beaccf363d8bcd61bfa18a685e40ea1af55ec6576e25134d3f7bbd79b",
+      "manifestBytes": 30640,
+      "manifestSha256": "f1cc2c9beaccf363d8bcd61bfa18a685e40ea1af55ec6576e25134d3f7bbd79b",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.UnityWebRequestAssetBundleModule.pdb",
+      "zipBytes": 11420,
+      "zipSha256": "c12548f57372ff13c9d0ce47b6415a58be0f274aab1debcce74c3a82c9f68607",
+      "diskBytes": 11420,
+      "diskSha256": "c12548f57372ff13c9d0ce47b6415a58be0f274aab1debcce74c3a82c9f68607",
+      "manifestBytes": 11420,
+      "manifestSha256": "c12548f57372ff13c9d0ce47b6415a58be0f274aab1debcce74c3a82c9f68607",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.UnityWebRequestAudioModule.dll",
+      "zipBytes": 30632,
+      "zipSha256": "4d845c1af998bbd78e7653e12b71b3e7d6bb259f2f9829d337a6725fe6d43a54",
+      "diskBytes": 30632,
+      "diskSha256": "4d845c1af998bbd78e7653e12b71b3e7d6bb259f2f9829d337a6725fe6d43a54",
+      "manifestBytes": 30632,
+      "manifestSha256": "4d845c1af998bbd78e7653e12b71b3e7d6bb259f2f9829d337a6725fe6d43a54",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.UnityWebRequestAudioModule.pdb",
+      "zipBytes": 11472,
+      "zipSha256": "e6d4911074e5999e038a4499376de8c6453e6272435f7ea96ad6f9898836f179",
+      "diskBytes": 11472,
+      "diskSha256": "e6d4911074e5999e038a4499376de8c6453e6272435f7ea96ad6f9898836f179",
+      "manifestBytes": 11472,
+      "manifestSha256": "e6d4911074e5999e038a4499376de8c6453e6272435f7ea96ad6f9898836f179",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.UnityWebRequestModule.dll",
+      "zipBytes": 81328,
+      "zipSha256": "f9e5893bab929d45b605cbaced026a64ac2943420a0ef463d0e52b03c9da2420",
+      "diskBytes": 81328,
+      "diskSha256": "f9e5893bab929d45b605cbaced026a64ac2943420a0ef463d0e52b03c9da2420",
+      "manifestBytes": 81328,
+      "manifestSha256": "f9e5893bab929d45b605cbaced026a64ac2943420a0ef463d0e52b03c9da2420",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.UnityWebRequestModule.pdb",
+      "zipBytes": 27880,
+      "zipSha256": "c1fccc333469ddc977cf875cd3c8ecc5d059dbb836d7bb4b87c6cdbfd54202bd",
+      "diskBytes": 27880,
+      "diskSha256": "c1fccc333469ddc977cf875cd3c8ecc5d059dbb836d7bb4b87c6cdbfd54202bd",
+      "manifestBytes": 27880,
+      "manifestSha256": "c1fccc333469ddc977cf875cd3c8ecc5d059dbb836d7bb4b87c6cdbfd54202bd",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.UnityWebRequestTextureModule.dll",
+      "zipBytes": 29608,
+      "zipSha256": "0eb45a489e67197d9126ea2505810392cb396618fc0d2eaa712f53ba1a9fbf7b",
+      "diskBytes": 29608,
+      "diskSha256": "0eb45a489e67197d9126ea2505810392cb396618fc0d2eaa712f53ba1a9fbf7b",
+      "manifestBytes": 29608,
+      "manifestSha256": "0eb45a489e67197d9126ea2505810392cb396618fc0d2eaa712f53ba1a9fbf7b",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.UnityWebRequestTextureModule.pdb",
+      "zipBytes": 11476,
+      "zipSha256": "1ac61fcec5103ba143f2cd253486c902f6645ab3a1967fa88a8e98b324b28560",
+      "diskBytes": 11476,
+      "diskSha256": "1ac61fcec5103ba143f2cd253486c902f6645ab3a1967fa88a8e98b324b28560",
+      "manifestBytes": 11476,
+      "manifestSha256": "1ac61fcec5103ba143f2cd253486c902f6645ab3a1967fa88a8e98b324b28560",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.UnityWebRequestWWWModule.dll",
+      "zipBytes": 35248,
+      "zipSha256": "0b792669540438f24f1aba8a24a0df57c49b218825332f3376e919bcf1aab285",
+      "diskBytes": 35248,
+      "diskSha256": "0b792669540438f24f1aba8a24a0df57c49b218825332f3376e919bcf1aab285",
+      "manifestBytes": 35248,
+      "manifestSha256": "0b792669540438f24f1aba8a24a0df57c49b218825332f3376e919bcf1aab285",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.UnityWebRequestWWWModule.pdb",
+      "zipBytes": 13112,
+      "zipSha256": "2f0f7a7a272f64361df5922254c2a8f719d528368c295cb51e458ddc3cf7762d",
+      "diskBytes": 13112,
+      "diskSha256": "2f0f7a7a272f64361df5922254c2a8f719d528368c295cb51e458ddc3cf7762d",
+      "manifestBytes": 13112,
+      "manifestSha256": "2f0f7a7a272f64361df5922254c2a8f719d528368c295cb51e458ddc3cf7762d",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.VectorGraphicsModule.dll",
+      "zipBytes": 231336,
+      "zipSha256": "52fc06d609c516b305867deb3d9879fcb2a4c76fcc0993da981595e7e43faeb0",
+      "diskBytes": 231336,
+      "diskSha256": "52fc06d609c516b305867deb3d9879fcb2a4c76fcc0993da981595e7e43faeb0",
+      "manifestBytes": 231336,
+      "manifestSha256": "52fc06d609c516b305867deb3d9879fcb2a4c76fcc0993da981595e7e43faeb0",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.VectorGraphicsModule.pdb",
+      "zipBytes": 104812,
+      "zipSha256": "764d552a3f8b8a85ec4d0091ce89e6a87d6e1e8179d74661cd5f8cba2aa6f3cb",
+      "diskBytes": 104812,
+      "diskSha256": "764d552a3f8b8a85ec4d0091ce89e6a87d6e1e8179d74661cd5f8cba2aa6f3cb",
+      "manifestBytes": 104812,
+      "manifestSha256": "764d552a3f8b8a85ec4d0091ce89e6a87d6e1e8179d74661cd5f8cba2aa6f3cb",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.VehiclesModule.dll",
+      "zipBytes": 33200,
+      "zipSha256": "3afa6b698444c44e0c8eefb37c8816601f063a00dfd37c4bf51efbcc1e899c98",
+      "diskBytes": 33200,
+      "diskSha256": "3afa6b698444c44e0c8eefb37c8816601f063a00dfd37c4bf51efbcc1e899c98",
+      "manifestBytes": 33200,
+      "manifestSha256": "3afa6b698444c44e0c8eefb37c8816601f063a00dfd37c4bf51efbcc1e899c98",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.VehiclesModule.pdb",
+      "zipBytes": 11200,
+      "zipSha256": "8d2aa92158e730659ed317c6f0c2ff155cda17a160eeeb2b044e869738c66630",
+      "diskBytes": 11200,
+      "diskSha256": "8d2aa92158e730659ed317c6f0c2ff155cda17a160eeeb2b044e869738c66630",
+      "manifestBytes": 11200,
+      "manifestSha256": "8d2aa92158e730659ed317c6f0c2ff155cda17a160eeeb2b044e869738c66630",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.VFXModule.dll",
+      "zipBytes": 82352,
+      "zipSha256": "38a4ff3fc6e0256e0eb39da52f70f76e167bbaf0f9f43f853a691b6f3da2c7fb",
+      "diskBytes": 82352,
+      "diskSha256": "38a4ff3fc6e0256e0eb39da52f70f76e167bbaf0f9f43f853a691b6f3da2c7fb",
+      "manifestBytes": 82352,
+      "manifestSha256": "38a4ff3fc6e0256e0eb39da52f70f76e167bbaf0f9f43f853a691b6f3da2c7fb",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.VFXModule.pdb",
+      "zipBytes": 18680,
+      "zipSha256": "e2d16e7c1e33f5f711b0a608f39e987d6dfaa22770b51aae5a4d9e4a0e9686c7",
+      "diskBytes": 18680,
+      "diskSha256": "e2d16e7c1e33f5f711b0a608f39e987d6dfaa22770b51aae5a4d9e4a0e9686c7",
+      "manifestBytes": 18680,
+      "manifestSha256": "e2d16e7c1e33f5f711b0a608f39e987d6dfaa22770b51aae5a4d9e4a0e9686c7",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.VideoModule.dll",
+      "zipBytes": 48552,
+      "zipSha256": "d00897681f27b05807c8ae36d952916e3b85e22782bc3d7f744ace914d9d827e",
+      "diskBytes": 48552,
+      "diskSha256": "d00897681f27b05807c8ae36d952916e3b85e22782bc3d7f744ace914d9d827e",
+      "manifestBytes": 48552,
+      "manifestSha256": "d00897681f27b05807c8ae36d952916e3b85e22782bc3d7f744ace914d9d827e",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.VideoModule.pdb",
+      "zipBytes": 14416,
+      "zipSha256": "7bc77bc032bc45c34c5cf1388cd317bef2b0462bf354938bdd07bb4acf6f2a7c",
+      "diskBytes": 14416,
+      "diskSha256": "7bc77bc032bc45c34c5cf1388cd317bef2b0462bf354938bdd07bb4acf6f2a7c",
+      "manifestBytes": 14416,
+      "manifestSha256": "7bc77bc032bc45c34c5cf1388cd317bef2b0462bf354938bdd07bb4acf6f2a7c",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.VirtualTexturingModule.dll",
+      "zipBytes": 43952,
+      "zipSha256": "4ab483ae111a485cf7cf2ad22647a1d535b2dfb5838986a122829bdfc3f51179",
+      "diskBytes": 43952,
+      "diskSha256": "4ab483ae111a485cf7cf2ad22647a1d535b2dfb5838986a122829bdfc3f51179",
+      "manifestBytes": 43952,
+      "manifestSha256": "4ab483ae111a485cf7cf2ad22647a1d535b2dfb5838986a122829bdfc3f51179",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.VirtualTexturingModule.pdb",
+      "zipBytes": 13288,
+      "zipSha256": "12854631ab68dbecd3c942fe2844a455b84b4c04606089fdae3ef1d3be8a25f0",
+      "diskBytes": 13288,
+      "diskSha256": "12854631ab68dbecd3c942fe2844a455b84b4c04606089fdae3ef1d3be8a25f0",
+      "manifestBytes": 13288,
+      "manifestSha256": "12854631ab68dbecd3c942fe2844a455b84b4c04606089fdae3ef1d3be8a25f0",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.WindModule.dll",
+      "zipBytes": 28584,
+      "zipSha256": "173c414b4049ec2f3a7e530c48176bbd022e4d79f7de8276349bd98e6d60649b",
+      "diskBytes": 28584,
+      "diskSha256": "173c414b4049ec2f3a7e530c48176bbd022e4d79f7de8276349bd98e6d60649b",
+      "manifestBytes": 28584,
+      "manifestSha256": "173c414b4049ec2f3a7e530c48176bbd022e4d79f7de8276349bd98e6d60649b",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.WindModule.pdb",
+      "zipBytes": 10276,
+      "zipSha256": "37b3858f49d611b12d92803f3f62974163ae683fa00683c72a8394e8711ae47e",
+      "diskBytes": 10276,
+      "diskSha256": "37b3858f49d611b12d92803f3f62974163ae683fa00683c72a8394e8711ae47e",
+      "manifestBytes": 10276,
+      "manifestSha256": "37b3858f49d611b12d92803f3f62974163ae683fa00683c72a8394e8711ae47e",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.XRModule.dll",
+      "zipBytes": 96176,
+      "zipSha256": "48d3fa89c3ea1a696936efa85d45b0b675a90714fb9b5b58b88d313e92d23448",
+      "diskBytes": 96176,
+      "diskSha256": "48d3fa89c3ea1a696936efa85d45b0b675a90714fb9b5b58b88d313e92d23448",
+      "manifestBytes": 96176,
+      "manifestSha256": "48d3fa89c3ea1a696936efa85d45b0b675a90714fb9b5b58b88d313e92d23448",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.XRModule.pdb",
+      "zipBytes": 23548,
+      "zipSha256": "0d8a3bed9545fc76e341049d2513de62c720bbb61917a7f23ecd02c65830d32b",
+      "diskBytes": 23548,
+      "diskSha256": "0d8a3bed9545fc76e341049d2513de62c720bbb61917a7f23ecd02c65830d32b",
+      "manifestBytes": 23548,
+      "manifestSha256": "0d8a3bed9545fc76e341049d2513de62c720bbb61917a7f23ecd02c65830d32b",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Plugins/x86_64/lib_burst_generated.dll",
+      "zipBytes": 572416,
+      "zipSha256": "3d6ad065e8e6c7c260b4a9305ac1774ae320103c944bd7418a7374a00443c8fb",
+      "diskBytes": 572416,
+      "diskSha256": "3d6ad065e8e6c7c260b4a9305ac1774ae320103c944bd7418a7374a00443c8fb",
+      "manifestBytes": 572416,
+      "manifestSha256": "3d6ad065e8e6c7c260b4a9305ac1774ae320103c944bd7418a7374a00443c8fb",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Plugins/x86_64/lib_burst_generated.pdb",
+      "zipBytes": 3219456,
+      "zipSha256": "9d6513df3c38f16a2682180ef46df5225102c15bd4be954cf26cbec09476a905",
+      "diskBytes": 3219456,
+      "diskSha256": "9d6513df3c38f16a2682180ef46df5225102c15bd4be954cf26cbec09476a905",
+      "manifestBytes": 3219456,
+      "manifestSha256": "9d6513df3c38f16a2682180ef46df5225102c15bd4be954cf26cbec09476a905",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Plugins/x86_64/libonigwrap.dll",
+      "zipBytes": 551336,
+      "zipSha256": "c22db1e7be04c50eb47e67362bf705830bb95df30c02c22dd7add835ee777583",
+      "diskBytes": 551336,
+      "diskSha256": "c22db1e7be04c50eb47e67362bf705830bb95df30c02c22dd7add835ee777583",
+      "manifestBytes": 551336,
+      "manifestSha256": "c22db1e7be04c50eb47e67362bf705830bb95df30c02c22dd7add835ee777583",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Resources/unity default resources",
+      "zipBytes": 5919584,
+      "zipSha256": "696b9afaee02b5d45978634f1450ef18423c19177933b997fd8ee364d70cdd61",
+      "diskBytes": 5919584,
+      "diskSha256": "696b9afaee02b5d45978634f1450ef18423c19177933b997fd8ee364d70cdd61",
+      "manifestBytes": 5919584,
+      "manifestSha256": "696b9afaee02b5d45978634f1450ef18423c19177933b997fd8ee364d70cdd61",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/Resources/unity_builtin_extra",
+      "zipBytes": 410600,
+      "zipSha256": "91a452185d4286bebdaf5629b920d568b2ddf64a23c0731968e59e7afcd96f18",
+      "diskBytes": 410600,
+      "diskSha256": "91a452185d4286bebdaf5629b920d568b2ddf64a23c0731968e59e7afcd96f18",
+      "manifestBytes": 410600,
+      "manifestSha256": "91a452185d4286bebdaf5629b920d568b2ddf64a23c0731968e59e7afcd96f18",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/resources.assets",
+      "zipBytes": 393340,
+      "zipSha256": "c2054dbf99429083d4dc43334002a62459e9ea9ede5a7488b6b983ca3c56147d",
+      "diskBytes": 393340,
+      "diskSha256": "c2054dbf99429083d4dc43334002a62459e9ea9ede5a7488b6b983ca3c56147d",
+      "manifestBytes": 393340,
+      "manifestSha256": "c2054dbf99429083d4dc43334002a62459e9ea9ede5a7488b6b983ca3c56147d",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/resources.assets.resS",
+      "zipBytes": 1048576,
+      "zipSha256": "340051f4f506bff5616e93d52c58f37ca04c1495c3b6a057018bac1ae1d0b232",
+      "diskBytes": 1048576,
+      "diskSha256": "340051f4f506bff5616e93d52c58f37ca04c1495c3b6a057018bac1ae1d0b232",
+      "manifestBytes": 1048576,
+      "manifestSha256": "340051f4f506bff5616e93d52c58f37ca04c1495c3b6a057018bac1ae1d0b232",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/RuntimeInitializeOnLoads.json",
+      "zipBytes": 4266,
+      "zipSha256": "80269d1c6a0f59b1a5f81c7bcf740b52a05ac854653d50196b6827c4eb8d3616",
+      "diskBytes": 4266,
+      "diskSha256": "80269d1c6a0f59b1a5f81c7bcf740b52a05ac854653d50196b6827c4eb8d3616",
+      "manifestBytes": 4266,
+      "manifestSha256": "80269d1c6a0f59b1a5f81c7bcf740b52a05ac854653d50196b6827c4eb8d3616",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/ScriptingAssemblies.json",
+      "zipBytes": 4782,
+      "zipSha256": "a0c8ecd2b0a39b7bb6d41c94da604124efc5de5be658eed3d53412dc128bf2b8",
+      "diskBytes": 4782,
+      "diskSha256": "a0c8ecd2b0a39b7bb6d41c94da604124efc5de5be658eed3d53412dc128bf2b8",
+      "manifestBytes": 4782,
+      "manifestSha256": "a0c8ecd2b0a39b7bb6d41c94da604124efc5de5be658eed3d53412dc128bf2b8",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/sharedassets0.assets",
+      "zipBytes": 16887552,
+      "zipSha256": "c59b0c8c804614392711d37cb4945dc684f083e6141c0a9b329ac85607be30ea",
+      "diskBytes": 16887552,
+      "diskSha256": "c59b0c8c804614392711d37cb4945dc684f083e6141c0a9b329ac85607be30ea",
+      "manifestBytes": 16887552,
+      "manifestSha256": "c59b0c8c804614392711d37cb4945dc684f083e6141c0a9b329ac85607be30ea",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/sharedassets0.assets.resS",
+      "zipBytes": 3021120,
+      "zipSha256": "94be7c6096f23afdb2b86221faf294ac80c5d7a58f6f4ad4fa185bc04df9de64",
+      "diskBytes": 3021120,
+      "diskSha256": "94be7c6096f23afdb2b86221faf294ac80c5d7a58f6f4ad4fa185bc04df9de64",
+      "manifestBytes": 3021120,
+      "manifestSha256": "94be7c6096f23afdb2b86221faf294ac80c5d7a58f6f4ad4fa185bc04df9de64",
+      "passed": true
+    },
+    {
+      "path": "DiceCraft_Data/sharedassets0.resource",
+      "zipBytes": 22464,
+      "zipSha256": "fff27ed1c7c3e7fc3a5524494305d4074ff779c42691fb81bdfdfab5603ec410",
+      "diskBytes": 22464,
+      "diskSha256": "fff27ed1c7c3e7fc3a5524494305d4074ff779c42691fb81bdfdfab5603ec410",
+      "manifestBytes": 22464,
+      "manifestSha256": "fff27ed1c7c3e7fc3a5524494305d4074ff779c42691fb81bdfdfab5603ec410",
+      "passed": true
+    },
+    {
+      "path": "dstorage.dll",
+      "zipBytes": 206904,
+      "zipSha256": "cae65787f61514bec6f012f44546e68b19e39d8854a9ab52af813370d44b272a",
+      "diskBytes": 206904,
+      "diskSha256": "cae65787f61514bec6f012f44546e68b19e39d8854a9ab52af813370d44b272a",
+      "manifestBytes": 206904,
+      "manifestSha256": "cae65787f61514bec6f012f44546e68b19e39d8854a9ab52af813370d44b272a",
+      "passed": true
+    },
+    {
+      "path": "dstoragecore.dll",
+      "zipBytes": 1482784,
+      "zipSha256": "cf85b19a92a8276f8baca0db9bbcd60735bad50768deb303d310e84d5f4fdd11",
+      "diskBytes": 1482784,
+      "diskSha256": "cf85b19a92a8276f8baca0db9bbcd60735bad50768deb303d310e84d5f4fdd11",
+      "manifestBytes": 1482784,
+      "manifestSha256": "cf85b19a92a8276f8baca0db9bbcd60735bad50768deb303d310e84d5f4fdd11",
+      "passed": true
+    },
+    {
+      "path": "MonoBleedingEdge/EmbedRuntime/mono-2.0-bdwgc.dll",
+      "zipBytes": 7834544,
+      "zipSha256": "43a72335bddff9e23e1c9e3f31ed1ebdafbb7bc9173fa1f84226cc670641fa6d",
+      "diskBytes": 7834544,
+      "diskSha256": "43a72335bddff9e23e1c9e3f31ed1ebdafbb7bc9173fa1f84226cc670641fa6d",
+      "manifestBytes": 7834544,
+      "manifestSha256": "43a72335bddff9e23e1c9e3f31ed1ebdafbb7bc9173fa1f84226cc670641fa6d",
+      "passed": true
+    },
+    {
+      "path": "MonoBleedingEdge/EmbedRuntime/MonoPosixHelper.dll",
+      "zipBytes": 611240,
+      "zipSha256": "f1141b241c7958afef59b4faa2ded24a580e135626a0f72a8cc4c1ebc565ef0d",
+      "diskBytes": 611240,
+      "diskSha256": "f1141b241c7958afef59b4faa2ded24a580e135626a0f72a8cc4c1ebc565ef0d",
+      "manifestBytes": 611240,
+      "manifestSha256": "f1141b241c7958afef59b4faa2ded24a580e135626a0f72a8cc4c1ebc565ef0d",
+      "passed": true
+    },
+    {
+      "path": "MonoBleedingEdge/etc/mono/2.0/Browsers/Compat.browser",
+      "zipBytes": 1605,
+      "zipSha256": "8a1082057ac5681dcd4e9c227ed7fb8eb42ac1618963b5de3b65739dd77e2741",
+      "diskBytes": 1605,
+      "diskSha256": "8a1082057ac5681dcd4e9c227ed7fb8eb42ac1618963b5de3b65739dd77e2741",
+      "manifestBytes": 1605,
+      "manifestSha256": "8a1082057ac5681dcd4e9c227ed7fb8eb42ac1618963b5de3b65739dd77e2741",
+      "passed": true
+    },
+    {
+      "path": "MonoBleedingEdge/etc/mono/2.0/DefaultWsdlHelpGenerator.aspx",
+      "zipBytes": 60575,
+      "zipSha256": "751861040b69ea63a3827507b7c8da9c7f549dc181c1c8af4b7ca78cc97d710a",
+      "diskBytes": 60575,
+      "diskSha256": "751861040b69ea63a3827507b7c8da9c7f549dc181c1c8af4b7ca78cc97d710a",
+      "manifestBytes": 60575,
+      "manifestSha256": "751861040b69ea63a3827507b7c8da9c7f549dc181c1c8af4b7ca78cc97d710a",
+      "passed": true
+    },
+    {
+      "path": "MonoBleedingEdge/etc/mono/2.0/machine.config",
+      "zipBytes": 29066,
+      "zipSha256": "e91782a27fa39fc6c1d6ee8b08529f5d35052310d0006034b878eb04b8f2af30",
+      "diskBytes": 29066,
+      "diskSha256": "e91782a27fa39fc6c1d6ee8b08529f5d35052310d0006034b878eb04b8f2af30",
+      "manifestBytes": 29066,
+      "manifestSha256": "e91782a27fa39fc6c1d6ee8b08529f5d35052310d0006034b878eb04b8f2af30",
+      "passed": true
+    },
+    {
+      "path": "MonoBleedingEdge/etc/mono/2.0/settings.map",
+      "zipBytes": 2622,
+      "zipSha256": "49c6160f9d54af4270a3b4e997fc4a8301f79b9e2070118fa46ddbcbbc44f9a2",
+      "diskBytes": 2622,
+      "diskSha256": "49c6160f9d54af4270a3b4e997fc4a8301f79b9e2070118fa46ddbcbbc44f9a2",
+      "manifestBytes": 2622,
+      "manifestSha256": "49c6160f9d54af4270a3b4e997fc4a8301f79b9e2070118fa46ddbcbbc44f9a2",
+      "passed": true
+    },
+    {
+      "path": "MonoBleedingEdge/etc/mono/2.0/web.config",
+      "zipBytes": 11635,
+      "zipSha256": "cf2b54339e069b9e42f7d6795eecbf562c50c1011f4ca8f65f578fe52d97ff92",
+      "diskBytes": 11635,
+      "diskSha256": "cf2b54339e069b9e42f7d6795eecbf562c50c1011f4ca8f65f578fe52d97ff92",
+      "manifestBytes": 11635,
+      "manifestSha256": "cf2b54339e069b9e42f7d6795eecbf562c50c1011f4ca8f65f578fe52d97ff92",
+      "passed": true
+    },
+    {
+      "path": "MonoBleedingEdge/etc/mono/4.0/Browsers/Compat.browser",
+      "zipBytes": 1605,
+      "zipSha256": "8a1082057ac5681dcd4e9c227ed7fb8eb42ac1618963b5de3b65739dd77e2741",
+      "diskBytes": 1605,
+      "diskSha256": "8a1082057ac5681dcd4e9c227ed7fb8eb42ac1618963b5de3b65739dd77e2741",
+      "manifestBytes": 1605,
+      "manifestSha256": "8a1082057ac5681dcd4e9c227ed7fb8eb42ac1618963b5de3b65739dd77e2741",
+      "passed": true
+    },
+    {
+      "path": "MonoBleedingEdge/etc/mono/4.0/DefaultWsdlHelpGenerator.aspx",
+      "zipBytes": 60575,
+      "zipSha256": "751861040b69ea63a3827507b7c8da9c7f549dc181c1c8af4b7ca78cc97d710a",
+      "diskBytes": 60575,
+      "diskSha256": "751861040b69ea63a3827507b7c8da9c7f549dc181c1c8af4b7ca78cc97d710a",
+      "manifestBytes": 60575,
+      "manifestSha256": "751861040b69ea63a3827507b7c8da9c7f549dc181c1c8af4b7ca78cc97d710a",
+      "passed": true
+    },
+    {
+      "path": "MonoBleedingEdge/etc/mono/4.0/machine.config",
+      "zipBytes": 33598,
+      "zipSha256": "e60aec2c5115d65b3acb3c55ea21576dbd770f579166c017125571e46ae560ed",
+      "diskBytes": 33598,
+      "diskSha256": "e60aec2c5115d65b3acb3c55ea21576dbd770f579166c017125571e46ae560ed",
+      "manifestBytes": 33598,
+      "manifestSha256": "e60aec2c5115d65b3acb3c55ea21576dbd770f579166c017125571e46ae560ed",
+      "passed": true
+    },
+    {
+      "path": "MonoBleedingEdge/etc/mono/4.0/settings.map",
+      "zipBytes": 2622,
+      "zipSha256": "ce1db1ad8a9512073164e3eccdc193f7eda036e1a9733caec4635de21b2865c8",
+      "diskBytes": 2622,
+      "diskSha256": "ce1db1ad8a9512073164e3eccdc193f7eda036e1a9733caec4635de21b2865c8",
+      "manifestBytes": 2622,
+      "manifestSha256": "ce1db1ad8a9512073164e3eccdc193f7eda036e1a9733caec4635de21b2865c8",
+      "passed": true
+    },
+    {
+      "path": "MonoBleedingEdge/etc/mono/4.0/web.config",
+      "zipBytes": 18802,
+      "zipSha256": "e38bb8cc68fe5b4edecdfd288d094b9e8ced7629039b2a347682aba0d8bd7492",
+      "diskBytes": 18802,
+      "diskSha256": "e38bb8cc68fe5b4edecdfd288d094b9e8ced7629039b2a347682aba0d8bd7492",
+      "manifestBytes": 18802,
+      "manifestSha256": "e38bb8cc68fe5b4edecdfd288d094b9e8ced7629039b2a347682aba0d8bd7492",
+      "passed": true
+    },
+    {
+      "path": "MonoBleedingEdge/etc/mono/4.5/Browsers/Compat.browser",
+      "zipBytes": 1605,
+      "zipSha256": "8a1082057ac5681dcd4e9c227ed7fb8eb42ac1618963b5de3b65739dd77e2741",
+      "diskBytes": 1605,
+      "diskSha256": "8a1082057ac5681dcd4e9c227ed7fb8eb42ac1618963b5de3b65739dd77e2741",
+      "manifestBytes": 1605,
+      "manifestSha256": "8a1082057ac5681dcd4e9c227ed7fb8eb42ac1618963b5de3b65739dd77e2741",
+      "passed": true
+    },
+    {
+      "path": "MonoBleedingEdge/etc/mono/4.5/DefaultWsdlHelpGenerator.aspx",
+      "zipBytes": 60575,
+      "zipSha256": "751861040b69ea63a3827507b7c8da9c7f549dc181c1c8af4b7ca78cc97d710a",
+      "diskBytes": 60575,
+      "diskSha256": "751861040b69ea63a3827507b7c8da9c7f549dc181c1c8af4b7ca78cc97d710a",
+      "manifestBytes": 60575,
+      "manifestSha256": "751861040b69ea63a3827507b7c8da9c7f549dc181c1c8af4b7ca78cc97d710a",
+      "passed": true
+    },
+    {
+      "path": "MonoBleedingEdge/etc/mono/4.5/machine.config",
+      "zipBytes": 34056,
+      "zipSha256": "ee950004b576fb28dc85f4b0435ed04bf96612de2e8b53be84d07afe85a0de6c",
+      "diskBytes": 34056,
+      "diskSha256": "ee950004b576fb28dc85f4b0435ed04bf96612de2e8b53be84d07afe85a0de6c",
+      "manifestBytes": 34056,
+      "manifestSha256": "ee950004b576fb28dc85f4b0435ed04bf96612de2e8b53be84d07afe85a0de6c",
+      "passed": true
+    },
+    {
+      "path": "MonoBleedingEdge/etc/mono/4.5/settings.map",
+      "zipBytes": 2622,
+      "zipSha256": "ce1db1ad8a9512073164e3eccdc193f7eda036e1a9733caec4635de21b2865c8",
+      "diskBytes": 2622,
+      "diskSha256": "ce1db1ad8a9512073164e3eccdc193f7eda036e1a9733caec4635de21b2865c8",
+      "manifestBytes": 2622,
+      "manifestSha256": "ce1db1ad8a9512073164e3eccdc193f7eda036e1a9733caec4635de21b2865c8",
+      "passed": true
+    },
+    {
+      "path": "MonoBleedingEdge/etc/mono/4.5/web.config",
+      "zipBytes": 18811,
+      "zipSha256": "c4cbddd4fd9347b58cc5a72b36dc4ba1ad2bb699e65869d05cd3fb9865f0d824",
+      "diskBytes": 18811,
+      "diskSha256": "c4cbddd4fd9347b58cc5a72b36dc4ba1ad2bb699e65869d05cd3fb9865f0d824",
+      "manifestBytes": 18811,
+      "manifestSha256": "c4cbddd4fd9347b58cc5a72b36dc4ba1ad2bb699e65869d05cd3fb9865f0d824",
+      "passed": true
+    },
+    {
+      "path": "MonoBleedingEdge/etc/mono/browscap.ini",
+      "zipBytes": 311984,
+      "zipSha256": "4ddd50f31fb968f30bedefc253a46dc3f2890192d05cdaa9e0a64a056eee807e",
+      "diskBytes": 311984,
+      "diskSha256": "4ddd50f31fb968f30bedefc253a46dc3f2890192d05cdaa9e0a64a056eee807e",
+      "manifestBytes": 311984,
+      "manifestSha256": "4ddd50f31fb968f30bedefc253a46dc3f2890192d05cdaa9e0a64a056eee807e",
+      "passed": true
+    },
+    {
+      "path": "MonoBleedingEdge/etc/mono/config",
+      "zipBytes": 3815,
+      "zipSha256": "5776169973a26a387b8b3e5c0f2301a7ab9a6dd7c7d3efa22a96abc47fbf8662",
+      "diskBytes": 3815,
+      "diskSha256": "5776169973a26a387b8b3e5c0f2301a7ab9a6dd7c7d3efa22a96abc47fbf8662",
+      "manifestBytes": 3815,
+      "manifestSha256": "5776169973a26a387b8b3e5c0f2301a7ab9a6dd7c7d3efa22a96abc47fbf8662",
+      "passed": true
+    },
+    {
+      "path": "MonoBleedingEdge/etc/mono/mconfig/config.xml",
+      "zipBytes": 25817,
+      "zipSha256": "0c56e34c69124510fa8c19e7b4c2ca6c1c4ff460ae19f798dd0ca035809e396d",
+      "diskBytes": 25817,
+      "diskSha256": "0c56e34c69124510fa8c19e7b4c2ca6c1c4ff460ae19f798dd0ca035809e396d",
+      "manifestBytes": 25817,
+      "manifestSha256": "0c56e34c69124510fa8c19e7b4c2ca6c1c4ff460ae19f798dd0ca035809e396d",
+      "passed": true
+    },
+    {
+      "path": "UnityCrashHandler64.exe",
+      "zipBytes": 1843112,
+      "zipSha256": "218672788adbfc6f77a956e4a5b2b0b12c93a8c0426cf7db1a21bf57b27f792d",
+      "diskBytes": 1843112,
+      "diskSha256": "218672788adbfc6f77a956e4a5b2b0b12c93a8c0426cf7db1a21bf57b27f792d",
+      "manifestBytes": 1843112,
+      "manifestSha256": "218672788adbfc6f77a956e4a5b2b0b12c93a8c0426cf7db1a21bf57b27f792d",
+      "passed": true
+    },
+    {
+      "path": "UnityPlayer.dll",
+      "zipBytes": 91611568,
+      "zipSha256": "c93b9eaa6b12782ea809a0a35d65e81bbdc24ad080c914a7ca017ea5534b8958",
+      "diskBytes": 91611568,
+      "diskSha256": "c93b9eaa6b12782ea809a0a35d65e81bbdc24ad080c914a7ca017ea5534b8958",
+      "manifestBytes": 91611568,
+      "manifestSha256": "c93b9eaa6b12782ea809a0a35d65e81bbdc24ad080c914a7ca017ea5534b8958",
+      "passed": true
+    },
+    {
+      "path": "WinPixEventRuntime.dll",
+      "zipBytes": 58368,
+      "zipSha256": "81adcfd8253c3489be720da7e30f16004dc9a1f02a8b418c6c3aef4993032e6d",
+      "diskBytes": 58368,
+      "diskSha256": "81adcfd8253c3489be720da7e30f16004dc9a1f02a8b418c6c3aef4993032e6d",
+      "manifestBytes": 58368,
+      "manifestSha256": "81adcfd8253c3489be720da7e30f16004dc9a1f02a8b418c6c3aef4993032e6d",
+      "passed": true
+    }
+  ],
+  "extraFiles": [
+    {
+      "path": "Licenses/NotoSansCJK-OFL.txt",
+      "bytes": 4301,
+      "sha256": "6a73f9541c2de74158c0e7cf6b0a58ef774f5a780bf191f2d7ec9cc53efe2bf2"
+    },
+    {
+      "path": "Licenses/NotoSansCJK-source.json",
+      "bytes": 637,
+      "sha256": "d9bb7e17d841738632006d6e351869a8c575e3fcd51e40728fa7e80e53c7a7c7"
+    },
+    {
+      "path": "build-manifest.json",
+      "bytes": 59690,
+      "sha256": "7ac67b68742ffb3a54f6ee06f9f8c3c6e1722c2af3e2f5d17df920329c3dce24"
+    },
+    {
+      "path": "开始游玩.txt",
+      "bytes": 1627,
+      "sha256": "9b382a7a47a6dc9ca89ea6eca03fcb04165612f7170ac1f9cf49667f11e30c51"
+    }
+  ],
+  "remoteFinalPointer": "Awaiting root final commit/push after this review",
+  "passed": true
+}

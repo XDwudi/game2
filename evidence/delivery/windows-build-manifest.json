@@ -1,0 +1,1572 @@
+{
+  "sourceCommit": "821e8631a9e7bde1c68837aedfabd5a2eab1ffa0",
+  "sourceStatus": "",
+  "note": "Packaging integrity only. Acceptance status and build-to-source PDB checks are in docs/STATE.md and evidence/review. A dirty sourceStatus must be assessed; HEAD alone does not identify uncommitted build sources.",
+  "files": [
+    {
+      "path": "D3D12/D3D12Core.dll",
+      "bytes": 4725304,
+      "sha256": "625bd40005b1c3708695d5256ecf230d278e6b8edba5a88af70f3d91324f3052"
+    },
+    {
+      "path": "D3D12/d3d12SDKLayers.dll",
+      "bytes": 4930104,
+      "sha256": "c0730cc70d3250d3de19c04c17845ba9e70eecaf502d684d1409195ebc5b5959"
+    },
+    {
+      "path": "DiceCraft.exe",
+      "bytes": 667136,
+      "sha256": "3726509af94bdacbfe23f85da13109a7e70fb7d61913506e98690bd3208b2fd7"
+    },
+    {
+      "path": "DiceCraft_Data/app.info",
+      "bytes": 19,
+      "sha256": "c8f4d1f492e8e609b3ad9ea4439542921153641d84003832363e33b698a12f34"
+    },
+    {
+      "path": "DiceCraft_Data/boot.config",
+      "bytes": 358,
+      "sha256": "1f56a6f9b3353411afe2b772188e94633403b0b90b7ed49a5d5d33492c877b07"
+    },
+    {
+      "path": "DiceCraft_Data/globalgamemanagers",
+      "bytes": 89476,
+      "sha256": "1fbbe841f01f82674647e0d5eae42e73219e8e2a3aa78a06b5cd7e9cd0e676eb"
+    },
+    {
+      "path": "DiceCraft_Data/globalgamemanagers.assets",
+      "bytes": 789992,
+      "sha256": "48fc28f9752afcbf03ebe85ad716a4a06493338dc87955735439b7855a78dbb8"
+    },
+    {
+      "path": "DiceCraft_Data/globalgamemanagers.assets.resS",
+      "bytes": 3553504,
+      "sha256": "d39bc2dc060377debd226e7a96002e7d9a37f7dd6a2aeaa324b085972564d143"
+    },
+    {
+      "path": "DiceCraft_Data/level0",
+      "bytes": 14188,
+      "sha256": "c1970103967fd2562bc01a2e02055b4f933905e533f98fa75af342e45d2fac52"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Assembly-CSharp.dll",
+      "bytes": 3584,
+      "sha256": "76b325463fda79f60bb1f8856eaeabda714b8ddd13160741d6e8c8067cfdf396"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Assembly-CSharp.pdb",
+      "bytes": 18780,
+      "sha256": "1c7ca6232fe350691853d158ebf7b5dc367f505e0bd97b2c4887a263bd123454"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/DiceCraft.Core.dll",
+      "bytes": 95232,
+      "sha256": "db7798eb8ceec1febb0e020558155a24a533c23fd1229afe21ee9f82ed9c5dac"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/DiceCraft.Core.pdb",
+      "bytes": 32732,
+      "sha256": "f762bacec99234228c95eaae17e642b99b9876ef8bd211dd552dea824673dc55"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/DiceCraft.Runtime.dll",
+      "bytes": 177664,
+      "sha256": "346b4c1ec85e75ad4f7f15d10f2968c97b1d836e235474878718fab886b43d59"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/DiceCraft.Runtime.pdb",
+      "bytes": 49852,
+      "sha256": "a33f57ac7d2134b11009a402880af91d2ada7373550fdb09f76c68bf76170544"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Mono.Security.dll",
+      "bytes": 241152,
+      "sha256": "e912bcd94b398ba750f74a12b7c61b530720f66e4ff992e62628dd42edf50ae1"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/mscorlib.dll",
+      "bytes": 4632064,
+      "sha256": "ed3bd3b757069e96c26bfdec8179abd00feef8839ae3ad97f51637c12d83efd8"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/netstandard.dll",
+      "bytes": 90112,
+      "sha256": "6ae62e082dc494a2433984177f60ca4db5fae69b1f360a8b33754172b310b8c5"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Newtonsoft.Json.dll",
+      "bytes": 691712,
+      "sha256": "a56146202232958f46bd6a28b5a7da166aea123ee0d646735a46e5c341dfbf1f"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Newtonsoft.Json.pdb",
+      "bytes": 2174464,
+      "sha256": "17cbab4d4207187ed94173c0d59d7a39fabed7c9035b73634c1f02188dd60168"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/System.Buffers.dll",
+      "bytes": 4608,
+      "sha256": "762f8fdbe975e05b76be5fe996c53ce7c75e4a2830f2f50b02a5948ef6ba0aeb"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/System.Collections.Immutable.dll",
+      "bytes": 252680,
+      "sha256": "5b1b1c83ba3d135c2fdfe425842fbe9c7432878b7e468623acb554c69b4c130f"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/System.ComponentModel.Composition.dll",
+      "bytes": 257024,
+      "sha256": "614793b018e061527e53941045f3d44abb2856591a7982ee3479f08df3237322"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/System.Configuration.dll",
+      "bytes": 124928,
+      "sha256": "548ac87e81788971c06463779c82ce735da2be71cdd8d59fe75a226f63981d82"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/System.Core.dll",
+      "bytes": 1113088,
+      "sha256": "f8a67453fe15cdbe58fd459be18af2600b84d465fe9dc7ef0bceebbb92137a05"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/System.Data.DataSetExtensions.dll",
+      "bytes": 29696,
+      "sha256": "3ef867092db854496c3a119e2a0c9c929eadd64e4f82cc590a2defbc0ffd8885"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/System.Data.dll",
+      "bytes": 2125312,
+      "sha256": "0327833c231a3c2c989ba95651d02bd35417e9579e421adb5ea63182f1741b30"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/System.dll",
+      "bytes": 2641920,
+      "sha256": "f7a66d1ecb77d1d74840b7100eef17ebdb5aefa2957acc7d3a6cad6d2ac12304"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/System.Drawing.dll",
+      "bytes": 489984,
+      "sha256": "70dd9d25249ec173db45a94cce4e3d66a49dbc47bcedaf56be0a1a3193f013c3"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/System.EnterpriseServices.dll",
+      "bytes": 44544,
+      "sha256": "4abd633b3749f92df1dc7c8ed0083515d8c4815220d619ff7491ed617a90b70e"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/System.IO.Compression.dll",
+      "bytes": 114688,
+      "sha256": "ce68e338cd2111d37296ab573e07296f46d0ab1d62140157012662f5c1631bbf"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/System.IO.Compression.FileSystem.dll",
+      "bytes": 18432,
+      "sha256": "d221d8ede654d31bc9d172050aebcf6583389df49ea9ca3c64b892b4d431aa93"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/System.Memory.dll",
+      "bytes": 4608,
+      "sha256": "c4f030a2cba7da7cdcf493257c24560e203d355904aee490d645a935842f834a"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/System.Net.Http.dll",
+      "bytes": 122880,
+      "sha256": "fc1d9895a57c89690cdbb390ff0e2a33139e6d55b3585ce27a975919b782f384"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/System.Numerics.dll",
+      "bytes": 119296,
+      "sha256": "10ad242e00ccc5842a18f23a5db7cb98994bb9adc9cb8e928bfa983017f7b84d"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/System.Reflection.Metadata.dll",
+      "bytes": 487584,
+      "sha256": "afcfd6c166fe0d59f45cc6363082806f6a7ea8ceed9dc6c75eec9fd79ccb5717"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/System.Runtime.CompilerServices.Unsafe.dll",
+      "bytes": 19256,
+      "sha256": "fd67abc4c4af10affbcd42fd68a2a7bc361b26714afe6965d4d0d139459d8297"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/System.Runtime.Serialization.dll",
+      "bytes": 934400,
+      "sha256": "b5e613632bb6740233ef64eda07a9012b4b760bdbdb382cc9e8401bec181c3cd"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/System.Security.dll",
+      "bytes": 320000,
+      "sha256": "a2b5d9892a204c55cac80a97f115f2ed69c33616b5bc913a329d3a69e3306e33"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/System.ServiceModel.Internals.dll",
+      "bytes": 215040,
+      "sha256": "aaa9fa4c9037fb65c82d87b6ff1b5666e41e8a2706cb4fa1669856ed546272f9"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/System.Transactions.dll",
+      "bytes": 35328,
+      "sha256": "e10e97aa9723c7c6c48c96d066029ad274094ebca433768b852840455c9bf241"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/System.Xml.dll",
+      "bytes": 3160064,
+      "sha256": "fdead0bddf7d8817a616c09cc603868b4a44645bbc9834775c9309b059576345"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/System.Xml.Linq.dll",
+      "bytes": 136704,
+      "sha256": "d1f14ecf3ce7b6584f409203a474fd32bea20b8c57a64160e419c30cc0eb3ede"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Unity.Burst.dll",
+      "bytes": 5120,
+      "sha256": "e0e7fd1d83fc55e919b998ad02c1bc197ae8b2557fda4c5e8d95e4c51822f7b2"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Unity.Burst.pdb",
+      "bytes": 16724,
+      "sha256": "88bd6550040414d801b4b7d88972dd1276b522d8559f018fb284216895f3401f"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Unity.Collections.dll",
+      "bytes": 443904,
+      "sha256": "7a320c3d04eb190bbd523a152d15d8f3fdcabcb8dd8a189f7979a5e0ec0d65dc"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Unity.Collections.LowLevel.ILSupport.dll",
+      "bytes": 5120,
+      "sha256": "ff50383f807f9692e4913b97e47d86fefcb8faa33d6d48cd3e3fd6fc7ffb448d"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Unity.Collections.pdb",
+      "bytes": 233796,
+      "sha256": "31fe073923eba59d2b4ca91a8407ae5aa06b7bf89198dcec7debef2e26e10f3a"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Unity.Collections.Tests.CoreCLR.InternalJobNestedPrivate.dll",
+      "bytes": 4608,
+      "sha256": "9d1a345a7b9eb079032631128df9ee3ddb5c7061ed1fca4a352b25b6b86d6d09"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Unity.Collections.Tests.CoreCLR.InternalJobNestedPrivate.pdb",
+      "bytes": 16992,
+      "sha256": "6569d854e699c18ce1a7fe20944bd0d510bcef5f7e9382f8f138ca95fa125393"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Unity.Collections.Tests.CoreCLR.PrivateJobNested.dll",
+      "bytes": 4096,
+      "sha256": "09003c37fb5d99dce9dd4a75d9b06aff5ae3fc6990ba2b3b13e31a5f1e7a0c98"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Unity.Collections.Tests.CoreCLR.PrivateJobNested.pdb",
+      "bytes": 16980,
+      "sha256": "ca7fb115d364e1b72c23d67bc4fed71488bacbf3d782a667cf4e578588ea8f49"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Unity.Collections.Tests.CoreCLR.ProtectedJobNested.dll",
+      "bytes": 4096,
+      "sha256": "99bdf46ec28b4c0ea2542d21615e17e9a9eb4adbb854f0c9282ce0b952749eee"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Unity.Collections.Tests.CoreCLR.ProtectedJobNested.pdb",
+      "bytes": 16984,
+      "sha256": "47267b8512bf2507ee51814259a86f73dd73d9d6acd654a6b545741daffec7cc"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Unity.Collections.Tests.CoreCLR.PublicJobPrivateGeneric.dll",
+      "bytes": 4608,
+      "sha256": "cb4c8940f0f0e06dbad13bdaf4b06a8094aced2cb6912d3fd718589f4e26e5c2"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Unity.Collections.Tests.CoreCLR.PublicJobPrivateGeneric.pdb",
+      "bytes": 17104,
+      "sha256": "4bdb8f343860951d61d3ec01a97dfae42e8cbe3728104a532527f8988aaab190"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Unity.InputSystem.dll",
+      "bytes": 1133056,
+      "sha256": "ae571f14b59260dfa4802442f68febf044535752992d33192af002c674176ca0"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Unity.InputSystem.ForUI.dll",
+      "bytes": 15360,
+      "sha256": "08b1c67df88f163c5948e79f0a45228fdcd29890992ff4dc6bdf66fc04470529"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Unity.InputSystem.ForUI.pdb",
+      "bytes": 20312,
+      "sha256": "087118cc6e5e2641c742e1170276490eb70e42ebf983bd15bf2cf21ee37527ee"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Unity.InputSystem.pdb",
+      "bytes": 429044,
+      "sha256": "a5fb7750a50f7cf1963ab202cdeb13ebfbc66b84147cb79fe899482706acd455"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Unity.InternalAPIEngineBridge.004.dll",
+      "bytes": 4096,
+      "sha256": "f72c0cb5a5a59fc5e237dcdc3aa23410a590737384aec9a0be6f1bdc42279cc2"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Unity.InternalAPIEngineBridge.004.pdb",
+      "bytes": 17000,
+      "sha256": "699ef4944bdc2a09972779a86a48441af97b6f96b29034e17b02e9f202f03de1"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Unity.InternalAPIEngineBridge.ObjectDispatcher.Runtime.dll",
+      "bytes": 5632,
+      "sha256": "7966b5a02b1ee7b557d3081c18e82b0c3c02b9c8941f6235d879774b9a8c0d05"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Unity.InternalAPIEngineBridge.ObjectDispatcher.Runtime.pdb",
+      "bytes": 17348,
+      "sha256": "56447e8f6ac418f28e3015cb7b7b6ddb25c540d5455079f68224966fe389d212"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Unity.InternalAPIEngineBridge.RenderPipelines.Core.Runtime.Shared.dll",
+      "bytes": 3584,
+      "sha256": "58252e36ca3beb8a2a7d759e6037364d6d4456ea3baf1269b44b2a788a63a30d"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Unity.InternalAPIEngineBridge.RenderPipelines.Core.Runtime.Shared.pdb",
+      "bytes": 16836,
+      "sha256": "86f0ccf0a0b248a4305ff80da44fc51c2d0758b02553d7c4b850cf13e3954067"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Unity.PathTracing.Runtime.dll",
+      "bytes": 159744,
+      "sha256": "954af520747f25f782b9f98e09f1a092735f3d9b9cbc95af12dfd0978640a124"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Unity.PathTracing.Runtime.pdb",
+      "bytes": 66848,
+      "sha256": "2b909fb5792a2a13b5ca8125efc557b96ad8a5508fe61d05a78b57e9bc1553c1"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Unity.Pipeline.Attributes.dll",
+      "bytes": 7168,
+      "sha256": "f48f1942eb63be487ca34bbc088894e0a89167013d7f4c574d023616e34cdbec"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Unity.Pipeline.Attributes.pdb",
+      "bytes": 18176,
+      "sha256": "994b02b654d83f7de0e6116659cab9745355c1ed9a17c09dedcf55007376d979"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Unity.Profiling.Core.dll",
+      "bytes": 10240,
+      "sha256": "00183e02a7065c77139e3c2741d3bb329baf1a478a091220ad4770cc599bd5be"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Unity.Profiling.Core.pdb",
+      "bytes": 19564,
+      "sha256": "5cce4a2598317bde28a9d217e4b5ebe941dc97267a5779591d259c5faaa2dbdc"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Unity.RenderPipeline.Universal.ShaderLibrary.dll",
+      "bytes": 7680,
+      "sha256": "64e152698cafb29dd934dc5a7be50f2b80def20bf7128d084077bb2e40b1b19f"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Unity.RenderPipeline.Universal.ShaderLibrary.pdb",
+      "bytes": 17064,
+      "sha256": "5f90205fdfa2b2ce4ef2578c950d04d4dfcf723ad0358537b3dc91e1a1e78cf2"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Unity.RenderPipelines.Core.Runtime.dll",
+      "bytes": 1094656,
+      "sha256": "44acced7ce181670b392b48b3f06eb0cf41677e970604f94fcc60ac8781354f6"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Unity.RenderPipelines.Core.Runtime.pdb",
+      "bytes": 325036,
+      "sha256": "21cad0f3efc26ddade8e1012011ef23e8956830d25442eb54e18073c0109b939"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Unity.RenderPipelines.Core.Runtime.Shared.dll",
+      "bytes": 11264,
+      "sha256": "b367d05b2deb653dcad41646766e5c255894498543f1401d6292ff3ae3bf6e38"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Unity.RenderPipelines.Core.Runtime.Shared.pdb",
+      "bytes": 19260,
+      "sha256": "17c0f9572a4ac34748174d879151a846183982cf39e7a74d856456e9a390a6c3"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Unity.RenderPipelines.Core.ShaderLibrary.dll",
+      "bytes": 3584,
+      "sha256": "196909e6bd269da3e60e1d095306355e8aef7e8c2237ab2ec4efdd36660ce72b"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Unity.RenderPipelines.Core.ShaderLibrary.pdb",
+      "bytes": 16764,
+      "sha256": "dfd268b8887ea71aaecb07dc0af9612e47f59f24fe2c21fa63f9d1d4b7b63f9d"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Unity.RenderPipelines.GPUDriven.Runtime.dll",
+      "bytes": 299520,
+      "sha256": "4594b86b6eb0b7b88351510725571bf5f29b27c527c6157fe4f89391105f0490"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Unity.RenderPipelines.GPUDriven.Runtime.pdb",
+      "bytes": 117660,
+      "sha256": "176f08fdf1ceb5054fc9c5e092d3c975a8935cebc38744eda9ffa7ee2a135a65"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary.dll",
+      "bytes": 3584,
+      "sha256": "f7106d60c3caf51bf50271759ceb75a89273f9743ee089a22ebd8a97234d0d10"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary.pdb",
+      "bytes": 16764,
+      "sha256": "a78fdc35c38f856c3d07b6dca2610db1c8e7f91c131cac8ee8eec9b970865386"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Unity.RenderPipelines.Universal.2D.Runtime.dll",
+      "bytes": 218624,
+      "sha256": "546c7e02eaa76a454669b7f963d307ab6e8715bebb679a86090f8cbb601db5f3"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Unity.RenderPipelines.Universal.2D.Runtime.pdb",
+      "bytes": 108864,
+      "sha256": "b058220d503b6210ada3cdbceede98ba7df590a32a5b4418566abf2994b12e39"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Unity.RenderPipelines.Universal.Config.Runtime.dll",
+      "bytes": 4096,
+      "sha256": "1c7a79377525b1d785b911a74c6054f9f2becdb08b6ea394c8ea81fc1261387b"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Unity.RenderPipelines.Universal.Config.Runtime.pdb",
+      "bytes": 16844,
+      "sha256": "2b288e50f27ad68c43ce9a93e68b3fcdf7bc2d24c9c7b72fc8e9b9ff43856cf2"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Unity.RenderPipelines.Universal.Runtime.dll",
+      "bytes": 759808,
+      "sha256": "985c4e7b2239a9e247470928352da2373f40a097d89297fae230c8ea463e8c1a"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Unity.RenderPipelines.Universal.Runtime.pdb",
+      "bytes": 255240,
+      "sha256": "c6681455257470939189b0b83a5bf112b98912156e0b787b7258c7730c3572fd"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Unity.RenderPipelines.Universal.Shaders.dll",
+      "bytes": 3584,
+      "sha256": "bea0c4309bc7ba039d7dba13f5b75bca45d545f7dc84587bb65b38c7f6c4d0a8"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Unity.RenderPipelines.Universal.Shaders.pdb",
+      "bytes": 16752,
+      "sha256": "ac0856bebdf08a01aaa12cc169343134199b33727c0d1ed367d3e614e6a04c55"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Unity.Scripting.dll",
+      "bytes": 70576,
+      "sha256": "53ab214b5cc329702c20e64f71f31bb991fd94fa93f9befa498610b8236c82e0"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Unity.Scripting.pdb",
+      "bytes": 29032,
+      "sha256": "0ebc5742e3d2bab2ab06ba0e021fea55287dce4de0468a215c53f42e9db46da3"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Unity.SurfaceCache.Runtime.dll",
+      "bytes": 36864,
+      "sha256": "d54bf12003a0842ec9fd7c84327862c91b5e38fce8ef57a663d18b49e7a40327"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Unity.SurfaceCache.Runtime.pdb",
+      "bytes": 26528,
+      "sha256": "a1d12bae688defaaba9799dff45571701847b75b5084b7ad683ed5a9a321f8f8"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Unity.TextMeshPro.dll",
+      "bytes": 445440,
+      "sha256": "9458d88ff2a3fe858726d93da0a26c7dba19515d9f86a5147b1e2cca72163fb7"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Unity.TextMeshPro.pdb",
+      "bytes": 184772,
+      "sha256": "cff9b3287921dcda24d94ffc7f7093ac2e890379f70bc035f9cba74df843ff59"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Unity.UnifiedRayTracing.Runtime.dll",
+      "bytes": 106496,
+      "sha256": "6ebc92c48292b41b253059f144fb11c24686bf33991187e6aaa4a6881d550c8c"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/Unity.UnifiedRayTracing.Runtime.pdb",
+      "bytes": 51904,
+      "sha256": "284642890ed159d8bb2a3b900023a92516057c93dab832d2d53cca4dd440afdd"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.AccessibilityModule.dll",
+      "bytes": 49584,
+      "sha256": "c00102f94241fec153db08939d9412acc800500b50b800684682b8267e9d98e6"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.AccessibilityModule.pdb",
+      "bytes": 20772,
+      "sha256": "2eea5c95b4ebb2fb3ae596a8830e4b1d095bf7a23a13038101d2a162cffe0d53"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.AdaptivePerformanceModule.dll",
+      "bytes": 122280,
+      "sha256": "f1a7ef51f7ef4348a8032fe8fd2c7805b1b98a5e08bc8914e2cc4ada9c22d0f6"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.AdaptivePerformanceModule.pdb",
+      "bytes": 48720,
+      "sha256": "6ed36b66b4b0f9d4f00788a9e769cf1a73d2493b381f9438b19cbeaaf9dc0246"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.AIModule.dll",
+      "bytes": 87472,
+      "sha256": "1bcf1b74532457ee06422c44144c55a9bc470dc8f4bbc50b476858c2e4848ca3"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.AIModule.pdb",
+      "bytes": 23060,
+      "sha256": "49fbcbf2779967b04b58e129670ca734692b128830721834775dde99a4811467"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.AMDModule.dll",
+      "bytes": 21936,
+      "sha256": "c1833db6062471ca3a1a5259979f07f9d4d5b5bbd08535a21f1ebd18d4cc4ddf"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.AMDModule.pdb",
+      "bytes": 12376,
+      "sha256": "078f0dba17e79807c53eae7235579b81c79495f3c51c880c59291a0f0ddbafa9"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.AndroidJNIModule.dll",
+      "bytes": 121256,
+      "sha256": "840113117ebef4831c885c2fbeae1ff8dc270318ff4a4a49420f41fc7e450f6a"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.AndroidJNIModule.pdb",
+      "bytes": 40944,
+      "sha256": "cf92376e05961db9eccb1b370f50d391ffdeac66b3c039614fd6a079e89423ea"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.AnimationModule.dll",
+      "bytes": 218024,
+      "sha256": "fba418a32ecbcf46d175961e27618677c26e7e2efbd8c227b042ee6da9d85b20"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.AnimationModule.pdb",
+      "bytes": 49452,
+      "sha256": "140a31ca0847d9a58aa8e61bbdf22e50c3a646841c0842d66c583e690652346d"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.ARModule.dll",
+      "bytes": 27568,
+      "sha256": "d8f08fa3d63621acdfba3d641acf819ba262f48995eea36e1d3a4e5450fba6ad"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.ARModule.pdb",
+      "bytes": 10812,
+      "sha256": "46876c9a1d8aec08ae501800136a9926b6c48c57da10428ee4299d383e087b21"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.AssetBundleModule.dll",
+      "bytes": 42928,
+      "sha256": "76aba452ddef51b758dc7162dfb4291b4213a8ab2cae824abde725a55b9737ef"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.AssetBundleModule.pdb",
+      "bytes": 13948,
+      "sha256": "198194686f274c6ec60bd3e8d541cc4eadbc7b94ae3854329b2bbe43822e7b45"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.AudioModule.dll",
+      "bytes": 142248,
+      "sha256": "5cea0fa111f6a594f1ba70ab059d2d1317972213e62ef99879693134b5400226"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.AudioModule.pdb",
+      "bytes": 31032,
+      "sha256": "78b8c4ac9866d8d6f132cf64f6fb31c41b91fb11cba4db2adf5fbbbfa3c8f01b"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.BurstModule.dll",
+      "bytes": 337832,
+      "sha256": "6db1906c74890ba3d6c8fd5cd1fa46b870e48433e2476be1a17db02f8499709b"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.BurstModule.pdb",
+      "bytes": 170492,
+      "sha256": "a42bdf86784aaa511368facf14af734b23e702b9408ecda667f87624b461addf"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.ClothModule.dll",
+      "bytes": 38320,
+      "sha256": "c3359d2506f61d7c99c0f83cd41cea85c264f1b5fa6b95efa64331161cc72520"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.ClothModule.pdb",
+      "bytes": 11392,
+      "sha256": "9b353561a1f1ea8bee53789108714e94a470f60363f2cfccba65e4165a5eeaaf"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.ClusterInputModule.dll",
+      "bytes": 30120,
+      "sha256": "3021503f52a1ce9b6de1ae4402b1935f3f9e5c2b3f3963073811b56aa0f3472e"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.ClusterInputModule.pdb",
+      "bytes": 10260,
+      "sha256": "747945ca0c043bce02883e67ee09f84ff277e495a61ab2cf67829aa9173d3874"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.ClusterRendererModule.dll",
+      "bytes": 28592,
+      "sha256": "4548e8cbba37a6efe6bb799acebd14dfc780ac6bb7cd61a79fbb78cd6105f626"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.ClusterRendererModule.pdb",
+      "bytes": 10728,
+      "sha256": "afe0d41ff7f5f0b4359d4fd0367f136091a272ecea2f888504217a40fc8dd6cb"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.ContentLoadModule.dll",
+      "bytes": 56232,
+      "sha256": "c87fa9927dd947d515437aaff0a02519df0b3cf5b075daf5a980dbb88c79e67f"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.ContentLoadModule.pdb",
+      "bytes": 18096,
+      "sha256": "79afbd514cc9602eba49f18cb26ab46b72b0a9e9017e301a65cc3ad9d1aa344e"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.CoreModule.dll",
+      "bytes": 2030504,
+      "sha256": "957c23d330e2178effe4bda021cb8749f8d8d406bc2012ab8c98a6db0eba175f"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.CoreModule.pdb",
+      "bytes": 499956,
+      "sha256": "23f296787cdcdcda1a8ebc430035c48cf41b5ba5223b404a24b1c13b2c506482"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.CrashReportingModule.dll",
+      "bytes": 28584,
+      "sha256": "3ba8d5bea102a35c0f0e4c3ca2fb97d8ecca4eaa76060433ce25cc33a6603384"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.CrashReportingModule.pdb",
+      "bytes": 10892,
+      "sha256": "957c93fc04feb57270875888d288799f9c3fa86c039fb0d52f72e1444e241c13"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.DirectorModule.dll",
+      "bytes": 42928,
+      "sha256": "5c0a7a625977c9307a778e1c5013917a439e606ae299b0706a3434d5b15f86ad"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.DirectorModule.pdb",
+      "bytes": 13808,
+      "sha256": "395828bf8063f1e98b706a88d420bd8943eeee30bea9dd8270b0ec7776d2edc6"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.dll",
+      "bytes": 226216,
+      "sha256": "0b5700b6f374e0f13740b11d1777051d5aa67b899184940bb9fadb5522df4915"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.DSPGraphModule.dll",
+      "bytes": 33704,
+      "sha256": "0de3bbc63ccf3682f68fb576467584de44cad9273ebd9a8f39ec04eaf2d3ad99"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.DSPGraphModule.pdb",
+      "bytes": 10472,
+      "sha256": "0160ef74aec68516bb7882f0ad927c4cb9dd375a86f3364bf4a4846a13465c44"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.GameCenterModule.dll",
+      "bytes": 46504,
+      "sha256": "85d274d5839f328c77de2a9a411b6ff5c3273c5abecf207581cdf2cc6a0b6554"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.GameCenterModule.pdb",
+      "bytes": 16572,
+      "sha256": "944845a2b9dfce8bb3f32bcb0033c97518037acefd39e2b9d713113e8f8e4636"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.GIModule.dll",
+      "bytes": 26032,
+      "sha256": "8ba968f1c0ce3813ea829f692d8f391a7baa0f44413803e1c555510942702456"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.GIModule.pdb",
+      "bytes": 10132,
+      "sha256": "e49099d6d5ee968fc50a33a00ce01aa70393a9ccf7606cb2f774785cbec6f475"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.GraphicsStateCollectionSerializerModule.dll",
+      "bytes": 14256,
+      "sha256": "8b36edd5cb4745844fe84732f68b59a6efaa0e64003ba8403693499aabe6a631"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.GraphicsStateCollectionSerializerModule.pdb",
+      "bytes": 10164,
+      "sha256": "7d584bad173f4fde08f1cb25934e68d408585b707d80cb199e0e709b499a26f2"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.GridModule.dll",
+      "bytes": 32688,
+      "sha256": "83e2ca067f5db330ac534b9144f6bbad0bd44dc23a6b5663639f86da0534d37f"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.GridModule.pdb",
+      "bytes": 10912,
+      "sha256": "92daf5afebaf58cd2134e6b6ec5500c5eaab902c42229a668173a17cc7d08f31"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.HierarchyCoreModule.dll",
+      "bytes": 114608,
+      "sha256": "9103aeda2704b9dd97052496398bc54a640785c790af6a7249d98a2734e17f04"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.HierarchyCoreModule.pdb",
+      "bytes": 35324,
+      "sha256": "c8a9bd6b808f3331e63854660fb6b3001b585f963ea2404d0724c469731e4be9"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.HierarchyModule.dll",
+      "bytes": 117168,
+      "sha256": "99ae2a5cce3b492c6c26818c53691b5c57f5b4cf6e6002b314c9d0459859e288"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.HierarchyModule.pdb",
+      "bytes": 47580,
+      "sha256": "8e667e79145bd5c36f483309878d719818e8336be540332d3589800557fcf04f"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.HotReloadModule.dll",
+      "bytes": 26024,
+      "sha256": "74e637bf13b34e586dcfa6584395eb5d6e210e77878cc495d4950d53f1e4df24"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.HotReloadModule.pdb",
+      "bytes": 10132,
+      "sha256": "db50f3c1078d1a0f76df4f9bded58a1de68409375b87370ba60f48d34ec0afb0"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.IdentifiersModule.dll",
+      "bytes": 16816,
+      "sha256": "245fe9769bb2d51a737e9f71899cde96399069b62568d680df619d6554d8213c"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.IdentifiersModule.pdb",
+      "bytes": 10564,
+      "sha256": "8509196ebadea5eafa1c12f4d6a2bfcdc8eeed6c9110628c5a0bc15f692c782b"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.ImageConversionModule.dll",
+      "bytes": 34224,
+      "sha256": "6a4ff449ce3fd1ccc9ad46aad7686ff01b0092842718797c753209cb39093d4e"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.ImageConversionModule.pdb",
+      "bytes": 11344,
+      "sha256": "508c5d9b659429df2720bf7468fdd831de91221c0d4f9c23623b7f42c606b352"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.IMGUIModule.dll",
+      "bytes": 191920,
+      "sha256": "ace052a9426fdf9c41e64b9619818c802541b888fcb34035876915ef40267c37"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.IMGUIModule.pdb",
+      "bytes": 65780,
+      "sha256": "6228c582d4b52fa0bb5b76749b96e128a82e4047b6fdc98c314b54ec9a907799"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.InputForUIModule.dll",
+      "bytes": 56752,
+      "sha256": "7f051c08279f409b25fdbad976fa01f6ee873c91e0fa9f31c583481f065f1449"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.InputForUIModule.pdb",
+      "bytes": 24260,
+      "sha256": "f5f54fda7c88746580beab4b963344169caedd502cdf7cac397d00cface6da86"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.InputLegacyModule.dll",
+      "bytes": 42928,
+      "sha256": "b36fc67eddadde63d9c0bf53af314eea74883386ae8406d27567ef26b89b8b28"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.InputLegacyModule.pdb",
+      "bytes": 14284,
+      "sha256": "f9d760901624283a3fb93ff4c64e55ef41ffd3a56455bca6bf93d4e0e4f6b3a6"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.InputModule.dll",
+      "bytes": 32680,
+      "sha256": "510fe0623c4f8bf39221861605c29be74b6cd4a02c9d751f24e879951cf05226"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.InputModule.pdb",
+      "bytes": 13440,
+      "sha256": "0d124c6925752ec6fa703cb6b3c227106a291f1ed46dcef9b1d9e54c5a42b5b4"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.InsightsModule.dll",
+      "bytes": 15784,
+      "sha256": "3793290b8ec42954eb780d5501479e6e242eb516ba304e6521f7678e01cc965a"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.InsightsModule.pdb",
+      "bytes": 10924,
+      "sha256": "ab2b6dba751ef3cfabff4365aa9bd80ad9397cce1a82ad335ad442d79a335e8a"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.JSONSerializeModule.dll",
+      "bytes": 29096,
+      "sha256": "55c7afef07c8872f8e110b2b61836c050a4e3b87b24228b282141f621472b00f"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.JSONSerializeModule.pdb",
+      "bytes": 10620,
+      "sha256": "ec91ad463e865fdb2da39f57dced58a7040bd39d3cbeae19ac5b4f8628814e43"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.LocalizationModule.dll",
+      "bytes": 29104,
+      "sha256": "789d956c0c403406a9229c5a026897cd7c883b02f5d807b381bc65ec76d7c67b"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.LocalizationModule.pdb",
+      "bytes": 10560,
+      "sha256": "9960e4ac3eb9f100e58da361a6c658f3696253a9750989b8dd3eb6902af781a3"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.ManagedKernelModule.dll",
+      "bytes": 14256,
+      "sha256": "6eae37905bc1a8132d2d9fc1043b0ac05ab8ab4a4c528c9bdbe5b6efae0b0f52"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.ManagedKernelModule.pdb",
+      "bytes": 10164,
+      "sha256": "06ba63f7d13aade1b4ae7dfc39423d11a31b76da7ec0dc5b354991e1688e1c17"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.MarshallingModule.dll",
+      "bytes": 100784,
+      "sha256": "17992d81bb146144c3f3ac39a2c02474f2e3615d33368694a3973451ea824c40"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.MarshallingModule.pdb",
+      "bytes": 17104,
+      "sha256": "c424a4a08f2a887deaa3b9a3fb44d45bdd876b5574e13dc03f00f5959855f361"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.MathematicsModule.dll",
+      "bytes": 740784,
+      "sha256": "91d9baed094baeb44534eb143c6bd0512caf2697f6942ccc76007b1b6fc24a28"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.MathematicsModule.pdb",
+      "bytes": 324472,
+      "sha256": "86e910a1136c1d760077e0e39638e604038157d5485b3bc7f116f3372d5e2714"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.MultiplayerModule.dll",
+      "bytes": 18352,
+      "sha256": "c94981260578bca956026161304ad88fae7de4c6c4bc484d3fc5f1082f75d0bd"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.MultiplayerModule.pdb",
+      "bytes": 11320,
+      "sha256": "57108f1f6c8d3d87b1840a9e7d79f84af651c8f97f0ba4db1efe76d6c28f6423"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.NVIDIAModule.dll",
+      "bytes": 41392,
+      "sha256": "803fd6bae6a7f5ce511c2ad876f37d01f3f1894da445504b20cac40b086f59e3"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.NVIDIAModule.pdb",
+      "bytes": 15572,
+      "sha256": "2226c5377590d82d4714c23bbdae42b02c2d7aceee03e74b8a2e0725a3a64c53"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.ParticleSystemModule.dll",
+      "bytes": 170416,
+      "sha256": "378f770a4633d2628105a5c9f2fbe0ca1712a6402114ac2cb34950b4ca4f076b"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.ParticleSystemModule.pdb",
+      "bytes": 37184,
+      "sha256": "723d74fb37594c62550cb3871c25c149260e18bacfad635749080b37fcbbd4c3"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.pdb",
+      "bytes": 13180,
+      "sha256": "293c4de15c553e6174d3e68fc7e5b41f4ce483459f4c7df6081888ad56a43f90"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.PerformanceReportingModule.dll",
+      "bytes": 27056,
+      "sha256": "32db47ceb72b497f2e0036cc93e70ba80f2d9a4147a2eea763e0b60087501377"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.PerformanceReportingModule.pdb",
+      "bytes": 10380,
+      "sha256": "341771d9e9daf933e70597d0d331f5fec8e2b870286d94457e30847705b302ed"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.Physics2DModule.dll",
+      "bytes": 222640,
+      "sha256": "75842b91c28c4c9202df446ce0bf6efb00f4e80ac2250bd734cdbe4967127a00"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.Physics2DModule.pdb",
+      "bytes": 43444,
+      "sha256": "ad0fb6852f93caee420accc30164b2808a9eb3facafa7e518cdaffe916e840bc"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.PhysicsBackendPhysXModule.dll",
+      "bytes": 14256,
+      "sha256": "8ae8cdad4c8c0c1d28febb463cd1e41d76c95482040dc2bee992902586a248f7"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.PhysicsBackendPhysXModule.pdb",
+      "bytes": 10156,
+      "sha256": "3a435b58aefb116a17598fd8fea8b39eb7068ff1de20fab5ac34fc38aa05a9db"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.PhysicsCore2DModule.dll",
+      "bytes": 481192,
+      "sha256": "9c329c52a02962cee6aa2d8c7fdc40f40fcae9d139f52e20be8381d150f3cd1b"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.PhysicsCore2DModule.pdb",
+      "bytes": 114992,
+      "sha256": "da10644e4f498b8527c4fd62345f508095e8f747c4dd94a2903675db47b0f2b5"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.PhysicsModule.dll",
+      "bytes": 181672,
+      "sha256": "2a0adcddf1a0c0a0687445e9a06e187249289e4e788ea315a1d8784f393946ee"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.PhysicsModule.pdb",
+      "bytes": 39968,
+      "sha256": "fced7ae0ea8652b4c48cbc029cf365398af53063564dca13dbbe93304fb54194"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.PropertiesModule.dll",
+      "bytes": 124840,
+      "sha256": "ab289a26978bc28ad743d87f6cd6445fccb1b4f588fbaed0801cb563a447504a"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.PropertiesModule.pdb",
+      "bytes": 51876,
+      "sha256": "fbee2dcacf0fa1362f76870ff7304dfb14d38d8f743ef2cec809bd324e71b975"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.RenderAs2DModule.dll",
+      "bytes": 27560,
+      "sha256": "eeec4b59e3c673d061e4f75ef376cffd8e52c494e68f119323177b5c0283b155"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.RenderAs2DModule.pdb",
+      "bytes": 10192,
+      "sha256": "cac683f1e289c15bf321e18e9ffed7f717ddf74a65b960fa1be625be2900ac95"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.RuntimeInitializeOnLoadManagerInitializerModule.dll",
+      "bytes": 26032,
+      "sha256": "a728c2f3a28edf711494783cf5c86821715a10dd6874371660139104e240d642"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.RuntimeInitializeOnLoadManagerInitializerModule.pdb",
+      "bytes": 10200,
+      "sha256": "4beee22a8ae5abf44011d1f6ddb2d52154cc5470482ef01aa356304c573b83f2"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.ScreenCaptureModule.dll",
+      "bytes": 28080,
+      "sha256": "f76237cdc7b2f5d2dc3fc3e04feddf87cc4dbab96185e98774edcc86397abe3d"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.ScreenCaptureModule.pdb",
+      "bytes": 10664,
+      "sha256": "cd687be2d50c3218608a72988cc4907efb5ca2f41a337a5cf412d775f89da434"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.ScriptingModule.dll",
+      "bytes": 65968,
+      "sha256": "198355e3872f0a5f1fb6e0c41a221f7d8b254e33eace8a1e7a067184b21118fe"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.ScriptingModule.pdb",
+      "bytes": 24592,
+      "sha256": "e1f9edf6959be52e93e14b7fb8c494149cb13989c66ed0e90b30df05b7fb5489"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.ShaderVariantAnalyticsModule.dll",
+      "bytes": 26032,
+      "sha256": "9df089927e6d80cec2aa89c3f488d2283be0b256dd8bd04306c207799aa15dbe"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.ShaderVariantAnalyticsModule.pdb",
+      "bytes": 10264,
+      "sha256": "bbd657709b8cacd6e7bcf3687f81713acafa8e3edc30cc664779c56c5abc4b0f"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.SpriteMaskModule.dll",
+      "bytes": 30632,
+      "sha256": "83e5fd0c9b92fcf07b188419dcc4f21db8f645050cda1cb95e10d88e5a94c4cc"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.SpriteMaskModule.pdb",
+      "bytes": 10480,
+      "sha256": "1e31719bb657eb04c3aa66d30a771bec187fdce0bf71737e9263a4accd3d836a"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.SpriteShapeModule.dll",
+      "bytes": 34216,
+      "sha256": "83b86c99d01ef30f550bd7e3605c19141e7ee050dbcad42519520f74adc9a7db"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.SpriteShapeModule.pdb",
+      "bytes": 11528,
+      "sha256": "c4e90338a319a69ab348180637df46110806738ad8ccc56d5bbd6c6a5bb75a77"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.StreamingModule.dll",
+      "bytes": 28080,
+      "sha256": "4ffadc5cfac944f26c1dd2d892b5920f3d775eddec6f563cd52170b05195e58d"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.StreamingModule.pdb",
+      "bytes": 10220,
+      "sha256": "1e18a911665c207d9ae6169f76d2cdc71588aad92252d52e75a29ca148b0d301"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.SubstanceModule.dll",
+      "bytes": 31144,
+      "sha256": "cc1570a65360eda153ee34c566fadb16055e537cbfe48ae01a60abc3cefc3aae"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.SubstanceModule.pdb",
+      "bytes": 12088,
+      "sha256": "e22bbe9f3778f3401f62959a827622cc9470888c55fbedc923762d87452e1f10"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.SubsystemsModule.dll",
+      "bytes": 42928,
+      "sha256": "4a2a55dfcd7397df166af405c4a42c2d9913ddd63d33dac5e480b2d367aeda93"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.SubsystemsModule.pdb",
+      "bytes": 16104,
+      "sha256": "7a9f2ac9306d50969973649041a753f1080bd4774a3c7d4bd27a47369ea5f4ac"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.TerrainModule.dll",
+      "bytes": 132520,
+      "sha256": "05a55f2e7daf41201c4b2ae8c8c271829d358dcb23cf21e06d9d27ae6022399d"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.TerrainModule.pdb",
+      "bytes": 29136,
+      "sha256": "c0330236096f0173a923bac8e5ab724251039f91ed2c2d1094cdf39d8f9a4d2e"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.TerrainPhysicsModule.dll",
+      "bytes": 27568,
+      "sha256": "fc99213b48e93f6116d9199285f7ce92788ce9e07554aefbed8e643860b3cfe8"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.TerrainPhysicsModule.pdb",
+      "bytes": 10580,
+      "sha256": "19cee5a77d110961be1aa47844f98b326b0bdf9f33fada083adbb5fab4e19943"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.TetgenModule.dll",
+      "bytes": 26032,
+      "sha256": "da099d65a6a2351ea1eda129f3c5e258bcc929883a30d797f39e9f3c09fb568c"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.TetgenModule.pdb",
+      "bytes": 10132,
+      "sha256": "93c4d5c1966405ac8215369a9d6ff710b2ce0df526daf17c06bbb332fc1adc74"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.TextCoreFontEngineModule.dll",
+      "bytes": 86440,
+      "sha256": "f090fe8e906210ce38740c027e867b2ec3f52bba2337541af86b28708f817e2f"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.TextCoreFontEngineModule.pdb",
+      "bytes": 26484,
+      "sha256": "563ad9dbc702238e2e83824f1a30585aaad0dd2f6d0f87d4979742e77c0ceb1d"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.TextCoreTextEngineModule.dll",
+      "bytes": 314800,
+      "sha256": "f4bd7432613b2779e399a38db06498a24e53b72cf7fcf2faab6a256812ef9502"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.TextCoreTextEngineModule.pdb",
+      "bytes": 117020,
+      "sha256": "afa791b73cbf6a3507ac7f9f64e288c6c500f162b942dbb839fd5c923e4b3cb0"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.TextRenderingModule.dll",
+      "bytes": 39344,
+      "sha256": "b5fedb246c07e2f79b00681362e22ed8e902396621671c421750edf8138e21ed"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.TextRenderingModule.pdb",
+      "bytes": 14660,
+      "sha256": "b667fea1f38b378e94bcaa892751fd3e64264f986127013a531e01c819c6ded0"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.TilemapModule.dll",
+      "bytes": 75688,
+      "sha256": "99c21b2145a8ea5b75a33e5d1cf6c5da742ced302040807f0e12b5649cbd0bce"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.TilemapModule.pdb",
+      "bytes": 22984,
+      "sha256": "e13f62256de4f0f8c7bacadf322224d089d6a0efe34c94edddf3f0df88f474e4"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.TimelineFoundationModule.dll",
+      "bytes": 167344,
+      "sha256": "764b3e2b2887c041330f0007ee86c8e92d5eec94c8bcba8534d645db21728b0a"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.TimelineFoundationModule.pdb",
+      "bytes": 81040,
+      "sha256": "43e7750e30d059cb40933e2357624e4ff19163f013b3ccc4cd66f3977c48b8b9"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.TLSModule.dll",
+      "bytes": 34224,
+      "sha256": "67821ae08f3e702d156ce93ee3025150ba01a45d57be8280d2162e451ef52887"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.TLSModule.pdb",
+      "bytes": 10320,
+      "sha256": "3c9bb0d08983c2c6a0917973ab590b8374d24ff090ba0fe17cb5718335bd175b"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.U2DRuntimeModule.dll",
+      "bytes": 73648,
+      "sha256": "ab889bdc7a6922f0ecbc269b955064faba48d2fbffb5897846249a9c716f4286"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.U2DRuntimeModule.pdb",
+      "bytes": 34080,
+      "sha256": "db14f9e6f17f5b247a36a0336b8428461889f403528755bad2f33d8c803e2f1d"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.UI.dll",
+      "bytes": 269824,
+      "sha256": "5d5b6e615cabea034f2202aa6f2b49ed0535b526aaf626c8a20361c96de284df"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.UI.pdb",
+      "bytes": 139308,
+      "sha256": "ccd7a2e95f64ddbaef357532dda099395c115f4815a59176283a671f9423f672"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.UIElementsModule.dll",
+      "bytes": 2552232,
+      "sha256": "94f1103ee1538fb226a3159d6cdbbd7bb72a8f18c46c8c09f02de9907849f245"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.UIElementsModule.pdb",
+      "bytes": 1012660,
+      "sha256": "d86caecd4e372f11f6dff0437faabc7464c10cf79e472dbd5b01fe4f73800809"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.UIModule.dll",
+      "bytes": 57264,
+      "sha256": "3ab5610e834dac2dded955357a912f40dc9571cb8e58ac17679f28a85faef308"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.UIModule.pdb",
+      "bytes": 15704,
+      "sha256": "e6f19c770c76f34f6ecaa087db1fd0a353f44bc9bde00ff7b854d16391ffe319"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.UmbraModule.dll",
+      "bytes": 26032,
+      "sha256": "3e7743dcd17ae9ab30071e4c7be81e39ff66c57f0439122e7c21803ba86f6d61"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.UmbraModule.pdb",
+      "bytes": 10132,
+      "sha256": "ef6506f01a996255764a625704c67d724e83f63eb2c5fbf30ff9350b7e1ed805"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.UnityAnalyticsCommonModule.dll",
+      "bytes": 36776,
+      "sha256": "8ebbcb289293c6443ee4a6a39397da27acddda82f5e3fb1f3b34586b0f9fbd7c"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.UnityAnalyticsCommonModule.pdb",
+      "bytes": 13908,
+      "sha256": "d1b6041e5d5f86b66ae4a9394f46903ef152a3ce294d3663aefeca7defcc7454"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.UnityAnalyticsModule.dll",
+      "bytes": 61864,
+      "sha256": "993e7b95c963eafa0ea03d728e05a1470bd18bf4ddfe8d9dc11b8376c3d6f37b"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.UnityAnalyticsModule.pdb",
+      "bytes": 18588,
+      "sha256": "fe222b1d89ec94a86eed94dfb01393f8faba793332ee308937e958dc57c94fe8"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.UnityConnectModule.dll",
+      "bytes": 29616,
+      "sha256": "59bd862d6ff02ecd0536e40a4696e6b6eb3b5fe9e0c7d41eeeae62e163731a42"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.UnityConnectModule.pdb",
+      "bytes": 10700,
+      "sha256": "52b5891e3ef65e5d09c87c406c48c19cec690e41a30aecd6173ee3a933dff664"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.UnityConsentModule.dll",
+      "bytes": 16304,
+      "sha256": "c5f8784a2e52b9f20330b507295ba4cbefe6a70a5a91f39a87610c0a6042dab8"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.UnityConsentModule.pdb",
+      "bytes": 10704,
+      "sha256": "c473b0fff03dbb282672e0737854abda2e0390162f17d827a4b2283c32f5963d"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.UnityCurlModule.dll",
+      "bytes": 28072,
+      "sha256": "fbebe3cd6f3bb6693b137268be0b73ba4e2eed81e8f18397ae99078918fd7323"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.UnityCurlModule.pdb",
+      "bytes": 10528,
+      "sha256": "46e295d774aef23c69bc0a814c1a3d1d479305c46dfc801628b58235a4d0193e"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.UnityWebRequestAssetBundleModule.dll",
+      "bytes": 30640,
+      "sha256": "f1cc2c9beaccf363d8bcd61bfa18a685e40ea1af55ec6576e25134d3f7bbd79b"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.UnityWebRequestAssetBundleModule.pdb",
+      "bytes": 11420,
+      "sha256": "c12548f57372ff13c9d0ce47b6415a58be0f274aab1debcce74c3a82c9f68607"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.UnityWebRequestAudioModule.dll",
+      "bytes": 30632,
+      "sha256": "4d845c1af998bbd78e7653e12b71b3e7d6bb259f2f9829d337a6725fe6d43a54"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.UnityWebRequestAudioModule.pdb",
+      "bytes": 11472,
+      "sha256": "e6d4911074e5999e038a4499376de8c6453e6272435f7ea96ad6f9898836f179"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.UnityWebRequestModule.dll",
+      "bytes": 81328,
+      "sha256": "f9e5893bab929d45b605cbaced026a64ac2943420a0ef463d0e52b03c9da2420"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.UnityWebRequestModule.pdb",
+      "bytes": 27880,
+      "sha256": "c1fccc333469ddc977cf875cd3c8ecc5d059dbb836d7bb4b87c6cdbfd54202bd"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.UnityWebRequestTextureModule.dll",
+      "bytes": 29608,
+      "sha256": "0eb45a489e67197d9126ea2505810392cb396618fc0d2eaa712f53ba1a9fbf7b"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.UnityWebRequestTextureModule.pdb",
+      "bytes": 11476,
+      "sha256": "1ac61fcec5103ba143f2cd253486c902f6645ab3a1967fa88a8e98b324b28560"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.UnityWebRequestWWWModule.dll",
+      "bytes": 35248,
+      "sha256": "0b792669540438f24f1aba8a24a0df57c49b218825332f3376e919bcf1aab285"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.UnityWebRequestWWWModule.pdb",
+      "bytes": 13112,
+      "sha256": "2f0f7a7a272f64361df5922254c2a8f719d528368c295cb51e458ddc3cf7762d"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.VectorGraphicsModule.dll",
+      "bytes": 231336,
+      "sha256": "52fc06d609c516b305867deb3d9879fcb2a4c76fcc0993da981595e7e43faeb0"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.VectorGraphicsModule.pdb",
+      "bytes": 104812,
+      "sha256": "764d552a3f8b8a85ec4d0091ce89e6a87d6e1e8179d74661cd5f8cba2aa6f3cb"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.VehiclesModule.dll",
+      "bytes": 33200,
+      "sha256": "3afa6b698444c44e0c8eefb37c8816601f063a00dfd37c4bf51efbcc1e899c98"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.VehiclesModule.pdb",
+      "bytes": 11200,
+      "sha256": "8d2aa92158e730659ed317c6f0c2ff155cda17a160eeeb2b044e869738c66630"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.VFXModule.dll",
+      "bytes": 82352,
+      "sha256": "38a4ff3fc6e0256e0eb39da52f70f76e167bbaf0f9f43f853a691b6f3da2c7fb"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.VFXModule.pdb",
+      "bytes": 18680,
+      "sha256": "e2d16e7c1e33f5f711b0a608f39e987d6dfaa22770b51aae5a4d9e4a0e9686c7"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.VideoModule.dll",
+      "bytes": 48552,
+      "sha256": "d00897681f27b05807c8ae36d952916e3b85e22782bc3d7f744ace914d9d827e"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.VideoModule.pdb",
+      "bytes": 14416,
+      "sha256": "7bc77bc032bc45c34c5cf1388cd317bef2b0462bf354938bdd07bb4acf6f2a7c"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.VirtualTexturingModule.dll",
+      "bytes": 43952,
+      "sha256": "4ab483ae111a485cf7cf2ad22647a1d535b2dfb5838986a122829bdfc3f51179"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.VirtualTexturingModule.pdb",
+      "bytes": 13288,
+      "sha256": "12854631ab68dbecd3c942fe2844a455b84b4c04606089fdae3ef1d3be8a25f0"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.WindModule.dll",
+      "bytes": 28584,
+      "sha256": "173c414b4049ec2f3a7e530c48176bbd022e4d79f7de8276349bd98e6d60649b"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.WindModule.pdb",
+      "bytes": 10276,
+      "sha256": "37b3858f49d611b12d92803f3f62974163ae683fa00683c72a8394e8711ae47e"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.XRModule.dll",
+      "bytes": 96176,
+      "sha256": "48d3fa89c3ea1a696936efa85d45b0b675a90714fb9b5b58b88d313e92d23448"
+    },
+    {
+      "path": "DiceCraft_Data/Managed/UnityEngine.XRModule.pdb",
+      "bytes": 23548,
+      "sha256": "0d8a3bed9545fc76e341049d2513de62c720bbb61917a7f23ecd02c65830d32b"
+    },
+    {
+      "path": "DiceCraft_Data/Plugins/x86_64/lib_burst_generated.dll",
+      "bytes": 572416,
+      "sha256": "3d6ad065e8e6c7c260b4a9305ac1774ae320103c944bd7418a7374a00443c8fb"
+    },
+    {
+      "path": "DiceCraft_Data/Plugins/x86_64/lib_burst_generated.pdb",
+      "bytes": 3219456,
+      "sha256": "9d6513df3c38f16a2682180ef46df5225102c15bd4be954cf26cbec09476a905"
+    },
+    {
+      "path": "DiceCraft_Data/Plugins/x86_64/libonigwrap.dll",
+      "bytes": 551336,
+      "sha256": "c22db1e7be04c50eb47e67362bf705830bb95df30c02c22dd7add835ee777583"
+    },
+    {
+      "path": "DiceCraft_Data/Resources/unity default resources",
+      "bytes": 5919584,
+      "sha256": "696b9afaee02b5d45978634f1450ef18423c19177933b997fd8ee364d70cdd61"
+    },
+    {
+      "path": "DiceCraft_Data/Resources/unity_builtin_extra",
+      "bytes": 410600,
+      "sha256": "91a452185d4286bebdaf5629b920d568b2ddf64a23c0731968e59e7afcd96f18"
+    },
+    {
+      "path": "DiceCraft_Data/resources.assets",
+      "bytes": 393340,
+      "sha256": "c2054dbf99429083d4dc43334002a62459e9ea9ede5a7488b6b983ca3c56147d"
+    },
+    {
+      "path": "DiceCraft_Data/resources.assets.resS",
+      "bytes": 1048576,
+      "sha256": "340051f4f506bff5616e93d52c58f37ca04c1495c3b6a057018bac1ae1d0b232"
+    },
+    {
+      "path": "DiceCraft_Data/RuntimeInitializeOnLoads.json",
+      "bytes": 4266,
+      "sha256": "80269d1c6a0f59b1a5f81c7bcf740b52a05ac854653d50196b6827c4eb8d3616"
+    },
+    {
+      "path": "DiceCraft_Data/ScriptingAssemblies.json",
+      "bytes": 4782,
+      "sha256": "a0c8ecd2b0a39b7bb6d41c94da604124efc5de5be658eed3d53412dc128bf2b8"
+    },
+    {
+      "path": "DiceCraft_Data/sharedassets0.assets",
+      "bytes": 16887552,
+      "sha256": "c59b0c8c804614392711d37cb4945dc684f083e6141c0a9b329ac85607be30ea"
+    },
+    {
+      "path": "DiceCraft_Data/sharedassets0.assets.resS",
+      "bytes": 3021120,
+      "sha256": "94be7c6096f23afdb2b86221faf294ac80c5d7a58f6f4ad4fa185bc04df9de64"
+    },
+    {
+      "path": "DiceCraft_Data/sharedassets0.resource",
+      "bytes": 22464,
+      "sha256": "fff27ed1c7c3e7fc3a5524494305d4074ff779c42691fb81bdfdfab5603ec410"
+    },
+    {
+      "path": "dstorage.dll",
+      "bytes": 206904,
+      "sha256": "cae65787f61514bec6f012f44546e68b19e39d8854a9ab52af813370d44b272a"
+    },
+    {
+      "path": "dstoragecore.dll",
+      "bytes": 1482784,
+      "sha256": "cf85b19a92a8276f8baca0db9bbcd60735bad50768deb303d310e84d5f4fdd11"
+    },
+    {
+      "path": "MonoBleedingEdge/EmbedRuntime/mono-2.0-bdwgc.dll",
+      "bytes": 7834544,
+      "sha256": "43a72335bddff9e23e1c9e3f31ed1ebdafbb7bc9173fa1f84226cc670641fa6d"
+    },
+    {
+      "path": "MonoBleedingEdge/EmbedRuntime/MonoPosixHelper.dll",
+      "bytes": 611240,
+      "sha256": "f1141b241c7958afef59b4faa2ded24a580e135626a0f72a8cc4c1ebc565ef0d"
+    },
+    {
+      "path": "MonoBleedingEdge/etc/mono/2.0/Browsers/Compat.browser",
+      "bytes": 1605,
+      "sha256": "8a1082057ac5681dcd4e9c227ed7fb8eb42ac1618963b5de3b65739dd77e2741"
+    },
+    {
+      "path": "MonoBleedingEdge/etc/mono/2.0/DefaultWsdlHelpGenerator.aspx",
+      "bytes": 60575,
+      "sha256": "751861040b69ea63a3827507b7c8da9c7f549dc181c1c8af4b7ca78cc97d710a"
+    },
+    {
+      "path": "MonoBleedingEdge/etc/mono/2.0/machine.config",
+      "bytes": 29066,
+      "sha256": "e91782a27fa39fc6c1d6ee8b08529f5d35052310d0006034b878eb04b8f2af30"
+    },
+    {
+      "path": "MonoBleedingEdge/etc/mono/2.0/settings.map",
+      "bytes": 2622,
+      "sha256": "49c6160f9d54af4270a3b4e997fc4a8301f79b9e2070118fa46ddbcbbc44f9a2"
+    },
+    {
+      "path": "MonoBleedingEdge/etc/mono/2.0/web.config",
+      "bytes": 11635,
+      "sha256": "cf2b54339e069b9e42f7d6795eecbf562c50c1011f4ca8f65f578fe52d97ff92"
+    },
+    {
+      "path": "MonoBleedingEdge/etc/mono/4.0/Browsers/Compat.browser",
+      "bytes": 1605,
+      "sha256": "8a1082057ac5681dcd4e9c227ed7fb8eb42ac1618963b5de3b65739dd77e2741"
+    },
+    {
+      "path": "MonoBleedingEdge/etc/mono/4.0/DefaultWsdlHelpGenerator.aspx",
+      "bytes": 60575,
+      "sha256": "751861040b69ea63a3827507b7c8da9c7f549dc181c1c8af4b7ca78cc97d710a"
+    },
+    {
+      "path": "MonoBleedingEdge/etc/mono/4.0/machine.config",
+      "bytes": 33598,
+      "sha256": "e60aec2c5115d65b3acb3c55ea21576dbd770f579166c017125571e46ae560ed"
+    },
+    {
+      "path": "MonoBleedingEdge/etc/mono/4.0/settings.map",
+      "bytes": 2622,
+      "sha256": "ce1db1ad8a9512073164e3eccdc193f7eda036e1a9733caec4635de21b2865c8"
+    },
+    {
+      "path": "MonoBleedingEdge/etc/mono/4.0/web.config",
+      "bytes": 18802,
+      "sha256": "e38bb8cc68fe5b4edecdfd288d094b9e8ced7629039b2a347682aba0d8bd7492"
+    },
+    {
+      "path": "MonoBleedingEdge/etc/mono/4.5/Browsers/Compat.browser",
+      "bytes": 1605,
+      "sha256": "8a1082057ac5681dcd4e9c227ed7fb8eb42ac1618963b5de3b65739dd77e2741"
+    },
+    {
+      "path": "MonoBleedingEdge/etc/mono/4.5/DefaultWsdlHelpGenerator.aspx",
+      "bytes": 60575,
+      "sha256": "751861040b69ea63a3827507b7c8da9c7f549dc181c1c8af4b7ca78cc97d710a"
+    },
+    {
+      "path": "MonoBleedingEdge/etc/mono/4.5/machine.config",
+      "bytes": 34056,
+      "sha256": "ee950004b576fb28dc85f4b0435ed04bf96612de2e8b53be84d07afe85a0de6c"
+    },
+    {
+      "path": "MonoBleedingEdge/etc/mono/4.5/settings.map",
+      "bytes": 2622,
+      "sha256": "ce1db1ad8a9512073164e3eccdc193f7eda036e1a9733caec4635de21b2865c8"
+    },
+    {
+      "path": "MonoBleedingEdge/etc/mono/4.5/web.config",
+      "bytes": 18811,
+      "sha256": "c4cbddd4fd9347b58cc5a72b36dc4ba1ad2bb699e65869d05cd3fb9865f0d824"
+    },
+    {
+      "path": "MonoBleedingEdge/etc/mono/browscap.ini",
+      "bytes": 311984,
+      "sha256": "4ddd50f31fb968f30bedefc253a46dc3f2890192d05cdaa9e0a64a056eee807e"
+    },
+    {
+      "path": "MonoBleedingEdge/etc/mono/config",
+      "bytes": 3815,
+      "sha256": "5776169973a26a387b8b3e5c0f2301a7ab9a6dd7c7d3efa22a96abc47fbf8662"
+    },
+    {
+      "path": "MonoBleedingEdge/etc/mono/mconfig/config.xml",
+      "bytes": 25817,
+      "sha256": "0c56e34c69124510fa8c19e7b4c2ca6c1c4ff460ae19f798dd0ca035809e396d"
+    },
+    {
+      "path": "UnityCrashHandler64.exe",
+      "bytes": 1843112,
+      "sha256": "218672788adbfc6f77a956e4a5b2b0b12c93a8c0426cf7db1a21bf57b27f792d"
+    },
+    {
+      "path": "UnityPlayer.dll",
+      "bytes": 91611568,
+      "sha256": "c93b9eaa6b12782ea809a0a35d65e81bbdc24ad080c914a7ca017ea5534b8958"
+    },
+    {
+      "path": "WinPixEventRuntime.dll",
+      "bytes": 58368,
+      "sha256": "81adcfd8253c3489be720da7e30f16004dc9a1f02a8b418c6c3aef4993032e6d"
+    }
+  ]
+}

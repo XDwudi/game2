@@ -30,7 +30,9 @@
 
 ## Git与交接
 
-origin为用户指定 `https://github.com/XDwudi/game2.git`，作者XDwudi / lxd199541@126.com。源码历史已推送main；最终文档、脱敏证据与包清单继续随交接提交。代码最后变化为f060098，后续文档/证据提交不改变构建。`evidence/delivery/verification-binding.json`绑定规格、配置、NUnit、实际EXE/DLL和运行CSV；包清单与SHA在同目录。
+origin为用户指定 `https://github.com/XDwudi/game2.git`，作者XDwudi / lxd199541@126.com。源码、最终文档和脱敏证据已推送main；包清单与独立交接复核随最终交接提交。代码最后变化为f060098，后续文档/证据提交不改变构建。`evidence/delivery/verification-binding.json`绑定规格、配置、NUnit、实际EXE/DLL和运行CSV。
+
+便携包84,571,347字节，含313个运行文件、说明和字体许可，ZIP CRC通过。SHA-256：`d0bf25b18326a9a02f28326be1151895768bce22d5ad1c9ffa9e9eddbaa0cbde`。包清单 `evidence/delivery/windows-build-manifest.json` 绑定干净源快照821e863；该提交只在已验收代码之后增加文档/证据。最终交接独立核对见 `evidence/review/DELIVERY_REVIEW.md`。
 
 源工程、可编辑美术、配置和测试证据入Git；Unity缓存、完整构建、个人存档、原始含账户参数Editor日志不入Git。发布日志仅做必要脱敏，原/发布SHA保留。构建包包含字体许可。
 
