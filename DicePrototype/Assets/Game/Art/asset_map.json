@@ -1,0 +1,612 @@
+{
+  "configVersion": "p0.4.0",
+  "assetSchemaVersion": 1,
+  "license": "Original project artwork and synthesized audio; no external asset license",
+  "icons": [
+    {
+      "contentId": "C01",
+      "iconId": "C01",
+      "name": "存钱罐",
+      "path": "Assets/Game/Art/Icons/C01.png",
+      "source": "art/source_icons/C01.svg",
+      "category": "controller"
+    },
+    {
+      "contentId": "C02",
+      "iconId": "C02",
+      "name": "蓝色疯狂",
+      "path": "Assets/Game/Art/Icons/C02.png",
+      "source": "art/source_icons/C02.svg",
+      "category": "controller"
+    },
+    {
+      "contentId": "C03",
+      "iconId": "C03",
+      "name": "首当其冲",
+      "path": "Assets/Game/Art/Icons/C03.png",
+      "source": "art/source_icons/C03.svg",
+      "category": "controller"
+    },
+    {
+      "contentId": "C04",
+      "iconId": "C04",
+      "name": "多提多得",
+      "path": "Assets/Game/Art/Icons/C04.png",
+      "source": "art/source_icons/C04.svg",
+      "category": "controller"
+    },
+    {
+      "contentId": "C05",
+      "iconId": "C05",
+      "name": "再来三次",
+      "path": "Assets/Game/Art/Icons/C05.png",
+      "source": "art/source_icons/C05.svg",
+      "category": "controller"
+    },
+    {
+      "contentId": "C06",
+      "iconId": "C06",
+      "name": "数字多多",
+      "path": "Assets/Game/Art/Icons/C06.png",
+      "source": "art/source_icons/C06.svg",
+      "category": "controller"
+    },
+    {
+      "contentId": "C07",
+      "iconId": "C07",
+      "name": "骰子复制",
+      "path": "Assets/Game/Art/Icons/C07.png",
+      "source": "art/source_icons/C07.svg",
+      "category": "controller"
+    },
+    {
+      "contentId": "C08",
+      "iconId": "C08",
+      "name": "少数派",
+      "path": "Assets/Game/Art/Icons/C08.png",
+      "source": "art/source_icons/C08.svg",
+      "category": "controller"
+    },
+    {
+      "contentId": "C09",
+      "iconId": "C09",
+      "name": "简化提交",
+      "path": "Assets/Game/Art/Icons/C09.png",
+      "source": "art/source_icons/C09.svg",
+      "category": "controller"
+    },
+    {
+      "contentId": "C10",
+      "iconId": "C10",
+      "name": "少就是多",
+      "path": "Assets/Game/Art/Icons/C10.png",
+      "source": "art/source_icons/C10.svg",
+      "category": "controller"
+    },
+    {
+      "contentId": "C11",
+      "iconId": "C11",
+      "name": "2233",
+      "path": "Assets/Game/Art/Icons/C11.png",
+      "source": "art/source_icons/C11.svg",
+      "category": "controller"
+    },
+    {
+      "contentId": "C12",
+      "iconId": "C12",
+      "name": "不要奇数",
+      "path": "Assets/Game/Art/Icons/C12.png",
+      "source": "art/source_icons/C12.svg",
+      "category": "controller"
+    },
+    {
+      "contentId": "C13",
+      "iconId": "C13",
+      "name": "就要奇数",
+      "path": "Assets/Game/Art/Icons/C13.png",
+      "source": "art/source_icons/C13.svg",
+      "category": "controller"
+    },
+    {
+      "contentId": "C14",
+      "iconId": "C14",
+      "name": "只要奇数",
+      "path": "Assets/Game/Art/Icons/C14.png",
+      "source": "art/source_icons/C14.svg",
+      "category": "controller"
+    },
+    {
+      "contentId": "C15",
+      "iconId": "C15",
+      "name": "红色扩散",
+      "path": "Assets/Game/Art/Icons/C15.png",
+      "source": "art/source_icons/C15.svg",
+      "category": "controller"
+    },
+    {
+      "contentId": "C16",
+      "iconId": "C16",
+      "name": "可以重来",
+      "path": "Assets/Game/Art/Icons/C16.png",
+      "source": "art/source_icons/C16.svg",
+      "category": "controller"
+    },
+    {
+      "contentId": "C17",
+      "iconId": "C17",
+      "name": "小鬼当家",
+      "path": "Assets/Game/Art/Icons/C17.png",
+      "source": "art/source_icons/C17.svg",
+      "category": "controller"
+    },
+    {
+      "contentId": "C18",
+      "iconId": "C18",
+      "name": "红蓝相当",
+      "path": "Assets/Game/Art/Icons/C18.png",
+      "source": "art/source_icons/C18.svg",
+      "category": "controller"
+    },
+    {
+      "contentId": "C19",
+      "iconId": "C19",
+      "name": "小头大用",
+      "path": "Assets/Game/Art/Icons/C19.png",
+      "source": "art/source_icons/C19.svg",
+      "category": "controller"
+    },
+    {
+      "contentId": "C20",
+      "iconId": "C20",
+      "name": "66大顺",
+      "path": "Assets/Game/Art/Icons/C20.png",
+      "source": "art/source_icons/C20.svg",
+      "category": "controller"
+    },
+    {
+      "contentId": "I01",
+      "iconId": "I01",
+      "name": "红色浪潮",
+      "path": "Assets/Game/Art/Icons/I01.png",
+      "source": "art/source_icons/I01.svg",
+      "category": "consumable"
+    },
+    {
+      "contentId": "I02",
+      "iconId": "I02",
+      "name": "临时骰子",
+      "path": "Assets/Game/Art/Icons/I02.png",
+      "source": "art/source_icons/I02.svg",
+      "category": "consumable"
+    },
+    {
+      "contentId": "I03",
+      "iconId": "I03",
+      "name": "遥控骰子",
+      "path": "Assets/Game/Art/Icons/I03.png",
+      "source": "art/source_icons/I03.svg",
+      "category": "consumable"
+    },
+    {
+      "contentId": "I04",
+      "iconId": "I04",
+      "name": "大数多来",
+      "path": "Assets/Game/Art/Icons/I04.png",
+      "source": "art/source_icons/I04.svg",
+      "category": "consumable"
+    },
+    {
+      "contentId": "I05",
+      "iconId": "I05",
+      "name": "缩小射线",
+      "path": "Assets/Game/Art/Icons/I05.png",
+      "source": "art/source_icons/I05.svg",
+      "category": "consumable"
+    },
+    {
+      "contentId": "I06",
+      "iconId": "I06",
+      "name": "增加提交",
+      "path": "Assets/Game/Art/Icons/I06.png",
+      "source": "art/source_icons/I06.svg",
+      "category": "consumable"
+    },
+    {
+      "contentId": "I07",
+      "iconId": "I07",
+      "name": "增加投掷",
+      "path": "Assets/Game/Art/Icons/I07.png",
+      "source": "art/source_icons/I07.svg",
+      "category": "consumable"
+    },
+    {
+      "contentId": "O01",
+      "iconId": "O01",
+      "name": "道具增加",
+      "path": "Assets/Game/Art/Icons/O01.png",
+      "source": "art/source_icons/O01.svg",
+      "category": "service"
+    },
+    {
+      "contentId": "O02",
+      "iconId": "O02",
+      "name": "道具打折",
+      "path": "Assets/Game/Art/Icons/O02.png",
+      "source": "art/source_icons/O02.svg",
+      "category": "service"
+    },
+    {
+      "contentId": "O03",
+      "iconId": "O03",
+      "name": "加入骰子",
+      "path": "Assets/Game/Art/Icons/O03.png",
+      "source": "art/source_icons/O03.svg",
+      "category": "service"
+    },
+    {
+      "contentId": "O04",
+      "iconId": "O04",
+      "name": "删除骰子",
+      "path": "Assets/Game/Art/Icons/O04.png",
+      "source": "art/source_icons/O04.svg",
+      "category": "service"
+    },
+    {
+      "contentId": "U01",
+      "iconId": "U01",
+      "name": "光滑骰面",
+      "path": "Assets/Game/Art/Icons/U01.png",
+      "source": "art/source_icons/U01.svg",
+      "category": "die_upgrade"
+    },
+    {
+      "contentId": "U02",
+      "iconId": "U02",
+      "name": "粗糙骰面",
+      "path": "Assets/Game/Art/Icons/U02.png",
+      "source": "art/source_icons/U02.svg",
+      "category": "die_upgrade"
+    },
+    {
+      "contentId": "U03",
+      "iconId": "U03",
+      "name": "骰子染红",
+      "path": "Assets/Game/Art/Icons/U03.png",
+      "source": "art/source_icons/U03.svg",
+      "category": "die_upgrade"
+    },
+    {
+      "contentId": "U04",
+      "iconId": "U04",
+      "name": "骰子染蓝",
+      "path": "Assets/Game/Art/Icons/U04.png",
+      "source": "art/source_icons/U04.svg",
+      "category": "die_upgrade"
+    },
+    {
+      "contentId": "U05",
+      "iconId": "U05",
+      "name": "骰子脆化",
+      "path": "Assets/Game/Art/Icons/U05.png",
+      "source": "art/source_icons/U05.svg",
+      "category": "die_upgrade"
+    },
+    {
+      "contentId": "U06",
+      "iconId": "U06",
+      "name": "黄金电镀",
+      "path": "Assets/Game/Art/Icons/U06.png",
+      "source": "art/source_icons/U06.svg",
+      "category": "die_upgrade"
+    },
+    {
+      "contentId": "U07",
+      "iconId": "U07",
+      "name": "随机变形",
+      "path": "Assets/Game/Art/Icons/U07.png",
+      "source": "art/source_icons/U07.svg",
+      "category": "die_upgrade"
+    }
+  ],
+  "pipAtlas": {
+    "path": "Assets/Game/Art/Textures/PipsAtlas.png",
+    "width": 1024,
+    "height": 1024,
+    "tiles": [
+      {
+        "color": "red",
+        "pip": 1,
+        "tileIndexTopLeft": 0,
+        "pixelRectTopLeft": [
+          0,
+          0,
+          256,
+          256
+        ],
+        "unityUvRectBottomLeft": [
+          0.0,
+          0.75,
+          0.25,
+          0.25
+        ],
+        "path": "Assets/Game/Art/Textures/Pip_red_1.png"
+      },
+      {
+        "color": "red",
+        "pip": 2,
+        "tileIndexTopLeft": 1,
+        "pixelRectTopLeft": [
+          256,
+          0,
+          256,
+          256
+        ],
+        "unityUvRectBottomLeft": [
+          0.25,
+          0.75,
+          0.25,
+          0.25
+        ],
+        "path": "Assets/Game/Art/Textures/Pip_red_2.png"
+      },
+      {
+        "color": "red",
+        "pip": 3,
+        "tileIndexTopLeft": 2,
+        "pixelRectTopLeft": [
+          512,
+          0,
+          256,
+          256
+        ],
+        "unityUvRectBottomLeft": [
+          0.5,
+          0.75,
+          0.25,
+          0.25
+        ],
+        "path": "Assets/Game/Art/Textures/Pip_red_3.png"
+      },
+      {
+        "color": "red",
+        "pip": 4,
+        "tileIndexTopLeft": 3,
+        "pixelRectTopLeft": [
+          768,
+          0,
+          256,
+          256
+        ],
+        "unityUvRectBottomLeft": [
+          0.75,
+          0.75,
+          0.25,
+          0.25
+        ],
+        "path": "Assets/Game/Art/Textures/Pip_red_4.png"
+      },
+      {
+        "color": "red",
+        "pip": 5,
+        "tileIndexTopLeft": 4,
+        "pixelRectTopLeft": [
+          0,
+          256,
+          256,
+          256
+        ],
+        "unityUvRectBottomLeft": [
+          0.0,
+          0.5,
+          0.25,
+          0.25
+        ],
+        "path": "Assets/Game/Art/Textures/Pip_red_5.png"
+      },
+      {
+        "color": "red",
+        "pip": 6,
+        "tileIndexTopLeft": 5,
+        "pixelRectTopLeft": [
+          256,
+          256,
+          256,
+          256
+        ],
+        "unityUvRectBottomLeft": [
+          0.25,
+          0.5,
+          0.25,
+          0.25
+        ],
+        "path": "Assets/Game/Art/Textures/Pip_red_6.png"
+      },
+      {
+        "color": "blue",
+        "pip": 1,
+        "tileIndexTopLeft": 8,
+        "pixelRectTopLeft": [
+          0,
+          512,
+          256,
+          256
+        ],
+        "unityUvRectBottomLeft": [
+          0.0,
+          0.25,
+          0.25,
+          0.25
+        ],
+        "path": "Assets/Game/Art/Textures/Pip_blue_1.png"
+      },
+      {
+        "color": "blue",
+        "pip": 2,
+        "tileIndexTopLeft": 9,
+        "pixelRectTopLeft": [
+          256,
+          512,
+          256,
+          256
+        ],
+        "unityUvRectBottomLeft": [
+          0.25,
+          0.25,
+          0.25,
+          0.25
+        ],
+        "path": "Assets/Game/Art/Textures/Pip_blue_2.png"
+      },
+      {
+        "color": "blue",
+        "pip": 3,
+        "tileIndexTopLeft": 10,
+        "pixelRectTopLeft": [
+          512,
+          512,
+          256,
+          256
+        ],
+        "unityUvRectBottomLeft": [
+          0.5,
+          0.25,
+          0.25,
+          0.25
+        ],
+        "path": "Assets/Game/Art/Textures/Pip_blue_3.png"
+      },
+      {
+        "color": "blue",
+        "pip": 4,
+        "tileIndexTopLeft": 11,
+        "pixelRectTopLeft": [
+          768,
+          512,
+          256,
+          256
+        ],
+        "unityUvRectBottomLeft": [
+          0.75,
+          0.25,
+          0.25,
+          0.25
+        ],
+        "path": "Assets/Game/Art/Textures/Pip_blue_4.png"
+      },
+      {
+        "color": "blue",
+        "pip": 5,
+        "tileIndexTopLeft": 12,
+        "pixelRectTopLeft": [
+          0,
+          768,
+          256,
+          256
+        ],
+        "unityUvRectBottomLeft": [
+          0.0,
+          0.0,
+          0.25,
+          0.25
+        ],
+        "path": "Assets/Game/Art/Textures/Pip_blue_5.png"
+      },
+      {
+        "color": "blue",
+        "pip": 6,
+        "tileIndexTopLeft": 13,
+        "pixelRectTopLeft": [
+          256,
+          768,
+          256,
+          256
+        ],
+        "unityUvRectBottomLeft": [
+          0.25,
+          0.0,
+          0.25,
+          0.25
+        ],
+        "path": "Assets/Game/Art/Textures/Pip_blue_6.png"
+      }
+    ]
+  },
+  "overlayLayers": {
+    "gold": "Layer_Gold",
+    "smooth": "Layer_Smooth",
+    "rough": "Layer_Rough",
+    "glass": "Layer_Glass"
+  },
+  "audio": [
+    {
+      "id": "roll",
+      "path": "Assets/Game/Audio/roll.wav",
+      "seconds": 0.42,
+      "sampleRate": 44100,
+      "channels": 1
+    },
+    {
+      "id": "land",
+      "path": "Assets/Game/Audio/land.wav",
+      "seconds": 0.16,
+      "sampleRate": 44100,
+      "channels": 1
+    },
+    {
+      "id": "lock",
+      "path": "Assets/Game/Audio/lock.wav",
+      "seconds": 0.14,
+      "sampleRate": 44100,
+      "channels": 1
+    },
+    {
+      "id": "cancel",
+      "path": "Assets/Game/Audio/cancel.wav",
+      "seconds": 0.11,
+      "sampleRate": 44100,
+      "channels": 1
+    },
+    {
+      "id": "use",
+      "path": "Assets/Game/Audio/use.wav",
+      "seconds": 0.24,
+      "sampleRate": 44100,
+      "channels": 1
+    },
+    {
+      "id": "purchase",
+      "path": "Assets/Game/Audio/purchase.wav",
+      "seconds": 0.24,
+      "sampleRate": 44100,
+      "channels": 1
+    },
+    {
+      "id": "reject",
+      "path": "Assets/Game/Audio/reject.wav",
+      "seconds": 0.19,
+      "sampleRate": 44100,
+      "channels": 1
+    },
+    {
+      "id": "copy",
+      "path": "Assets/Game/Audio/copy.wav",
+      "seconds": 0.28,
+      "sampleRate": 44100,
+      "channels": 1
+    },
+    {
+      "id": "dye",
+      "path": "Assets/Game/Audio/dye.wav",
+      "seconds": 0.24,
+      "sampleRate": 44100,
+      "channels": 1
+    },
+    {
+      "id": "break",
+      "path": "Assets/Game/Audio/break.wav",
+      "seconds": 0.38,
+      "sampleRate": 44100,
+      "channels": 1
+    }
+  ]
+}

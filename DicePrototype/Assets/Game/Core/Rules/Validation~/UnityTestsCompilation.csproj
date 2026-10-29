@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <LangVersion>9.0</LangVersion>
+    <DefineConstants>UNITY_INCLUDE_TESTS</DefineConstants>
+    <BaseOutputPath>bin/test-api/</BaseOutputPath>
+  </PropertyGroup>
+  <!-- Compile-only check against installed Unity/package APIs; this does not run Unity,
+       discover its tests, import assets, or establish PlayMode correctness. -->
+  <ItemGroup>
+    <Compile Include="../*.cs" />
+    <Compile Include="../../Session/*.cs" />
+    <Compile Include="../../../Runtime/*.cs" />
+    <Compile Include="../../../UI/*.cs" />
+    <Compile Include="../../../Tests/EditMode/Rules/*.cs" />
+    <Compile Include="../../../Tests/EditMode/Persistence/*.cs" />
+    <Compile Include="../../../Tests/PlayMode/*.cs" />
+    <Reference Include="E:/unity/6000.6.7f1/Editor/Data/Managed/UnityEngine/*.dll" />
+    <Reference Include="../../../../../Library/ScriptAssemblies/*.dll" Exclude="../../../../../Library/ScriptAssemblies/DiceCraft.*.dll;../../../../../Library/ScriptAssemblies/Assembly-CSharp*.dll" />
+    <Reference Include="../../../../../Library/PackageCache/com.unity.ext.nunit@0198eae3b53e/net472/unity-custom/nunit.framework.dll" />
+  </ItemGroup>
+</Project>

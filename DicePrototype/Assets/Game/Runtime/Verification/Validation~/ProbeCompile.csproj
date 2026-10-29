@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <OutputType>Exe</OutputType>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <Nullable>disable</Nullable>
+    <NoWarn>$(NoWarn);CS0649;CS0436</NoWarn>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="../PlayerVerification.cs" />
+    <Compile Include="MetricChecks.cs" />
+    <Reference Include="DiceCraft.Core"><HintPath>../../../../../Library/ScriptAssemblies/DiceCraft.Core.dll</HintPath></Reference>
+    <Reference Include="DiceCraft.Runtime"><HintPath>../../../../../Library/ScriptAssemblies/DiceCraft.Runtime.dll</HintPath></Reference>
+    <Reference Include="UnityEngine.CoreModule"><HintPath>E:/unity/6000.6.7f1/Editor/Data/Managed/UnityEngine/UnityEngine.CoreModule.dll</HintPath></Reference>
+    <Reference Include="UnityEngine.ScreenCaptureModule"><HintPath>E:/unity/6000.6.7f1/Editor/Data/Managed/UnityEngine/UnityEngine.ScreenCaptureModule.dll</HintPath></Reference>
+    <Reference Include="UnityEngine.ScriptingModule"><HintPath>E:/unity/6000.6.7f1/Editor/Data/Managed/UnityEngine/UnityEngine.ScriptingModule.dll</HintPath></Reference>
+    <Reference Include="UnityEngine.JSONSerializeModule"><HintPath>E:/unity/6000.6.7f1/Editor/Data/Managed/UnityEngine/UnityEngine.JSONSerializeModule.dll</HintPath></Reference>
+    <Reference Include="UnityEngine.ImageConversionModule"><HintPath>E:/unity/6000.6.7f1/Editor/Data/Managed/UnityEngine/UnityEngine.ImageConversionModule.dll</HintPath></Reference>
+  </ItemGroup>
+</Project>

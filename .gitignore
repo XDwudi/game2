@@ -22,3 +22,17 @@ artifacts/cache/
 tools/CoreHarness/bin/
 tools/CoreHarness/obj/
 !tools/CoreHarness/*.csproj
+
+# Reproducible standalone validation hosts, without their compiled outputs.
+**/bin/
+**/.dotnet/
+**/.nuget/
+!**/Validation~/*.csproj
+!evidence/review/*.csproj
+!evidence/review/**/*.csproj
+!evidence/art/**/*.csproj
+*.blend1
+DicePrototype/Assets/Screenshots/
+DicePrototype/Assets/Screenshots.meta
+# Raw Editor startup logs can contain account launch parameters. Deliver sanitized copies.
+evidence/environment/editor*.log

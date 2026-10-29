@@ -1,0 +1,863 @@
+{
+  "configVersion": "p0.4.0",
+  "saveSchemaVersion": 2,
+  "unityMajorMinor": "6000.6",
+  "blenderMajorMinor": "5.2",
+  "initialDiceCount": 5,
+  "maxPermanentDice": 7,
+  "maxActiveDice": 10,
+  "initialSubmitCapacity": 5,
+  "maxSubmitCapacity": 7,
+  "maxTemporaryDice": 3,
+  "totalRollsPerHand": 3,
+  "submissionsPerStage": 3,
+  "bonusPerUnusedRoll": 3,
+  "initialGold": 10,
+  "baseStageReward": 5,
+  "riskStageReward": 8,
+  "goldPerUnusedSubmission": 1,
+  "interestDivisor": 10,
+  "interestCap": -1,
+  "interestBalanceTiming": "before_current_stage_rewards",
+  "initialControllerSlots": 4,
+  "maxControllerSlots": 10,
+  "controllerSlotUpgradeInCatalog": false,
+  "initialConsumableSlots": 2,
+  "maxConsumableSlots": 5,
+  "controllerSellPrice": 1,
+  "consumableSellPrice": 1,
+  "minDiscountedItemPrice": 2,
+  "maxItemDiscount": 3,
+  "minDiceForColorHand": 5,
+  "minStraightLength": 5,
+  "minPipValue": 1,
+  "maxPipValue": 6,
+  "maxHandLevel": 4,
+  "diceDefinition": {
+    "id": "standard_d6",
+    "faces": [
+      {
+        "faceId": "F01",
+        "pipValue": 1,
+        "colorId": "red",
+        "baseWeight": 1,
+        "texture": "none",
+        "isGold": false
+      },
+      {
+        "faceId": "F02",
+        "pipValue": 2,
+        "colorId": "blue",
+        "baseWeight": 1,
+        "texture": "none",
+        "isGold": false
+      },
+      {
+        "faceId": "F03",
+        "pipValue": 3,
+        "colorId": "blue",
+        "baseWeight": 1,
+        "texture": "none",
+        "isGold": false
+      },
+      {
+        "faceId": "F04",
+        "pipValue": 4,
+        "colorId": "red",
+        "baseWeight": 1,
+        "texture": "none",
+        "isGold": false
+      },
+      {
+        "faceId": "F05",
+        "pipValue": 5,
+        "colorId": "blue",
+        "baseWeight": 1,
+        "texture": "none",
+        "isGold": false
+      },
+      {
+        "faceId": "F06",
+        "pipValue": 6,
+        "colorId": "blue",
+        "baseWeight": 1,
+        "texture": "none",
+        "isGold": false
+      }
+    ],
+    "isGlass": false
+  },
+  "faceOpposites": {
+    "F01": "F06",
+    "F06": "F01",
+    "F02": "F05",
+    "F05": "F02",
+    "F03": "F04",
+    "F04": "F03"
+  },
+  "probabilityUnits": 1000000,
+  "probabilityRounding": "largest_remainder_face_id_tie",
+  "smoothOppositeWeight100": 80,
+  "smoothOtherWeight100": 104,
+  "roughOppositeWeight100": 120,
+  "roughOtherWeight100": 96,
+  "temporaryPipBiasWeight100": 150,
+  "glassBreakPercent": 15,
+  "glassContributionMultiplier": 2,
+  "goldContributionMultiplier": 2,
+  "redRewards": [
+    {
+      "count": 0,
+      "factor100": 100,
+      "title": "无额外奖励"
+    },
+    {
+      "count": 1,
+      "factor100": 100,
+      "title": "无额外奖励"
+    },
+    {
+      "count": 2,
+      "factor100": 125,
+      "title": "二举"
+    },
+    {
+      "count": 3,
+      "factor100": 150,
+      "title": "榜眼"
+    },
+    {
+      "count": 4,
+      "factor100": 200,
+      "title": "探花"
+    },
+    {
+      "count": 5,
+      "factor100": 300,
+      "title": "状元"
+    },
+    {
+      "count": 6,
+      "factor100": 350,
+      "title": "六子登科"
+    },
+    {
+      "count": 7,
+      "factor100": 400,
+      "title": "七同红"
+    }
+  ],
+  "handDefinitions": [
+    {
+      "id": "pair",
+      "displayName": "一对",
+      "baseMult100": 200,
+      "incrementPerLevel100": 75,
+      "baseUpgradePrice": 6,
+      "maxLevel": 4,
+      "tieBreakRank": 1,
+      "minSubmittedDice": 2,
+      "enabledInNormalShop": true,
+      "requirePermanentDice": 0
+    },
+    {
+      "id": "two_pair",
+      "displayName": "两对",
+      "baseMult100": 300,
+      "incrementPerLevel100": 100,
+      "baseUpgradePrice": 6,
+      "maxLevel": 4,
+      "tieBreakRank": 2,
+      "minSubmittedDice": 4,
+      "enabledInNormalShop": true,
+      "requirePermanentDice": 0
+    },
+    {
+      "id": "trips",
+      "displayName": "三条",
+      "baseMult100": 400,
+      "incrementPerLevel100": 125,
+      "baseUpgradePrice": 6,
+      "maxLevel": 4,
+      "tieBreakRank": 3,
+      "minSubmittedDice": 3,
+      "enabledInNormalShop": true,
+      "requirePermanentDice": 0
+    },
+    {
+      "id": "full_house",
+      "displayName": "三条带一对",
+      "baseMult100": 600,
+      "incrementPerLevel100": 200,
+      "baseUpgradePrice": 5,
+      "maxLevel": 4,
+      "tieBreakRank": 4,
+      "minSubmittedDice": 5,
+      "enabledInNormalShop": true,
+      "requirePermanentDice": 0
+    },
+    {
+      "id": "quads",
+      "displayName": "四条",
+      "baseMult100": 800,
+      "incrementPerLevel100": 250,
+      "baseUpgradePrice": 5,
+      "maxLevel": 4,
+      "tieBreakRank": 5,
+      "minSubmittedDice": 4,
+      "enabledInNormalShop": true,
+      "requirePermanentDice": 0
+    },
+    {
+      "id": "five_kind",
+      "displayName": "豹子 五个相同",
+      "baseMult100": 1200,
+      "incrementPerLevel100": 400,
+      "baseUpgradePrice": 6,
+      "maxLevel": 4,
+      "tieBreakRank": 6,
+      "minSubmittedDice": 5,
+      "enabledInNormalShop": true,
+      "requirePermanentDice": 0
+    },
+    {
+      "id": "six_kind",
+      "displayName": "六豹子",
+      "baseMult100": 1800,
+      "incrementPerLevel100": 600,
+      "baseUpgradePrice": 8,
+      "maxLevel": 4,
+      "tieBreakRank": 7,
+      "minSubmittedDice": 6,
+      "enabledInNormalShop": true,
+      "requirePermanentDice": 6
+    },
+    {
+      "id": "seven_kind",
+      "displayName": "七豹子",
+      "baseMult100": 2700,
+      "incrementPerLevel100": 900,
+      "baseUpgradePrice": 10,
+      "maxLevel": 4,
+      "tieBreakRank": 8,
+      "minSubmittedDice": 7,
+      "enabledInNormalShop": true,
+      "requirePermanentDice": 7
+    },
+    {
+      "id": "straight",
+      "displayName": "顺子",
+      "baseMult100": 600,
+      "incrementPerLevel100": 200,
+      "baseUpgradePrice": 5,
+      "maxLevel": 4,
+      "tieBreakRank": 0,
+      "minSubmittedDice": 5,
+      "enabledInNormalShop": true,
+      "requirePermanentDice": 0
+    },
+    {
+      "id": "all_blue",
+      "displayName": "全蓝",
+      "baseMult100": 300,
+      "incrementPerLevel100": 100,
+      "baseUpgradePrice": 6,
+      "maxLevel": 4,
+      "tieBreakRank": 0,
+      "minSubmittedDice": 5,
+      "enabledInNormalShop": true,
+      "requirePermanentDice": 0
+    },
+    {
+      "id": "all_red",
+      "displayName": "全红",
+      "baseMult100": 200,
+      "incrementPerLevel100": 100,
+      "baseUpgradePrice": 5,
+      "maxLevel": 4,
+      "tieBreakRank": 0,
+      "minSubmittedDice": 5,
+      "enabledInNormalShop": true,
+      "requirePermanentDice": 0
+    }
+  ],
+  "controllers": [
+    {
+      "id": "C01",
+      "displayName": "存钱罐",
+      "buyPrice": 6,
+      "sellPrice": 1,
+      "rarity": "common",
+      "offerWeight": 6,
+      "trigger": "StageSettlement",
+      "maxOwned": 1,
+      "parameters": {
+        "extraInterestPerTen": 1
+      },
+      "description": "每满10金币额外增加1金币利息；总利息为2×floor(奖励前金币/10)。"
+    },
+    {
+      "id": "C02",
+      "displayName": "蓝色疯狂",
+      "buyPrice": 12,
+      "sellPrice": 1,
+      "rarity": "rare",
+      "offerWeight": 1,
+      "trigger": "ScoreMultiply",
+      "maxOwned": 1,
+      "parameters": {
+        "scoreMultiplier": 2
+      },
+      "description": "非空提交中没有有效红面时，整手得分×2；不足5颗也可触发。"
+    },
+    {
+      "id": "C03",
+      "displayName": "首当其冲",
+      "buyPrice": 6,
+      "sellPrice": 1,
+      "rarity": "common",
+      "offerWeight": 6,
+      "trigger": "EffectiveColor",
+      "maxOwned": 1,
+      "parameters": {
+        "occupiedIndex": 0
+      },
+      "description": "第一个已占提交栏的骰面临时视为红色；仅作用本次计分，不改永久面。"
+    },
+    {
+      "id": "C04",
+      "displayName": "多提多得",
+      "buyPrice": 5,
+      "sellPrice": 1,
+      "rarity": "common",
+      "offerWeight": 6,
+      "trigger": "StageStart",
+      "maxOwned": 1,
+      "parameters": {
+        "submissionBonus": 1,
+        "rollBonus": -1
+      },
+      "description": "每关基础提交次数+1；每手初始总投掷次数−1。"
+    },
+    {
+      "id": "C05",
+      "displayName": "再来三次",
+      "buyPrice": 12,
+      "sellPrice": 1,
+      "rarity": "rare",
+      "offerWeight": 1,
+      "trigger": "AfterRoll",
+      "maxOwned": 1,
+      "parameters": {
+        "rollGrant": 3,
+        "perHandLimit": 1,
+        "minUnlocked": 1,
+        "maxUnlocked": 2,
+        "checkOnlyAfterRoll": true
+      },
+      "description": "有效投掷结束后，剩掷为0且仅余1至2颗未锁存活骰时，剩掷+3；每手限1次。"
+    },
+    {
+      "id": "C06",
+      "displayName": "数字多多",
+      "buyPrice": 12,
+      "sellPrice": 1,
+      "rarity": "rare",
+      "offerWeight": 1,
+      "trigger": "ScoreMultiply",
+      "maxOwned": 1,
+      "parameters": {
+        "minDistinct": 4,
+        "scoreMultiplier": 3
+      },
+      "description": "提交的有效点数至少有4种时，整手得分×3。"
+    },
+    {
+      "id": "C07",
+      "displayName": "骰子复制",
+      "buyPrice": 6,
+      "sellPrice": 1,
+      "rarity": "uncommon",
+      "offerWeight": 3,
+      "trigger": "AfterScore",
+      "maxOwned": 1,
+      "parameters": {
+        "onlyFirstSubmission": true,
+        "requiredDice": 2,
+        "sourceIndex": 0,
+        "targetIndex": 1
+      },
+      "description": "本关第一次有效提交恰有2颗且有效点数不同，结算后将第二颗永久数据深拷贝为第一颗；保留目标实例ID。"
+    },
+    {
+      "id": "C08",
+      "displayName": "少数派",
+      "buyPrice": 10,
+      "sellPrice": 1,
+      "rarity": "uncommon",
+      "offerWeight": 3,
+      "trigger": "ScoreMultiply",
+      "maxOwned": 1,
+      "parameters": {
+        "scoreMultiplier": 2
+      },
+      "description": "已提交颗数小于本关有效提交栏容量K时，整手得分×2。"
+    },
+    {
+      "id": "C09",
+      "displayName": "简化提交",
+      "buyPrice": 14,
+      "sellPrice": 1,
+      "rarity": "rare",
+      "offerWeight": 1,
+      "trigger": "StageStartAndScore",
+      "maxOwned": 1,
+      "parameters": {
+        "capacityDelta": -1,
+        "scoreMultiplier": 3
+      },
+      "description": "有效提交栏容量−1；每次有效提交的整手得分×3。"
+    },
+    {
+      "id": "C10",
+      "displayName": "少就是多",
+      "buyPrice": 5,
+      "sellPrice": 1,
+      "rarity": "common",
+      "offerWeight": 6,
+      "trigger": "PipContribution",
+      "maxOwned": 1,
+      "parameters": {
+        "pip": 1,
+        "contributionAdd": 4
+      },
+      "description": "每颗有效点数为1的已提交骰，其点数贡献+4，不改牌型。"
+    },
+    {
+      "id": "C11",
+      "displayName": "2233",
+      "buyPrice": 10,
+      "sellPrice": 1,
+      "rarity": "uncommon",
+      "offerWeight": 3,
+      "trigger": "ScoreMultiply",
+      "maxOwned": 1,
+      "parameters": {
+        "pipA": 2,
+        "countA": 2,
+        "pipB": 3,
+        "countB": 2,
+        "scoreMultiplier": 5
+      },
+      "description": "提交中至少2颗有效2点及至少2颗有效3点时，整手得分×5；额外骰允许存在。"
+    },
+    {
+      "id": "C12",
+      "displayName": "不要奇数",
+      "buyPrice": 14,
+      "sellPrice": 1,
+      "rarity": "rare",
+      "offerWeight": 1,
+      "trigger": "EffectivePip",
+      "maxOwned": 1,
+      "parameters": {
+        "oddPipAdd": 1
+      },
+      "description": "有效点数由当前奇数+1得到，偶数不变；影响牌型、红组及后续所有数字条件，不改永久骰面。"
+    },
+    {
+      "id": "C13",
+      "displayName": "就要奇数",
+      "buyPrice": 5,
+      "sellPrice": 1,
+      "rarity": "common",
+      "offerWeight": 6,
+      "trigger": "PipContribution",
+      "maxOwned": 1,
+      "parameters": {
+        "oddContributionAdd": 2
+      },
+      "description": "每颗有效奇数点的已提交骰，其点数贡献+2，不改牌型。"
+    },
+    {
+      "id": "C14",
+      "displayName": "只要奇数",
+      "buyPrice": 8,
+      "sellPrice": 1,
+      "rarity": "uncommon",
+      "offerWeight": 3,
+      "trigger": "ScoreMultiply",
+      "maxOwned": 1,
+      "parameters": {
+        "scoreMultiplier": 2
+      },
+      "description": "非空提交的有效点数全部为奇数时，整手得分×2。"
+    },
+    {
+      "id": "C15",
+      "displayName": "红色扩散",
+      "buyPrice": 6,
+      "sellPrice": 1,
+      "rarity": "uncommon",
+      "offerWeight": 3,
+      "trigger": "AfterScore",
+      "maxOwned": 1,
+      "parameters": {
+        "pattern": "red,blue,red",
+        "targetIndex": 1
+      },
+      "description": "前3个提交栏均有骰，且有效颜色依次红蓝红时，结算后将第2颗的本次物理面永久染红。"
+    },
+    {
+      "id": "C16",
+      "displayName": "可以重来",
+      "buyPrice": 12,
+      "sellPrice": 1,
+      "rarity": "rare",
+      "offerWeight": 1,
+      "trigger": "HandStart",
+      "maxOwned": 1,
+      "parameters": {
+        "rollBonus": 2
+      },
+      "description": "每手初始总投掷次数+2。"
+    },
+    {
+      "id": "C17",
+      "displayName": "小鬼当家",
+      "buyPrice": 7,
+      "sellPrice": 1,
+      "rarity": "uncommon",
+      "offerWeight": 3,
+      "trigger": "PipContribution",
+      "maxOwned": 1,
+      "parameters": {
+        "maxPip": 3,
+        "contributionAdd": 3
+      },
+      "description": "每颗有效点数为1、2、3的已提交骰，其点数贡献+3，不改牌型。"
+    },
+    {
+      "id": "C18",
+      "displayName": "红蓝相当",
+      "buyPrice": 8,
+      "sellPrice": 1,
+      "rarity": "uncommon",
+      "offerWeight": 3,
+      "trigger": "ScoreMultiply",
+      "maxOwned": 1,
+      "parameters": {
+        "scoreMultiplier": 2
+      },
+      "description": "非空提交中有效红面数与蓝面数相等时，整手得分×2；5颗时不可能触发。"
+    },
+    {
+      "id": "C19",
+      "displayName": "小头大用",
+      "buyPrice": 5,
+      "sellPrice": 1,
+      "rarity": "common",
+      "offerWeight": 6,
+      "trigger": "PipContribution",
+      "maxOwned": 1,
+      "parameters": {
+        "maxPermanentFaceSum": 13,
+        "contributionAdd": 5
+      },
+      "description": "某已提交骰永久六面点数未加权之和≤13时，该骰点数贡献+5。"
+    },
+    {
+      "id": "C20",
+      "displayName": "66大顺",
+      "buyPrice": 2,
+      "sellPrice": 1,
+      "rarity": "common",
+      "offerWeight": 6,
+      "trigger": "ScoreAdd",
+      "maxOwned": 1,
+      "parameters": {
+        "lastSlotPip": 6,
+        "finalScoreAdd": 6,
+        "requireFullCapacity": true
+      },
+      "description": "已占满K个提交栏且第K栏有效点数为6时，最终得分+6；此6分不再乘倍率。"
+    }
+  ],
+  "consumables": [
+    {
+      "id": "I01",
+      "displayName": "红色浪潮",
+      "baseBuyPrice": 5,
+      "sellPrice": 1,
+      "window": "Selecting",
+      "lifetime": "ThisHand",
+      "description": "本次提交全部骰子临时视为红色，保持物理面颜色不变。"
+    },
+    {
+      "id": "I02",
+      "displayName": "临时骰子",
+      "baseBuyPrice": 4,
+      "sellPrice": 1,
+      "window": "HandReady",
+      "lifetime": "ThisStage",
+      "description": "本关添加1颗标准临时骰，不增加提交栏；最多同时3颗临时骰，总活动骰≤10。"
+    },
+    {
+      "id": "I03",
+      "displayName": "遥控骰子",
+      "baseBuyPrice": 6,
+      "sellPrice": 1,
+      "window": "HandReadyOrSelecting",
+      "lifetime": "ThisRoll",
+      "description": "选择2颗未锁骰和任意1至6目标点数；确认同时消耗道具及1次普通投掷，全部未锁骰照常投掷，幸存目标当前点数覆盖。"
+    },
+    {
+      "id": "I04",
+      "displayName": "大数多来",
+      "baseBuyPrice": 3,
+      "sellPrice": 1,
+      "window": "HandReadyOrSelecting",
+      "lifetime": "ThisHand",
+      "description": "本手后续投掷时，永久点数为6的物理面权重×1.5，再归一化；同名效果本手不叠加。"
+    },
+    {
+      "id": "I05",
+      "displayName": "缩小射线",
+      "baseBuyPrice": 3,
+      "sellPrice": 1,
+      "window": "HandReadyOrSelecting",
+      "lifetime": "ThisHand",
+      "description": "本手后续投掷时，永久点数为1的物理面权重×1.5，再归一化；同名效果本手不叠加。"
+    },
+    {
+      "id": "I06",
+      "displayName": "增加提交",
+      "baseBuyPrice": 5,
+      "sellPrice": 1,
+      "window": "HandReadyOrSelecting",
+      "lifetime": "ThisStage",
+      "description": "本关剩余提交次数+1；未用完时仍可获得每次1金币奖励。"
+    },
+    {
+      "id": "I07",
+      "displayName": "增加投掷",
+      "baseBuyPrice": 5,
+      "sellPrice": 1,
+      "window": "HandReadyOrSelecting",
+      "lifetime": "ThisStage",
+      "description": "本关每手总投掷次数+1；当前手剩掷也立即+1，之后各手初始预算同样增加。"
+    }
+  ],
+  "services": [
+    {
+      "id": "O01",
+      "displayName": "道具增加",
+      "baseBuyPrice": 5,
+      "priceRule": "5+3×此前购买次数",
+      "description": "道具槽+1，初始2、上限5，满额后不再生成；受已有道具折扣影响。"
+    },
+    {
+      "id": "O02",
+      "displayName": "道具打折",
+      "baseBuyPrice": 7,
+      "priceRule": "7−已有折扣层数，最低2",
+      "description": "道具永久购买价−1，持续本Run，最多3层；只影响局内道具及局外服务，不影响控制器、骰强和牌型强化。"
+    },
+    {
+      "id": "O03",
+      "displayName": "加入骰子",
+      "baseBuyPrice": 0,
+      "priceRule": "按新骰面配置计算，最低6，折后最低2",
+      "description": "骰柜每店预生成2颗候选，分别标价；购买添加1颗永久骰，并使基础提交容量+1至上限7；永久骰最多7颗。"
+    },
+    {
+      "id": "O04",
+      "displayName": "删除骰子",
+      "baseBuyPrice": 3,
+      "priceRule": "3−折扣层数，最低2",
+      "description": "选择1颗永久骰删除；永久骰只余1颗时禁止；基础提交容量不减少。"
+    }
+  ],
+  "diceUpgrades": [
+    {
+      "id": "U01",
+      "displayName": "光滑骰面",
+      "buyPrice": 3,
+      "target": "Face",
+      "description": "将目标面的纹理设为光滑：对面权重×0.80，其余5面各×1.04，再统一归一化。"
+    },
+    {
+      "id": "U02",
+      "displayName": "粗糙骰面",
+      "buyPrice": 3,
+      "target": "Face",
+      "description": "将目标面的纹理设为粗糙：对面权重×1.20，其余5面各×0.96，再统一归一化。"
+    },
+    {
+      "id": "U03",
+      "displayName": "骰子染红",
+      "buyPrice": 3,
+      "target": "Face",
+      "description": "目标物理面永久染红，保持点数、纹理和镀层。"
+    },
+    {
+      "id": "U04",
+      "displayName": "骰子染蓝",
+      "buyPrice": 3,
+      "target": "Face",
+      "description": "目标物理面永久染蓝，保持点数、纹理和镀层。"
+    },
+    {
+      "id": "U05",
+      "displayName": "骰子脆化",
+      "buyPrice": 2,
+      "target": "Die",
+      "description": "整骰变为玻璃；已提交时该骰点数贡献×2；每次实际参与投掷先独立检查15%永久损坏概率。"
+    },
+    {
+      "id": "U06",
+      "displayName": "黄金电镀",
+      "buyPrice": 5,
+      "target": "Face",
+      "description": "目标面增加金色镀层；该面朝上并提交时，该骰点数贡献×2；红蓝底色不变。"
+    },
+    {
+      "id": "U07",
+      "displayName": "随机变形",
+      "buyPrice": 2,
+      "target": "Face",
+      "description": "目标物理面永久随机变为1至6中除当前值以外的一个数字，5种等概率；其他属性不变。"
+    }
+  ],
+  "stages": [
+    {
+      "stageId": "STAGE_01",
+      "normalTarget": 180,
+      "normalReward": 5,
+      "riskEnabled": false,
+      "riskTarget": 0,
+      "riskReward": 0,
+      "shopAfterClear": true
+    },
+    {
+      "stageId": "STAGE_02",
+      "normalTarget": 300,
+      "normalReward": 5,
+      "riskEnabled": true,
+      "riskTarget": 360,
+      "riskReward": 8,
+      "shopAfterClear": true
+    },
+    {
+      "stageId": "STAGE_03",
+      "normalTarget": 500,
+      "normalReward": 5,
+      "riskEnabled": false,
+      "riskTarget": 0,
+      "riskReward": 0,
+      "shopAfterClear": true
+    },
+    {
+      "stageId": "STAGE_04",
+      "normalTarget": 800,
+      "normalReward": 5,
+      "riskEnabled": true,
+      "riskTarget": 960,
+      "riskReward": 8,
+      "shopAfterClear": true
+    },
+    {
+      "stageId": "STAGE_05",
+      "normalTarget": 1200,
+      "normalReward": 5,
+      "riskEnabled": true,
+      "riskTarget": 1440,
+      "riskReward": 8,
+      "shopAfterClear": true
+    },
+    {
+      "stageId": "STAGE_06",
+      "normalTarget": 1800,
+      "normalReward": 5,
+      "riskEnabled": false,
+      "riskTarget": 0,
+      "riskReward": 0,
+      "shopAfterClear": false
+    }
+  ],
+  "shop": {
+    "controllerOffers": 3,
+    "consumableOffers": 2,
+    "handUpgradeOffers": 2,
+    "diceUpgradeOffers": 2,
+    "serviceOffers": 1,
+    "newDiceOffers": 2,
+    "purchaseLimit": -1,
+    "restockPurchasedOffers": false,
+    "paidRefreshEnabled": false,
+    "selfStudyLimit": 1,
+    "selfStudyPremium": 2,
+    "upgradePricePerExistingLevel": 2,
+    "controllersUniqueOwned": true,
+    "firstControllerGuaranteeMaxPrice": 8,
+    "controllerWeights": {
+      "common": 6,
+      "uncommon": 3,
+      "rare": 1
+    },
+    "sellingWindow": "Shop",
+    "discountCategories": [
+      "consumable",
+      "service",
+      "new_die"
+    ]
+  },
+  "generation": {
+    "newDieTemplateWeights": {
+      "random": 50,
+      "low": 25,
+      "high": 25
+    },
+    "pipRange": [
+      1,
+      6
+    ],
+    "lowRange": [
+      1,
+      3
+    ],
+    "highRange": [
+      4,
+      6
+    ],
+    "redFaceChancePercent": 40,
+    "newDieBasePrice": 6,
+    "highSumThreshold": 24,
+    "highSumPremium": 2,
+    "smallSumThreshold": 13,
+    "smallSumPremium": 2,
+    "maxRepeatThreshold": 3,
+    "maxRepeatPremium": 2,
+    "sameColorThreshold": 5,
+    "sameColorPremium": 2
+  },
+  "rng": {
+    "algorithm": "xorshift32_v1",
+    "diceSeedXor": 2738958700,
+    "shopSeedXor": 3355524772,
+    "effectSeedXor": 2911926141,
+    "zeroSeedReplacement": 2654435769
+  },
+  "presentation": {
+    "rollSeconds": 0.9,
+    "fastRollSeconds": 0.15,
+    "referenceWidth": 1920,
+    "referenceHeight": 1080
+  },
+  "debug": {
+    "markRunAsDebugOnUse": true,
+    "maxControllerSlots": 10,
+    "unlimitedGold": false,
+    "freeUnlockTestOnly": true
+  }
+}

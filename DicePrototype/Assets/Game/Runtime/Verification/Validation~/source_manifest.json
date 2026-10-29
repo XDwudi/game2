@@ -1,0 +1,37 @@
+{
+  "kind": "offline-probe-api-and-report-validation",
+  "utc": "2026-10-29T01:26:51.3957213Z",
+  "unity": "6000.6.7f1",
+  "dotnet": "10.0.403",
+  "probeRevision": "p0-player-preallocated-capture-4",
+  "compileErrors": 0,
+  "compileWarnings": 0,
+  "managedReportChecksPassed": 18,
+  "unityPlayerExecuted": false,
+  "inputs": [
+    {
+      "path": "DicePrototype/Assets/Game/Runtime/Verification/PlayerVerification.cs",
+      "sha256": "28162622312d1a81c8636a8f411def69bccd0fbd7028363fbfa117c023c717c6"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Runtime/Verification/Validation~/ProbeCompile.csproj",
+      "sha256": "5354a9abd44667b29e1a979ac2976a9bb1ac63202e108dbd99c9f2aad31ff375"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Runtime/Verification/Validation~/MetricChecks.cs",
+      "sha256": "18c9eef7e124fb3c273653c251a75f23a8a40085cf27b58414da8d8cd6ef711e"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Runtime/Verification/Validation~/bin/Release/net10.0/ProbeCompile.dll",
+      "sha256": "ae3b3fcce1a76f63fcdb64856fce2772b2df8319d1664d702a36f4add77d1fa2"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Runtime/Verification/Validation~/bin/Release/net10.0/DiceCraft.Runtime.dll",
+      "sha256": "f0451968c120c237826c4e05923484f323c52d4fea36395e2d58ffd02a670f34"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Runtime/Verification/Validation~/bin/Release/net10.0/DiceCraft.Core.dll",
+      "sha256": "3365c4409fa030a616616f94bfc5868998e8267a23698f94246c85c95729d322"
+    }
+  ]
+}

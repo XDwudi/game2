@@ -1,0 +1,79 @@
+{
+  "kind": "read-only-player02-diagnosis",
+  "utc": "2026-10-29T01:20:06.864000+00:00",
+  "playerReportSha256": "c30e7cdc9705a4af48839e918f192af0e3c5bee5faa9aaa2730bdc316169c5d8",
+  "screenshots": [
+    {
+      "path": "evidence\\runs\\player\\player-20261029-005142-873bffd3\\main-menu-1920x1080.png",
+      "sha256": "3d317c56969b387a9f70888105a23235d7bf9a28ecaa8260e7222c8b98780871",
+      "width": 1920,
+      "height": 1080,
+      "sampledPixels": 8160,
+      "nonBlackRatio": 0.0,
+      "brightRatio": 0.0,
+      "quantizedColors": 1
+    },
+    {
+      "path": "evidence\\runs\\player\\player-20261029-005142-873bffd3\\normal-selecting-1920x1080.png",
+      "sha256": "3d317c56969b387a9f70888105a23235d7bf9a28ecaa8260e7222c8b98780871",
+      "width": 1920,
+      "height": 1080,
+      "sampledPixels": 8160,
+      "nonBlackRatio": 0.0,
+      "brightRatio": 0.0,
+      "quantizedColors": 1
+    },
+    {
+      "path": "evidence\\runs\\player\\player-20261029-005142-873bffd3\\normal-selecting-1280x720.png",
+      "sha256": "28d835e86cd0c5d35380638c03b83b1010131e5a85b93819087adb90d52fefdf",
+      "width": 1280,
+      "height": 720,
+      "sampledPixels": 3600,
+      "nonBlackRatio": 1.0,
+      "brightRatio": 0.06638888888888889,
+      "quantizedColors": 49
+    },
+    {
+      "path": "evidence\\runs\\player\\player-20261029-005142-873bffd3\\normal-run-won.png",
+      "sha256": "faed421dd4d0f4a7744f19198425dfbb1fe6991235b9585745451748740ae92d",
+      "width": 1920,
+      "height": 1080,
+      "sampledPixels": 8160,
+      "nonBlackRatio": 1.0,
+      "brightRatio": 0.046691176470588236,
+      "quantizedColors": 51
+    },
+    {
+      "path": "evidence\\runs\\player\\player-20261029-005142-873bffd3\\debug-stress-final.png",
+      "sha256": "31e52b14565e2f85fec63d6beabcb25a3836a8fbc7e25fbb4e2dfcdcaa8decc3",
+      "width": 1920,
+      "height": 1080,
+      "sampledPixels": 8160,
+      "nonBlackRatio": 1.0,
+      "brightRatio": 0.09779411764705882,
+      "quantizedColors": 91
+    }
+  ],
+  "gpuImpossibleRows": [
+    {
+      "frame": "133248",
+      "elapsed_s": "42.95940019999999",
+      "interval_ms": "0.53549999999802367",
+      "main_thread_ms": "0.5343",
+      "render_thread_ms": "",
+      "frame_timing_cpu_ms": "0.608",
+      "gpu_ms": "13163700653408.648",
+      "gc_alloc_bytes": "0",
+      "gc_used_bytes": "21282816",
+      "ui_build_ms": "0",
+      "ui_build_marker_calls": "0",
+      "mono_used_bytes": "21282816"
+    }
+  ],
+  "observedFrames": 286832,
+  "sampleSeconds": 180.0081859,
+  "uiCoverage": 0.297892145925141,
+  "gpuCoverage": 0.984370642048307,
+  "graphicsApi": "Direct3D11",
+  "conclusion": "Normal command replay completed. Two initial visual captures were entirely black. UI recorder overflow and impossible GPU sample prevent full performance acceptance. Hidden launch is a hypothesis, not an established sole cause."
+}

@@ -1,0 +1,172 @@
+{
+  "schemaVersion": 1,
+  "units": "metres",
+  "referenceEdgeLength": 1,
+  "runtimeConvention": "Unity local space; +Y is up; pips are dynamic, never used to infer faceId",
+  "fbxAxisForward": "-Z",
+  "fbxAxisUp": "Y",
+  "faces": [
+    {
+      "faceId": "F01",
+      "unityNormal": [
+        0,
+        1,
+        0
+      ],
+      "unityCenter": [
+        0.0,
+        0.501,
+        0.0
+      ],
+      "blenderNormal": [
+        0,
+        0,
+        1
+      ],
+      "blenderCenter": [
+        0.0,
+        0.0,
+        0.5
+      ],
+      "oppositeFaceId": "F06",
+      "initialPip": 1,
+      "initialColor": "red",
+      "markerObject": "Face_F01"
+    },
+    {
+      "faceId": "F02",
+      "unityNormal": [
+        0,
+        0,
+        1
+      ],
+      "unityCenter": [
+        0.0,
+        0.0,
+        0.501
+      ],
+      "blenderNormal": [
+        0,
+        -1,
+        0
+      ],
+      "blenderCenter": [
+        0.0,
+        -0.5,
+        0.0
+      ],
+      "oppositeFaceId": "F05",
+      "initialPip": 2,
+      "initialColor": "blue",
+      "markerObject": "Face_F02"
+    },
+    {
+      "faceId": "F03",
+      "unityNormal": [
+        1,
+        0,
+        0
+      ],
+      "unityCenter": [
+        0.501,
+        0.0,
+        0.0
+      ],
+      "blenderNormal": [
+        1,
+        0,
+        0
+      ],
+      "blenderCenter": [
+        0.5,
+        0.0,
+        0.0
+      ],
+      "oppositeFaceId": "F04",
+      "initialPip": 3,
+      "initialColor": "blue",
+      "markerObject": "Face_F03"
+    },
+    {
+      "faceId": "F04",
+      "unityNormal": [
+        -1,
+        0,
+        0
+      ],
+      "unityCenter": [
+        -0.501,
+        0.0,
+        0.0
+      ],
+      "blenderNormal": [
+        -1,
+        0,
+        0
+      ],
+      "blenderCenter": [
+        -0.5,
+        0.0,
+        0.0
+      ],
+      "oppositeFaceId": "F03",
+      "initialPip": 4,
+      "initialColor": "red",
+      "markerObject": "Face_F04"
+    },
+    {
+      "faceId": "F05",
+      "unityNormal": [
+        0,
+        0,
+        -1
+      ],
+      "unityCenter": [
+        0.0,
+        0.0,
+        -0.501
+      ],
+      "blenderNormal": [
+        0,
+        1,
+        0
+      ],
+      "blenderCenter": [
+        0.0,
+        0.5,
+        0.0
+      ],
+      "oppositeFaceId": "F02",
+      "initialPip": 5,
+      "initialColor": "blue",
+      "markerObject": "Face_F05"
+    },
+    {
+      "faceId": "F06",
+      "unityNormal": [
+        0,
+        -1,
+        0
+      ],
+      "unityCenter": [
+        0.0,
+        -0.501,
+        0.0
+      ],
+      "blenderNormal": [
+        0,
+        0,
+        -1
+      ],
+      "blenderCenter": [
+        0.0,
+        0.0,
+        -0.5
+      ],
+      "oppositeFaceId": "F01",
+      "initialPip": 6,
+      "initialColor": "blue",
+      "markerObject": "Face_F06"
+    }
+  ]
+}
