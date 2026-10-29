@@ -2,7 +2,7 @@
 
 当前 P0 按用户提供的 v0.4 规格采用 Unity 6000.6.7f1 与 Blender 5.2.3 LTS，首轮 Windows x64 / D3D11；URP、uGUI/TMP、Input System 的精确版本锁定在 DicePrototype/Packages。接通与验收结果见 STATE.md。以下候选工具与三端原则继续适用于后续阶段，不能将本轮 Windows 结论推定为移动端通过。
 
-P0运行时设置 `vSyncCount=0`、`targetFrameRate=60`。本机第三轮Player在vSync=1时实际约1600帧，显式限帧被忽略；按[Unity 6000.6官方行为](https://docs.unity.com/en-us/engine/6000.6/script-reference/unityengine/application/targetframerate)修正为软件限帧，再以新构建测量帧间隔。此设置没有改变1080p、180秒、16.7ms和采样覆盖率验收条件，软件计时的实际抖动也计入结果。
+P0以 `vSyncCount=0`、`targetFrameRate=60` 为原生回退；Windows Player成功安装通用60Hz `FramePacer` 后由它接管节拍，移除时恢复原设置。其他平台与Editor保持原生回退。本机原生软件限速的实测抖动、独占模式失败和通用调度试验见 [帧调度记录](decisions/P0-FRAME-PACING.md)。此选择保持1080p、180秒、16.7ms原探针门槛及采样覆盖要求；完整性能结论以最新实际构建和独立复核为准。
 
 ## 工具职责与选择原则
 

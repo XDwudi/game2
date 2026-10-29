@@ -2,6 +2,8 @@
 
 更新：2026-10-28（America/New_York）。任务 P0-001 处于 **VERIFYING / REWORK**；核心功能已通过独立技术复核，性能与最终交接仍在进行，未整体验收。
 
+最新返工（Player06完成后）：`ba848b2` / build09已实跑341项EditMode和20项PlayMode全过，Player06完成正常六关与180秒压力，原探针返回exit0、LateUpdate P95 16.6751ms。但独立FTM Present/Complete P95约18.75ms，root未据单轴通过放行性能。正在验证让GameApp.Refresh立即完成已排队的Canvas/TMP布局，再进入节拍等待，避免可变UI工作留在渲染尾段。原测点、阈值和操作日程保持不变；Player06原始“passed”报告保留并明确限制。
+
 ## 权威输入与范围
 
 用户要求依照已有框架和两份 v0.4 文件完成骰子构筑原型，主 agent 负责切片、集成和验收。原始文件保存在 `docs/specs/`，SHA-256见 `source_manifest.json`；Markdown 内 p0.4.0 / save schema 2 为权威，旧聊天只作背景。验收条件见 `docs/tasks/P0-IMPLEMENTATION.md`。

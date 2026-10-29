@@ -61,6 +61,14 @@ namespace DiceCraft
         }
         public void Refresh()
         {
+            RebuildView();
+            // Finish the layout/text meshes queued by this UI transaction now. Leaving
+            // them until the render tail makes an otherwise paced frame arrive late.
+            // The same work and content remain; no rule state or timing probe is changed.
+            Canvas.ForceUpdateCanvases();
+        }
+        private void RebuildView()
+        {
             // Pending selection and presentation flags do not mutate committed run data.
             // Reuse its detached snapshot until the session or accepted sequence changes.
             if(!ReferenceEquals(displayedSession,Session)||ViewState==null||ViewState.actionSequence!=Session.ActionSequence)

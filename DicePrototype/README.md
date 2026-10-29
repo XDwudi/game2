@@ -37,6 +37,8 @@ IO失败会保留同一候选快照，点击重试不会重投、重复扣费或
 
 Core/Rules和Core/Session为无Unity依赖的确定性C#。GameApp消费语义命令和冻结快照，DiceTable只呈现结果。配置和52个黄金示例从原规格机械提取；不得以改预期使测试通过。
 
+Windows Player使用通用60Hz帧调度，失败或移除时回退Unity原生60帧设置；失焦/暂停采用粗睡眠，恢复重新建立节拍。它不读取游戏状态或测试开关，不影响RNG、保存和规则。设计、成本及实际测量边界见 ../docs/decisions/P0-FRAME-PACING.md。
+
 ## 验证
 
 Unity Test Runner中分别运行DiceCraft.EditMode和DiceCraft.PlayModeTests。Editor/TestEvidence自动将NUnit XML保存到 ../evidence/unity。真实Unity报告包括发现数、通过数和失败原因；不将离线.NET编译当作引擎测试。
