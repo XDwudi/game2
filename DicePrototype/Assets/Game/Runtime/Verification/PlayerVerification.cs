@@ -474,6 +474,11 @@ namespace DiceCraft.Verification
                     frames.Capacity = samplingFrameCapacity;
                     frameSampleRecordBytes = Marshal.SizeOf<FrameSample>();
                     observerFramePayloadBytes = (long)samplingFrameCapacity * frameSampleRecordBytes;
+                    // ProfilerRecorder counters describe a completed frame. Let both
+                    // the allocation frame and its published counter value pass before
+                    // opening the measured window; keep every subsequently sampled frame.
+                    yield return null;
+                    yield return null;
                     firstCollection0 = GC.CollectionCount(0); firstCollection1 = GC.CollectionCount(1); firstCollection2 = GC.CollectionCount(2);
                     samplingStart = lastTick = Time.realtimeSinceStartupAsDouble;
                     uiBuild.BeginUiWindow();

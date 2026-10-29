@@ -17,15 +17,15 @@ namespace DiceCraft
             var offers=ViewState.shop.offers.Where(o=>shopTab==0?o.category=="controller":shopTab==1?o.category=="consumable"||o.category=="service"&&o.contentId!="O04":shopTab==2?o.category=="hand_upgrade":o.category=="die_upgrade"||o.category=="new_die"||o.contentId=="O04").ToList();
             int count=offers.Count+(shopTab==2?1:0),rows=Math.Max(1,(count+2)/3);
             var content=UiKit.Scroll(main,"ShopScroll",36,297,1844,503,rows*350);
-            for(int i=0;i<offers.Count;i++)OfferCard(content,offers[i],(i%3)*610,(i/3)*350);
+            for(int i=0;i<offers.Count;i++)OfferCard(content,offers[i],i,(i%3)*610,(i/3)*350);
             if(shopTab==2){int i=offers.Count;var p=UiKit.Box(content,"SelfStudy",i%3*610,i/3*350,590,330,UiKit.Panel);UiKit.Text(p,"Name","自选研习",25,28,540,55,32,UiKit.Gold);UiKit.Text(p,"Description","任选一种当前合法牌型升级。\n按正常升级价 +2；本店一次。\n先购买其他强化后，价格与资格会实时更新。",25,106,540,130,25,UiKit.Muted);UiKit.Button(p,"Study","选择牌型",25,260,540,48,ShowStudy,ViewState.shop.selfStudyUsed==0);}
             if(offers.Count==0&&shopTab!=2)UiKit.Text(content,"NoOffers","本页没有可供应的商品。现有商品不会因购买或出售而补货。",35,60,1700,80,29,UiKit.Muted);
             InventoryStrip(true);
             if(tutorial)UiKit.Text(main,"TutorialShop","练习：选一件商品查看，再确认购买。物品不会在点选目标时提前扣费。",40,810,1700,38,23,UiKit.Teal);
         }
-        private void OfferCard(Transform parent,ShopOffer offer,float x,float y)
+        private void OfferCard(Transform parent,ShopOffer offer,int slot,float x,float y)
         {
-            var p=UiKit.Box(parent,"Offer_"+offer.offerId,x,y,590,330,UiKit.Panel);
+            var p=UiKit.Box(parent,"OfferSlot_"+slot,x,y,590,330,UiKit.Panel);p.name="Offer_"+offer.offerId;
             Icon(p,offer.contentId,22,23,58);
             UiKit.Text(p,"Name",offer.category=="new_die"?"加入骰子 · 六面候选":NameOf(offer.contentId),98,25,465,45,29,UiKit.Paper);
             int price=Session.GetOfferPrice(offer);
@@ -56,7 +56,7 @@ namespace DiceCraft
         private void Icon(Transform p,string id,float x,float y,float size)
         {
             if(contentIcons==null)return;var sprite=contentIcons.FirstOrDefault(s=>s!=null&&s.name==id);if(sprite==null)return;
-            var r=UiKit.Rect(p,"Icon_"+id,x,y,size,size);var image=r.gameObject.AddComponent<UnityEngine.UI.Image>();image.sprite=sprite;image.raycastTarget=false;
+            var r=UiKit.Rect(p,"Icon_"+id,x,y,size,size);var image=UiKit.Component<UnityEngine.UI.Image>(r.gameObject);image.sprite=sprite;image.raycastTarget=false;
         }
         private void ShowOwned(OwnedItem item,bool selling)
         {
@@ -149,7 +149,9 @@ namespace DiceCraft
                 UiKit.Text(card,"Pip",f.permanentPip.ToString(),14,53,205,85,60,f.baseColor=="red"?UiKit.Red:UiKit.Blue,TextAlignmentOptions.Center);
                 UiKit.Text(card,"Color",(f.baseColor=="red"?"红 R":"蓝 B")+(f.isGold?" · 镀金":""),10,140,215,35,22,UiKit.Paper,TextAlignmentOptions.Center);
                 UiKit.Text(card,"Texture",(f.texture=="smooth"?"光滑":f.texture=="rough"?"粗糙":"无纹理")+"   "+(units[i]/10000f).ToString("0.00")+"%",10,181,215,34,20,UiKit.Muted,TextAlignmentOptions.Center);
-                if(choose!=null){string id=f.faceId;var b=card.gameObject.AddComponent<UnityEngine.UI.Button>();card.GetComponent<UnityEngine.UI.Image>().raycastTarget=true;b.onClick.AddListener(()=>choose(id));}
+                var faceButton=card.GetComponent<UnityEngine.UI.Button>();
+                if(faceButton!=null){faceButton.onClick.RemoveAllListeners();faceButton.enabled=false;faceButton.interactable=false;}
+                if(choose!=null){string id=f.faceId;faceButton=UiKit.Component<UnityEngine.UI.Button>(card.gameObject);faceButton.enabled=true;faceButton.interactable=true;faceButton.targetGraphic=card.GetComponent<UnityEngine.UI.Image>();faceButton.targetGraphic.raycastTarget=true;faceButton.onClick.AddListener(()=>choose(id));}
             }
         }
     }

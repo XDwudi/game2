@@ -47,7 +47,7 @@ namespace DiceCraft
             UiKit.Button(p,"Reduced","减少动态："+(reduced?"开":"关"),820,235,720,64,()=>{reduced=!reduced;PlayerPrefs.SetInt("reduced",reduced?1:0);Pause();});
             UiKit.Text(p,"VolumeLabel","音量",40,350,1500,45,28);
             var sliderRoot=UiKit.Box(p,"Volume",40,420,1500,28,UiKit.PanelLight,true);
-            var slider=sliderRoot.gameObject.AddComponent<UnityEngine.UI.Slider>();slider.minValue=0;slider.maxValue=1;slider.value=volume;
+            var slider=UiKit.Component<UnityEngine.UI.Slider>(sliderRoot.gameObject);slider.onValueChanged.RemoveAllListeners();slider.fillRect=null;slider.minValue=0;slider.maxValue=1;slider.value=volume;
             var fill=UiKit.Box(sliderRoot,"Fill",0,0,1500,28,UiKit.Gold);fill.anchorMin=Vector2.zero;fill.anchorMax=Vector2.one;fill.offsetMin=fill.offsetMax=Vector2.zero;slider.fillRect=fill;
             slider.onValueChanged.AddListener(v=>{volume=v;audioSource.volume=v;PlayerPrefs.SetFloat("volume",v);});
             UiKit.Button(p,"Resume","继续挑战",40,575,720,72,CloseModal,true,true);
@@ -73,7 +73,7 @@ namespace DiceCraft
             }
             UiKit.Text(p,"Layers",text,40,535,1200,175,25,UiKit.Gold);
             var rotation=Quaternion.Euler(20,25,15);table.ShowPreview(die,new Vector2(1600,770),rotation,1.4f);
-            var previewHit=UiKit.Box(p,"RotatePreview",1300,515,280,220,Color.clear,true).gameObject.AddComponent<DiePointer>();
+            var previewHit=UiKit.Component<DiePointer>(UiKit.Box(p,"RotatePreview",1300,515,280,220,Color.clear,true).gameObject);previewHit.clicked=null;previewHit.dragStart=null;previewHit.dragged=null;previewHit.dragEnd=null;
             previewHit.dragged=e=>{rotation=Quaternion.Euler(e.delta.y*.65f,-e.delta.x*.65f,0)*rotation;table.ShowPreview(die,new Vector2(1600,770),rotation,1.4f);};
             UiKit.Text(p,"PreviewHint","拖动旋转 · 永久六面",1290,737,300,40,18,UiKit.Muted,TextAlignmentOptions.Center);
         }
@@ -147,6 +147,7 @@ namespace DiceCraft
         private void BeginTutorial()
         {
             if(Session!=null&&Session.HasPendingSave){SaveFailure();return;}
+            UiKit.Release(main);UiKit.Release(overlay);
             var practiceConfig=JsonUtility.FromJson<GameConfig>(configAsset.text);
             practiceConfig.stages[0].normalTarget=50;
             var memory=new MemorySaveStore();var practice=new GameSession(practiceConfig,memory);

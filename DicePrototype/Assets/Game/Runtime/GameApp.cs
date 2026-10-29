@@ -25,6 +25,7 @@ namespace DiceCraft
         public GameConfig Config { get; private set; }
         public RunState ViewState { get; private set; }
         private AtomicSaveStore saves;
+        private GameSession displayedSession;
         private RectTransform main, overlay;
         private TMP_InputField seedField;
         private AudioSource audioSource;
@@ -59,7 +60,11 @@ namespace DiceCraft
         }
         public void Refresh()
         {
-            ViewState=Session?.State; UiKit.Clear(main); table.Hide(); visibleDice.Clear(); dieCenters.Clear();
+            // Pending selection and presentation flags do not mutate committed run data.
+            // Reuse its detached snapshot until the session or accepted sequence changes.
+            if(!ReferenceEquals(displayedSession,Session)||ViewState==null||ViewState.actionSequence!=Session.ActionSequence)
+            { ViewState=Session?.State;displayedSession=Session; }
+            UiKit.Clear(main); table.Hide(); visibleDice.Clear(); dieCenters.Clear();
             if(inMenu || ViewState==null) { inMenu=true; Menu(); if(Session.HasPendingSave)SaveFailure(); return; }
             Header();
             switch(ViewState.phase)
@@ -99,12 +104,13 @@ namespace DiceCraft
             uint seed;
             if(string.IsNullOrWhiteSpace(seedText)) { var bytes=new byte[4]; using(var rng=System.Security.Cryptography.RandomNumberGenerator.Create())rng.GetBytes(bytes);seed=BitConverter.ToUInt32(bytes,0); }
             else if(!GameRng.TryParseSeed(seedText,out seed)){notice="请输入 0 到 4294967295 的十进制整数。"; Refresh();return;}
+            UiKit.Release(main);UiKit.Release(overlay);
             tutorial=false; Session=new GameSession(Config,saves);inMenu=false;notice=""; Send(new SessionCommand{kind=CommandKind.NewRun,seed=seed});
         }
         public CommandResult Send(SessionCommand cmd)
         {
             if(cmd.kind==CommandKind.ConfirmLocks)cmd.dieIds=Session.PendingIds;
-            cmd.commandId=Guid.NewGuid().ToString("N");cmd.expectedActionSequence=Session.State?.actionSequence??0;
+            cmd.commandId=Guid.NewGuid().ToString("N");cmd.expectedActionSequence=Session.ActionSequence;
             var result=Session.Execute(cmd);
             if(!result.accepted){notice=result.error??"操作未完成";PlaySound("reject");Refresh();return result;}
             PresentCommitted(cmd,result);
@@ -122,7 +128,6 @@ namespace DiceCraft
                 else if(result.receipt.effects.Any(e=>e.kind=="FaceDyed"))PlaySound("dye");
             }
             if(tutorial) tutorialStep++;
-            if(!result.duplicate) LogCommand(cmd,result);
             bool roll=cmd.kind==CommandKind.Roll || (cmd.kind==CommandKind.UseItem && cmd.targetPips.Length==2);
             bool submit=cmd.kind==CommandKind.Submit;
             if(roll || submit)
@@ -133,6 +138,7 @@ namespace DiceCraft
                 visual=StartCoroutine(EndVisual(reduced?0:fast?.15f:roll?.90f:.25f));
             }
             else {PlaySound(cmd.kind==CommandKind.ConfirmLocks?"lock":cmd.kind==CommandKind.Buy||cmd.kind==CommandKind.Study?"purchase":"use");Refresh();}
+            if(!result.duplicate)LogCommand(cmd,result);
         }
         private IEnumerator EndVisual(float seconds){yield return new WaitForSecondsRealtime(seconds);table.FinishRoll();Session.Busy=false;visual=null;Refresh();}
         public void SkipVisual(){if(visual!=null){StopCoroutine(visual);visual=null;}table.FinishRoll();if(Session!=null)Session.Busy=false;Refresh();}
@@ -209,7 +215,7 @@ namespace DiceCraft
             table.Display(die,result,center,scale);dieCenters[die.dieId]=center;
             bool selected=Session.PendingIds.Contains(die.dieId);
             var hit=UiKit.Box(main,"Die_"+die.dieId,center.x-70,center.y-65,140,130,new Color(0,0,0,0),true);
-            var pointer=hit.gameObject.AddComponent<DiePointer>();string id=die.dieId;
+            var pointer=UiKit.Component<DiePointer>(hit.gameObject);pointer.clicked=null;pointer.dragStart=null;pointer.dragged=null;pointer.dragEnd=null;string id=die.dieId;
             pointer.clicked=e=> {if(e.button==PointerEventData.InputButton.Right||locked){ShowDie(id);return;}if(modal||IsBusy)return;Session.TogglePending(id);Refresh();};
             if(locked){pointer.dragEnd=e=>{if(modal||IsBusy||Session.PendingIds.Length>0)return;Vector2 ui=new Vector2(e.position.x/Screen.width*1920,(1-e.position.y/Screen.height)*1080);string target=dieCenters.Where(k=>ViewState.hand.orderedLockedIds.Contains(k.Key)).OrderBy(k=>(k.Value-ui).sqrMagnitude).First().Key;
                 var ids=ViewState.hand.orderedLockedIds.ToArray();int from=Array.IndexOf(ids,id),to=Array.IndexOf(ids,target);(ids[from],ids[to])=(ids[to],ids[from]);Send(new SessionCommand{kind=CommandKind.Reorder,dieIds=ids});};}
@@ -278,7 +284,7 @@ namespace DiceCraft
         private void OnDestroy(){UiKit.Font=null;}
         private void LogCommand(SessionCommand command,CommandResult result)
         {
-            try {var s=Session.State;string file=Path.Combine(SaveDirectoryOverride??Application.persistentDataPath,(tutorial||s.isDebug?"debug":"normal")+"-actions.jsonl");
+            try {var s=ViewState;string file=Path.Combine(SaveDirectoryOverride??Application.persistentDataPath,(tutorial||s.isDebug?"debug":"normal")+"-actions.jsonl");
                 File.AppendAllText(file,JsonUtility.ToJson(new ActionLog{seed=s.seed,runId=s.runId,phase=s.phase,action=command,receipt=result.receipt})+"\n",Encoding.UTF8);}
             catch(Exception ex) when(ex is IOException || ex is UnauthorizedAccessException || ex is System.Security.SecurityException){Debug.LogWarning("操作日志写入失败（存档已保存）："+ex.Message);}
         }

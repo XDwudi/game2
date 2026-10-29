@@ -17,6 +17,7 @@ namespace DiceCraft.Core
         public event Action<CommandReceipt> Committed;
         public string LastPresentationError { get; private set; }
         public RunState State { get { lock (gate) return state == null ? null : state.Clone(); } }
+        public long ActionSequence { get { lock (gate) return state == null ? 0 : state.actionSequence; } }
         public string[] PendingIds { get { lock (gate) return pending.ToArray(); } }
         public bool HasPendingSave { get { lock (gate) return pendingSaveState != null; } }
         public bool Busy { get { lock (gate) return busy; } set { lock (gate) busy = value; } }
