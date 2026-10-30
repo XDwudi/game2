@@ -1,0 +1,25 @@
+{
+  "localLfsObjects": {
+    "command": [
+      "git",
+      "lfs",
+      "ls-files",
+      "-l"
+    ],
+    "exitCode": 0,
+    "stdout": "7900e055adefaf603ddc27c6efa86fba143856ecf016cad70c205eade2133d24 * Releases/p0.5.0/DicePrototype-p0.5.0-MacVerificationKit.zip\na5f4c46fb8c7c609a09963e3a963c43566f4ae043b9bbc0cb48442a46da76297 * Releases/p0.5.0/DicePrototype-p0.5.0-macos-universal.zip\n0479e32f10be4bb1f51b65d2c0ca4f8719b3845d895f1da1c61e7545173a512d * Releases/p0.5.0/DicePrototype-p0.5.0-win-x64.zip\n",
+    "stderr": ""
+  },
+  "localLfsIntegrity": {
+    "command": [
+      "git",
+      "lfs",
+      "fsck"
+    ],
+    "exitCode": 0,
+    "stdout": "Git LFS fsck OK\n",
+    "stderr": ""
+  },
+  "utc": "2026-10-30T06:05:33.558618+00:00",
+  "scope": "Local candidate940b8fa LFS cache only. Remote upload failed due to quota, so not remote integrity."
+}

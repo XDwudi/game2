@@ -1,0 +1,144 @@
+{
+  "scope": "Independent read of complete candidate ZIP bytes; no extraction or native execution, no release approval",
+  "results": [
+    {
+      "platform": "windows",
+      "manifestSha256": "bd1618180d75d0c655de590472ff569019d3fd29bf85ce76fe3420fb790786ef",
+      "zipPath": "Releases/p0.5.0/DicePrototype-p0.5.0-win-x64.zip",
+      "zipSha256": "0479e32f10be4bb1f51b65d2c0ca4f8719b3845d895f1da1c61e7545173a512d",
+      "zipBytes": 86022146,
+      "fileCount": 308,
+      "manifestFileCount": 308,
+      "native": [],
+      "errors": [],
+      "sourceCommit": "967f309a6be402612514714f46f3743421267799"
+    },
+    {
+      "platform": "macos",
+      "manifestSha256": "55916f60bc8795ebe92c6c285d4c1bd300ce6efe73e34f2925b034c0a6e5c1a6",
+      "zipPath": "Releases/p0.5.0/DicePrototype-p0.5.0-macos-universal.zip",
+      "zipSha256": "a5f4c46fb8c7c609a09963e3a963c43566f4ae043b9bbc0cb48442a46da76297",
+      "zipBytes": 126654920,
+      "fileCount": 303,
+      "manifestFileCount": 303,
+      "native": [
+        {
+          "path": "DicePrototype.app/Contents/Frameworks/libmono-native.dylib",
+          "slices": [
+            {
+              "cpu": 16777223,
+              "subtype": 3,
+              "filetype": 6,
+              "offset": 16384,
+              "byteSize": 911072
+            },
+            {
+              "cpu": 16777228,
+              "subtype": 0,
+              "filetype": 6,
+              "offset": 933888,
+              "byteSize": 878800
+            }
+          ]
+        },
+        {
+          "path": "DicePrototype.app/Contents/Frameworks/libmonobdwgc-2.0.dylib",
+          "slices": [
+            {
+              "cpu": 16777223,
+              "subtype": 3,
+              "filetype": 6,
+              "offset": 16384,
+              "byteSize": 4837856
+            },
+            {
+              "cpu": 16777228,
+              "subtype": 0,
+              "filetype": 6,
+              "offset": 4866048,
+              "byteSize": 4731776
+            }
+          ]
+        },
+        {
+          "path": "DicePrototype.app/Contents/Frameworks/libMonoPosixHelper.dylib",
+          "slices": [
+            {
+              "cpu": 16777223,
+              "subtype": 3,
+              "filetype": 6,
+              "offset": 16384,
+              "byteSize": 345296
+            },
+            {
+              "cpu": 16777228,
+              "subtype": 0,
+              "filetype": 6,
+              "offset": 376832,
+              "byteSize": 377952
+            }
+          ]
+        },
+        {
+          "path": "DicePrototype.app/Contents/Frameworks/UnityPlayer.dylib",
+          "slices": [
+            {
+              "cpu": 16777223,
+              "subtype": 3,
+              "filetype": 6,
+              "offset": 16384,
+              "byteSize": 124117504
+            },
+            {
+              "cpu": 16777228,
+              "subtype": 0,
+              "filetype": 6,
+              "offset": 124141568,
+              "byteSize": 116956384
+            }
+          ]
+        },
+        {
+          "path": "DicePrototype.app/Contents/MacOS/DiceCraft P0",
+          "slices": [
+            {
+              "cpu": 16777223,
+              "subtype": 3,
+              "filetype": 2,
+              "offset": 16384,
+              "byteSize": 13460
+            },
+            {
+              "cpu": 16777228,
+              "subtype": 0,
+              "filetype": 2,
+              "offset": 32768,
+              "byteSize": 34084
+            }
+          ]
+        },
+        {
+          "path": "DicePrototype.app/Contents/PlugIns/lib_burst_generated.bundle",
+          "slices": [
+            {
+              "cpu": 16777223,
+              "subtype": 3,
+              "filetype": 6,
+              "offset": 4096,
+              "byteSize": 1052285
+            },
+            {
+              "cpu": 16777228,
+              "subtype": 0,
+              "filetype": 6,
+              "offset": 1064960,
+              "byteSize": 533200
+            }
+          ]
+        }
+      ],
+      "errors": [],
+      "sourceCommit": "967f309a6be402612514714f46f3743421267799"
+    }
+  ]
+}

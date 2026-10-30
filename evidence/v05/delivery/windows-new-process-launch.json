@@ -1,0 +1,25 @@
+{
+  "utc": "2026-10-30T05:57:53.8880687Z",
+  "pid": 28816,
+  "exe": "E:\\agent_workspace\\gpt\\game2\\Builds\\v05\\new-process-restore-01\\DicePrototype.exe",
+  "actualProcessPath": "E:\\agent_workspace\\gpt\\game2\\Builds\\v05\\new-process-restore-01\\DicePrototype.exe",
+  "arguments": [
+    "-screen-fullscreen",
+    "0",
+    "-screen-width",
+    "1920",
+    "-screen-height",
+    "1080",
+    "-logFile",
+    "E:/agent_workspace/gpt/game2/evidence/v05/delivery/windows-new-process-player.log",
+    "--verify-p0",
+    "E:/agent_workspace/gpt/game2/evidence/v05/session/normal-run-trace.json",
+    "--evidence-dir",
+    "E:/agent_workspace/gpt/game2/evidence/v05/delivery/windows-new-process",
+    "--verify-import-save",
+    "E:/agent_workspace/gpt/game2/evidence/v05/player/player-20261030-054053-169bea91/cross-platform-checkpoint"
+  ],
+  "scope": "Windows new-process checkpoint import and rendered startup; not another complete stress pass",
+  "previousPlayerPid": 16684,
+  "previousPlayerRunning": false
+}

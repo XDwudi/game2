@@ -1,0 +1,513 @@
+﻿{
+    "runId": "DEBUG-24-STAGES",
+    "configVersion": "p0.5.0",
+    "phase": "StagePreview",
+    "failureReason": "",
+    "saveSchemaVersion": 3,
+    "gold": 10,
+    "baseSubmitCapacity": 5,
+    "controllerSlots": 4,
+    "consumableSlots": 2,
+    "itemDiscount": 0,
+    "nextDieSerial": 6,
+    "nextItemSerial": 5,
+    "nextOfferSerial": 1,
+    "nextHandSerial": 1,
+    "actionSequence": 1,
+    "seed": 20261030,
+    "diceRngState": 2725517770,
+    "shopRngState": 3375633922,
+    "effectRngState": 2896519131,
+    "isDebug": true,
+    "dice": [
+        {
+            "dieId": "D001",
+            "createdSerial": 1,
+            "lifetime": "permanent",
+            "createdStageId": "",
+            "faces": [
+                {
+                    "faceId": "F01",
+                    "permanentPip": 4,
+                    "baseColor": "red",
+                    "baseWeight": 1,
+                    "texture": "none",
+                    "isGold": true
+                },
+                {
+                    "faceId": "F02",
+                    "permanentPip": 4,
+                    "baseColor": "red",
+                    "baseWeight": 1,
+                    "texture": "none",
+                    "isGold": true
+                },
+                {
+                    "faceId": "F03",
+                    "permanentPip": 4,
+                    "baseColor": "red",
+                    "baseWeight": 1,
+                    "texture": "none",
+                    "isGold": true
+                },
+                {
+                    "faceId": "F04",
+                    "permanentPip": 4,
+                    "baseColor": "red",
+                    "baseWeight": 1,
+                    "texture": "none",
+                    "isGold": true
+                },
+                {
+                    "faceId": "F05",
+                    "permanentPip": 4,
+                    "baseColor": "red",
+                    "baseWeight": 1,
+                    "texture": "none",
+                    "isGold": true
+                },
+                {
+                    "faceId": "F06",
+                    "permanentPip": 4,
+                    "baseColor": "red",
+                    "baseWeight": 1,
+                    "texture": "none",
+                    "isGold": true
+                }
+            ],
+            "isGlass": false,
+            "dataRevision": 0
+        },
+        {
+            "dieId": "D002",
+            "createdSerial": 2,
+            "lifetime": "permanent",
+            "createdStageId": "",
+            "faces": [
+                {
+                    "faceId": "F01",
+                    "permanentPip": 4,
+                    "baseColor": "red",
+                    "baseWeight": 1,
+                    "texture": "none",
+                    "isGold": true
+                },
+                {
+                    "faceId": "F02",
+                    "permanentPip": 4,
+                    "baseColor": "red",
+                    "baseWeight": 1,
+                    "texture": "none",
+                    "isGold": true
+                },
+                {
+                    "faceId": "F03",
+                    "permanentPip": 4,
+                    "baseColor": "red",
+                    "baseWeight": 1,
+                    "texture": "none",
+                    "isGold": true
+                },
+                {
+                    "faceId": "F04",
+                    "permanentPip": 4,
+                    "baseColor": "red",
+                    "baseWeight": 1,
+                    "texture": "none",
+                    "isGold": true
+                },
+                {
+                    "faceId": "F05",
+                    "permanentPip": 4,
+                    "baseColor": "red",
+                    "baseWeight": 1,
+                    "texture": "none",
+                    "isGold": true
+                },
+                {
+                    "faceId": "F06",
+                    "permanentPip": 4,
+                    "baseColor": "red",
+                    "baseWeight": 1,
+                    "texture": "none",
+                    "isGold": true
+                }
+            ],
+            "isGlass": false,
+            "dataRevision": 0
+        },
+        {
+            "dieId": "D003",
+            "createdSerial": 3,
+            "lifetime": "permanent",
+            "createdStageId": "",
+            "faces": [
+                {
+                    "faceId": "F01",
+                    "permanentPip": 4,
+                    "baseColor": "red",
+                    "baseWeight": 1,
+                    "texture": "none",
+                    "isGold": true
+                },
+                {
+                    "faceId": "F02",
+                    "permanentPip": 4,
+                    "baseColor": "red",
+                    "baseWeight": 1,
+                    "texture": "none",
+                    "isGold": true
+                },
+                {
+                    "faceId": "F03",
+                    "permanentPip": 4,
+                    "baseColor": "red",
+                    "baseWeight": 1,
+                    "texture": "none",
+                    "isGold": true
+                },
+                {
+                    "faceId": "F04",
+                    "permanentPip": 4,
+                    "baseColor": "red",
+                    "baseWeight": 1,
+                    "texture": "none",
+                    "isGold": true
+                },
+                {
+                    "faceId": "F05",
+                    "permanentPip": 4,
+                    "baseColor": "red",
+                    "baseWeight": 1,
+                    "texture": "none",
+                    "isGold": true
+                },
+                {
+                    "faceId": "F06",
+                    "permanentPip": 4,
+                    "baseColor": "red",
+                    "baseWeight": 1,
+                    "texture": "none",
+                    "isGold": true
+                }
+            ],
+            "isGlass": false,
+            "dataRevision": 0
+        },
+        {
+            "dieId": "D004",
+            "createdSerial": 4,
+            "lifetime": "permanent",
+            "createdStageId": "",
+            "faces": [
+                {
+                    "faceId": "F01",
+                    "permanentPip": 4,
+                    "baseColor": "red",
+                    "baseWeight": 1,
+                    "texture": "none",
+                    "isGold": true
+                },
+                {
+                    "faceId": "F02",
+                    "permanentPip": 4,
+                    "baseColor": "red",
+                    "baseWeight": 1,
+                    "texture": "none",
+                    "isGold": true
+                },
+                {
+                    "faceId": "F03",
+                    "permanentPip": 4,
+                    "baseColor": "red",
+                    "baseWeight": 1,
+                    "texture": "none",
+                    "isGold": true
+                },
+                {
+                    "faceId": "F04",
+                    "permanentPip": 4,
+                    "baseColor": "red",
+                    "baseWeight": 1,
+                    "texture": "none",
+                    "isGold": true
+                },
+                {
+                    "faceId": "F05",
+                    "permanentPip": 4,
+                    "baseColor": "red",
+                    "baseWeight": 1,
+                    "texture": "none",
+                    "isGold": true
+                },
+                {
+                    "faceId": "F06",
+                    "permanentPip": 4,
+                    "baseColor": "red",
+                    "baseWeight": 1,
+                    "texture": "none",
+                    "isGold": true
+                }
+            ],
+            "isGlass": false,
+            "dataRevision": 0
+        },
+        {
+            "dieId": "D005",
+            "createdSerial": 5,
+            "lifetime": "permanent",
+            "createdStageId": "",
+            "faces": [
+                {
+                    "faceId": "F01",
+                    "permanentPip": 4,
+                    "baseColor": "red",
+                    "baseWeight": 1,
+                    "texture": "none",
+                    "isGold": true
+                },
+                {
+                    "faceId": "F02",
+                    "permanentPip": 4,
+                    "baseColor": "red",
+                    "baseWeight": 1,
+                    "texture": "none",
+                    "isGold": true
+                },
+                {
+                    "faceId": "F03",
+                    "permanentPip": 4,
+                    "baseColor": "red",
+                    "baseWeight": 1,
+                    "texture": "none",
+                    "isGold": true
+                },
+                {
+                    "faceId": "F04",
+                    "permanentPip": 4,
+                    "baseColor": "red",
+                    "baseWeight": 1,
+                    "texture": "none",
+                    "isGold": true
+                },
+                {
+                    "faceId": "F05",
+                    "permanentPip": 4,
+                    "baseColor": "red",
+                    "baseWeight": 1,
+                    "texture": "none",
+                    "isGold": true
+                },
+                {
+                    "faceId": "F06",
+                    "permanentPip": 4,
+                    "baseColor": "red",
+                    "baseWeight": 1,
+                    "texture": "none",
+                    "isGold": true
+                }
+            ],
+            "isGlass": false,
+            "dataRevision": 0
+        }
+    ],
+    "controllers": [
+        {
+            "instanceId": "ITEM_00001",
+            "definitionId": "C25",
+            "enchantmentId": "none",
+            "acquiredSerial": 1
+        },
+        {
+            "instanceId": "ITEM_00002",
+            "definitionId": "C30",
+            "enchantmentId": "none",
+            "acquiredSerial": 2
+        },
+        {
+            "instanceId": "ITEM_00003",
+            "definitionId": "C31",
+            "enchantmentId": "none",
+            "acquiredSerial": 3
+        },
+        {
+            "instanceId": "ITEM_00004",
+            "definitionId": "C32",
+            "enchantmentId": "none",
+            "acquiredSerial": 4
+        }
+    ],
+    "inventory": [],
+    "handLevels": [
+        {
+            "handId": "pair",
+            "level": 8
+        },
+        {
+            "handId": "two_pair",
+            "level": 8
+        },
+        {
+            "handId": "trips",
+            "level": 8
+        },
+        {
+            "handId": "full_house",
+            "level": 8
+        },
+        {
+            "handId": "quads",
+            "level": 8
+        },
+        {
+            "handId": "five_kind",
+            "level": 8
+        },
+        {
+            "handId": "six_kind",
+            "level": 8
+        },
+        {
+            "handId": "seven_kind",
+            "level": 8
+        },
+        {
+            "handId": "eight_kind",
+            "level": 8
+        },
+        {
+            "handId": "straight",
+            "level": 8
+        },
+        {
+            "handId": "all_blue",
+            "level": 8
+        },
+        {
+            "handId": "all_red",
+            "level": 8
+        }
+    ],
+    "consumedItemIds": [],
+    "processedReceipts": [
+        {
+            "commandId": "debug24-new",
+            "phase": "StagePreview",
+            "message": "NewRun",
+            "actionSequence": 1,
+            "score": 0,
+            "goldBefore": 10,
+            "goldAfter": 10,
+            "command": {
+                "commandId": "debug24-new",
+                "expectedActionSequence": 0,
+                "kind": 0,
+                "seed": 20261030,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [],
+                "targetPips": []
+            },
+            "effects": []
+        }
+    ],
+    "lastEffects": [],
+    "stage": {
+        "stageId": "STAGE_01",
+        "stageIndex": 0,
+        "capacity": 5,
+        "remainingSubmissions": 3,
+        "submissionOrdinal": 0,
+        "stageRollBonus": 0,
+        "reward": 5,
+        "target": 180,
+        "score": 0,
+        "risk": false,
+        "started": false,
+        "qualified": false,
+        "settled": false,
+        "settlementContinuation": "",
+        "settlementId": ""
+    },
+    "hand": {
+        "handId": "",
+        "rollsUsed": 0,
+        "rollsRemaining": 0,
+        "hasRolled": false,
+        "redWave": false,
+        "largeBuff": false,
+        "smallBuff": false,
+        "c05Used": false,
+        "orderedLockedIds": [],
+        "currentResults": []
+    },
+    "shop": {
+        "shopId": "",
+        "generated": false,
+        "selfStudyUsed": 0,
+        "offers": []
+    },
+    "lastSubmission": {
+        "snapshot": {
+            "runId": "",
+            "stageId": "",
+            "handId": "",
+            "configVersion": "",
+            "dice": [],
+            "capacity": 0,
+            "rollsRemaining": 0,
+            "submissionOrdinalBefore": 0,
+            "redWave": false,
+            "equippedControllerIds": [],
+            "equippedControllers": [],
+            "handLevels": []
+        },
+        "breakdown": {
+            "effectivePips": [],
+            "pipContributions": [],
+            "effectiveColors": [],
+            "matchedGroupIds": [],
+            "chosenGroupId": "",
+            "pipSum": 0,
+            "unusedRollBonus": 0,
+            "groupMult100": 0,
+            "straightMult100": 0,
+            "colorMult100": 0,
+            "totalHandMult100": 0,
+            "redValue": 0,
+            "redCount": 0,
+            "redMult100": 0,
+            "controllerMultiplier": 0,
+            "pairBaseAdd": 0,
+            "enchantBaseAdd": 0,
+            "baseTotal": 0,
+            "enchantBaseCount": 0,
+            "enchantMultiplierCount": 0,
+            "redGroupingMode": "",
+            "scoreNumerator": "",
+            "scoreDenominator": "",
+            "triggeredMultiplierIds": [],
+            "triggeredControllerIds": [],
+            "score": 0
+        }
+    },
+    "lastStageSettlement": {
+        "settlementId": "",
+        "stageId": "",
+        "goldBefore": 0,
+        "baseReward": 0,
+        "remainingSubmissions": 0,
+        "unusedSubmissionReward": 0,
+        "interest": 0,
+        "interestPrincipal": 0,
+        "goldAfter": 0,
+        "score": 0,
+        "target": 0,
+        "risk": false,
+        "pig": false
+    }
+}

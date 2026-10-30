@@ -1,0 +1,196 @@
+{
+  "success": true,
+  "command": "command",
+  "data": {
+    "command": "test status",
+    "parameters": {},
+    "result": {
+      "status": "completed",
+      "duration": 9.82,
+      "summary": {
+        "total": 24,
+        "passed": 14,
+        "failed": 10,
+        "skipped": 0,
+        "inconclusive": 0
+      },
+      "results": [
+        {
+          "FullName": "DiceCraft.Tests.GameplayPlayModeTests.PLAY_Bootstrap_RealReferences58IconsFontAndSingleInputSystem",
+          "Status": "Passed",
+          "Duration": 0.4008574,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "DiceCraft.Tests.GameplayPlayModeTests.PLAY_BusyRejectsBypassedUiAndSkipPreservesCommittedRandomness",
+          "Status": "Passed",
+          "Duration": 1.2273285,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "DiceCraft.Tests.GameplayPlayModeTests.PLAY_CoreLoop_ClickLockReorderAndSubmitMatchesPreview",
+          "Status": "Passed",
+          "Duration": 1.4156326,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "DiceCraft.Tests.GameplayPlayModeTests.PLAY_ExistingRunRollAndSubmitSaveFailureRetriesExactCandidateAndPresentsOnce",
+          "Status": "Failed",
+          "Duration": 0.257995,
+          "Message": "DiceCraft.Core.GameSession+RuleViolation : 存档控制器实例来源无效。",
+          "StackTrace": "  at DiceCraft.Core.GameSession.Check (System.Boolean condition, System.String message) [0x0000a] in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Core\\Session\\GameSession.cs:292 \r\n  at DiceCraft.Core.GameSession.ValidateState (DiceCraft.Core.RunState s) [0x00608] in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Core\\Session\\GameSession.Validation.cs:33 \r\n  at DiceCraft.Core.GameSession..ctor (DiceCraft.Core.GameConfig config, DiceCraft.Core.ISaveStore saveStore, DiceCraft.Core.RunState restored) [0x00056] in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Core\\Session\\GameSession.cs:30 \r\n  at DiceCraft.Tests.GameplayPlayModeTests+<LoadBoundaryFixture>d__52.MoveNext () [0x0001e] in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Tests\\PlayMode\\UiBoundaryPlayModeTests.cs:249 \r\n  at UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@ee3fe9477490\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:52 "
+        },
+        {
+          "FullName": "DiceCraft.Tests.GameplayPlayModeTests.PLAY_FastAnimationUsesSameSeedResultsAndDoesNotConsumeExtraRolls",
+          "Status": "Passed",
+          "Duration": 1.2731331,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "DiceCraft.Tests.GameplayPlayModeTests.PLAY_FirstNewRunSaveFailureOffersRetryAndBlocksBothReplacementEntrances",
+          "Status": "Passed",
+          "Duration": 0.1220464,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "DiceCraft.Tests.GameplayPlayModeTests.PLAY_IndependentTutorialCompletesRealPurchaseAndPreservesFormalRun",
+          "Status": "Failed",
+          "Duration": 0.1588362,
+          "Message": "  Expected: 62\r\n  But was:  75\r\n",
+          "StackTrace": "at DiceCraft.Tests.GameplayPlayModeTests+<PLAY_IndependentTutorialCompletesRealPurchaseAndPreservesFormalRun>d__19.MoveNext () [0x00193] in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Tests\\PlayMode\\GameplayPlayModeTests.cs:294\r\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@ee3fe9477490\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:52\r\n"
+        },
+        {
+          "FullName": "DiceCraft.Tests.GameplayPlayModeTests.PLAY_PooledPurchaseAndReadonlyFacesCannotRetainOldTargetsOrListeners",
+          "Status": "Failed",
+          "Duration": 0.1168033,
+          "Message": "DiceCraft.Core.GameSession+RuleViolation : 存档控制器报价实例或附魔无效。",
+          "StackTrace": "  at DiceCraft.Core.GameSession.Check (System.Boolean condition, System.String message) [0x0000a] in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Core\\Session\\GameSession.cs:292 \r\n  at DiceCraft.Core.GameSession.ValidateState (DiceCraft.Core.RunState s) [0x015c9] in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Core\\Session\\GameSession.Validation.cs:92 \r\n  at DiceCraft.Core.GameSession..ctor (DiceCraft.Core.GameConfig config, DiceCraft.Core.ISaveStore saveStore, DiceCraft.Core.RunState restored) [0x00056] in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Core\\Session\\GameSession.cs:30 \r\n  at DiceCraft.Tests.GameplayPlayModeTests+<LoadBoundaryFixture>d__52.MoveNext () [0x0001e] in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Tests\\PlayMode\\UiBoundaryPlayModeTests.cs:249 \r\n  at UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@ee3fe9477490\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:52 "
+        },
+        {
+          "FullName": "DiceCraft.Tests.GameplayPlayModeTests.PLAY_PooledRefreshKeepsNodeIdentitiesAndResetsScrollInputAndSlider",
+          "Status": "Passed",
+          "Duration": 0.9023319,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "DiceCraft.Tests.GameplayPlayModeTests.PLAY_PreviousSubmissionRetainsOriginalScoreAndPermanentEffectsAfterNextRollAndReload",
+          "Status": "Failed",
+          "Duration": 0.1026116,
+          "Message": "DiceCraft.Core.GameSession+RuleViolation : 存档控制器实例来源无效。",
+          "StackTrace": "  at DiceCraft.Core.GameSession.Check (System.Boolean condition, System.String message) [0x0000a] in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Core\\Session\\GameSession.cs:292 \r\n  at DiceCraft.Core.GameSession.ValidateState (DiceCraft.Core.RunState s) [0x00608] in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Core\\Session\\GameSession.Validation.cs:33 \r\n  at DiceCraft.Core.GameSession..ctor (DiceCraft.Core.GameConfig config, DiceCraft.Core.ISaveStore saveStore, DiceCraft.Core.RunState restored) [0x00056] in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Core\\Session\\GameSession.cs:30 \r\n  at DiceCraft.Tests.GameplayPlayModeTests+<PLAY_PreviousSubmissionRetainsOriginalScoreAndPermanentEffectsAfterNextRollAndReload>d__44.MoveNext () [0x00189] in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Tests\\PlayMode\\SubmissionHistoryPlayModeTests.cs:34 \r\n  at UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@ee3fe9477490\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:52 "
+        },
+        {
+          "FullName": "DiceCraft.Tests.GameplayPlayModeTests.PLAY_ReadOnlyActionLogCannotAbortAnAlreadySavedUiCommand",
+          "Status": "Passed",
+          "Duration": 0.1379079,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "DiceCraft.Tests.GameplayPlayModeTests.PLAY_RealEnterKeySubmitsOnceWithoutInvokingSelectedPauseButton",
+          "Status": "Passed",
+          "Duration": 0.4880373,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "DiceCraft.Tests.GameplayPlayModeTests.PLAY_RealKeyboardTenDiceMappingModalSeedFocusAndHeldKeys",
+          "Status": "Failed",
+          "Duration": 0.1164968,
+          "Message": "DiceCraft.Core.GameSession+RuleViolation : 存档控制器实例来源无效。",
+          "StackTrace": "  at DiceCraft.Core.GameSession.Check (System.Boolean condition, System.String message) [0x0000a] in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Core\\Session\\GameSession.cs:292 \r\n  at DiceCraft.Core.GameSession.ValidateState (DiceCraft.Core.RunState s) [0x00608] in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Core\\Session\\GameSession.Validation.cs:33 \r\n  at DiceCraft.Core.GameSession..ctor (DiceCraft.Core.GameConfig config, DiceCraft.Core.ISaveStore saveStore, DiceCraft.Core.RunState restored) [0x00056] in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Core\\Session\\GameSession.cs:30 \r\n  at DiceCraft.Tests.GameplayPlayModeTests+<LoadBoundaryFixture>d__52.MoveNext () [0x0001e] in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Tests\\PlayMode\\UiBoundaryPlayModeTests.cs:249 \r\n  at UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@ee3fe9477490\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:52 "
+        },
+        {
+          "FullName": "DiceCraft.Tests.GameplayPlayModeTests.PLAY_ReloadDuringRollRestoresLocksOrderAndAcceptedFaceResults",
+          "Status": "Passed",
+          "Duration": 0.2320114,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "DiceCraft.Tests.GameplayPlayModeTests.PLAY_RemoteItemTargetsCancelC12LabelsAndBrokenTargetMatchActualUi",
+          "Status": "Failed",
+          "Duration": 0.1164026,
+          "Message": "DiceCraft.Core.GameSession+RuleViolation : 存档控制器实例来源无效。",
+          "StackTrace": "  at DiceCraft.Core.GameSession.Check (System.Boolean condition, System.String message) [0x0000a] in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Core\\Session\\GameSession.cs:292 \r\n  at DiceCraft.Core.GameSession.ValidateState (DiceCraft.Core.RunState s) [0x00608] in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Core\\Session\\GameSession.Validation.cs:33 \r\n  at DiceCraft.Core.GameSession..ctor (DiceCraft.Core.GameConfig config, DiceCraft.Core.ISaveStore saveStore, DiceCraft.Core.RunState restored) [0x00056] in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Core\\Session\\GameSession.cs:30 \r\n  at DiceCraft.Tests.GameplayPlayModeTests+<LoadBoundaryFixture>d__52.MoveNext () [0x0001e] in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Tests\\PlayMode\\UiBoundaryPlayModeTests.cs:249 \r\n  at UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@ee3fe9477490\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:52 "
+        },
+        {
+          "FullName": "DiceCraft.Tests.GameplayPlayModeTests.PLAY_SceneUnloadReloadResetsStaticUiAndDoesNotLeakSession",
+          "Status": "Passed",
+          "Duration": 0.2080745,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "DiceCraft.Tests.GameplayPlayModeTests.PLAY_ShopCapacityDiscountAndStudyUiRefreshAcrossTransactions",
+          "Status": "Failed",
+          "Duration": 0.1190985,
+          "Message": "DiceCraft.Core.GameSession+RuleViolation : 存档控制器报价实例或附魔无效。",
+          "StackTrace": "  at DiceCraft.Core.GameSession.Check (System.Boolean condition, System.String message) [0x0000a] in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Core\\Session\\GameSession.cs:292 \r\n  at DiceCraft.Core.GameSession.ValidateState (DiceCraft.Core.RunState s) [0x015c9] in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Core\\Session\\GameSession.Validation.cs:92 \r\n  at DiceCraft.Core.GameSession..ctor (DiceCraft.Core.GameConfig config, DiceCraft.Core.ISaveStore saveStore, DiceCraft.Core.RunState restored) [0x00056] in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Core\\Session\\GameSession.cs:30 \r\n  at DiceCraft.Tests.GameplayPlayModeTests+<LoadBoundaryFixture>d__52.MoveNext () [0x0001e] in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Tests\\PlayMode\\UiBoundaryPlayModeTests.cs:249 \r\n  at UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@ee3fe9477490\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:52 "
+        },
+        {
+          "FullName": "DiceCraft.Tests.GameplayPlayModeTests.PLAY_ShopPurchaseFooterShowsSlotAndDuplicateFailuresBeforeConfirm",
+          "Status": "Failed",
+          "Duration": 0.4151298,
+          "Message": "DiceCraft.Core.GameSession+RuleViolation : 存档控制器实例来源无效。",
+          "StackTrace": "  at DiceCraft.Core.GameSession.Check (System.Boolean condition, System.String message) [0x0000a] in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Core\\Session\\GameSession.cs:292 \r\n  at DiceCraft.Core.GameSession.ValidateState (DiceCraft.Core.RunState s) [0x00608] in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Core\\Session\\GameSession.Validation.cs:33 \r\n  at DiceCraft.Core.GameSession..ctor (DiceCraft.Core.GameConfig config, DiceCraft.Core.ISaveStore saveStore, DiceCraft.Core.RunState restored) [0x00056] in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Core\\Session\\GameSession.cs:30 \r\n  at DiceCraft.Tests.GameplayPlayModeTests+<PLAY_ShopPurchaseFooterShowsSlotAndDuplicateFailuresBeforeConfirm>d__2.MoveNext () [0x0024a] in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Tests\\PlayMode\\FailureAndInputPlayModeTests.cs:99 \r\n  at UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@ee3fe9477490\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:52 "
+        },
+        {
+          "FullName": "DiceCraft.Tests.GameplayPlayModeTests.PLAY_ShopTargetCancellationAndPermanentDiceBoundariesPreserveOffers",
+          "Status": "Passed",
+          "Duration": 0.5501389,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "DiceCraft.Tests.GameplayPlayModeTests.PLAY_SixPhysicalFacesAndRemotePipsHaveCorrectOrientationAndDotCount",
+          "Status": "Passed",
+          "Duration": 0.215826,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "DiceCraft.Tests.GameplayPlayModeTests.PLAY_V05_EnchantedReplacementDisplaysNetPriceAndPersistsInstance",
+          "Status": "Failed",
+          "Duration": 0.1166178,
+          "Message": "DiceCraft.Core.GameSession+RuleViolation : 存档控制器实例来源无效。",
+          "StackTrace": "  at DiceCraft.Core.GameSession.Check (System.Boolean condition, System.String message) [0x0000a] in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Core\\Session\\GameSession.cs:292 \r\n  at DiceCraft.Core.GameSession.ValidateState (DiceCraft.Core.RunState s) [0x00608] in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Core\\Session\\GameSession.Validation.cs:33 \r\n  at DiceCraft.Core.GameSession..ctor (DiceCraft.Core.GameConfig config, DiceCraft.Core.ISaveStore saveStore, DiceCraft.Core.RunState restored) [0x00056] in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Core\\Session\\GameSession.cs:30 \r\n  at DiceCraft.Tests.GameplayPlayModeTests+<LoadBoundaryFixture>d__52.MoveNext () [0x0001e] in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Tests\\PlayMode\\UiBoundaryPlayModeTests.cs:249 \r\n  at UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@ee3fe9477490\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:52 "
+        },
+        {
+          "FullName": "DiceCraft.Tests.GameplayPlayModeTests.PLAY_V05_HandbookChangesWithCapacitySimpleStraightUpgradeAndReload",
+          "Status": "Failed",
+          "Duration": 0.1164302,
+          "Message": "DiceCraft.Core.GameSession+RuleViolation : 存档控制器报价实例或附魔无效。",
+          "StackTrace": "  at DiceCraft.Core.GameSession.Check (System.Boolean condition, System.String message) [0x0000a] in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Core\\Session\\GameSession.cs:292 \r\n  at DiceCraft.Core.GameSession.ValidateState (DiceCraft.Core.RunState s) [0x015c9] in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Core\\Session\\GameSession.Validation.cs:92 \r\n  at DiceCraft.Core.GameSession..ctor (DiceCraft.Core.GameConfig config, DiceCraft.Core.ISaveStore saveStore, DiceCraft.Core.RunState restored) [0x00056] in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Core\\Session\\GameSession.cs:30 \r\n  at DiceCraft.Tests.GameplayPlayModeTests+<LoadBoundaryFixture>d__52.MoveNext () [0x0001e] in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Tests\\PlayMode\\UiBoundaryPlayModeTests.cs:249 \r\n  at UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@ee3fe9477490\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:52 "
+        },
+        {
+          "FullName": "DiceCraft.Tests.GameplayPlayModeTests.PLAY_V05_HandbookTwentyReadsPreservePendingSaveAndAllRuleState",
+          "Status": "Passed",
+          "Duration": 0.5684235,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "DiceCraft.Tests.GameplayPlayModeTests.PLAY_V05_QualifiedContinuesAndEndDiscardsUnsubmittedHandWithOneReward",
+          "Status": "Passed",
+          "Duration": 0.4112232,
+          "Message": null,
+          "StackTrace": null
+        }
+      ]
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "E:\\agent_workspace\\gpt\\game2\\DicePrototype"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

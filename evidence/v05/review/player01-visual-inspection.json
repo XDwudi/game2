@@ -1,0 +1,42 @@
+{
+  "scope": "Reviewer visually inspected these original Player PNGs via view_image; not all captured images and not human playtest",
+  "files": [
+    {
+      "path": "evidence/v05/player/player-20261030-052509-0a70fdd0/debug-stress-capacity-1280x720.png",
+      "sha256": "3a3393cedd18f332747148d5828f01bc987eaa0c1075e180c0de96edd76d6038"
+    },
+    {
+      "path": "evidence/v05/player/player-20261030-052509-0a70fdd0/debug-stress-capacity-1920x1080.png",
+      "sha256": "86dc57d9be34bcd769449920fc7e2a6da0d087fd060a414dc34ee5efa5ca517f"
+    },
+    {
+      "path": "evidence/v05/player/player-20261030-052509-0a70fdd0/debug-stress-capacity-2560x1440.png",
+      "sha256": "5d7117f349d4debca7f90da1a1691dae02c32907f42913d3dae0feee20a7d1e1"
+    },
+    {
+      "path": "evidence/v05/player/player-20261030-052509-0a70fdd0/normal-handbook-1920x1080.png",
+      "sha256": "07c7a97f6f43e3d17978bbe8d76b71fb6646e5172680720a5cb7d8dbce728c68"
+    },
+    {
+      "path": "evidence/v05/player/player-20261030-052509-0a70fdd0/debug-handbook-eight-capacity-bottom-1280x720.png",
+      "sha256": "fcad59f9f4cf559ba21946950af0b0b89ac5c8778f3c84dfa66a955bd2701625"
+    },
+    {
+      "path": "evidence/v05/player/player-20261030-052509-0a70fdd0/normal-qualified-continue-or-end-1280x720.png",
+      "sha256": "98706a4473c185f8259a852ea100f897d5fdad7922a2f51fcf7081c3582d423a"
+    },
+    {
+      "path": "evidence/v05/player/player-20261030-052509-0a70fdd0/normal-shop-1280x720.png",
+      "sha256": "cba8b25611113591f55cecdfc8e1ea11782f37e60cee44bdd831a1559760e513"
+    },
+    {
+      "path": "evidence/v05/player/player-20261030-052509-0a70fdd0/debug-score-preview-bottom-1280x720.png",
+      "sha256": "7b0fee99648ada8a72c031461885fee0f9b10b20096803c4c8a19ceb67b3e6d2"
+    },
+    {
+      "path": "evidence/v05/player/player-20261030-052509-0a70fdd0/debug-die-detail-permanent-preview-1280x720.png",
+      "sha256": "0e63c39a607af1fca050593db3a3ea0e25dc9d1bc68ff63c9f4d9fdf6a1ff10b"
+    }
+  ],
+  "finding": "UI-R01 bottom-right watermark overlaps duplicate handbook label at720p/1080p; other listed essential contents legible. Fix requires new build screenshot."
+}

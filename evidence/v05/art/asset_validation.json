@@ -1,0 +1,1517 @@
+{
+  "configVersion": "p0.5.0",
+  "configSha256": "6732ab356049166c58a0d6ededf6bb2be8484690ac79eb9b96e303fd03588cfc",
+  "specSha256": "cdc45b88996b13db08cc0055c4553522892b450eb23da5ebeb1529bbdc7930ca",
+  "assetMapSha256": "6db8fb629dce599eb6cedc7f6d847f290ccb0c80b43d0526579560cd25c2a6da",
+  "generatorSha256": "1c84fe3a1a41e1eb36bb45995f3db4ef879b459037e6016ca4c65a14d603f758",
+  "vectorLibrarySha256": "149d2ce50ef2b3d8f7816b9160e729b368a05b081509d09070e27ab2a43b9d16",
+  "validatorSha256": "fa39ae0dd681d9ea7d80d7a321b8d056b1dc86780edcc314301106010cb0c56c",
+  "icons": [
+    {
+      "path": "DicePrototype/Assets/Game/Art/Icons/C01.png",
+      "source": "art/source_icons/C01.svg",
+      "dimensions": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alphaBounds": [
+        56,
+        28,
+        200,
+        203
+      ],
+      "rgbaSha256": "4f061ac41d89321211e9c6540088063237279c4c09c49f9956a5c4e042fd4c05",
+      "pngSha256": "456ecb5e5abc1ad845c6c9abe57f0410cab57a8544b19e8e1077a520bc63094f",
+      "svgSha256": "8919f3296da48e56f0c4acbaae0899a5f30d4649beee88b31bc6618c19de250a",
+      "contentId": "C01",
+      "name": "存钱罐"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Art/Icons/C02.png",
+      "source": "art/source_icons/C02.svg",
+      "dimensions": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alphaBounds": [
+        21,
+        22,
+        232,
+        228
+      ],
+      "rgbaSha256": "b65b7211db69d64e5ceb7e95610dcb44f7e9280bb3da4301865bed8b955bc521",
+      "pngSha256": "3a5de48d1f3a09ff9dc6103206f9fb56fcd1bfe4821984ef7f6ff031489c40bd",
+      "svgSha256": "2663c5a2e91952bd262da9e468519f786bb6eb3eeac39cd5c79b84bf16df859a",
+      "contentId": "C02",
+      "name": "蓝色疯狂"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Art/Icons/C03.png",
+      "source": "art/source_icons/C03.svg",
+      "dimensions": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alphaBounds": [
+        73,
+        35,
+        201,
+        217
+      ],
+      "rgbaSha256": "19b2a647f565e2fa0ab84e7743f298cd1ac2c909bd2b93be05c097bbee2c87ec",
+      "pngSha256": "765fbb1b8ff5fcd81c798e8384bfab4194f71c6e778561f3b95fd321c318ee83",
+      "svgSha256": "b3d2cdf5dff9938f8f0d128e44478f07adfab5decbe44f835b95ddf0c48a6b5c",
+      "contentId": "C03",
+      "name": "首当其冲"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Art/Icons/C04.png",
+      "source": "art/source_icons/C04.svg",
+      "dimensions": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alphaBounds": [
+        32,
+        39,
+        218,
+        212
+      ],
+      "rgbaSha256": "46adfab2532b1dafd6e3ef890f08b95f425e13b2b2633031a87f6be198829a0f",
+      "pngSha256": "7758a120221ece87080c834597aff42b5e84b6f8cbf0bd7008321f07bde21328",
+      "svgSha256": "6770f4ff050814f16ec5acb8078243965f8c38cfd42ab9227938a074208dfdf2",
+      "contentId": "C04",
+      "name": "多提多得"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Art/Icons/C05.png",
+      "source": "art/source_icons/C05.svg",
+      "dimensions": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alphaBounds": [
+        42,
+        39,
+        217,
+        216
+      ],
+      "rgbaSha256": "1402a3944fcc283dc76b19b51b33b822de4f99732027fb7643e669952b9e5100",
+      "pngSha256": "f87134356939a10f6f592092c6332fbd1be6ccdc6b2ca7a1e8ff140c919be2df",
+      "svgSha256": "b4829cd71c87fdf3d7879480d5000db0087699b2f3ee881bba0f4412ec48bacc",
+      "contentId": "C05",
+      "name": "再来三次"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Art/Icons/C06.png",
+      "source": "art/source_icons/C06.svg",
+      "dimensions": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alphaBounds": [
+        34,
+        41,
+        222,
+        212
+      ],
+      "rgbaSha256": "4e4e845fff8ffec71da31684019500089f6fefbbaf0b01593f00d6340ba43e06",
+      "pngSha256": "ce95361ab17a4f7aee06b068dbdbd31650697c46395be8cabc4c98c45be98d7a",
+      "svgSha256": "65a55caf58b65e54b2a5779e47443e7c96c6a9eb27c44b9b60d0193c78e8826b",
+      "contentId": "C06",
+      "name": "数字多多"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Art/Icons/C07.png",
+      "source": "art/source_icons/C07.svg",
+      "dimensions": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alphaBounds": [
+        31,
+        52,
+        228,
+        212
+      ],
+      "rgbaSha256": "3de7377536540ea1f8c1a74d82c06f0ac315119e1128a27ec65643af0af30cf9",
+      "pngSha256": "d861f11aeebc438000f536c59f6f32e2cacb859cade8635a3e5ebc88b1226d9b",
+      "svgSha256": "ed5d694f81316d8fc646389186683a4f81f6e920635b66dfe29c03addb69d208",
+      "contentId": "C07",
+      "name": "骰子复制"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Art/Icons/C08.png",
+      "source": "art/source_icons/C08.svg",
+      "dimensions": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alphaBounds": [
+        22,
+        88,
+        236,
+        198
+      ],
+      "rgbaSha256": "f3445216f586b3b066312472a4bb613362610947eecb3f4d2fedbbb7f9dd0628",
+      "pngSha256": "0b1e84d1565bfe12e72618b0e82ea629082b522b243f422e4b25728b9860ebc0",
+      "svgSha256": "82064c77cf4e07bd606133a31e98b97f70e54ef8609eabe302918eb74fe6a98d",
+      "contentId": "C08",
+      "name": "少数派"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Art/Icons/C09.png",
+      "source": "art/source_icons/C09.svg",
+      "dimensions": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alphaBounds": [
+        35,
+        74,
+        235,
+        226
+      ],
+      "rgbaSha256": "6976ffe37f489f2079a5bc19987fb3bbb0cb3c5c4b9e9903ff346651f390f27a",
+      "pngSha256": "23a7c97300c24c2d444d495bc2d2f778fd5fbc132b26d340f574310e52502cc9",
+      "svgSha256": "805bf19599ec6ab44c452d7d08a91dbbb51718479bb550400a3ea5b5bb46e657",
+      "contentId": "C09",
+      "name": "简化提交"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Art/Icons/C10.png",
+      "source": "art/source_icons/C10.svg",
+      "dimensions": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alphaBounds": [
+        36,
+        74,
+        228,
+        192
+      ],
+      "rgbaSha256": "b003b67866a94801a8e7d72d9b856ee1067a8c469587fe259bc80becae34ad05",
+      "pngSha256": "d3bee5adf83d07d1f64039a5ded4c8b7588c765fae3348bc03373dcb723d1e28",
+      "svgSha256": "4df3682e31944ba2e16d4446191fca4763a65315eb06996613e48d6a2cd5383e",
+      "contentId": "C10",
+      "name": "少就是多"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Art/Icons/C11.png",
+      "source": "art/source_icons/C11.svg",
+      "dimensions": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alphaBounds": [
+        58,
+        66,
+        195,
+        213
+      ],
+      "rgbaSha256": "69f5170ecaeb084cd78741e2d50ccdbad5e76c3ebf09351a709f8697a9f30788",
+      "pngSha256": "91d6969dc1c126a18f33044afb62cc3c65af2784ac07773affc0d547e4ed949b",
+      "svgSha256": "4fe6db5ef2f9c8aed8576a5d6c450a99215294f32913973d696649efa2584a5a",
+      "contentId": "C11",
+      "name": "2233"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Art/Icons/C12.png",
+      "source": "art/source_icons/C12.svg",
+      "dimensions": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alphaBounds": [
+        47,
+        88,
+        217,
+        211
+      ],
+      "rgbaSha256": "1c0313bdb45aa6fd9bc2d86b50a8e1d9cb5e734805ff2b494ae08c636bb0572c",
+      "pngSha256": "4654916ac33bce69e88b5012cd7bb1fd8f48e2711c4d67c78686f84941cd4e24",
+      "svgSha256": "6f88b637a5d1b2b3aede72b90702b5aa6c22cf6fe13ab074c318d3290833a3a8",
+      "contentId": "C12",
+      "name": "不要奇数"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Art/Icons/C13.png",
+      "source": "art/source_icons/C13.svg",
+      "dimensions": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alphaBounds": [
+        55,
+        74,
+        215,
+        187
+      ],
+      "rgbaSha256": "c4b1ce0b24f303f3513596ba8dc09cbb15b8880068869822d9bce144d88308a0",
+      "pngSha256": "da6a37b8de86b5fe0a696b02fbc6662b2cb0e7452324ac2f5bd40e156b6e30d9",
+      "svgSha256": "2191b58213171d0fb200d079b02577c92d56e60e8f3282d8de7eceaad26c08ca",
+      "contentId": "C13",
+      "name": "就要奇数"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Art/Icons/C14.png",
+      "source": "art/source_icons/C14.svg",
+      "dimensions": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alphaBounds": [
+        33,
+        86,
+        223,
+        227
+      ],
+      "rgbaSha256": "0b757c63578ffb92835fb27981faa1f45a17767e69b59278ec2d6c35a589e638",
+      "pngSha256": "b8a6758d5b758e7e637cb7065cf8cd11826ca58546c0a464e5bf6fb6c3ef3695",
+      "svgSha256": "2718685e6943c2f1042af0b8c892744881ddd49476b1961d5980b4056acf6af0",
+      "contentId": "C14",
+      "name": "只要奇数"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Art/Icons/C15.png",
+      "source": "art/source_icons/C15.svg",
+      "dimensions": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alphaBounds": [
+        26,
+        63,
+        231,
+        214
+      ],
+      "rgbaSha256": "41fc0efefd48e9a46d5f0462f4092557e00d2f1d5c36b21e55c63588cb0e3139",
+      "pngSha256": "15a7029f6cbd41c56d0073590def1fd236ceb3ce4cefb9d6d17d28fb9886c756",
+      "svgSha256": "f75c4378a11786fc565266349c96125d70f8b07c361a47c015057725c24548ea",
+      "contentId": "C15",
+      "name": "红色扩散"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Art/Icons/C16.png",
+      "source": "art/source_icons/C16.svg",
+      "dimensions": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alphaBounds": [
+        40,
+        36,
+        217,
+        215
+      ],
+      "rgbaSha256": "a7d9ec4a8a9b6caa538418dd51d0f441f97564c56539111cb73081caf616b5be",
+      "pngSha256": "a302087054287888a5db290723896e0768dcb96c33befde6604e079372499d90",
+      "svgSha256": "a3808e44d32fcb698bcdd151af1f9902c0aa203e6a3a18370787dfa603ecc24c",
+      "contentId": "C16",
+      "name": "可以重来"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Art/Icons/C17.png",
+      "source": "art/source_icons/C17.svg",
+      "dimensions": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alphaBounds": [
+        34,
+        50,
+        219,
+        210
+      ],
+      "rgbaSha256": "46acfa3e3ab54302154325367039eaaf701b748b976530a6f67bf5d9f46473ba",
+      "pngSha256": "391720e20ae8f2de947c01dfc2245db1625dbc24da744e31839dca22271f6358",
+      "svgSha256": "a58c0ee235a07f33ec3b65bc966a0eb5465d474130c4ddeee4755a10ded24a89",
+      "contentId": "C17",
+      "name": "小鬼当家"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Art/Icons/C18.png",
+      "source": "art/source_icons/C18.svg",
+      "dimensions": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alphaBounds": [
+        31,
+        40,
+        225,
+        218
+      ],
+      "rgbaSha256": "9002eb666d08a2f7b4e3ae0be5a4dd074e98e3ad07d81a7e6f4d01b521b39667",
+      "pngSha256": "371a2b62bb2090a788f74b47dafcd4a120b342a15fec021f536c7ee686692465",
+      "svgSha256": "17e9911963947c54de921769584e291bcf10d7e985db829816f633ef3a309cad",
+      "contentId": "C18",
+      "name": "红蓝相当"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Art/Icons/C19.png",
+      "source": "art/source_icons/C19.svg",
+      "dimensions": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alphaBounds": [
+        34,
+        76,
+        211,
+        186
+      ],
+      "rgbaSha256": "257f94c5e87e97fea31813bfc7ebeed99d667660b56a6e88bf30a25bbdff3aea",
+      "pngSha256": "f3b59b442d16e92253da186017f9ff0e3b977d70911a0063537f209b2fa69383",
+      "svgSha256": "3c5500cc633cac6cffb3c9fca721d52adac9ddd5d80c1535fc0ad4cbc823aac3",
+      "contentId": "C19",
+      "name": "小头大用"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Art/Icons/C20.png",
+      "source": "art/source_icons/C20.svg",
+      "dimensions": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alphaBounds": [
+        27,
+        48,
+        228,
+        197
+      ],
+      "rgbaSha256": "fbcb536f335dfec6cc718c121e82ea479b8a21b8930ac259dd1f13d3b40c6ef7",
+      "pngSha256": "1f3c9529ea21d17776de557c71720377c92303209f55521a24ebd80036fef54f",
+      "svgSha256": "fcf2fb8370002a76b2648c23a1afb8cc6926e38459cf4841edee2f522f7916a9",
+      "contentId": "C20",
+      "name": "66大顺"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Art/Icons/C21.png",
+      "source": "art/source_icons/C21.svg",
+      "dimensions": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alphaBounds": [
+        32,
+        30,
+        216,
+        230
+      ],
+      "rgbaSha256": "fc236f10cb0f951d2d3137c27b8fa2219523b2b15a970ca84ff5714524ec953a",
+      "pngSha256": "fc8ccfd40b382f9f44be11a1991ce73038c68ef01968e622cf89a633a846518e",
+      "svgSha256": "c5fbc740d561938ce2dde7f404131568c3e71125251a6ea6a026d89177d86b4f",
+      "contentId": "C21",
+      "name": "增加提交"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Art/Icons/C22.png",
+      "source": "art/source_icons/C22.svg",
+      "dimensions": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alphaBounds": [
+        24,
+        31,
+        233,
+        229
+      ],
+      "rgbaSha256": "40450a2dbc5e63ccd39ada371b96b5a37de61736e865ff79308adfff37d30173",
+      "pngSha256": "957d56dff1dde56e606fd66685ba344878bc0ddb89859f4412ce00524bbaa42e",
+      "svgSha256": "5b162b1acedbd2db426c222f1f035f07c130d65832dbdeed9b24d46f3bebf943",
+      "contentId": "C22",
+      "name": "大量提交"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Art/Icons/C23.png",
+      "source": "art/source_icons/C23.svg",
+      "dimensions": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alphaBounds": [
+        40,
+        36,
+        218,
+        217
+      ],
+      "rgbaSha256": "8f47f936d102d1428cf41a82aff90d036f2059a653902a12daa57779085113fa",
+      "pngSha256": "ed1941de4b54c4e109d19924f5a96003e417120985577de4fbe9c764cf16c780",
+      "svgSha256": "60f3cb15c6a79946bd499aeff13e891ea1966b5277015e72de3f6b4ec738b992",
+      "contentId": "C23",
+      "name": "重来一次"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Art/Icons/C24.png",
+      "source": "art/source_icons/C24.svg",
+      "dimensions": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alphaBounds": [
+        25,
+        74,
+        232,
+        224
+      ],
+      "rgbaSha256": "ea4e3dae7226b8808c7ab8d943269b37805835c9586f7fd7ae43ccbaca6292dd",
+      "pngSha256": "7ff3f73adfba04bb333eb67217e9dd6adc56e3d264195e216647a5bf966a38a5",
+      "svgSha256": "1fd3949e95cd76d28eb30ad81c1ae6bdecb9ae61a385b45e0258e76e61e3f1d2",
+      "contentId": "C24",
+      "name": "我是状元"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Art/Icons/C25.png",
+      "source": "art/source_icons/C25.svg",
+      "dimensions": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alphaBounds": [
+        27,
+        27,
+        229,
+        233
+      ],
+      "rgbaSha256": "a0576cf6736f660a58e4508a2c1cef80ace98cac8d3defda78377b0220d85f40",
+      "pngSha256": "453b8d42406966ff029087350536e56dddf7a76caa38501aa0995c15564e602e",
+      "svgSha256": "0dd15c24a348ab14ce2edb7680551dfa5d69ac40cffa858f2de587dd1c4e4043",
+      "contentId": "C25",
+      "name": "红运当头"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Art/Icons/C26.png",
+      "source": "art/source_icons/C26.svg",
+      "dimensions": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alphaBounds": [
+        32,
+        25,
+        235,
+        221
+      ],
+      "rgbaSha256": "a05ff0b7a3d40db10680455be8fcf2201648385e87b8b03c8d0b83c98e92eb12",
+      "pngSha256": "9392df5ba1db832e72142ac3f91dc8424ab6cce12a70388af978e9feb04af681",
+      "svgSha256": "40c5c727a375b71bb1c4cb5bcf7ec1dac60191e68021fbe73593576abdf69f23",
+      "contentId": "C26",
+      "name": "红色主义"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Art/Icons/C27.png",
+      "source": "art/source_icons/C27.svg",
+      "dimensions": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alphaBounds": [
+        37,
+        34,
+        219,
+        209
+      ],
+      "rgbaSha256": "b2fde0acdcca4b80a7386b55fcb82ca9c016413970c2e77e3f1a8e423efc921f",
+      "pngSha256": "ff8f89fc364941b6564f79788509f899d467cb0d9a5472a91c2311f95cdf57c0",
+      "svgSha256": "f908d70ac65e20f46b529792dcad8114e9153cd2d911540919fd8a538803e7d6",
+      "contentId": "C27",
+      "name": "对穿肠"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Art/Icons/C28.png",
+      "source": "art/source_icons/C28.svg",
+      "dimensions": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alphaBounds": [
+        36,
+        32,
+        220,
+        222
+      ],
+      "rgbaSha256": "542222554d78da4bf98c58304558ec3a678cb5147873d6e6bec96e2c4ad2869c",
+      "pngSha256": "920b83c1fb3ee440a2d4203ffdcfa86a8920f3791b110deac3132c47f41ddc0f",
+      "svgSha256": "cd1c9068b8098efb3b109d3697199ce3362116d191af725f0a51294971229c6b",
+      "contentId": "C28",
+      "name": "对对穿肠"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Art/Icons/C29.png",
+      "source": "art/source_icons/C29.svg",
+      "dimensions": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alphaBounds": [
+        22,
+        54,
+        243,
+        235
+      ],
+      "rgbaSha256": "18a51d1183aac6684e27240dfc57913c009fe3aa274f98ea3e1ed743a4412c19",
+      "pngSha256": "a20f81b969fa32be1401c59ee6fd5bf1cb7f3d86740df241729040cdd4862946",
+      "svgSha256": "9c7c137d2752d8f7c5abdd520b5bc144d07966c6cced70f2133f4e02a14de493",
+      "contentId": "C29",
+      "name": "简单顺子"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Art/Icons/C30.png",
+      "source": "art/source_icons/C30.svg",
+      "dimensions": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alphaBounds": [
+        24,
+        78,
+        232,
+        226
+      ],
+      "rgbaSha256": "0fbb501ed2c8534c176560e83a6badbbff89de78119c5b9ad59e522fc007afe4",
+      "pngSha256": "586780e887d1bfaff175b4e7b44bdd60a37cd4f382e8de3b10fd2066b4abba3c",
+      "svgSha256": "9f97f190d9dc80b8230ba3e57d4ed4504a88940b0506e71a848cb6db63481f35",
+      "contentId": "C30",
+      "name": "三条开泰"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Art/Icons/C31.png",
+      "source": "art/source_icons/C31.svg",
+      "dimensions": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alphaBounds": [
+        36,
+        31,
+        222,
+        229
+      ],
+      "rgbaSha256": "777b13a7093b594074b28fa55a963ec0ac8fe58febf998e8b6ec9ad8b70190d1",
+      "pngSha256": "5356ffa8450217084705c1238ab14e659f55753c45ecc2a0598800829bd9d0ba",
+      "svgSha256": "603202cfed1498c752979387227d89341c7de50ea8669ea95df4cbd676cbd13e",
+      "contentId": "C31",
+      "name": "四平八稳"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Art/Icons/C32.png",
+      "source": "art/source_icons/C32.svg",
+      "dimensions": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alphaBounds": [
+        34,
+        34,
+        222,
+        222
+      ],
+      "rgbaSha256": "bbe0170d12800e448f187364bd914a575d48da7defd0166b6cdda1c10fc0e6ff",
+      "pngSha256": "46d198a6a89249350c8c7af8bf81722046b5c061289b4b969144af2f1bf8bd9d",
+      "svgSha256": "49ce0b4cd13c9ee023ecdd9212d903c028e230dfab97c9d7eecba1603684cadc",
+      "contentId": "C32",
+      "name": "天地大同"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Art/Icons/C33.png",
+      "source": "art/source_icons/C33.svg",
+      "dimensions": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alphaBounds": [
+        26,
+        51,
+        230,
+        227
+      ],
+      "rgbaSha256": "c1469c1b406a526c99381792f830638c7c888cca53ad14914dd000470430b2f1",
+      "pngSha256": "f5bef838963aa67e4a252687c92b9e56bb162ed9e7ad7d2f0cbe01c1b4cc953d",
+      "svgSha256": "8a3848b0e606dc0c7a13811d4a3057b1db41cf731ded7df04899398e75bf27fa",
+      "contentId": "C33",
+      "name": "大数开路"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Art/Icons/C34.png",
+      "source": "art/source_icons/C34.svg",
+      "dimensions": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alphaBounds": [
+        18,
+        42,
+        237,
+        228
+      ],
+      "rgbaSha256": "54af2f51bdac3ade3c3ef94dfbe349c03eb94c523dc3dc85528ddec44b681e7a",
+      "pngSha256": "a86fd392c357c8d8e1916c801a34620b07ad86fa2e35c0d0a0f9fd4603361fdf",
+      "svgSha256": "5feebe112613381a98639d4847e7e52d88d765e96947a018550b249b783e484e",
+      "contentId": "C34",
+      "name": "大数致胜"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Art/Icons/C35.png",
+      "source": "art/source_icons/C35.svg",
+      "dimensions": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alphaBounds": [
+        18,
+        42,
+        237,
+        228
+      ],
+      "rgbaSha256": "e58dbddc3349f5ee2aabe3cfeb266cf9e89c3ff28101a6bdae967d2ee8611763",
+      "pngSha256": "fe08d258eae9016d465a6baa08fb23d56709079dc6e0dc9ab3d33a4e72b7272d",
+      "svgSha256": "13d72a0e30e6bcaf17dbe38a2a135086370932d198737da025512e2bb60ff1fb",
+      "contentId": "C35",
+      "name": "小数出奇"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Art/Icons/C36.png",
+      "source": "art/source_icons/C36.svg",
+      "dimensions": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alphaBounds": [
+        27,
+        32,
+        233,
+        235
+      ],
+      "rgbaSha256": "d74baa145dbf67c5ba833a366c8d2e5d44f228e7ac125cada3616de303b002ee",
+      "pngSha256": "f91aeabbf1b0f56232962e51c566552bcd7b8c87783552f4882c7f786b6f6729",
+      "svgSha256": "bdd50d9cf73f23e48c5136a93f87e9d9325aa370720e643653bd9138db7b961c",
+      "contentId": "C36",
+      "name": "不断成长"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Art/Icons/C37.png",
+      "source": "art/source_icons/C37.svg",
+      "dimensions": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alphaBounds": [
+        27,
+        32,
+        233,
+        235
+      ],
+      "rgbaSha256": "0aca86b8bb416f3a017929b3988b43e85ca3a4412d37df2f6ec44dafe870b4ac",
+      "pngSha256": "83176832b9f68503fabacf5382f6aed7d1ff88ed33e809dc29416a396215b68a",
+      "svgSha256": "81aabb7cb50db7b5001805c32e54450ac8ff980a0de8bb6b546593019bcbe828",
+      "contentId": "C37",
+      "name": "缩小射线"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Art/Icons/C38.png",
+      "source": "art/source_icons/C38.svg",
+      "dimensions": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alphaBounds": [
+        28,
+        21,
+        226,
+        238
+      ],
+      "rgbaSha256": "f6fbece2cbd8db2974acad7c42366d3a14b4f8b28bfcce3f6dbbb68e9e836591",
+      "pngSha256": "03efed4c4446d106a14339f9ef9f8c17e30c81129befbfe5c7e9fbe3b8b3e8f5",
+      "svgSha256": "6c4b94a3d8d85e05f553d9cf56eec0a75008a1239a9509614ae52f48dba5cc4d",
+      "contentId": "C38",
+      "name": "蓝色扩散"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Art/Icons/C39.png",
+      "source": "art/source_icons/C39.svg",
+      "dimensions": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alphaBounds": [
+        28,
+        67,
+        227,
+        189
+      ],
+      "rgbaSha256": "cd748e36361f81224b44d6252a942ab461f00c38ee4147633afcbd27bcf1a6cf",
+      "pngSha256": "bd556ad3f174640a71cb14f2d68c33f8eca282e14e5cdba50ecfd35330774fcd",
+      "svgSha256": "68a04686c11fed147474af45435e2eaddde64d4a45cd10d8be36952229e57a67",
+      "contentId": "C39",
+      "name": "蓝色价值"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Art/Icons/C40.png",
+      "source": "art/source_icons/C40.svg",
+      "dimensions": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alphaBounds": [
+        24,
+        53,
+        235,
+        235
+      ],
+      "rgbaSha256": "7b6a5249ca195c6d3c0a5fb1784416ccff7a71afb6927b3b4f3c7def778b563f",
+      "pngSha256": "4d57ad8e09df07b460a375d1dec5042273f11477fb2d3db405b15c6171d01542",
+      "svgSha256": "2d9febe80658bfacb726abb6407770fd9a5b60071632dea5c64d4e22f1c7938b",
+      "contentId": "C40",
+      "name": "不断增加"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Art/Icons/I01.png",
+      "source": "art/source_icons/I01.svg",
+      "dimensions": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alphaBounds": [
+        22,
+        55,
+        234,
+        190
+      ],
+      "rgbaSha256": "fc2546560922925eb7f5f1331645f93bca6b7cda3af4ef026848f0cdd66a4ae2",
+      "pngSha256": "6a472adab72484a012a3798da69522feffcf8df8c7ea581e99e60fdc44bc27bd",
+      "svgSha256": "7c6eeab55e9f8f4b0370c8410a72bcea583f27379a78950e1b3fe01958c476dc",
+      "contentId": "I01",
+      "name": "红色浪潮"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Art/Icons/I02.png",
+      "source": "art/source_icons/I02.svg",
+      "dimensions": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alphaBounds": [
+        33,
+        45,
+        228,
+        224
+      ],
+      "rgbaSha256": "a33f10c9027dac4accc6338fdbcf7a3dbf4d25e2feeedabbd22eaade99a00cb0",
+      "pngSha256": "e30136998ed38d82dc99942be851f801830c52321baf8e7705b304530357a09b",
+      "svgSha256": "f20555aa22dac8eef0291f512688b18a024b21827880daef35791f65778d8393",
+      "contentId": "I02",
+      "name": "临时骰子"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Art/Icons/I03.png",
+      "source": "art/source_icons/I03.svg",
+      "dimensions": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alphaBounds": [
+        33,
+        45,
+        221,
+        212
+      ],
+      "rgbaSha256": "a372fa48fe05f8745bb765ecf96d4e2f2f2a3119a7ce1d6ce4658e82ed78fd32",
+      "pngSha256": "30eee8457ffe90c10bb894e491f25b363f7bf21c520a9e85bec22705822d87c7",
+      "svgSha256": "0172f65870a2517daee4a865d677d88766c02d558cfc7884ab6b1e44edb1d332",
+      "contentId": "I03",
+      "name": "遥控骰子"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Art/Icons/I04.png",
+      "source": "art/source_icons/I04.svg",
+      "dimensions": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alphaBounds": [
+        37,
+        43,
+        222,
+        213
+      ],
+      "rgbaSha256": "d1a9e85e75bc42b5738652bc45f01f91b6e71ecb84686c6a64aa4713999ee05d",
+      "pngSha256": "c4a58c52edd634db8d03fafcbc9a0b6aa19fb083947edc20611a1424a70655e0",
+      "svgSha256": "5fc7dc72a7a6aa8b5e20b393aafdd8c4dbf534bc6541c81ed4b578c15dcbe671",
+      "contentId": "I04",
+      "name": "大数多来"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Art/Icons/I05.png",
+      "source": "art/source_icons/I05.svg",
+      "dimensions": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alphaBounds": [
+        37,
+        43,
+        222,
+        213
+      ],
+      "rgbaSha256": "f78682520ce55148ccc2f1fb7656d97ad75dfbaaaf77c464407520ed632c9e4e",
+      "pngSha256": "381e324434c9d4fd5f19430dcdd8b9568db4ae789ad6a40e0e86bcdb98ae87c0",
+      "svgSha256": "93d3f3217304d9170a349b179f12fe90862b050432e363b015ddd81fd3a28e64",
+      "contentId": "I05",
+      "name": "缩小射线"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Art/Icons/I06.png",
+      "source": "art/source_icons/I06.svg",
+      "dimensions": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alphaBounds": [
+        39,
+        35,
+        225,
+        215
+      ],
+      "rgbaSha256": "54ed7c8edd0f4a105c67648253cb0c05cea2befadf021f87b0c29c45f9c61051",
+      "pngSha256": "d0d6aa7e8018a7731cd079cec29105dc5e8a67d0fe35752ac17f24c3951e8258",
+      "svgSha256": "c5137bfbad826359abf4b7d945c1eff9ad5c279732cc3459c44717e38c4eb73f",
+      "contentId": "I06",
+      "name": "增加提交"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Art/Icons/I07.png",
+      "source": "art/source_icons/I07.svg",
+      "dimensions": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alphaBounds": [
+        26,
+        33,
+        233,
+        209
+      ],
+      "rgbaSha256": "7f278a24a23a74be6d19b3982047f0bf5aa13cb5225f703688be2cfb402d29d1",
+      "pngSha256": "754825b96cdf894a4b718f0134341006bd5944ae9b146fb747b759c0203b6e5d",
+      "svgSha256": "39fe025c027b2c5ea1d7ab81970ddf2b62a83d2167499cd46c46368bbcb59d9d",
+      "contentId": "I07",
+      "name": "增加投掷"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Art/Icons/O01.png",
+      "source": "art/source_icons/O01.svg",
+      "dimensions": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alphaBounds": [
+        26,
+        81,
+        240,
+        191
+      ],
+      "rgbaSha256": "12665dae70ae4355afafd0727df3dc03308bdb3a0d504caaaf349e2f9cfb85f2",
+      "pngSha256": "3a6c45a1b4e531953c3fe52655b193803d181aaad42a14bb20fd726dbf1dffba",
+      "svgSha256": "c2dbbba52293597cb7d9fcffd2ee045d6296bb96f2c3de3b6655cdd592eaa7b8",
+      "contentId": "O01",
+      "name": "道具增加"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Art/Icons/O02.png",
+      "source": "art/source_icons/O02.svg",
+      "dimensions": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alphaBounds": [
+        35,
+        29,
+        222,
+        218
+      ],
+      "rgbaSha256": "ef082a34c0d8889a24e30123d27b93072d12e2bcac4a389a387e133bc645edf7",
+      "pngSha256": "64e8c827bcebc15883a3bc7582c3d53e085e8d8f62b6e6f78fef8f45409ef5da",
+      "svgSha256": "7b25517d49b18e73224e7f5a0858637a181c0636aa88a257cbeb11a1480977f6",
+      "contentId": "O02",
+      "name": "道具打折"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Art/Icons/O03.png",
+      "source": "art/source_icons/O03.svg",
+      "dimensions": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alphaBounds": [
+        32,
+        67,
+        232,
+        204
+      ],
+      "rgbaSha256": "522b7517ab1f8329699700adb1f130e858a7d13b420c09ae34d79f5425110e61",
+      "pngSha256": "eec04709390c9482ed9879b1fdcb812e514313423e748fffccc76cb0d36b861b",
+      "svgSha256": "dffe4e04ba8817f73300c4010c63605d2f6c02b1e8cb87c6aacdde5212466509",
+      "contentId": "O03",
+      "name": "加入骰子"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Art/Icons/O04.png",
+      "source": "art/source_icons/O04.svg",
+      "dimensions": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alphaBounds": [
+        32,
+        58,
+        228,
+        214
+      ],
+      "rgbaSha256": "bc347fd80dbbaf0874e55615df63e6d096edeb7ebe07901b6c217e4c7e8261d4",
+      "pngSha256": "4c8e78d9743558e12e11465873f51d595c24272272585a20c217093e2a573556",
+      "svgSha256": "98971b0324ce6ef01991125b5f75f63a7c67fdd0477b6e34aa2eb224c348049c",
+      "contentId": "O04",
+      "name": "删除骰子"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Art/Icons/U01.png",
+      "source": "art/source_icons/U01.svg",
+      "dimensions": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alphaBounds": [
+        39,
+        39,
+        216,
+        216
+      ],
+      "rgbaSha256": "7dc015a25d84cf3e08c5e8f0598afa6cc9e2f32674fb9a679dc222640597fb3e",
+      "pngSha256": "12aaaff50cb028e791292c4d3ea295b7a05717a07e02ec12a3f864af319ed924",
+      "svgSha256": "46d5d9389c6ef4cfd8839fbad9bf608d4bb40456db6c5df8bc45260ad7688756",
+      "contentId": "U01",
+      "name": "光滑骰面"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Art/Icons/U02.png",
+      "source": "art/source_icons/U02.svg",
+      "dimensions": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alphaBounds": [
+        39,
+        39,
+        216,
+        216
+      ],
+      "rgbaSha256": "c1628f9235f121c3d2027efd05b339d8389c4ded23403f6d85b62f3cb2f3ebd7",
+      "pngSha256": "87b2ef92ad4cf63a246779c16abc27373338931f6a24cd2a83214d13aeb7a2cb",
+      "svgSha256": "e0fc328a3495cd0cb46a905e8f361336447fcd7958a80407bac793e91eb0b538",
+      "contentId": "U02",
+      "name": "粗糙骰面"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Art/Icons/U03.png",
+      "source": "art/source_icons/U03.svg",
+      "dimensions": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alphaBounds": [
+        29,
+        33,
+        224,
+        216
+      ],
+      "rgbaSha256": "6f6ad916f9e212b5a1a6334ccdd9d9ccf1ed517ed48292d76655c52f053cd37a",
+      "pngSha256": "bf3a2e635dcbbfd39288489f34f0ea01c7bfd0be2bedad6932387cc5e9bda8d4",
+      "svgSha256": "868dd87211a3d4b5f45d9f4974b6a1d28c60796b8fe2e172f887839b14729376",
+      "contentId": "U03",
+      "name": "骰子染红"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Art/Icons/U04.png",
+      "source": "art/source_icons/U04.svg",
+      "dimensions": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alphaBounds": [
+        29,
+        33,
+        224,
+        216
+      ],
+      "rgbaSha256": "815be5822ca62f06235b04c5dcfe5eed5971f5783d540cba282067c351a6cd01",
+      "pngSha256": "953382b14dfaa937d28c75155e51c854996f8729bc0b5e0932d32cee2c5f337f",
+      "svgSha256": "c6f0eaacae7f5dda079fa03ab5abf47b1d4c4787004a7971a1747e71a0a75b9a",
+      "contentId": "U04",
+      "name": "骰子染蓝"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Art/Icons/U05.png",
+      "source": "art/source_icons/U05.svg",
+      "dimensions": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alphaBounds": [
+        43,
+        40,
+        214,
+        218
+      ],
+      "rgbaSha256": "6ba14cd1b6313c5e808985f5bd29ce26ffd183b371b345e38ff8591190f6c775",
+      "pngSha256": "1ee0447ff289fd43d2e492c6ff381ae55afa56af903a8d8386c1758bbdc9f7ce",
+      "svgSha256": "3468396efda20f191c0393598ca174b0b5cce8c0afb817c573b833bb05baaa88",
+      "contentId": "U05",
+      "name": "骰子脆化"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Art/Icons/U06.png",
+      "source": "art/source_icons/U06.svg",
+      "dimensions": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alphaBounds": [
+        38,
+        14,
+        234,
+        218
+      ],
+      "rgbaSha256": "2ca6c47cd9f2c4b183fa1a9b06e2ad24a4b8c4d54c8b91752e15cf26ca735a6d",
+      "pngSha256": "2166a7660a08f4f579b2223ba84726fcc30b3e49d86d82dcb89d7463c95e94dc",
+      "svgSha256": "bd2a1e10b30de95e9bd5fb1dd8d2b89f9c2b4d626d71efcea91b466e126dabfe",
+      "contentId": "U06",
+      "name": "黄金电镀"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Art/Icons/U07.png",
+      "source": "art/source_icons/U07.svg",
+      "dimensions": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alphaBounds": [
+        30,
+        43,
+        226,
+        218
+      ],
+      "rgbaSha256": "5edb0ae0b05937c25a15d0277853bb33a48698dc59c925f25edd1e42622111ec",
+      "pngSha256": "d853328c8ba8c8ab40029bbf3247777b36570360568f67bfbc73ca59bc962150",
+      "svgSha256": "d1d6bc606e69cb8d4f2d1ba6772d98c5383c961a1bf47d4463957258270e3b32",
+      "contentId": "U07",
+      "name": "随机变形"
+    }
+  ],
+  "enchantments": [
+    {
+      "id": "slotless",
+      "shape": "hollow-slot-minus",
+      "badge": {
+        "path": "DicePrototype/Assets/Game/Art/Textures/Enchant_slotless.png",
+        "source": "art/source_icons/Enchant_slotless.svg",
+        "dimensions": [
+          128,
+          128
+        ],
+        "mode": "RGBA",
+        "alphaBounds": [
+          12,
+          24,
+          116,
+          114
+        ],
+        "rgbaSha256": "a58b5489de106f905334a60891ab74fe024f1555591d52b066a50f0746ed779d",
+        "pngSha256": "62a2ed3fb37d8bd4ebfdc533a9b825dcc182a84442148229fe3e361dbdfe08af",
+        "svgSha256": "b40b2081f6028848bbfa12758fd22a1f590612403faaead58ed6ec7996f8e648"
+      },
+      "frame": {
+        "path": "DicePrototype/Assets/Game/Art/Textures/Frame_Enchant_slotless.png",
+        "source": "art/source_icons/Frame_Enchant_slotless.svg",
+        "dimensions": [
+          256,
+          256
+        ],
+        "mode": "RGBA",
+        "alphaBounds": [
+          6,
+          6,
+          250,
+          250
+        ],
+        "rgbaSha256": "b032634af5d2629a593db5ba7dbcae71a3b161ff6a39d6c802148854c4a759c3",
+        "pngSha256": "88a6c1c076cc8cd39f32af0fd98b1fc492c88127c034a44a3a674402573cee1c",
+        "svgSha256": "3d2259ef1e19329f733a36920dac7dc8a9a7b8a59220ba64548ff97f3b1fa3fc"
+      }
+    },
+    {
+      "id": "base5",
+      "shape": "plus-five-and-five-dots",
+      "badge": {
+        "path": "DicePrototype/Assets/Game/Art/Textures/Enchant_base5.png",
+        "source": "art/source_icons/Enchant_base5.svg",
+        "dimensions": [
+          128,
+          128
+        ],
+        "mode": "RGBA",
+        "alphaBounds": [
+          15,
+          28,
+          98,
+          115
+        ],
+        "rgbaSha256": "217336cb591a6b4bdc3a8e1b4ccd5cbd4f693aa50596cadf870c55426cb33d0b",
+        "pngSha256": "4f6ff7497c91fcccc81cd149de4589487c8d633054a6251afde531fc6a62d51b",
+        "svgSha256": "0060222b8ffcda283267f3376e36e84a7a99e03e7a3db8c925d0835b42c1d036"
+      },
+      "frame": {
+        "path": "DicePrototype/Assets/Game/Art/Textures/Frame_Enchant_base5.png",
+        "source": "art/source_icons/Frame_Enchant_base5.svg",
+        "dimensions": [
+          256,
+          256
+        ],
+        "mode": "RGBA",
+        "alphaBounds": [
+          6,
+          6,
+          250,
+          250
+        ],
+        "rgbaSha256": "033dee4b60b03fb1b6414a7660e3f415144e5219442384fabe3f224a5e35df1a",
+        "pngSha256": "425aff7177bde96a9c3365536ba5328828d45a5f1d55294c569e64daa9f52599",
+        "svgSha256": "1fcac1e67c0c46b7ba821c50c504cbb82335b5cc8906cb6c870e4582e7529f36"
+      }
+    },
+    {
+      "id": "mult120",
+      "shape": "multiply-one-point-two",
+      "badge": {
+        "path": "DicePrototype/Assets/Game/Art/Textures/Enchant_mult120.png",
+        "source": "art/source_icons/Enchant_mult120.svg",
+        "dimensions": [
+          128,
+          128
+        ],
+        "mode": "RGBA",
+        "alphaBounds": [
+          22,
+          15,
+          106,
+          114
+        ],
+        "rgbaSha256": "2a144024611a314a461db3629b1109f98f5e6f58b1fd95ae7d22fce0925d4352",
+        "pngSha256": "a01852444e0851d462190798ae6e839117c43203998fe8020b21b822780eccc7",
+        "svgSha256": "c8a8fcf40700270b32cbfb83faaedff7e03f63523a816263f43dc4c10d7dafa0"
+      },
+      "frame": {
+        "path": "DicePrototype/Assets/Game/Art/Textures/Frame_Enchant_mult120.png",
+        "source": "art/source_icons/Frame_Enchant_mult120.svg",
+        "dimensions": [
+          256,
+          256
+        ],
+        "mode": "RGBA",
+        "alphaBounds": [
+          6,
+          6,
+          250,
+          250
+        ],
+        "rgbaSha256": "d38d3538b104fef3ef73a52221bc174c7013107dc31a107f86338c21e7414849",
+        "pngSha256": "df3beef0fabb0ec979c95e1e055045836682904d453116f94a966de407a26555",
+        "svgSha256": "d08df2a06d1dad439387ce16c74577ba384fd7ee358194098e3b6bbf56d2be42"
+      }
+    }
+  ],
+  "audio": [
+    {
+      "id": "roll",
+      "path": "Assets/Game/Audio/roll.wav",
+      "sha256": "5dc582c75676bc59af0559db727396da14f7ee836d5cd3bbffda26ca6461c6bf",
+      "duration": 0.42,
+      "sampleRate": 44100,
+      "pcmBits": 16,
+      "channels": 1,
+      "peak": 9613,
+      "rms": 1724.1262406989672,
+      "startSample": 0,
+      "endSample": 0
+    },
+    {
+      "id": "land",
+      "path": "Assets/Game/Audio/land.wav",
+      "sha256": "f923e9a4072b3d6c8518d4f4402490944097dc6c7afda1d2b98be07fd1e4e76d",
+      "duration": 0.16,
+      "sampleRate": 44100,
+      "pcmBits": 16,
+      "channels": 1,
+      "peak": 9832,
+      "rms": 2116.600622530095,
+      "startSample": 0,
+      "endSample": 0
+    },
+    {
+      "id": "lock",
+      "path": "Assets/Game/Audio/lock.wav",
+      "sha256": "3cdfb3322310847695c4a969212accbef12800916b8667e1ba72c1a0106a8908",
+      "duration": 0.14,
+      "sampleRate": 44100,
+      "pcmBits": 16,
+      "channels": 1,
+      "peak": 10983,
+      "rms": 3357.208695427165,
+      "startSample": 0,
+      "endSample": 0
+    },
+    {
+      "id": "cancel",
+      "path": "Assets/Game/Audio/cancel.wav",
+      "sha256": "2d91533e40f839dba7801267b2e8d1f166f64132ab13525b66b0ea42d01609d9",
+      "duration": 0.11,
+      "sampleRate": 44100,
+      "pcmBits": 16,
+      "channels": 1,
+      "peak": 10930,
+      "rms": 3355.123122814341,
+      "startSample": 0,
+      "endSample": 0
+    },
+    {
+      "id": "use",
+      "path": "Assets/Game/Audio/use.wav",
+      "sha256": "dc5cbe7e4d96545c64ffa8fd30e226a8c4e8e98a9303420527cd05b67430baf3",
+      "duration": 0.24,
+      "sampleRate": 44100,
+      "pcmBits": 16,
+      "channels": 1,
+      "peak": 11083,
+      "rms": 3357.425280335893,
+      "startSample": 0,
+      "endSample": 0
+    },
+    {
+      "id": "purchase",
+      "path": "Assets/Game/Audio/purchase.wav",
+      "sha256": "7c32bc528c6939f1a3c7a3082beae7c23c7019022a219920710d256756094bd3",
+      "duration": 0.24,
+      "sampleRate": 44100,
+      "pcmBits": 16,
+      "channels": 1,
+      "peak": 13932,
+      "rms": 3497.582743836249,
+      "startSample": 0,
+      "endSample": 0
+    },
+    {
+      "id": "reject",
+      "path": "Assets/Game/Audio/reject.wav",
+      "sha256": "1648f9affdf387ee92ed84f3b159b195d8ef27ffcf38883e5ccf146bcf757098",
+      "duration": 0.19,
+      "sampleRate": 44100,
+      "pcmBits": 16,
+      "channels": 1,
+      "peak": 11081,
+      "rms": 3359.8562399804728,
+      "startSample": 0,
+      "endSample": 0
+    },
+    {
+      "id": "copy",
+      "path": "Assets/Game/Audio/copy.wav",
+      "sha256": "5a77f7d9cffe739a93f9fe168e89f3a1ef9fa12b50e835982b96bff82cc0a5cc",
+      "duration": 0.28,
+      "sampleRate": 44100,
+      "pcmBits": 16,
+      "channels": 1,
+      "peak": 11071,
+      "rms": 3357.4167469810736,
+      "startSample": 0,
+      "endSample": 0
+    },
+    {
+      "id": "dye",
+      "path": "Assets/Game/Audio/dye.wav",
+      "sha256": "a44725af5e66796e8ae86223770698f75360591884ae2083c184e9a5f016120e",
+      "duration": 0.24,
+      "sampleRate": 44100,
+      "pcmBits": 16,
+      "channels": 1,
+      "peak": 11000,
+      "rms": 3358.4154664506273,
+      "startSample": 0,
+      "endSample": 0
+    },
+    {
+      "id": "break",
+      "path": "Assets/Game/Audio/break.wav",
+      "sha256": "d270623f2eb8bed507a2a511b56dfe723e2f2a132c0a3b0f84bf44db3238507b",
+      "duration": 0.38,
+      "sampleRate": 44100,
+      "pcmBits": 16,
+      "channels": 1,
+      "peak": 10148,
+      "rms": 2126.347268970603,
+      "startSample": 0,
+      "endSample": 0
+    },
+    {
+      "id": "enchant_base5",
+      "path": "Assets/Game/Audio/enchant_base5.wav",
+      "sha256": "6f91963ef7d2d231ac8e16fdadf96d358d77055bcb409a4181d9c665eee306c4",
+      "duration": 0.16,
+      "sampleRate": 44100,
+      "pcmBits": 16,
+      "channels": 1,
+      "peak": 8244,
+      "rms": 2340.4263133824606,
+      "startSample": 0,
+      "endSample": 0
+    },
+    {
+      "id": "enchant_mult120",
+      "path": "Assets/Game/Audio/enchant_mult120.wav",
+      "sha256": "f1e4281c34ed6c31c403bba07fa34e9d495ea00d3cb7fc94558fa5db70c53f0c",
+      "duration": 0.22,
+      "sampleRate": 44100,
+      "pcmBits": 16,
+      "channels": 1,
+      "peak": 8458,
+      "rms": 1897.1213523605584,
+      "startSample": 0,
+      "endSample": 0
+    }
+  ],
+  "pipComponents": [
+    {
+      "file": "Pip_blue_1.png",
+      "components": 1,
+      "sha256": "28f50a31df8af062b3af4d6f504d2ad1c50490f110049b556d40b25556aa2f3c"
+    },
+    {
+      "file": "Pip_blue_2.png",
+      "components": 2,
+      "sha256": "5c80a7a3ce602949eb880a2503954d02a80e66adb3e396648eabe9597fba0332"
+    },
+    {
+      "file": "Pip_blue_3.png",
+      "components": 3,
+      "sha256": "446458ba92e3a62aae321e0625ead65853a379c3975c27afd6d839eae9894f3d"
+    },
+    {
+      "file": "Pip_blue_4.png",
+      "components": 4,
+      "sha256": "bc70d03601ca87ef312cc42e45b2325ea97c6e5caabd25e7f8bfd9402b84e3d1"
+    },
+    {
+      "file": "Pip_blue_5.png",
+      "components": 5,
+      "sha256": "81d846354801e008b8c1ffa1282077b8547f40a9561dcb223e48d1d6a0e50fa1"
+    },
+    {
+      "file": "Pip_blue_6.png",
+      "components": 6,
+      "sha256": "8f6827866086bd2baf5d299fa578a00accd62ea1b8ebdb8c6f2c75c2c97970a2"
+    },
+    {
+      "file": "Pip_red_1.png",
+      "components": 1,
+      "sha256": "74f2bcf8f9b51c161c402fa6cb20ad578bbc5c689c2d7b6c6994a8dbbce8d0da"
+    },
+    {
+      "file": "Pip_red_2.png",
+      "components": 2,
+      "sha256": "19c3c1ad61da6d1552ab9ff5119391b6f6bbf602c067e9984763e2b29ed969e8"
+    },
+    {
+      "file": "Pip_red_3.png",
+      "components": 3,
+      "sha256": "7143931d20e5a92ab9e9b30937573f68116cdcb782cd94afbd31065bbb15f4f0"
+    },
+    {
+      "file": "Pip_red_4.png",
+      "components": 4,
+      "sha256": "bb599ee3015684c7d1f0801fdc3be35c3ac8f1a049aed0163be3010d2a46ecb9"
+    },
+    {
+      "file": "Pip_red_5.png",
+      "components": 5,
+      "sha256": "25d389dbe0346d201ee890051107f54227f863f5af322d73936197f790804ce1"
+    },
+    {
+      "file": "Pip_red_6.png",
+      "components": 6,
+      "sha256": "a15ff17cc8a1ac0ce7052a557340dd38387472b11bb05159a6177d4627fd69f0"
+    }
+  ],
+  "unityImport": "not_run_here",
+  "actualGameLegibility": "requires_root_player_verification",
+  "subjectiveAudio": "not_tested",
+  "result": "passed_local_asset_checks"
+}

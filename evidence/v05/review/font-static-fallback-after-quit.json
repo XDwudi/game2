@@ -1,0 +1,216 @@
+{
+  "scope": "Independent serialized font/source check after Editor quit; visual readability remains Player check",
+  "main": {
+    "path": "DicePrototype/Assets/Game/Fonts/DiceChinese.asset",
+    "sha256": "24f67c7c198510451dc521850ff73cebdcfe08dec6d4199dc20a6a5eb0c358d4",
+    "characters": 639,
+    "settings": {
+      "m_AtlasPopulationMode": "0",
+      "m_PointSize": "48",
+      "m_ClearDynamicDataOnBuild": "0",
+      "m_AtlasWidth": "2048",
+      "m_AtlasHeight": "2048",
+      "m_AtlasPadding": "7",
+      "m_IsMultiAtlasTexturesEnabled": "1"
+    },
+    "containsFallbackReference": true,
+    "textureWidths": [
+      "2048"
+    ]
+  },
+  "fallback": {
+    "path": "DicePrototype/Assets/Game/Fonts/DiceChineseFallback.asset",
+    "sha256": "41272a4b460757507ee639057436973fd445fe67db969f87c216dc45e54a5cef",
+    "characters": 0,
+    "settings": {
+      "m_AtlasPopulationMode": "1",
+      "m_PointSize": "48",
+      "m_ClearDynamicDataOnBuild": "1",
+      "m_AtlasWidth": "1024",
+      "m_AtlasHeight": "1024",
+      "m_AtlasPadding": "7",
+      "m_IsMultiAtlasTexturesEnabled": "1"
+    },
+    "textureWidths": [
+      "1"
+    ]
+  },
+  "requestedCharacters": 639,
+  "missingRequestedCharacters": "",
+  "missingCjk": "",
+  "checkedSourceFiles": 43,
+  "rows": [
+    {
+      "source": "DicePrototype/Assets/Game/Data/P0Config.json",
+      "missingCjk": ""
+    },
+    {
+      "source": "DicePrototype/Assets/Game/Runtime/GameApp.cs",
+      "missingCjk": ""
+    },
+    {
+      "source": "DicePrototype/Assets/Game/UI/GameApp.Modals.cs",
+      "missingCjk": ""
+    },
+    {
+      "source": "DicePrototype/Assets/Game/UI/GameApp.Shop.cs",
+      "missingCjk": ""
+    },
+    {
+      "source": "DicePrototype/Assets/Game/UI/GameApp.V05.cs",
+      "missingCjk": ""
+    },
+    {
+      "source": "DicePrototype/Assets/Game/UI/UiKit.cs",
+      "missingCjk": ""
+    },
+    {
+      "source": "DicePrototype/Assets/Game/Core/Rules/ConfigJsonContract.cs",
+      "missingCjk": ""
+    },
+    {
+      "source": "DicePrototype/Assets/Game/Core/Rules/ConfigValidation.cs",
+      "missingCjk": ""
+    },
+    {
+      "source": "DicePrototype/Assets/Game/Core/Rules/ControllerRules.cs",
+      "missingCjk": ""
+    },
+    {
+      "source": "DicePrototype/Assets/Game/Core/Rules/GameConfig.cs",
+      "missingCjk": ""
+    },
+    {
+      "source": "DicePrototype/Assets/Game/Core/Rules/GameRng.cs",
+      "missingCjk": ""
+    },
+    {
+      "source": "DicePrototype/Assets/Game/Core/Rules/HandbookRules.cs",
+      "missingCjk": ""
+    },
+    {
+      "source": "DicePrototype/Assets/Game/Core/Rules/Models.cs",
+      "missingCjk": ""
+    },
+    {
+      "source": "DicePrototype/Assets/Game/Core/Rules/ProbabilityCalculator.cs",
+      "missingCjk": ""
+    },
+    {
+      "source": "DicePrototype/Assets/Game/Core/Rules/ScoreCalculator.cs",
+      "missingCjk": ""
+    },
+    {
+      "source": "DicePrototype/Assets/Game/Core/Rules/ScoreExplanation.cs",
+      "missingCjk": ""
+    },
+    {
+      "source": "DicePrototype/Assets/Game/Core/Rules/Validation~/Program.cs",
+      "missingCjk": ""
+    },
+    {
+      "source": "DicePrototype/Assets/Game/Core/Rules/Validation~/RulesNUnitProgram.cs",
+      "missingCjk": ""
+    },
+    {
+      "source": "DicePrototype/Assets/Game/Core/Rules/Validation~/obj/Debug/net10.0/.NETCoreApp,Version=v10.0.AssemblyAttributes.cs",
+      "missingCjk": ""
+    },
+    {
+      "source": "DicePrototype/Assets/Game/Core/Rules/Validation~/obj/Debug/net10.0/CoreRulesValidation.AssemblyInfo.cs",
+      "missingCjk": ""
+    },
+    {
+      "source": "DicePrototype/Assets/Game/Core/Rules/Validation~/obj/Debug/net10.0/RulesNUnitValidation.AssemblyInfo.cs",
+      "missingCjk": ""
+    },
+    {
+      "source": "DicePrototype/Assets/Game/Core/Rules/Validation~/obj/Debug/net10.0/UnityTestsCompilation.AssemblyInfo.cs",
+      "missingCjk": ""
+    },
+    {
+      "source": "DicePrototype/Assets/Game/Core/Rules/Validation~/obj/Release/net10.0/.NETCoreApp,Version=v10.0.AssemblyAttributes.cs",
+      "missingCjk": ""
+    },
+    {
+      "source": "DicePrototype/Assets/Game/Core/Rules/Validation~/obj/Release/net10.0/CoreRulesValidation.AssemblyInfo.cs",
+      "missingCjk": ""
+    },
+    {
+      "source": "DicePrototype/Assets/Game/Core/Rules/Validation~/obj/Release/net10.0/UnityTestsCompilation.AssemblyInfo.cs",
+      "missingCjk": ""
+    },
+    {
+      "source": "DicePrototype/Assets/Game/Core/Rules/Validation~/obj/test-api/Release/net10.0/.NETCoreApp,Version=v10.0.AssemblyAttributes.cs",
+      "missingCjk": ""
+    },
+    {
+      "source": "DicePrototype/Assets/Game/Core/Rules/Validation~/obj/test-api/Release/net10.0/UnityTestsCompilation.AssemblyInfo.cs",
+      "missingCjk": ""
+    },
+    {
+      "source": "DicePrototype/Assets/Game/Core/Session/GameSession.cs",
+      "missingCjk": ""
+    },
+    {
+      "source": "DicePrototype/Assets/Game/Core/Session/GameSession.Shop.cs",
+      "missingCjk": ""
+    },
+    {
+      "source": "DicePrototype/Assets/Game/Core/Session/GameSession.Submission.cs",
+      "missingCjk": ""
+    },
+    {
+      "source": "DicePrototype/Assets/Game/Core/Session/GameSession.Validation.cs",
+      "missingCjk": ""
+    },
+    {
+      "source": "DicePrototype/Assets/Game/Core/Session/SessionModels.cs",
+      "missingCjk": ""
+    },
+    {
+      "source": "DicePrototype/Assets/Game/Core/Session/Validation~/NormalRunReplay.cs",
+      "missingCjk": ""
+    },
+    {
+      "source": "DicePrototype/Assets/Game/Core/Session/Validation~/NormalRunSearch.cs",
+      "missingCjk": ""
+    },
+    {
+      "source": "DicePrototype/Assets/Game/Core/Session/Validation~/Program.cs",
+      "missingCjk": ""
+    },
+    {
+      "source": "DicePrototype/Assets/Game/Core/Session/Validation~/obj/Debug/net10.0/.NETCoreApp,Version=v10.0.AssemblyAttributes.cs",
+      "missingCjk": ""
+    },
+    {
+      "source": "DicePrototype/Assets/Game/Core/Session/Validation~/obj/Debug/net10.0/NormalRunReplay.AssemblyInfo.cs",
+      "missingCjk": ""
+    },
+    {
+      "source": "DicePrototype/Assets/Game/Core/Session/Validation~/obj/Debug/net10.0/NormalRunSearch.AssemblyInfo.cs",
+      "missingCjk": ""
+    },
+    {
+      "source": "DicePrototype/Assets/Game/Core/Session/Validation~/obj/Debug/net10.0/SessionValidation.AssemblyInfo.cs",
+      "missingCjk": ""
+    },
+    {
+      "source": "DicePrototype/Assets/Game/Core/Session/Validation~/obj/Release/net10.0/.NETCoreApp,Version=v10.0.AssemblyAttributes.cs",
+      "missingCjk": ""
+    },
+    {
+      "source": "DicePrototype/Assets/Game/Core/Session/Validation~/obj/Release/net10.0/NormalRunReplay.AssemblyInfo.cs",
+      "missingCjk": ""
+    },
+    {
+      "source": "DicePrototype/Assets/Game/Core/Session/Validation~/obj/Release/net10.0/NormalRunSearch.AssemblyInfo.cs",
+      "missingCjk": ""
+    },
+    {
+      "source": "DicePrototype/Assets/Game/Core/Session/Validation~/obj/Release/net10.0/SessionValidation.AssemblyInfo.cs",
+      "missingCjk": ""
+    }
+  ]
+}

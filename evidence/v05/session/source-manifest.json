@@ -1,0 +1,93 @@
+{
+  "task": "P0-V05 Session migration",
+  "utc": "2026-10-30T04:50:38.246737+00:00",
+  "runner": "dotnet 10 reflection invoking NUnit assertions, not Unity EditMode",
+  "report": "run03.json",
+  "normalReplayReport": "normal-replay-report.json",
+  "files": [
+    {
+      "path": "DicePrototype/Assets/Game/Core/Rules/ConfigJsonContract.cs",
+      "sha256": "805afba93d103c756cea47ef5b23dbfb2de2fb5d64c5e84604c9f72eef85b07e"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Core/Rules/ConfigValidation.cs",
+      "sha256": "2da0284f21a95de4e5b64b24c8fd22bb50005853831bb0e0c14b0dea9a6c0662"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Core/Rules/ControllerRules.cs",
+      "sha256": "1f13793af7bd62f6d4168f89c10ce847904580add676f5c62c87d619c0ca67e2"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Core/Rules/GameConfig.cs",
+      "sha256": "2b792db340adf39774c00f80fc5bb4a78526caad69923a2d44bd000e4ea203c9"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Core/Rules/GameRng.cs",
+      "sha256": "41614b1946d1c4d7b31b4a20957ef285b1bafa5a6ef7e250d05f8c79ae38e042"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Core/Rules/HandbookRules.cs",
+      "sha256": "4f8e492e2dd12646a63a47ad35cca9ccebc2f39059edc754191a163d3b98e2c4"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Core/Rules/Models.cs",
+      "sha256": "3eb0b52d23fd0cd4583ff384a8b7e7654f317d55e9b09770cb9c6059294f800b"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Core/Rules/ProbabilityCalculator.cs",
+      "sha256": "bba8bbebc4813b102ca9dcd7e11e123780a5b3f5d43852229c1ea86c4b9ea07d"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Core/Rules/ScoreCalculator.cs",
+      "sha256": "b958bc739d5eb35044f80f208e272ddd89e5c2ce3c8bf2768fdfbc98efa4ea1b"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Core/Rules/ScoreExplanation.cs",
+      "sha256": "43a5c2c21522f848c9df02618810ba28d85d0a223e10007ecfa6dc3b61f33f5f"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Core/Session/GameSession.cs",
+      "sha256": "34539103a5a5057e23772b6039a66d77317d2481c6f07fb057bc6195d198af71"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Core/Session/GameSession.Shop.cs",
+      "sha256": "236d26101f6bc59fd609f9c39b3e4784aae65736beeb2e85bb881eafe51232f3"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Core/Session/GameSession.Submission.cs",
+      "sha256": "29d640e12b6dc550558d2479a71557c21be9ac82dc9d33aefdd46f3cc4b43ae2"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Core/Session/GameSession.Validation.cs",
+      "sha256": "0024e160cdf55cd54e23a11eb7bb5f736bcc34fb27af065635282218dc95fc8a"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Core/Session/SessionModels.cs",
+      "sha256": "b5613122907e649051455893802c9afe3ea0c16123a8aa5ddbdfea14ece95d03"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Data/P0Config.json",
+      "sha256": "6732ab356049166c58a0d6ededf6bb2be8484690ac79eb9b96e303fd03588cfc"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Tests/EditMode/Session/FlowTests.cs",
+      "sha256": "bb767c4efb35a880a0eb325ab549ad4bd16e39d0ae83e403607f87be24d0fb1d"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Tests/EditMode/Session/ItemAndSaveTests.cs",
+      "sha256": "cd86b2f26ac570b4d44d089031d86f066ebf794763623b7bdc0f3b90f44e587c"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Tests/EditMode/Session/SessionTestSupport.cs",
+      "sha256": "4d4f57801ec224b211d91333357eab9b999f6eb178a84a61aa5ebdfd69b60294"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Tests/EditMode/Session/ShopTests.cs",
+      "sha256": "5f8bf54c7422eeddcac7b7c9f760365b1c1142f2c6759c6dbe882d1d80509cc7"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Tests/EditMode/Session/V05SessionTests.cs",
+      "sha256": "7b154576a2ac1b021c9e7f2612fd129c0c4154ecd29553a40be070cc86864992"
+    }
+  ]
+}

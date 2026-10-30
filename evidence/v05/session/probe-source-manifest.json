@@ -1,0 +1,28 @@
+{
+  "utc": "2026-10-30T04:51:29.831436+00:00",
+  "revision": "p05-player-independent-clocks-6",
+  "managedChecks": 28,
+  "runtimeValidation": "Pending real Player execution by root",
+  "files": [
+    {
+      "path": "DicePrototype/Assets/Game/Runtime/Verification/PlayerVerification.cs",
+      "sha256": "6c96f28c168f902482a0659707d1be0069315f2fa95fd3195b43dbe75a1dfc0a"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Runtime/Verification/Validation~/MetricChecks.cs",
+      "sha256": "935947e4b586e2be0d4559711123a777ba8cf0c17c964ce4b30220e5a479ee21"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Runtime/Verification/Validation~/ProbeCompile.csproj",
+      "sha256": "5354a9abd44667b29e1a979ac2976a9bb1ac63202e108dbd99c9f2aad31ff375"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Data/P0Config.json",
+      "sha256": "6732ab356049166c58a0d6ededf6bb2be8484690ac79eb9b96e303fd03588cfc"
+    },
+    {
+      "path": "evidence/v05/session/normal-run-trace.json",
+      "sha256": "c829cf1e93eaca6058c98c03893f9eaee049b4fb9729f14a57a90aaaa6c83ff8"
+    }
+  ]
+}

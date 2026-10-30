@@ -1,0 +1,35 @@
+{
+  "identity": {
+    "releaseVersion": "p0.5.0",
+    "sourceCommit": "967f309a6be402612514714f46f3743421267799",
+    "contentConfigVersion": "p0.5.0",
+    "contentConfigSha256": "6732ab356049166c58a0d6ededf6bb2be8484690ac79eb9b96e303fd03588cfc",
+    "saveSchemaVersion": 3,
+    "goldenCaseSetSha256": "2fb088ab96e1261b286c120f8c93d84e351e98d2412e835194adb2aa11467a42",
+    "unityEditorVersion": "6000.6.7f1",
+    "backend": "Mono"
+  },
+  "results": [
+    {
+      "platform": "windows",
+      "buildGuid": "182571f77341471d9fd9acd120b05e26",
+      "packageSha256": "0479e32f10be4bb1f51b65d2c0ca4f8719b3845d895f1da1c61e7545173a512d",
+      "assemblyMvids": {
+        "DiceCraft.Core": "cbeb8b74-0247-4808-8987-0127e191be2a",
+        "DiceCraft.Runtime": "653f6fb3-eab0-41a5-b900-7d8fa8ff4c8d"
+      },
+      "errors": []
+    },
+    {
+      "platform": "macos",
+      "buildGuid": "3014661a6cfd4421aff5b54096f14570",
+      "packageSha256": "a5f4c46fb8c7c609a09963e3a963c43566f4ae043b9bbc0cb48442a46da76297",
+      "assemblyMvids": {
+        "DiceCraft.Core": "fab16b8c-d731-4f53-a622-c13d8b5d0f68",
+        "DiceCraft.Runtime": "90dca3ef-ab63-4368-a921-4787a79c926c"
+      },
+      "errors": []
+    }
+  ],
+  "scope": "Connect real BuildReport, package member hashes, compiled PDB audit and Windows running MVID; Mac native execution not performed"
+}

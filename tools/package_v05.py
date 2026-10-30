@@ -66,7 +66,7 @@ def package(platform):
             mode = stat.S_IFREG | 0o644
             if native_info and any(s["filetype"] == 2 for s in native_info["slices"]):
                 mode = stat.S_IFREG | 0o755
-            data = path.read_bytes()
+            data = os.readlink(path).encode("utf-8") if path.is_symlink() else path.read_bytes()
             if path.is_symlink():
                 mode = stat.S_IFLNK | 0o777
                 data = os.readlink(path).encode("utf-8")

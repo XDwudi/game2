@@ -1,0 +1,21 @@
+{
+  "scope": "Independent synthetic tooling regression and original negative ZIP retest; no Mac execution or archive extraction",
+  "exitCode": 0,
+  "sourceStable": true,
+  "before": {
+    "tools/macos/compare_replays.py": "9e5a92b69ade3a8054d720c4d52b06b9a147f8bc073b77b8aabbfeb6ccd759b8",
+    "tools/macos/package_checks.py": "75df35774305feac4c27cd2f3de36bccc6b72dd29289e802dd40e7b9e59a5bea",
+    "tools/macos/test_mac_tools.py": "cbd41d4f09f72b9ff8d7ee1db73e307cb5ef08908563cb24d2efd90e348bc571",
+    "tools/macos/VerifyMac.command": "2d15bd17261be0abefc457e6b7c2ea38c4f0407c18f6a66243595b1a38da2fc0",
+    "tools/macos/verify_mac.py": "6f9102294b842f11c6d944ec8e88d23113e43615ed9ac67dec607b9568a1214d"
+  },
+  "after": {
+    "tools/macos/compare_replays.py": "9e5a92b69ade3a8054d720c4d52b06b9a147f8bc073b77b8aabbfeb6ccd759b8",
+    "tools/macos/package_checks.py": "75df35774305feac4c27cd2f3de36bccc6b72dd29289e802dd40e7b9e59a5bea",
+    "tools/macos/test_mac_tools.py": "cbd41d4f09f72b9ff8d7ee1db73e307cb5ef08908563cb24d2efd90e348bc571",
+    "tools/macos/VerifyMac.command": "2d15bd17261be0abefc457e6b7c2ea38c4f0407c18f6a66243595b1a38da2fc0",
+    "tools/macos/verify_mac.py": "6f9102294b842f11c6d944ec8e88d23113e43615ed9ac67dec607b9568a1214d"
+  },
+  "originalFailureNowRejected": true,
+  "rejection": "Archive member has a symlink ancestor: a/b"
+}

@@ -1,0 +1,4941 @@
+﻿{
+    "runId": "RUN_6f8d5e1e17104eb4afc4dd7398e8a7b6",
+    "configVersion": "p0.5.0",
+    "phase": "RunFailed",
+    "failureReason": "SubmissionsExhausted",
+    "saveSchemaVersion": 3,
+    "gold": 2,
+    "baseSubmitCapacity": 5,
+    "controllerSlots": 4,
+    "consumableSlots": 2,
+    "itemDiscount": 0,
+    "nextDieSerial": 6,
+    "nextItemSerial": 25,
+    "nextOfferSerial": 97,
+    "nextHandSerial": 32,
+    "actionSequence": 161,
+    "seed": 20261037,
+    "diceRngState": 1585069469,
+    "shopRngState": 3330453664,
+    "effectRngState": 2896519120,
+    "isDebug": false,
+    "dice": [
+        {
+            "dieId": "D001",
+            "createdSerial": 1,
+            "lifetime": "permanent",
+            "createdStageId": "",
+            "faces": [
+                {
+                    "faceId": "F01",
+                    "permanentPip": 1,
+                    "baseColor": "red",
+                    "baseWeight": 1,
+                    "texture": "none",
+                    "isGold": false
+                },
+                {
+                    "faceId": "F02",
+                    "permanentPip": 2,
+                    "baseColor": "blue",
+                    "baseWeight": 1,
+                    "texture": "none",
+                    "isGold": false
+                },
+                {
+                    "faceId": "F03",
+                    "permanentPip": 3,
+                    "baseColor": "blue",
+                    "baseWeight": 1,
+                    "texture": "none",
+                    "isGold": false
+                },
+                {
+                    "faceId": "F04",
+                    "permanentPip": 4,
+                    "baseColor": "red",
+                    "baseWeight": 1,
+                    "texture": "none",
+                    "isGold": false
+                },
+                {
+                    "faceId": "F05",
+                    "permanentPip": 5,
+                    "baseColor": "blue",
+                    "baseWeight": 1,
+                    "texture": "none",
+                    "isGold": false
+                },
+                {
+                    "faceId": "F06",
+                    "permanentPip": 6,
+                    "baseColor": "blue",
+                    "baseWeight": 1,
+                    "texture": "none",
+                    "isGold": false
+                }
+            ],
+            "isGlass": false,
+            "dataRevision": 0
+        },
+        {
+            "dieId": "D002",
+            "createdSerial": 2,
+            "lifetime": "permanent",
+            "createdStageId": "",
+            "faces": [
+                {
+                    "faceId": "F01",
+                    "permanentPip": 1,
+                    "baseColor": "red",
+                    "baseWeight": 1,
+                    "texture": "none",
+                    "isGold": false
+                },
+                {
+                    "faceId": "F02",
+                    "permanentPip": 2,
+                    "baseColor": "blue",
+                    "baseWeight": 1,
+                    "texture": "none",
+                    "isGold": false
+                },
+                {
+                    "faceId": "F03",
+                    "permanentPip": 3,
+                    "baseColor": "blue",
+                    "baseWeight": 1,
+                    "texture": "none",
+                    "isGold": false
+                },
+                {
+                    "faceId": "F04",
+                    "permanentPip": 4,
+                    "baseColor": "red",
+                    "baseWeight": 1,
+                    "texture": "none",
+                    "isGold": false
+                },
+                {
+                    "faceId": "F05",
+                    "permanentPip": 5,
+                    "baseColor": "blue",
+                    "baseWeight": 1,
+                    "texture": "none",
+                    "isGold": false
+                },
+                {
+                    "faceId": "F06",
+                    "permanentPip": 6,
+                    "baseColor": "blue",
+                    "baseWeight": 1,
+                    "texture": "none",
+                    "isGold": false
+                }
+            ],
+            "isGlass": false,
+            "dataRevision": 0
+        },
+        {
+            "dieId": "D003",
+            "createdSerial": 3,
+            "lifetime": "permanent",
+            "createdStageId": "",
+            "faces": [
+                {
+                    "faceId": "F01",
+                    "permanentPip": 1,
+                    "baseColor": "red",
+                    "baseWeight": 1,
+                    "texture": "none",
+                    "isGold": false
+                },
+                {
+                    "faceId": "F02",
+                    "permanentPip": 2,
+                    "baseColor": "blue",
+                    "baseWeight": 1,
+                    "texture": "none",
+                    "isGold": false
+                },
+                {
+                    "faceId": "F03",
+                    "permanentPip": 3,
+                    "baseColor": "blue",
+                    "baseWeight": 1,
+                    "texture": "none",
+                    "isGold": false
+                },
+                {
+                    "faceId": "F04",
+                    "permanentPip": 4,
+                    "baseColor": "red",
+                    "baseWeight": 1,
+                    "texture": "none",
+                    "isGold": false
+                },
+                {
+                    "faceId": "F05",
+                    "permanentPip": 5,
+                    "baseColor": "blue",
+                    "baseWeight": 1,
+                    "texture": "none",
+                    "isGold": false
+                },
+                {
+                    "faceId": "F06",
+                    "permanentPip": 6,
+                    "baseColor": "blue",
+                    "baseWeight": 1,
+                    "texture": "none",
+                    "isGold": false
+                }
+            ],
+            "isGlass": false,
+            "dataRevision": 0
+        },
+        {
+            "dieId": "D004",
+            "createdSerial": 4,
+            "lifetime": "permanent",
+            "createdStageId": "",
+            "faces": [
+                {
+                    "faceId": "F01",
+                    "permanentPip": 1,
+                    "baseColor": "red",
+                    "baseWeight": 1,
+                    "texture": "none",
+                    "isGold": false
+                },
+                {
+                    "faceId": "F02",
+                    "permanentPip": 2,
+                    "baseColor": "blue",
+                    "baseWeight": 1,
+                    "texture": "none",
+                    "isGold": false
+                },
+                {
+                    "faceId": "F03",
+                    "permanentPip": 3,
+                    "baseColor": "blue",
+                    "baseWeight": 1,
+                    "texture": "none",
+                    "isGold": false
+                },
+                {
+                    "faceId": "F04",
+                    "permanentPip": 4,
+                    "baseColor": "red",
+                    "baseWeight": 1,
+                    "texture": "none",
+                    "isGold": false
+                },
+                {
+                    "faceId": "F05",
+                    "permanentPip": 5,
+                    "baseColor": "blue",
+                    "baseWeight": 1,
+                    "texture": "none",
+                    "isGold": false
+                },
+                {
+                    "faceId": "F06",
+                    "permanentPip": 6,
+                    "baseColor": "blue",
+                    "baseWeight": 1,
+                    "texture": "none",
+                    "isGold": false
+                }
+            ],
+            "isGlass": false,
+            "dataRevision": 0
+        },
+        {
+            "dieId": "D005",
+            "createdSerial": 5,
+            "lifetime": "permanent",
+            "createdStageId": "",
+            "faces": [
+                {
+                    "faceId": "F01",
+                    "permanentPip": 1,
+                    "baseColor": "red",
+                    "baseWeight": 1,
+                    "texture": "none",
+                    "isGold": false
+                },
+                {
+                    "faceId": "F02",
+                    "permanentPip": 2,
+                    "baseColor": "blue",
+                    "baseWeight": 1,
+                    "texture": "none",
+                    "isGold": false
+                },
+                {
+                    "faceId": "F03",
+                    "permanentPip": 3,
+                    "baseColor": "blue",
+                    "baseWeight": 1,
+                    "texture": "none",
+                    "isGold": false
+                },
+                {
+                    "faceId": "F04",
+                    "permanentPip": 4,
+                    "baseColor": "red",
+                    "baseWeight": 1,
+                    "texture": "none",
+                    "isGold": false
+                },
+                {
+                    "faceId": "F05",
+                    "permanentPip": 5,
+                    "baseColor": "blue",
+                    "baseWeight": 1,
+                    "texture": "none",
+                    "isGold": false
+                },
+                {
+                    "faceId": "F06",
+                    "permanentPip": 6,
+                    "baseColor": "blue",
+                    "baseWeight": 1,
+                    "texture": "none",
+                    "isGold": false
+                }
+            ],
+            "isGlass": false,
+            "dataRevision": 0
+        }
+    ],
+    "controllers": [
+        {
+            "instanceId": "ITEM_00002",
+            "definitionId": "C02",
+            "enchantmentId": "none",
+            "acquiredSerial": 2
+        },
+        {
+            "instanceId": "ITEM_00004",
+            "definitionId": "C39",
+            "enchantmentId": "slotless",
+            "acquiredSerial": 4
+        },
+        {
+            "instanceId": "ITEM_00013",
+            "definitionId": "C17",
+            "enchantmentId": "none",
+            "acquiredSerial": 13
+        },
+        {
+            "instanceId": "ITEM_00016",
+            "definitionId": "C04",
+            "enchantmentId": "none",
+            "acquiredSerial": 16
+        },
+        {
+            "instanceId": "ITEM_00023",
+            "definitionId": "C32",
+            "enchantmentId": "none",
+            "acquiredSerial": 23
+        }
+    ],
+    "inventory": [],
+    "handLevels": [
+        {
+            "handId": "pair",
+            "level": 0
+        },
+        {
+            "handId": "two_pair",
+            "level": 0
+        },
+        {
+            "handId": "trips",
+            "level": 0
+        },
+        {
+            "handId": "full_house",
+            "level": 0
+        },
+        {
+            "handId": "quads",
+            "level": 0
+        },
+        {
+            "handId": "five_kind",
+            "level": 0
+        },
+        {
+            "handId": "six_kind",
+            "level": 0
+        },
+        {
+            "handId": "seven_kind",
+            "level": 0
+        },
+        {
+            "handId": "eight_kind",
+            "level": 0
+        },
+        {
+            "handId": "straight",
+            "level": 0
+        },
+        {
+            "handId": "all_blue",
+            "level": 0
+        },
+        {
+            "handId": "all_red",
+            "level": 0
+        }
+    ],
+    "consumedItemIds": [],
+    "processedReceipts": [
+        {
+            "commandId": "6f8d5e1e17104eb4afc4dd7398e8a7b6",
+            "phase": "StagePreview",
+            "message": "NewRun",
+            "actionSequence": 1,
+            "score": 0,
+            "goldBefore": 10,
+            "goldAfter": 10,
+            "command": {
+                "commandId": "6f8d5e1e17104eb4afc4dd7398e8a7b6",
+                "expectedActionSequence": 0,
+                "kind": 0,
+                "seed": 20261037,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "01804c85a9d148fb81accc607d4a1c6d",
+            "phase": "HandReady",
+            "message": "StartStage",
+            "actionSequence": 2,
+            "score": 0,
+            "goldBefore": 10,
+            "goldAfter": 10,
+            "command": {
+                "commandId": "01804c85a9d148fb81accc607d4a1c6d",
+                "expectedActionSequence": 1,
+                "kind": 2,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "ce4ab8e6bc7e4431aa3e13b00871ca94",
+            "phase": "Selecting",
+            "message": "Roll",
+            "actionSequence": 3,
+            "score": 0,
+            "goldBefore": 10,
+            "goldAfter": 10,
+            "command": {
+                "commandId": "ce4ab8e6bc7e4431aa3e13b00871ca94",
+                "expectedActionSequence": 2,
+                "kind": 3,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "ddf0d3a5a83e4db88d4af5f52b487ba8",
+            "phase": "Selecting",
+            "message": "ConfirmLocks",
+            "actionSequence": 4,
+            "score": 0,
+            "goldBefore": 10,
+            "goldAfter": 10,
+            "command": {
+                "commandId": "ddf0d3a5a83e4db88d4af5f52b487ba8",
+                "expectedActionSequence": 3,
+                "kind": 4,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [
+                    "D003",
+                    "D005"
+                ],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "a22c80e9740e43bc979a9247da94a80f",
+            "phase": "Selecting",
+            "message": "Roll",
+            "actionSequence": 5,
+            "score": 0,
+            "goldBefore": 10,
+            "goldAfter": 10,
+            "command": {
+                "commandId": "a22c80e9740e43bc979a9247da94a80f",
+                "expectedActionSequence": 4,
+                "kind": 3,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "cb1709006f6d489facdd9b423826b3d7",
+            "phase": "Selecting",
+            "message": "Roll",
+            "actionSequence": 6,
+            "score": 0,
+            "goldBefore": 10,
+            "goldAfter": 10,
+            "command": {
+                "commandId": "cb1709006f6d489facdd9b423826b3d7",
+                "expectedActionSequence": 5,
+                "kind": 3,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "71545043f40b4a7f861c2273061ca651",
+            "phase": "Selecting",
+            "message": "ConfirmLocks",
+            "actionSequence": 7,
+            "score": 0,
+            "goldBefore": 10,
+            "goldAfter": 10,
+            "command": {
+                "commandId": "71545043f40b4a7f861c2273061ca651",
+                "expectedActionSequence": 6,
+                "kind": 4,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [
+                    "D001",
+                    "D002",
+                    "D004"
+                ],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "229e0b1ba3ac4c4395e80aac20f62165",
+            "phase": "HandReady",
+            "message": "Submit",
+            "actionSequence": 8,
+            "score": 51,
+            "goldBefore": 10,
+            "goldAfter": 10,
+            "command": {
+                "commandId": "229e0b1ba3ac4c4395e80aac20f62165",
+                "expectedActionSequence": 7,
+                "kind": 7,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "243c53fe206046fc929dbf2f82504a79",
+            "phase": "Selecting",
+            "message": "Roll",
+            "actionSequence": 9,
+            "score": 0,
+            "goldBefore": 10,
+            "goldAfter": 10,
+            "command": {
+                "commandId": "243c53fe206046fc929dbf2f82504a79",
+                "expectedActionSequence": 8,
+                "kind": 3,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "4fd664f3d9ba46d5a3ca97d816fc4321",
+            "phase": "Selecting",
+            "message": "ConfirmLocks",
+            "actionSequence": 10,
+            "score": 0,
+            "goldBefore": 10,
+            "goldAfter": 10,
+            "command": {
+                "commandId": "4fd664f3d9ba46d5a3ca97d816fc4321",
+                "expectedActionSequence": 9,
+                "kind": 4,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [
+                    "D001",
+                    "D002",
+                    "D003",
+                    "D004",
+                    "D005"
+                ],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "ef3cbee48e2a4c1dbd7ae484b1f34cdc",
+            "phase": "HandReady",
+            "message": "Submit",
+            "actionSequence": 11,
+            "score": 138,
+            "goldBefore": 10,
+            "goldAfter": 10,
+            "command": {
+                "commandId": "ef3cbee48e2a4c1dbd7ae484b1f34cdc",
+                "expectedActionSequence": 10,
+                "kind": 7,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "8a489d6335b34b738c2248d972c556c8",
+            "phase": "StageSettlement",
+            "message": "EndStage",
+            "actionSequence": 12,
+            "score": 0,
+            "goldBefore": 10,
+            "goldAfter": 17,
+            "command": {
+                "commandId": "8a489d6335b34b738c2248d972c556c8",
+                "expectedActionSequence": 11,
+                "kind": 13,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "2de0efe51fc649bba7bba3219ce2f522",
+            "phase": "Shop",
+            "message": "Continue",
+            "actionSequence": 13,
+            "score": 0,
+            "goldBefore": 17,
+            "goldAfter": 17,
+            "command": {
+                "commandId": "2de0efe51fc649bba7bba3219ce2f522",
+                "expectedActionSequence": 12,
+                "kind": 8,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "fdb8029d4c144710a2d20b83af7713ec",
+            "phase": "Shop",
+            "message": "Buy",
+            "actionSequence": 14,
+            "score": 0,
+            "goldBefore": 17,
+            "goldAfter": 3,
+            "command": {
+                "commandId": "fdb8029d4c144710a2d20b83af7713ec",
+                "expectedActionSequence": 13,
+                "kind": 9,
+                "seed": 0,
+                "risk": false,
+                "offerId": "OFFER_00002",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [],
+                "targetPips": []
+            },
+            "effects": [
+                {
+                    "kind": "Purchased",
+                    "sourceId": "C02",
+                    "dieId": "",
+                    "faceId": "",
+                    "otherDieId": "",
+                    "detail": "OFFER_00002",
+                    "oldValue": 14,
+                    "newValue": 3
+                }
+            ]
+        },
+        {
+            "commandId": "5950f17efb7b4688ab1f22b56a67300a",
+            "phase": "StagePreview",
+            "message": "LeaveShop",
+            "actionSequence": 15,
+            "score": 0,
+            "goldBefore": 3,
+            "goldAfter": 3,
+            "command": {
+                "commandId": "5950f17efb7b4688ab1f22b56a67300a",
+                "expectedActionSequence": 14,
+                "kind": 12,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "f87eb622c8e64b2381e56ddcfe2d5df9",
+            "phase": "HandReady",
+            "message": "StartStage",
+            "actionSequence": 16,
+            "score": 0,
+            "goldBefore": 3,
+            "goldAfter": 3,
+            "command": {
+                "commandId": "f87eb622c8e64b2381e56ddcfe2d5df9",
+                "expectedActionSequence": 15,
+                "kind": 2,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "c1ac1b2f82a04d9087b1f5e329dca198",
+            "phase": "Selecting",
+            "message": "Roll",
+            "actionSequence": 17,
+            "score": 0,
+            "goldBefore": 3,
+            "goldAfter": 3,
+            "command": {
+                "commandId": "c1ac1b2f82a04d9087b1f5e329dca198",
+                "expectedActionSequence": 16,
+                "kind": 3,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "ef82f6fb13634d1f89ed96f0acd1ca52",
+            "phase": "Selecting",
+            "message": "Roll",
+            "actionSequence": 18,
+            "score": 0,
+            "goldBefore": 3,
+            "goldAfter": 3,
+            "command": {
+                "commandId": "ef82f6fb13634d1f89ed96f0acd1ca52",
+                "expectedActionSequence": 17,
+                "kind": 3,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "6f44a1f1313a4fe48cb3273ee2e85899",
+            "phase": "Selecting",
+            "message": "ConfirmLocks",
+            "actionSequence": 19,
+            "score": 0,
+            "goldBefore": 3,
+            "goldAfter": 3,
+            "command": {
+                "commandId": "6f44a1f1313a4fe48cb3273ee2e85899",
+                "expectedActionSequence": 18,
+                "kind": 4,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [
+                    "D001",
+                    "D003",
+                    "D004"
+                ],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "6354e82715424e338d9b3bb3e997c669",
+            "phase": "Selecting",
+            "message": "Roll",
+            "actionSequence": 20,
+            "score": 0,
+            "goldBefore": 3,
+            "goldAfter": 3,
+            "command": {
+                "commandId": "6354e82715424e338d9b3bb3e997c669",
+                "expectedActionSequence": 19,
+                "kind": 3,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "79e43f6b12be4d3dbd2da0912b6e297d",
+            "phase": "Selecting",
+            "message": "ConfirmLocks",
+            "actionSequence": 21,
+            "score": 0,
+            "goldBefore": 3,
+            "goldAfter": 3,
+            "command": {
+                "commandId": "79e43f6b12be4d3dbd2da0912b6e297d",
+                "expectedActionSequence": 20,
+                "kind": 4,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [
+                    "D002",
+                    "D005"
+                ],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "8ac86a83238846e093d0e580f0fee8d4",
+            "phase": "HandReady",
+            "message": "Submit",
+            "actionSequence": 22,
+            "score": 378,
+            "goldBefore": 3,
+            "goldAfter": 3,
+            "command": {
+                "commandId": "8ac86a83238846e093d0e580f0fee8d4",
+                "expectedActionSequence": 21,
+                "kind": 7,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "b61f6f6df8344e19b63386eac893ee53",
+            "phase": "StageSettlement",
+            "message": "EndStage",
+            "actionSequence": 23,
+            "score": 0,
+            "goldBefore": 3,
+            "goldAfter": 10,
+            "command": {
+                "commandId": "b61f6f6df8344e19b63386eac893ee53",
+                "expectedActionSequence": 22,
+                "kind": 13,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "37d2584be25c4597b6f2578e09bbc834",
+            "phase": "Shop",
+            "message": "Continue",
+            "actionSequence": 24,
+            "score": 0,
+            "goldBefore": 10,
+            "goldAfter": 10,
+            "command": {
+                "commandId": "37d2584be25c4597b6f2578e09bbc834",
+                "expectedActionSequence": 23,
+                "kind": 8,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "2de53f852f76417185335552f81b74d2",
+            "phase": "Shop",
+            "message": "Buy",
+            "actionSequence": 25,
+            "score": 0,
+            "goldBefore": 10,
+            "goldAfter": 0,
+            "command": {
+                "commandId": "2de53f852f76417185335552f81b74d2",
+                "expectedActionSequence": 24,
+                "kind": 9,
+                "seed": 0,
+                "risk": false,
+                "offerId": "OFFER_00013",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [],
+                "targetPips": []
+            },
+            "effects": [
+                {
+                    "kind": "Purchased",
+                    "sourceId": "C39",
+                    "dieId": "",
+                    "faceId": "",
+                    "otherDieId": "",
+                    "detail": "OFFER_00013",
+                    "oldValue": 10,
+                    "newValue": 0
+                }
+            ]
+        },
+        {
+            "commandId": "54ccd6e4602c428284f24796c1c22d78",
+            "phase": "StagePreview",
+            "message": "LeaveShop",
+            "actionSequence": 26,
+            "score": 0,
+            "goldBefore": 0,
+            "goldAfter": 0,
+            "command": {
+                "commandId": "54ccd6e4602c428284f24796c1c22d78",
+                "expectedActionSequence": 25,
+                "kind": 12,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "95212a1864c54a158b82120dd459dfdc",
+            "phase": "HandReady",
+            "message": "StartStage",
+            "actionSequence": 27,
+            "score": 0,
+            "goldBefore": 0,
+            "goldAfter": 0,
+            "command": {
+                "commandId": "95212a1864c54a158b82120dd459dfdc",
+                "expectedActionSequence": 26,
+                "kind": 2,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "b066edbabaff4400983a119c92600913",
+            "phase": "Selecting",
+            "message": "Roll",
+            "actionSequence": 28,
+            "score": 0,
+            "goldBefore": 0,
+            "goldAfter": 0,
+            "command": {
+                "commandId": "b066edbabaff4400983a119c92600913",
+                "expectedActionSequence": 27,
+                "kind": 3,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "5f8db6c3df1f442c8d792caaab61c9f6",
+            "phase": "Selecting",
+            "message": "ConfirmLocks",
+            "actionSequence": 29,
+            "score": 0,
+            "goldBefore": 0,
+            "goldAfter": 0,
+            "command": {
+                "commandId": "5f8db6c3df1f442c8d792caaab61c9f6",
+                "expectedActionSequence": 28,
+                "kind": 4,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [
+                    "D001",
+                    "D003",
+                    "D004",
+                    "D005"
+                ],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "62a4904d77a84c0ea3730aeb566819c0",
+            "phase": "Selecting",
+            "message": "Roll",
+            "actionSequence": 30,
+            "score": 0,
+            "goldBefore": 0,
+            "goldAfter": 0,
+            "command": {
+                "commandId": "62a4904d77a84c0ea3730aeb566819c0",
+                "expectedActionSequence": 29,
+                "kind": 3,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "5123f17e3fd34bf8a47186387762138a",
+            "phase": "Selecting",
+            "message": "Roll",
+            "actionSequence": 31,
+            "score": 0,
+            "goldBefore": 0,
+            "goldAfter": 0,
+            "command": {
+                "commandId": "5123f17e3fd34bf8a47186387762138a",
+                "expectedActionSequence": 30,
+                "kind": 3,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "78f583fdfbcf423d9eaf776e01a9e30b",
+            "phase": "Selecting",
+            "message": "ConfirmLocks",
+            "actionSequence": 32,
+            "score": 0,
+            "goldBefore": 0,
+            "goldAfter": 0,
+            "command": {
+                "commandId": "78f583fdfbcf423d9eaf776e01a9e30b",
+                "expectedActionSequence": 31,
+                "kind": 4,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [
+                    "D002"
+                ],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "8ac65b3e2cf5451ab5dd2ce74816f8e4",
+            "phase": "HandReady",
+            "message": "Submit",
+            "actionSequence": 33,
+            "score": 612,
+            "goldBefore": 0,
+            "goldAfter": 0,
+            "command": {
+                "commandId": "8ac65b3e2cf5451ab5dd2ce74816f8e4",
+                "expectedActionSequence": 32,
+                "kind": 7,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "9473df77f04d4906aa6894843aaad5c3",
+            "phase": "StageSettlement",
+            "message": "EndStage",
+            "actionSequence": 34,
+            "score": 0,
+            "goldBefore": 0,
+            "goldAfter": 7,
+            "command": {
+                "commandId": "9473df77f04d4906aa6894843aaad5c3",
+                "expectedActionSequence": 33,
+                "kind": 13,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "fdac2204aa8c4e749ade0f4bfe2d52f4",
+            "phase": "Shop",
+            "message": "Continue",
+            "actionSequence": 35,
+            "score": 0,
+            "goldBefore": 7,
+            "goldAfter": 7,
+            "command": {
+                "commandId": "fdac2204aa8c4e749ade0f4bfe2d52f4",
+                "expectedActionSequence": 34,
+                "kind": 8,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "91defa09de7e4cee96b331b465eb7cb1",
+            "phase": "Shop",
+            "message": "Buy",
+            "actionSequence": 36,
+            "score": 0,
+            "goldBefore": 7,
+            "goldAfter": 2,
+            "command": {
+                "commandId": "91defa09de7e4cee96b331b465eb7cb1",
+                "expectedActionSequence": 35,
+                "kind": 9,
+                "seed": 0,
+                "risk": false,
+                "offerId": "OFFER_00025",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [],
+                "targetPips": []
+            },
+            "effects": [
+                {
+                    "kind": "Purchased",
+                    "sourceId": "C10",
+                    "dieId": "",
+                    "faceId": "",
+                    "otherDieId": "",
+                    "detail": "OFFER_00025",
+                    "oldValue": 5,
+                    "newValue": 2
+                }
+            ]
+        },
+        {
+            "commandId": "97f0bddeac89482e9361eaa0c7a31dc8",
+            "phase": "StagePreview",
+            "message": "LeaveShop",
+            "actionSequence": 37,
+            "score": 0,
+            "goldBefore": 2,
+            "goldAfter": 2,
+            "command": {
+                "commandId": "97f0bddeac89482e9361eaa0c7a31dc8",
+                "expectedActionSequence": 36,
+                "kind": 12,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "9248057284a84886a8ca3d468f66baed",
+            "phase": "HandReady",
+            "message": "StartStage",
+            "actionSequence": 38,
+            "score": 0,
+            "goldBefore": 2,
+            "goldAfter": 2,
+            "command": {
+                "commandId": "9248057284a84886a8ca3d468f66baed",
+                "expectedActionSequence": 37,
+                "kind": 2,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "b4b540592a884878baba965d8e3df48a",
+            "phase": "Selecting",
+            "message": "Roll",
+            "actionSequence": 39,
+            "score": 0,
+            "goldBefore": 2,
+            "goldAfter": 2,
+            "command": {
+                "commandId": "b4b540592a884878baba965d8e3df48a",
+                "expectedActionSequence": 38,
+                "kind": 3,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "d1b1bc0c82f84d0baff9ab6c7c6448d6",
+            "phase": "Selecting",
+            "message": "ConfirmLocks",
+            "actionSequence": 40,
+            "score": 0,
+            "goldBefore": 2,
+            "goldAfter": 2,
+            "command": {
+                "commandId": "d1b1bc0c82f84d0baff9ab6c7c6448d6",
+                "expectedActionSequence": 39,
+                "kind": 4,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [
+                    "D001",
+                    "D002",
+                    "D004",
+                    "D005"
+                ],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "5013144dced14007a1fd8f874b380e2e",
+            "phase": "Selecting",
+            "message": "Roll",
+            "actionSequence": 41,
+            "score": 0,
+            "goldBefore": 2,
+            "goldAfter": 2,
+            "command": {
+                "commandId": "5013144dced14007a1fd8f874b380e2e",
+                "expectedActionSequence": 40,
+                "kind": 3,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "f7472199c5a742018ad8f94690148cb2",
+            "phase": "Selecting",
+            "message": "ConfirmLocks",
+            "actionSequence": 42,
+            "score": 0,
+            "goldBefore": 2,
+            "goldAfter": 2,
+            "command": {
+                "commandId": "f7472199c5a742018ad8f94690148cb2",
+                "expectedActionSequence": 41,
+                "kind": 4,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [
+                    "D003"
+                ],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "74fef8b4501a475d84e34d09a196b090",
+            "phase": "HandReady",
+            "message": "Submit",
+            "actionSequence": 43,
+            "score": 609,
+            "goldBefore": 2,
+            "goldAfter": 2,
+            "command": {
+                "commandId": "74fef8b4501a475d84e34d09a196b090",
+                "expectedActionSequence": 42,
+                "kind": 7,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "6b712bcc918840e3be8ff405552140e9",
+            "phase": "Selecting",
+            "message": "Roll",
+            "actionSequence": 44,
+            "score": 0,
+            "goldBefore": 2,
+            "goldAfter": 2,
+            "command": {
+                "commandId": "6b712bcc918840e3be8ff405552140e9",
+                "expectedActionSequence": 43,
+                "kind": 3,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "16fcd14921054df89ef3e000562bfd07",
+            "phase": "Selecting",
+            "message": "ConfirmLocks",
+            "actionSequence": 45,
+            "score": 0,
+            "goldBefore": 2,
+            "goldAfter": 2,
+            "command": {
+                "commandId": "16fcd14921054df89ef3e000562bfd07",
+                "expectedActionSequence": 44,
+                "kind": 4,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [
+                    "D001",
+                    "D002",
+                    "D003",
+                    "D004"
+                ],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "39c3b63e9c424042affd92e61db43f12",
+            "phase": "HandReady",
+            "message": "Submit",
+            "actionSequence": 46,
+            "score": 216,
+            "goldBefore": 2,
+            "goldAfter": 2,
+            "command": {
+                "commandId": "39c3b63e9c424042affd92e61db43f12",
+                "expectedActionSequence": 45,
+                "kind": 7,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "ff63d4b8468140139b00fe1935b1a6b8",
+            "phase": "StageSettlement",
+            "message": "EndStage",
+            "actionSequence": 47,
+            "score": 0,
+            "goldBefore": 2,
+            "goldAfter": 8,
+            "command": {
+                "commandId": "ff63d4b8468140139b00fe1935b1a6b8",
+                "expectedActionSequence": 46,
+                "kind": 13,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "c67b004c9ef2423f8d6ee394fae29570",
+            "phase": "Shop",
+            "message": "Continue",
+            "actionSequence": 48,
+            "score": 0,
+            "goldBefore": 8,
+            "goldAfter": 8,
+            "command": {
+                "commandId": "c67b004c9ef2423f8d6ee394fae29570",
+                "expectedActionSequence": 47,
+                "kind": 8,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "4cede5dac68d431ea4f45ad16b54fe15",
+            "phase": "Shop",
+            "message": "Buy",
+            "actionSequence": 49,
+            "score": 0,
+            "goldBefore": 8,
+            "goldAfter": 2,
+            "command": {
+                "commandId": "4cede5dac68d431ea4f45ad16b54fe15",
+                "expectedActionSequence": 48,
+                "kind": 9,
+                "seed": 0,
+                "risk": false,
+                "offerId": "OFFER_00037",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [],
+                "targetPips": []
+            },
+            "effects": [
+                {
+                    "kind": "Purchased",
+                    "sourceId": "C27",
+                    "dieId": "",
+                    "faceId": "",
+                    "otherDieId": "",
+                    "detail": "OFFER_00037",
+                    "oldValue": 6,
+                    "newValue": 2
+                }
+            ]
+        },
+        {
+            "commandId": "977ade7bcedf48afaa64d8b399559017",
+            "phase": "StagePreview",
+            "message": "LeaveShop",
+            "actionSequence": 50,
+            "score": 0,
+            "goldBefore": 2,
+            "goldAfter": 2,
+            "command": {
+                "commandId": "977ade7bcedf48afaa64d8b399559017",
+                "expectedActionSequence": 49,
+                "kind": 12,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "0a6cec946d5c4765ad6a4959cabf9019",
+            "phase": "HandReady",
+            "message": "StartStage",
+            "actionSequence": 51,
+            "score": 0,
+            "goldBefore": 2,
+            "goldAfter": 2,
+            "command": {
+                "commandId": "0a6cec946d5c4765ad6a4959cabf9019",
+                "expectedActionSequence": 50,
+                "kind": 2,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "3af000c86cef4ceda9503d8b4ac79eeb",
+            "phase": "Selecting",
+            "message": "Roll",
+            "actionSequence": 52,
+            "score": 0,
+            "goldBefore": 2,
+            "goldAfter": 2,
+            "command": {
+                "commandId": "3af000c86cef4ceda9503d8b4ac79eeb",
+                "expectedActionSequence": 51,
+                "kind": 3,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "1c30543cc4304d67924753142ecef1d2",
+            "phase": "Selecting",
+            "message": "ConfirmLocks",
+            "actionSequence": 53,
+            "score": 0,
+            "goldBefore": 2,
+            "goldAfter": 2,
+            "command": {
+                "commandId": "1c30543cc4304d67924753142ecef1d2",
+                "expectedActionSequence": 52,
+                "kind": 4,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [
+                    "D001",
+                    "D003",
+                    "D004",
+                    "D005"
+                ],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "f009e65aa75d448896363e739126d9bb",
+            "phase": "Selecting",
+            "message": "Roll",
+            "actionSequence": 54,
+            "score": 0,
+            "goldBefore": 2,
+            "goldAfter": 2,
+            "command": {
+                "commandId": "f009e65aa75d448896363e739126d9bb",
+                "expectedActionSequence": 53,
+                "kind": 3,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "12463b5c3e6f4a6d8a1f04341fa52954",
+            "phase": "Selecting",
+            "message": "Roll",
+            "actionSequence": 55,
+            "score": 0,
+            "goldBefore": 2,
+            "goldAfter": 2,
+            "command": {
+                "commandId": "12463b5c3e6f4a6d8a1f04341fa52954",
+                "expectedActionSequence": 54,
+                "kind": 3,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "69896015e82e47329d1c165ad3ab8c91",
+            "phase": "Selecting",
+            "message": "ConfirmLocks",
+            "actionSequence": 56,
+            "score": 0,
+            "goldBefore": 2,
+            "goldAfter": 2,
+            "command": {
+                "commandId": "69896015e82e47329d1c165ad3ab8c91",
+                "expectedActionSequence": 55,
+                "kind": 4,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [
+                    "D002"
+                ],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "2778dbdaa4b846499b9639990e71ed56",
+            "phase": "HandReady",
+            "message": "Submit",
+            "actionSequence": 57,
+            "score": 648,
+            "goldBefore": 2,
+            "goldAfter": 2,
+            "command": {
+                "commandId": "2778dbdaa4b846499b9639990e71ed56",
+                "expectedActionSequence": 56,
+                "kind": 7,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "8b84d4bb575e40ddbef4fd3dc4bc04b5",
+            "phase": "Selecting",
+            "message": "Roll",
+            "actionSequence": 58,
+            "score": 0,
+            "goldBefore": 2,
+            "goldAfter": 2,
+            "command": {
+                "commandId": "8b84d4bb575e40ddbef4fd3dc4bc04b5",
+                "expectedActionSequence": 57,
+                "kind": 3,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "8cacbf5040ce47399be49dbb320a0c5f",
+            "phase": "Selecting",
+            "message": "ConfirmLocks",
+            "actionSequence": 59,
+            "score": 0,
+            "goldBefore": 2,
+            "goldAfter": 2,
+            "command": {
+                "commandId": "8cacbf5040ce47399be49dbb320a0c5f",
+                "expectedActionSequence": 58,
+                "kind": 4,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [
+                    "D002"
+                ],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "f519c75007354654bba487577aa1114f",
+            "phase": "Selecting",
+            "message": "Roll",
+            "actionSequence": 60,
+            "score": 0,
+            "goldBefore": 2,
+            "goldAfter": 2,
+            "command": {
+                "commandId": "f519c75007354654bba487577aa1114f",
+                "expectedActionSequence": 59,
+                "kind": 3,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "d583c9e1e4f44e4b921a491bc0f6b6ae",
+            "phase": "Selecting",
+            "message": "ConfirmLocks",
+            "actionSequence": 61,
+            "score": 0,
+            "goldBefore": 2,
+            "goldAfter": 2,
+            "command": {
+                "commandId": "d583c9e1e4f44e4b921a491bc0f6b6ae",
+                "expectedActionSequence": 60,
+                "kind": 4,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [
+                    "D001",
+                    "D003",
+                    "D005"
+                ],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "9ec83c758af4409e8223f980db7c7468",
+            "phase": "Selecting",
+            "message": "Roll",
+            "actionSequence": 62,
+            "score": 0,
+            "goldBefore": 2,
+            "goldAfter": 2,
+            "command": {
+                "commandId": "9ec83c758af4409e8223f980db7c7468",
+                "expectedActionSequence": 61,
+                "kind": 3,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "1c1d34b02d664b20b0918290d442e004",
+            "phase": "Selecting",
+            "message": "ConfirmLocks",
+            "actionSequence": 63,
+            "score": 0,
+            "goldBefore": 2,
+            "goldAfter": 2,
+            "command": {
+                "commandId": "1c1d34b02d664b20b0918290d442e004",
+                "expectedActionSequence": 62,
+                "kind": 4,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [
+                    "D004"
+                ],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "4b9b59eede5f484aa7dd0b3c86c3fa5d",
+            "phase": "HandReady",
+            "message": "Submit",
+            "actionSequence": 64,
+            "score": 495,
+            "goldBefore": 2,
+            "goldAfter": 2,
+            "command": {
+                "commandId": "4b9b59eede5f484aa7dd0b3c86c3fa5d",
+                "expectedActionSequence": 63,
+                "kind": 7,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "0556d03d959c459e8eada5af2aef1156",
+            "phase": "StageSettlement",
+            "message": "EndStage",
+            "actionSequence": 65,
+            "score": 0,
+            "goldBefore": 2,
+            "goldAfter": 8,
+            "command": {
+                "commandId": "0556d03d959c459e8eada5af2aef1156",
+                "expectedActionSequence": 64,
+                "kind": 13,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "4278b149f3024358a0357c3c7a2e0128",
+            "phase": "Shop",
+            "message": "Continue",
+            "actionSequence": 66,
+            "score": 0,
+            "goldBefore": 8,
+            "goldAfter": 8,
+            "command": {
+                "commandId": "4278b149f3024358a0357c3c7a2e0128",
+                "expectedActionSequence": 65,
+                "kind": 8,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "d9730b29923640199df32cf19e9879b6",
+            "phase": "Shop",
+            "message": "Buy",
+            "actionSequence": 67,
+            "score": 0,
+            "goldBefore": 8,
+            "goldAfter": 1,
+            "command": {
+                "commandId": "d9730b29923640199df32cf19e9879b6",
+                "expectedActionSequence": 66,
+                "kind": 9,
+                "seed": 0,
+                "risk": false,
+                "offerId": "OFFER_00049",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [],
+                "targetPips": []
+            },
+            "effects": [
+                {
+                    "kind": "Purchased",
+                    "sourceId": "C17",
+                    "dieId": "",
+                    "faceId": "",
+                    "otherDieId": "",
+                    "detail": "OFFER_00049",
+                    "oldValue": 7,
+                    "newValue": 1
+                }
+            ]
+        },
+        {
+            "commandId": "83e5915b42b24109b3f1b6ea0d93fd75",
+            "phase": "StagePreview",
+            "message": "LeaveShop",
+            "actionSequence": 68,
+            "score": 0,
+            "goldBefore": 1,
+            "goldAfter": 1,
+            "command": {
+                "commandId": "83e5915b42b24109b3f1b6ea0d93fd75",
+                "expectedActionSequence": 67,
+                "kind": 12,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "452ad2869fd9410da938a4f656bc6a93",
+            "phase": "HandReady",
+            "message": "StartStage",
+            "actionSequence": 69,
+            "score": 0,
+            "goldBefore": 1,
+            "goldAfter": 1,
+            "command": {
+                "commandId": "452ad2869fd9410da938a4f656bc6a93",
+                "expectedActionSequence": 68,
+                "kind": 2,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "6ab2a36eed244b17a5e4b45bd7d21b0d",
+            "phase": "Selecting",
+            "message": "Roll",
+            "actionSequence": 70,
+            "score": 0,
+            "goldBefore": 1,
+            "goldAfter": 1,
+            "command": {
+                "commandId": "6ab2a36eed244b17a5e4b45bd7d21b0d",
+                "expectedActionSequence": 69,
+                "kind": 3,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "86563597dfaa4a059cb40793448a93f7",
+            "phase": "Selecting",
+            "message": "ConfirmLocks",
+            "actionSequence": 71,
+            "score": 0,
+            "goldBefore": 1,
+            "goldAfter": 1,
+            "command": {
+                "commandId": "86563597dfaa4a059cb40793448a93f7",
+                "expectedActionSequence": 70,
+                "kind": 4,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [
+                    "D001",
+                    "D002",
+                    "D003",
+                    "D005"
+                ],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "e9b20f63dd474de1b5909fde69438e74",
+            "phase": "Selecting",
+            "message": "Roll",
+            "actionSequence": 72,
+            "score": 0,
+            "goldBefore": 1,
+            "goldAfter": 1,
+            "command": {
+                "commandId": "e9b20f63dd474de1b5909fde69438e74",
+                "expectedActionSequence": 71,
+                "kind": 3,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "e3dcd2fc68dd41ca9d0ac3099c01d5da",
+            "phase": "Selecting",
+            "message": "Roll",
+            "actionSequence": 73,
+            "score": 0,
+            "goldBefore": 1,
+            "goldAfter": 1,
+            "command": {
+                "commandId": "e3dcd2fc68dd41ca9d0ac3099c01d5da",
+                "expectedActionSequence": 72,
+                "kind": 3,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "b33c0413c3d0474186da7a5c7902afae",
+            "phase": "Selecting",
+            "message": "ConfirmLocks",
+            "actionSequence": 74,
+            "score": 0,
+            "goldBefore": 1,
+            "goldAfter": 1,
+            "command": {
+                "commandId": "b33c0413c3d0474186da7a5c7902afae",
+                "expectedActionSequence": 73,
+                "kind": 4,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [
+                    "D004"
+                ],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "093d93b4ee2048d58e7518e1d43a8ce8",
+            "phase": "HandReady",
+            "message": "Submit",
+            "actionSequence": 75,
+            "score": 882,
+            "goldBefore": 1,
+            "goldAfter": 1,
+            "command": {
+                "commandId": "093d93b4ee2048d58e7518e1d43a8ce8",
+                "expectedActionSequence": 74,
+                "kind": 7,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "6c1a088909184aeea43a48a37cbe1148",
+            "phase": "Selecting",
+            "message": "Roll",
+            "actionSequence": 76,
+            "score": 0,
+            "goldBefore": 1,
+            "goldAfter": 1,
+            "command": {
+                "commandId": "6c1a088909184aeea43a48a37cbe1148",
+                "expectedActionSequence": 75,
+                "kind": 3,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "840208f4a1c74a40904f50a1a807d76e",
+            "phase": "Selecting",
+            "message": "ConfirmLocks",
+            "actionSequence": 77,
+            "score": 0,
+            "goldBefore": 1,
+            "goldAfter": 1,
+            "command": {
+                "commandId": "840208f4a1c74a40904f50a1a807d76e",
+                "expectedActionSequence": 76,
+                "kind": 4,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [
+                    "D001",
+                    "D002",
+                    "D004"
+                ],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "89208a132cf8492e81c3db6e97507f26",
+            "phase": "Selecting",
+            "message": "Roll",
+            "actionSequence": 78,
+            "score": 0,
+            "goldBefore": 1,
+            "goldAfter": 1,
+            "command": {
+                "commandId": "89208a132cf8492e81c3db6e97507f26",
+                "expectedActionSequence": 77,
+                "kind": 3,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "8b275209ff3c4706b6446b88b1400f1b",
+            "phase": "Selecting",
+            "message": "ConfirmLocks",
+            "actionSequence": 79,
+            "score": 0,
+            "goldBefore": 1,
+            "goldAfter": 1,
+            "command": {
+                "commandId": "8b275209ff3c4706b6446b88b1400f1b",
+                "expectedActionSequence": 78,
+                "kind": 4,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [
+                    "D005"
+                ],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "f8450a370008466caf9ae0b2ac1eda14",
+            "phase": "Selecting",
+            "message": "Roll",
+            "actionSequence": 80,
+            "score": 0,
+            "goldBefore": 1,
+            "goldAfter": 1,
+            "command": {
+                "commandId": "f8450a370008466caf9ae0b2ac1eda14",
+                "expectedActionSequence": 79,
+                "kind": 3,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "8a66bd370b34486aa5aa3de939b45a68",
+            "phase": "Selecting",
+            "message": "ConfirmLocks",
+            "actionSequence": 81,
+            "score": 0,
+            "goldBefore": 1,
+            "goldAfter": 1,
+            "command": {
+                "commandId": "8a66bd370b34486aa5aa3de939b45a68",
+                "expectedActionSequence": 80,
+                "kind": 4,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [
+                    "D003"
+                ],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "3d8846898af745a08b134869236ea197",
+            "phase": "HandReady",
+            "message": "Submit",
+            "actionSequence": 82,
+            "score": 1452,
+            "goldBefore": 1,
+            "goldAfter": 1,
+            "command": {
+                "commandId": "3d8846898af745a08b134869236ea197",
+                "expectedActionSequence": 81,
+                "kind": 7,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "59e47875291a4ca6bb64bd082b86b97c",
+            "phase": "StageSettlement",
+            "message": "EndStage",
+            "actionSequence": 83,
+            "score": 0,
+            "goldBefore": 1,
+            "goldAfter": 7,
+            "command": {
+                "commandId": "59e47875291a4ca6bb64bd082b86b97c",
+                "expectedActionSequence": 82,
+                "kind": 13,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "316d769e9b124240b1100e7d5f373ec9",
+            "phase": "Shop",
+            "message": "Continue",
+            "actionSequence": 84,
+            "score": 0,
+            "goldBefore": 7,
+            "goldAfter": 7,
+            "command": {
+                "commandId": "316d769e9b124240b1100e7d5f373ec9",
+                "expectedActionSequence": 83,
+                "kind": 8,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "98e8ab7d61df48daa75aabc21344655b",
+            "phase": "Shop",
+            "message": "Sell",
+            "actionSequence": 85,
+            "score": 0,
+            "goldBefore": 7,
+            "goldAfter": 8,
+            "command": {
+                "commandId": "98e8ab7d61df48daa75aabc21344655b",
+                "expectedActionSequence": 84,
+                "kind": 10,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "ITEM_00007",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [],
+                "targetPips": []
+            },
+            "effects": [
+                {
+                    "kind": "Sold",
+                    "sourceId": "C10",
+                    "dieId": "",
+                    "faceId": "",
+                    "otherDieId": "",
+                    "detail": "ITEM_00007",
+                    "oldValue": 0,
+                    "newValue": 1
+                }
+            ]
+        },
+        {
+            "commandId": "fe1dc56d34764f00b3c8f2ccba495463",
+            "phase": "Shop",
+            "message": "Buy",
+            "actionSequence": 86,
+            "score": 0,
+            "goldBefore": 8,
+            "goldAfter": 0,
+            "command": {
+                "commandId": "fe1dc56d34764f00b3c8f2ccba495463",
+                "expectedActionSequence": 85,
+                "kind": 9,
+                "seed": 0,
+                "risk": false,
+                "offerId": "OFFER_00061",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [],
+                "targetPips": []
+            },
+            "effects": [
+                {
+                    "kind": "Purchased",
+                    "sourceId": "C04",
+                    "dieId": "",
+                    "faceId": "",
+                    "otherDieId": "",
+                    "detail": "OFFER_00061",
+                    "oldValue": 8,
+                    "newValue": 0
+                }
+            ]
+        },
+        {
+            "commandId": "d4870e62d27c44c687232233454cc5d7",
+            "phase": "StagePreview",
+            "message": "LeaveShop",
+            "actionSequence": 87,
+            "score": 0,
+            "goldBefore": 0,
+            "goldAfter": 0,
+            "command": {
+                "commandId": "d4870e62d27c44c687232233454cc5d7",
+                "expectedActionSequence": 86,
+                "kind": 12,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "ca5165df69e64c39852b67447a3e5679",
+            "phase": "HandReady",
+            "message": "StartStage",
+            "actionSequence": 88,
+            "score": 0,
+            "goldBefore": 0,
+            "goldAfter": 0,
+            "command": {
+                "commandId": "ca5165df69e64c39852b67447a3e5679",
+                "expectedActionSequence": 87,
+                "kind": 2,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "a84d29478d0d48d7a09c9e6d173ecc7b",
+            "phase": "Selecting",
+            "message": "Roll",
+            "actionSequence": 89,
+            "score": 0,
+            "goldBefore": 0,
+            "goldAfter": 0,
+            "command": {
+                "commandId": "a84d29478d0d48d7a09c9e6d173ecc7b",
+                "expectedActionSequence": 88,
+                "kind": 3,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "bcecebe41c844a5aa6a2da4b6c9f3317",
+            "phase": "Selecting",
+            "message": "ConfirmLocks",
+            "actionSequence": 90,
+            "score": 0,
+            "goldBefore": 0,
+            "goldAfter": 0,
+            "command": {
+                "commandId": "bcecebe41c844a5aa6a2da4b6c9f3317",
+                "expectedActionSequence": 89,
+                "kind": 4,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [
+                    "D001",
+                    "D003",
+                    "D004"
+                ],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "b9ae2bef7e8b46c3911da868200ff071",
+            "phase": "Selecting",
+            "message": "Roll",
+            "actionSequence": 91,
+            "score": 0,
+            "goldBefore": 0,
+            "goldAfter": 0,
+            "command": {
+                "commandId": "b9ae2bef7e8b46c3911da868200ff071",
+                "expectedActionSequence": 90,
+                "kind": 3,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "63d18402944d4926be7e485f4634e605",
+            "phase": "Selecting",
+            "message": "ConfirmLocks",
+            "actionSequence": 92,
+            "score": 0,
+            "goldBefore": 0,
+            "goldAfter": 0,
+            "command": {
+                "commandId": "63d18402944d4926be7e485f4634e605",
+                "expectedActionSequence": 91,
+                "kind": 4,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [
+                    "D002",
+                    "D005"
+                ],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "b885a13a5fb542418e6204e8f5c1ca20",
+            "phase": "HandReady",
+            "message": "Submit",
+            "actionSequence": 93,
+            "score": 1452,
+            "goldBefore": 0,
+            "goldAfter": 0,
+            "command": {
+                "commandId": "b885a13a5fb542418e6204e8f5c1ca20",
+                "expectedActionSequence": 92,
+                "kind": 7,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "8891b7f0d8f74b81ab3d0adb9aec4577",
+            "phase": "Selecting",
+            "message": "Roll",
+            "actionSequence": 94,
+            "score": 0,
+            "goldBefore": 0,
+            "goldAfter": 0,
+            "command": {
+                "commandId": "8891b7f0d8f74b81ab3d0adb9aec4577",
+                "expectedActionSequence": 93,
+                "kind": 3,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "eccb9f0cc5af4801a0d6327abc6f45d7",
+            "phase": "Selecting",
+            "message": "Roll",
+            "actionSequence": 95,
+            "score": 0,
+            "goldBefore": 0,
+            "goldAfter": 0,
+            "command": {
+                "commandId": "eccb9f0cc5af4801a0d6327abc6f45d7",
+                "expectedActionSequence": 94,
+                "kind": 3,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "48642a85e3404eb5915a1cc36fb9dcba",
+            "phase": "Selecting",
+            "message": "ConfirmLocks",
+            "actionSequence": 96,
+            "score": 0,
+            "goldBefore": 0,
+            "goldAfter": 0,
+            "command": {
+                "commandId": "48642a85e3404eb5915a1cc36fb9dcba",
+                "expectedActionSequence": 95,
+                "kind": 4,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [
+                    "D001",
+                    "D002",
+                    "D003",
+                    "D004",
+                    "D005"
+                ],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "686fc539df2a4467bacbaa72869dd006",
+            "phase": "HandReady",
+            "message": "Submit",
+            "actionSequence": 97,
+            "score": 204,
+            "goldBefore": 0,
+            "goldAfter": 0,
+            "command": {
+                "commandId": "686fc539df2a4467bacbaa72869dd006",
+                "expectedActionSequence": 96,
+                "kind": 7,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "ce74519d267f44cf82379ac5cae42ace",
+            "phase": "Selecting",
+            "message": "Roll",
+            "actionSequence": 98,
+            "score": 0,
+            "goldBefore": 0,
+            "goldAfter": 0,
+            "command": {
+                "commandId": "ce74519d267f44cf82379ac5cae42ace",
+                "expectedActionSequence": 97,
+                "kind": 3,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "1134746cffd3476cbede8192b76819b8",
+            "phase": "Selecting",
+            "message": "ConfirmLocks",
+            "actionSequence": 99,
+            "score": 0,
+            "goldBefore": 0,
+            "goldAfter": 0,
+            "command": {
+                "commandId": "1134746cffd3476cbede8192b76819b8",
+                "expectedActionSequence": 98,
+                "kind": 4,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [
+                    "D001",
+                    "D002",
+                    "D004",
+                    "D005"
+                ],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "7743b4a56292441d84f5cd6308e79743",
+            "phase": "Selecting",
+            "message": "Roll",
+            "actionSequence": 100,
+            "score": 0,
+            "goldBefore": 0,
+            "goldAfter": 0,
+            "command": {
+                "commandId": "7743b4a56292441d84f5cd6308e79743",
+                "expectedActionSequence": 99,
+                "kind": 3,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "3151991eac4a461b94c0acda0206d56f",
+            "phase": "HandReady",
+            "message": "Submit",
+            "actionSequence": 101,
+            "score": 204,
+            "goldBefore": 0,
+            "goldAfter": 0,
+            "command": {
+                "commandId": "3151991eac4a461b94c0acda0206d56f",
+                "expectedActionSequence": 100,
+                "kind": 7,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "e4efdf1212f64ef693ebdabb351a671e",
+            "phase": "Selecting",
+            "message": "Roll",
+            "actionSequence": 102,
+            "score": 0,
+            "goldBefore": 0,
+            "goldAfter": 0,
+            "command": {
+                "commandId": "e4efdf1212f64ef693ebdabb351a671e",
+                "expectedActionSequence": 101,
+                "kind": 3,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "a957df7765534f3ba58139988160bccd",
+            "phase": "Selecting",
+            "message": "ConfirmLocks",
+            "actionSequence": 103,
+            "score": 0,
+            "goldBefore": 0,
+            "goldAfter": 0,
+            "command": {
+                "commandId": "a957df7765534f3ba58139988160bccd",
+                "expectedActionSequence": 102,
+                "kind": 4,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [
+                    "D001",
+                    "D004",
+                    "D005"
+                ],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "11eb7d46934c42b287d6bb34783cd3cf",
+            "phase": "Selecting",
+            "message": "Roll",
+            "actionSequence": 104,
+            "score": 0,
+            "goldBefore": 0,
+            "goldAfter": 0,
+            "command": {
+                "commandId": "11eb7d46934c42b287d6bb34783cd3cf",
+                "expectedActionSequence": 103,
+                "kind": 3,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "c374be06935a49aab44aa3d1ce049e9a",
+            "phase": "Selecting",
+            "message": "ConfirmLocks",
+            "actionSequence": 105,
+            "score": 0,
+            "goldBefore": 0,
+            "goldAfter": 0,
+            "command": {
+                "commandId": "c374be06935a49aab44aa3d1ce049e9a",
+                "expectedActionSequence": 104,
+                "kind": 4,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [
+                    "D002"
+                ],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "d2a99272287f4d64a08f073e2d9e33a5",
+            "phase": "HandReady",
+            "message": "Submit",
+            "actionSequence": 106,
+            "score": 396,
+            "goldBefore": 0,
+            "goldAfter": 0,
+            "command": {
+                "commandId": "d2a99272287f4d64a08f073e2d9e33a5",
+                "expectedActionSequence": 105,
+                "kind": 7,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "9608ebebe96d45f298715f92345366df",
+            "phase": "StageSettlement",
+            "message": "EndStage",
+            "actionSequence": 107,
+            "score": 0,
+            "goldBefore": 0,
+            "goldAfter": 6,
+            "command": {
+                "commandId": "9608ebebe96d45f298715f92345366df",
+                "expectedActionSequence": 106,
+                "kind": 13,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "1db0b53fc276415c9aa8401244c7210f",
+            "phase": "Shop",
+            "message": "Continue",
+            "actionSequence": 108,
+            "score": 0,
+            "goldBefore": 6,
+            "goldAfter": 6,
+            "command": {
+                "commandId": "1db0b53fc276415c9aa8401244c7210f",
+                "expectedActionSequence": 107,
+                "kind": 8,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "deab3471352e495c8621c9e87905911f",
+            "phase": "StagePreview",
+            "message": "LeaveShop",
+            "actionSequence": 109,
+            "score": 0,
+            "goldBefore": 6,
+            "goldAfter": 6,
+            "command": {
+                "commandId": "deab3471352e495c8621c9e87905911f",
+                "expectedActionSequence": 108,
+                "kind": 12,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "43c96c88c8bb46b585c4b424c00fa0a9",
+            "phase": "HandReady",
+            "message": "StartStage",
+            "actionSequence": 110,
+            "score": 0,
+            "goldBefore": 6,
+            "goldAfter": 6,
+            "command": {
+                "commandId": "43c96c88c8bb46b585c4b424c00fa0a9",
+                "expectedActionSequence": 109,
+                "kind": 2,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "65040a2db7654abeb609c4f5fc56f70a",
+            "phase": "Selecting",
+            "message": "Roll",
+            "actionSequence": 111,
+            "score": 0,
+            "goldBefore": 6,
+            "goldAfter": 6,
+            "command": {
+                "commandId": "65040a2db7654abeb609c4f5fc56f70a",
+                "expectedActionSequence": 110,
+                "kind": 3,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "4df494cc7f5b4832bbfb7614b644ef40",
+            "phase": "Selecting",
+            "message": "ConfirmLocks",
+            "actionSequence": 112,
+            "score": 0,
+            "goldBefore": 6,
+            "goldAfter": 6,
+            "command": {
+                "commandId": "4df494cc7f5b4832bbfb7614b644ef40",
+                "expectedActionSequence": 111,
+                "kind": 4,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [
+                    "D001",
+                    "D002",
+                    "D003",
+                    "D004"
+                ],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "d8a478ae68384fd7b6f03d72e89a4a17",
+            "phase": "Selecting",
+            "message": "Roll",
+            "actionSequence": 113,
+            "score": 0,
+            "goldBefore": 6,
+            "goldAfter": 6,
+            "command": {
+                "commandId": "d8a478ae68384fd7b6f03d72e89a4a17",
+                "expectedActionSequence": 112,
+                "kind": 3,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "408f3231b94040cc912a3ed552dc2042",
+            "phase": "HandReady",
+            "message": "Submit",
+            "actionSequence": 114,
+            "score": 210,
+            "goldBefore": 6,
+            "goldAfter": 6,
+            "command": {
+                "commandId": "408f3231b94040cc912a3ed552dc2042",
+                "expectedActionSequence": 113,
+                "kind": 7,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "8e391a1f5ad84b36bf877bb76bd36e40",
+            "phase": "Selecting",
+            "message": "Roll",
+            "actionSequence": 115,
+            "score": 0,
+            "goldBefore": 6,
+            "goldAfter": 6,
+            "command": {
+                "commandId": "8e391a1f5ad84b36bf877bb76bd36e40",
+                "expectedActionSequence": 114,
+                "kind": 3,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "bf76347507a84f1b94e4fe303d2a4b8c",
+            "phase": "Selecting",
+            "message": "ConfirmLocks",
+            "actionSequence": 116,
+            "score": 0,
+            "goldBefore": 6,
+            "goldAfter": 6,
+            "command": {
+                "commandId": "bf76347507a84f1b94e4fe303d2a4b8c",
+                "expectedActionSequence": 115,
+                "kind": 4,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [
+                    "D004"
+                ],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "814c51e88c47411d95880edade7b9f8d",
+            "phase": "Selecting",
+            "message": "Roll",
+            "actionSequence": 117,
+            "score": 0,
+            "goldBefore": 6,
+            "goldAfter": 6,
+            "command": {
+                "commandId": "814c51e88c47411d95880edade7b9f8d",
+                "expectedActionSequence": 116,
+                "kind": 3,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "0a2036b9d00c46db88ffc6d5796bbf3d",
+            "phase": "Selecting",
+            "message": "ConfirmLocks",
+            "actionSequence": 118,
+            "score": 0,
+            "goldBefore": 6,
+            "goldAfter": 6,
+            "command": {
+                "commandId": "0a2036b9d00c46db88ffc6d5796bbf3d",
+                "expectedActionSequence": 117,
+                "kind": 4,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [
+                    "D001",
+                    "D002",
+                    "D003",
+                    "D005"
+                ],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "08a5d7aa9da7470a8209d1cc36f5ef2d",
+            "phase": "HandReady",
+            "message": "Submit",
+            "actionSequence": 119,
+            "score": 638,
+            "goldBefore": 6,
+            "goldAfter": 6,
+            "command": {
+                "commandId": "08a5d7aa9da7470a8209d1cc36f5ef2d",
+                "expectedActionSequence": 118,
+                "kind": 7,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "5ded460a94b84524a244d5a0032c4615",
+            "phase": "Selecting",
+            "message": "Roll",
+            "actionSequence": 120,
+            "score": 0,
+            "goldBefore": 6,
+            "goldAfter": 6,
+            "command": {
+                "commandId": "5ded460a94b84524a244d5a0032c4615",
+                "expectedActionSequence": 119,
+                "kind": 3,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "9b188473e83e48d6b5c34468a0ad30d1",
+            "phase": "Selecting",
+            "message": "ConfirmLocks",
+            "actionSequence": 121,
+            "score": 0,
+            "goldBefore": 6,
+            "goldAfter": 6,
+            "command": {
+                "commandId": "9b188473e83e48d6b5c34468a0ad30d1",
+                "expectedActionSequence": 120,
+                "kind": 4,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [
+                    "D002",
+                    "D004"
+                ],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "49f0c45527604ab3b6a241f89087f0aa",
+            "phase": "Selecting",
+            "message": "Roll",
+            "actionSequence": 122,
+            "score": 0,
+            "goldBefore": 6,
+            "goldAfter": 6,
+            "command": {
+                "commandId": "49f0c45527604ab3b6a241f89087f0aa",
+                "expectedActionSequence": 121,
+                "kind": 3,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "08460bcde0aa45ac8285853990685e90",
+            "phase": "Selecting",
+            "message": "ConfirmLocks",
+            "actionSequence": 123,
+            "score": 0,
+            "goldBefore": 6,
+            "goldAfter": 6,
+            "command": {
+                "commandId": "08460bcde0aa45ac8285853990685e90",
+                "expectedActionSequence": 122,
+                "kind": 4,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [
+                    "D001",
+                    "D003",
+                    "D005"
+                ],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "92b858b16c3940f18d777fb7ee81a87f",
+            "phase": "HandReady",
+            "message": "Submit",
+            "actionSequence": 124,
+            "score": 1215,
+            "goldBefore": 6,
+            "goldAfter": 6,
+            "command": {
+                "commandId": "92b858b16c3940f18d777fb7ee81a87f",
+                "expectedActionSequence": 123,
+                "kind": 7,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "4c56b192976a486fa88d49654bb46a19",
+            "phase": "Selecting",
+            "message": "Roll",
+            "actionSequence": 125,
+            "score": 0,
+            "goldBefore": 6,
+            "goldAfter": 6,
+            "command": {
+                "commandId": "4c56b192976a486fa88d49654bb46a19",
+                "expectedActionSequence": 124,
+                "kind": 3,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "8b2f3d2163d342a7b05db38ce96ddc29",
+            "phase": "Selecting",
+            "message": "ConfirmLocks",
+            "actionSequence": 126,
+            "score": 0,
+            "goldBefore": 6,
+            "goldAfter": 6,
+            "command": {
+                "commandId": "8b2f3d2163d342a7b05db38ce96ddc29",
+                "expectedActionSequence": 125,
+                "kind": 4,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [
+                    "D001",
+                    "D002",
+                    "D004"
+                ],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "a2bb691bcd32422dafdb63dcdb538e35",
+            "phase": "Selecting",
+            "message": "Roll",
+            "actionSequence": 127,
+            "score": 0,
+            "goldBefore": 6,
+            "goldAfter": 6,
+            "command": {
+                "commandId": "a2bb691bcd32422dafdb63dcdb538e35",
+                "expectedActionSequence": 126,
+                "kind": 3,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "58bae649773b47d3b37ce37b05d42b5f",
+            "phase": "Selecting",
+            "message": "ConfirmLocks",
+            "actionSequence": 128,
+            "score": 0,
+            "goldBefore": 6,
+            "goldAfter": 6,
+            "command": {
+                "commandId": "58bae649773b47d3b37ce37b05d42b5f",
+                "expectedActionSequence": 127,
+                "kind": 4,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [
+                    "D003",
+                    "D005"
+                ],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "d6111da96c4742d99e4c061479deeede",
+            "phase": "HandReady",
+            "message": "Submit",
+            "actionSequence": 129,
+            "score": 861,
+            "goldBefore": 6,
+            "goldAfter": 6,
+            "command": {
+                "commandId": "d6111da96c4742d99e4c061479deeede",
+                "expectedActionSequence": 128,
+                "kind": 7,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "ee4f8b6275a74d0299d004a64fd9cd70",
+            "phase": "Selecting",
+            "message": "Roll",
+            "actionSequence": 130,
+            "score": 0,
+            "goldBefore": 6,
+            "goldAfter": 6,
+            "command": {
+                "commandId": "ee4f8b6275a74d0299d004a64fd9cd70",
+                "expectedActionSequence": 129,
+                "kind": 3,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "0cf3ef67b1d74c88b4caab8a915a3f9d",
+            "phase": "Selecting",
+            "message": "ConfirmLocks",
+            "actionSequence": 131,
+            "score": 0,
+            "goldBefore": 6,
+            "goldAfter": 6,
+            "command": {
+                "commandId": "0cf3ef67b1d74c88b4caab8a915a3f9d",
+                "expectedActionSequence": 130,
+                "kind": 4,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [
+                    "D002",
+                    "D003",
+                    "D004",
+                    "D005"
+                ],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "1fa0bb0f6a934a1c853e652c465ac1f3",
+            "phase": "StageSettlement",
+            "message": "Submit",
+            "actionSequence": 132,
+            "score": 234,
+            "goldBefore": 6,
+            "goldAfter": 11,
+            "command": {
+                "commandId": "1fa0bb0f6a934a1c853e652c465ac1f3",
+                "expectedActionSequence": 131,
+                "kind": 7,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "6988ddf665414ebc840319fa3e2bb278",
+            "phase": "Shop",
+            "message": "Continue",
+            "actionSequence": 133,
+            "score": 0,
+            "goldBefore": 11,
+            "goldAfter": 11,
+            "command": {
+                "commandId": "6988ddf665414ebc840319fa3e2bb278",
+                "expectedActionSequence": 132,
+                "kind": 8,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "8980ef0786f7480faa33476d46847e0c",
+            "phase": "Shop",
+            "message": "Sell",
+            "actionSequence": 134,
+            "score": 0,
+            "goldBefore": 11,
+            "goldAfter": 12,
+            "command": {
+                "commandId": "8980ef0786f7480faa33476d46847e0c",
+                "expectedActionSequence": 133,
+                "kind": 10,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "ITEM_00010",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [],
+                "targetPips": []
+            },
+            "effects": [
+                {
+                    "kind": "Sold",
+                    "sourceId": "C27",
+                    "dieId": "",
+                    "faceId": "",
+                    "otherDieId": "",
+                    "detail": "ITEM_00010",
+                    "oldValue": 0,
+                    "newValue": 1
+                }
+            ]
+        },
+        {
+            "commandId": "0ef8993915ee4ab6bd9e806dabf31931",
+            "phase": "Shop",
+            "message": "Buy",
+            "actionSequence": 135,
+            "score": 0,
+            "goldBefore": 12,
+            "goldAfter": 2,
+            "command": {
+                "commandId": "0ef8993915ee4ab6bd9e806dabf31931",
+                "expectedActionSequence": 134,
+                "kind": 9,
+                "seed": 0,
+                "risk": false,
+                "offerId": "OFFER_00086",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [],
+                "targetPips": []
+            },
+            "effects": [
+                {
+                    "kind": "Purchased",
+                    "sourceId": "C32",
+                    "dieId": "",
+                    "faceId": "",
+                    "otherDieId": "",
+                    "detail": "OFFER_00086",
+                    "oldValue": 10,
+                    "newValue": 2
+                }
+            ]
+        },
+        {
+            "commandId": "58086068e4514e4eadb1afc9ace4a958",
+            "phase": "StagePreview",
+            "message": "LeaveShop",
+            "actionSequence": 136,
+            "score": 0,
+            "goldBefore": 2,
+            "goldAfter": 2,
+            "command": {
+                "commandId": "58086068e4514e4eadb1afc9ace4a958",
+                "expectedActionSequence": 135,
+                "kind": 12,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "57b0ee0a751e4d3783879e4ce06aec49",
+            "phase": "HandReady",
+            "message": "StartStage",
+            "actionSequence": 137,
+            "score": 0,
+            "goldBefore": 2,
+            "goldAfter": 2,
+            "command": {
+                "commandId": "57b0ee0a751e4d3783879e4ce06aec49",
+                "expectedActionSequence": 136,
+                "kind": 2,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "62150388fe16467a963f354c9fcb4a84",
+            "phase": "Selecting",
+            "message": "Roll",
+            "actionSequence": 138,
+            "score": 0,
+            "goldBefore": 2,
+            "goldAfter": 2,
+            "command": {
+                "commandId": "62150388fe16467a963f354c9fcb4a84",
+                "expectedActionSequence": 137,
+                "kind": 3,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "cc697b993a574295accc8cdc8b7d935e",
+            "phase": "Selecting",
+            "message": "ConfirmLocks",
+            "actionSequence": 139,
+            "score": 0,
+            "goldBefore": 2,
+            "goldAfter": 2,
+            "command": {
+                "commandId": "cc697b993a574295accc8cdc8b7d935e",
+                "expectedActionSequence": 138,
+                "kind": 4,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [
+                    "D004"
+                ],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "266dfd16c24d4f798bb90bc053686d68",
+            "phase": "Selecting",
+            "message": "Roll",
+            "actionSequence": 140,
+            "score": 0,
+            "goldBefore": 2,
+            "goldAfter": 2,
+            "command": {
+                "commandId": "266dfd16c24d4f798bb90bc053686d68",
+                "expectedActionSequence": 139,
+                "kind": 3,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "2290793b773d4f54b83dd080f87c414a",
+            "phase": "Selecting",
+            "message": "ConfirmLocks",
+            "actionSequence": 141,
+            "score": 0,
+            "goldBefore": 2,
+            "goldAfter": 2,
+            "command": {
+                "commandId": "2290793b773d4f54b83dd080f87c414a",
+                "expectedActionSequence": 140,
+                "kind": 4,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [
+                    "D001",
+                    "D003",
+                    "D005"
+                ],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "8b8ccc0622274bc9b3e1832337c221a2",
+            "phase": "HandReady",
+            "message": "Submit",
+            "actionSequence": 142,
+            "score": 348,
+            "goldBefore": 2,
+            "goldAfter": 2,
+            "command": {
+                "commandId": "8b8ccc0622274bc9b3e1832337c221a2",
+                "expectedActionSequence": 141,
+                "kind": 7,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "cdf0353218544771a6fc53f942764e37",
+            "phase": "Selecting",
+            "message": "Roll",
+            "actionSequence": 143,
+            "score": 0,
+            "goldBefore": 2,
+            "goldAfter": 2,
+            "command": {
+                "commandId": "cdf0353218544771a6fc53f942764e37",
+                "expectedActionSequence": 142,
+                "kind": 3,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "6343a1a9c0f0434ca48076ed97711424",
+            "phase": "Selecting",
+            "message": "ConfirmLocks",
+            "actionSequence": 144,
+            "score": 0,
+            "goldBefore": 2,
+            "goldAfter": 2,
+            "command": {
+                "commandId": "6343a1a9c0f0434ca48076ed97711424",
+                "expectedActionSequence": 143,
+                "kind": 4,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [
+                    "D001",
+                    "D003"
+                ],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "8d543423de614b94a53d2cef3b70104e",
+            "phase": "Selecting",
+            "message": "Roll",
+            "actionSequence": 145,
+            "score": 0,
+            "goldBefore": 2,
+            "goldAfter": 2,
+            "command": {
+                "commandId": "8d543423de614b94a53d2cef3b70104e",
+                "expectedActionSequence": 144,
+                "kind": 3,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "bd38950a8d1c4f97ba829a4004a8d2b2",
+            "phase": "Selecting",
+            "message": "ConfirmLocks",
+            "actionSequence": 146,
+            "score": 0,
+            "goldBefore": 2,
+            "goldAfter": 2,
+            "command": {
+                "commandId": "bd38950a8d1c4f97ba829a4004a8d2b2",
+                "expectedActionSequence": 145,
+                "kind": 4,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [
+                    "D002",
+                    "D004",
+                    "D005"
+                ],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "5e0681292f72447f9ccf781554feb076",
+            "phase": "HandReady",
+            "message": "Submit",
+            "actionSequence": 147,
+            "score": 1026,
+            "goldBefore": 2,
+            "goldAfter": 2,
+            "command": {
+                "commandId": "5e0681292f72447f9ccf781554feb076",
+                "expectedActionSequence": 146,
+                "kind": 7,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "1399c1b70c5947839fe92efdff4f7c76",
+            "phase": "Selecting",
+            "message": "Roll",
+            "actionSequence": 148,
+            "score": 0,
+            "goldBefore": 2,
+            "goldAfter": 2,
+            "command": {
+                "commandId": "1399c1b70c5947839fe92efdff4f7c76",
+                "expectedActionSequence": 147,
+                "kind": 3,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "614f5638658a45e4bbfeb9b02c5daa35",
+            "phase": "Selecting",
+            "message": "ConfirmLocks",
+            "actionSequence": 149,
+            "score": 0,
+            "goldBefore": 2,
+            "goldAfter": 2,
+            "command": {
+                "commandId": "614f5638658a45e4bbfeb9b02c5daa35",
+                "expectedActionSequence": 148,
+                "kind": 4,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [
+                    "D004",
+                    "D005"
+                ],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "1519fdd53cd244c3807e27943f067de3",
+            "phase": "Selecting",
+            "message": "Roll",
+            "actionSequence": 150,
+            "score": 0,
+            "goldBefore": 2,
+            "goldAfter": 2,
+            "command": {
+                "commandId": "1519fdd53cd244c3807e27943f067de3",
+                "expectedActionSequence": 149,
+                "kind": 3,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "822759da1b6d4b1cb3f4cbe544882f60",
+            "phase": "Selecting",
+            "message": "ConfirmLocks",
+            "actionSequence": 151,
+            "score": 0,
+            "goldBefore": 2,
+            "goldAfter": 2,
+            "command": {
+                "commandId": "822759da1b6d4b1cb3f4cbe544882f60",
+                "expectedActionSequence": 150,
+                "kind": 4,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [
+                    "D002"
+                ],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "9d5c4f00a02045028e6296b9c2f5a577",
+            "phase": "HandReady",
+            "message": "Submit",
+            "actionSequence": 152,
+            "score": 504,
+            "goldBefore": 2,
+            "goldAfter": 2,
+            "command": {
+                "commandId": "9d5c4f00a02045028e6296b9c2f5a577",
+                "expectedActionSequence": 151,
+                "kind": 7,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "7be16d024c7d40699e3ff9b8dfc10633",
+            "phase": "Selecting",
+            "message": "Roll",
+            "actionSequence": 153,
+            "score": 0,
+            "goldBefore": 2,
+            "goldAfter": 2,
+            "command": {
+                "commandId": "7be16d024c7d40699e3ff9b8dfc10633",
+                "expectedActionSequence": 152,
+                "kind": 3,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "5dc8816c83bd489697b2ca491e7e5206",
+            "phase": "Selecting",
+            "message": "ConfirmLocks",
+            "actionSequence": 154,
+            "score": 0,
+            "goldBefore": 2,
+            "goldAfter": 2,
+            "command": {
+                "commandId": "5dc8816c83bd489697b2ca491e7e5206",
+                "expectedActionSequence": 153,
+                "kind": 4,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [
+                    "D001",
+                    "D002",
+                    "D004"
+                ],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "f286c3a57d4d4cfb9db0b61d5063c797",
+            "phase": "Selecting",
+            "message": "Roll",
+            "actionSequence": 155,
+            "score": 0,
+            "goldBefore": 2,
+            "goldAfter": 2,
+            "command": {
+                "commandId": "f286c3a57d4d4cfb9db0b61d5063c797",
+                "expectedActionSequence": 154,
+                "kind": 3,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "bb1f21ec25104267b99661f19c45d6b3",
+            "phase": "Selecting",
+            "message": "ConfirmLocks",
+            "actionSequence": 156,
+            "score": 0,
+            "goldBefore": 2,
+            "goldAfter": 2,
+            "command": {
+                "commandId": "bb1f21ec25104267b99661f19c45d6b3",
+                "expectedActionSequence": 155,
+                "kind": 4,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [
+                    "D003"
+                ],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "b041e77fd09c4cbfa56a558b4af15ab1",
+            "phase": "HandReady",
+            "message": "Submit",
+            "actionSequence": 157,
+            "score": 1536,
+            "goldBefore": 2,
+            "goldAfter": 2,
+            "command": {
+                "commandId": "b041e77fd09c4cbfa56a558b4af15ab1",
+                "expectedActionSequence": 156,
+                "kind": 7,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "fc9efa9683224e6284c393327244586d",
+            "phase": "Selecting",
+            "message": "Roll",
+            "actionSequence": 158,
+            "score": 0,
+            "goldBefore": 2,
+            "goldAfter": 2,
+            "command": {
+                "commandId": "fc9efa9683224e6284c393327244586d",
+                "expectedActionSequence": 157,
+                "kind": 3,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "6225e086239f4e1399e158f3efb0186a",
+            "phase": "Selecting",
+            "message": "Roll",
+            "actionSequence": 159,
+            "score": 0,
+            "goldBefore": 2,
+            "goldAfter": 2,
+            "command": {
+                "commandId": "6225e086239f4e1399e158f3efb0186a",
+                "expectedActionSequence": 158,
+                "kind": 3,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "0ee60d6c48b44a1497a10428984dc5a8",
+            "phase": "Selecting",
+            "message": "ConfirmLocks",
+            "actionSequence": 160,
+            "score": 0,
+            "goldBefore": 2,
+            "goldAfter": 2,
+            "command": {
+                "commandId": "0ee60d6c48b44a1497a10428984dc5a8",
+                "expectedActionSequence": 159,
+                "kind": 4,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [
+                    "D001",
+                    "D002",
+                    "D005"
+                ],
+                "targetPips": []
+            },
+            "effects": []
+        },
+        {
+            "commandId": "9ee1e0ac467b4b2a954f886ba961caab",
+            "phase": "RunFailed",
+            "message": "Submit",
+            "actionSequence": 161,
+            "score": 192,
+            "goldBefore": 2,
+            "goldAfter": 2,
+            "command": {
+                "commandId": "9ee1e0ac467b4b2a954f886ba961caab",
+                "expectedActionSequence": 160,
+                "kind": 7,
+                "seed": 0,
+                "risk": false,
+                "offerId": "",
+                "itemInstanceId": "",
+                "targetDieId": "",
+                "targetFaceId": "",
+                "handId": "",
+                "dieIds": [],
+                "targetPips": []
+            },
+            "effects": []
+        }
+    ],
+    "lastEffects": [],
+    "stage": {
+        "stageId": "STAGE_09",
+        "stageIndex": 8,
+        "capacity": 5,
+        "remainingSubmissions": 0,
+        "submissionOrdinal": 5,
+        "stageRollBonus": 0,
+        "reward": 5,
+        "target": 4000,
+        "score": 3606,
+        "risk": false,
+        "started": true,
+        "qualified": false,
+        "settled": false,
+        "settlementContinuation": "",
+        "settlementId": ""
+    },
+    "hand": {
+        "handId": "H0031",
+        "rollsUsed": 2,
+        "rollsRemaining": 0,
+        "hasRolled": true,
+        "redWave": false,
+        "largeBuff": false,
+        "smallBuff": false,
+        "c05Used": false,
+        "orderedLockedIds": [
+            "D001",
+            "D002",
+            "D005"
+        ],
+        "currentResults": [
+            {
+                "dieId": "D001",
+                "currentFaceId": "F01",
+                "currentColor": "red",
+                "currentPip": 1,
+                "hasRolled": true,
+                "isLocked": true,
+                "remoteOverride": false
+            },
+            {
+                "dieId": "D002",
+                "currentFaceId": "F01",
+                "currentColor": "red",
+                "currentPip": 1,
+                "hasRolled": true,
+                "isLocked": true,
+                "remoteOverride": false
+            },
+            {
+                "dieId": "D003",
+                "currentFaceId": "F06",
+                "currentColor": "blue",
+                "currentPip": 6,
+                "hasRolled": true,
+                "isLocked": false,
+                "remoteOverride": false
+            },
+            {
+                "dieId": "D004",
+                "currentFaceId": "F04",
+                "currentColor": "red",
+                "currentPip": 4,
+                "hasRolled": true,
+                "isLocked": false,
+                "remoteOverride": false
+            },
+            {
+                "dieId": "D005",
+                "currentFaceId": "F01",
+                "currentColor": "red",
+                "currentPip": 1,
+                "hasRolled": true,
+                "isLocked": true,
+                "remoteOverride": false
+            }
+        ]
+    },
+    "shop": {
+        "shopId": "",
+        "generated": false,
+        "selfStudyUsed": 0,
+        "offers": []
+    },
+    "lastSubmission": {
+        "snapshot": {
+            "runId": "RUN_6f8d5e1e17104eb4afc4dd7398e8a7b6",
+            "stageId": "STAGE_09",
+            "handId": "H0031",
+            "configVersion": "p0.5.0",
+            "dice": [
+                {
+                    "dieId": "D001",
+                    "faceId": "F01",
+                    "currentPip": 1,
+                    "permanentSixFaceSum": 21,
+                    "currentColor": "red",
+                    "isGold": false,
+                    "isGlass": false,
+                    "permanentFacesCopy": [
+                        {
+                            "faceId": "F01",
+                            "permanentPip": 1,
+                            "baseColor": "red",
+                            "baseWeight": 1,
+                            "texture": "none",
+                            "isGold": false
+                        },
+                        {
+                            "faceId": "F02",
+                            "permanentPip": 2,
+                            "baseColor": "blue",
+                            "baseWeight": 1,
+                            "texture": "none",
+                            "isGold": false
+                        },
+                        {
+                            "faceId": "F03",
+                            "permanentPip": 3,
+                            "baseColor": "blue",
+                            "baseWeight": 1,
+                            "texture": "none",
+                            "isGold": false
+                        },
+                        {
+                            "faceId": "F04",
+                            "permanentPip": 4,
+                            "baseColor": "red",
+                            "baseWeight": 1,
+                            "texture": "none",
+                            "isGold": false
+                        },
+                        {
+                            "faceId": "F05",
+                            "permanentPip": 5,
+                            "baseColor": "blue",
+                            "baseWeight": 1,
+                            "texture": "none",
+                            "isGold": false
+                        },
+                        {
+                            "faceId": "F06",
+                            "permanentPip": 6,
+                            "baseColor": "blue",
+                            "baseWeight": 1,
+                            "texture": "none",
+                            "isGold": false
+                        }
+                    ],
+                    "lifetime": "permanent"
+                },
+                {
+                    "dieId": "D002",
+                    "faceId": "F01",
+                    "currentPip": 1,
+                    "permanentSixFaceSum": 21,
+                    "currentColor": "red",
+                    "isGold": false,
+                    "isGlass": false,
+                    "permanentFacesCopy": [
+                        {
+                            "faceId": "F01",
+                            "permanentPip": 1,
+                            "baseColor": "red",
+                            "baseWeight": 1,
+                            "texture": "none",
+                            "isGold": false
+                        },
+                        {
+                            "faceId": "F02",
+                            "permanentPip": 2,
+                            "baseColor": "blue",
+                            "baseWeight": 1,
+                            "texture": "none",
+                            "isGold": false
+                        },
+                        {
+                            "faceId": "F03",
+                            "permanentPip": 3,
+                            "baseColor": "blue",
+                            "baseWeight": 1,
+                            "texture": "none",
+                            "isGold": false
+                        },
+                        {
+                            "faceId": "F04",
+                            "permanentPip": 4,
+                            "baseColor": "red",
+                            "baseWeight": 1,
+                            "texture": "none",
+                            "isGold": false
+                        },
+                        {
+                            "faceId": "F05",
+                            "permanentPip": 5,
+                            "baseColor": "blue",
+                            "baseWeight": 1,
+                            "texture": "none",
+                            "isGold": false
+                        },
+                        {
+                            "faceId": "F06",
+                            "permanentPip": 6,
+                            "baseColor": "blue",
+                            "baseWeight": 1,
+                            "texture": "none",
+                            "isGold": false
+                        }
+                    ],
+                    "lifetime": "permanent"
+                },
+                {
+                    "dieId": "D005",
+                    "faceId": "F01",
+                    "currentPip": 1,
+                    "permanentSixFaceSum": 21,
+                    "currentColor": "red",
+                    "isGold": false,
+                    "isGlass": false,
+                    "permanentFacesCopy": [
+                        {
+                            "faceId": "F01",
+                            "permanentPip": 1,
+                            "baseColor": "red",
+                            "baseWeight": 1,
+                            "texture": "none",
+                            "isGold": false
+                        },
+                        {
+                            "faceId": "F02",
+                            "permanentPip": 2,
+                            "baseColor": "blue",
+                            "baseWeight": 1,
+                            "texture": "none",
+                            "isGold": false
+                        },
+                        {
+                            "faceId": "F03",
+                            "permanentPip": 3,
+                            "baseColor": "blue",
+                            "baseWeight": 1,
+                            "texture": "none",
+                            "isGold": false
+                        },
+                        {
+                            "faceId": "F04",
+                            "permanentPip": 4,
+                            "baseColor": "red",
+                            "baseWeight": 1,
+                            "texture": "none",
+                            "isGold": false
+                        },
+                        {
+                            "faceId": "F05",
+                            "permanentPip": 5,
+                            "baseColor": "blue",
+                            "baseWeight": 1,
+                            "texture": "none",
+                            "isGold": false
+                        },
+                        {
+                            "faceId": "F06",
+                            "permanentPip": 6,
+                            "baseColor": "blue",
+                            "baseWeight": 1,
+                            "texture": "none",
+                            "isGold": false
+                        }
+                    ],
+                    "lifetime": "permanent"
+                }
+            ],
+            "capacity": 5,
+            "rollsRemaining": 0,
+            "submissionOrdinalBefore": 4,
+            "redWave": false,
+            "equippedControllerIds": [],
+            "equippedControllers": [
+                {
+                    "instanceId": "ITEM_00002",
+                    "definitionId": "C02",
+                    "enchantmentId": "none",
+                    "acquiredSerial": 2
+                },
+                {
+                    "instanceId": "ITEM_00004",
+                    "definitionId": "C39",
+                    "enchantmentId": "slotless",
+                    "acquiredSerial": 4
+                },
+                {
+                    "instanceId": "ITEM_00013",
+                    "definitionId": "C17",
+                    "enchantmentId": "none",
+                    "acquiredSerial": 13
+                },
+                {
+                    "instanceId": "ITEM_00016",
+                    "definitionId": "C04",
+                    "enchantmentId": "none",
+                    "acquiredSerial": 16
+                },
+                {
+                    "instanceId": "ITEM_00023",
+                    "definitionId": "C32",
+                    "enchantmentId": "none",
+                    "acquiredSerial": 23
+                }
+            ],
+            "handLevels": [
+                {
+                    "handId": "pair",
+                    "level": 0
+                },
+                {
+                    "handId": "two_pair",
+                    "level": 0
+                },
+                {
+                    "handId": "trips",
+                    "level": 0
+                },
+                {
+                    "handId": "full_house",
+                    "level": 0
+                },
+                {
+                    "handId": "quads",
+                    "level": 0
+                },
+                {
+                    "handId": "five_kind",
+                    "level": 0
+                },
+                {
+                    "handId": "six_kind",
+                    "level": 0
+                },
+                {
+                    "handId": "seven_kind",
+                    "level": 0
+                },
+                {
+                    "handId": "eight_kind",
+                    "level": 0
+                },
+                {
+                    "handId": "straight",
+                    "level": 0
+                },
+                {
+                    "handId": "all_blue",
+                    "level": 0
+                },
+                {
+                    "handId": "all_red",
+                    "level": 0
+                }
+            ]
+        },
+        "breakdown": {
+            "effectivePips": [
+                1,
+                1,
+                1
+            ],
+            "pipContributions": [
+                4,
+                4,
+                4
+            ],
+            "effectiveColors": [
+                "red",
+                "red",
+                "red"
+            ],
+            "matchedGroupIds": [
+                "pair",
+                "trips"
+            ],
+            "chosenGroupId": "trips",
+            "pipSum": 12,
+            "unusedRollBonus": 0,
+            "groupMult100": 400,
+            "straightMult100": 0,
+            "colorMult100": 0,
+            "totalHandMult100": 400,
+            "redValue": 1,
+            "redCount": 3,
+            "redMult100": 200,
+            "controllerMultiplier": 2,
+            "pairBaseAdd": 0,
+            "enchantBaseAdd": 0,
+            "baseTotal": 12,
+            "enchantBaseCount": 0,
+            "enchantMultiplierCount": 0,
+            "redGroupingMode": "same_value",
+            "scoreNumerator": "1920000",
+            "scoreDenominator": "10000",
+            "triggeredMultiplierIds": [
+                "C32"
+            ],
+            "triggeredControllerIds": [
+                "C17",
+                "C32"
+            ],
+            "score": 192
+        }
+    },
+    "lastStageSettlement": {
+        "settlementId": "RUN_6f8d5e1e17104eb4afc4dd7398e8a7b6/STAGE_08",
+        "stageId": "STAGE_08",
+        "goldBefore": 6,
+        "baseReward": 5,
+        "remainingSubmissions": 0,
+        "unusedSubmissionReward": 0,
+        "interest": 0,
+        "interestPrincipal": 6,
+        "goldAfter": 11,
+        "score": 3158,
+        "target": 3000,
+        "risk": false,
+        "pig": false
+    }
+}

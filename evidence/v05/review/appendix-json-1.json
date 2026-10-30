@@ -1,0 +1,7456 @@
+[
+  {
+    "id": "S001",
+    "label": "单骰散点",
+    "dice": [
+      {
+        "p": 6,
+        "c": "blue"
+      }
+    ],
+    "rollsRemaining": 0,
+    "controllerIds": [],
+    "levels": {},
+    "capacity": 5,
+    "redWave": false,
+    "enchants": {},
+    "submissionOrdinal": 0,
+    "expected": {
+      "effectivePips": [
+        6
+      ],
+      "effectiveColors": [
+        "blue"
+      ],
+      "pipContributions": [
+        6
+      ],
+      "pipSum": 6,
+      "unusedRollBonus": 0,
+      "pairBaseAdd": 0,
+      "enchantBaseAdd": 0,
+      "baseTotal": 6,
+      "matchedGroupIds": [],
+      "chosenGroupId": null,
+      "groupMult100": 0,
+      "straightMult100": 0,
+      "colorMult100": 0,
+      "totalHandMult100": 100,
+      "redGroupingMode": "same_value",
+      "redValue": 0,
+      "redCount": 0,
+      "redMult100": 100,
+      "controllerMultiplier": 1,
+      "triggeredControllerIds": [],
+      "triggeredMultiplierIds": [],
+      "enchantBaseCount": 0,
+      "enchantMultiplierCount": 0,
+      "scoreNumerator": "60000",
+      "scoreDenominator": "10000",
+      "score": 6
+    }
+  },
+  {
+    "id": "S002",
+    "label": "剩余投掷奖励",
+    "dice": [
+      {
+        "p": 6,
+        "c": "blue"
+      }
+    ],
+    "rollsRemaining": 2,
+    "controllerIds": [],
+    "levels": {},
+    "capacity": 5,
+    "redWave": false,
+    "enchants": {},
+    "submissionOrdinal": 0,
+    "expected": {
+      "effectivePips": [
+        6
+      ],
+      "effectiveColors": [
+        "blue"
+      ],
+      "pipContributions": [
+        6
+      ],
+      "pipSum": 6,
+      "unusedRollBonus": 6,
+      "pairBaseAdd": 0,
+      "enchantBaseAdd": 0,
+      "baseTotal": 12,
+      "matchedGroupIds": [],
+      "chosenGroupId": null,
+      "groupMult100": 0,
+      "straightMult100": 0,
+      "colorMult100": 0,
+      "totalHandMult100": 100,
+      "redGroupingMode": "same_value",
+      "redValue": 0,
+      "redCount": 0,
+      "redMult100": 100,
+      "controllerMultiplier": 1,
+      "triggeredControllerIds": [],
+      "triggeredMultiplierIds": [],
+      "enchantBaseCount": 0,
+      "enchantMultiplierCount": 0,
+      "scoreNumerator": "120000",
+      "scoreDenominator": "10000",
+      "score": 12
+    }
+  },
+  {
+    "id": "S003",
+    "label": "两同红新倍率",
+    "dice": [
+      {
+        "p": 4,
+        "c": "red"
+      },
+      {
+        "p": 4,
+        "c": "red"
+      }
+    ],
+    "rollsRemaining": 0,
+    "controllerIds": [],
+    "levels": {},
+    "capacity": 5,
+    "redWave": false,
+    "enchants": {},
+    "submissionOrdinal": 0,
+    "expected": {
+      "effectivePips": [
+        4,
+        4
+      ],
+      "effectiveColors": [
+        "red",
+        "red"
+      ],
+      "pipContributions": [
+        4,
+        4
+      ],
+      "pipSum": 8,
+      "unusedRollBonus": 0,
+      "pairBaseAdd": 0,
+      "enchantBaseAdd": 0,
+      "baseTotal": 8,
+      "matchedGroupIds": [
+        "pair"
+      ],
+      "chosenGroupId": "pair",
+      "groupMult100": 200,
+      "straightMult100": 0,
+      "colorMult100": 0,
+      "totalHandMult100": 200,
+      "redGroupingMode": "same_value",
+      "redValue": 4,
+      "redCount": 2,
+      "redMult100": 150,
+      "controllerMultiplier": 1,
+      "triggeredControllerIds": [],
+      "triggeredMultiplierIds": [],
+      "enchantBaseCount": 0,
+      "enchantMultiplierCount": 0,
+      "scoreNumerator": "240000",
+      "scoreDenominator": "10000",
+      "score": 24
+    }
+  },
+  {
+    "id": "S004",
+    "label": "两蓝不满足全蓝",
+    "dice": [
+      {
+        "p": 2,
+        "c": "blue"
+      },
+      {
+        "p": 2,
+        "c": "blue"
+      }
+    ],
+    "rollsRemaining": 0,
+    "controllerIds": [],
+    "levels": {},
+    "capacity": 5,
+    "redWave": false,
+    "enchants": {},
+    "submissionOrdinal": 0,
+    "expected": {
+      "effectivePips": [
+        2,
+        2
+      ],
+      "effectiveColors": [
+        "blue",
+        "blue"
+      ],
+      "pipContributions": [
+        2,
+        2
+      ],
+      "pipSum": 4,
+      "unusedRollBonus": 0,
+      "pairBaseAdd": 0,
+      "enchantBaseAdd": 0,
+      "baseTotal": 4,
+      "matchedGroupIds": [
+        "pair"
+      ],
+      "chosenGroupId": "pair",
+      "groupMult100": 200,
+      "straightMult100": 0,
+      "colorMult100": 0,
+      "totalHandMult100": 200,
+      "redGroupingMode": "same_value",
+      "redValue": 0,
+      "redCount": 0,
+      "redMult100": 100,
+      "controllerMultiplier": 1,
+      "triggeredControllerIds": [],
+      "triggeredMultiplierIds": [],
+      "enchantBaseCount": 0,
+      "enchantMultiplierCount": 0,
+      "scoreNumerator": "80000",
+      "scoreDenominator": "10000",
+      "score": 8
+    }
+  },
+  {
+    "id": "S005",
+    "label": "基础两对",
+    "dice": [
+      {
+        "p": 2,
+        "c": "blue"
+      },
+      {
+        "p": 2,
+        "c": "blue"
+      },
+      {
+        "p": 3,
+        "c": "blue"
+      },
+      {
+        "p": 3,
+        "c": "blue"
+      }
+    ],
+    "rollsRemaining": 0,
+    "controllerIds": [],
+    "levels": {},
+    "capacity": 5,
+    "redWave": false,
+    "enchants": {},
+    "submissionOrdinal": 0,
+    "expected": {
+      "effectivePips": [
+        2,
+        2,
+        3,
+        3
+      ],
+      "effectiveColors": [
+        "blue",
+        "blue",
+        "blue",
+        "blue"
+      ],
+      "pipContributions": [
+        2,
+        2,
+        3,
+        3
+      ],
+      "pipSum": 10,
+      "unusedRollBonus": 0,
+      "pairBaseAdd": 0,
+      "enchantBaseAdd": 0,
+      "baseTotal": 10,
+      "matchedGroupIds": [
+        "pair",
+        "two_pair"
+      ],
+      "chosenGroupId": "two_pair",
+      "groupMult100": 300,
+      "straightMult100": 0,
+      "colorMult100": 0,
+      "totalHandMult100": 300,
+      "redGroupingMode": "same_value",
+      "redValue": 0,
+      "redCount": 0,
+      "redMult100": 100,
+      "controllerMultiplier": 1,
+      "triggeredControllerIds": [],
+      "triggeredMultiplierIds": [],
+      "enchantBaseCount": 0,
+      "enchantMultiplierCount": 0,
+      "scoreNumerator": "300000",
+      "scoreDenominator": "10000",
+      "score": 30
+    }
+  },
+  {
+    "id": "S006",
+    "label": "基础三条",
+    "dice": [
+      {
+        "p": 2,
+        "c": "blue"
+      },
+      {
+        "p": 2,
+        "c": "blue"
+      },
+      {
+        "p": 2,
+        "c": "blue"
+      }
+    ],
+    "rollsRemaining": 0,
+    "controllerIds": [],
+    "levels": {},
+    "capacity": 5,
+    "redWave": false,
+    "enchants": {},
+    "submissionOrdinal": 0,
+    "expected": {
+      "effectivePips": [
+        2,
+        2,
+        2
+      ],
+      "effectiveColors": [
+        "blue",
+        "blue",
+        "blue"
+      ],
+      "pipContributions": [
+        2,
+        2,
+        2
+      ],
+      "pipSum": 6,
+      "unusedRollBonus": 0,
+      "pairBaseAdd": 0,
+      "enchantBaseAdd": 0,
+      "baseTotal": 6,
+      "matchedGroupIds": [
+        "pair",
+        "trips"
+      ],
+      "chosenGroupId": "trips",
+      "groupMult100": 400,
+      "straightMult100": 0,
+      "colorMult100": 0,
+      "totalHandMult100": 400,
+      "redGroupingMode": "same_value",
+      "redValue": 0,
+      "redCount": 0,
+      "redMult100": 100,
+      "controllerMultiplier": 1,
+      "triggeredControllerIds": [],
+      "triggeredMultiplierIds": [],
+      "enchantBaseCount": 0,
+      "enchantMultiplierCount": 0,
+      "scoreNumerator": "240000",
+      "scoreDenominator": "10000",
+      "score": 24
+    }
+  },
+  {
+    "id": "S007",
+    "label": "葫芦与全蓝相加",
+    "dice": [
+      {
+        "p": 2,
+        "c": "blue"
+      },
+      {
+        "p": 2,
+        "c": "blue"
+      },
+      {
+        "p": 2,
+        "c": "blue"
+      },
+      {
+        "p": 3,
+        "c": "blue"
+      },
+      {
+        "p": 3,
+        "c": "blue"
+      }
+    ],
+    "rollsRemaining": 0,
+    "controllerIds": [],
+    "levels": {},
+    "capacity": 5,
+    "redWave": false,
+    "enchants": {},
+    "submissionOrdinal": 0,
+    "expected": {
+      "effectivePips": [
+        2,
+        2,
+        2,
+        3,
+        3
+      ],
+      "effectiveColors": [
+        "blue",
+        "blue",
+        "blue",
+        "blue",
+        "blue"
+      ],
+      "pipContributions": [
+        2,
+        2,
+        2,
+        3,
+        3
+      ],
+      "pipSum": 12,
+      "unusedRollBonus": 0,
+      "pairBaseAdd": 0,
+      "enchantBaseAdd": 0,
+      "baseTotal": 12,
+      "matchedGroupIds": [
+        "pair",
+        "two_pair",
+        "trips",
+        "full_house"
+      ],
+      "chosenGroupId": "full_house",
+      "groupMult100": 600,
+      "straightMult100": 0,
+      "colorMult100": 300,
+      "totalHandMult100": 900,
+      "redGroupingMode": "same_value",
+      "redValue": 0,
+      "redCount": 0,
+      "redMult100": 100,
+      "controllerMultiplier": 1,
+      "triggeredControllerIds": [],
+      "triggeredMultiplierIds": [],
+      "enchantBaseCount": 0,
+      "enchantMultiplierCount": 0,
+      "scoreNumerator": "1080000",
+      "scoreDenominator": "10000",
+      "score": 108
+    }
+  },
+  {
+    "id": "S008",
+    "label": "四条不重复加三条",
+    "dice": [
+      {
+        "p": 2,
+        "c": "blue"
+      },
+      {
+        "p": 2,
+        "c": "blue"
+      },
+      {
+        "p": 2,
+        "c": "blue"
+      },
+      {
+        "p": 2,
+        "c": "blue"
+      }
+    ],
+    "rollsRemaining": 0,
+    "controllerIds": [],
+    "levels": {},
+    "capacity": 5,
+    "redWave": false,
+    "enchants": {},
+    "submissionOrdinal": 0,
+    "expected": {
+      "effectivePips": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "effectiveColors": [
+        "blue",
+        "blue",
+        "blue",
+        "blue"
+      ],
+      "pipContributions": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "pipSum": 8,
+      "unusedRollBonus": 0,
+      "pairBaseAdd": 0,
+      "enchantBaseAdd": 0,
+      "baseTotal": 8,
+      "matchedGroupIds": [
+        "pair",
+        "trips",
+        "quads"
+      ],
+      "chosenGroupId": "quads",
+      "groupMult100": 800,
+      "straightMult100": 0,
+      "colorMult100": 0,
+      "totalHandMult100": 800,
+      "redGroupingMode": "same_value",
+      "redValue": 0,
+      "redCount": 0,
+      "redMult100": 100,
+      "controllerMultiplier": 1,
+      "triggeredControllerIds": [],
+      "triggeredMultiplierIds": [],
+      "enchantBaseCount": 0,
+      "enchantMultiplierCount": 0,
+      "scoreNumerator": "640000",
+      "scoreDenominator": "10000",
+      "score": 64
+    }
+  },
+  {
+    "id": "S009",
+    "label": "五豹子与全蓝",
+    "dice": [
+      {
+        "p": 6,
+        "c": "blue"
+      },
+      {
+        "p": 6,
+        "c": "blue"
+      },
+      {
+        "p": 6,
+        "c": "blue"
+      },
+      {
+        "p": 6,
+        "c": "blue"
+      },
+      {
+        "p": 6,
+        "c": "blue"
+      }
+    ],
+    "rollsRemaining": 0,
+    "controllerIds": [],
+    "levels": {},
+    "capacity": 5,
+    "redWave": false,
+    "enchants": {},
+    "submissionOrdinal": 0,
+    "expected": {
+      "effectivePips": [
+        6,
+        6,
+        6,
+        6,
+        6
+      ],
+      "effectiveColors": [
+        "blue",
+        "blue",
+        "blue",
+        "blue",
+        "blue"
+      ],
+      "pipContributions": [
+        6,
+        6,
+        6,
+        6,
+        6
+      ],
+      "pipSum": 30,
+      "unusedRollBonus": 0,
+      "pairBaseAdd": 0,
+      "enchantBaseAdd": 0,
+      "baseTotal": 30,
+      "matchedGroupIds": [
+        "pair",
+        "trips",
+        "quads",
+        "five_kind"
+      ],
+      "chosenGroupId": "five_kind",
+      "groupMult100": 1200,
+      "straightMult100": 0,
+      "colorMult100": 300,
+      "totalHandMult100": 1500,
+      "redGroupingMode": "same_value",
+      "redValue": 0,
+      "redCount": 0,
+      "redMult100": 100,
+      "controllerMultiplier": 1,
+      "triggeredControllerIds": [],
+      "triggeredMultiplierIds": [],
+      "enchantBaseCount": 0,
+      "enchantMultiplierCount": 0,
+      "scoreNumerator": "4500000",
+      "scoreDenominator": "10000",
+      "score": 450
+    }
+  },
+  {
+    "id": "S010",
+    "label": "五同红1",
+    "dice": [
+      {
+        "p": 1,
+        "c": "red"
+      },
+      {
+        "p": 1,
+        "c": "red"
+      },
+      {
+        "p": 1,
+        "c": "red"
+      },
+      {
+        "p": 1,
+        "c": "red"
+      },
+      {
+        "p": 1,
+        "c": "red"
+      }
+    ],
+    "rollsRemaining": 0,
+    "controllerIds": [],
+    "levels": {},
+    "capacity": 5,
+    "redWave": false,
+    "enchants": {},
+    "submissionOrdinal": 0,
+    "expected": {
+      "effectivePips": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "effectiveColors": [
+        "red",
+        "red",
+        "red",
+        "red",
+        "red"
+      ],
+      "pipContributions": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "pipSum": 5,
+      "unusedRollBonus": 0,
+      "pairBaseAdd": 0,
+      "enchantBaseAdd": 0,
+      "baseTotal": 5,
+      "matchedGroupIds": [
+        "pair",
+        "trips",
+        "quads",
+        "five_kind"
+      ],
+      "chosenGroupId": "five_kind",
+      "groupMult100": 1200,
+      "straightMult100": 0,
+      "colorMult100": 200,
+      "totalHandMult100": 1400,
+      "redGroupingMode": "same_value",
+      "redValue": 1,
+      "redCount": 5,
+      "redMult100": 400,
+      "controllerMultiplier": 1,
+      "triggeredControllerIds": [],
+      "triggeredMultiplierIds": [],
+      "enchantBaseCount": 0,
+      "enchantMultiplierCount": 0,
+      "scoreNumerator": "2800000",
+      "scoreDenominator": "10000",
+      "score": 280
+    }
+  },
+  {
+    "id": "S011",
+    "label": "六同红4",
+    "dice": [
+      {
+        "p": 4,
+        "c": "red"
+      },
+      {
+        "p": 4,
+        "c": "red"
+      },
+      {
+        "p": 4,
+        "c": "red"
+      },
+      {
+        "p": 4,
+        "c": "red"
+      },
+      {
+        "p": 4,
+        "c": "red"
+      },
+      {
+        "p": 4,
+        "c": "red"
+      }
+    ],
+    "rollsRemaining": 0,
+    "controllerIds": [],
+    "levels": {},
+    "capacity": 6,
+    "redWave": false,
+    "enchants": {},
+    "submissionOrdinal": 0,
+    "expected": {
+      "effectivePips": [
+        4,
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "effectiveColors": [
+        "red",
+        "red",
+        "red",
+        "red",
+        "red",
+        "red"
+      ],
+      "pipContributions": [
+        4,
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "pipSum": 24,
+      "unusedRollBonus": 0,
+      "pairBaseAdd": 0,
+      "enchantBaseAdd": 0,
+      "baseTotal": 24,
+      "matchedGroupIds": [
+        "pair",
+        "trips",
+        "quads",
+        "five_kind",
+        "six_kind"
+      ],
+      "chosenGroupId": "six_kind",
+      "groupMult100": 1800,
+      "straightMult100": 0,
+      "colorMult100": 200,
+      "totalHandMult100": 2000,
+      "redGroupingMode": "same_value",
+      "redValue": 4,
+      "redCount": 6,
+      "redMult100": 550,
+      "controllerMultiplier": 1,
+      "triggeredControllerIds": [],
+      "triggeredMultiplierIds": [],
+      "enchantBaseCount": 0,
+      "enchantMultiplierCount": 0,
+      "scoreNumerator": "26400000",
+      "scoreDenominator": "10000",
+      "score": 2640
+    }
+  },
+  {
+    "id": "S012",
+    "label": "七同红4",
+    "dice": [
+      {
+        "p": 4,
+        "c": "red"
+      },
+      {
+        "p": 4,
+        "c": "red"
+      },
+      {
+        "p": 4,
+        "c": "red"
+      },
+      {
+        "p": 4,
+        "c": "red"
+      },
+      {
+        "p": 4,
+        "c": "red"
+      },
+      {
+        "p": 4,
+        "c": "red"
+      },
+      {
+        "p": 4,
+        "c": "red"
+      }
+    ],
+    "rollsRemaining": 0,
+    "controllerIds": [],
+    "levels": {},
+    "capacity": 7,
+    "redWave": false,
+    "enchants": {},
+    "submissionOrdinal": 0,
+    "expected": {
+      "effectivePips": [
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "effectiveColors": [
+        "red",
+        "red",
+        "red",
+        "red",
+        "red",
+        "red",
+        "red"
+      ],
+      "pipContributions": [
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "pipSum": 28,
+      "unusedRollBonus": 0,
+      "pairBaseAdd": 0,
+      "enchantBaseAdd": 0,
+      "baseTotal": 28,
+      "matchedGroupIds": [
+        "pair",
+        "trips",
+        "quads",
+        "five_kind",
+        "six_kind",
+        "seven_kind"
+      ],
+      "chosenGroupId": "seven_kind",
+      "groupMult100": 2700,
+      "straightMult100": 0,
+      "colorMult100": 200,
+      "totalHandMult100": 2900,
+      "redGroupingMode": "same_value",
+      "redValue": 4,
+      "redCount": 7,
+      "redMult100": 700,
+      "controllerMultiplier": 1,
+      "triggeredControllerIds": [],
+      "triggeredMultiplierIds": [],
+      "enchantBaseCount": 0,
+      "enchantMultiplierCount": 0,
+      "scoreNumerator": "56840000",
+      "scoreDenominator": "10000",
+      "score": 5684
+    }
+  },
+  {
+    "id": "S013",
+    "label": "八豹子与八同红",
+    "dice": [
+      {
+        "p": 4,
+        "c": "red"
+      },
+      {
+        "p": 4,
+        "c": "red"
+      },
+      {
+        "p": 4,
+        "c": "red"
+      },
+      {
+        "p": 4,
+        "c": "red"
+      },
+      {
+        "p": 4,
+        "c": "red"
+      },
+      {
+        "p": 4,
+        "c": "red"
+      },
+      {
+        "p": 4,
+        "c": "red"
+      },
+      {
+        "p": 4,
+        "c": "red"
+      }
+    ],
+    "rollsRemaining": 0,
+    "controllerIds": [],
+    "levels": {},
+    "capacity": 8,
+    "redWave": false,
+    "enchants": {},
+    "submissionOrdinal": 0,
+    "expected": {
+      "effectivePips": [
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "effectiveColors": [
+        "red",
+        "red",
+        "red",
+        "red",
+        "red",
+        "red",
+        "red",
+        "red"
+      ],
+      "pipContributions": [
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "pipSum": 32,
+      "unusedRollBonus": 0,
+      "pairBaseAdd": 0,
+      "enchantBaseAdd": 0,
+      "baseTotal": 32,
+      "matchedGroupIds": [
+        "pair",
+        "trips",
+        "quads",
+        "five_kind",
+        "six_kind",
+        "seven_kind",
+        "eight_kind"
+      ],
+      "chosenGroupId": "eight_kind",
+      "groupMult100": 4000,
+      "straightMult100": 0,
+      "colorMult100": 200,
+      "totalHandMult100": 4200,
+      "redGroupingMode": "same_value",
+      "redValue": 4,
+      "redCount": 8,
+      "redMult100": 900,
+      "controllerMultiplier": 1,
+      "triggeredControllerIds": [],
+      "triggeredMultiplierIds": [],
+      "enchantBaseCount": 0,
+      "enchantMultiplierCount": 0,
+      "scoreNumerator": "120960000",
+      "scoreDenominator": "10000",
+      "score": 12096
+    }
+  },
+  {
+    "id": "S014",
+    "label": "全蓝顺子",
+    "dice": [
+      {
+        "p": 1,
+        "c": "blue"
+      },
+      {
+        "p": 2,
+        "c": "blue"
+      },
+      {
+        "p": 3,
+        "c": "blue"
+      },
+      {
+        "p": 4,
+        "c": "blue"
+      },
+      {
+        "p": 5,
+        "c": "blue"
+      }
+    ],
+    "rollsRemaining": 0,
+    "controllerIds": [],
+    "levels": {},
+    "capacity": 5,
+    "redWave": false,
+    "enchants": {},
+    "submissionOrdinal": 0,
+    "expected": {
+      "effectivePips": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "effectiveColors": [
+        "blue",
+        "blue",
+        "blue",
+        "blue",
+        "blue"
+      ],
+      "pipContributions": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "pipSum": 15,
+      "unusedRollBonus": 0,
+      "pairBaseAdd": 0,
+      "enchantBaseAdd": 0,
+      "baseTotal": 15,
+      "matchedGroupIds": [],
+      "chosenGroupId": null,
+      "groupMult100": 0,
+      "straightMult100": 600,
+      "colorMult100": 300,
+      "totalHandMult100": 900,
+      "redGroupingMode": "same_value",
+      "redValue": 0,
+      "redCount": 0,
+      "redMult100": 100,
+      "controllerMultiplier": 1,
+      "triggeredControllerIds": [],
+      "triggeredMultiplierIds": [],
+      "enchantBaseCount": 0,
+      "enchantMultiplierCount": 0,
+      "scoreNumerator": "1350000",
+      "scoreDenominator": "10000",
+      "score": 135
+    }
+  },
+  {
+    "id": "S015",
+    "label": "全红顺子",
+    "dice": [
+      {
+        "p": 1,
+        "c": "red"
+      },
+      {
+        "p": 2,
+        "c": "red"
+      },
+      {
+        "p": 3,
+        "c": "red"
+      },
+      {
+        "p": 4,
+        "c": "red"
+      },
+      {
+        "p": 5,
+        "c": "red"
+      }
+    ],
+    "rollsRemaining": 0,
+    "controllerIds": [],
+    "levels": {},
+    "capacity": 5,
+    "redWave": false,
+    "enchants": {},
+    "submissionOrdinal": 0,
+    "expected": {
+      "effectivePips": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "effectiveColors": [
+        "red",
+        "red",
+        "red",
+        "red",
+        "red"
+      ],
+      "pipContributions": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "pipSum": 15,
+      "unusedRollBonus": 0,
+      "pairBaseAdd": 0,
+      "enchantBaseAdd": 0,
+      "baseTotal": 15,
+      "matchedGroupIds": [],
+      "chosenGroupId": null,
+      "groupMult100": 0,
+      "straightMult100": 600,
+      "colorMult100": 200,
+      "totalHandMult100": 800,
+      "redGroupingMode": "same_value",
+      "redValue": 5,
+      "redCount": 1,
+      "redMult100": 100,
+      "controllerMultiplier": 1,
+      "triggeredControllerIds": [],
+      "triggeredMultiplierIds": [],
+      "enchantBaseCount": 0,
+      "enchantMultiplierCount": 0,
+      "scoreNumerator": "1200000",
+      "scoreDenominator": "10000",
+      "score": 120
+    }
+  },
+  {
+    "id": "S016",
+    "label": "混色顺子",
+    "dice": [
+      {
+        "p": 1,
+        "c": "red"
+      },
+      {
+        "p": 2,
+        "c": "blue"
+      },
+      {
+        "p": 3,
+        "c": "blue"
+      },
+      {
+        "p": 4,
+        "c": "red"
+      },
+      {
+        "p": 5,
+        "c": "blue"
+      }
+    ],
+    "rollsRemaining": 0,
+    "controllerIds": [],
+    "levels": {},
+    "capacity": 5,
+    "redWave": false,
+    "enchants": {},
+    "submissionOrdinal": 0,
+    "expected": {
+      "effectivePips": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "effectiveColors": [
+        "red",
+        "blue",
+        "blue",
+        "red",
+        "blue"
+      ],
+      "pipContributions": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "pipSum": 15,
+      "unusedRollBonus": 0,
+      "pairBaseAdd": 0,
+      "enchantBaseAdd": 0,
+      "baseTotal": 15,
+      "matchedGroupIds": [],
+      "chosenGroupId": null,
+      "groupMult100": 0,
+      "straightMult100": 600,
+      "colorMult100": 0,
+      "totalHandMult100": 600,
+      "redGroupingMode": "same_value",
+      "redValue": 4,
+      "redCount": 1,
+      "redMult100": 100,
+      "controllerMultiplier": 1,
+      "triggeredControllerIds": [],
+      "triggeredMultiplierIds": [],
+      "enchantBaseCount": 0,
+      "enchantMultiplierCount": 0,
+      "scoreNumerator": "900000",
+      "scoreDenominator": "10000",
+      "score": 90
+    }
+  },
+  {
+    "id": "S017",
+    "label": "重复面不破坏顺子",
+    "dice": [
+      {
+        "p": 1,
+        "c": "blue"
+      },
+      {
+        "p": 2,
+        "c": "blue"
+      },
+      {
+        "p": 3,
+        "c": "blue"
+      },
+      {
+        "p": 4,
+        "c": "blue"
+      },
+      {
+        "p": 5,
+        "c": "blue"
+      },
+      {
+        "p": 5,
+        "c": "blue"
+      }
+    ],
+    "rollsRemaining": 0,
+    "controllerIds": [],
+    "levels": {},
+    "capacity": 6,
+    "redWave": false,
+    "enchants": {},
+    "submissionOrdinal": 0,
+    "expected": {
+      "effectivePips": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        5
+      ],
+      "effectiveColors": [
+        "blue",
+        "blue",
+        "blue",
+        "blue",
+        "blue",
+        "blue"
+      ],
+      "pipContributions": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        5
+      ],
+      "pipSum": 20,
+      "unusedRollBonus": 0,
+      "pairBaseAdd": 0,
+      "enchantBaseAdd": 0,
+      "baseTotal": 20,
+      "matchedGroupIds": [
+        "pair"
+      ],
+      "chosenGroupId": "pair",
+      "groupMult100": 200,
+      "straightMult100": 600,
+      "colorMult100": 300,
+      "totalHandMult100": 1100,
+      "redGroupingMode": "same_value",
+      "redValue": 0,
+      "redCount": 0,
+      "redMult100": 100,
+      "controllerMultiplier": 1,
+      "triggeredControllerIds": [],
+      "triggeredMultiplierIds": [],
+      "enchantBaseCount": 0,
+      "enchantMultiplierCount": 0,
+      "scoreNumerator": "2200000",
+      "scoreDenominator": "10000",
+      "score": 220
+    }
+  },
+  {
+    "id": "S018",
+    "label": "不允许6接1",
+    "dice": [
+      {
+        "p": 3,
+        "c": "blue"
+      },
+      {
+        "p": 4,
+        "c": "blue"
+      },
+      {
+        "p": 5,
+        "c": "blue"
+      },
+      {
+        "p": 6,
+        "c": "blue"
+      },
+      {
+        "p": 1,
+        "c": "blue"
+      }
+    ],
+    "rollsRemaining": 0,
+    "controllerIds": [],
+    "levels": {},
+    "capacity": 5,
+    "redWave": false,
+    "enchants": {},
+    "submissionOrdinal": 0,
+    "expected": {
+      "effectivePips": [
+        3,
+        4,
+        5,
+        6,
+        1
+      ],
+      "effectiveColors": [
+        "blue",
+        "blue",
+        "blue",
+        "blue",
+        "blue"
+      ],
+      "pipContributions": [
+        3,
+        4,
+        5,
+        6,
+        1
+      ],
+      "pipSum": 19,
+      "unusedRollBonus": 0,
+      "pairBaseAdd": 0,
+      "enchantBaseAdd": 0,
+      "baseTotal": 19,
+      "matchedGroupIds": [],
+      "chosenGroupId": null,
+      "groupMult100": 0,
+      "straightMult100": 0,
+      "colorMult100": 300,
+      "totalHandMult100": 300,
+      "redGroupingMode": "same_value",
+      "redValue": 0,
+      "redCount": 0,
+      "redMult100": 100,
+      "controllerMultiplier": 1,
+      "triggeredControllerIds": [],
+      "triggeredMultiplierIds": [],
+      "enchantBaseCount": 0,
+      "enchantMultiplierCount": 0,
+      "scoreNumerator": "570000",
+      "scoreDenominator": "10000",
+      "score": 57
+    }
+  },
+  {
+    "id": "S019",
+    "label": "C29能识别3至6",
+    "dice": [
+      {
+        "p": 3,
+        "c": "blue"
+      },
+      {
+        "p": 4,
+        "c": "blue"
+      },
+      {
+        "p": 5,
+        "c": "blue"
+      },
+      {
+        "p": 6,
+        "c": "blue"
+      },
+      {
+        "p": 1,
+        "c": "blue"
+      }
+    ],
+    "rollsRemaining": 0,
+    "controllerIds": [
+      "C29"
+    ],
+    "levels": {},
+    "capacity": 5,
+    "redWave": false,
+    "enchants": {},
+    "submissionOrdinal": 0,
+    "expected": {
+      "effectivePips": [
+        3,
+        4,
+        5,
+        6,
+        1
+      ],
+      "effectiveColors": [
+        "blue",
+        "blue",
+        "blue",
+        "blue",
+        "blue"
+      ],
+      "pipContributions": [
+        3,
+        4,
+        5,
+        6,
+        1
+      ],
+      "pipSum": 19,
+      "unusedRollBonus": 0,
+      "pairBaseAdd": 0,
+      "enchantBaseAdd": 0,
+      "baseTotal": 19,
+      "matchedGroupIds": [],
+      "chosenGroupId": null,
+      "groupMult100": 0,
+      "straightMult100": 600,
+      "colorMult100": 300,
+      "totalHandMult100": 900,
+      "redGroupingMode": "same_value",
+      "redValue": 0,
+      "redCount": 0,
+      "redMult100": 100,
+      "controllerMultiplier": 1,
+      "triggeredControllerIds": [
+        "C29"
+      ],
+      "triggeredMultiplierIds": [],
+      "enchantBaseCount": 0,
+      "enchantMultiplierCount": 0,
+      "scoreNumerator": "1710000",
+      "scoreDenominator": "10000",
+      "score": 171
+    }
+  },
+  {
+    "id": "S020",
+    "label": "强化一对优于未强化三条",
+    "dice": [
+      {
+        "p": 2,
+        "c": "blue"
+      },
+      {
+        "p": 2,
+        "c": "blue"
+      },
+      {
+        "p": 2,
+        "c": "blue"
+      }
+    ],
+    "rollsRemaining": 0,
+    "controllerIds": [],
+    "levels": {
+      "pair": 8
+    },
+    "capacity": 5,
+    "redWave": false,
+    "enchants": {},
+    "submissionOrdinal": 0,
+    "expected": {
+      "effectivePips": [
+        2,
+        2,
+        2
+      ],
+      "effectiveColors": [
+        "blue",
+        "blue",
+        "blue"
+      ],
+      "pipContributions": [
+        2,
+        2,
+        2
+      ],
+      "pipSum": 6,
+      "unusedRollBonus": 0,
+      "pairBaseAdd": 0,
+      "enchantBaseAdd": 0,
+      "baseTotal": 6,
+      "matchedGroupIds": [
+        "pair",
+        "trips"
+      ],
+      "chosenGroupId": "pair",
+      "groupMult100": 800,
+      "straightMult100": 0,
+      "colorMult100": 0,
+      "totalHandMult100": 800,
+      "redGroupingMode": "same_value",
+      "redValue": 0,
+      "redCount": 0,
+      "redMult100": 100,
+      "controllerMultiplier": 1,
+      "triggeredControllerIds": [],
+      "triggeredMultiplierIds": [],
+      "enchantBaseCount": 0,
+      "enchantMultiplierCount": 0,
+      "scoreNumerator": "480000",
+      "scoreDenominator": "10000",
+      "score": 48
+    }
+  },
+  {
+    "id": "S021",
+    "label": "相同倍率优先四条",
+    "dice": [
+      {
+        "p": 2,
+        "c": "blue"
+      },
+      {
+        "p": 2,
+        "c": "blue"
+      },
+      {
+        "p": 2,
+        "c": "blue"
+      },
+      {
+        "p": 2,
+        "c": "blue"
+      }
+    ],
+    "rollsRemaining": 0,
+    "controllerIds": [],
+    "levels": {
+      "pair": 8
+    },
+    "capacity": 5,
+    "redWave": false,
+    "enchants": {},
+    "submissionOrdinal": 0,
+    "expected": {
+      "effectivePips": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "effectiveColors": [
+        "blue",
+        "blue",
+        "blue",
+        "blue"
+      ],
+      "pipContributions": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "pipSum": 8,
+      "unusedRollBonus": 0,
+      "pairBaseAdd": 0,
+      "enchantBaseAdd": 0,
+      "baseTotal": 8,
+      "matchedGroupIds": [
+        "pair",
+        "trips",
+        "quads"
+      ],
+      "chosenGroupId": "quads",
+      "groupMult100": 800,
+      "straightMult100": 0,
+      "colorMult100": 0,
+      "totalHandMult100": 800,
+      "redGroupingMode": "same_value",
+      "redValue": 0,
+      "redCount": 0,
+      "redMult100": 100,
+      "controllerMultiplier": 1,
+      "triggeredControllerIds": [],
+      "triggeredMultiplierIds": [],
+      "enchantBaseCount": 0,
+      "enchantMultiplierCount": 0,
+      "scoreNumerator": "640000",
+      "scoreDenominator": "10000",
+      "score": 64
+    }
+  },
+  {
+    "id": "S022",
+    "label": "红葫芦自然最大红组3",
+    "dice": [
+      {
+        "p": 1,
+        "c": "red"
+      },
+      {
+        "p": 1,
+        "c": "red"
+      },
+      {
+        "p": 4,
+        "c": "red"
+      },
+      {
+        "p": 4,
+        "c": "red"
+      },
+      {
+        "p": 4,
+        "c": "red"
+      }
+    ],
+    "rollsRemaining": 0,
+    "controllerIds": [],
+    "levels": {},
+    "capacity": 5,
+    "redWave": false,
+    "enchants": {},
+    "submissionOrdinal": 0,
+    "expected": {
+      "effectivePips": [
+        1,
+        1,
+        4,
+        4,
+        4
+      ],
+      "effectiveColors": [
+        "red",
+        "red",
+        "red",
+        "red",
+        "red"
+      ],
+      "pipContributions": [
+        1,
+        1,
+        4,
+        4,
+        4
+      ],
+      "pipSum": 14,
+      "unusedRollBonus": 0,
+      "pairBaseAdd": 0,
+      "enchantBaseAdd": 0,
+      "baseTotal": 14,
+      "matchedGroupIds": [
+        "pair",
+        "two_pair",
+        "trips",
+        "full_house"
+      ],
+      "chosenGroupId": "full_house",
+      "groupMult100": 600,
+      "straightMult100": 0,
+      "colorMult100": 200,
+      "totalHandMult100": 800,
+      "redGroupingMode": "same_value",
+      "redValue": 4,
+      "redCount": 3,
+      "redMult100": 200,
+      "controllerMultiplier": 1,
+      "triggeredControllerIds": [],
+      "triggeredMultiplierIds": [],
+      "enchantBaseCount": 0,
+      "enchantMultiplierCount": 0,
+      "scoreNumerator": "2240000",
+      "scoreDenominator": "10000",
+      "score": 224
+    }
+  },
+  {
+    "id": "S023",
+    "label": "C24只合并红组不改牌型",
+    "dice": [
+      {
+        "p": 1,
+        "c": "red"
+      },
+      {
+        "p": 1,
+        "c": "red"
+      },
+      {
+        "p": 4,
+        "c": "red"
+      },
+      {
+        "p": 4,
+        "c": "red"
+      },
+      {
+        "p": 4,
+        "c": "red"
+      }
+    ],
+    "rollsRemaining": 0,
+    "controllerIds": [
+      "C24"
+    ],
+    "levels": {},
+    "capacity": 5,
+    "redWave": false,
+    "enchants": {},
+    "submissionOrdinal": 0,
+    "expected": {
+      "effectivePips": [
+        1,
+        1,
+        4,
+        4,
+        4
+      ],
+      "effectiveColors": [
+        "red",
+        "red",
+        "red",
+        "red",
+        "red"
+      ],
+      "pipContributions": [
+        1,
+        1,
+        4,
+        4,
+        4
+      ],
+      "pipSum": 14,
+      "unusedRollBonus": 0,
+      "pairBaseAdd": 0,
+      "enchantBaseAdd": 0,
+      "baseTotal": 14,
+      "matchedGroupIds": [
+        "pair",
+        "two_pair",
+        "trips",
+        "full_house"
+      ],
+      "chosenGroupId": "full_house",
+      "groupMult100": 600,
+      "straightMult100": 0,
+      "colorMult100": 200,
+      "totalHandMult100": 800,
+      "redGroupingMode": "one_as_four",
+      "redValue": 4,
+      "redCount": 5,
+      "redMult100": 400,
+      "controllerMultiplier": 1,
+      "triggeredControllerIds": [
+        "C24"
+      ],
+      "triggeredMultiplierIds": [],
+      "enchantBaseCount": 0,
+      "enchantMultiplierCount": 0,
+      "scoreNumerator": "4480000",
+      "scoreDenominator": "10000",
+      "score": 448
+    }
+  },
+  {
+    "id": "S024",
+    "label": "C25全红顺子",
+    "dice": [
+      {
+        "p": 1,
+        "c": "red"
+      },
+      {
+        "p": 2,
+        "c": "red"
+      },
+      {
+        "p": 3,
+        "c": "red"
+      },
+      {
+        "p": 4,
+        "c": "red"
+      },
+      {
+        "p": 5,
+        "c": "red"
+      }
+    ],
+    "rollsRemaining": 0,
+    "controllerIds": [
+      "C25"
+    ],
+    "levels": {},
+    "capacity": 5,
+    "redWave": false,
+    "enchants": {},
+    "submissionOrdinal": 0,
+    "expected": {
+      "effectivePips": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "effectiveColors": [
+        "red",
+        "red",
+        "red",
+        "red",
+        "red"
+      ],
+      "pipContributions": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "pipSum": 15,
+      "unusedRollBonus": 0,
+      "pairBaseAdd": 0,
+      "enchantBaseAdd": 0,
+      "baseTotal": 15,
+      "matchedGroupIds": [],
+      "chosenGroupId": null,
+      "groupMult100": 0,
+      "straightMult100": 600,
+      "colorMult100": 200,
+      "totalHandMult100": 800,
+      "redGroupingMode": "all_red",
+      "redValue": 0,
+      "redCount": 5,
+      "redMult100": 400,
+      "controllerMultiplier": 1,
+      "triggeredControllerIds": [
+        "C25"
+      ],
+      "triggeredMultiplierIds": [],
+      "enchantBaseCount": 0,
+      "enchantMultiplierCount": 0,
+      "scoreNumerator": "4800000",
+      "scoreDenominator": "10000",
+      "score": 480
+    }
+  },
+  {
+    "id": "S025",
+    "label": "红组统一不触发天地大同",
+    "dice": [
+      {
+        "p": 1,
+        "c": "red"
+      },
+      {
+        "p": 2,
+        "c": "red"
+      },
+      {
+        "p": 3,
+        "c": "red"
+      },
+      {
+        "p": 4,
+        "c": "red"
+      },
+      {
+        "p": 5,
+        "c": "red"
+      }
+    ],
+    "rollsRemaining": 0,
+    "controllerIds": [
+      "C25",
+      "C32"
+    ],
+    "levels": {},
+    "capacity": 5,
+    "redWave": false,
+    "enchants": {},
+    "submissionOrdinal": 0,
+    "expected": {
+      "effectivePips": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "effectiveColors": [
+        "red",
+        "red",
+        "red",
+        "red",
+        "red"
+      ],
+      "pipContributions": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "pipSum": 15,
+      "unusedRollBonus": 0,
+      "pairBaseAdd": 0,
+      "enchantBaseAdd": 0,
+      "baseTotal": 15,
+      "matchedGroupIds": [],
+      "chosenGroupId": null,
+      "groupMult100": 0,
+      "straightMult100": 600,
+      "colorMult100": 200,
+      "totalHandMult100": 800,
+      "redGroupingMode": "all_red",
+      "redValue": 0,
+      "redCount": 5,
+      "redMult100": 400,
+      "controllerMultiplier": 1,
+      "triggeredControllerIds": [
+        "C25"
+      ],
+      "triggeredMultiplierIds": [],
+      "enchantBaseCount": 0,
+      "enchantMultiplierCount": 0,
+      "scoreNumerator": "4800000",
+      "scoreDenominator": "10000",
+      "score": 480
+    }
+  },
+  {
+    "id": "S026",
+    "label": "C24红1和红4合组末尾取整",
+    "dice": [
+      {
+        "p": 1,
+        "c": "red"
+      },
+      {
+        "p": 4,
+        "c": "red"
+      }
+    ],
+    "rollsRemaining": 0,
+    "controllerIds": [
+      "C24"
+    ],
+    "levels": {},
+    "capacity": 5,
+    "redWave": false,
+    "enchants": {},
+    "submissionOrdinal": 0,
+    "expected": {
+      "effectivePips": [
+        1,
+        4
+      ],
+      "effectiveColors": [
+        "red",
+        "red"
+      ],
+      "pipContributions": [
+        1,
+        4
+      ],
+      "pipSum": 5,
+      "unusedRollBonus": 0,
+      "pairBaseAdd": 0,
+      "enchantBaseAdd": 0,
+      "baseTotal": 5,
+      "matchedGroupIds": [],
+      "chosenGroupId": null,
+      "groupMult100": 0,
+      "straightMult100": 0,
+      "colorMult100": 0,
+      "totalHandMult100": 100,
+      "redGroupingMode": "one_as_four",
+      "redValue": 4,
+      "redCount": 2,
+      "redMult100": 150,
+      "controllerMultiplier": 1,
+      "triggeredControllerIds": [
+        "C24"
+      ],
+      "triggeredMultiplierIds": [],
+      "enchantBaseCount": 0,
+      "enchantMultiplierCount": 0,
+      "scoreNumerator": "75000",
+      "scoreDenominator": "10000",
+      "score": 7
+    }
+  },
+  {
+    "id": "S027",
+    "label": "C24加分附魔",
+    "dice": [
+      {
+        "p": 1,
+        "c": "red"
+      },
+      {
+        "p": 4,
+        "c": "red"
+      }
+    ],
+    "rollsRemaining": 0,
+    "controllerIds": [
+      "C24"
+    ],
+    "levels": {},
+    "capacity": 5,
+    "redWave": false,
+    "enchants": {
+      "C24": "base5"
+    },
+    "submissionOrdinal": 0,
+    "expected": {
+      "effectivePips": [
+        1,
+        4
+      ],
+      "effectiveColors": [
+        "red",
+        "red"
+      ],
+      "pipContributions": [
+        1,
+        4
+      ],
+      "pipSum": 5,
+      "unusedRollBonus": 0,
+      "pairBaseAdd": 0,
+      "enchantBaseAdd": 5,
+      "baseTotal": 10,
+      "matchedGroupIds": [],
+      "chosenGroupId": null,
+      "groupMult100": 0,
+      "straightMult100": 0,
+      "colorMult100": 0,
+      "totalHandMult100": 100,
+      "redGroupingMode": "one_as_four",
+      "redValue": 4,
+      "redCount": 2,
+      "redMult100": 150,
+      "controllerMultiplier": 1,
+      "triggeredControllerIds": [
+        "C24"
+      ],
+      "triggeredMultiplierIds": [],
+      "enchantBaseCount": 1,
+      "enchantMultiplierCount": 0,
+      "scoreNumerator": "150000",
+      "scoreDenominator": "10000",
+      "score": 15
+    }
+  },
+  {
+    "id": "S028",
+    "label": "C24倍率附魔精确分数",
+    "dice": [
+      {
+        "p": 1,
+        "c": "red"
+      },
+      {
+        "p": 4,
+        "c": "red"
+      }
+    ],
+    "rollsRemaining": 0,
+    "controllerIds": [
+      "C24"
+    ],
+    "levels": {},
+    "capacity": 5,
+    "redWave": false,
+    "enchants": {
+      "C24": "mult120"
+    },
+    "submissionOrdinal": 0,
+    "expected": {
+      "effectivePips": [
+        1,
+        4
+      ],
+      "effectiveColors": [
+        "red",
+        "red"
+      ],
+      "pipContributions": [
+        1,
+        4
+      ],
+      "pipSum": 5,
+      "unusedRollBonus": 0,
+      "pairBaseAdd": 0,
+      "enchantBaseAdd": 0,
+      "baseTotal": 5,
+      "matchedGroupIds": [],
+      "chosenGroupId": null,
+      "groupMult100": 0,
+      "straightMult100": 0,
+      "colorMult100": 0,
+      "totalHandMult100": 100,
+      "redGroupingMode": "one_as_four",
+      "redValue": 4,
+      "redCount": 2,
+      "redMult100": 150,
+      "controllerMultiplier": 1,
+      "triggeredControllerIds": [
+        "C24"
+      ],
+      "triggeredMultiplierIds": [],
+      "enchantBaseCount": 0,
+      "enchantMultiplierCount": 1,
+      "scoreNumerator": "450000",
+      "scoreDenominator": "50000",
+      "score": 9
+    }
+  },
+  {
+    "id": "S029",
+    "label": "C12先变有效2不被C24合并",
+    "dice": [
+      {
+        "p": 1,
+        "c": "red"
+      },
+      {
+        "p": 1,
+        "c": "red"
+      },
+      {
+        "p": 4,
+        "c": "red"
+      },
+      {
+        "p": 4,
+        "c": "red"
+      }
+    ],
+    "rollsRemaining": 0,
+    "controllerIds": [
+      "C12",
+      "C24"
+    ],
+    "levels": {},
+    "capacity": 5,
+    "redWave": false,
+    "enchants": {},
+    "submissionOrdinal": 0,
+    "expected": {
+      "effectivePips": [
+        2,
+        2,
+        4,
+        4
+      ],
+      "effectiveColors": [
+        "red",
+        "red",
+        "red",
+        "red"
+      ],
+      "pipContributions": [
+        2,
+        2,
+        4,
+        4
+      ],
+      "pipSum": 12,
+      "unusedRollBonus": 0,
+      "pairBaseAdd": 0,
+      "enchantBaseAdd": 0,
+      "baseTotal": 12,
+      "matchedGroupIds": [
+        "pair",
+        "two_pair"
+      ],
+      "chosenGroupId": "two_pair",
+      "groupMult100": 300,
+      "straightMult100": 0,
+      "colorMult100": 0,
+      "totalHandMult100": 300,
+      "redGroupingMode": "one_as_four",
+      "redValue": 4,
+      "redCount": 2,
+      "redMult100": 150,
+      "controllerMultiplier": 1,
+      "triggeredControllerIds": [
+        "C12"
+      ],
+      "triggeredMultiplierIds": [],
+      "enchantBaseCount": 0,
+      "enchantMultiplierCount": 0,
+      "scoreNumerator": "540000",
+      "scoreDenominator": "10000",
+      "score": 54
+    }
+  },
+  {
+    "id": "S030",
+    "label": "C24与C25条件分别触发附魔",
+    "dice": [
+      {
+        "p": 1,
+        "c": "red"
+      },
+      {
+        "p": 4,
+        "c": "red"
+      }
+    ],
+    "rollsRemaining": 0,
+    "controllerIds": [
+      "C24",
+      "C25"
+    ],
+    "levels": {},
+    "capacity": 5,
+    "redWave": false,
+    "enchants": {
+      "C24": "base5",
+      "C25": "base5"
+    },
+    "submissionOrdinal": 0,
+    "expected": {
+      "effectivePips": [
+        1,
+        4
+      ],
+      "effectiveColors": [
+        "red",
+        "red"
+      ],
+      "pipContributions": [
+        1,
+        4
+      ],
+      "pipSum": 5,
+      "unusedRollBonus": 0,
+      "pairBaseAdd": 0,
+      "enchantBaseAdd": 10,
+      "baseTotal": 15,
+      "matchedGroupIds": [],
+      "chosenGroupId": null,
+      "groupMult100": 0,
+      "straightMult100": 0,
+      "colorMult100": 0,
+      "totalHandMult100": 100,
+      "redGroupingMode": "all_red",
+      "redValue": 0,
+      "redCount": 2,
+      "redMult100": 150,
+      "controllerMultiplier": 1,
+      "triggeredControllerIds": [
+        "C24",
+        "C25"
+      ],
+      "triggeredMultiplierIds": [],
+      "enchantBaseCount": 2,
+      "enchantMultiplierCount": 0,
+      "scoreNumerator": "225000",
+      "scoreDenominator": "10000",
+      "score": 22
+    }
+  },
+  {
+    "id": "S031",
+    "label": "蓝色疯狂现在乘3",
+    "dice": [
+      {
+        "p": 2,
+        "c": "blue"
+      },
+      {
+        "p": 2,
+        "c": "blue"
+      }
+    ],
+    "rollsRemaining": 0,
+    "controllerIds": [
+      "C02"
+    ],
+    "levels": {},
+    "capacity": 5,
+    "redWave": false,
+    "enchants": {},
+    "submissionOrdinal": 0,
+    "expected": {
+      "effectivePips": [
+        2,
+        2
+      ],
+      "effectiveColors": [
+        "blue",
+        "blue"
+      ],
+      "pipContributions": [
+        2,
+        2
+      ],
+      "pipSum": 4,
+      "unusedRollBonus": 0,
+      "pairBaseAdd": 0,
+      "enchantBaseAdd": 0,
+      "baseTotal": 4,
+      "matchedGroupIds": [
+        "pair"
+      ],
+      "chosenGroupId": "pair",
+      "groupMult100": 200,
+      "straightMult100": 0,
+      "colorMult100": 0,
+      "totalHandMult100": 200,
+      "redGroupingMode": "same_value",
+      "redValue": 0,
+      "redCount": 0,
+      "redMult100": 100,
+      "controllerMultiplier": 3,
+      "triggeredControllerIds": [
+        "C02"
+      ],
+      "triggeredMultiplierIds": [
+        "C02"
+      ],
+      "enchantBaseCount": 0,
+      "enchantMultiplierCount": 0,
+      "scoreNumerator": "240000",
+      "scoreDenominator": "10000",
+      "score": 24
+    }
+  },
+  {
+    "id": "S032",
+    "label": "混红阻止蓝色疯狂",
+    "dice": [
+      {
+        "p": 2,
+        "c": "blue"
+      },
+      {
+        "p": 2,
+        "c": "red"
+      }
+    ],
+    "rollsRemaining": 0,
+    "controllerIds": [
+      "C02"
+    ],
+    "levels": {},
+    "capacity": 5,
+    "redWave": false,
+    "enchants": {},
+    "submissionOrdinal": 0,
+    "expected": {
+      "effectivePips": [
+        2,
+        2
+      ],
+      "effectiveColors": [
+        "blue",
+        "red"
+      ],
+      "pipContributions": [
+        2,
+        2
+      ],
+      "pipSum": 4,
+      "unusedRollBonus": 0,
+      "pairBaseAdd": 0,
+      "enchantBaseAdd": 0,
+      "baseTotal": 4,
+      "matchedGroupIds": [
+        "pair"
+      ],
+      "chosenGroupId": "pair",
+      "groupMult100": 200,
+      "straightMult100": 0,
+      "colorMult100": 0,
+      "totalHandMult100": 200,
+      "redGroupingMode": "same_value",
+      "redValue": 2,
+      "redCount": 1,
+      "redMult100": 100,
+      "controllerMultiplier": 1,
+      "triggeredControllerIds": [],
+      "triggeredMultiplierIds": [],
+      "enchantBaseCount": 0,
+      "enchantMultiplierCount": 0,
+      "scoreNumerator": "80000",
+      "scoreDenominator": "10000",
+      "score": 8
+    }
+  },
+  {
+    "id": "S033",
+    "label": "数字多多3种即可",
+    "dice": [
+      {
+        "p": 2,
+        "c": "blue"
+      },
+      {
+        "p": 4,
+        "c": "blue"
+      },
+      {
+        "p": 6,
+        "c": "blue"
+      }
+    ],
+    "rollsRemaining": 0,
+    "controllerIds": [
+      "C06"
+    ],
+    "levels": {},
+    "capacity": 5,
+    "redWave": false,
+    "enchants": {},
+    "submissionOrdinal": 0,
+    "expected": {
+      "effectivePips": [
+        2,
+        4,
+        6
+      ],
+      "effectiveColors": [
+        "blue",
+        "blue",
+        "blue"
+      ],
+      "pipContributions": [
+        2,
+        4,
+        6
+      ],
+      "pipSum": 12,
+      "unusedRollBonus": 0,
+      "pairBaseAdd": 0,
+      "enchantBaseAdd": 0,
+      "baseTotal": 12,
+      "matchedGroupIds": [],
+      "chosenGroupId": null,
+      "groupMult100": 0,
+      "straightMult100": 0,
+      "colorMult100": 0,
+      "totalHandMult100": 100,
+      "redGroupingMode": "same_value",
+      "redValue": 0,
+      "redCount": 0,
+      "redMult100": 100,
+      "controllerMultiplier": 3,
+      "triggeredControllerIds": [
+        "C06"
+      ],
+      "triggeredMultiplierIds": [
+        "C06"
+      ],
+      "enchantBaseCount": 0,
+      "enchantMultiplierCount": 0,
+      "scoreNumerator": "360000",
+      "scoreDenominator": "10000",
+      "score": 36
+    }
+  },
+  {
+    "id": "S034",
+    "label": "数字多多2种不触发",
+    "dice": [
+      {
+        "p": 2,
+        "c": "blue"
+      },
+      {
+        "p": 2,
+        "c": "blue"
+      },
+      {
+        "p": 4,
+        "c": "blue"
+      },
+      {
+        "p": 4,
+        "c": "blue"
+      }
+    ],
+    "rollsRemaining": 0,
+    "controllerIds": [
+      "C06"
+    ],
+    "levels": {},
+    "capacity": 5,
+    "redWave": false,
+    "enchants": {},
+    "submissionOrdinal": 0,
+    "expected": {
+      "effectivePips": [
+        2,
+        2,
+        4,
+        4
+      ],
+      "effectiveColors": [
+        "blue",
+        "blue",
+        "blue",
+        "blue"
+      ],
+      "pipContributions": [
+        2,
+        2,
+        4,
+        4
+      ],
+      "pipSum": 12,
+      "unusedRollBonus": 0,
+      "pairBaseAdd": 0,
+      "enchantBaseAdd": 0,
+      "baseTotal": 12,
+      "matchedGroupIds": [
+        "pair",
+        "two_pair"
+      ],
+      "chosenGroupId": "two_pair",
+      "groupMult100": 300,
+      "straightMult100": 0,
+      "colorMult100": 0,
+      "totalHandMult100": 300,
+      "redGroupingMode": "same_value",
+      "redValue": 0,
+      "redCount": 0,
+      "redMult100": 100,
+      "controllerMultiplier": 1,
+      "triggeredControllerIds": [],
+      "triggeredMultiplierIds": [],
+      "enchantBaseCount": 0,
+      "enchantMultiplierCount": 0,
+      "scoreNumerator": "360000",
+      "scoreDenominator": "10000",
+      "score": 36
+    }
+  },
+  {
+    "id": "S035",
+    "label": "不要奇数兼容数字多多",
+    "dice": [
+      {
+        "p": 1,
+        "c": "blue"
+      },
+      {
+        "p": 3,
+        "c": "blue"
+      },
+      {
+        "p": 5,
+        "c": "blue"
+      }
+    ],
+    "rollsRemaining": 0,
+    "controllerIds": [
+      "C12",
+      "C06"
+    ],
+    "levels": {},
+    "capacity": 5,
+    "redWave": false,
+    "enchants": {},
+    "submissionOrdinal": 0,
+    "expected": {
+      "effectivePips": [
+        2,
+        4,
+        6
+      ],
+      "effectiveColors": [
+        "blue",
+        "blue",
+        "blue"
+      ],
+      "pipContributions": [
+        2,
+        4,
+        6
+      ],
+      "pipSum": 12,
+      "unusedRollBonus": 0,
+      "pairBaseAdd": 0,
+      "enchantBaseAdd": 0,
+      "baseTotal": 12,
+      "matchedGroupIds": [],
+      "chosenGroupId": null,
+      "groupMult100": 0,
+      "straightMult100": 0,
+      "colorMult100": 0,
+      "totalHandMult100": 100,
+      "redGroupingMode": "same_value",
+      "redValue": 0,
+      "redCount": 0,
+      "redMult100": 100,
+      "controllerMultiplier": 3,
+      "triggeredControllerIds": [
+        "C06",
+        "C12"
+      ],
+      "triggeredMultiplierIds": [
+        "C06"
+      ],
+      "enchantBaseCount": 0,
+      "enchantMultiplierCount": 0,
+      "scoreNumerator": "360000",
+      "scoreDenominator": "10000",
+      "score": 36
+    }
+  },
+  {
+    "id": "S036",
+    "label": "有效246触发等差",
+    "dice": [
+      {
+        "p": 1,
+        "c": "blue"
+      },
+      {
+        "p": 3,
+        "c": "blue"
+      },
+      {
+        "p": 5,
+        "c": "blue"
+      }
+    ],
+    "rollsRemaining": 0,
+    "controllerIds": [
+      "C12",
+      "C06",
+      "C40"
+    ],
+    "levels": {},
+    "capacity": 5,
+    "redWave": false,
+    "enchants": {},
+    "submissionOrdinal": 0,
+    "expected": {
+      "effectivePips": [
+        2,
+        4,
+        6
+      ],
+      "effectiveColors": [
+        "blue",
+        "blue",
+        "blue"
+      ],
+      "pipContributions": [
+        2,
+        4,
+        6
+      ],
+      "pipSum": 12,
+      "unusedRollBonus": 0,
+      "pairBaseAdd": 0,
+      "enchantBaseAdd": 0,
+      "baseTotal": 12,
+      "matchedGroupIds": [],
+      "chosenGroupId": null,
+      "groupMult100": 0,
+      "straightMult100": 0,
+      "colorMult100": 0,
+      "totalHandMult100": 100,
+      "redGroupingMode": "same_value",
+      "redValue": 0,
+      "redCount": 0,
+      "redMult100": 100,
+      "controllerMultiplier": 6,
+      "triggeredControllerIds": [
+        "C06",
+        "C12",
+        "C40"
+      ],
+      "triggeredMultiplierIds": [
+        "C06",
+        "C40"
+      ],
+      "enchantBaseCount": 0,
+      "enchantMultiplierCount": 0,
+      "scoreNumerator": "720000",
+      "scoreDenominator": "10000",
+      "score": 72
+    }
+  },
+  {
+    "id": "S037",
+    "label": "蓝色有效246组合",
+    "dice": [
+      {
+        "p": 1,
+        "c": "blue"
+      },
+      {
+        "p": 3,
+        "c": "blue"
+      },
+      {
+        "p": 5,
+        "c": "blue"
+      }
+    ],
+    "rollsRemaining": 0,
+    "controllerIds": [
+      "C12",
+      "C06",
+      "C40",
+      "C02"
+    ],
+    "levels": {},
+    "capacity": 5,
+    "redWave": false,
+    "enchants": {},
+    "submissionOrdinal": 0,
+    "expected": {
+      "effectivePips": [
+        2,
+        4,
+        6
+      ],
+      "effectiveColors": [
+        "blue",
+        "blue",
+        "blue"
+      ],
+      "pipContributions": [
+        2,
+        4,
+        6
+      ],
+      "pipSum": 12,
+      "unusedRollBonus": 0,
+      "pairBaseAdd": 0,
+      "enchantBaseAdd": 0,
+      "baseTotal": 12,
+      "matchedGroupIds": [],
+      "chosenGroupId": null,
+      "groupMult100": 0,
+      "straightMult100": 0,
+      "colorMult100": 0,
+      "totalHandMult100": 100,
+      "redGroupingMode": "same_value",
+      "redValue": 0,
+      "redCount": 0,
+      "redMult100": 100,
+      "controllerMultiplier": 18,
+      "triggeredControllerIds": [
+        "C02",
+        "C06",
+        "C12",
+        "C40"
+      ],
+      "triggeredMultiplierIds": [
+        "C02",
+        "C06",
+        "C40"
+      ],
+      "enchantBaseCount": 0,
+      "enchantMultiplierCount": 0,
+      "scoreNumerator": "2160000",
+      "scoreDenominator": "10000",
+      "score": 216
+    }
+  },
+  {
+    "id": "S038",
+    "label": "多提多得不直接改变分数",
+    "dice": [
+      {
+        "p": 2,
+        "c": "blue"
+      },
+      {
+        "p": 2,
+        "c": "blue"
+      }
+    ],
+    "rollsRemaining": 0,
+    "controllerIds": [
+      "C04"
+    ],
+    "levels": {},
+    "capacity": 5,
+    "redWave": false,
+    "enchants": {},
+    "submissionOrdinal": 0,
+    "expected": {
+      "effectivePips": [
+        2,
+        2
+      ],
+      "effectiveColors": [
+        "blue",
+        "blue"
+      ],
+      "pipContributions": [
+        2,
+        2
+      ],
+      "pipSum": 4,
+      "unusedRollBonus": 0,
+      "pairBaseAdd": 0,
+      "enchantBaseAdd": 0,
+      "baseTotal": 4,
+      "matchedGroupIds": [
+        "pair"
+      ],
+      "chosenGroupId": "pair",
+      "groupMult100": 200,
+      "straightMult100": 0,
+      "colorMult100": 0,
+      "totalHandMult100": 200,
+      "redGroupingMode": "same_value",
+      "redValue": 0,
+      "redCount": 0,
+      "redMult100": 100,
+      "controllerMultiplier": 1,
+      "triggeredControllerIds": [],
+      "triggeredMultiplierIds": [],
+      "enchantBaseCount": 0,
+      "enchantMultiplierCount": 0,
+      "scoreNumerator": "80000",
+      "scoreDenominator": "10000",
+      "score": 8
+    }
+  },
+  {
+    "id": "S039",
+    "label": "66大顺基础加6参与倍率",
+    "dice": [
+      {
+        "p": 3,
+        "c": "blue"
+      },
+      {
+        "p": 3,
+        "c": "blue"
+      },
+      {
+        "p": 3,
+        "c": "blue"
+      },
+      {
+        "p": 6,
+        "c": "blue"
+      }
+    ],
+    "rollsRemaining": 0,
+    "controllerIds": [
+      "C09",
+      "C20"
+    ],
+    "levels": {},
+    "capacity": 4,
+    "redWave": false,
+    "enchants": {},
+    "submissionOrdinal": 0,
+    "expected": {
+      "effectivePips": [
+        3,
+        3,
+        3,
+        6
+      ],
+      "effectiveColors": [
+        "blue",
+        "blue",
+        "blue",
+        "blue"
+      ],
+      "pipContributions": [
+        3,
+        3,
+        3,
+        12
+      ],
+      "pipSum": 21,
+      "unusedRollBonus": 0,
+      "pairBaseAdd": 0,
+      "enchantBaseAdd": 0,
+      "baseTotal": 21,
+      "matchedGroupIds": [
+        "pair",
+        "trips"
+      ],
+      "chosenGroupId": "trips",
+      "groupMult100": 400,
+      "straightMult100": 0,
+      "colorMult100": 0,
+      "totalHandMult100": 400,
+      "redGroupingMode": "same_value",
+      "redValue": 0,
+      "redCount": 0,
+      "redMult100": 100,
+      "controllerMultiplier": 3,
+      "triggeredControllerIds": [
+        "C09",
+        "C20"
+      ],
+      "triggeredMultiplierIds": [
+        "C09"
+      ],
+      "enchantBaseCount": 0,
+      "enchantMultiplierCount": 0,
+      "scoreNumerator": "2520000",
+      "scoreDenominator": "10000",
+      "score": 252
+    }
+  },
+  {
+    "id": "S040",
+    "label": "66大顺部分提交不算末栏",
+    "dice": [
+      {
+        "p": 6,
+        "c": "blue"
+      }
+    ],
+    "rollsRemaining": 0,
+    "controllerIds": [
+      "C20"
+    ],
+    "levels": {},
+    "capacity": 5,
+    "redWave": false,
+    "enchants": {},
+    "submissionOrdinal": 0,
+    "expected": {
+      "effectivePips": [
+        6
+      ],
+      "effectiveColors": [
+        "blue"
+      ],
+      "pipContributions": [
+        6
+      ],
+      "pipSum": 6,
+      "unusedRollBonus": 0,
+      "pairBaseAdd": 0,
+      "enchantBaseAdd": 0,
+      "baseTotal": 6,
+      "matchedGroupIds": [],
+      "chosenGroupId": null,
+      "groupMult100": 0,
+      "straightMult100": 0,
+      "colorMult100": 0,
+      "totalHandMult100": 100,
+      "redGroupingMode": "same_value",
+      "redValue": 0,
+      "redCount": 0,
+      "redMult100": 100,
+      "controllerMultiplier": 1,
+      "triggeredControllerIds": [],
+      "triggeredMultiplierIds": [],
+      "enchantBaseCount": 0,
+      "enchantMultiplierCount": 0,
+      "scoreNumerator": "60000",
+      "scoreDenominator": "10000",
+      "score": 6
+    }
+  },
+  {
+    "id": "S041",
+    "label": "66大顺叠加顺子全蓝",
+    "dice": [
+      {
+        "p": 2,
+        "c": "blue"
+      },
+      {
+        "p": 3,
+        "c": "blue"
+      },
+      {
+        "p": 4,
+        "c": "blue"
+      },
+      {
+        "p": 5,
+        "c": "blue"
+      },
+      {
+        "p": 6,
+        "c": "blue"
+      }
+    ],
+    "rollsRemaining": 0,
+    "controllerIds": [
+      "C20"
+    ],
+    "levels": {},
+    "capacity": 5,
+    "redWave": false,
+    "enchants": {},
+    "submissionOrdinal": 0,
+    "expected": {
+      "effectivePips": [
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "effectiveColors": [
+        "blue",
+        "blue",
+        "blue",
+        "blue",
+        "blue"
+      ],
+      "pipContributions": [
+        2,
+        3,
+        4,
+        5,
+        12
+      ],
+      "pipSum": 26,
+      "unusedRollBonus": 0,
+      "pairBaseAdd": 0,
+      "enchantBaseAdd": 0,
+      "baseTotal": 26,
+      "matchedGroupIds": [],
+      "chosenGroupId": null,
+      "groupMult100": 0,
+      "straightMult100": 600,
+      "colorMult100": 300,
+      "totalHandMult100": 900,
+      "redGroupingMode": "same_value",
+      "redValue": 0,
+      "redCount": 0,
+      "redMult100": 100,
+      "controllerMultiplier": 1,
+      "triggeredControllerIds": [
+        "C20"
+      ],
+      "triggeredMultiplierIds": [],
+      "enchantBaseCount": 0,
+      "enchantMultiplierCount": 0,
+      "scoreNumerator": "2340000",
+      "scoreDenominator": "10000",
+      "score": 234
+    }
+  },
+  {
+    "id": "S042",
+    "label": "末骰加6先于黄金玻璃",
+    "dice": [
+      {
+        "p": 2,
+        "c": "blue"
+      },
+      {
+        "p": 3,
+        "c": "blue"
+      },
+      {
+        "p": 4,
+        "c": "blue"
+      },
+      {
+        "p": 5,
+        "c": "blue"
+      },
+      {
+        "p": 6,
+        "c": "blue",
+        "gold": true,
+        "glass": true
+      }
+    ],
+    "rollsRemaining": 0,
+    "controllerIds": [
+      "C20"
+    ],
+    "levels": {},
+    "capacity": 5,
+    "redWave": false,
+    "enchants": {},
+    "submissionOrdinal": 0,
+    "expected": {
+      "effectivePips": [
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "effectiveColors": [
+        "blue",
+        "blue",
+        "blue",
+        "blue",
+        "blue"
+      ],
+      "pipContributions": [
+        2,
+        3,
+        4,
+        5,
+        48
+      ],
+      "pipSum": 62,
+      "unusedRollBonus": 0,
+      "pairBaseAdd": 0,
+      "enchantBaseAdd": 0,
+      "baseTotal": 62,
+      "matchedGroupIds": [],
+      "chosenGroupId": null,
+      "groupMult100": 0,
+      "straightMult100": 600,
+      "colorMult100": 300,
+      "totalHandMult100": 900,
+      "redGroupingMode": "same_value",
+      "redValue": 0,
+      "redCount": 0,
+      "redMult100": 100,
+      "controllerMultiplier": 1,
+      "triggeredControllerIds": [
+        "C20"
+      ],
+      "triggeredMultiplierIds": [],
+      "enchantBaseCount": 0,
+      "enchantMultiplierCount": 0,
+      "scoreNumerator": "5580000",
+      "scoreDenominator": "10000",
+      "score": 558
+    }
+  },
+  {
+    "id": "S043",
+    "label": "66大顺基础附魔只加整手5",
+    "dice": [
+      {
+        "p": 2,
+        "c": "blue"
+      },
+      {
+        "p": 3,
+        "c": "blue"
+      },
+      {
+        "p": 4,
+        "c": "blue"
+      },
+      {
+        "p": 5,
+        "c": "blue"
+      },
+      {
+        "p": 6,
+        "c": "blue"
+      }
+    ],
+    "rollsRemaining": 0,
+    "controllerIds": [
+      "C20"
+    ],
+    "levels": {},
+    "capacity": 5,
+    "redWave": false,
+    "enchants": {
+      "C20": "base5"
+    },
+    "submissionOrdinal": 0,
+    "expected": {
+      "effectivePips": [
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "effectiveColors": [
+        "blue",
+        "blue",
+        "blue",
+        "blue",
+        "blue"
+      ],
+      "pipContributions": [
+        2,
+        3,
+        4,
+        5,
+        12
+      ],
+      "pipSum": 26,
+      "unusedRollBonus": 0,
+      "pairBaseAdd": 0,
+      "enchantBaseAdd": 5,
+      "baseTotal": 31,
+      "matchedGroupIds": [],
+      "chosenGroupId": null,
+      "groupMult100": 0,
+      "straightMult100": 600,
+      "colorMult100": 300,
+      "totalHandMult100": 900,
+      "redGroupingMode": "same_value",
+      "redValue": 0,
+      "redCount": 0,
+      "redMult100": 100,
+      "controllerMultiplier": 1,
+      "triggeredControllerIds": [
+        "C20"
+      ],
+      "triggeredMultiplierIds": [],
+      "enchantBaseCount": 1,
+      "enchantMultiplierCount": 0,
+      "scoreNumerator": "2790000",
+      "scoreDenominator": "10000",
+      "score": 279
+    }
+  },
+  {
+    "id": "S044",
+    "label": "66大顺倍率附魔",
+    "dice": [
+      {
+        "p": 2,
+        "c": "blue"
+      },
+      {
+        "p": 3,
+        "c": "blue"
+      },
+      {
+        "p": 4,
+        "c": "blue"
+      },
+      {
+        "p": 5,
+        "c": "blue"
+      },
+      {
+        "p": 6,
+        "c": "blue"
+      }
+    ],
+    "rollsRemaining": 0,
+    "controllerIds": [
+      "C20"
+    ],
+    "levels": {},
+    "capacity": 5,
+    "redWave": false,
+    "enchants": {
+      "C20": "mult120"
+    },
+    "submissionOrdinal": 0,
+    "expected": {
+      "effectivePips": [
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "effectiveColors": [
+        "blue",
+        "blue",
+        "blue",
+        "blue",
+        "blue"
+      ],
+      "pipContributions": [
+        2,
+        3,
+        4,
+        5,
+        12
+      ],
+      "pipSum": 26,
+      "unusedRollBonus": 0,
+      "pairBaseAdd": 0,
+      "enchantBaseAdd": 0,
+      "baseTotal": 26,
+      "matchedGroupIds": [],
+      "chosenGroupId": null,
+      "groupMult100": 0,
+      "straightMult100": 600,
+      "colorMult100": 300,
+      "totalHandMult100": 900,
+      "redGroupingMode": "same_value",
+      "redValue": 0,
+      "redCount": 0,
+      "redMult100": 100,
+      "controllerMultiplier": 1,
+      "triggeredControllerIds": [
+        "C20"
+      ],
+      "triggeredMultiplierIds": [],
+      "enchantBaseCount": 0,
+      "enchantMultiplierCount": 1,
+      "scoreNumerator": "14040000",
+      "scoreDenominator": "50000",
+      "score": 280
+    }
+  },
+  {
+    "id": "S045",
+    "label": "对穿肠整手基础加5",
+    "dice": [
+      {
+        "p": 2,
+        "c": "blue"
+      },
+      {
+        "p": 2,
+        "c": "blue"
+      }
+    ],
+    "rollsRemaining": 0,
+    "controllerIds": [
+      "C27"
+    ],
+    "levels": {},
+    "capacity": 5,
+    "redWave": false,
+    "enchants": {},
+    "submissionOrdinal": 0,
+    "expected": {
+      "effectivePips": [
+        2,
+        2
+      ],
+      "effectiveColors": [
+        "blue",
+        "blue"
+      ],
+      "pipContributions": [
+        2,
+        2
+      ],
+      "pipSum": 4,
+      "unusedRollBonus": 0,
+      "pairBaseAdd": 5,
+      "enchantBaseAdd": 0,
+      "baseTotal": 9,
+      "matchedGroupIds": [
+        "pair"
+      ],
+      "chosenGroupId": "pair",
+      "groupMult100": 200,
+      "straightMult100": 0,
+      "colorMult100": 0,
+      "totalHandMult100": 200,
+      "redGroupingMode": "same_value",
+      "redValue": 0,
+      "redCount": 0,
+      "redMult100": 100,
+      "controllerMultiplier": 1,
+      "triggeredControllerIds": [
+        "C27"
+      ],
+      "triggeredMultiplierIds": [],
+      "enchantBaseCount": 0,
+      "enchantMultiplierCount": 0,
+      "scoreNumerator": "180000",
+      "scoreDenominator": "10000",
+      "score": 18
+    }
+  },
+  {
+    "id": "S046",
+    "label": "两对也只加一次5",
+    "dice": [
+      {
+        "p": 2,
+        "c": "blue"
+      },
+      {
+        "p": 2,
+        "c": "blue"
+      },
+      {
+        "p": 3,
+        "c": "blue"
+      },
+      {
+        "p": 3,
+        "c": "blue"
+      }
+    ],
+    "rollsRemaining": 0,
+    "controllerIds": [
+      "C27"
+    ],
+    "levels": {},
+    "capacity": 5,
+    "redWave": false,
+    "enchants": {},
+    "submissionOrdinal": 0,
+    "expected": {
+      "effectivePips": [
+        2,
+        2,
+        3,
+        3
+      ],
+      "effectiveColors": [
+        "blue",
+        "blue",
+        "blue",
+        "blue"
+      ],
+      "pipContributions": [
+        2,
+        2,
+        3,
+        3
+      ],
+      "pipSum": 10,
+      "unusedRollBonus": 0,
+      "pairBaseAdd": 5,
+      "enchantBaseAdd": 0,
+      "baseTotal": 15,
+      "matchedGroupIds": [
+        "pair",
+        "two_pair"
+      ],
+      "chosenGroupId": "two_pair",
+      "groupMult100": 300,
+      "straightMult100": 0,
+      "colorMult100": 0,
+      "totalHandMult100": 300,
+      "redGroupingMode": "same_value",
+      "redValue": 0,
+      "redCount": 0,
+      "redMult100": 100,
+      "controllerMultiplier": 1,
+      "triggeredControllerIds": [
+        "C27"
+      ],
+      "triggeredMultiplierIds": [],
+      "enchantBaseCount": 0,
+      "enchantMultiplierCount": 0,
+      "scoreNumerator": "450000",
+      "scoreDenominator": "10000",
+      "score": 45
+    }
+  },
+  {
+    "id": "S047",
+    "label": "对穿肠加5不乘逐骰黄金",
+    "dice": [
+      {
+        "p": 2,
+        "c": "blue",
+        "gold": true
+      },
+      {
+        "p": 2,
+        "c": "blue"
+      }
+    ],
+    "rollsRemaining": 0,
+    "controllerIds": [
+      "C27"
+    ],
+    "levels": {},
+    "capacity": 5,
+    "redWave": false,
+    "enchants": {},
+    "submissionOrdinal": 0,
+    "expected": {
+      "effectivePips": [
+        2,
+        2
+      ],
+      "effectiveColors": [
+        "blue",
+        "blue"
+      ],
+      "pipContributions": [
+        4,
+        2
+      ],
+      "pipSum": 6,
+      "unusedRollBonus": 0,
+      "pairBaseAdd": 5,
+      "enchantBaseAdd": 0,
+      "baseTotal": 11,
+      "matchedGroupIds": [
+        "pair"
+      ],
+      "chosenGroupId": "pair",
+      "groupMult100": 200,
+      "straightMult100": 0,
+      "colorMult100": 0,
+      "totalHandMult100": 200,
+      "redGroupingMode": "same_value",
+      "redValue": 0,
+      "redCount": 0,
+      "redMult100": 100,
+      "controllerMultiplier": 1,
+      "triggeredControllerIds": [
+        "C27"
+      ],
+      "triggeredMultiplierIds": [],
+      "enchantBaseCount": 0,
+      "enchantMultiplierCount": 0,
+      "scoreNumerator": "220000",
+      "scoreDenominator": "10000",
+      "score": 22
+    }
+  },
+  {
+    "id": "S048",
+    "label": "对穿肠及其附魔各加5",
+    "dice": [
+      {
+        "p": 2,
+        "c": "blue"
+      },
+      {
+        "p": 2,
+        "c": "blue"
+      }
+    ],
+    "rollsRemaining": 0,
+    "controllerIds": [
+      "C27"
+    ],
+    "levels": {},
+    "capacity": 5,
+    "redWave": false,
+    "enchants": {
+      "C27": "base5"
+    },
+    "submissionOrdinal": 0,
+    "expected": {
+      "effectivePips": [
+        2,
+        2
+      ],
+      "effectiveColors": [
+        "blue",
+        "blue"
+      ],
+      "pipContributions": [
+        2,
+        2
+      ],
+      "pipSum": 4,
+      "unusedRollBonus": 0,
+      "pairBaseAdd": 5,
+      "enchantBaseAdd": 5,
+      "baseTotal": 14,
+      "matchedGroupIds": [
+        "pair"
+      ],
+      "chosenGroupId": "pair",
+      "groupMult100": 200,
+      "straightMult100": 0,
+      "colorMult100": 0,
+      "totalHandMult100": 200,
+      "redGroupingMode": "same_value",
+      "redValue": 0,
+      "redCount": 0,
+      "redMult100": 100,
+      "controllerMultiplier": 1,
+      "triggeredControllerIds": [
+        "C27"
+      ],
+      "triggeredMultiplierIds": [],
+      "enchantBaseCount": 1,
+      "enchantMultiplierCount": 0,
+      "scoreNumerator": "280000",
+      "scoreDenominator": "10000",
+      "score": 28
+    }
+  },
+  {
+    "id": "S049",
+    "label": "对对穿肠两对",
+    "dice": [
+      {
+        "p": 2,
+        "c": "blue"
+      },
+      {
+        "p": 2,
+        "c": "blue"
+      },
+      {
+        "p": 3,
+        "c": "blue"
+      },
+      {
+        "p": 3,
+        "c": "blue"
+      }
+    ],
+    "rollsRemaining": 0,
+    "controllerIds": [
+      "C28"
+    ],
+    "levels": {},
+    "capacity": 5,
+    "redWave": false,
+    "enchants": {},
+    "submissionOrdinal": 0,
+    "expected": {
+      "effectivePips": [
+        2,
+        2,
+        3,
+        3
+      ],
+      "effectiveColors": [
+        "blue",
+        "blue",
+        "blue",
+        "blue"
+      ],
+      "pipContributions": [
+        2,
+        2,
+        3,
+        3
+      ],
+      "pipSum": 10,
+      "unusedRollBonus": 0,
+      "pairBaseAdd": 0,
+      "enchantBaseAdd": 0,
+      "baseTotal": 10,
+      "matchedGroupIds": [
+        "pair",
+        "two_pair"
+      ],
+      "chosenGroupId": "two_pair",
+      "groupMult100": 300,
+      "straightMult100": 0,
+      "colorMult100": 0,
+      "totalHandMult100": 300,
+      "redGroupingMode": "same_value",
+      "redValue": 0,
+      "redCount": 0,
+      "redMult100": 100,
+      "controllerMultiplier": 2,
+      "triggeredControllerIds": [
+        "C28"
+      ],
+      "triggeredMultiplierIds": [
+        "C28"
+      ],
+      "enchantBaseCount": 0,
+      "enchantMultiplierCount": 0,
+      "scoreNumerator": "600000",
+      "scoreDenominator": "10000",
+      "score": 60
+    }
+  },
+  {
+    "id": "S050",
+    "label": "对对穿肠不把四条拆对",
+    "dice": [
+      {
+        "p": 2,
+        "c": "blue"
+      },
+      {
+        "p": 2,
+        "c": "blue"
+      },
+      {
+        "p": 2,
+        "c": "blue"
+      },
+      {
+        "p": 2,
+        "c": "blue"
+      }
+    ],
+    "rollsRemaining": 0,
+    "controllerIds": [
+      "C28"
+    ],
+    "levels": {},
+    "capacity": 5,
+    "redWave": false,
+    "enchants": {},
+    "submissionOrdinal": 0,
+    "expected": {
+      "effectivePips": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "effectiveColors": [
+        "blue",
+        "blue",
+        "blue",
+        "blue"
+      ],
+      "pipContributions": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "pipSum": 8,
+      "unusedRollBonus": 0,
+      "pairBaseAdd": 0,
+      "enchantBaseAdd": 0,
+      "baseTotal": 8,
+      "matchedGroupIds": [
+        "pair",
+        "trips",
+        "quads"
+      ],
+      "chosenGroupId": "quads",
+      "groupMult100": 800,
+      "straightMult100": 0,
+      "colorMult100": 0,
+      "totalHandMult100": 800,
+      "redGroupingMode": "same_value",
+      "redValue": 0,
+      "redCount": 0,
+      "redMult100": 100,
+      "controllerMultiplier": 1,
+      "triggeredControllerIds": [],
+      "triggeredMultiplierIds": [],
+      "enchantBaseCount": 0,
+      "enchantMultiplierCount": 0,
+      "scoreNumerator": "640000",
+      "scoreDenominator": "10000",
+      "score": 64
+    }
+  },
+  {
+    "id": "S051",
+    "label": "葫芦存在两个不同对子结构",
+    "dice": [
+      {
+        "p": 2,
+        "c": "blue"
+      },
+      {
+        "p": 2,
+        "c": "blue"
+      },
+      {
+        "p": 2,
+        "c": "blue"
+      },
+      {
+        "p": 3,
+        "c": "blue"
+      },
+      {
+        "p": 3,
+        "c": "blue"
+      }
+    ],
+    "rollsRemaining": 0,
+    "controllerIds": [
+      "C28"
+    ],
+    "levels": {},
+    "capacity": 5,
+    "redWave": false,
+    "enchants": {},
+    "submissionOrdinal": 0,
+    "expected": {
+      "effectivePips": [
+        2,
+        2,
+        2,
+        3,
+        3
+      ],
+      "effectiveColors": [
+        "blue",
+        "blue",
+        "blue",
+        "blue",
+        "blue"
+      ],
+      "pipContributions": [
+        2,
+        2,
+        2,
+        3,
+        3
+      ],
+      "pipSum": 12,
+      "unusedRollBonus": 0,
+      "pairBaseAdd": 0,
+      "enchantBaseAdd": 0,
+      "baseTotal": 12,
+      "matchedGroupIds": [
+        "pair",
+        "two_pair",
+        "trips",
+        "full_house"
+      ],
+      "chosenGroupId": "full_house",
+      "groupMult100": 600,
+      "straightMult100": 0,
+      "colorMult100": 300,
+      "totalHandMult100": 900,
+      "redGroupingMode": "same_value",
+      "redValue": 0,
+      "redCount": 0,
+      "redMult100": 100,
+      "controllerMultiplier": 2,
+      "triggeredControllerIds": [
+        "C28"
+      ],
+      "triggeredMultiplierIds": [
+        "C28"
+      ],
+      "enchantBaseCount": 0,
+      "enchantMultiplierCount": 0,
+      "scoreNumerator": "2160000",
+      "scoreDenominator": "10000",
+      "score": 216
+    }
+  },
+  {
+    "id": "S052",
+    "label": "简单顺子四骰",
+    "dice": [
+      {
+        "p": 1,
+        "c": "blue"
+      },
+      {
+        "p": 2,
+        "c": "blue"
+      },
+      {
+        "p": 3,
+        "c": "blue"
+      },
+      {
+        "p": 4,
+        "c": "blue"
+      }
+    ],
+    "rollsRemaining": 0,
+    "controllerIds": [
+      "C29"
+    ],
+    "levels": {},
+    "capacity": 5,
+    "redWave": false,
+    "enchants": {},
+    "submissionOrdinal": 0,
+    "expected": {
+      "effectivePips": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "effectiveColors": [
+        "blue",
+        "blue",
+        "blue",
+        "blue"
+      ],
+      "pipContributions": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "pipSum": 10,
+      "unusedRollBonus": 0,
+      "pairBaseAdd": 0,
+      "enchantBaseAdd": 0,
+      "baseTotal": 10,
+      "matchedGroupIds": [],
+      "chosenGroupId": null,
+      "groupMult100": 0,
+      "straightMult100": 600,
+      "colorMult100": 0,
+      "totalHandMult100": 600,
+      "redGroupingMode": "same_value",
+      "redValue": 0,
+      "redCount": 0,
+      "redMult100": 100,
+      "controllerMultiplier": 1,
+      "triggeredControllerIds": [
+        "C29"
+      ],
+      "triggeredMultiplierIds": [],
+      "enchantBaseCount": 0,
+      "enchantMultiplierCount": 0,
+      "scoreNumerator": "600000",
+      "scoreDenominator": "10000",
+      "score": 60
+    }
+  },
+  {
+    "id": "S053",
+    "label": "简单顺子倍率附魔",
+    "dice": [
+      {
+        "p": 1,
+        "c": "blue"
+      },
+      {
+        "p": 2,
+        "c": "blue"
+      },
+      {
+        "p": 3,
+        "c": "blue"
+      },
+      {
+        "p": 4,
+        "c": "blue"
+      }
+    ],
+    "rollsRemaining": 0,
+    "controllerIds": [
+      "C29"
+    ],
+    "levels": {},
+    "capacity": 5,
+    "redWave": false,
+    "enchants": {
+      "C29": "mult120"
+    },
+    "submissionOrdinal": 0,
+    "expected": {
+      "effectivePips": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "effectiveColors": [
+        "blue",
+        "blue",
+        "blue",
+        "blue"
+      ],
+      "pipContributions": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "pipSum": 10,
+      "unusedRollBonus": 0,
+      "pairBaseAdd": 0,
+      "enchantBaseAdd": 0,
+      "baseTotal": 10,
+      "matchedGroupIds": [],
+      "chosenGroupId": null,
+      "groupMult100": 0,
+      "straightMult100": 600,
+      "colorMult100": 0,
+      "totalHandMult100": 600,
+      "redGroupingMode": "same_value",
+      "redValue": 0,
+      "redCount": 0,
+      "redMult100": 100,
+      "controllerMultiplier": 1,
+      "triggeredControllerIds": [
+        "C29"
+      ],
+      "triggeredMultiplierIds": [],
+      "enchantBaseCount": 0,
+      "enchantMultiplierCount": 1,
+      "scoreNumerator": "3600000",
+      "scoreDenominator": "50000",
+      "score": 72
+    }
+  },
+  {
+    "id": "S054",
+    "label": "简单顺子不足4不触发附魔",
+    "dice": [
+      {
+        "p": 1,
+        "c": "blue"
+      },
+      {
+        "p": 2,
+        "c": "blue"
+      },
+      {
+        "p": 3,
+        "c": "blue"
+      }
+    ],
+    "rollsRemaining": 0,
+    "controllerIds": [
+      "C29"
+    ],
+    "levels": {},
+    "capacity": 5,
+    "redWave": false,
+    "enchants": {
+      "C29": "base5"
+    },
+    "submissionOrdinal": 0,
+    "expected": {
+      "effectivePips": [
+        1,
+        2,
+        3
+      ],
+      "effectiveColors": [
+        "blue",
+        "blue",
+        "blue"
+      ],
+      "pipContributions": [
+        1,
+        2,
+        3
+      ],
+      "pipSum": 6,
+      "unusedRollBonus": 0,
+      "pairBaseAdd": 0,
+      "enchantBaseAdd": 0,
+      "baseTotal": 6,
+      "matchedGroupIds": [],
+      "chosenGroupId": null,
+      "groupMult100": 0,
+      "straightMult100": 0,
+      "colorMult100": 0,
+      "totalHandMult100": 100,
+      "redGroupingMode": "same_value",
+      "redValue": 0,
+      "redCount": 0,
+      "redMult100": 100,
+      "controllerMultiplier": 1,
+      "triggeredControllerIds": [],
+      "triggeredMultiplierIds": [],
+      "enchantBaseCount": 0,
+      "enchantMultiplierCount": 0,
+      "scoreNumerator": "60000",
+      "scoreDenominator": "10000",
+      "score": 6
+    }
+  },
+  {
+    "id": "S055",
+    "label": "五顺也触发简单顺子附魔",
+    "dice": [
+      {
+        "p": 1,
+        "c": "blue"
+      },
+      {
+        "p": 2,
+        "c": "blue"
+      },
+      {
+        "p": 3,
+        "c": "blue"
+      },
+      {
+        "p": 4,
+        "c": "blue"
+      },
+      {
+        "p": 5,
+        "c": "blue"
+      }
+    ],
+    "rollsRemaining": 0,
+    "controllerIds": [
+      "C29"
+    ],
+    "levels": {},
+    "capacity": 5,
+    "redWave": false,
+    "enchants": {
+      "C29": "base5"
+    },
+    "submissionOrdinal": 0,
+    "expected": {
+      "effectivePips": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "effectiveColors": [
+        "blue",
+        "blue",
+        "blue",
+        "blue",
+        "blue"
+      ],
+      "pipContributions": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "pipSum": 15,
+      "unusedRollBonus": 0,
+      "pairBaseAdd": 0,
+      "enchantBaseAdd": 5,
+      "baseTotal": 20,
+      "matchedGroupIds": [],
+      "chosenGroupId": null,
+      "groupMult100": 0,
+      "straightMult100": 600,
+      "colorMult100": 300,
+      "totalHandMult100": 900,
+      "redGroupingMode": "same_value",
+      "redValue": 0,
+      "redCount": 0,
+      "redMult100": 100,
+      "controllerMultiplier": 1,
+      "triggeredControllerIds": [
+        "C29"
+      ],
+      "triggeredMultiplierIds": [],
+      "enchantBaseCount": 1,
+      "enchantMultiplierCount": 0,
+      "scoreNumerator": "1800000",
+      "scoreDenominator": "10000",
+      "score": 180
+    }
+  },
+  {
+    "id": "S056",
+    "label": "三条开泰",
+    "dice": [
+      {
+        "p": 2,
+        "c": "blue"
+      },
+      {
+        "p": 2,
+        "c": "blue"
+      },
+      {
+        "p": 2,
+        "c": "blue"
+      }
+    ],
+    "rollsRemaining": 0,
+    "controllerIds": [
+      "C30"
+    ],
+    "levels": {},
+    "capacity": 5,
+    "redWave": false,
+    "enchants": {},
+    "submissionOrdinal": 0,
+    "expected": {
+      "effectivePips": [
+        2,
+        2,
+        2
+      ],
+      "effectiveColors": [
+        "blue",
+        "blue",
+        "blue"
+      ],
+      "pipContributions": [
+        2,
+        2,
+        2
+      ],
+      "pipSum": 6,
+      "unusedRollBonus": 0,
+      "pairBaseAdd": 0,
+      "enchantBaseAdd": 0,
+      "baseTotal": 6,
+      "matchedGroupIds": [
+        "pair",
+        "trips"
+      ],
+      "chosenGroupId": "trips",
+      "groupMult100": 400,
+      "straightMult100": 0,
+      "colorMult100": 0,
+      "totalHandMult100": 400,
+      "redGroupingMode": "same_value",
+      "redValue": 0,
+      "redCount": 0,
+      "redMult100": 100,
+      "controllerMultiplier": 3,
+      "triggeredControllerIds": [
+        "C30"
+      ],
+      "triggeredMultiplierIds": [
+        "C30"
+      ],
+      "enchantBaseCount": 0,
+      "enchantMultiplierCount": 0,
+      "scoreNumerator": "720000",
+      "scoreDenominator": "10000",
+      "score": 72
+    }
+  },
+  {
+    "id": "S057",
+    "label": "三条四条同时乘9",
+    "dice": [
+      {
+        "p": 2,
+        "c": "blue"
+      },
+      {
+        "p": 2,
+        "c": "blue"
+      },
+      {
+        "p": 2,
+        "c": "blue"
+      },
+      {
+        "p": 2,
+        "c": "blue"
+      }
+    ],
+    "rollsRemaining": 0,
+    "controllerIds": [
+      "C30",
+      "C31"
+    ],
+    "levels": {},
+    "capacity": 5,
+    "redWave": false,
+    "enchants": {},
+    "submissionOrdinal": 0,
+    "expected": {
+      "effectivePips": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "effectiveColors": [
+        "blue",
+        "blue",
+        "blue",
+        "blue"
+      ],
+      "pipContributions": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "pipSum": 8,
+      "unusedRollBonus": 0,
+      "pairBaseAdd": 0,
+      "enchantBaseAdd": 0,
+      "baseTotal": 8,
+      "matchedGroupIds": [
+        "pair",
+        "trips",
+        "quads"
+      ],
+      "chosenGroupId": "quads",
+      "groupMult100": 800,
+      "straightMult100": 0,
+      "colorMult100": 0,
+      "totalHandMult100": 800,
+      "redGroupingMode": "same_value",
+      "redValue": 0,
+      "redCount": 0,
+      "redMult100": 100,
+      "controllerMultiplier": 9,
+      "triggeredControllerIds": [
+        "C30",
+        "C31"
+      ],
+      "triggeredMultiplierIds": [
+        "C30",
+        "C31"
+      ],
+      "enchantBaseCount": 0,
+      "enchantMultiplierCount": 0,
+      "scoreNumerator": "5760000",
+      "scoreDenominator": "10000",
+      "score": 576
+    }
+  },
+  {
+    "id": "S058",
+    "label": "选中一对仍触发三条结构",
+    "dice": [
+      {
+        "p": 2,
+        "c": "blue"
+      },
+      {
+        "p": 2,
+        "c": "blue"
+      },
+      {
+        "p": 2,
+        "c": "blue"
+      }
+    ],
+    "rollsRemaining": 0,
+    "controllerIds": [
+      "C30"
+    ],
+    "levels": {
+      "pair": 8
+    },
+    "capacity": 5,
+    "redWave": false,
+    "enchants": {},
+    "submissionOrdinal": 0,
+    "expected": {
+      "effectivePips": [
+        2,
+        2,
+        2
+      ],
+      "effectiveColors": [
+        "blue",
+        "blue",
+        "blue"
+      ],
+      "pipContributions": [
+        2,
+        2,
+        2
+      ],
+      "pipSum": 6,
+      "unusedRollBonus": 0,
+      "pairBaseAdd": 0,
+      "enchantBaseAdd": 0,
+      "baseTotal": 6,
+      "matchedGroupIds": [
+        "pair",
+        "trips"
+      ],
+      "chosenGroupId": "pair",
+      "groupMult100": 800,
+      "straightMult100": 0,
+      "colorMult100": 0,
+      "totalHandMult100": 800,
+      "redGroupingMode": "same_value",
+      "redValue": 0,
+      "redCount": 0,
+      "redMult100": 100,
+      "controllerMultiplier": 3,
+      "triggeredControllerIds": [
+        "C30"
+      ],
+      "triggeredMultiplierIds": [
+        "C30"
+      ],
+      "enchantBaseCount": 0,
+      "enchantMultiplierCount": 0,
+      "scoreNumerator": "1440000",
+      "scoreDenominator": "10000",
+      "score": 144
+    }
+  },
+  {
+    "id": "S059",
+    "label": "天地大同允许单骰",
+    "dice": [
+      {
+        "p": 6,
+        "c": "blue"
+      }
+    ],
+    "rollsRemaining": 0,
+    "controllerIds": [
+      "C32"
+    ],
+    "levels": {},
+    "capacity": 5,
+    "redWave": false,
+    "enchants": {},
+    "submissionOrdinal": 0,
+    "expected": {
+      "effectivePips": [
+        6
+      ],
+      "effectiveColors": [
+        "blue"
+      ],
+      "pipContributions": [
+        6
+      ],
+      "pipSum": 6,
+      "unusedRollBonus": 0,
+      "pairBaseAdd": 0,
+      "enchantBaseAdd": 0,
+      "baseTotal": 6,
+      "matchedGroupIds": [],
+      "chosenGroupId": null,
+      "groupMult100": 0,
+      "straightMult100": 0,
+      "colorMult100": 0,
+      "totalHandMult100": 100,
+      "redGroupingMode": "same_value",
+      "redValue": 0,
+      "redCount": 0,
+      "redMult100": 100,
+      "controllerMultiplier": 2,
+      "triggeredControllerIds": [
+        "C32"
+      ],
+      "triggeredMultiplierIds": [
+        "C32"
+      ],
+      "enchantBaseCount": 0,
+      "enchantMultiplierCount": 0,
+      "scoreNumerator": "120000",
+      "scoreDenominator": "10000",
+      "score": 12
+    }
+  },
+  {
+    "id": "S060",
+    "label": "天地大同两同点",
+    "dice": [
+      {
+        "p": 2,
+        "c": "blue"
+      },
+      {
+        "p": 2,
+        "c": "blue"
+      }
+    ],
+    "rollsRemaining": 0,
+    "controllerIds": [
+      "C32"
+    ],
+    "levels": {},
+    "capacity": 5,
+    "redWave": false,
+    "enchants": {},
+    "submissionOrdinal": 0,
+    "expected": {
+      "effectivePips": [
+        2,
+        2
+      ],
+      "effectiveColors": [
+        "blue",
+        "blue"
+      ],
+      "pipContributions": [
+        2,
+        2
+      ],
+      "pipSum": 4,
+      "unusedRollBonus": 0,
+      "pairBaseAdd": 0,
+      "enchantBaseAdd": 0,
+      "baseTotal": 4,
+      "matchedGroupIds": [
+        "pair"
+      ],
+      "chosenGroupId": "pair",
+      "groupMult100": 200,
+      "straightMult100": 0,
+      "colorMult100": 0,
+      "totalHandMult100": 200,
+      "redGroupingMode": "same_value",
+      "redValue": 0,
+      "redCount": 0,
+      "redMult100": 100,
+      "controllerMultiplier": 2,
+      "triggeredControllerIds": [
+        "C32"
+      ],
+      "triggeredMultiplierIds": [
+        "C32"
+      ],
+      "enchantBaseCount": 0,
+      "enchantMultiplierCount": 0,
+      "scoreNumerator": "160000",
+      "scoreDenominator": "10000",
+      "score": 16
+    }
+  },
+  {
+    "id": "S061",
+    "label": "大数开路差2",
+    "dice": [
+      {
+        "p": 6,
+        "c": "blue"
+      },
+      {
+        "p": 4,
+        "c": "blue"
+      }
+    ],
+    "rollsRemaining": 0,
+    "controllerIds": [
+      "C33"
+    ],
+    "levels": {},
+    "capacity": 5,
+    "redWave": false,
+    "enchants": {},
+    "submissionOrdinal": 0,
+    "expected": {
+      "effectivePips": [
+        6,
+        4
+      ],
+      "effectiveColors": [
+        "blue",
+        "blue"
+      ],
+      "pipContributions": [
+        6,
+        4
+      ],
+      "pipSum": 10,
+      "unusedRollBonus": 0,
+      "pairBaseAdd": 0,
+      "enchantBaseAdd": 0,
+      "baseTotal": 10,
+      "matchedGroupIds": [],
+      "chosenGroupId": null,
+      "groupMult100": 0,
+      "straightMult100": 0,
+      "colorMult100": 0,
+      "totalHandMult100": 100,
+      "redGroupingMode": "same_value",
+      "redValue": 0,
+      "redCount": 0,
+      "redMult100": 100,
+      "controllerMultiplier": 2,
+      "triggeredControllerIds": [
+        "C33"
+      ],
+      "triggeredMultiplierIds": [
+        "C33"
+      ],
+      "enchantBaseCount": 0,
+      "enchantMultiplierCount": 0,
+      "scoreNumerator": "200000",
+      "scoreDenominator": "10000",
+      "score": 20
+    }
+  },
+  {
+    "id": "S062",
+    "label": "大数开路差1不触发",
+    "dice": [
+      {
+        "p": 6,
+        "c": "blue"
+      },
+      {
+        "p": 5,
+        "c": "blue"
+      }
+    ],
+    "rollsRemaining": 0,
+    "controllerIds": [
+      "C33"
+    ],
+    "levels": {},
+    "capacity": 5,
+    "redWave": false,
+    "enchants": {},
+    "submissionOrdinal": 0,
+    "expected": {
+      "effectivePips": [
+        6,
+        5
+      ],
+      "effectiveColors": [
+        "blue",
+        "blue"
+      ],
+      "pipContributions": [
+        6,
+        5
+      ],
+      "pipSum": 11,
+      "unusedRollBonus": 0,
+      "pairBaseAdd": 0,
+      "enchantBaseAdd": 0,
+      "baseTotal": 11,
+      "matchedGroupIds": [],
+      "chosenGroupId": null,
+      "groupMult100": 0,
+      "straightMult100": 0,
+      "colorMult100": 0,
+      "totalHandMult100": 100,
+      "redGroupingMode": "same_value",
+      "redValue": 0,
+      "redCount": 0,
+      "redMult100": 100,
+      "controllerMultiplier": 1,
+      "triggeredControllerIds": [],
+      "triggeredMultiplierIds": [],
+      "enchantBaseCount": 0,
+      "enchantMultiplierCount": 0,
+      "scoreNumerator": "110000",
+      "scoreDenominator": "10000",
+      "score": 11
+    }
+  },
+  {
+    "id": "S063",
+    "label": "蓝色价值逐骰增加",
+    "dice": [
+      {
+        "p": 2,
+        "c": "blue"
+      },
+      {
+        "p": 2,
+        "c": "blue"
+      }
+    ],
+    "rollsRemaining": 0,
+    "controllerIds": [
+      "C39"
+    ],
+    "levels": {},
+    "capacity": 5,
+    "redWave": false,
+    "enchants": {},
+    "submissionOrdinal": 0,
+    "expected": {
+      "effectivePips": [
+        2,
+        2
+      ],
+      "effectiveColors": [
+        "blue",
+        "blue"
+      ],
+      "pipContributions": [
+        4,
+        4
+      ],
+      "pipSum": 8,
+      "unusedRollBonus": 0,
+      "pairBaseAdd": 0,
+      "enchantBaseAdd": 0,
+      "baseTotal": 8,
+      "matchedGroupIds": [
+        "pair"
+      ],
+      "chosenGroupId": "pair",
+      "groupMult100": 200,
+      "straightMult100": 0,
+      "colorMult100": 0,
+      "totalHandMult100": 200,
+      "redGroupingMode": "same_value",
+      "redValue": 0,
+      "redCount": 0,
+      "redMult100": 100,
+      "controllerMultiplier": 1,
+      "triggeredControllerIds": [
+        "C39"
+      ],
+      "triggeredMultiplierIds": [],
+      "enchantBaseCount": 0,
+      "enchantMultiplierCount": 0,
+      "scoreNumerator": "160000",
+      "scoreDenominator": "10000",
+      "score": 16
+    }
+  },
+  {
+    "id": "S064",
+    "label": "蓝色价值只给蓝面",
+    "dice": [
+      {
+        "p": 2,
+        "c": "blue"
+      },
+      {
+        "p": 2,
+        "c": "red"
+      }
+    ],
+    "rollsRemaining": 0,
+    "controllerIds": [
+      "C39"
+    ],
+    "levels": {},
+    "capacity": 5,
+    "redWave": false,
+    "enchants": {},
+    "submissionOrdinal": 0,
+    "expected": {
+      "effectivePips": [
+        2,
+        2
+      ],
+      "effectiveColors": [
+        "blue",
+        "red"
+      ],
+      "pipContributions": [
+        4,
+        2
+      ],
+      "pipSum": 6,
+      "unusedRollBonus": 0,
+      "pairBaseAdd": 0,
+      "enchantBaseAdd": 0,
+      "baseTotal": 6,
+      "matchedGroupIds": [
+        "pair"
+      ],
+      "chosenGroupId": "pair",
+      "groupMult100": 200,
+      "straightMult100": 0,
+      "colorMult100": 0,
+      "totalHandMult100": 200,
+      "redGroupingMode": "same_value",
+      "redValue": 2,
+      "redCount": 1,
+      "redMult100": 100,
+      "controllerMultiplier": 1,
+      "triggeredControllerIds": [
+        "C39"
+      ],
+      "triggeredMultiplierIds": [],
+      "enchantBaseCount": 0,
+      "enchantMultiplierCount": 0,
+      "scoreNumerator": "120000",
+      "scoreDenominator": "10000",
+      "score": 12
+    }
+  },
+  {
+    "id": "S065",
+    "label": "首当其冲先于蓝色价值",
+    "dice": [
+      {
+        "p": 2,
+        "c": "blue"
+      },
+      {
+        "p": 2,
+        "c": "blue"
+      }
+    ],
+    "rollsRemaining": 0,
+    "controllerIds": [
+      "C03",
+      "C39"
+    ],
+    "levels": {},
+    "capacity": 5,
+    "redWave": false,
+    "enchants": {},
+    "submissionOrdinal": 0,
+    "expected": {
+      "effectivePips": [
+        2,
+        2
+      ],
+      "effectiveColors": [
+        "red",
+        "blue"
+      ],
+      "pipContributions": [
+        2,
+        4
+      ],
+      "pipSum": 6,
+      "unusedRollBonus": 0,
+      "pairBaseAdd": 0,
+      "enchantBaseAdd": 0,
+      "baseTotal": 6,
+      "matchedGroupIds": [
+        "pair"
+      ],
+      "chosenGroupId": "pair",
+      "groupMult100": 200,
+      "straightMult100": 0,
+      "colorMult100": 0,
+      "totalHandMult100": 200,
+      "redGroupingMode": "same_value",
+      "redValue": 2,
+      "redCount": 1,
+      "redMult100": 100,
+      "controllerMultiplier": 1,
+      "triggeredControllerIds": [
+        "C03",
+        "C39"
+      ],
+      "triggeredMultiplierIds": [],
+      "enchantBaseCount": 0,
+      "enchantMultiplierCount": 0,
+      "scoreNumerator": "120000",
+      "scoreDenominator": "10000",
+      "score": 12
+    }
+  },
+  {
+    "id": "S066",
+    "label": "蓝色价值附魔每卡一次",
+    "dice": [
+      {
+        "p": 2,
+        "c": "blue"
+      },
+      {
+        "p": 2,
+        "c": "blue"
+      }
+    ],
+    "rollsRemaining": 0,
+    "controllerIds": [
+      "C39"
+    ],
+    "levels": {},
+    "capacity": 5,
+    "redWave": false,
+    "enchants": {
+      "C39": "base5"
+    },
+    "submissionOrdinal": 0,
+    "expected": {
+      "effectivePips": [
+        2,
+        2
+      ],
+      "effectiveColors": [
+        "blue",
+        "blue"
+      ],
+      "pipContributions": [
+        4,
+        4
+      ],
+      "pipSum": 8,
+      "unusedRollBonus": 0,
+      "pairBaseAdd": 0,
+      "enchantBaseAdd": 5,
+      "baseTotal": 13,
+      "matchedGroupIds": [
+        "pair"
+      ],
+      "chosenGroupId": "pair",
+      "groupMult100": 200,
+      "straightMult100": 0,
+      "colorMult100": 0,
+      "totalHandMult100": 200,
+      "redGroupingMode": "same_value",
+      "redValue": 0,
+      "redCount": 0,
+      "redMult100": 100,
+      "controllerMultiplier": 1,
+      "triggeredControllerIds": [
+        "C39"
+      ],
+      "triggeredMultiplierIds": [],
+      "enchantBaseCount": 1,
+      "enchantMultiplierCount": 0,
+      "scoreNumerator": "260000",
+      "scoreDenominator": "10000",
+      "score": 26
+    }
+  },
+  {
+    "id": "S067",
+    "label": "等差135成立",
+    "dice": [
+      {
+        "p": 1,
+        "c": "blue"
+      },
+      {
+        "p": 3,
+        "c": "blue"
+      },
+      {
+        "p": 5,
+        "c": "blue"
+      }
+    ],
+    "rollsRemaining": 0,
+    "controllerIds": [
+      "C40"
+    ],
+    "levels": {},
+    "capacity": 5,
+    "redWave": false,
+    "enchants": {},
+    "submissionOrdinal": 0,
+    "expected": {
+      "effectivePips": [
+        1,
+        3,
+        5
+      ],
+      "effectiveColors": [
+        "blue",
+        "blue",
+        "blue"
+      ],
+      "pipContributions": [
+        1,
+        3,
+        5
+      ],
+      "pipSum": 9,
+      "unusedRollBonus": 0,
+      "pairBaseAdd": 0,
+      "enchantBaseAdd": 0,
+      "baseTotal": 9,
+      "matchedGroupIds": [],
+      "chosenGroupId": null,
+      "groupMult100": 0,
+      "straightMult100": 0,
+      "colorMult100": 0,
+      "totalHandMult100": 100,
+      "redGroupingMode": "same_value",
+      "redValue": 0,
+      "redCount": 0,
+      "redMult100": 100,
+      "controllerMultiplier": 2,
+      "triggeredControllerIds": [
+        "C40"
+      ],
+      "triggeredMultiplierIds": [
+        "C40"
+      ],
+      "enchantBaseCount": 0,
+      "enchantMultiplierCount": 0,
+      "scoreNumerator": "180000",
+      "scoreDenominator": "10000",
+      "score": 18
+    }
+  },
+  {
+    "id": "S068",
+    "label": "等差递减不成立",
+    "dice": [
+      {
+        "p": 6,
+        "c": "blue"
+      },
+      {
+        "p": 4,
+        "c": "blue"
+      },
+      {
+        "p": 2,
+        "c": "blue"
+      }
+    ],
+    "rollsRemaining": 0,
+    "controllerIds": [
+      "C40"
+    ],
+    "levels": {},
+    "capacity": 5,
+    "redWave": false,
+    "enchants": {},
+    "submissionOrdinal": 0,
+    "expected": {
+      "effectivePips": [
+        6,
+        4,
+        2
+      ],
+      "effectiveColors": [
+        "blue",
+        "blue",
+        "blue"
+      ],
+      "pipContributions": [
+        6,
+        4,
+        2
+      ],
+      "pipSum": 12,
+      "unusedRollBonus": 0,
+      "pairBaseAdd": 0,
+      "enchantBaseAdd": 0,
+      "baseTotal": 12,
+      "matchedGroupIds": [],
+      "chosenGroupId": null,
+      "groupMult100": 0,
+      "straightMult100": 0,
+      "colorMult100": 0,
+      "totalHandMult100": 100,
+      "redGroupingMode": "same_value",
+      "redValue": 0,
+      "redCount": 0,
+      "redMult100": 100,
+      "controllerMultiplier": 1,
+      "triggeredControllerIds": [],
+      "triggeredMultiplierIds": [],
+      "enchantBaseCount": 0,
+      "enchantMultiplierCount": 0,
+      "scoreNumerator": "120000",
+      "scoreDenominator": "10000",
+      "score": 12
+    }
+  },
+  {
+    "id": "S069",
+    "label": "零公差不成立",
+    "dice": [
+      {
+        "p": 1,
+        "c": "blue"
+      },
+      {
+        "p": 1,
+        "c": "blue"
+      },
+      {
+        "p": 1,
+        "c": "blue"
+      }
+    ],
+    "rollsRemaining": 0,
+    "controllerIds": [
+      "C40"
+    ],
+    "levels": {},
+    "capacity": 5,
+    "redWave": false,
+    "enchants": {},
+    "submissionOrdinal": 0,
+    "expected": {
+      "effectivePips": [
+        1,
+        1,
+        1
+      ],
+      "effectiveColors": [
+        "blue",
+        "blue",
+        "blue"
+      ],
+      "pipContributions": [
+        1,
+        1,
+        1
+      ],
+      "pipSum": 3,
+      "unusedRollBonus": 0,
+      "pairBaseAdd": 0,
+      "enchantBaseAdd": 0,
+      "baseTotal": 3,
+      "matchedGroupIds": [
+        "pair",
+        "trips"
+      ],
+      "chosenGroupId": "trips",
+      "groupMult100": 400,
+      "straightMult100": 0,
+      "colorMult100": 0,
+      "totalHandMult100": 400,
+      "redGroupingMode": "same_value",
+      "redValue": 0,
+      "redCount": 0,
+      "redMult100": 100,
+      "controllerMultiplier": 1,
+      "triggeredControllerIds": [],
+      "triggeredMultiplierIds": [],
+      "enchantBaseCount": 0,
+      "enchantMultiplierCount": 0,
+      "scoreNumerator": "120000",
+      "scoreDenominator": "10000",
+      "score": 12
+    }
+  },
+  {
+    "id": "S070",
+    "label": "C12全偶不触发附魔",
+    "dice": [
+      {
+        "p": 2,
+        "c": "blue"
+      },
+      {
+        "p": 4,
+        "c": "blue"
+      },
+      {
+        "p": 6,
+        "c": "blue"
+      }
+    ],
+    "rollsRemaining": 0,
+    "controllerIds": [
+      "C12"
+    ],
+    "levels": {},
+    "capacity": 5,
+    "redWave": false,
+    "enchants": {
+      "C12": "base5"
+    },
+    "submissionOrdinal": 0,
+    "expected": {
+      "effectivePips": [
+        2,
+        4,
+        6
+      ],
+      "effectiveColors": [
+        "blue",
+        "blue",
+        "blue"
+      ],
+      "pipContributions": [
+        2,
+        4,
+        6
+      ],
+      "pipSum": 12,
+      "unusedRollBonus": 0,
+      "pairBaseAdd": 0,
+      "enchantBaseAdd": 0,
+      "baseTotal": 12,
+      "matchedGroupIds": [],
+      "chosenGroupId": null,
+      "groupMult100": 0,
+      "straightMult100": 0,
+      "colorMult100": 0,
+      "totalHandMult100": 100,
+      "redGroupingMode": "same_value",
+      "redValue": 0,
+      "redCount": 0,
+      "redMult100": 100,
+      "controllerMultiplier": 1,
+      "triggeredControllerIds": [],
+      "triggeredMultiplierIds": [],
+      "enchantBaseCount": 0,
+      "enchantMultiplierCount": 0,
+      "scoreNumerator": "120000",
+      "scoreDenominator": "10000",
+      "score": 12
+    }
+  },
+  {
+    "id": "S071",
+    "label": "C12有奇数转换才触发",
+    "dice": [
+      {
+        "p": 1,
+        "c": "blue"
+      },
+      {
+        "p": 3,
+        "c": "blue"
+      },
+      {
+        "p": 5,
+        "c": "blue"
+      }
+    ],
+    "rollsRemaining": 0,
+    "controllerIds": [
+      "C12"
+    ],
+    "levels": {},
+    "capacity": 5,
+    "redWave": false,
+    "enchants": {
+      "C12": "base5"
+    },
+    "submissionOrdinal": 0,
+    "expected": {
+      "effectivePips": [
+        2,
+        4,
+        6
+      ],
+      "effectiveColors": [
+        "blue",
+        "blue",
+        "blue"
+      ],
+      "pipContributions": [
+        2,
+        4,
+        6
+      ],
+      "pipSum": 12,
+      "unusedRollBonus": 0,
+      "pairBaseAdd": 0,
+      "enchantBaseAdd": 5,
+      "baseTotal": 17,
+      "matchedGroupIds": [],
+      "chosenGroupId": null,
+      "groupMult100": 0,
+      "straightMult100": 0,
+      "colorMult100": 0,
+      "totalHandMult100": 100,
+      "redGroupingMode": "same_value",
+      "redValue": 0,
+      "redCount": 0,
+      "redMult100": 100,
+      "controllerMultiplier": 1,
+      "triggeredControllerIds": [
+        "C12"
+      ],
+      "triggeredMultiplierIds": [],
+      "enchantBaseCount": 1,
+      "enchantMultiplierCount": 0,
+      "scoreNumerator": "170000",
+      "scoreDenominator": "10000",
+      "score": 17
+    }
+  },
+  {
+    "id": "S072",
+    "label": "首当其冲本来已红也触发",
+    "dice": [
+      {
+        "p": 4,
+        "c": "red"
+      }
+    ],
+    "rollsRemaining": 0,
+    "controllerIds": [
+      "C03"
+    ],
+    "levels": {},
+    "capacity": 5,
+    "redWave": false,
+    "enchants": {
+      "C03": "base5"
+    },
+    "submissionOrdinal": 0,
+    "expected": {
+      "effectivePips": [
+        4
+      ],
+      "effectiveColors": [
+        "red"
+      ],
+      "pipContributions": [
+        4
+      ],
+      "pipSum": 4,
+      "unusedRollBonus": 0,
+      "pairBaseAdd": 0,
+      "enchantBaseAdd": 5,
+      "baseTotal": 9,
+      "matchedGroupIds": [],
+      "chosenGroupId": null,
+      "groupMult100": 0,
+      "straightMult100": 0,
+      "colorMult100": 0,
+      "totalHandMult100": 100,
+      "redGroupingMode": "same_value",
+      "redValue": 4,
+      "redCount": 1,
+      "redMult100": 100,
+      "controllerMultiplier": 1,
+      "triggeredControllerIds": [
+        "C03"
+      ],
+      "triggeredMultiplierIds": [],
+      "enchantBaseCount": 1,
+      "enchantMultiplierCount": 0,
+      "scoreNumerator": "90000",
+      "scoreDenominator": "10000",
+      "score": 9
+    }
+  },
+  {
+    "id": "S073",
+    "label": "红色主义后置条件触发附魔",
+    "dice": [
+      {
+        "p": 4,
+        "c": "blue"
+      }
+    ],
+    "rollsRemaining": 0,
+    "controllerIds": [
+      "C26"
+    ],
+    "levels": {},
+    "capacity": 5,
+    "redWave": false,
+    "enchants": {
+      "C26": "base5"
+    },
+    "submissionOrdinal": 0,
+    "expected": {
+      "effectivePips": [
+        4
+      ],
+      "effectiveColors": [
+        "blue"
+      ],
+      "pipContributions": [
+        4
+      ],
+      "pipSum": 4,
+      "unusedRollBonus": 0,
+      "pairBaseAdd": 0,
+      "enchantBaseAdd": 5,
+      "baseTotal": 9,
+      "matchedGroupIds": [],
+      "chosenGroupId": null,
+      "groupMult100": 0,
+      "straightMult100": 0,
+      "colorMult100": 0,
+      "totalHandMult100": 100,
+      "redGroupingMode": "same_value",
+      "redValue": 0,
+      "redCount": 0,
+      "redMult100": 100,
+      "controllerMultiplier": 1,
+      "triggeredControllerIds": [
+        "C26"
+      ],
+      "triggeredMultiplierIds": [],
+      "enchantBaseCount": 1,
+      "enchantMultiplierCount": 0,
+      "scoreNumerator": "90000",
+      "scoreDenominator": "10000",
+      "score": 9
+    }
+  },
+  {
+    "id": "S074",
+    "label": "成长到上限仍满足触发",
+    "dice": [
+      {
+        "p": 6,
+        "c": "blue"
+      },
+      {
+        "p": 6,
+        "c": "blue"
+      }
+    ],
+    "rollsRemaining": 0,
+    "controllerIds": [
+      "C36"
+    ],
+    "levels": {},
+    "capacity": 5,
+    "redWave": false,
+    "enchants": {
+      "C36": "base5"
+    },
+    "submissionOrdinal": 0,
+    "expected": {
+      "effectivePips": [
+        6,
+        6
+      ],
+      "effectiveColors": [
+        "blue",
+        "blue"
+      ],
+      "pipContributions": [
+        6,
+        6
+      ],
+      "pipSum": 12,
+      "unusedRollBonus": 0,
+      "pairBaseAdd": 0,
+      "enchantBaseAdd": 5,
+      "baseTotal": 17,
+      "matchedGroupIds": [
+        "pair"
+      ],
+      "chosenGroupId": "pair",
+      "groupMult100": 200,
+      "straightMult100": 0,
+      "colorMult100": 0,
+      "totalHandMult100": 200,
+      "redGroupingMode": "same_value",
+      "redValue": 0,
+      "redCount": 0,
+      "redMult100": 100,
+      "controllerMultiplier": 1,
+      "triggeredControllerIds": [
+        "C36"
+      ],
+      "triggeredMultiplierIds": [],
+      "enchantBaseCount": 1,
+      "enchantMultiplierCount": 0,
+      "scoreNumerator": "340000",
+      "scoreDenominator": "10000",
+      "score": 34
+    }
+  },
+  {
+    "id": "S075",
+    "label": "缩小到下限仍满足触发",
+    "dice": [
+      {
+        "p": 1,
+        "c": "red"
+      },
+      {
+        "p": 1,
+        "c": "red"
+      }
+    ],
+    "rollsRemaining": 0,
+    "controllerIds": [
+      "C37"
+    ],
+    "levels": {},
+    "capacity": 5,
+    "redWave": false,
+    "enchants": {
+      "C37": "base5"
+    },
+    "submissionOrdinal": 0,
+    "expected": {
+      "effectivePips": [
+        1,
+        1
+      ],
+      "effectiveColors": [
+        "red",
+        "red"
+      ],
+      "pipContributions": [
+        1,
+        1
+      ],
+      "pipSum": 2,
+      "unusedRollBonus": 0,
+      "pairBaseAdd": 0,
+      "enchantBaseAdd": 5,
+      "baseTotal": 7,
+      "matchedGroupIds": [
+        "pair"
+      ],
+      "chosenGroupId": "pair",
+      "groupMult100": 200,
+      "straightMult100": 0,
+      "colorMult100": 0,
+      "totalHandMult100": 200,
+      "redGroupingMode": "same_value",
+      "redValue": 1,
+      "redCount": 2,
+      "redMult100": 150,
+      "controllerMultiplier": 1,
+      "triggeredControllerIds": [
+        "C37"
+      ],
+      "triggeredMultiplierIds": [],
+      "enchantBaseCount": 1,
+      "enchantMultiplierCount": 0,
+      "scoreNumerator": "210000",
+      "scoreDenominator": "10000",
+      "score": 21
+    }
+  },
+  {
+    "id": "S076",
+    "label": "已满K不触发成长附魔",
+    "dice": [
+      {
+        "p": 6,
+        "c": "blue"
+      },
+      {
+        "p": 6,
+        "c": "blue"
+      },
+      {
+        "p": 6,
+        "c": "blue"
+      },
+      {
+        "p": 6,
+        "c": "blue"
+      }
+    ],
+    "rollsRemaining": 0,
+    "controllerIds": [
+      "C36"
+    ],
+    "levels": {},
+    "capacity": 4,
+    "redWave": false,
+    "enchants": {
+      "C36": "base5"
+    },
+    "submissionOrdinal": 0,
+    "expected": {
+      "effectivePips": [
+        6,
+        6,
+        6,
+        6
+      ],
+      "effectiveColors": [
+        "blue",
+        "blue",
+        "blue",
+        "blue"
+      ],
+      "pipContributions": [
+        6,
+        6,
+        6,
+        6
+      ],
+      "pipSum": 24,
+      "unusedRollBonus": 0,
+      "pairBaseAdd": 0,
+      "enchantBaseAdd": 0,
+      "baseTotal": 24,
+      "matchedGroupIds": [
+        "pair",
+        "trips",
+        "quads"
+      ],
+      "chosenGroupId": "quads",
+      "groupMult100": 800,
+      "straightMult100": 0,
+      "colorMult100": 0,
+      "totalHandMult100": 800,
+      "redGroupingMode": "same_value",
+      "redValue": 0,
+      "redCount": 0,
+      "redMult100": 100,
+      "controllerMultiplier": 1,
+      "triggeredControllerIds": [],
+      "triggeredMultiplierIds": [],
+      "enchantBaseCount": 0,
+      "enchantMultiplierCount": 0,
+      "scoreNumerator": "1920000",
+      "scoreDenominator": "10000",
+      "score": 192
+    }
+  },
+  {
+    "id": "S077",
+    "label": "蓝扩面已蓝仍触发",
+    "dice": [
+      {
+        "p": 2,
+        "c": "blue"
+      }
+    ],
+    "rollsRemaining": 0,
+    "controllerIds": [
+      "C38"
+    ],
+    "levels": {},
+    "capacity": 5,
+    "redWave": false,
+    "enchants": {
+      "C38": "base5"
+    },
+    "submissionOrdinal": 0,
+    "expected": {
+      "effectivePips": [
+        2
+      ],
+      "effectiveColors": [
+        "blue"
+      ],
+      "pipContributions": [
+        2
+      ],
+      "pipSum": 2,
+      "unusedRollBonus": 0,
+      "pairBaseAdd": 0,
+      "enchantBaseAdd": 5,
+      "baseTotal": 7,
+      "matchedGroupIds": [],
+      "chosenGroupId": null,
+      "groupMult100": 0,
+      "straightMult100": 0,
+      "colorMult100": 0,
+      "totalHandMult100": 100,
+      "redGroupingMode": "same_value",
+      "redValue": 0,
+      "redCount": 0,
+      "redMult100": 100,
+      "controllerMultiplier": 1,
+      "triggeredControllerIds": [
+        "C38"
+      ],
+      "triggeredMultiplierIds": [],
+      "enchantBaseCount": 1,
+      "enchantMultiplierCount": 0,
+      "scoreNumerator": "70000",
+      "scoreDenominator": "10000",
+      "score": 7
+    }
+  },
+  {
+    "id": "S078",
+    "label": "红扩先判条件后染色",
+    "dice": [
+      {
+        "p": 4,
+        "c": "red"
+      },
+      {
+        "p": 2,
+        "c": "blue"
+      },
+      {
+        "p": 4,
+        "c": "red"
+      }
+    ],
+    "rollsRemaining": 0,
+    "controllerIds": [
+      "C15"
+    ],
+    "levels": {},
+    "capacity": 5,
+    "redWave": false,
+    "enchants": {
+      "C15": "base5"
+    },
+    "submissionOrdinal": 0,
+    "expected": {
+      "effectivePips": [
+        4,
+        2,
+        4
+      ],
+      "effectiveColors": [
+        "red",
+        "blue",
+        "red"
+      ],
+      "pipContributions": [
+        4,
+        2,
+        4
+      ],
+      "pipSum": 10,
+      "unusedRollBonus": 0,
+      "pairBaseAdd": 0,
+      "enchantBaseAdd": 5,
+      "baseTotal": 15,
+      "matchedGroupIds": [
+        "pair"
+      ],
+      "chosenGroupId": "pair",
+      "groupMult100": 200,
+      "straightMult100": 0,
+      "colorMult100": 0,
+      "totalHandMult100": 200,
+      "redGroupingMode": "same_value",
+      "redValue": 4,
+      "redCount": 2,
+      "redMult100": 150,
+      "controllerMultiplier": 1,
+      "triggeredControllerIds": [
+        "C15"
+      ],
+      "triggeredMultiplierIds": [],
+      "enchantBaseCount": 1,
+      "enchantMultiplierCount": 0,
+      "scoreNumerator": "450000",
+      "scoreDenominator": "10000",
+      "score": 45
+    }
+  },
+  {
+    "id": "S079",
+    "label": "首次两异点复制附魔",
+    "dice": [
+      {
+        "p": 2,
+        "c": "blue"
+      },
+      {
+        "p": 3,
+        "c": "blue"
+      }
+    ],
+    "rollsRemaining": 0,
+    "controllerIds": [
+      "C07"
+    ],
+    "levels": {},
+    "capacity": 5,
+    "redWave": false,
+    "enchants": {
+      "C07": "base5"
+    },
+    "submissionOrdinal": 0,
+    "expected": {
+      "effectivePips": [
+        2,
+        3
+      ],
+      "effectiveColors": [
+        "blue",
+        "blue"
+      ],
+      "pipContributions": [
+        2,
+        3
+      ],
+      "pipSum": 5,
+      "unusedRollBonus": 0,
+      "pairBaseAdd": 0,
+      "enchantBaseAdd": 5,
+      "baseTotal": 10,
+      "matchedGroupIds": [],
+      "chosenGroupId": null,
+      "groupMult100": 0,
+      "straightMult100": 0,
+      "colorMult100": 0,
+      "totalHandMult100": 100,
+      "redGroupingMode": "same_value",
+      "redValue": 0,
+      "redCount": 0,
+      "redMult100": 100,
+      "controllerMultiplier": 1,
+      "triggeredControllerIds": [
+        "C07"
+      ],
+      "triggeredMultiplierIds": [],
+      "enchantBaseCount": 1,
+      "enchantMultiplierCount": 0,
+      "scoreNumerator": "100000",
+      "scoreDenominator": "10000",
+      "score": 10
+    }
+  },
+  {
+    "id": "S080",
+    "label": "非首次不补触发复制",
+    "dice": [
+      {
+        "p": 2,
+        "c": "blue"
+      },
+      {
+        "p": 3,
+        "c": "blue"
+      }
+    ],
+    "rollsRemaining": 0,
+    "controllerIds": [
+      "C07"
+    ],
+    "levels": {},
+    "capacity": 5,
+    "redWave": false,
+    "enchants": {
+      "C07": "base5"
+    },
+    "submissionOrdinal": 1,
+    "expected": {
+      "effectivePips": [
+        2,
+        3
+      ],
+      "effectiveColors": [
+        "blue",
+        "blue"
+      ],
+      "pipContributions": [
+        2,
+        3
+      ],
+      "pipSum": 5,
+      "unusedRollBonus": 0,
+      "pairBaseAdd": 0,
+      "enchantBaseAdd": 0,
+      "baseTotal": 5,
+      "matchedGroupIds": [],
+      "chosenGroupId": null,
+      "groupMult100": 0,
+      "straightMult100": 0,
+      "colorMult100": 0,
+      "totalHandMult100": 100,
+      "redGroupingMode": "same_value",
+      "redValue": 0,
+      "redCount": 0,
+      "redMult100": 100,
+      "controllerMultiplier": 1,
+      "triggeredControllerIds": [],
+      "triggeredMultiplierIds": [],
+      "enchantBaseCount": 0,
+      "enchantMultiplierCount": 0,
+      "scoreNumerator": "50000",
+      "scoreDenominator": "10000",
+      "score": 5
+    }
+  },
+  {
+    "id": "S081",
+    "label": "两同点不触发复制",
+    "dice": [
+      {
+        "p": 2,
+        "c": "blue"
+      },
+      {
+        "p": 2,
+        "c": "blue"
+      }
+    ],
+    "rollsRemaining": 0,
+    "controllerIds": [
+      "C07"
+    ],
+    "levels": {},
+    "capacity": 5,
+    "redWave": false,
+    "enchants": {
+      "C07": "base5"
+    },
+    "submissionOrdinal": 0,
+    "expected": {
+      "effectivePips": [
+        2,
+        2
+      ],
+      "effectiveColors": [
+        "blue",
+        "blue"
+      ],
+      "pipContributions": [
+        2,
+        2
+      ],
+      "pipSum": 4,
+      "unusedRollBonus": 0,
+      "pairBaseAdd": 0,
+      "enchantBaseAdd": 0,
+      "baseTotal": 4,
+      "matchedGroupIds": [
+        "pair"
+      ],
+      "chosenGroupId": "pair",
+      "groupMult100": 200,
+      "straightMult100": 0,
+      "colorMult100": 0,
+      "totalHandMult100": 200,
+      "redGroupingMode": "same_value",
+      "redValue": 0,
+      "redCount": 0,
+      "redMult100": 100,
+      "controllerMultiplier": 1,
+      "triggeredControllerIds": [],
+      "triggeredMultiplierIds": [],
+      "enchantBaseCount": 0,
+      "enchantMultiplierCount": 0,
+      "scoreNumerator": "80000",
+      "scoreDenominator": "10000",
+      "score": 8
+    }
+  },
+  {
+    "id": "S082",
+    "label": "三倍率附魔只末尾取整",
+    "dice": [
+      {
+        "p": 1,
+        "c": "blue"
+      }
+    ],
+    "rollsRemaining": 0,
+    "controllerIds": [
+      "C02",
+      "C32",
+      "C13"
+    ],
+    "levels": {},
+    "capacity": 5,
+    "redWave": false,
+    "enchants": {
+      "C02": "mult120",
+      "C32": "mult120",
+      "C13": "mult120"
+    },
+    "submissionOrdinal": 0,
+    "expected": {
+      "effectivePips": [
+        1
+      ],
+      "effectiveColors": [
+        "blue"
+      ],
+      "pipContributions": [
+        3
+      ],
+      "pipSum": 3,
+      "unusedRollBonus": 0,
+      "pairBaseAdd": 0,
+      "enchantBaseAdd": 0,
+      "baseTotal": 3,
+      "matchedGroupIds": [],
+      "chosenGroupId": null,
+      "groupMult100": 0,
+      "straightMult100": 0,
+      "colorMult100": 0,
+      "totalHandMult100": 100,
+      "redGroupingMode": "same_value",
+      "redValue": 0,
+      "redCount": 0,
+      "redMult100": 100,
+      "controllerMultiplier": 6,
+      "triggeredControllerIds": [
+        "C02",
+        "C13",
+        "C32"
+      ],
+      "triggeredMultiplierIds": [
+        "C02",
+        "C32"
+      ],
+      "enchantBaseCount": 0,
+      "enchantMultiplierCount": 3,
+      "scoreNumerator": "38880000",
+      "scoreDenominator": "1250000",
+      "score": 31
+    }
+  },
+  {
+    "id": "S083",
+    "label": "四倍率附魔只末尾取整",
+    "dice": [
+      {
+        "p": 1,
+        "c": "blue"
+      }
+    ],
+    "rollsRemaining": 0,
+    "controllerIds": [
+      "C02",
+      "C32",
+      "C13",
+      "C17"
+    ],
+    "levels": {},
+    "capacity": 5,
+    "redWave": false,
+    "enchants": {
+      "C02": "mult120",
+      "C32": "mult120",
+      "C13": "mult120",
+      "C17": "mult120"
+    },
+    "submissionOrdinal": 0,
+    "expected": {
+      "effectivePips": [
+        1
+      ],
+      "effectiveColors": [
+        "blue"
+      ],
+      "pipContributions": [
+        6
+      ],
+      "pipSum": 6,
+      "unusedRollBonus": 0,
+      "pairBaseAdd": 0,
+      "enchantBaseAdd": 0,
+      "baseTotal": 6,
+      "matchedGroupIds": [],
+      "chosenGroupId": null,
+      "groupMult100": 0,
+      "straightMult100": 0,
+      "colorMult100": 0,
+      "totalHandMult100": 100,
+      "redGroupingMode": "same_value",
+      "redValue": 0,
+      "redCount": 0,
+      "redMult100": 100,
+      "controllerMultiplier": 6,
+      "triggeredControllerIds": [
+        "C02",
+        "C13",
+        "C17",
+        "C32"
+      ],
+      "triggeredMultiplierIds": [
+        "C02",
+        "C32"
+      ],
+      "enchantBaseCount": 0,
+      "enchantMultiplierCount": 4,
+      "scoreNumerator": "466560000",
+      "scoreDenominator": "6250000",
+      "score": 74
+    }
+  },
+  {
+    "id": "S084",
+    "label": "对子基础加分叠三附魔",
+    "dice": [
+      {
+        "p": 2,
+        "c": "blue"
+      },
+      {
+        "p": 2,
+        "c": "blue"
+      }
+    ],
+    "rollsRemaining": 0,
+    "controllerIds": [
+      "C02",
+      "C32",
+      "C27"
+    ],
+    "levels": {},
+    "capacity": 5,
+    "redWave": false,
+    "enchants": {
+      "C02": "mult120",
+      "C32": "mult120",
+      "C27": "mult120"
+    },
+    "submissionOrdinal": 0,
+    "expected": {
+      "effectivePips": [
+        2,
+        2
+      ],
+      "effectiveColors": [
+        "blue",
+        "blue"
+      ],
+      "pipContributions": [
+        2,
+        2
+      ],
+      "pipSum": 4,
+      "unusedRollBonus": 0,
+      "pairBaseAdd": 5,
+      "enchantBaseAdd": 0,
+      "baseTotal": 9,
+      "matchedGroupIds": [
+        "pair"
+      ],
+      "chosenGroupId": "pair",
+      "groupMult100": 200,
+      "straightMult100": 0,
+      "colorMult100": 0,
+      "totalHandMult100": 200,
+      "redGroupingMode": "same_value",
+      "redValue": 0,
+      "redCount": 0,
+      "redMult100": 100,
+      "controllerMultiplier": 6,
+      "triggeredControllerIds": [
+        "C02",
+        "C27",
+        "C32"
+      ],
+      "triggeredMultiplierIds": [
+        "C02",
+        "C32"
+      ],
+      "enchantBaseCount": 0,
+      "enchantMultiplierCount": 3,
+      "scoreNumerator": "233280000",
+      "scoreDenominator": "1250000",
+      "score": 186
+    }
+  },
+  {
+    "id": "S085",
+    "label": "基础附魔进入整体乘区",
+    "dice": [
+      {
+        "p": 1,
+        "c": "blue"
+      }
+    ],
+    "rollsRemaining": 0,
+    "controllerIds": [
+      "C02"
+    ],
+    "levels": {},
+    "capacity": 5,
+    "redWave": false,
+    "enchants": {
+      "C02": "base5"
+    },
+    "submissionOrdinal": 0,
+    "expected": {
+      "effectivePips": [
+        1
+      ],
+      "effectiveColors": [
+        "blue"
+      ],
+      "pipContributions": [
+        1
+      ],
+      "pipSum": 1,
+      "unusedRollBonus": 0,
+      "pairBaseAdd": 0,
+      "enchantBaseAdd": 5,
+      "baseTotal": 6,
+      "matchedGroupIds": [],
+      "chosenGroupId": null,
+      "groupMult100": 0,
+      "straightMult100": 0,
+      "colorMult100": 0,
+      "totalHandMult100": 100,
+      "redGroupingMode": "same_value",
+      "redValue": 0,
+      "redCount": 0,
+      "redMult100": 100,
+      "controllerMultiplier": 3,
+      "triggeredControllerIds": [
+        "C02"
+      ],
+      "triggeredMultiplierIds": [
+        "C02"
+      ],
+      "enchantBaseCount": 1,
+      "enchantMultiplierCount": 0,
+      "scoreNumerator": "180000",
+      "scoreDenominator": "10000",
+      "score": 18
+    }
+  },
+  {
+    "id": "S086",
+    "label": "红潮阻止蓝色疯狂",
+    "dice": [
+      {
+        "p": 2,
+        "c": "blue"
+      },
+      {
+        "p": 2,
+        "c": "blue"
+      }
+    ],
+    "rollsRemaining": 0,
+    "controllerIds": [
+      "C02"
+    ],
+    "levels": {},
+    "capacity": 5,
+    "redWave": true,
+    "enchants": {},
+    "submissionOrdinal": 0,
+    "expected": {
+      "effectivePips": [
+        2,
+        2
+      ],
+      "effectiveColors": [
+        "red",
+        "red"
+      ],
+      "pipContributions": [
+        2,
+        2
+      ],
+      "pipSum": 4,
+      "unusedRollBonus": 0,
+      "pairBaseAdd": 0,
+      "enchantBaseAdd": 0,
+      "baseTotal": 4,
+      "matchedGroupIds": [
+        "pair"
+      ],
+      "chosenGroupId": "pair",
+      "groupMult100": 200,
+      "straightMult100": 0,
+      "colorMult100": 0,
+      "totalHandMult100": 200,
+      "redGroupingMode": "same_value",
+      "redValue": 2,
+      "redCount": 2,
+      "redMult100": 150,
+      "controllerMultiplier": 1,
+      "triggeredControllerIds": [],
+      "triggeredMultiplierIds": [],
+      "enchantBaseCount": 0,
+      "enchantMultiplierCount": 0,
+      "scoreNumerator": "120000",
+      "scoreDenominator": "10000",
+      "score": 12
+    }
+  },
+  {
+    "id": "S087",
+    "label": "红潮与红运当头",
+    "dice": [
+      {
+        "p": 1,
+        "c": "blue"
+      },
+      {
+        "p": 2,
+        "c": "blue"
+      },
+      {
+        "p": 3,
+        "c": "blue"
+      },
+      {
+        "p": 4,
+        "c": "blue"
+      },
+      {
+        "p": 5,
+        "c": "blue"
+      }
+    ],
+    "rollsRemaining": 0,
+    "controllerIds": [
+      "C25"
+    ],
+    "levels": {},
+    "capacity": 5,
+    "redWave": true,
+    "enchants": {},
+    "submissionOrdinal": 0,
+    "expected": {
+      "effectivePips": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "effectiveColors": [
+        "red",
+        "red",
+        "red",
+        "red",
+        "red"
+      ],
+      "pipContributions": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "pipSum": 15,
+      "unusedRollBonus": 0,
+      "pairBaseAdd": 0,
+      "enchantBaseAdd": 0,
+      "baseTotal": 15,
+      "matchedGroupIds": [],
+      "chosenGroupId": null,
+      "groupMult100": 0,
+      "straightMult100": 600,
+      "colorMult100": 200,
+      "totalHandMult100": 800,
+      "redGroupingMode": "all_red",
+      "redValue": 0,
+      "redCount": 5,
+      "redMult100": 400,
+      "controllerMultiplier": 1,
+      "triggeredControllerIds": [
+        "C25"
+      ],
+      "triggeredMultiplierIds": [],
+      "enchantBaseCount": 0,
+      "enchantMultiplierCount": 0,
+      "scoreNumerator": "4800000",
+      "scoreDenominator": "10000",
+      "score": 480
+    }
+  },
+  {
+    "id": "S088",
+    "label": "顺子颜色Lv8相加",
+    "dice": [
+      {
+        "p": 1,
+        "c": "red"
+      },
+      {
+        "p": 2,
+        "c": "red"
+      },
+      {
+        "p": 3,
+        "c": "red"
+      },
+      {
+        "p": 4,
+        "c": "red"
+      },
+      {
+        "p": 5,
+        "c": "red"
+      }
+    ],
+    "rollsRemaining": 0,
+    "controllerIds": [],
+    "levels": {
+      "straight": 8,
+      "all_red": 8
+    },
+    "capacity": 5,
+    "redWave": false,
+    "enchants": {},
+    "submissionOrdinal": 0,
+    "expected": {
+      "effectivePips": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "effectiveColors": [
+        "red",
+        "red",
+        "red",
+        "red",
+        "red"
+      ],
+      "pipContributions": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "pipSum": 15,
+      "unusedRollBonus": 0,
+      "pairBaseAdd": 0,
+      "enchantBaseAdd": 0,
+      "baseTotal": 15,
+      "matchedGroupIds": [],
+      "chosenGroupId": null,
+      "groupMult100": 0,
+      "straightMult100": 2200,
+      "colorMult100": 1000,
+      "totalHandMult100": 3200,
+      "redGroupingMode": "same_value",
+      "redValue": 5,
+      "redCount": 1,
+      "redMult100": 100,
+      "controllerMultiplier": 1,
+      "triggeredControllerIds": [],
+      "triggeredMultiplierIds": [],
+      "enchantBaseCount": 0,
+      "enchantMultiplierCount": 0,
+      "scoreNumerator": "4800000",
+      "scoreDenominator": "10000",
+      "score": 480
+    }
+  },
+  {
+    "id": "S089",
+    "label": "八骰高阶能力例",
+    "dice": [
+      {
+        "p": 6,
+        "c": "red"
+      },
+      {
+        "p": 6,
+        "c": "red"
+      },
+      {
+        "p": 6,
+        "c": "red"
+      },
+      {
+        "p": 6,
+        "c": "red"
+      },
+      {
+        "p": 6,
+        "c": "red"
+      },
+      {
+        "p": 6,
+        "c": "red"
+      },
+      {
+        "p": 6,
+        "c": "red"
+      },
+      {
+        "p": 6,
+        "c": "red"
+      }
+    ],
+    "rollsRemaining": 2,
+    "controllerIds": [
+      "C21",
+      "C22",
+      "C30",
+      "C31"
+    ],
+    "levels": {
+      "eight_kind": 8,
+      "all_red": 4
+    },
+    "capacity": 8,
+    "redWave": false,
+    "enchants": {},
+    "submissionOrdinal": 0,
+    "expected": {
+      "effectivePips": [
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6
+      ],
+      "effectiveColors": [
+        "red",
+        "red",
+        "red",
+        "red",
+        "red",
+        "red",
+        "red",
+        "red"
+      ],
+      "pipContributions": [
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6
+      ],
+      "pipSum": 48,
+      "unusedRollBonus": 6,
+      "pairBaseAdd": 0,
+      "enchantBaseAdd": 0,
+      "baseTotal": 54,
+      "matchedGroupIds": [
+        "pair",
+        "trips",
+        "quads",
+        "five_kind",
+        "six_kind",
+        "seven_kind",
+        "eight_kind"
+      ],
+      "chosenGroupId": "eight_kind",
+      "groupMult100": 13600,
+      "straightMult100": 0,
+      "colorMult100": 600,
+      "totalHandMult100": 14200,
+      "redGroupingMode": "same_value",
+      "redValue": 6,
+      "redCount": 8,
+      "redMult100": 900,
+      "controllerMultiplier": 9,
+      "triggeredControllerIds": [
+        "C30",
+        "C31"
+      ],
+      "triggeredMultiplierIds": [
+        "C30",
+        "C31"
+      ],
+      "enchantBaseCount": 0,
+      "enchantMultiplierCount": 0,
+      "scoreNumerator": "6211080000",
+      "scoreDenominator": "10000",
+      "score": 621108
+    }
+  },
+  {
+    "id": "S090",
+    "label": "五蓝高阶能力例",
+    "dice": [
+      {
+        "p": 6,
+        "c": "blue"
+      },
+      {
+        "p": 6,
+        "c": "blue"
+      },
+      {
+        "p": 6,
+        "c": "blue"
+      },
+      {
+        "p": 6,
+        "c": "blue"
+      },
+      {
+        "p": 6,
+        "c": "blue"
+      }
+    ],
+    "rollsRemaining": 2,
+    "controllerIds": [
+      "C02",
+      "C30",
+      "C31",
+      "C32"
+    ],
+    "levels": {
+      "five_kind": 8,
+      "all_blue": 8
+    },
+    "capacity": 5,
+    "redWave": false,
+    "enchants": {},
+    "submissionOrdinal": 0,
+    "expected": {
+      "effectivePips": [
+        6,
+        6,
+        6,
+        6,
+        6
+      ],
+      "effectiveColors": [
+        "blue",
+        "blue",
+        "blue",
+        "blue",
+        "blue"
+      ],
+      "pipContributions": [
+        6,
+        6,
+        6,
+        6,
+        6
+      ],
+      "pipSum": 30,
+      "unusedRollBonus": 6,
+      "pairBaseAdd": 0,
+      "enchantBaseAdd": 0,
+      "baseTotal": 36,
+      "matchedGroupIds": [
+        "pair",
+        "trips",
+        "quads",
+        "five_kind"
+      ],
+      "chosenGroupId": "five_kind",
+      "groupMult100": 4400,
+      "straightMult100": 0,
+      "colorMult100": 1100,
+      "totalHandMult100": 5500,
+      "redGroupingMode": "same_value",
+      "redValue": 0,
+      "redCount": 0,
+      "redMult100": 100,
+      "controllerMultiplier": 54,
+      "triggeredControllerIds": [
+        "C02",
+        "C30",
+        "C31",
+        "C32"
+      ],
+      "triggeredMultiplierIds": [
+        "C02",
+        "C30",
+        "C31",
+        "C32"
+      ],
+      "enchantBaseCount": 0,
+      "enchantMultiplierCount": 0,
+      "scoreNumerator": "1069200000",
+      "scoreDenominator": "10000",
+      "score": 106920
+    }
+  },
+  {
+    "id": "S091",
+    "label": "五红末栏基础加分能力例",
+    "dice": [
+      {
+        "p": 6,
+        "c": "red"
+      },
+      {
+        "p": 6,
+        "c": "red"
+      },
+      {
+        "p": 6,
+        "c": "red"
+      },
+      {
+        "p": 6,
+        "c": "red"
+      },
+      {
+        "p": 6,
+        "c": "red"
+      }
+    ],
+    "rollsRemaining": 2,
+    "controllerIds": [
+      "C20",
+      "C30",
+      "C31",
+      "C32"
+    ],
+    "levels": {
+      "five_kind": 4,
+      "all_red": 4
+    },
+    "capacity": 5,
+    "redWave": false,
+    "enchants": {},
+    "submissionOrdinal": 0,
+    "expected": {
+      "effectivePips": [
+        6,
+        6,
+        6,
+        6,
+        6
+      ],
+      "effectiveColors": [
+        "red",
+        "red",
+        "red",
+        "red",
+        "red"
+      ],
+      "pipContributions": [
+        6,
+        6,
+        6,
+        6,
+        12
+      ],
+      "pipSum": 36,
+      "unusedRollBonus": 6,
+      "pairBaseAdd": 0,
+      "enchantBaseAdd": 0,
+      "baseTotal": 42,
+      "matchedGroupIds": [
+        "pair",
+        "trips",
+        "quads",
+        "five_kind"
+      ],
+      "chosenGroupId": "five_kind",
+      "groupMult100": 2800,
+      "straightMult100": 0,
+      "colorMult100": 600,
+      "totalHandMult100": 3400,
+      "redGroupingMode": "same_value",
+      "redValue": 6,
+      "redCount": 5,
+      "redMult100": 400,
+      "controllerMultiplier": 18,
+      "triggeredControllerIds": [
+        "C20",
+        "C30",
+        "C31",
+        "C32"
+      ],
+      "triggeredMultiplierIds": [
+        "C30",
+        "C31",
+        "C32"
+      ],
+      "enchantBaseCount": 0,
+      "enchantMultiplierCount": 0,
+      "scoreNumerator": "1028160000",
+      "scoreDenominator": "10000",
+      "score": 102816
+    }
+  },
+  {
+    "id": "S092",
+    "label": "五蓝四倍率附魔能力例",
+    "dice": [
+      {
+        "p": 6,
+        "c": "blue"
+      },
+      {
+        "p": 6,
+        "c": "blue"
+      },
+      {
+        "p": 6,
+        "c": "blue"
+      },
+      {
+        "p": 6,
+        "c": "blue"
+      },
+      {
+        "p": 6,
+        "c": "blue"
+      }
+    ],
+    "rollsRemaining": 2,
+    "controllerIds": [
+      "C02",
+      "C30",
+      "C31",
+      "C32"
+    ],
+    "levels": {
+      "five_kind": 4,
+      "all_blue": 4
+    },
+    "capacity": 5,
+    "redWave": false,
+    "enchants": {
+      "C02": "mult120",
+      "C30": "mult120",
+      "C31": "mult120",
+      "C32": "mult120"
+    },
+    "submissionOrdinal": 0,
+    "expected": {
+      "effectivePips": [
+        6,
+        6,
+        6,
+        6,
+        6
+      ],
+      "effectiveColors": [
+        "blue",
+        "blue",
+        "blue",
+        "blue",
+        "blue"
+      ],
+      "pipContributions": [
+        6,
+        6,
+        6,
+        6,
+        6
+      ],
+      "pipSum": 30,
+      "unusedRollBonus": 6,
+      "pairBaseAdd": 0,
+      "enchantBaseAdd": 0,
+      "baseTotal": 36,
+      "matchedGroupIds": [
+        "pair",
+        "trips",
+        "quads",
+        "five_kind"
+      ],
+      "chosenGroupId": "five_kind",
+      "groupMult100": 2800,
+      "straightMult100": 0,
+      "colorMult100": 700,
+      "totalHandMult100": 3500,
+      "redGroupingMode": "same_value",
+      "redValue": 0,
+      "redCount": 0,
+      "redMult100": 100,
+      "controllerMultiplier": 54,
+      "triggeredControllerIds": [
+        "C02",
+        "C30",
+        "C31",
+        "C32"
+      ],
+      "triggeredMultiplierIds": [
+        "C02",
+        "C30",
+        "C31",
+        "C32"
+      ],
+      "enchantBaseCount": 0,
+      "enchantMultiplierCount": 4,
+      "scoreNumerator": "881798400000",
+      "scoreDenominator": "6250000",
+      "score": 141087
+    }
+  },
+  {
+    "id": "S093",
+    "label": "逐骰加点再黄金玻璃",
+    "dice": [
+      {
+        "p": 1,
+        "c": "red",
+        "sum6": 6,
+        "gold": true,
+        "glass": true
+      }
+    ],
+    "rollsRemaining": 0,
+    "controllerIds": [
+      "C10",
+      "C13",
+      "C17",
+      "C19"
+    ],
+    "levels": {},
+    "capacity": 5,
+    "redWave": false,
+    "enchants": {},
+    "submissionOrdinal": 0,
+    "expected": {
+      "effectivePips": [
+        1
+      ],
+      "effectiveColors": [
+        "red"
+      ],
+      "pipContributions": [
+        60
+      ],
+      "pipSum": 60,
+      "unusedRollBonus": 0,
+      "pairBaseAdd": 0,
+      "enchantBaseAdd": 0,
+      "baseTotal": 60,
+      "matchedGroupIds": [],
+      "chosenGroupId": null,
+      "groupMult100": 0,
+      "straightMult100": 0,
+      "colorMult100": 0,
+      "totalHandMult100": 100,
+      "redGroupingMode": "same_value",
+      "redValue": 1,
+      "redCount": 1,
+      "redMult100": 100,
+      "controllerMultiplier": 1,
+      "triggeredControllerIds": [
+        "C10",
+        "C13",
+        "C17",
+        "C19"
+      ],
+      "triggeredMultiplierIds": [],
+      "enchantBaseCount": 0,
+      "enchantMultiplierCount": 0,
+      "scoreNumerator": "600000",
+      "scoreDenominator": "10000",
+      "score": 60
+    }
+  },
+  {
+    "id": "S094",
+    "label": "有效点转偶数影响逐骰加点",
+    "dice": [
+      {
+        "p": 1,
+        "c": "red",
+        "sum6": 6,
+        "gold": true,
+        "glass": true
+      }
+    ],
+    "rollsRemaining": 0,
+    "controllerIds": [
+      "C10",
+      "C13",
+      "C17",
+      "C19",
+      "C12"
+    ],
+    "levels": {},
+    "capacity": 5,
+    "redWave": false,
+    "enchants": {
+      "C12": "slotless"
+    },
+    "submissionOrdinal": 0,
+    "expected": {
+      "effectivePips": [
+        2
+      ],
+      "effectiveColors": [
+        "red"
+      ],
+      "pipContributions": [
+        40
+      ],
+      "pipSum": 40,
+      "unusedRollBonus": 0,
+      "pairBaseAdd": 0,
+      "enchantBaseAdd": 0,
+      "baseTotal": 40,
+      "matchedGroupIds": [],
+      "chosenGroupId": null,
+      "groupMult100": 0,
+      "straightMult100": 0,
+      "colorMult100": 0,
+      "totalHandMult100": 100,
+      "redGroupingMode": "same_value",
+      "redValue": 2,
+      "redCount": 1,
+      "redMult100": 100,
+      "controllerMultiplier": 1,
+      "triggeredControllerIds": [
+        "C12",
+        "C17",
+        "C19"
+      ],
+      "triggeredMultiplierIds": [],
+      "enchantBaseCount": 0,
+      "enchantMultiplierCount": 0,
+      "scoreNumerator": "400000",
+      "scoreDenominator": "10000",
+      "score": 40
+    }
+  },
+  {
+    "id": "S095",
+    "label": "少数派部分提交",
+    "dice": [
+      {
+        "p": 2,
+        "c": "blue"
+      },
+      {
+        "p": 2,
+        "c": "blue"
+      },
+      {
+        "p": 3,
+        "c": "blue"
+      },
+      {
+        "p": 3,
+        "c": "blue"
+      }
+    ],
+    "rollsRemaining": 0,
+    "controllerIds": [
+      "C08"
+    ],
+    "levels": {},
+    "capacity": 5,
+    "redWave": false,
+    "enchants": {},
+    "submissionOrdinal": 0,
+    "expected": {
+      "effectivePips": [
+        2,
+        2,
+        3,
+        3
+      ],
+      "effectiveColors": [
+        "blue",
+        "blue",
+        "blue",
+        "blue"
+      ],
+      "pipContributions": [
+        2,
+        2,
+        3,
+        3
+      ],
+      "pipSum": 10,
+      "unusedRollBonus": 0,
+      "pairBaseAdd": 0,
+      "enchantBaseAdd": 0,
+      "baseTotal": 10,
+      "matchedGroupIds": [
+        "pair",
+        "two_pair"
+      ],
+      "chosenGroupId": "two_pair",
+      "groupMult100": 300,
+      "straightMult100": 0,
+      "colorMult100": 0,
+      "totalHandMult100": 300,
+      "redGroupingMode": "same_value",
+      "redValue": 0,
+      "redCount": 0,
+      "redMult100": 100,
+      "controllerMultiplier": 2,
+      "triggeredControllerIds": [
+        "C08"
+      ],
+      "triggeredMultiplierIds": [
+        "C08"
+      ],
+      "enchantBaseCount": 0,
+      "enchantMultiplierCount": 0,
+      "scoreNumerator": "600000",
+      "scoreDenominator": "10000",
+      "score": 60
+    }
+  },
+  {
+    "id": "S096",
+    "label": "多锁一个可能降分",
+    "dice": [
+      {
+        "p": 2,
+        "c": "blue"
+      },
+      {
+        "p": 2,
+        "c": "blue"
+      },
+      {
+        "p": 3,
+        "c": "blue"
+      },
+      {
+        "p": 3,
+        "c": "blue"
+      },
+      {
+        "p": 1,
+        "c": "red"
+      }
+    ],
+    "rollsRemaining": 0,
+    "controllerIds": [
+      "C08"
+    ],
+    "levels": {},
+    "capacity": 5,
+    "redWave": false,
+    "enchants": {},
+    "submissionOrdinal": 0,
+    "expected": {
+      "effectivePips": [
+        2,
+        2,
+        3,
+        3,
+        1
+      ],
+      "effectiveColors": [
+        "blue",
+        "blue",
+        "blue",
+        "blue",
+        "red"
+      ],
+      "pipContributions": [
+        2,
+        2,
+        3,
+        3,
+        1
+      ],
+      "pipSum": 11,
+      "unusedRollBonus": 0,
+      "pairBaseAdd": 0,
+      "enchantBaseAdd": 0,
+      "baseTotal": 11,
+      "matchedGroupIds": [
+        "pair",
+        "two_pair"
+      ],
+      "chosenGroupId": "two_pair",
+      "groupMult100": 300,
+      "straightMult100": 0,
+      "colorMult100": 0,
+      "totalHandMult100": 300,
+      "redGroupingMode": "same_value",
+      "redValue": 1,
+      "redCount": 1,
+      "redMult100": 100,
+      "controllerMultiplier": 1,
+      "triggeredControllerIds": [],
+      "triggeredMultiplierIds": [],
+      "enchantBaseCount": 0,
+      "enchantMultiplierCount": 0,
+      "scoreNumerator": "330000",
+      "scoreDenominator": "10000",
+      "score": 33
+    }
+  },
+  {
+    "id": "S097",
+    "label": "蓝色简化2233",
+    "dice": [
+      {
+        "p": 2,
+        "c": "blue"
+      },
+      {
+        "p": 2,
+        "c": "blue"
+      },
+      {
+        "p": 3,
+        "c": "blue"
+      },
+      {
+        "p": 3,
+        "c": "blue"
+      }
+    ],
+    "rollsRemaining": 0,
+    "controllerIds": [
+      "C02",
+      "C09",
+      "C11"
+    ],
+    "levels": {},
+    "capacity": 4,
+    "redWave": false,
+    "enchants": {},
+    "submissionOrdinal": 0,
+    "expected": {
+      "effectivePips": [
+        2,
+        2,
+        3,
+        3
+      ],
+      "effectiveColors": [
+        "blue",
+        "blue",
+        "blue",
+        "blue"
+      ],
+      "pipContributions": [
+        2,
+        2,
+        3,
+        3
+      ],
+      "pipSum": 10,
+      "unusedRollBonus": 0,
+      "pairBaseAdd": 0,
+      "enchantBaseAdd": 0,
+      "baseTotal": 10,
+      "matchedGroupIds": [
+        "pair",
+        "two_pair"
+      ],
+      "chosenGroupId": "two_pair",
+      "groupMult100": 300,
+      "straightMult100": 0,
+      "colorMult100": 0,
+      "totalHandMult100": 300,
+      "redGroupingMode": "same_value",
+      "redValue": 0,
+      "redCount": 0,
+      "redMult100": 100,
+      "controllerMultiplier": 45,
+      "triggeredControllerIds": [
+        "C02",
+        "C09",
+        "C11"
+      ],
+      "triggeredMultiplierIds": [
+        "C02",
+        "C09",
+        "C11"
+      ],
+      "enchantBaseCount": 0,
+      "enchantMultiplierCount": 0,
+      "scoreNumerator": "13500000",
+      "scoreDenominator": "10000",
+      "score": 1350
+    }
+  },
+  {
+    "id": "S098",
+    "label": "红蓝相当按有效颜色",
+    "dice": [
+      {
+        "p": 2,
+        "c": "blue"
+      },
+      {
+        "p": 2,
+        "c": "red"
+      }
+    ],
+    "rollsRemaining": 0,
+    "controllerIds": [
+      "C18"
+    ],
+    "levels": {},
+    "capacity": 5,
+    "redWave": false,
+    "enchants": {},
+    "submissionOrdinal": 0,
+    "expected": {
+      "effectivePips": [
+        2,
+        2
+      ],
+      "effectiveColors": [
+        "blue",
+        "red"
+      ],
+      "pipContributions": [
+        2,
+        2
+      ],
+      "pipSum": 4,
+      "unusedRollBonus": 0,
+      "pairBaseAdd": 0,
+      "enchantBaseAdd": 0,
+      "baseTotal": 4,
+      "matchedGroupIds": [
+        "pair"
+      ],
+      "chosenGroupId": "pair",
+      "groupMult100": 200,
+      "straightMult100": 0,
+      "colorMult100": 0,
+      "totalHandMult100": 200,
+      "redGroupingMode": "same_value",
+      "redValue": 2,
+      "redCount": 1,
+      "redMult100": 100,
+      "controllerMultiplier": 2,
+      "triggeredControllerIds": [
+        "C18"
+      ],
+      "triggeredMultiplierIds": [
+        "C18"
+      ],
+      "enchantBaseCount": 0,
+      "enchantMultiplierCount": 0,
+      "scoreNumerator": "160000",
+      "scoreDenominator": "10000",
+      "score": 16
+    }
+  },
+  {
+    "id": "S099",
+    "label": "奇数控制器",
+    "dice": [
+      {
+        "p": 3,
+        "c": "blue"
+      },
+      {
+        "p": 3,
+        "c": "blue"
+      },
+      {
+        "p": 3,
+        "c": "blue"
+      },
+      {
+        "p": 5,
+        "c": "blue"
+      }
+    ],
+    "rollsRemaining": 0,
+    "controllerIds": [
+      "C14"
+    ],
+    "levels": {},
+    "capacity": 5,
+    "redWave": false,
+    "enchants": {},
+    "submissionOrdinal": 0,
+    "expected": {
+      "effectivePips": [
+        3,
+        3,
+        3,
+        5
+      ],
+      "effectiveColors": [
+        "blue",
+        "blue",
+        "blue",
+        "blue"
+      ],
+      "pipContributions": [
+        3,
+        3,
+        3,
+        5
+      ],
+      "pipSum": 14,
+      "unusedRollBonus": 0,
+      "pairBaseAdd": 0,
+      "enchantBaseAdd": 0,
+      "baseTotal": 14,
+      "matchedGroupIds": [
+        "pair",
+        "trips"
+      ],
+      "chosenGroupId": "trips",
+      "groupMult100": 400,
+      "straightMult100": 0,
+      "colorMult100": 0,
+      "totalHandMult100": 400,
+      "redGroupingMode": "same_value",
+      "redValue": 0,
+      "redCount": 0,
+      "redMult100": 100,
+      "controllerMultiplier": 2,
+      "triggeredControllerIds": [
+        "C14"
+      ],
+      "triggeredMultiplierIds": [
+        "C14"
+      ],
+      "enchantBaseCount": 0,
+      "enchantMultiplierCount": 0,
+      "scoreNumerator": "1120000",
+      "scoreDenominator": "10000",
+      "score": 112
+    }
+  },
+  {
+    "id": "S100",
+    "label": "红组合并不改变两对",
+    "dice": [
+      {
+        "p": 1,
+        "c": "red"
+      },
+      {
+        "p": 1,
+        "c": "red"
+      },
+      {
+        "p": 4,
+        "c": "red"
+      },
+      {
+        "p": 4,
+        "c": "red"
+      },
+      {
+        "p": 6,
+        "c": "blue"
+      }
+    ],
+    "rollsRemaining": 0,
+    "controllerIds": [
+      "C24"
+    ],
+    "levels": {},
+    "capacity": 5,
+    "redWave": false,
+    "enchants": {},
+    "submissionOrdinal": 0,
+    "expected": {
+      "effectivePips": [
+        1,
+        1,
+        4,
+        4,
+        6
+      ],
+      "effectiveColors": [
+        "red",
+        "red",
+        "red",
+        "red",
+        "blue"
+      ],
+      "pipContributions": [
+        1,
+        1,
+        4,
+        4,
+        6
+      ],
+      "pipSum": 16,
+      "unusedRollBonus": 0,
+      "pairBaseAdd": 0,
+      "enchantBaseAdd": 0,
+      "baseTotal": 16,
+      "matchedGroupIds": [
+        "pair",
+        "two_pair"
+      ],
+      "chosenGroupId": "two_pair",
+      "groupMult100": 300,
+      "straightMult100": 0,
+      "colorMult100": 0,
+      "totalHandMult100": 300,
+      "redGroupingMode": "one_as_four",
+      "redValue": 4,
+      "redCount": 4,
+      "redMult100": 275,
+      "controllerMultiplier": 1,
+      "triggeredControllerIds": [
+        "C24"
+      ],
+      "triggeredMultiplierIds": [],
+      "enchantBaseCount": 0,
+      "enchantMultiplierCount": 0,
+      "scoreNumerator": "1320000",
+      "scoreDenominator": "10000",
+      "score": 132
+    }
+  }
+]

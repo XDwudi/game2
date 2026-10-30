@@ -1,0 +1,41 @@
+test_archive_traversal_and_absolute_paths_rejected (test_mac_tools.PackageTests.test_archive_traversal_and_absolute_paths_rejected) ... ok
+test_case_collisions_rejected (test_mac_tools.PackageTests.test_case_collisions_rejected) ... ok
+test_case_mixed_link_ancestor_rejected (test_mac_tools.PackageTests.test_case_mixed_link_ancestor_rejected) ... ok
+test_case_mixed_link_cycle_rejected (test_mac_tools.PackageTests.test_case_mixed_link_cycle_rejected) ... ok
+test_cycle_rejected (test_mac_tools.PackageTests.test_cycle_rejected) ... ok
+test_empty_archive_rejected (test_mac_tools.PackageTests.test_empty_archive_rejected) ... ok
+test_external_link_rejected (test_mac_tools.PackageTests.test_external_link_rejected) ... ok
+test_fat_32_and_64_tables (test_mac_tools.PackageTests.test_fat_32_and_64_tables) ... ok
+test_fat_inner_arch_must_match (test_mac_tools.PackageTests.test_fat_inner_arch_must_match) ... ok
+test_fat_overlap_rejected (test_mac_tools.PackageTests.test_fat_overlap_rejected) ... ok
+test_identity_requires_full_real_shapes (test_mac_tools.PackageTests.test_identity_requires_full_real_shapes) ... ok
+test_isolated_nested_link_is_rejected_without_descendant_file (test_mac_tools.PackageTests.test_isolated_nested_link_is_rejected_without_descendant_file) ... ok
+test_link_target_resolves_alias_before_dotdot (test_mac_tools.PackageTests.test_link_target_resolves_alias_before_dotdot) ... ok
+test_mac_launcher_is_lf_without_bom (test_mac_tools.PackageTests.test_mac_launcher_is_lf_without_bom) ... ok
+test_nested_link_ancestor_escape_rejected_before_extraction (test_mac_tools.PackageTests.test_nested_link_ancestor_escape_rejected_before_extraction) ... ok
+test_non_native_returns_none (test_mac_tools.PackageTests.test_non_native_returns_none) ... ok
+test_safe_internal_framework_link_preserved (test_mac_tools.PackageTests.test_safe_internal_framework_link_preserved) ... ok
+test_standard_framework_multi_link_target_preserved (test_mac_tools.PackageTests.test_standard_framework_multi_link_target_preserved) ... ok
+test_thin_architecture_identified (test_mac_tools.PackageTests.test_thin_architecture_identified) ... ok
+test_truncated_native_is_rejected (test_mac_tools.PackageTests.test_truncated_native_is_rejected) ... ok
+test_unicode_normalized_ancestor_rejected (test_mac_tools.PackageTests.test_unicode_normalized_ancestor_rejected) ... ok
+test_bom_records_are_read (test_mac_tools.ReplayTests.test_bom_records_are_read) ... ok
+test_boolean_cannot_impersonate_integer_sequence (test_mac_tools.ReplayTests.test_boolean_cannot_impersonate_integer_sequence) ... ok
+test_debug_sequence_starts_after_fixture_newrun (test_mac_tools.ReplayTests.test_debug_sequence_starts_after_fixture_newrun) ... ok
+test_empty_report_does_not_pass (test_mac_tools.ReplayTests.test_empty_report_does_not_pass) ... ok
+test_failed_disk_verification_fails (test_mac_tools.ReplayTests.test_failed_disk_verification_fails) ... ok
+test_final_debug_stage_must_be_24 (test_mac_tools.ReplayTests.test_final_debug_stage_must_be_24) ... ok
+test_identical_actual_fields_pass_ignoring_command_guid (test_mac_tools.ReplayTests.test_identical_actual_fields_pass_ignoring_command_guid) ... ok
+test_mismatched_count_fails (test_mac_tools.ReplayTests.test_mismatched_count_fails) ... ok
+test_missing_hash_does_not_pass_on_both_sides (test_mac_tools.ReplayTests.test_missing_hash_does_not_pass_on_both_sides) ... ok
+test_no_rows_is_failure (test_mac_tools.ReplayTests.test_no_rows_is_failure) ... ok
+test_report_cannot_claim_more_steps (test_mac_tools.ReplayTests.test_report_cannot_claim_more_steps) ... ok
+test_report_conditions_fail_individually (test_mac_tools.ReplayTests.test_report_conditions_fail_individually) ... ok
+test_rosetta_architecture_rejected (test_mac_tools.ReplayTests.test_rosetta_architecture_rejected) ... ok
+test_rule_hash_difference_fails (test_mac_tools.ReplayTests.test_rule_hash_difference_fails) ... ok
+test_skipped_sequence_fails (test_mac_tools.ReplayTests.test_skipped_sequence_fails) ... ok
+
+----------------------------------------------------------------------
+Ran 36 tests in 0.210s
+
+OK

@@ -1,0 +1,115 @@
+{
+  "releaseVersion": "p0.5.0",
+  "sourceCommit": "967f309a6be402612514714f46f3743421267799",
+  "contentConfigVersion": "p0.5.0",
+  "contentConfigSha256": "6732ab356049166c58a0d6ededf6bb2be8484690ac79eb9b96e303fd03588cfc",
+  "saveSchemaVersion": 3,
+  "goldenCaseSetSha256": "2fb088ab96e1261b286c120f8c93d84e351e98d2412e835194adb2aa11467a42",
+  "unityEditorVersion": "6000.6.7f1",
+  "backend": "Mono",
+  "blenderVersion": "5.2.3 LTS",
+  "buildUtc": "2026-10-30T05:39:54.3349637Z",
+  "releaseStatus": "CANDIDATE_MAC_VALIDATION_AND_REMOTE_DELIVERY_PENDING",
+  "platforms": [
+    {
+      "platform": "Windows",
+      "architecture": "x86_64",
+      "backend": "Mono",
+      "profile": "Assets/Settings/BuildProfiles/Windows_x64.asset",
+      "packagePath": "Releases/p0.5.0/DicePrototype-p0.5.0-win-x64.zip",
+      "sha256": "0479e32f10be4bb1f51b65d2c0ca4f8719b3845d895f1da1c61e7545173a512d",
+      "byteSize": 86022146,
+      "buildUtc": "2026-10-30T05:38:42.5616075Z",
+      "buildGuid": "182571f77341471d9fd9acd120b05e26",
+      "buildWarnings": 0,
+      "signingStatus": "NotSigned (Get-AuthenticodeSignature)",
+      "smokeStatus": "AUTOMATED_PASSED",
+      "packagingStatus": "ZIP CRC + full extraction + actual Player verified",
+      "intelRuntimeStatus": "not_applicable"
+    },
+    {
+      "platform": "macOS",
+      "architecture": "arm64+x86_64",
+      "backend": "Mono",
+      "profile": "Assets/Settings/BuildProfiles/macOS_Universal.asset",
+      "packagePath": "Releases/p0.5.0/DicePrototype-p0.5.0-macos-universal.zip",
+      "sha256": "a5f4c46fb8c7c609a09963e3a963c43566f4ae043b9bbc0cb48442a46da76297",
+      "byteSize": 126654920,
+      "buildUtc": "2026-10-30T05:39:54.3349637Z",
+      "buildGuid": "3014661a6cfd4421aff5b54096f14570",
+      "buildWarnings": 71,
+      "signingStatus": "Native signature verification pending on Mac; no Developer ID signing/notarization performed by this task",
+      "smokeStatus": "NOT_RUN_ON_MAC",
+      "packagingStatus": "Windows-generated transfer candidate; native ditto/fresh extraction pending",
+      "intelRuntimeStatus": "NOT_TESTED: x86_64 slice included, runtime unverified"
+    }
+  ],
+  "tests": {
+    "unityEditMode": {
+      "passed": 554,
+      "failed": 0
+    },
+    "unityPlayMode": {
+      "passed": 24,
+      "failed": 0
+    }
+  },
+  "ruleReproduction": {
+    "normalSeed": 20261037,
+    "normalSteps": 161,
+    "normalOutcome": "RunFailed",
+    "normalFinalStage": 9,
+    "debug24Passed": true,
+    "crossPlatformStatus": "NOT_RUN_ON_MAC"
+  },
+  "windowsPerformance": {
+    "sampleSeconds": 180.006992,
+    "frames": 10746,
+    "p95FrameIntervalMs": 16.6912999999909,
+    "thresholdMs": 16.7,
+    "status": "within_frame_budget"
+  },
+  "windowsEvidence": "evidence/v05/player/player-20261030-054053-169bea91",
+  "macVerificationKit": {
+    "packagePath": "Releases/p0.5.0/DicePrototype-p0.5.0-MacVerificationKit.zip",
+    "sha256": "7900e055adefaf603ddc27c6efa86fba143856ecf016cad70c205eade2133d24",
+    "byteSize": 126722288,
+    "sourceCommit": "967f309a6be402612514714f46f3743421267799",
+    "windowsResults": "evidence/v05/player/player-20261030-054053-169bea91",
+    "crc": "passed"
+  },
+  "remoteRestoreStatus": "SOURCE_CLONE_VERIFIED_PACKAGES_BLOCKED_BY_GITHUB_LFS_QUOTA",
+  "requiredBeforeFullAcceptance": [
+    "M5 native arm64/Metal run and screenshots",
+    "Mac ditto repack and fresh-extraction run",
+    "Windows-to-Mac checkpoint and identical rule replay",
+    "Mac checkpoint returned to Windows",
+    "Actual Mac mouse/trackpad and stable-state quit/resume",
+    "Fresh remote Git LFS restoration",
+    "Human playtesting"
+  ],
+  "note": "Source commit identifies gameplay code. The later delivery commit includes both ZIPs and this manifest; no circular self-commit field.",
+  "packageDelivery": {
+    "status": "BLOCKED_REMOTE_LFS_QUOTA",
+    "uploadedLfsObjects": 0,
+    "requiredObjects": 3,
+    "repository": "https://github.com/XDwudi/game2.git",
+    "localCandidateCommit": "940b8fa",
+    "evidence": "evidence/v05/delivery/lfs-upload-blocked.json",
+    "nextAction": "Restore repository LFS budget or explicitly approve alternate GitHub release-asset delivery."
+  },
+  "windowsNewProcessRestore": {
+    "status": "TARGETED_PASSED",
+    "processExitCode": 0,
+    "submissionScore": 324,
+    "evidence": "evidence/v05/delivery/windows-short-restore-process.json",
+    "scope": "New process restored real prior-process checkpoint, checked state and score and idempotency, then rendered startup; local ZIP, not remote download."
+  },
+  "additionalRunIssue": {
+    "evidence": "evidence/v05/delivery/windows-new-process/player-20261030-055802-1685d517",
+    "status": "FAILED_NORMAL_REPLAY_DUE_TO_SAVE_REPLACE_IO",
+    "stepIndex": 121,
+    "note": "Failed run retained; original active/backup and pending temp remain valid. External lock owner unknown; recovery audit separate.",
+    "recoveryAudit": "Backup lock reproduces identical error; after releasing lock RetrySave exactly matches original pending state/RNG, duplicate command idempotent; independent regression 539/539. Original lock owner unknown."
+  }
+}

@@ -1,0 +1,167 @@
+{
+  "scope": "Independent inspection of real transfer kit; no Mac execution",
+  "kitSha256": "7900e055adefaf603ddc27c6efa86fba143856ecf016cad70c205eade2133d24",
+  "files": [
+    {
+      "path": "DicePrototype-MacVerification/VerifyMac.command",
+      "sha256": "2d15bd17261be0abefc457e6b7c2ea38c4f0407c18f6a66243595b1a38da2fc0",
+      "byteSize": 767
+    },
+    {
+      "path": "DicePrototype-MacVerification/verify_mac.py",
+      "sha256": "6f9102294b842f11c6d944ec8e88d23113e43615ed9ac67dec607b9568a1214d",
+      "byteSize": 19272
+    },
+    {
+      "path": "DicePrototype-MacVerification/package_checks.py",
+      "sha256": "75df35774305feac4c27cd2f3de36bccc6b72dd29289e802dd40e7b9e59a5bea",
+      "byteSize": 7160
+    },
+    {
+      "path": "DicePrototype-MacVerification/compare_replays.py",
+      "sha256": "9e5a92b69ade3a8054d720c4d52b06b9a147f8bc073b77b8aabbfeb6ccd759b8",
+      "byteSize": 9678
+    },
+    {
+      "path": "DicePrototype-MacVerification/\u6267\u884c\u8bf4\u660e.md",
+      "sha256": "418d27cdc491fb7524cb3d2cf807b9e7958c47038e1b27ebf7b7f1c13faaa61a",
+      "byteSize": 8535
+    },
+    {
+      "path": "DicePrototype-MacVerification/inputs/macos.zip",
+      "sha256": "a5f4c46fb8c7c609a09963e3a963c43566f4ae043b9bbc0cb48442a46da76297",
+      "byteSize": 126654920
+    },
+    {
+      "path": "DicePrototype-MacVerification/inputs/BUILD_IDENTITY.json",
+      "sha256": "544ec68275600d9762da38e88c36fd72a2415366d736fdb3f5223bca22c9aa25",
+      "byteSize": 412
+    },
+    {
+      "path": "DicePrototype-MacVerification/inputs/normal-run-trace.json",
+      "sha256": "c829cf1e93eaca6058c98c03893f9eaee049b4fb9729f14a57a90aaaa6c83ff8",
+      "byteSize": 83193
+    },
+    {
+      "path": "DicePrototype-MacVerification/inputs/windows-results/player-report.json",
+      "sha256": "6483c72b3877333e21ff7e78d76ce51c791b7cabb1a64a44c3ff8ac37924156e",
+      "byteSize": 136313
+    },
+    {
+      "path": "DicePrototype-MacVerification/inputs/windows-results/normal-replay.jsonl",
+      "sha256": "efbaec7a77efd8a6720b38c1bcf11b111317859de8d1c6f866ae3c731ab584d0",
+      "byteSize": 82857
+    },
+    {
+      "path": "DicePrototype-MacVerification/inputs/windows-results/debug24-replay.jsonl",
+      "sha256": "d8d930125429244abba2421738a503a2b21c21fddf3356f39bf6bd663da12a48",
+      "byteSize": 36344
+    },
+    {
+      "path": "DicePrototype-MacVerification/inputs/windows-results/cross-platform-checkpoint/active-run.json",
+      "sha256": "b621d927661092ff972e4ab853d2624dde3f065b2547fd82db2f541ddf47c8e4",
+      "byteSize": 26954
+    },
+    {
+      "path": "DicePrototype-MacVerification/inputs/windows-results/cross-platform-checkpoint/command.json",
+      "sha256": "04a5f60fff8a4b21d0825ff0332463e4cfdef7d867473957c198b9177e64c563",
+      "byteSize": 204
+    },
+    {
+      "path": "DicePrototype-MacVerification/inputs/windows-results/cross-platform-checkpoint/expected.json",
+      "sha256": "3918c064796c1bfa5c010f5d6799ebb3d02bffd0aeb9103b4a3dc9e219f10c99",
+      "byteSize": 196
+    }
+  ],
+  "checks": [
+    {
+      "check": "outer ZIP sha",
+      "passed": true
+    },
+    {
+      "check": "outer ZIP size",
+      "passed": true
+    },
+    {
+      "check": "CRC",
+      "passed": true
+    },
+    {
+      "check": "current reviewed VerifyMac.command",
+      "passed": true
+    },
+    {
+      "check": "current reviewed verify_mac.py",
+      "passed": true
+    },
+    {
+      "check": "Python3.9 syntax verify_mac.py",
+      "passed": true
+    },
+    {
+      "check": "current reviewed package_checks.py",
+      "passed": true
+    },
+    {
+      "check": "Python3.9 syntax package_checks.py",
+      "passed": true
+    },
+    {
+      "check": "current reviewed compare_replays.py",
+      "passed": true
+    },
+    {
+      "check": "Python3.9 syntax compare_replays.py",
+      "passed": true
+    },
+    {
+      "check": "launcher LF",
+      "passed": true
+    },
+    {
+      "check": "embedded current Mac ZIP",
+      "passed": true
+    },
+    {
+      "check": "identity source",
+      "passed": true
+    },
+    {
+      "check": "actual passing Windows evidence",
+      "passed": true
+    },
+    {
+      "check": "Windows identity",
+      "passed": true
+    },
+    {
+      "check": "trace hash",
+      "passed": true
+    },
+    {
+      "check": "actual Windows player-report.json",
+      "passed": true
+    },
+    {
+      "check": "actual Windows normal-replay.jsonl",
+      "passed": true
+    },
+    {
+      "check": "actual Windows debug24-replay.jsonl",
+      "passed": true
+    },
+    {
+      "check": "actual Windows cross-platform-checkpoint/active-run.json",
+      "passed": true
+    },
+    {
+      "check": "actual Windows cross-platform-checkpoint/command.json",
+      "passed": true
+    },
+    {
+      "check": "actual Windows cross-platform-checkpoint/expected.json",
+      "passed": true
+    }
+  ],
+  "errors": []
+}

@@ -1,0 +1,102 @@
+{
+  "baseCommit": "36025ff17235993fa00f92241b0fc59ad6a9dd35",
+  "utc": "2026-10-30T04:49:26.156220+00:00",
+  "files": [
+    {
+      "path": "DicePrototype/Assets/Game/Core/Rules/ConfigJsonContract.cs",
+      "sha256": "805afba93d103c756cea47ef5b23dbfb2de2fb5d64c5e84604c9f72eef85b07e"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Core/Rules/ConfigValidation.cs",
+      "sha256": "2da0284f21a95de4e5b64b24c8fd22bb50005853831bb0e0c14b0dea9a6c0662"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Core/Rules/ControllerRules.cs",
+      "sha256": "1f13793af7bd62f6d4168f89c10ce847904580add676f5c62c87d619c0ca67e2"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Core/Rules/GameConfig.cs",
+      "sha256": "2b792db340adf39774c00f80fc5bb4a78526caad69923a2d44bd000e4ea203c9"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Core/Rules/GameRng.cs",
+      "sha256": "41614b1946d1c4d7b31b4a20957ef285b1bafa5a6ef7e250d05f8c79ae38e042"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Core/Rules/HandbookRules.cs",
+      "sha256": "4f8e492e2dd12646a63a47ad35cca9ccebc2f39059edc754191a163d3b98e2c4"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Core/Rules/Models.cs",
+      "sha256": "3eb0b52d23fd0cd4583ff384a8b7e7654f317d55e9b09770cb9c6059294f800b"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Core/Rules/ProbabilityCalculator.cs",
+      "sha256": "bba8bbebc4813b102ca9dcd7e11e123780a5b3f5d43852229c1ea86c4b9ea07d"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Core/Rules/ScoreCalculator.cs",
+      "sha256": "b958bc739d5eb35044f80f208e272ddd89e5c2ce3c8bf2768fdfbc98efa4ea1b"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Core/Rules/ScoreExplanation.cs",
+      "sha256": "43a5c2c21522f848c9df02618810ba28d85d0a223e10007ecfa6dc3b61f33f5f"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Core/Rules/Validation~/CoreRulesValidation.csproj",
+      "sha256": "0e8a3d516b21695bfbbc50cae67fb8dd3a068f6970cad4fbb2b31a638685755b"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Core/Rules/Validation~/Program.cs",
+      "sha256": "c48857fafc80a2692eebe0e5ffb282d01845552d4e83601e4e7ad1891cefd774"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Core/Rules/Validation~/RulesNUnitProgram.cs",
+      "sha256": "3f35b1e9d4ba0c70d1c6ac0fd9b029fc34fdfd4e1d9d802ffa583ea348005d83"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Core/Rules/Validation~/RulesNUnitValidation.csproj",
+      "sha256": "90d8dd016569dfa7db98ae8c86cdb1a112ff30a2f08716dde1ac29f327b1ba0f"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Data/GoldenScores.json",
+      "sha256": "2fb088ab96e1261b286c120f8c93d84e351e98d2412e835194adb2aa11467a42"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Data/P0Config.json",
+      "sha256": "6732ab356049166c58a0d6ededf6bb2be8484690ac79eb9b96e303fd03588cfc"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Tests/EditMode/Rules/ControllerScoreTests.cs",
+      "sha256": "66feb9f7274e8d1e4f29b00346b75aa831f1557630dc3f7c994b08f11c3827b4"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Tests/EditMode/Rules/RulesTests.cs",
+      "sha256": "b0ef9ad670659b1e0bc44d7df73b6864bb95d0e0c7f2052b4b270bf632533742"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Tests/EditMode/Rules/ScoreExplanationTests.cs",
+      "sha256": "2fae2f05dd49b9b583407cdfb943ac7604a80151319a783da855a86c8c3bb654"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Tests/EditMode/Rules/V05RulesTests.cs",
+      "sha256": "78825c6a52e13c6fa735c0d8cbf9fafd801387045d80c37db24a4f9b385910ec"
+    },
+    {
+      "path": "docs/specs/P0_v0.5.md",
+      "sha256": "cdc45b88996b13db08cc0055c4553522892b450eb23da5ebeb1529bbdc7930ca"
+    },
+    {
+      "path": "tools/generate_v05_dtos.py",
+      "sha256": "81b726adf5e3bc4f73ef6c1b8d21a0e914dc4fd7e80d9b7ed9b2daf5eb03a4fe"
+    },
+    {
+      "path": "tools/import_v05_rules.py",
+      "sha256": "01c720fb6317619ec58c71288989c3e5bfed361a2ad7339091545aa1ed440167"
+    },
+    {
+      "path": "tools/v05_reference_vectors.py",
+      "sha256": "17f01495125e54c5606a986001062935ed62013d1dcaee43b34e022d3f824e83"
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "scope": "Read-only ZIP inventory; no extraction or symlink creation",
+  "archive": "evidence/v05/review/mac-nested-link-negative.fixture.zip",
+  "sha256": "e8539bb596f59d7e54df1d9932d26c4eab28ae602aea9db9ff426ef4dc0336be",
+  "accepted": false,
+  "error": "Archive member has a symlink ancestor: a/b"
+}

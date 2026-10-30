@@ -1,0 +1,17 @@
+{
+  "configAndGoldenMatchAttachedSpecification": true,
+  "checks": [
+    {
+      "path": "DicePrototype/Assets/Game/Data/P0Config.json",
+      "appendix": "A",
+      "equalParsedJson": true,
+      "sha256": "6732ab356049166c58a0d6ededf6bb2be8484690ac79eb9b96e303fd03588cfc"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Data/GoldenScores.json",
+      "appendix": "B",
+      "equalParsedJson": true,
+      "sha256": "2fb088ab96e1261b286c120f8c93d84e351e98d2412e835194adb2aa11467a42"
+    }
+  ]
+}

@@ -1,0 +1,273 @@
+{
+  "scope": "Independent read of actual Player evidence; reviewer did not run Player or Mac",
+  "run": "evidence\\v05\\player\\player-20261030-052509-0a70fdd0",
+  "environment": {
+    "utc": "2026-10-30T05:25:11.0268714Z",
+    "unityVersion": "6000.6.7f1",
+    "buildGuid": "edf4152e4d0f4daa9e0c0d53a894934f",
+    "developmentBuild": true,
+    "isEditor": false,
+    "platform": "WindowsPlayer",
+    "os": "Windows 10  (10.0.19045) 64bit",
+    "processArchitecture": "X64",
+    "cpu": "AMD Ryzen 9 5900X 12-Core Processor ",
+    "cpuThreads": 24,
+    "systemMemoryMB": 65457,
+    "gpu": "NVIDIA GeForce RTX 3080",
+    "gpuMemoryMB": 10053,
+    "graphicsVersion": "Direct3D 11.0 [level 11.1]",
+    "graphicsApi": "Direct3D11",
+    "width": 1920,
+    "height": 1080,
+    "fullscreenMode": "Windowed",
+    "quality": "PC",
+    "vSyncCount": 0,
+    "targetFrameRate": -1,
+    "presentationFast": false,
+    "presentationReducedMotion": false,
+    "probeArguments": [
+      "--verify-p0",
+      "E:\\agent_workspace\\gpt\\game2\\evidence\\v05\\session\\normal-run-trace.json",
+      "--evidence-dir",
+      "E:\\agent_workspace\\gpt\\game2\\evidence\\v05\\player\\player-20261030-052509-0a70fdd0"
+    ]
+  },
+  "buildIdentity": {
+    "releaseVersion": "p0.5.0",
+    "sourceCommit": "7121336e6d5e9b36f22401f09d188ff7b6bcae0d",
+    "contentConfigVersion": "p0.5.0",
+    "contentConfigSha256": "6732ab356049166c58a0d6ededf6bb2be8484690ac79eb9b96e303fd03588cfc",
+    "saveSchemaVersion": 3,
+    "goldenCaseSetSha256": "2fb088ab96e1261b286c120f8c93d84e351e98d2412e835194adb2aa11467a42",
+    "unityEditorVersion": "6000.6.7f1",
+    "backend": "Mono"
+  },
+  "probeAssemblyMvid": "61e4bcd3-a1f9-4505-9eb6-870b76b37151",
+  "errors": [],
+  "normalReplay": {
+    "steps": 161,
+    "fieldsCompared": [
+      "kind",
+      "phase",
+      "actionSequence",
+      "submissionScore",
+      "stageScore",
+      "target",
+      "gold",
+      "stageIndex",
+      "rollsRemaining",
+      "remainingSubmissions"
+    ],
+    "terminal": "RunFailed",
+    "stage": 9,
+    "isDebug": false
+  },
+  "debugReplay": {
+    "steps": 178,
+    "commands": {
+      "StartStage": 24,
+      "Roll": 25,
+      "ConfirmLocks": 25,
+      "Submit": 25,
+      "EndStage": 24,
+      "Continue": 24,
+      "LeaveShop": 23,
+      "ChooseChallenge": 8
+    },
+    "terminal": "RunWon",
+    "stage": 24,
+    "isDebug": true
+  },
+  "performance": {
+    "status": "budget_exceeded",
+    "rawRows": 10723,
+    "fullRows": 10722,
+    "sampleSeconds": 180.0112231,
+    "threshold": 16.7,
+    "budgetMet": false,
+    "metrics": {
+      "interval_ms": {
+        "samples": 10722,
+        "mean": 16.787371525834736,
+        "p50": 16.666799999995874,
+        "p95": 16.770000000008167,
+        "max": 57.09609999999543
+      },
+      "main_thread_ms": {
+        "samples": 10722,
+        "mean": 16.785301548218616,
+        "p50": 16.6599,
+        "p95": 17.0629,
+        "max": 57.6172
+      },
+      "render_thread_ms": {
+        "samples": 10722,
+        "mean": 0.27410893965678046,
+        "p50": 0.2681,
+        "p95": 0.354,
+        "max": 0.6425
+      },
+      "frame_timing_cpu_ms": {
+        "samples": 10722,
+        "mean": 16.78742010818877,
+        "p50": 16.6615,
+        "p95": 17.0659,
+        "max": 57.6212
+      },
+      "gpu_ms": {
+        "samples": 10667,
+        "mean": 0.23784655929502205,
+        "p50": 0.236544,
+        "p95": 0.24064,
+        "max": 0.596992
+      },
+      "gc_alloc_bytes": {
+        "samples": 10722,
+        "mean": 75239.9598022757,
+        "p50": 0.0,
+        "p95": 99672.0,
+        "max": 3598241.0
+      },
+      "gc_used_bytes": {
+        "samples": 10722,
+        "mean": 26070541.466144376,
+        "p50": 25833472.0,
+        "p95": 29057024.0,
+        "max": 33976320.0
+      },
+      "ui_build_ms": {
+        "samples": 10722,
+        "mean": 0.003259466517440776,
+        "p50": 0.0047,
+        "p95": 0.0079,
+        "max": 0.0321
+      },
+      "mono_used_bytes": {
+        "samples": 10722,
+        "mean": 26070835.62022011,
+        "p50": 25833472.0,
+        "p95": 29057024.0,
+        "max": 33976320.0
+      },
+      "frame_start_delta_ms": {
+        "samples": 10722,
+        "mean": 16.787420593172914,
+        "p50": 16.6615,
+        "p95": 17.0659,
+        "max": 57.6212
+      },
+      "present_called_delta_ms": {
+        "samples": 10722,
+        "mean": 16.787442986383137,
+        "p50": 16.6606,
+        "p95": 17.0617,
+        "max": 57.6607
+      },
+      "frame_complete_delta_ms": {
+        "samples": 10722,
+        "mean": 16.7874435832867,
+        "p50": 16.6618,
+        "p95": 17.041,
+        "max": 57.5831
+      }
+    },
+    "rowsAbove16_7": 621,
+    "gcCollections": {
+      "generation0": 298,
+      "generation1": 298,
+      "generation2": 298
+    },
+    "gpuMissingRows": 55
+  },
+  "saveChecks": [
+    {
+      "file": "cross-platform-checkpoint\\active-run.json",
+      "fileSha256": "c3501537b2f04f9bd537e0fea408fefd75fb94ba798f10b8a432c96ed1e0dd27",
+      "payloadSha256": "8ebcf25a09a90af7eb1c5667aab3993e626a195afb26aca8f8ba07732fc7071d",
+      "payloadDigestMatches": true
+    },
+    {
+      "file": "debug-stress-save\\active-run.json",
+      "fileSha256": "b503689ba401fbe62ac4b043df9d6fadff4eb0c6972be7d6d5c76240de0bc564",
+      "payloadSha256": "5a95b92bc3deca5997de2638f943f7164e0c2350cc8cf19fa947f54b57b118b4",
+      "payloadDigestMatches": true
+    },
+    {
+      "file": "debug-stress-save\\active-run.json.backup",
+      "fileSha256": "e6dbf154c5af9488542c6c0a89d0f95ff88b39af2d81e0beee4c458cd9aa6619",
+      "payloadSha256": "573677b9e692c6e02e91f0faf0dc679217ae7a433e48064c9ed70e20fdf43882",
+      "payloadDigestMatches": true
+    },
+    {
+      "file": "debug24-save\\active-run.json",
+      "fileSha256": "683c76aa260afe354c62131c83caafbf7554974e1fc153c7afaa36775d0f171d",
+      "payloadSha256": "9e3e9590f9cb48ec71ec05b79f4a60e26be8528518d4fbc457c8328ef019d0c6",
+      "payloadDigestMatches": true
+    },
+    {
+      "file": "debug24-save\\active-run.json.backup",
+      "fileSha256": "567fb9a5679e465d6a778e87fc6263ec159781e83482154451841ea3163a96b7",
+      "payloadSha256": "d2bd4ee84cf1f7c5a7b9e79cc84831548c15f58274b7eba0522ecee9b310273d",
+      "payloadDigestMatches": true
+    },
+    {
+      "file": "local-checkpoint-reload\\active-run.json",
+      "fileSha256": "3ad43183ebdabc083228b6b9c85d1bbcb4df371d5c81668a7629e1774d1a8fa4",
+      "payloadSha256": "866738faa3f12d9075254e76bea587d8bf27eecc9359757a73fa7785eaf36cf6",
+      "payloadDigestMatches": true
+    },
+    {
+      "file": "local-checkpoint-reload\\active-run.json.backup",
+      "fileSha256": "c3501537b2f04f9bd537e0fea408fefd75fb94ba798f10b8a432c96ed1e0dd27",
+      "payloadSha256": "8ebcf25a09a90af7eb1c5667aab3993e626a195afb26aca8f8ba07732fc7071d",
+      "payloadDigestMatches": true
+    },
+    {
+      "file": "normal-save\\active-run.json",
+      "fileSha256": "054b1834f4de6abdffbb7123a35406dac59144199652988f06c2572aafbbac19",
+      "payloadSha256": "9279d0a06400a5d0e511c6239ddb8dbb589fcf3b65560fb70da7ba5713e4e7f4",
+      "payloadDigestMatches": true
+    },
+    {
+      "file": "normal-save\\active-run.json.backup",
+      "fileSha256": "56564fa1101d1a182a8d9876cee3eed9616e43305cfe237babe7cc5b0834a7b5",
+      "payloadSha256": "dbe3ccf94b63af6e67965a3234535cf478455bafe1013913ca16668a6e05a5b3",
+      "payloadDigestMatches": true
+    }
+  ],
+  "localCheckpointVerification": {
+    "passed": true,
+    "sourceSaveSha256": "c3501537b2f04f9bd537e0fea408fefd75fb94ba798f10b8a432c96ed1e0dd27",
+    "inputStateSha256": "a2247c80231234732d5f402a4cbd8ffca2039589dfd98048164f6ef51249908c",
+    "outputStateSha256": "9b256e55e45077fda294cc9dd8bf17c7e58e126b0edce44b87aac48d70919d3a",
+    "submissionScore": 324
+  },
+  "animationChecks": 53,
+  "handbookPureReadChecks": 20,
+  "bindings": [
+    {
+      "path": "evidence\\v05\\player\\player-20261030-052509-0a70fdd0\\player-report.json",
+      "sha256": "437c9d1137e1fb07dcbde65d90b64b4b69c790d801d8bdfc25807f68e11e8bbc"
+    },
+    {
+      "path": "evidence\\v05\\player\\player-20261030-052509-0a70fdd0\\normal-replay.jsonl",
+      "sha256": "0694def12d6d94fbcac1b5bfeba3f97b4cc8081c0952194356aaaec08e3f995a"
+    },
+    {
+      "path": "evidence\\v05\\player\\player-20261030-052509-0a70fdd0\\debug24-replay.jsonl",
+      "sha256": "d8d930125429244abba2421738a503a2b21c21fddf3356f39bf6bd663da12a48"
+    },
+    {
+      "path": "evidence\\v05\\player\\player-20261030-052509-0a70fdd0\\performance-frames.csv",
+      "sha256": "ea9d200e89291f5484f0fdac245f404e05762acd70d57df0ab27732600e2bc27"
+    },
+    {
+      "path": "evidence\\v05\\player\\player-20261030-052509-0a70fdd0\\normal-final-state.json",
+      "sha256": "0095139d8bb9d74bb1ba4f126d7c1aa94c7b448570627d4e9150b92384a47c27"
+    },
+    {
+      "path": "evidence\\v05\\player\\player-20261030-052509-0a70fdd0\\debug24-final-state.json",
+      "sha256": "36a7f2ce62c11be331cc83ea4f2b691822435cf32193163cd6315f1e849041f0"
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "startUtc": "2026-10-30T06:00:24.0120733Z",
+  "endUtc": "2026-10-30T06:00:29.1636362Z",
+  "pid": 29584,
+  "actualProcessPath": "E:\\agent_workspace\\gpt\\game2\\Builds\\v05\\new-process-restore-01\\DicePrototype.exe",
+  "arguments": [
+    "-screen-fullscreen",
+    "0",
+    "-screen-width",
+    "1920",
+    "-screen-height",
+    "1080",
+    "-logFile",
+    "E:/agent_workspace/gpt/game2/evidence/v05/delivery/windows-short-restore-player.log",
+    "--verify-p0",
+    "E:/agent_workspace/gpt/game2/evidence/v05/session/normal-run-trace.json",
+    "--evidence-dir",
+    "E:/agent_workspace/gpt/game2/evidence/v05/delivery/windows-short-restore",
+    "--verify-import-save",
+    "E:/agent_workspace/gpt/game2/evidence/v05/player/player-20261030-054053-169bea91/cross-platform-checkpoint"
+  ],
+  "checkpointAndRenderedStartupPassed": true,
+  "closeMainWindowSent": true,
+  "exited": true,
+  "exitCode": 0,
+  "report": "E:\\agent_workspace\\gpt\\game2\\evidence\\v05\\delivery\\windows-short-restore\\player-20261030-060026-8f47a7a4\\player-report.json",
+  "scope": "Local candidate new process restored an earlier exited process checkpoint, applied Submit, checked hashes/score/idempotency, rendered menu; intentionally closed after targeted checks. Not full replay/stress or remote LFS restoration."
+}

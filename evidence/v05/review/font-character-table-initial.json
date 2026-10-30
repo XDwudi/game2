@@ -1,0 +1,41 @@
+{
+  "scope": "Static serialized character table check; dynamic/fallback population and actual rendered text remain runtime verification",
+  "characterEntries": 604,
+  "rows": [
+    {
+      "file": "DicePrototype/Assets/Game/Data/P0Config.json",
+      "requestedCjk": 324,
+      "missingFromSerializedCharacterTable": ""
+    },
+    {
+      "file": "DicePrototype/Assets/Game/Runtime/GameApp.cs",
+      "requestedCjk": 255,
+      "missingFromSerializedCharacterTable": "共"
+    },
+    {
+      "file": "DicePrototype/Assets/Game/Core/Rules/HandbookRules.cs",
+      "requestedCjk": 122,
+      "missingFromSerializedCharacterTable": "互令尾斥符"
+    },
+    {
+      "file": "DicePrototype/Assets/Game/UI/GameApp.Modals.cs",
+      "requestedCjk": 233,
+      "missingFromSerializedCharacterTable": ""
+    },
+    {
+      "file": "DicePrototype/Assets/Game/UI/GameApp.Shop.cs",
+      "requestedCjk": 214,
+      "missingFromSerializedCharacterTable": ""
+    },
+    {
+      "file": "DicePrototype/Assets/Game/UI/GameApp.V05.cs",
+      "requestedCjk": 143,
+      "missingFromSerializedCharacterTable": ""
+    },
+    {
+      "file": "DicePrototype/Assets/Game/UI/UiKit.cs",
+      "requestedCjk": 0,
+      "missingFromSerializedCharacterTable": ""
+    }
+  ]
+}

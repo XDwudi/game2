@@ -1,0 +1,176 @@
+{
+  "scope": "Read candidate ZIP bytes only; no extraction or native execution. All payload bytes checked, manifest omissions reported. Performance failed for Player01; these are not accepted releases.",
+  "results": [
+    {
+      "platform": "windows",
+      "manifestSha256": "0795cfaa5efe2c3044541c52bd432662b4f984c5404fca7685d34740b4557099",
+      "zipSha256": "1e9ed3c661114dc4b43d456acf55a59b1147b52fa93689de2e6ace0c2b229dca",
+      "zipBytes": 86022081,
+      "fileCount": 308,
+      "manifestFileCount": 305,
+      "omittedManifestFiles": [
+        {
+          "path": "BUILD_IDENTITY.json",
+          "sha256": "1f27d5850a559c526321738170e7c396464e600602284dedead0581146dfbac6",
+          "byteSize": 401
+        },
+        {
+          "path": "Licenses/NotoSansCJK-OFL.txt",
+          "sha256": "6a73f9541c2de74158c0e7cf6b0a58ef774f5a780bf191f2d7ec9cc53efe2bf2",
+          "byteSize": 4301
+        },
+        {
+          "path": "\u5f00\u59cb\u6e38\u73a9.txt",
+          "sha256": "d78ca67473f0d214ba5f697244a60cd625a417dc6ace6501638aac366f62301b",
+          "byteSize": 1580
+        }
+      ],
+      "native": [],
+      "errors": [],
+      "sourceCommit": "7121336e6d5e9b36f22401f09d188ff7b6bcae0d"
+    },
+    {
+      "platform": "macos",
+      "manifestSha256": "9ca1e13161acb333caf5552e61ca70dc434fbd7300fc8991c02b7b2e3d43e54e",
+      "zipSha256": "03070b5a8b745ec053615fe70fd8c6fd115dc51f9dddbf1ab117ea8fd64735e4",
+      "zipBytes": 126654843,
+      "fileCount": 303,
+      "manifestFileCount": 300,
+      "omittedManifestFiles": [
+        {
+          "path": "BUILD_IDENTITY.json",
+          "sha256": "1f27d5850a559c526321738170e7c396464e600602284dedead0581146dfbac6",
+          "byteSize": 401
+        },
+        {
+          "path": "Licenses/NotoSansCJK-OFL.txt",
+          "sha256": "6a73f9541c2de74158c0e7cf6b0a58ef774f5a780bf191f2d7ec9cc53efe2bf2",
+          "byteSize": 4301
+        },
+        {
+          "path": "\u5f00\u59cb\u6e38\u73a9.txt",
+          "sha256": "d78ca67473f0d214ba5f697244a60cd625a417dc6ace6501638aac366f62301b",
+          "byteSize": 1580
+        }
+      ],
+      "native": [
+        {
+          "path": "DicePrototype.app/Contents/Frameworks/libmono-native.dylib",
+          "slices": [
+            {
+              "cpu": 16777223,
+              "subtype": 3,
+              "filetype": 6,
+              "offset": 16384,
+              "byteSize": 911072
+            },
+            {
+              "cpu": 16777228,
+              "subtype": 0,
+              "filetype": 6,
+              "offset": 933888,
+              "byteSize": 878800
+            }
+          ]
+        },
+        {
+          "path": "DicePrototype.app/Contents/Frameworks/libmonobdwgc-2.0.dylib",
+          "slices": [
+            {
+              "cpu": 16777223,
+              "subtype": 3,
+              "filetype": 6,
+              "offset": 16384,
+              "byteSize": 4837856
+            },
+            {
+              "cpu": 16777228,
+              "subtype": 0,
+              "filetype": 6,
+              "offset": 4866048,
+              "byteSize": 4731776
+            }
+          ]
+        },
+        {
+          "path": "DicePrototype.app/Contents/Frameworks/libMonoPosixHelper.dylib",
+          "slices": [
+            {
+              "cpu": 16777223,
+              "subtype": 3,
+              "filetype": 6,
+              "offset": 16384,
+              "byteSize": 345296
+            },
+            {
+              "cpu": 16777228,
+              "subtype": 0,
+              "filetype": 6,
+              "offset": 376832,
+              "byteSize": 377952
+            }
+          ]
+        },
+        {
+          "path": "DicePrototype.app/Contents/Frameworks/UnityPlayer.dylib",
+          "slices": [
+            {
+              "cpu": 16777223,
+              "subtype": 3,
+              "filetype": 6,
+              "offset": 16384,
+              "byteSize": 124117504
+            },
+            {
+              "cpu": 16777228,
+              "subtype": 0,
+              "filetype": 6,
+              "offset": 124141568,
+              "byteSize": 116956384
+            }
+          ]
+        },
+        {
+          "path": "DicePrototype.app/Contents/MacOS/DiceCraft P0",
+          "slices": [
+            {
+              "cpu": 16777223,
+              "subtype": 3,
+              "filetype": 2,
+              "offset": 16384,
+              "byteSize": 13460
+            },
+            {
+              "cpu": 16777228,
+              "subtype": 0,
+              "filetype": 2,
+              "offset": 32768,
+              "byteSize": 34084
+            }
+          ]
+        },
+        {
+          "path": "DicePrototype.app/Contents/PlugIns/lib_burst_generated.bundle",
+          "slices": [
+            {
+              "cpu": 16777223,
+              "subtype": 3,
+              "filetype": 6,
+              "offset": 4096,
+              "byteSize": 1052285
+            },
+            {
+              "cpu": 16777228,
+              "subtype": 0,
+              "filetype": 6,
+              "offset": 1064960,
+              "byteSize": 533200
+            }
+          ]
+        }
+      ],
+      "errors": [],
+      "sourceCommit": "7121336e6d5e9b36f22401f09d188ff7b6bcae0d"
+    }
+  ]
+}

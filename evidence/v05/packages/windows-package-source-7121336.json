@@ -1,0 +1,1852 @@
+{
+  "identity": {
+    "releaseVersion": "p0.5.0",
+    "sourceCommit": "7121336e6d5e9b36f22401f09d188ff7b6bcae0d",
+    "contentConfigVersion": "p0.5.0",
+    "contentConfigSha256": "6732ab356049166c58a0d6ededf6bb2be8484690ac79eb9b96e303fd03588cfc",
+    "saveSchemaVersion": 3,
+    "goldenCaseSetSha256": "2fb088ab96e1261b286c120f8c93d84e351e98d2412e835194adb2aa11467a42",
+    "unityEditorVersion": "6000.6.7f1",
+    "backend": "Mono"
+  },
+  "platform": "windows",
+  "packagePath": "Releases/p0.5.0/DicePrototype-p0.5.0-win-x64.zip",
+  "sha256": "1e9ed3c661114dc4b43d456acf55a59b1147b52fa93689de2e6ace0c2b229dca",
+  "byteSize": 86022081,
+  "files": [
+    {
+      "path": "D3D12/D3D12Core.dll",
+      "byteSize": 4725304,
+      "sha256": "625bd40005b1c3708695d5256ecf230d278e6b8edba5a88af70f3d91324f3052",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "D3D12/d3d12SDKLayers.dll",
+      "byteSize": 4930104,
+      "sha256": "c0730cc70d3250d3de19c04c17845ba9e70eecaf502d684d1409195ebc5b5959",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype.exe",
+      "byteSize": 667136,
+      "sha256": "3726509af94bdacbfe23f85da13109a7e70fb7d61913506e98690bd3208b2fd7",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/app.info",
+      "byteSize": 19,
+      "sha256": "c8f4d1f492e8e609b3ad9ea4439542921153641d84003832363e33b698a12f34",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/boot.config",
+      "byteSize": 357,
+      "sha256": "72f2452db84de66fc6a60c6d9dcc5ca4cd7e8faa707b2622357fdb1e209b8092",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/data.unity3d",
+      "byteSize": 19601343,
+      "sha256": "1c20076b95a5b745fb2e6945470ba0930d5346fb6c367e4e42683a4d912cd251",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/Assembly-CSharp.dll",
+      "byteSize": 3584,
+      "sha256": "2938c258d4b9ae9f2e24c72a805ef087763b579e196bcbfb8d9c193d627783da",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/Assembly-CSharp.pdb",
+      "byteSize": 18780,
+      "sha256": "96925f932119a6ec77b7cd56c66d62b4a05ba2d41f0a5e430f2daafea36a64ec",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/DiceCraft.Core.dll",
+      "byteSize": 125952,
+      "sha256": "ee2e29b55a679c8a9d0273f423afbb2341a4c7179d2be179216e4e47f1e864c1",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/DiceCraft.Core.pdb",
+      "byteSize": 38960,
+      "sha256": "a5ef34b8c0a29e04265a8879292c2907769e17199d784f653e4c45eb0ce08f74",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/DiceCraft.Runtime.dll",
+      "byteSize": 201216,
+      "sha256": "d5892803ec3c8219cb7ba3c8fbda7eaf630d40bbe76c2b556d38175a6d725929",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/DiceCraft.Runtime.pdb",
+      "byteSize": 53584,
+      "sha256": "3923a3277e1861b1ae13b0479da190d6e1b418332494a82daa6f49c1d8ce3fd4",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/Mono.Security.dll",
+      "byteSize": 241152,
+      "sha256": "e912bcd94b398ba750f74a12b7c61b530720f66e4ff992e62628dd42edf50ae1",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/mscorlib.dll",
+      "byteSize": 4632064,
+      "sha256": "ed3bd3b757069e96c26bfdec8179abd00feef8839ae3ad97f51637c12d83efd8",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/netstandard.dll",
+      "byteSize": 90112,
+      "sha256": "6ae62e082dc494a2433984177f60ca4db5fae69b1f360a8b33754172b310b8c5",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/Newtonsoft.Json.dll",
+      "byteSize": 691712,
+      "sha256": "a56146202232958f46bd6a28b5a7da166aea123ee0d646735a46e5c341dfbf1f",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/Newtonsoft.Json.pdb",
+      "byteSize": 2174464,
+      "sha256": "17cbab4d4207187ed94173c0d59d7a39fabed7c9035b73634c1f02188dd60168",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/System.Buffers.dll",
+      "byteSize": 4608,
+      "sha256": "762f8fdbe975e05b76be5fe996c53ce7c75e4a2830f2f50b02a5948ef6ba0aeb",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/System.Collections.Immutable.dll",
+      "byteSize": 252680,
+      "sha256": "5b1b1c83ba3d135c2fdfe425842fbe9c7432878b7e468623acb554c69b4c130f",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/System.ComponentModel.Composition.dll",
+      "byteSize": 257024,
+      "sha256": "614793b018e061527e53941045f3d44abb2856591a7982ee3479f08df3237322",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/System.Configuration.dll",
+      "byteSize": 124928,
+      "sha256": "548ac87e81788971c06463779c82ce735da2be71cdd8d59fe75a226f63981d82",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/System.Core.dll",
+      "byteSize": 1113088,
+      "sha256": "f8a67453fe15cdbe58fd459be18af2600b84d465fe9dc7ef0bceebbb92137a05",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/System.Data.DataSetExtensions.dll",
+      "byteSize": 29696,
+      "sha256": "3ef867092db854496c3a119e2a0c9c929eadd64e4f82cc590a2defbc0ffd8885",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/System.Data.dll",
+      "byteSize": 2125312,
+      "sha256": "0327833c231a3c2c989ba95651d02bd35417e9579e421adb5ea63182f1741b30",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/System.dll",
+      "byteSize": 2641920,
+      "sha256": "f7a66d1ecb77d1d74840b7100eef17ebdb5aefa2957acc7d3a6cad6d2ac12304",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/System.Drawing.dll",
+      "byteSize": 489984,
+      "sha256": "70dd9d25249ec173db45a94cce4e3d66a49dbc47bcedaf56be0a1a3193f013c3",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/System.EnterpriseServices.dll",
+      "byteSize": 44544,
+      "sha256": "4abd633b3749f92df1dc7c8ed0083515d8c4815220d619ff7491ed617a90b70e",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/System.IO.Compression.dll",
+      "byteSize": 114688,
+      "sha256": "ce68e338cd2111d37296ab573e07296f46d0ab1d62140157012662f5c1631bbf",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/System.IO.Compression.FileSystem.dll",
+      "byteSize": 18432,
+      "sha256": "d221d8ede654d31bc9d172050aebcf6583389df49ea9ca3c64b892b4d431aa93",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/System.Memory.dll",
+      "byteSize": 4608,
+      "sha256": "c4f030a2cba7da7cdcf493257c24560e203d355904aee490d645a935842f834a",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/System.Net.Http.dll",
+      "byteSize": 122880,
+      "sha256": "fc1d9895a57c89690cdbb390ff0e2a33139e6d55b3585ce27a975919b782f384",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/System.Numerics.dll",
+      "byteSize": 119296,
+      "sha256": "10ad242e00ccc5842a18f23a5db7cb98994bb9adc9cb8e928bfa983017f7b84d",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/System.Reflection.Metadata.dll",
+      "byteSize": 487584,
+      "sha256": "afcfd6c166fe0d59f45cc6363082806f6a7ea8ceed9dc6c75eec9fd79ccb5717",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/System.Runtime.CompilerServices.Unsafe.dll",
+      "byteSize": 19256,
+      "sha256": "fd67abc4c4af10affbcd42fd68a2a7bc361b26714afe6965d4d0d139459d8297",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/System.Runtime.Serialization.dll",
+      "byteSize": 934400,
+      "sha256": "b5e613632bb6740233ef64eda07a9012b4b760bdbdb382cc9e8401bec181c3cd",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/System.Security.dll",
+      "byteSize": 320000,
+      "sha256": "a2b5d9892a204c55cac80a97f115f2ed69c33616b5bc913a329d3a69e3306e33",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/System.ServiceModel.Internals.dll",
+      "byteSize": 215040,
+      "sha256": "aaa9fa4c9037fb65c82d87b6ff1b5666e41e8a2706cb4fa1669856ed546272f9",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/System.Transactions.dll",
+      "byteSize": 35328,
+      "sha256": "e10e97aa9723c7c6c48c96d066029ad274094ebca433768b852840455c9bf241",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/System.Xml.dll",
+      "byteSize": 3160064,
+      "sha256": "fdead0bddf7d8817a616c09cc603868b4a44645bbc9834775c9309b059576345",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/System.Xml.Linq.dll",
+      "byteSize": 136704,
+      "sha256": "d1f14ecf3ce7b6584f409203a474fd32bea20b8c57a64160e419c30cc0eb3ede",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/Unity.Burst.dll",
+      "byteSize": 5120,
+      "sha256": "e0e7fd1d83fc55e919b998ad02c1bc197ae8b2557fda4c5e8d95e4c51822f7b2",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/Unity.Burst.pdb",
+      "byteSize": 16724,
+      "sha256": "88bd6550040414d801b4b7d88972dd1276b522d8559f018fb284216895f3401f",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/Unity.Collections.dll",
+      "byteSize": 443904,
+      "sha256": "7a320c3d04eb190bbd523a152d15d8f3fdcabcb8dd8a189f7979a5e0ec0d65dc",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/Unity.Collections.LowLevel.ILSupport.dll",
+      "byteSize": 5120,
+      "sha256": "ff50383f807f9692e4913b97e47d86fefcb8faa33d6d48cd3e3fd6fc7ffb448d",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/Unity.Collections.pdb",
+      "byteSize": 233796,
+      "sha256": "31fe073923eba59d2b4ca91a8407ae5aa06b7bf89198dcec7debef2e26e10f3a",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/Unity.Collections.Tests.CoreCLR.InternalJobNestedPrivate.dll",
+      "byteSize": 4608,
+      "sha256": "9d1a345a7b9eb079032631128df9ee3ddb5c7061ed1fca4a352b25b6b86d6d09",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/Unity.Collections.Tests.CoreCLR.InternalJobNestedPrivate.pdb",
+      "byteSize": 16992,
+      "sha256": "6569d854e699c18ce1a7fe20944bd0d510bcef5f7e9382f8f138ca95fa125393",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/Unity.Collections.Tests.CoreCLR.PrivateJobNested.dll",
+      "byteSize": 4096,
+      "sha256": "09003c37fb5d99dce9dd4a75d9b06aff5ae3fc6990ba2b3b13e31a5f1e7a0c98",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/Unity.Collections.Tests.CoreCLR.PrivateJobNested.pdb",
+      "byteSize": 16980,
+      "sha256": "ca7fb115d364e1b72c23d67bc4fed71488bacbf3d782a667cf4e578588ea8f49",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/Unity.Collections.Tests.CoreCLR.ProtectedJobNested.dll",
+      "byteSize": 4096,
+      "sha256": "99bdf46ec28b4c0ea2542d21615e17e9a9eb4adbb854f0c9282ce0b952749eee",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/Unity.Collections.Tests.CoreCLR.ProtectedJobNested.pdb",
+      "byteSize": 16984,
+      "sha256": "47267b8512bf2507ee51814259a86f73dd73d9d6acd654a6b545741daffec7cc",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/Unity.Collections.Tests.CoreCLR.PublicJobPrivateGeneric.dll",
+      "byteSize": 4608,
+      "sha256": "cb4c8940f0f0e06dbad13bdaf4b06a8094aced2cb6912d3fd718589f4e26e5c2",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/Unity.Collections.Tests.CoreCLR.PublicJobPrivateGeneric.pdb",
+      "byteSize": 17104,
+      "sha256": "4bdb8f343860951d61d3ec01a97dfae42e8cbe3728104a532527f8988aaab190",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/Unity.InputSystem.dll",
+      "byteSize": 1133056,
+      "sha256": "ae571f14b59260dfa4802442f68febf044535752992d33192af002c674176ca0",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/Unity.InputSystem.ForUI.dll",
+      "byteSize": 15360,
+      "sha256": "08b1c67df88f163c5948e79f0a45228fdcd29890992ff4dc6bdf66fc04470529",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/Unity.InputSystem.ForUI.pdb",
+      "byteSize": 20312,
+      "sha256": "087118cc6e5e2641c742e1170276490eb70e42ebf983bd15bf2cf21ee37527ee",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/Unity.InputSystem.pdb",
+      "byteSize": 429044,
+      "sha256": "a5fb7750a50f7cf1963ab202cdeb13ebfbc66b84147cb79fe899482706acd455",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/Unity.InternalAPIEngineBridge.004.dll",
+      "byteSize": 4096,
+      "sha256": "f72c0cb5a5a59fc5e237dcdc3aa23410a590737384aec9a0be6f1bdc42279cc2",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/Unity.InternalAPIEngineBridge.004.pdb",
+      "byteSize": 17000,
+      "sha256": "699ef4944bdc2a09972779a86a48441af97b6f96b29034e17b02e9f202f03de1",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/Unity.InternalAPIEngineBridge.ObjectDispatcher.Runtime.dll",
+      "byteSize": 5632,
+      "sha256": "7966b5a02b1ee7b557d3081c18e82b0c3c02b9c8941f6235d879774b9a8c0d05",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/Unity.InternalAPIEngineBridge.ObjectDispatcher.Runtime.pdb",
+      "byteSize": 17348,
+      "sha256": "56447e8f6ac418f28e3015cb7b7b6ddb25c540d5455079f68224966fe389d212",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/Unity.InternalAPIEngineBridge.RenderPipelines.Core.Runtime.Shared.dll",
+      "byteSize": 3584,
+      "sha256": "58252e36ca3beb8a2a7d759e6037364d6d4456ea3baf1269b44b2a788a63a30d",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/Unity.InternalAPIEngineBridge.RenderPipelines.Core.Runtime.Shared.pdb",
+      "byteSize": 16836,
+      "sha256": "86f0ccf0a0b248a4305ff80da44fc51c2d0758b02553d7c4b850cf13e3954067",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/Unity.PathTracing.Runtime.dll",
+      "byteSize": 159744,
+      "sha256": "954af520747f25f782b9f98e09f1a092735f3d9b9cbc95af12dfd0978640a124",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/Unity.PathTracing.Runtime.pdb",
+      "byteSize": 66848,
+      "sha256": "2b909fb5792a2a13b5ca8125efc557b96ad8a5508fe61d05a78b57e9bc1553c1",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/Unity.Pipeline.Attributes.dll",
+      "byteSize": 7168,
+      "sha256": "f48f1942eb63be487ca34bbc088894e0a89167013d7f4c574d023616e34cdbec",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/Unity.Pipeline.Attributes.pdb",
+      "byteSize": 18176,
+      "sha256": "994b02b654d83f7de0e6116659cab9745355c1ed9a17c09dedcf55007376d979",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/Unity.Profiling.Core.dll",
+      "byteSize": 10240,
+      "sha256": "00183e02a7065c77139e3c2741d3bb329baf1a478a091220ad4770cc599bd5be",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/Unity.Profiling.Core.pdb",
+      "byteSize": 19564,
+      "sha256": "5cce4a2598317bde28a9d217e4b5ebe941dc97267a5779591d259c5faaa2dbdc",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/Unity.RenderPipeline.Universal.ShaderLibrary.dll",
+      "byteSize": 7680,
+      "sha256": "64e152698cafb29dd934dc5a7be50f2b80def20bf7128d084077bb2e40b1b19f",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/Unity.RenderPipeline.Universal.ShaderLibrary.pdb",
+      "byteSize": 17064,
+      "sha256": "5f90205fdfa2b2ce4ef2578c950d04d4dfcf723ad0358537b3dc91e1a1e78cf2",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/Unity.RenderPipelines.Core.Runtime.dll",
+      "byteSize": 1094656,
+      "sha256": "44acced7ce181670b392b48b3f06eb0cf41677e970604f94fcc60ac8781354f6",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/Unity.RenderPipelines.Core.Runtime.pdb",
+      "byteSize": 325036,
+      "sha256": "21cad0f3efc26ddade8e1012011ef23e8956830d25442eb54e18073c0109b939",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/Unity.RenderPipelines.Core.Runtime.Shared.dll",
+      "byteSize": 11264,
+      "sha256": "b367d05b2deb653dcad41646766e5c255894498543f1401d6292ff3ae3bf6e38",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/Unity.RenderPipelines.Core.Runtime.Shared.pdb",
+      "byteSize": 19260,
+      "sha256": "17c0f9572a4ac34748174d879151a846183982cf39e7a74d856456e9a390a6c3",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/Unity.RenderPipelines.Core.ShaderLibrary.dll",
+      "byteSize": 3584,
+      "sha256": "196909e6bd269da3e60e1d095306355e8aef7e8c2237ab2ec4efdd36660ce72b",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/Unity.RenderPipelines.Core.ShaderLibrary.pdb",
+      "byteSize": 16764,
+      "sha256": "dfd268b8887ea71aaecb07dc0af9612e47f59f24fe2c21fa63f9d1d4b7b63f9d",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/Unity.RenderPipelines.GPUDriven.Runtime.dll",
+      "byteSize": 299520,
+      "sha256": "4594b86b6eb0b7b88351510725571bf5f29b27c527c6157fe4f89391105f0490",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/Unity.RenderPipelines.GPUDriven.Runtime.pdb",
+      "byteSize": 117660,
+      "sha256": "176f08fdf1ceb5054fc9c5e092d3c975a8935cebc38744eda9ffa7ee2a135a65",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary.dll",
+      "byteSize": 3584,
+      "sha256": "f7106d60c3caf51bf50271759ceb75a89273f9743ee089a22ebd8a97234d0d10",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary.pdb",
+      "byteSize": 16764,
+      "sha256": "a78fdc35c38f856c3d07b6dca2610db1c8e7f91c131cac8ee8eec9b970865386",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/Unity.RenderPipelines.Universal.2D.Runtime.dll",
+      "byteSize": 218624,
+      "sha256": "546c7e02eaa76a454669b7f963d307ab6e8715bebb679a86090f8cbb601db5f3",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/Unity.RenderPipelines.Universal.2D.Runtime.pdb",
+      "byteSize": 108864,
+      "sha256": "b058220d503b6210ada3cdbceede98ba7df590a32a5b4418566abf2994b12e39",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/Unity.RenderPipelines.Universal.Config.Runtime.dll",
+      "byteSize": 4096,
+      "sha256": "1c7a79377525b1d785b911a74c6054f9f2becdb08b6ea394c8ea81fc1261387b",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/Unity.RenderPipelines.Universal.Config.Runtime.pdb",
+      "byteSize": 16844,
+      "sha256": "2b288e50f27ad68c43ce9a93e68b3fcdf7bc2d24c9c7b72fc8e9b9ff43856cf2",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/Unity.RenderPipelines.Universal.Runtime.dll",
+      "byteSize": 759808,
+      "sha256": "985c4e7b2239a9e247470928352da2373f40a097d89297fae230c8ea463e8c1a",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/Unity.RenderPipelines.Universal.Runtime.pdb",
+      "byteSize": 255240,
+      "sha256": "c6681455257470939189b0b83a5bf112b98912156e0b787b7258c7730c3572fd",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/Unity.RenderPipelines.Universal.Shaders.dll",
+      "byteSize": 3584,
+      "sha256": "bea0c4309bc7ba039d7dba13f5b75bca45d545f7dc84587bb65b38c7f6c4d0a8",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/Unity.RenderPipelines.Universal.Shaders.pdb",
+      "byteSize": 16752,
+      "sha256": "ac0856bebdf08a01aaa12cc169343134199b33727c0d1ed367d3e614e6a04c55",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/Unity.Scripting.dll",
+      "byteSize": 70576,
+      "sha256": "53ab214b5cc329702c20e64f71f31bb991fd94fa93f9befa498610b8236c82e0",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/Unity.Scripting.pdb",
+      "byteSize": 29032,
+      "sha256": "0ebc5742e3d2bab2ab06ba0e021fea55287dce4de0468a215c53f42e9db46da3",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/Unity.SurfaceCache.Runtime.dll",
+      "byteSize": 36864,
+      "sha256": "d54bf12003a0842ec9fd7c84327862c91b5e38fce8ef57a663d18b49e7a40327",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/Unity.SurfaceCache.Runtime.pdb",
+      "byteSize": 26528,
+      "sha256": "a1d12bae688defaaba9799dff45571701847b75b5084b7ad683ed5a9a321f8f8",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/Unity.TextMeshPro.dll",
+      "byteSize": 445440,
+      "sha256": "9458d88ff2a3fe858726d93da0a26c7dba19515d9f86a5147b1e2cca72163fb7",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/Unity.TextMeshPro.pdb",
+      "byteSize": 184772,
+      "sha256": "cff9b3287921dcda24d94ffc7f7093ac2e890379f70bc035f9cba74df843ff59",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/Unity.UnifiedRayTracing.Runtime.dll",
+      "byteSize": 106496,
+      "sha256": "6ebc92c48292b41b253059f144fb11c24686bf33991187e6aaa4a6881d550c8c",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/Unity.UnifiedRayTracing.Runtime.pdb",
+      "byteSize": 51904,
+      "sha256": "284642890ed159d8bb2a3b900023a92516057c93dab832d2d53cca4dd440afdd",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.AccessibilityModule.dll",
+      "byteSize": 49584,
+      "sha256": "c00102f94241fec153db08939d9412acc800500b50b800684682b8267e9d98e6",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.AccessibilityModule.pdb",
+      "byteSize": 20772,
+      "sha256": "2eea5c95b4ebb2fb3ae596a8830e4b1d095bf7a23a13038101d2a162cffe0d53",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.AdaptivePerformanceModule.dll",
+      "byteSize": 122280,
+      "sha256": "f1a7ef51f7ef4348a8032fe8fd2c7805b1b98a5e08bc8914e2cc4ada9c22d0f6",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.AdaptivePerformanceModule.pdb",
+      "byteSize": 48720,
+      "sha256": "6ed36b66b4b0f9d4f00788a9e769cf1a73d2493b381f9438b19cbeaaf9dc0246",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.AIModule.dll",
+      "byteSize": 87472,
+      "sha256": "1bcf1b74532457ee06422c44144c55a9bc470dc8f4bbc50b476858c2e4848ca3",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.AIModule.pdb",
+      "byteSize": 23060,
+      "sha256": "49fbcbf2779967b04b58e129670ca734692b128830721834775dde99a4811467",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.AMDModule.dll",
+      "byteSize": 21936,
+      "sha256": "c1833db6062471ca3a1a5259979f07f9d4d5b5bbd08535a21f1ebd18d4cc4ddf",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.AMDModule.pdb",
+      "byteSize": 12376,
+      "sha256": "078f0dba17e79807c53eae7235579b81c79495f3c51c880c59291a0f0ddbafa9",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.AndroidJNIModule.dll",
+      "byteSize": 121256,
+      "sha256": "840113117ebef4831c885c2fbeae1ff8dc270318ff4a4a49420f41fc7e450f6a",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.AndroidJNIModule.pdb",
+      "byteSize": 40944,
+      "sha256": "cf92376e05961db9eccb1b370f50d391ffdeac66b3c039614fd6a079e89423ea",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.AnimationModule.dll",
+      "byteSize": 218024,
+      "sha256": "fba418a32ecbcf46d175961e27618677c26e7e2efbd8c227b042ee6da9d85b20",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.AnimationModule.pdb",
+      "byteSize": 49452,
+      "sha256": "140a31ca0847d9a58aa8e61bbdf22e50c3a646841c0842d66c583e690652346d",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.ARModule.dll",
+      "byteSize": 27568,
+      "sha256": "d8f08fa3d63621acdfba3d641acf819ba262f48995eea36e1d3a4e5450fba6ad",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.ARModule.pdb",
+      "byteSize": 10812,
+      "sha256": "46876c9a1d8aec08ae501800136a9926b6c48c57da10428ee4299d383e087b21",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.AssetBundleModule.dll",
+      "byteSize": 42928,
+      "sha256": "76aba452ddef51b758dc7162dfb4291b4213a8ab2cae824abde725a55b9737ef",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.AssetBundleModule.pdb",
+      "byteSize": 13948,
+      "sha256": "198194686f274c6ec60bd3e8d541cc4eadbc7b94ae3854329b2bbe43822e7b45",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.AudioModule.dll",
+      "byteSize": 142248,
+      "sha256": "5cea0fa111f6a594f1ba70ab059d2d1317972213e62ef99879693134b5400226",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.AudioModule.pdb",
+      "byteSize": 31032,
+      "sha256": "78b8c4ac9866d8d6f132cf64f6fb31c41b91fb11cba4db2adf5fbbbfa3c8f01b",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.BurstModule.dll",
+      "byteSize": 337832,
+      "sha256": "6db1906c74890ba3d6c8fd5cd1fa46b870e48433e2476be1a17db02f8499709b",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.BurstModule.pdb",
+      "byteSize": 170492,
+      "sha256": "a42bdf86784aaa511368facf14af734b23e702b9408ecda667f87624b461addf",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.ClothModule.dll",
+      "byteSize": 38320,
+      "sha256": "c3359d2506f61d7c99c0f83cd41cea85c264f1b5fa6b95efa64331161cc72520",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.ClothModule.pdb",
+      "byteSize": 11392,
+      "sha256": "9b353561a1f1ea8bee53789108714e94a470f60363f2cfccba65e4165a5eeaaf",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.ClusterInputModule.dll",
+      "byteSize": 30120,
+      "sha256": "3021503f52a1ce9b6de1ae4402b1935f3f9e5c2b3f3963073811b56aa0f3472e",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.ClusterInputModule.pdb",
+      "byteSize": 10260,
+      "sha256": "747945ca0c043bce02883e67ee09f84ff277e495a61ab2cf67829aa9173d3874",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.ClusterRendererModule.dll",
+      "byteSize": 28592,
+      "sha256": "4548e8cbba37a6efe6bb799acebd14dfc780ac6bb7cd61a79fbb78cd6105f626",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.ClusterRendererModule.pdb",
+      "byteSize": 10728,
+      "sha256": "afe0d41ff7f5f0b4359d4fd0367f136091a272ecea2f888504217a40fc8dd6cb",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.ContentLoadModule.dll",
+      "byteSize": 56232,
+      "sha256": "c87fa9927dd947d515437aaff0a02519df0b3cf5b075daf5a980dbb88c79e67f",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.ContentLoadModule.pdb",
+      "byteSize": 18096,
+      "sha256": "79afbd514cc9602eba49f18cb26ab46b72b0a9e9017e301a65cc3ad9d1aa344e",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.CoreModule.dll",
+      "byteSize": 2030504,
+      "sha256": "957c23d330e2178effe4bda021cb8749f8d8d406bc2012ab8c98a6db0eba175f",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.CoreModule.pdb",
+      "byteSize": 499956,
+      "sha256": "23f296787cdcdcda1a8ebc430035c48cf41b5ba5223b404a24b1c13b2c506482",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.CrashReportingModule.dll",
+      "byteSize": 28584,
+      "sha256": "3ba8d5bea102a35c0f0e4c3ca2fb97d8ecca4eaa76060433ce25cc33a6603384",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.CrashReportingModule.pdb",
+      "byteSize": 10892,
+      "sha256": "957c93fc04feb57270875888d288799f9c3fa86c039fb0d52f72e1444e241c13",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.DirectorModule.dll",
+      "byteSize": 42928,
+      "sha256": "5c0a7a625977c9307a778e1c5013917a439e606ae299b0706a3434d5b15f86ad",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.DirectorModule.pdb",
+      "byteSize": 13808,
+      "sha256": "395828bf8063f1e98b706a88d420bd8943eeee30bea9dd8270b0ec7776d2edc6",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.dll",
+      "byteSize": 226216,
+      "sha256": "0b5700b6f374e0f13740b11d1777051d5aa67b899184940bb9fadb5522df4915",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.DSPGraphModule.dll",
+      "byteSize": 33704,
+      "sha256": "0de3bbc63ccf3682f68fb576467584de44cad9273ebd9a8f39ec04eaf2d3ad99",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.DSPGraphModule.pdb",
+      "byteSize": 10472,
+      "sha256": "0160ef74aec68516bb7882f0ad927c4cb9dd375a86f3364bf4a4846a13465c44",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.GameCenterModule.dll",
+      "byteSize": 46504,
+      "sha256": "85d274d5839f328c77de2a9a411b6ff5c3273c5abecf207581cdf2cc6a0b6554",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.GameCenterModule.pdb",
+      "byteSize": 16572,
+      "sha256": "944845a2b9dfce8bb3f32bcb0033c97518037acefd39e2b9d713113e8f8e4636",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.GIModule.dll",
+      "byteSize": 26032,
+      "sha256": "8ba968f1c0ce3813ea829f692d8f391a7baa0f44413803e1c555510942702456",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.GIModule.pdb",
+      "byteSize": 10132,
+      "sha256": "e49099d6d5ee968fc50a33a00ce01aa70393a9ccf7606cb2f774785cbec6f475",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.GraphicsStateCollectionSerializerModule.dll",
+      "byteSize": 14256,
+      "sha256": "8b36edd5cb4745844fe84732f68b59a6efaa0e64003ba8403693499aabe6a631",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.GraphicsStateCollectionSerializerModule.pdb",
+      "byteSize": 10164,
+      "sha256": "7d584bad173f4fde08f1cb25934e68d408585b707d80cb199e0e709b499a26f2",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.GridModule.dll",
+      "byteSize": 32688,
+      "sha256": "83e2ca067f5db330ac534b9144f6bbad0bd44dc23a6b5663639f86da0534d37f",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.GridModule.pdb",
+      "byteSize": 10912,
+      "sha256": "92daf5afebaf58cd2134e6b6ec5500c5eaab902c42229a668173a17cc7d08f31",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.HierarchyCoreModule.dll",
+      "byteSize": 114608,
+      "sha256": "9103aeda2704b9dd97052496398bc54a640785c790af6a7249d98a2734e17f04",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.HierarchyCoreModule.pdb",
+      "byteSize": 35324,
+      "sha256": "c8a9bd6b808f3331e63854660fb6b3001b585f963ea2404d0724c469731e4be9",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.HierarchyModule.dll",
+      "byteSize": 117168,
+      "sha256": "99ae2a5cce3b492c6c26818c53691b5c57f5b4cf6e6002b314c9d0459859e288",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.HierarchyModule.pdb",
+      "byteSize": 47580,
+      "sha256": "8e667e79145bd5c36f483309878d719818e8336be540332d3589800557fcf04f",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.HotReloadModule.dll",
+      "byteSize": 26024,
+      "sha256": "74e637bf13b34e586dcfa6584395eb5d6e210e77878cc495d4950d53f1e4df24",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.HotReloadModule.pdb",
+      "byteSize": 10132,
+      "sha256": "db50f3c1078d1a0f76df4f9bded58a1de68409375b87370ba60f48d34ec0afb0",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.IdentifiersModule.dll",
+      "byteSize": 16816,
+      "sha256": "245fe9769bb2d51a737e9f71899cde96399069b62568d680df619d6554d8213c",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.IdentifiersModule.pdb",
+      "byteSize": 10564,
+      "sha256": "8509196ebadea5eafa1c12f4d6a2bfcdc8eeed6c9110628c5a0bc15f692c782b",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.ImageConversionModule.dll",
+      "byteSize": 34224,
+      "sha256": "6a4ff449ce3fd1ccc9ad46aad7686ff01b0092842718797c753209cb39093d4e",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.ImageConversionModule.pdb",
+      "byteSize": 11344,
+      "sha256": "508c5d9b659429df2720bf7468fdd831de91221c0d4f9c23623b7f42c606b352",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.IMGUIModule.dll",
+      "byteSize": 191920,
+      "sha256": "ace052a9426fdf9c41e64b9619818c802541b888fcb34035876915ef40267c37",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.IMGUIModule.pdb",
+      "byteSize": 65780,
+      "sha256": "6228c582d4b52fa0bb5b76749b96e128a82e4047b6fdc98c314b54ec9a907799",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.InputForUIModule.dll",
+      "byteSize": 56752,
+      "sha256": "7f051c08279f409b25fdbad976fa01f6ee873c91e0fa9f31c583481f065f1449",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.InputForUIModule.pdb",
+      "byteSize": 24260,
+      "sha256": "f5f54fda7c88746580beab4b963344169caedd502cdf7cac397d00cface6da86",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.InputLegacyModule.dll",
+      "byteSize": 42928,
+      "sha256": "b36fc67eddadde63d9c0bf53af314eea74883386ae8406d27567ef26b89b8b28",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.InputLegacyModule.pdb",
+      "byteSize": 14284,
+      "sha256": "f9d760901624283a3fb93ff4c64e55ef41ffd3a56455bca6bf93d4e0e4f6b3a6",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.InputModule.dll",
+      "byteSize": 32680,
+      "sha256": "510fe0623c4f8bf39221861605c29be74b6cd4a02c9d751f24e879951cf05226",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.InputModule.pdb",
+      "byteSize": 13440,
+      "sha256": "0d124c6925752ec6fa703cb6b3c227106a291f1ed46dcef9b1d9e54c5a42b5b4",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.InsightsModule.dll",
+      "byteSize": 15784,
+      "sha256": "3793290b8ec42954eb780d5501479e6e242eb516ba304e6521f7678e01cc965a",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.InsightsModule.pdb",
+      "byteSize": 10924,
+      "sha256": "ab2b6dba751ef3cfabff4365aa9bd80ad9397cce1a82ad335ad442d79a335e8a",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.JSONSerializeModule.dll",
+      "byteSize": 29096,
+      "sha256": "55c7afef07c8872f8e110b2b61836c050a4e3b87b24228b282141f621472b00f",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.JSONSerializeModule.pdb",
+      "byteSize": 10620,
+      "sha256": "ec91ad463e865fdb2da39f57dced58a7040bd39d3cbeae19ac5b4f8628814e43",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.LocalizationModule.dll",
+      "byteSize": 29104,
+      "sha256": "789d956c0c403406a9229c5a026897cd7c883b02f5d807b381bc65ec76d7c67b",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.LocalizationModule.pdb",
+      "byteSize": 10560,
+      "sha256": "9960e4ac3eb9f100e58da361a6c658f3696253a9750989b8dd3eb6902af781a3",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.ManagedKernelModule.dll",
+      "byteSize": 14256,
+      "sha256": "6eae37905bc1a8132d2d9fc1043b0ac05ab8ab4a4c528c9bdbe5b6efae0b0f52",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.ManagedKernelModule.pdb",
+      "byteSize": 10164,
+      "sha256": "06ba63f7d13aade1b4ae7dfc39423d11a31b76da7ec0dc5b354991e1688e1c17",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.MarshallingModule.dll",
+      "byteSize": 100784,
+      "sha256": "17992d81bb146144c3f3ac39a2c02474f2e3615d33368694a3973451ea824c40",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.MarshallingModule.pdb",
+      "byteSize": 17104,
+      "sha256": "c424a4a08f2a887deaa3b9a3fb44d45bdd876b5574e13dc03f00f5959855f361",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.MathematicsModule.dll",
+      "byteSize": 740784,
+      "sha256": "91d9baed094baeb44534eb143c6bd0512caf2697f6942ccc76007b1b6fc24a28",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.MathematicsModule.pdb",
+      "byteSize": 324472,
+      "sha256": "86e910a1136c1d760077e0e39638e604038157d5485b3bc7f116f3372d5e2714",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.MultiplayerModule.dll",
+      "byteSize": 18352,
+      "sha256": "c94981260578bca956026161304ad88fae7de4c6c4bc484d3fc5f1082f75d0bd",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.MultiplayerModule.pdb",
+      "byteSize": 11320,
+      "sha256": "57108f1f6c8d3d87b1840a9e7d79f84af651c8f97f0ba4db1efe76d6c28f6423",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.NVIDIAModule.dll",
+      "byteSize": 41392,
+      "sha256": "803fd6bae6a7f5ce511c2ad876f37d01f3f1894da445504b20cac40b086f59e3",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.NVIDIAModule.pdb",
+      "byteSize": 15572,
+      "sha256": "2226c5377590d82d4714c23bbdae42b02c2d7aceee03e74b8a2e0725a3a64c53",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.ParticleSystemModule.dll",
+      "byteSize": 170416,
+      "sha256": "378f770a4633d2628105a5c9f2fbe0ca1712a6402114ac2cb34950b4ca4f076b",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.ParticleSystemModule.pdb",
+      "byteSize": 37184,
+      "sha256": "723d74fb37594c62550cb3871c25c149260e18bacfad635749080b37fcbbd4c3",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.pdb",
+      "byteSize": 13180,
+      "sha256": "293c4de15c553e6174d3e68fc7e5b41f4ce483459f4c7df6081888ad56a43f90",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.PerformanceReportingModule.dll",
+      "byteSize": 27056,
+      "sha256": "32db47ceb72b497f2e0036cc93e70ba80f2d9a4147a2eea763e0b60087501377",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.PerformanceReportingModule.pdb",
+      "byteSize": 10380,
+      "sha256": "341771d9e9daf933e70597d0d331f5fec8e2b870286d94457e30847705b302ed",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.Physics2DModule.dll",
+      "byteSize": 222640,
+      "sha256": "75842b91c28c4c9202df446ce0bf6efb00f4e80ac2250bd734cdbe4967127a00",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.Physics2DModule.pdb",
+      "byteSize": 43444,
+      "sha256": "ad0fb6852f93caee420accc30164b2808a9eb3facafa7e518cdaffe916e840bc",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.PhysicsBackendPhysXModule.dll",
+      "byteSize": 14256,
+      "sha256": "8ae8cdad4c8c0c1d28febb463cd1e41d76c95482040dc2bee992902586a248f7",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.PhysicsBackendPhysXModule.pdb",
+      "byteSize": 10156,
+      "sha256": "3a435b58aefb116a17598fd8fea8b39eb7068ff1de20fab5ac34fc38aa05a9db",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.PhysicsCore2DModule.dll",
+      "byteSize": 481192,
+      "sha256": "9c329c52a02962cee6aa2d8c7fdc40f40fcae9d139f52e20be8381d150f3cd1b",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.PhysicsCore2DModule.pdb",
+      "byteSize": 114992,
+      "sha256": "da10644e4f498b8527c4fd62345f508095e8f747c4dd94a2903675db47b0f2b5",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.PhysicsModule.dll",
+      "byteSize": 181672,
+      "sha256": "2a0adcddf1a0c0a0687445e9a06e187249289e4e788ea315a1d8784f393946ee",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.PhysicsModule.pdb",
+      "byteSize": 39968,
+      "sha256": "fced7ae0ea8652b4c48cbc029cf365398af53063564dca13dbbe93304fb54194",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.PropertiesModule.dll",
+      "byteSize": 124840,
+      "sha256": "ab289a26978bc28ad743d87f6cd6445fccb1b4f588fbaed0801cb563a447504a",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.PropertiesModule.pdb",
+      "byteSize": 51876,
+      "sha256": "fbee2dcacf0fa1362f76870ff7304dfb14d38d8f743ef2cec809bd324e71b975",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.RenderAs2DModule.dll",
+      "byteSize": 27560,
+      "sha256": "eeec4b59e3c673d061e4f75ef376cffd8e52c494e68f119323177b5c0283b155",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.RenderAs2DModule.pdb",
+      "byteSize": 10192,
+      "sha256": "cac683f1e289c15bf321e18e9ffed7f717ddf74a65b960fa1be625be2900ac95",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.RuntimeInitializeOnLoadManagerInitializerModule.dll",
+      "byteSize": 26032,
+      "sha256": "a728c2f3a28edf711494783cf5c86821715a10dd6874371660139104e240d642",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.RuntimeInitializeOnLoadManagerInitializerModule.pdb",
+      "byteSize": 10200,
+      "sha256": "4beee22a8ae5abf44011d1f6ddb2d52154cc5470482ef01aa356304c573b83f2",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.ScreenCaptureModule.dll",
+      "byteSize": 28080,
+      "sha256": "f76237cdc7b2f5d2dc3fc3e04feddf87cc4dbab96185e98774edcc86397abe3d",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.ScreenCaptureModule.pdb",
+      "byteSize": 10664,
+      "sha256": "cd687be2d50c3218608a72988cc4907efb5ca2f41a337a5cf412d775f89da434",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.ScriptingModule.dll",
+      "byteSize": 65968,
+      "sha256": "198355e3872f0a5f1fb6e0c41a221f7d8b254e33eace8a1e7a067184b21118fe",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.ScriptingModule.pdb",
+      "byteSize": 24592,
+      "sha256": "e1f9edf6959be52e93e14b7fb8c494149cb13989c66ed0e90b30df05b7fb5489",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.ShaderVariantAnalyticsModule.dll",
+      "byteSize": 26032,
+      "sha256": "9df089927e6d80cec2aa89c3f488d2283be0b256dd8bd04306c207799aa15dbe",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.ShaderVariantAnalyticsModule.pdb",
+      "byteSize": 10264,
+      "sha256": "bbd657709b8cacd6e7bcf3687f81713acafa8e3edc30cc664779c56c5abc4b0f",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.SpriteMaskModule.dll",
+      "byteSize": 30632,
+      "sha256": "83e5fd0c9b92fcf07b188419dcc4f21db8f645050cda1cb95e10d88e5a94c4cc",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.SpriteMaskModule.pdb",
+      "byteSize": 10480,
+      "sha256": "1e31719bb657eb04c3aa66d30a771bec187fdce0bf71737e9263a4accd3d836a",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.SpriteShapeModule.dll",
+      "byteSize": 34216,
+      "sha256": "83b86c99d01ef30f550bd7e3605c19141e7ee050dbcad42519520f74adc9a7db",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.SpriteShapeModule.pdb",
+      "byteSize": 11528,
+      "sha256": "c4e90338a319a69ab348180637df46110806738ad8ccc56d5bbd6c6a5bb75a77",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.StreamingModule.dll",
+      "byteSize": 28080,
+      "sha256": "4ffadc5cfac944f26c1dd2d892b5920f3d775eddec6f563cd52170b05195e58d",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.StreamingModule.pdb",
+      "byteSize": 10220,
+      "sha256": "1e18a911665c207d9ae6169f76d2cdc71588aad92252d52e75a29ca148b0d301",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.SubstanceModule.dll",
+      "byteSize": 31144,
+      "sha256": "cc1570a65360eda153ee34c566fadb16055e537cbfe48ae01a60abc3cefc3aae",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.SubstanceModule.pdb",
+      "byteSize": 12088,
+      "sha256": "e22bbe9f3778f3401f62959a827622cc9470888c55fbedc923762d87452e1f10",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.SubsystemsModule.dll",
+      "byteSize": 42928,
+      "sha256": "4a2a55dfcd7397df166af405c4a42c2d9913ddd63d33dac5e480b2d367aeda93",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.SubsystemsModule.pdb",
+      "byteSize": 16104,
+      "sha256": "7a9f2ac9306d50969973649041a753f1080bd4774a3c7d4bd27a47369ea5f4ac",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.TerrainModule.dll",
+      "byteSize": 132520,
+      "sha256": "05a55f2e7daf41201c4b2ae8c8c271829d358dcb23cf21e06d9d27ae6022399d",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.TerrainModule.pdb",
+      "byteSize": 29136,
+      "sha256": "c0330236096f0173a923bac8e5ab724251039f91ed2c2d1094cdf39d8f9a4d2e",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.TerrainPhysicsModule.dll",
+      "byteSize": 27568,
+      "sha256": "fc99213b48e93f6116d9199285f7ce92788ce9e07554aefbed8e643860b3cfe8",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.TerrainPhysicsModule.pdb",
+      "byteSize": 10580,
+      "sha256": "19cee5a77d110961be1aa47844f98b326b0bdf9f33fada083adbb5fab4e19943",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.TetgenModule.dll",
+      "byteSize": 26032,
+      "sha256": "da099d65a6a2351ea1eda129f3c5e258bcc929883a30d797f39e9f3c09fb568c",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.TetgenModule.pdb",
+      "byteSize": 10132,
+      "sha256": "93c4d5c1966405ac8215369a9d6ff710b2ce0df526daf17c06bbb332fc1adc74",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.TextCoreFontEngineModule.dll",
+      "byteSize": 86440,
+      "sha256": "f090fe8e906210ce38740c027e867b2ec3f52bba2337541af86b28708f817e2f",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.TextCoreFontEngineModule.pdb",
+      "byteSize": 26484,
+      "sha256": "563ad9dbc702238e2e83824f1a30585aaad0dd2f6d0f87d4979742e77c0ceb1d",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.TextCoreTextEngineModule.dll",
+      "byteSize": 314800,
+      "sha256": "f4bd7432613b2779e399a38db06498a24e53b72cf7fcf2faab6a256812ef9502",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.TextCoreTextEngineModule.pdb",
+      "byteSize": 117020,
+      "sha256": "afa791b73cbf6a3507ac7f9f64e288c6c500f162b942dbb839fd5c923e4b3cb0",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.TextRenderingModule.dll",
+      "byteSize": 39344,
+      "sha256": "b5fedb246c07e2f79b00681362e22ed8e902396621671c421750edf8138e21ed",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.TextRenderingModule.pdb",
+      "byteSize": 14660,
+      "sha256": "b667fea1f38b378e94bcaa892751fd3e64264f986127013a531e01c819c6ded0",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.TilemapModule.dll",
+      "byteSize": 75688,
+      "sha256": "99c21b2145a8ea5b75a33e5d1cf6c5da742ced302040807f0e12b5649cbd0bce",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.TilemapModule.pdb",
+      "byteSize": 22984,
+      "sha256": "e13f62256de4f0f8c7bacadf322224d089d6a0efe34c94edddf3f0df88f474e4",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.TimelineFoundationModule.dll",
+      "byteSize": 167344,
+      "sha256": "764b3e2b2887c041330f0007ee86c8e92d5eec94c8bcba8534d645db21728b0a",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.TimelineFoundationModule.pdb",
+      "byteSize": 81040,
+      "sha256": "43e7750e30d059cb40933e2357624e4ff19163f013b3ccc4cd66f3977c48b8b9",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.TLSModule.dll",
+      "byteSize": 34224,
+      "sha256": "67821ae08f3e702d156ce93ee3025150ba01a45d57be8280d2162e451ef52887",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.TLSModule.pdb",
+      "byteSize": 10320,
+      "sha256": "3c9bb0d08983c2c6a0917973ab590b8374d24ff090ba0fe17cb5718335bd175b",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.U2DRuntimeModule.dll",
+      "byteSize": 73648,
+      "sha256": "ab889bdc7a6922f0ecbc269b955064faba48d2fbffb5897846249a9c716f4286",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.U2DRuntimeModule.pdb",
+      "byteSize": 34080,
+      "sha256": "db14f9e6f17f5b247a36a0336b8428461889f403528755bad2f33d8c803e2f1d",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.UI.dll",
+      "byteSize": 269824,
+      "sha256": "5d5b6e615cabea034f2202aa6f2b49ed0535b526aaf626c8a20361c96de284df",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.UI.pdb",
+      "byteSize": 139308,
+      "sha256": "ccd7a2e95f64ddbaef357532dda099395c115f4815a59176283a671f9423f672",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.UIElementsModule.dll",
+      "byteSize": 2552232,
+      "sha256": "94f1103ee1538fb226a3159d6cdbbd7bb72a8f18c46c8c09f02de9907849f245",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.UIElementsModule.pdb",
+      "byteSize": 1012660,
+      "sha256": "d86caecd4e372f11f6dff0437faabc7464c10cf79e472dbd5b01fe4f73800809",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.UIModule.dll",
+      "byteSize": 57264,
+      "sha256": "3ab5610e834dac2dded955357a912f40dc9571cb8e58ac17679f28a85faef308",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.UIModule.pdb",
+      "byteSize": 15704,
+      "sha256": "e6f19c770c76f34f6ecaa087db1fd0a353f44bc9bde00ff7b854d16391ffe319",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.UmbraModule.dll",
+      "byteSize": 26032,
+      "sha256": "3e7743dcd17ae9ab30071e4c7be81e39ff66c57f0439122e7c21803ba86f6d61",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.UmbraModule.pdb",
+      "byteSize": 10132,
+      "sha256": "ef6506f01a996255764a625704c67d724e83f63eb2c5fbf30ff9350b7e1ed805",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.UnityAnalyticsCommonModule.dll",
+      "byteSize": 36776,
+      "sha256": "8ebbcb289293c6443ee4a6a39397da27acddda82f5e3fb1f3b34586b0f9fbd7c",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.UnityAnalyticsCommonModule.pdb",
+      "byteSize": 13908,
+      "sha256": "d1b6041e5d5f86b66ae4a9394f46903ef152a3ce294d3663aefeca7defcc7454",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.UnityAnalyticsModule.dll",
+      "byteSize": 61864,
+      "sha256": "993e7b95c963eafa0ea03d728e05a1470bd18bf4ddfe8d9dc11b8376c3d6f37b",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.UnityAnalyticsModule.pdb",
+      "byteSize": 18588,
+      "sha256": "fe222b1d89ec94a86eed94dfb01393f8faba793332ee308937e958dc57c94fe8",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.UnityConnectModule.dll",
+      "byteSize": 29616,
+      "sha256": "59bd862d6ff02ecd0536e40a4696e6b6eb3b5fe9e0c7d41eeeae62e163731a42",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.UnityConnectModule.pdb",
+      "byteSize": 10700,
+      "sha256": "52b5891e3ef65e5d09c87c406c48c19cec690e41a30aecd6173ee3a933dff664",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.UnityConsentModule.dll",
+      "byteSize": 16304,
+      "sha256": "c5f8784a2e52b9f20330b507295ba4cbefe6a70a5a91f39a87610c0a6042dab8",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.UnityConsentModule.pdb",
+      "byteSize": 10704,
+      "sha256": "c473b0fff03dbb282672e0737854abda2e0390162f17d827a4b2283c32f5963d",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.UnityCurlModule.dll",
+      "byteSize": 28072,
+      "sha256": "fbebe3cd6f3bb6693b137268be0b73ba4e2eed81e8f18397ae99078918fd7323",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.UnityCurlModule.pdb",
+      "byteSize": 10528,
+      "sha256": "46e295d774aef23c69bc0a814c1a3d1d479305c46dfc801628b58235a4d0193e",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.UnityWebRequestAssetBundleModule.dll",
+      "byteSize": 30640,
+      "sha256": "f1cc2c9beaccf363d8bcd61bfa18a685e40ea1af55ec6576e25134d3f7bbd79b",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.UnityWebRequestAssetBundleModule.pdb",
+      "byteSize": 11420,
+      "sha256": "c12548f57372ff13c9d0ce47b6415a58be0f274aab1debcce74c3a82c9f68607",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.UnityWebRequestAudioModule.dll",
+      "byteSize": 30632,
+      "sha256": "4d845c1af998bbd78e7653e12b71b3e7d6bb259f2f9829d337a6725fe6d43a54",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.UnityWebRequestAudioModule.pdb",
+      "byteSize": 11472,
+      "sha256": "e6d4911074e5999e038a4499376de8c6453e6272435f7ea96ad6f9898836f179",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.UnityWebRequestModule.dll",
+      "byteSize": 81328,
+      "sha256": "f9e5893bab929d45b605cbaced026a64ac2943420a0ef463d0e52b03c9da2420",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.UnityWebRequestModule.pdb",
+      "byteSize": 27880,
+      "sha256": "c1fccc333469ddc977cf875cd3c8ecc5d059dbb836d7bb4b87c6cdbfd54202bd",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.UnityWebRequestTextureModule.dll",
+      "byteSize": 29608,
+      "sha256": "0eb45a489e67197d9126ea2505810392cb396618fc0d2eaa712f53ba1a9fbf7b",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.UnityWebRequestTextureModule.pdb",
+      "byteSize": 11476,
+      "sha256": "1ac61fcec5103ba143f2cd253486c902f6645ab3a1967fa88a8e98b324b28560",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.UnityWebRequestWWWModule.dll",
+      "byteSize": 35248,
+      "sha256": "0b792669540438f24f1aba8a24a0df57c49b218825332f3376e919bcf1aab285",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.UnityWebRequestWWWModule.pdb",
+      "byteSize": 13112,
+      "sha256": "2f0f7a7a272f64361df5922254c2a8f719d528368c295cb51e458ddc3cf7762d",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.VectorGraphicsModule.dll",
+      "byteSize": 231336,
+      "sha256": "52fc06d609c516b305867deb3d9879fcb2a4c76fcc0993da981595e7e43faeb0",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.VectorGraphicsModule.pdb",
+      "byteSize": 104812,
+      "sha256": "764d552a3f8b8a85ec4d0091ce89e6a87d6e1e8179d74661cd5f8cba2aa6f3cb",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.VehiclesModule.dll",
+      "byteSize": 33200,
+      "sha256": "3afa6b698444c44e0c8eefb37c8816601f063a00dfd37c4bf51efbcc1e899c98",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.VehiclesModule.pdb",
+      "byteSize": 11200,
+      "sha256": "8d2aa92158e730659ed317c6f0c2ff155cda17a160eeeb2b044e869738c66630",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.VFXModule.dll",
+      "byteSize": 82352,
+      "sha256": "38a4ff3fc6e0256e0eb39da52f70f76e167bbaf0f9f43f853a691b6f3da2c7fb",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.VFXModule.pdb",
+      "byteSize": 18680,
+      "sha256": "e2d16e7c1e33f5f711b0a608f39e987d6dfaa22770b51aae5a4d9e4a0e9686c7",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.VideoModule.dll",
+      "byteSize": 48552,
+      "sha256": "d00897681f27b05807c8ae36d952916e3b85e22782bc3d7f744ace914d9d827e",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.VideoModule.pdb",
+      "byteSize": 14416,
+      "sha256": "7bc77bc032bc45c34c5cf1388cd317bef2b0462bf354938bdd07bb4acf6f2a7c",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.VirtualTexturingModule.dll",
+      "byteSize": 43952,
+      "sha256": "4ab483ae111a485cf7cf2ad22647a1d535b2dfb5838986a122829bdfc3f51179",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.VirtualTexturingModule.pdb",
+      "byteSize": 13288,
+      "sha256": "12854631ab68dbecd3c942fe2844a455b84b4c04606089fdae3ef1d3be8a25f0",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.WindModule.dll",
+      "byteSize": 28584,
+      "sha256": "173c414b4049ec2f3a7e530c48176bbd022e4d79f7de8276349bd98e6d60649b",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.WindModule.pdb",
+      "byteSize": 10276,
+      "sha256": "37b3858f49d611b12d92803f3f62974163ae683fa00683c72a8394e8711ae47e",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.XRModule.dll",
+      "byteSize": 96176,
+      "sha256": "48d3fa89c3ea1a696936efa85d45b0b675a90714fb9b5b58b88d313e92d23448",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Managed/UnityEngine.XRModule.pdb",
+      "byteSize": 23548,
+      "sha256": "0d8a3bed9545fc76e341049d2513de62c720bbb61917a7f23ecd02c65830d32b",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Plugins/x86_64/lib_burst_generated.dll",
+      "byteSize": 572416,
+      "sha256": "935abb307535af2928a62c913351189252e91b73f9b16cf81fbfdbe427994c6e",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Plugins/x86_64/lib_burst_generated.pdb",
+      "byteSize": 3219456,
+      "sha256": "412ed99c586b083b796e834053f64a4985effa5653713e7f7d3e62573075cfea",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Plugins/x86_64/libonigwrap.dll",
+      "byteSize": 551336,
+      "sha256": "c22db1e7be04c50eb47e67362bf705830bb95df30c02c22dd7add835ee777583",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/Resources/unity default resources",
+      "byteSize": 5919584,
+      "sha256": "696b9afaee02b5d45978634f1450ef18423c19177933b997fd8ee364d70cdd61",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/RuntimeInitializeOnLoads.json",
+      "byteSize": 4266,
+      "sha256": "80269d1c6a0f59b1a5f81c7bcf740b52a05ac854653d50196b6827c4eb8d3616",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/ScriptingAssemblies.json",
+      "byteSize": 4782,
+      "sha256": "a0c8ecd2b0a39b7bb6d41c94da604124efc5de5be658eed3d53412dc128bf2b8",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "DicePrototype_Data/sharedassets0.resource",
+      "byteSize": 25056,
+      "sha256": "0f06fb2dabb2b696fb24bb961f9995ff6beeb1626cf1c0a780fad54025300b83",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "dstorage.dll",
+      "byteSize": 206904,
+      "sha256": "cae65787f61514bec6f012f44546e68b19e39d8854a9ab52af813370d44b272a",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "dstoragecore.dll",
+      "byteSize": 1482784,
+      "sha256": "cf85b19a92a8276f8baca0db9bbcd60735bad50768deb303d310e84d5f4fdd11",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "MonoBleedingEdge/EmbedRuntime/mono-2.0-bdwgc.dll",
+      "byteSize": 7834544,
+      "sha256": "43a72335bddff9e23e1c9e3f31ed1ebdafbb7bc9173fa1f84226cc670641fa6d",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "MonoBleedingEdge/EmbedRuntime/MonoPosixHelper.dll",
+      "byteSize": 611240,
+      "sha256": "f1141b241c7958afef59b4faa2ded24a580e135626a0f72a8cc4c1ebc565ef0d",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "MonoBleedingEdge/etc/mono/2.0/Browsers/Compat.browser",
+      "byteSize": 1605,
+      "sha256": "8a1082057ac5681dcd4e9c227ed7fb8eb42ac1618963b5de3b65739dd77e2741",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "MonoBleedingEdge/etc/mono/2.0/DefaultWsdlHelpGenerator.aspx",
+      "byteSize": 60575,
+      "sha256": "751861040b69ea63a3827507b7c8da9c7f549dc181c1c8af4b7ca78cc97d710a",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "MonoBleedingEdge/etc/mono/2.0/machine.config",
+      "byteSize": 29066,
+      "sha256": "e91782a27fa39fc6c1d6ee8b08529f5d35052310d0006034b878eb04b8f2af30",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "MonoBleedingEdge/etc/mono/2.0/settings.map",
+      "byteSize": 2622,
+      "sha256": "49c6160f9d54af4270a3b4e997fc4a8301f79b9e2070118fa46ddbcbbc44f9a2",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "MonoBleedingEdge/etc/mono/2.0/web.config",
+      "byteSize": 11635,
+      "sha256": "cf2b54339e069b9e42f7d6795eecbf562c50c1011f4ca8f65f578fe52d97ff92",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "MonoBleedingEdge/etc/mono/4.0/Browsers/Compat.browser",
+      "byteSize": 1605,
+      "sha256": "8a1082057ac5681dcd4e9c227ed7fb8eb42ac1618963b5de3b65739dd77e2741",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "MonoBleedingEdge/etc/mono/4.0/DefaultWsdlHelpGenerator.aspx",
+      "byteSize": 60575,
+      "sha256": "751861040b69ea63a3827507b7c8da9c7f549dc181c1c8af4b7ca78cc97d710a",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "MonoBleedingEdge/etc/mono/4.0/machine.config",
+      "byteSize": 33598,
+      "sha256": "e60aec2c5115d65b3acb3c55ea21576dbd770f579166c017125571e46ae560ed",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "MonoBleedingEdge/etc/mono/4.0/settings.map",
+      "byteSize": 2622,
+      "sha256": "ce1db1ad8a9512073164e3eccdc193f7eda036e1a9733caec4635de21b2865c8",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "MonoBleedingEdge/etc/mono/4.0/web.config",
+      "byteSize": 18802,
+      "sha256": "e38bb8cc68fe5b4edecdfd288d094b9e8ced7629039b2a347682aba0d8bd7492",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "MonoBleedingEdge/etc/mono/4.5/Browsers/Compat.browser",
+      "byteSize": 1605,
+      "sha256": "8a1082057ac5681dcd4e9c227ed7fb8eb42ac1618963b5de3b65739dd77e2741",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "MonoBleedingEdge/etc/mono/4.5/DefaultWsdlHelpGenerator.aspx",
+      "byteSize": 60575,
+      "sha256": "751861040b69ea63a3827507b7c8da9c7f549dc181c1c8af4b7ca78cc97d710a",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "MonoBleedingEdge/etc/mono/4.5/machine.config",
+      "byteSize": 34056,
+      "sha256": "ee950004b576fb28dc85f4b0435ed04bf96612de2e8b53be84d07afe85a0de6c",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "MonoBleedingEdge/etc/mono/4.5/settings.map",
+      "byteSize": 2622,
+      "sha256": "ce1db1ad8a9512073164e3eccdc193f7eda036e1a9733caec4635de21b2865c8",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "MonoBleedingEdge/etc/mono/4.5/web.config",
+      "byteSize": 18811,
+      "sha256": "c4cbddd4fd9347b58cc5a72b36dc4ba1ad2bb699e65869d05cd3fb9865f0d824",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "MonoBleedingEdge/etc/mono/browscap.ini",
+      "byteSize": 311984,
+      "sha256": "4ddd50f31fb968f30bedefc253a46dc3f2890192d05cdaa9e0a64a056eee807e",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "MonoBleedingEdge/etc/mono/config",
+      "byteSize": 3815,
+      "sha256": "5776169973a26a387b8b3e5c0f2301a7ab9a6dd7c7d3efa22a96abc47fbf8662",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "MonoBleedingEdge/etc/mono/mconfig/config.xml",
+      "byteSize": 25817,
+      "sha256": "0c56e34c69124510fa8c19e7b4c2ca6c1c4ff460ae19f798dd0ca035809e396d",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "UnityCrashHandler64.exe",
+      "byteSize": 1843112,
+      "sha256": "218672788adbfc6f77a956e4a5b2b0b12c93a8c0426cf7db1a21bf57b27f792d",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "UnityPlayer.dll",
+      "byteSize": 91611568,
+      "sha256": "c93b9eaa6b12782ea809a0a35d65e81bbdc24ad080c914a7ca017ea5534b8958",
+      "zipMode": "0o100644"
+    },
+    {
+      "path": "WinPixEventRuntime.dll",
+      "byteSize": 58368,
+      "sha256": "81adcfd8253c3489be720da7e30f16004dc9a1f02a8b418c6c3aef4993032e6d",
+      "zipMode": "0o100644"
+    }
+  ],
+  "nativeComponents": [],
+  "crc": "passed",
+  "acceptance": "pending_player_and_clean_restore",
+  "macOSPackaging": null
+}

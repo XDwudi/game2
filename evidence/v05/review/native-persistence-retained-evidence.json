@@ -1,0 +1,275 @@
+[
+  {
+    "test": "DiceCraft.Tests.AtomicSaveStoreTests.SAVE_BackupRecoveryThenSavePreservesLastValidBackup(\"schema\")",
+    "result": "Passed",
+    "directoryFromNativeTestOutput": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftPersistence_13b5d51508c04f128b6f583d6ccebedd",
+    "retainedFiles": [
+      {
+        "name": "active-run.json",
+        "size": 9122,
+        "sha256": "d1200405027db03d737f4681dcf1a6ccd95b7d00060570ea5ca0870afaeaebe9"
+      },
+      {
+        "name": "active-run.json.backup",
+        "size": 7527,
+        "sha256": "6426fc4cfe0c9a1380f1c117cebddb5eb417d8e0a2029502e2a6cf6e91754d35"
+      },
+      {
+        "name": "active-run.json.rejected-d0be59c0433e42a39ee577051973fbcb",
+        "size": 8684,
+        "sha256": "c2a3729d33fdf3e94275d541c3dc2cefd0db6b0cac789aaca6b4dd54129ff3d4"
+      }
+    ]
+  },
+  {
+    "test": "DiceCraft.Tests.AtomicSaveStoreTests.SAVE_BackupRecoveryThenSavePreservesLastValidBackup(\"hash\")",
+    "result": "Passed",
+    "directoryFromNativeTestOutput": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftPersistence_f3c8e60f8696451e96d6b34049b1b793",
+    "retainedFiles": [
+      {
+        "name": "active-run.json",
+        "size": 9122,
+        "sha256": "d1200405027db03d737f4681dcf1a6ccd95b7d00060570ea5ca0870afaeaebe9"
+      },
+      {
+        "name": "active-run.json.backup",
+        "size": 7527,
+        "sha256": "6426fc4cfe0c9a1380f1c117cebddb5eb417d8e0a2029502e2a6cf6e91754d35"
+      },
+      {
+        "name": "active-run.json.rejected-6f731668fbfb4190b9b54d711acca7fb",
+        "size": 8684,
+        "sha256": "ad1f35cacfb8acfb6e5c1017be5d9ac4b3a45ea434d663115e01bf77ba2ec5f9"
+      }
+    ]
+  },
+  {
+    "test": "DiceCraft.Tests.AtomicSaveStoreTests.SAVE_BackupRecoveryThenSavePreservesLastValidBackup(\"structure\")",
+    "result": "Passed",
+    "directoryFromNativeTestOutput": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftPersistence_02b5e5b786b340d88769bebcb5ddbc11",
+    "retainedFiles": [
+      {
+        "name": "active-run.json",
+        "size": 9122,
+        "sha256": "d1200405027db03d737f4681dcf1a6ccd95b7d00060570ea5ca0870afaeaebe9"
+      },
+      {
+        "name": "active-run.json.backup",
+        "size": 7527,
+        "sha256": "6426fc4cfe0c9a1380f1c117cebddb5eb417d8e0a2029502e2a6cf6e91754d35"
+      },
+      {
+        "name": "active-run.json.rejected-35284867eb18462ba9ba6759b2b733d8",
+        "size": 8684,
+        "sha256": "02dc6bb55c0d222b353cd53bb0eccf3bdb8b49f203fd8740199acb36bea56a04"
+      }
+    ]
+  },
+  {
+    "test": "DiceCraft.Tests.AtomicSaveStoreTests.SAVE_BothFilesCorruptReturnsNullAndNoticeWithoutOverwritingEvidence(\"schema\")",
+    "result": "Passed",
+    "directoryFromNativeTestOutput": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftPersistence_95aacb5565fe40218e364a7a63dfffdb",
+    "retainedFiles": [
+      {
+        "name": "active-run.json",
+        "size": 8684,
+        "sha256": "c2a3729d33fdf3e94275d541c3dc2cefd0db6b0cac789aaca6b4dd54129ff3d4"
+      },
+      {
+        "name": "active-run.json.backup",
+        "size": 7530,
+        "sha256": "91c8a9587a2c260c9218efad061f81885c9abfba14f2280e2542475871847a80"
+      }
+    ]
+  },
+  {
+    "test": "DiceCraft.Tests.AtomicSaveStoreTests.SAVE_BothFilesCorruptReturnsNullAndNoticeWithoutOverwritingEvidence(\"hash\")",
+    "result": "Passed",
+    "directoryFromNativeTestOutput": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftPersistence_af0c2f03cf9448c8ba6b0e67a3f1490b",
+    "retainedFiles": [
+      {
+        "name": "active-run.json",
+        "size": 8684,
+        "sha256": "ad1f35cacfb8acfb6e5c1017be5d9ac4b3a45ea434d663115e01bf77ba2ec5f9"
+      },
+      {
+        "name": "active-run.json.backup",
+        "size": 7530,
+        "sha256": "ba3cc0cf78d7a20a42c62797d2472d41348c25a2e35dcf20b0fe203cb803fcc3"
+      }
+    ]
+  },
+  {
+    "test": "DiceCraft.Tests.AtomicSaveStoreTests.SAVE_BothFilesCorruptReturnsNullAndNoticeWithoutOverwritingEvidence(\"structure\")",
+    "result": "Passed",
+    "directoryFromNativeTestOutput": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftPersistence_b0808bfde1e044df98d536fc600b79a8",
+    "retainedFiles": [
+      {
+        "name": "active-run.json",
+        "size": 8684,
+        "sha256": "02dc6bb55c0d222b353cd53bb0eccf3bdb8b49f203fd8740199acb36bea56a04"
+      },
+      {
+        "name": "active-run.json.backup",
+        "size": 7530,
+        "sha256": "7dcca3379efcbd708e3409c968e9df6a4bd16efc883d542b5e099fb081b0d493"
+      }
+    ]
+  },
+  {
+    "test": "DiceCraft.Tests.AtomicSaveStoreTests.SAVE_DirectWriteWithoutLoadStillPreservesBackupWhenActiveIsCorrupt(\"schema\")",
+    "result": "Passed",
+    "directoryFromNativeTestOutput": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftPersistence_9c884718c5f846c6a311738d99a50843",
+    "retainedFiles": [
+      {
+        "name": "active-run.json",
+        "size": 9122,
+        "sha256": "d1200405027db03d737f4681dcf1a6ccd95b7d00060570ea5ca0870afaeaebe9"
+      },
+      {
+        "name": "active-run.json.backup",
+        "size": 7527,
+        "sha256": "6426fc4cfe0c9a1380f1c117cebddb5eb417d8e0a2029502e2a6cf6e91754d35"
+      },
+      {
+        "name": "active-run.json.rejected-52d31c8ada004c7b89ab67aadc09def4",
+        "size": 8684,
+        "sha256": "c2a3729d33fdf3e94275d541c3dc2cefd0db6b0cac789aaca6b4dd54129ff3d4"
+      }
+    ]
+  },
+  {
+    "test": "DiceCraft.Tests.AtomicSaveStoreTests.SAVE_DirectWriteWithoutLoadStillPreservesBackupWhenActiveIsCorrupt(\"hash\")",
+    "result": "Passed",
+    "directoryFromNativeTestOutput": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftPersistence_650c5ae9f4f74300905470196a637b7e",
+    "retainedFiles": [
+      {
+        "name": "active-run.json",
+        "size": 9122,
+        "sha256": "d1200405027db03d737f4681dcf1a6ccd95b7d00060570ea5ca0870afaeaebe9"
+      },
+      {
+        "name": "active-run.json.backup",
+        "size": 7527,
+        "sha256": "6426fc4cfe0c9a1380f1c117cebddb5eb417d8e0a2029502e2a6cf6e91754d35"
+      },
+      {
+        "name": "active-run.json.rejected-3fd4181e4e5344f6a62cadd9227097e8",
+        "size": 8684,
+        "sha256": "ad1f35cacfb8acfb6e5c1017be5d9ac4b3a45ea434d663115e01bf77ba2ec5f9"
+      }
+    ]
+  },
+  {
+    "test": "DiceCraft.Tests.AtomicSaveStoreTests.SAVE_DirectWriteWithoutLoadStillPreservesBackupWhenActiveIsCorrupt(\"structure\")",
+    "result": "Passed",
+    "directoryFromNativeTestOutput": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftPersistence_dab24fc3f16849c08c26c7dc41c7445e",
+    "retainedFiles": [
+      {
+        "name": "active-run.json",
+        "size": 9122,
+        "sha256": "d1200405027db03d737f4681dcf1a6ccd95b7d00060570ea5ca0870afaeaebe9"
+      },
+      {
+        "name": "active-run.json.backup",
+        "size": 7527,
+        "sha256": "6426fc4cfe0c9a1380f1c117cebddb5eb417d8e0a2029502e2a6cf6e91754d35"
+      },
+      {
+        "name": "active-run.json.rejected-578e1b2809144cbaad8f7c560763dcfb",
+        "size": 8684,
+        "sha256": "02dc6bb55c0d222b353cd53bb0eccf3bdb8b49f203fd8740199acb36bea56a04"
+      }
+    ]
+  },
+  {
+    "test": "DiceCraft.Tests.AtomicSaveStoreTests.SAVE_NullGroupHistoryRemainsNoGroupAndCannotChangeNextHandOrScore",
+    "result": "Passed",
+    "directoryFromNativeTestOutput": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftPersistence_992838ed79b341e9a8cdcdb79f7627f8",
+    "retainedFiles": [
+      {
+        "name": "active-run.json",
+        "size": 11366,
+        "sha256": "450523d425ac68d0edc5403547162a254c4e74ddf8611ea14404ab77c28d2f54"
+      }
+    ]
+  },
+  {
+    "test": "DiceCraft.Tests.AtomicSaveStoreTests.SAVE_RealJsonUtilityRoundTripPreservesDiceRngReceiptsAndPhysicalResults",
+    "result": "Passed",
+    "directoryFromNativeTestOutput": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftPersistence_278297d2417d48cd967b1b9afec7111a",
+    "retainedFiles": [
+      {
+        "name": "active-run.json",
+        "size": 9122,
+        "sha256": "d1200405027db03d737f4681dcf1a6ccd95b7d00060570ea5ca0870afaeaebe9"
+      }
+    ]
+  },
+  {
+    "test": "DiceCraft.Tests.AtomicSaveStoreTests.SAVE_V05_CorruptFrozenHistoryWithValidHashFallsBackBeforeClone(\"triggers\")",
+    "result": "Passed",
+    "directoryFromNativeTestOutput": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftPersistence_69493132a6724d92a91ed59aec74e2c7",
+    "retainedFiles": [
+      {
+        "name": "active-run.json",
+        "size": 11878,
+        "sha256": "e21f5d0a7a5e2814b343890bb09abb4d5020b6aad63da34af8d124cdcdeeda9b"
+      },
+      {
+        "name": "active-run.json.backup",
+        "size": 9122,
+        "sha256": "d1200405027db03d737f4681dcf1a6ccd95b7d00060570ea5ca0870afaeaebe9"
+      }
+    ]
+  },
+  {
+    "test": "DiceCraft.Tests.AtomicSaveStoreTests.SAVE_V05_CorruptFrozenHistoryWithValidHashFallsBackBeforeClone(\"score\")",
+    "result": "Passed",
+    "directoryFromNativeTestOutput": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftPersistence_8bdc25c883fd4044b5d7fead24c64cd4",
+    "retainedFiles": [
+      {
+        "name": "active-run.json",
+        "size": 11885,
+        "sha256": "fe9da97c2a4b7d9275483cb3ae991b9b3e62deab910f2b8564a5900f532c3107"
+      },
+      {
+        "name": "active-run.json.backup",
+        "size": 9122,
+        "sha256": "d1200405027db03d737f4681dcf1a6ccd95b7d00060570ea5ca0870afaeaebe9"
+      }
+    ]
+  },
+  {
+    "test": "DiceCraft.Tests.AtomicSaveStoreTests.SAVE_V05_IsolatesBothLegacySchema2FilesAcrossNewRunBackupRotation",
+    "result": "Passed",
+    "directoryFromNativeTestOutput": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftPersistence_455fe81fc5ef42828af4a8c838c6294f",
+    "retainedFiles": [
+      {
+        "name": "active-run.json",
+        "size": 9122,
+        "sha256": "d1200405027db03d737f4681dcf1a6ccd95b7d00060570ea5ca0870afaeaebe9"
+      },
+      {
+        "name": "active-run.json.backup",
+        "size": 8681,
+        "sha256": "7e55098f0d6dfdf99aba553989cfc4e2a24524255dbfd6c51378275dcde19d37"
+      },
+      {
+        "name": "active-run.json.backup.legacy-schema2-9f7063037df3b30e",
+        "size": 7527,
+        "sha256": "9f7063037df3b30e3e81abaacdeac288bcbb1371d38b9f76213a904d1e3dbd28"
+      },
+      {
+        "name": "active-run.json.legacy-schema2-385f680006b4d0bc",
+        "size": 8681,
+        "sha256": "385f680006b4d0bc2d8dbc6c19fa45564af9300b897441720b08f07e8e1246e1"
+      },
+      {
+        "name": "active-run.json.rejected-05179450e5e844cdba6f96f7a6ef8aa3",
+        "size": 8681,
+        "sha256": "385f680006b4d0bc2d8dbc6c19fa45564af9300b897441720b08f07e8e1246e1"
+      }
+    ]
+  }
+]

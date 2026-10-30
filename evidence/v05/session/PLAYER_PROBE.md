@@ -1,0 +1,14 @@
+# v0.5 Player probe contract
+
+Revision `p05-player-independent-clocks-6`, report schema `p0-player-verification-5`. Root retains exclusive Unity/build/Player execution ownership.
+
+Use the unchanged `--verify-p0 <absolute trace path> --evidence-dir <absolute directory>` entry point with `evidence/v05/session/normal-run-trace.json`. The probe isolates all normal, Debug24 and pressure save directories and never overwrites a user's normal save.
+
+1. Replay 161 normal commands for seed 20261037 through GameApp with actual save reload and detached UI state equality after every command. Expected outcome is a recorded stage-9 failure, explicitly declared by the trace; it is not a 24-stage win or a balance acceptance claim. Ordinary animation, reduced-motion and skip checks remain.
+2. Open/close the real ShowHandbook modal 20 times; compare the complete rules state, pending selection and save hash each time. Confirm scatter plus all 12 upgradeable row names exist. Capture HandbookScroll top/middle/bottom at actual 720p, 1080p, 1440p, and capture qualified continue/end UI.
+3. Install one separately saved Debug24 initial fixture (5 fixed red/gold dice, level-8 hands, four ordinary controllers). After this single setup, use real commands across 24 stages, all eight configured risk branches and all 23 shops. Stage 1 performs a second submission after qualification before EndStage. Check disk/UI equality each command, delayed rewards, final RunWon and no final shop. This validates state flow, not normal difficulty or player experience.
+4. Pressure fixture: 8 permanent + 2 temporary dice; 8 locked + 2 unlocked; 4 ordinary and 6 slotless controllers, with both scoring enchantments represented; 5 inventory items. C21/C22 establish K8. Glass dice remain locked. Ten-second warmup, 180-second sample, 95% required metric coverage and LateUpdate interval P95 <=16.7 ms remain unchanged. Operation schedule remains roll 0.00, skip 0.25, rotate locks 0.50, select 0.70, clear 0.85 each second. Autosave and preview stay active. No state injection, screenshots, threshold adjustments or discarded slow frames occur in the measured interval.
+
+Every normal and Debug24 command records `ruleStateSha256` for Windows/macOS comparison. The canonical clone removes only run identity and command receipts (the presentation uses GUID command IDs), canonicalizes stored run references, and retains every gameplay field and all three RNG states. The raw command sequence/results, save files and original state snapshots remain alongside it. Compare hashes at corresponding commands; performance and platform evidence are separate.
+
+28 managed report/capture helper checks passed against the freshly compiled local project assemblies (`probe-metric01.log`). These checks do not invoke Unity native APIs and do not substitute for a real Player run. Probe and input hashes are in `probe-source-manifest.json`.

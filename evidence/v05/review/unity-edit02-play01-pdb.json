@@ -1,0 +1,431 @@
+{
+  "utc": "2026-10-30T05:05:26.2975218Z",
+  "reviewerRanUnity": false,
+  "directory": "E:\\agent_workspace\\gpt\\game2\\DicePrototype/Library/ScriptAssemblies",
+  "mismatches": 0,
+  "assemblies": [
+    {
+      "name": "DiceCraft.Core",
+      "mvid": "8a106028-b952-4fe3-9a0f-ff2b75be6f81",
+      "dllSha256": "e5a88bf8f9db2d19bc8e714ddecddbb85941f3ed585f61355e5200debfceb72f",
+      "pdbSha256": "84bba4bf6e7e760077fa2b77eefb52a8f216e1252e27b8e4e8732373650e778a",
+      "dllLastWriteUtc": "2026-10-30T04:54:07.1917592Z",
+      "pdbMatchesDll": true,
+      "projectDocuments": 15
+    },
+    {
+      "name": "DiceCraft.Runtime",
+      "mvid": "b35669bb-f0d8-48db-a4bf-6eda69a926fd",
+      "dllSha256": "728c9a8bc20814fd69d2ce0b7d1adbfef7b370ef2c79023257408ad7c080683a",
+      "pdbSha256": "d09995979a546c7391dc4124f2552012fd9096bfe3395769366a40905f6b5e41",
+      "dllLastWriteUtc": "2026-10-30T05:05:18.2304032Z",
+      "pdbMatchesDll": true,
+      "projectDocuments": 10
+    },
+    {
+      "name": "DiceCraft.EditMode",
+      "mvid": "10c0b07b-ace3-4803-8de1-fa345d501ccf",
+      "dllSha256": "d29a8731736e81616ff19da92b8cca33ac6a808ff9a1b7522e41b924361c1f27",
+      "pdbSha256": "5be773e2f5cca43e0158d4989aaedf331e75f29a518ab766cfb3218787831710",
+      "dllLastWriteUtc": "2026-10-30T04:57:01.6565074Z",
+      "pdbMatchesDll": true,
+      "projectDocuments": 11
+    },
+    {
+      "name": "DiceCraft.PlayModeTests",
+      "mvid": "c6e52325-451d-4410-9fc1-86fbb3cc5737",
+      "dllSha256": "aefdc63e0b8c2dfe9da21143c2d8c6558d67a89a357d0fa9b8a2dd521aadf6d5",
+      "pdbSha256": "f6a902320dded14f2245c63c7484f0c09737473c7df8622a2087e2a115995837",
+      "dllLastWriteUtc": "2026-10-30T05:05:17.9656588Z",
+      "pdbMatchesDll": true,
+      "projectDocuments": 7
+    },
+    {
+      "name": "DiceCraft.Editor",
+      "mvid": "a1733811-dfbf-41eb-a6e5-812e67554344",
+      "dllSha256": "981710382a630e2e610d7a95789f45f5865af5e68ac0c0e94044410ee131cd92",
+      "pdbSha256": "a76dbca78ab5eea601c5136e3a5fdb87fd9cd83e3716790608f016deb265542a",
+      "dllLastWriteUtc": "2026-10-30T05:05:17.9239699Z",
+      "pdbMatchesDll": true,
+      "projectDocuments": 4
+    }
+  ],
+  "documents": [
+    {
+      "assembly": "DiceCraft.Core",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Core\\Rules\\ConfigJsonContract.cs",
+      "expectedChecksum": "805afba93d103c756cea47ef5b23dbfb2de2fb5d64c5e84604c9f72eef85b07e",
+      "currentChecksum": "805afba93d103c756cea47ef5b23dbfb2de2fb5d64c5e84604c9f72eef85b07e",
+      "matches": true,
+      "sourceLastWriteUtc": "2026-10-30T04:48:11.8777469Z"
+    },
+    {
+      "assembly": "DiceCraft.Core",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Core\\Rules\\ConfigValidation.cs",
+      "expectedChecksum": "2da0284f21a95de4e5b64b24c8fd22bb50005853831bb0e0c14b0dea9a6c0662",
+      "currentChecksum": "2da0284f21a95de4e5b64b24c8fd22bb50005853831bb0e0c14b0dea9a6c0662",
+      "matches": true,
+      "sourceLastWriteUtc": "2026-10-30T04:48:11.8777469Z"
+    },
+    {
+      "assembly": "DiceCraft.Core",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Core\\Rules\\ControllerRules.cs",
+      "expectedChecksum": "1f13793af7bd62f6d4168f89c10ce847904580add676f5c62c87d619c0ca67e2",
+      "currentChecksum": "1f13793af7bd62f6d4168f89c10ce847904580add676f5c62c87d619c0ca67e2",
+      "matches": true,
+      "sourceLastWriteUtc": "2026-10-30T04:48:11.8787478Z"
+    },
+    {
+      "assembly": "DiceCraft.Core",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Core\\Rules\\GameConfig.cs",
+      "expectedChecksum": "2b792db340adf39774c00f80fc5bb4a78526caad69923a2d44bd000e4ea203c9",
+      "currentChecksum": "2b792db340adf39774c00f80fc5bb4a78526caad69923a2d44bd000e4ea203c9",
+      "matches": true,
+      "sourceLastWriteUtc": "2026-10-30T04:48:11.8777469Z"
+    },
+    {
+      "assembly": "DiceCraft.Core",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Core\\Rules\\GameRng.cs",
+      "expectedChecksum": "41614b1946d1c4d7b31b4a20957ef285b1bafa5a6ef7e250d05f8c79ae38e042",
+      "currentChecksum": "41614b1946d1c4d7b31b4a20957ef285b1bafa5a6ef7e250d05f8c79ae38e042",
+      "matches": true,
+      "sourceLastWriteUtc": "2026-10-28T20:38:44.1183845Z"
+    },
+    {
+      "assembly": "DiceCraft.Core",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Core\\Rules\\HandbookRules.cs",
+      "expectedChecksum": "3e02abc240d167a681f8f1f16ea67408cc4153740b07507d61360dc573a06777",
+      "currentChecksum": "3e02abc240d167a681f8f1f16ea67408cc4153740b07507d61360dc573a06777",
+      "matches": true,
+      "sourceLastWriteUtc": "2026-10-30T04:51:25.1935552Z"
+    },
+    {
+      "assembly": "DiceCraft.Core",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Core\\Rules\\Models.cs",
+      "expectedChecksum": "3eb0b52d23fd0cd4583ff384a8b7e7654f317d55e9b09770cb9c6059294f800b",
+      "currentChecksum": "3eb0b52d23fd0cd4583ff384a8b7e7654f317d55e9b09770cb9c6059294f800b",
+      "matches": true,
+      "sourceLastWriteUtc": "2026-10-30T04:48:11.8777469Z"
+    },
+    {
+      "assembly": "DiceCraft.Core",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Core\\Rules\\ProbabilityCalculator.cs",
+      "expectedChecksum": "bba8bbebc4813b102ca9dcd7e11e123780a5b3f5d43852229c1ea86c4b9ea07d",
+      "currentChecksum": "bba8bbebc4813b102ca9dcd7e11e123780a5b3f5d43852229c1ea86c4b9ea07d",
+      "matches": true,
+      "sourceLastWriteUtc": "2026-10-30T04:48:11.8787478Z"
+    },
+    {
+      "assembly": "DiceCraft.Core",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Core\\Rules\\ScoreCalculator.cs",
+      "expectedChecksum": "b958bc739d5eb35044f80f208e272ddd89e5c2ce3c8bf2768fdfbc98efa4ea1b",
+      "currentChecksum": "b958bc739d5eb35044f80f208e272ddd89e5c2ce3c8bf2768fdfbc98efa4ea1b",
+      "matches": true,
+      "sourceLastWriteUtc": "2026-10-30T04:48:11.8787478Z"
+    },
+    {
+      "assembly": "DiceCraft.Core",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Core\\Rules\\ScoreExplanation.cs",
+      "expectedChecksum": "43a5c2c21522f848c9df02618810ba28d85d0a223e10007ecfa6dc3b61f33f5f",
+      "currentChecksum": "43a5c2c21522f848c9df02618810ba28d85d0a223e10007ecfa6dc3b61f33f5f",
+      "matches": true,
+      "sourceLastWriteUtc": "2026-10-30T04:48:11.8787478Z"
+    },
+    {
+      "assembly": "DiceCraft.Core",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Core\\Session\\GameSession.Shop.cs",
+      "expectedChecksum": "236d26101f6bc59fd609f9c39b3e4784aae65736beeb2e85bb881eafe51232f3",
+      "currentChecksum": "236d26101f6bc59fd609f9c39b3e4784aae65736beeb2e85bb881eafe51232f3",
+      "matches": true,
+      "sourceLastWriteUtc": "2026-10-30T04:49:50.3587556Z"
+    },
+    {
+      "assembly": "DiceCraft.Core",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Core\\Session\\GameSession.Submission.cs",
+      "expectedChecksum": "29d640e12b6dc550558d2479a71557c21be9ac82dc9d33aefdd46f3cc4b43ae2",
+      "currentChecksum": "29d640e12b6dc550558d2479a71557c21be9ac82dc9d33aefdd46f3cc4b43ae2",
+      "matches": true,
+      "sourceLastWriteUtc": "2026-10-30T04:49:50.3989938Z"
+    },
+    {
+      "assembly": "DiceCraft.Core",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Core\\Session\\GameSession.Validation.cs",
+      "expectedChecksum": "1df422c74a05fb5f8a0739c28dc3320dae8162bbd0b5d9a18eba8806dfc769e0",
+      "currentChecksum": "1df422c74a05fb5f8a0739c28dc3320dae8162bbd0b5d9a18eba8806dfc769e0",
+      "matches": true,
+      "sourceLastWriteUtc": "2026-10-30T04:53:57.8549392Z"
+    },
+    {
+      "assembly": "DiceCraft.Core",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Core\\Session\\GameSession.cs",
+      "expectedChecksum": "34539103a5a5057e23772b6039a66d77317d2481c6f07fb057bc6195d198af71",
+      "currentChecksum": "34539103a5a5057e23772b6039a66d77317d2481c6f07fb057bc6195d198af71",
+      "matches": true,
+      "sourceLastWriteUtc": "2026-10-30T04:49:50.3174803Z"
+    },
+    {
+      "assembly": "DiceCraft.Core",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Core\\Session\\SessionModels.cs",
+      "expectedChecksum": "b5613122907e649051455893802c9afe3ea0c16123a8aa5ddbdfea14ece95d03",
+      "currentChecksum": "b5613122907e649051455893802c9afe3ea0c16123a8aa5ddbdfea14ece95d03",
+      "matches": true,
+      "sourceLastWriteUtc": "2026-10-30T04:49:50.479415Z"
+    },
+    {
+      "assembly": "DiceCraft.Runtime",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Runtime\\AtomicSaveStore.cs",
+      "expectedChecksum": "3f85388aa597ae5856a5ba30e27392b35c0696adf28b2fbcb0cd0971e63ed169",
+      "currentChecksum": "3f85388aa597ae5856a5ba30e27392b35c0696adf28b2fbcb0cd0971e63ed169",
+      "matches": true,
+      "sourceLastWriteUtc": "2026-10-30T04:55:59.6885555Z"
+    },
+    {
+      "assembly": "DiceCraft.Runtime",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Runtime\\DiceTable.cs",
+      "expectedChecksum": "78baef9cd0834a403ff7dfcd07f412c539e07cc9814a419744c690707ef55dc6",
+      "currentChecksum": "78baef9cd0834a403ff7dfcd07f412c539e07cc9814a419744c690707ef55dc6",
+      "matches": true,
+      "sourceLastWriteUtc": "2026-10-29T00:40:11.7585207Z"
+    },
+    {
+      "assembly": "DiceCraft.Runtime",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Runtime\\FramePacer.cs",
+      "expectedChecksum": "74970d291d1b3cbde7cb4f421da6decedae912a6f8c1f29003712b524a8ecba0",
+      "currentChecksum": "74970d291d1b3cbde7cb4f421da6decedae912a6f8c1f29003712b524a8ecba0",
+      "matches": true,
+      "sourceLastWriteUtc": "2026-10-29T02:40:14.8651709Z"
+    },
+    {
+      "assembly": "DiceCraft.Runtime",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Runtime\\GameApp.cs",
+      "expectedChecksum": "c44a0c6534e95f503746da4c0e151151dd171260b97896634745fe89f0246a7d",
+      "currentChecksum": "c44a0c6534e95f503746da4c0e151151dd171260b97896634745fe89f0246a7d",
+      "matches": true,
+      "sourceLastWriteUtc": "2026-10-30T04:58:04.6697408Z"
+    },
+    {
+      "assembly": "DiceCraft.Runtime",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Runtime\\Verification\\FramePacingExperiment.cs",
+      "expectedChecksum": "8f2249d44cadf8b341941c8801ca7846d326a8fa7f5eb7d198923de6d79a36f1",
+      "currentChecksum": "8f2249d44cadf8b341941c8801ca7846d326a8fa7f5eb7d198923de6d79a36f1",
+      "matches": true,
+      "sourceLastWriteUtc": "2026-10-29T02:42:09.6798494Z"
+    },
+    {
+      "assembly": "DiceCraft.Runtime",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Runtime\\Verification\\PlayerVerification.cs",
+      "expectedChecksum": "6c96f28c168f902482a0659707d1be0069315f2fa95fd3195b43dbe75a1dfc0a",
+      "currentChecksum": "6c96f28c168f902482a0659707d1be0069315f2fa95fd3195b43dbe75a1dfc0a",
+      "matches": true,
+      "sourceLastWriteUtc": "2026-10-30T04:50:38.2350299Z"
+    },
+    {
+      "assembly": "DiceCraft.Runtime",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\UI\\GameApp.Modals.cs",
+      "expectedChecksum": "47c48411afe5befe4f8b486c6f1b1fe60c8b3bf756b5645c6b37a7c7e9d9a49b",
+      "currentChecksum": "47c48411afe5befe4f8b486c6f1b1fe60c8b3bf756b5645c6b37a7c7e9d9a49b",
+      "matches": true,
+      "sourceLastWriteUtc": "2026-10-30T05:03:54.651945Z"
+    },
+    {
+      "assembly": "DiceCraft.Runtime",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\UI\\GameApp.Shop.cs",
+      "expectedChecksum": "02504b25d03774f8d2d8f6363af162a8cd6bab83923cc23a7e101608062a0d8e",
+      "currentChecksum": "02504b25d03774f8d2d8f6363af162a8cd6bab83923cc23a7e101608062a0d8e",
+      "matches": true,
+      "sourceLastWriteUtc": "2026-10-30T05:03:54.0575055Z"
+    },
+    {
+      "assembly": "DiceCraft.Runtime",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\UI\\GameApp.V05.cs",
+      "expectedChecksum": "94c0b71069e9337c8b20ce0e0b7516284b7d4bad20b54f9900884d187564dea5",
+      "currentChecksum": "94c0b71069e9337c8b20ce0e0b7516284b7d4bad20b54f9900884d187564dea5",
+      "matches": true,
+      "sourceLastWriteUtc": "2026-10-30T04:46:35.4244569Z"
+    },
+    {
+      "assembly": "DiceCraft.Runtime",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\UI\\UiKit.cs",
+      "expectedChecksum": "2f88743afc30c1db5066986aab080d7d4151588dba2fe86f585ef4945b7ec862",
+      "currentChecksum": "2f88743afc30c1db5066986aab080d7d4151588dba2fe86f585ef4945b7ec862",
+      "matches": true,
+      "sourceLastWriteUtc": "2026-10-29T01:45:37.1211236Z"
+    },
+    {
+      "assembly": "DiceCraft.EditMode",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Tests\\EditMode\\Persistence\\AtomicSaveStoreTests.cs",
+      "expectedChecksum": "07abaf02a43f965513dc326531490c4a99181a446a24188e667206391cf35e37",
+      "currentChecksum": "07abaf02a43f965513dc326531490c4a99181a446a24188e667206391cf35e37",
+      "matches": true,
+      "sourceLastWriteUtc": "2026-10-30T04:56:53.5950644Z"
+    },
+    {
+      "assembly": "DiceCraft.EditMode",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Tests\\EditMode\\Persistence\\FramePacerTests.cs",
+      "expectedChecksum": "5da5386b1167406771b33a1a85786c2d625aa3f82fbf6497e20879369b6581d3",
+      "currentChecksum": "5da5386b1167406771b33a1a85786c2d625aa3f82fbf6497e20879369b6581d3",
+      "matches": true,
+      "sourceLastWriteUtc": "2026-10-29T02:40:59.7857337Z"
+    },
+    {
+      "assembly": "DiceCraft.EditMode",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Tests\\EditMode\\Rules\\ControllerScoreTests.cs",
+      "expectedChecksum": "66feb9f7274e8d1e4f29b00346b75aa831f1557630dc3f7c994b08f11c3827b4",
+      "currentChecksum": "66feb9f7274e8d1e4f29b00346b75aa831f1557630dc3f7c994b08f11c3827b4",
+      "matches": true,
+      "sourceLastWriteUtc": "2026-10-30T04:48:11.8807497Z"
+    },
+    {
+      "assembly": "DiceCraft.EditMode",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Tests\\EditMode\\Rules\\RulesTests.cs",
+      "expectedChecksum": "b0ef9ad670659b1e0bc44d7df73b6864bb95d0e0c7f2052b4b270bf632533742",
+      "currentChecksum": "b0ef9ad670659b1e0bc44d7df73b6864bb95d0e0c7f2052b4b270bf632533742",
+      "matches": true,
+      "sourceLastWriteUtc": "2026-10-30T04:48:11.8807497Z"
+    },
+    {
+      "assembly": "DiceCraft.EditMode",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Tests\\EditMode\\Rules\\ScoreExplanationTests.cs",
+      "expectedChecksum": "2fae2f05dd49b9b583407cdfb943ac7604a80151319a783da855a86c8c3bb654",
+      "currentChecksum": "2fae2f05dd49b9b583407cdfb943ac7604a80151319a783da855a86c8c3bb654",
+      "matches": true,
+      "sourceLastWriteUtc": "2026-10-30T04:48:11.8807497Z"
+    },
+    {
+      "assembly": "DiceCraft.EditMode",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Tests\\EditMode\\Rules\\V05RulesTests.cs",
+      "expectedChecksum": "78825c6a52e13c6fa735c0d8cbf9fafd801387045d80c37db24a4f9b385910ec",
+      "currentChecksum": "78825c6a52e13c6fa735c0d8cbf9fafd801387045d80c37db24a4f9b385910ec",
+      "matches": true,
+      "sourceLastWriteUtc": "2026-10-30T04:48:11.8807497Z"
+    },
+    {
+      "assembly": "DiceCraft.EditMode",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Tests\\EditMode\\Session\\FlowTests.cs",
+      "expectedChecksum": "bb767c4efb35a880a0eb325ab549ad4bd16e39d0ae83e403607f87be24d0fb1d",
+      "currentChecksum": "bb767c4efb35a880a0eb325ab549ad4bd16e39d0ae83e403607f87be24d0fb1d",
+      "matches": true,
+      "sourceLastWriteUtc": "2026-10-30T04:49:50.5242529Z"
+    },
+    {
+      "assembly": "DiceCraft.EditMode",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Tests\\EditMode\\Session\\ItemAndSaveTests.cs",
+      "expectedChecksum": "cd86b2f26ac570b4d44d089031d86f066ebf794763623b7bdc0f3b90f44e587c",
+      "currentChecksum": "cd86b2f26ac570b4d44d089031d86f066ebf794763623b7bdc0f3b90f44e587c",
+      "matches": true,
+      "sourceLastWriteUtc": "2026-10-30T04:49:50.5789303Z"
+    },
+    {
+      "assembly": "DiceCraft.EditMode",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Tests\\EditMode\\Session\\SessionTestSupport.cs",
+      "expectedChecksum": "d89fede41af852b08a3e446c39271c8cadb8fb8d336b65de90a2ac11f7a01154",
+      "currentChecksum": "d89fede41af852b08a3e446c39271c8cadb8fb8d336b65de90a2ac11f7a01154",
+      "matches": true,
+      "sourceLastWriteUtc": "2026-10-30T04:56:00.2697564Z"
+    },
+    {
+      "assembly": "DiceCraft.EditMode",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Tests\\EditMode\\Session\\ShopTests.cs",
+      "expectedChecksum": "5f8bf54c7422eeddcac7b7c9f760365b1c1142f2c6759c6dbe882d1d80509cc7",
+      "currentChecksum": "5f8bf54c7422eeddcac7b7c9f760365b1c1142f2c6759c6dbe882d1d80509cc7",
+      "matches": true,
+      "sourceLastWriteUtc": "2026-10-30T04:49:50.6615877Z"
+    },
+    {
+      "assembly": "DiceCraft.EditMode",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Tests\\EditMode\\Session\\V05SessionTests.cs",
+      "expectedChecksum": "28ac71040f15083a374d1a6eee7ea5f8aaa18b661f2935d3275b89e8f9c1cfd2",
+      "currentChecksum": "28ac71040f15083a374d1a6eee7ea5f8aaa18b661f2935d3275b89e8f9c1cfd2",
+      "matches": true,
+      "sourceLastWriteUtc": "2026-10-30T04:56:31.5598282Z"
+    },
+    {
+      "assembly": "DiceCraft.PlayModeTests",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Tests\\PlayMode\\FailureAndInputPlayModeTests.cs",
+      "expectedChecksum": "05e88f7bc2ecf75bcf7bb2ef0f69bf27ac8e4ee77fee1cb620f609ab3fb46020",
+      "currentChecksum": "05e88f7bc2ecf75bcf7bb2ef0f69bf27ac8e4ee77fee1cb620f609ab3fb46020",
+      "matches": true,
+      "sourceLastWriteUtc": "2026-10-30T05:04:09.9920722Z"
+    },
+    {
+      "assembly": "DiceCraft.PlayModeTests",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Tests\\PlayMode\\GameplayPlayModeTests.cs",
+      "expectedChecksum": "838dd6bcf202004fc847d7fdabbadfcd2567f6a88938aeba820ec3f321cea45b",
+      "currentChecksum": "838dd6bcf202004fc847d7fdabbadfcd2567f6a88938aeba820ec3f321cea45b",
+      "matches": true,
+      "sourceLastWriteUtc": "2026-10-30T05:04:11.1944547Z"
+    },
+    {
+      "assembly": "DiceCraft.PlayModeTests",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Tests\\PlayMode\\ShopBoundaryPlayModeTests.cs",
+      "expectedChecksum": "34cc22003d7ac4eed0913c87490cb129235e0fe2eb55241ab26628481d7c7e6d",
+      "currentChecksum": "34cc22003d7ac4eed0913c87490cb129235e0fe2eb55241ab26628481d7c7e6d",
+      "matches": true,
+      "sourceLastWriteUtc": "2026-10-30T05:04:08.2227633Z"
+    },
+    {
+      "assembly": "DiceCraft.PlayModeTests",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Tests\\PlayMode\\SubmissionHistoryPlayModeTests.cs",
+      "expectedChecksum": "64705ed4b4b358346105b50c3e79fbdd57e67a5290680fdaa2f9b91309c0cca2",
+      "currentChecksum": "64705ed4b4b358346105b50c3e79fbdd57e67a5290680fdaa2f9b91309c0cca2",
+      "matches": true,
+      "sourceLastWriteUtc": "2026-10-30T05:04:09.3826774Z"
+    },
+    {
+      "assembly": "DiceCraft.PlayModeTests",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Tests\\PlayMode\\UiBoundaryPlayModeTests.cs",
+      "expectedChecksum": "c7ebaaaf019f7a5243e5511474afb7d3e6552f4a0154dff40ca08ffcd3928822",
+      "currentChecksum": "c7ebaaaf019f7a5243e5511474afb7d3e6552f4a0154dff40ca08ffcd3928822",
+      "matches": true,
+      "sourceLastWriteUtc": "2026-10-30T05:04:08.7956498Z"
+    },
+    {
+      "assembly": "DiceCraft.PlayModeTests",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Tests\\PlayMode\\UiPoolingPlayModeTests.cs",
+      "expectedChecksum": "2f87f34eea261737b4095a0a92e8b8de57ed23519ee259b71b5dc1fbf315feae",
+      "currentChecksum": "2f87f34eea261737b4095a0a92e8b8de57ed23519ee259b71b5dc1fbf315feae",
+      "matches": true,
+      "sourceLastWriteUtc": "2026-10-30T04:46:35.414122Z"
+    },
+    {
+      "assembly": "DiceCraft.PlayModeTests",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Tests\\PlayMode\\V05InterfacePlayModeTests.cs",
+      "expectedChecksum": "bbecb3dadad5f0cf9c19126d8b83a72f95d1108b5648c0dec8bc002d0f4383c0",
+      "currentChecksum": "bbecb3dadad5f0cf9c19126d8b83a72f95d1108b5648c0dec8bc002d0f4383c0",
+      "matches": true,
+      "sourceLastWriteUtc": "2026-10-30T05:04:10.5902563Z"
+    },
+    {
+      "assembly": "DiceCraft.Editor",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Editor\\ProjectSetup.cs",
+      "expectedChecksum": "085e44072e757398c0131165f3bdef76dd58bcdca444bd0204787ddff98cd1e8",
+      "currentChecksum": "085e44072e757398c0131165f3bdef76dd58bcdca444bd0204787ddff98cd1e8",
+      "matches": true,
+      "sourceLastWriteUtc": "2026-10-30T05:03:53.4605612Z"
+    },
+    {
+      "assembly": "DiceCraft.Editor",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Editor\\PrototypeBuild.cs",
+      "expectedChecksum": "9969df84024ef74f277d2ab5a87c15ba9f1924e59282b82c8d7095127b429c07",
+      "currentChecksum": "9969df84024ef74f277d2ab5a87c15ba9f1924e59282b82c8d7095127b429c07",
+      "matches": true,
+      "sourceLastWriteUtc": "2026-10-30T04:49:48.8277805Z"
+    },
+    {
+      "assembly": "DiceCraft.Editor",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Editor\\TestEvidence.cs",
+      "expectedChecksum": "2b9f65b11ee25e2bd4807e3fc3d627d72ed41ee9bfcacf4bc30e5545b80f3ebb",
+      "currentChecksum": "2b9f65b11ee25e2bd4807e3fc3d627d72ed41ee9bfcacf4bc30e5545b80f3ebb",
+      "matches": true,
+      "sourceLastWriteUtc": "2026-10-30T04:46:35.4244569Z"
+    },
+    {
+      "assembly": "DiceCraft.Editor",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Editor\\V05Setup.cs",
+      "expectedChecksum": "41575b3f1f6bd874a68b51ee3dd9f1c60d70c5c4df410a6a4d73cdf18f84bde5",
+      "currentChecksum": "41575b3f1f6bd874a68b51ee3dd9f1c60d70c5c4df410a6a4d73cdf18f84bde5",
+      "matches": true,
+      "sourceLastWriteUtc": "2026-10-30T05:04:56.2845334Z"
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "scope": "Malicious synthetic archive inventory test only; no extraction or symlink creation performed",
+  "accepted": true,
+  "error": null,
+  "archive": "mac-nested-link-negative.fixture.zip",
+  "rows": [
+    {
+      "path": "a",
+      "byteSize": 1,
+      "zipMode": "0o120777",
+      "kind": "symlink",
+      "target": "."
+    },
+    {
+      "path": "a/b",
+      "byteSize": 0,
+      "zipMode": "0o40755",
+      "kind": "directory"
+    },
+    {
+      "path": "a/b/c",
+      "byteSize": 13,
+      "zipMode": "0o120777",
+      "kind": "symlink",
+      "target": "../../outside"
+    },
+    {
+      "path": "a/b/c/file.txt",
+      "byteSize": 7,
+      "zipMode": "0o100644",
+      "kind": "file"
+    }
+  ],
+  "effectiveSecondLinkParentAfterAncestorResolution": "b",
+  "effectiveSecondLinkDestination": "../outside"
+}
