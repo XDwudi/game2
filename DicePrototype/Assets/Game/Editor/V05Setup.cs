@@ -26,6 +26,12 @@ namespace DiceCraft.Editor
             var scene=EditorSceneManager.OpenScene("Assets/Game/Scenes/Bootstrap.unity");
             var app=UnityEngine.Object.FindFirstObjectByType<GameApp>();
             if(app==null)throw new InvalidOperationException("Existing Bootstrap is missing GameApp.");
+            // TMP otherwise clears the warmed atlas on Editor quit as well as build,
+            // invalidating frozen source hashes and forcing first-use glyph work.
+            var fontSettings=new SerializedObject(app.uiFont);
+            fontSettings.FindProperty("m_ClearDynamicDataOnBuild").boolValue=false;
+            fontSettings.ApplyModifiedPropertiesWithoutUndo();
+            app.uiFont.atlasPopulationMode=AtlasPopulationMode.Dynamic;
             app.contentIcons=Directory.GetFiles("Assets/Game/Art/Icons","*.png").OrderBy(x=>x).Select(x=>AssetDatabase.LoadAssetAtPath<Sprite>(x.Replace('\\','/'))).ToArray();
             app.enchantIcons=Directory.GetFiles("Assets/Game/Art/Textures","Enchant_*.png").OrderBy(x=>x).Select(x=>AssetDatabase.LoadAssetAtPath<Sprite>(x.Replace('\\','/'))).ToArray();
             app.sounds=Directory.GetFiles("Assets/Game/Audio","*.wav").OrderBy(x=>x).Select(x=>AssetDatabase.LoadAssetAtPath<AudioClip>(x.Replace('\\','/'))).ToArray();
@@ -38,6 +44,19 @@ namespace DiceCraft.Editor
             if(absent.Length>0)app.uiFont.TryAddCharacters(absent,out _,true);
             string missing=new string(requested.Where(c=>!app.uiFont.HasCharacter(c,false,false)).ToArray());
             if(missing.Length>0)throw new InvalidOperationException("Font does not cover UI/config/rule messages: "+missing);
+            app.uiFont.atlasPopulationMode=AtlasPopulationMode.Static;
+            const string fallbackPath="Assets/Game/Fonts/DiceChineseFallback.asset";
+            var fallback=AssetDatabase.LoadAssetAtPath<TMP_FontAsset>(fallbackPath);
+            if(fallback==null)
+            {
+                var source=AssetDatabase.LoadAssetAtPath<Font>("Assets/Game/Fonts/NotoSansCJKsc-Regular.otf");
+                fallback=TMP_FontAsset.CreateFontAsset(source,48,7,UnityEngine.TextCore.LowLevel.GlyphRenderMode.SDFAA,1024,1024,AtlasPopulationMode.Dynamic,true);
+                fallback.name="DiceChineseFallback";fallback.isMultiAtlasTexturesEnabled=true;
+                fallback.ClearFontAssetData(true);AssetDatabase.CreateAsset(fallback,fallbackPath);
+                AssetDatabase.AddObjectToAsset(fallback.material,fallback);
+                foreach(var texture in fallback.atlasTextures)AssetDatabase.AddObjectToAsset(texture,fallback);
+            }
+            app.uiFont.fallbackFontAssetTable=new System.Collections.Generic.List<TMP_FontAsset>{fallback};
             foreach(var texture in app.uiFont.atlasTextures)if(!AssetDatabase.Contains(texture))AssetDatabase.AddObjectToAsset(texture,app.uiFont);
             EditorUtility.SetDirty(app.uiFont);EditorUtility.SetDirty(app);
             EditorSceneManager.MarkSceneDirty(scene);EditorSceneManager.SaveScene(scene);
