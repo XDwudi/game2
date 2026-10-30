@@ -70,6 +70,25 @@ namespace DiceCraft.Tests
             Assert.That(restored.hand.currentResults.All(r => r.hasRolled), Is.True);
         }
 
+        [Test] public void SAVE_RejectsInvalidCandidateBeforeChangingActiveBackupOrKnownGoodBytes()
+        {
+            var store=PrepareTwoVersions();var active=File.ReadAllBytes(path);var backup=File.ReadAllBytes(path+".backup");
+            var invalid=third.Clone();invalid.gold=-1;
+            Assert.Catch<Exception>(()=>store.Save(invalid));
+            CollectionAssert.AreEqual(active,File.ReadAllBytes(path));CollectionAssert.AreEqual(backup,File.ReadAllBytes(path+".backup"));
+            store.Save(third);CollectionAssert.AreEqual(active,File.ReadAllBytes(path+".backup"));
+            Assert.That(store.Load().actionSequence,Is.EqualTo(third.actionSequence));
+        }
+
+        [Test] public void SAVE_ExternalValidReplacementCannotReuseStaleKnownGoodBytes()
+        {
+            var store=PrepareTwoVersions();string other=Path.Combine(directory,"external.json");
+            new AtomicSaveStore(other,config).Save(third);byte[] external=File.ReadAllBytes(other);
+            File.WriteAllBytes(path,external);store.Save(first);
+            CollectionAssert.AreEqual(external,File.ReadAllBytes(path+".backup"));
+            Corrupt(path,"hash");Assert.That(store.Load().actionSequence,Is.EqualTo(third.actionSequence));
+        }
+
         [TestCase("triggers")][TestCase("score")]
         public void SAVE_V05_CorruptFrozenHistoryWithValidHashFallsBackBeforeClone(string defect)
         {

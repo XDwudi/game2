@@ -45,7 +45,7 @@ namespace DiceCraft.Editor
             const string path="../evidence/v05/unity/build-gate.json";
             if(!File.Exists(path))throw new InvalidOperationException("Run tests and bind their successful evidence before building.");
             var gate=JsonUtility.FromJson<Gate>(File.ReadAllText(path));
-            if(gate==null||gate.editModePassed!=552||gate.playModePassed!=24||gate.files==null||gate.files.Length==0)throw new InvalidOperationException("Incomplete v0.5 test gate (552 EditMode / 24 PlayMode required).");
+            if(gate==null||gate.editModePassed!=554||gate.playModePassed!=24||gate.files==null||gate.files.Length==0)throw new InvalidOperationException("Incomplete v0.5 test gate (554 EditMode / 24 PlayMode required).");
             string[] scopes={"DicePrototype/Assets","DicePrototype/Packages","DicePrototype/ProjectSettings"};
             var current=scopes.SelectMany(scope=>Directory.EnumerateFiles(Path.Combine("..",scope),"*",SearchOption.AllDirectories))
                 .Select(path=>Path.GetRelativePath("..",path).Replace('\\','/'))

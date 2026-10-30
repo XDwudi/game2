@@ -174,6 +174,12 @@ class PackageTests(unittest.TestCase):
         path.write_bytes(data)
         return path
 
+    def test_mac_launcher_is_lf_without_bom(self):
+        data = Path(__file__).with_name("VerifyMac.command").read_bytes()
+        self.assertTrue(data.startswith(b"#!/bin/bash\n"))
+        self.assertNotIn(b"\r", data)
+        self.assertFalse(data.startswith(b"\xef\xbb\xbf"))
+
     def test_fat_32_and_64_tables(self):
         for bits in (32, 64):
             self.assertEqual({"arm64", "x86_64"}, set(macho_info(self.binary(fat(bits)))["architectures"]))
@@ -218,6 +224,44 @@ class PackageTests(unittest.TestCase):
         path = self.archive([("DicePrototype.app/Versions/A/data", "x", False), ("DicePrototype.app/Versions/Current", "A", True)])
         rows = safe_archive_inventory(path)
         self.assertEqual("symlink", rows[1]["kind"])
+
+    def test_standard_framework_multi_link_target_preserved(self):
+        rows = safe_archive_inventory(self.archive([
+            ("Framework/Versions/A/Library", "binary", False),
+            ("Framework/Versions/Current", "A", True),
+            ("Framework/Library", "Versions/Current/Library", True)]))
+        self.assertEqual(2, sum(row["kind"] == "symlink" for row in rows))
+
+    def test_nested_link_ancestor_escape_rejected_before_extraction(self):
+        # Independent review reproduction: POSIX a -> '.' makes a/b/c's
+        # physical parent b, so ../../outside escapes despite lexical depth.
+        entries = [("a", ".", True), ("a/b/", "", False),
+                   ("a/b/c", "../../outside", True), ("a/b/c/file.txt", "payload", False)]
+        with self.assertRaises(ValueError):
+            safe_archive_inventory(self.archive(entries))
+
+    def test_isolated_nested_link_is_rejected_without_descendant_file(self):
+        with self.assertRaises(ValueError):
+            safe_archive_inventory(self.archive([("a", ".", True), ("a/b/c", "../../outside", True)]))
+
+    def test_case_mixed_link_ancestor_rejected(self):
+        for member in ("a/b/c", "A/B/c/file.txt"):
+            with self.subTest(member=member), self.assertRaises(ValueError):
+                safe_archive_inventory(self.archive([("A", ".", True), (member, "payload", False)]))
+
+    def test_link_target_resolves_alias_before_dotdot(self):
+        # Neither member has a symlink ancestor; checking only member paths
+        # still misses this isolated link target escape.
+        with self.assertRaises(ValueError):
+            safe_archive_inventory(self.archive([("A", ".", True), ("elsewhere", "a/../outside", True)]))
+
+    def test_case_mixed_link_cycle_rejected(self):
+        with self.assertRaises(ValueError):
+            safe_archive_inventory(self.archive([("A", "b", True), ("B", "a", True)]))
+
+    def test_unicode_normalized_ancestor_rejected(self):
+        with self.assertRaises(ValueError):
+            safe_archive_inventory(self.archive([("caf\u00e9", ".", True), ("cafe\u0301/b/c", "payload", False)]))
 
     def test_archive_traversal_and_absolute_paths_rejected(self):
         for bad in ("../evil", "/evil", "C:/evil", "a\\evil", "a/./evil", "a//evil"):

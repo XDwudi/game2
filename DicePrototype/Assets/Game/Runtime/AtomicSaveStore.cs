@@ -21,6 +21,7 @@ namespace DiceCraft
         public string LastLoadNotice { get; private set; }
         private readonly GameConfig config;
         private readonly GameSession validator;
+        private byte[] lastValidatedWrite;
         public AtomicSaveStore(string path, GameConfig cfg)
         {
             SavePath = path; config = cfg;
@@ -31,6 +32,10 @@ namespace DiceCraft
         }
         public void Save(RunState snapshot)
         {
+            // A successful write alone does not prove validity: callers other than
+            // GameSession can use this adapter. Validate before accepting any bytes
+            // into the private known-good cache or touching existing files.
+            validator.ValidateState(snapshot);
             Directory.CreateDirectory(Path.GetDirectoryName(SavePath));
             string payload = JsonUtility.ToJson(snapshot);
             var envelope = new Envelope { schema = config.saveSchemaVersion, config = config.configVersion,
@@ -43,7 +48,12 @@ namespace DiceCraft
             {
                 // Never replace a good backup with a corrupt/incompatible active file.
                 // Validate at write time too: Save is allowed without a preceding Load.
-                bool valid = TryRead(SavePath, out _, out _);
+                // The previous envelope usually is the exact byte array this adapter
+                // validated and committed. Compare all bytes (never just mtime/length)
+                // to avoid parsing the growing receipt history again on every save.
+                // External changes and a fresh adapter retain the full original check.
+                bool valid = lastValidatedWrite != null && File.ReadAllBytes(SavePath).SequenceEqual(lastValidatedWrite);
+                if(!valid)valid=TryRead(SavePath, out _, out _);
                 if (!valid)
                 {
                     string rejected = SavePath + ".rejected-" + Guid.NewGuid().ToString("N");
@@ -52,6 +62,8 @@ namespace DiceCraft
                 File.Replace(temp, SavePath, valid ? SavePath + ".backup" : null, true);
             }
             else File.Move(temp, SavePath);
+            // Failed Replace/Move must leave the previous cache intact for exact retry.
+            lastValidatedWrite=data;
         }
         public RunState Load()
         {

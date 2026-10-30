@@ -67,7 +67,7 @@ def identity():
 
 
 def gate(args):
-    tests = [verify_nunit(ROOT / args.edit, "EditMode", 552), verify_nunit(ROOT / args.play, "PlayMode", 24)]
+    tests = [verify_nunit(ROOT / args.edit, "EditMode", 554), verify_nunit(ROOT / args.play, "PlayMode", 24)]
     proof = read_json(ROOT / args.pdb)
     if proof.get("mismatches") != 0 or len(proof.get("assemblies", [])) < 5:
         raise ValueError("Independent Unity PDB audit is missing or failed")
@@ -102,11 +102,11 @@ def gate(args):
     files = [entry(p) for p in source_paths()]
     files.extend([test["report"] for test in tests])
     files.append(entry(ROOT / args.pdb))
-    result = {"schema": "v05-build-gate-1", "sourceCommit": head, "editModePassed": 552,
+    result = {"schema": "v05-build-gate-1", "sourceCommit": head, "editModePassed": 554,
               "playModePassed": 24, "scopes": SCOPES, "identity": value, "tests": tests, "files": files}
     target = ROOT / "evidence/v05/unity/build-gate.json"
     target.write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-    print(json.dumps({"gate": str(target), "boundFiles": len(files), "editMode": 552, "playMode": 24}))
+    print(json.dumps({"gate": str(target), "boundFiles": len(files), "editMode": 554, "playMode": 24}))
 
 
 def main():

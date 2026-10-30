@@ -1,8 +1,8 @@
 """Platform-independent, fail-closed ZIP/Mach-O checks; no native tools required."""
-import posixpath
 from pathlib import Path
 import stat
 import struct
+import unicodedata
 import zipfile
 
 CPU_NAMES = {0x01000007: "x86_64", 0x0100000C: "arm64", 7: "i386", 12: "arm"}
@@ -66,6 +66,10 @@ def macho_info(path):
 def safe_archive_inventory(path):
     """Preflight before system ditto extraction into a new directory."""
     entries, links, names = [], {}, set()
+    def path_key(value):
+        # Default Mac volumes are case insensitive and canonically normalize names.
+        return unicodedata.normalize("NFD", value).casefold()
+
     with zipfile.ZipFile(path) as archive:
         for info in archive.infolist():
             # Python normalizes the host separator in filename on Windows; inspect
@@ -76,7 +80,7 @@ def safe_archive_inventory(path):
                 raise ValueError(f"Unsafe archive member: {info.filename!r}")
             if any(not part for part in parts):
                 raise ValueError(f"Noncanonical archive member: {info.filename!r}")
-            folded = name.casefold()
+            folded = path_key(name)
             if folded in names:
                 raise ValueError(f"Duplicate/case-colliding archive member: {name}")
             names.add(folded)
@@ -84,31 +88,48 @@ def safe_archive_inventory(path):
             entry = {"path": name, "byteSize": info.file_size, "zipMode": oct(mode), "kind": "directory" if info.is_dir() else "file"}
             if stat.S_ISLNK(mode):
                 target = archive.read(info).decode("utf-8")
-                if not target or target.startswith("/") or "\\" in target:
+                if not target or "\0" in target or target.startswith("/") or "\\" in target:
                     raise ValueError(f"Unsafe archive symlink: {name}")
-                dest = posixpath.normpath(posixpath.join(posixpath.dirname(name), target))
-                if dest == ".." or dest.startswith("../"):
-                    raise ValueError(f"Archive symlink escapes extraction: {name}")
-                links[name] = dest
+                # Retain the raw target: collapsing '..' before resolving earlier
+                # symlink components changes POSIX path semantics and can hide escape.
+                links[folded] = target
                 entry.update(kind="symlink", target=target)
             entries.append(entry)
-        # Resolve every member through every link ancestor before letting ditto write it.
+
+        # Never let extraction create a member through an existing symlink. This
+        # includes other symlink entries, even when no regular file descends from it.
+        # A standard Framework Current -> A remains legal; its real files must be
+        # archived under Versions/A, never under Versions/Current.
         for entry in entries:
-            current = entry["path"]
-            visited = set()
-            for _ in range(len(links) + 1):
-                if current in visited:
-                    raise ValueError(f"Archive symlink cycle: {entry['path']}")
-                visited.add(current)
-                pieces = current.split("/")
-                hit = next((i for i in range(1, len(pieces) + 1) if "/".join(pieces[:i]) in links), None)
-                if hit is None:
-                    break
-                current = posixpath.normpath(posixpath.join(links["/".join(pieces[:hit])], *pieces[hit:]))
-                if current == ".." or current.startswith("../") or current.startswith("/"):
-                    raise ValueError(f"Archive member traverses external link: {entry['path']}")
-            else:
-                raise ValueError(f"Unresolved archive symlink: {entry['path']}")
+            pieces = entry["path"].split("/")
+            if any(path_key("/".join(pieces[:i])) in links for i in range(1, len(pieces))):
+                raise ValueError(f"Archive member has a symlink ancestor: {entry['path']}")
+
+        # Resolve every link itself, including isolated links with no descendants.
+        # Process components in POSIX order so `alias/../...` follows alias before
+        # interpreting '..'. Case/Unicode aliases must match on Windows too.
+        for entry in entries:
+            if entry["kind"] != "symlink":
+                continue
+            pending = entry["path"].split("/")
+            resolved, expansions = [], 0
+            while pending:
+                part = pending.pop(0)
+                if part in ("", "."):
+                    continue
+                if part == "..":
+                    if not resolved:
+                        raise ValueError(f"Archive symlink escapes extraction: {entry['path']}")
+                    resolved.pop()
+                    continue
+                resolved.append(part)
+                target = links.get(path_key("/".join(resolved)))
+                if target is not None:
+                    expansions += 1
+                    if expansions > 40:
+                        raise ValueError(f"Archive symlink cycle or excessive link traversal: {entry['path']}")
+                    resolved.pop()
+                    pending = target.split("/") + pending
     if not entries:
         raise ValueError("Empty archive")
     return entries

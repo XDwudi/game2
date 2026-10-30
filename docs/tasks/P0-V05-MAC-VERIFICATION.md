@@ -53,7 +53,7 @@ bash /绝对路径/VerifyMac.command \
 
 ## 自动行为和证据
 
-1. 保存输入压缩包原始字节、SHA-256、大小和隔离状态；检查 ZIP 路径、大小写冲突及符号链接不越出解压目录。
+1. 保存输入压缩包原始字节、SHA-256、大小和隔离状态；检查 ZIP 路径、大小写/Unicode规范化冲突及符号链接不越出解压目录。任何归档成员都不能经过符号链接祖先写入；链接目标逐组件按POSIX顺序解析，不能先折叠`..`。标准Framework链接允许保留，实际文件只能归档在真实版本路径。
 2. 系统 ditto 解压到新目录，读取 `Info.plist`，检查 `.app` 主程序和每一个 Mach-O 文件均含 arm64、x86_64。纯 Python 解析薄/胖头和实际 slice，不只根据文件名猜测。
 3. 只在新解压副本上给缺少执行位的 Mach-O `MH_EXECUTE` 文件补用户执行位，记录逐文件前后 mode；不改内容字节，不修改原包，不给数据文件递归 chmod。
 4. 记录 `codesign -d`、`codesign --verify`、`spctl --assess`、quarantine。签名/公证状态以这些原始输出为准，不预标 Developer ID 或已公证。

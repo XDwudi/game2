@@ -85,9 +85,9 @@ namespace DiceCraft
                 case "RunWon": case "RunFailed": RunEnd();break;
                 default: Gameplay();break;
             }
-            UiKit.Text(main,"Toast",notice,40,1030,1500,34,21,UiKit.Gold);
+            UiKit.Text(main,"Toast",notice,40,1030,1260,34,21,UiKit.Gold);
             UiKit.Button(main,"Pause","设置 / 暂停",1540,1020,160,44,Pause);
-            UiKit.Button(main,"Handbook","牌型手册 [H]",1710,1020,170,44,ShowHandbook,!IsBusy&&!Session.HasPendingSave);
+            UiKit.Button(main,"Handbook","牌型手册 [H]",1340,1020,180,44,ShowHandbook,!IsBusy&&!Session.HasPendingSave);
             if(Session.HasPendingSave) SaveFailure();
         }
         private void Menu()
