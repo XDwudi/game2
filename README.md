@@ -8,7 +8,7 @@
 
 ## 当前原型
 
-- v0.5 请看 [交付说明](docs/DELIVERY_V05.md) 与 [STATE](docs/STATE.md)；双平台包和 Mac 验收工具包已在本地 `Releases/p0.5.0/` 生成；GitHub LFS 额度耗尽，包尚未上传，远程先交付源码与验收记录。Windows 技术检查通过，Mac 实机待验。旧版 [交付说明](docs/DELIVERY.md) 和 `Builds/Windows/DiceCraft.exe` 仅为 v0.4 历史产物。
+- v0.5 请看 [交付说明](docs/DELIVERY_V05.md) 与 [STATE](docs/STATE.md)；Windows、macOS与M5验收工具包已共同上传至 [GitHub预发布附件](https://github.com/XDwudi/game2/releases/tag/p0.5.0-rc.1)，三个完整下载均已核对SHA与ZIP完整性。用户已授权此渠道替代LFS。Windows 技术检查通过，Mac 实机待验。旧版 [交付说明](docs/DELIVERY.md) 和 `Builds/Windows/DiceCraft.exe` 仅为 v0.4 历史产物。
 - [运行、开发与复现说明](DicePrototype/README.md)
 - [权威 P0 v0.5 规格](docs/specs/P0_v0.5.md)与[实施验收契约](docs/tasks/P0-V05-IMPLEMENTATION.md)
 - [当前状态和剩余工作](docs/STATE.md)

@@ -1,0 +1,28 @@
+{
+  "startUtc": "2026-10-30T08:47:53.7006149Z",
+  "endUtc": "2026-10-30T08:48:05.5648455Z",
+  "pid": 34012,
+  "actualProcessPath": "E:\\agent_workspace\\gpt\\game2\\artifacts\\cache\\v05-release-player-01\\DicePrototype.exe",
+  "arguments": [
+    "-screen-fullscreen",
+    "0",
+    "-screen-width",
+    "1920",
+    "-screen-height",
+    "1080",
+    "-logFile",
+    "E:/agent_workspace/gpt/game2/evidence/v05/delivery/github-release/windows-player.log",
+    "--verify-p0",
+    "E:/agent_workspace/gpt/game2/evidence/v05/session/normal-run-trace.json",
+    "--evidence-dir",
+    "E:/agent_workspace/gpt/game2/evidence/v05/delivery/github-release/windows-player",
+    "--verify-import-save",
+    "E:/agent_workspace/gpt/game2/evidence/v05/player/player-20261030-054053-169bea91/cross-platform-checkpoint"
+  ],
+  "checkpointAndRenderedStartupPassed": true,
+  "closeMainWindowSent": true,
+  "exited": true,
+  "exitCode": 0,
+  "report": "E:\\agent_workspace\\gpt\\game2\\evidence\\v05\\delivery\\github-release\\windows-player\\player-20261030-084803-6c7d488f\\player-report.json",
+  "scope": "Actual GitHub Release download, fresh extraction, new Windows process checkpoint import plus rendered startup. Intentionally closed after targeted checks, not a repeated full performance run."
+}

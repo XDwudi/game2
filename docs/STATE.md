@@ -1,6 +1,6 @@
 # 当前项目状态
 
-更新：2026-10-30（America/New_York）。**P0-002 / v0.5 处于 REVIEW：Windows技术限域通过，Mac与人工体验未完成。** 交付入口 `docs/DELIVERY_V05.md`；契约与准备度见 `docs/tasks/P0-V05-IMPLEMENTATION.md`、`P0-V05-PREFLIGHT.md`。用户最新规则和原样输入 `docs/specs/P0_v0.5.*` 为依据。旧版验收仅为历史，不是本轮通过。
+更新：2026-10-30（America/New_York）。**P0-002 / v0.5 处于 REVIEW：Windows技术限域通过，Mac与人工体验未完成；三个发行附件已上传并通过远程下载校验。** 交付入口 `docs/DELIVERY_V05.md`；契约与准备度见 `docs/tasks/P0-V05-IMPLEMENTATION.md`、`P0-V05-PREFLIGHT.md`。用户最新规则和原样输入 `docs/specs/P0_v0.5.*` 为依据。旧版验收仅为历史，不是本轮通过。
 
 实现包含24关、40控制器/58内容、附魔、20个新控制器、独立提交容量、13行手册、达标后选择结束，以及schema3。Word/MD正文经独立核对；100黄金×26预期、98效果ID均覆盖。规则与会话由独立子agent分工，root集成；审查只读生产。源版本 `967f309a6be402612514714f46f3743421267799`，p0.5.0配置SHA `6732ab356049166c58a0d6ededf6bb2be8484690ac79eb9b96e303fd03588cfc`。Unity6000.6.7f1、CLI1.0.0-beta.15、Blender5.2.3LTS，实际安装匹配mac-mono模块。
 
@@ -10,13 +10,15 @@ Windows最终Player02：`evidence/v05/player/player-20261030-054053-169bea91`，
 
 Windows最大场景10骰/8栏/10控制器/5道具连续 **180.006992秒**、10746完整帧，冻结LateUpdate间隔P95 **16.6913ms≤16.7ms**，最大24.872ms；GPU覆盖98.03%、UI覆盖100%，Unity错误0。设备为Ryzen9 5900X/RTX3080/约64GB。首轮16.77ms失败完整保留。修复仅避免重复解析逐字节相同的已验证旧存档；新候选完整校验、外部改变全量恢复，未删历史、未改采样/负载/门槛。
 
-两平台最终候选构建实际成功：Windows0警告，Mac71条shader警告（含实际使用URP/Lit、SSAO，实机影响未验）。6个Mac原生组件均包含arm64+x86_64。双包与完整M5验收工具包在 `Releases/p0.5.0/`，manifest记录精确SHA、字节数与未验项；实际GitHub LFS上传被拒绝：仓库额度耗尽，0/3对象上传。原本地候选提交940b8fa保留，三个ZIP仍完整，不将缺对象指针推送为完整交付。源码967f309已正常推送并从新目录网络克隆，Git对象检查通过。用户确认Mac设备为macOS26.6.1/Apple Silicon M5；尚无远程连接或已执行结果。
+两平台最终候选构建实际成功：Windows0警告，Mac71条shader警告（含实际使用URP/Lit、SSAO，实机影响未验）。6个Mac原生组件均包含arm64+x86_64。双包与完整M5验收工具包在 `Releases/p0.5.0/`，manifest记录精确SHA、字节数与未验项；首次GitHub LFS上传因仓库额度耗尽被拒绝（历史记录0/3）；此渠道阻碍已按本轮用户批准改用发行附件解决。原本地候选提交940b8fa保留，三个ZIP仍完整，不将缺对象指针推送为完整交付。源码967f309已正常推送并从新目录网络克隆，Git对象检查通过。用户确认Mac设备为macOS26.6.1/Apple Silicon M5；尚无远程连接或已执行结果。
 
 Windows新进程检查点续玩通过：PID29584，从本地ZIP全新解压，恢复旧进程检查点并提交324分，完整状态/幂等一致、真实渲染，正常关闭退出0；限定检查不是第二次全压力通过。另一次延长回放step121发生文件替换I/O故障，active/backup/tmp保留；独立复现backup锁定得到同样报错，释放锁RetrySave后与原候选完整状态/RNG一致，重复命令不重抽。独立回归539/539。原占用者未知，失败未删除。
 
-当前待验：LFS额度恢复后的远程包下载、Mac原生arm64/Metal/输入/压力/ditto封装、两向跨平台存档、真人体验。M5工具包已含当前Mac包、真实Windows检查点和对照轨迹，可直接执行；未代签Mac结果。整个双平台版本未ACCEPTED。生产代码冻结，本轮启动的构建Editor和验证Player已退出；全部本轮生产与review文件锁已释放。下一步需用户恢复GitHub LFS额度或批准发行附件替代；随后完成远程包恢复。M5可直接使用本地工具包执行并回传报告，实际Mac结果回来后完成余项。
+当前待验：Mac原生arm64/Metal/输入/压力/ditto封装、两向跨平台存档、真人体验。M5工具包已含当前Mac包、真实Windows检查点和对照轨迹，可直接执行；未代签Mac结果。整个双平台版本未ACCEPTED。生产代码冻结，本轮启动的构建Editor和验证Player已退出；全部本轮生产与review文件锁已释放。用户已在2026-10-30明确批准发行附件替代，上传与完整下载校验已完成。M5可直接使用本地工具包执行并回传报告，实际Mac结果回来后完成余项。
 
-源码与独立审查/交付记录已推送main（文档证据提交61eb79a），并在先前全新网络clone内实际拉取、Git完整性检查和空源码差异核验通过；证据 `evidence/v05/delivery/remote-documentation-restore.json`。这不包含远程ZIP恢复。三个完整ZIP目前是工作区明确保留的未跟踪交付件，原含LFS指针的本地候选940b8fa保存在 `codex/v05-lfs-candidate`，等待可用上传方式。独立阶段复核见 `evidence/v05/review/DELIVERY_REVIEW.md`。
+源码与独立审查/交付记录已推送main（文档证据提交61eb79a），并在先前全新网络clone内实际拉取、Git完整性检查和空源码差异核验通过；证据 `evidence/v05/delivery/remote-documentation-restore.json`。这不包含远程ZIP恢复。三个完整ZIP目前是工作区明确保留的未跟踪交付件，原含LFS指针的本地候选940b8fa保存在 `codex/v05-lfs-candidate`，作为历史本地备份；当前正式下载渠道已改为GitHub预发布附件。独立阶段复核见 `evidence/v05/review/DELIVERY_REVIEW.md`。
+
+**2026-10-30后续交付已完成：** 按用户明确授权将LFS替换为GitHub Release附件，三个完整ZIP已共同发布于 [p0.5.0-rc.1](https://github.com/XDwudi/game2/releases/tag/p0.5.0-rc.1)。3/3附件state=uploaded，GitHub digest与冻结SHA一致；实际从远程全量下载到新目录，大小/SHA/CRC均通过。下载所得Windows包从全新解压路径启动（PID34012），恢复旧进程检查点、提交324分、完整状态/幂等与渲染检查通过，正常退出0。未重复执行完整180秒压力，原Player02证据仍绑定同一二进制。新任务契约 `docs/tasks/P0-V05-RELEASE-ASSETS.md`；证据 `evidence/v05/delivery/github-release/`。本次附件交付完成，不代签Mac原生或整个游戏ACCEPTED。
 
 以下为 **v0.4 历史交付**：P0-001 已完成技术返工，处于 REVIEW（人工体验待验）。其独立结论见 `evidence/review/FINAL_REVIEW.md`；不能把技术通过写成真人体验、美术风格或商业发布批准。
 

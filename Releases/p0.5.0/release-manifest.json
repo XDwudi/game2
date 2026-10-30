@@ -9,7 +9,7 @@
   "backend": "Mono",
   "blenderVersion": "5.2.3 LTS",
   "buildUtc": "2026-10-30T05:39:54.3349637Z",
-  "releaseStatus": "CANDIDATE_MAC_VALIDATION_AND_REMOTE_DELIVERY_PENDING",
+  "releaseStatus": "CANDIDATE_MAC_VALIDATION_PENDING",
   "platforms": [
     {
       "platform": "Windows",
@@ -25,7 +25,11 @@
       "signingStatus": "NotSigned (Get-AuthenticodeSignature)",
       "smokeStatus": "AUTOMATED_PASSED",
       "packagingStatus": "ZIP CRC + full extraction + actual Player verified",
-      "intelRuntimeStatus": "not_applicable"
+      "intelRuntimeStatus": "not_applicable",
+      "downloadUrl": "https://github.com/XDwudi/game2/releases/download/p0.5.0-rc.1/DicePrototype-p0.5.0-win-x64.zip",
+      "releaseAssetId": 691494079,
+      "serverDigest": "sha256:0479e32f10be4bb1f51b65d2c0ca4f8719b3845d895f1da1c61e7545173a512d",
+      "remoteFileVerification": "FRESH_DOWNLOAD_SIZE_SHA256_CRC_PASSED"
     },
     {
       "platform": "macOS",
@@ -41,7 +45,11 @@
       "signingStatus": "Native signature verification pending on Mac; no Developer ID signing/notarization performed by this task",
       "smokeStatus": "NOT_RUN_ON_MAC",
       "packagingStatus": "Windows-generated transfer candidate; native ditto/fresh extraction pending",
-      "intelRuntimeStatus": "NOT_TESTED: x86_64 slice included, runtime unverified"
+      "intelRuntimeStatus": "NOT_TESTED: x86_64 slice included, runtime unverified",
+      "downloadUrl": "https://github.com/XDwudi/game2/releases/download/p0.5.0-rc.1/DicePrototype-p0.5.0-macos-universal.zip",
+      "releaseAssetId": 691498256,
+      "serverDigest": "sha256:a5f4c46fb8c7c609a09963e3a963c43566f4ae043b9bbc0cb48442a46da76297",
+      "remoteFileVerification": "FRESH_DOWNLOAD_SIZE_SHA256_CRC_PASSED"
     }
   ],
   "tests": {
@@ -76,27 +84,38 @@
     "byteSize": 126722288,
     "sourceCommit": "967f309a6be402612514714f46f3743421267799",
     "windowsResults": "evidence/v05/player/player-20261030-054053-169bea91",
-    "crc": "passed"
+    "crc": "passed",
+    "downloadUrl": "https://github.com/XDwudi/game2/releases/download/p0.5.0-rc.1/DicePrototype-p0.5.0-MacVerificationKit.zip",
+    "releaseAssetId": 691501211,
+    "serverDigest": "sha256:7900e055adefaf603ddc27c6efa86fba143856ecf016cad70c205eade2133d24",
+    "remoteFileVerification": "FRESH_DOWNLOAD_SIZE_SHA256_CRC_PASSED"
   },
-  "remoteRestoreStatus": "SOURCE_CLONE_VERIFIED_PACKAGES_BLOCKED_BY_GITHUB_LFS_QUOTA",
+  "remoteRestoreStatus": "RELEASE_ASSETS_VERIFIED_WINDOWS_STARTED_MAC_RUNTIME_PENDING",
   "requiredBeforeFullAcceptance": [
     "M5 native arm64/Metal run and screenshots",
     "Mac ditto repack and fresh-extraction run",
     "Windows-to-Mac checkpoint and identical rule replay",
     "Mac checkpoint returned to Windows",
     "Actual Mac mouse/trackpad and stable-state quit/resume",
-    "Fresh remote Git LFS restoration",
     "Human playtesting"
   ],
-  "note": "Source commit identifies gameplay code. The later delivery commit includes both ZIPs and this manifest; no circular self-commit field.",
+  "note": "User explicitly approved GitHub Release assets instead of exhausted LFS. All three unchanged ZIPs are published in one prerelease and fresh download hashes match. Gameplay source is unchanged; Mac native acceptance remains pending.",
   "packageDelivery": {
-    "status": "BLOCKED_REMOTE_LFS_QUOTA",
-    "uploadedLfsObjects": 0,
-    "requiredObjects": 3,
+    "status": "PUBLISHED_AND_FRESH_DOWNLOAD_VERIFIED",
+    "channel": "GitHub Release assets",
     "repository": "https://github.com/XDwudi/game2.git",
-    "localCandidateCommit": "940b8fad10a29f3a3845ad3e33f954d9d90a89a2",
-    "evidence": "evidence/v05/delivery/lfs-upload-blocked.json",
-    "nextAction": "Restore repository LFS budget or explicitly approve alternate GitHub release-asset delivery."
+    "releaseId": 428809511,
+    "tag": "p0.5.0-rc.1",
+    "url": "https://github.com/XDwudi/game2/releases/tag/p0.5.0-rc.1",
+    "publishedAt": "2026-10-30T08:49:59Z",
+    "targetCommit": "3d307c610878b57b81e7a619c3909a6196cb747b",
+    "prerelease": true,
+    "uploadedAssets": 3,
+    "verifiedDownloads": 3,
+    "authorization": "User explicitly authorized Release attachments for Windows, macOS and M5 kit on 2026-10-30; docs/tasks/P0-V05-RELEASE-ASSETS.md",
+    "evidence": "evidence/v05/delivery/github-release/",
+    "previousLfsFailure": "evidence/v05/delivery/lfs-upload-blocked.json",
+    "localOriginalCandidate": "940b8fad10a29f3a3845ad3e33f954d9d90a89a2"
   },
   "windowsNewProcessRestore": {
     "status": "TARGETED_PASSED",
@@ -113,5 +132,12 @@
     "recoveryAudit": "Backup lock reproduces identical error; after releasing lock RetrySave exactly matches original pending state/RNG, duplicate command idempotent; independent regression 539/539. Original lock owner unknown."
   },
   "remoteDocumentationCommit": "61eb79a00a16863c39ca8859e5893581189bc05a",
-  "remoteDocumentationEvidence": "evidence/v05/delivery/remote-documentation-restore.json"
+  "remoteDocumentationEvidence": "evidence/v05/delivery/remote-documentation-restore.json",
+  "remoteWindowsStartup": {
+    "status": "TARGETED_PASSED",
+    "evidence": "evidence/v05/delivery/github-release/windows-process.json",
+    "processExitCode": 0,
+    "pid": 34012,
+    "scope": "Actual GitHub download, fresh extraction, checkpoint import with score/state/idempotency checks, rendered menu and normal exit. Not a new full performance pass."
+  }
 }

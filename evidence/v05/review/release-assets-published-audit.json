@@ -1,0 +1,46 @@
+{
+  "utc": "2026-10-30T08:54:53.910595+00:00",
+  "scope": "Independent consistency review of actual published GitHub API and root-executed anonymous HTTP evidence, bound to independently checked full remote downloads. This review itself does not issue network requests.",
+  "releaseId": 428809511,
+  "releaseUrl": "https://github.com/XDwudi/game2/releases/tag/p0.5.0-rc.1",
+  "tag": "p0.5.0-rc.1",
+  "publishedAt": "2026-10-30T08:49:59Z",
+  "sourceCommit": "967f309a6be402612514714f46f3743421267799",
+  "errors": [],
+  "assets": [
+    {
+      "id": 691498256,
+      "name": "DicePrototype-p0.5.0-macos-universal.zip",
+      "url": "https://github.com/XDwudi/game2/releases/download/p0.5.0-rc.1/DicePrototype-p0.5.0-macos-universal.zip",
+      "size": 126654920,
+      "sha256": "a5f4c46fb8c7c609a09963e3a963c43566f4ae043b9bbc0cb48442a46da76297",
+      "anonymousHttpStatus": 206,
+      "anonymousContentRange": "bytes 0-63/126654920"
+    },
+    {
+      "id": 691501211,
+      "name": "DicePrototype-p0.5.0-MacVerificationKit.zip",
+      "url": "https://github.com/XDwudi/game2/releases/download/p0.5.0-rc.1/DicePrototype-p0.5.0-MacVerificationKit.zip",
+      "size": 126722288,
+      "sha256": "7900e055adefaf603ddc27c6efa86fba143856ecf016cad70c205eade2133d24",
+      "anonymousHttpStatus": 206,
+      "anonymousContentRange": "bytes 0-63/126722288"
+    },
+    {
+      "id": 691494079,
+      "name": "DicePrototype-p0.5.0-win-x64.zip",
+      "url": "https://github.com/XDwudi/game2/releases/download/p0.5.0-rc.1/DicePrototype-p0.5.0-win-x64.zip",
+      "size": 86022146,
+      "sha256": "0479e32f10be4bb1f51b65d2c0ca4f8719b3845d895f1da1c61e7545173a512d",
+      "anonymousHttpStatus": 206,
+      "anonymousContentRange": "bytes 0-63/86022146"
+    }
+  ],
+  "evidenceHashes": {
+    "evidence\\v05\\delivery\\github-release\\release-publish.json": "a14d74d37f8aaffca60adc74bb9fbe8535fd48ff524f0ca75007f887c680b79c",
+    "evidence\\v05\\delivery\\github-release\\public-links.json": "cd543fd993c2d2fccc4ac62e385c269b970a5e338e550a27f851d9d10ca4517f",
+    "evidence\\v05\\review\\release-assets-remote-draft-audit.json": "8727d647173de56ee177d11de0bbefe69e17fd6b3cb8ba68009abd0c476f4797",
+    "Releases\\p0.5.0\\release-manifest.json": "36fe82565a557f2f225e12ad083d60fee436bb4d96826f0fc59154789931280c"
+  },
+  "result": "Release attachment delivery passes; whole game/Mac native acceptance remains pending"
+}

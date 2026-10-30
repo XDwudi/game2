@@ -15,7 +15,7 @@
 | Windows压力 | 180.006992秒、10746完整帧，LateUpdate间隔P95=16.6913ms≤16.7；最大24.872ms，不声称每帧均达标 |
 | Mac构建 | Succeeded，0错误、71内置/URP shader警告；6个Mach-O均含arm64+x86_64 |
 | Mac运行/封装 | 未执行；需M5实际运行与ditto最终重包，Intel运行另列未验 |
-| Git远程恢复 | 纯源码已全新克隆+git fsck；ZIP的LFS上传因仓库额度耗尽失败，0/3，远程包恢复未完成 |
+| 远程发行附件恢复 | 用户批准Release替代LFS；同版3附件上传，完整重新下载SHA/大小/CRC全匹配，下载的Windows包新目录启动与checkpoint恢复、正常退出0；Mac原生启动待验 |
 
 Windows实际设备为Ryzen9 5900X、RTX3080、约64GB内存，操作系统和完整指标由Player报告记录。采样负载、帧率器、观测方法及16.7ms门槛均未修改。首轮16.77ms失败完整保留，优化针对重复存档解析，未删历史、未删慢帧。
 
@@ -24,3 +24,5 @@ Windows实际设备为Ryzen9 5900X、RTX3080、约64GB内存，操作系统和�
 Mac下一步：解压 `DicePrototype-p0.5.0-MacVerificationKit.zip`，在M5终端输入 `bash ` 后拖入 `VerifyMac.command` 并回车。脚本保留输入原包，在Mac重新封装、全新解压、原生arm64运行，并用Windows真实存档和逐步规则状态对照。回传生成的 `MacVerification-Evidence.zip` 和最终Mac ZIP；人工鼠标/触控板、退出续玩表单也需填写。说明见工具包内“执行说明.md”。
 
 补充：Windows本地新解压包在新进程恢复旧检查点、提交324分、状态/幂等一致、主菜单实际渲染，正常关闭exit0。一次额外延长回放step121发生文件替换I/O错误，失败和旧档/候选完整保留，恢复复核见review；不把该失败运行写成全流程通过。
+
+发行附件实际证据：`evidence/v05/delivery/github-release/`。发布标签 `p0.5.0-rc.1`，游戏源码与包内字节未变；短启动不重复认定完整压力结果。
