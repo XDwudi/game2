@@ -14,7 +14,9 @@ Windows最大场景10骰/8栏/10控制器/5道具连续 **180.006992秒**、1074
 
 Windows新进程检查点续玩通过：PID29584，从本地ZIP全新解压，恢复旧进程检查点并提交324分，完整状态/幂等一致、真实渲染，正常关闭退出0；限定检查不是第二次全压力通过。另一次延长回放step121发生文件替换I/O故障，active/backup/tmp保留；独立复现backup锁定得到同样报错，释放锁RetrySave后与原候选完整状态/RNG一致，重复命令不重抽。独立回归539/539。原占用者未知，失败未删除。
 
-当前待验：LFS额度恢复后的远程包下载、Mac原生arm64/Metal/输入/压力/ditto封装、两向跨平台存档、真人体验。M5工具包已含当前Mac包、真实Windows检查点和对照轨迹，可直接执行；未代签Mac结果。整个双平台版本未ACCEPTED。生产代码冻结，本轮启动的构建Editor和验证Player已退出；root收尾交付文档/Git，审查只写独立证据，结束后释放全部本轮文件锁。下一步需用户恢复GitHub LFS额度或批准发行附件替代；随后完成远程包恢复。M5可直接使用本地工具包执行并回传报告，实际Mac结果回来后完成余项。
+当前待验：LFS额度恢复后的远程包下载、Mac原生arm64/Metal/输入/压力/ditto封装、两向跨平台存档、真人体验。M5工具包已含当前Mac包、真实Windows检查点和对照轨迹，可直接执行；未代签Mac结果。整个双平台版本未ACCEPTED。生产代码冻结，本轮启动的构建Editor和验证Player已退出；全部本轮生产与review文件锁已释放。下一步需用户恢复GitHub LFS额度或批准发行附件替代；随后完成远程包恢复。M5可直接使用本地工具包执行并回传报告，实际Mac结果回来后完成余项。
+
+源码与独立审查/交付记录已推送main（文档证据提交61eb79a），并在先前全新网络clone内实际拉取、Git完整性检查和空源码差异核验通过；证据 `evidence/v05/delivery/remote-documentation-restore.json`。这不包含远程ZIP恢复。三个完整ZIP目前是工作区明确保留的未跟踪交付件，原含LFS指针的本地候选940b8fa保存在 `codex/v05-lfs-candidate`，等待可用上传方式。独立阶段复核见 `evidence/v05/review/DELIVERY_REVIEW.md`。
 
 以下为 **v0.4 历史交付**：P0-001 已完成技术返工，处于 REVIEW（人工体验待验）。其独立结论见 `evidence/review/FINAL_REVIEW.md`；不能把技术通过写成真人体验、美术风格或商业发布批准。
 

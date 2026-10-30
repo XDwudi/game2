@@ -94,7 +94,7 @@
     "uploadedLfsObjects": 0,
     "requiredObjects": 3,
     "repository": "https://github.com/XDwudi/game2.git",
-    "localCandidateCommit": "940b8fa",
+    "localCandidateCommit": "940b8fad10a29f3a3845ad3e33f954d9d90a89a2",
     "evidence": "evidence/v05/delivery/lfs-upload-blocked.json",
     "nextAction": "Restore repository LFS budget or explicitly approve alternate GitHub release-asset delivery."
   },
@@ -111,5 +111,7 @@
     "stepIndex": 121,
     "note": "Failed run retained; original active/backup and pending temp remain valid. External lock owner unknown; recovery audit separate.",
     "recoveryAudit": "Backup lock reproduces identical error; after releasing lock RetrySave exactly matches original pending state/RNG, duplicate command idempotent; independent regression 539/539. Original lock owner unknown."
-  }
+  },
+  "remoteDocumentationCommit": "61eb79a00a16863c39ca8859e5893581189bc05a",
+  "remoteDocumentationEvidence": "evidence/v05/delivery/remote-documentation-restore.json"
 }
