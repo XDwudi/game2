@@ -1,6 +1,14 @@
 # 当前项目状态
 
-更新：2026-10-28（America/New_York）。P0-001 已完成开发和技术返工，当前处于 **REVIEW（人工体验待验）**。Windows技术范围的独立结论见 `evidence/review/FINAL_REVIEW.md`；不能把技术通过写成真人体验、美术风格或商业发布批准。
+更新：2026-10-30（America/New_York）。**P0-002 / v0.5 正在 VERIFYING**，契约与准备度见 `docs/tasks/P0-V05-IMPLEMENTATION.md`、`P0-V05-PREFLIGHT.md`。已实现24关、附魔、20个新控制器、独立提交容量、手册及双平台构建入口；原样输入在 `docs/specs/P0_v0.5.*`。旧版验收仅为历史，不是本轮通过。
+
+本轮已完成规格独立核验：Word/MD正文一致；58内容、100黄金×26预期、98效果验收ID与16平台/UI门槛。规则及会话由独立子agent分工；root唯一Unity/场景/设置写入，资产子agent仅2D/音效扩展，审查只读生产。Unity6000.6.7f1保持；辅助CLI更新至1.0.0-beta.15，已实际安装匹配mac-mono模块。用户确认Mac测试设备为macOS26.6.1/M5，连接/执行方式待安排。
+
+v0.5 当前真实证据：EditMode02 **552/552**、PlayMode02 **24/24**；独立托管535/535、1024组完整计分、512组概率与128组商店轨迹对照通过；98项附录C已映射。来源见 `evidence/v05/review/CORE_SESSION_REVIEW.md` 与 `UNITY_TEST_REVIEW.md`。修复损坏历史校验、JsonUtility空对象、旧测试夹具与手册可达性，保留全部失败记录。58图标、3附魔角标、12音效及新增中文字符已实际导入。正常种子20261037轨迹161命令在第9关失败，另设单初态Debug24检查完整关卡流程，不冒充正常通关或难度通过。
+
+当前待验：Windows/Mac Player、三分辨率实际布局、180秒性能、Mac原生arm64与跨平台存档、双包LFS远程恢复。源码开始冻结，构建身份证明由实际Git提交生成；尚未宣称版本交付完成。生产代码锁已收回root，审查只写review，Mac脚本子agent只写工具和说明。
+
+以下为 **v0.4 历史交付**：P0-001 已完成技术返工，处于 REVIEW（人工体验待验）。其独立结论见 `evidence/review/FINAL_REVIEW.md`；不能把技术通过写成真人体验、美术风格或商业发布批准。
 
 ## 运行与权威输入
 

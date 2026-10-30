@@ -22,14 +22,14 @@ namespace DiceCraft.Core.Tests
             => new TestCaseData(id, pips, colors, score, capacity, permanentSum, equipped, expectedPips, expectedColors).SetName("CONTENT-" + id + "-" + label);
         public static IEnumerable Cases()
         {
-            yield return Case("C02", "hit", "2,3", "BB", 10);
+            yield return Case("C02", "hit", "2,3", "BB", 15);
             yield return Case("C02", "miss-red", "2,3", "BR", 5);
-            yield return Case("C02", "boundary-single", "2", "B", 4);
+            yield return Case("C02", "boundary-single", "2", "B", 6);
             yield return Case("C03", "hit", "4,4", "BB", 16, expectedColors: "RB");
             yield return Case("C03", "not-equipped", "4,4", "BB", 16, equipped: false, expectedColors: "BB");
             yield return Case("C03", "boundary-single", "2", "B", 2, expectedColors: "R");
             yield return Case("C06", "hit", "1,2,3,4", "RBBR", 30);
-            yield return Case("C06", "miss-three-distinct", "1,2,3", "RBB", 6);
+            yield return Case("C06", "miss-two-distinct", "1,1,2", "RBB", 8);
             yield return Case("C06", "boundary-duplicate-with-four-distinct", "1,2,3,3,4", "RBBBR", 78);
             yield return Case("C08", "hit", "3", "B", 6);
             yield return Case("C08", "miss-full", "1,2,3,4,6", "RBBRB", 16);
@@ -48,7 +48,7 @@ namespace DiceCraft.Core.Tests
             yield return Case("C12", "boundary-five-to-six", "5,6", "BB", 24, expectedPips: "6,6");
             yield return Case("C13", "hit", "3", "B", 5);
             yield return Case("C13", "miss-even", "4", "B", 4);
-            yield return Case("C13", "boundary-red-group-uses-original-one", "1,1", "RR", 15);
+            yield return Case("C13", "boundary-red-group-uses-original-one", "1,1", "RR", 18);
             yield return Case("C14", "hit", "3", "B", 6);
             yield return Case("C14", "miss-mixed-parity", "3,2", "BB", 5);
             yield return Case("C14", "boundary-single-one", "1", "R", 2);
@@ -56,7 +56,7 @@ namespace DiceCraft.Core.Tests
             yield return Case("C17", "miss-four", "4", "B", 4);
             yield return Case("C17", "boundary-all-three-small-values", "1,2,3", "RBB", 15);
             yield return Case("C18", "hit", "2,2", "RB", 16);
-            yield return Case("C18", "miss-unequal", "2,2,2", "RRB", 30);
+            yield return Case("C18", "miss-unequal", "2,2,2", "RRB", 36);
             yield return Case("C18", "boundary-two-different-pips", "3,6", "RB", 18);
             yield return Case("C19", "hit-threshold", "1", "R", 6, permanentSum: 13);
             yield return Case("C19", "miss-above-threshold", "1", "R", 1, permanentSum: 14);

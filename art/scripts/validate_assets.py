@@ -5,6 +5,12 @@ import json,hashlib,wave,struct
 
 root=Path(__file__).resolve().parents[2]
 art=root/'DicePrototype/Assets/Game/Art'
+# Preserve the old checker for v0.4, but route the public entry point to the
+# current spec without overwriting historical evidence/art reports.
+if json.loads((art/'asset_map.json').read_text(encoding='utf-8-sig')).get('configVersion')=='p0.5.0':
+    from validate_v05_assets import validate
+    validate()
+    raise SystemExit(0)
 report={'png':[],'pipComponents':[],'audio':[],'hashes':[]}
 for p in sorted((art/'Icons').glob('*.png')):
     im=Image.open(p)

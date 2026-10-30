@@ -22,7 +22,7 @@ namespace DiceCraft.Tests
                 Assert.That(setup.Execute(new SessionCommand {kind = CommandKind.NewRun, commandId = "history-fixture-" + controllerId, seed = 777}).accepted, Is.True);
                 var fixture = setup.State;
                 fixture.isDebug = true;
-                fixture.controllers.Add(new OwnedItem {instanceId = "TEST_" + controllerId, contentId = controllerId});
+                fixture.controllers.Add(BoundaryController(fixture, controllerId));
                 for (int i = 0; i < fixture.dice.Count; i++)
                     foreach (var face in fixture.dice[i].faces)
                     {
@@ -91,7 +91,7 @@ namespace DiceCraft.Tests
                 string beforeHistory = StateJson();
                 Click("PreviousSubmission");
                 string[] originalPanel = ReadHistoryPanel(count);
-                Assert.That(originalPanel[0], Does.EndWith("=  " + expectedScore.score.ToString("N0")));
+                Assert.That(originalPanel[0], Does.EndWith("= " + expectedScore.score.ToString("N0")));
                 Assert.That(originalPanel[1], Does.Contain(app.Config.Controller(controllerId).displayName));
                 Assert.That(originalPanel[1], Does.Contain(ids[1]));
                 if (controllerId == "C07") Assert.That(originalPanel[1], Does.Contain(ids[0] + " 的六面复制到 " + ids[1]));

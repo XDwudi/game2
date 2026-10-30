@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace DiceCraft.Core
 {
-    public enum CommandKind { NewRun, ChooseChallenge, StartStage, Roll, ConfirmLocks, Reorder, UseItem, Submit, Continue, Buy, Sell, Study, LeaveShop }
+    public enum CommandKind { NewRun, ChooseChallenge, StartStage, Roll, ConfirmLocks, Reorder, UseItem, Submit, Continue, Buy, Sell, Study, LeaveShop, EndStage }
 
     [Serializable]
     public sealed class SessionCommand
@@ -59,8 +59,8 @@ namespace DiceCraft.Core
         public string stageId;
         public int stageIndex, capacity, remainingSubmissions, submissionOrdinal, stageRollBonus, reward;
         public long target, score;
-        public bool risk, started, settled;
-        public string settlementContinuation;
+        public bool risk, started, qualified, settled;
+        public string settlementContinuation, settlementId;
         public StageState Clone() { return (StageState)MemberwiseClone(); }
     }
 
@@ -71,11 +71,13 @@ namespace DiceCraft.Core
         public int basePrice;
         public bool sold;
         public DieInstance die;
+        public ControllerInstance controller;
         public string[] priceReasons = Array.Empty<string>();
         public ShopOffer Clone()
         {
             var c = (ShopOffer)MemberwiseClone();
             c.die = die == null ? null : die.Clone();
+            c.controller = controller == null ? null : controller.Clone();
             c.priceReasons = (string[])priceReasons.Clone();
             return c;
         }
@@ -103,7 +105,7 @@ namespace DiceCraft.Core
     public sealed class StageSettlement
     {
         public string settlementId, stageId;
-        public int goldBefore, baseReward, remainingSubmissions, unusedSubmissionReward, interest, goldAfter;
+        public int goldBefore, baseReward, remainingSubmissions, unusedSubmissionReward, interest, interestPrincipal, goldAfter;
         public long score, target;
         public bool risk, pig;
         public StageSettlement Clone() { return (StageSettlement)MemberwiseClone(); }
@@ -138,7 +140,7 @@ namespace DiceCraft.Core
         public uint seed, diceRngState, shopRngState, effectRngState;
         public bool isDebug;
         public List<DieInstance> dice = new List<DieInstance>();
-        public List<OwnedItem> controllers = new List<OwnedItem>();
+        public List<ControllerInstance> controllers = new List<ControllerInstance>();
         public List<OwnedItem> inventory = new List<OwnedItem>();
         public List<HandLevel> handLevels = new List<HandLevel>();
         public List<string> consumedItemIds = new List<string>();
@@ -187,31 +189,12 @@ namespace DiceCraft.Core
     {
         public static SubmissionSnapshot Snapshot(SubmissionSnapshot s)
         {
-            if (s == null) return null;
-            return new SubmissionSnapshot
-            {
-                runId = s.runId, stageId = s.stageId, handId = s.handId, configVersion = s.configVersion,
-                capacity = s.capacity, rollsRemaining = s.rollsRemaining, submissionOrdinalBefore = s.submissionOrdinalBefore, redWave = s.redWave,
-                equippedControllerIds = (string[])s.equippedControllerIds.Clone(),
-                handLevels = s.handLevels.Select(x => new HandLevel { handId = x.handId, level = x.level }).ToArray(),
-                dice = s.dice.Select(d => new SubmissionDie { dieId = d.dieId, faceId = d.faceId, currentPip = d.currentPip,
-                    permanentSixFaceSum = d.permanentSixFaceSum, currentColor = d.currentColor, isGold = d.isGold,
-                    isGlass = d.isGlass, lifetime = d.lifetime, permanentFacesCopy = d.permanentFacesCopy.Select(f => f.Clone()).ToArray() }).ToArray()
-            };
+            return s == null ? null : s.Clone();
         }
 
         public static ScoreBreakdown Breakdown(ScoreBreakdown b)
         {
-            if (b == null) return null;
-            return new ScoreBreakdown {
-                effectivePips = (int[])b.effectivePips.Clone(), pipContributions = (int[])b.pipContributions.Clone(),
-                effectiveColors = (string[])b.effectiveColors.Clone(), matchedGroupIds = (string[])b.matchedGroupIds.Clone(), chosenGroupId = b.chosenGroupId,
-                pipSum = b.pipSum, unusedRollBonus = b.unusedRollBonus, groupMult100 = b.groupMult100,
-                straightMult100 = b.straightMult100, colorMult100 = b.colorMult100, totalHandMult100 = b.totalHandMult100,
-                redValue = b.redValue, redCount = b.redCount, redMult100 = b.redMult100,
-                controllerMultiplier = b.controllerMultiplier, finalFlatAdd = b.finalFlatAdd,
-                triggeredMultiplierIds = (string[])b.triggeredMultiplierIds.Clone(), score = b.score
-            };
+            return b == null ? null : b.Clone();
         }
     }
 }

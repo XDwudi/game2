@@ -38,7 +38,7 @@ namespace DiceCraft.Tests
                     Click("CloseDialog");
                     string instance = app.Session.State.controllers.Single(c => c.contentId == "C09").instanceId;
                     int beforeSell = app.Session.State.gold;
-                    Click("Controller_" + instance); Click("Sell");
+                    Click("Controller_" + instance); Click("SellController");
                     Assert.That(app.Session.State.gold, Is.EqualTo(beforeSell + 1));
                     Assert.That(app.Session.EffectiveCapacity, Is.EqualTo(5));
                     OpenBoundaryOffer("straight"); Assert.That(Button("ConfirmPurchase").interactable, Is.True); Click("CloseDialog");
@@ -140,12 +140,12 @@ namespace DiceCraft.Tests
             fixture = ShopBoundaryFixture();
             var candidates = fixture.shop.offers.Where(o => o.category == "new_die").Take(2).Select(o => o.Clone()).ToArray();
             Assert.That(candidates, Has.Length.EqualTo(2));
-            fixture.dice.Add(DiceFactory.CreateStandard(app.Config, fixture.nextDieSerial++)); fixture.baseSubmitCapacity = 6;
+            fixture.dice.Add(DiceFactory.CreateStandard(app.Config, fixture.nextDieSerial++)); fixture.dice.Add(DiceFactory.CreateStandard(app.Config, fixture.nextDieSerial++));
             fixture.shop.offers = candidates.ToList(); AddBoundaryOffer(fixture, "remove", "service", "O04");
             string frozenCandidate = JsonUtility.ToJson(candidates[1].die);
             yield return LoadBoundaryFixture(fixture); Click("ContinueRun");
             BuyBoundaryOffer(candidates[0].offerId);
-            Assert.That(app.Session.State.dice.Count, Is.EqualTo(7));
+            Assert.That(app.Session.State.dice.Count, Is.EqualTo(8));
             string full = StateJson();
             OpenBoundaryOffer(candidates[1].offerId);
             Assert.That(Button("ConfirmPurchase").interactable, Is.False);
@@ -154,13 +154,13 @@ namespace DiceCraft.Tests
             OpenBoundaryOffer("remove"); Click("Target_D001"); Click("CloseDialog");
             Assert.That(StateJson(), Is.EqualTo(full), "Cancelling deletion must retain the entire die and its upgrades.");
             OpenBoundaryOffer("remove"); Click("Target_D001"); Click("ConfirmPurchase");
-            Assert.That(app.Session.State.dice.Count, Is.EqualTo(6));
-            Assert.That(app.Session.State.baseSubmitCapacity, Is.EqualTo(7));
+            Assert.That(app.Session.State.dice.Count, Is.EqualTo(7));
+            Assert.That(app.Session.State.baseSubmitCapacity, Is.EqualTo(5));
             OpenBoundaryOffer(candidates[1].offerId);
             Assert.That(Button("ConfirmPurchase").interactable, Is.True);
             foreach (var face in candidates[1].die.faces) Assert.That(FaceLabel(face.faceId, "Pip"), Is.EqualTo(face.permanentPip.ToString()));
             Click("ConfirmPurchase");
-            Assert.That(app.Session.State.dice.Count, Is.EqualTo(7));
+            Assert.That(app.Session.State.dice.Count, Is.EqualTo(8));
             Assert.That(JsonUtility.ToJson(app.Session.State.shop.offers.Single(o => o.offerId == candidates[1].offerId).die), Is.EqualTo(frozenCandidate));
             var added = app.Session.State.dice.OrderByDescending(d => d.createdSerial).First();
             CollectionAssert.AreEqual(candidates[1].die.faces.Select(JsonUtility.ToJson), added.faces.Select(JsonUtility.ToJson));
@@ -183,7 +183,7 @@ namespace DiceCraft.Tests
             var session = new GameSession(app.Config, new MemorySaveStore(), fixture);
             CoreShopStep(session, CommandKind.StartStage); CoreShopStep(session, CommandKind.Roll);
             foreach (var die in session.State.dice) Assert.That(session.TogglePending(die.dieId), Is.True);
-            CoreShopStep(session, CommandKind.ConfirmLocks); CoreShopStep(session, CommandKind.Submit); CoreShopStep(session, CommandKind.Continue);
+            CoreShopStep(session, CommandKind.ConfirmLocks); CoreShopStep(session, CommandKind.Submit); CoreShopStep(session, CommandKind.EndStage); CoreShopStep(session, CommandKind.Continue);
             var shop = session.State; Assert.That(shop.phase, Is.EqualTo("Shop"));
             shop.gold = 200;
             foreach (var die in shop.dice) die.faces = DiceFactory.CreateStandard(app.Config, die.createdSerial).faces;
@@ -195,8 +195,30 @@ namespace DiceCraft.Tests
             var result = session.Execute(new SessionCommand {kind = kind, commandId = "shop-setup-" + (seq + 1), expectedActionSequence = seq});
             Assert.That(result.accepted, Is.True, kind + ": " + result.error);
         }
-        private static void AddBoundaryOffer(RunState fixture, string offerId, string category, string contentId)
-            => fixture.shop.offers.Add(new ShopOffer {offerId = offerId, category = category, contentId = contentId});
+        private void AddBoundaryOffer(RunState fixture, string offerId, string category, string contentId)
+        {
+            int basePrice = category == "controller" ? app.Config.Controller(contentId).buyPrice
+                : category == "consumable" ? app.Config.Consumable(contentId).baseBuyPrice
+                : category == "hand_upgrade" ? app.Config.Hand(contentId).baseUpgradePrice
+                : category == "die_upgrade" ? app.Config.Upgrade(contentId).buyPrice
+                : category == "service" ? app.Config.Service(contentId).baseBuyPrice : 0;
+            fixture.shop.offers.Add(new ShopOffer
+            {
+                offerId = offerId, category = category, contentId = contentId, basePrice = basePrice,
+                controller = category == "controller" ? BoundaryController(fixture, contentId) : null
+            });
+        }
+        // Schema 3 persists the controller's acquisition identity, including unsold offers.
+        // Allocate from the same serial namespace as production; never bypass validation.
+        private static ControllerInstance BoundaryController(RunState fixture, string definitionId, string enchantmentId = "none")
+        {
+            int serial = fixture.nextItemSerial++;
+            return new ControllerInstance
+            {
+                instanceId = "ITEM_" + serial.ToString("D5"), acquiredSerial = serial,
+                definitionId = definitionId, enchantmentId = enchantmentId
+            };
+        }
         private void ShopTabFor(string offerId)
         {
             var offer = app.Session.State.shop.offers.Single(o => o.offerId == offerId);

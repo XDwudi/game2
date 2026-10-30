@@ -25,7 +25,7 @@ namespace DiceCraft.Tests
             foreach (bool breakTarget in new[] {false, true})
             {
                 var fixture = NewBoundaryFixture("remote-" + breakTarget);
-                fixture.controllers.Add(new OwnedItem {instanceId = "TEST_C12", contentId = "C12"});
+                fixture.controllers.Add(BoundaryController(fixture, "C12"));
                 fixture.inventory.Add(new OwnedItem {instanceId = "TEST_REMOTE", contentId = "I03"});
                 fixture.dice[0].isGlass = true;
                 fixture.effectRngState = EffectState(rng => (rng.NextIndex(100) < app.Config.glassBreakPercent) == breakTarget);
@@ -104,7 +104,7 @@ namespace DiceCraft.Tests
             var fixture = NewBoundaryFixture("keyboard-ten");
             for (int serial = 6; serial <= 10; serial++)
                 fixture.dice.Add(DiceFactory.CreateStandard(app.Config, serial, serial <= 7 ? "permanent" : "stage_temporary", serial <= 7 ? "" : fixture.stage.stageId));
-            fixture.nextDieSerial = 11; fixture.baseSubmitCapacity = 7;
+            fixture.nextDieSerial = 11; fixture.controllers.Add(BoundaryController(fixture, "C22"));
             fixture.dice.Single(d => d.dieId == "D005").isGlass = true;
             fixture.effectRngState = EffectState(rng => rng.NextIndex(100) >= app.Config.glassBreakPercent && rng.NextIndex(100) < app.Config.glassBreakPercent);
             yield return LoadBoundaryFixture(fixture);
@@ -182,7 +182,7 @@ namespace DiceCraft.Tests
                 }
                 else
                 {
-                    fixture.controllers.Add(new OwnedItem {instanceId = "TEST_COPY", contentId = "C07"});
+                    fixture.controllers.Add(BoundaryController(fixture, "C07"));
                     for (int i = 0; i < 2; i++) foreach (var face in fixture.dice[i].faces) face.permanentPip = i + 1;
                 }
                 yield return LoadBoundaryFixture(fixture);

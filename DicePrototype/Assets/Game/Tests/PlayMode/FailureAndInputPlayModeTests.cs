@@ -84,13 +84,14 @@ namespace DiceCraft.Tests
             foreach (string id in app.Session.State.dice.Select(d => d.dieId).ToArray()) ClickDie(id);
             Click("Confirm"); Click("Submit");
             yield return WaitForIdle();
+            if(app.Session.CanEndStage)Click("EndStage");
             Click("SettlementContinue");
             var fixture = app.Session.State;
             Assert.That(fixture.isDebug, Is.True);
             fixture.gold = 1000;
             fixture.controllers.Clear();
             var controller = fixture.shop.offers.First(o => o.category == "controller");
-            fixture.controllers.Add(new OwnedItem {instanceId = "TEST_DUPLICATE", contentId = controller.contentId});
+            fixture.controllers.Add(BoundaryController(fixture, controller.contentId, controller.controller.enchantmentId));
             fixture.inventory.Clear();
             for (int i = 0; i < fixture.consumableSlots; i++)
                 fixture.inventory.Add(new OwnedItem {instanceId = "TEST_FULL_" + i, contentId = "I01"});

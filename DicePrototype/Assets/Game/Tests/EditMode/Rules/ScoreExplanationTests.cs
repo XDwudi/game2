@@ -23,14 +23,14 @@ namespace DiceCraft.Core.Tests
         }
 
         [TestCaseSource(nameof(GoldenTraces))]
-        public void Trace_All52GoldenOutputsAndEveryArithmeticLinkRemainExact(GoldenCase golden)
+        public void Trace_All100GoldenOutputsAndEveryArithmeticLinkRemainExact(GoldenCase golden)
         {
             var snapshot = golden.Snapshot(config);
             string original = JsonUtility.ToJson(snapshot), originalConfig = JsonUtility.ToJson(config);
             var breakdown = ScoreCalculator.Evaluate(snapshot, config);
             string frozen = JsonUtility.ToJson(breakdown);
             var trace = ScoreExplanation.Build(snapshot, breakdown, config);
-            string[] fields = {"effectivePips", "effectiveColors", "pipContributions", "pipSum", "unusedRollBonus", "matchedGroupIds", "chosenGroupId", "groupMult100", "straightMult100", "colorMult100", "totalHandMult100", "redValue", "redCount", "redMult100", "controllerMultiplier", "triggeredMultiplierIds", "finalFlatAdd", "score"};
+            string[] fields = typeof(ScoreBreakdown).GetFields().Select(f => f.Name).ToArray();
             foreach (string name in fields)
             {
                 var field = typeof(ScoreBreakdown).GetField(name);
@@ -51,9 +51,7 @@ namespace DiceCraft.Core.Tests
             Assert.That(running, Is.EqualTo((decimal)golden.expected.score));
             CollectionAssert.AreEqual(golden.expected.triggeredMultiplierIds, trace.global.Where(s => s.kind == "controller").Select(s => s.sourceId));
             Assert.That(trace.global.Count(s => s.operation == "floor"), Is.EqualTo(1));
-            Assert.That(trace.global[trace.global.Length - 2].kind, Is.EqualTo("floor"));
-            Assert.That(trace.global.Last().kind, Is.EqualTo("final_add"));
-            Assert.That(trace.global.Last().operand, Is.EqualTo((decimal)golden.expected.finalFlatAdd));
+            Assert.That(trace.global.Last().kind, Is.EqualTo("floor"));
             Assert.That(JsonUtility.ToJson(snapshot), Is.EqualTo(original));
             Assert.That(JsonUtility.ToJson(breakdown), Is.EqualTo(frozen));
             Assert.That(JsonUtility.ToJson(config), Is.EqualTo(originalConfig));
@@ -86,22 +84,21 @@ namespace DiceCraft.Core.Tests
             Assert.That(die.steps[0].after, Is.EqualTo(5m));
         }
 
-        [Test] public void Trace_GlobalFractionsSurviveEveryControllerAndC20AddsOnlyAfterFloor()
+        [Test] public void Trace_GlobalFractionsSurviveEveryControllerAndC20AddsBeforeMultipliers()
         {
             var snapshot = Snapshot(new[] {1, 1, 3, 6}, new[] {"red", "red", "blue", "blue"}, 4, "C09", "C18", "C20");
             snapshot.handLevels = new[] {new HandLevel {handId = "pair", level = 1}};
             var breakdown = ScoreCalculator.Evaluate(snapshot, config);
             var steps = ScoreExplanation.Build(snapshot, breakdown, config).global;
-            CollectionAssert.AreEqual(new[] {"unused_rolls", "hand", "red_group", "controller", "controller", "floor", "final_add"}, steps.Select(s => s.kind));
-            CollectionAssert.AreEqual(new decimal[] {11, 11, 30.25m, 37.8125m, 113.4375m, 226.875m, 226}, steps.Select(s => s.before));
-            CollectionAssert.AreEqual(new decimal[] {11, 30.25m, 37.8125m, 113.4375m, 226.875m, 226, 232}, steps.Select(s => s.after));
+            CollectionAssert.AreEqual(new[] {"unused_rolls", "hand", "red_group", "controller", "controller", "floor"}, steps.Select(s => s.kind));
+            CollectionAssert.AreEqual(new decimal[] {17, 17, 46.75m, 70.125m, 210.375m, 420.75m}, steps.Select(s => s.before));
+            CollectionAssert.AreEqual(new decimal[] {17, 46.75m, 70.125m, 210.375m, 420.75m, 420}, steps.Select(s => s.after));
             Assert.That(steps[3].sourceId, Is.EqualTo("C09"));
             Assert.That(steps[4].sourceId, Is.EqualTo("C18"));
-            Assert.That(steps[6].sourceId, Is.EqualTo("C20"));
-            Assert.That(steps[6].operand, Is.EqualTo(6m));
-            Assert.That(breakdown.score, Is.EqualTo(232));
-            decimal prematurelyRounded = decimal.Floor(decimal.Floor(11m * 2.75m) * 1.25m) * 3 * 2 + 6;
-            Assert.That(prematurelyRounded, Is.EqualTo(228));
+            Assert.That(ScoreExplanation.Build(snapshot, breakdown, config).dice.Last().steps.Single().sourceId, Is.EqualTo("C20"));
+            Assert.That(breakdown.score, Is.EqualTo(420));
+            decimal prematurelyRounded = decimal.Floor(decimal.Floor(17m * 2.75m) * 1.5m) * 3 * 2;
+            Assert.That(prematurelyRounded, Is.EqualTo(414));
             Assert.That(steps.Last().after, Is.Not.EqualTo(prematurelyRounded), "The explanation must not introduce intermediate floors.");
         }
 

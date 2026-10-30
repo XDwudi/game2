@@ -40,6 +40,24 @@ namespace DiceCraft.Tests
         [TearDown] public void PreserveEvidence()
             => TestContext.WriteLine("Isolated persistence evidence retained: " + directory);
 
+        [Test] public void SAVE_V05_IsolatesBothLegacySchema2FilesAcrossNewRunBackupRotation()
+        {
+            var store=PrepareTwoVersions();
+            foreach(var file in new[]{path,path+".backup"})
+            {
+                var old=JsonUtility.FromJson<Envelope>(File.ReadAllText(file));old.schema=2;old.config="p0.4.0";
+                File.WriteAllText(file,JsonUtility.ToJson(old));
+            }
+            var active=File.ReadAllBytes(path);var backup=File.ReadAllBytes(path+".backup");
+            Assert.That(store.Load(),Is.Null);Assert.That(store.LastLoadNotice,Does.Contain("开始新挑战"));
+            var archived=Directory.GetFiles(directory,"*.legacy-schema2-*");Assert.That(archived.Length,Is.EqualTo(2));
+            store.Load();Assert.That(Directory.GetFiles(directory,"*.legacy-schema2-*").Length,Is.EqualTo(2));
+            store.Save(first);store.Save(second);store.Save(third);
+            Assert.That(archived.Any(f=>File.ReadAllBytes(f).SequenceEqual(active)),Is.True);
+            Assert.That(archived.Any(f=>File.ReadAllBytes(f).SequenceEqual(backup)),Is.True);
+            Assert.That(JsonUtility.ToJson(store.Load()),Is.EqualTo(JsonUtility.ToJson(third)));
+        }
+
         [Test] public void SAVE_RealJsonUtilityRoundTripPreservesDiceRngReceiptsAndPhysicalResults()
         {
             var store = new AtomicSaveStore(path, config);
@@ -50,6 +68,27 @@ namespace DiceCraft.Tests
             Assert.That(JsonUtility.ToJson(restored), Is.EqualTo(JsonUtility.ToJson(third)));
             Assert.That(restored.processedReceipts.Count, Is.EqualTo(3));
             Assert.That(restored.hand.currentResults.All(r => r.hasRolled), Is.True);
+        }
+
+        [TestCase("triggers")][TestCase("score")]
+        public void SAVE_V05_CorruptFrozenHistoryWithValidHashFallsBackBeforeClone(string defect)
+        {
+            var fixture=third.Clone();int serial=fixture.nextItemSerial++;
+            fixture.controllers.Add(new ControllerInstance{instanceId="ITEM_"+serial.ToString("D5"),definitionId="C38",acquiredSerial=serial});
+            var source=new GameSession(config,new MemorySaveStore(),fixture);
+            string id=source.State.dice[0].dieId;Assert.That(source.TogglePending(id),Is.True);
+            Act(source,CommandKind.ConfirmLocks);Act(source,CommandKind.Submit);
+            var store=new AtomicSaveStore(path,config);store.Save(third);store.Save(source.State);
+            var envelope=JsonUtility.FromJson<Envelope>(File.ReadAllText(path));
+            var broken=JsonUtility.FromJson<RunState>(envelope.payload);
+            if(defect=="triggers")broken.lastSubmission.breakdown.triggeredControllerIds=null;
+            else broken.lastSubmission.breakdown.score++;
+            envelope.payload=JsonUtility.ToJson(broken);
+            using(var sha=SHA256.Create())envelope.sha256=BitConverter.ToString(sha.ComputeHash(Encoding.UTF8.GetBytes(envelope.payload))).Replace("-","").ToLowerInvariant();
+            File.WriteAllText(path,JsonUtility.ToJson(envelope));
+            var restored=store.Load();Assert.That(restored,Is.Not.Null,store.LastLoadNotice);
+            Assert.That(restored.actionSequence,Is.EqualTo(third.actionSequence));Assert.That(store.LastLoadNotice,Does.Contain("有效备份"));
+            Assert.DoesNotThrow(()=>new GameSession(config,new MemorySaveStore(),restored));
         }
 
         [TestCase("schema")]

@@ -47,7 +47,7 @@ namespace DiceCraft.Tests
         }
         [Test] public void FLOW_A08_ControllerBudgetsCombine()
         {
-            var s = Ready("C04", "C16"); Assert.That(s.State.stage.remainingSubmissions, Is.EqualTo(4)); Assert.That(s.State.hand.rollsRemaining, Is.EqualTo(4));
+            var s = Ready("C04", "C16"); Assert.That(s.State.stage.remainingSubmissions, Is.EqualTo(5)); Assert.That(s.State.hand.rollsRemaining, Is.EqualTo(4));
         }
         [Test] public void FLOW_A09_A11_C05OnlyAfterRollOnceAndSurvivesLoad()
         {
@@ -144,9 +144,9 @@ namespace DiceCraft.Tests
         {
             var s = Selecting(new[] { 4,4,4,4,4 }, new[] { "red","red","red","red","red" });
             s = Edit(s, x => { x.dice.RemoveRange(2,3); x.hand.currentResults.RemoveRange(2,3); x.hand.orderedLockedIds.RemoveRange(2,3);
-                if (final) { x.stage.stageIndex = 5; x.stage.stageId = cfg.stages[5].stageId; }
+                if (final) { x.stage.stageIndex = 23; x.stage.stageId = cfg.stages[23].stageId; }
                 x.stage.target = 1; foreach (var d in x.dice) { d.lifetime = "stage_temporary"; d.createdStageId = x.stage.stageId; } });
-            Do(s, CommandKind.Submit); Assert.That(s.State.phase, Is.EqualTo("StageSettlement")); Assert.That(s.State.gold, Is.GreaterThan(10)); Assert.That(s.State.dice, Is.Empty);
+            Do(s, CommandKind.Submit); Do(s, CommandKind.EndStage); Assert.That(s.State.phase, Is.EqualTo("StageSettlement")); Assert.That(s.State.gold, Is.GreaterThan(10)); Assert.That(s.State.dice, Is.Empty);
             Do(s, CommandKind.Continue); Assert.That(s.State.phase, Is.EqualTo(final ? "RunWon" : "RunFailed"));
         }
         [Test] public void FLOW_C13_CopyPreservesTemporaryTargetLifetime()

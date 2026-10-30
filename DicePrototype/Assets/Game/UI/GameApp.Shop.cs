@@ -30,18 +30,19 @@ namespace DiceCraft
             UiKit.Text(p,"Name",offer.category=="new_die"?"加入骰子 · 六面候选":NameOf(offer.contentId),98,25,465,45,29,UiKit.Paper);
             int price=Session.GetOfferPrice(offer);
             string desc=offer.category=="new_die"?string.Join("  ",offer.die.faces.Select(f=>f.permanentPip+(f.baseColor=="red"?"R":"B")))+"\n"+string.Join(" · ",offer.priceReasons):Description(offer.contentId);
-            UiKit.Text(p,"Description",desc,24,94,542,148,24,UiKit.Muted);
-            UiKit.Text(p,"Price",offer.sold?"已售罄":price+" 金币",24,265,175,40,27,UiKit.Gold);
+            if(offer.category=="controller"){EnchantBadge(p,offer.controller?.enchantmentId,520,25,42);desc+="\n"+EnchantLabel(offer.controller?.enchantmentId);}
+            UiKit.Text(p,"Description",desc,24,94,542,148,23,UiKit.Muted);
+            UiKit.Text(p,"Price",offer.sold?"已售罄":Session.GetOfferNetPrice(offer)+" 金币"+(Session.GetOfferTradeIn(offer)>0?" · 替换":""),24,265,210,40,24,UiKit.Gold);
             UiKit.Button(p,"Inspect",offer.sold?"已购入":"查看 / 购买",225,257,340,52,()=>InspectOffer(offer),!offer.sold);
         }
         private void InventoryStrip(bool selling)
         {
-            float y=863; UiKit.Text(main,"ControllersTitle",$"控制器  {ViewState.controllers.Count}/{ViewState.controllerSlots}",40,y-22,980,30,21,UiKit.Muted);
-            int slots=Math.Max(4,ViewState.controllerSlots);float width=1100f/Math.Min(slots,5);
+            float y=878; UiKit.Text(main,"ControllersTitle",$"控制器 · 普通槽 {ControllerRules.OrdinaryUsed(ViewState.controllers)}/{ViewState.controllerSlots} · 持有 {ViewState.controllers.Count}/{Config.maxControllerInstances}",40,y-22,1100,30,21,UiKit.Muted);
+            int slots=Math.Max(4,ViewState.controllers.Count);float width=1100f/Math.Min(slots,5);
             for(int i=0;i<slots;i++)
             {
                 int row=i/5,col=i%5;float x=40+col*width,cy=y+18+row*63;
-                if(i<ViewState.controllers.Count){var item=ViewState.controllers[i];var b=UiKit.Button(main,"Controller_"+item.instanceId,NameOf(item.contentId),x,cy,width-10,53,()=>ShowOwned(item,selling),true);b.GetComponentInChildren<TextMeshProUGUI>().fontSize=20;}
+                if(i<ViewState.controllers.Count){var item=ViewState.controllers[i];var b=UiKit.Button(main,"Controller_"+item.instanceId,NameOf(item.definitionId)+"\n"+EnchantShort(item.enchantmentId),x,cy,width-10,53,()=>ShowController(item,selling),!IsBusy);b.GetComponentInChildren<TextMeshProUGUI>().fontSize=18;EnchantBadge(b.transform,item.enchantmentId,5,5,22);}
                 else {UiKit.Box(main,"ControllerEmpty"+i,x,cy,width-10,53,UiKit.Panel);UiKit.Text(main,"EmptyLabel"+i,"空槽",x+8,cy+10,width-26,32,18,UiKit.Muted,TextAlignmentOptions.Center);}
             }
             UiKit.Text(main,"ItemsTitle",$"局内道具  {ViewState.inventory.Count}/{ViewState.consumableSlots}",1190,y-22,690,30,21,UiKit.Muted);
@@ -79,21 +80,22 @@ namespace DiceCraft
             if(offer.category=="new_die")
             {
                 FaceCards(p,offer.die,125,null,null);
-                UiKit.Text(p,"DiePriceReasons",string.Join(" · ",offer.priceReasons)+$"\n永久骰 {ViewState.dice.Count(d=>d.lifetime=="permanent")} → {ViewState.dice.Count(d=>d.lifetime=="permanent")+1}；基础提交容量 {ViewState.baseSubmitCapacity} → {Math.Min(7,ViewState.baseSubmitCapacity+1)}",40,465,1500,100,26,UiKit.Muted);
+                UiKit.Text(p,"DiePriceReasons",string.Join(" · ",offer.priceReasons)+$"\n永久骰 {ViewState.dice.Count(d=>d.lifetime=="permanent")} → {ViewState.dice.Count(d=>d.lifetime=="permanent")+1}；提交容量 K={Session.EffectiveCapacity} 保持不变",40,465,1500,100,26,UiKit.Muted);
             }
             else
             {
                 Icon(p,offer.contentId,40,130,110);UiKit.Text(p,"Description",Description(offer.contentId),180,130,1330,210,32);
-                string category=offer.category=="controller"?$"自动装备，占用1控制器槽：{ViewState.controllers.Count}/{ViewState.controllerSlots}":offer.category=="consumable"?$"买入库存，使用时消耗：{ViewState.inventory.Count}/{ViewState.consumableSlots}":"购买后本Run立即生效，不占槽。";
-                UiKit.Text(p,"Capacity",category,40,390,1500,65,27,UiKit.Muted);
-                if(offer.contentId=="C12")UiKit.Text(p,"Conflict","注意：奇数会变成有效偶数，影响奇数控制器、2233、顺子和红组判定。",40,470,1500,70,26,UiKit.Gold);
-                if(offer.contentId=="C09")UiKit.Text(p,"Conflict","注意：有效提交容量减少1；顺子和颜色类升级的购买资格会重新检查。",40,470,1500,70,26,UiKit.Gold);
+                string category=offer.category=="controller"?ControllerPurchaseText(offer):offer.category=="consumable"?$"买入库存，使用时消耗：{ViewState.inventory.Count}/{ViewState.consumableSlots}":"购买后本Run立即生效，不占槽。";
+                UiKit.Text(p,"Capacity",category,40,360,1500,100,25,UiKit.Muted);
+                if(offer.category=="controller"){EnchantBadge(p,offer.controller.enchantmentId,40,480,48);UiKit.Text(p,"Enchantment",EnchantLabel(offer.controller.enchantmentId),105,480,1400,70,25,UiKit.Teal);}
+                if(offer.contentId=="C12")UiKit.Text(p,"Conflict","注意：奇数会变成有效偶数，影响奇数控制器、2233、顺子和红组判定。",40,545,1500,32,22,UiKit.Gold);
+                if(offer.contentId=="C09")UiKit.Text(p,"Conflict","注意：有效提交容量减少1；顺子和颜色类升级的购买资格会重新检查。",40,545,1500,32,22,UiKit.Gold);
             }
             BuyFooter(p,offer,null,null);
         }
         private void BuyFooter(Transform p,ShopOffer offer,string die,string face)
         {
-            int price=Session.GetOfferPrice(offer);
+            int price=Session.GetOfferNetPrice(offer);
             string error=Session.PurchaseError(offer.offerId,die,face);
             UiKit.Text(p,"Price",$"价格 {price} 金币    ·    余额 {ViewState.gold} → {ViewState.gold-price}",40,585,1500,50,31,UiKit.Gold);
             if(error!=null)UiKit.Text(p,"PurchaseUnavailable",error,40,635,1500,32,21,UiKit.Gold);
@@ -115,7 +117,7 @@ namespace DiceCraft
         {
             var p=OpenModal(NameOf(offer.contentId)+" · 选择永久骰");
             var candidates=ViewState.dice.Where(d=>d.lifetime=="permanent").ToArray();
-            for(int i=0;i<candidates.Length;i++){string id=candidates[i].dieId;UiKit.Button(p,"Target_"+id,id,40+i*215,103,200,52,()=>TargetDie(offer,id),true,id==selectedDie);}
+            for(int i=0;i<candidates.Length;i++){string id=candidates[i].dieId;UiKit.Button(p,"Target_"+id,id,40+i*187,103,177,52,()=>TargetDie(offer,id),true,id==selectedDie);}
             if(selectedDie==null){UiKit.Text(p,"TargetHelp","先选择骰子；选目标和取消都不会扣款。",40,220,1500,90,31,UiKit.Muted);return;}
             var die=candidates.First(d=>d.dieId==selectedDie);
             if(offer.contentId=="O04"||offer.contentId=="U05")
@@ -130,9 +132,9 @@ namespace DiceCraft
         private void PreviewFacePurchase(ShopOffer offer,DieInstance die,string faceId)
         {
             var p=OpenModal(NameOf(offer.contentId)+" · "+die.dieId+" / "+faceId);
-            var before=ProbabilityCalculator.BuildUnits(die.faces,false,false,Config);var copy=die.Clone();var target=copy.faces.First(f=>f.faceId==faceId);
+            var before=FaceProbability(die);var copy=die.Clone();var target=copy.faces.First(f=>f.faceId==faceId);
             if(offer.contentId=="U01")target.texture="smooth";if(offer.contentId=="U02")target.texture="rough";if(offer.contentId=="U03")target.baseColor="red";if(offer.contentId=="U04")target.baseColor="blue";if(offer.contentId=="U06")target.isGold=true;
-            var after=ProbabilityCalculator.BuildUnits(copy.faces,false,false,Config);
+            var after=FaceProbability(copy);
             FaceCards(p,copy,125,null,after);
             string change=string.Join("   ",die.faces.Select((f,i)=>f.faceId+" "+(before[i]/10000f).ToString("0.00")+"→"+(after[i]/10000f).ToString("0.00")+"%"));
             UiKit.Text(p,"ProbChange",change,40,460,1500,65,24,UiKit.Teal);
@@ -141,7 +143,7 @@ namespace DiceCraft
         }
         private void FaceCards(Transform p,DieInstance die,float y,Action<string> choose,int[] probabilities)
         {
-            var units=probabilities??ProbabilityCalculator.BuildUnits(die.faces,false,false,Config);
+            var units=probabilities??FaceProbability(die);
             for(int i=0;i<6;i++)
             {
                 var f=die.faces[i];float x=40+i*250;var card=UiKit.Box(p,"Face_"+f.faceId,x,y,235,235,UiKit.PanelLight);

@@ -24,7 +24,7 @@ namespace DiceCraft.Verification
     /// </summary>
     public sealed class PlayerVerification : MonoBehaviour
     {
-        private const string ProbeRevision = "p0-player-independent-clocks-5";
+        private const string ProbeRevision = "p05-player-independent-clocks-7";
         private const double WarmupSeconds = 10;
         private const double SampleSeconds = 180;
         private const double FrameBudgetMs = 16.7;
@@ -48,7 +48,13 @@ namespace DiceCraft.Verification
         private string configHash, traceHash, normalSave, normalSaveHash, stressSave, phase = "Starting";
         private bool finished, sampling, normalPassed, stressCompleted, frameTimingEnabled;
         private int currentStep = -1, rollAnimations, skippedAnimations, stressRolls, stressReorders, stressSelections;
-        private int reducedMotionChecks;
+        private int reducedMotionChecks, handbookPureReadChecks;
+        private bool debug24Passed;
+        private bool checkpointExported;
+        private string importedCheckpointStatus="not_requested";
+        [Serializable]private sealed class CheckpointExpectation{public string inputStateSha256,outputStateSha256;public long submissionScore;}
+        private readonly List<Dictionary<string, object>> debug24Steps = new List<Dictionary<string, object>>();
+        private string normalFinalPhase; private int normalFinalStage;
         private int gpuInvalidSamples, gpuMissingSamples, gpuDuplicateTimestamps, timingReadFrames, focusedSampleFrames;
         private int timingWarningsDuringSampling;
         private int frameBufferGrowthEvents;
@@ -68,7 +74,8 @@ namespace DiceCraft.Verification
         [Serializable] private sealed class Trace
         {
             public uint seed;
-            public string configVersion, policy;
+            public string configVersion, policy, expectedFinalPhase;
+            public int expectedFinalStage;
             public bool isDebug;
             public TraceStep[] steps;
         }
@@ -92,6 +99,8 @@ namespace DiceCraft.Verification
             public uint diceRngState, shopRngState, effectRngState;
             public bool isDebug, savedStateMatches, renderedStateMatches;
             public string[] pendingConfirmed;
+            public bool qualified;
+            public string ruleStateSha256;
         }
         private struct FrameSample
         {
@@ -336,10 +345,16 @@ namespace DiceCraft.Verification
             Require(trace != null && trace.steps != null && trace.steps.Length > 0, "Trace is empty.");
             Require(!trace.isDebug && trace.configVersion == app.Config.configVersion, "Trace is debug or uses another config version.");
             Require(trace.steps[0].kind == "NewRun" && trace.steps[0].seed == trace.seed, "Trace must start with its declared seed.");
+            if(Array.IndexOf(Environment.GetCommandLineArgs(),"--verify-import-save")>=0)
+            {
+                VerifyCheckpoint(RequiredArgument(Environment.GetCommandLineArgs(),"--verify-import-save"),"imported-checkpoint");
+                importedCheckpointStatus="passed";
+            }
             phase = "MainMenuCapture";
             WriteReport("running", null, -1);
             yield return Capture("startup-render-ready", 3);
             yield return Capture("main-menu-1920x1080");
+            yield return CaptureResolutionSet("build-version",()=>InvokePrivate("ShowBuildVersion"));
             phase = "NormalReplay";
             for (int i = 0; i < trace.steps.Length; i++)
             {
@@ -410,16 +425,21 @@ namespace DiceCraft.Verification
                     remainingSubmissions = state.stage.remainingSubmissions, isDebug = state.isDebug,
                     diceRngState = state.diceRngState, shopRngState = state.shopRngState, effectRngState = state.effectRngState,
                     pendingConfirmed = kind == CommandKind.ConfirmLocks ? step.dieIds : Array.Empty<string>(),
-                    savedStateMatches = true, renderedStateMatches = true
+                    savedStateMatches = true, renderedStateMatches = true, qualified = state.stage.qualified, ruleStateSha256 = RuleStateHash(state)
                 });
                 File.AppendAllText(Path.Combine(configuredDirectory, "normal-replay.jsonl"), JsonUtility.ToJson(actualSteps[actualSteps.Count - 1]) + "\n", Encoding.UTF8);
                 CheckUnityErrors();
+                if(!checkpointExported&&state.stage.stageIndex>=2&&kind==CommandKind.ConfirmLocks&&state.hand.orderedLockedIds.Count>0)
+                    ExportCheckpoint(state);
+                if (state.stage.qualified && state.phase == "HandReady" && screenshots.All(x => !x.StartsWith("normal-qualified", StringComparison.Ordinal))) yield return CaptureResolutionSet("normal-qualified-continue-or-end");
                 if (state.phase == "StageSettlement") yield return Capture("normal-stage-" + (state.stage.stageIndex + 1));
                 else if (state.phase == "Shop" && screenshots.All(x => !x.StartsWith("normal-shop", StringComparison.Ordinal)))
                     yield return CaptureResolutionSet("normal-shop");
                 else if (state.phase == "Selecting" && state.hand.hasRolled && !app.IsBusy && screenshots.All(x => !x.StartsWith("normal-selecting", StringComparison.Ordinal)))
                 {
                     yield return CaptureResolutionSet("normal-selecting");
+                    yield return VerifyHandbookPureReads();
+                    yield return CaptureResolutionSet("normal-handbook", () => InvokePrivate("ShowHandbook"), true, "HandbookScroll");
                     string dieId = state.dice[0].dieId;
                     yield return CaptureResolutionSet("normal-die-detail-permanent-preview", () => InvokePrivate("ShowDie", dieId));
                 }
@@ -430,13 +450,17 @@ namespace DiceCraft.Verification
                 }
                 WriteReport("running", null, -1);
             }
-            Require(app.Session.State.phase == "RunWon" && app.Session.State.stage.stageIndex == 5, "Trace did not end in sixth-stage RunWon.");
+            normalFinalPhase = app.Session.State.phase; normalFinalStage = app.Session.State.stage.stageIndex + 1;
+            Require(trace.expectedFinalPhase == "RunWon" || trace.expectedFinalPhase == "RunFailed", "Trace must explicitly declare a terminal normal outcome.");
+            Require(normalFinalPhase == trace.expectedFinalPhase && normalFinalStage == trace.expectedFinalStage, "Trace did not match its declared terminal stage/outcome.");
+            Require(normalFinalPhase != "RunWon" || normalFinalStage == 24, "A normal win must finish stage 24.");
             Require(rollAnimations > 0 && skippedAnimations > 0 && reducedMotionChecks > 0, "Full animation, reduced-motion and skip paths were not all exercised.");
-            yield return Capture("normal-run-won");
+            yield return Capture(normalFinalPhase == "RunWon" ? "normal-run-won" : "normal-run-failed-stage-" + normalFinalStage);
             File.WriteAllText(Path.Combine(configuredDirectory, "normal-final-state.json"), JsonUtility.ToJson(app.Session.State, true), Encoding.UTF8);
             normalSaveHash = Hash(File.ReadAllText(normalSave, Encoding.UTF8));
             normalPassed = true;
             WriteReport("running", null, -1);
+            yield return VerifyDebugTwentyFourStages();
             yield return RunStress();
             Require(Hash(File.ReadAllText(normalSave, Encoding.UTF8)) == normalSaveHash, "Debug stress modified the isolated normal save.");
             CheckUnityErrors();
@@ -447,6 +471,156 @@ namespace DiceCraft.Verification
             finished = true;
             Debug.Log("P0 verification complete: normal replay passed; performance " + performanceStatus + "; evidence " + configuredDirectory);
             Application.Quit(exitCode);
+        }
+
+        private IEnumerator VerifyHandbookPureReads()
+        {
+            Require(!sampling && !app.IsBusy, "Handbook checks must occur outside the sample window.");
+            string original = JsonUtility.ToJson(app.Session.State);
+            string saved = Hash(File.ReadAllText(app.SaveLocation, Encoding.UTF8));
+            string[] pending = app.Session.PendingIds;
+            for (int i = 0; i < 20; i++)
+            {
+                InvokePrivate("ShowHandbook"); yield return null;
+                Require((bool)GetPrivate(app, "modal"), "Handbook did not open.");
+                if (i == 0)
+                {
+                    var texts = ((Transform)GetPrivate(app, "overlay")).GetComponentsInChildren<Component>(true)
+                        .Where(c => c != null && c.gameObject.activeInHierarchy && c.GetType().FullName == "TMPro.TextMeshProUGUI")
+                        .Select(c => c.GetType().GetProperty("text").GetValue(c)?.ToString() ?? "");
+                    string allText = string.Join("\n", texts);
+                    Require(allText.Contains("散点"), "Handbook scatter row is missing.");
+                    foreach (var hand in app.Config.handDefinitions) Require(allText.Contains(hand.displayName), "Handbook missing row " + hand.displayName);
+                }
+                InvokePrivate("CloseModal"); yield return null;
+                Require(!(bool)GetPrivate(app, "modal") && JsonUtility.ToJson(app.Session.State) == original && app.Session.PendingIds.SequenceEqual(pending), "Handbook inspection changed rules or pending selection.");
+                Require(Hash(File.ReadAllText(app.SaveLocation, Encoding.UTF8)) == saved, "Handbook inspection wrote the save.");
+                handbookPureReadChecks++;
+            }
+        }
+
+        private IEnumerator VerifyDebugTwentyFourStages()
+        {
+            phase = "DebugTwentyFourStages";
+            var initial = new GameSession(app.Config, new MemorySaveStore());
+            Accept(initial.Execute(new SessionCommand { kind = CommandKind.NewRun, seed = 20261030, commandId = "debug24-new", expectedActionSequence = 0 }));
+            var state = initial.State;
+            state.isDebug = true; state.runId = "DEBUG-24-STAGES";
+            foreach (var die in state.dice) foreach (var face in die.faces) { face.permanentPip = 4; face.baseColor = "red"; face.isGold = true; }
+            foreach (var level in state.handLevels) level.level = 8;
+            string[] ids = { "C25", "C30", "C31", "C32" };
+            for (int i = 0; i < ids.Length; i++) state.controllers.Add(new ControllerInstance { instanceId = "ITEM_" + (i + 1).ToString("D5"), acquiredSerial = i + 1, definitionId = ids[i], enchantmentId = "none" });
+            state.nextItemSerial = 5;
+            string directory = Path.Combine(configuredDirectory, "debug24-save");
+            var store = new AtomicSaveStore(Path.Combine(directory, "active-run.json"), app.Config);
+            var session = new GameSession(app.Config, store, state); store.Save(state);
+            typeof(GameApp).GetProperty(nameof(GameApp.Session)).GetSetMethod(true).Invoke(app, new object[] { session });
+            SetPrivate(app, "saves", store); GameApp.SaveDirectoryOverride = directory;
+            SetPrivate(app, "inMenu", false); SetPrivate(app, "tutorial", false); SetPrivate(app, "reduced", true); app.Refresh();
+            File.WriteAllText(Path.Combine(configuredDirectory, "debug24-initial-state.json"), JsonUtility.ToJson(state, true), Encoding.UTF8);
+            int shops = 0, risks = 0;
+            for (int stage = 0; stage < 24; stage++)
+            {
+                Require(app.Session.State.stage.stageIndex == stage && app.Session.State.phase == "StagePreview", "Debug24 stage preview mismatch.");
+                if (app.Config.stages[stage].riskEnabled) { yield return Debug24Action(CommandKind.ChooseChallenge, c => c.risk = true); risks++; }
+                yield return Debug24Action(CommandKind.StartStage);
+                yield return Debug24Action(CommandKind.Roll);
+                yield return Debug24Action(CommandKind.ConfirmLocks, c => c.dieIds = app.Session.State.dice.Select(d => d.dieId).ToArray());
+                int goldBefore = app.Session.State.gold;
+                yield return Debug24Action(CommandKind.Submit);
+                Require(app.Session.State.stage.qualified && app.Session.State.phase == "HandReady" && app.Session.State.gold == goldBefore, "Debug24 qualification paid early or ended early.");
+                if (stage == 0)
+                {
+                    yield return Debug24Action(CommandKind.Roll);
+                    yield return Debug24Action(CommandKind.ConfirmLocks, c => c.dieIds = app.Session.State.dice.Select(d => d.dieId).ToArray());
+                    yield return Debug24Action(CommandKind.Submit);
+                    Require(app.Session.State.stage.submissionOrdinal == 2 && app.Session.State.stage.remainingSubmissions == 1 && app.Session.State.gold == goldBefore, "Qualified continuation reset stage counters or paid early.");
+                }
+                yield return Debug24Action(CommandKind.EndStage);
+                Require(app.Session.State.phase == "StageSettlement", "Debug24 EndStage did not produce one settlement.");
+                if (stage == 0 || stage == 23) yield return Capture("debug24-settlement-stage-" + (stage + 1));
+                yield return Debug24Action(CommandKind.Continue);
+                if (stage < 23)
+                {
+                    Require(app.Session.State.phase == "Shop" && app.Session.State.shop != null, "Debug24 missing shop."); shops++;
+                    yield return Debug24Action(CommandKind.LeaveShop);
+                }
+            }
+            Require(shops == 23 && risks == 8 && app.Session.State.phase == "RunWon" && app.Session.State.stage.stageIndex == 23 && app.Session.State.shop == null, "Debug24 did not finish exactly 24 stages, 8 risks and 23 shops.");
+            yield return Capture("debug24-run-won");
+            File.WriteAllText(Path.Combine(configuredDirectory, "debug24-final-state.json"), JsonUtility.ToJson(app.Session.State, true), Encoding.UTF8);
+            debug24Passed = true;
+            SetPrivate(app, "reduced", false);
+            Require(Hash(File.ReadAllText(normalSave, Encoding.UTF8)) == normalSaveHash, "Debug24 mutated the normal save.");
+        }
+
+        private IEnumerator Debug24Action(CommandKind kind, Action<SessionCommand> configure = null)
+        {
+            yield return WaitReady();
+            var command = new SessionCommand { kind = kind }; configure?.Invoke(command);
+            if (kind == CommandKind.ConfirmLocks)
+            {
+                foreach (string id in command.dieIds) Require(app.Session.TogglePending(id), "Debug24 could not select " + id);
+                app.Refresh();
+            }
+            var result = app.Send(command); Accept(result);
+            if (app.IsBusy) app.SkipVisual();
+            yield return WaitReady();
+            var state = app.Session.State; string committed = JsonUtility.ToJson(state);
+            Require(state.isDebug && JsonUtility.ToJson(new AtomicSaveStore(app.SaveLocation, app.Config).Load()) == committed && JsonUtility.ToJson(app.ViewState) == committed, "Debug24 disk/UI state mismatch.");
+            debug24Steps.Add(new Dictionary<string, object> {
+                ["kind"] = kind.ToString(), ["sequence"] = state.actionSequence, ["stage"] = state.stage.stageIndex + 1,
+                ["phase"] = state.phase, ["qualified"] = state.stage.qualified, ["gold"] = state.gold,
+                ["score"] = state.stage.score, ["risk"] = state.stage.risk, ["ruleStateSha256"] = RuleStateHash(state)
+            });
+            File.AppendAllText(Path.Combine(configuredDirectory, "debug24-replay.jsonl"), Json(debug24Steps[debug24Steps.Count - 1]) + "\n", Encoding.UTF8);
+            CheckUnityErrors(); yield return null;
+        }
+
+        private static string RuleStateHash(RunState state)
+        {
+            // Strip only run/command identity which the presentation generates from GUIDs.
+            // Every rule-bearing field and all three RNG streams remain in the digest.
+            var canonical = state.Clone(); canonical.runId = "CANONICAL-RUN";
+            canonical.processedReceipts.Clear();
+            if (!string.IsNullOrEmpty(canonical.stage.settlementId)) canonical.stage.settlementId = "CANONICAL-RUN/" + canonical.stage.stageId;
+            if (canonical.lastStageSettlement != null) canonical.lastStageSettlement.settlementId = "CANONICAL-RUN/" + canonical.lastStageSettlement.stageId;
+            if (canonical.lastSubmission != null) canonical.lastSubmission.snapshot.runId = "CANONICAL-RUN";
+            return Hash(JsonUtility.ToJson(canonical));
+        }
+
+        private void ExportCheckpoint(RunState state)
+        {
+            string folder=Path.Combine(configuredDirectory,"cross-platform-checkpoint");Directory.CreateDirectory(folder);
+            File.Copy(normalSave,Path.Combine(folder,"active-run.json"),false);
+            var command=new SessionCommand{kind=CommandKind.Submit,commandId="cross-platform-submit",expectedActionSequence=state.actionSequence};
+            var trial=new GameSession(app.Config,new MemorySaveStore(),state);
+            var result=trial.Execute(command);Require(result.accepted&&!result.pendingSave,"Checkpoint continuation rejected.");
+            File.WriteAllText(Path.Combine(folder,"command.json"),JsonUtility.ToJson(command),new UTF8Encoding(false));
+            File.WriteAllText(Path.Combine(folder,"expected.json"),JsonUtility.ToJson(new CheckpointExpectation{
+                inputStateSha256=RuleStateHash(state),outputStateSha256=RuleStateHash(trial.State),submissionScore=result.receipt.score}),new UTF8Encoding(false));
+            VerifyCheckpoint(folder,"local-checkpoint-reload");checkpointExported=true;
+        }
+
+        private void VerifyCheckpoint(string folder,string outputName)
+        {
+            folder=Path.GetFullPath(folder);string source=Path.Combine(folder,"active-run.json");
+            string originalHash=FileHash(source),local=Path.Combine(configuredDirectory,outputName,"active-run.json");
+            Directory.CreateDirectory(Path.GetDirectoryName(local));File.Copy(source,local,false);
+            var expected=JsonUtility.FromJson<CheckpointExpectation>(File.ReadAllText(Path.Combine(folder,"expected.json")));
+            var command=JsonUtility.FromJson<SessionCommand>(File.ReadAllText(Path.Combine(folder,"command.json")));
+            var store=new AtomicSaveStore(local,app.Config);var restored=store.Load();
+            Require(restored!=null&&RuleStateHash(restored)==expected.inputStateSha256,"Cross-platform checkpoint input differs.");
+            var session=new GameSession(app.Config,store,restored);var result=session.Execute(command);
+            Require(result.accepted&&!result.duplicate&&!result.pendingSave&&result.receipt.score==expected.submissionScore,"Cross-platform continuation score differs.");
+            Require(RuleStateHash(session.State)==expected.outputStateSha256,"Cross-platform continuation rules/RNG differ.");
+            var reloaded=new GameSession(app.Config,store,store.Load());
+            Require(RuleStateHash(reloaded.State)==expected.outputStateSha256,"Cross-platform result did not persist.");
+            Require(reloaded.Execute(command).duplicate&&RuleStateHash(reloaded.State)==expected.outputStateSha256,"Cross-platform restart duplicated a submission.");
+            Require(FileHash(source)==originalHash,"Imported original save was modified.");
+            File.WriteAllText(Path.Combine(configuredDirectory,outputName,"verification.json"),Json(new Dictionary<string,object>{
+                ["passed"]=true,["sourceSaveSha256"]=originalHash,["inputStateSha256"]=expected.inputStateSha256,
+                ["outputStateSha256"]=expected.outputStateSha256,["submissionScore"]=expected.submissionScore}),new UTF8Encoding(false));
         }
 
         private IEnumerator WaitReady()
@@ -477,6 +651,7 @@ namespace DiceCraft.Verification
             yield return null;
             yield return CaptureUnlockedDebugPool();
             yield return CaptureResolutionSet("debug-stress-capacity");
+            yield return CaptureResolutionSet("debug-handbook-eight-capacity", () => InvokePrivate("ShowHandbook"), true, "HandbookScroll");
             yield return CaptureResolutionSet("debug-die-detail-permanent-preview", () => InvokePrivate("ShowDie", "D002"));
             var stressSnapshot = app.Session.PreviewSnapshot(); var stressBreakdown = app.Session.PreviewScore();
             yield return CaptureResolutionSet("debug-score-preview", () => InvokePrivate("ShowBreakdown", stressSnapshot, stressBreakdown), true);
@@ -515,7 +690,7 @@ namespace DiceCraft.Verification
                 }
                 if (operation == 2 && within >= .70)
                 {
-                    Require(app.Session.TogglePending("D008"), "Stress pending selection failed.");
+                    Require(app.Session.TogglePending("D009"), "Stress pending selection failed.");
                     app.Refresh(); stressSelections++; operation = 3;
                 }
                 if (operation == 3 && within >= .85)
@@ -577,16 +752,16 @@ namespace DiceCraft.Verification
             Accept(isolated.Execute(new SessionCommand { kind = CommandKind.StartStage, commandId = "debug-fixture-start", expectedActionSequence = 1 }));
             RunState s = isolated.State;
             s.isDebug = true; s.runId = "DEBUG-PERFORMANCE-" + Guid.NewGuid().ToString("N");
-            s.baseSubmitCapacity = 7; s.controllerSlots = 10; s.consumableSlots = 5;
-            s.stage.capacity = 7;
+            s.baseSubmitCapacity = 5; s.controllerSlots = 4; s.consumableSlots = 5;
+            s.stage.capacity = 8;
             s.phase = "Selecting"; s.dice.Clear(); s.hand.currentResults.Clear(); s.hand.orderedLockedIds.Clear();
             // Extra rolls are a Debug stress budget, never part of the normal run.
             s.hand.hasRolled = true; s.hand.rollsUsed = 1; s.hand.rollsRemaining = 500;
             s.hand.largeBuff = true; s.hand.smallBuff = true;
             for (int i = 1; i <= 10; i++)
             {
-                var die = DiceFactory.CreateStandard(app.Config, i, i <= 7 ? "permanent" : "stage_temporary", i <= 7 ? "" : s.stage.stageId);
-                // Glass dice stay locked; rolling the three non-glass temporary dice
+                var die = DiceFactory.CreateStandard(app.Config, i, i <= 8 ? "permanent" : "stage_temporary", i <= 8 ? "" : s.stage.stageId);
+                // Glass dice stay locked; rolling the two non-glass temporary dice
                 // preserves the required maximum population throughout measurement.
                 die.isGlass = i == 2 || i == 5;
                 for (int f = 0; f < die.faces.Length; f++)
@@ -597,14 +772,16 @@ namespace DiceCraft.Verification
                 }
                 var face = die.faces[(i - 1) % 6];
                 s.dice.Add(die);
-                s.hand.currentResults.Add(new DieHandState { dieId = die.dieId, hasRolled = true, isLocked = i <= 7,
+                s.hand.currentResults.Add(new DieHandState { dieId = die.dieId, hasRolled = true, isLocked = i <= 8,
                     currentFaceId = face.faceId, currentPip = face.permanentPip, currentColor = face.baseColor });
-                if (i <= 7) s.hand.orderedLockedIds.Add(die.dieId);
+                if (i <= 8) s.hand.orderedLockedIds.Add(die.dieId);
             }
             s.nextDieSerial = 11;
             s.controllers.Clear(); s.inventory.Clear();
-            string[] controllerIds = { "C01", "C02", "C03", "C04", "C05", "C06", "C08", "C12", "C16", "C17" };
-            for (int i = 0; i < controllerIds.Length; i++) s.controllers.Add(new OwnedItem { instanceId = "DEBUG-C-" + i, contentId = controllerIds[i] });
+            string[] controllerIds = { "C03", "C06", "C12", "C39", "C21", "C22", "C25", "C30", "C31", "C36" };
+            for (int i = 0; i < controllerIds.Length; i++) s.controllers.Add(new ControllerInstance {
+                instanceId = "ITEM_" + (i + 1).ToString("D5"), acquiredSerial = i + 1, definitionId = controllerIds[i],
+                enchantmentId = i < 2 ? "base5" : i < 4 ? "mult120" : "slotless" });
             string[] itemIds = { "I01", "I03", "I04", "I06", "I07" };
             for (int i = 0; i < itemIds.Length; i++) s.inventory.Add(new OwnedItem { instanceId = "DEBUG-I-" + i, contentId = itemIds[i] });
             s.nextItemSerial = 16;
@@ -614,7 +791,7 @@ namespace DiceCraft.Verification
             var session = new GameSession(app.Config, store, s); // Production invariants validate the fixture.
             store.Save(s);
             File.WriteAllText(Path.Combine(configuredDirectory, "debug-initial-state.json"), JsonUtility.ToJson(s, true), Encoding.UTF8);
-            // This is the only direct Session replacement, and it is deliberately outside
+            // This stress Session replacement is deliberately outside
             // the normal-run evidence. All subsequent stress actions use GameApp.Send.
             var setter = typeof(GameApp).GetProperty(nameof(GameApp.Session)).GetSetMethod(true);
             Require(setter != null, "GameApp.Session private setter is unavailable.");
@@ -629,8 +806,8 @@ namespace DiceCraft.Verification
         private void AssertStressCapacity()
         {
             RunState s = app.Session.State;
-            Require(s.isDebug && s.dice.Count == 10 && s.stage.capacity == 7 && s.hand.orderedLockedIds.Count == 7
-                && s.controllers.Count == 10 && s.inventory.Count == 5, "Stress fixture no longer has 10 dice / 7 slots / 10 controllers / 5 items.");
+            Require(s.isDebug && s.dice.Count == 10 && s.stage.capacity == 8 && s.hand.orderedLockedIds.Count == 8
+                && s.controllers.Count == 10 && ControllerRules.OrdinaryUsed(s.controllers) == 4 && s.controllers.Count(c => c.enchantmentId == "slotless") == 6 && s.inventory.Count == 5, "Stress fixture no longer has 10 dice / 8 slots / 4 ordinary + 6 slotless controllers / 5 items.");
         }
         private static void Accept(CommandResult result)
         {
@@ -771,7 +948,7 @@ namespace DiceCraft.Verification
             {
                 ["status"] = status, ["targetFrameMs"] = FrameBudgetMs, ["targetFps"] = 60,
                 ["targetResolution"] = "1920x1080", ["targetResolutionMet"] = Screen.width == 1920 && Screen.height == 1080,
-                ["isDebugFixture"] = true, ["dice"] = 10, ["submitSlots"] = 7, ["controllers"] = 10, ["inventory"] = 5,
+                ["isDebugFixture"] = true, ["dice"] = 10, ["submitSlots"] = 8, ["controllers"] = 10, ["inventory"] = 5,
                 ["warmupSeconds"] = WarmupSeconds, ["sampleSeconds"] = samplingEnd - samplingStart,
                 ["frameCount"] = validFrames.Length, ["frameBudgetMet"] = frameBudgetMet,
                 ["focusedSampleFrames"] = focusedSampleFrames, ["frameBufferInitialCapacity"] = samplingFrameCapacity,
@@ -1020,7 +1197,7 @@ namespace DiceCraft.Verification
             AssertStressCapacity();
         }
 
-        private IEnumerator CaptureResolutionSet(string name, Action showModal = null, bool scrollDetail = false)
+        private IEnumerator CaptureResolutionSet(string name, Action showModal = null, bool scrollDetail = false, string scrollName = "ScoreDetail")
         {
             Require(!sampling && !app.IsBusy && !(bool)GetPrivate(app, "modal"), "Visual capture must begin outside sampling, without a busy presentation or open modal.");
             string before = JsonUtility.ToJson(app.Session.State);
@@ -1042,8 +1219,8 @@ namespace DiceCraft.Verification
                     // Operate the existing ScrollRect through its public property, avoiding
                     // a separate fake detail renderer or any rules-state change.
                     var scroll = ((Transform)GetPrivate(app, "overlay")).GetComponentsInChildren<Component>(true).FirstOrDefault(c => c != null && c.GetType().FullName == "UnityEngine.UI.ScrollRect"
-                        && c.gameObject.activeInHierarchy && c.name == "ScoreDetail");
-                    Require(scroll != null, "The real score detail scroll view is missing.");
+                        && c.gameObject.activeInHierarchy && c.name == scrollName);
+                    Require(scroll != null, "The real modal scroll view is missing: " + scrollName);
                     scroll.GetType().GetProperty("verticalNormalizedPosition").SetValue(scroll, .5f);
                     yield return Capture(name + "-middle-" + widths[i] + "x" + heights[i]);
                     scroll.GetType().GetProperty("verticalNormalizedPosition").SetValue(scroll, 0f);
@@ -1147,6 +1324,7 @@ namespace DiceCraft.Verification
                 ["utc"] = DateTime.UtcNow.ToString("O"), ["unityVersion"] = Application.unityVersion,
                 ["buildGuid"] = Application.buildGUID, ["developmentBuild"] = Debug.isDebugBuild, ["isEditor"] = Application.isEditor,
                 ["platform"] = Application.platform.ToString(), ["os"] = SystemInfo.operatingSystem,
+                ["processArchitecture"] = RuntimeInformation.ProcessArchitecture.ToString(),
                 ["cpu"] = SystemInfo.processorType, ["cpuThreads"] = SystemInfo.processorCount, ["systemMemoryMB"] = SystemInfo.systemMemorySize,
                 ["gpu"] = SystemInfo.graphicsDeviceName, ["gpuMemoryMB"] = SystemInfo.graphicsMemorySize,
                 ["graphicsVersion"] = SystemInfo.graphicsDeviceVersion, ["graphicsApi"] = SystemInfo.graphicsDeviceType.ToString(),
@@ -1160,17 +1338,20 @@ namespace DiceCraft.Verification
         {
             var report = new Dictionary<string, object>
             {
-                ["schema"] = "p0-player-verification-4", ["probeRevision"] = ProbeRevision,
+                ["schema"] = "p0-player-verification-5", ["probeRevision"] = ProbeRevision,
                 ["probeAssemblyMvid"] = typeof(PlayerVerification).Module.ModuleVersionId.ToString(),
                 ["status"] = status, ["phase"] = phase, ["exitCode"] = exitCode,
                 ["updatedUtc"] = DateTime.UtcNow.ToString("O"), ["environment"] = environment,
                 ["traceSha256"] = traceHash, ["configSha256"] = configHash, ["configVersion"] = trace?.configVersion,
+                ["buildIdentity"] = Resources.Load<TextAsset>("BuildIdentity")?.text,
+                ["checkpointExported"] = checkpointExported,["importedCheckpointStatus"] = importedCheckpointStatus,
                 ["evidenceDirectory"] = configuredDirectory, ["normalSave"] = normalSave, ["normalSaveSha256BeforeStress"] = normalSaveHash, ["debugStressSave"] = stressSave,
                 ["normalReplay"] = new Dictionary<string, object> { ["passed"] = normalPassed, ["seed"] = trace?.seed,
                     ["expectedSteps"] = trace?.steps?.Length, ["completedSteps"] = actualSteps.Count, ["currentStepIndex"] = currentStep,
-                    ["normalIsDebug"] = false, ["rollAnimations"] = rollAnimations, ["animationSkipsTotal"] = skippedAnimations,
+                    ["normalIsDebug"] = false, ["terminalPhase"] = normalFinalPhase, ["terminalStage"] = normalFinalStage, ["completedAll24"] = normalPassed && normalFinalPhase == "RunWon" && normalFinalStage == 24, ["rollAnimations"] = rollAnimations, ["animationSkipsTotal"] = skippedAnimations,
                     ["reducedMotionChecks"] = reducedMotionChecks,
                     ["validation"] = "Each accepted command's sequence, phase, stage, score, gold, roll/submission budgets match trace; disk load and GameApp.ViewState equal committed state." },
+                ["handbookPureReadChecks"] = handbookPureReadChecks, ["debug24"] = new Dictionary<string, object> { ["passed"] = debug24Passed, ["isDebug"] = true, ["steps"] = debug24Steps, ["purpose"] = "24-stage/risk/shop/finalization integration only; not normal progression or difficulty evidence" },
                 ["stressCompleted"] = stressCompleted, ["performance"] = performance, ["screenshots"] = screenshots,
                 ["rejectedScreenshots"] = rejectedScreenshots, ["graphicsTimingWarnings"] = graphicsTimingWarnings,
                 ["screenshotDetails"] = screenshotDetails, ["animationChecks"] = animationChecks,
@@ -1214,7 +1395,7 @@ namespace DiceCraft.Verification
         }
         private void InvokePrivate(string method, params object[] arguments)
         {
-            MethodInfo info = typeof(GameApp).GetMethod(method, PrivateInstance);
+            MethodInfo info = typeof(GameApp).GetMethod(method, PrivateInstance|BindingFlags.Public);
             Require(info != null, "Verification adapter UI method not found: " + method);
             info.Invoke(app, arguments);
         }
@@ -1225,6 +1406,10 @@ namespace DiceCraft.Verification
         private static string Hash(string content)
         {
             using (var sha = SHA256.Create()) return BitConverter.ToString(sha.ComputeHash(Encoding.UTF8.GetBytes(content))).Replace("-", "").ToLowerInvariant();
+        }
+        private static string FileHash(string path)
+        {
+            using(var sha=SHA256.Create())using(var stream=File.OpenRead(path))return BitConverter.ToString(sha.ComputeHash(stream)).Replace("-","").ToLowerInvariant();
         }
         private static string Number(double value) { return double.IsNaN(value) || double.IsInfinity(value) ? "" : value.ToString("R", CultureInfo.InvariantCulture); }
         // Small report-only serializer allows true JSON null for unsupported metrics.
@@ -1260,3 +1445,4 @@ namespace DiceCraft.Verification
         }
     }
 }
+

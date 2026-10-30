@@ -47,7 +47,7 @@ namespace DiceCraft.Tests
         protected void Equip(RunState s, params string[] ids)
         {
             s.controllers.Clear();
-            foreach (var id in ids) s.controllers.Add(new OwnedItem { contentId = id, instanceId = "ITEM_" + (s.nextItemSerial++).ToString("D5") });
+            foreach (var id in ids) { int serial = s.nextItemSerial++; s.controllers.Add(new ControllerInstance { definitionId = id, enchantmentId = "none", acquiredSerial = serial, instanceId = "ITEM_" + serial.ToString("D5") }); }
             if (ids.Length > s.controllerSlots) s.controllerSlots = ids.Length;
         }
         protected string AddItem(RunState s, string id)
@@ -65,10 +65,12 @@ namespace DiceCraft.Tests
             return Edit(s, x => {
                 x.phase = "Selecting"; x.hand.hasRolled = true; x.hand.rollsUsed = 1; x.hand.rollsRemaining = 0;
                 x.dice.Clear(); x.hand.currentResults.Clear(); x.hand.orderedLockedIds.Clear();
-                x.baseSubmitCapacity = Math.Max(cfg.initialSubmitCapacity, pips.Length); x.stage.capacity = Math.Max(1, x.baseSubmitCapacity + (controllers != null && controllers.Contains("C09") ? -1 : 0));
+                x.baseSubmitCapacity = cfg.initialSubmitCapacity; x.stage.capacity = Math.Max(pips.Length, ControllerRules.Capacity(x.controllers, cfg));
                 int n = lockedCount < 0 ? pips.Length : lockedCount;
                 for (int i = 0; i < pips.Length; i++) {
                     var d = DiceFactory.CreateStandard(cfg, i + 1); x.dice.Add(d);
+                    // A forced current color still comes from its selected physical face.
+                    d.faces[0].baseColor=colors==null?"blue":colors[i];
                     x.hand.currentResults.Add(new DieHandState { dieId = d.dieId, currentFaceId = "F01", currentPip = pips[i], currentColor = colors == null ? "blue" : colors[i], hasRolled = true, isLocked = i < n });
                     if (i < n) x.hand.orderedLockedIds.Add(d.dieId);
                 }
@@ -78,12 +80,19 @@ namespace DiceCraft.Tests
         protected GameSession Shop()
         {
             var s = Selecting(new[] { 4,4,4,4,4 }, new[] { "red","red","red","red","red" });
-            Do(s, CommandKind.Submit); Do(s, CommandKind.Continue); return s;
+            Do(s, CommandKind.Submit); Do(s, CommandKind.EndStage); Do(s, CommandKind.Continue); return s;
         }
         protected string PutOffer(RunState s, string category, string contentId, int basePrice = 0, DieInstance die = null)
         {
             var id = "OFFER_" + (s.nextOfferSerial++).ToString("D5");
-            s.shop.offers.Add(new ShopOffer { offerId = id, category = category, contentId = contentId, basePrice = basePrice, die = die }); return id;
+            var offer = new ShopOffer { offerId = id, category = category, contentId = contentId, basePrice = basePrice, die = die };
+            if (category == "controller") {
+                s.shop.offers.RemoveAll(o => o.category == category && o.contentId == contentId);
+                int serial = s.nextItemSerial++;
+                offer.basePrice = cfg.Controller(contentId).buyPrice;
+                offer.controller = new ControllerInstance { instanceId = "ITEM_" + serial.ToString("D5"), acquiredSerial = serial, definitionId = contentId, enchantmentId = "none" };
+            }
+            s.shop.offers.Add(offer); return id;
         }
         protected void Lock(GameSession s, params string[] ids)
         {

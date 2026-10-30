@@ -12,7 +12,7 @@ namespace DiceCraft.Core
             Check(!string.IsNullOrEmpty(s.runId), "存档缺少挑战 ID。");
             Check(new[] { "StagePreview", "HandReady", "Selecting", "StageSettlement", "Shop", "RunWon", "RunFailed" }.Contains(s.phase), "存档阶段无效。");
             Check(s.gold >= 0 && s.actionSequence >= 0, "存档金币或操作序号无效。");
-            Check(s.baseSubmitCapacity >= cfg.initialSubmitCapacity && s.baseSubmitCapacity <= cfg.maxSubmitCapacity, "存档提交容量无效。");
+            Check(s.baseSubmitCapacity == cfg.initialSubmitCapacity, "存档基础提交容量必须独立于骰子数量。");
             Check(s.controllerSlots >= cfg.initialControllerSlots && s.controllerSlots <= cfg.maxControllerSlots && (s.isDebug || s.controllerSlots == cfg.initialControllerSlots), "存档控制器槽位无效。");
             Check(s.consumableSlots >= cfg.initialConsumableSlots && s.consumableSlots <= cfg.maxConsumableSlots && s.itemDiscount >= 0 && s.itemDiscount <= cfg.maxItemDiscount, "存档道具容量或折扣无效。");
             Check(s.nextDieSerial > 0 && s.nextItemSerial > 0 && s.nextOfferSerial > 0 && s.nextHandSerial > 0, "存档实例计数器无效。");
@@ -27,15 +27,19 @@ namespace DiceCraft.Core
                 Check(d.dataRevision >= 0, "存档骰子版本无效。");
                 cfg.ValidateFaces(d.faces);
             }
-            Check(s.controllers.Count <= s.controllerSlots && s.inventory.Count <= s.consumableSlots, "存档物品超过槽位。");
+            Check(s.controllers.Count <= cfg.maxControllerInstances && s.inventory.Count <= s.consumableSlots, "存档物品超过总数量。");
             Check(s.controllers.All(x => x != null && cfg.controllers.Any(c => c.id == x.contentId)) && s.controllers.Select(x => x.contentId).Distinct().Count() == s.controllers.Count, "存档控制器无效或重复。");
+            Check(ControllerRules.OrdinaryUsed(s.controllers) <= s.controllerSlots && s.controllers.All(c => ControllerRules.IsEnchantmentLegal(c.definitionId, c.enchantmentId, cfg)), "存档控制器附魔或普通槽位无效。");
+            Check(s.controllers.All(c => c.acquiredSerial > 0 && c.acquiredSerial < s.nextItemSerial && c.instanceId == "ITEM_" + c.acquiredSerial.ToString("D5")), "存档控制器实例来源无效。");
             Check(s.inventory.All(x => x != null && cfg.consumables.Any(c => c.id == x.contentId)), "存档道具无效。");
-            var instances = s.controllers.Concat(s.inventory).Select(x => x.instanceId).ToArray();
+            var instances = s.controllers.Select(x => x.instanceId).Concat(s.inventory.Select(x => x.instanceId)).ToArray();
             Check(instances.All(x => !string.IsNullOrEmpty(x)) && instances.Distinct().Count() == instances.Length, "存档物品身份无效。");
             Check(s.consumedItemIds.Distinct().Count() == s.consumedItemIds.Count && !s.inventory.Any(x => s.consumedItemIds.Contains(x.instanceId)), "存档已消耗道具重复存在。");
             Check(s.handLevels.Count == cfg.handDefinitions.Length && s.handLevels.All(x => x != null && cfg.handDefinitions.Any(h => h.id == x.handId && x.level >= 0 && x.level <= h.maxLevel)) && s.handLevels.Select(x => x.handId).Distinct().Count() == s.handLevels.Count, "存档牌型等级无效。");
             Check(s.stage != null && s.stage.stageIndex >= 0 && s.stage.stageIndex < cfg.stages.Length && s.stage.stageId == cfg.stages[s.stage.stageIndex].stageId, "存档关卡无效。");
             Check(s.stage.target > 0 && s.stage.score >= 0 && s.stage.remainingSubmissions >= 0 && s.stage.submissionOrdinal >= 0 && s.stage.stageRollBonus >= 0 && s.stage.capacity >= 1 && s.stage.capacity <= cfg.maxSubmitCapacity, "存档关卡数值无效。");
+            Check(s.stage.qualified == (s.stage.score >= s.stage.target), "存档达标标记与累计分不一致。");
+            Check(!s.stage.settled || (s.stage.qualified && s.stage.settlementId == s.runId + "/" + s.stage.stageId), "存档结算身份无效。");
             Check(!s.stage.risk || cfg.stages[s.stage.stageIndex].riskEnabled, "存档高压分支无效。");
             var stageDefinition = cfg.stages[s.stage.stageIndex];
             Check(s.isDebug || (s.stage.target == (s.stage.risk ? stageDefinition.riskTarget : stageDefinition.normalTarget)
@@ -44,6 +48,7 @@ namespace DiceCraft.Core
             if (s.phase == "HandReady" || s.phase == "Selecting")
             {
                 Check(s.stage.started && !s.stage.settled && s.stage.remainingSubmissions > 0 && s.dice.Count > 0, "存档活动关卡无效。");
+                Check(s.isDebug || s.stage.capacity == ShopCapacity(s), "存档关内提交容量与装备不一致。");
                 Check(s.hand != null && s.hand.orderedLockedIds != null && s.hand.currentResults != null, "存档缺少手牌状态。");
                 Check(s.hand.rollsRemaining >= 0 && s.hand.rollsUsed >= 0 && !string.IsNullOrEmpty(s.hand.handId), "存档投掷次数无效。");
                 Check(s.hand.currentResults.Count == s.dice.Count && s.hand.currentResults.All(r => r != null && s.dice.Any(d => d.dieId == r.dieId)) && s.hand.currentResults.Select(x => x.dieId).Distinct().Count() == s.dice.Count, "存档当前骰结果身份不匹配。");
@@ -55,7 +60,16 @@ namespace DiceCraft.Core
                 Check(s.phase != "Selecting" || (s.hand.hasRolled && s.hand.currentResults.All(r => r.hasRolled)), "存档选骰阶段没有投掷结果。");
             }
             if (s.phase == "StageSettlement" || s.phase == "Shop" || s.phase == "RunWon")
-                Check(s.stage.settled && s.lastStageSettlement != null && s.lastStageSettlement.stageId == s.stage.stageId && s.stage.score >= s.stage.target, "存档结算状态无效。");
+                Check(s.stage.settled && s.lastStageSettlement != null && s.lastStageSettlement.stageId == s.stage.stageId && s.stage.qualified, "存档结算状态无效。");
+            if (s.stage.settled)
+            {
+                var receipt = s.lastStageSettlement;
+                Check(receipt != null && receipt.settlementId == s.stage.settlementId && receipt.stageId == s.stage.stageId && receipt.score == s.stage.score && receipt.target == s.stage.target && receipt.remainingSubmissions == s.stage.remainingSubmissions, "存档结算回执不匹配。");
+                Check(receipt.goldBefore >= 0 && receipt.interestPrincipal == Math.Min(receipt.goldBefore, cfg.maxInterestPrincipal)
+                    && receipt.interest == (1 + (receipt.pig ? cfg.Controller("C01").parameters.extraInterestPerTen : 0)) * (receipt.interestPrincipal / cfg.interestDivisor)
+                    && receipt.unusedSubmissionReward == checked(receipt.remainingSubmissions * cfg.goldPerUnusedSubmission)
+                    && receipt.goldAfter == checked(receipt.goldBefore + receipt.baseReward + receipt.unusedSubmissionReward + receipt.interest), "存档结算收益无效。");
+            }
             if (s.phase == "RunWon") Check(s.stage.stageIndex == cfg.stages.Length - 1, "非最终关不能保存为胜利。");
             if (s.phase == "StageSettlement") Check(new[] { "Shop", "RunWon", "RunFailed" }.Contains(s.stage.settlementContinuation), "存档结算去向无效。");
             if (s.phase == "Shop") Check(s.stage.stageIndex < cfg.stages.Length - 1 && s.dice.Count > 0, "最终关或空骰组不能进入商店。");
@@ -72,12 +86,55 @@ namespace DiceCraft.Core
                         : offer.category == "service" ? cfg.services.Any(x => x.id == offer.contentId && x.id != "O03")
                         : offer.category == "new_die" && offer.contentId == "O03" && offer.die != null;
                     Check(known && offer.basePrice >= 0 && offer.priceReasons != null, "存档包含未知商品。");
+                    if (offer.category == "controller")
+                    {
+                        var c = offer.controller;
+                        Check(c != null && c.definitionId == offer.contentId && ControllerRules.IsEnchantmentLegal(c.definitionId, c.enchantmentId, cfg)
+                            && c.acquiredSerial > 0 && c.acquiredSerial < s.nextItemSerial && c.instanceId == "ITEM_" + c.acquiredSerial.ToString("D5")
+                            && offer.basePrice == cfg.Controller(c.definitionId).buyPrice, "存档控制器报价实例或附魔无效。");
+                    }
                     if (offer.category == "new_die") { cfg.ValidateFaces(offer.die.faces); Check(offer.basePrice == QuoteNewDie(offer.die), "存档新骰报价不匹配。"); }
                 }
+                var offeredControllers = s.shop.offers.Where(o => o.category == "controller").Select(o => o.controller).ToArray();
+                Check(offeredControllers.Select(c => c.definitionId).Distinct(StringComparer.Ordinal).Count() == offeredControllers.Length
+                    && offeredControllers.Select(c => c.instanceId).Distinct(StringComparer.Ordinal).Count() == offeredControllers.Length, "存档商店控制器重复。");
+                Check(s.shop.offers.Where(o => o.category == "controller" && !o.sold).All(o => !instances.Contains(o.controller.instanceId)), "未售控制器不能已经装备。");
             }
             Check(s.processedReceipts.All(x => x != null && x.command != null && !string.IsNullOrEmpty(x.commandId) && x.commandId == x.command.commandId && x.actionSequence > 0 && x.actionSequence <= s.actionSequence && x.effects != null), "存档回执无效。");
             Check(s.processedReceipts.Select(x => x.commandId).Distinct().Count() == s.processedReceipts.Count, "存档回执重复。");
             for (int i = 1; i < s.processedReceipts.Count; i++) Check(s.processedReceipts[i].actionSequence > s.processedReceipts[i - 1].actionSequence, "存档回执序号无序。");
+            if(s.lastSubmission!=null)ValidateSubmissionHistory(s.lastSubmission,s.runId);
+        }
+
+        private void ValidateSubmissionHistory(SubmissionRecord record,string runId)
+        {
+            var snapshot=record.snapshot;var b=record.breakdown;
+            Check(snapshot!=null&&b!=null&&snapshot.runId==runId&&snapshot.configVersion==cfg.configVersion
+                &&snapshot.dice!=null&&snapshot.handLevels!=null&&snapshot.handLevels.All(x=>x!=null)
+                &&snapshot.equippedControllers!=null&&snapshot.equippedControllers.All(x=>x!=null),"存档提交历史快照不完整。");
+            Check(b.effectivePips!=null&&b.pipContributions!=null&&b.effectiveColors!=null&&b.matchedGroupIds!=null
+                &&b.triggeredMultiplierIds!=null&&b.triggeredControllerIds!=null,"存档提交历史明细不完整。");
+            foreach(var die in snapshot.dice)
+            {
+                Check(die!=null&&die.permanentFacesCopy!=null&&die.permanentFacesCopy.All(f=>f!=null),"存档提交历史骰面缺失。");
+                cfg.ValidateFaces(die.permanentFacesCopy);
+                var face=die.permanentFacesCopy.FirstOrDefault(f=>f.faceId==die.faceId);
+                Check(face!=null&&die.permanentSixFaceSum==die.permanentFacesCopy.Sum(f=>f.permanentPip)
+                    &&die.isGold==face.isGold&&die.currentColor==face.baseColor,"存档提交历史物理面不一致。");
+            }
+            ScoreBreakdown expected;
+            try{expected=ScoreCalculator.Evaluate(snapshot,cfg);}
+            catch(ArgumentException){throw new RuleViolation("存档提交历史无法计分。");}
+            Check(b.effectivePips.SequenceEqual(expected.effectivePips)&&b.pipContributions.SequenceEqual(expected.pipContributions)
+                &&b.effectiveColors.SequenceEqual(expected.effectiveColors)&&b.matchedGroupIds.SequenceEqual(expected.matchedGroupIds)
+                &&b.triggeredMultiplierIds.SequenceEqual(expected.triggeredMultiplierIds)&&b.triggeredControllerIds.SequenceEqual(expected.triggeredControllerIds)
+                &&(b.chosenGroupId??"")== (expected.chosenGroupId??"")&&b.pipSum==expected.pipSum&&b.unusedRollBonus==expected.unusedRollBonus
+                &&b.groupMult100==expected.groupMult100&&b.straightMult100==expected.straightMult100&&b.colorMult100==expected.colorMult100
+                &&b.totalHandMult100==expected.totalHandMult100&&b.redValue==expected.redValue&&b.redCount==expected.redCount&&b.redMult100==expected.redMult100
+                &&b.controllerMultiplier==expected.controllerMultiplier&&b.pairBaseAdd==expected.pairBaseAdd&&b.enchantBaseAdd==expected.enchantBaseAdd
+                &&b.baseTotal==expected.baseTotal&&b.enchantBaseCount==expected.enchantBaseCount&&b.enchantMultiplierCount==expected.enchantMultiplierCount
+                &&b.redGroupingMode==expected.redGroupingMode&&b.scoreNumerator==expected.scoreNumerator&&b.scoreDenominator==expected.scoreDenominator
+                &&b.score==expected.score,"存档提交历史分数与冻结快照不一致。");
         }
     }
 }

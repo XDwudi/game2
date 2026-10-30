@@ -11,7 +11,7 @@ public static class NormalRunReplay
     {
         var json = new JsonSerializerOptions { IncludeFields = true, WriteIndented = true };
         var cfg = JsonSerializer.Deserialize<GameConfig>(File.ReadAllText("DicePrototype/Assets/Game/Data/P0Config.json"), json); cfg.Validate();
-        var source = JsonDocument.Parse(File.ReadAllText("evidence/runs/normal-win.json")).RootElement;
+        var source = JsonDocument.Parse(File.ReadAllText("evidence/v05/session/normal-run-trace.json")).RootElement;
         var store = new MemorySaveStore(); var session = new GameSession(cfg,store);
         var traces = new List<object>(); int count=0;
         foreach(var step in source.GetProperty("steps").EnumerateArray())
@@ -43,10 +43,10 @@ public static class NormalRunReplay
             traces.Add(new{sequence=count,kind=command.kind.ToString(),result="Passed",state.phase,state.gold,score=state.stage.score});
         }
         var end=session.State;
-        Require(end.phase=="RunWon"&&!end.isDebug,"Trajectory did not finish normal victory");
-        var expected=JsonSerializer.Deserialize<RunState>(File.ReadAllText("evidence/runs/normal-win-final-state.json"),json);
+        Require(end.phase==source.GetProperty("expectedFinalPhase").GetString()&&!end.isDebug,"Trajectory did not match declared normal outcome");
+        var expected=JsonSerializer.Deserialize<RunState>(File.ReadAllText("evidence/v05/session/normal-run-final-state.json"),json);
         Require(JsonSerializer.Serialize(end,json)==JsonSerializer.Serialize(expected,json),"Final state differs from search result");
-        File.WriteAllText("evidence/runs/normal-replay-report.json",JsonSerializer.Serialize(new{
+        File.WriteAllText("evidence/v05/session/normal-replay-report.json",JsonSerializer.Serialize(new{
             runner=".NET 10.0.403; real Core commands, not a Unity player",seed=source.GetProperty("seed").GetUInt32(),
             steps=count,restores=count,duplicateChecks=count,allPassed=true,debug=false,finalPhase=end.phase,finalGold=end.gold,
             finalStageScore=end.stage.score,traces},json));

@@ -70,7 +70,7 @@ namespace DiceCraft.Tests
         }
 
         [UnityTest]
-        public IEnumerator PLAY_Bootstrap_RealReferences38IconsFontAndSingleInputSystem()
+        public IEnumerator PLAY_Bootstrap_RealReferences58IconsFontAndSingleInputSystem()
         {
             Assert.That(UObj.FindObjectsByType<GameApp>().Length, Is.EqualTo(1));
             var systems = UObj.FindObjectsByType<EventSystem>();
@@ -93,8 +93,8 @@ namespace DiceCraft.Tests
             }
             string[] ids = app.Config.controllers.Select(c => c.id).Concat(app.Config.consumables.Select(c => c.id))
                 .Concat(app.Config.services.Select(c => c.id)).Concat(app.Config.diceUpgrades.Select(c => c.id)).ToArray();
-            Assert.That(ids.Length, Is.EqualTo(38));
-            Assert.That(app.contentIcons, Has.Length.EqualTo(38));
+            Assert.That(ids.Length, Is.EqualTo(58));
+            Assert.That(app.contentIcons, Has.Length.EqualTo(58));
             Assert.That(app.contentIcons.All(sprite => sprite != null), Is.True);
             CollectionAssert.AreEquivalent(ids, app.contentIcons.Select(sprite => sprite.name));
             Assert.That(app.uiFont, Is.Not.Null);
@@ -291,9 +291,18 @@ namespace DiceCraft.Tests
             Click("StartStage"); Click("Roll"); Click("Skip");
             foreach (string id in app.Session.State.dice.Select(d => d.dieId).ToArray()) ClickDie(id);
             Click("Confirm");
-            Assert.That(app.Session.PreviewScore().score, Is.EqualTo(62));
+            var practiceScore = app.Session.PreviewScore();
+            Assert.That(practiceScore.pipSum, Is.EqualTo(19));
+            Assert.That(practiceScore.unusedRollBonus, Is.EqualTo(6));
+            Assert.That(practiceScore.totalHandMult100, Is.EqualTo(200));
+            Assert.That(practiceScore.redMult100, Is.EqualTo(150));
+            Assert.That(practiceScore.score, Is.EqualTo(75), "v0.5: (19 pips + 6 unused-roll bonus) × pair 2 × two-red reward 1.5.");
             Click("Submit");
             yield return WaitForIdle();
+            Assert.That(app.Session.State.phase, Is.EqualTo("HandReady"));
+            Assert.That(app.Session.State.stage.qualified, Is.True);
+            Assert.That(app.Session.CanEndStage, Is.True);
+            Click("EndStage");
             Assert.That(app.Session.State.phase, Is.EqualTo("StageSettlement"));
             Click("SettlementContinue");
             Assert.That(app.Session.State.phase, Is.EqualTo("Shop"));

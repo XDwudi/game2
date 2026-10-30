@@ -1,6 +1,6 @@
 # 人工主导的 AI 游戏开发框架
 
-这套框架用于让人掌握游戏创意与体验决策，让 AI 在明确的任务、专业工具和验收要求下制作。当前已按用户提供的 P0 v0.4 策划进入骰子构筑原型开发，首个验收环境为 Windows x64 / Unity 6000.6.7f1。长期目标仍包含 PC、iOS、Android，移动端尚未验证。
+这套框架用于让人掌握游戏创意与体验决策，让 AI 在明确的任务、专业工具和验收要求下制作。当前正在按用户 P0 v0.5 规格迭代骰子构筑原型，目标 Windows x64 与 macOS Universal / Unity 6000.6.7f1。长期目标仍包含 PC、iOS、Android，移动端尚未验证。
 
 核心约定：按阶段验证风险，先做可玩的原型，再做达到目标品质的代表性片段，最后扩大生产。AI 交付必须有可检查的成果与证据；质量不由工作时长、token 数或 agent 数量决定。
 
@@ -8,15 +8,15 @@
 
 ## 当前原型
 
-- [交付说明、实测结果与限制](docs/DELIVERY.md)；本机可运行 `Builds/Windows/DiceCraft.exe`，便携包为 `Builds/DiceCraft-P0-Windows.zip`。构建二进制不提交Git，克隆后按工程说明重新构建。
+- v0.5 状态以 [STATE](docs/STATE.md) 为准；双平台包将同步保存在 `Releases/p0.5.0/`，使用 Git LFS。旧版 [交付说明](docs/DELIVERY.md) 和 `Builds/Windows/DiceCraft.exe` 仅为 v0.4 历史产物。
 - [运行、开发与复现说明](DicePrototype/README.md)
-- [权威 P0 v0.4 规格](docs/specs/P0_v0.4.md)与[实施验收契约](docs/tasks/P0-IMPLEMENTATION.md)
+- [权威 P0 v0.5 规格](docs/specs/P0_v0.5.md)与[实施验收契约](docs/tasks/P0-V05-IMPLEMENTATION.md)
 - [当前状态和剩余工作](docs/STATE.md)
 - evidence/unity、evidence/runs、evidence/review 保存真实测试、运行与独立复核记录。失败记录保留，不能把历史失败或旧版本通过当作当前结论。
 
 ## 后续项目与阶段的通用流程
 
-当前P0以已归档的v0.4规格和实施契约为准，不需要重复填写已确认输入。下面是新项目或新增阶段的框架入口。
+当前P0以已归档的v0.5规格和实施契约为准，不需要重复填写已确认输入。下面是新项目或新增阶段的框架入口。
 
 1. 人工填写 [项目准备表](docs/PROJECT_BRIEF.md) 的首轮必填部分。未知内容保留 TBD。
 2. AI 按 [前置质量流程](docs/QUALITY_FIRST_WORKFLOW.md) 整理当前系统规格、美术参照和交界场景；人工确认关键体验与方向。

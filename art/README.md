@@ -1,6 +1,6 @@
 # P0 骰子与符号资产
 
-这些资产由确定性的几何、SVG/Pillow 与音频合成脚本制作。没有外部图片、模型、音效样本或生成式点数图。适用于 v0.4 原型；美术风格与游戏内可读性仍由实际构建及用户评审决定。
+这些资产由确定性的几何、SVG/Pillow 与音频合成脚本制作。没有外部图片、模型、音效样本或生成式点数图。当前包含 v0.5 增量符号，沿用 v0.4 的骰体、动作和点阵；美术风格与游戏内可读性仍由实际构建及用户评审决定。
 
 ## 编辑和复现
 
@@ -8,8 +8,9 @@
 - 骰体：`E:/blender/blender.exe --background --factory-startup --python art/scripts/build_dice.py`。
 - 重开及端点验证：同上替换为 `art/scripts/verify_dice.py`。
 - 六视图：同上替换为 `art/scripts/render_dice_views.py`，使用 Cycles CPU。预览临时添加标准点数，未写回无点数骰体源，不是游戏运行截图。
-- 符号/图集/音效：`python art/scripts/build_symbols.py`；使用 Pillow 9.4.0。数字使用 Windows 自带 Segoe UI Bold 栅格化；未分发字体文件，SVG保留可编辑文本。
-- 字节级检查：`python art/scripts/validate_assets.py`，实际读取PNG alpha连通域核对1–6点，检查38图标尺寸/透明及10 WAV格式/非静音/无削波。
+- v0.5 增量符号与音效：`python art/scripts/build_symbols_v05.py`；使用 Pillow 9.4.0。先用 `--samples` 生成代表性样例。数字使用 Windows 自带 Segoe UI Bold 栅格化；未分发字体文件，SVG保留可编辑文本。脚本保留现有图集、模型、动作和原10条音效，只增加新版资源并修正C06。
+- `build_symbols.py` 保留为 v0.4 原始生成器及可复用几何库，不应直接用它覆盖新版输出；需要从旧源完全重建时，先运行它，再运行 `build_symbols_v05.py`。
+- 字节级检查：`python art/scripts/validate_v05_assets.py`。实际读取PNG alpha连通域核对1–6点，检查58图标、3附魔角标/框层与12 WAV；输出到 `evidence/v05/art`，不改写旧版证据。
 
 ## Unity 交接
 
@@ -23,20 +24,25 @@
 
 ## 纹理和符号
 
-- 38个图标在 `Assets/Game/Art/Icons/`，256×256 RGBA，4倍采样抗锯齿；源SVG在 `art/source_icons/`。
+- 58个图标在 `Assets/Game/Art/Icons/`，256×256 RGBA，4倍采样抗锯齿；源SVG在 `art/source_icons/`。新增C21至C40，C06从四种数字改为三种数字，其他已有内容图标保持原样。
 - `Assets/Game/Art/asset_map.json` 是内容ID到图标路径的映射；价格/规则仍来自主配置，资产不另存规则。
 - `PipsAtlas.png` 是1024×1024，4×4格、每格256；从左上数，红1–6对应index0–5，蓝1–6对应index8–13。Unity底左UV已记录到索引，每格(width,height)=(.25,.25)。未使用格透明。
 - `Pip_red_1.png` 等12个单独纹理可直接制作面片。每个点数由确切坐标列表生成，1–6点数经过计数断言。
 - 金色边框、光滑反光、粗糙颗粒、玻璃轮廓在 `Art/Textures/Layer_*.png`，不替代红蓝点数。图标颜色只是提示，游戏UI仍需文字/状态形状。
 - 3张共用透明卡框 `Frame_Controller/Item/Upgrade.png` 可用于UI。
+- 3张128×128附魔角标 `Enchant_slotless/base5/mult120.png` 与3张256×256透明框层 `Frame_Enchant_*.png` 位于Textures。免槽使用空心槽减号/薄荷色；基础+5使用加号、5与五点/金色；×1.2使用乘号文字/淡紫色。框层另以短划、加号、菱形区分，不能只靠颜色识别。
+- 映射的 `enchantments` 数组给出对应PNG/SVG、尺寸、形状与色值。新资源等待Unity导入器按Sprite、透明、无mipmap、Clamp设置；本资源脚本不修改场景或ProjectSetup。
+- `art/previews/v05/` 保存代表性样例、完整58图集、新内容64像素缩略图、附魔32像素缩略图与框层；这些是离线检查，不能替代实际游戏截图。
 
 ## 音效
 
-10条短WAV均为44.1kHz、16bit、mono：roll、land、lock、cancel、use、purchase、reject、copy、dye、break。由固定种子与包络合成，不使用第三方录音。音量/静音、触发顺序与是否重复播放由Unity运行适配处理；音频生成成功不等于游戏触发已验证。
+12条短WAV均为44.1kHz、16bit、mono：原有roll、land、lock、cancel、use、purchase、reject、copy、dye、break，以及新版enchant_base5（0.16秒）、enchant_mult120（0.22秒）。新反馈使用平滑起音与衰减尾音的音组合成，无第三方录音。只在成功提交且对应附魔真实触发后播放；预览和开关手册不播放。音量/静音、触发顺序与是否重复播放由Unity运行适配处理；音频生成成功不等于游戏触发已验证。
 
 ## 检查边界
 
-实际完成：本机FBX导出器RNA探测、源制作/保存/重开、骰体预算/尺寸、六标记、两动作首末变换、38图标互不相同、12点数组合计数、PNG透明尺寸、10WAV生成。证据在 `evidence/art/`。
+v0.5 本地实际完成：新增资源样例检查、58图标源/PNG唯一映射、3附魔角标/框层透明与尺寸、12条音频非静音/无削波/首尾零采样、12点阵alpha连通域计数。证据在 `evidence/v05/art/`；本地结果为待引擎集成REVIEW，不代替独立验收。
+
+v0.4 历史完成：本机FBX导出器RNA探测、源制作/保存/重开、骰体预算/尺寸、六标记、两动作首末变换、38图标互不相同、12点数组合计数、PNG透明尺寸、10WAV生成。历史证据在 `evidence/art/`。
 
 已完成的引擎集成证据：Unity真实PlayMode检查六面法线、当前点数、独立外观与资源绑定；Windows Player正常六关中实际播放31次投掷，检查导入动作的运动以及落地TRS/结果面朝上；720p、1080p、1440p实拍覆盖10骰/7栏、详情旋转窗口、分层外观及38项图标映射。独立复核见 `evidence/review/PLAYER05_REVIEW.md`、`UI_REVIEW.md` 和资产检查记录。后续版本的新证据以 `docs/STATE.md` 为准。
 

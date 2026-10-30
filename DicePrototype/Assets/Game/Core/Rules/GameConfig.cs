@@ -1,7 +1,87 @@
+// Serializable fields mirror authoritative P0 v0.5 Appendix A.
 using System;
 
 namespace DiceCraft.Core
 {
+    [Serializable]
+    public sealed partial class GameConfig
+    {
+        public string configVersion;
+        public int saveSchemaVersion;
+        public string unityMajorMinor;
+        public string blenderMajorMinor;
+        public int initialDiceCount;
+        public int maxPermanentDice;
+        public int maxActiveDice;
+        public int initialSubmitCapacity;
+        public int maxSubmitCapacity;
+        public int maxTemporaryDice;
+        public bool purchasedDiceChangeCapacity;
+        public int totalRollsPerHand;
+        public int submissionsPerStage;
+        public int bonusPerUnusedRoll;
+        public int initialGold;
+        public int baseStageReward;
+        public int riskStageReward;
+        public int goldPerUnusedSubmission;
+        public int interestDivisor;
+        public int maxInterestPrincipal;
+        public string interestBalanceTiming;
+        public int initialControllerSlots;
+        public int maxControllerInstances;
+        public bool slotlessConsumesBaseSlot;
+        public int initialConsumableSlots;
+        public int maxConsumableSlots;
+        public int controllerSellPrice;
+        public int consumableSellPrice;
+        public int minDiscountedItemPrice;
+        public int maxItemDiscount;
+        public int minDiceForColorHand;
+        public int minStraightLength;
+        public int minPipValue;
+        public int maxPipValue;
+        public int maxHandLevel;
+        public DiceDefinition diceDefinition;
+        public FaceOpposites faceOpposites;
+        public int probabilityUnits;
+        public string probabilityRounding;
+        public bool allowZeroProbabilityAfterGroupTransfer;
+        public int smoothOppositeWeight100;
+        public int smoothOtherWeight100;
+        public int roughOppositeWeight100;
+        public int roughOtherWeight100;
+        public int temporaryPipBiasWeight100;
+        public int glassBreakPercent;
+        public int glassContributionMultiplier;
+        public int goldContributionMultiplier;
+        public RedReward[] redRewards;
+        public EnchantmentDefinition[] enchantments;
+        public EnchantmentRules enchantRules;
+        public HandDefinition[] handDefinitions;
+        public ControllerDefinition[] controllers;
+        public ConsumableDefinition[] consumables;
+        public ServiceDefinition[] services;
+        public DieUpgradeDefinition[] diceUpgrades;
+        public StageDefinition[] stages;
+        public StageFlowConfig stageFlow;
+        public ShopConfig shop;
+        public GenerationConfig generation;
+        public RngConfig rng;
+        public PresentationConfig presentation;
+        public string[] buildTargets;
+        public DebugConfig debug;
+        // Source compatibility only: this is the total instance limit, never ordinary occupied slots.
+        public int maxControllerSlots => maxControllerInstances;
+    }
+
+    [Serializable]
+    public sealed class DiceDefinition
+    {
+        public string id;
+        public FaceDefinition[] faces;
+        public bool isGlass;
+    }
+
     [Serializable]
     public sealed class FaceDefinition
     {
@@ -11,14 +91,6 @@ namespace DiceCraft.Core
         public int baseWeight;
         public string texture;
         public bool isGold;
-    }
-
-    [Serializable]
-    public sealed class DiceDefinition
-    {
-        public string id;
-        public FaceDefinition[] faces;
-        public bool isGlass;
     }
 
     [Serializable]
@@ -41,6 +113,28 @@ namespace DiceCraft.Core
     }
 
     [Serializable]
+    public sealed class EnchantmentDefinition
+    {
+        public string id;
+        public string displayName;
+        public int weight;
+        public int buyPremium;
+        public int maxPerController;
+    }
+
+    [Serializable]
+    public sealed class EnchantmentRules
+    {
+        public string ineligibleScoreEnchantFallback;
+        public int triggerCountPerSubmitMax;
+        public int baseAdd;
+        public int multiplierNumerator;
+        public int multiplierDenominator;
+        public string[] nonSubmitControllerIds;
+        public bool postScorePredicatesUseFrozenSnapshot;
+    }
+
+    [Serializable]
     public sealed class HandDefinition
     {
         public string id;
@@ -53,6 +147,22 @@ namespace DiceCraft.Core
         public int minSubmittedDice;
         public bool enabledInNormalShop;
         public int requirePermanentDice;
+    }
+
+    [Serializable]
+    public sealed class ControllerDefinition
+    {
+        public string id;
+        public string displayName;
+        public int buyPrice;
+        public int sellPrice;
+        public string rarity;
+        public int offerWeight;
+        public string trigger;
+        public int maxOwned;
+        public bool scoreEnchantEligible;
+        public ControllerParameters parameters;
+        public string description;
     }
 
     [Serializable]
@@ -86,23 +196,29 @@ namespace DiceCraft.Core
         public int maxPip;
         public int maxPermanentFaceSum;
         public int lastSlotPip;
-        public int finalScoreAdd;
+        public int dieContributionAdd;
         public bool requireFullCapacity;
-    }
-
-    [Serializable]
-    public sealed class ControllerDefinition
-    {
-        public string id;
-        public string displayName;
-        public int buyPrice;
-        public int sellPrice;
-        public string rarity;
-        public int offerWeight;
-        public string trigger;
-        public int maxOwned;
-        public ControllerParameters parameters;
-        public string description;
+        public int redGroupPipFrom;
+        public int redGroupPipTo;
+        public bool mergeAllRed;
+        public string allFacesColor;
+        public int minSamePip;
+        public int baseAdd;
+        public int perSubmitLimit;
+        public int minDifferentPairs;
+        public int minimumStraightLength;
+        public int requiredDistinct;
+        public int minDice;
+        public int firstMinusSecondAtLeast;
+        public int[] targetPips;
+        public int maxTransferUnits;
+        public bool requireEmptySlot;
+        public int[] indices;
+        public int permanentFaceDelta;
+        public int index;
+        public string currentPhysicalFaceColor;
+        public string effectiveColor;
+        public bool positiveCommonDifference;
     }
 
     [Serializable]
@@ -141,6 +257,8 @@ namespace DiceCraft.Core
     public sealed class StageDefinition
     {
         public string stageId;
+        public int chapter;
+        public int indexInChapter;
         public int normalTarget;
         public int normalReward;
         public bool riskEnabled;
@@ -150,11 +268,15 @@ namespace DiceCraft.Core
     }
 
     [Serializable]
-    public sealed class ControllerWeights
+    public sealed class StageFlowConfig
     {
-        public int common;
-        public int uncommon;
-        public int rare;
+        public bool latchQualified;
+        public bool autoEndOnReached;
+        public bool autoEndWhenNoSubmissions;
+        public bool manualEndRequiresQualified;
+        public bool manualEndDiscardsUnsubmittedHand;
+        public int overScoreGold;
+        public bool rewardOnlyAtFinalization;
     }
 
     [Serializable]
@@ -173,18 +295,22 @@ namespace DiceCraft.Core
         public int selfStudyPremium;
         public int upgradePricePerExistingLevel;
         public bool controllersUniqueOwned;
-        public int firstControllerGuaranteeMaxPrice;
+        public bool allowDifferentEnchantReplacement;
+        public int replaceSaleCredit;
+        public int firstControllerGuaranteeMaxBasePrice;
+        public bool firstControllerGuaranteeUnownedOnly;
         public ControllerWeights controllerWeights;
         public string sellingWindow;
         public string[] discountCategories;
+        public int firstControllerGuaranteeMaxPrice => firstControllerGuaranteeMaxBasePrice;
     }
 
     [Serializable]
-    public sealed class TemplateWeights
+    public sealed class ControllerWeights
     {
-        public int random;
-        public int low;
-        public int high;
+        public int common;
+        public int uncommon;
+        public int rare;
     }
 
     [Serializable]
@@ -207,6 +333,14 @@ namespace DiceCraft.Core
     }
 
     [Serializable]
+    public sealed class TemplateWeights
+    {
+        public int random;
+        public int low;
+        public int high;
+    }
+
+    [Serializable]
     public sealed class RngConfig
     {
         public string algorithm;
@@ -223,79 +357,17 @@ namespace DiceCraft.Core
         public float fastRollSeconds;
         public int referenceWidth;
         public int referenceHeight;
+        public int handbookRows;
     }
 
     [Serializable]
     public sealed class DebugConfig
     {
         public bool markRunAsDebugOnUse;
-        public int maxControllerSlots;
-        public bool unlimitedGold;
+        public int maxControllerInstances;
         public bool freeUnlockTestOnly;
-    }
-
-    [Serializable]
-    public sealed partial class GameConfig
-    {
-        public string configVersion;
-        public int saveSchemaVersion;
-        public string unityMajorMinor;
-        public string blenderMajorMinor;
-        public int initialDiceCount;
-        public int maxPermanentDice;
-        public int maxActiveDice;
-        public int initialSubmitCapacity;
-        public int maxSubmitCapacity;
-        public int maxTemporaryDice;
-        public int totalRollsPerHand;
-        public int submissionsPerStage;
-        public int bonusPerUnusedRoll;
-        public int initialGold;
-        public int baseStageReward;
-        public int riskStageReward;
-        public int goldPerUnusedSubmission;
-        public int interestDivisor;
-        public int interestCap;
-        public string interestBalanceTiming;
-        public int initialControllerSlots;
-        public int maxControllerSlots;
-        public bool controllerSlotUpgradeInCatalog;
-        public int initialConsumableSlots;
-        public int maxConsumableSlots;
-        public int controllerSellPrice;
-        public int consumableSellPrice;
-        public int minDiscountedItemPrice;
-        public int maxItemDiscount;
-        public int minDiceForColorHand;
-        public int minStraightLength;
-        public int minPipValue;
-        public int maxPipValue;
-        public int maxHandLevel;
-        public DiceDefinition diceDefinition;
-        public FaceOpposites faceOpposites;
-        public int probabilityUnits;
-        public string probabilityRounding;
-        public int smoothOppositeWeight100;
-        public int smoothOtherWeight100;
-        public int roughOppositeWeight100;
-        public int roughOtherWeight100;
-        public int temporaryPipBiasWeight100;
-        public int glassBreakPercent;
-        public int glassContributionMultiplier;
-        public int goldContributionMultiplier;
-        public RedReward[] redRewards;
-        public HandDefinition[] handDefinitions;
-        public ControllerDefinition[] controllers;
-        public ConsumableDefinition[] consumables;
-        public ServiceDefinition[] services;
-        public DieUpgradeDefinition[] diceUpgrades;
-        public StageDefinition[] stages;
-        public ShopConfig shop;
-        public GenerationConfig generation;
-        public RngConfig rng;
-        public PresentationConfig presentation;
-        public DebugConfig debug;
+        // Source compatibility only: this is the total instance limit, never ordinary occupied slots.
+        public int maxControllerSlots => maxControllerInstances;
     }
 
 }
-

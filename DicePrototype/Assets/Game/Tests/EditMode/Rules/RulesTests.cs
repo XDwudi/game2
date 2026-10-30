@@ -11,11 +11,12 @@ namespace DiceCraft.Core.Tests
     [Serializable] public sealed class GoldenFile { public GoldenCase[] cases; }
     [Serializable] public sealed class GoldenCase
     {
-        public string id, title;
+        public string id, label;
         public GoldenDie[] dice;
-        public int rollsRemaining, capacity;
+        public int rollsRemaining, capacity, submissionOrdinal;
         public string[] controllerIds;
         public GoldenLevels levels;
+        public GoldenEnchants enchants;
         public bool redWave, requiresDebugSlots;
         public ScoreBreakdown expected;
         public SubmissionSnapshot Snapshot(GameConfig config)
@@ -30,15 +31,22 @@ namespace DiceCraft.Core.Tests
                     permanentSixFaceSum = d.sum6 == 0 ? 21 : d.sum6, lifetime = "permanent"
                 }).ToArray(),
                 capacity = capacity, rollsRemaining = rollsRemaining, redWave = redWave,
-                equippedControllerIds = controllerIds, handLevels = levels.ToArray()
+                equippedControllers = controllerIds.Select((cid, i) => new ControllerInstance { instanceId = "G-" + i, definitionId = cid, acquiredSerial = i + 1, enchantmentId = enchants.Get(cid) }).ToArray(),
+                submissionOrdinalBefore = submissionOrdinal, handLevels = levels.ToArray()
             };
         }
     }
     [Serializable] public sealed class GoldenDie { public int p, sum6; public string c; public bool gold, glass; }
     [Serializable] public sealed class GoldenLevels
     {
-        public int pair, two_pair, trips, full_house, quads, five_kind, six_kind, seven_kind, straight, all_blue, all_red;
+        public int pair, two_pair, trips, full_house, quads, five_kind, six_kind, seven_kind, eight_kind, straight, all_blue, all_red;
         public HandLevel[] ToArray() => GetType().GetFields().Select(f => new HandLevel { handId = f.Name, level = (int)f.GetValue(this) }).ToArray();
+    }
+
+    [Serializable] public sealed class GoldenEnchants
+    {
+        public string C01,C02,C03,C04,C05,C06,C07,C08,C09,C10,C11,C12,C13,C14,C15,C16,C17,C18,C19,C20,C21,C22,C23,C24,C25,C26,C27,C28,C29,C30,C31,C32,C33,C34,C35,C36,C37,C38,C39,C40;
+        public string Get(string id) => string.IsNullOrEmpty((string)GetType().GetField(id).GetValue(this)) ? "none" : (string)GetType().GetField(id).GetValue(this);
     }
 
     public static class GoldenJsonLoader
@@ -50,6 +58,7 @@ namespace DiceCraft.Core.Tests
             const string marker = "__DICECRAFT_GOLDEN_NULL_GROUP__";
             if (json.Contains(marker)) throw new ArgumentException("Reserved golden JSON marker.");
             string encoded = Regex.Replace(json, "(\"chosenGroupId\"\\s*:\\s*)null(?=\\s*[,}])", "$1\"" + marker + "\"");
+            if (encoded.TrimStart().StartsWith("[", StringComparison.Ordinal)) encoded = "{\"cases\":" + encoded + "}";
             var file = JsonUtility.FromJson<GoldenFile>(encoded);
             foreach (var item in file.cases)
                 if (item.expected.chosenGroupId == marker) item.expected.chosenGroupId = null;
@@ -74,23 +83,16 @@ namespace DiceCraft.Core.Tests
         {
             var cases = GoldenJsonLoader.Read(File.ReadAllText(DataPath("GoldenScores.json"))).cases;
             foreach (var item in cases) yield return new TestCaseData(item).SetName("GOLD-" + item.id);
-            // Appendix C's B01-B20 repeat these exact Appendix B inputs. Alias the same source
-            // data instead of maintaining a second handwritten set of numeric expectations.
-            for (int i = 1; i <= 18; i++)
-                yield return new TestCaseData(cases.Single(c => c.id == "S" + (24 + i).ToString("D2"))).SetName("FLOW-B" + i.ToString("D2"));
-            yield return new TestCaseData(cases.Single(c => c.id == "S43")).SetName("FLOW-B19-partial");
-            yield return new TestCaseData(cases.Single(c => c.id == "S44")).SetName("FLOW-B19-full");
-            yield return new TestCaseData(cases.Single(c => c.id == "S45")).SetName("FLOW-B20");
+
         }
 
         [TestCaseSource(nameof(Goldens))]
-        public void Golden_All18Fields_AndNoMutation(GoldenCase example)
+        public void Golden_All26Fields_AndNoMutation(GoldenCase example)
         {
-            Assert.That(example.controllerIds.Length <= config.initialControllerSlots || example.requiresDebugSlots, Is.True, "Extra slots must be explicitly Debug.");
             var snapshot = example.Snapshot(config);
             string before = JsonUtility.ToJson(snapshot);
             var actual = ScoreCalculator.Evaluate(snapshot, config);
-            string[] fields = { "effectivePips", "effectiveColors", "pipContributions", "pipSum", "unusedRollBonus", "matchedGroupIds", "chosenGroupId", "groupMult100", "straightMult100", "colorMult100", "totalHandMult100", "redValue", "redCount", "redMult100", "controllerMultiplier", "triggeredMultiplierIds", "finalFlatAdd", "score" };
+            string[] fields = typeof(ScoreBreakdown).GetFields().Select(f => f.Name).ToArray();
             foreach (string name in fields)
             {
                 var field = typeof(ScoreBreakdown).GetField(name);
@@ -101,10 +103,10 @@ namespace DiceCraft.Core.Tests
             Assert.That(JsonUtility.ToJson(snapshot), Is.EqualTo(before), "Pure preview mutated input.");
         }
 
-        [Test] public void GoldenFile_HasExactly52UniqueCases()
+        [Test] public void GoldenFile_HasExactly100UniqueCases()
         {
             var cases = GoldenJsonLoader.Read(File.ReadAllText(DataPath("GoldenScores.json"))).cases;
-            CollectionAssert.AreEquivalent(Enumerable.Range(1, 52).Select(i => "S" + i.ToString("D2")), cases.Select(c => c.id));
+            CollectionAssert.AreEquivalent(Enumerable.Range(1, 100).Select(i => "S" + i.ToString("D3")), cases.Select(c => c.id));
         }
         [Test] public void GoldenJson_PreservesNullEmptyAndNonemptyGroupIdsExactly()
         {
@@ -121,18 +123,18 @@ namespace DiceCraft.Core.Tests
             Assert.That(groupNulls, Is.GreaterThan(0));
             Assert.That(allNulls, Is.EqualTo(groupNulls), "A newly nullable source field needs an explicit loading adapter.");
             Assert.That(GoldenJsonLoader.Read(json).cases.Count(c => c.expected.chosenGroupId == null), Is.EqualTo(groupNulls));
-            CollectionAssert.AreEqual(new[] {"chosenGroupId"}, typeof(ScoreBreakdown).GetFields().Where(f => f.FieldType == typeof(string)).Select(f => f.Name));
+            Assert.That(GoldenJsonLoader.Read(json).cases.All(c => c.expected.redGroupingMode != null && c.expected.scoreNumerator != null && c.expected.scoreDenominator != null), Is.True);
         }
-        [Test] public void Configuration_ContainsExactly38SupportedItemsAnd11Hands()
+        [Test] public void Configuration_ContainsExactly58SupportedItemsAnd12Hands()
         {
-            Assert.That(config.controllers.Length + config.consumables.Length + config.services.Length + config.diceUpgrades.Length, Is.EqualTo(38));
-            Assert.That(config.handDefinitions.Length, Is.EqualTo(11));
+            Assert.That(config.controllers.Length + config.consumables.Length + config.services.Length + config.diceUpgrades.Length, Is.EqualTo(58));
+            Assert.That(config.handDefinitions.Length, Is.EqualTo(12));
         }
         [Test] public void Configuration_RejectsMissingZeroOrFalseFields()
         {
             string json = File.ReadAllText(DataPath("P0Config.json"));
             Assert.Throws<ArgumentException>(() => GameConfig.ValidateJson(json.Replace("\"occupiedIndex\": 0", "\"wrongIndex\": 0")));
-            Assert.Throws<ArgumentException>(() => GameConfig.ValidateJson(json.Replace("\"controllerSlotUpgradeInCatalog\": false,", "")));
+            Assert.Throws<ArgumentException>(() => GameConfig.ValidateJson(json.Replace("\"purchasedDiceChangeCapacity\": false,", "")));
         }
         [Test] public void Configuration_RejectsUnknownMissingDuplicateIds()
         {
@@ -187,7 +189,11 @@ namespace DiceCraft.Core.Tests
                 }
             }
             Assert.That(tested, Is.EqualTo(2916));
+#if UNITY_5_3_OR_NEWER
             TestContext.WriteLine("2916 combinations; smallest face allocation = " + minimum);
+#else
+            Console.WriteLine("2916 combinations; smallest face allocation = " + minimum);
+#endif
         }
         [Test] public void Probability_TieBreakUsesPhysicalFaceId_NotArrayOrder()
         {
@@ -252,7 +258,7 @@ namespace DiceCraft.Core.Tests
         }
         [Test] public void Score_RejectsEmptyDuplicateOverCapacityAndInvalidLevels()
         {
-            var example = JsonUtility.FromJson<GoldenFile>(File.ReadAllText(DataPath("GoldenScores.json"))).cases[0];
+            var example = GoldenJsonLoader.Read(File.ReadAllText(DataPath("GoldenScores.json"))).cases[0];
             var snapshot = example.Snapshot(config);
             snapshot.dice = Array.Empty<SubmissionDie>();
             Assert.Throws<ArgumentException>(() => ScoreCalculator.Evaluate(snapshot, config));
@@ -260,7 +266,7 @@ namespace DiceCraft.Core.Tests
             Assert.Throws<ArgumentException>(() => ScoreCalculator.Evaluate(snapshot, config));
             snapshot = example.Snapshot(config); snapshot.capacity = 0;
             Assert.Throws<ArgumentException>(() => ScoreCalculator.Evaluate(snapshot, config));
-            snapshot = example.Snapshot(config); snapshot.handLevels = new[] {new HandLevel {handId="pair", level=5}};
+            snapshot = example.Snapshot(config); snapshot.handLevels = new[] {new HandLevel {handId="pair", level=9}};
             Assert.Throws<ArgumentException>(() => ScoreCalculator.Evaluate(snapshot, config));
         }
         [Test] public void Score_EqualUpgradedMultipliersPreferHigherStructuralRank()

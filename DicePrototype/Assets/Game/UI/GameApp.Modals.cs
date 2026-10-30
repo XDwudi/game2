@@ -52,6 +52,7 @@ namespace DiceCraft
             slider.onValueChanged.AddListener(v=>{volume=v;audioSource.volume=v;PlayerPrefs.SetFloat("volume",v);});
             UiKit.Button(p,"Resume","继续挑战",40,575,720,72,CloseModal,true,true);
             UiKit.Button(p,"MainMenu","保存并返回主菜单",820,575,720,72,ReturnMenu);
+            UiKit.Button(p,"PauseHandbook","牌型手册 [H]",40,495,1500,54,ShowHandbook,ViewState!=null&&!Session.HasPendingSave);
             UiKit.Text(p,"SavePath","存档："+saves.SavePath,40,690,1500,60,18,UiKit.Muted);
         }
         private void ShowDie(string id)
@@ -84,12 +85,11 @@ namespace DiceCraft
             var receipt=ViewState.processedReceipts.LastOrDefault(r=>r.command!=null&&r.command.kind==CommandKind.Submit);
             bool historical=ViewState.lastSubmission!=null&&snapshot.handId==ViewState.lastSubmission.snapshot.handId;
             string effects=historical&&receipt!=null?string.Join("\n",receipt.effects.Select(EffectText)):string.Join("\n",Session.PreviewSubmissionEffects().Select(EffectText));
-            if(!historical&&b.finalFlatAdd>0)effects+=(effects.Length>0?"\n":"")+"66大顺：第 "+snapshot.capacity+" 栏 "+snapshot.dice.Last().dieId+" 有效6点，最后 +"+b.finalFlatAdd;
             var trace=ScoreExplanation.Build(snapshot,b,Config);
             float diceHeight=trace.dice.Sum(d=>86+d.steps.Length*34);
             float globalHeight=58+trace.global.Length*46;
             var list=UiKit.Scroll(p,"ScoreDetail",40,110,1500,620,Math.Max(620,110+diceHeight+globalHeight+280));
-            UiKit.Text(list,"Formula",$"({b.pipSum} + {b.unusedRollBonus}) × {Factor(b.totalHandMult100)} × {Factor(b.redMult100)} × {b.controllerMultiplier}  向下取整  + {b.finalFlatAdd}  =  {b.score:N0}",12,6,1440,74,31,UiKit.Gold);
+            UiKit.Text(list,"Formula",$"({b.pipSum} + {b.unusedRollBonus} + {b.pairBaseAdd} + {b.enchantBaseAdd}) × {Factor(b.totalHandMult100)} × {Factor(b.redMult100)} × {b.controllerMultiplier} × (6/5)^{b.enchantMultiplierCount}\n全部相乘后向下取整一次 = {b.score:N0}",12,6,1440,80,29,UiKit.Gold);
             float cursor=97;
             for(int i=0;i<snapshot.dice.Length;i++)
             {
@@ -104,12 +104,13 @@ namespace DiceCraft
             }
             UiKit.Text(list,"GlobalTitle","全局结算 · 中间不取整",12,cursor,1440,48,28,UiKit.Gold);cursor+=58;
             for(int i=0;i<trace.global.Length;i++){UiKit.Text(list,"GlobalStep"+i,ScoreStepText(trace.global[i]),12,cursor,1440,43,25);cursor+=46;}
-            string triggered=b.triggeredMultiplierIds.Length==0?"无整手乘法触发":string.Join(" · ",b.triggeredMultiplierIds.Select(NameOf));
+            string triggered=b.triggeredControllerIds.Length==0?"本次无控制器触发":string.Join(" · ",b.triggeredControllerIds.Select(NameOf));
             UiKit.Text(list,"Triggered",triggered+"\n永久复制/扩散只在提交后执行，不回溯更改本次分数。"+(effects.Length>0?(historical?"\n\n实际提交后效果：\n":"\n\n确认提交将执行：\n")+effects:""),12,cursor+12,1440,260,25,UiKit.Teal);
         }
         private string ScoreStepText(ScoreStep step)
         {
             string label=step.sourceId!=null?NameOf(step.sourceId):step.kind=="glass"?"玻璃":step.kind=="gold"?"本面镀金":step.kind=="unused_rolls"?"剩余投掷奖励":step.kind=="hand"?"牌型总倍率":step.kind=="red_group"?"同点红组":step.kind=="floor"?"最后向下取整":"最终加分";
+            if(step.kind=="enchantment_base"||step.kind=="enchantment_multiplier")label+=" · 附魔";
             string before=step.before.ToString("0.####"),after=step.after.ToString("0.####");
             return step.operation=="floor"?$"{label}：{before} → {after}":$"{label}：{before} {step.operation} {step.operand:0.####} → {after}";
         }
@@ -118,7 +119,9 @@ namespace DiceCraft
             switch(e.kind)
             {
                 case "DieCopied":return NameOf(e.sourceId)+"："+e.otherDieId+" 的六面复制到 "+e.dieId;
-                case "FaceDyed":return NameOf(e.sourceId)+"："+e.dieId+" / "+e.faceId+" 永久染红";
+                case "FaceDyed":return NameOf(e.sourceId)+"："+e.dieId+" / "+e.faceId+(e.sourceId=="C38"?" 永久染蓝":" 永久染红");
+                case "FaceValueChanged":return "永久点数："+e.dieId+" / "+e.faceId+" "+e.oldValue+" → "+e.newValue;
+                case "DieDyed":return "永久染色："+e.dieId+" 六面全部染红";
                 case "DieBroken":return e.dieId+" 玻璃损坏，已移出骰组";
                 case "TemporaryDieExpired":return e.dieId+" 临时骰已在关卡结束时移除";
                 case "ExtraRolls":return NameOf(e.sourceId)+"：增加 "+e.newValue+" 次投掷";

@@ -18,7 +18,7 @@ namespace DiceCraft.Editor
             public void TestFinished(ITestResultAdaptor result){}
             public void RunFinished(ITestResultAdaptor result)
             {
-                string dir=Path.GetFullPath("../evidence/unity");Directory.CreateDirectory(dir);
+                string dir=Path.GetFullPath("../evidence/v05/unity");Directory.CreateDirectory(dir);
                 string stamp=DateTime.UtcNow.ToString("yyyyMMdd-HHmmss");
                 TestRunnerApi.SaveResultToFile(result,Path.Combine(dir,"nunit-"+stamp+".xml"));
             }

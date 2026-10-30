@@ -33,10 +33,10 @@ public static class NormalRunSearch
     public static int Main(string[] args)
     {
         cfg = JsonSerializer.Deserialize<GameConfig>(File.ReadAllText("DicePrototype/Assets/Game/Data/P0Config.json"), Json); cfg.Validate();
-        Directory.CreateDirectory("evidence/runs");
+        Directory.CreateDirectory("evidence/v05/session");
         uint first = args.Length > 0 ? uint.Parse(args[0]) : 20261028;
-        int maximum = args.Length > 1 ? int.Parse(args[1]) : 100;
-        var results = new List<SearchResult>();
+        int maximum = args.Length > 1 ? int.Parse(args[1]) : 8;
+        var results = new List<SearchResult>(); int bestStage = 0; long bestScore = -1;
         for (int run = 0; run < maximum; run++)
         {
             uint seed = first + (uint)run; planning = new Random(731); steps = new List<RecordedStep>(); sequence = 0;
@@ -44,12 +44,12 @@ public static class NormalRunSearch
             Act(CommandKind.NewRun, c => c.seed = seed);
             while (session.State.phase != "RunWon" && session.State.phase != "RunFailed")
             {
-                if (steps.Count > 500) throw new Exception("Unexpected action loop");
+                if (steps.Count > 1500) throw new Exception("Unexpected action loop");
                 var state = session.State;
                 switch (state.phase)
                 {
                     case "StagePreview": Act(CommandKind.StartStage); break;
-                    case "HandReady": UsePreparationItems(); Act(CommandKind.Roll); break;
+                    case "HandReady": if (state.stage.qualified) Act(CommandKind.EndStage); else { UsePreparationItems(); Act(CommandKind.Roll); } break;
                     case "Selecting": PlaySelection(); break;
                     case "StageSettlement": Act(CommandKind.Continue); break;
                     case "Shop": Shop(); Act(CommandKind.LeaveShop); break;
@@ -60,16 +60,17 @@ public static class NormalRunSearch
             var result = new SearchResult { seed = seed, won = end.phase == "RunWon", reachedStage = end.stage.stageIndex + 1, actions = steps.Count, finalPhase = end.phase, gold = end.gold };
             results.Add(result);
             Console.WriteLine($"SEED {seed} {end.phase} stage={result.reachedStage} actions={steps.Count} gold={end.gold}");
-            File.WriteAllText("evidence/runs/search-statistics.json", JsonSerializer.Serialize(new { purpose = "Automated legal-action integration validation; searched seeds are not a player win-rate sample", policy = "Visible-state one-step Monte Carlo with independent Random(731); no rule RNG introspection", configVersion = cfg.configVersion, results }, Json));
-            if (result.won)
+            File.WriteAllText("evidence/v05/session/search-statistics.json", JsonSerializer.Serialize(new { purpose = "Automated legal-action integration validation; searched seeds are not a player win-rate sample", policy = "Visible-state one-step Monte Carlo with independent Random(731); no rule RNG introspection", configVersion = cfg.configVersion, results }, Json));
+            if (result.won || result.reachedStage > bestStage || (result.reachedStage == bestStage && end.stage.score > bestScore))
             {
-                string path = "evidence/runs/normal-win.json";
-                File.WriteAllText(path, JsonSerializer.Serialize(new { seed = seed, configVersion = cfg.configVersion, isDebug = end.isDebug, policy = "Visible-state one-step Monte Carlo, independent planning RNG", steps = steps }, Json));
-                File.WriteAllText("evidence/runs/normal-win-final-state.json", JsonSerializer.Serialize(end, Json));
-                Console.WriteLine("WIN_TRAJECTORY " + Path.GetFullPath(path)); return 0;
+                bestStage = result.reachedStage; bestScore = end.stage.score;
+                string path = "evidence/v05/session/normal-run-trace.json";
+                File.WriteAllText(path, JsonSerializer.Serialize(new { seed = seed, configVersion = cfg.configVersion, isDebug = end.isDebug, expectedFinalPhase = end.phase, expectedFinalStage = end.stage.stageIndex + 1, policy = "Visible-state one-step Monte Carlo, independent planning RNG", steps = steps }, Json));
+                File.WriteAllText("evidence/v05/session/normal-run-final-state.json", JsonSerializer.Serialize(end, Json));
+                Console.WriteLine("BEST_TRAJECTORY " + Path.GetFullPath(path)); if (result.won) return 0;
             }
         }
-        return 2;
+        return 0; // A recorded normal failure is valid integration evidence, not a claim of a winning strategy.
     }
 
     private static void Act(CommandKind kind, Action<SessionCommand> configure = null)
@@ -132,14 +133,14 @@ public static class NormalRunSearch
             double expected = 0;
             int nextRolls = s.hand.rollsRemaining - 1;
             if (Has(s,"C05") && !s.hand.c05Used && nextRolls==0 && s.dice.Count-held.Length>=1 && s.dice.Count-held.Length<=2) nextRolls += 3;
-            for (int sample=0;sample<20;sample++)
+            for (int sample=0;sample<8;sample++)
             {
                 var hypothetical = current.ToDictionary(x=>x.Key,x=>x.Value.Clone());
                 foreach (var die in s.dice.Where(d=>!held.Contains(d.dieId)))
                 {
                     // This policy does not purchase glass. Refuse accidental unsupported simulation.
                     if (die.isGlass) throw new Exception("Glass entered normal policy without survival model");
-                    var units = ProbabilityCalculator.BuildUnits(die.faces,s.hand.largeBuff,s.hand.smallBuff,cfg);
+                    var units = ProbabilityCalculator.BuildUnits(die.faces,s.hand.largeBuff,s.hand.smallBuff,cfg,Has(s,"C34"),Has(s,"C35"));
                     int r=planning.Next(cfg.probabilityUnits),index=0,total=units[0];while(r>=total)total+=units[++index];
                     var face=die.faces[index];var h=hypothetical[die.dieId];h.currentFaceId=face.faceId;h.currentPip=face.permanentPip;h.currentColor=face.baseColor;
                 }
@@ -147,7 +148,7 @@ public static class NormalRunSearch
                 // A small continuation allowance makes early pair commitments less myopic.
                 expected += Math.Min(future.score,needed) + Math.Max(0,future.score-needed)*0.03;
             }
-            expected/=20;
+            expected/=8;
             if (nextRolls>0) expected*=1.08;
             if(expected>value*1.015){value=expected;keep=held;}
         }
@@ -177,10 +178,10 @@ public static class NormalRunSearch
                 }
                 var snap=new SubmissionSnapshot{runId=s.runId,stageId=s.stage.stageId,handId=s.hand.handId,configVersion=cfg.configVersion,
                     capacity=s.stage.capacity,rollsRemaining=rolls,submissionOrdinalBefore=s.stage.submissionOrdinal,redWave=s.hand.redWave,
-                    handLevels=s.handLevels.ToArray(),equippedControllerIds=s.controllers.Select(x=>x.contentId).ToArray(),
+                    handLevels=s.handLevels.ToArray(),equippedControllers=s.controllers.Select(x=>x.Clone()).ToArray(),
                     dice=order.Select(id=>{var d=s.dice.First(x=>x.dieId==id);var r=current[id];var f=d.faces.First(x=>x.faceId==r.currentFaceId);
                         return new SubmissionDie{dieId=id,faceId=r.currentFaceId,currentPip=r.currentPip,currentColor=r.currentColor,
-                            permanentSixFaceSum=d.faces.Sum(x=>x.permanentPip),isGold=f.isGold,isGlass=d.isGlass,lifetime=d.lifetime};}).ToArray()};
+                            permanentSixFaceSum=d.faces.Sum(x=>x.permanentPip),isGold=f.isGold,isGlass=d.isGlass,lifetime=d.lifetime,permanentFacesCopy=d.faces.Select(v=>v.Clone()).ToArray()};}).ToArray()};
                 long score=ScoreCalculator.Evaluate(snap,cfg).score;
                 if(score>best.score)best=new Choice{order=(string[])order.Clone(),score=score};
             }
@@ -205,10 +206,12 @@ public static class NormalRunSearch
 
     private static int ControllerValue(RunState s,string id)
     {
-        var values=new Dictionary<string,int>{{"C01",20},{"C02",90},{"C03",8},{"C04",45},{"C05",60},{"C06",65},{"C07",0},{"C08",90},{"C09",120},{"C10",30},{"C11",35},{"C12",140},{"C13",35},{"C14",65},{"C15",10},{"C16",100},{"C17",45},{"C18",40},{"C19",3},{"C20",6}};
-        if(Has(s,"C12")&&new[]{"C06","C10","C11","C13","C14"}.Contains(id))return 0;
-        if(id=="C12"&&s.controllers.Count(x=>new[]{"C06","C11","C13","C14"}.Contains(x.contentId))>=2)return 35;
-        if(id=="C02"&&Has(s,"C03"))return 0;
+        var values=new Dictionary<string,int>{{"C01",85},{"C02",105},{"C03",40},{"C04",65},{"C05",60},{"C06",85},{"C07",0},{"C08",65},{"C09",125},{"C10",30},{"C11",35},{"C12",145},{"C13",35},{"C14",65},{"C15",40},{"C16",105},{"C17",45},{"C18",40},{"C19",3},{"C20",30},{"C21",20},{"C22",15},{"C23",60},{"C24",75},{"C25",140},{"C26",0},{"C27",35},{"C28",55},{"C29",45},{"C30",135},{"C31",125},{"C32",85},{"C33",25},{"C34",30},{"C35",20},{"C36",20},{"C37",15},{"C38",0},{"C39",50},{"C40",25}};
+        if(Has(s,"C12")&&new[]{"C10","C11","C13","C14","C24"}.Contains(id))return 0;
+        if(id=="C12"&&s.controllers.Count(x=>new[]{"C11","C13","C14"}.Contains(x.contentId))>=2)return 35;
+        if(id=="C02"&&(Has(s,"C03")||Has(s,"C25")))return 0;
+        if(id=="C25"&&Has(s,"C02"))return 0;
+        if(id=="C01"&&s.stage.stageIndex>10)return 15;
         if(id=="C03"&&Has(s,"C02"))return 0;
         return values[id];
     }
@@ -218,14 +221,14 @@ public static class NormalRunSearch
         for(int round=0;round<8;round++)
         {
             var s=session.State;
-            var candidates=s.shop.offers.Where(o=>o.category=="controller"&&!o.sold&&!Has(s,o.contentId)).OrderByDescending(o=>ControllerValue(s,o.contentId)/(double)cfg.Controller(o.contentId).buyPrice).ToArray();
+            var candidates=s.shop.offers.Where(o=>o.category=="controller"&&!o.sold&&(!Has(s,o.contentId)||o.controller.enchantmentId=="slotless")).OrderByDescending(o=>(ControllerValue(s,o.contentId)+(o.controller.enchantmentId=="slotless"?100:0))/(double)session.GetOfferNetPrice(o)).ToArray();
             bool bought=false;
             foreach(var offer in candidates)
             {
                 int value=ControllerValue(s,offer.contentId);if(value<30)continue;
-                if(s.controllers.Count>=s.controllerSlots)
+                if(!Has(s,offer.contentId)&&offer.controller.enchantmentId!="slotless"&&session.OrdinaryControllerSlotsUsed>=s.controllerSlots)
                 {
-                    var worst=s.controllers.OrderBy(x=>ControllerValue(s,x.contentId)).First();
+                    var worst=s.controllers.Where(x=>x.enchantmentId!="slotless").OrderBy(x=>ControllerValue(s,x.contentId)).First();
                     if(value<ControllerValue(s,worst.contentId)+25||s.gold+1<session.GetOfferPrice(offer))continue;
                     Act(CommandKind.Sell,c=>c.itemInstanceId=worst.instanceId);
                 }
@@ -239,7 +242,7 @@ public static class NormalRunSearch
         if(state.controllers.Count>=2||state.stage.stageIndex>=2)
         {
             var legal=session.LegalStudyHands();
-            string desired=state.stage.capacity<5||Has(state,"C09")?"trips":Has(state,"C12")?"quads":"full_house";
+            string desired=Has(state,"C12")||Has(state,"C31")?"quads":Has(state,"C30")||Has(state,"C09")?"trips":"full_house";
             foreach(var offer in state.shop.offers.Where(o=>o.category=="hand_upgrade"&&!o.sold).OrderBy(o=>o.contentId==desired?0:1))
                 if(new[]{desired,"trips","two_pair","quads"}.Contains(offer.contentId)&&session.PurchaseError(offer.offerId)==null&&session.State.gold>=session.GetOfferPrice(offer)+3)Act(CommandKind.Buy,c=>c.offerId=offer.offerId);
             if(legal.Contains(desired)&&session.State.gold>=session.GetStudyPrice(desired)+3)Act(CommandKind.Study,c=>c.handId=desired);

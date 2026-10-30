@@ -73,6 +73,7 @@ namespace DiceCraft.Core
                         case CommandKind.Reorder: Reorder(candidate, command.dieIds); break;
                         case CommandKind.UseItem: UseItem(candidate, command); break;
                         case CommandKind.Submit: scored = Submit(candidate); break;
+                        case CommandKind.EndStage: EndStage(candidate); break;
                         case CommandKind.Continue: Continue(candidate); break;
                         case CommandKind.Buy: Buy(candidate, command); break;
                         case CommandKind.Sell: Sell(candidate, command.itemInstanceId); break;
@@ -139,7 +140,7 @@ namespace DiceCraft.Core
                 // observers, RNG changes or consuming the player's pending selection.
                 var candidate = state.Clone(); candidate.lastEffects.Clear();
                 Submit(candidate);
-                return candidate.lastEffects.Where(e => e.kind == "DieCopied" || e.kind == "FaceDyed").Select(e => e.Clone()).ToArray();
+                return candidate.lastEffects.Where(e => e.kind == "DieCopied" || e.kind == "FaceDyed" || e.kind == "DieDyed" || e.kind == "FaceValueChanged").Select(e => e.Clone()).ToArray();
             }
         }
 
@@ -149,14 +150,18 @@ namespace DiceCraft.Core
             {
                 Check(state != null, "没有活动挑战。");
                 var die = FindDie(state, dieId);
-                return ProbabilityCalculator.BuildUnits(die.faces, state.hand != null && state.hand.largeBuff, state.hand != null && state.hand.smallBuff, cfg);
+                return ProbabilityCalculator.BuildUnits(die.faces, state.hand != null && state.hand.largeBuff, state.hand != null && state.hand.smallBuff, cfg, Has(state, "C34"), Has(state, "C35"));
             }
         }
 
         public int EffectiveCapacity { get { lock (gate) return state == null ? cfg.initialSubmitCapacity : ShopCapacity(state); } }
         public int InitialRolls { get { lock (gate) return state == null ? cfg.totalRollsPerHand : InitialRollBudget(state); } }
-        public int InitialSubmissions { get { lock (gate) return state == null ? cfg.submissionsPerStage : cfg.submissionsPerStage + (Has(state, "C04") ? cfg.Controller("C04").parameters.submissionBonus : 0); } }
+        public int InitialSubmissions { get { lock (gate) return state == null ? cfg.submissionsPerStage : ControllerRules.SubmissionBudget(state.controllers, cfg); } }
         public int GetOfferPrice(ShopOffer offer) { lock (gate) { Check(state != null, "没有活动挑战。"); return OfferPrice(state, offer); } }
+        public int GetOfferTradeIn(ShopOffer offer) { lock (gate) { Check(state != null, "没有活动挑战。"); return OfferTradeIn(state, offer); } }
+        public int GetOfferNetPrice(ShopOffer offer) { lock (gate) { Check(state != null, "没有活动挑战。"); return checked(OfferPrice(state, offer) - OfferTradeIn(state, offer)); } }
+        public int OrdinaryControllerSlotsUsed { get { lock (gate) return state == null ? 0 : state.controllers.Count(x => x.enchantmentId != "slotless"); } }
+        public bool CanEndStage { get { lock (gate) return state != null && state.stage.qualified && !state.stage.settled && (state.phase == "HandReady" || state.phase == "Selecting") && !busy && pendingSaveState == null && pending.Count == 0; } }
         public string[] LegalStudyHands() { lock (gate) return state == null ? Array.Empty<string>() : cfg.handDefinitions.Where(x => IsHandLegal(state, x.id)).Select(x => x.id).ToArray(); }
         public int GetStudyPrice(string handId) { lock (gate) { Check(state != null, "没有活动挑战。"); return HandPrice(state, handId, true); } }
 
@@ -182,7 +187,7 @@ namespace DiceCraft.Core
             Check(index >= 0 && index < cfg.stages.Length, "没有下一关。");
             var def = cfg.stages[index];
             s.stage = new StageState { stageIndex = index, stageId = def.stageId, target = def.normalTarget,
-                reward = def.normalReward, capacity = ShopCapacity(s), remainingSubmissions = cfg.submissionsPerStage + (Has(s, "C04") ? cfg.Controller("C04").parameters.submissionBonus : 0) };
+                reward = def.normalReward, capacity = ShopCapacity(s), remainingSubmissions = ControllerRules.SubmissionBudget(s.controllers, cfg) };
             s.hand = null; s.shop = null; s.phase = "StagePreview";
         }
 
@@ -199,14 +204,13 @@ namespace DiceCraft.Core
             RequirePhase(s, "StagePreview");
             Check(s.dice.Count > 0, "骰组耗尽。");
             s.stage.capacity = ShopCapacity(s); s.stage.started = true;
-            s.stage.remainingSubmissions = cfg.submissionsPerStage + (Has(s, "C04") ? cfg.Controller("C04").parameters.submissionBonus : 0);
+            s.stage.remainingSubmissions = ControllerRules.SubmissionBudget(s.controllers, cfg);
             StartHand(s);
         }
 
         private int InitialRollBudget(RunState s)
         {
-            return checked(cfg.totalRollsPerHand + (Has(s, "C04") ? cfg.Controller("C04").parameters.rollBonus : 0)
-                + (Has(s, "C16") ? cfg.Controller("C16").parameters.rollBonus : 0) + (s.stage == null ? 0 : s.stage.stageRollBonus));
+            return ControllerRules.RollBudget(s.controllers, cfg, s.stage == null ? 0 : s.stage.stageRollBonus);
         }
 
         private void StartHand(RunState s)
@@ -254,7 +258,7 @@ namespace DiceCraft.Core
                     continue;
                 }
                 var faces = die.faces.OrderBy(x => x.faceId, StringComparer.Ordinal).ToArray();
-                var units = ProbabilityCalculator.BuildUnits(faces, s.hand.largeBuff, s.hand.smallBuff, cfg);
+                var units = ProbabilityCalculator.BuildUnits(faces, s.hand.largeBuff, s.hand.smallBuff, cfg, Has(s, "C34"), Has(s, "C35"));
                 int sample = diceRng.NextIndex(cfg.probabilityUnits), faceIndex = 0, ceiling = units[0];
                 while (sample >= ceiling) ceiling += units[++faceIndex];
                 var face = faces[faceIndex]; var r = s.hand.currentResults.First(x => x.dieId == die.dieId);
@@ -263,7 +267,12 @@ namespace DiceCraft.Core
                 if (remoteIndex >= 0) { r.currentPip = remotePips[remoteIndex]; r.remoteOverride = true; }
             }
             s.diceRngState = diceRng.State; s.effectRngState = effectRng.State;
-            if (s.dice.Count == 0) { s.phase = "RunFailed"; s.failureReason = "NoDice"; return; }
+            if (s.dice.Count == 0)
+            {
+                if (s.stage.qualified) FinalizeStage(s);
+                else { s.phase = "RunFailed"; s.failureReason = "NoDice"; }
+                return;
+            }
             int remainingUnlocked = s.dice.Count - s.hand.orderedLockedIds.Count;
             if (Has(s, "C05") && !s.hand.c05Used && s.hand.rollsRemaining == 0)
             {

@@ -29,7 +29,7 @@ public static class Program
                 }
             }
         }
-        string output=Path.Combine("DicePrototype/Assets/Game/Core/Session/Validation~","report.json");
+        string output=args.Length > 0 ? args[0] : Path.Combine("evidence/v05/session","report.json"); Directory.CreateDirectory(Path.GetDirectoryName(Path.GetFullPath(output)));
         File.WriteAllText(output,JsonSerializer.Serialize(new{runner=".NET 10 reflection invoking NUnit assertion tests; not Unity EditMode",utc=DateTime.UtcNow,passed,failed,total=passed+failed,results},new JsonSerializerOptions{WriteIndented=true}));
         Console.WriteLine($"TOTAL {passed+failed} PASSED {passed} FAILED {failed}");return failed==0?0:1;
     }

@@ -40,7 +40,7 @@ namespace DiceCraft.Tests
         public void CONTENT_HandBuffDoesNotStack(string id)
         {
             var s=Selecting(new[]{1,2,3,4,5},lockedCount:1);string first=null,second=null;
-            s=Edit(s,x=>{first=AddItem(x,id);second=AddItem(x,id);});
+            s=Edit(s,x=>{x.hand.rollsRemaining=1;first=AddItem(x,id);second=AddItem(x,id);});
             Do(s,CommandKind.UseItem,c=>c.itemInstanceId=first);var before=s.State;var c2=Command(s,CommandKind.UseItem);c2.itemInstanceId=second;
             Assert.That(s.Execute(c2).accepted,Is.False);AssertUnchanged(before,s.State);Assert.That(s.State.inventory.Single().instanceId,Is.EqualTo(second));
         }
@@ -134,14 +134,14 @@ namespace DiceCraft.Tests
                 Assert.That(a.State.diceRngState,Is.EqualTo(b.State.diceRngState));
             }
         }
-        [Test] public void SixStageFlowSupportsHighPressureAndFinalWinWithoutSixthShop()
+        [Test] public void TwentyFourStageFlowSupportsEightRiskBranchesAndNoFinalShop()
         {
-            var s=Edit(New(),x=>{foreach(var d in x.dice)foreach(var f in d.faces){f.permanentPip=4;f.baseColor="red";f.isGold=true;}Equip(x,"C06","C02","C16");});
-            for(int stage=0;stage<6;stage++){
+            var s=Edit(New(),x=>{foreach(var d in x.dice)foreach(var f in d.faces){f.permanentPip=4;f.baseColor="red";f.isGold=true;}Equip(x,"C25","C30","C31","C32");foreach(var h in x.handLevels)h.level=8;});
+            for(int stage=0;stage<24;stage++){
                 if(cfg.stages[stage].riskEnabled)Do(s,CommandKind.ChooseChallenge,c=>c.risk=true);
                 Do(s,CommandKind.StartStage);Do(s,CommandKind.Roll);Lock(s,s.State.dice.Select(x=>x.dieId).ToArray());Do(s,CommandKind.Submit);
-                Assert.That(s.State.phase,Is.EqualTo("StageSettlement"),"stage "+stage);Do(s,CommandKind.Continue);
-                if(stage<5){Assert.That(s.State.phase,Is.EqualTo("Shop"));Do(s,CommandKind.LeaveShop);}
+                Do(s,CommandKind.EndStage);Assert.That(s.State.phase,Is.EqualTo("StageSettlement"),"stage "+stage);Do(s,CommandKind.Continue);
+                if(stage<23){Assert.That(s.State.phase,Is.EqualTo("Shop"));Do(s,CommandKind.LeaveShop);}
             }
             Assert.That(s.State.phase,Is.EqualTo("RunWon"));Assert.That(s.State.shop,Is.Null);
             Do(s,CommandKind.NewRun,c=>c.seed=99);Assert.That(s.State.gold,Is.EqualTo(10));Assert.That(s.State.controllers,Is.Empty);Assert.That(s.State.baseSubmitCapacity,Is.EqualTo(5));

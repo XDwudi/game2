@@ -102,13 +102,11 @@ namespace DiceCraft.Editor
         [MenuItem("DiceCraft/Build Windows")]
         public static void BuildWindows()
         {
-            Directory.CreateDirectory("../Builds/Windows");
-            var report=BuildPipeline.BuildPlayer(new BuildPlayerOptions{scenes=new[]{Root+"/Scenes/Bootstrap.unity"},locationPathName="../Builds/Windows/DiceCraft.exe",target=BuildTarget.StandaloneWindows64,options=BuildOptions.Development});
-            Directory.CreateDirectory("../evidence/unity");
-            File.WriteAllText("../evidence/unity/build.json",JsonUtility.ToJson(new BuildProof{result=report.summary.result.ToString(),errors=report.summary.totalErrors,warnings=report.summary.totalWarnings,bytes=report.summary.totalSize,seconds=report.summary.totalTime.TotalSeconds},true));
-            if(report.summary.result!=UnityEditor.Build.Reporting.BuildResult.Succeeded)throw new InvalidOperationException("Windows build failed.");
+            var profile=UnityEditor.Build.Profile.BuildProfile.GetActiveBuildProfile();
+            if(profile==null||AssetDatabase.GetAssetPath(profile)!="Assets/Settings/BuildProfiles/Windows_x64.asset")
+                throw new InvalidOperationException("Select Windows_x64 in Build Profiles before using this shortcut.");
+            PrototypeBuild.BuildActiveProfile();
         }
         [Serializable]private sealed class SetupProof{public string unity,scene;public int meshVertices,meshTriangles,icons,sounds;}
-        [Serializable]private sealed class BuildProof{public string result;public int errors,warnings;public ulong bytes;public double seconds;}
     }
 }

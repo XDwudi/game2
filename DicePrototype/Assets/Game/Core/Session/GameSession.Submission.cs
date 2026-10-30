@@ -10,7 +10,7 @@ namespace DiceCraft.Core
             var snapshot = new SubmissionSnapshot {
                 runId = s.runId, stageId = s.stage.stageId, handId = s.hand.handId, configVersion = s.configVersion,
                 capacity = s.stage.capacity, rollsRemaining = s.hand.rollsRemaining, submissionOrdinalBefore = s.stage.submissionOrdinal,
-                redWave = s.hand.redWave, equippedControllerIds = s.controllers.Select(x => x.contentId).ToArray(),
+                redWave = s.hand.redWave, equippedControllers = s.controllers.Select(x => x.Clone()).ToArray(),
                 handLevels = s.handLevels.Select(x => new HandLevel { handId = x.handId, level = x.level }).ToArray(),
                 dice = s.hand.orderedLockedIds.Select(id => {
                     var d = FindDie(s, id); var r = s.hand.currentResults.First(x => x.dieId == id);
@@ -35,51 +35,85 @@ namespace DiceCraft.Core
             s.stage.remainingSubmissions--; s.stage.submissionOrdinal++;
             s.stage.score = checked(s.stage.score + score.score);
 
-            if (Has(s, "C07"))
+            ApplySubmissionEffects(s, snapshot, score);
+            s.stage.qualified = s.stage.qualified || s.stage.score >= s.stage.target;
+            if (s.stage.remainingSubmissions == 0)
             {
-                var p = cfg.Controller("C07").parameters;
-                if (snapshot.submissionOrdinalBefore == 0 && snapshot.dice.Length == p.requiredDice
-                    && score.effectivePips[p.sourceIndex] != score.effectivePips[p.targetIndex])
-                {
-                    var source = snapshot.dice[p.sourceIndex]; var target = FindDie(s, snapshot.dice[p.targetIndex].dieId);
-                    target.faces = source.permanentFacesCopy.Select(f => f.Clone()).ToArray();
-                    target.isGlass = source.isGlass; target.dataRevision++;
-                    s.lastEffects.Add(new EffectRecord { kind = "DieCopied", sourceId = "C07", dieId = target.dieId, otherDieId = source.dieId });
-                }
+                if (s.stage.qualified) FinalizeStage(s);
+                else { s.phase = "RunFailed"; s.failureReason = "SubmissionsExhausted"; }
             }
-            if (Has(s, "C15"))
-            {
-                var p = cfg.Controller("C15").parameters;
-                var pattern = p.pattern.Split(',');
-                if (score.effectiveColors.Length >= pattern.Length && pattern.Select((color, i) => score.effectiveColors[i] == color).All(x => x))
-                {
-                    var targetSnapshot = snapshot.dice[p.targetIndex]; var target = FindDie(s, targetSnapshot.dieId);
-                    target.faces.First(f => f.faceId == targetSnapshot.faceId).baseColor = "red"; target.dataRevision++;
-                    s.lastEffects.Add(new EffectRecord { kind = "FaceDyed", sourceId = "C15", dieId = target.dieId, faceId = targetSnapshot.faceId, detail = "red" });
-                }
-            }
-
-            if (s.stage.score >= s.stage.target) SettleStage(s);
-            else if (s.stage.remainingSubmissions == 0) { s.phase = "RunFailed"; s.failureReason = "SubmissionsExhausted"; }
             else StartHand(s);
             return score.score;
         }
 
-        private void SettleStage(RunState s)
+        private void ApplySubmissionEffects(RunState s, SubmissionSnapshot snapshot, ScoreBreakdown score)
         {
-            Check(!s.stage.settled, "本关已经结算。");
-            int goldBefore = s.gold;
-            int interestPerTen = 1 + (Has(s, "C01") ? cfg.Controller("C01").parameters.extraInterestPerTen : 0);
-            int interest = checked(interestPerTen * (goldBefore / cfg.interestDivisor));
-            if (cfg.interestCap >= 0) interest = Math.Min(cfg.interestCap, interest);
-            int unusedReward = checked(s.stage.remainingSubmissions * cfg.goldPerUnusedSubmission);
-            s.gold = checked(s.gold + s.stage.reward + unusedReward + interest);
-            s.lastStageSettlement = new StageSettlement {
-                settlementId = s.runId + "/" + s.stage.stageId, stageId = s.stage.stageId,
-                goldBefore = goldBefore, baseReward = s.stage.reward, remainingSubmissions = s.stage.remainingSubmissions,
-                unusedSubmissionReward = unusedReward, interest = interest, goldAfter = s.gold,
-                score = s.stage.score, target = s.stage.target, risk = s.stage.risk, pig = Has(s, "C01")
-            };
+            // All conditions/targets are frozen before any mutable write. Equipment order never
+            // changes this pipeline: copy, whole-die red, net growth, red face, blue face.
+            var triggered = score.triggeredControllerIds;
+            if (triggered.Contains("C07"))
+            {
+                var p = cfg.Controller("C07").parameters;
+                var source = snapshot.dice[p.sourceIndex]; var target = FindDie(s, snapshot.dice[p.targetIndex].dieId);
+                target.faces = source.permanentFacesCopy.Select(f => f.Clone()).ToArray();
+                target.isGlass = source.isGlass; target.dataRevision++;
+                s.lastEffects.Add(new EffectRecord { kind = "DieCopied", sourceId = "C07", dieId = target.dieId, otherDieId = source.dieId });
+            }
+            if (triggered.Contains("C26"))
+            {
+                var target = FindDie(s, snapshot.dice[0].dieId);
+                foreach (var face in target.faces) face.baseColor = cfg.Controller("C26").parameters.allFacesColor;
+                target.dataRevision++;
+                s.lastEffects.Add(new EffectRecord { kind = "DieDyed", sourceId = "C26", dieId = target.dieId, detail = "red" });
+            }
+            if (triggered.Contains("C36") || triggered.Contains("C37"))
+            {
+                var changes = new System.Collections.Generic.Dictionary<int, int>();
+                foreach (string id in new[] { "C36", "C37" }.Where(triggered.Contains))
+                {
+                    var p = cfg.Controller(id).parameters;
+                    foreach (int index in p.indices)
+                    {
+                        int current; changes.TryGetValue(index, out current);
+                        changes[index] = checked(current + p.permanentFaceDelta);
+                    }
+                }
+                foreach (var change in changes.OrderBy(x => x.Key))
+                {
+                    var frozen = snapshot.dice[change.Key]; var target = FindDie(s, frozen.dieId);
+                    var face = target.faces.First(f => f.faceId == frozen.faceId); int old = face.permanentPip;
+                    face.permanentPip = Math.Max(cfg.minPipValue, Math.Min(cfg.maxPipValue, checked(old + change.Value)));
+                    if (face.permanentPip != old) target.dataRevision++;
+                    s.lastEffects.Add(new EffectRecord { kind = "FaceValueChanged", sourceId = triggered.Contains("C36") && triggered.Contains("C37") ? "C36+C37" : triggered.Contains("C36") ? "C36" : "C37",
+                        dieId = target.dieId, faceId = face.faceId, oldValue = old, newValue = face.permanentPip });
+                }
+            }
+            if (triggered.Contains("C15")) DyeSubmittedFace(s, snapshot.dice[cfg.Controller("C15").parameters.targetIndex], "red", "C15");
+            if (triggered.Contains("C38")) DyeSubmittedFace(s, snapshot.dice[cfg.Controller("C38").parameters.index], cfg.Controller("C38").parameters.currentPhysicalFaceColor, "C38");
+        }
+
+        private void DyeSubmittedFace(RunState s, SubmissionDie frozen, string color, string sourceId)
+        {
+            var target = FindDie(s, frozen.dieId);
+            target.faces.First(f => f.faceId == frozen.faceId).baseColor = color; target.dataRevision++;
+            s.lastEffects.Add(new EffectRecord { kind = "FaceDyed", sourceId = sourceId, dieId = target.dieId, faceId = frozen.faceId, detail = color });
+        }
+
+        private void EndStage(RunState s)
+        {
+            RequirePhase(s, "HandReady", "Selecting");
+            Check(s.stage.qualified && !s.stage.settled, "本关尚未达标或已经结束。");
+            // Unsubmitted locks are discarded: no score, Submit hooks or budget consumption.
+            FinalizeStage(s);
+        }
+
+        private void FinalizeStage(RunState s)
+        {
+            if (s.stage.settled) return;
+            Check(s.stage.qualified, "尚未达标，不能结束本轮。");
+            s.lastStageSettlement = CalculateStageSettlement(s);
+            s.gold = s.lastStageSettlement.goldAfter;
+            s.stage.settlementId = s.lastStageSettlement.settlementId;
             s.stage.settled = true;
             foreach (var d in s.dice.Where(x => x.lifetime == "stage_temporary").ToArray())
             {
@@ -87,9 +121,34 @@ namespace DiceCraft.Core
             }
             s.hand = null; s.stage.stageRollBonus = 0;
             if (s.stage.stageIndex == cfg.stages.Length - 1) s.stage.settlementContinuation = "RunWon";
-            else if (s.dice.Count == 0) { s.stage.settlementContinuation = "RunFailed"; s.failureReason = "NoDice"; }
+            else if (PermanentCount(s) == 0) { s.stage.settlementContinuation = "RunFailed"; s.failureReason = "NoPermanentDice"; }
             else s.stage.settlementContinuation = "Shop";
             s.phase = "StageSettlement";
+        }
+
+        /// <summary>Detached read-only quote; no action sequence, RNG, score or reward is changed.</summary>
+        public StageSettlement PreviewStageSettlement()
+        {
+            lock (gate)
+            {
+                if (state == null || state.stage == null || !state.stage.qualified) return null;
+                return state.stage.settled ? state.lastStageSettlement.Clone() : CalculateStageSettlement(state);
+            }
+        }
+
+        private StageSettlement CalculateStageSettlement(RunState s)
+        {
+            int principal = Math.Min(s.gold, cfg.maxInterestPrincipal);
+            int interestPerTen = 1 + (Has(s, "C01") ? cfg.Controller("C01").parameters.extraInterestPerTen : 0);
+            int interest = checked(interestPerTen * (principal / cfg.interestDivisor));
+            int unusedReward = checked(s.stage.remainingSubmissions * cfg.goldPerUnusedSubmission);
+            return new StageSettlement {
+                settlementId = s.runId + "/" + s.stage.stageId, stageId = s.stage.stageId,
+                goldBefore = s.gold, baseReward = s.stage.reward, remainingSubmissions = s.stage.remainingSubmissions,
+                unusedSubmissionReward = unusedReward, interest = interest, interestPrincipal = principal,
+                goldAfter = checked(s.gold + s.stage.reward + unusedReward + interest),
+                score = s.stage.score, target = s.stage.target, risk = s.stage.risk, pig = Has(s, "C01")
+            };
         }
 
         private void Continue(RunState s)
@@ -134,11 +193,11 @@ namespace DiceCraft.Core
                     break;
                 case "I04":
                     Check(!s.hand.largeBuff, "本手大数多来已经生效。");
-                    Check(s.dice.Any(x => x.faces.Any(f => f.permanentPip == cfg.maxPipValue)), "骰组没有永久6点面。"); s.hand.largeBuff = true;
+                    Check(s.hand.rollsRemaining > 0 && s.dice.Any(x => !s.hand.orderedLockedIds.Contains(x.dieId) && x.faces.Any(f => f.permanentPip == cfg.maxPipValue)), "没有可投掷且含永久6点面的未锁骰。"); s.hand.largeBuff = true;
                     break;
                 case "I05":
                     Check(!s.hand.smallBuff, "本手缩小射线已经生效。");
-                    Check(s.dice.Any(x => x.faces.Any(f => f.permanentPip == cfg.minPipValue)), "骰组没有永久1点面。"); s.hand.smallBuff = true;
+                    Check(s.hand.rollsRemaining > 0 && s.dice.Any(x => !s.hand.orderedLockedIds.Contains(x.dieId) && x.faces.Any(f => f.permanentPip == cfg.minPipValue)), "没有可投掷且含永久1点面的未锁骰。"); s.hand.smallBuff = true;
                     break;
                 case "I06": s.stage.remainingSubmissions = checked(s.stage.remainingSubmissions + 1); break;
                 case "I07": s.stage.stageRollBonus = checked(s.stage.stageRollBonus + 1); s.hand.rollsRemaining = checked(s.hand.rollsRemaining + 1); break;

@@ -4,6 +4,17 @@ using System.Linq;
 namespace DiceCraft.Core
 {
     [Serializable]
+    public sealed class ControllerInstance
+    {
+        public string instanceId, definitionId;
+        public string enchantmentId = "none";
+        public int acquiredSerial;
+        // Nonserialized compatibility alias for generic content presentation.
+        public string contentId { get => definitionId; set => definitionId = value; }
+        public ControllerInstance Clone() => (ControllerInstance)MemberwiseClone();
+    }
+
+    [Serializable]
     public sealed class FaceState
     {
         public string faceId;
@@ -67,12 +78,14 @@ namespace DiceCraft.Core
         public int capacity, rollsRemaining, submissionOrdinalBefore;
         public bool redWave;
         public string[] equippedControllerIds = Array.Empty<string>();
+        public ControllerInstance[] equippedControllers = Array.Empty<ControllerInstance>();
         public HandLevel[] handLevels = Array.Empty<HandLevel>();
         public SubmissionSnapshot Clone()
         {
             var result = (SubmissionSnapshot)MemberwiseClone();
             result.dice = dice?.Select(d => d.Clone()).ToArray();
-            result.equippedControllerIds = (string[])equippedControllerIds.Clone();
+            result.equippedControllerIds = (string[])(equippedControllerIds ?? Array.Empty<string>()).Clone();
+            result.equippedControllers = (equippedControllers ?? Array.Empty<ControllerInstance>()).Select(c => c.Clone()).ToArray();
             result.handLevels = handLevels.Select(h => h.Clone()).ToArray();
             return result;
         }
@@ -87,8 +100,10 @@ namespace DiceCraft.Core
         public int pipSum, unusedRollBonus;
         public int groupMult100, straightMult100, colorMult100, totalHandMult100;
         public int redValue, redCount, redMult100;
-        public int controllerMultiplier, finalFlatAdd;
-        public string[] triggeredMultiplierIds;
+        public int controllerMultiplier;
+        public int pairBaseAdd, enchantBaseAdd, baseTotal, enchantBaseCount, enchantMultiplierCount;
+        public string redGroupingMode, scoreNumerator, scoreDenominator;
+        public string[] triggeredMultiplierIds, triggeredControllerIds;
         public long score;
         public ScoreBreakdown Clone()
         {
@@ -98,6 +113,7 @@ namespace DiceCraft.Core
             result.effectiveColors = (string[])effectiveColors.Clone();
             result.matchedGroupIds = (string[])matchedGroupIds.Clone();
             result.triggeredMultiplierIds = (string[])triggeredMultiplierIds.Clone();
+            result.triggeredControllerIds = (string[])triggeredControllerIds.Clone();
             return result;
         }
     }

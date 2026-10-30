@@ -19,8 +19,10 @@ internal static class Program
             string json = File.ReadAllText(Path.Combine(data, "P0Config.json"));
             GameConfig.ValidateJson(json);
             GameConfig config = JsonSerializer.Deserialize<GameConfig>(json, Options);
-            config.Validate(); Passed.Add("CONFIG-exact38-and11");
-            foreach (var example in JsonDocument.Parse(File.ReadAllText(Path.Combine(data, "GoldenScores.json"))).RootElement.GetProperty("cases").EnumerateArray())
+            config.Validate(); Passed.Add("CONFIG-exact58-and12");
+            using var extra = JsonDocument.Parse(File.ReadAllText("evidence/v05/rules/reference-extra.json"));
+            var examples = JsonDocument.Parse(File.ReadAllText(Path.Combine(data, "GoldenScores.json"))).RootElement.EnumerateArray().Concat(extra.RootElement.GetProperty("scores").EnumerateArray());
+            foreach (var example in examples)
             {
                 string id = example.GetProperty("id").GetString();
                 try
@@ -31,7 +33,8 @@ internal static class Program
                         runId = "golden", stageId = "STAGE_01", handId = id, configVersion = config.configVersion,
                         capacity = example.GetProperty("capacity").GetInt32(), rollsRemaining = example.GetProperty("rollsRemaining").GetInt32(),
                         redWave = example.GetProperty("redWave").GetBoolean(),
-                        equippedControllerIds = example.GetProperty("controllerIds").EnumerateArray().Select(v => v.GetString()).ToArray(),
+                        submissionOrdinalBefore = example.GetProperty("submissionOrdinal").GetInt32(),
+                        equippedControllers = example.GetProperty("controllerIds").EnumerateArray().Select((v, i) => new ControllerInstance { definitionId = v.GetString(), instanceId = "C-" + i, acquiredSerial = i+1, enchantmentId = example.GetProperty("enchants").TryGetProperty(v.GetString(), out var e) ? e.GetString() : "none" }).ToArray(),
                         handLevels = example.GetProperty("levels").EnumerateObject().Select(v => new HandLevel { handId = v.Name, level = v.Value.GetInt32() }).ToArray(),
                         dice = example.GetProperty("dice").EnumerateArray().Select(d => new SubmissionDie
                         {
@@ -50,11 +53,21 @@ internal static class Program
                             throw new Exception(expected.Name + ": expected " + expected.Value + ", got " + actual.GetProperty(expected.Name));
                         fields++;
                     }
-                    if (fields != 18 || JsonSerializer.Serialize(snapshot, Options) != before) throw new Exception("Field count/input mutation.");
-                    Passed.Add("GOLD-" + id);
+                    if (fields != 26 || JsonSerializer.Serialize(snapshot, Options) != before) throw new Exception("Field count/input mutation.");
+                    var trace = ScoreExplanation.Build(snapshot, result, config);
+                    if (trace.global.Last().after != result.score || trace.global.Count(x => x.operation == "floor") != 1) throw new Exception("Explanation trace mismatch.");
+                    Passed.Add("GOLD-and-TRACE-" + id);
                 }
                 catch (Exception error) { failures.Add(id + ": " + error); }
             }
+            foreach (var example in extra.RootElement.GetProperty("probabilities").EnumerateArray())
+            {
+                var fixtureFaces = JsonSerializer.Deserialize<FaceState[]>(example.GetProperty("faces").GetRawText(), Options);
+                var got = ProbabilityCalculator.BuildUnits(fixtureFaces, example.GetProperty("large").GetBoolean(), example.GetProperty("small").GetBoolean(), config, example.GetProperty("high").GetBoolean(), example.GetProperty("low").GetBoolean());
+                var want = example.GetProperty("expected").EnumerateArray().Select(x => x.GetInt32()).ToArray();
+                if (!got.SequenceEqual(want)) throw new Exception("Python Fraction cross-check mismatch: " + example);
+            }
+            Passed.Add("PROB-independent-Fraction-1024");
             VerifyVectors(config);
             var faces = DiceFactory.CreateStandard(config, 1).faces;
             int tested = 0, min = int.MaxValue;
@@ -86,7 +99,7 @@ internal static class Program
             .Concat(new[] {Path.Combine(data, "P0Config.json"), Path.Combine(data, "GoldenScores.json")})
             .OrderBy(p => p, StringComparer.Ordinal).Select(p => new { file = Path.GetFileName(p), sha256 = Convert.ToHexString(SHA256.HashData(File.ReadAllBytes(p))).ToLowerInvariant() }).ToArray();
         var report = new { runtime = System.Runtime.InteropServices.RuntimeInformation.FrameworkDescription, utc = DateTime.UtcNow.ToString("O"), sourceHashes, passed = Passed, failures };
-        string output = Path.Combine(hostRoot, "report.json");
+        string output = Path.GetFullPath("evidence/v05/rules/dotnet-report.json");
         File.WriteAllText(output, JsonSerializer.Serialize(report, new JsonSerializerOptions { WriteIndented = true }));
         Console.WriteLine("Pure C# validation: " + Passed.Count + " groups passed; " + failures.Count + " failed. " + output);
         foreach (string failure in failures) Console.WriteLine(failure);

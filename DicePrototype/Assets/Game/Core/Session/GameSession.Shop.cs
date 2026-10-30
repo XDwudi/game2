@@ -6,13 +6,14 @@ namespace DiceCraft.Core
 {
     public sealed partial class GameSession
     {
-        private int ShopCapacity(RunState s) { return Math.Max(1, s.baseSubmitCapacity + (Has(s, "C09") ? cfg.Controller("C09").parameters.capacityDelta : 0)); }
+        private int ShopCapacity(RunState s) { return ControllerRules.Capacity(s.controllers, cfg); }
         private int PermanentCount(RunState s) { return s.dice.Count(x => x.lifetime == "permanent"); }
         private int Level(RunState s, string id) { return s.handLevels.First(x => x.handId == id).level; }
         private bool IsHandLegal(RunState s, string id)
         {
             var h = cfg.handDefinitions.FirstOrDefault(x => x.id == id);
-            return h != null && h.enabledInNormalShop && h.minSubmittedDice <= ShopCapacity(s)
+            int minimum = h != null && h.id == "straight" && Has(s, "C29") ? cfg.Controller("C29").parameters.minimumStraightLength : h == null ? int.MaxValue : h.minSubmittedDice;
+            return h != null && h.enabledInNormalShop && minimum <= ShopCapacity(s)
                 && h.requirePermanentDice <= PermanentCount(s) && Level(s, id) < h.maxLevel;
         }
 
@@ -26,7 +27,7 @@ namespace DiceCraft.Core
             Check(offer != null, "商品不存在。");
             switch (offer.category)
             {
-                case "controller": return cfg.Controller(offer.contentId).buyPrice;
+                case "controller": return checked(cfg.Controller(offer.contentId).buyPrice + ControllerRules.EnchantPrice(offer.controller.enchantmentId, cfg));
                 case "consumable": return Discount(s, cfg.Consumable(offer.contentId).baseBuyPrice);
                 case "hand_upgrade": return HandPrice(s, offer.contentId, false);
                 case "die_upgrade": return cfg.Upgrade(offer.contentId).buyPrice;
@@ -40,6 +41,10 @@ namespace DiceCraft.Core
         }
 
         private int Discount(RunState s, int price) { return Math.Max(cfg.minDiscountedItemPrice, price - s.itemDiscount); }
+        private int OfferTradeIn(RunState s, ShopOffer offer)
+        {
+            return offer != null && offer.category == "controller" && Has(s, offer.contentId) ? cfg.controllerSellPrice : 0;
+        }
 
         private ShopOffer MakeOffer(RunState s, string category, string contentId, int basePrice)
         {
@@ -51,15 +56,21 @@ namespace DiceCraft.Core
             Check(s.shop == null || !s.shop.generated, "本商店已经生成，不能刷新。");
             var shop = new ShopState { shopId = s.stage.stageId + "_SHOP", generated = true };
             var rng = new GameRng(s.shopRngState);
-            var controllers = cfg.controllers.Where(x => !Has(s, x.id)).OrderBy(x => x.id, StringComparer.Ordinal).ToList();
+            var controllers = cfg.controllers.Where(x => !Has(s, x.id) || ControllerRules.ReplacementEnchantments(x.id, s.controllers.First(c => c.definitionId == x.id).enchantmentId, cfg).Length > 0)
+                .OrderBy(x => x.id, StringComparer.Ordinal).ToList();
             for (int i = 0; i < cfg.shop.controllerOffers && controllers.Count > 0; i++)
             {
-                var pool = i == 0 ? controllers.Where(x => x.buyPrice <= cfg.shop.firstControllerGuaranteeMaxPrice).ToList() : controllers;
+                var pool = i == 0 ? controllers.Where(x => !Has(s, x.id) && x.buyPrice <= cfg.shop.firstControllerGuaranteeMaxPrice).ToList() : controllers;
                 if (pool.Count == 0) pool = controllers;
                 int draw = rng.NextIndex(pool.Sum(x => x.offerWeight)), sum = 0;
                 var picked = pool[0];
                 foreach (var candidate in pool) { sum += candidate.offerWeight; if (draw < sum) { picked = candidate; break; } }
-                shop.offers.Add(MakeOffer(s, "controller", picked.id, picked.buyPrice)); controllers.Remove(picked);
+                var owned = s.controllers.FirstOrDefault(c => c.definitionId == picked.id);
+                string enchantment = ControllerRules.DrawEnchantment(picked.id, owned == null ? null : owned.enchantmentId, rng, cfg);
+                var offer = MakeOffer(s, "controller", picked.id, picked.buyPrice);
+                int serial = s.nextItemSerial++;
+                offer.controller = new ControllerInstance { instanceId = "ITEM_" + serial.ToString("D5"), definitionId = picked.id, enchantmentId = enchantment, acquiredSerial = serial };
+                shop.offers.Add(offer); controllers.Remove(picked);
             }
             AddUniformOffers(s, shop, rng, cfg.consumables.Select(x => x.id), cfg.shop.consumableOffers, "consumable", id => cfg.Consumable(id).baseBuyPrice);
             AddUniformOffers(s, shop, rng, cfg.handDefinitions.Where(x => IsHandLegal(s, x.id)).Select(x => x.id), cfg.shop.handUpgradeOffers, "hand_upgrade", id => cfg.Hand(id).baseUpgradePrice);
@@ -176,10 +187,18 @@ namespace DiceCraft.Core
             RequirePhase(s, "Shop");
             var offer = s.shop.offers.FirstOrDefault(x => x.offerId == offerId);
             Check(offer != null && !offer.sold, "商品不存在或已售罄。");
-            Check(s.gold >= OfferPrice(s, offer), "金币不足。");
+            Check(s.gold >= checked(OfferPrice(s, offer) - OfferTradeIn(s, offer)), "金币不足。");
             switch (offer.category)
             {
-                case "controller": Check(!Has(s, offer.contentId) && s.controllers.Count < s.controllerSlots, "控制器已持有或槽位已满。"); break;
+                case "controller":
+                    Check(offer.controller != null && offer.controller.definitionId == offer.contentId, "控制器报价实例无效。");
+                    var old = s.controllers.FirstOrDefault(c => c.definitionId == offer.contentId);
+                    Check(old == null || (offer.controller.enchantmentId != "none" && offer.controller.enchantmentId != old.enchantmentId), "同名控制器只能替换为不同的非空附魔。");
+                    var equipment = s.controllers.Where(c => c != old).Concat(new[] { offer.controller }).ToArray();
+                    Check(equipment.Length <= cfg.maxControllerInstances && (s.isDebug ? ControllerRules.OrdinaryUsed(equipment) <= s.controllerSlots : ControllerRules.OrdinaryUsed(equipment) <= cfg.initialControllerSlots), "普通控制器槽或总件数已满，可先出售控制器。");
+                    Check(equipment.Select(c => c.definitionId).Distinct(StringComparer.Ordinal).Count() == equipment.Length, "控制器定义重复。");
+                    Check(ControllerRules.IsEnchantmentLegal(offer.contentId, offer.controller.enchantmentId, cfg), "控制器附魔不合法。");
+                    break;
                 case "consumable": Check(s.inventory.Count < s.consumableSlots, "道具槽位已满，可先出售道具。"); break;
                 case "hand_upgrade": Check(IsHandLegal(s, offer.contentId), "牌型已满级，或当前容量/永久骰数量不足。"); break;
                 case "die_upgrade":
@@ -200,17 +219,19 @@ namespace DiceCraft.Core
         private void Buy(RunState s, SessionCommand command)
         {
             var offer = ValidatePurchase(s, command.offerId, command.targetDieId, command.targetFaceId);
-            int price = OfferPrice(s, offer); // Freeze price before O02 changes the discount.
+            int price = checked(OfferPrice(s, offer) - OfferTradeIn(s, offer)); // Freeze before discount or replacement changes.
             s.gold -= price;
             switch (offer.category)
             {
-                case "controller": s.controllers.Add(NewOwnedItem(s, offer.contentId)); break;
+                case "controller":
+                    var old = s.controllers.FirstOrDefault(c => c.definitionId == offer.contentId);
+                    if (old != null) { s.controllers.Remove(old); s.lastEffects.Add(new EffectRecord { kind = "ControllerReplaced", sourceId = old.definitionId, detail = old.instanceId, newValue = cfg.controllerSellPrice }); }
+                    s.controllers.Add(offer.controller.Clone()); break;
                 case "consumable": s.inventory.Add(NewOwnedItem(s, offer.contentId)); break;
                 case "hand_upgrade": s.handLevels.First(x => x.handId == offer.contentId).level++; break;
                 case "new_die":
                     var d = offer.die.Clone(); d.createdSerial = s.nextDieSerial++; d.dieId = "D" + d.createdSerial.ToString("D3");
                     d.lifetime = "permanent"; d.createdStageId = ""; s.dice.Add(d);
-                    s.baseSubmitCapacity = Math.Min(cfg.maxSubmitCapacity, s.baseSubmitCapacity + 1);
                     s.lastEffects.Add(new EffectRecord { kind = "DieAdded", sourceId = "O03", dieId = d.dieId }); break;
                 case "service":
                     if (offer.contentId == "O01") s.consumableSlots++;

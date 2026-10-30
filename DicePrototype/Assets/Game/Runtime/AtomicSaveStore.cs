@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using DiceCraft.Core;
@@ -77,11 +78,27 @@ namespace DiceCraft
             {
                 var e=JsonUtility.FromJson<Envelope>(File.ReadAllText(path,Encoding.UTF8));
                 if(e==null||e.schema!=config.saveSchemaVersion||e.config!=config.configVersion)
+                {
+                    // Version isolation preserves both an old active Run and its previous
+                    // backup before future schema-3 saves rotate the normal backup path.
+                    if(e!=null && e.schema>0 && e.schema<config.saveSchemaVersion)
+                    {
+                        string legacy=path+".legacy-schema"+e.schema+"-"+Hash(File.ReadAllText(path,Encoding.UTF8)).Substring(0,16);
+                        if(!File.Exists(legacy))File.Copy(path,legacy,false);
+                    }
                     throw new InvalidDataException("存档版本不兼容，旧档已保留，请开始新挑战。");
+                }
                 if(string.IsNullOrEmpty(e.payload)||Hash(e.payload)!=e.sha256)throw new InvalidDataException("存档校验失败");
                 state=JsonUtility.FromJson<RunState>(e.payload);
                 if(state==null||state.configVersion!=config.configVersion||state.saveSchemaVersion!=config.saveSchemaVersion||
                    string.IsNullOrEmpty(state.runId)||state.dice==null||state.stage==null||state.gold<0)throw new InvalidDataException("存档内容不完整");
+                // Unity serializes null nested classes as all-default objects. Normalize
+                // only its exact empty placeholder before the first-ever Submit; a real
+                // or inconsistent historical record must still fail validation.
+                if(state.lastSubmission!=null&&state.processedReceipts!=null
+                    &&!state.processedReceipts.Any(r=>r?.command?.kind==CommandKind.Submit)
+                    &&JsonUtility.ToJson(state.lastSubmission)==JsonUtility.ToJson(new SubmissionRecord()))
+                    state.lastSubmission=null;
                 // Use the production invariants before trusting a file as a valid backup.
                 validator.ValidateState(state);
                 return true;

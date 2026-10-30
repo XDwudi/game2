@@ -7,7 +7,7 @@ namespace DiceCraft.Core
     public static class ProbabilityCalculator
     {
         /// <summary>Returns units in the supplied faces' order; CDF sampling uses face-ID order.</summary>
-        public static int[] BuildUnits(FaceState[] faces, bool largeBuff, bool smallBuff, GameConfig config)
+        public static int[] BuildUnits(FaceState[] faces, bool largeBuff, bool smallBuff, GameConfig config, bool highController = false, bool lowController = false)
         {
             if (config == null) throw new ArgumentNullException(nameof(config));
             config.ValidateFaces(faces);
@@ -34,13 +34,35 @@ namespace DiceCraft.Core
             }
             BigInteger total = weights.Aggregate(BigInteger.Zero, (sum, value) => sum + value);
             if (total <= 0) throw new InvalidOperationException("Probability total must be positive.");
+            var probabilities = weights.Select(w => new Rational(w, total)).ToArray();
+            if (highController != lowController)
+            {
+                var parameters = config.Controller(highController ? "C34" : "C35").parameters;
+                int[] target = Enumerable.Range(0, faces.Length).Where(i => parameters.targetPips.Contains(faces[i].permanentPip)).ToArray();
+                int[] donor = Enumerable.Range(0, faces.Length).Except(target).ToArray();
+                if (target.Length > 0 && donor.Length > 0)
+                {
+                    Rational mass = donor.Select(i => probabilities[i]).Aggregate(Rational.Zero, (a, b) => a + b);
+                    Rational cap = new Rational(parameters.maxTransferUnits, config.probabilityUnits);
+                    Rational transfer = mass.CompareTo(cap) < 0 ? mass : cap;
+                    var before = (Rational[])probabilities.Clone();
+                    foreach (int i in donor) probabilities[i] = before[i] * (mass - transfer) / mass;
+                    var groups = target.GroupBy(i => faces[i].permanentPip).ToArray();
+                    foreach (var group in groups)
+                    {
+                        Rational bucket = group.Select(i => before[i]).Aggregate(Rational.Zero, (a, b) => a + b);
+                        foreach (int i in group) probabilities[i] = before[i] + transfer / new Rational(groups.Length, 1) * before[i] / bucket;
+                    }
+                }
+            }
             var units = new int[faces.Length];
-            var remainder = new BigInteger[faces.Length];
+            var remainder = new Rational[faces.Length];
             int assigned = 0;
             for (int i = 0; i < faces.Length; i++)
             {
-                BigInteger scaled = weights[i] * config.probabilityUnits;
-                units[i] = checked((int)BigInteger.DivRem(scaled, total, out remainder[i]));
+                BigInteger scaled = probabilities[i].Numerator * config.probabilityUnits;
+                units[i] = checked((int)BigInteger.DivRem(scaled, probabilities[i].Denominator, out BigInteger rest));
+                remainder[i] = new Rational(rest, probabilities[i].Denominator);
                 assigned = checked(assigned + units[i]);
             }
             int[] rank = Enumerable.Range(0, faces.Length)
@@ -48,15 +70,15 @@ namespace DiceCraft.Core
             int left = config.probabilityUnits - assigned;
             if (left < 0 || left >= faces.Length) throw new InvalidOperationException("Invalid quantization remainder.");
             for (int i = 0; i < left; i++) units[rank[i]]++;
-            if (units.Any(u => u < 1) || units.Sum() != config.probabilityUnits)
-                throw new InvalidOperationException("Illegal probability vector: every physical face must remain possible.");
+            if (units.Any(u => u < 0) || units.Sum() != config.probabilityUnits)
+                throw new InvalidOperationException("Illegal probability vector: nonnegative mass must equal the declared precision.");
             return units;
         }
 
         /// <summary>Samples one physical face. Caller owns and persists rng; no other source is used.</summary>
         public static FaceState Sample(FaceState[] faces, int[] units, GameRng rng, GameConfig config)
         {
-            if (units == null || faces == null || units.Length != faces.Length || units.Any(v => v < 1) || units.Sum() != config.probabilityUnits)
+            if (units == null || faces == null || units.Length != faces.Length || units.Any(v => v < 0) || units.Sum() != config.probabilityUnits)
                 throw new ArgumentException("Invalid CDF units.");
             int choice = rng.NextIndex(config.probabilityUnits);
             int cumulative = 0;
@@ -66,6 +88,23 @@ namespace DiceCraft.Core
                 if (choice < cumulative) return faces[index];
             }
             throw new InvalidOperationException("CDF failed to cover its declared total.");
+        }
+
+        private readonly struct Rational : IComparable<Rational>
+        {
+            public readonly BigInteger Numerator, Denominator;
+            public static Rational Zero => new Rational(0, 1);
+            public Rational(BigInteger numerator, BigInteger denominator)
+            {
+                if (denominator <= 0) throw new ArgumentOutOfRangeException(nameof(denominator));
+                BigInteger gcd = BigInteger.GreatestCommonDivisor(BigInteger.Abs(numerator), denominator);
+                Numerator = numerator / gcd; Denominator = denominator / gcd;
+            }
+            public int CompareTo(Rational b) => (Numerator * b.Denominator).CompareTo(b.Numerator * Denominator);
+            public static Rational operator +(Rational a, Rational b) => new Rational(a.Numerator * b.Denominator + b.Numerator * a.Denominator, a.Denominator * b.Denominator);
+            public static Rational operator -(Rational a, Rational b) => new Rational(a.Numerator * b.Denominator - b.Numerator * a.Denominator, a.Denominator * b.Denominator);
+            public static Rational operator *(Rational a, Rational b) => new Rational(a.Numerator * b.Numerator, a.Denominator * b.Denominator);
+            public static Rational operator /(Rational a, Rational b) => new Rational(a.Numerator * b.Denominator, a.Denominator * b.Numerator);
         }
     }
 }
