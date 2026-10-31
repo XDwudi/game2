@@ -18,13 +18,13 @@ namespace DiceCraft.Verification
 {
     /// <summary>
     /// Opt-in built-player acceptance probe. No GameObject, files, or save override are
-    /// created unless --verify-p0 or --verify-display-only is present. Normal replay uses GameApp's real command
+    /// created only for an explicit --verify-p0 or display diagnostic entry point. Normal replay uses GameApp's real command
     /// and presentation paths. The subsequently installed stress fixture is explicitly
     /// Debug, isolated from both the normal replay and the user's persistent saves.
     /// </summary>
     public sealed partial class PlayerVerification : MonoBehaviour
     {
-        private const string ProbeRevision = "p06-player-native-display-diagnostics-12";
+        private const string ProbeRevision = "p06-player-native-display-experiment-13";
         private const double WarmupSeconds = 10;
         private const double SampleSeconds = 180;
         private const double FrameBudgetMs = 16.7;
@@ -32,7 +32,7 @@ namespace DiceCraft.Verification
         private const double RequiredCoverage = .95;
         private const BindingFlags PrivateInstance = BindingFlags.Instance | BindingFlags.NonPublic;
         private static string configuredTrace, configuredDirectory, startupFailure;
-        private static bool configuredDisplayOnly;
+        private static bool configuredDisplayOnly, configuredNativeExperiment;
         private GameApp app;
         private Trace trace;
         private readonly List<ActualStep> actualSteps = new List<ActualStep>();
@@ -234,7 +234,8 @@ namespace DiceCraft.Verification
             string[] args = Environment.GetCommandLineArgs();
             int flag = Array.IndexOf(args, "--verify-p0");
             configuredDisplayOnly = Array.IndexOf(args, "--verify-display-only") >= 0;
-            if (flag < 0 && !configuredDisplayOnly) return;
+            configuredNativeExperiment = Array.IndexOf(args, "--verify-native-display-experiment") >= 0;
+            if (flag < 0 && !configuredDisplayOnly && !configuredNativeExperiment) return;
             GameApp.SuppressStartupDisplay=true;
             try
             {
@@ -329,7 +330,8 @@ namespace DiceCraft.Verification
             }
             Require(SystemInfo.graphicsDeviceType != UnityEngine.Rendering.GraphicsDeviceType.Null, "A real rendered player is required; null graphics is not visual/performance evidence.");
             string[] launchArgs = Environment.GetCommandLineArgs();
-            Require(!configuredDisplayOnly || (Array.IndexOf(launchArgs, "--verify-display-recovery-write") < 0 && Array.IndexOf(launchArgs, "--verify-display-recovery-read") < 0), "Display-only and recovery-process roles cannot be combined.");
+            Require(!(configuredDisplayOnly && configuredNativeExperiment), "Choose display-only or native experiment, not both.");
+            Require(!(configuredDisplayOnly || configuredNativeExperiment) || (Array.IndexOf(launchArgs, "--verify-display-recovery-write") < 0 && Array.IndexOf(launchArgs, "--verify-display-recovery-read") < 0), "Display diagnostic and recovery-process roles cannot be combined.");
             if (Array.IndexOf(launchArgs, "--verify-display-recovery-write") >= 0 || Array.IndexOf(launchArgs, "--verify-display-recovery-read") >= 0)
             { yield return VerifyDisplayRecoveryProcess(); yield break; }
             normalSave = app.SaveLocation;
@@ -348,6 +350,8 @@ namespace DiceCraft.Verification
             app.Refresh();
             environment = EnvironmentReport();
             configHash = Hash(app.configAsset.text);
+            if (configuredNativeExperiment)
+            { yield return VerifyNativeDisplayExperiment(); yield break; }
             if (configuredDisplayOnly)
             {
                 // One isolated setup command supplies a durable checkpoint for purity checks.
@@ -1355,7 +1359,7 @@ namespace DiceCraft.Verification
                 ["schema"] = "p0-player-verification-6", ["probeRevision"] = ProbeRevision,
                 ["probeAssemblyMvid"] = typeof(PlayerVerification).Module.ModuleVersionId.ToString(),
                 ["status"] = status, ["phase"] = phase, ["exitCode"] = exitCode,
-                ["verificationScope"] = configuredDisplayOnly ? "display_only_no_replay_or_stress" : "full_or_recovery",
+                ["verificationScope"] = configuredNativeExperiment ? "native_display_experiment_no_acceptance" : configuredDisplayOnly ? "display_only_no_replay_or_stress" : "full_or_recovery",
                 ["updatedUtc"] = DateTime.UtcNow.ToString("O"), ["environment"] = environment,
                 ["traceSha256"] = traceHash, ["configSha256"] = configHash, ["configVersion"] = trace?.configVersion ?? app?.Config?.configVersion,
                 ["buildIdentity"] = Resources.Load<TextAsset>("BuildIdentity")?.text,

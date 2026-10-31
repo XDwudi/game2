@@ -468,6 +468,131 @@ namespace DiceCraft.Verification
             Require(FileHash(normalSave) == normalSaveHash, "Controller fixture modified ordinary save.");
         }
 
+        private Dictionary<string, object> NativeExperimentFrame()
+        {
+            var actual = ActualDisplay(); var r = Screen.currentResolution;
+            actual["frame"] = Time.frameCount; actual["realtime"] = Time.realtimeSinceStartupAsDouble;
+            actual["currentResolutionWidth"] = r.width; actual["currentResolutionHeight"] = r.height;
+            actual["currentResolutionRefreshNumerator"] = r.refreshRateRatio.numerator;
+            actual["currentResolutionRefreshDenominator"] = r.refreshRateRatio.denominator;
+            actual["productionPending"] = app.DisplayPreferences.IsPending;
+            actual["productionTransitioning"] = app.DisplayPreferences.IsTransitioning;
+            return actual;
+        }
+        private void PersistNativeExperiment(Dictionary<string, object> record)
+        {
+            File.WriteAllText(Path.Combine(configuredDirectory, "native-experiment.json"), Json(record), Encoding.UTF8);
+        }
+        // A diagnostic subroutine captures failures so its caller always reaches the
+        // bounded native restoration. It never turns a failed acceptance into a pass.
+        private IEnumerator NativeExperimentGuard(IEnumerator routine, Action<Exception> failed)
+        {
+            var stack = new Stack<IEnumerator>(); stack.Push(routine);
+            while (stack.Count > 0)
+            {
+                var current = stack.Peek(); bool moved = false; object next = null; Exception error = null;
+                try { moved = current.MoveNext(); if (moved) next = current.Current; }
+                catch (Exception ex) { error = ex; }
+                if (error != null)
+                {
+                    while (stack.Count > 0)
+                    {
+                        try { (stack.Pop() as IDisposable)?.Dispose(); }
+                        catch (Exception cleanup) { error = new AggregateException(error, cleanup); }
+                    }
+                    failed(error); yield break;
+                }
+                if (!moved) { (stack.Pop() as IDisposable)?.Dispose(); continue; }
+                if (next is IEnumerator child) stack.Push(child); else yield return next;
+            }
+        }
+        private IEnumerator NativeExperimentArms(Dictionary<string, object> record, List<Dictionary<string, object>> arms, DisplayChoice original)
+        {
+            var display = Screen.mainWindowDisplayInfo;
+            int width = display.width, height = display.height;
+            var modes = Screen.resolutions.Where(r => r.width == width && r.height == height).ToArray();
+            for (int armIndex = 0; armIndex < 3; armIndex++)
+            {
+                string id = armIndex == 0 ? "enumerated-nearest-current-refresh" : armIndex == 1 ? "default-refresh-overload" : "lowest-enumerated-refresh";
+                bool explicitRefresh = armIndex != 1;
+                var frames = new List<Dictionary<string, object>>();
+                var arm = new Dictionary<string, object> { ["id"] = id, ["targetWidth"] = width, ["targetHeight"] = height,
+                    ["targetMode"] = FullScreenMode.ExclusiveFullScreen.ToString(), ["explicitRefresh"] = explicitRefresh,
+                    ["before"] = NativeExperimentFrame(), ["frames"] = frames };
+                arms.Add(arm); PersistNativeExperiment(record);
+                if (explicitRefresh && modes.Length == 0)
+                { arm["status"] = "not_executed_no_matching_enumerated_resolution"; PersistNativeExperiment(record); continue; }
+                RefreshRate refresh = default;
+                if (explicitRefresh)
+                {
+                    var selected = armIndex == 0 ? modes.OrderBy(r => Math.Abs(r.refreshRateRatio.value - display.refreshRate.value)).First()
+                        : modes.OrderBy(r => r.refreshRateRatio.value).First();
+                    refresh = selected.refreshRateRatio;
+                    arm["requestedRefreshNumerator"] = refresh.numerator; arm["requestedRefreshDenominator"] = refresh.denominator;
+                }
+                arm["status"] = "observing"; PersistNativeExperiment(record);
+                try
+                {
+                    if (explicitRefresh) Screen.SetResolution(width, height, FullScreenMode.ExclusiveFullScreen, refresh);
+                    else Screen.SetResolution(width, height, FullScreenMode.ExclusiveFullScreen);
+                }
+                catch (Exception ex) { arm["requestException"] = ex.ToString(); }
+                double start = Time.realtimeSinceStartupAsDouble;
+                int trailingExactFrames = 0;
+                frames.Add(NativeExperimentFrame());
+                while (Time.realtimeSinceStartupAsDouble - start < 5)
+                {
+                    yield return null; frames.Add(NativeExperimentFrame());
+                    trailingExactFrames = Screen.fullScreenMode == FullScreenMode.ExclusiveFullScreen && Screen.width == width && Screen.height == height ? trailingExactFrames + 1 : 0;
+                }
+                arm["observedSeconds"] = Time.realtimeSinceStartupAsDouble - start;
+                arm["exclusiveExactTrailingFrames"] = trailingExactFrames;
+                arm["exclusiveExactAtEnd"] = trailingExactFrames >= 3;
+                arm["end"] = NativeExperimentFrame(); arm["status"] = "observed_not_acceptance";
+                PersistNativeExperiment(record);
+                yield return SetActualResolution(original.width, original.height);
+                arm["restoredWindowedThreeStableFrames"] = true; arm["restored"] = NativeExperimentFrame();
+                Require(!app.DisplayPreferences.IsPending && !app.DisplayPreferences.IsTransitioning, "Production display preferences became active during direct native experiment.");
+                PersistNativeExperiment(record);
+            }
+        }
+        private IEnumerator VerifyNativeDisplayExperiment()
+        {
+            phase = "NativeDisplayExperiment";
+            Require(!app.DisplayPreferences.IsPending && !app.DisplayPreferences.IsTransitioning && Screen.fullScreenMode == FullScreenMode.Windowed,
+                "Native experiment requires a settled window and inactive production display preferences.");
+            var original = app.DisplayPreferences.ReadActual();
+            var arms = new List<Dictionary<string, object>>();
+            var record = new Dictionary<string, object> { ["schema"] = "p06-native-display-experiment-1", ["status"] = "diagnostic_running",
+                ["scope"] = "Native Screen.SetResolution only; no normal/debug/stress/production-display acceptance",
+                ["probeRevision"] = ProbeRevision, ["processId"] = System.Diagnostics.Process.GetCurrentProcess().Id,
+                ["environment"] = environment, ["buildIdentity"] = Resources.Load<TextAsset>("BuildIdentity")?.text,
+                ["original"] = NativeExperimentFrame(), ["arms"] = arms, ["normalPassed"] = false, ["debugPassed"] = false, ["stressPassed"] = false,
+                ["availableResolutions"] = Screen.resolutions.Select(r => new Dictionary<string, object> { ["width"] = r.width, ["height"] = r.height,
+                    ["refreshNumerator"] = r.refreshRateRatio.numerator, ["refreshDenominator"] = r.refreshRateRatio.denominator }).ToArray() };
+            PersistNativeExperiment(record); WriteReport("diagnostic_running", null, -1);
+            Exception failure = null;
+            try { yield return NativeExperimentGuard(NativeExperimentArms(record, arms, original), ex => failure = ex); }
+            finally
+            {
+                // On interruption issue an immediate native restore request; the normal
+                // continuation below always verifies exact dimensions for three frames.
+                bool restored = Screen.fullScreenMode == FullScreenMode.Windowed && Screen.width == original.width && Screen.height == original.height;
+                record["finallyAlreadyRestored"] = restored;
+                if (!restored) { Screen.fullScreenMode = FullScreenMode.Windowed; Screen.SetResolution(original.width, original.height, FullScreenMode.Windowed); record["finallyRestoreRequested"] = true; }
+                record["failure"] = failure?.ToString(); PersistNativeExperiment(record);
+            }
+            yield return SetActualResolution(original.width, original.height);
+            record["finalRestoreThreeStableFrames"] = true; record["finalActual"] = NativeExperimentFrame();
+            record["unityErrors"] = unityErrors.ToArray();
+            Require(!app.DisplayPreferences.IsPending && !app.DisplayPreferences.IsTransitioning && app.Session.State == null && !File.Exists(normalSave), "Native experiment changed production preferences or created game state.");
+            record["productionPreferencesInactive"] = true; record["gameStateAndSaveAbsent"] = true;
+            if (failure != null) { record["status"] = "diagnostic_failed"; PersistNativeExperiment(record); throw failure; }
+            record["status"] = "diagnostic_completed"; PersistNativeExperiment(record);
+            WriteReport("diagnostic_completed", null, 0); finished = true;
+            Debug.Log("P06_NATIVE_DISPLAY_DIAGNOSTIC_COMPLETED " + configuredDirectory); Application.Quit(0);
+        }
+
         private readonly List<Dictionary<string, object>> displayTransitions = new List<Dictionary<string, object>>();
         private Dictionary<string, object> activeDisplayTransition;
         private List<Dictionary<string, object>> activeDisplayFrames;
