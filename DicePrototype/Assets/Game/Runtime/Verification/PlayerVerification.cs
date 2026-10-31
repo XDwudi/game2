@@ -24,7 +24,7 @@ namespace DiceCraft.Verification
     /// </summary>
     public sealed partial class PlayerVerification : MonoBehaviour
     {
-        private const string ProbeRevision = "p06-player-native-display-deferred-15";
+        private const string ProbeRevision = "p06-player-render-ready-input-16";
         private const double WarmupSeconds = 10;
         private const double SampleSeconds = 180;
         private const double FrameBudgetMs = 16.7;

@@ -445,14 +445,49 @@ namespace DiceCraft.Verification
                 ["otherShelfQuotesUnchanged"] = true, ["saveAndReopenNoRedraw"] = true, ["normalCheckpointUnchanged"] = true });
         }
 
+        private readonly List<Dictionary<string, object>> uiRenderReadiness = new List<Dictionary<string, object>>();
+        private static IEnumerator WaitForRenderedUi(Func<bool> ready, Func<double> clock, Action observe, string target)
+        {
+            double deadline = clock() + 2;
+            while (true)
+            {
+                observe();
+                Require(clock() <= deadline, "UI graphic did not acquire rendered Canvas depth within 2 seconds: " + target);
+                if (ready()) yield break;
+                yield return null;
+            }
+        }
         private readonly List<Dictionary<string, object>> target32PointerDiagnostics = new List<Dictionary<string, object>>();
         private IEnumerator PressTargetReady(string name, string parentName = null)
         {
             // Newly rebuilt graphics acquire valid Canvas depth/culling during the real
             // frame. Waiting here is not permission to dispatch through an obstruction.
             yield return null;
-            var button = parentName == null ? ActiveControl<Button>(name) : app.canvas.GetComponentsInChildren<Transform>(false)
+            Button FindButton() => parentName == null ? ActiveControl<Button>(name) : app.canvas.GetComponentsInChildren<Transform>(false)
                 .Single(t => t.gameObject.activeInHierarchy && t.name == parentName).GetComponentsInChildren<Button>(false).Single(b => b.name == name);
+            var button = FindButton();
+            var readinessSamples = new List<Dictionary<string, object>>();
+            var readiness = new Dictionary<string, object> { ["target"] = name, ["parent"] = parentName, ["samples"] = readinessSamples, ["ready"] = false };
+            uiRenderReadiness.Add(readiness);
+            try
+            {
+                // Capture returns at EndOfFrame. A modal created afterwards has missed
+                // that frame's Canvas submission; one null yield can still be too early.
+                // Await only actual graphic registration, never a favorable raycast result.
+                yield return WaitForRenderedUi(() => button.targetGraphic != null && button.targetGraphic.isActiveAndEnabled && button.targetGraphic.depth >= 0,
+                    () => Time.realtimeSinceStartupAsDouble, () => {
+                        button = FindButton(); Canvas.ForceUpdateCanvases();
+                        readinessSamples.Add(new Dictionary<string, object> { ["frame"] = Time.frameCount, ["realtime"] = Time.realtimeSinceStartupAsDouble,
+                            ["depth"] = button.targetGraphic == null ? -1 : button.targetGraphic.depth,
+                            ["graphicEnabled"] = button.targetGraphic != null && button.targetGraphic.isActiveAndEnabled,
+                            ["focused"] = Application.isFocused });
+                    }, name);
+                readiness["ready"] = true;
+            }
+            finally
+            {
+                File.WriteAllText(Path.Combine(configuredDirectory, "v06-ui-render-readiness.json"), Json(uiRenderReadiness), Encoding.UTF8);
+            }
             Require(button.IsInteractable(), "Verification UI button disabled: " + name);
             Vector2 point = VisiblePoint(button);
             Canvas.ForceUpdateCanvases();

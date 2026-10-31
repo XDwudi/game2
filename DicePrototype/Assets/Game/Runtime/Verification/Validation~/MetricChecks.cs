@@ -155,7 +155,21 @@ internal static class MetricChecks
         Check(CompletionStatus(true,"within_frame_budget",0)=="partial_passed_native_display_pending", "restricted_success_never_returns_passed");
         Check(CompletionStatus(true,"budget_exceeded",3)=="budget_exceeded" && CompletionStatus(false,"budget_exceeded",3)=="budget_exceeded", "restricted_mode_preserves_performance_failure");
         Check(CompletionStatus(true,"measured_with_gaps",2)=="measured_with_gaps" && CompletionStatus(false,"measured_with_gaps",2)=="measured_with_gaps", "restricted_mode_preserves_evidence_gap_failure");
-        Console.WriteLine(checks + " managed report/capture/trace/fixture/scope checks passed. Unity player behavior was not executed.");
+        var waitRendered = type.GetMethod("WaitForRenderedUi", BindingFlags.NonPublic | BindingFlags.Static);
+        System.Collections.IEnumerator RenderWait(Func<bool> ready, Func<double> clock, Action observe) =>
+            (System.Collections.IEnumerator)waitRendered.Invoke(null,new object[]{ready,clock,observe,"managed-render-target"});
+        double renderTime=0; bool registered=false; int observed=0;
+        var delayed=RenderWait(()=>registered,()=>renderTime,()=>observed++);
+        Check(delayed.MoveNext() && delayed.Current==null && observed==1, "unregistered_graphic_yields_actual_frame_instead_of_clicking");
+        renderTime=.016; registered=true;
+        Check(!delayed.MoveNext() && observed==2, "render_registration_allows_caller_to_continue_to_strict_raycast");
+        renderTime=0; observed=0; var stalled=RenderWait(()=>false,()=>renderTime,()=>observed++);
+        bool waited=stalled.MoveNext();renderTime=2.001;bool timedOut=false;
+        try{stalled.MoveNext();}catch(InvalidOperationException){timedOut=true;}
+        Check(waited&&timedOut&&observed==2,"persistent_unrendered_graphic_fails_at_bounded_deadline");
+        observed=0;var alreadyReady=RenderWait(()=>true,()=>0,()=>observed++);
+        Check(!alreadyReady.MoveNext()&&observed==1,"ready_graphic_does_not_skip_observation_or_request_event_dispatch");
+        Console.WriteLine(checks + " managed report/capture/trace/fixture/scope/readiness checks passed. Unity player behavior was not executed.");
         return 0;
     }
 }

@@ -186,7 +186,7 @@ namespace DiceCraft.Core
         {
             return d != null && string.IsNullOrEmpty(d.dieId) && d.createdSerial == 0
                 && string.IsNullOrEmpty(d.lifetime) && string.IsNullOrEmpty(d.createdStageId)
-                && (d.faces == null || d.faces.Length == 0) && !d.isGlass && d.dataRevision == 0;
+                && d.faces != null && d.faces.Length == 0 && !d.isGlass && d.dataRevision == 0;
         }
 
         private static void AppendCanonical(StringBuilder output, object value)

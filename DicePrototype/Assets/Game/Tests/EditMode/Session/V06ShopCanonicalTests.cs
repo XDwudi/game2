@@ -30,7 +30,7 @@ namespace DiceCraft.Tests
         [TestCase("controller-serial")] [TestCase("controller-dead")] [TestCase("controller-state-null")]
         [TestCase("controller-color")] [TestCase("controller-turnover")] [TestCase("controller-fund")]
         [TestCase("die-id")] [TestCase("die-serial")] [TestCase("die-lifetime")] [TestCase("die-stage")]
-        [TestCase("die-faces")] [TestCase("die-glass")] [TestCase("die-revision")]
+        [TestCase("die-faces")] [TestCase("die-null-faces")] [TestCase("die-glass")] [TestCase("die-revision")]
         public void V06_ShopUnusedNonemptyPayloadIsNotErasedAndIsRejected(string defect)
         {
             var session = Shop(); var state = session.State; string cleanHash = GameSession.StateHash(state);
@@ -56,6 +56,7 @@ namespace DiceCraft.Tests
                 if (defect == "die-lifetime") d.lifetime = "permanent";
                 if (defect == "die-stage") d.createdStageId = state.stage.stageId;
                 if (defect == "die-faces") d.faces = DiceFactory.CreateStandard(cfg, 1).faces;
+                if (defect == "die-null-faces") d.faces = null;
                 if (defect == "die-glass") d.isGlass = true;
                 if (defect == "die-revision") d.dataRevision = 1;
             }
