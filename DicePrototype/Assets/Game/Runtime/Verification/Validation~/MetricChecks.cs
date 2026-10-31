@@ -20,7 +20,8 @@ internal static class MetricChecks
         Dictionary<string, object> Read(double[] samples, string issue = null, bool preserve = false) =>
             (Dictionary<string, object>)metric.Invoke(null, new object[] { samples, "ms", "managed-test", issue, preserve });
         bool Complete(Dictionary<string, object> value) => (bool)complete.Invoke(null, new object[] { value });
-        void Check(bool value, string name) { if (!value) throw new Exception(name); Console.WriteLine("PASS " + name); }
+        int checks = 0;
+        void Check(bool value, string name) { if (!value) throw new Exception(name); checks++; Console.WriteLine("PASS " + name); }
         var full = Read(Enumerable.Range(1, 100).Select(x => (double)x).ToArray());
         Check(Complete(full) && (double)full["p95"] == 95 && (double)full["validFrameCoverage"] == 1, "full_coverage_nearest_rank_p95");
         var missing = Read(Enumerable.Repeat(double.NaN, 100).ToArray());
@@ -131,7 +132,30 @@ internal static class MetricChecks
         var chainSession = new GameSession(cfg, new MemorySaveStore(), chainState);
         Check(chainState.controllers.Count == 14 && chainState.stage.mimicBindings.Length == 14
             && ControllerRules.ResolveSources(chainSession.State.controllers, chainSession.State.stage.mimicBindings).All(s => s.abilityId == null), "actual_broken_chain_fixture_preserves_14_frozen_bindings");
-        Console.WriteLine("40 managed report/capture/trace/fixture checks passed. Unity player behavior was not executed.");
+        var validateFlags = type.GetMethod("ValidateDeferredDisplayArgs", BindingFlags.NonPublic | BindingFlags.Static);
+        bool FlagsAccepted(params string[] flags)
+        {
+            try { validateFlags.Invoke(null, new object[] { flags }); return true; }
+            catch (TargetInvocationException ex) when (ex.InnerException is InvalidOperationException) { return false; }
+        }
+        Check(FlagsAccepted("--verify-p0", "trace.json"), "default_full_verification_flags_remain_valid");
+        Check(FlagsAccepted("--verify-p0", "trace.json", "--verify-defer-native-display"), "restricted_verification_requires_explicit_full_trace_flag");
+        Check(!FlagsAccepted("--verify-defer-native-display"), "restricted_verification_without_full_trace_rejected");
+        foreach (string incompatible in new[] { "--verify-display-only", "--verify-native-display-experiment", "--verify-display-recovery-write", "--verify-display-recovery-read" })
+            Check(!FlagsAccepted("--verify-p0", "trace.json", "--verify-defer-native-display", incompatible), "restricted_verification_rejects_" + incompatible);
+        var scope = type.GetMethod("VerificationScope", BindingFlags.NonPublic | BindingFlags.Static);
+        string Scope(bool displayOnly, bool nativeExperiment, bool deferred) => (string)scope.Invoke(null, new object[] { displayOnly, nativeExperiment, deferred });
+        Check(Scope(false,false,false) == "full_or_recovery", "default_report_scope_preserved");
+        Check(Scope(true,false,false) == "display_only_no_replay_or_stress", "display_only_scope_does_not_claim_full_run");
+        Check(Scope(false,true,false) == "native_display_experiment_no_acceptance", "native_experiment_scope_does_not_claim_acceptance");
+        Check(Scope(false,false,true) == "full-gameplay-ui-perf_native_display_pending", "restricted_report_scope_exposes_native_display_gap");
+        var completedStatus = type.GetMethod("CompletedVerificationStatus", BindingFlags.NonPublic | BindingFlags.Static);
+        string CompletionStatus(bool deferred, string perf, int code) => (string)completedStatus.Invoke(null,new object[]{deferred,perf,code});
+        Check(CompletionStatus(false,"within_frame_budget",0)=="passed", "default_success_status_preserved");
+        Check(CompletionStatus(true,"within_frame_budget",0)=="partial_passed_native_display_pending", "restricted_success_never_returns_passed");
+        Check(CompletionStatus(true,"budget_exceeded",3)=="budget_exceeded" && CompletionStatus(false,"budget_exceeded",3)=="budget_exceeded", "restricted_mode_preserves_performance_failure");
+        Check(CompletionStatus(true,"measured_with_gaps",2)=="measured_with_gaps" && CompletionStatus(false,"measured_with_gaps",2)=="measured_with_gaps", "restricted_mode_preserves_evidence_gap_failure");
+        Console.WriteLine(checks + " managed report/capture/trace/fixture/scope checks passed. Unity player behavior was not executed.");
         return 0;
     }
 }

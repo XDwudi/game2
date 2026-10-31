@@ -316,6 +316,8 @@ namespace DiceCraft.Verification
             Accept(app.Send(new SessionCommand { kind = CommandKind.EndStage })); yield return WaitIdle();
             Accept(app.Send(new SessionCommand { kind = CommandKind.Continue })); yield return WaitIdle();
             var shop = app.Session.State; Require(shop.phase == "Shop", "Debug target test did not reach a real settled shop.");
+            yield return VerifyV06ShopRefresh(shop.Clone());
+            phase = "V06Targets32";
             shop.shop.offers.Clear();
             var upgrade = new ShopOffer { offerId = "VERIFY_TARGET32_U06", category = "die_upgrade", contentId = "U06",
                 batchId = shop.shop.generationId + "/die_upgrade", basePrice = app.Config.Upgrade("U06").buyPrice };
@@ -349,14 +351,109 @@ namespace DiceCraft.Verification
                 ["cancelUpgradeWasPure"] = true, ["cancelDeletionWasPure"] = true, ["normalCheckpointUnchanged"] = true });
         }
 
+        private string ShopQuoteFingerprint(bool controllers)
+        {
+            return Json(app.Session.State.shop.offers.Where(o => (o.category == "controller") == controllers).OrderBy(o => o.offerId)
+                .Select(o => new Dictionary<string, object> { ["offer"] = JsonUtility.ToJson(o),
+                    ["quotedPrice"] = app.Session.GetOfferPrice(o), ["quotedNetPrice"] = app.Session.GetOfferNetPrice(o) }).ToArray());
+        }
+        private void RequireRefreshLabel(int price)
+        {
+            Require(app.Session.GetRefreshPrice() == price, "Refresh session price differs from expected " + price);
+            string label = ActiveControl<Button>("RefreshControllers").GetComponentInChildren<TextMeshProUGUI>().text;
+            Require(label == "刷新控制器 · " + price + " 金币", "Visible refresh price differs: " + label);
+        }
+        private IEnumerator VerifyRefreshClick(int price, List<Dictionary<string, object>> transactions)
+        {
+            RequireRefreshLabel(price);
+            var before = app.Session.State;
+            string others = ShopQuoteFingerprint(false), controllers = ShopQuoteFingerprint(true);
+            string[] oldIds = before.shop.offers.Where(o => o.category == "controller").Select(o => o.offerId).ToArray();
+            Require(oldIds.Length > 0 && before.shop.offers.Any(o => o.category != "controller"), "Refresh fixture must include controllers and other shelves.");
+            yield return PressTargetReady("RefreshControllers"); yield return WaitIdle();
+            var after = app.Session.State;
+            Require(after.actionSequence == before.actionSequence + 1 && after.gold == before.gold - price,
+                "Visible refresh did not commit exactly one command and quoted charge.");
+            Require(after.shop.controllerRefreshCount == before.shop.controllerRefreshCount + 1 && after.shop.controllerGeneration == before.shop.controllerGeneration + 1,
+                "Refresh count or quote generation did not increment once.");
+            Require(ShopQuoteFingerprint(false) == others && ShopQuoteFingerprint(true) != controllers
+                && !after.shop.offers.Any(o => oldIds.Contains(o.offerId)), "Refresh changed another shelf or kept the old controller quotes.");
+            Require(after.diceRngState == before.diceRngState && after.effectRngState == before.effectRngState && after.shopRngState != before.shopRngState,
+                "Refresh consumed the wrong RNG stream or did not draw its controller quotes.");
+            var restored = new AtomicSaveStore(app.SaveLocation, app.Config, SaveSlotPolicy.Debug).Load();
+            Require(restored != null && GameSession.StateHash(restored) == GameSession.StateHash(after), "Refreshed quotes were not persisted exactly.");
+            int next = app.Session.GetRefreshPrice(); RequireRefreshLabel(next);
+            transactions.Add(new Dictionary<string, object> { ["charged"] = price, ["nextPrice"] = next,
+                ["beforeGold"] = before.gold, ["afterGold"] = after.gold, ["actionSequence"] = after.actionSequence,
+                ["oldOfferIds"] = oldIds, ["newOfferIds"] = after.shop.offers.Where(o => o.category == "controller").Select(o => o.offerId).ToArray(),
+                ["otherQuotesBefore"] = others, ["otherQuotesAfter"] = ShopQuoteFingerprint(false),
+                ["shopRngBefore"] = before.shopRngState, ["shopRngAfter"] = after.shopRngState, ["diskMatches"] = true });
+            File.WriteAllText(Path.Combine(configuredDirectory, "v06-shop-refresh-transactions.json"), Json(transactions), Encoding.UTF8);
+        }
+        private IEnumerator ReopenRefreshShop()
+        {
+            string state = GameSession.StateHash(app.Session.State), disk = FileHash(app.SaveLocation);
+            string controllers = ShopQuoteFingerprint(true), others = ShopQuoteFingerprint(false);
+            int price = app.Session.GetRefreshPrice();
+            app.ShowDebugPanel(); yield return PressTargetReady("ResumeDebugSave"); yield return PressTargetReady("RunDebugScene");
+            yield return PressTargetReady("Tab0");
+            Require(GameSession.StateHash(app.Session.State) == state && FileHash(app.SaveLocation) == disk
+                && ShopQuoteFingerprint(true) == controllers && ShopQuoteFingerprint(false) == others,
+                "Closing/reopening the shop through saved debug workspace redrew quotes or changed state/RNG/save.");
+            RequireRefreshLabel(price);
+        }
+        private IEnumerator VerifyV06ShopRefresh(RunState generatedShop)
+        {
+            phase = "V06ShopRefreshUi";
+            Require(generatedShop.debugWorkspace && generatedShop.phase == "Shop" && generatedShop.shop.controllerRefreshCount == 0,
+                "Refresh UI requires a freshly generated valid debug Shop.");
+            var fixture = generatedShop.Clone(); fixture.gold = 1000; fixture.freeFirstRefreshOwned = false;
+            InstallDebugWorkspace(fixture, "debug-refresh-shop-save"); yield return PressTargetReady("Tab0");
+            var transactions = new List<Dictionary<string, object>>();
+            foreach (int price in new[] { 3, 5, 7 })
+            {
+                yield return VerifyRefreshClick(price, transactions);
+                RequireRefreshLabel(price + 2);
+                yield return Capture("v06-shop-refresh-after-charge-" + price);
+                yield return ReopenRefreshShop();
+            }
+            Require(FileHash(normalSave) == normalSaveHash, "Shop refresh fixture modified ordinary checkpoint.");
+            V06Check("shop-controller-refresh-ui", "Visible button first-hit raycast + real click; exact 3/5/7 charges; actual saved-workspace reopen", new Dictionary<string, object> {
+                ["charges"] = new[] { 3, 5, 7 }, ["nextPrices"] = new[] { 5, 7, 9 }, ["otherShelfQuotesUnchanged"] = true,
+                ["controllerQuotesReplaced"] = true, ["saveAndReopenNoRedraw"] = true, ["normalCheckpointUnchanged"] = true });
+
+            fixture = generatedShop.Clone(); fixture.gold = 1000; fixture.freeFirstRefreshOwned = false;
+            fixture.shop.offers.RemoveAll(o => o.contentId == "O07");
+            var service = new ShopOffer { offerId = "OFFER_" + (fixture.nextOfferSerial++).ToString("D5"), category = "service", contentId = "O07",
+                batchId = fixture.shop.generationId + "/service", basePrice = app.Config.Service("O07").baseBuyPrice };
+            fixture.shop.offers.Add(service);
+            InstallDebugWorkspace(fixture, "debug-free-refresh-shop-save"); yield return PressTargetReady("Tab1");
+            long priceBefore = app.Session.GetOfferNetPrice(service), goldBefore = app.Session.State.gold;
+            long seqBefore = app.Session.State.actionSequence;
+            yield return PressTargetReady("Inspect", "Offer_" + service.offerId); yield return PressTargetReady("ConfirmPurchase"); yield return WaitIdle();
+            Require(app.Session.State.freeFirstRefreshOwned && app.Session.State.gold == goldBefore - priceBefore
+                && app.Session.State.actionSequence == seqBefore + 1 && app.Session.State.shop.controllerRefreshCount == 0
+                && app.Session.State.shop.offers.Single(o => o.offerId == service.offerId).sold,
+                "O07 UI purchase did not apply the free first refresh service once.");
+            yield return PressTargetReady("Tab0"); RequireRefreshLabel(0);
+            yield return Capture("v06-shop-free-first-refresh-0");
+            yield return VerifyRefreshClick(0, transactions); RequireRefreshLabel(5); yield return ReopenRefreshShop();
+            yield return VerifyRefreshClick(5, transactions); RequireRefreshLabel(7); yield return ReopenRefreshShop();
+            Require(FileHash(normalSave) == normalSaveHash, "Free-refresh service fixture modified ordinary checkpoint.");
+            V06Check("shop-free-first-refresh-service-ui", "Actual O07 inspect/confirm UI purchase followed by visible refresh clicks and saved reopen", new Dictionary<string, object> {
+                ["servicePrice"] = priceBefore, ["charges"] = new[] { 0, 5 }, ["nextPrices"] = new[] { 5, 7 },
+                ["otherShelfQuotesUnchanged"] = true, ["saveAndReopenNoRedraw"] = true, ["normalCheckpointUnchanged"] = true });
+        }
+
         private readonly List<Dictionary<string, object>> target32PointerDiagnostics = new List<Dictionary<string, object>>();
-        private IEnumerator PressTargetReady(string name)
+        private IEnumerator PressTargetReady(string name, string parentName = null)
         {
             // Newly rebuilt graphics acquire valid Canvas depth/culling during the real
             // frame. Waiting here is not permission to dispatch through an obstruction.
             yield return null;
-            var button = ActiveControl<Button>(name);
-            Require(button.IsInteractable(), "Target32 UI button disabled: " + name);
+            var button = parentName == null ? ActiveControl<Button>(name) : app.canvas.GetComponentsInChildren<Transform>(false)
+                .Single(t => t.gameObject.activeInHierarchy && t.name == parentName).GetComponentsInChildren<Button>(false).Single(b => b.name == name);
+            Require(button.IsInteractable(), "Verification UI button disabled: " + name);
             Vector2 point = VisiblePoint(button);
             Canvas.ForceUpdateCanvases();
             var rect = (RectTransform)button.transform;
@@ -370,7 +467,7 @@ namespace DiceCraft.Verification
             var firstButton = hits.Count == 0 ? null : hits[0].gameObject.GetComponentInParent<Button>();
             var graphic = button.targetGraphic;
             target32PointerDiagnostics.Add(new Dictionary<string, object> {
-                ["frame"] = Time.frameCount, ["target"] = name, ["focused"] = Application.isFocused,
+                ["frame"] = Time.frameCount, ["target"] = name, ["parent"] = parentName, ["focused"] = Application.isFocused,
                 ["screenWidth"] = Screen.width, ["screenHeight"] = Screen.height, ["insideScreen"] = insideScreen,
                 ["insideAllMasks"] = insideMasks, ["graphicDepth"] = graphic == null ? -1 : graphic.depth,
                 ["graphicCulled"] = graphic != null && graphic.canvasRenderer.cull,

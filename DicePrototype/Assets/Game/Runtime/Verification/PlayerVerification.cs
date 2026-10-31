@@ -24,7 +24,7 @@ namespace DiceCraft.Verification
     /// </summary>
     public sealed partial class PlayerVerification : MonoBehaviour
     {
-        private const string ProbeRevision = "p06-player-native-display-experiment-13";
+        private const string ProbeRevision = "p06-player-native-display-deferred-15";
         private const double WarmupSeconds = 10;
         private const double SampleSeconds = 180;
         private const double FrameBudgetMs = 16.7;
@@ -32,7 +32,7 @@ namespace DiceCraft.Verification
         private const double RequiredCoverage = .95;
         private const BindingFlags PrivateInstance = BindingFlags.Instance | BindingFlags.NonPublic;
         private static string configuredTrace, configuredDirectory, startupFailure;
-        private static bool configuredDisplayOnly, configuredNativeExperiment;
+        private static bool configuredDisplayOnly, configuredNativeExperiment, configuredDeferNativeDisplay;
         private GameApp app;
         private Trace trace;
         private readonly List<ActualStep> actualSteps = new List<ActualStep>();
@@ -235,10 +235,12 @@ namespace DiceCraft.Verification
             int flag = Array.IndexOf(args, "--verify-p0");
             configuredDisplayOnly = Array.IndexOf(args, "--verify-display-only") >= 0;
             configuredNativeExperiment = Array.IndexOf(args, "--verify-native-display-experiment") >= 0;
-            if (flag < 0 && !configuredDisplayOnly && !configuredNativeExperiment) return;
+            configuredDeferNativeDisplay = Array.IndexOf(args, "--verify-defer-native-display") >= 0;
+            if (flag < 0 && !configuredDisplayOnly && !configuredNativeExperiment && !configuredDeferNativeDisplay) return;
             GameApp.SuppressStartupDisplay=true;
             try
             {
+                ValidateDeferredDisplayArgs(args);
                 configuredTrace = flag >= 0 ? RequiredArgument(args, "--verify-p0") : null;
                 string baseDirectory = RequiredArgument(args, "--evidence-dir");
                 if (configuredTrace != null) configuredTrace = Path.GetFullPath(configuredTrace);
@@ -257,6 +259,23 @@ namespace DiceCraft.Verification
             var host = new GameObject("P0 Player Verification (opt-in)");
             DontDestroyOnLoad(host);
             host.AddComponent<PlayerVerification>();
+        }
+
+        private static void ValidateDeferredDisplayArgs(string[] args)
+        {
+            if (Array.IndexOf(args, "--verify-defer-native-display") < 0) return;
+            Require(Array.IndexOf(args, "--verify-p0") >= 0, "--verify-defer-native-display requires --verify-p0 <trace>.");
+            foreach (string incompatible in new[] { "--verify-display-only", "--verify-native-display-experiment", "--verify-display-recovery-write", "--verify-display-recovery-read" })
+                Require(Array.IndexOf(args, incompatible) < 0, "--verify-defer-native-display cannot combine with " + incompatible + ".");
+        }
+        private static string VerificationScope(bool displayOnly, bool nativeExperiment, bool deferred)
+        {
+            return nativeExperiment ? "native_display_experiment_no_acceptance" : displayOnly ? "display_only_no_replay_or_stress"
+                : deferred ? "full-gameplay-ui-perf_native_display_pending" : "full_or_recovery";
+        }
+        private static string CompletedVerificationStatus(bool deferred, string performanceStatus, int exitCode)
+        {
+            return exitCode == 0 ? (deferred ? "partial_passed_native_display_pending" : "passed") : performanceStatus;
         }
 
         private static string RequiredArgument(string[] args, string flag)
@@ -489,7 +508,9 @@ namespace DiceCraft.Verification
             WriteReport("running", null, -1);
             yield return VerifyV06UiAndIsolation();
             yield return VerifyV06ControllerDrag();
-            yield return VerifyV06Displays();
+            if (configuredDeferNativeDisplay)
+                DisplayRecord("native-display-verification-deferred", "not_executed", "Explicit restricted run: prior actual Native display failure is retained (player-20261031-140823-1865372c and independent native-experiment.json diagnostics). This run does not establish display support or release acceptance.");
+            else yield return VerifyV06Displays();
             yield return VerifyDebugTwentyFourStages();
             yield return RunStress();
             Require(Hash(File.ReadAllText(normalSave, Encoding.UTF8)) == normalSaveHash, "Debug stress modified the isolated normal save.");
@@ -497,9 +518,10 @@ namespace DiceCraft.Verification
             phase = "Completed";
             string performanceStatus = (string)performance["status"];
             int exitCode = performanceStatus == "budget_exceeded" ? 3 : performanceStatus == "measured_with_gaps" ? 2 : 0;
-            WriteReport(exitCode == 0 ? "passed" : performanceStatus, null, exitCode);
+            WriteReport(CompletedVerificationStatus(configuredDeferNativeDisplay, performanceStatus, exitCode), null, exitCode);
             finished = true;
-            Debug.Log("P0 verification complete: normal replay passed; performance " + performanceStatus + "; evidence " + configuredDirectory);
+            if (configuredDeferNativeDisplay) Debug.Log("P0 restricted verification complete: native display remains unverified; status " + CompletedVerificationStatus(true, performanceStatus, exitCode) + "; evidence " + configuredDirectory);
+            else Debug.Log("P0 verification complete: normal replay passed; performance " + performanceStatus + "; evidence " + configuredDirectory);
             Application.Quit(exitCode);
         }
 
@@ -1359,7 +1381,8 @@ namespace DiceCraft.Verification
                 ["schema"] = "p0-player-verification-6", ["probeRevision"] = ProbeRevision,
                 ["probeAssemblyMvid"] = typeof(PlayerVerification).Module.ModuleVersionId.ToString(),
                 ["status"] = status, ["phase"] = phase, ["exitCode"] = exitCode,
-                ["verificationScope"] = configuredNativeExperiment ? "native_display_experiment_no_acceptance" : configuredDisplayOnly ? "display_only_no_replay_or_stress" : "full_or_recovery",
+                ["verificationScope"] = VerificationScope(configuredDisplayOnly, configuredNativeExperiment, configuredDeferNativeDisplay),
+                ["nativeDisplayDeferred"] = configuredDeferNativeDisplay,
                 ["updatedUtc"] = DateTime.UtcNow.ToString("O"), ["environment"] = environment,
                 ["traceSha256"] = traceHash, ["configSha256"] = configHash, ["configVersion"] = trace?.configVersion ?? app?.Config?.configVersion,
                 ["buildIdentity"] = Resources.Load<TextAsset>("BuildIdentity")?.text,
