@@ -92,7 +92,8 @@ namespace DiceCraft.Tests
             Assert.That(app.Session.State.gold,Is.EqualTo(gold-net));Assert.That(app.Session.State.controllers.Count,Is.EqualTo(1));
             Assert.That(app.Session.State.controllers.Single().enchantmentId,Is.EqualTo("base10"));
             string before=StateJson();yield return LoadBootstrap();ResumeBoundaryFixture();
-            Assert.That(StateJson(),Is.EqualTo(before));Assert.That(FindActive<TextMeshProUGUI>("ControllersTitle").text,Does.Contain("普通槽 1/4"));
+            Assert.That(StateJson(),Is.EqualTo(before));string controllerTitle=FindActive<TextMeshProUGUI>("ControllersTitle").text;
+            Assert.That(controllerTitle,Does.Contain("调试配置"));Assert.That(controllerTitle,Does.Contain("普通占槽 1"));Assert.That(controllerTitle,Does.Not.Contain("/"));
         }
     }
 }

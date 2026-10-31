@@ -67,7 +67,8 @@ namespace DiceCraft
             UiKit.Text(p,"ControllerEffect",Description(item.definitionId),160,110,1360,175,31);
             EnchantBadge(p,item.enchantmentId,40,325,65);
             UiKit.Text(p,"ControllerEnchantment",EnchantLabel(item.enchantmentId),135,330,1380,85,29,UiKit.Teal);
-            UiKit.Text(p,"ControllerCounts",$"普通槽 {ControllerRules.OrdinaryUsed(ViewState.controllers)}/{ViewState.controllerSlots} · 持有 {ViewState.controllers.Count}/{Config.maxControllerInstances}\n当前Run有效；关内不能更换或出售。",40,455,1500,100,26,UiKit.Muted);
+            string counts=ViewState.debugWorkspace?$"调试配置 · 普通占槽 {ControllerRules.OrdinaryUsed(ViewState.controllers)} · 持有 {ViewState.controllers.Count}":$"普通槽 {ControllerRules.OrdinaryUsed(ViewState.controllers)}/{ViewState.controllerSlots} · 持有 {ViewState.controllers.Count}/{Config.maxControllerInstances}";
+            UiKit.Text(p,"ControllerCounts",counts+"\n当前Run有效；关内不能更换或出售。",40,455,1500,100,26,UiKit.Muted);
             UiKit.Text(p,"DynamicState",ControllerStateLabel(item),40,570,1500,60,24,UiKit.Gold);
             if(selling)UiKit.Button(p,"SellController","确认出售 · +"+Session.GetControllerSalePrice(item.instanceId)+" 金币（含本实例基金）",40,650,1500,70,()=>{CloseModal();Send(new SessionCommand{kind=CommandKind.Sell,itemInstanceId=item.instanceId});},true,true);
         }

@@ -24,7 +24,7 @@ namespace DiceCraft.Verification
     /// </summary>
     public sealed partial class PlayerVerification : MonoBehaviour
     {
-        private const string ProbeRevision = "p06-player-ui-native-display-9";
+        private const string ProbeRevision = "p06-player-routed-keyboard-target32-10";
         private const double WarmupSeconds = 10;
         private const double SampleSeconds = 180;
         private const double FrameBudgetMs = 16.7;
@@ -1124,15 +1124,41 @@ namespace DiceCraft.Verification
         private IEnumerator SetActualResolution(int width, int height)
         {
             Require(!sampling, "Resolution changes are forbidden inside the performance sample window.");
-            Screen.SetResolution(width, height, FullScreenMode.Windowed);
             double deadline = Time.realtimeSinceStartupAsDouble + 12;
-            int stableFrames = 0;
-            while (stableFrames < 3)
+            var diagnostic = new Dictionary<string, object> { ["requestedWidth"] = width, ["requestedHeight"] = height,
+                ["initialWidth"] = Screen.width, ["initialHeight"] = Screen.height, ["initialMode"] = Screen.fullScreenMode.ToString(), ["focused"] = Application.isFocused };
+            try
             {
-                Require(Time.realtimeSinceStartupAsDouble < deadline,
-                    "Window resolution did not become " + width + "x" + height + "; actual " + Screen.width + "x" + Screen.height + ". A scaled capture is not accepted.");
-                yield return null;
-                stableFrames = Screen.width == width && Screen.height == height && Screen.fullScreenMode == FullScreenMode.Windowed ? stableFrames + 1 : 0;
+                // Match the production two-stage transition: exiting fullscreen may
+                // consume the first mode change without applying its requested size.
+                if (Screen.fullScreenMode != FullScreenMode.Windowed)
+                {
+                    Screen.fullScreenMode = FullScreenMode.Windowed;
+                    int windowedFrames = 0;
+                    while (windowedFrames < 2)
+                    {
+                        Require(Time.realtimeSinceStartupAsDouble < deadline, "Native window did not exit fullscreen before the 12-second deadline.");
+                        yield return null;
+                        windowedFrames = Screen.fullScreenMode == FullScreenMode.Windowed ? windowedFrames + 1 : 0;
+                    }
+                }
+                diagnostic["modeBeforeSizeRequest"] = Screen.fullScreenMode.ToString();
+                Screen.SetResolution(width, height, FullScreenMode.Windowed);
+                int stableFrames = 0;
+                while (stableFrames < 3)
+                {
+                    Require(Time.realtimeSinceStartupAsDouble < deadline,
+                        "Window resolution did not become " + width + "x" + height + "; actual " + Screen.width + "x" + Screen.height + ". A scaled capture is not accepted.");
+                    yield return null;
+                    stableFrames = Screen.width == width && Screen.height == height && Screen.fullScreenMode == FullScreenMode.Windowed ? stableFrames + 1 : 0;
+                }
+                diagnostic["threeStableExactFrames"] = true;
+            }
+            finally
+            {
+                diagnostic["finalWidth"] = Screen.width; diagnostic["finalHeight"] = Screen.height; diagnostic["finalMode"] = Screen.fullScreenMode.ToString();
+                resolutionDiagnostics.Add(diagnostic);
+                File.WriteAllText(Path.Combine(configuredDirectory, "v06-resolution-transitions.json"), Json(resolutionDiagnostics), Encoding.UTF8);
             }
         }
 
@@ -1323,6 +1349,7 @@ namespace DiceCraft.Verification
                     ["reducedMotionChecks"] = reducedMotionChecks,
                     ["validation"] = "Each accepted command's sequence, phase, stage, score, gold, roll/submission budgets match trace; disk load and GameApp.ViewState equal committed state." },
                 ["v06Checks"] = v06Checks, ["displayChecks"] = displayChecks, ["debugTraceSha256"] = debugTraceHash,
+                ["inputDiagnostics"] = inputDiagnostics, ["resolutionDiagnostics"] = resolutionDiagnostics,
                 ["handbookPureReadChecks"] = handbookPureReadChecks, ["debug24"] = new Dictionary<string, object> { ["passed"] = debug24Passed, ["isDebug"] = true, ["steps"] = debug24Steps, ["purpose"] = "24-stage/risk/shop/finalization integration only; not normal progression or difficulty evidence" },
                 ["stressCompleted"] = stressCompleted, ["performance"] = performance, ["screenshots"] = screenshots,
                 ["rejectedScreenshots"] = rejectedScreenshots, ["graphicsTimingWarnings"] = graphicsTimingWarnings,

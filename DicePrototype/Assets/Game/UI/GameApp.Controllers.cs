@@ -89,7 +89,7 @@ namespace DiceCraft
                 var sources=ControllerRules.ResolveSources(candidate);
                 var mimics=sources.Where(s=>s.emitterDefinitionId=="C41").Take(4).Select(s=>s.emitterId+" → "+(s.abilityId==null?"无能力":NameOf(s.abilityId)+" / "+s.stateOwnerId));
                 int k=ViewState.debugCapacityOverride>0?ViewState.debugCapacityOverride:ControllerRules.Capacity(candidate,Config,ViewState.isDebug);
-                preview="允许插入 · 普通槽 "+ControllerRules.OrdinaryUsed(candidate)+" / "+ViewState.controllerSlots+" · 容量 K "+Session.EffectiveCapacity+" → "+k+"\n"+string.Join("\n",mimics);
+                preview="允许插入 · 普通占槽 "+ControllerRules.OrdinaryUsed(candidate)+(ViewState.debugWorkspace?"（调试）":" / "+ViewState.controllerSlots)+" · 容量 K "+Session.EffectiveCapacity+" → "+k+"\n"+string.Join("\n",mimics);
             }
             UiKit.Text(dragGhost,"Candidate",preview,12,52,596,150,20,UiKit.Teal);
         }

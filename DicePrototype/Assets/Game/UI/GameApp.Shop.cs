@@ -38,7 +38,9 @@ namespace DiceCraft
         }
         private void InventoryStrip(bool selling)
         {
-            float y=878;controllerRects.Clear(); UiKit.Text(main,"ControllersTitle",$"控制器 · 普通槽 {ControllerRules.OrdinaryUsed(ViewState.controllers)}/{ViewState.controllerSlots} · 持有 {ViewState.controllers.Count}/{Config.maxControllerInstances}",40,y-22,1100,30,21,UiKit.Muted);
+            float y=878;controllerRects.Clear();
+            string controllerTitle=ViewState.debugWorkspace?$"控制器 · 调试配置 · 持有 {ViewState.controllers.Count} · 普通占槽 {ControllerRules.OrdinaryUsed(ViewState.controllers)}":$"控制器 · 普通槽 {ControllerRules.OrdinaryUsed(ViewState.controllers)}/{ViewState.controllerSlots} · 持有 {ViewState.controllers.Count}/{Config.maxControllerInstances}";
+            UiKit.Text(main,"ControllersTitle",controllerTitle,40,y-22,1100,30,21,UiKit.Muted);
             int slots=Math.Min(10,Math.Max(4,ViewState.controllers.Count));float width=1100f/Math.Min(slots,5);
             for(int i=0;i<slots;i++)
             {
@@ -116,20 +118,23 @@ namespace DiceCraft
             }
             if(legal.Length==0)UiKit.Text(list,"NoLegal","当前没有满足容量、永久骰数且未满级的牌型。",15,30,1400,90,28,UiKit.Muted);
         }
-        private void TargetDie(ShopOffer offer,string selectedDie)
+        private void TargetDie(ShopOffer offer,string selectedDie,float scrollPosition=1)
         {
             var p=OpenModal(NameOf(offer.contentId)+" · 选择永久骰");
             var candidates=ViewState.dice.Where(d=>d.lifetime=="permanent").ToArray();
-            for(int i=0;i<candidates.Length;i++){string id=candidates[i].dieId;UiKit.Button(p,"Target_"+id,id,40+i*187,103,177,52,()=>TargetDie(offer,id),true,id==selectedDie);}
-            if(selectedDie==null){UiKit.Text(p,"TargetHelp","先选择骰子；选目标和取消都不会扣款。",40,220,1500,90,31,UiKit.Muted);return;}
+            var targets=UiKit.Scroll(p,"ShopTargetList",40,103,1500,140,Math.Max(140,((candidates.Length+7)/8)*70));
+            var scroll=targets.GetComponentInParent<UnityEngine.UI.ScrollRect>();
+            for(int i=0;i<candidates.Length;i++){string id=candidates[i].dieId;UiKit.Button(targets,"Target_"+id,id,(i%8)*185,(i/8)*70,170,55,()=>TargetDie(offer,id,scroll.verticalNormalizedPosition),true,id==selectedDie);}
+            scroll.verticalNormalizedPosition=scrollPosition;
+            if(selectedDie==null){UiKit.Text(p,"TargetHelp",$"上下滚动选择永久骰（共 {candidates.Length} 颗）。\n选目标和取消都不会扣款。",40,280,1500,110,31,UiKit.Muted);return;}
             var die=candidates.First(d=>d.dieId==selectedDie);
             if(offer.contentId=="O04"||offer.contentId=="U05")
             {
-                FaceCards(p,die,190,null,null);
-                UiKit.Text(p,"Risk",offer.contentId=="O04"?"这颗骰子及全部强化将移除；基础提交容量保留。至少保留1颗永久骰。":"玻璃：本骰贡献 ×2；每次实际参与投掷有15%概率永久损坏。已锁定时不检查损坏。",40,470,1500,95,27,UiKit.Gold);
+                FaceCards(p,die,260,null,null);
+                UiKit.Text(p,"Risk",offer.contentId=="O04"?"这颗骰子及全部强化将移除；基础提交容量保留。至少保留1颗永久骰。":"玻璃：本骰贡献 ×2；每次实际参与投掷有15%概率永久损坏。已锁定时不检查损坏。",40,510,1500,66,27,UiKit.Gold);
                 BuyFooter(p,offer,selectedDie,null);return;
             }
-            FaceCards(p,die,190,face=>PreviewFacePurchase(offer,die,face),null);
+            FaceCards(p,die,260,face=>PreviewFacePurchase(offer,die,face),null);
             UiKit.Text(p,"FaceHelp","选择一个物理面查看改造前后。faceId 不随点数变化。",40,520,1500,65,27,UiKit.Muted);
         }
         private void PreviewFacePurchase(ShopOffer offer,DieInstance die,string faceId)

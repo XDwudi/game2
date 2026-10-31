@@ -204,11 +204,12 @@ namespace DiceCraft
             UiKit.Text(left,"Rolls","剩余投掷",22,330,245,38,24,UiKit.Muted);
             UiKit.Text(left,"RollsValue",h.rollsRemaining.ToString(),22,376,245,65,46,UiKit.Teal);
             UiKit.Text(left,"HandEffects",(h.redWave?"红潮 · 本手有效\n":"")+(h.largeBuff?"6点加权 · 本手\n":"")+(h.smallBuff?"1点加权 · 本手\n":"")+(s.stage.stageRollBonus>0?"本关加掷 +"+s.stage.stageRollBonus+"\n":"")+(s.controllers.Any(x=>x.contentId=="C05")?"再来三次："+(h.c05Used?"已用":"未用"):""),22,468,245,100,19,UiKit.Gold);
-            UiKit.Text(main,"PoolTitle","骰池",355,165,450,36,25,UiKit.Muted);
-            UiKit.Text(main,"PoolHint",h.hasRolled?"点击待锁  ·  右键查看六面与概率":"投掷开始这一手",820,165,565,36,21,UiKit.Muted,TextAlignmentOptions.TopRight);
             var unlocked=s.dice.Where(d=>!h.orderedLockedIds.Contains(d.dieId)).OrderBy(d=>d.createdSerial).ToList();
+            bool pagedPool=unlocked.Count>10;
+            UiKit.Text(main,"PoolTitle","骰池",355,pagedPool?150:165,120,36,25,UiKit.Muted);
+            UiKit.Text(main,"PoolHint",h.hasRolled?"点击待锁  ·  右键查看六面与概率":"投掷开始这一手",pagedPool?480:820,pagedPool?150:165,pagedPool?600:565,36,21,UiKit.Muted,TextAlignmentOptions.TopRight);
             poolPage=Math.Min(poolPage,Math.Max(0,(unlocked.Count-1)/10));
-            if(unlocked.Count>10)UiKit.Button(main,"PoolPage","骰池页 "+(poolPage+1)+" / "+((unlocked.Count+9)/10)+" >",1000,205,385,36,()=>{poolPage=(poolPage+1)%((unlocked.Count+9)/10);Refresh();});
+            if(pagedPool)UiKit.Button(main,"PoolPage","骰池页 "+(poolPage+1)+" / "+((unlocked.Count+9)/10)+" >",1105,148,280,36,()=>{poolPage=(poolPage+1)%((unlocked.Count+9)/10);Refresh();});
             for(int i=0;i<Math.Min(10,unlocked.Count-poolPage*10);i++)
             {
                 var die=unlocked[i+poolPage*10];var result=h.currentResults.FirstOrDefault(x=>x.dieId==die.dieId);
@@ -216,10 +217,11 @@ namespace DiceCraft
                 DrawDie(die,result,new Vector2(x+75,y),false,i,unlocked.Count>5?.8f:1f);
             }
             UiKit.Box(main,"PoolLine",355,515,1030,2,UiKit.PanelLight);
-            UiKit.Text(main,"SlotsTitle",$"有序提交   {h.orderedLockedIds.Count} / {s.stage.capacity}",355,536,700,35,25,UiKit.Muted);
-            UiKit.Text(main,"LockRule","确认后本手不可直接解除",860,536,525,35,21,UiKit.Gold,TextAlignmentOptions.TopRight);
+            bool pagedSlots=s.stage.capacity>8;
+            UiKit.Text(main,"SlotsTitle",$"有序提交   {h.orderedLockedIds.Count} / {s.stage.capacity}",355,536,pagedSlots?360:700,35,25,UiKit.Muted);
+            UiKit.Text(main,"LockRule","确认后本手不可直接解除",pagedSlots?735:860,pagedSlots?539:536,pagedSlots?360:525,30,pagedSlots?18:21,UiKit.Gold,TextAlignmentOptions.TopRight);
             int slotsOnPage=Math.Min(8,s.stage.capacity);slotPage=Math.Min(slotPage,Math.Max(0,(s.stage.capacity-1)/8));
-            if(s.stage.capacity>8)UiKit.Button(main,"SlotPage","提交页 "+(slotPage+1)+" / "+((s.stage.capacity+7)/8)+" >",1065,575,320,34,()=>{slotPage=(slotPage+1)%((s.stage.capacity+7)/8);Refresh();});
+            if(pagedSlots)UiKit.Button(main,"SlotPage","提交页 "+(slotPage+1)+" / "+((s.stage.capacity+7)/8)+" >",1115,532,270,36,()=>{slotPage=(slotPage+1)%((s.stage.capacity+7)/8);Refresh();});
             float slotW=1030f/slotsOnPage;
             for(int visible=0;visible<Math.Min(8,s.stage.capacity-slotPage*8);visible++)
             {
@@ -244,7 +246,7 @@ namespace DiceCraft
                 UiKit.Text(main,"EndStageHint",$"结束预计 +{(reward==null?0:reward.goldAfter-reward.goldBefore)} 金币；未提交手不计分",355,838,1030,27,19,UiKit.Muted);
             }
             ScorePanel();InventoryStrip(false);
-            if(s.lastSubmission!=null)UiKit.Button(main,"PreviousSubmission","上一手 "+s.lastSubmission.breakdown.score+" 分 · 明细",36,810,285,46,()=>ShowBreakdown(s.lastSubmission.snapshot,s.lastSubmission.breakdown));
+            if(s.lastSubmission!=null)UiKit.Button(main,"PreviousSubmission","上一手得分明细",36,810,285,46,()=>ShowBreakdown(s.lastSubmission.snapshot,s.lastSubmission.breakdown));
             if(tutorial&&!pending&&!busy&&!s.stage.qualified)UiKit.Text(main,"TutorialGuide",tutorialStep<3?"练习：点击骰子使其待锁，再按 E 确认。也可以先清除选择。":"练习：右侧预览只计算已锁骰；剩余投掷会增加基础分。达标后选择结束本轮，或继续提交。",355,813,1030,42,20,UiKit.Teal);
         }
         private void DrawDie(DieInstance die,DieHandState result,Vector2 center,bool locked,int index,float scale=1f)
@@ -278,19 +280,19 @@ namespace DiceCraft
                 $"牌型 同点 {Factor(b.groupMult100)} + 顺子 {Factor(b.straightMult100)}",
                 "牌型 ×"+Factor(b.totalHandMult100)+" · 颜色 ×"+Factor(b.colorMult100),
                 "同点红组  "+b.redCount+"颗 · ×"+Factor(b.redMult100),
-                "全手基础 "+Big(b.baseTotal)+"（含钱包/空栏/附魔）",
-                "控制器 ×"+b.controllerMultiplierNumerator+"/"+b.controllerMultiplierDenominator+" · 附魔 2^"+b.enchantMultiplierCount};
-            for(int i=0;i<rows.Length;i++)UiKit.Text(p,"Breakdown"+i,rows[i],24,166+i*46,412,40,22,i==2?UiKit.Gold:UiKit.Paper);
-            UiKit.Text(p,"FinalScore",preview.isRandom?CompactScore(b.score)+" — "+CompactScore(preview.maximum.score):CompactScore(b.score),24,459,412,85,preview.isRandom?28:40,UiKit.Gold);
-            if(preview.isRandom)UiKit.Text(p,"RandomPreview","随机范围 · 确认提交才抽样",24,530,412,28,19,UiKit.Muted);
+                "全手基础 "+CompactScore(b.baseTotal),
+                "控制器 ×"+CompactScore(b.controllerMultiplierNumerator)+(b.controllerMultiplierDenominator=="1"?"":"/"+CompactScore(b.controllerMultiplierDenominator))+" · 附魔 2^"+b.enchantMultiplierCount};
+            for(int i=0;i<rows.Length;i++){var row=UiKit.Text(p,"Breakdown"+i,rows[i],24,166+i*46,412,40,22,i==2?UiKit.Gold:UiKit.Paper);row.textWrappingMode=TextWrappingModes.NoWrap;row.overflowMode=TextOverflowModes.Ellipsis;}
+            UiKit.Text(p,"FinalScore",preview.isRandom?CompactScore(b.score)+" — "+CompactScore(preview.maximum.score):CompactScore(b.score),24,459,412,75,preview.isRandom?26:40,UiKit.Gold);
+            if(preview.isRandom)UiKit.Text(p,"RandomPreview","随机范围 · 确认提交才抽样",24,538,412,22,18,UiKit.Muted);
             UiKit.Button(p,"Expanded","查看逐骰与效果明细",24,562,412,48,()=>ShowBreakdown(Session.PreviewSnapshot(),b));
         }
         private void Settlement()
         {
             var r=ViewState.lastStageSettlement;
             UiKit.Text(main,"Cleared","挑战达成",100,230,900,100,72,UiKit.Teal);
-            UiKit.Text(main,"FinalStageScore",Big(r.score)+" 分",100,390,900,120,83);
-            UiKit.Text(main,"ScoreTarget","目标 "+Big(r.target)+"  ·  溢出分不带入下一关",105,550,900,55,26,UiKit.Muted);
+            UiKit.Text(main,"FinalStageScore",CompactScore(r.score)+" 分",100,390,900,120,83);
+            UiKit.Text(main,"ScoreTarget","目标 "+CompactScore(r.target)+"  ·  溢出分不带入下一关",105,550,900,55,26,UiKit.Muted);
             var p=UiKit.Box(main,"Rewards",1090,220,690,590,UiKit.Panel);
             UiKit.Text(p,"RewardTitle","本关收益",34,32,620,60,36);
             UiKit.Text(p,"RewardRows",$"奖励前金币                 {r.goldBefore}\n基础奖励                     +{r.baseReward}\n剩余提交                     +{r.unusedSubmissionReward}\n利息{(r.pig?"（存钱罐）":"")}                     +{r.interest}\n计息本金 {r.interestPrincipal} / 50",34,132,620,280,29);
@@ -303,7 +305,7 @@ namespace DiceCraft
             bool won=ViewState.phase=="RunWon";
             UiKit.Text(main,"EndTitle",won?"二十四关完成":"挑战结束",100,235,1700,130,90,won?UiKit.Teal:UiKit.Paper);
             UiKit.Text(main,"EndMessage",won?"你让五颗起始骰子，走完了整条构筑路线。":ViewState.failureReason=="NoDice"?"骰组耗尽。":"本关提交次数已用尽，未达到目标。",105,430,1700,90,33,UiKit.Muted);
-            UiKit.Text(main,"EndStats",$"种子 {ViewState.seed}    /    第 {ViewState.stage.stageIndex+1} 关    /    本关 {ViewState.stage.score:N0} 分    /    金币 {ViewState.gold}",105,590,1700,70,30,UiKit.Gold);
+            UiKit.Text(main,"EndStats",$"种子 {ViewState.seed}    /    第 {ViewState.stage.stageIndex+1} 关    /    本关 {CompactScore(ViewState.stage.score)} 分    /    金币 {ViewState.gold}",105,590,1700,70,30,UiKit.Gold);
             UiKit.Button(main,"ReturnMenu","返回主菜单",105,785,780,80,ReturnMenu,true,true);
             if(ViewState.lastSubmission!=null)UiKit.Button(main,"EndBreakdown","最后一次提交明细",960,785,780,80,()=>ShowBreakdown(ViewState.lastSubmission.snapshot,ViewState.lastSubmission.breakdown));
         }

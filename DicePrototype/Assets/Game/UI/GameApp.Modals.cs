@@ -145,18 +145,31 @@ namespace DiceCraft
         }
         private void RemoteTargets(OwnedItem item)
         {
-            var chosen=new List<string>();var pips=new Dictionary<string,int>();
+            var chosen=new List<string>();var pips=new Dictionary<string,int>();float targetScrollPosition=1;
             Action draw=null;
             draw=()=>
             {
                 var p=OpenModal("遥控骰子 · 恰好2个未锁目标");
                 UiKit.Text(p,"RemoteRule","选择两颗不同未锁骰，每颗指定1–6。确认同时消耗道具和1次投掷；所有未锁骰一起投。\n玻璃先检查损坏：目标若损坏，不补选、不退还。物理面、颜色与镀层照常抽取。",40,108,1500,100,27,UiKit.Muted);
                 var unlocked=ViewState.dice.Where(d=>ViewState.hand==null||!ViewState.hand.orderedLockedIds.Contains(d.dieId)).OrderBy(d=>d.createdSerial).ToArray();
-                for(int i=0;i<unlocked.Length;i++){string id=unlocked[i].dieId;UiKit.Button(p,"RemoteDie"+id,id,40+(i%5)*300,240+(i/5)*70,280,55,()=>{if(chosen.Contains(id)){chosen.Remove(id);pips.Remove(id);}else if(chosen.Count<2){chosen.Add(id);pips[id]=6;}draw();},true,chosen.Contains(id));}
+                var targets=UiKit.Scroll(p,"RemoteTargetList",40,240,1500,140,Math.Max(140,((unlocked.Length+7)/8)*70));
+                var scroll=targets.GetComponentInParent<UnityEngine.UI.ScrollRect>();
+                for(int i=0;i<unlocked.Length;i++)
+                {
+                    string id=unlocked[i].dieId;
+                    UiKit.Button(targets,"RemoteDie"+id,id,(i%8)*185,(i/8)*70,170,55,()=>
+                    {
+                        targetScrollPosition=scroll.verticalNormalizedPosition;
+                        if(chosen.Contains(id)){chosen.Remove(id);pips.Remove(id);}else if(chosen.Count<2){chosen.Add(id);pips[id]=6;}
+                        draw();
+                    },true,chosen.Contains(id));
+                }
+                scroll.verticalNormalizedPosition=targetScrollPosition;
+                UiKit.Text(p,"RemoteSelection",$"未锁骰 {unlocked.Length}  ·  已选 {chosen.Count}/2  ·  上下滚动选择目标",40,385,1500,28,21,UiKit.Muted);
                 for(int i=0;i<chosen.Count;i++)
                 {
                     string id=chosen[i];float y=415+i*90;UiKit.Text(p,"Chosen"+id,id,40,y,210,60,30,UiKit.Gold);
-                    for(int n=1;n<=6;n++){int pip=n;bool odd=ViewSources.Any(x=>x.abilityId=="C12")&&pip%2==1;UiKit.Button(p,"RemotePip"+id+"_"+n,pip+(odd?"→"+(pip+1):""),260+(n-1)*205,y,190,58,()=>{pips[id]=pip;draw();},true,pips[id]==pip);}
+                    for(int n=1;n<=6;n++){int pip=n;bool odd=ViewSources.Any(x=>x.abilityId=="C12")&&pip%2==1;UiKit.Button(p,"RemotePip"+id+"_"+n,pip+(odd?"→"+(pip+1):""),260+(n-1)*205,y,190,58,()=>{targetScrollPosition=scroll.verticalNormalizedPosition;pips[id]=pip;draw();},true,pips[id]==pip);}
                 }
                 UiKit.Button(p,"RemoteConfirm","确认使用并投掷",40,660,1500,64,()=>{CloseModal();Send(new SessionCommand{kind=CommandKind.UseItem,itemInstanceId=item.instanceId,dieIds=chosen.ToArray(),targetPips=chosen.Select(id=>pips[id]).ToArray()});},chosen.Count==2&&!IsBusy&&Session.PendingIds.Length==0,true);
             };

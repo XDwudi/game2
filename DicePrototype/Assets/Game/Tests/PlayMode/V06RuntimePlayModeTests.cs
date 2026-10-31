@@ -55,10 +55,22 @@ namespace DiceCraft.Tests
             Assert.That(app.Session.State.stage.capacity,Is.EqualTo(32));Assert.That(app.Session.State.handLevels.All(l=>l.level==100),Is.True);
             Assert.That(app.Session.State.colorLevels.All(l=>l.level==100),Is.True);
             Click("RunDebugScene");Assert.That(HasActive("PoolPage"),Is.True);Assert.That(HasActive("SlotPage"),Is.True);
+            Canvas.ForceUpdateCanvases();
+            var poolPageBounds=V06ScreenRect(Button("PoolPage").GetComponent<RectTransform>());
+            foreach(var die in app.canvas.GetComponentsInChildren<DiePointer>(false).Where(d=>d.name.StartsWith("Die_")))
+                Assert.That(poolPageBounds.Overlaps(V06ScreenRect(die.GetComponent<RectTransform>())),Is.False,"Dice pool pagination must not cover visible dice hit areas.");
+            var slotPageBounds=V06ScreenRect(Button("SlotPage").GetComponent<RectTransform>());
+            foreach(var label in app.canvas.GetComponentsInChildren<TextMeshProUGUI>(false).Where(t=>t.name.StartsWith("SlotIndex")))
+                Assert.That(slotPageBounds.Overlaps(V06ScreenRect(label.rectTransform)),Is.False,"Submission pagination must not cover slot numbers.");
             Click("PoolPage");Click("PoolPage");Click("PoolPage");Assert.That(HasActive("Die_D032"),Is.True);
             Click("Roll");app.SkipVisual();string pure=StateJson();app.ShowHandbook();Click("HandbookColors");
             Assert.That(HasActive("HandbookRow_all_red"),Is.True);Assert.That(StateJson(),Is.EqualTo(pure));
             yield return null;
+        }
+        private static Rect V06ScreenRect(RectTransform target)
+        {
+            var corners=new Vector3[4];target.GetWorldCorners(corners);
+            return Rect.MinMaxRect(corners.Min(c=>c.x),corners.Min(c=>c.y),corners.Max(c=>c.x),corners.Max(c=>c.y));
         }
 
         [UnityTest]

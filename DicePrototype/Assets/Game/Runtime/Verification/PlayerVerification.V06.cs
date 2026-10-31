@@ -18,6 +18,8 @@ namespace DiceCraft.Verification
     {
         private readonly List<Dictionary<string, object>> v06Checks = new List<Dictionary<string, object>>();
         private readonly List<Dictionary<string, object>> displayChecks = new List<Dictionary<string, object>>();
+        private readonly List<Dictionary<string, object>> inputDiagnostics = new List<Dictionary<string, object>>();
+        private readonly List<Dictionary<string, object>> resolutionDiagnostics = new List<Dictionary<string, object>>();
         private string debugTraceHash;
         [Serializable] private sealed class DebugTrace
         {
@@ -111,13 +113,79 @@ namespace DiceCraft.Verification
             Require(events > 0 && events < 100, "Wheel could not reach offscreen target " + name);
             V06Check("wheel-reach-" + name, "Actual uGUI ScrollRect.OnScroll events with one notch each; no direct scroll position assignment", new Dictionary<string, object> { ["events"] = events, ["normalizedPosition"] = scroll.verticalNormalizedPosition });
         }
-        private IEnumerator EscapeThroughInputSystem()
+        private IEnumerator EscapeThroughInputSystem(string scenario)
         {
-            Require(Keyboard.current != null, "No keyboard device for Escape acceptance.");
-            InputSystem.QueueStateEvent(Keyboard.current, new KeyboardState(Key.Escape));
-            yield return null; yield return null;
-            InputSystem.QueueStateEvent(Keyboard.current, new KeyboardState());
-            yield return null;
+            Require(!sampling, "Synthetic input routing must stay outside the pressure sample.");
+            var previous = Keyboard.current;
+            var background = InputSystem.settings.backgroundBehavior;
+            var updates = InputSystem.settings.updateMode;
+            string layout = "DiceCraftProbeKeyboard" + Guid.NewGuid().ToString("N");
+            Keyboard injected = null;
+            int dynamicPressed = 0, dynamicEdges = 0, currentEdges = 0;
+            string stateBefore = GameSession.StateHash(app.Session.State);
+            string savePath = app.SaveLocation;
+            string diskBefore = File.Exists(savePath) ? FileHash(savePath) : null;
+            var samples = new List<Dictionary<string, object>>();
+            var diagnostic = new Dictionary<string, object> { ["scenario"] = scenario,
+                ["method"] = "Probe-owned background-capable Keyboard layout; queued event consumed by normal Dynamic input and GameApp.Update. Not physical keyboard/focus evidence.",
+                ["focusedBefore"] = Application.isFocused, ["backgroundBehavior"] = background.ToString(), ["updateMode"] = updates.ToString(),
+                ["previousDeviceId"] = previous?.deviceId, ["previousDeviceEnabled"] = previous?.enabled,
+                ["dragBefore"] = app.IsControllerDragging, ["displayPendingBefore"] = app.DisplayPreferences.IsPending,
+                ["stateHashBefore"] = stateBefore, ["diskHashBefore"] = diskBefore, ["samples"] = samples };
+            Action observe = () =>
+            {
+                if (injected == null || InputState.currentUpdateType != InputUpdateType.Dynamic) return;
+                bool edge = injected.escapeKey.wasPressedThisFrame;
+                if (injected.escapeKey.isPressed) dynamicPressed++;
+                if (edge)
+                {
+                    dynamicEdges++;
+                    // Select only our synthetic keyboard for this routed test edge.
+                    // This runs before ordinary MonoBehaviour.Update, not instead of it.
+                    injected.MakeCurrent();
+                    if (Keyboard.current == injected) currentEdges++;
+                }
+                if (samples.Count < 12) samples.Add(new Dictionary<string, object> {
+                    ["frame"] = Time.frameCount, ["focused"] = Application.isFocused,
+                    ["deviceId"] = injected.deviceId, ["enabled"] = injected.enabled, ["canRunInBackground"] = injected.canRunInBackground,
+                    ["currentDeviceId"] = Keyboard.current?.deviceId, ["isCurrent"] = Keyboard.current == injected,
+                    ["escapePressed"] = injected.escapeKey.isPressed, ["escapePressedThisFrame"] = edge,
+                    ["dragAtInputUpdate"] = app.IsControllerDragging, ["displayPendingAtInputUpdate"] = app.DisplayPreferences.IsPending });
+            };
+            try
+            {
+                Require(updates == InputSettings.UpdateMode.ProcessEventsInDynamicUpdate, "Player input must use normal Dynamic updates.");
+                // Do not modify global IgnoreFocus, editor routing, or physical devices.
+                InputSystem.RegisterLayout("{\"name\":\"" + layout + "\",\"extend\":\"Keyboard\",\"canRunInBackground\":true}");
+                injected = (Keyboard)InputSystem.AddDevice(layout, "DiceCraftVerificationKeyboard"); injected.MakeCurrent();
+                diagnostic["injectedDeviceId"] = injected.deviceId;
+                diagnostic["injectedEnabledBefore"] = injected.enabled;
+                diagnostic["injectedCanRunInBackground"] = injected.canRunInBackground;
+                Require(injected.enabled && injected.canRunInBackground, "Probe-owned keyboard is disabled; global routing remains unchanged. See input diagnostics.");
+                InputSystem.onAfterUpdate += observe;
+                InputSystem.QueueStateEvent(injected, new KeyboardState(Key.Escape));
+                yield return null; yield return null;
+                InputSystem.QueueStateEvent(injected, new KeyboardState());
+                yield return null;
+            }
+            finally
+            {
+                InputSystem.onAfterUpdate -= observe;
+                diagnostic["dynamicPressedUpdates"] = dynamicPressed; diagnostic["dynamicPressedEdges"] = dynamicEdges; diagnostic["currentDeviceEdges"] = currentEdges;
+                diagnostic["focusedAfter"] = Application.isFocused; diagnostic["dragAfter"] = app.IsControllerDragging;
+                diagnostic["displayPendingAfter"] = app.DisplayPreferences.IsPending;
+                diagnostic["stateUnchanged"] = GameSession.StateHash(app.Session.State) == stateBefore;
+                diagnostic["diskUnchanged"] = diskBefore == (File.Exists(savePath) ? FileHash(savePath) : null);
+                if (injected != null && injected.added) InputSystem.RemoveDevice(injected);
+                InputSystem.RemoveLayout(layout);
+                if (previous != null && previous.added) previous.MakeCurrent();
+                diagnostic["previousDeviceRestored"] = previous == null ? Keyboard.current == null : !previous.added || Keyboard.current == previous;
+                diagnostic["globalSettingsUnchanged"] = InputSystem.settings.backgroundBehavior == background && InputSystem.settings.updateMode == updates;
+                inputDiagnostics.Add(diagnostic);
+                File.WriteAllText(Path.Combine(configuredDirectory, "v06-input-diagnostics.json"), Json(inputDiagnostics), Encoding.UTF8);
+            }
+            Require(dynamicPressed > 0 && dynamicEdges > 0 && currentEdges > 0, "Synthetic Escape did not reach a current enabled keyboard in the actual Dynamic input update; see v06-input-diagnostics.json.");
+            Require(InputSystem.settings.backgroundBehavior == background && InputSystem.settings.updateMode == updates, "Probe changed global input routing settings.");
         }
         private IEnumerator WaitIdle()
         {
@@ -205,8 +273,114 @@ namespace DiceCraft.Verification
                 ["previewMinimum"] = preview.minimum.score, ["previewMaximum"] = preview.maximum.score, ["sharedRandomOwners"] = preview.randomOwnerIds,
                 ["normalCheckpointUnchanged"] = true, ["previewStateAndRngUnchanged"] = true
             });
+            yield return VerifyV06Targets32();
             app.ShowDebugPanel(); Press("ReturnNormal"); yield return null;
             Require(JsonUtility.ToJson(app.Session.State) == normal && FileHash(normalSave) == disk && app.SaveLocation == normalSave, "Return to ordinary checkpoint did not preserve exact state.");
+        }
+
+        private IEnumerator VerifyV06Targets32()
+        {
+            phase = "V06Targets32";
+            Require(app.Session.State.isDebug && app.Session.State.dice.Count == 32, "Target regression requires the applied 32-die debug workspace.");
+            var item = app.Session.State.inventory.Last(i => i.contentId == "I03");
+            yield return CaptureResolutionSet("v06-remote-target32", () => InvokePrivate("RemoteTargets", item), true, "RemoteTargetList");
+            string before = GameSession.StateHash(app.Session.State), disk = FileHash(app.SaveLocation);
+            InvokePrivate("RemoteTargets", item); yield return null;
+            yield return WheelToControl("RemoteDieD031"); yield return PressTargetReady("RemoteDieD031"); yield return PressTargetReady("RemoteDieD032");
+            yield return PressTargetReady("RemotePipD031_2"); yield return PressTargetReady("RemotePipD032_5");
+            Require(ActiveControl<Button>("RemoteConfirm").IsInteractable(), "Remote target32 pair is not confirmable.");
+            yield return Capture("v06-remote-D031-D032-selected");
+            yield return PressTargetReady("CloseDialog"); yield return null;
+            Require(GameSession.StateHash(app.Session.State) == before && FileHash(app.SaveLocation) == disk, "Cancelling remote target selection spent item/roll/RNG or wrote a save.");
+            InvokePrivate("RemoteTargets", item); yield return null;
+            yield return PressTargetReady("RemoteDieD031"); yield return PressTargetReady("RemoteDieD032"); yield return PressTargetReady("RemotePipD031_2"); yield return PressTargetReady("RemotePipD032_5");
+            var prior = app.Session.State;
+            yield return PressTargetReady("RemoteConfirm"); yield return null;
+            if (app.IsBusy) app.SkipVisual(); yield return WaitIdle();
+            var after = app.Session.State;
+            Require(after.actionSequence == prior.actionSequence + 1 && after.hand.rollsRemaining == prior.hand.rollsRemaining - 1
+                && !after.inventory.Any(i => i.instanceId == item.instanceId), "Remote target32 confirmation did not consume exactly one command/item/roll.");
+            var a = after.hand.currentResults.Single(r => r.dieId == "D031"); var b = after.hand.currentResults.Single(r => r.dieId == "D032");
+            Require(a.currentPip == 2 && b.currentPip == 5 && a.remoteOverride && b.remoteOverride, "Late-list remote targets received wrong pip overrides.");
+            Require(after.hand.orderedLockedIds.SequenceEqual(prior.hand.orderedLockedIds), "Remote confirmation changed locked dice.");
+            V06Check("remote-target32-ui", "Real scroll/target/pip/confirm/close UI; production UseItem and animation path", new Dictionary<string, object> {
+                ["targets"] = new[] { "D031", "D032" }, ["pips"] = new[] { a.currentPip, b.currentPip }, ["cancelWasPure"] = true,
+                ["commandDelta"] = after.actionSequence - prior.actionSequence, ["itemConsumedOnce"] = true, ["rollDelta"] = prior.hand.rollsRemaining - after.hand.rollsRemaining });
+
+            // Obtain a valid settled debug Shop through production commands, then install
+            // two explicit test offers in its isolated save. This is a UI fixture, not a
+            // claim about natural shop probability or normal progression.
+            var scene = app.Session.ExportDebugScene(); scene.target = "1"; scene.score = "1";
+            Accept(app.Send(new SessionCommand { kind = CommandKind.ApplyDebugScene, debugScene = scene })); yield return WaitIdle();
+            Accept(app.Send(new SessionCommand { kind = CommandKind.EndStage })); yield return WaitIdle();
+            Accept(app.Send(new SessionCommand { kind = CommandKind.Continue })); yield return WaitIdle();
+            var shop = app.Session.State; Require(shop.phase == "Shop", "Debug target test did not reach a real settled shop.");
+            shop.shop.offers.Clear();
+            var upgrade = new ShopOffer { offerId = "VERIFY_TARGET32_U06", category = "die_upgrade", contentId = "U06",
+                batchId = shop.shop.generationId + "/die_upgrade", basePrice = app.Config.Upgrade("U06").buyPrice };
+            var deletion = new ShopOffer { offerId = "VERIFY_TARGET32_O04", category = "service", contentId = "O04",
+                batchId = shop.shop.generationId + "/service", basePrice = app.Config.Service("O04").baseBuyPrice };
+            shop.shop.offers.Add(upgrade); shop.shop.offers.Add(deletion);
+            InstallDebugWorkspace(shop, "debug-target32-shop-save");
+            yield return CaptureResolutionSet("v06-shop-target32", () => InvokePrivate("TargetDie", upgrade, null, 1f), true, "ShopTargetList");
+            before = GameSession.StateHash(app.Session.State); disk = FileHash(app.SaveLocation);
+            InvokePrivate("TargetDie", upgrade, null, 1f); yield return null;
+            yield return WheelToControl("Target_D032"); yield return PressTargetReady("Target_D032"); yield return PressTargetReady("Face_F01");
+            yield return Capture("v06-upgrade-D032-F01-preview");
+            yield return PressTargetReady("CloseDialog"); yield return null;
+            Require(GameSession.StateHash(app.Session.State) == before && FileHash(app.SaveLocation) == disk, "Cancelling late-list upgrade selection mutated state/wallet/RNG.");
+            InvokePrivate("TargetDie", upgrade, null, 1f); yield return PressTargetReady("Target_D032"); yield return PressTargetReady("Face_F01");
+            prior = app.Session.State; yield return PressTargetReady("ConfirmPurchase"); yield return WaitIdle(); after = app.Session.State;
+            Require(after.actionSequence == prior.actionSequence + 1 && after.dice.Single(d => d.dieId == "D032").faces.Single(f => f.faceId == "F01").isGold
+                && after.shop.offers.Single(o => o.offerId == upgrade.offerId).sold && after.gold < prior.gold, "Late-list face purchase did not commit once on D032/F01.");
+            before = GameSession.StateHash(after); disk = FileHash(app.SaveLocation);
+            InvokePrivate("TargetDie", deletion, null, 1f); yield return PressTargetReady("Target_D031");
+            yield return Capture("v06-delete-D031-preview"); yield return PressTargetReady("CloseDialog"); yield return null;
+            Require(GameSession.StateHash(app.Session.State) == before && FileHash(app.SaveLocation) == disk, "Cancelling late-list deletion changed state.");
+            InvokePrivate("TargetDie", deletion, null, 1f); yield return PressTargetReady("Target_D031");
+            prior = app.Session.State; yield return PressTargetReady("ConfirmPurchase"); yield return WaitIdle(); after = app.Session.State;
+            Require(after.actionSequence == prior.actionSequence + 1 && after.dice.Count == 31 && !after.dice.Any(d => d.dieId == "D031")
+                && after.dice.Any(d => d.dieId == "D032") && after.shop.offers.Single(o => o.offerId == deletion.offerId).sold,
+                "Late-list deletion affected wrong die or failed its single transaction.");
+            Require(FileHash(normalSave) == normalSaveHash, "Target32 debug fixtures modified ordinary checkpoint.");
+            V06Check("shop-target32-ui", "Three actual resolutions + real target/face/cancel/confirm UI on valid isolated Shop", new Dictionary<string, object> {
+                ["upgradeDie"] = "D032", ["upgradeFace"] = "F01", ["deletedDie"] = "D031", ["remainingDice"] = after.dice.Count,
+                ["cancelUpgradeWasPure"] = true, ["cancelDeletionWasPure"] = true, ["normalCheckpointUnchanged"] = true });
+        }
+
+        private readonly List<Dictionary<string, object>> target32PointerDiagnostics = new List<Dictionary<string, object>>();
+        private IEnumerator PressTargetReady(string name)
+        {
+            // Newly rebuilt graphics acquire valid Canvas depth/culling during the real
+            // frame. Waiting here is not permission to dispatch through an obstruction.
+            yield return null;
+            var button = ActiveControl<Button>(name);
+            Require(button.IsInteractable(), "Target32 UI button disabled: " + name);
+            Vector2 point = VisiblePoint(button);
+            Canvas.ForceUpdateCanvases();
+            var rect = (RectTransform)button.transform;
+            var corners = new Vector3[4]; rect.GetWorldCorners(corners);
+            var screenCorners = corners.Select(c => RectTransformUtility.WorldToScreenPoint(null, c)).ToArray();
+            bool insideScreen = screenCorners.All(c => c.x >= -.5f && c.x <= Screen.width + .5f && c.y >= -.5f && c.y <= Screen.height + .5f);
+            bool insideMasks = button.GetComponentsInParent<Mask>().Where(m => m.enabled).All(m =>
+                screenCorners.All(c => RectTransformUtility.RectangleContainsScreenPoint((RectTransform)m.transform, c, null)));
+            var e = new PointerEventData(EventSystem.current) { position = point, button = PointerEventData.InputButton.Left };
+            var hits = new List<RaycastResult>(); EventSystem.current.RaycastAll(e, hits);
+            var firstButton = hits.Count == 0 ? null : hits[0].gameObject.GetComponentInParent<Button>();
+            var graphic = button.targetGraphic;
+            target32PointerDiagnostics.Add(new Dictionary<string, object> {
+                ["frame"] = Time.frameCount, ["target"] = name, ["focused"] = Application.isFocused,
+                ["screenWidth"] = Screen.width, ["screenHeight"] = Screen.height, ["insideScreen"] = insideScreen,
+                ["insideAllMasks"] = insideMasks, ["graphicDepth"] = graphic == null ? -1 : graphic.depth,
+                ["graphicCulled"] = graphic != null && graphic.canvasRenderer.cull,
+                ["firstHit"] = hits.Count == 0 ? null : hits[0].gameObject.name,
+                ["firstButton"] = firstButton == null ? null : firstButton.name, ["firstButtonIsTarget"] = firstButton == button,
+                ["hits"] = hits.Take(8).Select(h => h.gameObject.name).ToArray() });
+            File.WriteAllText(Path.Combine(configuredDirectory, "v06-target32-raycasts.json"), Json(target32PointerDiagnostics), Encoding.UTF8);
+            Require(insideScreen && insideMasks, "Target32 control is not completely visible: " + name);
+            Require(firstButton == button, "Target32 first raycast is not the intended button: " + name + "; first hit " + (hits.Count == 0 ? "none" : hits[0].gameObject.name));
+            ExecuteEvents.Execute(button.gameObject, e, ExecuteEvents.pointerClickHandler);
+            yield return null;
         }
 
         private PointerEventData BeginControllerDrag(string id)
@@ -263,7 +437,7 @@ namespace DiceCraft.Verification
             Require(JsonUtility.ToJson(app.Session.State) == exact && FileHash(app.SaveLocation) == disk, "Same-slot drop must be a true no-op.");
             e = BeginControllerDrag(first); EndControllerDrag(first, e, new Vector2(-50, -50)); yield return null;
             Require(JsonUtility.ToJson(app.Session.State) == exact && FileHash(app.SaveLocation) == disk, "Outside drop changed persisted state.");
-            BeginControllerDrag(first); yield return EscapeThroughInputSystem();
+            BeginControllerDrag(first); yield return EscapeThroughInputSystem("controller-drag-cancel");
             Require(!app.IsControllerDragging && JsonUtility.ToJson(app.Session.State) == exact && FileHash(app.SaveLocation) == disk, "Esc did not cancel drag without changes.");
             BeginControllerDrag(first); InvokePrivate("OnApplicationFocus", false); yield return null;
             Require(!app.IsControllerDragging && JsonUtility.ToJson(app.Session.State) == exact, "Focus-loss callback did not cancel drag.");
@@ -339,7 +513,7 @@ namespace DiceCraft.Verification
                     yield return DisplayReady();
                     Require(prefs.CanConfirm && Screen.fullScreenMode == FullScreenMode.ExclusiveFullScreen && Screen.width == size.x && Screen.height == size.y, "Non-native exclusive resolution was mistaken for a missing display or failed readback.");
                     app.ShowDisplaySettings(); yield return Capture("v06-exclusive-non-native-pending");
-                    yield return EscapeThroughInputSystem(); yield return DisplayReady();
+                    yield return EscapeThroughInputSystem("exclusive-non-native-revert"); yield return DisplayReady();
                     Require(!prefs.IsPending && Screen.width == original.width && Screen.height == original.height && Screen.fullScreenMode == original.mode, "Escape from non-native exclusive did not restore prior mode.");
                     DisplayRecord("exclusive-non-native-escape", "passed", "Actual supported non-native exclusive mode followed by InputSystem Escape rollback.");
                 }
@@ -370,7 +544,7 @@ namespace DiceCraft.Verification
             Require(!prefs.IsPending && !prefs.IsTransitioning && Screen.width == confirmed.width && Screen.height == confirmed.height && Screen.fullScreenMode == confirmed.mode, "15-second timeout failed to restore confirmed native mode.");
             DisplayRecord("15-second-timeout-revert", "passed", "Real elapsed time observed; no shortened timer or mocked clock.");
             Require(prefs.Apply(prefs.Choice(Screen.mainWindowDisplayInfo, FullScreenMode.Windowed, 1280, 720)), "Could not begin Escape test.");
-            yield return DisplayReady(); yield return EscapeThroughInputSystem(); yield return DisplayReady();
+            yield return DisplayReady(); yield return EscapeThroughInputSystem("window-display-revert"); yield return DisplayReady();
             Require(!prefs.IsPending && Screen.width == confirmed.width && Screen.height == confirmed.height && Screen.fullScreenMode == confirmed.mode, "Escape failed to restore confirmed native display.");
             DisplayRecord("escape-revert", "passed", "InputSystem keyboard state event handled by GameApp.Update.");
             DisplayRecord("crash-pending-recovery", "not_executed", "Requires separate --verify-display-recovery-write/read processes; this main probe does not simulate a crash by rebuilding a component.");

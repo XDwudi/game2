@@ -228,7 +228,7 @@ namespace DiceCraft
             DebugField(p,"RollsLeft","剩余投掷 0–999（-1自动）",debugDraft.rollsRemaining.ToString(),10,y,700,v=>debugDraft.rollsRemaining=DebugInt(v,-1,999));
             DebugField(p,"SubmitsLeft","剩余提交 0–999（-1自动）",debugDraft.remainingSubmissions.ToString(),750,y,700,v=>debugDraft.remainingSubmissions=DebugInt(v,-1,999));y+=100;
             DebugField(p,"StageIndex","关卡 1–24",(debugDraft.stageIndex+1).ToString(),10,y,700,v=>debugDraft.stageIndex=DebugInt(v,1,24)-1);
-            DebugField(p,"InventorySlots","道具持有槽 1–32",debugDraft.consumableSlots.ToString(),750,y,700,v=>debugDraft.consumableSlots=DebugInt(v,1,32));y+=100;
+            DebugField(p,"InventorySlots","道具持有槽 "+Config.initialConsumableSlots+"–"+Config.debug.maxConsumableInventory,debugDraft.consumableSlots.ToString(),750,y,700,v=>debugDraft.consumableSlots=DebugInt(v,Config.initialConsumableSlots,Config.debug.maxConsumableInventory));y+=100;
             DebugField(p,"CtrlShopSlots","控制器货架扩容次数 0–3",debugDraft.controllerOfferPurchases.ToString(),10,y,700,v=>debugDraft.controllerOfferPurchases=DebugInt(v,0,3));
             DebugField(p,"ItemShopSlots","道具货架扩容次数 0–3",debugDraft.consumableOfferPurchases.ToString(),750,y,700,v=>debugDraft.consumableOfferPurchases=DebugInt(v,0,3));y+=100;
             DebugField(p,"ItemDiscount","道具折扣 0–3",debugDraft.itemDiscount.ToString(),10,y,700,v=>debugDraft.itemDiscount=DebugInt(v,0,3));
