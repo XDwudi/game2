@@ -174,6 +174,21 @@ namespace DiceCraft.Core
             using (var sha = SHA256.Create()) return BitConverter.ToString(sha.ComputeHash(Encoding.UTF8.GetBytes(text.ToString()))).Replace("-", "").ToLowerInvariant();
         }
 
+        // Only the complete identity-free JsonUtility placeholder is semantically absent.
+        // Do not discard a real or malformed payload merely because its offer category differs.
+        private static bool EmptyOfferController(ControllerInstance c)
+        {
+            return c != null && string.IsNullOrEmpty(c.instanceId) && string.IsNullOrEmpty(c.definitionId)
+                && c.enchantmentId == "none" && c.acquiredSerial == 0 && c.alive && c.state != null
+                && string.IsNullOrEmpty(c.state.activeColor) && c.state.turnoverUnits2 == 3 && c.state.fundAccrual == 0;
+        }
+        private static bool EmptyOfferDie(DieInstance d)
+        {
+            return d != null && string.IsNullOrEmpty(d.dieId) && d.createdSerial == 0
+                && string.IsNullOrEmpty(d.lifetime) && string.IsNullOrEmpty(d.createdStageId)
+                && (d.faces == null || d.faces.Length == 0) && !d.isGlass && d.dataRevision == 0;
+        }
+
         private static void AppendCanonical(StringBuilder output, object value)
         {
             if (value == null) { output.Append("null;"); return; }
@@ -197,6 +212,11 @@ namespace DiceCraft.Core
                     if (field.Name == "shop" && fieldValue is ShopState shop && string.IsNullOrEmpty(shop.shopId) && !shop.generated) fieldValue = null;
                     if (field.Name == "hand" && fieldValue is HandState hand && string.IsNullOrEmpty(hand.handId)) fieldValue = null;
                     if (field.Name == "lastStageSettlement" && fieldValue is StageSettlement settlement && string.IsNullOrEmpty(settlement.settlementId)) fieldValue = null;
+                }
+                if (value is ShopOffer offer)
+                {
+                    if (field.Name == "controller" && offer.category != "controller" && EmptyOfferController(fieldValue as ControllerInstance)) fieldValue = null;
+                    if (field.Name == "die" && offer.category != "new_die" && EmptyOfferDie(fieldValue as DieInstance)) fieldValue = null;
                 }
                 output.Append(field.Name).Append('='); AppendCanonical(output, fieldValue);
             }

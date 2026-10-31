@@ -155,6 +155,8 @@ namespace DiceCraft.Core
             Check(shop.offers.Count(o => o.category == "controller") <= ControllerOfferCount(s) && shop.offers.Count(o => o.category == "consumable") <= ConsumableOfferCount(s), "商品格数量超限。");
             foreach (var o in shop.offers)
             {
+                Check(o.category == "controller" || o.controller == null || EmptyOfferController(o.controller), "非控制器报价携带了控制器数据。");
+                Check(o.category == "new_die" || o.die == null || EmptyOfferDie(o.die), "非新骰报价携带了骰子数据。");
                 bool known = o.category == "controller" ? cfg.controllers.Any(x => x.id == o.contentId)
                     : o.category == "consumable" ? cfg.consumables.Any(x => x.id == o.contentId)
                     : o.category == "hand_upgrade" ? cfg.handDefinitions.Any(x => x.id == o.contentId) || cfg.colorDefinitions.Any(x => x.id == o.contentId)
