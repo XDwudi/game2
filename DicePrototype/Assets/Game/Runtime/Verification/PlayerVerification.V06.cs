@@ -468,17 +468,70 @@ namespace DiceCraft.Verification
             Require(FileHash(normalSave) == normalSaveHash, "Controller fixture modified ordinary save.");
         }
 
+        private readonly List<Dictionary<string, object>> displayTransitions = new List<Dictionary<string, object>>();
+        private Dictionary<string, object> activeDisplayTransition;
+        private List<Dictionary<string, object>> activeDisplayFrames;
+        private void PersistDisplayDiagnostics()
+        {
+            if (displayTransitions.Count == 0 || string.IsNullOrEmpty(configuredDirectory)) return;
+            Directory.CreateDirectory(configuredDirectory);
+            File.WriteAllText(Path.Combine(configuredDirectory, "v06-native-display-transitions.json"), Json(displayTransitions), Encoding.UTF8);
+        }
+        private void BeginDisplayDiagnostic(string id, DisplayChoice target, string method)
+        {
+            Require(!sampling, "Display diagnostics must stay outside pressure sampling.");
+            activeDisplayFrames = new List<Dictionary<string, object>>();
+            activeDisplayTransition = new Dictionary<string, object> {
+                ["id"] = id, ["method"] = method, ["requested"] = target == null ? null : new Dictionary<string, object> {
+                    ["display"] = target.displayName, ["width"] = target.width, ["height"] = target.height,
+                    ["mode"] = target.mode.ToString(), ["nativeWidth"] = target.nativeWidth, ["nativeHeight"] = target.nativeHeight,
+                    ["refreshNumerator"] = target.refreshNumerator, ["refreshDenominator"] = target.refreshDenominator },
+                ["availableResolutions"] = Screen.resolutions.Select(r => new Dictionary<string, object> {
+                    ["width"] = r.width, ["height"] = r.height,
+                    ["refreshNumerator"] = r.refreshRateRatio.numerator, ["refreshDenominator"] = r.refreshRateRatio.denominator }).ToArray(),
+                ["frames"] = activeDisplayFrames, ["status"] = "requested" };
+            displayTransitions.Add(activeDisplayTransition);
+            SampleDisplayDiagnostic("before-native-request"); PersistDisplayDiagnostics();
+        }
+        private void SampleDisplayDiagnostic(string stage)
+        {
+            if (activeDisplayFrames == null) return;
+            var prefs = app.DisplayPreferences;
+            activeDisplayFrames.Add(new Dictionary<string, object> { ["stage"] = stage, ["frame"] = Time.frameCount,
+                ["realtime"] = Time.realtimeSinceStartupAsDouble, ["actual"] = ActualDisplay(), ["notice"] = prefs.Notice,
+                ["pending"] = prefs.IsPending, ["canConfirm"] = prefs.CanConfirm, ["transitioning"] = prefs.IsTransitioning });
+        }
+        private bool ApplyDisplayDiagnostic(string id, DisplayChoice target)
+        {
+            BeginDisplayDiagnostic(id, target, "DisplayPreferences.Apply actual Native path");
+            bool accepted = app.DisplayPreferences.Apply(target);
+            activeDisplayTransition["applyAccepted"] = accepted;
+            SampleDisplayDiagnostic("after-apply-return"); PersistDisplayDiagnostics();
+            return accepted;
+        }
         private IEnumerator DisplayReady()
         {
+            if (activeDisplayTransition == null) BeginDisplayDiagnostic("await-native-readback", null, "Existing transition observed without replacing native behavior");
             double until = Time.realtimeSinceStartupAsDouble + 14;
-            while (app.DisplayPreferences.IsTransitioning && Time.realtimeSinceStartupAsDouble < until) yield return null;
-            Require(!app.DisplayPreferences.IsTransitioning, "Native display transition exceeded timeout.");
-            yield return null;
+            try
+            {
+                SampleDisplayDiagnostic("native-await-begin");
+                while (app.DisplayPreferences.IsTransitioning && Time.realtimeSinceStartupAsDouble < until)
+                { yield return null; SampleDisplayDiagnostic("native-await-frame"); }
+                Require(!app.DisplayPreferences.IsTransitioning, "Native display transition exceeded timeout.");
+                yield return null; SampleDisplayDiagnostic("native-await-settled");
+                activeDisplayTransition["status"] = "transition_finished_requires_caller_assertions";
+            }
+            finally
+            {
+                SampleDisplayDiagnostic("native-await-finally"); PersistDisplayDiagnostics();
+                activeDisplayTransition = null; activeDisplayFrames = null;
+            }
         }
         private Dictionary<string, object> ActualDisplay()
         {
             var d = app.DisplayPreferences.ReadActual();
-            return new Dictionary<string, object> { ["display"] = d.displayName, ["width"] = d.width, ["height"] = d.height, ["mode"] = d.mode.ToString(), ["nativeWidth"] = d.nativeWidth, ["nativeHeight"] = d.nativeHeight, ["focused"] = Application.isFocused };
+            return new Dictionary<string, object> { ["display"] = d.displayName, ["width"] = d.width, ["height"] = d.height, ["mode"] = d.mode.ToString(), ["nativeWidth"] = d.nativeWidth, ["nativeHeight"] = d.nativeHeight, ["refreshNumerator"] = d.refreshNumerator, ["refreshDenominator"] = d.refreshDenominator, ["focused"] = Application.isFocused };
         }
         private void DisplayRecord(string id, string status, string reason = null)
         {
@@ -493,7 +546,11 @@ namespace DiceCraft.Verification
             app.ShowDisplaySettings(); yield return null;
             foreach (int mode in new[] { 0, 1, 2 })
             {
-                Press("Mode" + mode); Press("ApplyDisplay"); yield return DisplayReady();
+                Press("Mode" + mode); yield return null;
+                var draft = ((DisplayChoice)typeof(GameApp).GetField("displayDraft", PrivateInstance).GetValue(app)).Clone();
+                BeginDisplayDiagnostic("ui-mode-" + mode, draft, "Actual Mode/ApplyDisplay uGUI events");
+                Press("ApplyDisplay"); SampleDisplayDiagnostic("after-ui-apply-return"); PersistDisplayDiagnostics();
+                yield return DisplayReady();
                 Require(prefs.IsPending && prefs.CanConfirm, "UI display mode could not reach confirmation: " + mode);
                 var expected = mode == 0 ? DisplaySettings.PlatformFullscreen : mode == 1 ? FullScreenMode.FullScreenWindow : FullScreenMode.Windowed;
                 Require(Screen.fullScreenMode == expected, "Native fullscreen mode differs from selected mode.");
@@ -510,10 +567,11 @@ namespace DiceCraft.Verification
                 else
                 {
                     var size = sizes.FirstOrDefault(s => s.x == 1280 && s.y == 720); if (size.x == 0) size = sizes[0];
-                    Require(prefs.Apply(prefs.Choice(d, FullScreenMode.ExclusiveFullScreen, size.x, size.y)), "Non-native exclusive apply rejected.");
+                    Require(ApplyDisplayDiagnostic("exclusive-non-native", prefs.Choice(d, FullScreenMode.ExclusiveFullScreen, size.x, size.y)), "Non-native exclusive apply rejected.");
                     yield return DisplayReady();
                     Require(prefs.CanConfirm && Screen.fullScreenMode == FullScreenMode.ExclusiveFullScreen && Screen.width == size.x && Screen.height == size.y, "Non-native exclusive resolution was mistaken for a missing display or failed readback.");
                     app.ShowDisplaySettings(); yield return Capture("v06-exclusive-non-native-pending");
+                    BeginDisplayDiagnostic("exclusive-non-native-revert", original, "InputSystem Escape via actual GameApp.Update");
                     yield return EscapeThroughInputSystem("exclusive-non-native-revert"); yield return DisplayReady();
                     Require(!prefs.IsPending && Screen.width == original.width && Screen.height == original.height && Screen.fullScreenMode == original.mode, "Escape from non-native exclusive did not restore prior mode.");
                     DisplayRecord("exclusive-non-native-escape", "passed", "Actual supported non-native exclusive mode followed by InputSystem Escape rollback.");
@@ -528,7 +586,7 @@ namespace DiceCraft.Verification
                 string label = "window-" + size.x + "x" + size.y;
                 if (size.x > d.workArea.width || size.y > d.workArea.height)
                 { DisplayRecord(label, "not_supported", "Requested client dimensions exceed current display work area."); continue; }
-                Require(prefs.Apply(prefs.Choice(d, FullScreenMode.Windowed, size.x, size.y)), "Display API rejected supported test window.");
+                Require(ApplyDisplayDiagnostic(label, prefs.Choice(d, FullScreenMode.Windowed, size.x, size.y)), "Display API rejected supported test window.");
                 yield return DisplayReady();
                 Require(prefs.CanConfirm && Screen.width == size.x && Screen.height == size.y && Screen.fullScreenMode == FullScreenMode.Windowed, "Actual window size differs from request.");
                 app.ShowDisplaySettings(); yield return Capture("v06-display-" + size.x + "x" + size.y);
@@ -537,15 +595,21 @@ namespace DiceCraft.Verification
             }
             var confirmed = prefs.ReadActual();
             var display = Screen.mainWindowDisplayInfo;
-            Require(prefs.Apply(prefs.Choice(display, FullScreenMode.Windowed, 1280, 720)), "Could not begin timeout test.");
+            Require(ApplyDisplayDiagnostic("timeout-candidate", prefs.Choice(display, FullScreenMode.Windowed, 1280, 720)), "Could not begin timeout test.");
             yield return DisplayReady(); Require(prefs.CanConfirm, "Timeout test was never confirmable.");
+            BeginDisplayDiagnostic("timeout-revert", confirmed, "Actual 15-second confirmation timeout; bounded 21-second frame observation");
             double start = Time.realtimeSinceStartupAsDouble;
-            while (Time.realtimeSinceStartupAsDouble - start < 14) { Require(prefs.IsPending, "Display confirmation expired before 14 observed seconds."); yield return null; }
-            while ((prefs.IsPending || prefs.IsTransitioning) && Time.realtimeSinceStartupAsDouble - start < 21) yield return null;
+            try
+            {
+                while (Time.realtimeSinceStartupAsDouble - start < 14) { Require(prefs.IsPending, "Display confirmation expired before 14 observed seconds."); yield return null; SampleDisplayDiagnostic("timeout-wait-frame"); }
+                while ((prefs.IsPending || prefs.IsTransitioning) && Time.realtimeSinceStartupAsDouble - start < 21) { yield return null; SampleDisplayDiagnostic("timeout-revert-frame"); }
+            }
+            finally { SampleDisplayDiagnostic("timeout-finally"); PersistDisplayDiagnostics(); activeDisplayTransition = null; activeDisplayFrames = null; }
             Require(!prefs.IsPending && !prefs.IsTransitioning && Screen.width == confirmed.width && Screen.height == confirmed.height && Screen.fullScreenMode == confirmed.mode, "15-second timeout failed to restore confirmed native mode.");
             DisplayRecord("15-second-timeout-revert", "passed", "Real elapsed time observed; no shortened timer or mocked clock.");
-            Require(prefs.Apply(prefs.Choice(Screen.mainWindowDisplayInfo, FullScreenMode.Windowed, 1280, 720)), "Could not begin Escape test.");
-            yield return DisplayReady(); yield return EscapeThroughInputSystem("window-display-revert"); yield return DisplayReady();
+            Require(ApplyDisplayDiagnostic("escape-candidate", prefs.Choice(Screen.mainWindowDisplayInfo, FullScreenMode.Windowed, 1280, 720)), "Could not begin Escape test.");
+            yield return DisplayReady(); BeginDisplayDiagnostic("window-display-revert", confirmed, "InputSystem Escape via actual GameApp.Update");
+            yield return EscapeThroughInputSystem("window-display-revert"); yield return DisplayReady();
             Require(!prefs.IsPending && Screen.width == confirmed.width && Screen.height == confirmed.height && Screen.fullScreenMode == confirmed.mode, "Escape failed to restore confirmed native display.");
             DisplayRecord("escape-revert", "passed", "InputSystem keyboard state event handled by GameApp.Update.");
             DisplayRecord("crash-pending-recovery", "not_executed", "Requires separate --verify-display-recovery-write/read processes; this main probe does not simulate a crash by rebuilding a component.");
@@ -697,7 +761,7 @@ namespace DiceCraft.Verification
                 prefs.Initialize(settings, false);
                 var confirmed = prefs.ReadActual();
                 var candidate = prefs.Choice(Screen.mainWindowDisplayInfo, FullScreenMode.FullScreenWindow, Screen.mainWindowDisplayInfo.width, Screen.mainWindowDisplayInfo.height);
-                Require(prefs.Apply(candidate), "Recovery writer could not apply candidate."); yield return DisplayReady();
+                Require(ApplyDisplayDiagnostic("recovery-writer-candidate", candidate), "Recovery writer could not apply candidate."); yield return DisplayReady();
                 Require(prefs.CanConfirm && JsonMember(File.ReadAllText(settings), "pending") == "true", "Pending preference was not durable before termination.");
                 var receipt = new RecoveryReceipt { status = "awaiting_external_process_termination", writerProcessId = pid, confirmed = confirmed,
                     candidate = candidate, actual = prefs.ReadActual(), settingsPath = settings, pendingSha256 = FileHash(settings),
@@ -717,6 +781,7 @@ namespace DiceCraft.Verification
                 var receipt = JsonUtility.FromJson<RecoveryReceipt>(File.ReadAllText(ready));
                 Require(receipt.writerProcessId != pid && receipt.status == "awaiting_external_process_termination" && receipt.pendingSha256 == FileHash(settings)
                     && JsonMember(File.ReadAllText(settings), "pending") == "true", "Recovery input is not unchanged pending data from another process.");
+                BeginDisplayDiagnostic("recovery-reader-initialize", receipt.confirmed, "Actual new-process DisplayPreferences.Initialize");
                 prefs.Initialize(settings, true); yield return DisplayReady();
                 Require(!prefs.IsPending && !prefs.IsTransitioning && Screen.width == receipt.confirmed.width && Screen.height == receipt.confirmed.height && Screen.fullScreenMode == receipt.confirmed.mode,
                     "Fresh process did not restore confirmed native mode.");
