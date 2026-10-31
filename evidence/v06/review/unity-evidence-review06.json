@@ -1,0 +1,91 @@
+{
+  "scope": "Real Unity reports read independently; reviewer did not start the Editor",
+  "pdbAudit": "evidence/v06/review/unity-final-pdb05.json",
+  "pdbSha256": "34112dedfeaaf28d994e435bec05b7258a9e4ab1090c77dd9ee9eea90bfc25d3",
+  "projectCsharpDocuments": 61,
+  "modules": [
+    {
+      "name": "DiceCraft.Core",
+      "mvid": "04a9546c-33a0-44a6-a93f-b64553a77c7b",
+      "dllSha256": "81b5892793104036cb01e5d62a54012b4a29c4b6a0d91f01c91b103b80204b70"
+    },
+    {
+      "name": "DiceCraft.EditMode",
+      "mvid": "685dbd17-7355-4e7b-82e0-eb0413f7be3c",
+      "dllSha256": "8a1b1d3c161f4ce65617221874d105e65011bbc4dae5a1b6942e1f7881312de7"
+    },
+    {
+      "name": "DiceCraft.Editor",
+      "mvid": "5cccd6c9-6ae1-434d-9767-83765ae12a08",
+      "dllSha256": "7c5436cbf18ff40866bc6632352e553b6ae1f407025904d2a8a5409807f87bf0"
+    },
+    {
+      "name": "DiceCraft.PlayModeTests",
+      "mvid": "e1c3bf3a-4495-44dd-abaa-499cea89cc1d",
+      "dllSha256": "f2d8ae1cacec4e7354f9559b3d5820a963c0c815d3fa5e39659d14a64692e840"
+    },
+    {
+      "name": "DiceCraft.Runtime",
+      "mvid": "16ca7204-d407-4538-8731-51591ffb376d",
+      "dllSha256": "3c5733f1e250cb522659ffb930aff948f577ea111b0457f6378d15707afe939e"
+    }
+  ],
+  "reports": [
+    {
+      "mode": "EditMode",
+      "report": "evidence/v06/unity/nunit-20261031-140708.xml",
+      "reportSha256": "e5760bfe674c01125c596d8530da8b013121e20e2d68a09cff108a0a1a18890b",
+      "bindingSha256": "222cd6218240dd0af57dfdd390110c90a27e963ed34c73afe90ab785c5b3d9cd",
+      "cases": 776,
+      "failed": 0,
+      "skipped": 0,
+      "fullnamesMatchCompleteDiscovery": true,
+      "phases": [
+        {
+          "phase": "started",
+          "utc": "2026-10-31T14:06:53.7541275Z",
+          "loadedModulesMatchPdb": true,
+          "files": 603,
+          "changedSources": []
+        },
+        {
+          "phase": "finished",
+          "utc": "2026-10-31T14:07:08.9279039Z",
+          "loadedModulesMatchPdb": true,
+          "files": 603,
+          "changedSources": []
+        }
+      ]
+    },
+    {
+      "mode": "PlayMode",
+      "report": "evidence/v06/unity/nunit-20261031-140639.xml",
+      "reportSha256": "dfbfa32beb78db73cdc7f13b031c3abbed0881b462846bff8697e84c2b1593d8",
+      "bindingSha256": "ee5d273090dc17f6d885650d43fd813825d36d49b294d2bad0dbb12b6f1e8c46",
+      "cases": 30,
+      "failed": 0,
+      "skipped": 0,
+      "fullnamesMatchCompleteDiscovery": true,
+      "phases": [
+        {
+          "phase": "started",
+          "utc": "2026-10-31T14:06:16.8381114Z",
+          "loadedModulesMatchPdb": true,
+          "files": 603,
+          "changedSources": []
+        },
+        {
+          "phase": "finished",
+          "utc": "2026-10-31T14:06:39.4131786Z",
+          "loadedModulesMatchPdb": true,
+          "files": 603,
+          "changedSources": []
+        }
+      ]
+    }
+  ],
+  "sourceStableDuringRead": true,
+  "sourceFiles": 603,
+  "errors": [],
+  "status": "passed"
+}

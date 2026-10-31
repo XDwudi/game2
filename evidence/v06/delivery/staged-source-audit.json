@@ -1,0 +1,33 @@
+{
+  "utc": "2026-10-31T16:18:11.642647+00:00",
+  "scope": "Exact staged paths; source/evidence/documents, no package ZIPs/caches",
+  "stagedFiles": 2634,
+  "bytes": 228448660,
+  "largest": [
+    [
+      2925384,
+      "evidence/v06/review/review-vectors.json"
+    ],
+    [
+      2615191,
+      "evidence/v06/player/player-20261031-154556-f25586f0/debug-final-state.json"
+    ],
+    [
+      2073980,
+      "evidence/v06/player/player-20261031-154556-f25586f0/debug24-final-state.json"
+    ],
+    [
+      1887686,
+      "evidence/v06/player/player-20261031-154556-f25586f0/performance-frames.csv"
+    ],
+    [
+      1611924,
+      "evidence/v06/player/player-20261031-154556-f25586f0/debug-stress-save/debug-actions.jsonl"
+    ]
+  ],
+  "forbiddenPaths": [],
+  "credentialPatternPathsOnly": [],
+  "noSecretValuesPrinted": true,
+  "passed": true,
+  "limits": "Pattern scan and exclusion check; no claim of exhaustive secret detection or game acceptance"
+}

@@ -1,0 +1,87 @@
+{
+  "mismatches": 0,
+  "assemblies": [
+    {
+      "name": "DiceCraft.Core",
+      "mvid": "0",
+      "dllSha256": "ceadbd6056348f7158082fe5ee906a7d7a52e8f78204dae77dd49dcc7f3ce436",
+      "pdbSha256": "b821bddaec947fd202b4ab1698f46c1032fb7c148be0d100b635b68ea4122d90",
+      "pdbMatchesDll": true,
+      "projectDocuments": 1,
+      "dllLastWriteUtc": "2026-10-31T12:00:00Z"
+    },
+    {
+      "name": "DiceCraft.Runtime",
+      "mvid": "1",
+      "dllSha256": "ebd39895a9574be399540b25c1eecf2204cc713db270c5b1fad82a4973b566ab",
+      "pdbSha256": "394286caa49b67e7e46c157cc91dd0789c8fe0520772ca7e9c58c421e3cb0fb4",
+      "pdbMatchesDll": true,
+      "projectDocuments": 1,
+      "dllLastWriteUtc": "2026-10-31T12:00:00Z"
+    },
+    {
+      "name": "DiceCraft.EditMode",
+      "mvid": "2",
+      "dllSha256": "8cc90f8b251a0b708d09c16dff6cdfcc7f54685e8059d03bf9e7e6a94dae12d9",
+      "pdbSha256": "8efa783876f40b085f88f19a228de7644b69e0c5f97e2e63b3540c45bf411a6b",
+      "pdbMatchesDll": true,
+      "projectDocuments": 1,
+      "dllLastWriteUtc": "2026-10-31T12:00:00Z"
+    },
+    {
+      "name": "DiceCraft.PlayModeTests",
+      "mvid": "3",
+      "dllSha256": "1d6292f13cf3393437cf4e311176413566a7d52014f672dbb40f5685299c2386",
+      "pdbSha256": "533216854f8550d09cb90b1789a6fb1e8c17ebf5178eddf791ffea9b087338d1",
+      "pdbMatchesDll": true,
+      "projectDocuments": 1,
+      "dllLastWriteUtc": "2026-10-31T12:00:00Z"
+    },
+    {
+      "name": "DiceCraft.Editor",
+      "mvid": "4",
+      "dllSha256": "30b889ff85f5136cf259feb9cede280fe785c3d589b09ac9a00d8c75f6d5c20e",
+      "pdbSha256": "bf2d8695518bd7cf981f85914c6c78941d04c5211dda077650b22a91cedc980e",
+      "pdbMatchesDll": true,
+      "projectDocuments": 1,
+      "dllLastWriteUtc": "2026-10-31T12:00:00Z"
+    }
+  ],
+  "documents": [
+    {
+      "assembly": "DiceCraft.Core",
+      "source": "E:\\agent_workspace\\gpt\\game2\\evidence\\v06\\review\\gate-run03\\missing_loaded_runtime_assembly\\DicePrototype\\Assets\\Game\\Fixture\\DiceCraft.Core.cs",
+      "expectedChecksum": "4d4f7f3f33f95e23eebc7a2650b2f91af07425028b765900738767bc2113fa66",
+      "currentChecksum": "4d4f7f3f33f95e23eebc7a2650b2f91af07425028b765900738767bc2113fa66",
+      "matches": true
+    },
+    {
+      "assembly": "DiceCraft.Runtime",
+      "source": "E:\\agent_workspace\\gpt\\game2\\evidence\\v06\\review\\gate-run03\\missing_loaded_runtime_assembly\\DicePrototype\\Assets\\Game\\Fixture\\DiceCraft.Runtime.cs",
+      "expectedChecksum": "f0c4c4dcc68701ae9b931c0b27eea4b1f59531969ee0afb002eae534c6748865",
+      "currentChecksum": "f0c4c4dcc68701ae9b931c0b27eea4b1f59531969ee0afb002eae534c6748865",
+      "matches": true
+    },
+    {
+      "assembly": "DiceCraft.EditMode",
+      "source": "E:\\agent_workspace\\gpt\\game2\\evidence\\v06\\review\\gate-run03\\missing_loaded_runtime_assembly\\DicePrototype\\Assets\\Game\\Fixture\\DiceCraft.EditMode.cs",
+      "expectedChecksum": "332e009dcc2b52480c788221e3e774e56d25f8246222ba62da50b4b82a6935b4",
+      "currentChecksum": "332e009dcc2b52480c788221e3e774e56d25f8246222ba62da50b4b82a6935b4",
+      "matches": true
+    },
+    {
+      "assembly": "DiceCraft.PlayModeTests",
+      "source": "E:\\agent_workspace\\gpt\\game2\\evidence\\v06\\review\\gate-run03\\missing_loaded_runtime_assembly\\DicePrototype\\Assets\\Game\\Fixture\\DiceCraft.PlayModeTests.cs",
+      "expectedChecksum": "c9e6cea97bc1394a69e1f5c70c47c948e98a5df82b8342ada23f355edd742a20",
+      "currentChecksum": "c9e6cea97bc1394a69e1f5c70c47c948e98a5df82b8342ada23f355edd742a20",
+      "matches": true
+    },
+    {
+      "assembly": "DiceCraft.Editor",
+      "source": "E:\\agent_workspace\\gpt\\game2\\evidence\\v06\\review\\gate-run03\\missing_loaded_runtime_assembly\\DicePrototype\\Assets\\Game\\Fixture\\DiceCraft.Editor.cs",
+      "expectedChecksum": "22c42cb893d999d8f882296e7727eff326df334ff51233097b02d6080498ea71",
+      "currentChecksum": "22c42cb893d999d8f882296e7727eff326df334ff51233097b02d6080498ea71",
+      "matches": true
+    }
+  ]
+}

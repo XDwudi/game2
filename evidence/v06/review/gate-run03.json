@@ -1,0 +1,157 @@
+{
+  "scope": "Synthetic build-gate integrity probes. No Unity or production writes; no git mutation.\n\nFixture DLL/PDB files are deliberately just bytes because this test targets the gate's\nconsumption of an audit proof, not the PE auditor itself. A mocked git read reports the\nfixture root clean. These are negative checker tests, never game acceptance evidence.\n",
+  "gateSha256": "f3e07249ef9be34f8a13d70746141dc35a6d169c0d4cfdbc733c9f32a02360c1",
+  "probeSha256": "0520d1d3c0d51d02c76812b583b0f8c8498a53d1d133d9d60af6e15c64776189",
+  "count": 21,
+  "expectationsMet": 21,
+  "unexpectedAcceptances": [],
+  "results": [
+    {
+      "name": "valid_complete_fixture",
+      "expected": "accept",
+      "actual": "accept",
+      "matchedExpectation": true,
+      "error": null
+    },
+    {
+      "name": "changed_discovered_name",
+      "expected": "reject",
+      "actual": "reject",
+      "matchedExpectation": true,
+      "error": "ValueError: Executed suite differs from complete discovered inventory: EditMode"
+    },
+    {
+      "name": "skipped_leaf",
+      "expected": "reject",
+      "actual": "reject",
+      "matchedExpectation": true,
+      "error": "CheckError: test EditMode.Fixture0: result is 'Skipped', expected Passed"
+    },
+    {
+      "name": "changed_compiled_source",
+      "expected": "reject",
+      "actual": "reject",
+      "matchedExpectation": true,
+      "error": "ValueError: Current source differs from compiled PDB: E:\\agent_workspace\\gpt\\game2\\evidence\\v06\\review\\gate-run03\\changed_compiled_source\\DicePrototype\\Assets\\Game\\Fixture\\DiceCraft.Core.cs"
+    },
+    {
+      "name": "changed_current_dll",
+      "expected": "reject",
+      "actual": "reject",
+      "matchedExpectation": true,
+      "error": "ValueError: Recompiled after PDB audit: E:\\agent_workspace\\gpt\\game2\\evidence\\v06\\review\\gate-run03\\changed_current_dll\\DicePrototype\\Library\\ScriptAssemblies\\DiceCraft.Core.dll"
+    },
+    {
+      "name": "old_test_loaded_mvid_after_recompile",
+      "expected": "reject",
+      "actual": "reject",
+      "matchedExpectation": true,
+      "error": "ValueError: NUnit ran different loaded assemblies: started"
+    },
+    {
+      "name": "failed_nested_suite_with_passed_leaves",
+      "expected": "reject",
+      "actual": "reject",
+      "matchedExpectation": true,
+      "error": "CheckError: test-suite: non-passing or unknown suite/run result"
+    },
+    {
+      "name": "namespaced_failed_case_hidden_from_counts",
+      "expected": "reject",
+      "actual": "reject",
+      "matchedExpectation": true,
+      "error": "CheckError: illegal NUnit parent/child: test-suite/{urn:unexpected}test-case"
+    },
+    {
+      "name": "wrong_root_tag",
+      "expected": "reject",
+      "actual": "reject",
+      "matchedExpectation": true,
+      "error": "CheckError: expected NUnit 3 test-run or NUnit 2 test-results root"
+    },
+    {
+      "name": "mixed_platform_labels",
+      "expected": "reject",
+      "actual": "reject",
+      "matchedExpectation": true,
+      "error": "ValueError: EditMode: wrong report mode"
+    },
+    {
+      "name": "five_duplicate_core_assemblies_omit_runtime_and_tests",
+      "expected": "reject",
+      "actual": "reject",
+      "matchedExpectation": true,
+      "error": "ValueError: Independent Unity PDB audit is missing or failed"
+    },
+    {
+      "name": "proof_omits_runtime_source_documents",
+      "expected": "reject",
+      "actual": "reject",
+      "matchedExpectation": true,
+      "error": "ValueError: Incomplete PDB document inventory: DiceCraft.Runtime"
+    },
+    {
+      "name": "no_test_execution_binding",
+      "expected": "reject",
+      "actual": "reject",
+      "matchedExpectation": true,
+      "error": "FileNotFoundError: [Errno 2] No such file or directory: 'E:\\\\agent_workspace\\\\gpt\\\\game2\\\\evidence\\\\v06\\\\review\\\\gate-run03\\\\no_test_execution_binding\\\\EditMode.binding.json'"
+    },
+    {
+      "name": "wrong_test_report_sha_in_binding",
+      "expected": "reject",
+      "actual": "reject",
+      "matchedExpectation": true,
+      "error": "ValueError: NUnit result is missing its actual runtime binding"
+    },
+    {
+      "name": "end_loaded_mvid_changed",
+      "expected": "reject",
+      "actual": "reject",
+      "matchedExpectation": true,
+      "error": "ValueError: NUnit ran different loaded assemblies: finished"
+    },
+    {
+      "name": "missing_loaded_runtime_assembly",
+      "expected": "reject",
+      "actual": "reject",
+      "matchedExpectation": true,
+      "error": "ValueError: NUnit ran different loaded assemblies: started"
+    },
+    {
+      "name": "duplicate_loaded_core_assembly",
+      "expected": "reject",
+      "actual": "reject",
+      "matchedExpectation": true,
+      "error": "ValueError: NUnit ran different loaded assemblies: finished"
+    },
+    {
+      "name": "changed_source_during_test",
+      "expected": "reject",
+      "actual": "reject",
+      "matchedExpectation": true,
+      "error": "ValueError: NUnit source snapshot differs from current source: finished"
+    },
+    {
+      "name": "source_not_in_test_snapshot",
+      "expected": "reject",
+      "actual": "reject",
+      "matchedExpectation": true,
+      "error": "ValueError: NUnit source snapshot differs from current source: started"
+    },
+    {
+      "name": "duplicate_pdb_document",
+      "expected": "reject",
+      "actual": "reject",
+      "matchedExpectation": true,
+      "error": "ValueError: Invalid or duplicate PDB source document: E:\\agent_workspace\\gpt\\game2\\evidence\\v06\\review\\gate-run03\\duplicate_pdb_document\\DicePrototype\\Assets\\Game\\Fixture\\DiceCraft.Core.cs"
+    },
+    {
+      "name": "missing_pdb_current_source",
+      "expected": "reject",
+      "actual": "reject",
+      "matchedExpectation": true,
+      "error": "ValueError: PDB audit omits current project C# source files"
+    }
+  ]
+}

@@ -1,0 +1,84 @@
+{
+  "scope": "Read-only reviewer binding audit; does not build, run Unity, or modify Git.",
+  "gitHead": "a6419246231fc80c9c577ca674247571f4635bfa",
+  "managedRun06": {
+    "checks": 2077,
+    "boundFiles": 34,
+    "sourceChanged": [],
+    "reportSha256Matches": true
+  },
+  "gateProbe": {
+    "count": 21,
+    "productionCheckerSourceUnchanged": true
+  },
+  "consumerProbe": {
+    "count": 9,
+    "productionConsumerSourceUnchanged": true
+  },
+  "builtWindowsPdb": {
+    "audit": "windows-built-pdb02.json",
+    "sha256": "ec156e8dd29a428807814bc122f577fc7e122d4fed91e32ed467c66895f3ef0e",
+    "modules": 2,
+    "projectDocuments": 33,
+    "allProductionCoreRuntimeCovered": true,
+    "mismatches": 0
+  },
+  "stressMethodBaseline": "2db287a19467b2d77581692990696ebbcc9b871d",
+  "stressMethods": [
+    {
+      "name": "RunStress",
+      "unchanged": true,
+      "baselineNormalizedSha256": "5f419862b5acbf55e5d4c8c3f4a1b8394fc335283b4c0f55c32b4b6894097aa7",
+      "currentNormalizedSha256": "5f419862b5acbf55e5d4c8c3f4a1b8394fc335283b4c0f55c32b4b6894097aa7"
+    },
+    {
+      "name": "LateUpdate",
+      "unchanged": true,
+      "baselineNormalizedSha256": "6b50931f71c367b602399d6b439717474ba4acd32206b8355affccaa3d10e31c",
+      "currentNormalizedSha256": "6b50931f71c367b602399d6b439717474ba4acd32206b8355affccaa3d10e31c"
+    },
+    {
+      "name": "BuildPerformanceReport",
+      "unchanged": true,
+      "baselineNormalizedSha256": "b9562bc066c724dbcdd11bf3eb76f7fe8697321f5cc2bd60594861720d0299f9",
+      "currentNormalizedSha256": "b9562bc066c724dbcdd11bf3eb76f7fe8697321f5cc2bd60594861720d0299f9"
+    },
+    {
+      "name": "WriteFrames",
+      "unchanged": true,
+      "baselineNormalizedSha256": "95096738c26861e5106dfe37fa80f5abe201d7f7d25e3a48729d3f0c725ae5bc",
+      "currentNormalizedSha256": "95096738c26861e5106dfe37fa80f5abe201d7f7d25e3a48729d3f0c725ae5bc"
+    },
+    {
+      "name": "Metric",
+      "unchanged": true,
+      "baselineNormalizedSha256": "c6d9e08728328de3205c04398725f45cb076bdb2f520da527ce31e40b5a65ef0",
+      "currentNormalizedSha256": "c6d9e08728328de3205c04398725f45cb076bdb2f520da527ce31e40b5a65ef0"
+    },
+    {
+      "name": "CompleteCoverage",
+      "unchanged": true,
+      "baselineNormalizedSha256": "7c667c9c82c7f4f8904a743b4a45a8ad2bf51d9b75fdadb1e813d35f61cb97e6",
+      "currentNormalizedSha256": "7c667c9c82c7f4f8904a743b4a45a8ad2bf51d9b75fdadb1e813d35f61cb97e6"
+    },
+    {
+      "name": "RequiredFrameCapacity",
+      "unchanged": true,
+      "baselineNormalizedSha256": "060c5026c81f099f74eecaa322dd6476e2c21f6015d8065be56e5b985c642c39",
+      "currentNormalizedSha256": "060c5026c81f099f74eecaa322dd6476e2c21f6015d8065be56e5b985c642c39"
+    },
+    {
+      "name": "ClassifyGpuDuration",
+      "unchanged": true,
+      "baselineNormalizedSha256": "20540571f730626f75bf452ef00bac7cce6f425373ebe7fdaebb19f41cf853fa",
+      "currentNormalizedSha256": "20540571f730626f75bf452ef00bac7cce6f425373ebe7fdaebb19f41cf853fa"
+    },
+    {
+      "name": "ClockDelta",
+      "unchanged": true,
+      "baselineNormalizedSha256": "3b0c259e4600c37df06911b71b4f8801c6557c634170a575dae45f653117c3aa",
+      "currentNormalizedSha256": "3b0c259e4600c37df06911b71b4f8801c6557c634170a575dae45f653117c3aa"
+    }
+  ],
+  "status": "passed"
+}

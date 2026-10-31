@@ -1,0 +1,96 @@
+{
+  "schema": "v06-review-candidate-tool-source-1",
+  "utc": "2026-10-31T15:39:56.709205+00:00",
+  "status": "offline_checks_passed_independent_review_pending",
+  "scope": "Explicit restricted test-candidate route; existing user delivery authorization, native P22 pending, no full release acceptance",
+  "didNotExecute": [
+    "Unity",
+    "Player",
+    "Mac",
+    "credential helper",
+    "GitHub",
+    "actual game packaging"
+  ],
+  "files": [
+    {
+      "path": "tools/package_v06.py",
+      "bytes": 22190,
+      "sha256": "734a22013d75115d988cda119579be66993e9736c9279dc715e4de9a4b438d97"
+    },
+    {
+      "path": "tools/release_v06_manifest.py",
+      "bytes": 9274,
+      "sha256": "763aef6f61e74b1de22ccfb727096e1bb8cfda763acde3606665b2eeeb9e8f54"
+    },
+    {
+      "path": "tools/publish_v06_release.py",
+      "bytes": 18790,
+      "sha256": "e09068b7bdaa00fc2b4fe9663809ee414b68c7f5616d069a0454d796d03d1e5b"
+    },
+    {
+      "path": "tools/verify_v06_display_recovery.py",
+      "bytes": 13371,
+      "sha256": "127bf97c79a80fae1306c12c9fefdf1cdb30eb915b6d675401cfc61f9346df0a"
+    },
+    {
+      "path": "tools/macos/v06/compare_replays.py",
+      "bytes": 23842,
+      "sha256": "37684edb2ffdd918fc09d1bb9405c1eddb4eb32e0de27ef0cb05a0df654653f7"
+    },
+    {
+      "path": "tools/macos/v06/verify_mac.py",
+      "bytes": 27837,
+      "sha256": "65f2ed1944b9d7c1a8d73f4d784c62863d9676b65ce7a5417e54ed3fd2ad88a4"
+    },
+    {
+      "path": "tools/macos/v06/package_checks.py",
+      "bytes": 7160,
+      "sha256": "75df35774305feac4c27cd2f3de36bccc6b72dd29289e802dd40e7b9e59a5bea"
+    },
+    {
+      "path": "tools/macos/v06/VerifyMac.command",
+      "bytes": 1098,
+      "sha256": "68497aabb889fe2b36f733145996e6a1405879864ba5ab0b19fb8db245231389"
+    },
+    {
+      "path": "tools/macos/v06/test_mac_tools.py",
+      "bytes": 18160,
+      "sha256": "a9b1b7a6076d00afa24d1361bf9cd3ef12c28f4816946ceb079237892b170249"
+    },
+    {
+      "path": "tools/macos/v06/test_delivery_tools.py",
+      "bytes": 20291,
+      "sha256": "2f6c2207e6df2743d400b454edf3077b5c4fe88acfc78d20a147700e8b3c970e"
+    },
+    {
+      "path": "tools/macos/v06/test_review_candidate.py",
+      "bytes": 18329,
+      "sha256": "201796c46e02a28130244a6d8df157aa99c92f06e24f390007f8a0f438c7e47f"
+    },
+    {
+      "path": "docs/PLAYER_README_V06.txt",
+      "bytes": 3942,
+      "sha256": "36b3c1fa846038effa698f0b83a0fc2f36d83ef0dc4d55161dfb9534c5efcdad"
+    },
+    {
+      "path": "evidence/v06/session/REVIEW_CANDIDATE_HANDOFF.md",
+      "bytes": 5319,
+      "sha256": "0b67a5a99a6444ff65771dcdc1650ffed1b97e862191ee8a795aaf2261990512"
+    },
+    {
+      "path": "evidence/v06/session/review-candidate-tools03.log",
+      "bytes": 12116,
+      "sha256": "a1c281dbc6eab31c37b436b1e85b7137c6e01734f8c2ec18457ecbcdedb2af60"
+    },
+    {
+      "path": "evidence/v06/session/review-candidate-runner14.log",
+      "bytes": 2418,
+      "sha256": "a95c584332515515fba2b0328fb33bd9947f6fac8f013b5a9d27e2d3b93b53da"
+    },
+    {
+      "path": "evidence/v06/session/review-candidate-framework20.log",
+      "bytes": 2928,
+      "sha256": "fe0d28518d9d05c1d5047b75dfaeb11958e90b18a5a73e118c200a5d5d0dfb9c"
+    }
+  ]
+}

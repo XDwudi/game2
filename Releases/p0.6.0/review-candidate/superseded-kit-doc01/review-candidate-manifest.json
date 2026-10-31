@@ -1,0 +1,665 @@
+{
+  "diagnosticSummary": {
+    "status": "budget_exceeded",
+    "verificationScope": "full-gameplay-ui-perf_native_display_pending",
+    "use": "Gameplay/UI/trace reference ONLY; Windows performance FAILED and native P22 NOT PASSED",
+    "allowFailedWindowsPerformance": true,
+    "windowsPerformance": {
+      "acceptanceStatus": "FAILED",
+      "status": "budget_exceeded",
+      "observedStatus": "budget_exceeded",
+      "sampleSeconds": 180.004603,
+      "p95FrameIntervalMs": 23.0348000000049,
+      "thresholdMs": 16.7,
+      "frames": 9103,
+      "focusedSampleFrames": 0,
+      "gpuInvalidSamples": 1,
+      "gpuMissingSamples": 264,
+      "note": "Completed observation, not a performance pass or pending result. Focus and GPU anomalies remain uncorrected evidence."
+    },
+    "windowsNativeDisplayStatus": "PENDING_P22_NOT_PASSED",
+    "macRuntimeStatus": "NOT_RUN_ON_MAC",
+    "fullWindowsPassed": false,
+    "fullReleaseAccepted": false,
+    "publication": "User-authorized diagnostic test candidate; no performance, native-display or whole-release acceptance"
+  },
+  "schema": "v06-diagnostic-review-candidate-1",
+  "releaseVersion": "p0.6.0",
+  "sourceCommit": "08ef933f2fbc3198a5e357ecebaa2758fbee8643",
+  "contentConfigVersion": "p0.6.0",
+  "contentConfigSha256": "747ed1efc7bea15873f66a81eee5c7654971c21031f2a1517ce629adce7b6e6c",
+  "saveSchemaVersion": 4,
+  "goldenCaseSetSha256": "306cb86f79dafe0e3eb302714abd232af20fe0062a6713f7d713c11e2a6a5718",
+  "unityEditorVersion": "6000.6.7f1",
+  "backend": "Mono",
+  "releaseTag": "p0.6.0-rc.1",
+  "reviewCandidate": true,
+  "fullReleaseAccepted": false,
+  "buildUtc": "2026-10-31T15:55:45.0196852Z",
+  "releaseStatus": "DIAGNOSTIC_TEST_CANDIDATE_WINDOWS_PERFORMANCE_FAILED_NATIVE_PENDING",
+  "deliveryChannel": "GitHub Release: three complete ZIP attachments; no Git LFS dependency",
+  "platforms": [
+    {
+      "platform": "Windows",
+      "architecture": "x86_64",
+      "backend": "Mono",
+      "profile": "Assets/Settings/BuildProfiles/Windows_x64.asset",
+      "packagePath": "Releases/p0.6.0/review-candidate/DicePrototype-p0.6.0-win-x64.zip",
+      "sha256": "c809dcc0fdfe07acb4a0fe67d5eca6462f53075f39a2a52b2c8835cc008e6dba",
+      "byteSize": 86495395,
+      "buildUtc": "2026-10-31T15:45:04.2358019Z",
+      "buildGuid": "c137ca83c7ec4fbab3243ff0aa663bfb",
+      "buildWarnings": 0,
+      "buildReport": {
+        "path": "evidence/v06/unity/build-windows-20261031-154504.json",
+        "sha256": "c9d0ec73bc6f25fbb225df17d05b5ad5ae50154d38a6303c21b3d78b3b371938"
+      },
+      "packageEvidence": {
+        "path": "evidence/v06/packages/windows-package-review-candidate.json",
+        "sha256": "e9753c5df36273c448cafa6214f4c4e0422cab80ef988b3197b45737455cc179"
+      },
+      "signingStatus": "No signing claim: inspect actual platform signature evidence",
+      "smokeStatus": "GAMEPLAY_UI_ONLY_PERFORMANCE_FAILED_NATIVE_PENDING",
+      "packagingStatus": "CRC and safe archive paths verified; fresh remote extraction/runtime verified separately",
+      "intelRuntimeStatus": "not_applicable"
+    },
+    {
+      "platform": "macOS",
+      "architecture": "arm64+x86_64",
+      "backend": "Mono",
+      "profile": "Assets/Settings/BuildProfiles/macOS_Universal.asset",
+      "packagePath": "Releases/p0.6.0/review-candidate/DicePrototype-p0.6.0-macos-universal.zip",
+      "sha256": "a8cf1b007fe35c276c2a2ce7fc0ddab676a54ab4c7c5e54cd00a7fbd39e45b88",
+      "byteSize": 126816584,
+      "buildUtc": "2026-10-31T15:55:45.0196852Z",
+      "buildGuid": "9c16cd34b32c400eb879daef7dcfc29d",
+      "buildWarnings": 71,
+      "buildReport": {
+        "path": "evidence/v06/unity/build-macos-20261031-155545.json",
+        "sha256": "8b04d3d972cb85d5343f997e9403a61de10458ab5dbc3721ce657779128ef0a3"
+      },
+      "packageEvidence": {
+        "path": "evidence/v06/packages/macos-package-review-candidate.json",
+        "sha256": "d9a055c6c86036088c8d11b7f7c839ed739da5886dc5b4a97ead3f5a03e4b689"
+      },
+      "signingStatus": "No signing claim: inspect actual platform signature evidence",
+      "smokeStatus": "NOT_RUN_ON_MAC",
+      "packagingStatus": "Windows-created transfer candidate; native ditto/fresh-extraction/Metal/M5 run pending",
+      "intelRuntimeStatus": "NOT_TESTED: x86_64 slice included; runtime unverified"
+    }
+  ],
+  "tests": {
+    "unityEditMode": {
+      "passed": 797,
+      "failed": 0,
+      "reportPath": "evidence/v06/unity/nunit-20261031-154308.xml",
+      "reportSha256": "135dd76a376d6096e945a19fc2e3c872fb22fa930530c95183f31c031a83ecb2"
+    },
+    "unityPlayMode": {
+      "passed": 30,
+      "failed": 0,
+      "reportPath": "evidence/v06/unity/nunit-20261031-154402.xml",
+      "reportSha256": "968b78600d4db369e991b2863fe3220f5f6857b7e82d52dc585eccf8b546f058"
+    }
+  },
+  "buildGate": {
+    "path": "evidence/v06/unity/build-gate.json",
+    "sha256": "b110a97e63b68d04f73f64ec87ae06a6c22999a7e6775e110e8937e0d30bb7e3"
+  },
+  "ruleReproduction": {
+    "normalSeed": 20261031,
+    "normalSteps": 145,
+    "normalOutcome": "RunFailed",
+    "normalFinalStage": 8,
+    "normalTraceSha256": "5efcc51eb14dd024d2cea3cc1f5e86ad5ec00123a794dce16cb1100471366564",
+    "debugTraceSha256": "3d6f7cf39dba3c56ca161d4d8baf6d4a7e9f00bcd98a386211b5a07ad61d06b8",
+    "debug24Passed": true,
+    "debugPurpose": "Transition integration, not progression/balance evidence",
+    "crossPlatformStatus": "NOT_RUN_ON_MAC"
+  },
+  "windowsPerformance": {
+    "acceptanceStatus": "FAILED",
+    "status": "budget_exceeded",
+    "observedStatus": "budget_exceeded",
+    "sampleSeconds": 180.004603,
+    "p95FrameIntervalMs": 23.0348000000049,
+    "thresholdMs": 16.7,
+    "frames": 9103,
+    "focusedSampleFrames": 0,
+    "gpuInvalidSamples": 1,
+    "gpuMissingSamples": 264,
+    "note": "Completed observation, not a performance pass or pending result. Focus and GPU anomalies remain uncorrected evidence.",
+    "originalPerformanceReport": {
+      "status": "budget_exceeded",
+      "targetFrameMs": 16.7,
+      "targetFps": 60,
+      "targetResolution": "1920x1080",
+      "targetResolutionMet": true,
+      "isDebugFixture": true,
+      "dice": 10,
+      "submitSlots": 8,
+      "controllers": 10,
+      "inventory": 5,
+      "warmupSeconds": 10,
+      "sampleSeconds": 180.004603,
+      "frameCount": 9103,
+      "frameBudgetMet": false,
+      "focusedSampleFrames": 0,
+      "frameBufferInitialCapacity": 60000,
+      "warmupObservedFps": 53.0845797906985,
+      "frameBufferMinimumCapacity": 60000,
+      "frameBufferCapacitySafetyFactor": 2,
+      "frameSampleRecordBytes": 184,
+      "frameBufferEstimatedObserverPayloadBytes": 11040000,
+      "frameBufferFinalCapacity": 60000,
+      "frameBufferGrowthEvents": 0,
+      "requiredMetricCoverage": 0.95,
+      "coverageCriterionSource": "Conservative probe evidence-completeness criterion; it does not replace or relax the P0 frame budget.",
+      "operationsIncludingWarmup": {
+        "roll": 190,
+        "reorder": 190,
+        "pendingSelectionAndClear": 190
+      },
+      "operationSchedule": "Each second: Roll at 0.00, SkipVisual at 0.25, rotate locked order at 0.50, TogglePending+Refresh at 0.70, ClearPending+Refresh at 0.85. Real autosave and UI preview remain active.",
+      "frameTimingEnabled": true,
+      "frameInterval": {
+        "available": true,
+        "unit": "ms",
+        "method": "monotonic LateUpdate-to-LateUpdate interval",
+        "unavailableReason": null,
+        "samples": 9103,
+        "expectedFrames": 9103,
+        "validFrameCoverage": 1,
+        "mean": 19.7721913654839,
+        "p50": 17.9846000000339,
+        "p95": 23.0348000000049,
+        "max": 87.0779000000539
+      },
+      "gpuTimerFrequency": 1000000000,
+      "cpuTimerFrequency": 10000000,
+      "frameTimingReadFrames": 9104,
+      "gpuInvalidSamples": 1,
+      "gpuMissingSamples": 264,
+      "gpuDuplicateTimestamps": 0,
+      "graphicsTimingWarningsDuringSampling": 0,
+      "gpuSampleStatusLegend": {
+        "0": "no timing returned",
+        "1": "valid",
+        "2": "zero/unavailable",
+        "3": "invalid negative or non-finite",
+        "4": "invalid: exceeds process lifetime",
+        "5": "duplicate timing timestamp"
+      },
+      "mainThread": {
+        "available": true,
+        "unit": "ms",
+        "method": "Main Thread",
+        "unavailableReason": null,
+        "samples": 9103,
+        "expectedFrames": 9103,
+        "validFrameCoverage": 1,
+        "mean": 19.7699806767,
+        "p50": 17.8822,
+        "p95": 23.4151,
+        "max": 87.7939
+      },
+      "renderThread": {
+        "available": true,
+        "unit": "ms",
+        "method": "CPU Render Thread Frame Time",
+        "unavailableReason": null,
+        "samples": 9103,
+        "expectedFrames": 9103,
+        "validFrameCoverage": 1,
+        "mean": 0.248320324947821,
+        "p50": 0.241,
+        "p95": 0.3238,
+        "max": 0.4826
+      },
+      "frameTimingCpu": {
+        "available": true,
+        "unit": "ms",
+        "method": "FrameTimingManager.cpuFrameTime",
+        "unavailableReason": null,
+        "samples": 9103,
+        "expectedFrames": 9103,
+        "validFrameCoverage": 1,
+        "mean": 19.7734848401626,
+        "p50": 17.8841,
+        "p95": 23.4227,
+        "max": 87.7981
+      },
+      "gpu": {
+        "available": true,
+        "unit": "ms",
+        "method": "FrameTimingManager.gpuFrameTime",
+        "unavailableReason": null,
+        "samples": 8839,
+        "expectedFrames": 9103,
+        "validFrameCoverage": 0.970998571899374,
+        "mean": 0.254472399140195,
+        "p50": 0.252928,
+        "p95": 0.256,
+        "max": 0.59392
+      },
+      "gcAllocated": {
+        "available": true,
+        "unit": "bytes/frame",
+        "method": "GC Allocated In Frame",
+        "unavailableReason": null,
+        "samples": 9103,
+        "expectedFrames": 9103,
+        "validFrameCoverage": 1,
+        "mean": 263360.934197517,
+        "p50": 0,
+        "p95": 163138,
+        "max": 11571286
+      },
+      "gcUsed": {
+        "available": true,
+        "unit": "bytes",
+        "method": "GC Used Memory",
+        "unavailableReason": null,
+        "samples": 9103,
+        "expectedFrames": 9103,
+        "validFrameCoverage": 1,
+        "mean": 46158534.9392508,
+        "p50": 45740032,
+        "p95": 54194176,
+        "max": 59895808
+      },
+      "independentFrameClocks": {
+        "diagnosticOnly": true,
+        "cpuTimerFrequencyHz": 10000000,
+        "rawRowsIncludingInitialPartialInterval": 9104,
+        "frameStart": {
+          "available": true,
+          "unit": "ms",
+          "method": "FrameTiming.frameStartTimestamp difference",
+          "unavailableReason": null,
+          "samples": 9103,
+          "expectedFrames": 9103,
+          "validFrameCoverage": 1,
+          "mean": 19.7735086674723,
+          "p50": 17.8841,
+          "p95": 23.4227,
+          "max": 87.7981
+        },
+        "presentCalled": {
+          "available": true,
+          "unit": "ms",
+          "method": "FrameTiming.cpuTimePresentCalled difference",
+          "unavailableReason": null,
+          "samples": 9103,
+          "expectedFrames": 9103,
+          "validFrameCoverage": 1,
+          "mean": 19.773518927826,
+          "p50": 17.8829,
+          "p95": 23.4484,
+          "max": 87.7784
+        },
+        "frameComplete": {
+          "available": true,
+          "unit": "ms",
+          "method": "FrameTiming.cpuTimeFrameComplete difference",
+          "unavailableReason": null,
+          "samples": 9101,
+          "expectedFrames": 9103,
+          "validFrameCoverage": 0.999780292211359,
+          "mean": 1829829976.85807,
+          "p50": 17.8888,
+          "p95": 23.4148,
+          "max": 16653282439446
+        },
+        "observationStatusCounts": {
+          "4": 9103
+        },
+        "frameStartDeltaStatusCounts": {
+          "2": 9103
+        },
+        "presentDeltaStatusCounts": {
+          "2": 9103
+        },
+        "completeDeltaStatusCounts": {
+          "2": 9101,
+          "3": 1,
+          "1": 1
+        },
+        "zeroFrameStartRows": 0,
+        "zeroPresentRows": 0,
+        "zeroCompleteRows": 0,
+        "observationStatusLegend": "0 no timing; 1 zero frame-start; 2 repeated frame-start; 3 backward frame-start; 4 new frame-start; 5 new frame-start after skipped Unity observation (delta baseline reset).",
+        "deltaStatusLegend": "0 unavailable observation or zero axis; 1 valid current timestamp without adjacent baseline; 2 valid positive difference; 3 non-increasing axis; 4 CPU frequency unavailable.",
+        "definitions": "Unity 6000.6: frameStartTimestamp is CPU clock when frame started; cpuTimePresentCalled is CPU clock at Present call; cpuTimeFrameComplete is CPU clock when GPU finished rendering and interrupted CPU. Units are converted using GetCpuTimerFrequency.",
+        "adjacencyLimit": "Differences require adjacent Unity observations with new monotonic frame-start values and a valid monotonic axis. GetLatestTimings(1) does not prove no native records were skipped. No clock replaces the original LateUpdate interval or acceptance criteria."
+      },
+      "productionFramePacing": {
+        "classPresent": true,
+        "installed": true,
+        "strategyDescription": "60Hz maximum cadence; absolute QPC deadline reanchored to every actual release; ceil(QPC frequency/60); coarse Sleep + <=1.5ms spin tail; first PreLateUpdate child; paused/unfocused Sleep(17ms), no spin or catch-up",
+        "metadataIssue": null,
+        "stopwatchFrequencyHz": 10000000,
+        "vSyncCount": 0,
+        "applicationTargetFrameRate": -1,
+        "readTiming": "Outside sampling only; public static read-only metadata, never a per-frame reflection call."
+      },
+      "productionFramePacingAfterSampling": {
+        "classPresent": true,
+        "installed": true,
+        "strategyDescription": "60Hz maximum cadence; absolute QPC deadline reanchored to every actual release; ceil(QPC frequency/60); coarse Sleep + <=1.5ms spin tail; first PreLateUpdate child; paused/unfocused Sleep(17ms), no spin or catch-up",
+        "metadataIssue": null,
+        "stopwatchFrequencyHz": 10000000,
+        "vSyncCount": 0,
+        "applicationTargetFrameRate": -1,
+        "readTiming": "Outside sampling only; public static read-only metadata, never a per-frame reflection call."
+      },
+      "gpuRawApiValues": {
+        "available": true,
+        "unit": "ms (unvalidated)",
+        "method": "Raw FrameTimingManager.gpuFrameTime; diagnostic only, may contain invalid values",
+        "unavailableReason": null,
+        "samples": 9103,
+        "expectedFrames": 9103,
+        "validFrameCoverage": 1,
+        "mean": 1829427929.43836,
+        "p50": 0.252928,
+        "p95": 0.256,
+        "max": 16653282439428.1
+      },
+      "gpuProfilerCounter": {
+        "available": true,
+        "unit": "ms (diagnostic)",
+        "method": "GPU Frame Time",
+        "unavailableReason": null,
+        "samples": 9103,
+        "expectedFrames": 9103,
+        "validFrameCoverage": 1,
+        "mean": -1013223336.76904,
+        "p50": 0.252928,
+        "p95": 0.256,
+        "max": 0.59392
+      },
+      "monoUsed": {
+        "available": true,
+        "unit": "bytes",
+        "method": "Profiler.GetMonoUsedSizeLong",
+        "unavailableReason": null,
+        "samples": 9103,
+        "expectedFrames": 9103,
+        "validFrameCoverage": 1,
+        "mean": 46157545.9237614,
+        "p50": 45740032,
+        "p95": 54194176,
+        "max": 59895808
+      },
+      "uiRebuild": {
+        "available": true,
+        "unit": "ms/frame",
+        "method": "Canvas.BuildBatch",
+        "unavailableReason": null,
+        "samples": 9103,
+        "expectedFrames": 9103,
+        "validFrameCoverage": 1,
+        "mean": 0.00446656047456874,
+        "p50": 0.0074,
+        "p95": 0.0098,
+        "max": 0.0277
+      },
+      "uiRebuildMarkerCalls": {
+        "available": true,
+        "unit": "marker invocations/frame",
+        "method": "Canvas.BuildBatch",
+        "unavailableReason": null,
+        "samples": 9103,
+        "expectedFrames": 9103,
+        "validFrameCoverage": 1,
+        "mean": 0.528726793364825,
+        "p50": 1,
+        "p95": 1,
+        "max": 1
+      },
+      "gcCollections": {
+        "generation0": 387,
+        "generation1": 387,
+        "generation2": 387
+      },
+      "limitations": [
+        "This is automated player operation, not human playtesting, player win rate, or a mobile performance result.",
+        "The frame budget check uses P95 of measured frame intervals; CPU Main Thread may include presentation waits. Raw CPU/GPU metrics remain separately available for diagnosis.",
+        "Frame-start, Present-called and frame-complete timestamp differences are diagnostic peers of LateUpdate, never replacements for its original verdict. Present-called is not scanout; frame-complete is GPU completion interrupting the CPU. Adjacent unique GetLatestTimings(1) observations may still skip native records; explicit gaps are broken but native adjacency is not guaranteed.",
+        "Recorder units and exact marker names are retained. UI marker invocation count is not the number of individual rebuilt elements.",
+        "Before sampling, the probe allocates max(60000, ceil(warmup FPS * 180 seconds * 2)) frame records once. Estimated observer bytes cover record payload, not object headers or all profiler overhead. Any expansion during sampling still forces a gap.",
+        "GPU durations that are negative, non-finite or longer than the process lifetime are invalid, retained in raw CSV and force a measurement gap; no merely slow frame is filtered by the 16.7ms budget.",
+        "Focus is recorded as context, not proof of window visibility. Keep the actual player visible and unminimized; inspect the native player log for swapchain/timestamp warnings that may bypass Unity log callbacks.",
+        "Unavailable metrics are null; availability gaps or a non-1080p run cannot certify the complete performance condition. Independent review remains required."
+      ]
+    }
+  },
+  "windowsEvidence": "evidence/v06/player/player-20261031-154556-f25586f0",
+  "windowsReportSha256": "7c7116714d70b04b6915e700d79a8c75e2844f343d265e5355976f2cb0504f54",
+  "windowsDisplayChecks": [
+    {
+      "id": "native-display-verification-deferred",
+      "status": "not_executed",
+      "reason": "Explicit restricted run: prior actual Native display failure is retained (player-20261031-140823-1865372c and independent native-experiment.json diagnostics). This run does not establish display support or release acceptance.",
+      "actualNativeReadback": {
+        "display": "VG27AQ1A",
+        "width": 1920,
+        "height": 1080,
+        "mode": "Windowed",
+        "nativeWidth": 2560,
+        "nativeHeight": 1440,
+        "refreshNumerator": 144006,
+        "refreshDenominator": 1000,
+        "focused": false
+      }
+    }
+  ],
+  "windowsSeparateProcessDisplayRecovery": {
+    "status": "passed",
+    "writerProcessId": 32164,
+    "readerProcessId": 33676,
+    "actual": {
+      "displayName": "VG27AQ1A",
+      "nativeWidth": 2560,
+      "nativeHeight": 1440,
+      "width": 1280,
+      "height": 720,
+      "mode": 3,
+      "refreshNumerator": 144006,
+      "refreshDenominator": 1000
+    },
+    "environment": {
+      "utc": "2026-10-31T16:02:55.9107942Z",
+      "unityVersion": "6000.6.7f1",
+      "buildGuid": "c137ca83c7ec4fbab3243ff0aa663bfb",
+      "developmentBuild": true,
+      "isEditor": false,
+      "platform": "WindowsPlayer",
+      "os": "Windows 10  (10.0.19045) 64bit",
+      "processArchitecture": "X64",
+      "cpu": "AMD Ryzen 9 5900X 12-Core Processor ",
+      "cpuThreads": 24,
+      "systemMemoryMB": 65457,
+      "gpu": "NVIDIA GeForce RTX 3080",
+      "gpuMemoryMB": 10053,
+      "graphicsVersion": "Direct3D 11.0 [level 11.1]",
+      "graphicsApi": "Direct3D11",
+      "width": 1280,
+      "height": 720,
+      "fullscreenMode": "Windowed",
+      "quality": "PC",
+      "vSyncCount": 0,
+      "targetFrameRate": -1,
+      "presentationFast": false,
+      "presentationReducedMotion": false,
+      "probeArguments": [
+        "--verify-p0",
+        "E:\\agent_workspace\\gpt\\game2\\evidence\\v06\\session\\normal-run-trace.json",
+        "--verify-debug-trace",
+        "E:\\agent_workspace\\gpt\\game2\\evidence\\v06\\session\\debug-24-trace.json",
+        "--evidence-dir",
+        "E:\\agent_workspace\\gpt\\game2\\evidence\\v06\\display-recovery\\attempt01\\reader",
+        "--verify-display-recovery-read",
+        "E:\\agent_workspace\\gpt\\game2\\evidence\\v06\\display-recovery\\attempt01",
+        "-screen-width",
+        "1280",
+        "-screen-height",
+        "720",
+        "-screen-fullscreen",
+        "0",
+        "-logFile",
+        "E:\\agent_workspace\\gpt\\game2\\artifacts\\cache\\v06\\display-recovery-20261031-160248-f3d41527\\read-Player.log"
+      ]
+    },
+    "files": [
+      {
+        "path": "evidence/v06/display-recovery/attempt01/ready-to-terminate.json",
+        "sha256": "991b849d54eba8e0a65a2f43d2516ef5651ce254a46c3e24fc79b146c8fe3697"
+      },
+      {
+        "path": "evidence/v06/display-recovery/attempt01/recovery-read-receipt.json",
+        "sha256": "4c4094140c3f7260cfadd6996b9e081b38120925f24114ef1bd93f9961ad1edf"
+      },
+      {
+        "path": "evidence/v06/display-recovery/attempt01/display-settings.json",
+        "sha256": "8d91e024c69cbee2f9b406c471bff808bd14c7e17df6dd67f77aaf9492b84178"
+      },
+      {
+        "path": "evidence/v06/display-recovery/attempt01/reader/player-20261031-160254-60c7cfd5/player-report.json",
+        "sha256": "9437569c27e2b3fda595a223778e2a025a92c109514e335d1642fc49793d0d9a"
+      }
+    ],
+    "note": "Separate process result; the main probe's not_executed field is preserved."
+  },
+  "macVerificationKit": {
+    "identity": {
+      "releaseVersion": "p0.6.0",
+      "sourceCommit": "08ef933f2fbc3198a5e357ecebaa2758fbee8643",
+      "contentConfigVersion": "p0.6.0",
+      "contentConfigSha256": "747ed1efc7bea15873f66a81eee5c7654971c21031f2a1517ce629adce7b6e6c",
+      "saveSchemaVersion": 4,
+      "goldenCaseSetSha256": "306cb86f79dafe0e3eb302714abd232af20fe0062a6713f7d713c11e2a6a5718",
+      "unityEditorVersion": "6000.6.7f1",
+      "backend": "Mono"
+    },
+    "packagePath": "Releases/p0.6.0/review-candidate/DicePrototype-p0.6.0-MacVerificationKit.zip",
+    "sha256": "e3456bbf280545130bb3d26bd86e7e23ccac67d9fa1b9f781acbb44a76926aa2",
+    "byteSize": 126918220,
+    "sourceCommit": "08ef933f2fbc3198a5e357ecebaa2758fbee8643",
+    "windowsResults": "evidence/v06/player/player-20261031-154556-f25586f0",
+    "crc": "passed",
+    "reviewCandidate": true,
+    "inputs": [
+      {
+        "path": "VerifyMac.command",
+        "sha256": "6e42dd41d32d0b5c7aed9f6396ac1bfd82d4583be01a1e097aaad911c3b31dd2"
+      },
+      {
+        "path": "verify_mac.py",
+        "sha256": "1da2a086fee34a5ca137bc62a8ccc355fa23d514d26b5a37229474bf719f1c0b"
+      },
+      {
+        "path": "package_checks.py",
+        "sha256": "75df35774305feac4c27cd2f3de36bccc6b72dd29289e802dd40e7b9e59a5bea"
+      },
+      {
+        "path": "compare_replays.py",
+        "sha256": "80363d8055187e3e171c4a756086dea1ce6f62fc3ca1ae95398a4dde47d18033"
+      },
+      {
+        "path": "执行说明.md",
+        "sha256": "c3ade6c71e732058b1a6343e5a6183e929f0329679ce4e2e89ff364bf89c88a5"
+      },
+      {
+        "path": "inputs/BUILD_IDENTITY.json",
+        "sha256": "4fc2590ff50e8100c2058c5916ea160207aa9b7aa86b41503a5273f857a79236"
+      },
+      {
+        "path": "inputs/macos.zip",
+        "sha256": "a8cf1b007fe35c276c2a2ce7fc0ddab676a54ab4c7c5e54cd00a7fbd39e45b88"
+      },
+      {
+        "path": "inputs/normal-run-trace.json",
+        "sha256": "5efcc51eb14dd024d2cea3cc1f5e86ad5ec00123a794dce16cb1100471366564"
+      },
+      {
+        "path": "inputs/debug-24-trace.json",
+        "sha256": "3d6f7cf39dba3c56ca161d4d8baf6d4a7e9f00bcd98a386211b5a07ad61d06b8"
+      },
+      {
+        "path": "inputs/windows-results/player-report.json",
+        "sha256": "7c7116714d70b04b6915e700d79a8c75e2844f343d265e5355976f2cb0504f54"
+      },
+      {
+        "path": "inputs/windows-results/normal-replay.jsonl",
+        "sha256": "c9bdc4b86162f9b0f9c6bd64900cf5b0b26297d303677bb91e68eac88a1ec0eb"
+      },
+      {
+        "path": "inputs/windows-results/debug24-replay.jsonl",
+        "sha256": "13b350e608dfe9bed1c87bcb7edc3bbb23a9c87262233c451ec92ac0bb071b38"
+      },
+      {
+        "path": "inputs/windows-results/cross-platform-checkpoint/active-run.json",
+        "sha256": "05fe62e8d2b87dbfb879a471fa4e025699a6d97b932ab8ffd940063f7e64ea48"
+      },
+      {
+        "path": "inputs/windows-results/cross-platform-checkpoint/command.json",
+        "sha256": "692dc65bc8dc8661cdce61bff9dbe2172ad94b61d3730b12506033b5af0555db"
+      },
+      {
+        "path": "inputs/windows-results/cross-platform-checkpoint/expected.json",
+        "sha256": "cb5559f615b0cff158ac12452edda59f7fafca01319453f80e71ade03765e261"
+      },
+      {
+        "path": "inputs/review-candidate.json",
+        "sha256": "2713b4997bbc9f9e7eb32011425c2743d9bb11fd8a525c5e3fdf8064c4c81ffd",
+        "generatedNotice": true
+      }
+    ],
+    "macRuntimeStatus": "NOT_RUN_ON_MAC",
+    "allowFailedWindowsPerformance": true,
+    "windowsReportSha256": "7c7116714d70b04b6915e700d79a8c75e2844f343d265e5355976f2cb0504f54"
+  },
+  "remoteRestoreStatus": "PENDING_FRESH_RELEASE_ASSET_DOWNLOAD_AND_WINDOWS_EXTRACTED_RUN",
+  "requiredBeforeFullAcceptance": [
+    "Windows performance FAILED: repeat the unchanged 180-second/P95<=16.7ms condition with valid focus/timing evidence",
+    "Windows P22 native display and display-state isolation, including independent recovery when pending",
+    "M5 native arm64/Metal run and screenshots",
+    "Mac ditto repack and fresh-extraction run",
+    "Actual Mac signature/quarantine/Gatekeeper outputs",
+    "Windows-to-Mac checkpoint and identical normal/debug24 replay",
+    "Returned Mac checkpoint replayed on Windows",
+    "Physical Mac mouse/trackpad, focus/display changes and quit/resume",
+    "Password/debug32/controller-drag/display-confirmation manual review",
+    "Fresh GitHub asset download and extracted Windows run",
+    "Human playtesting"
+  ],
+  "note": "sourceCommit identifies the real frozen gameplay Git tree. Packaging and automated Windows tests do not sign off Mac or human acceptance.",
+  "windowsReference": {
+    "status": "budget_exceeded",
+    "verificationScope": "full-gameplay-ui-perf_native_display_pending",
+    "use": "Gameplay/UI/trace reference ONLY; Windows performance FAILED and native P22 NOT PASSED",
+    "allowFailedWindowsPerformance": true,
+    "windowsPerformance": {
+      "acceptanceStatus": "FAILED",
+      "status": "budget_exceeded",
+      "observedStatus": "budget_exceeded",
+      "sampleSeconds": 180.004603,
+      "p95FrameIntervalMs": 23.0348000000049,
+      "thresholdMs": 16.7,
+      "frames": 9103,
+      "focusedSampleFrames": 0,
+      "gpuInvalidSamples": 1,
+      "gpuMissingSamples": 264,
+      "note": "Completed observation, not a performance pass or pending result. Focus and GPU anomalies remain uncorrected evidence."
+    },
+    "windowsNativeDisplayStatus": "PENDING_P22_NOT_PASSED",
+    "macRuntimeStatus": "NOT_RUN_ON_MAC",
+    "fullWindowsPassed": false,
+    "fullReleaseAccepted": false,
+    "publication": "User-authorized diagnostic test candidate; no performance, native-display or whole-release acceptance"
+  },
+  "deliveryAuthorization": "User-authorized GitHub test-candidate channel; explicit review switches prevent accidental scope claims, not an additional user approval",
+  "allowFailedWindowsPerformance": true
+}

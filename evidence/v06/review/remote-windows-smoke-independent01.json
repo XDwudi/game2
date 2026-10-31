@@ -1,0 +1,33 @@
+{
+  "scope": "Read-only verification and actual main-menu PNG inspection of root-run freshly downloaded/extracted Player. Reviewer did not launch or terminate processes.",
+  "status": "passed_targeted_startup_checkpoint_only",
+  "actualExecutable": "E:\\agent_workspace\\gpt\\game2\\artifacts\\cache\\v06-remote-player02\\DicePrototype.exe",
+  "pid": 27328,
+  "buildGuid": "c137ca83c7ec4fbab3243ff0aa663bfb",
+  "probeMvid": "8024d71f-eda7-4c9b-b2fe-8297be8136b1",
+  "sourceCommit": "08ef933f2fbc3198a5e357ecebaa2758fbee8643",
+  "extractedFilesIndependentlyMatched": 309,
+  "receipt": {
+    "passed": true,
+    "sourceSaveSha256": "05fe62e8d2b87dbfb879a471fa4e025699a6d97b932ab8ffd940063f7e64ea48",
+    "inputStateSha256": "826f26e8666243e9259f19a2fd03974a760f04de9f8ee83f9c1c00cc53321dbb",
+    "outputStateSha256": "0ddfbf84c239889116e6280ca01710b7ca67c45a6e54125553917b58a12fe3ad",
+    "submissionScore": "132"
+  },
+  "reportStatusRetained": "running",
+  "deliberateOwnedProcessTermination": true,
+  "playerExitCode": 1,
+  "mainMenuImageViewed": true,
+  "files": {
+    "evidence/v06/delivery/github-release/review-candidate/windows-remote-restore02.json": "a517993e5696022d103de0a409ce6fb460f899e96a141ed684e28c562e91f4d2",
+    "evidence/v06/delivery/github-release/review-candidate/windows-restored-run02/player-20261031-161214-81715478/player-report.json": "6b6a66ef86f8c4237556a7e207c82c76a571b24cae450df20e0cf2ff9d0b5bfe",
+    "evidence/v06/delivery/github-release/review-candidate/windows-restored-run02/player-20261031-161214-81715478/imported-checkpoint/verification.json": "0f36721982098c6fae2624f2371e549d36a160fbd6656471b463d883f01a69d9",
+    "evidence/v06/delivery/github-release/review-candidate/windows-restored-run02/player-20261031-161214-81715478/main-menu-1920x1080.png": "a3646275deefe1b6fbfa2414ec7d80f0d5722bf75b6417d875eb8f2f0feb5103",
+    "evidence/v06/player/player-20261031-154556-f25586f0/cross-platform-checkpoint/active-run.json": "05fe62e8d2b87dbfb879a471fa4e025699a6d97b932ab8ffd940063f7e64ea48"
+  },
+  "fullReplayRerun": false,
+  "performanceAccepted": false,
+  "nativeP22Accepted": false,
+  "MacRuntimeExecuted": false,
+  "fullReleaseAccepted": false
+}

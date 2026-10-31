@@ -1,0 +1,19 @@
+test_changed_pending_bytes_and_wrong_build_identity_are_rejected (test_windows_recovery_runner.RunnerTests.test_changed_pending_bytes_and_wrong_build_identity_are_rejected) ... ok
+test_command_uses_argument_array_and_only_cache_log_destination (test_windows_recovery_runner.RunnerTests.test_command_uses_argument_array_and_only_cache_log_destination) ... ok
+test_exception_launch_arguments_stay_only_in_raw_cache (test_windows_recovery_runner.RunnerTests.test_exception_launch_arguments_stay_only_in_raw_cache) ... ok
+test_natural_writer_exit_is_failure_and_is_not_killed (test_windows_recovery_runner.RunnerTests.test_natural_writer_exit_is_failure_and_is_not_killed) ... ok
+test_new_outputs_cannot_reuse_or_escape_designated_root (test_windows_recovery_runner.RunnerTests.test_new_outputs_cannot_reuse_or_escape_designated_root) ... ok
+test_no_foreign_reader_receipt_is_accepted (test_windows_recovery_runner.RunnerTests.test_no_foreign_reader_receipt_is_accepted) ... ok
+test_only_completed_native_report_from_launched_reader_is_used (test_windows_recovery_runner.RunnerTests.test_only_completed_native_report_from_launched_reader_is_used) ... ok
+test_partial_ready_json_is_retried (test_windows_recovery_runner.RunnerTests.test_partial_ready_json_is_retried) ... ok
+test_reader_nonzero_exit_never_becomes_success (test_windows_recovery_runner.RunnerTests.test_reader_nonzero_exit_never_becomes_success) ... ok
+test_reader_timeout_cleans_only_owned_process_and_retains_failure (test_windows_recovery_runner.RunnerTests.test_reader_timeout_cleans_only_owned_process_and_retains_failure) ... ok
+test_ready_settings_path_cannot_escape (test_windows_recovery_runner.RunnerTests.test_ready_settings_path_cannot_escape) ... ok
+test_visible_player_startup_overrides_hidden_inheritance_without_new_console (test_windows_recovery_runner.RunnerTests.test_visible_player_startup_overrides_hidden_inheritance_without_new_console) ... ok
+test_writer_kills_only_original_handle_and_does_not_edit_pending_bytes (test_windows_recovery_runner.RunnerTests.test_writer_kills_only_original_handle_and_does_not_edit_pending_bytes) ... ok
+test_wrong_ready_pid_cannot_redirect_termination_or_start_reader (test_windows_recovery_runner.RunnerTests.test_wrong_ready_pid_cannot_redirect_termination_or_start_reader) ... ok
+
+----------------------------------------------------------------------
+Ran 14 tests in 0.149s
+
+OK

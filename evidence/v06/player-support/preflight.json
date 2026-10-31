@@ -1,0 +1,91 @@
+{
+  "schema": "p06-player-support-preflight-1",
+  "status": "managed_api_preflight_passed_actual_player_not_executed",
+  "managedChecks": 40,
+  "latestLog": "compile-run09.log",
+  "performanceMethodsComparedToHead": [
+    {
+      "method": "RunStress",
+      "unchanged": true,
+      "baselineSha256": "cefb9a93829aa6cc13cdd2eef3bf004556ce73a13967dfdf4a439177cb75d56b",
+      "currentSha256": "cefb9a93829aa6cc13cdd2eef3bf004556ce73a13967dfdf4a439177cb75d56b"
+    },
+    {
+      "method": "LateUpdate",
+      "unchanged": true,
+      "baselineSha256": "cec8c8778836b1d5e8a6cbb69904ac6f80a5ee737fd53d036d61bdfa9b491883",
+      "currentSha256": "cec8c8778836b1d5e8a6cbb69904ac6f80a5ee737fd53d036d61bdfa9b491883"
+    },
+    {
+      "method": "BuildPerformanceReport",
+      "unchanged": true,
+      "baselineSha256": "a5aae339dac5e70db6dddab93d77c35d286fb63a910fba0b8a97f8042e6103b9",
+      "currentSha256": "a5aae339dac5e70db6dddab93d77c35d286fb63a910fba0b8a97f8042e6103b9"
+    },
+    {
+      "method": "WriteFrames",
+      "unchanged": true,
+      "baselineSha256": "7cee3460c0e4eaef377321bdb9437ec9b96ab7231a58b395b2325bea8c4a44e5",
+      "currentSha256": "7cee3460c0e4eaef377321bdb9437ec9b96ab7231a58b395b2325bea8c4a44e5"
+    },
+    {
+      "method": "Metric",
+      "unchanged": true,
+      "baselineSha256": "243259de4c9d02104db44deee0f576bf332782ddbcae6e6ef0141cd0b8ff06d2",
+      "currentSha256": "243259de4c9d02104db44deee0f576bf332782ddbcae6e6ef0141cd0b8ff06d2"
+    },
+    {
+      "method": "CompleteCoverage",
+      "unchanged": true,
+      "baselineSha256": "7cb361e5b9774468ba1dc11071ef0ffb4bdc23bd48a7739a3b62ce0ba7a3f001",
+      "currentSha256": "7cb361e5b9774468ba1dc11071ef0ffb4bdc23bd48a7739a3b62ce0ba7a3f001"
+    },
+    {
+      "method": "RequiredFrameCapacity",
+      "unchanged": true,
+      "baselineSha256": "001d371c929607b3f540a5de65ce2ef96c57cf39df59fca4903922d8ceaba4df",
+      "currentSha256": "001d371c929607b3f540a5de65ce2ef96c57cf39df59fca4903922d8ceaba4df"
+    },
+    {
+      "method": "ClassifyGpuDuration",
+      "unchanged": true,
+      "baselineSha256": "029afcc3434354651a56f7b5fd00b8264d9d3884a2983096dbe8f27ce0c61c38",
+      "currentSha256": "029afcc3434354651a56f7b5fd00b8264d9d3884a2983096dbe8f27ce0c61c38"
+    },
+    {
+      "method": "ClockDelta",
+      "unchanged": true,
+      "baselineSha256": "a25b478bb6b4204861cd23f2c061551ecf6250a928d50fbeb66f3fc0554178f9",
+      "currentSha256": "a25b478bb6b4204861cd23f2c061551ecf6250a928d50fbeb66f3fc0554178f9"
+    }
+  ],
+  "sourceFiles": [
+    {
+      "path": "DicePrototype/Assets/Game/Runtime/Verification/PlayerVerification.cs",
+      "sha256": "08c740c9b3d43ec1b766467eb05388ad8ca2b34f5b80b27eb3d665a3e258f0de"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Runtime/Verification/PlayerVerification.V06.cs",
+      "sha256": "0549f76acc8a48ad070d15bdf4c8a3ca9bd588d73bc7fac1034c1e65c05d589a"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Runtime/Verification/Validation~/MetricChecks.cs",
+      "sha256": "83c574d157ba6ad7a17dc1e6fe1f94f8af3e46af02429b94174634d21bb38f12"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Runtime/Verification/Validation~/ProbeCompile.csproj",
+      "sha256": "3ab04983b28f7d08b40766af6e39485b2a4be105f1d7f9333b6430fcbf7c0bcb"
+    }
+  ],
+  "runtimeThresholds": {
+    "sampleSeconds": 180,
+    "warmupSeconds": 10,
+    "frameP95LimitMs": 16.7,
+    "requiredMetricCoverage": 0.95
+  },
+  "actualPlayerStatus": "root_to_execute",
+  "knownUnexecuted": [
+    "physical Alt-Tab and physical monitor removal; focus callback is explicitly distinguished",
+    "multi-monitor native movement on a machine with only one display"
+  ]
+}

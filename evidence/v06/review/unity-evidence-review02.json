@@ -1,0 +1,104 @@
+{
+  "scope": "Real Unity reports read independently; reviewer did not start the Editor",
+  "pdbAudit": "evidence/v06/review/unity-final-pdb02.json",
+  "pdbSha256": "33be3e8e3bb4572e49f7ea453106d17ec3262a3718549d048e5f79570892d5a0",
+  "projectCsharpDocuments": 60,
+  "modules": [
+    {
+      "name": "DiceCraft.Core",
+      "mvid": "04a9546c-33a0-44a6-a93f-b64553a77c7b",
+      "dllSha256": "81b5892793104036cb01e5d62a54012b4a29c4b6a0d91f01c91b103b80204b70"
+    },
+    {
+      "name": "DiceCraft.EditMode",
+      "mvid": "38dda9dd-7cb9-412e-8d5f-fc9b1dbcd3f9",
+      "dllSha256": "56268ebca4ca0e36aeb3c6e4991f658018201adf5f25d2430a641b52741d78de"
+    },
+    {
+      "name": "DiceCraft.Editor",
+      "mvid": "b5cc551d-4b57-4d58-910a-0ad30b28da8e",
+      "dllSha256": "167e152651b83a614b665fc343a4fc016bbe442fd21dc23b2470773345346bda"
+    },
+    {
+      "name": "DiceCraft.PlayModeTests",
+      "mvid": "1e44c18e-306c-406e-99b6-19b26256fc00",
+      "dllSha256": "832e43814ecb15c4574a12d5f52da001dbdc149f4ddcb52574400ab3329c7566"
+    },
+    {
+      "name": "DiceCraft.Runtime",
+      "mvid": "c9f89b90-2c6f-4db6-bcf1-7e3c974ca402",
+      "dllSha256": "a5e3b74976ab5ab14ab441c0b64364924309a65777e98caa2dc801cd6a3e8ad2"
+    }
+  ],
+  "reports": [
+    {
+      "mode": "EditMode",
+      "report": "evidence/v06/unity/nunit-20261031-125018.xml",
+      "reportSha256": "95c9699eb7c7890d5aeab9abc88ab750967b65b1f8060c0baff0ae5d6c319c76",
+      "bindingSha256": "88fbf6e43d8055eef8084a6f05a644af43d73f2f53a7e9a7688d45173018b8b0",
+      "cases": 776,
+      "failed": 0,
+      "skipped": 0,
+      "fullnamesMatchCompleteDiscovery": true,
+      "phases": [
+        {
+          "phase": "started",
+          "utc": "2026-10-31T12:50:03.7704696Z",
+          "loadedModulesMatchPdb": true,
+          "files": 601,
+          "changedSources": [
+            "DicePrototype/Assets/Game/Fonts/DiceChineseFallback.asset"
+          ]
+        },
+        {
+          "phase": "finished",
+          "utc": "2026-10-31T12:50:18.8786267Z",
+          "loadedModulesMatchPdb": true,
+          "files": 601,
+          "changedSources": [
+            "DicePrototype/Assets/Game/Fonts/DiceChineseFallback.asset"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "PlayMode",
+      "report": "evidence/v06/unity/nunit-20261031-125107.xml",
+      "reportSha256": "7ba9582348d8eac9fccb597c3a3f500cd2550aec64f71a636c9b8c747713d381",
+      "bindingSha256": "33bca8991be3b6cc6c29aa593ccc9a97ae8e13ffe782f688d952558bf2094f99",
+      "cases": 28,
+      "failed": 0,
+      "skipped": 0,
+      "fullnamesMatchCompleteDiscovery": true,
+      "phases": [
+        {
+          "phase": "started",
+          "utc": "2026-10-31T12:50:46.9230521Z",
+          "loadedModulesMatchPdb": true,
+          "files": 601,
+          "changedSources": [
+            "DicePrototype/Assets/Game/Fonts/DiceChineseFallback.asset"
+          ]
+        },
+        {
+          "phase": "finished",
+          "utc": "2026-10-31T12:51:08.2636979Z",
+          "loadedModulesMatchPdb": true,
+          "files": 601,
+          "changedSources": [
+            "DicePrototype/Assets/Game/Fonts/DiceChineseFallback.asset"
+          ]
+        }
+      ]
+    }
+  ],
+  "sourceStableDuringRead": true,
+  "sourceFiles": 601,
+  "errors": [
+    "EditMode started source files differ: ['DicePrototype/Assets/Game/Fonts/DiceChineseFallback.asset']",
+    "EditMode finished source files differ: ['DicePrototype/Assets/Game/Fonts/DiceChineseFallback.asset']",
+    "PlayMode started source files differ: ['DicePrototype/Assets/Game/Fonts/DiceChineseFallback.asset']",
+    "PlayMode finished source files differ: ['DicePrototype/Assets/Game/Fonts/DiceChineseFallback.asset']"
+  ],
+  "status": "needs_rebind"
+}

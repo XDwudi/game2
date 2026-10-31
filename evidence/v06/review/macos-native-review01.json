@@ -1,0 +1,177 @@
+{
+  "scope": "Independent Windows-side read of actual cross-built Mac Mach-O slices; no Mac execution/signature/Gatekeeper claim",
+  "status": "structure_and_universal_slices_verified",
+  "buildReport": {
+    "path": "evidence/v06/unity/build-macos-20261031-155545.json",
+    "sha256": "8b04d3d972cb85d5343f997e9403a61de10458ab5dbc3721ce657779128ef0a3"
+  },
+  "buildGuid": "9c16cd34b32c400eb879daef7dcfc29d",
+  "nativeComponents": [
+    {
+      "path": "Builds/v06/macOS/DicePrototype.app/Contents/Frameworks/libmono-native.dylib",
+      "sha256": "408f0c0f59da5b7939ea3bb66838b2c07078a35a340985e83db3cd7c366b139a",
+      "byteSize": 1812688,
+      "architectures": [
+        "x86_64",
+        "arm64"
+      ],
+      "slices": [
+        {
+          "cpu": 16777223,
+          "subtype": 3,
+          "bits": 64,
+          "filetype": 6
+        },
+        {
+          "cpu": 16777228,
+          "subtype": 0,
+          "bits": 64,
+          "filetype": 6
+        }
+      ]
+    },
+    {
+      "path": "Builds/v06/macOS/DicePrototype.app/Contents/Frameworks/libmonobdwgc-2.0.dylib",
+      "sha256": "005f7294cf7b20b8d9f059f3651756d9f6f9ca42acf5a3e05a2b964c5dcd33fa",
+      "byteSize": 9597824,
+      "architectures": [
+        "x86_64",
+        "arm64"
+      ],
+      "slices": [
+        {
+          "cpu": 16777223,
+          "subtype": 3,
+          "bits": 64,
+          "filetype": 6
+        },
+        {
+          "cpu": 16777228,
+          "subtype": 0,
+          "bits": 64,
+          "filetype": 6
+        }
+      ]
+    },
+    {
+      "path": "Builds/v06/macOS/DicePrototype.app/Contents/Frameworks/libMonoPosixHelper.dylib",
+      "sha256": "f0744d195d45eeca4549a540ec4810fd6e5ada99c823e8ac01ce580dad6a94b4",
+      "byteSize": 754784,
+      "architectures": [
+        "x86_64",
+        "arm64"
+      ],
+      "slices": [
+        {
+          "cpu": 16777223,
+          "subtype": 3,
+          "bits": 64,
+          "filetype": 6
+        },
+        {
+          "cpu": 16777228,
+          "subtype": 0,
+          "bits": 64,
+          "filetype": 6
+        }
+      ]
+    },
+    {
+      "path": "Builds/v06/macOS/DicePrototype.app/Contents/Frameworks/UnityPlayer.dylib",
+      "sha256": "244ee974519835484d29f25844fb6cb241cbc61fc4cef47c03b5de988be57735",
+      "byteSize": 241097952,
+      "architectures": [
+        "x86_64",
+        "arm64"
+      ],
+      "slices": [
+        {
+          "cpu": 16777223,
+          "subtype": 3,
+          "bits": 64,
+          "filetype": 6
+        },
+        {
+          "cpu": 16777228,
+          "subtype": 0,
+          "bits": 64,
+          "filetype": 6
+        }
+      ]
+    },
+    {
+      "path": "Builds/v06/macOS/DicePrototype.app/Contents/MacOS/DiceCraft P0",
+      "sha256": "8b9c4758dd300b38298d1c2be97cb357931b38dee746160bda595dee890f4e5e",
+      "byteSize": 66852,
+      "architectures": [
+        "x86_64",
+        "arm64"
+      ],
+      "slices": [
+        {
+          "cpu": 16777223,
+          "subtype": 3,
+          "bits": 64,
+          "filetype": 2
+        },
+        {
+          "cpu": 16777228,
+          "subtype": 0,
+          "bits": 64,
+          "filetype": 2
+        }
+      ]
+    },
+    {
+      "path": "Builds/v06/macOS/DicePrototype.app/Contents/PlugIns/lib_burst_generated.bundle",
+      "sha256": "12c10384f06a9e0ba993f46d78fef57fa5c2d0dd6fa7f1c911040934308c0ff9",
+      "byteSize": 1598160,
+      "architectures": [
+        "x86_64",
+        "arm64"
+      ],
+      "slices": [
+        {
+          "cpu": 16777223,
+          "subtype": 3,
+          "bits": 64,
+          "filetype": 6
+        },
+        {
+          "cpu": 16777228,
+          "subtype": 0,
+          "bits": 64,
+          "filetype": 6
+        }
+      ]
+    }
+  ],
+  "plist": {
+    "CFBundleDevelopmentRegion": "English",
+    "CFBundleExecutable": "DiceCraft P0",
+    "CFBundleGetInfoString": "Unity Player version 6000.6.7f1 (b22767f04f04). (c) 2005-2026 Unity Technologies. All rights reserved.",
+    "CFBundleIconFile": "PlayerIcon.icns",
+    "CFBundleIdentifier": "com.Unity-Technologies.com.unity.template.urp-blank",
+    "CFBundleInfoDictionaryVersion": "6.0",
+    "CFBundleName": "DiceCraft P0",
+    "CFBundlePackageType": "APPL",
+    "CFBundleShortVersionString": "0.6.0",
+    "CFBundleSupportedPlatforms": [
+      "MacOSX"
+    ],
+    "CFBundleVersion": "0",
+    "LSApplicationCategoryType": "public.app-category.games",
+    "LSMinimumSystemVersion": "12.0",
+    "NSAppTransportSecurity": {
+      "NSAllowsArbitraryLoads": true
+    },
+    "NSMainNibFile": "MainMenu",
+    "NSPrincipalClass": "PlayerApplication",
+    "UnityBuildNumber": "b22767f04f04"
+  },
+  "limitations": [
+    "Native Mac arm64/Metal/Retina/input/performance not executed.",
+    "Intel runtime not executed.",
+    "Mac ditto repackage/signature/quarantine/Gatekeeper checks pending."
+  ]
+}

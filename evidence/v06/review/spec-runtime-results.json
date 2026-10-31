@@ -1,0 +1,29 @@
+{
+  "scope": "Input consistency only; supplied Python is not production C# and no player was run.",
+  "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+  "platform": "Windows-10-10.0.19045-SP0",
+  "source": "E:\\agent_workspace\\gpt\\game2\\evidence\\v06\\review\\supplied_reference.py",
+  "referenceSha256": "ec264f1e65948768daa05e0f5c2f66c647664d6af9fd5deae422dd29335c19ac",
+  "goldenCases": 160,
+  "goldenTopLevelExpectedFields": 3360,
+  "goldenMismatches": [],
+  "configReferenceMismatches": [],
+  "independentBaselineCount": 27018,
+  "independentBaselineDigest": "ae171db15e87273352cac3943808a6091a79b361f262ed9af20e7d077646ce7b",
+  "independentBaselineMismatches": [],
+  "enchantFirstDrawTickets": 5600,
+  "ownedLegalPools": 288,
+  "enchantPoolFailures": [],
+  "probabilityFixedVectors": 5,
+  "probabilityInvariantCount": 3234,
+  "probabilityFailures": [],
+  "rngRawVector": [
+    270369,
+    67634689,
+    2647435461,
+    307599695,
+    2398689233
+  ],
+  "rngRawVectorPass": true,
+  "pass": true
+}

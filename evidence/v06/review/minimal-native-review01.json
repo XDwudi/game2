@@ -1,0 +1,121 @@
+{
+  "scope": "Independent read-only review of two actual minimal Builtin Player controls; reviewer did not launch apps",
+  "diagnosticReviewStatus": "observations_verified",
+  "nativeExclusiveAcceptance": "failed_on_this_engine_host_combination",
+  "productionDefectLocated": false,
+  "productionDefectUniversallyExcluded": false,
+  "observations": [
+    {
+      "directory": "evidence/v06/display-minimal/native-20261031-151724-153-29856",
+      "buildGuid": "251b4638422c4f7e854e64494d0cf6cd",
+      "developmentBuild": true,
+      "status": "diagnostic_completed",
+      "totalRecordedFrames": 595,
+      "errorCount": 0,
+      "warningCount": 3,
+      "arms": [
+        {
+          "id": "enumerated-nearest-current-refresh",
+          "status": "observed_not_acceptance",
+          "requested": {
+            "width": 2560,
+            "height": 1440,
+            "refreshNumerator": 144006,
+            "refreshDenominator": 1000
+          },
+          "observedSeconds": 5.0124206,
+          "observedFrames": 284,
+          "trailingExactFrames": 0,
+          "exclusiveAtEnd": false,
+          "restoredWindowedThreeStableFrames": true,
+          "beforeFocused": true,
+          "endFocused": false,
+          "endMode": "FullScreenWindow"
+        },
+        {
+          "id": "default-refresh-overload",
+          "status": "observed_not_acceptance",
+          "requested": {
+            "width": 2560,
+            "height": 1440,
+            "refreshNumerator": 0,
+            "refreshDenominator": 0
+          },
+          "observedSeconds": 5.0163809,
+          "observedFrames": 300,
+          "trailingExactFrames": 0,
+          "exclusiveAtEnd": false,
+          "restoredWindowedThreeStableFrames": true,
+          "beforeFocused": true,
+          "endFocused": true,
+          "endMode": "FullScreenWindow"
+        }
+      ],
+      "finalWindowedThreeStableFrames": true,
+      "files": {
+        "frames.jsonl": "88910c09e37d0664e1c90d5e19e2bc4c7313109f3fcdf64a64fc0d13edfbdfb1",
+        "log-events.jsonl": "6c14d0a2ba54f7686efe6627a4fcca720e311031f3734cad381cb50026334b8e",
+        "report.json": "f794f647a554fa8a5ff059aea2a02d6c3f1274558b0954c78bb9d93284ac1b59"
+      }
+    },
+    {
+      "directory": "evidence/v06/display-minimal/native-20261031-151938-258-45444",
+      "buildGuid": "df2c9a6c1df946228f67131fbcb00d16",
+      "developmentBuild": false,
+      "status": "diagnostic_completed",
+      "totalRecordedFrames": 595,
+      "errorCount": 0,
+      "warningCount": 3,
+      "arms": [
+        {
+          "id": "enumerated-nearest-current-refresh",
+          "status": "observed_not_acceptance",
+          "requested": {
+            "width": 2560,
+            "height": 1440,
+            "refreshNumerator": 144006,
+            "refreshDenominator": 1000
+          },
+          "observedSeconds": 5.0136826,
+          "observedFrames": 284,
+          "trailingExactFrames": 0,
+          "exclusiveAtEnd": false,
+          "restoredWindowedThreeStableFrames": true,
+          "beforeFocused": true,
+          "endFocused": false,
+          "endMode": "FullScreenWindow"
+        },
+        {
+          "id": "default-refresh-overload",
+          "status": "observed_not_acceptance",
+          "requested": {
+            "width": 2560,
+            "height": 1440,
+            "refreshNumerator": 0,
+            "refreshDenominator": 0
+          },
+          "observedSeconds": 5.017502100000001,
+          "observedFrames": 300,
+          "trailingExactFrames": 0,
+          "exclusiveAtEnd": false,
+          "restoredWindowedThreeStableFrames": true,
+          "beforeFocused": true,
+          "endFocused": true,
+          "endMode": "FullScreenWindow"
+        }
+      ],
+      "finalWindowedThreeStableFrames": true,
+      "files": {
+        "frames.jsonl": "7849d1ce948a16c0709ef2870e16f23b23977315be1a9effd15ee272a1996198",
+        "log-events.jsonl": "e33afd059cb18b007e17c073333a3d4d08c4f24a1c9489f9cb71abc8eb4a756e",
+        "report.json": "c1f8dd964e19466e014f39a27032706578dd5114e55e99d14be7d5ca9e0f1c41"
+      }
+    }
+  ],
+  "limitations": [
+    "This isolates game/Core/UI/URP/input/frame pacer and development flag as necessary causes of the observed failure.",
+    "This does not distinguish Unity engine, native driver, OS/session policy, overlays or other host graphics state.",
+    "Diagnostic completion and exit zero are not native exclusive acceptance.",
+    "A limited preview requires explicit user decision and must retain failed P22 and pending platform/human evidence."
+  ]
+}

@@ -1,0 +1,102 @@
+{
+  "schema": "p06-shop-refresh-save-audit-1",
+  "actualPlayerRun": "evidence\\v06\\player\\player-20261031-152132-2388cb4a",
+  "actualSourceCommit": "f8b84d6",
+  "conclusion": "Persistence transaction is correct; StateHash round-trip differs only because ShopOffer.controller/die Unity empty DTO placeholders are not canonicalized. No probe assertion weakened; production fix belongs to Session owner.",
+  "actualEngineExecutionByAuditor": false,
+  "managedAudit": "run02.log",
+  "bindings": [
+    {
+      "path": "evidence\\v06\\player\\player-20261031-152132-2388cb4a\\debug-refresh-shop-save\\debug-run.json",
+      "sha256": "7def17e9df23e60d4f3ae408d22f280448a0f8bab043f8a3b1c4266822d82673"
+    },
+    {
+      "path": "evidence\\v06\\player\\player-20261031-152132-2388cb4a\\debug-refresh-shop-save\\debug-run.json.backup",
+      "sha256": "bf6ec676cf120392bd967495c2e179e7573e4d6bb9946423b01dd824d5fbfbc4"
+    },
+    {
+      "path": "DicePrototype\\Library\\ScriptAssemblies\\DiceCraft.Core.dll",
+      "sha256": "81b5892793104036cb01e5d62a54012b4a29c4b6a0d91f01c91b103b80204b70"
+    },
+    {
+      "path": "DicePrototype\\Assets\\Game\\Core\\Session\\GameSession.Debug.cs",
+      "sha256": "f80bc4de178eed6f358da601121bdc304c511b500dfa87ab6e131445fbf862ff"
+    },
+    {
+      "path": "DicePrototype\\Assets\\Game\\Data\\P0Config.json",
+      "sha256": "747ed1efc7bea15873f66a81eee5c7654971c21031f2a1517ce629adce7b6e6c"
+    }
+  ],
+  "wallet": [
+    1000,
+    997
+  ],
+  "sequence": [
+    5,
+    6
+  ],
+  "refreshCount": [
+    0,
+    1
+  ],
+  "generation": [
+    0,
+    1
+  ],
+  "rng": {
+    "diceRngState": [
+      671749300,
+      671749300
+    ],
+    "shopRngState": [
+      475552232,
+      3192581142
+    ],
+    "effectRngState": [
+      2896519130,
+      2896519130
+    ]
+  },
+  "noncontrollerOffersFullJsonIdentical": true,
+  "unchangedNoncontrollerIds": [
+    "OFFER_00088",
+    "OFFER_00089",
+    "OFFER_00090",
+    "OFFER_00091",
+    "OFFER_00092"
+  ],
+  "controllerBefore": [
+    [
+      "OFFER_00085",
+      "C48"
+    ],
+    [
+      "OFFER_00086",
+      "C13"
+    ],
+    [
+      "OFFER_00087",
+      "C21"
+    ]
+  ],
+  "controllerAfter": [
+    [
+      "OFFER_00093",
+      "C34"
+    ],
+    [
+      "OFFER_00094",
+      "C46"
+    ],
+    [
+      "OFFER_00095",
+      "C08"
+    ]
+  ],
+  "receiptStateHash": "155a451026bff81b1541a2e903bbddb58a1d264257ddc921c8d59d97243fe0fa",
+  "loadShapeCanonicalHash": "922423f5ea8f2499bbf2f41efca3fdb07e9fc5cdccbb4646110c8fd1a3ad946b",
+  "optionalOfferPayloadNullCanonicalHash": "155a451026bff81b1541a2e903bbddb58a1d264257ddc921c8d59d97243fe0fa",
+  "persistedCommandReplayedFromActualBackup": true,
+  "replayMatchesActualReceiptExactly": true,
+  "productionAndProbeEdits": []
+}

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="1" result="Failed(Child)" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-31 12:32:47Z" end-time="2026-10-31 12:32:47Z" duration="0.0501693">
+  <test-suite type="TestSuite" id="1914" name="DiceCraft P0" fullname="DiceCraft P0" runstate="Runnable" testcasecount="775" result="Failed" site="Child" start-time="2026-10-31 12:32:47Z" end-time="2026-10-31 12:32:47Z" duration="0.050169" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <failure>
+      <message><![CDATA[One or more child tests had errors]]></message>
+    </failure>
+    <test-suite type="Assembly" id="1899" name="DiceCraft.EditMode.dll" fullname="E:/agent_workspace/gpt/game2/DicePrototype/Library/ScriptAssemblies/DiceCraft.EditMode.dll" runstate="Runnable" testcasecount="775" result="Failed" site="Child" start-time="2026-10-31 12:32:47Z" end-time="2026-10-31 12:32:47Z" duration="0.045233" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="28816" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <failure>
+        <message><![CDATA[One or more child tests had errors]]></message>
+      </failure>
+      <test-suite type="TestSuite" id="1900" name="DiceCraft" fullname="DiceCraft" runstate="Runnable" testcasecount="775" result="Failed" site="Child" start-time="2026-10-31 12:32:47Z" end-time="2026-10-31 12:32:47Z" duration="0.041575" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <failure>
+          <message><![CDATA[One or more child tests had errors]]></message>
+        </failure>
+        <test-suite type="TestSuite" id="1903" name="Tests" fullname="DiceCraft.Tests" runstate="Runnable" testcasecount="277" result="Failed" site="Child" start-time="2026-10-31 12:32:47Z" end-time="2026-10-31 12:32:47Z" duration="0.039827" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <failure>
+            <message><![CDATA[One or more child tests had errors]]></message>
+          </failure>
+          <test-suite type="TestFixture" id="1587" name="AtomicSaveStoreTests" fullname="DiceCraft.Tests.AtomicSaveStoreTests" classname="DiceCraft.Tests.AtomicSaveStoreTests" runstate="Runnable" testcasecount="16" result="Failed" site="Child" start-time="2026-10-31 12:32:47Z" end-time="2026-10-31 12:32:47Z" duration="0.039328" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <failure>
+              <message><![CDATA[One or more child tests had errors]]></message>
+            </failure>
+            <test-case id="1607" name="SAVE_NullGroupHistoryRemainsNoGroupAndCannotChangeNextHandOrScore" fullname="DiceCraft.Tests.AtomicSaveStoreTests.SAVE_NullGroupHistoryRemainsNoGroupAndCannotChangeNextHandOrScore" methodname="SAVE_NullGroupHistoryRemainsNoGroupAndCannotChangeNextHandOrScore" classname="DiceCraft.Tests.AtomicSaveStoreTests" runstate="Runnable" seed="771643223" result="Failed" start-time="2026-10-31 12:32:47Z" end-time="2026-10-31 12:32:47Z" duration="0.036505" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <failure>
+                <message><![CDATA[  A historical null-to-empty string must not affect new gameplay, receipts or RNG.
+  String lengths are both 30899. Strings differ at index 22670.
+  Expected: "..."message":"Roll","stateHash":"e755385e1a3cdc329a81920e9c20..."
+  But was:  "..."message":"Roll","stateHash":"83730381fc4ea189daab18dd5c41..."
+  --------------------------------------------^
+]]></message>
+                <stack-trace><![CDATA[at DiceCraft.Tests.AtomicSaveStoreTests.SAVE_NullGroupHistoryRemainsNoGroupAndCannotChangeNextHandOrScore () [0x001af] in E:\agent_workspace\gpt\game2\DicePrototype\Assets\Game\Tests\EditMode\Persistence\AtomicSaveStoreTests.cs:182
+]]></stack-trace>
+              </failure>
+              <output><![CDATA[Isolated persistence evidence retained: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftPersistence_2ca5d4691c454816be1478423f60edc9
+Saving results to: E:\agent_workspace\gpt\game2\evidence\v06\unity\nunit-20261031-123247.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

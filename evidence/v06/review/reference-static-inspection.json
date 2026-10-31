@@ -1,0 +1,242 @@
+{
+  "imports": [
+    "from collections import Counter",
+    "from fractions import Fraction",
+    "from copy import deepcopy"
+  ],
+  "topLevel": [
+    {
+      "type": "Expr",
+      "line": 1,
+      "name": null
+    },
+    {
+      "type": "ImportFrom",
+      "line": 2,
+      "name": null
+    },
+    {
+      "type": "ImportFrom",
+      "line": 3,
+      "name": null
+    },
+    {
+      "type": "ImportFrom",
+      "line": 4,
+      "name": null
+    },
+    {
+      "type": "Assign",
+      "line": 6,
+      "name": null
+    },
+    {
+      "type": "Assign",
+      "line": 57,
+      "name": null
+    },
+    {
+      "type": "Assign",
+      "line": 65,
+      "name": null
+    },
+    {
+      "type": "Assign",
+      "line": 73,
+      "name": null
+    },
+    {
+      "type": "Assign",
+      "line": 81,
+      "name": null
+    },
+    {
+      "type": "Assign",
+      "line": 95,
+      "name": null
+    },
+    {
+      "type": "Assign",
+      "line": 97,
+      "name": null
+    },
+    {
+      "type": "Assign",
+      "line": 99,
+      "name": null
+    },
+    {
+      "type": "Assign",
+      "line": 101,
+      "name": null
+    },
+    {
+      "type": "Assign",
+      "line": 126,
+      "name": null
+    },
+    {
+      "type": "Assign",
+      "line": 128,
+      "name": null
+    },
+    {
+      "type": "Assign",
+      "line": 130,
+      "name": null
+    },
+    {
+      "type": "Assign",
+      "line": 132,
+      "name": null
+    },
+    {
+      "type": "Expr",
+      "line": 141,
+      "name": null
+    },
+    {
+      "type": "Assign",
+      "line": 143,
+      "name": null
+    },
+    {
+      "type": "Assign",
+      "line": 144,
+      "name": null
+    },
+    {
+      "type": "FunctionDef",
+      "line": 146,
+      "name": "normalize_instances"
+    },
+    {
+      "type": "FunctionDef",
+      "line": 158,
+      "name": "resolve_sources"
+    },
+    {
+      "type": "FunctionDef",
+      "line": 180,
+      "name": "inventory_valid"
+    },
+    {
+      "type": "FunctionDef",
+      "line": 187,
+      "name": "effective_capacity"
+    },
+    {
+      "type": "FunctionDef",
+      "line": 191,
+      "name": "stage_submission_budget"
+    },
+    {
+      "type": "FunctionDef",
+      "line": 194,
+      "name": "hand_roll_budget"
+    },
+    {
+      "type": "FunctionDef",
+      "line": 197,
+      "name": "evaluate"
+    },
+    {
+      "type": "FunctionDef",
+      "line": 320,
+      "name": "raw_probabilities"
+    },
+    {
+      "type": "FunctionDef",
+      "line": 332,
+      "name": "probs"
+    },
+    {
+      "type": "FunctionDef",
+      "line": 351,
+      "name": "die_offer_price"
+    },
+    {
+      "type": "FunctionDef",
+      "line": 354,
+      "name": "enchant_pool"
+    },
+    {
+      "type": "FunctionDef",
+      "line": 361,
+      "name": "normalize_new_enchant"
+    },
+    {
+      "type": "FunctionDef",
+      "line": 365,
+      "name": "controller_sell_price"
+    },
+    {
+      "type": "FunctionDef",
+      "line": 371,
+      "name": "refresh_price"
+    },
+    {
+      "type": "FunctionDef",
+      "line": 375,
+      "name": "settlement_preview"
+    },
+    {
+      "type": "FunctionDef",
+      "line": 384,
+      "name": "c05_roll_grants"
+    }
+  ],
+  "calls": {
+    "enumerate": 5,
+    "normalize_instances": 6,
+    "Counter": 7,
+    "max": 8,
+    "all": 6,
+    "resolve_sources": 4,
+    "len": 16,
+    "sorted": 5,
+    "sum": 16,
+    "any": 7,
+    "Fraction": 8,
+    "dict": 6,
+    "raw_probabilities": 1,
+    "min": 6,
+    "x.setdefault": 4,
+    "out.append": 1,
+    "set": 3,
+    "result.append": 1,
+    "numbers.values": 3,
+    "bool": 4,
+    "x.get": 4,
+    "per_die.append": 1,
+    "redgroups.values": 1,
+    "raw.append": 1,
+    "range": 5,
+    "enchant_pool": 2,
+    "x['state'].get": 1,
+    "isinstance": 1,
+    "deepcopy": 2,
+    "seen.add": 1,
+    "by_id.get": 1,
+    "matches.items": 1,
+    "predicates.get": 1,
+    "factor_lines.append": 1,
+    "str": 9,
+    "list": 3,
+    "weights.items": 1,
+    "bindings.get": 1,
+    "levels.get": 2,
+    "color_levels.get": 1,
+    "redgroups.items": 1,
+    "s['state'].get": 2,
+    "owners": 2,
+    "Counter(colors).values": 1,
+    "levels.values": 1,
+    "color_levels.values": 1,
+    "abs": 1,
+    "Counter(pips).values": 1,
+    "random_units2.get": 1
+  },
+  "executedByExtractionStep": false,
+  "executionEvidence": "spec-runtime-results.json is a separate reviewed runtime check."
+}

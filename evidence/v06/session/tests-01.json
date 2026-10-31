@@ -1,0 +1,709 @@
+{
+  "runner": ".NET 10 reflection invoking NUnit assertion tests; not Unity EditMode",
+  "utc": "2026-10-31T12:11:05.6495398Z",
+  "passed": 130,
+  "failed": 36,
+  "total": 166,
+  "results": [
+    {
+      "name": "FlowTests.FLOW_A01_InitialStateAndNoSubmitBeforeRoll",
+      "result": "Passed"
+    },
+    {
+      "name": "FlowTests.FLOW_A02_A03_A04_OrderedIrreversibleLocks",
+      "result": "Passed"
+    },
+    {
+      "name": "FlowTests.FLOW_A05_PendingBlocksEveryPersistentActionExceptConfirm",
+      "result": "Passed"
+    },
+    {
+      "name": "FlowTests.FLOW_A06_OverCapacityRejectsWholeBatch",
+      "result": "Passed"
+    },
+    {
+      "name": "FlowTests.FLOW_A07_TemporaryDiceDoNotExpandCapacity",
+      "result": "Passed"
+    },
+    {
+      "name": "FlowTests.FLOW_A08_ControllerBudgetsCombine",
+      "result": "Failed",
+      "error": "System.ArgumentException: Unknown configured ID: C04 (Parameter \u0027id\u0027)\r\n   at DiceCraft.Core.GameConfig.Required[T](T[] entries, Func\u00602 key, String id) in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Core\\Rules\\ConfigValidation.cs:line 21\r\n   at DiceCraft.Core.GameConfig.Controller(String id) in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Core\\Rules\\ConfigValidation.cs:line 11\r\n   at DiceCraft.Core.ControllerRules.ValidateInstances(IEnumerable\u00601 instances, GameConfig cfg, Boolean debug, Boolean enforceSlots) in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Core\\Rules\\ControllerRules.cs:line 78\r\n   at DiceCraft.Core.ControllerRules.ValidateEquipment(IEnumerable\u00601 instances, GameConfig cfg, Boolean debug) in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Core\\Rules\\ControllerRules.cs:line 70\r\n   at DiceCraft.Core.GameSession.ValidateState(RunState s) in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Core\\Session\\GameSession.Validation.cs:line 38\r\n   at DiceCraft.Core.GameSession..ctor(GameConfig config, ISaveStore saveStore, RunState restored) in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Core\\Session\\GameSession.cs:line 30\r\n   at DiceCraft.Tests.SessionTestSupport.Edit(GameSession s, Action\u00601 edit, ISaveStore store) in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Tests\\EditMode\\Session\\SessionTestSupport.cs:line 51\r\n   at DiceCraft.Tests.SessionTestSupport.Ready(String[] controllers) in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Tests\\EditMode\\Session\\SessionTestSupport.cs:line 67\r\n   at DiceCraft.Tests.FlowTests.FLOW_A08_ControllerBudgetsCombine() in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Tests\\EditMode\\Session\\FlowTests.cs:line 50\r\n   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)\r\n   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)"
+    },
+    {
+      "name": "FlowTests.FLOW_A09_A11_C05OnlyAfterRollOnceAndSurvivesLoad",
+      "result": "Passed"
+    },
+    {
+      "name": "FlowTests.FLOW_A10_LockingAfterLastRollDoesNotGrantC05",
+      "result": "Passed"
+    },
+    {
+      "name": "FlowTests.FLOW_A12_ExtraRollAndSubmissionPersistForStage",
+      "result": "Failed",
+      "error": "NUnit.Framework.AssertionException:   Expected: True\r\n  But was:  False\r\n\r\n   at NUnit.Framework.Assert.That[TActual](TActual actual, IResolveConstraint expression, String message, Object[] args)\r\n   at NUnit.Framework.Assert.That[TActual](TActual actual, IResolveConstraint expression)\r\n   at DiceCraft.Tests.FlowTests.FLOW_A12_ExtraRollAndSubmissionPersistForStage() in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Tests\\EditMode\\Session\\FlowTests.cs:line 70\r\n   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)\r\n   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)"
+    },
+    {
+      "name": "FlowTests.FLOW_C01_C02_CopyUsesFrozenScoreAndDeepCopies",
+      "result": "Passed"
+    },
+    {
+      "name": "FlowTests.FLOW_C03_C04_CopyDoesNotTriggerLaterOrOnEffectivePair",
+      "result": "Passed"
+    },
+    {
+      "name": "FlowTests.FLOW_C05_C06_DiffusionUsesPhysicalFaceAfterScoring",
+      "result": "Passed"
+    },
+    {
+      "name": "FlowTests.FLOW_C07_RemoteAllowsAbsentPipAndPreservesPhysicalFace",
+      "result": "Passed"
+    },
+    {
+      "name": "FlowTests.FLOW_C08_RemoteRejectsBadTargetsAtomically",
+      "result": "Passed"
+    },
+    {
+      "name": "FlowTests.FLOW_C09_C11_BrokenRemoteTargetsConsumeItemAndNoDiceFails",
+      "result": "Passed"
+    },
+    {
+      "name": "FlowTests.FLOW_C10_LockedGlassNeverRollsOrBreaks",
+      "result": "Passed"
+    },
+    {
+      "name": "FlowTests.FLOW_C12_TemporaryLimitIsSimultaneousNotHistorical",
+      "result": "Failed",
+      "error": "NUnit.Framework.AssertionException:   Expected: False\r\n  But was:  True\r\n\r\n   at NUnit.Framework.Assert.That[TActual](TActual actual, IResolveConstraint expression, String message, Object[] args)\r\n   at NUnit.Framework.Assert.That[TActual](TActual actual, IResolveConstraint expression)\r\n   at DiceCraft.Tests.FlowTests.FLOW_C12_TemporaryLimitIsSimultaneousNotHistorical() in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Tests\\EditMode\\Session\\FlowTests.cs:line 139\r\n   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)\r\n   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)"
+    },
+    {
+      "name": "FlowTests.FLOW_C13_CopyPreservesTemporaryTargetLifetime",
+      "result": "Passed"
+    },
+    {
+      "name": "FlowTests.FLOW_C14_C15_SettlementClearsTemporaryDiceWithFinalWinPriority(False)",
+      "result": "Failed",
+      "error": "NUnit.Framework.AssertionException:   Expected: greater than 10\r\n  But was:  7\r\n\r\n   at NUnit.Framework.Assert.That[TActual](TActual actual, IResolveConstraint expression, String message, Object[] args)\r\n   at NUnit.Framework.Assert.That[TActual](TActual actual, IResolveConstraint expression)\r\n   at DiceCraft.Tests.FlowTests.FLOW_C14_C15_SettlementClearsTemporaryDiceWithFinalWinPriority(Boolean final) in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Tests\\EditMode\\Session\\FlowTests.cs:line 149\r\n   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)\r\n   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span\u00601 copyOfArgs, BindingFlags invokeAttr)"
+    },
+    {
+      "name": "FlowTests.FLOW_C14_C15_SettlementClearsTemporaryDiceWithFinalWinPriority(True)",
+      "result": "Failed",
+      "error": "NUnit.Framework.AssertionException:   Expected: greater than 10\r\n  But was:  7\r\n\r\n   at NUnit.Framework.Assert.That[TActual](TActual actual, IResolveConstraint expression, String message, Object[] args)\r\n   at NUnit.Framework.Assert.That[TActual](TActual actual, IResolveConstraint expression)\r\n   at DiceCraft.Tests.FlowTests.FLOW_C14_C15_SettlementClearsTemporaryDiceWithFinalWinPriority(Boolean final) in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Tests\\EditMode\\Session\\FlowTests.cs:line 149\r\n   at InvokeStub_FlowTests.FLOW_C14_C15_SettlementClearsTemporaryDiceWithFinalWinPriority(Object, Span\u00601)\r\n   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)"
+    },
+    {
+      "name": "FlowTests.FullSlotsWithUnlockedDiceCanStillRollButAllLockedCannot",
+      "result": "Passed"
+    },
+    {
+      "name": "FlowTests.LastSubmissionTargetWinsBeforeExhaustionAndNewHandClearsEffects",
+      "result": "Passed"
+    },
+    {
+      "name": "ItemAndSaveTests.CONTENT_HandBuffDoesNotStack(I01)",
+      "result": "Passed"
+    },
+    {
+      "name": "ItemAndSaveTests.CONTENT_HandBuffDoesNotStack(I04)",
+      "result": "Passed"
+    },
+    {
+      "name": "ItemAndSaveTests.CONTENT_HandBuffDoesNotStack(I05)",
+      "result": "Passed"
+    },
+    {
+      "name": "ItemAndSaveTests.CONTENT_ItemRejectsOutsideWindowWithoutConsumption(I01)",
+      "result": "Passed"
+    },
+    {
+      "name": "ItemAndSaveTests.CONTENT_ItemRejectsOutsideWindowWithoutConsumption(I02)",
+      "result": "Passed"
+    },
+    {
+      "name": "ItemAndSaveTests.CONTENT_ItemRejectsOutsideWindowWithoutConsumption(I03)",
+      "result": "Passed"
+    },
+    {
+      "name": "ItemAndSaveTests.CONTENT_ItemRejectsOutsideWindowWithoutConsumption(I04)",
+      "result": "Passed"
+    },
+    {
+      "name": "ItemAndSaveTests.CONTENT_ItemRejectsOutsideWindowWithoutConsumption(I05)",
+      "result": "Passed"
+    },
+    {
+      "name": "ItemAndSaveTests.CONTENT_ItemRejectsOutsideWindowWithoutConsumption(I06)",
+      "result": "Passed"
+    },
+    {
+      "name": "ItemAndSaveTests.CONTENT_ItemRejectsOutsideWindowWithoutConsumption(I07)",
+      "result": "Passed"
+    },
+    {
+      "name": "ItemAndSaveTests.CONTENT_ItemSuccessfulUseAndDuplicateReceiptDoNotConsumeAgain(I01)",
+      "result": "Passed"
+    },
+    {
+      "name": "ItemAndSaveTests.CONTENT_ItemSuccessfulUseAndDuplicateReceiptDoNotConsumeAgain(I02)",
+      "result": "Passed"
+    },
+    {
+      "name": "ItemAndSaveTests.CONTENT_ItemSuccessfulUseAndDuplicateReceiptDoNotConsumeAgain(I03)",
+      "result": "Passed"
+    },
+    {
+      "name": "ItemAndSaveTests.CONTENT_ItemSuccessfulUseAndDuplicateReceiptDoNotConsumeAgain(I04)",
+      "result": "Passed"
+    },
+    {
+      "name": "ItemAndSaveTests.CONTENT_ItemSuccessfulUseAndDuplicateReceiptDoNotConsumeAgain(I05)",
+      "result": "Passed"
+    },
+    {
+      "name": "ItemAndSaveTests.CONTENT_ItemSuccessfulUseAndDuplicateReceiptDoNotConsumeAgain(I06)",
+      "result": "Passed"
+    },
+    {
+      "name": "ItemAndSaveTests.CONTENT_ItemSuccessfulUseAndDuplicateReceiptDoNotConsumeAgain(I07)",
+      "result": "Passed"
+    },
+    {
+      "name": "ItemAndSaveTests.DuplicateReceiptPrecedesSequenceAndBusyChecks",
+      "result": "Passed"
+    },
+    {
+      "name": "ItemAndSaveTests.FLOW_D05_D06_ProbabilityBuffsUsePermanentPipsAndDoNotStack",
+      "result": "Passed"
+    },
+    {
+      "name": "ItemAndSaveTests.FLOW_D07_TextureReplacementPreservesOtherAttributes",
+      "result": "Passed"
+    },
+    {
+      "name": "ItemAndSaveTests.FLOW_D08_RepeatedLoadsNeverCompoundProbabilityWeights",
+      "result": "Passed"
+    },
+    {
+      "name": "ItemAndSaveTests.FLOW_E13_CopySaveFailureDoesNotApplyUntilCommitOrRepeatOnRetry",
+      "result": "Passed"
+    },
+    {
+      "name": "ItemAndSaveTests.FLOW_E13_TransformSaveFailureRetainsExactCandidateAndBlocksNewActions",
+      "result": "Passed"
+    },
+    {
+      "name": "ItemAndSaveTests.FLOW_E14_LocksOrderBuffsAndRngSurviveRestore",
+      "result": "Passed"
+    },
+    {
+      "name": "ItemAndSaveTests.IdenticalSeedAndCommandsReproduceResultsShopAndRng",
+      "result": "Passed"
+    },
+    {
+      "name": "ItemAndSaveTests.ItemWindowsAndAbsentPermanentPipRejected",
+      "result": "Passed"
+    },
+    {
+      "name": "ItemAndSaveTests.PreviewDoesNotAdvanceAnyRngOrApplyCopyOrDye",
+      "result": "Passed"
+    },
+    {
+      "name": "ItemAndSaveTests.RestoreRejectsWrongSchemaUnknownContentAndDuplicateDice",
+      "result": "Passed"
+    },
+    {
+      "name": "ItemAndSaveTests.StateCopiesCannotMutateAuthoritativeData",
+      "result": "Failed",
+      "error": "NUnit.Framework.AssertionException:   Expected: 10\r\n  But was:  0\r\n\r\n   at NUnit.Framework.Assert.That[TActual](TActual actual, IResolveConstraint expression, String message, Object[] args)\r\n   at NUnit.Framework.Assert.That[TActual](TActual actual, IResolveConstraint expression)\r\n   at DiceCraft.Tests.ItemAndSaveTests.StateCopiesCannotMutateAuthoritativeData() in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Tests\\EditMode\\Session\\ItemAndSaveTests.cs:line 120\r\n   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)\r\n   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)"
+    },
+    {
+      "name": "ItemAndSaveTests.TwentyFourStageFlowSupportsEightRiskBranchesAndNoFinalShop",
+      "result": "Failed",
+      "error": "NUnit.Framework.AssertionException:   EndStage: \u672C\u5173\u5C1A\u672A\u8FBE\u6807\u6216\u5DF2\u7ECF\u7ED3\u675F\u3002\r\n  Expected: True\r\n  But was:  False\r\n\r\n   at NUnit.Framework.Assert.That[TActual](TActual actual, IResolveConstraint expression, String message, Object[] args)\r\n   at DiceCraft.Tests.SessionTestSupport.Do(GameSession s, CommandKind kind, Action\u00601 configure) in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Tests\\EditMode\\Session\\SessionTestSupport.cs:line 38\r\n   at DiceCraft.Tests.ItemAndSaveTests.TwentyFourStageFlowSupportsEightRiskBranchesAndNoFinalShop() in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Tests\\EditMode\\Session\\ItemAndSaveTests.cs:line 143\r\n   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)\r\n   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)"
+    },
+    {
+      "name": "ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(C01)",
+      "result": "Passed"
+    },
+    {
+      "name": "ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(C02)",
+      "result": "Passed"
+    },
+    {
+      "name": "ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(C03)",
+      "result": "Passed"
+    },
+    {
+      "name": "ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(C04)",
+      "result": "Failed",
+      "error": "System.ArgumentException: Unknown configured ID: C04 (Parameter \u0027id\u0027)\r\n   at DiceCraft.Core.GameConfig.Required[T](T[] entries, Func\u00602 key, String id) in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Core\\Rules\\ConfigValidation.cs:line 21\r\n   at DiceCraft.Core.GameConfig.Controller(String id) in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Core\\Rules\\ConfigValidation.cs:line 11\r\n   at DiceCraft.Tests.SessionTestSupport.PutOffer(RunState s, String category, String contentId, Int32 basePrice, DieInstance die) in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Tests\\EditMode\\Session\\SessionTestSupport.cs:line 102\r\n   at DiceCraft.Tests.ShopTests.\u003C\u003Ec__DisplayClass2_0.\u003CCONTENT_ControllerPurchaseDuplicateAndSell\u003Eb__0(RunState x) in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Tests\\EditMode\\Session\\ShopTests.cs:line 34\r\n   at DiceCraft.Tests.SessionTestSupport.Edit(GameSession s, Action\u00601 edit, ISaveStore store) in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Tests\\EditMode\\Session\\SessionTestSupport.cs:line 46\r\n   at DiceCraft.Tests.ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(String id) in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Tests\\EditMode\\Session\\ShopTests.cs:line 34\r\n   at InvokeStub_ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(Object, Span\u00601)\r\n   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)"
+    },
+    {
+      "name": "ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(C05)",
+      "result": "Passed"
+    },
+    {
+      "name": "ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(C06)",
+      "result": "Passed"
+    },
+    {
+      "name": "ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(C07)",
+      "result": "Passed"
+    },
+    {
+      "name": "ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(C08)",
+      "result": "Passed"
+    },
+    {
+      "name": "ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(C09)",
+      "result": "Passed"
+    },
+    {
+      "name": "ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(C10)",
+      "result": "Passed"
+    },
+    {
+      "name": "ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(C11)",
+      "result": "Passed"
+    },
+    {
+      "name": "ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(C12)",
+      "result": "Passed"
+    },
+    {
+      "name": "ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(C13)",
+      "result": "Passed"
+    },
+    {
+      "name": "ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(C14)",
+      "result": "Passed"
+    },
+    {
+      "name": "ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(C15)",
+      "result": "Passed"
+    },
+    {
+      "name": "ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(C16)",
+      "result": "Failed",
+      "error": "System.ArgumentException: Unknown configured ID: C16 (Parameter \u0027id\u0027)\r\n   at DiceCraft.Core.GameConfig.Required[T](T[] entries, Func\u00602 key, String id) in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Core\\Rules\\ConfigValidation.cs:line 21\r\n   at DiceCraft.Core.GameConfig.Controller(String id) in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Core\\Rules\\ConfigValidation.cs:line 11\r\n   at DiceCraft.Tests.SessionTestSupport.PutOffer(RunState s, String category, String contentId, Int32 basePrice, DieInstance die) in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Tests\\EditMode\\Session\\SessionTestSupport.cs:line 102\r\n   at DiceCraft.Tests.ShopTests.\u003C\u003Ec__DisplayClass2_0.\u003CCONTENT_ControllerPurchaseDuplicateAndSell\u003Eb__0(RunState x) in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Tests\\EditMode\\Session\\ShopTests.cs:line 34\r\n   at DiceCraft.Tests.SessionTestSupport.Edit(GameSession s, Action\u00601 edit, ISaveStore store) in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Tests\\EditMode\\Session\\SessionTestSupport.cs:line 46\r\n   at DiceCraft.Tests.ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(String id) in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Tests\\EditMode\\Session\\ShopTests.cs:line 34\r\n   at InvokeStub_ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(Object, Span\u00601)\r\n   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)"
+    },
+    {
+      "name": "ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(C17)",
+      "result": "Passed"
+    },
+    {
+      "name": "ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(C18)",
+      "result": "Passed"
+    },
+    {
+      "name": "ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(C19)",
+      "result": "Passed"
+    },
+    {
+      "name": "ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(C20)",
+      "result": "Passed"
+    },
+    {
+      "name": "ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(C21)",
+      "result": "Passed"
+    },
+    {
+      "name": "ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(C22)",
+      "result": "Passed"
+    },
+    {
+      "name": "ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(C23)",
+      "result": "Failed",
+      "error": "System.ArgumentException: Unknown configured ID: C23 (Parameter \u0027id\u0027)\r\n   at DiceCraft.Core.GameConfig.Required[T](T[] entries, Func\u00602 key, String id) in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Core\\Rules\\ConfigValidation.cs:line 21\r\n   at DiceCraft.Core.GameConfig.Controller(String id) in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Core\\Rules\\ConfigValidation.cs:line 11\r\n   at DiceCraft.Tests.SessionTestSupport.PutOffer(RunState s, String category, String contentId, Int32 basePrice, DieInstance die) in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Tests\\EditMode\\Session\\SessionTestSupport.cs:line 102\r\n   at DiceCraft.Tests.ShopTests.\u003C\u003Ec__DisplayClass2_0.\u003CCONTENT_ControllerPurchaseDuplicateAndSell\u003Eb__0(RunState x) in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Tests\\EditMode\\Session\\ShopTests.cs:line 34\r\n   at DiceCraft.Tests.SessionTestSupport.Edit(GameSession s, Action\u00601 edit, ISaveStore store) in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Tests\\EditMode\\Session\\SessionTestSupport.cs:line 46\r\n   at DiceCraft.Tests.ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(String id) in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Tests\\EditMode\\Session\\ShopTests.cs:line 34\r\n   at InvokeStub_ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(Object, Span\u00601)\r\n   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)"
+    },
+    {
+      "name": "ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(C24)",
+      "result": "Passed"
+    },
+    {
+      "name": "ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(C25)",
+      "result": "Passed"
+    },
+    {
+      "name": "ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(C26)",
+      "result": "Passed"
+    },
+    {
+      "name": "ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(C27)",
+      "result": "Passed"
+    },
+    {
+      "name": "ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(C28)",
+      "result": "Passed"
+    },
+    {
+      "name": "ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(C29)",
+      "result": "Passed"
+    },
+    {
+      "name": "ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(C30)",
+      "result": "Passed"
+    },
+    {
+      "name": "ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(C31)",
+      "result": "Passed"
+    },
+    {
+      "name": "ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(C32)",
+      "result": "Passed"
+    },
+    {
+      "name": "ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(C33)",
+      "result": "Passed"
+    },
+    {
+      "name": "ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(C34)",
+      "result": "Passed"
+    },
+    {
+      "name": "ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(C35)",
+      "result": "Passed"
+    },
+    {
+      "name": "ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(C36)",
+      "result": "Passed"
+    },
+    {
+      "name": "ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(C37)",
+      "result": "Passed"
+    },
+    {
+      "name": "ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(C38)",
+      "result": "Passed"
+    },
+    {
+      "name": "ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(C39)",
+      "result": "Passed"
+    },
+    {
+      "name": "ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(C40)",
+      "result": "Passed"
+    },
+    {
+      "name": "ShopTests.CONTENT_O03_FullPermanentPoolRejectsAndExistingCandidatesNeverRefresh",
+      "result": "Passed"
+    },
+    {
+      "name": "ShopTests.CONTENT_ServiceDuplicateReceiptDoesNotRepeatMutation(O01)",
+      "result": "Passed"
+    },
+    {
+      "name": "ShopTests.CONTENT_ServiceDuplicateReceiptDoesNotRepeatMutation(O02)",
+      "result": "Passed"
+    },
+    {
+      "name": "ShopTests.CONTENT_ServiceDuplicateReceiptDoesNotRepeatMutation(O04)",
+      "result": "Passed"
+    },
+    {
+      "name": "ShopTests.CONTENT_UpgradeAppliesOnlyToTargetAndIsIdempotent(U01)",
+      "result": "Passed"
+    },
+    {
+      "name": "ShopTests.CONTENT_UpgradeAppliesOnlyToTargetAndIsIdempotent(U02)",
+      "result": "Passed"
+    },
+    {
+      "name": "ShopTests.CONTENT_UpgradeAppliesOnlyToTargetAndIsIdempotent(U03)",
+      "result": "Passed"
+    },
+    {
+      "name": "ShopTests.CONTENT_UpgradeAppliesOnlyToTargetAndIsIdempotent(U04)",
+      "result": "Passed"
+    },
+    {
+      "name": "ShopTests.CONTENT_UpgradeAppliesOnlyToTargetAndIsIdempotent(U05)",
+      "result": "Passed"
+    },
+    {
+      "name": "ShopTests.CONTENT_UpgradeAppliesOnlyToTargetAndIsIdempotent(U06)",
+      "result": "Passed"
+    },
+    {
+      "name": "ShopTests.CONTENT_UpgradeAppliesOnlyToTargetAndIsIdempotent(U07)",
+      "result": "Passed"
+    },
+    {
+      "name": "ShopTests.CONTENT_UpgradeRejectsMissingTargetWithoutConsumingOffer(U01)",
+      "result": "Passed"
+    },
+    {
+      "name": "ShopTests.CONTENT_UpgradeRejectsMissingTargetWithoutConsumingOffer(U02)",
+      "result": "Passed"
+    },
+    {
+      "name": "ShopTests.CONTENT_UpgradeRejectsMissingTargetWithoutConsumingOffer(U03)",
+      "result": "Passed"
+    },
+    {
+      "name": "ShopTests.CONTENT_UpgradeRejectsMissingTargetWithoutConsumingOffer(U04)",
+      "result": "Passed"
+    },
+    {
+      "name": "ShopTests.CONTENT_UpgradeRejectsMissingTargetWithoutConsumingOffer(U05)",
+      "result": "Passed"
+    },
+    {
+      "name": "ShopTests.CONTENT_UpgradeRejectsMissingTargetWithoutConsumingOffer(U06)",
+      "result": "Passed"
+    },
+    {
+      "name": "ShopTests.CONTENT_UpgradeRejectsMissingTargetWithoutConsumingOffer(U07)",
+      "result": "Passed"
+    },
+    {
+      "name": "ShopTests.FLOW_E01_RewardUsesOldBalance(False,36)",
+      "result": "Passed"
+    },
+    {
+      "name": "ShopTests.FLOW_E01_RewardUsesOldBalance(True,38)",
+      "result": "Failed",
+      "error": "NUnit.Framework.AssertionException:   Expected: 38\r\n  But was:  39\r\n\r\n   at NUnit.Framework.Assert.That[TActual](TActual actual, IResolveConstraint expression, String message, Object[] args)\r\n   at NUnit.Framework.Assert.That[TActual](TActual actual, IResolveConstraint expression)\r\n   at DiceCraft.Tests.ShopTests.FLOW_E01_RewardUsesOldBalance(Boolean pig, Int32 expected) in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Tests\\EditMode\\Session\\ShopTests.cs:line 14\r\n   at InvokeStub_ShopTests.FLOW_E01_RewardUsesOldBalance(Object, Span\u00601)\r\n   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)"
+    },
+    {
+      "name": "ShopTests.FLOW_E02_BuyingPigNeverChangesPriorSettlement",
+      "result": "Passed"
+    },
+    {
+      "name": "ShopTests.FLOW_E03_ControllerFullRejectsWithoutRestocking",
+      "result": "Failed",
+      "error": "System.ArgumentException: Unknown configured ID: C04 (Parameter \u0027id\u0027)\r\n   at DiceCraft.Core.GameConfig.Required[T](T[] entries, Func\u00602 key, String id) in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Core\\Rules\\ConfigValidation.cs:line 21\r\n   at DiceCraft.Core.GameConfig.Controller(String id) in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Core\\Rules\\ConfigValidation.cs:line 11\r\n   at DiceCraft.Core.ControllerRules.ValidateInstances(IEnumerable\u00601 instances, GameConfig cfg, Boolean debug, Boolean enforceSlots) in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Core\\Rules\\ControllerRules.cs:line 78\r\n   at DiceCraft.Core.ControllerRules.ValidateEquipment(IEnumerable\u00601 instances, GameConfig cfg, Boolean debug) in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Core\\Rules\\ControllerRules.cs:line 70\r\n   at DiceCraft.Core.GameSession.ValidateState(RunState s) in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Core\\Session\\GameSession.Validation.cs:line 38\r\n   at DiceCraft.Core.GameSession..ctor(GameConfig config, ISaveStore saveStore, RunState restored) in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Core\\Session\\GameSession.cs:line 30\r\n   at DiceCraft.Tests.SessionTestSupport.Edit(GameSession s, Action\u00601 edit, ISaveStore store) in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Tests\\EditMode\\Session\\SessionTestSupport.cs:line 51\r\n   at DiceCraft.Tests.ShopTests.FLOW_E03_ControllerFullRejectsWithoutRestocking() in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Tests\\EditMode\\Session\\ShopTests.cs:line 45\r\n   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)\r\n   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)"
+    },
+    {
+      "name": "ShopTests.FLOW_E04_SellOnceAndConsumedCannotSell",
+      "result": "Passed"
+    },
+    {
+      "name": "ShopTests.FLOW_E05_E06_DiscountChargesOldPriceAndMinimumTwo",
+      "result": "Failed",
+      "error": "NUnit.Framework.AssertionException:   Expected: 95\r\n  But was:  99\r\n\r\n   at NUnit.Framework.Assert.That[TActual](TActual actual, IResolveConstraint expression, String message, Object[] args)\r\n   at NUnit.Framework.Assert.That[TActual](TActual actual, IResolveConstraint expression)\r\n   at DiceCraft.Tests.ShopTests.FLOW_E05_E06_DiscountChargesOldPriceAndMinimumTwo() in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Tests\\EditMode\\Session\\ShopTests.cs:line 60\r\n   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)\r\n   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)"
+    },
+    {
+      "name": "ShopTests.FLOW_E07_DiscountDoesNotAffectControllersOrUpgrades",
+      "result": "Failed",
+      "error": "NUnit.Framework.AssertionException:   Expected: 90\r\n  But was:  95\r\n\r\n   at NUnit.Framework.Assert.That[TActual](TActual actual, IResolveConstraint expression, String message, Object[] args)\r\n   at NUnit.Framework.Assert.That[TActual](TActual actual, IResolveConstraint expression)\r\n   at DiceCraft.Tests.ShopTests.FLOW_E07_DiscountDoesNotAffectControllersOrUpgrades() in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Tests\\EditMode\\Session\\ShopTests.cs:line 68\r\n   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)\r\n   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)"
+    },
+    {
+      "name": "ShopTests.FLOW_E08_MaxedServiceRejects(O01)",
+      "result": "Passed"
+    },
+    {
+      "name": "ShopTests.FLOW_E08_MaxedServiceRejects(O02)",
+      "result": "Passed"
+    },
+    {
+      "name": "ShopTests.FLOW_E09_IdenticalUpgradeRejectsWithoutMoneyOrRandomness(U01)",
+      "result": "Passed"
+    },
+    {
+      "name": "ShopTests.FLOW_E09_IdenticalUpgradeRejectsWithoutMoneyOrRandomness(U02)",
+      "result": "Passed"
+    },
+    {
+      "name": "ShopTests.FLOW_E09_IdenticalUpgradeRejectsWithoutMoneyOrRandomness(U03)",
+      "result": "Passed"
+    },
+    {
+      "name": "ShopTests.FLOW_E09_IdenticalUpgradeRejectsWithoutMoneyOrRandomness(U04)",
+      "result": "Passed"
+    },
+    {
+      "name": "ShopTests.FLOW_E09_IdenticalUpgradeRejectsWithoutMoneyOrRandomness(U05)",
+      "result": "Passed"
+    },
+    {
+      "name": "ShopTests.FLOW_E09_IdenticalUpgradeRejectsWithoutMoneyOrRandomness(U06)",
+      "result": "Passed"
+    },
+    {
+      "name": "ShopTests.FLOW_E10_TransformExcludesOldPipAndPreservesAttributes",
+      "result": "Passed"
+    },
+    {
+      "name": "ShopTests.FLOW_E11_NewDiePreviewFixedAndPurchaseClones",
+      "result": "Passed"
+    },
+    {
+      "name": "ShopTests.FLOW_E12_LastPermanentDieCannotBeDeletedEvenWithTemporaryDie",
+      "result": "Passed"
+    },
+    {
+      "name": "ShopTests.FLOW_E15_C09RechecksDisplayedHandQualification",
+      "result": "Failed",
+      "error": "NUnit.Framework.AssertionException:   Expected: False\r\n  But was:  True\r\n\r\n   at NUnit.Framework.Assert.That[TActual](TActual actual, IResolveConstraint expression, String message, Object[] args)\r\n   at NUnit.Framework.Assert.That[TActual](TActual actual, IResolveConstraint expression)\r\n   at DiceCraft.Tests.ShopTests.FLOW_E15_C09RechecksDisplayedHandQualification() in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Tests\\EditMode\\Session\\ShopTests.cs:line 126\r\n   at System.RuntimeMethodHandle.InvokeMethod(ObjectHandleOnStack target, Void** arguments, ObjectHandleOnStack sig, BOOL isConstructor, ObjectHandleOnStack result)\r\n   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)\r\n   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)"
+    },
+    {
+      "name": "ShopTests.GeneratedShopHasExactCategoriesNoReplacementAndAffordableFirstController",
+      "result": "Passed"
+    },
+    {
+      "name": "ShopTests.SelfStudyAndRandomHandUseCurrentLevelAndEligibility",
+      "result": "Failed",
+      "error": "NUnit.Framework.AssertionException:   Expected: 10\r\n  But was:  4\r\n\r\n   at NUnit.Framework.Assert.That[TActual](TActual actual, IResolveConstraint expression, String message, Object[] args)\r\n   at NUnit.Framework.Assert.That[TActual](TActual actual, IResolveConstraint expression)\r\n   at DiceCraft.Tests.ShopTests.SelfStudyAndRandomHandUseCurrentLevelAndEligibility() in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Tests\\EditMode\\Session\\ShopTests.cs:line 141\r\n   at System.RuntimeMethodHandle.InvokeMethod(ObjectHandleOnStack target, Void** arguments, ObjectHandleOnStack sig, BOOL isConstructor, ObjectHandleOnStack result)\r\n   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)\r\n   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)"
+    },
+    {
+      "name": "ShopTests.ServicesO01O02O04AndNewDieCapacityRespectLimits",
+      "result": "Passed"
+    },
+    {
+      "name": "ShopTests.ShopGoldDoesNotLimitPurchaseCountAndInventoryFullDoesNotEraseSupply",
+      "result": "Passed"
+    },
+    {
+      "name": "ShopTests.SixthDieRequiresIndependentCapacityBeforeSixKindStudy",
+      "result": "Failed",
+      "error": "NUnit.Framework.AssertionException:   Expected: collection containing \u0022six_kind\u0022\r\n  But was:  \u003C \u0022pair\u0022, \u0022two_pair\u0022, \u0022trips\u0022, \u0022full_house\u0022, \u0022quads\u0022, \u0022five_kind\u0022, \u0022straight\u0022, \u0022all_blue\u0022, \u0022all_red\u0022 \u003E\r\n\r\n   at NUnit.Framework.Assert.That[TActual](TActual actual, IResolveConstraint expression, String message, Object[] args)\r\n   at NUnit.Framework.Assert.That[TActual](TActual actual, IResolveConstraint expression)\r\n   at DiceCraft.Tests.ShopTests.SixthDieRequiresIndependentCapacityBeforeSixKindStudy() in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Tests\\EditMode\\Session\\ShopTests.cs:line 191\r\n   at System.RuntimeMethodHandle.InvokeMethod(ObjectHandleOnStack target, Void** arguments, ObjectHandleOnStack sig, BOOL isConstructor, ObjectHandleOnStack result)\r\n   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)\r\n   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)"
+    },
+    {
+      "name": "V05SessionTests.V05_AllGlassLostAfterQualificationUsesSingleSettlementAndFinalPriority(False)",
+      "result": "Passed"
+    },
+    {
+      "name": "V05SessionTests.V05_AllGlassLostAfterQualificationUsesSingleSettlementAndFinalPriority(True)",
+      "result": "Passed"
+    },
+    {
+      "name": "V05SessionTests.V05_BiasItemRequiresFutureLegalRollOnMatchingUnlockedDie(I04)",
+      "result": "Passed"
+    },
+    {
+      "name": "V05SessionTests.V05_BiasItemRequiresFutureLegalRollOnMatchingUnlockedDie(I05)",
+      "result": "Passed"
+    },
+    {
+      "name": "V05SessionTests.V05_BudgetsAndCapacityUseIndependentControllerRules",
+      "result": "Failed",
+      "error": "System.ArgumentException: Unknown configured ID: C04 (Parameter \u0027id\u0027)\r\n   at DiceCraft.Core.GameConfig.Required[T](T[] entries, Func\u00602 key, String id) in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Core\\Rules\\ConfigValidation.cs:line 21\r\n   at DiceCraft.Core.GameConfig.Controller(String id) in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Core\\Rules\\ConfigValidation.cs:line 11\r\n   at DiceCraft.Core.ControllerRules.ValidateInstances(IEnumerable\u00601 instances, GameConfig cfg, Boolean debug, Boolean enforceSlots) in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Core\\Rules\\ControllerRules.cs:line 78\r\n   at DiceCraft.Core.ControllerRules.ValidateEquipment(IEnumerable\u00601 instances, GameConfig cfg, Boolean debug) in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Core\\Rules\\ControllerRules.cs:line 70\r\n   at DiceCraft.Core.GameSession.ValidateState(RunState s) in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Core\\Session\\GameSession.Validation.cs:line 38\r\n   at DiceCraft.Core.GameSession..ctor(GameConfig config, ISaveStore saveStore, RunState restored) in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Core\\Session\\GameSession.cs:line 30\r\n   at DiceCraft.Tests.SessionTestSupport.Edit(GameSession s, Action\u00601 edit, ISaveStore store) in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Tests\\EditMode\\Session\\SessionTestSupport.cs:line 51\r\n   at DiceCraft.Tests.SessionTestSupport.Ready(String[] controllers) in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Tests\\EditMode\\Session\\SessionTestSupport.cs:line 67\r\n   at DiceCraft.Tests.V05SessionTests.V05_BudgetsAndCapacityUseIndependentControllerRules() in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Tests\\EditMode\\Session\\V05SessionTests.cs:line 123\r\n   at System.RuntimeMethodHandle.InvokeMethod(ObjectHandleOnStack target, Void** arguments, ObjectHandleOnStack sig, BOOL isConstructor, ObjectHandleOnStack result)\r\n   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)\r\n   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)"
+    },
+    {
+      "name": "V05SessionTests.V05_C26ThenC38LeavesFiveRedOneBlueAndScoreFrozen",
+      "result": "Passed"
+    },
+    {
+      "name": "V05SessionTests.V05_C29ReenablesFourSlotStraightStudyWithoutColorHands",
+      "result": "Failed",
+      "error": "NUnit.Framework.AssertionException:   Expected: not collection containing \u0022straight\u0022\r\n  But was:  \u003C \u0022pair\u0022, \u0022two_pair\u0022, \u0022trips\u0022, \u0022full_house\u0022, \u0022quads\u0022, \u0022five_kind\u0022, \u0022straight\u0022, \u0022all_blue\u0022, \u0022all_red\u0022 \u003E\r\n\r\n   at NUnit.Framework.Assert.That[TActual](TActual actual, IResolveConstraint expression, String message, Object[] args)\r\n   at NUnit.Framework.Assert.That[TActual](TActual actual, IResolveConstraint expression)\r\n   at DiceCraft.Tests.V05SessionTests.V05_C29ReenablesFourSlotStraightStudyWithoutColorHands() in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Tests\\EditMode\\Session\\V05SessionTests.cs:line 233\r\n   at System.RuntimeMethodHandle.InvokeMethod(ObjectHandleOnStack target, Void** arguments, ObjectHandleOnStack sig, BOOL isConstructor, ObjectHandleOnStack result)\r\n   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)\r\n   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)"
+    },
+    {
+      "name": "V05SessionTests.V05_ContinueAfterQualifiedKeepsOrdinalAndPaysOnlyRemainingAtEnd",
+      "result": "Failed",
+      "error": "NUnit.Framework.AssertionException:   Expected: 10\r\n  But was:  0\r\n\r\n   at NUnit.Framework.Assert.That[TActual](TActual actual, IResolveConstraint expression, String message, Object[] args)\r\n   at NUnit.Framework.Assert.That[TActual](TActual actual, IResolveConstraint expression)\r\n   at DiceCraft.Tests.V05SessionTests.V05_ContinueAfterQualifiedKeepsOrdinalAndPaysOnlyRemainingAtEnd() in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Tests\\EditMode\\Session\\V05SessionTests.cs:line 52\r\n   at System.RuntimeMethodHandle.InvokeMethod(ObjectHandleOnStack target, Void** arguments, ObjectHandleOnStack sig, BOOL isConstructor, ObjectHandleOnStack result)\r\n   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)\r\n   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)"
+    },
+    {
+      "name": "V05SessionTests.V05_ControllerOfferPersistenceAndOriginalInstanceSurviveReadBuyAndReload",
+      "result": "Passed"
+    },
+    {
+      "name": "V05SessionTests.V05_CopyThenGrowthUsesCopiedTargetFaceValueAndSourceIsIndependent",
+      "result": "Failed",
+      "error": "NUnit.Framework.AssertionException:   Expected is \u003CSystem.String[4]\u003E, actual is \u003CSystem.Linq.Enumerable\u002BListSelectIterator\u00602[DiceCraft.Core.EffectRecord,System.String]\u003E\r\n  Values differ at index [4]\r\n\r\n   at NUnit.Framework.Assert.That[TActual](TActual actual, IResolveConstraint expression, String message, Object[] args)\r\n   at NUnit.Framework.Assert.That[TActual](TActual actual, IResolveConstraint expression)\r\n   at DiceCraft.Tests.V05SessionTests.V05_CopyThenGrowthUsesCopiedTargetFaceValueAndSourceIsIndependent() in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Tests\\EditMode\\Session\\V05SessionTests.cs:line 156\r\n   at System.RuntimeMethodHandle.InvokeMethod(ObjectHandleOnStack target, Void** arguments, ObjectHandleOnStack sig, BOOL isConstructor, ObjectHandleOnStack result)\r\n   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)\r\n   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)"
+    },
+    {
+      "name": "V05SessionTests.V05_EightKindRequiresEightPermanentDiceAndCapacityAndLv8StopsSales",
+      "result": "Failed",
+      "error": "NUnit.Framework.AssertionException:   Expected: collection containing \u0022eight_kind\u0022\r\n  But was:  \u003C \u0022pair\u0022, \u0022two_pair\u0022, \u0022trips\u0022, \u0022full_house\u0022, \u0022quads\u0022, \u0022five_kind\u0022, \u0022straight\u0022, \u0022all_blue\u0022, \u0022all_red\u0022 \u003E\r\n\r\n   at NUnit.Framework.Assert.That[TActual](TActual actual, IResolveConstraint expression, String message, Object[] args)\r\n   at NUnit.Framework.Assert.That[TActual](TActual actual, IResolveConstraint expression)\r\n   at DiceCraft.Tests.V05SessionTests.V05_EightKindRequiresEightPermanentDiceAndCapacityAndLv8StopsSales() in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Tests\\EditMode\\Session\\V05SessionTests.cs:line 244\r\n   at System.RuntimeMethodHandle.InvokeMethod(ObjectHandleOnStack target, Void** arguments, ObjectHandleOnStack sig, BOOL isConstructor, ObjectHandleOnStack result)\r\n   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)\r\n   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)"
+    },
+    {
+      "name": "V05SessionTests.V05_EndStageRejectsUnqualifiedPendingBusyAndSavePending",
+      "result": "Failed",
+      "error": "NUnit.Framework.AssertionException:   Expected: 10\r\n  But was:  0\r\n\r\n   at NUnit.Framework.Assert.That[TActual](TActual actual, IResolveConstraint expression, String message, Object[] args)\r\n   at NUnit.Framework.Assert.That[TActual](TActual actual, IResolveConstraint expression)\r\n   at DiceCraft.Tests.V05SessionTests.V05_EndStageRejectsUnqualifiedPendingBusyAndSavePending() in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Tests\\EditMode\\Session\\V05SessionTests.cs:line 79\r\n   at System.RuntimeMethodHandle.InvokeMethod(ObjectHandleOnStack target, Void** arguments, ObjectHandleOnStack sig, BOOL isConstructor, ObjectHandleOnStack result)\r\n   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)\r\n   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)"
+    },
+    {
+      "name": "V05SessionTests.V05_EndStageWithLockedHandDoesNotSubmitOrRevertUsedActions",
+      "result": "Passed"
+    },
+    {
+      "name": "V05SessionTests.V05_FinalSubmissionAutoEndsAlreadyQualifiedStage",
+      "result": "Failed",
+      "error": "NUnit.Framework.AssertionException:   Expected: 16\r\n  But was:  5\r\n\r\n   at NUnit.Framework.Assert.That[TActual](TActual actual, IResolveConstraint expression, String message, Object[] args)\r\n   at NUnit.Framework.Assert.That[TActual](TActual actual, IResolveConstraint expression)\r\n   at DiceCraft.Tests.V05SessionTests.V05_FinalSubmissionAutoEndsAlreadyQualifiedStage() in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Tests\\EditMode\\Session\\V05SessionTests.cs:line 89\r\n   at System.RuntimeMethodHandle.InvokeMethod(ObjectHandleOnStack target, Void** arguments, ObjectHandleOnStack sig, BOOL isConstructor, ObjectHandleOnStack result)\r\n   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)\r\n   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)"
+    },
+    {
+      "name": "V05SessionTests.V05_GrowthShrinkCancelBeforeSingleClampAtBothBoundaries(1)",
+      "result": "Passed"
+    },
+    {
+      "name": "V05SessionTests.V05_GrowthShrinkCancelBeforeSingleClampAtBothBoundaries(6)",
+      "result": "Passed"
+    },
+    {
+      "name": "V05SessionTests.V05_InterestCapsPrincipalNotBalance(False,112)",
+      "result": "Passed"
+    },
+    {
+      "name": "V05SessionTests.V05_InterestCapsPrincipalNotBalance(True,117)",
+      "result": "Passed"
+    },
+    {
+      "name": "V05SessionTests.V05_ProbabilityControllersUseSameFinalVectorAsActualRoll",
+      "result": "Passed"
+    },
+    {
+      "name": "V05SessionTests.V05_QualifiedDoesNotPayOrCreateShopAndReadQuotesArePure",
+      "result": "Failed",
+      "error": "NUnit.Framework.AssertionException:   Expected: 10\r\n  But was:  1\r\n\r\n   at NUnit.Framework.Assert.That[TActual](TActual actual, IResolveConstraint expression, String message, Object[] args)\r\n   at NUnit.Framework.Assert.That[TActual](TActual actual, IResolveConstraint expression)\r\n   at DiceCraft.Tests.V05SessionTests.V05_QualifiedDoesNotPayOrCreateShopAndReadQuotesArePure() in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Tests\\EditMode\\Session\\V05SessionTests.cs:line 38\r\n   at System.RuntimeMethodHandle.InvokeMethod(ObjectHandleOnStack target, Void** arguments, ObjectHandleOnStack sig, BOOL isConstructor, ObjectHandleOnStack result)\r\n   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)\r\n   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)"
+    },
+    {
+      "name": "V05SessionTests.V05_QualifiedI06AddsRewardAndRestoreDoesNotPay",
+      "result": "Failed",
+      "error": "NUnit.Framework.AssertionException:   Expected: 19\r\n  But was:  8\r\n\r\n   at NUnit.Framework.Assert.That[TActual](TActual actual, IResolveConstraint expression, String message, Object[] args)\r\n   at NUnit.Framework.Assert.That[TActual](TActual actual, IResolveConstraint expression)\r\n   at DiceCraft.Tests.V05SessionTests.V05_QualifiedI06AddsRewardAndRestoreDoesNotPay() in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Tests\\EditMode\\Session\\V05SessionTests.cs:line 105\r\n   at System.RuntimeMethodHandle.InvokeMethod(ObjectHandleOnStack target, Void** arguments, ObjectHandleOnStack sig, BOOL isConstructor, ObjectHandleOnStack result)\r\n   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)\r\n   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)"
+    },
+    {
+      "name": "V05SessionTests.V05_RemoteGrowthChangesFrozenPhysicalFaceAndNeverOverridePip",
+      "result": "Passed"
+    },
+    {
+      "name": "V05SessionTests.V05_ReplacementInsufficientMoneyAndWriteFailureAreAtomic",
+      "result": "Failed",
+      "error": "NUnit.Framework.AssertionException:   Expected: 81\r\n  But was:  91\r\n\r\n   at NUnit.Framework.Assert.That[TActual](TActual actual, IResolveConstraint expression, String message, Object[] args)\r\n   at NUnit.Framework.Assert.That[TActual](TActual actual, IResolveConstraint expression)\r\n   at DiceCraft.Tests.V05SessionTests.V05_ReplacementInsufficientMoneyAndWriteFailureAreAtomic() in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Tests\\EditMode\\Session\\V05SessionTests.cs:line 217\r\n   at System.RuntimeMethodHandle.InvokeMethod(ObjectHandleOnStack target, Void** arguments, ObjectHandleOnStack sig, BOOL isConstructor, ObjectHandleOnStack result)\r\n   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)\r\n   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)"
+    },
+    {
+      "name": "V05SessionTests.V05_ReplacingAtTenDoesNotCreateEleventhInstanceAndNewEleventhRejects",
+      "result": "Failed",
+      "error": "DiceCraft.Core.GameSession\u002BRuleViolation: \u666E\u901A\u5B58\u6863\u4E0D\u80FD\u5305\u542B\u5B9E\u9A8C\u8986\u76D6\u3002\r\n   at DiceCraft.Core.GameSession.Check(Boolean condition, String message) in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Core\\Session\\GameSession.cs:line 318\r\n   at DiceCraft.Core.GameSession.ValidateState(RunState s) in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Core\\Session\\GameSession.Validation.cs:line 17\r\n   at DiceCraft.Core.GameSession..ctor(GameConfig config, ISaveStore saveStore, RunState restored) in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Core\\Session\\GameSession.cs:line 30\r\n   at DiceCraft.Tests.SessionTestSupport.Edit(GameSession s, Action\u00601 edit, ISaveStore store) in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Tests\\EditMode\\Session\\SessionTestSupport.cs:line 51\r\n   at DiceCraft.Tests.V05SessionTests.V05_ReplacingAtTenDoesNotCreateEleventhInstanceAndNewEleventhRejects() in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Tests\\EditMode\\Session\\V05SessionTests.cs:line 194\r\n   at System.RuntimeMethodHandle.InvokeMethod(ObjectHandleOnStack target, Void** arguments, ObjectHandleOnStack sig, BOOL isConstructor, ObjectHandleOnStack result)\r\n   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)\r\n   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)"
+    },
+    {
+      "name": "V05SessionTests.V05_RestoreRejectsMismatchedQualificationIllegalEnchantAndOfferIdentity",
+      "result": "Failed",
+      "error": "NUnit.Framework.AssertionException:   Expected: an exception to be thrown\r\n  But was:  no exception thrown\r\n\r\n   at NUnit.Framework.Assert.That[TActual](ActualValueDelegate\u00601 del, IResolveConstraint expr, String message, Object[] args)\r\n   at NUnit.Framework.Assert.That[TActual](ActualValueDelegate\u00601 del, IResolveConstraint expr)\r\n   at DiceCraft.Tests.V05SessionTests.V05_RestoreRejectsMismatchedQualificationIllegalEnchantAndOfferIdentity() in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Tests\\EditMode\\Session\\V05SessionTests.cs:line 263\r\n   at System.RuntimeMethodHandle.InvokeMethod(ObjectHandleOnStack target, Void** arguments, ObjectHandleOnStack sig, BOOL isConstructor, ObjectHandleOnStack result)\r\n   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)\r\n   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)"
+    },
+    {
+      "name": "V05SessionTests.V05_SellingOldCardBeforeReplacementPaysFullNewPrice",
+      "result": "Failed",
+      "error": "NUnit.Framework.AssertionException:   Expected: 20\r\n  But was:  10\r\n\r\n   at NUnit.Framework.Assert.That[TActual](TActual actual, IResolveConstraint expression, String message, Object[] args)\r\n   at NUnit.Framework.Assert.That[TActual](TActual actual, IResolveConstraint expression)\r\n   at DiceCraft.Tests.V05SessionTests.V05_SellingOldCardBeforeReplacementPaysFullNewPrice() in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Tests\\EditMode\\Session\\V05SessionTests.cs:line 205\r\n   at System.RuntimeMethodHandle.InvokeMethod(ObjectHandleOnStack target, Void** arguments, ObjectHandleOnStack sig, BOOL isConstructor, ObjectHandleOnStack result)\r\n   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)\r\n   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)"
+    },
+    {
+      "name": "V05SessionTests.V05_ShopExcludesSlotlessNonSubmitOwnedButCanOfferDifferentScoringEnchant",
+      "result": "Failed",
+      "error": "NUnit.Framework.AssertionException:   Expected: False\r\n  But was:  True\r\n\r\n   at NUnit.Framework.Assert.That[TActual](TActual actual, IResolveConstraint expression, String message, Object[] args)\r\n   at NUnit.Framework.Assert.That[TActual](TActual actual, IResolveConstraint expression)\r\n   at DiceCraft.Tests.V05SessionTests.V05_ShopExcludesSlotlessNonSubmitOwnedButCanOfferDifferentScoringEnchant() in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Tests\\EditMode\\Session\\V05SessionTests.cs:line 289\r\n   at System.RuntimeMethodHandle.InvokeMethod(ObjectHandleOnStack target, Void** arguments, ObjectHandleOnStack sig, BOOL isConstructor, ObjectHandleOnStack result)\r\n   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)\r\n   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)"
+    },
+    {
+      "name": "V05SessionTests.V05_ShopInterleavesIdAndEnchantmentWithFrozenReferenceVectors(1,C13:none,C10:none,C38:none)",
+      "result": "Failed",
+      "error": "NUnit.Framework.AssertionException:   String lengths are both 26. Strings differ at index 1.\r\n  Expected: \u0022C13:none,C10:none,C38:none\u0022\r\n  But was:  \u0022C26:none,C13:none,C27:none\u0022\r\n  ------------^\r\n\r\n   at NUnit.Framework.Assert.That[TActual](TActual actual, IResolveConstraint expression, String message, Object[] args)\r\n   at NUnit.Framework.Assert.That[TActual](TActual actual, IResolveConstraint expression)\r\n   at DiceCraft.Tests.V05SessionTests.V05_ShopInterleavesIdAndEnchantmentWithFrozenReferenceVectors(UInt32 seed, String expected) in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Tests\\EditMode\\Session\\V05SessionTests.cs:line 278\r\n   at System.RuntimeMethodHandle.InvokeMethod(ObjectHandleOnStack target, Void** arguments, ObjectHandleOnStack sig, BOOL isConstructor, ObjectHandleOnStack result)\r\n   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)\r\n   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span\u00601 copyOfArgs, BindingFlags invokeAttr)"
+    },
+    {
+      "name": "V05SessionTests.V05_ShopInterleavesIdAndEnchantmentWithFrozenReferenceVectors(0,C14:slotless,C35:none,C40:none)",
+      "result": "Failed",
+      "error": "NUnit.Framework.AssertionException:   Expected string length 30 but was 29. Strings differ at index 1.\r\n  Expected: \u0022C14:slotless,C35:none,C40:none\u0022\r\n  But was:  \u0022C48:submit1,C27:none,C11:none\u0022\r\n  ------------^\r\n\r\n   at NUnit.Framework.Assert.That[TActual](TActual actual, IResolveConstraint expression, String message, Object[] args)\r\n   at NUnit.Framework.Assert.That[TActual](TActual actual, IResolveConstraint expression)\r\n   at DiceCraft.Tests.V05SessionTests.V05_ShopInterleavesIdAndEnchantmentWithFrozenReferenceVectors(UInt32 seed, String expected) in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Tests\\EditMode\\Session\\V05SessionTests.cs:line 278\r\n   at InvokeStub_V05SessionTests.V05_ShopInterleavesIdAndEnchantmentWithFrozenReferenceVectors(Object, Span\u00601)\r\n   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)"
+    },
+    {
+      "name": "V05SessionTests.V05_ShopInterleavesIdAndEnchantmentWithFrozenReferenceVectors(20261030,C27:none,C38:none,C04:none)",
+      "result": "Failed",
+      "error": "NUnit.Framework.AssertionException:   Expected string length 26 but was 34. Strings differ at index 1.\r\n  Expected: \u0022C27:none,C38:none,C04:none\u0022\r\n  But was:  \u0022C50:slotless,C28:none,C19:slotless\u0022\r\n  ------------^\r\n\r\n   at NUnit.Framework.Assert.That[TActual](TActual actual, IResolveConstraint expression, String message, Object[] args)\r\n   at NUnit.Framework.Assert.That[TActual](TActual actual, IResolveConstraint expression)\r\n   at DiceCraft.Tests.V05SessionTests.V05_ShopInterleavesIdAndEnchantmentWithFrozenReferenceVectors(UInt32 seed, String expected) in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Tests\\EditMode\\Session\\V05SessionTests.cs:line 278\r\n   at InvokeStub_V05SessionTests.V05_ShopInterleavesIdAndEnchantmentWithFrozenReferenceVectors(Object, Span\u00601)\r\n   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)"
+    },
+    {
+      "name": "V05SessionTests.V05_ShopInterleavesIdAndEnchantmentWithFrozenReferenceVectors(4294967295,C27:slotless,C33:none,C13:none)",
+      "result": "Failed",
+      "error": "NUnit.Framework.AssertionException:   Expected string length 30 but was 32. Strings differ at index 1.\r\n  Expected: \u0022C27:slotless,C33:none,C13:none\u0022\r\n  But was:  \u0022C34:none,C01:slotless,C15:base10\u0022\r\n  ------------^\r\n\r\n   at NUnit.Framework.Assert.That[TActual](TActual actual, IResolveConstraint expression, String message, Object[] args)\r\n   at NUnit.Framework.Assert.That[TActual](TActual actual, IResolveConstraint expression)\r\n   at DiceCraft.Tests.V05SessionTests.V05_ShopInterleavesIdAndEnchantmentWithFrozenReferenceVectors(UInt32 seed, String expected) in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Tests\\EditMode\\Session\\V05SessionTests.cs:line 278\r\n   at InvokeStub_V05SessionTests.V05_ShopInterleavesIdAndEnchantmentWithFrozenReferenceVectors(Object, Span\u00601)\r\n   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)"
+    },
+    {
+      "name": "V05SessionTests.V05_SlotlessFitsBeyondFourAndReplaceUsesFinalEquipment",
+      "result": "Failed",
+      "error": "DiceCraft.Core.GameSession\u002BRuleViolation: \u666E\u901A\u5B58\u6863\u4E0D\u80FD\u5305\u542B\u5B9E\u9A8C\u8986\u76D6\u3002\r\n   at DiceCraft.Core.GameSession.Check(Boolean condition, String message) in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Core\\Session\\GameSession.cs:line 318\r\n   at DiceCraft.Core.GameSession.ValidateState(RunState s) in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Core\\Session\\GameSession.Validation.cs:line 17\r\n   at DiceCraft.Core.GameSession..ctor(GameConfig config, ISaveStore saveStore, RunState restored) in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Core\\Session\\GameSession.cs:line 30\r\n   at DiceCraft.Tests.SessionTestSupport.Edit(GameSession s, Action\u00601 edit, ISaveStore store) in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Tests\\EditMode\\Session\\SessionTestSupport.cs:line 51\r\n   at DiceCraft.Tests.V05SessionTests.V05_SlotlessFitsBeyondFourAndReplaceUsesFinalEquipment() in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Tests\\EditMode\\Session\\V05SessionTests.cs:line 179\r\n   at System.RuntimeMethodHandle.InvokeMethod(ObjectHandleOnStack target, Void** arguments, ObjectHandleOnStack sig, BOOL isConstructor, ObjectHandleOnStack result)\r\n   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)\r\n   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)"
+    }
+  ]
+}

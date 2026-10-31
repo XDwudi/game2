@@ -1,0 +1,62 @@
+{
+  "utc": "2026-10-31T12:09:56.7139319Z",
+  "runtime": ".NET 10.0.14",
+  "sourceHashes": [
+    {
+      "path": "DicePrototype/Assets/Game/Core/Rules\\ConfigJsonContract.cs",
+      "sha256": "cf8f588cab47a5c5e4ddbced57db0def73390ab6526010a85fec85f56397ea44"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Core/Rules\\ConfigValidation.cs",
+      "sha256": "4dd6cb8f84f85305c781fcb78a5a252427cf63b7c37eb909033a5e567eb1a50d"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Core/Rules\\ControllerRules.cs",
+      "sha256": "13090c412a018b36b20dac580f9391d44ad66e39ebe28480921d99cb9f562a87"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Core/Rules\\ExactScoreMath.cs",
+      "sha256": "8a1e024cf8a84ae3ab6e985374003fd14d47b613798204ce97c37b60fdbdc57c"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Core/Rules\\GameConfig.cs",
+      "sha256": "7346a0a6e7aeef72d725c80e741f1b41d70ddbc8e0a890842ce228e111cbf127"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Core/Rules\\GameRng.cs",
+      "sha256": "41614b1946d1c4d7b31b4a20957ef285b1bafa5a6ef7e250d05f8c79ae38e042"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Core/Rules\\HandbookRules.cs",
+      "sha256": "963a198979e42ed051fb6f176871b1245327e2f8ebc6897e1309c0e88fb118c9"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Core/Rules\\Models.cs",
+      "sha256": "57b520eaa60fc37616b2351b65ccc1ddb2d92554225ffec8cb7778d3cfb7bf40"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Core/Rules\\ProbabilityCalculator.cs",
+      "sha256": "0f25d9a47ee0951bb87458d4d10f63c78ee867e749ba411d005fae225a312fb5"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Core/Rules\\ScoreCalculator.cs",
+      "sha256": "c602179e701f073928ebc696386c0c00492a7135206947eb6c781f071b34890d"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Core/Rules\\ScoreExplanation.cs",
+      "sha256": "0034db613bf5eb884ef4d4020b8929ac6869183cb04737d6c87c37a26995c20a"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Data/P0Config.json",
+      "sha256": "747ed1efc7bea15873f66a81eee5c7654971c21031f2a1517ce629adce7b6e6c"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Data/GoldenScores.json",
+      "sha256": "306cb86f79dafe0e3eb302714abd232af20fe0062a6713f7d713c11e2a6a5718"
+    }
+  ],
+  "passed": [],
+  "failures": [
+    "System.InvalidOperationException: Interest.\r\n   at DiceCraft.Core.GameConfig.Check(Boolean condition, String message) in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Core\\Rules\\ConfigValidation.cs:line 121\r\n   at DiceCraft.Core.GameConfig.Validate() in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Core\\Rules\\ConfigValidation.cs:line 40\r\n   at Program.Main() in E:\\agent_workspace\\gpt\\game2\\evidence\\v06\\rules\\harness\\Program.cs:line 18"
+  ]
+}

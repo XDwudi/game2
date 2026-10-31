@@ -1,0 +1,92 @@
+{
+  "scope": "Independent managed replay of actual failing Player save/backup; not Unity execution",
+  "status": "passed",
+  "error": null,
+  "sourceStable": true,
+  "receiptHash": "155a451026bff81b1541a2e903bbddb58a1d264257ddc921c8d59d97243fe0fa",
+  "checks": [
+    {
+      "name": "Actual envelope checksum debug-run.json",
+      "passed": true
+    },
+    {
+      "name": "Actual fixture has no Submit before loader normalization",
+      "passed": true
+    },
+    {
+      "name": "Actual envelope checksum debug-run.json.backup",
+      "passed": true
+    },
+    {
+      "name": "Actual fixture has no Submit before loader normalization",
+      "passed": true
+    },
+    {
+      "name": "New hash matches original actual persisted receipt with unused DTOs retained",
+      "passed": true
+    },
+    {
+      "name": "Hash has no mutation side effects",
+      "passed": true
+    },
+    {
+      "name": "Actual backup plus actual persisted command reproduces exact receipt hash",
+      "passed": true
+    },
+    {
+      "name": "Actual fee/sequence/count preserved",
+      "passed": true
+    },
+    {
+      "name": "Actual restored duplicate preserves state",
+      "passed": true
+    },
+    {
+      "name": "Unrelated quote field remains hash-significant: contentId",
+      "passed": true
+    },
+    {
+      "name": "Unrelated quote field remains hash-significant: offerId",
+      "passed": true
+    },
+    {
+      "name": "Unrelated quote field remains hash-significant: batchId",
+      "passed": true
+    },
+    {
+      "name": "Unrelated quote field remains hash-significant: category",
+      "passed": true
+    },
+    {
+      "name": "Unrelated quote field remains hash-significant: basePrice",
+      "passed": true
+    },
+    {
+      "name": "Unrelated quote field remains hash-significant: sold",
+      "passed": true
+    },
+    {
+      "name": "Unrelated quote field remains hash-significant: priceReasons",
+      "passed": true
+    },
+    {
+      "name": "Active payload retains significance: controller",
+      "passed": true
+    },
+    {
+      "name": "Active payload retains significance: die",
+      "passed": true
+    },
+    {
+      "name": "Hidden unused nonempty payload is rejected and not erased",
+      "passed": true
+    }
+  ],
+  "inputs": {
+    "E:\\agent_workspace\\gpt\\game2\\evidence/v06/player/player-20261031-152132-2388cb4a/debug-refresh-shop-save/debug-run.json": "7def17e9df23e60d4f3ae408d22f280448a0f8bab043f8a3b1c4266822d82673",
+    "E:\\agent_workspace\\gpt\\game2\\evidence/v06/player/player-20261031-152132-2388cb4a/debug-refresh-shop-save/debug-run.json.backup": "bf6ec676cf120392bd967495c2e179e7573e4d6bb9946423b01dd824d5fbfbc4",
+    "DicePrototype/Assets/Game/Core/Session/GameSession.Debug.cs": "ea994ed400479870328e8cfb86d95a33148dd6d40b6c8cc9a3503723a5d23e1f",
+    "DicePrototype/Assets/Game/Core/Session/GameSession.Validation.cs": "1f0a908e5b5df35db130175338256bf7a3ecdd05c0c12558b01b0ac9a71c1bcc",
+    "evidence/v06/review/harness/bin/Debug/net10.0/ReviewHarness.dll": "5e57039b00032c352eeb40a6b27706b6347fa4356056ac56068d56ffefb866db"
+  }
+}

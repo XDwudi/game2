@@ -1,0 +1,36 @@
+{
+    "schema": "p06-native-minimal-build-1",
+    "scope": "Disposable isolation experiment, not a release or acceptance build",
+    "utc": "2026-10-31T15:17:55.7362577Z",
+    "status": "diagnostic_build_succeeded",
+    "unityVersion": "6000.6.7f1",
+    "outputPath": "E:\\agent_workspace\\gpt\\game2\\artifacts/cache/v06\\NativeMinimalRelease\\NativeMinimal.exe",
+    "buildGuid": "df2c9a6c1df946228f67131fbcb00d16",
+    "exception": "",
+    "pipeline": "Built-in",
+    "options": "None",
+    "graphicsApi": "Direct3D11",
+    "errors": 0,
+    "warnings": 0,
+    "bytes": 95801811,
+    "seconds": 3.8726081999999997,
+    "inputs": [
+        {
+            "path": "Assets/NativeDisplayProbe.cs",
+            "sha256": "35976f027ac70a2cbcb9df5a7367914270c7ac443a52262794f9e9840932c468"
+        },
+        {
+            "path": "Assets/Editor/BuildNativeDisplayProbe.cs",
+            "sha256": "6142081c86b8cc07586a96796998b0585edf12ab8673124e17b4a4a363aec436"
+        },
+        {
+            "path": "Packages/manifest.json",
+            "sha256": "c3fe8f046850238f5859d8a2756efd532ac71de6f579b70442a8b04880ce5cbd"
+        },
+        {
+            "path": "ProjectSettings/ProjectVersion.txt",
+            "sha256": "2a88e6864b6f54588287bed3bc6e9260e65bd49498910cca4478770ca8a5d674"
+        }
+    ],
+    "messages": []
+}

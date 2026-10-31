@@ -1,0 +1,105 @@
+{
+  "scope": "Real Unity reports read independently; reviewer did not start the Editor",
+  "pdbAudit": "evidence/v06/review/unity-final-pdb09.json",
+  "pdbSha256": "96d8468ef18841bbf6d95a08a653814ff3e1b2857a194c5b59ce95a2a3fabc10",
+  "projectCsharpDocuments": 63,
+  "modules": [
+    {
+      "name": "DiceCraft.Core",
+      "mvid": "cf22cb6c-9f36-4685-9964-6510f3722966",
+      "dllSha256": "3f152184157e1990f425bcfb394de2ac248b2b3919c812a0ab5ed47098f0f6a7"
+    },
+    {
+      "name": "DiceCraft.EditMode",
+      "mvid": "127a076d-144f-416e-bb24-fb856a7acbb4",
+      "dllSha256": "c8ad5d3460a361966c914e9beeebb69002925da7c1494141ec054d445460ec73"
+    },
+    {
+      "name": "DiceCraft.Editor",
+      "mvid": "5a8aceb8-55cf-45e3-84e5-597ba4e4d855",
+      "dllSha256": "97fca874651c8bf557f83dba77e71cacafcbd52d9f9b86e7bd15889bd9dc499f"
+    },
+    {
+      "name": "DiceCraft.PlayModeTests",
+      "mvid": "c2ea6327-a68e-4d03-8d4e-52e98abef94a",
+      "dllSha256": "d56fb564f4fc4ab814523f56cb1ee46d6cee5f3dc48959f8c5d8187765ca646e"
+    },
+    {
+      "name": "DiceCraft.Runtime",
+      "mvid": "9b762fbd-8ff9-47fd-b3b8-c366a6480728",
+      "dllSha256": "495bdce0e1ee49acd6dd95091bd663c061cd502b9c71a2395cc77760b491df47"
+    }
+  ],
+  "reports": [
+    {
+      "mode": "EditMode",
+      "report": "evidence/v06/unity/nunit-20261031-153532.xml",
+      "reportSha256": "e922c4ebbecd00d8b731f852e1e5a575ceb453e783193839cbe048312881436c",
+      "bindingSha256": "f3344f082fc1d33a7313725ad623e1dca36adfae5aa20610d3a01c6dc7cf58c6",
+      "cases": 796,
+      "failed": 0,
+      "skipped": 0,
+      "fullnamesMatchCompleteDiscovery": true,
+      "phases": [
+        {
+          "phase": "started",
+          "utc": "2026-10-31T15:35:15.6570345Z",
+          "loadedModulesMatchPdb": true,
+          "files": 607,
+          "changedSources": [
+            "DicePrototype/ProjectSettings/ProjectSettings.asset"
+          ]
+        },
+        {
+          "phase": "finished",
+          "utc": "2026-10-31T15:35:33.0744545Z",
+          "loadedModulesMatchPdb": true,
+          "files": 607,
+          "changedSources": [
+            "DicePrototype/ProjectSettings/ProjectSettings.asset"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "PlayMode",
+      "report": "evidence/v06/unity/nunit-20261031-153611.xml",
+      "reportSha256": "8acd5a56a8f6ac334765e872f3efa8a4aa975d5e8ceaf47c01cfd385881c1d76",
+      "bindingSha256": "b6b3bd8fb95b0c08e9f5a5bb67e6c36424e433305db39dd1f0731fff8060b11c",
+      "cases": 30,
+      "failed": 0,
+      "skipped": 0,
+      "fullnamesMatchCompleteDiscovery": true,
+      "phases": [
+        {
+          "phase": "started",
+          "utc": "2026-10-31T15:35:48.9733682Z",
+          "loadedModulesMatchPdb": true,
+          "files": 607,
+          "changedSources": [
+            "DicePrototype/ProjectSettings/ProjectSettings.asset"
+          ]
+        },
+        {
+          "phase": "finished",
+          "utc": "2026-10-31T15:36:12.2064850Z",
+          "loadedModulesMatchPdb": true,
+          "files": 607,
+          "changedSources": [
+            "DicePrototype/ProjectSettings/ProjectSettings.asset"
+          ]
+        }
+      ]
+    }
+  ],
+  "sourceStableDuringRead": false,
+  "sourceFiles": 607,
+  "errors": [
+    "EditMode started source files differ: ['DicePrototype/ProjectSettings/ProjectSettings.asset']",
+    "EditMode finished source files differ: ['DicePrototype/ProjectSettings/ProjectSettings.asset']",
+    "PlayMode started source files differ: ['DicePrototype/ProjectSettings/ProjectSettings.asset']",
+    "PlayMode finished source files differ: ['DicePrototype/ProjectSettings/ProjectSettings.asset']",
+    "Source changed during independent read"
+  ],
+  "status": "needs_rebind"
+}

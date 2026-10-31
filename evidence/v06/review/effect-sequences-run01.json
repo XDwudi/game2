@@ -1,0 +1,2944 @@
+{
+  "scope": "Independent managed exact E-sequences. One isolated debug initial fixture followed by actual commands. No Unity, Player, balance, normal-run or platform acceptance.",
+  "passed": 4,
+  "failed": 1,
+  "total": 5,
+  "results": [
+    {
+      "id": "E011-trips-scatter-trips",
+      "status": "passed",
+      "steps": [
+        {
+          "action": "ApplyDebugScene",
+          "sequence": 1,
+          "phase": "HandReady",
+          "stage": 0,
+          "primary": null,
+          "score": "0",
+          "target": "999999999999999999999",
+          "funds": [
+            {
+              "instanceId": "ITEM_00001",
+              "definitionId": "C43",
+              "fundAccrual": 0,
+              "sale": 1
+            }
+          ],
+          "tripsLevel": 0,
+          "hash": "2f2113f98940c01693303b0ba5999d27848d25a3d823ba53e61733d81400e5e9",
+          "diceRngState": 2738958701,
+          "shopRngState": 3355524773,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "Roll",
+          "sequence": 2,
+          "phase": "Selecting",
+          "stage": 0,
+          "primary": null,
+          "score": "0",
+          "target": "999999999999999999999",
+          "funds": [
+            {
+              "instanceId": "ITEM_00001",
+              "definitionId": "C43",
+              "fundAccrual": 0,
+              "sale": 1
+            }
+          ],
+          "tripsLevel": 0,
+          "hash": "b4df3787bbb3f2f81f2659e473e103c5160eb8955633c326d188170494ba1005",
+          "diceRngState": 542129816,
+          "shopRngState": 3355524773,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "ConfirmLocks",
+          "sequence": 3,
+          "phase": "Selecting",
+          "stage": 0,
+          "primary": null,
+          "score": "0",
+          "target": "999999999999999999999",
+          "funds": [
+            {
+              "instanceId": "ITEM_00001",
+              "definitionId": "C43",
+              "fundAccrual": 0,
+              "sale": 1
+            }
+          ],
+          "tripsLevel": 0,
+          "hash": "52bda8197c970aa6a0693071143a1f2eeb19ed45ff796604885a48c0a0fe21b3",
+          "diceRngState": 542129816,
+          "shopRngState": 3355524773,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "Submit",
+          "sequence": 4,
+          "phase": "HandReady",
+          "stage": 0,
+          "primary": "trips",
+          "score": "144",
+          "target": "999999999999999999999",
+          "funds": [
+            {
+              "instanceId": "ITEM_00001",
+              "definitionId": "C43",
+              "fundAccrual": 0,
+              "sale": 1
+            }
+          ],
+          "tripsLevel": 0,
+          "hash": "0c7dcb09610ec7e810b60277c961d2045f82be5000427768a9baeb753a09e28d",
+          "diceRngState": 542129816,
+          "shopRngState": 3355524773,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "Roll",
+          "sequence": 5,
+          "phase": "Selecting",
+          "stage": 0,
+          "primary": "trips",
+          "score": "144",
+          "target": "999999999999999999999",
+          "funds": [
+            {
+              "instanceId": "ITEM_00001",
+              "definitionId": "C43",
+              "fundAccrual": 0,
+              "sale": 1
+            }
+          ],
+          "tripsLevel": 0,
+          "hash": "ec3eb6e2903b2e24d8b79626c7b83388a6617f164467e8f523a1fc9f1760b77c",
+          "diceRngState": 152728935,
+          "shopRngState": 3355524773,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "ConfirmLocks",
+          "sequence": 6,
+          "phase": "Selecting",
+          "stage": 0,
+          "primary": "trips",
+          "score": "144",
+          "target": "999999999999999999999",
+          "funds": [
+            {
+              "instanceId": "ITEM_00001",
+              "definitionId": "C43",
+              "fundAccrual": 0,
+              "sale": 1
+            }
+          ],
+          "tripsLevel": 0,
+          "hash": "df37804e24614a56b9c1e2247f303b98ff8c7ef40520876b469c32c5df67e8cc",
+          "diceRngState": 152728935,
+          "shopRngState": 3355524773,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "Submit",
+          "sequence": 7,
+          "phase": "HandReady",
+          "stage": 0,
+          "primary": "scatter",
+          "score": "168",
+          "target": "999999999999999999999",
+          "funds": [
+            {
+              "instanceId": "ITEM_00001",
+              "definitionId": "C43",
+              "fundAccrual": 0,
+              "sale": 1
+            }
+          ],
+          "tripsLevel": 0,
+          "hash": "b942e66efa3c6b414f2855f30f76d1827b6f6b3db4441eecdb76c4a4bf31ab2d",
+          "diceRngState": 152728935,
+          "shopRngState": 3355524773,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "Roll",
+          "sequence": 8,
+          "phase": "Selecting",
+          "stage": 0,
+          "primary": "scatter",
+          "score": "168",
+          "target": "999999999999999999999",
+          "funds": [
+            {
+              "instanceId": "ITEM_00001",
+              "definitionId": "C43",
+              "fundAccrual": 0,
+              "sale": 1
+            }
+          ],
+          "tripsLevel": 0,
+          "hash": "e8a821119b52d2db8b94f40ad3eab7bce2b64f1854a065d932bfffc4bbcd467d",
+          "diceRngState": 3126078537,
+          "shopRngState": 3355524773,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "ConfirmLocks",
+          "sequence": 9,
+          "phase": "Selecting",
+          "stage": 0,
+          "primary": "scatter",
+          "score": "168",
+          "target": "999999999999999999999",
+          "funds": [
+            {
+              "instanceId": "ITEM_00001",
+              "definitionId": "C43",
+              "fundAccrual": 0,
+              "sale": 1
+            }
+          ],
+          "tripsLevel": 0,
+          "hash": "fe6eed9d5a340f14cc490826f4c5da02165da7de2f33548710f77c1d6e568ea3",
+          "diceRngState": 3126078537,
+          "shopRngState": 3355524773,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "Submit",
+          "sequence": 10,
+          "phase": "RunFailed",
+          "stage": 0,
+          "primary": "trips",
+          "score": "312",
+          "target": "999999999999999999999",
+          "funds": [
+            {
+              "instanceId": "ITEM_00001",
+              "definitionId": "C43",
+              "fundAccrual": 0,
+              "sale": 1
+            }
+          ],
+          "tripsLevel": 0,
+          "hash": "0ffc071bf592e4a9eb183bfbc39ee852e023123dc94cde68ed995322ee9ae01e",
+          "diceRngState": 3126078537,
+          "shopRngState": 3355524773,
+          "effectRngState": 2911926140
+        }
+      ]
+    },
+    {
+      "id": "E012-consecutive-primary-across-stages",
+      "status": "passed",
+      "steps": [
+        {
+          "action": "ApplyDebugScene",
+          "sequence": 1,
+          "phase": "HandReady",
+          "stage": 0,
+          "primary": null,
+          "score": "0",
+          "target": "1",
+          "funds": [
+            {
+              "instanceId": "ITEM_00001",
+              "definitionId": "C43",
+              "fundAccrual": 0,
+              "sale": 1
+            }
+          ],
+          "tripsLevel": 0,
+          "hash": "09c3d90bea6fa038f743afa0d5e0d24734608493302b2ec4d14910d92bcdf588",
+          "diceRngState": 2738958701,
+          "shopRngState": 3355524773,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "Roll",
+          "sequence": 2,
+          "phase": "Selecting",
+          "stage": 0,
+          "primary": null,
+          "score": "0",
+          "target": "1",
+          "funds": [
+            {
+              "instanceId": "ITEM_00001",
+              "definitionId": "C43",
+              "fundAccrual": 0,
+              "sale": 1
+            }
+          ],
+          "tripsLevel": 0,
+          "hash": "70c6eee840d184cbf503a2ab28f74f131ce57e1c81b162490fd8ef211c896422",
+          "diceRngState": 542129816,
+          "shopRngState": 3355524773,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "ConfirmLocks",
+          "sequence": 3,
+          "phase": "Selecting",
+          "stage": 0,
+          "primary": null,
+          "score": "0",
+          "target": "1",
+          "funds": [
+            {
+              "instanceId": "ITEM_00001",
+              "definitionId": "C43",
+              "fundAccrual": 0,
+              "sale": 1
+            }
+          ],
+          "tripsLevel": 0,
+          "hash": "4ea8907446bb1a279cf9283e99d229ce754980de56b1b21ab43ead7bdc0c9bce",
+          "diceRngState": 542129816,
+          "shopRngState": 3355524773,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "Submit",
+          "sequence": 4,
+          "phase": "HandReady",
+          "stage": 0,
+          "primary": "trips",
+          "score": "144",
+          "target": "1",
+          "funds": [
+            {
+              "instanceId": "ITEM_00001",
+              "definitionId": "C43",
+              "fundAccrual": 0,
+              "sale": 1
+            }
+          ],
+          "tripsLevel": 0,
+          "hash": "539255551183084b264689632a86b97959b1818fb8d9c2c6091d425737be176c",
+          "diceRngState": 542129816,
+          "shopRngState": 3355524773,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "EndStage",
+          "sequence": 5,
+          "phase": "StageSettlement",
+          "stage": 0,
+          "primary": "trips",
+          "score": "144",
+          "target": "1",
+          "funds": [
+            {
+              "instanceId": "ITEM_00001",
+              "definitionId": "C43",
+              "fundAccrual": 0,
+              "sale": 1
+            }
+          ],
+          "tripsLevel": 0,
+          "hash": "992df35bbc0fb09b5d10403b2945e893a87329fae24922959f2a860d02aad977",
+          "diceRngState": 542129816,
+          "shopRngState": 3355524773,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "DuplicateEndStage",
+          "sequence": 5,
+          "phase": "StageSettlement",
+          "stage": 0,
+          "primary": "trips",
+          "score": "144",
+          "target": "1",
+          "funds": [
+            {
+              "instanceId": "ITEM_00001",
+              "definitionId": "C43",
+              "fundAccrual": 0,
+              "sale": 1
+            }
+          ],
+          "tripsLevel": 0,
+          "hash": "992df35bbc0fb09b5d10403b2945e893a87329fae24922959f2a860d02aad977",
+          "diceRngState": 542129816,
+          "shopRngState": 3355524773,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "Continue",
+          "sequence": 6,
+          "phase": "Shop",
+          "stage": 0,
+          "primary": "trips",
+          "score": "144",
+          "target": "1",
+          "funds": [
+            {
+              "instanceId": "ITEM_00001",
+              "definitionId": "C43",
+              "fundAccrual": 0,
+              "sale": 1
+            }
+          ],
+          "tripsLevel": 0,
+          "hash": "6b88d79f1375ee88cfc9f8ab30c0c23d2c618b020b363784eef0042c02284515",
+          "diceRngState": 542129816,
+          "shopRngState": 3885667460,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "LeaveShop",
+          "sequence": 7,
+          "phase": "StagePreview",
+          "stage": 1,
+          "primary": "trips",
+          "score": "0",
+          "target": "400",
+          "funds": [
+            {
+              "instanceId": "ITEM_00001",
+              "definitionId": "C43",
+              "fundAccrual": 0,
+              "sale": 1
+            }
+          ],
+          "tripsLevel": 0,
+          "hash": "b48f8496101971d1877884f3773233008e2541ec48307abd204355b34d14266f",
+          "diceRngState": 542129816,
+          "shopRngState": 3885667460,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "StartStage",
+          "sequence": 8,
+          "phase": "HandReady",
+          "stage": 1,
+          "primary": "trips",
+          "score": "0",
+          "target": "400",
+          "funds": [
+            {
+              "instanceId": "ITEM_00001",
+              "definitionId": "C43",
+              "fundAccrual": 0,
+              "sale": 1
+            }
+          ],
+          "tripsLevel": 0,
+          "hash": "1c8faca3b28b23cf8f4905549c2c52fd4db5f368deb63aad4ced7523239dc326",
+          "diceRngState": 542129816,
+          "shopRngState": 3885667460,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "Roll",
+          "sequence": 9,
+          "phase": "Selecting",
+          "stage": 1,
+          "primary": "trips",
+          "score": "0",
+          "target": "400",
+          "funds": [
+            {
+              "instanceId": "ITEM_00001",
+              "definitionId": "C43",
+              "fundAccrual": 0,
+              "sale": 1
+            }
+          ],
+          "tripsLevel": 0,
+          "hash": "4147f82d7c0d2ecadb5b273ab9bdfe8bc7e9bc60f6341904d906502df4512c81",
+          "diceRngState": 152728935,
+          "shopRngState": 3885667460,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "ConfirmLocks",
+          "sequence": 10,
+          "phase": "Selecting",
+          "stage": 1,
+          "primary": "trips",
+          "score": "0",
+          "target": "400",
+          "funds": [
+            {
+              "instanceId": "ITEM_00001",
+              "definitionId": "C43",
+              "fundAccrual": 0,
+              "sale": 1
+            }
+          ],
+          "tripsLevel": 0,
+          "hash": "bc2f75170ab7d0a65f4f5c1a67a6c985088e19416f4eef18027ff8759aa40ed4",
+          "diceRngState": 152728935,
+          "shopRngState": 3885667460,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "Submit",
+          "sequence": 11,
+          "phase": "HandReady",
+          "stage": 1,
+          "primary": "trips",
+          "score": "144",
+          "target": "400",
+          "funds": [
+            {
+              "instanceId": "ITEM_00001",
+              "definitionId": "C43",
+              "fundAccrual": 0,
+              "sale": 1
+            }
+          ],
+          "tripsLevel": 1,
+          "hash": "58ea9d3f08544479ecfb72d63529566f5371053afa9aa1492780a951f0a6b7de",
+          "diceRngState": 152728935,
+          "shopRngState": 3885667460,
+          "effectRngState": 2911926140
+        }
+      ]
+    },
+    {
+      "id": "E013-history-before-acquiring-C43",
+      "status": "passed",
+      "steps": [
+        {
+          "action": "ApplyDebugScene",
+          "sequence": 1,
+          "phase": "HandReady",
+          "stage": 0,
+          "primary": null,
+          "score": "0",
+          "target": "1",
+          "funds": [],
+          "tripsLevel": 0,
+          "hash": "eb7535de0cebafe65e54cf4c740c95bd175839e78253fad34557c389e6f2dd78",
+          "diceRngState": 2738958701,
+          "shopRngState": 3355524773,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "Roll",
+          "sequence": 2,
+          "phase": "Selecting",
+          "stage": 0,
+          "primary": null,
+          "score": "0",
+          "target": "1",
+          "funds": [],
+          "tripsLevel": 0,
+          "hash": "7507b0273423cfe551cb045d68c1449f15b4cc93c4449edfff8d55772b9a16a0",
+          "diceRngState": 542129816,
+          "shopRngState": 3355524773,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "ConfirmLocks",
+          "sequence": 3,
+          "phase": "Selecting",
+          "stage": 0,
+          "primary": null,
+          "score": "0",
+          "target": "1",
+          "funds": [],
+          "tripsLevel": 0,
+          "hash": "0f001f877c98972a1dff638df66084085c8201899d2e47ac85cd1d0c4c5877d9",
+          "diceRngState": 542129816,
+          "shopRngState": 3355524773,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "Submit",
+          "sequence": 4,
+          "phase": "HandReady",
+          "stage": 0,
+          "primary": "trips",
+          "score": "144",
+          "target": "1",
+          "funds": [],
+          "tripsLevel": 0,
+          "hash": "38688982f5fd1009a745c1fd890fd12846adcb558eb721931fd6a1fb6faf9f46",
+          "diceRngState": 542129816,
+          "shopRngState": 3355524773,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "EndStage",
+          "sequence": 5,
+          "phase": "StageSettlement",
+          "stage": 0,
+          "primary": "trips",
+          "score": "144",
+          "target": "1",
+          "funds": [],
+          "tripsLevel": 0,
+          "hash": "d63aa27fe23bc663914f3cda419f7c6f6c124b8eb3403d28f37171a8d785506f",
+          "diceRngState": 542129816,
+          "shopRngState": 3355524773,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "DuplicateEndStage",
+          "sequence": 5,
+          "phase": "StageSettlement",
+          "stage": 0,
+          "primary": "trips",
+          "score": "144",
+          "target": "1",
+          "funds": [],
+          "tripsLevel": 0,
+          "hash": "d63aa27fe23bc663914f3cda419f7c6f6c124b8eb3403d28f37171a8d785506f",
+          "diceRngState": 542129816,
+          "shopRngState": 3355524773,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "Continue",
+          "sequence": 6,
+          "phase": "Shop",
+          "stage": 0,
+          "primary": "trips",
+          "score": "144",
+          "target": "1",
+          "funds": [],
+          "tripsLevel": 0,
+          "hash": "07a5fea0eada14b16e9d6aacc84ebeabf739fcfce565d32a2dbd095e0d0c7f7e",
+          "diceRngState": 542129816,
+          "shopRngState": 3885667460,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "RefreshControllers",
+          "sequence": 7,
+          "phase": "Shop",
+          "stage": 0,
+          "primary": "trips",
+          "score": "144",
+          "target": "1",
+          "funds": [],
+          "tripsLevel": 0,
+          "hash": "97a21ecd3492311dfffe11fd4a8b59ce6a490a8f1b61b659497aae6b3eb9dff1",
+          "diceRngState": 542129816,
+          "shopRngState": 2574859796,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "RefreshControllers",
+          "sequence": 8,
+          "phase": "Shop",
+          "stage": 0,
+          "primary": "trips",
+          "score": "144",
+          "target": "1",
+          "funds": [],
+          "tripsLevel": 0,
+          "hash": "a8970247527cf08bb167bea93b9cc1f98fd156073509b1445f7fb9f8ec135e0b",
+          "diceRngState": 542129816,
+          "shopRngState": 1679568912,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "RefreshControllers",
+          "sequence": 9,
+          "phase": "Shop",
+          "stage": 0,
+          "primary": "trips",
+          "score": "144",
+          "target": "1",
+          "funds": [],
+          "tripsLevel": 0,
+          "hash": "5482929ce431e50f604b357d5b69017c1b2528b4381f72395be07aabd6c95c61",
+          "diceRngState": 542129816,
+          "shopRngState": 2415622334,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "RefreshControllers",
+          "sequence": 10,
+          "phase": "Shop",
+          "stage": 0,
+          "primary": "trips",
+          "score": "144",
+          "target": "1",
+          "funds": [],
+          "tripsLevel": 0,
+          "hash": "ce67cf3bd24f9fd624c2a5e7b666767921194266ed01d38c5f52a7151407ecf7",
+          "diceRngState": 542129816,
+          "shopRngState": 1363754552,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "RefreshControllers",
+          "sequence": 11,
+          "phase": "Shop",
+          "stage": 0,
+          "primary": "trips",
+          "score": "144",
+          "target": "1",
+          "funds": [],
+          "tripsLevel": 0,
+          "hash": "88d5bf9ccd27a1bc86214ee39e47a14cb3a603d4ceb79029c5993c95714c2394",
+          "diceRngState": 542129816,
+          "shopRngState": 2230989752,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "RefreshControllers",
+          "sequence": 12,
+          "phase": "Shop",
+          "stage": 0,
+          "primary": "trips",
+          "score": "144",
+          "target": "1",
+          "funds": [],
+          "tripsLevel": 0,
+          "hash": "4001a69d562c186cf47b7a0f9ae7954dd3a520de7ab97220e4ccc7b4d078b73b",
+          "diceRngState": 542129816,
+          "shopRngState": 2081370023,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "RefreshControllers",
+          "sequence": 13,
+          "phase": "Shop",
+          "stage": 0,
+          "primary": "trips",
+          "score": "144",
+          "target": "1",
+          "funds": [],
+          "tripsLevel": 0,
+          "hash": "24e31cf3b1ef2c09324341bc8b86a4af87feb93415e178c93050cff697f103df",
+          "diceRngState": 542129816,
+          "shopRngState": 3028107748,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "RefreshControllers",
+          "sequence": 14,
+          "phase": "Shop",
+          "stage": 0,
+          "primary": "trips",
+          "score": "144",
+          "target": "1",
+          "funds": [],
+          "tripsLevel": 0,
+          "hash": "0c5ce1fc532b6e2eb7947e877409ed7a12091232f16f8e3ef7b19824ebf078c9",
+          "diceRngState": 542129816,
+          "shopRngState": 636461657,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "RefreshControllers",
+          "sequence": 15,
+          "phase": "Shop",
+          "stage": 0,
+          "primary": "trips",
+          "score": "144",
+          "target": "1",
+          "funds": [],
+          "tripsLevel": 0,
+          "hash": "0e707d3f94ab41629e8407544cb934569f35ec7d4985088f643b4f854b306c1b",
+          "diceRngState": 542129816,
+          "shopRngState": 318148802,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "RefreshControllers",
+          "sequence": 16,
+          "phase": "Shop",
+          "stage": 0,
+          "primary": "trips",
+          "score": "144",
+          "target": "1",
+          "funds": [],
+          "tripsLevel": 0,
+          "hash": "5a7b5779b1ab2f9cd7fec73d69af8e53406dba50b8372b102e634e9bf2d94bb3",
+          "diceRngState": 542129816,
+          "shopRngState": 1338129764,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "RefreshControllers",
+          "sequence": 17,
+          "phase": "Shop",
+          "stage": 0,
+          "primary": "trips",
+          "score": "144",
+          "target": "1",
+          "funds": [],
+          "tripsLevel": 0,
+          "hash": "9d4e2dfe1dfc1c82c6f800aa187d806fd8f0288beef6d72536031282cadec1f0",
+          "diceRngState": 542129816,
+          "shopRngState": 1877695813,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "RefreshControllers",
+          "sequence": 18,
+          "phase": "Shop",
+          "stage": 0,
+          "primary": "trips",
+          "score": "144",
+          "target": "1",
+          "funds": [],
+          "tripsLevel": 0,
+          "hash": "04c5fbb0b981d966715559e8ccdff0488f49242b32b7a75409ccaab3da693997",
+          "diceRngState": 542129816,
+          "shopRngState": 443412785,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "RefreshControllers",
+          "sequence": 19,
+          "phase": "Shop",
+          "stage": 0,
+          "primary": "trips",
+          "score": "144",
+          "target": "1",
+          "funds": [],
+          "tripsLevel": 0,
+          "hash": "7c807e29eedd41fd3584cf7ad613ed6f1c9e2e8f0287aff3378857a31f500a29",
+          "diceRngState": 542129816,
+          "shopRngState": 1930627082,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "RefreshControllers",
+          "sequence": 20,
+          "phase": "Shop",
+          "stage": 0,
+          "primary": "trips",
+          "score": "144",
+          "target": "1",
+          "funds": [],
+          "tripsLevel": 0,
+          "hash": "45bbc34ed41abc6998b1144cfa9ec13f124f494190416a3cdfb473149a552c85",
+          "diceRngState": 542129816,
+          "shopRngState": 569396792,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "RefreshControllers",
+          "sequence": 21,
+          "phase": "Shop",
+          "stage": 0,
+          "primary": "trips",
+          "score": "144",
+          "target": "1",
+          "funds": [],
+          "tripsLevel": 0,
+          "hash": "6bf6c462cb7061846ae92fdfcfae3871dac79f62b0ccbbf9035f4575ea2cb25a",
+          "diceRngState": 542129816,
+          "shopRngState": 945552552,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "RefreshControllers",
+          "sequence": 22,
+          "phase": "Shop",
+          "stage": 0,
+          "primary": "trips",
+          "score": "144",
+          "target": "1",
+          "funds": [],
+          "tripsLevel": 0,
+          "hash": "10945d7c4a206f627816927daa0cb6e5ea148f0d5dd81b190a14826e391f34b9",
+          "diceRngState": 542129816,
+          "shopRngState": 1497846179,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "RefreshControllers",
+          "sequence": 23,
+          "phase": "Shop",
+          "stage": 0,
+          "primary": "trips",
+          "score": "144",
+          "target": "1",
+          "funds": [],
+          "tripsLevel": 0,
+          "hash": "783a33684d4e4721f26c885ba2d57ec38b622b7537e89efa1f48691815357246",
+          "diceRngState": 542129816,
+          "shopRngState": 42651585,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "RefreshControllers",
+          "sequence": 24,
+          "phase": "Shop",
+          "stage": 0,
+          "primary": "trips",
+          "score": "144",
+          "target": "1",
+          "funds": [],
+          "tripsLevel": 0,
+          "hash": "7352ec18870be835503091af131bcb25906936441a71201ee15c3c4ec9daa21f",
+          "diceRngState": 542129816,
+          "shopRngState": 4220330967,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "RefreshControllers",
+          "sequence": 25,
+          "phase": "Shop",
+          "stage": 0,
+          "primary": "trips",
+          "score": "144",
+          "target": "1",
+          "funds": [],
+          "tripsLevel": 0,
+          "hash": "01d258d6e6f1e2c089e0fdea3bbf5f072ac3d3073fb2d828640b6465d9f7d310",
+          "diceRngState": 542129816,
+          "shopRngState": 3782222481,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "RefreshControllers",
+          "sequence": 26,
+          "phase": "Shop",
+          "stage": 0,
+          "primary": "trips",
+          "score": "144",
+          "target": "1",
+          "funds": [],
+          "tripsLevel": 0,
+          "hash": "a0b9bc34cf5fb8f74a925f9d46623ca89c1b40feb45e48b3e31f0944c3e3211d",
+          "diceRngState": 542129816,
+          "shopRngState": 3942817812,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "RefreshControllers",
+          "sequence": 27,
+          "phase": "Shop",
+          "stage": 0,
+          "primary": "trips",
+          "score": "144",
+          "target": "1",
+          "funds": [],
+          "tripsLevel": 0,
+          "hash": "fed056add09da21719083c9597a0bf487bbd0ede065310088eda050347ac0206",
+          "diceRngState": 542129816,
+          "shopRngState": 2968022509,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "RefreshControllers",
+          "sequence": 28,
+          "phase": "Shop",
+          "stage": 0,
+          "primary": "trips",
+          "score": "144",
+          "target": "1",
+          "funds": [],
+          "tripsLevel": 0,
+          "hash": "0d218a457d87476757dbd7eb133f80e528e4e5e504cff9e94c5381383ea3ac92",
+          "diceRngState": 542129816,
+          "shopRngState": 1791739153,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "RefreshControllers",
+          "sequence": 29,
+          "phase": "Shop",
+          "stage": 0,
+          "primary": "trips",
+          "score": "144",
+          "target": "1",
+          "funds": [],
+          "tripsLevel": 0,
+          "hash": "d1ba4ab85562c302704644910993911e004da73b30dbe22c147e84024d253ad4",
+          "diceRngState": 542129816,
+          "shopRngState": 2118504192,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "RefreshControllers",
+          "sequence": 30,
+          "phase": "Shop",
+          "stage": 0,
+          "primary": "trips",
+          "score": "144",
+          "target": "1",
+          "funds": [],
+          "tripsLevel": 0,
+          "hash": "77dd8b158694fc84578873e335ab8c34b2acc501563eb7c96d12f28810cd520b",
+          "diceRngState": 542129816,
+          "shopRngState": 2954472028,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "RefreshControllers",
+          "sequence": 31,
+          "phase": "Shop",
+          "stage": 0,
+          "primary": "trips",
+          "score": "144",
+          "target": "1",
+          "funds": [],
+          "tripsLevel": 0,
+          "hash": "ecc727035f6e27fa840485e0425ce8e3961176d34770b593baf0fe6f4bcd9b74",
+          "diceRngState": 542129816,
+          "shopRngState": 3436223083,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "RefreshControllers",
+          "sequence": 32,
+          "phase": "Shop",
+          "stage": 0,
+          "primary": "trips",
+          "score": "144",
+          "target": "1",
+          "funds": [],
+          "tripsLevel": 0,
+          "hash": "a5e771486cbe0bd1c746eea09e84aa5f44d83b7df80073ff03a4d32e6e56f275",
+          "diceRngState": 542129816,
+          "shopRngState": 566529822,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "RefreshControllers",
+          "sequence": 33,
+          "phase": "Shop",
+          "stage": 0,
+          "primary": "trips",
+          "score": "144",
+          "target": "1",
+          "funds": [],
+          "tripsLevel": 0,
+          "hash": "768c70092341bec76817f5db5ca36ede56ca2892b3a45a5c5534158a06539cbf",
+          "diceRngState": 542129816,
+          "shopRngState": 3441594790,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "RefreshControllers",
+          "sequence": 34,
+          "phase": "Shop",
+          "stage": 0,
+          "primary": "trips",
+          "score": "144",
+          "target": "1",
+          "funds": [],
+          "tripsLevel": 0,
+          "hash": "c4ca53f0783d5d78dfc30a44a299926d3f4a49ce2e854e25c8aa643cda0a7051",
+          "diceRngState": 542129816,
+          "shopRngState": 1871222469,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "RefreshControllers",
+          "sequence": 35,
+          "phase": "Shop",
+          "stage": 0,
+          "primary": "trips",
+          "score": "144",
+          "target": "1",
+          "funds": [],
+          "tripsLevel": 0,
+          "hash": "2c6112957e875e2927302e1e3edc946b8da5c2a76d2c6533d96fe42e44160513",
+          "diceRngState": 542129816,
+          "shopRngState": 2266988140,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "RefreshControllers",
+          "sequence": 36,
+          "phase": "Shop",
+          "stage": 0,
+          "primary": "trips",
+          "score": "144",
+          "target": "1",
+          "funds": [],
+          "tripsLevel": 0,
+          "hash": "b6f26485071e0496083219e27d3c2922aba5757295bbb29a2624521870f56140",
+          "diceRngState": 542129816,
+          "shopRngState": 880638809,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "RefreshControllers",
+          "sequence": 37,
+          "phase": "Shop",
+          "stage": 0,
+          "primary": "trips",
+          "score": "144",
+          "target": "1",
+          "funds": [],
+          "tripsLevel": 0,
+          "hash": "4458961816d8b1bbbcbad1fed753f694ecd7d4ee3f369c09b04fafc56d15b592",
+          "diceRngState": 542129816,
+          "shopRngState": 3581797623,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "RefreshControllers",
+          "sequence": 38,
+          "phase": "Shop",
+          "stage": 0,
+          "primary": "trips",
+          "score": "144",
+          "target": "1",
+          "funds": [],
+          "tripsLevel": 0,
+          "hash": "c9d5acaeac940b910c6d8b2e84ed27e660ce2f00a3dd860a4351579d641f0b4c",
+          "diceRngState": 542129816,
+          "shopRngState": 3008746581,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "RefreshControllers",
+          "sequence": 39,
+          "phase": "Shop",
+          "stage": 0,
+          "primary": "trips",
+          "score": "144",
+          "target": "1",
+          "funds": [],
+          "tripsLevel": 0,
+          "hash": "215091b2fb4afa686ab279d97dd5888080684ab2f3477e581c60f72e8b8b328d",
+          "diceRngState": 542129816,
+          "shopRngState": 1036259837,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "RefreshControllers",
+          "sequence": 40,
+          "phase": "Shop",
+          "stage": 0,
+          "primary": "trips",
+          "score": "144",
+          "target": "1",
+          "funds": [],
+          "tripsLevel": 0,
+          "hash": "8ec4c79be03872a43e009be193e6010de4d528446e4ae08dbaee9eb331410b55",
+          "diceRngState": 542129816,
+          "shopRngState": 1845630576,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "RefreshControllers",
+          "sequence": 41,
+          "phase": "Shop",
+          "stage": 0,
+          "primary": "trips",
+          "score": "144",
+          "target": "1",
+          "funds": [],
+          "tripsLevel": 0,
+          "hash": "47b8c9e1df32871f5fc91dedea52d79395c3d7ec4883ed7bad795a5b25efa570",
+          "diceRngState": 542129816,
+          "shopRngState": 1261995568,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "RefreshControllers",
+          "sequence": 42,
+          "phase": "Shop",
+          "stage": 0,
+          "primary": "trips",
+          "score": "144",
+          "target": "1",
+          "funds": [],
+          "tripsLevel": 0,
+          "hash": "6f71a4cf87f52fb46e7ca7559fc454408f85f35174e9120b7116b01a13679a30",
+          "diceRngState": 542129816,
+          "shopRngState": 4097317852,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "RefreshControllers",
+          "sequence": 43,
+          "phase": "Shop",
+          "stage": 0,
+          "primary": "trips",
+          "score": "144",
+          "target": "1",
+          "funds": [],
+          "tripsLevel": 0,
+          "hash": "8083b2f37909525b3774f5d6588be4f05a20674f7c699846f3efaae327ef6e6d",
+          "diceRngState": 542129816,
+          "shopRngState": 70465128,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "RefreshControllers",
+          "sequence": 44,
+          "phase": "Shop",
+          "stage": 0,
+          "primary": "trips",
+          "score": "144",
+          "target": "1",
+          "funds": [],
+          "tripsLevel": 0,
+          "hash": "a15e7718c056f1dcc2c9094e420e6ee314402a40380914f0c3dd487f8d79213d",
+          "diceRngState": 542129816,
+          "shopRngState": 809313867,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "RefreshControllers",
+          "sequence": 45,
+          "phase": "Shop",
+          "stage": 0,
+          "primary": "trips",
+          "score": "144",
+          "target": "1",
+          "funds": [],
+          "tripsLevel": 0,
+          "hash": "d1c88724a84d0be4441fd4f55e927a5a17431b2dc69f8ce3cd11c7811a9bf3e7",
+          "diceRngState": 542129816,
+          "shopRngState": 3923634042,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "RefreshControllers",
+          "sequence": 46,
+          "phase": "Shop",
+          "stage": 0,
+          "primary": "trips",
+          "score": "144",
+          "target": "1",
+          "funds": [],
+          "tripsLevel": 0,
+          "hash": "a550b311c67c61830ea9335539b5511b25cc7e0df7678046076ce5cbfc461ee0",
+          "diceRngState": 542129816,
+          "shopRngState": 216760407,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "RefreshControllers",
+          "sequence": 47,
+          "phase": "Shop",
+          "stage": 0,
+          "primary": "trips",
+          "score": "144",
+          "target": "1",
+          "funds": [],
+          "tripsLevel": 0,
+          "hash": "7c93ce028923a6cfe84ee32df28e4bb1b867208071ebf96156b7209b82971b50",
+          "diceRngState": 542129816,
+          "shopRngState": 3746885530,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "RefreshControllers",
+          "sequence": 48,
+          "phase": "Shop",
+          "stage": 0,
+          "primary": "trips",
+          "score": "144",
+          "target": "1",
+          "funds": [],
+          "tripsLevel": 0,
+          "hash": "f44549198efca6587e3ec64e20af74ef3755d85dbde9125daa633f3bfb92e286",
+          "diceRngState": 542129816,
+          "shopRngState": 120795911,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "RefreshControllers",
+          "sequence": 49,
+          "phase": "Shop",
+          "stage": 0,
+          "primary": "trips",
+          "score": "144",
+          "target": "1",
+          "funds": [],
+          "tripsLevel": 0,
+          "hash": "56c3c80239f7f50c47cc798d04ad97fa01a069f8508b11ebabda09a2535a8d9c",
+          "diceRngState": 542129816,
+          "shopRngState": 3057497951,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "RefreshControllers",
+          "sequence": 50,
+          "phase": "Shop",
+          "stage": 0,
+          "primary": "trips",
+          "score": "144",
+          "target": "1",
+          "funds": [],
+          "tripsLevel": 0,
+          "hash": "d66eaf5fd4ca5a08ddb1a30d34383574a6761cc923473f922825761681d42f97",
+          "diceRngState": 542129816,
+          "shopRngState": 2565281757,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "RefreshControllers",
+          "sequence": 51,
+          "phase": "Shop",
+          "stage": 0,
+          "primary": "trips",
+          "score": "144",
+          "target": "1",
+          "funds": [],
+          "tripsLevel": 0,
+          "hash": "4a6d98ac35d06bb51e455cd2e60b8b4d081586fc608c54a25f808b384d33d355",
+          "diceRngState": 542129816,
+          "shopRngState": 2996277438,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "RefreshControllers",
+          "sequence": 52,
+          "phase": "Shop",
+          "stage": 0,
+          "primary": "trips",
+          "score": "144",
+          "target": "1",
+          "funds": [],
+          "tripsLevel": 0,
+          "hash": "dc4a9240352067974b7ad299a703dc5a80c8dbd2beebadf544a51ba8ac104364",
+          "diceRngState": 542129816,
+          "shopRngState": 3631401267,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "RefreshControllers",
+          "sequence": 53,
+          "phase": "Shop",
+          "stage": 0,
+          "primary": "trips",
+          "score": "144",
+          "target": "1",
+          "funds": [],
+          "tripsLevel": 0,
+          "hash": "0331bba5c5d22f951c126be6de5d64d4fe33e7af37037356729a336eaafc9ba5",
+          "diceRngState": 542129816,
+          "shopRngState": 2870323389,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "RefreshControllers",
+          "sequence": 54,
+          "phase": "Shop",
+          "stage": 0,
+          "primary": "trips",
+          "score": "144",
+          "target": "1",
+          "funds": [],
+          "tripsLevel": 0,
+          "hash": "17647db15be71702bb0f2b78fade33fff9879311a2c8121dbaa781d0075c4d5c",
+          "diceRngState": 542129816,
+          "shopRngState": 2825073375,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "RefreshControllers",
+          "sequence": 55,
+          "phase": "Shop",
+          "stage": 0,
+          "primary": "trips",
+          "score": "144",
+          "target": "1",
+          "funds": [],
+          "tripsLevel": 0,
+          "hash": "f5cc17ca17fad0be4853018346706705a5463649642d3dc893041c3fdd2ceea9",
+          "diceRngState": 542129816,
+          "shopRngState": 1467792208,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "RefreshControllers",
+          "sequence": 56,
+          "phase": "Shop",
+          "stage": 0,
+          "primary": "trips",
+          "score": "144",
+          "target": "1",
+          "funds": [],
+          "tripsLevel": 0,
+          "hash": "b39ffc1b205f991734dde6cfce54767f9344abe7eea964f0a60aca2a0eea7dca",
+          "diceRngState": 542129816,
+          "shopRngState": 2533861914,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "RefreshControllers",
+          "sequence": 57,
+          "phase": "Shop",
+          "stage": 0,
+          "primary": "trips",
+          "score": "144",
+          "target": "1",
+          "funds": [],
+          "tripsLevel": 0,
+          "hash": "5d01c049e8e306f9ab0c4335050391208586bd8b2c4d7e65df75db1a59efa4b6",
+          "diceRngState": 542129816,
+          "shopRngState": 1958084773,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "RefreshControllers",
+          "sequence": 58,
+          "phase": "Shop",
+          "stage": 0,
+          "primary": "trips",
+          "score": "144",
+          "target": "1",
+          "funds": [],
+          "tripsLevel": 0,
+          "hash": "e079921b12365d7a09ff473f7a22885e7a495f48d5730493970d7f5f5e1a0981",
+          "diceRngState": 542129816,
+          "shopRngState": 1848028559,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "RefreshControllers",
+          "sequence": 59,
+          "phase": "Shop",
+          "stage": 0,
+          "primary": "trips",
+          "score": "144",
+          "target": "1",
+          "funds": [],
+          "tripsLevel": 0,
+          "hash": "00d9d577ce4fa1bea69b74e7bbc8c1264f08b76add0c586ff0a2d018d40d5cfe",
+          "diceRngState": 542129816,
+          "shopRngState": 4254398425,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "RefreshControllers",
+          "sequence": 60,
+          "phase": "Shop",
+          "stage": 0,
+          "primary": "trips",
+          "score": "144",
+          "target": "1",
+          "funds": [],
+          "tripsLevel": 0,
+          "hash": "af110f018b16ce4ac09f4763fab8072312d18c166787aa6e0edc1ac111b7465b",
+          "diceRngState": 542129816,
+          "shopRngState": 836109784,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "RefreshControllers",
+          "sequence": 61,
+          "phase": "Shop",
+          "stage": 0,
+          "primary": "trips",
+          "score": "144",
+          "target": "1",
+          "funds": [],
+          "tripsLevel": 0,
+          "hash": "42248754524c58bf3e206f95575d32975cecdd9cbbc0710b62b51f98c2645bc7",
+          "diceRngState": 542129816,
+          "shopRngState": 1881705168,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "RefreshControllers",
+          "sequence": 62,
+          "phase": "Shop",
+          "stage": 0,
+          "primary": "trips",
+          "score": "144",
+          "target": "1",
+          "funds": [],
+          "tripsLevel": 0,
+          "hash": "e9c9acff6c4f23795df73c062278fc8b5c5c4e82fbf9783e98af3a365c82d37d",
+          "diceRngState": 542129816,
+          "shopRngState": 3288581227,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "RefreshControllers",
+          "sequence": 63,
+          "phase": "Shop",
+          "stage": 0,
+          "primary": "trips",
+          "score": "144",
+          "target": "1",
+          "funds": [],
+          "tripsLevel": 0,
+          "hash": "ff022f5c0933455e2e19d510b28da96c28123a1190226e9570c5f28cb57672b9",
+          "diceRngState": 542129816,
+          "shopRngState": 2667119805,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "RefreshControllers",
+          "sequence": 64,
+          "phase": "Shop",
+          "stage": 0,
+          "primary": "trips",
+          "score": "144",
+          "target": "1",
+          "funds": [],
+          "tripsLevel": 0,
+          "hash": "07526e870d88432471cca3a1998a215f34b6aba175a2e84133118b03ce3cb15e",
+          "diceRngState": 542129816,
+          "shopRngState": 2690498856,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "RefreshControllers",
+          "sequence": 65,
+          "phase": "Shop",
+          "stage": 0,
+          "primary": "trips",
+          "score": "144",
+          "target": "1",
+          "funds": [],
+          "tripsLevel": 0,
+          "hash": "76035f269a6cc5aa97f2286859025102e45000428860622d933476efa0505ced",
+          "diceRngState": 542129816,
+          "shopRngState": 3997196141,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "RefreshControllers",
+          "sequence": 66,
+          "phase": "Shop",
+          "stage": 0,
+          "primary": "trips",
+          "score": "144",
+          "target": "1",
+          "funds": [],
+          "tripsLevel": 0,
+          "hash": "8c1515835c38d8585c1ce8c8e80429ea31d97fa752dcdeeac4928a4c15772adb",
+          "diceRngState": 542129816,
+          "shopRngState": 3576059911,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "RefreshControllers",
+          "sequence": 67,
+          "phase": "Shop",
+          "stage": 0,
+          "primary": "trips",
+          "score": "144",
+          "target": "1",
+          "funds": [],
+          "tripsLevel": 0,
+          "hash": "dc77860b899c8d79566c0e791cd78ee7a16b4753b55ccf517634853505311e53",
+          "diceRngState": 542129816,
+          "shopRngState": 727045345,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "RefreshControllers",
+          "sequence": 68,
+          "phase": "Shop",
+          "stage": 0,
+          "primary": "trips",
+          "score": "144",
+          "target": "1",
+          "funds": [],
+          "tripsLevel": 0,
+          "hash": "1b4af9e39d1d2b6cc7aeb5171acfa6b46e4935882aadb1a87b50f9043a99db3b",
+          "diceRngState": 542129816,
+          "shopRngState": 3055301802,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "RefreshControllers",
+          "sequence": 69,
+          "phase": "Shop",
+          "stage": 0,
+          "primary": "trips",
+          "score": "144",
+          "target": "1",
+          "funds": [],
+          "tripsLevel": 0,
+          "hash": "0d845d6f114d4d34bfcd0a87b018821babd4d1d7150da525a2d685a4cd7e867b",
+          "diceRngState": 542129816,
+          "shopRngState": 2101702593,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "RefreshControllers",
+          "sequence": 70,
+          "phase": "Shop",
+          "stage": 0,
+          "primary": "trips",
+          "score": "144",
+          "target": "1",
+          "funds": [],
+          "tripsLevel": 0,
+          "hash": "47e96b8242d4496f64c1a9f2b727b6063f866cc5f9903969e619d5c69879aac0",
+          "diceRngState": 542129816,
+          "shopRngState": 3296965725,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "RefreshControllers",
+          "sequence": 71,
+          "phase": "Shop",
+          "stage": 0,
+          "primary": "trips",
+          "score": "144",
+          "target": "1",
+          "funds": [],
+          "tripsLevel": 0,
+          "hash": "47acc028bf825803cf5b775bc0b6202ce33b51d4aa5cde2560880c79a9159164",
+          "diceRngState": 542129816,
+          "shopRngState": 4202822425,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "RefreshControllers",
+          "sequence": 72,
+          "phase": "Shop",
+          "stage": 0,
+          "primary": "trips",
+          "score": "144",
+          "target": "1",
+          "funds": [],
+          "tripsLevel": 0,
+          "hash": "e5843d339bf12fc159b7ae902890648d5dc2553cbfe53b74cdb5aa92887b9961",
+          "diceRngState": 542129816,
+          "shopRngState": 536056849,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "RefreshControllers",
+          "sequence": 73,
+          "phase": "Shop",
+          "stage": 0,
+          "primary": "trips",
+          "score": "144",
+          "target": "1",
+          "funds": [],
+          "tripsLevel": 0,
+          "hash": "1421918befac4f44072098e5524a94a5b053b13859368172468701d7fabc6786",
+          "diceRngState": 542129816,
+          "shopRngState": 1089133004,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "RefreshControllers",
+          "sequence": 74,
+          "phase": "Shop",
+          "stage": 0,
+          "primary": "trips",
+          "score": "144",
+          "target": "1",
+          "funds": [],
+          "tripsLevel": 0,
+          "hash": "182cbdd4c8527dbf87a8a2ef24cf5472d0b85d7f27c2baeff2cf3e05917155b9",
+          "diceRngState": 542129816,
+          "shopRngState": 533438076,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "RefreshControllers",
+          "sequence": 75,
+          "phase": "Shop",
+          "stage": 0,
+          "primary": "trips",
+          "score": "144",
+          "target": "1",
+          "funds": [],
+          "tripsLevel": 0,
+          "hash": "386db3c25001c322894a0f0a249aba25af3eb163f550f8d4d3baf12fb0efcf7e",
+          "diceRngState": 542129816,
+          "shopRngState": 3526052200,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "RefreshControllers",
+          "sequence": 76,
+          "phase": "Shop",
+          "stage": 0,
+          "primary": "trips",
+          "score": "144",
+          "target": "1",
+          "funds": [],
+          "tripsLevel": 0,
+          "hash": "a17b5f3d594e7b54f31dba83f467dab5987de901f98db1879c87bd0211c2c366",
+          "diceRngState": 542129816,
+          "shopRngState": 2092953002,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "RefreshControllers",
+          "sequence": 77,
+          "phase": "Shop",
+          "stage": 0,
+          "primary": "trips",
+          "score": "144",
+          "target": "1",
+          "funds": [],
+          "tripsLevel": 0,
+          "hash": "8f6d6e51e6d3992c595845ee26570ec15798e8a50ad8d1f30270de6df505fd7e",
+          "diceRngState": 542129816,
+          "shopRngState": 287013690,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "RefreshControllers",
+          "sequence": 78,
+          "phase": "Shop",
+          "stage": 0,
+          "primary": "trips",
+          "score": "144",
+          "target": "1",
+          "funds": [],
+          "tripsLevel": 0,
+          "hash": "9ec33e345ba18088dfac9c2a0e5a842bba911aed14f559a7478739693412f046",
+          "diceRngState": 542129816,
+          "shopRngState": 1636932731,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "RefreshControllers",
+          "sequence": 79,
+          "phase": "Shop",
+          "stage": 0,
+          "primary": "trips",
+          "score": "144",
+          "target": "1",
+          "funds": [],
+          "tripsLevel": 0,
+          "hash": "976dfb30bff76735e60c6ed5a0c080e66b9df7b3059b5a7b3b898956b7614350",
+          "diceRngState": 542129816,
+          "shopRngState": 481568173,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "RefreshControllers",
+          "sequence": 80,
+          "phase": "Shop",
+          "stage": 0,
+          "primary": "trips",
+          "score": "144",
+          "target": "1",
+          "funds": [],
+          "tripsLevel": 0,
+          "hash": "4661cc6a72afb8dce16e15eed46c8d05a8be28cb4bede3d31fddf57090f17b6a",
+          "diceRngState": 542129816,
+          "shopRngState": 2210163552,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "RefreshControllers",
+          "sequence": 81,
+          "phase": "Shop",
+          "stage": 0,
+          "primary": "trips",
+          "score": "144",
+          "target": "1",
+          "funds": [],
+          "tripsLevel": 0,
+          "hash": "f21753690d0c2222e92e700eedae2fe035f30c888309eee8318d1c87dfba199b",
+          "diceRngState": 542129816,
+          "shopRngState": 2308371408,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "RefreshControllers",
+          "sequence": 82,
+          "phase": "Shop",
+          "stage": 0,
+          "primary": "trips",
+          "score": "144",
+          "target": "1",
+          "funds": [],
+          "tripsLevel": 0,
+          "hash": "c0cfb5f9821ff9fc387be164525bd2d762517cbe0a620b3993f61d386e76a8f7",
+          "diceRngState": 542129816,
+          "shopRngState": 4148611999,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "RefreshControllers",
+          "sequence": 83,
+          "phase": "Shop",
+          "stage": 0,
+          "primary": "trips",
+          "score": "144",
+          "target": "1",
+          "funds": [],
+          "tripsLevel": 0,
+          "hash": "6cdaa93fbd886b875c56fb292cab99e3456884718630564ff185d7d5bd86cafe",
+          "diceRngState": 542129816,
+          "shopRngState": 3821378692,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "RefreshControllers",
+          "sequence": 84,
+          "phase": "Shop",
+          "stage": 0,
+          "primary": "trips",
+          "score": "144",
+          "target": "1",
+          "funds": [],
+          "tripsLevel": 0,
+          "hash": "bd2144a37d9613776dd831a66e02451b6dfffc26113a1912042dbf4afdbdccf4",
+          "diceRngState": 542129816,
+          "shopRngState": 264866004,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "RefreshControllers",
+          "sequence": 85,
+          "phase": "Shop",
+          "stage": 0,
+          "primary": "trips",
+          "score": "144",
+          "target": "1",
+          "funds": [],
+          "tripsLevel": 0,
+          "hash": "72530425c1621b8db5662b63a1f583582e191781b3f2edb5c96fcc2b6c3e0db5",
+          "diceRngState": 542129816,
+          "shopRngState": 791052284,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "RefreshControllers",
+          "sequence": 86,
+          "phase": "Shop",
+          "stage": 0,
+          "primary": "trips",
+          "score": "144",
+          "target": "1",
+          "funds": [],
+          "tripsLevel": 0,
+          "hash": "cab79ad9ac9dc1cc0b27c7ab1ead351ea404a607e64a12dbad1d0c85cc12363c",
+          "diceRngState": 542129816,
+          "shopRngState": 2471549527,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "Buy",
+          "sequence": 87,
+          "phase": "Shop",
+          "stage": 0,
+          "primary": "trips",
+          "score": "144",
+          "target": "1",
+          "funds": [
+            {
+              "instanceId": "ITEM_00243",
+              "definitionId": "C43",
+              "fundAccrual": 0,
+              "sale": 1
+            }
+          ],
+          "tripsLevel": 0,
+          "hash": "372c5dc634f9b68ab73e825d709ec97b5b352c29df99c09970b61f2fe5c25f5e",
+          "diceRngState": 542129816,
+          "shopRngState": 2471549527,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "LeaveShop",
+          "sequence": 88,
+          "phase": "StagePreview",
+          "stage": 1,
+          "primary": "trips",
+          "score": "0",
+          "target": "400",
+          "funds": [
+            {
+              "instanceId": "ITEM_00243",
+              "definitionId": "C43",
+              "fundAccrual": 0,
+              "sale": 1
+            }
+          ],
+          "tripsLevel": 0,
+          "hash": "c4a849e874f7e426c0875927360e2ed9652008278b4d3252ac67bbac14797697",
+          "diceRngState": 542129816,
+          "shopRngState": 2471549527,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "StartStage",
+          "sequence": 89,
+          "phase": "HandReady",
+          "stage": 1,
+          "primary": "trips",
+          "score": "0",
+          "target": "400",
+          "funds": [
+            {
+              "instanceId": "ITEM_00243",
+              "definitionId": "C43",
+              "fundAccrual": 0,
+              "sale": 1
+            }
+          ],
+          "tripsLevel": 0,
+          "hash": "37e25caec7a52e2bc30e586baa21708bbc7fedb4fe901b44d85311d75c7d2768",
+          "diceRngState": 542129816,
+          "shopRngState": 2471549527,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "Roll",
+          "sequence": 90,
+          "phase": "Selecting",
+          "stage": 1,
+          "primary": "trips",
+          "score": "0",
+          "target": "400",
+          "funds": [
+            {
+              "instanceId": "ITEM_00243",
+              "definitionId": "C43",
+              "fundAccrual": 0,
+              "sale": 1
+            }
+          ],
+          "tripsLevel": 0,
+          "hash": "7d8c3282fc26bed1056d221d7219c5c30615095f0d50d0cb19542414395d1fc7",
+          "diceRngState": 152728935,
+          "shopRngState": 2471549527,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "ConfirmLocks",
+          "sequence": 91,
+          "phase": "Selecting",
+          "stage": 1,
+          "primary": "trips",
+          "score": "0",
+          "target": "400",
+          "funds": [
+            {
+              "instanceId": "ITEM_00243",
+              "definitionId": "C43",
+              "fundAccrual": 0,
+              "sale": 1
+            }
+          ],
+          "tripsLevel": 0,
+          "hash": "71eed5502c70774425629af8bf0801543172d0713385ca92d1730854edeb8607",
+          "diceRngState": 152728935,
+          "shopRngState": 2471549527,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "Submit",
+          "sequence": 92,
+          "phase": "HandReady",
+          "stage": 1,
+          "primary": "trips",
+          "score": "144",
+          "target": "400",
+          "funds": [
+            {
+              "instanceId": "ITEM_00243",
+              "definitionId": "C43",
+              "fundAccrual": 0,
+              "sale": 1
+            }
+          ],
+          "tripsLevel": 1,
+          "hash": "8913b0889441d2e6dd6d4018563b496ae94049d04002a3073f4814720f0e6144",
+          "diceRngState": 152728935,
+          "shopRngState": 2471549527,
+          "effectRngState": 2911926140
+        }
+      ]
+    },
+    {
+      "id": "E049-E052-C41-fund-rebind-and-return",
+      "status": "passed",
+      "steps": [
+        {
+          "action": "ApplyDebugScene",
+          "sequence": 1,
+          "phase": "HandReady",
+          "stage": 0,
+          "primary": null,
+          "score": "0",
+          "target": "1",
+          "funds": [
+            {
+              "instanceId": "ITEM_00001",
+              "definitionId": "C41",
+              "fundAccrual": 0,
+              "sale": 1
+            },
+            {
+              "instanceId": "ITEM_00002",
+              "definitionId": "C52",
+              "fundAccrual": 9,
+              "sale": 10
+            },
+            {
+              "instanceId": "ITEM_00003",
+              "definitionId": "C46",
+              "fundAccrual": 0,
+              "sale": 1
+            }
+          ],
+          "tripsLevel": 0,
+          "hash": "d9662805cc3c137769735a296a90987142a5fa829932609ec413c68c991c31c9",
+          "diceRngState": 2738958701,
+          "shopRngState": 3355524773,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "Roll",
+          "sequence": 2,
+          "phase": "Selecting",
+          "stage": 0,
+          "primary": null,
+          "score": "0",
+          "target": "1",
+          "funds": [
+            {
+              "instanceId": "ITEM_00001",
+              "definitionId": "C41",
+              "fundAccrual": 0,
+              "sale": 1
+            },
+            {
+              "instanceId": "ITEM_00002",
+              "definitionId": "C52",
+              "fundAccrual": 9,
+              "sale": 10
+            },
+            {
+              "instanceId": "ITEM_00003",
+              "definitionId": "C46",
+              "fundAccrual": 0,
+              "sale": 1
+            }
+          ],
+          "tripsLevel": 0,
+          "hash": "fc0d4d8d9736f4fda3047008478d03865d8716e0c768bc880306fcdd6d1d4076",
+          "diceRngState": 542129816,
+          "shopRngState": 3355524773,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "ConfirmLocks",
+          "sequence": 3,
+          "phase": "Selecting",
+          "stage": 0,
+          "primary": null,
+          "score": "0",
+          "target": "1",
+          "funds": [
+            {
+              "instanceId": "ITEM_00001",
+              "definitionId": "C41",
+              "fundAccrual": 0,
+              "sale": 1
+            },
+            {
+              "instanceId": "ITEM_00002",
+              "definitionId": "C52",
+              "fundAccrual": 9,
+              "sale": 10
+            },
+            {
+              "instanceId": "ITEM_00003",
+              "definitionId": "C46",
+              "fundAccrual": 0,
+              "sale": 1
+            }
+          ],
+          "tripsLevel": 0,
+          "hash": "2fd90ee5300e5a28ba46e811f426e1c328a3a1b2dcaf0ad65c339576a76bb0e1",
+          "diceRngState": 542129816,
+          "shopRngState": 3355524773,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "Submit",
+          "sequence": 4,
+          "phase": "HandReady",
+          "stage": 0,
+          "primary": "five_kind",
+          "score": "133488",
+          "target": "1",
+          "funds": [
+            {
+              "instanceId": "ITEM_00001",
+              "definitionId": "C41",
+              "fundAccrual": 0,
+              "sale": 1
+            },
+            {
+              "instanceId": "ITEM_00002",
+              "definitionId": "C52",
+              "fundAccrual": 9,
+              "sale": 10
+            },
+            {
+              "instanceId": "ITEM_00003",
+              "definitionId": "C46",
+              "fundAccrual": 0,
+              "sale": 1
+            }
+          ],
+          "tripsLevel": 0,
+          "hash": "9dac32885d96c3b729c93041194b3f0a5a09e52ce25997e4e7cbe7b605618dd8",
+          "diceRngState": 542129816,
+          "shopRngState": 3355524773,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "EndStage",
+          "sequence": 5,
+          "phase": "StageSettlement",
+          "stage": 0,
+          "primary": "five_kind",
+          "score": "133488",
+          "target": "1",
+          "funds": [
+            {
+              "instanceId": "ITEM_00001",
+              "definitionId": "C41",
+              "fundAccrual": 3,
+              "sale": 4
+            },
+            {
+              "instanceId": "ITEM_00002",
+              "definitionId": "C52",
+              "fundAccrual": 12,
+              "sale": 13
+            },
+            {
+              "instanceId": "ITEM_00003",
+              "definitionId": "C46",
+              "fundAccrual": 0,
+              "sale": 1
+            }
+          ],
+          "tripsLevel": 0,
+          "hash": "bcabd537e7c10a9e690b764a5109c90f2ecb68f08d14542354c298d87bde2a6f",
+          "diceRngState": 542129816,
+          "shopRngState": 3355524773,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "DuplicateEndStage",
+          "sequence": 5,
+          "phase": "StageSettlement",
+          "stage": 0,
+          "primary": "five_kind",
+          "score": "133488",
+          "target": "1",
+          "funds": [
+            {
+              "instanceId": "ITEM_00001",
+              "definitionId": "C41",
+              "fundAccrual": 3,
+              "sale": 4
+            },
+            {
+              "instanceId": "ITEM_00002",
+              "definitionId": "C52",
+              "fundAccrual": 12,
+              "sale": 13
+            },
+            {
+              "instanceId": "ITEM_00003",
+              "definitionId": "C46",
+              "fundAccrual": 0,
+              "sale": 1
+            }
+          ],
+          "tripsLevel": 0,
+          "hash": "bcabd537e7c10a9e690b764a5109c90f2ecb68f08d14542354c298d87bde2a6f",
+          "diceRngState": 542129816,
+          "shopRngState": 3355524773,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "Continue",
+          "sequence": 6,
+          "phase": "Shop",
+          "stage": 0,
+          "primary": "five_kind",
+          "score": "133488",
+          "target": "1",
+          "funds": [
+            {
+              "instanceId": "ITEM_00001",
+              "definitionId": "C41",
+              "fundAccrual": 3,
+              "sale": 4
+            },
+            {
+              "instanceId": "ITEM_00002",
+              "definitionId": "C52",
+              "fundAccrual": 12,
+              "sale": 13
+            },
+            {
+              "instanceId": "ITEM_00003",
+              "definitionId": "C46",
+              "fundAccrual": 0,
+              "sale": 1
+            }
+          ],
+          "tripsLevel": 0,
+          "hash": "1da83d9cc11ed78e9018eed0de7dc27d7842154d7d1bd0fbdcb59f0174e90bae",
+          "diceRngState": 542129816,
+          "shopRngState": 3885667460,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "ReorderControllers",
+          "sequence": 7,
+          "phase": "Shop",
+          "stage": 0,
+          "primary": "five_kind",
+          "score": "133488",
+          "target": "1",
+          "funds": [
+            {
+              "instanceId": "ITEM_00002",
+              "definitionId": "C52",
+              "fundAccrual": 12,
+              "sale": 13
+            },
+            {
+              "instanceId": "ITEM_00001",
+              "definitionId": "C41",
+              "fundAccrual": 3,
+              "sale": 4
+            },
+            {
+              "instanceId": "ITEM_00003",
+              "definitionId": "C46",
+              "fundAccrual": 0,
+              "sale": 1
+            }
+          ],
+          "tripsLevel": 0,
+          "hash": "968cefeeb88b43f404a554c03ce8b7549465366e6ee583160d2bcc76baeac5b2",
+          "diceRngState": 542129816,
+          "shopRngState": 3885667460,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "LeaveShop",
+          "sequence": 8,
+          "phase": "StagePreview",
+          "stage": 1,
+          "primary": "five_kind",
+          "score": "0",
+          "target": "400",
+          "funds": [
+            {
+              "instanceId": "ITEM_00002",
+              "definitionId": "C52",
+              "fundAccrual": 12,
+              "sale": 13
+            },
+            {
+              "instanceId": "ITEM_00001",
+              "definitionId": "C41",
+              "fundAccrual": 3,
+              "sale": 4
+            },
+            {
+              "instanceId": "ITEM_00003",
+              "definitionId": "C46",
+              "fundAccrual": 0,
+              "sale": 1
+            }
+          ],
+          "tripsLevel": 0,
+          "hash": "77e5e51f5e98c695bd9200144fb5e43a6655c051449bda16ce3fe52edaa13095",
+          "diceRngState": 542129816,
+          "shopRngState": 3885667460,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "StartStage",
+          "sequence": 9,
+          "phase": "HandReady",
+          "stage": 1,
+          "primary": "five_kind",
+          "score": "0",
+          "target": "400",
+          "funds": [
+            {
+              "instanceId": "ITEM_00002",
+              "definitionId": "C52",
+              "fundAccrual": 12,
+              "sale": 13
+            },
+            {
+              "instanceId": "ITEM_00001",
+              "definitionId": "C41",
+              "fundAccrual": 3,
+              "sale": 4
+            },
+            {
+              "instanceId": "ITEM_00003",
+              "definitionId": "C46",
+              "fundAccrual": 0,
+              "sale": 1
+            }
+          ],
+          "tripsLevel": 0,
+          "hash": "6a1946ca36337e6931d5ddf9307336bb260bd648f128df8791669d0a6c59fa47",
+          "diceRngState": 542129816,
+          "shopRngState": 3885667460,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "Roll",
+          "sequence": 10,
+          "phase": "Selecting",
+          "stage": 1,
+          "primary": "five_kind",
+          "score": "0",
+          "target": "400",
+          "funds": [
+            {
+              "instanceId": "ITEM_00002",
+              "definitionId": "C52",
+              "fundAccrual": 12,
+              "sale": 13
+            },
+            {
+              "instanceId": "ITEM_00001",
+              "definitionId": "C41",
+              "fundAccrual": 3,
+              "sale": 4
+            },
+            {
+              "instanceId": "ITEM_00003",
+              "definitionId": "C46",
+              "fundAccrual": 0,
+              "sale": 1
+            }
+          ],
+          "tripsLevel": 0,
+          "hash": "18cfa90f0bd41d90b4c4556fea01fddefdc3e1b3193a55bfe4f421c181440348",
+          "diceRngState": 152728935,
+          "shopRngState": 3885667460,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "ConfirmLocks",
+          "sequence": 11,
+          "phase": "Selecting",
+          "stage": 1,
+          "primary": "five_kind",
+          "score": "0",
+          "target": "400",
+          "funds": [
+            {
+              "instanceId": "ITEM_00002",
+              "definitionId": "C52",
+              "fundAccrual": 12,
+              "sale": 13
+            },
+            {
+              "instanceId": "ITEM_00001",
+              "definitionId": "C41",
+              "fundAccrual": 3,
+              "sale": 4
+            },
+            {
+              "instanceId": "ITEM_00003",
+              "definitionId": "C46",
+              "fundAccrual": 0,
+              "sale": 1
+            }
+          ],
+          "tripsLevel": 0,
+          "hash": "4189ab14e8916de9c7f93d0845309c78dc8f88e28344c72e723953876dab2499",
+          "diceRngState": 152728935,
+          "shopRngState": 3885667460,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "Submit",
+          "sequence": 12,
+          "phase": "HandReady",
+          "stage": 1,
+          "primary": "five_kind",
+          "score": "400464",
+          "target": "400",
+          "funds": [
+            {
+              "instanceId": "ITEM_00002",
+              "definitionId": "C52",
+              "fundAccrual": 12,
+              "sale": 13
+            },
+            {
+              "instanceId": "ITEM_00001",
+              "definitionId": "C41",
+              "fundAccrual": 3,
+              "sale": 4
+            },
+            {
+              "instanceId": "ITEM_00003",
+              "definitionId": "C46",
+              "fundAccrual": 0,
+              "sale": 1
+            }
+          ],
+          "tripsLevel": 0,
+          "hash": "fbf6ce060e08475d16a9bac6aa8fe7c2858289dbfbe4bfd39b5cf44853221956",
+          "diceRngState": 152728935,
+          "shopRngState": 3885667460,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "EndStage",
+          "sequence": 13,
+          "phase": "StageSettlement",
+          "stage": 1,
+          "primary": "five_kind",
+          "score": "400464",
+          "target": "400",
+          "funds": [
+            {
+              "instanceId": "ITEM_00002",
+              "definitionId": "C52",
+              "fundAccrual": 15,
+              "sale": 16
+            },
+            {
+              "instanceId": "ITEM_00001",
+              "definitionId": "C41",
+              "fundAccrual": 3,
+              "sale": 4
+            },
+            {
+              "instanceId": "ITEM_00003",
+              "definitionId": "C46",
+              "fundAccrual": 0,
+              "sale": 1
+            }
+          ],
+          "tripsLevel": 0,
+          "hash": "a7867e528ef1edf1c1cb7aabf3a69ea05af4a38b70b98912438867096bed8fcf",
+          "diceRngState": 152728935,
+          "shopRngState": 3885667460,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "DuplicateEndStage",
+          "sequence": 13,
+          "phase": "StageSettlement",
+          "stage": 1,
+          "primary": "five_kind",
+          "score": "400464",
+          "target": "400",
+          "funds": [
+            {
+              "instanceId": "ITEM_00002",
+              "definitionId": "C52",
+              "fundAccrual": 15,
+              "sale": 16
+            },
+            {
+              "instanceId": "ITEM_00001",
+              "definitionId": "C41",
+              "fundAccrual": 3,
+              "sale": 4
+            },
+            {
+              "instanceId": "ITEM_00003",
+              "definitionId": "C46",
+              "fundAccrual": 0,
+              "sale": 1
+            }
+          ],
+          "tripsLevel": 0,
+          "hash": "a7867e528ef1edf1c1cb7aabf3a69ea05af4a38b70b98912438867096bed8fcf",
+          "diceRngState": 152728935,
+          "shopRngState": 3885667460,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "Continue",
+          "sequence": 14,
+          "phase": "Shop",
+          "stage": 1,
+          "primary": "five_kind",
+          "score": "400464",
+          "target": "400",
+          "funds": [
+            {
+              "instanceId": "ITEM_00002",
+              "definitionId": "C52",
+              "fundAccrual": 15,
+              "sale": 16
+            },
+            {
+              "instanceId": "ITEM_00001",
+              "definitionId": "C41",
+              "fundAccrual": 3,
+              "sale": 4
+            },
+            {
+              "instanceId": "ITEM_00003",
+              "definitionId": "C46",
+              "fundAccrual": 0,
+              "sale": 1
+            }
+          ],
+          "tripsLevel": 0,
+          "hash": "1c28637ef61d60d6f4d98f71080e5ee659b4fec68bc4ef7738381cd2e9e10d36",
+          "diceRngState": 152728935,
+          "shopRngState": 254704215,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "ReorderControllers",
+          "sequence": 15,
+          "phase": "Shop",
+          "stage": 1,
+          "primary": "five_kind",
+          "score": "400464",
+          "target": "400",
+          "funds": [
+            {
+              "instanceId": "ITEM_00001",
+              "definitionId": "C41",
+              "fundAccrual": 3,
+              "sale": 4
+            },
+            {
+              "instanceId": "ITEM_00002",
+              "definitionId": "C52",
+              "fundAccrual": 15,
+              "sale": 16
+            },
+            {
+              "instanceId": "ITEM_00003",
+              "definitionId": "C46",
+              "fundAccrual": 0,
+              "sale": 1
+            }
+          ],
+          "tripsLevel": 0,
+          "hash": "ec15d7c400ac551e777f081a036c1166176f26c6beeda67f1e5dd95f0efd5dd1",
+          "diceRngState": 152728935,
+          "shopRngState": 254704215,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "LeaveShop",
+          "sequence": 16,
+          "phase": "StagePreview",
+          "stage": 2,
+          "primary": "five_kind",
+          "score": "0",
+          "target": "900",
+          "funds": [
+            {
+              "instanceId": "ITEM_00001",
+              "definitionId": "C41",
+              "fundAccrual": 3,
+              "sale": 4
+            },
+            {
+              "instanceId": "ITEM_00002",
+              "definitionId": "C52",
+              "fundAccrual": 15,
+              "sale": 16
+            },
+            {
+              "instanceId": "ITEM_00003",
+              "definitionId": "C46",
+              "fundAccrual": 0,
+              "sale": 1
+            }
+          ],
+          "tripsLevel": 0,
+          "hash": "14d6404b2b3d48e5cbff0aae29ab096f59374301ad2d72f50e73bfd0e563068b",
+          "diceRngState": 152728935,
+          "shopRngState": 254704215,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "StartStage",
+          "sequence": 17,
+          "phase": "HandReady",
+          "stage": 2,
+          "primary": "five_kind",
+          "score": "0",
+          "target": "900",
+          "funds": [
+            {
+              "instanceId": "ITEM_00001",
+              "definitionId": "C41",
+              "fundAccrual": 3,
+              "sale": 4
+            },
+            {
+              "instanceId": "ITEM_00002",
+              "definitionId": "C52",
+              "fundAccrual": 15,
+              "sale": 16
+            },
+            {
+              "instanceId": "ITEM_00003",
+              "definitionId": "C46",
+              "fundAccrual": 0,
+              "sale": 1
+            }
+          ],
+          "tripsLevel": 0,
+          "hash": "bbd98a5c436c5c9e4066212668356a1cd1de04fb8a52af828b99033d6ccd1dbe",
+          "diceRngState": 152728935,
+          "shopRngState": 254704215,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "Roll",
+          "sequence": 18,
+          "phase": "Selecting",
+          "stage": 2,
+          "primary": "five_kind",
+          "score": "0",
+          "target": "900",
+          "funds": [
+            {
+              "instanceId": "ITEM_00001",
+              "definitionId": "C41",
+              "fundAccrual": 3,
+              "sale": 4
+            },
+            {
+              "instanceId": "ITEM_00002",
+              "definitionId": "C52",
+              "fundAccrual": 15,
+              "sale": 16
+            },
+            {
+              "instanceId": "ITEM_00003",
+              "definitionId": "C46",
+              "fundAccrual": 0,
+              "sale": 1
+            }
+          ],
+          "tripsLevel": 0,
+          "hash": "c9a23da8001d224ea6141026bc2b92173dc45eea290319ebffd33c711ae1a9da",
+          "diceRngState": 3126078537,
+          "shopRngState": 254704215,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "ConfirmLocks",
+          "sequence": 19,
+          "phase": "Selecting",
+          "stage": 2,
+          "primary": "five_kind",
+          "score": "0",
+          "target": "900",
+          "funds": [
+            {
+              "instanceId": "ITEM_00001",
+              "definitionId": "C41",
+              "fundAccrual": 3,
+              "sale": 4
+            },
+            {
+              "instanceId": "ITEM_00002",
+              "definitionId": "C52",
+              "fundAccrual": 15,
+              "sale": 16
+            },
+            {
+              "instanceId": "ITEM_00003",
+              "definitionId": "C46",
+              "fundAccrual": 0,
+              "sale": 1
+            }
+          ],
+          "tripsLevel": 0,
+          "hash": "ef954cbae037eb5881dc355b15392025796ba536826f5b6fef6030df2a62f5b5",
+          "diceRngState": 3126078537,
+          "shopRngState": 254704215,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "Submit",
+          "sequence": 20,
+          "phase": "HandReady",
+          "stage": 2,
+          "primary": "five_kind",
+          "score": "133488",
+          "target": "900",
+          "funds": [
+            {
+              "instanceId": "ITEM_00001",
+              "definitionId": "C41",
+              "fundAccrual": 3,
+              "sale": 4
+            },
+            {
+              "instanceId": "ITEM_00002",
+              "definitionId": "C52",
+              "fundAccrual": 15,
+              "sale": 16
+            },
+            {
+              "instanceId": "ITEM_00003",
+              "definitionId": "C46",
+              "fundAccrual": 0,
+              "sale": 1
+            }
+          ],
+          "tripsLevel": 0,
+          "hash": "3fa56563a3ff41d932b5722d9ff84ca7e5b5af4dae38b76aa5cc217487592420",
+          "diceRngState": 3126078537,
+          "shopRngState": 254704215,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "EndStage",
+          "sequence": 21,
+          "phase": "StageSettlement",
+          "stage": 2,
+          "primary": "five_kind",
+          "score": "133488",
+          "target": "900",
+          "funds": [
+            {
+              "instanceId": "ITEM_00001",
+              "definitionId": "C41",
+              "fundAccrual": 6,
+              "sale": 7
+            },
+            {
+              "instanceId": "ITEM_00002",
+              "definitionId": "C52",
+              "fundAccrual": 18,
+              "sale": 19
+            },
+            {
+              "instanceId": "ITEM_00003",
+              "definitionId": "C46",
+              "fundAccrual": 0,
+              "sale": 1
+            }
+          ],
+          "tripsLevel": 0,
+          "hash": "5cfcfbe2ab7551218fe9812adbb42c652c283d89be18323653a712728d2fc955",
+          "diceRngState": 3126078537,
+          "shopRngState": 254704215,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "DuplicateEndStage",
+          "sequence": 21,
+          "phase": "StageSettlement",
+          "stage": 2,
+          "primary": "five_kind",
+          "score": "133488",
+          "target": "900",
+          "funds": [
+            {
+              "instanceId": "ITEM_00001",
+              "definitionId": "C41",
+              "fundAccrual": 6,
+              "sale": 7
+            },
+            {
+              "instanceId": "ITEM_00002",
+              "definitionId": "C52",
+              "fundAccrual": 18,
+              "sale": 19
+            },
+            {
+              "instanceId": "ITEM_00003",
+              "definitionId": "C46",
+              "fundAccrual": 0,
+              "sale": 1
+            }
+          ],
+          "tripsLevel": 0,
+          "hash": "5cfcfbe2ab7551218fe9812adbb42c652c283d89be18323653a712728d2fc955",
+          "diceRngState": 3126078537,
+          "shopRngState": 254704215,
+          "effectRngState": 2911926140
+        }
+      ]
+    },
+    {
+      "id": "E053-final-stage-fund-once-no-final-shop",
+      "status": "failed",
+      "error": "System.InvalidOperationException: Final stage generated a shop or missed victory\r\n   at SequenceReview.Check(Boolean value, String message) in E:\\agent_workspace\\gpt\\game2\\evidence\\v06\\review\\sequences\\Program.cs:line 16\r\n   at SequenceReview.\u003C\u003Ec.\u003CMain\u003Eb__15_2() in E:\\agent_workspace\\gpt\\game2\\evidence\\v06\\review\\sequences\\Program.cs:line 103\r\n   at SequenceReview.Test(String id, Action run) in E:\\agent_workspace\\gpt\\game2\\evidence\\v06\\review\\sequences\\Program.cs:line 60",
+      "steps": [
+        {
+          "action": "ApplyDebugScene",
+          "sequence": 1,
+          "phase": "HandReady",
+          "stage": 23,
+          "primary": null,
+          "score": "0",
+          "target": "1",
+          "funds": [
+            {
+              "instanceId": "ITEM_00001",
+              "definitionId": "C41",
+              "fundAccrual": 0,
+              "sale": 1
+            },
+            {
+              "instanceId": "ITEM_00002",
+              "definitionId": "C52",
+              "fundAccrual": 9,
+              "sale": 10
+            }
+          ],
+          "tripsLevel": 0,
+          "hash": "4542b212f72a9d9b789d6f7a8c2db17d820b56ba47799392631e30cddcc4f9d3",
+          "diceRngState": 2738958701,
+          "shopRngState": 3355524773,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "Roll",
+          "sequence": 2,
+          "phase": "Selecting",
+          "stage": 23,
+          "primary": null,
+          "score": "0",
+          "target": "1",
+          "funds": [
+            {
+              "instanceId": "ITEM_00001",
+              "definitionId": "C41",
+              "fundAccrual": 0,
+              "sale": 1
+            },
+            {
+              "instanceId": "ITEM_00002",
+              "definitionId": "C52",
+              "fundAccrual": 9,
+              "sale": 10
+            }
+          ],
+          "tripsLevel": 0,
+          "hash": "00a37e6989b77d808a42c50ec4f5c5dccbb030afaa47a7565afab0caa7363e93",
+          "diceRngState": 542129816,
+          "shopRngState": 3355524773,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "ConfirmLocks",
+          "sequence": 3,
+          "phase": "Selecting",
+          "stage": 23,
+          "primary": null,
+          "score": "0",
+          "target": "1",
+          "funds": [
+            {
+              "instanceId": "ITEM_00001",
+              "definitionId": "C41",
+              "fundAccrual": 0,
+              "sale": 1
+            },
+            {
+              "instanceId": "ITEM_00002",
+              "definitionId": "C52",
+              "fundAccrual": 9,
+              "sale": 10
+            }
+          ],
+          "tripsLevel": 0,
+          "hash": "4fc2985f9994fca304f8639fb261984f034edbdec4b1a88a4feaa2d9454e4229",
+          "diceRngState": 542129816,
+          "shopRngState": 3355524773,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "Submit",
+          "sequence": 4,
+          "phase": "HandReady",
+          "stage": 23,
+          "primary": "five_kind",
+          "score": "44496",
+          "target": "1",
+          "funds": [
+            {
+              "instanceId": "ITEM_00001",
+              "definitionId": "C41",
+              "fundAccrual": 0,
+              "sale": 1
+            },
+            {
+              "instanceId": "ITEM_00002",
+              "definitionId": "C52",
+              "fundAccrual": 9,
+              "sale": 10
+            }
+          ],
+          "tripsLevel": 0,
+          "hash": "236e1620a006be04d82e7a71365ea6d95c4e4e761a38cb51fbad66edf4a6d51a",
+          "diceRngState": 542129816,
+          "shopRngState": 3355524773,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "EndStage",
+          "sequence": 5,
+          "phase": "StageSettlement",
+          "stage": 23,
+          "primary": "five_kind",
+          "score": "44496",
+          "target": "1",
+          "funds": [
+            {
+              "instanceId": "ITEM_00001",
+              "definitionId": "C41",
+              "fundAccrual": 3,
+              "sale": 4
+            },
+            {
+              "instanceId": "ITEM_00002",
+              "definitionId": "C52",
+              "fundAccrual": 12,
+              "sale": 13
+            }
+          ],
+          "tripsLevel": 0,
+          "hash": "332b6e406fb07f0471fb28e5f0af5f3bdad08028cff9f875c071c8b2f33838a3",
+          "diceRngState": 542129816,
+          "shopRngState": 3355524773,
+          "effectRngState": 2911926140
+        },
+        {
+          "action": "DuplicateEndStage",
+          "sequence": 5,
+          "phase": "StageSettlement",
+          "stage": 23,
+          "primary": "five_kind",
+          "score": "44496",
+          "target": "1",
+          "funds": [
+            {
+              "instanceId": "ITEM_00001",
+              "definitionId": "C41",
+              "fundAccrual": 3,
+              "sale": 4
+            },
+            {
+              "instanceId": "ITEM_00002",
+              "definitionId": "C52",
+              "fundAccrual": 12,
+              "sale": 13
+            }
+          ],
+          "tripsLevel": 0,
+          "hash": "332b6e406fb07f0471fb28e5f0af5f3bdad08028cff9f875c071c8b2f33838a3",
+          "diceRngState": 542129816,
+          "shopRngState": 3355524773,
+          "effectRngState": 2911926140
+        }
+      ]
+    }
+  ]
+}

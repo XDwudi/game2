@@ -1,0 +1,9 @@
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "E:\agent_workspace\gpt\game2\tools\package_v06.py", line 174, in validated_gate
+    validate_git_source(identity)
+  File "E:\agent_workspace\gpt\game2\tools\package_v06.py", line 79, in validate_git_source
+    subprocess.run(["git", "diff", "--quiet", commit, "--", *SCOPES, ":(exclude)" + IDENTITY], cwd=ROOT, check=True, capture_output=True)
+  File "E:\anaconda3\Lib\subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['git', 'diff', '--quiet', '6f9e285432ab92e7304830a42c9e9e4cd74d97c3', '--', 'DicePrototype/Assets', 'DicePrototype/Packages', 'DicePrototype/ProjectSettings', ':(exclude)DicePrototype/Assets/Resources/BuildIdentity.json']' returned non-zero exit status 1.

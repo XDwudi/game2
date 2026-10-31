@@ -1,0 +1,7 @@
+FAIL SESSION-DEBUG-NONSUBMIT-EXPERIMENT-CAN-ENTER-SHOP
+System.Exception: Generate ordinary quotes from debug equipment: 输入不合法：Invalid current enchantment.
+   at ReviewProgram.Assert(Boolean yes, String message) in E:\agent_workspace\gpt\game2\evidence\v06\review\harness\Program.cs:line 32
+   at SessionChecks.Accepted(CommandResult result, String detail) in E:\agent_workspace\gpt\game2\evidence\v06\review\harness\SessionChecks.cs:line 18
+   at SessionChecks.<>c.<Run>b__9_0() in E:\agent_workspace\gpt\game2\evidence\v06\review\harness\SessionChecks.cs:line 37
+   at ReviewProgram.Test(String name, Action action) in E:\agent_workspace\gpt\game2\evidence\v06\review\harness\Program.cs:line 28
+TOTAL 2056 PASSED 2055 FAILED 1

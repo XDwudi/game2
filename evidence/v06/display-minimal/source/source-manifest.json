@@ -1,0 +1,63 @@
+{
+  "schema": "p06-native-minimal-source-1",
+  "utc": "2026-10-31T15:13:18.394219+00:00",
+  "status": "prepared_not_built_or_run",
+  "scope": "Disposable Built-in native-display isolation; not production and no release acceptance",
+  "editor": "6000.6.7f1 (b22767f04f04)",
+  "projectPath": "artifacts/cache/v06/native-minimal-project",
+  "developmentExecuteMethod": "BuildNativeDisplayProbe.BuildWindows",
+  "nonDevelopmentExecuteMethod": "BuildNativeDisplayProbe.BuildNonDevelopmentWindows",
+  "developmentOutput": "artifacts/cache/v06/native-minimal-build/NativeMinimal.exe",
+  "nonDevelopmentOutput": "artifacts/cache/v06/NativeMinimalRelease/NativeMinimal.exe",
+  "files": [
+    {
+      "path": "Assets/NativeDisplayProbe.cs",
+      "bytes": 14397,
+      "sha256": "35976f027ac70a2cbcb9df5a7367914270c7ac443a52262794f9e9840932c468",
+      "copySha256": "35976f027ac70a2cbcb9df5a7367914270c7ac443a52262794f9e9840932c468"
+    },
+    {
+      "path": "Assets/NativeDisplayProbe.cs.meta",
+      "bytes": 62,
+      "sha256": "317d7508f897d0a0c646b78cbb0b350ab3e847f07af3b46acff1967c34050e13",
+      "copySha256": "317d7508f897d0a0c646b78cbb0b350ab3e847f07af3b46acff1967c34050e13"
+    },
+    {
+      "path": "Assets/Editor/BuildNativeDisplayProbe.cs",
+      "bytes": 5484,
+      "sha256": "6142081c86b8cc07586a96796998b0585edf12ab8673124e17b4a4a363aec436",
+      "copySha256": "6142081c86b8cc07586a96796998b0585edf12ab8673124e17b4a4a363aec436"
+    },
+    {
+      "path": "Assets/Editor/BuildNativeDisplayProbe.cs.meta",
+      "bytes": 62,
+      "sha256": "7cc8726abde3fa9180e559bd7512f4a0bd45f06d5c369ce592b4b29eeaa06057",
+      "copySha256": "7cc8726abde3fa9180e559bd7512f4a0bd45f06d5c369ce592b4b29eeaa06057"
+    },
+    {
+      "path": "Packages/manifest.json",
+      "bytes": 75,
+      "sha256": "c3fe8f046850238f5859d8a2756efd532ac71de6f579b70442a8b04880ce5cbd",
+      "copySha256": "c3fe8f046850238f5859d8a2756efd532ac71de6f579b70442a8b04880ce5cbd"
+    },
+    {
+      "path": "ProjectSettings/ProjectVersion.txt",
+      "bytes": 83,
+      "sha256": "2a88e6864b6f54588287bed3bc6e9260e65bd49498910cca4478770ca8a5d674",
+      "copySha256": "2a88e6864b6f54588287bed3bc6e9260e65bd49498910cca4478770ca8a5d674"
+    }
+  ],
+  "diagnosticFlags": [
+    "--native-output <absolute workspace evidence directory>"
+  ],
+  "boundaries": [
+    "No Unity/Player/Blender launched by source preparer",
+    "No URP/InputSystem/UI/physics/game-core/FramePacer dependency",
+    "Only builtin com.unity.modules.jsonserialize1.0.0 in manifest",
+    "Runtime requires explicit output flag before any display request or diagnostic write",
+    "Two5-second arms and three stable1920x1080 Windowed frames before/after",
+    "Per-frame flushed journal and Unity error-event journal; report statuses are diagnostic only",
+    "Original startup logs supplied by root to artifacts/cache/v06",
+    "Source-copy hashes match project inputs; scene created only by Editor build method"
+  ]
+}

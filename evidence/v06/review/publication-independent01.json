@@ -1,0 +1,191 @@
+{
+  "scope": "Read-only review of saved publication API response and completed-delivery metadata against previously independently verified package/download evidence; no new network, credential, package read, app run or test execution.",
+  "utc": "2026-10-31T16:20:36.720714+00:00",
+  "status": "diagnostic_publication_metadata_verified",
+  "sourceCommit": "08ef933f2fbc3198a5e357ecebaa2758fbee8643",
+  "releaseId": 430037166,
+  "releaseUrl": "https://github.com/XDwudi/game2/releases/tag/p0.6.0-rc.1",
+  "tag": "p0.6.0-rc.1",
+  "publishedAt": "2026-10-31T16:14:30Z",
+  "draft": false,
+  "prerelease": true,
+  "assets": [
+    {
+      "id": 695826711,
+      "name": "DicePrototype-p0.6.0-macos-universal.zip",
+      "state": "uploaded",
+      "size": 126816584,
+      "digest": "sha256:a8cf1b007fe35c276c2a2ce7fc0ddab676a54ab4c7c5e54cd00a7fbd39e45b88",
+      "browser_download_url": "https://github.com/XDwudi/game2/releases/download/p0.6.0-rc.1/DicePrototype-p0.6.0-macos-universal.zip"
+    },
+    {
+      "id": 695826713,
+      "name": "DicePrototype-p0.6.0-MacVerificationKit.zip",
+      "state": "uploaded",
+      "size": 126918458,
+      "digest": "sha256:013e101a2ed3c0f2307cde56f2a6e367e6bf7a4fd8fed86d69cc775c41505bed",
+      "browser_download_url": "https://github.com/XDwudi/game2/releases/download/p0.6.0-rc.1/DicePrototype-p0.6.0-MacVerificationKit.zip"
+    },
+    {
+      "id": 695826712,
+      "name": "DicePrototype-p0.6.0-win-x64.zip",
+      "state": "uploaded",
+      "size": 86495395,
+      "digest": "sha256:c809dcc0fdfe07acb4a0fe67d5eca6462f53075f39a2a52b2c8835cc008e6dba",
+      "browser_download_url": "https://github.com/XDwudi/game2/releases/download/p0.6.0-rc.1/DicePrototype-p0.6.0-win-x64.zip"
+    }
+  ],
+  "checks": [
+    {
+      "id": "published_prerelease_source",
+      "passed": true
+    },
+    {
+      "id": "unique_exact_three_assets",
+      "passed": true
+    },
+    {
+      "id": "exact_names_across_proofs",
+      "passed": true
+    },
+    {
+      "id": "asset_DicePrototype-p0.6.0-macos-universal.zip",
+      "passed": true
+    },
+    {
+      "id": "download_proof_DicePrototype-p0.6.0-macos-universal.zip",
+      "passed": true
+    },
+    {
+      "id": "body_digest_DicePrototype-p0.6.0-macos-universal.zip",
+      "passed": true
+    },
+    {
+      "id": "asset_DicePrototype-p0.6.0-MacVerificationKit.zip",
+      "passed": true
+    },
+    {
+      "id": "download_proof_DicePrototype-p0.6.0-MacVerificationKit.zip",
+      "passed": true
+    },
+    {
+      "id": "body_digest_DicePrototype-p0.6.0-MacVerificationKit.zip",
+      "passed": true
+    },
+    {
+      "id": "asset_DicePrototype-p0.6.0-win-x64.zip",
+      "passed": true
+    },
+    {
+      "id": "download_proof_DicePrototype-p0.6.0-win-x64.zip",
+      "passed": true
+    },
+    {
+      "id": "body_digest_DicePrototype-p0.6.0-win-x64.zip",
+      "passed": true
+    },
+    {
+      "id": "body_disclosure_Windows 性能 FAILED",
+      "passed": true
+    },
+    {
+      "id": "body_disclosure_23.0348000000049 ms > 16.7 ms",
+      "passed": true
+    },
+    {
+      "id": "body_disclosure_180.004603 秒",
+      "passed": true
+    },
+    {
+      "id": "body_disclosure_焦点帧 0",
+      "passed": true
+    },
+    {
+      "id": "body_disclosure_异常 GPU 样本 1",
+      "passed": true
+    },
+    {
+      "id": "body_disclosure_P22 未通过",
+      "passed": true
+    },
+    {
+      "id": "body_disclosure_Mac 实机未测",
+      "passed": true
+    },
+    {
+      "id": "body_disclosure_整个版本未 ACCEPTED",
+      "passed": true
+    },
+    {
+      "id": "body_disclosure_Mac 自身性能、原生显示和采样完整性仍须严格验收",
+      "passed": true
+    },
+    {
+      "id": "body_disclosure_Intel 运行未测",
+      "passed": true
+    },
+    {
+      "id": "body_disclosure_797",
+      "passed": true
+    },
+    {
+      "id": "body_disclosure_30",
+      "passed": true
+    },
+    {
+      "id": "body_disclosure_08ef933f2fbc3198a5e357ecebaa2758fbee8643",
+      "passed": true
+    },
+    {
+      "id": "completion_identity",
+      "passed": true
+    },
+    {
+      "id": "manifest_unchanged_since_full_download",
+      "passed": true
+    },
+    {
+      "id": "completion_limits",
+      "passed": true
+    },
+    {
+      "id": "remote_targeted_proof_binding",
+      "passed": true
+    },
+    {
+      "id": "new_proof_path",
+      "passed": true
+    }
+  ],
+  "files": [
+    {
+      "path": "evidence/v06/delivery/github-release/review-candidate/release-publish-20261031-161502-798238.json",
+      "sha256": "e703d3493f5b357413eeb13452d5c232f1875ea89e1aae5e80accbff5afeacd4"
+    },
+    {
+      "path": "evidence/v06/delivery/github-release/review-candidate/delivery-completed.json",
+      "sha256": "ce86d171d9b8c7e934a240fd6b5b95d95513ded419fb1fcebb7b7711e110df50"
+    },
+    {
+      "path": "Releases/p0.6.0/review-candidate/review-candidate-manifest.json",
+      "sha256": "1b4d005bf071fead249025c67bb0ef7ae5e91ce7c6a1090b28d3416005907749"
+    },
+    {
+      "path": "evidence/v06/review/candidate-packages-review01.json",
+      "sha256": "eff21791cf9c155d59d1e836d03a695bde7cdbc6fa19bec74deb02a5fdfe7f38"
+    },
+    {
+      "path": "evidence/v06/review/remote-downloads-independent01.json",
+      "sha256": "62aab928f1b6d061fd3601ca47a8a248b7955cfbee066cb35e5b7b66998d0c48"
+    }
+  ],
+  "performanceAccepted": false,
+  "nativeP22Accepted": false,
+  "macRuntimeExecuted": false,
+  "humanExperienceAccepted": false,
+  "wholeVersionAccepted": false,
+  "limits": [
+    "Published final browser URLs are verified from the actual API response. Earlier complete remote downloads bind the exact same asset IDs/digests/bytes; reviewer did not repeat post-publication network downloads.",
+    "This conclusion is diagnostic artifact delivery only; original performance/native failures and unexecuted Mac/human checks remain."
+  ]
+}

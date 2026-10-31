@@ -1,0 +1,59 @@
+{
+  "scope": "Independent read-only inspection of actual diagnostic ZIPs, all member bytes and bound inputs.",
+  "status": "verified_diagnostic_packages_only",
+  "errors": [],
+  "packages": [
+    {
+      "platform": "windows",
+      "path": "Releases/p0.6.0/review-candidate/DicePrototype-p0.6.0-win-x64.zip",
+      "sha256": "c809dcc0fdfe07acb4a0fe67d5eca6462f53075f39a2a52b2c8835cc008e6dba",
+      "byteSize": 86495395,
+      "membersReadAndCrcChecked": 309
+    },
+    {
+      "platform": "macos",
+      "path": "Releases/p0.6.0/review-candidate/DicePrototype-p0.6.0-macos-universal.zip",
+      "sha256": "a8cf1b007fe35c276c2a2ce7fc0ddab676a54ab4c7c5e54cd00a7fbd39e45b88",
+      "byteSize": 126816584,
+      "membersReadAndCrcChecked": 304
+    },
+    {
+      "platform": "kit",
+      "path": "Releases/p0.6.0/review-candidate/DicePrototype-p0.6.0-MacVerificationKit.zip",
+      "sha256": "013e101a2ed3c0f2307cde56f2a6e367e6bf7a4fd8fed86d69cc775c41505bed",
+      "byteSize": 126918458,
+      "membersReadAndCrcChecked": 16
+    }
+  ],
+  "sourceIdentity": {
+    "releaseVersion": "p0.6.0",
+    "sourceCommit": "08ef933f2fbc3198a5e357ecebaa2758fbee8643",
+    "contentConfigVersion": "p0.6.0",
+    "contentConfigSha256": "747ed1efc7bea15873f66a81eee5c7654971c21031f2a1517ce629adce7b6e6c",
+    "saveSchemaVersion": 4,
+    "goldenCaseSetSha256": "306cb86f79dafe0e3eb302714abd232af20fe0062a6713f7d713c11e2a6a5718",
+    "unityEditorVersion": "6000.6.7f1",
+    "backend": "Mono"
+  },
+  "originalPlayerStatus": "budget_exceeded",
+  "performanceAccepted": false,
+  "nativeP22Accepted": false,
+  "macRuntimeExecuted": false,
+  "fullReleaseAccepted": false,
+  "files": {
+    "Releases/p0.6.0/review-candidate/review-candidate-manifest.json": "1b4d005bf071fead249025c67bb0ef7ae5e91ce7c6a1090b28d3416005907749",
+    "evidence/v06/player/player-20261031-154556-f25586f0/player-report.json": "7c7116714d70b04b6915e700d79a8c75e2844f343d265e5355976f2cb0504f54",
+    "evidence/v06/packages/mac-verification-kit-review-candidate.json": "fb9f992b7b3fdd61fc0ae9fd8830c9c96181343670f19c0da1e8bd8f591b0ab3",
+    "evidence/v06/packages/macos-package-review-candidate.json": "d9a055c6c86036088c8d11b7f7c839ed739da5886dc5b4a97ead3f5a03e4b689",
+    "evidence/v06/packages/windows-package-review-candidate.json": "e9753c5df36273c448cafa6214f4c4e0422cab80ef988b3197b45737455cc179",
+    "Releases/p0.6.0/review-candidate/DicePrototype-p0.6.0-macos-universal.zip": "a8cf1b007fe35c276c2a2ce7fc0ddab676a54ab4c7c5e54cd00a7fbd39e45b88",
+    "Releases/p0.6.0/review-candidate/DicePrototype-p0.6.0-MacVerificationKit.zip": "013e101a2ed3c0f2307cde56f2a6e367e6bf7a4fd8fed86d69cc775c41505bed",
+    "Releases/p0.6.0/review-candidate/DicePrototype-p0.6.0-win-x64.zip": "c809dcc0fdfe07acb4a0fe67d5eca6462f53075f39a2a52b2c8835cc008e6dba"
+  },
+  "stable": true,
+  "limits": [
+    "All ZIP bytes/members/CRC and identities checked; no native app launched by reviewer.",
+    "Actual remote downloaded bytes and extracted Windows smoke are separate.",
+    "Mac runtime/signing/ditto and human acceptance remain pending."
+  ]
+}

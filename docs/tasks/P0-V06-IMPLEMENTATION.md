@@ -1,6 +1,6 @@
 # P0-003 — v0.6 实施契约
 
-状态：READY → IMPLEMENTING。日期：2026-10-31。协调/集成：root；规则：v06_rules；会话：v06_session；独立规格与技术复核：v06_spec_review；体验与 Mac 实机验收：用户。
+状态：诊断测试附件交付完成，整版REVIEW且V06-DISPLAY/PERF保留REWORK；Mac与人工待验，非ACCEPTED。当前证据与下载见 `../DELIVERY_V06.md` 和 `../../evidence/v06/review/REVIEW_CONCLUSION.md`。日期：2026-10-31。协调/集成：root；规则：v06_rules；会话：v06_session；独立规格与技术复核：v06_spec_review；体验与 Mac 实机验收：用户。
 
 ## 输入与授权
 

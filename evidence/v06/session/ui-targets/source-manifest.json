@@ -1,0 +1,64 @@
+{
+  "task": "UI06-14",
+  "status": "targeted_Unity_passed_full_integration_pending",
+  "sourceHead": "6f9e285432ab92e7304830a42c9e9e4cd74d97c3",
+  "actualUnityRunOwner": "root",
+  "readAndVerifiedBy": "v06_session",
+  "targetedPlayMode": {
+    "passed": 2,
+    "failed": 0,
+    "skipped": 0
+  },
+  "offlineToolTests": 68,
+  "qualityCheckerTests": 20,
+  "files": [
+    {
+      "path": "DicePrototype/Assets/Game/UI/GameApp.Modals.cs",
+      "sha256": "6bce45cd1394c906e10a81df40660b961888c9230352cc52bf30367804a18c93"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/UI/GameApp.Shop.cs",
+      "sha256": "b6095d9f0ea39ad5ca51b71b693b6bfc4f74280f266144badfb371d6015d7d1f"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Tests/PlayMode/V06TargetSelectionPlayModeTests.cs",
+      "sha256": "d11ffe6acfef2260e7ac13349a97da671dec63b0543af3e42d5eb0cff770e880"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Tests/PlayMode/V05InterfacePlayModeTests.cs",
+      "sha256": "6cafe03e245d68de8353ce9d456a134a05b2770309d12e4ebccf0c9549208ee0"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/UI/UiKit.cs",
+      "sha256": "e9be1b11749af46209fb6d783157c5f7b5234449b50e8c2259545a5173c21d94"
+    },
+    {
+      "path": "tools/macos/v06/compare_replays.py",
+      "sha256": "c465d1e7149f07ec7343f7287fd1e7ea6113deb3bc1fff44afdaa4ad81f600ad"
+    },
+    {
+      "path": "tools/macos/v06/test_mac_tools.py",
+      "sha256": "7856353c2f396a8dc5f5007836da42123eda17fe8bbc242aa65887390fd08bfb"
+    },
+    {
+      "path": "evidence/v06/unity/playmode-targets02.json",
+      "sha256": "3c26abf088c641ab3fcaf1361139ac0fb9d6663785359bfc772f813d43cab36c"
+    },
+    {
+      "path": "evidence/v06/unity/nunit-20261031-135300.xml",
+      "sha256": "72dccb208d8b135deb18f15c6b6187ddfda23470a1787faeb62cd020c01a4beb"
+    },
+    {
+      "path": "evidence/v06/session/delivery-tools-tests-04.log",
+      "sha256": "d9c60d03f3258fc1d2950ef90f15db088b97ec4e5bfc9ecf54c9fc4814f90e11"
+    },
+    {
+      "path": "evidence/v06/session/quality-checker-tests-ui-targets.log",
+      "sha256": "8308be3d0743ff6a333be3ef01834aaa511342cd0e424ddb1a6c2630bf99d1e6"
+    },
+    {
+      "path": "evidence/v06/unity/nunit-20261031-135300.binding.json",
+      "sha256": "f5dd6647c1a6d71075219309fed8e94663128a21c4615ab61f070479d356fd05"
+    }
+  ]
+}

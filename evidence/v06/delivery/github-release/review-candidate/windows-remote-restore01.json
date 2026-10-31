@@ -1,0 +1,27 @@
+{
+  "schema": "v06-fresh-remote-targeted-restore-1",
+  "startedUtc": "2026-10-31T16:10:45.298669+00:00",
+  "pid": 9180,
+  "actualExecutable": "E:\\agent_workspace\\gpt\\game2\\artifacts\\cache\\v06-remote-player01\\DicePrototype.exe",
+  "executableSha256": "3726509af94bdacbfe23f85da13109a7e70fb7d61913506e98690bd3208b2fd7",
+  "remoteAssetId": 695826712,
+  "downloadSha256": "c809dcc0fdfe07acb4a0fe67d5eca6462f53075f39a2a52b2c8835cc008e6dba",
+  "identity": {
+    "releaseVersion": "p0.6.0",
+    "sourceCommit": "08ef933f2fbc3198a5e357ecebaa2758fbee8643",
+    "contentConfigVersion": "p0.6.0",
+    "contentConfigSha256": "747ed1efc7bea15873f66a81eee5c7654971c21031f2a1517ce629adce7b6e6c",
+    "saveSchemaVersion": 4,
+    "goldenCaseSetSha256": "306cb86f79dafe0e3eb302714abd232af20fe0062a6713f7d713c11e2a6a5718",
+    "unityEditorVersion": "6000.6.7f1",
+    "backend": "Mono"
+  },
+  "status": "failed",
+  "sourceSaveSha256": "05fe62e8d2b87dbfb879a471fa4e025699a6d97b932ab8ffd940063f7e64ea48",
+  "scope": "Fresh GitHub bytes extracted to a new directory, real Player checkpoint continuation and rendered startup only. Own process intentionally terminated after bounded checks; no full replay/performance/native-display acceptance.",
+  "failureType": "AssertionError",
+  "failure": "",
+  "terminatedOnlyOwnedProcess": true,
+  "playerExitCode": 1,
+  "endedUtc": "2026-10-31T16:10:55.858176+00:00"
+}

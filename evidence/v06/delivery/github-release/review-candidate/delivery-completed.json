@@ -1,0 +1,45 @@
+{
+  "utc": "2026-10-31T16:16:44.336937+00:00",
+  "releaseUrl": "https://github.com/XDwudi/game2/releases/tag/p0.6.0-rc.1",
+  "releaseId": 430037166,
+  "tag": "p0.6.0-rc.1",
+  "sourceCommit": "08ef933f2fbc3198a5e357ecebaa2758fbee8643",
+  "publication": "evidence\\v06\\delivery\\github-release\\review-candidate\\release-publish-20261031-161502-798238.json",
+  "publicationSha256": "e703d3493f5b357413eeb13452d5c232f1875ea89e1aae5e80accbff5afeacd4",
+  "manifestSha256": "1b4d005bf071fead249025c67bb0ef7ae5e91ce7c6a1090b28d3416005907749",
+  "artifacts": [
+    {
+      "name": "DicePrototype-p0.6.0-win-x64.zip",
+      "url": "https://github.com/XDwudi/game2/releases/download/p0.6.0-rc.1/DicePrototype-p0.6.0-win-x64.zip",
+      "sha256": "c809dcc0fdfe07acb4a0fe67d5eca6462f53075f39a2a52b2c8835cc008e6dba",
+      "byteSize": 86495395,
+      "downloadEvidence": "evidence\\v06\\delivery\\github-release\\review-candidate\\DicePrototype-p0.6.0-win-x64.zip.download.json",
+      "downloadEvidenceSha256": "bb59af58cb828a2773ce62e3dd3c355ef28c5142f1753b408f664eb7bd4fe9cb"
+    },
+    {
+      "name": "DicePrototype-p0.6.0-macos-universal.zip",
+      "url": "https://github.com/XDwudi/game2/releases/download/p0.6.0-rc.1/DicePrototype-p0.6.0-macos-universal.zip",
+      "sha256": "a8cf1b007fe35c276c2a2ce7fc0ddab676a54ab4c7c5e54cd00a7fbd39e45b88",
+      "byteSize": 126816584,
+      "downloadEvidence": "evidence\\v06\\delivery\\github-release\\review-candidate\\DicePrototype-p0.6.0-macos-universal.zip.download.json",
+      "downloadEvidenceSha256": "5d539542ea4532665abfceea0dac15c979f5265f34086cf3c1a07b04017c9775"
+    },
+    {
+      "name": "DicePrototype-p0.6.0-MacVerificationKit.zip",
+      "url": "https://github.com/XDwudi/game2/releases/download/p0.6.0-rc.1/DicePrototype-p0.6.0-MacVerificationKit.zip",
+      "sha256": "013e101a2ed3c0f2307cde56f2a6e367e6bf7a4fd8fed86d69cc775c41505bed",
+      "byteSize": 126918458,
+      "downloadEvidence": "evidence\\v06\\delivery\\github-release\\review-candidate\\DicePrototype-p0.6.0-MacVerificationKit.zip.download.json",
+      "downloadEvidenceSha256": "25ac76db3d020d8170994d1c4095beece5e8ef5dfec442b7cbb73105f1b49966"
+    }
+  ],
+  "remoteTargetedRestore": "evidence\\v06\\delivery\\github-release\\review-candidate\\windows-remote-restore02.json",
+  "remoteTargetedRestoreSha256": "a517993e5696022d103de0a409ce6fb460f899e96a141ed684e28c562e91f4d2",
+  "diagnosticArtifactDeliveryCompleted": true,
+  "wholeVersionAccepted": false,
+  "windowsPerformance": "FAILED",
+  "windowsNativeDisplay": "P22_NOT_PASSED",
+  "macRuntime": "NOT_RUN_ON_MAC",
+  "humanExperience": "PENDING",
+  "independentReview": "evidence/v06/review/REVIEW_CONCLUSION.md"
+}

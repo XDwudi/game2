@@ -1,0 +1,44 @@
+{
+  "scope": "Synthetic independent negative probes only; no Windows/Mac/Unity/GitHub execution",
+  "beforeSha256": {
+    "tools\\package_v06.py": "c5863ddc353b0c71ee3ba77b5cd87ff4709a27338e186ddd970e091897900345",
+    "tools\\release_v06_manifest.py": "ac095f4429e42951c2f89414b4156747b4e5d3d51042d6fbc09f42d08f14b96b",
+    "tools\\publish_v06_release.py": "87a41e09601ed877e538e2590d547f4419deb9c3f5f23e9776adb51c53d83ed8",
+    "tools\\macos\\v06\\compare_replays.py": "c548e644735df8ea7fd28d733fbbd95e38d7d78473774e8675b9c786ac5bd24c",
+    "tools\\macos\\v06\\verify_mac.py": "d8ead29f26c98e56196a29cd12235d5f9514365abcfa94456ee56f35ea9502f5",
+    "tools\\macos\\v06\\package_checks.py": "75df35774305feac4c27cd2f3de36bccc6b72dd29289e802dd40e7b9e59a5bea"
+  },
+  "afterSha256": {
+    "tools\\package_v06.py": "c5863ddc353b0c71ee3ba77b5cd87ff4709a27338e186ddd970e091897900345",
+    "tools\\release_v06_manifest.py": "ac095f4429e42951c2f89414b4156747b4e5d3d51042d6fbc09f42d08f14b96b",
+    "tools\\publish_v06_release.py": "87a41e09601ed877e538e2590d547f4419deb9c3f5f23e9776adb51c53d83ed8",
+    "tools\\macos\\v06\\compare_replays.py": "c548e644735df8ea7fd28d733fbbd95e38d7d78473774e8675b9c786ac5bd24c",
+    "tools\\macos\\v06\\verify_mac.py": "d8ead29f26c98e56196a29cd12235d5f9514365abcfa94456ee56f35ea9502f5",
+    "tools\\macos\\v06\\package_checks.py": "75df35774305feac4c27cd2f3de36bccc6b72dd29289e802dd40e7b9e59a5bea"
+  },
+  "sourcesStableDuringRun": true,
+  "findings": [
+    {
+      "id": "DR01",
+      "scenario": "Actual frozen Player Mac display status added to otherwise valid synthetic report",
+      "baselineFailures": [],
+      "actualFailures": [
+        {
+          "side": "macOS",
+          "reason": "native_display_sections_missing_or_failed"
+        }
+      ],
+      "defectReproduced": true
+    },
+    {
+      "id": "DR02",
+      "scenario": "One-row evidence with real trace SHA hashes and self-declared report counts",
+      "actualNormalTraceSteps": 145,
+      "actualDebugTraceSteps": 175,
+      "providedRowsEach": 1,
+      "rejected": false,
+      "error": null,
+      "defectReproduced": true
+    }
+  ]
+}

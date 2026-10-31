@@ -1,0 +1,56 @@
+{
+  "scope": "Synthetic independent negative probes only; no Windows/Mac/Unity/GitHub execution",
+  "beforeSha256": {
+    "tools\\package_v06.py": "b79437f27074949ca954d789176660e68b8371b14f4c66a7c36cf8533a482294",
+    "tools\\release_v06_manifest.py": "bd3c2c7d280f0e3547ee6cad4f3e3bd5d709cf8d89cef2fac51db60c19b0949d",
+    "tools\\publish_v06_release.py": "0ca16babbd931589f1c2f0ae03e12017a9a6650770a5775143f1aa39d8195e20",
+    "tools\\macos\\v06\\compare_replays.py": "46b12f5f15d43239541cb60c9d0c6260c83ae25c7ec07be417c1127193dad934",
+    "tools\\macos\\v06\\verify_mac.py": "fd47c6efea0729c0b157e7c5e22033c576d5a4b2f9cc4fd6cb7816e87833543e",
+    "tools\\macos\\v06\\package_checks.py": "75df35774305feac4c27cd2f3de36bccc6b72dd29289e802dd40e7b9e59a5bea"
+  },
+  "afterSha256": {
+    "tools\\package_v06.py": "b79437f27074949ca954d789176660e68b8371b14f4c66a7c36cf8533a482294",
+    "tools\\release_v06_manifest.py": "bd3c2c7d280f0e3547ee6cad4f3e3bd5d709cf8d89cef2fac51db60c19b0949d",
+    "tools\\publish_v06_release.py": "0ca16babbd931589f1c2f0ae03e12017a9a6650770a5775143f1aa39d8195e20",
+    "tools\\macos\\v06\\compare_replays.py": "46b12f5f15d43239541cb60c9d0c6260c83ae25c7ec07be417c1127193dad934",
+    "tools\\macos\\v06\\verify_mac.py": "fd47c6efea0729c0b157e7c5e22033c576d5a4b2f9cc4fd6cb7816e87833543e",
+    "tools\\macos\\v06\\package_checks.py": "75df35774305feac4c27cd2f3de36bccc6b72dd29289e802dd40e7b9e59a5bea"
+  },
+  "sourcesStableDuringRun": true,
+  "findings": [
+    {
+      "id": "DR01",
+      "scenario": "Actual frozen Player Mac display status added to otherwise valid synthetic report",
+      "baselineFailures": [],
+      "actualFailures": [],
+      "defectReproduced": false
+    },
+    {
+      "id": "DR02",
+      "scenario": "One-row evidence with real trace SHA hashes and self-declared report counts",
+      "actualNormalTraceSteps": 145,
+      "actualDebugTraceSteps": 175,
+      "providedRowsEach": 1,
+      "rejected": true,
+      "error": "Player did not execute every required normal trace command",
+      "defectReproduced": false
+    },
+    {
+      "id": "DR03",
+      "scenario": "Complete returned Mac payload metadata/license preservation",
+      "allThreeMetadataRequired": true,
+      "eachMissingFileRejected": [
+        true,
+        true,
+        true
+      ],
+      "dittoArchivesCompletePayloadStaticInspection": true,
+      "nativeDittoExecuted": false
+    },
+    {
+      "id": "ENUM",
+      "scenario": "Debug trace numeric enum mapped to this actual Core source",
+      "mappingMatchesCurrentSource": true
+    }
+  ]
+}

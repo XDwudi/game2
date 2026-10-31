@@ -1,0 +1,1 @@
+// DiceCraft.Editor current fixture source

@@ -35,6 +35,8 @@ IO失败会保留同一候选快照，点击重试不会重投、重复扣费或
 
 ## 开发环境
 
+首次恢复源码请用 `git clone --config core.autocrlf=false https://github.com/XDwudi/game2.git`，保持已提交文件的原始行尾。Windows全局Git常默认自动转CRLF，这会改变配置、黄金例和源文件的字节哈希；不能直接沿用另一份工作区的构建身份或测试绑定。重新构建应按下文生成本机实际身份与证据。
+
 - Unity Editor 6000.6.7f1，Windows Mono x64/D3D11，Mac Mono Universal/Metal；URP 17.6.0、uGUI/TMP 2.6.0、Input System 1.20.1，精确依赖见 Packages/packages-lock.json。
 - Blender 5.2.3 LTS，可编辑源与可重跑导出脚本见 ../art/README.md。
 - Unity Pipeline 0.9.1-exp.1只用于开发自动化；游戏玩法不依赖外部服务。

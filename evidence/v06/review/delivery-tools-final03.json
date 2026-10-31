@@ -1,0 +1,47 @@
+{
+  "scope": "Run offline delivery-tool tests with before/after source binding in reviewer-owned output.",
+  "startedUtc": "2026-10-31T15:18:19.968013+00:00",
+  "finishedUtc": "2026-10-31T15:18:21.496552+00:00",
+  "command": [
+    "C:\\Users\\f\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "tools/macos/v06",
+    "-p",
+    "test*.py",
+    "-v"
+  ],
+  "exitCode": 0,
+  "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+  "before": {
+    "tools/package_v06.py": "b79437f27074949ca954d789176660e68b8371b14f4c66a7c36cf8533a482294",
+    "tools/release_v06_manifest.py": "bd3c2c7d280f0e3547ee6cad4f3e3bd5d709cf8d89cef2fac51db60c19b0949d",
+    "tools/publish_v06_release.py": "0ca16babbd931589f1c2f0ae03e12017a9a6650770a5775143f1aa39d8195e20",
+    "tools/v06_delivery.py": "f3e07249ef9be34f8a13d70746141dc35a6d169c0d4cfdbc733c9f32a02360c1",
+    "tools/quality_check.py": "2a6aa3e5d5e5edb62b2a456ea7514df44d56d943dc168b4b086039092c33fed9",
+    "tools/macos/v06/compare_replays.py": "6d7ee6b7dcb420d7745ce59ecd029991c7ec6f6847a518ee44412985a30f3290",
+    "tools/macos/v06/package_checks.py": "75df35774305feac4c27cd2f3de36bccc6b72dd29289e802dd40e7b9e59a5bea",
+    "tools/macos/v06/test_delivery_tools.py": "2f6c2207e6df2743d400b454edf3077b5c4fe88acfc78d20a147700e8b3c970e",
+    "tools/macos/v06/test_mac_tools.py": "a9b1b7a6076d00afa24d1361bf9cd3ef12c28f4816946ceb079237892b170249",
+    "tools/macos/v06/verify_mac.py": "fd47c6efea0729c0b157e7c5e22033c576d5a4b2f9cc4fd6cb7816e87833543e",
+    "tools/macos/v06/VerifyMac.command": "7c49432642d64dc8bc26099b5ee51f3b72e89947ce0b39d15d52d66584fc5a58"
+  },
+  "after": {
+    "tools/package_v06.py": "b79437f27074949ca954d789176660e68b8371b14f4c66a7c36cf8533a482294",
+    "tools/release_v06_manifest.py": "bd3c2c7d280f0e3547ee6cad4f3e3bd5d709cf8d89cef2fac51db60c19b0949d",
+    "tools/publish_v06_release.py": "0ca16babbd931589f1c2f0ae03e12017a9a6650770a5775143f1aa39d8195e20",
+    "tools/v06_delivery.py": "f3e07249ef9be34f8a13d70746141dc35a6d169c0d4cfdbc733c9f32a02360c1",
+    "tools/quality_check.py": "2a6aa3e5d5e5edb62b2a456ea7514df44d56d943dc168b4b086039092c33fed9",
+    "tools/macos/v06/compare_replays.py": "6d7ee6b7dcb420d7745ce59ecd029991c7ec6f6847a518ee44412985a30f3290",
+    "tools/macos/v06/package_checks.py": "75df35774305feac4c27cd2f3de36bccc6b72dd29289e802dd40e7b9e59a5bea",
+    "tools/macos/v06/test_delivery_tools.py": "2f6c2207e6df2743d400b454edf3077b5c4fe88acfc78d20a147700e8b3c970e",
+    "tools/macos/v06/test_mac_tools.py": "a9b1b7a6076d00afa24d1361bf9cd3ef12c28f4816946ceb079237892b170249",
+    "tools/macos/v06/verify_mac.py": "fd47c6efea0729c0b157e7c5e22033c576d5a4b2f9cc4fd6cb7816e87833543e",
+    "tools/macos/v06/VerifyMac.command": "7c49432642d64dc8bc26099b5ee51f3b72e89947ce0b39d15d52d66584fc5a58"
+  },
+  "sourceStableDuringRun": true,
+  "logSha256": "f65126a6764052a831d369893ae5bc7bdb505bc8273ed47dd0b984b09d7a7659",
+  "actualUnityOrMacOrGithubExecuted": false
+}

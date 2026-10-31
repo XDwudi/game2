@@ -1,0 +1,126 @@
+{
+  "scope": "Independent read of actual distinct-process pending display recovery; reviewer did not launch or terminate any process",
+  "status": "passed_for_recovery_only",
+  "writerPid": 32164,
+  "readerPid": 33676,
+  "readyToTerminationMilliseconds": 77.99999974668026,
+  "actual": {
+    "displayName": "VG27AQ1A",
+    "nativeWidth": 2560,
+    "nativeHeight": 1440,
+    "width": 1280,
+    "height": 720,
+    "mode": 3,
+    "refreshNumerator": 144006,
+    "refreshDenominator": 1000
+  },
+  "candidateBeforeTermination": {
+    "displayName": "VG27AQ1A",
+    "nativeWidth": 2560,
+    "nativeHeight": 1440,
+    "width": 2560,
+    "height": 1440,
+    "mode": 1,
+    "refreshNumerator": 144006,
+    "refreshDenominator": 1000
+  },
+  "sameActualProbeMvid": "8024d71f-eda7-4c9b-b2fe-8297be8136b1",
+  "pendingBackupShaMatches": true,
+  "mainFailedReportUnchanged": true,
+  "mainPerformanceAccepted": false,
+  "nativeP22Accepted": false,
+  "fullReleaseAccepted": false,
+  "files": {
+    "evidence/v06/display-recovery/attempt01/display-settings.json": "8d91e024c69cbee2f9b406c471bff808bd14c7e17df6dd67f77aaf9492b84178",
+    "evidence/v06/display-recovery/attempt01/display-settings.json.backup": "5d888a8cb2275ab508d3486263672e81844832526b90f1319a8cd6b65ae2ca44",
+    "evidence/v06/display-recovery/attempt01/reader-process.json": "7dc38e06bcead1620a3fb57aaddb776f63721a752dc46c86f06dde26d75e7427",
+    "evidence/v06/display-recovery/attempt01/ready-to-terminate.json": "991b849d54eba8e0a65a2f43d2516ef5651ce254a46c3e24fc79b146c8fe3697",
+    "evidence/v06/display-recovery/attempt01/recovery-read-receipt.json": "4c4094140c3f7260cfadd6996b9e081b38120925f24114ef1bd93f9961ad1edf",
+    "evidence/v06/display-recovery/attempt01/runner-summary.json": "17e3bba1c8393fe88a3b11005efd31533179e73ed5ec5eab7692c1f18652dda3",
+    "evidence/v06/display-recovery/attempt01/writer-process.json": "9afba8fadf9b1772599e5ee201338f3370c54e680beccde82db2f6f351c9e14b",
+    "evidence/v06/display-recovery/attempt01/reader/player-20261031-160254-60c7cfd5/player-report.json": "9437569c27e2b3fda595a223778e2a025a92c109514e335d1642fc49793d0d9a",
+    "evidence/v06/display-recovery/attempt01/reader/player-20261031-160254-60c7cfd5/v06-display-checks.json": "1758e884f0b53f86870b8bad59a58aca4064d1358f3f15b58bc1ae58e89939f6",
+    "evidence/v06/display-recovery/attempt01/reader/player-20261031-160254-60c7cfd5/v06-display-fresh-process-recovery.png": "26939582d3c0232a36b20617d113755dc161104a62bfbe35c8e68096804f876b",
+    "evidence/v06/display-recovery/attempt01/reader/player-20261031-160254-60c7cfd5/v06-native-display-transitions.json": "b6c456041a15cfbbe261263c6027163f69d8885480fbc4b97be10b065a1d7c0c",
+    "evidence/v06/display-recovery/attempt01/writer/player-20261031-160250-b82cea7a/player-report.json": "e8837a459403a7ee646e28e96c800cbddf40993de194ca637e41135b651a2afb",
+    "evidence/v06/display-recovery/attempt01/writer/player-20261031-160250-b82cea7a/v06-native-display-transitions.json": "a3dd098729ea8722ecee61b25093e2533749f5eb813ded92026d7765a0c5d801",
+    "evidence/v06/display-recovery/attempt01/writer/player-20261031-160250-b82cea7a/v06-resolution-transitions.json": "b295df553ea63f37067624514b4933b50723730bd9db49595bc0920a94c83c17"
+  },
+  "strictValidator": {
+    "status": "passed",
+    "writerProcessId": 32164,
+    "readerProcessId": 33676,
+    "actual": {
+      "displayName": "VG27AQ1A",
+      "nativeWidth": 2560,
+      "nativeHeight": 1440,
+      "width": 1280,
+      "height": 720,
+      "mode": 3,
+      "refreshNumerator": 144006,
+      "refreshDenominator": 1000
+    },
+    "environment": {
+      "utc": "2026-10-31T16:02:55.9107942Z",
+      "unityVersion": "6000.6.7f1",
+      "buildGuid": "c137ca83c7ec4fbab3243ff0aa663bfb",
+      "developmentBuild": true,
+      "isEditor": false,
+      "platform": "WindowsPlayer",
+      "os": "Windows 10  (10.0.19045) 64bit",
+      "processArchitecture": "X64",
+      "cpu": "AMD Ryzen 9 5900X 12-Core Processor ",
+      "cpuThreads": 24,
+      "systemMemoryMB": 65457,
+      "gpu": "NVIDIA GeForce RTX 3080",
+      "gpuMemoryMB": 10053,
+      "graphicsVersion": "Direct3D 11.0 [level 11.1]",
+      "graphicsApi": "Direct3D11",
+      "width": 1280,
+      "height": 720,
+      "fullscreenMode": "Windowed",
+      "quality": "PC",
+      "vSyncCount": 0,
+      "targetFrameRate": -1,
+      "presentationFast": false,
+      "presentationReducedMotion": false,
+      "probeArguments": [
+        "--verify-p0",
+        "E:\\agent_workspace\\gpt\\game2\\evidence\\v06\\session\\normal-run-trace.json",
+        "--verify-debug-trace",
+        "E:\\agent_workspace\\gpt\\game2\\evidence\\v06\\session\\debug-24-trace.json",
+        "--evidence-dir",
+        "E:\\agent_workspace\\gpt\\game2\\evidence\\v06\\display-recovery\\attempt01\\reader",
+        "--verify-display-recovery-read",
+        "E:\\agent_workspace\\gpt\\game2\\evidence\\v06\\display-recovery\\attempt01",
+        "-screen-width",
+        "1280",
+        "-screen-height",
+        "720",
+        "-screen-fullscreen",
+        "0",
+        "-logFile",
+        "E:\\agent_workspace\\gpt\\game2\\artifacts\\cache\\v06\\display-recovery-20261031-160248-f3d41527\\read-Player.log"
+      ]
+    },
+    "files": [
+      {
+        "path": "E:\\agent_workspace\\gpt\\game2\\evidence\\v06\\display-recovery\\attempt01\\ready-to-terminate.json",
+        "sha256": "991b849d54eba8e0a65a2f43d2516ef5651ce254a46c3e24fc79b146c8fe3697"
+      },
+      {
+        "path": "E:\\agent_workspace\\gpt\\game2\\evidence\\v06\\display-recovery\\attempt01\\recovery-read-receipt.json",
+        "sha256": "4c4094140c3f7260cfadd6996b9e081b38120925f24114ef1bd93f9961ad1edf"
+      },
+      {
+        "path": "E:\\agent_workspace\\gpt\\game2\\evidence\\v06\\display-recovery\\attempt01\\display-settings.json",
+        "sha256": "8d91e024c69cbee2f9b406c471bff808bd14c7e17df6dd67f77aaf9492b84178"
+      },
+      {
+        "path": "E:\\agent_workspace\\gpt\\game2\\evidence\\v06\\display-recovery\\attempt01\\reader\\player-20261031-160254-60c7cfd5\\player-report.json",
+        "sha256": "9437569c27e2b3fda595a223778e2a025a92c109514e335d1642fc49793d0d9a"
+      }
+    ],
+    "note": "Separate process result; the main probe's not_executed field is preserved."
+  }
+}

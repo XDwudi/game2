@@ -1,0 +1,40 @@
+{
+  "schema": "v06-cua-focus-observations-1",
+  "sourceCommit": "08ef933f2fbc3198a5e357ecebaa2758fbee8643",
+  "player09": "evidence/v06/player/player-20261031-154556-f25586f0",
+  "player10": "evidence/v06/player/player-20261031-155137-a0377710",
+  "player09Actual": {
+    "status": "budget_exceeded",
+    "sampleSeconds": 180.004603,
+    "frames": 9103,
+    "p95FrameIntervalMs": 23.0348000000049,
+    "focusedSampleFrames": 0,
+    "gpuInvalidSamples": 1
+  },
+  "supportedCuaActions": [
+    {
+      "action": "activate Player10 window then UIA read",
+      "windowId": 12128786,
+      "result": "UIA returned game pane; no focused element proof"
+    },
+    {
+      "action": "capture Player10 window",
+      "result": "foreground window did not report a process id"
+    },
+    {
+      "action": "Player10 own report",
+      "result": "1920x1080 request failed; actual 2560x1440; original report retained"
+    },
+    {
+      "action": "sky.launch_app existing game executable without verification arguments",
+      "windowId": 27005114,
+      "result": "UIA reported focused game pane; screenshot timed out waiting on channel"
+    },
+    {
+      "action": "normal Alt+F4 using supported sky API",
+      "result": "requested close of task game only"
+    }
+  ],
+  "systemDialogs": "Not dismissed; no security or driver settings modified. Prior system dialog app approval timed out; user away.",
+  "conclusion": "No reliable foreground performance or native exclusive acceptance established; no production pacing or verification threshold changed; exact desktop cause remains unresolved."
+}

@@ -1,0 +1,55 @@
+{
+  "scope": "Actual ten PNGs independently visually viewed, not image-count inference",
+  "run": "evidence/v06/player/player-20261031-154556-f25586f0",
+  "sourceCommit": "08ef933f2fbc3198a5e357ecebaa2758fbee8643",
+  "status": "no_new_blocking_layout_defect_in_viewed_frames",
+  "wholePlayerStatus": "budget_exceeded",
+  "files": [
+    {
+      "path": "debug-stress-capacity-1280x720.png",
+      "sha256": "f35fd88691f56269d77db34a05da8fc300170873f9ca1f2b7057f3c3653d69eb"
+    },
+    {
+      "path": "v06-shop-refresh-after-charge-7.png",
+      "sha256": "855fcb0247772071ced72f24022a662765fc3acb8819e827301c279c334231b2"
+    },
+    {
+      "path": "v06-shop-free-first-refresh-0.png",
+      "sha256": "2862e54eef90a664555a5d8069fb8b1ee7cf22d41bea00bf2bcdf73ef4209e3f"
+    },
+    {
+      "path": "v06-debug-bigint-random-preview.png",
+      "sha256": "0819bb82e709eefe5720adc02d4007e70d3c8080698123bda9d4f01782bc45d1"
+    },
+    {
+      "path": "v06-debug-32dice.png",
+      "sha256": "8cc0ac0e057bebac3959d131d645a0ddb8667675280522bd4a6219c63a3b2f86"
+    },
+    {
+      "path": "v06-remote-target32-bottom-1280x720.png",
+      "sha256": "cf8ba3c91ca276e63eb103627a309f7486480d9496626bf942739da086295992"
+    },
+    {
+      "path": "v06-shop-target32-bottom-1280x720.png",
+      "sha256": "d7e2fcf70c0c232d08509f7b76a654e2cffd01d2893f080cbd4686832ded9359"
+    },
+    {
+      "path": "debug-handbook-eight-capacity-middle-1280x720.png",
+      "sha256": "636a0f44c96dfbf32146156237c66e56f4b5f650a54205a94f1ab0c6c898801b"
+    },
+    {
+      "path": "debug-score-preview-bottom-1280x720.png",
+      "sha256": "4847a4870cd0e1cb13bd9a1929466262c483e46583a6478d1f3a046804d1eb0c"
+    },
+    {
+      "path": "v06-mimic-chain-destroyed-last.png",
+      "sha256": "7749d953cd8a37e8c8d123c1b27c4406209ec6250aa13ecf13da6a462702c761"
+    }
+  ],
+  "limits": [
+    "Remaining 98 PNGs received dimension/hash checks only in player09-independent01.json.",
+    "Free-first-0 screenshot depicts the post-O07 pre-refresh 0 price, not proof of subsequent 5 price; actual transaction log verifies that.",
+    "Synthetic UI events are not physical mouse/keyboard approval.",
+    "Native display/performance/Mac/human acceptance not granted."
+  ]
+}

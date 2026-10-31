@@ -1,0 +1,94 @@
+{
+  "schema": "p06-probe-rework-1",
+  "inputSourceCommit": "6f9e285432ab92e7304830a42c9e9e4cd74d97c3",
+  "probeRevision": "p06-player-routed-keyboard-target32-11",
+  "status": "frozen_managed_api_compiled_actual_player_pending",
+  "managedChecks": 40,
+  "performanceMethods": [
+    {
+      "method": "RunStress",
+      "unchanged": true
+    },
+    {
+      "method": "LateUpdate",
+      "unchanged": true
+    },
+    {
+      "method": "BuildPerformanceReport",
+      "unchanged": true
+    },
+    {
+      "method": "WriteFrames",
+      "unchanged": true
+    },
+    {
+      "method": "Metric",
+      "unchanged": true
+    },
+    {
+      "method": "CompleteCoverage",
+      "unchanged": true
+    },
+    {
+      "method": "RequiredFrameCapacity",
+      "unchanged": true
+    },
+    {
+      "method": "ClassifyGpuDuration",
+      "unchanged": true
+    },
+    {
+      "method": "ClockDelta",
+      "unchanged": true
+    }
+  ],
+  "files": [
+    {
+      "path": "DicePrototype/Assets/Game/Runtime/Verification/PlayerVerification.cs",
+      "sha256": "91d02feabff5dfa8ed69ea5a3dffe966cf7d94640d8e0a9038c3f36d835ee002"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Runtime/Verification/PlayerVerification.V06.cs",
+      "sha256": "b014eee53615255116e2e2018f6d2f2a3ea7e677eedba306e04525f9207bcc60"
+    }
+  ],
+  "newChecks": [
+    "remote-target32-ui",
+    "shop-target32-ui"
+  ],
+  "diagnostics": [
+    "v06-input-diagnostics.json",
+    "v06-resolution-transitions.json",
+    "v06-target32-raycasts.json"
+  ],
+  "constraints": {
+    "totalResolutionDeadlineSeconds": 12,
+    "exactStableSizeFrames": 3,
+    "globalBackgroundBehaviorChanged": false,
+    "directCancelCalled": false,
+    "UnityPlayerRunByAgent": false
+  },
+  "managedLog": "evidence/v06/player-support/rework-keyboard-layout-compile01.log",
+  "target32ClickContract": {
+    "waitActualFrameBefore": true,
+    "allCornersInsideScreenAndParentMasks": true,
+    "firstRaycastButtonMustBeTarget": true,
+    "executeAfterAssertionOnly": true,
+    "waitActualFrameAfter": true,
+    "onlyTarget32CallsChanged": true
+  },
+  "keyboardLayoutCorrection": {
+    "package": "com.unity.inputsystem 1.20.1",
+    "source": "DicePrototype/Library/PackageCache/com.unity.inputsystem@2436e68c60c4/InputSystem/Runtime/Controls/InputControlLayout.cs:1567,1637-1645",
+    "deviceBuilder": "InputSystem/Runtime/Devices/InputDeviceBuilder.cs:162-167",
+    "jsonField": "runInBackground",
+    "jsonValue": "enabled",
+    "oldUnknownJsonField": "canRunInBackground",
+    "actualFailureEvidence": "evidence/v06/player/player-20261031-135926-f1439a98/v06-input-diagnostics.json",
+    "failureEnabled": true,
+    "failureFocused": true,
+    "failureCanRunInBackground": false,
+    "managedChecksDoNotExecuteUnityJsonParser": true,
+    "actualPlayerRetest": "pending_root"
+  }
+}

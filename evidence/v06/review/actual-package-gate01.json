@@ -1,0 +1,29 @@
+{
+  "scope": "Read-only actual package gate verification; no packaging/network/Unity execution",
+  "identity": {
+    "releaseVersion": "p0.6.0",
+    "sourceCommit": "6f9e285432ab92e7304830a42c9e9e4cd74d97c3",
+    "contentConfigVersion": "p0.6.0",
+    "contentConfigSha256": "747ed1efc7bea15873f66a81eee5c7654971c21031f2a1517ce629adce7b6e6c",
+    "saveSchemaVersion": 4,
+    "goldenCaseSetSha256": "306cb86f79dafe0e3eb302714abd232af20fe0062a6713f7d713c11e2a6a5718",
+    "unityEditorVersion": "6000.6.7f1",
+    "backend": "Mono"
+  },
+  "tests": {
+    "unityEditMode": {
+      "passed": 776,
+      "failed": 0,
+      "reportPath": "evidence/v06/unity/nunit-20261031-125401.xml",
+      "reportSha256": "fe8ba9a3bd5a093cdd7c8b1e255895eea2ffeaeeea12ef7ff5c86261b7ecd071"
+    },
+    "unityPlayMode": {
+      "passed": 28,
+      "failed": 0,
+      "reportPath": "evidence/v06/unity/nunit-20261031-125432.xml",
+      "reportSha256": "ae3c9ae73da331a8581b1428425b923ac9588b9636bc788b879415511f0cc096"
+    }
+  },
+  "boundFileCount": 609,
+  "status": "passed"
+}

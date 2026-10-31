@@ -1,0 +1,25 @@
+test_cases_in_metadata_or_illegal_parents_are_rejected (test_quality_check.QualityCheckTests.test_cases_in_metadata_or_illegal_parents_are_rejected) ... ok
+test_cli_success_and_failure_exit_codes (test_quality_check.QualityCheckTests.test_cli_success_and_failure_exit_codes) ... ok
+test_dtd_and_internal_entity_rejected_after_decoding (test_quality_check.QualityCheckTests.test_dtd_and_internal_entity_rejected_after_decoding) ... ok
+test_main_failure_is_structured_and_nonzero (test_quality_check.QualityCheckTests.test_main_failure_is_structured_and_nonzero) ... ok
+test_namespaced_failed_case_and_failure_are_not_ignored (test_quality_check.QualityCheckTests.test_namespaced_failed_case_and_failure_are_not_ignored) ... ok
+test_nunit3_filter_may_have_larger_discovery_count (test_quality_check.QualityCheckTests.test_nunit3_filter_may_have_larger_discovery_count) ... ok
+test_nunit_counters_must_match_actual_cases (test_quality_check.QualityCheckTests.test_nunit_counters_must_match_actual_cases) ... ok
+test_nunit_failing_skipped_unknown_and_unexecuted_cases (test_quality_check.QualityCheckTests.test_nunit_failing_skipped_unknown_and_unexecuted_cases) ... ok
+test_nunit_missing_duplicate_and_suite_failure (test_quality_check.QualityCheckTests.test_nunit_missing_duplicate_and_suite_failure) ... ok
+test_nunit_zero_empty_malformed_and_missing (test_quality_check.QualityCheckTests.test_nunit_zero_empty_malformed_and_missing) ... ok
+test_paths_cannot_escape_or_use_alias_segments (test_quality_check.QualityCheckTests.test_paths_cannot_escape_or_use_alias_segments) ... ok
+test_schema_and_duplicate_json_keys_rejected (test_quality_check.QualityCheckTests.test_schema_and_duplicate_json_keys_rejected) ... ok
+test_snapshot_missing_empty_duplicate_and_bad_hash (test_quality_check.QualityCheckTests.test_snapshot_missing_empty_duplicate_and_bad_hash) ... ok
+test_sources_require_pinned_commit_and_hashed_license (test_quality_check.QualityCheckTests.test_sources_require_pinned_commit_and_hashed_license) ... ok
+test_stale_snapshot_and_tampered_source (test_quality_check.QualityCheckTests.test_stale_snapshot_and_tampered_source) ... ok
+test_two_valid_formats (test_quality_check.QualityCheckTests.test_two_valid_formats) ... ok
+test_unknown_result_structures_and_contradictory_flags_fail (test_quality_check.QualityCheckTests.test_unknown_result_structures_and_contradictory_flags_fail) ... ok
+test_utf16_reports_and_legal_metadata_are_supported (test_quality_check.QualityCheckTests.test_utf16_reports_and_legal_metadata_are_supported) ... ok
+test_valid_snapshot_and_sources (test_quality_check.QualityCheckTests.test_valid_snapshot_and_sources) ... ok
+test_xml_regression_failures_return_nonzero_cli (test_quality_check.QualityCheckTests.test_xml_regression_failures_return_nonzero_cli) ... ok
+
+----------------------------------------------------------------------
+Ran 20 tests in 0.553s
+
+OK

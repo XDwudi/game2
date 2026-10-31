@@ -8,6 +8,7 @@
 
 ## 当前原型
 
+- v0.6 诊断测试版已在 [GitHub p0.6.0-rc.1](https://github.com/XDwudi/game2/releases/tag/p0.6.0-rc.1) 提供Windows、Mac和M5验收工具包三个附件；已全量远程下载和新目录启动/存档恢复核验。797项EditMode、30项PlayMode及玩法/UI回放通过；Windows独占全屏、性能未通过，Mac/人工待验，整版未ACCEPTED。详见 [v0.6交付说明](docs/DELIVERY_V06.md)。
 - v0.5 请看 [交付说明](docs/DELIVERY_V05.md) 与 [STATE](docs/STATE.md)；Windows、macOS与M5验收工具包已共同上传至 [GitHub预发布附件](https://github.com/XDwudi/game2/releases/tag/p0.5.0-rc.1)，三个完整下载均已核对SHA与ZIP完整性。用户已授权此渠道替代LFS。Windows 技术检查通过，Mac 实机待验。旧版 [交付说明](docs/DELIVERY.md) 和 `Builds/Windows/DiceCraft.exe` 仅为 v0.4 历史产物。
 - [运行、开发与复现说明](DicePrototype/README.md)
 - [权威 P0 v0.6 规格](docs/specs/P0_v0.6.md)与[实施验收契约](docs/tasks/P0-V06-IMPLEMENTATION.md)；当前开发/实测状态以 STATE 的 v0.6 记录为准。

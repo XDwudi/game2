@@ -1,0 +1,94 @@
+{
+  "schema": "v06-diagnostic-candidate-tool-source-1",
+  "utc": "2026-10-31T16:02:16.133777+00:00",
+  "status": "implementation_frozen_independent_review_pending",
+  "scope": "Offline explicit diagnostic delivery capability. No game, native/performance acceptance, network, or publication performed.",
+  "files": [
+    {
+      "path": "tools/package_v06.py",
+      "bytes": 24215,
+      "sha256": "767b4eba4afcaeff85d2cc00df138a705fe6ab2b3240ae9460e404f7e98ed6a2"
+    },
+    {
+      "path": "tools/release_v06_manifest.py",
+      "bytes": 10796,
+      "sha256": "0a7595abd92887169b9d7c32617ff931611ea180aeae10dc8022c8d3acb7d9cf"
+    },
+    {
+      "path": "tools/publish_v06_release.py",
+      "bytes": 21315,
+      "sha256": "83623d8fa5fbe7b1e64ec3aa82a530949585e28121106c524578f9fc7385abb6"
+    },
+    {
+      "path": "tools/verify_v06_display_recovery.py",
+      "bytes": 13697,
+      "sha256": "9fa80f00e68b3eeb07a26d3ced3113ce49e8fa2034707e3ab01511c1a4069cdf"
+    },
+    {
+      "path": "tools/macos/v06/compare_replays.py",
+      "bytes": 28798,
+      "sha256": "80363d8055187e3e171c4a756086dea1ce6f62fc3ca1ae95398a4dde47d18033"
+    },
+    {
+      "path": "tools/macos/v06/verify_mac.py",
+      "bytes": 28845,
+      "sha256": "1da2a086fee34a5ca137bc62a8ccc355fa23d514d26b5a37229474bf719f1c0b"
+    },
+    {
+      "path": "tools/macos/v06/VerifyMac.command",
+      "bytes": 1565,
+      "sha256": "6e42dd41d32d0b5c7aed9f6396ac1bfd82d4583be01a1e097aaad911c3b31dd2"
+    },
+    {
+      "path": "tools/macos/v06/package_checks.py",
+      "bytes": 7160,
+      "sha256": "75df35774305feac4c27cd2f3de36bccc6b72dd29289e802dd40e7b9e59a5bea"
+    },
+    {
+      "path": "tools/macos/v06/test_review_candidate.py",
+      "bytes": 18399,
+      "sha256": "3392724553bea3cfe174aa8a492e31b428506af45815390905ec05f5ecdea8d4"
+    },
+    {
+      "path": "tools/macos/v06/test_diagnostic_candidate.py",
+      "bytes": 15962,
+      "sha256": "743ee22ee71c749315f837434164ff466e875e576182b8828e1bf94f4d49217a"
+    },
+    {
+      "path": "tools/macos/v06/test_mac_tools.py",
+      "bytes": 18160,
+      "sha256": "a9b1b7a6076d00afa24d1361bf9cd3ef12c28f4816946ceb079237892b170249"
+    },
+    {
+      "path": "tools/macos/v06/test_delivery_tools.py",
+      "bytes": 20291,
+      "sha256": "2f6c2207e6df2743d400b454edf3077b5c4fe88acfc78d20a147700e8b3c970e"
+    },
+    {
+      "path": "docs/PLAYER_README_V06.txt",
+      "bytes": 4558,
+      "sha256": "a82379356f045afcaff138aef443d82553d53e6dda61e1531b5c71e053f4c0bb"
+    },
+    {
+      "path": "evidence/v06/session/DIAGNOSTIC_CANDIDATE_HANDOFF.md",
+      "bytes": 5345,
+      "sha256": "c40a00915b000c5b1a90b99d0369e3c897709c1cd6b43e42ede54f7cbc8354f5"
+    }
+  ],
+  "tests": {
+    "tools": {
+      "passed": 100,
+      "log": "evidence/v06/session/diagnostic-candidate-tools04.log"
+    },
+    "runner": {
+      "passed": 14,
+      "log": "evidence/v06/session/diagnostic-candidate-runner14.log",
+      "kind": "mock processes"
+    },
+    "framework": {
+      "passed": 20,
+      "log": "evidence/v06/session/diagnostic-candidate-framework20.log"
+    }
+  },
+  "actualReferenceRead": "evidence/v06/session/diagnostic-candidate-actual-reference01.json"
+}

@@ -1,0 +1,2146 @@
+{
+  "scope": "Independent read-only inspection of actual Player evidence and raw frame data.",
+  "playerPath": "evidence/v06/player/player-20261031-154556-f25586f0",
+  "buildIdentity": {
+    "releaseVersion": "p0.6.0",
+    "sourceCommit": "08ef933f2fbc3198a5e357ecebaa2758fbee8643",
+    "contentConfigVersion": "p0.6.0",
+    "contentConfigSha256": "747ed1efc7bea15873f66a81eee5c7654971c21031f2a1517ce629adce7b6e6c",
+    "saveSchemaVersion": 4,
+    "goldenCaseSetSha256": "306cb86f79dafe0e3eb302714abd232af20fe0062a6713f7d713c11e2a6a5718",
+    "unityEditorVersion": "6000.6.7f1",
+    "backend": "Mono"
+  },
+  "environment": {
+    "utc": "2026-10-31T15:45:57.8349890Z",
+    "unityVersion": "6000.6.7f1",
+    "buildGuid": "c137ca83c7ec4fbab3243ff0aa663bfb",
+    "developmentBuild": true,
+    "isEditor": false,
+    "platform": "WindowsPlayer",
+    "os": "Windows 10  (10.0.19045) 64bit",
+    "processArchitecture": "X64",
+    "cpu": "AMD Ryzen 9 5900X 12-Core Processor ",
+    "cpuThreads": 24,
+    "systemMemoryMB": 65457,
+    "gpu": "NVIDIA GeForce RTX 3080",
+    "gpuMemoryMB": 10053,
+    "graphicsVersion": "Direct3D 11.0 [level 11.1]",
+    "graphicsApi": "Direct3D11",
+    "width": 1920,
+    "height": 1080,
+    "fullscreenMode": "Windowed",
+    "quality": "PC",
+    "vSyncCount": 0,
+    "targetFrameRate": -1,
+    "presentationFast": false,
+    "presentationReducedMotion": false,
+    "probeArguments": [
+      "--verify-p0",
+      "E:/agent_workspace/gpt/game2/evidence/v06/session/normal-run-trace.json",
+      "--verify-debug-trace",
+      "E:/agent_workspace/gpt/game2/evidence/v06/session/debug-24-trace.json",
+      "--evidence-dir",
+      "E:/agent_workspace/gpt/game2/evidence/v06/player",
+      "-logFile",
+      "E:/agent_workspace/gpt/game2/artifacts/cache/v06/player09-partial.log",
+      "--verify-defer-native-display"
+    ]
+  },
+  "status": "failed",
+  "originalPlayerStatus": "budget_exceeded",
+  "formalReleaseAccepted": false,
+  "formalReleaseFailures": [
+    {
+      "side": "windows",
+      "reason": "player_did_not_pass"
+    },
+    {
+      "side": "windows",
+      "reason": "pressure_gate_not_met"
+    },
+    {
+      "side": "windows",
+      "reason": "v06_ui_sections_missing_or_failed"
+    },
+    {
+      "side": "windows",
+      "reason": "native_display_sections_missing_or_failed"
+    }
+  ],
+  "independentBuiltPdbAudit": "evidence/v06/review/windows-built-pdb08.json",
+  "errors": [
+    "Restricted Player did not finish its exact partial status/0",
+    "Formal validator did not reject exactly the unresolved native/scope requirements",
+    "Performance incomplete or failed",
+    "Measurement gaps/warnings"
+  ],
+  "sourceEvidenceStable": true,
+  "trace": {
+    "normalSteps": 145,
+    "debugSteps": 175,
+    "normalTraceSha256": "5efcc51eb14dd024d2cea3cc1f5e86ad5ec00123a794dce16cb1100471366564",
+    "debugTraceSha256": "3d6f7cf39dba3c56ca161d4d8baf6d4a7e9f00bcd98a386211b5a07ad61d06b8"
+  },
+  "rawMetrics": {
+    "frameInterval": {
+      "samples": 9103,
+      "expectedFrames": 9103,
+      "validFrameCoverage": 1.0,
+      "mean": 19.772191365483906,
+      "p50": 17.98460000003388,
+      "p95": 23.034800000004907,
+      "max": 87.07790000005389
+    },
+    "mainThread": {
+      "samples": 9103,
+      "expectedFrames": 9103,
+      "validFrameCoverage": 1.0,
+      "mean": 19.76998067669999,
+      "p50": 17.8822,
+      "p95": 23.4151,
+      "max": 87.7939
+    },
+    "renderThread": {
+      "samples": 9103,
+      "expectedFrames": 9103,
+      "validFrameCoverage": 1.0,
+      "mean": 0.2483203249478194,
+      "p50": 0.241,
+      "p95": 0.3238,
+      "max": 0.4826
+    },
+    "frameTimingCpu": {
+      "samples": 9103,
+      "expectedFrames": 9103,
+      "validFrameCoverage": 1.0,
+      "mean": 19.773484840162585,
+      "p50": 17.8841,
+      "p95": 23.4227,
+      "max": 87.7981
+    },
+    "gpu": {
+      "samples": 8839,
+      "expectedFrames": 9103,
+      "validFrameCoverage": 0.9709985718993739,
+      "mean": 0.2544723991401742,
+      "p50": 0.252928,
+      "p95": 0.256,
+      "max": 0.59392
+    },
+    "gcAllocated": {
+      "samples": 9103,
+      "expectedFrames": 9103,
+      "validFrameCoverage": 1.0,
+      "mean": 263360.9341975173,
+      "p50": 0.0,
+      "p95": 163138.0,
+      "max": 11571286.0
+    },
+    "gcUsed": {
+      "samples": 9103,
+      "expectedFrames": 9103,
+      "validFrameCoverage": 1.0,
+      "mean": 46158534.9392508,
+      "p50": 45740032.0,
+      "p95": 54194176.0,
+      "max": 59895808.0
+    },
+    "uiRebuild": {
+      "samples": 9103,
+      "expectedFrames": 9103,
+      "validFrameCoverage": 1.0,
+      "mean": 0.004466560474568823,
+      "p50": 0.0074,
+      "p95": 0.0098,
+      "max": 0.0277
+    },
+    "uiRebuildMarkerCalls": {
+      "samples": 9103,
+      "expectedFrames": 9103,
+      "validFrameCoverage": 1.0,
+      "mean": 0.5287267933648248,
+      "p50": 1.0,
+      "p95": 1.0,
+      "max": 1.0
+    },
+    "monoUsed": {
+      "samples": 9103,
+      "expectedFrames": 9103,
+      "validFrameCoverage": 1.0,
+      "mean": 46157545.9237614,
+      "p50": 45740032.0,
+      "p95": 54194176.0,
+      "max": 59895808.0
+    }
+  },
+  "performance": {
+    "status": "budget_exceeded",
+    "targetFrameMs": 16.7,
+    "targetFps": 60,
+    "targetResolution": "1920x1080",
+    "targetResolutionMet": true,
+    "isDebugFixture": true,
+    "dice": 10,
+    "submitSlots": 8,
+    "controllers": 10,
+    "inventory": 5,
+    "warmupSeconds": 10,
+    "sampleSeconds": 180.004603,
+    "frameCount": 9103,
+    "frameBudgetMet": false,
+    "focusedSampleFrames": 0,
+    "frameBufferInitialCapacity": 60000,
+    "warmupObservedFps": 53.0845797906985,
+    "frameBufferMinimumCapacity": 60000,
+    "frameBufferCapacitySafetyFactor": 2,
+    "frameSampleRecordBytes": 184,
+    "frameBufferEstimatedObserverPayloadBytes": 11040000,
+    "frameBufferFinalCapacity": 60000,
+    "frameBufferGrowthEvents": 0,
+    "requiredMetricCoverage": 0.95,
+    "coverageCriterionSource": "Conservative probe evidence-completeness criterion; it does not replace or relax the P0 frame budget.",
+    "operationsIncludingWarmup": {
+      "roll": 190,
+      "reorder": 190,
+      "pendingSelectionAndClear": 190
+    },
+    "operationSchedule": "Each second: Roll at 0.00, SkipVisual at 0.25, rotate locked order at 0.50, TogglePending+Refresh at 0.70, ClearPending+Refresh at 0.85. Real autosave and UI preview remain active.",
+    "frameTimingEnabled": true,
+    "frameInterval": {
+      "available": true,
+      "unit": "ms",
+      "method": "monotonic LateUpdate-to-LateUpdate interval",
+      "unavailableReason": null,
+      "samples": 9103,
+      "expectedFrames": 9103,
+      "validFrameCoverage": 1,
+      "mean": 19.7721913654839,
+      "p50": 17.9846000000339,
+      "p95": 23.0348000000049,
+      "max": 87.0779000000539
+    },
+    "gpuTimerFrequency": 1000000000,
+    "cpuTimerFrequency": 10000000,
+    "frameTimingReadFrames": 9104,
+    "gpuInvalidSamples": 1,
+    "gpuMissingSamples": 264,
+    "gpuDuplicateTimestamps": 0,
+    "graphicsTimingWarningsDuringSampling": 0,
+    "gpuSampleStatusLegend": {
+      "0": "no timing returned",
+      "1": "valid",
+      "2": "zero/unavailable",
+      "3": "invalid negative or non-finite",
+      "4": "invalid: exceeds process lifetime",
+      "5": "duplicate timing timestamp"
+    },
+    "mainThread": {
+      "available": true,
+      "unit": "ms",
+      "method": "Main Thread",
+      "unavailableReason": null,
+      "samples": 9103,
+      "expectedFrames": 9103,
+      "validFrameCoverage": 1,
+      "mean": 19.7699806767,
+      "p50": 17.8822,
+      "p95": 23.4151,
+      "max": 87.7939
+    },
+    "renderThread": {
+      "available": true,
+      "unit": "ms",
+      "method": "CPU Render Thread Frame Time",
+      "unavailableReason": null,
+      "samples": 9103,
+      "expectedFrames": 9103,
+      "validFrameCoverage": 1,
+      "mean": 0.248320324947821,
+      "p50": 0.241,
+      "p95": 0.3238,
+      "max": 0.4826
+    },
+    "frameTimingCpu": {
+      "available": true,
+      "unit": "ms",
+      "method": "FrameTimingManager.cpuFrameTime",
+      "unavailableReason": null,
+      "samples": 9103,
+      "expectedFrames": 9103,
+      "validFrameCoverage": 1,
+      "mean": 19.7734848401626,
+      "p50": 17.8841,
+      "p95": 23.4227,
+      "max": 87.7981
+    },
+    "gpu": {
+      "available": true,
+      "unit": "ms",
+      "method": "FrameTimingManager.gpuFrameTime",
+      "unavailableReason": null,
+      "samples": 8839,
+      "expectedFrames": 9103,
+      "validFrameCoverage": 0.970998571899374,
+      "mean": 0.254472399140195,
+      "p50": 0.252928,
+      "p95": 0.256,
+      "max": 0.59392
+    },
+    "gcAllocated": {
+      "available": true,
+      "unit": "bytes/frame",
+      "method": "GC Allocated In Frame",
+      "unavailableReason": null,
+      "samples": 9103,
+      "expectedFrames": 9103,
+      "validFrameCoverage": 1,
+      "mean": 263360.934197517,
+      "p50": 0,
+      "p95": 163138,
+      "max": 11571286
+    },
+    "gcUsed": {
+      "available": true,
+      "unit": "bytes",
+      "method": "GC Used Memory",
+      "unavailableReason": null,
+      "samples": 9103,
+      "expectedFrames": 9103,
+      "validFrameCoverage": 1,
+      "mean": 46158534.9392508,
+      "p50": 45740032,
+      "p95": 54194176,
+      "max": 59895808
+    },
+    "independentFrameClocks": {
+      "diagnosticOnly": true,
+      "cpuTimerFrequencyHz": 10000000,
+      "rawRowsIncludingInitialPartialInterval": 9104,
+      "frameStart": {
+        "available": true,
+        "unit": "ms",
+        "method": "FrameTiming.frameStartTimestamp difference",
+        "unavailableReason": null,
+        "samples": 9103,
+        "expectedFrames": 9103,
+        "validFrameCoverage": 1,
+        "mean": 19.7735086674723,
+        "p50": 17.8841,
+        "p95": 23.4227,
+        "max": 87.7981
+      },
+      "presentCalled": {
+        "available": true,
+        "unit": "ms",
+        "method": "FrameTiming.cpuTimePresentCalled difference",
+        "unavailableReason": null,
+        "samples": 9103,
+        "expectedFrames": 9103,
+        "validFrameCoverage": 1,
+        "mean": 19.773518927826,
+        "p50": 17.8829,
+        "p95": 23.4484,
+        "max": 87.7784
+      },
+      "frameComplete": {
+        "available": true,
+        "unit": "ms",
+        "method": "FrameTiming.cpuTimeFrameComplete difference",
+        "unavailableReason": null,
+        "samples": 9101,
+        "expectedFrames": 9103,
+        "validFrameCoverage": 0.999780292211359,
+        "mean": 1829829976.85807,
+        "p50": 17.8888,
+        "p95": 23.4148,
+        "max": 16653282439446
+      },
+      "observationStatusCounts": {
+        "4": 9103
+      },
+      "frameStartDeltaStatusCounts": {
+        "2": 9103
+      },
+      "presentDeltaStatusCounts": {
+        "2": 9103
+      },
+      "completeDeltaStatusCounts": {
+        "2": 9101,
+        "3": 1,
+        "1": 1
+      },
+      "zeroFrameStartRows": 0,
+      "zeroPresentRows": 0,
+      "zeroCompleteRows": 0,
+      "observationStatusLegend": "0 no timing; 1 zero frame-start; 2 repeated frame-start; 3 backward frame-start; 4 new frame-start; 5 new frame-start after skipped Unity observation (delta baseline reset).",
+      "deltaStatusLegend": "0 unavailable observation or zero axis; 1 valid current timestamp without adjacent baseline; 2 valid positive difference; 3 non-increasing axis; 4 CPU frequency unavailable.",
+      "definitions": "Unity 6000.6: frameStartTimestamp is CPU clock when frame started; cpuTimePresentCalled is CPU clock at Present call; cpuTimeFrameComplete is CPU clock when GPU finished rendering and interrupted CPU. Units are converted using GetCpuTimerFrequency.",
+      "adjacencyLimit": "Differences require adjacent Unity observations with new monotonic frame-start values and a valid monotonic axis. GetLatestTimings(1) does not prove no native records were skipped. No clock replaces the original LateUpdate interval or acceptance criteria."
+    },
+    "productionFramePacing": {
+      "classPresent": true,
+      "installed": true,
+      "strategyDescription": "60Hz maximum cadence; absolute QPC deadline reanchored to every actual release; ceil(QPC frequency/60); coarse Sleep + <=1.5ms spin tail; first PreLateUpdate child; paused/unfocused Sleep(17ms), no spin or catch-up",
+      "metadataIssue": null,
+      "stopwatchFrequencyHz": 10000000,
+      "vSyncCount": 0,
+      "applicationTargetFrameRate": -1,
+      "readTiming": "Outside sampling only; public static read-only metadata, never a per-frame reflection call."
+    },
+    "productionFramePacingAfterSampling": {
+      "classPresent": true,
+      "installed": true,
+      "strategyDescription": "60Hz maximum cadence; absolute QPC deadline reanchored to every actual release; ceil(QPC frequency/60); coarse Sleep + <=1.5ms spin tail; first PreLateUpdate child; paused/unfocused Sleep(17ms), no spin or catch-up",
+      "metadataIssue": null,
+      "stopwatchFrequencyHz": 10000000,
+      "vSyncCount": 0,
+      "applicationTargetFrameRate": -1,
+      "readTiming": "Outside sampling only; public static read-only metadata, never a per-frame reflection call."
+    },
+    "gpuRawApiValues": {
+      "available": true,
+      "unit": "ms (unvalidated)",
+      "method": "Raw FrameTimingManager.gpuFrameTime; diagnostic only, may contain invalid values",
+      "unavailableReason": null,
+      "samples": 9103,
+      "expectedFrames": 9103,
+      "validFrameCoverage": 1,
+      "mean": 1829427929.43836,
+      "p50": 0.252928,
+      "p95": 0.256,
+      "max": 16653282439428.1
+    },
+    "gpuProfilerCounter": {
+      "available": true,
+      "unit": "ms (diagnostic)",
+      "method": "GPU Frame Time",
+      "unavailableReason": null,
+      "samples": 9103,
+      "expectedFrames": 9103,
+      "validFrameCoverage": 1,
+      "mean": -1013223336.76904,
+      "p50": 0.252928,
+      "p95": 0.256,
+      "max": 0.59392
+    },
+    "monoUsed": {
+      "available": true,
+      "unit": "bytes",
+      "method": "Profiler.GetMonoUsedSizeLong",
+      "unavailableReason": null,
+      "samples": 9103,
+      "expectedFrames": 9103,
+      "validFrameCoverage": 1,
+      "mean": 46157545.9237614,
+      "p50": 45740032,
+      "p95": 54194176,
+      "max": 59895808
+    },
+    "uiRebuild": {
+      "available": true,
+      "unit": "ms/frame",
+      "method": "Canvas.BuildBatch",
+      "unavailableReason": null,
+      "samples": 9103,
+      "expectedFrames": 9103,
+      "validFrameCoverage": 1,
+      "mean": 0.00446656047456874,
+      "p50": 0.0074,
+      "p95": 0.0098,
+      "max": 0.0277
+    },
+    "uiRebuildMarkerCalls": {
+      "available": true,
+      "unit": "marker invocations/frame",
+      "method": "Canvas.BuildBatch",
+      "unavailableReason": null,
+      "samples": 9103,
+      "expectedFrames": 9103,
+      "validFrameCoverage": 1,
+      "mean": 0.528726793364825,
+      "p50": 1,
+      "p95": 1,
+      "max": 1
+    },
+    "gcCollections": {
+      "generation0": 387,
+      "generation1": 387,
+      "generation2": 387
+    },
+    "limitations": [
+      "This is automated player operation, not human playtesting, player win rate, or a mobile performance result.",
+      "The frame budget check uses P95 of measured frame intervals; CPU Main Thread may include presentation waits. Raw CPU/GPU metrics remain separately available for diagnosis.",
+      "Frame-start, Present-called and frame-complete timestamp differences are diagnostic peers of LateUpdate, never replacements for its original verdict. Present-called is not scanout; frame-complete is GPU completion interrupting the CPU. Adjacent unique GetLatestTimings(1) observations may still skip native records; explicit gaps are broken but native adjacency is not guaranteed.",
+      "Recorder units and exact marker names are retained. UI marker invocation count is not the number of individual rebuilt elements.",
+      "Before sampling, the probe allocates max(60000, ceil(warmup FPS * 180 seconds * 2)) frame records once. Estimated observer bytes cover record payload, not object headers or all profiler overhead. Any expansion during sampling still forces a gap.",
+      "GPU durations that are negative, non-finite or longer than the process lifetime are invalid, retained in raw CSV and force a measurement gap; no merely slow frame is filtered by the 16.7ms budget.",
+      "Focus is recorded as context, not proof of window visibility. Keep the actual player visible and unminimized; inspect the native player log for swapchain/timestamp warnings that may bypass Unity log callbacks.",
+      "Unavailable metrics are null; availability gaps or a non-1080p run cannot certify the complete performance condition. Independent review remains required."
+    ]
+  },
+  "actualTargetRaycasts": 45,
+  "renderReadiness": [
+    {
+      "target": "RemoteDieD031",
+      "parent": null,
+      "samples": [
+        {
+          "frame": 2469,
+          "realtime": 62.2683116063492,
+          "depth": 215,
+          "graphicEnabled": true,
+          "focused": false
+        }
+      ],
+      "ready": true
+    },
+    {
+      "target": "RemoteDieD032",
+      "parent": null,
+      "samples": [
+        {
+          "frame": 2471,
+          "realtime": 62.3152450063492,
+          "depth": 217,
+          "graphicEnabled": true,
+          "focused": false
+        }
+      ],
+      "ready": true
+    },
+    {
+      "target": "RemotePipD031_2",
+      "parent": null,
+      "samples": [
+        {
+          "frame": 2473,
+          "realtime": 62.3557304063492,
+          "depth": 224,
+          "graphicEnabled": true,
+          "focused": false
+        }
+      ],
+      "ready": true
+    },
+    {
+      "target": "RemotePipD032_5",
+      "parent": null,
+      "samples": [
+        {
+          "frame": 2475,
+          "realtime": 62.3950634063492,
+          "depth": 243,
+          "graphicEnabled": true,
+          "focused": false
+        }
+      ],
+      "ready": true
+    },
+    {
+      "target": "CloseDialog",
+      "parent": null,
+      "samples": [
+        {
+          "frame": 2478,
+          "realtime": 62.5220193063492,
+          "depth": 159,
+          "graphicEnabled": true,
+          "focused": false
+        }
+      ],
+      "ready": true
+    },
+    {
+      "target": "RemoteDieD031",
+      "parent": null,
+      "samples": [
+        {
+          "frame": 2482,
+          "realtime": 62.6057758063492,
+          "depth": 215,
+          "graphicEnabled": true,
+          "focused": false
+        }
+      ],
+      "ready": true
+    },
+    {
+      "target": "RemoteDieD032",
+      "parent": null,
+      "samples": [
+        {
+          "frame": 2484,
+          "realtime": 62.6466613063492,
+          "depth": 217,
+          "graphicEnabled": true,
+          "focused": false
+        }
+      ],
+      "ready": true
+    },
+    {
+      "target": "RemotePipD031_2",
+      "parent": null,
+      "samples": [
+        {
+          "frame": 2486,
+          "realtime": 62.6857737063492,
+          "depth": 224,
+          "graphicEnabled": true,
+          "focused": false
+        }
+      ],
+      "ready": true
+    },
+    {
+      "target": "RemotePipD032_5",
+      "parent": null,
+      "samples": [
+        {
+          "frame": 2488,
+          "realtime": 62.7252691063492,
+          "depth": 243,
+          "graphicEnabled": true,
+          "focused": false
+        }
+      ],
+      "ready": true
+    },
+    {
+      "target": "RemoteConfirm",
+      "parent": null,
+      "samples": [
+        {
+          "frame": 2490,
+          "realtime": 62.7648330063492,
+          "depth": 247,
+          "graphicEnabled": true,
+          "focused": false
+        }
+      ],
+      "ready": true
+    },
+    {
+      "target": "Tab0",
+      "parent": null,
+      "samples": [
+        {
+          "frame": 2497,
+          "realtime": 62.9935814063492,
+          "depth": 9,
+          "graphicEnabled": true,
+          "focused": false
+        }
+      ],
+      "ready": true
+    },
+    {
+      "target": "RefreshControllers",
+      "parent": null,
+      "samples": [
+        {
+          "frame": 2499,
+          "realtime": 63.0402274063492,
+          "depth": 20,
+          "graphicEnabled": true,
+          "focused": false
+        }
+      ],
+      "ready": true
+    },
+    {
+      "target": "ResumeDebugSave",
+      "parent": null,
+      "samples": [
+        {
+          "frame": 2503,
+          "realtime": 63.2186032063492,
+          "depth": -1,
+          "graphicEnabled": true,
+          "focused": false
+        },
+        {
+          "frame": 2504,
+          "realtime": 63.2375237063492,
+          "depth": 215,
+          "graphicEnabled": true,
+          "focused": false
+        }
+      ],
+      "ready": true
+    },
+    {
+      "target": "RunDebugScene",
+      "parent": null,
+      "samples": [
+        {
+          "frame": 2506,
+          "realtime": 63.2896964063492,
+          "depth": 211,
+          "graphicEnabled": true,
+          "focused": false
+        }
+      ],
+      "ready": true
+    },
+    {
+      "target": "Tab0",
+      "parent": null,
+      "samples": [
+        {
+          "frame": 2508,
+          "realtime": 63.3272437063492,
+          "depth": 9,
+          "graphicEnabled": true,
+          "focused": false
+        }
+      ],
+      "ready": true
+    },
+    {
+      "target": "RefreshControllers",
+      "parent": null,
+      "samples": [
+        {
+          "frame": 2510,
+          "realtime": 63.3751257063492,
+          "depth": 20,
+          "graphicEnabled": true,
+          "focused": false
+        }
+      ],
+      "ready": true
+    },
+    {
+      "target": "ResumeDebugSave",
+      "parent": null,
+      "samples": [
+        {
+          "frame": 2514,
+          "realtime": 63.5531790063492,
+          "depth": -1,
+          "graphicEnabled": true,
+          "focused": false
+        },
+        {
+          "frame": 2515,
+          "realtime": 63.5712885063492,
+          "depth": 215,
+          "graphicEnabled": true,
+          "focused": false
+        }
+      ],
+      "ready": true
+    },
+    {
+      "target": "RunDebugScene",
+      "parent": null,
+      "samples": [
+        {
+          "frame": 2517,
+          "realtime": 63.6203392063492,
+          "depth": 213,
+          "graphicEnabled": true,
+          "focused": false
+        }
+      ],
+      "ready": true
+    },
+    {
+      "target": "Tab0",
+      "parent": null,
+      "samples": [
+        {
+          "frame": 2519,
+          "realtime": 63.6571577063492,
+          "depth": 9,
+          "graphicEnabled": true,
+          "focused": false
+        }
+      ],
+      "ready": true
+    },
+    {
+      "target": "RefreshControllers",
+      "parent": null,
+      "samples": [
+        {
+          "frame": 2521,
+          "realtime": 63.7076989063492,
+          "depth": 20,
+          "graphicEnabled": true,
+          "focused": false
+        }
+      ],
+      "ready": true
+    },
+    {
+      "target": "ResumeDebugSave",
+      "parent": null,
+      "samples": [
+        {
+          "frame": 2525,
+          "realtime": 63.8816986063492,
+          "depth": -1,
+          "graphicEnabled": true,
+          "focused": false
+        },
+        {
+          "frame": 2526,
+          "realtime": 63.9006643063492,
+          "depth": 217,
+          "graphicEnabled": true,
+          "focused": false
+        }
+      ],
+      "ready": true
+    },
+    {
+      "target": "RunDebugScene",
+      "parent": null,
+      "samples": [
+        {
+          "frame": 2528,
+          "realtime": 63.9504880063492,
+          "depth": 215,
+          "graphicEnabled": true,
+          "focused": false
+        }
+      ],
+      "ready": true
+    },
+    {
+      "target": "Tab0",
+      "parent": null,
+      "samples": [
+        {
+          "frame": 2530,
+          "realtime": 63.9890689063492,
+          "depth": 9,
+          "graphicEnabled": true,
+          "focused": false
+        }
+      ],
+      "ready": true
+    },
+    {
+      "target": "Tab1",
+      "parent": null,
+      "samples": [
+        {
+          "frame": 2532,
+          "realtime": 64.0586320063492,
+          "depth": 11,
+          "graphicEnabled": true,
+          "focused": false
+        }
+      ],
+      "ready": true
+    },
+    {
+      "target": "Inspect",
+      "parent": "Offer_OFFER_00093",
+      "samples": [
+        {
+          "frame": 2534,
+          "realtime": 64.0988332063492,
+          "depth": 40,
+          "graphicEnabled": true,
+          "focused": false
+        }
+      ],
+      "ready": true
+    },
+    {
+      "target": "ConfirmPurchase",
+      "parent": null,
+      "samples": [
+        {
+          "frame": 2536,
+          "realtime": 64.1383030063492,
+          "depth": 97,
+          "graphicEnabled": true,
+          "focused": false
+        }
+      ],
+      "ready": true
+    },
+    {
+      "target": "Tab0",
+      "parent": null,
+      "samples": [
+        {
+          "frame": 2539,
+          "realtime": 64.2169670063492,
+          "depth": 9,
+          "graphicEnabled": true,
+          "focused": false
+        }
+      ],
+      "ready": true
+    },
+    {
+      "target": "RefreshControllers",
+      "parent": null,
+      "samples": [
+        {
+          "frame": 2542,
+          "realtime": 64.3414019063492,
+          "depth": 20,
+          "graphicEnabled": true,
+          "focused": false
+        }
+      ],
+      "ready": true
+    },
+    {
+      "target": "ResumeDebugSave",
+      "parent": null,
+      "samples": [
+        {
+          "frame": 2545,
+          "realtime": 64.4411080063492,
+          "depth": 213,
+          "graphicEnabled": true,
+          "focused": false
+        }
+      ],
+      "ready": true
+    },
+    {
+      "target": "RunDebugScene",
+      "parent": null,
+      "samples": [
+        {
+          "frame": 2547,
+          "realtime": 64.4925399063492,
+          "depth": 211,
+          "graphicEnabled": true,
+          "focused": false
+        }
+      ],
+      "ready": true
+    },
+    {
+      "target": "Tab0",
+      "parent": null,
+      "samples": [
+        {
+          "frame": 2549,
+          "realtime": 64.5331285063492,
+          "depth": 9,
+          "graphicEnabled": true,
+          "focused": false
+        }
+      ],
+      "ready": true
+    },
+    {
+      "target": "RefreshControllers",
+      "parent": null,
+      "samples": [
+        {
+          "frame": 2551,
+          "realtime": 64.5802563063492,
+          "depth": 20,
+          "graphicEnabled": true,
+          "focused": false
+        }
+      ],
+      "ready": true
+    },
+    {
+      "target": "ResumeDebugSave",
+      "parent": null,
+      "samples": [
+        {
+          "frame": 2554,
+          "realtime": 64.6787051063492,
+          "depth": 215,
+          "graphicEnabled": true,
+          "focused": false
+        }
+      ],
+      "ready": true
+    },
+    {
+      "target": "RunDebugScene",
+      "parent": null,
+      "samples": [
+        {
+          "frame": 2556,
+          "realtime": 64.7310772063492,
+          "depth": 213,
+          "graphicEnabled": true,
+          "focused": false
+        }
+      ],
+      "ready": true
+    },
+    {
+      "target": "Tab0",
+      "parent": null,
+      "samples": [
+        {
+          "frame": 2558,
+          "realtime": 64.7691463063492,
+          "depth": 9,
+          "graphicEnabled": true,
+          "focused": false
+        }
+      ],
+      "ready": true
+    },
+    {
+      "target": "Target_D032",
+      "parent": null,
+      "samples": [
+        {
+          "frame": 2588,
+          "realtime": 66.0116075063492,
+          "depth": 138,
+          "graphicEnabled": true,
+          "focused": false
+        }
+      ],
+      "ready": true
+    },
+    {
+      "target": "Face_F01",
+      "parent": null,
+      "samples": [
+        {
+          "frame": 2590,
+          "realtime": 66.0543386063492,
+          "depth": 141,
+          "graphicEnabled": true,
+          "focused": false
+        }
+      ],
+      "ready": true
+    },
+    {
+      "target": "CloseDialog",
+      "parent": null,
+      "samples": [
+        {
+          "frame": 2593,
+          "realtime": 66.1801566063492,
+          "depth": 73,
+          "graphicEnabled": true,
+          "focused": false
+        }
+      ],
+      "ready": true
+    },
+    {
+      "target": "Target_D032",
+      "parent": null,
+      "samples": [
+        {
+          "frame": 2596,
+          "realtime": 66.2448818063492,
+          "depth": 138,
+          "graphicEnabled": true,
+          "focused": false
+        }
+      ],
+      "ready": true
+    },
+    {
+      "target": "Face_F01",
+      "parent": null,
+      "samples": [
+        {
+          "frame": 2598,
+          "realtime": 66.2843888063492,
+          "depth": 141,
+          "graphicEnabled": true,
+          "focused": false
+        }
+      ],
+      "ready": true
+    },
+    {
+      "target": "ConfirmPurchase",
+      "parent": null,
+      "samples": [
+        {
+          "frame": 2600,
+          "realtime": 66.3227327063492,
+          "depth": 108,
+          "graphicEnabled": true,
+          "focused": false
+        }
+      ],
+      "ready": true
+    },
+    {
+      "target": "Target_D031",
+      "parent": null,
+      "samples": [
+        {
+          "frame": 2603,
+          "realtime": 66.4061329063492,
+          "depth": 136,
+          "graphicEnabled": true,
+          "focused": false
+        }
+      ],
+      "ready": true
+    },
+    {
+      "target": "CloseDialog",
+      "parent": null,
+      "samples": [
+        {
+          "frame": 2606,
+          "realtime": 66.5257983063492,
+          "depth": 73,
+          "graphicEnabled": true,
+          "focused": false
+        }
+      ],
+      "ready": true
+    },
+    {
+      "target": "Target_D031",
+      "parent": null,
+      "samples": [
+        {
+          "frame": 2609,
+          "realtime": 66.5883699063492,
+          "depth": 136,
+          "graphicEnabled": true,
+          "focused": false
+        }
+      ],
+      "ready": true
+    },
+    {
+      "target": "ConfirmPurchase",
+      "parent": null,
+      "samples": [
+        {
+          "frame": 2611,
+          "realtime": 66.6297778063492,
+          "depth": 173,
+          "graphicEnabled": true,
+          "focused": false
+        }
+      ],
+      "ready": true
+    }
+  ],
+  "shopRefreshTransactions": [
+    {
+      "charged": 3,
+      "nextPrice": 5,
+      "beforeGold": 1000,
+      "afterGold": 997,
+      "actionSequence": 6,
+      "oldOfferIds": [
+        "OFFER_00085",
+        "OFFER_00086",
+        "OFFER_00087"
+      ],
+      "newOfferIds": [
+        "OFFER_00093",
+        "OFFER_00094",
+        "OFFER_00095"
+      ],
+      "otherQuotesBefore": "[{\"offer\":\"{\\\"offerId\\\":\\\"OFFER_00088\\\",\\\"batchId\\\":\\\"DEBUG_0e335b867695481682de6c73ec725d86/STAGE_08/SHOP/consumable\\\",\\\"category\\\":\\\"consumable\\\",\\\"contentId\\\":\\\"I01\\\",\\\"basePrice\\\":2,\\\"sold\\\":false,\\\"die\\\":{\\\"dieId\\\":\\\"\\\",\\\"createdSerial\\\":0,\\\"lifetime\\\":\\\"\\\",\\\"createdStageId\\\":\\\"\\\",\\\"faces\\\":[],\\\"isGlass\\\":false,\\\"dataRevision\\\":0},\\\"controller\\\":{\\\"instanceId\\\":\\\"\\\",\\\"definitionId\\\":\\\"\\\",\\\"enchantmentId\\\":\\\"none\\\",\\\"acquiredSerial\\\":0,\\\"alive\\\":true,\\\"state\\\":{\\\"activeColor\\\":\\\"\\\",\\\"turnoverUnits2\\\":3,\\\"fundAccrual\\\":0}},\\\"priceReasons\\\":[]}\",\"quotedPrice\":2,\"quotedNetPrice\":2},{\"offer\":\"{\\\"offerId\\\":\\\"OFFER_00089\\\",\\\"batchId\\\":\\\"DEBUG_0e335b867695481682de6c73ec725d86/STAGE_08/SHOP/consumable\\\",\\\"category\\\":\\\"consumable\\\",\\\"contentId\\\":\\\"I03\\\",\\\"basePrice\\\":3,\\\"sold\\\":false,\\\"die\\\":{\\\"dieId\\\":\\\"\\\",\\\"createdSerial\\\":0,\\\"lifetime\\\":\\\"\\\",\\\"createdStageId\\\":\\\"\\\",\\\"faces\\\":[],\\\"isGlass\\\":false,\\\"dataRevision\\\":0},\\\"controller\\\":{\\\"instanceId\\\":\\\"\\\",\\\"definitionId\\\":\\\"\\\",\\\"enchantmentId\\\":\\\"none\\\",\\\"acquiredSerial\\\":0,\\\"alive\\\":true,\\\"state\\\":{\\\"activeColor\\\":\\\"\\\",\\\"turnoverUnits2\\\":3,\\\"fundAccrual\\\":0}},\\\"priceReasons\\\":[]}\",\"quotedPrice\":3,\"quotedNetPrice\":3},{\"offer\":\"{\\\"offerId\\\":\\\"OFFER_00090\\\",\\\"batchId\\\":\\\"DEBUG_0e335b867695481682de6c73ec725d86/STAGE_08/SHOP/die_upgrade\\\",\\\"category\\\":\\\"die_upgrade\\\",\\\"contentId\\\":\\\"U06\\\",\\\"basePrice\\\":2,\\\"sold\\\":false,\\\"die\\\":{\\\"dieId\\\":\\\"\\\",\\\"createdSerial\\\":0,\\\"lifetime\\\":\\\"\\\",\\\"createdStageId\\\":\\\"\\\",\\\"faces\\\":[],\\\"isGlass\\\":false,\\\"dataRevision\\\":0},\\\"controller\\\":{\\\"instanceId\\\":\\\"\\\",\\\"definitionId\\\":\\\"\\\",\\\"enchantmentId\\\":\\\"none\\\",\\\"acquiredSerial\\\":0,\\\"alive\\\":true,\\\"state\\\":{\\\"activeColor\\\":\\\"\\\",\\\"turnoverUnits2\\\":3,\\\"fundAccrual\\\":0}},\\\"priceReasons\\\":[]}\",\"quotedPrice\":2,\"quotedNetPrice\":2},{\"offer\":\"{\\\"offerId\\\":\\\"OFFER_00091\\\",\\\"batchId\\\":\\\"DEBUG_0e335b867695481682de6c73ec725d86/STAGE_08/SHOP/die_upgrade\\\",\\\"category\\\":\\\"die_upgrade\\\",\\\"contentId\\\":\\\"U07\\\",\\\"basePrice\\\":1,\\\"sold\\\":false,\\\"die\\\":{\\\"dieId\\\":\\\"\\\",\\\"createdSerial\\\":0,\\\"lifetime\\\":\\\"\\\",\\\"createdStageId\\\":\\\"\\\",\\\"faces\\\":[],\\\"isGlass\\\":false,\\\"dataRevision\\\":0},\\\"controller\\\":{\\\"instanceId\\\":\\\"\\\",\\\"definitionId\\\":\\\"\\\",\\\"enchantmentId\\\":\\\"none\\\",\\\"acquiredSerial\\\":0,\\\"alive\\\":true,\\\"state\\\":{\\\"activeColor\\\":\\\"\\\",\\\"turnoverUnits2\\\":3,\\\"fundAccrual\\\":0}},\\\"priceReasons\\\":[]}\",\"quotedPrice\":1,\"quotedNetPrice\":1},{\"offer\":\"{\\\"offerId\\\":\\\"OFFER_00092\\\",\\\"batchId\\\":\\\"DEBUG_0e335b867695481682de6c73ec725d86/STAGE_08/SHOP/service\\\",\\\"category\\\":\\\"service\\\",\\\"contentId\\\":\\\"O04\\\",\\\"basePrice\\\":1,\\\"sold\\\":false,\\\"die\\\":{\\\"dieId\\\":\\\"\\\",\\\"createdSerial\\\":0,\\\"lifetime\\\":\\\"\\\",\\\"createdStageId\\\":\\\"\\\",\\\"faces\\\":[],\\\"isGlass\\\":false,\\\"dataRevision\\\":0},\\\"controller\\\":{\\\"instanceId\\\":\\\"\\\",\\\"definitionId\\\":\\\"\\\",\\\"enchantmentId\\\":\\\"none\\\",\\\"acquiredSerial\\\":0,\\\"alive\\\":true,\\\"state\\\":{\\\"activeColor\\\":\\\"\\\",\\\"turnoverUnits2\\\":3,\\\"fundAccrual\\\":0}},\\\"priceReasons\\\":[]}\",\"quotedPrice\":1,\"quotedNetPrice\":1}]",
+      "otherQuotesAfter": "[{\"offer\":\"{\\\"offerId\\\":\\\"OFFER_00088\\\",\\\"batchId\\\":\\\"DEBUG_0e335b867695481682de6c73ec725d86/STAGE_08/SHOP/consumable\\\",\\\"category\\\":\\\"consumable\\\",\\\"contentId\\\":\\\"I01\\\",\\\"basePrice\\\":2,\\\"sold\\\":false,\\\"die\\\":{\\\"dieId\\\":\\\"\\\",\\\"createdSerial\\\":0,\\\"lifetime\\\":\\\"\\\",\\\"createdStageId\\\":\\\"\\\",\\\"faces\\\":[],\\\"isGlass\\\":false,\\\"dataRevision\\\":0},\\\"controller\\\":{\\\"instanceId\\\":\\\"\\\",\\\"definitionId\\\":\\\"\\\",\\\"enchantmentId\\\":\\\"none\\\",\\\"acquiredSerial\\\":0,\\\"alive\\\":true,\\\"state\\\":{\\\"activeColor\\\":\\\"\\\",\\\"turnoverUnits2\\\":3,\\\"fundAccrual\\\":0}},\\\"priceReasons\\\":[]}\",\"quotedPrice\":2,\"quotedNetPrice\":2},{\"offer\":\"{\\\"offerId\\\":\\\"OFFER_00089\\\",\\\"batchId\\\":\\\"DEBUG_0e335b867695481682de6c73ec725d86/STAGE_08/SHOP/consumable\\\",\\\"category\\\":\\\"consumable\\\",\\\"contentId\\\":\\\"I03\\\",\\\"basePrice\\\":3,\\\"sold\\\":false,\\\"die\\\":{\\\"dieId\\\":\\\"\\\",\\\"createdSerial\\\":0,\\\"lifetime\\\":\\\"\\\",\\\"createdStageId\\\":\\\"\\\",\\\"faces\\\":[],\\\"isGlass\\\":false,\\\"dataRevision\\\":0},\\\"controller\\\":{\\\"instanceId\\\":\\\"\\\",\\\"definitionId\\\":\\\"\\\",\\\"enchantmentId\\\":\\\"none\\\",\\\"acquiredSerial\\\":0,\\\"alive\\\":true,\\\"state\\\":{\\\"activeColor\\\":\\\"\\\",\\\"turnoverUnits2\\\":3,\\\"fundAccrual\\\":0}},\\\"priceReasons\\\":[]}\",\"quotedPrice\":3,\"quotedNetPrice\":3},{\"offer\":\"{\\\"offerId\\\":\\\"OFFER_00090\\\",\\\"batchId\\\":\\\"DEBUG_0e335b867695481682de6c73ec725d86/STAGE_08/SHOP/die_upgrade\\\",\\\"category\\\":\\\"die_upgrade\\\",\\\"contentId\\\":\\\"U06\\\",\\\"basePrice\\\":2,\\\"sold\\\":false,\\\"die\\\":{\\\"dieId\\\":\\\"\\\",\\\"createdSerial\\\":0,\\\"lifetime\\\":\\\"\\\",\\\"createdStageId\\\":\\\"\\\",\\\"faces\\\":[],\\\"isGlass\\\":false,\\\"dataRevision\\\":0},\\\"controller\\\":{\\\"instanceId\\\":\\\"\\\",\\\"definitionId\\\":\\\"\\\",\\\"enchantmentId\\\":\\\"none\\\",\\\"acquiredSerial\\\":0,\\\"alive\\\":true,\\\"state\\\":{\\\"activeColor\\\":\\\"\\\",\\\"turnoverUnits2\\\":3,\\\"fundAccrual\\\":0}},\\\"priceReasons\\\":[]}\",\"quotedPrice\":2,\"quotedNetPrice\":2},{\"offer\":\"{\\\"offerId\\\":\\\"OFFER_00091\\\",\\\"batchId\\\":\\\"DEBUG_0e335b867695481682de6c73ec725d86/STAGE_08/SHOP/die_upgrade\\\",\\\"category\\\":\\\"die_upgrade\\\",\\\"contentId\\\":\\\"U07\\\",\\\"basePrice\\\":1,\\\"sold\\\":false,\\\"die\\\":{\\\"dieId\\\":\\\"\\\",\\\"createdSerial\\\":0,\\\"lifetime\\\":\\\"\\\",\\\"createdStageId\\\":\\\"\\\",\\\"faces\\\":[],\\\"isGlass\\\":false,\\\"dataRevision\\\":0},\\\"controller\\\":{\\\"instanceId\\\":\\\"\\\",\\\"definitionId\\\":\\\"\\\",\\\"enchantmentId\\\":\\\"none\\\",\\\"acquiredSerial\\\":0,\\\"alive\\\":true,\\\"state\\\":{\\\"activeColor\\\":\\\"\\\",\\\"turnoverUnits2\\\":3,\\\"fundAccrual\\\":0}},\\\"priceReasons\\\":[]}\",\"quotedPrice\":1,\"quotedNetPrice\":1},{\"offer\":\"{\\\"offerId\\\":\\\"OFFER_00092\\\",\\\"batchId\\\":\\\"DEBUG_0e335b867695481682de6c73ec725d86/STAGE_08/SHOP/service\\\",\\\"category\\\":\\\"service\\\",\\\"contentId\\\":\\\"O04\\\",\\\"basePrice\\\":1,\\\"sold\\\":false,\\\"die\\\":{\\\"dieId\\\":\\\"\\\",\\\"createdSerial\\\":0,\\\"lifetime\\\":\\\"\\\",\\\"createdStageId\\\":\\\"\\\",\\\"faces\\\":[],\\\"isGlass\\\":false,\\\"dataRevision\\\":0},\\\"controller\\\":{\\\"instanceId\\\":\\\"\\\",\\\"definitionId\\\":\\\"\\\",\\\"enchantmentId\\\":\\\"none\\\",\\\"acquiredSerial\\\":0,\\\"alive\\\":true,\\\"state\\\":{\\\"activeColor\\\":\\\"\\\",\\\"turnoverUnits2\\\":3,\\\"fundAccrual\\\":0}},\\\"priceReasons\\\":[]}\",\"quotedPrice\":1,\"quotedNetPrice\":1}]",
+      "shopRngBefore": 475552232,
+      "shopRngAfter": 3192581142,
+      "diskMatches": true
+    },
+    {
+      "charged": 5,
+      "nextPrice": 7,
+      "beforeGold": 997,
+      "afterGold": 992,
+      "actionSequence": 7,
+      "oldOfferIds": [
+        "OFFER_00093",
+        "OFFER_00094",
+        "OFFER_00095"
+      ],
+      "newOfferIds": [
+        "OFFER_00096",
+        "OFFER_00097",
+        "OFFER_00098"
+      ],
+      "otherQuotesBefore": "[{\"offer\":\"{\\\"offerId\\\":\\\"OFFER_00088\\\",\\\"batchId\\\":\\\"DEBUG_0e335b867695481682de6c73ec725d86/STAGE_08/SHOP/consumable\\\",\\\"category\\\":\\\"consumable\\\",\\\"contentId\\\":\\\"I01\\\",\\\"basePrice\\\":2,\\\"sold\\\":false,\\\"die\\\":{\\\"dieId\\\":\\\"\\\",\\\"createdSerial\\\":0,\\\"lifetime\\\":\\\"\\\",\\\"createdStageId\\\":\\\"\\\",\\\"faces\\\":[],\\\"isGlass\\\":false,\\\"dataRevision\\\":0},\\\"controller\\\":{\\\"instanceId\\\":\\\"\\\",\\\"definitionId\\\":\\\"\\\",\\\"enchantmentId\\\":\\\"none\\\",\\\"acquiredSerial\\\":0,\\\"alive\\\":true,\\\"state\\\":{\\\"activeColor\\\":\\\"\\\",\\\"turnoverUnits2\\\":3,\\\"fundAccrual\\\":0}},\\\"priceReasons\\\":[]}\",\"quotedPrice\":2,\"quotedNetPrice\":2},{\"offer\":\"{\\\"offerId\\\":\\\"OFFER_00089\\\",\\\"batchId\\\":\\\"DEBUG_0e335b867695481682de6c73ec725d86/STAGE_08/SHOP/consumable\\\",\\\"category\\\":\\\"consumable\\\",\\\"contentId\\\":\\\"I03\\\",\\\"basePrice\\\":3,\\\"sold\\\":false,\\\"die\\\":{\\\"dieId\\\":\\\"\\\",\\\"createdSerial\\\":0,\\\"lifetime\\\":\\\"\\\",\\\"createdStageId\\\":\\\"\\\",\\\"faces\\\":[],\\\"isGlass\\\":false,\\\"dataRevision\\\":0},\\\"controller\\\":{\\\"instanceId\\\":\\\"\\\",\\\"definitionId\\\":\\\"\\\",\\\"enchantmentId\\\":\\\"none\\\",\\\"acquiredSerial\\\":0,\\\"alive\\\":true,\\\"state\\\":{\\\"activeColor\\\":\\\"\\\",\\\"turnoverUnits2\\\":3,\\\"fundAccrual\\\":0}},\\\"priceReasons\\\":[]}\",\"quotedPrice\":3,\"quotedNetPrice\":3},{\"offer\":\"{\\\"offerId\\\":\\\"OFFER_00090\\\",\\\"batchId\\\":\\\"DEBUG_0e335b867695481682de6c73ec725d86/STAGE_08/SHOP/die_upgrade\\\",\\\"category\\\":\\\"die_upgrade\\\",\\\"contentId\\\":\\\"U06\\\",\\\"basePrice\\\":2,\\\"sold\\\":false,\\\"die\\\":{\\\"dieId\\\":\\\"\\\",\\\"createdSerial\\\":0,\\\"lifetime\\\":\\\"\\\",\\\"createdStageId\\\":\\\"\\\",\\\"faces\\\":[],\\\"isGlass\\\":false,\\\"dataRevision\\\":0},\\\"controller\\\":{\\\"instanceId\\\":\\\"\\\",\\\"definitionId\\\":\\\"\\\",\\\"enchantmentId\\\":\\\"none\\\",\\\"acquiredSerial\\\":0,\\\"alive\\\":true,\\\"state\\\":{\\\"activeColor\\\":\\\"\\\",\\\"turnoverUnits2\\\":3,\\\"fundAccrual\\\":0}},\\\"priceReasons\\\":[]}\",\"quotedPrice\":2,\"quotedNetPrice\":2},{\"offer\":\"{\\\"offerId\\\":\\\"OFFER_00091\\\",\\\"batchId\\\":\\\"DEBUG_0e335b867695481682de6c73ec725d86/STAGE_08/SHOP/die_upgrade\\\",\\\"category\\\":\\\"die_upgrade\\\",\\\"contentId\\\":\\\"U07\\\",\\\"basePrice\\\":1,\\\"sold\\\":false,\\\"die\\\":{\\\"dieId\\\":\\\"\\\",\\\"createdSerial\\\":0,\\\"lifetime\\\":\\\"\\\",\\\"createdStageId\\\":\\\"\\\",\\\"faces\\\":[],\\\"isGlass\\\":false,\\\"dataRevision\\\":0},\\\"controller\\\":{\\\"instanceId\\\":\\\"\\\",\\\"definitionId\\\":\\\"\\\",\\\"enchantmentId\\\":\\\"none\\\",\\\"acquiredSerial\\\":0,\\\"alive\\\":true,\\\"state\\\":{\\\"activeColor\\\":\\\"\\\",\\\"turnoverUnits2\\\":3,\\\"fundAccrual\\\":0}},\\\"priceReasons\\\":[]}\",\"quotedPrice\":1,\"quotedNetPrice\":1},{\"offer\":\"{\\\"offerId\\\":\\\"OFFER_00092\\\",\\\"batchId\\\":\\\"DEBUG_0e335b867695481682de6c73ec725d86/STAGE_08/SHOP/service\\\",\\\"category\\\":\\\"service\\\",\\\"contentId\\\":\\\"O04\\\",\\\"basePrice\\\":1,\\\"sold\\\":false,\\\"die\\\":{\\\"dieId\\\":\\\"\\\",\\\"createdSerial\\\":0,\\\"lifetime\\\":\\\"\\\",\\\"createdStageId\\\":\\\"\\\",\\\"faces\\\":[],\\\"isGlass\\\":false,\\\"dataRevision\\\":0},\\\"controller\\\":{\\\"instanceId\\\":\\\"\\\",\\\"definitionId\\\":\\\"\\\",\\\"enchantmentId\\\":\\\"none\\\",\\\"acquiredSerial\\\":0,\\\"alive\\\":true,\\\"state\\\":{\\\"activeColor\\\":\\\"\\\",\\\"turnoverUnits2\\\":3,\\\"fundAccrual\\\":0}},\\\"priceReasons\\\":[]}\",\"quotedPrice\":1,\"quotedNetPrice\":1}]",
+      "otherQuotesAfter": "[{\"offer\":\"{\\\"offerId\\\":\\\"OFFER_00088\\\",\\\"batchId\\\":\\\"DEBUG_0e335b867695481682de6c73ec725d86/STAGE_08/SHOP/consumable\\\",\\\"category\\\":\\\"consumable\\\",\\\"contentId\\\":\\\"I01\\\",\\\"basePrice\\\":2,\\\"sold\\\":false,\\\"die\\\":{\\\"dieId\\\":\\\"\\\",\\\"createdSerial\\\":0,\\\"lifetime\\\":\\\"\\\",\\\"createdStageId\\\":\\\"\\\",\\\"faces\\\":[],\\\"isGlass\\\":false,\\\"dataRevision\\\":0},\\\"controller\\\":{\\\"instanceId\\\":\\\"\\\",\\\"definitionId\\\":\\\"\\\",\\\"enchantmentId\\\":\\\"none\\\",\\\"acquiredSerial\\\":0,\\\"alive\\\":true,\\\"state\\\":{\\\"activeColor\\\":\\\"\\\",\\\"turnoverUnits2\\\":3,\\\"fundAccrual\\\":0}},\\\"priceReasons\\\":[]}\",\"quotedPrice\":2,\"quotedNetPrice\":2},{\"offer\":\"{\\\"offerId\\\":\\\"OFFER_00089\\\",\\\"batchId\\\":\\\"DEBUG_0e335b867695481682de6c73ec725d86/STAGE_08/SHOP/consumable\\\",\\\"category\\\":\\\"consumable\\\",\\\"contentId\\\":\\\"I03\\\",\\\"basePrice\\\":3,\\\"sold\\\":false,\\\"die\\\":{\\\"dieId\\\":\\\"\\\",\\\"createdSerial\\\":0,\\\"lifetime\\\":\\\"\\\",\\\"createdStageId\\\":\\\"\\\",\\\"faces\\\":[],\\\"isGlass\\\":false,\\\"dataRevision\\\":0},\\\"controller\\\":{\\\"instanceId\\\":\\\"\\\",\\\"definitionId\\\":\\\"\\\",\\\"enchantmentId\\\":\\\"none\\\",\\\"acquiredSerial\\\":0,\\\"alive\\\":true,\\\"state\\\":{\\\"activeColor\\\":\\\"\\\",\\\"turnoverUnits2\\\":3,\\\"fundAccrual\\\":0}},\\\"priceReasons\\\":[]}\",\"quotedPrice\":3,\"quotedNetPrice\":3},{\"offer\":\"{\\\"offerId\\\":\\\"OFFER_00090\\\",\\\"batchId\\\":\\\"DEBUG_0e335b867695481682de6c73ec725d86/STAGE_08/SHOP/die_upgrade\\\",\\\"category\\\":\\\"die_upgrade\\\",\\\"contentId\\\":\\\"U06\\\",\\\"basePrice\\\":2,\\\"sold\\\":false,\\\"die\\\":{\\\"dieId\\\":\\\"\\\",\\\"createdSerial\\\":0,\\\"lifetime\\\":\\\"\\\",\\\"createdStageId\\\":\\\"\\\",\\\"faces\\\":[],\\\"isGlass\\\":false,\\\"dataRevision\\\":0},\\\"controller\\\":{\\\"instanceId\\\":\\\"\\\",\\\"definitionId\\\":\\\"\\\",\\\"enchantmentId\\\":\\\"none\\\",\\\"acquiredSerial\\\":0,\\\"alive\\\":true,\\\"state\\\":{\\\"activeColor\\\":\\\"\\\",\\\"turnoverUnits2\\\":3,\\\"fundAccrual\\\":0}},\\\"priceReasons\\\":[]}\",\"quotedPrice\":2,\"quotedNetPrice\":2},{\"offer\":\"{\\\"offerId\\\":\\\"OFFER_00091\\\",\\\"batchId\\\":\\\"DEBUG_0e335b867695481682de6c73ec725d86/STAGE_08/SHOP/die_upgrade\\\",\\\"category\\\":\\\"die_upgrade\\\",\\\"contentId\\\":\\\"U07\\\",\\\"basePrice\\\":1,\\\"sold\\\":false,\\\"die\\\":{\\\"dieId\\\":\\\"\\\",\\\"createdSerial\\\":0,\\\"lifetime\\\":\\\"\\\",\\\"createdStageId\\\":\\\"\\\",\\\"faces\\\":[],\\\"isGlass\\\":false,\\\"dataRevision\\\":0},\\\"controller\\\":{\\\"instanceId\\\":\\\"\\\",\\\"definitionId\\\":\\\"\\\",\\\"enchantmentId\\\":\\\"none\\\",\\\"acquiredSerial\\\":0,\\\"alive\\\":true,\\\"state\\\":{\\\"activeColor\\\":\\\"\\\",\\\"turnoverUnits2\\\":3,\\\"fundAccrual\\\":0}},\\\"priceReasons\\\":[]}\",\"quotedPrice\":1,\"quotedNetPrice\":1},{\"offer\":\"{\\\"offerId\\\":\\\"OFFER_00092\\\",\\\"batchId\\\":\\\"DEBUG_0e335b867695481682de6c73ec725d86/STAGE_08/SHOP/service\\\",\\\"category\\\":\\\"service\\\",\\\"contentId\\\":\\\"O04\\\",\\\"basePrice\\\":1,\\\"sold\\\":false,\\\"die\\\":{\\\"dieId\\\":\\\"\\\",\\\"createdSerial\\\":0,\\\"lifetime\\\":\\\"\\\",\\\"createdStageId\\\":\\\"\\\",\\\"faces\\\":[],\\\"isGlass\\\":false,\\\"dataRevision\\\":0},\\\"controller\\\":{\\\"instanceId\\\":\\\"\\\",\\\"definitionId\\\":\\\"\\\",\\\"enchantmentId\\\":\\\"none\\\",\\\"acquiredSerial\\\":0,\\\"alive\\\":true,\\\"state\\\":{\\\"activeColor\\\":\\\"\\\",\\\"turnoverUnits2\\\":3,\\\"fundAccrual\\\":0}},\\\"priceReasons\\\":[]}\",\"quotedPrice\":1,\"quotedNetPrice\":1}]",
+      "shopRngBefore": 3192581142,
+      "shopRngAfter": 866094681,
+      "diskMatches": true
+    },
+    {
+      "charged": 7,
+      "nextPrice": 9,
+      "beforeGold": 992,
+      "afterGold": 985,
+      "actionSequence": 8,
+      "oldOfferIds": [
+        "OFFER_00096",
+        "OFFER_00097",
+        "OFFER_00098"
+      ],
+      "newOfferIds": [
+        "OFFER_00099",
+        "OFFER_00100",
+        "OFFER_00101"
+      ],
+      "otherQuotesBefore": "[{\"offer\":\"{\\\"offerId\\\":\\\"OFFER_00088\\\",\\\"batchId\\\":\\\"DEBUG_0e335b867695481682de6c73ec725d86/STAGE_08/SHOP/consumable\\\",\\\"category\\\":\\\"consumable\\\",\\\"contentId\\\":\\\"I01\\\",\\\"basePrice\\\":2,\\\"sold\\\":false,\\\"die\\\":{\\\"dieId\\\":\\\"\\\",\\\"createdSerial\\\":0,\\\"lifetime\\\":\\\"\\\",\\\"createdStageId\\\":\\\"\\\",\\\"faces\\\":[],\\\"isGlass\\\":false,\\\"dataRevision\\\":0},\\\"controller\\\":{\\\"instanceId\\\":\\\"\\\",\\\"definitionId\\\":\\\"\\\",\\\"enchantmentId\\\":\\\"none\\\",\\\"acquiredSerial\\\":0,\\\"alive\\\":true,\\\"state\\\":{\\\"activeColor\\\":\\\"\\\",\\\"turnoverUnits2\\\":3,\\\"fundAccrual\\\":0}},\\\"priceReasons\\\":[]}\",\"quotedPrice\":2,\"quotedNetPrice\":2},{\"offer\":\"{\\\"offerId\\\":\\\"OFFER_00089\\\",\\\"batchId\\\":\\\"DEBUG_0e335b867695481682de6c73ec725d86/STAGE_08/SHOP/consumable\\\",\\\"category\\\":\\\"consumable\\\",\\\"contentId\\\":\\\"I03\\\",\\\"basePrice\\\":3,\\\"sold\\\":false,\\\"die\\\":{\\\"dieId\\\":\\\"\\\",\\\"createdSerial\\\":0,\\\"lifetime\\\":\\\"\\\",\\\"createdStageId\\\":\\\"\\\",\\\"faces\\\":[],\\\"isGlass\\\":false,\\\"dataRevision\\\":0},\\\"controller\\\":{\\\"instanceId\\\":\\\"\\\",\\\"definitionId\\\":\\\"\\\",\\\"enchantmentId\\\":\\\"none\\\",\\\"acquiredSerial\\\":0,\\\"alive\\\":true,\\\"state\\\":{\\\"activeColor\\\":\\\"\\\",\\\"turnoverUnits2\\\":3,\\\"fundAccrual\\\":0}},\\\"priceReasons\\\":[]}\",\"quotedPrice\":3,\"quotedNetPrice\":3},{\"offer\":\"{\\\"offerId\\\":\\\"OFFER_00090\\\",\\\"batchId\\\":\\\"DEBUG_0e335b867695481682de6c73ec725d86/STAGE_08/SHOP/die_upgrade\\\",\\\"category\\\":\\\"die_upgrade\\\",\\\"contentId\\\":\\\"U06\\\",\\\"basePrice\\\":2,\\\"sold\\\":false,\\\"die\\\":{\\\"dieId\\\":\\\"\\\",\\\"createdSerial\\\":0,\\\"lifetime\\\":\\\"\\\",\\\"createdStageId\\\":\\\"\\\",\\\"faces\\\":[],\\\"isGlass\\\":false,\\\"dataRevision\\\":0},\\\"controller\\\":{\\\"instanceId\\\":\\\"\\\",\\\"definitionId\\\":\\\"\\\",\\\"enchantmentId\\\":\\\"none\\\",\\\"acquiredSerial\\\":0,\\\"alive\\\":true,\\\"state\\\":{\\\"activeColor\\\":\\\"\\\",\\\"turnoverUnits2\\\":3,\\\"fundAccrual\\\":0}},\\\"priceReasons\\\":[]}\",\"quotedPrice\":2,\"quotedNetPrice\":2},{\"offer\":\"{\\\"offerId\\\":\\\"OFFER_00091\\\",\\\"batchId\\\":\\\"DEBUG_0e335b867695481682de6c73ec725d86/STAGE_08/SHOP/die_upgrade\\\",\\\"category\\\":\\\"die_upgrade\\\",\\\"contentId\\\":\\\"U07\\\",\\\"basePrice\\\":1,\\\"sold\\\":false,\\\"die\\\":{\\\"dieId\\\":\\\"\\\",\\\"createdSerial\\\":0,\\\"lifetime\\\":\\\"\\\",\\\"createdStageId\\\":\\\"\\\",\\\"faces\\\":[],\\\"isGlass\\\":false,\\\"dataRevision\\\":0},\\\"controller\\\":{\\\"instanceId\\\":\\\"\\\",\\\"definitionId\\\":\\\"\\\",\\\"enchantmentId\\\":\\\"none\\\",\\\"acquiredSerial\\\":0,\\\"alive\\\":true,\\\"state\\\":{\\\"activeColor\\\":\\\"\\\",\\\"turnoverUnits2\\\":3,\\\"fundAccrual\\\":0}},\\\"priceReasons\\\":[]}\",\"quotedPrice\":1,\"quotedNetPrice\":1},{\"offer\":\"{\\\"offerId\\\":\\\"OFFER_00092\\\",\\\"batchId\\\":\\\"DEBUG_0e335b867695481682de6c73ec725d86/STAGE_08/SHOP/service\\\",\\\"category\\\":\\\"service\\\",\\\"contentId\\\":\\\"O04\\\",\\\"basePrice\\\":1,\\\"sold\\\":false,\\\"die\\\":{\\\"dieId\\\":\\\"\\\",\\\"createdSerial\\\":0,\\\"lifetime\\\":\\\"\\\",\\\"createdStageId\\\":\\\"\\\",\\\"faces\\\":[],\\\"isGlass\\\":false,\\\"dataRevision\\\":0},\\\"controller\\\":{\\\"instanceId\\\":\\\"\\\",\\\"definitionId\\\":\\\"\\\",\\\"enchantmentId\\\":\\\"none\\\",\\\"acquiredSerial\\\":0,\\\"alive\\\":true,\\\"state\\\":{\\\"activeColor\\\":\\\"\\\",\\\"turnoverUnits2\\\":3,\\\"fundAccrual\\\":0}},\\\"priceReasons\\\":[]}\",\"quotedPrice\":1,\"quotedNetPrice\":1}]",
+      "otherQuotesAfter": "[{\"offer\":\"{\\\"offerId\\\":\\\"OFFER_00088\\\",\\\"batchId\\\":\\\"DEBUG_0e335b867695481682de6c73ec725d86/STAGE_08/SHOP/consumable\\\",\\\"category\\\":\\\"consumable\\\",\\\"contentId\\\":\\\"I01\\\",\\\"basePrice\\\":2,\\\"sold\\\":false,\\\"die\\\":{\\\"dieId\\\":\\\"\\\",\\\"createdSerial\\\":0,\\\"lifetime\\\":\\\"\\\",\\\"createdStageId\\\":\\\"\\\",\\\"faces\\\":[],\\\"isGlass\\\":false,\\\"dataRevision\\\":0},\\\"controller\\\":{\\\"instanceId\\\":\\\"\\\",\\\"definitionId\\\":\\\"\\\",\\\"enchantmentId\\\":\\\"none\\\",\\\"acquiredSerial\\\":0,\\\"alive\\\":true,\\\"state\\\":{\\\"activeColor\\\":\\\"\\\",\\\"turnoverUnits2\\\":3,\\\"fundAccrual\\\":0}},\\\"priceReasons\\\":[]}\",\"quotedPrice\":2,\"quotedNetPrice\":2},{\"offer\":\"{\\\"offerId\\\":\\\"OFFER_00089\\\",\\\"batchId\\\":\\\"DEBUG_0e335b867695481682de6c73ec725d86/STAGE_08/SHOP/consumable\\\",\\\"category\\\":\\\"consumable\\\",\\\"contentId\\\":\\\"I03\\\",\\\"basePrice\\\":3,\\\"sold\\\":false,\\\"die\\\":{\\\"dieId\\\":\\\"\\\",\\\"createdSerial\\\":0,\\\"lifetime\\\":\\\"\\\",\\\"createdStageId\\\":\\\"\\\",\\\"faces\\\":[],\\\"isGlass\\\":false,\\\"dataRevision\\\":0},\\\"controller\\\":{\\\"instanceId\\\":\\\"\\\",\\\"definitionId\\\":\\\"\\\",\\\"enchantmentId\\\":\\\"none\\\",\\\"acquiredSerial\\\":0,\\\"alive\\\":true,\\\"state\\\":{\\\"activeColor\\\":\\\"\\\",\\\"turnoverUnits2\\\":3,\\\"fundAccrual\\\":0}},\\\"priceReasons\\\":[]}\",\"quotedPrice\":3,\"quotedNetPrice\":3},{\"offer\":\"{\\\"offerId\\\":\\\"OFFER_00090\\\",\\\"batchId\\\":\\\"DEBUG_0e335b867695481682de6c73ec725d86/STAGE_08/SHOP/die_upgrade\\\",\\\"category\\\":\\\"die_upgrade\\\",\\\"contentId\\\":\\\"U06\\\",\\\"basePrice\\\":2,\\\"sold\\\":false,\\\"die\\\":{\\\"dieId\\\":\\\"\\\",\\\"createdSerial\\\":0,\\\"lifetime\\\":\\\"\\\",\\\"createdStageId\\\":\\\"\\\",\\\"faces\\\":[],\\\"isGlass\\\":false,\\\"dataRevision\\\":0},\\\"controller\\\":{\\\"instanceId\\\":\\\"\\\",\\\"definitionId\\\":\\\"\\\",\\\"enchantmentId\\\":\\\"none\\\",\\\"acquiredSerial\\\":0,\\\"alive\\\":true,\\\"state\\\":{\\\"activeColor\\\":\\\"\\\",\\\"turnoverUnits2\\\":3,\\\"fundAccrual\\\":0}},\\\"priceReasons\\\":[]}\",\"quotedPrice\":2,\"quotedNetPrice\":2},{\"offer\":\"{\\\"offerId\\\":\\\"OFFER_00091\\\",\\\"batchId\\\":\\\"DEBUG_0e335b867695481682de6c73ec725d86/STAGE_08/SHOP/die_upgrade\\\",\\\"category\\\":\\\"die_upgrade\\\",\\\"contentId\\\":\\\"U07\\\",\\\"basePrice\\\":1,\\\"sold\\\":false,\\\"die\\\":{\\\"dieId\\\":\\\"\\\",\\\"createdSerial\\\":0,\\\"lifetime\\\":\\\"\\\",\\\"createdStageId\\\":\\\"\\\",\\\"faces\\\":[],\\\"isGlass\\\":false,\\\"dataRevision\\\":0},\\\"controller\\\":{\\\"instanceId\\\":\\\"\\\",\\\"definitionId\\\":\\\"\\\",\\\"enchantmentId\\\":\\\"none\\\",\\\"acquiredSerial\\\":0,\\\"alive\\\":true,\\\"state\\\":{\\\"activeColor\\\":\\\"\\\",\\\"turnoverUnits2\\\":3,\\\"fundAccrual\\\":0}},\\\"priceReasons\\\":[]}\",\"quotedPrice\":1,\"quotedNetPrice\":1},{\"offer\":\"{\\\"offerId\\\":\\\"OFFER_00092\\\",\\\"batchId\\\":\\\"DEBUG_0e335b867695481682de6c73ec725d86/STAGE_08/SHOP/service\\\",\\\"category\\\":\\\"service\\\",\\\"contentId\\\":\\\"O04\\\",\\\"basePrice\\\":1,\\\"sold\\\":false,\\\"die\\\":{\\\"dieId\\\":\\\"\\\",\\\"createdSerial\\\":0,\\\"lifetime\\\":\\\"\\\",\\\"createdStageId\\\":\\\"\\\",\\\"faces\\\":[],\\\"isGlass\\\":false,\\\"dataRevision\\\":0},\\\"controller\\\":{\\\"instanceId\\\":\\\"\\\",\\\"definitionId\\\":\\\"\\\",\\\"enchantmentId\\\":\\\"none\\\",\\\"acquiredSerial\\\":0,\\\"alive\\\":true,\\\"state\\\":{\\\"activeColor\\\":\\\"\\\",\\\"turnoverUnits2\\\":3,\\\"fundAccrual\\\":0}},\\\"priceReasons\\\":[]}\",\"quotedPrice\":1,\"quotedNetPrice\":1}]",
+      "shopRngBefore": 866094681,
+      "shopRngAfter": 2399743894,
+      "diskMatches": true
+    },
+    {
+      "charged": 0,
+      "nextPrice": 5,
+      "beforeGold": 994,
+      "afterGold": 994,
+      "actionSequence": 7,
+      "oldOfferIds": [
+        "OFFER_00085",
+        "OFFER_00086",
+        "OFFER_00087"
+      ],
+      "newOfferIds": [
+        "OFFER_00094",
+        "OFFER_00095",
+        "OFFER_00096"
+      ],
+      "otherQuotesBefore": "[{\"offer\":\"{\\\"offerId\\\":\\\"OFFER_00088\\\",\\\"batchId\\\":\\\"DEBUG_0e335b867695481682de6c73ec725d86/STAGE_08/SHOP/consumable\\\",\\\"category\\\":\\\"consumable\\\",\\\"contentId\\\":\\\"I01\\\",\\\"basePrice\\\":2,\\\"sold\\\":false,\\\"die\\\":{\\\"dieId\\\":\\\"\\\",\\\"createdSerial\\\":0,\\\"lifetime\\\":\\\"\\\",\\\"createdStageId\\\":\\\"\\\",\\\"faces\\\":[],\\\"isGlass\\\":false,\\\"dataRevision\\\":0},\\\"controller\\\":{\\\"instanceId\\\":\\\"\\\",\\\"definitionId\\\":\\\"\\\",\\\"enchantmentId\\\":\\\"none\\\",\\\"acquiredSerial\\\":0,\\\"alive\\\":true,\\\"state\\\":{\\\"activeColor\\\":\\\"\\\",\\\"turnoverUnits2\\\":3,\\\"fundAccrual\\\":0}},\\\"priceReasons\\\":[]}\",\"quotedPrice\":2,\"quotedNetPrice\":2},{\"offer\":\"{\\\"offerId\\\":\\\"OFFER_00089\\\",\\\"batchId\\\":\\\"DEBUG_0e335b867695481682de6c73ec725d86/STAGE_08/SHOP/consumable\\\",\\\"category\\\":\\\"consumable\\\",\\\"contentId\\\":\\\"I03\\\",\\\"basePrice\\\":3,\\\"sold\\\":false,\\\"die\\\":{\\\"dieId\\\":\\\"\\\",\\\"createdSerial\\\":0,\\\"lifetime\\\":\\\"\\\",\\\"createdStageId\\\":\\\"\\\",\\\"faces\\\":[],\\\"isGlass\\\":false,\\\"dataRevision\\\":0},\\\"controller\\\":{\\\"instanceId\\\":\\\"\\\",\\\"definitionId\\\":\\\"\\\",\\\"enchantmentId\\\":\\\"none\\\",\\\"acquiredSerial\\\":0,\\\"alive\\\":true,\\\"state\\\":{\\\"activeColor\\\":\\\"\\\",\\\"turnoverUnits2\\\":3,\\\"fundAccrual\\\":0}},\\\"priceReasons\\\":[]}\",\"quotedPrice\":3,\"quotedNetPrice\":3},{\"offer\":\"{\\\"offerId\\\":\\\"OFFER_00090\\\",\\\"batchId\\\":\\\"DEBUG_0e335b867695481682de6c73ec725d86/STAGE_08/SHOP/die_upgrade\\\",\\\"category\\\":\\\"die_upgrade\\\",\\\"contentId\\\":\\\"U06\\\",\\\"basePrice\\\":2,\\\"sold\\\":false,\\\"die\\\":{\\\"dieId\\\":\\\"\\\",\\\"createdSerial\\\":0,\\\"lifetime\\\":\\\"\\\",\\\"createdStageId\\\":\\\"\\\",\\\"faces\\\":[],\\\"isGlass\\\":false,\\\"dataRevision\\\":0},\\\"controller\\\":{\\\"instanceId\\\":\\\"\\\",\\\"definitionId\\\":\\\"\\\",\\\"enchantmentId\\\":\\\"none\\\",\\\"acquiredSerial\\\":0,\\\"alive\\\":true,\\\"state\\\":{\\\"activeColor\\\":\\\"\\\",\\\"turnoverUnits2\\\":3,\\\"fundAccrual\\\":0}},\\\"priceReasons\\\":[]}\",\"quotedPrice\":2,\"quotedNetPrice\":2},{\"offer\":\"{\\\"offerId\\\":\\\"OFFER_00091\\\",\\\"batchId\\\":\\\"DEBUG_0e335b867695481682de6c73ec725d86/STAGE_08/SHOP/die_upgrade\\\",\\\"category\\\":\\\"die_upgrade\\\",\\\"contentId\\\":\\\"U07\\\",\\\"basePrice\\\":1,\\\"sold\\\":false,\\\"die\\\":{\\\"dieId\\\":\\\"\\\",\\\"createdSerial\\\":0,\\\"lifetime\\\":\\\"\\\",\\\"createdStageId\\\":\\\"\\\",\\\"faces\\\":[],\\\"isGlass\\\":false,\\\"dataRevision\\\":0},\\\"controller\\\":{\\\"instanceId\\\":\\\"\\\",\\\"definitionId\\\":\\\"\\\",\\\"enchantmentId\\\":\\\"none\\\",\\\"acquiredSerial\\\":0,\\\"alive\\\":true,\\\"state\\\":{\\\"activeColor\\\":\\\"\\\",\\\"turnoverUnits2\\\":3,\\\"fundAccrual\\\":0}},\\\"priceReasons\\\":[]}\",\"quotedPrice\":1,\"quotedNetPrice\":1},{\"offer\":\"{\\\"offerId\\\":\\\"OFFER_00092\\\",\\\"batchId\\\":\\\"DEBUG_0e335b867695481682de6c73ec725d86/STAGE_08/SHOP/service\\\",\\\"category\\\":\\\"service\\\",\\\"contentId\\\":\\\"O04\\\",\\\"basePrice\\\":1,\\\"sold\\\":false,\\\"die\\\":{\\\"dieId\\\":\\\"\\\",\\\"createdSerial\\\":0,\\\"lifetime\\\":\\\"\\\",\\\"createdStageId\\\":\\\"\\\",\\\"faces\\\":[],\\\"isGlass\\\":false,\\\"dataRevision\\\":0},\\\"controller\\\":{\\\"instanceId\\\":\\\"\\\",\\\"definitionId\\\":\\\"\\\",\\\"enchantmentId\\\":\\\"none\\\",\\\"acquiredSerial\\\":0,\\\"alive\\\":true,\\\"state\\\":{\\\"activeColor\\\":\\\"\\\",\\\"turnoverUnits2\\\":3,\\\"fundAccrual\\\":0}},\\\"priceReasons\\\":[]}\",\"quotedPrice\":1,\"quotedNetPrice\":1},{\"offer\":\"{\\\"offerId\\\":\\\"OFFER_00093\\\",\\\"batchId\\\":\\\"DEBUG_0e335b867695481682de6c73ec725d86/STAGE_08/SHOP/service\\\",\\\"category\\\":\\\"service\\\",\\\"contentId\\\":\\\"O07\\\",\\\"basePrice\\\":6,\\\"sold\\\":true,\\\"die\\\":{\\\"dieId\\\":\\\"\\\",\\\"createdSerial\\\":0,\\\"lifetime\\\":\\\"\\\",\\\"createdStageId\\\":\\\"\\\",\\\"faces\\\":[],\\\"isGlass\\\":false,\\\"dataRevision\\\":0},\\\"controller\\\":{\\\"instanceId\\\":\\\"\\\",\\\"definitionId\\\":\\\"\\\",\\\"enchantmentId\\\":\\\"none\\\",\\\"acquiredSerial\\\":0,\\\"alive\\\":true,\\\"state\\\":{\\\"activeColor\\\":\\\"\\\",\\\"turnoverUnits2\\\":3,\\\"fundAccrual\\\":0}},\\\"priceReasons\\\":[]}\",\"quotedPrice\":6,\"quotedNetPrice\":6}]",
+      "otherQuotesAfter": "[{\"offer\":\"{\\\"offerId\\\":\\\"OFFER_00088\\\",\\\"batchId\\\":\\\"DEBUG_0e335b867695481682de6c73ec725d86/STAGE_08/SHOP/consumable\\\",\\\"category\\\":\\\"consumable\\\",\\\"contentId\\\":\\\"I01\\\",\\\"basePrice\\\":2,\\\"sold\\\":false,\\\"die\\\":{\\\"dieId\\\":\\\"\\\",\\\"createdSerial\\\":0,\\\"lifetime\\\":\\\"\\\",\\\"createdStageId\\\":\\\"\\\",\\\"faces\\\":[],\\\"isGlass\\\":false,\\\"dataRevision\\\":0},\\\"controller\\\":{\\\"instanceId\\\":\\\"\\\",\\\"definitionId\\\":\\\"\\\",\\\"enchantmentId\\\":\\\"none\\\",\\\"acquiredSerial\\\":0,\\\"alive\\\":true,\\\"state\\\":{\\\"activeColor\\\":\\\"\\\",\\\"turnoverUnits2\\\":3,\\\"fundAccrual\\\":0}},\\\"priceReasons\\\":[]}\",\"quotedPrice\":2,\"quotedNetPrice\":2},{\"offer\":\"{\\\"offerId\\\":\\\"OFFER_00089\\\",\\\"batchId\\\":\\\"DEBUG_0e335b867695481682de6c73ec725d86/STAGE_08/SHOP/consumable\\\",\\\"category\\\":\\\"consumable\\\",\\\"contentId\\\":\\\"I03\\\",\\\"basePrice\\\":3,\\\"sold\\\":false,\\\"die\\\":{\\\"dieId\\\":\\\"\\\",\\\"createdSerial\\\":0,\\\"lifetime\\\":\\\"\\\",\\\"createdStageId\\\":\\\"\\\",\\\"faces\\\":[],\\\"isGlass\\\":false,\\\"dataRevision\\\":0},\\\"controller\\\":{\\\"instanceId\\\":\\\"\\\",\\\"definitionId\\\":\\\"\\\",\\\"enchantmentId\\\":\\\"none\\\",\\\"acquiredSerial\\\":0,\\\"alive\\\":true,\\\"state\\\":{\\\"activeColor\\\":\\\"\\\",\\\"turnoverUnits2\\\":3,\\\"fundAccrual\\\":0}},\\\"priceReasons\\\":[]}\",\"quotedPrice\":3,\"quotedNetPrice\":3},{\"offer\":\"{\\\"offerId\\\":\\\"OFFER_00090\\\",\\\"batchId\\\":\\\"DEBUG_0e335b867695481682de6c73ec725d86/STAGE_08/SHOP/die_upgrade\\\",\\\"category\\\":\\\"die_upgrade\\\",\\\"contentId\\\":\\\"U06\\\",\\\"basePrice\\\":2,\\\"sold\\\":false,\\\"die\\\":{\\\"dieId\\\":\\\"\\\",\\\"createdSerial\\\":0,\\\"lifetime\\\":\\\"\\\",\\\"createdStageId\\\":\\\"\\\",\\\"faces\\\":[],\\\"isGlass\\\":false,\\\"dataRevision\\\":0},\\\"controller\\\":{\\\"instanceId\\\":\\\"\\\",\\\"definitionId\\\":\\\"\\\",\\\"enchantmentId\\\":\\\"none\\\",\\\"acquiredSerial\\\":0,\\\"alive\\\":true,\\\"state\\\":{\\\"activeColor\\\":\\\"\\\",\\\"turnoverUnits2\\\":3,\\\"fundAccrual\\\":0}},\\\"priceReasons\\\":[]}\",\"quotedPrice\":2,\"quotedNetPrice\":2},{\"offer\":\"{\\\"offerId\\\":\\\"OFFER_00091\\\",\\\"batchId\\\":\\\"DEBUG_0e335b867695481682de6c73ec725d86/STAGE_08/SHOP/die_upgrade\\\",\\\"category\\\":\\\"die_upgrade\\\",\\\"contentId\\\":\\\"U07\\\",\\\"basePrice\\\":1,\\\"sold\\\":false,\\\"die\\\":{\\\"dieId\\\":\\\"\\\",\\\"createdSerial\\\":0,\\\"lifetime\\\":\\\"\\\",\\\"createdStageId\\\":\\\"\\\",\\\"faces\\\":[],\\\"isGlass\\\":false,\\\"dataRevision\\\":0},\\\"controller\\\":{\\\"instanceId\\\":\\\"\\\",\\\"definitionId\\\":\\\"\\\",\\\"enchantmentId\\\":\\\"none\\\",\\\"acquiredSerial\\\":0,\\\"alive\\\":true,\\\"state\\\":{\\\"activeColor\\\":\\\"\\\",\\\"turnoverUnits2\\\":3,\\\"fundAccrual\\\":0}},\\\"priceReasons\\\":[]}\",\"quotedPrice\":1,\"quotedNetPrice\":1},{\"offer\":\"{\\\"offerId\\\":\\\"OFFER_00092\\\",\\\"batchId\\\":\\\"DEBUG_0e335b867695481682de6c73ec725d86/STAGE_08/SHOP/service\\\",\\\"category\\\":\\\"service\\\",\\\"contentId\\\":\\\"O04\\\",\\\"basePrice\\\":1,\\\"sold\\\":false,\\\"die\\\":{\\\"dieId\\\":\\\"\\\",\\\"createdSerial\\\":0,\\\"lifetime\\\":\\\"\\\",\\\"createdStageId\\\":\\\"\\\",\\\"faces\\\":[],\\\"isGlass\\\":false,\\\"dataRevision\\\":0},\\\"controller\\\":{\\\"instanceId\\\":\\\"\\\",\\\"definitionId\\\":\\\"\\\",\\\"enchantmentId\\\":\\\"none\\\",\\\"acquiredSerial\\\":0,\\\"alive\\\":true,\\\"state\\\":{\\\"activeColor\\\":\\\"\\\",\\\"turnoverUnits2\\\":3,\\\"fundAccrual\\\":0}},\\\"priceReasons\\\":[]}\",\"quotedPrice\":1,\"quotedNetPrice\":1},{\"offer\":\"{\\\"offerId\\\":\\\"OFFER_00093\\\",\\\"batchId\\\":\\\"DEBUG_0e335b867695481682de6c73ec725d86/STAGE_08/SHOP/service\\\",\\\"category\\\":\\\"service\\\",\\\"contentId\\\":\\\"O07\\\",\\\"basePrice\\\":6,\\\"sold\\\":true,\\\"die\\\":{\\\"dieId\\\":\\\"\\\",\\\"createdSerial\\\":0,\\\"lifetime\\\":\\\"\\\",\\\"createdStageId\\\":\\\"\\\",\\\"faces\\\":[],\\\"isGlass\\\":false,\\\"dataRevision\\\":0},\\\"controller\\\":{\\\"instanceId\\\":\\\"\\\",\\\"definitionId\\\":\\\"\\\",\\\"enchantmentId\\\":\\\"none\\\",\\\"acquiredSerial\\\":0,\\\"alive\\\":true,\\\"state\\\":{\\\"activeColor\\\":\\\"\\\",\\\"turnoverUnits2\\\":3,\\\"fundAccrual\\\":0}},\\\"priceReasons\\\":[]}\",\"quotedPrice\":6,\"quotedNetPrice\":6}]",
+      "shopRngBefore": 475552232,
+      "shopRngAfter": 3192581142,
+      "diskMatches": true
+    },
+    {
+      "charged": 5,
+      "nextPrice": 7,
+      "beforeGold": 994,
+      "afterGold": 989,
+      "actionSequence": 8,
+      "oldOfferIds": [
+        "OFFER_00094",
+        "OFFER_00095",
+        "OFFER_00096"
+      ],
+      "newOfferIds": [
+        "OFFER_00097",
+        "OFFER_00098",
+        "OFFER_00099"
+      ],
+      "otherQuotesBefore": "[{\"offer\":\"{\\\"offerId\\\":\\\"OFFER_00088\\\",\\\"batchId\\\":\\\"DEBUG_0e335b867695481682de6c73ec725d86/STAGE_08/SHOP/consumable\\\",\\\"category\\\":\\\"consumable\\\",\\\"contentId\\\":\\\"I01\\\",\\\"basePrice\\\":2,\\\"sold\\\":false,\\\"die\\\":{\\\"dieId\\\":\\\"\\\",\\\"createdSerial\\\":0,\\\"lifetime\\\":\\\"\\\",\\\"createdStageId\\\":\\\"\\\",\\\"faces\\\":[],\\\"isGlass\\\":false,\\\"dataRevision\\\":0},\\\"controller\\\":{\\\"instanceId\\\":\\\"\\\",\\\"definitionId\\\":\\\"\\\",\\\"enchantmentId\\\":\\\"none\\\",\\\"acquiredSerial\\\":0,\\\"alive\\\":true,\\\"state\\\":{\\\"activeColor\\\":\\\"\\\",\\\"turnoverUnits2\\\":3,\\\"fundAccrual\\\":0}},\\\"priceReasons\\\":[]}\",\"quotedPrice\":2,\"quotedNetPrice\":2},{\"offer\":\"{\\\"offerId\\\":\\\"OFFER_00089\\\",\\\"batchId\\\":\\\"DEBUG_0e335b867695481682de6c73ec725d86/STAGE_08/SHOP/consumable\\\",\\\"category\\\":\\\"consumable\\\",\\\"contentId\\\":\\\"I03\\\",\\\"basePrice\\\":3,\\\"sold\\\":false,\\\"die\\\":{\\\"dieId\\\":\\\"\\\",\\\"createdSerial\\\":0,\\\"lifetime\\\":\\\"\\\",\\\"createdStageId\\\":\\\"\\\",\\\"faces\\\":[],\\\"isGlass\\\":false,\\\"dataRevision\\\":0},\\\"controller\\\":{\\\"instanceId\\\":\\\"\\\",\\\"definitionId\\\":\\\"\\\",\\\"enchantmentId\\\":\\\"none\\\",\\\"acquiredSerial\\\":0,\\\"alive\\\":true,\\\"state\\\":{\\\"activeColor\\\":\\\"\\\",\\\"turnoverUnits2\\\":3,\\\"fundAccrual\\\":0}},\\\"priceReasons\\\":[]}\",\"quotedPrice\":3,\"quotedNetPrice\":3},{\"offer\":\"{\\\"offerId\\\":\\\"OFFER_00090\\\",\\\"batchId\\\":\\\"DEBUG_0e335b867695481682de6c73ec725d86/STAGE_08/SHOP/die_upgrade\\\",\\\"category\\\":\\\"die_upgrade\\\",\\\"contentId\\\":\\\"U06\\\",\\\"basePrice\\\":2,\\\"sold\\\":false,\\\"die\\\":{\\\"dieId\\\":\\\"\\\",\\\"createdSerial\\\":0,\\\"lifetime\\\":\\\"\\\",\\\"createdStageId\\\":\\\"\\\",\\\"faces\\\":[],\\\"isGlass\\\":false,\\\"dataRevision\\\":0},\\\"controller\\\":{\\\"instanceId\\\":\\\"\\\",\\\"definitionId\\\":\\\"\\\",\\\"enchantmentId\\\":\\\"none\\\",\\\"acquiredSerial\\\":0,\\\"alive\\\":true,\\\"state\\\":{\\\"activeColor\\\":\\\"\\\",\\\"turnoverUnits2\\\":3,\\\"fundAccrual\\\":0}},\\\"priceReasons\\\":[]}\",\"quotedPrice\":2,\"quotedNetPrice\":2},{\"offer\":\"{\\\"offerId\\\":\\\"OFFER_00091\\\",\\\"batchId\\\":\\\"DEBUG_0e335b867695481682de6c73ec725d86/STAGE_08/SHOP/die_upgrade\\\",\\\"category\\\":\\\"die_upgrade\\\",\\\"contentId\\\":\\\"U07\\\",\\\"basePrice\\\":1,\\\"sold\\\":false,\\\"die\\\":{\\\"dieId\\\":\\\"\\\",\\\"createdSerial\\\":0,\\\"lifetime\\\":\\\"\\\",\\\"createdStageId\\\":\\\"\\\",\\\"faces\\\":[],\\\"isGlass\\\":false,\\\"dataRevision\\\":0},\\\"controller\\\":{\\\"instanceId\\\":\\\"\\\",\\\"definitionId\\\":\\\"\\\",\\\"enchantmentId\\\":\\\"none\\\",\\\"acquiredSerial\\\":0,\\\"alive\\\":true,\\\"state\\\":{\\\"activeColor\\\":\\\"\\\",\\\"turnoverUnits2\\\":3,\\\"fundAccrual\\\":0}},\\\"priceReasons\\\":[]}\",\"quotedPrice\":1,\"quotedNetPrice\":1},{\"offer\":\"{\\\"offerId\\\":\\\"OFFER_00092\\\",\\\"batchId\\\":\\\"DEBUG_0e335b867695481682de6c73ec725d86/STAGE_08/SHOP/service\\\",\\\"category\\\":\\\"service\\\",\\\"contentId\\\":\\\"O04\\\",\\\"basePrice\\\":1,\\\"sold\\\":false,\\\"die\\\":{\\\"dieId\\\":\\\"\\\",\\\"createdSerial\\\":0,\\\"lifetime\\\":\\\"\\\",\\\"createdStageId\\\":\\\"\\\",\\\"faces\\\":[],\\\"isGlass\\\":false,\\\"dataRevision\\\":0},\\\"controller\\\":{\\\"instanceId\\\":\\\"\\\",\\\"definitionId\\\":\\\"\\\",\\\"enchantmentId\\\":\\\"none\\\",\\\"acquiredSerial\\\":0,\\\"alive\\\":true,\\\"state\\\":{\\\"activeColor\\\":\\\"\\\",\\\"turnoverUnits2\\\":3,\\\"fundAccrual\\\":0}},\\\"priceReasons\\\":[]}\",\"quotedPrice\":1,\"quotedNetPrice\":1},{\"offer\":\"{\\\"offerId\\\":\\\"OFFER_00093\\\",\\\"batchId\\\":\\\"DEBUG_0e335b867695481682de6c73ec725d86/STAGE_08/SHOP/service\\\",\\\"category\\\":\\\"service\\\",\\\"contentId\\\":\\\"O07\\\",\\\"basePrice\\\":6,\\\"sold\\\":true,\\\"die\\\":{\\\"dieId\\\":\\\"\\\",\\\"createdSerial\\\":0,\\\"lifetime\\\":\\\"\\\",\\\"createdStageId\\\":\\\"\\\",\\\"faces\\\":[],\\\"isGlass\\\":false,\\\"dataRevision\\\":0},\\\"controller\\\":{\\\"instanceId\\\":\\\"\\\",\\\"definitionId\\\":\\\"\\\",\\\"enchantmentId\\\":\\\"none\\\",\\\"acquiredSerial\\\":0,\\\"alive\\\":true,\\\"state\\\":{\\\"activeColor\\\":\\\"\\\",\\\"turnoverUnits2\\\":3,\\\"fundAccrual\\\":0}},\\\"priceReasons\\\":[]}\",\"quotedPrice\":6,\"quotedNetPrice\":6}]",
+      "otherQuotesAfter": "[{\"offer\":\"{\\\"offerId\\\":\\\"OFFER_00088\\\",\\\"batchId\\\":\\\"DEBUG_0e335b867695481682de6c73ec725d86/STAGE_08/SHOP/consumable\\\",\\\"category\\\":\\\"consumable\\\",\\\"contentId\\\":\\\"I01\\\",\\\"basePrice\\\":2,\\\"sold\\\":false,\\\"die\\\":{\\\"dieId\\\":\\\"\\\",\\\"createdSerial\\\":0,\\\"lifetime\\\":\\\"\\\",\\\"createdStageId\\\":\\\"\\\",\\\"faces\\\":[],\\\"isGlass\\\":false,\\\"dataRevision\\\":0},\\\"controller\\\":{\\\"instanceId\\\":\\\"\\\",\\\"definitionId\\\":\\\"\\\",\\\"enchantmentId\\\":\\\"none\\\",\\\"acquiredSerial\\\":0,\\\"alive\\\":true,\\\"state\\\":{\\\"activeColor\\\":\\\"\\\",\\\"turnoverUnits2\\\":3,\\\"fundAccrual\\\":0}},\\\"priceReasons\\\":[]}\",\"quotedPrice\":2,\"quotedNetPrice\":2},{\"offer\":\"{\\\"offerId\\\":\\\"OFFER_00089\\\",\\\"batchId\\\":\\\"DEBUG_0e335b867695481682de6c73ec725d86/STAGE_08/SHOP/consumable\\\",\\\"category\\\":\\\"consumable\\\",\\\"contentId\\\":\\\"I03\\\",\\\"basePrice\\\":3,\\\"sold\\\":false,\\\"die\\\":{\\\"dieId\\\":\\\"\\\",\\\"createdSerial\\\":0,\\\"lifetime\\\":\\\"\\\",\\\"createdStageId\\\":\\\"\\\",\\\"faces\\\":[],\\\"isGlass\\\":false,\\\"dataRevision\\\":0},\\\"controller\\\":{\\\"instanceId\\\":\\\"\\\",\\\"definitionId\\\":\\\"\\\",\\\"enchantmentId\\\":\\\"none\\\",\\\"acquiredSerial\\\":0,\\\"alive\\\":true,\\\"state\\\":{\\\"activeColor\\\":\\\"\\\",\\\"turnoverUnits2\\\":3,\\\"fundAccrual\\\":0}},\\\"priceReasons\\\":[]}\",\"quotedPrice\":3,\"quotedNetPrice\":3},{\"offer\":\"{\\\"offerId\\\":\\\"OFFER_00090\\\",\\\"batchId\\\":\\\"DEBUG_0e335b867695481682de6c73ec725d86/STAGE_08/SHOP/die_upgrade\\\",\\\"category\\\":\\\"die_upgrade\\\",\\\"contentId\\\":\\\"U06\\\",\\\"basePrice\\\":2,\\\"sold\\\":false,\\\"die\\\":{\\\"dieId\\\":\\\"\\\",\\\"createdSerial\\\":0,\\\"lifetime\\\":\\\"\\\",\\\"createdStageId\\\":\\\"\\\",\\\"faces\\\":[],\\\"isGlass\\\":false,\\\"dataRevision\\\":0},\\\"controller\\\":{\\\"instanceId\\\":\\\"\\\",\\\"definitionId\\\":\\\"\\\",\\\"enchantmentId\\\":\\\"none\\\",\\\"acquiredSerial\\\":0,\\\"alive\\\":true,\\\"state\\\":{\\\"activeColor\\\":\\\"\\\",\\\"turnoverUnits2\\\":3,\\\"fundAccrual\\\":0}},\\\"priceReasons\\\":[]}\",\"quotedPrice\":2,\"quotedNetPrice\":2},{\"offer\":\"{\\\"offerId\\\":\\\"OFFER_00091\\\",\\\"batchId\\\":\\\"DEBUG_0e335b867695481682de6c73ec725d86/STAGE_08/SHOP/die_upgrade\\\",\\\"category\\\":\\\"die_upgrade\\\",\\\"contentId\\\":\\\"U07\\\",\\\"basePrice\\\":1,\\\"sold\\\":false,\\\"die\\\":{\\\"dieId\\\":\\\"\\\",\\\"createdSerial\\\":0,\\\"lifetime\\\":\\\"\\\",\\\"createdStageId\\\":\\\"\\\",\\\"faces\\\":[],\\\"isGlass\\\":false,\\\"dataRevision\\\":0},\\\"controller\\\":{\\\"instanceId\\\":\\\"\\\",\\\"definitionId\\\":\\\"\\\",\\\"enchantmentId\\\":\\\"none\\\",\\\"acquiredSerial\\\":0,\\\"alive\\\":true,\\\"state\\\":{\\\"activeColor\\\":\\\"\\\",\\\"turnoverUnits2\\\":3,\\\"fundAccrual\\\":0}},\\\"priceReasons\\\":[]}\",\"quotedPrice\":1,\"quotedNetPrice\":1},{\"offer\":\"{\\\"offerId\\\":\\\"OFFER_00092\\\",\\\"batchId\\\":\\\"DEBUG_0e335b867695481682de6c73ec725d86/STAGE_08/SHOP/service\\\",\\\"category\\\":\\\"service\\\",\\\"contentId\\\":\\\"O04\\\",\\\"basePrice\\\":1,\\\"sold\\\":false,\\\"die\\\":{\\\"dieId\\\":\\\"\\\",\\\"createdSerial\\\":0,\\\"lifetime\\\":\\\"\\\",\\\"createdStageId\\\":\\\"\\\",\\\"faces\\\":[],\\\"isGlass\\\":false,\\\"dataRevision\\\":0},\\\"controller\\\":{\\\"instanceId\\\":\\\"\\\",\\\"definitionId\\\":\\\"\\\",\\\"enchantmentId\\\":\\\"none\\\",\\\"acquiredSerial\\\":0,\\\"alive\\\":true,\\\"state\\\":{\\\"activeColor\\\":\\\"\\\",\\\"turnoverUnits2\\\":3,\\\"fundAccrual\\\":0}},\\\"priceReasons\\\":[]}\",\"quotedPrice\":1,\"quotedNetPrice\":1},{\"offer\":\"{\\\"offerId\\\":\\\"OFFER_00093\\\",\\\"batchId\\\":\\\"DEBUG_0e335b867695481682de6c73ec725d86/STAGE_08/SHOP/service\\\",\\\"category\\\":\\\"service\\\",\\\"contentId\\\":\\\"O07\\\",\\\"basePrice\\\":6,\\\"sold\\\":true,\\\"die\\\":{\\\"dieId\\\":\\\"\\\",\\\"createdSerial\\\":0,\\\"lifetime\\\":\\\"\\\",\\\"createdStageId\\\":\\\"\\\",\\\"faces\\\":[],\\\"isGlass\\\":false,\\\"dataRevision\\\":0},\\\"controller\\\":{\\\"instanceId\\\":\\\"\\\",\\\"definitionId\\\":\\\"\\\",\\\"enchantmentId\\\":\\\"none\\\",\\\"acquiredSerial\\\":0,\\\"alive\\\":true,\\\"state\\\":{\\\"activeColor\\\":\\\"\\\",\\\"turnoverUnits2\\\":3,\\\"fundAccrual\\\":0}},\\\"priceReasons\\\":[]}\",\"quotedPrice\":6,\"quotedNetPrice\":6}]",
+      "shopRngBefore": 3192581142,
+      "shopRngAfter": 866094681,
+      "diskMatches": true
+    }
+  ],
+  "syntheticInputChecks": [
+    {
+      "scenario": "controller-drag-cancel",
+      "method": "Probe-owned background-capable Keyboard layout; queued event consumed by normal Dynamic input and GameApp.Update. Not physical keyboard/focus evidence.",
+      "focusedBefore": false,
+      "backgroundBehavior": "ResetAndDisableNonBackgroundDevices",
+      "updateMode": "ProcessEventsInDynamicUpdate",
+      "previousDeviceId": 1,
+      "previousDeviceEnabled": false,
+      "dragBefore": true,
+      "displayPendingBefore": false,
+      "stateHashBefore": "626fbebbc07028ffb9154c169ac5b7502439586f75ffab6864cf6f1f1fb0db57",
+      "diskHashBefore": "f2b1198eef8ca8ae06d4c7ae43971285a8f1f36a006206bfe86ba834e3eeb5df",
+      "samples": [
+        {
+          "frame": 2625,
+          "focused": false,
+          "deviceId": 15,
+          "enabled": true,
+          "canRunInBackground": true,
+          "currentDeviceId": 15,
+          "isCurrent": true,
+          "escapePressed": true,
+          "escapePressedThisFrame": true,
+          "dragAtInputUpdate": true,
+          "displayPendingAtInputUpdate": false
+        },
+        {
+          "frame": 2626,
+          "focused": false,
+          "deviceId": 15,
+          "enabled": true,
+          "canRunInBackground": true,
+          "currentDeviceId": 15,
+          "isCurrent": true,
+          "escapePressed": true,
+          "escapePressedThisFrame": false,
+          "dragAtInputUpdate": false,
+          "displayPendingAtInputUpdate": false
+        },
+        {
+          "frame": 2627,
+          "focused": false,
+          "deviceId": 15,
+          "enabled": true,
+          "canRunInBackground": true,
+          "currentDeviceId": 15,
+          "isCurrent": true,
+          "escapePressed": false,
+          "escapePressedThisFrame": false,
+          "dragAtInputUpdate": false,
+          "displayPendingAtInputUpdate": false
+        }
+      ],
+      "injectedDeviceId": 15,
+      "injectedEnabledBefore": true,
+      "injectedCanRunInBackground": true,
+      "dynamicPressedUpdates": 2,
+      "dynamicPressedEdges": 1,
+      "currentDeviceEdges": 1,
+      "focusedAfter": false,
+      "dragAfter": false,
+      "displayPendingAfter": false,
+      "stateUnchanged": true,
+      "diskUnchanged": true,
+      "previousDeviceRestored": true,
+      "globalSettingsUnchanged": true
+    }
+  ],
+  "displayChecks": [
+    {
+      "id": "native-display-verification-deferred",
+      "status": "not_executed",
+      "reason": "Explicit restricted run: prior actual Native display failure is retained (player-20261031-140823-1865372c and independent native-experiment.json diagnostics). This run does not establish display support or release acceptance.",
+      "actualNativeReadback": {
+        "display": "VG27AQ1A",
+        "width": 1920,
+        "height": 1080,
+        "mode": "Windowed",
+        "nativeWidth": 2560,
+        "nativeHeight": 1440,
+        "refreshNumerator": 144006,
+        "refreshDenominator": 1000,
+        "focused": false
+      }
+    }
+  ],
+  "screenshotsInspectedForDimensions": [
+    {
+      "name": "startup-render-ready.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "a3646275deefe1b6fbfa2414ec7d80f0d5722bf75b6417d875eb8f2f0feb5103"
+    },
+    {
+      "name": "main-menu-1920x1080.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "a3646275deefe1b6fbfa2414ec7d80f0d5722bf75b6417d875eb8f2f0feb5103"
+    },
+    {
+      "name": "build-version-1920x1080.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "37ab9d94b2dc5d44c3d9e00f8e8ff8e85df66579d0a04e06a74429a7d4fcfd5d"
+    },
+    {
+      "name": "build-version-1280x720.png",
+      "width": 1280,
+      "height": 720,
+      "sha256": "c5f171429ed505c0c8a30b252fb76892c048fe808e3fffc51fd17751b38e345e"
+    },
+    {
+      "name": "build-version-2560x1440.png",
+      "width": 2560,
+      "height": 1440,
+      "sha256": "473269ba1b2a7ff013ccffb8f13da4ddf071428756f326a3d0dba0da64afaca4"
+    },
+    {
+      "name": "normal-selecting-1920x1080.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "615f79409598c5ee739d89a3621655d8cb60f70c4f92ca760848c2706a56fd2f"
+    },
+    {
+      "name": "normal-selecting-1280x720.png",
+      "width": 1280,
+      "height": 720,
+      "sha256": "64f97d46b640ad5d31e48cdd9c033d9a418bc7a161430e96561305c3b9b21f5c"
+    },
+    {
+      "name": "normal-selecting-2560x1440.png",
+      "width": 2560,
+      "height": 1440,
+      "sha256": "fd0e0c843cfa36b37131e3bce77426fbb7805dc7d565ecd66563c21bef46d038"
+    },
+    {
+      "name": "v06-handbook-colors-independent.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "dd1426cba42c408dc7f058ac87ffce95b301e8c8d32148e1c263744e2a92904b"
+    },
+    {
+      "name": "normal-handbook-1920x1080.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "efd427f88c97d1be659040e709598ce1974e189382ef066df657aa43f7db2166"
+    },
+    {
+      "name": "normal-handbook-middle-1920x1080.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "7aeffcc493792e8611e5dafd942cb3f0d83b9668f5353e38225ca3bd36c5d40d"
+    },
+    {
+      "name": "normal-handbook-bottom-1920x1080.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "00c4b2fc5200fd9db42e313e27520df3b6b548248e3d2a03701c402bfa181b29"
+    },
+    {
+      "name": "normal-handbook-1280x720.png",
+      "width": 1280,
+      "height": 720,
+      "sha256": "c18d611f18c964a3280b80b4473e7778a1fc8807604b83e969b5e3195e7ddce8"
+    },
+    {
+      "name": "normal-handbook-middle-1280x720.png",
+      "width": 1280,
+      "height": 720,
+      "sha256": "eff6147aecc55286e635d52382f86ae212d4e53a991705da385b563024c9848e"
+    },
+    {
+      "name": "normal-handbook-bottom-1280x720.png",
+      "width": 1280,
+      "height": 720,
+      "sha256": "e486a2b77b022294eb7f8d5615ddcacff76286ca55e11aa03a38c6124dcaa983"
+    },
+    {
+      "name": "normal-handbook-2560x1440.png",
+      "width": 2560,
+      "height": 1440,
+      "sha256": "d7fb139c3442fc54001c9c7dff1437a0a0ebd99745d690b6a57791fe36a38210"
+    },
+    {
+      "name": "normal-handbook-middle-2560x1440.png",
+      "width": 2560,
+      "height": 1440,
+      "sha256": "357865cdf27fb5b3f1940560391785b5763b5c0fda8a2a525e5585d6760e742a"
+    },
+    {
+      "name": "normal-handbook-bottom-2560x1440.png",
+      "width": 2560,
+      "height": 1440,
+      "sha256": "2354a3528680e25b3bc2f8648a6ea81e7c5843b2828f536dd4ebfe4469506f62"
+    },
+    {
+      "name": "normal-die-detail-permanent-preview-1920x1080.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "b11763123276a4aa6d0860bbee8c7002cccaea16235f5fc5c1778d17f4473f68"
+    },
+    {
+      "name": "normal-die-detail-permanent-preview-1280x720.png",
+      "width": 1280,
+      "height": 720,
+      "sha256": "bde35e550a9f6d3f7c022b3047e6f9c86efeb54177101e470b4833461bf76f6d"
+    },
+    {
+      "name": "normal-die-detail-permanent-preview-2560x1440.png",
+      "width": 2560,
+      "height": 1440,
+      "sha256": "a80c79f5a91500d0003480b2e39de3c88ec50436dfdaebc0ef6f74fe736c68cc"
+    },
+    {
+      "name": "normal-score-preview-1920x1080.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "92d358c942ea9cb2fe70e03406ae728696495118bc72d5a37d6394616112b883"
+    },
+    {
+      "name": "normal-score-preview-middle-1920x1080.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "1b99ea359b82b8b371313085eaaa16d26f1ebebba72d2de03e5d6f776c4c039b"
+    },
+    {
+      "name": "normal-score-preview-bottom-1920x1080.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "6a6cfa2651ec19395e42b871a917271adb6b70da4b02da769bc1cf7c6b683cee"
+    },
+    {
+      "name": "normal-score-preview-1280x720.png",
+      "width": 1280,
+      "height": 720,
+      "sha256": "04c3f0c6451272ba2c5ec79589f868cd871984be371436e25f375e11daeb4a02"
+    },
+    {
+      "name": "normal-score-preview-middle-1280x720.png",
+      "width": 1280,
+      "height": 720,
+      "sha256": "3ddf5d294583d6b83d3a90759064669aaf79f8d76dec18698f1d400918b2f620"
+    },
+    {
+      "name": "normal-score-preview-bottom-1280x720.png",
+      "width": 1280,
+      "height": 720,
+      "sha256": "3b2feaa3cf02411fb76aa5e9b1adedaffd61de90cebec55a00442d6d05dbfe9a"
+    },
+    {
+      "name": "normal-score-preview-2560x1440.png",
+      "width": 2560,
+      "height": 1440,
+      "sha256": "cf2b27e634b9bfaaae2add52fac6a12caf48ab48137a202b92ab1e1cc582035a"
+    },
+    {
+      "name": "normal-score-preview-middle-2560x1440.png",
+      "width": 2560,
+      "height": 1440,
+      "sha256": "934d966161ab01866df159dca56e313b3271e4879651483103de05f65155e305"
+    },
+    {
+      "name": "normal-score-preview-bottom-2560x1440.png",
+      "width": 2560,
+      "height": 1440,
+      "sha256": "5e75733efc5d3be44b6e92cd46dfc994bc59f1cd5d971085262f57ef2271944d"
+    },
+    {
+      "name": "normal-qualified-continue-or-end-1920x1080.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "2bf7a2ab178c5b1a864ebfad4a326ef06f8d107028e8793034b0461ce5ff6c24"
+    },
+    {
+      "name": "normal-qualified-continue-or-end-1280x720.png",
+      "width": 1280,
+      "height": 720,
+      "sha256": "1d6dbdcb2742ef4571d7ec05adf52549f741e9c0e2eb8905adf6eeba14fbd77d"
+    },
+    {
+      "name": "normal-qualified-continue-or-end-2560x1440.png",
+      "width": 2560,
+      "height": 1440,
+      "sha256": "698c774c0c8c22ba6f272938fbecad8f607ccc21e3bc163236ed920845d37ec4"
+    },
+    {
+      "name": "normal-stage-1.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "4ced834f91898415fda38a2abfd49b2def6cf400a1a9e372734ac928219468fd"
+    },
+    {
+      "name": "normal-shop-1920x1080.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "f1eec02fce18998b7b9054ab29f6949472b66b75dd04eac3b2d8f017582d5020"
+    },
+    {
+      "name": "normal-shop-1280x720.png",
+      "width": 1280,
+      "height": 720,
+      "sha256": "e02d903ec96e3c4a13f3909e690f7c5ee7d78d8fda6d029219a10a96c48e4011"
+    },
+    {
+      "name": "normal-shop-2560x1440.png",
+      "width": 2560,
+      "height": 1440,
+      "sha256": "97feb1aa31aeb62cd26199aff5ae0a3746597a139df008d7b8d4678c5816112f"
+    },
+    {
+      "name": "normal-stage-2.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "3754a30cfb678a4b26b83d5603b45485f3dcc1a46a5405b65b8aa8a077ccdf61"
+    },
+    {
+      "name": "normal-stage-3.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "e491498743438e99cf430a08fa330aff5601e5ea1346c50919e7bc1126998e9d"
+    },
+    {
+      "name": "normal-stage-4.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "14903ef78e7a6f9962c7e36b7e3fd24974ca750ec08ea0e38816d14b6578a86a"
+    },
+    {
+      "name": "normal-stage-5.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "08057cafbbe1c6e1055f0a88d4e1c4227b98165549d9a75ebf722bb9a0ece223"
+    },
+    {
+      "name": "normal-stage-6.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "ae086bb150589581b60c0cd4bbdec3567f041241ee56144b3036cbe943c7aea1"
+    },
+    {
+      "name": "normal-stage-7.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "4a5567b3535d1fb34de1ab2145c605ac5aeb082da44df4c1087782e10083db2a"
+    },
+    {
+      "name": "normal-run-failed-stage-8.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "abde4c3594e936d16d7f14127f0de5c4810d4dd467b2776bf547742d7fee4279"
+    },
+    {
+      "name": "v06-debug-last-controller-row-wheel.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "1b50c80c1e6e08dfba92a7e7b2013e0313c158ecb7fa25f1d877d3881fbc971b"
+    },
+    {
+      "name": "v06-debug-controllers.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "163b07d74d1df9a4cb388793c4ec3aeca66cf24fbd81bd121c02999d32446834"
+    },
+    {
+      "name": "v06-debug-32dice.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "8cc0ac0e057bebac3959d131d645a0ddb8667675280522bd4a6219c63a3b2f86"
+    },
+    {
+      "name": "v06-debug-bigint-random-preview.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "0819bb82e709eefe5720adc02d4007e70d3c8080698123bda9d4f01782bc45d1"
+    },
+    {
+      "name": "v06-remote-target32-1920x1080.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "c91b866ba0e85ad841e196a75da4c3c54cdeebed272a5ef35f1c36d169438cec"
+    },
+    {
+      "name": "v06-remote-target32-middle-1920x1080.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "42e0aa34fa135944409823a2ef677f08b8c7cd05060a54c542259017ca7ee985"
+    },
+    {
+      "name": "v06-remote-target32-bottom-1920x1080.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "e48e907e90b0845ac60d7e668c90515a83635b337c51ccc51b1d02ceeb735d17"
+    },
+    {
+      "name": "v06-remote-target32-1280x720.png",
+      "width": 1280,
+      "height": 720,
+      "sha256": "e572692ff8c72e5c0613e6d64aeff0537e5a85569cacea8ce72e36ab72a90b0f"
+    },
+    {
+      "name": "v06-remote-target32-middle-1280x720.png",
+      "width": 1280,
+      "height": 720,
+      "sha256": "ab46da66daf17c027e3eb3be718433176de0d31a1d826db0c450cef783a93ac0"
+    },
+    {
+      "name": "v06-remote-target32-bottom-1280x720.png",
+      "width": 1280,
+      "height": 720,
+      "sha256": "cf8ba3c91ca276e63eb103627a309f7486480d9496626bf942739da086295992"
+    },
+    {
+      "name": "v06-remote-target32-2560x1440.png",
+      "width": 2560,
+      "height": 1440,
+      "sha256": "0f6159e9db880316a7841020efefe7d2353f65a2b49dbbfe44c129075ca957d3"
+    },
+    {
+      "name": "v06-remote-target32-middle-2560x1440.png",
+      "width": 2560,
+      "height": 1440,
+      "sha256": "3e9b80e03eb73a80c87b40a056924364393a4d70d6d89877617ff56317fa33cf"
+    },
+    {
+      "name": "v06-remote-target32-bottom-2560x1440.png",
+      "width": 2560,
+      "height": 1440,
+      "sha256": "1effa2929fde7af2e4b164c7b8e2522e51a328c6d6095274a25cd0a91e2e9422"
+    },
+    {
+      "name": "v06-remote-D031-D032-selected.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "380d7d73e00bbce2205866c1a2bfe64193912febb269e3b6a5bc28ec5889f5c9"
+    },
+    {
+      "name": "v06-shop-refresh-after-charge-3.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "17cfff2f4fdda519328aba5599488c11a8c32606ce1ec50c0327bd4f2ae5ec1d"
+    },
+    {
+      "name": "v06-shop-refresh-after-charge-5.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "c4a5ac5c1a0fd4c06f6abcd1050d1f3106a01795732730a001deb4bbc0c6e73f"
+    },
+    {
+      "name": "v06-shop-refresh-after-charge-7.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "855fcb0247772071ced72f24022a662765fc3acb8819e827301c279c334231b2"
+    },
+    {
+      "name": "v06-shop-free-first-refresh-0.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "2862e54eef90a664555a5d8069fb8b1ee7cf22d41bea00bf2bcdf73ef4209e3f"
+    },
+    {
+      "name": "v06-shop-target32-1920x1080.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "538e64a57663f4e46e4302e463141ad14efa0b5d4e9984b485eb6ba4f1471ab0"
+    },
+    {
+      "name": "v06-shop-target32-middle-1920x1080.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "92e3010f1228db3cc9e40073d9406f19c2f8d70d28385e15c84dfa5efede689c"
+    },
+    {
+      "name": "v06-shop-target32-bottom-1920x1080.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "cb02ac2d93f6752c90d3bcd84d7636ca0e6c5ce5ec630ebf046083d02637b31f"
+    },
+    {
+      "name": "v06-shop-target32-1280x720.png",
+      "width": 1280,
+      "height": 720,
+      "sha256": "412117731afd06b08d4b386fe378a7b3373af8c342621a66097058f465b363ea"
+    },
+    {
+      "name": "v06-shop-target32-middle-1280x720.png",
+      "width": 1280,
+      "height": 720,
+      "sha256": "0fd1a74db9767c102b4c2fba21e8f37bf8bfd9e8255300dfa1b0526837ff82b7"
+    },
+    {
+      "name": "v06-shop-target32-bottom-1280x720.png",
+      "width": 1280,
+      "height": 720,
+      "sha256": "d7e2fcf70c0c232d08509f7b76a654e2cffd01d2893f080cbd4686832ded9359"
+    },
+    {
+      "name": "v06-shop-target32-2560x1440.png",
+      "width": 2560,
+      "height": 1440,
+      "sha256": "def2d46ea575c6dc7b5039d1b179cd9a8cb6c3c89aa6a989afd46a2e7e847f8d"
+    },
+    {
+      "name": "v06-shop-target32-middle-2560x1440.png",
+      "width": 2560,
+      "height": 1440,
+      "sha256": "96afe14965135d7f0c63906be12eb842326665e5df67e01f856496177889d263"
+    },
+    {
+      "name": "v06-shop-target32-bottom-2560x1440.png",
+      "width": 2560,
+      "height": 1440,
+      "sha256": "453d14b017a73169988e6c0b4cd480fe2860870c9b4d4f0035240d3da0fccf28"
+    },
+    {
+      "name": "v06-upgrade-D032-F01-preview.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "f1f56d98f00957b527c6f86f3be384130c980ac9a556e3d52353c262cb38358e"
+    },
+    {
+      "name": "v06-delete-D031-preview.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "2f03f797db5d025c597b025c487feebcb5ec410a2a69da83d1e58f2ec397ea99"
+    },
+    {
+      "name": "v06-controller-drag-preview.png",
+      "width": 1280,
+      "height": 720,
+      "sha256": "fcd21aad74c4dbcd72aaa7c2d2db2f9142d128b3482f06d1c813ce2157cae3ea"
+    },
+    {
+      "name": "v06-controller-drag-committed.png",
+      "width": 1280,
+      "height": 720,
+      "sha256": "04652949d2b4bb6931a4371acd5b0fdae5ec0890748eace706caca5cff9e5834"
+    },
+    {
+      "name": "v06-mimic-chain-invalid-first.png",
+      "width": 1280,
+      "height": 720,
+      "sha256": "6fed8fb1e1ef260fea94628301752ec0a06e50254bbdfd479b98a05f2a323234"
+    },
+    {
+      "name": "v06-mimic-chain-destroyed-last.png",
+      "width": 1280,
+      "height": 720,
+      "sha256": "7749d953cd8a37e8c8d123c1b27c4406209ec6250aa13ecf13da6a462702c761"
+    },
+    {
+      "name": "debug24-settlement-1.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "3294625e1e52b387721dc4b44315baaea55bd474bd90d079a1e30fd09d8ec08a"
+    },
+    {
+      "name": "debug24-settlement-24.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "c9864d4ea13f4c786bfe4ce056eca74a660262422e09c1c32cb6cb4e086370ce"
+    },
+    {
+      "name": "debug24-final.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "c09ac333862351cdd5bf546812e9f3909e5d51b47dbad8d04026809bc9dc7702"
+    },
+    {
+      "name": "debug-ten-dice-unlocked-pool-1920x1080.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "616026eab098b857381bb2ee8f73ba4096b5d06a55aea93a23466c5f697870c3"
+    },
+    {
+      "name": "debug-ten-dice-unlocked-pool-1280x720.png",
+      "width": 1280,
+      "height": 720,
+      "sha256": "254f78b71e5e9f7768f5d7626c2fb969602d24d5c1b9ea476321eab15f45b545"
+    },
+    {
+      "name": "debug-ten-dice-unlocked-pool-2560x1440.png",
+      "width": 2560,
+      "height": 1440,
+      "sha256": "5632d4ac7e7e6c2fc6d7830a1222dc3beb3ae6ef739facf2a9492390558ffa94"
+    },
+    {
+      "name": "debug-stress-capacity-1920x1080.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "457b056d288300283461a55db2b5475f047593d70b5740d18bd913347f52cb1a"
+    },
+    {
+      "name": "debug-stress-capacity-1280x720.png",
+      "width": 1280,
+      "height": 720,
+      "sha256": "f35fd88691f56269d77db34a05da8fc300170873f9ca1f2b7057f3c3653d69eb"
+    },
+    {
+      "name": "debug-stress-capacity-2560x1440.png",
+      "width": 2560,
+      "height": 1440,
+      "sha256": "1ad3786ee65375e2a447afabe4e734836f518441abff362ed34805eed3660755"
+    },
+    {
+      "name": "debug-handbook-eight-capacity-1920x1080.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "5ff780995b5d699297705ba5ed810619a1f29f8f998175aa55e88db290fe7237"
+    },
+    {
+      "name": "debug-handbook-eight-capacity-middle-1920x1080.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "022fecfcc73456d1fd6617a7fb2c5d1a71bdd99b6683fe6ac66b26448404022c"
+    },
+    {
+      "name": "debug-handbook-eight-capacity-bottom-1920x1080.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "0db9decbb7b8132a2a4794c2a40cb70843f578f9c48ddba268860857600ebe76"
+    },
+    {
+      "name": "debug-handbook-eight-capacity-1280x720.png",
+      "width": 1280,
+      "height": 720,
+      "sha256": "0d99c51fff92bf24378b1a3c77978d7ac82842b831b96d9b7bf6f586c9177220"
+    },
+    {
+      "name": "debug-handbook-eight-capacity-middle-1280x720.png",
+      "width": 1280,
+      "height": 720,
+      "sha256": "636a0f44c96dfbf32146156237c66e56f4b5f650a54205a94f1ab0c6c898801b"
+    },
+    {
+      "name": "debug-handbook-eight-capacity-bottom-1280x720.png",
+      "width": 1280,
+      "height": 720,
+      "sha256": "2b2caf71b9d4e57ed8c1962ae0830c6573168449cb44f82e9ffbbd2ceb17caa4"
+    },
+    {
+      "name": "debug-handbook-eight-capacity-2560x1440.png",
+      "width": 2560,
+      "height": 1440,
+      "sha256": "72b0544d6ac73a1b17c38427759b2ca56b8dd005c07ba4efb918885ed1d57022"
+    },
+    {
+      "name": "debug-handbook-eight-capacity-middle-2560x1440.png",
+      "width": 2560,
+      "height": 1440,
+      "sha256": "99d8ac7c671fb9675bb1e704b4751d50ea6c594d8f6bc32f20deb668ab548118"
+    },
+    {
+      "name": "debug-handbook-eight-capacity-bottom-2560x1440.png",
+      "width": 2560,
+      "height": 1440,
+      "sha256": "34b8dd5b8a820d7190495a077e042a8ec3ff94c07e959c474de92d41734477d9"
+    },
+    {
+      "name": "debug-die-detail-permanent-preview-1920x1080.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "a9a0db3cf2f5f7f833bdb4e8947233dbc436c5ae479ce723761cdbcf77daffed"
+    },
+    {
+      "name": "debug-die-detail-permanent-preview-1280x720.png",
+      "width": 1280,
+      "height": 720,
+      "sha256": "e5a596dea07c37b05dc59dbf39aebb51d6fb3dc3dfd8851fd9306faa62f61ed2"
+    },
+    {
+      "name": "debug-die-detail-permanent-preview-2560x1440.png",
+      "width": 2560,
+      "height": 1440,
+      "sha256": "49430fa2a0abfe73f45e9397e92fc6f302638d3a1399a9f95c5847594a10cd9a"
+    },
+    {
+      "name": "debug-score-preview-1920x1080.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "5b928253298d86aad41cca7e57d5cb8e2d9be12612fd5c489f7e7317d84db350"
+    },
+    {
+      "name": "debug-score-preview-middle-1920x1080.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "73eb58790dd137e8e56f27db5ea3bafbf8b32f016c2da65f32a7ef2a2f36dce1"
+    },
+    {
+      "name": "debug-score-preview-bottom-1920x1080.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "e8050945e79642791a34c00669b8770f291628c657198894313b40b9d1fc6d93"
+    },
+    {
+      "name": "debug-score-preview-1280x720.png",
+      "width": 1280,
+      "height": 720,
+      "sha256": "f38bef24b4bdff8f43d18fc0f8ad2fa65d676f57bffb216ce03fe66bad32b0b5"
+    },
+    {
+      "name": "debug-score-preview-middle-1280x720.png",
+      "width": 1280,
+      "height": 720,
+      "sha256": "aa9fd0a66444bc4747a59510b584c0d286670bcb64d8864b732108b0910d40ee"
+    },
+    {
+      "name": "debug-score-preview-bottom-1280x720.png",
+      "width": 1280,
+      "height": 720,
+      "sha256": "4847a4870cd0e1cb13bd9a1929466262c483e46583a6478d1f3a046804d1eb0c"
+    },
+    {
+      "name": "debug-score-preview-2560x1440.png",
+      "width": 2560,
+      "height": 1440,
+      "sha256": "82c45c801ef46606b6e4e51af56abef193d237446efd4793fd8081ff05d7c2c4"
+    },
+    {
+      "name": "debug-score-preview-middle-2560x1440.png",
+      "width": 2560,
+      "height": 1440,
+      "sha256": "b24844981f30241db786897d6b96ef04d2c9ac71a98e2cdb65758cf2460fea90"
+    },
+    {
+      "name": "debug-score-preview-bottom-2560x1440.png",
+      "width": 2560,
+      "height": 1440,
+      "sha256": "9d84544b6e11fe56c7190364b1176a20c88b8f95d013c81d188eb0473fd038bf"
+    },
+    {
+      "name": "debug-stress-final.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "f80d6e54ec2982adf4639e4aeceb368b367414502621d173d4a055b572a24bf8"
+    }
+  ],
+  "files": {
+    "build-version-1280x720.png": "c5f171429ed505c0c8a30b252fb76892c048fe808e3fffc51fd17751b38e345e",
+    "build-version-1920x1080.png": "37ab9d94b2dc5d44c3d9e00f8e8ff8e85df66579d0a04e06a74429a7d4fcfd5d",
+    "build-version-2560x1440.png": "473269ba1b2a7ff013ccffb8f13da4ddf071428756f326a3d0dba0da64afaca4",
+    "debug-die-detail-permanent-preview-1280x720.png": "e5a596dea07c37b05dc59dbf39aebb51d6fb3dc3dfd8851fd9306faa62f61ed2",
+    "debug-die-detail-permanent-preview-1920x1080.png": "a9a0db3cf2f5f7f833bdb4e8947233dbc436c5ae479ce723761cdbcf77daffed",
+    "debug-die-detail-permanent-preview-2560x1440.png": "49430fa2a0abfe73f45e9397e92fc6f302638d3a1399a9f95c5847594a10cd9a",
+    "debug-final-state.json": "68a87114adccf81a5ba917901a2eb22640b08e777cd3689427d2669a9e544401",
+    "debug-handbook-eight-capacity-1280x720.png": "0d99c51fff92bf24378b1a3c77978d7ac82842b831b96d9b7bf6f586c9177220",
+    "debug-handbook-eight-capacity-1920x1080.png": "5ff780995b5d699297705ba5ed810619a1f29f8f998175aa55e88db290fe7237",
+    "debug-handbook-eight-capacity-2560x1440.png": "72b0544d6ac73a1b17c38427759b2ca56b8dd005c07ba4efb918885ed1d57022",
+    "debug-handbook-eight-capacity-bottom-1280x720.png": "2b2caf71b9d4e57ed8c1962ae0830c6573168449cb44f82e9ffbbd2ceb17caa4",
+    "debug-handbook-eight-capacity-bottom-1920x1080.png": "0db9decbb7b8132a2a4794c2a40cb70843f578f9c48ddba268860857600ebe76",
+    "debug-handbook-eight-capacity-bottom-2560x1440.png": "34b8dd5b8a820d7190495a077e042a8ec3ff94c07e959c474de92d41734477d9",
+    "debug-handbook-eight-capacity-middle-1280x720.png": "636a0f44c96dfbf32146156237c66e56f4b5f650a54205a94f1ab0c6c898801b",
+    "debug-handbook-eight-capacity-middle-1920x1080.png": "022fecfcc73456d1fd6617a7fb2c5d1a71bdd99b6683fe6ac66b26448404022c",
+    "debug-handbook-eight-capacity-middle-2560x1440.png": "99d8ac7c671fb9675bb1e704b4751d50ea6c594d8f6bc32f20deb668ab548118",
+    "debug-initial-state.json": "9b2815590d56b3a9652a468b2cbca248e9000b072684a04108a54dad76b271db",
+    "debug-score-preview-1280x720.png": "f38bef24b4bdff8f43d18fc0f8ad2fa65d676f57bffb216ce03fe66bad32b0b5",
+    "debug-score-preview-1920x1080.png": "5b928253298d86aad41cca7e57d5cb8e2d9be12612fd5c489f7e7317d84db350",
+    "debug-score-preview-2560x1440.png": "82c45c801ef46606b6e4e51af56abef193d237446efd4793fd8081ff05d7c2c4",
+    "debug-score-preview-bottom-1280x720.png": "4847a4870cd0e1cb13bd9a1929466262c483e46583a6478d1f3a046804d1eb0c",
+    "debug-score-preview-bottom-1920x1080.png": "e8050945e79642791a34c00669b8770f291628c657198894313b40b9d1fc6d93",
+    "debug-score-preview-bottom-2560x1440.png": "9d84544b6e11fe56c7190364b1176a20c88b8f95d013c81d188eb0473fd038bf",
+    "debug-score-preview-middle-1280x720.png": "aa9fd0a66444bc4747a59510b584c0d286670bcb64d8864b732108b0910d40ee",
+    "debug-score-preview-middle-1920x1080.png": "73eb58790dd137e8e56f27db5ea3bafbf8b32f016c2da65f32a7ef2a2f36dce1",
+    "debug-score-preview-middle-2560x1440.png": "b24844981f30241db786897d6b96ef04d2c9ac71a98e2cdb65758cf2460fea90",
+    "debug-stress-capacity-1280x720.png": "f35fd88691f56269d77db34a05da8fc300170873f9ca1f2b7057f3c3653d69eb",
+    "debug-stress-capacity-1920x1080.png": "457b056d288300283461a55db2b5475f047593d70b5740d18bd913347f52cb1a",
+    "debug-stress-capacity-2560x1440.png": "1ad3786ee65375e2a447afabe4e734836f518441abff362ed34805eed3660755",
+    "debug-stress-final.png": "f80d6e54ec2982adf4639e4aeceb368b367414502621d173d4a055b572a24bf8",
+    "debug-ten-dice-unlocked-pool-1280x720.png": "254f78b71e5e9f7768f5d7626c2fb969602d24d5c1b9ea476321eab15f45b545",
+    "debug-ten-dice-unlocked-pool-1920x1080.png": "616026eab098b857381bb2ee8f73ba4096b5d06a55aea93a23466c5f697870c3",
+    "debug-ten-dice-unlocked-pool-2560x1440.png": "5632d4ac7e7e6c2fc6d7830a1222dc3beb3ae6ef739facf2a9492390558ffa94",
+    "debug24-final-state.json": "1211fd1486ec613a0aedcede047e00c870b81d3b4686cc9e316a5570c5257451",
+    "debug24-final.png": "c09ac333862351cdd5bf546812e9f3909e5d51b47dbad8d04026809bc9dc7702",
+    "debug24-replay.jsonl": "13b350e608dfe9bed1c87bcb7edc3bbb23a9c87262233c451ec92ac0bb071b38",
+    "debug24-settlement-1.png": "3294625e1e52b387721dc4b44315baaea55bd474bd90d079a1e30fd09d8ec08a",
+    "debug24-settlement-24.png": "c9864d4ea13f4c786bfe4ce056eca74a660262422e09c1c32cb6cb4e086370ce",
+    "main-menu-1920x1080.png": "a3646275deefe1b6fbfa2414ec7d80f0d5722bf75b6417d875eb8f2f0feb5103",
+    "normal-die-detail-permanent-preview-1280x720.png": "bde35e550a9f6d3f7c022b3047e6f9c86efeb54177101e470b4833461bf76f6d",
+    "normal-die-detail-permanent-preview-1920x1080.png": "b11763123276a4aa6d0860bbee8c7002cccaea16235f5fc5c1778d17f4473f68",
+    "normal-die-detail-permanent-preview-2560x1440.png": "a80c79f5a91500d0003480b2e39de3c88ec50436dfdaebc0ef6f74fe736c68cc",
+    "normal-final-state.json": "dd94e1e59eeedfe8a25e70ed69e780707136d7e77ab51df34c6c5d36f1629853",
+    "normal-handbook-1280x720.png": "c18d611f18c964a3280b80b4473e7778a1fc8807604b83e969b5e3195e7ddce8",
+    "normal-handbook-1920x1080.png": "efd427f88c97d1be659040e709598ce1974e189382ef066df657aa43f7db2166",
+    "normal-handbook-2560x1440.png": "d7fb139c3442fc54001c9c7dff1437a0a0ebd99745d690b6a57791fe36a38210",
+    "normal-handbook-bottom-1280x720.png": "e486a2b77b022294eb7f8d5615ddcacff76286ca55e11aa03a38c6124dcaa983",
+    "normal-handbook-bottom-1920x1080.png": "00c4b2fc5200fd9db42e313e27520df3b6b548248e3d2a03701c402bfa181b29",
+    "normal-handbook-bottom-2560x1440.png": "2354a3528680e25b3bc2f8648a6ea81e7c5843b2828f536dd4ebfe4469506f62",
+    "normal-handbook-middle-1280x720.png": "eff6147aecc55286e635d52382f86ae212d4e53a991705da385b563024c9848e",
+    "normal-handbook-middle-1920x1080.png": "7aeffcc493792e8611e5dafd942cb3f0d83b9668f5353e38225ca3bd36c5d40d",
+    "normal-handbook-middle-2560x1440.png": "357865cdf27fb5b3f1940560391785b5763b5c0fda8a2a525e5585d6760e742a",
+    "normal-qualified-continue-or-end-1280x720.png": "1d6dbdcb2742ef4571d7ec05adf52549f741e9c0e2eb8905adf6eeba14fbd77d",
+    "normal-qualified-continue-or-end-1920x1080.png": "2bf7a2ab178c5b1a864ebfad4a326ef06f8d107028e8793034b0461ce5ff6c24",
+    "normal-qualified-continue-or-end-2560x1440.png": "698c774c0c8c22ba6f272938fbecad8f607ccc21e3bc163236ed920845d37ec4",
+    "normal-replay.jsonl": "c9bdc4b86162f9b0f9c6bd64900cf5b0b26297d303677bb91e68eac88a1ec0eb",
+    "normal-run-failed-stage-8.png": "abde4c3594e936d16d7f14127f0de5c4810d4dd467b2776bf547742d7fee4279",
+    "normal-score-preview-1280x720.png": "04c3f0c6451272ba2c5ec79589f868cd871984be371436e25f375e11daeb4a02",
+    "normal-score-preview-1920x1080.png": "92d358c942ea9cb2fe70e03406ae728696495118bc72d5a37d6394616112b883",
+    "normal-score-preview-2560x1440.png": "cf2b27e634b9bfaaae2add52fac6a12caf48ab48137a202b92ab1e1cc582035a",
+    "normal-score-preview-bottom-1280x720.png": "3b2feaa3cf02411fb76aa5e9b1adedaffd61de90cebec55a00442d6d05dbfe9a",
+    "normal-score-preview-bottom-1920x1080.png": "6a6cfa2651ec19395e42b871a917271adb6b70da4b02da769bc1cf7c6b683cee",
+    "normal-score-preview-bottom-2560x1440.png": "5e75733efc5d3be44b6e92cd46dfc994bc59f1cd5d971085262f57ef2271944d",
+    "normal-score-preview-middle-1280x720.png": "3ddf5d294583d6b83d3a90759064669aaf79f8d76dec18698f1d400918b2f620",
+    "normal-score-preview-middle-1920x1080.png": "1b99ea359b82b8b371313085eaaa16d26f1ebebba72d2de03e5d6f776c4c039b",
+    "normal-score-preview-middle-2560x1440.png": "934d966161ab01866df159dca56e313b3271e4879651483103de05f65155e305",
+    "normal-selecting-1280x720.png": "64f97d46b640ad5d31e48cdd9c033d9a418bc7a161430e96561305c3b9b21f5c",
+    "normal-selecting-1920x1080.png": "615f79409598c5ee739d89a3621655d8cb60f70c4f92ca760848c2706a56fd2f",
+    "normal-selecting-2560x1440.png": "fd0e0c843cfa36b37131e3bce77426fbb7805dc7d565ecd66563c21bef46d038",
+    "normal-shop-1280x720.png": "e02d903ec96e3c4a13f3909e690f7c5ee7d78d8fda6d029219a10a96c48e4011",
+    "normal-shop-1920x1080.png": "f1eec02fce18998b7b9054ab29f6949472b66b75dd04eac3b2d8f017582d5020",
+    "normal-shop-2560x1440.png": "97feb1aa31aeb62cd26199aff5ae0a3746597a139df008d7b8d4678c5816112f",
+    "normal-stage-1.png": "4ced834f91898415fda38a2abfd49b2def6cf400a1a9e372734ac928219468fd",
+    "normal-stage-2.png": "3754a30cfb678a4b26b83d5603b45485f3dcc1a46a5405b65b8aa8a077ccdf61",
+    "normal-stage-3.png": "e491498743438e99cf430a08fa330aff5601e5ea1346c50919e7bc1126998e9d",
+    "normal-stage-4.png": "14903ef78e7a6f9962c7e36b7e3fd24974ca750ec08ea0e38816d14b6578a86a",
+    "normal-stage-5.png": "08057cafbbe1c6e1055f0a88d4e1c4227b98165549d9a75ebf722bb9a0ece223",
+    "normal-stage-6.png": "ae086bb150589581b60c0cd4bbdec3567f041241ee56144b3036cbe943c7aea1",
+    "normal-stage-7.png": "4a5567b3535d1fb34de1ab2145c605ac5aeb082da44df4c1087782e10083db2a",
+    "performance-frames.csv": "a3968a8c6521305522dc3de642ac2d6f9c019ba3c6edda36ee640aac6cbb76a3",
+    "player-report.json": "7c7116714d70b04b6915e700d79a8c75e2844f343d265e5355976f2cb0504f54",
+    "profiler-markers.tsv": "4b40a73ad57e279e3dce6196ba477971ad6dcf96bb6646d0c50965530a21728d",
+    "startup-render-ready-warmup-1.png": "a3646275deefe1b6fbfa2414ec7d80f0d5722bf75b6417d875eb8f2f0feb5103",
+    "startup-render-ready-warmup-2.png": "a3646275deefe1b6fbfa2414ec7d80f0d5722bf75b6417d875eb8f2f0feb5103",
+    "startup-render-ready.png": "a3646275deefe1b6fbfa2414ec7d80f0d5722bf75b6417d875eb8f2f0feb5103",
+    "v06-checks.json": "60241984902be679d1b191d571559ff016b9910bf3bf90fe41f597126f4b404c",
+    "v06-controller-drag-committed.png": "04652949d2b4bb6931a4371acd5b0fdae5ec0890748eace706caca5cff9e5834",
+    "v06-controller-drag-preview.png": "fcd21aad74c4dbcd72aaa7c2d2db2f9142d128b3482f06d1c813ce2157cae3ea",
+    "v06-debug-32dice.png": "8cc0ac0e057bebac3959d131d645a0ddb8667675280522bd4a6219c63a3b2f86",
+    "v06-debug-bigint-random-preview.png": "0819bb82e709eefe5720adc02d4007e70d3c8080698123bda9d4f01782bc45d1",
+    "v06-debug-controllers.png": "163b07d74d1df9a4cb388793c4ec3aeca66cf24fbd81bd121c02999d32446834",
+    "v06-debug-last-controller-row-wheel.png": "1b50c80c1e6e08dfba92a7e7b2013e0313c158ecb7fa25f1d877d3881fbc971b",
+    "v06-delete-D031-preview.png": "2f03f797db5d025c597b025c487feebcb5ec410a2a69da83d1e58f2ec397ea99",
+    "v06-display-checks.json": "90873c7e2c58617b422f1274969b98e491af187f1a6442138fc12ba40d3c0aac",
+    "v06-handbook-colors-independent.png": "dd1426cba42c408dc7f058ac87ffce95b301e8c8d32148e1c263744e2a92904b",
+    "v06-input-diagnostics.json": "a8791a6be8eb8ddb2b9eb801ae2cecf0d22dd5a856e595c417e4c710b2e26c49",
+    "v06-mimic-chain-destroyed-last.png": "7749d953cd8a37e8c8d123c1b27c4406209ec6250aa13ecf13da6a462702c761",
+    "v06-mimic-chain-invalid-first.png": "6fed8fb1e1ef260fea94628301752ec0a06e50254bbdfd479b98a05f2a323234",
+    "v06-remote-D031-D032-selected.png": "380d7d73e00bbce2205866c1a2bfe64193912febb269e3b6a5bc28ec5889f5c9",
+    "v06-remote-target32-1280x720.png": "e572692ff8c72e5c0613e6d64aeff0537e5a85569cacea8ce72e36ab72a90b0f",
+    "v06-remote-target32-1920x1080.png": "c91b866ba0e85ad841e196a75da4c3c54cdeebed272a5ef35f1c36d169438cec",
+    "v06-remote-target32-2560x1440.png": "0f6159e9db880316a7841020efefe7d2353f65a2b49dbbfe44c129075ca957d3",
+    "v06-remote-target32-bottom-1280x720.png": "cf8ba3c91ca276e63eb103627a309f7486480d9496626bf942739da086295992",
+    "v06-remote-target32-bottom-1920x1080.png": "e48e907e90b0845ac60d7e668c90515a83635b337c51ccc51b1d02ceeb735d17",
+    "v06-remote-target32-bottom-2560x1440.png": "1effa2929fde7af2e4b164c7b8e2522e51a328c6d6095274a25cd0a91e2e9422",
+    "v06-remote-target32-middle-1280x720.png": "ab46da66daf17c027e3eb3be718433176de0d31a1d826db0c450cef783a93ac0",
+    "v06-remote-target32-middle-1920x1080.png": "42e0aa34fa135944409823a2ef677f08b8c7cd05060a54c542259017ca7ee985",
+    "v06-remote-target32-middle-2560x1440.png": "3e9b80e03eb73a80c87b40a056924364393a4d70d6d89877617ff56317fa33cf",
+    "v06-resolution-transitions.json": "9d4fe85b23c620a1b5c6eb71b40ef83d46e7da34b655f5630829f576c231861e",
+    "v06-shop-free-first-refresh-0.png": "2862e54eef90a664555a5d8069fb8b1ee7cf22d41bea00bf2bcdf73ef4209e3f",
+    "v06-shop-refresh-after-charge-3.png": "17cfff2f4fdda519328aba5599488c11a8c32606ce1ec50c0327bd4f2ae5ec1d",
+    "v06-shop-refresh-after-charge-5.png": "c4a5ac5c1a0fd4c06f6abcd1050d1f3106a01795732730a001deb4bbc0c6e73f",
+    "v06-shop-refresh-after-charge-7.png": "855fcb0247772071ced72f24022a662765fc3acb8819e827301c279c334231b2",
+    "v06-shop-refresh-transactions.json": "1bec8b13ce334c6b8477e409d10d4a0a77b5b391775ce75bc81e8ef0dd83291b",
+    "v06-shop-target32-1280x720.png": "412117731afd06b08d4b386fe378a7b3373af8c342621a66097058f465b363ea",
+    "v06-shop-target32-1920x1080.png": "538e64a57663f4e46e4302e463141ad14efa0b5d4e9984b485eb6ba4f1471ab0",
+    "v06-shop-target32-2560x1440.png": "def2d46ea575c6dc7b5039d1b179cd9a8cb6c3c89aa6a989afd46a2e7e847f8d",
+    "v06-shop-target32-bottom-1280x720.png": "d7e2fcf70c0c232d08509f7b76a654e2cffd01d2893f080cbd4686832ded9359",
+    "v06-shop-target32-bottom-1920x1080.png": "cb02ac2d93f6752c90d3bcd84d7636ca0e6c5ce5ec630ebf046083d02637b31f",
+    "v06-shop-target32-bottom-2560x1440.png": "453d14b017a73169988e6c0b4cd480fe2860870c9b4d4f0035240d3da0fccf28",
+    "v06-shop-target32-middle-1280x720.png": "0fd1a74db9767c102b4c2fba21e8f37bf8bfd9e8255300dfa1b0526837ff82b7",
+    "v06-shop-target32-middle-1920x1080.png": "92e3010f1228db3cc9e40073d9406f19c2f8d70d28385e15c84dfa5efede689c",
+    "v06-shop-target32-middle-2560x1440.png": "96afe14965135d7f0c63906be12eb842326665e5df67e01f856496177889d263",
+    "v06-target32-raycasts.json": "62c81eeca72a276a64711f7daef2362229c40ad5035680e08dc2fd534abbfc12",
+    "v06-ui-debug-state.json": "5e3e09b3ad574149bbac494084ffa4f17796c42d24a6aa617f0d8b2e587f307a",
+    "v06-ui-render-readiness.json": "374b7e80e16a6d6f5b5dc9bdeef22256c1d6f9a983ac39422d5ec2094722f0d5",
+    "v06-upgrade-D032-F01-preview.png": "f1f56d98f00957b527c6f86f3be384130c980ac9a556e3d52353c262cb38358e",
+    "cross-platform-checkpoint/active-run.json": "05fe62e8d2b87dbfb879a471fa4e025699a6d97b932ab8ffd940063f7e64ea48",
+    "cross-platform-checkpoint/command.json": "692dc65bc8dc8661cdce61bff9dbe2172ad94b61d3730b12506033b5af0555db",
+    "cross-platform-checkpoint/expected.json": "cb5559f615b0cff158ac12452edda59f7fafca01319453f80e71ade03765e261",
+    "debug-chain-save/debug-run.json": "47c657d98d17722e104373ef92c4a82c12e25d03cbf387fe3d0854ab6f349009",
+    "debug-drag-save/debug-run.json": "7131703afb977228d10ddbd1c4de0bea978861061f1536e8ab10a6b5cce8c211",
+    "debug-drag-save/debug-run.json.backup": "f2b1198eef8ca8ae06d4c7ae43971285a8f1f36a006206bfe86ba834e3eeb5df",
+    "debug-free-refresh-shop-save/debug-run.json": "70ab527a2547cee028f249225bc2f1e4a4ebfd322788e30c42c1cae7d133a545",
+    "debug-free-refresh-shop-save/debug-run.json.backup": "4caa26095a8d197fef69f1b244dc06bf606ffd1aa90d01c6c74a0230f5e653b0",
+    "debug-refresh-shop-save/debug-run.json": "41d7fdc008fe49fe7a143399d435a9ee13e8737391573cf33932490013e58141",
+    "debug-refresh-shop-save/debug-run.json.backup": "83c63f220efdc08fafe65f62f12fa7282d8c8844543ea73e6a335770b26ca52b",
+    "debug-stress-save/active-run.json": "017e8ddb2461b4987d6436f3877b12c54617c9a047cc11923db4065bc341d2fd",
+    "debug-stress-save/active-run.json.backup": "75a6bc61155b4b99512b52093f5b7c9afaa152eaae47f8304958f1c0b42f9a1b",
+    "debug-stress-save/debug-actions.jsonl": "740e11d0985c2147d2d088018f6552c53b6539f09412160ef13c7a49cd249af4",
+    "debug-target32-shop-save/debug-run.json": "8e945f97522e8863d676fc9c6473b38481aed64bd99cb4515dcd348a1e85c488",
+    "debug-target32-shop-save/debug-run.json.backup": "28707e32749a0f69fd6f0d59f2e15f2cf70cea243efae0b9a31e37932743b3a2",
+    "debug24-save/debug-run.json": "2c12112d9980998fb95e3db78c7621321ac32b882b815ad19070fabe1589e975",
+    "debug24-save/debug-run.json.backup": "3797643758769b4be1d95b6d999bd6b0859c7bc86a7fc6aad85cea9df117404b",
+    "local-checkpoint-reload/active-run.json": "bf455da2efe5b27f4ba575fb7d25c882f4cd3c71f813949224c27078d81cffc6",
+    "local-checkpoint-reload/active-run.json.backup": "05fe62e8d2b87dbfb879a471fa4e025699a6d97b932ab8ffd940063f7e64ea48",
+    "local-checkpoint-reload/verification.json": "0f36721982098c6fae2624f2371e549d36a160fbd6656471b463d883f01a69d9",
+    "normal-save/active-run.json": "7996b263b9346c2af8d1a6760b85c7b07fddc34d84e23945d88f0fa3ef3c84c8",
+    "normal-save/active-run.json.backup": "cf68856e8cf7706749b96be526e830988205a22317f8c25ce27109e6bf0e1fe5",
+    "normal-save/debug-actions.jsonl": "6a2b8613ca214a5820401f20757fcb063e42afa416db1dfc3d8c9b744e0dd95f",
+    "normal-save/debug-run.json": "9f4259352cfebab223b24452ff41d7a9b2a030309e62d94c973ad8a2709199e2",
+    "normal-save/debug-run.json.backup": "de4406542abca4a767d598969ee9643b5ec7b358c4c7830b86a32b7cb9a49740",
+    "normal-save/normal-actions.jsonl": "b9ba6c5a8d7e8ce00f43c18c0f828a0b441cf3915da42bcdf7e96ad8fa6dce37"
+  },
+  "limitations": [
+    "PNG dimension/hash checks are not visual approval; see separate actual image review.",
+    "Synthetic routed keyboard is not physical keyboard/focus acceptance.",
+    "Mac and human acceptance are not inferred.",
+    "Windows native display previously failed and is explicitly not executed in this restricted run. No full release pass is granted."
+  ]
+}

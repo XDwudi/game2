@@ -1,0 +1,19 @@
+{
+  "utc": "2026-10-31T15:45:52.8007780Z",
+  "pid": 43460,
+  "exe": "E:/agent_workspace/gpt/game2/Builds/v06/Windows/DicePrototype.exe",
+  "arguments": [
+    "--verify-p0",
+    "E:/agent_workspace/gpt/game2/evidence/v06/session/normal-run-trace.json",
+    "--verify-debug-trace",
+    "E:/agent_workspace/gpt/game2/evidence/v06/session/debug-24-trace.json",
+    "--evidence-dir",
+    "E:/agent_workspace/gpt/game2/evidence/v06/player",
+    "-logFile",
+    "E:/agent_workspace/gpt/game2/artifacts/cache/v06/player09-partial.log",
+    "--verify-defer-native-display"
+  ],
+  "sourceCommit": "08ef933f2fbc3198a5e357ecebaa2758fbee8643",
+  "buildGuid": "c137ca83c7ec4fbab3243ff0aa663bfb",
+  "scope": "full-gameplay-ui-perf_native_display_pending"
+}

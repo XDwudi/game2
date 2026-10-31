@@ -1,0 +1,20 @@
+{
+  "scope": "Offline mocked-process tool tests only; no Windows Player started",
+  "tests": 17,
+  "failures": 0,
+  "errors": 0,
+  "sourceBefore": {
+    "evidence\\v06\\session\\display-recovery\\test_windows_recovery_runner.py": "4a0622e492da7d55b96247b6ac41d8ff23f5b4213a2fc3b5a9df16711a4e3f0c",
+    "tools\\verify_v06_display_recovery.py": "127bf97c79a80fae1306c12c9fefdf1cdb30eb915b6d675401cfc61f9346df0a",
+    "tools\\package_v06.py": "734a22013d75115d988cda119579be66993e9736c9279dc715e4de9a4b438d97",
+    "tools\\macos\\v06\\compare_replays.py": "37684edb2ffdd918fc09d1bb9405c1eddb4eb32e0de27ef0cb05a0df654653f7"
+  },
+  "sourceAfter": {
+    "evidence\\v06\\session\\display-recovery\\test_windows_recovery_runner.py": "4a0622e492da7d55b96247b6ac41d8ff23f5b4213a2fc3b5a9df16711a4e3f0c",
+    "tools\\verify_v06_display_recovery.py": "127bf97c79a80fae1306c12c9fefdf1cdb30eb915b6d675401cfc61f9346df0a",
+    "tools\\package_v06.py": "734a22013d75115d988cda119579be66993e9736c9279dc715e4de9a4b438d97",
+    "tools\\macos\\v06\\compare_replays.py": "37684edb2ffdd918fc09d1bb9405c1eddb4eb32e0de27ef0cb05a0df654653f7"
+  },
+  "sourceStable": true,
+  "passed": true
+}

@@ -1,0 +1,63 @@
+{
+  "schema": "v06-diagnostic-candidate-actual-reference-read-1",
+  "kind": "read_only_existing_evidence_validation_not_new_Player_run",
+  "path": "evidence\\v06\\player\\player-20261031-154556-f25586f0",
+  "reportSha256Before": "7c7116714d70b04b6915e700d79a8c75e2844f343d265e5355976f2cb0504f54",
+  "reportSha256After": "7c7116714d70b04b6915e700d79a8c75e2844f343d265e5355976f2cb0504f54",
+  "strictDefaultFailures": [
+    {
+      "side": "windows",
+      "reason": "player_did_not_pass"
+    },
+    {
+      "side": "windows",
+      "reason": "pressure_gate_not_met"
+    },
+    {
+      "side": "windows",
+      "reason": "v06_ui_sections_missing_or_failed"
+    },
+    {
+      "side": "windows",
+      "reason": "native_display_sections_missing_or_failed"
+    }
+  ],
+  "existingReviewFailures": [
+    {
+      "side": "windows",
+      "reason": "pressure_gate_not_met"
+    },
+    {
+      "side": "windows",
+      "reason": "not_explicit_completed_review_reference"
+    }
+  ],
+  "diagnosticSelection": "valid_reference_only_performance_FAILED",
+  "notice": {
+    "status": "budget_exceeded",
+    "verificationScope": "full-gameplay-ui-perf_native_display_pending",
+    "use": "Gameplay/UI/trace reference ONLY; Windows performance FAILED and native P22 NOT PASSED",
+    "allowFailedWindowsPerformance": true,
+    "windowsPerformance": {
+      "acceptanceStatus": "FAILED",
+      "status": "budget_exceeded",
+      "observedStatus": "budget_exceeded",
+      "sampleSeconds": 180.004603,
+      "p95FrameIntervalMs": 23.0348000000049,
+      "thresholdMs": 16.7,
+      "frames": 9103,
+      "focusedSampleFrames": 0,
+      "gpuInvalidSamples": 1,
+      "gpuMissingSamples": 264,
+      "note": "Completed observation, not a performance pass or pending result. Focus and GPU anomalies remain uncorrected evidence."
+    },
+    "windowsNativeDisplayStatus": "PENDING_P22_NOT_PASSED",
+    "macRuntimeStatus": "NOT_RUN_ON_MAC",
+    "fullWindowsPassed": false,
+    "fullReleaseAccepted": false,
+    "publication": "User-authorized diagnostic test candidate; no performance, native-display or whole-release acceptance"
+  },
+  "normalSteps": 145,
+  "debugSteps": 175,
+  "nonDisplayUIChecks": 15
+}

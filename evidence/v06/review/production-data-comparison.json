@@ -1,0 +1,20 @@
+{
+  "scope": "Parsed original appendix JSON equality with imported production JSON.",
+  "pass": true,
+  "results": [
+    {
+      "name": "configuration",
+      "actual": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Data\\P0Config.json",
+      "sha256": "747ed1efc7bea15873f66a81eee5c7654971c21031f2a1517ce629adce7b6e6c",
+      "differenceCount": 0,
+      "differences": []
+    },
+    {
+      "name": "golden",
+      "actual": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Data\\GoldenScores.json",
+      "sha256": "306cb86f79dafe0e3eb302714abd232af20fe0062a6713f7d713c11e2a6a5718",
+      "differenceCount": 0,
+      "differences": []
+    }
+  ]
+}

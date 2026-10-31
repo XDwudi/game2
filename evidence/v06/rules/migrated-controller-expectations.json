@@ -1,0 +1,254 @@
+[
+  {
+    "id": "C02",
+    "case": "hit",
+    "old": 15,
+    "new": 60
+  },
+  {
+    "id": "C02",
+    "case": "miss-red",
+    "old": 5,
+    "new": 5
+  },
+  {
+    "id": "C02",
+    "case": "boundary-single",
+    "old": 6,
+    "new": 24
+  },
+  {
+    "id": "C03",
+    "case": "hit",
+    "old": 16,
+    "new": 16
+  },
+  {
+    "id": "C03",
+    "case": "not-equipped",
+    "old": 16,
+    "new": 48
+  },
+  {
+    "id": "C03",
+    "case": "boundary-single",
+    "old": 2,
+    "new": 4
+  },
+  {
+    "id": "C06",
+    "case": "hit",
+    "old": 30,
+    "new": 30
+  },
+  {
+    "id": "C06",
+    "case": "miss-two-distinct",
+    "old": 8,
+    "new": 8
+  },
+  {
+    "id": "C06",
+    "case": "boundary-duplicate-with-four-distinct",
+    "old": 78,
+    "new": 78
+  },
+  {
+    "id": "C08",
+    "case": "hit",
+    "old": 6,
+    "new": 18
+  },
+  {
+    "id": "C08",
+    "case": "miss-full",
+    "old": 16,
+    "new": 16
+  },
+  {
+    "id": "C08",
+    "case": "boundary-one-empty-slot",
+    "old": 60,
+    "new": 180
+  },
+  {
+    "id": "C09",
+    "case": "hit",
+    "old": 6,
+    "new": 24
+  },
+  {
+    "id": "C09",
+    "case": "not-equipped",
+    "old": 2,
+    "new": 6
+  },
+  {
+    "id": "C09",
+    "case": "boundary-full-reduced-capacity",
+    "old": 30,
+    "new": 40
+  },
+  {
+    "id": "C10",
+    "case": "hit",
+    "old": 5,
+    "new": 22
+  },
+  {
+    "id": "C10",
+    "case": "miss-pip-two",
+    "old": 2,
+    "new": 6
+  },
+  {
+    "id": "C10",
+    "case": "boundary-contribution-does-not-change-pair",
+    "old": 20,
+    "new": 44
+  },
+  {
+    "id": "C11",
+    "case": "hit",
+    "old": 150,
+    "new": 540
+  },
+  {
+    "id": "C11",
+    "case": "miss-one-three",
+    "old": 22,
+    "new": 22
+  },
+  {
+    "id": "C11",
+    "case": "boundary-extra-die-allowed",
+    "old": 165,
+    "new": 198
+  },
+  {
+    "id": "C12",
+    "case": "hit",
+    "old": 8,
+    "new": 8
+  },
+  {
+    "id": "C12",
+    "case": "miss-even-unchanged",
+    "old": 6,
+    "new": 18
+  },
+  {
+    "id": "C12",
+    "case": "boundary-five-to-six",
+    "old": 24,
+    "new": 72
+  },
+  {
+    "id": "C13",
+    "case": "hit",
+    "old": 5,
+    "new": 18
+  },
+  {
+    "id": "C13",
+    "case": "miss-even",
+    "old": 4,
+    "new": 12
+  },
+  {
+    "id": "C13",
+    "case": "boundary-red-group-uses-original-one",
+    "old": 18,
+    "new": 56
+  },
+  {
+    "id": "C14",
+    "case": "hit",
+    "old": 6,
+    "new": 27
+  },
+  {
+    "id": "C14",
+    "case": "miss-mixed-parity",
+    "old": 5,
+    "new": 15
+  },
+  {
+    "id": "C14",
+    "case": "boundary-single-one",
+    "old": 2,
+    "new": 6
+  },
+  {
+    "id": "C17",
+    "case": "hit",
+    "old": 6,
+    "new": 27
+  },
+  {
+    "id": "C17",
+    "case": "miss-four",
+    "old": 4,
+    "new": 12
+  },
+  {
+    "id": "C17",
+    "case": "boundary-all-three-small-values",
+    "old": 15,
+    "new": 24
+  },
+  {
+    "id": "C18",
+    "case": "hit",
+    "old": 16,
+    "new": 24
+  },
+  {
+    "id": "C18",
+    "case": "miss-unequal",
+    "old": 36,
+    "new": 42
+  },
+  {
+    "id": "C18",
+    "case": "boundary-two-different-pips",
+    "old": 18,
+    "new": 27
+  },
+  {
+    "id": "C19",
+    "case": "hit-threshold",
+    "old": 6,
+    "new": 12
+  },
+  {
+    "id": "C19",
+    "case": "miss-above-threshold",
+    "old": 1,
+    "new": 2
+  },
+  {
+    "id": "C19",
+    "case": "boundary-remote-current-six-permanent-ones",
+    "old": 11,
+    "new": 33
+  },
+  {
+    "id": "C20",
+    "case": "hit",
+    "old": 22,
+    "new": 22
+  },
+  {
+    "id": "C20",
+    "case": "miss-last-five",
+    "old": 90,
+    "new": 90
+  },
+  {
+    "id": "C20",
+    "case": "boundary-last-occupied-not-capacity-slot",
+    "old": 6,
+    "new": 18
+  }
+]

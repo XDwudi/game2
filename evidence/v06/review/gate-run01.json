@@ -1,0 +1,102 @@
+{
+  "scope": "Synthetic build-gate integrity probes. No Unity or production writes; no git mutation.\n\nFixture DLL/PDB files are deliberately just bytes because this test targets the gate's\nconsumption of an audit proof, not the PE auditor itself. A mocked git read reports the\nfixture root clean. These are negative checker tests, never game acceptance evidence.\n",
+  "gateSha256": "2e9390d25a7667ba7e19e19752b7ef54e47d720a25934b2b8c1fd02d4aac9667",
+  "probeSha256": "824d2e9c7031aa40fec4e398be439dda6bf31d759a5f39798ccb59126a61301d",
+  "count": 12,
+  "expectationsMet": 5,
+  "unexpectedAcceptances": [
+    "stale_test_run_precedes_current_compilation",
+    "failed_nested_suite_with_passed_leaves",
+    "namespaced_failed_case_hidden_from_counts",
+    "wrong_root_tag",
+    "mixed_platform_labels",
+    "five_duplicate_core_assemblies_omit_runtime_and_tests",
+    "proof_omits_runtime_source_documents"
+  ],
+  "results": [
+    {
+      "name": "valid_complete_fixture",
+      "expected": "accept",
+      "actual": "accept",
+      "matchedExpectation": true,
+      "error": null
+    },
+    {
+      "name": "changed_discovered_name",
+      "expected": "reject",
+      "actual": "reject",
+      "matchedExpectation": true,
+      "error": "ValueError: Executed suite differs from complete discovered inventory: EditMode"
+    },
+    {
+      "name": "skipped_leaf",
+      "expected": "reject",
+      "actual": "reject",
+      "matchedExpectation": true,
+      "error": "ValueError: EditMode: non-passing leaf"
+    },
+    {
+      "name": "changed_compiled_source",
+      "expected": "reject",
+      "actual": "reject",
+      "matchedExpectation": true,
+      "error": "ValueError: Current source differs from compiled PDB: E:\\agent_workspace\\gpt\\game2\\evidence\\v06\\review\\gate-run01\\changed_compiled_source\\DicePrototype\\Assets\\Game\\Fixture\\DiceCraft.Core.cs"
+    },
+    {
+      "name": "changed_current_dll",
+      "expected": "reject",
+      "actual": "reject",
+      "matchedExpectation": true,
+      "error": "ValueError: Recompiled after PDB audit: E:\\agent_workspace\\gpt\\game2\\evidence\\v06\\review\\gate-run01\\changed_current_dll\\DicePrototype\\Library\\ScriptAssemblies\\DiceCraft.Core.dll"
+    },
+    {
+      "name": "stale_test_run_precedes_current_compilation",
+      "expected": "reject",
+      "actual": "accept",
+      "matchedExpectation": false,
+      "error": null
+    },
+    {
+      "name": "failed_nested_suite_with_passed_leaves",
+      "expected": "reject",
+      "actual": "accept",
+      "matchedExpectation": false,
+      "error": null
+    },
+    {
+      "name": "namespaced_failed_case_hidden_from_counts",
+      "expected": "reject",
+      "actual": "accept",
+      "matchedExpectation": false,
+      "error": null
+    },
+    {
+      "name": "wrong_root_tag",
+      "expected": "reject",
+      "actual": "accept",
+      "matchedExpectation": false,
+      "error": null
+    },
+    {
+      "name": "mixed_platform_labels",
+      "expected": "reject",
+      "actual": "accept",
+      "matchedExpectation": false,
+      "error": null
+    },
+    {
+      "name": "five_duplicate_core_assemblies_omit_runtime_and_tests",
+      "expected": "reject",
+      "actual": "accept",
+      "matchedExpectation": false,
+      "error": null
+    },
+    {
+      "name": "proof_omits_runtime_source_documents",
+      "expected": "reject",
+      "actual": "accept",
+      "matchedExpectation": false,
+      "error": null
+    }
+  ]
+}

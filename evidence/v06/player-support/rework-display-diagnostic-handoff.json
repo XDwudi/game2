@@ -1,0 +1,116 @@
+{
+  "schema": "p06-probe-rework-1",
+  "inputSourceCommit": "6f9e285432ab92e7304830a42c9e9e4cd74d97c3",
+  "probeRevision": "p06-player-native-display-diagnostics-12",
+  "status": "frozen_managed_api_compiled_actual_player_pending",
+  "managedChecks": 40,
+  "performanceMethods": [
+    {
+      "method": "RunStress",
+      "unchanged": true
+    },
+    {
+      "method": "LateUpdate",
+      "unchanged": true
+    },
+    {
+      "method": "BuildPerformanceReport",
+      "unchanged": true
+    },
+    {
+      "method": "WriteFrames",
+      "unchanged": true
+    },
+    {
+      "method": "Metric",
+      "unchanged": true
+    },
+    {
+      "method": "CompleteCoverage",
+      "unchanged": true
+    },
+    {
+      "method": "RequiredFrameCapacity",
+      "unchanged": true
+    },
+    {
+      "method": "ClassifyGpuDuration",
+      "unchanged": true
+    },
+    {
+      "method": "ClockDelta",
+      "unchanged": true
+    }
+  ],
+  "files": [
+    {
+      "path": "DicePrototype/Assets/Game/Runtime/Verification/PlayerVerification.cs",
+      "sha256": "df849a2a34a808c83c7801b47864f892855cd799bde273605f60515c5a0b2771"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Runtime/Verification/PlayerVerification.V06.cs",
+      "sha256": "093009343401df2318df1322873e54f5855450da2f45b8b476b6f76b00de111a"
+    }
+  ],
+  "newChecks": [
+    "remote-target32-ui",
+    "shop-target32-ui"
+  ],
+  "diagnostics": [
+    "v06-input-diagnostics.json",
+    "v06-resolution-transitions.json",
+    "v06-target32-raycasts.json",
+    "v06-native-display-transitions.json"
+  ],
+  "constraints": {
+    "totalResolutionDeadlineSeconds": 12,
+    "exactStableSizeFrames": 3,
+    "globalBackgroundBehaviorChanged": false,
+    "directCancelCalled": false,
+    "UnityPlayerRunByAgent": false
+  },
+  "managedLog": "evidence/v06/player-support/rework-display-diagnostic-compile02.log",
+  "target32ClickContract": {
+    "waitActualFrameBefore": true,
+    "allCornersInsideScreenAndParentMasks": true,
+    "firstRaycastButtonMustBeTarget": true,
+    "executeAfterAssertionOnly": true,
+    "waitActualFrameAfter": true,
+    "onlyTarget32CallsChanged": true
+  },
+  "keyboardLayoutCorrection": {
+    "package": "com.unity.inputsystem 1.20.1",
+    "source": "DicePrototype/Library/PackageCache/com.unity.inputsystem@2436e68c60c4/InputSystem/Runtime/Controls/InputControlLayout.cs:1567,1637-1645",
+    "deviceBuilder": "InputSystem/Runtime/Devices/InputDeviceBuilder.cs:162-167",
+    "jsonField": "runInBackground",
+    "jsonValue": "enabled",
+    "oldUnknownJsonField": "canRunInBackground",
+    "actualFailureEvidence": "evidence/v06/player/player-20261031-135926-f1439a98/v06-input-diagnostics.json",
+    "failureEnabled": true,
+    "failureFocused": true,
+    "failureCanRunInBackground": false,
+    "managedChecksDoNotExecuteUnityJsonParser": true,
+    "actualPlayerRetest": "pending_root"
+  },
+  "displayDiagnostic": {
+    "standaloneCli": [
+      "--verify-display-only",
+      "--evidence-dir",
+      "<directory>"
+    ],
+    "traceRequired": false,
+    "setupOnlyNewRunSeed": 20261031,
+    "reuses": "VerifyV06Displays",
+    "successStatus": "display_passed",
+    "normalReplayPassed": false,
+    "stressCompleted": false,
+    "performance": null,
+    "modeAndSizeAssertionsUnchanged": true,
+    "nativeFailureBecomesUnsupported": false,
+    "nativeObservationBoundSeconds": 14,
+    "timeoutObservationBoundSeconds": 21,
+    "recordsBeforeApplyAndFinally": true,
+    "rootMustRunActualPlayer": true,
+    "productionDisplaySettingsUnmodified": true
+  }
+}

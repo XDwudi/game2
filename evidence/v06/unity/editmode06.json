@@ -1,0 +1,5445 @@
+{
+  "status": "completed",
+  "duration": 14.09,
+  "summary": {
+    "total": 776,
+    "passed": 776,
+    "failed": 0,
+    "skipped": 0,
+    "inconclusive": 0
+  },
+  "results": [
+    {
+      "FullName": "DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C02-hit",
+      "Status": "Passed",
+      "Duration": 0.008779,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C02-miss-red",
+      "Status": "Passed",
+      "Duration": 0.0165313,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C02-boundary-single",
+      "Status": "Passed",
+      "Duration": 0.0085056,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C03-hit",
+      "Status": "Passed",
+      "Duration": 0.008353,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C03-not-equipped",
+      "Status": "Passed",
+      "Duration": 0.0176682,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C03-boundary-single",
+      "Status": "Passed",
+      "Duration": 0.0083828,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C06-hit",
+      "Status": "Passed",
+      "Duration": 0.0084675,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C06-miss-two-distinct",
+      "Status": "Passed",
+      "Duration": 0.0082632,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C06-boundary-duplicate-with-four-distinct",
+      "Status": "Passed",
+      "Duration": 0.0166379,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C08-hit",
+      "Status": "Passed",
+      "Duration": 0.0083386,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C08-miss-full",
+      "Status": "Passed",
+      "Duration": 0.008324,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C08-boundary-one-empty-slot",
+      "Status": "Passed",
+      "Duration": 0.0169525,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C09-hit",
+      "Status": "Passed",
+      "Duration": 0.008294,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C09-not-equipped",
+      "Status": "Passed",
+      "Duration": 0.0081904,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C09-boundary-full-reduced-capacity",
+      "Status": "Passed",
+      "Duration": 0.0082507,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C10-hit",
+      "Status": "Passed",
+      "Duration": 0.0164655,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C10-miss-pip-two",
+      "Status": "Passed",
+      "Duration": 0.0081893,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C10-boundary-contribution-does-not-change-pair",
+      "Status": "Passed",
+      "Duration": 0.0082572,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C11-hit",
+      "Status": "Passed",
+      "Duration": 0.0117199,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C11-miss-one-three",
+      "Status": "Passed",
+      "Duration": 0.0143208,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C11-boundary-extra-die-allowed",
+      "Status": "Passed",
+      "Duration": 0.0085613,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C12-hit",
+      "Status": "Passed",
+      "Duration": 0.0085691,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C12-miss-even-unchanged",
+      "Status": "Passed",
+      "Duration": 0.0174106,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C12-boundary-five-to-six",
+      "Status": "Passed",
+      "Duration": 0.0082588,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C13-hit",
+      "Status": "Passed",
+      "Duration": 0.0081434,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C13-miss-even",
+      "Status": "Passed",
+      "Duration": 0.0082097,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C13-boundary-red-group-uses-original-one",
+      "Status": "Passed",
+      "Duration": 0.0173809,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C14-hit",
+      "Status": "Passed",
+      "Duration": 0.0088351,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C14-miss-mixed-parity",
+      "Status": "Passed",
+      "Duration": 0.0088733,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C14-boundary-single-one",
+      "Status": "Passed",
+      "Duration": 0.0095069,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C17-hit",
+      "Status": "Passed",
+      "Duration": 0.0190424,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C17-miss-four",
+      "Status": "Passed",
+      "Duration": 0.0085558,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C17-boundary-all-three-small-values",
+      "Status": "Passed",
+      "Duration": 0.0090178,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C18-hit",
+      "Status": "Passed",
+      "Duration": 0.0138314,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C18-miss-unequal",
+      "Status": "Passed",
+      "Duration": 0.0148036,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C18-boundary-two-different-pips",
+      "Status": "Passed",
+      "Duration": 0.0084858,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C19-hit-threshold",
+      "Status": "Passed",
+      "Duration": 0.0083145,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C19-miss-above-threshold",
+      "Status": "Passed",
+      "Duration": 0.0170057,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C19-boundary-remote-current-six-permanent-ones",
+      "Status": "Passed",
+      "Duration": 0.0081733,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C20-hit",
+      "Status": "Passed",
+      "Duration": 0.0080098,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C20-miss-last-five",
+      "Status": "Passed",
+      "Duration": 0.0081546,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C20-boundary-last-occupied-not-capacity-slot",
+      "Status": "Passed",
+      "Duration": 0.0158498,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.Configuration_ContainsExactly71SupportedItemsAnd13Hands2Colors",
+      "Status": "Passed",
+      "Duration": 0.0077999,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.Configuration_RejectsInvalidWeightsAndFaces",
+      "Status": "Passed",
+      "Duration": 0.015507,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.Configuration_RejectsMalformedOrIncompleteJson(\"{}\")",
+      "Status": "Passed",
+      "Duration": 0.0154173,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.Configuration_RejectsMalformedOrIncompleteJson(\"{\\\"configVersion\\\":null}\")",
+      "Status": "Passed",
+      "Duration": 0.0077062,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.Configuration_RejectsMalformedOrIncompleteJson(\"{\\\"a\\\":1,\\\"a\\\":2}\")",
+      "Status": "Passed",
+      "Duration": 0.0077255,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.Configuration_RejectsMalformedOrIncompleteJson(\"{\\\"a\\\":1,}\")",
+      "Status": "Passed",
+      "Duration": 0.0080895,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.Configuration_RejectsMalformedOrIncompleteJson(\"[]\")",
+      "Status": "Passed",
+      "Duration": 0.0126196,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.Configuration_RejectsMissingZeroOrFalseFields",
+      "Status": "Passed",
+      "Duration": 0.0118017,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.Configuration_RejectsUnknownMissingDuplicateIds",
+      "Status": "Passed",
+      "Duration": 0.0664636,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.FactoryAndClone_HaveNoSharedMutableFaces",
+      "Status": "Passed",
+      "Duration": 0.0080134,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G001",
+      "Status": "Passed",
+      "Duration": 0.0082976,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G002",
+      "Status": "Passed",
+      "Duration": 0.0151335,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G003",
+      "Status": "Passed",
+      "Duration": 0.0079165,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G004",
+      "Status": "Passed",
+      "Duration": 0.008027,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G005",
+      "Status": "Passed",
+      "Duration": 0.0150148,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G006",
+      "Status": "Passed",
+      "Duration": 0.0078236,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G007",
+      "Status": "Passed",
+      "Duration": 0.0079815,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G008",
+      "Status": "Passed",
+      "Duration": 0.0080895,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G009",
+      "Status": "Passed",
+      "Duration": 0.0150789,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G010",
+      "Status": "Passed",
+      "Duration": 0.0079562,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G011",
+      "Status": "Passed",
+      "Duration": 0.0082192,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G012",
+      "Status": "Passed",
+      "Duration": 0.0117751,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G013",
+      "Status": "Passed",
+      "Duration": 0.0139161,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G014",
+      "Status": "Passed",
+      "Duration": 0.0083648,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G015",
+      "Status": "Passed",
+      "Duration": 0.0084581,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G016",
+      "Status": "Passed",
+      "Duration": 0.0168233,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G017",
+      "Status": "Passed",
+      "Duration": 0.0085726,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G018",
+      "Status": "Passed",
+      "Duration": 0.0085985,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G019",
+      "Status": "Passed",
+      "Duration": 0.0089744,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G020",
+      "Status": "Passed",
+      "Duration": 0.0183442,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G021",
+      "Status": "Passed",
+      "Duration": 0.0084288,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G022",
+      "Status": "Passed",
+      "Duration": 0.0090698,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G023",
+      "Status": "Passed",
+      "Duration": 0.0125219,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G024",
+      "Status": "Passed",
+      "Duration": 0.0159011,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G025",
+      "Status": "Passed",
+      "Duration": 0.008296,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G026",
+      "Status": "Passed",
+      "Duration": 0.0083597,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G027",
+      "Status": "Passed",
+      "Duration": 0.0174497,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G028",
+      "Status": "Passed",
+      "Duration": 0.008621,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G029",
+      "Status": "Passed",
+      "Duration": 0.0085094,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G030",
+      "Status": "Passed",
+      "Duration": 0.0085744,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G031",
+      "Status": "Passed",
+      "Duration": 0.0175429,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G032",
+      "Status": "Passed",
+      "Duration": 0.0082552,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G033",
+      "Status": "Passed",
+      "Duration": 0.0086366,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G034",
+      "Status": "Passed",
+      "Duration": 0.009008,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G035",
+      "Status": "Passed",
+      "Duration": 0.0180795,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G036",
+      "Status": "Passed",
+      "Duration": 0.0082037,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G037",
+      "Status": "Passed",
+      "Duration": 0.0082343,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G038",
+      "Status": "Passed",
+      "Duration": 0.0084517,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G039",
+      "Status": "Passed",
+      "Duration": 0.0171469,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G040",
+      "Status": "Passed",
+      "Duration": 0.0081966,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G041",
+      "Status": "Passed",
+      "Duration": 0.0084157,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G042",
+      "Status": "Passed",
+      "Duration": 0.0089058,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G043",
+      "Status": "Passed",
+      "Duration": 0.017645,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G044",
+      "Status": "Passed",
+      "Duration": 0.0083105,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G045",
+      "Status": "Passed",
+      "Duration": 0.0083244,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G046",
+      "Status": "Passed",
+      "Duration": 0.0086335,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G047",
+      "Status": "Passed",
+      "Duration": 0.0174333,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G048",
+      "Status": "Passed",
+      "Duration": 0.0081369,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G049",
+      "Status": "Passed",
+      "Duration": 0.0083035,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G050",
+      "Status": "Passed",
+      "Duration": 0.0116938,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G051",
+      "Status": "Passed",
+      "Duration": 0.014943,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G052",
+      "Status": "Passed",
+      "Duration": 0.0086456,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G053",
+      "Status": "Passed",
+      "Duration": 0.0087295,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G054",
+      "Status": "Passed",
+      "Duration": 0.0120307,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G055",
+      "Status": "Passed",
+      "Duration": 0.0147125,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G056",
+      "Status": "Passed",
+      "Duration": 0.0083163,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G057",
+      "Status": "Passed",
+      "Duration": 0.0087111,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G058",
+      "Status": "Passed",
+      "Duration": 0.0120899,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G059",
+      "Status": "Passed",
+      "Duration": 0.0151367,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G060",
+      "Status": "Passed",
+      "Duration": 0.0081977,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G061",
+      "Status": "Passed",
+      "Duration": 0.0083192,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G062",
+      "Status": "Passed",
+      "Duration": 0.0117573,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G063",
+      "Status": "Passed",
+      "Duration": 0.0163019,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G064",
+      "Status": "Passed",
+      "Duration": 0.0086644,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G065",
+      "Status": "Passed",
+      "Duration": 0.0086866,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G066",
+      "Status": "Passed",
+      "Duration": 0.008678,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G067",
+      "Status": "Passed",
+      "Duration": 0.0455102,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G068",
+      "Status": "Passed",
+      "Duration": 0.0164381,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G069",
+      "Status": "Passed",
+      "Duration": 0.0083442,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G070",
+      "Status": "Passed",
+      "Duration": 0.0084082,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G071",
+      "Status": "Passed",
+      "Duration": 0.0177834,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G072",
+      "Status": "Passed",
+      "Duration": 0.0085095,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G073",
+      "Status": "Passed",
+      "Duration": 0.0083888,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G074",
+      "Status": "Passed",
+      "Duration": 0.0116367,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G075",
+      "Status": "Passed",
+      "Duration": 0.0146817,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G076",
+      "Status": "Passed",
+      "Duration": 0.0083828,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G077",
+      "Status": "Passed",
+      "Duration": 0.0090271,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G078",
+      "Status": "Passed",
+      "Duration": 0.0175338,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G079",
+      "Status": "Passed",
+      "Duration": 0.0082526,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G080",
+      "Status": "Passed",
+      "Duration": 0.0082393,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G081",
+      "Status": "Passed",
+      "Duration": 0.0083658,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G082",
+      "Status": "Passed",
+      "Duration": 0.0161309,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G083",
+      "Status": "Passed",
+      "Duration": 0.0087918,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G084",
+      "Status": "Passed",
+      "Duration": 0.008712,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G085",
+      "Status": "Passed",
+      "Duration": 0.0179647,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G086",
+      "Status": "Passed",
+      "Duration": 0.0082081,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G087",
+      "Status": "Passed",
+      "Duration": 0.0080709,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G088",
+      "Status": "Passed",
+      "Duration": 0.0082012,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G089",
+      "Status": "Passed",
+      "Duration": 0.0156846,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G090",
+      "Status": "Passed",
+      "Duration": 0.0079655,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G091",
+      "Status": "Passed",
+      "Duration": 0.0079501,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G092",
+      "Status": "Passed",
+      "Duration": 0.0081036,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G093",
+      "Status": "Passed",
+      "Duration": 0.0155126,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G094",
+      "Status": "Passed",
+      "Duration": 0.0078685,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G095",
+      "Status": "Passed",
+      "Duration": 0.0079419,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G096",
+      "Status": "Passed",
+      "Duration": 0.0112,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G097",
+      "Status": "Passed",
+      "Duration": 0.0124025,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G098",
+      "Status": "Passed",
+      "Duration": 0.007878,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G099",
+      "Status": "Passed",
+      "Duration": 0.0082327,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G100",
+      "Status": "Passed",
+      "Duration": 0.013188,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G101",
+      "Status": "Passed",
+      "Duration": 0.0080871,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G102",
+      "Status": "Passed",
+      "Duration": 0.0079396,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G103",
+      "Status": "Passed",
+      "Duration": 0.0081211,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G104",
+      "Status": "Passed",
+      "Duration": 0.0158245,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G105",
+      "Status": "Passed",
+      "Duration": 0.007848,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G106",
+      "Status": "Passed",
+      "Duration": 0.0077937,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G107",
+      "Status": "Passed",
+      "Duration": 0.0080474,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G108",
+      "Status": "Passed",
+      "Duration": 0.0156863,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G109",
+      "Status": "Passed",
+      "Duration": 0.0078274,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G110",
+      "Status": "Passed",
+      "Duration": 0.007842,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G111",
+      "Status": "Passed",
+      "Duration": 0.0080002,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G112",
+      "Status": "Passed",
+      "Duration": 0.0157677,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G113",
+      "Status": "Passed",
+      "Duration": 0.0078122,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G114",
+      "Status": "Passed",
+      "Duration": 0.0078019,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G115",
+      "Status": "Passed",
+      "Duration": 0.0081067,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G116",
+      "Status": "Passed",
+      "Duration": 0.0153318,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G117",
+      "Status": "Passed",
+      "Duration": 0.0078215,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G118",
+      "Status": "Passed",
+      "Duration": 0.0078672,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G119",
+      "Status": "Passed",
+      "Duration": 0.0080006,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G120",
+      "Status": "Passed",
+      "Duration": 0.0156892,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G121",
+      "Status": "Passed",
+      "Duration": 0.0077848,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G122",
+      "Status": "Passed",
+      "Duration": 0.0078483,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G123",
+      "Status": "Passed",
+      "Duration": 0.0079781,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G124",
+      "Status": "Passed",
+      "Duration": 0.0158611,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G125",
+      "Status": "Passed",
+      "Duration": 0.0082989,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G126",
+      "Status": "Passed",
+      "Duration": 0.0084698,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G127",
+      "Status": "Passed",
+      "Duration": 0.0085258,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G128",
+      "Status": "Passed",
+      "Duration": 0.017977,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G129",
+      "Status": "Passed",
+      "Duration": 0.008248,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G130",
+      "Status": "Passed",
+      "Duration": 0.008407,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G131",
+      "Status": "Passed",
+      "Duration": 0.00851,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G132",
+      "Status": "Passed",
+      "Duration": 0.0180658,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G133",
+      "Status": "Passed",
+      "Duration": 0.0084819,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G134",
+      "Status": "Passed",
+      "Duration": 0.0083934,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G135",
+      "Status": "Passed",
+      "Duration": 0.008494,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G136",
+      "Status": "Passed",
+      "Duration": 0.0369707,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G137",
+      "Status": "Passed",
+      "Duration": 0.0220754,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G138",
+      "Status": "Passed",
+      "Duration": 0.0078461,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G139",
+      "Status": "Passed",
+      "Duration": 0.0079188,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G140",
+      "Status": "Passed",
+      "Duration": 0.0110029,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G141",
+      "Status": "Passed",
+      "Duration": 0.0114723,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G142",
+      "Status": "Passed",
+      "Duration": 0.0078498,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G143",
+      "Status": "Passed",
+      "Duration": 0.0082395,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G144",
+      "Status": "Passed",
+      "Duration": 0.0158548,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G145",
+      "Status": "Passed",
+      "Duration": 0.0082001,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G146",
+      "Status": "Passed",
+      "Duration": 0.0081723,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G147",
+      "Status": "Passed",
+      "Duration": 0.011372,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G148",
+      "Status": "Passed",
+      "Duration": 0.0131367,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G149",
+      "Status": "Passed",
+      "Duration": 0.0083595,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G150",
+      "Status": "Passed",
+      "Duration": 0.0089271,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G151",
+      "Status": "Passed",
+      "Duration": 0.017198,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G152",
+      "Status": "Passed",
+      "Duration": 0.0083405,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G153",
+      "Status": "Passed",
+      "Duration": 0.0080932,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G154",
+      "Status": "Passed",
+      "Duration": 0.0082722,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G155",
+      "Status": "Passed",
+      "Duration": 0.0166372,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G156",
+      "Status": "Passed",
+      "Duration": 0.008444,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G157",
+      "Status": "Passed",
+      "Duration": 0.0086285,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G158",
+      "Status": "Passed",
+      "Duration": 0.0089256,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G159",
+      "Status": "Passed",
+      "Duration": 0.0184025,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GOLD-G160",
+      "Status": "Passed",
+      "Duration": 0.0082918,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GoldenFile_HasExactly160UniqueCases",
+      "Status": "Passed",
+      "Duration": 0.0226095,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GoldenJson_AllOriginalNullTokensAreAccountedFor",
+      "Status": "Passed",
+      "Duration": 0.0413546,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.GoldenJson_PreservesNullEmptyAndNonemptyGroupIdsExactly",
+      "Status": "Passed",
+      "Duration": 0.0084659,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.Probability_All2916TextureAndBuffCombinations",
+      "Status": "Passed",
+      "Duration": 0.0701191,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.Probability_FiveContractVectors(\"none\",False,False,System.Int32[])",
+      "Status": "Passed",
+      "Duration": 0.0088472,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.Probability_FiveContractVectors(\"smooth\",False,False,System.Int32[])",
+      "Status": "Passed",
+      "Duration": 0.0193757,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.Probability_FiveContractVectors(\"rough\",False,False,System.Int32[])",
+      "Status": "Passed",
+      "Duration": 0.0082425,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.Probability_FiveContractVectors(\"none\",True,False,System.Int32[])",
+      "Status": "Passed",
+      "Duration": 0.0083472,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.Probability_FiveContractVectors(\"none\",True,True,System.Int32[])",
+      "Status": "Passed",
+      "Duration": 0.009368,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.Probability_RejectsIllegalPhysicalData",
+      "Status": "Passed",
+      "Duration": 0.0193558,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.Probability_RepeatedPreviewDoesNotCompoundOrMutate",
+      "Status": "Passed",
+      "Duration": 0.0091832,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.Probability_TieBreakUsesPhysicalFaceId_NotArrayOrder",
+      "Status": "Passed",
+      "Duration": 0.0081559,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.Probability_UsesPermanentPips",
+      "Status": "Passed",
+      "Duration": 0.0083259,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.Rng_ExactFirstFiveOutputs",
+      "Status": "Passed",
+      "Duration": 0.0171275,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.Rng_RejectionSamplingContractAndClone",
+      "Status": "Passed",
+      "Duration": 0.0088711,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.Rng_SeedOnlyAcceptsUintDecimal",
+      "Status": "Passed",
+      "Duration": 0.0079505,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.Score_EqualUpgradedMultipliersPreferHigherStructuralRank",
+      "Status": "Passed",
+      "Duration": 0.0084066,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.RulesTests.Score_RejectsEmptyDuplicateOverCapacityAndInvalidLevels",
+      "Status": "Passed",
+      "Duration": 0.0283823,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G001",
+      "Status": "Passed",
+      "Duration": 0.018695,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G002",
+      "Status": "Passed",
+      "Duration": 0.0109482,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G003",
+      "Status": "Passed",
+      "Duration": 0.0108748,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G004",
+      "Status": "Passed",
+      "Duration": 0.0109588,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G005",
+      "Status": "Passed",
+      "Duration": 0.0201175,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G006",
+      "Status": "Passed",
+      "Duration": 0.0117826,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G007",
+      "Status": "Passed",
+      "Duration": 0.0123337,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G008",
+      "Status": "Passed",
+      "Duration": 0.0152933,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G009",
+      "Status": "Passed",
+      "Duration": 0.0193109,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G010",
+      "Status": "Passed",
+      "Duration": 0.0111473,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G011",
+      "Status": "Passed",
+      "Duration": 0.0115671,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G012",
+      "Status": "Passed",
+      "Duration": 0.038714,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G013",
+      "Status": "Passed",
+      "Duration": 0.0261548,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G014",
+      "Status": "Passed",
+      "Duration": 0.0110408,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G015",
+      "Status": "Passed",
+      "Duration": 0.0109775,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G016",
+      "Status": "Passed",
+      "Duration": 0.0191493,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G017",
+      "Status": "Passed",
+      "Duration": 0.0108932,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G018",
+      "Status": "Passed",
+      "Duration": 0.0112669,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G019",
+      "Status": "Passed",
+      "Duration": 0.0194172,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G020",
+      "Status": "Passed",
+      "Duration": 0.0108539,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G021",
+      "Status": "Passed",
+      "Duration": 0.0107118,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G022",
+      "Status": "Passed",
+      "Duration": 0.0196091,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G023",
+      "Status": "Passed",
+      "Duration": 0.0111768,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G024",
+      "Status": "Passed",
+      "Duration": 0.0110057,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G025",
+      "Status": "Passed",
+      "Duration": 0.0141929,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G026",
+      "Status": "Passed",
+      "Duration": 0.0165649,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G027",
+      "Status": "Passed",
+      "Duration": 0.0109706,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G028",
+      "Status": "Passed",
+      "Duration": 0.0110985,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G029",
+      "Status": "Passed",
+      "Duration": 0.0196642,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G030",
+      "Status": "Passed",
+      "Duration": 0.0108964,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G031",
+      "Status": "Passed",
+      "Duration": 0.0109814,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G032",
+      "Status": "Passed",
+      "Duration": 0.0208459,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G033",
+      "Status": "Passed",
+      "Duration": 0.0108211,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G034",
+      "Status": "Passed",
+      "Duration": 0.010708,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G035",
+      "Status": "Passed",
+      "Duration": 0.0147546,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G036",
+      "Status": "Passed",
+      "Duration": 0.0145417,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G037",
+      "Status": "Passed",
+      "Duration": 0.0104334,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G038",
+      "Status": "Passed",
+      "Duration": 0.0108345,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G039",
+      "Status": "Passed",
+      "Duration": 0.0183026,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G040",
+      "Status": "Passed",
+      "Duration": 0.0104171,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G041",
+      "Status": "Passed",
+      "Duration": 0.0106532,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G042",
+      "Status": "Passed",
+      "Duration": 0.0185952,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G043",
+      "Status": "Passed",
+      "Duration": 0.0104521,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G044",
+      "Status": "Passed",
+      "Duration": 0.0104825,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G045",
+      "Status": "Passed",
+      "Duration": 0.0139196,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G046",
+      "Status": "Passed",
+      "Duration": 0.0150643,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G047",
+      "Status": "Passed",
+      "Duration": 0.0103803,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G048",
+      "Status": "Passed",
+      "Duration": 0.0107909,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G049",
+      "Status": "Passed",
+      "Duration": 0.0183413,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G050",
+      "Status": "Passed",
+      "Duration": 0.0103487,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G051",
+      "Status": "Passed",
+      "Duration": 0.0104046,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G052",
+      "Status": "Passed",
+      "Duration": 0.0138336,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G053",
+      "Status": "Passed",
+      "Duration": 0.0153043,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G054",
+      "Status": "Passed",
+      "Duration": 0.0103456,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G055",
+      "Status": "Passed",
+      "Duration": 0.0109744,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G056",
+      "Status": "Passed",
+      "Duration": 0.0184182,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G057",
+      "Status": "Passed",
+      "Duration": 0.0103886,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G058",
+      "Status": "Passed",
+      "Duration": 0.0107849,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G059",
+      "Status": "Passed",
+      "Duration": 0.0151893,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G060",
+      "Status": "Passed",
+      "Duration": 0.018635,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G061",
+      "Status": "Passed",
+      "Duration": 0.0106944,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G062",
+      "Status": "Passed",
+      "Duration": 0.0110579,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G063",
+      "Status": "Passed",
+      "Duration": 0.0191601,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G064",
+      "Status": "Passed",
+      "Duration": 0.0105694,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G065",
+      "Status": "Passed",
+      "Duration": 0.0105736,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G066",
+      "Status": "Passed",
+      "Duration": 0.0108583,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G067",
+      "Status": "Passed",
+      "Duration": 0.0182553,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G068",
+      "Status": "Passed",
+      "Duration": 0.0102922,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G069",
+      "Status": "Passed",
+      "Duration": 0.0104869,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G070",
+      "Status": "Passed",
+      "Duration": 0.0187469,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G071",
+      "Status": "Passed",
+      "Duration": 0.0106586,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G072",
+      "Status": "Passed",
+      "Duration": 0.0105567,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G073",
+      "Status": "Passed",
+      "Duration": 0.0108421,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G074",
+      "Status": "Passed",
+      "Duration": 0.018808,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G075",
+      "Status": "Passed",
+      "Duration": 0.0104286,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G076",
+      "Status": "Passed",
+      "Duration": 0.0105368,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G077",
+      "Status": "Passed",
+      "Duration": 0.0138666,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G078",
+      "Status": "Passed",
+      "Duration": 0.0151122,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G079",
+      "Status": "Passed",
+      "Duration": 0.0103572,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G080",
+      "Status": "Passed",
+      "Duration": 0.0105639,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G081",
+      "Status": "Passed",
+      "Duration": 0.037125,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G082",
+      "Status": "Passed",
+      "Duration": 0.0253124,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G083",
+      "Status": "Passed",
+      "Duration": 0.010459,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G084",
+      "Status": "Passed",
+      "Duration": 0.0104051,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G085",
+      "Status": "Passed",
+      "Duration": 0.017495,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G086",
+      "Status": "Passed",
+      "Duration": 0.0103977,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G087",
+      "Status": "Passed",
+      "Duration": 0.0104168,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G088",
+      "Status": "Passed",
+      "Duration": 0.0178612,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G089",
+      "Status": "Passed",
+      "Duration": 0.0103703,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G090",
+      "Status": "Passed",
+      "Duration": 0.010299,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G091",
+      "Status": "Passed",
+      "Duration": 0.0180998,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G092",
+      "Status": "Passed",
+      "Duration": 0.0104566,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G093",
+      "Status": "Passed",
+      "Duration": 0.0103724,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G094",
+      "Status": "Passed",
+      "Duration": 0.0106722,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G095",
+      "Status": "Passed",
+      "Duration": 0.0145604,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G096",
+      "Status": "Passed",
+      "Duration": 0.01041,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G097",
+      "Status": "Passed",
+      "Duration": 0.0106479,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G098",
+      "Status": "Passed",
+      "Duration": 0.0181213,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G099",
+      "Status": "Passed",
+      "Duration": 0.0108674,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G100",
+      "Status": "Passed",
+      "Duration": 0.011247,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G101",
+      "Status": "Passed",
+      "Duration": 0.0206145,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G102",
+      "Status": "Passed",
+      "Duration": 0.0108938,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G103",
+      "Status": "Passed",
+      "Duration": 0.0109591,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G104",
+      "Status": "Passed",
+      "Duration": 0.0145543,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G105",
+      "Status": "Passed",
+      "Duration": 0.0169914,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G106",
+      "Status": "Passed",
+      "Duration": 0.0116945,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G107",
+      "Status": "Passed",
+      "Duration": 0.0122389,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G108",
+      "Status": "Passed",
+      "Duration": 0.0218968,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G109",
+      "Status": "Passed",
+      "Duration": 0.0113303,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G110",
+      "Status": "Passed",
+      "Duration": 0.011819,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G111",
+      "Status": "Passed",
+      "Duration": 0.0240931,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G112",
+      "Status": "Passed",
+      "Duration": 0.0120628,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G113",
+      "Status": "Passed",
+      "Duration": 0.0116259,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G114",
+      "Status": "Passed",
+      "Duration": 0.0125845,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G115",
+      "Status": "Passed",
+      "Duration": 0.0215497,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G116",
+      "Status": "Passed",
+      "Duration": 0.0112658,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G117",
+      "Status": "Passed",
+      "Duration": 0.0116006,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G118",
+      "Status": "Passed",
+      "Duration": 0.0252987,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G119",
+      "Status": "Passed",
+      "Duration": 0.0127015,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G120",
+      "Status": "Passed",
+      "Duration": 0.0125131,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G121",
+      "Status": "Passed",
+      "Duration": 0.0120853,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G122",
+      "Status": "Passed",
+      "Duration": 0.021897,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G123",
+      "Status": "Passed",
+      "Duration": 0.011359,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G124",
+      "Status": "Passed",
+      "Duration": 0.0117922,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G125",
+      "Status": "Passed",
+      "Duration": 0.0217925,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G126",
+      "Status": "Passed",
+      "Duration": 0.0110267,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G127",
+      "Status": "Passed",
+      "Duration": 0.0109785,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G128",
+      "Status": "Passed",
+      "Duration": 0.0112632,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G129",
+      "Status": "Passed",
+      "Duration": 0.0209528,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G130",
+      "Status": "Passed",
+      "Duration": 0.0107164,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G131",
+      "Status": "Passed",
+      "Duration": 0.0113536,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G132",
+      "Status": "Passed",
+      "Duration": 0.0180363,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G133",
+      "Status": "Passed",
+      "Duration": 0.0162447,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G134",
+      "Status": "Passed",
+      "Duration": 0.0110684,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G135",
+      "Status": "Passed",
+      "Duration": 0.0119005,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G136",
+      "Status": "Passed",
+      "Duration": 0.0213653,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G137",
+      "Status": "Passed",
+      "Duration": 0.0111481,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G138",
+      "Status": "Passed",
+      "Duration": 0.011052,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G139",
+      "Status": "Passed",
+      "Duration": 0.0113926,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G140",
+      "Status": "Passed",
+      "Duration": 0.0197237,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G141",
+      "Status": "Passed",
+      "Duration": 0.0106735,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G142",
+      "Status": "Passed",
+      "Duration": 0.0111384,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G143",
+      "Status": "Passed",
+      "Duration": 0.0204603,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G144",
+      "Status": "Passed",
+      "Duration": 0.0105562,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G145",
+      "Status": "Passed",
+      "Duration": 0.0105537,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G146",
+      "Status": "Passed",
+      "Duration": 0.0109857,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G147",
+      "Status": "Passed",
+      "Duration": 0.01869,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G148",
+      "Status": "Passed",
+      "Duration": 0.0104227,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G149",
+      "Status": "Passed",
+      "Duration": 0.0105946,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G150",
+      "Status": "Passed",
+      "Duration": 0.0271759,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G151",
+      "Status": "Passed",
+      "Duration": 0.0365354,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G152",
+      "Status": "Passed",
+      "Duration": 0.0105242,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G153",
+      "Status": "Passed",
+      "Duration": 0.0104178,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G154",
+      "Status": "Passed",
+      "Duration": 0.0172739,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G155",
+      "Status": "Passed",
+      "Duration": 0.0103338,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G156",
+      "Status": "Passed",
+      "Duration": 0.0103952,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G157",
+      "Status": "Passed",
+      "Duration": 0.0174033,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G158",
+      "Status": "Passed",
+      "Duration": 0.0105886,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G159",
+      "Status": "Passed",
+      "Duration": 0.0118943,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.TRACE-G160",
+      "Status": "Passed",
+      "Duration": 0.013809,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.Trace_C12EffectivePipsSuppressOldOddAndOnePointAdditions",
+      "Status": "Passed",
+      "Duration": 0.0079055,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.Trace_GlobalFractionsSurviveEveryControllerAndC20AddsBeforeMultipliers",
+      "Status": "Passed",
+      "Duration": 0.0079766,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.Trace_RejectsInconsistentFrozenBreakdown(\"contribution\")",
+      "Status": "Passed",
+      "Duration": 0.0080815,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.Trace_RejectsInconsistentFrozenBreakdown(\"total\")",
+      "Status": "Passed",
+      "Duration": 0.0148108,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.ScoreExplanationTests.Trace_StackedContributionsAddBeforeGlassThenGold",
+      "Status": "Passed",
+      "Duration": 0.007857,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.V06RulesTests.V06-TRIGGER-C02-hit",
+      "Status": "Passed",
+      "Duration": 0.0109971,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.V06RulesTests.V06-TRIGGER-C02-miss",
+      "Status": "Passed",
+      "Duration": 0.0115269,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.V06RulesTests.V06-TRIGGER-C03-hit",
+      "Status": "Passed",
+      "Duration": 0.0078776,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.V06RulesTests.V06-TRIGGER-C06-hit",
+      "Status": "Passed",
+      "Duration": 0.0080269,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.V06RulesTests.V06-TRIGGER-C06-miss",
+      "Status": "Passed",
+      "Duration": 0.0153044,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.V06RulesTests.V06-TRIGGER-C07-hit",
+      "Status": "Passed",
+      "Duration": 0.007857,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.V06RulesTests.V06-TRIGGER-C07-miss",
+      "Status": "Passed",
+      "Duration": 0.0077655,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.V06RulesTests.V06-TRIGGER-C08-hit",
+      "Status": "Passed",
+      "Duration": 0.0080149,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.V06RulesTests.V06-TRIGGER-C08-miss",
+      "Status": "Passed",
+      "Duration": 0.0153506,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.V06RulesTests.V06-TRIGGER-C09-hit",
+      "Status": "Passed",
+      "Duration": 0.007733,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.V06RulesTests.V06-TRIGGER-C10-hit",
+      "Status": "Passed",
+      "Duration": 0.0078497,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.V06RulesTests.V06-TRIGGER-C10-miss",
+      "Status": "Passed",
+      "Duration": 0.0079783,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.V06RulesTests.V06-TRIGGER-C11-hit",
+      "Status": "Passed",
+      "Duration": 0.0153637,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.V06RulesTests.V06-TRIGGER-C11-miss",
+      "Status": "Passed",
+      "Duration": 0.0077457,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.V06RulesTests.V06-TRIGGER-C12-hit",
+      "Status": "Passed",
+      "Duration": 0.0079106,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.V06RulesTests.V06-TRIGGER-C12-miss",
+      "Status": "Passed",
+      "Duration": 0.0079991,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.V06RulesTests.V06-TRIGGER-C13-hit",
+      "Status": "Passed",
+      "Duration": 0.0152823,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.V06RulesTests.V06-TRIGGER-C13-miss",
+      "Status": "Passed",
+      "Duration": 0.0076998,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.V06RulesTests.V06-TRIGGER-C14-hit",
+      "Status": "Passed",
+      "Duration": 0.0079025,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.V06RulesTests.V06-TRIGGER-C14-miss",
+      "Status": "Passed",
+      "Duration": 0.011085,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.V06RulesTests.V06-TRIGGER-C15-hit",
+      "Status": "Passed",
+      "Duration": 0.0127042,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.V06RulesTests.V06-TRIGGER-C15-miss",
+      "Status": "Passed",
+      "Duration": 0.0077786,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.V06RulesTests.V06-TRIGGER-C17-hit",
+      "Status": "Passed",
+      "Duration": 0.0079585,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.V06RulesTests.V06-TRIGGER-C17-miss",
+      "Status": "Passed",
+      "Duration": 0.0111384,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.V06RulesTests.V06-TRIGGER-C18-hit",
+      "Status": "Passed",
+      "Duration": 0.012693,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.V06RulesTests.V06-TRIGGER-C18-miss",
+      "Status": "Passed",
+      "Duration": 0.0077263,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.V06RulesTests.V06-TRIGGER-C19-hit",
+      "Status": "Passed",
+      "Duration": 0.0082579,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.V06RulesTests.V06-TRIGGER-C20-hit",
+      "Status": "Passed",
+      "Duration": 0.0111929,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.V06RulesTests.V06-TRIGGER-C20-miss",
+      "Status": "Passed",
+      "Duration": 0.0127683,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.V06RulesTests.V06-TRIGGER-C24-hit",
+      "Status": "Passed",
+      "Duration": 0.0077203,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.V06RulesTests.V06-TRIGGER-C24-miss",
+      "Status": "Passed",
+      "Duration": 0.0079815,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.V06RulesTests.V06-TRIGGER-C25-hit",
+      "Status": "Passed",
+      "Duration": 0.011234,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.V06RulesTests.V06-TRIGGER-C25-miss",
+      "Status": "Passed",
+      "Duration": 0.012761399999999999,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.V06RulesTests.V06-TRIGGER-C26-hit",
+      "Status": "Passed",
+      "Duration": 0.0077296,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.V06RulesTests.V06-TRIGGER-C26-miss",
+      "Status": "Passed",
+      "Duration": 0.0078972,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.V06RulesTests.V06-TRIGGER-C27-hit",
+      "Status": "Passed",
+      "Duration": 0.0081953,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.V06RulesTests.V06-TRIGGER-C27-miss",
+      "Status": "Passed",
+      "Duration": 0.0156547,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.V06RulesTests.V06-TRIGGER-C28-hit",
+      "Status": "Passed",
+      "Duration": 0.00772,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.V06RulesTests.V06-TRIGGER-C28-miss",
+      "Status": "Passed",
+      "Duration": 0.0078998,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.V06RulesTests.V06-TRIGGER-C29-hit",
+      "Status": "Passed",
+      "Duration": 0.0081697,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.V06RulesTests.V06-TRIGGER-C29-miss",
+      "Status": "Passed",
+      "Duration": 0.0158024,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.V06RulesTests.V06-TRIGGER-C30-hit",
+      "Status": "Passed",
+      "Duration": 0.0078078,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.V06RulesTests.V06-TRIGGER-C30-miss",
+      "Status": "Passed",
+      "Duration": 0.0078108,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.V06RulesTests.V06-TRIGGER-C31-hit",
+      "Status": "Passed",
+      "Duration": 0.0081557,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.V06RulesTests.V06-TRIGGER-C31-miss",
+      "Status": "Passed",
+      "Duration": 0.015796,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.V06RulesTests.V06-TRIGGER-C32-hit",
+      "Status": "Passed",
+      "Duration": 0.0077115,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.V06RulesTests.V06-TRIGGER-C32-miss",
+      "Status": "Passed",
+      "Duration": 0.0080116,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.V06RulesTests.V06-TRIGGER-C33-hit",
+      "Status": "Passed",
+      "Duration": 0.0081336,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.V06RulesTests.V06-TRIGGER-C33-miss",
+      "Status": "Passed",
+      "Duration": 0.016259,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.V06RulesTests.V06-TRIGGER-C36-hit",
+      "Status": "Passed",
+      "Duration": 0.0077534,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.V06RulesTests.V06-TRIGGER-C36-miss",
+      "Status": "Passed",
+      "Duration": 0.0077156,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.V06RulesTests.V06-TRIGGER-C37-hit",
+      "Status": "Passed",
+      "Duration": 0.0079836,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.V06RulesTests.V06-TRIGGER-C37-miss",
+      "Status": "Passed",
+      "Duration": 0.0161044,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.V06RulesTests.V06-TRIGGER-C38-hit",
+      "Status": "Passed",
+      "Duration": 0.0077737,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.V06RulesTests.V06-TRIGGER-C39-hit",
+      "Status": "Passed",
+      "Duration": 0.0077575,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.V06RulesTests.V06-TRIGGER-C39-miss",
+      "Status": "Passed",
+      "Duration": 0.0079433,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.V06RulesTests.V06-TRIGGER-C40-hit",
+      "Status": "Passed",
+      "Duration": 0.0116687,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.V06RulesTests.V06-TRIGGER-C40-miss",
+      "Status": "Passed",
+      "Duration": 0.0122299,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.V06RulesTests.BaseEnchantIsOncePerCardAndPairAddIsNotPerDieOrMultipliedByGold",
+      "Status": "Passed",
+      "Duration": 0.0077485,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.V06RulesTests.BoundaryTriggersReadFrozenOriginalAndEffectiveLayers",
+      "Status": "Passed",
+      "Duration": 0.0079864,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.V06RulesTests.BudgetsAndCapacityAreIndependentOfDiceAndCombineAdditively",
+      "Status": "Passed",
+      "Duration": 0.0115709,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.V06RulesTests.EnchantmentBoundariesAndDedicatedPoolConsumeExactlyOneDraw(49,\"none\")",
+      "Status": "Passed",
+      "Duration": 0.042574,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.V06RulesTests.EnchantmentBoundariesAndDedicatedPoolConsumeExactlyOneDraw(50,\"slotless\")",
+      "Status": "Passed",
+      "Duration": 0.0078425,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.V06RulesTests.EnchantmentBoundariesAndDedicatedPoolConsumeExactlyOneDraw(67,\"slotless\")",
+      "Status": "Passed",
+      "Duration": 0.007899,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.V06RulesTests.EnchantmentBoundariesAndDedicatedPoolConsumeExactlyOneDraw(68,\"base10\")",
+      "Status": "Passed",
+      "Duration": 0.0079214,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.V06RulesTests.EnchantmentBoundariesAndDedicatedPoolConsumeExactlyOneDraw(77,\"base10\")",
+      "Status": "Passed",
+      "Duration": 0.014032,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.V06RulesTests.EnchantmentBoundariesAndDedicatedPoolConsumeExactlyOneDraw(78,\"mult2\")",
+      "Status": "Passed",
+      "Duration": 0.007646,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.V06RulesTests.EnchantmentBoundariesAndDedicatedPoolConsumeExactlyOneDraw(81,\"mult2\")",
+      "Status": "Passed",
+      "Duration": 0.0076138,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.V06RulesTests.EnchantmentBoundariesAndDedicatedPoolConsumeExactlyOneDraw(82,\"submit1\")",
+      "Status": "Passed",
+      "Duration": 0.010706,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.V06RulesTests.EnchantmentBoundariesAndDedicatedPoolConsumeExactlyOneDraw(90,\"submit1\")",
+      "Status": "Passed",
+      "Duration": 0.0111381,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.V06RulesTests.EnchantmentBoundariesAndDedicatedPoolConsumeExactlyOneDraw(91,\"roll1\")",
+      "Status": "Passed",
+      "Duration": 0.0075364,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.V06RulesTests.EnchantmentBoundariesAndDedicatedPoolConsumeExactlyOneDraw(99,\"roll1\")",
+      "Status": "Passed",
+      "Duration": 0.0076835,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.V06RulesTests.EquipmentSeparatesFourOrdinarySlotsTenInstancesAndDuplicateIds",
+      "Status": "Passed",
+      "Duration": 0.0149161,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.V06RulesTests.GroupTransferFixedVectors(False,False,True,False,System.Int32[])",
+      "Status": "Passed",
+      "Duration": 0.0077039,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.V06RulesTests.GroupTransferFixedVectors(False,False,False,True,System.Int32[])",
+      "Status": "Passed",
+      "Duration": 0.0076073,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.V06RulesTests.GroupTransferFixedVectors(False,False,True,True,System.Int32[])",
+      "Status": "Passed",
+      "Duration": 0.007754,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.V06RulesTests.GroupTransferFixedVectors(True,False,True,False,System.Int32[])",
+      "Status": "Passed",
+      "Duration": 0.0146714,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.V06RulesTests.GroupTransferFixedVectors(True,False,False,True,System.Int32[])",
+      "Status": "Passed",
+      "Duration": 0.0076293,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.V06RulesTests.GroupTransferIsExactStableUnderFacePermutationAndDoesNotMutate",
+      "Status": "Passed",
+      "Duration": 0.0077518,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.V06RulesTests.HandbookAlwaysContainsFourteenHandAndTwoColorRowsAndSeparatesTemporaryFormationFromUpgradeEligibility",
+      "Status": "Passed",
+      "Duration": 0.0117696,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.V06RulesTests.HandbookC29ChangesOnlyStraightThresholdAndNextReadRefreshes",
+      "Status": "Passed",
+      "Duration": 0.0077675,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.V06RulesTests.MissingRepeatedAndExhaustedDonorDigitsMatchReferenceVectors",
+      "Status": "Passed",
+      "Duration": 0.0104399,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.V06RulesTests.MultipleMultiplierEnchantmentsUseOneFinalFloor",
+      "Status": "Passed",
+      "Duration": 0.010948,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.V06RulesTests.ReplacementPoolsExcludeNoneAndCurrentAndAdvanceRng",
+      "Status": "Passed",
+      "Duration": 0.0120608,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.V06RulesTests.UnequippedControllersNeverTriggerAndNonSubmitCardsCannotScoreEnchant",
+      "Status": "Passed",
+      "Duration": 0.0093552,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.V06SourceBoundaryTests.AllNewAndReplacementEnchantTicketsMatchIndependentPoolTables",
+      "Status": "Passed",
+      "Duration": 0.1110181,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.V06SourceBoundaryTests.BigIntegerParserRejectsFloatingSignedWhitespaceAndEmptyData",
+      "Status": "Passed",
+      "Duration": 0.0048812,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.V06SourceBoundaryTests.C43StructuralPrimaryDiffersFromUpgradedWinnerAndClampsAfterScore",
+      "Status": "Passed",
+      "Duration": 0.0048302,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.V06SourceBoundaryTests.C44ConvertsWalletBeforeMultiplicationAndExactScoreExceedsInt64",
+      "Status": "Passed",
+      "Duration": 0.0046299,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.V06SourceBoundaryTests.C53PreviewUsesSharedUnknownOwnerRangeAndPreservesExplicitBranch",
+      "Status": "Passed",
+      "Duration": 0.0048079,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.V06SourceBoundaryTests.ColorSingleDieIndependentAndExcludedFromPrimary",
+      "Status": "Passed",
+      "Duration": 0.0122508,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.V06SourceBoundaryTests.CopiedC45SharesColorButAppliesEachSourceAndPlansOwnerOnce",
+      "Status": "Passed",
+      "Duration": 0.0045902,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.V06SourceBoundaryTests.CyclesDuplicateBindingsAndDuplicateInstanceIdsReject",
+      "Status": "Passed",
+      "Duration": 0.0044606,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.V06SourceBoundaryTests.FrozenMimicChainReadsFinalOwnerAndNeverRetargetsLostTarget",
+      "Status": "Passed",
+      "Duration": 0.0045619,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.V06SourceBoundaryTests.HandbookUsesMimicAbilitiesAndSeparatesColorFromFourteenHandRows",
+      "Status": "Passed",
+      "Duration": 0.0044798,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.V06SourceBoundaryTests.MultiPairShapesNeverSplitSamePointAndDebugCapsDefinedRedReward",
+      "Status": "Passed",
+      "Duration": 0.0046985,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.V06SourceBoundaryTests.NetProbabilitySourcesStackAndSaturate(2,System.Int32[])",
+      "Status": "Passed",
+      "Duration": 0.00471,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.V06SourceBoundaryTests.NetProbabilitySourcesStackAndSaturate(3,System.Int32[])",
+      "Status": "Passed",
+      "Duration": 0.0120332,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.V06SourceBoundaryTests.NetProbabilitySourcesStackAndSaturate(4,System.Int32[])",
+      "Status": "Passed",
+      "Duration": 0.0044715,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.V06SourceBoundaryTests.NumericConfigKeysPreserveValuesAndRejectMissingUnknownOrWrongTypes",
+      "Status": "Passed",
+      "Duration": 0.0157958,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.V06SourceBoundaryTests.OwnFundSaleDoesNotReadBoundTargetsAndOverflowIsRejected",
+      "Status": "Passed",
+      "Duration": 0.0045662,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.V06SourceBoundaryTests.StateLegalityDebugDuplicatesAndRetiredIdsAreDistinctBoundaries",
+      "Status": "Passed",
+      "Duration": 0.012102,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Core.Tests.V06SourceBoundaryTests.ZeroFactorStillTriggersEnchantIncomeAndFrozenPostPlan",
+      "Status": "Passed",
+      "Duration": 0.0045501,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.AtomicSaveStoreTests.SAVE_BackupRecoveryThenSavePreservesLastValidBackup(\"schema\")",
+      "Status": "Passed",
+      "Duration": 0.0548425,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.AtomicSaveStoreTests.SAVE_BackupRecoveryThenSavePreservesLastValidBackup(\"hash\")",
+      "Status": "Passed",
+      "Duration": 0.0668936,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.AtomicSaveStoreTests.SAVE_BackupRecoveryThenSavePreservesLastValidBackup(\"structure\")",
+      "Status": "Passed",
+      "Duration": 0.0551596,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.AtomicSaveStoreTests.SAVE_BothFilesCorruptReturnsNullAndNoticeWithoutOverwritingEvidence(\"schema\")",
+      "Status": "Passed",
+      "Duration": 0.0471426,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.AtomicSaveStoreTests.SAVE_BothFilesCorruptReturnsNullAndNoticeWithoutOverwritingEvidence(\"hash\")",
+      "Status": "Passed",
+      "Duration": 0.0391517,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.AtomicSaveStoreTests.SAVE_BothFilesCorruptReturnsNullAndNoticeWithoutOverwritingEvidence(\"structure\")",
+      "Status": "Passed",
+      "Duration": 0.0493594,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.AtomicSaveStoreTests.SAVE_DirectWriteWithoutLoadStillPreservesBackupWhenActiveIsCorrupt(\"schema\")",
+      "Status": "Passed",
+      "Duration": 0.0532769,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.AtomicSaveStoreTests.SAVE_DirectWriteWithoutLoadStillPreservesBackupWhenActiveIsCorrupt(\"hash\")",
+      "Status": "Passed",
+      "Duration": 0.0646431,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.AtomicSaveStoreTests.SAVE_DirectWriteWithoutLoadStillPreservesBackupWhenActiveIsCorrupt(\"structure\")",
+      "Status": "Passed",
+      "Duration": 0.0550576,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.AtomicSaveStoreTests.SAVE_ExternalValidReplacementCannotReuseStaleKnownGoodBytes",
+      "Status": "Passed",
+      "Duration": 0.0639751,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.AtomicSaveStoreTests.SAVE_NullGroupHistoryRemainsNoGroupAndCannotChangeNextHandOrScore",
+      "Status": "Passed",
+      "Duration": 0.0235493,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.AtomicSaveStoreTests.SAVE_RealJsonUtilityRoundTripPreservesDiceRngReceiptsAndPhysicalResults",
+      "Status": "Passed",
+      "Duration": 0.0210946,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.AtomicSaveStoreTests.SAVE_RejectsInvalidCandidateBeforeChangingActiveBackupOrKnownGoodBytes",
+      "Status": "Passed",
+      "Duration": 0.0490805,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.AtomicSaveStoreTests.SAVE_V05_CorruptFrozenHistoryWithValidHashFallsBackBeforeClone(\"triggers\")",
+      "Status": "Passed",
+      "Duration": 0.0361741,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.AtomicSaveStoreTests.SAVE_V05_CorruptFrozenHistoryWithValidHashFallsBackBeforeClone(\"score\")",
+      "Status": "Passed",
+      "Duration": 0.0683956,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.AtomicSaveStoreTests.SAVE_V05_IsolatesBothLegacySchema2FilesAcrossNewRunBackupRotation",
+      "Status": "Passed",
+      "Duration": 0.0628749,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.DisplaySettingsTests.DISPLAY_AutomaticWindowFitsEightyFivePercentAndRetainsSixteenNine(1920,1040)",
+      "Status": "Passed",
+      "Duration": 4.58E-05,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.DisplaySettingsTests.DISPLAY_AutomaticWindowFitsEightyFivePercentAndRetainsSixteenNine(3840,2160)",
+      "Status": "Passed",
+      "Duration": 3.18E-05,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.DisplaySettingsTests.DISPLAY_AutomaticWindowFitsEightyFivePercentAndRetainsSixteenNine(1280,720)",
+      "Status": "Passed",
+      "Duration": 2.89E-05,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.DisplaySettingsTests.DISPLAY_AutomaticWindowFitsEightyFivePercentAndRetainsSixteenNine(800,480)",
+      "Status": "Passed",
+      "Duration": 3.18E-05,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.DisplaySettingsTests.DISPLAY_AutomaticWindowFitsEightyFivePercentAndRetainsSixteenNine(3440,1440)",
+      "Status": "Passed",
+      "Duration": 2.87E-05,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.DisplaySettingsTests.SAVE_V06_NormalSlotRejectsDebugPayloadDespiteValidSchemaAndChecksum",
+      "Status": "Passed",
+      "Duration": 0.0159269,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.FlowTests.FLOW_A01_InitialStateAndNoSubmitBeforeRoll",
+      "Status": "Passed",
+      "Duration": 0.0148285,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.FlowTests.FLOW_A02_A03_A04_OrderedIrreversibleLocks",
+      "Status": "Passed",
+      "Duration": 0.0109265,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.FlowTests.FLOW_A05_PendingBlocksEveryPersistentActionExceptConfirm",
+      "Status": "Passed",
+      "Duration": 0.0130508,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.FlowTests.FLOW_A06_OverCapacityRejectsWholeBatch",
+      "Status": "Passed",
+      "Duration": 0.014795,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.FlowTests.FLOW_A07_TemporaryDiceDoNotExpandCapacity",
+      "Status": "Passed",
+      "Duration": 0.0097996,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.FlowTests.FLOW_A08_ControllerBudgetsCombine",
+      "Status": "Passed",
+      "Duration": 0.0091531,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.FlowTests.FLOW_A09_A11_C05OnlyAfterRollOnceAndSurvivesLoad",
+      "Status": "Passed",
+      "Duration": 0.0207914,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.FlowTests.FLOW_A10_LockingAfterLastRollDoesNotGrantC05",
+      "Status": "Passed",
+      "Duration": 0.011891,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.FlowTests.FLOW_A12_ExtraRollAndSubmissionPersistForStage",
+      "Status": "Passed",
+      "Duration": 0.0197767,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.FlowTests.FLOW_C01_C02_CopyUsesFrozenScoreAndDeepCopies",
+      "Status": "Passed",
+      "Duration": 0.0105354,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.FlowTests.FLOW_C03_C04_CopyDoesNotTriggerLaterOrOnEffectivePair",
+      "Status": "Passed",
+      "Duration": 0.013129,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.FlowTests.FLOW_C05_C06_DiffusionUsesPhysicalFaceAfterScoring",
+      "Status": "Passed",
+      "Duration": 0.0216493,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.FlowTests.FLOW_C07_RemoteAllowsAbsentPipAndPreservesPhysicalFace",
+      "Status": "Passed",
+      "Duration": 0.0106149,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.FlowTests.FLOW_C08_RemoteRejectsBadTargetsAtomically",
+      "Status": "Passed",
+      "Duration": 0.0095422,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.FlowTests.FLOW_C09_C11_BrokenRemoteTargetsConsumeItemAndNoDiceFails",
+      "Status": "Passed",
+      "Duration": 0.0174942,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.FlowTests.FLOW_C10_LockedGlassNeverRollsOrBreaks",
+      "Status": "Passed",
+      "Duration": 0.0115349,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.FlowTests.FLOW_C12_TemporaryLimitIsSimultaneousNotHistorical",
+      "Status": "Passed",
+      "Duration": 0.0127445,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.FlowTests.FLOW_C13_CopyPreservesTemporaryTargetLifetime",
+      "Status": "Passed",
+      "Duration": 0.0185405,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.FlowTests.FLOW_C14_C15_SettlementClearsTemporaryDiceWithFinalWinPriority(False)",
+      "Status": "Passed",
+      "Duration": 0.0114778,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.FlowTests.FLOW_C14_C15_SettlementClearsTemporaryDiceWithFinalWinPriority(True)",
+      "Status": "Passed",
+      "Duration": 0.0117292,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.FlowTests.FullSlotsWithUnlockedDiceCanStillRollButAllLockedCannot",
+      "Status": "Passed",
+      "Duration": 0.0212021,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.FlowTests.LastSubmissionTargetWinsBeforeExhaustionAndNewHandClearsEffects",
+      "Status": "Passed",
+      "Duration": 0.0128305,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.FramePacerTests.PACER_BackgroundWrapperSleepsWithoutSpinningOrAnchoringThenResumesFresh",
+      "Status": "Passed",
+      "Duration": 8.08E-05,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.FramePacerTests.PACER_ClockResetDuringWaitStopsTheOldDeadlineImmediately",
+      "Status": "Passed",
+      "Duration": 3.13E-05,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.FramePacerTests.PACER_EditorInstallIsExplicitlyInertAndKeepsNativeSettings",
+      "Status": "Passed",
+      "Duration": 3.21E-05,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.FramePacerTests.PACER_FirstReleaseIsImmediateThenUsesCoarseSleepAndBoundedTail",
+      "Status": "Passed",
+      "Duration": 0.000125,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.FramePacerTests.PACER_FractionalClockPeriodRoundsUpByLessThanOneTick",
+      "Status": "Passed",
+      "Duration": 2.74E-05,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.FramePacerTests.PACER_InvalidClockAndRateAreRejected",
+      "Status": "Passed",
+      "Duration": 7.11E-05,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.FramePacerTests.PACER_LateWorkReanchorsNextFullPeriodInsteadOfCatchingUp",
+      "Status": "Passed",
+      "Duration": 3.61E-05,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.FramePacerTests.PACER_LoopInstallationIsIdempotentAndPrecedesAnimationAndLateUpdate",
+      "Status": "Passed",
+      "Duration": 3.51E-05,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.FramePacerTests.PACER_MissingAnchorLeavesTheProvidedLoopUntouched",
+      "Status": "Passed",
+      "Duration": 2.59E-05,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.FramePacerTests.PACER_NativeCapOwnershipRestoresOriginalOnceAndCapturesEachNewLifetime(0,60)",
+      "Status": "Passed",
+      "Duration": 8.39E-05,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.FramePacerTests.PACER_NativeCapOwnershipRestoresOriginalOnceAndCapturesEachNewLifetime(2,37)",
+      "Status": "Passed",
+      "Duration": 6.47E-05,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.FramePacerTests.PACER_NegativeBackwardAndOverflowingClockValuesResetWithoutWaiting",
+      "Status": "Passed",
+      "Duration": 3.31E-05,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.FramePacerTests.PACER_PauseAndFocusMustBothRecoverBeforeSchedulingRestarts",
+      "Status": "Passed",
+      "Duration": 2.96E-05,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.FramePacerTests.PACER_SleepOvershootIsPreservedAndNeverFollowedByAShortInterval",
+      "Status": "Passed",
+      "Duration": 3.24E-05,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.FramePacerTests.PACER_SpinOvershootAlsoReanchorsAtActualRelease",
+      "Status": "Passed",
+      "Duration": 2.79E-05,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.FramePacerTests.PACER_UninstallPreservesNodesAddedByOtherOwnersAfterInstallation",
+      "Status": "Passed",
+      "Duration": 3.47E-05,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ItemAndSaveTests.CONTENT_HandBuffDoesNotStack(\"I01\")",
+      "Status": "Passed",
+      "Duration": 0.0185716,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ItemAndSaveTests.CONTENT_HandBuffDoesNotStack(\"I04\")",
+      "Status": "Passed",
+      "Duration": 0.0098842,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ItemAndSaveTests.CONTENT_HandBuffDoesNotStack(\"I05\")",
+      "Status": "Passed",
+      "Duration": 0.010077,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ItemAndSaveTests.CONTENT_ItemRejectsOutsideWindowWithoutConsumption(\"I01\")",
+      "Status": "Passed",
+      "Duration": 0.0165352,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ItemAndSaveTests.CONTENT_ItemRejectsOutsideWindowWithoutConsumption(\"I02\")",
+      "Status": "Passed",
+      "Duration": 0.0085156,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ItemAndSaveTests.CONTENT_ItemRejectsOutsideWindowWithoutConsumption(\"I03\")",
+      "Status": "Passed",
+      "Duration": 0.0084937,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ItemAndSaveTests.CONTENT_ItemRejectsOutsideWindowWithoutConsumption(\"I04\")",
+      "Status": "Passed",
+      "Duration": 0.008763,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ItemAndSaveTests.CONTENT_ItemRejectsOutsideWindowWithoutConsumption(\"I05\")",
+      "Status": "Passed",
+      "Duration": 0.0161799,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ItemAndSaveTests.CONTENT_ItemRejectsOutsideWindowWithoutConsumption(\"I06\")",
+      "Status": "Passed",
+      "Duration": 0.0084803,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ItemAndSaveTests.CONTENT_ItemRejectsOutsideWindowWithoutConsumption(\"I07\")",
+      "Status": "Passed",
+      "Duration": 0.0084293,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ItemAndSaveTests.CONTENT_ItemSuccessfulUseAndDuplicateReceiptDoNotConsumeAgain(\"I01\")",
+      "Status": "Passed",
+      "Duration": 0.0133834,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ItemAndSaveTests.CONTENT_ItemSuccessfulUseAndDuplicateReceiptDoNotConsumeAgain(\"I02\")",
+      "Status": "Passed",
+      "Duration": 0.0145981,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ItemAndSaveTests.CONTENT_ItemSuccessfulUseAndDuplicateReceiptDoNotConsumeAgain(\"I03\")",
+      "Status": "Passed",
+      "Duration": 0.0097648,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ItemAndSaveTests.CONTENT_ItemSuccessfulUseAndDuplicateReceiptDoNotConsumeAgain(\"I04\")",
+      "Status": "Passed",
+      "Duration": 0.0099554,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ItemAndSaveTests.CONTENT_ItemSuccessfulUseAndDuplicateReceiptDoNotConsumeAgain(\"I05\")",
+      "Status": "Passed",
+      "Duration": 0.0175989,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ItemAndSaveTests.CONTENT_ItemSuccessfulUseAndDuplicateReceiptDoNotConsumeAgain(\"I06\")",
+      "Status": "Passed",
+      "Duration": 0.0096033,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ItemAndSaveTests.CONTENT_ItemSuccessfulUseAndDuplicateReceiptDoNotConsumeAgain(\"I07\")",
+      "Status": "Passed",
+      "Duration": 0.009793,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ItemAndSaveTests.DuplicateReceiptPrecedesSequenceAndBusyChecks",
+      "Status": "Passed",
+      "Duration": 0.018,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ItemAndSaveTests.FLOW_D05_D06_ProbabilityBuffsUsePermanentPipsAndDoNotStack",
+      "Status": "Passed",
+      "Duration": 0.0103437,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ItemAndSaveTests.FLOW_D07_TextureReplacementPreservesOtherAttributes",
+      "Status": "Passed",
+      "Duration": 0.0160631,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ItemAndSaveTests.FLOW_D08_RepeatedLoadsNeverCompoundProbabilityWeights",
+      "Status": "Passed",
+      "Duration": 0.0196124,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ItemAndSaveTests.FLOW_E13_CopySaveFailureDoesNotApplyUntilCommitOrRepeatOnRetry",
+      "Status": "Passed",
+      "Duration": 0.0103742,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ItemAndSaveTests.FLOW_E13_TransformSaveFailureRetainsExactCandidateAndBlocksNewActions",
+      "Status": "Passed",
+      "Duration": 0.016259,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ItemAndSaveTests.FLOW_E14_LocksOrderBuffsAndRngSurviveRestore",
+      "Status": "Passed",
+      "Duration": 0.0207189,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ItemAndSaveTests.IdenticalSeedAndCommandsReproduceResultsShopAndRng",
+      "Status": "Passed",
+      "Duration": 0.0134551,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ItemAndSaveTests.ItemWindowsAndAbsentPermanentPipRejected",
+      "Status": "Passed",
+      "Duration": 0.0136597,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ItemAndSaveTests.PreviewDoesNotAdvanceAnyRngOrApplyCopyOrDye",
+      "Status": "Passed",
+      "Duration": 0.0222394,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ItemAndSaveTests.RestoreRejectsWrongSchemaUnknownContentAndDuplicateDice",
+      "Status": "Passed",
+      "Duration": 0.0117143,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ItemAndSaveTests.StateCopiesCannotMutateAuthoritativeData",
+      "Status": "Passed",
+      "Duration": 0.009226,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ItemAndSaveTests.TwentyFourStageFlowSupportsEightRiskBranchesAndNoFinalShop",
+      "Status": "Passed",
+      "Duration": 1.0492946,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(\"C01\")",
+      "Status": "Passed",
+      "Duration": 0.0609086,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(\"C02\")",
+      "Status": "Passed",
+      "Duration": 0.0178125,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(\"C03\")",
+      "Status": "Passed",
+      "Duration": 0.0251585,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(\"C04\")",
+      "Status": "Passed",
+      "Duration": 0.0143906,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(\"C05\")",
+      "Status": "Passed",
+      "Duration": 0.0253326,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(\"C06\")",
+      "Status": "Passed",
+      "Duration": 0.0179164,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(\"C07\")",
+      "Status": "Passed",
+      "Duration": 0.0253028,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(\"C08\")",
+      "Status": "Passed",
+      "Duration": 0.0177126,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(\"C09\")",
+      "Status": "Passed",
+      "Duration": 0.0247683,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(\"C10\")",
+      "Status": "Passed",
+      "Duration": 0.0174749,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(\"C11\")",
+      "Status": "Passed",
+      "Duration": 0.0250666,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(\"C12\")",
+      "Status": "Passed",
+      "Duration": 0.0176795,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(\"C13\")",
+      "Status": "Passed",
+      "Duration": 0.02521,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(\"C14\")",
+      "Status": "Passed",
+      "Duration": 0.01748,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(\"C15\")",
+      "Status": "Passed",
+      "Duration": 0.0255524,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(\"C16\")",
+      "Status": "Passed",
+      "Duration": 0.0141003,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(\"C17\")",
+      "Status": "Passed",
+      "Duration": 0.0255175,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(\"C18\")",
+      "Status": "Passed",
+      "Duration": 0.0176487,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(\"C19\")",
+      "Status": "Passed",
+      "Duration": 0.0253839,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(\"C20\")",
+      "Status": "Passed",
+      "Duration": 0.0175082,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(\"C21\")",
+      "Status": "Passed",
+      "Duration": 0.0255984,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(\"C22\")",
+      "Status": "Passed",
+      "Duration": 0.0176258,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(\"C23\")",
+      "Status": "Passed",
+      "Duration": 0.0143596,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(\"C24\")",
+      "Status": "Passed",
+      "Duration": 0.0260565,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(\"C25\")",
+      "Status": "Passed",
+      "Duration": 0.0178628,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(\"C26\")",
+      "Status": "Passed",
+      "Duration": 0.0262819,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(\"C27\")",
+      "Status": "Passed",
+      "Duration": 0.0186778,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(\"C28\")",
+      "Status": "Passed",
+      "Duration": 0.0281549,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(\"C29\")",
+      "Status": "Passed",
+      "Duration": 0.0179388,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(\"C30\")",
+      "Status": "Passed",
+      "Duration": 0.0270566,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(\"C31\")",
+      "Status": "Passed",
+      "Duration": 0.0177793,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(\"C32\")",
+      "Status": "Passed",
+      "Duration": 0.0264038,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(\"C33\")",
+      "Status": "Passed",
+      "Duration": 0.0177476,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(\"C34\")",
+      "Status": "Passed",
+      "Duration": 0.0264541,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(\"C35\")",
+      "Status": "Passed",
+      "Duration": 0.0178345,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(\"C36\")",
+      "Status": "Passed",
+      "Duration": 0.0213092,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(\"C37\")",
+      "Status": "Passed",
+      "Duration": 0.0233674,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(\"C38\")",
+      "Status": "Passed",
+      "Duration": 0.0183185,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(\"C39\")",
+      "Status": "Passed",
+      "Duration": 0.0268409,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(\"C40\")",
+      "Status": "Passed",
+      "Duration": 0.0179443,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(\"C41\")",
+      "Status": "Passed",
+      "Duration": 0.0269846,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(\"C42\")",
+      "Status": "Passed",
+      "Duration": 0.0177956,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(\"C43\")",
+      "Status": "Passed",
+      "Duration": 0.0522344,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(\"C44\")",
+      "Status": "Passed",
+      "Duration": 0.0259131,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(\"C45\")",
+      "Status": "Passed",
+      "Duration": 0.0219195,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(\"C46\")",
+      "Status": "Passed",
+      "Duration": 0.0178573,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(\"C47\")",
+      "Status": "Passed",
+      "Duration": 0.0248059,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(\"C48\")",
+      "Status": "Passed",
+      "Duration": 0.0177675,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(\"C49\")",
+      "Status": "Passed",
+      "Duration": 0.0249902,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(\"C50\")",
+      "Status": "Passed",
+      "Duration": 0.0177674,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(\"C51\")",
+      "Status": "Passed",
+      "Duration": 0.0256519,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(\"C52\")",
+      "Status": "Passed",
+      "Duration": 0.0177661,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(\"C53\")",
+      "Status": "Passed",
+      "Duration": 0.0252466,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ShopTests.CONTENT_O03_FullPermanentPoolRejectsAndExistingCandidatesNeverRefresh",
+      "Status": "Passed",
+      "Duration": 0.0185317,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ShopTests.CONTENT_ServiceDuplicateReceiptDoesNotRepeatMutation(\"O01\")",
+      "Status": "Passed",
+      "Duration": 0.0238548,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ShopTests.CONTENT_ServiceDuplicateReceiptDoesNotRepeatMutation(\"O02\")",
+      "Status": "Passed",
+      "Duration": 0.0160726,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ShopTests.CONTENT_ServiceDuplicateReceiptDoesNotRepeatMutation(\"O04\")",
+      "Status": "Passed",
+      "Duration": 0.0238649,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ShopTests.CONTENT_UpgradeAppliesOnlyToTargetAndIsIdempotent(\"U01\")",
+      "Status": "Passed",
+      "Duration": 0.0161069,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ShopTests.CONTENT_UpgradeAppliesOnlyToTargetAndIsIdempotent(\"U02\")",
+      "Status": "Passed",
+      "Duration": 0.0244973,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ShopTests.CONTENT_UpgradeAppliesOnlyToTargetAndIsIdempotent(\"U03\")",
+      "Status": "Passed",
+      "Duration": 0.0161439,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ShopTests.CONTENT_UpgradeAppliesOnlyToTargetAndIsIdempotent(\"U04\")",
+      "Status": "Passed",
+      "Duration": 0.0162114,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ShopTests.CONTENT_UpgradeAppliesOnlyToTargetAndIsIdempotent(\"U05\")",
+      "Status": "Passed",
+      "Duration": 0.0236068,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ShopTests.CONTENT_UpgradeAppliesOnlyToTargetAndIsIdempotent(\"U06\")",
+      "Status": "Passed",
+      "Duration": 0.0161511,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ShopTests.CONTENT_UpgradeAppliesOnlyToTargetAndIsIdempotent(\"U07\")",
+      "Status": "Passed",
+      "Duration": 0.0238918,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ShopTests.CONTENT_UpgradeRejectsMissingTargetWithoutConsumingOffer(\"U01\")",
+      "Status": "Passed",
+      "Duration": 0.0147472,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ShopTests.CONTENT_UpgradeRejectsMissingTargetWithoutConsumingOffer(\"U02\")",
+      "Status": "Passed",
+      "Duration": 0.0232709,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ShopTests.CONTENT_UpgradeRejectsMissingTargetWithoutConsumingOffer(\"U03\")",
+      "Status": "Passed",
+      "Duration": 0.0146771,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ShopTests.CONTENT_UpgradeRejectsMissingTargetWithoutConsumingOffer(\"U04\")",
+      "Status": "Passed",
+      "Duration": 0.0181082,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ShopTests.CONTENT_UpgradeRejectsMissingTargetWithoutConsumingOffer(\"U05\")",
+      "Status": "Passed",
+      "Duration": 0.020142,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ShopTests.CONTENT_UpgradeRejectsMissingTargetWithoutConsumingOffer(\"U06\")",
+      "Status": "Passed",
+      "Duration": 0.0149435,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ShopTests.CONTENT_UpgradeRejectsMissingTargetWithoutConsumingOffer(\"U07\")",
+      "Status": "Passed",
+      "Duration": 0.0232571,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ShopTests.FLOW_E01_RewardUsesOldBalance(False,36)",
+      "Status": "Passed",
+      "Duration": 0.0117508,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ShopTests.FLOW_E01_RewardUsesOldBalance(True,39)",
+      "Status": "Passed",
+      "Duration": 0.0122722,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ShopTests.FLOW_E02_BuyingPigNeverChangesPriorSettlement",
+      "Status": "Passed",
+      "Duration": 0.0247126,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ShopTests.FLOW_E03_ControllerFullRejectsWithoutRestocking",
+      "Status": "Passed",
+      "Duration": 0.0181786,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ShopTests.FLOW_E04_SellOnceAndConsumedCannotSell",
+      "Status": "Passed",
+      "Duration": 0.0259784,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ShopTests.FLOW_E05_E06_DiscountChargesOldPriceOnceAndMinimumOne",
+      "Status": "Passed",
+      "Duration": 0.0191308,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ShopTests.FLOW_E07_DiscountDoesNotAffectControllersOrUpgrades",
+      "Status": "Passed",
+      "Duration": 0.026426,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ShopTests.FLOW_E08_MaxedServiceRejects(\"O01\")",
+      "Status": "Passed",
+      "Duration": 0.0147663,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ShopTests.FLOW_E08_MaxedServiceRejects(\"O02\")",
+      "Status": "Passed",
+      "Duration": 0.0151741,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ShopTests.FLOW_E09_IdenticalUpgradeRejectsWithoutMoneyOrRandomness(\"U01\")",
+      "Status": "Passed",
+      "Duration": 0.0235323,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ShopTests.FLOW_E09_IdenticalUpgradeRejectsWithoutMoneyOrRandomness(\"U02\")",
+      "Status": "Passed",
+      "Duration": 0.0149465,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ShopTests.FLOW_E09_IdenticalUpgradeRejectsWithoutMoneyOrRandomness(\"U03\")",
+      "Status": "Passed",
+      "Duration": 0.0236879,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ShopTests.FLOW_E09_IdenticalUpgradeRejectsWithoutMoneyOrRandomness(\"U04\")",
+      "Status": "Passed",
+      "Duration": 0.0146858,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ShopTests.FLOW_E09_IdenticalUpgradeRejectsWithoutMoneyOrRandomness(\"U05\")",
+      "Status": "Passed",
+      "Duration": 0.015305,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ShopTests.FLOW_E09_IdenticalUpgradeRejectsWithoutMoneyOrRandomness(\"U06\")",
+      "Status": "Passed",
+      "Duration": 0.0236933,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ShopTests.FLOW_E10_TransformExcludesOldPipAndPreservesAttributes",
+      "Status": "Passed",
+      "Duration": 0.8103732,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ShopTests.FLOW_E11_NewDiePreviewFixedAndPurchaseClones",
+      "Status": "Passed",
+      "Duration": 0.0175777,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ShopTests.FLOW_E12_LastPermanentDieCannotBeDeletedEvenWithTemporaryDie",
+      "Status": "Passed",
+      "Duration": 0.0235859,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ShopTests.FLOW_E15_C09RechecksDisplayedHandQualification",
+      "Status": "Passed",
+      "Duration": 0.0196151,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ShopTests.GeneratedShopHasExactCategoriesNoReplacementAndAffordableFirstController",
+      "Status": "Passed",
+      "Duration": 0.0235248,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ShopTests.SelfStudyAndRandomHandUseCurrentLevelAndEligibility",
+      "Status": "Passed",
+      "Duration": 0.0177733,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ShopTests.ServicesO01O02O04AndNewDieCapacityRespectLimits",
+      "Status": "Passed",
+      "Duration": 0.0306868,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ShopTests.ShopGoldDoesNotLimitPurchaseCountAndInventoryFullDoesNotEraseSupply",
+      "Status": "Passed",
+      "Duration": 0.0228611,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.ShopTests.SixthDieRequiresIndependentCapacityBeforeSixKindStudy",
+      "Status": "Passed",
+      "Duration": 0.027464,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.V05SessionTests.V05_AllGlassLostAfterQualificationUsesSingleSettlementAndFinalPriority(False)",
+      "Status": "Passed",
+      "Duration": 0.013201,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.V05SessionTests.V05_AllGlassLostAfterQualificationUsesSingleSettlementAndFinalPriority(True)",
+      "Status": "Passed",
+      "Duration": 0.0216264,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.V05SessionTests.V05_BiasItemRequiresFutureLegalRollOnMatchingUnlockedDie(\"I04\")",
+      "Status": "Passed",
+      "Duration": 0.0096376,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.V05SessionTests.V05_BiasItemRequiresFutureLegalRollOnMatchingUnlockedDie(\"I05\")",
+      "Status": "Passed",
+      "Duration": 0.0096612,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.V05SessionTests.V05_BudgetsAndCapacityUseIndependentControllerRules",
+      "Status": "Passed",
+      "Duration": 0.0143785,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.V05SessionTests.V05_C26ThenC38LeavesFiveRedOneBlueAndScoreFrozen",
+      "Status": "Passed",
+      "Duration": 0.0499805,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.V05SessionTests.V05_C29ReenablesFourSlotStraightStudyWithoutColorHands",
+      "Status": "Passed",
+      "Duration": 0.0202015,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.V05SessionTests.V05_ContinueAfterQualifiedKeepsOrdinalAndPaysOnlyRemainingAtEnd",
+      "Status": "Passed",
+      "Duration": 0.0228262,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.V05SessionTests.V05_ControllerOfferPersistenceAndOriginalInstanceSurviveReadBuyAndReload",
+      "Status": "Passed",
+      "Duration": 0.0276705,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.V05SessionTests.V05_CopyThenGrowthUsesCopiedTargetFaceValueAndSourceIsIndependent",
+      "Status": "Passed",
+      "Duration": 0.017863,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.V05SessionTests.V05_EightKindRequiresEightPermanentDiceAndCapacityAndLv8StopsSales",
+      "Status": "Passed",
+      "Duration": 0.0174048,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.V05SessionTests.V05_EndStageRejectsUnqualifiedPendingBusyAndSavePending",
+      "Status": "Passed",
+      "Duration": 0.0219252,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.V05SessionTests.V05_EndStageWithLockedHandDoesNotSubmitOrRevertUsedActions",
+      "Status": "Passed",
+      "Duration": 0.0144847,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.V05SessionTests.V05_FinalSubmissionAutoEndsAlreadyQualifiedStage",
+      "Status": "Passed",
+      "Duration": 0.026407,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.V05SessionTests.V05_GrowthShrinkCancelBeforeSingleClampAtBothBoundaries(1)",
+      "Status": "Passed",
+      "Duration": 0.0109949,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.V05SessionTests.V05_GrowthShrinkCancelBeforeSingleClampAtBothBoundaries(6)",
+      "Status": "Passed",
+      "Duration": 0.0108143,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.V05SessionTests.V05_InterestCapsPrincipalNotBalance(False,112)",
+      "Status": "Passed",
+      "Duration": 0.0207961,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.V05SessionTests.V05_InterestCapsPrincipalNotBalance(True,117)",
+      "Status": "Passed",
+      "Duration": 0.0122224,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.V05SessionTests.V05_ProbabilityControllersUseSameFinalVectorAsActualRoll",
+      "Status": "Passed",
+      "Duration": 0.0111464,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.V05SessionTests.V05_QualifiedDoesNotPayOrCreateShopAndReadQuotesArePure",
+      "Status": "Passed",
+      "Duration": 0.0197054,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.V05SessionTests.V05_QualifiedI06AddsRewardAndRestoreDoesNotPay",
+      "Status": "Passed",
+      "Duration": 0.0156902,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.V05SessionTests.V05_RemoteGrowthChangesFrozenPhysicalFaceAndNeverOverridePip",
+      "Status": "Passed",
+      "Duration": 0.0187268,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.V05SessionTests.V05_ReplacementInsufficientMoneyAndWriteFailureAreAtomic",
+      "Status": "Passed",
+      "Duration": 0.0169158,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.V05SessionTests.V05_ReplacingAtTenDoesNotCreateEleventhInstanceAndNewEleventhRejects",
+      "Status": "Passed",
+      "Duration": 0.0220614,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.V05SessionTests.V05_RestoreRejectsMismatchedQualificationIllegalEnchantAndOfferIdentity",
+      "Status": "Passed",
+      "Duration": 0.0226295,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.V05SessionTests.V05_SellingOldCardBeforeReplacementPaysFullNewPrice",
+      "Status": "Passed",
+      "Duration": 0.0207727,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.V05SessionTests.V05_ShopExcludesSlotlessNonSubmitOwnedButCanOfferDifferentScoringEnchant",
+      "Status": "Passed",
+      "Duration": 0.6527209,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.V05SessionTests.V05_ShopInterleavesIdAndEnchantmentWithFrozenReferenceVectors(1,\"C26:none,C13:none,C27:none\")",
+      "Status": "Passed",
+      "Duration": 0.0256018,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.V05SessionTests.V05_ShopInterleavesIdAndEnchantmentWithFrozenReferenceVectors(uint.MinValue,\"C48:submit1,C27:none,C11:none\")",
+      "Status": "Passed",
+      "Duration": 0.0141967,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.V05SessionTests.V05_ShopInterleavesIdAndEnchantmentWithFrozenReferenceVectors(20261030,\"C50:slotless,C28:none,C19:slotless\")",
+      "Status": "Passed",
+      "Duration": 0.0216959,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.V05SessionTests.V05_ShopInterleavesIdAndEnchantmentWithFrozenReferenceVectors(uint.MaxValue,\"C34:none,C01:slotless,C15:base10\")",
+      "Status": "Passed",
+      "Duration": 0.0138724,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.V05SessionTests.V05_SlotlessFitsBeyondFourAndReplaceUsesFinalEquipment",
+      "Status": "Passed",
+      "Duration": 0.0274185,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.V06SessionTests.V06_AbandonPendingSaveKeepsCommittedStateAndAllowsNewCommand",
+      "Status": "Passed",
+      "Duration": 0.0180978,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.V06SessionTests.V06_AllHistoricalSubmitReceiptsValidatePhysicalDataAndExactPlan",
+      "Status": "Passed",
+      "Duration": 0.0215234,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.V06SessionTests.V06_C05AllSourcesObserveSameZeroBudgetAndNeverRegrant",
+      "Status": "Passed",
+      "Duration": 0.0155771,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.V06SessionTests.V06_C42FrozenRiskListSurvivesOwnerDeathAndDoesNotRebind",
+      "Status": "Passed",
+      "Duration": 0.0193721,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.V06SessionTests.V06_C45AcquisitionDrawOccursOnlyAfterSuccessfulValidation",
+      "Status": "Passed",
+      "Duration": 0.0174378,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.V06SessionTests.V06_C45SharesFrozenColorAndAlwaysAdvancesOncePerOwner",
+      "Status": "Passed",
+      "Duration": 0.0142266,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.V06SessionTests.V06_C51SelfReplacementDoesNotGrowNewInstanceAndItemSaleDoesNotGrow",
+      "Status": "Passed",
+      "Duration": 0.0243235,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.V06SessionTests.V06_C53SharesOwnerDrawAndPreviewDoesNotConsumeOverride",
+      "Status": "Passed",
+      "Duration": 0.0117034,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.V06SessionTests.V06_ColorStudyAvailableAtOneDieWithoutBecomingHand",
+      "Status": "Passed",
+      "Duration": 0.0246052,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.V06SessionTests.V06_DebugBlankWorkspaceAndPureNonSubmitScoringEnchantRemainInactive",
+      "Status": "Passed",
+      "Duration": 0.0108657,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.V06SessionTests.V06_DebugEditSaveFailureDoesNotLeakAndRetryDoesNotRebuildAgain",
+      "Status": "Passed",
+      "Duration": 0.0127594,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.V06SessionTests.V06_DebugInvalidSceneIsAtomic(\"duplicate\")",
+      "Status": "Passed",
+      "Duration": 0.0154473,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.V06SessionTests.V06_DebugInvalidSceneIsAtomic(\"retired\")",
+      "Status": "Passed",
+      "Duration": 0.0106872,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.V06SessionTests.V06_DebugInvalidSceneIsAtomic(\"cycle\")",
+      "Status": "Passed",
+      "Duration": 0.0105473,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.V06SessionTests.V06_DebugInvalidSceneIsAtomic(\"missing\")",
+      "Status": "Passed",
+      "Duration": 0.0179563,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.V06SessionTests.V06_DebugInvalidSceneIsAtomic(\"fund\")",
+      "Status": "Passed",
+      "Duration": 0.0108847,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.V06SessionTests.V06_DebugInvalidSceneIsAtomic(\"turnover\")",
+      "Status": "Passed",
+      "Duration": 0.0111365,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.V06SessionTests.V06_DebugInvalidSceneIsAtomic(\"decimal\")",
+      "Status": "Passed",
+      "Duration": 0.0186309,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.V06SessionTests.V06_DebugInvalidSceneIsAtomic(\"dice33\")",
+      "Status": "Passed",
+      "Duration": 0.0101114,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.V06SessionTests.V06_DebugInvalidSceneIsAtomic(\"budget1000\")",
+      "Status": "Passed",
+      "Duration": 0.0102142,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.V06SessionTests.V06_DebugInvalidSceneIsAtomic(\"faces-null\")",
+      "Status": "Passed",
+      "Duration": 0.018216,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.V06SessionTests.V06_DebugInvalidSceneIsAtomic(\"faces-five\")",
+      "Status": "Passed",
+      "Duration": 0.0100185,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.V06SessionTests.V06_DebugInvalidSceneIsAtomic(\"face-null\")",
+      "Status": "Passed",
+      "Duration": 0.0102518,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.V06SessionTests.V06_DebugInvalidSceneIsAtomic(\"face-bad-color\")",
+      "Status": "Passed",
+      "Duration": 0.0135683,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.V06SessionTests.V06_DebugLimits32Dice32Cards32ItemsAndScoreBeyondInt64RoundTrip",
+      "Status": "Passed",
+      "Duration": 0.0298769,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.V06SessionTests.V06_DebugNonSubmitExperimentalEnchantDoesNotBlockNormalShopPool(\"C05\",\"base10\")",
+      "Status": "Passed",
+      "Duration": 0.0114704,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.V06SessionTests.V06_DebugNonSubmitExperimentalEnchantDoesNotBlockNormalShopPool(\"C05\",\"mult2\")",
+      "Status": "Passed",
+      "Duration": 0.0171816,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.V06SessionTests.V06_DebugNonSubmitExperimentalEnchantDoesNotBlockNormalShopPool(\"C21\",\"base10\")",
+      "Status": "Passed",
+      "Duration": 0.0109633,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.V06SessionTests.V06_DebugNonSubmitExperimentalEnchantDoesNotBlockNormalShopPool(\"C21\",\"mult2\")",
+      "Status": "Passed",
+      "Duration": 0.0111445,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.V06SessionTests.V06_DebugNonSubmitExperimentalEnchantDoesNotBlockNormalShopPool(\"C22\",\"base10\")",
+      "Status": "Passed",
+      "Duration": 0.0192365,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.V06SessionTests.V06_DebugNonSubmitExperimentalEnchantDoesNotBlockNormalShopPool(\"C22\",\"mult2\")",
+      "Status": "Passed",
+      "Duration": 0.0108334,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.V06SessionTests.V06_DebugNonSubmitExperimentalEnchantDoesNotBlockNormalShopPool(\"C34\",\"base10\")",
+      "Status": "Passed",
+      "Duration": 0.011097,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.V06SessionTests.V06_DebugNonSubmitExperimentalEnchantDoesNotBlockNormalShopPool(\"C34\",\"mult2\")",
+      "Status": "Passed",
+      "Duration": 0.0195956,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.V06SessionTests.V06_DebugNonSubmitExperimentalEnchantDoesNotBlockNormalShopPool(\"C35\",\"base10\")",
+      "Status": "Passed",
+      "Duration": 0.0108857,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.V06SessionTests.V06_DebugNonSubmitExperimentalEnchantDoesNotBlockNormalShopPool(\"C35\",\"mult2\")",
+      "Status": "Passed",
+      "Duration": 0.0112769,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.V06SessionTests.V06_DebugNonSubmitExperimentalEnchantDoesNotBlockNormalShopPool(\"C52\",\"base10\")",
+      "Status": "Passed",
+      "Duration": 0.0203291,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.V06SessionTests.V06_DebugNonSubmitExperimentalEnchantDoesNotBlockNormalShopPool(\"C52\",\"mult2\")",
+      "Status": "Passed",
+      "Duration": 0.0107877,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.V06SessionTests.V06_DebugWorkspaceIsolatedAndFirstMutationRebuildsExplicitCurrentHand",
+      "Status": "Passed",
+      "Duration": 0.0120138,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.V06SessionTests.V06_ExpansionAppendsExactlyOneWithoutRefillingSoldOrOtherOffers(\"O05\",\"controller\")",
+      "Status": "Passed",
+      "Duration": 0.0292479,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.V06SessionTests.V06_ExpansionAppendsExactlyOneWithoutRefillingSoldOrOtherOffers(\"O06\",\"consumable\")",
+      "Status": "Passed",
+      "Duration": 0.018328,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.V06SessionTests.V06_FreeRefreshUsesIndexZeroAndLatePurchaseNeverRefunds",
+      "Status": "Passed",
+      "Duration": 0.0366119,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.V06SessionTests.V06_FundsAccrueForEachEmitterOnlyOnceAtFinalize",
+      "Status": "Passed",
+      "Duration": 0.0145783,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.V06SessionTests.V06_InitialZeroWalletAndSchema4SeparateColorLevels",
+      "Status": "Passed",
+      "Duration": 0.011914,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.V06SessionTests.V06_InvalidPersistedDecimalNeverLoads(\"\")",
+      "Status": "Passed",
+      "Duration": 0.0155412,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.V06SessionTests.V06_InvalidPersistedDecimalNeverLoads(\"-1\")",
+      "Status": "Passed",
+      "Duration": 0.0093396,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.V06SessionTests.V06_InvalidPersistedDecimalNeverLoads(\"NaN\")",
+      "Status": "Passed",
+      "Duration": 0.0097148,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.V06SessionTests.V06_InvalidPersistedDecimalNeverLoads(\"1.0\")",
+      "Status": "Passed",
+      "Duration": 0.0176476,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.V06SessionTests.V06_InvalidPersistedDecimalNeverLoads(\"1E20\")",
+      "Status": "Passed",
+      "Duration": 0.0092677,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.V06SessionTests.V06_LastFailedSubmissionAppliesAllPostEffectsButNoFundsOrSuccessReward",
+      "Status": "Passed",
+      "Duration": 0.0115585,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.V06SessionTests.V06_MatureFundReplacementCreditsNegativeNetKeepsPositionAndNewState",
+      "Status": "Passed",
+      "Duration": 0.0453434,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.V06SessionTests.V06_MimicCopiesCapacityButOnlyOwnBudgetEnchant",
+      "Status": "Passed",
+      "Duration": 0.0264678,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.V06SessionTests.V06_NormalConsecutiveSourcesCapAtEightAndKeepBothTriggers(7,8)",
+      "Status": "Passed",
+      "Duration": 0.0119473,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.V06SessionTests.V06_NormalConsecutiveSourcesCapAtEightAndKeepBothTriggers(8,8)",
+      "Status": "Passed",
+      "Duration": 0.0113886,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.V06SessionTests.V06_PrimaryHistoryExistsWithoutC43AndSurvivesStageBoundaries",
+      "Status": "Passed",
+      "Duration": 0.0242979,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.V06SessionTests.V06_RefreshFailureRetryUsesSameCandidateAndReceipts",
+      "Status": "Passed",
+      "Duration": 0.0183819,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.V06SessionTests.V06_RefreshInsufficientBalanceIsFullyAtomic",
+      "Status": "Passed",
+      "Duration": 0.0250757,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.V06SessionTests.V06_RefreshReplacesOnlyControllerBatchAndInvalidatesOldClick",
+      "Status": "Passed",
+      "Duration": 0.0179187,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.V06SessionTests.V06_ReorderOnlyPreviewOrShopNoOpDoesNotSaveOrAdvance",
+      "Status": "Passed",
+      "Duration": 0.0175211,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.V06SessionTests.V06_UnityEmptyNestedPlaceholdersProduceIdenticalNextCommandHash",
+      "Status": "Passed",
+      "Duration": 0.012404,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.V06SessionTests.V06_WalletOverflowRejectsWithoutChangingScoreRngOrIncome",
+      "Status": "Passed",
+      "Duration": 0.0100264,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DiceCraft.Tests.V06SessionTests.V06_ZeroScoreStillConsumesDrawsIncomeAndConsecutiveGrowth",
+      "Status": "Passed",
+      "Duration": 0.0189321,
+      "Message": null,
+      "StackTrace": null
+    }
+  ]
+}

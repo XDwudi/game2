@@ -1,0 +1,20 @@
+{
+  "status": "completed",
+  "duration": 0.05,
+  "summary": {
+    "total": 1,
+    "passed": 0,
+    "failed": 1,
+    "skipped": 0,
+    "inconclusive": 0
+  },
+  "results": [
+    {
+      "FullName": "DiceCraft.Tests.AtomicSaveStoreTests.SAVE_NullGroupHistoryRemainsNoGroupAndCannotChangeNextHandOrScore",
+      "Status": "Failed",
+      "Duration": 0.0365045,
+      "Message": "  A historical null-to-empty string must not affect new gameplay, receipts or RNG.\r\n  String lengths are both 30899. Strings differ at index 22670.\r\n  Expected: \"...\"message\":\"Roll\",\"stateHash\":\"e755385e1a3cdc329a81920e9c20...\"\r\n  But was:  \"...\"message\":\"Roll\",\"stateHash\":\"83730381fc4ea189daab18dd5c41...\"\r\n  --------------------------------------------^\r\n",
+      "StackTrace": "at DiceCraft.Tests.AtomicSaveStoreTests.SAVE_NullGroupHistoryRemainsNoGroupAndCannotChangeNextHandOrScore () [0x001af] in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Tests\\EditMode\\Persistence\\AtomicSaveStoreTests.cs:182\r\n"
+    }
+  ]
+}

@@ -1,0 +1,168 @@
+{
+  "scope": "Independent offline negative checks: partial/native-diagnostic results cannot become release acceptance.",
+  "utc": "2026-10-31T15:19:41.765851+00:00",
+  "status": "passed",
+  "cases": [
+    {
+      "side": "windows",
+      "case": "synthetic_complete_control",
+      "expectedAccepted": true,
+      "failures": []
+    },
+    {
+      "side": "windows",
+      "case": "partial_passed_native_display_pending",
+      "expectedAccepted": false,
+      "failures": [
+        {
+          "side": "windows",
+          "reason": "player_did_not_pass"
+        }
+      ]
+    },
+    {
+      "side": "windows",
+      "case": "display_passed",
+      "expectedAccepted": false,
+      "failures": [
+        {
+          "side": "windows",
+          "reason": "player_did_not_pass"
+        }
+      ]
+    },
+    {
+      "side": "windows",
+      "case": "diagnostic_completed",
+      "expectedAccepted": false,
+      "failures": [
+        {
+          "side": "windows",
+          "reason": "player_did_not_pass"
+        }
+      ]
+    },
+    {
+      "side": "windows",
+      "case": "partial_mislabelled_passed_missing_native",
+      "expectedAccepted": false,
+      "failures": [
+        {
+          "side": "windows",
+          "reason": "v06_ui_sections_missing_or_failed"
+        },
+        {
+          "side": "windows",
+          "reason": "native_display_sections_missing_or_failed"
+        }
+      ]
+    },
+    {
+      "side": "windows",
+      "case": "missing_shop-controller-refresh-ui",
+      "expectedAccepted": false,
+      "failures": [
+        {
+          "side": "windows",
+          "reason": "v06_ui_sections_missing_or_failed"
+        }
+      ]
+    },
+    {
+      "side": "windows",
+      "case": "missing_shop-free-first-refresh-service-ui",
+      "expectedAccepted": false,
+      "failures": [
+        {
+          "side": "windows",
+          "reason": "v06_ui_sections_missing_or_failed"
+        }
+      ]
+    },
+    {
+      "side": "macOS",
+      "case": "synthetic_complete_control",
+      "expectedAccepted": true,
+      "failures": []
+    },
+    {
+      "side": "macOS",
+      "case": "partial_passed_native_display_pending",
+      "expectedAccepted": false,
+      "failures": [
+        {
+          "side": "macOS",
+          "reason": "player_did_not_pass"
+        }
+      ]
+    },
+    {
+      "side": "macOS",
+      "case": "display_passed",
+      "expectedAccepted": false,
+      "failures": [
+        {
+          "side": "macOS",
+          "reason": "player_did_not_pass"
+        }
+      ]
+    },
+    {
+      "side": "macOS",
+      "case": "diagnostic_completed",
+      "expectedAccepted": false,
+      "failures": [
+        {
+          "side": "macOS",
+          "reason": "player_did_not_pass"
+        }
+      ]
+    },
+    {
+      "side": "macOS",
+      "case": "partial_mislabelled_passed_missing_native",
+      "expectedAccepted": false,
+      "failures": [
+        {
+          "side": "macOS",
+          "reason": "v06_ui_sections_missing_or_failed"
+        },
+        {
+          "side": "macOS",
+          "reason": "native_display_sections_missing_or_failed"
+        }
+      ]
+    },
+    {
+      "side": "macOS",
+      "case": "missing_shop-controller-refresh-ui",
+      "expectedAccepted": false,
+      "failures": [
+        {
+          "side": "macOS",
+          "reason": "v06_ui_sections_missing_or_failed"
+        }
+      ]
+    },
+    {
+      "side": "macOS",
+      "case": "missing_shop-free-first-refresh-service-ui",
+      "expectedAccepted": false,
+      "failures": [
+        {
+          "side": "macOS",
+          "reason": "v06_ui_sections_missing_or_failed"
+        }
+      ]
+    }
+  ],
+  "before": {
+    "tools/macos/v06/compare_replays.py": "6d7ee6b7dcb420d7745ce59ecd029991c7ec6f6847a518ee44412985a30f3290",
+    "tools/macos/v06/test_mac_tools.py": "a9b1b7a6076d00afa24d1361bf9cd3ef12c28f4816946ceb079237892b170249"
+  },
+  "after": {
+    "tools/macos/v06/compare_replays.py": "6d7ee6b7dcb420d7745ce59ecd029991c7ec6f6847a518ee44412985a30f3290",
+    "tools/macos/v06/test_mac_tools.py": "a9b1b7a6076d00afa24d1361bf9cd3ef12c28f4816946ceb079237892b170249"
+  },
+  "actualPlayerExecuted": false
+}

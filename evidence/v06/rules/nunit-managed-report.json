@@ -1,0 +1,2076 @@
+{
+  "runner": ".NET 10 reflection invoking NUnit assertions; System.Text.Json preflight adapter; not Unity EditMode",
+  "runtime": ".NET 10.0.14",
+  "utc": "2026-10-31T12:19:56.6379396Z",
+  "sourceHashes": [
+    {
+      "path": "DicePrototype/Assets/Game/Core/Rules\\ConfigJsonContract.cs",
+      "sha256": "5c5eb51d4dcefe314ba4ea83f890e9a85a21386e6029b4b73c58f88972a7cde6"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Core/Rules\\ConfigValidation.cs",
+      "sha256": "bae50229b0fe5dd844228add4a44128d7fc3814bc0a71d3f1ee4aa44c4edbc92"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Core/Rules\\ControllerRules.cs",
+      "sha256": "b30c4847e86825baa74dcd5a127a660e6479a71ccdb928a54592f6520f1ce30c"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Core/Rules\\ExactScoreMath.cs",
+      "sha256": "8a1e024cf8a84ae3ab6e985374003fd14d47b613798204ce97c37b60fdbdc57c"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Core/Rules\\GameConfig.cs",
+      "sha256": "7346a0a6e7aeef72d725c80e741f1b41d70ddbc8e0a890842ce228e111cbf127"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Core/Rules\\GameRng.cs",
+      "sha256": "41614b1946d1c4d7b31b4a20957ef285b1bafa5a6ef7e250d05f8c79ae38e042"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Core/Rules\\HandbookRules.cs",
+      "sha256": "a4e7f14bd122ad5457be5f3e15add7905316141c58d87dc754d9e6598f3c5b2d"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Core/Rules\\Models.cs",
+      "sha256": "ffb09a2f52fcaf56e3370251f5bd45535091843482b12a372c71bfe5ce1b99bc"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Core/Rules\\ProbabilityCalculator.cs",
+      "sha256": "0f25d9a47ee0951bb87458d4d10f63c78ee867e749ba411d005fae225a312fb5"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Core/Rules\\ScoreCalculator.cs",
+      "sha256": "e72fc655366705e220d801e2aa7f6f73383368596712063c97c154103df97f43"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Core/Rules\\ScoreExplanation.cs",
+      "sha256": "b223493cbde54ed76abaa1856ede39df9d2dec78b66f933645c7c6c6338f8b08"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Data/GoldenScores.json",
+      "sha256": "306cb86f79dafe0e3eb302714abd232af20fe0062a6713f7d713c11e2a6a5718"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Data/P0Config.json",
+      "sha256": "747ed1efc7bea15873f66a81eee5c7654971c21031f2a1517ce629adce7b6e6c"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Tests/EditMode/Rules\\ControllerScoreTests.cs",
+      "sha256": "458726facac7306906bbacef0235409aada43dd5870386e3b3cc609938ae5bd1"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Tests/EditMode/Rules\\RulesTests.cs",
+      "sha256": "d1dcb91ea14eedbd723b3d51049f32a66cc2894d9dfdd8ee9641ad9b9d520526"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Tests/EditMode/Rules\\ScoreExplanationTests.cs",
+      "sha256": "21746ec8b2861c324a99aa0fa76769aadc9acaf85f50c6cc5165d30c6c242f4a"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Tests/EditMode/Rules\\V05RulesTests.cs",
+      "sha256": "0a5256d5bc8795c1bfe9e0a03677084e70c4ed820529294b12b1d1d2f84d7f3a"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Tests/EditMode/Rules\\V06SourceBoundaryTests.cs",
+      "sha256": "02efc8fb87dc09a61deb19a076cc15066b20b6f0a75b1b8260bf215e31421326"
+    }
+  ],
+  "passed": 498,
+  "failed": 0,
+  "total": 498,
+  "results": [
+    {
+      "name": "ControllerScoreTests.CONTENT-C02-hit",
+      "result": "Passed"
+    },
+    {
+      "name": "ControllerScoreTests.CONTENT-C02-miss-red",
+      "result": "Passed"
+    },
+    {
+      "name": "ControllerScoreTests.CONTENT-C02-boundary-single",
+      "result": "Passed"
+    },
+    {
+      "name": "ControllerScoreTests.CONTENT-C03-hit",
+      "result": "Passed"
+    },
+    {
+      "name": "ControllerScoreTests.CONTENT-C03-not-equipped",
+      "result": "Passed"
+    },
+    {
+      "name": "ControllerScoreTests.CONTENT-C03-boundary-single",
+      "result": "Passed"
+    },
+    {
+      "name": "ControllerScoreTests.CONTENT-C06-hit",
+      "result": "Passed"
+    },
+    {
+      "name": "ControllerScoreTests.CONTENT-C06-miss-two-distinct",
+      "result": "Passed"
+    },
+    {
+      "name": "ControllerScoreTests.CONTENT-C06-boundary-duplicate-with-four-distinct",
+      "result": "Passed"
+    },
+    {
+      "name": "ControllerScoreTests.CONTENT-C08-hit",
+      "result": "Passed"
+    },
+    {
+      "name": "ControllerScoreTests.CONTENT-C08-miss-full",
+      "result": "Passed"
+    },
+    {
+      "name": "ControllerScoreTests.CONTENT-C08-boundary-one-empty-slot",
+      "result": "Passed"
+    },
+    {
+      "name": "ControllerScoreTests.CONTENT-C09-hit",
+      "result": "Passed"
+    },
+    {
+      "name": "ControllerScoreTests.CONTENT-C09-not-equipped",
+      "result": "Passed"
+    },
+    {
+      "name": "ControllerScoreTests.CONTENT-C09-boundary-full-reduced-capacity",
+      "result": "Passed"
+    },
+    {
+      "name": "ControllerScoreTests.CONTENT-C10-hit",
+      "result": "Passed"
+    },
+    {
+      "name": "ControllerScoreTests.CONTENT-C10-miss-pip-two",
+      "result": "Passed"
+    },
+    {
+      "name": "ControllerScoreTests.CONTENT-C10-boundary-contribution-does-not-change-pair",
+      "result": "Passed"
+    },
+    {
+      "name": "ControllerScoreTests.CONTENT-C11-hit",
+      "result": "Passed"
+    },
+    {
+      "name": "ControllerScoreTests.CONTENT-C11-miss-one-three",
+      "result": "Passed"
+    },
+    {
+      "name": "ControllerScoreTests.CONTENT-C11-boundary-extra-die-allowed",
+      "result": "Passed"
+    },
+    {
+      "name": "ControllerScoreTests.CONTENT-C12-hit",
+      "result": "Passed"
+    },
+    {
+      "name": "ControllerScoreTests.CONTENT-C12-miss-even-unchanged",
+      "result": "Passed"
+    },
+    {
+      "name": "ControllerScoreTests.CONTENT-C12-boundary-five-to-six",
+      "result": "Passed"
+    },
+    {
+      "name": "ControllerScoreTests.CONTENT-C13-hit",
+      "result": "Passed"
+    },
+    {
+      "name": "ControllerScoreTests.CONTENT-C13-miss-even",
+      "result": "Passed"
+    },
+    {
+      "name": "ControllerScoreTests.CONTENT-C13-boundary-red-group-uses-original-one",
+      "result": "Passed"
+    },
+    {
+      "name": "ControllerScoreTests.CONTENT-C14-hit",
+      "result": "Passed"
+    },
+    {
+      "name": "ControllerScoreTests.CONTENT-C14-miss-mixed-parity",
+      "result": "Passed"
+    },
+    {
+      "name": "ControllerScoreTests.CONTENT-C14-boundary-single-one",
+      "result": "Passed"
+    },
+    {
+      "name": "ControllerScoreTests.CONTENT-C17-hit",
+      "result": "Passed"
+    },
+    {
+      "name": "ControllerScoreTests.CONTENT-C17-miss-four",
+      "result": "Passed"
+    },
+    {
+      "name": "ControllerScoreTests.CONTENT-C17-boundary-all-three-small-values",
+      "result": "Passed"
+    },
+    {
+      "name": "ControllerScoreTests.CONTENT-C18-hit",
+      "result": "Passed"
+    },
+    {
+      "name": "ControllerScoreTests.CONTENT-C18-miss-unequal",
+      "result": "Passed"
+    },
+    {
+      "name": "ControllerScoreTests.CONTENT-C18-boundary-two-different-pips",
+      "result": "Passed"
+    },
+    {
+      "name": "ControllerScoreTests.CONTENT-C19-hit-threshold",
+      "result": "Passed"
+    },
+    {
+      "name": "ControllerScoreTests.CONTENT-C19-miss-above-threshold",
+      "result": "Passed"
+    },
+    {
+      "name": "ControllerScoreTests.CONTENT-C19-boundary-remote-current-six-permanent-ones",
+      "result": "Passed"
+    },
+    {
+      "name": "ControllerScoreTests.CONTENT-C20-hit",
+      "result": "Passed"
+    },
+    {
+      "name": "ControllerScoreTests.CONTENT-C20-miss-last-five",
+      "result": "Passed"
+    },
+    {
+      "name": "ControllerScoreTests.CONTENT-C20-boundary-last-occupied-not-capacity-slot",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.Configuration_ContainsExactly71SupportedItemsAnd13Hands2Colors",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.Configuration_RejectsInvalidWeightsAndFaces",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.Configuration_RejectsMalformedOrIncompleteJson({})",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.Configuration_RejectsMalformedOrIncompleteJson({\u0022configVersion\u0022:null})",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.Configuration_RejectsMalformedOrIncompleteJson({\u0022a\u0022:1,\u0022a\u0022:2})",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.Configuration_RejectsMalformedOrIncompleteJson({\u0022a\u0022:1,})",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.Configuration_RejectsMalformedOrIncompleteJson([])",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.Configuration_RejectsMissingZeroOrFalseFields",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.Configuration_RejectsUnknownMissingDuplicateIds",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.FactoryAndClone_HaveNoSharedMutableFaces",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G001",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G002",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G003",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G004",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G005",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G006",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G007",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G008",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G009",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G010",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G011",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G012",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G013",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G014",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G015",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G016",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G017",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G018",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G019",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G020",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G021",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G022",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G023",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G024",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G025",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G026",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G027",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G028",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G029",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G030",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G031",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G032",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G033",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G034",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G035",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G036",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G037",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G038",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G039",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G040",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G041",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G042",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G043",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G044",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G045",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G046",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G047",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G048",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G049",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G050",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G051",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G052",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G053",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G054",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G055",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G056",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G057",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G058",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G059",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G060",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G061",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G062",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G063",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G064",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G065",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G066",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G067",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G068",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G069",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G070",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G071",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G072",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G073",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G074",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G075",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G076",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G077",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G078",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G079",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G080",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G081",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G082",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G083",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G084",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G085",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G086",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G087",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G088",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G089",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G090",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G091",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G092",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G093",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G094",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G095",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G096",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G097",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G098",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G099",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G100",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G101",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G102",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G103",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G104",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G105",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G106",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G107",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G108",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G109",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G110",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G111",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G112",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G113",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G114",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G115",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G116",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G117",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G118",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G119",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G120",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G121",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G122",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G123",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G124",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G125",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G126",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G127",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G128",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G129",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G130",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G131",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G132",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G133",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G134",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G135",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G136",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G137",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G138",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G139",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G140",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G141",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G142",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G143",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G144",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G145",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G146",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G147",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G148",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G149",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G150",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G151",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G152",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G153",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G154",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G155",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G156",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G157",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G158",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G159",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G160",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GoldenFile_HasExactly160UniqueCases",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GoldenJson_AllOriginalNullTokensAreAccountedFor",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GoldenJson_PreservesNullEmptyAndNonemptyGroupIdsExactly",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.Probability_All2916TextureAndBuffCombinations",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.Probability_FiveContractVectors(none,False,False,System.Int32[])",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.Probability_FiveContractVectors(smooth,False,False,System.Int32[])",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.Probability_FiveContractVectors(rough,False,False,System.Int32[])",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.Probability_FiveContractVectors(none,True,False,System.Int32[])",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.Probability_FiveContractVectors(none,True,True,System.Int32[])",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.Probability_RejectsIllegalPhysicalData",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.Probability_RepeatedPreviewDoesNotCompoundOrMutate",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.Probability_TieBreakUsesPhysicalFaceId_NotArrayOrder",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.Probability_UsesPermanentPips",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.Rng_ExactFirstFiveOutputs",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.Rng_RejectionSamplingContractAndClone",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.Rng_SeedOnlyAcceptsUintDecimal",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.Score_EqualUpgradedMultipliersPreferHigherStructuralRank",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.Score_RejectsEmptyDuplicateOverCapacityAndInvalidLevels",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G001",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G002",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G003",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G004",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G005",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G006",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G007",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G008",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G009",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G010",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G011",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G012",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G013",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G014",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G015",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G016",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G017",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G018",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G019",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G020",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G021",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G022",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G023",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G024",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G025",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G026",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G027",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G028",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G029",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G030",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G031",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G032",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G033",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G034",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G035",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G036",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G037",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G038",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G039",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G040",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G041",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G042",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G043",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G044",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G045",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G046",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G047",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G048",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G049",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G050",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G051",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G052",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G053",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G054",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G055",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G056",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G057",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G058",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G059",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G060",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G061",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G062",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G063",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G064",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G065",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G066",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G067",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G068",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G069",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G070",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G071",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G072",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G073",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G074",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G075",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G076",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G077",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G078",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G079",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G080",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G081",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G082",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G083",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G084",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G085",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G086",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G087",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G088",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G089",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G090",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G091",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G092",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G093",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G094",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G095",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G096",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G097",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G098",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G099",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G100",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G101",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G102",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G103",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G104",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G105",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G106",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G107",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G108",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G109",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G110",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G111",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G112",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G113",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G114",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G115",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G116",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G117",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G118",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G119",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G120",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G121",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G122",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G123",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G124",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G125",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G126",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G127",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G128",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G129",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G130",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G131",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G132",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G133",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G134",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G135",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G136",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G137",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G138",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G139",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G140",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G141",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G142",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G143",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G144",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G145",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G146",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G147",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G148",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G149",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G150",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G151",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G152",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G153",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G154",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G155",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G156",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G157",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G158",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G159",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G160",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.Trace_C12EffectivePipsSuppressOldOddAndOnePointAdditions",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.Trace_GlobalFractionsSurviveEveryControllerAndC20AddsBeforeMultipliers",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.Trace_RejectsInconsistentFrozenBreakdown(contribution)",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.Trace_RejectsInconsistentFrozenBreakdown(total)",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.Trace_StackedContributionsAddBeforeGlassThenGold",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.V06-TRIGGER-C02-hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.V06-TRIGGER-C02-miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.V06-TRIGGER-C03-hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.V06-TRIGGER-C06-hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.V06-TRIGGER-C06-miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.V06-TRIGGER-C07-hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.V06-TRIGGER-C07-miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.V06-TRIGGER-C08-hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.V06-TRIGGER-C08-miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.V06-TRIGGER-C09-hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.V06-TRIGGER-C10-hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.V06-TRIGGER-C10-miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.V06-TRIGGER-C11-hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.V06-TRIGGER-C11-miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.V06-TRIGGER-C12-hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.V06-TRIGGER-C12-miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.V06-TRIGGER-C13-hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.V06-TRIGGER-C13-miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.V06-TRIGGER-C14-hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.V06-TRIGGER-C14-miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.V06-TRIGGER-C15-hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.V06-TRIGGER-C15-miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.V06-TRIGGER-C17-hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.V06-TRIGGER-C17-miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.V06-TRIGGER-C18-hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.V06-TRIGGER-C18-miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.V06-TRIGGER-C19-hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.V06-TRIGGER-C20-hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.V06-TRIGGER-C20-miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.V06-TRIGGER-C24-hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.V06-TRIGGER-C24-miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.V06-TRIGGER-C25-hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.V06-TRIGGER-C25-miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.V06-TRIGGER-C26-hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.V06-TRIGGER-C26-miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.V06-TRIGGER-C27-hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.V06-TRIGGER-C27-miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.V06-TRIGGER-C28-hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.V06-TRIGGER-C28-miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.V06-TRIGGER-C29-hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.V06-TRIGGER-C29-miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.V06-TRIGGER-C30-hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.V06-TRIGGER-C30-miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.V06-TRIGGER-C31-hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.V06-TRIGGER-C31-miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.V06-TRIGGER-C32-hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.V06-TRIGGER-C32-miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.V06-TRIGGER-C33-hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.V06-TRIGGER-C33-miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.V06-TRIGGER-C36-hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.V06-TRIGGER-C36-miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.V06-TRIGGER-C37-hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.V06-TRIGGER-C37-miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.V06-TRIGGER-C38-hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.V06-TRIGGER-C39-hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.V06-TRIGGER-C39-miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.V06-TRIGGER-C40-hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.V06-TRIGGER-C40-miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.BaseEnchantIsOncePerCardAndPairAddIsNotPerDieOrMultipliedByGold",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.BoundaryTriggersReadFrozenOriginalAndEffectiveLayers",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.BudgetsAndCapacityAreIndependentOfDiceAndCombineAdditively",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.EnchantmentBoundariesAndDedicatedPoolConsumeExactlyOneDraw(49,none)",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.EnchantmentBoundariesAndDedicatedPoolConsumeExactlyOneDraw(50,slotless)",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.EnchantmentBoundariesAndDedicatedPoolConsumeExactlyOneDraw(67,slotless)",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.EnchantmentBoundariesAndDedicatedPoolConsumeExactlyOneDraw(68,base10)",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.EnchantmentBoundariesAndDedicatedPoolConsumeExactlyOneDraw(77,base10)",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.EnchantmentBoundariesAndDedicatedPoolConsumeExactlyOneDraw(78,mult2)",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.EnchantmentBoundariesAndDedicatedPoolConsumeExactlyOneDraw(81,mult2)",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.EnchantmentBoundariesAndDedicatedPoolConsumeExactlyOneDraw(82,submit1)",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.EnchantmentBoundariesAndDedicatedPoolConsumeExactlyOneDraw(90,submit1)",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.EnchantmentBoundariesAndDedicatedPoolConsumeExactlyOneDraw(91,roll1)",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.EnchantmentBoundariesAndDedicatedPoolConsumeExactlyOneDraw(99,roll1)",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.EquipmentSeparatesFourOrdinarySlotsTenInstancesAndDuplicateIds",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.GroupTransferFixedVectors(False,False,True,False,System.Int32[])",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.GroupTransferFixedVectors(False,False,False,True,System.Int32[])",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.GroupTransferFixedVectors(False,False,True,True,System.Int32[])",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.GroupTransferFixedVectors(True,False,True,False,System.Int32[])",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.GroupTransferFixedVectors(True,False,False,True,System.Int32[])",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.GroupTransferIsExactStableUnderFacePermutationAndDoesNotMutate",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.HandbookAlwaysContainsFourteenHandAndTwoColorRowsAndSeparatesTemporaryFormationFromUpgradeEligibility",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.HandbookC29ChangesOnlyStraightThresholdAndNextReadRefreshes",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.MissingRepeatedAndExhaustedDonorDigitsMatchReferenceVectors",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.MultipleMultiplierEnchantmentsUseOneFinalFloor",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.ReplacementPoolsExcludeNoneAndCurrentAndAdvanceRng",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.UnequippedControllersNeverTriggerAndNonSubmitCardsCannotScoreEnchant",
+      "result": "Passed"
+    },
+    {
+      "name": "V06SourceBoundaryTests.AllNewAndReplacementEnchantTicketsMatchIndependentPoolTables",
+      "result": "Passed"
+    },
+    {
+      "name": "V06SourceBoundaryTests.BigIntegerParserRejectsFloatingSignedWhitespaceAndEmptyData",
+      "result": "Passed"
+    },
+    {
+      "name": "V06SourceBoundaryTests.C43StructuralPrimaryDiffersFromUpgradedWinnerAndClampsAfterScore",
+      "result": "Passed"
+    },
+    {
+      "name": "V06SourceBoundaryTests.C44ConvertsWalletBeforeMultiplicationAndExactScoreExceedsInt64",
+      "result": "Passed"
+    },
+    {
+      "name": "V06SourceBoundaryTests.C53PreviewUsesSharedUnknownOwnerRangeAndPreservesExplicitBranch",
+      "result": "Passed"
+    },
+    {
+      "name": "V06SourceBoundaryTests.ColorSingleDieIndependentAndExcludedFromPrimary",
+      "result": "Passed"
+    },
+    {
+      "name": "V06SourceBoundaryTests.CopiedC45SharesColorButAppliesEachSourceAndPlansOwnerOnce",
+      "result": "Passed"
+    },
+    {
+      "name": "V06SourceBoundaryTests.CyclesDuplicateBindingsAndDuplicateInstanceIdsReject",
+      "result": "Passed"
+    },
+    {
+      "name": "V06SourceBoundaryTests.FrozenMimicChainReadsFinalOwnerAndNeverRetargetsLostTarget",
+      "result": "Passed"
+    },
+    {
+      "name": "V06SourceBoundaryTests.HandbookUsesMimicAbilitiesAndSeparatesColorFromFourteenHandRows",
+      "result": "Passed"
+    },
+    {
+      "name": "V06SourceBoundaryTests.MultiPairShapesNeverSplitSamePointAndDebugCapsDefinedRedReward",
+      "result": "Passed"
+    },
+    {
+      "name": "V06SourceBoundaryTests.NetProbabilitySourcesStackAndSaturate(2,System.Int32[])",
+      "result": "Passed"
+    },
+    {
+      "name": "V06SourceBoundaryTests.NetProbabilitySourcesStackAndSaturate(3,System.Int32[])",
+      "result": "Passed"
+    },
+    {
+      "name": "V06SourceBoundaryTests.NetProbabilitySourcesStackAndSaturate(4,System.Int32[])",
+      "result": "Passed"
+    },
+    {
+      "name": "V06SourceBoundaryTests.NumericConfigKeysPreserveValuesAndRejectMissingUnknownOrWrongTypes",
+      "result": "Passed"
+    },
+    {
+      "name": "V06SourceBoundaryTests.OwnFundSaleDoesNotReadBoundTargetsAndOverflowIsRejected",
+      "result": "Passed"
+    },
+    {
+      "name": "V06SourceBoundaryTests.StateLegalityDebugDuplicatesAndRetiredIdsAreDistinctBoundaries",
+      "result": "Passed"
+    },
+    {
+      "name": "V06SourceBoundaryTests.ZeroFactorStillTriggersEnchantIncomeAndFrozenPostPlan",
+      "result": "Passed"
+    }
+  ]
+}

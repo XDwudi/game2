@@ -1,0 +1,148 @@
+{
+  "schema": "p06-windows-display-recovery-runner-1",
+  "startedUtc": "2026-10-31T16:02:48.059801+00:00",
+  "status": "passed",
+  "passed": true,
+  "identity": {
+    "releaseVersion": "p0.6.0",
+    "sourceCommit": "08ef933f2fbc3198a5e357ecebaa2758fbee8643",
+    "contentConfigVersion": "p0.6.0",
+    "contentConfigSha256": "747ed1efc7bea15873f66a81eee5c7654971c21031f2a1517ce629adce7b6e6c",
+    "saveSchemaVersion": 4,
+    "goldenCaseSetSha256": "306cb86f79dafe0e3eb302714abd232af20fe0062a6713f7d713c11e2a6a5718",
+    "unityEditorVersion": "6000.6.7f1",
+    "backend": "Mono"
+  },
+  "buildGuid": "c137ca83c7ec4fbab3243ff0aa663bfb",
+  "mainReportSha256": "7c7116714d70b04b6915e700d79a8c75e2844f343d265e5355976f2cb0504f54",
+  "inputs": {
+    "exe": {
+      "fileName": "DicePrototype.exe",
+      "sha256": "3726509af94bdacbfe23f85da13109a7e70fb7d61913506e98690bd3208b2fd7"
+    },
+    "trace": {
+      "fileName": "normal-run-trace.json",
+      "sha256": "5efcc51eb14dd024d2cea3cc1f5e86ad5ec00123a794dce16cb1100471366564"
+    },
+    "debug_trace": {
+      "fileName": "debug-24-trace.json",
+      "sha256": "3d6f7cf39dba3c56ca161d4d8baf6d4a7e9f00bcd98a386211b5a07ad61d06b8"
+    },
+    "identity": {
+      "fileName": "BuildIdentity.json",
+      "sha256": "4fc2590ff50e8100c2058c5916ea160207aa9b7aa86b41503a5273f857a79236"
+    },
+    "build_report": {
+      "fileName": "build-windows-20261031-154504.json",
+      "sha256": "c9d0ec73bc6f25fbb225df17d05b5ad5ae50154d38a6303c21b3d78b3b371938"
+    }
+  },
+  "rawLogDirectory": "artifacts/cache/v06/display-recovery-20261031-160248-f3d41527",
+  "scope": "Separate Windows processes with real native display/settings recovery; not a replacement main replay/performance/Mac result",
+  "reviewCandidate": true,
+  "windowsReference": {
+    "status": "budget_exceeded",
+    "verificationScope": "full-gameplay-ui-perf_native_display_pending",
+    "use": "Gameplay/UI/trace reference ONLY; Windows performance FAILED and native P22 NOT PASSED",
+    "allowFailedWindowsPerformance": true,
+    "windowsPerformance": {
+      "acceptanceStatus": "FAILED",
+      "status": "budget_exceeded",
+      "observedStatus": "budget_exceeded",
+      "sampleSeconds": 180.004603,
+      "p95FrameIntervalMs": 23.0348000000049,
+      "thresholdMs": 16.7,
+      "frames": 9103,
+      "focusedSampleFrames": 0,
+      "gpuInvalidSamples": 1,
+      "gpuMissingSamples": 264,
+      "note": "Completed observation, not a performance pass or pending result. Focus and GPU anomalies remain uncorrected evidence."
+    },
+    "windowsNativeDisplayStatus": "PENDING_P22_NOT_PASSED",
+    "macRuntimeStatus": "NOT_RUN_ON_MAC",
+    "fullWindowsPassed": false,
+    "fullReleaseAccepted": false,
+    "publication": "User-authorized diagnostic test candidate; no performance, native-display or whole-release acceptance"
+  },
+  "writer": {
+    "role": "writer",
+    "startedUtc": "2026-10-31T16:02:48.062803+00:00",
+    "terminatedOnlyOwnedHandle": true,
+    "pid": 32164,
+    "readyObservedUtc": "2026-10-31T16:02:52.047211+00:00",
+    "readyToTerminationMilliseconds": 77.99999974668026,
+    "exitCode": 1,
+    "readyReceiptSha256": "991b849d54eba8e0a65a2f43d2516ef5651ce254a46c3e24fc79b146c8fe3697",
+    "pendingSettingsSha256": "5d888a8cb2275ab508d3486263672e81844832526b90f1319a8cd6b65ae2ca44",
+    "cleanupTerminatedOwnedHandle": false,
+    "endedUtc": "2026-10-31T16:02:52.124575+00:00"
+  },
+  "reader": {
+    "role": "reader",
+    "startedUtc": "2026-10-31T16:02:52.125575+00:00",
+    "pid": 33676,
+    "exitCode": 0,
+    "cleanupTerminatedOwnedHandle": false,
+    "endedUtc": "2026-10-31T16:02:56.232853+00:00"
+  },
+  "verification": {
+    "status": "passed",
+    "writerProcessId": 32164,
+    "readerProcessId": 33676,
+    "actual": {
+      "displayName": "VG27AQ1A",
+      "nativeWidth": 2560,
+      "nativeHeight": 1440,
+      "width": 1280,
+      "height": 720,
+      "mode": 3,
+      "refreshNumerator": 144006,
+      "refreshDenominator": 1000
+    },
+    "environment": {
+      "utc": "2026-10-31T16:02:55.9107942Z",
+      "unityVersion": "6000.6.7f1",
+      "buildGuid": "c137ca83c7ec4fbab3243ff0aa663bfb",
+      "developmentBuild": true,
+      "isEditor": false,
+      "platform": "WindowsPlayer",
+      "os": "Windows 10  (10.0.19045) 64bit",
+      "processArchitecture": "X64",
+      "cpu": "AMD Ryzen 9 5900X 12-Core Processor ",
+      "cpuThreads": 24,
+      "systemMemoryMB": 65457,
+      "gpu": "NVIDIA GeForce RTX 3080",
+      "gpuMemoryMB": 10053,
+      "graphicsVersion": "Direct3D 11.0 [level 11.1]",
+      "graphicsApi": "Direct3D11",
+      "width": 1280,
+      "height": 720,
+      "fullscreenMode": "Windowed",
+      "quality": "PC",
+      "vSyncCount": 0,
+      "targetFrameRate": -1,
+      "presentationFast": false,
+      "presentationReducedMotion": false
+    },
+    "files": [
+      {
+        "path": "E:\\agent_workspace\\gpt\\game2\\evidence\\v06\\display-recovery\\attempt01\\ready-to-terminate.json",
+        "sha256": "991b849d54eba8e0a65a2f43d2516ef5651ce254a46c3e24fc79b146c8fe3697"
+      },
+      {
+        "path": "E:\\agent_workspace\\gpt\\game2\\evidence\\v06\\display-recovery\\attempt01\\recovery-read-receipt.json",
+        "sha256": "4c4094140c3f7260cfadd6996b9e081b38120925f24114ef1bd93f9961ad1edf"
+      },
+      {
+        "path": "E:\\agent_workspace\\gpt\\game2\\evidence\\v06\\display-recovery\\attempt01\\display-settings.json",
+        "sha256": "8d91e024c69cbee2f9b406c471bff808bd14c7e17df6dd67f77aaf9492b84178"
+      },
+      {
+        "path": "E:\\agent_workspace\\gpt\\game2\\evidence\\v06\\display-recovery\\attempt01\\reader\\player-20261031-160254-60c7cfd5\\player-report.json",
+        "sha256": "9437569c27e2b3fda595a223778e2a025a92c109514e335d1642fc49793d0d9a"
+      }
+    ],
+    "note": "Separate process result; the main probe's not_executed field is preserved."
+  },
+  "endedUtc": "2026-10-31T16:02:56.237858+00:00"
+}

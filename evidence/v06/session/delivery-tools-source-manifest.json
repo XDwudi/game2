@@ -1,0 +1,87 @@
+{
+  "schema": "v06-delivery-tools-handoff-2",
+  "sourceHeadAtEvidence": "6f9e285432ab92e7304830a42c9e9e4cd74d97c3",
+  "python": "3.11.4 | packaged by Anaconda, Inc. | (main, Jul  5 2023, 13:38:37) [MSC v.1916 64 bit (AMD64)]",
+  "scope": "Offline tooling and protocol checks only; new mandatory UI06-14 Player checks; no native Mac or remote release acceptance",
+  "tests": {
+    "command": "python -m unittest discover -s tools/macos/v06 -p 'test_*.py' -v",
+    "passed": 68,
+    "failed": 0,
+    "qualityCheckerTests": {
+      "passed": 20,
+      "failed": 0
+    }
+  },
+  "files": [
+    {
+      "path": "tools/package_v06.py",
+      "sha256": "b79437f27074949ca954d789176660e68b8371b14f4c66a7c36cf8533a482294",
+      "bytes": 19897
+    },
+    {
+      "path": "tools/release_v06_manifest.py",
+      "sha256": "bd3c2c7d280f0e3547ee6cad4f3e3bd5d709cf8d89cef2fac51db60c19b0949d",
+      "bytes": 7014
+    },
+    {
+      "path": "tools/publish_v06_release.py",
+      "sha256": "0ca16babbd931589f1c2f0ae03e12017a9a6650770a5775143f1aa39d8195e20",
+      "bytes": 15740
+    },
+    {
+      "path": "docs/tasks/P0-V06-MAC-VERIFICATION.md",
+      "sha256": "293532c152c8123658c9dee1bed118cca5ea46d24e6ae77357ee206010f1fede",
+      "bytes": 9548
+    },
+    {
+      "path": "docs/PLAYER_README_V06.txt",
+      "sha256": "26e342070aae8fd3ac002401c95720193eeef2fc873e766d6620f781e6ecefb9",
+      "bytes": 3205
+    },
+    {
+      "path": "tools/macos/v06/compare_replays.py",
+      "sha256": "c465d1e7149f07ec7343f7287fd1e7ea6113deb3bc1fff44afdaa4ad81f600ad",
+      "bytes": 20741
+    },
+    {
+      "path": "tools/macos/v06/package_checks.py",
+      "sha256": "75df35774305feac4c27cd2f3de36bccc6b72dd29289e802dd40e7b9e59a5bea",
+      "bytes": 7160
+    },
+    {
+      "path": "tools/macos/v06/test_delivery_tools.py",
+      "sha256": "2f6c2207e6df2743d400b454edf3077b5c4fe88acfc78d20a147700e8b3c970e",
+      "bytes": 20291
+    },
+    {
+      "path": "tools/macos/v06/test_mac_tools.py",
+      "sha256": "7856353c2f396a8dc5f5007836da42123eda17fe8bbc242aa65887390fd08bfb",
+      "bytes": 18026
+    },
+    {
+      "path": "tools/macos/v06/verify_mac.py",
+      "sha256": "fd47c6efea0729c0b157e7c5e22033c576d5a4b2f9cc4fd6cb7816e87833543e",
+      "bytes": 26225
+    },
+    {
+      "path": "tools/macos/v06/VerifyMac.command",
+      "sha256": "7c49432642d64dc8bc26099b5ee51f3b72e89947ce0b39d15d52d66584fc5a58",
+      "bytes": 828
+    },
+    {
+      "path": "tools/quality_check.py",
+      "sha256": "2a6aa3e5d5e5edb62b2a456ea7514df44d56d943dc168b4b086039092c33fed9",
+      "bytes": 15240
+    },
+    {
+      "path": "evidence/v06/session/delivery-tools-tests-04.log",
+      "sha256": "d9c60d03f3258fc1d2950ef90f15db088b97ec4e5bfc9ecf54c9fc4814f90e11",
+      "bytes": 8933
+    },
+    {
+      "path": "evidence/v06/session/quality-checker-tests-ui-targets.log",
+      "sha256": "8308be3d0743ff6a333be3ef01834aaa511342cd0e424ddb1a6c2630bf99d1e6",
+      "bytes": 2928
+    }
+  ]
+}

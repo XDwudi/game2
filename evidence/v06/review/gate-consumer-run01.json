@@ -1,0 +1,72 @@
+{
+  "scope": "Exercise production ValidateGate without running Unity or BuildPlayer.",
+  "prototypeBuildSha256": "d24a499fdd4c1f295153bcee71f9aa678cc5508340a51759915c602df02f2672",
+  "probeSha256": "d3d240ebb860ffcde2f4be234795e61f9705cb3a51a90dcafdbb3b8692402db5",
+  "count": 9,
+  "expectationsMet": 6,
+  "results": [
+    {
+      "name": "complete_generated_gate",
+      "expected": "accept",
+      "actual": "accept",
+      "matchedExpectation": true,
+      "error": null
+    },
+    {
+      "name": "changed_asset_rejected",
+      "expected": "reject",
+      "actual": "reject",
+      "matchedExpectation": true,
+      "error": "System.InvalidOperationException: Verification source/evidence changed: DicePrototype/Packages/manifest.json\r\n   at DiceCraft.Editor.PrototypeBuild.ValidateGate() in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Editor\\PrototypeBuild.cs:line 68\r\n   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)\r\n   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)"
+    },
+    {
+      "name": "added_asset_rejected",
+      "expected": "reject",
+      "actual": "reject",
+      "matchedExpectation": true,
+      "error": "System.InvalidOperationException: Buildable source file set changed after verification.\r\n   at DiceCraft.Editor.PrototypeBuild.ValidateGate() in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Editor\\PrototypeBuild.cs:line 62\r\n   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)\r\n   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)"
+    },
+    {
+      "name": "missing_source_manifest_entry",
+      "expected": "reject",
+      "actual": "reject",
+      "matchedExpectation": true,
+      "error": "System.InvalidOperationException: Buildable source file set changed after verification.\r\n   at DiceCraft.Editor.PrototypeBuild.ValidateGate() in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Editor\\PrototypeBuild.cs:line 62\r\n   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)\r\n   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)"
+    },
+    {
+      "name": "missing_nunit_report_and_manifest_entry",
+      "expected": "reject",
+      "actual": "accept",
+      "matchedExpectation": false,
+      "error": null
+    },
+    {
+      "name": "missing_execution_binding_and_manifest_entry",
+      "expected": "reject",
+      "actual": "accept",
+      "matchedExpectation": false,
+      "error": null
+    },
+    {
+      "name": "missing_pdb_proof_and_manifest_entry",
+      "expected": "reject",
+      "actual": "accept",
+      "matchedExpectation": false,
+      "error": null
+    },
+    {
+      "name": "duplicate_bound_source",
+      "expected": "reject",
+      "actual": "reject",
+      "matchedExpectation": true,
+      "error": "System.InvalidOperationException: Buildable source file set changed after verification.\r\n   at DiceCraft.Editor.PrototypeBuild.ValidateGate() in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Editor\\PrototypeBuild.cs:line 62\r\n   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)\r\n   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)"
+    },
+    {
+      "name": "parent_path_escape_rejected",
+      "expected": "reject",
+      "actual": "reject",
+      "matchedExpectation": true,
+      "error": "System.InvalidOperationException: Verification source/evidence changed: ../outside.txt\r\n   at DiceCraft.Editor.PrototypeBuild.ValidateGate() in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Editor\\PrototypeBuild.cs:line 68\r\n   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)\r\n   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)"
+    }
+  ]
+}

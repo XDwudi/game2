@@ -1,0 +1,68 @@
+{
+    "MonoBehaviour": {
+        "m_Enabled": true,
+        "m_EditorHideFlags": 0,
+        "m_Name": "Windows_x64",
+        "m_EditorClassIdentifier": "UnityEditor.dll::UnityEditor.Build.Profile.BuildProfile",
+        "m_AssetVersion": 2,
+        "m_BuildTarget": 19,
+        "m_Subtarget": 2,
+        "m_PlatformId": "4e3c793746204150860bf175a9a41a05",
+        "m_PlatformBuildProfile": {
+            "rid": 6048905630140071937
+        },
+        "m_ActivePlatformGuid": "",
+        "m_AdditionalPlatformBuildSettings": [],
+        "m_OverrideGlobalSceneList": true,
+        "m_Scenes": [
+            {
+                "m_enabled": true,
+                "m_path": "Assets/Game/Scenes/Bootstrap.unity",
+                "m_guid": "a637ac2d46c795a44910d71b981f8b55"
+            }
+        ],
+        "m_HasScriptingDefines": false,
+        "m_ScriptingDefines": [],
+        "m_PlayerSettingsYaml": {
+            "m_Settings": []
+        },
+        "requiredComponents": [],
+        "references": {
+            "version": 2,
+            "RefIds": [
+                {
+                    "rid": 6048905630140071937,
+                    "type": {
+                        "class": "WindowsPlatformSettings",
+                        "ns": "UnityEditor.WindowsStandalone",
+                        "asm": "UnityEditor.WindowsStandalone.Extensions"
+                    },
+                    "data": {
+                        "m_Development": true,
+                        "m_ConnectProfiler": false,
+                        "m_BuildWithDeepProfilingSupport": false,
+                        "m_BuildWithCodeCoverage": false,
+                        "m_AllowDebugging": false,
+                        "m_WaitForManagedDebugger": false,
+                        "m_ManagedDebuggerFixedPort": 0,
+                        "m_ExplicitNullChecks": false,
+                        "m_ExplicitDivideByZeroChecks": false,
+                        "m_ExplicitArrayBoundsChecks": false,
+                        "m_CompressionType": 2,
+                        "m_InstallInBuildFolder": false,
+                        "m_InsightsSettingsContainer": {
+                            "m_BuildProfileEngineDiagnosticsState": 2
+                        },
+                        "m_AdaptivePerformanceEnabled": false,
+                        "m_WindowsBuildAndRunDeployTarget": 0,
+                        "m_Architecture": 0,
+                        "m_CreateSolution": false,
+                        "m_CopyPDBFiles": false,
+                        "m_WindowsDevicePortalAddress": "",
+                        "m_WindowsDevicePortalUsername": ""
+                    }
+                }
+            ]
+        }
+    }
+}

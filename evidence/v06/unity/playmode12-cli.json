@@ -1,0 +1,238 @@
+{
+  "success": true,
+  "command": "command",
+  "data": {
+    "command": "test status",
+    "parameters": {},
+    "result": {
+      "status": "completed",
+      "duration": 22.83,
+      "summary": {
+        "total": 30,
+        "passed": 30,
+        "failed": 0,
+        "skipped": 0,
+        "inconclusive": 0
+      },
+      "results": [
+        {
+          "FullName": "DiceCraft.Tests.GameplayPlayModeTests.PLAY_Bootstrap_RealReferences71IconsFontAndSingleInputSystem",
+          "Status": "Passed",
+          "Duration": 0.3499859,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "DiceCraft.Tests.GameplayPlayModeTests.PLAY_BusyRejectsBypassedUiAndSkipPreservesCommittedRandomness",
+          "Status": "Passed",
+          "Duration": 1.2834827,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "DiceCraft.Tests.GameplayPlayModeTests.PLAY_CoreLoop_ClickLockReorderAndSubmitMatchesPreview",
+          "Status": "Passed",
+          "Duration": 1.4823095,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "DiceCraft.Tests.GameplayPlayModeTests.PLAY_ExistingRunRollAndSubmitSaveFailureRetriesExactCandidateAndPresentsOnce",
+          "Status": "Passed",
+          "Duration": 0.6648141,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "DiceCraft.Tests.GameplayPlayModeTests.PLAY_FastAnimationUsesSameSeedResultsAndDoesNotConsumeExtraRolls",
+          "Status": "Passed",
+          "Duration": 1.3432751,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "DiceCraft.Tests.GameplayPlayModeTests.PLAY_FirstNewRunSaveFailureOffersRetryAndBlocksBothReplacementEntrances",
+          "Status": "Passed",
+          "Duration": 0.1812508,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "DiceCraft.Tests.GameplayPlayModeTests.PLAY_IndependentTutorialCompletesRealPurchaseAndPreservesFormalRun",
+          "Status": "Passed",
+          "Duration": 0.5686235,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "DiceCraft.Tests.GameplayPlayModeTests.PLAY_PooledPurchaseAndReadonlyFacesCannotRetainOldTargetsOrListeners",
+          "Status": "Passed",
+          "Duration": 0.4496081,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "DiceCraft.Tests.GameplayPlayModeTests.PLAY_PooledRefreshKeepsNodeIdentitiesAndResetsScrollInputAndSlider",
+          "Status": "Passed",
+          "Duration": 0.9676447,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "DiceCraft.Tests.GameplayPlayModeTests.PLAY_PreviousSubmissionRetainsOriginalScoreAndPermanentEffectsAfterNextRollAndReload",
+          "Status": "Passed",
+          "Duration": 1.5314271,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "DiceCraft.Tests.GameplayPlayModeTests.PLAY_ReadOnlyActionLogCannotAbortAnAlreadySavedUiCommand",
+          "Status": "Passed",
+          "Duration": 0.1910628,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "DiceCraft.Tests.GameplayPlayModeTests.PLAY_RealEnterKeySubmitsOnceWithoutInvokingSelectedPauseButton",
+          "Status": "Passed",
+          "Duration": 0.5596871,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "DiceCraft.Tests.GameplayPlayModeTests.PLAY_RealKeyboardTenDiceMappingModalSeedFocusAndHeldKeys",
+          "Status": "Passed",
+          "Duration": 4.3025988,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "DiceCraft.Tests.GameplayPlayModeTests.PLAY_ReloadDuringRollRestoresLocksOrderAndAcceptedFaceResults",
+          "Status": "Passed",
+          "Duration": 0.3745108,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "DiceCraft.Tests.GameplayPlayModeTests.PLAY_RemoteItemTargetsCancelC12LabelsAndBrokenTargetMatchActualUi",
+          "Status": "Passed",
+          "Duration": 0.6768544,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "DiceCraft.Tests.GameplayPlayModeTests.PLAY_SceneUnloadReloadResetsStaticUiAndDoesNotLeakSession",
+          "Status": "Passed",
+          "Duration": 0.330682,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "DiceCraft.Tests.GameplayPlayModeTests.PLAY_ShopCapacityDiscountAndStudyUiRefreshAcrossTransactions",
+          "Status": "Passed",
+          "Duration": 0.5936496,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "DiceCraft.Tests.GameplayPlayModeTests.PLAY_ShopPurchaseFooterShowsSlotAndDuplicateFailuresBeforeConfirm",
+          "Status": "Passed",
+          "Duration": 0.6466478,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "DiceCraft.Tests.GameplayPlayModeTests.PLAY_ShopTargetCancellationAndPermanentDiceBoundariesPreserveOffers",
+          "Status": "Passed",
+          "Duration": 1.0995557,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "DiceCraft.Tests.GameplayPlayModeTests.PLAY_SixPhysicalFacesAndRemotePipsHaveCorrectOrientationAndDotCount",
+          "Status": "Passed",
+          "Duration": 0.2688006,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "DiceCraft.Tests.GameplayPlayModeTests.PLAY_V05_EnchantedReplacementDisplaysNetPriceAndPersistsInstance",
+          "Status": "Passed",
+          "Duration": 0.4804956,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "DiceCraft.Tests.GameplayPlayModeTests.PLAY_V05_HandbookChangesWithCapacitySimpleStraightUpgradeAndReload",
+          "Status": "Passed",
+          "Duration": 0.5310712,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "DiceCraft.Tests.GameplayPlayModeTests.PLAY_V05_HandbookTwentyReadsPreservePendingSaveAndAllRuleState",
+          "Status": "Passed",
+          "Duration": 0.7783261,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "DiceCraft.Tests.GameplayPlayModeTests.PLAY_V05_QualifiedContinuesAndEndDiscardsUnsubmittedHandWithOneReward",
+          "Status": "Passed",
+          "Duration": 0.496519,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "DiceCraft.Tests.GameplayPlayModeTests.PLAY_V06_ControllerInsertionNoOpOutsideCancelAndFrozenMimic",
+          "Status": "Passed",
+          "Duration": 0.3232668,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "DiceCraft.Tests.GameplayPlayModeTests.PLAY_V06_DebugPasswordAddApplyReloadAndReturnPreserveNormalCheckpoint",
+          "Status": "Passed",
+          "Duration": 0.4350957,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "DiceCraft.Tests.GameplayPlayModeTests.PLAY_V06_DebugThirtyTwoDiceLevelsInputFailureAndExactPreviewAreAccessible",
+          "Status": "Passed",
+          "Duration": 0.4919246,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "DiceCraft.Tests.GameplayPlayModeTests.PLAY_V06_RemoteThirtyTwoTargetsScrollAndKeepExactlyTwoWithoutOverlap",
+          "Status": "Passed",
+          "Duration": 0.5161648,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "DiceCraft.Tests.GameplayPlayModeTests.PLAY_V06_SettingsPasswordFocusBlocksSubmitAndDisplaySettingsStayOutsideRun",
+          "Status": "Passed",
+          "Duration": 0.2612272,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "DiceCraft.Tests.GameplayPlayModeTests.PLAY_V06_ShopThirtyTwoTargetsScrollUpgradeAndDeleteOnlyChosenDie",
+          "Status": "Passed",
+          "Duration": 0.6340049,
+          "Message": null,
+          "StackTrace": null
+        }
+      ]
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "E:\\agent_workspace\\gpt\\game2\\DicePrototype"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

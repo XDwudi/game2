@@ -1,0 +1,247 @@
+{
+  "scope": "Independent offline checks of the explicitly restricted candidate route. Never publishes or launches.",
+  "status": "passed",
+  "cases": [
+    {
+      "case": "explicit_valid_partial_only",
+      "passed": true
+    },
+    {
+      "case": "scope_missing",
+      "passed": true,
+      "rejections": [
+        {
+          "side": "windows",
+          "reason": "not_explicit_completed_review_reference"
+        }
+      ]
+    },
+    {
+      "case": "defer_numeric_not_bool",
+      "passed": true,
+      "rejections": [
+        {
+          "side": "windows",
+          "reason": "not_explicit_completed_review_reference"
+        }
+      ]
+    },
+    {
+      "case": "nonzero_exit",
+      "passed": true,
+      "rejections": [
+        {
+          "side": "windows",
+          "reason": "not_explicit_completed_review_reference"
+        }
+      ]
+    },
+    {
+      "case": "false_formal_status",
+      "passed": true,
+      "rejections": [
+        {
+          "side": "windows",
+          "reason": "not_explicit_completed_review_reference"
+        }
+      ]
+    },
+    {
+      "case": "unexecuted_pressure",
+      "passed": true,
+      "rejections": [
+        {
+          "side": "windows",
+          "reason": "required_probe_section_missing"
+        }
+      ]
+    },
+    {
+      "case": "native_failed",
+      "passed": true,
+      "rejections": [
+        {
+          "side": "windows",
+          "reason": "review_native_defer_marker_missing_or_failed_display"
+        }
+      ]
+    },
+    {
+      "case": "duplicate_native",
+      "passed": true,
+      "rejections": [
+        {
+          "side": "windows",
+          "reason": "review_native_defer_marker_missing_or_failed_display"
+        }
+      ]
+    },
+    {
+      "case": "unknown_native",
+      "passed": true,
+      "rejections": [
+        {
+          "side": "windows",
+          "reason": "review_native_defer_marker_missing_or_failed_display"
+        }
+      ]
+    },
+    {
+      "case": "wrong_defer_status",
+      "passed": true,
+      "rejections": [
+        {
+          "side": "windows",
+          "reason": "review_native_defer_marker_missing_or_failed_display"
+        }
+      ]
+    },
+    {
+      "case": "duplicate_ui",
+      "passed": true,
+      "rejections": [
+        {
+          "side": "windows",
+          "reason": "review_non_display_ui_missing_or_failed"
+        }
+      ]
+    },
+    {
+      "case": "failed_display_isolation",
+      "passed": true,
+      "rejections": [
+        {
+          "side": "windows",
+          "reason": "review_non_display_ui_missing_or_failed"
+        }
+      ]
+    },
+    {
+      "case": "ordinary_trace_debug",
+      "passed": true,
+      "rejections": [
+        {
+          "side": "windows",
+          "reason": "replay_not_passed_or_isolation_missing"
+        }
+      ]
+    },
+    {
+      "case": "debug_trace_ordinary",
+      "passed": true,
+      "rejections": [
+        {
+          "side": "windows",
+          "reason": "replay_not_passed_or_isolation_missing"
+        }
+      ]
+    },
+    {
+      "case": "wrong_identity",
+      "passed": true,
+      "rejections": [
+        {
+          "side": "windows",
+          "reason": "invalid_embedded_identity"
+        }
+      ]
+    },
+    {
+      "case": "editor_execution",
+      "passed": true,
+      "rejections": [
+        {
+          "side": "windows",
+          "reason": "wrong_platform_or_editor"
+        }
+      ]
+    },
+    {
+      "case": "under180_seconds",
+      "passed": true,
+      "rejections": [
+        {
+          "side": "windows",
+          "reason": "pressure_gate_not_met"
+        }
+      ]
+    },
+    {
+      "case": "over_budget",
+      "passed": true,
+      "rejections": [
+        {
+          "side": "windows",
+          "reason": "pressure_gate_not_met"
+        }
+      ]
+    },
+    {
+      "case": "reduced_pressure_inventory",
+      "passed": true,
+      "rejections": [
+        {
+          "side": "windows",
+          "reason": "pressure_gate_not_met"
+        }
+      ]
+    },
+    {
+      "case": "shop-controller-refresh-ui_missing",
+      "passed": true
+    },
+    {
+      "case": "shop-controller-refresh-ui_not_executed",
+      "passed": true
+    },
+    {
+      "case": "shop-controller-refresh-ui_failed",
+      "passed": true
+    },
+    {
+      "case": "shop-free-first-refresh-service-ui_missing",
+      "passed": true
+    },
+    {
+      "case": "shop-free-first-refresh-service-ui_not_executed",
+      "passed": true
+    },
+    {
+      "case": "shop-free-first-refresh-service-ui_failed",
+      "passed": true
+    },
+    {
+      "case": "publish_scope_publish_False",
+      "passed": true
+    },
+    {
+      "case": "publish_scope_upload_True",
+      "passed": true
+    },
+    {
+      "case": "publish_scope_inspect_True",
+      "passed": true
+    }
+  ],
+  "before": {
+    "tools/package_v06.py": "734a22013d75115d988cda119579be66993e9736c9279dc715e4de9a4b438d97",
+    "tools/publish_v06_release.py": "e09068b7bdaa00fc2b4fe9663809ee414b68c7f5616d069a0454d796d03d1e5b",
+    "tools/release_v06_manifest.py": "763aef6f61e74b1de22ccfb727096e1bb8cfda763acde3606665b2eeeb9e8f54",
+    "tools/macos/v06/compare_replays.py": "37684edb2ffdd918fc09d1bb9405c1eddb4eb32e0de27ef0cb05a0df654653f7",
+    "tools/macos/v06/verify_mac.py": "65f2ed1944b9d7c1a8d73f4d784c62863d9676b65ce7a5417e54ed3fd2ad88a4",
+    "tools/macos/v06/VerifyMac.command": "68497aabb889fe2b36f733145996e6a1405879864ba5ab0b19fb8db245231389"
+  },
+  "after": {
+    "tools/package_v06.py": "734a22013d75115d988cda119579be66993e9736c9279dc715e4de9a4b438d97",
+    "tools/publish_v06_release.py": "e09068b7bdaa00fc2b4fe9663809ee414b68c7f5616d069a0454d796d03d1e5b",
+    "tools/release_v06_manifest.py": "763aef6f61e74b1de22ccfb727096e1bb8cfda763acde3606665b2eeeb9e8f54",
+    "tools/macos/v06/compare_replays.py": "37684edb2ffdd918fc09d1bb9405c1eddb4eb32e0de27ef0cb05a0df654653f7",
+    "tools/macos/v06/verify_mac.py": "65f2ed1944b9d7c1a8d73f4d784c62863d9676b65ce7a5417e54ed3fd2ad88a4",
+    "tools/macos/v06/VerifyMac.command": "68497aabb889fe2b36f733145996e6a1405879864ba5ab0b19fb8db245231389"
+  },
+  "limits": [
+    "Synthetic report fixtures only, not runtime evidence.",
+    "Existing user authorization governs test prerelease; switches prevent technical scope mistakes.",
+    "Full Windows/P22, Mac real-device and human acceptance are not granted."
+  ]
+}

@@ -1,0 +1,142 @@
+{
+  "schema": "p06-probe-rework-1",
+  "inputSourceCommit": "6f9e285432ab92e7304830a42c9e9e4cd74d97c3",
+  "probeRevision": "p06-player-native-display-experiment-13",
+  "status": "frozen_managed_api_compiled_actual_player_pending",
+  "managedChecks": 40,
+  "performanceMethods": [
+    {
+      "method": "RunStress",
+      "unchanged": true
+    },
+    {
+      "method": "LateUpdate",
+      "unchanged": true
+    },
+    {
+      "method": "BuildPerformanceReport",
+      "unchanged": true
+    },
+    {
+      "method": "WriteFrames",
+      "unchanged": true
+    },
+    {
+      "method": "Metric",
+      "unchanged": true
+    },
+    {
+      "method": "CompleteCoverage",
+      "unchanged": true
+    },
+    {
+      "method": "RequiredFrameCapacity",
+      "unchanged": true
+    },
+    {
+      "method": "ClassifyGpuDuration",
+      "unchanged": true
+    },
+    {
+      "method": "ClockDelta",
+      "unchanged": true
+    }
+  ],
+  "files": [
+    {
+      "path": "DicePrototype/Assets/Game/Runtime/Verification/PlayerVerification.cs",
+      "sha256": "c1aa7163f74f04143b283a3f7f7b48aa0b5fcdb96eb14dd8b5a4ba9fc4e792b7"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Runtime/Verification/PlayerVerification.V06.cs",
+      "sha256": "0a5e13b5b33d40d04240b755d4f91871c4772d916bf76baf42b5d02f398d3e7e"
+    }
+  ],
+  "newChecks": [
+    "remote-target32-ui",
+    "shop-target32-ui"
+  ],
+  "diagnostics": [
+    "v06-input-diagnostics.json",
+    "v06-resolution-transitions.json",
+    "v06-target32-raycasts.json",
+    "v06-native-display-transitions.json",
+    "native-experiment.json"
+  ],
+  "constraints": {
+    "totalResolutionDeadlineSeconds": 12,
+    "exactStableSizeFrames": 3,
+    "globalBackgroundBehaviorChanged": false,
+    "directCancelCalled": false,
+    "UnityPlayerRunByAgent": false
+  },
+  "managedLog": "evidence/v06/player-support/rework-native-experiment-compile01.log",
+  "target32ClickContract": {
+    "waitActualFrameBefore": true,
+    "allCornersInsideScreenAndParentMasks": true,
+    "firstRaycastButtonMustBeTarget": true,
+    "executeAfterAssertionOnly": true,
+    "waitActualFrameAfter": true,
+    "onlyTarget32CallsChanged": true
+  },
+  "keyboardLayoutCorrection": {
+    "package": "com.unity.inputsystem 1.20.1",
+    "source": "DicePrototype/Library/PackageCache/com.unity.inputsystem@2436e68c60c4/InputSystem/Runtime/Controls/InputControlLayout.cs:1567,1637-1645",
+    "deviceBuilder": "InputSystem/Runtime/Devices/InputDeviceBuilder.cs:162-167",
+    "jsonField": "runInBackground",
+    "jsonValue": "enabled",
+    "oldUnknownJsonField": "canRunInBackground",
+    "actualFailureEvidence": "evidence/v06/player/player-20261031-135926-f1439a98/v06-input-diagnostics.json",
+    "failureEnabled": true,
+    "failureFocused": true,
+    "failureCanRunInBackground": false,
+    "managedChecksDoNotExecuteUnityJsonParser": true,
+    "actualPlayerRetest": "pending_root"
+  },
+  "displayDiagnostic": {
+    "standaloneCli": [
+      "--verify-display-only",
+      "--evidence-dir",
+      "<directory>"
+    ],
+    "traceRequired": false,
+    "setupOnlyNewRunSeed": 20261031,
+    "reuses": "VerifyV06Displays",
+    "successStatus": "display_passed",
+    "normalReplayPassed": false,
+    "stressCompleted": false,
+    "performance": null,
+    "modeAndSizeAssertionsUnchanged": true,
+    "nativeFailureBecomesUnsupported": false,
+    "nativeObservationBoundSeconds": 14,
+    "timeoutObservationBoundSeconds": 21,
+    "recordsBeforeApplyAndFinally": true,
+    "rootMustRunActualPlayer": true,
+    "productionDisplaySettingsUnmodified": true
+  },
+  "nativeExperiment": {
+    "cli": [
+      "--verify-native-display-experiment",
+      "--evidence-dir",
+      "<directory>"
+    ],
+    "traceRequired": false,
+    "mode": "ExclusiveFullScreen",
+    "dimensions": "actual Screen.mainWindowDisplayInfo native width/height captured in initial settled window",
+    "arms": [
+      "exact enumerated refresh nearest initial current display refresh",
+      "no-refresh overload",
+      "lowest enumerated refresh only when enumerated target size exists"
+    ],
+    "observeSecondsPerArm": 5,
+    "allFrameReadbacks": true,
+    "nativeModeFailureContinues": true,
+    "afterEveryExecutedArmRestore": "original windowed dimensions, three exact stable frames, existing total 12s bound",
+    "finally": "requests restoration if needed; normal continuation then verifies three exact stable frames",
+    "productionApplyRevertCalled": false,
+    "gameStateCreated": false,
+    "normalDebugStressPass": false,
+    "completionStatus": "diagnostic_completed",
+    "acceptanceStatusNeverPassed": true
+  }
+}

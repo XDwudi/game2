@@ -1,0 +1,3349 @@
+[
+  {
+    "path": "/activeContentCount",
+    "added": 71
+  },
+  {
+    "path": "/baseControllerSellPrice",
+    "added": 1
+  },
+  {
+    "path": "/colorDefinitions",
+    "added": [
+      {
+        "id": "all_blue",
+        "displayName": "全蓝",
+        "baseMult100": 300,
+        "incrementPerLevel100": 50,
+        "baseUpgradePrice": 2,
+        "maxLevel": 8,
+        "minSubmittedDice": 1,
+        "multiplierZone": "independent_color",
+        "countsAsHand": false
+      },
+      {
+        "id": "all_red",
+        "displayName": "全红",
+        "baseMult100": 200,
+        "incrementPerLevel100": 50,
+        "baseUpgradePrice": 2,
+        "maxLevel": 8,
+        "minSubmittedDice": 1,
+        "multiplierZone": "independent_color",
+        "countsAsHand": false
+      }
+    ]
+  },
+  {
+    "path": "/configVersion",
+    "old": "p0.5.0",
+    "new": "p0.6.0"
+  },
+  {
+    "path": "/consumables/I01/baseBuyPrice",
+    "old": 5,
+    "new": 2
+  },
+  {
+    "path": "/consumables/I02/baseBuyPrice",
+    "old": 4,
+    "new": 2
+  },
+  {
+    "path": "/consumables/I03/baseBuyPrice",
+    "old": 6,
+    "new": 3
+  },
+  {
+    "path": "/consumables/I04/baseBuyPrice",
+    "old": 3,
+    "new": 1
+  },
+  {
+    "path": "/consumables/I05/baseBuyPrice",
+    "old": 3,
+    "new": 1
+  },
+  {
+    "path": "/consumables/I05/displayName",
+    "old": "缩小射线",
+    "new": "小数多来"
+  },
+  {
+    "path": "/consumables/I06/baseBuyPrice",
+    "old": 5,
+    "new": 2
+  },
+  {
+    "path": "/consumables/I07/baseBuyPrice",
+    "old": 5,
+    "new": 2
+  },
+  {
+    "path": "/controllerOrder",
+    "added": {
+      "reorderNormalPhases": [
+        "Shop",
+        "RunPreview"
+      ],
+      "stageBindingsFrozen": true,
+      "dragChangesOnlyOrder": true,
+      "onTargetLost": "no_base_effect_until_next_stage",
+      "maxMimicResolveDepth": 32
+    }
+  },
+  {
+    "path": "/controllerSellPrice",
+    "removed": 1
+  },
+  {
+    "path": "/controllers/C01/baseSellPrice",
+    "added": 1
+  },
+  {
+    "path": "/controllers/C01/buyPrice",
+    "old": 8,
+    "new": 4
+  },
+  {
+    "path": "/controllers/C01/description",
+    "old": "每10金币额外增加1金币利息；计息本金最多50，普通利息最多5，持有本卡最多10。",
+    "new": "每次有效提交计分后获得1金币；每10金币额外增加1金币关末利息，计息本金仍最多50。"
+  },
+  {
+    "path": "/controllers/C01/maxOwned",
+    "removed": 1
+  },
+  {
+    "path": "/controllers/C01/maxOwnedNormal",
+    "added": 1
+  },
+  {
+    "path": "/controllers/C01/parameters/goldPerValidSubmission",
+    "added": 1
+  },
+  {
+    "path": "/controllers/C01/salePriceMode",
+    "added": "fixed"
+  },
+  {
+    "path": "/controllers/C01/scoreEnchantEligible",
+    "old": false,
+    "new": true
+  },
+  {
+    "path": "/controllers/C01/sellPrice",
+    "removed": 1
+  },
+  {
+    "path": "/controllers/C01/trigger",
+    "old": "StageSettlement",
+    "new": "SubmitAndStageSettlement"
+  },
+  {
+    "path": "/controllers/C02/baseSellPrice",
+    "added": 1
+  },
+  {
+    "path": "/controllers/C02/buyPrice",
+    "old": 14,
+    "new": 5
+  },
+  {
+    "path": "/controllers/C02/description",
+    "old": "非空提交中没有有效红面时，整手得分×3；不足5颗也可触发。",
+    "new": "非空提交没有有效红面时，整手得分×4。"
+  },
+  {
+    "path": "/controllers/C02/maxOwned",
+    "removed": 1
+  },
+  {
+    "path": "/controllers/C02/maxOwnedNormal",
+    "added": 1
+  },
+  {
+    "path": "/controllers/C02/parameters/scoreMultiplier",
+    "old": 3,
+    "new": 4
+  },
+  {
+    "path": "/controllers/C02/salePriceMode",
+    "added": "fixed"
+  },
+  {
+    "path": "/controllers/C02/sellPrice",
+    "removed": 1
+  },
+  {
+    "path": "/controllers/C03/baseSellPrice",
+    "added": 1
+  },
+  {
+    "path": "/controllers/C03/buyPrice",
+    "old": 6,
+    "new": 2
+  },
+  {
+    "path": "/controllers/C03/maxOwned",
+    "removed": 1
+  },
+  {
+    "path": "/controllers/C03/maxOwnedNormal",
+    "added": 1
+  },
+  {
+    "path": "/controllers/C03/parameters/index",
+    "added": 0
+  },
+  {
+    "path": "/controllers/C03/parameters/occupiedIndex",
+    "removed": 0
+  },
+  {
+    "path": "/controllers/C03/salePriceMode",
+    "added": "fixed"
+  },
+  {
+    "path": "/controllers/C03/sellPrice",
+    "removed": 1
+  },
+  {
+    "path": "/controllers/C04",
+    "removed": {
+      "id": "C04",
+      "displayName": "多提多得",
+      "buyPrice": 8,
+      "sellPrice": 1,
+      "rarity": "common",
+      "offerWeight": 6,
+      "trigger": "StageStart",
+      "maxOwned": 1,
+      "scoreEnchantEligible": false,
+      "parameters": {
+        "submissionBonus": 2,
+        "rollBonus": -1
+      },
+      "description": "每关提交次数+2；每手初始总投掷次数−1。"
+    }
+  },
+  {
+    "path": "/controllers/C05/baseSellPrice",
+    "added": 1
+  },
+  {
+    "path": "/controllers/C05/buyPrice",
+    "old": 12,
+    "new": 5
+  },
+  {
+    "path": "/controllers/C05/maxOwned",
+    "removed": 1
+  },
+  {
+    "path": "/controllers/C05/maxOwnedNormal",
+    "added": 1
+  },
+  {
+    "path": "/controllers/C05/parameters/checkOnlyAfterRoll",
+    "removed": true
+  },
+  {
+    "path": "/controllers/C05/parameters/perHandLimit",
+    "removed": 1
+  },
+  {
+    "path": "/controllers/C05/parameters/perSourcePerHandLimit",
+    "added": 1
+  },
+  {
+    "path": "/controllers/C05/parameters/snapshotBeforeAnyGrant",
+    "added": true
+  },
+  {
+    "path": "/controllers/C05/salePriceMode",
+    "added": "fixed"
+  },
+  {
+    "path": "/controllers/C05/sellPrice",
+    "removed": 1
+  },
+  {
+    "path": "/controllers/C06/baseSellPrice",
+    "added": 1
+  },
+  {
+    "path": "/controllers/C06/buyPrice",
+    "old": 14,
+    "new": 4
+  },
+  {
+    "path": "/controllers/C06/maxOwned",
+    "removed": 1
+  },
+  {
+    "path": "/controllers/C06/maxOwnedNormal",
+    "added": 1
+  },
+  {
+    "path": "/controllers/C06/offerWeight",
+    "old": 1,
+    "new": 3
+  },
+  {
+    "path": "/controllers/C06/rarity",
+    "old": "rare",
+    "new": "uncommon"
+  },
+  {
+    "path": "/controllers/C06/salePriceMode",
+    "added": "fixed"
+  },
+  {
+    "path": "/controllers/C06/sellPrice",
+    "removed": 1
+  },
+  {
+    "path": "/controllers/C07/baseSellPrice",
+    "added": 1
+  },
+  {
+    "path": "/controllers/C07/buyPrice",
+    "old": 6,
+    "new": 3
+  },
+  {
+    "path": "/controllers/C07/maxOwned",
+    "removed": 1
+  },
+  {
+    "path": "/controllers/C07/maxOwnedNormal",
+    "added": 1
+  },
+  {
+    "path": "/controllers/C07/parameters/onlyFirstSubmission",
+    "removed": true
+  },
+  {
+    "path": "/controllers/C07/parameters/submissionOrdinal",
+    "added": 0
+  },
+  {
+    "path": "/controllers/C07/salePriceMode",
+    "added": "fixed"
+  },
+  {
+    "path": "/controllers/C07/sellPrice",
+    "removed": 1
+  },
+  {
+    "path": "/controllers/C08/baseSellPrice",
+    "added": 1
+  },
+  {
+    "path": "/controllers/C08/buyPrice",
+    "old": 10,
+    "new": 3
+  },
+  {
+    "path": "/controllers/C08/maxOwned",
+    "removed": 1
+  },
+  {
+    "path": "/controllers/C08/maxOwnedNormal",
+    "added": 1
+  },
+  {
+    "path": "/controllers/C08/salePriceMode",
+    "added": "fixed"
+  },
+  {
+    "path": "/controllers/C08/sellPrice",
+    "removed": 1
+  },
+  {
+    "path": "/controllers/C09/baseSellPrice",
+    "added": 1
+  },
+  {
+    "path": "/controllers/C09/buyPrice",
+    "old": 14,
+    "new": 6
+  },
+  {
+    "path": "/controllers/C09/description",
+    "old": "提交容量−1；每次有效提交的整手得分×3。",
+    "new": "提交容量−1；每次有效提交整手得分×4。"
+  },
+  {
+    "path": "/controllers/C09/maxOwned",
+    "removed": 1
+  },
+  {
+    "path": "/controllers/C09/maxOwnedNormal",
+    "added": 1
+  },
+  {
+    "path": "/controllers/C09/parameters/scoreMultiplier",
+    "old": 3,
+    "new": 4
+  },
+  {
+    "path": "/controllers/C09/salePriceMode",
+    "added": "fixed"
+  },
+  {
+    "path": "/controllers/C09/sellPrice",
+    "removed": 1
+  },
+  {
+    "path": "/controllers/C10/baseSellPrice",
+    "added": 1
+  },
+  {
+    "path": "/controllers/C10/buyPrice",
+    "old": 5,
+    "new": 3
+  },
+  {
+    "path": "/controllers/C10/description",
+    "old": "每颗有效1点的提交骰，点数贡献+4，不改牌型。",
+    "new": "每颗有效1点的提交骰，点数贡献+10，不改牌型。"
+  },
+  {
+    "path": "/controllers/C10/maxOwned",
+    "removed": 1
+  },
+  {
+    "path": "/controllers/C10/maxOwnedNormal",
+    "added": 1
+  },
+  {
+    "path": "/controllers/C10/parameters/contributionAdd",
+    "removed": 4
+  },
+  {
+    "path": "/controllers/C10/parameters/perDieAdd",
+    "added": 10
+  },
+  {
+    "path": "/controllers/C10/salePriceMode",
+    "added": "fixed"
+  },
+  {
+    "path": "/controllers/C10/sellPrice",
+    "removed": 1
+  },
+  {
+    "path": "/controllers/C11/baseSellPrice",
+    "added": 1
+  },
+  {
+    "path": "/controllers/C11/buyPrice",
+    "old": 10,
+    "new": 4
+  },
+  {
+    "path": "/controllers/C11/description",
+    "old": "提交中至少2颗有效2点及2颗有效3点时，整手得分×5；允许额外骰。",
+    "new": "提交中至少2颗有效2点及2颗有效3点时，整手得分×6；允许额外骰。"
+  },
+  {
+    "path": "/controllers/C11/maxOwned",
+    "removed": 1
+  },
+  {
+    "path": "/controllers/C11/maxOwnedNormal",
+    "added": 1
+  },
+  {
+    "path": "/controllers/C11/parameters/countA",
+    "removed": 2
+  },
+  {
+    "path": "/controllers/C11/parameters/countB",
+    "removed": 2
+  },
+  {
+    "path": "/controllers/C11/parameters/pipA",
+    "removed": 2
+  },
+  {
+    "path": "/controllers/C11/parameters/pipB",
+    "removed": 3
+  },
+  {
+    "path": "/controllers/C11/parameters/requiredCounts",
+    "added": {
+      "2": 2,
+      "3": 2
+    }
+  },
+  {
+    "path": "/controllers/C11/parameters/scoreMultiplier",
+    "old": 5,
+    "new": 6
+  },
+  {
+    "path": "/controllers/C11/salePriceMode",
+    "added": "fixed"
+  },
+  {
+    "path": "/controllers/C11/sellPrice",
+    "removed": 1
+  },
+  {
+    "path": "/controllers/C12/baseSellPrice",
+    "added": 1
+  },
+  {
+    "path": "/controllers/C12/buyPrice",
+    "old": 14,
+    "new": 6
+  },
+  {
+    "path": "/controllers/C12/maxOwned",
+    "removed": 1
+  },
+  {
+    "path": "/controllers/C12/maxOwnedNormal",
+    "added": 1
+  },
+  {
+    "path": "/controllers/C12/parameters/idempotent",
+    "added": true
+  },
+  {
+    "path": "/controllers/C12/parameters/oddPipAdd",
+    "removed": 1
+  },
+  {
+    "path": "/controllers/C12/parameters/oddToEvenAdd",
+    "added": 1
+  },
+  {
+    "path": "/controllers/C12/salePriceMode",
+    "added": "fixed"
+  },
+  {
+    "path": "/controllers/C12/sellPrice",
+    "removed": 1
+  },
+  {
+    "path": "/controllers/C13/baseSellPrice",
+    "added": 1
+  },
+  {
+    "path": "/controllers/C13/buyPrice",
+    "old": 5,
+    "new": 2
+  },
+  {
+    "path": "/controllers/C13/description",
+    "old": "每颗有效奇数的提交骰，点数贡献+2，不改牌型。",
+    "new": "每颗有效奇数的提交骰，点数贡献+3，不改牌型。"
+  },
+  {
+    "path": "/controllers/C13/maxOwned",
+    "removed": 1
+  },
+  {
+    "path": "/controllers/C13/maxOwnedNormal",
+    "added": 1
+  },
+  {
+    "path": "/controllers/C13/parameters/oddContributionAdd",
+    "removed": 2
+  },
+  {
+    "path": "/controllers/C13/parameters/oddPerDieAdd",
+    "added": 3
+  },
+  {
+    "path": "/controllers/C13/salePriceMode",
+    "added": "fixed"
+  },
+  {
+    "path": "/controllers/C13/sellPrice",
+    "removed": 1
+  },
+  {
+    "path": "/controllers/C14/baseSellPrice",
+    "added": 1
+  },
+  {
+    "path": "/controllers/C14/buyPrice",
+    "old": 8,
+    "new": 4
+  },
+  {
+    "path": "/controllers/C14/description",
+    "old": "非空提交的有效点数全为奇数时，整手得分×2。",
+    "new": "非空提交的有效点数全为奇数时，整手得分×3。"
+  },
+  {
+    "path": "/controllers/C14/maxOwned",
+    "removed": 1
+  },
+  {
+    "path": "/controllers/C14/maxOwnedNormal",
+    "added": 1
+  },
+  {
+    "path": "/controllers/C14/parameters/scoreMultiplier",
+    "old": 2,
+    "new": 3
+  },
+  {
+    "path": "/controllers/C14/salePriceMode",
+    "added": "fixed"
+  },
+  {
+    "path": "/controllers/C14/sellPrice",
+    "removed": 1
+  },
+  {
+    "path": "/controllers/C15/baseSellPrice",
+    "added": 1
+  },
+  {
+    "path": "/controllers/C15/buyPrice",
+    "old": 6,
+    "new": 3
+  },
+  {
+    "path": "/controllers/C15/description",
+    "old": "前三颗有效颜色为红蓝红时，提交后将第二颗本次物理面永久染红。",
+    "new": "扫描整个有序提交列；每个有效蓝面若左右相邻面均为有效红，则计分后将该物理面染红，全部目标从同一快照同时确定。"
+  },
+  {
+    "path": "/controllers/C15/maxOwned",
+    "removed": 1
+  },
+  {
+    "path": "/controllers/C15/maxOwnedNormal",
+    "added": 1
+  },
+  {
+    "path": "/controllers/C15/parameters/freezeAllTargets",
+    "added": true
+  },
+  {
+    "path": "/controllers/C15/parameters/pattern",
+    "old": "red,blue,red",
+    "new": [
+      "red",
+      "blue",
+      "red"
+    ]
+  },
+  {
+    "path": "/controllers/C15/parameters/scanAllInteriorIndices",
+    "added": true
+  },
+  {
+    "path": "/controllers/C15/parameters/targetIndex",
+    "removed": 1
+  },
+  {
+    "path": "/controllers/C15/salePriceMode",
+    "added": "fixed"
+  },
+  {
+    "path": "/controllers/C15/sellPrice",
+    "removed": 1
+  },
+  {
+    "path": "/controllers/C16",
+    "removed": {
+      "id": "C16",
+      "displayName": "可以重来",
+      "buyPrice": 12,
+      "sellPrice": 1,
+      "rarity": "rare",
+      "offerWeight": 1,
+      "trigger": "HandStart",
+      "maxOwned": 1,
+      "scoreEnchantEligible": false,
+      "parameters": {
+        "rollBonus": 2
+      },
+      "description": "每手初始总投掷次数+2。"
+    }
+  },
+  {
+    "path": "/controllers/C17/baseSellPrice",
+    "added": 1
+  },
+  {
+    "path": "/controllers/C17/buyPrice",
+    "old": 7,
+    "new": 3
+  },
+  {
+    "path": "/controllers/C17/description",
+    "old": "每颗有效点数1、2、3的提交骰，点数贡献+3。",
+    "new": "每颗有效1、2、3点的提交骰，点数贡献+6。"
+  },
+  {
+    "path": "/controllers/C17/maxOwned",
+    "removed": 1
+  },
+  {
+    "path": "/controllers/C17/maxOwnedNormal",
+    "added": 1
+  },
+  {
+    "path": "/controllers/C17/parameters/contributionAdd",
+    "removed": 3
+  },
+  {
+    "path": "/controllers/C17/parameters/maxPip",
+    "removed": 3
+  },
+  {
+    "path": "/controllers/C17/parameters/perDieAdd",
+    "added": 6
+  },
+  {
+    "path": "/controllers/C17/parameters/pips",
+    "added": [
+      1,
+      2,
+      3
+    ]
+  },
+  {
+    "path": "/controllers/C17/salePriceMode",
+    "added": "fixed"
+  },
+  {
+    "path": "/controllers/C17/sellPrice",
+    "removed": 1
+  },
+  {
+    "path": "/controllers/C18/baseSellPrice",
+    "added": 1
+  },
+  {
+    "path": "/controllers/C18/buyPrice",
+    "old": 8,
+    "new": 3
+  },
+  {
+    "path": "/controllers/C18/description",
+    "old": "非空提交中有效红、蓝面数量相等时，整手得分×2。",
+    "new": "非空提交中有效红面数等于有效蓝面数时，整手得分×3。"
+  },
+  {
+    "path": "/controllers/C18/maxOwned",
+    "removed": 1
+  },
+  {
+    "path": "/controllers/C18/maxOwnedNormal",
+    "added": 1
+  },
+  {
+    "path": "/controllers/C18/parameters/scoreMultiplier",
+    "old": 2,
+    "new": 3
+  },
+  {
+    "path": "/controllers/C18/salePriceMode",
+    "added": "fixed"
+  },
+  {
+    "path": "/controllers/C18/sellPrice",
+    "removed": 1
+  },
+  {
+    "path": "/controllers/C19/baseSellPrice",
+    "added": 1
+  },
+  {
+    "path": "/controllers/C19/buyPrice",
+    "old": 5,
+    "new": 2
+  },
+  {
+    "path": "/controllers/C19/maxOwned",
+    "removed": 1
+  },
+  {
+    "path": "/controllers/C19/maxOwnedNormal",
+    "added": 1
+  },
+  {
+    "path": "/controllers/C19/parameters/contributionAdd",
+    "removed": 5
+  },
+  {
+    "path": "/controllers/C19/parameters/maxPermanentFaceSum",
+    "removed": 13
+  },
+  {
+    "path": "/controllers/C19/parameters/maxPermanentSixFaceSum",
+    "added": 13
+  },
+  {
+    "path": "/controllers/C19/parameters/perDieAdd",
+    "added": 5
+  },
+  {
+    "path": "/controllers/C19/salePriceMode",
+    "added": "fixed"
+  },
+  {
+    "path": "/controllers/C19/sellPrice",
+    "removed": 1
+  },
+  {
+    "path": "/controllers/C20/baseSellPrice",
+    "added": 1
+  },
+  {
+    "path": "/controllers/C20/buyPrice",
+    "old": 6,
+    "new": 2
+  },
+  {
+    "path": "/controllers/C20/maxOwned",
+    "removed": 1
+  },
+  {
+    "path": "/controllers/C20/maxOwnedNormal",
+    "added": 1
+  },
+  {
+    "path": "/controllers/C20/parameters/dieContributionAdd",
+    "removed": 6
+  },
+  {
+    "path": "/controllers/C20/parameters/lastActualCapacitySlotPip",
+    "added": 6
+  },
+  {
+    "path": "/controllers/C20/parameters/lastSlotPip",
+    "removed": 6
+  },
+  {
+    "path": "/controllers/C20/parameters/perDieAdd",
+    "added": 6
+  },
+  {
+    "path": "/controllers/C20/salePriceMode",
+    "added": "fixed"
+  },
+  {
+    "path": "/controllers/C20/sellPrice",
+    "removed": 1
+  },
+  {
+    "path": "/controllers/C21/baseSellPrice",
+    "added": 1
+  },
+  {
+    "path": "/controllers/C21/buyPrice",
+    "old": 8,
+    "new": 3
+  },
+  {
+    "path": "/controllers/C21/maxOwned",
+    "removed": 1
+  },
+  {
+    "path": "/controllers/C21/maxOwnedNormal",
+    "added": 1
+  },
+  {
+    "path": "/controllers/C21/salePriceMode",
+    "added": "fixed"
+  },
+  {
+    "path": "/controllers/C21/sellPrice",
+    "removed": 1
+  },
+  {
+    "path": "/controllers/C22/baseSellPrice",
+    "added": 1
+  },
+  {
+    "path": "/controllers/C22/buyPrice",
+    "old": 12,
+    "new": 5
+  },
+  {
+    "path": "/controllers/C22/maxOwned",
+    "removed": 1
+  },
+  {
+    "path": "/controllers/C22/maxOwnedNormal",
+    "added": 1
+  },
+  {
+    "path": "/controllers/C22/salePriceMode",
+    "added": "fixed"
+  },
+  {
+    "path": "/controllers/C22/sellPrice",
+    "removed": 1
+  },
+  {
+    "path": "/controllers/C23",
+    "removed": {
+      "id": "C23",
+      "displayName": "重来一次",
+      "buyPrice": 7,
+      "sellPrice": 1,
+      "rarity": "common",
+      "offerWeight": 6,
+      "trigger": "HandStart",
+      "maxOwned": 1,
+      "scoreEnchantEligible": false,
+      "parameters": {
+        "rollBonus": 1
+      },
+      "description": "每手初始总投掷次数+1。"
+    }
+  },
+  {
+    "path": "/controllers/C24/baseSellPrice",
+    "added": 1
+  },
+  {
+    "path": "/controllers/C24/buyPrice",
+    "old": 8,
+    "new": 3
+  },
+  {
+    "path": "/controllers/C24/maxOwned",
+    "removed": 1
+  },
+  {
+    "path": "/controllers/C24/maxOwnedNormal",
+    "added": 1
+  },
+  {
+    "path": "/controllers/C24/parameters/idempotent",
+    "added": true
+  },
+  {
+    "path": "/controllers/C24/parameters/redGroupKeyFrom",
+    "added": 1
+  },
+  {
+    "path": "/controllers/C24/parameters/redGroupKeyTo",
+    "added": 4
+  },
+  {
+    "path": "/controllers/C24/parameters/redGroupPipFrom",
+    "removed": 1
+  },
+  {
+    "path": "/controllers/C24/parameters/redGroupPipTo",
+    "removed": 4
+  },
+  {
+    "path": "/controllers/C24/salePriceMode",
+    "added": "fixed"
+  },
+  {
+    "path": "/controllers/C24/sellPrice",
+    "removed": 1
+  },
+  {
+    "path": "/controllers/C25/baseSellPrice",
+    "added": 1
+  },
+  {
+    "path": "/controllers/C25/buyPrice",
+    "old": 14,
+    "new": 6
+  },
+  {
+    "path": "/controllers/C25/maxOwned",
+    "removed": 1
+  },
+  {
+    "path": "/controllers/C25/maxOwnedNormal",
+    "added": 1
+  },
+  {
+    "path": "/controllers/C25/parameters/idempotent",
+    "added": true
+  },
+  {
+    "path": "/controllers/C25/parameters/mergeAllEffectiveRed",
+    "added": true
+  },
+  {
+    "path": "/controllers/C25/parameters/mergeAllRed",
+    "removed": true
+  },
+  {
+    "path": "/controllers/C25/salePriceMode",
+    "added": "fixed"
+  },
+  {
+    "path": "/controllers/C25/sellPrice",
+    "removed": 1
+  },
+  {
+    "path": "/controllers/C26/baseSellPrice",
+    "added": 1
+  },
+  {
+    "path": "/controllers/C26/buyPrice",
+    "old": 8,
+    "new": 3
+  },
+  {
+    "path": "/controllers/C26/maxOwned",
+    "removed": 1
+  },
+  {
+    "path": "/controllers/C26/maxOwnedNormal",
+    "added": 1
+  },
+  {
+    "path": "/controllers/C26/parameters/allFacesColor",
+    "removed": "red"
+  },
+  {
+    "path": "/controllers/C26/parameters/allPhysicalFacesColor",
+    "added": "red"
+  },
+  {
+    "path": "/controllers/C26/salePriceMode",
+    "added": "fixed"
+  },
+  {
+    "path": "/controllers/C26/sellPrice",
+    "removed": 1
+  },
+  {
+    "path": "/controllers/C27/baseSellPrice",
+    "added": 1
+  },
+  {
+    "path": "/controllers/C27/buyPrice",
+    "old": 6,
+    "new": 3
+  },
+  {
+    "path": "/controllers/C27/description",
+    "old": "提交中存在至少一对相同有效点数时，整手基础分+5，仅加一次。",
+    "new": "每个出现至少2颗的不同有效点数组，使整手基础分+10；四条只算一组，双三条算两组。"
+  },
+  {
+    "path": "/controllers/C27/maxOwned",
+    "removed": 1
+  },
+  {
+    "path": "/controllers/C27/maxOwnedNormal",
+    "added": 1
+  },
+  {
+    "path": "/controllers/C27/parameters/baseAdd",
+    "removed": 5
+  },
+  {
+    "path": "/controllers/C27/parameters/baseAddPerDistinctPairedPip",
+    "added": 10
+  },
+  {
+    "path": "/controllers/C27/parameters/minCountPerGroup",
+    "added": 2
+  },
+  {
+    "path": "/controllers/C27/parameters/minSamePip",
+    "removed": 2
+  },
+  {
+    "path": "/controllers/C27/parameters/perSubmitLimit",
+    "removed": 1
+  },
+  {
+    "path": "/controllers/C27/salePriceMode",
+    "added": "fixed"
+  },
+  {
+    "path": "/controllers/C27/sellPrice",
+    "removed": 1
+  },
+  {
+    "path": "/controllers/C28/baseSellPrice",
+    "added": 1
+  },
+  {
+    "path": "/controllers/C28/buyPrice",
+    "old": 10,
+    "new": 4
+  },
+  {
+    "path": "/controllers/C28/description",
+    "old": "至少两个不同有效点数各出现2次时，整手得分×2；四个相同不能拆两对。",
+    "new": "至少两个不同有效点数各出现2次时，整手得分×4；四个相同不能拆两对。"
+  },
+  {
+    "path": "/controllers/C28/maxOwned",
+    "removed": 1
+  },
+  {
+    "path": "/controllers/C28/maxOwnedNormal",
+    "added": 1
+  },
+  {
+    "path": "/controllers/C28/parameters/minDifferentPairs",
+    "removed": 2
+  },
+  {
+    "path": "/controllers/C28/parameters/minDistinctPairs",
+    "added": 2
+  },
+  {
+    "path": "/controllers/C28/parameters/scoreMultiplier",
+    "old": 2,
+    "new": 4
+  },
+  {
+    "path": "/controllers/C28/salePriceMode",
+    "added": "fixed"
+  },
+  {
+    "path": "/controllers/C28/sellPrice",
+    "removed": 1
+  },
+  {
+    "path": "/controllers/C29/baseSellPrice",
+    "added": 1
+  },
+  {
+    "path": "/controllers/C29/buyPrice",
+    "old": 10,
+    "new": 4
+  },
+  {
+    "path": "/controllers/C29/maxOwned",
+    "removed": 1
+  },
+  {
+    "path": "/controllers/C29/maxOwnedNormal",
+    "added": 1
+  },
+  {
+    "path": "/controllers/C29/parameters/idempotent",
+    "added": true
+  },
+  {
+    "path": "/controllers/C29/salePriceMode",
+    "added": "fixed"
+  },
+  {
+    "path": "/controllers/C29/sellPrice",
+    "removed": 1
+  },
+  {
+    "path": "/controllers/C30/baseSellPrice",
+    "added": 1
+  },
+  {
+    "path": "/controllers/C30/buyPrice",
+    "old": 14,
+    "new": 5
+  },
+  {
+    "path": "/controllers/C30/description",
+    "old": "提交中任一有效点数至少3颗时，整手得分×3。",
+    "new": "提交中任一有效点数至少3颗时，整手得分×4。"
+  },
+  {
+    "path": "/controllers/C30/maxOwned",
+    "removed": 1
+  },
+  {
+    "path": "/controllers/C30/maxOwnedNormal",
+    "added": 1
+  },
+  {
+    "path": "/controllers/C30/parameters/scoreMultiplier",
+    "old": 3,
+    "new": 4
+  },
+  {
+    "path": "/controllers/C30/salePriceMode",
+    "added": "fixed"
+  },
+  {
+    "path": "/controllers/C30/sellPrice",
+    "removed": 1
+  },
+  {
+    "path": "/controllers/C31/baseSellPrice",
+    "added": 1
+  },
+  {
+    "path": "/controllers/C31/buyPrice",
+    "old": 12,
+    "new": 5
+  },
+  {
+    "path": "/controllers/C31/description",
+    "old": "提交中任一有效点数至少4颗时，整手得分×3；可与C30叠乘。",
+    "new": "提交中任一有效点数至少4颗时，整手得分×4；与三条开泰可叠乘。"
+  },
+  {
+    "path": "/controllers/C31/maxOwned",
+    "removed": 1
+  },
+  {
+    "path": "/controllers/C31/maxOwnedNormal",
+    "added": 1
+  },
+  {
+    "path": "/controllers/C31/parameters/scoreMultiplier",
+    "old": 3,
+    "new": 4
+  },
+  {
+    "path": "/controllers/C31/salePriceMode",
+    "added": "fixed"
+  },
+  {
+    "path": "/controllers/C31/sellPrice",
+    "removed": 1
+  },
+  {
+    "path": "/controllers/C32/baseSellPrice",
+    "added": 1
+  },
+  {
+    "path": "/controllers/C32/buyPrice",
+    "old": 10,
+    "new": 4
+  },
+  {
+    "path": "/controllers/C32/description",
+    "old": "非空提交只有一种有效点数时，整手得分×2；单骰也满足。",
+    "new": "非空提交只有一种有效点数时，整手得分×3；单骰也满足。"
+  },
+  {
+    "path": "/controllers/C32/maxOwned",
+    "removed": 1
+  },
+  {
+    "path": "/controllers/C32/maxOwnedNormal",
+    "added": 1
+  },
+  {
+    "path": "/controllers/C32/parameters/distinctPips",
+    "added": 1
+  },
+  {
+    "path": "/controllers/C32/parameters/requiredDistinct",
+    "removed": 1
+  },
+  {
+    "path": "/controllers/C32/parameters/scoreMultiplier",
+    "old": 2,
+    "new": 3
+  },
+  {
+    "path": "/controllers/C32/salePriceMode",
+    "added": "fixed"
+  },
+  {
+    "path": "/controllers/C32/sellPrice",
+    "removed": 1
+  },
+  {
+    "path": "/controllers/C33/baseSellPrice",
+    "added": 1
+  },
+  {
+    "path": "/controllers/C33/buyPrice",
+    "old": 9,
+    "new": 6
+  },
+  {
+    "path": "/controllers/C33/description",
+    "old": "至少提交2颗，第一颗有效点数≥第二颗有效点数+2时，整手得分×2。",
+    "new": "至少提交2颗，第一颗有效点数≥第二颗有效点数+2时，整手得分×7。"
+  },
+  {
+    "path": "/controllers/C33/maxOwned",
+    "removed": 1
+  },
+  {
+    "path": "/controllers/C33/maxOwnedNormal",
+    "added": 1
+  },
+  {
+    "path": "/controllers/C33/offerWeight",
+    "old": 3,
+    "new": 1
+  },
+  {
+    "path": "/controllers/C33/parameters/scoreMultiplier",
+    "old": 2,
+    "new": 7
+  },
+  {
+    "path": "/controllers/C33/rarity",
+    "old": "uncommon",
+    "new": "rare"
+  },
+  {
+    "path": "/controllers/C33/salePriceMode",
+    "added": "fixed"
+  },
+  {
+    "path": "/controllers/C33/sellPrice",
+    "removed": 1
+  },
+  {
+    "path": "/controllers/C34/baseSellPrice",
+    "added": 1
+  },
+  {
+    "path": "/controllers/C34/buyPrice",
+    "old": 8,
+    "new": 3
+  },
+  {
+    "path": "/controllers/C34/maxOwned",
+    "removed": 1
+  },
+  {
+    "path": "/controllers/C34/maxOwnedNormal",
+    "added": 1
+  },
+  {
+    "path": "/controllers/C34/parameters/maxTransferUnits",
+    "removed": 150000
+  },
+  {
+    "path": "/controllers/C34/parameters/probabilityPointsPerSource",
+    "added": 15
+  },
+  {
+    "path": "/controllers/C34/salePriceMode",
+    "added": "fixed"
+  },
+  {
+    "path": "/controllers/C34/sellPrice",
+    "removed": 1
+  },
+  {
+    "path": "/controllers/C35/baseSellPrice",
+    "added": 1
+  },
+  {
+    "path": "/controllers/C35/buyPrice",
+    "old": 8,
+    "new": 3
+  },
+  {
+    "path": "/controllers/C35/maxOwned",
+    "removed": 1
+  },
+  {
+    "path": "/controllers/C35/maxOwnedNormal",
+    "added": 1
+  },
+  {
+    "path": "/controllers/C35/parameters/maxTransferUnits",
+    "removed": 150000
+  },
+  {
+    "path": "/controllers/C35/parameters/probabilityPointsPerSource",
+    "added": 15
+  },
+  {
+    "path": "/controllers/C35/salePriceMode",
+    "added": "fixed"
+  },
+  {
+    "path": "/controllers/C35/sellPrice",
+    "removed": 1
+  },
+  {
+    "path": "/controllers/C36/baseSellPrice",
+    "added": 1
+  },
+  {
+    "path": "/controllers/C36/buyPrice",
+    "old": 8,
+    "new": 3
+  },
+  {
+    "path": "/controllers/C36/maxOwned",
+    "removed": 1
+  },
+  {
+    "path": "/controllers/C36/maxOwnedNormal",
+    "added": 1
+  },
+  {
+    "path": "/controllers/C36/parameters/delta",
+    "added": 1
+  },
+  {
+    "path": "/controllers/C36/parameters/permanentFaceDelta",
+    "removed": 1
+  },
+  {
+    "path": "/controllers/C36/salePriceMode",
+    "added": "fixed"
+  },
+  {
+    "path": "/controllers/C36/sellPrice",
+    "removed": 1
+  },
+  {
+    "path": "/controllers/C37/baseSellPrice",
+    "added": 1
+  },
+  {
+    "path": "/controllers/C37/buyPrice",
+    "old": 8,
+    "new": 3
+  },
+  {
+    "path": "/controllers/C37/maxOwned",
+    "removed": 1
+  },
+  {
+    "path": "/controllers/C37/maxOwnedNormal",
+    "added": 1
+  },
+  {
+    "path": "/controllers/C37/parameters/delta",
+    "added": -1
+  },
+  {
+    "path": "/controllers/C37/parameters/permanentFaceDelta",
+    "removed": -1
+  },
+  {
+    "path": "/controllers/C37/salePriceMode",
+    "added": "fixed"
+  },
+  {
+    "path": "/controllers/C37/sellPrice",
+    "removed": 1
+  },
+  {
+    "path": "/controllers/C38/baseSellPrice",
+    "added": 1
+  },
+  {
+    "path": "/controllers/C38/buyPrice",
+    "old": 6,
+    "new": 2
+  },
+  {
+    "path": "/controllers/C38/description",
+    "old": "每次有效提交后，第一颗骰本次提交的物理面永久染蓝，其他面不变。",
+    "new": "每次有效提交后，首颗与末颗提交骰本次物理面永久染蓝；单骰目标去重，其他面不变。"
+  },
+  {
+    "path": "/controllers/C38/maxOwned",
+    "removed": 1
+  },
+  {
+    "path": "/controllers/C38/maxOwnedNormal",
+    "added": 1
+  },
+  {
+    "path": "/controllers/C38/parameters/color",
+    "added": "blue"
+  },
+  {
+    "path": "/controllers/C38/parameters/currentPhysicalFaceColor",
+    "removed": "blue"
+  },
+  {
+    "path": "/controllers/C38/parameters/index",
+    "removed": 0
+  },
+  {
+    "path": "/controllers/C38/parameters/targetIndices",
+    "added": "first_and_last_distinct"
+  },
+  {
+    "path": "/controllers/C38/salePriceMode",
+    "added": "fixed"
+  },
+  {
+    "path": "/controllers/C38/sellPrice",
+    "removed": 1
+  },
+  {
+    "path": "/controllers/C39/baseSellPrice",
+    "added": 1
+  },
+  {
+    "path": "/controllers/C39/buyPrice",
+    "old": 6,
+    "new": 3
+  },
+  {
+    "path": "/controllers/C39/description",
+    "old": "每颗有效蓝色的提交骰，点数贡献+2。",
+    "new": "每颗有效蓝色提交骰，点数贡献+6。"
+  },
+  {
+    "path": "/controllers/C39/maxOwned",
+    "removed": 1
+  },
+  {
+    "path": "/controllers/C39/maxOwnedNormal",
+    "added": 1
+  },
+  {
+    "path": "/controllers/C39/parameters/contributionAdd",
+    "removed": 2
+  },
+  {
+    "path": "/controllers/C39/parameters/perDieAdd",
+    "added": 6
+  },
+  {
+    "path": "/controllers/C39/salePriceMode",
+    "added": "fixed"
+  },
+  {
+    "path": "/controllers/C39/sellPrice",
+    "removed": 1
+  },
+  {
+    "path": "/controllers/C40/baseSellPrice",
+    "added": 1
+  },
+  {
+    "path": "/controllers/C40/buyPrice",
+    "old": 9,
+    "new": 4
+  },
+  {
+    "path": "/controllers/C40/description",
+    "old": "至少提交3颗，前三颗有效点数构成公差大于0的等差数列时，整手得分×2。",
+    "new": "至少提交3颗，前三颗有效点数形成公差大于0的等差数列时，整手得分×3。"
+  },
+  {
+    "path": "/controllers/C40/maxOwned",
+    "removed": 1
+  },
+  {
+    "path": "/controllers/C40/maxOwnedNormal",
+    "added": 1
+  },
+  {
+    "path": "/controllers/C40/parameters/positiveCommonDifference",
+    "removed": true
+  },
+  {
+    "path": "/controllers/C40/parameters/scoreMultiplier",
+    "old": 2,
+    "new": 3
+  },
+  {
+    "path": "/controllers/C40/parameters/strictIncreasingArithmetic",
+    "added": true
+  },
+  {
+    "path": "/controllers/C40/salePriceMode",
+    "added": "fixed"
+  },
+  {
+    "path": "/controllers/C40/sellPrice",
+    "removed": 1
+  },
+  {
+    "path": "/controllers/C41",
+    "added": {
+      "id": "C41",
+      "displayName": "百变模仿",
+      "buyPrice": 6,
+      "baseSellPrice": 1,
+      "salePriceMode": "base_plus_own_fund_accrual",
+      "rarity": "rare",
+      "offerWeight": 1,
+      "trigger": "Proxy",
+      "maxOwnedNormal": 1,
+      "scoreEnchantEligible": true,
+      "parameters": {
+        "target": "immediate_right_at_stage_start",
+        "copyBaseAbility": true,
+        "copyTargetEnchantment": false,
+        "copyExistingFundAccrual": false,
+        "shareDynamicTargetState": true,
+        "retargetOnLossInStage": false
+      },
+      "description": "复制关卡开始时右邻绑定目标的完整基础技能，不复制目标附魔、身份或既有卖价；动态数值共享，模仿自身附魔独立。"
+    }
+  },
+  {
+    "path": "/controllers/C42",
+    "added": {
+      "id": "C42",
+      "displayName": "玻璃大炮",
+      "buyPrice": 5,
+      "baseSellPrice": 1,
+      "salePriceMode": "fixed",
+      "rarity": "rare",
+      "offerWeight": 1,
+      "trigger": "ScoreAndAfterSubmit",
+      "maxOwnedNormal": 1,
+      "scoreEnchantEligible": true,
+      "parameters": {
+        "scoreMultiplier": 10,
+        "destroyChancePercentAfterValidSubmission": 15,
+        "riskBearer": "emitter_instance"
+      },
+      "description": "每次有效提交整手×10；计分与后置效果后，该效果来源实体独立15%概率永久损坏并消失。"
+    }
+  },
+  {
+    "path": "/controllers/C43",
+    "added": {
+      "id": "C43",
+      "displayName": "牌型提升",
+      "buyPrice": 5,
+      "baseSellPrice": 1,
+      "salePriceMode": "fixed",
+      "rarity": "rare",
+      "offerWeight": 1,
+      "trigger": "AfterScore",
+      "maxOwnedNormal": 1,
+      "scoreEnchantEligible": true,
+      "parameters": {
+        "samePrimaryHandAsPreviousValidSubmit": true,
+        "levelAddPerSource": 1,
+        "crossStageHistory": true,
+        "scatterCanUpgrade": false
+      },
+      "description": "本次与上一有效提交的结构主牌型相同且非散点时，该牌型在本次计分后+1级；每个来源各+1，正常上限8，散点不升级。"
+    }
+  },
+  {
+    "path": "/controllers/C44",
+    "added": {
+      "id": "C44",
+      "displayName": "有钱真好",
+      "buyPrice": 6,
+      "baseSellPrice": 1,
+      "salePriceMode": "fixed",
+      "rarity": "rare",
+      "offerWeight": 1,
+      "trigger": "BaseAdd",
+      "maxOwnedNormal": 1,
+      "scoreEnchantEligible": true,
+      "parameters": {
+        "baseAddPerFrozenGold": 2
+      },
+      "description": "每1金币令整手基础分+2，读取本次提交冻结时的钱包；本次提交新增金币不回算本手。"
+    }
+  },
+  {
+    "path": "/controllers/C45",
+    "added": {
+      "id": "C45",
+      "displayName": "飘忽不定",
+      "buyPrice": 4,
+      "baseSellPrice": 1,
+      "salePriceMode": "fixed",
+      "rarity": "uncommon",
+      "offerWeight": 3,
+      "trigger": "PipMultiplyAndAfterSubmit",
+      "maxOwnedNormal": 1,
+      "scoreEnchantEligible": true,
+      "parameters": {
+        "matchingDieContributionMultiplier": 3,
+        "colors": [
+          "red",
+          "blue"
+        ],
+        "initialDrawOnAcquisition": true,
+        "nextDrawEveryValidSubmit": true,
+        "sharedStateAdvancesOnce": true
+      },
+      "description": "当前加成颜色的每颗骰，其逐骰基础贡献×3；初次获得随机红或蓝，每次有效提交后真实目标重新等概率抽取下一颜色，可与原色相同。"
+    }
+  },
+  {
+    "path": "/controllers/C46",
+    "added": {
+      "id": "C46",
+      "displayName": "稳稳乘数",
+      "buyPrice": 5,
+      "baseSellPrice": 1,
+      "salePriceMode": "fixed",
+      "rarity": "rare",
+      "offerWeight": 1,
+      "trigger": "ScoreMultiply",
+      "maxOwnedNormal": 1,
+      "scoreEnchantEligible": true,
+      "parameters": {
+        "scoreMultiplier": 3
+      },
+      "description": "每次有效提交整手得分×3。"
+    }
+  },
+  {
+    "path": "/controllers/C47",
+    "added": {
+      "id": "C47",
+      "displayName": "控制欲",
+      "buyPrice": 6,
+      "baseSellPrice": 1,
+      "salePriceMode": "fixed",
+      "rarity": "rare",
+      "offerWeight": 1,
+      "trigger": "ScoreMultiply",
+      "maxOwnedNormal": 1,
+      "scoreEnchantEligible": true,
+      "parameters": {
+        "factor": "actual_alive_controller_instances_in_snapshot"
+      },
+      "description": "整手得分乘以提交快照中实际持有控制器实例数量；包括自身及免槽卡，不把模仿技能另算一件。"
+    }
+  },
+  {
+    "path": "/controllers/C48",
+    "added": {
+      "id": "C48",
+      "displayName": "有也不交",
+      "buyPrice": 3,
+      "baseSellPrice": 1,
+      "salePriceMode": "fixed",
+      "rarity": "common",
+      "offerWeight": 6,
+      "trigger": "BaseAdd",
+      "maxOwnedNormal": 1,
+      "scoreEnchantEligible": true,
+      "parameters": {
+        "baseAddPerEmptySubmitSlot": 10
+      },
+      "description": "每空一个提交栏位，整手基础分+10；空栏数为K减去实际提交数。"
+    }
+  },
+  {
+    "path": "/controllers/C49",
+    "added": {
+      "id": "C49",
+      "displayName": "千年老二",
+      "buyPrice": 3,
+      "baseSellPrice": 1,
+      "salePriceMode": "fixed",
+      "rarity": "uncommon",
+      "offerWeight": 3,
+      "trigger": "ScoreMultiply",
+      "maxOwnedNormal": 1,
+      "scoreEnchantEligible": true,
+      "parameters": {
+        "factor": "effective_pip_5_count",
+        "allowZero": true
+      },
+      "description": "整手得分乘以有效5点提交骰的数量；没有5时为×0，仍是一次有效提交。"
+    }
+  },
+  {
+    "path": "/controllers/C50",
+    "added": {
+      "id": "C50",
+      "displayName": "稳稳分数",
+      "buyPrice": 3,
+      "baseSellPrice": 1,
+      "salePriceMode": "fixed",
+      "rarity": "common",
+      "offerWeight": 6,
+      "trigger": "BaseAdd",
+      "maxOwnedNormal": 1,
+      "scoreEnchantEligible": true,
+      "parameters": {
+        "baseAdd": 20
+      },
+      "description": "每次有效提交整手基础分+20。"
+    }
+  },
+  {
+    "path": "/controllers/C51",
+    "added": {
+      "id": "C51",
+      "displayName": "人员流动",
+      "buyPrice": 4,
+      "baseSellPrice": 1,
+      "salePriceMode": "fixed",
+      "rarity": "uncommon",
+      "offerWeight": 3,
+      "trigger": "ScoreAndAfterSale",
+      "maxOwnedNormal": 1,
+      "scoreEnchantEligible": true,
+      "parameters": {
+        "initialMultiplierUnits2": 3,
+        "addUnits2PerRealControllerSale": 1,
+        "mimicsDoNotDuplicateStateGrowth": true,
+        "saleRecipients": "same_real_instances_present_before_and_after_transaction"
+      },
+      "description": "整手得分×n；真实实例n初始1.5，每次真实卖出一件控制器后，仍持有的真实C51各增加0.5；自毁不是卖出。"
+    }
+  },
+  {
+    "path": "/controllers/C52",
+    "added": {
+      "id": "C52",
+      "displayName": "成长基金",
+      "buyPrice": 4,
+      "baseSellPrice": 1,
+      "salePriceMode": "base_plus_own_fund_accrual",
+      "rarity": "uncommon",
+      "offerWeight": 3,
+      "trigger": "StageFinalize",
+      "maxOwnedNormal": 1,
+      "scoreEnchantEligible": false,
+      "parameters": {
+        "baseBuyPrice": 4,
+        "baseSellPrice": 1,
+        "sellPriceAddPerSuccessfulStageFinalize": 3
+      },
+      "description": "基础购买价固定4，初始卖价1；每次成功关卡Finalize时卖价+3，仅一次；不是每手加3，作为固定卖1规则的明确例外。"
+    }
+  },
+  {
+    "path": "/controllers/C53",
+    "added": {
+      "id": "C53",
+      "displayName": "错乱乘积",
+      "buyPrice": 4,
+      "baseSellPrice": 1,
+      "salePriceMode": "fixed",
+      "rarity": "uncommon",
+      "offerWeight": 3,
+      "trigger": "RandomScoreMultiply",
+      "maxOwnedNormal": 1,
+      "scoreEnchantEligible": true,
+      "parameters": {
+        "factorUnits2": [
+          2,
+          4,
+          6,
+          8,
+          10,
+          12,
+          14,
+          16,
+          1
+        ],
+        "uniform": true,
+        "drawOncePerRealOwnerPerSubmit": true,
+        "mimicReusesOwnerOutcome": true
+      },
+      "description": "提交事务中从1、2、3、4、5、6、7、8、0.5等概率抽取整手倍率；每个真实C53抽一次，其模仿者复用同一结果。"
+    }
+  },
+  {
+    "path": "/debug/allowDuplicateControllerIds",
+    "added": true
+  },
+  {
+    "path": "/debug/availableInPlayableBuilds",
+    "added": true
+  },
+  {
+    "path": "/debug/caseSensitive",
+    "added": true
+  },
+  {
+    "path": "/debug/debugFundAndStateEditing",
+    "added": true
+  },
+  {
+    "path": "/debug/debugMutationResetsHand",
+    "added": true
+  },
+  {
+    "path": "/debug/freeUnlockTestOnly",
+    "removed": true
+  },
+  {
+    "path": "/debug/highestDefinedKind",
+    "added": "eight_kind"
+  },
+  {
+    "path": "/debug/markRunAsDebugOnFirstMutation",
+    "added": true
+  },
+  {
+    "path": "/debug/markRunAsDebugOnUse",
+    "removed": true
+  },
+  {
+    "path": "/debug/maxColorLevel",
+    "added": 100
+  },
+  {
+    "path": "/debug/maxConsumableInventory",
+    "added": 32
+  },
+  {
+    "path": "/debug/maxControllerInstances",
+    "old": 10,
+    "new": 32
+  },
+  {
+    "path": "/debug/maxDice",
+    "added": 32
+  },
+  {
+    "path": "/debug/maxEditableBudget",
+    "added": 999
+  },
+  {
+    "path": "/debug/maxEditableWallet",
+    "added": 1000000000
+  },
+  {
+    "path": "/debug/maxHandLevel",
+    "added": 100
+  },
+  {
+    "path": "/debug/maxPipValue",
+    "added": 6
+  },
+  {
+    "path": "/debug/maxSubmitCapacity",
+    "added": 32
+  },
+  {
+    "path": "/debug/minPipValue",
+    "added": 1
+  },
+  {
+    "path": "/debug/redGroupCapForExperiments",
+    "added": 8
+  },
+  {
+    "path": "/debug/separateSaveSlot",
+    "added": true
+  },
+  {
+    "path": "/debug/supportsStageJump",
+    "added": true
+  },
+  {
+    "path": "/debug/trimInput",
+    "added": false
+  },
+  {
+    "path": "/debug/unlockPhrase",
+    "added": "XD is god"
+  },
+  {
+    "path": "/diceUpgrades/U01/buyPrice",
+    "old": 3,
+    "new": 1
+  },
+  {
+    "path": "/diceUpgrades/U02/buyPrice",
+    "old": 3,
+    "new": 1
+  },
+  {
+    "path": "/diceUpgrades/U03/buyPrice",
+    "old": 3,
+    "new": 1
+  },
+  {
+    "path": "/diceUpgrades/U04/buyPrice",
+    "old": 3,
+    "new": 1
+  },
+  {
+    "path": "/diceUpgrades/U05/buyPrice",
+    "old": 2,
+    "new": 1
+  },
+  {
+    "path": "/diceUpgrades/U06/buyPrice",
+    "old": 5,
+    "new": 2
+  },
+  {
+    "path": "/diceUpgrades/U07/buyPrice",
+    "old": 2,
+    "new": 1
+  },
+  {
+    "path": "/display",
+    "added": {
+      "initialMode": "borderless",
+      "windowWorkAreaRatioPercent": 85,
+      "preferredAspectWidth": 16,
+      "preferredAspectHeight": 9,
+      "confirmationTimeoutSeconds": 15,
+      "persistOnlyConfirmedSettings": true,
+      "windowsModes": {
+        "fullscreen": "ExclusiveFullScreen",
+        "borderless": "FullScreenWindow",
+        "windowed": "Windowed"
+      },
+      "macModes": {
+        "fullscreen": "MaximizedWindow",
+        "borderless": "FullScreenWindow",
+        "windowed": "Windowed"
+      }
+    }
+  },
+  {
+    "path": "/enchantRules/baseAdd",
+    "old": 5,
+    "new": 10
+  },
+  {
+    "path": "/enchantRules/copyTargetEnchantment",
+    "added": false
+  },
+  {
+    "path": "/enchantRules/ineligibleScoreEnchantFallback",
+    "removed": "none"
+  },
+  {
+    "path": "/enchantRules/ineligibleScoreEnchantPolicy",
+    "added": "dedicated_pool_preserve_50_percent_none"
+  },
+  {
+    "path": "/enchantRules/multiplierDenominator",
+    "removed": 5
+  },
+  {
+    "path": "/enchantRules/multiplierNumerator",
+    "removed": 6
+  },
+  {
+    "path": "/enchantRules/nonSubmitControllerIds",
+    "old": [
+      "C01",
+      "C04",
+      "C05",
+      "C16",
+      "C21",
+      "C22",
+      "C23",
+      "C34",
+      "C35"
+    ],
+    "new": [
+      "C05",
+      "C21",
+      "C22",
+      "C34",
+      "C35",
+      "C52"
+    ]
+  },
+  {
+    "path": "/enchantRules/nonSubmitDrawWeights",
+    "added": {
+      "none": 100,
+      "slotless": 50,
+      "submit1": 25,
+      "roll1": 25
+    }
+  },
+  {
+    "path": "/enchantRules/rawDrawOrder",
+    "added": [
+      "none",
+      "slotless",
+      "base10",
+      "mult2",
+      "submit1",
+      "roll1"
+    ]
+  },
+  {
+    "path": "/enchantRules/rollBonus",
+    "added": 1
+  },
+  {
+    "path": "/enchantRules/rollGrantTiming",
+    "added": "each_hand_start_from_alive_instances"
+  },
+  {
+    "path": "/enchantRules/scoreMultiplier",
+    "added": 2
+  },
+  {
+    "path": "/enchantRules/submissionBonus",
+    "added": 1
+  },
+  {
+    "path": "/enchantRules/submissionGrantTiming",
+    "added": "stage_start_once"
+  },
+  {
+    "path": "/enchantRules/triggerCountPerSourcePerSubmitMax",
+    "added": 1
+  },
+  {
+    "path": "/enchantRules/triggerCountPerSubmitMax",
+    "removed": 1
+  },
+  {
+    "path": "/enchantments/base10",
+    "added": {
+      "id": "base10",
+      "displayName": "基础分增加",
+      "weight": 10,
+      "buyPremium": 2,
+      "maxPerController": 1
+    }
+  },
+  {
+    "path": "/enchantments/base5",
+    "removed": {
+      "id": "base5",
+      "displayName": "基础分增加",
+      "weight": 6,
+      "buyPremium": 3,
+      "maxPerController": 1
+    }
+  },
+  {
+    "path": "/enchantments/mult120",
+    "removed": {
+      "id": "mult120",
+      "displayName": "倍率增加",
+      "weight": 2,
+      "buyPremium": 6,
+      "maxPerController": 1
+    }
+  },
+  {
+    "path": "/enchantments/mult2",
+    "added": {
+      "id": "mult2",
+      "displayName": "倍率增加",
+      "weight": 4,
+      "buyPremium": 5,
+      "maxPerController": 1
+    }
+  },
+  {
+    "path": "/enchantments/none/weight",
+    "old": 80,
+    "new": 50
+  },
+  {
+    "path": "/enchantments/roll1",
+    "added": {
+      "id": "roll1",
+      "displayName": "投掷增加",
+      "weight": 9,
+      "buyPremium": 2,
+      "maxPerController": 1
+    }
+  },
+  {
+    "path": "/enchantments/slotless/buyPremium",
+    "old": 4,
+    "new": 3
+  },
+  {
+    "path": "/enchantments/slotless/weight",
+    "old": 12,
+    "new": 18
+  },
+  {
+    "path": "/enchantments/submit1",
+    "added": {
+      "id": "submit1",
+      "displayName": "提交增加",
+      "weight": 9,
+      "buyPremium": 3,
+      "maxPerController": 1
+    }
+  },
+  {
+    "path": "/generation/highSumPremium",
+    "old": 2,
+    "new": 1
+  },
+  {
+    "path": "/generation/maxNewDieBasePrice",
+    "added": 6
+  },
+  {
+    "path": "/generation/maxRepeatPremium",
+    "old": 2,
+    "new": 1
+  },
+  {
+    "path": "/generation/newDieBasePrice",
+    "old": 6,
+    "new": 3
+  },
+  {
+    "path": "/generation/sameColorPremium",
+    "old": 2,
+    "new": 1
+  },
+  {
+    "path": "/generation/smallSumPremium",
+    "old": 2,
+    "new": 1
+  },
+  {
+    "path": "/handDefinitions/all_blue",
+    "removed": {
+      "id": "all_blue",
+      "displayName": "全蓝",
+      "baseMult100": 300,
+      "incrementPerLevel100": 100,
+      "baseUpgradePrice": 6,
+      "maxLevel": 8,
+      "tieBreakRank": 0,
+      "minSubmittedDice": 5,
+      "enabledInNormalShop": true,
+      "requirePermanentDice": 0
+    }
+  },
+  {
+    "path": "/handDefinitions/all_red",
+    "removed": {
+      "id": "all_red",
+      "displayName": "全红",
+      "baseMult100": 200,
+      "incrementPerLevel100": 100,
+      "baseUpgradePrice": 5,
+      "maxLevel": 8,
+      "tieBreakRank": 0,
+      "minSubmittedDice": 5,
+      "enabledInNormalShop": true,
+      "requirePermanentDice": 0
+    }
+  },
+  {
+    "path": "/handDefinitions/eight_kind/baseUpgradePrice",
+    "old": 12,
+    "new": 5
+  },
+  {
+    "path": "/handDefinitions/eight_kind/enabledInNormalShop",
+    "removed": true
+  },
+  {
+    "path": "/handDefinitions/eight_kind/structuralPriority",
+    "added": 130
+  },
+  {
+    "path": "/handDefinitions/eight_kind/tieBreakRank",
+    "removed": 9
+  },
+  {
+    "path": "/handDefinitions/five_kind/baseUpgradePrice",
+    "old": 6,
+    "new": 2
+  },
+  {
+    "path": "/handDefinitions/five_kind/enabledInNormalShop",
+    "removed": true
+  },
+  {
+    "path": "/handDefinitions/five_kind/structuralPriority",
+    "added": 90
+  },
+  {
+    "path": "/handDefinitions/five_kind/tieBreakRank",
+    "removed": 6
+  },
+  {
+    "path": "/handDefinitions/four_pair",
+    "added": {
+      "id": "four_pair",
+      "displayName": "四对子",
+      "baseMult100": 1200,
+      "incrementPerLevel100": 400,
+      "baseUpgradePrice": 4,
+      "maxLevel": 8,
+      "structuralPriority": 100,
+      "minSubmittedDice": 8,
+      "requirePermanentDice": 8
+    }
+  },
+  {
+    "path": "/handDefinitions/full_house/baseUpgradePrice",
+    "old": 5,
+    "new": 2
+  },
+  {
+    "path": "/handDefinitions/full_house/enabledInNormalShop",
+    "removed": true
+  },
+  {
+    "path": "/handDefinitions/full_house/structuralPriority",
+    "added": 50
+  },
+  {
+    "path": "/handDefinitions/full_house/tieBreakRank",
+    "removed": 4
+  },
+  {
+    "path": "/handDefinitions/pair/baseUpgradePrice",
+    "old": 6,
+    "new": 2
+  },
+  {
+    "path": "/handDefinitions/pair/enabledInNormalShop",
+    "removed": true
+  },
+  {
+    "path": "/handDefinitions/pair/structuralPriority",
+    "added": 10
+  },
+  {
+    "path": "/handDefinitions/pair/tieBreakRank",
+    "removed": 1
+  },
+  {
+    "path": "/handDefinitions/quads/baseUpgradePrice",
+    "old": 5,
+    "new": 2
+  },
+  {
+    "path": "/handDefinitions/quads/enabledInNormalShop",
+    "removed": true
+  },
+  {
+    "path": "/handDefinitions/quads/structuralPriority",
+    "added": 70
+  },
+  {
+    "path": "/handDefinitions/quads/tieBreakRank",
+    "removed": 5
+  },
+  {
+    "path": "/handDefinitions/seven_kind/baseUpgradePrice",
+    "old": 10,
+    "new": 4
+  },
+  {
+    "path": "/handDefinitions/seven_kind/enabledInNormalShop",
+    "removed": true
+  },
+  {
+    "path": "/handDefinitions/seven_kind/structuralPriority",
+    "added": 120
+  },
+  {
+    "path": "/handDefinitions/seven_kind/tieBreakRank",
+    "removed": 8
+  },
+  {
+    "path": "/handDefinitions/six_kind/baseUpgradePrice",
+    "old": 8,
+    "new": 3
+  },
+  {
+    "path": "/handDefinitions/six_kind/enabledInNormalShop",
+    "removed": true
+  },
+  {
+    "path": "/handDefinitions/six_kind/structuralPriority",
+    "added": 110
+  },
+  {
+    "path": "/handDefinitions/six_kind/tieBreakRank",
+    "removed": 7
+  },
+  {
+    "path": "/handDefinitions/straight/baseUpgradePrice",
+    "old": 5,
+    "new": 2
+  },
+  {
+    "path": "/handDefinitions/straight/enabledInNormalShop",
+    "removed": true
+  },
+  {
+    "path": "/handDefinitions/straight/structuralPriority",
+    "added": 40
+  },
+  {
+    "path": "/handDefinitions/straight/tieBreakRank",
+    "removed": 0
+  },
+  {
+    "path": "/handDefinitions/three_pair",
+    "added": {
+      "id": "three_pair",
+      "displayName": "三对子",
+      "baseMult100": 700,
+      "incrementPerLevel100": 225,
+      "baseUpgradePrice": 3,
+      "maxLevel": 8,
+      "structuralPriority": 60,
+      "minSubmittedDice": 6,
+      "requirePermanentDice": 6
+    }
+  },
+  {
+    "path": "/handDefinitions/trips/baseUpgradePrice",
+    "old": 6,
+    "new": 2
+  },
+  {
+    "path": "/handDefinitions/trips/enabledInNormalShop",
+    "removed": true
+  },
+  {
+    "path": "/handDefinitions/trips/structuralPriority",
+    "added": 30
+  },
+  {
+    "path": "/handDefinitions/trips/tieBreakRank",
+    "removed": 3
+  },
+  {
+    "path": "/handDefinitions/two_pair/baseUpgradePrice",
+    "old": 6,
+    "new": 2
+  },
+  {
+    "path": "/handDefinitions/two_pair/enabledInNormalShop",
+    "removed": true
+  },
+  {
+    "path": "/handDefinitions/two_pair/structuralPriority",
+    "added": 20
+  },
+  {
+    "path": "/handDefinitions/two_pair/tieBreakRank",
+    "removed": 2
+  },
+  {
+    "path": "/handDefinitions/two_trips",
+    "added": {
+      "id": "two_trips",
+      "displayName": "双三条",
+      "baseMult100": 1000,
+      "incrementPerLevel100": 300,
+      "baseUpgradePrice": 3,
+      "maxLevel": 8,
+      "structuralPriority": 80,
+      "minSubmittedDice": 6,
+      "requirePermanentDice": 6
+    }
+  },
+  {
+    "path": "/initialGold",
+    "old": 10,
+    "new": 0
+  },
+  {
+    "path": "/interestBalanceTiming",
+    "old": "on_stage_finalize_before_rewards",
+    "new": "finalize_before_rewards_after_all_submit_income"
+  },
+  {
+    "path": "/maxColorLevel",
+    "added": 8
+  },
+  {
+    "path": "/minDiceForColorHand",
+    "removed": 5
+  },
+  {
+    "path": "/minDiscountedItemPrice",
+    "old": 2,
+    "new": 1
+  },
+  {
+    "path": "/presentation/contentIconCount",
+    "added": 71
+  },
+  {
+    "path": "/presentation/enchantmentBadgeCount",
+    "added": 5
+  },
+  {
+    "path": "/presentation/handbookColorRows",
+    "added": 2
+  },
+  {
+    "path": "/presentation/handbookHandRows",
+    "added": 14
+  },
+  {
+    "path": "/presentation/handbookRows",
+    "removed": 13
+  },
+  {
+    "path": "/redRewards",
+    "old": [
+      {
+        "count": 0,
+        "factor100": 100,
+        "title": "无额外奖励"
+      },
+      {
+        "count": 1,
+        "factor100": 100,
+        "title": "无额外奖励"
+      },
+      {
+        "count": 2,
+        "factor100": 150,
+        "title": "二举"
+      },
+      {
+        "count": 3,
+        "factor100": 200,
+        "title": "榜眼"
+      },
+      {
+        "count": 4,
+        "factor100": 275,
+        "title": "探花"
+      },
+      {
+        "count": 5,
+        "factor100": 400,
+        "title": "状元"
+      },
+      {
+        "count": 6,
+        "factor100": 550,
+        "title": "六子登科"
+      },
+      {
+        "count": 7,
+        "factor100": 700,
+        "title": "七同红"
+      },
+      {
+        "count": 8,
+        "factor100": 900,
+        "title": "八同红"
+      }
+    ],
+    "new": [
+      {
+        "count": 0,
+        "factor100": 100,
+        "title": "无额外奖励"
+      },
+      {
+        "count": 1,
+        "factor100": 100,
+        "title": "无额外奖励"
+      },
+      {
+        "count": 2,
+        "factor100": 175,
+        "title": "二举"
+      },
+      {
+        "count": 3,
+        "factor100": 250,
+        "title": "榜眼"
+      },
+      {
+        "count": 4,
+        "factor100": 350,
+        "title": "探花"
+      },
+      {
+        "count": 5,
+        "factor100": 500,
+        "title": "状元"
+      },
+      {
+        "count": 6,
+        "factor100": 700,
+        "title": "六子登科"
+      },
+      {
+        "count": 7,
+        "factor100": 1000,
+        "title": "七同红"
+      },
+      {
+        "count": 8,
+        "factor100": 1400,
+        "title": "八同红"
+      }
+    ]
+  },
+  {
+    "path": "/removedControllerIds",
+    "added": [
+      "C04",
+      "C16",
+      "C23"
+    ]
+  },
+  {
+    "path": "/rng/submitEffectDrawOrder",
+    "added": [
+      "real_C53_in_frozen_controller_order",
+      "real_C45_in_frozen_controller_order",
+      "C42_emitters_in_frozen_controller_order"
+    ]
+  },
+  {
+    "path": "/rounding",
+    "added": "single_final_floor"
+  },
+  {
+    "path": "/saveSchemaVersion",
+    "old": 3,
+    "new": 4
+  },
+  {
+    "path": "/scoreStorage",
+    "added": "nonnegative_big_integer_decimal_string"
+  },
+  {
+    "path": "/services/O01/baseBuyPrice",
+    "old": 5,
+    "new": 2
+  },
+  {
+    "path": "/services/O01/description",
+    "old": "局内道具槽+1，从2至5；受已有折扣影响，满额不再生成。",
+    "new": "道具槽从2增加到最多5；受折扣，最低1。"
+  },
+  {
+    "path": "/services/O01/priceRule",
+    "old": "5+3×此前购买次数",
+    "new": "2+2×此前购买次数，最多3次"
+  },
+  {
+    "path": "/services/O02/baseBuyPrice",
+    "old": 7,
+    "new": 3
+  },
+  {
+    "path": "/services/O02/description",
+    "old": "本Run局内道具与局外服务购买价−1，最多3层；不影响控制器、骰强、牌型强化。",
+    "new": "本Run局内道具与局外服务购买价−1，最多3层；不影响控制器、附魔、刷新、骰强及研习。"
+  },
+  {
+    "path": "/services/O02/priceRule",
+    "old": "7−已有折扣层数，最低2",
+    "new": "3−已有折扣层数，最低1"
+  },
+  {
+    "path": "/services/O03/baseBuyPrice",
+    "old": 0,
+    "new": 3
+  },
+  {
+    "path": "/services/O03/description",
+    "old": "每店预生成2颗候选，购买只增加永久骰，最多8颗；绝不修改提交栏。",
+    "new": "每店预生成2颗候选，购买只增加永久骰，正常最多8；不增加K。"
+  },
+  {
+    "path": "/services/O03/priceRule",
+    "old": "候选骰基础价6至12，折后最低2",
+    "new": "候选骰3至6，折后最低1"
+  },
+  {
+    "path": "/services/O04/baseBuyPrice",
+    "old": 3,
+    "new": 1
+  },
+  {
+    "path": "/services/O04/description",
+    "old": "删除一颗永久骰；不能删除最后一颗；提交栏不变。",
+    "new": "删除一颗永久骰，不能删除最后一颗，K不变。"
+  },
+  {
+    "path": "/services/O04/priceRule",
+    "old": "3−折扣层数，最低2",
+    "new": "1"
+  },
+  {
+    "path": "/services/O05",
+    "added": {
+      "id": "O05",
+      "displayName": "增加控制",
+      "baseBuyPrice": 3,
+      "priceRule": "3+2×此前购买次数，最多3次",
+      "description": "每店控制器报价数量永久+1，从3到最多6；当前店只生成新位置的一件报价，不补其他已售商品。"
+    }
+  },
+  {
+    "path": "/services/O06",
+    "added": {
+      "id": "O06",
+      "displayName": "增加道具",
+      "baseBuyPrice": 2,
+      "priceRule": "2+2×此前购买次数，最多3次",
+      "description": "每店局内道具报价数量永久+1，从2到最多5；当前店只新增一件报价，不增加背包槽。"
+    }
+  },
+  {
+    "path": "/services/O07",
+    "added": {
+      "id": "O07",
+      "displayName": "免费刷新",
+      "baseBuyPrice": 6,
+      "priceRule": "6，整个Run仅可购买1次",
+      "description": "每店第一次控制器刷新免费，仍消耗第0次刷新序号；之后价格5、7、9；本店已刷新过则从下一店开始享受。"
+    }
+  },
+  {
+    "path": "/shop/consumableOffers",
+    "removed": 2
+  },
+  {
+    "path": "/shop/controllerOffers",
+    "removed": 3
+  },
+  {
+    "path": "/shop/firstControllerGuaranteeMaxBasePrice",
+    "old": 8,
+    "new": 3
+  },
+  {
+    "path": "/shop/firstRefreshPrice",
+    "added": 3
+  },
+  {
+    "path": "/shop/freeRefreshConsumesFirstIndex",
+    "added": true
+  },
+  {
+    "path": "/shop/handUpgradeOffers",
+    "removed": 2
+  },
+  {
+    "path": "/shop/initialConsumableOffers",
+    "added": 2
+  },
+  {
+    "path": "/shop/initialControllerOffers",
+    "added": 3
+  },
+  {
+    "path": "/shop/maxConsumableOffers",
+    "added": 5
+  },
+  {
+    "path": "/shop/maxControllerOffers",
+    "added": 6
+  },
+  {
+    "path": "/shop/maxOfferExpansionPurchases",
+    "added": 3
+  },
+  {
+    "path": "/shop/offerExpansionAffectsCurrentShop",
+    "added": true
+  },
+  {
+    "path": "/shop/paidRefreshEnabled",
+    "old": false,
+    "new": true
+  },
+  {
+    "path": "/shop/refreshCounterReset",
+    "added": "each_new_shop"
+  },
+  {
+    "path": "/shop/refreshPriceStep",
+    "added": 2
+  },
+  {
+    "path": "/shop/refreshTarget",
+    "added": "controllers_only"
+  },
+  {
+    "path": "/shop/replaceSaleCredit",
+    "removed": 1
+  },
+  {
+    "path": "/shop/replacementCountsAsOneControllerSale",
+    "added": true
+  },
+  {
+    "path": "/shop/replacementCredit",
+    "added": "actual_old_instance_sale_price"
+  },
+  {
+    "path": "/shop/selfStudyPremium",
+    "old": 2,
+    "new": 1
+  },
+  {
+    "path": "/shop/upgradeOffers",
+    "added": 2
+  },
+  {
+    "path": "/shop/upgradePoolIncludes",
+    "added": [
+      "hand",
+      "color"
+    ]
+  },
+  {
+    "path": "/shop/upgradePricePerExistingLevel",
+    "old": 2,
+    "new": 1
+  },
+  {
+    "path": "/stageFlow/clearRewardOnlyAtFinalization",
+    "added": true
+  },
+  {
+    "path": "/stageFlow/rewardOnlyAtFinalization",
+    "removed": true
+  },
+  {
+    "path": "/stageFlow/submissionIncomeAppliedWithinSubmit",
+    "added": true
+  },
+  {
+    "path": "/stages",
+    "old": [
+      {
+        "stageId": "STAGE_01",
+        "chapter": 1,
+        "indexInChapter": 1,
+        "normalTarget": 180,
+        "normalReward": 5,
+        "riskEnabled": false,
+        "riskTarget": 0,
+        "riskReward": 0,
+        "shopAfterClear": true
+      },
+      {
+        "stageId": "STAGE_02",
+        "chapter": 1,
+        "indexInChapter": 2,
+        "normalTarget": 300,
+        "normalReward": 5,
+        "riskEnabled": true,
+        "riskTarget": 360,
+        "riskReward": 8,
+        "shopAfterClear": true
+      },
+      {
+        "stageId": "STAGE_03",
+        "chapter": 1,
+        "indexInChapter": 3,
+        "normalTarget": 500,
+        "normalReward": 5,
+        "riskEnabled": false,
+        "riskTarget": 0,
+        "riskReward": 0,
+        "shopAfterClear": true
+      },
+      {
+        "stageId": "STAGE_04",
+        "chapter": 2,
+        "indexInChapter": 1,
+        "normalTarget": 750,
+        "normalReward": 5,
+        "riskEnabled": false,
+        "riskTarget": 0,
+        "riskReward": 0,
+        "shopAfterClear": true
+      },
+      {
+        "stageId": "STAGE_05",
+        "chapter": 2,
+        "indexInChapter": 2,
+        "normalTarget": 1100,
+        "normalReward": 5,
+        "riskEnabled": true,
+        "riskTarget": 1320,
+        "riskReward": 8,
+        "shopAfterClear": true
+      },
+      {
+        "stageId": "STAGE_06",
+        "chapter": 2,
+        "indexInChapter": 3,
+        "normalTarget": 1600,
+        "normalReward": 5,
+        "riskEnabled": false,
+        "riskTarget": 0,
+        "riskReward": 0,
+        "shopAfterClear": true
+      },
+      {
+        "stageId": "STAGE_07",
+        "chapter": 3,
+        "indexInChapter": 1,
+        "normalTarget": 2200,
+        "normalReward": 5,
+        "riskEnabled": false,
+        "riskTarget": 0,
+        "riskReward": 0,
+        "shopAfterClear": true
+      },
+      {
+        "stageId": "STAGE_08",
+        "chapter": 3,
+        "indexInChapter": 2,
+        "normalTarget": 3000,
+        "normalReward": 5,
+        "riskEnabled": true,
+        "riskTarget": 3600,
+        "riskReward": 8,
+        "shopAfterClear": true
+      },
+      {
+        "stageId": "STAGE_09",
+        "chapter": 3,
+        "indexInChapter": 3,
+        "normalTarget": 4000,
+        "normalReward": 5,
+        "riskEnabled": false,
+        "riskTarget": 0,
+        "riskReward": 0,
+        "shopAfterClear": true
+      },
+      {
+        "stageId": "STAGE_10",
+        "chapter": 4,
+        "indexInChapter": 1,
+        "normalTarget": 5200,
+        "normalReward": 5,
+        "riskEnabled": false,
+        "riskTarget": 0,
+        "riskReward": 0,
+        "shopAfterClear": true
+      },
+      {
+        "stageId": "STAGE_11",
+        "chapter": 4,
+        "indexInChapter": 2,
+        "normalTarget": 6800,
+        "normalReward": 5,
+        "riskEnabled": true,
+        "riskTarget": 8160,
+        "riskReward": 8,
+        "shopAfterClear": true
+      },
+      {
+        "stageId": "STAGE_12",
+        "chapter": 4,
+        "indexInChapter": 3,
+        "normalTarget": 8800,
+        "normalReward": 5,
+        "riskEnabled": false,
+        "riskTarget": 0,
+        "riskReward": 0,
+        "shopAfterClear": true
+      },
+      {
+        "stageId": "STAGE_13",
+        "chapter": 5,
+        "indexInChapter": 1,
+        "normalTarget": 11400,
+        "normalReward": 5,
+        "riskEnabled": false,
+        "riskTarget": 0,
+        "riskReward": 0,
+        "shopAfterClear": true
+      },
+      {
+        "stageId": "STAGE_14",
+        "chapter": 5,
+        "indexInChapter": 2,
+        "normalTarget": 14600,
+        "normalReward": 5,
+        "riskEnabled": true,
+        "riskTarget": 17520,
+        "riskReward": 8,
+        "shopAfterClear": true
+      },
+      {
+        "stageId": "STAGE_15",
+        "chapter": 5,
+        "indexInChapter": 3,
+        "normalTarget": 18600,
+        "normalReward": 5,
+        "riskEnabled": false,
+        "riskTarget": 0,
+        "riskReward": 0,
+        "shopAfterClear": true
+      },
+      {
+        "stageId": "STAGE_16",
+        "chapter": 6,
+        "indexInChapter": 1,
+        "normalTarget": 23500,
+        "normalReward": 5,
+        "riskEnabled": false,
+        "riskTarget": 0,
+        "riskReward": 0,
+        "shopAfterClear": true
+      },
+      {
+        "stageId": "STAGE_17",
+        "chapter": 6,
+        "indexInChapter": 2,
+        "normalTarget": 29500,
+        "normalReward": 5,
+        "riskEnabled": true,
+        "riskTarget": 35400,
+        "riskReward": 8,
+        "shopAfterClear": true
+      },
+      {
+        "stageId": "STAGE_18",
+        "chapter": 6,
+        "indexInChapter": 3,
+        "normalTarget": 36500,
+        "normalReward": 5,
+        "riskEnabled": false,
+        "riskTarget": 0,
+        "riskReward": 0,
+        "shopAfterClear": true
+      },
+      {
+        "stageId": "STAGE_19",
+        "chapter": 7,
+        "indexInChapter": 1,
+        "normalTarget": 45000,
+        "normalReward": 5,
+        "riskEnabled": false,
+        "riskTarget": 0,
+        "riskReward": 0,
+        "shopAfterClear": true
+      },
+      {
+        "stageId": "STAGE_20",
+        "chapter": 7,
+        "indexInChapter": 2,
+        "normalTarget": 55000,
+        "normalReward": 5,
+        "riskEnabled": true,
+        "riskTarget": 66000,
+        "riskReward": 8,
+        "shopAfterClear": true
+      },
+      {
+        "stageId": "STAGE_21",
+        "chapter": 7,
+        "indexInChapter": 3,
+        "normalTarget": 66500,
+        "normalReward": 5,
+        "riskEnabled": false,
+        "riskTarget": 0,
+        "riskReward": 0,
+        "shopAfterClear": true
+      },
+      {
+        "stageId": "STAGE_22",
+        "chapter": 8,
+        "indexInChapter": 1,
+        "normalTarget": 80000,
+        "normalReward": 5,
+        "riskEnabled": false,
+        "riskTarget": 0,
+        "riskReward": 0,
+        "shopAfterClear": true
+      },
+      {
+        "stageId": "STAGE_23",
+        "chapter": 8,
+        "indexInChapter": 2,
+        "normalTarget": 96000,
+        "normalReward": 5,
+        "riskEnabled": true,
+        "riskTarget": 115200,
+        "riskReward": 8,
+        "shopAfterClear": true
+      },
+      {
+        "stageId": "STAGE_24",
+        "chapter": 8,
+        "indexInChapter": 3,
+        "normalTarget": 115000,
+        "normalReward": 5,
+        "riskEnabled": false,
+        "riskTarget": 0,
+        "riskReward": 0,
+        "shopAfterClear": false
+      }
+    ],
+    "new": [
+      {
+        "stageId": "STAGE_01",
+        "chapter": 1,
+        "indexInChapter": 1,
+        "normalTarget": "180",
+        "normalReward": 5,
+        "riskEnabled": false,
+        "riskTarget": null,
+        "riskReward": 0,
+        "shopAfterClear": true
+      },
+      {
+        "stageId": "STAGE_02",
+        "chapter": 1,
+        "indexInChapter": 2,
+        "normalTarget": "400",
+        "normalReward": 5,
+        "riskEnabled": true,
+        "riskTarget": "480",
+        "riskReward": 8,
+        "shopAfterClear": true
+      },
+      {
+        "stageId": "STAGE_03",
+        "chapter": 1,
+        "indexInChapter": 3,
+        "normalTarget": "900",
+        "normalReward": 5,
+        "riskEnabled": false,
+        "riskTarget": null,
+        "riskReward": 0,
+        "shopAfterClear": true
+      },
+      {
+        "stageId": "STAGE_04",
+        "chapter": 2,
+        "indexInChapter": 1,
+        "normalTarget": "1800",
+        "normalReward": 5,
+        "riskEnabled": false,
+        "riskTarget": null,
+        "riskReward": 0,
+        "shopAfterClear": true
+      },
+      {
+        "stageId": "STAGE_05",
+        "chapter": 2,
+        "indexInChapter": 2,
+        "normalTarget": "3500",
+        "normalReward": 5,
+        "riskEnabled": true,
+        "riskTarget": "4200",
+        "riskReward": 8,
+        "shopAfterClear": true
+      },
+      {
+        "stageId": "STAGE_06",
+        "chapter": 2,
+        "indexInChapter": 3,
+        "normalTarget": "6500",
+        "normalReward": 5,
+        "riskEnabled": false,
+        "riskTarget": null,
+        "riskReward": 0,
+        "shopAfterClear": true
+      },
+      {
+        "stageId": "STAGE_07",
+        "chapter": 3,
+        "indexInChapter": 1,
+        "normalTarget": "11000",
+        "normalReward": 5,
+        "riskEnabled": false,
+        "riskTarget": null,
+        "riskReward": 0,
+        "shopAfterClear": true
+      },
+      {
+        "stageId": "STAGE_08",
+        "chapter": 3,
+        "indexInChapter": 2,
+        "normalTarget": "18000",
+        "normalReward": 5,
+        "riskEnabled": true,
+        "riskTarget": "21600",
+        "riskReward": 8,
+        "shopAfterClear": true
+      },
+      {
+        "stageId": "STAGE_09",
+        "chapter": 3,
+        "indexInChapter": 3,
+        "normalTarget": "28000",
+        "normalReward": 5,
+        "riskEnabled": false,
+        "riskTarget": null,
+        "riskReward": 0,
+        "shopAfterClear": true
+      },
+      {
+        "stageId": "STAGE_10",
+        "chapter": 4,
+        "indexInChapter": 1,
+        "normalTarget": "42000",
+        "normalReward": 5,
+        "riskEnabled": false,
+        "riskTarget": null,
+        "riskReward": 0,
+        "shopAfterClear": true
+      },
+      {
+        "stageId": "STAGE_11",
+        "chapter": 4,
+        "indexInChapter": 2,
+        "normalTarget": "62000",
+        "normalReward": 5,
+        "riskEnabled": true,
+        "riskTarget": "74400",
+        "riskReward": 8,
+        "shopAfterClear": true
+      },
+      {
+        "stageId": "STAGE_12",
+        "chapter": 4,
+        "indexInChapter": 3,
+        "normalTarget": "88000",
+        "normalReward": 5,
+        "riskEnabled": false,
+        "riskTarget": null,
+        "riskReward": 0,
+        "shopAfterClear": true
+      },
+      {
+        "stageId": "STAGE_13",
+        "chapter": 5,
+        "indexInChapter": 1,
+        "normalTarget": "125000",
+        "normalReward": 5,
+        "riskEnabled": false,
+        "riskTarget": null,
+        "riskReward": 0,
+        "shopAfterClear": true
+      },
+      {
+        "stageId": "STAGE_14",
+        "chapter": 5,
+        "indexInChapter": 2,
+        "normalTarget": "175000",
+        "normalReward": 5,
+        "riskEnabled": true,
+        "riskTarget": "210000",
+        "riskReward": 8,
+        "shopAfterClear": true
+      },
+      {
+        "stageId": "STAGE_15",
+        "chapter": 5,
+        "indexInChapter": 3,
+        "normalTarget": "240000",
+        "normalReward": 5,
+        "riskEnabled": false,
+        "riskTarget": null,
+        "riskReward": 0,
+        "shopAfterClear": true
+      },
+      {
+        "stageId": "STAGE_16",
+        "chapter": 6,
+        "indexInChapter": 1,
+        "normalTarget": "320000",
+        "normalReward": 5,
+        "riskEnabled": false,
+        "riskTarget": null,
+        "riskReward": 0,
+        "shopAfterClear": true
+      },
+      {
+        "stageId": "STAGE_17",
+        "chapter": 6,
+        "indexInChapter": 2,
+        "normalTarget": "420000",
+        "normalReward": 5,
+        "riskEnabled": true,
+        "riskTarget": "504000",
+        "riskReward": 8,
+        "shopAfterClear": true
+      },
+      {
+        "stageId": "STAGE_18",
+        "chapter": 6,
+        "indexInChapter": 3,
+        "normalTarget": "540000",
+        "normalReward": 5,
+        "riskEnabled": false,
+        "riskTarget": null,
+        "riskReward": 0,
+        "shopAfterClear": true
+      },
+      {
+        "stageId": "STAGE_19",
+        "chapter": 7,
+        "indexInChapter": 1,
+        "normalTarget": "690000",
+        "normalReward": 5,
+        "riskEnabled": false,
+        "riskTarget": null,
+        "riskReward": 0,
+        "shopAfterClear": true
+      },
+      {
+        "stageId": "STAGE_20",
+        "chapter": 7,
+        "indexInChapter": 2,
+        "normalTarget": "870000",
+        "normalReward": 5,
+        "riskEnabled": true,
+        "riskTarget": "1044000",
+        "riskReward": 8,
+        "shopAfterClear": true
+      },
+      {
+        "stageId": "STAGE_21",
+        "chapter": 7,
+        "indexInChapter": 3,
+        "normalTarget": "1080000",
+        "normalReward": 5,
+        "riskEnabled": false,
+        "riskTarget": null,
+        "riskReward": 0,
+        "shopAfterClear": true
+      },
+      {
+        "stageId": "STAGE_22",
+        "chapter": 8,
+        "indexInChapter": 1,
+        "normalTarget": "1320000",
+        "normalReward": 5,
+        "riskEnabled": false,
+        "riskTarget": null,
+        "riskReward": 0,
+        "shopAfterClear": true
+      },
+      {
+        "stageId": "STAGE_23",
+        "chapter": 8,
+        "indexInChapter": 2,
+        "normalTarget": "1560000",
+        "normalReward": 5,
+        "riskEnabled": true,
+        "riskTarget": "1872000",
+        "riskReward": 8,
+        "shopAfterClear": true
+      },
+      {
+        "stageId": "STAGE_24",
+        "chapter": 8,
+        "indexInChapter": 3,
+        "normalTarget": "1800000",
+        "normalReward": 5,
+        "riskEnabled": false,
+        "riskTarget": null,
+        "riskReward": 0,
+        "shopAfterClear": false
+      }
+    ]
+  },
+  {
+    "path": "/walletStorage",
+    "added": "checked_nonnegative_int64"
+  }
+]

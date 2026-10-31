@@ -1,0 +1,72 @@
+{
+  "scope": "Exercise production ValidateGate without running Unity or BuildPlayer.",
+  "prototypeBuildSha256": "c707e425280fd31eca6d018a2614935ccee963ff9388e9d0f0a4d44497710159",
+  "probeSha256": "3b853bbd806c4334d2554d846a2456506cb903b6a48fab55dcf7f259a795f38b",
+  "count": 9,
+  "expectationsMet": 9,
+  "results": [
+    {
+      "name": "complete_generated_gate",
+      "expected": "accept",
+      "actual": "accept",
+      "matchedExpectation": true,
+      "error": null
+    },
+    {
+      "name": "changed_asset_rejected",
+      "expected": "reject",
+      "actual": "reject",
+      "matchedExpectation": true,
+      "error": "System.InvalidOperationException: Verification source/evidence changed: DicePrototype/Packages/manifest.json\r\n   at DiceCraft.Editor.PrototypeBuild.ValidateGate() in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Editor\\PrototypeBuild.cs:line 74\r\n   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)\r\n   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)"
+    },
+    {
+      "name": "added_asset_rejected",
+      "expected": "reject",
+      "actual": "reject",
+      "matchedExpectation": true,
+      "error": "System.InvalidOperationException: Buildable source file set changed after verification.\r\n   at DiceCraft.Editor.PrototypeBuild.ValidateGate() in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Editor\\PrototypeBuild.cs:line 68\r\n   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)\r\n   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)"
+    },
+    {
+      "name": "missing_source_manifest_entry",
+      "expected": "reject",
+      "actual": "reject",
+      "matchedExpectation": true,
+      "error": "System.InvalidOperationException: Buildable source file set changed after verification.\r\n   at DiceCraft.Editor.PrototypeBuild.ValidateGate() in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Editor\\PrototypeBuild.cs:line 68\r\n   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)\r\n   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)"
+    },
+    {
+      "name": "missing_nunit_report_and_manifest_entry",
+      "expected": "reject",
+      "actual": "reject",
+      "matchedExpectation": true,
+      "error": "System.InvalidOperationException: Required verification evidence is absent from the bound files.\r\n   at DiceCraft.Editor.PrototypeBuild.<>c__DisplayClass1_0.<ValidateGate>b__0(Entry e) in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Editor\\PrototypeBuild.cs:line 49\r\n   at DiceCraft.Editor.PrototypeBuild.ValidateGate() in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Editor\\PrototypeBuild.cs:line 61\r\n   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)\r\n   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)"
+    },
+    {
+      "name": "missing_execution_binding_and_manifest_entry",
+      "expected": "reject",
+      "actual": "reject",
+      "matchedExpectation": true,
+      "error": "System.InvalidOperationException: Required verification evidence is absent from the bound files.\r\n   at DiceCraft.Editor.PrototypeBuild.<>c__DisplayClass1_0.<ValidateGate>b__0(Entry e) in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Editor\\PrototypeBuild.cs:line 49\r\n   at DiceCraft.Editor.PrototypeBuild.ValidateGate() in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Editor\\PrototypeBuild.cs:line 61\r\n   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)\r\n   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)"
+    },
+    {
+      "name": "missing_pdb_proof_and_manifest_entry",
+      "expected": "reject",
+      "actual": "reject",
+      "matchedExpectation": true,
+      "error": "System.InvalidOperationException: Required verification evidence is absent from the bound files.\r\n   at DiceCraft.Editor.PrototypeBuild.<>c__DisplayClass1_0.<ValidateGate>b__0(Entry e) in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Editor\\PrototypeBuild.cs:line 49\r\n   at DiceCraft.Editor.PrototypeBuild.ValidateGate() in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Editor\\PrototypeBuild.cs:line 50\r\n   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)\r\n   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)"
+    },
+    {
+      "name": "duplicate_bound_source",
+      "expected": "reject",
+      "actual": "reject",
+      "matchedExpectation": true,
+      "error": "System.InvalidOperationException: Buildable source file set changed after verification.\r\n   at DiceCraft.Editor.PrototypeBuild.ValidateGate() in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Editor\\PrototypeBuild.cs:line 68\r\n   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)\r\n   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)"
+    },
+    {
+      "name": "parent_path_escape_rejected",
+      "expected": "reject",
+      "actual": "reject",
+      "matchedExpectation": true,
+      "error": "System.InvalidOperationException: Verification source/evidence changed: ../outside.txt\r\n   at DiceCraft.Editor.PrototypeBuild.ValidateGate() in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Editor\\PrototypeBuild.cs:line 74\r\n   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)\r\n   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)"
+    }
+  ]
+}

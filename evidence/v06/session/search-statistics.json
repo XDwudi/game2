@@ -1,0 +1,15 @@
+{
+  "purpose": "Automated legal-action integration validation; searched seeds are not a player win-rate sample",
+  "policy": "Visible-state one-step Monte Carlo with independent Random(731); no rule RNG introspection",
+  "configVersion": "p0.6.0",
+  "results": [
+    {
+      "seed": 20261031,
+      "won": false,
+      "reachedStage": 8,
+      "actions": 145,
+      "finalPhase": "RunFailed",
+      "gold": 5
+    }
+  ]
+}

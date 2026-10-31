@@ -1,0 +1,175 @@
+{
+  "schema": "p06-probe-rework-1",
+  "inputSourceCommit": "6f9e285432ab92e7304830a42c9e9e4cd74d97c3",
+  "probeRevision": "p06-player-shop-refresh-ui-14",
+  "status": "frozen_managed_api_compiled_actual_player_pending",
+  "managedChecks": 40,
+  "performanceMethods": [
+    {
+      "method": "RunStress",
+      "unchanged": true
+    },
+    {
+      "method": "LateUpdate",
+      "unchanged": true
+    },
+    {
+      "method": "BuildPerformanceReport",
+      "unchanged": true
+    },
+    {
+      "method": "WriteFrames",
+      "unchanged": true
+    },
+    {
+      "method": "Metric",
+      "unchanged": true
+    },
+    {
+      "method": "CompleteCoverage",
+      "unchanged": true
+    },
+    {
+      "method": "RequiredFrameCapacity",
+      "unchanged": true
+    },
+    {
+      "method": "ClassifyGpuDuration",
+      "unchanged": true
+    },
+    {
+      "method": "ClockDelta",
+      "unchanged": true
+    }
+  ],
+  "files": [
+    {
+      "path": "DicePrototype/Assets/Game/Runtime/Verification/PlayerVerification.cs",
+      "sha256": "b5679f37d51ec802d5bfb7682fd80ee1a87e062b877615852d3edd1fccd5bd42"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Runtime/Verification/PlayerVerification.V06.cs",
+      "sha256": "ae873050002fec128170cd8a18f846453de7424cc7556c5147be17f8ed960c77"
+    }
+  ],
+  "newChecks": [
+    "remote-target32-ui",
+    "shop-target32-ui",
+    "shop-controller-refresh-ui",
+    "shop-free-first-refresh-service-ui"
+  ],
+  "diagnostics": [
+    "v06-input-diagnostics.json",
+    "v06-resolution-transitions.json",
+    "v06-target32-raycasts.json",
+    "v06-native-display-transitions.json",
+    "native-experiment.json",
+    "v06-shop-refresh-transactions.json"
+  ],
+  "constraints": {
+    "totalResolutionDeadlineSeconds": 12,
+    "exactStableSizeFrames": 3,
+    "globalBackgroundBehaviorChanged": false,
+    "directCancelCalled": false,
+    "UnityPlayerRunByAgent": false
+  },
+  "managedLog": "evidence/v06/player-support/rework-shop-refresh-compile01.log",
+  "target32ClickContract": {
+    "waitActualFrameBefore": true,
+    "allCornersInsideScreenAndParentMasks": true,
+    "firstRaycastButtonMustBeTarget": true,
+    "executeAfterAssertionOnly": true,
+    "waitActualFrameAfter": true,
+    "onlyTarget32CallsChanged": true
+  },
+  "keyboardLayoutCorrection": {
+    "package": "com.unity.inputsystem 1.20.1",
+    "source": "DicePrototype/Library/PackageCache/com.unity.inputsystem@2436e68c60c4/InputSystem/Runtime/Controls/InputControlLayout.cs:1567,1637-1645",
+    "deviceBuilder": "InputSystem/Runtime/Devices/InputDeviceBuilder.cs:162-167",
+    "jsonField": "runInBackground",
+    "jsonValue": "enabled",
+    "oldUnknownJsonField": "canRunInBackground",
+    "actualFailureEvidence": "evidence/v06/player/player-20261031-135926-f1439a98/v06-input-diagnostics.json",
+    "failureEnabled": true,
+    "failureFocused": true,
+    "failureCanRunInBackground": false,
+    "managedChecksDoNotExecuteUnityJsonParser": true,
+    "actualPlayerRetest": "pending_root"
+  },
+  "displayDiagnostic": {
+    "standaloneCli": [
+      "--verify-display-only",
+      "--evidence-dir",
+      "<directory>"
+    ],
+    "traceRequired": false,
+    "setupOnlyNewRunSeed": 20261031,
+    "reuses": "VerifyV06Displays",
+    "successStatus": "display_passed",
+    "normalReplayPassed": false,
+    "stressCompleted": false,
+    "performance": null,
+    "modeAndSizeAssertionsUnchanged": true,
+    "nativeFailureBecomesUnsupported": false,
+    "nativeObservationBoundSeconds": 14,
+    "timeoutObservationBoundSeconds": 21,
+    "recordsBeforeApplyAndFinally": true,
+    "rootMustRunActualPlayer": true,
+    "productionDisplaySettingsUnmodified": true
+  },
+  "nativeExperiment": {
+    "cli": [
+      "--verify-native-display-experiment",
+      "--evidence-dir",
+      "<directory>"
+    ],
+    "traceRequired": false,
+    "mode": "ExclusiveFullScreen",
+    "dimensions": "actual Screen.mainWindowDisplayInfo native width/height captured in initial settled window",
+    "arms": [
+      "exact enumerated refresh nearest initial current display refresh",
+      "no-refresh overload",
+      "lowest enumerated refresh only when enumerated target size exists"
+    ],
+    "observeSecondsPerArm": 5,
+    "allFrameReadbacks": true,
+    "nativeModeFailureContinues": true,
+    "afterEveryExecutedArmRestore": "original windowed dimensions, three exact stable frames, existing total 12s bound",
+    "finally": "requests restoration if needed; normal continuation then verifies three exact stable frames",
+    "productionApplyRevertCalled": false,
+    "gameStateCreated": false,
+    "normalDebugStressPass": false,
+    "completionStatus": "diagnostic_completed",
+    "acceptanceStatusNeverPassed": true
+  },
+  "shopRefreshUI": {
+    "fixture": "clone of production Continue-generated Shop, separate Debug save and 1000 wallet",
+    "paidCharges": [
+      3,
+      5,
+      7
+    ],
+    "paidNextPrices": [
+      5,
+      7,
+      9
+    ],
+    "service": "actual O07 offer Inspect/ConfirmPurchase UI",
+    "serviceCharges": [
+      0,
+      5
+    ],
+    "serviceNextPrices": [
+      5,
+      7
+    ],
+    "pointerChecks": "one real frame wait, complete visible bounds and first Raycast Button must match, then ExecuteEvents",
+    "otherShelves": "entire ShopOffer JSON plus displayed-price API quote and net quote unchanged",
+    "controllerQuotes": "complete fingerprint changes, old offer IDs absent, generation increments once",
+    "save": "AtomicSaveStore Debug Load canonical state exact after every click",
+    "reopen": "actual ResumeDebugSave / RunDebugScene buttons, all quotes state and persisted bytes unchanged",
+    "normalCheckpoint": "exact file hash unchanged",
+    "nativeAcceptanceUnchanged": true,
+    "actualPlayerExecution": "pending root"
+  }
+}

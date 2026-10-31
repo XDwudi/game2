@@ -1,0 +1,10 @@
+{
+  "status": "failed_before_build",
+  "sourceCommit": "07f5e444f4fafd16ce4312eb3331e5a9c943f8d1",
+  "rawLogSha256": "ad4a2f6fd9b124a47e5505ea6f2f033e083fbe6862dfc4498b27bfe5e46a8c61",
+  "diagnostic": [
+    "InvalidOperationException: Verification source/evidence changed: DicePrototype/Assets/Game/Fonts/DiceChineseFallback.asset",
+    "executeMethod method DiceCraft.Editor.PrototypeBuild.BuildActiveProfile threw exception."
+  ],
+  "cause": "TMP dynamic fallback atlas was cleared on Editor exit, invalidating the frozen source gate. Raw startup log retained locally, not published."
+}

@@ -1,0 +1,20 @@
+# UI06-14 — 32-die target selection rework
+
+Input: authoritative P0 v0.6, root's actual Player findings on frozen source6f9e285. Ownership: GameApp.Modals.cs, GameApp.Shop.cs, new V06TargetSelectionPlayModeTests.cs; root additionally authorized the obsolete debug-title assertion in V05InterfacePlayModeTests.cs and the two mandatory delivery-check IDs. Core rules, purchase limits and game modes were not changed. Production/test/tool writes are now frozen and released back to root.
+
+The remote-item picker and permanent-die shop picker use separate masked vertical ScrollRects, eight columns, a140-unit viewport and computed content height. At32dice the content is280high. Remote selection ends above its two pip rows and confirmation button; shop faces move below the target viewport and keep the existing purchase footer. Selection and pip-edit redraw preserve list position. Remote selection remains exactly two distinct unlocked dice. Debug inventory titles show actual held/ordinary-used counts without normal slot-limit denominators; normal titles retain the original limits.
+
+Stable UI identifiers: `RemoteTargetList`, `ShopTargetList`; existing `RemoteDieD031`, `RemoteDieD032`, `RemotePipD031_2`, `RemotePipD032_5`, `RemoteConfirm`, `Target_D031`, `Target_D032`, `Face_F01`, `ConfirmPurchase` remain. Private `TargetDie(ShopOffer,string,float scrollPosition=1)` adds the preserved-position argument; reflected callers must pass1f explicitly. The Player verifier owner has adapted those callers.
+
+New regression names:
+
+- `PLAY_V06_RemoteThirtyTwoTargetsScrollAndKeepExactlyTwoWithoutOverlap`: real ScrollRect wheel events to reach31/32; full viewport and screen geometry; first EventSystem raycast hit must be the requested button; third target rejected; exactly one item/roll/sequence consumed and only the chosen two pip overrides applied; UI selection leaves state/disk unchanged. Also checks the32-controller debug title.
+- `PLAY_V06_ShopThirtyTwoTargetsScrollUpgradeAndDeleteOnlyChosenDie`: wheel-select31, apply U06 toF01, verify all other dice unchanged; wheel-select32, cancel without mutation, reopen and delete exactly32; K and shop RNG unchanged, prices and sequences exact.
+
+Root's actual Unity run `playmode-targets02.json` / `nunit-20261031-135300.xml` is **2/2 passed**, zero failed/skipped. It was read and inspected by this agent; this agent did not launch Unity. Root retains the earlier `playmode06.json` / `nunit-20261031-134849.xml` failures. The old V05 replacement test keeps all transaction/save assertions; only its debug header expectation now matches the requested debug display.
+
+The first test run could select31/32 but then tried newly created pip/face controls in the same frame. The diagnostic run proves the shop cause: `Face_F01` had Graphic.depth=-1 and first hit Dialog before rendering, then depth130 and first hit Face_F01 after one actual frame; new ConfirmPurchase similarly changed -1→97 (later -1→162). No production overlay change was needed for this lifecycle issue. Tests now perform pointer clicks after a real frame and retain all raycast assertions. Remote controls all have valid depths/first hits under this frame-realistic sequence; the diagnostic does not independently record their earlier -1 state.
+
+Delivery comparator now requires the new `remote-target32-ui` and `shop-target32-ui` Player checks. Removing either from either Windows or macOS report is a regression rejection. Offline tooling68/68 and quality framework20/20 passed (`delivery-tools-tests-04.log`, `quality-checker-tests-ui-targets.log`); this does not claim a native Mac run. Previous delivery-manifest evidence is preserved in `delivery-tools-source-manifest-before-ui-targets.json`, latest hashes/counts in `delivery-tools-source-manifest.json`.
+
+Remaining root verification: full PlayMode30 and EditMode776 on the final integrated source, rebuilt Player real target32 checks at all required resolutions, independent screenshot/actual-run review and final package evidence. No full-suite, fresh build, Mac or release acceptance is inferred from the targeted2/2 result.
