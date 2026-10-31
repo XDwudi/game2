@@ -46,13 +46,19 @@ namespace DiceCraft.Editor
             if(!File.Exists(path))throw new InvalidOperationException("Run tests and bind their successful evidence before building.");
             var gate=JsonUtility.FromJson<Gate>(File.ReadAllText(path));
             if(gate==null||gate.schema!="v06-build-gate-1"||gate.editModePassed<775||gate.playModePassed<28||gate.files==null||gate.files.Length==0)throw new InvalidOperationException("Incomplete v0.6 test gate (complete discovered EditMode / PlayMode suites required).");
+            Action<Entry> requireEvidence=e=>{if(e==null||string.IsNullOrEmpty(e.path)||string.IsNullOrEmpty(e.sha256)||!gate.files.Any(f=>f.path==e.path&&f.sha256==e.sha256))throw new InvalidOperationException("Required verification evidence is absent from the bound files.");};
+            requireEvidence(gate.pdbAudit);
+            if(gate.tests==null||gate.tests.Length!=2)throw new InvalidOperationException("Both complete test reports are required.");
             foreach(var mode in new[]{"EditMode","PlayMode"})
             {
-                var discovery=JsonUtility.FromJson<Discovery>(File.ReadAllText("../evidence/v06/unity/discovery-"+mode+".json"));
+                string discoveryPath="evidence/v06/unity/discovery-"+mode+".json";
+                requireEvidence(gate.files.SingleOrDefault(f=>f.path==discoveryPath));
+                var discovery=JsonUtility.FromJson<Discovery>(File.ReadAllText("../"+discoveryPath));
                 int count=mode=="EditMode"?gate.editModePassed:gate.playModePassed;
                 var test=gate.tests?.SingleOrDefault(t=>t.mode==mode);
                 if(discovery.mode!=mode||discovery.unity!=Application.unityVersion||discovery.names==null||discovery.names.Length!=count||discovery.names.Distinct().Count()!=count||test==null||test.passed!=count||!discovery.names.OrderBy(x=>x,StringComparer.Ordinal).SequenceEqual(test.names.OrderBy(x=>x,StringComparer.Ordinal)))
                     throw new InvalidOperationException("Complete discovered test inventory does not match gate: "+mode);
+                requireEvidence(test.report);requireEvidence(test.binding);
             }
             string[] scopes={"DicePrototype/Assets","DicePrototype/Packages","DicePrototype/ProjectSettings"};
             var current=scopes.SelectMany(scope=>Directory.EnumerateFiles(Path.Combine("..",scope),"*",SearchOption.AllDirectories))
@@ -72,9 +78,9 @@ namespace DiceCraft.Editor
                 throw new InvalidOperationException("Build identity does not match frozen source/config/cases.");
         }
         private static string Hash(string path){using(var sha=SHA256.Create())using(var stream=File.OpenRead(path))return BitConverter.ToString(sha.ComputeHash(stream)).Replace("-","").ToLowerInvariant();}
-        [Serializable]private sealed class Gate{public string schema=null,sourceCommit=null;public TestProof[] tests=null;public int editModePassed=0,playModePassed=0;public Entry[] files=null;}
+        [Serializable]private sealed class Gate{public string schema=null,sourceCommit=null;public TestProof[] tests=null;public Entry pdbAudit=null;public int editModePassed=0,playModePassed=0;public Entry[] files=null;}
         [Serializable]private sealed class Discovery{public string mode=null,unity=null;public string[] names=null;}
-        [Serializable]private sealed class TestProof{public string mode=null;public int passed;public string[] names=null;}
+        [Serializable]private sealed class TestProof{public string mode=null;public int passed;public string[] names=null;public Entry report=null,binding=null;}
         [Serializable]private sealed class Identity{public string sourceCommit=null,contentConfigSha256=null,goldenCaseSetSha256=null;}
         [Serializable]private sealed class Entry{public string path=null,sha256=null;}
         [Serializable]private sealed class Proof{public string profile,platform,unity,result,buildGuid,buildUtc,output,identity;public int errors,warnings;public ulong bytes;public double seconds;}

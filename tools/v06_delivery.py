@@ -149,7 +149,8 @@ def gate(args):
     files.append(entry(ROOT / args.pdb))
     files.extend(inventories)
     result = {"schema": "v06-build-gate-1", "sourceCommit": head, "editModePassed": tests[0]["passed"],
-              "playModePassed": tests[1]["passed"], "scopes": SCOPES, "identity": value, "tests": tests, "files": files}
+              "playModePassed": tests[1]["passed"], "scopes": SCOPES, "identity": value, "tests": tests,
+              "pdbAudit": entry(ROOT / args.pdb), "files": files}
     target = ROOT / "evidence/v06/unity/build-gate.json"
     target.write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print(json.dumps({"gate": str(target), "boundFiles": len(files), "editMode": tests[0]["passed"], "playMode": tests[1]["passed"]}))

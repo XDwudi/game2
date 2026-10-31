@@ -40,8 +40,11 @@ namespace DiceCraft.Editor
             app.sounds=Directory.GetFiles("Assets/Game/Audio","*.wav").Where(x=>Path.GetFileNameWithoutExtension(x)!="enchant_base5"&&Path.GetFileNameWithoutExtension(x)!="enchant_mult120").OrderBy(x=>x).Select(x=>AssetDatabase.LoadAssetAtPath<AudioClip>(x.Replace('\\','/'))).ToArray();
             string chars=File.ReadAllText("Assets/Game/Data/P0Config.json");
             foreach(var path in Directory.GetFiles("Assets/Game/UI","*.cs"))chars+=File.ReadAllText(path);
-            chars+=File.ReadAllText("Assets/Game/Runtime/GameApp.cs");
+            foreach(var path in Directory.GetFiles("Assets/Game/Runtime","*.cs",SearchOption.AllDirectories).Where(p=>!p.Replace('\\','/').Split('/').Any(part=>part.EndsWith("~",StringComparison.Ordinal))))chars+=File.ReadAllText(path);
             foreach(var path in Directory.GetFiles("Assets/Game/Core","*.cs",SearchOption.AllDirectories))chars+=File.ReadAllText(path);
+            // Warm test/diagnostic labels too, so PlayMode does not dirty the persisted
+            // dynamic fallback atlas before an independently verified build starts.
+            foreach(var path in Directory.GetFiles("Assets/Game/Tests","*.cs",SearchOption.AllDirectories))chars+=File.ReadAllText(path);
             var requested=chars.Where(c=>!char.IsControl(c)).Distinct().ToArray();
             var absent=new string(requested.Where(c=>!app.uiFont.HasCharacter(c,false,false)).ToArray());
             if(absent.Length>0)app.uiFont.TryAddCharacters(absent,out _,true);
@@ -59,6 +62,9 @@ namespace DiceCraft.Editor
                 AssetDatabase.AddObjectToAsset(fallback.material,fallback);
                 foreach(var texture in fallback.atlasTextures)AssetDatabase.AddObjectToAsset(texture,fallback);
             }
+            var fallbackSettings=new SerializedObject(fallback);
+            fallbackSettings.FindProperty("m_ClearDynamicDataOnBuild").boolValue=false;
+            fallbackSettings.ApplyModifiedPropertiesWithoutUndo();EditorUtility.SetDirty(fallback);
             app.uiFont.fallbackFontAssetTable=new System.Collections.Generic.List<TMP_FontAsset>{fallback};
             foreach(var texture in app.uiFont.atlasTextures)if(!AssetDatabase.Contains(texture))AssetDatabase.AddObjectToAsset(texture,app.uiFont);
             EditorUtility.SetDirty(app.uiFont);EditorUtility.SetDirty(app);
