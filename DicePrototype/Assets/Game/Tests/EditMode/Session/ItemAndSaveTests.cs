@@ -117,7 +117,7 @@ namespace DiceCraft.Tests
         [Test] public void StateCopiesCannotMutateAuthoritativeData()
         {
             var s=Ready();var copy=s.State;copy.gold=999;copy.dice[0].faces[0].permanentPip=6;
-            Assert.That(s.State.gold,Is.EqualTo(10));Assert.That(s.State.dice[0].faces[0].permanentPip,Is.EqualTo(1));
+            Assert.That(s.State.gold,Is.EqualTo(0));Assert.That(s.State.dice[0].faces[0].permanentPip,Is.EqualTo(1));
         }
         [Test] public void RestoreRejectsWrongSchemaUnknownContentAndDuplicateDice()
         {
@@ -136,7 +136,7 @@ namespace DiceCraft.Tests
         }
         [Test] public void TwentyFourStageFlowSupportsEightRiskBranchesAndNoFinalShop()
         {
-            var s=Edit(New(),x=>{foreach(var d in x.dice)foreach(var f in d.faces){f.permanentPip=4;f.baseColor="red";f.isGold=true;}Equip(x,"C25","C30","C31","C32");foreach(var h in x.handLevels)h.level=8;});
+            var s=Edit(New(),x=>{foreach(var d in x.dice)foreach(var f in d.faces){f.permanentPip=4;f.baseColor="red";f.isGold=true;}Equip(x,"C25","C30","C31","C32");foreach(var h in x.handLevels)h.level=8;foreach(var h in x.colorLevels)h.level=8;foreach(var c in x.controllers)c.enchantmentId="mult2";});
             for(int stage=0;stage<24;stage++){
                 if(cfg.stages[stage].riskEnabled)Do(s,CommandKind.ChooseChallenge,c=>c.risk=true);
                 Do(s,CommandKind.StartStage);Do(s,CommandKind.Roll);Lock(s,s.State.dice.Select(x=>x.dieId).ToArray());Do(s,CommandKind.Submit);
@@ -144,7 +144,7 @@ namespace DiceCraft.Tests
                 if(stage<23){Assert.That(s.State.phase,Is.EqualTo("Shop"));Do(s,CommandKind.LeaveShop);}
             }
             Assert.That(s.State.phase,Is.EqualTo("RunWon"));Assert.That(s.State.shop,Is.Null);
-            Do(s,CommandKind.NewRun,c=>c.seed=99);Assert.That(s.State.gold,Is.EqualTo(10));Assert.That(s.State.controllers,Is.Empty);Assert.That(s.State.baseSubmitCapacity,Is.EqualTo(5));
+            Do(s,CommandKind.NewRun,c=>c.seed=99);Assert.That(s.State.gold,Is.EqualTo(0));Assert.That(s.State.controllers,Is.Empty);Assert.That(s.State.baseSubmitCapacity,Is.EqualTo(5));
         }
     }
 }

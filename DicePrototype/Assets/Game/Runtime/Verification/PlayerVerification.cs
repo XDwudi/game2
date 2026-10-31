@@ -22,9 +22,9 @@ namespace DiceCraft.Verification
     /// and presentation paths. The subsequently installed stress fixture is explicitly
     /// Debug, isolated from both the normal replay and the user's persistent saves.
     /// </summary>
-    public sealed class PlayerVerification : MonoBehaviour
+    public sealed partial class PlayerVerification : MonoBehaviour
     {
-        private const string ProbeRevision = "p05-player-independent-clocks-7";
+        private const string ProbeRevision = "p06-player-ui-native-display-9";
         private const double WarmupSeconds = 10;
         private const double SampleSeconds = 180;
         private const double FrameBudgetMs = 16.7;
@@ -52,7 +52,7 @@ namespace DiceCraft.Verification
         private bool debug24Passed;
         private bool checkpointExported;
         private string importedCheckpointStatus="not_requested";
-        [Serializable]private sealed class CheckpointExpectation{public string inputStateSha256,outputStateSha256;public long submissionScore;}
+        [Serializable]private sealed class CheckpointExpectation{public string inputStateSha256,outputStateSha256,submissionScore;}
         private readonly List<Dictionary<string, object>> debug24Steps = new List<Dictionary<string, object>>();
         private string normalFinalPhase; private int normalFinalStage;
         private int gpuInvalidSamples, gpuMissingSamples, gpuDuplicateTimestamps, timingReadFrames, focusedSampleFrames;
@@ -86,16 +86,18 @@ namespace DiceCraft.Verification
             public int[] targetPips;
             public bool risk;
             public uint seed;
-            public long actionSequence, submissionScore, stageScore, target;
-            public int gold, stageIndex, rollsRemaining, remainingSubmissions;
+            public long actionSequence, gold;
+            public string submissionScore, stageScore, target;
+            public int stageIndex, rollsRemaining, remainingSubmissions;
             public string phase;
         }
         [Serializable] private sealed class ActualStep
         {
             public int index;
             public string kind, commandId, phase;
-            public long actionSequence, submissionScore, stageScore, target;
-            public int gold, stageIndex, rollsRemaining, remainingSubmissions;
+            public long actionSequence, gold;
+            public string submissionScore, stageScore, target;
+            public int stageIndex, rollsRemaining, remainingSubmissions;
             public uint diceRngState, shopRngState, effectRngState;
             public bool isDebug, savedStateMatches, renderedStateMatches;
             public string[] pendingConfirmed;
@@ -231,6 +233,7 @@ namespace DiceCraft.Verification
             string[] args = Environment.GetCommandLineArgs();
             int flag = Array.IndexOf(args, "--verify-p0");
             if (flag < 0) return;
+            GameApp.SuppressStartupDisplay=true;
             try
             {
                 configuredTrace = RequiredArgument(args, "--verify-p0");
@@ -323,6 +326,9 @@ namespace DiceCraft.Verification
                 yield return null;
             }
             Require(SystemInfo.graphicsDeviceType != UnityEngine.Rendering.GraphicsDeviceType.Null, "A real rendered player is required; null graphics is not visual/performance evidence.");
+            string[] launchArgs = Environment.GetCommandLineArgs();
+            if (Array.IndexOf(launchArgs, "--verify-display-recovery-write") >= 0 || Array.IndexOf(launchArgs, "--verify-display-recovery-read") >= 0)
+            { yield return VerifyDisplayRecoveryProcess(); yield break; }
             normalSave = app.SaveLocation;
             Require(IsWithin(normalSave, Path.Combine(configuredDirectory, "normal-save")), "Normal save is outside the evidence directory.");
             Require(app.Session.State == null, "The isolated normal replay must start without a prior run.");
@@ -460,6 +466,9 @@ namespace DiceCraft.Verification
             normalSaveHash = Hash(File.ReadAllText(normalSave, Encoding.UTF8));
             normalPassed = true;
             WriteReport("running", null, -1);
+            yield return VerifyV06UiAndIsolation();
+            yield return VerifyV06ControllerDrag();
+            yield return VerifyV06Displays();
             yield return VerifyDebugTwentyFourStages();
             yield return RunStress();
             Require(Hash(File.ReadAllText(normalSave, Encoding.UTF8)) == normalSaveHash, "Debug stress modified the isolated normal save.");
@@ -491,6 +500,11 @@ namespace DiceCraft.Verification
                     string allText = string.Join("\n", texts);
                     Require(allText.Contains("散点"), "Handbook scatter row is missing.");
                     foreach (var hand in app.Config.handDefinitions) Require(allText.Contains(hand.displayName), "Handbook missing row " + hand.displayName);
+                    Press("HandbookColors"); yield return null;
+                    string colors = string.Join("\n", app.canvas.GetComponentsInChildren<TMPro.TextMeshProUGUI>(false).Where(t => t.gameObject.activeInHierarchy).Select(t => t.text));
+                    foreach (var color in app.Config.colorDefinitions) Require(colors.Contains(color.displayName), "Handbook color tab missing " + color.displayName);
+                    yield return Capture("v06-handbook-colors-independent"); Press("HandbookHands"); yield return null;
+                    V06Check("handbook-independent-color-tab", "Actual two-tab button events; 13 defined hands + scatter and two independent colors inspected", true);
                 }
                 InvokePrivate("CloseModal"); yield return null;
                 Require(!(bool)GetPrivate(app, "modal") && JsonUtility.ToJson(app.Session.State) == original && app.Session.PendingIds.SequenceEqual(pending), "Handbook inspection changed rules or pending selection.");
@@ -501,57 +515,7 @@ namespace DiceCraft.Verification
 
         private IEnumerator VerifyDebugTwentyFourStages()
         {
-            phase = "DebugTwentyFourStages";
-            var initial = new GameSession(app.Config, new MemorySaveStore());
-            Accept(initial.Execute(new SessionCommand { kind = CommandKind.NewRun, seed = 20261030, commandId = "debug24-new", expectedActionSequence = 0 }));
-            var state = initial.State;
-            state.isDebug = true; state.runId = "DEBUG-24-STAGES";
-            foreach (var die in state.dice) foreach (var face in die.faces) { face.permanentPip = 4; face.baseColor = "red"; face.isGold = true; }
-            foreach (var level in state.handLevels) level.level = 8;
-            string[] ids = { "C25", "C30", "C31", "C32" };
-            for (int i = 0; i < ids.Length; i++) state.controllers.Add(new ControllerInstance { instanceId = "ITEM_" + (i + 1).ToString("D5"), acquiredSerial = i + 1, definitionId = ids[i], enchantmentId = "none" });
-            state.nextItemSerial = 5;
-            string directory = Path.Combine(configuredDirectory, "debug24-save");
-            var store = new AtomicSaveStore(Path.Combine(directory, "active-run.json"), app.Config);
-            var session = new GameSession(app.Config, store, state); store.Save(state);
-            typeof(GameApp).GetProperty(nameof(GameApp.Session)).GetSetMethod(true).Invoke(app, new object[] { session });
-            SetPrivate(app, "saves", store); GameApp.SaveDirectoryOverride = directory;
-            SetPrivate(app, "inMenu", false); SetPrivate(app, "tutorial", false); SetPrivate(app, "reduced", true); app.Refresh();
-            File.WriteAllText(Path.Combine(configuredDirectory, "debug24-initial-state.json"), JsonUtility.ToJson(state, true), Encoding.UTF8);
-            int shops = 0, risks = 0;
-            for (int stage = 0; stage < 24; stage++)
-            {
-                Require(app.Session.State.stage.stageIndex == stage && app.Session.State.phase == "StagePreview", "Debug24 stage preview mismatch.");
-                if (app.Config.stages[stage].riskEnabled) { yield return Debug24Action(CommandKind.ChooseChallenge, c => c.risk = true); risks++; }
-                yield return Debug24Action(CommandKind.StartStage);
-                yield return Debug24Action(CommandKind.Roll);
-                yield return Debug24Action(CommandKind.ConfirmLocks, c => c.dieIds = app.Session.State.dice.Select(d => d.dieId).ToArray());
-                int goldBefore = app.Session.State.gold;
-                yield return Debug24Action(CommandKind.Submit);
-                Require(app.Session.State.stage.qualified && app.Session.State.phase == "HandReady" && app.Session.State.gold == goldBefore, "Debug24 qualification paid early or ended early.");
-                if (stage == 0)
-                {
-                    yield return Debug24Action(CommandKind.Roll);
-                    yield return Debug24Action(CommandKind.ConfirmLocks, c => c.dieIds = app.Session.State.dice.Select(d => d.dieId).ToArray());
-                    yield return Debug24Action(CommandKind.Submit);
-                    Require(app.Session.State.stage.submissionOrdinal == 2 && app.Session.State.stage.remainingSubmissions == 1 && app.Session.State.gold == goldBefore, "Qualified continuation reset stage counters or paid early.");
-                }
-                yield return Debug24Action(CommandKind.EndStage);
-                Require(app.Session.State.phase == "StageSettlement", "Debug24 EndStage did not produce one settlement.");
-                if (stage == 0 || stage == 23) yield return Capture("debug24-settlement-stage-" + (stage + 1));
-                yield return Debug24Action(CommandKind.Continue);
-                if (stage < 23)
-                {
-                    Require(app.Session.State.phase == "Shop" && app.Session.State.shop != null, "Debug24 missing shop."); shops++;
-                    yield return Debug24Action(CommandKind.LeaveShop);
-                }
-            }
-            Require(shops == 23 && risks == 8 && app.Session.State.phase == "RunWon" && app.Session.State.stage.stageIndex == 23 && app.Session.State.shop == null, "Debug24 did not finish exactly 24 stages, 8 risks and 23 shops.");
-            yield return Capture("debug24-run-won");
-            File.WriteAllText(Path.Combine(configuredDirectory, "debug24-final-state.json"), JsonUtility.ToJson(app.Session.State, true), Encoding.UTF8);
-            debug24Passed = true;
-            SetPrivate(app, "reduced", false);
-            Require(Hash(File.ReadAllText(normalSave, Encoding.UTF8)) == normalSaveHash, "Debug24 mutated the normal save.");
+            yield return ReplayV06DebugTrace();
         }
 
         private IEnumerator Debug24Action(CommandKind kind, Action<SessionCommand> configure = null)
@@ -746,13 +710,34 @@ namespace DiceCraft.Verification
 
         private void InstallStressFixture()
         {
+            RunState s = CreateStressState(app.Config);
+            string directory = Path.Combine(configuredDirectory, "debug-stress-save");
+            stressSave = Path.Combine(directory, "active-run.json");
+            var store = new AtomicSaveStore(stressSave, app.Config, SaveSlotPolicy.Debug);
+            var session = new GameSession(app.Config, store, s); // Production invariants validate the fixture.
+            store.Save(s);
+            File.WriteAllText(Path.Combine(configuredDirectory, "debug-initial-state.json"), JsonUtility.ToJson(s, true), Encoding.UTF8);
+            // This stress Session replacement is deliberately outside
+            // the normal-run evidence. All subsequent stress actions use GameApp.Send.
+            var setter = typeof(GameApp).GetProperty(nameof(GameApp.Session)).GetSetMethod(true);
+            Require(setter != null, "GameApp.Session private setter is unavailable.");
+            setter.Invoke(app, new object[] { session });
+            SetPrivate(app, "debugSaves", store);
+            GameApp.SaveDirectoryOverride = directory;
+            SetPrivate(app, "inMenu", false); SetPrivate(app, "tutorial", false);
+            app.Refresh();
+            Require(IsWithin(app.SaveLocation, directory), "Stress save escaped its dedicated directory.");
+            AssertStressCapacity();
+        }
+        private static RunState CreateStressState(GameConfig config)
+        {
             var memory = new MemorySaveStore();
-            var isolated = new GameSession(app.Config, memory);
+            var isolated = new GameSession(config, memory);
             Accept(isolated.Execute(new SessionCommand { kind = CommandKind.NewRun, seed = 20261028, commandId = "debug-fixture-new", expectedActionSequence = 0 }));
             Accept(isolated.Execute(new SessionCommand { kind = CommandKind.StartStage, commandId = "debug-fixture-start", expectedActionSequence = 1 }));
             RunState s = isolated.State;
-            s.isDebug = true; s.runId = "DEBUG-PERFORMANCE-" + Guid.NewGuid().ToString("N");
-            s.baseSubmitCapacity = 5; s.controllerSlots = 4; s.consumableSlots = 5;
+            s.isDebug = true; s.debugWorkspace = true; s.runId = "DEBUG-PERFORMANCE-" + Guid.NewGuid().ToString("N");
+            s.baseSubmitCapacity = 5; s.controllerSlots = 4; s.consumableSlots = 5; s.debugCapacityOverride = 8;
             s.stage.capacity = 8;
             s.phase = "Selecting"; s.dice.Clear(); s.hand.currentResults.Clear(); s.hand.orderedLockedIds.Clear();
             // Extra rolls are a Debug stress budget, never part of the normal run.
@@ -760,7 +745,7 @@ namespace DiceCraft.Verification
             s.hand.largeBuff = true; s.hand.smallBuff = true;
             for (int i = 1; i <= 10; i++)
             {
-                var die = DiceFactory.CreateStandard(app.Config, i, i <= 8 ? "permanent" : "stage_temporary", i <= 8 ? "" : s.stage.stageId);
+                var die = DiceFactory.CreateStandard(config, i, i <= 8 ? "permanent" : "stage_temporary", i <= 8 ? "" : s.stage.stageId);
                 // Glass dice stay locked; rolling the two non-glass temporary dice
                 // preserves the required maximum population throughout measurement.
                 die.isGlass = i == 2 || i == 5;
@@ -781,27 +766,13 @@ namespace DiceCraft.Verification
             string[] controllerIds = { "C03", "C06", "C12", "C39", "C21", "C22", "C25", "C30", "C31", "C36" };
             for (int i = 0; i < controllerIds.Length; i++) s.controllers.Add(new ControllerInstance {
                 instanceId = "ITEM_" + (i + 1).ToString("D5"), acquiredSerial = i + 1, definitionId = controllerIds[i],
-                enchantmentId = i < 2 ? "base5" : i < 4 ? "mult120" : "slotless" });
+                enchantmentId = i < 2 ? "base10" : i < 4 ? "mult2" : "slotless" });
             string[] itemIds = { "I01", "I03", "I04", "I06", "I07" };
-            for (int i = 0; i < itemIds.Length; i++) s.inventory.Add(new OwnedItem { instanceId = "DEBUG-I-" + i, contentId = itemIds[i] });
+            for (int i = 0; i < itemIds.Length; i++) s.inventory.Add(new OwnedItem { instanceId = "ITEM_" + (i + 11).ToString("D5"), contentId = itemIds[i] });
             s.nextItemSerial = 16;
-            string directory = Path.Combine(configuredDirectory, "debug-stress-save");
-            stressSave = Path.Combine(directory, "active-run.json");
-            var store = new AtomicSaveStore(stressSave, app.Config);
-            var session = new GameSession(app.Config, store, s); // Production invariants validate the fixture.
-            store.Save(s);
-            File.WriteAllText(Path.Combine(configuredDirectory, "debug-initial-state.json"), JsonUtility.ToJson(s, true), Encoding.UTF8);
-            // This stress Session replacement is deliberately outside
-            // the normal-run evidence. All subsequent stress actions use GameApp.Send.
-            var setter = typeof(GameApp).GetProperty(nameof(GameApp.Session)).GetSetMethod(true);
-            Require(setter != null, "GameApp.Session private setter is unavailable.");
-            setter.Invoke(app, new object[] { session });
-            SetPrivate(app, "saves", store);
-            GameApp.SaveDirectoryOverride = directory;
-            SetPrivate(app, "inMenu", false); SetPrivate(app, "tutorial", false);
-            app.Refresh();
-            Require(IsWithin(app.SaveLocation, directory), "Stress save escaped its dedicated directory.");
-            AssertStressCapacity();
+            s.stage.controllerOrderSnapshot = s.controllers.Select(c => c.instanceId).ToArray();
+            s.stage.mimicBindings = ControllerRules.FreezeBindings(s.controllers);
+            return s;
         }
         private void AssertStressCapacity()
         {
@@ -1338,7 +1309,7 @@ namespace DiceCraft.Verification
         {
             var report = new Dictionary<string, object>
             {
-                ["schema"] = "p0-player-verification-5", ["probeRevision"] = ProbeRevision,
+                ["schema"] = "p0-player-verification-6", ["probeRevision"] = ProbeRevision,
                 ["probeAssemblyMvid"] = typeof(PlayerVerification).Module.ModuleVersionId.ToString(),
                 ["status"] = status, ["phase"] = phase, ["exitCode"] = exitCode,
                 ["updatedUtc"] = DateTime.UtcNow.ToString("O"), ["environment"] = environment,
@@ -1351,6 +1322,7 @@ namespace DiceCraft.Verification
                     ["normalIsDebug"] = false, ["terminalPhase"] = normalFinalPhase, ["terminalStage"] = normalFinalStage, ["completedAll24"] = normalPassed && normalFinalPhase == "RunWon" && normalFinalStage == 24, ["rollAnimations"] = rollAnimations, ["animationSkipsTotal"] = skippedAnimations,
                     ["reducedMotionChecks"] = reducedMotionChecks,
                     ["validation"] = "Each accepted command's sequence, phase, stage, score, gold, roll/submission budgets match trace; disk load and GameApp.ViewState equal committed state." },
+                ["v06Checks"] = v06Checks, ["displayChecks"] = displayChecks, ["debugTraceSha256"] = debugTraceHash,
                 ["handbookPureReadChecks"] = handbookPureReadChecks, ["debug24"] = new Dictionary<string, object> { ["passed"] = debug24Passed, ["isDebug"] = true, ["steps"] = debug24Steps, ["purpose"] = "24-stage/risk/shop/finalization integration only; not normal progression or difficulty evidence" },
                 ["stressCompleted"] = stressCompleted, ["performance"] = performance, ["screenshots"] = screenshots,
                 ["rejectedScreenshots"] = rejectedScreenshots, ["graphicsTimingWarnings"] = graphicsTimingWarnings,

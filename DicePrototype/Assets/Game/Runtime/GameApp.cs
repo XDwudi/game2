@@ -39,7 +39,7 @@ namespace DiceCraft
         private static readonly Key[] DigitKeys={Key.Digit1,Key.Digit2,Key.Digit3,Key.Digit4,Key.Digit5,Key.Digit6,Key.Digit7,Key.Digit8,Key.Digit9,Key.Digit0};
         private Coroutine visual;
         public bool IsBusy => Session!=null && Session.Busy;
-        public string SaveLocation => saves.SavePath;
+        public string SaveLocation => ViewState?.debugWorkspace==true&&!tutorial?(debugSaves?.SavePath??saves.SavePath):saves.SavePath;
 
         void Awake()
         {
@@ -50,14 +50,15 @@ namespace DiceCraft
             FramePacer.Install();
             UiKit.Font=uiFont;
             GameConfig.ValidateJson(configAsset.text);
-            Config=JsonUtility.FromJson<GameConfig>(configAsset.text); Config.Validate();
-            saves=new AtomicSaveStore(Path.Combine(SaveDirectoryOverride??Application.persistentDataPath,"active-run.json"),Config);
+            Config=JsonUtility.FromJson<GameConfig>(GameConfig.PrepareJsonForUnity(configAsset.text)); Config.Validate();
+            saves=new AtomicSaveStore(Path.Combine(SaveDirectoryOverride??Application.persistentDataPath,"active-run.json"),Config,SaveSlotPolicy.Normal);
             volume=PlayerPrefs.GetFloat("volume",.45f); fast=PlayerPrefs.GetInt("fast",0)==1; reduced=PlayerPrefs.GetInt("reduced",0)==1;
             shopTab=PlayerPrefs.GetInt("shopTab",0);
             audioSource=gameObject.AddComponent<AudioSource>(); audioSource.volume=volume;
             main=UiKit.Rect(canvas.transform,"Screen",0,0,1920,1080); overlay=UiKit.Rect(canvas.transform,"ModalLayer",0,0,1920,1080);
             try { var restored=saves.Load(); Session=new GameSession(Config,saves,restored); notice=saves.LastLoadNotice??""; }
             catch(Exception ex){ Session=new GameSession(Config,saves); notice="恢复失败，原存档保留："+ex.Message; }
+            InitializeDisplay();
             Refresh();
         }
         public void Refresh()
@@ -73,8 +74,8 @@ namespace DiceCraft
             // Pending selection and presentation flags do not mutate committed run data.
             // Reuse its detached snapshot until the session or accepted sequence changes.
             if(!ReferenceEquals(displayedSession,Session)||ViewState==null||ViewState.actionSequence!=Session.ActionSequence)
-            { ViewState=Session?.State;displayedSession=Session; }
-            UiKit.Clear(main); table.Hide(); visibleDice.Clear(); dieCenters.Clear();
+            { ViewState=Session?.State;displayedSession=Session;controllerSourceCache=null; }
+            UiKit.Clear(main); table.Hide(); visibleDice.Clear(); dieCenters.Clear(); controllerRects.Clear();
             if(inMenu || ViewState==null) { inMenu=true; Menu(); if(Session.HasPendingSave)SaveFailure(); return; }
             Header();
             switch(ViewState.phase)
@@ -86,6 +87,7 @@ namespace DiceCraft
                 default: Gameplay();break;
             }
             UiKit.Text(main,"Toast",notice,40,1030,1260,34,21,UiKit.Gold);
+            if(DebugUnlocked&&IsDebugWorkspace)UiKit.Button(main,"DebugWorkspace","调试面板",36,1020,180,44,ShowDebugPanel);
             UiKit.Button(main,"Pause","设置 / 暂停",1540,1020,160,44,Pause);
             UiKit.Button(main,"Handbook","牌型手册 [H]",1340,1020,180,44,ShowHandbook,!IsBusy&&!Session.HasPendingSave);
             if(Session.HasPendingSave) SaveFailure();
@@ -96,7 +98,7 @@ namespace DiceCraft
             UiKit.Text(main,"Overline","DICE / BUILD / DECIDE",72,125,960,45,25,UiKit.Teal);
             UiKit.Text(main,"Title","骰子构筑",64,210,1000,150,112);
             UiKit.Text(main,"Subtitle","每一次锁定，都在塑造下一次可能。",72,383,1000,60,34,UiKit.Muted);
-            UiKit.Text(main,"Edition","P0 v0.5  ·  八章 · 二十四关\n五颗骰子开始，构筑属于你的得分方式。",74,495,900,110,27);
+            UiKit.Text(main,"Edition","P0 v0.6  ·  八章 · 二十四关\n五颗骰子开始，构筑属于你的得分方式。",74,495,900,110,27);
             UiKit.Text(main,"RuleHint","投掷 → 选择 → 确认锁定 → 提交\n确认后的骰子，本手不能直接解除。",74,715,940,120,27,UiKit.Muted);
             var panel=UiKit.Box(main,"StartPanel",1160,200,650,680,UiKit.Panel);
             UiKit.Text(panel,"StartTitle","开始一场挑战",42,42,560,60,38);
@@ -108,6 +110,7 @@ namespace DiceCraft
             UiKit.Text(panel,"SavedSeed",ViewState==null?"每次有效操作后自动保存。":"存档种子 "+ViewState.seed+"  ·  第 "+(ViewState.stage.stageIndex+1)+" 关",42,552,566,70,21,UiKit.Muted);
             UiKit.Text(main,"MenuNotice",notice,72,930,1730,70,22,UiKit.Gold);
             UiKit.Text(main,"Version","原型测试版  /  "+Config.configVersion,74,1020,1300,32,20,UiKit.Muted);
+            UiKit.Button(main,"MenuSettings","设置",1370,1010,180,44,Pause);
             UiKit.Button(main,"BuildVersion","版本与构建",1580,1010,230,44,ShowBuildVersion);
         }
         public void StartNew(string seedText)
@@ -121,10 +124,12 @@ namespace DiceCraft
         }
         public CommandResult Send(SessionCommand cmd)
         {
+            if(IsControllerDragging)return new CommandResult{accepted=false,error="先完成或取消控制器拖拽。"};
             if(cmd.kind==CommandKind.ConfirmLocks)cmd.dieIds=Session.PendingIds;
             cmd.commandId=Guid.NewGuid().ToString("N");cmd.expectedActionSequence=Session.ActionSequence;
             var result=Session.Execute(cmd);
             if(!result.accepted){notice=result.error??"操作未完成";PlaySound("reject");Refresh();return result;}
+            if(result.noChange)return result;
             PresentCommitted(cmd,result);
             return result;
         }
@@ -134,7 +139,8 @@ namespace DiceCraft
             notice="";
             if(result.receipt!=null && result.receipt.effects!=null)
             {
-                notice=string.Join("；",result.receipt.effects.Where(e=>e.kind=="DieCopied"||e.kind=="FaceDyed"||e.kind=="DieBroken"||e.kind=="TemporaryDieExpired").Select(EffectText));
+                notice=string.Join("；",result.receipt.effects.Where(e=>e.kind=="DieCopied"||e.kind=="FaceDyed"||e.kind=="DieBroken"||e.kind=="TemporaryDieExpired"||e.kind=="ControllerDestroyed").Select(EffectText));
+                if(result.receipt.effects.Any(e=>e.kind=="ControllerDestroyed"))PlaySound("cannon");
                 if(result.receipt.effects.Any(e=>e.kind=="DieBroken"))PlaySound("break");
                 else if(result.receipt.effects.Any(e=>e.kind=="DieCopied"))PlaySound("copy");
                 else if(result.receipt.effects.Any(e=>e.kind=="FaceDyed"))PlaySound("dye");
@@ -145,8 +151,8 @@ namespace DiceCraft
             if(submit)
             {
                 var committedScore=Session.State.lastSubmission.breakdown;
-                if(committedScore.enchantBaseCount>0){notice+=" 附魔触发：基础 +"+committedScore.enchantBaseAdd;PlaySound("enchant_base5");}
-                if(committedScore.enchantMultiplierCount>0){notice+=" 附魔触发：×1.2 共 "+committedScore.enchantMultiplierCount+" 次";PlaySound("enchant_mult120");}
+                if(committedScore.enchantBaseCount>0){notice+=" 附魔触发：基础 +"+committedScore.enchantBaseAdd;PlaySound("enchant_base10");}
+                if(committedScore.enchantMultiplierCount>0){notice+=" 附魔触发：×2 共 "+committedScore.enchantMultiplierCount+" 次";PlaySound("enchant_mult2");}
             }
             if(roll || submit)
             {
@@ -163,11 +169,11 @@ namespace DiceCraft
         private void Header()
         {
             UiKit.Text(main,"Brand","骰子构筑",36,24,330,60,38);
-            UiKit.Text(main,"RunKind",tutorial?"独立练习 · 不带入挑战":ViewState.isDebug?"DEBUG · 测试挑战":"P0 / 24关构筑",39,87,500,32,20,tutorial||ViewState.isDebug?UiKit.Gold:UiKit.Muted);
+            UiKit.Text(main,"RunKind",tutorial?"独立练习 · 不带入挑战":ViewState.debugWorkspace?"DEBUG · 独立试验工作区":"P0 / 24关构筑",39,87,500,32,20,tutorial||ViewState.isDebug?UiKit.Gold:UiKit.Muted);
             int stageNumber=ViewState.stage.stageIndex+1;
             UiKit.Text(main,"Stage",$"第 {(stageNumber-1)/3+1}/8 章 · 本章 {(stageNumber-1)%3+1}/3\n总第 {stageNumber}/{Config.stages.Length} 关",535,20,440,65,24);
             UiKit.Text(main,"Seed","种子 "+ViewState.seed,535,84,440,32,20,UiKit.Muted);
-            UiKit.Text(main,"Goal","目标  "+ViewState.stage.target.ToString("N0"),980,32,420,50,30,UiKit.Gold);
+            UiKit.Text(main,"Goal","目标  "+CompactScore(ViewState.stage.target),980,32,420,50,30,UiKit.Gold);
             UiKit.Text(main,"Money",ViewState.gold+"  金币",1510,27,370,58,37,UiKit.Gold,TextAlignmentOptions.TopRight);
             UiKit.Button(main,"HeaderHandbook","牌型手册 [H]",1650,86,230,40,ShowHandbook,!IsBusy&&!Session.HasPendingSave);
             UiKit.Box(main,"Divider",36,132,1844,2,UiKit.PanelLight);
@@ -175,7 +181,7 @@ namespace DiceCraft
         private void StagePreview()
         {
             var def=Config.stages[ViewState.stage.stageIndex];
-            int normalTarget=tutorial?50:def.normalTarget;
+            string normalTarget=tutorial?"50":def.normalTarget;
             UiKit.Text(main,"PreviewLabel","下一关",90,205,800,48,28,UiKit.Teal);
             UiKit.Text(main,"PreviewNumber",(ViewState.stage.stageIndex+1).ToString("00"),80,275,570,210,155,UiKit.Paper);
             UiKit.Text(main,"PreviewCopy","用有限的提交次数，\n累积达到目标分数。",90,535,800,130,42);
@@ -184,6 +190,7 @@ namespace DiceCraft
             if(def.riskEnabled)UiKit.Button(main,"Risk",$"高压挑战\n{def.riskTarget} 分 · 基础奖励 {def.riskReward}",1040,445,720,145,()=>Send(new SessionCommand{kind=CommandKind.ChooseChallenge,risk=true}),true,ViewState.stage.risk);
             else UiKit.Text(main,"NoRisk","本关仅开放普通挑战",1040,475,720,60,26,UiKit.Muted);
             UiKit.Text(main,"ChoiceHint","进入后无法更改挑战。\n过关奖励 + 剩余提交 + 旧余额利息（计息本金最多50）。",1040,640,720,105,26,UiKit.Muted);
+            UiKit.Button(main,"PreviewControllers","排列控制器 · 查看状态",90,905,1670,58,ShowControllerOrder);
             UiKit.Button(main,"StartStage","进入挑战  →",1040,795,720,84,()=>Send(new SessionCommand{kind=CommandKind.StartStage}),true,true);
         }
         private void Gameplay()
@@ -191,7 +198,7 @@ namespace DiceCraft
             var s=ViewState;var h=s.hand;bool pending=Session.PendingIds.Length>0;bool busy=Session.Busy;
             var left=UiKit.Box(main,"RoundPanel",36,165,285,625,UiKit.Panel);
             UiKit.Text(left,"ScoreLabel","本关累计",22,24,245,38,24,UiKit.Muted);
-            UiKit.Text(left,"StageScore",s.stage.score.ToString("N0"),20,75,250,80,52);
+            UiKit.Text(left,"StageScore",CompactScore(s.stage.score),20,75,250,80,38);
             UiKit.Text(left,"Attempts","剩余提交",22,185,245,38,24,UiKit.Muted);
             UiKit.Text(left,"AttemptsValue",s.stage.remainingSubmissions.ToString(),22,232,245,65,46);
             UiKit.Text(left,"Rolls","剩余投掷",22,330,245,38,24,UiKit.Muted);
@@ -200,19 +207,23 @@ namespace DiceCraft
             UiKit.Text(main,"PoolTitle","骰池",355,165,450,36,25,UiKit.Muted);
             UiKit.Text(main,"PoolHint",h.hasRolled?"点击待锁  ·  右键查看六面与概率":"投掷开始这一手",820,165,565,36,21,UiKit.Muted,TextAlignmentOptions.TopRight);
             var unlocked=s.dice.Where(d=>!h.orderedLockedIds.Contains(d.dieId)).OrderBy(d=>d.createdSerial).ToList();
-            for(int i=0;i<unlocked.Count;i++)
+            poolPage=Math.Min(poolPage,Math.Max(0,(unlocked.Count-1)/10));
+            if(unlocked.Count>10)UiKit.Button(main,"PoolPage","骰池页 "+(poolPage+1)+" / "+((unlocked.Count+9)/10)+" >",1000,205,385,36,()=>{poolPage=(poolPage+1)%((unlocked.Count+9)/10);Refresh();});
+            for(int i=0;i<Math.Min(10,unlocked.Count-poolPage*10);i++)
             {
-                var die=unlocked[i];var result=h.currentResults.FirstOrDefault(x=>x.dieId==die.dieId);
+                var die=unlocked[i+poolPage*10];var result=h.currentResults.FirstOrDefault(x=>x.dieId==die.dieId);
                 float x=380+(i%5)*200,y=unlocked.Count>5?250+(i/5)*155:310;
                 DrawDie(die,result,new Vector2(x+75,y),false,i,unlocked.Count>5?.8f:1f);
             }
             UiKit.Box(main,"PoolLine",355,515,1030,2,UiKit.PanelLight);
             UiKit.Text(main,"SlotsTitle",$"有序提交   {h.orderedLockedIds.Count} / {s.stage.capacity}",355,536,700,35,25,UiKit.Muted);
             UiKit.Text(main,"LockRule","确认后本手不可直接解除",860,536,525,35,21,UiKit.Gold,TextAlignmentOptions.TopRight);
-            float slotW=1030f/s.stage.capacity;
-            for(int i=0;i<s.stage.capacity;i++)
+            int slotsOnPage=Math.Min(8,s.stage.capacity);slotPage=Math.Min(slotPage,Math.Max(0,(s.stage.capacity-1)/8));
+            if(s.stage.capacity>8)UiKit.Button(main,"SlotPage","提交页 "+(slotPage+1)+" / "+((s.stage.capacity+7)/8)+" >",1065,575,320,34,()=>{slotPage=(slotPage+1)%((s.stage.capacity+7)/8);Refresh();});
+            float slotW=1030f/slotsOnPage;
+            for(int visible=0;visible<Math.Min(8,s.stage.capacity-slotPage*8);visible++)
             {
-                float x=355+i*slotW;UiKit.Box(main,"SlotLine"+i,x+5,739,slotW-10,3,i<h.orderedLockedIds.Count?UiKit.Gold:UiKit.PanelLight);
+                int i=visible+slotPage*8;float x=355+visible*slotW;UiKit.Box(main,"SlotLine"+i,x+5,739,slotW-10,3,i<h.orderedLockedIds.Count?UiKit.Gold:UiKit.PanelLight);
                 UiKit.Text(main,"SlotIndex"+i,(i+1).ToString("00"),x+10,579,slotW-20,30,18,UiKit.Muted);
                 if(i<h.orderedLockedIds.Count){var id=h.orderedLockedIds[i];DrawDie(s.dice.First(d=>d.dieId==id),h.currentResults.First(r=>r.dieId==id),new Vector2(x+slotW/2,640),true,i,Mathf.Min(.85f,slotW/180f));}
                 else UiKit.Text(main,"EmptySlot"+i,"空栏",x,638,slotW,45,23,UiKit.Muted,TextAlignmentOptions.Center);
@@ -244,7 +255,7 @@ namespace DiceCraft
             var hit=UiKit.Box(main,"Die_"+die.dieId,center.x-hitWidth/2,center.y-65,hitWidth,130,new Color(0,0,0,0),true);
             var pointer=UiKit.Component<DiePointer>(hit.gameObject);pointer.clicked=null;pointer.dragStart=null;pointer.dragged=null;pointer.dragEnd=null;string id=die.dieId;
             pointer.clicked=e=> {if(modal||IsBusy)return;if(e.button==PointerEventData.InputButton.Right||locked){ShowDie(id);return;}Session.TogglePending(id);Refresh();};
-            if(locked){pointer.dragEnd=e=>{if(modal||IsBusy||Session.PendingIds.Length>0)return;Vector2 ui=new Vector2(e.position.x/Screen.width*1920,(1-e.position.y/Screen.height)*1080);string target=dieCenters.Where(k=>ViewState.hand.orderedLockedIds.Contains(k.Key)).OrderBy(k=>(k.Value-ui).sqrMagnitude).First().Key;
+            if(locked){pointer.dragEnd=e=>{if(modal||IsBusy||Session.PendingIds.Length>0)return;Vector2 ui=ScreenToDesign(e.position);string target=dieCenters.Where(k=>ViewState.hand.orderedLockedIds.Contains(k.Key)).OrderBy(k=>(k.Value-ui).sqrMagnitude).First().Key;
                 var ids=ViewState.hand.orderedLockedIds.ToArray();int from=Array.IndexOf(ids,id),to=Array.IndexOf(ids,target);(ids[from],ids[to])=(ids[to],ids[from]);Send(new SessionCommand{kind=CommandKind.Reorder,dieIds=ids});};}
             if(!locked)visibleDice.Add(id);
             string current=result!=null&&result.hasRolled?result.currentPip+(result.currentColor=="red"?" 红 R":" 蓝 B"):"等待投掷";
@@ -259,26 +270,27 @@ namespace DiceCraft
         private void ScorePanel()
         {
             var p=UiKit.Box(main,"ScorePanel",1420,165,460,637,UiKit.Panel);UiKit.Text(p,"Title","提交预览",24,20,412,42,28);
-            ScoreBreakdown b=Session.PreviewScore();
+            var preview=Session.PreviewScoreRange();ScoreBreakdown b=preview?.minimum;
             if(b==null){UiKit.Text(p,"Empty","确认锁定骰子后，\n这里会显示完整得分。\n\n一颗骰子也可以提交。",24,116,410,270,26,UiKit.Muted);return;}
             string hand=b.chosenGroupId==null||b.chosenGroupId==""?"散点":NameOf(b.chosenGroupId);
-            UiKit.Text(p,"Hand",hand+(b.straightMult100>0?" + 顺子":"")+(b.colorMult100>0?" + 同色":""),24,80,412,70,27,UiKit.Teal);
+            UiKit.Text(p,"Hand",hand+(b.straightMult100>0?" + 顺子":"")+(b.colorId!=null?" · "+NameOf(b.colorId):""),24,80,412,70,27,UiKit.Teal);
             string[] rows={"骰子贡献  "+b.pipSum+"  +  剩掷奖励  "+b.unusedRollBonus,
-                $"同点 {Factor(b.groupMult100)} + 顺子 {Factor(b.straightMult100)} + 颜色 {Factor(b.colorMult100)}",
-                "牌型总倍率  ×"+Factor(b.totalHandMult100),
+                $"牌型 同点 {Factor(b.groupMult100)} + 顺子 {Factor(b.straightMult100)}",
+                "牌型 ×"+Factor(b.totalHandMult100)+" · 颜色 ×"+Factor(b.colorMult100),
                 "同点红组  "+b.redCount+"颗 · ×"+Factor(b.redMult100),
-                "全手基础  +"+b.pairBaseAdd+"（对子） +"+b.enchantBaseAdd+"（附魔）",
-                "控制器 ×"+b.controllerMultiplier+" · 附魔 ×1.2 ^ "+b.enchantMultiplierCount};
+                "全手基础 "+Big(b.baseTotal)+"（含钱包/空栏/附魔）",
+                "控制器 ×"+b.controllerMultiplierNumerator+"/"+b.controllerMultiplierDenominator+" · 附魔 2^"+b.enchantMultiplierCount};
             for(int i=0;i<rows.Length;i++)UiKit.Text(p,"Breakdown"+i,rows[i],24,166+i*46,412,40,22,i==2?UiKit.Gold:UiKit.Paper);
-            UiKit.Text(p,"FinalScore",b.score.ToString("N0"),24,459,412,80,57,UiKit.Gold);
+            UiKit.Text(p,"FinalScore",preview.isRandom?CompactScore(b.score)+" — "+CompactScore(preview.maximum.score):CompactScore(b.score),24,459,412,85,preview.isRandom?28:40,UiKit.Gold);
+            if(preview.isRandom)UiKit.Text(p,"RandomPreview","随机范围 · 确认提交才抽样",24,530,412,28,19,UiKit.Muted);
             UiKit.Button(p,"Expanded","查看逐骰与效果明细",24,562,412,48,()=>ShowBreakdown(Session.PreviewSnapshot(),b));
         }
         private void Settlement()
         {
             var r=ViewState.lastStageSettlement;
             UiKit.Text(main,"Cleared","挑战达成",100,230,900,100,72,UiKit.Teal);
-            UiKit.Text(main,"FinalStageScore",r.score.ToString("N0")+" 分",100,390,900,120,83);
-            UiKit.Text(main,"ScoreTarget","目标 "+r.target.ToString("N0")+"  ·  溢出分不带入下一关",105,550,900,55,26,UiKit.Muted);
+            UiKit.Text(main,"FinalStageScore",Big(r.score)+" 分",100,390,900,120,83);
+            UiKit.Text(main,"ScoreTarget","目标 "+Big(r.target)+"  ·  溢出分不带入下一关",105,550,900,55,26,UiKit.Muted);
             var p=UiKit.Box(main,"Rewards",1090,220,690,590,UiKit.Panel);
             UiKit.Text(p,"RewardTitle","本关收益",34,32,620,60,36);
             UiKit.Text(p,"RewardRows",$"奖励前金币                 {r.goldBefore}\n基础奖励                     +{r.baseReward}\n剩余提交                     +{r.unusedSubmissionReward}\n利息{(r.pig?"（存钱罐）":"")}                     +{r.interest}\n计息本金 {r.interestPrincipal} / 50",34,132,620,280,29);
@@ -297,11 +309,22 @@ namespace DiceCraft
         }
         private void Update()
         {
+            TickDisplay();
             var k=Keyboard.current;if(k==null)return;
+            if(IsControllerDragging){if(k.escapeKey.wasPressedThisFrame)CancelControllerDrag();return;}
+            if(DisplayPreferences!=null&&DisplayPreferences.IsPending){if(k.escapeKey.wasPressedThisFrame)DisplayPreferences.Revert();return;}
             if(k.escapeKey.wasPressedThisFrame){if(modal)CloseModal();else if(!inMenu)Pause();return;}
-            if(inMenu||modal||Session==null||ViewState==null||IsBusy)return;
             var selected=EventSystem.current!=null?EventSystem.current.currentSelectedGameObject:null;
-            if(selected!=null&&selected.GetComponentInParent<TMP_InputField>()!=null)return;
+            var input=selected!=null?selected.GetComponentInParent<TMP_InputField>():null;
+            if(input!=null)
+            {
+                // The gameplay Enter binding never shares a frame with a focused editor.
+                // Explicit routing also works with Input System keyboards in both Players.
+                if(input.isFocused&&(k.enterKey.wasPressedThisFrame||k.numpadEnterKey.wasPressedThisFrame))
+                {string value=input.text;input.onSubmit.Invoke(value);if(input!=null)input.DeactivateInputField();}
+                return;
+            }
+            if(inMenu||modal||Session==null||ViewState==null||IsBusy)return;
             if(k.hKey.wasPressedThisFrame){ShowHandbook();return;}
             if(ViewState.phase!="Selecting"&&ViewState.phase!="HandReady")return;
             for(int i=0;i<DigitKeys.Length&&i<visibleDice.Count;i++)if(k[DigitKeys[i]].wasPressedThisFrame){Session.TogglePending(visibleDice[i]);Refresh();return;}
@@ -309,19 +332,21 @@ namespace DiceCraft
             else if(k.spaceKey.wasPressedThisFrame)Send(new SessionCommand{kind=CommandKind.Roll});
             else if(k.enterKey.wasPressedThisFrame)Send(new SessionCommand{kind=CommandKind.Submit});
         }
-        private void ReturnMenu(){if(IsBusy)SkipVisual();CloseModal();inMenu=true; if(tutorial){tutorial=false;Session=new GameSession(Config,saves,saves.Load());}Refresh();}
-        private void OnApplicationPause(bool paused){if(paused&&IsBusy)SkipVisual();}
+        private void ReturnMenu(){if(IsBusy)SkipVisual();if(Session.HasPendingSave){SaveFailure();return;}CloseModal();inMenu=true; if(tutorial||IsDebugWorkspace){tutorial=false;Session=new GameSession(Config,saves,saves.Load());debugDraft=null;}Refresh();}
+        private void OnApplicationPause(bool paused){if(paused){CancelControllerDrag();if(IsBusy)SkipVisual();}}
         private void OnDestroy(){FramePacer.Stop();UiKit.Font=null;}
         private void LogCommand(SessionCommand command,CommandResult result)
         {
-            try {var s=ViewState;string file=Path.Combine(SaveDirectoryOverride??Application.persistentDataPath,(tutorial||s.isDebug?"debug":"normal")+"-actions.jsonl");
+            try {var s=ViewState;string file=Path.Combine(SaveDirectoryOverride??Application.persistentDataPath,(tutorial||s.isDebug||s.debugWorkspace?"debug":"normal")+"-actions.jsonl");
                 File.AppendAllText(file,JsonUtility.ToJson(new ActionLog{seed=s.seed,runId=s.runId,phase=s.phase,action=command,receipt=result.receipt})+"\n",Encoding.UTF8);}
             catch(Exception ex) when(ex is IOException || ex is UnauthorizedAccessException || ex is System.Security.SecurityException){Debug.LogWarning("操作日志写入失败（存档已保存）："+ex.Message);}
         }
         [Serializable]private sealed class ActionLog{public uint seed;public string runId,phase;public SessionCommand action;public CommandReceipt receipt;}
         private void PlaySound(string name){if(sounds==null)return;var c=sounds.FirstOrDefault(x=>x!=null&&x.name.IndexOf(name,StringComparison.OrdinalIgnoreCase)>=0);if(c!=null)audioSource.PlayOneShot(c,1f);}
         private string Factor(int n)=>(n/100m).ToString("0.##");
-        private string NameOf(string id){if(string.IsNullOrEmpty(id))return "散点";if(id.StartsWith("C"))return Config.Controller(id).displayName;if(id.StartsWith("I"))return Config.Consumable(id).displayName;if(id.StartsWith("O"))return Config.Service(id).displayName;if(id.StartsWith("U"))return Config.Upgrade(id).displayName;return Config.Hand(id).displayName;}
-        private string Description(string id){if(id.StartsWith("C"))return Config.Controller(id).description;if(id.StartsWith("I"))return Config.Consumable(id).description;if(id.StartsWith("O"))return Config.Service(id).description;if(id.StartsWith("U"))return Config.Upgrade(id).description;var h=Config.Hand(id);return "本Run持续生效；每级倍率 +"+Factor(h.incrementPerLevel100)+"，最高"+h.maxLevel+"级。";}
+        private static string Big(string value)=>System.Numerics.BigInteger.Parse(value??"0",System.Globalization.CultureInfo.InvariantCulture).ToString("N0",System.Globalization.CultureInfo.InvariantCulture);
+        private static string CompactScore(string value)=>value!=null&&value.Length>15?value.Substring(0,6)+"…（"+value.Length+"位）":Big(value);
+        private string NameOf(string id){if(string.IsNullOrEmpty(id)||id=="none"||id=="scatter")return "散点";if(id=="all_blue"||id=="all_red")return Config.Color(id).displayName;if(id.StartsWith("C"))return Config.Controller(id).displayName;if(id.StartsWith("I"))return Config.Consumable(id).displayName;if(id.StartsWith("O"))return Config.Service(id).displayName;if(id.StartsWith("U"))return Config.Upgrade(id).displayName;return Config.Hand(id).displayName;}
+        private string Description(string id){if(id=="all_blue"||id=="all_red"){var c=Config.Color(id);return "全部提交骰为有效"+(id=="all_red"?"红":"蓝")+"色即成立，无最少数量。独立乘区，每级 +"+Factor(c.incrementPerLevel100)+"。";}if(id.StartsWith("C"))return Config.Controller(id).description;if(id.StartsWith("I"))return Config.Consumable(id).description;if(id.StartsWith("O"))return Config.Service(id).description;if(id.StartsWith("U"))return Config.Upgrade(id).description;var h=Config.Hand(id);return "本Run持续生效；每级倍率 +"+Factor(h.incrementPerLevel100)+"，最高"+h.maxLevel+"级。";}
     }
 }

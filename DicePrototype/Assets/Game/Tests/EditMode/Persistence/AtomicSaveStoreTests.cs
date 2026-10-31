@@ -24,7 +24,7 @@ namespace DiceCraft.Tests
         {
             string json = File.ReadAllText(Path.Combine(Application.dataPath, "Game/Data/P0Config.json"));
             GameConfig.ValidateJson(json);
-            config = JsonUtility.FromJson<GameConfig>(json);
+            config = JsonUtility.FromJson<GameConfig>(GameConfig.PrepareJsonForUnity(json));
             config.Validate();
             directory = Path.Combine(Application.temporaryCachePath, "DiceCraftPersistence_" + Guid.NewGuid().ToString("N"));
             Directory.CreateDirectory(directory);
@@ -101,7 +101,7 @@ namespace DiceCraft.Tests
             var envelope=JsonUtility.FromJson<Envelope>(File.ReadAllText(path));
             var broken=JsonUtility.FromJson<RunState>(envelope.payload);
             if(defect=="triggers")broken.lastSubmission.breakdown.triggeredControllerIds=null;
-            else broken.lastSubmission.breakdown.score++;
+            else broken.lastSubmission.breakdown.score=ExactScoreMath.Add(broken.lastSubmission.breakdown.score,"1");
             envelope.payload=JsonUtility.ToJson(broken);
             using(var sha=SHA256.Create())envelope.sha256=BitConverter.ToString(sha.ComputeHash(Encoding.UTF8.GetBytes(envelope.payload))).Replace("-","").ToLowerInvariant();
             File.WriteAllText(path,JsonUtility.ToJson(envelope));

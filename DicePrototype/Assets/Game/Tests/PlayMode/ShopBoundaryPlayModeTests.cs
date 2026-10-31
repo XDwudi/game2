@@ -25,7 +25,7 @@ namespace DiceCraft.Tests
                 AddBoundaryOffer(fixture, "straight", "hand_upgrade", "straight");
                 AddBoundaryOffer(fixture, "pair", "hand_upgrade", "pair");
                 AddBoundaryOffer(fixture, "U06", "die_upgrade", "U06");
-                yield return LoadBoundaryFixture(fixture); Click("ContinueRun");
+                yield return LoadBoundaryFixture(fixture); ResumeBoundaryFixture();
                 if (!studyFirst)
                 {
                     BuyBoundaryOffer("C09");
@@ -37,7 +37,7 @@ namespace DiceCraft.Tests
                     Assert.That(HasActive("StudyBuystraight"), Is.False, "Self-study must apply the same reduced capacity immediately.");
                     Click("CloseDialog");
                     string instance = app.Session.State.controllers.Single(c => c.contentId == "C09").instanceId;
-                    int beforeSell = app.Session.State.gold;
+                    long beforeSell = app.Session.State.gold;
                     Click("Controller_" + instance); Click("SellController");
                     Assert.That(app.Session.State.gold, Is.EqualTo(beforeSell + 1));
                     Assert.That(app.Session.EffectiveCapacity, Is.EqualTo(5));
@@ -63,7 +63,7 @@ namespace DiceCraft.Tests
                 {
                     Click("Tab2"); Click("Study");
                     Assert.That(Button("StudyBuypair").GetComponentInChildren<TextMeshProUGUI>().text, Is.EqualTo((basePrice + premium) + " 金币"));
-                    int gold = app.Session.State.gold; Click("StudyBuypair");
+                    long gold = app.Session.State.gold; Click("StudyBuypair");
                     Assert.That(app.Session.State.gold, Is.EqualTo(gold - basePrice - premium));
                     OpenBoundaryOffer("pair");
                     Assert.That(DialogLabel("Price"), Does.StartWith("价格 " + (basePrice + increment) + " 金币"));
@@ -76,7 +76,7 @@ namespace DiceCraft.Tests
                     Click("Study");
                     Assert.That(FindActive<TextMeshProUGUI>("StudyNamepair").text, Does.Contain("Lv.1 → 2"));
                     Assert.That(Button("StudyBuypair").GetComponentInChildren<TextMeshProUGUI>().text, Is.EqualTo((basePrice + increment + premium) + " 金币"));
-                    int gold = app.Session.State.gold; Click("StudyBuypair");
+                    long gold = app.Session.State.gold; Click("StudyBuypair");
                     Assert.That(app.Session.State.gold, Is.EqualTo(gold - basePrice - increment - premium));
                 }
                 Assert.That(app.Session.State.handLevels.Single(h => h.handId == "pair").level, Is.EqualTo(2));
@@ -91,8 +91,7 @@ namespace DiceCraft.Tests
         {
             var fixture = ShopBoundaryFixture(); fixture.shop.offers.Clear();
             foreach (string id in Enumerable.Range(1, 7).Select(i => "U" + i.ToString("D2"))) AddBoundaryOffer(fixture, id, "die_upgrade", id);
-            AddBoundaryOffer(fixture, "duplicate-smooth", "die_upgrade", "U01");
-            yield return LoadBoundaryFixture(fixture); Click("ContinueRun");
+            yield return LoadBoundaryFixture(fixture); ResumeBoundaryFixture();
             foreach (string id in Enumerable.Range(1, 7).Select(i => "U" + i.ToString("D2")))
             {
                 string before = StateJson(); var priorDie = app.Session.State.dice.Single(d => d.dieId == "D001");
@@ -105,7 +104,7 @@ namespace DiceCraft.Tests
                 Click("CloseDialog");
                 Assert.That(StateJson(), Is.EqualTo(before), "Selecting and cancelling " + id + " must not charge, modify or draw RNG.");
                 OpenBoundaryOffer(id); SelectUpgradeTarget(id);
-                int gold = app.Session.State.gold; Click("ConfirmPurchase");
+                long gold = app.Session.State.gold; Click("ConfirmPurchase");
                 var current = app.Session.State;
                 Assert.That(current.gold, Is.EqualTo(gold - app.Config.Upgrade(id).buyPrice));
                 var command = current.processedReceipts.Last().command;
@@ -118,6 +117,10 @@ namespace DiceCraft.Tests
                 CollectionAssert.AreEqual(priorDie.faces.Select(f => f.faceId), changed.faces.Select(f => f.faceId));
                 if (id == "U01")
                 {
+                    fixture = app.Session.State;
+                    fixture.shop.offers.RemoveAll(o => o.category == "die_upgrade" && o.contentId == "U01");
+                    AddBoundaryOffer(fixture, "duplicate-smooth", "die_upgrade", "U01");
+                    yield return LoadBoundaryFixture(fixture); ResumeBoundaryFixture();
                     string accepted = StateJson();
                     OpenBoundaryOffer("duplicate-smooth"); SelectUpgradeTarget("U01");
                     Assert.That(Button("ConfirmPurchase").interactable, Is.False);
@@ -143,7 +146,7 @@ namespace DiceCraft.Tests
             fixture.dice.Add(DiceFactory.CreateStandard(app.Config, fixture.nextDieSerial++)); fixture.dice.Add(DiceFactory.CreateStandard(app.Config, fixture.nextDieSerial++));
             fixture.shop.offers = candidates.ToList(); AddBoundaryOffer(fixture, "remove", "service", "O04");
             string frozenCandidate = JsonUtility.ToJson(candidates[1].die);
-            yield return LoadBoundaryFixture(fixture); Click("ContinueRun");
+            yield return LoadBoundaryFixture(fixture); ResumeBoundaryFixture();
             BuyBoundaryOffer(candidates[0].offerId);
             Assert.That(app.Session.State.dice.Count, Is.EqualTo(8));
             string full = StateJson();
@@ -168,7 +171,7 @@ namespace DiceCraft.Tests
 
             fixture = app.Session.State; fixture.dice = fixture.dice.Take(1).ToList(); fixture.shop.offers.Clear();
             AddBoundaryOffer(fixture, "last-remove", "service", "O04");
-            yield return LoadBoundaryFixture(fixture); Click("ContinueRun");
+            yield return LoadBoundaryFixture(fixture); ResumeBoundaryFixture();
             string lastDieState = StateJson();
             OpenBoundaryOffer("last-remove"); Click("Target_" + fixture.dice[0].dieId);
             Assert.That(Button("ConfirmPurchase").interactable, Is.False);
@@ -204,11 +207,11 @@ namespace DiceCraft.Tests
                 : category == "service" ? app.Config.Service(contentId).baseBuyPrice : 0;
             fixture.shop.offers.Add(new ShopOffer
             {
-                offerId = offerId, category = category, contentId = contentId, basePrice = basePrice,
+                offerId = offerId, batchId = fixture.shop.generationId + "/" + category + (category == "controller" ? "/" + fixture.shop.controllerGeneration : ""), category = category, contentId = contentId, basePrice = basePrice,
                 controller = category == "controller" ? BoundaryController(fixture, contentId) : null
             });
         }
-        // Schema 3 persists the controller's acquisition identity, including unsold offers.
+        // Schema 4 persists the controller's acquisition identity, including unsold offers.
         // Allocate from the same serial namespace as production; never bypass validation.
         private static ControllerInstance BoundaryController(RunState fixture, string definitionId, string enchantmentId = "none")
         {

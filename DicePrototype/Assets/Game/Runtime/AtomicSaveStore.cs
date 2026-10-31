@@ -8,6 +8,7 @@ using UnityEngine;
 
 namespace DiceCraft
 {
+    public enum SaveSlotPolicy { Any, Normal, Debug }
     /// <summary>Writes and flushes a complete candidate before replacing the active save.
     /// The core owns retry/idempotency; this adapter never recomputes game results.</summary>
     public sealed class AtomicSaveStore : ISaveStore
@@ -21,10 +22,11 @@ namespace DiceCraft
         public string LastLoadNotice { get; private set; }
         private readonly GameConfig config;
         private readonly GameSession validator;
+        private readonly SaveSlotPolicy policy;
         private byte[] lastValidatedWrite;
-        public AtomicSaveStore(string path, GameConfig cfg)
+        public AtomicSaveStore(string path, GameConfig cfg, SaveSlotPolicy slotPolicy=SaveSlotPolicy.Any)
         {
-            SavePath = path; config = cfg;
+            SavePath = path; config = cfg; policy=slotPolicy;
             // This private session never receives commands or a restored state. Reuse
             // the exact production validator without cloning all historical receipts
             // merely to decide whether the old active file is a safe backup.
@@ -36,6 +38,7 @@ namespace DiceCraft
             // GameSession can use this adapter. Validate before accepting any bytes
             // into the private known-good cache or touching existing files.
             validator.ValidateState(snapshot);
+            ValidateSlot(snapshot);
             Directory.CreateDirectory(Path.GetDirectoryName(SavePath));
             string payload = JsonUtility.ToJson(snapshot);
             var envelope = new Envelope { schema = config.saveSchemaVersion, config = config.configVersion,
@@ -113,9 +116,15 @@ namespace DiceCraft
                     state.lastSubmission=null;
                 // Use the production invariants before trusting a file as a valid backup.
                 validator.ValidateState(state);
+                ValidateSlot(state);
                 return true;
             }
             catch(Exception ex){state=null;error=ex;return false;}
+        }
+        private void ValidateSlot(RunState state)
+        {
+            if(policy==SaveSlotPolicy.Normal&&(state.debugWorkspace||state.isDebug))throw new InvalidDataException("调试存档不能作为普通挑战恢复或保存。");
+            if(policy==SaveSlotPolicy.Debug&&!state.debugWorkspace)throw new InvalidDataException("普通挑战不能写入调试分区。");
         }
         private static string Hash(string text)
         {

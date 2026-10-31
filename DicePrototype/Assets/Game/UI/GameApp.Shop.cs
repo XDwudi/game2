@@ -13,12 +13,13 @@ namespace DiceCraft
             string[] tabs={"控制器","道具","牌型研习","骰子工坊"};
             for(int i=0;i<tabs.Length;i++){int index=i;UiKit.Button(main,"Tab"+i,tabs[i],36+i*325,164,310,59,()=>{shopTab=index;PlayerPrefs.SetInt("shopTab",index);Refresh();},true,shopTab==i);}
             UiKit.Button(main,"LeaveShop","前往下一关 →",1420,164,460,59,()=>{CloseModal();Send(new SessionCommand{kind=CommandKind.LeaveShop});},true,true);
-            UiKit.Text(main,"ShopHint","每件商品限购一次，不补货。出售控制器或未使用道具固定获得 1 金币。",40,242,1840,40,23,UiKit.Muted);
-            var offers=ViewState.shop.offers.Where(o=>shopTab==0?o.category=="controller":shopTab==1?o.category=="consumable"||o.category=="service"&&o.contentId!="O04":shopTab==2?o.category=="hand_upgrade":o.category=="die_upgrade"||o.category=="new_die"||o.contentId=="O04").ToList();
+            UiKit.Text(main,"ShopHint","控制器可单独刷新；其他商品保留。普通出售1金币，基金售价包含本实例累积。",40,242,1250,40,21,UiKit.Muted);
+            if(shopTab==0)UiKit.Button(main,"RefreshControllers","刷新控制器 · "+Session.GetRefreshPrice()+" 金币",1360,236,520,46,()=>{var r=Send(new SessionCommand{kind=CommandKind.RefreshControllers});if(r.accepted)PlaySound("refresh");},ViewState.gold>=Session.GetRefreshPrice());
+            var offers=ViewState.shop.offers.Where(o=>shopTab==0?o.category=="controller":shopTab==1?o.category=="consumable"||o.category=="service"&&o.contentId!="O04":shopTab==2?o.category=="hand_upgrade"||o.category=="color_upgrade":o.category=="die_upgrade"||o.category=="new_die"||o.contentId=="O04").ToList();
             int count=offers.Count+(shopTab==2?1:0),rows=Math.Max(1,(count+2)/3);
             var content=UiKit.Scroll(main,"ShopScroll",36,297,1844,503,rows*350);
             for(int i=0;i<offers.Count;i++)OfferCard(content,offers[i],i,(i%3)*610,(i/3)*350);
-            if(shopTab==2){int i=offers.Count;var p=UiKit.Box(content,"SelfStudy",i%3*610,i/3*350,590,330,UiKit.Panel);UiKit.Text(p,"Name","自选研习",25,28,540,55,32,UiKit.Gold);UiKit.Text(p,"Description","任选一种当前合法牌型升级。\n按正常升级价 +2；本店一次。\n先购买其他强化后，价格与资格会实时更新。",25,106,540,130,25,UiKit.Muted);UiKit.Button(p,"Study","选择牌型",25,260,540,48,ShowStudy,ViewState.shop.selfStudyUsed==0);}
+            if(shopTab==2){int i=offers.Count;var p=UiKit.Box(content,"SelfStudy",i%3*610,i/3*350,590,330,UiKit.Panel);UiKit.Text(p,"Name","自选研习",25,28,540,55,32,UiKit.Gold);UiKit.Text(p,"Description","任选一种当前合法牌型升级。\n按正常升级价 +1；本店一次。\n先购买其他强化后，价格与资格会实时更新。",25,106,540,130,25,UiKit.Muted);UiKit.Button(p,"Study","选择牌型",25,260,540,48,ShowStudy,ViewState.shop.selfStudyUsed==0);}
             if(offers.Count==0&&shopTab!=2)UiKit.Text(content,"NoOffers","本页没有可供应的商品。现有商品不会因购买或出售而补货。",35,60,1700,80,29,UiKit.Muted);
             InventoryStrip(true);
             if(tutorial)UiKit.Text(main,"TutorialShop","练习：选一件商品查看，再确认购买。物品不会在点选目标时提前扣费。",40,810,1700,38,23,UiKit.Teal);
@@ -37,19 +38,21 @@ namespace DiceCraft
         }
         private void InventoryStrip(bool selling)
         {
-            float y=878; UiKit.Text(main,"ControllersTitle",$"控制器 · 普通槽 {ControllerRules.OrdinaryUsed(ViewState.controllers)}/{ViewState.controllerSlots} · 持有 {ViewState.controllers.Count}/{Config.maxControllerInstances}",40,y-22,1100,30,21,UiKit.Muted);
-            int slots=Math.Max(4,ViewState.controllers.Count);float width=1100f/Math.Min(slots,5);
+            float y=878;controllerRects.Clear(); UiKit.Text(main,"ControllersTitle",$"控制器 · 普通槽 {ControllerRules.OrdinaryUsed(ViewState.controllers)}/{ViewState.controllerSlots} · 持有 {ViewState.controllers.Count}/{Config.maxControllerInstances}",40,y-22,1100,30,21,UiKit.Muted);
+            int slots=Math.Min(10,Math.Max(4,ViewState.controllers.Count));float width=1100f/Math.Min(slots,5);
             for(int i=0;i<slots;i++)
             {
                 int row=i/5,col=i%5;float x=40+col*width,cy=y+18+row*63;
-                if(i<ViewState.controllers.Count){var item=ViewState.controllers[i];var b=UiKit.Button(main,"Controller_"+item.instanceId,NameOf(item.definitionId)+"\n"+EnchantShort(item.enchantmentId),x,cy,width-10,53,()=>ShowController(item,selling),!IsBusy);b.GetComponentInChildren<TextMeshProUGUI>().fontSize=18;EnchantBadge(b.transform,item.enchantmentId,5,5,22);}
+                if(i<ViewState.controllers.Count){var item=ViewState.controllers[i];var b=UiKit.Button(main,"Controller_"+item.instanceId,NameOf(item.definitionId)+"\n"+EnchantShort(item.enchantmentId)+CompactControllerState(item),x,cy,width-10,53,()=>ShowController(item,selling),!IsBusy);b.GetComponentInChildren<TextMeshProUGUI>().fontSize=16;EnchantBadge(b.transform,item.enchantmentId,5,5,22);AttachControllerDrag(b,item);}
                 else {UiKit.Box(main,"ControllerEmpty"+i,x,cy,width-10,53,UiKit.Panel);UiKit.Text(main,"EmptyLabel"+i,"空槽",x+8,cy+10,width-26,32,18,UiKit.Muted,TextAlignmentOptions.Center);}
             }
             UiKit.Text(main,"ItemsTitle",$"局内道具  {ViewState.inventory.Count}/{ViewState.consumableSlots}",1190,y-22,690,30,21,UiKit.Muted);
-            float itemW=690f/ViewState.consumableSlots;
-            for(int i=0;i<ViewState.consumableSlots;i++)
+            int itemCount=Math.Min(5,ViewState.consumableSlots);inventoryPage=Math.Min(inventoryPage,Math.Max(0,(ViewState.consumableSlots-1)/5));float itemW=690f/itemCount;
+            UiKit.Button(main,"AllControllerStates","排列 / 全部状态",875,y-23,260,34,ShowControllerOrder);
+            if(ViewState.consumableSlots>5)UiKit.Button(main,"InventoryPage","道具页 "+(inventoryPage+1)+" >",1630,y-24,240,34,()=>{inventoryPage=(inventoryPage+1)%((ViewState.consumableSlots+4)/5);Refresh();});
+            for(int visible=0;visible<Math.Min(5,ViewState.consumableSlots-inventoryPage*5);visible++)
             {
-                float x=1190+i*itemW;
+                int i=visible+inventoryPage*5;float x=1190+visible*itemW;
                 if(i<ViewState.inventory.Count){var item=ViewState.inventory[i];var b=UiKit.Button(main,"Item_"+item.instanceId,NameOf(item.contentId),x,y+18,itemW-8,75,()=>ShowOwned(item,selling));b.GetComponentInChildren<TextMeshProUGUI>().fontSize=19;}
                 else{UiKit.Box(main,"ItemEmpty"+i,x,y+18,itemW-8,75,UiKit.Panel);UiKit.Text(main,"ItemEmptyText"+i,"空槽",x+5,y+42,itemW-18,28,18,UiKit.Muted,TextAlignmentOptions.Center);}
             }
@@ -89,13 +92,13 @@ namespace DiceCraft
                 UiKit.Text(p,"Capacity",category,40,360,1500,100,25,UiKit.Muted);
                 if(offer.category=="controller"){EnchantBadge(p,offer.controller.enchantmentId,40,480,48);UiKit.Text(p,"Enchantment",EnchantLabel(offer.controller.enchantmentId),105,480,1400,70,25,UiKit.Teal);}
                 if(offer.contentId=="C12")UiKit.Text(p,"Conflict","注意：奇数会变成有效偶数，影响奇数控制器、2233、顺子和红组判定。",40,545,1500,32,22,UiKit.Gold);
-                if(offer.contentId=="C09")UiKit.Text(p,"Conflict","注意：有效提交容量减少1；顺子和颜色类升级的购买资格会重新检查。",40,545,1500,32,22,UiKit.Gold);
+                if(offer.contentId=="C09")UiKit.Text(p,"Conflict","注意：有效提交容量减少1；牌型升级的购买资格会重新检查。",40,545,1500,32,22,UiKit.Gold);
             }
             BuyFooter(p,offer,null,null);
         }
         private void BuyFooter(Transform p,ShopOffer offer,string die,string face)
         {
-            int price=Session.GetOfferNetPrice(offer);
+            long price=Session.GetOfferNetPrice(offer);
             string error=Session.PurchaseError(offer.offerId,die,face);
             UiKit.Text(p,"Price",$"价格 {price} 金币    ·    余额 {ViewState.gold} → {ViewState.gold-price}",40,585,1500,50,31,UiKit.Gold);
             if(error!=null)UiKit.Text(p,"PurchaseUnavailable",error,40,635,1500,32,21,UiKit.Gold);
@@ -107,8 +110,8 @@ namespace DiceCraft
             var list=UiKit.Scroll(p,"StudyList",40,100,1500,620,Math.Max(600,legal.Length*85));
             for(int i=0;i<legal.Length;i++)
             {
-                string id=legal[i];int level=ViewState.handLevels.First(x=>x.handId==id).level,price=Session.GetStudyPrice(id);var h=Config.Hand(id);
-                UiKit.Text(list,"StudyName"+id,$"{h.displayName}   Lv.{level} → {level+1}    倍率 {Factor(h.baseMult100+h.incrementPerLevel100*level)} → {Factor(h.baseMult100+h.incrementPerLevel100*(level+1))}",12,i*85+15,1040,50,27);
+                string id=legal[i];bool color=id=="all_blue"||id=="all_red";int level=(color?ViewState.colorLevels:ViewState.handLevels).First(x=>x.handId==id).level,price=Session.GetStudyPrice(id);int baseMult=color?Config.Color(id).baseMult100:Config.Hand(id).baseMult100,increment=color?Config.Color(id).incrementPerLevel100:Config.Hand(id).incrementPerLevel100;
+                UiKit.Text(list,"StudyName"+id,$"{NameOf(id)}   Lv.{level} → {level+1}    倍率 {Factor(baseMult+increment*level)} → {Factor(baseMult+increment*(level+1))}",12,i*85+15,1040,50,27);
                 UiKit.Button(list,"StudyBuy"+id,price+" 金币",1110,i*85,340,65,()=>{CloseModal();Send(new SessionCommand{kind=CommandKind.Study,handId=id});},ViewState.gold>=price,true);
             }
             if(legal.Length==0)UiKit.Text(list,"NoLegal","当前没有满足容量、永久骰数且未满级的牌型。",15,30,1400,90,28,UiKit.Muted);

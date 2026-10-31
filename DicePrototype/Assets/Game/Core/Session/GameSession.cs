@@ -58,11 +58,13 @@ namespace DiceCraft.Core
                 try
                 {
                     Check(command.kind == CommandKind.NewRun || state != null, "请先新建挑战。");
-                    Check(command.kind == CommandKind.ConfirmLocks || pending.Count == 0, "请先确认锁定或清除待选骰子。");
+                    Check(command.kind == CommandKind.ConfirmLocks || command.kind == CommandKind.ApplyDebugScene || pending.Count == 0, "请先确认锁定或清除待选骰子。");
                     var candidate = command.kind == CommandKind.NewRun ? CreateRun(command) : state.Clone();
-                    int goldBefore = state == null || command.kind == CommandKind.NewRun ? candidate.gold : state.gold;
-                    candidate.lastEffects.Clear();
-                    long scored = 0;
+                    if (command.kind == CommandKind.NewRun && state != null && state.debugWorkspace)
+                    { candidate.debugWorkspace = true; candidate.isDebug = true; candidate.sourceRunId = state.sourceRunId; }
+                    long goldBefore = state == null || command.kind == CommandKind.NewRun ? candidate.gold : state.gold;
+                    candidate.lastEffects.Clear(); candidate.lastRandomResults.Clear();
+                    string scored = "0";
                     switch (command.kind)
                     {
                         case CommandKind.NewRun: Check(state == null || state.phase == "RunWon" || state.phase == "RunFailed", "进行中的挑战不能直接覆盖。"); break;
@@ -79,15 +81,24 @@ namespace DiceCraft.Core
                         case CommandKind.Sell: Sell(candidate, command.itemInstanceId); break;
                         case CommandKind.Study: Study(candidate, command.handId); break;
                         case CommandKind.LeaveShop: LeaveShop(candidate); break;
+                        case CommandKind.ReorderControllers:
+                            if (!ReorderControllers(candidate, command.controllerIds)) return new CommandResult { accepted = true, noChange = true };
+                            break;
+                        case CommandKind.RefreshControllers: RefreshControllers(candidate); break;
+                        case CommandKind.ApplyDebugScene: ApplyDebugScene(candidate, command.debugScene); break;
                         default: throw new RuleViolation("未知命令。");
                     }
+                    if (candidate.debugWorkspace) candidate.isDebug = true;
                     candidate.actionSequence = checked(sequence + 1);
                     var recordedCommand = command.Clone();
                     if (command.kind == CommandKind.ConfirmLocks) recordedCommand.dieIds = pending.ToArray();
                     var receipt = new CommandReceipt {
                         commandId = command.commandId, actionSequence = candidate.actionSequence, command = recordedCommand,
                         phase = candidate.phase, message = command.kind.ToString(), score = scored,
-                        goldBefore = goldBefore, goldAfter = candidate.gold,
+                        goldBefore = goldBefore, goldAfter = candidate.gold, beforeSequence = sequence,
+                        randomResults = candidate.lastRandomResults.Select(x => x.Clone()).ToList(), stateHash = StateHash(candidate),
+                        submission = command.kind == CommandKind.Submit ? candidate.lastSubmission.Clone() : null,
+                        settlement = candidate.stage.settled && (state == null || !state.stage.settled) ? candidate.lastStageSettlement.Clone() : null,
                         effects = candidate.lastEffects.Select(x => x.Clone()).ToList()
                     };
                     candidate.processedReceipts.Add(receipt);
@@ -98,6 +109,9 @@ namespace DiceCraft.Core
                 }
                 catch (RuleViolation e) { return Reject(e.Message); }
                 catch (OverflowException) { return Reject("数值超过可保存范围，操作已取消。"); }
+                catch (ArgumentException e) { return Reject("输入不合法：" + e.Message); }
+                catch (FormatException e) { return Reject("数据格式无效：" + e.Message); }
+                catch (InvalidOperationException e) { return Reject("数据校验失败：" + e.Message); }
             }
         }
 
@@ -113,7 +127,7 @@ namespace DiceCraft.Core
             state = pendingSaveState;
             var receipt = pendingReceipt.Clone();
             pendingSaveState = null; pendingReceipt = null;
-            if (receipt.command.kind == CommandKind.ConfirmLocks || receipt.command.kind == CommandKind.NewRun || receipt.command.kind == CommandKind.Submit) pending.Clear();
+            if (receipt.command.kind == CommandKind.ConfirmLocks || receipt.command.kind == CommandKind.NewRun || receipt.command.kind == CommandKind.Submit || receipt.command.kind == CommandKind.ApplyDebugScene) pending.Clear();
             if (Committed != null)
                 foreach (Action<CommandReceipt> observer in Committed.GetInvocationList())
                     try { observer(receipt.Clone()); } catch (Exception e) { LastPresentationError = e.Message; }
@@ -127,20 +141,28 @@ namespace DiceCraft.Core
 
         public ScoreBreakdown PreviewScore()
         {
+            var preview = PreviewScoreRange();
+            return preview == null ? null : preview.minimum;
+        }
+
+        public ScorePreview PreviewScoreRange()
+        {
             var snapshot = PreviewSnapshot();
-            return snapshot == null ? null : ScoreCalculator.Evaluate(snapshot, cfg);
+            if (snapshot == null) return null;
+            lock (gate) ApplyPreviewOverrides(snapshot, state);
+            return ScoreCalculator.Preview(snapshot, cfg);
         }
 
         public EffectRecord[] PreviewSubmissionEffects()
         {
             lock (gate)
             {
-                if (state == null || state.hand == null || state.phase != "Selecting" || state.hand.orderedLockedIds.Count == 0) return Array.Empty<EffectRecord>();
-                // Reuse the real submission rules on an isolated state, without persistence,
-                // observers, RNG changes or consuming the player's pending selection.
+                var snapshot = PreviewSnapshot();
+                if (snapshot == null) return Array.Empty<EffectRecord>();
                 var candidate = state.Clone(); candidate.lastEffects.Clear();
-                Submit(candidate);
-                return candidate.lastEffects.Where(e => e.kind == "DieCopied" || e.kind == "FaceDyed" || e.kind == "DieDyed" || e.kind == "FaceValueChanged").Select(e => e.Clone()).ToArray();
+                var score = ScoreCalculator.Preview(snapshot, cfg).minimum;
+                ApplyPermanentEffects(candidate, snapshot, score.afterScorePlan);
+                return candidate.lastEffects.Select(e => e.Clone()).ToArray();
             }
         }
 
@@ -150,7 +172,7 @@ namespace DiceCraft.Core
             {
                 Check(state != null, "没有活动挑战。");
                 var die = FindDie(state, dieId);
-                return ProbabilityCalculator.BuildUnits(die.faces, state.hand != null && state.hand.largeBuff, state.hand != null && state.hand.smallBuff, cfg, Has(state, "C34"), Has(state, "C35"));
+                return ProbabilityCalculator.BuildUnits(die.faces, state.hand != null && state.hand.largeBuff, state.hand != null && state.hand.smallBuff, cfg, Sources(state).Count(x => x.abilityId == "C34"), Sources(state).Count(x => x.abilityId == "C35"));
             }
         }
 
@@ -158,11 +180,11 @@ namespace DiceCraft.Core
         public int InitialRolls { get { lock (gate) return state == null ? cfg.totalRollsPerHand : InitialRollBudget(state); } }
         public int InitialSubmissions { get { lock (gate) return state == null ? cfg.submissionsPerStage : ControllerRules.SubmissionBudget(state.controllers, cfg); } }
         public int GetOfferPrice(ShopOffer offer) { lock (gate) { Check(state != null, "没有活动挑战。"); return OfferPrice(state, offer); } }
-        public int GetOfferTradeIn(ShopOffer offer) { lock (gate) { Check(state != null, "没有活动挑战。"); return OfferTradeIn(state, offer); } }
-        public int GetOfferNetPrice(ShopOffer offer) { lock (gate) { Check(state != null, "没有活动挑战。"); return checked(OfferPrice(state, offer) - OfferTradeIn(state, offer)); } }
+        public long GetOfferTradeIn(ShopOffer offer) { lock (gate) { Check(state != null, "没有活动挑战。"); return OfferTradeIn(state, offer); } }
+        public long GetOfferNetPrice(ShopOffer offer) { lock (gate) { Check(state != null, "没有活动挑战。"); return checked(OfferPrice(state, offer) - OfferTradeIn(state, offer)); } }
         public int OrdinaryControllerSlotsUsed { get { lock (gate) return state == null ? 0 : state.controllers.Count(x => x.enchantmentId != "slotless"); } }
         public bool CanEndStage { get { lock (gate) return state != null && state.stage.qualified && !state.stage.settled && (state.phase == "HandReady" || state.phase == "Selecting") && !busy && pendingSaveState == null && pending.Count == 0; } }
-        public string[] LegalStudyHands() { lock (gate) return state == null ? Array.Empty<string>() : cfg.handDefinitions.Where(x => IsHandLegal(state, x.id)).Select(x => x.id).ToArray(); }
+        public string[] LegalStudyHands() { lock (gate) return state == null ? Array.Empty<string>() : StudyIds(state).ToArray(); }
         public int GetStudyPrice(string handId) { lock (gate) { Check(state != null, "没有活动挑战。"); return HandPrice(state, handId, true); } }
 
         private RunState CreateRun(SessionCommand command)
@@ -178,6 +200,7 @@ namespace DiceCraft.Core
             };
             for (int i = 1; i <= cfg.initialDiceCount; i++) s.dice.Add(DiceFactory.CreateStandard(cfg, i));
             foreach (var h in cfg.handDefinitions) s.handLevels.Add(new HandLevel { handId = h.id, level = 0 });
+            foreach (var c in cfg.colorDefinitions) s.colorLevels.Add(new HandLevel { handId = c.id, level = 0 });
             PrepareStagePreview(s, 0);
             return s;
         }
@@ -203,6 +226,9 @@ namespace DiceCraft.Core
         {
             RequirePhase(s, "StagePreview");
             Check(s.dice.Count > 0, "骰组耗尽。");
+            s.stage.controllerOrderSnapshot = s.controllers.Select(c => c.instanceId).ToArray();
+            s.stage.mimicBindings = ControllerRules.FreezeBindings(s.controllers.ToArray());
+            s.stage.submissionBonusSourceIds = s.controllers.Where(c => c.enchantmentId == "submit1").Select(c => c.instanceId).ToArray();
             s.stage.capacity = ShopCapacity(s); s.stage.started = true;
             s.stage.remainingSubmissions = ControllerRules.SubmissionBudget(s.controllers, cfg);
             StartHand(s);
@@ -210,12 +236,12 @@ namespace DiceCraft.Core
 
         private int InitialRollBudget(RunState s)
         {
-            return ControllerRules.RollBudget(s.controllers, cfg, s.stage == null ? 0 : s.stage.stageRollBonus);
+            return ControllerRules.RollBudget(s.controllers, cfg, s.stage == null ? 0 : s.stage.stageRollBonus, ActiveBindings(s));
         }
 
         private void StartHand(RunState s)
         {
-            s.hand = new HandState { handId = "H" + (s.nextHandSerial++).ToString("D4"), rollsRemaining = InitialRollBudget(s) };
+            s.hand = new HandState { handId = "H" + (s.nextHandSerial++).ToString("D4"), rollsRemaining = InitialRollBudget(s), rollBonusSourceIds = s.controllers.Where(c => c.enchantmentId == "roll1").Select(c => c.instanceId).ToArray() };
             foreach (var die in s.dice.OrderBy(x => x.createdSerial)) s.hand.currentResults.Add(new DieHandState { dieId = die.dieId });
             s.phase = "HandReady";
         }
@@ -251,15 +277,15 @@ namespace DiceCraft.Core
             s.hand.rollsRemaining--; s.hand.rollsUsed++; s.hand.hasRolled = true;
             foreach (var die in unlocked)
             {
-                if (die.isGlass && effectRng.NextIndex(100) < cfg.glassBreakPercent)
+                if (die.isGlass && DrawRisk(s, effectRng, "Glass", die.dieId, cfg.glassBreakPercent))
                 {
                     s.dice.Remove(die); s.hand.currentResults.RemoveAll(x => x.dieId == die.dieId);
                     s.lastEffects.Add(new EffectRecord { kind = "DieBroken", sourceId = "U05", dieId = die.dieId });
                     continue;
                 }
                 var faces = die.faces.OrderBy(x => x.faceId, StringComparer.Ordinal).ToArray();
-                var units = ProbabilityCalculator.BuildUnits(faces, s.hand.largeBuff, s.hand.smallBuff, cfg, Has(s, "C34"), Has(s, "C35"));
-                int sample = diceRng.NextIndex(cfg.probabilityUnits), faceIndex = 0, ceiling = units[0];
+                var units = ProbabilityCalculator.BuildUnits(faces, s.hand.largeBuff, s.hand.smallBuff, cfg, Sources(s).Count(x => x.abilityId == "C34"), Sources(s).Count(x => x.abilityId == "C35"));
+                int sample = DrawRaw(s, diceRng, "dice", "DieFace", die.dieId, cfg.probabilityUnits).rawTicket, faceIndex = 0, ceiling = units[0];
                 while (sample >= ceiling) ceiling += units[++faceIndex];
                 var face = faces[faceIndex]; var r = s.hand.currentResults.First(x => x.dieId == die.dieId);
                 r.currentFaceId = face.faceId; r.currentPip = face.permanentPip; r.currentColor = face.baseColor; r.hasRolled = true; r.remoteOverride = false;
@@ -274,18 +300,23 @@ namespace DiceCraft.Core
                 return;
             }
             int remainingUnlocked = s.dice.Count - s.hand.orderedLockedIds.Count;
-            if (Has(s, "C05") && !s.hand.c05Used && s.hand.rollsRemaining == 0)
+            if (s.hand.rollsRemaining == 0)
             {
                 var p = cfg.Controller("C05").parameters;
+                var eligible = Sources(s).Where(x => x.abilityId == "C05" && !s.hand.c05UsedEmitterIds.Contains(x.emitterId)).ToArray();
                 if (remainingUnlocked >= p.minUnlocked && remainingUnlocked <= p.maxUnlocked)
-                {
-                    s.hand.rollsRemaining = checked(s.hand.rollsRemaining + p.rollGrant); s.hand.c05Used = true;
-                    s.lastEffects.Add(new EffectRecord { kind = "ExtraRolls", sourceId = "C05", newValue = p.rollGrant });
-                }
+                    foreach (var source in eligible)
+                    {
+                        s.hand.rollsRemaining = checked(s.hand.rollsRemaining + p.rollGrant);
+                        s.hand.c05UsedEmitterIds.Add(source.emitterId);
+                        s.lastEffects.Add(new EffectRecord { kind = "ExtraRolls", sourceId = "C05", detail = source.emitterId, newValue = p.rollGrant });
+                    }
             }
             s.phase = "Selecting";
         }
 
+        private static MimicBinding[] ActiveBindings(RunState s) { return s.stage != null && s.stage.started && !s.stage.settled ? s.stage.mimicBindings : null; }
+        private static AbilitySource[] Sources(RunState s) { return ControllerRules.ResolveSources(s.controllers.ToArray(), ActiveBindings(s)); }
         private static bool Has(RunState s, string id) { return s.controllers.Any(x => x.contentId == id); }
         private static DieInstance FindDie(RunState s, string id) { var d = s.dice.FirstOrDefault(x => x.dieId == id); Check(d != null, "目标骰子不存在。"); return d; }
         private static void RequirePhase(RunState s, params string[] phases) { Check(phases.Contains(s.phase), "当前阶段不能执行此操作。"); }

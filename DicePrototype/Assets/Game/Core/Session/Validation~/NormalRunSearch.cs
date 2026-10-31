@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Collections.Generic;
 using System.Text.Json;
+using System.Numerics;
 using DiceCraft.Core;
 
 // Automated legal-input smoke test. Strategy sees current visible faces, not RNG states or future outcomes.
@@ -23,20 +24,21 @@ public static class NormalRunSearch
         public int[] targetPips = Array.Empty<int>();
         public bool risk;
         public uint seed;
-        public long actionSequence, submissionScore, stageScore, target;
-        public int gold, stageIndex, rollsRemaining, remainingSubmissions;
+        public long actionSequence, gold;
+        public string submissionScore, stageScore, target;
+        public int stageIndex, rollsRemaining, remainingSubmissions;
         public string phase;
     }
-    private sealed class Choice { public string[] order; public long score; }
-    private sealed class SearchResult { public uint seed; public bool won; public int reachedStage, actions; public string finalPhase; public int gold; }
+    private sealed class Choice { public string[] order; public BigInteger score; }
+    private sealed class SearchResult { public uint seed; public bool won; public int reachedStage, actions; public string finalPhase; public long gold; }
 
     public static int Main(string[] args)
     {
-        cfg = JsonSerializer.Deserialize<GameConfig>(File.ReadAllText("DicePrototype/Assets/Game/Data/P0Config.json"), Json); cfg.Validate();
-        Directory.CreateDirectory("evidence/v05/session");
+        cfg = JsonSerializer.Deserialize<GameConfig>(GameConfig.PrepareJsonForUnity(File.ReadAllText("DicePrototype/Assets/Game/Data/P0Config.json")), Json); cfg.Validate();
+        Directory.CreateDirectory("evidence/v06/session");
         uint first = args.Length > 0 ? uint.Parse(args[0]) : 20261028;
         int maximum = args.Length > 1 ? int.Parse(args[1]) : 8;
-        var results = new List<SearchResult>(); int bestStage = 0; long bestScore = -1;
+        var results = new List<SearchResult>(); int bestStage = 0; BigInteger bestScore = -1;
         for (int run = 0; run < maximum; run++)
         {
             uint seed = first + (uint)run; planning = new Random(731); steps = new List<RecordedStep>(); sequence = 0;
@@ -60,13 +62,13 @@ public static class NormalRunSearch
             var result = new SearchResult { seed = seed, won = end.phase == "RunWon", reachedStage = end.stage.stageIndex + 1, actions = steps.Count, finalPhase = end.phase, gold = end.gold };
             results.Add(result);
             Console.WriteLine($"SEED {seed} {end.phase} stage={result.reachedStage} actions={steps.Count} gold={end.gold}");
-            File.WriteAllText("evidence/v05/session/search-statistics.json", JsonSerializer.Serialize(new { purpose = "Automated legal-action integration validation; searched seeds are not a player win-rate sample", policy = "Visible-state one-step Monte Carlo with independent Random(731); no rule RNG introspection", configVersion = cfg.configVersion, results }, Json));
-            if (result.won || result.reachedStage > bestStage || (result.reachedStage == bestStage && end.stage.score > bestScore))
+            File.WriteAllText("evidence/v06/session/search-statistics.json", JsonSerializer.Serialize(new { purpose = "Automated legal-action integration validation; searched seeds are not a player win-rate sample", policy = "Visible-state one-step Monte Carlo with independent Random(731); no rule RNG introspection", configVersion = cfg.configVersion, results }, Json));
+            if (result.won || result.reachedStage > bestStage || (result.reachedStage == bestStage && ExactScoreMath.Parse(end.stage.score) > bestScore))
             {
-                bestStage = result.reachedStage; bestScore = end.stage.score;
-                string path = "evidence/v05/session/normal-run-trace.json";
+                bestStage = result.reachedStage; bestScore = ExactScoreMath.Parse(end.stage.score);
+                string path = "evidence/v06/session/normal-run-trace.json";
                 File.WriteAllText(path, JsonSerializer.Serialize(new { seed = seed, configVersion = cfg.configVersion, isDebug = end.isDebug, expectedFinalPhase = end.phase, expectedFinalStage = end.stage.stageIndex + 1, policy = "Visible-state one-step Monte Carlo, independent planning RNG", steps = steps }, Json));
-                File.WriteAllText("evidence/v05/session/normal-run-final-state.json", JsonSerializer.Serialize(end, Json));
+                File.WriteAllText("evidence/v06/session/normal-run-final-state.json", JsonSerializer.Serialize(end, Json));
                 Console.WriteLine("BEST_TRAJECTORY " + Path.GetFullPath(path)); if (result.won) return 0;
             }
         }
@@ -111,7 +113,7 @@ public static class NormalRunSearch
         var s = session.State;
         var current = s.hand.currentResults.ToDictionary(x => x.dieId, x => x.Clone());
         var best = BestImmediate(s, current, s.hand.orderedLockedIds.ToArray(), s.hand.rollsRemaining);
-        long needed = s.stage.target - s.stage.score;
+        BigInteger needed = ExactScoreMath.Parse(s.stage.target) - ExactScoreMath.Parse(s.stage.score);
         bool mustStop = s.hand.rollsRemaining == 0 || s.hand.orderedLockedIds.Count == s.dice.Count;
         if (best.score >= needed || mustStop) { SubmitChoice(s, best); return; }
 
@@ -127,7 +129,7 @@ public static class NormalRunSearch
         if (Has(s,"C11")) holdSets.Add(s.hand.orderedLockedIds.Concat(free.Where(id=>effective(id)==2||effective(id)==3).GroupBy(effective).SelectMany(g=>g.Take(2))).ToArray());
         var legal = holdSets.Where(x => x.Length <= s.stage.capacity && x.Length < s.dice.Count)
             .GroupBy(x => string.Join("|",x.OrderBy(y=>y))).Select(x=>x.First()).ToArray();
-        double value = best.score; string[] keep = null;
+        double value = (double)best.score; string[] keep = null;
         foreach (var held in legal)
         {
             double expected = 0;
@@ -146,7 +148,7 @@ public static class NormalRunSearch
                 }
                 var future=BestImmediate(s,hypothetical,held,nextRolls);
                 // A small continuation allowance makes early pair commitments less myopic.
-                expected += Math.Min(future.score,needed) + Math.Max(0,future.score-needed)*0.03;
+                expected += (double)BigInteger.Min(future.score,needed) + (double)BigInteger.Max(0,future.score-needed)*0.03;
             }
             expected/=8;
             if (nextRolls>0) expected*=1.08;
@@ -178,11 +180,11 @@ public static class NormalRunSearch
                 }
                 var snap=new SubmissionSnapshot{runId=s.runId,stageId=s.stage.stageId,handId=s.hand.handId,configVersion=cfg.configVersion,
                     capacity=s.stage.capacity,rollsRemaining=rolls,submissionOrdinalBefore=s.stage.submissionOrdinal,redWave=s.hand.redWave,
-                    handLevels=s.handLevels.ToArray(),equippedControllers=s.controllers.Select(x=>x.Clone()).ToArray(),
+                    handLevels=s.handLevels.ToArray(),colorLevels=s.colorLevels.ToArray(),wallet=s.gold,previousPrimaryHandId=s.previousPrimaryHandId,mimicBindings=s.stage.mimicBindings,equippedControllers=s.controllers.Select(x=>x.Clone()).ToArray(),
                     dice=order.Select(id=>{var d=s.dice.First(x=>x.dieId==id);var r=current[id];var f=d.faces.First(x=>x.faceId==r.currentFaceId);
                         return new SubmissionDie{dieId=id,faceId=r.currentFaceId,currentPip=r.currentPip,currentColor=r.currentColor,
                             permanentSixFaceSum=d.faces.Sum(x=>x.permanentPip),isGold=f.isGold,isGlass=d.isGlass,lifetime=d.lifetime,permanentFacesCopy=d.faces.Select(v=>v.Clone()).ToArray()};}).ToArray()};
-                long score=ScoreCalculator.Evaluate(snap,cfg).score;
+                BigInteger score=ExactScoreMath.Parse(ScoreCalculator.Preview(snap,cfg).minimum.score);
                 if(score>best.score)best=new Choice{order=(string[])order.Clone(),score=score};
             }
         }
@@ -199,7 +201,7 @@ public static class NormalRunSearch
         if(red!=null&&!state.hand.redWave&&state.hand.orderedLockedIds.Count>0)
         {
             var snap=session.PreviewSnapshot();snap.redWave=true;
-            if(ScoreCalculator.Evaluate(snap,cfg).score>session.PreviewScore().score*1.3)Act(CommandKind.UseItem,c=>c.itemInstanceId=red.instanceId);
+            if(ExactScoreMath.Parse(ScoreCalculator.Preview(snap,cfg).minimum.score)*10>ExactScoreMath.Parse(session.PreviewScore().score)*13)Act(CommandKind.UseItem,c=>c.itemInstanceId=red.instanceId);
         }
         Act(CommandKind.Submit);
     }
@@ -213,7 +215,7 @@ public static class NormalRunSearch
         if(id=="C25"&&Has(s,"C02"))return 0;
         if(id=="C01"&&s.stage.stageIndex>10)return 15;
         if(id=="C03"&&Has(s,"C02"))return 0;
-        return values[id];
+        return values.TryGetValue(id,out int result)?result:40;
     }
 
     private static void Shop()

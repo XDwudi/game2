@@ -10,8 +10,8 @@ public static class NormalRunReplay
     public static int Main()
     {
         var json = new JsonSerializerOptions { IncludeFields = true, WriteIndented = true };
-        var cfg = JsonSerializer.Deserialize<GameConfig>(File.ReadAllText("DicePrototype/Assets/Game/Data/P0Config.json"), json); cfg.Validate();
-        var source = JsonDocument.Parse(File.ReadAllText("evidence/v05/session/normal-run-trace.json")).RootElement;
+        var cfg = JsonSerializer.Deserialize<GameConfig>(GameConfig.PrepareJsonForUnity(File.ReadAllText("DicePrototype/Assets/Game/Data/P0Config.json")), json); cfg.Validate();
+        var source = JsonDocument.Parse(File.ReadAllText("evidence/v06/session/normal-run-trace.json")).RootElement;
         var store = new MemorySaveStore(); var session = new GameSession(cfg,store);
         var traces = new List<object>(); int count=0;
         foreach(var step in source.GetProperty("steps").EnumerateArray())
@@ -29,12 +29,12 @@ public static class NormalRunReplay
             var state=session.State;
             Require(!state.isDebug,"Unexpected Debug state");
             Require(state.actionSequence==step.GetProperty("actionSequence").GetInt64(),"Sequence differs");
-            Require(state.gold==step.GetProperty("gold").GetInt32(),"Gold differs");
+            Require(state.gold==step.GetProperty("gold").GetInt64(),"Gold differs");
             Require(state.phase==Text("phase"),"Phase differs");
             Require(state.stage.stageIndex==step.GetProperty("stageIndex").GetInt32(),"Stage differs");
-            Require(state.stage.score==step.GetProperty("stageScore").GetInt64(),"Cumulative score differs");
-            Require(state.stage.target==step.GetProperty("target").GetInt64(),"Target differs");
-            Require(result.receipt.score==step.GetProperty("submissionScore").GetInt64(),"Submission score differs");
+            Require(state.stage.score==Text("stageScore"),"Cumulative score differs");
+            Require(state.stage.target==Text("target"),"Target differs");
+            Require(result.receipt.score==Text("submissionScore"),"Submission score differs");
             string committed=JsonSerializer.Serialize(store.Saved,json);
             session=new GameSession(cfg,store,JsonSerializer.Deserialize<RunState>(committed,json));
             Require(JsonSerializer.Serialize(session.State,json)==committed,"State changed during serialization restore");
@@ -44,9 +44,9 @@ public static class NormalRunReplay
         }
         var end=session.State;
         Require(end.phase==source.GetProperty("expectedFinalPhase").GetString()&&!end.isDebug,"Trajectory did not match declared normal outcome");
-        var expected=JsonSerializer.Deserialize<RunState>(File.ReadAllText("evidence/v05/session/normal-run-final-state.json"),json);
+        var expected=JsonSerializer.Deserialize<RunState>(File.ReadAllText("evidence/v06/session/normal-run-final-state.json"),json);
         Require(JsonSerializer.Serialize(end,json)==JsonSerializer.Serialize(expected,json),"Final state differs from search result");
-        File.WriteAllText("evidence/v05/session/normal-replay-report.json",JsonSerializer.Serialize(new{
+        File.WriteAllText("evidence/v06/session/normal-replay-report.json",JsonSerializer.Serialize(new{
             runner=".NET 10.0.403; real Core commands, not a Unity player",seed=source.GetProperty("seed").GetUInt32(),
             steps=count,restores=count,duplicateChecks=count,allPassed=true,debug=false,finalPhase=end.phase,finalGold=end.gold,
             finalStageScore=end.stage.score,traces},json));

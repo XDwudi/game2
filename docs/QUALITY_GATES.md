@@ -1,8 +1,8 @@
 # 游戏开发质量门禁
 
-本框架用于把人工策划转成可检验的任务与交付。长期目标平台包括 PC、iOS、Android；当前 P0 已依据用户提供的 v0.4 规格锁定 Windows x64 / Unity 6.6，具体范围与预算见 tasks/P0-IMPLEMENTATION.md。后续平台和阶段未决定项仍为 TBD。
+本框架用于把人工策划转成可检验的任务与交付。长期目标平台包括 PC、iOS、Android；当前 P0 已依据用户提供的 v0.6 规格锁定 Windows x64 与 macOS Universal / Unity 6.6，具体范围与预算见 tasks/P0-V06-IMPLEMENTATION.md。后续平台和阶段未决定项仍为 TBD。
 
-门禁由执行规范、本地确定性检查和真实引擎验证共同组成。来源、文件快照与 NUnit 报告检查工具见 tools/QUALITY_CHECK.md；本轮引擎测试与构建结果见 STATE.md 和 evidence/unity。尚未部署 CI、仓库强制门禁或自动放行机制。文档和更多 agent 能提高约束与复核能力，不能保证游戏一定好玩。
+门禁由执行规范、本地确定性检查和真实引擎验证共同组成。来源、文件快照与 NUnit 报告检查工具见 tools/QUALITY_CHECK.md；本轮引擎测试与构建结果见 STATE.md 和 evidence/v06/unity。尚未部署 CI、仓库强制门禁或自动放行机制。文档和更多 agent 能提高约束与复核能力，不能保证游戏一定好玩。
 
 ## 决策权与验收权
 

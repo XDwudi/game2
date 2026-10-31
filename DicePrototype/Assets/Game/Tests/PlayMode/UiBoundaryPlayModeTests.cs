@@ -26,11 +26,11 @@ namespace DiceCraft.Tests
             {
                 var fixture = NewBoundaryFixture("remote-" + breakTarget);
                 fixture.controllers.Add(BoundaryController(fixture, "C12"));
-                fixture.inventory.Add(new OwnedItem {instanceId = "TEST_REMOTE", contentId = "I03"});
+                string remoteId = BoundaryItem(fixture, "I03");
                 fixture.dice[0].isGlass = true;
                 fixture.effectRngState = EffectState(rng => (rng.NextIndex(100) < app.Config.glassBreakPercent) == breakTarget);
                 yield return LoadBoundaryFixture(fixture);
-                Click("ContinueRun"); Click("StartStage");
+                ResumeBoundaryFixture(); Click("StartStage");
                 string original = StateJson();
                 byte[] saved = File.ReadAllBytes(app.SaveLocation);
                 var before = app.Session.State;
@@ -65,8 +65,8 @@ namespace DiceCraft.Tests
                 Assert.That(after.actionSequence, Is.EqualTo(before.actionSequence + 1));
                 Assert.That(after.hand.rollsRemaining, Is.EqualTo(before.hand.rollsRemaining - 1));
                 Assert.That(after.hand.rollsUsed, Is.EqualTo(1));
-                Assert.That(after.inventory.Any(i => i.instanceId == "TEST_REMOTE"), Is.False);
-                Assert.That(after.consumedItemIds.Count(i => i == "TEST_REMOTE"), Is.EqualTo(1));
+                Assert.That(after.inventory.Any(i => i.instanceId == remoteId), Is.False);
+                Assert.That(after.consumedItemIds.Count(i => i == remoteId), Is.EqualTo(1));
                 var command = after.processedReceipts.Last().command;
                 Assert.That(command.kind, Is.EqualTo(CommandKind.UseItem));
                 CollectionAssert.AreEqual(new[] {"D001", "D002"}, command.dieIds);
@@ -120,7 +120,7 @@ namespace DiceCraft.Tests
                 Assert.That(StateJson(), Is.EqualTo(beforeSeedInput), "Typing/focusing the seed must not execute commands on the existing saved Run.");
                 Assert.That(app.Session.PendingIds, Is.Empty);
                 seed.DeactivateInputField(); EventSystem.current.SetSelectedGameObject(null);
-                Click("ContinueRun"); Click("StartStage");
+                ResumeBoundaryFixture(); Click("StartStage");
                 long sequence = app.Session.State.actionSequence;
                 yield return keyboard.Press(Key.Space, 1.05f);
                 yield return WaitForIdle();
@@ -159,7 +159,7 @@ namespace DiceCraft.Tests
                 CollectionAssert.AreEqual(pending, app.Session.PendingIds);
                 yield return keyboard.Press(Key.E);
                 long beforeSubmit = app.Session.State.actionSequence;
-                long expected = app.Session.PreviewScore().score;
+                string expected = app.Session.PreviewScore().score;
                 yield return keyboard.Press(Key.Enter, .4f);
                 yield return WaitForIdle();
                 Assert.That(app.Session.State.actionSequence, Is.EqualTo(beforeSubmit + 1));
@@ -186,7 +186,7 @@ namespace DiceCraft.Tests
                     for (int i = 0; i < 2; i++) foreach (var face in fixture.dice[i].faces) face.permanentPip = i + 1;
                 }
                 yield return LoadBoundaryFixture(fixture);
-                Click("ContinueRun"); Click("StartStage");
+                ResumeBoundaryFixture(); Click("StartStage");
                 if (kind == CommandKind.Submit) { Click("Roll"); Click("Skip"); ClickDie("D001"); ClickDie("D002"); Click("Confirm"); }
                 string before = StateJson(); byte[] diskBefore = File.ReadAllBytes(app.SaveLocation);
                 string log = Path.Combine(saveDirectory, "debug-actions.jsonl");
@@ -242,14 +242,16 @@ namespace DiceCraft.Tests
             var session = new GameSession(app.Config, new MemorySaveStore());
             var result = session.Execute(new SessionCommand {kind = CommandKind.NewRun, commandId = id, seed = 20261028});
             Assert.That(result.accepted, Is.True, result.error);
-            var fixture = session.State; fixture.isDebug = true; return fixture;
+            var fixture = session.State; fixture.isDebug = true; fixture.debugWorkspace = true; return fixture;
         }
         private IEnumerator LoadBoundaryFixture(RunState fixture)
         {
             new GameSession(app.Config, new MemorySaveStore(), fixture);
-            new AtomicSaveStore(app.SaveLocation, app.Config).Save(fixture);
+            string debugPath = Path.Combine(saveDirectory, "debug-run.json");
+            new AtomicSaveStore(debugPath, app.Config, SaveSlotPolicy.Debug).Save(fixture);
             yield return LoadBootstrap();
-            Assert.That(app.Session.State.isDebug, Is.True);
+            Assert.That(new AtomicSaveStore(debugPath, app.Config, SaveSlotPolicy.Debug).Load().isDebug, Is.True);
+            Assert.That(app.Session.State == null || !app.Session.State.debugWorkspace, Is.True, "Normal startup must never select the debug slot.");
         }
         private uint EffectState(Func<GameRng, bool> accept)
         {
@@ -257,7 +259,18 @@ namespace DiceCraft.Tests
             Assert.Fail("No deterministic effect stream fixture found."); return 0;
         }
         private bool HasActive(string name) => app.canvas.GetComponentsInChildren<Transform>(false).Any(t => t.name == name && t.gameObject.activeInHierarchy);
-        private void OpenRemoteItem() { Click("Item_TEST_REMOTE"); Click("Use"); }
+        private void ResumeBoundaryFixture()
+        {
+            Assert.That(app.UnlockDebug("XD is god"), Is.True);
+            Assert.That(app.ResumeDebugWorkspace(), Is.True, "The explicit debug checkpoint must load without touching the normal slot.");
+            Click("RunDebugScene"); Assert.That(app.Session.State.isDebug, Is.True);
+        }
+        private static string BoundaryItem(RunState fixture, string id)
+        {
+            string instance = "ITEM_" + (fixture.nextItemSerial++).ToString("D5");
+            fixture.inventory.Add(new OwnedItem { instanceId = instance, contentId = id }); return instance;
+        }
+        private void OpenRemoteItem() { Click("Item_" + app.Session.State.inventory.First(i => i.contentId == "I03").instanceId); Click("Use"); }
         private void ChooseRemoteTargets() { Click("RemoteDieD001"); Click("RemoteDieD002"); Assert.That(Button("RemoteConfirm").interactable, Is.True); }
 
         private sealed class RoutedKeyboard : IDisposable

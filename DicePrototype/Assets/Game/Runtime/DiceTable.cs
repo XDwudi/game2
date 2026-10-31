@@ -48,6 +48,7 @@ namespace DiceCraft
             public Vector3 startPosition, position;
         }
 
+        public RectTransform designRoot;
         public bool IsRolling => animate;
         public int CachedFaceMeshCount => cachedMeshCount;
         public int PooledVisualCount => spareVisuals.Count;
@@ -125,7 +126,7 @@ namespace DiceCraft
             }
             v.root.SetActive(true); v.root.transform.localScale=Vector3.one*size;
             var plane=new Plane(Vector3.up,Vector3.zero);
-            Vector2 screen=new Vector2(uiCenter.x/1920f*Screen.width,(1-uiCenter.y/1080f)*Screen.height);
+            Vector2 screen=designRoot!=null?RectTransformUtility.WorldToScreenPoint(null,designRoot.TransformPoint(new Vector3(uiCenter.x,-uiCenter.y,0))):new Vector2(uiCenter.x/1920f*Screen.width,(1-uiCenter.y/1080f)*Screen.height);
             Ray ray=viewCamera.ScreenPointToRay(screen);
             if (!plane.Raycast(ray,out float dist)) throw new InvalidOperationException("Table camera ray must intersect the dice plane.");
             v.resting=ray.GetPoint(dist);

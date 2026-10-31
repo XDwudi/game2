@@ -93,7 +93,7 @@ namespace DiceCraft.Tests
             AddBoundaryOffer(fixture, "old-smooth", "die_upgrade", "U01");
             AddBoundaryOffer(fixture, "new-gold", "die_upgrade", "U06");
             AddBoundaryOffer(fixture, "new-controller", "controller", "C02");
-            yield return LoadBoundaryFixture(fixture); Click("ContinueRun");
+            yield return LoadBoundaryFixture(fixture); ResumeBoundaryFixture();
             string original = StateJson();
             UnityEngine.UI.Button confirm = null;
             int staleFaceCalls = 0;
@@ -119,7 +119,7 @@ namespace DiceCraft.Tests
                 if (repeat < 5) Click("CloseDialog");
             }
             long sequence = app.Session.State.actionSequence;
-            int gold = app.Session.State.gold;
+            long gold = app.Session.State.gold;
             string log = Path.Combine(saveDirectory, "debug-actions.jsonl");
             int priorLines = File.Exists(log) ? File.ReadAllLines(log).Length : 0;
             Click("ConfirmPurchase");

@@ -7,7 +7,7 @@ namespace DiceCraft.Tests
 {
     public sealed class ShopTests : SessionTestSupport
     {
-        [TestCase(false,36)] [TestCase(true,38)] public void FLOW_E01_RewardUsesOldBalance(bool pig, int expected)
+        [TestCase(false,36)] [TestCase(true,39)] public void FLOW_E01_RewardUsesOldBalance(bool pig, int expected)
         {
             var s = Selecting(new[] { 4,4,4,4,4 }, new[] { "red","red","red","red","red" }, pig ? new[] { "C01" } : null);
             s = Edit(s, x => x.gold = 27); Do(s, CommandKind.Submit); Do(s, CommandKind.EndStage);
@@ -16,7 +16,7 @@ namespace DiceCraft.Tests
         [Test] public void FLOW_E02_BuyingPigNeverChangesPriorSettlement()
         {
             string offer = null; var s = Edit(Shop(), x => { x.gold = 100; offer = PutOffer(x, "controller", "C01"); });
-            int interest = s.State.lastStageSettlement.interest; Do(s, CommandKind.Buy, c => c.offerId = offer);
+            long interest = s.State.lastStageSettlement.interest; Do(s, CommandKind.Buy, c => c.offerId = offer);
             Assert.That(s.State.lastStageSettlement.interest, Is.EqualTo(interest));
             Assert.That(s.Execute(Command(s, CommandKind.Continue)).accepted, Is.False);
         }
@@ -28,8 +28,12 @@ namespace DiceCraft.Tests
         [TestCase("C26")] [TestCase("C27")] [TestCase("C28")] [TestCase("C29")] [TestCase("C30")]
         [TestCase("C31")] [TestCase("C32")] [TestCase("C33")] [TestCase("C34")] [TestCase("C35")]
         [TestCase("C36")] [TestCase("C37")] [TestCase("C38")] [TestCase("C39")] [TestCase("C40")]
+        [TestCase("C41")] [TestCase("C42")] [TestCase("C43")] [TestCase("C44")] [TestCase("C45")] [TestCase("C46")] [TestCase("C47")] [TestCase("C48")] [TestCase("C49")] [TestCase("C50")] [TestCase("C51")] [TestCase("C52")] [TestCase("C53")]
         public void CONTENT_ControllerPurchaseDuplicateAndSell(string id)
         {
+            if (cfg.removedControllerIds.Contains(id)) {
+                var invalid = Shop().State; Equip(invalid, id); Assert.That(() => new GameSession(cfg, new MemorySaveStore(), invalid), Throws.Exception); return;
+            }
             string offer = null, second = null;
             var s = Edit(Shop(), x => { x.gold = 100; offer = PutOffer(x,"controller",id); second = offer; });
             var buy = Command(s, CommandKind.Buy); buy.offerId = offer;
@@ -42,7 +46,7 @@ namespace DiceCraft.Tests
         }
         [Test] public void FLOW_E03_ControllerFullRejectsWithoutRestocking()
         {
-            string offer = null; var s = Edit(Shop(), x => { x.gold = 100; Equip(x,"C01","C02","C03","C04"); offer = PutOffer(x,"controller","C05"); });
+            string offer = null; var s = Edit(Shop(), x => { x.gold = 100; Equip(x,"C01","C02","C03","C06"); offer = PutOffer(x,"controller","C05"); });
             var c = Command(s,CommandKind.Buy); c.offerId=offer; var before=s.State;
             Assert.That(s.Execute(c).accepted,Is.False); AssertUnchanged(before,s.State);
             int count=s.State.shop.offers.Count; Do(s,CommandKind.Sell,c2=>c2.itemInstanceId=s.State.controllers[0].instanceId);
@@ -51,21 +55,21 @@ namespace DiceCraft.Tests
         [Test] public void FLOW_E04_SellOnceAndConsumedCannotSell()
         {
             string item=null; var s=Edit(Shop(),x=>item=AddItem(x,"I01")); var c=Command(s,CommandKind.Sell); c.itemInstanceId=item;
-            int before=s.State.gold; Assert.That(s.Execute(c).accepted,Is.True); Assert.That(s.Execute(c).duplicate,Is.True);
+            long before = s.State.gold; Assert.That(s.Execute(c).accepted,Is.True); Assert.That(s.Execute(c).duplicate,Is.True);
             Assert.That(s.State.gold,Is.EqualTo(before+1)); c=Command(s,CommandKind.Sell); c.itemInstanceId=item; Assert.That(s.Execute(c).accepted,Is.False);
         }
-        [Test] public void FLOW_E05_E06_DiscountChargesOldPriceAndMinimumTwo()
+        [Test] public void FLOW_E05_E06_DiscountChargesOldPriceOnceAndMinimumOne()
         {
             string discount=null,item=null; var s=Edit(Shop(),x=>{x.gold=100;x.itemDiscount=2;discount=PutOffer(x,"service","O02");item=PutOffer(x,"consumable","I04");});
-            Do(s,CommandKind.Buy,c=>c.offerId=discount); Assert.That(s.State.gold,Is.EqualTo(95)); Assert.That(s.State.itemDiscount,Is.EqualTo(3));
-            Assert.That(s.GetOfferPrice(s.State.shop.offers.First(x=>x.offerId==item)),Is.EqualTo(2)); Do(s,CommandKind.Buy,c=>c.offerId=item);
-            var owned=s.State.inventory.Single(); Do(s,CommandKind.Sell,c=>c.itemInstanceId=owned.instanceId); Assert.That(s.State.gold,Is.EqualTo(94));
+            Do(s,CommandKind.Buy,c=>c.offerId=discount); Assert.That(s.State.gold,Is.EqualTo(99)); Assert.That(s.State.itemDiscount,Is.EqualTo(3));
+            Assert.That(s.GetOfferPrice(s.State.shop.offers.First(x=>x.offerId==item)),Is.EqualTo(1)); Do(s,CommandKind.Buy,c=>c.offerId=item);
+            var owned=s.State.inventory.Single(); Do(s,CommandKind.Sell,c=>c.itemInstanceId=owned.instanceId); Assert.That(s.State.gold,Is.EqualTo(99));
         }
         [Test] public void FLOW_E07_DiscountDoesNotAffectControllersOrUpgrades()
         {
             string cOffer=null,uOffer=null; var s=Edit(Shop(),x=>{x.gold=100;x.itemDiscount=3;cOffer=PutOffer(x,"controller","C10");uOffer=PutOffer(x,"die_upgrade","U06");});
             Do(s,CommandKind.Buy,c=>c.offerId=cOffer); Do(s,CommandKind.Buy,c=>{c.offerId=uOffer;c.targetDieId="D001";c.targetFaceId="F01";});
-            Assert.That(s.State.gold,Is.EqualTo(90));
+            Assert.That(s.State.gold,Is.EqualTo(95));
         }
         [TestCase("O01")] [TestCase("O02")] public void FLOW_E08_MaxedServiceRejects(string id)
         {
@@ -138,8 +142,8 @@ namespace DiceCraft.Tests
         [Test] public void SelfStudyAndRandomHandUseCurrentLevelAndEligibility()
         {
             string offer=null;var s=Edit(Shop(),x=>{x.gold=100;offer=PutOffer(x,"hand_upgrade","pair");});
-            Do(s,CommandKind.Buy,c=>c.offerId=offer);Assert.That(s.GetStudyPrice("pair"),Is.EqualTo(10));
-            Do(s,CommandKind.Study,c=>c.handId="pair");Assert.That(s.State.gold,Is.EqualTo(84));Assert.That(s.State.handLevels.First(x=>x.handId=="pair").level,Is.EqualTo(2));
+            Do(s,CommandKind.Buy,c=>c.offerId=offer);Assert.That(s.GetStudyPrice("pair"),Is.EqualTo(4));
+            Do(s,CommandKind.Study,c=>c.handId="pair");Assert.That(s.State.gold,Is.EqualTo(94));Assert.That(s.State.handLevels.First(x=>x.handId=="pair").level,Is.EqualTo(2));
             Assert.That(s.Execute(new SessionCommand{kind=CommandKind.Study,commandId="secondstudy",expectedActionSequence=s.State.actionSequence,handId="pair"}).accepted,Is.False);
         }
         [Test] public void GeneratedShopHasExactCategoriesNoReplacementAndAffordableFirstController()
@@ -150,7 +154,7 @@ namespace DiceCraft.Tests
                 Assert.That(offers.Count(x=>x.category==category),Is.EqualTo(expected),category);
                 if(category!="new_die") Assert.That(offers.Where(x=>x.category==category).Select(x=>x.contentId).Distinct().Count(),Is.EqualTo(expected));
             }
-            Assert.That(cfg.Controller(offers.First(x=>x.category=="controller").contentId).buyPrice,Is.LessThanOrEqualTo(8));
+            Assert.That(cfg.Controller(offers.First(x=>x.category=="controller").contentId).buyPrice,Is.LessThanOrEqualTo(3));
         }
         [Test] public void ShopGoldDoesNotLimitPurchaseCountAndInventoryFullDoesNotEraseSupply()
         {

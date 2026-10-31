@@ -47,7 +47,8 @@ namespace DiceCraft.Tests
         }
         [Test] public void FLOW_A08_ControllerBudgetsCombine()
         {
-            var s = Ready("C04", "C16"); Assert.That(s.State.stage.remainingSubmissions, Is.EqualTo(5)); Assert.That(s.State.hand.rollsRemaining, Is.EqualTo(4));
+            var s = Edit(New(), x => { Equip(x, "C01", "C02", "C03"); x.controllers[0].enchantmentId = "submit1"; x.controllers[1].enchantmentId = "submit1"; x.controllers[2].enchantmentId = "roll1"; });
+            Do(s, CommandKind.StartStage); Assert.That(s.State.stage.remainingSubmissions, Is.EqualTo(5)); Assert.That(s.State.hand.rollsRemaining, Is.EqualTo(4));
         }
         [Test] public void FLOW_A09_A11_C05OnlyAfterRollOnceAndSurvivesLoad()
         {
@@ -65,7 +66,7 @@ namespace DiceCraft.Tests
         [Test] public void FLOW_A12_ExtraRollAndSubmissionPersistForStage()
         {
             string a = null, b = null;
-            var s = Edit(Selecting(new[] { 1,2,3,4,5 }, lockedCount: 1), x => { a = AddItem(x, "I06"); b = AddItem(x, "I07"); x.hand.c05Used = true; });
+            var s = Edit(Selecting(new[] { 1,2,3,4,5 }, controllers: new[]{"C05"}, lockedCount: 1), x => { a = AddItem(x, "I06"); b = AddItem(x, "I07"); x.hand.c05UsedEmitterIds = x.controllers.Where(c => c.definitionId == "C05").Select(c => c.instanceId).ToList(); });
             Do(s, CommandKind.UseItem, c => c.itemInstanceId = a); Do(s, CommandKind.UseItem, c => c.itemInstanceId = b);
             Assert.That(s.State.stage.remainingSubmissions, Is.EqualTo(4)); Assert.That(s.State.hand.rollsRemaining, Is.EqualTo(1)); Assert.That(s.State.hand.c05Used, Is.True);
             Do(s, CommandKind.Submit); Assert.That(s.State.hand.rollsRemaining, Is.EqualTo(4)); Assert.That(s.State.hand.c05Used, Is.False);
@@ -134,10 +135,10 @@ namespace DiceCraft.Tests
         [Test] public void FLOW_C12_TemporaryLimitIsSimultaneousNotHistorical()
         {
             var s = Ready();
-            for (int i = 0; i < 3; i++) { string item = null; s = Edit(s, x => item = AddItem(x, "I02")); Do(s, CommandKind.UseItem, c => c.itemInstanceId = item); }
-            string denied = null; s = Edit(s, x => denied = AddItem(x, "I02"));
+            for (int i = 0; i < 3; i++) { string item = null; s = Edit(s, x => { item = AddItem(x, "I02"); x.isDebug = false; }); Do(s, CommandKind.UseItem, c => c.itemInstanceId = item); }
+            string denied = null; s = Edit(s, x => { denied = AddItem(x, "I02"); x.isDebug = false; });
             var c0 = Command(s, CommandKind.UseItem); c0.itemInstanceId = denied; Assert.That(s.Execute(c0).accepted, Is.False);
-            s = Edit(s, x => { var victim = x.dice.Last().dieId; x.dice.RemoveAll(d => d.dieId == victim); x.hand.currentResults.RemoveAll(r => r.dieId == victim); });
+            s = Edit(s, x => { var victim = x.dice.Last().dieId; x.dice.RemoveAll(d => d.dieId == victim); x.hand.currentResults.RemoveAll(r => r.dieId == victim); x.isDebug = false; });
             Do(s, CommandKind.UseItem, c => c.itemInstanceId = denied); Assert.That(s.State.dice.Count(x => x.lifetime == "stage_temporary"), Is.EqualTo(3));
         }
         [TestCase(false)] [TestCase(true)] public void FLOW_C14_C15_SettlementClearsTemporaryDiceWithFinalWinPriority(bool final)
@@ -145,8 +146,8 @@ namespace DiceCraft.Tests
             var s = Selecting(new[] { 4,4,4,4,4 }, new[] { "red","red","red","red","red" });
             s = Edit(s, x => { x.dice.RemoveRange(2,3); x.hand.currentResults.RemoveRange(2,3); x.hand.orderedLockedIds.RemoveRange(2,3);
                 if (final) { x.stage.stageIndex = 23; x.stage.stageId = cfg.stages[23].stageId; }
-                x.stage.target = 1; foreach (var d in x.dice) { d.lifetime = "stage_temporary"; d.createdStageId = x.stage.stageId; } });
-            Do(s, CommandKind.Submit); Do(s, CommandKind.EndStage); Assert.That(s.State.phase, Is.EqualTo("StageSettlement")); Assert.That(s.State.gold, Is.GreaterThan(10)); Assert.That(s.State.dice, Is.Empty);
+                x.stage.target = "1"; foreach (var d in x.dice) { d.lifetime = "stage_temporary"; d.createdStageId = x.stage.stageId; } });
+            Do(s, CommandKind.Submit); Do(s, CommandKind.EndStage); Assert.That(s.State.phase, Is.EqualTo("StageSettlement")); Assert.That(s.State.gold, Is.EqualTo(7)); Assert.That(s.State.dice, Is.Empty);
             Do(s, CommandKind.Continue); Assert.That(s.State.phase, Is.EqualTo(final ? "RunWon" : "RunFailed"));
         }
         [Test] public void FLOW_C13_CopyPreservesTemporaryTargetLifetime()
@@ -165,7 +166,7 @@ namespace DiceCraft.Tests
         {
             var s = Selecting(new[] { 4,4,4,4,4 }, new[] { "red","red","red","red","red" });
             s = Edit(s, x => x.stage.remainingSubmissions = 1); Do(s, CommandKind.Submit); Assert.That(s.State.phase, Is.EqualTo("StageSettlement"));
-            s = Selecting(new[] { 1 }, new[] { "red" }); s = Edit(s, x => { x.hand.redWave = true; x.hand.largeBuff = true; x.hand.smallBuff = true; x.hand.c05Used = true; });
+            s = Selecting(new[] { 1 }, new[] { "red" }); s = Edit(s, x => { x.hand.redWave = true; x.hand.largeBuff = true; x.hand.smallBuff = true; x.hand.c05UsedEmitterIds = x.controllers.Where(c => c.definitionId == "C05").Select(c => c.instanceId).ToList(); });
             Do(s, CommandKind.Submit); Assert.That(s.State.phase, Is.EqualTo("HandReady")); Assert.That(s.State.hand.redWave || s.State.hand.largeBuff || s.State.hand.smallBuff || s.State.hand.c05Used, Is.False);
         }
     }

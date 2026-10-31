@@ -23,7 +23,7 @@ namespace DiceCraft.Tests
             {
                 Click("HeaderHandbook");
                 var rows=app.canvas.GetComponentsInChildren<Transform>().Where(t=>t.name.StartsWith("HandbookRow_")).ToArray();
-                Assert.That(rows.Length,Is.EqualTo(13));
+                Assert.That(rows.Length,Is.EqualTo(14));
                 Assert.That(rows.Any(t=>t.name=="HandbookRow_eight_kind"),Is.True);
                 Assert.That(FindActive<TextMeshProUGUI>("HandbookHint").text,Does.Contain("0级"));
                 Click("CloseDialog");
@@ -45,7 +45,7 @@ namespace DiceCraft.Tests
         {
             Click("Tutorial");Click("StartStage");Click("Roll");Click("Skip");
             foreach(var die in app.Session.State.dice)ClickDie(die.dieId);
-            Click("Confirm");int gold=app.Session.State.gold;Click("Submit");yield return WaitForIdle();
+            Click("Confirm");long gold = app.Session.State.gold;Click("Submit");yield return WaitForIdle();
             Assert.That(app.Session.State.phase,Is.EqualTo("HandReady"));Assert.That(app.Session.State.stage.qualified,Is.True);
             Assert.That(app.Session.State.gold,Is.EqualTo(gold));Assert.That(Button("EndStage").interactable,Is.True);
             Click("Roll");Click("Skip");ClickDie("D001");Assert.That(Button("EndStage").interactable,Is.False);
@@ -65,18 +65,18 @@ namespace DiceCraft.Tests
             var fixture=ShopBoundaryFixture();fixture.shop.offers.Clear();
             AddBoundaryOffer(fixture,"grow1","controller","C21");AddBoundaryOffer(fixture,"grow2","controller","C22");
             AddBoundaryOffer(fixture,"simple","controller","C29");AddBoundaryOffer(fixture,"pair-up","hand_upgrade","pair");
-            yield return LoadBoundaryFixture(fixture);Click("ContinueRun");
+            yield return LoadBoundaryFixture(fixture);ResumeBoundaryFixture();
             BuyBoundaryOffer("grow1");BuyBoundaryOffer("grow2");BuyBoundaryOffer("simple");BuyBoundaryOffer("pair-up");
             Assert.That(app.Session.EffectiveCapacity,Is.EqualTo(8));
             Click("HeaderHandbook");
             var pair=FindActive<Transform>("HandbookRow_pair");
-            Assert.That(pair.GetComponentsInChildren<TextMeshProUGUI>().Single(t=>t.name=="Name").text,Does.Contain("1/8"));
+            Assert.That(pair.GetComponentsInChildren<TextMeshProUGUI>().Single(t=>t.name=="Name").text,Does.Contain("1/100"));
             var straight=FindActive<Transform>("HandbookRow_straight");
             Assert.That(straight.GetComponentsInChildren<TextMeshProUGUI>().Single(t=>t.name=="Example").text,Does.Contain("4"));
             var eight=FindActive<Transform>("HandbookRow_eight_kind");
             Assert.That(eight.GetComponentsInChildren<TextMeshProUGUI>().Single(t=>t.name=="Availability").text,Does.Contain("永久骰"));
-            Click("CloseDialog");string before=StateJson();yield return LoadBootstrap();Click("ContinueRun");Click("HeaderHandbook");
-            Assert.That(StateJson(),Is.EqualTo(before));Assert.That(FindActive<Transform>("HandbookRow_pair").GetComponentsInChildren<TextMeshProUGUI>().Single(t=>t.name=="Name").text,Does.Contain("1/8"));
+            Click("CloseDialog");string before=StateJson();yield return LoadBootstrap();ResumeBoundaryFixture();Click("HeaderHandbook");
+            Assert.That(StateJson(),Is.EqualTo(before));Assert.That(FindActive<Transform>("HandbookRow_pair").GetComponentsInChildren<TextMeshProUGUI>().Single(t=>t.name=="Name").text,Does.Contain("1/100"));
         }
 
         [UnityTest]
@@ -85,13 +85,13 @@ namespace DiceCraft.Tests
             var fixture=ShopBoundaryFixture();fixture.shop.offers.Clear();
             fixture.controllers.Add(BoundaryController(fixture, "C39"));
             AddBoundaryOffer(fixture,"replace-c39","controller","C39");
-            fixture.shop.offers[0].controller.enchantmentId="base5";
-            yield return LoadBoundaryFixture(fixture);Click("ContinueRun");OpenBoundaryOffer("replace-c39");
-            Assert.That(DialogLabel("Capacity"),Does.Contain("旧卡回收 1"));Assert.That(DialogLabel("Enchantment"),Does.Contain("基础分 +5"));
-            int gold=app.Session.State.gold;int net=app.Session.GetOfferNetPrice(app.Session.State.shop.offers[0]);Click("ConfirmPurchase");
+            fixture.shop.offers[0].controller.enchantmentId="base10";
+            yield return LoadBoundaryFixture(fixture);ResumeBoundaryFixture();OpenBoundaryOffer("replace-c39");
+            Assert.That(DialogLabel("Capacity"),Does.Contain("旧卡回收 1"));Assert.That(DialogLabel("Enchantment"),Does.Contain("基础分 +10"));
+            long gold = app.Session.State.gold;long net=app.Session.GetOfferNetPrice(app.Session.State.shop.offers[0]);Click("ConfirmPurchase");
             Assert.That(app.Session.State.gold,Is.EqualTo(gold-net));Assert.That(app.Session.State.controllers.Count,Is.EqualTo(1));
-            Assert.That(app.Session.State.controllers.Single().enchantmentId,Is.EqualTo("base5"));
-            string before=StateJson();yield return LoadBootstrap();Click("ContinueRun");
+            Assert.That(app.Session.State.controllers.Single().enchantmentId,Is.EqualTo("base10"));
+            string before=StateJson();yield return LoadBootstrap();ResumeBoundaryFixture();
             Assert.That(StateJson(),Is.EqualTo(before));Assert.That(FindActive<TextMeshProUGUI>("ControllersTitle").text,Does.Contain("普通槽 1/4"));
         }
     }

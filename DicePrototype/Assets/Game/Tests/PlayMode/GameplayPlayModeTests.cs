@@ -34,7 +34,7 @@ namespace DiceCraft.Tests
         {
             saveDirectory = Path.Combine(Application.temporaryCachePath, "DiceCraftTests_" + Guid.NewGuid().ToString("N"));
             Directory.CreateDirectory(saveDirectory);
-            GameApp.SaveDirectoryOverride = saveDirectory;
+            GameApp.SaveDirectoryOverride = saveDirectory; GameApp.SuppressStartupDisplay=true;
             foreach (string key in new[] {"fast", "reduced", "shopTab"})
             {
                 intPreferences[key] = PlayerPrefs.HasKey(key) ? (int?)PlayerPrefs.GetInt(key) : null;
@@ -58,7 +58,7 @@ namespace DiceCraft.Tests
                 SceneManager.SetActiveScene(empty);
                 yield return SceneManager.UnloadSceneAsync(bootstrap);
             }
-            GameApp.SaveDirectoryOverride = null;
+            GameApp.SaveDirectoryOverride = null; GameApp.SuppressStartupDisplay=false;
             foreach (var preference in intPreferences)
                 if (preference.Value.HasValue) PlayerPrefs.SetInt(preference.Key, preference.Value.Value);
                 else PlayerPrefs.DeleteKey(preference.Key);
@@ -70,7 +70,7 @@ namespace DiceCraft.Tests
         }
 
         [UnityTest]
-        public IEnumerator PLAY_Bootstrap_RealReferences58IconsFontAndSingleInputSystem()
+        public IEnumerator PLAY_Bootstrap_RealReferences71IconsFontAndSingleInputSystem()
         {
             Assert.That(UObj.FindObjectsByType<GameApp>().Length, Is.EqualTo(1));
             var systems = UObj.FindObjectsByType<EventSystem>();
@@ -93,8 +93,8 @@ namespace DiceCraft.Tests
             }
             string[] ids = app.Config.controllers.Select(c => c.id).Concat(app.Config.consumables.Select(c => c.id))
                 .Concat(app.Config.services.Select(c => c.id)).Concat(app.Config.diceUpgrades.Select(c => c.id)).ToArray();
-            Assert.That(ids.Length, Is.EqualTo(58));
-            Assert.That(app.contentIcons, Has.Length.EqualTo(58));
+            Assert.That(ids.Length, Is.EqualTo(71));
+            Assert.That(app.contentIcons, Has.Length.EqualTo(71));
             Assert.That(app.contentIcons.All(sprite => sprite != null), Is.True);
             CollectionAssert.AreEquivalent(ids, app.contentIcons.Select(sprite => sprite.name));
             Assert.That(app.uiFont, Is.Not.Null);
@@ -114,7 +114,7 @@ namespace DiceCraft.Tests
         {
             StartRun("20261028");
             Assert.That(app.Session.State.phase, Is.EqualTo("StagePreview"));
-            Assert.That(app.Session.State.gold, Is.EqualTo(10));
+            Assert.That(app.Session.State.gold, Is.EqualTo(0));
             Assert.That(app.Session.State.dice.Count, Is.EqualTo(5));
             Click("StartStage");
             Assert.That(app.Session.State.phase, Is.EqualTo("HandReady"));
@@ -148,8 +148,8 @@ namespace DiceCraft.Tests
             var loaded = new AtomicSaveStore(app.SaveLocation, app.Config).Load();
             CollectionAssert.AreEqual(new[] {"D001", "D002"}, loaded.hand.orderedLockedIds);
             Assert.That(loaded.hand.currentResults.Count(r => r.isLocked), Is.EqualTo(2));
-            long expected = app.Session.PreviewScore().score;
-            Assert.That(FindActive<TextMeshProUGUI>("FinalScore").text, Is.EqualTo(expected.ToString("N0")));
+            string expected = app.Session.PreviewScore().score;
+            Assert.That(FindActive<TextMeshProUGUI>("FinalScore").text, Is.EqualTo(System.Numerics.BigInteger.Parse(expected).ToString("N0",System.Globalization.CultureInfo.InvariantCulture)));
             Click("Submit");
             Assert.That(app.Session.State.lastSubmission.breakdown.score, Is.EqualTo(expected));
             Assert.That(app.Session.State.stage.score, Is.EqualTo(expected));
@@ -286,17 +286,17 @@ namespace DiceCraft.Tests
             byte[] formalSave = File.ReadAllBytes(app.SaveLocation);
             Click("Pause"); Click("MainMenu"); Click("Tutorial");
             Assert.That(app.Session.State.isDebug, Is.True);
-            Assert.That(app.Session.State.stage.target, Is.EqualTo(50));
+            Assert.That(app.Session.State.stage.target, Is.EqualTo("50"));
             Assert.That(Button("Normal").GetComponentInChildren<TextMeshProUGUI>().text, Does.Contain("50 分"), "Tutorial challenge card must show its actual target.");
             Click("StartStage"); Click("Roll"); Click("Skip");
             foreach (string id in app.Session.State.dice.Select(d => d.dieId).ToArray()) ClickDie(id);
             Click("Confirm");
             var practiceScore = app.Session.PreviewScore();
-            Assert.That(practiceScore.pipSum, Is.EqualTo(19));
+            Assert.That(practiceScore.pipSum, Is.EqualTo("19"));
             Assert.That(practiceScore.unusedRollBonus, Is.EqualTo(6));
             Assert.That(practiceScore.totalHandMult100, Is.EqualTo(200));
-            Assert.That(practiceScore.redMult100, Is.EqualTo(150));
-            Assert.That(practiceScore.score, Is.EqualTo(75), "v0.5: (19 pips + 6 unused-roll bonus) × pair 2 × two-red reward 1.5.");
+            Assert.That(practiceScore.redMult100, Is.EqualTo(175));
+            Assert.That(practiceScore.score, Is.EqualTo("87"), "v0.6: floor((19 + 6) × pair 2 × mixed color 1 × red 1.75).");
             Click("Submit");
             yield return WaitForIdle();
             Assert.That(app.Session.State.phase, Is.EqualTo("HandReady"));
@@ -307,7 +307,7 @@ namespace DiceCraft.Tests
             Click("SettlementContinue");
             Assert.That(app.Session.State.phase, Is.EqualTo("Shop"));
             var offer = app.Session.State.shop.offers.First(o => o.category == "controller");
-            int goldBefore = app.Session.State.gold, price = app.Session.GetOfferPrice(offer);
+            long goldBefore = app.Session.State.gold, price = app.Session.GetOfferPrice(offer);
             var card = FindActive<Transform>("Offer_" + offer.offerId);
             var inspect = card.GetComponentsInChildren<UnityEngine.UI.Button>().Single(b => b.name == "Inspect");
             Assert.That(inspect.interactable, Is.True); inspect.onClick.Invoke();

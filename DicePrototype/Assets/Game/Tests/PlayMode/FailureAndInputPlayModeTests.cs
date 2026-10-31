@@ -94,12 +94,11 @@ namespace DiceCraft.Tests
             fixture.controllers.Add(BoundaryController(fixture, controller.contentId, controller.controller.enchantmentId));
             fixture.inventory.Clear();
             for (int i = 0; i < fixture.consumableSlots; i++)
-                fixture.inventory.Add(new OwnedItem {instanceId = "TEST_FULL_" + i, contentId = "I01"});
+                BoundaryItem(fixture, "I01");
             var consumable = fixture.shop.offers.First(o => o.category == "consumable");
             new GameSession(app.Config, new MemorySaveStore(), fixture); // Enforce production invariants before saving fixture.
-            new AtomicSaveStore(app.SaveLocation, app.Config).Save(fixture);
-            yield return LoadBootstrap();
-            Click("ContinueRun");
+            yield return LoadBoundaryFixture(fixture);
+            ResumeBoundaryFixture();
             string before = StateJson();
             InspectOfferCard(controller.offerId);
             Assert.That(app.Session.PurchaseError(controller.offerId), Is.Not.Null);
@@ -122,8 +121,8 @@ namespace DiceCraft.Tests
             StartRun("709"); Click("StartStage"); Click("Roll"); Click("Skip");
             ClickDie(app.Session.State.dice[0].dieId); Click("Confirm");
             long sequence = app.Session.State.actionSequence;
-            long scoreBefore = app.Session.State.stage.score;
-            long score = app.Session.PreviewScore().score;
+            string scoreBefore = app.Session.State.stage.score;
+            string score = app.Session.PreviewScore().score;
             EventSystem.current.SetSelectedGameObject(Button("Pause").gameObject);
             Assert.That(EventSystem.current.currentSelectedGameObject.name, Is.EqualTo("Pause"));
             Keyboard previous = Keyboard.current;
@@ -156,7 +155,7 @@ namespace DiceCraft.Tests
                 yield return null;
                 Assert.That(observedDynamicEnter, Is.True, "The injected Enter must reach a real Dynamic input update before testing product behavior.");
                 Assert.That(app.Session.State.actionSequence, Is.EqualTo(sequence + 1), "Enter must execute exactly one rules command.");
-                Assert.That(app.Session.State.stage.score, Is.EqualTo(scoreBefore + score));
+                Assert.That(app.Session.State.stage.score, Is.EqualTo(ExactScoreMath.Add(scoreBefore,score)));
                 Assert.That(app.canvas.GetComponentsInChildren<Transform>(false).Any(t => t.name == "Dialog" && t.gameObject.activeInHierarchy), Is.False,
                     "The stale selected Pause button must not also receive UI Submit.");
                 Assert.That(EventSystem.current.sendNavigationEvents, Is.False);

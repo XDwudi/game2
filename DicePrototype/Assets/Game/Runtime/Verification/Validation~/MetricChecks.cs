@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Text.Json;
 using DiceCraft.Verification;
 using UnityEngine;
+using DiceCraft.Core;
 
 internal static class MetricChecks
 {
@@ -93,7 +94,44 @@ internal static class MetricChecks
         chain=Activator.CreateInstance(chainType);
         var noFrequency=Observe(true,1000,1100,1200,1,0);
         Check(Status(noFrequency,"startStatus")==4 && double.IsNaN(Delta(noFrequency,"startDelta")), "clock_missing_frequency_is_null_not_zero");
-        Console.WriteLine("28 managed report/capture checks passed. Unity player behavior was not executed.");
+        var member = type.GetMethod("JsonMember", BindingFlags.NonPublic | BindingFlags.Static);
+        var elements = type.GetMethod("JsonElements", BindingFlags.NonPublic | BindingFlags.Static);
+        string Member(string source, string key) => (string)member.Invoke(null, new object[] { source, key });
+        List<string> Elements(string source) => (List<string>)elements.Invoke(null, new object[] { source });
+        Check(Member("{\"x\":{\"a\":1},\"a\":null}", "a") == "null", "json_null_slicer_ignores_nested_members");
+        Check(Member("{\"a\":[],\"b\":null}", "a") == "[]", "json_empty_array_not_treated_as_null");
+        Check(Member("{\"x\":\"quote\\\" and } ]\",\"a\":true}", "a") == "true", "json_slicer_skips_escaped_delimiters");
+        Check(Elements(" [ {\"a\":[1,2]}, null, \"x,]y\" ] ").Count == 3, "json_elements_preserve_nested_values");
+        bool absentRejected = false; try { Member("{\"x\":1}", "a"); } catch (TargetInvocationException e) { absentRejected = e.InnerException is FormatException; }
+        Check(absentRejected, "json_absent_member_not_defaulted");
+        var traceText = System.IO.File.ReadAllText("evidence/v06/session/debug-24-trace.json");
+        var traceSteps = Elements(Member(traceText, "steps"));
+        Check(traceSteps.Count == 175 && Member(Member(traceSteps[0], "command"), "debugScene") != "null"
+            && Member(Member(Member(traceSteps[0], "command"), "debugScene"), "currentResults") == "null", "json_actual_v06_trace_175_steps_and_explicit_null");
+        var configText = System.IO.File.ReadAllText("DicePrototype/Assets/Game/Data/P0Config.json");
+        var cfg = JsonSerializer.Deserialize<GameConfig>(GameConfig.PrepareJsonForUnity(configText), new JsonSerializerOptions { IncludeFields = true });
+        cfg.Validate();
+        var stressFactory = type.GetMethod("CreateStressState", BindingFlags.NonPublic | BindingFlags.Static);
+        var stress = (RunState)stressFactory.Invoke(null, new object[] { cfg });
+        var stressSession = new GameSession(cfg, new MemorySaveStore(), stress);
+        Check(stress.isDebug && stress.debugWorkspace && stress.dice.Count == 10 && stress.stage.capacity == 8 && stress.hand.orderedLockedIds.Count == 8
+            && stress.controllers.Count == 10 && ControllerRules.OrdinaryUsed(stress.controllers) == 4 && stress.inventory.Count == 5, "actual_stress_factory_v06_production_invariants_10_8_10_5");
+        Check(stress.controllers.Select(c => c.instanceId).Concat(stress.inventory.Select(i => i.instanceId)).Distinct().Count() == 15
+            && stress.inventory.All(i => i.instanceId.StartsWith("ITEM_")), "stress_shared_item_namespace_has_no_collision");
+        var roll = stressSession.Execute(new SessionCommand { commandId = "managed-roll", expectedActionSequence = stressSession.ActionSequence, kind = CommandKind.Roll });
+        Check(roll.accepted && stressSession.State.dice.Count == 10 && stressSession.State.hand.rollsRemaining == 499, "stress_fixture_real_roll_preserves_locked_glass_population");
+        var ordered = stressSession.State.hand.orderedLockedIds.AsEnumerable().Reverse().ToArray();
+        var reorder = stressSession.Execute(new SessionCommand { commandId = "managed-reorder", expectedActionSequence = stressSession.ActionSequence, kind = CommandKind.Reorder, dieIds = ordered });
+        Check(reorder.accepted && stressSession.State.hand.orderedLockedIds.SequenceEqual(ordered), "stress_fixture_actual_reorder_command_accepted");
+        string frozen = GameSession.StateHash(stressSession.State);
+        var score = stressSession.PreviewScoreRange();
+        Check(score != null && ExactScoreMath.Parse(score.minimum.score) > 0 && GameSession.StateHash(stressSession.State) == frozen, "stress_preview_is_positive_and_pure");
+        var chainFactory = type.GetMethod("CreateBrokenMimicChainState", BindingFlags.NonPublic | BindingFlags.Static);
+        var chainState = (RunState)chainFactory.Invoke(null, new object[] { cfg });
+        var chainSession = new GameSession(cfg, new MemorySaveStore(), chainState);
+        Check(chainState.controllers.Count == 14 && chainState.stage.mimicBindings.Length == 14
+            && ControllerRules.ResolveSources(chainSession.State.controllers, chainSession.State.stage.mimicBindings).All(s => s.abilityId == null), "actual_broken_chain_fixture_preserves_14_frozen_bindings");
+        Console.WriteLine("40 managed report/capture/trace/fixture checks passed. Unity player behavior was not executed.");
         return 0;
     }
 }

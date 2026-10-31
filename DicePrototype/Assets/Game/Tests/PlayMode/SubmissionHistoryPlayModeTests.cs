@@ -21,7 +21,7 @@ namespace DiceCraft.Tests
                 var setup = new GameSession(app.Config, new MemorySaveStore());
                 Assert.That(setup.Execute(new SessionCommand {kind = CommandKind.NewRun, commandId = "history-fixture-" + controllerId, seed = 777}).accepted, Is.True);
                 var fixture = setup.State;
-                fixture.isDebug = true;
+                fixture.isDebug = true; fixture.debugWorkspace = true;
                 fixture.controllers.Add(BoundaryController(fixture, controllerId));
                 for (int i = 0; i < fixture.dice.Count; i++)
                     foreach (var face in fixture.dice[i].faces)
@@ -32,16 +32,15 @@ namespace DiceCraft.Tests
                 // Only the explicit fixture's permanent data changes. Targets, scoring rules,
                 // submission count and prices all retain the production configuration.
                 new GameSession(app.Config, new MemorySaveStore(), fixture);
-                new AtomicSaveStore(app.SaveLocation, app.Config).Save(fixture);
-                yield return LoadBootstrap();
-                Click("ContinueRun"); Click("StartStage"); Click("Roll"); Click("Skip");
+                yield return LoadBoundaryFixture(fixture);
+                ResumeBoundaryFixture(); Click("StartStage"); Click("Roll"); Click("Skip");
                 int count = controllerId == "C07" ? 2 : 3;
                 string[] ids = app.Session.State.dice.Take(count).Select(d => d.dieId).ToArray();
                 foreach (string id in ids) ClickDie(id);
                 Click("Confirm");
                 var expectedScore = app.Session.PreviewScore();
                 var frozenSnapshot = app.Session.PreviewSnapshot();
-                Assert.That(expectedScore.score, Is.LessThan(app.Session.State.stage.target), "This regression must follow a non-clearing submission.");
+                Assert.That(ExactScoreMath.Compare(expectedScore.score,app.Session.State.stage.target), Is.LessThan(0), "This regression must follow a non-clearing submission.");
                 string prePreview = StateJson();
                 byte[] prePreviewFile = File.ReadAllBytes(app.SaveLocation);
                 int commits = 0;
@@ -91,7 +90,7 @@ namespace DiceCraft.Tests
                 string beforeHistory = StateJson();
                 Click("PreviousSubmission");
                 string[] originalPanel = ReadHistoryPanel(count);
-                Assert.That(originalPanel[0], Does.EndWith("= " + expectedScore.score.ToString("N0")));
+                Assert.That(originalPanel[0], Does.EndWith("= " + System.Numerics.BigInteger.Parse(expectedScore.score).ToString("N0",System.Globalization.CultureInfo.InvariantCulture)));
                 Assert.That(originalPanel[1], Does.Contain(app.Config.Controller(controllerId).displayName));
                 Assert.That(originalPanel[1], Does.Contain(ids[1]));
                 if (controllerId == "C07") Assert.That(originalPanel[1], Does.Contain(ids[0] + " 的六面复制到 " + ids[1]));
@@ -109,7 +108,7 @@ namespace DiceCraft.Tests
                 Click("CloseDialog");
                 string beforeReload = StateJson();
                 yield return LoadBootstrap();
-                Click("ContinueRun");
+                ResumeBoundaryFixture();
                 Assert.That(StateJson(), Is.EqualTo(beforeReload));
                 Click("PreviousSubmission");
                 CollectionAssert.AreEqual(originalPanel, ReadHistoryPanel(count), "Reload must retain the exact historical formula, faces and source/target effect text.");

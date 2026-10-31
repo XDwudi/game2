@@ -19,6 +19,7 @@ namespace DiceCraft.Tests
 #endif
             string json = File.ReadAllText(path);
             GameConfig.ValidateJson(json);
+            json = GameConfig.PrepareJsonForUnity(json);
 #if UNITY_5_3_OR_NEWER
             cfg = UnityEngine.JsonUtility.FromJson<GameConfig>(json);
 #else
@@ -42,12 +43,18 @@ namespace DiceCraft.Tests
         }
         protected GameSession Edit(GameSession s, Action<RunState> edit, ISaveStore store = null)
         {
-            var snapshot = s.State; snapshot.isDebug = true; edit(snapshot); return new GameSession(cfg, store ?? new MemorySaveStore(), snapshot);
+            var snapshot = s.State; snapshot.isDebug = true; snapshot.debugWorkspace = true; edit(snapshot); snapshot.debugWorkspace = snapshot.isDebug; if (!snapshot.isDebug) snapshot.debugCapacityOverride = 0;
+            if (snapshot.hand != null) foreach(var result in snapshot.hand.currentResults.Where(r => r.hasRolled)) {
+                var die = snapshot.dice.FirstOrDefault(d => d.dieId == result.dieId);
+                var face = die == null ? null : die.faces.FirstOrDefault(f => f.faceId == result.currentFaceId);
+                if(face != null) result.currentColor = face.baseColor;
+            } return new GameSession(cfg, store ?? new MemorySaveStore(), snapshot);
         }
         protected void Equip(RunState s, params string[] ids)
         {
             s.controllers.Clear();
             foreach (var id in ids) { int serial = s.nextItemSerial++; s.controllers.Add(new ControllerInstance { definitionId = id, enchantmentId = "none", acquiredSerial = serial, instanceId = "ITEM_" + serial.ToString("D5") }); }
+            foreach(var c in s.controllers.Where(c => c.definitionId == "C45")) c.state.activeColor = "red";
             if (ids.Length > s.controllerSlots) s.controllerSlots = ids.Length;
         }
         protected string AddItem(RunState s, string id)
@@ -65,13 +72,13 @@ namespace DiceCraft.Tests
             return Edit(s, x => {
                 x.phase = "Selecting"; x.hand.hasRolled = true; x.hand.rollsUsed = 1; x.hand.rollsRemaining = 0;
                 x.dice.Clear(); x.hand.currentResults.Clear(); x.hand.orderedLockedIds.Clear();
-                x.baseSubmitCapacity = cfg.initialSubmitCapacity; x.stage.capacity = Math.Max(pips.Length, ControllerRules.Capacity(x.controllers, cfg));
+                x.baseSubmitCapacity = cfg.initialSubmitCapacity; x.stage.capacity = Math.Max(pips.Length, ControllerRules.Capacity(x.controllers, cfg)); x.debugCapacityOverride = x.stage.capacity;
                 int n = lockedCount < 0 ? pips.Length : lockedCount;
                 for (int i = 0; i < pips.Length; i++) {
                     var d = DiceFactory.CreateStandard(cfg, i + 1); x.dice.Add(d);
                     // A forced current color still comes from its selected physical face.
                     d.faces[0].baseColor=colors==null?"blue":colors[i];
-                    x.hand.currentResults.Add(new DieHandState { dieId = d.dieId, currentFaceId = "F01", currentPip = pips[i], currentColor = colors == null ? "blue" : colors[i], hasRolled = true, isLocked = i < n });
+                    x.hand.currentResults.Add(new DieHandState { dieId = d.dieId, currentFaceId = "F01", currentPip = pips[i], currentColor = colors == null ? "blue" : colors[i], hasRolled = true, remoteOverride = true, isLocked = i < n });
                     if (i < n) x.hand.orderedLockedIds.Add(d.dieId);
                 }
                 x.nextDieSerial = pips.Length + 1;
@@ -80,12 +87,15 @@ namespace DiceCraft.Tests
         protected GameSession Shop()
         {
             var s = Selecting(new[] { 4,4,4,4,4 }, new[] { "red","red","red","red","red" });
-            Do(s, CommandKind.Submit); Do(s, CommandKind.EndStage); Do(s, CommandKind.Continue); return s;
+            Do(s, CommandKind.Submit); Do(s, CommandKind.EndStage); Do(s, CommandKind.Continue); return Edit(s, x => x.debugCapacityOverride = 0);
         }
         protected string PutOffer(RunState s, string category, string contentId, int basePrice = 0, DieInstance die = null)
         {
             var id = "OFFER_" + (s.nextOfferSerial++).ToString("D5");
-            var offer = new ShopOffer { offerId = id, category = category, contentId = contentId, basePrice = basePrice, die = die };
+            s.shop.offers.RemoveAll(o => o.category == category && o.contentId == contentId);
+            int cap = category == "controller" ? cfg.shop.initialControllerOffers + s.controllerOfferPurchases : category == "consumable" ? cfg.shop.initialConsumableOffers + s.consumableOfferPurchases : int.MaxValue;
+            if (s.shop.offers.Count(o => o.category == category) >= cap) s.shop.offers.Remove(s.shop.offers.First(o => o.category == category));
+            var offer = new ShopOffer { offerId = id, batchId = s.shop.generationId + "/" + category + (category == "controller" ? "/" + s.shop.controllerGeneration : ""), category = category, contentId = contentId, basePrice = basePrice, die = die };
             if (category == "controller") {
                 s.shop.offers.RemoveAll(o => o.category == category && o.contentId == contentId);
                 int serial = s.nextItemSerial++;

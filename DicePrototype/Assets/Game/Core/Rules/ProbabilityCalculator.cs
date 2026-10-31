@@ -8,7 +8,11 @@ namespace DiceCraft.Core
     {
         /// <summary>Returns units in the supplied faces' order; CDF sampling uses face-ID order.</summary>
         public static int[] BuildUnits(FaceState[] faces, bool largeBuff, bool smallBuff, GameConfig config, bool highController = false, bool lowController = false)
+            => BuildUnits(faces, largeBuff, smallBuff, config, highController ? 1 : 0, lowController ? 1 : 0);
+
+        public static int[] BuildUnits(FaceState[] faces, bool largeBuff, bool smallBuff, GameConfig config, int highSourceCount, int lowSourceCount)
         {
+            if (highSourceCount < 0 || lowSourceCount < 0 || highSourceCount > 32 || lowSourceCount > 32) throw new ArgumentOutOfRangeException("Probability source counts.");
             if (config == null) throw new ArgumentNullException(nameof(config));
             config.ValidateFaces(faces);
             if (config.probabilityUnits <= 0) throw new InvalidOperationException("Probability precision missing.");
@@ -35,15 +39,16 @@ namespace DiceCraft.Core
             BigInteger total = weights.Aggregate(BigInteger.Zero, (sum, value) => sum + value);
             if (total <= 0) throw new InvalidOperationException("Probability total must be positive.");
             var probabilities = weights.Select(w => new Rational(w, total)).ToArray();
-            if (highController != lowController)
+            int net = highSourceCount - lowSourceCount;
+            if (net != 0)
             {
-                var parameters = config.Controller(highController ? "C34" : "C35").parameters;
+                var parameters = config.Controller(net > 0 ? "C34" : "C35").parameters;
                 int[] target = Enumerable.Range(0, faces.Length).Where(i => parameters.targetPips.Contains(faces[i].permanentPip)).ToArray();
                 int[] donor = Enumerable.Range(0, faces.Length).Except(target).ToArray();
                 if (target.Length > 0 && donor.Length > 0)
                 {
                     Rational mass = donor.Select(i => probabilities[i]).Aggregate(Rational.Zero, (a, b) => a + b);
-                    Rational cap = new Rational(parameters.maxTransferUnits, config.probabilityUnits);
+                    Rational cap = new Rational(Math.Abs(net) * parameters.probabilityPointsPerSource, 100);
                     Rational transfer = mass.CompareTo(cap) < 0 ? mass : cap;
                     var before = (Rational[])probabilities.Clone();
                     foreach (int i in donor) probabilities[i] = before[i] * (mass - transfer) / mass;

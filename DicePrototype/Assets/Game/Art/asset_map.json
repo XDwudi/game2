@@ -1,6 +1,6 @@
 {
-  "configVersion": "p0.5.0",
-  "assetSchemaVersion": 2,
+  "configVersion": "p0.6.0",
+  "assetSchemaVersion": 3,
   "license": "Original project artwork and synthesized audio; no external asset license",
   "icons": [
     {
@@ -25,14 +25,6 @@
       "name": "首当其冲",
       "path": "Assets/Game/Art/Icons/C03.png",
       "source": "art/source_icons/C03.svg",
-      "category": "controller"
-    },
-    {
-      "contentId": "C04",
-      "iconId": "C04",
-      "name": "多提多得",
-      "path": "Assets/Game/Art/Icons/C04.png",
-      "source": "art/source_icons/C04.svg",
       "category": "controller"
     },
     {
@@ -124,14 +116,6 @@
       "category": "controller"
     },
     {
-      "contentId": "C16",
-      "iconId": "C16",
-      "name": "可以重来",
-      "path": "Assets/Game/Art/Icons/C16.png",
-      "source": "art/source_icons/C16.svg",
-      "category": "controller"
-    },
-    {
       "contentId": "C17",
       "iconId": "C17",
       "name": "小鬼当家",
@@ -177,14 +161,6 @@
       "name": "大量提交",
       "path": "Assets/Game/Art/Icons/C22.png",
       "source": "art/source_icons/C22.svg",
-      "category": "controller"
-    },
-    {
-      "contentId": "C23",
-      "iconId": "C23",
-      "name": "重来一次",
-      "path": "Assets/Game/Art/Icons/C23.png",
-      "source": "art/source_icons/C23.svg",
       "category": "controller"
     },
     {
@@ -324,6 +300,110 @@
       "category": "controller"
     },
     {
+      "contentId": "C41",
+      "iconId": "C41",
+      "name": "百变模仿",
+      "path": "Assets/Game/Art/Icons/C41.png",
+      "source": "art/source_icons/C41.svg",
+      "category": "controller"
+    },
+    {
+      "contentId": "C42",
+      "iconId": "C42",
+      "name": "玻璃大炮",
+      "path": "Assets/Game/Art/Icons/C42.png",
+      "source": "art/source_icons/C42.svg",
+      "category": "controller"
+    },
+    {
+      "contentId": "C43",
+      "iconId": "C43",
+      "name": "牌型提升",
+      "path": "Assets/Game/Art/Icons/C43.png",
+      "source": "art/source_icons/C43.svg",
+      "category": "controller"
+    },
+    {
+      "contentId": "C44",
+      "iconId": "C44",
+      "name": "有钱真好",
+      "path": "Assets/Game/Art/Icons/C44.png",
+      "source": "art/source_icons/C44.svg",
+      "category": "controller"
+    },
+    {
+      "contentId": "C45",
+      "iconId": "C45",
+      "name": "飘忽不定",
+      "path": "Assets/Game/Art/Icons/C45.png",
+      "source": "art/source_icons/C45.svg",
+      "category": "controller"
+    },
+    {
+      "contentId": "C46",
+      "iconId": "C46",
+      "name": "稳稳乘数",
+      "path": "Assets/Game/Art/Icons/C46.png",
+      "source": "art/source_icons/C46.svg",
+      "category": "controller"
+    },
+    {
+      "contentId": "C47",
+      "iconId": "C47",
+      "name": "控制欲",
+      "path": "Assets/Game/Art/Icons/C47.png",
+      "source": "art/source_icons/C47.svg",
+      "category": "controller"
+    },
+    {
+      "contentId": "C48",
+      "iconId": "C48",
+      "name": "有也不交",
+      "path": "Assets/Game/Art/Icons/C48.png",
+      "source": "art/source_icons/C48.svg",
+      "category": "controller"
+    },
+    {
+      "contentId": "C49",
+      "iconId": "C49",
+      "name": "千年老二",
+      "path": "Assets/Game/Art/Icons/C49.png",
+      "source": "art/source_icons/C49.svg",
+      "category": "controller"
+    },
+    {
+      "contentId": "C50",
+      "iconId": "C50",
+      "name": "稳稳分数",
+      "path": "Assets/Game/Art/Icons/C50.png",
+      "source": "art/source_icons/C50.svg",
+      "category": "controller"
+    },
+    {
+      "contentId": "C51",
+      "iconId": "C51",
+      "name": "人员流动",
+      "path": "Assets/Game/Art/Icons/C51.png",
+      "source": "art/source_icons/C51.svg",
+      "category": "controller"
+    },
+    {
+      "contentId": "C52",
+      "iconId": "C52",
+      "name": "成长基金",
+      "path": "Assets/Game/Art/Icons/C52.png",
+      "source": "art/source_icons/C52.svg",
+      "category": "controller"
+    },
+    {
+      "contentId": "C53",
+      "iconId": "C53",
+      "name": "错乱乘积",
+      "path": "Assets/Game/Art/Icons/C53.png",
+      "source": "art/source_icons/C53.svg",
+      "category": "controller"
+    },
+    {
       "contentId": "I01",
       "iconId": "I01",
       "name": "红色浪潮",
@@ -358,7 +438,7 @@
     {
       "contentId": "I05",
       "iconId": "I05",
-      "name": "缩小射线",
+      "name": "小数多来",
       "path": "Assets/Game/Art/Icons/I05.png",
       "source": "art/source_icons/I05.svg",
       "category": "consumable"
@@ -409,6 +489,30 @@
       "name": "删除骰子",
       "path": "Assets/Game/Art/Icons/O04.png",
       "source": "art/source_icons/O04.svg",
+      "category": "service"
+    },
+    {
+      "contentId": "O05",
+      "iconId": "O05",
+      "name": "增加控制",
+      "path": "Assets/Game/Art/Icons/O05.png",
+      "source": "art/source_icons/O05.svg",
+      "category": "service"
+    },
+    {
+      "contentId": "O06",
+      "iconId": "O06",
+      "name": "增加道具",
+      "path": "Assets/Game/Art/Icons/O06.png",
+      "source": "art/source_icons/O06.svg",
+      "category": "service"
+    },
+    {
+      "contentId": "O07",
+      "iconId": "O07",
+      "name": "免费刷新",
+      "path": "Assets/Game/Art/Icons/O07.png",
+      "source": "art/source_icons/O07.svg",
       "category": "service"
     },
     {
@@ -769,16 +873,44 @@
       "channels": 1
     },
     {
-      "id": "enchant_base5",
-      "path": "Assets/Game/Audio/enchant_base5.wav",
+      "id": "enchant_base10",
+      "path": "Assets/Game/Audio/enchant_base10.wav",
       "seconds": 0.16,
       "sampleRate": 44100,
       "channels": 1
     },
     {
-      "id": "enchant_mult120",
-      "path": "Assets/Game/Audio/enchant_mult120.wav",
+      "id": "enchant_mult2",
+      "path": "Assets/Game/Audio/enchant_mult2.wav",
       "seconds": 0.22,
+      "sampleRate": 44100,
+      "channels": 1
+    },
+    {
+      "id": "reorder",
+      "path": "Assets/Game/Audio/reorder.wav",
+      "seconds": 0.12,
+      "sampleRate": 44100,
+      "channels": 1
+    },
+    {
+      "id": "refresh",
+      "path": "Assets/Game/Audio/refresh.wav",
+      "seconds": 0.28,
+      "sampleRate": 44100,
+      "channels": 1
+    },
+    {
+      "id": "cannon",
+      "path": "Assets/Game/Audio/cannon.wav",
+      "seconds": 0.42,
+      "sampleRate": 44100,
+      "channels": 1
+    },
+    {
+      "id": "debug",
+      "path": "Assets/Game/Audio/debug.wav",
+      "seconds": 0.13,
       "sampleRate": 44100,
       "channels": 1
     }
@@ -798,30 +930,56 @@
       "shape": "hollow-slot-minus"
     },
     {
-      "id": "base5",
-      "badgePath": "Assets/Game/Art/Textures/Enchant_base5.png",
-      "badgeSource": "art/source_icons/Enchant_base5.svg",
+      "id": "base10",
+      "badgePath": "Assets/Game/Art/Textures/Enchant_base10.png",
+      "badgeSource": "art/source_icons/Enchant_base10.svg",
       "badgeSize": [
         128,
         128
       ],
-      "framePath": "Assets/Game/Art/Textures/Frame_Enchant_base5.png",
-      "frameSource": "art/source_icons/Frame_Enchant_base5.svg",
+      "framePath": "Assets/Game/Art/Textures/Frame_Enchant_base10.png",
+      "frameSource": "art/source_icons/Frame_Enchant_base10.svg",
       "tint": "#edc676",
-      "shape": "plus-five-and-five-dots"
+      "shape": "plus-ten"
     },
     {
-      "id": "mult120",
-      "badgePath": "Assets/Game/Art/Textures/Enchant_mult120.png",
-      "badgeSource": "art/source_icons/Enchant_mult120.svg",
+      "id": "mult2",
+      "badgePath": "Assets/Game/Art/Textures/Enchant_mult2.png",
+      "badgeSource": "art/source_icons/Enchant_mult2.svg",
       "badgeSize": [
         128,
         128
       ],
-      "framePath": "Assets/Game/Art/Textures/Frame_Enchant_mult120.png",
-      "frameSource": "art/source_icons/Frame_Enchant_mult120.svg",
+      "framePath": "Assets/Game/Art/Textures/Frame_Enchant_mult2.png",
+      "frameSource": "art/source_icons/Frame_Enchant_mult2.svg",
       "tint": "#ccadee",
-      "shape": "multiply-one-point-two"
+      "shape": "multiply-two"
+    },
+    {
+      "id": "submit1",
+      "badgePath": "Assets/Game/Art/Textures/Enchant_submit1.png",
+      "badgeSource": "art/source_icons/Enchant_submit1.svg",
+      "badgeSize": [
+        128,
+        128
+      ],
+      "framePath": "Assets/Game/Art/Textures/Frame_Enchant_submit1.png",
+      "frameSource": "art/source_icons/Frame_Enchant_submit1.svg",
+      "tint": "#79b5f2",
+      "shape": "submission-document-plus-one"
+    },
+    {
+      "id": "roll1",
+      "badgePath": "Assets/Game/Art/Textures/Enchant_roll1.png",
+      "badgeSource": "art/source_icons/Enchant_roll1.svg",
+      "badgeSize": [
+        128,
+        128
+      ],
+      "framePath": "Assets/Game/Art/Textures/Frame_Enchant_roll1.png",
+      "frameSource": "art/source_icons/Frame_Enchant_roll1.svg",
+      "tint": "#efae79",
+      "shape": "roll-cup-plus-one"
     }
   ]
 }

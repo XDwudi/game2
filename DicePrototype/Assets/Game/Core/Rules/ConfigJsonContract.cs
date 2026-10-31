@@ -16,46 +16,56 @@ namespace DiceCraft.Core
     {
         private static readonly Dictionary<string, string[]> Parameters = new Dictionary<string, string[]>(StringComparer.Ordinal)
         {
-            {"C01", new[]{"extraInterestPerTen"}},
+            {"C01", new[]{"goldPerValidSubmission","extraInterestPerTen"}},
             {"C02", new[]{"scoreMultiplier"}},
-            {"C03", new[]{"occupiedIndex"}},
-            {"C04", new[]{"submissionBonus","rollBonus"}},
-            {"C05", new[]{"rollGrant","perHandLimit","minUnlocked","maxUnlocked","checkOnlyAfterRoll"}},
+            {"C03", new[]{"index"}},
+            {"C05", new[]{"rollGrant","minUnlocked","maxUnlocked","perSourcePerHandLimit","snapshotBeforeAnyGrant"}},
             {"C06", new[]{"minDistinct","scoreMultiplier"}},
-            {"C07", new[]{"onlyFirstSubmission","requiredDice","sourceIndex","targetIndex"}},
+            {"C07", new[]{"submissionOrdinal","requiredDice","sourceIndex","targetIndex"}},
             {"C08", new[]{"scoreMultiplier"}},
             {"C09", new[]{"capacityDelta","scoreMultiplier"}},
-            {"C10", new[]{"pip","contributionAdd"}},
-            {"C11", new[]{"pipA","countA","pipB","countB","scoreMultiplier"}},
-            {"C12", new[]{"oddPipAdd"}},
-            {"C13", new[]{"oddContributionAdd"}},
+            {"C10", new[]{"pip","perDieAdd"}},
+            {"C11", new[]{"requiredCounts","scoreMultiplier"}},
+            {"C12", new[]{"oddToEvenAdd","idempotent"}},
+            {"C13", new[]{"oddPerDieAdd"}},
             {"C14", new[]{"scoreMultiplier"}},
-            {"C15", new[]{"pattern","targetIndex"}},
-            {"C16", new[]{"rollBonus"}},
-            {"C17", new[]{"maxPip","contributionAdd"}},
+            {"C15", new[]{"scanAllInteriorIndices","pattern","freezeAllTargets"}},
+            {"C17", new[]{"pips","perDieAdd"}},
             {"C18", new[]{"scoreMultiplier"}},
-            {"C19", new[]{"maxPermanentFaceSum","contributionAdd"}},
-            {"C20", new[]{"lastSlotPip","dieContributionAdd","requireFullCapacity"}},
+            {"C19", new[]{"maxPermanentSixFaceSum","perDieAdd"}},
+            {"C20", new[]{"lastActualCapacitySlotPip","perDieAdd","requireFullCapacity"}},
             {"C21", new[]{"capacityDelta"}},
             {"C22", new[]{"capacityDelta"}},
-            {"C23", new[]{"rollBonus"}},
-            {"C24", new[]{"redGroupPipFrom","redGroupPipTo"}},
-            {"C25", new[]{"mergeAllRed"}},
-            {"C26", new[]{"requiredDice","allFacesColor"}},
-            {"C27", new[]{"minSamePip","baseAdd","perSubmitLimit"}},
-            {"C28", new[]{"minDifferentPairs","scoreMultiplier"}},
-            {"C29", new[]{"minimumStraightLength"}},
+            {"C24", new[]{"redGroupKeyFrom","redGroupKeyTo","idempotent"}},
+            {"C25", new[]{"mergeAllEffectiveRed","idempotent"}},
+            {"C26", new[]{"requiredDice","allPhysicalFacesColor"}},
+            {"C27", new[]{"baseAddPerDistinctPairedPip","minCountPerGroup"}},
+            {"C28", new[]{"minDistinctPairs","scoreMultiplier"}},
+            {"C29", new[]{"minimumStraightLength","idempotent"}},
             {"C30", new[]{"minSamePip","scoreMultiplier"}},
             {"C31", new[]{"minSamePip","scoreMultiplier"}},
-            {"C32", new[]{"requiredDistinct","scoreMultiplier"}},
+            {"C32", new[]{"distinctPips","scoreMultiplier"}},
             {"C33", new[]{"minDice","firstMinusSecondAtLeast","scoreMultiplier"}},
-            {"C34", new[]{"targetPips","maxTransferUnits"}},
-            {"C35", new[]{"targetPips","maxTransferUnits"}},
-            {"C36", new[]{"requireEmptySlot","minDice","indices","permanentFaceDelta"}},
-            {"C37", new[]{"requireEmptySlot","minDice","indices","permanentFaceDelta"}},
-            {"C38", new[]{"index","currentPhysicalFaceColor"}},
-            {"C39", new[]{"effectiveColor","contributionAdd"}},
-            {"C40", new[]{"indices","positiveCommonDifference","scoreMultiplier"}}
+            {"C34", new[]{"targetPips","probabilityPointsPerSource"}},
+            {"C35", new[]{"targetPips","probabilityPointsPerSource"}},
+            {"C36", new[]{"minDice","requireEmptySlot","indices","delta"}},
+            {"C37", new[]{"minDice","requireEmptySlot","indices","delta"}},
+            {"C38", new[]{"targetIndices","color"}},
+            {"C39", new[]{"effectiveColor","perDieAdd"}},
+            {"C40", new[]{"indices","strictIncreasingArithmetic","scoreMultiplier"}},
+            {"C41", new[]{"target","copyBaseAbility","copyTargetEnchantment","copyExistingFundAccrual","shareDynamicTargetState","retargetOnLossInStage"}},
+            {"C42", new[]{"scoreMultiplier","destroyChancePercentAfterValidSubmission","riskBearer"}},
+            {"C43", new[]{"samePrimaryHandAsPreviousValidSubmit","levelAddPerSource","crossStageHistory","scatterCanUpgrade"}},
+            {"C44", new[]{"baseAddPerFrozenGold"}},
+            {"C45", new[]{"matchingDieContributionMultiplier","colors","initialDrawOnAcquisition","nextDrawEveryValidSubmit","sharedStateAdvancesOnce"}},
+            {"C46", new[]{"scoreMultiplier"}},
+            {"C47", new[]{"factor"}},
+            {"C48", new[]{"baseAddPerEmptySubmitSlot"}},
+            {"C49", new[]{"factor","allowZero"}},
+            {"C50", new[]{"baseAdd"}},
+            {"C51", new[]{"initialMultiplierUnits2","addUnits2PerRealControllerSale","mimicsDoNotDuplicateStateGrowth","saleRecipients"}},
+            {"C52", new[]{"baseBuyPrice","baseSellPrice","sellPriceAddPerSuccessfulStageFinalize"}},
+            {"C53", new[]{"factorUnits2","uniform","drawOncePerRealOwnerPerSubmit","mimicReusesOwnerOutcome"}}
         };
 
         public static void Validate(string json)
@@ -70,7 +80,7 @@ namespace DiceCraft.Core
 
         private static void ValidateNode(Node node, Type type, string path, string parameterId)
         {
-            if (type == typeof(string)) { Require(node.kind == 's', path + " requires string."); return; }
+            if (type == typeof(string)) { Require(node.kind == 's' || (path.EndsWith(".riskTarget", StringComparison.Ordinal) && node.kind == '0'), path + " requires string."); return; }
             if (type == typeof(bool)) { Require(node.kind == 'b', path + " requires boolean."); return; }
             if (type == typeof(int) || type == typeof(uint) || type == typeof(float))
             {
@@ -94,11 +104,12 @@ namespace DiceCraft.Core
                 var required = new HashSet<string>(Parameters[parameterId], StringComparer.Ordinal);
                 fields = fields.Where(f => required.Contains(f.Name)).ToArray();
             }
-            var names = new HashSet<string>(fields.Select(f => f.Name), StringComparer.Ordinal);
+            Func<FieldInfo, string> jsonName = f => type == typeof(RequiredPipCounts) ? f.Name.Substring(3) : f.Name;
+            var names = new HashSet<string>(fields.Select(jsonName), StringComparer.Ordinal);
             Require(node.fields.Count == names.Count && names.SetEquals(node.fields.Keys), path + " has missing or unknown fields.");
             string controllerId = type == typeof(ControllerDefinition) ? node.fields["id"].text : null;
             foreach (var field in fields)
-                ValidateNode(node.fields[field.Name], field.FieldType, path + "." + field.Name, field.Name == "parameters" ? controllerId : null);
+                ValidateNode(node.fields[jsonName(field)], field.FieldType, path + "." + jsonName(field), field.Name == "parameters" ? controllerId : null);
         }
 
         private static void Require(bool condition, string message)
@@ -176,8 +187,11 @@ namespace DiceCraft.Core
                     switch (escaped)
                     {
                         case '"': case '\\': case '/': result.Append(escaped); break;
-                        case 'b': result.Append('\b'); break; case 'f': result.Append('\f'); break;
-                        case 'n': result.Append('\n'); break; case 'r': result.Append('\r'); break; case 't': result.Append('\t'); break;
+                        case 'b': result.Append('\b'); break;
+                        case 'f': result.Append('\f'); break;
+                        case 'n': result.Append('\n'); break;
+                        case 'r': result.Append('\r'); break;
+                        case 't': result.Append('\t'); break;
                         case 'u':
                             Require(index + 4 <= input.Length, "Incomplete Unicode escape.");
                             Require(ushort.TryParse(input.Substring(index, 4), NumberStyles.AllowHexSpecifier, CultureInfo.InvariantCulture, out ushort code), "Invalid Unicode escape.");
