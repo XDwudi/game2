@@ -156,12 +156,13 @@ namespace DiceCraft.Verification
             {
                 Require(updates == InputSettings.UpdateMode.ProcessEventsInDynamicUpdate, "Player input must use normal Dynamic updates.");
                 // Do not modify global IgnoreFocus, editor routing, or physical devices.
-                InputSystem.RegisterLayout("{\"name\":\"" + layout + "\",\"extend\":\"Keyboard\",\"canRunInBackground\":true}");
+                InputSystem.RegisterLayout("{\"name\":\"" + layout + "\",\"extend\":\"Keyboard\",\"runInBackground\":\"enabled\"}");
                 injected = (Keyboard)InputSystem.AddDevice(layout, "DiceCraftVerificationKeyboard"); injected.MakeCurrent();
                 diagnostic["injectedDeviceId"] = injected.deviceId;
                 diagnostic["injectedEnabledBefore"] = injected.enabled;
                 diagnostic["injectedCanRunInBackground"] = injected.canRunInBackground;
-                Require(injected.enabled && injected.canRunInBackground, "Probe-owned keyboard is disabled; global routing remains unchanged. See input diagnostics.");
+                Require(injected.enabled, "Probe-owned keyboard is disabled; see injectedEnabledBefore and focus diagnostics. Global routing remains unchanged.");
+                Require(injected.canRunInBackground, "Probe-owned keyboard does not report background capability; see injectedCanRunInBackground and registered layout. Global routing remains unchanged.");
                 InputSystem.onAfterUpdate += observe;
                 InputSystem.QueueStateEvent(injected, new KeyboardState(Key.Escape));
                 yield return null; yield return null;
