@@ -2,6 +2,17 @@
 
 ## 2026-10-31 v0.7 美术与表现实施中
 
+12:29UTC：终局重载产品修复仅ResultStatisticRows07按CommandKind.Submit统计；非提交127空占位不再解析，严格分数/规则校验保持。新增真实普通终局→AtomicSave→调试返回→冷Bootstrap回归，122700实际同栈红1/1，修复后122742含既有四类终局2/2通过4.569秒；新测试额外校验损坏真实Submit仍被拒。两源最终diff59增1删（旧行换行原字节保留），0编译错警，实际SaveAssets空场景不dirty，5程序集169源PDB零差异。准备新冻结检查点，完整回归/新Player尚未通过；root独占Editor32560，独立patch审查中，其余阻塞保持。
+
+
+12:21UTC：69新双构建Windows121617 GUIDcb6bf4330c9d4fccb72d4339f8cb3ca7（0错1警）、Mac121712 GUIDa15c65b026ff426ead3aaa18d5a93d8a（0错75警）成功，完整回归独立复核通过。实际Player1218 normal145/145通过，48完整/16跳过/1减少动态计数证明旧probe修复；后在V07ControllerDrag返回普通终局存档时ResultStatisticRows07解析非提交回执空score崩溃，正在返工，不封包。独立native-only再次display_passed，不拼接为主流程通过；10普通存档SHA及构建字节不变，606文件513826869字节完整归档cache/v07-builds-69d2f4d-player-failure。新单一Editor32560启动，root拥有生产写入；art只在cache准备终局重载修复/测试，spec只读相邻审查，shop复核实际失败图片。原失败及Mixer/人工/M5/push拒绝保持。
+
+
+12:16UTC：69d2f4d完整Edit115359为999/999，Play121426为154/154零失败跳过，1197.4548182秒；152目录2944文件913PNG逐SHA归档cache/v07-full-play-69d2f4d-121426。实际12:14:52 SaveAssets后空场景不dirty，12公共偏好与前identity一致，5程序集169源PDB零差异，gate1368文件。独立全量复核已派发并留10 DLL/PDB，Editor48748正常退出；root串行构建新Windows/Mac，尚无新Player或包结论。AudioMixer、人工/M5与源码push自动审批拒绝保持。
+
+
+11:54UTC：新本地检查点69d2f4dc3afa6387d443e827eb0b96892e9f2cfb（仅probe一源计数修复、未推送）。11:53:37实际导入identity，Runtime MVID40bf476e-46fc-401d-99ac-cf636e7371cf；完整Edit115359为999/999、18.3784747秒，完整154 Play刚启动，源码冻结。root唯一Editor48748，无重载/刷新锁；静审后续同步/Busy/Skip语义无新确认阻断。当前Builds/v07仍为404失败/独立显示通过候选，已完整归档；新双构建/Player/性能/恢复/三包仍待真实执行。不复用旧gate放行新源，不把旧显示专项提升为本版主流程通过；Mixer/人工/M5与源码push审批缺口保持。
+
 11:52UTC：revision20仅一处probe源码变更已独立审查通过（PLAYER_REDUCED_ROLL_COVERAGE_REVIEW）；114938现有DiceINTERACT完整/快速/减少动态/跳过/失焦与Busy保护两项2/2，7.3355843秒，2目录/22文件/7PNG归档cache/v07-reduced-roll-dependency-114938。实际11:51:41 SaveAssets空场景不dirty，五程序集169源PDB零差异，生产差异仅PlayerVerification.cs。准备新检查点，尚未新全量/Player/包。root独占Editor48748；全部既有失败、显示专项通过范围和外传/AudioMixer阻塞保持。
 
 11:50UTC：404新双构建Windows113937（GUIDbece24301d3647638e538bd931e59699，0错1警）/Mac114045（GUID2e00e497e25848a0bc18d3dbaf332912，0错75警）成功。actual Player1141已跨过旧商店断言，145/145 normal命令与保存/ViewState一致，终局stage8 RunFailed；随后原动画覆盖断言失败：49次Roll里1次完整+48次reduced，rollAnimations=1/skips=0/reducedChecks=0。probe错误用Busy动画计数选择第二Roll，reduced同步Busy=false使分支一直重复。现仅主PlayerVerification.cs加accepted-roll local计数、原Reduced立即断言移出Busy且仍在WaitReady前，revision20，原95 Require完整保留，独立静审通过；新实际专项在跑，尚无新全量/Player通过。原404双构建606文件513826309字节已完整SHA归档，10普通存档前后相同。独立display-only114229本次display_passed：3模式、6窗口精确、2尺寸not_supported、15.033秒超时、两Esc，报告PLAYER_4041766_DISPLAY_ONLY_REVIEW限域通过；不是strict/恢复/性能通过，不推断此前host失败原因。基于新显示结果重查Sky Hub截图两次仍window capture timed out，未输入或触碰用户Blender/安全设置，Mixer阻塞不变。root唯一新Editor48748（Windows Profile），生产其余保持，未封包/发布或推送源码。

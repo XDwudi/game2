@@ -28,6 +28,64 @@ namespace DiceCraft.Tests
         [System.Serializable] private sealed class EdgeCapture07
         {public string screen,unity,mvid,stateHash,phase,savePath;public int width,height,frame;public bool isolatedArtTest=true;}
 
+        [UnityTest] public IEnumerator PLAY_ART07_ResultReloadIgnoresNonSubmitPlaceholdersAndPreservesExactStatistics()
+        {
+            // Reach a normal terminal Run through real UI commands and actual atomic writes.
+            // Exhausting all rolls and submitting one die per hand stays below stage 1's target.
+            StartRun("70991");Click("StartStage");
+            long expectedTotal=0,expectedMaximum=0;int expectedMultiplier=0;
+            for(int hand=0;hand<3;hand++)
+            {
+                while(app.Session.State.hand.rollsRemaining>0){Click("Roll");app.SkipVisual();}
+                var lowest=app.Session.State.hand.currentResults.OrderBy(d=>d.currentPip).First();
+                ClickDie(lowest.dieId);Click("Confirm");app.SkipVisual();
+                var preview=app.Session.PreviewScore();
+                Assert.That(preview.totalHandMult100,Is.EqualTo(100));Assert.That(preview.redMult100,Is.EqualTo(100));
+                Assert.That(preview.controllerMultiplierNumerator,Is.EqualTo("1"));Assert.That(preview.controllerMultiplierDenominator,Is.EqualTo("1"));
+                Assert.That(preview.enchantMultiplierCount,Is.Zero);Assert.That(preview.colorMult100%100,Is.Zero);
+                Click("Submit");app.SkipVisual();
+                var committed=app.Session.State.processedReceipts.Last();Assert.That(committed.command.kind,Is.EqualTo(CommandKind.Submit));
+                long value=long.Parse(committed.score,System.Globalization.CultureInfo.InvariantCulture);
+                expectedTotal+=value;expectedMaximum=System.Math.Max(expectedMaximum,value);expectedMultiplier=System.Math.Max(expectedMultiplier,preview.colorMult100/100);
+            }
+            Assert.That(app.Session.State.phase,Is.EqualTo("RunFailed"));Assert.That(app.Session.State.isDebug,Is.False);
+            Assert.That(app.Session.State.processedReceipts.Count(r=>r.command.kind==CommandKind.Submit),Is.EqualTo(3));
+            string ordinaryPath=app.SaveLocation;byte[] ordinary=File.ReadAllBytes(ordinaryPath);
+            var store=new AtomicSaveStore(ordinaryPath,app.Config,SaveSlotPolicy.Normal);var loaded=store.Load();
+            Assert.That(loaded,Is.Not.Null);Assert.That(store.LastLoadNotice,Is.Null);
+            // This is the real Unity serialization boundary, not a hand-built null object.
+            Assert.That(loaded.processedReceipts.Any(r=>r.command.kind!=CommandKind.Submit&&r.submission?.breakdown!=null&&string.IsNullOrEmpty(r.submission.breakdown.score)),Is.True);
+            string stateHash=GameSession.StateHash(loaded);long sequence=loaded.actionSequence;
+            var ordinarySnapshot=JsonUtility.ToJson(loaded);
+            AssertResultReloadStatistics07(expectedTotal,expectedMaximum,expectedMultiplier);
+            Assert.That(app.UnlockDebug("XD is god"),Is.True);Assert.That(app.EnterDebugWorkspace(),Is.True);
+            Assert.DoesNotThrow(()=>app.ReturnNormalWorkspace(),"Returning from debug must ignore non-Submit receipt placeholders, not parse their empty decimal fields.");
+            yield return null;
+            Assert.That(app.SaveLocation,Is.EqualTo(ordinaryPath));Assert.That(app.IsDebugWorkspace,Is.False);
+            Assert.That(GameSession.StateHash(app.Session.State),Is.EqualTo(stateHash));Assert.That(app.Session.State.actionSequence,Is.EqualTo(sequence));
+            Assert.That(StateJson(),Is.EqualTo(ordinarySnapshot));CollectionAssert.AreEqual(ordinary,File.ReadAllBytes(ordinaryPath));
+            AssertResultReloadStatistics07(expectedTotal,expectedMaximum,expectedMultiplier);
+            yield return app.StartCoroutine(CaptureEdge07("S18-normal-terminal-return"));
+            // Cold Bootstrap/Continue reaches the same statistics without a duplicate command.
+            yield return LoadBootstrap();Click("ContinueRun");yield return null;
+            Assert.That(app.Session.State.phase,Is.EqualTo("RunFailed"));Assert.That(StateJson(),Is.EqualTo(ordinarySnapshot));
+            AssertResultReloadStatistics07(expectedTotal,expectedMaximum,expectedMultiplier);
+            CollectionAssert.AreEqual(ordinary,File.ReadAllBytes(ordinaryPath));
+            yield return app.StartCoroutine(CaptureEdge07("S18-normal-terminal-cold-reload"));
+            // Filtering by command kind must not turn a damaged real Submit into zero.
+            var damaged=loaded.Clone();damaged.processedReceipts.First(r=>r.command.kind==CommandKind.Submit).submission.breakdown.score="";
+            var rejected=Assert.Catch<System.Exception>(()=>app.Session.ValidateState(damaged));Assert.That(rejected.GetType().Name,Is.EqualTo("RuleViolation"));
+            CollectionAssert.AreEqual(ordinary,File.ReadAllBytes(ordinaryPath));
+        }
+        private void AssertResultReloadStatistics07(long total,long maximum,int multiplier)
+        {
+            string stats=FindActive<TextMeshProUGUI>("EndStats").text;
+            Assert.That(stats,Does.Contain("总得分  "+total.ToString("N0",System.Globalization.CultureInfo.InvariantCulture)));
+            Assert.That(stats,Does.Contain("最大单手  "+maximum.ToString("N0",System.Globalization.CultureInfo.InvariantCulture)));
+            Assert.That(stats,Does.Contain("最高倍率  ×"+multiplier+"\n"));
+            Assert.That(stats,Does.Contain("普通对局"));
+        }
+
         [UnityTest] public IEnumerator PLAY_ART07_ResultScreensUseRealTerminalCommandsAndPreserveExactReceipts()
         {
             StartRun("70781");

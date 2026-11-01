@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="1" result="Failed(Child)" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-11-01 12:26:59Z" end-time="2026-11-01 12:27:00Z" duration="1.698889">
+  <test-suite type="TestSuite" id="1164" name="DiceCraft P0" fullname="DiceCraft P0" runstate="Runnable" testcasecount="155" result="Failed" site="Child" start-time="2026-11-01 12:26:59Z" end-time="2026-11-01 12:27:00Z" duration="1.698889" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <failure>
+      <message><![CDATA[One or more child tests had errors]]></message>
+    </failure>
+    <test-suite type="Assembly" id="1158" name="DiceCraft.PlayModeTests.dll" fullname="E:/agent_workspace/gpt/game2/DicePrototype/Library/ScriptAssemblies/DiceCraft.PlayModeTests.dll" runstate="Runnable" testcasecount="155" result="Failed" site="Child" start-time="2026-11-01 12:26:59Z" end-time="2026-11-01 12:27:00Z" duration="1.684687" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="32560" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <failure>
+        <message><![CDATA[One or more child tests had errors]]></message>
+      </failure>
+      <test-suite type="TestSuite" id="1159" name="DiceCraft" fullname="DiceCraft" runstate="Runnable" testcasecount="155" result="Failed" site="Child" start-time="2026-11-01 12:26:59Z" end-time="2026-11-01 12:27:00Z" duration="1.681751" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <failure>
+          <message><![CDATA[One or more child tests had errors]]></message>
+        </failure>
+        <test-suite type="TestSuite" id="1160" name="Tests" fullname="DiceCraft.Tests" runstate="Runnable" testcasecount="155" result="Failed" site="Child" start-time="2026-11-01 12:26:59Z" end-time="2026-11-01 12:27:00Z" duration="1.679682" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <failure>
+            <message><![CDATA[One or more child tests had errors]]></message>
+          </failure>
+          <test-suite type="TestFixture" id="1001" name="GameplayPlayModeTests" fullname="DiceCraft.Tests.GameplayPlayModeTests" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" testcasecount="153" result="Failed" site="Child" start-time="2026-11-01 12:26:59Z" end-time="2026-11-01 12:27:00Z" duration="1.676698" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <failure>
+              <message><![CDATA[One or more child tests had errors]]></message>
+            </failure>
+            <test-case id="1026" name="PLAY_ART07_ResultReloadIgnoresNonSubmitPlaceholdersAndPreservesExactStatistics" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_ResultReloadIgnoresNonSubmitPlaceholdersAndPreservesExactStatistics" methodname="PLAY_ART07_ResultReloadIgnoresNonSubmitPlaceholdersAndPreservesExactStatistics" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="349438075" result="Failed" start-time="2026-11-01 12:26:59Z" end-time="2026-11-01 12:27:00Z" duration="1.655128" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <failure>
+                <message><![CDATA[  Returning from debug must ignore non-Submit receipt placeholders, not parse their empty decimal fields.
+  Expected: No Exception to be thrown
+  But was:  <System.ArgumentException: Missing decimal score.
+  at DiceCraft.Core.ExactScoreMath.Parse (System.String value) [0x00043] in E:\agent_workspace\gpt\game2\DicePrototype\Assets\Game\Core\Rules\ExactScoreMath.cs:13 
+  at DiceCraft.GameApp.ResultStatisticRows07 () [0x0006a] in E:\agent_workspace\gpt\game2\DicePrototype\Assets\Game\UI\GameApp.Art07Results.cs:39 
+  at DiceCraft.GameApp.DrawRunResult07 () [0x006dc] in E:\agent_workspace\gpt\game2\DicePrototype\Assets\Game\UI\GameApp.Art07Results.cs:96 
+  at DiceCraft.GameApp.RunEnd () [0x00000] in E:\agent_workspace\gpt\game2\DicePrototype\Assets\Game\UI\GameApp.Art07.cs:501 
+  at DiceCraft.GameApp.RebuildView () [0x0016c] in E:\agent_workspace\gpt\game2\DicePrototype\Assets\Game\Runtime\GameApp.cs:89 
+  at DiceCraft.GameApp.Refresh () [0x00000] in E:\agent_workspace\gpt\game2\DicePrototype\Assets\Game\Runtime\GameApp.cs:66 
+  at DiceCraft.GameApp.ReturnNormalWorkspace () [0x0008d] in E:\agent_workspace\gpt\game2\DicePrototype\Assets\Game\UI\GameApp.Debug.cs:83 
+  at DiceCraft.Tests.GameplayPlayModeTests+<>c__DisplayClass71_0.<PLAY_ART07_ResultReloadIgnoresNonSubmitPlaceholdersAndPreservesExactStatistics>b__2 () [0x00000] in E:\agent_workspace\gpt\game2\DicePrototype\Assets\Game\Tests\PlayMode\Art07EdgeScreensPlayModeTests.cs:63 
+  at NUnit.Framework.Constraints.ThrowsConstraint+VoidInvocationDescriptor.Invoke () [0x00001] in <8b63e8ac0a4746599ed207982825ae6c>:0 
+  at NUnit.Framework.Constraints.ThrowsConstraint+ExceptionInterceptor.Intercept (System.Object invocation) [0x00050] in <8b63e8ac0a4746599ed207982825ae6c>:0 >
+]]></message>
+                <stack-trace><![CDATA[at DiceCraft.Tests.GameplayPlayModeTests+<PLAY_ART07_ResultReloadIgnoresNonSubmitPlaceholdersAndPreservesExactStatistics>d__71.MoveNext () [0x00401] in E:\agent_workspace\gpt\game2\DicePrototype\Assets\Game\Tests\PlayMode\Art07EdgeScreensPlayModeTests.cs:63
+at UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\Library\PackageCache\com.unity.test-framework@ee3fe9477490\UnityEngine.TestRunner\NUnitExtensions\Attributes\TestEnumerator.cs:52
+]]></stack-trace>
+              </failure>
+              <output><![CDATA[Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_9efea5074ea5429b8ca504e936a5be57
+Saving results to: E:\agent_workspace\gpt\game2\evidence\v07\unity\nunit-20261101-122700.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

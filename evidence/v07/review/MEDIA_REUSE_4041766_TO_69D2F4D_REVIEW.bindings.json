@@ -1,0 +1,79 @@
+{
+  "utc": "2026-11-01T11:55:52.342316+00:00",
+  "reviewer": "/root/v07_spec_audit",
+  "oldCommit": "404176661240a5d9834895416ed3719d6493e253",
+  "newCommit": "69d2f4dc3afa6387d443e827eb0b96892e9f2cfb",
+  "status": "PREVIOUS_UNAFFECTED_VISUAL_SCOPE_REUSABLE_WITH_ORIGINAL_MEDIA_IDENTITY",
+  "noUnityExecuted": true,
+  "noNewMediaViewed": true,
+  "noExternalTransmission": true,
+  "newFullRegressionPendingReview": true,
+  "newPlayerAndVersionScreensPending": true,
+  "bindings": [
+    {
+      "path": "evidence/v07/review/MEDIA_REUSE_4041766_TO_69D2F4D_REVIEW.md",
+      "bytes": 2708,
+      "sha256": "f1ffe48753b37bc390769a8079eafac2fe4fef3547c70b340cb81259e5f98302"
+    },
+    {
+      "path": "artifacts/cache/v07-media-reuse-69d2f4d-review/audit.json",
+      "bytes": 2760,
+      "sha256": "4c98ed666be7cb7c057090c38af1af55d22657caebb9cc8625353e638241169c"
+    },
+    {
+      "path": "artifacts/cache/v07-media-reuse-69d2f4d-review/source-delta.patch",
+      "bytes": 3299,
+      "sha256": "5399aeadaf9fe0639d681a337a97877c17d80316ff1adc59eb7e4103b800ec2c"
+    },
+    {
+      "path": "artifacts/cache/v07-media-reuse-69d2f4d-review/before-PlayerVerification.cs.txt",
+      "bytes": 107111,
+      "sha256": "1aa09930202f68d61a4fd9b8944cafcc8f0728a4735db30484e307c11c9b68f6"
+    },
+    {
+      "path": "artifacts/cache/v07-media-reuse-69d2f4d-review/after-PlayerVerification.cs.txt",
+      "bytes": 107283,
+      "sha256": "7e76293d6e9be83eb642c68bcbc2cba0245357fb7fef7852f56077c703cf6787"
+    },
+    {
+      "path": "evidence/v07/unity/checkpoint-resource-identity-69d2f4d.json",
+      "bytes": 3530,
+      "sha256": "82afd7747562a1e1cb99f24d8bb57112d78570fc2945ac34542396d18e35f9f7"
+    },
+    {
+      "path": "evidence/v07/unity/checkpoint-resource-identity-4041766.json",
+      "bytes": 3530,
+      "sha256": "4749689aac0e6793acf27d4d7fbaaa711a11c0213b4d5bed65741d5f1a91961e"
+    },
+    {
+      "path": "evidence/v07/review/PLAYER_REDUCED_ROLL_COVERAGE_REVIEW.md",
+      "bytes": 3843,
+      "sha256": "86d29874aab4c4d12bb0e96a1f0e3fb493bfba7499e28b33f8626f178869b163"
+    },
+    {
+      "path": "evidence/v07/review/PLAYER_REDUCED_ROLL_COVERAGE_REVIEW.bindings.json",
+      "bytes": 3296,
+      "sha256": "957026fec1c1d26d2e0a0c2b700c28852e099379e5027b86274b1f3b7bb9d9a4"
+    },
+    {
+      "path": "evidence/v07/review/MEDIA_REUSE_0F04E51_TO_821EC59_REVIEW.md",
+      "bytes": 5266,
+      "sha256": "47de75e38ca33200fad7282c5f3c7427b85635ad9fd9b2e496ec160226cbe3f6"
+    },
+    {
+      "path": "artifacts/cache/v07-player-motion-preconditions-review/REVIEW.md",
+      "bytes": 3981,
+      "sha256": "1a7e458ed0d1cd3d76653e6b4460c65d3eee5b99bca98011b3406a53d53231e5"
+    },
+    {
+      "path": "evidence/v07/review/FINAL_0F04E51_CLIPS_REVIEW.md",
+      "bytes": 7895,
+      "sha256": "826f8ac5e60c4d01f57d4c49c6909d247c22fcec8412161a30c55eaee73e7a44"
+    },
+    {
+      "path": "evidence/v07/review/ART14_SLICES_REVIEW.md",
+      "bytes": 5003,
+      "sha256": "7cc1214035bccd02e23ba34e4e47c12d618fa7e7f440e20155c1fbd5d56fbfa7"
+    }
+  ]
+}

@@ -1,0 +1,203 @@
+{
+  "utc": "2026-11-01T12:19:28.386177+00:00",
+  "reviewer": "/root/v07_spec_audit",
+  "expectedHead": "69d2f4dc3afa6387d443e827eb0b96892e9f2cfb",
+  "runtimeMvid": "40bf476e-46fc-401d-99ac-cf636e7371cf",
+  "status": "EDITOR_FULL_REGRESSION_EVIDENCE_CONSISTENT_ONLY",
+  "noUnityExecuted": true,
+  "noProductionOrStandardsWritten": true,
+  "noExternalTransmission": true,
+  "counts": {
+    "EditMode": 999,
+    "PlayMode": 154,
+    "boundSourceFiles": 1360,
+    "gateFiles": 1368,
+    "assemblies": 5,
+    "pdbDocuments": 169,
+    "isolatedDirectories": 152,
+    "archiveFiles": 2944,
+    "archivePngs": 913,
+    "archiveBytes": 1034917894,
+    "recordedPreferenceKeys": 12
+  },
+  "assemblyComparisonBasis": "Frozen compiled-final copies checked against actual final PDB proof and all four test loaded-assembly bindings; not the Library overwritten by later builds.",
+  "retainedInitialObservation": "First audit current ProjectSettings.asset differed during parent Windows build; preserved. One final audit after both builds has zero findings. Historical test snapshots were equal throughout.",
+  "inputsAndOutputs": [
+    {
+      "path": "evidence/v07/review/FULL_REGRESSION_69D2F4D_REVIEW.md",
+      "bytes": 6240,
+      "sha256": "e72b023efd4008174edc5b5ce3c8afdd5f983293eb3ffd8f59edd0047d4375f7"
+    },
+    {
+      "path": "evidence/v07/unity/checkpoint-resource-identity-69d2f4d.json",
+      "bytes": 3530,
+      "sha256": "82afd7747562a1e1cb99f24d8bb57112d78570fc2945ac34542396d18e35f9f7"
+    },
+    {
+      "path": "artifacts/cache/v07-post-full-69d2f4d-preferences.json",
+      "bytes": 3293,
+      "sha256": "519c3e7376bc64198486d0a4b331bb14f73c27b531a6a0a23d1b195d9d7549bd"
+    },
+    {
+      "path": "artifacts/cache/v07-pdb-post-full-69d2f4d-1215.json",
+      "bytes": 78446,
+      "sha256": "5c1bfd355d10ec996d900e60152e064b48acbad8930d406d37d45dd6b5665d2a"
+    },
+    {
+      "path": "evidence/v07/unity/build-gate.json",
+      "bytes": 347921,
+      "sha256": "a97e1be2bdf7b29963637365f44a0bb7a6111b50b4716596b329177955461f8d"
+    },
+    {
+      "path": "artifacts/cache/v07-full-play-69d2f4d-121426/archive.json",
+      "bytes": 695520,
+      "sha256": "3b2b9743d06973de5d5da141772cfe9c100b1ab35b78aedb867ff8624dba6eb6"
+    },
+    {
+      "path": "DicePrototype/Assets/Resources/BuildIdentity.json",
+      "bytes": 441,
+      "sha256": "e6f778be536511566841148ebdfb7003c0628ca329ef773d302819404f97432f"
+    },
+    {
+      "path": "evidence/v07/review/MEDIA_REUSE_4041766_TO_69D2F4D_REVIEW.md",
+      "bytes": 2708,
+      "sha256": "f1ffe48753b37bc390769a8079eafac2fe4fef3547c70b340cb81259e5f98302"
+    },
+    {
+      "path": "evidence/v07/review/PLAYER_REDUCED_ROLL_COVERAGE_REVIEW.md",
+      "bytes": 3843,
+      "sha256": "86d29874aab4c4d12bb0e96a1f0e3fb493bfba7499e28b33f8626f178869b163"
+    },
+    {
+      "path": "evidence/v07/unity/nunit-20261101-115359.xml",
+      "bytes": 688908,
+      "sha256": "2700bd1970b0adb9a07afdb7101be192f0963917644d3eed875a0c047d3f948e"
+    },
+    {
+      "path": "evidence/v07/unity/nunit-20261101-115359.binding.json",
+      "bytes": 575635,
+      "sha256": "73f02ff05632800f6826bf79f5ca00c62594b8d6f96bfb606d39256b661c96a4"
+    },
+    {
+      "path": "evidence/v07/unity/nunit-20261101-121426.xml",
+      "bytes": 354365,
+      "sha256": "f06983af31becc9d1b34a795c42f4cc1c9d4b32923e0225568e8024eaadb71f9"
+    },
+    {
+      "path": "evidence/v07/unity/nunit-20261101-121426.binding.json",
+      "bytes": 575635,
+      "sha256": "01aefab22aa6eb27269dab6b080c09e53d9f4f645166a2424a37221207398625"
+    },
+    {
+      "path": "evidence/v07/unity/discovery-EditMode.json",
+      "bytes": 81834,
+      "sha256": "3324ce15945342f75b2d49aaf9a430749142673e2ffa3015b093a1782e6dda0b"
+    },
+    {
+      "path": "evidence/v07/unity/discovery-PlayMode.json",
+      "bytes": 18810,
+      "sha256": "59daed02202b30153cbaf8ad75d182e0a615fb97970b6a8dbb87e0f60cbafcb4"
+    },
+    {
+      "path": "artifacts/cache/v07-full-regression-69d2f4d-review/edit-115359-independent.json",
+      "bytes": 4845,
+      "sha256": "944dbd071e1fdc4b4e45cafb7833b5838019a502a5eba1d9a10cb0663bef79af"
+    },
+    {
+      "path": "artifacts/cache/v07-full-regression-69d2f4d-review/audit-full-frozen.py",
+      "bytes": 10074,
+      "sha256": "3cd4d2a8437a639262de8d5c0d116d6dd45391e6e8a031b55053917b0bed8cf3"
+    },
+    {
+      "path": "artifacts/cache/v07-full-regression-69d2f4d-review/audit-archive-gate.py",
+      "bytes": 10186,
+      "sha256": "0d4021d4302916bbfa188c5576a80f3f5f33cf73b67cfdf9f03cbc47b9bd08a4"
+    },
+    {
+      "path": "artifacts/cache/v07-full-regression-69d2f4d-review/full-121426-independent.json",
+      "bytes": 8610,
+      "sha256": "2c2e7e95445eef004889d9e7f671bf19749ab2fbc1dd6054b9f461c349b6efb4"
+    },
+    {
+      "path": "artifacts/cache/v07-full-regression-69d2f4d-review/full-121426-after-build-independent.json",
+      "bytes": 7985,
+      "sha256": "36a6fad3ca878245dd6173741571ee5402c3ad61ee51f21158527cf8f940f3a1"
+    },
+    {
+      "path": "artifacts/cache/v07-full-regression-69d2f4d-review/full-archive-gate-preferences-independent.json",
+      "bytes": 12481,
+      "sha256": "dfdbf890ecf11cf38c918dbf5ff5a86a9f18ccd7d0c2a9e95317543d56bc3b93"
+    },
+    {
+      "path": "artifacts/cache/v07-full-regression-69d2f4d-review/prior-suite-and-transient-observation.json",
+      "bytes": 1966,
+      "sha256": "0a9f01ea4b11741bebd9953e7827ce666af573f3272f4862c923d91e29bc14f3"
+    },
+    {
+      "path": "artifacts/cache/v07-full-regression-69d2f4d-review/post-build-source-gate-check.json",
+      "bytes": 1029,
+      "sha256": "ef3a0708b56d30d96265ce4c0cc2410b796188960a95ff696ec76bb89d24c1d0"
+    },
+    {
+      "path": "tools/v07_delivery.py",
+      "bytes": 10736,
+      "sha256": "2c6a506e0f587063a76e9ba585d5d23f1770ee12149ecba7721fcd064e6a3e0e"
+    },
+    {
+      "path": "tools/package_v07.py",
+      "bytes": 24507,
+      "sha256": "2e4ca6219a1df35a3288a30ec3155d87f5f850d440416905838eea0f6de2cb2e"
+    },
+    {
+      "path": "artifacts/cache/v07-full-regression-69d2f4d-review/compiled-final/DiceCraft.Core.dll",
+      "bytes": 188416,
+      "sha256": "f6bda15a1af15992ed6d3921ee2da5dc807ee9387b867040f4814489336b43c4"
+    },
+    {
+      "path": "artifacts/cache/v07-full-regression-69d2f4d-review/compiled-final/DiceCraft.Core.pdb",
+      "bytes": 57676,
+      "sha256": "76122c98b4f87507aeb6cb66bf4b6099b3363a3824f2b908dcd62c68ac0b3fff"
+    },
+    {
+      "path": "artifacts/cache/v07-full-regression-69d2f4d-review/compiled-final/DiceCraft.EditMode.dll",
+      "bytes": 219136,
+      "sha256": "9355303ee2c20045c4945d9545482bebd0b0c13972c5de7926e0d4fee9d9519b"
+    },
+    {
+      "path": "artifacts/cache/v07-full-regression-69d2f4d-review/compiled-final/DiceCraft.EditMode.pdb",
+      "bytes": 73988,
+      "sha256": "a02b20e6f40abe5f7d33871571476b44fcfe1ee564f5158d71ac37393bec6a8d"
+    },
+    {
+      "path": "artifacts/cache/v07-full-regression-69d2f4d-review/compiled-final/DiceCraft.Editor.dll",
+      "bytes": 95232,
+      "sha256": "025c7b68b997af5469c8ec6e29d43a33fe0cb665aebe154675ab90409a25a84b"
+    },
+    {
+      "path": "artifacts/cache/v07-full-regression-69d2f4d-review/compiled-final/DiceCraft.Editor.pdb",
+      "bytes": 43680,
+      "sha256": "500e5e593df50c3922f649e2669a5311987ba361b187becf44c9ba3f0f160e0a"
+    },
+    {
+      "path": "artifacts/cache/v07-full-regression-69d2f4d-review/compiled-final/DiceCraft.PlayModeTests.dll",
+      "bytes": 724480,
+      "sha256": "caaafcac423d1e6e23b2837dd4c4beabdad076cff56b5b042c98fa49be92b549"
+    },
+    {
+      "path": "artifacts/cache/v07-full-regression-69d2f4d-review/compiled-final/DiceCraft.PlayModeTests.pdb",
+      "bytes": 174444,
+      "sha256": "1f933def6d08d11c3ca7f2e71b9edbf66dc10b7cc2518e0c0aaaa28a835e612d"
+    },
+    {
+      "path": "artifacts/cache/v07-full-regression-69d2f4d-review/compiled-final/DiceCraft.Runtime.dll",
+      "bytes": 841728,
+      "sha256": "83119fc188f83ced7911943dd6e5529d9aad01a43e1fc6bca8ec75443dc3a09b"
+    },
+    {
+      "path": "artifacts/cache/v07-full-regression-69d2f4d-review/compiled-final/DiceCraft.Runtime.pdb",
+      "bytes": 224324,
+      "sha256": "7feca5d55e5de22ee48e4a02eede3f46426975647e2e5457614d48d1610abcfb"
+    }
+  ],
+  "scope": "Full Editor regression evidence consistency only. No new visual/Player/platform/performance/AudioMixer/release acceptance."
+}

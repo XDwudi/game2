@@ -34,7 +34,7 @@ namespace DiceCraft
         private string[] ResultStatisticRows07()
         {
             BigInteger total=0,max=0,multN=0,multD=1;
-            foreach(var record in ViewState.processedReceipts.Where(r=>r.submission?.breakdown!=null))
+            foreach(var record in ViewState.processedReceipts.Where(r=>r.command.kind==CommandKind.Submit))
             {
                 var b=record.submission.breakdown;var score=ExactScoreMath.Parse(b.score);total+=score;if(score>max)max=score;
                 var n=(BigInteger)b.totalHandMult100*b.colorMult100*b.redMult100*ExactScoreMath.Parse(b.controllerMultiplierNumerator)*BigInteger.Pow(Config.enchantRules.scoreMultiplier,b.enchantMultiplierCount);
