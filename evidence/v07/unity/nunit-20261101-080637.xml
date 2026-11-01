@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="7" result="Failed(Child)" total="7" passed="0" failed="7" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-11-01 08:06:29Z" end-time="2026-11-01 08:06:37Z" duration="8.5246485">
+  <test-suite type="TestSuite" id="1161" name="DiceCraft P0" fullname="DiceCraft P0" runstate="Runnable" testcasecount="152" result="Failed" site="Child" start-time="2026-11-01 08:06:29Z" end-time="2026-11-01 08:06:37Z" duration="8.524649" total="7" passed="0" failed="7" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <failure>
+      <message><![CDATA[One or more child tests had errors]]></message>
+    </failure>
+    <test-suite type="Assembly" id="1155" name="DiceCraft.PlayModeTests.dll" fullname="E:/agent_workspace/gpt/game2/DicePrototype/Library/ScriptAssemblies/DiceCraft.PlayModeTests.dll" runstate="Runnable" testcasecount="152" result="Failed" site="Child" start-time="2026-11-01 08:06:29Z" end-time="2026-11-01 08:06:37Z" duration="8.513213" total="7" passed="0" failed="7" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="41100" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <failure>
+        <message><![CDATA[One or more child tests had errors]]></message>
+      </failure>
+      <test-suite type="TestSuite" id="1156" name="DiceCraft" fullname="DiceCraft" runstate="Runnable" testcasecount="152" result="Failed" site="Child" start-time="2026-11-01 08:06:29Z" end-time="2026-11-01 08:06:37Z" duration="8.507865" total="7" passed="0" failed="7" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <failure>
+          <message><![CDATA[One or more child tests had errors]]></message>
+        </failure>
+        <test-suite type="TestSuite" id="1157" name="Tests" fullname="DiceCraft.Tests" runstate="Runnable" testcasecount="152" result="Failed" site="Child" start-time="2026-11-01 08:06:29Z" end-time="2026-11-01 08:06:37Z" duration="8.505584" total="7" passed="0" failed="7" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <failure>
+            <message><![CDATA[One or more child tests had errors]]></message>
+          </failure>
+          <test-suite type="TestFixture" id="1001" name="GameplayPlayModeTests" fullname="DiceCraft.Tests.GameplayPlayModeTests" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" testcasecount="150" result="Failed" site="Child" start-time="2026-11-01 08:06:29Z" end-time="2026-11-01 08:06:37Z" duration="8.502369" total="7" passed="0" failed="7" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <failure>
+              <message><![CDATA[One or more child tests had errors]]></message>
+            </failure>
+            <test-case id="1112" name="PLAY_ART07_UPGRADE_ActualCeramicAndSingleQuestionFlipRenderBeforeMiddleAndAfter" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_UPGRADE_ActualCeramicAndSingleQuestionFlipRenderBeforeMiddleAndAfter" methodname="PLAY_ART07_UPGRADE_ActualCeramicAndSingleQuestionFlipRenderBeforeMiddleAndAfter" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="105052460" result="Failed" start-time="2026-11-01 08:06:29Z" end-time="2026-11-01 08:06:30Z" duration="1.765148" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <failure>
+                <message><![CDATA[  Expected: 0.174999997f +/- 9.99999975E-05f
+  But was:  0.0f
+]]></message>
+                <stack-trace><![CDATA[at DiceCraft.Tests.GameplayPlayModeTests+<PLAY_ART07_UPGRADE_ActualCeramicAndSingleQuestionFlipRenderBeforeMiddleAndAfter>d__281.MoveNext () [0x00521] in E:\agent_workspace\gpt\game2\DicePrototype\Assets\Game\Tests\PlayMode\Art07UpgradeVisualPlayModeTests.cs:42
+at UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\Library\PackageCache\com.unity.test-framework@ee3fe9477490\UnityEngine.TestRunner\NUnitExtensions\Attributes\TestEnumerator.cs:52
+]]></stack-trace>
+              </failure>
+              <output><![CDATA[UPGRADE_GPU U05 progress=0 stage= turn=0 frame=27
+Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_ad002695700b449792d749d04dd9a410
+]]></output>
+            </test-case>
+            <test-case id="1113" name="PLAY_ART07_UPGRADE_FastReducedPauseAndSkipKeepCommittedStateAndResetSurfaces" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_UPGRADE_FastReducedPauseAndSkipKeepCommittedStateAndResetSurfaces" methodname="PLAY_ART07_UPGRADE_FastReducedPauseAndSkipKeepCommittedStateAndResetSurfaces" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="1495057038" result="Failed" start-time="2026-11-01 08:06:30Z" end-time="2026-11-01 08:06:31Z" duration="0.810512" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <failure>
+                <message><![CDATA[  Expected: 0.150000006f +/- 9.99999975E-05f
+  But was:  0.0f
+]]></message>
+                <stack-trace><![CDATA[at DiceCraft.Tests.GameplayPlayModeTests+<PLAY_ART07_UPGRADE_FastReducedPauseAndSkipKeepCommittedStateAndResetSurfaces>d__282.MoveNext () [0x00354] in E:\agent_workspace\gpt\game2\DicePrototype\Assets\Game\Tests\PlayMode\Art07UpgradeVisualPlayModeTests.cs:115
+at UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\Library\PackageCache\com.unity.test-framework@ee3fe9477490\UnityEngine.TestRunner\NUnitExtensions\Attributes\TestEnumerator.cs:52
+]]></stack-trace>
+              </failure>
+              <output><![CDATA[Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_7dd0ceebf23e49f2a98c24cf421c1026
+]]></output>
+            </test-case>
+            <test-case id="1120" name="PLAY_CoreLoop_ClickLockReorderAndSubmitMatchesPreview" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_CoreLoop_ClickLockReorderAndSubmitMatchesPreview" methodname="PLAY_CoreLoop_ClickLockReorderAndSubmitMatchesPreview" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="739767862" result="Failed" start-time="2026-11-01 08:06:31Z" end-time="2026-11-01 08:06:33Z" duration="1.339017" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <failure>
+                <message><![CDATA[  Expected is <System.String[2]>, actual is <System.Collections.Generic.List`1[System.String]> with 2 elements
+  Values differ at index [0]
+  String lengths are both 4. Strings differ at index 3.
+  Expected: "D001"
+  But was:  "D002"
+  --------------^
+]]></message>
+                <stack-trace><![CDATA[at NUnit.Framework.CollectionAssert.AreEqual (System.Collections.IEnumerable expected, System.Collections.IEnumerable actual, System.String message, System.Object[] args) [0x00008] in <8b63e8ac0a4746599ed207982825ae6c>:0
+at NUnit.Framework.CollectionAssert.AreEqual (System.Collections.IEnumerable expected, System.Collections.IEnumerable actual) [0x00001] in <8b63e8ac0a4746599ed207982825ae6c>:0
+at DiceCraft.Tests.GameplayPlayModeTests+<PLAY_CoreLoop_ClickLockReorderAndSubmitMatchesPreview>d__302.MoveNext () [0x00374] in E:\agent_workspace\gpt\game2\DicePrototype\Assets\Game\Tests\PlayMode\GameplayPlayModeTests.cs:159
+at UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\Library\PackageCache\com.unity.test-framework@ee3fe9477490\UnityEngine.TestRunner\NUnitExtensions\Attributes\TestEnumerator.cs:52
+]]></stack-trace>
+              </failure>
+              <output><![CDATA[Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_0f3b10e121e54325a7233bc3adcc57f6
+]]></output>
+            </test-case>
+            <test-case id="1140" name="PLAY_PooledRefreshKeepsNodeIdentitiesAndResetsScrollInputAndSlider" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_PooledRefreshKeepsNodeIdentitiesAndResetsScrollInputAndSlider" methodname="PLAY_PooledRefreshKeepsNodeIdentitiesAndResetsScrollInputAndSlider" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="623568190" result="Failed" start-time="2026-11-01 08:06:33Z" end-time="2026-11-01 08:06:33Z" duration="0.542579" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <failure>
+                <message><![CDATA[  Expected exactly one active ScrollRect named ScoreDetail
+  Expected: 1
+  But was:  0
+]]></message>
+                <stack-trace><![CDATA[at DiceCraft.Tests.GameplayPlayModeTests.FindActive[T] (System.String name) [0x00034] in E:\agent_workspace\gpt\game2\DicePrototype\Assets\Game\Tests\PlayMode\GameplayPlayModeTests.cs:377
+at DiceCraft.Tests.GameplayPlayModeTests+<>c__DisplayClass357_0+<<PLAY_PooledRefreshKeepsNodeIdentitiesAndResetsScrollInputAndSlider>g__Cycle|0>d.MoveNext () [0x000d1] in E:\agent_workspace\gpt\game2\DicePrototype\Assets\Game\Tests\PlayMode\UiPoolingPlayModeTests.cs:34
+at UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\Library\PackageCache\com.unity.test-framework@ee3fe9477490\UnityEngine.TestRunner\NUnitExtensions\Attributes\TestEnumerator.cs:52
+]]></stack-trace>
+              </failure>
+              <output><![CDATA[Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_b2ea3645806443dfa735960c658d18aa
+]]></output>
+            </test-case>
+            <test-case id="1138" name="PLAY_RealKeyboardTenDiceMappingModalSeedFocusAndHeldKeys" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_RealKeyboardTenDiceMappingModalSeedFocusAndHeldKeys" methodname="PLAY_RealKeyboardTenDiceMappingModalSeedFocusAndHeldKeys" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="272535989" result="Failed" start-time="2026-11-01 08:06:33Z" end-time="2026-11-01 08:06:36Z" duration="3.136838" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <failure>
+                <message><![CDATA[  Digits must follow the visible pool after a die is locked.
+  Expected is <System.String[2]>, actual is <System.Collections.Generic.List`1[System.String]> with 1 elements
+  Values differ at index [1]
+  Missing:  < "D002" >]]></message>
+                <stack-trace><![CDATA[at NUnit.Framework.CollectionAssert.AreEqual (System.Collections.IEnumerable expected, System.Collections.IEnumerable actual, System.String message, System.Object[] args) [0x00008] in <8b63e8ac0a4746599ed207982825ae6c>:0
+at DiceCraft.Tests.GameplayPlayModeTests+<PLAY_RealKeyboardTenDiceMappingModalSeedFocusAndHeldKeys>d__346.MoveNext () [0x00640] in E:\agent_workspace\gpt\game2\DicePrototype\Assets\Game\Tests\PlayMode\UiBoundaryPlayModeTests.cs:143
+at UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\Library\PackageCache\com.unity.test-framework@ee3fe9477490\UnityEngine.TestRunner\NUnitExtensions\Attributes\TestEnumerator.cs:52
+]]></stack-trace>
+              </failure>
+              <output><![CDATA[Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_1c2b23bddd354bb49b962f3dfcaab56f
+]]></output>
+            </test-case>
+            <test-case id="1123" name="PLAY_ReloadDuringRollRestoresLocksOrderAndAcceptedFaceResults" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ReloadDuringRollRestoresLocksOrderAndAcceptedFaceResults" methodname="PLAY_ReloadDuringRollRestoresLocksOrderAndAcceptedFaceResults" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="1629248045" result="Failed" start-time="2026-11-01 08:06:36Z" end-time="2026-11-01 08:06:37Z" duration="0.492631" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <failure>
+                <message><![CDATA[  Expected is <System.String[2]>, actual is <System.Collections.Generic.List`1[System.String]> with 2 elements
+  Values differ at index [0]
+  String lengths are both 4. Strings differ at index 3.
+  Expected: "D001"
+  But was:  "D003"
+  --------------^
+]]></message>
+                <stack-trace><![CDATA[at NUnit.Framework.CollectionAssert.AreEqual (System.Collections.IEnumerable expected, System.Collections.IEnumerable actual, System.String message, System.Object[] args) [0x00008] in <8b63e8ac0a4746599ed207982825ae6c>:0
+at NUnit.Framework.CollectionAssert.AreEqual (System.Collections.IEnumerable expected, System.Collections.IEnumerable actual) [0x00001] in <8b63e8ac0a4746599ed207982825ae6c>:0
+at DiceCraft.Tests.GameplayPlayModeTests+<PLAY_ReloadDuringRollRestoresLocksOrderAndAcceptedFaceResults>d__305.MoveNext () [0x00158] in E:\agent_workspace\gpt\game2\DicePrototype\Assets\Game\Tests\PlayMode\GameplayPlayModeTests.cs:240
+at UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\Library\PackageCache\com.unity.test-framework@ee3fe9477490\UnityEngine.TestRunner\NUnitExtensions\Attributes\TestEnumerator.cs:52
+]]></stack-trace>
+              </failure>
+              <output><![CDATA[Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_ace07e5d49ba49b49c55ee5271327883
+]]></output>
+            </test-case>
+            <test-case id="1150" name="PLAY_V06_RemoteThirtyTwoTargetsScrollAndKeepExactlyTwoWithoutOverlap" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_V06_RemoteThirtyTwoTargetsScrollAndKeepExactlyTwoWithoutOverlap" methodname="PLAY_V06_RemoteThirtyTwoTargetsScrollAndKeepExactlyTwoWithoutOverlap" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="139333474" result="Failed" start-time="2026-11-01 08:06:37Z" end-time="2026-11-01 08:06:37Z" duration="0.391379" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <failure>
+                <message><![CDATA[  Expected string length 10 but was 9. Strings differ at index 7.
+  Expected: "全部 32 件控制器"
+  But was:  "全部 32 件 >"
+  ------------------^
+]]></message>
+                <stack-trace><![CDATA[at DiceCraft.Tests.GameplayPlayModeTests+<PLAY_V06_RemoteThirtyTwoTargetsScrollAndKeepExactlyTwoWithoutOverlap>d__369.MoveNext () [0x0014a] in E:\agent_workspace\gpt\game2\DicePrototype\Assets\Game\Tests\PlayMode\V06TargetSelectionPlayModeTests.cs:25
+at UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\Library\PackageCache\com.unity.test-framework@ee3fe9477490\UnityEngine.TestRunner\NUnitExtensions\Attributes\TestEnumerator.cs:52
+]]></stack-trace>
+              </failure>
+              <output><![CDATA[Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_e4456c95c0ee4a09b7488f78796f6c86
+Saving results to: E:\agent_workspace\gpt\game2\evidence\v07\unity\nunit-20261101-080637.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

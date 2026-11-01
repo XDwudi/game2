@@ -31,6 +31,7 @@ namespace DiceCraft.Tests
                 ClickDie("D001"); // Locked die detail uses the distinct transparent modal role.
                 Assert.That(HasActive("RotatePreview"), Is.True); Click("CloseDialog");
                 yield return LegacyClick07("Factor0");
+                yield return LegacyClick07("FullScoreDetails"); // S07 opens the three-column drawer first.
                 var scroll = FindActive<ScrollRect>("ScoreDetail");
                 if (detailScroll == null) detailScroll = scroll;
                 else Assert.That(scroll, Is.SameAs(detailScroll));

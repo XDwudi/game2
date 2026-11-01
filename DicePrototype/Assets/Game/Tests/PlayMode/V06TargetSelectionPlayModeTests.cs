@@ -22,7 +22,7 @@ namespace DiceCraft.Tests
             yield return LoadBoundaryFixture(fixture);ResumeBoundaryFixture();Click("StartStage");
             Assert.That(FindActive<TMPro.TextMeshProUGUI>("Edition").text,Is.EqualTo("调试对局"));
             string title=Button("AllControllerStates").GetComponentInChildren<TMPro.TextMeshProUGUI>().text;
-            Assert.That(title,Is.EqualTo("全部 32 件控制器"));Assert.That(title,Does.Not.Contain("/"));
+            Assert.That(title,Is.EqualTo("全部 32 件 >"));Assert.That(title,Does.Not.Contain("/"));
             string original=StateJson();byte[] originalDisk=File.ReadAllBytes(app.SaveLocation);
             var before=app.Session.State;
             OpenRemoteItem();

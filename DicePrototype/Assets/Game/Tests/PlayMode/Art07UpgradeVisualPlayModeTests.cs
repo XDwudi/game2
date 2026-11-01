@@ -31,7 +31,7 @@ namespace DiceCraft.Tests
                     Assert.That(bought.accepted,Is.True,bought.error);Assert.That(app.TransactionVisualDuration07,Is.EqualTo(upgrade=="U05"?.42f:.36f).Within(.0001f));
                     var committed=app.Session.State;string state=GameSession.StateHash(committed);byte[] disk=File.ReadAllBytes(app.SaveLocation);
                     var surface=app.GetComponentInChildren<Art07UpgradeSurface>(true);Assert.That(surface,Is.Not.Null);
-                    var clock=app.canvas.GetComponentInChildren<Art07TransactionMotion>(true);Assert.That(clock,Is.Not.Null);
+                    var clock=UpgradeTransactionClock07();Assert.That(clock,Is.Not.Null);
                     var orientation=app.table.GetFaceOrientation("$die-preview");var body=orientation.Find("Body").GetComponent<MeshRenderer>();
                     var faceRenderers=Enumerable.Range(1,6).Select(i=>orientation.Find("Face_F"+i.ToString("00")).GetComponent<MeshRenderer>()).ToArray();
                     var meshes=faceRenderers.Select(r=>r.GetComponent<MeshFilter>().sharedMesh).ToArray();var transforms=faceRenderers.Select(r=>r.transform.localToWorldMatrix).ToArray();
@@ -111,7 +111,7 @@ namespace DiceCraft.Tests
                     {
                         app.enabled=false;var result=app.Send(new SessionCommand{kind=CommandKind.Buy,offerId=offer.offerId,targetDieId=die.dieId,targetFaceId=face});Assert.That(result.accepted,Is.True,result.error);
                         string state=GameSession.StateHash(app.Session.State);byte[] disk=File.ReadAllBytes(app.SaveLocation);
-                        var clock=app.canvas.GetComponentInChildren<Art07TransactionMotion>(true);var surface=app.GetComponentInChildren<Art07UpgradeSurface>(true);
+                        var clock=UpgradeTransactionClock07();var surface=app.GetComponentInChildren<Art07UpgradeSurface>(true);
                         Assert.That(clock.Duration,Is.EqualTo(reduce?.12f:.15f).Within(.0001f));clock.Tick(clock.Duration*.475f,false);
                         float elapsed=clock.Elapsed,progress=surface.Progress,angle=surface.TurnDegrees;clock.Tick(1,true);
                         Assert.That(clock.Elapsed,Is.EqualTo(elapsed));Assert.That(surface.Progress,Is.EqualTo(progress));Assert.That(surface.TurnDegrees,Is.EqualTo(angle));
@@ -129,6 +129,23 @@ namespace DiceCraft.Tests
             }
             finally
             {if(hadFast)PlayerPrefs.SetInt("fast",oldFast);else PlayerPrefs.DeleteKey("fast");if(hadReduced)PlayerPrefs.SetInt("reduced",oldReduced);else PlayerPrefs.DeleteKey("reduced");}
+        }
+
+        private Art07TransactionMotion UpgradeTransactionClock07()
+        {
+            // S09 also pools Art07TransactionMotion below inactive FrozenUiGroup nodes.
+            // Only this exact direct canvas child belongs to the committed transaction.
+            var roots=app.canvas.transform.Cast<Transform>().Where(t=>t.name=="Art07TransactionMotion").ToArray();
+            Assert.That(roots.Length,Is.EqualTo(1),"Expected the unique committed transaction root, not a frozen settlement snapshot.");
+            var clock=roots[0].GetComponent<Art07TransactionMotion>();Assert.That(clock,Is.Not.Null);
+            Assert.That(clock.IsPlaying,Is.True,"The real committed upgrade clock must be active before manual sampling.");
+            Assert.That(clock.Kind,Is.EqualTo("die_upgrade"));
+            Assert.That(clock.IsPlaying,Is.EqualTo(app.TransactionVisualPlaying07));
+            Assert.That(clock.Kind,Is.EqualTo(app.TransactionVisualKind07));
+            Assert.That(clock.Duration,Is.EqualTo(app.TransactionVisualDuration07));
+            Assert.That(clock.Elapsed,Is.EqualTo(app.TransactionVisualElapsed07));
+            TestContext.WriteLine("UPGRADE_CLOCK exact="+clock.transform.parent.name+"/"+clock.name+" duration="+clock.Duration.ToString("R")+" elapsed="+clock.Elapsed.ToString("R")+" otherPooledClocks="+(app.canvas.GetComponentsInChildren<Art07TransactionMotion>(true).Length-1));
+            return clock;
         }
 
         private IEnumerator CaptureUpgradeGpu07(string id,Action<Texture2D> accept)

@@ -155,7 +155,7 @@ namespace DiceCraft.Tests
             Assert.That(StateJson(), Is.EqualTo(lockedState));
             Click("CloseDialog");
 
-            DragLockedDieOnto("D002", "D001");
+            DragLockedDieAfter("D002", "D001");
             CollectionAssert.AreEqual(new[] {"D001", "D002"}, app.Session.State.hand.orderedLockedIds);
             var loaded = new AtomicSaveStore(app.SaveLocation, app.Config).Load();
             CollectionAssert.AreEqual(new[] {"D001", "D002"}, loaded.hand.orderedLockedIds);
@@ -227,7 +227,7 @@ namespace DiceCraft.Tests
         {
             StartRun("9281"); Click("StartStage"); Click("Roll"); Click("Skip");
             ClickDie("D003"); ClickDie("D001"); Click("Confirm");yield return WaitForIdle();
-            DragLockedDieOnto("D003", "D001");
+            DragLockedDieAfter("D003", "D001");
             Click("Roll");
             Assert.That(app.IsBusy, Is.True);
             string expected = StateJson();
@@ -392,13 +392,23 @@ namespace DiceCraft.Tests
             ExecuteEvents.Execute(pointer.gameObject, data, ExecuteEvents.pointerClickHandler);
             Canvas.ForceUpdateCanvases();
         }
-        private void DragLockedDieOnto(string fromId, string toId)
+        private void DragLockedDieAfter(string fromId, string toId)
         {
             var from = FindActive<DiePointer>("Die_" + fromId);
-            var target = FindActive<DiePointer>("Die_" + toId).GetComponent<RectTransform>();
-            Vector2 position = RectTransformUtility.WorldToScreenPoint(null, target.TransformPoint(target.rect.center));
-            var data = new PointerEventData(EventSystem.current) {position = position, button = PointerEventData.InputButton.Left, dragging = true};
+            var source = from.GetComponent<RectTransform>();
+            int targetIndex = app.Session.State.hand.orderedLockedIds.IndexOf(toId);
+            Assert.That(targetIndex, Is.GreaterThanOrEqualTo(0));
+            var target = FindActive<RectTransform>("Slot" + targetIndex);
+            // S06 inserts before/after a SLOT. The side-labelled die itself lies in
+            // its slot's left half, so its centre no longer means "after this die".
+            var data = new PointerEventData(EventSystem.current) {
+                position = RectTransformUtility.WorldToScreenPoint(null, source.TransformPoint(source.rect.center)),
+                button = PointerEventData.InputButton.Left, dragging = true};
             ExecuteEvents.Execute(from.gameObject, data, ExecuteEvents.beginDragHandler);
+            data.position = RectTransformUtility.WorldToScreenPoint(null,
+                target.TransformPoint(target.rect.center + Vector2.right * target.rect.width * .25f));
+            ExecuteEvents.Execute(from.gameObject, data, ExecuteEvents.dragHandler);
+            Assert.That(HasActive("DieInsertion"), Is.True, "Drop must target the visible legal insertion line.");
             ExecuteEvents.Execute(from.gameObject, data, ExecuteEvents.endDragHandler);
             Canvas.ForceUpdateCanvases();
         }

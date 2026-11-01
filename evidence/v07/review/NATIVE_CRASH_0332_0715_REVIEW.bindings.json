@@ -1,0 +1,193 @@
+{
+  "reviewer": "/root/v07_spec_audit",
+  "utc": "2026-11-01T07:51:43.256540+00:00",
+  "scope": "read_only_existing_crash_diagnostics_not_fixed_or_accepted",
+  "currentHead": "86d740cdcc3045605e41417dc0353d4cb4d76c60",
+  "report": {
+    "path": "evidence/v07/review/NATIVE_CRASH_0332_0715_REVIEW.md",
+    "sha256": "705753d09afd00a5be8ba09ac7824940bb6bc1197c4d699ea8238147b819b416"
+  },
+  "inputsAndArtifacts": [
+    {
+      "path": "artifacts/cache/v07-crash-033212/crash.dmp",
+      "bytes": 2410652,
+      "sha256": "e8e83a44d4220abbba614fd488394371a7c9924e9885007af4cadca397968631"
+    },
+    {
+      "path": "artifacts/cache/v07-crash-033212/native-stack-tail.txt",
+      "bytes": 14175,
+      "sha256": "3c8b17a663f84c69ae4ce5b10b32d2923e09e57d1bc7e5f926fd0bcb6f28acae"
+    },
+    {
+      "path": "artifacts/cache/v07-crash-033212/recovery-memory.csv",
+      "bytes": 2363,
+      "sha256": "e44237ff356c3beb80babe57a824b3e7d259ec568aeb728e465d57f99627a837"
+    },
+    {
+      "path": "artifacts/cache/v07-native-crash-071555/crash.dmp",
+      "bytes": 2686608,
+      "sha256": "a81eeed3500d8d44a4349c3b428079ca924d20f1a24582bf4ae24ce9d59e5caf"
+    },
+    {
+      "path": "artifacts/cache/v07-native-crash-071555/pending-test-binding.json",
+      "bytes": 264949,
+      "sha256": "14050b698e5ddaa7e4d5113a077251356e16d874974cf81c4d7236b167392f6c"
+    },
+    {
+      "path": "artifacts/cache/v07-native-crash-071555/preserved-sha256.json",
+      "bytes": 676,
+      "sha256": "97801bb7e0d83c0ecb6edde197ff27bb130c923f6728a02c32526c248e106a7a"
+    },
+    {
+      "path": "artifacts/cache/v07-native-crash-review/dumps-summary.json",
+      "bytes": 7616,
+      "sha256": "a9ddf19fe1baa406fc146630d210306c81774f62cfbf8021869854edf48cc0c9"
+    },
+    {
+      "path": "artifacts/cache/v07-native-crash-review/event-2004-314425.xml",
+      "bytes": 3093,
+      "sha256": "11c93fac590e4ddf9cc31f740d47bea59563f59ebe7e0340be8900f72c7381fe"
+    },
+    {
+      "path": "artifacts/cache/v07-native-crash-review/event-2004-314434.xml",
+      "bytes": 3088,
+      "sha256": "0b6bcd68ae8d37e5c20201c2f13e9e786394b3a53d53f003e065c373e3e0dbad"
+    },
+    {
+      "path": "artifacts/cache/v07-native-crash-review/inspect_dumps.py",
+      "bytes": 4365,
+      "sha256": "9215464a76d10f6b29e03cb5ab5f00c98c08e47b86ae831752581ca588b216a2"
+    },
+    {
+      "path": "artifacts/cache/v07-native-crash-review/inspect_logs.py",
+      "bytes": 2398,
+      "sha256": "bfe138e9eece9303db95ae78abd83cae19e7f407a4e03f73c6f6cdd03fb9f142"
+    },
+    {
+      "path": "artifacts/cache/v07-native-crash-review/logs-summary.json",
+      "bytes": 11916,
+      "sha256": "efb669cd508aff452814a4183a008411801f18fda899b76238c8e52272a2b00e"
+    },
+    {
+      "path": "artifacts/cache/v07-native-crash-review/process-role-query-quoted.json",
+      "bytes": 817,
+      "sha256": "58b3e823f20403d487c9728615b1b121fab45c532bb0196d12f8ea0cb5cf7b07"
+    },
+    {
+      "path": "artifacts/cache/v07-native-crash-review/system-events-parsed.json",
+      "bytes": 21843,
+      "sha256": "c40bd10ce945de93764e5973cbcf5993337d4eacabf06b822e5d9c0aad9dab2d"
+    },
+    {
+      "path": "artifacts/cache/v07-native-crash-review/unity-v07-restart-0334.log.stack-selected.txt",
+      "bytes": 5284,
+      "sha256": "718fc70625273b6a8ed5937f53ac1c0346e4a935c4014ff4513213f85b8f5d39"
+    },
+    {
+      "path": "artifacts/cache/v07-native-crash-review/unity-v07-restart-1828.log.stack-selected.txt",
+      "bytes": 4401,
+      "sha256": "d0246e49218538ad6fa1c008be789557b24622493c1778fd7676ae7fdd311d77"
+    },
+    {
+      "path": "artifacts/cache/v07-native-crash-review/worker-1-AssetImportWorkerHW1.log",
+      "bytes": 373188,
+      "sha256": "3341e8e43963db783f26a2fee8025867b08288e2804ef1d60575ce276c95e287"
+    },
+    {
+      "path": "artifacts/cache/v07-native-crash-review/worker-1-AssetImportWorkerHW1.log.summary.json",
+      "bytes": 17739,
+      "sha256": "c15861167f6ebfe9467a43777e71853b4ec39803be22a4a14e200e4d50edb3d4"
+    },
+    {
+      "path": "artifacts/cache/v07-native-crash-review/worker-2-AssetImportWorkerHW2.log",
+      "bytes": 383630,
+      "sha256": "9c1547291be44cf1001b032863dad48e47103ab1c569bd08b54201ad99725c82"
+    },
+    {
+      "path": "artifacts/cache/v07-native-crash-review/worker-2-AssetImportWorkerHW2.log.summary.json",
+      "bytes": 17742,
+      "sha256": "1506a53a752a7066f798684cfe6d04c0cf21d72e08f2d9ac8fafa00b81de886b"
+    },
+    {
+      "path": "artifacts/cache/v07-native-crash-review/worker-3-AssetImportWorkerHW0-prev.log",
+      "bytes": 665775,
+      "sha256": "2b368b758856cd89ea3865189d1058e5e126e3bc58ffb5c8793b05c3528fc5d2"
+    },
+    {
+      "path": "artifacts/cache/v07-native-crash-review/worker-3-AssetImportWorkerHW0-prev.log.summary.json",
+      "bytes": 33798,
+      "sha256": "186b20db64c0a69d8d9f4e2be3aaf4c447b3cd2094de04b5c5eefcc08dbe50a7"
+    },
+    {
+      "path": "artifacts/cache/v07-native-crash-review/worker-hw1-033210.dmp",
+      "bytes": 913483,
+      "sha256": "593d0f05bd6c50453cc45b28102a2d0937720bbc4d3b0a4b9bb1c4475c16c7b1"
+    },
+    {
+      "path": "artifacts/cache/v07-native-crash-review/worker-logs-summary.json",
+      "bytes": 13579,
+      "sha256": "f71613410f6e056120a326ef7e0f3a5707fd08cc1519aa37ffb7aca17e6c049b"
+    },
+    {
+      "path": "DicePrototype/ProjectSettings/GraphicsSettings.asset",
+      "bytes": 2951,
+      "sha256": "d1288ed712c51a6803de0b43556ca13a1b418835de68e806846a8fc0c608e03a"
+    },
+    {
+      "path": "artifacts\\cache\\unity-v07-restart-1828.log",
+      "bytes": 12160477,
+      "sha256": "1d95ef1188b2dcb24bcdf60b0d26f6d91ddc030a058fe05fb32c8af80f425305",
+      "stable": true,
+      "totalLines": 83940
+    },
+    {
+      "path": "artifacts\\cache\\unity-v07-restart-0334.log",
+      "bytes": 313469892,
+      "sha256": "cc4a06598138faf93b0c32dc3559a7bf523bee207bfcd4ed33258b544e03c0ba",
+      "stable": true,
+      "totalLines": 2687629
+    }
+  ],
+  "facts": {
+    "systemResourceExhaustionEvents": [
+      314425,
+      314434
+    ],
+    "mainEditorException": "0x80000003 at Unity.dll+0x3832e73",
+    "allocationRequestBytes": null,
+    "allocationRequestUnknownReason": "No explicit request-size message found; no local-variable native-debugger analysis performed. Minidumps are not full-memory.",
+    "currentWorkerVerified": {
+      "pid": 39516,
+      "parentPid": 10504,
+      "name": "AssetImportWorkerHW0",
+      "roleQueryUtc": "2026-11-01T07:47:28.550098+00:00"
+    },
+    "rootCauseClosed": false
+  },
+  "methods": {
+    "logSearch": "binary lines streamed; SHA updated as read; selected context limited; no whole-log dump",
+    "dumpLayout": "Windows SDK 10.0.22000.0 minidumpapiset.h pack(4); BasicPerfInfo equals legacy PerfInfo for all four fields",
+    "events": "Get-WinEvent System ID2004 and Application ID1000 in each crash UTC +/- 2minutes, max20; namespace-independent XML; system2004 original XML preserved",
+    "liveRole": "OpenProcess PROCESS_QUERY_LIMITED_INFORMATION + NtQueryInformationProcess class60; output only approved flags/name/project/parent/log; no VM_READ/WRITE or debug attachment"
+  },
+  "attemptsNotUsedAsEvidence": {
+    "system-events.json": "Initial namespace parsing produced empty/null payload; superseded system-events-parsed.json and original2004 XML",
+    "current-unity-processes.json": "WMI access denied; not treated as empty process list",
+    "process-role-query.json": "Initial parser did not strip quoted flags for39516; inferred Editor label invalid/superseded process-role-query-quoted.json"
+  },
+  "notPerformed": [
+    "Unity or Blender operation",
+    "process termination/restart",
+    "Library/atlas/driver/security edits",
+    "native symbol local-variable inspection",
+    "SDK installation",
+    "leak reproducer or final fix validation"
+  ],
+  "officialSources": [
+    "https://learn.microsoft.com/en-us/windows/win32/api/minidumpapiset/ns-minidumpapiset-minidump_header",
+    "https://learn.microsoft.com/en-us/windows/win32/api/minidumpapiset/ns-minidumpapiset-minidump_exception",
+    "https://learn.microsoft.com/en-us/windows/win32/api/minidumpapiset/ne-minidumpapiset-minidump_stream_type",
+    "https://unity.com/releases/editor/whats-new/6000.6.7f1",
+    "https://unity.com/releases/editor/beta/6000.5.0b8"
+  ]
+}

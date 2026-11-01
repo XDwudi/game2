@@ -195,7 +195,13 @@ namespace DiceCraft.Verification
         {
             if(!app.IsDebugWorkspace)throw new InvalidOperationException("A transaction capture left the isolated debug workspace.");
             if(app.Session.ActionSequence!=transactionSequence07)throw new InvalidOperationException("Action sequence changed outside the single recorded transaction.");
-            var motion=app.canvas.GetComponentsInChildren<DiceCraft.Presentation.Art07TransactionMotion>(true).SingleOrDefault();
+            // SettlementBackdrop owns separate inactive snapshot clocks. Resolve only
+            // the unique direct canvas child created by EnsureTransactionMotion07.
+            var motionRoot=app.canvas.transform.Cast<Transform>().SingleOrDefault(t=>t.name=="Art07TransactionMotion");
+            var motion=motionRoot==null?null:motionRoot.GetComponent<DiceCraft.Presentation.Art07TransactionMotion>();
+            if(motionRoot!=null&&motion==null)throw new InvalidOperationException("Committed transaction root has no transaction motion component.");
+            if(motion!=null&&(motion.IsPlaying!=app.TransactionVisualPlaying07||motion.Kind!=app.TransactionVisualKind07||motion.Duration!=app.TransactionVisualDuration07||motion.Elapsed!=app.TransactionVisualElapsed07))
+                throw new InvalidOperationException("Selected transaction clock does not match the GameApp committed transaction owner.");
             var preview=app.table.GetFaceOrientation("$die-preview");bool visible=preview!=null&&preview.gameObject.activeInHierarchy;
             var row=new TransactionFrame07{clip=transactionClip07.ToString(),kind=app.TransactionVisualKind07,receiptId=transactionReceiptId07,sourceManifestSha=report.transactionSourceManifestSha256,sequence=app.Session.ActionSequence,
                 playing=app.TransactionVisualPlaying07,busy=app.Session.Busy,elapsed=app.TransactionVisualElapsed07,duration=app.TransactionVisualDuration07,summary=app.LastTransactionSummary07,snapshotGraphics=app.TransactionSnapshotGraphicCount07,

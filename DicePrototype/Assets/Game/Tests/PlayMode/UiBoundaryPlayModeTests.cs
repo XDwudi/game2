@@ -139,8 +139,10 @@ namespace DiceCraft.Tests
                 }
                 yield return keyboard.Press(Key.Digit1); yield return keyboard.Press(Key.L);
                 CollectionAssert.AreEqual(new[] {"D001"}, app.Session.State.hand.orderedLockedIds);
+                yield return WaitForIdle(); // S05 finishes the irreversible lock migration before another selection.
                 yield return keyboard.Press(Key.Digit1); yield return keyboard.Press(Key.L);
                 CollectionAssert.AreEqual(new[] {"D001", "D002"}, app.Session.State.hand.orderedLockedIds, "Digits must follow the visible pool after a die is locked.");
+                yield return WaitForIdle();
                 yield return keyboard.Press(Key.R);
                 if (app.IsBusy) Click("Skip");
                 yield return WaitForIdle();
@@ -161,6 +163,7 @@ namespace DiceCraft.Tests
                 Assert.That(StateJson(), Is.EqualTo(beforeModal), "Escape closes only the modal.");
                 CollectionAssert.AreEqual(pending, app.Session.PendingIds);
                 yield return keyboard.Press(Key.L);
+                yield return WaitForIdle();
                 long beforeSubmit = app.Session.State.actionSequence;
                 string expected = app.Session.PreviewScore().score;
                 yield return keyboard.Press(Key.Enter, .4f);
