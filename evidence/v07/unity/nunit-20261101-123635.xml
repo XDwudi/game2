@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="1" result="Failed(Child)" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-11-01 12:36:33Z" end-time="2026-11-01 12:36:35Z" duration="1.5475726">
+  <test-suite type="TestSuite" id="1164" name="DiceCraft P0" fullname="DiceCraft P0" runstate="Runnable" testcasecount="155" result="Failed" site="Child" start-time="2026-11-01 12:36:33Z" end-time="2026-11-01 12:36:35Z" duration="1.547573" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <failure>
+      <message><![CDATA[One or more child tests had errors]]></message>
+    </failure>
+    <test-suite type="Assembly" id="1158" name="DiceCraft.PlayModeTests.dll" fullname="E:/agent_workspace/gpt/game2/DicePrototype/Library/ScriptAssemblies/DiceCraft.PlayModeTests.dll" runstate="Runnable" testcasecount="155" result="Failed" site="Child" start-time="2026-11-01 12:36:33Z" end-time="2026-11-01 12:36:35Z" duration="1.536074" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="32560" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <failure>
+        <message><![CDATA[One or more child tests had errors]]></message>
+      </failure>
+      <test-suite type="TestSuite" id="1159" name="DiceCraft" fullname="DiceCraft" runstate="Runnable" testcasecount="155" result="Failed" site="Child" start-time="2026-11-01 12:36:33Z" end-time="2026-11-01 12:36:35Z" duration="1.533731" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <failure>
+          <message><![CDATA[One or more child tests had errors]]></message>
+        </failure>
+        <test-suite type="TestSuite" id="1160" name="Tests" fullname="DiceCraft.Tests" runstate="Runnable" testcasecount="155" result="Failed" site="Child" start-time="2026-11-01 12:36:33Z" end-time="2026-11-01 12:36:35Z" duration="1.531730" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <failure>
+            <message><![CDATA[One or more child tests had errors]]></message>
+          </failure>
+          <test-suite type="TestFixture" id="1001" name="GameplayPlayModeTests" fullname="DiceCraft.Tests.GameplayPlayModeTests" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" testcasecount="153" result="Failed" site="Child" start-time="2026-11-01 12:36:33Z" end-time="2026-11-01 12:36:35Z" duration="1.528970" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <failure>
+              <message><![CDATA[One or more child tests had errors]]></message>
+            </failure>
+            <test-case id="1026" name="PLAY_ART07_ResultReloadIgnoresNonSubmitPlaceholdersAndPreservesExactStatistics" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_ResultReloadIgnoresNonSubmitPlaceholdersAndPreservesExactStatistics" methodname="PLAY_ART07_ResultReloadIgnoresNonSubmitPlaceholdersAndPreservesExactStatistics" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="1942126659" result="Failed" start-time="2026-11-01 12:36:33Z" end-time="2026-11-01 12:36:35Z" duration="1.508107" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <failure>
+                <message><![CDATA[  The first returned result frame must synchronize the ordinary clock before drawing.
+  Expected: String containing "用时  01:01:01"
+  But was:  "总得分  14     用时  旧存档未记录
+最大单手  6
+最高倍率  ×3
+种子  70991   ·   普通对局"
+]]></message>
+                <stack-trace><![CDATA[at DiceCraft.Tests.GameplayPlayModeTests+<PLAY_ART07_ResultReloadIgnoresNonSubmitPlaceholdersAndPreservesExactStatistics>d__71.MoveNext () [0x004d0] in E:\agent_workspace\gpt\game2\DicePrototype\Assets\Game\Tests\PlayMode\Art07EdgeScreensPlayModeTests.cs:72
+at UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\Library\PackageCache\com.unity.test-framework@ee3fe9477490\UnityEngine.TestRunner\NUnitExtensions\Attributes\TestEnumerator.cs:52
+]]></stack-trace>
+              </failure>
+              <output><![CDATA[Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_2bc3ff857687481381d924bb24557d43
+Saving results to: E:\agent_workspace\gpt\game2\evidence\v07\unity\nunit-20261101-123635.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

@@ -1,0 +1,150 @@
+{
+  "utc": "2026-11-01T12:35:31.203733+00:00",
+  "reviewer": "/root/v07_spec_audit",
+  "status": "RR01_CRASH_FIX_LIMITED_REVIEW_PASSED_RC02_CLOCK_REWORK",
+  "baseSource": "69d2f4dc3afa6387d443e827eb0b96892e9f2cfb",
+  "finalSourceCheckpoint": "4f1a25cbd7ed885bd863c24411f1075d7888a18f",
+  "productionFixSha256": "f740fb4e419648a7a78e3547835e1ecbc6a6299e0cae1bf016f0fe29a018130a",
+  "actualRedGreenTestSourceSha256": "d261ea7b2978928837bc365ac3b768cc7dcc7274839c8153905c082bbe63983d",
+  "normalizedFinalTestSourceSha256": "a964222c360afce41f7aabdd26bb3d5b9ceb50d7b720690b681eefc4200de680",
+  "redGreenBoundToNormalizedBytes": false,
+  "actualImagesViewed": 2,
+  "imageDimensions": "1920x1080, fixture100% font",
+  "otherFourArchivedImagesActuallyViewed": false,
+  "noUnityExecutedByReviewer": true,
+  "noProductionOrStandardsWritten": true,
+  "noExternalTransmission": true,
+  "inputsAndOutputs": [
+    {
+      "path": "evidence/v07/review/RESULT_RELOAD_FIX_REVIEW.md",
+      "bytes": 8039,
+      "sha256": "1008292ef291f269bd1d1b473597441bc66d19619c85e804583c5f3a4930fe34"
+    },
+    {
+      "path": "artifacts/cache/v07-result-reload-review/ROOT_CAUSE.md",
+      "bytes": 5720,
+      "sha256": "3303063cb9c3b7659e206ec0b5bed1357aa921decc23583c1ead71a546be2d88"
+    },
+    {
+      "path": "artifacts/cache/v07-result-reload-review/evidence-summary.json",
+      "bytes": 4872,
+      "sha256": "21df53371135395899080d18e3cd7218b8c163e26535c705c0033dd1565d4e3c"
+    },
+    {
+      "path": "artifacts/cache/v07-result-reload-review/fix-candidate-red-green-audit.json",
+      "bytes": 11662,
+      "sha256": "c80e44e208cb09581bc3a43d87214cd6da39f313ba5bc1d584ea9fbd4a5f6b76"
+    },
+    {
+      "path": "docs/specs/v07/ART_SPEC.md",
+      "bytes": 417792,
+      "sha256": "5120a8d0983d24f25cc38e22f1da613fd1a56c70ab26f518771a2caf064dd228"
+    },
+    {
+      "path": "artifacts/cache/v07-result-reload-rework/HANDOFF.md",
+      "bytes": 4453,
+      "sha256": "76b1e433d973a470d974fe36d7fdff2445d6dd8116ec5e11567ae5bc13b1f1a6"
+    },
+    {
+      "path": "artifacts/cache/v07-result-reload-rework/candidates-r02.json",
+      "bytes": 864,
+      "sha256": "d69d8d2c4cb4f428ec82c7942e841f5bc87276ec413b32d986654af39cfc57bd"
+    },
+    {
+      "path": "artifacts/cache/v07-result-reload-rework/Art07EdgeScreensPlayModeTests.r02.cs",
+      "bytes": 15989,
+      "sha256": "d261ea7b2978928837bc365ac3b768cc7dcc7274839c8153905c082bbe63983d"
+    },
+    {
+      "path": "artifacts/cache/v07-result-reload-normalized-test.cs",
+      "bytes": 15800,
+      "sha256": "a964222c360afce41f7aabdd26bb3d5b9ceb50d7b720690b681eefc4200de680"
+    },
+    {
+      "path": "evidence/v07/unity/nunit-20261101-122700.xml",
+      "bytes": 6689,
+      "sha256": "ae0a657bfa8c8dd76f36941e4f7db5b1594d741aa95632bc7bebe620ba3afc49"
+    },
+    {
+      "path": "evidence/v07/unity/nunit-20261101-122700.binding.json",
+      "bytes": 575635,
+      "sha256": "af379c5229dbad1ff8205da488fd575c2949a705c13f1a3c8e86ccba30fe7064"
+    },
+    {
+      "path": "evidence/v07/unity/nunit-20261101-122742.xml",
+      "bytes": 5754,
+      "sha256": "14fcb91c2bc137ea19c8480fbadd5c3bacd78a91aaa2edc820d8bdd17b8bb29d"
+    },
+    {
+      "path": "evidence/v07/unity/nunit-20261101-122742.binding.json",
+      "bytes": 575635,
+      "sha256": "667bf4bf21b43268824e82fd85a15e69af707f6b406456b672c4b7d2347e2fc4"
+    },
+    {
+      "path": "artifacts/cache/v07-result-reload-red-122700/archive.json",
+      "bytes": 993,
+      "sha256": "56061b1fd11ab3509d4175b5db3878bb8e10fc8a55222b626757b568c7be7a4c"
+    },
+    {
+      "path": "artifacts/cache/v07-result-reload-green-122742/archive.json",
+      "bytes": 4838,
+      "sha256": "9ac92f9460782cfd78aa529fc8261bdd7bda818a02fc7652b36af8ab22c3f6be"
+    },
+    {
+      "path": "artifacts/cache/v07-result-reload-green-122742/DiceCraftTests_d4bc6b224966401ca084eb7f56f155c7/art07-edge-screens/S18-normal-terminal-cold-reload.png",
+      "bytes": 1108852,
+      "sha256": "b4288084b24de199b7cf4c5142d6251948facd2bcf3c46558b69ea3f817c1799"
+    },
+    {
+      "path": "artifacts/cache/v07-result-reload-green-122742/DiceCraftTests_d4bc6b224966401ca084eb7f56f155c7/art07-edge-screens/S18-normal-terminal-cold-reload.json",
+      "bytes": 461,
+      "sha256": "e9fe8747005b9e928f9c198b531ce95fe88707756062a121a23196a3ce3cd662"
+    },
+    {
+      "path": "artifacts/cache/v07-result-reload-green-122742/DiceCraftTests_d4bc6b224966401ca084eb7f56f155c7/art07-edge-screens/S18-normal-terminal-return.png",
+      "bytes": 1126250,
+      "sha256": "0a30321bde88089c80bbf0513b1e0e9f30029a2516f56c06a3ff1f9abf4762cb"
+    },
+    {
+      "path": "artifacts/cache/v07-result-reload-green-122742/DiceCraftTests_d4bc6b224966401ca084eb7f56f155c7/art07-edge-screens/S18-normal-terminal-return.json",
+      "bytes": 456,
+      "sha256": "833c9374577f97e3f93edb91355c1f5a7c308882a1225fa3f0e4c1a554f91f51"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/UI/GameApp.Art07Results.cs",
+      "bytes": 9258,
+      "sha256": "f740fb4e419648a7a78e3547835e1ecbc6a6299e0cae1bf016f0fe29a018130a"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/UI/GameApp.Debug.cs",
+      "bytes": 44454,
+      "sha256": "1738e30d2dbd2431ed8a525d04abbe9a276d12b216f53fbc4f3126efdb3d8455"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/UI/GameApp.Art07StatusDetails.cs",
+      "bytes": 6497,
+      "sha256": "d63268a28b758fab94e1c4919e555cd1253cfba1cc0476f57a86fe97c0289ca1"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Runtime/GameApp.cs",
+      "bytes": 34501,
+      "sha256": "20bb8c43fb61c5f5aabe0767d0ee9ca9635ffaea1dd0f1d05f9d2d5bbe14a1d5"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Core/Session/GameSession.Validation.cs",
+      "bytes": 23017,
+      "sha256": "1f0a908e5b5df35db130175338256bf7a3ecdd05c0c12558b01b0ac9a71c1bcc"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Tests/PlayMode/GameplayPlayModeTests.cs",
+      "bytes": 27424,
+      "sha256": "ff9759c4e0da6041112719575196e5ffeb829ae9649a529a6e66c8903dd7706a"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Tests/PlayMode/Art07EdgeScreensPlayModeTests.cs",
+      "bytes": 15800,
+      "sha256": "a964222c360afce41f7aabdd26bb3d5b9ceb50d7b720690b681eefc4200de680"
+    }
+  ],
+  "remainingDefect": "New normal run has saved time key but first restored result displays old-save-unrecorded because clock binds in later Update without rebuilding result label. Clock patch and actual validation pending."
+}

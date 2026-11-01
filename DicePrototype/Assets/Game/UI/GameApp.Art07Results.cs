@@ -23,11 +23,17 @@ namespace DiceCraft
         private void TickRunClock07()
         {
             if(ViewState==null||inMenu||modal)return;
-            if(runClockId07!=ViewState.runId)
-            {SaveRunClock07();runClockId07=ViewState.runId;runClockKnown07=PlayerPrefs.HasKey("art07.runSeconds."+runClockId07);runSeconds07=PlayerPrefs.GetFloat("art07.runSeconds."+runClockId07,0);}
+            SyncRunClock07();
             if(ViewState.phase=="RunWon"||ViewState.phase=="RunFailed")return;
             runSeconds07+=Time.unscaledDeltaTime;clockSaveElapsed07+=Time.unscaledDeltaTime;
             if(clockSaveElapsed07>=30)SaveRunClock07();
+        }
+        private void SyncRunClock07()
+        {
+            if(ViewState==null||runClockId07==ViewState.runId)return;
+            SaveRunClock07();runClockId07=ViewState.runId;
+            runClockKnown07=PlayerPrefs.HasKey("art07.runSeconds."+runClockId07);
+            runSeconds07=PlayerPrefs.GetFloat("art07.runSeconds."+runClockId07,0);
         }
         private void SaveRunClock07()
         {if(runClockKnown07&&runClockId07!=null){PlayerPrefs.SetFloat("art07.runSeconds."+runClockId07,runSeconds07);PlayerPrefs.Save();}clockSaveElapsed07=0;}
@@ -47,7 +53,7 @@ namespace DiceCraft
         }
         private void DrawRunResult07()
         {
-            SaveRunClock07();bool won=ViewState.phase=="RunWon";
+            SyncRunClock07();SaveRunClock07();bool won=ViewState.phase=="RunWon";
             var submitted=ViewState.lastSubmission?.snapshot?.dice;
             string diceKey=ViewState.runId+":"+ViewState.phase+":"+ViewState.actionSequence;
             if(resultDiceKey07!=diceKey){resultDiceKey07=diceKey;resultDicePage07=0;}

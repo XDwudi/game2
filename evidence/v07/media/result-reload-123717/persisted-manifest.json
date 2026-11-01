@@ -1,0 +1,52 @@
+{
+  "captureIdentity": "working tree based on 4f1a25cbd7ed885bd863c24411f1075d7888a18f; clock fix and expanded test compiled before actual capture; not relabelled as a later checkpoint",
+  "nunit": "evidence/v07/unity/nunit-20261101-123717.xml",
+  "files": [
+    {
+      "path": "evidence/v07/media/result-reload-123717/S18-normal-terminal-cold-reload.json",
+      "source": "artifacts/cache/v07-result-clock-green-123717/DiceCraftTests_dbf97fbd30c545d2ae244e5644e6a8bf/art07-edge-screens/S18-normal-terminal-cold-reload.json",
+      "sha256": "d785e7e05fe1148525e335b1b5255c6d5046d746ae7ce8dc0565b8814d527ae2",
+      "bytes": 461
+    },
+    {
+      "path": "evidence/v07/media/result-reload-123717/S18-normal-terminal-cold-reload.png",
+      "source": "artifacts/cache/v07-result-clock-green-123717/DiceCraftTests_dbf97fbd30c545d2ae244e5644e6a8bf/art07-edge-screens/S18-normal-terminal-cold-reload.png",
+      "sha256": "a74cae69512dab2ebe5563d94644c78549a642a63fc2f20eb5273d539e87b1fb",
+      "bytes": 1106781
+    },
+    {
+      "path": "evidence/v07/media/result-reload-123717/S18-normal-terminal-no-clock.json",
+      "source": "artifacts/cache/v07-result-clock-green-123717/DiceCraftTests_dbf97fbd30c545d2ae244e5644e6a8bf/art07-edge-screens/S18-normal-terminal-no-clock.json",
+      "sha256": "f16e7f3beb93f0a956ab8c43993361aa294c4fcbb1522ae683f61b2f38364d51",
+      "bytes": 458
+    },
+    {
+      "path": "evidence/v07/media/result-reload-123717/S18-normal-terminal-no-clock.png",
+      "source": "artifacts/cache/v07-result-clock-green-123717/DiceCraftTests_dbf97fbd30c545d2ae244e5644e6a8bf/art07-edge-screens/S18-normal-terminal-no-clock.png",
+      "sha256": "b4288084b24de199b7cf4c5142d6251948facd2bcf3c46558b69ea3f817c1799",
+      "bytes": 1108852
+    },
+    {
+      "path": "evidence/v07/media/result-reload-123717/S18-normal-terminal-return.json",
+      "source": "artifacts/cache/v07-result-clock-green-123717/DiceCraftTests_dbf97fbd30c545d2ae244e5644e6a8bf/art07-edge-screens/S18-normal-terminal-return.json",
+      "sha256": "7e4446559cb56ee98a4341c3a285d4e1bbe5928ce0216f9ff7f4bd83abaaf924",
+      "bytes": 456
+    },
+    {
+      "path": "evidence/v07/media/result-reload-123717/S18-normal-terminal-return.png",
+      "source": "artifacts/cache/v07-result-clock-green-123717/DiceCraftTests_dbf97fbd30c545d2ae244e5644e6a8bf/art07-edge-screens/S18-normal-terminal-return.png",
+      "sha256": "f483e468cd0d675da0ffe56fc053d0925c529cfd4801acc4e2cfef6faf2567d9",
+      "bytes": 1124397
+    }
+  ],
+  "sources": [
+    {
+      "path": "DicePrototype/Assets/Game/UI/GameApp.Art07Results.cs",
+      "sha256": "0e1838c81273137f9326b52481c37ddfef9730aa96c36e3032e17ed076f2b681"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Tests/PlayMode/Art07EdgeScreensPlayModeTests.cs",
+      "sha256": "203b16c30551836fce8247279888ce741a61a3baf57c6c2bd6d9fcd6bf952648"
+    }
+  ]
+}

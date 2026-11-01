@@ -33,6 +33,10 @@ namespace DiceCraft.Tests
             // Reach a normal terminal Run through real UI commands and actual atomic writes.
             // Exhausting all rolls and submitting one die per hand stays below stage 1's target.
             StartRun("70991");Click("StartStage");
+            string ordinaryClockKey="art07.runSeconds."+app.Session.State.runId;
+            var clockKeys=new System.Collections.Generic.HashSet<string>{ordinaryClockKey};
+            try
+            {
             long expectedTotal=0,expectedMaximum=0;int expectedMultiplier=0;
             for(int hand=0;hand<3;hand++)
             {
@@ -59,7 +63,14 @@ namespace DiceCraft.Tests
             var ordinarySnapshot=JsonUtility.ToJson(loaded);
             AssertResultReloadStatistics07(expectedTotal,expectedMaximum,expectedMultiplier);
             Assert.That(app.UnlockDebug("XD is god"),Is.True);Assert.That(app.EnterDebugWorkspace(),Is.True);
+            clockKeys.Add("art07.runSeconds."+app.Session.State.runId);
+            Assert.That(PlayerPrefs.HasKey(ordinaryClockKey),Is.True,"A new normal Run has an existing persisted clock before leaving it.");
+            // The departed Run already has a clock key; give it a deterministic recorded duration.
+            // The active debug clock remains independent, so returning cannot reset this value.
+            PlayerPrefs.SetFloat(ordinaryClockKey,3661.25f);PlayerPrefs.Save();
             Assert.DoesNotThrow(()=>app.ReturnNormalWorkspace(),"Returning from debug must ignore non-Submit receipt placeholders, not parse their empty decimal fields.");
+            Assert.That(FindActive<TextMeshProUGUI>("EndStats").text,Does.Contain("用时  01:01:01"),"The first returned result frame must synchronize the ordinary clock before drawing.");
+            Assert.That(PlayerPrefs.GetFloat(ordinaryClockKey),Is.EqualTo(3661.25f));
             yield return null;
             Assert.That(app.SaveLocation,Is.EqualTo(ordinaryPath));Assert.That(app.IsDebugWorkspace,Is.False);
             Assert.That(GameSession.StateHash(app.Session.State),Is.EqualTo(stateHash));Assert.That(app.Session.State.actionSequence,Is.EqualTo(sequence));
@@ -67,15 +78,42 @@ namespace DiceCraft.Tests
             AssertResultReloadStatistics07(expectedTotal,expectedMaximum,expectedMultiplier);
             yield return app.StartCoroutine(CaptureEdge07("S18-normal-terminal-return"));
             // Cold Bootstrap/Continue reaches the same statistics without a duplicate command.
-            yield return LoadBootstrap();Click("ContinueRun");yield return null;
+            yield return LoadBootstrap();Click("ContinueRun");
+            Assert.That(FindActive<TextMeshProUGUI>("EndStats").text,Does.Contain("用时  01:01:01"),"Cold Continue must use the persisted duration on its first result frame, before Update.");
+            Assert.That(PlayerPrefs.GetFloat(ordinaryClockKey),Is.EqualTo(3661.25f));
+            yield return null;
             Assert.That(app.Session.State.phase,Is.EqualTo("RunFailed"));Assert.That(StateJson(),Is.EqualTo(ordinarySnapshot));
             AssertResultReloadStatistics07(expectedTotal,expectedMaximum,expectedMultiplier);
             CollectionAssert.AreEqual(ordinary,File.ReadAllBytes(ordinaryPath));
             yield return app.StartCoroutine(CaptureEdge07("S18-normal-terminal-cold-reload"));
+            // A legacy Run with no recorded clock must remain unknown; viewing it is not a new Run.
+            Assert.That(app.UnlockDebug("XD is god"),Is.True);Assert.That(app.EnterDebugWorkspace(),Is.True);
+            clockKeys.Add("art07.runSeconds."+app.Session.State.runId);
+            PlayerPrefs.DeleteKey(ordinaryClockKey);PlayerPrefs.Save();app.ReturnNormalWorkspace();
+            Assert.That(FindActive<TextMeshProUGUI>("EndStats").text,Does.Contain("用时  旧存档未记录"));
+            Assert.That(PlayerPrefs.HasKey(ordinaryClockKey),Is.False);
+            app.Refresh();yield return null;
+            Assert.That(FindActive<TextMeshProUGUI>("EndStats").text,Does.Contain("用时  旧存档未记录"));
+            Assert.That(PlayerPrefs.HasKey(ordinaryClockKey),Is.False);
+            yield return LoadBootstrap();Click("ContinueRun");
+            Assert.That(FindActive<TextMeshProUGUI>("EndStats").text,Does.Contain("用时  旧存档未记录"));
+            Assert.That(PlayerPrefs.HasKey(ordinaryClockKey),Is.False);
+            Assert.That(StateJson(),Is.EqualTo(ordinarySnapshot));CollectionAssert.AreEqual(ordinary,File.ReadAllBytes(ordinaryPath));
+            AssertResultReloadStatistics07(expectedTotal,expectedMaximum,expectedMultiplier);
+            yield return app.StartCoroutine(CaptureEdge07("S18-normal-terminal-no-clock"));
             // Filtering by command kind must not turn a damaged real Submit into zero.
             var damaged=loaded.Clone();damaged.processedReceipts.First(r=>r.command.kind==CommandKind.Submit).submission.breakdown.score="";
             var rejected=Assert.Catch<System.Exception>(()=>app.Session.ValidateState(damaged));Assert.That(rejected.GetType().Name,Is.EqualTo("RuleViolation"));
             CollectionAssert.AreEqual(ordinary,File.ReadAllBytes(ordinaryPath));
+            }
+            finally
+            {
+                // These GUID Run keys were created by this isolated test. Prevent OnDestroy
+                // from writing one back after cleanup; no production timer state is tested below.
+                if(app!=null)SettlementField07("runClockKnown07",false);
+                foreach(string key in clockKeys)PlayerPrefs.DeleteKey(key);
+                PlayerPrefs.Save();
+            }
         }
         private void AssertResultReloadStatistics07(long total,long maximum,int multiplier)
         {

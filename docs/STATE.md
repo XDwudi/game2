@@ -2,6 +2,15 @@
 
 ## 2026-10-31 v0.7 美术与表现实施中
 
+12:40UTC：时长修复提取SyncRunClock07并在终局绘制前读取本Run已有key，原Tick逻辑复用；不reset/增时/给旧无key档造时间。123635实际首帧时长断言红0/1，123717同用例+原四类终局绿2/2、5.192秒，2目录22文件7PNG完整归档cache/v07-result-clock-green-123717。独立已实际看新return/cold/no-clock三图：前二01:01:01，旧档准确未记录，三图14/6/×3及控件清晰；helper与测试限域审查无阻断，正式报告收尾。实际idleSave后12公共偏好恢复，5程序集169源PDB零差异。准备新冻结/完整999+155，不把取消4f1全量当通过。root唯一Editor32560，其他源/标准保持，Mixer/M5/人工与push拒绝未解除。
+
+
+12:34UTC：4f1新增专项实图独立检查发现新普通终局在调试返回/冷Continue首绘误显“旧存档未记录”；真实runSeconds键已写，问题是绘制早于Tick的clock ID同步。12:33:27以官方CancelTestRun正常取消正在运行155套件，未产最终NUnit，不记通过；初始binding及时间窗部分输出归档cache/v07-full-4f1a25c-cancelled。12:33:57实际idle SaveAssets、空场景不dirty、12偏好全恢复。art只在cache准备同步helper与已有单项回归时长/未知旧key断言，root独占Editor32560；先完成本处视觉/功能检查再新冻结。其余外传/Mixer/M5/人工缺口保持。
+
+
+12:31UTC：新本地检查点4f1a25cbd7ed885bd863c24411f1075d7888a18f（未推送），实际12:29:41导入identity，Runtime MVID ee32969a-b944-411a-940b-c039b8a15ecf。完整Edit123003为999/999、零失败跳过19.8489467秒；新增用例完整发现155 Play，已于12:30:34.6273227实际启动，源码冻结。root独占Editor32560，无刷新/重载锁。新Player/双构建/三包仍待，旧69失败、显示专项和全量结论保持各自范围；没有用旧gate放行新源，Mixer/人工/M5与源码push审批缺口不变。
+
+
 12:29UTC：终局重载产品修复仅ResultStatisticRows07按CommandKind.Submit统计；非提交127空占位不再解析，严格分数/规则校验保持。新增真实普通终局→AtomicSave→调试返回→冷Bootstrap回归，122700实际同栈红1/1，修复后122742含既有四类终局2/2通过4.569秒；新测试额外校验损坏真实Submit仍被拒。两源最终diff59增1删（旧行换行原字节保留），0编译错警，实际SaveAssets空场景不dirty，5程序集169源PDB零差异。准备新冻结检查点，完整回归/新Player尚未通过；root独占Editor32560，独立patch审查中，其余阻塞保持。
 
 
