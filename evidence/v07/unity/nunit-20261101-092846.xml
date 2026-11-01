@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="1" result="Failed(Child)" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-11-01 09:28:44Z" end-time="2026-11-01 09:28:46Z" duration="2.2794815">
+  <test-suite type="TestSuite" id="1163" name="DiceCraft P0" fullname="DiceCraft P0" runstate="Runnable" testcasecount="154" result="Failed" site="Child" start-time="2026-11-01 09:28:44Z" end-time="2026-11-01 09:28:46Z" duration="2.279482" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <failure>
+      <message><![CDATA[One or more child tests had errors]]></message>
+    </failure>
+    <test-suite type="Assembly" id="1157" name="DiceCraft.PlayModeTests.dll" fullname="E:/agent_workspace/gpt/game2/DicePrototype/Library/ScriptAssemblies/DiceCraft.PlayModeTests.dll" runstate="Runnable" testcasecount="154" result="Failed" site="Child" start-time="2026-11-01 09:28:44Z" end-time="2026-11-01 09:28:46Z" duration="2.265797" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="41676" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <failure>
+        <message><![CDATA[One or more child tests had errors]]></message>
+      </failure>
+      <test-suite type="TestSuite" id="1158" name="DiceCraft" fullname="DiceCraft" runstate="Runnable" testcasecount="154" result="Failed" site="Child" start-time="2026-11-01 09:28:44Z" end-time="2026-11-01 09:28:46Z" duration="2.261564" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <failure>
+          <message><![CDATA[One or more child tests had errors]]></message>
+        </failure>
+        <test-suite type="TestSuite" id="1159" name="Tests" fullname="DiceCraft.Tests" runstate="Runnable" testcasecount="154" result="Failed" site="Child" start-time="2026-11-01 09:28:44Z" end-time="2026-11-01 09:28:46Z" duration="2.258599" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <failure>
+            <message><![CDATA[One or more child tests had errors]]></message>
+          </failure>
+          <test-suite type="TestFixture" id="1001" name="GameplayPlayModeTests" fullname="DiceCraft.Tests.GameplayPlayModeTests" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" testcasecount="152" result="Failed" site="Child" start-time="2026-11-01 09:28:44Z" end-time="2026-11-01 09:28:46Z" duration="2.255296" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <failure>
+              <message><![CDATA[One or more child tests had errors]]></message>
+            </failure>
+            <test-case id="1014" name="PLAY_ART07_DICE_SettingsRebuildAllCloseRoutesRestoreOnlyLegalGrips" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_DICE_SettingsRebuildAllCloseRoutesRestoreOnlyLegalGrips" methodname="PLAY_ART07_DICE_SettingsRebuildAllCloseRoutesRestoreOnlyLegalGrips" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="1970460896" result="Failed" start-time="2026-11-01 09:28:44Z" end-time="2026-11-01 09:28:46Z" duration="2.232786" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <failure>
+                <message><![CDATA[  SettingsDone must restore handles after the modal-only redraw.
+  Expected: 8
+  But was:  0
+]]></message>
+                <stack-trace><![CDATA[at DiceCraft.Tests.GameplayPlayModeTests+<PLAY_ART07_DICE_SettingsRebuildAllCloseRoutesRestoreOnlyLegalGrips>d__35.MoveNext () [0x00382] in E:\agent_workspace\gpt\game2\DicePrototype\Assets\Game\Tests\PlayMode\Art07DiceAffordanceModalPlayModeTests.cs:41
+at UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\Library\PackageCache\com.unity.test-framework@ee3fe9477490\UnityEngine.TestRunner\NUnitExtensions\Attributes\TestEnumerator.cs:52
+]]></stack-trace>
+              </failure>
+              <output><![CDATA[Actual affordance screen: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_f5cf2b412ba44d42aa125afe5d306877\art07-dice-affordance\settings-close-SettingsDone-initial-font100-actual125.png
+Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_f5cf2b412ba44d42aa125afe5d306877
+Saving results to: E:\agent_workspace\gpt\game2\evidence\v07\unity\nunit-20261101-092846.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

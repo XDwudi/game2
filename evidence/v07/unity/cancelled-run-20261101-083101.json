@@ -1,0 +1,46 @@
+{
+  "status": "CANCELLED_NOT_COMPLETE_NOT_GATE_ELIGIBLE",
+  "sourceCommit": "0befca282bf5cd6da7dda9480423d36007386498",
+  "runGuid": "37f8293c-bbd3-4654-9638-a811d86011b2",
+  "startUtc": "2026-11-01T08:26:30.0857792Z",
+  "cancelUtc": "2026-11-01T08:31:01.1628705Z",
+  "reason": "Confirmed obsolete Player verification score-detail navigation; publicly cancel superseded run, retain partial outputs and rerun complete suite after patch",
+  "api": "TestRunnerApi.CancelTestRun",
+  "apiReturned": true,
+  "runFinishedNunitObserved": false,
+  "isolatedDirectoriesPreserved": 7,
+  "partialFilesPreserved": 1254,
+  "preferenceBoundary": "Cancellation did not restore font; known pre-run font100 restored from r02 snapshot. Other pre-cancel values not fully snapshotted; no claim of full restoration. Next common-fixture preference baseline captured.",
+  "evidence": [
+    {
+      "path": "artifacts/cache/v07-full-regression-0befca-review/active-runs-before-cancel.json",
+      "sha256": "0c6865d44a9625ca60bf1b12c02c58d1ef74609c6ca3a7faa98bcccef5ff75da",
+      "bytes": 1069
+    },
+    {
+      "path": "artifacts/cache/v07-full-regression-0befca-review/cancel-superseded-player-probe.json",
+      "sha256": "6e38c939442546b22adf505332f0d06a0cd4585fa95337333d54d090e3722991",
+      "bytes": 1033
+    },
+    {
+      "path": "artifacts/cache/v07-full-regression-0befca-review/cancelled-run-preserved/v07-active-test-binding.json",
+      "sha256": "2d2e2764bdf392e9dd37f804773b4f061fb12919ccf9a234cd3c0552b0108ba6",
+      "bytes": 265376
+    },
+    {
+      "path": "artifacts/cache/v07-full-regression-0befca-review/cancelled-run-preserved/preserved.json",
+      "sha256": "12bc6db39e46cfaefc70d21bdeda375747294c9988b22648646891558df30a15",
+      "bytes": 297535
+    },
+    {
+      "path": "artifacts/cache/v07-full-regression-0befca-review/post-cancel-post-dependency-preferences.json",
+      "sha256": "71c8a5d4504a5cda0fef8e46ad98b5b2f017bdb80219020bc93c71ae330f3370",
+      "bytes": 1114
+    },
+    {
+      "path": "artifacts/cache/v07-full-regression-0befca-review/restored-known-font-and-next-run-preferences.json",
+      "sha256": "365ec3e40457b435dc854d13a823e80b3d0ec218c459d534a32f81844cdef445",
+      "bytes": 2897
+    }
+  ]
+}

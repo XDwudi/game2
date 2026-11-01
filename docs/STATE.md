@@ -2,6 +2,16 @@
 
 ## 2026-10-31 v0.7 美术与表现实施中
 
+09:38UTC：025调试/设置关闭后抓手缺失的r02已集成，仅同步现有骰子热区装饰，不重绘骰体或改Session/存档/时钟。真实1080 `093026` 与720 `093122` 各3/3（原affordance及两新增debug/settings三关闭路线），共36PNG已归档；两旧基线失败保留。候选整文件CRLF扩散已恢复原行结束格式，归一化正文完全相同，编译过的原字节/PDB单独保存 `cache/v07-grip-compiled-source-0931`；恢复后重新编译0错警，最终完整回归仍须新源绑定。实际发现999 Edit/154 Play，原e043门禁不放行当前修改。独立实图/绑定复核进行中。Editor41676在闲置、空路径场景不dirty后已请求正常退出，准备新源检查点及全回归；root仍唯一Assets/Editor写者，代理仅cache/review。真实AudioMixer、最终媒体、双构建/Player/性能/发行及Mac/人工验收仍未完成。
+
+09:26UTC：025抓手返工已用新增真实回归在未改生产上复现：`092559` 1项0过1败，RunDebugScene返回后预期8抓手实际0；实际失败EOF图及两隔离存档归档 `cache/v07-grip-baseline-092559`（5文件/1PNG）。仅测试文件新增用例并编译0错警，生产修复仍cache；发现普通设置字号/色盲切换在modal内Refresh也有同根因，正将恢复限定到抓手装饰，避免关闭暂停时重绘动画。旧具名debug-only候选不够覆盖此路径，未集成。**007普通抓手疑点撤回**：原六屏、精确Recorder复现及普通新局三张同ROI均有完整54个Paper像素（6×3×3），第一次全图缩放观察误判，未因此改产品。0900六屏录制前后1359源与5程序集完全一致，after单独保存 `screens-source-after.json`/`screens-pdb-after.json`；这是288屏证据，不是尚未执行的Clips/Finish。e043完整旧gate已另存 `build-gate-e0439ae.json`；当前新增测试使旧gate不适用于当前工作树，后续须新绑定。root唯一Editor41676/Assets写者，代理仅cache/review；所有失败与旧图保留。
+
+09:16UTC：完整回归独立审查已完成（`FULL_REGRESSION_E0439AE_REVIEW.md`），仅关闭Editor回归一致性。旧Editor41100/worker正常退出，新Editor41676独占媒体；1358 tracked源与HEAD原字节、1359含identity媒体快照/5程序集168PDB均通过Prepare。`cache/v07-checkpoint-e0439ae-0900-screens`六预设各48，共288屏已完整录制并恢复，尚未执行九Clips或Finish。独立实图发现部分锁骰抓手缺失，正在区分正常录制路径与debug模态关闭后未刷新路径，原图保持；一轮普通五骰新局诊断真实抓手可见，不能泛称正常路径失败。当前短录制诊断用原ScreenRecorder前9屏逐帧只读观测；无生产修改。工具首次进入Play时CLI短暂断联，实际进程仍活、空场景，已恢复继续并保存失败脚本/记录，不是Editor崩溃。源码e043仍冻结，代理仅cache/review。AudioMixer、Player/双构建/性能/发布与Mac/人工仍未验。
+
+08:58UTC：检查点 `e0439ae` 完整 Play `085726` 152/152、零失败/跳过，1181.457388秒；与 Edit `083707` 999/999组成同源完整回归。实际 SaveAssets 后生产 scopes clean，新的五程序集/168文档 PDB零差异，`build-gate.json`实际绑定1366文件通过。Play全部150隔离目录/2920文件/901PNG已归档 `cache/v07-full-play-e0439ae-085726`，独立总复核进行中。实际读取公共夹具6整数、5按键、音量均与08:35:30快照一致（字号100、guideSeen1），未推称所有应用偏好。准备正常退出Editor41100/其worker后重新开启同源媒体采集，root仍唯一Unity/Assets写者、无刷新/重载锁。08:47左右桌面Hub截图仍超时，AudioMixer缺口保留；最终媒体/双构建/Player/性能/发行及Mac与人工验收未完成。
+
+08:38UTC：当前源码检查点 `e0439ae0b6efdcd12ef2f756e8bf5a91b71d0b1b`，identity实际Resources读取见 `checkpoint-resource-identity-0837.json`（实际08:36:44，Runtime MVID70c58cbc…）。完整Edit `083707` 999/999/0跳，17.94784秒；完整152 Play于08:37:44开始，仍运行中，未写通过。五程序集/168文档新PDB审计0差异，生产SCOPES clean。root唯一Editor41100/Assets写者，HW042884约11.75GB，当前源冻结，无重载/刷新锁；本批完成后正常退出释放helper内存再进行媒体。媒体工具revision03已独立静审，四阶段均须显式ExpectedCommit，尚未执行最终采集。取消偏好审查确认TF1.8.0不会保证UnityTearDown完成，已知font100恢复与其它原值未知的边界保留，不声称取消批次完整通过。
+
 08:36UTC：Player明细导航修复的真实UI依赖 `083357` 两项2/2，含C53/历史完整明细与池化重复入口，6PNG/30文件归档 `cache/v07-player-detail-dependency-083357`；这不是实际Player验收。取消后的真实偏好读取发现字号150，已按取消前r02/preferences-before.json明确记录恢复100，并保存下一批公共测试夹具所用6个整数、5个按键绑定及音量的偏好快照；其余旧偏好缺少取消前完整快照，不推称已全恢复。准备最后同源完整回归，生产仅Player验证器4行变更；仍保留AudioMixer与所有未运行平台/性能边界。
 
 08:33UTC：UO01两尺寸/两r02视频已独立实图关闭，报告 `UO01_UPGRADE_LABEL_REWORK_REVIEW.md`；旧r01失败保留。检查点 `0befca2` 完整Edit `082614` 999/999且独立绑定通过；随后Play尚未完成，08:31:01因静态核实Player验证器仍把S07抽屉当旧完整明细，使用Unity公开CancelTestRun取消具体GUID，确认Editor闲置；未产生RunFinished NUnit，不把它写成通过。开始快照与该批7个隔离目录/1254文件复制留存 `cache/v07-full-regression-0befca-review/cancelled-run-preserved`，取消请求/真实返回亦保留。已集成独立审过的4行Player验证导航：经真实FullScoreDetails按钮，再执行原三尺寸和中/底滚动；95处原Require及native/180s/P95门槛全部保留，Unity0错误0警告。当前只验真实UI依赖，不冒充Player运行；此修复后须新检查点完整重跑。

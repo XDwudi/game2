@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="3" result="Passed" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-11-01 09:30:08Z" end-time="2026-11-01 09:30:26Z" duration="18.0881595">
+  <test-suite type="TestSuite" id="1163" name="DiceCraft P0" fullname="DiceCraft P0" runstate="Runnable" testcasecount="154" result="Passed" start-time="2026-11-01 09:30:08Z" end-time="2026-11-01 09:30:26Z" duration="18.088160" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <test-suite type="Assembly" id="1157" name="DiceCraft.PlayModeTests.dll" fullname="E:/agent_workspace/gpt/game2/DicePrototype/Library/ScriptAssemblies/DiceCraft.PlayModeTests.dll" runstate="Runnable" testcasecount="154" result="Passed" start-time="2026-11-01 09:30:08Z" end-time="2026-11-01 09:30:26Z" duration="18.074417" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="41676" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <test-suite type="TestSuite" id="1158" name="DiceCraft" fullname="DiceCraft" runstate="Runnable" testcasecount="154" result="Passed" start-time="2026-11-01 09:30:08Z" end-time="2026-11-01 09:30:26Z" duration="18.071826" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1159" name="Tests" fullname="DiceCraft.Tests" runstate="Runnable" testcasecount="154" result="Passed" start-time="2026-11-01 09:30:08Z" end-time="2026-11-01 09:30:26Z" duration="18.069706" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="1001" name="GameplayPlayModeTests" fullname="DiceCraft.Tests.GameplayPlayModeTests" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" testcasecount="152" result="Passed" start-time="2026-11-01 09:30:08Z" end-time="2026-11-01 09:30:26Z" duration="18.066524" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1015" name="PLAY_ART07_DICE_DebugAppliedTableAllCloseRoutesRestoreGripsWithoutApplyingDraft" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_DICE_DebugAppliedTableAllCloseRoutesRestoreGripsWithoutApplyingDraft" methodname="PLAY_ART07_DICE_DebugAppliedTableAllCloseRoutesRestoreGripsWithoutApplyingDraft" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="2081712632" result="Passed" start-time="2026-11-01 09:30:08Z" end-time="2026-11-01 09:30:14Z" duration="6.682752" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Actual affordance screen: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_10fb4fd07ae8448290cc1e3bb748fd51\art07-dice-affordance\debug-close-RunDebugScene-font100.png
+Actual affordance screen: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_10fb4fd07ae8448290cc1e3bb748fd51\art07-dice-affordance\debug-close-CloseDialog-font100.png
+Actual affordance screen: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_10fb4fd07ae8448290cc1e3bb748fd51\art07-dice-affordance\debug-close-Escape-font100.png
+Actual affordance screen: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_10fb4fd07ae8448290cc1e3bb748fd51\art07-dice-affordance\debug-close-RunDebugScene-font150.png
+Actual affordance screen: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_10fb4fd07ae8448290cc1e3bb748fd51\art07-dice-affordance\debug-close-CloseDialog-font150.png
+Actual affordance screen: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_10fb4fd07ae8448290cc1e3bb748fd51\art07-dice-affordance\debug-close-Escape-font150.png
+Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_10fb4fd07ae8448290cc1e3bb748fd51
+]]></output>
+            </test-case>
+            <test-case id="1014" name="PLAY_ART07_DICE_SettingsRebuildAllCloseRoutesRestoreOnlyLegalGrips" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_DICE_SettingsRebuildAllCloseRoutesRestoreOnlyLegalGrips" methodname="PLAY_ART07_DICE_SettingsRebuildAllCloseRoutesRestoreOnlyLegalGrips" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="2129555355" result="Passed" start-time="2026-11-01 09:30:14Z" end-time="2026-11-01 09:30:20Z" duration="5.337429" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Actual affordance screen: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_007f8578fcc849bbba36ba9d0ee60e66\art07-dice-affordance\settings-close-SettingsDone-initial-font100-actual125.png
+Actual affordance screen: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_007f8578fcc849bbba36ba9d0ee60e66\art07-dice-affordance\settings-close-CloseDialog-initial-font100-actual150.png
+Actual affordance screen: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_007f8578fcc849bbba36ba9d0ee60e66\art07-dice-affordance\settings-close-Escape-initial-font100-actual100.png
+Actual affordance screen: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_007f8578fcc849bbba36ba9d0ee60e66\art07-dice-affordance\settings-close-SettingsDone-initial-font150-actual100.png
+Actual affordance screen: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_007f8578fcc849bbba36ba9d0ee60e66\art07-dice-affordance\settings-close-CloseDialog-initial-font150-actual125.png
+Actual affordance screen: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_007f8578fcc849bbba36ba9d0ee60e66\art07-dice-affordance\settings-close-Escape-initial-font150-actual150.png
+Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_007f8578fcc849bbba36ba9d0ee60e66
+]]></output>
+            </test-case>
+            <test-case id="1016" name="PLAY_ART07_DICE_VisibleGripUsesExistingHitAndPendingHollowChecksKeepPipsClear" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_DICE_VisibleGripUsesExistingHitAndPendingHollowChecksKeepPipsClear" methodname="PLAY_ART07_DICE_VisibleGripUsesExistingHitAndPendingHollowChecksKeepPipsClear" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="747821667" result="Passed" start-time="2026-11-01 09:30:20Z" end-time="2026-11-01 09:30:26Z" duration="6.024201" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Actual affordance screen: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_788c82777bd74acfb5f40cad7da51bd8\art07-dice-affordance\pending-eight-font100.png
+Actual affordance screen: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_788c82777bd74acfb5f40cad7da51bd8\art07-dice-affordance\locked-eight-grips-font100.png
+Actual affordance screen: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_788c82777bd74acfb5f40cad7da51bd8\art07-dice-affordance\pending-eight-font125.png
+Actual affordance screen: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_788c82777bd74acfb5f40cad7da51bd8\art07-dice-affordance\locked-eight-grips-font125.png
+Actual affordance screen: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_788c82777bd74acfb5f40cad7da51bd8\art07-dice-affordance\pending-eight-font150.png
+Actual affordance screen: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_788c82777bd74acfb5f40cad7da51bd8\art07-dice-affordance\locked-eight-grips-font150.png
+Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_788c82777bd74acfb5f40cad7da51bd8
+Saving results to: E:\agent_workspace\gpt\game2\evidence\v07\unity\nunit-20261101-093026.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

@@ -62,7 +62,7 @@ namespace DiceCraft
                     var motion=panel.GetComponent<Art07PanelMotion>();modalTail07.CaptureExit(panel,motion!=null?motion.ExitDuration:.1f,reduced);break;
                 }
             }
-            bool restoreDice=diceSheet07;diceSheet07=false;CancelControllerDrag();displayPanel=false;debugPanel=false;controllerOrderPanel=false;modal=false;modalIdentity07=null;detailDieId=null;table.HidePreview();main.gameObject.SetActive(true);UiKit.Clear(overlay);if(restoreDice)Refresh();
+            bool restoreDice=diceSheet07;diceSheet07=false;CancelControllerDrag();displayPanel=false;debugPanel=false;controllerOrderPanel=false;modal=false;modalIdentity07=null;detailDieId=null;table.HidePreview();main.gameObject.SetActive(true);UiKit.Clear(overlay);if(restoreDice)Refresh();else SyncLockedGripsAfterModal07();
         }
         private void SaveFailure()
         {
