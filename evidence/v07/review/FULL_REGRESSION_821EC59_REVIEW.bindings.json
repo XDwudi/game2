@@ -1,0 +1,240 @@
+{
+  "utc": "2026-11-01T11:03:06.897448+00:00",
+  "reviewer": "/root/v07_spec_audit",
+  "expectedHead": "821ec5992c34b59eddfe2a0ae984fbaca48f41f8",
+  "status": "EDITOR_FULL_REGRESSION_EVIDENCE_CONSISTENT_ONLY",
+  "noUnityExecuted": true,
+  "noProductionOrStandardsWritten": true,
+  "noExternalTransmission": true,
+  "runtimeMvid": "dea6b318-5db4-4f86-9b94-c1dad2e85dca",
+  "inputsAndOutputs": [
+    {
+      "path": "evidence/v07/review/FULL_REGRESSION_821EC59_REVIEW.md",
+      "bytes": 5314,
+      "sha256": "976d2e7e3addfcdec0390949bbc35e71f76b18b8b2c1599b7f2ad5820e19c20e"
+    },
+    {
+      "path": "evidence/v07/review/FULL_REGRESSION_0F04E51_REVIEW.md",
+      "bytes": 5432,
+      "sha256": "3e45b97cbd77686f4cad7af9ea04f0f36b21ff097160b2911cd01c3ff63e72b5"
+    },
+    {
+      "path": "evidence/v07/review/MEDIA_REUSE_0F04E51_TO_821EC59_REVIEW.md",
+      "bytes": 5266,
+      "sha256": "47de75e38ca33200fad7282c5f3c7427b85635ad9fd9b2e496ec160226cbe3f6"
+    },
+    {
+      "path": "evidence/v07/review/MEDIA_REUSE_0F04E51_TO_821EC59_REVIEW.bindings.json",
+      "bytes": 3140,
+      "sha256": "7cb1c0913b4917bc83b13f0bdd34d1124491640a8bb527f163acefca240efdce"
+    },
+    {
+      "path": "evidence/v07/review/PLAYER_HANDBOOK_PRECONDITION_REVIEW.md",
+      "bytes": 3769,
+      "sha256": "b593a64fdb611700b21a9286fc1e73bedbf1f0c46ffebe8e3d41d7f8b38df6fa"
+    },
+    {
+      "path": "evidence/v07/unity/checkpoint-resource-identity-821ec59.json",
+      "bytes": 3530,
+      "sha256": "7bb2a8010d032d17311269e67a3f273f0feb2e84e47ffbec4e6d6f3abff86f60"
+    },
+    {
+      "path": "artifacts/cache/v07-post-full-821ec59-preferences.json",
+      "bytes": 2866,
+      "sha256": "ce019b0dc586312a7547ec9baaebc4277db35e16989e39e089ca4db445002f2c"
+    },
+    {
+      "path": "artifacts/cache/v07-pdb-post-full-821ec59-1056.json",
+      "bytes": 78447,
+      "sha256": "337c446952e05e323487a65484f2f803d56e6798d78dcaa300693f50f148aea2"
+    },
+    {
+      "path": "evidence/v07/unity/build-gate.json",
+      "bytes": 347921,
+      "sha256": "685ef9c4a8c8f5de3928aae680d9de14cd63b1f4514a15a8ad5b382640e16344"
+    },
+    {
+      "path": "evidence/v07/unity/discovery-EditMode.json",
+      "bytes": 81834,
+      "sha256": "3324ce15945342f75b2d49aaf9a430749142673e2ffa3015b093a1782e6dda0b"
+    },
+    {
+      "path": "evidence/v07/unity/discovery-PlayMode.json",
+      "bytes": 18810,
+      "sha256": "59daed02202b30153cbaf8ad75d182e0a615fb97970b6a8dbb87e0f60cbafcb4"
+    },
+    {
+      "path": "DicePrototype/Assets/Resources/BuildIdentity.json",
+      "bytes": 441,
+      "sha256": "93a0d96d945bcd68d3d03ade10fe6e057a5c664cc7d9a4fca51ce0f48f85759e"
+    },
+    {
+      "path": "tools/v07_delivery.py",
+      "bytes": 10736,
+      "sha256": "2c6a506e0f587063a76e9ba585d5d23f1770ee12149ecba7721fcd064e6a3e0e"
+    },
+    {
+      "path": "tools/package_v07.py",
+      "bytes": 24507,
+      "sha256": "2e4ca6219a1df35a3288a30ec3155d87f5f850d440416905838eea0f6de2cb2e"
+    },
+    {
+      "path": "tools/quality_check.py",
+      "bytes": 15240,
+      "sha256": "2a6aa3e5d5e5edb62b2a456ea7514df44d56d943dc168b4b086039092c33fed9"
+    },
+    {
+      "path": "artifacts/cache/v07-build-preflight/PdbAudit/Program.cs",
+      "bytes": 2789,
+      "sha256": "908c9d7ee2fb7025e714b53795966aa94d7a808bf63b14cde52f63b49d5a8668"
+    },
+    {
+      "path": "artifacts/cache/v07-build-preflight/PdbAudit/bin/Debug/net10.0/PdbAudit.dll",
+      "bytes": 16384,
+      "sha256": "bb9d5718f34ac6409b57e09fbce332631626e1074237163f4ee467098614dd7a"
+    },
+    {
+      "path": "docs/tasks/P0-V07-ART.md",
+      "bytes": 2656,
+      "sha256": "b6b91894f2c4b8b7b3d08ac1265112e35ede1917f2caf10690dc99f25dd73d82"
+    },
+    {
+      "path": "docs/specs/v07/ART_SPEC.md",
+      "bytes": 417792,
+      "sha256": "5120a8d0983d24f25cc38e22f1da613fd1a56c70ab26f518771a2caf064dd228"
+    },
+    {
+      "path": "docs/QUALITY_GATES.md",
+      "bytes": 10128,
+      "sha256": "b5eebec08987bb8220fe3ad87821da81267814d1b2a5931e66a98b1d1b4fdade"
+    },
+    {
+      "path": "artifacts/cache/v07-next-full-review/audit-full.py",
+      "bytes": 9831,
+      "sha256": "a9d5db55c444a8e182002dd40921a5247bb5149eb63522dc4a40376343881407"
+    },
+    {
+      "path": "evidence/v07/unity/nunit-20261101-103514.xml",
+      "bytes": 688893,
+      "sha256": "b574e95dc435fb83d7cb1ab7d0f791977534522582d6659090a51caa0b7d041f"
+    },
+    {
+      "path": "evidence/v07/unity/nunit-20261101-103514.binding.json",
+      "bytes": 575635,
+      "sha256": "2ad0e2a832ce606ee4ffd3b455ad5000a7dc53fa44d6951a8778a49252f52428"
+    },
+    {
+      "path": "evidence/v07/unity/nunit-20261101-105539.xml",
+      "bytes": 354623,
+      "sha256": "bfce04eb0857f4e3a705aa2ea92285cafc554c5e9a61a92af8b38090da79b4e1"
+    },
+    {
+      "path": "evidence/v07/unity/nunit-20261101-105539.binding.json",
+      "bytes": 575635,
+      "sha256": "6d8c24ca705d69a22f42505986d770cba6dc2022bb357417420fe792292b5fc0"
+    },
+    {
+      "path": "evidence/v07/unity/nunit-20261101-075917.xml",
+      "bytes": 337720,
+      "sha256": "a62b142b41d44a7508ad115f71a7c1f9cd0bc3d7342422fcddb1452be25d94eb"
+    },
+    {
+      "path": "evidence/v07/unity/nunit-20261101-080637.xml",
+      "bytes": 16725,
+      "sha256": "aa3362d7571c605aa1c861c4ab4bfa981038fab8074683f4cadc2e4c6527aa2a"
+    },
+    {
+      "path": "evidence/v07/unity/nunit-20261101-085726.xml",
+      "bytes": 350090,
+      "sha256": "0b385fc436edf9a7c2a7ad4d37e5ab2e131bc3c51f2e65ec5316ca465caffe83"
+    },
+    {
+      "path": "evidence/v07/unity/nunit-20261101-092559.xml",
+      "bytes": 5229,
+      "sha256": "1685fbd0d30ae28b3b4b3a4367e65a75b8fe829683f0a2edacc48c77f5e9f61a"
+    },
+    {
+      "path": "evidence/v07/unity/nunit-20261101-092846.xml",
+      "bytes": 5192,
+      "sha256": "749c23d2369231401ff29a2219e08678a90dd35fb96a2ef8acfb1f947672fc30"
+    },
+    {
+      "path": "evidence/v07/unity/nunit-20261101-093935.xml",
+      "bytes": 688896,
+      "sha256": "ab4cae80e8be4ae185bcf8b0ab170ff77eddc7a4d123815c27a3920cb48d8bbf"
+    },
+    {
+      "path": "evidence/v07/unity/nunit-20261101-095947.xml",
+      "bytes": 354366,
+      "sha256": "d05cef105f8e6ae0d618ce655ad529f0a3eff993c31e9da3d24b05c81639eb21"
+    },
+    {
+      "path": "evidence/v07/unity/nunit-20261101-102406.xml",
+      "bytes": 4564,
+      "sha256": "a848c4254c7ced8302d2949669673fc0025aeaa57b35c688c049ae0434ab0da1"
+    },
+    {
+      "path": "artifacts/cache/v07-full-play-821ec59-105539/archive.json",
+      "bytes": 695522,
+      "sha256": "dbce861b7dc84fe93a17701c7d0f038adc55a0dfb6beee04a8b45cdd11c95c0f"
+    },
+    {
+      "path": "artifacts/cache/v07-full-play-821ec59-105539/nunit-20261101-105539.xml",
+      "bytes": 354623,
+      "sha256": "bfce04eb0857f4e3a705aa2ea92285cafc554c5e9a61a92af8b38090da79b4e1"
+    },
+    {
+      "path": "artifacts/cache/v07-full-play-821ec59-105539/nunit-20261101-105539.binding.json",
+      "bytes": 575635,
+      "sha256": "6d8c24ca705d69a22f42505986d770cba6dc2022bb357417420fe792292b5fc0"
+    },
+    {
+      "path": "artifacts/cache/v07-full-regression-821ec59-review/audit-archive-gate.py",
+      "bytes": 10006,
+      "sha256": "dc9e71ea5fce924ac57e67476bb5a0d20e34b92b9dcc5c09c62d8da959b4f000"
+    },
+    {
+      "path": "artifacts/cache/v07-full-regression-821ec59-review/full-105539-independent.json",
+      "bytes": 7836,
+      "sha256": "e118ea31e2f83988115d2b88b81f7d4897327cf56cd15fdc0cddd09a8b06d984"
+    },
+    {
+      "path": "artifacts/cache/v07-full-regression-821ec59-review/full-archive-gate-preferences-independent.json",
+      "bytes": 10857,
+      "sha256": "5f73359e5c3f60066b166b576e05f220b4798896f0ad550b068824f5ae1138f8"
+    },
+    {
+      "path": "artifacts/cache/v07-full-regression-821ec59-review/prior-suite-and-handbook-check.json",
+      "bytes": 1460,
+      "sha256": "a8727205f6a5ac24de63d4952463bc2dfcbb950cc84db34af24ca9a43f351fbc"
+    }
+  ],
+  "actualAssembliesAtAudit": [
+    {
+      "name": "DiceCraft.Core",
+      "mvid": "65bc9884-1ce7-4869-9fc7-4b4dba3c1e43",
+      "dllSha256": "f6bda15a1af15992ed6d3921ee2da5dc807ee9387b867040f4814489336b43c4"
+    },
+    {
+      "name": "DiceCraft.EditMode",
+      "mvid": "850eadb0-295d-49af-8d44-4f308695babb",
+      "dllSha256": "9355303ee2c20045c4945d9545482bebd0b0c13972c5de7926e0d4fee9d9519b"
+    },
+    {
+      "name": "DiceCraft.Editor",
+      "mvid": "27fbe512-e273-4f95-ac91-aad462378516",
+      "dllSha256": "025c7b68b997af5469c8ec6e29d43a33fe0cb665aebe154675ab90409a25a84b"
+    },
+    {
+      "name": "DiceCraft.PlayModeTests",
+      "mvid": "4c2b723f-031c-4e08-881a-48fabd8fc650",
+      "dllSha256": "caaafcac423d1e6e23b2837dd4c4beabdad076cff56b5b042c98fa49be92b549"
+    },
+    {
+      "name": "DiceCraft.Runtime",
+      "mvid": "dea6b318-5db4-4f86-9b94-c1dad2e85dca",
+      "dllSha256": "abedd9e88c7a8801d6a72c5cace52635d219e1d4332fa0cd063814570210ed9a"
+    }
+  ],
+  "scope": "Complete Editor report/source/PDB/archive/12 recorded preference consistency only. No visual claim for 913 archived PNG. No Player, audio, performance, Mac, release or whole art acceptance."
+}

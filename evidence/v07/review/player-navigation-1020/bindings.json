@@ -1,0 +1,104 @@
+{
+  "scope": "Static UI navigation compatibility review only; no Unity or Player run",
+  "head": "0f04e51a2add69ca69f44c2d0c7b8425367e7a89",
+  "onDiskProbeRevision": "p07-player-art-ui-18",
+  "productionWrites": false,
+  "indexWrites": false,
+  "additionalConfirmedBlockers": 0,
+  "confirmedKnownIssue": "PVNAV01: persistent Colors tab requires real HandbookHands click before hand assertions; root current fix reviewed",
+  "nativeMode0Failure": "preserved, no threshold change",
+  "files": [
+    {
+      "path": "DicePrototype/Assets/Game/Runtime/Verification/PlayerVerification.cs",
+      "sha256": "f5c5a80ab2c7be2b1efc77070398918d50bb1d93ea8fa51e2a5127d1a51e06d0",
+      "bytes": 107111,
+      "headBlobSha256": "55e9353ff2be5f87ec1d87305681a708ebb545f1a6ea5a4f4a6c18e6ea342878",
+      "equalsHeadBytes": false
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Runtime/Verification/PlayerVerification.V06.cs",
+      "sha256": "4adf1d94db8c77d1f7b04702ff77f598b5630fd28739375c521f5aa4c1461bed",
+      "bytes": 101208,
+      "headBlobSha256": "4adf1d94db8c77d1f7b04702ff77f598b5630fd28739375c521f5aa4c1461bed",
+      "equalsHeadBytes": true
+    },
+    {
+      "path": "DicePrototype/Assets/Game/UI/GameApp.V05.cs",
+      "sha256": "0a80378511b2eef56f270c9bc40ca23d8710ac27cb36ea08f123e18249fe8b10",
+      "bytes": 15857,
+      "headBlobSha256": "0a80378511b2eef56f270c9bc40ca23d8710ac27cb36ea08f123e18249fe8b10",
+      "equalsHeadBytes": true
+    },
+    {
+      "path": "DicePrototype/Assets/Game/UI/GameApp.Art07ScoreDrawer.cs",
+      "sha256": "72f8ba1663580f9f43a9bd88475cd3310cafd7c841b67ec6e52b87ef0cb17151",
+      "bytes": 6637,
+      "headBlobSha256": "72f8ba1663580f9f43a9bd88475cd3310cafd7c841b67ec6e52b87ef0cb17151",
+      "equalsHeadBytes": true
+    },
+    {
+      "path": "DicePrototype/Assets/Game/UI/GameApp.Modals.cs",
+      "sha256": "0c521ad0d47dfa580693e4712c95381250f79d760fa80615c3fcfd9c31566a9c",
+      "bytes": 38464,
+      "headBlobSha256": "0c521ad0d47dfa580693e4712c95381250f79d760fa80615c3fcfd9c31566a9c",
+      "equalsHeadBytes": true
+    },
+    {
+      "path": "DicePrototype/Assets/Game/UI/GameApp.Debug.cs",
+      "sha256": "1738e30d2dbd2431ed8a525d04abbe9a276d12b216f53fbc4f3126efdb3d8455",
+      "bytes": 44454,
+      "headBlobSha256": "1738e30d2dbd2431ed8a525d04abbe9a276d12b216f53fbc4f3126efdb3d8455",
+      "equalsHeadBytes": true
+    },
+    {
+      "path": "DicePrototype/Assets/Game/UI/GameApp.Art07Settings.cs",
+      "sha256": "98ae11d90773ac264cd0bef7ee9f8182742e846c4fc9d086791acf0ca9ad16ef",
+      "bytes": 14719,
+      "headBlobSha256": "98ae11d90773ac264cd0bef7ee9f8182742e846c4fc9d086791acf0ca9ad16ef",
+      "equalsHeadBytes": true
+    },
+    {
+      "path": "DicePrototype/Assets/Game/UI/GameApp.Controllers.cs",
+      "sha256": "b2f9bb2a80c528304e5642310ef56c1582c47b2d13c2746c39f2dcdf7509697d",
+      "bytes": 9985,
+      "headBlobSha256": "b2f9bb2a80c528304e5642310ef56c1582c47b2d13c2746c39f2dcdf7509697d",
+      "equalsHeadBytes": true
+    },
+    {
+      "path": "DicePrototype/Assets/Game/UI/GameApp.Shop.cs",
+      "sha256": "56baec56ddb84edfbbc90579263194d359825dc034ad1760d06b39d04109efdb",
+      "bytes": 16562,
+      "headBlobSha256": "56baec56ddb84edfbbc90579263194d359825dc034ad1760d06b39d04109efdb",
+      "equalsHeadBytes": true
+    },
+    {
+      "path": "DicePrototype/Assets/Game/UI/GameApp.Art07Shop.cs",
+      "sha256": "d75427245b1b28609e42cf0b425d9f24b7fdccc2278021968d9a2c99ace40a91",
+      "bytes": 20969,
+      "headBlobSha256": "d75427245b1b28609e42cf0b425d9f24b7fdccc2278021968d9a2c99ace40a91",
+      "equalsHeadBytes": true
+    },
+    {
+      "path": "DicePrototype/Assets/Game/UI/GameApp.Art07.cs",
+      "sha256": "8ed989c6839290f5a5b7b489b7b066e3a27dd6f803aa8a27081b0ddaae2e5efa",
+      "bytes": 42413,
+      "headBlobSha256": "8ed989c6839290f5a5b7b489b7b066e3a27dd6f803aa8a27081b0ddaae2e5efa",
+      "equalsHeadBytes": true
+    },
+    {
+      "path": "DicePrototype/Assets/Game/UI/GameApp.Display.cs",
+      "sha256": "b40ae3b1bcaac4d8669806e98687abfbd03fd8ca6386a34b6eca89c9a868a749",
+      "bytes": 6961,
+      "headBlobSha256": "b40ae3b1bcaac4d8669806e98687abfbd03fd8ca6386a34b6eca89c9a868a749",
+      "equalsHeadBytes": true
+    },
+    {
+      "path": "DicePrototype/Assets/Game/UI/UiKit.cs",
+      "sha256": "4083ef2ec6bacdfe109acabb8dac7b3b6e25e7b65bcea11d76504ddb2e2703f5",
+      "bytes": 10180,
+      "headBlobSha256": "4083ef2ec6bacdfe109acabb8dac7b3b6e25e7b65bcea11d76504ddb2e2703f5",
+      "equalsHeadBytes": true
+    }
+  ],
+  "reportSha256": "7b0cd5aa76acd6b454e6187b38fecf8775d10f466932a4440bec336a0dd198ef"
+}

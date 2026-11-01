@@ -292,6 +292,12 @@ namespace DiceCraft.Verification
             string before=GameSession.StateHash(app.Session.State),disk=FileHash(app.SaveLocation);var state=app.Session.State;
             var offers=state.shop.offers.Where(o=>o.category=="controller").ToArray();
             Require(offers.Length<=6,"Normal controller shelf exceeds its six-card art capacity.");
+            // The first-visit entrance is intentionally non-blocking. Compare tab geometry
+            // only after that real animation settles; tab redraw itself settles it immediately.
+            var entrance=ActiveControl<Art07ShopEntrance>("Screen");
+            double entranceDeadline=Time.realtimeSinceStartupAsDouble+3;
+            while(entrance.IsPlaying&&Time.realtimeSinceStartupAsDouble<entranceDeadline)yield return null;
+            Require(!entrance.IsPlaying,"Shop entrance did not settle within 3 seconds before tab geometry checks.");
             var positions=offers.ToDictionary(o=>o.offerId,o=>ActiveControl<RectTransform>("Offer_"+o.offerId).anchoredPosition);
             for(int tab=0;tab<5;tab++)
             {

@@ -1,0 +1,26 @@
+{
+  "success": true,
+  "command": "command",
+  "data": {
+    "command": "script eval",
+    "parameters": {
+      "code": "var s=UnityEngine.SceneManagement.SceneManager.GetActiveScene();if(UnityEditor.EditorApplication.isPlayingOrWillChangePlaymode||UnityEditor.EditorApplication.isCompiling||s.isDirty||!string.IsNullOrEmpty(s.path))throw new System.Exception(\"Require idle clean scratch\");UnityEditor.EditorApplication.delayCall+=()=>UnityEditor.EditorApplication.Exit(0);return new{utc=System.DateTime.UtcNow.ToString(\"O\"),exitRequested=true};"
+    },
+    "result": {
+      "output": null,
+      "diagnostics": [],
+      "success": true,
+      "result": {
+        "utc": "2026-11-01T11:04:30.8270072Z",
+        "exitRequested": true
+      }
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "E:\\agent_workspace\\gpt\\game2\\DicePrototype"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

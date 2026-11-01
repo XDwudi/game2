@@ -1,0 +1,103 @@
+{
+  "success": true,
+  "command": "command",
+  "data": {
+    "command": "script eval",
+    "parameters": {
+      "code": "if(UnityEditor.EditorApplication.isPlayingOrWillChangePlaymode||UnityEditor.EditorApplication.isCompiling)throw new System.Exception(\"Require idle\");UnityEditor.AssetDatabase.SaveAssets();return new{utc=System.DateTime.UtcNow.ToString(\"O\"),scene=UnityEngine.SceneManagement.SceneManager.GetActiveScene().path,dirty=UnityEngine.SceneManagement.SceneManager.GetActiveScene().isDirty,intPreferences=new[]{\"fast\",\"reduced\",\"shopTab\",\"art07.instant\",\"art07.textScale\",\"art07.guideSeen\",DiceCraft.GameApp.ZeroRollHintKey07,DiceCraft.GameApp.RandomHintKey07,DiceCraft.GameApp.QualifiedHintKey07}.Select(k=>new{key=k,had=UnityEngine.PlayerPrefs.HasKey(k),value=UnityEngine.PlayerPrefs.GetInt(k)}).ToArray(),keys=new[]{\"Roll\",\"Lock\",\"Submit\",\"Clear\",\"Handbook\"}.Select(a=>new{key=\"art07.key.\"+a,had=UnityEngine.PlayerPrefs.HasKey(\"art07.key.\"+a),value=UnityEngine.PlayerPrefs.GetString(\"art07.key.\"+a)}).ToArray(),hadVolume=UnityEngine.PlayerPrefs.HasKey(\"volume\"),volume=UnityEngine.PlayerPrefs.GetFloat(\"volume\",1)};\r\n"
+    },
+    "result": {
+      "output": null,
+      "diagnostics": [],
+      "success": true,
+      "result": {
+        "utc": "2026-11-01T11:04:08.4628465Z",
+        "scene": "",
+        "dirty": false,
+        "intPreferences": [
+          {
+            "key": "fast",
+            "had": true,
+            "value": 0
+          },
+          {
+            "key": "reduced",
+            "had": true,
+            "value": 0
+          },
+          {
+            "key": "shopTab",
+            "had": true,
+            "value": 0
+          },
+          {
+            "key": "art07.instant",
+            "had": true,
+            "value": 0
+          },
+          {
+            "key": "art07.textScale",
+            "had": true,
+            "value": 100
+          },
+          {
+            "key": "art07.guideSeen",
+            "had": true,
+            "value": 1
+          },
+          {
+            "key": "art07.hint.zero_rolls",
+            "had": true,
+            "value": 1
+          },
+          {
+            "key": "art07.hint.c53_preview",
+            "had": true,
+            "value": 1
+          },
+          {
+            "key": "art07.hint.qualified_continue",
+            "had": true,
+            "value": 1
+          }
+        ],
+        "keys": [
+          {
+            "key": "art07.key.Roll",
+            "had": false,
+            "value": ""
+          },
+          {
+            "key": "art07.key.Lock",
+            "had": false,
+            "value": ""
+          },
+          {
+            "key": "art07.key.Submit",
+            "had": false,
+            "value": ""
+          },
+          {
+            "key": "art07.key.Clear",
+            "had": false,
+            "value": ""
+          },
+          {
+            "key": "art07.key.Handbook",
+            "had": false,
+            "value": ""
+          }
+        ],
+        "hadVolume": true,
+        "volume": 0
+      }
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "E:\\agent_workspace\\gpt\\game2\\DicePrototype"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

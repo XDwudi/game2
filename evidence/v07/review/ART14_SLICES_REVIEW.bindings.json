@@ -1,0 +1,217 @@
+{
+  "utc": "2026-11-01T11:06:56.966372+00:00",
+  "reviewer": "/root/v07_spec_audit",
+  "sourceCheckpoint": "821ec5992c34b59eddfe2a0ae984fbaca48f41f8",
+  "scope": "Independent static capture review and actual 000–015 GPU visual review only; no whole-art/Player/Mac/performance acceptance",
+  "status": "LIMITED_SLICE_AND_BADGE_EDGE_VISUAL_REVIEW_NO_DEFECT_OBSERVED",
+  "actuallyViewedImages": 16,
+  "actuallyViewedInstances": 180,
+  "inputsAndOutputs": [
+    {
+      "path": "evidence/v07/review/ART14_SLICES_REVIEW.md",
+      "bytes": 5003,
+      "sha256": "7cc1214035bccd02e23ba34e4e47c12d618fa7e7f440e20155c1fbd5d56fbfa7"
+    },
+    {
+      "path": "artifacts/cache/v07-art14-slices-review/audit.json",
+      "bytes": 76925,
+      "sha256": "e970eef5bf8bb198ae1f0a59a2a2b0d63e9ae2e7d45c8579938d790cc9d83487"
+    },
+    {
+      "path": "docs/specs/v07/ART_SPEC.md",
+      "bytes": 417792,
+      "sha256": "5120a8d0983d24f25cc38e22f1da613fd1a56c70ab26f518771a2caf064dd228"
+    },
+    {
+      "path": "artifacts/cache/v07-art14-resource-check/capture.csx",
+      "sha256": "af4f40e865cf710c4267c930433cd63f9a6c9230e89f35cf002cc07c3e6ed7df",
+      "bytes": 13034
+    },
+    {
+      "path": "artifacts/cache/v07-art14-resource-check/executed-capture.csx",
+      "sha256": "957e570cc87929a71c216a31a3198a96654fd7676fc228e03beab3af820d2117",
+      "bytes": 13089
+    },
+    {
+      "path": "artifacts/cache/v07-art14-resource-check/assets.tsv",
+      "sha256": "b4efc0b480d227dcdd78212b00936dfdeea477bdd1c369ab2b2fc465a683c99c",
+      "bytes": 32864
+    },
+    {
+      "path": "artifacts/cache/v07-art14-resource-check/samples.tsv",
+      "sha256": "54d6b702cbdd6e3681107884c87ad8ac23a17372ea232bb88a0b6dd1bca15e16",
+      "bytes": 59279
+    },
+    {
+      "path": "artifacts/cache/v07-art14-resource-check/target-plan.json",
+      "sha256": "398b5ef71a16fa1df8ec10f595cf864a137fd162490e4f2ef17f7f57ee9181ec",
+      "bytes": 279680
+    },
+    {
+      "path": "artifacts/cache/v07-art14-resource-check/sources-before.json",
+      "sha256": "817f3dbcd72b534c015caa0f90c0e5dca9d91dac4ebf5a469c85b2cde704ced2",
+      "bytes": 243140
+    },
+    {
+      "path": "artifacts/cache/v07-art14-resource-check/sources-after.json",
+      "sha256": "817f3dbcd72b534c015caa0f90c0e5dca9d91dac4ebf5a469c85b2cde704ced2",
+      "bytes": 243140
+    },
+    {
+      "path": "artifacts/cache/v07-art14-resource-check/preferences-before.json",
+      "sha256": "ff4ec861e9322ab28b5f72ba311a40683a9f3d478546fec177151a523af8fff1",
+      "bytes": 3348
+    },
+    {
+      "path": "artifacts/cache/v07-art14-resource-check/preferences-after.json",
+      "sha256": "f39ee6e568074a722ffd3f3f736aee67364e62aa73455f13b8114941ff74aa3c",
+      "bytes": 3352
+    },
+    {
+      "path": "artifacts/cache/v07-art14-resource-check/exit-play.json",
+      "sha256": "35afcaa9638ed9b172ee38cc32d29b73d038756bae54cb35a9a5cc76f16aac4b",
+      "bytes": 817
+    },
+    {
+      "path": "artifacts/cache/v07-art14-gpu-1103/capture-report.json",
+      "sha256": "c24ce62251d9264610d164f20107f4509f53ee0d2bfef46c895930c2d1c6d117",
+      "bytes": 561294
+    },
+    {
+      "path": "artifacts/cache/v07-art14-resource-check/pdb-after.json",
+      "sha256": "01ef80dd2dd7e4a27b6a6e20f3efca740d813c99a0471029e6bf2c4d2ba72326",
+      "bytes": 78447
+    },
+    {
+      "path": "artifacts/cache/v07-art14-gpu-1103/000-ui_button_bevel.png",
+      "sha256": "025be8dd47160dd940ba574bfaecbd0eec5d33e6d8b6a8e6d8e2ff3caa4aacd4",
+      "bytes": 44005,
+      "id": "000-ui_button_bevel",
+      "instances": 9,
+      "actuallyViewed": true
+    },
+    {
+      "path": "artifacts/cache/v07-art14-gpu-1103/001-ui_card_controller.png",
+      "sha256": "4e5ccf336db8bd1a84991e6df4ba854fb4092c36c23dc4d447ca78feb4d490c3",
+      "bytes": 44763,
+      "id": "001-ui_card_controller",
+      "instances": 9,
+      "actuallyViewed": true
+    },
+    {
+      "path": "artifacts/cache/v07-art14-gpu-1103/002-ui_card_controller_compact.png",
+      "sha256": "42fa108773436940e0a8d1ef9226761b08441ea6f561a8ee98d226f23231daec",
+      "bytes": 44838,
+      "id": "002-ui_card_controller_compact",
+      "instances": 9,
+      "actuallyViewed": true
+    },
+    {
+      "path": "artifacts/cache/v07-art14-gpu-1103/003-ui_card_item.png",
+      "sha256": "4e5ccf336db8bd1a84991e6df4ba854fb4092c36c23dc4d447ca78feb4d490c3",
+      "bytes": 44763,
+      "id": "003-ui_card_item",
+      "instances": 9,
+      "actuallyViewed": true
+    },
+    {
+      "path": "artifacts/cache/v07-art14-gpu-1103/004-ui_card_upgrade.png",
+      "sha256": "4e5ccf336db8bd1a84991e6df4ba854fb4092c36c23dc4d447ca78feb4d490c3",
+      "bytes": 44763,
+      "id": "004-ui_card_upgrade",
+      "instances": 9,
+      "actuallyViewed": true
+    },
+    {
+      "path": "artifacts/cache/v07-art14-gpu-1103/005-ui_chip_label.png",
+      "sha256": "ac4401cb4f0566407477549df2d575f49f573ee0e0149b265354e5a3a19040f4",
+      "bytes": 43896,
+      "id": "005-ui_chip_label",
+      "instances": 9,
+      "actuallyViewed": true
+    },
+    {
+      "path": "artifacts/cache/v07-art14-gpu-1103/006-ui_focus_frame.png",
+      "sha256": "9d7b5787bb61023ac83b08ddf565fcdb02b18c4d538748247fc2a02e28ec6651",
+      "bytes": 42897,
+      "id": "006-ui_focus_frame",
+      "instances": 9,
+      "actuallyViewed": true
+    },
+    {
+      "path": "artifacts/cache/v07-art14-gpu-1103/007-ui_panel_modal.png",
+      "sha256": "9619e0282ca1f857e3559135ba2e9fe5b369e2730f7ce2984753cd727ad6e336",
+      "bytes": 43648,
+      "id": "007-ui_panel_modal",
+      "instances": 9,
+      "actuallyViewed": true
+    },
+    {
+      "path": "artifacts/cache/v07-art14-gpu-1103/008-ui_panel_plain.png",
+      "sha256": "9619e0282ca1f857e3559135ba2e9fe5b369e2730f7ce2984753cd727ad6e336",
+      "bytes": 43648,
+      "id": "008-ui_panel_plain",
+      "instances": 9,
+      "actuallyViewed": true
+    },
+    {
+      "path": "artifacts/cache/v07-art14-gpu-1103/009-ui_progress_fill.png",
+      "sha256": "37fe7ee923b94f59c1e202b51922bc9d0f7b0b506b4af81d5e7561002bf44689",
+      "bytes": 43858,
+      "id": "009-ui_progress_fill",
+      "instances": 9,
+      "actuallyViewed": true
+    },
+    {
+      "path": "artifacts/cache/v07-art14-gpu-1103/010-ui_progress_track.png",
+      "sha256": "37fe7ee923b94f59c1e202b51922bc9d0f7b0b506b4af81d5e7561002bf44689",
+      "bytes": 43858,
+      "id": "010-ui_progress_track",
+      "instances": 9,
+      "actuallyViewed": true
+    },
+    {
+      "path": "artifacts/cache/v07-art14-gpu-1103/011-ui_scroll_handle.png",
+      "sha256": "2d616344545bdc1a9136288715c3667d6936d31c62325482dee829259c9bb9b6",
+      "bytes": 43697,
+      "id": "011-ui_scroll_handle",
+      "instances": 9,
+      "actuallyViewed": true
+    },
+    {
+      "path": "artifacts/cache/v07-art14-gpu-1103/012-ui_slot_dice.png",
+      "sha256": "9f6125b90817d360639e03595e2c419ecea8b670e33dd9cc0285e19b9984b4f9",
+      "bytes": 42825,
+      "id": "012-ui_slot_dice",
+      "instances": 9,
+      "actuallyViewed": true
+    },
+    {
+      "path": "artifacts/cache/v07-art14-gpu-1103/013-ui_slot_inventory.png",
+      "sha256": "9f6125b90817d360639e03595e2c419ecea8b670e33dd9cc0285e19b9984b4f9",
+      "bytes": 42825,
+      "id": "013-ui_slot_inventory",
+      "instances": 9,
+      "actuallyViewed": true
+    },
+    {
+      "path": "artifacts/cache/v07-art14-gpu-1103/014-ui_tooltip_frame.png",
+      "sha256": "9619e0282ca1f857e3559135ba2e9fe5b369e2730f7ce2984753cd727ad6e336",
+      "bytes": 43648,
+      "id": "014-ui_tooltip_frame",
+      "instances": 9,
+      "actuallyViewed": true
+    },
+    {
+      "path": "artifacts/cache/v07-art14-gpu-1103/015-badges-prescribed-sizes.png",
+      "sha256": "626dbfdf132e7adac868ad2a62e4f73c2517925978d64a8705eefa09a45525f6",
+      "bytes": 49183,
+      "id": "015-badges-prescribed-sizes",
+      "instances": 45,
+      "actuallyViewed": true
+    }
+  ],
+  "allAssetBindingsIn": "artifacts/cache/v07-art14-slices-review/audit.json",
+  "noUnityExecutedByReviewer": true,
+  "noProductionWritten": true
+}

@@ -1,0 +1,81 @@
+{
+  "utc": "2026-11-01T10:40:19.645073+00:00",
+  "reviewer": "/root/v07_spec_audit",
+  "oldSourceCommit": "0f04e51a2add69ca69f44c2d0c7b8425367e7a89",
+  "newSourceCommit": "821ec5992c34b59eddfe2a0ae984fbaca48f41f8",
+  "status": "LIMITED_UNAFFECTED_MEDIA_REUSE_REASONED_NO_RELABEL",
+  "noUnityExecuted": true,
+  "newFullRegressionAndPlayerNotReviewed": true,
+  "files": [
+    {
+      "path": "evidence/v07/review/MEDIA_REUSE_0F04E51_TO_821EC59_REVIEW.md",
+      "bytes": 5266,
+      "sha256": "47de75e38ca33200fad7282c5f3c7427b85635ad9fd9b2e496ec160226cbe3f6"
+    },
+    {
+      "path": "artifacts/cache/v07-media-reuse-821ec59-review/audit-delta.py",
+      "bytes": 6067,
+      "sha256": "7392ada943a019ee1f583f5404c81ee590b41b166025be95341fbc7e222a47df"
+    },
+    {
+      "path": "artifacts/cache/v07-media-reuse-821ec59-review/delta-bindings.json",
+      "bytes": 4235,
+      "sha256": "f38a55d58560fe2d9a688bab33781f9d960a19ebbd3023f5f5d326f0f98b4d53"
+    },
+    {
+      "path": "artifacts/cache/v07-media-reuse-821ec59-review/source-delta.patch",
+      "bytes": 6380,
+      "sha256": "3cdbf1747c502b633cfa27e6b8932687b0ac490a7d05c9b455211bb787af3338"
+    },
+    {
+      "path": "evidence/v07/unity/checkpoint-resource-identity-821ec59.json",
+      "bytes": 3530,
+      "sha256": "7bb2a8010d032d17311269e67a3f273f0feb2e84e47ffbec4e6d6f3abff86f60"
+    },
+    {
+      "path": "evidence/v07/review/PLAYER_HANDBOOK_PRECONDITION_REVIEW.md",
+      "bytes": 3769,
+      "sha256": "b593a64fdb611700b21a9286fc1e73bedbf1f0c46ffebe8e3d41d7f8b38df6fa"
+    },
+    {
+      "path": "evidence/v07/review/FINAL_0F04E51_CLIPS_REVIEW.md",
+      "bytes": 7895,
+      "sha256": "826f8ac5e60c4d01f57d4c49c6909d247c22fcec8412161a30c55eaee73e7a44"
+    },
+    {
+      "path": "evidence/v07/review/FINAL_0F04E51_CLIPS_REVIEW.bindings.json",
+      "bytes": 3574,
+      "sha256": "456d1d3fe05748aaa9b62bc26af864589a122632a9170f2f66de2e3cf1a6d651"
+    },
+    {
+      "path": "evidence/v07/review/FINAL_0F04E51_POST_INCREMENTAL_REVIEW.md",
+      "bytes": 5325,
+      "sha256": "c7aeda830d7ac1b3d1c90a3e3a1aed75713a8c9a297bc023a6de07fe08571238"
+    },
+    {
+      "path": "evidence/v07/review/FULL_REGRESSION_0F04E51_REVIEW.md",
+      "bytes": 5432,
+      "sha256": "3e45b97cbd77686f4cad7af9ea04f0f36b21ff097160b2911cd01c3ff63e72b5"
+    },
+    {
+      "path": "artifacts/cache/v07-final-0f04e51-1002/source-before.json",
+      "bytes": 452776,
+      "sha256": "d995fae1128832d25c5511b4cde5c01b93164b2fb8193840139a38ed1b6afc3b"
+    },
+    {
+      "path": "artifacts/cache/v07-final-0f04e51-1002/source-after.json",
+      "bytes": 452776,
+      "sha256": "def77949201a1ae63430bb114756fe4f5eb2b779c2a0343cb08c57dd2a30cae5"
+    },
+    {
+      "path": "artifacts/cache/v07-final-0f04e51-1002/source-bound-media.json",
+      "bytes": 12960,
+      "sha256": "fa6a832340cd713f00d1ada6895c26b36eecc79d50830204ae48e918175ef3da"
+    },
+    {
+      "path": "docs/QUALITY_GATES.md",
+      "bytes": 10128,
+      "sha256": "b5eebec08987bb8220fe3ad87821da81267814d1b2a5931e66a98b1d1b4fdade"
+    }
+  ]
+}

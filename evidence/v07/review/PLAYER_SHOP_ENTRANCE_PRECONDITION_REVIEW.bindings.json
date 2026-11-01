@@ -1,0 +1,113 @@
+{
+  "initialEvidenceBinding": {
+    "sourceCommit": "821ec5992c34b59eddfe2a0ae984fbaca48f41f8",
+    "probeRevision": "p07-player-art-ui-18",
+    "actualFailedPlayer": true,
+    "newRuntimeChecks": false,
+    "actualCardPositionsPersisted": false,
+    "sourceFiles": [
+      {
+        "path": "evidence/v07/player-821ec59-1107/strict-full/player-20261101-110810-22a4994f/player-report.json",
+        "sha256": "ff847b1ced77240370b0d2d0047d3851b283ff800af8a7463d70ecf9cfa0dc4c"
+      },
+      {
+        "path": "evidence/v07/player-821ec59-1107/strict-full/player-20261101-110810-22a4994f/normal-replay.jsonl",
+        "sha256": "8ee3a21b7f42c8808ea2830f8419c9bc8202f59aaa4d6f27946552068bb9b41b"
+      },
+      {
+        "path": "evidence/v07/player-821ec59-1107/strict-full/player-20261101-110810-22a4994f/v06-target32-raycasts.json",
+        "sha256": "cc74e00bb45fa8540f9fd824271cb560e0ded2e1a1406e67ccc7409dba71bc9e"
+      },
+      {
+        "path": "evidence/v07/player-821ec59-1107/strict-full/player-20261101-110810-22a4994f/v06-ui-render-readiness.json",
+        "sha256": "41fa22500e9e42a008a2dce18d6178c3d00b79eb51a2baa9468593c182f41c38"
+      },
+      {
+        "path": "DicePrototype/Assets/Game/Runtime/Verification/PlayerVerification.V06.cs",
+        "sha256": "4adf1d94db8c77d1f7b04702ff77f598b5630fd28739375c521f5aa4c1461bed"
+      },
+      {
+        "path": "DicePrototype/Assets/Game/Runtime/Verification/PlayerVerification.cs",
+        "sha256": "f5c5a80ab2c7be2b1efc77070398918d50bb1d93ea8fa51e2a5127d1a51e06d0"
+      },
+      {
+        "path": "DicePrototype/Assets/Game/UI/Art07ShopEntrance.cs",
+        "sha256": "f972e9648234cf27f512af61963673a449ccbea9acdd573ec8ed452744678ac8"
+      },
+      {
+        "path": "DicePrototype/Assets/Game/UI/GameApp.Art07ShopEntrance.cs",
+        "sha256": "92f3c4071cd1ac14b1ae7672361c301d13916235ceaf21bf48ba6afcb7c0d3a3"
+      },
+      {
+        "path": "DicePrototype/Assets/Game/UI/GameApp.Shop.cs",
+        "sha256": "56baec56ddb84edfbbc90579263194d359825dc034ad1760d06b39d04109efdb"
+      },
+      {
+        "path": "DicePrototype/Assets/Game/Runtime/GameApp.cs",
+        "sha256": "20bb8c43fb61c5f5aabe0767d0ee9ca9635ffaea1dd0f1d05f9d2d5bbe14a1d5"
+      },
+      {
+        "path": "DicePrototype/Assets/Game/Tests/PlayMode/Art07ShopEntrancePlayModeTests.cs",
+        "sha256": "dd9d16138f1785df78fd08917b74e1d99c4ca901e0dd4b91a9c09ae8dbec87cd"
+      },
+      {
+        "path": "docs/specs/v07/ART_SPEC.md",
+        "sha256": "5120a8d0983d24f25cc38e22f1da613fd1a56c70ab26f518771a2caf064dd228"
+      }
+    ],
+    "candidate": {
+      "patch": "minimum-probe-wait.patch",
+      "sha256": "6cb70a5f3e301f9d69782e7552fcfa71f5d48278308e3379ade8e7ef2a90a095",
+      "baselineSha256": "4adf1d94db8c77d1f7b04702ff77f598b5630fd28739375c521f5aa4c1461bed",
+      "changesOnlyProbePrecondition": true
+    },
+    "reviewSha256": "136487bff61cfaf7b8572baf683aca8a9438c7a17b181f52a366372b655c44f9"
+  },
+  "integration": {
+    "schema": "player-shop-precondition-integrated-static-review-1",
+    "baselineSource": "821ec5992c34b59eddfe2a0ae984fbaca48f41f8",
+    "integratedProbeRevision": "p07-player-art-ui-19",
+    "staticReview": "passed",
+    "newRuntimeCheckExecuted": false,
+    "originalStaticReview": {
+      "path": "artifacts/cache/v07-player-shop-entrance-audit/REVIEW.pre-integration.md",
+      "sha256": "136487bff61cfaf7b8572baf683aca8a9438c7a17b181f52a366372b655c44f9"
+    },
+    "files": [
+      {
+        "path": "DicePrototype/Assets/Game/Runtime/Verification/PlayerVerification.V06.cs",
+        "baselinePath": "artifacts/cache/v07-player-shop-entrance-rework/PlayerVerification.V06.cs",
+        "baselineSha256": "4adf1d94db8c77d1f7b04702ff77f598b5630fd28739375c521f5aa4c1461bed",
+        "integratedSha256": "727ea9fe93c1c67e3ec39ce7aaca455269ee69ab71655b5da54f56c32c7d88e3",
+        "lineDiffs": [
+          [
+            "insert",
+            294,
+            294,
+            294,
+            300
+          ]
+        ],
+        "onlyApprovedDelta": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/Runtime/Verification/PlayerVerification.cs",
+        "baselinePath": "artifacts/cache/v07-player-shop-entrance-rework/PlayerVerification.cs",
+        "baselineSha256": "f5c5a80ab2c7be2b1efc77070398918d50bb1d93ea8fa51e2a5127d1a51e06d0",
+        "integratedSha256": "1aa09930202f68d61a4fd9b8944cafcc8f0728a4735db30484e307c11c9b68f6",
+        "lineDiffs": [
+          [
+            "replace",
+            26,
+            27,
+            26,
+            27
+          ]
+        ],
+        "onlyApprovedDelta": true
+      }
+    ],
+    "integratedReviewSha256": "751dc405550252c73dcaee84df775abc387332901dcd4e77095c6c52069920fb"
+  },
+  "reportSha256": "751dc405550252c73dcaee84df775abc387332901dcd4e77095c6c52069920fb"
+}

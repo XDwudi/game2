@@ -8,14 +8,21 @@
 
 | 项目 | 本草稿状态 | 最终依据 |
 |---|---|---|
-| 完整Unity测试与源码/PDB绑定 | 待最终冻结全量结果 | evidence/v07/unity/build-gate.json |
+| 完整Unity测试与源码/PDB绑定 | 821ec59：999 EditMode + 154 PlayMode，零失败/跳过，独立复核通过；后续检查器修复的新全量仍待跑 | [821ec59完整回归](../evidence/v07/review/FULL_REGRESSION_821EC59_REVIEW.md)，不替代新源/Player验证 |
 | Windows真实流程、界面、180秒性能与原生显示 | 待本版实际完整验收 | schema7 Player报告及独立进程恢复 |
 | Mac Universal构建 | 待真实构建与封包 | 构建报告、逐文件/slice/ZIP检查 |
 | M5原生Arm64/Metal、封装与双向存档 | 待用户实际运行 | [M5执行说明](tasks/P0-V07-MAC-VERIFICATION.md) |
-| 美术、动效、声音与可读性 | 待独立复核及人工体验 | 原规格67项及实际截图/录像/声音 |
+| 美术、动效与可读性 | 已完成指定场景独立复核；人工风格与体验仍待验 | [最终屏幕增量](../evidence/v07/review/FINAL_0F04E51_SCREEN_ART_INCREMENTAL_REVIEW.md)、[抓手/商店增量](../evidence/v07/review/FINAL_0F04E51_GRIP_SCREEN_REVIEW.md)、[九段演出](../evidence/v07/review/FINAL_0F04E51_CLIPS_REVIEW.md)、[POST独立复核](../evidence/v07/review/FINAL_0F04E51_POST_INCREMENTAL_REVIEW.md)；各自仅覆盖报告所列范围 |
+| 声音 | 实际AudioMixer总线未接通，分类音量fallback可用；混音和声音听审待完成 | 不将静音录像、WAV库存或音量滑块视为正式音频验收 |
 | GitHub上传、三包全量下载、新目录启动 | 待执行 | 远端摘要与本地完整恢复证据 |
-| 工具离线检查 | 114/114；仓库确定性检查20/20 | [工具交接](tasks/P0-V07-DELIVERY-TOOLS.md)，仅工具范围 |
+| 工具离线检查 | 118/118；仓库确定性检查20/20 | [工具交接](tasks/P0-V07-DELIVERY-TOOLS.md)，仅工具范围 |
 
 玩家操作说明随包附带 [PLAYER_README_V07.txt](PLAYER_README_V07.txt)。M5工具包包含同源Mac包、真实Windows报告/检查点与原规则输入，用户按说明在Mac运行后回传结果。即使自动检查通过，人工美术/体验和反向存档未完成时也不宣称整版 ACCEPTED。
+
+当前媒体采集身份为 `0f04e51`；新的 `821ec59` 只修改验证探针与测试前置，产品UI、资源与演出不变。[精确差异复核](../evidence/v07/review/MEDIA_REUSE_0F04E51_TO_821EC59_REVIEW.md)允许按原已审范围复用媒体，不重标为新采集，也不替代新Player、构建身份或性能结果。
+
+新增ART14三指定底色检查已实际采集并独立查看43图，覆盖567个绘制实例。[九宫格/角标](../evidence/v07/review/ART14_SLICES_REVIEW.md)和[透明纹理](../evidence/v07/review/ART14_TEXTURES_REVIEW.md)在各自边缘检查范围通过；深青底柔光的可见色阶保留为观察项。实际821ec59 Windows流程在商店入场时序检查处失败，现仅修复检查器的等待前置；新的完整验证和可封包结论仍待实际结果。
+
+2026-11-01：向 `XDwudi/game2` 的 `codex/v07-art-and-ui` 推送完整源码、策划及内部测试/媒体证据被自动审批拒绝，命令未执行。用户既有授权涵盖发行附件；源码与内部证据的远端同步待明确确认。本地验证和封包继续，尚未创建本版远端发行。
 
 若实际只能提供受限诊断候选，必须由真实报告生成单独 notice/manifest，明确保留原生显示或性能失败，不用旧版失败数字替代本版观察，也不降低Mac完整验收标准。最终发布说明应按真实结果重写本草稿。
