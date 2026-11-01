@@ -1,0 +1,66 @@
+{
+  "blenderVersion": "5.2.3 LTS",
+  "buildHash": "e13b728c6880",
+  "bodyTriangles": 188,
+  "bodyVertices": 96,
+  "bodyDimensions": [
+    1.0,
+    1.0,
+    1.0
+  ],
+  "fragmentTriangles": 120,
+  "bevelWidth": 0.055,
+  "bevelSegments": 3,
+  "actions": [
+    {
+      "name": "dice_roll_a",
+      "seconds": 0.9,
+      "frames": 28,
+      "fps": 30
+    },
+    {
+      "name": "dice_roll_b",
+      "seconds": 0.9,
+      "frames": 28,
+      "fps": 30
+    },
+    {
+      "name": "dice_lock_lift",
+      "seconds": 0.2,
+      "frames": 7,
+      "fps": 30
+    },
+    {
+      "name": "dice_submit_tap",
+      "seconds": 0.2,
+      "frames": 7,
+      "fps": 30
+    }
+  ],
+  "unityImportValidated": false,
+  "sourceOnlyQA": "Offline source/model checks; final Unity face normals remain unverified",
+  "exportPreset": {
+    "use_selection": true,
+    "global_scale": 1.0,
+    "apply_unit_scale": true,
+    "apply_scale_options": "FBX_SCALE_UNITS",
+    "axis_forward": "-Z",
+    "axis_up": "Y",
+    "use_space_transform": true,
+    "bake_space_transform": false,
+    "object_types": [
+      "EMPTY",
+      "MESH"
+    ],
+    "use_mesh_modifiers": true,
+    "mesh_smooth_type": "FACE",
+    "add_leaf_bones": false,
+    "bake_anim_use_all_actions": false,
+    "bake_anim_use_nla_strips": false,
+    "bake_anim_step": 1.0,
+    "bake_anim_simplify_factor": 0.0,
+    "bake_anim_force_startend_keying": true,
+    "path_mode": "AUTO",
+    "embed_textures": false
+  }
+}

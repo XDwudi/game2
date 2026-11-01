@@ -1,0 +1,6 @@
+2026-10-31 first Krita conversion attempt, default sandbox.
+verify_copy_cannon_rework.py invoked Krita 5.3.4 portable krita.com:
+--nosplash --export --export-filename <workspace>/ArtSource/Art07/ContentIcons/Controllers/icon_c07.kra <workspace>/ArtSource/Art07/ContentIcons/Controllers/icon_c07.ora
+Python subprocess.TimeoutExpired after 75 seconds; process result exit 1.
+No source validation was considered passed from this attempt.
+Retry uses the same bounded workspace-only conversion command with escalation so the native application can launch.

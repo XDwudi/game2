@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="3" result="Failed(Child)" total="3" passed="0" failed="3" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-11-01 03:06:54Z" end-time="2026-11-01 03:06:57Z" duration="2.7001884">
+  <test-suite type="TestSuite" id="1118" name="DiceCraft P0" fullname="DiceCraft P0" runstate="Runnable" testcasecount="109" result="Failed" site="Child" start-time="2026-11-01 03:06:54Z" end-time="2026-11-01 03:06:57Z" duration="2.700188" total="3" passed="0" failed="3" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <failure>
+      <message><![CDATA[One or more child tests had errors]]></message>
+    </failure>
+    <test-suite type="Assembly" id="1112" name="DiceCraft.PlayModeTests.dll" fullname="E:/agent_workspace/gpt/game2/DicePrototype/Library/ScriptAssemblies/DiceCraft.PlayModeTests.dll" runstate="Runnable" testcasecount="109" result="Failed" site="Child" start-time="2026-11-01 03:06:54Z" end-time="2026-11-01 03:06:57Z" duration="2.684244" total="3" passed="0" failed="3" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="40096" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <failure>
+        <message><![CDATA[One or more child tests had errors]]></message>
+      </failure>
+      <test-suite type="TestSuite" id="1113" name="DiceCraft" fullname="DiceCraft" runstate="Runnable" testcasecount="109" result="Failed" site="Child" start-time="2026-11-01 03:06:54Z" end-time="2026-11-01 03:06:57Z" duration="2.680790" total="3" passed="0" failed="3" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <failure>
+          <message><![CDATA[One or more child tests had errors]]></message>
+        </failure>
+        <test-suite type="TestSuite" id="1114" name="Tests" fullname="DiceCraft.Tests" runstate="Runnable" testcasecount="109" result="Failed" site="Child" start-time="2026-11-01 03:06:54Z" end-time="2026-11-01 03:06:57Z" duration="2.677940" total="3" passed="0" failed="3" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <failure>
+            <message><![CDATA[One or more child tests had errors]]></message>
+          </failure>
+          <test-suite type="TestFixture" id="1001" name="GameplayPlayModeTests" fullname="DiceCraft.Tests.GameplayPlayModeTests" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" testcasecount="107" result="Failed" site="Child" start-time="2026-11-01 03:06:54Z" end-time="2026-11-01 03:06:57Z" duration="2.674568" total="3" passed="0" failed="3" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <failure>
+              <message><![CDATA[One or more child tests had errors]]></message>
+            </failure>
+            <test-case id="1064" name="PLAY_ART07_ScoreLabelsControllerOverflowHasDedicatedTenthCellAndCompleteLabel" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_ScoreLabelsControllerOverflowHasDedicatedTenthCellAndCompleteLabel" methodname="PLAY_ART07_ScoreLabelsControllerOverflowHasDedicatedTenthCellAndCompleteLabel" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="174081750" result="Failed" start-time="2026-11-01 03:06:54Z" end-time="2026-11-01 03:06:56Z" duration="1.675537" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <failure>
+                <message><![CDATA[Unhandled log message: '[Exception] Exception: UnityTest yielded WaitForEndOfFrame, which is not evoked in batchmode.'. Use UnityEngine.TestTools.LogAssert.Expect]]></message>
+                <stack-trace><![CDATA[UnityEngine.TestTools.Utils.CoroutineRunner+<WrapEnumeratorForChecks>d__8.MoveNext () (at ./Library/PackageCache/com.unity.test-framework@ee3fe9477490/UnityEngine.TestRunner/Utils/CoroutineRunner.cs:68)
+UnityEngine.SetupCoroutine.InvokeMoveNext (System.Collections.IEnumerator enumerator, System.IntPtr returnValueAddress) (at <2a0aacfdb6844320ae79174c32157248>:0)
+UnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)
+
+]]></stack-trace>
+              </failure>
+              <output><![CDATA[Exception: UnityTest yielded WaitForEndOfFrame, which is not evoked in batchmode.
+UnityEngine.TestTools.Utils.CoroutineRunner+<WrapEnumeratorForChecks>d__8.MoveNext () (at ./Library/PackageCache/com.unity.test-framework@ee3fe9477490/UnityEngine.TestRunner/Utils/CoroutineRunner.cs:68)
+UnityEngine.SetupCoroutine.InvokeMoveNext (System.Collections.IEnumerator enumerator, System.IntPtr returnValueAddress) (at <2a0aacfdb6844320ae79174c32157248>:0)
+UnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)
+
+Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_e2540708b7a04551a43c589f76829b39
+]]></output>
+            </test-case>
+            <test-case id="1063" name="PLAY_ART07_ScoreLabelsFallbackSubmeshSurvivesPooledReuseWithRealPixels" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_ScoreLabelsFallbackSubmeshSurvivesPooledReuseWithRealPixels" methodname="PLAY_ART07_ScoreLabelsFallbackSubmeshSurvivesPooledReuseWithRealPixels" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="1694709012" result="Failed" start-time="2026-11-01 03:06:56Z" end-time="2026-11-01 03:06:56Z" duration="0.322373" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <failure>
+                <message><![CDATA[  Expected: not null
+  But was:  null
+]]></message>
+                <stack-trace><![CDATA[at DiceCraft.Tests.GameplayPlayModeTests+<PLAY_ART07_ScoreLabelsFallbackSubmeshSurvivesPooledReuseWithRealPixels>d__143.MoveNext () [0x00091] in E:\agent_workspace\gpt\game2\DicePrototype\Assets\Game\Tests\PlayMode\Art07ScoreLabelsPlayModeTests.cs:60
+at UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\Library\PackageCache\com.unity.test-framework@ee3fe9477490\UnityEngine.TestRunner\NUnitExtensions\Attributes\TestEnumerator.cs:52
+]]></stack-trace>
+              </failure>
+              <output><![CDATA[Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_511f7c6e01fc4b1d94044d4fd657af83
+]]></output>
+            </test-case>
+            <test-case id="1062" name="PLAY_ART07_ScoreLabelsPreviewMixedZeroAndRandomKeepEveryGlyphAfterRedraw" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_ScoreLabelsPreviewMixedZeroAndRandomKeepEveryGlyphAfterRedraw" methodname="PLAY_ART07_ScoreLabelsPreviewMixedZeroAndRandomKeepEveryGlyphAfterRedraw" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="1279675281" result="Failed" start-time="2026-11-01 03:06:56Z" end-time="2026-11-01 03:06:57Z" duration="0.651785" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <failure>
+                <message><![CDATA[Unhandled log message: '[Exception] Exception: UnityTest yielded WaitForEndOfFrame, which is not evoked in batchmode.'. Use UnityEngine.TestTools.LogAssert.Expect]]></message>
+                <stack-trace><![CDATA[UnityEngine.TestTools.Utils.CoroutineRunner+<WrapEnumeratorForChecks>d__8.MoveNext () (at ./Library/PackageCache/com.unity.test-framework@ee3fe9477490/UnityEngine.TestRunner/Utils/CoroutineRunner.cs:68)
+UnityEngine.SetupCoroutine.InvokeMoveNext (System.Collections.IEnumerator enumerator, System.IntPtr returnValueAddress) (at <2a0aacfdb6844320ae79174c32157248>:0)
+UnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)
+
+]]></stack-trace>
+              </failure>
+              <output><![CDATA[Exception: UnityTest yielded WaitForEndOfFrame, which is not evoked in batchmode.
+UnityEngine.TestTools.Utils.CoroutineRunner+<WrapEnumeratorForChecks>d__8.MoveNext () (at ./Library/PackageCache/com.unity.test-framework@ee3fe9477490/UnityEngine.TestRunner/Utils/CoroutineRunner.cs:68)
+UnityEngine.SetupCoroutine.InvokeMoveNext (System.Collections.IEnumerator enumerator, System.IntPtr returnValueAddress) (at <2a0aacfdb6844320ae79174c32157248>:0)
+UnityEngine.StackTraceUtility:ExtractStringFromExceptionInternal(Object, String&, String&)
+
+Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_9461266cab664edcb74018cdbc3b2b95
+Saving results to: E:\agent_workspace\gpt\game2\evidence\v07\unity\nunit-20261101-030657.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

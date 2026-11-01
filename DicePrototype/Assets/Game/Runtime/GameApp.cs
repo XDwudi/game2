@@ -33,13 +33,13 @@ namespace DiceCraft
         private bool inMenu=true, modal, fast, reduced, tutorial;
         private float volume=.45f;
         private int shopTab, tutorialStep;
-        private string notice="", detailDieId;
+        private string detailDieId;
         private readonly List<string> visibleDice = new List<string>();
         private readonly Dictionary<string,Vector2> dieCenters = new Dictionary<string,Vector2>();
         private static readonly Key[] DigitKeys={Key.Digit1,Key.Digit2,Key.Digit3,Key.Digit4,Key.Digit5,Key.Digit6,Key.Digit7,Key.Digit8,Key.Digit9,Key.Digit0};
         private Coroutine visual;
         public bool IsBusy => Session!=null && Session.Busy;
-        public string SaveLocation => ViewState?.debugWorkspace==true&&!tutorial?(debugSaves?.SavePath??saves.SavePath):saves.SavePath;
+        public string SaveLocation => ViewState?.debugWorkspace==true&&!tutorial?(debugSaves?.SavePath??saves?.SavePath??startupSavePath07):(saves?.SavePath??startupSavePath07);
 
         void Awake()
         {
@@ -49,17 +49,17 @@ namespace DiceCraft
             QualitySettings.vSyncCount=0; Application.targetFrameRate=60;
             FramePacer.Install();
             UiKit.Font=uiFont;
+            InitializeArtPreferences07();
             GameConfig.ValidateJson(configAsset.text);
             Config=JsonUtility.FromJson<GameConfig>(GameConfig.PrepareJsonForUnity(configAsset.text)); Config.Validate();
-            saves=new AtomicSaveStore(Path.Combine(SaveDirectoryOverride??Application.persistentDataPath,"active-run.json"),Config,SaveSlotPolicy.Normal);
             volume=PlayerPrefs.GetFloat("volume",.45f); fast=PlayerPrefs.GetInt("fast",0)==1; reduced=PlayerPrefs.GetInt("reduced",0)==1;
             shopTab=PlayerPrefs.GetInt("shopTab",0);
             audioSource=gameObject.AddComponent<AudioSource>(); audioSource.volume=volume;
+            InitializePresentation07();
             main=UiKit.Rect(canvas.transform,"Screen",0,0,1920,1080); overlay=UiKit.Rect(canvas.transform,"ModalLayer",0,0,1920,1080);
-            try { var restored=saves.Load(); Session=new GameSession(Config,saves,restored); notice=saves.LastLoadNotice??""; }
-            catch(Exception ex){ Session=new GameSession(Config,saves); notice="恢复失败，原存档保留："+ex.Message; }
             InitializeDisplay();
-            Refresh();
+            ApplyArtPreferences07();
+            BeginStartupLoad07();
         }
         public void Refresh()
         {
@@ -71,11 +71,14 @@ namespace DiceCraft
         }
         private void RebuildView()
         {
+            if(!StartupReady07){DrawStartupLoad07();return;}
             // Pending selection and presentation flags do not mutate committed run data.
             // Reuse its detached snapshot until the session or accepted sequence changes.
-            if(!ReferenceEquals(displayedSession,Session)||ViewState==null||ViewState.actionSequence!=Session.ActionSequence)
+            if(IsPresenting07 && lastPresentationBefore07!=null) ViewState=lastPresentationBefore07;
+            else if(!ReferenceEquals(displayedSession,Session)||ViewState==null||ViewState.actionSequence!=Session.ActionSequence)
             { ViewState=Session?.State;displayedSession=Session;controllerSourceCache=null; }
-            UiKit.Clear(main); table.Hide(); visibleDice.Clear(); dieCenters.Clear(); controllerRects.Clear();
+            SyncSettlementBackdropView07();
+            UiKit.Clear(main); table.Hide(); visibleDice.Clear(); dieCenters.Clear(); controllerRects.Clear();lockedSlotRects07.Clear();
             if(inMenu || ViewState==null) { inMenu=true; Menu(); if(Session.HasPendingSave)SaveFailure(); return; }
             Header();
             switch(ViewState.phase)
@@ -86,13 +89,20 @@ namespace DiceCraft
                 case "RunWon": case "RunFailed": RunEnd();break;
                 default: Gameplay();break;
             }
+            DrawNavigation07();
+            AlignQualifiedStamp07();
+            DrawGuide07();
+            DrawNotice07();
+            AttachEndStageSummary07();
+            /* legacy navigation disabled
             UiKit.Text(main,"Toast",notice,40,1030,1260,34,21,UiKit.Gold);
             if(DebugUnlocked&&IsDebugWorkspace)UiKit.Button(main,"DebugWorkspace","调试面板",36,1020,180,44,ShowDebugPanel);
             UiKit.Button(main,"Pause","设置 / 暂停",1540,1020,160,44,Pause);
             UiKit.Button(main,"Handbook","牌型手册 [H]",1340,1020,180,44,ShowHandbook,!IsBusy&&!Session.HasPendingSave);
+            */
             if(Session.HasPendingSave) SaveFailure();
         }
-        private void Menu()
+        private void LegacyMenu()
         {
             UiKit.Box(main,"Accent",72,94,72,5,UiKit.Gold);
             UiKit.Text(main,"Overline","DICE / BUILD / DECIDE",72,125,960,45,25,UiKit.Teal);
@@ -115,6 +125,7 @@ namespace DiceCraft
         }
         public void StartNew(string seedText)
         {
+            if(!StartupReady07)return;
             if(Session!=null&&Session.HasPendingSave){SaveFailure();return;}
             uint seed;
             if(string.IsNullOrWhiteSpace(seedText)) { var bytes=new byte[4]; using(var rng=System.Security.Cryptography.RandomNumberGenerator.Create())rng.GetBytes(bytes);seed=BitConverter.ToUInt32(bytes,0); }
@@ -124,16 +135,23 @@ namespace DiceCraft
         }
         public CommandResult Send(SessionCommand cmd)
         {
+            if(!StartupReady07)return new CommandResult{accepted=false,error="存档仍在读取，请稍候。"};
             if(IsControllerDragging)return new CommandResult{accepted=false,error="先完成或取消控制器拖拽。"};
             if(cmd.kind==CommandKind.ConfirmLocks)cmd.dieIds=Session.PendingIds;
             cmd.commandId=Guid.NewGuid().ToString("N");cmd.expectedActionSequence=Session.ActionSequence;
+            if(!IsBusy)presentationBefore07=ViewState??Session.State;
+            PrepareDiceInteraction07(cmd);PrepareTransactionVisual07(cmd);
+            PrepareSettlementBackdrop07(cmd);
             var result=Session.Execute(cmd);
-            if(!result.accepted){notice=result.error??"操作未完成";PlaySound("reject");Refresh();return result;}
-            if(result.noChange)return result;
+            ResolveSettlementBackdrop07(cmd,result);
+            if(!result.accepted){DiscardPreparedDiceInteraction07();DiscardPreparedTransactionVisual07();QueueNotice07(result.error??"操作未完成",true);PlaySound("reject");Refresh();return result;}
+            if(result.noChange){DiscardPreparedDiceInteraction07();DiscardPreparedTransactionVisual07();return result;}
+            if(result.duplicate){DiscardPreparedDiceInteraction07();DiscardPreparedTransactionVisual07();}
+            if(cmd.kind==CommandKind.NewRun)StartRunClock07();
             PresentCommitted(cmd,result);
             return result;
         }
-        private void PresentCommitted(SessionCommand cmd,CommandResult result)
+        private void LegacyPresentCommitted(SessionCommand cmd,CommandResult result)
         {
             if(cmd.kind==CommandKind.NewRun)inMenu=false;
             notice="";
@@ -164,9 +182,9 @@ namespace DiceCraft
             else {PlaySound(cmd.kind==CommandKind.ConfirmLocks?"lock":cmd.kind==CommandKind.Buy||cmd.kind==CommandKind.Study?"purchase":"use");Refresh();}
             if(!result.duplicate)LogCommand(cmd,result);
         }
-        private IEnumerator EndVisual(float seconds){yield return new WaitForSecondsRealtime(seconds);table.FinishRoll();Session.Busy=false;visual=null;Refresh();}
-        public void SkipVisual(){if(visual!=null){StopCoroutine(visual);visual=null;}table.FinishRoll();if(Session!=null)Session.Busy=false;Refresh();}
-        private void Header()
+        private IEnumerator EndVisual(float seconds){float elapsed=0;while(elapsed<seconds){if(!modal)elapsed+=Time.unscaledDeltaTime;yield return null;}FinishTransactionEffects07();table.FinishRoll();presentationAudio07?.PlayCue("SFX_DICE_LAND");Session.Busy=false;visual=null;Refresh();}
+        public void SkipVisual(){if(CompleteDiceInteraction07()){table.FinishLayoutTransitions();return;}if(SettlementRevealPlaying07){CompleteSettlementReveal07();return;}if(IsPresenting07){presentationPlayer07.Skip();table.FinishLayoutTransitions();return;}if(visual!=null){StopCoroutine(visual);visual=null;}FinishTransactionEffects07();table.FinishRoll();if(Session!=null)Session.Busy=false;Refresh();table.FinishLayoutTransitions();}
+        private void LegacyHeader()
         {
             UiKit.Text(main,"Brand","骰子构筑",36,24,330,60,38);
             UiKit.Text(main,"RunKind",tutorial?"独立练习 · 不带入挑战":ViewState.debugWorkspace?"DEBUG · 独立试验工作区":"P0 / 24关构筑",39,87,500,32,20,tutorial||ViewState.isDebug?UiKit.Gold:UiKit.Muted);
@@ -178,7 +196,7 @@ namespace DiceCraft
             UiKit.Button(main,"HeaderHandbook","牌型手册 [H]",1650,86,230,40,ShowHandbook,!IsBusy&&!Session.HasPendingSave);
             UiKit.Box(main,"Divider",36,132,1844,2,UiKit.PanelLight);
         }
-        private void StagePreview()
+        private void LegacyStagePreview()
         {
             var def=Config.stages[ViewState.stage.stageIndex];
             string normalTarget=tutorial?"50":def.normalTarget;
@@ -193,7 +211,7 @@ namespace DiceCraft
             UiKit.Button(main,"PreviewControllers","排列控制器 · 查看状态",90,905,1670,58,ShowControllerOrder);
             UiKit.Button(main,"StartStage","进入挑战  →",1040,795,720,84,()=>Send(new SessionCommand{kind=CommandKind.StartStage}),true,true);
         }
-        private void Gameplay()
+        private void LegacyGameplay()
         {
             var s=ViewState;var h=s.hand;bool pending=Session.PendingIds.Length>0;bool busy=Session.Busy;
             var left=UiKit.Box(main,"RoundPanel",36,165,285,625,UiKit.Panel);
@@ -249,7 +267,7 @@ namespace DiceCraft
             if(s.lastSubmission!=null)UiKit.Button(main,"PreviousSubmission","上一手得分明细",36,810,285,46,()=>ShowBreakdown(s.lastSubmission.snapshot,s.lastSubmission.breakdown));
             if(tutorial&&!pending&&!busy&&!s.stage.qualified)UiKit.Text(main,"TutorialGuide",tutorialStep<3?"练习：点击骰子使其待锁，再按 E 确认。也可以先清除选择。":"练习：右侧预览只计算已锁骰；剩余投掷会增加基础分。达标后选择结束本轮，或继续提交。",355,813,1030,42,20,UiKit.Teal);
         }
-        private void DrawDie(DieInstance die,DieHandState result,Vector2 center,bool locked,int index,float scale=1f)
+        private void LegacyDrawDie(DieInstance die,DieHandState result,Vector2 center,bool locked,int index,float scale=1f)
         {
             table.Display(die,result,center,scale);dieCenters[die.dieId]=center;
             bool selected=Session.PendingIds.Contains(die.dieId);
@@ -269,7 +287,7 @@ namespace DiceCraft
             UiKit.Text(main,"DieState"+id,tag,center.x-(locked?hitWidth:200)/2,center.y+(compact?77:96),locked?hitWidth:200,22,locked?14:17,selected||locked?UiKit.Gold:UiKit.Muted,TextAlignmentOptions.Center);
             if(selected)UiKit.Box(main,"Selected"+id,center.x-63,center.y-60,126,3,UiKit.Gold);
         }
-        private void ScorePanel()
+        private void LegacyScorePanel()
         {
             var p=UiKit.Box(main,"ScorePanel",1420,165,460,637,UiKit.Panel);UiKit.Text(p,"Title","提交预览",24,20,412,42,28);
             var preview=Session.PreviewScoreRange();ScoreBreakdown b=preview?.minimum;
@@ -287,7 +305,7 @@ namespace DiceCraft
             if(preview.isRandom)UiKit.Text(p,"RandomPreview","随机范围 · 确认提交才抽样",24,538,412,22,18,UiKit.Muted);
             UiKit.Button(p,"Expanded","查看逐骰与效果明细",24,562,412,48,()=>ShowBreakdown(Session.PreviewSnapshot(),b));
         }
-        private void Settlement()
+        private void LegacySettlement()
         {
             var r=ViewState.lastStageSettlement;
             UiKit.Text(main,"Cleared","挑战达成",100,230,900,100,72,UiKit.Teal);
@@ -300,7 +318,7 @@ namespace DiceCraft
             UiKit.Button(main,"SettlementContinue",ViewState.stage.settlementContinuation=="Shop"?"前往商店  →":"查看挑战结果  →",1090,850,690,76,()=>Send(new SessionCommand{kind=CommandKind.Continue}),true,true);
             UiKit.Button(main,"LastBreakdown","查看刚才的得分",100,740,700,64,()=>ShowBreakdown(ViewState.lastSubmission.snapshot,ViewState.lastSubmission.breakdown));
         }
-        private void RunEnd()
+        private void LegacyRunEnd()
         {
             bool won=ViewState.phase=="RunWon";
             UiKit.Text(main,"EndTitle",won?"二十四关完成":"挑战结束",100,235,1700,130,90,won?UiKit.Teal:UiKit.Paper);
@@ -311,7 +329,15 @@ namespace DiceCraft
         }
         private void Update()
         {
+            if(!StartupReady07){TickStartupLoad07();TickDisplay();return;}
             TickDisplay();
+            TickRunClock07();
+            TickNotice07();
+            TickTerminalCue07();
+            TickPresentation07();
+            table.Paused=modal;
+            if(Art07HandleRebinding())return;
+            if(draggedDie07!=null){if(Keyboard.current?.escapeKey.wasPressedThisFrame==true)CancelDieDrag07();return;}
             var k=Keyboard.current;if(k==null)return;
             if(IsControllerDragging){if(k.escapeKey.wasPressedThisFrame)CancelControllerDrag();return;}
             if(DisplayPreferences!=null&&DisplayPreferences.IsPending){if(k.escapeKey.wasPressedThisFrame)DisplayPreferences.Revert();return;}
@@ -327,24 +353,29 @@ namespace DiceCraft
                 return;
             }
             if(inMenu||modal||Session==null||ViewState==null||IsBusy)return;
-            if(k.hKey.wasPressedThisFrame){ShowHandbook();return;}
+            if(Art07KeyPressed("Handbook")){ShowHandbook();return;}
             if(ViewState.phase!="Selecting"&&ViewState.phase!="HandReady")return;
             for(int i=0;i<DigitKeys.Length&&i<visibleDice.Count;i++)if(k[DigitKeys[i]].wasPressedThisFrame){Session.TogglePending(visibleDice[i]);Refresh();return;}
-            if(k.eKey.wasPressedThisFrame)Send(new SessionCommand{kind=CommandKind.ConfirmLocks});
-            else if(k.spaceKey.wasPressedThisFrame)Send(new SessionCommand{kind=CommandKind.Roll});
-            else if(k.enterKey.wasPressedThisFrame)Send(new SessionCommand{kind=CommandKind.Submit});
+            if(Art07KeyPressed("Lock"))Send(new SessionCommand{kind=CommandKind.ConfirmLocks});
+            else if(Art07KeyPressed("Roll"))Send(new SessionCommand{kind=CommandKind.Roll});
+            else if(Art07KeyPressed("Clear")){Session.ClearPending();Refresh();}
+            else if(Art07KeyPressed("Submit"))Send(new SessionCommand{kind=CommandKind.Submit});
         }
-        private void ReturnMenu(){if(IsBusy)SkipVisual();if(Session.HasPendingSave){SaveFailure();return;}CloseModal();inMenu=true; if(tutorial||IsDebugWorkspace){tutorial=false;Session=new GameSession(Config,saves,saves.Load());debugDraft=null;}Refresh();}
-        private void OnApplicationPause(bool paused){if(paused){CancelControllerDrag();if(IsBusy)SkipVisual();}}
-        private void OnDestroy(){FramePacer.Stop();UiKit.Font=null;}
+        private void ReturnMenu(){if(!StartupReady07)return;CompleteSettlementReveal07();if(IsBusy)SkipVisual();if(Session.HasPendingSave){SaveFailure();return;}CloseModal();inMenu=true; if(tutorial||IsDebugWorkspace){tutorial=false;Session=new GameSession(Config,saves,saves.Load());debugDraft=null;}Refresh();}
+        private void OnApplicationPause(bool paused){PauseNotices07(paused);if(paused){CancelControllerDrag();CancelDieDrag07();if(IsBusy)SkipVisual();}}
+        private void OnDestroy(){AbandonStartupLoad07();SaveRunClock07();FramePacer.Stop();UiKit.Font=null;}
         private void LogCommand(SessionCommand command,CommandResult result)
         {
-            try {var s=ViewState;string file=Path.Combine(SaveDirectoryOverride??Application.persistentDataPath,(tutorial||s.isDebug||s.debugWorkspace?"debug":"normal")+"-actions.jsonl");
+            try {var s=Session.State;string file=Path.Combine(SaveDirectoryOverride??Application.persistentDataPath,(tutorial||s.isDebug||s.debugWorkspace?"debug":"normal")+"-actions.jsonl");
                 File.AppendAllText(file,JsonUtility.ToJson(new ActionLog{seed=s.seed,runId=s.runId,phase=s.phase,action=command,receipt=result.receipt})+"\n",Encoding.UTF8);}
             catch(Exception ex) when(ex is IOException || ex is UnauthorizedAccessException || ex is System.Security.SecurityException){Debug.LogWarning("操作日志写入失败（存档已保存）："+ex.Message);}
         }
         [Serializable]private sealed class ActionLog{public uint seed;public string runId,phase;public SessionCommand action;public CommandReceipt receipt;}
-        private void PlaySound(string name){if(sounds==null)return;var c=sounds.FirstOrDefault(x=>x!=null&&x.name.IndexOf(name,StringComparison.OrdinalIgnoreCase)>=0);if(c!=null)audioSource.PlayOneShot(c,1f);}
+        private void PlaySound(string name)
+        {
+            string cue=name=="reject"?"SFX_UI_DENIED":name=="roll"?"SFX_DICE_ROLL":name=="lock"?"SFX_LOCK":name=="purchase"?"SFX_COIN":name=="refresh"?"SFX_REFRESH":name=="break"||name=="cannon"?"SFX_BREAK":name=="copy"||name=="dye"?"SFX_DYE_COPY":name.StartsWith("enchant",StringComparison.Ordinal)?"SFX_CARD_TRIGGER":"SFX_UI_PRESS";
+            presentationAudio07?.PlayCue(cue,semanticVariant:name=="cannon"?"card":name);
+        }
         private string Factor(int n)=>(n/100m).ToString("0.##");
         private static string Big(string value)=>System.Numerics.BigInteger.Parse(value??"0",System.Globalization.CultureInfo.InvariantCulture).ToString("N0",System.Globalization.CultureInfo.InvariantCulture);
         private static string CompactScore(string value)=>value!=null&&value.Length>15?value.Substring(0,6)+"…（"+value.Length+"位）":Big(value);

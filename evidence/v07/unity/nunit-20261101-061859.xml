@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="2" result="Passed" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-11-01 06:18:47Z" end-time="2026-11-01 06:18:59Z" duration="11.7995035">
+  <test-suite type="TestSuite" id="1141" name="DiceCraft P0" fullname="DiceCraft P0" runstate="Runnable" testcasecount="132" result="Passed" start-time="2026-11-01 06:18:47Z" end-time="2026-11-01 06:18:59Z" duration="11.799504" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <test-suite type="Assembly" id="1135" name="DiceCraft.PlayModeTests.dll" fullname="E:/agent_workspace/gpt/game2/DicePrototype/Library/ScriptAssemblies/DiceCraft.PlayModeTests.dll" runstate="Runnable" testcasecount="132" result="Passed" start-time="2026-11-01 06:18:47Z" end-time="2026-11-01 06:18:59Z" duration="11.775986" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="23240" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <test-suite type="TestSuite" id="1136" name="DiceCraft" fullname="DiceCraft" runstate="Runnable" testcasecount="132" result="Passed" start-time="2026-11-01 06:18:47Z" end-time="2026-11-01 06:18:59Z" duration="11.766869" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1137" name="Tests" fullname="DiceCraft.Tests" runstate="Runnable" testcasecount="132" result="Passed" start-time="2026-11-01 06:18:47Z" end-time="2026-11-01 06:18:59Z" duration="11.764647" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="1001" name="GameplayPlayModeTests" fullname="DiceCraft.Tests.GameplayPlayModeTests" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" testcasecount="130" result="Passed" start-time="2026-11-01 06:18:47Z" end-time="2026-11-01 06:18:59Z" duration="11.761857" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1076" name="PLAY_ART07_SETTLE_FastReducedInstantAndReopenNeverRewardOrReplay" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_SETTLE_FastReducedInstantAndReopenNeverRewardOrReplay" methodname="PLAY_ART07_SETTLE_FastReducedInstantAndReopenNeverRewardOrReplay" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="905345063" result="Passed" start-time="2026-11-01 06:18:47Z" end-time="2026-11-01 06:18:50Z" duration="3.186464" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_f28b3e8d768a4d949bfe42628e6c4511\art07-edge-screens\settlement-fast-font150-final.png
+Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_f28b3e8d768a4d949bfe42628e6c4511\art07-edge-screens\settlement-reduced-font150-ms060.png
+Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_f28b3e8d768a4d949bfe42628e6c4511\art07-edge-screens\settlement-reduced-font150-final.png
+Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_f28b3e8d768a4d949bfe42628e6c4511\art07-edge-screens\settlement-instant-font150-final.png
+Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_f28b3e8d768a4d949bfe42628e6c4511
+]]></output>
+            </test-case>
+            <test-case id="1075" name="PLAY_ART07_SETTLE_PaperCashStaggerPauseRedrawSkipAndFontsUseOneCommittedReceipt" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_SETTLE_PaperCashStaggerPauseRedrawSkipAndFontsUseOneCommittedReceipt" methodname="PLAY_ART07_SETTLE_PaperCashStaggerPauseRedrawSkipAndFontsUseOneCommittedReceipt" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="1894401636" result="Passed" start-time="2026-11-01 06:18:50Z" end-time="2026-11-01 06:18:59Z" duration="8.549601" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_f26915d605a74569b4418dc51452eaaf\art07-edge-screens\settlement-font100-ms000.png
+Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_f26915d605a74569b4418dc51452eaaf\art07-edge-screens\settlement-font100-ms180.png
+Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_f26915d605a74569b4418dc51452eaaf\art07-edge-screens\settlement-font100-ms280.png
+Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_f26915d605a74569b4418dc51452eaaf\art07-edge-screens\settlement-font100-ms380.png
+Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_f26915d605a74569b4418dc51452eaaf\art07-edge-screens\settlement-font100-ms480.png
+Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_f26915d605a74569b4418dc51452eaaf\art07-edge-screens\settlement-font100-ms600.png
+Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_f26915d605a74569b4418dc51452eaaf\art07-edge-screens\settlement-font100-ms740.png
+Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_f26915d605a74569b4418dc51452eaaf\art07-edge-screens\settlement-font125-ms000.png
+Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_f26915d605a74569b4418dc51452eaaf\art07-edge-screens\settlement-font125-ms180.png
+Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_f26915d605a74569b4418dc51452eaaf\art07-edge-screens\settlement-font125-ms280.png
+Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_f26915d605a74569b4418dc51452eaaf\art07-edge-screens\settlement-font125-ms380.png
+Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_f26915d605a74569b4418dc51452eaaf\art07-edge-screens\settlement-font125-ms480.png
+Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_f26915d605a74569b4418dc51452eaaf\art07-edge-screens\settlement-font125-ms600.png
+Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_f26915d605a74569b4418dc51452eaaf\art07-edge-screens\settlement-font125-ms740.png
+Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_f26915d605a74569b4418dc51452eaaf\art07-edge-screens\settlement-font150-ms000.png
+Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_f26915d605a74569b4418dc51452eaaf\art07-edge-screens\settlement-font150-ms180.png
+Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_f26915d605a74569b4418dc51452eaaf\art07-edge-screens\settlement-font150-ms280.png
+Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_f26915d605a74569b4418dc51452eaaf\art07-edge-screens\settlement-font150-ms380.png
+Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_f26915d605a74569b4418dc51452eaaf\art07-edge-screens\settlement-font150-ms480.png
+Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_f26915d605a74569b4418dc51452eaaf\art07-edge-screens\settlement-font150-ms600.png
+Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_f26915d605a74569b4418dc51452eaaf\art07-edge-screens\settlement-font150-ms740.png
+Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_f26915d605a74569b4418dc51452eaaf
+Saving results to: E:\agent_workspace\gpt\game2\evidence\v07\unity\nunit-20261101-061859.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

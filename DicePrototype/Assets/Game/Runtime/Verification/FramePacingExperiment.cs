@@ -131,7 +131,7 @@ namespace DiceCraft
             while (app == null)
             {
                 app = FindAnyObjectByType<GameApp>();
-                if (app != null && app.Session != null) break;
+                if (app != null && app.StartupReady07 && app.Session != null) break;
                 app = null;
                 if (Time.realtimeSinceStartupAsDouble > deadline) throw new TimeoutException("GameApp not ready.");
                 yield return null;

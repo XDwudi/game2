@@ -1,0 +1,105 @@
+{
+  "schema": "independent-review-binding-1",
+  "reviewer": "v07_spec_audit",
+  "reviewedAtUtc": "2026-11-01T04:08:47.984054+00:00",
+  "actualViewed": 11,
+  "pngs": [
+    {
+      "path": "artifacts/cache/v07-upgrade-720-040317/art07-upgrade-frames/U05-p0-23.png",
+      "sha256": "906e5bd1794ffc62dfbfa9735f017b2e3a4eafa514e03e4b68e051b4b7ca21e9"
+    },
+    {
+      "path": "artifacts/cache/v07-upgrade-720-040317/art07-upgrade-frames/U05-p18-24.png",
+      "sha256": "80e8ea552fef848809effd71d3b280d15acb04a6e49b6cd314b6bcd63cc2c9c4"
+    },
+    {
+      "path": "artifacts/cache/v07-upgrade-720-040317/art07-upgrade-frames/U05-p48-25.png",
+      "sha256": "8e6047f28d76ce5fb833b6620199042db07d339ebe262328d900a2ffa72e0d91"
+    },
+    {
+      "path": "artifacts/cache/v07-upgrade-720-040317/art07-upgrade-frames/U05-p80-26.png",
+      "sha256": "e20e1bbdf1a0d299d8229f37ce18efbead8c755a5c8c0d49118e7bc5fd3f050e"
+    },
+    {
+      "path": "artifacts/cache/v07-upgrade-720-040317/art07-upgrade-frames/U05-p99-27.png",
+      "sha256": "140f3a0330c66bfa63a146b259988c44707893228e1e8f4588231c83788669df"
+    },
+    {
+      "path": "artifacts/cache/v07-upgrade-720-040317/art07-upgrade-frames/U07-p0-30.png",
+      "sha256": "63372df55af5ff7df0c892f0c90098d60b3bf9be908327c4468eb39cb2009da4"
+    },
+    {
+      "path": "artifacts/cache/v07-upgrade-720-040317/art07-upgrade-frames/U07-p18-31.png",
+      "sha256": "f98d481b69414f4f6c0ca5bdad4ac201b2bec7552b5339f5d486ea480bd61a19"
+    },
+    {
+      "path": "artifacts/cache/v07-upgrade-720-040317/art07-upgrade-frames/U07-p48-33.png",
+      "sha256": "a8edf4cd01a621b710a36f4383eae29a92019f9171c89ac4cd8c7bfd8c07072a"
+    },
+    {
+      "path": "artifacts/cache/v07-upgrade-720-040317/art07-upgrade-frames/U07-p80-34.png",
+      "sha256": "a28c23f5f87d282e2432b091cb512a63ce508d40770244ce28b23a41422960b6"
+    },
+    {
+      "path": "artifacts/cache/v07-upgrade-720-040317/art07-upgrade-frames/U07-p99-35.png",
+      "sha256": "ce384f304035d1632e9aa0adf780cbf55a793865bb92da977c8eb7751ec9b5b1"
+    },
+    {
+      "path": "artifacts/cache/v07-upgrade-720-040317/art07-upgrade-frames/U07-question-hidden-32.png",
+      "sha256": "8d4006ebad91c5f8567092181df226451b1cb28d97b4722c6e222edba98749e1"
+    }
+  ],
+  "tests": [
+    {
+      "path": "evidence/v07/unity/nunit-20261101-040144.xml",
+      "sha256": "d2d0cb384176ea688fc890f059c3e3661ab2d2d9a973112f636c3ad4691e87bb",
+      "summary": {
+        "id": "2",
+        "testcasecount": "3",
+        "result": "Failed(Child)",
+        "total": "3",
+        "passed": "2",
+        "failed": "1",
+        "inconclusive": "0",
+        "skipped": "0",
+        "asserts": "0",
+        "engine-version": "3.5.0.0",
+        "clr-version": "4.0.30319.42000",
+        "start-time": "2026-11-01 04:01:38Z",
+        "end-time": "2026-11-01 04:01:44Z",
+        "duration": "6.8231939"
+      }
+    },
+    {
+      "path": "evidence/v07/unity/nunit-20261101-040317.xml",
+      "sha256": "c8e5b0044db9b60220081390bb166fa1922de8c8cd68c53b9d87aecedfa42d47",
+      "summary": {
+        "id": "2",
+        "testcasecount": "1",
+        "result": "Passed",
+        "total": "1",
+        "passed": "1",
+        "failed": "0",
+        "inconclusive": "0",
+        "skipped": "0",
+        "asserts": "0",
+        "engine-version": "3.5.0.0",
+        "clr-version": "4.0.30319.42000",
+        "start-time": "2026-11-01 04:03:13Z",
+        "end-time": "2026-11-01 04:03:17Z",
+        "duration": "3.525339"
+      }
+    }
+  ],
+  "limitation": "Capture directory contains PNG only, no per-frame SHA/MVID metadata. These are current hashes, not claimed comparisons against a prior producer hash. XML records progress/stage/turn and parent supplied archive provenance. Current source hash is read snapshot, not proof that later edits were compiled into this run.",
+  "readSource": [
+    {
+      "path": "DicePrototype/Assets/Game/Runtime/Presentation/Art07UpgradeSurface.cs",
+      "sha256": "fda8f3e1ab6b072f647be2e8a310cd79c6000b0a5f5070a50eeb49be59c22e73"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/UI/GameApp.Art07UpgradePreview.cs",
+      "sha256": "bfaa1d59df365bf5f472215ee63265eec5459e8211c51b451e28c73cc9242563"
+    }
+  ]
+}

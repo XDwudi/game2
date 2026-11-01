@@ -1,0 +1,372 @@
+{
+  "artVersion": "art0.7.0",
+  "originalPlanPathGapCount": 35,
+  "remainingAfterExplicitMappings": 1,
+  "note": "Original exact-path differences include resolved engineering mappings and outstanding assets. A mapping is not verification.",
+  "byAssetType": {
+    "shadergraph": [
+      {
+        "assetId": "shader_dice_three_tone",
+        "plannedSourcePath": "Assets/Art/Art07/Dice/Shaders/shader_dice_three_tone.shadergraph",
+        "plannedRuntimePath": "Assets/Art/Art07/Dice/Shaders/shader_dice_three_tone.shadergraph",
+        "actualSourcePath": "Assets/Game/Runtime/Shaders/Art07Ceramic.shader",
+        "actualRuntimePath": "Assets/Game/Runtime/Shaders/Art07Ceramic.shader",
+        "explicitMapping": true,
+        "mappedFilesPresent": true,
+        "verificationEvidence": null
+      },
+      {
+        "assetId": "shader_dice_pips",
+        "plannedSourcePath": "Assets/Art/Art07/Dice/Shaders/shader_dice_pips.shadergraph",
+        "plannedRuntimePath": "Assets/Art/Art07/Dice/Shaders/shader_dice_pips.shadergraph",
+        "actualSourcePath": "Assets/Game/Runtime/Shaders/VertexFace.shader",
+        "actualRuntimePath": "Assets/Game/Runtime/Shaders/VertexFace.shader",
+        "explicitMapping": true,
+        "mappedFilesPresent": true,
+        "verificationEvidence": null
+      },
+      {
+        "assetId": "shader_ui_local_fx",
+        "plannedSourcePath": "Assets/Art/Art07/FX/Shaders/shader_ui_local_fx.shadergraph",
+        "plannedRuntimePath": "Assets/Art/Art07/FX/Shaders/shader_ui_local_fx.shadergraph",
+        "actualSourcePath": "Assets/Game/Runtime/Shaders/Art07LocalFx.shader",
+        "actualRuntimePath": "Assets/Game/Runtime/Shaders/Art07LocalFx.shader",
+        "explicitMapping": true,
+        "mappedFilesPresent": true,
+        "verificationEvidence": null
+      }
+    ],
+    "audioclip": [
+      {
+        "assetId": "sfx_ui_hover",
+        "plannedSourcePath": "ArtSource/Art07/Audio/sfx_ui_hover.wav",
+        "plannedRuntimePath": "Assets/Art/Art07/Audio/SFX/sfx_ui_hover.wav",
+        "actualSourcePath": "ArtSource/Art07/Audio/sfx_ui_hover.wav",
+        "actualRuntimePath": "Assets/Art/Art07/Audio/sfx_ui_hover.wav",
+        "explicitMapping": true,
+        "mappedFilesPresent": true,
+        "verificationEvidence": null
+      },
+      {
+        "assetId": "sfx_ui_press",
+        "plannedSourcePath": "ArtSource/Art07/Audio/sfx_ui_press.wav",
+        "plannedRuntimePath": "Assets/Art/Art07/Audio/SFX/sfx_ui_press.wav",
+        "actualSourcePath": "ArtSource/Art07/Audio/sfx_ui_press.wav",
+        "actualRuntimePath": "Assets/Art/Art07/Audio/sfx_ui_press.wav",
+        "explicitMapping": true,
+        "mappedFilesPresent": true,
+        "verificationEvidence": null
+      },
+      {
+        "assetId": "sfx_ui_denied",
+        "plannedSourcePath": "ArtSource/Art07/Audio/sfx_ui_denied.wav",
+        "plannedRuntimePath": "Assets/Art/Art07/Audio/SFX/sfx_ui_denied.wav",
+        "actualSourcePath": "ArtSource/Art07/Audio/sfx_ui_denied.wav",
+        "actualRuntimePath": "Assets/Art/Art07/Audio/sfx_ui_denied.wav",
+        "explicitMapping": true,
+        "mappedFilesPresent": true,
+        "verificationEvidence": null
+      },
+      {
+        "assetId": "sfx_dice_roll_01",
+        "plannedSourcePath": "ArtSource/Art07/Audio/sfx_dice_roll_source.wav",
+        "plannedRuntimePath": "Assets/Art/Art07/Audio/SFX/sfx_dice_roll_01.wav",
+        "actualSourcePath": "ArtSource/Art07/Audio/sfx_dice_roll_01.wav",
+        "actualRuntimePath": "Assets/Art/Art07/Audio/sfx_dice_roll_01.wav",
+        "explicitMapping": true,
+        "mappedFilesPresent": true,
+        "verificationEvidence": null
+      },
+      {
+        "assetId": "sfx_dice_roll_02",
+        "plannedSourcePath": "ArtSource/Art07/Audio/sfx_dice_roll_source.wav",
+        "plannedRuntimePath": "Assets/Art/Art07/Audio/SFX/sfx_dice_roll_02.wav",
+        "actualSourcePath": "ArtSource/Art07/Audio/sfx_dice_roll_02.wav",
+        "actualRuntimePath": "Assets/Art/Art07/Audio/sfx_dice_roll_02.wav",
+        "explicitMapping": true,
+        "mappedFilesPresent": true,
+        "verificationEvidence": null
+      },
+      {
+        "assetId": "sfx_dice_roll_03",
+        "plannedSourcePath": "ArtSource/Art07/Audio/sfx_dice_roll_source.wav",
+        "plannedRuntimePath": "Assets/Art/Art07/Audio/SFX/sfx_dice_roll_03.wav",
+        "actualSourcePath": "ArtSource/Art07/Audio/sfx_dice_roll_03.wav",
+        "actualRuntimePath": "Assets/Art/Art07/Audio/sfx_dice_roll_03.wav",
+        "explicitMapping": true,
+        "mappedFilesPresent": true,
+        "verificationEvidence": null
+      },
+      {
+        "assetId": "sfx_dice_land_01",
+        "plannedSourcePath": "ArtSource/Art07/Audio/sfx_dice_land_source.wav",
+        "plannedRuntimePath": "Assets/Art/Art07/Audio/SFX/sfx_dice_land_01.wav",
+        "actualSourcePath": "ArtSource/Art07/Audio/sfx_dice_land_01.wav",
+        "actualRuntimePath": "Assets/Art/Art07/Audio/sfx_dice_land_01.wav",
+        "explicitMapping": true,
+        "mappedFilesPresent": true,
+        "verificationEvidence": null
+      },
+      {
+        "assetId": "sfx_dice_land_02",
+        "plannedSourcePath": "ArtSource/Art07/Audio/sfx_dice_land_source.wav",
+        "plannedRuntimePath": "Assets/Art/Art07/Audio/SFX/sfx_dice_land_02.wav",
+        "actualSourcePath": "ArtSource/Art07/Audio/sfx_dice_land_02.wav",
+        "actualRuntimePath": "Assets/Art/Art07/Audio/sfx_dice_land_02.wav",
+        "explicitMapping": true,
+        "mappedFilesPresent": true,
+        "verificationEvidence": null
+      },
+      {
+        "assetId": "sfx_dice_land_03",
+        "plannedSourcePath": "ArtSource/Art07/Audio/sfx_dice_land_source.wav",
+        "plannedRuntimePath": "Assets/Art/Art07/Audio/SFX/sfx_dice_land_03.wav",
+        "actualSourcePath": "ArtSource/Art07/Audio/sfx_dice_land_03.wav",
+        "actualRuntimePath": "Assets/Art/Art07/Audio/sfx_dice_land_03.wav",
+        "explicitMapping": true,
+        "mappedFilesPresent": true,
+        "verificationEvidence": null
+      },
+      {
+        "assetId": "sfx_lock",
+        "plannedSourcePath": "ArtSource/Art07/Audio/sfx_lock.wav",
+        "plannedRuntimePath": "Assets/Art/Art07/Audio/SFX/sfx_lock.wav",
+        "actualSourcePath": "ArtSource/Art07/Audio/sfx_lock.wav",
+        "actualRuntimePath": "Assets/Art/Art07/Audio/sfx_lock.wav",
+        "explicitMapping": true,
+        "mappedFilesPresent": true,
+        "verificationEvidence": null
+      },
+      {
+        "assetId": "sfx_card_trigger",
+        "plannedSourcePath": "ArtSource/Art07/Audio/sfx_card_trigger.wav",
+        "plannedRuntimePath": "Assets/Art/Art07/Audio/SFX/sfx_card_trigger.wav",
+        "actualSourcePath": "ArtSource/Art07/Audio/sfx_card_trigger.wav",
+        "actualRuntimePath": "Assets/Art/Art07/Audio/sfx_card_trigger.wav",
+        "explicitMapping": true,
+        "mappedFilesPresent": true,
+        "verificationEvidence": null
+      },
+      {
+        "assetId": "sfx_score_step",
+        "plannedSourcePath": "ArtSource/Art07/Audio/sfx_score_step.wav",
+        "plannedRuntimePath": "Assets/Art/Art07/Audio/SFX/sfx_score_step.wav",
+        "actualSourcePath": "ArtSource/Art07/Audio/sfx_score_step.wav",
+        "actualRuntimePath": "Assets/Art/Art07/Audio/sfx_score_step.wav",
+        "explicitMapping": true,
+        "mappedFilesPresent": true,
+        "verificationEvidence": null
+      },
+      {
+        "assetId": "sfx_score_burst_l3",
+        "plannedSourcePath": "ArtSource/Art07/Audio/sfx_score_burst_source.wav",
+        "plannedRuntimePath": "Assets/Art/Art07/Audio/SFX/sfx_score_burst_l3.wav",
+        "actualSourcePath": "ArtSource/Art07/Audio/sfx_score_burst_l3.wav",
+        "actualRuntimePath": "Assets/Art/Art07/Audio/sfx_score_burst_l3.wav",
+        "explicitMapping": true,
+        "mappedFilesPresent": true,
+        "verificationEvidence": null
+      },
+      {
+        "assetId": "sfx_score_burst_l4",
+        "plannedSourcePath": "ArtSource/Art07/Audio/sfx_score_burst_source.wav",
+        "plannedRuntimePath": "Assets/Art/Art07/Audio/SFX/sfx_score_burst_l4.wav",
+        "actualSourcePath": "ArtSource/Art07/Audio/sfx_score_burst_l4.wav",
+        "actualRuntimePath": "Assets/Art/Art07/Audio/sfx_score_burst_l4.wav",
+        "explicitMapping": true,
+        "mappedFilesPresent": true,
+        "verificationEvidence": null
+      },
+      {
+        "assetId": "sfx_score_burst_l5",
+        "plannedSourcePath": "ArtSource/Art07/Audio/sfx_score_burst_source.wav",
+        "plannedRuntimePath": "Assets/Art/Art07/Audio/SFX/sfx_score_burst_l5.wav",
+        "actualSourcePath": "ArtSource/Art07/Audio/sfx_score_burst_l5.wav",
+        "actualRuntimePath": "Assets/Art/Art07/Audio/sfx_score_burst_l5.wav",
+        "explicitMapping": true,
+        "mappedFilesPresent": true,
+        "verificationEvidence": null
+      },
+      {
+        "assetId": "sfx_coin",
+        "plannedSourcePath": "ArtSource/Art07/Audio/sfx_coin.wav",
+        "plannedRuntimePath": "Assets/Art/Art07/Audio/SFX/sfx_coin.wav",
+        "actualSourcePath": "ArtSource/Art07/Audio/sfx_coin.wav",
+        "actualRuntimePath": "Assets/Art/Art07/Audio/sfx_coin.wav",
+        "explicitMapping": true,
+        "mappedFilesPresent": true,
+        "verificationEvidence": null
+      },
+      {
+        "assetId": "sfx_grow",
+        "plannedSourcePath": "ArtSource/Art07/Audio/sfx_grow.wav",
+        "plannedRuntimePath": "Assets/Art/Art07/Audio/SFX/sfx_grow.wav",
+        "actualSourcePath": "ArtSource/Art07/Audio/sfx_grow.wav",
+        "actualRuntimePath": "Assets/Art/Art07/Audio/sfx_grow.wav",
+        "explicitMapping": true,
+        "mappedFilesPresent": true,
+        "verificationEvidence": null
+      },
+      {
+        "assetId": "sfx_dye",
+        "plannedSourcePath": "ArtSource/Art07/Audio/sfx_dye.wav",
+        "plannedRuntimePath": "Assets/Art/Art07/Audio/SFX/sfx_dye.wav",
+        "actualSourcePath": "ArtSource/Art07/Audio/sfx_dye.wav",
+        "actualRuntimePath": "Assets/Art/Art07/Audio/sfx_dye.wav",
+        "explicitMapping": true,
+        "mappedFilesPresent": true,
+        "verificationEvidence": null
+      },
+      {
+        "assetId": "sfx_copy",
+        "plannedSourcePath": "ArtSource/Art07/Audio/sfx_copy.wav",
+        "plannedRuntimePath": "Assets/Art/Art07/Audio/SFX/sfx_copy.wav",
+        "actualSourcePath": "ArtSource/Art07/Audio/sfx_copy.wav",
+        "actualRuntimePath": "Assets/Art/Art07/Audio/sfx_copy.wav",
+        "explicitMapping": true,
+        "mappedFilesPresent": true,
+        "verificationEvidence": null
+      },
+      {
+        "assetId": "sfx_dice_break",
+        "plannedSourcePath": "ArtSource/Art07/Audio/sfx_dice_break.wav",
+        "plannedRuntimePath": "Assets/Art/Art07/Audio/SFX/sfx_dice_break.wav",
+        "actualSourcePath": "ArtSource/Art07/Audio/sfx_dice_break.wav",
+        "actualRuntimePath": "Assets/Art/Art07/Audio/sfx_dice_break.wav",
+        "explicitMapping": true,
+        "mappedFilesPresent": true,
+        "verificationEvidence": null
+      },
+      {
+        "assetId": "sfx_card_break",
+        "plannedSourcePath": "ArtSource/Art07/Audio/sfx_card_break.wav",
+        "plannedRuntimePath": "Assets/Art/Art07/Audio/SFX/sfx_card_break.wav",
+        "actualSourcePath": "ArtSource/Art07/Audio/sfx_card_break.wav",
+        "actualRuntimePath": "Assets/Art/Art07/Audio/sfx_card_break.wav",
+        "explicitMapping": true,
+        "mappedFilesPresent": true,
+        "verificationEvidence": null
+      },
+      {
+        "assetId": "sfx_refresh",
+        "plannedSourcePath": "ArtSource/Art07/Audio/sfx_refresh.wav",
+        "plannedRuntimePath": "Assets/Art/Art07/Audio/SFX/sfx_refresh.wav",
+        "actualSourcePath": "ArtSource/Art07/Audio/sfx_refresh.wav",
+        "actualRuntimePath": "Assets/Art/Art07/Audio/sfx_refresh.wav",
+        "explicitMapping": true,
+        "mappedFilesPresent": true,
+        "verificationEvidence": null
+      },
+      {
+        "assetId": "sfx_qualified",
+        "plannedSourcePath": "ArtSource/Art07/Audio/sfx_qualified.wav",
+        "plannedRuntimePath": "Assets/Art/Art07/Audio/SFX/sfx_qualified.wav",
+        "actualSourcePath": "ArtSource/Art07/Audio/sfx_qualified.wav",
+        "actualRuntimePath": "Assets/Art/Art07/Audio/sfx_qualified.wav",
+        "explicitMapping": true,
+        "mappedFilesPresent": true,
+        "verificationEvidence": null
+      },
+      {
+        "assetId": "sfx_run_win",
+        "plannedSourcePath": "ArtSource/Art07/Audio/sfx_run_win.wav",
+        "plannedRuntimePath": "Assets/Art/Art07/Audio/SFX/sfx_run_win.wav",
+        "actualSourcePath": "ArtSource/Art07/Audio/sfx_run_win.wav",
+        "actualRuntimePath": "Assets/Art/Art07/Audio/sfx_run_win.wav",
+        "explicitMapping": true,
+        "mappedFilesPresent": true,
+        "verificationEvidence": null
+      },
+      {
+        "assetId": "sfx_run_fail",
+        "plannedSourcePath": "ArtSource/Art07/Audio/sfx_run_fail.wav",
+        "plannedRuntimePath": "Assets/Art/Art07/Audio/SFX/sfx_run_fail.wav",
+        "actualSourcePath": "ArtSource/Art07/Audio/sfx_run_fail.wav",
+        "actualRuntimePath": "Assets/Art/Art07/Audio/sfx_run_fail.wav",
+        "explicitMapping": true,
+        "mappedFilesPresent": true,
+        "verificationEvidence": null
+      }
+    ],
+    "audio_mixer": [
+      {
+        "assetId": "mixer_art07",
+        "plannedSourcePath": "Assets/Art/Art07/Audio/mixer_art07.mixer",
+        "plannedRuntimePath": "Assets/Art/Art07/Audio/mixer_art07.mixer",
+        "actualSourcePath": "Assets/Art/Art07/Audio/mixer_art07.mixer",
+        "actualRuntimePath": "Assets/Art/Art07/Audio/mixer_art07.mixer",
+        "explicitMapping": false,
+        "mappedFilesPresent": false,
+        "verificationEvidence": null
+      }
+    ],
+    "font": [
+      {
+        "assetId": "font_cjk_source",
+        "plannedSourcePath": "ArtSource/Art07/Fonts/font_cjk_source.otf",
+        "plannedRuntimePath": "Assets/Art/Art07/Fonts/font_cjk_source.otf",
+        "actualSourcePath": "Assets/Game/Fonts/NotoSansCJKsc-Regular.otf",
+        "actualRuntimePath": "Assets/Game/Fonts/NotoSansCJKsc-Regular.otf",
+        "explicitMapping": true,
+        "mappedFilesPresent": true,
+        "verificationEvidence": null
+      }
+    ],
+    "text": [
+      {
+        "assetId": "font_cjk_license",
+        "plannedSourcePath": "ArtSource/Art07/Fonts/font_cjk_license.txt",
+        "plannedRuntimePath": "Assets/Art/Art07/Fonts/font_cjk_license.txt",
+        "actualSourcePath": "Assets/Game/Fonts/LICENSE.txt",
+        "actualRuntimePath": "Assets/Game/Fonts/LICENSE.txt",
+        "explicitMapping": true,
+        "mappedFilesPresent": true,
+        "verificationEvidence": null
+      }
+    ],
+    "tmp_font_asset": [
+      {
+        "assetId": "font_cjk_tmp",
+        "plannedSourcePath": "Assets/Art/Art07/Fonts/font_cjk_tmp.asset",
+        "plannedRuntimePath": "Assets/Art/Art07/Fonts/font_cjk_tmp.asset",
+        "actualSourcePath": "Assets/Game/Fonts/DiceChinese.asset",
+        "actualRuntimePath": "Assets/Game/Fonts/DiceChinese.asset",
+        "explicitMapping": true,
+        "mappedFilesPresent": true,
+        "verificationEvidence": null
+      }
+    ],
+    "spriteatlas": [
+      {
+        "assetId": "atlas_ui_pixel",
+        "plannedSourcePath": "Assets/Art/Art07/UI/Atlases/atlas_ui_pixel.spriteatlas",
+        "plannedRuntimePath": "Assets/Art/Art07/UI/Atlases/atlas_ui_pixel.spriteatlas",
+        "actualSourcePath": "Assets/Art/Art07/UI/Atlases/atlas_ui_pixel.spriteatlasv2",
+        "actualRuntimePath": "Assets/Art/Art07/UI/Atlases/atlas_ui_pixel.spriteatlasv2",
+        "explicitMapping": true,
+        "mappedFilesPresent": true,
+        "verificationEvidence": null
+      },
+      {
+        "assetId": "atlas_content_icons_pixel",
+        "plannedSourcePath": "Assets/Art/Art07/UI/Atlases/atlas_content_icons_pixel.spriteatlas",
+        "plannedRuntimePath": "Assets/Art/Art07/UI/Atlases/atlas_content_icons_pixel.spriteatlas",
+        "actualSourcePath": "Assets/Art/Art07/UI/Atlases/atlas_content_icons_pixel.spriteatlasv2",
+        "actualRuntimePath": "Assets/Art/Art07/UI/Atlases/atlas_content_icons_pixel.spriteatlasv2",
+        "explicitMapping": true,
+        "mappedFilesPresent": true,
+        "verificationEvidence": null
+      },
+      {
+        "assetId": "atlas_fx_soft",
+        "plannedSourcePath": "Assets/Art/Art07/FX/Atlases/atlas_fx_soft.spriteatlas",
+        "plannedRuntimePath": "Assets/Art/Art07/FX/Atlases/atlas_fx_soft.spriteatlas",
+        "actualSourcePath": "Assets/Art/Art07/FX/Atlases/atlas_fx_soft.spriteatlasv2",
+        "actualRuntimePath": "Assets/Art/Art07/FX/Atlases/atlas_fx_soft.spriteatlasv2",
+        "explicitMapping": true,
+        "mappedFilesPresent": true,
+        "verificationEvidence": null
+      }
+    ]
+  }
+}

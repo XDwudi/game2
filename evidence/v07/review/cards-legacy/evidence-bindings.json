@@ -1,0 +1,1974 @@
+{
+  "reviewer": "/root/v07_spec_audit",
+  "batches": [
+    {
+      "stamp": "023325",
+      "bindingSha": "363dad6961805855ce428b7602b1d6e1a9b13b40e6202938a8396538e84ba1db",
+      "reportSha": "e5e79acf65131b1f57bd147238b573d0792f920d21e8fcd7c5278722dfd4e2d1",
+      "reportMatches": true,
+      "sourceStable": true,
+      "sourceCount": 1236,
+      "assembliesStable": true,
+      "assemblies": [
+        {
+          "name": "DiceCraft.Core",
+          "mvid": "8f690e0d-a075-4b72-98e4-2cb64ced2fa3",
+          "dllSha256": "44a137cd38d7b525382dfda7adbdb7676d12d1dbc05520638d8a14642a96031b"
+        },
+        {
+          "name": "DiceCraft.EditMode",
+          "mvid": "bac2fa38-55a0-4844-af0e-731038a103d3",
+          "dllSha256": "c8384697dde0b543c3b7f61ea91c803dc8bd461495e4df7719804aab7ee94536"
+        },
+        {
+          "name": "DiceCraft.Editor",
+          "mvid": "f38f09fc-1dda-4ed2-89e9-4211a12a1a9d",
+          "dllSha256": "13cc0cd3e8590e1779e65a3aee08d2ed2a5a2b7536b92132917b699c3cb1cf7c"
+        },
+        {
+          "name": "DiceCraft.PlayModeTests",
+          "mvid": "25a850eb-d21c-4c30-a10a-76ea2c69ea42",
+          "dllSha256": "858cc59cfb01e94d168ecc4cd9ecae489272b894c089ca1f9e48f271aa630b8b"
+        },
+        {
+          "name": "DiceCraft.Runtime",
+          "mvid": "6e8b187b-4c1d-4cac-ab3f-49cb4a1ce6d8",
+          "dllSha256": "07dc5ac7dffb234ae8d548a6f95f5ca592b77884987fccf527ef414c3c1556f5"
+        }
+      ],
+      "result": {
+        "id": "2",
+        "testcasecount": "92",
+        "result": "Failed(Child)",
+        "total": "92",
+        "passed": "74",
+        "failed": "18",
+        "inconclusive": "0",
+        "skipped": "0",
+        "asserts": "0",
+        "engine-version": "3.5.0.0",
+        "clr-version": "4.0.30319.42000",
+        "start-time": "2026-11-01 02:29:05Z",
+        "end-time": "2026-11-01 02:33:25Z",
+        "duration": "260.472921"
+      },
+      "tests": [
+        {
+          "name": "PLAY_Art07_AbandonUnsavedRollRestoresCheckpointWithoutReplayingOrReplacingCandidate",
+          "result": "Passed",
+          "message": null
+        },
+        {
+          "name": "PLAY_ART07_AllDiagnosticScenesValidateThroughRealSession",
+          "result": "Passed",
+          "message": null
+        },
+        {
+          "name": "PLAY_ART07_BothRollSpeedsFixPhysicalFaceForFinal120Milliseconds",
+          "result": "Passed",
+          "message": null
+        },
+        {
+          "name": "PLAY_ART07_BurstL5ReducedThenL0ThenNormalCannotRetainCelebrationOrParticleMotion",
+          "result": "Passed",
+          "message": null
+        },
+        {
+          "name": "PLAY_ART07_CardInformationPreservesPricesAndGeometricRarity",
+          "result": "Failed",
+          "message": "  Expected: False\n  But was:  True\n"
+        },
+        {
+          "name": "PLAY_ART07_ChallengeSelectionIsUiOnlyAndStartCommitsOnlyNecessaryCommands",
+          "result": "Passed",
+          "message": null
+        },
+        {
+          "name": "PLAY_ART07_ChallengeStartSaveFaultKeepsSingleCandidateAndStopsBeforeNextCommand",
+          "result": "Passed",
+          "message": null
+        },
+        {
+          "name": "PLAY_ART07_ControllerFullCompactPoolReuseKeepsOneIdentityAndClearsBadgeTintAndOldClick",
+          "result": "Passed",
+          "message": null
+        },
+        {
+          "name": "PLAY_ART07_CopyLinkElbowThenStraightResetsBindingSegmentsAndArrowEndpoint",
+          "result": "Passed",
+          "message": null
+        },
+        {
+          "name": "PLAY_ART07_DebugPasswordEntryDoesNotChangeOrdinaryRunBeforeExplicitCopy",
+          "result": "Passed",
+          "message": null
+        },
+        {
+          "name": "PLAY_ART07_DiceLockAndRetargetMoveWithoutTeleportAndPendingLiftKeepsIdentity",
+          "result": "Passed",
+          "message": null
+        },
+        {
+          "name": "PLAY_Art07_DiceNetSeparatesPermanentRemoteAndEffectiveAndKeepsZeroProbabilityEmpty",
+          "result": "Passed",
+          "message": null
+        },
+        {
+          "name": "PLAY_ART07_DiceSheetFadeKeepsApertureAndPreviewStationaryThenRestoresBoardSynchronously",
+          "result": "Passed",
+          "message": null
+        },
+        {
+          "name": "PLAY_ART07_DieViewCommittedFaceBindingsAndGlassMaterialResetWithoutChangingSharedAssets",
+          "result": "Passed",
+          "message": null
+        },
+        {
+          "name": "PLAY_ART07_DropOutsideSlotsCancelsEvenWhenNearestDieIsWithinOldRadius",
+          "result": "Passed",
+          "message": null
+        },
+        {
+          "name": "PLAY_ART07_ExactScoreAndZeroProbabilitySurvivePresentationAndClearOnPoolReturn",
+          "result": "Passed",
+          "message": null
+        },
+        {
+          "name": "PLAY_ART07_ExtraCapture_S11PurchaseReplacementAndFundSale",
+          "result": "Passed",
+          "message": null
+        },
+        {
+          "name": "PLAY_ART07_ExtraCapture_S11RefreshAndExpandOnlyTheirOwnShelves",
+          "result": "Passed",
+          "message": null
+        },
+        {
+          "name": "PLAY_ART07_ExtraCapture_S13RemoteTargetsCancelAndSingleUse",
+          "result": "Passed",
+          "message": null
+        },
+        {
+          "name": "PLAY_ART07_ExtraCapture_S13UpgradeTargetsCancelAndRandomRange",
+          "result": "Passed",
+          "message": null
+        },
+        {
+          "name": "PLAY_ART07_ExtraCapture_S22RealSaveFaultRetryAbandonAndBackupRecovery",
+          "result": "Passed",
+          "message": null
+        },
+        {
+          "name": "PLAY_ART07_FINAL_ComboKeepsUniformChipsAndEmptyNumberBackground",
+          "result": "Passed",
+          "message": null
+        },
+        {
+          "name": "PLAY_ART07_FINAL_EnablingReducedWhileTransactionPausedSettlesFinalUi",
+          "result": "Passed",
+          "message": null
+        },
+        {
+          "name": "PLAY_ART07_FINAL_FocusLossSettlesRollAndTransactionWithoutAnotherCommit",
+          "result": "Passed",
+          "message": null
+        },
+        {
+          "name": "PLAY_ART07_FINAL_RealRendererNormalFastReducedInstantRetainCommittedScoreAndSources",
+          "result": "Passed",
+          "message": null
+        },
+        {
+          "name": "PLAY_ART07_FINAL_RejectedActionKeepsFinalSuccessfulRollClearsIt",
+          "result": "Passed",
+          "message": null
+        },
+        {
+          "name": "PLAY_ART07_FINAL_SkipKeepsZeroScorePostChangesAndReadOnlyDetails",
+          "result": "Passed",
+          "message": null
+        },
+        {
+          "name": "PLAY_ART07_FirstBoundaryHintsOnlyChangeReadPreferencesAndNeverCoverActionsOrReplayAfterDismissal",
+          "result": "Passed",
+          "message": null
+        },
+        {
+          "name": "PLAY_ART07_FirstRunGuideFollowsRealActionsAndShopWithoutMutatingRules",
+          "result": "Passed",
+          "message": null
+        },
+        {
+          "name": "PLAY_ART07_FX_CopyRouteUsesFiveSegmentsAcrossRowsAndNoInventedHiddenAnchor",
+          "result": "Passed",
+          "message": null
+        },
+        {
+          "name": "PLAY_ART07_FX_ExtraSubmissionAndExtraRollReportDifferentActualBudgets",
+          "result": "Passed",
+          "message": null
+        },
+        {
+          "name": "PLAY_ART07_FX_FastSourceMarksLowQualityReplayAndSkipReset",
+          "result": "Passed",
+          "message": null
+        },
+        {
+          "name": "PLAY_ART07_FX_MultipleRandomOwnersAndSharedCopyUseCompleteCommittedList",
+          "result": "Passed",
+          "message": null
+        },
+        {
+          "name": "PLAY_ART07_FX_NormalPunchCompletesAcrossAdjacentBeatsAndSkipResets",
+          "result": "Passed",
+          "message": null
+        },
+        {
+          "name": "PLAY_ART07_FX_PostScoreThreeTargetsRiskAndFrozenReplayPhysicalPips",
+          "result": "Passed",
+          "message": null
+        },
+        {
+          "name": "PLAY_ART07_FX_RealRollAndRemoteBreakUsePlacedWorldPoolAndSkipResets",
+          "result": "Passed",
+          "message": null
+        },
+        {
+          "name": "PLAY_ART07_G147UsesPublicDebugCommandsAndPreservesNormalCheckpoint",
+          "result": "Passed",
+          "message": null
+        },
+        {
+          "name": "PLAY_ART07_GlassBackFacesHiddenAndGpuShellTransparentWhilePipsStayOpaque",
+          "result": "Passed",
+          "message": null
+        },
+        {
+          "name": "PLAY_ART07_GuideLayoutAllFourActionsAvoidActualDiceAndHudAndPointAtLiveTargets",
+          "result": "Passed",
+          "message": null
+        },
+        {
+          "name": "PLAY_ART07_GuideLayoutManualReopenAtMaximumCapacityKeepsCompleteInlineHelpAndClose",
+          "result": "Passed",
+          "message": null
+        },
+        {
+          "name": "PLAY_ART07_GuideLayoutShopPaperLeavesPricesAndTabsVisibleAtBothFontScales",
+          "result": "Passed",
+          "message": null
+        },
+        {
+          "name": "PLAY_ART07_InvalidSeedKeepsDialogAndInputUntilCorrected",
+          "result": "Passed",
+          "message": null
+        },
+        {
+          "name": "PLAY_ART07_LibraryAll26SerializedPrefabsInstantiateWithRealMeshesTextAndSupportedMaterials",
+          "result": "Passed",
+          "message": null
+        },
+        {
+          "name": "PLAY_ART07_LoadIssueExplanationHasS22TimingAndDoesNotRewriteOrMigrateTheCheckpoint",
+          "result": "Passed",
+          "message": null
+        },
+        {
+          "name": "PLAY_ART07_LockedDieDragFollowsPointerAndEscapeOrFocusCallbackRestoresCheckpoint",
+          "result": "Passed",
+          "message": null
+        },
+        {
+          "name": "PLAY_ART07_LockedDieDropCommitsExactlyOneReorderWithoutUnlocking",
+          "result": "Passed",
+          "message": null
+        },
+        {
+          "name": "PLAY_ART07_ModalRedrawDoesNotRestartFadeAndCloseImmediatelyReleasesInputWithNoninteractiveTail",
+          "result": "Passed",
+          "message": null
+        },
+        {
+          "name": "PLAY_ART07_PooledTicketRealClockPauseResumeAndCancelNeverInvokeAnOldReceiptCallback",
+          "result": "Passed",
+          "message": null
+        },
+        {
+          "name": "PLAY_ART07_RandomNineBranchesSharedOwnerAreExactAndReadOnly",
+          "result": "Passed",
+          "message": null
+        },
+        {
+          "name": "PLAY_ART07_RealCommittedReceiptThreeSpeedsAndReducedMotionPreserveStateAndSaveBytes",
+          "result": "Passed",
+          "message": null
+        },
+        {
+          "name": "PLAY_ART07_ResultScreensUseRealTerminalCommandsAndPreserveExactReceipts",
+          "result": "Passed",
+          "message": null
+        },
+        {
+          "name": "PLAY_ART07_ScoreStructureChosenItemAndZeroReasonRemainIndependent",
+          "result": "Passed",
+          "message": null
+        },
+        {
+          "name": "PLAY_ART07_SettlementUsesActualIncomeFundAndTemporaryCleanupReceipts",
+          "result": "Passed",
+          "message": null
+        },
+        {
+          "name": "PLAY_ART07_TwoHundredFullRendererReplaysKeepNodesMaterialsAndCommittedStateStable",
+          "result": "Passed",
+          "message": null
+        },
+        {
+          "name": "PLAY_ART07_TX_ExpansionAnimatesOnlyActuallyAddedSlotAndPreservesOtherOffers",
+          "result": "Passed",
+          "message": null
+        },
+        {
+          "name": "PLAY_ART07_TX_FailedPurchaseDiscardsInvisibleCaptureAndKeepsCheckpoint",
+          "result": "Passed",
+          "message": null
+        },
+        {
+          "name": "PLAY_ART07_TX_PhysicalUpgradeUsesActualFaceAndOverlapping360Or420Timeline",
+          "result": "Passed",
+          "message": null
+        },
+        {
+          "name": "PLAY_ART07_TX_PurchaseUsesCommittedNewInstanceAndSkipRestoresAllGroups",
+          "result": "Passed",
+          "message": null
+        },
+        {
+          "name": "PLAY_ART07_TX_RefreshOnlyControllerShelfUsesOld100AndNew180Milliseconds",
+          "result": "Passed",
+          "message": null
+        },
+        {
+          "name": "PLAY_ART07_TX_SaveFailureRetainsOldShelfAndRetryAnimatesSameSavedCandidate",
+          "result": "Passed",
+          "message": null
+        },
+        {
+          "name": "PLAY_Bootstrap_RealReferences71IconsFontAndSingleInputSystem",
+          "result": "Passed",
+          "message": null
+        },
+        {
+          "name": "PLAY_BusyRejectsBypassedUiAndSkipPreservesCommittedRandomness",
+          "result": "Passed",
+          "message": null
+        },
+        {
+          "name": "PLAY_CoreLoop_ClickLockReorderAndSubmitMatchesPreview",
+          "result": "Passed",
+          "message": null
+        },
+        {
+          "name": "PLAY_ExistingRunRollAndSubmitSaveFailureRetriesExactCandidateAndPresentsOnce",
+          "result": "Failed",
+          "message": "  Expected exactly one active TextMeshProUGUI named Toast\n  Expected: 1\n  But was:  0\n"
+        },
+        {
+          "name": "PLAY_FastAnimationUsesSameSeedResultsAndDoesNotConsumeExtraRolls",
+          "result": "Failed",
+          "message": "  Expected exactly one active Button named Fast\n  Expected: 1\n  But was:  0\n"
+        },
+        {
+          "name": "PLAY_FirstNewRunSaveFailureOffersRetryAndBlocksBothReplacementEntrances",
+          "result": "Passed",
+          "message": null
+        },
+        {
+          "name": "PLAY_IndependentTutorialCompletesRealPurchaseAndPreservesFormalRun",
+          "result": "Passed",
+          "message": null
+        },
+        {
+          "name": "PLAY_PooledPurchaseAndReadonlyFacesCannotRetainOldTargetsOrListeners",
+          "result": "Failed",
+          "message": "  Expected: True\n  But was:  False\n"
+        },
+        {
+          "name": "PLAY_PooledRefreshKeepsNodeIdentitiesAndResetsScrollInputAndSlider",
+          "result": "Failed",
+          "message": "  Expected exactly one active Button named Expanded\n  Expected: 1\n  But was:  0\n"
+        },
+        {
+          "name": "PLAY_PreviousSubmissionRetainsOriginalScoreAndPermanentEffectsAfterNextRollAndReload",
+          "result": "Failed",
+          "message": "  Expected exactly one active Button named Expanded\n  Expected: 1\n  But was:  0\n"
+        },
+        {
+          "name": "PLAY_ReadOnlyActionLogCannotAbortAnAlreadySavedUiCommand",
+          "result": "Passed",
+          "message": null
+        },
+        {
+          "name": "PLAY_RealEnterKeySubmitsOnceWithoutInvokingSelectedPauseButton",
+          "result": "Passed",
+          "message": null
+        },
+        {
+          "name": "PLAY_RealKeyboardTenDiceMappingModalSeedFocusAndHeldKeys",
+          "result": "Failed",
+          "message": "  Expected exactly one active TMP_InputField named SeedInput\n  Expected: 1\n  But was:  0\n"
+        },
+        {
+          "name": "PLAY_ReloadDuringRollRestoresLocksOrderAndAcceptedFaceResults",
+          "result": "Passed",
+          "message": null
+        },
+        {
+          "name": "PLAY_RemoteItemTargetsCancelC12LabelsAndBrokenTargetMatchActualUi",
+          "result": "Failed",
+          "message": "  The rolled physical face must show current, not C12 effective, pips.\n  Expected: 1\n  But was:  2\n"
+        },
+        {
+          "name": "PLAY_SceneUnloadReloadResetsStaticUiAndDoesNotLeakSession",
+          "result": "Passed",
+          "message": null
+        },
+        {
+          "name": "PLAY_ShopCapacityDiscountAndStudyUiRefreshAcrossTransactions",
+          "result": "Failed",
+          "message": "  Expected: True\n  But was:  False\n"
+        },
+        {
+          "name": "PLAY_ShopPurchaseFooterShowsSlotAndDuplicateFailuresBeforeConfirm",
+          "result": "Failed",
+          "message": "  Expected exactly one active TextMeshProUGUI named PurchaseUnavailable\n  Expected: 1\n  But was:  0\n"
+        },
+        {
+          "name": "PLAY_ShopTargetCancellationAndPermanentDiceBoundariesPreserveOffers",
+          "result": "Failed",
+          "message": "  Expected: True\n  But was:  False\n"
+        },
+        {
+          "name": "PLAY_SixPhysicalFacesAndRemotePipsHaveCorrectOrientationAndDotCount",
+          "result": "Failed",
+          "message": "  The face must render the exact pip count, independently of tessellation.\n  Expected: 1\n  But was:  2\n"
+        },
+        {
+          "name": "PLAY_V05_EnchantedReplacementDisplaysNetPriceAndPersistsInstance",
+          "result": "Passed",
+          "message": null
+        },
+        {
+          "name": "PLAY_V05_HandbookChangesWithCapacitySimpleStraightUpgradeAndReload",
+          "result": "Failed",
+          "message": "  Expected: True\n  But was:  False\n"
+        },
+        {
+          "name": "PLAY_V05_HandbookTwentyReadsPreservePendingSaveAndAllRuleState",
+          "result": "Failed",
+          "message": "  Expected exactly one active Button named HeaderHandbook\n  Expected: 1\n  But was:  0\n"
+        },
+        {
+          "name": "PLAY_V05_QualifiedContinuesAndEndDiscardsUnsubmittedHandWithOneReward",
+          "result": "Passed",
+          "message": null
+        },
+        {
+          "name": "PLAY_V06_ControllerInsertionNoOpOutsideCancelAndFrozenMimic",
+          "result": "Failed",
+          "message": "  Expected exactly one active Button named PreviewControllers\n  Expected: 1\n  But was:  0\n"
+        },
+        {
+          "name": "PLAY_V06_DebugPasswordAddApplyReloadAndReturnPreserveNormalCheckpoint",
+          "result": "Passed",
+          "message": null
+        },
+        {
+          "name": "PLAY_V06_DebugThirtyTwoDiceLevelsInputFailureAndExactPreviewAreAccessible",
+          "result": "Failed",
+          "message": "  Dice pool pagination must not cover visible dice hit areas.\n  Expected: False\n  But was:  True\n"
+        },
+        {
+          "name": "PLAY_V06_RemoteThirtyTwoTargetsScrollAndKeepExactlyTwoWithoutOverlap",
+          "result": "Failed",
+          "message": "  Expected exactly one active TextMeshProUGUI named ControllersTitle\n  Expected: 1\n  But was:  0\n"
+        },
+        {
+          "name": "PLAY_V06_SettingsPasswordFocusBlocksSubmitAndDisplaySettingsStayOutsideRun",
+          "result": "Passed",
+          "message": null
+        },
+        {
+          "name": "PLAY_V06_ShopThirtyTwoTargetsScrollUpgradeAndDeleteOnlyChosenDie",
+          "result": "Failed",
+          "message": "  Expected: True\n  But was:  False\n"
+        },
+        {
+          "name": "PLAY_ART07_AudioPrewarmsTwelveShortVoicesOneMusicAndNoGrowthAcross200Receipts",
+          "result": "Passed",
+          "message": null
+        },
+        {
+          "name": "PLAY_ART07_AudioStopsOnlyOwningReceiptAndMuteAppliesImmediately",
+          "result": "Passed",
+          "message": null
+        }
+      ],
+      "coreDataChangedSinceBatch": []
+    },
+    {
+      "stamp": "023926",
+      "bindingSha": "fe2d8b9839c74a53ea3669608535102413ab0ee864d7a4eec6c72c9496d8b944",
+      "reportSha": "910ee2fa60b52b812fb912a0837d71806050c782be21e5e7f6777285d2ab8c12",
+      "reportMatches": true,
+      "sourceStable": true,
+      "sourceCount": 1240,
+      "assembliesStable": true,
+      "assemblies": [
+        {
+          "name": "DiceCraft.Core",
+          "mvid": "8f690e0d-a075-4b72-98e4-2cb64ced2fa3",
+          "dllSha256": "44a137cd38d7b525382dfda7adbdb7676d12d1dbc05520638d8a14642a96031b"
+        },
+        {
+          "name": "DiceCraft.EditMode",
+          "mvid": "ff54b1e4-a676-48a5-8c58-1628e63f2b48",
+          "dllSha256": "56138d84b28446c7882d6d33e7314701c188324f03f72945f40a925205c7d640"
+        },
+        {
+          "name": "DiceCraft.Editor",
+          "mvid": "4e6c58ab-0abb-481d-9118-aa3705cbf988",
+          "dllSha256": "9c01231b6dfd18068a4e5aab083eb6410a0a1af4821fac21f0be3b19ed0ad9dc"
+        },
+        {
+          "name": "DiceCraft.PlayModeTests",
+          "mvid": "f514f7d9-9adb-4d10-a4f5-ebfc5baa6930",
+          "dllSha256": "df519d30b785ccfbc7af47256d8c4249a8e9b09b32caa15af8adb8d4ba21e593"
+        },
+        {
+          "name": "DiceCraft.Runtime",
+          "mvid": "87e72493-6969-41c9-82eb-6b907071ce85",
+          "dllSha256": "dc87b6ae28bfa0ff0f2950a3887ca73a560ddea44c5a71ad64ec62b992e6ecc8"
+        }
+      ],
+      "result": {
+        "id": "2",
+        "testcasecount": "1",
+        "result": "Passed",
+        "total": "1",
+        "passed": "1",
+        "failed": "0",
+        "inconclusive": "0",
+        "skipped": "0",
+        "asserts": "0",
+        "engine-version": "3.5.0.0",
+        "clr-version": "4.0.30319.42000",
+        "start-time": "2026-11-01 02:39:05Z",
+        "end-time": "2026-11-01 02:39:26Z",
+        "duration": "20.3957152"
+      },
+      "tests": [
+        {
+          "name": "PLAY_ART07_CardReadability_ThreeFontsAtActual720Or1080",
+          "result": "Passed",
+          "message": null
+        }
+      ],
+      "coreDataChangedSinceBatch": []
+    },
+    {
+      "stamp": "024113",
+      "bindingSha": "eacbbd28c6b6df1fb495b06f18138416f39be1b9c76c661d70fea37c3b0b5b0a",
+      "reportSha": "7508d475744af6b9d4a1a7bcccf2fb146fc0b11d4e28da623a325672623d0e31",
+      "reportMatches": true,
+      "sourceStable": true,
+      "sourceCount": 1242,
+      "assembliesStable": true,
+      "assemblies": [
+        {
+          "name": "DiceCraft.Core",
+          "mvid": "8f690e0d-a075-4b72-98e4-2cb64ced2fa3",
+          "dllSha256": "44a137cd38d7b525382dfda7adbdb7676d12d1dbc05520638d8a14642a96031b"
+        },
+        {
+          "name": "DiceCraft.EditMode",
+          "mvid": "ff54b1e4-a676-48a5-8c58-1628e63f2b48",
+          "dllSha256": "56138d84b28446c7882d6d33e7314701c188324f03f72945f40a925205c7d640"
+        },
+        {
+          "name": "DiceCraft.Editor",
+          "mvid": "4e6c58ab-0abb-481d-9118-aa3705cbf988",
+          "dllSha256": "9c01231b6dfd18068a4e5aab083eb6410a0a1af4821fac21f0be3b19ed0ad9dc"
+        },
+        {
+          "name": "DiceCraft.PlayModeTests",
+          "mvid": "2b9aa2e2-1e04-4480-9c5d-f25afd7a87c5",
+          "dllSha256": "10fb016a43cce91aa13a11c2772dd62b7845064afcd61ab847f59c11c95d9d2d"
+        },
+        {
+          "name": "DiceCraft.Runtime",
+          "mvid": "87e72493-6969-41c9-82eb-6b907071ce85",
+          "dllSha256": "dc87b6ae28bfa0ff0f2950a3887ca73a560ddea44c5a71ad64ec62b992e6ecc8"
+        }
+      ],
+      "result": {
+        "id": "2",
+        "testcasecount": "1",
+        "result": "Passed",
+        "total": "1",
+        "passed": "1",
+        "failed": "0",
+        "inconclusive": "0",
+        "skipped": "0",
+        "asserts": "0",
+        "engine-version": "3.5.0.0",
+        "clr-version": "4.0.30319.42000",
+        "start-time": "2026-11-01 02:40:52Z",
+        "end-time": "2026-11-01 02:41:13Z",
+        "duration": "21.1990904"
+      },
+      "tests": [
+        {
+          "name": "PLAY_ART07_CardReadability_ThreeFontsAtActual720Or1080",
+          "result": "Passed",
+          "message": null
+        }
+      ],
+      "coreDataChangedSinceBatch": []
+    },
+    {
+      "stamp": "024458",
+      "bindingSha": "b4a1edd5777ea12562941afe4566555eae3b768b9074beab5bb1d2924cee273d",
+      "reportSha": "bf6a3abf7d6789a4f16e4af9da4f27b128358df68c35e058a173f8d68429377e",
+      "reportMatches": true,
+      "sourceStable": true,
+      "sourceCount": 1242,
+      "assembliesStable": true,
+      "assemblies": [
+        {
+          "name": "DiceCraft.Core",
+          "mvid": "8f690e0d-a075-4b72-98e4-2cb64ced2fa3",
+          "dllSha256": "44a137cd38d7b525382dfda7adbdb7676d12d1dbc05520638d8a14642a96031b"
+        },
+        {
+          "name": "DiceCraft.EditMode",
+          "mvid": "ff54b1e4-a676-48a5-8c58-1628e63f2b48",
+          "dllSha256": "56138d84b28446c7882d6d33e7314701c188324f03f72945f40a925205c7d640"
+        },
+        {
+          "name": "DiceCraft.Editor",
+          "mvid": "4e6c58ab-0abb-481d-9118-aa3705cbf988",
+          "dllSha256": "9c01231b6dfd18068a4e5aab083eb6410a0a1af4821fac21f0be3b19ed0ad9dc"
+        },
+        {
+          "name": "DiceCraft.PlayModeTests",
+          "mvid": "b386714d-9154-478f-8ea7-3da014a1d0e6",
+          "dllSha256": "9fd7cca31468131c95af001f5ce040543e9c0f26ef4f329a483ffe7c29f41873"
+        },
+        {
+          "name": "DiceCraft.Runtime",
+          "mvid": "87e72493-6969-41c9-82eb-6b907071ce85",
+          "dllSha256": "dc87b6ae28bfa0ff0f2950a3887ca73a560ddea44c5a71ad64ec62b992e6ecc8"
+        }
+      ],
+      "result": {
+        "id": "2",
+        "testcasecount": "18",
+        "result": "Failed(Child)",
+        "total": "18",
+        "passed": "15",
+        "failed": "3",
+        "inconclusive": "0",
+        "skipped": "0",
+        "asserts": "0",
+        "engine-version": "3.5.0.0",
+        "clr-version": "4.0.30319.42000",
+        "start-time": "2026-11-01 02:44:08Z",
+        "end-time": "2026-11-01 02:44:58Z",
+        "duration": "49.6582862"
+      },
+      "tests": [
+        {
+          "name": "PLAY_ART07_CardInformationPreservesPricesAndGeometricRarity",
+          "result": "Passed",
+          "message": null
+        },
+        {
+          "name": "PLAY_ART07_ShopInterestUsesLiveC01CopiesAndMatchesRealSettlement",
+          "result": "Passed",
+          "message": null
+        },
+        {
+          "name": "PLAY_ExistingRunRollAndSubmitSaveFailureRetriesExactCandidateAndPresentsOnce",
+          "result": "Passed",
+          "message": null
+        },
+        {
+          "name": "PLAY_FastAnimationUsesSameSeedResultsAndDoesNotConsumeExtraRolls",
+          "result": "Passed",
+          "message": null
+        },
+        {
+          "name": "PLAY_PooledPurchaseAndReadonlyFacesCannotRetainOldTargetsOrListeners",
+          "result": "Passed",
+          "message": null
+        },
+        {
+          "name": "PLAY_PooledRefreshKeepsNodeIdentitiesAndResetsScrollInputAndSlider",
+          "result": "Failed",
+          "message": "  Expected: 0.449999988f +/- 9.99999975E-05f\n  But was:  1.0f\n"
+        },
+        {
+          "name": "PLAY_PreviousSubmissionRetainsOriginalScoreAndPermanentEffectsAfterNextRollAndReload",
+          "result": "Passed",
+          "message": null
+        },
+        {
+          "name": "PLAY_RealKeyboardTenDiceMappingModalSeedFocusAndHeldKeys",
+          "result": "Failed",
+          "message": "  A held Space must roll once, including after the animation ends.\n  Expected: 3\n  But was:  2\n"
+        },
+        {
+          "name": "PLAY_RemoteItemTargetsCancelC12LabelsAndBrokenTargetMatchActualUi",
+          "result": "Passed",
+          "message": null
+        },
+        {
+          "name": "PLAY_ShopCapacityDiscountAndStudyUiRefreshAcrossTransactions",
+          "result": "Passed",
+          "message": null
+        },
+        {
+          "name": "PLAY_ShopPurchaseFooterShowsSlotAndDuplicateFailuresBeforeConfirm",
+          "result": "Passed",
+          "message": null
+        },
+        {
+          "name": "PLAY_ShopTargetCancellationAndPermanentDiceBoundariesPreserveOffers",
+          "result": "Passed",
+          "message": null
+        },
+        {
+          "name": "PLAY_SixPhysicalFacesAndRemotePipsHaveCorrectOrientationAndDotCount",
+          "result": "Passed",
+          "message": null
+        },
+        {
+          "name": "PLAY_V05_HandbookChangesWithCapacitySimpleStraightUpgradeAndReload",
+          "result": "Passed",
+          "message": null
+        },
+        {
+          "name": "PLAY_V05_HandbookTwentyReadsPreservePendingSaveAndAllRuleState",
+          "result": "Passed",
+          "message": null
+        },
+        {
+          "name": "PLAY_V06_ControllerInsertionNoOpOutsideCancelAndFrozenMimic",
+          "result": "Passed",
+          "message": null
+        },
+        {
+          "name": "PLAY_V06_RemoteThirtyTwoTargetsScrollAndKeepExactlyTwoWithoutOverlap",
+          "result": "Failed",
+          "message": "  Target is still clipped after scrolling: RemoteDieD031\n  Expected: True\n  But was:  False\n"
+        },
+        {
+          "name": "PLAY_V06_ShopThirtyTwoTargetsScrollUpgradeAndDeleteOnlyChosenDie",
+          "result": "Passed",
+          "message": null
+        }
+      ],
+      "coreDataChangedSinceBatch": []
+    }
+  ],
+  "cards": [
+    {
+      "directory": "v07-cards-720-023926",
+      "reportSha": "baa5b630e4dfcc5d707fdba789ab06c34476fcae2b7a44ba7619d5c612a33a79",
+      "sourceSnapshotMatches": true,
+      "runtimeMatches": true,
+      "actions": 22,
+      "nonmutatingActionsPreserved": true,
+      "screens": [
+        {
+          "path": "artifacts/cache/v07-cards-720-023926/000-font100-hud-rarities.png",
+          "sha": "b103b96623e4168e72fe1245ff48429be1ac56809cb44fb615c56f0c2d76dcb3",
+          "matches": true,
+          "metadataMatchesReport": true,
+          "viewed": true,
+          "dimensions": [
+            1280,
+            720
+          ],
+          "fontScale": 1.0,
+          "readOnly": true
+        },
+        {
+          "path": "artifacts/cache/v07-cards-720-023926/001-font100-hud-current-states.png",
+          "sha": "d4b974309084826a63db6d3cf82ae5dd37dee9a894bca14087d0bacf6bde14aa",
+          "matches": true,
+          "metadataMatchesReport": true,
+          "viewed": false,
+          "dimensions": [
+            1280,
+            720
+          ],
+          "fontScale": 1.0,
+          "readOnly": true
+        },
+        {
+          "path": "artifacts/cache/v07-cards-720-023926/002-font100-detail.png",
+          "sha": "b21eb15850c944755766a4f6bf89da933f10e435c23efc0027690eadb57f2298",
+          "matches": true,
+          "metadataMatchesReport": true,
+          "viewed": false,
+          "dimensions": [
+            1280,
+            720
+          ],
+          "fontScale": 1.0,
+          "readOnly": true
+        },
+        {
+          "path": "artifacts/cache/v07-cards-720-023926/003-font100-ten-compact-cards.png",
+          "sha": "744ddad111f6b133ca145c94eb9111e74d786b0f5a1b055ad59abdaa881031dd",
+          "matches": true,
+          "metadataMatchesReport": true,
+          "viewed": false,
+          "dimensions": [
+            1280,
+            720
+          ],
+          "fontScale": 1.0,
+          "readOnly": true
+        },
+        {
+          "path": "artifacts/cache/v07-cards-720-023926/004-font100-shop-six-plus-owned.png",
+          "sha": "1b2d86f4b670e371f701f8005844af66fece203fc77282a84faabde35f90e4f3",
+          "matches": true,
+          "metadataMatchesReport": true,
+          "viewed": false,
+          "dimensions": [
+            1280,
+            720
+          ],
+          "fontScale": 1.0,
+          "readOnly": true
+        },
+        {
+          "path": "artifacts/cache/v07-cards-720-023926/005-font125-hud-rarities.png",
+          "sha": "76761d2e6888e3423b94c3fc8cc8b0e7c3d1ac86663d01883d4523a8acfb4461",
+          "matches": true,
+          "metadataMatchesReport": true,
+          "viewed": true,
+          "dimensions": [
+            1280,
+            720
+          ],
+          "fontScale": 1.25,
+          "readOnly": true
+        },
+        {
+          "path": "artifacts/cache/v07-cards-720-023926/006-font125-hud-current-states.png",
+          "sha": "8723f62da855ca90c24407d1ddaa88b5ee589eef155128eec2a2533bf5774745",
+          "matches": true,
+          "metadataMatchesReport": true,
+          "viewed": false,
+          "dimensions": [
+            1280,
+            720
+          ],
+          "fontScale": 1.25,
+          "readOnly": true
+        },
+        {
+          "path": "artifacts/cache/v07-cards-720-023926/007-font125-detail.png",
+          "sha": "2cbce5028cc8d02ddf0fd22d37e72f3b9e45c2c1b1bdc1c2ff7389d60700da6e",
+          "matches": true,
+          "metadataMatchesReport": true,
+          "viewed": false,
+          "dimensions": [
+            1280,
+            720
+          ],
+          "fontScale": 1.25,
+          "readOnly": true
+        },
+        {
+          "path": "artifacts/cache/v07-cards-720-023926/008-font125-ten-compact-cards.png",
+          "sha": "b24fe5a235d1cbbb9dfd6433732148e73498c15963de4ba51d61766d43e795e3",
+          "matches": true,
+          "metadataMatchesReport": true,
+          "viewed": false,
+          "dimensions": [
+            1280,
+            720
+          ],
+          "fontScale": 1.25,
+          "readOnly": true
+        },
+        {
+          "path": "artifacts/cache/v07-cards-720-023926/009-font125-shop-six-plus-owned.png",
+          "sha": "c4d1fec782aedc5ded8bdb3cc0f9e0a180290ecdc1e73f81636a0a9d1d966bec",
+          "matches": true,
+          "metadataMatchesReport": true,
+          "viewed": false,
+          "dimensions": [
+            1280,
+            720
+          ],
+          "fontScale": 1.25,
+          "readOnly": true
+        },
+        {
+          "path": "artifacts/cache/v07-cards-720-023926/010-font150-hud-rarities.png",
+          "sha": "5f250355b61a38c9c6b131050106893eba72e05695db231d1ae36b8efc9892fd",
+          "matches": true,
+          "metadataMatchesReport": true,
+          "viewed": false,
+          "dimensions": [
+            1280,
+            720
+          ],
+          "fontScale": 1.5,
+          "readOnly": true
+        },
+        {
+          "path": "artifacts/cache/v07-cards-720-023926/011-font150-hud-current-states.png",
+          "sha": "e047a8a83378aca32a8e6c1d1f207010ff47bf620f9b943c3429380f175beabb",
+          "matches": true,
+          "metadataMatchesReport": true,
+          "viewed": true,
+          "dimensions": [
+            1280,
+            720
+          ],
+          "fontScale": 1.5,
+          "readOnly": true
+        },
+        {
+          "path": "artifacts/cache/v07-cards-720-023926/012-font150-detail.png",
+          "sha": "c174093d7341e3d8dc94b34a39eeaecbd897014d5598635f31566820f0f8492d",
+          "matches": true,
+          "metadataMatchesReport": true,
+          "viewed": true,
+          "dimensions": [
+            1280,
+            720
+          ],
+          "fontScale": 1.5,
+          "readOnly": true
+        },
+        {
+          "path": "artifacts/cache/v07-cards-720-023926/013-font150-ten-compact-cards.png",
+          "sha": "f55d66f79846510d975e72dd93d7c8f8c74c275d931e6f534a2ce0ac7ef98770",
+          "matches": true,
+          "metadataMatchesReport": true,
+          "viewed": true,
+          "dimensions": [
+            1280,
+            720
+          ],
+          "fontScale": 1.5,
+          "readOnly": true
+        },
+        {
+          "path": "artifacts/cache/v07-cards-720-023926/014-font150-shop-six-plus-owned.png",
+          "sha": "0aaa932226e6ef36384029c9939b5012ecdbbdcfefb974f039337d406613e0fa",
+          "matches": true,
+          "metadataMatchesReport": true,
+          "viewed": true,
+          "dimensions": [
+            1280,
+            720
+          ],
+          "fontScale": 1.5,
+          "readOnly": true
+        }
+      ],
+      "glyphReports": [
+        {
+          "path": "artifacts/cache/v07-cards-720-023926/font100-detail-glyphs.json",
+          "sha": "8e71d31211fee30492782c85e6242dcb0b891146956e06c9560f531b2477ede3",
+          "mvidMatches": true,
+          "cards": 1,
+          "labels": 3,
+          "characters": 16,
+          "errors": [],
+          "allCharacterCountsMatch": true,
+          "allTextMatches": true,
+          "definitions": [
+            "C41"
+          ]
+        },
+        {
+          "path": "artifacts/cache/v07-cards-720-023926/font100-hud-current-states-glyphs.json",
+          "sha": "29275dafd5ecf99fecacda74a4520bebc5a9b0ebe4389d21c474a52f248e4f1f",
+          "mvidMatches": true,
+          "cards": 4,
+          "labels": 16,
+          "characters": 45,
+          "errors": [],
+          "allCharacterCountsMatch": true,
+          "allTextMatches": true,
+          "definitions": [
+            "C41",
+            "C45",
+            "C51",
+            "C52"
+          ]
+        },
+        {
+          "path": "artifacts/cache/v07-cards-720-023926/font100-hud-rarities-glyphs.json",
+          "sha": "b07876f5012de9c71dc3d073b50953bd206dcdf50546d09939cc6f1e347f5e83",
+          "mvidMatches": true,
+          "cards": 4,
+          "labels": 16,
+          "characters": 43,
+          "errors": [],
+          "allCharacterCountsMatch": true,
+          "allTextMatches": true,
+          "definitions": [
+            "C01",
+            "C02",
+            "C06",
+            "C41"
+          ]
+        },
+        {
+          "path": "artifacts/cache/v07-cards-720-023926/font100-shop-six-plus-owned-glyphs.json",
+          "sha": "62db46f949a3621e0fcab7b5ece7a7588ca4fcb533c4c27c455c4a811c5a485e",
+          "mvidMatches": true,
+          "cards": 10,
+          "labels": 26,
+          "characters": 84,
+          "errors": [],
+          "allCharacterCountsMatch": true,
+          "allTextMatches": true,
+          "definitions": [
+            "C01",
+            "C02",
+            "C41",
+            "C45",
+            "C51",
+            "C52"
+          ]
+        },
+        {
+          "path": "artifacts/cache/v07-cards-720-023926/font100-ten-compact-cards-glyphs.json",
+          "sha": "46d6f2dcc97b616a7ac64a2dcb4cd1dcd5b91a5109d2bd74f276717fb480d30a",
+          "mvidMatches": true,
+          "cards": 10,
+          "labels": 40,
+          "characters": 110,
+          "errors": [],
+          "allCharacterCountsMatch": true,
+          "allTextMatches": true,
+          "definitions": [
+            "C02",
+            "C30",
+            "C31",
+            "C32",
+            "C39",
+            "C41",
+            "C45",
+            "C48",
+            "C50",
+            "C52"
+          ]
+        },
+        {
+          "path": "artifacts/cache/v07-cards-720-023926/font125-detail-glyphs.json",
+          "sha": "87cfeb4dd2ca90b086370a1fa1b4983b8c4cea445af516d378fd6fc97a6737bc",
+          "mvidMatches": true,
+          "cards": 1,
+          "labels": 3,
+          "characters": 16,
+          "errors": [],
+          "allCharacterCountsMatch": true,
+          "allTextMatches": true,
+          "definitions": [
+            "C41"
+          ]
+        },
+        {
+          "path": "artifacts/cache/v07-cards-720-023926/font125-hud-current-states-glyphs.json",
+          "sha": "518389941f7d45d32e7c1ececc9d09e03254b11e494c4ef7d8b2e19da5b5e9c8",
+          "mvidMatches": true,
+          "cards": 4,
+          "labels": 16,
+          "characters": 45,
+          "errors": [],
+          "allCharacterCountsMatch": true,
+          "allTextMatches": true,
+          "definitions": [
+            "C41",
+            "C45",
+            "C51",
+            "C52"
+          ]
+        },
+        {
+          "path": "artifacts/cache/v07-cards-720-023926/font125-hud-rarities-glyphs.json",
+          "sha": "9a16b9c8f05075bf807f225cb5e8b9112306325765cb5464f2ffb1edcbd14c52",
+          "mvidMatches": true,
+          "cards": 4,
+          "labels": 16,
+          "characters": 43,
+          "errors": [],
+          "allCharacterCountsMatch": true,
+          "allTextMatches": true,
+          "definitions": [
+            "C01",
+            "C02",
+            "C06",
+            "C41"
+          ]
+        },
+        {
+          "path": "artifacts/cache/v07-cards-720-023926/font125-shop-six-plus-owned-glyphs.json",
+          "sha": "ab159f794d1a83100364d2a89f23e9fb47eb7fff27de16b5bc814b7d0845cdfd",
+          "mvidMatches": true,
+          "cards": 10,
+          "labels": 26,
+          "characters": 84,
+          "errors": [],
+          "allCharacterCountsMatch": true,
+          "allTextMatches": true,
+          "definitions": [
+            "C01",
+            "C02",
+            "C41",
+            "C45",
+            "C51",
+            "C52"
+          ]
+        },
+        {
+          "path": "artifacts/cache/v07-cards-720-023926/font125-ten-compact-cards-glyphs.json",
+          "sha": "0fbd99d654c202c13b03b4df8cca522183b997c6d5650d38a6fd35a80ee0d5a1",
+          "mvidMatches": true,
+          "cards": 10,
+          "labels": 40,
+          "characters": 110,
+          "errors": [],
+          "allCharacterCountsMatch": true,
+          "allTextMatches": true,
+          "definitions": [
+            "C02",
+            "C30",
+            "C31",
+            "C32",
+            "C39",
+            "C41",
+            "C45",
+            "C48",
+            "C50",
+            "C52"
+          ]
+        },
+        {
+          "path": "artifacts/cache/v07-cards-720-023926/font150-detail-glyphs.json",
+          "sha": "6b386015053a4a72ec811380a562fb49f06cddde818f8d22628a6b667116e367",
+          "mvidMatches": true,
+          "cards": 1,
+          "labels": 3,
+          "characters": 16,
+          "errors": [],
+          "allCharacterCountsMatch": true,
+          "allTextMatches": true,
+          "definitions": [
+            "C41"
+          ]
+        },
+        {
+          "path": "artifacts/cache/v07-cards-720-023926/font150-hud-current-states-glyphs.json",
+          "sha": "8dddb6099fe6facee49c38ffbc250fb052629422133dde8ed3fba5a1904a5b12",
+          "mvidMatches": true,
+          "cards": 4,
+          "labels": 16,
+          "characters": 45,
+          "errors": [],
+          "allCharacterCountsMatch": true,
+          "allTextMatches": true,
+          "definitions": [
+            "C41",
+            "C45",
+            "C51",
+            "C52"
+          ]
+        },
+        {
+          "path": "artifacts/cache/v07-cards-720-023926/font150-hud-rarities-glyphs.json",
+          "sha": "a796269691e769b8f30c88bd4a34c042316221b3767df05a5c5598314948d585",
+          "mvidMatches": true,
+          "cards": 4,
+          "labels": 16,
+          "characters": 43,
+          "errors": [],
+          "allCharacterCountsMatch": true,
+          "allTextMatches": true,
+          "definitions": [
+            "C01",
+            "C02",
+            "C06",
+            "C41"
+          ]
+        },
+        {
+          "path": "artifacts/cache/v07-cards-720-023926/font150-shop-six-plus-owned-glyphs.json",
+          "sha": "8e8195dc70f5b2a78d8ee60fb1cd433859e93b13a9f82b40ff63fa3ade31e008",
+          "mvidMatches": true,
+          "cards": 10,
+          "labels": 26,
+          "characters": 84,
+          "errors": [],
+          "allCharacterCountsMatch": true,
+          "allTextMatches": true,
+          "definitions": [
+            "C01",
+            "C02",
+            "C41",
+            "C45",
+            "C51",
+            "C52"
+          ]
+        },
+        {
+          "path": "artifacts/cache/v07-cards-720-023926/font150-ten-compact-cards-glyphs.json",
+          "sha": "4fac3caa05589b1080703d687a933e21e6766e0bdff65f12f00f75c3f08a341c",
+          "mvidMatches": true,
+          "cards": 10,
+          "labels": 40,
+          "characters": 110,
+          "errors": [],
+          "allCharacterCountsMatch": true,
+          "allTextMatches": true,
+          "definitions": [
+            "C02",
+            "C30",
+            "C31",
+            "C32",
+            "C39",
+            "C41",
+            "C45",
+            "C48",
+            "C50",
+            "C52"
+          ]
+        }
+      ]
+    },
+    {
+      "directory": "v07-cards-1080-0241",
+      "reportSha": "bb228adceacf5be0f5a8d649950a2b89f4799867a4dde404c6dce271e70e621a",
+      "sourceSnapshotMatches": true,
+      "runtimeMatches": true,
+      "actions": 22,
+      "nonmutatingActionsPreserved": true,
+      "screens": [
+        {
+          "path": "artifacts/cache/v07-cards-1080-0241/000-font100-hud-rarities.png",
+          "sha": "909e96c2d58c266d7136748e25b5c5fa226f6c0665b10065fdf89f9f9ba266c2",
+          "matches": true,
+          "metadataMatchesReport": true,
+          "viewed": true,
+          "dimensions": [
+            1920,
+            1080
+          ],
+          "fontScale": 1.0,
+          "readOnly": true
+        },
+        {
+          "path": "artifacts/cache/v07-cards-1080-0241/001-font100-hud-current-states.png",
+          "sha": "dd91fa5f45e2cc1b9bcfb18664c8fb0d4ae5cee726fbaaec2e97f9a3aca805cc",
+          "matches": true,
+          "metadataMatchesReport": true,
+          "viewed": false,
+          "dimensions": [
+            1920,
+            1080
+          ],
+          "fontScale": 1.0,
+          "readOnly": true
+        },
+        {
+          "path": "artifacts/cache/v07-cards-1080-0241/002-font100-detail.png",
+          "sha": "b162f08aeb5ea423428614c91d5e2262d6c5bd8155259f1b5c47e5dbf5425945",
+          "matches": true,
+          "metadataMatchesReport": true,
+          "viewed": false,
+          "dimensions": [
+            1920,
+            1080
+          ],
+          "fontScale": 1.0,
+          "readOnly": true
+        },
+        {
+          "path": "artifacts/cache/v07-cards-1080-0241/003-font100-ten-compact-cards.png",
+          "sha": "d4ffeacd1e272e4967e57e2fe59fc7c4547b958dacc5bc7f72ceb0de1d0318c9",
+          "matches": true,
+          "metadataMatchesReport": true,
+          "viewed": false,
+          "dimensions": [
+            1920,
+            1080
+          ],
+          "fontScale": 1.0,
+          "readOnly": true
+        },
+        {
+          "path": "artifacts/cache/v07-cards-1080-0241/004-font100-shop-six-plus-owned.png",
+          "sha": "b093738370a2988847306e395012f73ca0e69f3a535c828f1b90f4e30999f9d3",
+          "matches": true,
+          "metadataMatchesReport": true,
+          "viewed": false,
+          "dimensions": [
+            1920,
+            1080
+          ],
+          "fontScale": 1.0,
+          "readOnly": true
+        },
+        {
+          "path": "artifacts/cache/v07-cards-1080-0241/005-font125-hud-rarities.png",
+          "sha": "3df0361ee557bfb7aa7ce9955894836e8dde4153e9d50d2b01587aed2de4a1e7",
+          "matches": true,
+          "metadataMatchesReport": true,
+          "viewed": true,
+          "dimensions": [
+            1920,
+            1080
+          ],
+          "fontScale": 1.25,
+          "readOnly": true
+        },
+        {
+          "path": "artifacts/cache/v07-cards-1080-0241/006-font125-hud-current-states.png",
+          "sha": "a2d07ae080f6b6645a650d4b9f4f02f1af51a35236a9a281b0802c5b278c7be4",
+          "matches": true,
+          "metadataMatchesReport": true,
+          "viewed": false,
+          "dimensions": [
+            1920,
+            1080
+          ],
+          "fontScale": 1.25,
+          "readOnly": true
+        },
+        {
+          "path": "artifacts/cache/v07-cards-1080-0241/007-font125-detail.png",
+          "sha": "406ff17199af06570146ba9686d1caa863ba96e630e575f7d0c0e7519b3aaa4a",
+          "matches": true,
+          "metadataMatchesReport": true,
+          "viewed": false,
+          "dimensions": [
+            1920,
+            1080
+          ],
+          "fontScale": 1.25,
+          "readOnly": true
+        },
+        {
+          "path": "artifacts/cache/v07-cards-1080-0241/008-font125-ten-compact-cards.png",
+          "sha": "b3d527487d51f42e4c395b7f0216657c208f8e71f566aff92ef2e16618c23183",
+          "matches": true,
+          "metadataMatchesReport": true,
+          "viewed": false,
+          "dimensions": [
+            1920,
+            1080
+          ],
+          "fontScale": 1.25,
+          "readOnly": true
+        },
+        {
+          "path": "artifacts/cache/v07-cards-1080-0241/009-font125-shop-six-plus-owned.png",
+          "sha": "87eac8f9c338617a83e8211cc340636aa5e22b8548d90d374451cc57594914f8",
+          "matches": true,
+          "metadataMatchesReport": true,
+          "viewed": false,
+          "dimensions": [
+            1920,
+            1080
+          ],
+          "fontScale": 1.25,
+          "readOnly": true
+        },
+        {
+          "path": "artifacts/cache/v07-cards-1080-0241/010-font150-hud-rarities.png",
+          "sha": "f9797830fefaa8dc3e84e8eb5cec2a217f04cdab3d829d083926c9acc9fc44b1",
+          "matches": true,
+          "metadataMatchesReport": true,
+          "viewed": false,
+          "dimensions": [
+            1920,
+            1080
+          ],
+          "fontScale": 1.5,
+          "readOnly": true
+        },
+        {
+          "path": "artifacts/cache/v07-cards-1080-0241/011-font150-hud-current-states.png",
+          "sha": "df27c238ff5d6dde058cb251377907e164bffb62100346c27cb6e29cfa2c6a1b",
+          "matches": true,
+          "metadataMatchesReport": true,
+          "viewed": true,
+          "dimensions": [
+            1920,
+            1080
+          ],
+          "fontScale": 1.5,
+          "readOnly": true
+        },
+        {
+          "path": "artifacts/cache/v07-cards-1080-0241/012-font150-detail.png",
+          "sha": "248cf4f79b399eac1e1c20377d6616b9ea602fe620c5840fddb0e1e5e34ed163",
+          "matches": true,
+          "metadataMatchesReport": true,
+          "viewed": true,
+          "dimensions": [
+            1920,
+            1080
+          ],
+          "fontScale": 1.5,
+          "readOnly": true
+        },
+        {
+          "path": "artifacts/cache/v07-cards-1080-0241/013-font150-ten-compact-cards.png",
+          "sha": "0190a0da75ca8671a26745561b46bf06ed184382dcd8b4bf58fb801feb22b4f3",
+          "matches": true,
+          "metadataMatchesReport": true,
+          "viewed": true,
+          "dimensions": [
+            1920,
+            1080
+          ],
+          "fontScale": 1.5,
+          "readOnly": true
+        },
+        {
+          "path": "artifacts/cache/v07-cards-1080-0241/014-font150-shop-six-plus-owned.png",
+          "sha": "1749e0f4f451d4379eb716d88498dfaa4661fa105977991720b3e99990c29a5e",
+          "matches": true,
+          "metadataMatchesReport": true,
+          "viewed": true,
+          "dimensions": [
+            1920,
+            1080
+          ],
+          "fontScale": 1.5,
+          "readOnly": true
+        }
+      ],
+      "glyphReports": [
+        {
+          "path": "artifacts/cache/v07-cards-1080-0241/font100-detail-glyphs.json",
+          "sha": "a0146598a9644b84f35965dcdaa9995621d8d4e2b91d352888383afa184f650d",
+          "mvidMatches": true,
+          "cards": 1,
+          "labels": 3,
+          "characters": 16,
+          "errors": [],
+          "allCharacterCountsMatch": true,
+          "allTextMatches": true,
+          "definitions": [
+            "C41"
+          ]
+        },
+        {
+          "path": "artifacts/cache/v07-cards-1080-0241/font100-hud-current-states-glyphs.json",
+          "sha": "4f0c950d096dbeab8339c8b6670862c18a6c204019b7ab3e17831342a91528cd",
+          "mvidMatches": true,
+          "cards": 4,
+          "labels": 16,
+          "characters": 45,
+          "errors": [],
+          "allCharacterCountsMatch": true,
+          "allTextMatches": true,
+          "definitions": [
+            "C41",
+            "C45",
+            "C51",
+            "C52"
+          ]
+        },
+        {
+          "path": "artifacts/cache/v07-cards-1080-0241/font100-hud-rarities-glyphs.json",
+          "sha": "ea16cc1a14505de3acf2f1c1204098590d1fbd221e6d109fbe3a3ce60a80b6b7",
+          "mvidMatches": true,
+          "cards": 4,
+          "labels": 16,
+          "characters": 43,
+          "errors": [],
+          "allCharacterCountsMatch": true,
+          "allTextMatches": true,
+          "definitions": [
+            "C01",
+            "C02",
+            "C06",
+            "C41"
+          ]
+        },
+        {
+          "path": "artifacts/cache/v07-cards-1080-0241/font100-shop-six-plus-owned-glyphs.json",
+          "sha": "ad272b95aecf2c917a4003d48f0022b58814c78e0aaa76faaf7db9c64760d5b1",
+          "mvidMatches": true,
+          "cards": 10,
+          "labels": 26,
+          "characters": 84,
+          "errors": [],
+          "allCharacterCountsMatch": true,
+          "allTextMatches": true,
+          "definitions": [
+            "C01",
+            "C02",
+            "C41",
+            "C45",
+            "C51",
+            "C52"
+          ]
+        },
+        {
+          "path": "artifacts/cache/v07-cards-1080-0241/font100-ten-compact-cards-glyphs.json",
+          "sha": "1fdf27c237223e948d85ff6362caf28036ef8455f69ce750b59f50b41484b5b4",
+          "mvidMatches": true,
+          "cards": 10,
+          "labels": 40,
+          "characters": 110,
+          "errors": [],
+          "allCharacterCountsMatch": true,
+          "allTextMatches": true,
+          "definitions": [
+            "C02",
+            "C30",
+            "C31",
+            "C32",
+            "C39",
+            "C41",
+            "C45",
+            "C48",
+            "C50",
+            "C52"
+          ]
+        },
+        {
+          "path": "artifacts/cache/v07-cards-1080-0241/font125-detail-glyphs.json",
+          "sha": "b427f11c7426ec199e19a5a36bf937f11f0632322a3f6af4eb4dbdb745714103",
+          "mvidMatches": true,
+          "cards": 1,
+          "labels": 3,
+          "characters": 16,
+          "errors": [],
+          "allCharacterCountsMatch": true,
+          "allTextMatches": true,
+          "definitions": [
+            "C41"
+          ]
+        },
+        {
+          "path": "artifacts/cache/v07-cards-1080-0241/font125-hud-current-states-glyphs.json",
+          "sha": "376712fb240469849854b454ba18fb513624f62add91568186027c913c73ee21",
+          "mvidMatches": true,
+          "cards": 4,
+          "labels": 16,
+          "characters": 45,
+          "errors": [],
+          "allCharacterCountsMatch": true,
+          "allTextMatches": true,
+          "definitions": [
+            "C41",
+            "C45",
+            "C51",
+            "C52"
+          ]
+        },
+        {
+          "path": "artifacts/cache/v07-cards-1080-0241/font125-hud-rarities-glyphs.json",
+          "sha": "22c93690eb1cce36c4bae05fd5c88c02830e8798de8ce2c96cad0de060106397",
+          "mvidMatches": true,
+          "cards": 4,
+          "labels": 16,
+          "characters": 43,
+          "errors": [],
+          "allCharacterCountsMatch": true,
+          "allTextMatches": true,
+          "definitions": [
+            "C01",
+            "C02",
+            "C06",
+            "C41"
+          ]
+        },
+        {
+          "path": "artifacts/cache/v07-cards-1080-0241/font125-shop-six-plus-owned-glyphs.json",
+          "sha": "120d15b1c5880793304aa3d731f96031473fd820369852cbaf4a90761c40b2e3",
+          "mvidMatches": true,
+          "cards": 10,
+          "labels": 26,
+          "characters": 84,
+          "errors": [],
+          "allCharacterCountsMatch": true,
+          "allTextMatches": true,
+          "definitions": [
+            "C01",
+            "C02",
+            "C41",
+            "C45",
+            "C51",
+            "C52"
+          ]
+        },
+        {
+          "path": "artifacts/cache/v07-cards-1080-0241/font125-ten-compact-cards-glyphs.json",
+          "sha": "fb6b31eb1658d755af35c68df8dca23c4eb16468107220c91ea487077172b2ff",
+          "mvidMatches": true,
+          "cards": 10,
+          "labels": 40,
+          "characters": 110,
+          "errors": [],
+          "allCharacterCountsMatch": true,
+          "allTextMatches": true,
+          "definitions": [
+            "C02",
+            "C30",
+            "C31",
+            "C32",
+            "C39",
+            "C41",
+            "C45",
+            "C48",
+            "C50",
+            "C52"
+          ]
+        },
+        {
+          "path": "artifacts/cache/v07-cards-1080-0241/font150-detail-glyphs.json",
+          "sha": "350b229eafc66863d1894a6b8a7de99cca9ea0817a2e490078bb6e84bbf4f0b2",
+          "mvidMatches": true,
+          "cards": 1,
+          "labels": 3,
+          "characters": 16,
+          "errors": [],
+          "allCharacterCountsMatch": true,
+          "allTextMatches": true,
+          "definitions": [
+            "C41"
+          ]
+        },
+        {
+          "path": "artifacts/cache/v07-cards-1080-0241/font150-hud-current-states-glyphs.json",
+          "sha": "34635535b32cca94adb622a0bf10f438f715c631a25b37210bfc4ef06e18f4bb",
+          "mvidMatches": true,
+          "cards": 4,
+          "labels": 16,
+          "characters": 45,
+          "errors": [],
+          "allCharacterCountsMatch": true,
+          "allTextMatches": true,
+          "definitions": [
+            "C41",
+            "C45",
+            "C51",
+            "C52"
+          ]
+        },
+        {
+          "path": "artifacts/cache/v07-cards-1080-0241/font150-hud-rarities-glyphs.json",
+          "sha": "1c0bbea418abe6c7cf15d89a56a05c30e6e41cbbe18ffec957e96a9f6559acd2",
+          "mvidMatches": true,
+          "cards": 4,
+          "labels": 16,
+          "characters": 43,
+          "errors": [],
+          "allCharacterCountsMatch": true,
+          "allTextMatches": true,
+          "definitions": [
+            "C01",
+            "C02",
+            "C06",
+            "C41"
+          ]
+        },
+        {
+          "path": "artifacts/cache/v07-cards-1080-0241/font150-shop-six-plus-owned-glyphs.json",
+          "sha": "b35357340ef82d6887165fd12caeb242412588ef080884b7d083d1a2b05612b6",
+          "mvidMatches": true,
+          "cards": 10,
+          "labels": 26,
+          "characters": 84,
+          "errors": [],
+          "allCharacterCountsMatch": true,
+          "allTextMatches": true,
+          "definitions": [
+            "C01",
+            "C02",
+            "C41",
+            "C45",
+            "C51",
+            "C52"
+          ]
+        },
+        {
+          "path": "artifacts/cache/v07-cards-1080-0241/font150-ten-compact-cards-glyphs.json",
+          "sha": "10b83ccf06e2b2ed35dec9159fa99d0abf9282d7d987b0a8b82c929b3906d673",
+          "mvidMatches": true,
+          "cards": 10,
+          "labels": 40,
+          "characters": 110,
+          "errors": [],
+          "allCharacterCountsMatch": true,
+          "allTextMatches": true,
+          "definitions": [
+            "C02",
+            "C30",
+            "C31",
+            "C32",
+            "C39",
+            "C41",
+            "C45",
+            "C48",
+            "C50",
+            "C52"
+          ]
+        }
+      ]
+    }
+  ],
+  "migration": {
+    "files": [
+      {
+        "path": "DicePrototype/Assets/Game/Tests/PlayMode/FailureAndInputPlayModeTests.cs",
+        "beforeSha": "555bc5d9bb593efaf99b697dcd6892dce48f39d43d36fc0cdf2ef18c61b2ceef",
+        "candidateSha": "6ad640d5042832473de4e10dacb63923f855ea7106e245e889edd3fa655cba05",
+        "beforeMatches": true,
+        "candidateMatches": true,
+        "beforeTests": [
+          "PLAY_FirstNewRunSaveFailureOffersRetryAndBlocksBothReplacementEntrances",
+          "PLAY_ReadOnlyActionLogCannotAbortAnAlreadySavedUiCommand",
+          "PLAY_ShopPurchaseFooterShowsSlotAndDuplicateFailuresBeforeConfirm",
+          "PLAY_RealEnterKeySubmitsOnceWithoutInvokingSelectedPauseButton"
+        ],
+        "testInventoryPreserved": true,
+        "currentSha": "6ad640d5042832473de4e10dacb63923f855ea7106e245e889edd3fa655cba05"
+      },
+      {
+        "path": "DicePrototype/Assets/Game/Tests/PlayMode/GameplayPlayModeTests.cs",
+        "beforeSha": "f1d776c5810a72c7974ba246596fd74d987cf0d73b3c0728240ea6bd2b603a5a",
+        "candidateSha": "e157c16636fb5a2cd9e2a1b06fb77c5f35836211bde2837673dd2bacefb061e0",
+        "beforeMatches": true,
+        "candidateMatches": true,
+        "beforeTests": [
+          "PLAY_Bootstrap_RealReferences71IconsFontAndSingleInputSystem",
+          "PLAY_CoreLoop_ClickLockReorderAndSubmitMatchesPreview",
+          "PLAY_BusyRejectsBypassedUiAndSkipPreservesCommittedRandomness",
+          "PLAY_FastAnimationUsesSameSeedResultsAndDoesNotConsumeExtraRolls",
+          "PLAY_ReloadDuringRollRestoresLocksOrderAndAcceptedFaceResults",
+          "PLAY_SceneUnloadReloadResetsStaticUiAndDoesNotLeakSession",
+          "PLAY_SixPhysicalFacesAndRemotePipsHaveCorrectOrientationAndDotCount",
+          "PLAY_IndependentTutorialCompletesRealPurchaseAndPreservesFormalRun"
+        ],
+        "testInventoryPreserved": true,
+        "currentSha": "f2d2a894b8227ff8fc90cd46eba396b889ffdd3b351bc31d486e9d001ea9eaac"
+      },
+      {
+        "path": "DicePrototype/Assets/Game/Tests/PlayMode/ShopBoundaryPlayModeTests.cs",
+        "beforeSha": "eda143d8a78581ad0d06c5595ea56a0b16cc265c32ddb36481c87ed66a611f8c",
+        "candidateSha": "5c772af8d6ca5600b7417c715b6b81cf65dd677e147d12aa68e25904dcfe3a64",
+        "beforeMatches": true,
+        "candidateMatches": true,
+        "beforeTests": [
+          "PLAY_ShopCapacityDiscountAndStudyUiRefreshAcrossTransactions",
+          "PLAY_ShopTargetCancellationAndPermanentDiceBoundariesPreserveOffers"
+        ],
+        "testInventoryPreserved": true,
+        "currentSha": "5c772af8d6ca5600b7417c715b6b81cf65dd677e147d12aa68e25904dcfe3a64"
+      },
+      {
+        "path": "DicePrototype/Assets/Game/Tests/PlayMode/SubmissionHistoryPlayModeTests.cs",
+        "beforeSha": "1f309a8ae7a4cd1575217c2dfd98e21e0f14d934a791eb8a274abbcdaef78fff",
+        "candidateSha": "91008978af9574418e36cee0eac4794382f47f152545d849fc5ec5f8ab352a6b",
+        "beforeMatches": true,
+        "candidateMatches": true,
+        "beforeTests": [
+          "PLAY_PreviousSubmissionRetainsOriginalScoreAndPermanentEffectsAfterNextRollAndReload"
+        ],
+        "testInventoryPreserved": true,
+        "currentSha": "91008978af9574418e36cee0eac4794382f47f152545d849fc5ec5f8ab352a6b"
+      },
+      {
+        "path": "DicePrototype/Assets/Game/Tests/PlayMode/UiBoundaryPlayModeTests.cs",
+        "beforeSha": "82ec2ed85ad1ea4174636884e9b29465dbc1c53ea115e78b18d0f2d41d3795aa",
+        "candidateSha": "dd3d4b48c8df8be66e5ce908786b6b6c52472ebe99109daaafcb8a18d45a34ec",
+        "beforeMatches": true,
+        "candidateMatches": true,
+        "beforeTests": [
+          "PLAY_RemoteItemTargetsCancelC12LabelsAndBrokenTargetMatchActualUi",
+          "PLAY_RealKeyboardTenDiceMappingModalSeedFocusAndHeldKeys",
+          "PLAY_ExistingRunRollAndSubmitSaveFailureRetriesExactCandidateAndPresentsOnce"
+        ],
+        "testInventoryPreserved": true,
+        "currentSha": "ce232c695e06c46f00d1e992bf40c6d73274d81434a49ade3fef91313733c318"
+      },
+      {
+        "path": "DicePrototype/Assets/Game/Tests/PlayMode/UiPoolingPlayModeTests.cs",
+        "beforeSha": "9834da4f78aa303912a254919167b89cd752e2d1f6dd07df9747a922a9a00b17",
+        "candidateSha": "0d69373944195bbdf67aba3e7512a24a497b1b306ad2af337606d694276f2537",
+        "beforeMatches": true,
+        "candidateMatches": true,
+        "beforeTests": [
+          "PLAY_PooledRefreshKeepsNodeIdentitiesAndResetsScrollInputAndSlider",
+          "PLAY_PooledPurchaseAndReadonlyFacesCannotRetainOldTargetsOrListeners"
+        ],
+        "testInventoryPreserved": true,
+        "currentSha": "0d69373944195bbdf67aba3e7512a24a497b1b306ad2af337606d694276f2537"
+      },
+      {
+        "path": "DicePrototype/Assets/Game/Tests/PlayMode/V05InterfacePlayModeTests.cs",
+        "beforeSha": "995f96ab62032f87a74df079a1c9778f28813a413bf65028f9143e9f09e61b65",
+        "candidateSha": "0862c01f2e1580b26ef5147bed5e31818b96531026863a52bdbf0d67bb5be02d",
+        "beforeMatches": true,
+        "candidateMatches": true,
+        "beforeTests": [
+          "PLAY_V05_HandbookTwentyReadsPreservePendingSaveAndAllRuleState",
+          "PLAY_V05_QualifiedContinuesAndEndDiscardsUnsubmittedHandWithOneReward",
+          "PLAY_V05_HandbookChangesWithCapacitySimpleStraightUpgradeAndReload",
+          "PLAY_V05_EnchantedReplacementDisplaysNetPriceAndPersistsInstance"
+        ],
+        "testInventoryPreserved": true,
+        "currentSha": "0862c01f2e1580b26ef5147bed5e31818b96531026863a52bdbf0d67bb5be02d"
+      },
+      {
+        "path": "DicePrototype/Assets/Game/Tests/PlayMode/V06RuntimePlayModeTests.cs",
+        "beforeSha": "a356fe8ae846dfa2868598ac42f5d6620a11a191fa2231b91df5a96a91ed6846",
+        "candidateSha": "5b6a5c4e08939ce4c3301d0c0ac46d66a1a50ddbb9cd95b6f91e833b3f411d3c",
+        "beforeMatches": true,
+        "candidateMatches": true,
+        "beforeTests": [
+          "PLAY_V06_DebugPasswordAddApplyReloadAndReturnPreserveNormalCheckpoint",
+          "PLAY_V06_DebugThirtyTwoDiceLevelsInputFailureAndExactPreviewAreAccessible",
+          "PLAY_V06_ControllerInsertionNoOpOutsideCancelAndFrozenMimic",
+          "PLAY_V06_SettingsPasswordFocusBlocksSubmitAndDisplaySettingsStayOutsideRun"
+        ],
+        "testInventoryPreserved": true,
+        "currentSha": "5b6a5c4e08939ce4c3301d0c0ac46d66a1a50ddbb9cd95b6f91e833b3f411d3c"
+      },
+      {
+        "path": "DicePrototype/Assets/Game/Tests/PlayMode/V06TargetSelectionPlayModeTests.cs",
+        "beforeSha": "384e1b931cbd6e0d25f53f43f3509ac66c513b1601563cafc4874f54a47997de",
+        "candidateSha": "7a06f09e5b009e4dafabfd970be2f62761b0aaa25ed46b36af772ec069ce8b52",
+        "beforeMatches": true,
+        "candidateMatches": true,
+        "beforeTests": [
+          "PLAY_V06_RemoteThirtyTwoTargetsScrollAndKeepExactlyTwoWithoutOverlap",
+          "PLAY_V06_ShopThirtyTwoTargetsScrollUpgradeAndDeleteOnlyChosenDie"
+        ],
+        "testInventoryPreserved": true,
+        "currentSha": "7a06f09e5b009e4dafabfd970be2f62761b0aaa25ed46b36af772ec069ce8b52"
+      }
+    ],
+    "patchSha": "d8db03d701ee1b916a06f283ce33d643ad20196da969f82c98d3942124e373bf",
+    "patchMatches": true,
+    "patchPaths": [
+      "DicePrototype/Assets/Game/Tests/PlayMode/FailureAndInputPlayModeTests.cs",
+      "DicePrototype/Assets/Game/Tests/PlayMode/GameplayPlayModeTests.cs",
+      "DicePrototype/Assets/Game/Tests/PlayMode/ShopBoundaryPlayModeTests.cs",
+      "DicePrototype/Assets/Game/Tests/PlayMode/SubmissionHistoryPlayModeTests.cs",
+      "DicePrototype/Assets/Game/Tests/PlayMode/UiBoundaryPlayModeTests.cs",
+      "DicePrototype/Assets/Game/Tests/PlayMode/UiPoolingPlayModeTests.cs",
+      "DicePrototype/Assets/Game/Tests/PlayMode/V05InterfacePlayModeTests.cs",
+      "DicePrototype/Assets/Game/Tests/PlayMode/V06RuntimePlayModeTests.cs",
+      "DicePrototype/Assets/Game/Tests/PlayMode/V06TargetSelectionPlayModeTests.cs",
+      "DicePrototype/Assets/Game/Tests/PlayMode/Art07LegacyUiNavigationPlayModeTests.cs"
+    ],
+    "onlyPlayModeTests": true
+  },
+  "reviewedSource": [
+    {
+      "path": "DicePrototype/Assets/Game/Runtime/DiceTable.cs",
+      "sha256": "1c60e87c973e7647a7f469f7f7ef0eb8986b6e4ff90e1854e93dcb0fd6ed1b19",
+      "frozen": "evidence/v07/review/cards-legacy/source/1c60e87c973e7647a7f469f7f7ef0eb8986b6e4ff90e1854e93dcb0fd6ed1b19-DiceTable.cs"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Runtime/Shaders/VertexFace.shader",
+      "sha256": "a68f033cbfb47b65bd0e096aab6340375e9f20463fdd69e47d92e2153cf31dc7",
+      "frozen": "evidence/v07/review/cards-legacy/source/a68f033cbfb47b65bd0e096aab6340375e9f20463fdd69e47d92e2153cf31dc7-VertexFace.shader"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Tests/PlayMode/Art07InformationPlayModeTests.cs",
+      "sha256": "8f11c1fafe5729458f184be4518c790965bf7ace9f35fdc798dc28e28822e434",
+      "frozen": "evidence/v07/review/cards-legacy/source/8f11c1fafe5729458f184be4518c790965bf7ace9f35fdc798dc28e28822e434-Art07InformationPlayModeTests.cs"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Tests/PlayMode/Art07CardReadabilityPlayModeTests.cs",
+      "sha256": "f08255999e788566a9a19c59350b36f953bd1d654595fb345baff110115e8b6a",
+      "frozen": "evidence/v07/review/cards-legacy/source/f08255999e788566a9a19c59350b36f953bd1d654595fb345baff110115e8b6a-Art07CardReadabilityPlayModeTests.cs"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Tests/PlayMode/Art07LegacyUiNavigationPlayModeTests.cs",
+      "sha256": "1791d1afa5a2da70fa32af9dab1ace541ee77e5e9e4102385a11341d842aff94",
+      "frozen": "evidence/v07/review/cards-legacy/source/1791d1afa5a2da70fa32af9dab1ace541ee77e5e9e4102385a11341d842aff94-Art07LegacyUiNavigationPlayModeTests.cs"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/UI/GameApp.Art07Shop.cs",
+      "sha256": "8524446b85a229a2c1784ffb0736a71945bcea998b62aaa845486f3f54f41713",
+      "frozen": "evidence/v07/review/cards-legacy/source/8524446b85a229a2c1784ffb0736a71945bcea998b62aaa845486f3f54f41713-GameApp.Art07Shop.cs"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Tests/PlayMode/FailureAndInputPlayModeTests.cs",
+      "sha256": "6ad640d5042832473de4e10dacb63923f855ea7106e245e889edd3fa655cba05",
+      "frozen": "evidence/v07/review/cards-legacy/source/6ad640d5042832473de4e10dacb63923f855ea7106e245e889edd3fa655cba05-FailureAndInputPlayModeTests.cs"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Tests/PlayMode/GameplayPlayModeTests.cs",
+      "sha256": "f2d2a894b8227ff8fc90cd46eba396b889ffdd3b351bc31d486e9d001ea9eaac",
+      "frozen": "evidence/v07/review/cards-legacy/source/f2d2a894b8227ff8fc90cd46eba396b889ffdd3b351bc31d486e9d001ea9eaac-GameplayPlayModeTests.cs"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Tests/PlayMode/ShopBoundaryPlayModeTests.cs",
+      "sha256": "5c772af8d6ca5600b7417c715b6b81cf65dd677e147d12aa68e25904dcfe3a64",
+      "frozen": "evidence/v07/review/cards-legacy/source/5c772af8d6ca5600b7417c715b6b81cf65dd677e147d12aa68e25904dcfe3a64-ShopBoundaryPlayModeTests.cs"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Tests/PlayMode/SubmissionHistoryPlayModeTests.cs",
+      "sha256": "91008978af9574418e36cee0eac4794382f47f152545d849fc5ec5f8ab352a6b",
+      "frozen": "evidence/v07/review/cards-legacy/source/91008978af9574418e36cee0eac4794382f47f152545d849fc5ec5f8ab352a6b-SubmissionHistoryPlayModeTests.cs"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Tests/PlayMode/UiBoundaryPlayModeTests.cs",
+      "sha256": "ce232c695e06c46f00d1e992bf40c6d73274d81434a49ade3fef91313733c318",
+      "frozen": "evidence/v07/review/cards-legacy/source/ce232c695e06c46f00d1e992bf40c6d73274d81434a49ade3fef91313733c318-UiBoundaryPlayModeTests.cs"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Tests/PlayMode/UiPoolingPlayModeTests.cs",
+      "sha256": "0d69373944195bbdf67aba3e7512a24a497b1b306ad2af337606d694276f2537",
+      "frozen": "evidence/v07/review/cards-legacy/source/0d69373944195bbdf67aba3e7512a24a497b1b306ad2af337606d694276f2537-UiPoolingPlayModeTests.cs"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Tests/PlayMode/V05InterfacePlayModeTests.cs",
+      "sha256": "0862c01f2e1580b26ef5147bed5e31818b96531026863a52bdbf0d67bb5be02d",
+      "frozen": "evidence/v07/review/cards-legacy/source/0862c01f2e1580b26ef5147bed5e31818b96531026863a52bdbf0d67bb5be02d-V05InterfacePlayModeTests.cs"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Tests/PlayMode/V06RuntimePlayModeTests.cs",
+      "sha256": "5b6a5c4e08939ce4c3301d0c0ac46d66a1a50ddbb9cd95b6f91e833b3f411d3c",
+      "frozen": "evidence/v07/review/cards-legacy/source/5b6a5c4e08939ce4c3301d0c0ac46d66a1a50ddbb9cd95b6f91e833b3f411d3c-V06RuntimePlayModeTests.cs"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Tests/PlayMode/V06TargetSelectionPlayModeTests.cs",
+      "sha256": "7a06f09e5b009e4dafabfd970be2f62761b0aaa25ed46b36af772ec069ce8b52",
+      "frozen": "evidence/v07/review/cards-legacy/source/7a06f09e5b009e4dafabfd970be2f62761b0aaa25ed46b36af772ec069ce8b52-V06TargetSelectionPlayModeTests.cs"
+    }
+  ],
+  "totals": {
+    "screens": 30,
+    "opened": 12,
+    "glyphReports": 30,
+    "cardInstances": 174,
+    "labelInstances": 606,
+    "characters": 1788
+  }
+}

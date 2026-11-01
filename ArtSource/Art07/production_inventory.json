@@ -1,0 +1,5259 @@
+{
+  "artVersion": "art0.7.0",
+  "snapshotUtc": "2026-10-31T17:39:54.016992+00:00",
+  "plannedRecords": 224,
+  "requiredRecords": 223,
+  "counts": {
+    "generated_pending_import_review": 222,
+    "planned": 1,
+    "source_or_runtime_partial": 1
+  },
+  "warning": "File/hash inventory only. Existence or .meta does not mark imported or verified. Root must bind actual Unity and visual evidence separately.",
+  "assets": [
+    {
+      "assetId": "bg_felt_tile",
+      "category": "background",
+      "assetType": "texture",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "ArtSource/Art07/Backgrounds/bg_felt_tile.kra",
+      "plannedRuntimePath": "Assets/Art/Art07/Backgrounds/bg_felt_tile.png",
+      "pathMappingApplied": false,
+      "mappingEvidence": null,
+      "source": {
+        "path": "ArtSource/Art07/Backgrounds/bg_felt_tile.kra",
+        "exists": true,
+        "sha256": "83e5e5335266650b870a94dee4b6b5c2afa0b00608f2b281ed5355891e566dc5",
+        "bytes": 668115
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/Backgrounds/bg_felt_tile.png",
+        "exists": true,
+        "sha256": "08b31ce5201456d130c76b8a66526f38ac6eb07787b7300e257faf71c4469c5d",
+        "bytes": 129641
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "bg_print_grain",
+      "category": "background",
+      "assetType": "texture",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "ArtSource/Art07/Backgrounds/bg_print_grain.kra",
+      "plannedRuntimePath": "Assets/Art/Art07/Backgrounds/bg_print_grain.png",
+      "pathMappingApplied": false,
+      "mappingEvidence": null,
+      "source": {
+        "path": "ArtSource/Art07/Backgrounds/bg_print_grain.kra",
+        "exists": true,
+        "sha256": "654ba86af2e585694349dce764013a099aaf68982de7850effc779cb7ebd7562",
+        "bytes": 98946
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/Backgrounds/bg_print_grain.png",
+        "exists": true,
+        "sha256": "bbf54e167f4618f53dfbc158dcd10c25c2cc1b2df9d514615ccbded99d9a2e61",
+        "bytes": 28564
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "bg_vignette",
+      "category": "background",
+      "assetType": "texture",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "ArtSource/Art07/Backgrounds/bg_vignette.kra",
+      "plannedRuntimePath": "Assets/Art/Art07/Backgrounds/bg_vignette.png",
+      "pathMappingApplied": false,
+      "mappingEvidence": null,
+      "source": {
+        "path": "ArtSource/Art07/Backgrounds/bg_vignette.kra",
+        "exists": true,
+        "sha256": "c927c17ae6b6f7e936c5afe5281aba1305689da1a18e56ad2c5fa213d7de5d73",
+        "bytes": 445387
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/Backgrounds/bg_vignette.png",
+        "exists": true,
+        "sha256": "bcad0af6a863e2713296d6f3cf30b0ea22ca84b26ed35e043b2ffb2f543a8330",
+        "bytes": 76942
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "ui_button_bevel",
+      "category": "ui_template",
+      "assetType": "texture",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "ArtSource/Art07/UI/Templates/ui_button_bevel.kra",
+      "plannedRuntimePath": "Assets/Art/Art07/UI/Templates/ui_button_bevel.png",
+      "pathMappingApplied": false,
+      "mappingEvidence": null,
+      "source": {
+        "path": "ArtSource/Art07/UI/Templates/ui_button_bevel.kra",
+        "exists": true,
+        "sha256": "f2f35d1af4682022ea74e374f407ebb095208c46385e01348da3f19bb967ef58",
+        "bytes": 40928
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/UI/Templates/ui_button_bevel.png",
+        "exists": true,
+        "sha256": "9c180b9ec9a20613123cecbf50307d4c545ad3bffd887bdde7ce9758096a69f5",
+        "bytes": 540
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "ui_panel_plain",
+      "category": "ui_template",
+      "assetType": "texture",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "ArtSource/Art07/UI/Templates/ui_panel_plain.kra",
+      "plannedRuntimePath": "Assets/Art/Art07/UI/Templates/ui_panel_plain.png",
+      "pathMappingApplied": false,
+      "mappingEvidence": null,
+      "source": {
+        "path": "ArtSource/Art07/UI/Templates/ui_panel_plain.kra",
+        "exists": true,
+        "sha256": "eff70e875e9ebf3b903c5ee49579f5ec4863bb0db8f8619ca5cde09923a6fed9",
+        "bytes": 46767
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/UI/Templates/ui_panel_plain.png",
+        "exists": true,
+        "sha256": "1ee0eb3f77429b1e5c4055fdf931831df9c30f25e8d06eb1bbe5ea1d3bbc5f92",
+        "bytes": 1133
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "ui_panel_modal",
+      "category": "ui_template",
+      "assetType": "texture",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "ArtSource/Art07/UI/Templates/ui_panel_modal.kra",
+      "plannedRuntimePath": "Assets/Art/Art07/UI/Templates/ui_panel_modal.png",
+      "pathMappingApplied": false,
+      "mappingEvidence": null,
+      "source": {
+        "path": "ArtSource/Art07/UI/Templates/ui_panel_modal.kra",
+        "exists": true,
+        "sha256": "39f41526369fc78c7ccf0c245e0aed7e7b0483b83f76cbeb9c7487fc5a5c16a3",
+        "bytes": 46765
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/UI/Templates/ui_panel_modal.png",
+        "exists": true,
+        "sha256": "1ee0eb3f77429b1e5c4055fdf931831df9c30f25e8d06eb1bbe5ea1d3bbc5f92",
+        "bytes": 1133
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "ui_card_controller",
+      "category": "ui_template",
+      "assetType": "texture",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "ArtSource/Art07/UI/Templates/ui_card_controller.kra",
+      "plannedRuntimePath": "Assets/Art/Art07/UI/Templates/ui_card_controller.png",
+      "pathMappingApplied": false,
+      "mappingEvidence": null,
+      "source": {
+        "path": "ArtSource/Art07/UI/Templates/ui_card_controller.kra",
+        "exists": true,
+        "sha256": "55082835e2d3e9ce235da09a840085cc9737045fff51869913fad76be4b7779a",
+        "bytes": 57172
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/UI/Templates/ui_card_controller.png",
+        "exists": true,
+        "sha256": "10151b625e3a425675e50103cc195486b32167d4a45e7d483e4efea993b7af97",
+        "bytes": 1484
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "ui_card_item",
+      "category": "ui_template",
+      "assetType": "texture",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "ArtSource/Art07/UI/Templates/ui_card_item.kra",
+      "plannedRuntimePath": "Assets/Art/Art07/UI/Templates/ui_card_item.png",
+      "pathMappingApplied": false,
+      "mappingEvidence": null,
+      "source": {
+        "path": "ArtSource/Art07/UI/Templates/ui_card_item.kra",
+        "exists": true,
+        "sha256": "28deb214faa2846ae91b1ff5e36879defdbe1458af8e664e1536540d1f0b8d5f",
+        "bytes": 57172
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/UI/Templates/ui_card_item.png",
+        "exists": true,
+        "sha256": "10151b625e3a425675e50103cc195486b32167d4a45e7d483e4efea993b7af97",
+        "bytes": 1484
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "ui_card_upgrade",
+      "category": "ui_template",
+      "assetType": "texture",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "ArtSource/Art07/UI/Templates/ui_card_upgrade.kra",
+      "plannedRuntimePath": "Assets/Art/Art07/UI/Templates/ui_card_upgrade.png",
+      "pathMappingApplied": false,
+      "mappingEvidence": null,
+      "source": {
+        "path": "ArtSource/Art07/UI/Templates/ui_card_upgrade.kra",
+        "exists": true,
+        "sha256": "c89073059770042a09ef3f429d0f38f8cf0d8588b679b551a387bcf3b3d6a457",
+        "bytes": 57171
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/UI/Templates/ui_card_upgrade.png",
+        "exists": true,
+        "sha256": "10151b625e3a425675e50103cc195486b32167d4a45e7d483e4efea993b7af97",
+        "bytes": 1484
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "ui_card_controller_compact",
+      "category": "ui_template",
+      "assetType": "texture",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "ArtSource/Art07/UI/Templates/ui_card_controller_compact.kra",
+      "plannedRuntimePath": "Assets/Art/Art07/UI/Templates/ui_card_controller_compact.png",
+      "pathMappingApplied": false,
+      "mappingEvidence": null,
+      "source": {
+        "path": "ArtSource/Art07/UI/Templates/ui_card_controller_compact.kra",
+        "exists": true,
+        "sha256": "e30a3c58921e426fa56903552a7dc0f40cb471323560c24830c40274cf22e96f",
+        "bytes": 40336
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/UI/Templates/ui_card_controller_compact.png",
+        "exists": true,
+        "sha256": "7fa892bf19739130cb0fc0ace0d58af15655fe24bf6e1f6eb6e1c8d1139f491a",
+        "bytes": 812
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "ui_slot_dice",
+      "category": "ui_template",
+      "assetType": "texture",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "ArtSource/Art07/UI/Templates/ui_slot_dice.kra",
+      "plannedRuntimePath": "Assets/Art/Art07/UI/Templates/ui_slot_dice.png",
+      "pathMappingApplied": false,
+      "mappingEvidence": null,
+      "source": {
+        "path": "ArtSource/Art07/UI/Templates/ui_slot_dice.kra",
+        "exists": true,
+        "sha256": "10aa0d8acdbc2576ce97c9d879c009f7b89d1302bde0b5d40fd43fe30ccff3cf",
+        "bytes": 23930
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/UI/Templates/ui_slot_dice.png",
+        "exists": true,
+        "sha256": "9cc5ef211705f9b462e08fefc6332fdfdf8fcb65552ea7d31065ea061f92a53e",
+        "bytes": 656
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "ui_slot_inventory",
+      "category": "ui_template",
+      "assetType": "texture",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "ArtSource/Art07/UI/Templates/ui_slot_inventory.kra",
+      "plannedRuntimePath": "Assets/Art/Art07/UI/Templates/ui_slot_inventory.png",
+      "pathMappingApplied": false,
+      "mappingEvidence": null,
+      "source": {
+        "path": "ArtSource/Art07/UI/Templates/ui_slot_inventory.kra",
+        "exists": true,
+        "sha256": "6b2006f3a353ab056da2545bdbb8de9b8a61ce86c875266930442d9ab2bf6dff",
+        "bytes": 23932
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/UI/Templates/ui_slot_inventory.png",
+        "exists": true,
+        "sha256": "9cc5ef211705f9b462e08fefc6332fdfdf8fcb65552ea7d31065ea061f92a53e",
+        "bytes": 656
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "ui_focus_frame",
+      "category": "ui_template",
+      "assetType": "texture",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "ArtSource/Art07/UI/Templates/ui_focus_frame.kra",
+      "plannedRuntimePath": "Assets/Art/Art07/UI/Templates/ui_focus_frame.png",
+      "pathMappingApplied": false,
+      "mappingEvidence": null,
+      "source": {
+        "path": "ArtSource/Art07/UI/Templates/ui_focus_frame.kra",
+        "exists": true,
+        "sha256": "45e286175c5df33cfbb59dc91ce3255e3b3aac45f2cdf70e1f29a6cbbab702e4",
+        "bytes": 24166
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/UI/Templates/ui_focus_frame.png",
+        "exists": true,
+        "sha256": "ddbd7b5e19a3860fba93e1c67550c16a7f2f1ccbe00b3247358634bc88541618",
+        "bytes": 715
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "ui_tooltip_frame",
+      "category": "ui_template",
+      "assetType": "texture",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "ArtSource/Art07/UI/Templates/ui_tooltip_frame.kra",
+      "plannedRuntimePath": "Assets/Art/Art07/UI/Templates/ui_tooltip_frame.png",
+      "pathMappingApplied": false,
+      "mappingEvidence": null,
+      "source": {
+        "path": "ArtSource/Art07/UI/Templates/ui_tooltip_frame.kra",
+        "exists": true,
+        "sha256": "f830df0797a7ef61bd1c0ce4007502c442e1ac3904bcee6cfcd60015f6ae6b3e",
+        "bytes": 46769
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/UI/Templates/ui_tooltip_frame.png",
+        "exists": true,
+        "sha256": "1ee0eb3f77429b1e5c4055fdf931831df9c30f25e8d06eb1bbe5ea1d3bbc5f92",
+        "bytes": 1133
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "ui_progress_track",
+      "category": "ui_template",
+      "assetType": "texture",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "ArtSource/Art07/UI/Templates/ui_progress_track.kra",
+      "plannedRuntimePath": "Assets/Art/Art07/UI/Templates/ui_progress_track.png",
+      "pathMappingApplied": false,
+      "mappingEvidence": null,
+      "source": {
+        "path": "ArtSource/Art07/UI/Templates/ui_progress_track.kra",
+        "exists": true,
+        "sha256": "6beccee3e49a0eacf128b895fdb9001916f4e52ebb98c6fcb41f197d1e8fb989",
+        "bytes": 38256
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/UI/Templates/ui_progress_track.png",
+        "exists": true,
+        "sha256": "4d79c40c40ee05a4d78c5927b11523ca71e6ee3b24ed186d86803f9090a04cd2",
+        "bytes": 383
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "ui_progress_fill",
+      "category": "ui_template",
+      "assetType": "texture",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "ArtSource/Art07/UI/Templates/ui_progress_fill.kra",
+      "plannedRuntimePath": "Assets/Art/Art07/UI/Templates/ui_progress_fill.png",
+      "pathMappingApplied": false,
+      "mappingEvidence": null,
+      "source": {
+        "path": "ArtSource/Art07/UI/Templates/ui_progress_fill.kra",
+        "exists": true,
+        "sha256": "dcee2bbbb9b4738ea76dc7fa5b725fd269434daf0c2e6e980e9be4ebba9f4d37",
+        "bytes": 38258
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/UI/Templates/ui_progress_fill.png",
+        "exists": true,
+        "sha256": "4d79c40c40ee05a4d78c5927b11523ca71e6ee3b24ed186d86803f9090a04cd2",
+        "bytes": 383
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "ui_chip_label",
+      "category": "ui_template",
+      "assetType": "texture",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "ArtSource/Art07/UI/Templates/ui_chip_label.kra",
+      "plannedRuntimePath": "Assets/Art/Art07/UI/Templates/ui_chip_label.png",
+      "pathMappingApplied": false,
+      "mappingEvidence": null,
+      "source": {
+        "path": "ArtSource/Art07/UI/Templates/ui_chip_label.kra",
+        "exists": true,
+        "sha256": "d46d625de5318801f5232e8ff0b7f5baeaa656e0cbe0b0b7e82022e7232b186c",
+        "bytes": 33894
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/UI/Templates/ui_chip_label.png",
+        "exists": true,
+        "sha256": "b7e03bd2340c112503eb2d06ef9d467954653e8befa5c6871895774e5aac1bf7",
+        "bytes": 484
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "ui_scroll_handle",
+      "category": "ui_template",
+      "assetType": "texture",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "ArtSource/Art07/UI/Templates/ui_scroll_handle.kra",
+      "plannedRuntimePath": "Assets/Art/Art07/UI/Templates/ui_scroll_handle.png",
+      "pathMappingApplied": false,
+      "mappingEvidence": null,
+      "source": {
+        "path": "ArtSource/Art07/UI/Templates/ui_scroll_handle.kra",
+        "exists": true,
+        "sha256": "0fb620479cf9125ad669221e37f3881970303c9035219df7128023f5c955eddc",
+        "bytes": 32455
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/UI/Templates/ui_scroll_handle.png",
+        "exists": true,
+        "sha256": "23daa97f1f5066c00f7fe16fc0e5ecd79658992a9be3c3e46618fa5c927f5ca6",
+        "bytes": 415
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "badge_enchant_slotless",
+      "category": "enchant_badge",
+      "assetType": "texture",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "ArtSource/Art07/UI/Badges/badge_enchant_slotless.kra",
+      "plannedRuntimePath": "Assets/Art/Art07/UI/Badges/badge_enchant_slotless.png",
+      "pathMappingApplied": false,
+      "mappingEvidence": null,
+      "source": {
+        "path": "ArtSource/Art07/UI/Badges/badge_enchant_slotless.kra",
+        "exists": true,
+        "sha256": "8944746b6ee37fffa8fb3e1c9fae010578be3aa95a1f7adbaf767edd80749319",
+        "bytes": 50120
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/UI/Badges/badge_enchant_slotless.png",
+        "exists": true,
+        "sha256": "5d1f61192fc236bad3f6920dec7aba343904af1d8d7a0eda0151f95b02fdcc71",
+        "bytes": 629
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "badge_enchant_base10",
+      "category": "enchant_badge",
+      "assetType": "texture",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "ArtSource/Art07/UI/Badges/badge_enchant_base10.kra",
+      "plannedRuntimePath": "Assets/Art/Art07/UI/Badges/badge_enchant_base10.png",
+      "pathMappingApplied": false,
+      "mappingEvidence": null,
+      "source": {
+        "path": "ArtSource/Art07/UI/Badges/badge_enchant_base10.kra",
+        "exists": true,
+        "sha256": "bb21156dc9eac9a49d27613bfc2165eefd3c6edc9712fb82dd0f94ad6432b583",
+        "bytes": 50101
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/UI/Badges/badge_enchant_base10.png",
+        "exists": true,
+        "sha256": "8c6d6a7841114f234b4e7c6c131084c0bcfdaaf1499fc9c35f767e08ebcfbf08",
+        "bytes": 631
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "badge_enchant_mult2",
+      "category": "enchant_badge",
+      "assetType": "texture",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "ArtSource/Art07/UI/Badges/badge_enchant_mult2.kra",
+      "plannedRuntimePath": "Assets/Art/Art07/UI/Badges/badge_enchant_mult2.png",
+      "pathMappingApplied": false,
+      "mappingEvidence": null,
+      "source": {
+        "path": "ArtSource/Art07/UI/Badges/badge_enchant_mult2.kra",
+        "exists": true,
+        "sha256": "95f99dbcc1d4dc2736000198c743b6f694a513afef363ea833e987080c0d4c43",
+        "bytes": 51066
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/UI/Badges/badge_enchant_mult2.png",
+        "exists": true,
+        "sha256": "abc682125f8eea079f3539a443d16b4c4dd7b267bc4f688279fa4b7963552186",
+        "bytes": 744
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "badge_enchant_submit1",
+      "category": "enchant_badge",
+      "assetType": "texture",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "ArtSource/Art07/UI/Badges/badge_enchant_submit1.kra",
+      "plannedRuntimePath": "Assets/Art/Art07/UI/Badges/badge_enchant_submit1.png",
+      "pathMappingApplied": false,
+      "mappingEvidence": null,
+      "source": {
+        "path": "ArtSource/Art07/UI/Badges/badge_enchant_submit1.kra",
+        "exists": true,
+        "sha256": "3969aed98cb764d559daf15f1957d0c4cdd02c392bad670c55f2242b7105c901",
+        "bytes": 50116
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/UI/Badges/badge_enchant_submit1.png",
+        "exists": true,
+        "sha256": "d62fd97002facf00acebe988a0fce01115288426004af31fb37ddadb3d35af28",
+        "bytes": 711
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "badge_enchant_roll1",
+      "category": "enchant_badge",
+      "assetType": "texture",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "ArtSource/Art07/UI/Badges/badge_enchant_roll1.kra",
+      "plannedRuntimePath": "Assets/Art/Art07/UI/Badges/badge_enchant_roll1.png",
+      "pathMappingApplied": false,
+      "mappingEvidence": null,
+      "source": {
+        "path": "ArtSource/Art07/UI/Badges/badge_enchant_roll1.kra",
+        "exists": true,
+        "sha256": "5fcd80ad3e0bc9097f9d7a2ed0372a4375b29202975e6ec1bb3b205e4b2623c9",
+        "bytes": 50433
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/UI/Badges/badge_enchant_roll1.png",
+        "exists": true,
+        "sha256": "ce513c567d2495d5bdf17c7a60745c4e7052fa268e796bdd8cb4323d23d4afaa",
+        "bytes": 696
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "ui_icon_lock",
+      "category": "ui_symbol",
+      "assetType": "texture",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "ArtSource/Art07/UI/Symbols/ui_icon_lock.kra",
+      "plannedRuntimePath": "Assets/Art/Art07/UI/Symbols/ui_icon_lock.png",
+      "pathMappingApplied": false,
+      "mappingEvidence": null,
+      "source": {
+        "path": "ArtSource/Art07/UI/Symbols/ui_icon_lock.kra",
+        "exists": true,
+        "sha256": "73b5f6f17ab4fe36be18a7c0a37808edf3139d4a25c9abcc3a38c6e552c2f97c",
+        "bytes": 23849
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/UI/Symbols/ui_icon_lock.png",
+        "exists": true,
+        "sha256": "8afcf54be4fda890e616c8484f2d263f0d8f67ecc9ecd646d34a074b34c6a331",
+        "bytes": 441
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "ui_icon_pending",
+      "category": "ui_symbol",
+      "assetType": "texture",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "ArtSource/Art07/UI/Symbols/ui_icon_pending.kra",
+      "plannedRuntimePath": "Assets/Art/Art07/UI/Symbols/ui_icon_pending.png",
+      "pathMappingApplied": false,
+      "mappingEvidence": null,
+      "source": {
+        "path": "ArtSource/Art07/UI/Symbols/ui_icon_pending.kra",
+        "exists": true,
+        "sha256": "849f45ecc3dfec79e91fe71894e7ac5b64bd1fd45a3345e4a3bd20bd22d5023c",
+        "bytes": 22991
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/UI/Symbols/ui_icon_pending.png",
+        "exists": true,
+        "sha256": "5ce8d0be00e4e052f5b9992115914faabcf140ffc75f937c98318c49b7c0bbdb",
+        "bytes": 411
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "ui_icon_plus",
+      "category": "ui_symbol",
+      "assetType": "texture",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "ArtSource/Art07/UI/Symbols/ui_icon_plus.kra",
+      "plannedRuntimePath": "Assets/Art/Art07/UI/Symbols/ui_icon_plus.png",
+      "pathMappingApplied": false,
+      "mappingEvidence": null,
+      "source": {
+        "path": "ArtSource/Art07/UI/Symbols/ui_icon_plus.kra",
+        "exists": true,
+        "sha256": "78cd01c901c5e3582a92ae1e7efc77588e9d2013145af47720350fafdc5e487c",
+        "bytes": 21642
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/UI/Symbols/ui_icon_plus.png",
+        "exists": true,
+        "sha256": "cbd1bc7ee5fd6a2eedceca802fe4cbccca438ef7312bb92e7de75b9248b49d97",
+        "bytes": 250
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "ui_icon_multiply",
+      "category": "ui_symbol",
+      "assetType": "texture",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "ArtSource/Art07/UI/Symbols/ui_icon_multiply.kra",
+      "plannedRuntimePath": "Assets/Art/Art07/UI/Symbols/ui_icon_multiply.png",
+      "pathMappingApplied": false,
+      "mappingEvidence": null,
+      "source": {
+        "path": "ArtSource/Art07/UI/Symbols/ui_icon_multiply.kra",
+        "exists": true,
+        "sha256": "9b1028c0b642bff4d1cddcbcb13c012702962fc546bb980c7eb07df2927401df",
+        "bytes": 23872
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/UI/Symbols/ui_icon_multiply.png",
+        "exists": true,
+        "sha256": "468c819a7648315a4072f2cd509c5c741225005479e2b8a9012b247d565ad7c0",
+        "bytes": 389
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "ui_icon_refresh",
+      "category": "ui_symbol",
+      "assetType": "texture",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "ArtSource/Art07/UI/Symbols/ui_icon_refresh.kra",
+      "plannedRuntimePath": "Assets/Art/Art07/UI/Symbols/ui_icon_refresh.png",
+      "pathMappingApplied": false,
+      "mappingEvidence": null,
+      "source": {
+        "path": "ArtSource/Art07/UI/Symbols/ui_icon_refresh.kra",
+        "exists": true,
+        "sha256": "d726046b775e31f7c537c98b8aa75425e60de482eda125cf4cddc7ec14f8bf0b",
+        "bytes": 23229
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/UI/Symbols/ui_icon_refresh.png",
+        "exists": true,
+        "sha256": "dd5ad8eee6a7a9f637db05ba8ffe755f0dd9d22f188f0ac28796d795ed825e04",
+        "bytes": 418
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "ui_icon_coin",
+      "category": "ui_symbol",
+      "assetType": "texture",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "ArtSource/Art07/UI/Symbols/ui_icon_coin.kra",
+      "plannedRuntimePath": "Assets/Art/Art07/UI/Symbols/ui_icon_coin.png",
+      "pathMappingApplied": false,
+      "mappingEvidence": null,
+      "source": {
+        "path": "ArtSource/Art07/UI/Symbols/ui_icon_coin.kra",
+        "exists": true,
+        "sha256": "289aff6752779c54c58b8568b9bcf095bd7e986464a2126d186b525b160135f7",
+        "bytes": 23643
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/UI/Symbols/ui_icon_coin.png",
+        "exists": true,
+        "sha256": "444c7c67ea0471f8ca9f60fae761f9b477b4188697f3b3c73f3c103c91532254",
+        "bytes": 645
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "ui_icon_roll",
+      "category": "ui_symbol",
+      "assetType": "texture",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "ArtSource/Art07/UI/Symbols/ui_icon_roll.kra",
+      "plannedRuntimePath": "Assets/Art/Art07/UI/Symbols/ui_icon_roll.png",
+      "pathMappingApplied": false,
+      "mappingEvidence": null,
+      "source": {
+        "path": "ArtSource/Art07/UI/Symbols/ui_icon_roll.kra",
+        "exists": true,
+        "sha256": "7ef73ab02eb5c08260b970f163d97bf595d8eb380bd568b1bf425d66e15931b9",
+        "bytes": 23363
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/UI/Symbols/ui_icon_roll.png",
+        "exists": true,
+        "sha256": "b395ba2907a5cbd5993f5261f4c0a43dfefcd45799d9ddc8562775a7db66fe21",
+        "bytes": 536
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "ui_icon_submit",
+      "category": "ui_symbol",
+      "assetType": "texture",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "ArtSource/Art07/UI/Symbols/ui_icon_submit.kra",
+      "plannedRuntimePath": "Assets/Art/Art07/UI/Symbols/ui_icon_submit.png",
+      "pathMappingApplied": false,
+      "mappingEvidence": null,
+      "source": {
+        "path": "ArtSource/Art07/UI/Symbols/ui_icon_submit.kra",
+        "exists": true,
+        "sha256": "2a1e45c57ae29d9eaf458aab927d4411c341f2951c7d62203d7a6a96889ca257",
+        "bytes": 23101
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/UI/Symbols/ui_icon_submit.png",
+        "exists": true,
+        "sha256": "21ff0e3b9473ccf1f0a610f9c7389d58531b6564283d30f99ac402fd6176c6ee",
+        "bytes": 336
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "ui_icon_close",
+      "category": "ui_symbol",
+      "assetType": "texture",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "ArtSource/Art07/UI/Symbols/ui_icon_close.kra",
+      "plannedRuntimePath": "Assets/Art/Art07/UI/Symbols/ui_icon_close.png",
+      "pathMappingApplied": false,
+      "mappingEvidence": null,
+      "source": {
+        "path": "ArtSource/Art07/UI/Symbols/ui_icon_close.kra",
+        "exists": true,
+        "sha256": "20488e15e342008562d73c20022cf5bd1d310d381e16448380284fac13f94c9b",
+        "bytes": 23870
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/UI/Symbols/ui_icon_close.png",
+        "exists": true,
+        "sha256": "468c819a7648315a4072f2cd509c5c741225005479e2b8a9012b247d565ad7c0",
+        "bytes": 389
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "ui_icon_back",
+      "category": "ui_symbol",
+      "assetType": "texture",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "ArtSource/Art07/UI/Symbols/ui_icon_back.kra",
+      "plannedRuntimePath": "Assets/Art/Art07/UI/Symbols/ui_icon_back.png",
+      "pathMappingApplied": false,
+      "mappingEvidence": null,
+      "source": {
+        "path": "ArtSource/Art07/UI/Symbols/ui_icon_back.kra",
+        "exists": true,
+        "sha256": "c1c23dde3b09a9c4df60d57e248decc531d7b03216432d438d2cf5e558a5ea50",
+        "bytes": 22250
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/UI/Symbols/ui_icon_back.png",
+        "exists": true,
+        "sha256": "043881b1257b0d228e33b89d115d20a0c8d72024e260b72cdc49ce753e2c0985",
+        "bytes": 309
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "ui_icon_settings",
+      "category": "ui_symbol",
+      "assetType": "texture",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "ArtSource/Art07/UI/Symbols/ui_icon_settings.kra",
+      "plannedRuntimePath": "Assets/Art/Art07/UI/Symbols/ui_icon_settings.png",
+      "pathMappingApplied": false,
+      "mappingEvidence": null,
+      "source": {
+        "path": "ArtSource/Art07/UI/Symbols/ui_icon_settings.kra",
+        "exists": true,
+        "sha256": "5e545dfd344b434a502e1f9fa838ce3d99e71fda513e98033f58019b094703a1",
+        "bytes": 24352
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/UI/Symbols/ui_icon_settings.png",
+        "exists": true,
+        "sha256": "380037dc23f0b6a9de97086b8cdd2a5fe0cba00b573cc7307c8ea9b5020c333d",
+        "bytes": 475
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "ui_icon_sound",
+      "category": "ui_symbol",
+      "assetType": "texture",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "ArtSource/Art07/UI/Symbols/ui_icon_sound.kra",
+      "plannedRuntimePath": "Assets/Art/Art07/UI/Symbols/ui_icon_sound.png",
+      "pathMappingApplied": false,
+      "mappingEvidence": null,
+      "source": {
+        "path": "ArtSource/Art07/UI/Symbols/ui_icon_sound.kra",
+        "exists": true,
+        "sha256": "00aad75493c2363fcf2db056f87849089cd99036b75d792345d3e32c5f747f85",
+        "bytes": 23504
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/UI/Symbols/ui_icon_sound.png",
+        "exists": true,
+        "sha256": "6f425703a778b067b03744860def57020071b0229b0036f9b06146f5867cb121",
+        "bytes": 433
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "ui_icon_muted",
+      "category": "ui_symbol",
+      "assetType": "texture",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "ArtSource/Art07/UI/Symbols/ui_icon_muted.kra",
+      "plannedRuntimePath": "Assets/Art/Art07/UI/Symbols/ui_icon_muted.png",
+      "pathMappingApplied": false,
+      "mappingEvidence": null,
+      "source": {
+        "path": "ArtSource/Art07/UI/Symbols/ui_icon_muted.kra",
+        "exists": true,
+        "sha256": "ad2611b7931d97d22d9afeadd38e814c2fd2471793065a394c21631c3b567143",
+        "bytes": 23485
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/UI/Symbols/ui_icon_muted.png",
+        "exists": true,
+        "sha256": "382b4737dbecac129c96e2c41aa56d5d8f9bd4d4caf09c1c8f8a6f26cc3f6796",
+        "bytes": 400
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "ui_icon_info",
+      "category": "ui_symbol",
+      "assetType": "texture",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "ArtSource/Art07/UI/Symbols/ui_icon_info.kra",
+      "plannedRuntimePath": "Assets/Art/Art07/UI/Symbols/ui_icon_info.png",
+      "pathMappingApplied": false,
+      "mappingEvidence": null,
+      "source": {
+        "path": "ArtSource/Art07/UI/Symbols/ui_icon_info.kra",
+        "exists": true,
+        "sha256": "fd76656affd20dcd13c9d6a12dcabd7209f5711921a6fa23cb204b56e9835886",
+        "bytes": 23034
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/UI/Symbols/ui_icon_info.png",
+        "exists": true,
+        "sha256": "8f77c4415d9e9d3f4fad94c90b11dfe66ae4426fdaf7e2581a5b63b90e53c6be",
+        "bytes": 366
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "ui_icon_check",
+      "category": "ui_symbol",
+      "assetType": "texture",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "ArtSource/Art07/UI/Symbols/ui_icon_check.kra",
+      "plannedRuntimePath": "Assets/Art/Art07/UI/Symbols/ui_icon_check.png",
+      "pathMappingApplied": false,
+      "mappingEvidence": null,
+      "source": {
+        "path": "ArtSource/Art07/UI/Symbols/ui_icon_check.kra",
+        "exists": true,
+        "sha256": "205c3c100960e44e8af04e397d20c113f62b9f8b4681d96c631b8dcd527ce72e",
+        "bytes": 23044
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/UI/Symbols/ui_icon_check.png",
+        "exists": true,
+        "sha256": "665ce0039d56964176adaba6c0f60f62d8982c70bbe555a34a4072ab322b7ea9",
+        "bytes": 366
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "ui_icon_warning",
+      "category": "ui_symbol",
+      "assetType": "texture",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "ArtSource/Art07/UI/Symbols/ui_icon_warning.kra",
+      "plannedRuntimePath": "Assets/Art/Art07/UI/Symbols/ui_icon_warning.png",
+      "pathMappingApplied": false,
+      "mappingEvidence": null,
+      "source": {
+        "path": "ArtSource/Art07/UI/Symbols/ui_icon_warning.kra",
+        "exists": true,
+        "sha256": "d5996d829549e7a7619becc93aaa090f892a564e9fdd34f385252b84e6a0d6ff",
+        "bytes": 22524
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/UI/Symbols/ui_icon_warning.png",
+        "exists": true,
+        "sha256": "5102aed3785d2d4368989b140e017062d219d322c77617892140c1f33dfec961",
+        "bytes": 400
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "ui_icon_arrow_right",
+      "category": "ui_symbol",
+      "assetType": "texture",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "ArtSource/Art07/UI/Symbols/ui_icon_arrow_right.kra",
+      "plannedRuntimePath": "Assets/Art/Art07/UI/Symbols/ui_icon_arrow_right.png",
+      "pathMappingApplied": false,
+      "mappingEvidence": null,
+      "source": {
+        "path": "ArtSource/Art07/UI/Symbols/ui_icon_arrow_right.kra",
+        "exists": true,
+        "sha256": "3578327a3e24d7dd223e71a66e217fd21d9e15589b5116fa8bd24433d3417eb1",
+        "bytes": 22198
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/UI/Symbols/ui_icon_arrow_right.png",
+        "exists": true,
+        "sha256": "cc55b87637a6d62d13370661ed85225a6edb0f26bf321efbdbd34d2b74c0efce",
+        "bytes": 304
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "ui_icon_temporary",
+      "category": "ui_symbol",
+      "assetType": "texture",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "ArtSource/Art07/UI/Symbols/ui_icon_temporary.kra",
+      "plannedRuntimePath": "Assets/Art/Art07/UI/Symbols/ui_icon_temporary.png",
+      "pathMappingApplied": false,
+      "mappingEvidence": null,
+      "source": {
+        "path": "ArtSource/Art07/UI/Symbols/ui_icon_temporary.kra",
+        "exists": true,
+        "sha256": "4dd42817f13e808c0fdb5607fd8f6b20313703b201ded753f380aff254cd9393",
+        "bytes": 22474
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/UI/Symbols/ui_icon_temporary.png",
+        "exists": true,
+        "sha256": "816efd814d93b1bdef2f55da567fca4ea8c1101cda483542c1be311a1a87a57b",
+        "bytes": 424
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "ui_icon_smooth",
+      "category": "ui_symbol",
+      "assetType": "texture",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "ArtSource/Art07/UI/Symbols/ui_icon_smooth.kra",
+      "plannedRuntimePath": "Assets/Art/Art07/UI/Symbols/ui_icon_smooth.png",
+      "pathMappingApplied": false,
+      "mappingEvidence": null,
+      "source": {
+        "path": "ArtSource/Art07/UI/Symbols/ui_icon_smooth.kra",
+        "exists": true,
+        "sha256": "6b6e530bdd587811d588afd6f50bb16593f48e9f078d00b63a46ef394d861fe4",
+        "bytes": 23011
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/UI/Symbols/ui_icon_smooth.png",
+        "exists": true,
+        "sha256": "f9d7baec6e41a742aac7b93c9776eeeb78a697ab08cc4e48d970b10ed017c7cf",
+        "bytes": 330
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "ui_icon_rough",
+      "category": "ui_symbol",
+      "assetType": "texture",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "ArtSource/Art07/UI/Symbols/ui_icon_rough.kra",
+      "plannedRuntimePath": "Assets/Art/Art07/UI/Symbols/ui_icon_rough.png",
+      "pathMappingApplied": false,
+      "mappingEvidence": null,
+      "source": {
+        "path": "ArtSource/Art07/UI/Symbols/ui_icon_rough.kra",
+        "exists": true,
+        "sha256": "8f2833e0bfa754d2411c94df730c54094ba5eec73f98903235b6f18bbbc899c4",
+        "bytes": 22780
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/UI/Symbols/ui_icon_rough.png",
+        "exists": true,
+        "sha256": "0f3a26aaa294d09f8487e90fcb77b2338a2160fae17c1e15b038385c5314ad8b",
+        "bytes": 408
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "ui_icon_gold",
+      "category": "ui_symbol",
+      "assetType": "texture",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "ArtSource/Art07/UI/Symbols/ui_icon_gold.kra",
+      "plannedRuntimePath": "Assets/Art/Art07/UI/Symbols/ui_icon_gold.png",
+      "pathMappingApplied": false,
+      "mappingEvidence": null,
+      "source": {
+        "path": "ArtSource/Art07/UI/Symbols/ui_icon_gold.kra",
+        "exists": true,
+        "sha256": "9b83262b696b79ff8d5f4bf16912e60206b79756e1c5826a0c50bce809aaa496",
+        "bytes": 23254
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/UI/Symbols/ui_icon_gold.png",
+        "exists": true,
+        "sha256": "c4e2ec37633b9dedc57efd6697541028ddfa0c02cd3ab9bd8d745370b9670557",
+        "bytes": 320
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "ui_icon_glass",
+      "category": "ui_symbol",
+      "assetType": "texture",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "ArtSource/Art07/UI/Symbols/ui_icon_glass.kra",
+      "plannedRuntimePath": "Assets/Art/Art07/UI/Symbols/ui_icon_glass.png",
+      "pathMappingApplied": false,
+      "mappingEvidence": null,
+      "source": {
+        "path": "ArtSource/Art07/UI/Symbols/ui_icon_glass.kra",
+        "exists": true,
+        "sha256": "a347cb6d10ebaa5846d5a4f453cd8feccf3e2559bc8c2ca0e18c09390625eec4",
+        "bytes": 23410
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/UI/Symbols/ui_icon_glass.png",
+        "exists": true,
+        "sha256": "335d5e9f3a1631370a093bba1289a6623ec7aac99ba7114794986e38f2315bac",
+        "bytes": 592
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "ui_icon_color_red",
+      "category": "ui_symbol",
+      "assetType": "texture",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "ArtSource/Art07/UI/Symbols/ui_icon_color_red.kra",
+      "plannedRuntimePath": "Assets/Art/Art07/UI/Symbols/ui_icon_color_red.png",
+      "pathMappingApplied": false,
+      "mappingEvidence": null,
+      "source": {
+        "path": "ArtSource/Art07/UI/Symbols/ui_icon_color_red.kra",
+        "exists": true,
+        "sha256": "6f9dbc433b4196a8c22d38a80e6063a1f4f4e7298e74cbb06dfd46830c97a8e1",
+        "bytes": 22830
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/UI/Symbols/ui_icon_color_red.png",
+        "exists": true,
+        "sha256": "1d31fd6c39268a906c46f4e6b6320c4a378e10857e0dea15535abdeb1b8e2256",
+        "bytes": 371
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "ui_icon_color_blue",
+      "category": "ui_symbol",
+      "assetType": "texture",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "ArtSource/Art07/UI/Symbols/ui_icon_color_blue.kra",
+      "plannedRuntimePath": "Assets/Art/Art07/UI/Symbols/ui_icon_color_blue.png",
+      "pathMappingApplied": false,
+      "mappingEvidence": null,
+      "source": {
+        "path": "ArtSource/Art07/UI/Symbols/ui_icon_color_blue.kra",
+        "exists": true,
+        "sha256": "30400e9350aaaf1b4131c86f7592774f99ac832dbf1dfbe438836205a0e9fb6a",
+        "bytes": 23713
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/UI/Symbols/ui_icon_color_blue.png",
+        "exists": true,
+        "sha256": "766505d1f2c39303416667bbb5af0afa6f5af4343e24795b463294b72c031242",
+        "bytes": 414
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "ui_icon_broken_link",
+      "category": "ui_symbol",
+      "assetType": "texture",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "ArtSource/Art07/UI/Symbols/ui_icon_broken_link.kra",
+      "plannedRuntimePath": "Assets/Art/Art07/UI/Symbols/ui_icon_broken_link.png",
+      "pathMappingApplied": false,
+      "mappingEvidence": null,
+      "source": {
+        "path": "ArtSource/Art07/UI/Symbols/ui_icon_broken_link.kra",
+        "exists": true,
+        "sha256": "99c0039d04782309755838a0d31cbbdb0bf5472bfdfb089450d9a8769129100b",
+        "bytes": 23847
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/UI/Symbols/ui_icon_broken_link.png",
+        "exists": true,
+        "sha256": "6108dcd9ce767204e7a5cda984b83f6d14e0dec9fd8d03add4cf1148be7ae979",
+        "bytes": 585
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "ui_icon_broken",
+      "category": "ui_symbol",
+      "assetType": "texture",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "ArtSource/Art07/UI/Symbols/ui_icon_broken.kra",
+      "plannedRuntimePath": "Assets/Art/Art07/UI/Symbols/ui_icon_broken.png",
+      "pathMappingApplied": false,
+      "mappingEvidence": null,
+      "source": {
+        "path": "ArtSource/Art07/UI/Symbols/ui_icon_broken.kra",
+        "exists": true,
+        "sha256": "94082f2533644c5d0294d9d097f41c9b9486a86dab17f7ddecc4ceb27d3a14b8",
+        "bytes": 23478
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/UI/Symbols/ui_icon_broken.png",
+        "exists": true,
+        "sha256": "d0a8f0ccda7fea85e2b5d3256b86477159410086442405452a82fd91a8a5e88d",
+        "bytes": 508
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "ui_icon_unavailable",
+      "category": "ui_symbol",
+      "assetType": "texture",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "ArtSource/Art07/UI/Symbols/ui_icon_unavailable.kra",
+      "plannedRuntimePath": "Assets/Art/Art07/UI/Symbols/ui_icon_unavailable.png",
+      "pathMappingApplied": false,
+      "mappingEvidence": null,
+      "source": {
+        "path": "ArtSource/Art07/UI/Symbols/ui_icon_unavailable.kra",
+        "exists": true,
+        "sha256": "421cc1547cdd646ddec12afe3aa8dcbea67059b0ee4c7c81500bf35fc10a3f5c",
+        "bytes": 24347
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/UI/Symbols/ui_icon_unavailable.png",
+        "exists": true,
+        "sha256": "f0cf865e79047438bbc85e86fdea51ce16d702eb1856682a4cd31092c5c9f17c",
+        "bytes": 427
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "ui_icon_eye",
+      "category": "ui_symbol",
+      "assetType": "texture",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "ArtSource/Art07/UI/Symbols/ui_icon_eye.kra",
+      "plannedRuntimePath": "Assets/Art/Art07/UI/Symbols/ui_icon_eye.png",
+      "pathMappingApplied": false,
+      "mappingEvidence": null,
+      "source": {
+        "path": "ArtSource/Art07/UI/Symbols/ui_icon_eye.kra",
+        "exists": true,
+        "sha256": "a38b3cd164e282f764655cd75138b215ceda1b7bc458b4f5057274e02202752a",
+        "bytes": 23522
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/UI/Symbols/ui_icon_eye.png",
+        "exists": true,
+        "sha256": "2ce007ef77848838146748a4eea4c00f780e156adca4e8bd4455d02b18fbc058",
+        "bytes": 367
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "dice_body_bevel",
+      "category": "dice_model",
+      "assetType": "model",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "ArtSource/Art07/Dice/dice_master.blend",
+      "plannedRuntimePath": "Assets/Art/Art07/Dice/Models/dice_body_bevel.fbx",
+      "pathMappingApplied": false,
+      "mappingEvidence": null,
+      "source": {
+        "path": "ArtSource/Art07/Dice/dice_master.blend",
+        "exists": true,
+        "sha256": "ef5c702fb225a70ef6744356372a2bf342f7319582a3fca4a416b8f2ba504bbc",
+        "bytes": 118923
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/Dice/Models/dice_body_bevel.fbx",
+        "exists": true,
+        "sha256": "05532acefd941696b7e8ea0caff10e71449ebc57649bf947c45de7a5426b4c22",
+        "bytes": 26540
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "dice_faces",
+      "category": "dice_model",
+      "assetType": "model",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "ArtSource/Art07/Dice/dice_master.blend",
+      "plannedRuntimePath": "Assets/Art/Art07/Dice/Models/dice_faces.fbx",
+      "pathMappingApplied": false,
+      "mappingEvidence": null,
+      "source": {
+        "path": "ArtSource/Art07/Dice/dice_master.blend",
+        "exists": true,
+        "sha256": "ef5c702fb225a70ef6744356372a2bf342f7319582a3fca4a416b8f2ba504bbc",
+        "bytes": 118923
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/Dice/Models/dice_faces.fbx",
+        "exists": true,
+        "sha256": "5f78ebaf296d8c5e5bbdf7654955cec4913559f0515168552ce923d87b2e9e24",
+        "bytes": 18940
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "dice_fragments",
+      "category": "dice_model",
+      "assetType": "model",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "ArtSource/Art07/Dice/dice_master.blend",
+      "plannedRuntimePath": "Assets/Art/Art07/Dice/Models/dice_fragments.fbx",
+      "pathMappingApplied": false,
+      "mappingEvidence": null,
+      "source": {
+        "path": "ArtSource/Art07/Dice/dice_master.blend",
+        "exists": true,
+        "sha256": "ef5c702fb225a70ef6744356372a2bf342f7319582a3fca4a416b8f2ba504bbc",
+        "bytes": 118923
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/Dice/Models/dice_fragments.fbx",
+        "exists": true,
+        "sha256": "e19b88d5568d16d5de5aca3ce59821e87665e5c001f8b9e814393853bf19047d",
+        "bytes": 33212
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "dice_body_lod_optional",
+      "category": "dice_model",
+      "assetType": "model",
+      "optional": true,
+      "status": "source_or_runtime_partial",
+      "plannedSourcePath": "ArtSource/Art07/Dice/dice_master.blend",
+      "plannedRuntimePath": "Assets/Art/Art07/Dice/Models/dice_body_lod_optional.fbx",
+      "pathMappingApplied": false,
+      "mappingEvidence": null,
+      "source": {
+        "path": "ArtSource/Art07/Dice/dice_master.blend",
+        "exists": true,
+        "sha256": "ef5c702fb225a70ef6744356372a2bf342f7319582a3fca4a416b8f2ba504bbc",
+        "bytes": 118923
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/Dice/Models/dice_body_lod_optional.fbx",
+        "exists": false,
+        "sha256": null,
+        "bytes": 0
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "dice_pips_red_blue",
+      "category": "dice_texture",
+      "assetType": "texture",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "ArtSource/Art07/Scripts/generate_dice_pips.py",
+      "plannedRuntimePath": "Assets/Art/Art07/Dice/Textures/dice_pips_red_blue.png",
+      "pathMappingApplied": false,
+      "mappingEvidence": null,
+      "source": {
+        "path": "ArtSource/Art07/Scripts/generate_dice_pips.py",
+        "exists": true,
+        "sha256": "26d0e680285678d5ce5c1d56f1b3561b02b9d5f5b69b55a6ce48ec80b8595d5d",
+        "bytes": 281
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/Dice/Textures/dice_pips_red_blue.png",
+        "exists": true,
+        "sha256": "c407492a188fe1f24e57f3771342a540d3441566031c779c1b1fd780494fe18d",
+        "bytes": 13227
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "dice_smooth_mask",
+      "category": "dice_texture",
+      "assetType": "texture",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "ArtSource/Art07/Dice/Textures/dice_smooth_mask.kra",
+      "plannedRuntimePath": "Assets/Art/Art07/Dice/Textures/dice_smooth_mask.png",
+      "pathMappingApplied": false,
+      "mappingEvidence": null,
+      "source": {
+        "path": "ArtSource/Art07/Dice/Textures/dice_smooth_mask.kra",
+        "exists": true,
+        "sha256": "8730d186a4012184ca0728cbe17666575796a11650bb1dbac926b2909e336edd",
+        "bytes": 58925
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/Dice/Textures/dice_smooth_mask.png",
+        "exists": true,
+        "sha256": "389d2945034afde467febc830f7c15b1059b85b0e64ce43fd2d365a7bd7bda5b",
+        "bytes": 4078
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "dice_rough_mask",
+      "category": "dice_texture",
+      "assetType": "texture",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "ArtSource/Art07/Dice/Textures/dice_rough_mask.kra",
+      "plannedRuntimePath": "Assets/Art/Art07/Dice/Textures/dice_rough_mask.png",
+      "pathMappingApplied": false,
+      "mappingEvidence": null,
+      "source": {
+        "path": "ArtSource/Art07/Dice/Textures/dice_rough_mask.kra",
+        "exists": true,
+        "sha256": "f8d3852edd7e8a872f98e7b9e87e537b2554675fbd1cf8fb40fdfa4a9057a4fa",
+        "bytes": 139592
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/Dice/Textures/dice_rough_mask.png",
+        "exists": true,
+        "sha256": "59a38e29081e8c1ee04a5e3242ab11ecce3a5c7a954749e4496f84b0d2beaa69",
+        "bytes": 37270
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "dice_gold_edge_mask",
+      "category": "dice_texture",
+      "assetType": "texture",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "ArtSource/Art07/Dice/Textures/dice_gold_edge_mask.kra",
+      "plannedRuntimePath": "Assets/Art/Art07/Dice/Textures/dice_gold_edge_mask.png",
+      "pathMappingApplied": false,
+      "mappingEvidence": null,
+      "source": {
+        "path": "ArtSource/Art07/Dice/Textures/dice_gold_edge_mask.kra",
+        "exists": true,
+        "sha256": "2c773a51707574dbec47547474b7848e9ba6703b2aa8b06842f4190e5a299c99",
+        "bytes": 52103
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/Dice/Textures/dice_gold_edge_mask.png",
+        "exists": true,
+        "sha256": "0fe3581c45571f979f34c0505f1218454e72112f91a02613604dfac5484d5948",
+        "bytes": 2161
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "dice_contact_shadow",
+      "category": "dice_texture",
+      "assetType": "texture",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "ArtSource/Art07/Dice/Textures/dice_contact_shadow.kra",
+      "plannedRuntimePath": "Assets/Art/Art07/Dice/Textures/dice_contact_shadow.png",
+      "pathMappingApplied": false,
+      "mappingEvidence": null,
+      "source": {
+        "path": "ArtSource/Art07/Dice/Textures/dice_contact_shadow.kra",
+        "exists": true,
+        "sha256": "f618a188579ee6bb33ce64af2d4232722c83c2e1e4937ec1f86775e9631ecea6",
+        "bytes": 56950
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/Dice/Textures/dice_contact_shadow.png",
+        "exists": true,
+        "sha256": "21620fd15da947af30c5db210871770310d47c1b5ee5f8fa8dd55e6d3a48b3b1",
+        "bytes": 7410
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "dice_face_map",
+      "category": "dice_data",
+      "assetType": "json",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "ArtSource/Art07/Scripts/export_dice.py",
+      "plannedRuntimePath": "Assets/Art/Art07/Dice/Data/dice_face_map.json",
+      "pathMappingApplied": false,
+      "mappingEvidence": null,
+      "source": {
+        "path": "ArtSource/Art07/Scripts/export_dice.py",
+        "exists": true,
+        "sha256": "6b72d738bf610b158f10d0b865a372031fea63e9460166a948513d9181b9d73b",
+        "bytes": 231
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/Dice/Data/dice_face_map.json",
+        "exists": true,
+        "sha256": "2aa17921b205d786172aad9fec86501b0fad46408e0d642edb8b2e009638c945",
+        "bytes": 3478
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "dice_pip_uv_map",
+      "category": "dice_data",
+      "assetType": "json",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "ArtSource/Art07/Scripts/generate_dice_pips.py",
+      "plannedRuntimePath": "Assets/Art/Art07/Dice/Data/dice_pip_uv_map.json",
+      "pathMappingApplied": false,
+      "mappingEvidence": null,
+      "source": {
+        "path": "ArtSource/Art07/Scripts/generate_dice_pips.py",
+        "exists": true,
+        "sha256": "26d0e680285678d5ce5c1d56f1b3561b02b9d5f5b69b55a6ce48ec80b8595d5d",
+        "bytes": 281
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/Dice/Data/dice_pip_uv_map.json",
+        "exists": true,
+        "sha256": "a725074cc4f51493f21c579983c532d6b13eeb34c5bc5c6d342291933b8e6afe",
+        "bytes": 5381
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "shader_dice_three_tone",
+      "category": "shader",
+      "assetType": "shadergraph",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "Assets/Art/Art07/Dice/Shaders/shader_dice_three_tone.shadergraph",
+      "plannedRuntimePath": "Assets/Art/Art07/Dice/Shaders/shader_dice_three_tone.shadergraph",
+      "pathMappingApplied": true,
+      "mappingEvidence": "ArtSource/Art07/path_mappings.json",
+      "source": {
+        "path": "Assets/Game/Runtime/Shaders/Art07Ceramic.shader",
+        "exists": true,
+        "sha256": "4343e5cf1dfe207c47b3f1bc89461287fa41744162e9212cb6b99b4d6a543579",
+        "bytes": 2781
+      },
+      "runtime": {
+        "path": "Assets/Game/Runtime/Shaders/Art07Ceramic.shader",
+        "exists": true,
+        "sha256": "4343e5cf1dfe207c47b3f1bc89461287fa41744162e9212cb6b99b4d6a543579",
+        "bytes": 2781
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "shader_dice_pips",
+      "category": "shader",
+      "assetType": "shadergraph",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "Assets/Art/Art07/Dice/Shaders/shader_dice_pips.shadergraph",
+      "plannedRuntimePath": "Assets/Art/Art07/Dice/Shaders/shader_dice_pips.shadergraph",
+      "pathMappingApplied": true,
+      "mappingEvidence": "ArtSource/Art07/path_mappings.json",
+      "source": {
+        "path": "Assets/Game/Runtime/Shaders/VertexFace.shader",
+        "exists": true,
+        "sha256": "a68f033cbfb47b65bd0e096aab6340375e9f20463fdd69e47d92e2153cf31dc7",
+        "bytes": 963
+      },
+      "runtime": {
+        "path": "Assets/Game/Runtime/Shaders/VertexFace.shader",
+        "exists": true,
+        "sha256": "a68f033cbfb47b65bd0e096aab6340375e9f20463fdd69e47d92e2153cf31dc7",
+        "bytes": 963
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "shader_ui_local_fx",
+      "category": "shader",
+      "assetType": "shadergraph",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "Assets/Art/Art07/FX/Shaders/shader_ui_local_fx.shadergraph",
+      "plannedRuntimePath": "Assets/Art/Art07/FX/Shaders/shader_ui_local_fx.shadergraph",
+      "pathMappingApplied": true,
+      "mappingEvidence": "ArtSource/Art07/path_mappings.json",
+      "source": {
+        "path": "Assets/Game/Runtime/Shaders/Art07LocalFx.shader",
+        "exists": true,
+        "sha256": "8a99f6cfa6e029ba603f7c6169835da5d3c54adf171a6eb35873db5b0c7a1881",
+        "bytes": 2226
+      },
+      "runtime": {
+        "path": "Assets/Game/Runtime/Shaders/Art07LocalFx.shader",
+        "exists": true,
+        "sha256": "8a99f6cfa6e029ba603f7c6169835da5d3c54adf171a6eb35873db5b0c7a1881",
+        "bytes": 2226
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "mat_dice_ceramic",
+      "category": "material",
+      "assetType": "material",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "Assets/Art/Art07/Dice/Materials/mat_dice_ceramic.mat",
+      "plannedRuntimePath": "Assets/Art/Art07/Dice/Materials/mat_dice_ceramic.mat",
+      "pathMappingApplied": false,
+      "mappingEvidence": null,
+      "source": {
+        "path": "Assets/Art/Art07/Dice/Materials/mat_dice_ceramic.mat",
+        "exists": true,
+        "sha256": "df4673876b036c1bea4050f1679629fd3bc5699c99c0b0dbb5d28eacdd553392",
+        "bytes": 936
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/Dice/Materials/mat_dice_ceramic.mat",
+        "exists": true,
+        "sha256": "df4673876b036c1bea4050f1679629fd3bc5699c99c0b0dbb5d28eacdd553392",
+        "bytes": 936
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "mat_dice_glass",
+      "category": "material",
+      "assetType": "material",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "Assets/Art/Art07/Dice/Materials/mat_dice_glass.mat",
+      "plannedRuntimePath": "Assets/Art/Art07/Dice/Materials/mat_dice_glass.mat",
+      "pathMappingApplied": false,
+      "mappingEvidence": null,
+      "source": {
+        "path": "Assets/Art/Art07/Dice/Materials/mat_dice_glass.mat",
+        "exists": true,
+        "sha256": "6e056cea40a101005c8f50fb239e4f44c2dc0c2fbee609b48c4f232b72d411c9",
+        "bytes": 935
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/Dice/Materials/mat_dice_glass.mat",
+        "exists": true,
+        "sha256": "6e056cea40a101005c8f50fb239e4f44c2dc0c2fbee609b48c4f232b72d411c9",
+        "bytes": 935
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "mat_dice_pips",
+      "category": "material",
+      "assetType": "material",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "Assets/Art/Art07/Dice/Materials/mat_dice_pips.mat",
+      "plannedRuntimePath": "Assets/Art/Art07/Dice/Materials/mat_dice_pips.mat",
+      "pathMappingApplied": false,
+      "mappingEvidence": null,
+      "source": {
+        "path": "Assets/Art/Art07/Dice/Materials/mat_dice_pips.mat",
+        "exists": true,
+        "sha256": "48456609dc51d4ce9bb2bddef136e488fb1868e3657b7ce4dd7f4232fe5e1e7c",
+        "bytes": 824
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/Dice/Materials/mat_dice_pips.mat",
+        "exists": true,
+        "sha256": "48456609dc51d4ce9bb2bddef136e488fb1868e3657b7ce4dd7f4232fe5e1e7c",
+        "bytes": 824
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "mat_dice_gold_edge",
+      "category": "material",
+      "assetType": "material",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "Assets/Art/Art07/Dice/Materials/mat_dice_gold_edge.mat",
+      "plannedRuntimePath": "Assets/Art/Art07/Dice/Materials/mat_dice_gold_edge.mat",
+      "pathMappingApplied": false,
+      "mappingEvidence": null,
+      "source": {
+        "path": "Assets/Art/Art07/Dice/Materials/mat_dice_gold_edge.mat",
+        "exists": true,
+        "sha256": "f6d3d24f105c57aa6da5d5eb616c0bee0804a25f77073035d47d3da0e3744924",
+        "bytes": 1144
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/Dice/Materials/mat_dice_gold_edge.mat",
+        "exists": true,
+        "sha256": "f6d3d24f105c57aa6da5d5eb616c0bee0804a25f77073035d47d3da0e3744924",
+        "bytes": 1144
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "mat_dice_selection",
+      "category": "material",
+      "assetType": "material",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "Assets/Art/Art07/Dice/Materials/mat_dice_selection.mat",
+      "plannedRuntimePath": "Assets/Art/Art07/Dice/Materials/mat_dice_selection.mat",
+      "pathMappingApplied": false,
+      "mappingEvidence": null,
+      "source": {
+        "path": "Assets/Art/Art07/Dice/Materials/mat_dice_selection.mat",
+        "exists": true,
+        "sha256": "e53f7009597a5b654ab492a7084c7d48c0a6115c76dd2996de6a2fb23a7a87ac",
+        "bytes": 1145
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/Dice/Materials/mat_dice_selection.mat",
+        "exists": true,
+        "sha256": "e53f7009597a5b654ab492a7084c7d48c0a6115c76dd2996de6a2fb23a7a87ac",
+        "bytes": 1145
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "mat_ui_decor",
+      "category": "material",
+      "assetType": "material",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "Assets/Art/Art07/FX/Materials/mat_ui_decor.mat",
+      "plannedRuntimePath": "Assets/Art/Art07/FX/Materials/mat_ui_decor.mat",
+      "pathMappingApplied": false,
+      "mappingEvidence": null,
+      "source": {
+        "path": "Assets/Art/Art07/FX/Materials/mat_ui_decor.mat",
+        "exists": true,
+        "sha256": "370623ea328746de89ea716d501d0f9b0244f01e8bde7fd1ff5e954c6224e6e5",
+        "bytes": 1058
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/FX/Materials/mat_ui_decor.mat",
+        "exists": true,
+        "sha256": "370623ea328746de89ea716d501d0f9b0244f01e8bde7fd1ff5e954c6224e6e5",
+        "bytes": 1058
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "mat_fx_soft",
+      "category": "material",
+      "assetType": "material",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "Assets/Art/Art07/FX/Materials/mat_fx_soft.mat",
+      "plannedRuntimePath": "Assets/Art/Art07/FX/Materials/mat_fx_soft.mat",
+      "pathMappingApplied": false,
+      "mappingEvidence": null,
+      "source": {
+        "path": "Assets/Art/Art07/FX/Materials/mat_fx_soft.mat",
+        "exists": true,
+        "sha256": "83be39668737415e1734731cd5d1576aaeb60639391eddc3327975c0d9fe76e3",
+        "bytes": 1057
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/FX/Materials/mat_fx_soft.mat",
+        "exists": true,
+        "sha256": "83be39668737415e1734731cd5d1576aaeb60639391eddc3327975c0d9fe76e3",
+        "bytes": 1057
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "dice_roll_a",
+      "category": "animation",
+      "assetType": "animationclip",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "ArtSource/Art07/Dice/dice_master.blend",
+      "plannedRuntimePath": "Assets/Art/Art07/FX/Animations/dice_roll_a.anim",
+      "pathMappingApplied": false,
+      "mappingEvidence": null,
+      "source": {
+        "path": "ArtSource/Art07/Dice/dice_master.blend",
+        "exists": true,
+        "sha256": "ef5c702fb225a70ef6744356372a2bf342f7319582a3fca4a416b8f2ba504bbc",
+        "bytes": 118923
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/FX/Animations/dice_roll_a.anim",
+        "exists": true,
+        "sha256": "e3baceaed980ee2b956c47b77e45869172a562e0bbc7da95ca46b0ea31e62397",
+        "bytes": 208546
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "dice_roll_b",
+      "category": "animation",
+      "assetType": "animationclip",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "ArtSource/Art07/Dice/dice_master.blend",
+      "plannedRuntimePath": "Assets/Art/Art07/FX/Animations/dice_roll_b.anim",
+      "pathMappingApplied": false,
+      "mappingEvidence": null,
+      "source": {
+        "path": "ArtSource/Art07/Dice/dice_master.blend",
+        "exists": true,
+        "sha256": "ef5c702fb225a70ef6744356372a2bf342f7319582a3fca4a416b8f2ba504bbc",
+        "bytes": 118923
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/FX/Animations/dice_roll_b.anim",
+        "exists": true,
+        "sha256": "41a97fabfe9a8655e763137dfa5a391f3be224c0a56a53b054aacb7287f91bd7",
+        "bytes": 211066
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "dice_lock_lift",
+      "category": "animation",
+      "assetType": "animationclip",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "ArtSource/Art07/Dice/dice_master.blend",
+      "plannedRuntimePath": "Assets/Art/Art07/FX/Animations/dice_lock_lift.anim",
+      "pathMappingApplied": false,
+      "mappingEvidence": null,
+      "source": {
+        "path": "ArtSource/Art07/Dice/dice_master.blend",
+        "exists": true,
+        "sha256": "ef5c702fb225a70ef6744356372a2bf342f7319582a3fca4a416b8f2ba504bbc",
+        "bytes": 118923
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/FX/Animations/dice_lock_lift.anim",
+        "exists": true,
+        "sha256": "ffd2fb3641749efb6f5eb701ce231ef8607e59d6e80132a527e0b082df2f8fb2",
+        "bytes": 131332
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "dice_submit_tap",
+      "category": "animation",
+      "assetType": "animationclip",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "ArtSource/Art07/Dice/dice_master.blend",
+      "plannedRuntimePath": "Assets/Art/Art07/FX/Animations/dice_submit_tap.anim",
+      "pathMappingApplied": false,
+      "mappingEvidence": null,
+      "source": {
+        "path": "ArtSource/Art07/Dice/dice_master.blend",
+        "exists": true,
+        "sha256": "ef5c702fb225a70ef6744356372a2bf342f7319582a3fca4a416b8f2ba504bbc",
+        "bytes": 118923
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/FX/Animations/dice_submit_tap.anim",
+        "exists": true,
+        "sha256": "d0aeb888f487a71efc51fdc7ae2dc4aa2f73f807e6244bfed20635924949e222",
+        "bytes": 126022
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "dice_break",
+      "category": "animation",
+      "assetType": "animationclip",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "ArtSource/Art07/Dice/dice_master.blend",
+      "plannedRuntimePath": "Assets/Art/Art07/FX/Animations/dice_break.anim",
+      "pathMappingApplied": false,
+      "mappingEvidence": null,
+      "source": {
+        "path": "ArtSource/Art07/Dice/dice_master.blend",
+        "exists": true,
+        "sha256": "ef5c702fb225a70ef6744356372a2bf342f7319582a3fca4a416b8f2ba504bbc",
+        "bytes": 118923
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/FX/Animations/dice_break.anim",
+        "exists": true,
+        "sha256": "6d74dab01c2383bf8c504be408166df20e747fb40ef1eb723c2f9a009f7d07dc",
+        "bytes": 285732
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "card_trigger_punch",
+      "category": "animation",
+      "assetType": "animationclip",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "ArtSource/Art07/Animation/ui_curves.json",
+      "plannedRuntimePath": "Assets/Art/Art07/FX/Animations/card_trigger_punch.anim",
+      "pathMappingApplied": false,
+      "mappingEvidence": null,
+      "source": {
+        "path": "ArtSource/Art07/Animation/ui_curves.json",
+        "exists": true,
+        "sha256": "5266d72dfeba71931df93f389918ae9c9f3bf741833a4aad569957d9370a1317",
+        "bytes": 301
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/FX/Animations/card_trigger_punch.anim",
+        "exists": true,
+        "sha256": "4779688e80c2a26712dfa9d6584936f6b6aa8ec41fad7b579c491211b97cac29",
+        "bytes": 6309
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "card_acquire",
+      "category": "animation",
+      "assetType": "animationclip",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "ArtSource/Art07/Animation/ui_curves.json",
+      "plannedRuntimePath": "Assets/Art/Art07/FX/Animations/card_acquire.anim",
+      "pathMappingApplied": false,
+      "mappingEvidence": null,
+      "source": {
+        "path": "ArtSource/Art07/Animation/ui_curves.json",
+        "exists": true,
+        "sha256": "5266d72dfeba71931df93f389918ae9c9f3bf741833a4aad569957d9370a1317",
+        "bytes": 301
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/FX/Animations/card_acquire.anim",
+        "exists": true,
+        "sha256": "f3f98779e127426440bc80ddf616851bb07ed0fed844284270b21f2b05d6ac37",
+        "bytes": 5360
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "card_remove",
+      "category": "animation",
+      "assetType": "animationclip",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "ArtSource/Art07/Animation/ui_curves.json",
+      "plannedRuntimePath": "Assets/Art/Art07/FX/Animations/card_remove.anim",
+      "pathMappingApplied": false,
+      "mappingEvidence": null,
+      "source": {
+        "path": "ArtSource/Art07/Animation/ui_curves.json",
+        "exists": true,
+        "sha256": "5266d72dfeba71931df93f389918ae9c9f3bf741833a4aad569957d9370a1317",
+        "bytes": 301
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/FX/Animations/card_remove.anim",
+        "exists": true,
+        "sha256": "ccac1586a226a448cf55655867f0e79eb5acd98b7f288a3b4fb04ade3be9cba6",
+        "bytes": 5894
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "panel_enter",
+      "category": "animation",
+      "assetType": "animationclip",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "ArtSource/Art07/Animation/ui_curves.json",
+      "plannedRuntimePath": "Assets/Art/Art07/FX/Animations/panel_enter.anim",
+      "pathMappingApplied": false,
+      "mappingEvidence": null,
+      "source": {
+        "path": "ArtSource/Art07/Animation/ui_curves.json",
+        "exists": true,
+        "sha256": "5266d72dfeba71931df93f389918ae9c9f3bf741833a4aad569957d9370a1317",
+        "bytes": 301
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/FX/Animations/panel_enter.anim",
+        "exists": true,
+        "sha256": "e9ee2de1a5cd2eff8d08b3db52fcabce1ad7c65a5148f877454a5b46983cdb98",
+        "bytes": 4541
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "panel_exit",
+      "category": "animation",
+      "assetType": "animationclip",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "ArtSource/Art07/Animation/ui_curves.json",
+      "plannedRuntimePath": "Assets/Art/Art07/FX/Animations/panel_exit.anim",
+      "pathMappingApplied": false,
+      "mappingEvidence": null,
+      "source": {
+        "path": "ArtSource/Art07/Animation/ui_curves.json",
+        "exists": true,
+        "sha256": "5266d72dfeba71931df93f389918ae9c9f3bf741833a4aad569957d9370a1317",
+        "bytes": 301
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/FX/Animations/panel_exit.anim",
+        "exists": true,
+        "sha256": "fda4525457a900a1d4fdee566ca91a7fb42b2006e881b22461e8f3d89872ff1e",
+        "bytes": 2839
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "fx_square_chip",
+      "category": "fx_texture",
+      "assetType": "texture",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "ArtSource/Art07/FX/Textures/fx_square_chip.kra",
+      "plannedRuntimePath": "Assets/Art/Art07/FX/Textures/fx_square_chip.png",
+      "pathMappingApplied": false,
+      "mappingEvidence": null,
+      "source": {
+        "path": "ArtSource/Art07/FX/Textures/fx_square_chip.kra",
+        "exists": true,
+        "sha256": "60de70049fadcebcfc84890b5001d6e05da85570dc3360c10da280ba6741796a",
+        "bytes": 21396
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/FX/Textures/fx_square_chip.png",
+        "exists": true,
+        "sha256": "da89ac319f8b30db2865996ea3f2b8f9dd23b3564d71f3e387ddba54e12a9c7f",
+        "bytes": 180
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "fx_star_spark",
+      "category": "fx_texture",
+      "assetType": "texture",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "ArtSource/Art07/FX/Textures/fx_star_spark.kra",
+      "plannedRuntimePath": "Assets/Art/Art07/FX/Textures/fx_star_spark.png",
+      "pathMappingApplied": false,
+      "mappingEvidence": null,
+      "source": {
+        "path": "ArtSource/Art07/FX/Textures/fx_star_spark.kra",
+        "exists": true,
+        "sha256": "5cec19198e9616964d1afe47f6da9a9a2df91f71273827bd62bedc054dd2f073",
+        "bytes": 22825
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/FX/Textures/fx_star_spark.png",
+        "exists": true,
+        "sha256": "0fb81ed61200203c6873dbb394b64dd2e8d77bc1adc49dbe8d63523fb32c0c3a",
+        "bytes": 439
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "fx_line_soft",
+      "category": "fx_texture",
+      "assetType": "texture",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "ArtSource/Art07/FX/Textures/fx_line_soft.kra",
+      "plannedRuntimePath": "Assets/Art/Art07/FX/Textures/fx_line_soft.png",
+      "pathMappingApplied": false,
+      "mappingEvidence": null,
+      "source": {
+        "path": "ArtSource/Art07/FX/Textures/fx_line_soft.kra",
+        "exists": true,
+        "sha256": "837ea0c9e356f15eb63375f98f91c01fcdb004cc3ed995fea84dcd597f2cf5ff",
+        "bytes": 28871
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/FX/Textures/fx_line_soft.png",
+        "exists": true,
+        "sha256": "e99f7708b6f4acef787eff8942af161978d3caaae44fd5ed3625d8dc89177d78",
+        "bytes": 1235
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "fx_ring_soft",
+      "category": "fx_texture",
+      "assetType": "texture",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "ArtSource/Art07/FX/Textures/fx_ring_soft.kra",
+      "plannedRuntimePath": "Assets/Art/Art07/FX/Textures/fx_ring_soft.png",
+      "pathMappingApplied": false,
+      "mappingEvidence": null,
+      "source": {
+        "path": "ArtSource/Art07/FX/Textures/fx_ring_soft.kra",
+        "exists": true,
+        "sha256": "e9072eb5e917bd3c604af283f5e5e037b9d26774e912843b59bb9b56b1917190",
+        "bytes": 69307
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/FX/Textures/fx_ring_soft.png",
+        "exists": true,
+        "sha256": "9b1d76a366d9042a62dcf860c44b50178a794cbf6df7b4690de4abba5e7eb9e5",
+        "bytes": 10154
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "fx_halo_soft",
+      "category": "fx_texture",
+      "assetType": "texture",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "ArtSource/Art07/FX/Textures/fx_halo_soft.kra",
+      "plannedRuntimePath": "Assets/Art/Art07/FX/Textures/fx_halo_soft.png",
+      "pathMappingApplied": false,
+      "mappingEvidence": null,
+      "source": {
+        "path": "ArtSource/Art07/FX/Textures/fx_halo_soft.kra",
+        "exists": true,
+        "sha256": "ddfecbe29e33ff589795bd46e37ba5e2e8ed2ed8367dab5063266f57500fc2b7",
+        "bytes": 150501
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/FX/Textures/fx_halo_soft.png",
+        "exists": true,
+        "sha256": "277c4bcde1067e7f7eb1b2101fdc41d36d7ad23a92a896db037b011b52a91c4d",
+        "bytes": 24630
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "fx_crack_card",
+      "category": "fx_texture",
+      "assetType": "texture",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "ArtSource/Art07/FX/Textures/fx_crack_card.kra",
+      "plannedRuntimePath": "Assets/Art/Art07/FX/Textures/fx_crack_card.png",
+      "pathMappingApplied": false,
+      "mappingEvidence": null,
+      "source": {
+        "path": "ArtSource/Art07/FX/Textures/fx_crack_card.kra",
+        "exists": true,
+        "sha256": "934556eb95658f53cde6d317879bf00f16c9d7a826c2693d27ab93b9b06a2eab",
+        "bytes": 25989
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/FX/Textures/fx_crack_card.png",
+        "exists": true,
+        "sha256": "54d69a635ce6715219f76abf6f3e1a25b495fd4db2c77b6a7ea816cdbaf70a3a",
+        "bytes": 968
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "fx_short_flame",
+      "category": "fx_texture",
+      "assetType": "texture",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "ArtSource/Art07/FX/Textures/fx_short_flame.kra",
+      "plannedRuntimePath": "Assets/Art/Art07/FX/Textures/fx_short_flame.png",
+      "pathMappingApplied": false,
+      "mappingEvidence": null,
+      "source": {
+        "path": "ArtSource/Art07/FX/Textures/fx_short_flame.kra",
+        "exists": true,
+        "sha256": "f1e8e91318acf27fd7a899c0cead7a4c8ec7265f5a7a653dbc088f28447f9707",
+        "bytes": 42914
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/FX/Textures/fx_short_flame.png",
+        "exists": true,
+        "sha256": "4909494359ed4f092fbd51c4d008ca3a684b3f411905db0da54e7c30cc31e510",
+        "bytes": 1883
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "fx_source_hit",
+      "category": "fx_prefab",
+      "assetType": "prefab",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "Assets/Art/Art07/FX/Prefabs/fx_source_hit.prefab",
+      "plannedRuntimePath": "Assets/Art/Art07/FX/Prefabs/fx_source_hit.prefab",
+      "pathMappingApplied": false,
+      "mappingEvidence": null,
+      "source": {
+        "path": "Assets/Art/Art07/FX/Prefabs/fx_source_hit.prefab",
+        "exists": true,
+        "sha256": "07b3441d5017dcd4437b7f69ae0d4fdc3513b33b0a641796244d405176146052",
+        "bytes": 6555
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/FX/Prefabs/fx_source_hit.prefab",
+        "exists": true,
+        "sha256": "07b3441d5017dcd4437b7f69ae0d4fdc3513b33b0a641796244d405176146052",
+        "bytes": 6555
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "fx_value_ticket",
+      "category": "fx_prefab",
+      "assetType": "prefab",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "Assets/Art/Art07/FX/Prefabs/fx_value_ticket.prefab",
+      "plannedRuntimePath": "Assets/Art/Art07/FX/Prefabs/fx_value_ticket.prefab",
+      "pathMappingApplied": false,
+      "mappingEvidence": null,
+      "source": {
+        "path": "Assets/Art/Art07/FX/Prefabs/fx_value_ticket.prefab",
+        "exists": true,
+        "sha256": "2a82ef2b9e48ffc5a91818f407852eab335298e3d75557d7165c81a69ee5d267",
+        "bytes": 12955
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/FX/Prefabs/fx_value_ticket.prefab",
+        "exists": true,
+        "sha256": "2a82ef2b9e48ffc5a91818f407852eab335298e3d75557d7165c81a69ee5d267",
+        "bytes": 12955
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "fx_target_bracket",
+      "category": "fx_prefab",
+      "assetType": "prefab",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "Assets/Art/Art07/FX/Prefabs/fx_target_bracket.prefab",
+      "plannedRuntimePath": "Assets/Art/Art07/FX/Prefabs/fx_target_bracket.prefab",
+      "pathMappingApplied": false,
+      "mappingEvidence": null,
+      "source": {
+        "path": "Assets/Art/Art07/FX/Prefabs/fx_target_bracket.prefab",
+        "exists": true,
+        "sha256": "5d87de66012df47a8ba1467e4da20bdbe77693e0bd975316d3a0e988cd9c5b24",
+        "bytes": 6571
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/FX/Prefabs/fx_target_bracket.prefab",
+        "exists": true,
+        "sha256": "5d87de66012df47a8ba1467e4da20bdbe77693e0bd975316d3a0e988cd9c5b24",
+        "bytes": 6571
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "fx_face_change",
+      "category": "fx_prefab",
+      "assetType": "prefab",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "Assets/Art/Art07/FX/Prefabs/fx_face_change.prefab",
+      "plannedRuntimePath": "Assets/Art/Art07/FX/Prefabs/fx_face_change.prefab",
+      "pathMappingApplied": false,
+      "mappingEvidence": null,
+      "source": {
+        "path": "Assets/Art/Art07/FX/Prefabs/fx_face_change.prefab",
+        "exists": true,
+        "sha256": "1827a5604fd96c76ab8451f5ff2f16ce3034beaf450e7906c79b14b3571b08b2",
+        "bytes": 12994
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/FX/Prefabs/fx_face_change.prefab",
+        "exists": true,
+        "sha256": "1827a5604fd96c76ab8451f5ff2f16ce3034beaf450e7906c79b14b3571b08b2",
+        "bytes": 12994
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "fx_copy_link",
+      "category": "fx_prefab",
+      "assetType": "prefab",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "Assets/Art/Art07/FX/Prefabs/fx_copy_link.prefab",
+      "plannedRuntimePath": "Assets/Art/Art07/FX/Prefabs/fx_copy_link.prefab",
+      "pathMappingApplied": false,
+      "mappingEvidence": null,
+      "source": {
+        "path": "Assets/Art/Art07/FX/Prefabs/fx_copy_link.prefab",
+        "exists": true,
+        "sha256": "96659d19fede2aa6c99a5ecf0eca8c7127a8b384b7abddf1f9a7219ba5bc5748",
+        "bytes": 13498
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/FX/Prefabs/fx_copy_link.prefab",
+        "exists": true,
+        "sha256": "96659d19fede2aa6c99a5ecf0eca8c7127a8b384b7abddf1f9a7219ba5bc5748",
+        "bytes": 13498
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "fx_slot_expand",
+      "category": "fx_prefab",
+      "assetType": "prefab",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "Assets/Art/Art07/FX/Prefabs/fx_slot_expand.prefab",
+      "plannedRuntimePath": "Assets/Art/Art07/FX/Prefabs/fx_slot_expand.prefab",
+      "pathMappingApplied": false,
+      "mappingEvidence": null,
+      "source": {
+        "path": "Assets/Art/Art07/FX/Prefabs/fx_slot_expand.prefab",
+        "exists": true,
+        "sha256": "0a68b3ebac0e6a1130d30ab98ea0f5015421b0597a36e5461a17c5146a3129e9",
+        "bytes": 8889
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/FX/Prefabs/fx_slot_expand.prefab",
+        "exists": true,
+        "sha256": "0a68b3ebac0e6a1130d30ab98ea0f5015421b0597a36e5461a17c5146a3129e9",
+        "bytes": 8889
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "fx_probability_change",
+      "category": "fx_prefab",
+      "assetType": "prefab",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "Assets/Art/Art07/FX/Prefabs/fx_probability_change.prefab",
+      "plannedRuntimePath": "Assets/Art/Art07/FX/Prefabs/fx_probability_change.prefab",
+      "pathMappingApplied": false,
+      "mappingEvidence": null,
+      "source": {
+        "path": "Assets/Art/Art07/FX/Prefabs/fx_probability_change.prefab",
+        "exists": true,
+        "sha256": "4a44b1bbc5ed60cb2de7a09cdb51c7601bec00119248615162abb18f29149d96",
+        "bytes": 20200
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/FX/Prefabs/fx_probability_change.prefab",
+        "exists": true,
+        "sha256": "4a44b1bbc5ed60cb2de7a09cdb51c7601bec00119248615162abb18f29149d96",
+        "bytes": 20200
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "fx_cash_ticket",
+      "category": "fx_prefab",
+      "assetType": "prefab",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "Assets/Art/Art07/FX/Prefabs/fx_cash_ticket.prefab",
+      "plannedRuntimePath": "Assets/Art/Art07/FX/Prefabs/fx_cash_ticket.prefab",
+      "pathMappingApplied": false,
+      "mappingEvidence": null,
+      "source": {
+        "path": "Assets/Art/Art07/FX/Prefabs/fx_cash_ticket.prefab",
+        "exists": true,
+        "sha256": "0a8321c170fdccc4f5e3a231d208f6fd487c29fbdf16f4bf6225446899833e14",
+        "bytes": 12963
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/FX/Prefabs/fx_cash_ticket.prefab",
+        "exists": true,
+        "sha256": "0a8321c170fdccc4f5e3a231d208f6fd487c29fbdf16f4bf6225446899833e14",
+        "bytes": 12963
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "fx_random_reveal",
+      "category": "fx_prefab",
+      "assetType": "prefab",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "Assets/Art/Art07/FX/Prefabs/fx_random_reveal.prefab",
+      "plannedRuntimePath": "Assets/Art/Art07/FX/Prefabs/fx_random_reveal.prefab",
+      "pathMappingApplied": false,
+      "mappingEvidence": null,
+      "source": {
+        "path": "Assets/Art/Art07/FX/Prefabs/fx_random_reveal.prefab",
+        "exists": true,
+        "sha256": "a22d1be2c7ec678f1fb6214cf9ccdaafd4c3a3999bfcf4d13230854a883856c2",
+        "bytes": 10642
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/FX/Prefabs/fx_random_reveal.prefab",
+        "exists": true,
+        "sha256": "a22d1be2c7ec678f1fb6214cf9ccdaafd4c3a3999bfcf4d13230854a883856c2",
+        "bytes": 10642
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "fx_card_destroy",
+      "category": "fx_prefab",
+      "assetType": "prefab",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "Assets/Art/Art07/FX/Prefabs/fx_card_destroy.prefab",
+      "plannedRuntimePath": "Assets/Art/Art07/FX/Prefabs/fx_card_destroy.prefab",
+      "pathMappingApplied": false,
+      "mappingEvidence": null,
+      "source": {
+        "path": "Assets/Art/Art07/FX/Prefabs/fx_card_destroy.prefab",
+        "exists": true,
+        "sha256": "bb6f0cab1ed15ba61c52f881b1408cdb1e5acbb36a6e1af0b6cea231517bd65c",
+        "bytes": 20810
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/FX/Prefabs/fx_card_destroy.prefab",
+        "exists": true,
+        "sha256": "bb6f0cab1ed15ba61c52f881b1408cdb1e5acbb36a6e1af0b6cea231517bd65c",
+        "bytes": 20810
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "fx_dice_break",
+      "category": "fx_prefab",
+      "assetType": "prefab",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "Assets/Art/Art07/FX/Prefabs/fx_dice_break.prefab",
+      "plannedRuntimePath": "Assets/Art/Art07/FX/Prefabs/fx_dice_break.prefab",
+      "pathMappingApplied": false,
+      "mappingEvidence": null,
+      "source": {
+        "path": "Assets/Art/Art07/FX/Prefabs/fx_dice_break.prefab",
+        "exists": true,
+        "sha256": "694115a2977e01bdd8e2a7654af19dfb3f4a640894d14d449cf420cd15220e07",
+        "bytes": 18067
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/FX/Prefabs/fx_dice_break.prefab",
+        "exists": true,
+        "sha256": "694115a2977e01bdd8e2a7654af19dfb3f4a640894d14d449cf420cd15220e07",
+        "bytes": 18067
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "fx_combo_burst",
+      "category": "fx_prefab",
+      "assetType": "prefab",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "Assets/Art/Art07/FX/Prefabs/fx_combo_burst.prefab",
+      "plannedRuntimePath": "Assets/Art/Art07/FX/Prefabs/fx_combo_burst.prefab",
+      "pathMappingApplied": false,
+      "mappingEvidence": null,
+      "source": {
+        "path": "Assets/Art/Art07/FX/Prefabs/fx_combo_burst.prefab",
+        "exists": true,
+        "sha256": "deab8b7f2578200fbfed06a9d3885b848003192dbe3c2c3f351c7d5dd9ea73b7",
+        "bytes": 27940
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/FX/Prefabs/fx_combo_burst.prefab",
+        "exists": true,
+        "sha256": "deab8b7f2578200fbfed06a9d3885b848003192dbe3c2c3f351c7d5dd9ea73b7",
+        "bytes": 27940
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "fx_stage_stamp",
+      "category": "fx_prefab",
+      "assetType": "prefab",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "Assets/Art/Art07/FX/Prefabs/fx_stage_stamp.prefab",
+      "plannedRuntimePath": "Assets/Art/Art07/FX/Prefabs/fx_stage_stamp.prefab",
+      "pathMappingApplied": false,
+      "mappingEvidence": null,
+      "source": {
+        "path": "Assets/Art/Art07/FX/Prefabs/fx_stage_stamp.prefab",
+        "exists": true,
+        "sha256": "72654bfb6296688c7c20bc8a71ad6c7679238f9bc7df3f3d45b688b8625cf84b",
+        "bytes": 18886
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/FX/Prefabs/fx_stage_stamp.prefab",
+        "exists": true,
+        "sha256": "72654bfb6296688c7c20bc8a71ad6c7679238f9bc7df3f3d45b688b8625cf84b",
+        "bytes": 18886
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "fx_acquire_remove",
+      "category": "fx_prefab",
+      "assetType": "prefab",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "Assets/Art/Art07/FX/Prefabs/fx_acquire_remove.prefab",
+      "plannedRuntimePath": "Assets/Art/Art07/FX/Prefabs/fx_acquire_remove.prefab",
+      "pathMappingApplied": false,
+      "mappingEvidence": null,
+      "source": {
+        "path": "Assets/Art/Art07/FX/Prefabs/fx_acquire_remove.prefab",
+        "exists": true,
+        "sha256": "8f01dfbec01b7a7c0ed9d2883b22eee181eae1d2e2a12ae75420d3228926fbee",
+        "bytes": 12959
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/FX/Prefabs/fx_acquire_remove.prefab",
+        "exists": true,
+        "sha256": "8f01dfbec01b7a7c0ed9d2883b22eee181eae1d2e2a12ae75420d3228926fbee",
+        "bytes": 12959
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "ui_button",
+      "category": "component_prefab",
+      "assetType": "prefab",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "Assets/Art/Art07/UI/Prefabs/ui_button.prefab",
+      "plannedRuntimePath": "Assets/Art/Art07/UI/Prefabs/ui_button.prefab",
+      "pathMappingApplied": false,
+      "mappingEvidence": null,
+      "source": {
+        "path": "Assets/Art/Art07/UI/Prefabs/ui_button.prefab",
+        "exists": true,
+        "sha256": "4d5ba844c3deb299f194c3e38c068752f7516e009421e31839fde24eb4df2f15",
+        "bytes": 29937
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/UI/Prefabs/ui_button.prefab",
+        "exists": true,
+        "sha256": "4d5ba844c3deb299f194c3e38c068752f7516e009421e31839fde24eb4df2f15",
+        "bytes": 29937
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "ui_controller_card",
+      "category": "component_prefab",
+      "assetType": "prefab",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "Assets/Art/Art07/UI/Prefabs/ui_controller_card.prefab",
+      "plannedRuntimePath": "Assets/Art/Art07/UI/Prefabs/ui_controller_card.prefab",
+      "pathMappingApplied": false,
+      "mappingEvidence": null,
+      "source": {
+        "path": "Assets/Art/Art07/UI/Prefabs/ui_controller_card.prefab",
+        "exists": true,
+        "sha256": "76061925fd367a3a4562a2cc29d29a6de1c618547f5c94cd8f88593432501926",
+        "bytes": 18463
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/UI/Prefabs/ui_controller_card.prefab",
+        "exists": true,
+        "sha256": "76061925fd367a3a4562a2cc29d29a6de1c618547f5c94cd8f88593432501926",
+        "bytes": 18463
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "ui_item_card",
+      "category": "component_prefab",
+      "assetType": "prefab",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "Assets/Art/Art07/UI/Prefabs/ui_item_card.prefab",
+      "plannedRuntimePath": "Assets/Art/Art07/UI/Prefabs/ui_item_card.prefab",
+      "pathMappingApplied": false,
+      "mappingEvidence": null,
+      "source": {
+        "path": "Assets/Art/Art07/UI/Prefabs/ui_item_card.prefab",
+        "exists": true,
+        "sha256": "2a9e2112d7811c5b007f0b42ca2883bbaf8d16d362dd175b74288be50f71ee40",
+        "bytes": 18469
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/UI/Prefabs/ui_item_card.prefab",
+        "exists": true,
+        "sha256": "2a9e2112d7811c5b007f0b42ca2883bbaf8d16d362dd175b74288be50f71ee40",
+        "bytes": 18469
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "ui_upgrade_card",
+      "category": "component_prefab",
+      "assetType": "prefab",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "Assets/Art/Art07/UI/Prefabs/ui_upgrade_card.prefab",
+      "plannedRuntimePath": "Assets/Art/Art07/UI/Prefabs/ui_upgrade_card.prefab",
+      "pathMappingApplied": false,
+      "mappingEvidence": null,
+      "source": {
+        "path": "Assets/Art/Art07/UI/Prefabs/ui_upgrade_card.prefab",
+        "exists": true,
+        "sha256": "0d667b0adb87f9f8dc5e2eb87ead37aba3c963f08a782b710deb605d6a40746a",
+        "bytes": 18474
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/UI/Prefabs/ui_upgrade_card.prefab",
+        "exists": true,
+        "sha256": "0d667b0adb87f9f8dc5e2eb87ead37aba3c963f08a782b710deb605d6a40746a",
+        "bytes": 18474
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "ui_dice_slot",
+      "category": "component_prefab",
+      "assetType": "prefab",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "Assets/Art/Art07/UI/Prefabs/ui_dice_slot.prefab",
+      "plannedRuntimePath": "Assets/Art/Art07/UI/Prefabs/ui_dice_slot.prefab",
+      "pathMappingApplied": false,
+      "mappingEvidence": null,
+      "source": {
+        "path": "Assets/Art/Art07/UI/Prefabs/ui_dice_slot.prefab",
+        "exists": true,
+        "sha256": "4252a64a5b79e24e59b45264c5c7ee16d257af67640156eab280bead79e9d544",
+        "bytes": 16906
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/UI/Prefabs/ui_dice_slot.prefab",
+        "exists": true,
+        "sha256": "4252a64a5b79e24e59b45264c5c7ee16d257af67640156eab280bead79e9d544",
+        "bytes": 16906
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "ui_stat_counter",
+      "category": "component_prefab",
+      "assetType": "prefab",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "Assets/Art/Art07/UI/Prefabs/ui_stat_counter.prefab",
+      "plannedRuntimePath": "Assets/Art/Art07/UI/Prefabs/ui_stat_counter.prefab",
+      "pathMappingApplied": false,
+      "mappingEvidence": null,
+      "source": {
+        "path": "Assets/Art/Art07/UI/Prefabs/ui_stat_counter.prefab",
+        "exists": true,
+        "sha256": "bc1541fbb0b0a20ba6d3c7b809a6cccb3df6b8e3e51eb35ba9fa08b2f1bb4652",
+        "bytes": 21717
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/UI/Prefabs/ui_stat_counter.prefab",
+        "exists": true,
+        "sha256": "bc1541fbb0b0a20ba6d3c7b809a6cccb3df6b8e3e51eb35ba9fa08b2f1bb4652",
+        "bytes": 21717
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "ui_score_breakdown",
+      "category": "component_prefab",
+      "assetType": "prefab",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "Assets/Art/Art07/UI/Prefabs/ui_score_breakdown.prefab",
+      "plannedRuntimePath": "Assets/Art/Art07/UI/Prefabs/ui_score_breakdown.prefab",
+      "pathMappingApplied": false,
+      "mappingEvidence": null,
+      "source": {
+        "path": "Assets/Art/Art07/UI/Prefabs/ui_score_breakdown.prefab",
+        "exists": true,
+        "sha256": "a8bb0728d94ff3fa63e4bf36cebf8731e4ed6fb767f4ccc7ecc2b208ae8c9e31",
+        "bytes": 126843
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/UI/Prefabs/ui_score_breakdown.prefab",
+        "exists": true,
+        "sha256": "a8bb0728d94ff3fa63e4bf36cebf8731e4ed6fb767f4ccc7ecc2b208ae8c9e31",
+        "bytes": 126843
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "ui_probability_bar",
+      "category": "component_prefab",
+      "assetType": "prefab",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "Assets/Art/Art07/UI/Prefabs/ui_probability_bar.prefab",
+      "plannedRuntimePath": "Assets/Art/Art07/UI/Prefabs/ui_probability_bar.prefab",
+      "pathMappingApplied": false,
+      "mappingEvidence": null,
+      "source": {
+        "path": "Assets/Art/Art07/UI/Prefabs/ui_probability_bar.prefab",
+        "exists": true,
+        "sha256": "21eb950489804b163dfa3c9d34fa357604d4a83613255533e35f7e2ce7719277",
+        "bytes": 16984
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/UI/Prefabs/ui_probability_bar.prefab",
+        "exists": true,
+        "sha256": "21eb950489804b163dfa3c9d34fa357604d4a83613255533e35f7e2ce7719277",
+        "bytes": 16984
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "ui_tooltip",
+      "category": "component_prefab",
+      "assetType": "prefab",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "Assets/Art/Art07/UI/Prefabs/ui_tooltip.prefab",
+      "plannedRuntimePath": "Assets/Art/Art07/UI/Prefabs/ui_tooltip.prefab",
+      "pathMappingApplied": false,
+      "mappingEvidence": null,
+      "source": {
+        "path": "Assets/Art/Art07/UI/Prefabs/ui_tooltip.prefab",
+        "exists": true,
+        "sha256": "b0e358251efe954058d279e8857a991a788cc588ea85e34545cd3e2deb402eb4",
+        "bytes": 14636
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/UI/Prefabs/ui_tooltip.prefab",
+        "exists": true,
+        "sha256": "b0e358251efe954058d279e8857a991a788cc588ea85e34545cd3e2deb402eb4",
+        "bytes": 14636
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "ui_modal",
+      "category": "component_prefab",
+      "assetType": "prefab",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "Assets/Art/Art07/UI/Prefabs/ui_modal.prefab",
+      "plannedRuntimePath": "Assets/Art/Art07/UI/Prefabs/ui_modal.prefab",
+      "pathMappingApplied": false,
+      "mappingEvidence": null,
+      "source": {
+        "path": "Assets/Art/Art07/UI/Prefabs/ui_modal.prefab",
+        "exists": true,
+        "sha256": "a9dea82131bf1ee37da04b291da8f015dd8c5dcfb599877a77d38fa434146191",
+        "bytes": 44038
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/UI/Prefabs/ui_modal.prefab",
+        "exists": true,
+        "sha256": "a9dea82131bf1ee37da04b291da8f015dd8c5dcfb599877a77d38fa434146191",
+        "bytes": 44038
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "dice_view",
+      "category": "component_prefab",
+      "assetType": "prefab",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "Assets/Art/Art07/Dice/Prefabs/dice_view.prefab",
+      "plannedRuntimePath": "Assets/Art/Art07/Dice/Prefabs/dice_view.prefab",
+      "pathMappingApplied": false,
+      "mappingEvidence": null,
+      "source": {
+        "path": "Assets/Art/Art07/Dice/Prefabs/dice_view.prefab",
+        "exists": true,
+        "sha256": "b1f99ae0854f93aef571bc93c5a35646bcd1df63ca9ef57583c219ad9bec0ecb",
+        "bytes": 28006
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/Dice/Prefabs/dice_view.prefab",
+        "exists": true,
+        "sha256": "b1f99ae0854f93aef571bc93c5a35646bcd1df63ca9ef57583c219ad9bec0ecb",
+        "bytes": 28006
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "ui_missing_asset",
+      "category": "component_prefab",
+      "assetType": "prefab",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "Assets/Art/Art07/UI/Prefabs/ui_missing_asset.prefab",
+      "plannedRuntimePath": "Assets/Art/Art07/UI/Prefabs/ui_missing_asset.prefab",
+      "pathMappingApplied": false,
+      "mappingEvidence": null,
+      "source": {
+        "path": "Assets/Art/Art07/UI/Prefabs/ui_missing_asset.prefab",
+        "exists": true,
+        "sha256": "9cf1eefa6e35d914be4285bf966f85ee6930e7236654f87c8c5720912e10ebec",
+        "bytes": 24022
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/UI/Prefabs/ui_missing_asset.prefab",
+        "exists": true,
+        "sha256": "9cf1eefa6e35d914be4285bf966f85ee6930e7236654f87c8c5720912e10ebec",
+        "bytes": 24022
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "sfx_ui_hover",
+      "category": "audio",
+      "assetType": "audioclip",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "ArtSource/Art07/Audio/sfx_ui_hover.wav",
+      "plannedRuntimePath": "Assets/Art/Art07/Audio/SFX/sfx_ui_hover.wav",
+      "pathMappingApplied": true,
+      "mappingEvidence": "ArtSource/Art07/path_mappings.json",
+      "source": {
+        "path": "ArtSource/Art07/Audio/sfx_ui_hover.wav",
+        "exists": true,
+        "sha256": "8f1ac55e4f0d5c6daf200a07214c03d38f077cd23e1ea0340c91e2a37d5a7963",
+        "bytes": 4844
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/Audio/sfx_ui_hover.wav",
+        "exists": true,
+        "sha256": "8f1ac55e4f0d5c6daf200a07214c03d38f077cd23e1ea0340c91e2a37d5a7963",
+        "bytes": 4844
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "sfx_ui_press",
+      "category": "audio",
+      "assetType": "audioclip",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "ArtSource/Art07/Audio/sfx_ui_press.wav",
+      "plannedRuntimePath": "Assets/Art/Art07/Audio/SFX/sfx_ui_press.wav",
+      "pathMappingApplied": true,
+      "mappingEvidence": "ArtSource/Art07/path_mappings.json",
+      "source": {
+        "path": "ArtSource/Art07/Audio/sfx_ui_press.wav",
+        "exists": true,
+        "sha256": "ab7281963505fc393b3abb40cd7c24220abea1740361dabe26a5f2c19e6a40d5",
+        "bytes": 7244
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/Audio/sfx_ui_press.wav",
+        "exists": true,
+        "sha256": "ab7281963505fc393b3abb40cd7c24220abea1740361dabe26a5f2c19e6a40d5",
+        "bytes": 7244
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "sfx_ui_denied",
+      "category": "audio",
+      "assetType": "audioclip",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "ArtSource/Art07/Audio/sfx_ui_denied.wav",
+      "plannedRuntimePath": "Assets/Art/Art07/Audio/SFX/sfx_ui_denied.wav",
+      "pathMappingApplied": true,
+      "mappingEvidence": "ArtSource/Art07/path_mappings.json",
+      "source": {
+        "path": "ArtSource/Art07/Audio/sfx_ui_denied.wav",
+        "exists": true,
+        "sha256": "821ba3925e0045ef3ae102ad9e645a04ebe1f3b9bbb05302faed71fcc639e4bf",
+        "bytes": 11564
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/Audio/sfx_ui_denied.wav",
+        "exists": true,
+        "sha256": "821ba3925e0045ef3ae102ad9e645a04ebe1f3b9bbb05302faed71fcc639e4bf",
+        "bytes": 11564
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "sfx_dice_roll_01",
+      "category": "audio",
+      "assetType": "audioclip",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "ArtSource/Art07/Audio/sfx_dice_roll_source.wav",
+      "plannedRuntimePath": "Assets/Art/Art07/Audio/SFX/sfx_dice_roll_01.wav",
+      "pathMappingApplied": true,
+      "mappingEvidence": "ArtSource/Art07/path_mappings.json",
+      "source": {
+        "path": "ArtSource/Art07/Audio/sfx_dice_roll_01.wav",
+        "exists": true,
+        "sha256": "50254be8dd2c79bcc419aeb48de30fce07a929f7cbd9e2cdbca49f0622d425d7",
+        "bytes": 51884
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/Audio/sfx_dice_roll_01.wav",
+        "exists": true,
+        "sha256": "50254be8dd2c79bcc419aeb48de30fce07a929f7cbd9e2cdbca49f0622d425d7",
+        "bytes": 51884
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "sfx_dice_roll_02",
+      "category": "audio",
+      "assetType": "audioclip",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "ArtSource/Art07/Audio/sfx_dice_roll_source.wav",
+      "plannedRuntimePath": "Assets/Art/Art07/Audio/SFX/sfx_dice_roll_02.wav",
+      "pathMappingApplied": true,
+      "mappingEvidence": "ArtSource/Art07/path_mappings.json",
+      "source": {
+        "path": "ArtSource/Art07/Audio/sfx_dice_roll_02.wav",
+        "exists": true,
+        "sha256": "675efccd7617d3e463d9f24638ca08348831a38fc73cadcefdeb793640e4f5ff",
+        "bytes": 57644
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/Audio/sfx_dice_roll_02.wav",
+        "exists": true,
+        "sha256": "675efccd7617d3e463d9f24638ca08348831a38fc73cadcefdeb793640e4f5ff",
+        "bytes": 57644
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "sfx_dice_roll_03",
+      "category": "audio",
+      "assetType": "audioclip",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "ArtSource/Art07/Audio/sfx_dice_roll_source.wav",
+      "plannedRuntimePath": "Assets/Art/Art07/Audio/SFX/sfx_dice_roll_03.wav",
+      "pathMappingApplied": true,
+      "mappingEvidence": "ArtSource/Art07/path_mappings.json",
+      "source": {
+        "path": "ArtSource/Art07/Audio/sfx_dice_roll_03.wav",
+        "exists": true,
+        "sha256": "7d1a3656e2beaaab85bc181a8706f9071d2f2ca4e83b0758448a03f31abe6fbf",
+        "bytes": 46124
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/Audio/sfx_dice_roll_03.wav",
+        "exists": true,
+        "sha256": "7d1a3656e2beaaab85bc181a8706f9071d2f2ca4e83b0758448a03f31abe6fbf",
+        "bytes": 46124
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "sfx_dice_land_01",
+      "category": "audio",
+      "assetType": "audioclip",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "ArtSource/Art07/Audio/sfx_dice_land_source.wav",
+      "plannedRuntimePath": "Assets/Art/Art07/Audio/SFX/sfx_dice_land_01.wav",
+      "pathMappingApplied": true,
+      "mappingEvidence": "ArtSource/Art07/path_mappings.json",
+      "source": {
+        "path": "ArtSource/Art07/Audio/sfx_dice_land_01.wav",
+        "exists": true,
+        "sha256": "c6f5dafd9e65e669652764120b4e4b2217250a29c07993cb8dc4d32da0f2a0e2",
+        "bytes": 8684
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/Audio/sfx_dice_land_01.wav",
+        "exists": true,
+        "sha256": "c6f5dafd9e65e669652764120b4e4b2217250a29c07993cb8dc4d32da0f2a0e2",
+        "bytes": 8684
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "sfx_dice_land_02",
+      "category": "audio",
+      "assetType": "audioclip",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "ArtSource/Art07/Audio/sfx_dice_land_source.wav",
+      "plannedRuntimePath": "Assets/Art/Art07/Audio/SFX/sfx_dice_land_02.wav",
+      "pathMappingApplied": true,
+      "mappingEvidence": "ArtSource/Art07/path_mappings.json",
+      "source": {
+        "path": "ArtSource/Art07/Audio/sfx_dice_land_02.wav",
+        "exists": true,
+        "sha256": "dd79e1f9327a5f9545ef208d8433dfd0bdb898f5d26c6af822bc04bd05a73696",
+        "bytes": 10604
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/Audio/sfx_dice_land_02.wav",
+        "exists": true,
+        "sha256": "dd79e1f9327a5f9545ef208d8433dfd0bdb898f5d26c6af822bc04bd05a73696",
+        "bytes": 10604
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "sfx_dice_land_03",
+      "category": "audio",
+      "assetType": "audioclip",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "ArtSource/Art07/Audio/sfx_dice_land_source.wav",
+      "plannedRuntimePath": "Assets/Art/Art07/Audio/SFX/sfx_dice_land_03.wav",
+      "pathMappingApplied": true,
+      "mappingEvidence": "ArtSource/Art07/path_mappings.json",
+      "source": {
+        "path": "ArtSource/Art07/Audio/sfx_dice_land_03.wav",
+        "exists": true,
+        "sha256": "1e716882813cb96812ee5fc2c43556aa6c4182838978ad919865605e1141e69d",
+        "bytes": 12044
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/Audio/sfx_dice_land_03.wav",
+        "exists": true,
+        "sha256": "1e716882813cb96812ee5fc2c43556aa6c4182838978ad919865605e1141e69d",
+        "bytes": 12044
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "sfx_lock",
+      "category": "audio",
+      "assetType": "audioclip",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "ArtSource/Art07/Audio/sfx_lock.wav",
+      "plannedRuntimePath": "Assets/Art/Art07/Audio/SFX/sfx_lock.wav",
+      "pathMappingApplied": true,
+      "mappingEvidence": "ArtSource/Art07/path_mappings.json",
+      "source": {
+        "path": "ArtSource/Art07/Audio/sfx_lock.wav",
+        "exists": true,
+        "sha256": "9e7d8ab4febbcd85b51e3caa6fcd1341189e218f703f0adefc9ea90cf35a1fb0",
+        "bytes": 10604
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/Audio/sfx_lock.wav",
+        "exists": true,
+        "sha256": "9e7d8ab4febbcd85b51e3caa6fcd1341189e218f703f0adefc9ea90cf35a1fb0",
+        "bytes": 10604
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "sfx_card_trigger",
+      "category": "audio",
+      "assetType": "audioclip",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "ArtSource/Art07/Audio/sfx_card_trigger.wav",
+      "plannedRuntimePath": "Assets/Art/Art07/Audio/SFX/sfx_card_trigger.wav",
+      "pathMappingApplied": true,
+      "mappingEvidence": "ArtSource/Art07/path_mappings.json",
+      "source": {
+        "path": "ArtSource/Art07/Audio/sfx_card_trigger.wav",
+        "exists": true,
+        "sha256": "8f733bf0ba375064831677488496b6e85049d92e6ee552694574a4516f033240",
+        "bytes": 12524
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/Audio/sfx_card_trigger.wav",
+        "exists": true,
+        "sha256": "8f733bf0ba375064831677488496b6e85049d92e6ee552694574a4516f033240",
+        "bytes": 12524
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "sfx_score_step",
+      "category": "audio",
+      "assetType": "audioclip",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "ArtSource/Art07/Audio/sfx_score_step.wav",
+      "plannedRuntimePath": "Assets/Art/Art07/Audio/SFX/sfx_score_step.wav",
+      "pathMappingApplied": true,
+      "mappingEvidence": "ArtSource/Art07/path_mappings.json",
+      "source": {
+        "path": "ArtSource/Art07/Audio/sfx_score_step.wav",
+        "exists": true,
+        "sha256": "7510a742b7aa2538383c4b89e8710ae4fb229438fa50bc95fb527dc0be3992d1",
+        "bytes": 14444
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/Audio/sfx_score_step.wav",
+        "exists": true,
+        "sha256": "7510a742b7aa2538383c4b89e8710ae4fb229438fa50bc95fb527dc0be3992d1",
+        "bytes": 14444
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "sfx_score_burst_l3",
+      "category": "audio",
+      "assetType": "audioclip",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "ArtSource/Art07/Audio/sfx_score_burst_source.wav",
+      "plannedRuntimePath": "Assets/Art/Art07/Audio/SFX/sfx_score_burst_l3.wav",
+      "pathMappingApplied": true,
+      "mappingEvidence": "ArtSource/Art07/path_mappings.json",
+      "source": {
+        "path": "ArtSource/Art07/Audio/sfx_score_burst_l3.wav",
+        "exists": true,
+        "sha256": "8bce6df07996078469d852d622df4ae0d29467e9b27562c50c8491384f214813",
+        "bytes": 40364
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/Audio/sfx_score_burst_l3.wav",
+        "exists": true,
+        "sha256": "8bce6df07996078469d852d622df4ae0d29467e9b27562c50c8491384f214813",
+        "bytes": 40364
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "sfx_score_burst_l4",
+      "category": "audio",
+      "assetType": "audioclip",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "ArtSource/Art07/Audio/sfx_score_burst_source.wav",
+      "plannedRuntimePath": "Assets/Art/Art07/Audio/SFX/sfx_score_burst_l4.wav",
+      "pathMappingApplied": true,
+      "mappingEvidence": "ArtSource/Art07/path_mappings.json",
+      "source": {
+        "path": "ArtSource/Art07/Audio/sfx_score_burst_l4.wav",
+        "exists": true,
+        "sha256": "82c585ba4c1d6233167a9ed4f0011f41b2e9aeb257acbf2a962b8a7090f966f2",
+        "bytes": 49964
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/Audio/sfx_score_burst_l4.wav",
+        "exists": true,
+        "sha256": "82c585ba4c1d6233167a9ed4f0011f41b2e9aeb257acbf2a962b8a7090f966f2",
+        "bytes": 49964
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "sfx_score_burst_l5",
+      "category": "audio",
+      "assetType": "audioclip",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "ArtSource/Art07/Audio/sfx_score_burst_source.wav",
+      "plannedRuntimePath": "Assets/Art/Art07/Audio/SFX/sfx_score_burst_l5.wav",
+      "pathMappingApplied": true,
+      "mappingEvidence": "ArtSource/Art07/path_mappings.json",
+      "source": {
+        "path": "ArtSource/Art07/Audio/sfx_score_burst_l5.wav",
+        "exists": true,
+        "sha256": "d46b7d4690282e340a572688650121192442d56ec4dbfa68b1558b08e315f6f9",
+        "bytes": 57644
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/Audio/sfx_score_burst_l5.wav",
+        "exists": true,
+        "sha256": "d46b7d4690282e340a572688650121192442d56ec4dbfa68b1558b08e315f6f9",
+        "bytes": 57644
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "sfx_coin",
+      "category": "audio",
+      "assetType": "audioclip",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "ArtSource/Art07/Audio/sfx_coin.wav",
+      "plannedRuntimePath": "Assets/Art/Art07/Audio/SFX/sfx_coin.wav",
+      "pathMappingApplied": true,
+      "mappingEvidence": "ArtSource/Art07/path_mappings.json",
+      "source": {
+        "path": "ArtSource/Art07/Audio/sfx_coin.wav",
+        "exists": true,
+        "sha256": "17333e84a985b50725456c2088c63515b6a080daffcd17c523efb4d7e59e82b8",
+        "bytes": 17324
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/Audio/sfx_coin.wav",
+        "exists": true,
+        "sha256": "17333e84a985b50725456c2088c63515b6a080daffcd17c523efb4d7e59e82b8",
+        "bytes": 17324
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "sfx_grow",
+      "category": "audio",
+      "assetType": "audioclip",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "ArtSource/Art07/Audio/sfx_grow.wav",
+      "plannedRuntimePath": "Assets/Art/Art07/Audio/SFX/sfx_grow.wav",
+      "pathMappingApplied": true,
+      "mappingEvidence": "ArtSource/Art07/path_mappings.json",
+      "source": {
+        "path": "ArtSource/Art07/Audio/sfx_grow.wav",
+        "exists": true,
+        "sha256": "f90d579283f7a4c723e21967904f49664586a7bf31579158635984340ce7cec3",
+        "bytes": 22124
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/Audio/sfx_grow.wav",
+        "exists": true,
+        "sha256": "f90d579283f7a4c723e21967904f49664586a7bf31579158635984340ce7cec3",
+        "bytes": 22124
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "sfx_dye",
+      "category": "audio",
+      "assetType": "audioclip",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "ArtSource/Art07/Audio/sfx_dye.wav",
+      "plannedRuntimePath": "Assets/Art/Art07/Audio/SFX/sfx_dye.wav",
+      "pathMappingApplied": true,
+      "mappingEvidence": "ArtSource/Art07/path_mappings.json",
+      "source": {
+        "path": "ArtSource/Art07/Audio/sfx_dye.wav",
+        "exists": true,
+        "sha256": "12944371ca7c68502f7373dbcfb9fa3508dfb1d8b2f4484313db4e9e1eaae94f",
+        "bytes": 20204
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/Audio/sfx_dye.wav",
+        "exists": true,
+        "sha256": "12944371ca7c68502f7373dbcfb9fa3508dfb1d8b2f4484313db4e9e1eaae94f",
+        "bytes": 20204
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "sfx_copy",
+      "category": "audio",
+      "assetType": "audioclip",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "ArtSource/Art07/Audio/sfx_copy.wav",
+      "plannedRuntimePath": "Assets/Art/Art07/Audio/SFX/sfx_copy.wav",
+      "pathMappingApplied": true,
+      "mappingEvidence": "ArtSource/Art07/path_mappings.json",
+      "source": {
+        "path": "ArtSource/Art07/Audio/sfx_copy.wav",
+        "exists": true,
+        "sha256": "af617d6c1501689f20c000e7fd9aa1ca21914a76b2c6f82ca99bcb676ce19683",
+        "bytes": 18284
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/Audio/sfx_copy.wav",
+        "exists": true,
+        "sha256": "af617d6c1501689f20c000e7fd9aa1ca21914a76b2c6f82ca99bcb676ce19683",
+        "bytes": 18284
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "sfx_dice_break",
+      "category": "audio",
+      "assetType": "audioclip",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "ArtSource/Art07/Audio/sfx_dice_break.wav",
+      "plannedRuntimePath": "Assets/Art/Art07/Audio/SFX/sfx_dice_break.wav",
+      "pathMappingApplied": true,
+      "mappingEvidence": "ArtSource/Art07/path_mappings.json",
+      "source": {
+        "path": "ArtSource/Art07/Audio/sfx_dice_break.wav",
+        "exists": true,
+        "sha256": "a0688ee2637056f69184eb72bf29ba6d8a940ec931d3473c9aa882f3664d3d89",
+        "bytes": 28844
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/Audio/sfx_dice_break.wav",
+        "exists": true,
+        "sha256": "a0688ee2637056f69184eb72bf29ba6d8a940ec931d3473c9aa882f3664d3d89",
+        "bytes": 28844
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "sfx_card_break",
+      "category": "audio",
+      "assetType": "audioclip",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "ArtSource/Art07/Audio/sfx_card_break.wav",
+      "plannedRuntimePath": "Assets/Art/Art07/Audio/SFX/sfx_card_break.wav",
+      "pathMappingApplied": true,
+      "mappingEvidence": "ArtSource/Art07/path_mappings.json",
+      "source": {
+        "path": "ArtSource/Art07/Audio/sfx_card_break.wav",
+        "exists": true,
+        "sha256": "72b3c41503595f6ef94813064826d24d48e4f2ab6d4a868d5e06cbeed72bf6d4",
+        "bytes": 26924
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/Audio/sfx_card_break.wav",
+        "exists": true,
+        "sha256": "72b3c41503595f6ef94813064826d24d48e4f2ab6d4a868d5e06cbeed72bf6d4",
+        "bytes": 26924
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "sfx_refresh",
+      "category": "audio",
+      "assetType": "audioclip",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "ArtSource/Art07/Audio/sfx_refresh.wav",
+      "plannedRuntimePath": "Assets/Art/Art07/Audio/SFX/sfx_refresh.wav",
+      "pathMappingApplied": true,
+      "mappingEvidence": "ArtSource/Art07/path_mappings.json",
+      "source": {
+        "path": "ArtSource/Art07/Audio/sfx_refresh.wav",
+        "exists": true,
+        "sha256": "dffecbfd17bef150a12e5b5379cbc59bdd1b21220a1a1aa1fed3c87d50ba9ed3",
+        "bytes": 21164
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/Audio/sfx_refresh.wav",
+        "exists": true,
+        "sha256": "dffecbfd17bef150a12e5b5379cbc59bdd1b21220a1a1aa1fed3c87d50ba9ed3",
+        "bytes": 21164
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "sfx_qualified",
+      "category": "audio",
+      "assetType": "audioclip",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "ArtSource/Art07/Audio/sfx_qualified.wav",
+      "plannedRuntimePath": "Assets/Art/Art07/Audio/SFX/sfx_qualified.wav",
+      "pathMappingApplied": true,
+      "mappingEvidence": "ArtSource/Art07/path_mappings.json",
+      "source": {
+        "path": "ArtSource/Art07/Audio/sfx_qualified.wav",
+        "exists": true,
+        "sha256": "7954222e70ee312cf30eb092802e4eb9345c100a62c7c4e69374551fe2dd808d",
+        "bytes": 42284
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/Audio/sfx_qualified.wav",
+        "exists": true,
+        "sha256": "7954222e70ee312cf30eb092802e4eb9345c100a62c7c4e69374551fe2dd808d",
+        "bytes": 42284
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "sfx_run_win",
+      "category": "audio",
+      "assetType": "audioclip",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "ArtSource/Art07/Audio/sfx_run_win.wav",
+      "plannedRuntimePath": "Assets/Art/Art07/Audio/SFX/sfx_run_win.wav",
+      "pathMappingApplied": true,
+      "mappingEvidence": "ArtSource/Art07/path_mappings.json",
+      "source": {
+        "path": "ArtSource/Art07/Audio/sfx_run_win.wav",
+        "exists": true,
+        "sha256": "e39deac3f98cc057bb664f7a7f23a0c77f13837a20aa42a160ff1cc01d95cbce",
+        "bytes": 144044
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/Audio/sfx_run_win.wav",
+        "exists": true,
+        "sha256": "e39deac3f98cc057bb664f7a7f23a0c77f13837a20aa42a160ff1cc01d95cbce",
+        "bytes": 144044
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "sfx_run_fail",
+      "category": "audio",
+      "assetType": "audioclip",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "ArtSource/Art07/Audio/sfx_run_fail.wav",
+      "plannedRuntimePath": "Assets/Art/Art07/Audio/SFX/sfx_run_fail.wav",
+      "pathMappingApplied": true,
+      "mappingEvidence": "ArtSource/Art07/path_mappings.json",
+      "source": {
+        "path": "ArtSource/Art07/Audio/sfx_run_fail.wav",
+        "exists": true,
+        "sha256": "1de280afab7bb64e7445f1a6a435699160b4737b76eec526e8d9711058919cdf",
+        "bytes": 129644
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/Audio/sfx_run_fail.wav",
+        "exists": true,
+        "sha256": "1de280afab7bb64e7445f1a6a435699160b4737b76eec526e8d9711058919cdf",
+        "bytes": 129644
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "mixer_art07",
+      "category": "audio_mixer",
+      "assetType": "audio_mixer",
+      "optional": false,
+      "status": "planned",
+      "plannedSourcePath": "Assets/Art/Art07/Audio/mixer_art07.mixer",
+      "plannedRuntimePath": "Assets/Art/Art07/Audio/mixer_art07.mixer",
+      "pathMappingApplied": false,
+      "mappingEvidence": null,
+      "source": {
+        "path": "Assets/Art/Art07/Audio/mixer_art07.mixer",
+        "exists": false,
+        "sha256": null,
+        "bytes": 0
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/Audio/mixer_art07.mixer",
+        "exists": false,
+        "sha256": null,
+        "bytes": 0
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "font_cjk_source",
+      "category": "font",
+      "assetType": "font",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "ArtSource/Art07/Fonts/font_cjk_source.otf",
+      "plannedRuntimePath": "Assets/Art/Art07/Fonts/font_cjk_source.otf",
+      "pathMappingApplied": true,
+      "mappingEvidence": "ArtSource/Art07/path_mappings.json",
+      "source": {
+        "path": "Assets/Game/Fonts/NotoSansCJKsc-Regular.otf",
+        "exists": true,
+        "sha256": "2c76254f6fc379fddfce0a7e84fb5385bb135d3e399294f6eeb6680d0365b74b",
+        "bytes": 16437364
+      },
+      "runtime": {
+        "path": "Assets/Game/Fonts/NotoSansCJKsc-Regular.otf",
+        "exists": true,
+        "sha256": "2c76254f6fc379fddfce0a7e84fb5385bb135d3e399294f6eeb6680d0365b74b",
+        "bytes": 16437364
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "font_cjk_license",
+      "category": "font_license",
+      "assetType": "text",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "ArtSource/Art07/Fonts/font_cjk_license.txt",
+      "plannedRuntimePath": "Assets/Art/Art07/Fonts/font_cjk_license.txt",
+      "pathMappingApplied": true,
+      "mappingEvidence": "ArtSource/Art07/path_mappings.json",
+      "source": {
+        "path": "Assets/Game/Fonts/LICENSE.txt",
+        "exists": true,
+        "sha256": "6a73f9541c2de74158c0e7cf6b0a58ef774f5a780bf191f2d7ec9cc53efe2bf2",
+        "bytes": 4301
+      },
+      "runtime": {
+        "path": "Assets/Game/Fonts/LICENSE.txt",
+        "exists": true,
+        "sha256": "6a73f9541c2de74158c0e7cf6b0a58ef774f5a780bf191f2d7ec9cc53efe2bf2",
+        "bytes": 4301
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "font_cjk_tmp",
+      "category": "font",
+      "assetType": "tmp_font_asset",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "Assets/Art/Art07/Fonts/font_cjk_tmp.asset",
+      "plannedRuntimePath": "Assets/Art/Art07/Fonts/font_cjk_tmp.asset",
+      "pathMappingApplied": true,
+      "mappingEvidence": "ArtSource/Art07/path_mappings.json",
+      "source": {
+        "path": "Assets/Game/Fonts/DiceChinese.asset",
+        "exists": true,
+        "sha256": "485d86134a9cc3627ff7a757cbecb9d5c189891c4983f417dd4f4b3cd232c8f9",
+        "bytes": 10841180
+      },
+      "runtime": {
+        "path": "Assets/Game/Fonts/DiceChinese.asset",
+        "exists": true,
+        "sha256": "485d86134a9cc3627ff7a757cbecb9d5c189891c4983f417dd4f4b3cd232c8f9",
+        "bytes": 10841180
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "font_numbers_tmp",
+      "category": "font",
+      "assetType": "tmp_font_asset",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "Assets/Art/Art07/Fonts/font_numbers_tmp.asset",
+      "plannedRuntimePath": "Assets/Art/Art07/Fonts/font_numbers_tmp.asset",
+      "pathMappingApplied": false,
+      "mappingEvidence": null,
+      "source": {
+        "path": "Assets/Art/Art07/Fonts/font_numbers_tmp.asset",
+        "exists": true,
+        "sha256": "d0e04d154c3d48ead98e04c017d408220e070abbc246c14b9789ade9d43bd91c",
+        "bytes": 543635
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/Fonts/font_numbers_tmp.asset",
+        "exists": true,
+        "sha256": "d0e04d154c3d48ead98e04c017d408220e070abbc246c14b9789ade9d43bd91c",
+        "bytes": 543635
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "atlas_ui_pixel",
+      "category": "sprite_atlas",
+      "assetType": "spriteatlas",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "Assets/Art/Art07/UI/Atlases/atlas_ui_pixel.spriteatlas",
+      "plannedRuntimePath": "Assets/Art/Art07/UI/Atlases/atlas_ui_pixel.spriteatlas",
+      "pathMappingApplied": true,
+      "mappingEvidence": "ArtSource/Art07/path_mappings.json",
+      "source": {
+        "path": "Assets/Art/Art07/UI/Atlases/atlas_ui_pixel.spriteatlasv2",
+        "exists": true,
+        "sha256": "a8bb39ed558d87c502adb196925b13c609f2f3f306483959bc60894ff704ac51",
+        "bytes": 4201
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/UI/Atlases/atlas_ui_pixel.spriteatlasv2",
+        "exists": true,
+        "sha256": "a8bb39ed558d87c502adb196925b13c609f2f3f306483959bc60894ff704ac51",
+        "bytes": 4201
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "atlas_content_icons_pixel",
+      "category": "sprite_atlas",
+      "assetType": "spriteatlas",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "Assets/Art/Art07/UI/Atlases/atlas_content_icons_pixel.spriteatlas",
+      "plannedRuntimePath": "Assets/Art/Art07/UI/Atlases/atlas_content_icons_pixel.spriteatlas",
+      "pathMappingApplied": true,
+      "mappingEvidence": "ArtSource/Art07/path_mappings.json",
+      "source": {
+        "path": "Assets/Art/Art07/UI/Atlases/atlas_content_icons_pixel.spriteatlasv2",
+        "exists": true,
+        "sha256": "935a6e764036492c187f424825bc0a2f2c0d1a2846a40df946c0e000eda347d1",
+        "bytes": 5607
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/UI/Atlases/atlas_content_icons_pixel.spriteatlasv2",
+        "exists": true,
+        "sha256": "935a6e764036492c187f424825bc0a2f2c0d1a2846a40df946c0e000eda347d1",
+        "bytes": 5607
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "atlas_fx_soft",
+      "category": "sprite_atlas",
+      "assetType": "spriteatlas",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "Assets/Art/Art07/FX/Atlases/atlas_fx_soft.spriteatlas",
+      "plannedRuntimePath": "Assets/Art/Art07/FX/Atlases/atlas_fx_soft.spriteatlas",
+      "pathMappingApplied": true,
+      "mappingEvidence": "ArtSource/Art07/path_mappings.json",
+      "source": {
+        "path": "Assets/Art/Art07/FX/Atlases/atlas_fx_soft.spriteatlasv2",
+        "exists": true,
+        "sha256": "3ed9880617f90ebce576c33858c5b4bd62a806186872be92898b9c24c969eacf",
+        "bytes": 575
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/FX/Atlases/atlas_fx_soft.spriteatlasv2",
+        "exists": true,
+        "sha256": "3ed9880617f90ebce576c33858c5b4bd62a806186872be92898b9c24c969eacf",
+        "bytes": 575
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "art07_theme",
+      "category": "config",
+      "assetType": "json",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "Assets/Game/Config/Art07/art07_theme.json",
+      "plannedRuntimePath": "Assets/Game/Config/Art07/art07_theme.json",
+      "pathMappingApplied": false,
+      "mappingEvidence": null,
+      "source": {
+        "path": "Assets/Game/Config/Art07/art07_theme.json",
+        "exists": true,
+        "sha256": "ec5639a7e938e978d8549b7d2c16cf5b0496db1da5aacca6d9d4bb01c580e6b0",
+        "bytes": 6005
+      },
+      "runtime": {
+        "path": "Assets/Game/Config/Art07/art07_theme.json",
+        "exists": true,
+        "sha256": "ec5639a7e938e978d8549b7d2c16cf5b0496db1da5aacca6d9d4bb01c580e6b0",
+        "bytes": 6005
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "art07_motion",
+      "category": "config",
+      "assetType": "json",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "Assets/Game/Config/Art07/art07_motion.json",
+      "plannedRuntimePath": "Assets/Game/Config/Art07/art07_motion.json",
+      "pathMappingApplied": false,
+      "mappingEvidence": null,
+      "source": {
+        "path": "Assets/Game/Config/Art07/art07_motion.json",
+        "exists": true,
+        "sha256": "4e5ec4c6281cb305b5b1b34762c8958590edf9bb92d1bb38c89c33a05ccf0362",
+        "bytes": 8360
+      },
+      "runtime": {
+        "path": "Assets/Game/Config/Art07/art07_motion.json",
+        "exists": true,
+        "sha256": "4e5ec4c6281cb305b5b1b34762c8958590edf9bb92d1bb38c89c33a05ccf0362",
+        "bytes": 8360
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "art07_fx_budget",
+      "category": "config",
+      "assetType": "json",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "Assets/Game/Config/Art07/art07_fx_budget.json",
+      "plannedRuntimePath": "Assets/Game/Config/Art07/art07_fx_budget.json",
+      "pathMappingApplied": false,
+      "mappingEvidence": null,
+      "source": {
+        "path": "Assets/Game/Config/Art07/art07_fx_budget.json",
+        "exists": true,
+        "sha256": "3093a7fb26959cc31812128651ddabb8985763064d7ba8ccb60df01cd8257363",
+        "bytes": 608
+      },
+      "runtime": {
+        "path": "Assets/Game/Config/Art07/art07_fx_budget.json",
+        "exists": true,
+        "sha256": "3093a7fb26959cc31812128651ddabb8985763064d7ba8ccb60df01cd8257363",
+        "bytes": 608
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "art07_resource_map",
+      "category": "config",
+      "assetType": "json",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "Assets/Game/Config/Art07/art07_resource_map.json",
+      "plannedRuntimePath": "Assets/Game/Config/Art07/art07_resource_map.json",
+      "pathMappingApplied": false,
+      "mappingEvidence": null,
+      "source": {
+        "path": "Assets/Game/Config/Art07/art07_resource_map.json",
+        "exists": true,
+        "sha256": "a61f164992d9b6f494cae2a1ab4fdd5c371fc67e26e885ae6782b776b6175fa7",
+        "bytes": 67294
+      },
+      "runtime": {
+        "path": "Assets/Game/Config/Art07/art07_resource_map.json",
+        "exists": true,
+        "sha256": "a61f164992d9b6f494cae2a1ab4fdd5c371fc67e26e885ae6782b776b6175fa7",
+        "bytes": 67294
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "art07_face_visuals",
+      "category": "config",
+      "assetType": "json",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "plannedSourcePath": "Assets/Game/Config/Art07/art07_face_visuals.json",
+      "plannedRuntimePath": "Assets/Game/Config/Art07/art07_face_visuals.json",
+      "pathMappingApplied": false,
+      "mappingEvidence": null,
+      "source": {
+        "path": "Assets/Game/Config/Art07/art07_face_visuals.json",
+        "exists": true,
+        "sha256": "4af3275a3daadbc233ccdcfc13445977884b2f2800fe468873abe1c653faf2f8",
+        "bytes": 1926
+      },
+      "runtime": {
+        "path": "Assets/Game/Config/Art07/art07_face_visuals.json",
+        "exists": true,
+        "sha256": "4af3275a3daadbc233ccdcfc13445977884b2f2800fe468873abe1c653faf2f8",
+        "bytes": 1926
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "icon_c01",
+      "contentId": "C01",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "source": {
+        "path": "ArtSource/Art07/ContentIcons/Controllers/icon_c01.kra",
+        "exists": true,
+        "sha256": "d8ce24c42ba194f7c853bf90f30155be49fd850c30cbf10bdcd5f5cc5d7bd5b5",
+        "bytes": 49472
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/ContentIcons/Controllers/icon_c01.png",
+        "exists": true,
+        "sha256": "c9aa815e53764c4388038a60fdc960c2006e826a7aa8c6405bc3f4d2300ef8b3",
+        "bytes": 1539
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "icon_c02",
+      "contentId": "C02",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "source": {
+        "path": "ArtSource/Art07/ContentIcons/Controllers/icon_c02.kra",
+        "exists": true,
+        "sha256": "ce68d39be4240398d77d9450d089fe9350d7d0e8988a703924e9779b7f505b68",
+        "bytes": 100178
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/ContentIcons/Controllers/icon_c02.png",
+        "exists": true,
+        "sha256": "17d2ca58288e93336582b3131cee0e12926c7af9825c47c638b140dfd054e976",
+        "bytes": 1942
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "icon_c03",
+      "contentId": "C03",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "source": {
+        "path": "ArtSource/Art07/ContentIcons/Controllers/icon_c03.kra",
+        "exists": true,
+        "sha256": "b7d8bff38f0629efcc1ad05ae0586eda79810118121a3c200c05f515636aefe1",
+        "bytes": 47880
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/ContentIcons/Controllers/icon_c03.png",
+        "exists": true,
+        "sha256": "23f4460bb78231fca5ec1dfd1f48225e4027d7c73a536c8291143bb24aef30cc",
+        "bytes": 1069
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "icon_c05",
+      "contentId": "C05",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "source": {
+        "path": "ArtSource/Art07/ContentIcons/Controllers/icon_c05.kra",
+        "exists": true,
+        "sha256": "8e9b133cc7866dd47a79ee215819347549619b7fb4124782564fccd45984097d",
+        "bytes": 53227
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/ContentIcons/Controllers/icon_c05.png",
+        "exists": true,
+        "sha256": "b817b97bf9427de8c688550a530db4eefae75ad3a80edcdae5938c98f665cf50",
+        "bytes": 1650
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "icon_c06",
+      "contentId": "C06",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "source": {
+        "path": "ArtSource/Art07/ContentIcons/Controllers/icon_c06.kra",
+        "exists": true,
+        "sha256": "98856afd5f29ac0f5729f760bc19952114bb1c7b6d1278bdd8fb236ba5fea080",
+        "bytes": 49833
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/ContentIcons/Controllers/icon_c06.png",
+        "exists": true,
+        "sha256": "0a9df224b81f393ddf2958f552b3d7f9352f7d3978120acbca1e88e8c354376f",
+        "bytes": 1167
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "icon_c07",
+      "contentId": "C07",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "source": {
+        "path": "ArtSource/Art07/ContentIcons/Controllers/icon_c07.kra",
+        "exists": true,
+        "sha256": "91a785d5b4b663747f6f8b00964a757aaaf65a3d5b6944d638a2cfcda1605b65",
+        "bytes": 49856
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/ContentIcons/Controllers/icon_c07.png",
+        "exists": true,
+        "sha256": "d2be4bf7a14b0a435ecd31210938720f1b8d9f64b52ee0115f0e2a1d6bd952be",
+        "bytes": 1270
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "icon_c08",
+      "contentId": "C08",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "source": {
+        "path": "ArtSource/Art07/ContentIcons/Controllers/icon_c08.kra",
+        "exists": true,
+        "sha256": "6aac5a391b828867da7a072e7f66c253f8b2887dbce06b46d180a11108c2bbbc",
+        "bytes": 47126
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/ContentIcons/Controllers/icon_c08.png",
+        "exists": true,
+        "sha256": "62e6f384f0d03523c10b3e3e4dc0f6a817fa76ce961d8e3ec79328a301aa53ef",
+        "bytes": 919
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "icon_c09",
+      "contentId": "C09",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "source": {
+        "path": "ArtSource/Art07/ContentIcons/Controllers/icon_c09.kra",
+        "exists": true,
+        "sha256": "3187cc26c981156f1b98ee697e3ee4120236bb811c012056d1ff9634815ec6b8",
+        "bytes": 52692
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/ContentIcons/Controllers/icon_c09.png",
+        "exists": true,
+        "sha256": "fc2843a0b8b27cb3484ec7b19318e73f43661e9c1643daf08d86a7ee94368308",
+        "bytes": 1332
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "icon_c10",
+      "contentId": "C10",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "source": {
+        "path": "ArtSource/Art07/ContentIcons/Controllers/icon_c10.kra",
+        "exists": true,
+        "sha256": "7b00b9a4368785623e30010d27efa74dbe3329a69f1d533177a31c7d35c8967c",
+        "bytes": 47035
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/ContentIcons/Controllers/icon_c10.png",
+        "exists": true,
+        "sha256": "daefd9c1d74307ffc0bdc199534b296ee19264f0efd5eca676c901824a7acfec",
+        "bytes": 1076
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "icon_c11",
+      "contentId": "C11",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "source": {
+        "path": "ArtSource/Art07/ContentIcons/Controllers/icon_c11.kra",
+        "exists": true,
+        "sha256": "65fe8a23f0ce8953172f01d083a140f7a36fb0bb85657dfd3703fcb0ee746ebd",
+        "bytes": 49658
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/ContentIcons/Controllers/icon_c11.png",
+        "exists": true,
+        "sha256": "ca1bf575a4f42ee89279b3dbf196ade53ee2f48384b41ebd805bbd80e4d64fc4",
+        "bytes": 1119
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "icon_c12",
+      "contentId": "C12",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "source": {
+        "path": "ArtSource/Art07/ContentIcons/Controllers/icon_c12.kra",
+        "exists": true,
+        "sha256": "e70e69b6bebf896964f322bbacc932146489e5725ecdfb80113825223dee8926",
+        "bytes": 50066
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/ContentIcons/Controllers/icon_c12.png",
+        "exists": true,
+        "sha256": "2b16fcb6574127521d3934303b48804807e81c76b2c3148384a2be8667e593a9",
+        "bytes": 1393
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "icon_c13",
+      "contentId": "C13",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "source": {
+        "path": "ArtSource/Art07/ContentIcons/Controllers/icon_c13.kra",
+        "exists": true,
+        "sha256": "d30f2bee5a31bef7cbaa88158f00f253149bf67f4fbd237ffabb420e4ec177ad",
+        "bytes": 47518
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/ContentIcons/Controllers/icon_c13.png",
+        "exists": true,
+        "sha256": "318f8ef41d8f35d96bf9480cc4d5850cf7fb288ab53bca4f2e9c763208455225",
+        "bytes": 1290
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "icon_c14",
+      "contentId": "C14",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "source": {
+        "path": "ArtSource/Art07/ContentIcons/Controllers/icon_c14.kra",
+        "exists": true,
+        "sha256": "aba3bc0e7ef93a9d8dcce9005f3c1570958d8f54d2f911b404c27214d667b9b8",
+        "bytes": 54529
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/ContentIcons/Controllers/icon_c14.png",
+        "exists": true,
+        "sha256": "ded9dda64e737f6e12d10f07bd7f4ebbf147c4041b5083f7707ab03959cf8349",
+        "bytes": 1672
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "icon_c15",
+      "contentId": "C15",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "source": {
+        "path": "ArtSource/Art07/ContentIcons/Controllers/icon_c15.kra",
+        "exists": true,
+        "sha256": "674e2022a0b95e40b1216359bf3832481a2a2002d4ba506954f1cea880130469",
+        "bytes": 51462
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/ContentIcons/Controllers/icon_c15.png",
+        "exists": true,
+        "sha256": "002ba15409f44aba7b41cbd20522ccba81cfcec09b94f21852a58b50d085093a",
+        "bytes": 1313
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "icon_c17",
+      "contentId": "C17",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "source": {
+        "path": "ArtSource/Art07/ContentIcons/Controllers/icon_c17.kra",
+        "exists": true,
+        "sha256": "34ed42ce4591accd71f30400f5332b69de5c40126846c540cf8de077f72ed7b5",
+        "bytes": 52798
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/ContentIcons/Controllers/icon_c17.png",
+        "exists": true,
+        "sha256": "8b603042ef94f6cca98c7a383268d3d278edec4b37ecfcdfb0721b06add49af0",
+        "bytes": 1213
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "icon_c18",
+      "contentId": "C18",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "source": {
+        "path": "ArtSource/Art07/ContentIcons/Controllers/icon_c18.kra",
+        "exists": true,
+        "sha256": "b1c23c848638e290ff3966b759f17429cb86424a0c264be02b31701bee30ef05",
+        "bytes": 49830
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/ContentIcons/Controllers/icon_c18.png",
+        "exists": true,
+        "sha256": "f02ae9a284b417bf066a03a5c5dcef59dfbcd0bc0ca5cbc63cea0d2ae2f71ac4",
+        "bytes": 1459
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "icon_c19",
+      "contentId": "C19",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "source": {
+        "path": "ArtSource/Art07/ContentIcons/Controllers/icon_c19.kra",
+        "exists": true,
+        "sha256": "91583307845e34c0389e597080a86be50783e04178ee2d3cb62d5acb088126b9",
+        "bytes": 49818
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/ContentIcons/Controllers/icon_c19.png",
+        "exists": true,
+        "sha256": "5aa69a454bf0d373bfef90e24e9162aac342fbb76ed2d63a20971c8a6a503300",
+        "bytes": 1291
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "icon_c20",
+      "contentId": "C20",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "source": {
+        "path": "ArtSource/Art07/ContentIcons/Controllers/icon_c20.kra",
+        "exists": true,
+        "sha256": "089e2bd09f2981ba6b94242648fcbaee606cefa74a9118c5be4798bd34c7e830",
+        "bytes": 48460
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/ContentIcons/Controllers/icon_c20.png",
+        "exists": true,
+        "sha256": "4fea0ac7fc0aa47b0666877799c98d8377f6cabf3a51996e4550f478a7ca68f0",
+        "bytes": 1275
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "icon_c21",
+      "contentId": "C21",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "source": {
+        "path": "ArtSource/Art07/ContentIcons/Controllers/icon_c21.kra",
+        "exists": true,
+        "sha256": "291deaf8ea52feb0484bbf90e3febbe7885f533760e42dbbcb9ab861529e7066",
+        "bytes": 45850
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/ContentIcons/Controllers/icon_c21.png",
+        "exists": true,
+        "sha256": "2264ad33888afcfded0eefa324db98b6e1260af688f1295f910e0a25f3f0f735",
+        "bytes": 1084
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "icon_c22",
+      "contentId": "C22",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "source": {
+        "path": "ArtSource/Art07/ContentIcons/Controllers/icon_c22.kra",
+        "exists": true,
+        "sha256": "de0f188047df50125951634cf1430171fc362e3115b321f8de413af5e5464b79",
+        "bytes": 46801
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/ContentIcons/Controllers/icon_c22.png",
+        "exists": true,
+        "sha256": "f085e66b433b844d05bbe98bf2fd899b128282ef108a94197dbecfefc1e74c82",
+        "bytes": 1145
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "icon_c24",
+      "contentId": "C24",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "source": {
+        "path": "ArtSource/Art07/ContentIcons/Controllers/icon_c24.kra",
+        "exists": true,
+        "sha256": "b8b2dc8c25010421d6d8cc9890e66b470493cadeb00eded8d3eb5765608f62a2",
+        "bytes": 48858
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/ContentIcons/Controllers/icon_c24.png",
+        "exists": true,
+        "sha256": "d65ac0bf303cf907bc29c3aa12dd018d9702461c815628d9635316e7446f705e",
+        "bytes": 1133
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "icon_c25",
+      "contentId": "C25",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "source": {
+        "path": "ArtSource/Art07/ContentIcons/Controllers/icon_c25.kra",
+        "exists": true,
+        "sha256": "c18922f3974f01a4bcc73412f89c7f8db628ffabf3cee6d791c496eeebf835c3",
+        "bytes": 58495
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/ContentIcons/Controllers/icon_c25.png",
+        "exists": true,
+        "sha256": "bd517035b9511aa137e18565b2e0d686e57784a6535ea4877531d39d88412bc2",
+        "bytes": 1747
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "icon_c26",
+      "contentId": "C26",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "source": {
+        "path": "ArtSource/Art07/ContentIcons/Controllers/icon_c26.kra",
+        "exists": true,
+        "sha256": "d612a7a5bd67d5fe58c4a41ee9a78200d065ca546f475dc7427cd8d996524752",
+        "bytes": 52735
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/ContentIcons/Controllers/icon_c26.png",
+        "exists": true,
+        "sha256": "e763be2bceff660be5c28ec0367d33c3744635fa46afd3cbd7a7d068761d3974",
+        "bytes": 1523
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "icon_c27",
+      "contentId": "C27",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "source": {
+        "path": "ArtSource/Art07/ContentIcons/Controllers/icon_c27.kra",
+        "exists": true,
+        "sha256": "45c428af83d3691c0c1690ba8f5db02858ab80d943c90d0f84005f6cc6c1b404",
+        "bytes": 51633
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/ContentIcons/Controllers/icon_c27.png",
+        "exists": true,
+        "sha256": "93108828f97726f0ed30cbfd131284364431736f76601d915bef619ef7cd6e7a",
+        "bytes": 1163
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "icon_c28",
+      "contentId": "C28",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "source": {
+        "path": "ArtSource/Art07/ContentIcons/Controllers/icon_c28.kra",
+        "exists": true,
+        "sha256": "dfd8272979607a73f5df00f1e459f0fff6e3b044f9dec7c3a298983d3299b381",
+        "bytes": 54833
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/ContentIcons/Controllers/icon_c28.png",
+        "exists": true,
+        "sha256": "ef882e6b8f9c6daa3e7e7682ecd879469dfb01bc3da3d86bf6ab3350ab6f81a0",
+        "bytes": 1580
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "icon_c29",
+      "contentId": "C29",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "source": {
+        "path": "ArtSource/Art07/ContentIcons/Controllers/icon_c29.kra",
+        "exists": true,
+        "sha256": "7137bcaf456bc33a9ae414e53cfaee4e08a75d232e308b456af881c93bf98527",
+        "bytes": 44847
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/ContentIcons/Controllers/icon_c29.png",
+        "exists": true,
+        "sha256": "4933a93b7094ffbb204672e7abc606dd4c2306299bf5bf6ae83d3539f36759bf",
+        "bytes": 1053
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "icon_c30",
+      "contentId": "C30",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "source": {
+        "path": "ArtSource/Art07/ContentIcons/Controllers/icon_c30.kra",
+        "exists": true,
+        "sha256": "faac1d8a9196bccc8c1b51c69c8dbd6e309898a18c6d4d5fb590423d223656bb",
+        "bytes": 50936
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/ContentIcons/Controllers/icon_c30.png",
+        "exists": true,
+        "sha256": "30a74dd4de03b850f0cb03784cfa658c05bb3aa3beb9d128ea4d635c79424a68",
+        "bytes": 1266
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "icon_c31",
+      "contentId": "C31",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "source": {
+        "path": "ArtSource/Art07/ContentIcons/Controllers/icon_c31.kra",
+        "exists": true,
+        "sha256": "ff7edb46cac7884eef9c766545ffb94106c1534c120f7c91f3631d63a3a445c5",
+        "bytes": 57947
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/ContentIcons/Controllers/icon_c31.png",
+        "exists": true,
+        "sha256": "2172cf9090d0eb7cf26b2b13fda2e5930d0c2d67080b954a9c7e26b188472bc1",
+        "bytes": 1688
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "icon_c32",
+      "contentId": "C32",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "source": {
+        "path": "ArtSource/Art07/ContentIcons/Controllers/icon_c32.kra",
+        "exists": true,
+        "sha256": "a840cd610c0beae3873ba5894d776646b881228caf003ae0eb0e7353af420a8f",
+        "bytes": 54924
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/ContentIcons/Controllers/icon_c32.png",
+        "exists": true,
+        "sha256": "15523e2e19c59c570e43cafced271d0ed5f455409f0d266ce179c57fbde11346",
+        "bytes": 1629
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "icon_c33",
+      "contentId": "C33",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "source": {
+        "path": "ArtSource/Art07/ContentIcons/Controllers/icon_c33.kra",
+        "exists": true,
+        "sha256": "834e95e1f864487ec55d02f877ea422a331d84a4d8f14a84bd24ac073618faae",
+        "bytes": 54111
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/ContentIcons/Controllers/icon_c33.png",
+        "exists": true,
+        "sha256": "54039dcefbb8e78b6cf86b80b1c0fe49f6f48ed5d999223468ba4905c5284531",
+        "bytes": 1299
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "icon_c34",
+      "contentId": "C34",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "source": {
+        "path": "ArtSource/Art07/ContentIcons/Controllers/icon_c34.kra",
+        "exists": true,
+        "sha256": "6fb721e26440d3ccc3102ab5c3d61138b8cafca9720f310e5e86a58f685d3426",
+        "bytes": 47132
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/ContentIcons/Controllers/icon_c34.png",
+        "exists": true,
+        "sha256": "55c92c7ea605f4539edf78d6b0bb6fcd3b894fe880630b5df010fb5e64cde420",
+        "bytes": 1163
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "icon_c35",
+      "contentId": "C35",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "source": {
+        "path": "ArtSource/Art07/ContentIcons/Controllers/icon_c35.kra",
+        "exists": true,
+        "sha256": "2751c685269fbeeb3cfddd1d6b3ef2dc06dbccf9d26d785507b815b921108f26",
+        "bytes": 46670
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/ContentIcons/Controllers/icon_c35.png",
+        "exists": true,
+        "sha256": "6d8a5973064b7c785a902ccd4d02aec7b8caac3aa25e4ea00e76910c010ebc64",
+        "bytes": 1153
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "icon_c36",
+      "contentId": "C36",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "source": {
+        "path": "ArtSource/Art07/ContentIcons/Controllers/icon_c36.kra",
+        "exists": true,
+        "sha256": "e52b9bcf260289cdbda063bc5952a7c190b213f9fd9d5d09ced1ce8cc4561f94",
+        "bytes": 51825
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/ContentIcons/Controllers/icon_c36.png",
+        "exists": true,
+        "sha256": "cc99bdc4fd8875ead32730a9d438bb5dea3ec0168d840ec5b7f086a18757df13",
+        "bytes": 1355
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "icon_c37",
+      "contentId": "C37",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "source": {
+        "path": "ArtSource/Art07/ContentIcons/Controllers/icon_c37.kra",
+        "exists": true,
+        "sha256": "d56381955aa3b55a9d05d5d6151f472e049f2d3d69a984bdb35c45e54c59303f",
+        "bytes": 49610
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/ContentIcons/Controllers/icon_c37.png",
+        "exists": true,
+        "sha256": "c9bb59b9b04947f025548dbb1bdfc66b9c829e782a4bce362eaf08cfd8ffbd3b",
+        "bytes": 1394
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "icon_c38",
+      "contentId": "C38",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "source": {
+        "path": "ArtSource/Art07/ContentIcons/Controllers/icon_c38.kra",
+        "exists": true,
+        "sha256": "60c5a2ac52eca79aa74ccd24bfa047908ce43d3cc4d18aebbf536e62e14ae35f",
+        "bytes": 48590
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/ContentIcons/Controllers/icon_c38.png",
+        "exists": true,
+        "sha256": "78e2b9d51b4af963c6a8ea8bab1347c7ace3bee1f6137a998d56c53209309d38",
+        "bytes": 1174
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "icon_c39",
+      "contentId": "C39",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "source": {
+        "path": "ArtSource/Art07/ContentIcons/Controllers/icon_c39.kra",
+        "exists": true,
+        "sha256": "c78a3480915943fc853dec150c02fcab2d80439270d5691123ffb5c9d2f642c9",
+        "bytes": 48345
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/ContentIcons/Controllers/icon_c39.png",
+        "exists": true,
+        "sha256": "993040c5ce109dfc5ae16f462b55ac934e3bc61e12615dd0d6e72ccd37382e8d",
+        "bytes": 1209
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "icon_c40",
+      "contentId": "C40",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "source": {
+        "path": "ArtSource/Art07/ContentIcons/Controllers/icon_c40.kra",
+        "exists": true,
+        "sha256": "20db35f2a1c01947590bb718749aaf0f8d63f8a247583f79ab4e784cc7faa839",
+        "bytes": 46618
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/ContentIcons/Controllers/icon_c40.png",
+        "exists": true,
+        "sha256": "4cfe9e7a09635594d8e899bdafe4c7d415d118e481a1f7680988c5efe2657350",
+        "bytes": 1008
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "icon_c41",
+      "contentId": "C41",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "source": {
+        "path": "ArtSource/Art07/ContentIcons/Controllers/icon_c41.kra",
+        "exists": true,
+        "sha256": "91a88cedb05422ed331fcc01de1912334f3de94cc2f6227ff525295e2b8c16c1",
+        "bytes": 89064
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/ContentIcons/Controllers/icon_c41.png",
+        "exists": true,
+        "sha256": "29da8397aad35cc250e022695e4cbc4b99c034efdf9c985e94e1e5b91ecd0fcd",
+        "bytes": 1591
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "icon_c42",
+      "contentId": "C42",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "source": {
+        "path": "ArtSource/Art07/ContentIcons/Controllers/icon_c42.kra",
+        "exists": true,
+        "sha256": "c3516e640ba41493ff67c650df2f47f3ea5c04926361301b377323ac832bf73a",
+        "bytes": 52460
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/ContentIcons/Controllers/icon_c42.png",
+        "exists": true,
+        "sha256": "6200490fb76e7af985dc16122e19308483494f951aeefcf622275a38a7dc16d2",
+        "bytes": 1680
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "icon_c43",
+      "contentId": "C43",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "source": {
+        "path": "ArtSource/Art07/ContentIcons/Controllers/icon_c43.kra",
+        "exists": true,
+        "sha256": "acee69b3b5f6ae91215c782a188cc61346e05c52a2ef5db48fb629b80cafb34b",
+        "bytes": 48967
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/ContentIcons/Controllers/icon_c43.png",
+        "exists": true,
+        "sha256": "395c3a06bb683f5577c6b7cdb020dc0c934e9dcb6b064e22f61c726e61fbbae6",
+        "bytes": 1192
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "icon_c44",
+      "contentId": "C44",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "source": {
+        "path": "ArtSource/Art07/ContentIcons/Controllers/icon_c44.kra",
+        "exists": true,
+        "sha256": "84677327152ec963acf31e20edef1365763ea7537a616ccfbb7bd45782e7111e",
+        "bytes": 49499
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/ContentIcons/Controllers/icon_c44.png",
+        "exists": true,
+        "sha256": "b6708638bf770e8195e87c526036217edad534c254e4ef78128b53cb08d7a1d0",
+        "bytes": 1222
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "icon_c45",
+      "contentId": "C45",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "source": {
+        "path": "ArtSource/Art07/ContentIcons/Controllers/icon_c45.kra",
+        "exists": true,
+        "sha256": "fdb260296427969f4b99c949e4284ead5ea7ef345cad69b9a4942d33794a1a38",
+        "bytes": 94162
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/ContentIcons/Controllers/icon_c45.png",
+        "exists": true,
+        "sha256": "c51075f49b63a82da9f9683b54b72f75727cc76c6c7402a9cc41893d0fb7e69b",
+        "bytes": 2198
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "icon_c46",
+      "contentId": "C46",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "source": {
+        "path": "ArtSource/Art07/ContentIcons/Controllers/icon_c46.kra",
+        "exists": true,
+        "sha256": "9eca5676b5b0e42916bcc6a5728160ac62b019f1540b3007c6536162ae1635ea",
+        "bytes": 56609
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/ContentIcons/Controllers/icon_c46.png",
+        "exists": true,
+        "sha256": "e69206fce3ae8919c0a4eea6b5002aa92fe5c3fe3324749115b2c9f616929f03",
+        "bytes": 1617
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "icon_c47",
+      "contentId": "C47",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "source": {
+        "path": "ArtSource/Art07/ContentIcons/Controllers/icon_c47.kra",
+        "exists": true,
+        "sha256": "af38b58b5ae712304d0159786204a9b0b413d026c668b7edf938b913d37ebb83",
+        "bytes": 52514
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/ContentIcons/Controllers/icon_c47.png",
+        "exists": true,
+        "sha256": "3070ad44cdfbbc2f04e0cd774fbe40a0d14e91432cf2459a6bbe59f3bf38bef4",
+        "bytes": 1221
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "icon_c48",
+      "contentId": "C48",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "source": {
+        "path": "ArtSource/Art07/ContentIcons/Controllers/icon_c48.kra",
+        "exists": true,
+        "sha256": "b13af20b02a418ecd5855e684b63dcb6e84874ebd00e0e03ee7a63f3af27183e",
+        "bytes": 48323
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/ContentIcons/Controllers/icon_c48.png",
+        "exists": true,
+        "sha256": "e6da0c6ff70cfe51ab30227840fa162e8aa03611e12005ce9317c52c73eefede",
+        "bytes": 1019
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "icon_c49",
+      "contentId": "C49",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "source": {
+        "path": "ArtSource/Art07/ContentIcons/Controllers/icon_c49.kra",
+        "exists": true,
+        "sha256": "251efa6b4b66d7c36004d380078e8c9eec623a1ae28cb497d4a5287dcc5da735",
+        "bytes": 48918
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/ContentIcons/Controllers/icon_c49.png",
+        "exists": true,
+        "sha256": "f046977cd193ec583d9a4c504ab85636190f80684d81eb38a310697b1256b6b9",
+        "bytes": 1157
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "icon_c50",
+      "contentId": "C50",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "source": {
+        "path": "ArtSource/Art07/ContentIcons/Controllers/icon_c50.kra",
+        "exists": true,
+        "sha256": "1e9bd21f328a391cf9cc1cd8591812497c65c2f27f177ee9c3328bce3851f3fe",
+        "bytes": 47631
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/ContentIcons/Controllers/icon_c50.png",
+        "exists": true,
+        "sha256": "059bf074310d5b00e012ffd2882c49655dbfbb79022ee3e861ce0a8a3ed3d189",
+        "bytes": 950
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "icon_c51",
+      "contentId": "C51",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "source": {
+        "path": "ArtSource/Art07/ContentIcons/Controllers/icon_c51.kra",
+        "exists": true,
+        "sha256": "8d771cc815141a976c16f524e6bd047e24a5e031862a961cac85c7da5a6f58a3",
+        "bytes": 47720
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/ContentIcons/Controllers/icon_c51.png",
+        "exists": true,
+        "sha256": "6fd8d5e46c6504ec64ac067d7f0eed94833f9b1c02d9f08efb24bb43f72f418e",
+        "bytes": 1280
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "icon_c52",
+      "contentId": "C52",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "source": {
+        "path": "ArtSource/Art07/ContentIcons/Controllers/icon_c52.kra",
+        "exists": true,
+        "sha256": "81e36c9864eabb07d3dbbb7476ceb36e5e427b3772966ca4317714cde227b62f",
+        "bytes": 99711
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/ContentIcons/Controllers/icon_c52.png",
+        "exists": true,
+        "sha256": "3f578c14f96b91f3f321f86cfdccbc8a33c7eb6c2444df3cfa0f5c9e28ee78ee",
+        "bytes": 1465
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "icon_c53",
+      "contentId": "C53",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "source": {
+        "path": "ArtSource/Art07/ContentIcons/Controllers/icon_c53.kra",
+        "exists": true,
+        "sha256": "0782f08cac81d188e0201ebc2aa6c7a3e13e408260366f9cb73f3161eac65955",
+        "bytes": 55279
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/ContentIcons/Controllers/icon_c53.png",
+        "exists": true,
+        "sha256": "1a2f1ef8ab149b7d0000b22969fcf86818f543a0649e6ff3985aa57cee64da5a",
+        "bytes": 1858
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "icon_i01",
+      "contentId": "I01",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "source": {
+        "path": "ArtSource/Art07/ContentIcons/Items/icon_i01.kra",
+        "exists": true,
+        "sha256": "411084b0fc98d7e673a1005191d5b7149a68ce0f0e1ba3a30fea03c8c76fbd1c",
+        "bytes": 50093
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/ContentIcons/Items/icon_i01.png",
+        "exists": true,
+        "sha256": "463537780d664f243241efeacd4741b673b8260f719d3dad5d5e126cef376ccd",
+        "bytes": 1197
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "icon_i02",
+      "contentId": "I02",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "source": {
+        "path": "ArtSource/Art07/ContentIcons/Items/icon_i02.kra",
+        "exists": true,
+        "sha256": "65eb6dbe08f01de44bf3be14d8e6e4760c052f2d0e8ac6f1f204144f0daf233c",
+        "bytes": 51469
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/ContentIcons/Items/icon_i02.png",
+        "exists": true,
+        "sha256": "fb3f54fcf14d19f4f48c87a9d770283418b6db462898784b70148a2af06f2de1",
+        "bytes": 1519
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "icon_i03",
+      "contentId": "I03",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "source": {
+        "path": "ArtSource/Art07/ContentIcons/Items/icon_i03.kra",
+        "exists": true,
+        "sha256": "091d1b2b30f9a8f714de479d55bb66c5fa1233c8d44aa75357e592734bbcf168",
+        "bytes": 54250
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/ContentIcons/Items/icon_i03.png",
+        "exists": true,
+        "sha256": "621c39424375fc832930deab06d1b806546e0e2cba72d8f23f52db356b4ca8a5",
+        "bytes": 1824
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "icon_i04",
+      "contentId": "I04",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "source": {
+        "path": "ArtSource/Art07/ContentIcons/Items/icon_i04.kra",
+        "exists": true,
+        "sha256": "d7ed5e210490f456a7d816986cb4d1741e978ec822eb43d002c4e2155199f793",
+        "bytes": 53603
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/ContentIcons/Items/icon_i04.png",
+        "exists": true,
+        "sha256": "c2cdc1435ec5b8eff760608b5fc9e1341572691dbe2be871cd97ca0aec5a8ea6",
+        "bytes": 1387
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "icon_i05",
+      "contentId": "I05",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "source": {
+        "path": "ArtSource/Art07/ContentIcons/Items/icon_i05.kra",
+        "exists": true,
+        "sha256": "68c395b62fb563dd3b1c9908846341e1e7738e66e582ac385648ed78ad321563",
+        "bytes": 51638
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/ContentIcons/Items/icon_i05.png",
+        "exists": true,
+        "sha256": "cf11e04e28e81a1fb68482290fca32ba005698644efe14b503ec29db29d33e56",
+        "bytes": 1297
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "icon_i06",
+      "contentId": "I06",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "source": {
+        "path": "ArtSource/Art07/ContentIcons/Items/icon_i06.kra",
+        "exists": true,
+        "sha256": "ce8a1090a1cbe5374a375ab8c72fd67fa49cdccd6a25b5ed0f0c8af1cbe85de2",
+        "bytes": 48220
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/ContentIcons/Items/icon_i06.png",
+        "exists": true,
+        "sha256": "bceea20324b600389e176b122b7d986ecf3e7eac530042ac899d5236ec1c0dbf",
+        "bytes": 1061
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "icon_i07",
+      "contentId": "I07",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "source": {
+        "path": "ArtSource/Art07/ContentIcons/Items/icon_i07.kra",
+        "exists": true,
+        "sha256": "59a05c2722c8255e3617b51f9c2d2978b691b5b311fff95a2892212153ac423c",
+        "bytes": 50575
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/ContentIcons/Items/icon_i07.png",
+        "exists": true,
+        "sha256": "22637dcec377bdbf62d4bff02012973e4a3cfce34b412b39b6a04d4a3f6b4749",
+        "bytes": 1403
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "icon_o01",
+      "contentId": "O01",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "source": {
+        "path": "ArtSource/Art07/ContentIcons/Services/icon_o01.kra",
+        "exists": true,
+        "sha256": "1a9cddc5de07aec39b2889ba35826d25c586d705c148e0389d1c9e25976f6067",
+        "bytes": 47506
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/ContentIcons/Services/icon_o01.png",
+        "exists": true,
+        "sha256": "b95b9c09c80c3a558a1e461a6dfe366ac8ac8de6d0cb1afbf7132f7a3abf812f",
+        "bytes": 1101
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "icon_o02",
+      "contentId": "O02",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "source": {
+        "path": "ArtSource/Art07/ContentIcons/Services/icon_o02.kra",
+        "exists": true,
+        "sha256": "ec1a97e3bf4b97f6bf6ee513a5b7663ddf8a24eb55eaddbadef5e9b4cdee8176",
+        "bytes": 51157
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/ContentIcons/Services/icon_o02.png",
+        "exists": true,
+        "sha256": "963bb2763ed897b83fa3092472de0700e3875d0f69c2071034591c6d64d59eb1",
+        "bytes": 1323
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "icon_o03",
+      "contentId": "O03",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "source": {
+        "path": "ArtSource/Art07/ContentIcons/Services/icon_o03.kra",
+        "exists": true,
+        "sha256": "bf1a5f6eb5ed51716fa8a1c312919e60f56bc1ea764a0fd4c499faf9045101a0",
+        "bytes": 51768
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/ContentIcons/Services/icon_o03.png",
+        "exists": true,
+        "sha256": "d6edc5a40f38423af986aa7232790636fdaf60c7ab4670aa31f001b28a96b06e",
+        "bytes": 1474
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "icon_o04",
+      "contentId": "O04",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "source": {
+        "path": "ArtSource/Art07/ContentIcons/Services/icon_o04.kra",
+        "exists": true,
+        "sha256": "3411b1e9cc5313de1f9a3fc93f5f27472a682d3b313b1a14e115972b2239d7cf",
+        "bytes": 50136
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/ContentIcons/Services/icon_o04.png",
+        "exists": true,
+        "sha256": "fdb503be25360c71451f0b619bc23c9bb614c1ae59e49d6e874709aa620a3fdc",
+        "bytes": 1375
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "icon_o05",
+      "contentId": "O05",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "source": {
+        "path": "ArtSource/Art07/ContentIcons/Services/icon_o05.kra",
+        "exists": true,
+        "sha256": "d1e9470dad3e55fc9f09582fabe5e52c81d6ba45a6c4462b89adb1d6bbd5333d",
+        "bytes": 53235
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/ContentIcons/Services/icon_o05.png",
+        "exists": true,
+        "sha256": "a5382eba95e09a42d8882b73d52ee4fec329821781d63a7038e2ec16104d25b1",
+        "bytes": 1336
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "icon_o06",
+      "contentId": "O06",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "source": {
+        "path": "ArtSource/Art07/ContentIcons/Services/icon_o06.kra",
+        "exists": true,
+        "sha256": "c35628368048e79c9a10cccde46e75dfc917d094c1e0ddc06b72e4635d200269",
+        "bytes": 53102
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/ContentIcons/Services/icon_o06.png",
+        "exists": true,
+        "sha256": "4ea43e30f0a1d14eafd31b3ecb139db30aaa46bebec30b0375069abda3ddd7eb",
+        "bytes": 1316
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "icon_o07",
+      "contentId": "O07",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "source": {
+        "path": "ArtSource/Art07/ContentIcons/Services/icon_o07.kra",
+        "exists": true,
+        "sha256": "da1f66403ae399a3940c0d54834b87919ca9b1e3cbc2dc64c301598faf267848",
+        "bytes": 57685
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/ContentIcons/Services/icon_o07.png",
+        "exists": true,
+        "sha256": "01eacb9469dcb49b5473b81dcce681fac9b1ac984f658e39b187064da7adbd13",
+        "bytes": 1640
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "icon_u01",
+      "contentId": "U01",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "source": {
+        "path": "ArtSource/Art07/ContentIcons/Upgrades/icon_u01.kra",
+        "exists": true,
+        "sha256": "074c4a59fc3d9789eb90a573bd6b9ca989471cf85363c38b7fb971da8f055931",
+        "bytes": 50675
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/ContentIcons/Upgrades/icon_u01.png",
+        "exists": true,
+        "sha256": "7d7f7ff5a3309a57f763c8792323c7735986398f02fb13d44dc27a358ab726bd",
+        "bytes": 1272
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "icon_u02",
+      "contentId": "U02",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "source": {
+        "path": "ArtSource/Art07/ContentIcons/Upgrades/icon_u02.kra",
+        "exists": true,
+        "sha256": "86582a0b793493637ceaefd67455defdd3ba8121d038ba3e17331cddb3013b48",
+        "bytes": 47591
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/ContentIcons/Upgrades/icon_u02.png",
+        "exists": true,
+        "sha256": "b35da2e863b569963f6a8c5b18cd61630f51be98612792c7bada9da4ff3f6367",
+        "bytes": 1155
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "icon_u03",
+      "contentId": "U03",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "source": {
+        "path": "ArtSource/Art07/ContentIcons/Upgrades/icon_u03.kra",
+        "exists": true,
+        "sha256": "380c77a2b097b6f623861f26876df8118cd850f15dfd8fc9fbc0968e2ab4087b",
+        "bytes": 47798
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/ContentIcons/Upgrades/icon_u03.png",
+        "exists": true,
+        "sha256": "173325fee57098fee9cdab9ca8c37e71c146107d1204c19a6b2834db14d4aebb",
+        "bytes": 1363
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "icon_u04",
+      "contentId": "U04",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "source": {
+        "path": "ArtSource/Art07/ContentIcons/Upgrades/icon_u04.kra",
+        "exists": true,
+        "sha256": "8546754e14b053237c136241d5024b73d2cf49eb73fe1c496c84b3582c4a7ad4",
+        "bytes": 48594
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/ContentIcons/Upgrades/icon_u04.png",
+        "exists": true,
+        "sha256": "44b96cde95c22c5d6cecc7ebff11662d5f53d320864fbbaa46f4763fee0360f3",
+        "bytes": 1401
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "icon_u05",
+      "contentId": "U05",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "source": {
+        "path": "ArtSource/Art07/ContentIcons/Upgrades/icon_u05.kra",
+        "exists": true,
+        "sha256": "e397736a65e39d656bdcd80325ed5c67c3802615f53c918e7d57b35d8540139b",
+        "bytes": 50018
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/ContentIcons/Upgrades/icon_u05.png",
+        "exists": true,
+        "sha256": "850e3d72775b8cf9ade02c31e59c187218233c76df01041e9c6df7ccc8b1b1db",
+        "bytes": 1380
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "icon_u06",
+      "contentId": "U06",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "source": {
+        "path": "ArtSource/Art07/ContentIcons/Upgrades/icon_u06.kra",
+        "exists": true,
+        "sha256": "0767001b913f51649b82711b8bea83677e6a50ddcb453c7f7efff468e86d10ce",
+        "bytes": 49187
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/ContentIcons/Upgrades/icon_u06.png",
+        "exists": true,
+        "sha256": "67ac1f6081bbdc534f1854bf81fef2e4f42cdb6cf43034a991302597db59d047",
+        "bytes": 1152
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    },
+    {
+      "assetId": "icon_u07",
+      "contentId": "U07",
+      "optional": false,
+      "status": "generated_pending_import_review",
+      "source": {
+        "path": "ArtSource/Art07/ContentIcons/Upgrades/icon_u07.kra",
+        "exists": true,
+        "sha256": "f6826f0867e0ce4aabd1c3214df75cdd239d73cc5964c418b31aabb104dc2846",
+        "bytes": 52926
+      },
+      "runtime": {
+        "path": "Assets/Art/Art07/ContentIcons/Upgrades/icon_u07.png",
+        "exists": true,
+        "sha256": "1ad1c9648468363f6d5457bc9d92f284ab70aac722fc6bce3573bcac86608b6f",
+        "bytes": 1417
+      },
+      "importEvidence": null,
+      "verificationEvidence": null
+    }
+  ]
+}

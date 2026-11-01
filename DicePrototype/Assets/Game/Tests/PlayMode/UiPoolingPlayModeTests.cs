@@ -17,7 +17,7 @@ namespace DiceCraft.Tests
         {
             StartRun("515151"); Click("StartStage"); Click("Roll"); Click("Skip");
             foreach (string id in app.Session.State.dice.Select(d => d.dieId).ToArray()) ClickDie(id);
-            Click("Confirm");
+            Click("Confirm");yield return WaitForIdle();
             string stableState = StateJson();
             var diePointer = FindActive<DiePointer>("Die_D001");
             TMP_InputField input = null;
@@ -30,7 +30,7 @@ namespace DiceCraft.Tests
                 Assert.That(FindActive<DiePointer>("Die_D001"), Is.SameAs(diePointer));
                 ClickDie("D001"); // Locked die detail uses the distinct transparent modal role.
                 Assert.That(HasActive("RotatePreview"), Is.True); Click("CloseDialog");
-                Click("Expanded");
+                yield return LegacyClick07("Factor0");
                 var scroll = FindActive<ScrollRect>("ScoreDetail");
                 if (detailScroll == null) detailScroll = scroll;
                 else Assert.That(scroll, Is.SameAs(detailScroll));
@@ -40,8 +40,8 @@ namespace DiceCraft.Tests
                 Assert.That(scroll.velocity.sqrMagnitude, Is.LessThan(.0001f));
                 scroll.verticalNormalizedPosition = 0; scroll.velocity = new Vector2(0, 70);
                 Assert.That(scroll.verticalNormalizedPosition, Is.EqualTo(0f).Within(.001f));
-                Click("CloseDialog"); Click("Pause");
-                var slider = FindActive<Slider>("Volume");
+                Click("CloseDialog"); Click("Pause"); Click("Settings"); Click("SettingsTab0");
+                var slider = FindActive<Slider>("MasterSlider");
                 if (volumeSlider == null) volumeSlider = slider;
                 else
                 {
@@ -51,12 +51,12 @@ namespace DiceCraft.Tests
                 }
                 slider.value = .45f;
                 slider.onValueChanged.AddListener(_ => staleSliderCalls++);
-                Click("Fast"); // Rebuild Pause with the same slider, fill reference and value.
-                Assert.That(FindActive<Slider>("Volume"), Is.SameAs(slider));
+                Click("SettingsTab1"); Click("SettingsTab0"); // Rebuild sound settings with the same slider, fill reference and value.
+                Assert.That(FindActive<Slider>("MasterSlider"), Is.SameAs(slider));
                 Assert.That(slider.fillRect.anchorMax.x, Is.EqualTo(.45f).Within(.0001f));
                 Assert.That(staleSliderCalls, Is.Zero, "Old slider callbacks must be removed before rebuilding.");
                 slider.onValueChanged.AddListener(_ => staleSliderCalls++);
-                Click("MainMenu");
+                Click("SettingsDone"); Click("Pause"); Click("MainMenu"); Click("NewRun");
                 var seed = FindActive<TMP_InputField>("SeedInput");
                 if (input == null) input = seed;
                 else Assert.That(seed, Is.SameAs(input));
@@ -70,9 +70,9 @@ namespace DiceCraft.Tests
                 Assert.That(seed.GetComponentsInChildren<TMP_SelectionCaret>(true).Any(c => c.gameObject.activeInHierarchy), Is.True,
                     "Focused pooled TMP input must retain an active caret after its viewport was cleared.");
                 seed.onValueChanged.AddListener(_ => staleInputCalls++);
-                Click("ContinueRun");
+                Click("CloseDialog"); Click("ContinueRun");
                 Assert.That(StateJson(), Is.EqualTo(stableState));
-                Canvas.ForceUpdateCanvases(); yield return null;
+                Canvas.ForceUpdateCanvases();yield return new WaitForSecondsRealtime(.15f);
             }
             yield return Cycle(); yield return Cycle(); // Warm both modal roles, all labels, caret and scroll.
             Transform[] warmedNodes = app.canvas.GetComponentsInChildren<Transform>(true);
@@ -93,16 +93,19 @@ namespace DiceCraft.Tests
             AddBoundaryOffer(fixture, "old-smooth", "die_upgrade", "U01");
             AddBoundaryOffer(fixture, "new-gold", "die_upgrade", "U06");
             AddBoundaryOffer(fixture, "new-controller", "controller", "C02");
+            AddBoundaryOffer(fixture, "whole-glass", "die_upgrade", "U05");
             yield return LoadBoundaryFixture(fixture); ResumeBoundaryFixture();
             string original = StateJson();
+            yield return OpenBoundaryOffer("new-controller"); var controllerConfirm=Button("ConfirmPurchase"); Click("CloseDialog");
             UnityEngine.UI.Button confirm = null;
             int staleFaceCalls = 0;
             for (int repeat = 0; repeat < 6; repeat++)
             {
-                OpenBoundaryOffer("old-smooth"); Click("Target_D001");
+                yield return OpenBoundaryOffer("old-smooth"); Click("Target_D001");
                 var oldFace = Button("Face_F02");
                 oldFace.onClick.AddListener(() => staleFaceCalls++);
-                Click("Face_F01");
+                Click("Face_F01"); Click("CloseDialog");
+                yield return OpenBoundaryOffer("whole-glass"); Click("Target_D001"); // Whole-die targeting must remove former per-face handlers.
                 var readonlyFace = FindActive<Transform>("Face_F02").GetComponent<UnityEngine.UI.Button>();
                 Assert.That(readonlyFace, Is.SameAs(oldFace));
                 Assert.That(readonlyFace.enabled, Is.False); Assert.That(readonlyFace.interactable, Is.False);
@@ -113,7 +116,7 @@ namespace DiceCraft.Tests
                 if (confirm == null) confirm = Button("ConfirmPurchase");
                 else Assert.That(Button("ConfirmPurchase"), Is.SameAs(confirm));
                 Click("CloseDialog");
-                OpenBoundaryOffer("new-gold"); Click("Target_D001"); Click("Target_D002"); Click("Face_F03");
+                yield return OpenBoundaryOffer("new-gold"); Click("Target_D001"); Click("Target_D002"); Click("Face_F03");
                 Assert.That(Button("ConfirmPurchase"), Is.SameAs(confirm));
                 Assert.That(StateJson(), Is.EqualTo(original));
                 if (repeat < 5) Click("CloseDialog");
@@ -133,8 +136,8 @@ namespace DiceCraft.Tests
             Assert.That(selected.dataRevision, Is.EqualTo(1));
             CollectionAssert.AreEqual(new[] {"F03"}, selected.faces.Where(f => f.isGold).Select(f => f.faceId));
             Assert.That(File.ReadAllLines(log).Length, Is.EqualTo(priorLines + 1));
-            OpenBoundaryOffer("new-controller");
-            Assert.That(Button("ConfirmPurchase"), Is.SameAs(confirm), "The same dialog button also changes purchase category.");
+            yield return OpenBoundaryOffer("new-controller");
+            Assert.That(Button("ConfirmPurchase"), Is.SameAs(controllerConfirm), "The separate opaque controller detail reuses its own confirmation button.");
             Click("ConfirmPurchase");
             Assert.That(app.Session.State.actionSequence, Is.EqualTo(sequence + 2));
             Assert.That(app.Session.State.controllers.Count(c => c.contentId == "C02"), Is.EqualTo(1));

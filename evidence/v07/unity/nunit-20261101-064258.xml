@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="2" result="Failed(Child)" total="2" passed="1" failed="1" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-11-01 06:42:55Z" end-time="2026-11-01 06:42:58Z" duration="2.7994098">
+  <test-suite type="TestSuite" id="1149" name="DiceCraft P0" fullname="DiceCraft P0" runstate="Runnable" testcasecount="140" result="Failed" site="Child" start-time="2026-11-01 06:42:55Z" end-time="2026-11-01 06:42:58Z" duration="2.799410" total="2" passed="1" failed="1" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <failure>
+      <message><![CDATA[One or more child tests had errors]]></message>
+    </failure>
+    <test-suite type="Assembly" id="1143" name="DiceCraft.PlayModeTests.dll" fullname="E:/agent_workspace/gpt/game2/DicePrototype/Library/ScriptAssemblies/DiceCraft.PlayModeTests.dll" runstate="Runnable" testcasecount="140" result="Failed" site="Child" start-time="2026-11-01 06:42:55Z" end-time="2026-11-01 06:42:58Z" duration="2.766424" total="2" passed="1" failed="1" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="23240" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <failure>
+        <message><![CDATA[One or more child tests had errors]]></message>
+      </failure>
+      <test-suite type="TestSuite" id="1144" name="DiceCraft" fullname="DiceCraft" runstate="Runnable" testcasecount="140" result="Failed" site="Child" start-time="2026-11-01 06:42:55Z" end-time="2026-11-01 06:42:58Z" duration="2.763883" total="2" passed="1" failed="1" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <failure>
+          <message><![CDATA[One or more child tests had errors]]></message>
+        </failure>
+        <test-suite type="TestSuite" id="1145" name="Tests" fullname="DiceCraft.Tests" runstate="Runnable" testcasecount="140" result="Failed" site="Child" start-time="2026-11-01 06:42:55Z" end-time="2026-11-01 06:42:58Z" duration="2.761705" total="2" passed="1" failed="1" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <failure>
+            <message><![CDATA[One or more child tests had errors]]></message>
+          </failure>
+          <test-suite type="TestFixture" id="1001" name="GameplayPlayModeTests" fullname="DiceCraft.Tests.GameplayPlayModeTests" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" testcasecount="138" result="Failed" site="Child" start-time="2026-11-01 06:42:55Z" end-time="2026-11-01 06:42:58Z" duration="2.751575" total="2" passed="1" failed="1" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <failure>
+              <message><![CDATA[One or more child tests had errors]]></message>
+            </failure>
+            <test-case id="1084" name="PLAY_ART07_StageCardEntranceDoesNotReplayOnChoiceAndExitPreservesLiveInput" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_StageCardEntranceDoesNotReplayOnChoiceAndExitPreservesLiveInput" methodname="PLAY_ART07_StageCardEntranceDoesNotReplayOnChoiceAndExitPreservesLiveInput" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="1836407729" result="Failed" start-time="2026-11-01 06:42:55Z" end-time="2026-11-01 06:42:57Z" duration="1.406957" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <failure>
+                <message><![CDATA[Unhandled log message: '[Exception] Exception: UnityTest yielded WaitForEndOfFrame, which is not evoked in batchmode.'. Use UnityEngine.TestTools.LogAssert.Expect]]></message>
+                <stack-trace><![CDATA[UnityEngine.TestTools.Utils.CoroutineRunner+<WrapEnumeratorForChecks>d__8.MoveNext () (at ./Library/PackageCache/com.unity.test-framework@ee3fe9477490/UnityEngine.TestRunner/Utils/CoroutineRunner.cs:68)
+UnityEngine.SetupCoroutine.InvokeMoveNext (System.Collections.IEnumerator enumerator, System.IntPtr returnValueAddress) (at <2a0aacfdb6844320ae79174c32157248>:0)
+UnityEditor.GUIView:ProcessEvent(EntityId, IntPtr, Boolean&)
+
+]]></stack-trace>
+              </failure>
+              <output><![CDATA[before-first-render frame=26 realtime=6.588298 screen=1920x1080 canvas=ScreenSpaceOverlay scale=1 roll=(x:0.00, y:-72.00, width:250.00, height:72.00) world=(368.000, 52.000, 0.000);(368.000, 124.000, 0.000);(618.000, 124.000, 0.000);(618.000, 52.000, 0.000) point=(493.00, 88.00) exit=0/0.22 hits=
+graphics=Roll:enabled=True,active=True,depth=-1,cull=False,raycast=True,alpha=1;Step:enabled=True,active=True,depth=-1,cull=False,raycast=False,alpha=1;Face:enabled=True,active=True,depth=-1,cull=False,raycast=False,alpha=1;Lip:enabled=True,active=True,depth=-1,cull=False,raycast=False,alpha=1;Label:enabled=True,active=True,depth=-1,cull=False,raycast=False,alpha=1;Top:enabled=True,active=False,depth=-1,cull=False,raycast=False,alpha=1;Bottom:enabled=True,active=False,depth=-1,cull=False,raycast=False,alpha=1;Left:enabled=True,active=False,depth=-1,cull=False,raycast=False,alpha=1;Right:enabled=True,active=False,depth=-1,cull=False,raycast=False,alpha=1;Dot00:enabled=True,active=False,depth=-1,cull=False,raycast=False,alpha=1;Dot10:enabled=True,active=False,depth=-1,cull=False,raycast=False,alpha=1;Dot20:enabled=True,active=False,depth=-1,cull=False,raycast=False,alpha=1;Dot30:enabled=True,active=False,depth=-1,cull=False,raycast=False,alpha=1;Dot40:enabled=True,active=False,depth=-1,cull=False,raycast=False,alpha=1;Dot01:enabled=True,active=False,depth=-1,cull=False,raycast=False,alpha=1;Dot11:enabled=True,active=False,depth=-1,cull=False,raycast=False,alpha=1;Dot21:enabled=True,active=False,depth=-1,cull=False,raycast=False,alpha=1;Dot31:enabled=True,active=False,depth=-1,cull=False,raycast=False,alpha=1;Dot41:enabled=True,active=False,depth=-1,cull=False,raycast=False,alpha=1;Dot02:enabled=True,active=False,depth=-1,cull=False,raycast=False,alpha=1;Dot12:enabled=True,active=False,depth=-1,cull=False,raycast=False,alpha=1;Dot22:enabled=True,active=False,depth=-1,cull=False,raycast=False,alpha=1;Dot32:enabled=True,active=False,depth=-1,cull=False,raycast=False,alpha=1;Dot42:enabled=True,active=False,depth=-1,cull=False,raycast=False,alpha=1
+groups=
+
+Exception: UnityTest yielded WaitForEndOfFrame, which is not evoked in batchmode.
+UnityEngine.TestTools.Utils.CoroutineRunner+<WrapEnumeratorForChecks>d__8.MoveNext () (at ./Library/PackageCache/com.unity.test-framework@ee3fe9477490/UnityEngine.TestRunner/Utils/CoroutineRunner.cs:68)
+UnityEngine.SetupCoroutine.InvokeMoveNext (System.Collections.IEnumerator enumerator, System.IntPtr returnValueAddress) (at <2a0aacfdb6844320ae79174c32157248>:0)
+UnityEditor.GUIView:ProcessEvent(EntityId, IntPtr, Boolean&)
+
+after-first-render frame=27 realtime=6.604914 screen=1920x1080 canvas=ScreenSpaceOverlay scale=1 roll=(x:0.00, y:-72.00, width:250.00, height:72.00) world=(368.000, 52.000, 0.000);(368.000, 124.000, 0.000);(618.000, 124.000, 0.000);(618.000, 52.000, 0.000) point=(493.00, 88.00) exit=0/0.22 hits=
+graphics=Roll:enabled=True,active=True,depth=-1,cull=False,raycast=True,alpha=1;Step:enabled=True,active=True,depth=-1,cull=False,raycast=False,alpha=1;Face:enabled=True,active=True,depth=-1,cull=False,raycast=False,alpha=1;Lip:enabled=True,active=True,depth=-1,cull=False,raycast=False,alpha=1;Label:enabled=True,active=True,depth=-1,cull=False,raycast=False,alpha=1;Top:enabled=True,active=False,depth=-1,cull=False,raycast=False,alpha=1;Bottom:enabled=True,active=False,depth=-1,cull=False,raycast=False,alpha=1;Left:enabled=True,active=False,depth=-1,cull=False,raycast=False,alpha=1;Right:enabled=True,active=False,depth=-1,cull=False,raycast=False,alpha=1;Dot00:enabled=True,active=False,depth=-1,cull=False,raycast=False,alpha=1;Dot10:enabled=True,active=False,depth=-1,cull=False,raycast=False,alpha=1;Dot20:enabled=True,active=False,depth=-1,cull=False,raycast=False,alpha=1;Dot30:enabled=True,active=False,depth=-1,cull=False,raycast=False,alpha=1;Dot40:enabled=True,active=False,depth=-1,cull=False,raycast=False,alpha=1;Dot01:enabled=True,active=False,depth=-1,cull=False,raycast=False,alpha=1;Dot11:enabled=True,active=False,depth=-1,cull=False,raycast=False,alpha=1;Dot21:enabled=True,active=False,depth=-1,cull=False,raycast=False,alpha=1;Dot31:enabled=True,active=False,depth=-1,cull=False,raycast=False,alpha=1;Dot41:enabled=True,active=False,depth=-1,cull=False,raycast=False,alpha=1;Dot02:enabled=True,active=False,depth=-1,cull=False,raycast=False,alpha=1;Dot12:enabled=True,active=False,depth=-1,cull=False,raycast=False,alpha=1;Dot22:enabled=True,active=False,depth=-1,cull=False,raycast=False,alpha=1;Dot32:enabled=True,active=False,depth=-1,cull=False,raycast=False,alpha=1;Dot42:enabled=True,active=False,depth=-1,cull=False,raycast=False,alpha=1
+groups=
+
+Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_4f4929a5b7be40c4845a053eabaacb73
+]]></output>
+            </test-case>
+            <test-case id="1085" name="PLAY_ART07_StageCardExitWaitsForRealSaveRetryAndDoesNotCommitAgain" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_StageCardExitWaitsForRealSaveRetryAndDoesNotCommitAgain" methodname="PLAY_ART07_StageCardExitWaitsForRealSaveRetryAndDoesNotCommitAgain" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="1109686898" result="Passed" start-time="2026-11-01 06:42:57Z" end-time="2026-11-01 06:42:58Z" duration="1.313446" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_b9629fb231fd40f2b86f2b5f6d52d251
+Saving results to: E:\agent_workspace\gpt\game2\evidence\v07\unity\nunit-20261101-064258.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

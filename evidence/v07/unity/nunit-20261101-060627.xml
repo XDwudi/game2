@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="3" result="Failed(Child)" total="3" passed="1" failed="2" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-11-01 06:06:23Z" end-time="2026-11-01 06:06:27Z" duration="4.4003883">
+  <test-suite type="TestSuite" id="1136" name="DiceCraft P0" fullname="DiceCraft P0" runstate="Runnable" testcasecount="127" result="Failed" site="Child" start-time="2026-11-01 06:06:23Z" end-time="2026-11-01 06:06:27Z" duration="4.400388" total="3" passed="1" failed="2" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <failure>
+      <message><![CDATA[One or more child tests had errors]]></message>
+    </failure>
+    <test-suite type="Assembly" id="1130" name="DiceCraft.PlayModeTests.dll" fullname="E:/agent_workspace/gpt/game2/DicePrototype/Library/ScriptAssemblies/DiceCraft.PlayModeTests.dll" runstate="Runnable" testcasecount="127" result="Failed" site="Child" start-time="2026-11-01 06:06:23Z" end-time="2026-11-01 06:06:27Z" duration="4.379608" total="3" passed="1" failed="2" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="23240" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <failure>
+        <message><![CDATA[One or more child tests had errors]]></message>
+      </failure>
+      <test-suite type="TestSuite" id="1131" name="DiceCraft" fullname="DiceCraft" runstate="Runnable" testcasecount="127" result="Failed" site="Child" start-time="2026-11-01 06:06:23Z" end-time="2026-11-01 06:06:27Z" duration="4.370384" total="3" passed="1" failed="2" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <failure>
+          <message><![CDATA[One or more child tests had errors]]></message>
+        </failure>
+        <test-suite type="TestSuite" id="1132" name="Tests" fullname="DiceCraft.Tests" runstate="Runnable" testcasecount="127" result="Failed" site="Child" start-time="2026-11-01 06:06:23Z" end-time="2026-11-01 06:06:27Z" duration="4.367843" total="3" passed="1" failed="2" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <failure>
+            <message><![CDATA[One or more child tests had errors]]></message>
+          </failure>
+          <test-suite type="TestFixture" id="1001" name="GameplayPlayModeTests" fullname="DiceCraft.Tests.GameplayPlayModeTests" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" testcasecount="125" result="Failed" site="Child" start-time="2026-11-01 06:06:23Z" end-time="2026-11-01 06:06:27Z" duration="4.364750" total="3" passed="1" failed="2" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <failure>
+              <message><![CDATA[One or more child tests had errors]]></message>
+            </failure>
+            <test-case id="1074" name="PLAY_ART07_STATUS_ColdLoadDuringSubmissionShowsSavedFinalWithoutReplayingEffects" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_STATUS_ColdLoadDuringSubmissionShowsSavedFinalWithoutReplayingEffects" methodname="PLAY_ART07_STATUS_ColdLoadDuringSubmissionShowsSavedFinalWithoutReplayingEffects" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="171933545" result="Passed" start-time="2026-11-01 06:06:23Z" end-time="2026-11-01 06:06:26Z" duration="2.623231" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_a052421d1c004b3e9065c7f01fbabf0e\art07-edge-screens\S02-recovered-font100.png
+Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_a052421d1c004b3e9065c7f01fbabf0e\art07-edge-screens\S02-recovered-font125.png
+Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_a052421d1c004b3e9065c7f01fbabf0e\art07-edge-screens\S02-recovered-font150.png
+Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_a052421d1c004b3e9065c7f01fbabf0e
+]]></output>
+            </test-case>
+            <test-case id="1075" name="PLAY_ART07_STATUS_ExcessPendingMarksOnlyOverflowAndCannotPartiallyLock" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_STATUS_ExcessPendingMarksOnlyOverflowAndCannotPartiallyLock" methodname="PLAY_ART07_STATUS_ExcessPendingMarksOnlyOverflowAndCannotPartiallyLock" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="1268067970" result="Failed" label="Error" start-time="2026-11-01 06:06:26Z" end-time="2026-11-01 06:06:26Z" duration="0.841612" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <failure>
+                <message><![CDATA[System.NullReferenceException : Object reference not set to an instance of an object]]></message>
+                <stack-trace><![CDATA[  at DiceCraft.Tests.GameplayPlayModeTests+<ExtraPress07>d__73.MoveNext () [0x00216] in E:\agent_workspace\gpt\game2\DicePrototype\Assets\Game\Tests\PlayMode\Art07ExtraCapturePlayModeTests.cs:120 
+  at UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\Library\PackageCache\com.unity.test-framework@ee3fe9477490\UnityEngine.TestRunner\NUnitExtensions\Attributes\TestEnumerator.cs:52 ]]></stack-trace>
+              </failure>
+              <output><![CDATA[Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_2215a11a09894362af1e80931d0bad8f
+]]></output>
+            </test-case>
+            <test-case id="1076" name="PLAY_ART07_STATUS_QualifiedRewardsStayVisibleAboveNavigationAtAllTextScales" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_STATUS_QualifiedRewardsStayVisibleAboveNavigationAtAllTextScales" methodname="PLAY_ART07_STATUS_QualifiedRewardsStayVisibleAboveNavigationAtAllTextScales" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="785785306" result="Failed" label="Error" start-time="2026-11-01 06:06:26Z" end-time="2026-11-01 06:06:27Z" duration="0.872097" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <failure>
+                <message><![CDATA[System.NullReferenceException : Object reference not set to an instance of an object]]></message>
+                <stack-trace><![CDATA[  at DiceCraft.Tests.GameplayPlayModeTests+<ExtraPress07>d__73.MoveNext () [0x00216] in E:\agent_workspace\gpt\game2\DicePrototype\Assets\Game\Tests\PlayMode\Art07ExtraCapturePlayModeTests.cs:120 
+  at UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\Library\PackageCache\com.unity.test-framework@ee3fe9477490\UnityEngine.TestRunner\NUnitExtensions\Attributes\TestEnumerator.cs:52 ]]></stack-trace>
+              </failure>
+              <output><![CDATA[Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_52725293d56149598067f730e012f878
+Saving results to: E:\agent_workspace\gpt\game2\evidence\v07\unity\nunit-20261101-060627.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

@@ -1,0 +1,782 @@
+{
+  "reviewer": "/root/v07_spec_audit",
+  "scope": "Read-only evidence audit; no Unity execution; visual review only where marked",
+  "reports": [
+    {
+      "path": "artifacts/cache/v07-extra-screens-021213/PLAY_ART07_ExtraCapture_S11PurchaseReplacementAndFundSale/extra-report.json",
+      "sha256": "658ac9d40ef986985482caca116ba3f32dd369bf0b1844523210d0472ecdeb31",
+      "runtimeMvid": "5946399c-f9e2-4250-9ddf-f22d0daf6b6f",
+      "coreMvid": "8f690e0d-a075-4b72-98e4-2cb64ced2fa3",
+      "testMvid": "632ec8ae-2a45-479f-975b-42c0cf07895c",
+      "runtimeAssemblySha256": "6a9055f4edb1cb1edeb208b2a1f0b226148e70f8da182654d03d95b68977fce6",
+      "sourceManifestSha256": "617a290003c462df16709fe0a6a1c30ebe666b42498e6a2b24884dd68bc2572e",
+      "sourceManifestMatches": true,
+      "actionCount": 15,
+      "nonmutatingActions": 12,
+      "nonmutatingActionsPreserved": true,
+      "screens": [
+        {
+          "id": "purchase-before",
+          "png": "artifacts/cache/v07-extra-screens-021213/PLAY_ART07_ExtraCapture_S11PurchaseReplacementAndFundSale/000-purchase-before.png",
+          "sha256": "7ce307b9fc088d76200143ae3959d2e756b6a35b558e232cd231bab4763d972d",
+          "shaMatches": true,
+          "readOnlyCapture": true,
+          "viewed": false,
+          "dimensions": [
+            1920,
+            1080
+          ],
+          "fontScale": 1.0
+        },
+        {
+          "id": "purchase-after",
+          "png": "artifacts/cache/v07-extra-screens-021213/PLAY_ART07_ExtraCapture_S11PurchaseReplacementAndFundSale/001-purchase-after.png",
+          "sha256": "b984148dc2b9ea409ac30661835f1cd6772ba1b4576361906a6cc41b89d753c9",
+          "shaMatches": true,
+          "readOnlyCapture": true,
+          "viewed": false,
+          "dimensions": [
+            1920,
+            1080
+          ],
+          "fontScale": 1.0
+        },
+        {
+          "id": "replacement-net-income",
+          "png": "artifacts/cache/v07-extra-screens-021213/PLAY_ART07_ExtraCapture_S11PurchaseReplacementAndFundSale/002-replacement-net-income.png",
+          "sha256": "5805a89cf6ea17a7b071f875b2adf840ef36ffc5bbbf90e984035e5ded194692",
+          "shaMatches": true,
+          "readOnlyCapture": true,
+          "viewed": true,
+          "dimensions": [
+            1920,
+            1080
+          ],
+          "fontScale": 1.0
+        },
+        {
+          "id": "replacement-after",
+          "png": "artifacts/cache/v07-extra-screens-021213/PLAY_ART07_ExtraCapture_S11PurchaseReplacementAndFundSale/003-replacement-after.png",
+          "sha256": "9f51148fa6e87911766f9cc4aa3b5350abedfa3afcb4dd04de40e60e89a6250d",
+          "shaMatches": true,
+          "readOnlyCapture": true,
+          "viewed": false,
+          "dimensions": [
+            1920,
+            1080
+          ],
+          "fontScale": 1.0
+        },
+        {
+          "id": "replacement-new-instance",
+          "png": "artifacts/cache/v07-extra-screens-021213/PLAY_ART07_ExtraCapture_S11PurchaseReplacementAndFundSale/004-replacement-new-instance.png",
+          "sha256": "4c645c1b1fe99c3388af49028b092f7dec059a636dddf1747e54b05fba0ab4f2",
+          "shaMatches": true,
+          "readOnlyCapture": true,
+          "viewed": true,
+          "dimensions": [
+            1920,
+            1080
+          ],
+          "fontScale": 1.0
+        },
+        {
+          "id": "fund-sale-confirmation",
+          "png": "artifacts/cache/v07-extra-screens-021213/PLAY_ART07_ExtraCapture_S11PurchaseReplacementAndFundSale/005-fund-sale-confirmation.png",
+          "sha256": "52f287665b7f8849c307c2242fb2393511d6357166def98bbb86175dbd48a17b",
+          "shaMatches": true,
+          "readOnlyCapture": true,
+          "viewed": true,
+          "dimensions": [
+            1920,
+            1080
+          ],
+          "fontScale": 1.0
+        },
+        {
+          "id": "fund-sale-after",
+          "png": "artifacts/cache/v07-extra-screens-021213/PLAY_ART07_ExtraCapture_S11PurchaseReplacementAndFundSale/006-fund-sale-after.png",
+          "sha256": "8dca6bc21ad68bda04195bbcc4eda22d821604b2a29deb966b1c6ec821efc4df",
+          "shaMatches": true,
+          "readOnlyCapture": true,
+          "viewed": false,
+          "dimensions": [
+            1920,
+            1080
+          ],
+          "fontScale": 1.0
+        }
+      ]
+    },
+    {
+      "path": "artifacts/cache/v07-extra-screens-021213/PLAY_ART07_ExtraCapture_S11RefreshAndExpandOnlyTheirOwnShelves/extra-report.json",
+      "sha256": "ccf1a9e470d86fe53875d7f43468a6a4f41a7623e78da406291cd5b057de1512",
+      "runtimeMvid": "5946399c-f9e2-4250-9ddf-f22d0daf6b6f",
+      "coreMvid": "8f690e0d-a075-4b72-98e4-2cb64ced2fa3",
+      "testMvid": "632ec8ae-2a45-479f-975b-42c0cf07895c",
+      "runtimeAssemblySha256": "6a9055f4edb1cb1edeb208b2a1f0b226148e70f8da182654d03d95b68977fce6",
+      "sourceManifestSha256": "617a290003c462df16709fe0a6a1c30ebe666b42498e6a2b24884dd68bc2572e",
+      "sourceManifestMatches": true,
+      "actionCount": 17,
+      "nonmutatingActions": 9,
+      "nonmutatingActionsPreserved": true,
+      "screens": [
+        {
+          "id": "paid-refresh-before",
+          "png": "artifacts/cache/v07-extra-screens-021213/PLAY_ART07_ExtraCapture_S11RefreshAndExpandOnlyTheirOwnShelves/000-paid-refresh-before.png",
+          "sha256": "40b4c9ffc75bdaf731cc7e0f83ffd537bfe3dabc28583fc5e29ed2c6cfd60624",
+          "shaMatches": true,
+          "readOnlyCapture": true,
+          "viewed": true,
+          "dimensions": [
+            1920,
+            1080
+          ],
+          "fontScale": 1.0
+        },
+        {
+          "id": "paid-refresh-1",
+          "png": "artifacts/cache/v07-extra-screens-021213/PLAY_ART07_ExtraCapture_S11RefreshAndExpandOnlyTheirOwnShelves/001-paid-refresh-1.png",
+          "sha256": "345823cf902b1003e32e6c3c87f82bc765a3ab62fbe6990c5a48ee8b8f666297",
+          "shaMatches": true,
+          "readOnlyCapture": true,
+          "viewed": false,
+          "dimensions": [
+            1920,
+            1080
+          ],
+          "fontScale": 1.0
+        },
+        {
+          "id": "paid-refresh-2",
+          "png": "artifacts/cache/v07-extra-screens-021213/PLAY_ART07_ExtraCapture_S11RefreshAndExpandOnlyTheirOwnShelves/002-paid-refresh-2.png",
+          "sha256": "cc5094dc119be8ab678e33609fe4fba98f5fea4738ee0b3f9a6806ee12657e99",
+          "shaMatches": true,
+          "readOnlyCapture": true,
+          "viewed": false,
+          "dimensions": [
+            1920,
+            1080
+          ],
+          "fontScale": 1.0
+        },
+        {
+          "id": "expand-O05-before",
+          "png": "artifacts/cache/v07-extra-screens-021213/PLAY_ART07_ExtraCapture_S11RefreshAndExpandOnlyTheirOwnShelves/003-expand-O05-before.png",
+          "sha256": "c7a4e4dec06eceba164c21357bfe723a4d397abcf8646d5e49bf790ed8bf0a3b",
+          "shaMatches": true,
+          "readOnlyCapture": true,
+          "viewed": false,
+          "dimensions": [
+            1920,
+            1080
+          ],
+          "fontScale": 1.0
+        },
+        {
+          "id": "expand-O05-after",
+          "png": "artifacts/cache/v07-extra-screens-021213/PLAY_ART07_ExtraCapture_S11RefreshAndExpandOnlyTheirOwnShelves/004-expand-O05-after.png",
+          "sha256": "c60f89a599688260c8f8432752580790618b88e6777db5ed7e5d57cb67793903",
+          "shaMatches": true,
+          "readOnlyCapture": true,
+          "viewed": true,
+          "dimensions": [
+            1920,
+            1080
+          ],
+          "fontScale": 1.0
+        },
+        {
+          "id": "expand-O06-before",
+          "png": "artifacts/cache/v07-extra-screens-021213/PLAY_ART07_ExtraCapture_S11RefreshAndExpandOnlyTheirOwnShelves/005-expand-O06-before.png",
+          "sha256": "7bd8262e5c5d7a79308fb544aedca0a1ac1dcee3d1745009866ce7a3bcb00f91",
+          "shaMatches": true,
+          "readOnlyCapture": true,
+          "viewed": false,
+          "dimensions": [
+            1920,
+            1080
+          ],
+          "fontScale": 1.0
+        },
+        {
+          "id": "expand-O06-after",
+          "png": "artifacts/cache/v07-extra-screens-021213/PLAY_ART07_ExtraCapture_S11RefreshAndExpandOnlyTheirOwnShelves/006-expand-O06-after.png",
+          "sha256": "e2e18e8b114695f94ced6955b0a9cf3625817fde21daddb11761cc18912d3185",
+          "shaMatches": true,
+          "readOnlyCapture": true,
+          "viewed": true,
+          "dimensions": [
+            1920,
+            1080
+          ],
+          "fontScale": 1.0
+        },
+        {
+          "id": "free-refresh-before",
+          "png": "artifacts/cache/v07-extra-screens-021213/PLAY_ART07_ExtraCapture_S11RefreshAndExpandOnlyTheirOwnShelves/007-free-refresh-before.png",
+          "sha256": "6dae6405c2d3a8644f9ad1c199613732a0c580a345b2066a386660f6b3a1c297",
+          "shaMatches": true,
+          "readOnlyCapture": true,
+          "viewed": true,
+          "dimensions": [
+            1920,
+            1080
+          ],
+          "fontScale": 1.0
+        },
+        {
+          "id": "free-refresh-1",
+          "png": "artifacts/cache/v07-extra-screens-021213/PLAY_ART07_ExtraCapture_S11RefreshAndExpandOnlyTheirOwnShelves/008-free-refresh-1.png",
+          "sha256": "97180f47c634d7781b89527d9f17cbbe61ec298f807a324fdc25ab8d8b8c3487",
+          "shaMatches": true,
+          "readOnlyCapture": true,
+          "viewed": true,
+          "dimensions": [
+            1920,
+            1080
+          ],
+          "fontScale": 1.0
+        },
+        {
+          "id": "free-refresh-2",
+          "png": "artifacts/cache/v07-extra-screens-021213/PLAY_ART07_ExtraCapture_S11RefreshAndExpandOnlyTheirOwnShelves/009-free-refresh-2.png",
+          "sha256": "64a6c1efeed8c59a08e886ee022b6c57f68a25ef116798cbc21c3f7c60638818",
+          "shaMatches": true,
+          "readOnlyCapture": true,
+          "viewed": false,
+          "dimensions": [
+            1920,
+            1080
+          ],
+          "fontScale": 1.0
+        }
+      ]
+    },
+    {
+      "path": "artifacts/cache/v07-extra-screens-021213/PLAY_ART07_ExtraCapture_S13RemoteTargetsCancelAndSingleUse/extra-report.json",
+      "sha256": "507e5b3954330067514716d710f9fecdcb787890aea49cec83fee579976167d3",
+      "runtimeMvid": "5946399c-f9e2-4250-9ddf-f22d0daf6b6f",
+      "coreMvid": "8f690e0d-a075-4b72-98e4-2cb64ced2fa3",
+      "testMvid": "632ec8ae-2a45-479f-975b-42c0cf07895c",
+      "runtimeAssemblySha256": "6a9055f4edb1cb1edeb208b2a1f0b226148e70f8da182654d03d95b68977fce6",
+      "sourceManifestSha256": "617a290003c462df16709fe0a6a1c30ebe666b42498e6a2b24884dd68bc2572e",
+      "sourceManifestMatches": true,
+      "actionCount": 18,
+      "nonmutatingActions": 16,
+      "nonmutatingActionsPreserved": true,
+      "screens": [
+        {
+          "id": "remote-empty",
+          "png": "artifacts/cache/v07-extra-screens-021213/PLAY_ART07_ExtraCapture_S13RemoteTargetsCancelAndSingleUse/000-remote-empty.png",
+          "sha256": "6ed118206b3b70f45651b070887935681c383d002a1c8cc39785ebe8b8e0f5ff",
+          "shaMatches": true,
+          "readOnlyCapture": true,
+          "viewed": true,
+          "dimensions": [
+            1920,
+            1080
+          ],
+          "fontScale": 1.0
+        },
+        {
+          "id": "remote-selected",
+          "png": "artifacts/cache/v07-extra-screens-021213/PLAY_ART07_ExtraCapture_S13RemoteTargetsCancelAndSingleUse/001-remote-selected.png",
+          "sha256": "8e56eb7cc715ecc73d6709c86ee8a2ebcb29168fcc8060838420c044ae8f92ad",
+          "shaMatches": true,
+          "readOnlyCapture": true,
+          "viewed": true,
+          "dimensions": [
+            1920,
+            1080
+          ],
+          "fontScale": 1.0
+        },
+        {
+          "id": "remote-after-real-roll",
+          "png": "artifacts/cache/v07-extra-screens-021213/PLAY_ART07_ExtraCapture_S13RemoteTargetsCancelAndSingleUse/002-remote-after-real-roll.png",
+          "sha256": "a83a81a4c74f1eee3d3035858e72cf810a476d38b6e5adc69d91941c8733d0ab",
+          "shaMatches": true,
+          "readOnlyCapture": true,
+          "viewed": true,
+          "dimensions": [
+            1920,
+            1080
+          ],
+          "fontScale": 1.0
+        }
+      ]
+    },
+    {
+      "path": "artifacts/cache/v07-extra-screens-021213/PLAY_ART07_ExtraCapture_S13UpgradeTargetsCancelAndRandomRange/extra-report.json",
+      "sha256": "8889a65afd95f4a7be14f8a5cd4ea68e6e5af362c0b5387b7210f955895c6bad",
+      "runtimeMvid": "5946399c-f9e2-4250-9ddf-f22d0daf6b6f",
+      "coreMvid": "8f690e0d-a075-4b72-98e4-2cb64ced2fa3",
+      "testMvid": "632ec8ae-2a45-479f-975b-42c0cf07895c",
+      "runtimeAssemblySha256": "6a9055f4edb1cb1edeb208b2a1f0b226148e70f8da182654d03d95b68977fce6",
+      "sourceManifestSha256": "617a290003c462df16709fe0a6a1c30ebe666b42498e6a2b24884dd68bc2572e",
+      "sourceManifestMatches": true,
+      "actionCount": 28,
+      "nonmutatingActions": 26,
+      "nonmutatingActionsPreserved": true,
+      "screens": [
+        {
+          "id": "upgrade-no-target",
+          "png": "artifacts/cache/v07-extra-screens-021213/PLAY_ART07_ExtraCapture_S13UpgradeTargetsCancelAndRandomRange/000-upgrade-no-target.png",
+          "sha256": "2125f04ea50c3bc3c76002068265a551b8c8a160ac2d5b6e0cb7b0462d37699a",
+          "shaMatches": true,
+          "readOnlyCapture": true,
+          "viewed": true,
+          "dimensions": [
+            1920,
+            1080
+          ],
+          "fontScale": 1.0
+        },
+        {
+          "id": "upgrade-selected-face",
+          "png": "artifacts/cache/v07-extra-screens-021213/PLAY_ART07_ExtraCapture_S13UpgradeTargetsCancelAndRandomRange/001-upgrade-selected-face.png",
+          "sha256": "72828bff08b31b1b642744ee400d34a23d4c7b334114e0145894fe48f8bb04fc",
+          "shaMatches": true,
+          "readOnlyCapture": true,
+          "viewed": true,
+          "dimensions": [
+            1920,
+            1080
+          ],
+          "fontScale": 1.0
+        },
+        {
+          "id": "upgrade-after",
+          "png": "artifacts/cache/v07-extra-screens-021213/PLAY_ART07_ExtraCapture_S13UpgradeTargetsCancelAndRandomRange/002-upgrade-after.png",
+          "sha256": "4665cdeb3d5aba081cae1d00d0b33594fc29abd0c4fd891cd42d2f56702303ad",
+          "shaMatches": true,
+          "readOnlyCapture": true,
+          "viewed": false,
+          "dimensions": [
+            1920,
+            1080
+          ],
+          "fontScale": 1.0
+        },
+        {
+          "id": "random-upgrade-range",
+          "png": "artifacts/cache/v07-extra-screens-021213/PLAY_ART07_ExtraCapture_S13UpgradeTargetsCancelAndRandomRange/003-random-upgrade-range.png",
+          "sha256": "3a1e102b33f761c18989e659c8d83f9ae096724e06946398d480856c520199ee",
+          "shaMatches": true,
+          "readOnlyCapture": true,
+          "viewed": true,
+          "dimensions": [
+            1920,
+            1080
+          ],
+          "fontScale": 1.0
+        },
+        {
+          "id": "whole-die-upgrade-preview",
+          "png": "artifacts/cache/v07-extra-screens-021213/PLAY_ART07_ExtraCapture_S13UpgradeTargetsCancelAndRandomRange/004-whole-die-upgrade-preview.png",
+          "sha256": "01fc72d1e0a3acf8b126b24aeae99d48cb891f4e3fb2d83161bd42526dc1776a",
+          "shaMatches": true,
+          "readOnlyCapture": true,
+          "viewed": true,
+          "dimensions": [
+            1920,
+            1080
+          ],
+          "fontScale": 1.0
+        },
+        {
+          "id": "glass-with-smooth-face",
+          "png": "artifacts/cache/v07-extra-screens-021213/PLAY_ART07_ExtraCapture_S13UpgradeTargetsCancelAndRandomRange/005-glass-with-smooth-face.png",
+          "sha256": "d950da9958b38960304fffd05fa028f28f223b431a63a9bd8a4140ce6a90d519",
+          "shaMatches": true,
+          "readOnlyCapture": true,
+          "viewed": true,
+          "dimensions": [
+            1920,
+            1080
+          ],
+          "fontScale": 1.0
+        },
+        {
+          "id": "upgrade-already-owned",
+          "png": "artifacts/cache/v07-extra-screens-021213/PLAY_ART07_ExtraCapture_S13UpgradeTargetsCancelAndRandomRange/006-upgrade-already-owned.png",
+          "sha256": "a20747be1a5efd71a476f8cbdf1b8bcf286f19bf41f3713438d5fe3deb9f3928",
+          "shaMatches": true,
+          "readOnlyCapture": true,
+          "viewed": true,
+          "dimensions": [
+            1920,
+            1080
+          ],
+          "fontScale": 1.0
+        }
+      ]
+    },
+    {
+      "path": "artifacts/cache/v07-extra-screens-021213/PLAY_ART07_ExtraCapture_S22RealSaveFaultRetryAbandonAndBackupRecovery/extra-report.json",
+      "sha256": "390fa3945be458d125b07de40cf4b4556b65dfc34fd28ad63ec52db37574c81b",
+      "runtimeMvid": "5946399c-f9e2-4250-9ddf-f22d0daf6b6f",
+      "coreMvid": "8f690e0d-a075-4b72-98e4-2cb64ced2fa3",
+      "testMvid": "632ec8ae-2a45-479f-975b-42c0cf07895c",
+      "runtimeAssemblySha256": "6a9055f4edb1cb1edeb208b2a1f0b226148e70f8da182654d03d95b68977fce6",
+      "sourceManifestSha256": "617a290003c462df16709fe0a6a1c30ebe666b42498e6a2b24884dd68bc2572e",
+      "sourceManifestMatches": true,
+      "actionCount": 12,
+      "nonmutatingActions": 6,
+      "nonmutatingActionsPreserved": true,
+      "screens": [
+        {
+          "id": "save-failure",
+          "png": "artifacts/cache/v07-extra-screens-021213/PLAY_ART07_ExtraCapture_S22RealSaveFaultRetryAbandonAndBackupRecovery/000-save-failure.png",
+          "sha256": "b0665755867886e14404f91f6697707e6bac2dec9509c8aec5d80b74392139f5",
+          "shaMatches": true,
+          "readOnlyCapture": true,
+          "viewed": false,
+          "dimensions": [
+            1920,
+            1080
+          ],
+          "fontScale": 1.0
+        },
+        {
+          "id": "save-error-expanded",
+          "png": "artifacts/cache/v07-extra-screens-021213/PLAY_ART07_ExtraCapture_S22RealSaveFaultRetryAbandonAndBackupRecovery/001-save-error-expanded.png",
+          "sha256": "84967179c7674e7f22509612cf916540a54df0255774bd2c2b221ad9b453f513",
+          "shaMatches": true,
+          "readOnlyCapture": true,
+          "viewed": true,
+          "dimensions": [
+            1920,
+            1080
+          ],
+          "fontScale": 1.0
+        },
+        {
+          "id": "save-retry-committed",
+          "png": "artifacts/cache/v07-extra-screens-021213/PLAY_ART07_ExtraCapture_S22RealSaveFaultRetryAbandonAndBackupRecovery/002-save-retry-committed.png",
+          "sha256": "956246482a23794ec05d1eb3e0874b1ad4138914676924cd03ceaa05e6babf8c",
+          "shaMatches": true,
+          "readOnlyCapture": true,
+          "viewed": true,
+          "dimensions": [
+            1920,
+            1080
+          ],
+          "fontScale": 1.0
+        },
+        {
+          "id": "save-before-abandon",
+          "png": "artifacts/cache/v07-extra-screens-021213/PLAY_ART07_ExtraCapture_S22RealSaveFaultRetryAbandonAndBackupRecovery/003-save-before-abandon.png",
+          "sha256": "df9e520a7fc89097a728f6ad6e321187103493e0e890e217343254fbd4968dfd",
+          "shaMatches": true,
+          "readOnlyCapture": true,
+          "viewed": false,
+          "dimensions": [
+            1920,
+            1080
+          ],
+          "fontScale": 1.0
+        },
+        {
+          "id": "save-abandoned-checkpoint",
+          "png": "artifacts/cache/v07-extra-screens-021213/PLAY_ART07_ExtraCapture_S22RealSaveFaultRetryAbandonAndBackupRecovery/004-save-abandoned-checkpoint.png",
+          "sha256": "e976caa7c2bbc80803bd085498a0a036214867f50435c4a61fa055694c34eef9",
+          "shaMatches": true,
+          "readOnlyCapture": true,
+          "viewed": true,
+          "dimensions": [
+            1920,
+            1080
+          ],
+          "fontScale": 1.0
+        },
+        {
+          "id": "backup-recovery-dialog",
+          "png": "artifacts/cache/v07-extra-screens-021213/PLAY_ART07_ExtraCapture_S22RealSaveFaultRetryAbandonAndBackupRecovery/005-backup-recovery-dialog.png",
+          "sha256": "4c502266ca7e5f0d8fc74415b32967145063eed9f79ece11566712dd9f5ed607",
+          "shaMatches": true,
+          "readOnlyCapture": true,
+          "viewed": true,
+          "dimensions": [
+            1920,
+            1080
+          ],
+          "fontScale": 1.0
+        },
+        {
+          "id": "backup-recovered-board",
+          "png": "artifacts/cache/v07-extra-screens-021213/PLAY_ART07_ExtraCapture_S22RealSaveFaultRetryAbandonAndBackupRecovery/006-backup-recovered-board.png",
+          "sha256": "5000d9ffc9a02018f9a4aa86f4d60cbb9c2f628cf1c07a63e0db56e6c8192d78",
+          "shaMatches": true,
+          "readOnlyCapture": true,
+          "viewed": true,
+          "dimensions": [
+            1920,
+            1080
+          ],
+          "fontScale": 1.0
+        }
+      ]
+    }
+  ],
+  "batches": [
+    {
+      "id": "021213",
+      "bindingSha256": "837f95c6f46c731945ffd0baf6ec6c558c17d32b3454e444a990ea21e26c9625",
+      "reportSha256": "15372eba650362ebcaadcef213dd960235d67232aa0ac06bb5eb157ee237d407",
+      "reportShaMatches": true,
+      "result": {
+        "id": "2",
+        "testcasecount": "5",
+        "result": "Passed",
+        "total": "5",
+        "passed": "5",
+        "failed": "0",
+        "inconclusive": "0",
+        "skipped": "0",
+        "asserts": "0",
+        "engine-version": "3.5.0.0",
+        "clr-version": "4.0.30319.42000",
+        "start-time": "2026-11-01 02:11:00Z",
+        "end-time": "2026-11-01 02:12:13Z",
+        "duration": "73.1541722"
+      },
+      "sourceFiles": 1228,
+      "sourceStable": true,
+      "assembliesStable": true,
+      "assemblies": [
+        {
+          "name": "DiceCraft.Core",
+          "mvid": "8f690e0d-a075-4b72-98e4-2cb64ced2fa3",
+          "dllSha256": "44a137cd38d7b525382dfda7adbdb7676d12d1dbc05520638d8a14642a96031b"
+        },
+        {
+          "name": "DiceCraft.EditMode",
+          "mvid": "abf7dba2-4307-4798-8ee4-9f486b477517",
+          "dllSha256": "d66dfd4167f1b5415c51619a3ca788de6744f7dadc8aef67e057b956808bd6d4"
+        },
+        {
+          "name": "DiceCraft.Editor",
+          "mvid": "0b5d1e11-5c6a-493e-90c9-0d5a5ee4f9c8",
+          "dllSha256": "0e4f18664e5b0fe28dca400cc30e94530840602502f40eb2c4664d8790894bb0"
+        },
+        {
+          "name": "DiceCraft.PlayModeTests",
+          "mvid": "632ec8ae-2a45-479f-975b-42c0cf07895c",
+          "dllSha256": "6b15de98e109c9f4d922dc706adec9963477a651e503d10db3e0b287bf8cf6a9"
+        },
+        {
+          "name": "DiceCraft.Runtime",
+          "mvid": "5946399c-f9e2-4250-9ddf-f22d0daf6b6f",
+          "dllSha256": "6a9055f4edb1cb1edeb208b2a1f0b226148e70f8da182654d03d95b68977fce6"
+        }
+      ],
+      "currentChangedFiles": [
+        "DicePrototype/Assets/Game/Fonts/DiceChineseFallback.asset",
+        "DicePrototype/Assets/Game/Runtime/Presentation/Art07PrefabView.cs",
+        "DicePrototype/Assets/Game/UI/GameApp.Art07.cs",
+        "DicePrototype/Assets/Game/UI/GameApp.Art07Effects.cs",
+        "DicePrototype/Assets/Game/UI/GameApp.Art07Guide.cs",
+        "DicePrototype/Assets/Game/UI/GameApp.Art07Interactions.cs",
+        "DicePrototype/Assets/Game/UI/GameApp.Art07Presentation.cs",
+        "DicePrototype/Assets/Game/UI/GameApp.Art07Shop.cs",
+        "DicePrototype/Assets/Game/UI/GameApp.Controllers.cs",
+        "DicePrototype/Assets/Game/UI/GameApp.V05.cs"
+      ]
+    },
+    {
+      "id": "021306",
+      "bindingSha256": "41c37125e7f5afbd4c6559f983740827ae10d0553e3e721746fb52f663422fcb",
+      "reportSha256": "9bed1910181e5e7921f9b7497376b4ae4854a262e3d47e5852dfc2c19b910e78",
+      "reportShaMatches": true,
+      "result": {
+        "id": "2",
+        "testcasecount": "1",
+        "result": "Passed",
+        "total": "1",
+        "passed": "1",
+        "failed": "0",
+        "inconclusive": "0",
+        "skipped": "0",
+        "asserts": "0",
+        "engine-version": "3.5.0.0",
+        "clr-version": "4.0.30319.42000",
+        "start-time": "2026-11-01 02:13:03Z",
+        "end-time": "2026-11-01 02:13:06Z",
+        "duration": "2.5431548"
+      },
+      "sourceFiles": 1228,
+      "sourceStable": true,
+      "assembliesStable": true,
+      "assemblies": [
+        {
+          "name": "DiceCraft.Core",
+          "mvid": "8f690e0d-a075-4b72-98e4-2cb64ced2fa3",
+          "dllSha256": "44a137cd38d7b525382dfda7adbdb7676d12d1dbc05520638d8a14642a96031b"
+        },
+        {
+          "name": "DiceCraft.EditMode",
+          "mvid": "abf7dba2-4307-4798-8ee4-9f486b477517",
+          "dllSha256": "d66dfd4167f1b5415c51619a3ca788de6744f7dadc8aef67e057b956808bd6d4"
+        },
+        {
+          "name": "DiceCraft.Editor",
+          "mvid": "0b5d1e11-5c6a-493e-90c9-0d5a5ee4f9c8",
+          "dllSha256": "0e4f18664e5b0fe28dca400cc30e94530840602502f40eb2c4664d8790894bb0"
+        },
+        {
+          "name": "DiceCraft.PlayModeTests",
+          "mvid": "632ec8ae-2a45-479f-975b-42c0cf07895c",
+          "dllSha256": "6b15de98e109c9f4d922dc706adec9963477a651e503d10db3e0b287bf8cf6a9"
+        },
+        {
+          "name": "DiceCraft.Runtime",
+          "mvid": "5946399c-f9e2-4250-9ddf-f22d0daf6b6f",
+          "dllSha256": "6a9055f4edb1cb1edeb208b2a1f0b226148e70f8da182654d03d95b68977fce6"
+        }
+      ],
+      "currentChangedFiles": [
+        "DicePrototype/Assets/Game/Fonts/DiceChineseFallback.asset",
+        "DicePrototype/Assets/Game/Runtime/Presentation/Art07PrefabView.cs",
+        "DicePrototype/Assets/Game/UI/GameApp.Art07.cs",
+        "DicePrototype/Assets/Game/UI/GameApp.Art07Effects.cs",
+        "DicePrototype/Assets/Game/UI/GameApp.Art07Guide.cs",
+        "DicePrototype/Assets/Game/UI/GameApp.Art07Interactions.cs",
+        "DicePrototype/Assets/Game/UI/GameApp.Art07Presentation.cs",
+        "DicePrototype/Assets/Game/UI/GameApp.Art07Shop.cs",
+        "DicePrototype/Assets/Game/UI/GameApp.Controllers.cs",
+        "DicePrototype/Assets/Game/UI/GameApp.V05.cs"
+      ]
+    },
+    {
+      "id": "021533",
+      "bindingSha256": "f321b58c52ee5af786226847b54ccad79c0e41c22f55a6388966de105a3f26bc",
+      "reportSha256": "09fbdbbbea03ea42d51ecddfaacf41ea4d648c86242080562913769f72cce82b",
+      "reportShaMatches": true,
+      "result": {
+        "id": "2",
+        "testcasecount": "3",
+        "result": "Passed",
+        "total": "3",
+        "passed": "3",
+        "failed": "0",
+        "inconclusive": "0",
+        "skipped": "0",
+        "asserts": "0",
+        "engine-version": "3.5.0.0",
+        "clr-version": "4.0.30319.42000",
+        "start-time": "2026-11-01 02:15:21Z",
+        "end-time": "2026-11-01 02:15:33Z",
+        "duration": "11.4704139"
+      },
+      "sourceFiles": 1230,
+      "sourceStable": true,
+      "assembliesStable": true,
+      "assemblies": [
+        {
+          "name": "DiceCraft.Core",
+          "mvid": "8f690e0d-a075-4b72-98e4-2cb64ced2fa3",
+          "dllSha256": "44a137cd38d7b525382dfda7adbdb7676d12d1dbc05520638d8a14642a96031b"
+        },
+        {
+          "name": "DiceCraft.EditMode",
+          "mvid": "60e5d1b3-9061-4ce0-9cfa-c4920fd799ab",
+          "dllSha256": "b61866dd974c1385a94628cb8a4e5cf752929fe86036f8b2886bf07fbe9ff528"
+        },
+        {
+          "name": "DiceCraft.Editor",
+          "mvid": "380c2c27-a48c-4b1c-939d-c407b9e0851c",
+          "dllSha256": "a08965a10a4837ceacaae2aa0d878afd608e4da6b7949494f07ba0aab9a8faa1"
+        },
+        {
+          "name": "DiceCraft.PlayModeTests",
+          "mvid": "f681d05b-58c7-4474-85cb-0f2ba9adb9c5",
+          "dllSha256": "76b18d1ae727b0b73c8e8e3fdcf2b1f623b41e7f0794f7a220c44638d367ebe3"
+        },
+        {
+          "name": "DiceCraft.Runtime",
+          "mvid": "907439ae-56d8-4d00-a4fa-809e2e71c8f9",
+          "dllSha256": "3d49f9477aef772e1ac397b48a1f14203a4fd5090a115c263ead2eacc6a28a7e"
+        }
+      ],
+      "currentChangedFiles": [
+        "DicePrototype/Assets/Game/Fonts/DiceChineseFallback.asset",
+        "DicePrototype/Assets/Game/Runtime/Presentation/Art07PrefabView.cs",
+        "DicePrototype/Assets/Game/UI/GameApp.Art07.cs",
+        "DicePrototype/Assets/Game/UI/GameApp.Art07Effects.cs",
+        "DicePrototype/Assets/Game/UI/GameApp.Art07Presentation.cs",
+        "DicePrototype/Assets/Game/UI/GameApp.Art07Shop.cs",
+        "DicePrototype/Assets/Game/UI/GameApp.Controllers.cs",
+        "DicePrototype/Assets/Game/UI/GameApp.V05.cs"
+      ]
+    },
+    {
+      "id": "021950",
+      "bindingSha256": "34577c9432d63e328df65e2a75dec22d5323a4299f79e77b37fde141bbd7187e",
+      "reportSha256": "e6a75127fccc8b63693874563d206f49eb19e0d7270731992072ce4d4a530882",
+      "reportShaMatches": true,
+      "result": {
+        "id": "2",
+        "testcasecount": "3",
+        "result": "Passed",
+        "total": "3",
+        "passed": "3",
+        "failed": "0",
+        "inconclusive": "0",
+        "skipped": "0",
+        "asserts": "0",
+        "engine-version": "3.5.0.0",
+        "clr-version": "4.0.30319.42000",
+        "start-time": "2026-11-01 02:19:41Z",
+        "end-time": "2026-11-01 02:19:50Z",
+        "duration": "9.663987"
+      },
+      "sourceFiles": 1230,
+      "sourceStable": true,
+      "assembliesStable": true,
+      "assemblies": [
+        {
+          "name": "DiceCraft.Core",
+          "mvid": "8f690e0d-a075-4b72-98e4-2cb64ced2fa3",
+          "dllSha256": "44a137cd38d7b525382dfda7adbdb7676d12d1dbc05520638d8a14642a96031b"
+        },
+        {
+          "name": "DiceCraft.EditMode",
+          "mvid": "60e5d1b3-9061-4ce0-9cfa-c4920fd799ab",
+          "dllSha256": "b61866dd974c1385a94628cb8a4e5cf752929fe86036f8b2886bf07fbe9ff528"
+        },
+        {
+          "name": "DiceCraft.Editor",
+          "mvid": "380c2c27-a48c-4b1c-939d-c407b9e0851c",
+          "dllSha256": "a08965a10a4837ceacaae2aa0d878afd608e4da6b7949494f07ba0aab9a8faa1"
+        },
+        {
+          "name": "DiceCraft.PlayModeTests",
+          "mvid": "f681d05b-58c7-4474-85cb-0f2ba9adb9c5",
+          "dllSha256": "76b18d1ae727b0b73c8e8e3fdcf2b1f623b41e7f0794f7a220c44638d367ebe3"
+        },
+        {
+          "name": "DiceCraft.Runtime",
+          "mvid": "907439ae-56d8-4d00-a4fa-809e2e71c8f9",
+          "dllSha256": "3d49f9477aef772e1ac397b48a1f14203a4fd5090a115c263ead2eacc6a28a7e"
+        }
+      ],
+      "currentChangedFiles": [
+        "DicePrototype/Assets/Game/Runtime/Presentation/Art07PrefabView.cs",
+        "DicePrototype/Assets/Game/UI/GameApp.Art07.cs",
+        "DicePrototype/Assets/Game/UI/GameApp.Art07Effects.cs",
+        "DicePrototype/Assets/Game/UI/GameApp.Art07Presentation.cs",
+        "DicePrototype/Assets/Game/UI/GameApp.Art07Shop.cs",
+        "DicePrototype/Assets/Game/UI/GameApp.Controllers.cs",
+        "DicePrototype/Assets/Game/UI/GameApp.V05.cs"
+      ]
+    }
+  ],
+  "totals": {
+    "screens": 34,
+    "viewed": 22,
+    "actions": 90,
+    "nonmutatingActions": 69
+  }
+}

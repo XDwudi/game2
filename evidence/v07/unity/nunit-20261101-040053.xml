@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="10" result="Failed(Child)" total="10" passed="7" failed="3" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-11-01 04:00:25Z" end-time="2026-11-01 04:00:53Z" duration="28.2921309">
+  <test-suite type="TestSuite" id="1127" name="DiceCraft P0" fullname="DiceCraft P0" runstate="Runnable" testcasecount="118" result="Failed" site="Child" start-time="2026-11-01 04:00:25Z" end-time="2026-11-01 04:00:53Z" duration="28.292131" total="10" passed="7" failed="3" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <failure>
+      <message><![CDATA[One or more child tests had errors]]></message>
+    </failure>
+    <test-suite type="Assembly" id="1121" name="DiceCraft.PlayModeTests.dll" fullname="E:/agent_workspace/gpt/game2/DicePrototype/Library/ScriptAssemblies/DiceCraft.PlayModeTests.dll" runstate="Runnable" testcasecount="118" result="Failed" site="Child" start-time="2026-11-01 04:00:25Z" end-time="2026-11-01 04:00:53Z" duration="28.273942" total="10" passed="7" failed="3" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="23240" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <failure>
+        <message><![CDATA[One or more child tests had errors]]></message>
+      </failure>
+      <test-suite type="TestSuite" id="1122" name="DiceCraft" fullname="DiceCraft" runstate="Runnable" testcasecount="118" result="Failed" site="Child" start-time="2026-11-01 04:00:25Z" end-time="2026-11-01 04:00:53Z" duration="28.270182" total="10" passed="7" failed="3" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <failure>
+          <message><![CDATA[One or more child tests had errors]]></message>
+        </failure>
+        <test-suite type="TestSuite" id="1123" name="Tests" fullname="DiceCraft.Tests" runstate="Runnable" testcasecount="118" result="Failed" site="Child" start-time="2026-11-01 04:00:25Z" end-time="2026-11-01 04:00:53Z" duration="28.267508" total="10" passed="7" failed="3" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <failure>
+            <message><![CDATA[One or more child tests had errors]]></message>
+          </failure>
+          <test-suite type="TestFixture" id="1001" name="GameplayPlayModeTests" fullname="DiceCraft.Tests.GameplayPlayModeTests" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" testcasecount="116" result="Failed" site="Child" start-time="2026-11-01 04:00:25Z" end-time="2026-11-01 04:00:53Z" duration="28.263624" total="10" passed="7" failed="3" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <failure>
+              <message><![CDATA[One or more child tests had errors]]></message>
+            </failure>
+            <test-case id="1032" name="PLAY_ART07_FINAL_ComboKeepsUniformChipsAndEmptyNumberBackground" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_FINAL_ComboKeepsUniformChipsAndEmptyNumberBackground" methodname="PLAY_ART07_FINAL_ComboKeepsUniformChipsAndEmptyNumberBackground" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="2019263563" result="Passed" start-time="2026-11-01 04:00:25Z" end-time="2026-11-01 04:00:27Z" duration="2.177218" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Actual presentation phase trace: Wanted FinalScore; speed=Normal; phases=Receipt@0+100,DiceContributions@100+300,BaseAndStructure@400+280,ControllerAndEnchant@680+140,ControllerAndEnchant@820+140,ControllerAndEnchant@960+140,ControllerAndEnchant@1100+140,FinalScore@1240+600
+frame=18 dt=0.0167 elapsedMs=0.00 phase=Receipt playing=True focus=True paused=False
+frame=19 dt=0.4501 elapsedMs=450.08 phase=BaseAndStructure playing=True focus=True paused=False
+frame=33 dt=0.0161 elapsedMs=681.81 phase=ControllerAndEnchant playing=True focus=True paused=False
+frame=67 dt=0.0166 elapsedMs=1248.48 phase=FinalScore playing=True focus=True paused=False
+Burst atlas fx_square_chip original=(x:0.00, y:0.00, width:64.00, height:64.00) trimmed=(x:912.08, y:108.08, width:29.85, height:29.85) offset=(17.08, 17.08) packing=None padding=(17.08, 17.08, 17.08, 17.08) uv=(0.89, 0.11, 0.92, 0.13) ink=(x:0.30, y:0.30, width:0.41, height:0.41)
+Burst atlas fx_short_flame original=(x:0.00, y:0.00, width:256.00, height:256.00) trimmed=(x:520.05, y:356.01, width:219.84, height:204.97) offset=(18.05, 33.01) packing=None padding=(18.05, 33.01, 18.11, 18.01) uv=(0.51, 0.35, 0.72, 0.55) ink=(x:0.08, y:0.14, width:0.84, height:0.79)
+Burst alpha-ink geometry t=0.05: particles=36 firstInkRef=5.662063 flameInk=(x:553.39, y:-141.63, width:200.81, height:25.13) canvasScale=0.6666667
+Burst alpha-ink geometry t=0.45: particles=36 firstInkRef=5.662063 flameInk=(x:553.39, y:-141.63, width:200.81, height:25.13) canvasScale=0.6666667
+Burst alpha-ink geometry t=0.8: particles=36 firstInkRef=5.662063 flameInk=(x:553.39, y:-141.63, width:200.81, height:25.13) canvasScale=0.6666667
+Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_8800c33ccbbb4313b08e9fd58fd1f5e8
+]]></output>
+            </test-case>
+            <test-case id="1033" name="PLAY_ART07_FINAL_HighestTenCardsKeepsChipInkOutsideCardBordersAndGlyphs" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_FINAL_HighestTenCardsKeepsChipInkOutsideCardBordersAndGlyphs" methodname="PLAY_ART07_FINAL_HighestTenCardsKeepsChipInkOutsideCardBordersAndGlyphs" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="599389766" result="Passed" start-time="2026-11-01 04:00:27Z" end-time="2026-11-01 04:00:29Z" duration="1.533175" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Actual presentation phase trace: Wanted FinalScore; speed=Normal; phases=Receipt@0+100,DiceContributions@100+300,BaseAndStructure@400+280,ControllerAndEnchant@680+140,ControllerAndEnchant@820+140,ControllerAndEnchant@960+140,ControllerAndEnchant@1100+140,FinalScore@1240+600,PostScore@1840+480
+frame=74 dt=0.0164 elapsedMs=0.00 phase=Receipt playing=True focus=True paused=False
+frame=75 dt=0.3532 elapsedMs=353.25 phase=DiceContributions playing=True focus=True paused=False
+frame=78 dt=0.0168 elapsedMs=402.89 phase=BaseAndStructure playing=True focus=True paused=False
+frame=95 dt=0.0163 elapsedMs=685.77 phase=ControllerAndEnchant playing=True focus=True paused=False
+frame=129 dt=0.0166 elapsedMs=1252.65 phase=FinalScore playing=True focus=True paused=False
+Burst atlas fx_square_chip original=(x:0.00, y:0.00, width:64.00, height:64.00) trimmed=(x:912.08, y:108.08, width:29.85, height:29.85) offset=(17.08, 17.08) packing=None padding=(17.08, 17.08, 17.08, 17.08) uv=(0.89, 0.11, 0.92, 0.13) ink=(x:0.30, y:0.30, width:0.41, height:0.41)
+Burst atlas fx_short_flame original=(x:0.00, y:0.00, width:256.00, height:256.00) trimmed=(x:520.05, y:356.01, width:219.84, height:204.97) offset=(18.05, 33.01) packing=None padding=(18.05, 33.01, 18.11, 18.01) uv=(0.51, 0.35, 0.72, 0.55) ink=(x:0.08, y:0.14, width:0.84, height:0.79)
+Burst alpha-ink geometry t=0.05: particles=36 firstInkRef=5.662063 flameInk=(x:553.39, y:-141.63, width:200.81, height:25.13) canvasScale=0.6666667
+Burst alpha-ink geometry t=0.45: particles=36 firstInkRef=5.662063 flameInk=(x:553.39, y:-141.63, width:200.81, height:25.13) canvasScale=0.6666667
+Burst alpha-ink geometry t=0.8: particles=36 firstInkRef=5.662063 flameInk=(x:553.39, y:-141.63, width:200.81, height:25.13) canvasScale=0.6666667
+Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_a5b1ddf1131845f8ac65b9bc7d6b533a
+]]></output>
+            </test-case>
+            <test-case id="1075" name="PLAY_ART07_TX_ExpansionAnimatesOnlyActuallyAddedSlotAndPreservesOtherOffers" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_TX_ExpansionAnimatesOnlyActuallyAddedSlotAndPreservesOtherOffers" methodname="PLAY_ART07_TX_ExpansionAnimatesOnlyActuallyAddedSlotAndPreservesOtherOffers" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="1789273366" result="Passed" start-time="2026-11-01 04:00:29Z" end-time="2026-11-01 04:00:33Z" duration="4.167462" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Expansion final geometry Offer_OFFER_00061 expected=(x:-16.00, y:220.00, width:160.00, height:224.00) frame=(x:-16.00, y:220.00, width:160.00, height:224.00) animatedEuler=(0.00, 280.00, 0.00)
+Expansion final geometry AddedOffer_OFFER_00110 expected=(x:24.00, y:-388.00, width:280.00, height:416.00) frame=(x:24.00, y:-388.00, width:280.00, height:416.00) animatedEuler=(0.00, 280.00, 0.00)
+Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_f4f9a95ae6c8487589cfa4e45b58ae12
+]]></output>
+            </test-case>
+            <test-case id="1071" name="PLAY_ART07_TX_GpuRealShopCardSnapshotRetainsEveryGlyphNormalAndReduced" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_TX_GpuRealShopCardSnapshotRetainsEveryGlyphNormalAndReduced" methodname="PLAY_ART07_TX_GpuRealShopCardSnapshotRetainsEveryGlyphNormalAndReduced" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="151566245" result="Passed" start-time="2026-11-01 04:00:33Z" end-time="2026-11-01 04:00:41Z" duration="7.899997" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Real source/snapshot glyph GPU evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_50eb1d71e82140e5998f87921e9d36ad\art07-tx-gpu\actual-shop-C21-normal-207
+Real source/snapshot glyph GPU evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_50eb1d71e82140e5998f87921e9d36ad\art07-tx-gpu\actual-shop-C21-reduced-210
+Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_50eb1d71e82140e5998f87921e9d36ad
+]]></output>
+            </test-case>
+            <test-case id="1072" name="PLAY_ART07_TX_GpuSnapshotRetainsSeparatePrimaryAndChineseFallbackAtlases" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_TX_GpuSnapshotRetainsSeparatePrimaryAndChineseFallbackAtlases" methodname="PLAY_ART07_TX_GpuSnapshotRetainsSeparatePrimaryAndChineseFallbackAtlases" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="219425467" result="Passed" start-time="2026-11-01 04:00:41Z" end-time="2026-11-01 04:00:48Z" duration="7.612077" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Real source/snapshot glyph GPU evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_26cd04e01b5f473a8a025543fb7fdce7\art07-tx-gpu\two-distinct-font-atlases-normal-623
+Real source/snapshot glyph GPU evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_26cd04e01b5f473a8a025543fb7fdce7\art07-tx-gpu\two-distinct-font-atlases-reduced-626
+Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_26cd04e01b5f473a8a025543fb7fdce7
+]]></output>
+            </test-case>
+            <test-case id="1076" name="PLAY_ART07_TX_PhysicalUpgradeUsesActualFaceAndOverlapping360Or420Timeline" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_TX_PhysicalUpgradeUsesActualFaceAndOverlapping360Or420Timeline" methodname="PLAY_ART07_TX_PhysicalUpgradeUsesActualFaceAndOverlapping360Or420Timeline" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="2090597575" result="Failed" start-time="2026-11-01 04:00:48Z" end-time="2026-11-01 04:00:49Z" duration="0.490118" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <failure>
+                <message><![CDATA[Unhandled log message: '[Exception] UnityException: CreateImpl is not allowed to be called from a MonoBehaviour constructor (or instance field initializer), call it in Awake or Start instead. Called from MonoBehaviour 'Art07UpgradeSurface' on game object 'CommittedUpgradeSurface07'.
+See "Script Serialization" page in the Unity Manual for further details.'. Use UnityEngine.TestTools.LogAssert.Expect]]></message>
+                <stack-trace><![CDATA[UnityEngine.MaterialPropertyBlock..ctor () (at <2a0aacfdb6844320ae79174c32157248>:0)
+DiceCraft.Presentation.Art07UpgradeSurface..ctor () (at Assets/Game/Runtime/Presentation/Art07UpgradeSurface.cs:11)
+UnityEngine.GameObject:AddComponent()
+DiceCraft.GameApp:BeginSpecialUpgradePreview07(DieInstance, DieInstance, String, Boolean, Vector2, Quaternion) (at Assets/Game/UI/GameApp.Art07UpgradePreview.cs:13)
+DiceCraft.GameApp:BeginUpgradeTransaction07(SessionCommand, ShopOffer, RunState, RunState) (at Assets/Game/UI/GameApp.Art07Effects.cs:542)
+DiceCraft.GameApp:BeginCommittedTransactionVisual07(SessionCommand, CommandResult, RunState, RunState) (at Assets/Game/UI/GameApp.Art07Effects.cs:419)
+DiceCraft.GameApp:PresentTransactionEffects07(SessionCommand, CommandResult, RunState, RunState) (at Assets/Game/UI/GameApp.Art07Effects.cs:316)
+DiceCraft.GameApp:PresentCommitted(SessionCommand, CommandResult) (at Assets/Game/UI/GameApp.Art07Presentation.cs:94)
+DiceCraft.GameApp:Send(SessionCommand) (at Assets/Game/Runtime/GameApp.cs:150)
+DiceCraft.Tests.<PLAY_ART07_TX_PhysicalUpgradeUsesActualFaceAndOverlapping360Or420Timeline>d__189:MoveNext() (at Assets/Game/Tests/PlayMode/Art07TransactionPlayModeTests.cs:171)
+UnityEngine.SetupCoroutine:InvokeMoveNext(IEnumerator, IntPtr)
+
+]]></stack-trace>
+              </failure>
+              <output><![CDATA[UnityException: CreateImpl is not allowed to be called from a MonoBehaviour constructor (or instance field initializer), call it in Awake or Start instead. Called from MonoBehaviour 'Art07UpgradeSurface' on game object 'CommittedUpgradeSurface07'.
+See "Script Serialization" page in the Unity Manual for further details.
+UnityEngine.MaterialPropertyBlock..ctor () (at <2a0aacfdb6844320ae79174c32157248>:0)
+DiceCraft.Presentation.Art07UpgradeSurface..ctor () (at Assets/Game/Runtime/Presentation/Art07UpgradeSurface.cs:11)
+UnityEngine.GameObject:AddComponent()
+DiceCraft.GameApp:BeginSpecialUpgradePreview07(DieInstance, DieInstance, String, Boolean, Vector2, Quaternion) (at Assets/Game/UI/GameApp.Art07UpgradePreview.cs:13)
+DiceCraft.GameApp:BeginUpgradeTransaction07(SessionCommand, ShopOffer, RunState, RunState) (at Assets/Game/UI/GameApp.Art07Effects.cs:542)
+DiceCraft.GameApp:BeginCommittedTransactionVisual07(SessionCommand, CommandResult, RunState, RunState) (at Assets/Game/UI/GameApp.Art07Effects.cs:419)
+DiceCraft.GameApp:PresentTransactionEffects07(SessionCommand, CommandResult, RunState, RunState) (at Assets/Game/UI/GameApp.Art07Effects.cs:316)
+DiceCraft.GameApp:PresentCommitted(SessionCommand, CommandResult) (at Assets/Game/UI/GameApp.Art07Presentation.cs:94)
+DiceCraft.GameApp:Send(SessionCommand) (at Assets/Game/Runtime/GameApp.cs:150)
+DiceCraft.Tests.<PLAY_ART07_TX_PhysicalUpgradeUsesActualFaceAndOverlapping360Or420Timeline>d__189:MoveNext() (at Assets/Game/Tests/PlayMode/Art07TransactionPlayModeTests.cs:171)
+UnityEngine.SetupCoroutine:InvokeMoveNext(IEnumerator, IntPtr)
+
+Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_51997d3f094c4d71ba24ed9ebf22c182
+]]></output>
+            </test-case>
+            <test-case id="1074" name="PLAY_ART07_TX_PurchaseUsesCommittedNewInstanceAndSkipRestoresAllGroups" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_TX_PurchaseUsesCommittedNewInstanceAndSkipRestoresAllGroups" methodname="PLAY_ART07_TX_PurchaseUsesCommittedNewInstanceAndSkipRestoresAllGroups" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="1265704229" result="Passed" start-time="2026-11-01 04:00:49Z" end-time="2026-11-01 04:00:50Z" duration="0.987427" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_9c27ec6f39534afc880c07a592cc90ca
+]]></output>
+            </test-case>
+            <test-case id="1073" name="PLAY_ART07_TX_RefreshOnlyControllerShelfUsesOld100AndNew180Milliseconds" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_TX_RefreshOnlyControllerShelfUsesOld100AndNew180Milliseconds" methodname="PLAY_ART07_TX_RefreshOnlyControllerShelfUsesOld100AndNew180Milliseconds" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="938918928" result="Passed" start-time="2026-11-01 04:00:50Z" end-time="2026-11-01 04:00:52Z" duration="1.806010" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_2a397c149406413393aed1081fa1c339
+]]></output>
+            </test-case>
+            <test-case id="1079" name="PLAY_ART07_UPGRADE_ActualCeramicAndSingleQuestionFlipRenderBeforeMiddleAndAfter" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_UPGRADE_ActualCeramicAndSingleQuestionFlipRenderBeforeMiddleAndAfter" methodname="PLAY_ART07_UPGRADE_ActualCeramicAndSingleQuestionFlipRenderBeforeMiddleAndAfter" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="937588219" result="Failed" start-time="2026-11-01 04:00:52Z" end-time="2026-11-01 04:00:53Z" duration="0.740400" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <failure>
+                <message><![CDATA[Unhandled log message: '[Exception] UnityException: CreateImpl is not allowed to be called from a MonoBehaviour constructor (or instance field initializer), call it in Awake or Start instead. Called from MonoBehaviour 'Art07UpgradeSurface' on game object 'CommittedUpgradeSurface07'.
+See "Script Serialization" page in the Unity Manual for further details.'. Use UnityEngine.TestTools.LogAssert.Expect]]></message>
+                <stack-trace><![CDATA[UnityEngine.MaterialPropertyBlock..ctor () (at <2a0aacfdb6844320ae79174c32157248>:0)
+DiceCraft.Presentation.Art07UpgradeSurface..ctor () (at Assets/Game/Runtime/Presentation/Art07UpgradeSurface.cs:11)
+UnityEngine.GameObject:AddComponent()
+DiceCraft.GameApp:BeginSpecialUpgradePreview07(DieInstance, DieInstance, String, Boolean, Vector2, Quaternion) (at Assets/Game/UI/GameApp.Art07UpgradePreview.cs:13)
+DiceCraft.GameApp:BeginUpgradeTransaction07(SessionCommand, ShopOffer, RunState, RunState) (at Assets/Game/UI/GameApp.Art07Effects.cs:542)
+DiceCraft.GameApp:BeginCommittedTransactionVisual07(SessionCommand, CommandResult, RunState, RunState) (at Assets/Game/UI/GameApp.Art07Effects.cs:419)
+DiceCraft.GameApp:PresentTransactionEffects07(SessionCommand, CommandResult, RunState, RunState) (at Assets/Game/UI/GameApp.Art07Effects.cs:316)
+DiceCraft.GameApp:PresentCommitted(SessionCommand, CommandResult) (at Assets/Game/UI/GameApp.Art07Presentation.cs:94)
+DiceCraft.GameApp:Send(SessionCommand) (at Assets/Game/Runtime/GameApp.cs:150)
+DiceCraft.Tests.<PLAY_ART07_UPGRADE_ActualCeramicAndSingleQuestionFlipRenderBeforeMiddleAndAfter>d__194:MoveNext() (at Assets/Game/Tests/PlayMode/Art07UpgradeVisualPlayModeTests.cs:30)
+UnityEngine.SetupCoroutine:InvokeMoveNext(IEnumerator, IntPtr)
+
+]]></stack-trace>
+              </failure>
+              <output><![CDATA[UnityException: CreateImpl is not allowed to be called from a MonoBehaviour constructor (or instance field initializer), call it in Awake or Start instead. Called from MonoBehaviour 'Art07UpgradeSurface' on game object 'CommittedUpgradeSurface07'.
+See "Script Serialization" page in the Unity Manual for further details.
+UnityEngine.MaterialPropertyBlock..ctor () (at <2a0aacfdb6844320ae79174c32157248>:0)
+DiceCraft.Presentation.Art07UpgradeSurface..ctor () (at Assets/Game/Runtime/Presentation/Art07UpgradeSurface.cs:11)
+UnityEngine.GameObject:AddComponent()
+DiceCraft.GameApp:BeginSpecialUpgradePreview07(DieInstance, DieInstance, String, Boolean, Vector2, Quaternion) (at Assets/Game/UI/GameApp.Art07UpgradePreview.cs:13)
+DiceCraft.GameApp:BeginUpgradeTransaction07(SessionCommand, ShopOffer, RunState, RunState) (at Assets/Game/UI/GameApp.Art07Effects.cs:542)
+DiceCraft.GameApp:BeginCommittedTransactionVisual07(SessionCommand, CommandResult, RunState, RunState) (at Assets/Game/UI/GameApp.Art07Effects.cs:419)
+DiceCraft.GameApp:PresentTransactionEffects07(SessionCommand, CommandResult, RunState, RunState) (at Assets/Game/UI/GameApp.Art07Effects.cs:316)
+DiceCraft.GameApp:PresentCommitted(SessionCommand, CommandResult) (at Assets/Game/UI/GameApp.Art07Presentation.cs:94)
+DiceCraft.GameApp:Send(SessionCommand) (at Assets/Game/Runtime/GameApp.cs:150)
+DiceCraft.Tests.<PLAY_ART07_UPGRADE_ActualCeramicAndSingleQuestionFlipRenderBeforeMiddleAndAfter>d__194:MoveNext() (at Assets/Game/Tests/PlayMode/Art07UpgradeVisualPlayModeTests.cs:30)
+UnityEngine.SetupCoroutine:InvokeMoveNext(IEnumerator, IntPtr)
+
+Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_02b1324d917645ca972d734c725d45b6
+]]></output>
+            </test-case>
+            <test-case id="1080" name="PLAY_ART07_UPGRADE_FastReducedPauseAndSkipKeepCommittedStateAndResetSurfaces" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_UPGRADE_FastReducedPauseAndSkipKeepCommittedStateAndResetSurfaces" methodname="PLAY_ART07_UPGRADE_FastReducedPauseAndSkipKeepCommittedStateAndResetSurfaces" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="1662222370" result="Failed" start-time="2026-11-01 04:00:53Z" end-time="2026-11-01 04:00:53Z" duration="0.820750" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <failure>
+                <message><![CDATA[Unhandled log message: '[Exception] UnityException: CreateImpl is not allowed to be called from a MonoBehaviour constructor (or instance field initializer), call it in Awake or Start instead. Called from MonoBehaviour 'Art07UpgradeSurface' on game object 'CommittedUpgradeSurface07'.
+See "Script Serialization" page in the Unity Manual for further details.'. Use UnityEngine.TestTools.LogAssert.Expect]]></message>
+                <stack-trace><![CDATA[UnityEngine.MaterialPropertyBlock..ctor () (at <2a0aacfdb6844320ae79174c32157248>:0)
+DiceCraft.Presentation.Art07UpgradeSurface..ctor () (at Assets/Game/Runtime/Presentation/Art07UpgradeSurface.cs:11)
+UnityEngine.GameObject:AddComponent()
+DiceCraft.GameApp:BeginSpecialUpgradePreview07(DieInstance, DieInstance, String, Boolean, Vector2, Quaternion) (at Assets/Game/UI/GameApp.Art07UpgradePreview.cs:13)
+DiceCraft.GameApp:BeginUpgradeTransaction07(SessionCommand, ShopOffer, RunState, RunState) (at Assets/Game/UI/GameApp.Art07Effects.cs:542)
+DiceCraft.GameApp:BeginCommittedTransactionVisual07(SessionCommand, CommandResult, RunState, RunState) (at Assets/Game/UI/GameApp.Art07Effects.cs:419)
+DiceCraft.GameApp:PresentTransactionEffects07(SessionCommand, CommandResult, RunState, RunState) (at Assets/Game/UI/GameApp.Art07Effects.cs:316)
+DiceCraft.GameApp:PresentCommitted(SessionCommand, CommandResult) (at Assets/Game/UI/GameApp.Art07Presentation.cs:94)
+DiceCraft.GameApp:Send(SessionCommand) (at Assets/Game/Runtime/GameApp.cs:150)
+DiceCraft.Tests.<PLAY_ART07_UPGRADE_FastReducedPauseAndSkipKeepCommittedStateAndResetSurfaces>d__195:MoveNext() (at Assets/Game/Tests/PlayMode/Art07UpgradeVisualPlayModeTests.cs:110)
+UnityEngine.SetupCoroutine:InvokeMoveNext(IEnumerator, IntPtr)
+
+]]></stack-trace>
+              </failure>
+              <output><![CDATA[UnityException: CreateImpl is not allowed to be called from a MonoBehaviour constructor (or instance field initializer), call it in Awake or Start instead. Called from MonoBehaviour 'Art07UpgradeSurface' on game object 'CommittedUpgradeSurface07'.
+See "Script Serialization" page in the Unity Manual for further details.
+UnityEngine.MaterialPropertyBlock..ctor () (at <2a0aacfdb6844320ae79174c32157248>:0)
+DiceCraft.Presentation.Art07UpgradeSurface..ctor () (at Assets/Game/Runtime/Presentation/Art07UpgradeSurface.cs:11)
+UnityEngine.GameObject:AddComponent()
+DiceCraft.GameApp:BeginSpecialUpgradePreview07(DieInstance, DieInstance, String, Boolean, Vector2, Quaternion) (at Assets/Game/UI/GameApp.Art07UpgradePreview.cs:13)
+DiceCraft.GameApp:BeginUpgradeTransaction07(SessionCommand, ShopOffer, RunState, RunState) (at Assets/Game/UI/GameApp.Art07Effects.cs:542)
+DiceCraft.GameApp:BeginCommittedTransactionVisual07(SessionCommand, CommandResult, RunState, RunState) (at Assets/Game/UI/GameApp.Art07Effects.cs:419)
+DiceCraft.GameApp:PresentTransactionEffects07(SessionCommand, CommandResult, RunState, RunState) (at Assets/Game/UI/GameApp.Art07Effects.cs:316)
+DiceCraft.GameApp:PresentCommitted(SessionCommand, CommandResult) (at Assets/Game/UI/GameApp.Art07Presentation.cs:94)
+DiceCraft.GameApp:Send(SessionCommand) (at Assets/Game/Runtime/GameApp.cs:150)
+DiceCraft.Tests.<PLAY_ART07_UPGRADE_FastReducedPauseAndSkipKeepCommittedStateAndResetSurfaces>d__195:MoveNext() (at Assets/Game/Tests/PlayMode/Art07UpgradeVisualPlayModeTests.cs:110)
+UnityEngine.SetupCoroutine:InvokeMoveNext(IEnumerator, IntPtr)
+
+Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_c3407fb4cf634535918842ea211af56a
+Saving results to: E:\agent_workspace\gpt\game2\evidence\v07\unity\nunit-20261101-040053.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

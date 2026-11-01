@@ -1,0 +1,518 @@
+{
+  "review": "v07_spec_audit UI static scan and offline icon visual review",
+  "utc": "2026-10-31T18:08:07.507845+00:00",
+  "head": "1fbc3cce9d84237fa98b31d4b73b08e6f5e909ae",
+  "workingTree": "Uncommitted changing tree; copied review source + individual SHA, not frozen release",
+  "files": [
+    {
+      "path": "DicePrototype/Assets/Game/UI/Art07ButtonMotion.cs",
+      "sha256": "41ff428f1eccdd31f840c7ccfc59b87bd6d9c9b89c5b51a3140324374244e26c",
+      "bytes": 2344
+    },
+    {
+      "path": "DicePrototype/Assets/Game/UI/Art07PanelMotion.cs",
+      "sha256": "b0fa31244a97cdae3be0fd8601d2229a62e2bd61ad3f7a7253b2cb98f5ed9263",
+      "bytes": 8375
+    },
+    {
+      "path": "DicePrototype/Assets/Game/UI/Art07ScreenReveal.cs",
+      "sha256": "581e974b66a344014676855c45071c3452860e4cf8331f180a1f3f52c3a9bf97",
+      "bytes": 1426
+    },
+    {
+      "path": "DicePrototype/Assets/Game/UI/GameApp.Art07.cs",
+      "sha256": "7118c8a06641fae64826c786fcca6a4853bcfcb255715e75ada05ba40eef916d",
+      "bytes": 26203
+    },
+    {
+      "path": "DicePrototype/Assets/Game/UI/GameApp.Art07Effects.cs",
+      "sha256": "6b3f513b01956c81f9861399366170fe0f7834475cd8db7f6ee5c7aaf7e53777",
+      "bytes": 14346
+    },
+    {
+      "path": "DicePrototype/Assets/Game/UI/GameApp.Art07Guide.cs",
+      "sha256": "96a5f75c710d127b2a675987d5b8e9f7f11d3788676e59157af513ee50c7dd15",
+      "bytes": 5164
+    },
+    {
+      "path": "DicePrototype/Assets/Game/UI/GameApp.Art07Presentation.cs",
+      "sha256": "93c2f72694cbca9df366a74a6c5495877dea5ebdae7c6beb4389ac30f7228854",
+      "bytes": 15622
+    },
+    {
+      "path": "DicePrototype/Assets/Game/UI/GameApp.Art07Results.cs",
+      "sha256": "d6299f2e739da5e91354447f6eb79bdb62a47f3aac2bc933d23a9b7125622a76",
+      "bytes": 5465
+    },
+    {
+      "path": "DicePrototype/Assets/Game/UI/GameApp.Art07Settings.cs",
+      "sha256": "f69ec7bd50a83cbbef2309823f609b46393c462975e11c79ad349dabfb25af75",
+      "bytes": 14445
+    },
+    {
+      "path": "DicePrototype/Assets/Game/UI/GameApp.Art07Shop.cs",
+      "sha256": "8cceb36b4764c5233635de8abcb305fe944345aad95c9eee889d79c5ac6e30d3",
+      "bytes": 16882
+    },
+    {
+      "path": "DicePrototype/Assets/Game/UI/GameApp.Controllers.cs",
+      "sha256": "2bfb620f46e772cc2455cb6efd11da4f2bf566ee479396241068a69df98d6462",
+      "bytes": 10124
+    },
+    {
+      "path": "DicePrototype/Assets/Game/UI/GameApp.Debug.cs",
+      "sha256": "2cf5ba1e323c9dcc048a6a1babb5dce86d9713ef227061f779f7c78aec87e107",
+      "bytes": 44319
+    },
+    {
+      "path": "DicePrototype/Assets/Game/UI/GameApp.Display.cs",
+      "sha256": "eb4c919e3088814e43945f4d835ff69819cac0d73f28ec5bcb654b66a051e28e",
+      "bytes": 6470
+    },
+    {
+      "path": "DicePrototype/Assets/Game/UI/GameApp.Modals.cs",
+      "sha256": "7cf3c805a6300d09ce43dab44d4cbdcc9014f5183744955b1e899e18f1072f51",
+      "bytes": 37923
+    },
+    {
+      "path": "DicePrototype/Assets/Game/UI/GameApp.Shop.cs",
+      "sha256": "d0fcc6c76c3a389ca3960ebfc7551fad3571e636f51d192c270111f082d69687",
+      "bytes": 15898
+    },
+    {
+      "path": "DicePrototype/Assets/Game/UI/GameApp.V05.cs",
+      "sha256": "c07ff130c4dd5f20123e901d023c21455a0ca09b8e804630b627f4e041427d8f",
+      "bytes": 15907
+    },
+    {
+      "path": "DicePrototype/Assets/Game/UI/UiElementPool.cs",
+      "sha256": "3c536f3e6dc7eea26f4fc80cac8b50a04b4aa7d5acd0517013aed0e94905d37d",
+      "bytes": 398
+    },
+    {
+      "path": "DicePrototype/Assets/Game/UI/UiKit.cs",
+      "sha256": "b31b6df00634641434f9f8deb767502163a7fb4f9d5a5ef9d2f4bc04150544f8",
+      "bytes": 9830
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Runtime/GameApp.cs",
+      "sha256": "63436484b48929a3580a16e9b8432b705371d00eae65a6f36aeaca4bbe6a7c26",
+      "bytes": 33815
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Runtime/Presentation/Art07PrefabView.cs",
+      "sha256": "83c3af339b6462bcc5cad207ed1412c6b18e39809b75a8618952dc106317c4cf",
+      "bytes": 17170
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Editor/Art07AssetLibrary.cs",
+      "sha256": "88bf5cdf010130899025f4596267277036ef0a3da9d8fd8b5018a00fdd18e4ea",
+      "bytes": 45723
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Runtime/Shaders/Art07LocalFx.shader",
+      "sha256": "8a99f6cfa6e029ba603f7c6169835da5d3c54adf171a6eb35873db5b0c7a1881",
+      "bytes": 2226
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art07/ContentIcons/Controllers/icon_c01.png",
+      "sha256": "c9aa815e53764c4388038a60fdc960c2006e826a7aa8c6405bc3f4d2300ef8b3",
+      "bytes": 1539
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art07/ContentIcons/Controllers/icon_c02.png",
+      "sha256": "17d2ca58288e93336582b3131cee0e12926c7af9825c47c638b140dfd054e976",
+      "bytes": 1942
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art07/ContentIcons/Controllers/icon_c03.png",
+      "sha256": "23f4460bb78231fca5ec1dfd1f48225e4027d7c73a536c8291143bb24aef30cc",
+      "bytes": 1069
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art07/ContentIcons/Controllers/icon_c05.png",
+      "sha256": "b817b97bf9427de8c688550a530db4eefae75ad3a80edcdae5938c98f665cf50",
+      "bytes": 1650
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art07/ContentIcons/Controllers/icon_c06.png",
+      "sha256": "0a9df224b81f393ddf2958f552b3d7f9352f7d3978120acbca1e88e8c354376f",
+      "bytes": 1167
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art07/ContentIcons/Controllers/icon_c07.png",
+      "sha256": "d2be4bf7a14b0a435ecd31210938720f1b8d9f64b52ee0115f0e2a1d6bd952be",
+      "bytes": 1270
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art07/ContentIcons/Controllers/icon_c08.png",
+      "sha256": "62e6f384f0d03523c10b3e3e4dc0f6a817fa76ce961d8e3ec79328a301aa53ef",
+      "bytes": 919
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art07/ContentIcons/Controllers/icon_c09.png",
+      "sha256": "fc2843a0b8b27cb3484ec7b19318e73f43661e9c1643daf08d86a7ee94368308",
+      "bytes": 1332
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art07/ContentIcons/Controllers/icon_c10.png",
+      "sha256": "daefd9c1d74307ffc0bdc199534b296ee19264f0efd5eca676c901824a7acfec",
+      "bytes": 1076
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art07/ContentIcons/Controllers/icon_c11.png",
+      "sha256": "ca1bf575a4f42ee89279b3dbf196ade53ee2f48384b41ebd805bbd80e4d64fc4",
+      "bytes": 1119
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art07/ContentIcons/Controllers/icon_c12.png",
+      "sha256": "2b16fcb6574127521d3934303b48804807e81c76b2c3148384a2be8667e593a9",
+      "bytes": 1393
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art07/ContentIcons/Controllers/icon_c13.png",
+      "sha256": "318f8ef41d8f35d96bf9480cc4d5850cf7fb288ab53bca4f2e9c763208455225",
+      "bytes": 1290
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art07/ContentIcons/Controllers/icon_c14.png",
+      "sha256": "ded9dda64e737f6e12d10f07bd7f4ebbf147c4041b5083f7707ab03959cf8349",
+      "bytes": 1672
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art07/ContentIcons/Controllers/icon_c15.png",
+      "sha256": "002ba15409f44aba7b41cbd20522ccba81cfcec09b94f21852a58b50d085093a",
+      "bytes": 1313
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art07/ContentIcons/Controllers/icon_c17.png",
+      "sha256": "8b603042ef94f6cca98c7a383268d3d278edec4b37ecfcdfb0721b06add49af0",
+      "bytes": 1213
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art07/ContentIcons/Controllers/icon_c18.png",
+      "sha256": "f02ae9a284b417bf066a03a5c5dcef59dfbcd0bc0ca5cbc63cea0d2ae2f71ac4",
+      "bytes": 1459
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art07/ContentIcons/Controllers/icon_c19.png",
+      "sha256": "5aa69a454bf0d373bfef90e24e9162aac342fbb76ed2d63a20971c8a6a503300",
+      "bytes": 1291
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art07/ContentIcons/Controllers/icon_c20.png",
+      "sha256": "4fea0ac7fc0aa47b0666877799c98d8377f6cabf3a51996e4550f478a7ca68f0",
+      "bytes": 1275
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art07/ContentIcons/Controllers/icon_c21.png",
+      "sha256": "2264ad33888afcfded0eefa324db98b6e1260af688f1295f910e0a25f3f0f735",
+      "bytes": 1084
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art07/ContentIcons/Controllers/icon_c22.png",
+      "sha256": "f085e66b433b844d05bbe98bf2fd899b128282ef108a94197dbecfefc1e74c82",
+      "bytes": 1145
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art07/ContentIcons/Controllers/icon_c24.png",
+      "sha256": "d65ac0bf303cf907bc29c3aa12dd018d9702461c815628d9635316e7446f705e",
+      "bytes": 1133
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art07/ContentIcons/Controllers/icon_c25.png",
+      "sha256": "bd517035b9511aa137e18565b2e0d686e57784a6535ea4877531d39d88412bc2",
+      "bytes": 1747
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art07/ContentIcons/Controllers/icon_c26.png",
+      "sha256": "e763be2bceff660be5c28ec0367d33c3744635fa46afd3cbd7a7d068761d3974",
+      "bytes": 1523
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art07/ContentIcons/Controllers/icon_c27.png",
+      "sha256": "93108828f97726f0ed30cbfd131284364431736f76601d915bef619ef7cd6e7a",
+      "bytes": 1163
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art07/ContentIcons/Controllers/icon_c28.png",
+      "sha256": "ef882e6b8f9c6daa3e7e7682ecd879469dfb01bc3da3d86bf6ab3350ab6f81a0",
+      "bytes": 1580
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art07/ContentIcons/Controllers/icon_c29.png",
+      "sha256": "4933a93b7094ffbb204672e7abc606dd4c2306299bf5bf6ae83d3539f36759bf",
+      "bytes": 1053
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art07/ContentIcons/Controllers/icon_c30.png",
+      "sha256": "30a74dd4de03b850f0cb03784cfa658c05bb3aa3beb9d128ea4d635c79424a68",
+      "bytes": 1266
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art07/ContentIcons/Controllers/icon_c31.png",
+      "sha256": "2172cf9090d0eb7cf26b2b13fda2e5930d0c2d67080b954a9c7e26b188472bc1",
+      "bytes": 1688
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art07/ContentIcons/Controllers/icon_c32.png",
+      "sha256": "15523e2e19c59c570e43cafced271d0ed5f455409f0d266ce179c57fbde11346",
+      "bytes": 1629
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art07/ContentIcons/Controllers/icon_c33.png",
+      "sha256": "54039dcefbb8e78b6cf86b80b1c0fe49f6f48ed5d999223468ba4905c5284531",
+      "bytes": 1299
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art07/ContentIcons/Controllers/icon_c34.png",
+      "sha256": "55c92c7ea605f4539edf78d6b0bb6fcd3b894fe880630b5df010fb5e64cde420",
+      "bytes": 1163
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art07/ContentIcons/Controllers/icon_c35.png",
+      "sha256": "6d8a5973064b7c785a902ccd4d02aec7b8caac3aa25e4ea00e76910c010ebc64",
+      "bytes": 1153
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art07/ContentIcons/Controllers/icon_c36.png",
+      "sha256": "cc99bdc4fd8875ead32730a9d438bb5dea3ec0168d840ec5b7f086a18757df13",
+      "bytes": 1355
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art07/ContentIcons/Controllers/icon_c37.png",
+      "sha256": "c9bb59b9b04947f025548dbb1bdfc66b9c829e782a4bce362eaf08cfd8ffbd3b",
+      "bytes": 1394
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art07/ContentIcons/Controllers/icon_c38.png",
+      "sha256": "78e2b9d51b4af963c6a8ea8bab1347c7ace3bee1f6137a998d56c53209309d38",
+      "bytes": 1174
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art07/ContentIcons/Controllers/icon_c39.png",
+      "sha256": "993040c5ce109dfc5ae16f462b55ac934e3bc61e12615dd0d6e72ccd37382e8d",
+      "bytes": 1209
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art07/ContentIcons/Controllers/icon_c40.png",
+      "sha256": "4cfe9e7a09635594d8e899bdafe4c7d415d118e481a1f7680988c5efe2657350",
+      "bytes": 1008
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art07/ContentIcons/Controllers/icon_c41.png",
+      "sha256": "29da8397aad35cc250e022695e4cbc4b99c034efdf9c985e94e1e5b91ecd0fcd",
+      "bytes": 1591
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art07/ContentIcons/Controllers/icon_c42.png",
+      "sha256": "6200490fb76e7af985dc16122e19308483494f951aeefcf622275a38a7dc16d2",
+      "bytes": 1680
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art07/ContentIcons/Controllers/icon_c43.png",
+      "sha256": "395c3a06bb683f5577c6b7cdb020dc0c934e9dcb6b064e22f61c726e61fbbae6",
+      "bytes": 1192
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art07/ContentIcons/Controllers/icon_c44.png",
+      "sha256": "b6708638bf770e8195e87c526036217edad534c254e4ef78128b53cb08d7a1d0",
+      "bytes": 1222
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art07/ContentIcons/Controllers/icon_c45.png",
+      "sha256": "c51075f49b63a82da9f9683b54b72f75727cc76c6c7402a9cc41893d0fb7e69b",
+      "bytes": 2198
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art07/ContentIcons/Controllers/icon_c46.png",
+      "sha256": "e69206fce3ae8919c0a4eea6b5002aa92fe5c3fe3324749115b2c9f616929f03",
+      "bytes": 1617
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art07/ContentIcons/Controllers/icon_c47.png",
+      "sha256": "3070ad44cdfbbc2f04e0cd774fbe40a0d14e91432cf2459a6bbe59f3bf38bef4",
+      "bytes": 1221
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art07/ContentIcons/Controllers/icon_c48.png",
+      "sha256": "e6da0c6ff70cfe51ab30227840fa162e8aa03611e12005ce9317c52c73eefede",
+      "bytes": 1019
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art07/ContentIcons/Controllers/icon_c49.png",
+      "sha256": "f046977cd193ec583d9a4c504ab85636190f80684d81eb38a310697b1256b6b9",
+      "bytes": 1157
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art07/ContentIcons/Controllers/icon_c50.png",
+      "sha256": "059bf074310d5b00e012ffd2882c49655dbfbb79022ee3e861ce0a8a3ed3d189",
+      "bytes": 950
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art07/ContentIcons/Controllers/icon_c51.png",
+      "sha256": "6fd8d5e46c6504ec64ac067d7f0eed94833f9b1c02d9f08efb24bb43f72f418e",
+      "bytes": 1280
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art07/ContentIcons/Controllers/icon_c52.png",
+      "sha256": "3f578c14f96b91f3f321f86cfdccbc8a33c7eb6c2444df3cfa0f5c9e28ee78ee",
+      "bytes": 1465
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art07/ContentIcons/Controllers/icon_c53.png",
+      "sha256": "1a2f1ef8ab149b7d0000b22969fcf86818f543a0649e6ff3985aa57cee64da5a",
+      "bytes": 1858
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art07/ContentIcons/Items/icon_i01.png",
+      "sha256": "463537780d664f243241efeacd4741b673b8260f719d3dad5d5e126cef376ccd",
+      "bytes": 1197
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art07/ContentIcons/Items/icon_i02.png",
+      "sha256": "fb3f54fcf14d19f4f48c87a9d770283418b6db462898784b70148a2af06f2de1",
+      "bytes": 1519
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art07/ContentIcons/Items/icon_i03.png",
+      "sha256": "621c39424375fc832930deab06d1b806546e0e2cba72d8f23f52db356b4ca8a5",
+      "bytes": 1824
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art07/ContentIcons/Items/icon_i04.png",
+      "sha256": "c2cdc1435ec5b8eff760608b5fc9e1341572691dbe2be871cd97ca0aec5a8ea6",
+      "bytes": 1387
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art07/ContentIcons/Items/icon_i05.png",
+      "sha256": "cf11e04e28e81a1fb68482290fca32ba005698644efe14b503ec29db29d33e56",
+      "bytes": 1297
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art07/ContentIcons/Items/icon_i06.png",
+      "sha256": "bceea20324b600389e176b122b7d986ecf3e7eac530042ac899d5236ec1c0dbf",
+      "bytes": 1061
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art07/ContentIcons/Items/icon_i07.png",
+      "sha256": "22637dcec377bdbf62d4bff02012973e4a3cfce34b412b39b6a04d4a3f6b4749",
+      "bytes": 1403
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art07/ContentIcons/Services/icon_o01.png",
+      "sha256": "b95b9c09c80c3a558a1e461a6dfe366ac8ac8de6d0cb1afbf7132f7a3abf812f",
+      "bytes": 1101
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art07/ContentIcons/Services/icon_o02.png",
+      "sha256": "963bb2763ed897b83fa3092472de0700e3875d0f69c2071034591c6d64d59eb1",
+      "bytes": 1323
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art07/ContentIcons/Services/icon_o03.png",
+      "sha256": "d6edc5a40f38423af986aa7232790636fdaf60c7ab4670aa31f001b28a96b06e",
+      "bytes": 1474
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art07/ContentIcons/Services/icon_o04.png",
+      "sha256": "fdb503be25360c71451f0b619bc23c9bb614c1ae59e49d6e874709aa620a3fdc",
+      "bytes": 1375
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art07/ContentIcons/Services/icon_o05.png",
+      "sha256": "a5382eba95e09a42d8882b73d52ee4fec329821781d63a7038e2ec16104d25b1",
+      "bytes": 1336
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art07/ContentIcons/Services/icon_o06.png",
+      "sha256": "4ea43e30f0a1d14eafd31b3ecb139db30aaa46bebec30b0375069abda3ddd7eb",
+      "bytes": 1316
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art07/ContentIcons/Services/icon_o07.png",
+      "sha256": "01eacb9469dcb49b5473b81dcce681fac9b1ac984f658e39b187064da7adbd13",
+      "bytes": 1640
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art07/ContentIcons/Upgrades/icon_u01.png",
+      "sha256": "7d7f7ff5a3309a57f763c8792323c7735986398f02fb13d44dc27a358ab726bd",
+      "bytes": 1272
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art07/ContentIcons/Upgrades/icon_u02.png",
+      "sha256": "b35da2e863b569963f6a8c5b18cd61630f51be98612792c7bada9da4ff3f6367",
+      "bytes": 1155
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art07/ContentIcons/Upgrades/icon_u03.png",
+      "sha256": "173325fee57098fee9cdab9ca8c37e71c146107d1204c19a6b2834db14d4aebb",
+      "bytes": 1363
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art07/ContentIcons/Upgrades/icon_u04.png",
+      "sha256": "44b96cde95c22c5d6cecc7ebff11662d5f53d320864fbbaa46f4763fee0360f3",
+      "bytes": 1401
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art07/ContentIcons/Upgrades/icon_u05.png",
+      "sha256": "850e3d72775b8cf9ade02c31e59c187218233c76df01041e9c6df7ccc8b1b1db",
+      "bytes": 1380
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art07/ContentIcons/Upgrades/icon_u06.png",
+      "sha256": "67ac1f6081bbdc534f1854bf81fef2e4f42cdb6cf43034a991302597db59d047",
+      "bytes": 1152
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art07/ContentIcons/Upgrades/icon_u07.png",
+      "sha256": "1ad1c9648468363f6d5457bc9d92f284ab70aac722fc6bce3573bcac86608b6f",
+      "bytes": 1417
+    },
+    {
+      "path": "ArtSource/Art07/Previews/content_32px.png",
+      "sha256": "6a7dcbb955b698127e9821342d15de46fe1f589320ea2ab3b4a4d479d51ddb8c",
+      "bytes": 30949
+    },
+    {
+      "path": "ArtSource/Art07/Previews/content_64px.png",
+      "sha256": "f596a30a992a79dd5a620ba6438790e7e4c6ca25d02cdac856d25779f8a83907",
+      "bytes": 44100
+    },
+    {
+      "path": "ArtSource/Art07/Previews/four_controller_samples.png",
+      "sha256": "d7c6f68b3423de8bb16ce4cd3a7a6f9cf2000b0c4fb0e2daecb0f4690361ca5c",
+      "bytes": 10830
+    },
+    {
+      "path": "ArtSource/Art07/Previews/public_symbols.png",
+      "sha256": "079296a987797110ff93b05221da6f5a89dbaa14d62cd6108e13f9d6a4122ccd",
+      "bytes": 24773
+    },
+    {
+      "path": "ArtSource/Art07/Previews/similar_content_comparison.png",
+      "sha256": "d614ffc6f17c0b66364137e5e1e8a7a79954a5d6f022d8c337b0d85b0c1777e3",
+      "bytes": 19547
+    },
+    {
+      "path": "docs/specs/v07/ART_SPEC.md",
+      "sha256": "5120a8d0983d24f25cc38e22f1da613fd1a56c70ab26f518771a2caf064dd228",
+      "bytes": 417792
+    },
+    {
+      "path": "docs/specs/v07/dice_art_v0_7_manifest.json",
+      "sha256": "e96f218f24387ab1fff9f7991ae67159648e7f1bbca4ee8556bf288be49a0204",
+      "bytes": 242757
+    },
+    {
+      "path": "evidence/v07/unity/nunit-20261031-175033.xml",
+      "sha256": "07ff819795d1c8b934b621e2b5e05c83711d713d2140fc60d916567bbe5600c5",
+      "bytes": 110453
+    },
+    {
+      "path": "evidence/v07/unity/nunit-20261031-175033.binding.json",
+      "sha256": "d8697c9354d0d3dd7b885090d14661cc761b71ce6285fefd1477c93b2766de17",
+      "bytes": 510380
+    }
+  ]
+}

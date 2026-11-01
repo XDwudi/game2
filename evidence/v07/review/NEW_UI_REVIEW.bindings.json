@@ -1,0 +1,442 @@
+{
+  "status": "reviewed_defects_found",
+  "reviewer": "/root/v07_art",
+  "independence": {
+    "toast": "independent of implementation",
+    "affordance": "implementer visual recheck, not independent final acceptance"
+  },
+  "reviewPath": "evidence\\v07\\review\\NEW_UI_REVIEW.md",
+  "reviewSha256": "3ea1d46ab1d2d8ae9f9afa722ba6e9954a9c909975eb06f9f4d9c4cba36af6a0",
+  "batch": [
+    {
+      "report": "evidence\\v07\\unity\\nunit-20261101-042240.xml",
+      "reportSha256": "d6c59065cbc40e5a8a618475ce6a72610736ffd572aa8c47bd6887675ec912db",
+      "binding": "evidence\\v07\\unity\\nunit-20261101-042240.binding.json",
+      "bindingSha256": "50fa637fc5370d3b936e55344f5507775c9f262ebeba9db00249b0c198d28de4",
+      "assemblies": [
+        {
+          "name": "DiceCraft.Core",
+          "mvid": "8f690e0d-a075-4b72-98e4-2cb64ced2fa3",
+          "dllSha256": "44a137cd38d7b525382dfda7adbdb7676d12d1dbc05520638d8a14642a96031b"
+        },
+        {
+          "name": "DiceCraft.EditMode",
+          "mvid": "1bd82503-d325-4f12-bece-9eda0d455480",
+          "dllSha256": "5d95b6a3a3edd8775672319029a503d922a91b24c0da1d30e1dde2e85be70250"
+        },
+        {
+          "name": "DiceCraft.Editor",
+          "mvid": "77b2a8e9-af12-45fc-b35b-4ea0f0a91ede",
+          "dllSha256": "1a32163a757d2d5ae38c2efb5e4c02a5cd3e8d99f9c9303981bd122afd76b3d0"
+        },
+        {
+          "name": "DiceCraft.PlayModeTests",
+          "mvid": "cb47aa3f-d215-4d1c-9c3e-2aab40a1249f",
+          "dllSha256": "b51ba53fe605ad4b52f57f6b53e3fdd3f1b281731e1ea2759da9db93abbbd809"
+        },
+        {
+          "name": "DiceCraft.Runtime",
+          "mvid": "11613c47-2a59-469e-976e-57b3f8ecad8b",
+          "dllSha256": "cca2f73cc791bcb580023a5ad92c43b22ccd0b9a1cd04319e2c6dede0e1913e2"
+        }
+      ]
+    },
+    {
+      "report": "evidence\\v07\\unity\\nunit-20261101-042447.xml",
+      "reportSha256": "a6b2252e4823a9a62d161ffad301ebc865ced380e54a9b56bb7269d133e91ee4",
+      "binding": "evidence\\v07\\unity\\nunit-20261101-042447.binding.json",
+      "bindingSha256": "cf2884a755d6200f5d9e1299e0e3f72ab7cdfceb238d9527ae1412fe76fadd51",
+      "assemblies": [
+        {
+          "name": "DiceCraft.Core",
+          "mvid": "8f690e0d-a075-4b72-98e4-2cb64ced2fa3",
+          "dllSha256": "44a137cd38d7b525382dfda7adbdb7676d12d1dbc05520638d8a14642a96031b"
+        },
+        {
+          "name": "DiceCraft.EditMode",
+          "mvid": "ad976b27-4849-4825-abf6-ac8677939e0c",
+          "dllSha256": "57f6d290e23442e8a4bae1cf0d8e73b072f03a39dce6f8c6830163456a82703c"
+        },
+        {
+          "name": "DiceCraft.Editor",
+          "mvid": "2aa2a7f3-9cbc-4458-af0e-cabc3b2a5314",
+          "dllSha256": "0d0d410a3be782285808ca5bc6e94ab0ba4c43216af7256bbf6ee5bf0f0be29a"
+        },
+        {
+          "name": "DiceCraft.PlayModeTests",
+          "mvid": "c198f22d-084e-4632-9e02-0b065bb038e9",
+          "dllSha256": "fff9b3c6b45e9dff2d39b109b7fdbecc76441798a71b3d814f92acd30da90987"
+        },
+        {
+          "name": "DiceCraft.Runtime",
+          "mvid": "0905cfbe-5333-403f-8339-7b517390169e",
+          "dllSha256": "ff51af390c185f037184e325c3839d2fb2dc75d72cf2f5d005bbd42ea3e3f0d0"
+        }
+      ]
+    }
+  ],
+  "files": [
+    {
+      "batch": "Toast042240",
+      "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_f2c8e07bf06e431cbad58629eb966d5e\\extra-capture\\000-toast-MaximumPool-100-normal.png",
+      "archive": "artifacts\\cache\\v07-new-ui-review\\Toast042240\\000-toast-MaximumPool-100-normal.png",
+      "sha256": "d2a9fe658abf981b094a9b04de6441953207d47f3109f97935bce5f67d5bd8b4"
+    },
+    {
+      "batch": "Toast042240",
+      "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_f2c8e07bf06e431cbad58629eb966d5e\\extra-capture\\000-toast-MaximumPool-100-normal.png.json",
+      "archive": "artifacts\\cache\\v07-new-ui-review\\Toast042240\\000-toast-MaximumPool-100-normal.png.json",
+      "sha256": "b756f6c2c124a2cacbb3a35a81799026504f039420ee671e969423ea6fb14ade"
+    },
+    {
+      "batch": "Toast042240",
+      "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_f2c8e07bf06e431cbad58629eb966d5e\\extra-capture\\001-toast-MaximumTable-100-normal.png",
+      "archive": "artifacts\\cache\\v07-new-ui-review\\Toast042240\\001-toast-MaximumTable-100-normal.png",
+      "sha256": "b8cb1db57aa0efc23f5b349ff67418eaf433475d0c0afb5cf151dbfd9da1e51e"
+    },
+    {
+      "batch": "Toast042240",
+      "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_f2c8e07bf06e431cbad58629eb966d5e\\extra-capture\\001-toast-MaximumTable-100-normal.png.json",
+      "archive": "artifacts\\cache\\v07-new-ui-review\\Toast042240\\001-toast-MaximumTable-100-normal.png.json",
+      "sha256": "565e1aebd648729389fce4052eb884b7d3fca0f8ec5677e5dba63cfa6d605850"
+    },
+    {
+      "batch": "Toast042240",
+      "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_f2c8e07bf06e431cbad58629eb966d5e\\extra-capture\\002-toast-Debug32-100-normal.png",
+      "archive": "artifacts\\cache\\v07-new-ui-review\\Toast042240\\002-toast-Debug32-100-normal.png",
+      "sha256": "5384be68ece3fda8b8c9eb626adbf0c7b749f5fcc677cdec82955c87ac074cae"
+    },
+    {
+      "batch": "Toast042240",
+      "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_f2c8e07bf06e431cbad58629eb966d5e\\extra-capture\\002-toast-Debug32-100-normal.png.json",
+      "archive": "artifacts\\cache\\v07-new-ui-review\\Toast042240\\002-toast-Debug32-100-normal.png.json",
+      "sha256": "32e34c54a5cdba54cdd7257078fd7821885fa44828712b4062aa12826cb6454a"
+    },
+    {
+      "batch": "Toast042240",
+      "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_f2c8e07bf06e431cbad58629eb966d5e\\extra-capture\\003-toast-shop-100-normal.png",
+      "archive": "artifacts\\cache\\v07-new-ui-review\\Toast042240\\003-toast-shop-100-normal.png",
+      "sha256": "f21669a3c1b72106072081785bf220303839a1155d0f92a88a3b3cee866ff37c"
+    },
+    {
+      "batch": "Toast042240",
+      "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_f2c8e07bf06e431cbad58629eb966d5e\\extra-capture\\003-toast-shop-100-normal.png.json",
+      "archive": "artifacts\\cache\\v07-new-ui-review\\Toast042240\\003-toast-shop-100-normal.png.json",
+      "sha256": "87ac276ac7eb48bcf82ed7a6e89ef0f3a929dafbcb9ebba4a5cc75caf4b694fb"
+    },
+    {
+      "batch": "Toast042240",
+      "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_f2c8e07bf06e431cbad58629eb966d5e\\extra-capture\\004-toast-MaximumPool-125-normal.png",
+      "archive": "artifacts\\cache\\v07-new-ui-review\\Toast042240\\004-toast-MaximumPool-125-normal.png",
+      "sha256": "c46c3e6f434b8049ba816f34c114c8b6c79f180e8fd3dfbcc4823837176af9de"
+    },
+    {
+      "batch": "Toast042240",
+      "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_f2c8e07bf06e431cbad58629eb966d5e\\extra-capture\\004-toast-MaximumPool-125-normal.png.json",
+      "archive": "artifacts\\cache\\v07-new-ui-review\\Toast042240\\004-toast-MaximumPool-125-normal.png.json",
+      "sha256": "ca6efa63b65f3b44564d8927feb4f14bd16146a685bf328ac49bf26da11c1927"
+    },
+    {
+      "batch": "Toast042240",
+      "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_f2c8e07bf06e431cbad58629eb966d5e\\extra-capture\\005-toast-MaximumTable-125-normal.png",
+      "archive": "artifacts\\cache\\v07-new-ui-review\\Toast042240\\005-toast-MaximumTable-125-normal.png",
+      "sha256": "f52db7fcab5c2e92884264d74cd6769bad0ddd12e5c3751bfe2505d7ec4f0da8"
+    },
+    {
+      "batch": "Toast042240",
+      "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_f2c8e07bf06e431cbad58629eb966d5e\\extra-capture\\005-toast-MaximumTable-125-normal.png.json",
+      "archive": "artifacts\\cache\\v07-new-ui-review\\Toast042240\\005-toast-MaximumTable-125-normal.png.json",
+      "sha256": "9c69a5697d5e2ac03c90ea51b6c42f77397d1de9a25386d4bfe24df2f24094ec"
+    },
+    {
+      "batch": "Toast042240",
+      "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_f2c8e07bf06e431cbad58629eb966d5e\\extra-capture\\006-toast-Debug32-125-normal.png",
+      "archive": "artifacts\\cache\\v07-new-ui-review\\Toast042240\\006-toast-Debug32-125-normal.png",
+      "sha256": "cecfd51a6cc8807d0d1f3ea3079c131952b853ad669c8fc03e2034cf05ec7171"
+    },
+    {
+      "batch": "Toast042240",
+      "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_f2c8e07bf06e431cbad58629eb966d5e\\extra-capture\\006-toast-Debug32-125-normal.png.json",
+      "archive": "artifacts\\cache\\v07-new-ui-review\\Toast042240\\006-toast-Debug32-125-normal.png.json",
+      "sha256": "753745924c38f9a591abece9317966031a29781008c31f1891b5a7f2dd07b4e8"
+    },
+    {
+      "batch": "Toast042240",
+      "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_f2c8e07bf06e431cbad58629eb966d5e\\extra-capture\\007-toast-shop-125-normal.png",
+      "archive": "artifacts\\cache\\v07-new-ui-review\\Toast042240\\007-toast-shop-125-normal.png",
+      "sha256": "2716941803c3a7ed1d39c3613fa6d4c2664bc1a34af737f285fa866b1a93377a"
+    },
+    {
+      "batch": "Toast042240",
+      "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_f2c8e07bf06e431cbad58629eb966d5e\\extra-capture\\007-toast-shop-125-normal.png.json",
+      "archive": "artifacts\\cache\\v07-new-ui-review\\Toast042240\\007-toast-shop-125-normal.png.json",
+      "sha256": "3e1dc29f1e61b5eb2cfc8696a48dba01f4300ee4838258d653f879c2c4a3af71"
+    },
+    {
+      "batch": "Toast042240",
+      "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_f2c8e07bf06e431cbad58629eb966d5e\\extra-capture\\008-toast-MaximumPool-150-normal.png",
+      "archive": "artifacts\\cache\\v07-new-ui-review\\Toast042240\\008-toast-MaximumPool-150-normal.png",
+      "sha256": "645fe91b4a4230038660372a9a347e4aaddea32677b21d12ff70ce949886fff1"
+    },
+    {
+      "batch": "Toast042240",
+      "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_f2c8e07bf06e431cbad58629eb966d5e\\extra-capture\\008-toast-MaximumPool-150-normal.png.json",
+      "archive": "artifacts\\cache\\v07-new-ui-review\\Toast042240\\008-toast-MaximumPool-150-normal.png.json",
+      "sha256": "4a697b38c28d9b9b269f72f3a8d9593f1f8e2592b829acd6c62a3d1bdf1f322b"
+    },
+    {
+      "batch": "Toast042240",
+      "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_f2c8e07bf06e431cbad58629eb966d5e\\extra-capture\\009-toast-MaximumTable-150-normal.png",
+      "archive": "artifacts\\cache\\v07-new-ui-review\\Toast042240\\009-toast-MaximumTable-150-normal.png",
+      "sha256": "a02fed9a15c33be1e37961fc376ddec018bd701132e28569ea108aa61e7dcfe0"
+    },
+    {
+      "batch": "Toast042240",
+      "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_f2c8e07bf06e431cbad58629eb966d5e\\extra-capture\\009-toast-MaximumTable-150-normal.png.json",
+      "archive": "artifacts\\cache\\v07-new-ui-review\\Toast042240\\009-toast-MaximumTable-150-normal.png.json",
+      "sha256": "dd30c05f866f3ce4cd65f710098f5ef2d3bd3819863c400c9fef4f8e47aac4b1"
+    },
+    {
+      "batch": "Toast042240",
+      "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_f2c8e07bf06e431cbad58629eb966d5e\\extra-capture\\010-toast-Debug32-150-normal.png",
+      "archive": "artifacts\\cache\\v07-new-ui-review\\Toast042240\\010-toast-Debug32-150-normal.png",
+      "sha256": "5d7957a74593724a8f2d65cd7b4a7e9dd909bd2af4a02cae086b1fc07a4fb96d"
+    },
+    {
+      "batch": "Toast042240",
+      "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_f2c8e07bf06e431cbad58629eb966d5e\\extra-capture\\010-toast-Debug32-150-normal.png.json",
+      "archive": "artifacts\\cache\\v07-new-ui-review\\Toast042240\\010-toast-Debug32-150-normal.png.json",
+      "sha256": "230851e8db0ef48a71671f3e596d25b27e2d53692317ce77383265de28947114"
+    },
+    {
+      "batch": "Toast042240",
+      "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_f2c8e07bf06e431cbad58629eb966d5e\\extra-capture\\011-toast-shop-150-normal.png",
+      "archive": "artifacts\\cache\\v07-new-ui-review\\Toast042240\\011-toast-shop-150-normal.png",
+      "sha256": "759e9f4717a0f04bddd71dcb388449f1d281c6de6cd9c9725cd26b14fc9d1c0c"
+    },
+    {
+      "batch": "Toast042240",
+      "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_f2c8e07bf06e431cbad58629eb966d5e\\extra-capture\\011-toast-shop-150-normal.png.json",
+      "archive": "artifacts\\cache\\v07-new-ui-review\\Toast042240\\011-toast-shop-150-normal.png.json",
+      "sha256": "379a9e35a4bb3ccbef16dab26d2c6e9457d8e0fd6939085778b315b3bb3b43e6"
+    },
+    {
+      "batch": "Toast042240",
+      "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_f2c8e07bf06e431cbad58629eb966d5e\\extra-capture\\012-toast-MaximumPool-100-reduced.png",
+      "archive": "artifacts\\cache\\v07-new-ui-review\\Toast042240\\012-toast-MaximumPool-100-reduced.png",
+      "sha256": "4dc9438982efab38c12af6c98639768a8c4c6936dd5915e2008ddfcad5de6e92"
+    },
+    {
+      "batch": "Toast042240",
+      "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_f2c8e07bf06e431cbad58629eb966d5e\\extra-capture\\012-toast-MaximumPool-100-reduced.png.json",
+      "archive": "artifacts\\cache\\v07-new-ui-review\\Toast042240\\012-toast-MaximumPool-100-reduced.png.json",
+      "sha256": "b8e8d21f882f886b26235fcd6b43aff97118e14989c623825ccc10bdcc326c9d"
+    },
+    {
+      "batch": "Toast042240",
+      "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_f2c8e07bf06e431cbad58629eb966d5e\\extra-capture\\013-toast-MaximumTable-100-reduced.png",
+      "archive": "artifacts\\cache\\v07-new-ui-review\\Toast042240\\013-toast-MaximumTable-100-reduced.png",
+      "sha256": "8d44c6e5f09ed19c97c4f2d1c90a801a61bdbdfdd3d7edbc02d348c967df1b57"
+    },
+    {
+      "batch": "Toast042240",
+      "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_f2c8e07bf06e431cbad58629eb966d5e\\extra-capture\\013-toast-MaximumTable-100-reduced.png.json",
+      "archive": "artifacts\\cache\\v07-new-ui-review\\Toast042240\\013-toast-MaximumTable-100-reduced.png.json",
+      "sha256": "8e81263b8d56db347a0118b4ce9c1fb97997e589c96fd87ff79cebab81de948b"
+    },
+    {
+      "batch": "Toast042240",
+      "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_f2c8e07bf06e431cbad58629eb966d5e\\extra-capture\\014-toast-Debug32-100-reduced.png",
+      "archive": "artifacts\\cache\\v07-new-ui-review\\Toast042240\\014-toast-Debug32-100-reduced.png",
+      "sha256": "0d07c7ec81b528cbb077fa4837cba2b128d109e68e46884758ad9bb2d5ed691b"
+    },
+    {
+      "batch": "Toast042240",
+      "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_f2c8e07bf06e431cbad58629eb966d5e\\extra-capture\\014-toast-Debug32-100-reduced.png.json",
+      "archive": "artifacts\\cache\\v07-new-ui-review\\Toast042240\\014-toast-Debug32-100-reduced.png.json",
+      "sha256": "5462a35014e0e38c124d8638dfb6c79bb19e15ac10e5a4d6ee51f8fbde8ca4d8"
+    },
+    {
+      "batch": "Toast042240",
+      "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_f2c8e07bf06e431cbad58629eb966d5e\\extra-capture\\015-toast-shop-100-reduced.png",
+      "archive": "artifacts\\cache\\v07-new-ui-review\\Toast042240\\015-toast-shop-100-reduced.png",
+      "sha256": "c01094a275f9f26a0be1e15ba6f4ee1d4d0a674f1a513a74dbb2a00f47668306"
+    },
+    {
+      "batch": "Toast042240",
+      "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_f2c8e07bf06e431cbad58629eb966d5e\\extra-capture\\015-toast-shop-100-reduced.png.json",
+      "archive": "artifacts\\cache\\v07-new-ui-review\\Toast042240\\015-toast-shop-100-reduced.png.json",
+      "sha256": "11fd076da3dbc820ad98287107373bd2a7a72d3717f124fe995d6e7563718f5a"
+    },
+    {
+      "batch": "Toast042240",
+      "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_f2c8e07bf06e431cbad58629eb966d5e\\extra-capture\\016-toast-MaximumPool-125-reduced.png",
+      "archive": "artifacts\\cache\\v07-new-ui-review\\Toast042240\\016-toast-MaximumPool-125-reduced.png",
+      "sha256": "40a82c6103072f5c820ed848609a47e7c5cc3976c54fc4f97c0b056e6e955d88"
+    },
+    {
+      "batch": "Toast042240",
+      "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_f2c8e07bf06e431cbad58629eb966d5e\\extra-capture\\016-toast-MaximumPool-125-reduced.png.json",
+      "archive": "artifacts\\cache\\v07-new-ui-review\\Toast042240\\016-toast-MaximumPool-125-reduced.png.json",
+      "sha256": "e8f2c847b056ee6c969fa4d8d6e9113050f1231cab5669bb2411b4025a7d677a"
+    },
+    {
+      "batch": "Toast042240",
+      "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_f2c8e07bf06e431cbad58629eb966d5e\\extra-capture\\017-toast-MaximumTable-125-reduced.png",
+      "archive": "artifacts\\cache\\v07-new-ui-review\\Toast042240\\017-toast-MaximumTable-125-reduced.png",
+      "sha256": "76991ef17d5fa23f92e68091d40225df0ae7a84acd4634c44d1e1f5724cfc65c"
+    },
+    {
+      "batch": "Toast042240",
+      "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_f2c8e07bf06e431cbad58629eb966d5e\\extra-capture\\017-toast-MaximumTable-125-reduced.png.json",
+      "archive": "artifacts\\cache\\v07-new-ui-review\\Toast042240\\017-toast-MaximumTable-125-reduced.png.json",
+      "sha256": "582190105202c18cf3e15e86a34536fa00e5b4d5eb26b170f7e4ed444d33fa1a"
+    },
+    {
+      "batch": "Toast042240",
+      "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_f2c8e07bf06e431cbad58629eb966d5e\\extra-capture\\018-toast-Debug32-125-reduced.png",
+      "archive": "artifacts\\cache\\v07-new-ui-review\\Toast042240\\018-toast-Debug32-125-reduced.png",
+      "sha256": "08bd8c3b12b9b07742574bd4062a4dcbe994ed2c5e005d97697d63137249786a"
+    },
+    {
+      "batch": "Toast042240",
+      "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_f2c8e07bf06e431cbad58629eb966d5e\\extra-capture\\018-toast-Debug32-125-reduced.png.json",
+      "archive": "artifacts\\cache\\v07-new-ui-review\\Toast042240\\018-toast-Debug32-125-reduced.png.json",
+      "sha256": "bdde9937c33daab0304a09956351c6f1d90b19a4d34420a52375a3c22219e7c7"
+    },
+    {
+      "batch": "Toast042240",
+      "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_f2c8e07bf06e431cbad58629eb966d5e\\extra-capture\\019-toast-shop-125-reduced.png",
+      "archive": "artifacts\\cache\\v07-new-ui-review\\Toast042240\\019-toast-shop-125-reduced.png",
+      "sha256": "43c26b51ef73cd49d16c8e4873101038addf15e0cda59a84d75828024f22c3b8"
+    },
+    {
+      "batch": "Toast042240",
+      "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_f2c8e07bf06e431cbad58629eb966d5e\\extra-capture\\019-toast-shop-125-reduced.png.json",
+      "archive": "artifacts\\cache\\v07-new-ui-review\\Toast042240\\019-toast-shop-125-reduced.png.json",
+      "sha256": "16981800168478248484507f0f66f6e47b24b46d511c99316d2bb7d9dc048222"
+    },
+    {
+      "batch": "Toast042240",
+      "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_f2c8e07bf06e431cbad58629eb966d5e\\extra-capture\\020-toast-MaximumPool-150-reduced.png",
+      "archive": "artifacts\\cache\\v07-new-ui-review\\Toast042240\\020-toast-MaximumPool-150-reduced.png",
+      "sha256": "55906ba80642b0c0376305166831eb2137a94a42031df34fe246c37b0e40436a"
+    },
+    {
+      "batch": "Toast042240",
+      "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_f2c8e07bf06e431cbad58629eb966d5e\\extra-capture\\020-toast-MaximumPool-150-reduced.png.json",
+      "archive": "artifacts\\cache\\v07-new-ui-review\\Toast042240\\020-toast-MaximumPool-150-reduced.png.json",
+      "sha256": "9929aac972327c11d21aefb437f5266b9a691ebe2daf0817b8d72a5cd766d337"
+    },
+    {
+      "batch": "Toast042240",
+      "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_f2c8e07bf06e431cbad58629eb966d5e\\extra-capture\\021-toast-MaximumTable-150-reduced.png",
+      "archive": "artifacts\\cache\\v07-new-ui-review\\Toast042240\\021-toast-MaximumTable-150-reduced.png",
+      "sha256": "90db214ec5cfe096433ad58039d366a4177aba21ede369b689543aeb91ec3b78"
+    },
+    {
+      "batch": "Toast042240",
+      "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_f2c8e07bf06e431cbad58629eb966d5e\\extra-capture\\021-toast-MaximumTable-150-reduced.png.json",
+      "archive": "artifacts\\cache\\v07-new-ui-review\\Toast042240\\021-toast-MaximumTable-150-reduced.png.json",
+      "sha256": "ecb46fed012a3b8a27bfdacbb74f7c6759684bf8190e8a73efa8efad68f971d1"
+    },
+    {
+      "batch": "Toast042240",
+      "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_f2c8e07bf06e431cbad58629eb966d5e\\extra-capture\\022-toast-Debug32-150-reduced.png",
+      "archive": "artifacts\\cache\\v07-new-ui-review\\Toast042240\\022-toast-Debug32-150-reduced.png",
+      "sha256": "878711eb587d7b2a8be5c29a2eda033ed3d5cecc3d507ebccf66fdde9740f5c7"
+    },
+    {
+      "batch": "Toast042240",
+      "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_f2c8e07bf06e431cbad58629eb966d5e\\extra-capture\\022-toast-Debug32-150-reduced.png.json",
+      "archive": "artifacts\\cache\\v07-new-ui-review\\Toast042240\\022-toast-Debug32-150-reduced.png.json",
+      "sha256": "0d789a2859a75bdd2cc10ffbeaf54b267e4aed23d17b89ef2b6b4af8be07d6cd"
+    },
+    {
+      "batch": "Toast042240",
+      "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_f2c8e07bf06e431cbad58629eb966d5e\\extra-capture\\023-toast-shop-150-reduced.png",
+      "archive": "artifacts\\cache\\v07-new-ui-review\\Toast042240\\023-toast-shop-150-reduced.png",
+      "sha256": "9d3ec10dfda99edc23718621fa2a0eedcc7aa19823d497ecc65dcdf204953c4a"
+    },
+    {
+      "batch": "Toast042240",
+      "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_f2c8e07bf06e431cbad58629eb966d5e\\extra-capture\\023-toast-shop-150-reduced.png.json",
+      "archive": "artifacts\\cache\\v07-new-ui-review\\Toast042240\\023-toast-shop-150-reduced.png.json",
+      "sha256": "f51ca3928ba97cd7c2354eb5e3626db2e53241ceb16f56ed50a59a3ef03013d0"
+    },
+    {
+      "batch": "Toast042240",
+      "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_f2c8e07bf06e431cbad58629eb966d5e\\extra-capture\\extra-report.json",
+      "archive": "artifacts\\cache\\v07-new-ui-review\\Toast042240\\extra-report.json",
+      "sha256": "55d169aca7605a944848e0f5123d1bf900082923f69cfe2f601bba2a58d25e72"
+    },
+    {
+      "batch": "ToastPause042240",
+      "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_2236fcfef0cd4b93b0f7c9353719172c\\extra-capture\\000-toast-resumed-after-pause.png",
+      "archive": "artifacts\\cache\\v07-new-ui-review\\ToastPause042240\\000-toast-resumed-after-pause.png",
+      "sha256": "2165e22ac1e20a1e081a57e2102e1e3277c5fc225c1a8725557912a6d5a3b4c5"
+    },
+    {
+      "batch": "ToastPause042240",
+      "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_2236fcfef0cd4b93b0f7c9353719172c\\extra-capture\\000-toast-resumed-after-pause.png.json",
+      "archive": "artifacts\\cache\\v07-new-ui-review\\ToastPause042240\\000-toast-resumed-after-pause.png.json",
+      "sha256": "e714a66711d0a43431c98bf56a1ba7f8e32a4d91d14c3ba679714dbc2fc2489f"
+    },
+    {
+      "batch": "ToastPause042240",
+      "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_2236fcfef0cd4b93b0f7c9353719172c\\extra-capture\\001-toast-long-error-existing-details.png",
+      "archive": "artifacts\\cache\\v07-new-ui-review\\ToastPause042240\\001-toast-long-error-existing-details.png",
+      "sha256": "3d697a70a2f306c36a8ece7eca0e08feae8ebebb54df5147de4cd8d4eeecb567"
+    },
+    {
+      "batch": "ToastPause042240",
+      "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_2236fcfef0cd4b93b0f7c9353719172c\\extra-capture\\001-toast-long-error-existing-details.png.json",
+      "archive": "artifacts\\cache\\v07-new-ui-review\\ToastPause042240\\001-toast-long-error-existing-details.png.json",
+      "sha256": "3cf5c048053b81c9e4ebcb129595389dae71c06ccda27573e178845f7ad4d1f9"
+    },
+    {
+      "batch": "ToastPause042240",
+      "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_2236fcfef0cd4b93b0f7c9353719172c\\extra-capture\\extra-report.json",
+      "archive": "artifacts\\cache\\v07-new-ui-review\\ToastPause042240\\extra-report.json",
+      "sha256": "966906b98c85c17494d055892f1790a2f0d4ab6f79eb62017b2bc321c36ca5ab"
+    },
+    {
+      "batch": "Affordance042447",
+      "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_efc9c24482e34a8898bd1a74e0e73ef1\\art07-dice-affordance\\locked-eight-grips-font100.png",
+      "archive": "artifacts\\cache\\v07-new-ui-review\\Affordance042447\\locked-eight-grips-font100.png",
+      "sha256": "663f1b72f71548f01da8026a977beec49e66819fdc66031dc05b6b55eba008b1"
+    },
+    {
+      "batch": "Affordance042447",
+      "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_efc9c24482e34a8898bd1a74e0e73ef1\\art07-dice-affordance\\locked-eight-grips-font125.png",
+      "archive": "artifacts\\cache\\v07-new-ui-review\\Affordance042447\\locked-eight-grips-font125.png",
+      "sha256": "3e2a29fdbe4ea1dfc362ab0f3305c9068ece0d107083a97af1bbef4645d107b8"
+    },
+    {
+      "batch": "Affordance042447",
+      "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_efc9c24482e34a8898bd1a74e0e73ef1\\art07-dice-affordance\\locked-eight-grips-font150.png",
+      "archive": "artifacts\\cache\\v07-new-ui-review\\Affordance042447\\locked-eight-grips-font150.png",
+      "sha256": "e0e9e87fd4acdf7af424984e7a032520f11abf08b6dd6efe6d94c57a1312cff8"
+    },
+    {
+      "batch": "Affordance042447",
+      "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_efc9c24482e34a8898bd1a74e0e73ef1\\art07-dice-affordance\\pending-eight-font100.png",
+      "archive": "artifacts\\cache\\v07-new-ui-review\\Affordance042447\\pending-eight-font100.png",
+      "sha256": "d9d3e4b9ae709d9bb20a75173e7f9fa941e6ea9f6cb7c6bdb00a593664330aff"
+    },
+    {
+      "batch": "Affordance042447",
+      "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_efc9c24482e34a8898bd1a74e0e73ef1\\art07-dice-affordance\\pending-eight-font125.png",
+      "archive": "artifacts\\cache\\v07-new-ui-review\\Affordance042447\\pending-eight-font125.png",
+      "sha256": "bd98c2e820d55e2e9243422654d4a268c3b705ba67679832ce1fa1b34c87cf59"
+    },
+    {
+      "batch": "Affordance042447",
+      "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_efc9c24482e34a8898bd1a74e0e73ef1\\art07-dice-affordance\\pending-eight-font150.png",
+      "archive": "artifacts\\cache\\v07-new-ui-review\\Affordance042447\\pending-eight-font150.png",
+      "sha256": "5b86ccdb2231622f8b1b2d5fc861b3e056a97bc60838dd800d1f758b5548c940"
+    }
+  ],
+  "all32PngsViewedIndividually": true,
+  "toastSidecarHashesAndStateSaveUnchangedValidated": true
+}

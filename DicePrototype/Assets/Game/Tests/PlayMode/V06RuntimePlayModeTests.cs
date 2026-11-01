@@ -18,9 +18,9 @@ namespace DiceCraft.Tests
         {
             StartRun("606");var normal=StateJson();byte[] normalDisk=File.ReadAllBytes(app.SaveLocation);
             Assert.That(app.UnlockDebug("XD is god "),Is.False);Assert.That(app.UnlockDebug("xd is god"),Is.False);Assert.That(app.UnlockDebug(" XD is god"),Is.False);
-            Assert.That(StateJson(),Is.EqualTo(normal));Click("Pause");
+            Assert.That(StateJson(),Is.EqualTo(normal));Click("Pause");Click("Settings");Click("SettingsTab2");
             var password=FindActive<TMP_InputField>("DebugPassword");password.text="XD is god";Click("UnlockDebug");
-            Assert.That(app.DebugUnlocked,Is.True);Assert.That(StateJson(),Is.EqualTo(normal));Click("UnlockDebug");
+            Assert.That(app.DebugUnlocked,Is.True);Assert.That(StateJson(),Is.EqualTo(normal));Click("CopyCurrentToDebug");
             Assert.That(app.IsDebugWorkspace,Is.True);Assert.That(app.Session.State.isDebug,Is.False);
             Click("AddC05");Click("DebugEnchantbase10");Click("AddC41");Click("AddC45");
             Click("ApplyDebugScene");Assert.That(app.Session.State.isDebug,Is.True,FindActive<TextMeshProUGUI>("DebugStatus").text);
@@ -80,9 +80,9 @@ namespace DiceCraft.Tests
             foreach(string id in new[]{"C41","C45","C51","C52"})
             {int serial=fixture.nextItemSerial++;fixture.controllers.Add(new ControllerInstance{instanceId="ITEM_"+serial.ToString("D5"),definitionId=id,acquiredSerial=serial,state=new ControllerDynamicState{activeColor=id=="C45"?"red":null}});}
             new AtomicSaveStore(app.SaveLocation,app.Config,SaveSlotPolicy.Normal).Save(fixture);
-            yield return LoadBootstrap();Click("ContinueRun");Click("PreviewControllers");
+            yield return LoadBootstrap();yield return LegacyClick07("ContinueRun");
             var original=app.Session.State;string first=original.controllers[0].instanceId,last=original.controllers[3].instanceId;
-            var from=FindActive<DiePointer>("OrderCard"+first);var target=FindActive<RectTransform>("OrderCard"+last);
+            var from=FindActive<DiePointer>("Controller_"+first);var target=FindActive<RectTransform>("Controller_"+last);
             Vector2 pos=RectTransformUtility.WorldToScreenPoint(null,target.TransformPoint(new Vector3(target.rect.xMax-10,target.rect.center.y,0)));
             var data=new PointerEventData(EventSystem.current){button=PointerEventData.InputButton.Left,position=pos};
             ExecuteEvents.Execute(from.gameObject,data,ExecuteEvents.beginDragHandler);ExecuteEvents.Execute(from.gameObject,data,ExecuteEvents.dragHandler);
@@ -92,24 +92,32 @@ namespace DiceCraft.Tests
             Assert.That(app.Session.State.controllers[0].instanceId,Is.EqualTo(original.controllers[1].instanceId));
             Assert.That(app.Session.State.actionSequence,Is.EqualTo(original.actionSequence+1));
             Assert.That(app.Session.State.effectRngState,Is.EqualTo(original.effectRngState));
-            string after=StateJson();from=FindActive<DiePointer>("OrderCard"+first);data.position=new Vector2(-100,-100);
+            string after=StateJson();from=FindActive<DiePointer>("Controller_"+first);data.position=new Vector2(-100,-100);
             ExecuteEvents.Execute(from.gameObject,data,ExecuteEvents.beginDragHandler);ExecuteEvents.Execute(from.gameObject,data,ExecuteEvents.endDragHandler);
             Assert.That(StateJson(),Is.EqualTo(after));
-            var ids=app.Session.State.controllers.Select(c=>c.instanceId).ToArray();var noop=app.Send(new SessionCommand{kind=CommandKind.ReorderControllers,controllerIds=ids});
-            Assert.That(noop.accepted&&noop.noChange,Is.True);Assert.That(StateJson(),Is.EqualTo(after));
-            Click("CloseDialog");Click("StartStage");app.ShowControllerOrder();
-            Assert.That(Button("MoveLeft"+first).interactable,Is.False);Assert.That(Button("MoveRight"+first).interactable,Is.False);
+            // Drop into the same insertion point through the real drag handler: no command or RNG change.
+            var own=FindActive<RectTransform>("Controller_"+first);data.position=RectTransformUtility.WorldToScreenPoint(null,own.TransformPoint(own.rect.center));
+            ExecuteEvents.Execute(from.gameObject,data,ExecuteEvents.beginDragHandler);ExecuteEvents.Execute(from.gameObject,data,ExecuteEvents.dragHandler);ExecuteEvents.Execute(from.gameObject,data,ExecuteEvents.endDragHandler);
+            Assert.That(StateJson(),Is.EqualTo(after));
+            var expectedBindings=ControllerRules.FreezeBindings(app.Session.State.controllers);
+            yield return LegacyClick07("StartStage");string frozen=StateJson();byte[] frozenDisk=File.ReadAllBytes(app.SaveLocation);
+            CollectionAssert.AreEqual(expectedBindings.Select(JsonUtility.ToJson),app.Session.State.stage.mimicBindings.Select(JsonUtility.ToJson));
+            from=FindActive<DiePointer>("Controller_"+first);Assert.That(from.dragStart,Is.Null);Assert.That(from.dragged,Is.Null);Assert.That(from.dragEnd,Is.Null);
+            ExecuteEvents.Execute(from.gameObject,data,ExecuteEvents.beginDragHandler);ExecuteEvents.Execute(from.gameObject,data,ExecuteEvents.dragHandler);ExecuteEvents.Execute(from.gameObject,data,ExecuteEvents.endDragHandler);
+            Assert.That(app.IsControllerDragging,Is.False);Assert.That(StateJson(),Is.EqualTo(frozen));CollectionAssert.AreEqual(frozenDisk,File.ReadAllBytes(app.SaveLocation));
+            yield return LegacyClick07("Controller_"+first);Assert.That(FindActive<TextMeshProUGUI>("HeldRule").text,Does.Contain("关内顺序已固定"));
+            yield return LegacyClick07("CloseDialog");Assert.That(StateJson(),Is.EqualTo(frozen));
         }
 
         [UnityTest]
         public IEnumerator PLAY_V06_SettingsPasswordFocusBlocksSubmitAndDisplaySettingsStayOutsideRun()
         {
-            StartRun("609");Click("StartStage");Click("Roll");Click("Skip");ClickDie("D001");Click("Confirm");string original=StateJson();
-            Click("Pause");var password=FindActive<TMP_InputField>("DebugPassword");password.text="XD is god";password.ActivateInputField();
+            StartRun("609");Click("StartStage");Click("Roll");Click("Skip");ClickDie("D001");Click("Confirm");yield return WaitForIdle();string original=StateJson();
+            Click("Pause");Click("Settings");Click("SettingsTab2");var password=FindActive<TMP_InputField>("DebugPassword");password.text="XD is god";password.ActivateInputField();
             yield return null;Assert.That(password.isFocused,Is.True,"Password editor must own focus before keyboard input.");
             using(var keyboard=new RoutedKeyboard()){yield return keyboard.Press(UnityEngine.InputSystem.Key.Enter);}
             Assert.That(StateJson(),Is.EqualTo(original));Assert.That(app.DebugUnlocked,Is.True);
-            Click("DisplaySettings");Assert.That(HasActive("ResolutionList"),Is.True);Assert.That(StateJson(),Is.EqualTo(original));
+            Click("CloseDialog");Click("Pause");Click("Settings");Click("SettingsTab1");Click("DisplaySettings");Assert.That(HasActive("ResolutionList"),Is.True);Assert.That(StateJson(),Is.EqualTo(original));
             Click("Mode2");Click("AutomaticResolution");Assert.That(StateJson(),Is.EqualTo(original));Click("CloseDialog");
             Assert.That(app.Session.State.hand.orderedLockedIds,Is.EquivalentTo(new[]{"D001"}));
         }

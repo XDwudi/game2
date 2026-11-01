@@ -1,0 +1,227 @@
+{
+  "createdUtc": "2026-11-01T02:07:29.453326+00:00",
+  "reports": [
+    {
+      "path": "evidence/v07/unity/nunit-20261101-020116.xml",
+      "sha256": "d119cc60700a8b08c8759e7f47ef4fa98145a3f3f6c288589f883a913109a1b6",
+      "bindingMatches": true,
+      "attributes": {
+        "id": "2",
+        "testcasecount": "6",
+        "result": "Passed",
+        "total": "6",
+        "passed": "6",
+        "failed": "0",
+        "inconclusive": "0",
+        "skipped": "0",
+        "asserts": "0",
+        "engine-version": "3.5.0.0",
+        "clr-version": "4.0.30319.42000",
+        "start-time": "2026-11-01 02:01:09Z",
+        "end-time": "2026-11-01 02:01:16Z",
+        "duration": "6.9547409"
+      },
+      "sourceCount": 1226,
+      "sourceAndAssemblyStable": true,
+      "runtime": {
+        "name": "DiceCraft.Runtime",
+        "mvid": "a991ee25-be6c-4de4-904b-2dc533f859ac",
+        "dllSha256": "d580b0eda34b0303d562ec5a40a94177b18f78a556e9d603bf73748b8b2d2089"
+      },
+      "tests": [
+        {
+          "name": "PLAY_ART07_TX_ExpansionAnimatesOnlyActuallyAddedSlotAndPreservesOtherOffers",
+          "result": "Passed"
+        },
+        {
+          "name": "PLAY_ART07_TX_FailedPurchaseDiscardsInvisibleCaptureAndKeepsCheckpoint",
+          "result": "Passed"
+        },
+        {
+          "name": "PLAY_ART07_TX_PhysicalUpgradeUsesActualFaceAndOverlapping360Or420Timeline",
+          "result": "Passed"
+        },
+        {
+          "name": "PLAY_ART07_TX_PurchaseUsesCommittedNewInstanceAndSkipRestoresAllGroups",
+          "result": "Passed"
+        },
+        {
+          "name": "PLAY_ART07_TX_RefreshOnlyControllerShelfUsesOld100AndNew180Milliseconds",
+          "result": "Passed"
+        },
+        {
+          "name": "PLAY_ART07_TX_SaveFailureRetainsOldShelfAndRetryAnimatesSameSavedCandidate",
+          "result": "Passed"
+        }
+      ]
+    },
+    {
+      "path": "evidence/v07/unity/nunit-20261101-020333.xml",
+      "sha256": "315c3b20fa819808d9759179182acb2ed7f45a63027736b2fcbdcf0a83ec4d82",
+      "bindingMatches": true,
+      "attributes": {
+        "id": "2",
+        "testcasecount": "1",
+        "result": "Passed",
+        "total": "1",
+        "passed": "1",
+        "failed": "0",
+        "inconclusive": "0",
+        "skipped": "0",
+        "asserts": "0",
+        "engine-version": "3.5.0.0",
+        "clr-version": "4.0.30319.42000",
+        "start-time": "2026-11-01 02:03:31Z",
+        "end-time": "2026-11-01 02:03:33Z",
+        "duration": "2.6031225"
+      },
+      "sourceCount": 1226,
+      "sourceAndAssemblyStable": true,
+      "runtime": {
+        "name": "DiceCraft.Runtime",
+        "mvid": "5946399c-f9e2-4250-9ddf-f22d0daf6b6f",
+        "dllSha256": "6a9055f4edb1cb1edeb208b2a1f0b226148e70f8da182654d03d95b68977fce6"
+      },
+      "tests": [
+        {
+          "name": "PLAY_ART07_ResultScreensUseRealTerminalCommandsAndPreserveExactReceipts",
+          "result": "Passed"
+        }
+      ]
+    }
+  ],
+  "files": [
+    {
+      "path": "DicePrototype/Assets/Game/UI/GameApp.Art07Results.cs",
+      "sha256": "6d696546b730303f52a13f91d3a01e72e341a51bedc813c6580afc0dfdaa93ae",
+      "matchesTerminalReportSource": true,
+      "terminalReportSourceSha256": "6d696546b730303f52a13f91d3a01e72e341a51bedc813c6580afc0dfdaa93ae"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/UI/GameApp.Debug.cs",
+      "sha256": "2473e4d43a9bd6e15e2b12082b1313ae6b65f684cd629079502610d969a1c301",
+      "matchesTerminalReportSource": true,
+      "terminalReportSourceSha256": "2473e4d43a9bd6e15e2b12082b1313ae6b65f684cd629079502610d969a1c301"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Tests/PlayMode/Art07EdgeScreensPlayModeTests.cs",
+      "sha256": "096c88d58ad6c16f5e268e96646f971bdbeadead18904499e3f8084aada94435",
+      "matchesTerminalReportSource": true,
+      "terminalReportSourceSha256": "096c88d58ad6c16f5e268e96646f971bdbeadead18904499e3f8084aada94435"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Runtime/Verification/Art07Fixtures.cs",
+      "sha256": "966965cb1a5c57b06cfa29383533f7d6756fefa7f8083b36d07edd3bf8a7d15e",
+      "matchesTerminalReportSource": true,
+      "terminalReportSourceSha256": "966965cb1a5c57b06cfa29383533f7d6756fefa7f8083b36d07edd3bf8a7d15e"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Core/Rules/ScoreCalculator.cs",
+      "sha256": "e72fc655366705e220d801e2aa7f6f73383368596712063c97c154103df97f43",
+      "matchesTerminalReportSource": true,
+      "terminalReportSourceSha256": "e72fc655366705e220d801e2aa7f6f73383368596712063c97c154103df97f43"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Core/Session/GameSession.Submission.cs",
+      "sha256": "bc126b48a254724bc21bcd2c5e190d33867566d2dbf2bb9c5c9582f4d6c2bd7e",
+      "matchesTerminalReportSource": true,
+      "terminalReportSourceSha256": "bc126b48a254724bc21bcd2c5e190d33867566d2dbf2bb9c5c9582f4d6c2bd7e"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Runtime/Presentation/Art07TransactionMotion.cs",
+      "sha256": "9444c02846a3f875780d724c637b76d33a63e17af9ed21475bd3198c61b9e5be",
+      "matchesTerminalReportSource": true,
+      "terminalReportSourceSha256": "9444c02846a3f875780d724c637b76d33a63e17af9ed21475bd3198c61b9e5be"
+    }
+  ],
+  "images": [
+    {
+      "path": "artifacts/cache/v07-edge-screens-020333/S18-no-dice.png",
+      "sha256": "30352d1fd6a517ba9bc33396704d0bea4f1f175cad8938c1aa4ac3d42e098ba0",
+      "metadataSha256": "ad247a04048814ffffdca25a1c210fcfcb5fd0a83b9b0e4eb26045ab8fc8c705",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "mvidMatches": true,
+      "metadata": {
+        "screen": "S18-no-dice",
+        "unity": "6000.6.7f1",
+        "mvid": "5946399c-f9e2-4250-9ddf-f22d0daf6b6f",
+        "stateHash": "cf9fe7894f536eb272a869fcf2243806533465ad11b3863a65dbcd620023de0d",
+        "phase": "RunFailed",
+        "width": 1920,
+        "height": 1080,
+        "frame": 76,
+        "isolatedArtTest": true
+      },
+      "actuallyViewed": true
+    },
+    {
+      "path": "artifacts/cache/v07-edge-screens-020333/S18-submissions.png",
+      "sha256": "c076468833daa22ba7052cfbd1ddd90d16a3d0a0ebfe5b26170f4775c9fa8313",
+      "metadataSha256": "0f06c38edb62baf73b6be803c8d5670f811452d12fb9cde4945d822bcc132748",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "mvidMatches": true,
+      "metadata": {
+        "screen": "S18-submissions",
+        "unity": "6000.6.7f1",
+        "mvid": "5946399c-f9e2-4250-9ddf-f22d0daf6b6f",
+        "stateHash": "e9bf4c20117594453313f12dfbe58eac99fdb4ae62ecf2e6bf0a6394b0402a06",
+        "phase": "RunFailed",
+        "width": 1920,
+        "height": 1080,
+        "frame": 46,
+        "isolatedArtTest": true
+      },
+      "actuallyViewed": true
+    },
+    {
+      "path": "artifacts/cache/v07-edge-screens-020333/S18-temporary.png",
+      "sha256": "f24909ba2eb4558af409f7ac7acb3b76fa024ffbd5c576fd926cd53ec67ddfd1",
+      "metadataSha256": "7921d84bcb6eec0ef76c1af6469a4db1d6b1233eacc5300771f9ba849df0e488",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "mvidMatches": true,
+      "metadata": {
+        "screen": "S18-temporary",
+        "unity": "6000.6.7f1",
+        "mvid": "5946399c-f9e2-4250-9ddf-f22d0daf6b6f",
+        "stateHash": "018abdfcfe627a99277d51e6bced0d8c4fbd7025e81fb76d03290c21385cd5d2",
+        "phase": "RunFailed",
+        "width": 1920,
+        "height": 1080,
+        "frame": 61,
+        "isolatedArtTest": true
+      },
+      "actuallyViewed": true
+    },
+    {
+      "path": "artifacts/cache/v07-edge-screens-020333/S18-win.png",
+      "sha256": "1099f2fdf3b38123e35b9b38d3f1b99eb6fc9e6c220ef023c61e3428655a744f",
+      "metadataSha256": "2f3d59dd5aa8d3bd8938a1a22ff65d4ba04a7829202e8176a3e17928dde50dfc",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "mvidMatches": true,
+      "metadata": {
+        "screen": "S18-win",
+        "unity": "6000.6.7f1",
+        "mvid": "5946399c-f9e2-4250-9ddf-f22d0daf6b6f",
+        "stateHash": "0633fe498557a04fca186e61456c3e6cd5282f48282cb33f32ecb54d950a37f4",
+        "phase": "RunWon",
+        "width": 1920,
+        "height": 1080,
+        "frame": 31,
+        "isolatedArtTest": true
+      },
+      "actuallyViewed": true
+    }
+  ]
+}

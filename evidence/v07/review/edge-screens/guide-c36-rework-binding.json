@@ -1,0 +1,614 @@
+{
+  "reviewer": "/root/v07_spec_audit",
+  "note": "Read-only record of copied actual captures. Edge metadata has no original PNG hash; these SHA values freeze the reviewed copies rather than asserting an unavailable producer hash.",
+  "batches": [
+    {
+      "stamp": "021306",
+      "runtime": {
+        "name": "DiceCraft.Runtime",
+        "mvid": "5946399c-f9e2-4250-9ddf-f22d0daf6b6f",
+        "dllSha256": "6a9055f4edb1cb1edeb208b2a1f0b226148e70f8da182654d03d95b68977fce6"
+      },
+      "sources": [
+        {
+          "path": "DicePrototype/Assets/Game/UI/GameApp.Art07Results.cs",
+          "boundSha256": "6d696546b730303f52a13f91d3a01e72e341a51bedc813c6580afc0dfdaa93ae",
+          "currentSha256": "6d696546b730303f52a13f91d3a01e72e341a51bedc813c6580afc0dfdaa93ae",
+          "matchesBound": true
+        },
+        {
+          "path": "DicePrototype/Assets/Game/Tests/PlayMode/Art07EdgeScreensPlayModeTests.cs",
+          "boundSha256": "fa3e27fc9e47589aff499ff656650e88e299ce02e757a5383bbedf34b94ae50f",
+          "currentSha256": "fa3e27fc9e47589aff499ff656650e88e299ce02e757a5383bbedf34b94ae50f",
+          "matchesBound": true
+        }
+      ],
+      "screens": [
+        {
+          "path": "artifacts/cache/nunit-20261101-021306-screens/S18-no-dice.png",
+          "sha256": "5ec9790ac4c9e64546da97ec996b7a9da85db3a129750379b79364a3fc8c5d06",
+          "metadataSha256": "b99c6d581ed73d9627cd70943c507a7c7e060c8eb02ed9097ecfe4544559a8b6",
+          "mvidMatches": true,
+          "metadata": {
+            "screen": "S18-no-dice",
+            "unity": "6000.6.7f1",
+            "mvid": "5946399c-f9e2-4250-9ddf-f22d0daf6b6f",
+            "stateHash": "8c62a7021d28e68bcde46a053d18154ac80bb0391b3f8f537904ebd10a3b7733",
+            "phase": "RunFailed",
+            "savePath": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftTests_7bd7c5c5c5f0429c82f8502aec972081\\debug-run.json",
+            "width": 1920,
+            "height": 1080,
+            "frame": 74,
+            "isolatedArtTest": true
+          },
+          "visuallyOpened": false
+        },
+        {
+          "path": "artifacts/cache/nunit-20261101-021306-screens/S18-submissions.png",
+          "sha256": "dac57fd77b69a1621a23f5576bb2e95ded194f979bc68bce199bb30bd60eb23a",
+          "metadataSha256": "ca55f6b60c51cd336f9f828d3f1fcfc3f5f86c426ef4c1f273e6552495fb6a33",
+          "mvidMatches": true,
+          "metadata": {
+            "screen": "S18-submissions",
+            "unity": "6000.6.7f1",
+            "mvid": "5946399c-f9e2-4250-9ddf-f22d0daf6b6f",
+            "stateHash": "d7787f38b1dec71e063974b140e373a66bdc1284ada39e9b666f3b32b76c4818",
+            "phase": "RunFailed",
+            "savePath": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftTests_7bd7c5c5c5f0429c82f8502aec972081\\debug-run.json",
+            "width": 1920,
+            "height": 1080,
+            "frame": 44,
+            "isolatedArtTest": true
+          },
+          "visuallyOpened": false
+        },
+        {
+          "path": "artifacts/cache/nunit-20261101-021306-screens/S18-temporary.png",
+          "sha256": "4d51a970502b254f20a773a4bd3ade56dfcf37a603b427c83107ff943a059b33",
+          "metadataSha256": "f2f837805ea5a8c4d5e772fe1d6822901281398efd75195121b76b2a5d5625b2",
+          "mvidMatches": true,
+          "metadata": {
+            "screen": "S18-temporary",
+            "unity": "6000.6.7f1",
+            "mvid": "5946399c-f9e2-4250-9ddf-f22d0daf6b6f",
+            "stateHash": "3cf5fe4d428d3b8c3b6290afcde166ee3ef3d812e97d7245a56f47ac329d5f61",
+            "phase": "RunFailed",
+            "savePath": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftTests_7bd7c5c5c5f0429c82f8502aec972081\\debug-run.json",
+            "width": 1920,
+            "height": 1080,
+            "frame": 59,
+            "isolatedArtTest": true
+          },
+          "visuallyOpened": false
+        },
+        {
+          "path": "artifacts/cache/nunit-20261101-021306-screens/S18-win.png",
+          "sha256": "5344af11c815b7d307ac0249d30d92583ac7342d143f25ca4fe395ea6ea5bbf1",
+          "metadataSha256": "f6e19bb941407b35790e4366e0c3180733f8bd902d038f0fac2757d965f2ca1e",
+          "mvidMatches": true,
+          "metadata": {
+            "screen": "S18-win",
+            "unity": "6000.6.7f1",
+            "mvid": "5946399c-f9e2-4250-9ddf-f22d0daf6b6f",
+            "stateHash": "8bc276c5c03afa944a067f1c503a3be84859c055015f397aba80d0be526a9c4f",
+            "phase": "RunWon",
+            "savePath": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftTests_7bd7c5c5c5f0429c82f8502aec972081\\debug-run.json",
+            "width": 1920,
+            "height": 1080,
+            "frame": 29,
+            "isolatedArtTest": true
+          },
+          "visuallyOpened": true
+        }
+      ]
+    },
+    {
+      "stamp": "021533",
+      "runtime": {
+        "name": "DiceCraft.Runtime",
+        "mvid": "907439ae-56d8-4d00-a4fa-809e2e71c8f9",
+        "dllSha256": "3d49f9477aef772e1ac397b48a1f14203a4fd5090a115c263ead2eacc6a28a7e"
+      },
+      "sources": [
+        {
+          "path": "DicePrototype/Assets/Game/UI/GameApp.Art07Guide.cs",
+          "boundSha256": "c482672b71fe2eac803391ff3f47d86c0da38fe97ba6a3959ae43ee532df513c",
+          "currentSha256": "c482672b71fe2eac803391ff3f47d86c0da38fe97ba6a3959ae43ee532df513c",
+          "matchesBound": true
+        },
+        {
+          "path": "DicePrototype/Assets/Game/Tests/PlayMode/Art07GuideLayoutPlayModeTests.cs",
+          "boundSha256": "dd51c842a4eb3f9ed53cb605f31c04679b87912a503bbf3d345e4e7405c96e95",
+          "currentSha256": "dd51c842a4eb3f9ed53cb605f31c04679b87912a503bbf3d345e4e7405c96e95",
+          "matchesBound": true
+        }
+      ],
+      "screens": [
+        {
+          "path": "artifacts/cache/nunit-20261101-021533-screens/S19-guide-repaired-1-font100.png",
+          "sha256": "d0f3a4ae73fca202c8bd871b0575ae41487aa025d972870e5a19281c9c9280a2",
+          "metadataSha256": "9cce19bc50dd400d8dfe31a87837d7487d3be5f54507f7df167becdfcd08273f",
+          "mvidMatches": true,
+          "metadata": {
+            "screen": "S19-guide-repaired-1-font100",
+            "unity": "6000.6.7f1",
+            "mvid": "907439ae-56d8-4d00-a4fa-809e2e71c8f9",
+            "stateHash": "d1ef6e6d10bd0231afbacfad9a1d7017d1d83b6c3fe9766e798679ae14a6bc01",
+            "phase": "HandReady",
+            "savePath": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftTests_ae44e237bf4c4719a6c67ed9a0c1be5c\\active-run.json",
+            "width": 1920,
+            "height": 1080,
+            "frame": 51,
+            "isolatedArtTest": true
+          },
+          "visuallyOpened": true
+        },
+        {
+          "path": "artifacts/cache/nunit-20261101-021533-screens/S19-guide-repaired-1-font150.png",
+          "sha256": "4b03a63393d152590a054d958e2ddc6f87e8a2562906741c78b261d4f9b93a45",
+          "metadataSha256": "63844c4b67b16833e3afd0f6ab7732aedbbeecb5cb18deda157f2277c00d604b",
+          "mvidMatches": true,
+          "metadata": {
+            "screen": "S19-guide-repaired-1-font150",
+            "unity": "6000.6.7f1",
+            "mvid": "907439ae-56d8-4d00-a4fa-809e2e71c8f9",
+            "stateHash": "ccb3d50bc7d874da1c64137a8f94febdc05f6168024110745c0030c2d587df8f",
+            "phase": "HandReady",
+            "savePath": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftTests_ae44e237bf4c4719a6c67ed9a0c1be5c\\active-run.json",
+            "width": 1920,
+            "height": 1080,
+            "frame": 189,
+            "isolatedArtTest": true
+          },
+          "visuallyOpened": false
+        },
+        {
+          "path": "artifacts/cache/nunit-20261101-021533-screens/S19-guide-repaired-2-font100.png",
+          "sha256": "d961a36c11e3ae040b289bdcae591b416a1aaea47e2aa1affec8b3afcc7dbba0",
+          "metadataSha256": "3d586b09ab181f452985a1f5a8d808f03cdf9ee1997a191ea733ae1f7051847d",
+          "mvidMatches": true,
+          "metadata": {
+            "screen": "S19-guide-repaired-2-font100",
+            "unity": "6000.6.7f1",
+            "mvid": "907439ae-56d8-4d00-a4fa-809e2e71c8f9",
+            "stateHash": "51e9f56e947555b2c02e78e8982db084c3b34107b47efd0e9fd84a29244ab317",
+            "phase": "Selecting",
+            "savePath": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftTests_ae44e237bf4c4719a6c67ed9a0c1be5c\\active-run.json",
+            "width": 1920,
+            "height": 1080,
+            "frame": 82,
+            "isolatedArtTest": true
+          },
+          "visuallyOpened": true
+        },
+        {
+          "path": "artifacts/cache/nunit-20261101-021533-screens/S19-guide-repaired-2-font150.png",
+          "sha256": "6275ab7d1b310424094085c09c45f9f57216131f3a801a901c3e1a8e108875f8",
+          "metadataSha256": "b6e38cf64dd08848fb28333fd0841903136267d1741ef2d8a334024c6b7d2c66",
+          "mvidMatches": true,
+          "metadata": {
+            "screen": "S19-guide-repaired-2-font150",
+            "unity": "6000.6.7f1",
+            "mvid": "907439ae-56d8-4d00-a4fa-809e2e71c8f9",
+            "stateHash": "ef75d8f8bb6f7fc95f9c354f957ccce77c7e77ead20aecd46f628bab876e0813",
+            "phase": "Selecting",
+            "savePath": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftTests_ae44e237bf4c4719a6c67ed9a0c1be5c\\active-run.json",
+            "width": 1920,
+            "height": 1080,
+            "frame": 220,
+            "isolatedArtTest": true
+          },
+          "visuallyOpened": false
+        },
+        {
+          "path": "artifacts/cache/nunit-20261101-021533-screens/S19-guide-repaired-3-font100.png",
+          "sha256": "b1a40aab1fbbd3baa2fa3c61e6e1541d2d68e6565fb70207b0cb4dc49d4f6b9a",
+          "metadataSha256": "86957b4eed815c052ec49f9c7f0aac33a1d2f617b36218a68c6b2ea7d012bf2d",
+          "mvidMatches": true,
+          "metadata": {
+            "screen": "S19-guide-repaired-3-font100",
+            "unity": "6000.6.7f1",
+            "mvid": "907439ae-56d8-4d00-a4fa-809e2e71c8f9",
+            "stateHash": "51e9f56e947555b2c02e78e8982db084c3b34107b47efd0e9fd84a29244ab317",
+            "phase": "Selecting",
+            "savePath": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftTests_ae44e237bf4c4719a6c67ed9a0c1be5c\\active-run.json",
+            "width": 1920,
+            "height": 1080,
+            "frame": 114,
+            "isolatedArtTest": true
+          },
+          "visuallyOpened": true
+        },
+        {
+          "path": "artifacts/cache/nunit-20261101-021533-screens/S19-guide-repaired-3-font150.png",
+          "sha256": "b82fa22f6c9c53824df87b8dbf4f89f231897f07b8c9927edcf4ba77a4470884",
+          "metadataSha256": "6bbd15fa588c3a1a2990dbd20ca499f4a10c411680dcfb5fd8371c5e0fb5b553",
+          "mvidMatches": true,
+          "metadata": {
+            "screen": "S19-guide-repaired-3-font150",
+            "unity": "6000.6.7f1",
+            "mvid": "907439ae-56d8-4d00-a4fa-809e2e71c8f9",
+            "stateHash": "ef75d8f8bb6f7fc95f9c354f957ccce77c7e77ead20aecd46f628bab876e0813",
+            "phase": "Selecting",
+            "savePath": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftTests_ae44e237bf4c4719a6c67ed9a0c1be5c\\active-run.json",
+            "width": 1920,
+            "height": 1080,
+            "frame": 252,
+            "isolatedArtTest": true
+          },
+          "visuallyOpened": false
+        },
+        {
+          "path": "artifacts/cache/nunit-20261101-021533-screens/S19-guide-repaired-4-font100.png",
+          "sha256": "27edd6fca48436aaa3bd81ea5783630386c2453af7f78890efcbf3ca7664de61",
+          "metadataSha256": "a0d4431764d1ee09d0383473b47133ac4d24a673675666442db1aa58c4e1448d",
+          "mvidMatches": true,
+          "metadata": {
+            "screen": "S19-guide-repaired-4-font100",
+            "unity": "6000.6.7f1",
+            "mvid": "907439ae-56d8-4d00-a4fa-809e2e71c8f9",
+            "stateHash": "812427d14e3a0377dd8a72edaae3860c5ae5b8b506b99b98b21221cf57fc14e8",
+            "phase": "Selecting",
+            "savePath": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftTests_ae44e237bf4c4719a6c67ed9a0c1be5c\\active-run.json",
+            "width": 1920,
+            "height": 1080,
+            "frame": 145,
+            "isolatedArtTest": true
+          },
+          "visuallyOpened": true
+        },
+        {
+          "path": "artifacts/cache/nunit-20261101-021533-screens/S19-guide-repaired-4-font150.png",
+          "sha256": "1121ab7f6878154f97ea27b10a0983593b0da5f805a5776e6c5a69dde927293b",
+          "metadataSha256": "7907ce0bf94f9a3aab4c489366a887ad2927647c570ec370fc30579026d65047",
+          "mvidMatches": true,
+          "metadata": {
+            "screen": "S19-guide-repaired-4-font150",
+            "unity": "6000.6.7f1",
+            "mvid": "907439ae-56d8-4d00-a4fa-809e2e71c8f9",
+            "stateHash": "62ed9235b8620099b95cf2ccd568d22de3e6d8abe48af678380470bb0961691f",
+            "phase": "Selecting",
+            "savePath": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftTests_ae44e237bf4c4719a6c67ed9a0c1be5c\\active-run.json",
+            "width": 1920,
+            "height": 1080,
+            "frame": 283,
+            "isolatedArtTest": true
+          },
+          "visuallyOpened": false
+        },
+        {
+          "path": "artifacts/cache/nunit-20261101-021533-screens/S19-guide-repaired-full-inline-font100.png",
+          "sha256": "9a01ac713c7ba2cde4c426871e593831cedeb07ff5b1c3a792e43a94bbe6e5f4",
+          "metadataSha256": "230a88ef74617908d85ae1fe6de3d752a379e82e9e9746bd985a9e1d946717e3",
+          "mvidMatches": true,
+          "metadata": {
+            "screen": "S19-guide-repaired-full-inline-font100",
+            "unity": "6000.6.7f1",
+            "mvid": "907439ae-56d8-4d00-a4fa-809e2e71c8f9",
+            "stateHash": "5d272f58901855e407e1490d6766252c6c3f9ffc3735d10bdcf52990225c6c69",
+            "phase": "HandReady",
+            "savePath": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftTests_bf3eb8992d524355a2314e35dfd06002\\active-run.json",
+            "width": 1920,
+            "height": 1080,
+            "frame": 317,
+            "isolatedArtTest": true
+          },
+          "visuallyOpened": true
+        },
+        {
+          "path": "artifacts/cache/nunit-20261101-021533-screens/S19-guide-repaired-full-inline-font150.png",
+          "sha256": "5fc81f25eec98bb6f6930ba2a846449f2dbea369342930a0bb191e457b18f556",
+          "metadataSha256": "97cba2f93bb58274d7831db5b499b87ace1867e0e39287abfe67f47291178974",
+          "mvidMatches": true,
+          "metadata": {
+            "screen": "S19-guide-repaired-full-inline-font150",
+            "unity": "6000.6.7f1",
+            "mvid": "907439ae-56d8-4d00-a4fa-809e2e71c8f9",
+            "stateHash": "2866f8e6e8f8fd3d2b72e1c8701735b2ccd7f97bd45a2dd14b2b077220136f97",
+            "phase": "HandReady",
+            "savePath": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftTests_bf3eb8992d524355a2314e35dfd06002\\active-run.json",
+            "width": 1920,
+            "height": 1080,
+            "frame": 351,
+            "isolatedArtTest": true
+          },
+          "visuallyOpened": false
+        },
+        {
+          "path": "artifacts/cache/nunit-20261101-021533-screens/S19-guide-repaired-shop-font100.png",
+          "sha256": "2bfa6f3c22c64a44c96320eaefb006729d4a4933be7b2cfd14323f8d42e5fcb1",
+          "metadataSha256": "bbae52cc6e70f42a52c72f17fa345e871af92f63f74f3b5925f3ad42fbd659bd",
+          "mvidMatches": true,
+          "metadata": {
+            "screen": "S19-guide-repaired-shop-font100",
+            "unity": "6000.6.7f1",
+            "mvid": "907439ae-56d8-4d00-a4fa-809e2e71c8f9",
+            "stateHash": "8fd8322d7ce52f7c0db8297f3255ac5faacbb1b7aa8ccf129b2cd5df5b5e0433",
+            "phase": "Shop",
+            "savePath": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftTests_f8ad4428af7e49f1bb8d0dfb456ce7a9\\active-run.json",
+            "width": 1920,
+            "height": 1080,
+            "frame": 390,
+            "isolatedArtTest": true
+          },
+          "visuallyOpened": true
+        },
+        {
+          "path": "artifacts/cache/nunit-20261101-021533-screens/S19-guide-repaired-shop-font150.png",
+          "sha256": "d26e5296e162ae2707b881904cd4d06ffcd31b505072fa2022a199394a320e91",
+          "metadataSha256": "342a94090dda308883e032ae366b16c4ed9ba77900a43ee79f4185ed0f283569",
+          "mvidMatches": true,
+          "metadata": {
+            "screen": "S19-guide-repaired-shop-font150",
+            "unity": "6000.6.7f1",
+            "mvid": "907439ae-56d8-4d00-a4fa-809e2e71c8f9",
+            "stateHash": "2e93d43a34b7b8139b6eb39e4b716ac483a5cfb43d7f89b4820068a40590a11c",
+            "phase": "Shop",
+            "savePath": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftTests_f8ad4428af7e49f1bb8d0dfb456ce7a9\\active-run.json",
+            "width": 1920,
+            "height": 1080,
+            "frame": 423,
+            "isolatedArtTest": true
+          },
+          "visuallyOpened": false
+        }
+      ]
+    },
+    {
+      "stamp": "021950",
+      "runtime": {
+        "name": "DiceCraft.Runtime",
+        "mvid": "907439ae-56d8-4d00-a4fa-809e2e71c8f9",
+        "dllSha256": "3d49f9477aef772e1ac397b48a1f14203a4fd5090a115c263ead2eacc6a28a7e"
+      },
+      "sources": [
+        {
+          "path": "DicePrototype/Assets/Game/UI/GameApp.Art07Guide.cs",
+          "boundSha256": "c482672b71fe2eac803391ff3f47d86c0da38fe97ba6a3959ae43ee532df513c",
+          "currentSha256": "c482672b71fe2eac803391ff3f47d86c0da38fe97ba6a3959ae43ee532df513c",
+          "matchesBound": true
+        },
+        {
+          "path": "DicePrototype/Assets/Game/Tests/PlayMode/Art07GuideLayoutPlayModeTests.cs",
+          "boundSha256": "dd51c842a4eb3f9ed53cb605f31c04679b87912a503bbf3d345e4e7405c96e95",
+          "currentSha256": "dd51c842a4eb3f9ed53cb605f31c04679b87912a503bbf3d345e4e7405c96e95",
+          "matchesBound": true
+        }
+      ],
+      "screens": [
+        {
+          "path": "artifacts/cache/nunit-20261101-021950-screens/S19-guide-repaired-1-font100.png",
+          "sha256": "f261c8b834324d0b884a1434e7d3ee79b477eb800b4fbfe25d81167ea99d5bcc",
+          "metadataSha256": "be08988546e6540c92d1b456ec2cbd0180a475c1ca4e1fd8624e8a758d545850",
+          "mvidMatches": true,
+          "metadata": {
+            "screen": "S19-guide-repaired-1-font100",
+            "unity": "6000.6.7f1",
+            "mvid": "907439ae-56d8-4d00-a4fa-809e2e71c8f9",
+            "stateHash": "215d8af53795b2dfd5c619b65486a18a11c30d533d0636d7e06ad0a5de3fe8b7",
+            "phase": "HandReady",
+            "savePath": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftTests_7cbd7171c8324ddf889e3bdcc941bc40\\active-run.json",
+            "width": 1280,
+            "height": 720,
+            "frame": 49,
+            "isolatedArtTest": true
+          },
+          "visuallyOpened": false
+        },
+        {
+          "path": "artifacts/cache/nunit-20261101-021950-screens/S19-guide-repaired-1-font150.png",
+          "sha256": "8d1e045fd1ff95ed33608ee8dd2b3469634c2c6a2fa56e4ead22e8cbd56bbebf",
+          "metadataSha256": "e02b0c2504b683d4c65c9f9db04035cc5fb98b4e43c88f06247939afe5216b69",
+          "mvidMatches": true,
+          "metadata": {
+            "screen": "S19-guide-repaired-1-font150",
+            "unity": "6000.6.7f1",
+            "mvid": "907439ae-56d8-4d00-a4fa-809e2e71c8f9",
+            "stateHash": "3bff1d454e52040f3f95df2435f93286ce0c50d28c4105f73a9201573c20c85d",
+            "phase": "HandReady",
+            "savePath": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftTests_7cbd7171c8324ddf889e3bdcc941bc40\\active-run.json",
+            "width": 1280,
+            "height": 720,
+            "frame": 186,
+            "isolatedArtTest": true
+          },
+          "visuallyOpened": true
+        },
+        {
+          "path": "artifacts/cache/nunit-20261101-021950-screens/S19-guide-repaired-2-font100.png",
+          "sha256": "af5e8c5b48f4a11d34dab27aa71ef70b4da6aacf98e85e1c4b1085e63374a698",
+          "metadataSha256": "8c7f6df7d759c78bd6acb3e0175f6176793264a19aa5e62d4bf4c18cc8f1a348",
+          "mvidMatches": true,
+          "metadata": {
+            "screen": "S19-guide-repaired-2-font100",
+            "unity": "6000.6.7f1",
+            "mvid": "907439ae-56d8-4d00-a4fa-809e2e71c8f9",
+            "stateHash": "68d7e087f127b484f03c7bd1abc7991926a27376f70c56616c3021480692f891",
+            "phase": "Selecting",
+            "savePath": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftTests_7cbd7171c8324ddf889e3bdcc941bc40\\active-run.json",
+            "width": 1280,
+            "height": 720,
+            "frame": 81,
+            "isolatedArtTest": true
+          },
+          "visuallyOpened": false
+        },
+        {
+          "path": "artifacts/cache/nunit-20261101-021950-screens/S19-guide-repaired-2-font150.png",
+          "sha256": "711c8b01569317bc648c06b9b5f2dfb3390bcf3e4e9737c266b3df5ed507937d",
+          "metadataSha256": "b8bb20632ec759a26b7d6532285a7c1d9ac21ff1121573900797d3c60bf111c1",
+          "mvidMatches": true,
+          "metadata": {
+            "screen": "S19-guide-repaired-2-font150",
+            "unity": "6000.6.7f1",
+            "mvid": "907439ae-56d8-4d00-a4fa-809e2e71c8f9",
+            "stateHash": "67414f05e199e4093f6f225695c00d46052c4691c72a8765498ee81408a55fc2",
+            "phase": "Selecting",
+            "savePath": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftTests_7cbd7171c8324ddf889e3bdcc941bc40\\active-run.json",
+            "width": 1280,
+            "height": 720,
+            "frame": 217,
+            "isolatedArtTest": true
+          },
+          "visuallyOpened": true
+        },
+        {
+          "path": "artifacts/cache/nunit-20261101-021950-screens/S19-guide-repaired-3-font100.png",
+          "sha256": "be72b8f155de6245926ffebfa607198e270f0c18b4d7cafa0d6a685d5b351e19",
+          "metadataSha256": "3b230cf1cb5df2a005c2492ff29cdb7efa2883a6ac0aebf99e80fc7ebb8efa23",
+          "mvidMatches": true,
+          "metadata": {
+            "screen": "S19-guide-repaired-3-font100",
+            "unity": "6000.6.7f1",
+            "mvid": "907439ae-56d8-4d00-a4fa-809e2e71c8f9",
+            "stateHash": "68d7e087f127b484f03c7bd1abc7991926a27376f70c56616c3021480692f891",
+            "phase": "Selecting",
+            "savePath": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftTests_7cbd7171c8324ddf889e3bdcc941bc40\\active-run.json",
+            "width": 1280,
+            "height": 720,
+            "frame": 112,
+            "isolatedArtTest": true
+          },
+          "visuallyOpened": false
+        },
+        {
+          "path": "artifacts/cache/nunit-20261101-021950-screens/S19-guide-repaired-3-font150.png",
+          "sha256": "7f0f8c0bd524bde787036e7e0f1605fe80d17bb0d9028b6f2752d503183f54b9",
+          "metadataSha256": "1c9d2d8bb19cb2db576f0d17a9fefd0908cc5bbfb8a23f72de7cfa88ef5b2a9e",
+          "mvidMatches": true,
+          "metadata": {
+            "screen": "S19-guide-repaired-3-font150",
+            "unity": "6000.6.7f1",
+            "mvid": "907439ae-56d8-4d00-a4fa-809e2e71c8f9",
+            "stateHash": "67414f05e199e4093f6f225695c00d46052c4691c72a8765498ee81408a55fc2",
+            "phase": "Selecting",
+            "savePath": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftTests_7cbd7171c8324ddf889e3bdcc941bc40\\active-run.json",
+            "width": 1280,
+            "height": 720,
+            "frame": 248,
+            "isolatedArtTest": true
+          },
+          "visuallyOpened": true
+        },
+        {
+          "path": "artifacts/cache/nunit-20261101-021950-screens/S19-guide-repaired-4-font100.png",
+          "sha256": "cbfa6f1bf9bf50d844fb514e571d136c071a38f21b546e6e54fcc130cbd94ded",
+          "metadataSha256": "5f79f50654c08aa64eab8bb6592fd0ba2f3e339046caacba4c3583fd4dd10550",
+          "mvidMatches": true,
+          "metadata": {
+            "screen": "S19-guide-repaired-4-font100",
+            "unity": "6000.6.7f1",
+            "mvid": "907439ae-56d8-4d00-a4fa-809e2e71c8f9",
+            "stateHash": "78ecace445ac964e90b6b752e123fb5e09e6c9a5dc91d863611b75ab00d6b14f",
+            "phase": "Selecting",
+            "savePath": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftTests_7cbd7171c8324ddf889e3bdcc941bc40\\active-run.json",
+            "width": 1280,
+            "height": 720,
+            "frame": 143,
+            "isolatedArtTest": true
+          },
+          "visuallyOpened": false
+        },
+        {
+          "path": "artifacts/cache/nunit-20261101-021950-screens/S19-guide-repaired-4-font150.png",
+          "sha256": "e8233895a67bab0efe698ed06772412e67e90aba2b5be58935cef7f0744665ed",
+          "metadataSha256": "1b90418667435eb8b5c6ffcf614075df5a276bf6a1bc14bfb7c05d11113bd44c",
+          "mvidMatches": true,
+          "metadata": {
+            "screen": "S19-guide-repaired-4-font150",
+            "unity": "6000.6.7f1",
+            "mvid": "907439ae-56d8-4d00-a4fa-809e2e71c8f9",
+            "stateHash": "7f2594f548afa6f7c49cdb4989dd17a40a86b31e580e3eb8db2055fc987db2ce",
+            "phase": "Selecting",
+            "savePath": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftTests_7cbd7171c8324ddf889e3bdcc941bc40\\active-run.json",
+            "width": 1280,
+            "height": 720,
+            "frame": 279,
+            "isolatedArtTest": true
+          },
+          "visuallyOpened": true
+        },
+        {
+          "path": "artifacts/cache/nunit-20261101-021950-screens/S19-guide-repaired-full-inline-font100.png",
+          "sha256": "c0e7c5cd9f5f02e242d41acaa54ef38335a51396e9c5dcaef59733552320d302",
+          "metadataSha256": "ba147cf017592c338b6fc45b08179b9715dd159ee551b8c54a1b91976c8efc54",
+          "mvidMatches": true,
+          "metadata": {
+            "screen": "S19-guide-repaired-full-inline-font100",
+            "unity": "6000.6.7f1",
+            "mvid": "907439ae-56d8-4d00-a4fa-809e2e71c8f9",
+            "stateHash": "5d272f58901855e407e1490d6766252c6c3f9ffc3735d10bdcf52990225c6c69",
+            "phase": "HandReady",
+            "savePath": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftTests_ae80a5efb7ab4fd7a3d666f0b17e27d1\\active-run.json",
+            "width": 1280,
+            "height": 720,
+            "frame": 328,
+            "isolatedArtTest": true
+          },
+          "visuallyOpened": false
+        },
+        {
+          "path": "artifacts/cache/nunit-20261101-021950-screens/S19-guide-repaired-full-inline-font150.png",
+          "sha256": "dec5cd0bc037a76e12beae63563664b7d4272c26a5de56e8c549e671722c395b",
+          "metadataSha256": "85db555e0a90aa62e604c407d48377a6061adff0fb82a1824eb38040fe76c958",
+          "mvidMatches": true,
+          "metadata": {
+            "screen": "S19-guide-repaired-full-inline-font150",
+            "unity": "6000.6.7f1",
+            "mvid": "907439ae-56d8-4d00-a4fa-809e2e71c8f9",
+            "stateHash": "2866f8e6e8f8fd3d2b72e1c8701735b2ccd7f97bd45a2dd14b2b077220136f97",
+            "phase": "HandReady",
+            "savePath": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftTests_ae80a5efb7ab4fd7a3d666f0b17e27d1\\active-run.json",
+            "width": 1280,
+            "height": 720,
+            "frame": 362,
+            "isolatedArtTest": true
+          },
+          "visuallyOpened": true
+        },
+        {
+          "path": "artifacts/cache/nunit-20261101-021950-screens/S19-guide-repaired-shop-font100.png",
+          "sha256": "26a98e307cfe07957b7713cac5629742a94eece45e1e3f4119107451a7efa5e4",
+          "metadataSha256": "68b370f21a79bb957d078ac50917ce7fd786eb3a441e8abc236b2d52ea360b17",
+          "mvidMatches": true,
+          "metadata": {
+            "screen": "S19-guide-repaired-shop-font100",
+            "unity": "6000.6.7f1",
+            "mvid": "907439ae-56d8-4d00-a4fa-809e2e71c8f9",
+            "stateHash": "8fd8322d7ce52f7c0db8297f3255ac5faacbb1b7aa8ccf129b2cd5df5b5e0433",
+            "phase": "Shop",
+            "savePath": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftTests_da1e938d0ef84c5098327c8fdcf1c453\\active-run.json",
+            "width": 1280,
+            "height": 720,
+            "frame": 401,
+            "isolatedArtTest": true
+          },
+          "visuallyOpened": false
+        },
+        {
+          "path": "artifacts/cache/nunit-20261101-021950-screens/S19-guide-repaired-shop-font150.png",
+          "sha256": "90099af69c5fd6481a7ed7c9cdfab290aeb0b47d55a6e126a2fc9da859a72f3a",
+          "metadataSha256": "5dd2af33e9ae2454cf99e81cf223ff535ef015eddf9455b09995dedba99c1fc8",
+          "mvidMatches": true,
+          "metadata": {
+            "screen": "S19-guide-repaired-shop-font150",
+            "unity": "6000.6.7f1",
+            "mvid": "907439ae-56d8-4d00-a4fa-809e2e71c8f9",
+            "stateHash": "2e93d43a34b7b8139b6eb39e4b716ac483a5cfb43d7f89b4820068a40590a11c",
+            "phase": "Shop",
+            "savePath": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftTests_da1e938d0ef84c5098327c8fdcf1c453\\active-run.json",
+            "width": 1280,
+            "height": 720,
+            "frame": 434,
+            "isolatedArtTest": true
+          },
+          "visuallyOpened": true
+        }
+      ]
+    }
+  ],
+  "totals": {
+    "inventory": 28,
+    "visuallyOpened": 13
+  }
+}

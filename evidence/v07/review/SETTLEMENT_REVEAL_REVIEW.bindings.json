@@ -1,0 +1,564 @@
+{
+  "schema": "v07-settlement-visual-review-1",
+  "reviewer": "root/v07_spec_audit; independent from implementation",
+  "utc": "2026-11-01T06:21:22.555095+00:00",
+  "method": "Actual original PNG viewing; manually advanced presentation clock rendered by Unity EOF; not continuous real-time performance",
+  "batch": "artifacts/cache/v07-settlement-720-061859",
+  "report": {
+    "path": "artifacts/cache/v07-settlement-720-061859/nunit-20261101-061859.xml",
+    "sha256": "6eaf3c876fe9cd080adb8edfe95788bb06f8f0baae4adcd1bdd86e767bc67156",
+    "result": {
+      "id": "2",
+      "testcasecount": "2",
+      "result": "Passed",
+      "total": "2",
+      "passed": "2",
+      "failed": "0",
+      "inconclusive": "0",
+      "skipped": "0",
+      "asserts": "0",
+      "engine-version": "3.5.0.0",
+      "clr-version": "4.0.30319.42000",
+      "start-time": "2026-11-01 06:18:47Z",
+      "end-time": "2026-11-01 06:18:59Z",
+      "duration": "11.7995035"
+    }
+  },
+  "bindingSha256": "659d45204c3fa425b5a2fcf8948f3a3c02eab6e5f751be282c7b4be2e877251c",
+  "archiveSha256": "1bd094b3a50c0df0a639eda132c4d7149876230afead8bf39d54556741cd0de3",
+  "sourceUnchangedDuringBatch": true,
+  "assembliesUnchangedDuringBatch": true,
+  "reportShaMatches": true,
+  "archiveFiles": 60,
+  "allArchiveHashesMatch": true,
+  "assemblies": [
+    {
+      "name": "DiceCraft.Core",
+      "mvid": "8f690e0d-a075-4b72-98e4-2cb64ced2fa3",
+      "dllSha256": "44a137cd38d7b525382dfda7adbdb7676d12d1dbc05520638d8a14642a96031b"
+    },
+    {
+      "name": "DiceCraft.EditMode",
+      "mvid": "22a27f7a-5baf-42ad-bd44-677418994f19",
+      "dllSha256": "7fcce81b05834c33581757a0cea3caffeec234ea109e14666a7bd42784168e4c"
+    },
+    {
+      "name": "DiceCraft.Editor",
+      "mvid": "7e42b7e7-5c87-44c6-a971-c4c0061b79c2",
+      "dllSha256": "ad16b12dd79b4403f279da710b34c6ee9f7c5d1224bdef7620aba5b236f9f64e"
+    },
+    {
+      "name": "DiceCraft.PlayModeTests",
+      "mvid": "06f1683c-4dd0-482a-9f6b-d1e4937f3361",
+      "dllSha256": "68a8bea45d4bec5d49556692cb21a26d1fe320932ff6b1df21e6b177b2aa3907"
+    },
+    {
+      "name": "DiceCraft.Runtime",
+      "mvid": "c85b1e44-0313-4af0-9fd2-ad60ea904f76",
+      "dllSha256": "22cfbd683b4b41aeb6bfab1e60fbb9459bf13d448489853c9c4d9f9bd6fe66e8"
+    }
+  ],
+  "sources": [
+    {
+      "path": "DicePrototype/Assets/Game/UI/GameApp.Art07Settlement.cs",
+      "boundSha256": "1298fcfb0f4e889ce38162f99adc62cbdcb821105745b433cffc98bf0fb49218",
+      "reviewSha256": "1298fcfb0f4e889ce38162f99adc62cbdcb821105745b433cffc98bf0fb49218",
+      "currentlyMatchesBound": true
+    },
+    {
+      "path": "DicePrototype/Assets/Game/UI/Art07SettlementReveal.cs",
+      "boundSha256": "98061424de3845b53fde172f8a1505eedf12d19a277867c29aea28c50ba3788c",
+      "reviewSha256": "98061424de3845b53fde172f8a1505eedf12d19a277867c29aea28c50ba3788c",
+      "currentlyMatchesBound": true
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Runtime/GameApp.cs",
+      "boundSha256": "6b03fd4f1d3a189b6cb48c8630541f0a6edb2944db31e55ea6146317dd5a03d0",
+      "reviewSha256": "6b03fd4f1d3a189b6cb48c8630541f0a6edb2944db31e55ea6146317dd5a03d0",
+      "currentlyMatchesBound": true
+    },
+    {
+      "path": "DicePrototype/Assets/Game/UI/GameApp.Art07Presentation.cs",
+      "boundSha256": "29bd13a21825a0795dda7b95864db07bc590eb35614ba0836fe0c6dbb9004461",
+      "reviewSha256": "29bd13a21825a0795dda7b95864db07bc590eb35614ba0836fe0c6dbb9004461",
+      "currentlyMatchesBound": true
+    },
+    {
+      "path": "DicePrototype/Assets/Game/UI/GameApp.Art07Effects.cs",
+      "boundSha256": "c71f71d88a24e38b39bb8cbffbf739db0a2db051504d5f2fddd28943e31470dd",
+      "reviewSha256": "c71f71d88a24e38b39bb8cbffbf739db0a2db051504d5f2fddd28943e31470dd",
+      "currentlyMatchesBound": true
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Tests/PlayMode/Art07SettlementLegacyPlayModeTests.cs",
+      "boundSha256": "15f2f0941b58c0eb7aa5436dd70604b614632ce88d642eac4761352603f1ce31",
+      "reviewSha256": "15f2f0941b58c0eb7aa5436dd70604b614632ce88d642eac4761352603f1ce31",
+      "currentlyMatchesBound": true
+    }
+  ],
+  "viewedImages": [
+    {
+      "path": "artifacts/cache/v07-settlement-720-061859/DiceCraftTests_f26915d605a74569b4418dc51452eaaf/art07-edge-screens/settlement-font100-ms000.png",
+      "sha256": "1a844692982a9389c6857ab4667d6ad8b4b15fa9639175e5467fa9cacc689e4b",
+      "metaSha256": "2c832c60cd4d360300c2387d002ca3625dd928c5a39a0e959d6980a32647c3e8",
+      "metadata": {
+        "screen": "settlement-font100-ms000",
+        "unity": "6000.6.7f1",
+        "mvid": "c85b1e44-0313-4af0-9fd2-ad60ea904f76",
+        "stateHash": "96a4b5230e355e489ed3a7ab5c30fa658b71f0c88d13fffe4c4e14cb04bef5d8",
+        "phase": "StageSettlement",
+        "savePath": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftTests_f26915d605a74569b4418dc51452eaaf\\debug-run.json",
+        "width": 1280,
+        "height": 720,
+        "frame": 96,
+        "isolatedArtTest": true
+      },
+      "actuallyViewed": true
+    },
+    {
+      "path": "artifacts/cache/v07-settlement-720-061859/DiceCraftTests_f26915d605a74569b4418dc51452eaaf/art07-edge-screens/settlement-font100-ms180.png",
+      "sha256": "b85d3b2b5983b6352de99590fc3737db6d05bf3c28d78b3273bd04b48604ed2e",
+      "metaSha256": "3dc3b4ad1be8f93554d0009547526238b0be9386fece924bd3bd05f705adc5c8",
+      "metadata": {
+        "screen": "settlement-font100-ms180",
+        "unity": "6000.6.7f1",
+        "mvid": "c85b1e44-0313-4af0-9fd2-ad60ea904f76",
+        "stateHash": "96a4b5230e355e489ed3a7ab5c30fa658b71f0c88d13fffe4c4e14cb04bef5d8",
+        "phase": "StageSettlement",
+        "savePath": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftTests_f26915d605a74569b4418dc51452eaaf\\debug-run.json",
+        "width": 1280,
+        "height": 720,
+        "frame": 111,
+        "isolatedArtTest": true
+      },
+      "actuallyViewed": true
+    },
+    {
+      "path": "artifacts/cache/v07-settlement-720-061859/DiceCraftTests_f26915d605a74569b4418dc51452eaaf/art07-edge-screens/settlement-font100-ms280.png",
+      "sha256": "d823e4ccdd976fed42e4960265cb38fd034b7282d2219ff2328fb40e1052b4fc",
+      "metaSha256": "4d425003b2c9deaa45ad01be1684be0d6570199ac4924b9171fc7d541493e86e",
+      "metadata": {
+        "screen": "settlement-font100-ms280",
+        "unity": "6000.6.7f1",
+        "mvid": "c85b1e44-0313-4af0-9fd2-ad60ea904f76",
+        "stateHash": "96a4b5230e355e489ed3a7ab5c30fa658b71f0c88d13fffe4c4e14cb04bef5d8",
+        "phase": "StageSettlement",
+        "savePath": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftTests_f26915d605a74569b4418dc51452eaaf\\debug-run.json",
+        "width": 1280,
+        "height": 720,
+        "frame": 126,
+        "isolatedArtTest": true
+      },
+      "actuallyViewed": true
+    },
+    {
+      "path": "artifacts/cache/v07-settlement-720-061859/DiceCraftTests_f26915d605a74569b4418dc51452eaaf/art07-edge-screens/settlement-font100-ms380.png",
+      "sha256": "3960cf15cdf60f5e701f587252e77ee4e2c8c93d30207f0c759d12e5196590d2",
+      "metaSha256": "53859d844795f33921898dc61d01a16269b19376d85baa059801a93383ac670f",
+      "metadata": {
+        "screen": "settlement-font100-ms380",
+        "unity": "6000.6.7f1",
+        "mvid": "c85b1e44-0313-4af0-9fd2-ad60ea904f76",
+        "stateHash": "96a4b5230e355e489ed3a7ab5c30fa658b71f0c88d13fffe4c4e14cb04bef5d8",
+        "phase": "StageSettlement",
+        "savePath": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftTests_f26915d605a74569b4418dc51452eaaf\\debug-run.json",
+        "width": 1280,
+        "height": 720,
+        "frame": 141,
+        "isolatedArtTest": true
+      },
+      "actuallyViewed": true
+    },
+    {
+      "path": "artifacts/cache/v07-settlement-720-061859/DiceCraftTests_f26915d605a74569b4418dc51452eaaf/art07-edge-screens/settlement-font100-ms480.png",
+      "sha256": "8b77de4752e8eb1b2d6376a8389f45324ab55b98ffcab6ff716125cef77b0dfe",
+      "metaSha256": "946dc2cf7aea79d1e3188470f82ed4ec80ffd63b1609fbdbee56e9b19444f952",
+      "metadata": {
+        "screen": "settlement-font100-ms480",
+        "unity": "6000.6.7f1",
+        "mvid": "c85b1e44-0313-4af0-9fd2-ad60ea904f76",
+        "stateHash": "96a4b5230e355e489ed3a7ab5c30fa658b71f0c88d13fffe4c4e14cb04bef5d8",
+        "phase": "StageSettlement",
+        "savePath": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftTests_f26915d605a74569b4418dc51452eaaf\\debug-run.json",
+        "width": 1280,
+        "height": 720,
+        "frame": 156,
+        "isolatedArtTest": true
+      },
+      "actuallyViewed": true
+    },
+    {
+      "path": "artifacts/cache/v07-settlement-720-061859/DiceCraftTests_f26915d605a74569b4418dc51452eaaf/art07-edge-screens/settlement-font100-ms600.png",
+      "sha256": "1f8b919b33bad6e56ac2377cafde66b283651f3b60a9b8811023dfd0b06730ff",
+      "metaSha256": "d29b56e9426549991ec94ece2ad891308d7831c3e6ba51e1ab886408af8d3426",
+      "metadata": {
+        "screen": "settlement-font100-ms600",
+        "unity": "6000.6.7f1",
+        "mvid": "c85b1e44-0313-4af0-9fd2-ad60ea904f76",
+        "stateHash": "96a4b5230e355e489ed3a7ab5c30fa658b71f0c88d13fffe4c4e14cb04bef5d8",
+        "phase": "StageSettlement",
+        "savePath": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftTests_f26915d605a74569b4418dc51452eaaf\\debug-run.json",
+        "width": 1280,
+        "height": 720,
+        "frame": 171,
+        "isolatedArtTest": true
+      },
+      "actuallyViewed": true
+    },
+    {
+      "path": "artifacts/cache/v07-settlement-720-061859/DiceCraftTests_f26915d605a74569b4418dc51452eaaf/art07-edge-screens/settlement-font100-ms740.png",
+      "sha256": "5497b7720639cfb8a1a0503ccfc798fbf89e07a1c30ae34b7bd806b22b46a7ed",
+      "metaSha256": "47766009e7ddbea69df16937942a52d0f6a8e8de08ae5ec7680d9bad25cc14e0",
+      "metadata": {
+        "screen": "settlement-font100-ms740",
+        "unity": "6000.6.7f1",
+        "mvid": "c85b1e44-0313-4af0-9fd2-ad60ea904f76",
+        "stateHash": "96a4b5230e355e489ed3a7ab5c30fa658b71f0c88d13fffe4c4e14cb04bef5d8",
+        "phase": "StageSettlement",
+        "savePath": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftTests_f26915d605a74569b4418dc51452eaaf\\debug-run.json",
+        "width": 1280,
+        "height": 720,
+        "frame": 186,
+        "isolatedArtTest": true
+      },
+      "actuallyViewed": true
+    },
+    {
+      "path": "artifacts/cache/v07-settlement-720-061859/DiceCraftTests_f26915d605a74569b4418dc51452eaaf/art07-edge-screens/settlement-font125-ms000.png",
+      "sha256": "fca5a660da3d39b6396246de39dc382b33abc682447ff4f89cbcebdda1aefa4e",
+      "metaSha256": "2a4be5c203f5ba50a0bbacffef542e958cea57c51a5b15c6e2cb2ed294ac4fb3",
+      "metadata": {
+        "screen": "settlement-font125-ms000",
+        "unity": "6000.6.7f1",
+        "mvid": "c85b1e44-0313-4af0-9fd2-ad60ea904f76",
+        "stateHash": "7a345b03eeeda53cb249e51ed58f7d84b8552982d5482ea4a78847287c977a2f",
+        "phase": "StageSettlement",
+        "savePath": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftTests_f26915d605a74569b4418dc51452eaaf\\debug-run.json",
+        "width": 1280,
+        "height": 720,
+        "frame": 201,
+        "isolatedArtTest": true
+      },
+      "actuallyViewed": true
+    },
+    {
+      "path": "artifacts/cache/v07-settlement-720-061859/DiceCraftTests_f26915d605a74569b4418dc51452eaaf/art07-edge-screens/settlement-font125-ms180.png",
+      "sha256": "419e9c2186c829b34da68f3c33b8d77c617ac032d9c01a513612a7e14f7f33ca",
+      "metaSha256": "26ed01055b7871571c387a326a4d0c729198dc6c0275f9b56c389aeba3fb567d",
+      "metadata": {
+        "screen": "settlement-font125-ms180",
+        "unity": "6000.6.7f1",
+        "mvid": "c85b1e44-0313-4af0-9fd2-ad60ea904f76",
+        "stateHash": "7a345b03eeeda53cb249e51ed58f7d84b8552982d5482ea4a78847287c977a2f",
+        "phase": "StageSettlement",
+        "savePath": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftTests_f26915d605a74569b4418dc51452eaaf\\debug-run.json",
+        "width": 1280,
+        "height": 720,
+        "frame": 216,
+        "isolatedArtTest": true
+      },
+      "actuallyViewed": true
+    },
+    {
+      "path": "artifacts/cache/v07-settlement-720-061859/DiceCraftTests_f26915d605a74569b4418dc51452eaaf/art07-edge-screens/settlement-font125-ms280.png",
+      "sha256": "f2961cae51f334d3da97d2ca3fbe713e72f357eeb4a836fd80608d6ee647ad73",
+      "metaSha256": "5c8a96e22c5baae264a96c3e51330755f350488020f0de5bf8f8dc3e3b644125",
+      "metadata": {
+        "screen": "settlement-font125-ms280",
+        "unity": "6000.6.7f1",
+        "mvid": "c85b1e44-0313-4af0-9fd2-ad60ea904f76",
+        "stateHash": "7a345b03eeeda53cb249e51ed58f7d84b8552982d5482ea4a78847287c977a2f",
+        "phase": "StageSettlement",
+        "savePath": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftTests_f26915d605a74569b4418dc51452eaaf\\debug-run.json",
+        "width": 1280,
+        "height": 720,
+        "frame": 231,
+        "isolatedArtTest": true
+      },
+      "actuallyViewed": true
+    },
+    {
+      "path": "artifacts/cache/v07-settlement-720-061859/DiceCraftTests_f26915d605a74569b4418dc51452eaaf/art07-edge-screens/settlement-font125-ms380.png",
+      "sha256": "05ae05929db818c42155fa7b3553cea188465d386461a0750826dbf4e6ee2d80",
+      "metaSha256": "a633430ba8b35998d0447bd9790fc61b367b128b1198e09ff811d9196fa1caf3",
+      "metadata": {
+        "screen": "settlement-font125-ms380",
+        "unity": "6000.6.7f1",
+        "mvid": "c85b1e44-0313-4af0-9fd2-ad60ea904f76",
+        "stateHash": "7a345b03eeeda53cb249e51ed58f7d84b8552982d5482ea4a78847287c977a2f",
+        "phase": "StageSettlement",
+        "savePath": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftTests_f26915d605a74569b4418dc51452eaaf\\debug-run.json",
+        "width": 1280,
+        "height": 720,
+        "frame": 246,
+        "isolatedArtTest": true
+      },
+      "actuallyViewed": true
+    },
+    {
+      "path": "artifacts/cache/v07-settlement-720-061859/DiceCraftTests_f26915d605a74569b4418dc51452eaaf/art07-edge-screens/settlement-font125-ms480.png",
+      "sha256": "8844824f0ff9963aea5c4d9e366605d882485e1b83137f4cfb5cd9bf37792219",
+      "metaSha256": "cc5f4b6614bce555ead327f1444ca8e67aee03d3d1a63d28c72b51dde5957d1b",
+      "metadata": {
+        "screen": "settlement-font125-ms480",
+        "unity": "6000.6.7f1",
+        "mvid": "c85b1e44-0313-4af0-9fd2-ad60ea904f76",
+        "stateHash": "7a345b03eeeda53cb249e51ed58f7d84b8552982d5482ea4a78847287c977a2f",
+        "phase": "StageSettlement",
+        "savePath": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftTests_f26915d605a74569b4418dc51452eaaf\\debug-run.json",
+        "width": 1280,
+        "height": 720,
+        "frame": 261,
+        "isolatedArtTest": true
+      },
+      "actuallyViewed": true
+    },
+    {
+      "path": "artifacts/cache/v07-settlement-720-061859/DiceCraftTests_f26915d605a74569b4418dc51452eaaf/art07-edge-screens/settlement-font125-ms600.png",
+      "sha256": "2f57dc92692a6ffd8ac020573aa4e67281c9ac32e93211564f4b1a8208465337",
+      "metaSha256": "1fe8325e6d661cf20cb5beb9addbf8eef3ee080ab84b1a3e7628ef4260704761",
+      "metadata": {
+        "screen": "settlement-font125-ms600",
+        "unity": "6000.6.7f1",
+        "mvid": "c85b1e44-0313-4af0-9fd2-ad60ea904f76",
+        "stateHash": "7a345b03eeeda53cb249e51ed58f7d84b8552982d5482ea4a78847287c977a2f",
+        "phase": "StageSettlement",
+        "savePath": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftTests_f26915d605a74569b4418dc51452eaaf\\debug-run.json",
+        "width": 1280,
+        "height": 720,
+        "frame": 276,
+        "isolatedArtTest": true
+      },
+      "actuallyViewed": true
+    },
+    {
+      "path": "artifacts/cache/v07-settlement-720-061859/DiceCraftTests_f26915d605a74569b4418dc51452eaaf/art07-edge-screens/settlement-font125-ms740.png",
+      "sha256": "cbf5d5e171bdcb11124f75bdc4107d7a49dacf6e4e30715a573e5ac15d7dd49f",
+      "metaSha256": "1dd8187ae46f51e041316844ceb64c04009b77b28283d648478fcf7d6ccca592",
+      "metadata": {
+        "screen": "settlement-font125-ms740",
+        "unity": "6000.6.7f1",
+        "mvid": "c85b1e44-0313-4af0-9fd2-ad60ea904f76",
+        "stateHash": "7a345b03eeeda53cb249e51ed58f7d84b8552982d5482ea4a78847287c977a2f",
+        "phase": "StageSettlement",
+        "savePath": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftTests_f26915d605a74569b4418dc51452eaaf\\debug-run.json",
+        "width": 1280,
+        "height": 720,
+        "frame": 291,
+        "isolatedArtTest": true
+      },
+      "actuallyViewed": true
+    },
+    {
+      "path": "artifacts/cache/v07-settlement-720-061859/DiceCraftTests_f26915d605a74569b4418dc51452eaaf/art07-edge-screens/settlement-font150-ms000.png",
+      "sha256": "135135526a59f1fe3a37abcef5f8ab008d363b07e58b2e9f1c9984a226949498",
+      "metaSha256": "7b7575dc1147723b6465f0be760a7bc8bb19009db3e1a521056c4f7fc5c078fc",
+      "metadata": {
+        "screen": "settlement-font150-ms000",
+        "unity": "6000.6.7f1",
+        "mvid": "c85b1e44-0313-4af0-9fd2-ad60ea904f76",
+        "stateHash": "70e3e3d7011ff20f520a15972848ca7defa94f4627b6822236323dfd22741473",
+        "phase": "StageSettlement",
+        "savePath": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftTests_f26915d605a74569b4418dc51452eaaf\\debug-run.json",
+        "width": 1280,
+        "height": 720,
+        "frame": 306,
+        "isolatedArtTest": true
+      },
+      "actuallyViewed": true
+    },
+    {
+      "path": "artifacts/cache/v07-settlement-720-061859/DiceCraftTests_f26915d605a74569b4418dc51452eaaf/art07-edge-screens/settlement-font150-ms180.png",
+      "sha256": "c51f8ec77d27876dc2a04fb1b5f614a8fe6e9aed0ae421900e4b837f474a89e4",
+      "metaSha256": "b0142a2e2bd533ddf9bc35672c5b740aa3e019de27dfaf5ce217cca26a5fefdd",
+      "metadata": {
+        "screen": "settlement-font150-ms180",
+        "unity": "6000.6.7f1",
+        "mvid": "c85b1e44-0313-4af0-9fd2-ad60ea904f76",
+        "stateHash": "70e3e3d7011ff20f520a15972848ca7defa94f4627b6822236323dfd22741473",
+        "phase": "StageSettlement",
+        "savePath": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftTests_f26915d605a74569b4418dc51452eaaf\\debug-run.json",
+        "width": 1280,
+        "height": 720,
+        "frame": 321,
+        "isolatedArtTest": true
+      },
+      "actuallyViewed": true
+    },
+    {
+      "path": "artifacts/cache/v07-settlement-720-061859/DiceCraftTests_f26915d605a74569b4418dc51452eaaf/art07-edge-screens/settlement-font150-ms280.png",
+      "sha256": "67727fad5834f0cdf767ca5aeec7626f841a0f357f5f8bbf5878e58da24566a2",
+      "metaSha256": "fa1ceca639a32b44fcc8ce48a76a9e7c1922c5a18ccdbc4533ee4e885fc5f96c",
+      "metadata": {
+        "screen": "settlement-font150-ms280",
+        "unity": "6000.6.7f1",
+        "mvid": "c85b1e44-0313-4af0-9fd2-ad60ea904f76",
+        "stateHash": "70e3e3d7011ff20f520a15972848ca7defa94f4627b6822236323dfd22741473",
+        "phase": "StageSettlement",
+        "savePath": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftTests_f26915d605a74569b4418dc51452eaaf\\debug-run.json",
+        "width": 1280,
+        "height": 720,
+        "frame": 336,
+        "isolatedArtTest": true
+      },
+      "actuallyViewed": true
+    },
+    {
+      "path": "artifacts/cache/v07-settlement-720-061859/DiceCraftTests_f26915d605a74569b4418dc51452eaaf/art07-edge-screens/settlement-font150-ms380.png",
+      "sha256": "9a44daa100af36c1c17546b9c588ed48dde182202936fcc0e2c74485cb58f076",
+      "metaSha256": "59ac193a335df1f9a63ee9a8c0bef8fc722b6c6812e1507552743a5e9b3f2020",
+      "metadata": {
+        "screen": "settlement-font150-ms380",
+        "unity": "6000.6.7f1",
+        "mvid": "c85b1e44-0313-4af0-9fd2-ad60ea904f76",
+        "stateHash": "70e3e3d7011ff20f520a15972848ca7defa94f4627b6822236323dfd22741473",
+        "phase": "StageSettlement",
+        "savePath": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftTests_f26915d605a74569b4418dc51452eaaf\\debug-run.json",
+        "width": 1280,
+        "height": 720,
+        "frame": 351,
+        "isolatedArtTest": true
+      },
+      "actuallyViewed": true
+    },
+    {
+      "path": "artifacts/cache/v07-settlement-720-061859/DiceCraftTests_f26915d605a74569b4418dc51452eaaf/art07-edge-screens/settlement-font150-ms480.png",
+      "sha256": "bea2fc825c7c40fe8583c9dc55064ebec75c454331501e596e9bfc7ab6759b77",
+      "metaSha256": "eeee6f4ab2b55c0ed765d97311f24ddb964bfa2ffa510eb4ccc76e65d2abd7f8",
+      "metadata": {
+        "screen": "settlement-font150-ms480",
+        "unity": "6000.6.7f1",
+        "mvid": "c85b1e44-0313-4af0-9fd2-ad60ea904f76",
+        "stateHash": "70e3e3d7011ff20f520a15972848ca7defa94f4627b6822236323dfd22741473",
+        "phase": "StageSettlement",
+        "savePath": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftTests_f26915d605a74569b4418dc51452eaaf\\debug-run.json",
+        "width": 1280,
+        "height": 720,
+        "frame": 366,
+        "isolatedArtTest": true
+      },
+      "actuallyViewed": true
+    },
+    {
+      "path": "artifacts/cache/v07-settlement-720-061859/DiceCraftTests_f26915d605a74569b4418dc51452eaaf/art07-edge-screens/settlement-font150-ms600.png",
+      "sha256": "f5cbd061632ee36e108eb3751908072c2c07cc636740281067f57d4fa50dbcf9",
+      "metaSha256": "096cec97026ac66576d0deffcf08f6b4b1d2c6de1dd52e21f44b6f6e76cdf4b6",
+      "metadata": {
+        "screen": "settlement-font150-ms600",
+        "unity": "6000.6.7f1",
+        "mvid": "c85b1e44-0313-4af0-9fd2-ad60ea904f76",
+        "stateHash": "70e3e3d7011ff20f520a15972848ca7defa94f4627b6822236323dfd22741473",
+        "phase": "StageSettlement",
+        "savePath": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftTests_f26915d605a74569b4418dc51452eaaf\\debug-run.json",
+        "width": 1280,
+        "height": 720,
+        "frame": 381,
+        "isolatedArtTest": true
+      },
+      "actuallyViewed": true
+    },
+    {
+      "path": "artifacts/cache/v07-settlement-720-061859/DiceCraftTests_f26915d605a74569b4418dc51452eaaf/art07-edge-screens/settlement-font150-ms740.png",
+      "sha256": "b1518d987a3fa29c46d04ac8cf14365f41de20ce67470bc5528917049636f33a",
+      "metaSha256": "8fe5501f9a843ba036ae7c9cea1450100048be4ae57839bcf73a826a8b095310",
+      "metadata": {
+        "screen": "settlement-font150-ms740",
+        "unity": "6000.6.7f1",
+        "mvid": "c85b1e44-0313-4af0-9fd2-ad60ea904f76",
+        "stateHash": "70e3e3d7011ff20f520a15972848ca7defa94f4627b6822236323dfd22741473",
+        "phase": "StageSettlement",
+        "savePath": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftTests_f26915d605a74569b4418dc51452eaaf\\debug-run.json",
+        "width": 1280,
+        "height": 720,
+        "frame": 396,
+        "isolatedArtTest": true
+      },
+      "actuallyViewed": true
+    },
+    {
+      "path": "artifacts/cache/v07-settlement-720-061859/DiceCraftTests_f28b3e8d768a4d949bfe42628e6c4511/art07-edge-screens/settlement-fast-font150-final.png",
+      "sha256": "c133727a09cc997332b872d01f2defca08ff72e2100c835e5e89fb1eb28ef5ba",
+      "metaSha256": "8f7c753b6c4fe1db5a4753fd75d2fe597a29262478a5d91a3ad560072dae56b0",
+      "metadata": {
+        "screen": "settlement-fast-font150-final",
+        "unity": "6000.6.7f1",
+        "mvid": "c85b1e44-0313-4af0-9fd2-ad60ea904f76",
+        "stateHash": "7e22e9d001e2022c4fb6e5f926be4ae7a2051fbe7a4e19b94134f6cf877368b6",
+        "phase": "StageSettlement",
+        "savePath": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftTests_f28b3e8d768a4d949bfe42628e6c4511\\debug-run.json",
+        "width": 1280,
+        "height": 720,
+        "frame": 31,
+        "isolatedArtTest": true
+      },
+      "actuallyViewed": true
+    },
+    {
+      "path": "artifacts/cache/v07-settlement-720-061859/DiceCraftTests_f28b3e8d768a4d949bfe42628e6c4511/art07-edge-screens/settlement-instant-font150-final.png",
+      "sha256": "b1518d987a3fa29c46d04ac8cf14365f41de20ce67470bc5528917049636f33a",
+      "metaSha256": "5269a648dcec679e5e21187e734f37e1d2c76e8806ae191c8a19bb98cfe68a75",
+      "metadata": {
+        "screen": "settlement-instant-font150-final",
+        "unity": "6000.6.7f1",
+        "mvid": "c85b1e44-0313-4af0-9fd2-ad60ea904f76",
+        "stateHash": "a4d7f7a00a19ddc4273909ba48bb235bc81501a9caf3feeff26b587bc1653b71",
+        "phase": "StageSettlement",
+        "savePath": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftTests_f28b3e8d768a4d949bfe42628e6c4511\\debug-run.json",
+        "width": 1280,
+        "height": 720,
+        "frame": 76,
+        "isolatedArtTest": true
+      },
+      "actuallyViewed": true
+    },
+    {
+      "path": "artifacts/cache/v07-settlement-720-061859/DiceCraftTests_f28b3e8d768a4d949bfe42628e6c4511/art07-edge-screens/settlement-reduced-font150-final.png",
+      "sha256": "b1518d987a3fa29c46d04ac8cf14365f41de20ce67470bc5528917049636f33a",
+      "metaSha256": "fb729ffc84962e82743d788fd078a2e9d0be1c27ada60ffd6d8619d454181981",
+      "metadata": {
+        "screen": "settlement-reduced-font150-final",
+        "unity": "6000.6.7f1",
+        "mvid": "c85b1e44-0313-4af0-9fd2-ad60ea904f76",
+        "stateHash": "3fcfa69b09f15aff2cef136aa747f47870696c6f288a261b56a146ca52941121",
+        "phase": "StageSettlement",
+        "savePath": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftTests_f28b3e8d768a4d949bfe42628e6c4511\\debug-run.json",
+        "width": 1280,
+        "height": 720,
+        "frame": 61,
+        "isolatedArtTest": true
+      },
+      "actuallyViewed": true
+    },
+    {
+      "path": "artifacts/cache/v07-settlement-720-061859/DiceCraftTests_f28b3e8d768a4d949bfe42628e6c4511/art07-edge-screens/settlement-reduced-font150-ms060.png",
+      "sha256": "5441ea5baa1f897818a8ee62cd46ca250206f5802f1a29766b1b3298a3ccf6e4",
+      "metaSha256": "2e0a1024edce2f0f8039cbdad04049e86db39a22d8a8dde89fb6d6dba9e3ae44",
+      "metadata": {
+        "screen": "settlement-reduced-font150-ms060",
+        "unity": "6000.6.7f1",
+        "mvid": "c85b1e44-0313-4af0-9fd2-ad60ea904f76",
+        "stateHash": "3fcfa69b09f15aff2cef136aa747f47870696c6f288a261b56a146ca52941121",
+        "phase": "StageSettlement",
+        "savePath": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftTests_f28b3e8d768a4d949bfe42628e6c4511\\debug-run.json",
+        "width": 1280,
+        "height": 720,
+        "frame": 46,
+        "isolatedArtTest": true
+      },
+      "actuallyViewed": true
+    }
+  ],
+  "reviewReport": {
+    "path": "evidence/v07/review/SETTLEMENT_REVEAL_REVIEW.md",
+    "sha256": "7403674614e8e44cc7eec3f2401cc41c742c25dac0dc421f88b18c679ac8f065"
+  },
+  "findings": [
+    {
+      "id": "SET01",
+      "priority": "P2",
+      "status": "REWORK",
+      "source": "ART_SPEC.md:234",
+      "note": "Original board context is cleared before the sheet; parent agreed repair."
+    }
+  ]
+}

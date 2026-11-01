@@ -1,0 +1,296 @@
+{"artVersion":"art0.7.0","theme":{
+    "name": "复古街机骰桌",
+    "colors": {
+      "bgDeep": "#102A2D",
+      "felt": "#173E40",
+      "panel": "#203F43",
+      "paper": "#F4E8CB",
+      "ink": "#162629",
+      "text": "#F7EED9",
+      "muted": "#B8C9C5",
+      "red": "#EC655D",
+      "blue": "#55B6D9",
+      "gold": "#F3BA58",
+      "positive": "#79C99C",
+      "violet": "#AD92DB",
+      "danger": "#D94B4B",
+      "dangerFill": "#9E3440",
+      "shadow": "#07191C"
+    },
+    "colorRoles": {
+      "bgDeep": "远背景与深色遮罩",
+      "felt": "主桌布",
+      "panel": "深色信息面板",
+      "paper": "纸卡、默认按钮及骰体基色",
+      "ink": "纸卡正文与亮底按钮文字",
+      "text": "深底主文字",
+      "muted": "深底次要文字",
+      "red": "红色骰面、相关属性",
+      "blue": "蓝色骰面、主要操作",
+      "gold": "奖励、达标、黄金单面",
+      "positive": "提交、成长和基础分附魔",
+      "violet": "倍率、复制及特殊规则",
+      "danger": "危险图标和描边，不作正文按钮底",
+      "dangerFill": "危险实体按钮底，搭配text浅字",
+      "shadow": "边缘及短阴影"
+    },
+    "typography": {
+      "cjkCandidates": [
+        "Noto Sans CJK SC",
+        "Source Han Sans SC"
+      ],
+      "body": 24,
+      "secondary": 20,
+      "button": 26,
+      "title": 32,
+      "scoreMin": 64,
+      "scoreMax": 88,
+      "textScaleOptions": [
+        1,
+        1.25,
+        1.5
+      ],
+      "liveTextBaked": false,
+      "numberDigitsPreferTabular": true
+    },
+    "spacing": [
+      8,
+      16,
+      24,
+      32
+    ],
+    "outerMargin": 24,
+    "outlineDesignPx": 4,
+    "dividerDesignPx": 2,
+    "buttonExtrusionDesignPx": 6,
+    "cornerRadiusDesignPx": [
+      4,
+      8
+    ],
+    "solidColorContrastChecks": [
+      {
+        "foreground": "text",
+        "background": "bgDeep",
+        "ratio": 13.07,
+        "target": 4.5,
+        "passedSolidColorCheck": true
+      },
+      {
+        "foreground": "text",
+        "background": "panel",
+        "ratio": 9.81,
+        "target": 4.5,
+        "passedSolidColorCheck": true
+      },
+      {
+        "foreground": "muted",
+        "background": "panel",
+        "ratio": 6.58,
+        "target": 4.5,
+        "passedSolidColorCheck": true
+      },
+      {
+        "foreground": "ink",
+        "background": "paper",
+        "ratio": 12.84,
+        "target": 4.5,
+        "passedSolidColorCheck": true
+      },
+      {
+        "foreground": "ink",
+        "background": "blue",
+        "ratio": 6.76,
+        "target": 4.5,
+        "passedSolidColorCheck": true
+      },
+      {
+        "foreground": "ink",
+        "background": "gold",
+        "ratio": 8.91,
+        "target": 4.5,
+        "passedSolidColorCheck": true
+      },
+      {
+        "foreground": "ink",
+        "background": "positive",
+        "ratio": 7.93,
+        "target": 4.5,
+        "passedSolidColorCheck": true
+      },
+      {
+        "foreground": "ink",
+        "background": "red",
+        "ratio": 4.9,
+        "target": 4.5,
+        "passedSolidColorCheck": true
+      },
+      {
+        "foreground": "text",
+        "background": "dangerFill",
+        "ratio": 6.02,
+        "target": 4.5,
+        "passedSolidColorCheck": true
+      }
+    ]
+  },"layout":{
+    "referenceResolution": [
+      1920,
+      1080
+    ],
+    "minimumNormalResolution": [
+      1280,
+      720
+    ],
+    "rectOrder": [
+      "x",
+      "y",
+      "width",
+      "height"
+    ],
+    "standard": {
+      "sidebar": [
+        24,
+        24,
+        320,
+        1032
+      ],
+      "controllers": [
+        368,
+        24,
+        1144,
+        240
+      ],
+      "items": [
+        1536,
+        24,
+        360,
+        240
+      ],
+      "score": [
+        368,
+        288,
+        1528,
+        160
+      ],
+      "dicePool": [
+        368,
+        472,
+        1528,
+        260
+      ],
+      "submission": [
+        368,
+        756,
+        1528,
+        168
+      ],
+      "actions": [
+        368,
+        948,
+        1528,
+        108
+      ]
+    },
+    "compact1280x720": {
+      "sidebar": [
+        12,
+        12,
+        216,
+        696
+      ],
+      "controllers": [
+        240,
+        12,
+        812,
+        168
+      ],
+      "items": [
+        1068,
+        12,
+        200,
+        168
+      ],
+      "score": [
+        240,
+        188,
+        1028,
+        76
+      ],
+      "dicePool": [
+        240,
+        272,
+        1028,
+        158
+      ],
+      "submission": [
+        240,
+        438,
+        1028,
+        168
+      ],
+      "actions": [
+        240,
+        614,
+        1028,
+        94
+      ]
+    },
+    "compactUsesFinalScreenPixels": true,
+    "compactTrigger": "width <= 1366 and textScale >= 1.25, or insufficient room for valid hit targets",
+    "compactSubmissionRows": 2,
+    "compactSubmissionColumns": 4,
+    "minimumHitAreaScreenPx": [
+      40,
+      40
+    ],
+    "minimumHitGapScreenPx": 4,
+    "controllerFullSize": [
+      160,
+      224
+    ],
+    "controllerCompactSize": [
+      208,
+      104
+    ],
+    "controllerCompactThreshold": 6,
+    "controllerRowsAtMax": 2,
+    "controllerColumnsAtMax": 5,
+    "enchantBadgeSourcePx": [
+      128,
+      128
+    ],
+    "enchantBadgeDesignPx": {
+      "full": 32,
+      "compact": 28,
+      "detail": 40
+    }
+  },"buttons":{
+    "heightsDesignPx": {
+      "primary": 72,
+      "regular": 56,
+      "small": 48
+    },
+    "hover": {
+      "ms": 90,
+      "offsetY": -3,
+      "brightnessGain": 0.08
+    },
+    "press": {
+      "ms": 60,
+      "offsetY": 4,
+      "scale": 0.98
+    },
+    "releaseMs": 120,
+    "keyboardFocusOutlinePx": 2,
+    "colors": {
+      "roll": "blue",
+      "confirmLock": "gold",
+      "submit": "positive",
+      "secondary": "paper",
+      "destructive": "dangerFill"
+    },
+    "lightBackgroundText": "ink",
+    "destructiveText": "text",
+    "disabledReasonReadable": true,
+    "changeHitRectOnAnimation": false
+  }}

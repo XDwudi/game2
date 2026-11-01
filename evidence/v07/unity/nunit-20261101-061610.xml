@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="3" result="Passed" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-11-01 06:16:10Z" end-time="2026-11-01 06:16:10Z" duration="0.2980302">
+  <test-suite type="TestSuite" id="2075" name="DiceCraft P0" fullname="DiceCraft P0" runstate="Runnable" testcasecount="999" result="Passed" start-time="2026-11-01 06:16:10Z" end-time="2026-11-01 06:16:10Z" duration="0.298030" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <test-suite type="Assembly" id="2058" name="DiceCraft.EditMode.dll" fullname="E:/agent_workspace/gpt/game2/DicePrototype/Library/ScriptAssemblies/DiceCraft.EditMode.dll" runstate="Runnable" testcasecount="999" result="Passed" start-time="2026-11-01 06:16:10Z" end-time="2026-11-01 06:16:10Z" duration="0.271674" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="23240" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="2059" name="DiceCraft" fullname="DiceCraft" runstate="Runnable" testcasecount="999" result="Passed" start-time="2026-11-01 06:16:10Z" end-time="2026-11-01 06:16:10Z" duration="0.266976" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="2064" name="Tests" fullname="DiceCraft.Tests" runstate="Runnable" testcasecount="302" result="Passed" start-time="2026-11-01 06:16:10Z" end-time="2026-11-01 06:16:10Z" duration="0.265036" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="1716" name="AtomicSaveMetadata07Tests" fullname="DiceCraft.Tests.AtomicSaveMetadata07Tests" classname="DiceCraft.Tests.AtomicSaveMetadata07Tests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-11-01 06:16:10Z" end-time="2026-11-01 06:16:10Z" duration="0.263713" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1717" name="SAVE_ART07_MetadataReportsFirstRealVersionAndPreservesBothLegacyFiles" fullname="DiceCraft.Tests.AtomicSaveMetadata07Tests.SAVE_ART07_MetadataReportsFirstRealVersionAndPreservesBothLegacyFiles" methodname="SAVE_ART07_MetadataReportsFirstRealVersionAndPreservesBothLegacyFiles" classname="DiceCraft.Tests.AtomicSaveMetadata07Tests" runstate="Runnable" seed="1519643215" result="Passed" start-time="2026-11-01 06:16:10Z" end-time="2026-11-01 06:16:10Z" duration="0.164918" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Legacy metadata evidence (isolated): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftLegacyMetadata_37bfe57ac24444b9923d444429475301
+]]></output>
+            </test-case>
+            <test-case id="1718" name="SAVE_ART07_SuccessfulBackupNeverCarriesRejectedActiveVersionIntoUi" fullname="DiceCraft.Tests.AtomicSaveMetadata07Tests.SAVE_ART07_SuccessfulBackupNeverCarriesRejectedActiveVersionIntoUi" methodname="SAVE_ART07_SuccessfulBackupNeverCarriesRejectedActiveVersionIntoUi" classname="DiceCraft.Tests.AtomicSaveMetadata07Tests" runstate="Runnable" seed="1558940057" result="Passed" start-time="2026-11-01 06:16:10Z" end-time="2026-11-01 06:16:10Z" duration="0.040320" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Legacy metadata evidence (isolated): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftLegacyMetadata_7c74a4aaac004e21b8663e6005f6d311
+]]></output>
+            </test-case>
+            <test-case id="1719" name="SAVE_ART07_ValidActiveIgnoresIncompatibleBackupAndSaveProbeDoesNotSetLoadMetadata" fullname="DiceCraft.Tests.AtomicSaveMetadata07Tests.SAVE_ART07_ValidActiveIgnoresIncompatibleBackupAndSaveProbeDoesNotSetLoadMetadata" methodname="SAVE_ART07_ValidActiveIgnoresIncompatibleBackupAndSaveProbeDoesNotSetLoadMetadata" classname="DiceCraft.Tests.AtomicSaveMetadata07Tests" runstate="Runnable" seed="1351814598" result="Passed" start-time="2026-11-01 06:16:10Z" end-time="2026-11-01 06:16:10Z" duration="0.036734" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Legacy metadata evidence (isolated): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftLegacyMetadata_4a9d355bbed24e0e8266f043015a778e
+Saving results to: C:/Users/f/AppData/LocalLow/XDwudi/DiceCraft P0\TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

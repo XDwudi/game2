@@ -1,0 +1,286 @@
+{"artVersion":"art0.7.0","presentation":{
+    "normalMaxBlockingMs": 3200,
+    "fastMaxBlockingMs": 800,
+    "instantMotion": false,
+    "normalPhaseMaxMs": {
+      "receipt": 100,
+      "dice_contributions": 420,
+      "base_and_structure": 280,
+      "controller_and_enchant": 1040,
+      "final_score": 600,
+      "post_score": 480,
+      "target_state": 280
+    },
+    "sourceFocusStartIntervalMs": 140,
+    "sourcePunchMs": 220,
+    "sourcePunchScale": [
+      0.98,
+      1.03,
+      1.0
+    ],
+    "normalRollMs": 900,
+    "fastRollMs": 150,
+    "normalRollSegmentsMs": [
+      120,
+      480,
+      220,
+      80
+    ],
+    "finalFaceFixedBeforeEndMs": 120,
+    "postScoreMergeMaxMs": 480,
+    "qualifiedStampTotalMs": 480,
+    "qualifiedStampBlockingMaxMs": 280,
+    "qualifiedStampTailNonblockingMs": 200,
+    "oneHighestBurstPerSubmit": true,
+    "comboAddsScoreOrResources": false,
+    "tierMultiplier": "H*C*R*X*2^Q",
+    "tierExcludesBase": true,
+    "tierUsesExactIntegerCrossMultiply": true,
+    "scoreZeroForcesTier": 0,
+    "chainCount": "unique scoring controller emitterId only; nonidentity numeric contribution or effective scoring change; own base and enchant deduplicated; post-only effects excluded; never count animation instances",
+    "reducedMotion": {
+      "particles": 0,
+      "shake": 0,
+      "positionMotion": false,
+      "scaleMotion": false,
+      "staticSymbolsAndValues": true
+    },
+    "tiers": [
+      {
+        "tier": 0,
+        "name": "常规",
+        "minimumMultiplierInclusive": "0",
+        "maximumMultiplierExclusive": "8",
+        "normalDurationMs": 180,
+        "scalePeak": 1,
+        "tableShakeDesignPx": 0,
+        "shakeMs": 0,
+        "particlesMax": 0
+      },
+      {
+        "tier": 1,
+        "name": "起势",
+        "minimumMultiplierInclusive": "8",
+        "maximumMultiplierExclusive": "32",
+        "normalDurationMs": 260,
+        "scalePeak": 1.04,
+        "tableShakeDesignPx": 0,
+        "shakeMs": 0,
+        "particlesMax": 4
+      },
+      {
+        "tier": 2,
+        "name": "联动",
+        "minimumMultiplierInclusive": "32",
+        "maximumMultiplierExclusive": "128",
+        "normalDurationMs": 340,
+        "scalePeak": 1.06,
+        "tableShakeDesignPx": 0,
+        "shakeMs": 0,
+        "particlesMax": 8
+      },
+      {
+        "tier": 3,
+        "name": "强连锁",
+        "minimumMultiplierInclusive": "128",
+        "maximumMultiplierExclusive": "1024",
+        "normalDurationMs": 420,
+        "scalePeak": 1.08,
+        "tableShakeDesignPx": 2,
+        "shakeMs": 100,
+        "particlesMax": 16
+      },
+      {
+        "tier": 4,
+        "name": "爆分",
+        "minimumMultiplierInclusive": "1024",
+        "maximumMultiplierExclusive": "8192",
+        "normalDurationMs": 520,
+        "scalePeak": 1.1,
+        "tableShakeDesignPx": 4,
+        "shakeMs": 140,
+        "particlesMax": 24
+      },
+      {
+        "tier": 5,
+        "name": "高倍爆发",
+        "minimumMultiplierInclusive": "8192",
+        "maximumMultiplierExclusive": null,
+        "normalDurationMs": 600,
+        "scalePeak": 1.12,
+        "tableShakeDesignPx": 6,
+        "shakeMs": 160,
+        "particlesMax": 36
+      }
+    ],
+    "tierExamples": [
+      {
+        "id": "VT01",
+        "scoreDecimal": "100",
+        "multiplierNumeratorDecimal": "799",
+        "multiplierDenominatorDecimal": "100",
+        "expectedTier": 0,
+        "reason": "M=799/100，阈值前0.01"
+      },
+      {
+        "id": "VT02",
+        "scoreDecimal": "100",
+        "multiplierNumeratorDecimal": "800",
+        "multiplierDenominatorDecimal": "100",
+        "expectedTier": 1,
+        "reason": "M=8，阈值本身"
+      },
+      {
+        "id": "VT03",
+        "scoreDecimal": "100",
+        "multiplierNumeratorDecimal": "801",
+        "multiplierDenominatorDecimal": "100",
+        "expectedTier": 1,
+        "reason": "M=801/100，阈值后0.01"
+      },
+      {
+        "id": "VT04",
+        "scoreDecimal": "100",
+        "multiplierNumeratorDecimal": "3199",
+        "multiplierDenominatorDecimal": "100",
+        "expectedTier": 1,
+        "reason": "M=3199/100，阈值前0.01"
+      },
+      {
+        "id": "VT05",
+        "scoreDecimal": "100",
+        "multiplierNumeratorDecimal": "3200",
+        "multiplierDenominatorDecimal": "100",
+        "expectedTier": 2,
+        "reason": "M=32，阈值本身"
+      },
+      {
+        "id": "VT06",
+        "scoreDecimal": "100",
+        "multiplierNumeratorDecimal": "3201",
+        "multiplierDenominatorDecimal": "100",
+        "expectedTier": 2,
+        "reason": "M=3201/100，阈值后0.01"
+      },
+      {
+        "id": "VT07",
+        "scoreDecimal": "100",
+        "multiplierNumeratorDecimal": "12799",
+        "multiplierDenominatorDecimal": "100",
+        "expectedTier": 2,
+        "reason": "M=12799/100，阈值前0.01"
+      },
+      {
+        "id": "VT08",
+        "scoreDecimal": "100",
+        "multiplierNumeratorDecimal": "12800",
+        "multiplierDenominatorDecimal": "100",
+        "expectedTier": 3,
+        "reason": "M=128，阈值本身"
+      },
+      {
+        "id": "VT09",
+        "scoreDecimal": "100",
+        "multiplierNumeratorDecimal": "12801",
+        "multiplierDenominatorDecimal": "100",
+        "expectedTier": 3,
+        "reason": "M=12801/100，阈值后0.01"
+      },
+      {
+        "id": "VT10",
+        "scoreDecimal": "100",
+        "multiplierNumeratorDecimal": "102399",
+        "multiplierDenominatorDecimal": "100",
+        "expectedTier": 3,
+        "reason": "M=102399/100，阈值前0.01"
+      },
+      {
+        "id": "VT11",
+        "scoreDecimal": "100",
+        "multiplierNumeratorDecimal": "102400",
+        "multiplierDenominatorDecimal": "100",
+        "expectedTier": 4,
+        "reason": "M=1024，阈值本身"
+      },
+      {
+        "id": "VT12",
+        "scoreDecimal": "100",
+        "multiplierNumeratorDecimal": "102401",
+        "multiplierDenominatorDecimal": "100",
+        "expectedTier": 4,
+        "reason": "M=102401/100，阈值后0.01"
+      },
+      {
+        "id": "VT13",
+        "scoreDecimal": "100",
+        "multiplierNumeratorDecimal": "819199",
+        "multiplierDenominatorDecimal": "100",
+        "expectedTier": 4,
+        "reason": "M=819199/100，阈值前0.01"
+      },
+      {
+        "id": "VT14",
+        "scoreDecimal": "100",
+        "multiplierNumeratorDecimal": "819200",
+        "multiplierDenominatorDecimal": "100",
+        "expectedTier": 5,
+        "reason": "M=8192，阈值本身"
+      },
+      {
+        "id": "VT15",
+        "scoreDecimal": "100",
+        "multiplierNumeratorDecimal": "819201",
+        "multiplierDenominatorDecimal": "100",
+        "expectedTier": 5,
+        "reason": "M=819201/100，阈值后0.01"
+      },
+      {
+        "id": "VT16",
+        "scoreDecimal": "0",
+        "multiplierNumeratorDecimal": "100000",
+        "multiplierDenominatorDecimal": "1",
+        "expectedTier": 0,
+        "reason": "最终零分覆盖高倍率"
+      },
+      {
+        "id": "VT17",
+        "scoreDecimal": "10",
+        "multiplierNumeratorDecimal": "0",
+        "multiplierDenominatorDecimal": "1",
+        "expectedTier": 0,
+        "reason": "防御性输入：倍率零"
+      },
+      {
+        "id": "VT18",
+        "scoreDecimal": "1",
+        "multiplierNumeratorDecimal": "1",
+        "multiplierDenominatorDecimal": "4",
+        "expectedTier": 0,
+        "reason": "C41+C53均为0.5，合计0.25"
+      },
+      {
+        "id": "VT19",
+        "scoreDecimal": "967680",
+        "multiplierNumeratorDecimal": "26880",
+        "multiplierDenominatorDecimal": "1",
+        "expectedTier": 5,
+        "reason": "G147：四计分来源；未达1800000"
+      },
+      {
+        "id": "VT20",
+        "scoreDecimal": "100000000000000000000000000000000000000000000000000000000000000000000000000000000",
+        "multiplierNumeratorDecimal": "10000000000000000000000000000000000000000000000000000000000000000000000",
+        "multiplierDenominatorDecimal": "3",
+        "expectedTier": 5,
+        "reason": "超Int64整数，不用浮点数"
+      },
+      {
+        "id": "VT21",
+        "scoreDecimal": "10",
+        "multiplierNumeratorDecimal": "1",
+        "multiplierDenominatorDecimal": "1",
+        "expectedTier": 0,
+        "reason": "恒等倍率；不伪装爆分"
+      }
+    ]
+  }}

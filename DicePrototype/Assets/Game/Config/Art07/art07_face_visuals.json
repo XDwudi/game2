@@ -1,0 +1,90 @@
+{"artVersion":"art0.7.0","dice":{
+    "body": "warm_ivory_ceramic",
+    "pipShape": "round_standard_both_colors",
+    "colorAidDefaultOn": true,
+    "colorAidShape": {
+      "red": "circle",
+      "blue": "diamond"
+    },
+    "colorAidCountsAsPip": false,
+    "gold": "thin_rim_on_selected_physical_face_only",
+    "glass": "stylized_frosted_body_opaque_pips_no_backface_pip_showthrough",
+    "bodyUnitEdge": 1,
+    "bevelWidth": 0.055,
+    "bevelSegments": 3,
+    "trianglesTarget": 1200,
+    "trianglesHardMax": 2000,
+    "fragmentsPerBreak": 6,
+    "fragmentConcurrentMax": 12,
+    "layers": [
+      "physical_face",
+      "current_remote_override",
+      "effective_score_view"
+    ],
+    "stableFaceIds": [
+      "F01",
+      "F02",
+      "F03",
+      "F04",
+      "F05",
+      "F06"
+    ],
+    "oppositeFaces": [
+      [
+        "F01",
+        "F06"
+      ],
+      [
+        "F02",
+        "F05"
+      ],
+      [
+        "F03",
+        "F04"
+      ]
+    ],
+    "pending": {
+      "outline": "gold_dashed",
+      "symbol": "hollow_check",
+      "liftDesignPx": 6
+    },
+    "hover": {
+      "outline": "paper_thin"
+    },
+    "locked": {
+      "outline": "solid",
+      "symbol": "closed_lock",
+      "removalAllowedByVisuals": false
+    }
+  },"enchantVisuals":{
+    "none": {
+      "badge": null
+    },
+    "slotless": {
+      "badge": "badge_enchant_slotless",
+      "shape": "open_slot",
+      "shadowExtraDesignPx": 2
+    },
+    "base10": {
+      "badge": "badge_enchant_base10",
+      "shape": "plus",
+      "color": "positive",
+      "text": "+10"
+    },
+    "mult2": {
+      "badge": "badge_enchant_mult2",
+      "shape": "multiply",
+      "color": "violet",
+      "text": "×2"
+    },
+    "submit1": {
+      "badge": "badge_enchant_submit1",
+      "shape": "submission_ticket",
+      "text": "+1"
+    },
+    "roll1": {
+      "badge": "badge_enchant_roll1",
+      "shape": "dice_cup",
+      "text": "+1"
+    }
+  }}

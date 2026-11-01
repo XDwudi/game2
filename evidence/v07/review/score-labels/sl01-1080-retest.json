@@ -1,0 +1,1688 @@
+{
+  "schema": "independent-review-binding-1",
+  "reviewer": "v07_spec_audit",
+  "reviewedAtUtc": "2026-11-01T04:04:17.412935+00:00",
+  "scope": "Actual 8 PNG visual review at 1080p 150%; 397 PNG hashes/state/save record verification, not 397 images visually reviewed.",
+  "xml": {
+    "path": "evidence/v07/unity/nunit-20261101-035307.xml",
+    "sha256": "62f78aa3398365649484c43efedfd007b98b6678154bf0bd5e25a5b1bfb9f9ad",
+    "result": {
+      "id": "2",
+      "testcasecount": "4",
+      "result": "Passed",
+      "total": "4",
+      "passed": "4",
+      "failed": "0",
+      "inconclusive": "0",
+      "skipped": "0",
+      "asserts": "0",
+      "engine-version": "3.5.0.0",
+      "clr-version": "4.0.30319.42000",
+      "start-time": "2026-11-01 03:48:34Z",
+      "end-time": "2026-11-01 03:53:07Z",
+      "duration": "272.9292309"
+    }
+  },
+  "reports": [
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont100/extra-report.json",
+      "sha256": "9ec3ad9408d8db824ca6cf88802134f3daa173075dafb7aa387f2909dacb3c59",
+      "runtimeMvid": "5bbc7f8e-1239-4f3a-88ca-2da361a52959",
+      "coreMvid": "8f690e0d-a075-4b72-98e4-2cb64ced2fa3",
+      "sourceManifestSha256": "005757713df2104938c5de2056bd7644426a997de5a3230288f3bf5e63052ca6",
+      "status": "captured_pending_visual_review",
+      "screens": 103
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/extra-report.json",
+      "sha256": "e3984571b9543c25ff4b79b7f87653e7bb05e46b17263308330661f857d23e90",
+      "runtimeMvid": "5bbc7f8e-1239-4f3a-88ca-2da361a52959",
+      "coreMvid": "8f690e0d-a075-4b72-98e4-2cb64ced2fa3",
+      "sourceManifestSha256": "005757713df2104938c5de2056bd7644426a997de5a3230288f3bf5e63052ca6",
+      "status": "captured_pending_visual_review",
+      "screens": 121
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/extra-report.json",
+      "sha256": "a27d7f172cc8f851f22b75cd2eea9c1b9b186908f717eaf9550182e8ea744ee3",
+      "runtimeMvid": "5bbc7f8e-1239-4f3a-88ca-2da361a52959",
+      "coreMvid": "8f690e0d-a075-4b72-98e4-2cb64ced2fa3",
+      "sourceManifestSha256": "005757713df2104938c5de2056bd7644426a997de5a3230288f3bf5e63052ca6",
+      "status": "captured_pending_visual_review",
+      "screens": 148
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownHistoricalEffectsRemainCompleteAndReadonlyAtFont150/extra-report.json",
+      "sha256": "edb95eb8477b2af2f89795f91026f034eaf788abf210d77e619f9168501027e4",
+      "runtimeMvid": "5bbc7f8e-1239-4f3a-88ca-2da361a52959",
+      "coreMvid": "8f690e0d-a075-4b72-98e4-2cb64ced2fa3",
+      "sourceManifestSha256": "005757713df2104938c5de2056bd7644426a997de5a3230288f3bf5e63052ca6",
+      "status": "captured_pending_visual_review",
+      "screens": 25
+    }
+  ],
+  "viewed": [
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/000-MaximumTable-font150-page00.png",
+      "sha256": "e1a09ad7ce41d2fa0793fdbd369abc861e84c1a679375a1fecf33a25ba5b38b5"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/016-MaximumTable-font150-page16.png",
+      "sha256": "b1dc28b25e158f6afd0dc522b1eb44aa0c5c18a487c19cf0805da77d964453e7"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/048-MaximumTable-font150-page48.png",
+      "sha256": "e6ab711375fcbf94eceef5665b759cbd1aef7036c84e3c082b2c21966f091423"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/050-Debug32-font150-page00.png",
+      "sha256": "b23f8e6dca85d58c137f05d479d10528885dc20d95ad316e87b9df43c0d09f95"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/112-Debug32-font150-page62.png",
+      "sha256": "78258ca1f0161975f7a691d80c5bf03db5d4b526e543822d76f5b14db78868a2"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/147-Debug32-font150-page97.png",
+      "sha256": "c84076795cab48593f9b1b70843444bde2a356bbd421310fb229872c69dbbcb8"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownHistoricalEffectsRemainCompleteAndReadonlyAtFont150/000-historical-permanent-effects-font150-page00.png",
+      "sha256": "14076c1b8e96379697283cab7c91bf6d79c79201a1c5aa6910c68a4d42315fbb"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownHistoricalEffectsRemainCompleteAndReadonlyAtFont150/024-historical-permanent-effects-font150-page24.png",
+      "sha256": "932a2278276a935ed3ca424a999dfe9e93896b9f897f737d80a1912a1ac47631"
+    }
+  ],
+  "allCaptureBindings": [
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont100/000-MaximumTable-font100-page00.png",
+      "sha256": "67c13e91dd44973d334dd69bcffd595bb82fd92f14820260fd93785c5b98c96b"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont100/001-MaximumTable-font100-page01.png",
+      "sha256": "f43d152e569dfa3bda3ea3dac041752cc063d1f261d8c215e47ae555708d41e6"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont100/002-MaximumTable-font100-page02.png",
+      "sha256": "2441e07294447d73758cff23b7c34b117ad13ed13bc42c5ac16fc5c5e58e07dc"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont100/003-MaximumTable-font100-page03.png",
+      "sha256": "e36507c006a1c2b1ff3e0461304cfbda10a55f7ecbc57d7e7dc5c95158289877"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont100/004-MaximumTable-font100-page04.png",
+      "sha256": "5f26b67de676bdc20104f930ddee5b11e216ae235aab581ba7b033234849be23"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont100/005-MaximumTable-font100-page05.png",
+      "sha256": "fc9d31c840f083f924503194ce17bdfde239d91379143101958579e17fff3117"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont100/006-MaximumTable-font100-page06.png",
+      "sha256": "83e03432b47d8c6cad0960e492b1621a2f07fcf3642340a33bc2a860bd1a7178"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont100/007-MaximumTable-font100-page07.png",
+      "sha256": "dff37ca71ab68901f1c82ae733ee811830380ca73ec32b92f89e4edc893165f3"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont100/008-MaximumTable-font100-page08.png",
+      "sha256": "ebb7122716c4b5e83abc76443ca05d4f3edad9a8cd07c3979aa315b107ff192d"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont100/009-MaximumTable-font100-page09.png",
+      "sha256": "a88dba6a6c4d7c381f4eb28c05e37799c6f98a8e82cddaf5c9ed7d38c0b609e0"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont100/010-MaximumTable-font100-page10.png",
+      "sha256": "87da3564af29afa378bb35f8a587956d92c3156848cc4536dfdb886051a0371c"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont100/011-MaximumTable-font100-page11.png",
+      "sha256": "cf1bd9f8afb61357d2a9f7f5a9c7837e81b6eab045eb8201c70f737609d103ff"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont100/012-MaximumTable-font100-page12.png",
+      "sha256": "f63af79e2759abaa04a95fe50e1c96218bf38659f76e605f89a2dc2387959d56"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont100/013-MaximumTable-font100-page13.png",
+      "sha256": "c1c714349cba0c4409cf78ca95f5747150927fa339ead2dbb86af6d7b9d5a168"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont100/014-MaximumTable-font100-page14.png",
+      "sha256": "d3980fc6e3015cc55ed5388f33984635c3e1ef79618cca50ac1a010b88f1c2ff"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont100/015-MaximumTable-font100-page15.png",
+      "sha256": "01c5c493366e90612166ffaf2cbe434cf68be6eb8e908ac5d329aa925db6fa49"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont100/016-MaximumTable-font100-page16.png",
+      "sha256": "bbbb14a391e400abc769ef0a710d9ff2e068e5ac4bbe3508c183c06917721a68"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont100/017-MaximumTable-font100-page17.png",
+      "sha256": "36e1784fddcf0be1c3577ad6cee1c9ebb85587cd9fc820fe209939b86cbbad57"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont100/018-MaximumTable-font100-page18.png",
+      "sha256": "0a43dd98faab8ed71d73964dc3f1a25f494fd2ec5a074938e2ac1801d9d0f9a4"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont100/019-MaximumTable-font100-page19.png",
+      "sha256": "d11b5703c1b1bba902a087644863b36473c6104f816338dfe4cb37f6dc17519d"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont100/020-MaximumTable-font100-page20.png",
+      "sha256": "50123bf9aaa4af96d2213bafa80bfb057881d00b0434f17349e7c3ace820e9e6"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont100/021-MaximumTable-font100-page21.png",
+      "sha256": "56b81129075f06fecf9e9a3e708c2b72212aeddd240e587432ec17dee94f0040"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont100/022-MaximumTable-font100-page22.png",
+      "sha256": "98bc52b42a85fe1bd7899f1f9b66690cf09991adf7ec41ba6fbe89064f7b3702"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont100/023-MaximumTable-font100-page23.png",
+      "sha256": "9c064626cfdabfb1342d08fd8955c21e100b2eee9e554fea2fdec2f4be4b9a58"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont100/024-MaximumTable-font100-page24.png",
+      "sha256": "56ff82ee2b6939c0d5d27ca8e4b464b7fc49f43b07a7e8c3b798ab6eb810174f"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont100/025-MaximumTable-font100-page25.png",
+      "sha256": "97e2b213cdf2809fb1f238df7d86e8f38a9038060e514b64bb6e0a7b345ef4fd"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont100/026-MaximumTable-font100-page26.png",
+      "sha256": "f33b59d5c64bea4306351779106c6ccdaf8a5b0b4b2ddb9313963361a955d73d"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont100/027-MaximumTable-font100-page27.png",
+      "sha256": "02d39eaef46e33e99cf28c6a61a0e00258118c272f34710eb301656df98e1eea"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont100/028-MaximumTable-font100-page28.png",
+      "sha256": "c7f888f1a17d5ae95711c5d441b60d6dbc61af296b72069a98ed038ea9872797"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont100/029-MaximumTable-font100-page29.png",
+      "sha256": "63a0f78da49143ceec70888e97467fb1c87064aedca8c96f0e5091bdd9b5e2d2"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont100/030-MaximumTable-font100-page30.png",
+      "sha256": "aed693f72c7e15dc5a4a48ec4e814e951d77e21d673b63ea6d99fde1ee4625c4"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont100/031-MaximumTable-font100-page31.png",
+      "sha256": "afef30c54f0b2f39b882c51de8187061d7d05dc29f57cce4b2ede96827ea6ab6"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont100/032-MaximumTable-font100-page32.png",
+      "sha256": "253c6f5a2ee10631a1e0b374ecb68f7c786f7cf138bd87388b061edb5f8ec804"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont100/033-MaximumTable-font100-page33.png",
+      "sha256": "0b6b1c9e1a2b20ad5d03be2d7df946c43f450ff018a18569186d8e09e42d9162"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont100/034-Debug32-font100-page00.png",
+      "sha256": "4398567ac1023dc12aafa3ba93e6035346ac7ee3d56f2707ff55e844081fc90f"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont100/035-Debug32-font100-page01.png",
+      "sha256": "8ceb4e38ea850aace9947ad1e535179221a07d1277e23c54ae0525b1ebd40270"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont100/036-Debug32-font100-page02.png",
+      "sha256": "2640f5ef2df8f19b5229584fdb72a8b5169df1a53c0f9c9c48b49a0537d01358"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont100/037-Debug32-font100-page03.png",
+      "sha256": "719f82e4051ef1a27d5fb9fcfa35a530c99889d37a0dbbb70dcc1e70c8d73180"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont100/038-Debug32-font100-page04.png",
+      "sha256": "03d05fac9024c96d043c6889ffeca42132ee1dd5d91c915ceb399832f9e8d768"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont100/039-Debug32-font100-page05.png",
+      "sha256": "d780a07cfd85e18801048f826bf798f4ba6628989421d739034dfea6cc5a5349"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont100/040-Debug32-font100-page06.png",
+      "sha256": "3ea8d1ede4ce5cc743ca6241a3dcff4a376fd50496857ba1ec82e14a973593db"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont100/041-Debug32-font100-page07.png",
+      "sha256": "4b983e4224c7b99090413278a8689bf609552e6f8fb66d4ae94a7f10943ac465"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont100/042-Debug32-font100-page08.png",
+      "sha256": "872f0e60f52c4cca7920265f367f51510fab2b0275a099d777ddb3414dfa0c47"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont100/043-Debug32-font100-page09.png",
+      "sha256": "792ae75312ce4379065bacf6202f72e9405c2b807f67c0a75715e32ed0d8bb2a"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont100/044-Debug32-font100-page10.png",
+      "sha256": "18ef439b01c3a963ed5654033f8a6155e370778e101d024214d915e6fa445f9e"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont100/045-Debug32-font100-page11.png",
+      "sha256": "cc2c001280a383f93ae49bf37bed78e118bbc73d6b5058431ca5ac25be1c876e"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont100/046-Debug32-font100-page12.png",
+      "sha256": "4566ecd1c4589a7124d0bc67c81a471e6d81738c8a1817bff2242baf18251cd3"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont100/047-Debug32-font100-page13.png",
+      "sha256": "942060f782a810165e32599c84d79c882601761790566588cd551355b1a1d931"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont100/048-Debug32-font100-page14.png",
+      "sha256": "db5f193075ef8b21b464be0489c74e1d6dadf2b1fc992919909d17076ade81ef"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont100/049-Debug32-font100-page15.png",
+      "sha256": "3d44343364542dc841597ee24a80c1aa932d867b66c7b10f0673040dda077992"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont100/050-Debug32-font100-page16.png",
+      "sha256": "ba6fb80d531df00f06554b9b3ca7eacec09b5da6d99e5b81bb27ef94f75d52db"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont100/051-Debug32-font100-page17.png",
+      "sha256": "a05b9cf512dc204a4aca769544e47cd086aa75828e58f8bf169e84a0981d1dbe"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont100/052-Debug32-font100-page18.png",
+      "sha256": "da3b710e0be21daa0c580fd2431640f4fe8cf8566be2950ae01fc309cd99b8dd"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont100/053-Debug32-font100-page19.png",
+      "sha256": "2b5d97264c506ce2b0574a1912930960eb17b7c2380d0a8f70e317b65f95840c"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont100/054-Debug32-font100-page20.png",
+      "sha256": "2a687af8817b8ba67ea4ccd44e1dd02cf1308b88bee57a654e5c727826892bfa"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont100/055-Debug32-font100-page21.png",
+      "sha256": "9c01502be1a0c5b689c009ec7647d4e816c6f3482646c10d10b1a11d55410ccb"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont100/056-Debug32-font100-page22.png",
+      "sha256": "63913a7a9d014da65ea8d293724b6c871e22b81f448f86e2be99deb16f1da8aa"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont100/057-Debug32-font100-page23.png",
+      "sha256": "ac27c692dccf93bbe27135f08a5fc43e8e891c27eda53defd29f3b5f6502bedc"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont100/058-Debug32-font100-page24.png",
+      "sha256": "e223a8ff48c376ee2f80b870663f9692a87d434b82207dd131637988767876ae"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont100/059-Debug32-font100-page25.png",
+      "sha256": "7f46d6807b4d2ac82b45032b225eadbb1535b73201bfa2069c0f6876056d497a"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont100/060-Debug32-font100-page26.png",
+      "sha256": "8caf6d9521e18c2d9532c2cc9cdc7b9773ac0d72c02ee687055bebc414b79085"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont100/061-Debug32-font100-page27.png",
+      "sha256": "137920105b6097dd102674a028dac1114ff6c824ffa292d5045cd93cfbbfa6f5"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont100/062-Debug32-font100-page28.png",
+      "sha256": "25067204b843fb59eca49290d0860964673cc00a18b459a87337c89d74868d85"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont100/063-Debug32-font100-page29.png",
+      "sha256": "a6f9853054e38d3d3b3dbe7d170ba57b5e92fb814dcb1ea4d0c3038756d98d87"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont100/064-Debug32-font100-page30.png",
+      "sha256": "8532751608d650274e3a3fce4d979e853f2a8ff850d611ee3b2a4d247cf40b55"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont100/065-Debug32-font100-page31.png",
+      "sha256": "62b5600c2f9709260726c58762b38a2d76ed7fa01c8a04322287cd277f8fe088"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont100/066-Debug32-font100-page32.png",
+      "sha256": "48fc245a6d09fe110ec07470d121d6a7b2a7acfe260c115d7ecddca301c1c074"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont100/067-Debug32-font100-page33.png",
+      "sha256": "268404beb1cf4466ddb66e1a404352ad6141b8c19749262fbdfd191a4cbb20f0"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont100/068-Debug32-font100-page34.png",
+      "sha256": "b8567f680b427f10b4ff2f20274ef142eec4ab92fdc61897caab1f53fa62d81a"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont100/069-Debug32-font100-page35.png",
+      "sha256": "1f328026094e1d52d740a5cf294a2eb21834f815499c0cdaf7bf3687fa534334"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont100/070-Debug32-font100-page36.png",
+      "sha256": "053c5cf93f4f9a2ef9c6a9f798bceeaa94b8ae78d23523c38747dfece0a8614a"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont100/071-Debug32-font100-page37.png",
+      "sha256": "ac34362d2ba292c75cba40d7426ae3db18bd5ace17423cab1630ede7c59fc079"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont100/072-Debug32-font100-page38.png",
+      "sha256": "6ad6cfa1426690488b650e5802a7199a16866ee23b6943ffd6e319a4b93ea3ea"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont100/073-Debug32-font100-page39.png",
+      "sha256": "a1103fdc5f507bb923efbd1e7ada130bc7b2db5c7e00aef1a0b04474a57cf89e"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont100/074-Debug32-font100-page40.png",
+      "sha256": "47a0e1992c311fb1beacf2354b9c90b85ce9f6140d89ea404890332b35317655"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont100/075-Debug32-font100-page41.png",
+      "sha256": "93cad01aac72a27ae04881da3ccf742de5ac50e1824f158284c6a91c3ea6ef97"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont100/076-Debug32-font100-page42.png",
+      "sha256": "0b289999d5732309cf082e4f3bc77dc0449c7431963c798a53dae1642fe539fc"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont100/077-Debug32-font100-page43.png",
+      "sha256": "c1fe63f233272dc071f8c29403f1fb40bfc5af06440a0db3dfe5688b35e8d37e"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont100/078-Debug32-font100-page44.png",
+      "sha256": "9d5bc97414d3fdda6aede3bcf325c79d44af0407c44ffbbc78f8ccb2ee27235e"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont100/079-Debug32-font100-page45.png",
+      "sha256": "dedc259cff762751772755497dd54fde15e6ed2eb5b308a0e2bd00178310f633"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont100/080-Debug32-font100-page46.png",
+      "sha256": "ae862862f10a3c6b5c553bfa9d94dd023ea6ac7ec4bb020048a72d15f6e18f5d"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont100/081-Debug32-font100-page47.png",
+      "sha256": "cec5b8fb4726fd9794e20bbc8fca89d695316afc54ed417c5d996a525f49fa41"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont100/082-Debug32-font100-page48.png",
+      "sha256": "277917b309e6c648ab553903fe29d939b59cbd493ab129435b1f093f348147cc"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont100/083-Debug32-font100-page49.png",
+      "sha256": "08683ebb938d066b1e30304847368f9069df7ccb54699a0dda3a61bf0d1a6f06"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont100/084-Debug32-font100-page50.png",
+      "sha256": "dda6c7bf80b92fed11fb180504edf622bf051900171ff3b348a26541bcceaab7"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont100/085-Debug32-font100-page51.png",
+      "sha256": "434c6c627b1a2b1a48bbefe0d1c0ef080ec8482e8c8c4b83d514291b293f433e"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont100/086-Debug32-font100-page52.png",
+      "sha256": "2810a55c24461cc72e11568432a44e75961f0c295f056f78627165c61e613668"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont100/087-Debug32-font100-page53.png",
+      "sha256": "197d73927dc48c50c0b5023acef374c2f90450cfa1ff472d60a4893aebfd21b9"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont100/088-Debug32-font100-page54.png",
+      "sha256": "17ba39008c51547f68f75dbf57faed8ce80b36b217d8b4275038a3e863e10f0f"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont100/089-Debug32-font100-page55.png",
+      "sha256": "d5b8c720ec01197bb6293a24b1867ebb6e8eb0984901c977ca20bb3dd48d27fc"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont100/090-Debug32-font100-page56.png",
+      "sha256": "2dcd9b40a7ad4fec8f0dca5959b70bde7ec58b18cf2427445d350864d8ff1166"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont100/091-Debug32-font100-page57.png",
+      "sha256": "4c6a25bedf0101755b0d671ef7c04900abe8371b9d158db05b95628d02f99772"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont100/092-Debug32-font100-page58.png",
+      "sha256": "7e5dc6bf7236c0906c9ac8c461df54b6052956e19ef9630e4c270d2111ea12b6"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont100/093-Debug32-font100-page59.png",
+      "sha256": "23e6118985db9961a83f62432c0369e17510089554ab1d44d355f2508a3bd55c"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont100/094-Debug32-font100-page60.png",
+      "sha256": "46cb68aead84914b964e93f8d2e07f403557b383caf571d4129ecdfb16073746"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont100/095-Debug32-font100-page61.png",
+      "sha256": "c3003f48a3d1a0504e03aef1d95bce127dd99a0cac6187708c6e8ebcdbf373a0"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont100/096-Debug32-font100-page62.png",
+      "sha256": "eecbcea9e45e4b5be2afa2254913adde995b33939bcbb20879b38552d4b85034"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont100/097-Debug32-font100-page63.png",
+      "sha256": "0b19d82f946a4f9595d16c98aaaf5aaac9c7db491c106ce4fb9d511f2058e2e3"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont100/098-Debug32-font100-page64.png",
+      "sha256": "e0c3542376be3ae1944a406413a92a413c9de783e3293c39de2c4dd76976ac21"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont100/099-Debug32-font100-page65.png",
+      "sha256": "22cc8bd02143a31930176bc8ee3c1fea63f0023517313e52714fc2792c6c50f4"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont100/100-Debug32-font100-page66.png",
+      "sha256": "1c074cdca896acafaa06623799ac067f7c7e78e61670f09f6cbf116ecf2c4f29"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont100/101-Debug32-font100-page67.png",
+      "sha256": "1df837fe24a488256e126bbf95e504023617d492edc11e9e5d0934bbceb3b5ec"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont100/102-Debug32-font100-page68.png",
+      "sha256": "055facba5476ee93e65eaf8b81d923e08ba83cdf38325555eaab9b4eb0a3796c"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/000-MaximumTable-font125-page00.png",
+      "sha256": "8922ab743bab425eafc369b0b36da89aee845328eb10d1da7c47ba43dd8c12b4"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/001-MaximumTable-font125-page01.png",
+      "sha256": "949f813a11b43a9e87718b004f36276da5be43886c7deeb086da4813f237e16f"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/002-MaximumTable-font125-page02.png",
+      "sha256": "92dfdbc5af5ffc31774f9cd30ba494a76ac074f5af1180a507617923009a990c"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/003-MaximumTable-font125-page03.png",
+      "sha256": "930caccabca74a1a5138203ba8eb15bcfff12e2bebfb15d80ae8720e14da761d"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/004-MaximumTable-font125-page04.png",
+      "sha256": "a103c33891f610fdfe0a209eb27f5ebb24ea76980e531c73fb1fa58224b132a6"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/005-MaximumTable-font125-page05.png",
+      "sha256": "d4aed05ff1c1560b3cc27f0c254455d8167807ba1cc82ade3f96e225ad8aa992"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/006-MaximumTable-font125-page06.png",
+      "sha256": "804c54b3f857c3c942d5595c17b47ed0585eb941306c35f01c079d17584402bc"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/007-MaximumTable-font125-page07.png",
+      "sha256": "9e225f9d9bde1ae32e094c2a89a100b4f4d95503e3b6eb20821a61c0b606a7d3"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/008-MaximumTable-font125-page08.png",
+      "sha256": "dae01b0cb6f346f7c2c48a09e8179911c42ad7bac92f0d1939bef46a4275dbf7"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/009-MaximumTable-font125-page09.png",
+      "sha256": "97a30ae67a28c9decc9a1862fa8ac9b26a4195bb8862ddce08b2a841bcf45941"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/010-MaximumTable-font125-page10.png",
+      "sha256": "790957e06a44dc53a8d010ae60d6dc4a08e6fe91611e58eea7716afca0f3b02b"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/011-MaximumTable-font125-page11.png",
+      "sha256": "4577c2a89d9094249e48765c3b2e1e07f3584f762a3d24fe6991abcf74f8b3e9"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/012-MaximumTable-font125-page12.png",
+      "sha256": "9ebdfc59b241caa73a95577b827b51911d3b447c2383f70db4c31b912ddb5672"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/013-MaximumTable-font125-page13.png",
+      "sha256": "a14fe714bb8c038858f3df0cf44b5b4dec98d5a6c4fa667c7c75fb9ba7ac0551"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/014-MaximumTable-font125-page14.png",
+      "sha256": "388d3371d1c7d0ac65f43f8d4bed2d92350b99f2573fbf4d3203d76dc5515e89"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/015-MaximumTable-font125-page15.png",
+      "sha256": "c16390982cfc4cd4dc0857010ec7e149df1494a5c1334aa9d2ef2c53f8c3ea82"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/016-MaximumTable-font125-page16.png",
+      "sha256": "312afe14212bb6ab8a55028cad71453bbf76140cc8753cfa29d3a35c3c8b3c5a"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/017-MaximumTable-font125-page17.png",
+      "sha256": "178606ade667fdb389ddea0fe0efe1af9b0add7d344bb61a779504dfe11a91ea"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/018-MaximumTable-font125-page18.png",
+      "sha256": "cade4c301ed5097c779f0fc75718e0025c3430a138c85962d694e0c11f691d77"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/019-MaximumTable-font125-page19.png",
+      "sha256": "493731a533c15bd82556ed018ef91ffd3e15df5f1524de62628c69b6ee2ecbbc"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/020-MaximumTable-font125-page20.png",
+      "sha256": "20167b2f77444d859f05f294d507e73f52859d514de1aa6d55db92ac5e47a7a9"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/021-MaximumTable-font125-page21.png",
+      "sha256": "b468617c36253a6513dc5a2cc02d1340d08ab30744bf98cac0c0ceadf1eaf5ed"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/022-MaximumTable-font125-page22.png",
+      "sha256": "f3642090752e56ced69e95e5011ef301a318d0788029103b017245b999179ca0"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/023-MaximumTable-font125-page23.png",
+      "sha256": "515b552bd335fad5f2c363e71f1ff0fdfa4e06ce909708faad60fa4634612322"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/024-MaximumTable-font125-page24.png",
+      "sha256": "5a3022b276b5de69e9113782aa919db9622539d542168f7384aa87f0936a9c16"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/025-MaximumTable-font125-page25.png",
+      "sha256": "75e34aca7a8131d8b691a66daf2c91fcc8b01ed70a662bc9ea7a2fcc9da12485"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/026-MaximumTable-font125-page26.png",
+      "sha256": "e1f3b1ffc03060197f86b7345063c8c4f74b23e3903d8270436a8699595622c6"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/027-MaximumTable-font125-page27.png",
+      "sha256": "67abf3d5e5a56bf7bf002c90b1bd8b6621f2adcfa558d98c08ca6108bb55882d"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/028-MaximumTable-font125-page28.png",
+      "sha256": "e28ec394c33d1c09bce607103ec36179a494490958fedd6d871763815df2f892"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/029-MaximumTable-font125-page29.png",
+      "sha256": "7428a8d9831b77b8c91043e95fc35d036123df007d10432b2b86c635cc673e43"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/030-MaximumTable-font125-page30.png",
+      "sha256": "8dd67a7ebc64f6a1d1c6638f0982cc7d9113e47530db3cfd0d8e273ca0ae6e42"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/031-MaximumTable-font125-page31.png",
+      "sha256": "69ea92bb81c977100b41f80d4e69325b619f4391f4b68e706399548b02520cd3"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/032-MaximumTable-font125-page32.png",
+      "sha256": "2de14d67fad7fbda21691aab6b26165f511d7dabbbd40edc733e71e64cc2e8eb"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/033-MaximumTable-font125-page33.png",
+      "sha256": "f478a757795ab4faab67aaa147e7edc680a65c89d28eb01f39d1b388ecd73b1c"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/034-MaximumTable-font125-page34.png",
+      "sha256": "87fc95dd0a20610726efc98f81b7c775b42e9a01dee30f12b76fa2dc0dc48933"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/035-MaximumTable-font125-page35.png",
+      "sha256": "7bbf22c59c728cc8385b21f9d93ebf0766e97c382c42c997ebf734fc6cad650c"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/036-MaximumTable-font125-page36.png",
+      "sha256": "cc64dae8854e2aab4631bbb9d54ff2686bb566df4e548c7a20bc9b728ca63cf1"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/037-MaximumTable-font125-page37.png",
+      "sha256": "4f0a3eacddca82f0b90841f73395b8a81ceecb0f79f4ea740d49a6548832fd8d"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/038-MaximumTable-font125-page38.png",
+      "sha256": "63d653bbd1de995080a2abe739771cccdb3cb8e56594edc08e61cad90a251c53"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/039-MaximumTable-font125-page39.png",
+      "sha256": "1eb2bd26da0443e39b3b5f0598fd1c36dcdb24fee4fb74ee403dc07fac7ff8d3"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/040-MaximumTable-font125-page40.png",
+      "sha256": "064d8584f20a7e2452a0542b76408e0341fbdd21f5bb57045d280420788baa88"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/041-MaximumTable-font125-page41.png",
+      "sha256": "f0a3df4f2473534428b0001e2b80cb24d1cec296f5ac91671f553a71b1ab4e70"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/042-Debug32-font125-page00.png",
+      "sha256": "298f98c94494c73591bccf84c2cebb46b16518563389db8e6ff2cb3a99f5170c"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/043-Debug32-font125-page01.png",
+      "sha256": "fed03c6ba47542bbd886fd3c219f62d041c266f29b7cf6945f33813a3d62bc24"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/044-Debug32-font125-page02.png",
+      "sha256": "53fa90b7bae27158c852916e71a239b004d63482a97dc0f7e64453dce447b9d4"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/045-Debug32-font125-page03.png",
+      "sha256": "f5a98e3061fd50c9663f5616af077c86a8832f14c138daf33c829a5a326501b0"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/046-Debug32-font125-page04.png",
+      "sha256": "1b89721ef1780e1d8ee7f2b7cd102481ca23b9ca3446f022ae83013c9d66a48d"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/047-Debug32-font125-page05.png",
+      "sha256": "9ee603681b3189af79cf118d19ae08f4da4df2bfda0a1815bf060f27f2574a43"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/048-Debug32-font125-page06.png",
+      "sha256": "b8ada6e012ac35521752302e2c9e816d7d065646d998a70e67a5fa93b0dd65a7"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/049-Debug32-font125-page07.png",
+      "sha256": "ef5dc50e24acf8f21b64d82dc9276bffb23fba48dcea100fd18d05527f48fee5"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/050-Debug32-font125-page08.png",
+      "sha256": "10969da66973503dfc5779d8fc0599ea8d277db1f9c947d6fb344e0e38d2a9f5"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/051-Debug32-font125-page09.png",
+      "sha256": "479fd8052402978198427aac24454b4d67e4704da873521cc1976db05878c6e9"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/052-Debug32-font125-page10.png",
+      "sha256": "61cb5527c59fbdae2fdf66fb7f4fe2e0eaff61d801431dfff01f07ef9037e46b"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/053-Debug32-font125-page11.png",
+      "sha256": "2c84907d30b1cc3592d8ad5fac95f88f5f110867db4c0b230acd6f312fe7c92a"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/054-Debug32-font125-page12.png",
+      "sha256": "a000908e833aa02f4c2b706daa023f3eb16956147f9176ff65a482143526848a"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/055-Debug32-font125-page13.png",
+      "sha256": "d910db3d6b908a6f8e0b2c1b32a8ba59436614f50a92b161638cb955fe34fc20"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/056-Debug32-font125-page14.png",
+      "sha256": "a591a09c50348969b57f986e13addbbc1ba0d33ae71fb6c37f42d57419b8f1a3"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/057-Debug32-font125-page15.png",
+      "sha256": "6dfaef584d712973496eb7e670c64726172a6bffb442ce18057f782e76989cb9"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/058-Debug32-font125-page16.png",
+      "sha256": "abf2dc9c65f9776073c9635be49ca942f4afe23c876e1fbee7484f0e9d339c64"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/059-Debug32-font125-page17.png",
+      "sha256": "46bf0cf14debbf92e9b09a938d921a0737c65b63a9b705468f3d890b377a1519"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/060-Debug32-font125-page18.png",
+      "sha256": "1d2620bdb06f0c0f3b2b91e87edba2561a018bb4996ad470707e6a129a390302"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/061-Debug32-font125-page19.png",
+      "sha256": "ca57726dadc5447fe84fe2ce10abd7ef298e8614937f357c344db1dd6bd63b27"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/062-Debug32-font125-page20.png",
+      "sha256": "4561c3ab608e73f436399f1c719f835441640fdf5fefc0603f7a4ae6dc6fc655"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/063-Debug32-font125-page21.png",
+      "sha256": "00844e38158455fbf8580ea94a230e67b829e9d1ca952fa5a80ccc4d96f32c25"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/064-Debug32-font125-page22.png",
+      "sha256": "f08c26aedad536209089ac1950a2d7f8bf8a77f39ad5b4050e6968e505adb6a9"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/065-Debug32-font125-page23.png",
+      "sha256": "7e58c1bf1de62410283ebb5253a819906aca3a839f7d1998113c24eaa9403d9a"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/066-Debug32-font125-page24.png",
+      "sha256": "3c839dc65033a7996e98b20ac05d2b44085bf5751c19779b3dc0369c702b9b07"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/067-Debug32-font125-page25.png",
+      "sha256": "2041eed19d0eda7320b62c23915c8ef1058a941b025659f211e48abd98e7104b"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/068-Debug32-font125-page26.png",
+      "sha256": "8d104df1bdacdf4edbff2872da46bfe90f43d1e10feda8ea9f0f170200cc76ee"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/069-Debug32-font125-page27.png",
+      "sha256": "1441fe5cd4071a29e45207c02cd0252608460cf4c974faf9594be0752ba0d42e"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/070-Debug32-font125-page28.png",
+      "sha256": "8ec075e2b670aab0f885712411f1a3165b3e5efc21f06b239c27b78f673f8b79"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/071-Debug32-font125-page29.png",
+      "sha256": "aa7893b828136d15d75e885c07130b680478b07e18512b1117b32bb1ce75b906"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/072-Debug32-font125-page30.png",
+      "sha256": "d8e3265b7da8b2b60e38c2ee42763db09b951aa17fbf7526ef21b69d257a8ac0"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/073-Debug32-font125-page31.png",
+      "sha256": "d1085d9de188ae5f9dcda003d83e3f075cb35e0886191ad3ff00974fc1300c38"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/074-Debug32-font125-page32.png",
+      "sha256": "c0c26e9689a5ceb2fa7b8df234a2c4aa53f737ce00f5f6d41989055440b1e1c7"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/075-Debug32-font125-page33.png",
+      "sha256": "5a753ee7bd325bfe6e1e23c541ad8575e7d6aaa590c2ab1416ff4b41bfe20ae5"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/076-Debug32-font125-page34.png",
+      "sha256": "d61d0502f71316282e549ea0ee35c9e49ecbc393d24c6ce85e60eaac47e89026"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/077-Debug32-font125-page35.png",
+      "sha256": "bc9c4561bf35bced80f24244cadaab247f80c3c063179cb263f2ccfea515e22d"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/078-Debug32-font125-page36.png",
+      "sha256": "8ebb477c046b27c7e96e9a303baf2082fe58434783cc713a279ed92520796f5a"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/079-Debug32-font125-page37.png",
+      "sha256": "ab3004c883bec1b6bcec52e8146b20b91c3a6c5d99d786c88922fb8a0838284a"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/080-Debug32-font125-page38.png",
+      "sha256": "5e1fc157fbc5732c528a915c28540bcae42ff4a4ff39aec37b02018d0c5885a9"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/081-Debug32-font125-page39.png",
+      "sha256": "bc0997488de9d044082af8b9562eb19ed5d0153495b8dc325c2c994f11d5c35f"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/082-Debug32-font125-page40.png",
+      "sha256": "4702a42d5175333d4b359d29e73ad2ba2ee5f11528d7ea501a72b53ca63469e6"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/083-Debug32-font125-page41.png",
+      "sha256": "a9a967f1ba6ae9e663e612972fa570800dcf1c22321adca2939f6634b1da6545"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/084-Debug32-font125-page42.png",
+      "sha256": "012de33b21b2427ec800fe37a958fac76b2faa185922b8ae4da85b766ba249e5"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/085-Debug32-font125-page43.png",
+      "sha256": "3e607da959e45f571f425d7cc71828b6e66a0aca22154c4838d8080f9ab96ee8"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/086-Debug32-font125-page44.png",
+      "sha256": "468b2be27b092acb68abee6832618725aada6f81379fc3c9d57466c6b34e1299"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/087-Debug32-font125-page45.png",
+      "sha256": "e65b1b388a61548c1cb0f1a39f159766e5dfb04f11d3c181e594f3d3fda735cb"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/088-Debug32-font125-page46.png",
+      "sha256": "adefa7594bfbf6bd750aeda55519813600093fc6b3eeb7dda4f9f3a29aa64a06"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/089-Debug32-font125-page47.png",
+      "sha256": "77d3ee51ecc10d07a4f1d0643f8c3ad707c7f796abb336577d1b8db73860b3b7"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/090-Debug32-font125-page48.png",
+      "sha256": "50bc3552b3948b85a72ef19fd487c1e9808af58d60ebe713d013001e064e6ae6"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/091-Debug32-font125-page49.png",
+      "sha256": "fe25c6f6ec9523373a5fde44266e9597dc1c981cd5f16b86e8ef240102c05977"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/092-Debug32-font125-page50.png",
+      "sha256": "f5a9b4526d02c94c624170ac8ac3f61fa3866d3d3b4ace46be0e048bfbcb1f53"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/093-Debug32-font125-page51.png",
+      "sha256": "3848a32ec8e2ecd22d9d5dd429c6b4dbea595b777ecfef3da29e7b84165acf51"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/094-Debug32-font125-page52.png",
+      "sha256": "eb0aa8a1b51f13a1b5ae128df44bbc4b8d41395f093b928a4b37a51db40b830b"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/095-Debug32-font125-page53.png",
+      "sha256": "2c355826522cdf78d4a10eb3e09eac1fe02b5ffdb747c2510f497ef9c421004e"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/096-Debug32-font125-page54.png",
+      "sha256": "980f75f09ca091a27da929c88ad79c395ed34eeba1b4369eb1dc0a631b814353"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/097-Debug32-font125-page55.png",
+      "sha256": "8074f1ca97318e7b37d5b971c848e74cb66d95593215ef0275915a29af0721f6"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/098-Debug32-font125-page56.png",
+      "sha256": "26a5a4435fb57168b97195e9ce2fa86c7910b50afef4d06f286d4e13aa11597f"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/099-Debug32-font125-page57.png",
+      "sha256": "fcd9e66ac844975b8a72296cc4548869de8a2c6c1e7e820f5a5938b71dd163a2"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/100-Debug32-font125-page58.png",
+      "sha256": "3831bddd0e708e7eab1d67131d6cf2db609783b3935577da05860d0f2c9b30b6"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/101-Debug32-font125-page59.png",
+      "sha256": "8cbfd2dfd68c358ff745a5a35fb7ad81fbd3bfaa1e75be86f3f9bcfe61154608"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/102-Debug32-font125-page60.png",
+      "sha256": "d03ab1dd84ec371cd70059e77fbb39706de27959ffa4363fad8059ccbbe18eb4"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/103-Debug32-font125-page61.png",
+      "sha256": "a9ded60400be29447452cd0c9459a653e572c582d2ff1aeebd874ea385a169d8"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/104-Debug32-font125-page62.png",
+      "sha256": "f195fe540d0fae131a42f01c5a8cf4623a9571fab6ba79f2989db73e35eb3ff2"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/105-Debug32-font125-page63.png",
+      "sha256": "16933b50e34752f20ab93d8b8624faf90b4670687ceae927306c632afda62690"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/106-Debug32-font125-page64.png",
+      "sha256": "1597d26816bb3923d11f767f2c612aefd1baa5349973deedc49fc245903f9956"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/107-Debug32-font125-page65.png",
+      "sha256": "c044d129ff3d377dbaf7748a01877d7396829cddba5c5666f6cfc9246190b519"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/108-Debug32-font125-page66.png",
+      "sha256": "5a750d5f8283007c0f0ad658ce62fd40450c3b66f00566bf6c11e89c3feb3df7"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/109-Debug32-font125-page67.png",
+      "sha256": "261457d72e75e4f6ae635386efb2150ff2b19880106d18bae5fb932a7bef1920"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/110-Debug32-font125-page68.png",
+      "sha256": "d167c74ee219893944e55cd55b2881fa466c9381facf0721d5952aa3d22e174e"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/111-Debug32-font125-page69.png",
+      "sha256": "27d03f26f85be2bc10b9fc13f71d401b168f7bb2366b8fc18fa756705545fb4a"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/112-Debug32-font125-page70.png",
+      "sha256": "061e6ec4df709fb32fed557b42282fa0bb507a367a07eff593b734519ff3db69"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/113-Debug32-font125-page71.png",
+      "sha256": "57281fc4d7c430e3a118378c8ce1495ecff39803f0981d06ed6dfc56d507f1d7"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/114-Debug32-font125-page72.png",
+      "sha256": "0670734fe0aa1a0d0d30ca373db3e9aa1dcca10c215bb4848ed831125f1c1c44"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/115-Debug32-font125-page73.png",
+      "sha256": "2b1ee5e4b5b67067efcb6f3280a00a6420ef0eae9ebccbd5056fa1a441e41f37"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/116-Debug32-font125-page74.png",
+      "sha256": "74e877dc49319d512c0d97f8b707a49349601631626da29bf15f9b7e2807fbf6"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/117-Debug32-font125-page75.png",
+      "sha256": "a6bf437fd4e47c0bb21cae7b7daee9dffc7b190cd9441b4928de8080d3bf5b3d"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/118-Debug32-font125-page76.png",
+      "sha256": "50cf33a2a5c4b6d6ad7900c351c79739ef9480c3e34464dcedbf4b20154bbf1d"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/119-Debug32-font125-page77.png",
+      "sha256": "85fc76d138c028f67e0be7116ebe0e8d768d948d63de24d09e3481e773c93d1c"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont125/120-Debug32-font125-page78.png",
+      "sha256": "dfc4bc847bf7defe883bcde81094e5238f6f2f6108cf54b372551681df5cb04b"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/000-MaximumTable-font150-page00.png",
+      "sha256": "e1a09ad7ce41d2fa0793fdbd369abc861e84c1a679375a1fecf33a25ba5b38b5"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/001-MaximumTable-font150-page01.png",
+      "sha256": "5604c4bb9d982705cccbd8a67c69a06c02f43c29aac620d86bdfdcee9a629814"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/002-MaximumTable-font150-page02.png",
+      "sha256": "93b61f546ca207b4f6d9df9f078a02c47ded4546be478a4bdb967b5465c2dea1"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/003-MaximumTable-font150-page03.png",
+      "sha256": "7c41be6563c5f31a10564af63f6d8fd722d11d848f9ca70042a585a2f268dac6"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/004-MaximumTable-font150-page04.png",
+      "sha256": "6fd8e3762fb5d6d63ba23ba5a980a5e56297bb3eced93e4e80ecb161c5044fa8"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/005-MaximumTable-font150-page05.png",
+      "sha256": "33387cdaab39a4432aa27c394fc6d366e41f4b4598e4b984e0710709b93473f5"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/006-MaximumTable-font150-page06.png",
+      "sha256": "ff71d50fda94f858eb891e79e8f0df54f0b3b27ecd79d006b7cf935639db826f"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/007-MaximumTable-font150-page07.png",
+      "sha256": "ce435e6ad82117d24929bdb61b442edab89bb35475def190ff0f77f1d198c258"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/008-MaximumTable-font150-page08.png",
+      "sha256": "31d222a3199979bfbc8dbbe270618bfa573ef7b4f0b15a9d1776946202671476"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/009-MaximumTable-font150-page09.png",
+      "sha256": "055dd8dc955798882625d9190690dc29bcef1f572e66461b7607ef2b20aff9d5"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/010-MaximumTable-font150-page10.png",
+      "sha256": "0c2278bbbd2b4aaff3b9aeabe79137e843565df6471c3ceb9d175c1223c35525"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/011-MaximumTable-font150-page11.png",
+      "sha256": "b152f9e259d8fcd231acd8e874405fea0125c8f5462101b4c8e4b3c67583402b"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/012-MaximumTable-font150-page12.png",
+      "sha256": "41dadd294b296e17afc44cd7a510a0803c55c5059feb97518364a45771381cfc"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/013-MaximumTable-font150-page13.png",
+      "sha256": "d4a1a8dfc1f417a9b743bba06fcc09aad8c147ad20c14808910e3a9b01a48c83"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/014-MaximumTable-font150-page14.png",
+      "sha256": "1ad986232e1355f608760e258760ab006ed1613dba5c76a9030aa5255cc63091"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/015-MaximumTable-font150-page15.png",
+      "sha256": "a34f67f8cb401c0837382e778f3c615d08185b0c07b6c69a2a1a3189e73550b5"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/016-MaximumTable-font150-page16.png",
+      "sha256": "b1dc28b25e158f6afd0dc522b1eb44aa0c5c18a487c19cf0805da77d964453e7"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/017-MaximumTable-font150-page17.png",
+      "sha256": "0b61a681f27155a1c28148745ddeaa4d7cb533ab81506867acb1d88e24a47d70"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/018-MaximumTable-font150-page18.png",
+      "sha256": "ddeeeba8fb011ba21185331ed828e38b805aeb8effa35c760a6ce4fa96bf197f"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/019-MaximumTable-font150-page19.png",
+      "sha256": "76448f5332de9db333592cec816fcb4e548284d5ee55cccbf1c930ae3a45a418"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/020-MaximumTable-font150-page20.png",
+      "sha256": "c6b6df970198fb43ea8e92b0d477c2e00403814dc439aa7e47adec2972431ce9"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/021-MaximumTable-font150-page21.png",
+      "sha256": "1458e0caa5119a58ff0b0afc334d6ddc7d77cf3deda971dd035e9746ae211855"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/022-MaximumTable-font150-page22.png",
+      "sha256": "39f3964c7d8a4d9399459ab5a6d760592f31ff8a4676a8ebe173ccf14ce5e7ee"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/023-MaximumTable-font150-page23.png",
+      "sha256": "582392bc2e7dede2a9617b7aa2b5b620f36d2b0340fa97659bfaeec72e17831a"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/024-MaximumTable-font150-page24.png",
+      "sha256": "d61078ce16739a00cddd2f73e7635f7ea7a94c36591160a2a43584c9c788c081"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/025-MaximumTable-font150-page25.png",
+      "sha256": "d15bc3ffa4af37641d26d72b49e2624c9353f5cfeb1b680ca7fbfb8c7d83bd32"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/026-MaximumTable-font150-page26.png",
+      "sha256": "531290990d2c36fe5cd5f2ebf8de1418d586bcf0d495f02d4566c0b4e4533387"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/027-MaximumTable-font150-page27.png",
+      "sha256": "39edc4d13121299025fc72b1f9ca93c95e25d435ac34efbe8e29b5475f126c97"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/028-MaximumTable-font150-page28.png",
+      "sha256": "03c6f61cecc094d7afe8cb39eecfc13ffb0e1bae9aa2dcb28aa7bf44c77760ba"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/029-MaximumTable-font150-page29.png",
+      "sha256": "024ba3eba972f79687895f6bf6e3a160fb1c4ffaa444f6e8068f11c3e0325176"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/030-MaximumTable-font150-page30.png",
+      "sha256": "56ada499be1323a506be97dd4d50cbca9f55b5a76dacda50759f293e5d0384d7"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/031-MaximumTable-font150-page31.png",
+      "sha256": "ad371b718f76b7beed583ddb8bd2a6e849190eaaa69c5c09458ebfaae751f1d2"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/032-MaximumTable-font150-page32.png",
+      "sha256": "17f13ae3cdf929ea097d37a89fa1a2a4e15ab405365fe9ebcba9b85efeef6263"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/033-MaximumTable-font150-page33.png",
+      "sha256": "c91d377e271f63d01c549f7fa4c27ca17dfd1461e879d61550b5c76491eac0b0"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/034-MaximumTable-font150-page34.png",
+      "sha256": "28507988d645d0ae2ee7a0d7c281e83ba985cd8115285732c1b7dccb77f9c7ba"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/035-MaximumTable-font150-page35.png",
+      "sha256": "93fc45ed532f484e9c9be3256fee30b4cdb031013ee6c8d233af808f384845a8"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/036-MaximumTable-font150-page36.png",
+      "sha256": "b77795626d400c9f3d042199fa2c31bb8eb097792edbff4b06a1c3c0579ce927"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/037-MaximumTable-font150-page37.png",
+      "sha256": "a0e4f43cf46bed02d3cc8c0460541ce5c276ebb5631363b20a46d1d94c5c668b"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/038-MaximumTable-font150-page38.png",
+      "sha256": "51ebc0c055b89ea673d4fd3ae2d7f00aef5e42ea8af78bce280619c13162ea53"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/039-MaximumTable-font150-page39.png",
+      "sha256": "25effcab190c8c38171519677184c5e49f984535002726d99b67bae9e8758927"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/040-MaximumTable-font150-page40.png",
+      "sha256": "5ae2b8eaac7f3479327e86c7463927f40cc45d18d708233c3dd5cb8d4376ee12"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/041-MaximumTable-font150-page41.png",
+      "sha256": "91cd8e0a400b14a9a182893d59694b0636934465d115147eb8b8ac8434dd335d"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/042-MaximumTable-font150-page42.png",
+      "sha256": "37fc7113d7eb7a2950ed07015595764b7bab2bd9a8020ff9c9f552afbe17ee9a"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/043-MaximumTable-font150-page43.png",
+      "sha256": "cb02ff0a604521a936ab28f338eb251599cc693c8b50212dd8cb141f49af45fd"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/044-MaximumTable-font150-page44.png",
+      "sha256": "97725c4fb1653ebac5153b0a167b037be874141c6117ec17cbd053d87b806e12"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/045-MaximumTable-font150-page45.png",
+      "sha256": "b541f9b8be174ca98a88b16317d3d0676c4273493c412a4d67bd44059916e555"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/046-MaximumTable-font150-page46.png",
+      "sha256": "826d2bbf108259c9a5f6b6a8b555e687afeaff6e6cb34dd0125c0a841b533d61"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/047-MaximumTable-font150-page47.png",
+      "sha256": "0d5f0164bec891d4bd2e8bfdd97b37cdc9fb709b876040fb765e4daa5623def7"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/048-MaximumTable-font150-page48.png",
+      "sha256": "e6ab711375fcbf94eceef5665b759cbd1aef7036c84e3c082b2c21966f091423"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/049-MaximumTable-font150-page49.png",
+      "sha256": "0e10197ae8d097a6dccbd433be7a0a9a9b262e858fac427bee6ac2aa9b632378"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/050-Debug32-font150-page00.png",
+      "sha256": "b23f8e6dca85d58c137f05d479d10528885dc20d95ad316e87b9df43c0d09f95"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/051-Debug32-font150-page01.png",
+      "sha256": "adcb6f8014f5f94ba91dfabc289d2bd6a9dab90a488c2b3838065a80f4343d94"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/052-Debug32-font150-page02.png",
+      "sha256": "26dbaa50ce81f5c953ca732d27b914e2638f289c5e46d6fca50ba005afb62218"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/053-Debug32-font150-page03.png",
+      "sha256": "4190fd7fe6321e625aa00c37efbffc7032e2534f74fa1d88536c409c720ddca7"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/054-Debug32-font150-page04.png",
+      "sha256": "88d9785b7e36e9ad1592195c3cf0d5cb70e1c2689a7638c2033115842dc299f8"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/055-Debug32-font150-page05.png",
+      "sha256": "e2e4d3806f40c6ae43dcc191cfee8377b4f9a7115d1578c01ad08326b0373d24"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/056-Debug32-font150-page06.png",
+      "sha256": "7ea0c364b24d92ca09b8b3bfe87b97619be49acee7e35db4713a1d9198315819"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/057-Debug32-font150-page07.png",
+      "sha256": "cb1fa892f5f10addff60ef1f5bd4c526e4693b7abbe0c34a024d4431cdfd18ae"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/058-Debug32-font150-page08.png",
+      "sha256": "e6cec3d4fb735438a5ae3ad5bb0f76a666c96edf6b2119c23bc100812cf8e96c"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/059-Debug32-font150-page09.png",
+      "sha256": "459130ac31da8e128c26c397112455b4c5e3c085fb7f96bda119988b1dcbd0e2"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/060-Debug32-font150-page10.png",
+      "sha256": "c47bdd920e0c5169adafe1097a1f2726c7be588dd4e4c6df87a44c24d5c84ee6"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/061-Debug32-font150-page11.png",
+      "sha256": "7dd1ffbcc04253b6f8ccc5490c43d1ccf14986fba74e35bcdc341d232695dd67"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/062-Debug32-font150-page12.png",
+      "sha256": "21f5252ceb9a6dfb9dbd8cd9181ad4e857837e39c83d0bd1529b97e4ca68093f"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/063-Debug32-font150-page13.png",
+      "sha256": "80780427431f270d86a93d41c46c9e638fb91556786b70aff162eb9bd0a19d13"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/064-Debug32-font150-page14.png",
+      "sha256": "9bb426002b6afb6f2ac206c3fb7d9368d70ab35eb060e8c9adf1912dd7fd648c"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/065-Debug32-font150-page15.png",
+      "sha256": "fe5f2eefa7a4a9b039257e26de3c63bd5d95353858780ae260c36bc0bb63007c"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/066-Debug32-font150-page16.png",
+      "sha256": "9dbe86cb60455008f4192b2ed24e5467094ef8f843072ad2c8f452a985d94558"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/067-Debug32-font150-page17.png",
+      "sha256": "44e450192249743d277af051555435b3b50c593a84e62dd4527890592d0400f8"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/068-Debug32-font150-page18.png",
+      "sha256": "0188bcb0a39f84fbeea888689fb160c705e9ea5609ac17b856eb613242e7efe8"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/069-Debug32-font150-page19.png",
+      "sha256": "8df6ee84aa0f95de7ebff2510e5624e535e9ad8db8bc0046b3f4a7cc7d992581"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/070-Debug32-font150-page20.png",
+      "sha256": "4718ff9fe767c319f5944f430adeb8326f3d360c5091c26d9516098fd561b1e9"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/071-Debug32-font150-page21.png",
+      "sha256": "b28ba40926a3eb0343d43f601973c240138888c8e993d7e202710d253e2c7370"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/072-Debug32-font150-page22.png",
+      "sha256": "5f0c34a1d0434faf38bea5f371151337ba3804cd69d7c683a4773e2422b0d107"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/073-Debug32-font150-page23.png",
+      "sha256": "3925ea876a0d8204f9723fc1d62ebc913646b9916ff8ca9a2b9267209bd8437e"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/074-Debug32-font150-page24.png",
+      "sha256": "10941ec4e988d5d640520e017c533c4fe9c94a00b2db97fc6bca5752bdc485d8"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/075-Debug32-font150-page25.png",
+      "sha256": "b998d6e01c94a241681ee2ad49f33436047d59c4b4f1575596f46d9126fe9d5b"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/076-Debug32-font150-page26.png",
+      "sha256": "984fdc4533023bb3cf43f9ca7f04bb076598bf948bd2a27c70df227752afcc22"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/077-Debug32-font150-page27.png",
+      "sha256": "cf84cc4b218bfcbb423eb4df0cf62ad2965ff5309f093bdc21c81e79306fbd33"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/078-Debug32-font150-page28.png",
+      "sha256": "c0658544ed2a689324a0258515cb21b35005f506d49f3a5f91e1c3eb1df3176f"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/079-Debug32-font150-page29.png",
+      "sha256": "093b701643463a9463d91516747e85734f3b2d3f3ffa12fdf0dea85bec184862"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/080-Debug32-font150-page30.png",
+      "sha256": "977968993edd6e080ed513b3b1b733a806531a5959d67dc5a7643959d595a5de"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/081-Debug32-font150-page31.png",
+      "sha256": "71fa28d9795893d70647ee1b6d39f55d4e8a97c7854271c7178484176cf29dcd"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/082-Debug32-font150-page32.png",
+      "sha256": "ede02728e4d9fc701d44780842dfb81b60a8cbf9cf9b8a06b4d36cd00598c0b5"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/083-Debug32-font150-page33.png",
+      "sha256": "ef8c9e3b5fda6c9fbb762ffc757e8cd46a553088f9fcaff177760b6c93fadc21"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/084-Debug32-font150-page34.png",
+      "sha256": "8cacce70a298cdfad8e1d95e16bcc7bbb35239a04667523147a5332fb5456614"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/085-Debug32-font150-page35.png",
+      "sha256": "666b18520de6af150c2675d968fcd9c6a2cac39f7664efc8d30b7ff4ee08a18a"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/086-Debug32-font150-page36.png",
+      "sha256": "ea80b60da2618f7e6573670ee4488552d6a6d754ebebbf46e159d165175ee68c"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/087-Debug32-font150-page37.png",
+      "sha256": "c07cc684f1270dffce2283c77786a05d64fc701784d6028b2fe19a015a93fad0"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/088-Debug32-font150-page38.png",
+      "sha256": "ffc6b07e77d6543d3720de4ca91967774db3f2363c07a7e2b6b9d66d8a730bf0"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/089-Debug32-font150-page39.png",
+      "sha256": "385f6de5a07790e15dfd318a9c192c6d164d9055e1f3ec9e161cd91bafc27138"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/090-Debug32-font150-page40.png",
+      "sha256": "ecf06184e5acd38b3b29bf45b7fa36e575c06fcc615a051a3876d09fd44bb709"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/091-Debug32-font150-page41.png",
+      "sha256": "5273adc10d970047fbcd20aac6659d218874a55f50d8746f8f7d179857c69e45"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/092-Debug32-font150-page42.png",
+      "sha256": "93b64485a60c60387adac639f3c1fd1bbf49ba13c18601cb324826f2ebab36f0"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/093-Debug32-font150-page43.png",
+      "sha256": "82d935ca1ec9cffaec1719ff9a8c891d7cbb9b5fe437446d39cf36b6ac2f8f10"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/094-Debug32-font150-page44.png",
+      "sha256": "f0a4ed1a2d88554bc6a7d4890dd3701e4af66e10e1daa88bba3d75c839d64956"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/095-Debug32-font150-page45.png",
+      "sha256": "f1a64e437a83d51ebc5dd144a959b02e9c6db71ce9a2f587a987a9e01a6c67e8"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/096-Debug32-font150-page46.png",
+      "sha256": "9485b1b6393a9be67bb406b2d7032af0d0b7c0c2b88de11e77c8f0757a0c1633"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/097-Debug32-font150-page47.png",
+      "sha256": "5f34d2431f677b63a98655228bc428a8f537d156f36c07384179bf1698e4abc9"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/098-Debug32-font150-page48.png",
+      "sha256": "0d8137319cc438f124469899e4bfa9069e680099d15f3baf30e230689ea6583a"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/099-Debug32-font150-page49.png",
+      "sha256": "d0a0b46fabeac351efbaa6940630909ac2c3ec8942f50559d907c26e51be40fd"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/100-Debug32-font150-page50.png",
+      "sha256": "8e66221b47b84e04fee36c6bfb63e6f0fd9dea8c62707a8e0fd58f10b0ec0c04"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/101-Debug32-font150-page51.png",
+      "sha256": "13c9be3ba5dc71f1509d1898d1fef5f460052bb8d8659568d3d1854695a71d4e"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/102-Debug32-font150-page52.png",
+      "sha256": "d8cc45bfb2d35720344afce9bb0450497ae71f367429e526142971ec94fd17b2"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/103-Debug32-font150-page53.png",
+      "sha256": "f2967fc3c3e318a14868d8d1c3d52978e1807cb7e8486f074cd0547e0f7a2c7e"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/104-Debug32-font150-page54.png",
+      "sha256": "2952feb83f6f325090c04e606ed7c613fc551bdc97ce972ffb5b016dfde38c4e"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/105-Debug32-font150-page55.png",
+      "sha256": "193840e74dda755e37ce6ac71b13c7326ec57a575bdaa523f63e2eb7edc7425e"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/106-Debug32-font150-page56.png",
+      "sha256": "c55c65dd97dde7e5f91ae0f9e45cf605c66af4529ce5c7ea4cd316c6b6e9f6e4"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/107-Debug32-font150-page57.png",
+      "sha256": "dca023e0510a12cc8a2b8cf6ece585f6935c8e9c6569306b93177c512f59b778"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/108-Debug32-font150-page58.png",
+      "sha256": "0927ae2d0b681b67cd6e1c7f9fd740386608fc9836aa44a0437677b6453e715a"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/109-Debug32-font150-page59.png",
+      "sha256": "10f16a6e5497b2ad7fcfc8a50e39c753d0a9269459fccd18093e8d6bd07bb3be"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/110-Debug32-font150-page60.png",
+      "sha256": "66a04701ca7fd890cf05f481985aaac9d85a46006b4483c203b14e26ddfbceec"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/111-Debug32-font150-page61.png",
+      "sha256": "8d99d159d9885810d001f1c5405e0abede3a070f7e5786ec759d80278d2a278d"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/112-Debug32-font150-page62.png",
+      "sha256": "78258ca1f0161975f7a691d80c5bf03db5d4b526e543822d76f5b14db78868a2"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/113-Debug32-font150-page63.png",
+      "sha256": "acc56ed0b9be49fee6a5d1dfdbe27842ed53e674e34604920b404b0d2b98a0e6"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/114-Debug32-font150-page64.png",
+      "sha256": "d4eef1379198f5f770b9ccfd134a276e997ae40f5823fee8dfafaa34fb64c30f"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/115-Debug32-font150-page65.png",
+      "sha256": "8a8463a522e4dd39dac9101352d7bd37da6f1597e8c78679838d6fd48f80df65"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/116-Debug32-font150-page66.png",
+      "sha256": "87b376bbd8d34081035212503fe477ca070aa27d3e9ca42801bd575e84bd3923"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/117-Debug32-font150-page67.png",
+      "sha256": "a9b62b8e801dc68242568e39d78e2e26ad96492562e04fbe2efb9ce8f9e3f36e"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/118-Debug32-font150-page68.png",
+      "sha256": "8f3fddf70c2b7e46a18a620b0d5434a2f73f1cd13c745a6dfca727540c380b30"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/119-Debug32-font150-page69.png",
+      "sha256": "c3465d2efafcc75ab300089d4370dfb5ce6f89e66d2c583dd06022e6106eb8a1"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/120-Debug32-font150-page70.png",
+      "sha256": "557121f06e7c9003a33b313d98399bbf350959afc8c29156330af14229ce9582"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/121-Debug32-font150-page71.png",
+      "sha256": "b2fd751166b4027831a737d8e392b5066cdd1fcb22869c34bc02d30d510f347a"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/122-Debug32-font150-page72.png",
+      "sha256": "2d09fba321fe05049e2c8620fe0eadbc5b322aad46edac51f8efb3e1cdaf1de3"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/123-Debug32-font150-page73.png",
+      "sha256": "b4ea2b3799c3ac19e9418941e85e9368a80029357d4e0dd5cf4134a2968f0b09"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/124-Debug32-font150-page74.png",
+      "sha256": "5dbcfb7b6fbdb75c460737013b27fe955bc456690c75fc4e2b6ab3fa3295ec02"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/125-Debug32-font150-page75.png",
+      "sha256": "9708e6db42dd46a8527569997547cac1129ed97caa6b8f36ddf60c96c1df67a9"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/126-Debug32-font150-page76.png",
+      "sha256": "019910a2b09202fd86ff35d071d6a8fd6f800daae208c4622a46f6a86707ccb2"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/127-Debug32-font150-page77.png",
+      "sha256": "5c81c740fb660f8687f10b7ef004119c829f09258c6dc8a7396d7ea111ff5ab5"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/128-Debug32-font150-page78.png",
+      "sha256": "132929ef8ccc2a0be59fa9c6e04ed90b1fd19e2cb98dabba77d7f668d58fa3e9"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/129-Debug32-font150-page79.png",
+      "sha256": "fcffad1f3a9b75991f7d0c01f57642110791d29f3e1cb167c4cc1dfbc82c3477"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/130-Debug32-font150-page80.png",
+      "sha256": "b7147d85f0a76f9ad6b48ea408816fd90f42d0617008df15d4d3a665de3aa484"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/131-Debug32-font150-page81.png",
+      "sha256": "413a5c213aeabd44a8f7fe3a2699426e27cb93793dc418bf1042a7d66ee6fa83"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/132-Debug32-font150-page82.png",
+      "sha256": "13f8d183c5b7d7ff44770c79e8add78ef5011b360add46d3428be158c0646110"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/133-Debug32-font150-page83.png",
+      "sha256": "4d8375ebfedf561d69a8998379df56927ecc5d9fc9ea398a380571d7eb190804"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/134-Debug32-font150-page84.png",
+      "sha256": "806328399e225b52d56806b7b7c91aa7fad51ca7d5a47a524c88d1651f831ea4"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/135-Debug32-font150-page85.png",
+      "sha256": "0ff55b4c4d2f66e4d8d75a8117075454526ec4099e1677ab32a4131bcc0daecc"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/136-Debug32-font150-page86.png",
+      "sha256": "58e16ced17455f973469b2ddc01d1c0644a3f7754fe26d1501545d2eba7575b2"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/137-Debug32-font150-page87.png",
+      "sha256": "ff222b08b173088ce803a6c55e5af6af9f8fbc236201711f96752ed2cbb56b7c"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/138-Debug32-font150-page88.png",
+      "sha256": "f68f58c44e88b0d1eb67c2a6020199a5d353bd4bf513b30a373eb983408e1238"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/139-Debug32-font150-page89.png",
+      "sha256": "4e1e840742aaabc26ff9d9499c9b0c9beb6a24e4692e8634b511a350b407f967"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/140-Debug32-font150-page90.png",
+      "sha256": "5f2708817b3b227f8ef7d881f3b76b022849f69e0a1afac4fd0f03ab33355445"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/141-Debug32-font150-page91.png",
+      "sha256": "baa16f97073c1446e961ab8071db9d9727d20790931bfd9754f8965895ffa3b9"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/142-Debug32-font150-page92.png",
+      "sha256": "81ce453631d80481cc6bf63378786757edd8668d1a162a80fa08a8911e5849dc"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/143-Debug32-font150-page93.png",
+      "sha256": "9596d37e590c8917bb1fb8ce9aa70ac4a3ffc40d7579322e087d7c310934c1da"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/144-Debug32-font150-page94.png",
+      "sha256": "bec3ccb75605e4eee45bc86ab457c3cd4cbc84ec1184733baea3d73f2677f76d"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/145-Debug32-font150-page95.png",
+      "sha256": "4823034940dab168995ac03627f1ef74a550875942c3295e91dad1c19c4cbefd"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/146-Debug32-font150-page96.png",
+      "sha256": "77c2748580fc05836747791dda1fd394d2c5e706e8fc3e730cfa586bf803a02c"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont150/147-Debug32-font150-page97.png",
+      "sha256": "c84076795cab48593f9b1b70843444bde2a356bbd421310fb229872c69dbbcb8"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownHistoricalEffectsRemainCompleteAndReadonlyAtFont150/000-historical-permanent-effects-font150-page00.png",
+      "sha256": "14076c1b8e96379697283cab7c91bf6d79c79201a1c5aa6910c68a4d42315fbb"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownHistoricalEffectsRemainCompleteAndReadonlyAtFont150/001-historical-permanent-effects-font150-page01.png",
+      "sha256": "6844d2cc1e981a56bc45d9b708a741e3bb4fa4f8cda6399dde41fe1894a85b27"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownHistoricalEffectsRemainCompleteAndReadonlyAtFont150/002-historical-permanent-effects-font150-page02.png",
+      "sha256": "42cefafff4dcef91fdcea6e74350d65528328c717a48c251a2693f4ebe3b67f5"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownHistoricalEffectsRemainCompleteAndReadonlyAtFont150/003-historical-permanent-effects-font150-page03.png",
+      "sha256": "5d231f683fadace64e1f14b9d83820321fbc188b7443baef0cbe56e948bc9f36"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownHistoricalEffectsRemainCompleteAndReadonlyAtFont150/004-historical-permanent-effects-font150-page04.png",
+      "sha256": "5248099908bc2ea8f75f936afbed4c7939f45acaf63edd26efa79808c1ac2fe1"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownHistoricalEffectsRemainCompleteAndReadonlyAtFont150/005-historical-permanent-effects-font150-page05.png",
+      "sha256": "ef8a46b0f314a96fd65336ae54884adb6fe47c42e1ffacdec307c8a5d232be16"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownHistoricalEffectsRemainCompleteAndReadonlyAtFont150/006-historical-permanent-effects-font150-page06.png",
+      "sha256": "3748ea8efadfd0f42564d71402ae68e788001c8cfb7e70088a9d6e6234c0cc13"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownHistoricalEffectsRemainCompleteAndReadonlyAtFont150/007-historical-permanent-effects-font150-page07.png",
+      "sha256": "feb8cdb7eb51900dba37c359c51d2818083d8f1566b999db56149bed1aa18b08"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownHistoricalEffectsRemainCompleteAndReadonlyAtFont150/008-historical-permanent-effects-font150-page08.png",
+      "sha256": "388699802b687ecce54c981e36f50140b6117d0d31e7cbf108dacf1d6e445f8f"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownHistoricalEffectsRemainCompleteAndReadonlyAtFont150/009-historical-permanent-effects-font150-page09.png",
+      "sha256": "3d026a9b7f6a55772c6bade0468392016ba9f76fc0aeda31014c14870ea09eb7"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownHistoricalEffectsRemainCompleteAndReadonlyAtFont150/010-historical-permanent-effects-font150-page10.png",
+      "sha256": "d7b7947e9bb9b0ad3898d4fee97e2f96ada69b72eea6dc1d1a3c9282165da916"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownHistoricalEffectsRemainCompleteAndReadonlyAtFont150/011-historical-permanent-effects-font150-page11.png",
+      "sha256": "6dfcb493c5613f11429b7a45252e5561a74c3afe72bedbb53815f38ecb085cc5"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownHistoricalEffectsRemainCompleteAndReadonlyAtFont150/012-historical-permanent-effects-font150-page12.png",
+      "sha256": "e95fd2e493fef2d8bbcfd7c735a5358c353f258b3fb8c630b6f0451f2ca4f02d"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownHistoricalEffectsRemainCompleteAndReadonlyAtFont150/013-historical-permanent-effects-font150-page13.png",
+      "sha256": "84dfd6eda1b252213af6f78027286bb1e4b92ca2beda0616494176b7a8ba3ace"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownHistoricalEffectsRemainCompleteAndReadonlyAtFont150/014-historical-permanent-effects-font150-page14.png",
+      "sha256": "89407894427c0612bd29da13b084bf798b71bd1153a722615af6da99fffad5aa"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownHistoricalEffectsRemainCompleteAndReadonlyAtFont150/015-historical-permanent-effects-font150-page15.png",
+      "sha256": "09ff15d60ce2da7099f2f1377a0dbbaaffa53a7b73689a3361f1c1272ac3ae32"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownHistoricalEffectsRemainCompleteAndReadonlyAtFont150/016-historical-permanent-effects-font150-page16.png",
+      "sha256": "c41f55068655de3f018dd45260dbcf3a8cb37b3306e8c3fd1a8033a1960e69c5"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownHistoricalEffectsRemainCompleteAndReadonlyAtFont150/017-historical-permanent-effects-font150-page17.png",
+      "sha256": "7734632b353faefb29981c8343b1ba0aa0323e356a120cbbac9c807148b2cbb2"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownHistoricalEffectsRemainCompleteAndReadonlyAtFont150/018-historical-permanent-effects-font150-page18.png",
+      "sha256": "d4ec4391766cc2b075752bbe16f8292a30fbd8c3aea6485ed8867f2f2111ec3a"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownHistoricalEffectsRemainCompleteAndReadonlyAtFont150/019-historical-permanent-effects-font150-page19.png",
+      "sha256": "939ac4077739e7bce12cfb9fc7fd483cfc6660493f5c9e0aed147cd602cdb705"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownHistoricalEffectsRemainCompleteAndReadonlyAtFont150/020-historical-permanent-effects-font150-page20.png",
+      "sha256": "2abc633cb782fa50027ea881fa1557b65b57ffb68b78ea8b076a96d4f8c07172"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownHistoricalEffectsRemainCompleteAndReadonlyAtFont150/021-historical-permanent-effects-font150-page21.png",
+      "sha256": "ac97416d96e024003b2b7895ceed052a140d3fb537220b080930eb9d33ff9d63"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownHistoricalEffectsRemainCompleteAndReadonlyAtFont150/022-historical-permanent-effects-font150-page22.png",
+      "sha256": "5efdee049d911ec2a66d52981eadfa9bd815d185764a49aaffcb32533a3b681e"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownHistoricalEffectsRemainCompleteAndReadonlyAtFont150/023-historical-permanent-effects-font150-page23.png",
+      "sha256": "6f9273a4978129aba2e4b723259b0c5d02d4a9b1547640d964a414417423de5e"
+    },
+    {
+      "path": "artifacts/cache/v07-breakdown-1080-035307/PLAY_ART07_BreakdownHistoricalEffectsRemainCompleteAndReadonlyAtFont150/024-historical-permanent-effects-font150-page24.png",
+      "sha256": "932a2278276a935ed3ca424a999dfe9e93896b9f897f737d80a1912a1ac47631"
+    }
+  ]
+}

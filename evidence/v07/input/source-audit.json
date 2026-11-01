@@ -1,0 +1,308 @@
+{
+  "generatedUtc": "2026-10-31T16:44:45.732739+00:00",
+  "scope": "input integrity and independent design-data audit only; no Unity/Blender runtime acceptance",
+  "inputs": [
+    {
+      "archivedPath": "docs\\specs\\v07\\ART_SPEC.md",
+      "sha256": "5120a8d0983d24f25cc38e22f1da613fd1a56c70ab26f518771a2caf064dd228",
+      "sizeBytes": 417792,
+      "originalPath": "C:\\Users\\f\\.codex\\attachments\\e5a137e5-6a3c-46fe-bdfb-05aa9311a3df\\骰子构筑游戏_v0.7_AI美术开发规格.md",
+      "copyExact": true
+    },
+    {
+      "archivedPath": "docs\\specs\\v07\\ART_DESIGN.docx",
+      "sha256": "59f798766cb2c6b87a3bba85c761b8567ffba0956a274faf9a0a0bf93f1ad294",
+      "sizeBytes": 8498950,
+      "originalPath": "C:\\Users\\f\\.codex\\attachments\\e5a137e5-6a3c-46fe-bdfb-05aa9311a3df\\骰子构筑游戏_v0.7_美术界面与动效策划案.docx",
+      "copyExact": true
+    },
+    {
+      "archivedPath": "docs\\specs\\v07\\dice_art_v0_7_manifest.json",
+      "sha256": "e96f218f24387ab1fff9f7991ae67159648e7f1bbca4ee8556bf288be49a0204",
+      "sizeBytes": 242757,
+      "originalPath": "C:\\Users\\f\\.codex\\attachments\\e5a137e5-6a3c-46fe-bdfb-05aa9311a3df\\dice_art_v0_7_manifest.json",
+      "copyExact": true
+    }
+  ],
+  "embeddedManifestMatchesStandalone": true,
+  "docxMdMainNormalizedExact": true,
+  "normalizedMainCharacterCount": 53523,
+  "normalization": "Removed Markdown syntax/link destinations, whitespace and DOCX zero-width wrapping hints; excluded DOCX-only subtitle and section04 concept packaging/captions. Section04 four concept descriptions visually/textually reviewed separately, no semantic difference found.",
+  "contentIdAndNameDiffsAgainstP06": [],
+  "contentTriggerDescriptionDiffsAgainstP06": [],
+  "contentCategoryCounts": {
+    "controller": 50,
+    "consumable": 7,
+    "service": 7,
+    "dice_upgrade": 7
+  },
+  "contentIdSetMatchesP06": true,
+  "retiredIdsAbsent": true,
+  "sharedAssetCount": 153,
+  "uniqueSharedAssetCount": 153,
+  "sharedCategoryCountsMatch": true,
+  "requiredSharedAssetCount": 152,
+  "optionalSharedAssetIds": [
+    "dice_body_lod_optional"
+  ],
+  "unresolvedDependencies": [],
+  "allPlanned": true,
+  "acceptanceCount": 67,
+  "acceptanceGroupCounts": {
+    "ART": 22,
+    "UI": 32,
+    "FX": 13
+  },
+  "tierChecks": [
+    {
+      "id": "VT01",
+      "actual": 0,
+      "expected": 0,
+      "pass": true
+    },
+    {
+      "id": "VT02",
+      "actual": 1,
+      "expected": 1,
+      "pass": true
+    },
+    {
+      "id": "VT03",
+      "actual": 1,
+      "expected": 1,
+      "pass": true
+    },
+    {
+      "id": "VT04",
+      "actual": 1,
+      "expected": 1,
+      "pass": true
+    },
+    {
+      "id": "VT05",
+      "actual": 2,
+      "expected": 2,
+      "pass": true
+    },
+    {
+      "id": "VT06",
+      "actual": 2,
+      "expected": 2,
+      "pass": true
+    },
+    {
+      "id": "VT07",
+      "actual": 2,
+      "expected": 2,
+      "pass": true
+    },
+    {
+      "id": "VT08",
+      "actual": 3,
+      "expected": 3,
+      "pass": true
+    },
+    {
+      "id": "VT09",
+      "actual": 3,
+      "expected": 3,
+      "pass": true
+    },
+    {
+      "id": "VT10",
+      "actual": 3,
+      "expected": 3,
+      "pass": true
+    },
+    {
+      "id": "VT11",
+      "actual": 4,
+      "expected": 4,
+      "pass": true
+    },
+    {
+      "id": "VT12",
+      "actual": 4,
+      "expected": 4,
+      "pass": true
+    },
+    {
+      "id": "VT13",
+      "actual": 4,
+      "expected": 4,
+      "pass": true
+    },
+    {
+      "id": "VT14",
+      "actual": 5,
+      "expected": 5,
+      "pass": true
+    },
+    {
+      "id": "VT15",
+      "actual": 5,
+      "expected": 5,
+      "pass": true
+    },
+    {
+      "id": "VT16",
+      "actual": 0,
+      "expected": 0,
+      "pass": true
+    },
+    {
+      "id": "VT17",
+      "actual": 0,
+      "expected": 0,
+      "pass": true
+    },
+    {
+      "id": "VT18",
+      "actual": 0,
+      "expected": 0,
+      "pass": true
+    },
+    {
+      "id": "VT19",
+      "actual": 5,
+      "expected": 5,
+      "pass": true
+    },
+    {
+      "id": "VT20",
+      "actual": 5,
+      "expected": 5,
+      "pass": true
+    },
+    {
+      "id": "VT21",
+      "actual": 0,
+      "expected": 0,
+      "pass": true
+    }
+  ],
+  "contrastChecks": [
+    {
+      "foreground": "text",
+      "background": "bgDeep",
+      "ratio": 13.07,
+      "target": 4.5,
+      "passedSolidColorCheck": true,
+      "recomputedRatio": 13.073443499149038,
+      "pass": true
+    },
+    {
+      "foreground": "text",
+      "background": "panel",
+      "ratio": 9.81,
+      "target": 4.5,
+      "passedSolidColorCheck": true,
+      "recomputedRatio": 9.81220152607879,
+      "pass": true
+    },
+    {
+      "foreground": "muted",
+      "background": "panel",
+      "ratio": 6.58,
+      "target": 4.5,
+      "passedSolidColorCheck": true,
+      "recomputedRatio": 6.581701997079528,
+      "pass": true
+    },
+    {
+      "foreground": "ink",
+      "background": "paper",
+      "ratio": 12.84,
+      "target": 4.5,
+      "passedSolidColorCheck": true,
+      "recomputedRatio": 12.84196330575651,
+      "pass": true
+    },
+    {
+      "foreground": "ink",
+      "background": "blue",
+      "ratio": 6.76,
+      "target": 4.5,
+      "passedSolidColorCheck": true,
+      "recomputedRatio": 6.758620774033214,
+      "pass": true
+    },
+    {
+      "foreground": "ink",
+      "background": "gold",
+      "ratio": 8.91,
+      "target": 4.5,
+      "passedSolidColorCheck": true,
+      "recomputedRatio": 8.914398453247086,
+      "pass": true
+    },
+    {
+      "foreground": "ink",
+      "background": "positive",
+      "ratio": 7.93,
+      "target": 4.5,
+      "passedSolidColorCheck": true,
+      "recomputedRatio": 7.926063518983392,
+      "pass": true
+    },
+    {
+      "foreground": "ink",
+      "background": "red",
+      "ratio": 4.9,
+      "target": 4.5,
+      "passedSolidColorCheck": true,
+      "recomputedRatio": 4.902643471342228,
+      "pass": true
+    },
+    {
+      "foreground": "text",
+      "background": "dangerFill",
+      "ratio": 6.02,
+      "target": 4.5,
+      "passedSolidColorCheck": true,
+      "recomputedRatio": 6.02394709880474,
+      "pass": true
+    }
+  ],
+  "concepts": [
+    {
+      "key": "battle",
+      "title": "对局方向图",
+      "path": "evidence\\v07\\input\\concepts\\image1.png",
+      "sha256": "8580ee3ce66daeffdffd162c92add77e6a80340338c5c19749b6749cba826f2c",
+      "runtimeImportAllowed": false
+    },
+    {
+      "key": "shop",
+      "title": "商店方向图",
+      "path": "evidence\\v07\\input\\concepts\\image2.png",
+      "sha256": "d67ed1256376e2ad6afe3405cae034257eeef9afc987f81fab94ee7b1b204cb1",
+      "runtimeImportAllowed": false
+    },
+    {
+      "key": "materials",
+      "title": "骰子材质与附魔方向图",
+      "path": "evidence\\v07\\input\\concepts\\image3.png",
+      "sha256": "0c094969e5e22800a7d8ceb922326b92cac623b0f42d5fed2176ab5141f3f4d4",
+      "runtimeImportAllowed": false
+    },
+    {
+      "key": "combo",
+      "title": "高倍率计分方向图",
+      "path": "evidence\\v07\\input\\concepts\\image4.png",
+      "sha256": "ece80b3d3eb947735257557e7591d6bf4cec8b3c2833ed28c9829709faa7cd5d",
+      "runtimeImportAllowed": false
+    }
+  ],
+  "frozenGameplayInputs": [
+    {
+      "path": "DicePrototype\\Assets\\Game\\Data\\P0Config.json",
+      "sha256": "747ed1efc7bea15873f66a81eee5c7654971c21031f2a1517ce629adce7b6e6c"
+    },
+    {
+      "path": "DicePrototype\\Assets\\Game\\Data\\GoldenScores.json",
+      "sha256": "306cb86f79dafe0e3eb302714abd232af20fe0062a6713f7d713c11e2a6a5718"
+    }
+  ],
+  "runtimeChecksPerformed": false
+}

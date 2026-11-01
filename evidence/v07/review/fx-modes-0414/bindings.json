@@ -1,0 +1,935 @@
+{
+  "schema": "independent-fx-modes-review-1",
+  "observedUtc": "2026-11-01T04:31:49.796237+00:00",
+  "runtimeMvid": "b5254e2b-fea4-45de-b803-7a41b53df2e0",
+  "coreMvid": "8f690e0d-a075-4b72-98e4-2cb64ced2fa3",
+  "preflightSha256": "d60d90e756b6118894298c9880ca1c232ac4cd5adb1b74543852d81b61341900",
+  "sourceHead": "1fbc3cce9d84237fa98b31d4b73b08e6f5e909ae",
+  "sourceMutable": true,
+  "sourceComparisons": [
+    {
+      "path": "DicePrototype/Assets/Game/Resources/Art07FaceTransition.shader",
+      "snapshotSha256": "7486c3dc6cb1ffdd76cc0e86b119848062561aa505f14222809f8ad7bfd7e250",
+      "observedSha256": "7486c3dc6cb1ffdd76cc0e86b119848062561aa505f14222809f8ad7bfd7e250",
+      "matches": true
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Runtime/Presentation/Art07FaceTransition.cs",
+      "snapshotSha256": "2ae962dfccd645cf5394acd71f17c22c7d7b17db7c9352b127174b5e7102d996",
+      "observedSha256": "2ae962dfccd645cf5394acd71f17c22c7d7b17db7c9352b127174b5e7102d996",
+      "matches": true
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Runtime/Presentation/Art07QualifiedStamp.cs",
+      "snapshotSha256": "95a20975127bd49fb78f102edd66d7ee55bb7aef725c2cc81c1169463eb544e7",
+      "observedSha256": "95a20975127bd49fb78f102edd66d7ee55bb7aef725c2cc81c1169463eb544e7",
+      "matches": true
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Runtime/Presentation/Art07ScoreBurstLayout.cs",
+      "snapshotSha256": "dd17e066f885098ed781bae37c6d660202e4dc70763bb4ca96ca14f367c4d97c",
+      "observedSha256": "dd17e066f885098ed781bae37c6d660202e4dc70763bb4ca96ca14f367c4d97c",
+      "matches": true
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Runtime/Presentation/PresentationReceiptAdapter.cs",
+      "snapshotSha256": "011071df761e327d81a77c88da3cda64d7d63c33dc9a02a750407119ff246236",
+      "observedSha256": "011071df761e327d81a77c88da3cda64d7d63c33dc9a02a750407119ff246236",
+      "matches": true
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Runtime/Presentation/PresentationSequence.cs",
+      "snapshotSha256": "53952fbbb737d66bf650f5c8d9ee9f69191280ad7327beb38c1255b1f742940a",
+      "observedSha256": "53952fbbb737d66bf650f5c8d9ee9f69191280ad7327beb38c1255b1f742940a",
+      "matches": true
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Runtime/Verification/Art07VisualRecorder.cs",
+      "snapshotSha256": "49dc419ad0881ff2c5de9f48e331eceb56508fd83605d6a95ee624859307aa76",
+      "observedSha256": "49dc419ad0881ff2c5de9f48e331eceb56508fd83605d6a95ee624859307aa76",
+      "matches": true
+    }
+  ],
+  "captureSummarySha256": "e7fc049e477e177fc4ec77df85dd6a7ca797873ea820ee0fc909570dde7943fb",
+  "originalImagesViewedCount": 20,
+  "originalImagesViewed": {
+    "NormalHighest": [
+      90,
+      111,
+      126
+    ],
+    "FastHighest": [
+      40
+    ],
+    "ReducedHighest": [
+      90,
+      126,
+      127
+    ],
+    "InstantHighest": [
+      14,
+      15,
+      16,
+      17,
+      45
+    ],
+    "NormalPost": [
+      89,
+      94
+    ],
+    "ReducedPost": [
+      94
+    ],
+    "NormalQualified": [
+      103,
+      114
+    ],
+    "NormalSharedHalf": [
+      93
+    ],
+    "NormalZero": [
+      105
+    ],
+    "NormalSample": [
+      132
+    ]
+  },
+  "derivedSheetsViewedCount": 11,
+  "derivedSheets": [
+    {
+      "name": "normal-final",
+      "mode": "NormalHighest",
+      "frames": [
+        88,
+        89,
+        90,
+        91,
+        124,
+        125,
+        126,
+        127
+      ],
+      "crop": [
+        320,
+        120,
+        1520,
+        1000
+      ],
+      "display": [
+        800,
+        587
+      ],
+      "path": "evidence\\v07\\review\\fx-modes-0414\\normal-final.jpg",
+      "sha256": "75e0b8f454518e6535491f63cbf7f01e63ebd7b5ec6265cdd4da4c3e2de5476d"
+    },
+    {
+      "name": "fast-final",
+      "mode": "FastHighest",
+      "frames": [
+        34,
+        35,
+        36,
+        37,
+        47,
+        48,
+        49,
+        50
+      ],
+      "crop": [
+        320,
+        120,
+        1520,
+        1000
+      ],
+      "display": [
+        800,
+        587
+      ],
+      "path": "evidence\\v07\\review\\fx-modes-0414\\fast-final.jpg",
+      "sha256": "1442a51cc95abb90ea71be418732d749a149e4b205a2ea3507923cab7505a0d2"
+    },
+    {
+      "name": "continuous",
+      "mode": "ContinuousHighest",
+      "frames": [
+        125,
+        126,
+        127,
+        132,
+        133,
+        134,
+        208,
+        326
+      ],
+      "crop": [
+        320,
+        120,
+        1520,
+        1000
+      ],
+      "display": [
+        800,
+        587
+      ],
+      "path": "evidence\\v07\\review\\fx-modes-0414\\continuous.jpg",
+      "sha256": "e4ec78420852bb30d0134b4c2b6be0f9f40682a973ae3235b50ad3ac21921eb2"
+    },
+    {
+      "name": "shared-normal",
+      "mode": "NormalSharedHalf",
+      "frames": [
+        54,
+        55,
+        56,
+        62,
+        64,
+        72,
+        92,
+        93
+      ],
+      "crop": [
+        320,
+        120,
+        1520,
+        1000
+      ],
+      "display": [
+        800,
+        587
+      ],
+      "path": "evidence\\v07\\review\\fx-modes-0414\\shared-normal.jpg",
+      "sha256": "6b2ca300c33951e87e5fbd711ad2875e5f9dd1e0aaacd36e9e6bf919f1681c0b"
+    },
+    {
+      "name": "shared-fast",
+      "mode": "FastSharedHalf",
+      "frames": [
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        47,
+        48
+      ],
+      "crop": [
+        320,
+        120,
+        1520,
+        1000
+      ],
+      "display": [
+        800,
+        587
+      ],
+      "path": "evidence\\v07\\review\\fx-modes-0414\\shared-fast.jpg",
+      "sha256": "6184f4d5bb1e0353d2414acecad986e94f2168c1cf09438b13accbb6f33118b7"
+    },
+    {
+      "name": "shared-reduced",
+      "mode": "ReducedSharedHalf",
+      "frames": [
+        54,
+        55,
+        56,
+        62,
+        64,
+        72,
+        92,
+        93
+      ],
+      "crop": [
+        320,
+        120,
+        1520,
+        1000
+      ],
+      "display": [
+        800,
+        587
+      ],
+      "path": "evidence\\v07\\review\\fx-modes-0414\\shared-reduced.jpg",
+      "sha256": "9a16bcda9c1ac148dd39891d0955c49ecc287c243e3430a0aced70fc9d8baa82"
+    },
+    {
+      "name": "post-normal",
+      "mode": "NormalPost",
+      "frames": [
+        86,
+        87,
+        88,
+        89,
+        94,
+        100,
+        118,
+        119
+      ],
+      "crop": [
+        320,
+        120,
+        1520,
+        1000
+      ],
+      "display": [
+        800,
+        587
+      ],
+      "path": "evidence\\v07\\review\\fx-modes-0414\\post-normal.jpg",
+      "sha256": "3ebf45fcfc85af800f7fa2570aacd4758811d67b3487992595951109750b285b"
+    },
+    {
+      "name": "post-reduced",
+      "mode": "ReducedPost",
+      "frames": [
+        86,
+        87,
+        88,
+        89,
+        94,
+        100,
+        118,
+        119
+      ],
+      "crop": [
+        320,
+        120,
+        1520,
+        1000
+      ],
+      "display": [
+        800,
+        587
+      ],
+      "path": "evidence\\v07\\review\\fx-modes-0414\\post-reduced.jpg",
+      "sha256": "84ce89939e13c3de27bb96e3acb3de99ba2d28242ee626e08ed2d367ded4d935"
+    },
+    {
+      "name": "zero",
+      "mode": "NormalZero",
+      "frames": [
+        60,
+        61,
+        62,
+        63,
+        75,
+        85,
+        104,
+        105
+      ],
+      "crop": [
+        320,
+        120,
+        1520,
+        1000
+      ],
+      "display": [
+        800,
+        587
+      ],
+      "path": "evidence\\v07\\review\\fx-modes-0414\\zero.jpg",
+      "sha256": "1db6d9e73fd1752400b2565844daf32902df46cfdcab5efada9664322cbe3a5d"
+    },
+    {
+      "name": "qualified",
+      "mode": "NormalQualified",
+      "frames": [
+        84,
+        85,
+        86,
+        87,
+        100,
+        102,
+        103,
+        114
+      ],
+      "crop": [
+        320,
+        120,
+        1520,
+        1000
+      ],
+      "display": [
+        800,
+        587
+      ],
+      "path": "evidence\\v07\\review\\fx-modes-0414\\qualified.jpg",
+      "sha256": "454eb8c2ac6afe3aaf7cd5c74a3ad55551889ee1187275965eb7e7bbc32923ad"
+    },
+    {
+      "name": "sample",
+      "mode": "NormalSample",
+      "frames": [
+        55,
+        65,
+        75,
+        85,
+        100,
+        102,
+        103,
+        132
+      ],
+      "crop": [
+        320,
+        120,
+        1520,
+        1000
+      ],
+      "display": [
+        800,
+        587
+      ],
+      "path": "evidence\\v07\\review\\fx-modes-0414\\sample.jpg",
+      "sha256": "cc71efcfdfa05ef3408bad07bc690b8f350e7ada28223bbc46044ab6f13ca611"
+    }
+  ],
+  "uniqueSourceFramesVisuallyInspectedCount": 98,
+  "visuallyInspectedSourceFrames": [
+    {
+      "mode": "ContinuousHighest",
+      "index": 125,
+      "sha256": "ed5b597af657bd6edbdf736ef27dadba03908c0d5e9386fdcae2daa367d28a81"
+    },
+    {
+      "mode": "ContinuousHighest",
+      "index": 126,
+      "sha256": "5a8268bcdbfb3af8ca45cf39f5ef067b91d58a3e53176432672af1c71e5af14f"
+    },
+    {
+      "mode": "ContinuousHighest",
+      "index": 127,
+      "sha256": "fd6bc4f7bd63a42b036f286d1d23d00f6907b0fd15c2f74b4f60e88dc670ad0f"
+    },
+    {
+      "mode": "ContinuousHighest",
+      "index": 132,
+      "sha256": "fd6bc4f7bd63a42b036f286d1d23d00f6907b0fd15c2f74b4f60e88dc670ad0f"
+    },
+    {
+      "mode": "ContinuousHighest",
+      "index": 133,
+      "sha256": "28b8a327364bb3019bf76c1a339fb07d49967748773a6daf12121f488e9d5ff0"
+    },
+    {
+      "mode": "ContinuousHighest",
+      "index": 134,
+      "sha256": "0bd14e04f596f618e2f7d3904ea0dfa0de46a238afc1f6265f38e8c7c6929627"
+    },
+    {
+      "mode": "ContinuousHighest",
+      "index": 208,
+      "sha256": "51a1420fe7844760572c9b8e089447b68fe1a198a2e01acbbf331cda3d5f9d31"
+    },
+    {
+      "mode": "ContinuousHighest",
+      "index": 326,
+      "sha256": "51a1420fe7844760572c9b8e089447b68fe1a198a2e01acbbf331cda3d5f9d31"
+    },
+    {
+      "mode": "FastHighest",
+      "index": 34,
+      "sha256": "d76631ffc953c66b8424fd9b1bdc83a68d1aa9e8a2e62f2f5cc4dce94e875412"
+    },
+    {
+      "mode": "FastHighest",
+      "index": 35,
+      "sha256": "d76631ffc953c66b8424fd9b1bdc83a68d1aa9e8a2e62f2f5cc4dce94e875412"
+    },
+    {
+      "mode": "FastHighest",
+      "index": 36,
+      "sha256": "cb7e99d91ee7630d85ff6dce9f2310f5ca5127697814d2b00979d21325255927"
+    },
+    {
+      "mode": "FastHighest",
+      "index": 37,
+      "sha256": "60e977a332368da735ab3e160423ce8ce1be5c0d73eebf6ff18d0a914cae1c55"
+    },
+    {
+      "mode": "FastHighest",
+      "index": 40,
+      "sha256": "4734478f3f1f77497be4213a030bf523b28bed970bfdee5b0f9536b85c6d8177"
+    },
+    {
+      "mode": "FastHighest",
+      "index": 47,
+      "sha256": "b66284729a41118f44917f3a36c677c53bd65c1b3ca154713e82d3bbd4adb890"
+    },
+    {
+      "mode": "FastHighest",
+      "index": 48,
+      "sha256": "7f12dbeb5112363a3c13fbb9f923924f1f8cff18abf790929a035b0d7d5e5bdf"
+    },
+    {
+      "mode": "FastHighest",
+      "index": 49,
+      "sha256": "fd6bc4f7bd63a42b036f286d1d23d00f6907b0fd15c2f74b4f60e88dc670ad0f"
+    },
+    {
+      "mode": "FastHighest",
+      "index": 50,
+      "sha256": "fd6bc4f7bd63a42b036f286d1d23d00f6907b0fd15c2f74b4f60e88dc670ad0f"
+    },
+    {
+      "mode": "FastSharedHalf",
+      "index": 27,
+      "sha256": "3ed5f24819f4f723295acf448a2ddc799153d3899d2bad3a5c6d10065130ea73"
+    },
+    {
+      "mode": "FastSharedHalf",
+      "index": 28,
+      "sha256": "3ed5f24819f4f723295acf448a2ddc799153d3899d2bad3a5c6d10065130ea73"
+    },
+    {
+      "mode": "FastSharedHalf",
+      "index": 29,
+      "sha256": "3ed5f24819f4f723295acf448a2ddc799153d3899d2bad3a5c6d10065130ea73"
+    },
+    {
+      "mode": "FastSharedHalf",
+      "index": 30,
+      "sha256": "227eb98812db351e40ece9e5afec6bfbfc08cf214517614ba6f069369ed3ba6e"
+    },
+    {
+      "mode": "FastSharedHalf",
+      "index": 31,
+      "sha256": "7d58daef4eec3c6eadb11eea4624fbc4c95700535dcb0ba9f14b15e83c2511c9"
+    },
+    {
+      "mode": "FastSharedHalf",
+      "index": 32,
+      "sha256": "b87e84b4184a967122e01c1a87488d1815f0f9754cbf4a538c170ceb544eb3f4"
+    },
+    {
+      "mode": "FastSharedHalf",
+      "index": 47,
+      "sha256": "820a4afc1d6fad21a3d29bd64aca9405580cc15aa29d5cf2a4cb9a86a6a79fca"
+    },
+    {
+      "mode": "FastSharedHalf",
+      "index": 48,
+      "sha256": "1273c5c3bbf3603e3f359dc592518a76a7c01333a633e488831ae82ee8afa88b"
+    },
+    {
+      "mode": "InstantHighest",
+      "index": 14,
+      "sha256": "112997608b1ad40d8efc936e7c89bb4fff293413dea13f18329a3ddea022dd1e"
+    },
+    {
+      "mode": "InstantHighest",
+      "index": 15,
+      "sha256": "7297499c173f3039131aac2be52ce2e721df316db91e3d91dfb841bf7ae78336"
+    },
+    {
+      "mode": "InstantHighest",
+      "index": 16,
+      "sha256": "fd6bc4f7bd63a42b036f286d1d23d00f6907b0fd15c2f74b4f60e88dc670ad0f"
+    },
+    {
+      "mode": "InstantHighest",
+      "index": 17,
+      "sha256": "fd6bc4f7bd63a42b036f286d1d23d00f6907b0fd15c2f74b4f60e88dc670ad0f"
+    },
+    {
+      "mode": "InstantHighest",
+      "index": 45,
+      "sha256": "fd6bc4f7bd63a42b036f286d1d23d00f6907b0fd15c2f74b4f60e88dc670ad0f"
+    },
+    {
+      "mode": "NormalHighest",
+      "index": 88,
+      "sha256": "bc7a0b1d55f63824fdfb2c90c53f46c76ef7ca5ff3f941422a91568114081e91"
+    },
+    {
+      "mode": "NormalHighest",
+      "index": 89,
+      "sha256": "c698d718db30b2cf8690819798368cbd111d8ad90b6e96fe5aee58e93dd28396"
+    },
+    {
+      "mode": "NormalHighest",
+      "index": 90,
+      "sha256": "b058d46e8d71df2e2a7875f1706af8c0f798245df551e0b0a062d7e6a753dcfc"
+    },
+    {
+      "mode": "NormalHighest",
+      "index": 91,
+      "sha256": "f5f56db269d2f978a305b80451816d9076ab5d1ba99181da2844be883982924c"
+    },
+    {
+      "mode": "NormalHighest",
+      "index": 111,
+      "sha256": "d90d78951a2ea23f7765265b5c914cb70eab76662d463e4c361cb239239af4fe"
+    },
+    {
+      "mode": "NormalHighest",
+      "index": 124,
+      "sha256": "76974d2c141233fa42cd4c4be8cf8dcef1c6fa07e2438d150e0059e6d1a751c6"
+    },
+    {
+      "mode": "NormalHighest",
+      "index": 125,
+      "sha256": "ed5b597af657bd6edbdf736ef27dadba03908c0d5e9386fdcae2daa367d28a81"
+    },
+    {
+      "mode": "NormalHighest",
+      "index": 126,
+      "sha256": "e7dbdd5aaccad182cd07073ba1f0bc8ffdddab947ba5754193793d3840a6bc9c"
+    },
+    {
+      "mode": "NormalHighest",
+      "index": 127,
+      "sha256": "fd6bc4f7bd63a42b036f286d1d23d00f6907b0fd15c2f74b4f60e88dc670ad0f"
+    },
+    {
+      "mode": "NormalPost",
+      "index": 86,
+      "sha256": "a635fd8f5af0720bc801e232e5980d15ee923a33be78b5527d2186c802f28fa1"
+    },
+    {
+      "mode": "NormalPost",
+      "index": 87,
+      "sha256": "592c5870c229b498b3ed4941a745c3d9f70bffda7ac7f12a503a63ef4f2cb395"
+    },
+    {
+      "mode": "NormalPost",
+      "index": 88,
+      "sha256": "cf33345f87686d34f83bfbd2ab8f5a4ea9e9aef32ae1adbe0a3448c34a3406f7"
+    },
+    {
+      "mode": "NormalPost",
+      "index": 89,
+      "sha256": "9822865ae509e898e732a0b1c54748c83f38faf2411aae3e9ff76289a7f3673d"
+    },
+    {
+      "mode": "NormalPost",
+      "index": 94,
+      "sha256": "1a6191a80999528d7624b422fb190117601fc6bccdff30669d346b0c357d28d9"
+    },
+    {
+      "mode": "NormalPost",
+      "index": 100,
+      "sha256": "964e18ccc0041666da2ad5c975122d667725f39d5aceb1ef16ecf2d569b1a8bf"
+    },
+    {
+      "mode": "NormalPost",
+      "index": 118,
+      "sha256": "3c27fc21bf1b8ccdcdb13b3073cdc33cca001ca28c8a9c4d1633f975a0198e18"
+    },
+    {
+      "mode": "NormalPost",
+      "index": 119,
+      "sha256": "c05ff8742f6aac0a9088f0f777b23c7bdec758b3fb0bb19a9148b9a407700809"
+    },
+    {
+      "mode": "NormalQualified",
+      "index": 84,
+      "sha256": "53dfe600962f6935d3e1f308b2a5e89f7ae88e9b24dd50befef305bc908d6d34"
+    },
+    {
+      "mode": "NormalQualified",
+      "index": 85,
+      "sha256": "198874ef7226ccf8e817713b19dc3dbad81196bd444b1e7048a48431a28a1745"
+    },
+    {
+      "mode": "NormalQualified",
+      "index": 86,
+      "sha256": "1014ed4d38ec006041fddc013e0f1ef7cca7b2481777a71aac21b2c69cc2dc68"
+    },
+    {
+      "mode": "NormalQualified",
+      "index": 87,
+      "sha256": "73b7d37b67ac338c2c56129c80d7c41676d7dc5b2278deb66efb462c956b3c6c"
+    },
+    {
+      "mode": "NormalQualified",
+      "index": 100,
+      "sha256": "2848a66a5b3e0e56fd9cf45f3e72e97bde395f8d30789d6db2a29dcb7d007a64"
+    },
+    {
+      "mode": "NormalQualified",
+      "index": 102,
+      "sha256": "d739bc120d2f20165290271e87460c9bb3655a82c8ef335acd4a4bb2c02b27ba"
+    },
+    {
+      "mode": "NormalQualified",
+      "index": 103,
+      "sha256": "eb62384f3b9900d26cf52c5daa8095b05262804315ded23df6d093ad06a4ee55"
+    },
+    {
+      "mode": "NormalQualified",
+      "index": 114,
+      "sha256": "6cb5a6c35ba58343a622da5a9d4ed821312d01591fd7eef8b78bceff00619e3e"
+    },
+    {
+      "mode": "NormalSample",
+      "index": 55,
+      "sha256": "153f919158132494139d13f7d6b9f0d730b55b31a5acaa4684a4cb1fc26c6a4d"
+    },
+    {
+      "mode": "NormalSample",
+      "index": 65,
+      "sha256": "8e449eedb4631112c8d1e32ac36911b5ebee01822272c06f3d84f2a24403f09d"
+    },
+    {
+      "mode": "NormalSample",
+      "index": 75,
+      "sha256": "d8c875c30a0ae4ca98c5d949795080fc8bab81bc59b0b34e6c5826783f2b068d"
+    },
+    {
+      "mode": "NormalSample",
+      "index": 85,
+      "sha256": "d8c875c30a0ae4ca98c5d949795080fc8bab81bc59b0b34e6c5826783f2b068d"
+    },
+    {
+      "mode": "NormalSample",
+      "index": 100,
+      "sha256": "d8c875c30a0ae4ca98c5d949795080fc8bab81bc59b0b34e6c5826783f2b068d"
+    },
+    {
+      "mode": "NormalSample",
+      "index": 102,
+      "sha256": "16eee8008bf4ec7920a93996ae2865834d99cc0cb44cf77b5d7b05e93595bd41"
+    },
+    {
+      "mode": "NormalSample",
+      "index": 103,
+      "sha256": "200617421f8374b620e89f5cfb686cf751fec1167213262ea4649c3bb350bb4e"
+    },
+    {
+      "mode": "NormalSample",
+      "index": 132,
+      "sha256": "200617421f8374b620e89f5cfb686cf751fec1167213262ea4649c3bb350bb4e"
+    },
+    {
+      "mode": "NormalSharedHalf",
+      "index": 54,
+      "sha256": "3ed5f24819f4f723295acf448a2ddc799153d3899d2bad3a5c6d10065130ea73"
+    },
+    {
+      "mode": "NormalSharedHalf",
+      "index": 55,
+      "sha256": "3ed5f24819f4f723295acf448a2ddc799153d3899d2bad3a5c6d10065130ea73"
+    },
+    {
+      "mode": "NormalSharedHalf",
+      "index": 56,
+      "sha256": "fc42319c5d87c3297410fa03f57e2a8071c916aa8de4d8c7e719c8bf30533220"
+    },
+    {
+      "mode": "NormalSharedHalf",
+      "index": 62,
+      "sha256": "7751b6e4d5b129d62070de11a6d9e23c3fd242306e06419d3a9a74501e80b629"
+    },
+    {
+      "mode": "NormalSharedHalf",
+      "index": 64,
+      "sha256": "ab77043d6586d89d9cd34aea6f0276b12ffc50963f9ff9f48905b54bb5ad2d9f"
+    },
+    {
+      "mode": "NormalSharedHalf",
+      "index": 72,
+      "sha256": "de3fa7457874838b6332e581b48b6a24250d9aa21a38ed10ccbde9b98000c8de"
+    },
+    {
+      "mode": "NormalSharedHalf",
+      "index": 92,
+      "sha256": "4d1402e04748862ba38dc162faa01527154964a904724bcd414491f86e8e089b"
+    },
+    {
+      "mode": "NormalSharedHalf",
+      "index": 93,
+      "sha256": "1273c5c3bbf3603e3f359dc592518a76a7c01333a633e488831ae82ee8afa88b"
+    },
+    {
+      "mode": "NormalZero",
+      "index": 60,
+      "sha256": "bb6532c03342b005e1e5b0efcc476d41cab73e3e8743dcacd2de0d09450362e2"
+    },
+    {
+      "mode": "NormalZero",
+      "index": 61,
+      "sha256": "15931290de1790ef4c953e7e08936ed3331e3396cf671245902666de33a1ee01"
+    },
+    {
+      "mode": "NormalZero",
+      "index": 62,
+      "sha256": "2b6ddd47cf2ec474960c761024a6591372a2dda7c98a67ff8f73ad03091b527c"
+    },
+    {
+      "mode": "NormalZero",
+      "index": 63,
+      "sha256": "29f2ca1a6e9ada9308cd7d130372d1de506befaf949c5b815682111ad9a67778"
+    },
+    {
+      "mode": "NormalZero",
+      "index": 75,
+      "sha256": "e98a48e6a85a896afa26e1b272eca482b164fd1976189d9798bea141cd671cd1"
+    },
+    {
+      "mode": "NormalZero",
+      "index": 85,
+      "sha256": "12296654cab3baca12d8c4c0dd2e8c0269286bf830c3b527940bbb1c1bf20b03"
+    },
+    {
+      "mode": "NormalZero",
+      "index": 104,
+      "sha256": "caee872d66ddfe5e695b8ca7bd2470323b473671cd92a55bc3fc5d37cf68febe"
+    },
+    {
+      "mode": "NormalZero",
+      "index": 105,
+      "sha256": "af4b351f3158d2d98874a88b148164a401e6b0c71de141f286c8cca91bf88444"
+    },
+    {
+      "mode": "ReducedHighest",
+      "index": 90,
+      "sha256": "b311eeb87318d3e1e9f22864189515d5714c63613777765b423917284049914d"
+    },
+    {
+      "mode": "ReducedHighest",
+      "index": 126,
+      "sha256": "3051e205e3e0251b66110090c822d9b276bde2c72ad4db20ee8286eda2f47c8e"
+    },
+    {
+      "mode": "ReducedHighest",
+      "index": 127,
+      "sha256": "3051e205e3e0251b66110090c822d9b276bde2c72ad4db20ee8286eda2f47c8e"
+    },
+    {
+      "mode": "ReducedPost",
+      "index": 86,
+      "sha256": "1c96daebe3927203d6754a192f35a8c30b873dce9ee5d633736d8d6f0ae422b3"
+    },
+    {
+      "mode": "ReducedPost",
+      "index": 87,
+      "sha256": "8a85e49233c5136cf1edb8b1a02079777d62fcf99ac264a2392142536a143445"
+    },
+    {
+      "mode": "ReducedPost",
+      "index": 88,
+      "sha256": "26e7ff33a80f301cbe7325cf8e3b102060df08f0812814ebe27dfde4467e2298"
+    },
+    {
+      "mode": "ReducedPost",
+      "index": 89,
+      "sha256": "1346f69407b0f5fb8ab2c139ffc4d61f02cd2e5c092b6e2446a075785d299cfd"
+    },
+    {
+      "mode": "ReducedPost",
+      "index": 94,
+      "sha256": "015f5ef6e8d5e87a6ad76a913632f67e36ac5f276a2c7f03e5b06a279e749d04"
+    },
+    {
+      "mode": "ReducedPost",
+      "index": 100,
+      "sha256": "67477edeb8c767a2a3dfbd9559d134e00e02cc9349912ea9bbf6d34c2574fb5e"
+    },
+    {
+      "mode": "ReducedPost",
+      "index": 118,
+      "sha256": "c0c55b2b4e35e6b3beb41205ece27b902f4c6ab1c241cb77e9cab13a71e99698"
+    },
+    {
+      "mode": "ReducedPost",
+      "index": 119,
+      "sha256": "37f9ee0d30f0e572f3720155a5ceb818e68e81045eafd1ecab783e1c9c92bb06"
+    },
+    {
+      "mode": "ReducedSharedHalf",
+      "index": 54,
+      "sha256": "0053d66082df043c0aae877252ff3c3114173d7b5052c4962d6945588bc32ac7"
+    },
+    {
+      "mode": "ReducedSharedHalf",
+      "index": 55,
+      "sha256": "0053d66082df043c0aae877252ff3c3114173d7b5052c4962d6945588bc32ac7"
+    },
+    {
+      "mode": "ReducedSharedHalf",
+      "index": 56,
+      "sha256": "f3ef0bda838a2d897a2f3995f3c74b3b5b78dbc4c38b770162afbb3cdc3a1c41"
+    },
+    {
+      "mode": "ReducedSharedHalf",
+      "index": 62,
+      "sha256": "82a8cd4044ee635531e22508d6cc36cb77eddda6ecdd5becfcabed3a115403b5"
+    },
+    {
+      "mode": "ReducedSharedHalf",
+      "index": 64,
+      "sha256": "0c084fb56692c0a339d95be74e0f72779da303943c7487bac802284529cf3f56"
+    },
+    {
+      "mode": "ReducedSharedHalf",
+      "index": 72,
+      "sha256": "d1477ecc5378c231a519c1e83392bf06f2220a67643affc939f6ca79f354079f"
+    },
+    {
+      "mode": "ReducedSharedHalf",
+      "index": 92,
+      "sha256": "884959b34c0fbab6cb067e570984477502a79c63d6b76ef7f4171b7468e57103"
+    },
+    {
+      "mode": "ReducedSharedHalf",
+      "index": 93,
+      "sha256": "884959b34c0fbab6cb067e570984477502a79c63d6b76ef7f4171b7468e57103"
+    }
+  ],
+  "auditFiles": [
+    {
+      "path": "evidence/v07/review/fx-modes-0414/ContinuousHighest-audit.json",
+      "sha256": "4d1bf3de7f7d8af7d86b7eb787543e506f4da02e59c94536cedded79d329dc59"
+    },
+    {
+      "path": "evidence/v07/review/fx-modes-0414/FastHighest-audit.json",
+      "sha256": "bcce688808560e8fc8e75147b55a5b30e1ad5f8b1ee1c1ba2a22325d09f89a96"
+    },
+    {
+      "path": "evidence/v07/review/fx-modes-0414/FastSharedHalf-audit.json",
+      "sha256": "26e69fe409ee6254b7eeaea94f53cf04139673c5a98b596401fb15778696da8d"
+    },
+    {
+      "path": "evidence/v07/review/fx-modes-0414/InstantHighest-audit.json",
+      "sha256": "b2e57d1b816b2152a2f46f81e66cda2615639784b84f4619225cb1a3199a748c"
+    },
+    {
+      "path": "evidence/v07/review/fx-modes-0414/NormalHighest-audit.json",
+      "sha256": "9137be4e99759cac50053bcd91a3d75c9ef8c438dadca7d3e817867c4e2eb0d3"
+    },
+    {
+      "path": "evidence/v07/review/fx-modes-0414/NormalPost-audit.json",
+      "sha256": "65927c1eaac70b591af5c468af91b0445d66633927890c084beef75cb5c254ad"
+    },
+    {
+      "path": "evidence/v07/review/fx-modes-0414/NormalQualified-audit.json",
+      "sha256": "baa07505533d3bdc50f5780a4b46f3d9e626fc2955ca7cf786a85c0863291c22"
+    },
+    {
+      "path": "evidence/v07/review/fx-modes-0414/NormalSample-audit.json",
+      "sha256": "40c79d814044b49a35b27f2762e255ddebefab464853626602bebeef1d826b1c"
+    },
+    {
+      "path": "evidence/v07/review/fx-modes-0414/NormalSharedHalf-audit.json",
+      "sha256": "386f0e6bfedce22c52016ec1e44438f551e597537a082508dc679720903db05f"
+    },
+    {
+      "path": "evidence/v07/review/fx-modes-0414/NormalZero-audit.json",
+      "sha256": "390d71708a0d755be6b74add02a22d5fa7bab4805fccd02aa476b5864cf87036"
+    },
+    {
+      "path": "evidence/v07/review/fx-modes-0414/ReducedHighest-audit.json",
+      "sha256": "de7ae3212f412e4a6d5f12aa60e2d62dcfec7e83d9335a3eed74e689a5d11ec5"
+    },
+    {
+      "path": "evidence/v07/review/fx-modes-0414/ReducedPost-audit.json",
+      "sha256": "5a8c111d4f75ff1ad6fbec81df4f2dc12ce51e20f1dfc5b4afacf6055d4c187a"
+    },
+    {
+      "path": "evidence/v07/review/fx-modes-0414/ReducedSharedHalf-audit.json",
+      "sha256": "2d8d729872b92a95bc0a5e1a6e3c8405d54210cb521b63bb8633d47e9ea7ac52"
+    }
+  ],
+  "notPlayerAcceptance": true,
+  "notHumanArtApproval": true
+}

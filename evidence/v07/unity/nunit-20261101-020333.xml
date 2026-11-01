@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="1" result="Passed" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-11-01 02:03:31Z" end-time="2026-11-01 02:03:33Z" duration="2.6031225">
+  <test-suite type="TestSuite" id="1087" name="DiceCraft P0" fullname="DiceCraft P0" runstate="Runnable" testcasecount="78" result="Passed" start-time="2026-11-01 02:03:31Z" end-time="2026-11-01 02:03:33Z" duration="2.603123" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <test-suite type="Assembly" id="1081" name="DiceCraft.PlayModeTests.dll" fullname="E:/agent_workspace/gpt/game2/DicePrototype/Library/ScriptAssemblies/DiceCraft.PlayModeTests.dll" runstate="Runnable" testcasecount="78" result="Passed" start-time="2026-11-01 02:03:31Z" end-time="2026-11-01 02:03:33Z" duration="2.592672" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="40096" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <test-suite type="TestSuite" id="1082" name="DiceCraft" fullname="DiceCraft" runstate="Runnable" testcasecount="78" result="Passed" start-time="2026-11-01 02:03:31Z" end-time="2026-11-01 02:03:33Z" duration="2.590383" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1083" name="Tests" fullname="DiceCraft.Tests" runstate="Runnable" testcasecount="78" result="Passed" start-time="2026-11-01 02:03:31Z" end-time="2026-11-01 02:03:33Z" duration="2.588061" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="1001" name="GameplayPlayModeTests" fullname="DiceCraft.Tests.GameplayPlayModeTests" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" testcasecount="76" result="Passed" start-time="2026-11-01 02:03:31Z" end-time="2026-11-01 02:03:33Z" duration="2.585003" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1011" name="PLAY_ART07_ResultScreensUseRealTerminalCommandsAndPreserveExactReceipts" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_ResultScreensUseRealTerminalCommandsAndPreserveExactReceipts" methodname="PLAY_ART07_ResultScreensUseRealTerminalCommandsAndPreserveExactReceipts" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="1319741503" result="Passed" start-time="2026-11-01 02:03:31Z" end-time="2026-11-01 02:03:33Z" duration="2.567940" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_9e568846a2aa46a6a1872f70a52fdcb4\art07-edge-screens\S18-win.png
+Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_9e568846a2aa46a6a1872f70a52fdcb4\art07-edge-screens\S18-submissions.png
+Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_9e568846a2aa46a6a1872f70a52fdcb4\art07-edge-screens\S18-temporary.png
+Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_9e568846a2aa46a6a1872f70a52fdcb4\art07-edge-screens\S18-no-dice.png
+Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_9e568846a2aa46a6a1872f70a52fdcb4
+Saving results to: E:\agent_workspace\gpt\game2\evidence\v07\unity\nunit-20261101-020333.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="5" result="Passed" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-11-01 04:05:42Z" end-time="2026-11-01 04:06:06Z" duration="24.5544814">
+  <test-suite type="TestSuite" id="1127" name="DiceCraft P0" fullname="DiceCraft P0" runstate="Runnable" testcasecount="118" result="Passed" start-time="2026-11-01 04:05:42Z" end-time="2026-11-01 04:06:06Z" duration="24.554481" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <test-suite type="Assembly" id="1121" name="DiceCraft.PlayModeTests.dll" fullname="E:/agent_workspace/gpt/game2/DicePrototype/Library/ScriptAssemblies/DiceCraft.PlayModeTests.dll" runstate="Runnable" testcasecount="118" result="Passed" start-time="2026-11-01 04:05:42Z" end-time="2026-11-01 04:06:06Z" duration="24.537859" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="23240" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <test-suite type="TestSuite" id="1122" name="DiceCraft" fullname="DiceCraft" runstate="Runnable" testcasecount="118" result="Passed" start-time="2026-11-01 04:05:42Z" end-time="2026-11-01 04:06:06Z" duration="24.526418" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1123" name="Tests" fullname="DiceCraft.Tests" runstate="Runnable" testcasecount="118" result="Passed" start-time="2026-11-01 04:05:42Z" end-time="2026-11-01 04:06:06Z" duration="24.523278" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="1001" name="GameplayPlayModeTests" fullname="DiceCraft.Tests.GameplayPlayModeTests" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" testcasecount="116" result="Passed" start-time="2026-11-01 04:05:42Z" end-time="2026-11-01 04:06:06Z" duration="24.519383" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1071" name="PLAY_ART07_TX_GpuRealShopCardSnapshotRetainsEveryGlyphNormalAndReduced" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_TX_GpuRealShopCardSnapshotRetainsEveryGlyphNormalAndReduced" methodname="PLAY_ART07_TX_GpuRealShopCardSnapshotRetainsEveryGlyphNormalAndReduced" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="1010714598" result="Passed" start-time="2026-11-01 04:05:42Z" end-time="2026-11-01 04:05:51Z" duration="9.037119" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Real source/snapshot glyph GPU evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_676a49107552458086c99ec24c903c09\art07-tx-gpu\actual-shop-C21-normal-38
+Real source/snapshot glyph GPU evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_676a49107552458086c99ec24c903c09\art07-tx-gpu\actual-shop-C21-reduced-41
+Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_676a49107552458086c99ec24c903c09
+]]></output>
+            </test-case>
+            <test-case id="1072" name="PLAY_ART07_TX_GpuSnapshotRetainsSeparatePrimaryAndChineseFallbackAtlases" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_TX_GpuSnapshotRetainsSeparatePrimaryAndChineseFallbackAtlases" methodname="PLAY_ART07_TX_GpuSnapshotRetainsSeparatePrimaryAndChineseFallbackAtlases" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="799437363" result="Passed" start-time="2026-11-01 04:05:51Z" end-time="2026-11-01 04:05:59Z" duration="7.817749" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Real source/snapshot glyph GPU evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_17562e1bf6b74eba96070b0a2b15c530\art07-tx-gpu\two-distinct-font-atlases-normal-454
+Real source/snapshot glyph GPU evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_17562e1bf6b74eba96070b0a2b15c530\art07-tx-gpu\two-distinct-font-atlases-reduced-457
+Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_17562e1bf6b74eba96070b0a2b15c530
+]]></output>
+            </test-case>
+            <test-case id="1076" name="PLAY_ART07_TX_PhysicalUpgradeUsesActualFaceAndOverlapping360Or420Timeline" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_TX_PhysicalUpgradeUsesActualFaceAndOverlapping360Or420Timeline" methodname="PLAY_ART07_TX_PhysicalUpgradeUsesActualFaceAndOverlapping360Or420Timeline" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="260951149" result="Passed" start-time="2026-11-01 04:05:59Z" end-time="2026-11-01 04:06:00Z" duration="1.861152" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_deae27c14db04969b8e0da383fa3a809
+]]></output>
+            </test-case>
+            <test-case id="1079" name="PLAY_ART07_UPGRADE_ActualCeramicAndSingleQuestionFlipRenderBeforeMiddleAndAfter" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_UPGRADE_ActualCeramicAndSingleQuestionFlipRenderBeforeMiddleAndAfter" methodname="PLAY_ART07_UPGRADE_ActualCeramicAndSingleQuestionFlipRenderBeforeMiddleAndAfter" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="1950692503" result="Passed" start-time="2026-11-01 04:06:00Z" end-time="2026-11-01 04:06:03Z" duration="3.013444" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[UPGRADE_GPU U05 progress=0 stage= turn=0 frame=927
+UPGRADE_GPU U05 progress=0.175 stage= turn=0 frame=928
+UPGRADE_GPU U05 progress=0.475 stage= turn=0 frame=929
+UPGRADE_GPU U05 progress=0.8 stage= turn=0 frame=930
+UPGRADE_GPU U05 progress=0.99 stage= turn=0 frame=931
+UPGRADE_GPU U07 progress=0 stage=OldPips turn=0 frame=934
+UPGRADE_GPU U07 progress=0.175 stage=OldPips turn=45 frame=935
+UPGRADE_GPU U07 progress=0.475 stage=Question turn=90 frame=937
+UPGRADE_GPU U07 progress=0.8 stage=CommittedPips turn=135 frame=938
+UPGRADE_GPU U07 progress=0.99 stage=CommittedPips turn=179.8341 frame=939
+Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_190405de09c24c3788f64aae49e319bb
+]]></output>
+            </test-case>
+            <test-case id="1080" name="PLAY_ART07_UPGRADE_FastReducedPauseAndSkipKeepCommittedStateAndResetSurfaces" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_UPGRADE_FastReducedPauseAndSkipKeepCommittedStateAndResetSurfaces" methodname="PLAY_ART07_UPGRADE_FastReducedPauseAndSkipKeepCommittedStateAndResetSurfaces" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="1184725073" result="Passed" start-time="2026-11-01 04:06:03Z" end-time="2026-11-01 04:06:06Z" duration="2.763003" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_7410147c8d7b47768197dc4f9dc818dd
+Saving results to: E:\agent_workspace\gpt\game2\evidence\v07\unity\nunit-20261101-040606.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

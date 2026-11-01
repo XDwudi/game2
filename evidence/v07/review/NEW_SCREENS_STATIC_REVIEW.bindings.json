@@ -1,0 +1,122 @@
+{
+  "schema": "new-screens-static-review-1",
+  "utc": "2026-11-01T06:18:17.741398+00:00",
+  "role": "independent reviewer; no production writes",
+  "status": "STATIC_REVIEW_ONLY_MEDIA_PENDING",
+  "files": [
+    {
+      "path": "DicePrototype/Assets/Game/UI/GameApp.Art07Settlement.cs",
+      "sha256": "1298fcfb0f4e889ce38162f99adc62cbdcb821105745b433cffc98bf0fb49218"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/UI/Art07SettlementReveal.cs",
+      "sha256": "98061424de3845b53fde172f8a1505eedf12d19a277867c29aea28c50ba3788c"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/UI/GameApp.Art07LegacySave.cs",
+      "sha256": "605dde462a32b18ff5e495931389733297786257cb8e8e4fef64b82aba010581"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/UI/GameApp.Art07NewRun.cs",
+      "sha256": "ef648393e8236482c2b8687f23ae431ec5f0519dae149e1d65f84b437bf421b7"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Runtime/AtomicSaveStore.cs",
+      "sha256": "11f32427d36df24e74b4d057b6fbcfca27e3fba557acd23d95b5eadd8dc4a08b"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Runtime/DiceTable.cs",
+      "sha256": "9693bf31880535651ed7a974eea1706c1841285dc335d4078fab90e6bca35664"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Core/Rules/Models.cs",
+      "sha256": "ffb09a2f52fcaf56e3370251f5bd45535091843482b12a372c71bfe5ce1b99bc"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Runtime/GameApp.cs",
+      "sha256": "6b03fd4f1d3a189b6cb48c8630541f0a6edb2944db31e55ea6146317dd5a03d0"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/UI/GameApp.Art07Presentation.cs",
+      "sha256": "29bd13a21825a0795dda7b95864db07bc590eb35614ba0836fe0c6dbb9004461"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/UI/GameApp.Art07Effects.cs",
+      "sha256": "c71f71d88a24e38b39bb8cbffbf739db0a2db051504d5f2fddd28943e31470dd"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/UI/GameApp.Art07StatusDetails.cs",
+      "sha256": "86a54b6e15dc6b581d60c585a0479f6510c59480fa8ce43a6fcc73cb60bd5961"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/UI/GameApp.Art07.cs",
+      "sha256": "6927cee8622b4a5d7ce7eadbe9d39e0f2811a36063bd354c7e7f69de9adf5496"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/UI/GameApp.Modals.cs",
+      "sha256": "3e40e6780d4cc3809e995efa1dda190555e33b730ea3665aa9e52b14dc094878"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Tests/PlayMode/Art07SettlementLegacyPlayModeTests.cs",
+      "sha256": "15f2f0941b58c0eb7aa5436dd70604b614632ce88d642eac4761352603f1ce31"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Tests/EditMode/Persistence/AtomicSaveMetadata07Tests.cs",
+      "sha256": "1758213cac3e8407f5370a55c39658686bb2c76da786c20a23e11723606bd47e"
+    },
+    {
+      "path": "artifacts/cache/v07-settlement-legacy-rework/HANDOFF.md",
+      "sha256": "bdf6cb06f1577185968c4df95e493bed90a075aa8494e31eb910c21750823c19"
+    },
+    {
+      "path": "artifacts/cache/v07-settlement-legacy-rework/integration.patch",
+      "sha256": "316bca64bf86c3de32d949cd78d8c69f4f7745579ef9a23cc9f6b189a32bd67b"
+    },
+    {
+      "path": "artifacts/cache/v07-new-run-rework/HANDOFF.md",
+      "sha256": "9cc0a12f41aa77bb94dddf48fa82cedcb7a910381c9cf540c3d7d5b4c27c1a9c"
+    },
+    {
+      "path": "artifacts/cache/v07-new-run-rework/minimal.patch",
+      "sha256": "5af8bd34cbe344ed7be5b3af946bd318ebbd3a163c5c227e8fe8222dbafe3c44"
+    },
+    {
+      "path": "docs/specs/v07/ART_SPEC.md",
+      "sha256": "5120a8d0983d24f25cc38e22f1da613fd1a56c70ab26f518771a2caf064dd228"
+    }
+  ],
+  "candidateExactMatches": [
+    {
+      "file": "GameApp.Art07Settlement.cs",
+      "matches": false
+    },
+    {
+      "file": "Art07SettlementReveal.cs",
+      "matches": false
+    },
+    {
+      "file": "GameApp.Art07LegacySave.cs",
+      "matches": true
+    },
+    {
+      "file": "GameApp.Art07NewRun.cs",
+      "matches": true
+    }
+  ],
+  "report": {
+    "path": "evidence/v07/review/NEW_SCREENS_STATIC_REVIEW.md",
+    "sha256": "bccc381da54f93cdb60b6dd726370994d42583cb4b50defe7422ddfb7f5df768"
+  },
+  "sourceDeltaNotes": [
+    "SettlementIdentity07 adds committed commandId to distinguish a new Debug reconstruction settlement from replay.",
+    "Art07SettlementReveal adds OnApplicationPause completion."
+  ],
+  "laterSourceReads": [
+    {
+      "path": "DicePrototype/Assets/Game/Tests/PlayMode/Art07SettlementLegacyPlayModeTests.cs",
+      "sha256": "15f2f0941b58c0eb7aa5436dd70604b614632ce88d642eac4761352603f1ce31",
+      "utc": "2026-11-01T06:19:15.518302+00:00",
+      "note": "Clipboard finally restoration independently read after root patch."
+    }
+  ]
+}

@@ -20,6 +20,16 @@ namespace DiceCraft
         }
         public string SavePath { get; }
         public string LastLoadNotice { get; private set; }
+        public sealed class IncompatibleSaveInfo
+        {
+            public int Schema { get; }
+            public string ConfigVersion { get; }
+            public bool IsLegacyPreserved { get; }
+            internal IncompatibleSaveInfo(int schema,string version,bool preserved)
+            { Schema=schema;ConfigVersion=version;IsLegacyPreserved=preserved; }
+        }
+        // Diagnostic metadata only. Load selection, archive paths and save rotation are unchanged.
+        public IncompatibleSaveInfo LastIncompatibleSave { get; private set; }
         private readonly GameConfig config;
         private readonly GameSession validator;
         private readonly SaveSlotPolicy policy;
@@ -70,14 +80,15 @@ namespace DiceCraft
         }
         public RunState Load()
         {
-            LastLoadNotice = null;
+            LastLoadNotice = null;LastIncompatibleSave=null;
             if (!File.Exists(SavePath) && !File.Exists(SavePath + ".backup")) return null;
             Exception first = null;
             foreach (string candidate in new[] { SavePath, SavePath + ".backup" })
             {
                 if (!File.Exists(candidate)) continue;
-                if (TryRead(candidate, out RunState state, out Exception error))
+                if (TryRead(candidate, out RunState state, out Exception error,true))
                 {
+                    LastIncompatibleSave=null;
                     if (candidate != SavePath) LastLoadNotice = "活动存档不可读，已恢复上一份有效备份。";
                     return state;
                 }
@@ -86,7 +97,7 @@ namespace DiceCraft
             LastLoadNotice = first == null ? "没有可恢复的存档" : first.Message;
             return null;
         }
-        private bool TryRead(string path, out RunState state, out Exception error)
+        private bool TryRead(string path, out RunState state, out Exception error,bool captureLoadMetadata=false)
         {
             state=null;error=null;
             try
@@ -96,11 +107,14 @@ namespace DiceCraft
                 {
                     // Version isolation preserves both an old active Run and its previous
                     // backup before future schema-3 saves rotate the normal backup path.
+                    bool legacyPreserved=false;
                     if(e!=null && e.schema>0 && e.schema<config.saveSchemaVersion)
                     {
                         string legacy=path+".legacy-schema"+e.schema+"-"+Hash(File.ReadAllText(path,Encoding.UTF8)).Substring(0,16);
                         if(!File.Exists(legacy))File.Copy(path,legacy,false);
+                        legacyPreserved=File.Exists(legacy);
                     }
+                    if(captureLoadMetadata&&e!=null&&LastIncompatibleSave==null)LastIncompatibleSave=new IncompatibleSaveInfo(e.schema,e.config,legacyPreserved);
                     throw new InvalidDataException("存档版本不兼容，旧档已保留，请开始新挑战。");
                 }
                 if(string.IsNullOrEmpty(e.payload)||Hash(e.payload)!=e.sha256)throw new InvalidDataException("存档校验失败");

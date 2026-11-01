@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="10" result="Passed" total="10" passed="10" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-11-01 04:30:19Z" end-time="2026-11-01 04:31:58Z" duration="99.2919337">
+  <test-suite type="TestSuite" id="1130" name="DiceCraft P0" fullname="DiceCraft P0" runstate="Runnable" testcasecount="121" result="Passed" start-time="2026-11-01 04:30:19Z" end-time="2026-11-01 04:31:58Z" duration="99.291934" total="10" passed="10" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <test-suite type="Assembly" id="1124" name="DiceCraft.PlayModeTests.dll" fullname="E:/agent_workspace/gpt/game2/DicePrototype/Library/ScriptAssemblies/DiceCraft.PlayModeTests.dll" runstate="Runnable" testcasecount="121" result="Passed" start-time="2026-11-01 04:30:19Z" end-time="2026-11-01 04:31:58Z" duration="99.277107" total="10" passed="10" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="23240" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <test-suite type="TestSuite" id="1125" name="DiceCraft" fullname="DiceCraft" runstate="Runnable" testcasecount="121" result="Passed" start-time="2026-11-01 04:30:19Z" end-time="2026-11-01 04:31:58Z" duration="99.273548" total="10" passed="10" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1126" name="Tests" fullname="DiceCraft.Tests" runstate="Runnable" testcasecount="121" result="Passed" start-time="2026-11-01 04:30:19Z" end-time="2026-11-01 04:31:58Z" duration="99.270823" total="10" passed="10" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="1001" name="GameplayPlayModeTests" fullname="DiceCraft.Tests.GameplayPlayModeTests" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" testcasecount="119" result="Passed" start-time="2026-11-01 04:30:19Z" end-time="2026-11-01 04:31:58Z" duration="99.267239" total="10" passed="10" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1014" name="PLAY_ART07_DICE_VisibleGripUsesExistingHitAndPendingHollowChecksKeepPipsClear" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_DICE_VisibleGripUsesExistingHitAndPendingHollowChecksKeepPipsClear" methodname="PLAY_ART07_DICE_VisibleGripUsesExistingHitAndPendingHollowChecksKeepPipsClear" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="527585086" result="Passed" start-time="2026-11-01 04:30:19Z" end-time="2026-11-01 04:30:25Z" duration="6.027728" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Actual affordance screen: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_f3bf149fd2354d4781ca4600f5d22082\art07-dice-affordance\pending-eight-font100.png
+Actual affordance screen: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_f3bf149fd2354d4781ca4600f5d22082\art07-dice-affordance\locked-eight-grips-font100.png
+Actual affordance screen: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_f3bf149fd2354d4781ca4600f5d22082\art07-dice-affordance\pending-eight-font125.png
+Actual affordance screen: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_f3bf149fd2354d4781ca4600f5d22082\art07-dice-affordance\locked-eight-grips-font125.png
+Actual affordance screen: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_f3bf149fd2354d4781ca4600f5d22082\art07-dice-affordance\pending-eight-font150.png
+Actual affordance screen: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_f3bf149fd2354d4781ca4600f5d22082\art07-dice-affordance\locked-eight-grips-font150.png
+Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_f3bf149fd2354d4781ca4600f5d22082
+]]></output>
+            </test-case>
+            <test-case id="1028" name="PLAY_ART07_FINAL_RealRendererNormalFastReducedInstantRetainCommittedScoreAndSources" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_FINAL_RealRendererNormalFastReducedInstantRetainCommittedScoreAndSources" methodname="PLAY_ART07_FINAL_RealRendererNormalFastReducedInstantRetainCommittedScoreAndSources" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="1527268330" result="Passed" start-time="2026-11-01 04:30:25Z" end-time="2026-11-01 04:30:29Z" duration="4.758826" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_347825c25f0842f6a4f6111e693d3063
+]]></output>
+            </test-case>
+            <test-case id="1042" name="PLAY_ART07_GuideLayoutAllFourActionsAvoidActualDiceAndHudAndPointAtLiveTargets" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_GuideLayoutAllFourActionsAvoidActualDiceAndHudAndPointAtLiveTargets" methodname="PLAY_ART07_GuideLayoutAllFourActionsAvoidActualDiceAndHudAndPointAtLiveTargets" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="371524334" result="Passed" start-time="2026-11-01 04:30:29Z" end-time="2026-11-01 04:30:38Z" duration="8.777476" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_82e297533ae6430e85a4e2766319ff5d\art07-edge-screens\S19-guide-repaired-1-font100.png
+Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_82e297533ae6430e85a4e2766319ff5d\art07-edge-screens\S19-guide-repaired-2-font100.png
+Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_82e297533ae6430e85a4e2766319ff5d\art07-edge-screens\S19-guide-repaired-3-font100.png
+Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_82e297533ae6430e85a4e2766319ff5d\art07-edge-screens\S19-guide-repaired-4-font100.png
+Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_82e297533ae6430e85a4e2766319ff5d\art07-edge-screens\S19-guide-repaired-1-font125.png
+Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_82e297533ae6430e85a4e2766319ff5d\art07-edge-screens\S19-guide-repaired-2-font125.png
+Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_82e297533ae6430e85a4e2766319ff5d\art07-edge-screens\S19-guide-repaired-3-font125.png
+Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_82e297533ae6430e85a4e2766319ff5d\art07-edge-screens\S19-guide-repaired-4-font125.png
+Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_82e297533ae6430e85a4e2766319ff5d\art07-edge-screens\S19-guide-repaired-1-font150.png
+Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_82e297533ae6430e85a4e2766319ff5d\art07-edge-screens\S19-guide-repaired-2-font150.png
+Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_82e297533ae6430e85a4e2766319ff5d\art07-edge-screens\S19-guide-repaired-3-font150.png
+Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_82e297533ae6430e85a4e2766319ff5d\art07-edge-screens\S19-guide-repaired-4-font150.png
+Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_82e297533ae6430e85a4e2766319ff5d
+]]></output>
+            </test-case>
+            <test-case id="1044" name="PLAY_ART07_GuideLayoutManualReopenAtMaximumCapacityKeepsCompleteInlineHelpAndClose" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_GuideLayoutManualReopenAtMaximumCapacityKeepsCompleteInlineHelpAndClose" methodname="PLAY_ART07_GuideLayoutManualReopenAtMaximumCapacityKeepsCompleteInlineHelpAndClose" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="872037747" result="Passed" start-time="2026-11-01 04:30:38Z" end-time="2026-11-01 04:30:42Z" duration="3.727486" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_be037d3a78b24428a89aa2ad798a55c1\art07-edge-screens\S19-guide-repaired-full-paper-font100.png
+Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_be037d3a78b24428a89aa2ad798a55c1\art07-edge-screens\S19-guide-repaired-full-paper-font125.png
+Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_be037d3a78b24428a89aa2ad798a55c1\art07-edge-screens\S19-guide-repaired-full-paper-font150.png
+Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_be037d3a78b24428a89aa2ad798a55c1
+]]></output>
+            </test-case>
+            <test-case id="1043" name="PLAY_ART07_GuideLayoutShopPaperLeavesPricesAndTabsVisibleAtBothFontScales" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_GuideLayoutShopPaperLeavesPricesAndTabsVisibleAtBothFontScales" methodname="PLAY_ART07_GuideLayoutShopPaperLeavesPricesAndTabsVisibleAtBothFontScales" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="1282641745" result="Passed" start-time="2026-11-01 04:30:42Z" end-time="2026-11-01 04:30:45Z" duration="3.178884" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_066a21bf692b4fc3be1fb0d303821746\art07-edge-screens\S19-guide-repaired-shop-font100.png
+Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_066a21bf692b4fc3be1fb0d303821746\art07-edge-screens\S19-guide-repaired-shop-font125.png
+Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_066a21bf692b4fc3be1fb0d303821746\art07-edge-screens\S19-guide-repaired-shop-font150.png
+Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_066a21bf692b4fc3be1fb0d303821746
+]]></output>
+            </test-case>
+            <test-case id="1054" name="PLAY_ART07_LockedDieDropCommitsExactlyOneReorderWithoutUnlocking" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_LockedDieDropCommitsExactlyOneReorderWithoutUnlocking" methodname="PLAY_ART07_LockedDieDropCommitsExactlyOneReorderWithoutUnlocking" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="1390165847" result="Passed" start-time="2026-11-01 04:30:45Z" end-time="2026-11-01 04:30:46Z" duration="0.505346" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_d93de990803448d0b2ba8a9d352d1d6a
+]]></output>
+            </test-case>
+            <test-case id="1072" name="PLAY_ART07_ToastActualPaperGlyphsAndMainActionsAtThreeFontsNormalReduced" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_ToastActualPaperGlyphsAndMainActionsAtThreeFontsNormalReduced" methodname="PLAY_ART07_ToastActualPaperGlyphsAndMainActionsAtThreeFontsNormalReduced" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="2124712010" result="Passed" start-time="2026-11-01 04:30:46Z" end-time="2026-11-01 04:31:40Z" duration="54.453414" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Extra real capture, pending review: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_3178734be5404a5db2970c98273bba0d\extra-capture
+Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_3178734be5404a5db2970c98273bba0d
+]]></output>
+            </test-case>
+            <test-case id="1073" name="PLAY_ART07_ToastPausePreservesVisibleTimeAndLongErrorsKeepCompleteDetails" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_ToastPausePreservesVisibleTimeAndLongErrorsKeepCompleteDetails" methodname="PLAY_ART07_ToastPausePreservesVisibleTimeAndLongErrorsKeepCompleteDetails" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="1127929512" result="Passed" start-time="2026-11-01 04:31:40Z" end-time="2026-11-01 04:31:52Z" duration="11.547969" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Extra real capture, pending review: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_fa744acfafd041fea4887e833c2932e6\extra-capture
+Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_fa744acfafd041fea4887e833c2932e6
+]]></output>
+            </test-case>
+            <test-case id="1082" name="PLAY_ART07_UPGRADE_ActualCeramicAndSingleQuestionFlipRenderBeforeMiddleAndAfter" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_UPGRADE_ActualCeramicAndSingleQuestionFlipRenderBeforeMiddleAndAfter" methodname="PLAY_ART07_UPGRADE_ActualCeramicAndSingleQuestionFlipRenderBeforeMiddleAndAfter" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="495905945" result="Passed" start-time="2026-11-01 04:31:52Z" end-time="2026-11-01 04:31:55Z" duration="3.287858" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[UPGRADE_GPU U05 progress=0 stage= turn=0 frame=3808
+UPGRADE_GPU U05 progress=0.175 stage= turn=0 frame=3809
+UPGRADE_GPU U05 progress=0.475 stage= turn=0 frame=3810
+UPGRADE_GPU U05 progress=0.8 stage= turn=0 frame=3811
+UPGRADE_GPU U05 progress=0.99 stage= turn=0 frame=3812
+UPGRADE_GPU U07 progress=0 stage=OldPips turn=0 frame=3815
+UPGRADE_GPU U07 progress=0.175 stage=OldPips turn=45 frame=3816
+UPGRADE_GPU U07 progress=0.475 stage=Question turn=90 frame=3818
+UPGRADE_GPU U07 progress=0.8 stage=CommittedPips turn=135 frame=3819
+UPGRADE_GPU U07 progress=0.99 stage=CommittedPips turn=179.8341 frame=3820
+Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_ff5b23e6d9354aa69b563eee44489c47
+]]></output>
+            </test-case>
+            <test-case id="1083" name="PLAY_ART07_UPGRADE_FastReducedPauseAndSkipKeepCommittedStateAndResetSurfaces" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_UPGRADE_FastReducedPauseAndSkipKeepCommittedStateAndResetSurfaces" methodname="PLAY_ART07_UPGRADE_FastReducedPauseAndSkipKeepCommittedStateAndResetSurfaces" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="1824586533" result="Passed" start-time="2026-11-01 04:31:55Z" end-time="2026-11-01 04:31:58Z" duration="2.972332" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_8f10b3c3b785434aa7776158a8cb60ed
+Saving results to: E:\agent_workspace\gpt\game2\evidence\v07\unity\nunit-20261101-043158.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

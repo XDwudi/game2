@@ -37,7 +37,7 @@ namespace DiceCraft.Tests
                 int count = controllerId == "C07" ? 2 : 3;
                 string[] ids = app.Session.State.dice.Take(count).Select(d => d.dieId).ToArray();
                 foreach (string id in ids) ClickDie(id);
-                Click("Confirm");
+                Click("Confirm");yield return WaitForIdle();
                 var expectedScore = app.Session.PreviewScore();
                 var frozenSnapshot = app.Session.PreviewSnapshot();
                 Assert.That(ExactScoreMath.Compare(expectedScore.score,app.Session.State.stage.target), Is.LessThan(0), "This regression must follow a non-clearing submission.");
@@ -88,7 +88,7 @@ namespace DiceCraft.Tests
                 Assert.That(app.Session.State.lastEffects, Is.Empty, "Next Roll must replace the immediate effect list, proving history uses the submission receipt.");
                 Assert.That(JsonUtility.ToJson(app.Session.State.lastSubmission), Is.EqualTo(history));
                 string beforeHistory = StateJson();
-                Click("PreviousSubmission");
+                Click("PreviousSubmission"); Click("FullScoreDetails");
                 string[] originalPanel = ReadHistoryPanel(count);
                 Assert.That(originalPanel[0], Does.EndWith("= " + System.Numerics.BigInteger.Parse(expectedScore.score).ToString("N0",System.Globalization.CultureInfo.InvariantCulture)));
                 Assert.That(originalPanel[1], Does.Contain(app.Config.Controller(controllerId).displayName));
@@ -98,9 +98,10 @@ namespace DiceCraft.Tests
                 Assert.That(originalPanel[3], Does.Contain("永久 2 → 当前 2"), "Historical detail must display pre-effect data.");
                 Assert.That(StateJson(), Is.EqualTo(beforeHistory));
                 Click("CloseDialog");
-                ClickDie(ids[0]); Click("Confirm");
+                ClickDie(ids[0]); Click("Confirm");yield return WaitForIdle();
                 string beforeCurrent = StateJson();
-                Click("Expanded");
+                yield return LegacyClick07("Factor0");
+                yield return LegacyClick07("FullScoreDetails");
                 string currentEffects = FindActive<TextMeshProUGUI>("Triggered").text;
                 Assert.That(currentEffects, Does.Not.Contain("的六面复制到"));
                 Assert.That(currentEffects, Does.Not.Contain("永久染红"), "The current hand preview must not borrow last hand's permanent effects.");
@@ -110,7 +111,7 @@ namespace DiceCraft.Tests
                 yield return LoadBootstrap();
                 ResumeBoundaryFixture();
                 Assert.That(StateJson(), Is.EqualTo(beforeReload));
-                Click("PreviousSubmission");
+                Click("PreviousSubmission"); Click("FullScoreDetails");
                 CollectionAssert.AreEqual(originalPanel, ReadHistoryPanel(count), "Reload must retain the exact historical formula, faces and source/target effect text.");
                 Assert.That(StateJson(), Is.EqualTo(beforeReload));
                 Click("CloseDialog");

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="1" result="Failed(Child)" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-11-01 02:37:30Z" end-time="2026-11-01 02:37:42Z" duration="12.1156636">
+  <test-suite type="TestSuite" id="1103" name="DiceCraft P0" fullname="DiceCraft P0" runstate="Runnable" testcasecount="94" result="Failed" site="Child" start-time="2026-11-01 02:37:30Z" end-time="2026-11-01 02:37:42Z" duration="12.115664" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <failure>
+      <message><![CDATA[One or more child tests had errors]]></message>
+    </failure>
+    <test-suite type="Assembly" id="1097" name="DiceCraft.PlayModeTests.dll" fullname="E:/agent_workspace/gpt/game2/DicePrototype/Library/ScriptAssemblies/DiceCraft.PlayModeTests.dll" runstate="Runnable" testcasecount="94" result="Failed" site="Child" start-time="2026-11-01 02:37:30Z" end-time="2026-11-01 02:37:42Z" duration="12.103485" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="40096" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <failure>
+        <message><![CDATA[One or more child tests had errors]]></message>
+      </failure>
+      <test-suite type="TestSuite" id="1098" name="DiceCraft" fullname="DiceCraft" runstate="Runnable" testcasecount="94" result="Failed" site="Child" start-time="2026-11-01 02:37:30Z" end-time="2026-11-01 02:37:42Z" duration="12.101243" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <failure>
+          <message><![CDATA[One or more child tests had errors]]></message>
+        </failure>
+        <test-suite type="TestSuite" id="1099" name="Tests" fullname="DiceCraft.Tests" runstate="Runnable" testcasecount="94" result="Failed" site="Child" start-time="2026-11-01 02:37:30Z" end-time="2026-11-01 02:37:42Z" duration="12.099333" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <failure>
+            <message><![CDATA[One or more child tests had errors]]></message>
+          </failure>
+          <test-suite type="TestFixture" id="1001" name="GameplayPlayModeTests" fullname="DiceCraft.Tests.GameplayPlayModeTests" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" testcasecount="92" result="Failed" site="Child" start-time="2026-11-01 02:37:30Z" end-time="2026-11-01 02:37:42Z" duration="12.096746" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <failure>
+              <message><![CDATA[One or more child tests had errors]]></message>
+            </failure>
+            <test-case id="1009" name="PLAY_ART07_CardReadability_ThreeFontsAtActual720Or1080" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_CardReadability_ThreeFontsAtActual720Or1080" methodname="PLAY_ART07_CardReadability_ThreeFontsAtActual720Or1080" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="1081017442" result="Failed" start-time="2026-11-01 02:37:30Z" end-time="2026-11-01 02:37:42Z" duration="12.078391" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <failure>
+                <message><![CDATA[  See screenshot and -glyphs.json for actual missing/overlapping ink.
+  Expected: <empty>
+  But was:  < "detail/C41: DialogTitle: TMP overflow/truncation." >
+]]></message>
+                <stack-trace><![CDATA[at DiceCraft.Tests.GameplayPlayModeTests+<CardCapture07>d__22.MoveNext () [0x0041e] in E:\agent_workspace\gpt\game2\DicePrototype\Assets\Game\Tests\PlayMode\Art07CardReadabilityPlayModeTests.cs:153
+at UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\Library\PackageCache\com.unity.test-framework@ee3fe9477490\UnityEngine.TestRunner\NUnitExtensions\Attributes\TestEnumerator.cs:52
+]]></stack-trace>
+              </failure>
+              <output><![CDATA[Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_ff0be32853254c84a2c105bc623dd06e
+Saving results to: E:\agent_workspace\gpt\game2\evidence\v07\unity\nunit-20261101-023742.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

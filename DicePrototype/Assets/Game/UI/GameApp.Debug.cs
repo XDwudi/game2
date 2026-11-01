@@ -14,7 +14,8 @@ namespace DiceCraft
         public bool DebugUnlocked { get; private set; }
         private AtomicSaveStore debugSaves;
         private DebugScene debugDraft;
-        private int debugTab;
+        private int debugTab,debugNav07,debugRenderedTab07=-1;
+        private UnityEngine.UI.ScrollRect debugScroll07;
         private string debugSelectedController,debugSelectedDie,debugMessage="",debugJsonPath;
         private readonly Dictionary<string,string> debugErrors=new Dictionary<string,string>();
         private readonly Dictionary<string,string> debugRaw=new Dictionary<string,string>();
@@ -24,6 +25,24 @@ namespace DiceCraft
         private int poolPage,slotPage,inventoryPage;
         public bool IsDebugWorkspace => !tutorial&&ViewState?.debugWorkspace==true;
         private static readonly string[] DebugEnchantments={"none","slotless","base10","mult2","submit1","roll1"};
+
+        private void ShowDebugEntry07()
+        {
+            if(!DebugUnlocked||IsBusy||Session?.HasPendingSave==true)return;
+            var p=Art07Modal("组合试验",440,220,1040,640);
+            UiKit.Text(p,"Isolation","普通对局保留在原检查点。\n试验副本独立保存，首次应用修改后标记为调试。",24,100,992,130,27,UiKit.Muted);
+            UiKit.Button(p,"CopyCurrentToDebug","从当前对局建立实验副本",24,256,992,72,()=>EnterDebugWorkspace(),Session?.State!=null);
+            UiKit.Button(p,"BlankDebug","新建空白场景",24,348,992,72,()=>
+            {
+                debugSaves=debugSaves??new AtomicSaveStore(Path.Combine(SaveDirectoryOverride??Application.persistentDataPath,"debug-run.json"),Config,SaveSlotPolicy.Debug);
+                Session=GameSession.CreateDebugWorkspace(Config,debugSaves,null);StartRunClock07();tutorial=false;inMenu=false;Refresh();LoadDebugDraft();ShowDebugPanel();
+            });
+            UiKit.Button(p,"LoadDebugScene","加载测试场景",24,440,992,72,()=>
+            {
+                if(!EnterDebugWorkspace())return;debugTab=4;ShowDebugPanel();
+            });
+            UiKit.Text(p,"Version","规则 "+Config.configVersion+" · 独立文件 debug-run.json",24,548,992,64,23,UiKit.Violet);
+        }
 
         public bool UnlockDebug(string password)
         {
@@ -46,24 +65,26 @@ namespace DiceCraft
         }
         public bool EnterDebugWorkspace()
         {
-            if(!DebugUnlocked||IsBusy||Session.HasPendingSave)return false;
+            if(!StartupReady07||!DebugUnlocked||IsBusy||Session.HasPendingSave)return false;
             if(!IsDebugWorkspace)
             {
                 debugSaves=debugSaves??new AtomicSaveStore(Path.Combine(SaveDirectoryOverride??Application.persistentDataPath,"debug-run.json"),Config,SaveSlotPolicy.Debug);
                 Session=GameSession.CreateDebugWorkspace(Config,debugSaves,Session.State);
+                StartRunClock07();
                 tutorial=false;inMenu=false;Refresh();
             }
             LoadDebugDraft();ShowDebugPanel();return true;
         }
         public void ReturnNormalWorkspace()
         {
+            if(!StartupReady07)return;
             if(Session.HasPendingSave){SaveFailure();return;}
             SkipVisual();CloseModal();Session=new GameSession(Config,saves,saves.Load());inMenu=Session.State==null;tutorial=false;
             debugDraft=null;debugPanel=false;poolPage=slotPage=inventoryPage=0;Refresh();
         }
         public bool ResumeDebugWorkspace()
         {
-            if(!DebugUnlocked||Session.HasPendingSave)return false;
+            if(!StartupReady07||!DebugUnlocked||Session.HasPendingSave)return false;
             debugSaves=debugSaves??new AtomicSaveStore(Path.Combine(SaveDirectoryOverride??Application.persistentDataPath,"debug-run.json"),Config,SaveSlotPolicy.Debug);
             var restored=debugSaves.Load();if(restored==null||!restored.debugWorkspace){debugMessage=debugSaves.LastLoadNotice??"没有调试存档。";return false;}
             Session=new GameSession(Config,debugSaves,restored);inMenu=false;tutorial=false;Refresh();LoadDebugDraft();ShowDebugPanel();return true;
@@ -79,18 +100,133 @@ namespace DiceCraft
         {
             if(!DebugUnlocked||!IsDebugWorkspace)return;
             if(debugDraft==null)LoadDebugDraft();debugPanel=true;
-            var p=OpenModal("DEBUG · 组合试验工作区");
-            UiKit.Text(p,"DebugIsolation","候选编辑仅在“应用场景”后生效；普通挑战保留。调试成绩独立标记。",40,85,1500,40,23,UiKit.Gold);
-            string[] tabs={"控制器","骰子与本手","牌型与颜色","道具与资源","随机与复现"};
-            for(int i=0;i<tabs.Length;i++){int t=i;UiKit.Button(p,"DebugTab"+i,tabs[i],40+i*303,138,287,48,()=>{debugTab=t;ShowDebugPanel();},true,i==debugTab);}
-            var list=UiKit.Scroll(p,"DebugEditor"+debugTab,40,203,1500,425,DebugContentHeight());
+            float scrollPosition=debugScroll07!=null&&debugRenderedTab07==debugTab?debugScroll07.verticalNormalizedPosition:1;
+            var p=Art07Modal("调试对局 · 组合试验",0,0,1920,1080);
+            UiKit.Box(p,"DebugStripe",0,0,1920,4,UiKit.Violet);
+            UiKit.Text(p,"DebugIsolation","候选应用后才改变试验；普通对局保留。",540,18,1180,54,24,UiKit.Muted);
+            string[] labels={"控制器","道具与服务","骰池","当前提交","牌型与颜色","资源","随机与复现"};
+            int[] pages={0,3,1,1,2,3,4};
+            if(pages[debugNav07]!=debugTab)debugNav07=Array.IndexOf(pages,debugTab);
+            UiKit.Frame(p,"DebugNavigation",24,96,288,800,UiKit.Background,UiKit.PanelLight);
+            for(int i=0;i<labels.Length;i++)
+            {
+                int nav=i;
+                string controlName=i==3||i==5?"DebugNav"+i:"DebugTab"+pages[i];
+                UiKit.Button(p,controlName,labels[i],40,112+i*88,256,72,()=>{debugNav07=nav;debugTab=pages[nav];debugRenderedTab07=-1;ShowDebugPanel();if(nav==1)ScrollDebugTo07("ItemsDebug");if(nav==3)ScrollDebugTo07("CurrentResultTitle");},true,debugNav07==i);
+            }
+            UiKit.Button(p,"ResumeDebugSave","恢复调试存档",40,752,256,64,()=>ResumeDebugWorkspace());
+            UiKit.Button(p,"ReturnNormal","返回普通对局",40,828,256,64,ReturnNormalWorkspace);
+            UiKit.Frame(p,"DebugForm",336,96,896,800,UiKit.Panel,UiKit.PanelLight);
+            var list=UiKit.Scroll(p,"DebugEditor"+debugTab,352,112,864,768,DebugContentHeight());
             switch(debugTab){case 0:DrawDebugControllers(list);break;case 1:DrawDebugDice(list);break;case 2:DrawDebugLevels(list);break;case 3:DrawDebugResources(list);break;case 4:DrawDebugReproduction(list);break;}
-            debugStatus=UiKit.Text(p,"DebugStatus",DebugStatusText(),40,634,1500,46,20,UiKit.Gold);
-            UiKit.Button(p,"ApplyDebugScene","应用场景",40,694,280,58,ApplyDebugDraft,!IsBusy&&!Session.HasPendingSave,true);
-            UiKit.Button(p,"ReloadDebugDraft","重新读取当前",340,694,280,58,()=>{LoadDebugDraft();ShowDebugPanel();});
-            UiKit.Button(p,"RunDebugScene","返回试验桌",640,694,280,58,CloseModal);
-            UiKit.Button(p,"ResumeDebugSave","恢复调试存档",940,694,280,58,()=>{ResumeDebugWorkspace();});
-            UiKit.Button(p,"ReturnNormal","返回普通挑战",1240,694,300,58,ReturnNormalWorkspace);
+            ReflowDebug07(list,832);
+            debugScroll07=list.GetComponentInParent<UnityEngine.UI.ScrollRect>();debugScroll07.verticalNormalizedPosition=scrollPosition;debugRenderedTab07=debugTab;
+            DrawDebugPreview07(p);
+            debugStatus=UiKit.Text(p,"DebugStatus",DebugStatusText(),336,920,1560,52,22,UiKit.Gold);
+            debugStatus.textWrappingMode=TextWrappingModes.NoWrap;debugStatus.overflowMode=TextOverflowModes.Ellipsis;
+            UiKit.Box(p,"DebugFooter",0,984,1920,96,UiKit.Background);
+            UiKit.ActionButton(p,"ApplyDebugScene","应用场景",24,996,360,64,ApplyDebugDraft,UiKit.Violet,!IsBusy&&!Session.HasPendingSave);
+            UiKit.Button(p,"ResetDebugDraft","恢复默认候选",396,996,360,64,()=>
+            {
+                var blank=GameSession.CreateDebugWorkspace(Config,new MemorySaveStore());debugDraft=DebugScene.FromState(blank.State);debugRaw.Clear();debugErrors.Clear();debugSelectedController=null;debugSelectedDie=debugDraft.dice[0].dieId;debugMessage="默认候选已载入；点击应用后生效。";ShowDebugPanel();
+            });
+            UiKit.Button(p,"RollDebugOnce","投掷一次",768,996,360,64,()=>RunDebugCommand07(CommandKind.Roll),!IsBusy);
+            UiKit.Button(p,"SubmitDebugOnce","提交一次",1140,996,360,64,()=>RunDebugCommand07(CommandKind.Submit),!IsBusy);
+            UiKit.Button(p,"ExportDebugScene","导出场景",1512,996,384,64,ExportDebugScene);
+            Canvas.ForceUpdateCanvases();
+        }
+        private void RunDebugCommand07(CommandKind kind)
+        {
+            if(debugErrors.Count>0||JsonUtility.ToJson(debugDraft)!=JsonUtility.ToJson(DebugScene.FromState(Session.State)))
+            {debugMessage="先应用候选，或重新读取当前场景，再执行一次。";ShowDebugPanel();return;}
+            var result=Send(new SessionCommand{kind=kind});
+            if(result.accepted){if(IsBusy)SkipVisual();LoadDebugDraft();debugMessage="已执行一次；右侧为真实提交后的状态。";}else debugMessage=result.error;
+            ShowDebugPanel();
+        }
+        private void ScrollDebugTo07(string name)
+        {
+            if(debugScroll07==null)return;var child=debugScroll07.content.Find(name) as RectTransform;if(child==null)return;
+            float range=debugScroll07.content.rect.height-debugScroll07.viewport.rect.height;
+            if(range>0)debugScroll07.verticalNormalizedPosition=1-Mathf.Clamp01(-child.anchoredPosition.y/range);
+        }
+        private void DrawDebugPreview07(Transform p)
+        {
+            UiKit.Frame(p,"DebugReadOnly",1256,96,640,800,UiKit.Background,UiKit.Violet);
+            UiKit.Text(p,"PreviewTitle","已应用场景 · 只读",1280,112,592,54,28,UiKit.Paper);
+            var list=UiKit.Scroll(p,"DebugPreview",1280,180,592,608,900);float y=0;
+            var s=Session.State;
+            Art07DetailSection(list,"Resources","状态",$"第 {s.stage.stageIndex+1} 关 · {s.phase}\n骰子 {s.dice.Count} / 32 · 控制器 {s.controllers.Count} / 32\n金币 {s.gold} · 投掷 {s.hand?.rollsRemaining??0} · 提交 {s.stage.remainingSubmissions}",ref y,560);
+            var preview=Session.PreviewScoreRange();
+            string score=preview==null?"尚无可提交的已锁骰。":preview.isRandom?"随机范围 "+Big(preview.minimum.score)+" — "+Big(preview.maximum.score):Big(preview.minimum.score);
+            Art07DetailSection(list,"Score","预计得分",score,ref y,560);
+            if(preview!=null)Art07DetailSection(list,"Formula","独立乘区","基础 "+preview.minimum.baseTotal+"\n牌型 ×"+Factor(preview.minimum.totalHandMult100)+" · 颜色 ×"+Factor(preview.minimum.colorMult100)+"\n红组 ×"+Factor(preview.minimum.redMult100)+"\n控制器 ×"+preview.minimum.controllerMultiplierNumerator+"/"+preview.minimum.controllerMultiplierDenominator+" · 附魔 2^"+preview.minimum.enchantMultiplierCount,ref y,560);
+            Art07DetailSection(list,"Locked","有序提交",s.hand==null||s.hand.orderedLockedIds.Count==0?"空":string.Join(" → ",s.hand.orderedLockedIds),ref y,560);
+            Art07DetailSection(list,"Rng","当前随机流",$"Dice {s.diceRngState}\nShop {s.shopRngState}\nEffect {s.effectRngState}",ref y,560);
+            if(debugErrors.Count>0)Art07DetailSection(list,"Errors","候选输入错误",string.Join("\n",debugErrors.Values),ref y,560);
+            list.sizeDelta=new Vector2(list.sizeDelta.x,y+16);
+            UiKit.Button(p,"ReloadDebugDraft","重新读取当前",1280,808,280,64,()=>{LoadDebugDraft();ShowDebugPanel();});
+            UiKit.Button(p,"RunDebugScene","返回试验桌",1584,808,288,64,CloseModal);
+        }
+        private void ReflowDebug07(RectTransform content,float width)
+        {
+            // Preserve every existing field/callback; reflow their groups into the current form width.
+            // Labels and inputs are one unit, so keyboard focus and target identity remain attached.
+            var children=Enumerable.Range(0,content.childCount).Select(i=>content.GetChild(i) as RectTransform).Where(r=>r!=null&&r.gameObject.activeSelf).ToArray();
+            var consumed=new HashSet<RectTransform>();var units=new List<DebugLayoutUnit07>();
+            foreach(var r in children)
+            {
+                if(consumed.Contains(r))continue;
+                var input=r.GetComponent<TMP_InputField>();
+                if(input!=null)
+                {
+                    var label=children.FirstOrDefault(c=>c.name==r.name+"Label");if(label!=null)consumed.Add(label);
+                    consumed.Add(r);units.Add(new DebugLayoutUnit07{root=r,label=label,x=r.anchoredPosition.x,y=label==null?-r.anchoredPosition.y:-label.anchoredPosition.y,width=r.rect.width});
+                }
+                else if(r.name.EndsWith("Label",StringComparison.Ordinal)&&children.Any(c=>c.name==r.name.Substring(0,r.name.Length-5)&&c.GetComponent<TMP_InputField>()!=null))continue;
+                else{consumed.Add(r);units.Add(new DebugLayoutUnit07{root=r,x=r.anchoredPosition.x,y=-r.anchoredPosition.y,width=r.rect.width});}
+            }
+            float cursor=0;
+            foreach(var row in units.OrderBy(u=>u.y).ThenBy(u=>u.x).GroupBy(u=>Mathf.RoundToInt(u.y)))
+            {
+                float x=0,rowHeight=0;
+                foreach(var unit in row)
+                {
+                    float w=Math.Min(width,unit.width);
+                    if(unit.root.GetComponent<TextMeshProUGUI>()!=null&&unit.width>width*.7f)w=width;
+                    if(x>0&&x+w>width+1){cursor+=rowHeight+16;x=0;rowHeight=0;}
+                    float height=ResizeDebugUnit07(unit,x,cursor,w);rowHeight=Math.Max(rowHeight,height);x+=w+16;
+                }
+                cursor+=rowHeight+20;
+            }
+            content.sizeDelta=new Vector2(width,Math.Max(768,cursor));
+        }
+        private sealed class DebugLayoutUnit07 {public RectTransform root,label;public float x,y,width;}
+        private float ResizeDebugUnit07(DebugLayoutUnit07 unit,float x,float y,float width)
+        {
+            var r=unit.root;float height=r.rect.height;
+            var text=r.GetComponent<TextMeshProUGUI>();var input=r.GetComponent<TMP_InputField>();var button=r.GetComponent<UnityEngine.UI.Button>();
+            if(input!=null)
+            {
+                float labelHeight=unit.label==null?0:Math.Max(52,unit.label.GetComponent<TextMeshProUGUI>().GetPreferredValues(unit.label.GetComponent<TextMeshProUGUI>().text,width,float.PositiveInfinity).y+8);
+                if(unit.label!=null){unit.label.anchoredPosition=new Vector2(x,-y);unit.label.sizeDelta=new Vector2(width,labelHeight);}
+                height=64;r.anchoredPosition=new Vector2(x,-(y+labelHeight+8));r.sizeDelta=new Vector2(width,height);
+                var viewport=input.textViewport;viewport.anchoredPosition=new Vector2(16,-6);viewport.sizeDelta=new Vector2(width-32,height-12);
+                input.textComponent.rectTransform.sizeDelta=new Vector2(width-32,height-12);if(input.placeholder is TextMeshProUGUI ph)ph.rectTransform.sizeDelta=new Vector2(width-32,height-12);
+                input.ForceLabelUpdate();return labelHeight+height+8;
+            }
+            if(text!=null)height=Math.Max(height,text.GetPreferredValues(text.text,width,float.PositiveInfinity).y+8);
+            if(button!=null)
+            {
+                var label=button.GetComponentInChildren<TextMeshProUGUI>();height=Math.Max(64,label==null?64:label.GetPreferredValues(label.text,width-16,float.PositiveInfinity).y+18);
+                foreach(RectTransform child in r)
+                {
+                    if(child.name=="Label"){child.anchoredPosition=new Vector2(8,-3);child.sizeDelta=new Vector2(width-16,height-10);}
+                    else if(child.name=="Face"){child.anchoredPosition=new Vector2(4,-4);child.sizeDelta=new Vector2(width-8,height-10);}
+                    else if(child.name=="Step"){child.anchoredPosition=new Vector2(3,-(height-4));child.sizeDelta=new Vector2(width-6,6);}
+                    else if(child.name=="Lip")child.sizeDelta=new Vector2(width-16,2);
+                }
+            }
+            r.anchoredPosition=new Vector2(x,-y);r.sizeDelta=new Vector2(width,height);return height;
         }
         private float DebugContentHeight()
         {
@@ -118,7 +254,7 @@ namespace DiceCraft
         {
             if(debugErrors.Count>0){debugMessage="请先修正输入。";ShowDebugPanel();return;}
             var result=Send(new SessionCommand{kind=CommandKind.ApplyDebugScene,debugScene=debugDraft.Clone()});
-            if(result.accepted){PlaySound("debug");LoadDebugDraft();debugMessage="场景已保存；可在试验桌投掷、锁定、提交与结束本轮。";}
+            if(result.accepted){PlaySound("debug");LoadDebugDraft();debugMessage="已重建测试手并保存；明确指定的成员和面值已回填。";}
             else debugMessage=result.error;
             ShowDebugPanel();
         }

@@ -22,8 +22,9 @@ namespace DiceCraft.Tests
             // An empty directory at the isolated file path reliably denies the atomic rename
             // without changing permissions or touching the user's normal save directory.
             Directory.CreateDirectory(app.SaveLocation);
-            FindActive<TMP_InputField>("SeedInput").text = "707";
             Click("NewRun");
+            FindActive<TMP_InputField>("SeedInput").text = "707";
+            Click("StartNew");
             var pending = app.Session;
             Assert.That(pending.HasPendingSave, Is.True);
             Assert.That(pending.State, Is.Null);
@@ -31,7 +32,8 @@ namespace DiceCraft.Tests
             Assert.That(Button("RetrySave").interactable, Is.True);
             app.StartNew("999"); // Bypass the scrim to exercise the entry-point guard itself.
             Assert.That(app.Session, Is.SameAs(pending));
-            Button("Tutorial").onClick.Invoke();
+            // Invoke the same practice entry behind the save-failure scrim to verify its guard.
+            typeof(GameApp).GetMethod("BeginTutorial",System.Reflection.BindingFlags.Instance|System.Reflection.BindingFlags.NonPublic).Invoke(app,null);
             Assert.That(app.Session, Is.SameAs(pending));
             Assert.That(pending.HasPendingSave, Is.True);
             Assert.That(pending.State, Is.Null);
@@ -80,9 +82,9 @@ namespace DiceCraft.Tests
         {
             // Build the shop by legal practice actions, then save an explicit debug boundary
             // fixture with enough money and full slots. The UI must consult core eligibility.
-            Click("Tutorial"); Click("StartStage"); Click("Roll"); Click("Skip");
+            Click("MenuHandbook"); Click("Tutorial"); Click("StartStage"); Click("Roll"); Click("Skip");
             foreach (string id in app.Session.State.dice.Select(d => d.dieId).ToArray()) ClickDie(id);
-            Click("Confirm"); Click("Submit");
+            Click("Confirm");yield return WaitForIdle(); Click("Submit");
             yield return WaitForIdle();
             if(app.Session.CanEndStage)Click("EndStage");
             Click("SettlementContinue");
@@ -100,16 +102,16 @@ namespace DiceCraft.Tests
             yield return LoadBoundaryFixture(fixture);
             ResumeBoundaryFixture();
             string before = StateJson();
-            InspectOfferCard(controller.offerId);
+            yield return InspectOfferCard(controller.offerId);
             Assert.That(app.Session.PurchaseError(controller.offerId), Is.Not.Null);
             Assert.That(Button("ConfirmPurchase").interactable, Is.False);
-            Assert.That(FindActive<TextMeshProUGUI>("PurchaseUnavailable").text, Does.Contain("控制器"));
+            Assert.That(FindActive<TextMeshProUGUI>("UnavailableBody").text, Is.EqualTo(app.Session.PurchaseError(controller.offerId)).And.Contains("控制器"));
             Assert.That(StateJson(), Is.EqualTo(before));
-            Click("CloseDialog"); Click("Tab1");
-            InspectOfferCard(consumable.offerId);
+            Click("CloseDialog"); Click("Tab0");
+            yield return InspectOfferCard(consumable.offerId);
             Assert.That(app.Session.PurchaseError(consumable.offerId), Is.Not.Null);
             Assert.That(Button("ConfirmPurchase").interactable, Is.False);
-            Assert.That(FindActive<TextMeshProUGUI>("PurchaseUnavailable").text, Does.Contain("槽位"));
+            Assert.That(FindActive<TextMeshProUGUI>("PriceBody").text, Does.Contain(app.Session.PurchaseError(consumable.offerId)).And.Contain("槽位"));
             Assert.That(StateJson(), Is.EqualTo(before), "Inspecting an ineligible offer must not charge, sell or consume it.");
             Click("CloseDialog");
             yield return null;
@@ -119,7 +121,7 @@ namespace DiceCraft.Tests
         public IEnumerator PLAY_RealEnterKeySubmitsOnceWithoutInvokingSelectedPauseButton()
         {
             StartRun("709"); Click("StartStage"); Click("Roll"); Click("Skip");
-            ClickDie(app.Session.State.dice[0].dieId); Click("Confirm");
+            ClickDie(app.Session.State.dice[0].dieId); Click("Confirm");yield return WaitForIdle();
             long sequence = app.Session.State.actionSequence;
             string scoreBefore = app.Session.State.stage.score;
             string score = app.Session.PreviewScore().score;
@@ -172,12 +174,13 @@ namespace DiceCraft.Tests
             }
         }
 
-        private void InspectOfferCard(string offerId)
+        private IEnumerator InspectOfferCard(string offerId)
         {
-            var card = FindActive<Transform>("Offer_" + offerId);
-            var inspect = card.GetComponentsInChildren<UnityEngine.UI.Button>().Single(b => b.name == "Inspect");
-            Assert.That(inspect.interactable, Is.True);
-            inspect.onClick.Invoke();
+            yield return WaitForIdle();
+            var offer=app.Session.State.shop.offers.Single(o=>o.offerId==offerId);
+            var card = FindActive<Transform>((offer.category=="controller"?"Offer_":"Product_") + offerId);
+            var inspect = offer.category=="controller"?card.GetComponent<UnityEngine.UI.Button>():card.GetComponentsInChildren<UnityEngine.UI.Button>().Single(b => b.name == "Inspect");
+            yield return LegacyVisibleClick07(inspect);
             Canvas.ForceUpdateCanvases();
         }
     }

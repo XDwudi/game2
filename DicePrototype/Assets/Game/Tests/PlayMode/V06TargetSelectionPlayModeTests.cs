@@ -20,8 +20,9 @@ namespace DiceCraft.Tests
             while(fixture.controllers.Count<32)fixture.controllers.Add(BoundaryController(fixture,"C02"));
             string itemId=BoundaryItem(fixture,"I03");
             yield return LoadBoundaryFixture(fixture);ResumeBoundaryFixture();Click("StartStage");
-            string title=FindActive<TMPro.TextMeshProUGUI>("ControllersTitle").text;
-            Assert.That(title,Does.Contain("调试配置"));Assert.That(title,Does.Contain("持有 32"));Assert.That(title,Does.Not.Contain("/"));
+            Assert.That(FindActive<TMPro.TextMeshProUGUI>("Edition").text,Is.EqualTo("调试对局"));
+            string title=Button("AllControllerStates").GetComponentInChildren<TMPro.TextMeshProUGUI>().text;
+            Assert.That(title,Is.EqualTo("全部 32 件控制器"));Assert.That(title,Does.Not.Contain("/"));
             string original=StateJson();byte[] originalDisk=File.ReadAllBytes(app.SaveLocation);
             var before=app.Session.State;
             OpenRemoteItem();
@@ -66,11 +67,11 @@ namespace DiceCraft.Tests
             yield return LoadBoundaryFixture(fixture);ResumeBoundaryFixture();
             string original=StateJson();byte[] originalDisk=File.ReadAllBytes(app.SaveLocation);
             var before=app.Session.State;
-            OpenBoundaryOffer("target32-gold");
+            yield return OpenBoundaryOffer("target32-gold");
             Assert.That(TargetFullyInsideViewport(Button("Target_D031")),Is.False);
             yield return WheelTargetIntoView("ShopTargetList","Target_D031");
             yield return VisibleTargetClick("Target_D031");
-            Assert.That(TargetFullyInsideViewport(Button("Target_D032")),Is.True,"Selecting a die must not reset the target list to the top.");
+            Assert.That(TargetFullyInsideViewport(Button("Target_D031")),Is.True,"Selecting a die must preserve that target in the single-column list viewport.");
             yield return VisibleTargetClick("Face_F01");
             Assert.That(StateJson(),Is.EqualTo(original));
             CollectionAssert.AreEqual(originalDisk,File.ReadAllBytes(app.SaveLocation));
@@ -81,11 +82,11 @@ namespace DiceCraft.Tests
                 Assert.That(JsonUtility.ToJson(die),Is.EqualTo(JsonUtility.ToJson(before.dice.Single(old=>old.dieId==die.dieId))));
             Assert.That(upgraded.gold,Is.EqualTo(before.gold-app.Config.Upgrade("U06").buyPrice));
             Assert.That(upgraded.actionSequence,Is.EqualTo(before.actionSequence+1));
-            OpenBoundaryOffer("target32-remove");
+            yield return OpenBoundaryOffer("target32-remove");
             yield return WheelTargetIntoView("ShopTargetList","Target_D032");
             yield return VisibleTargetClick("Target_D032");yield return VisibleTargetClick("CloseDialog");
             Assert.That(StateJson(),Is.EqualTo(JsonUtility.ToJson(upgraded)),"Cancelling deletion must not mutate the target or wallet.");
-            OpenBoundaryOffer("target32-remove");
+            yield return OpenBoundaryOffer("target32-remove");
             yield return WheelTargetIntoView("ShopTargetList","Target_D032");
             yield return VisibleTargetClick("Target_D032");yield return VisibleTargetClick("ConfirmPurchase");
             var removed=app.Session.State;
@@ -105,7 +106,8 @@ namespace DiceCraft.Tests
             var scroll=FindActive<UnityEngine.UI.ScrollRect>(listName);
             Assert.That(scroll.content.rect.height,Is.GreaterThan(scroll.viewport.rect.height));
             int events=0;
-            while(!TargetFullyInsideViewport(Button(buttonName))&&events++<20)
+            int wheelBudget=Mathf.CeilToInt(scroll.content.rect.height/scroll.scrollSensitivity)+2;
+            while(!TargetFullyInsideViewport(Button(buttonName))&&events++<wheelBudget)
             {
                 var pointer=new PointerEventData(EventSystem.current)
                 {

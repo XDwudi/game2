@@ -1,0 +1,99 @@
+{
+  "schema": "v07-delivery-tool-offline-checks-1",
+  "scope": "Offline synthetic tools only; no Unity/Player/Mac/packaging/network execution",
+  "utc": "2026-10-31T17:53:02.887010+00:00",
+  "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+  "sourceCommit": "1fbc3cce9d84237fa98b31d4b73b08e6f5e909ae",
+  "uncommittedNewToolSources": true,
+  "results": [
+    {
+      "command": [
+        "C:\\Users\\f\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-v"
+      ],
+      "exitCode": 0,
+      "log": "evidence/v07/delivery/tools/20261031-175259-repository-unittest.log",
+      "sha256": "e2064f7067be210f0c7a9f0b2594b62070b335e0a33772ded2d4fa5066f6ee9b"
+    },
+    {
+      "command": [
+        "C:\\Users\\f\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tools/macos/v07",
+        "-p",
+        "test_*.py",
+        "-v"
+      ],
+      "exitCode": 0,
+      "log": "evidence/v07/delivery/tools/20261031-175259-v07-tools-unittest.log",
+      "sha256": "d12578590086fd53a9277d2f296acbfa9d015a5ae4013bf45381d6d31c42b501"
+    }
+  ],
+  "files": [
+    {
+      "path": "tools/v07_delivery.py",
+      "sha256": "2c6a506e0f587063a76e9ba585d5d23f1770ee12149ecba7721fcd064e6a3e0e"
+    },
+    {
+      "path": "tools/package_v07.py",
+      "sha256": "2e4ca6219a1df35a3288a30ec3155d87f5f850d440416905838eea0f6de2cb2e"
+    },
+    {
+      "path": "tools/release_v07_manifest.py",
+      "sha256": "f9325d1da3cbdc99e626b1ce3f30cfb459144909feef9d8bde0ba97ca559d5b6"
+    },
+    {
+      "path": "tools/publish_v07_release.py",
+      "sha256": "8a327e3257bcc5bae6d7be14d906680b2f18a1bc1e4f12b19e952c626f1291a4"
+    },
+    {
+      "path": "tools/verify_v07_display_recovery.py",
+      "sha256": "ba4a5d9f7f22263d0dcd56d8e79ffaaea9e5034a1b96380eb9d8426ffd04d249"
+    },
+    {
+      "path": "tools/macos/v07/compare_replays.py",
+      "sha256": "28afb02533c7ec8d66c654338ec36f90db13b72b7532456ca5bd21c10fd6d04c"
+    },
+    {
+      "path": "tools/macos/v07/package_checks.py",
+      "sha256": "75df35774305feac4c27cd2f3de36bccc6b72dd29289e802dd40e7b9e59a5bea"
+    },
+    {
+      "path": "tools/macos/v07/test_art07_delivery.py",
+      "sha256": "775d285e1b57a07ca6399e309b9b324af9bde045bec1a433ee6bde5bc48c71f7"
+    },
+    {
+      "path": "tools/macos/v07/test_delivery_tools.py",
+      "sha256": "71895ba6674230474986dd68e4463cd2897204c3cce162cf9fd9bc51026d5418"
+    },
+    {
+      "path": "tools/macos/v07/test_diagnostic_candidate.py",
+      "sha256": "b1690b16aef7a5385bc00cec63d9c798349a8b7e28d88a45a9329b0082505be6"
+    },
+    {
+      "path": "tools/macos/v07/test_mac_tools.py",
+      "sha256": "659a5d0d9bd8036cd6b1fa8777e0ad2d1ae24b9f16e7dba25071f1936f0b8b23"
+    },
+    {
+      "path": "tools/macos/v07/test_review_candidate.py",
+      "sha256": "6744d3e6aeecdfac8fb8d4ef41e836de23e02d48edc901923b6e937fa29e9b07"
+    },
+    {
+      "path": "tools/macos/v07/verify_mac.py",
+      "sha256": "e2789f3867be56a81d316078019d6d5aaf8ecbdbaf63794b1c5b0eebfaf0d03d"
+    },
+    {
+      "path": "tools/macos/v07/VerifyMac.command",
+      "sha256": "6e42dd41d32d0b5c7aed9f6396ac1bfd82d4583be01a1e097aaad911c3b31dd2"
+    }
+  ],
+  "passed": true
+}

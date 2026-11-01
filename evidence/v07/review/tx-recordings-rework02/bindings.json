@@ -1,0 +1,3390 @@
+{
+  "schema": "v07-tx-rework02-review-bindings-1",
+  "reviewer": "/root/v07_shop_ui",
+  "reviewUtc": "2026-11-01T04:23:13.986958+00:00",
+  "routes": {
+    "path": "artifacts\\cache\\v07-transaction-routes-02.json",
+    "sha256": "97b3216c2de24072329a54663ed34dc0e67fc01f9a935c6fed5b264a19fbb9db",
+    "manifestStatus": "not_executed"
+  },
+  "preflight": {
+    "path": "artifacts\\cache\\v07-build-preflight\\movies-0414-source\\preflight.json",
+    "sha256": "d60d90e756b6118894298c9880ca1c232ac4cd5adb1b74543852d81b61341900",
+    "observedUtc": "2026-11-01T04:17:51.412305+00:00",
+    "head": "1fbc3cce9d84237fa98b31d4b73b08e6f5e909ae",
+    "notBuildAcceptance": true
+  },
+  "videoTools": {
+    "ffmpeg": {
+      "path": "artifacts\\cache\\v07\\tools\\krita\\krita-x64-5.3.4\\bin\\ffmpeg.exe",
+      "sha256": "d52c1673a6ec8ab83c0f08881265beeeadb0af181573ad9bc6f9e75ba525808d",
+      "version": "ffmpeg version 8.0.1-g1834eb471506fe3f6296aa844825ac317e51bd5b Copyright (c) 2000-2022 the FFmpeg developers"
+    },
+    "ffprobe": {
+      "path": "artifacts\\cache\\v07\\tools\\krita\\krita-x64-5.3.4\\bin\\ffprobe.exe",
+      "sha256": "2ee8abf42a2da415057b641fcf2f56d351534104355e5585417cc5600a7c333f",
+      "version": "ffprobe version 8.0.1-g1834eb471506fe3f6296aa844825ac317e51bd5b Copyright (c) 2007-2022 the FFmpeg developers"
+    }
+  },
+  "clips": [
+    {
+      "clip": "RefreshControllers",
+      "reduced": false,
+      "directory": "artifacts/cache/v07-tx-refreshcontrollers-normal-02",
+      "recordingStatus": "captured_pending_visual_review",
+      "errors": [],
+      "frames": 63,
+      "durationMs": 280,
+      "resolution": [
+        1920,
+        1080
+      ],
+      "runtimeMvid": "b5254e2b-fea4-45de-b803-7a41b53df2e0",
+      "coreMvid": "8f690e0d-a075-4b72-98e4-2cb64ced2fa3",
+      "sourceManifestSha256": "b3c57170df1e1f9f6c4459e32a848c2fd21aca13fef1e14cc5607052138ad6bb",
+      "unity": "6000.6.7f1",
+      "platform": "WindowsEditor",
+      "os": "Windows 10  (10.0.19045) 64bit",
+      "gpu": "NVIDIA GeForce RTX 3080",
+      "graphicsApi": "Direct3D11",
+      "normalSaveSha256": "e47852404c83400cd515001101402b91eece0218dda0cb0c7e4b844a49ae4e1d",
+      "cycle": {
+        "index": 0,
+        "firstFrame": 15,
+        "lastFrame": 32,
+        "durationMilliseconds": 280,
+        "clockTicks": 17,
+        "command": "RefreshControllers",
+        "receiptId": "7bcde04f910542979bbdf49256951877",
+        "stateHashBefore": "b65bee9da6f5cc1586192baf1ffb31dbc8af96cd3939b433fb06e24d378dbd8c",
+        "stateHashAfter": "9da4a729071adc1d785762892e331923f67158d226936a7fb39c2a2ea918cc7e",
+        "saveShaBefore": "125fab3e375b55179c4bad616a9d2c7431c764b0743c04ba0fd33dba09cd132b",
+        "saveShaAfter": "9a293f4e507e92ca6c1b1f9ecb7fc42dd9021d018cd09c9047900cffae560194",
+        "completed": true,
+        "stateAndSaveStable": true
+      },
+      "sequence": [
+        29,
+        30
+      ],
+      "wallet": [
+        110,
+        107
+      ],
+      "random": [
+        {
+          "stream": "dice",
+          "before": 20261031,
+          "after": 20261031,
+          "draws": 0,
+          "kinds": {}
+        },
+        {
+          "stream": "shop",
+          "before": 494662326,
+          "after": 1096844459,
+          "draws": 12,
+          "kinds": {
+            "ControllerId": 6,
+            "ControllerEnchantment": 6
+          }
+        },
+        {
+          "stream": "effect",
+          "before": 20261033,
+          "after": 20261033,
+          "draws": 0,
+          "kinds": {}
+        }
+      ],
+      "changedTopLevel": [
+        "nextItemSerial",
+        "nextOfferSerial",
+        "actionSequence",
+        "gold",
+        "shopRngState",
+        "lastRandomResults",
+        "processedReceipts",
+        "lastEffects",
+        "shop"
+      ],
+      "diceChanges": [],
+      "effects": [
+        {
+          "kind": "ControllersRefreshed",
+          "sourceId": "",
+          "dieId": "",
+          "faceId": "",
+          "otherDieId": "",
+          "detail": "DEBUG_e1841a82f46849528f01632db4524ae5/STAGE_01/SHOP/controller/1",
+          "oldValue": 3,
+          "newValue": 1
+        }
+      ],
+      "setupCommands": 3,
+      "allSetupAccepted": true,
+      "maxSnapshotRenderers": 93,
+      "maxPreviewRenderers": 0,
+      "reducedTargetRotationsIdentity": false,
+      "video": {
+        "decodeExit": 0,
+        "decodeError": "",
+        "frames": 63,
+        "firstPts": 0.0,
+        "lastPts": 1.033333,
+        "fps": "60/1",
+        "codec": "h264",
+        "noAudio": true,
+        "pngSequenceSsimExit": 0,
+        "pngSequenceSsimSummary": "[Parsed_ssim_0 @ 0000029a5bdde140] SSIM Y:0.997656 (26.301070) U:0.993781 (22.062781) V:0.994172 (22.345026) All:0.996430 (24.473049)"
+      },
+      "files": {
+        "recording.json": "9e549193f0117565ef2b1e0304f98bcd93fde2ffcc51c40610bcfb38510a05a8",
+        "frames.jsonl": "29869b3cd26aeb26be8b4f955ba3acce29378fefd8e515f178676a751d2559ac",
+        "source-snapshot.sha256": "b3c57170df1e1f9f6c4459e32a848c2fd21aca13fef1e14cc5607052138ad6bb",
+        "setup-commands.jsonl": "1363e020ab5ea5287240ea7c2bb0cd8475bea55a0bc532c893da8cc7445cfb01",
+        "state-before-transaction.json": "c8f9e4b245399350c955787b6b7a84923abfb43640fe3b6fe2b90b8f6cf21d36",
+        "state-committed.json": "a896d22f32320867715457b9e5f8d0342ee87fab24c03a10aa7370e764e8b95e",
+        "transaction-receipt.json": "8dfd68e3005f97cf768ee2ea4931dda7309df9073d5e4d75f897a2eaebae8325",
+        "visual-silent.mp4": "2b017f91a3262eb9221cfc739dd651699297e0ca6f723651e58e4e23c6d6a6c1"
+      },
+      "sourceFilesCaptured": 125,
+      "capturedSourceMatchesPreflightOrUnchangedHead": true,
+      "receiptFieldNote": "Generic top-level receiptId is scoring-only and empty for these clips; transaction.receiptId matches the committed receipt on every transaction/hold frame.",
+      "startedUtc": "2026-11-01T04:17:38.9697578Z",
+      "endedUtc": "2026-11-01T04:17:47.5953579Z",
+      "offerCountsBefore": {
+        "controller": 6,
+        "consumable": 5,
+        "hand_upgrade": 2,
+        "die_upgrade": 2,
+        "service": 1,
+        "new_die": 2
+      },
+      "offerCountsAfter": {
+        "consumable": 5,
+        "hand_upgrade": 2,
+        "die_upgrade": 2,
+        "service": 1,
+        "new_die": 2,
+        "controller": 6
+      },
+      "offersAdded": [
+        {
+          "offerId": "OFFER_00019",
+          "category": "controller",
+          "contentId": "C38"
+        },
+        {
+          "offerId": "OFFER_00020",
+          "category": "controller",
+          "contentId": "C24"
+        },
+        {
+          "offerId": "OFFER_00021",
+          "category": "controller",
+          "contentId": "C28"
+        },
+        {
+          "offerId": "OFFER_00022",
+          "category": "controller",
+          "contentId": "C27"
+        },
+        {
+          "offerId": "OFFER_00023",
+          "category": "controller",
+          "contentId": "C03"
+        },
+        {
+          "offerId": "OFFER_00024",
+          "category": "controller",
+          "contentId": "C10"
+        }
+      ],
+      "nonPurchasedOldOffersUnchanged": true,
+      "slotCounts": {
+        "controllerSlots": [
+          4,
+          4
+        ],
+        "consumableSlots": [
+          5,
+          5
+        ],
+        "controllerOfferPurchases": [
+          3,
+          3
+        ],
+        "consumableOfferPurchases": [
+          3,
+          3
+        ]
+      },
+      "receiptIdsAdded": [
+        "7bcde04f910542979bbdf49256951877"
+      ],
+      "receiptHistoryGrowth": 1,
+      "fontScale": "not explicitly present in recording metadata; no cross-font claim"
+    },
+    {
+      "clip": "BuyController",
+      "reduced": false,
+      "directory": "artifacts/cache/v07-tx-buycontroller-normal-02",
+      "recordingStatus": "captured_pending_visual_review",
+      "errors": [],
+      "frames": 67,
+      "durationMs": 340,
+      "resolution": [
+        1920,
+        1080
+      ],
+      "runtimeMvid": "b5254e2b-fea4-45de-b803-7a41b53df2e0",
+      "coreMvid": "8f690e0d-a075-4b72-98e4-2cb64ced2fa3",
+      "sourceManifestSha256": "b3c57170df1e1f9f6c4459e32a848c2fd21aca13fef1e14cc5607052138ad6bb",
+      "unity": "6000.6.7f1",
+      "platform": "WindowsEditor",
+      "os": "Windows 10  (10.0.19045) 64bit",
+      "gpu": "NVIDIA GeForce RTX 3080",
+      "graphicsApi": "Direct3D11",
+      "normalSaveSha256": "e47852404c83400cd515001101402b91eece0218dda0cb0c7e4b844a49ae4e1d",
+      "cycle": {
+        "index": 0,
+        "firstFrame": 15,
+        "lastFrame": 36,
+        "durationMilliseconds": 340,
+        "clockTicks": 21,
+        "command": "Buy",
+        "receiptId": "d7a31794daa74f3b9455302ee908e750",
+        "stateHashBefore": "386948cc6dffa1e2595e0e5eae3fd574ef4d096228668b994d6e0da978289af1",
+        "stateHashAfter": "ef2b164c997e7ab023c050e354cb5b9c8eba1c921907e76df65b8c074a75b1e8",
+        "saveShaBefore": "359f7f5e95327f1129e4f1276ac97e3b63ce4f91b7d4422433ffe227dcf57689",
+        "saveShaAfter": "c7cdb905a7706f6129c6b9476bd0d533bfd698e920c70da154717d007994574e",
+        "completed": true,
+        "stateAndSaveStable": true
+      },
+      "sequence": [
+        33,
+        34
+      ],
+      "wallet": [
+        110,
+        104
+      ],
+      "random": [
+        {
+          "stream": "dice",
+          "before": 20261031,
+          "after": 20261031,
+          "draws": 0,
+          "kinds": {}
+        },
+        {
+          "stream": "shop",
+          "before": 494662326,
+          "after": 494662326,
+          "draws": 0,
+          "kinds": {}
+        },
+        {
+          "stream": "effect",
+          "before": 20261033,
+          "after": 20261033,
+          "draws": 0,
+          "kinds": {}
+        }
+      ],
+      "changedTopLevel": [
+        "actionSequence",
+        "gold",
+        "controllers",
+        "lastRandomResults",
+        "processedReceipts",
+        "lastEffects",
+        "shop"
+      ],
+      "diceChanges": [],
+      "effects": [
+        {
+          "kind": "Purchased",
+          "sourceId": "C21",
+          "dieId": "",
+          "faceId": "",
+          "otherDieId": "",
+          "detail": "OFFER_00025",
+          "oldValue": 6,
+          "newValue": 104
+        }
+      ],
+      "setupCommands": 3,
+      "allSetupAccepted": true,
+      "maxSnapshotRenderers": 17,
+      "maxPreviewRenderers": 0,
+      "reducedTargetRotationsIdentity": true,
+      "video": {
+        "decodeExit": 0,
+        "decodeError": "",
+        "frames": 67,
+        "firstPts": 0.0,
+        "lastPts": 1.1,
+        "fps": "60/1",
+        "codec": "h264",
+        "noAudio": true,
+        "pngSequenceSsimExit": 0,
+        "pngSequenceSsimSummary": "[Parsed_ssim_0 @ 000001c7d7f22d40] SSIM Y:0.998015 (27.023380) U:0.994174 (22.346074) V:0.994569 (22.651256) All:0.996801 (24.949535)"
+      },
+      "files": {
+        "recording.json": "d54118ad7e19ed1c0299fb69d4a852580850cfd6dfa0a305fe9b29e85c324068",
+        "frames.jsonl": "1f69b7c84d776c94d8c28008eba5dc678755416de42047ddf728c36662af9434",
+        "source-snapshot.sha256": "b3c57170df1e1f9f6c4459e32a848c2fd21aca13fef1e14cc5607052138ad6bb",
+        "setup-commands.jsonl": "302a118d7400e51ab1f02ed9c5db9ce4386eab18a7b2c3d6d9179a4a8c2fd438",
+        "state-before-transaction.json": "4b1014388e89c84af4fce053e4e4f70820707bdb7a1f0d83890e58f6a6863f90",
+        "state-committed.json": "5f6eafe79bd6cb8fa5a0b89e99cd3870e1ad0a3b3552b3ef4c654be800a3c0f0",
+        "transaction-receipt.json": "abcddc8eb8567cef9fd5253cd52ee0bf4246a728e2c4a8101297baaa60669602",
+        "visual-silent.mp4": "797455f574179196c90d51f858d253e72d192553552c67371d1a5616793af685"
+      },
+      "sourceFilesCaptured": 125,
+      "capturedSourceMatchesPreflightOrUnchangedHead": true,
+      "receiptFieldNote": "Generic top-level receiptId is scoring-only and empty for these clips; transaction.receiptId matches the committed receipt on every transaction/hold frame.",
+      "startedUtc": "2026-11-01T04:17:48.4487928Z",
+      "endedUtc": "2026-11-01T04:17:57.6294166Z",
+      "offerCountsBefore": {
+        "controller": 6,
+        "consumable": 5,
+        "hand_upgrade": 2,
+        "die_upgrade": 2,
+        "service": 1,
+        "new_die": 2
+      },
+      "offerCountsAfter": {
+        "controller": 6,
+        "consumable": 5,
+        "hand_upgrade": 2,
+        "die_upgrade": 2,
+        "service": 1,
+        "new_die": 2
+      },
+      "offersAdded": [],
+      "nonPurchasedOldOffersUnchanged": true,
+      "slotCounts": {
+        "controllerSlots": [
+          4,
+          4
+        ],
+        "consumableSlots": [
+          5,
+          5
+        ],
+        "controllerOfferPurchases": [
+          3,
+          3
+        ],
+        "consumableOfferPurchases": [
+          3,
+          3
+        ]
+      },
+      "receiptIdsAdded": [
+        "d7a31794daa74f3b9455302ee908e750"
+      ],
+      "receiptHistoryGrowth": 1,
+      "fontScale": "not explicitly present in recording metadata; no cross-font claim"
+    },
+    {
+      "clip": "ExpandControllers",
+      "reduced": false,
+      "directory": "artifacts/cache/v07-tx-expandcontrollers-normal-02",
+      "recordingStatus": "captured_pending_visual_review",
+      "errors": [],
+      "frames": 67,
+      "durationMs": 340,
+      "resolution": [
+        1920,
+        1080
+      ],
+      "runtimeMvid": "b5254e2b-fea4-45de-b803-7a41b53df2e0",
+      "coreMvid": "8f690e0d-a075-4b72-98e4-2cb64ced2fa3",
+      "sourceManifestSha256": "b3c57170df1e1f9f6c4459e32a848c2fd21aca13fef1e14cc5607052138ad6bb",
+      "unity": "6000.6.7f1",
+      "platform": "WindowsEditor",
+      "os": "Windows 10  (10.0.19045) 64bit",
+      "gpu": "NVIDIA GeForce RTX 3080",
+      "graphicsApi": "Direct3D11",
+      "normalSaveSha256": "e47852404c83400cd515001101402b91eece0218dda0cb0c7e4b844a49ae4e1d",
+      "cycle": {
+        "index": 0,
+        "firstFrame": 15,
+        "lastFrame": 36,
+        "durationMilliseconds": 340,
+        "clockTicks": 21,
+        "command": "Buy",
+        "receiptId": "c271c05df64a450d8ef45f6cbea693de",
+        "stateHashBefore": "e6e82477e8d93d85f7a4ff38608e2374726a4e9644ca49e09759c8696d7dc268",
+        "stateHashAfter": "9d95f37254941ca6fe25aa3e9780ae21d0599baf6a8771a0ac3222f41c523e4e",
+        "saveShaBefore": "f9570589eb06682551f144e6bbf2a4b05579e35b8effa811ea9e3d26f17da0f9",
+        "saveShaAfter": "5c3948f6b2580b2995f5e9a24392762a29e3b65e0f78b48138ba019c7beeb43d",
+        "completed": true,
+        "stateAndSaveStable": true
+      },
+      "sequence": [
+        52,
+        53
+      ],
+      "wallet": [
+        110,
+        103
+      ],
+      "random": [
+        {
+          "stream": "dice",
+          "before": 20261031,
+          "after": 20261031,
+          "draws": 0,
+          "kinds": {}
+        },
+        {
+          "stream": "shop",
+          "before": 872552887,
+          "after": 721011523,
+          "draws": 2,
+          "kinds": {
+            "ControllerId": 1,
+            "ControllerEnchantment": 1
+          }
+        },
+        {
+          "stream": "effect",
+          "before": 20261033,
+          "after": 20261033,
+          "draws": 0,
+          "kinds": {}
+        }
+      ],
+      "changedTopLevel": [
+        "controllerOfferPurchases",
+        "nextItemSerial",
+        "nextOfferSerial",
+        "actionSequence",
+        "gold",
+        "shopRngState",
+        "lastRandomResults",
+        "processedReceipts",
+        "lastEffects",
+        "shop"
+      ],
+      "diceChanges": [],
+      "effects": [
+        {
+          "kind": "Purchased",
+          "sourceId": "O05",
+          "dieId": "",
+          "faceId": "",
+          "otherDieId": "",
+          "detail": "OFFER_00142",
+          "oldValue": 7,
+          "newValue": 103
+        }
+      ],
+      "setupCommands": 18,
+      "allSetupAccepted": true,
+      "maxSnapshotRenderers": 4,
+      "maxPreviewRenderers": 0,
+      "reducedTargetRotationsIdentity": false,
+      "video": {
+        "decodeExit": 0,
+        "decodeError": "",
+        "frames": 67,
+        "firstPts": 0.0,
+        "lastPts": 1.1,
+        "fps": "60/1",
+        "codec": "h264",
+        "noAudio": true,
+        "pngSequenceSsimExit": 0,
+        "pngSequenceSsimSummary": "[Parsed_ssim_0 @ 00000240070feb40] SSIM Y:0.997233 (25.580364) U:0.995201 (23.188933) V:0.995665 (23.630132) All:0.996633 (24.727928)"
+      },
+      "files": {
+        "recording.json": "7a602c59592ad4c2a8e9d88dd5faaf82aef9b342e98fc5192840a295e9f3bce5",
+        "frames.jsonl": "19cbe7a2408792924e7599ddfc079cd8b837f870be54027b64b07cb662e32ca7",
+        "source-snapshot.sha256": "b3c57170df1e1f9f6c4459e32a848c2fd21aca13fef1e14cc5607052138ad6bb",
+        "setup-commands.jsonl": "6ff1bafc01662071afe290c6a509addb10ebdb3278720eefe1f7e3b9b518d27e",
+        "state-before-transaction.json": "0c6b33c5f8e7f767b8c2b86dc6f592ef7bb438b9bb9ba4af0641da53e47de26d",
+        "state-committed.json": "7eb45b050c30f1579ae0205ddcd0f0659dc0c5f77ae65fd3fbd514b48d839ff8",
+        "transaction-receipt.json": "bd70017caf981f87199894efbf4cb1c1d9c9a4d5fb6d696257733c25dceab9e1",
+        "visual-silent.mp4": "e4713bc55d7dd65e5d8b149ffdbaece430676ac27f4d1b23c90798004b56ffea"
+      },
+      "sourceFilesCaptured": 125,
+      "capturedSourceMatchesPreflightOrUnchangedHead": true,
+      "receiptFieldNote": "Generic top-level receiptId is scoring-only and empty for these clips; transaction.receiptId matches the committed receipt on every transaction/hold frame.",
+      "startedUtc": "2026-11-01T04:17:58.5366981Z",
+      "endedUtc": "2026-11-01T04:18:09.5239085Z",
+      "offerCountsBefore": {
+        "controller": 5,
+        "consumable": 5,
+        "hand_upgrade": 2,
+        "die_upgrade": 2,
+        "service": 1,
+        "new_die": 2
+      },
+      "offerCountsAfter": {
+        "controller": 6,
+        "consumable": 5,
+        "hand_upgrade": 2,
+        "die_upgrade": 2,
+        "service": 1,
+        "new_die": 2
+      },
+      "offersAdded": [
+        {
+          "offerId": "OFFER_00145",
+          "category": "controller",
+          "contentId": "C11"
+        }
+      ],
+      "nonPurchasedOldOffersUnchanged": true,
+      "slotCounts": {
+        "controllerSlots": [
+          4,
+          4
+        ],
+        "consumableSlots": [
+          5,
+          5
+        ],
+        "controllerOfferPurchases": [
+          2,
+          3
+        ],
+        "consumableOfferPurchases": [
+          3,
+          3
+        ]
+      },
+      "receiptIdsAdded": [
+        "c271c05df64a450d8ef45f6cbea693de"
+      ],
+      "receiptHistoryGrowth": 1,
+      "fontScale": "not explicitly present in recording metadata; no cross-font claim"
+    },
+    {
+      "clip": "ExpandItems",
+      "reduced": false,
+      "directory": "artifacts/cache/v07-tx-expanditems-normal-02",
+      "recordingStatus": "captured_pending_visual_review",
+      "errors": [],
+      "frames": 67,
+      "durationMs": 340,
+      "resolution": [
+        1920,
+        1080
+      ],
+      "runtimeMvid": "b5254e2b-fea4-45de-b803-7a41b53df2e0",
+      "coreMvid": "8f690e0d-a075-4b72-98e4-2cb64ced2fa3",
+      "sourceManifestSha256": "b3c57170df1e1f9f6c4459e32a848c2fd21aca13fef1e14cc5607052138ad6bb",
+      "unity": "6000.6.7f1",
+      "platform": "WindowsEditor",
+      "os": "Windows 10  (10.0.19045) 64bit",
+      "gpu": "NVIDIA GeForce RTX 3080",
+      "graphicsApi": "Direct3D11",
+      "normalSaveSha256": "e47852404c83400cd515001101402b91eece0218dda0cb0c7e4b844a49ae4e1d",
+      "cycle": {
+        "index": 0,
+        "firstFrame": 15,
+        "lastFrame": 36,
+        "durationMilliseconds": 340,
+        "clockTicks": 21,
+        "command": "Buy",
+        "receiptId": "9d5c8cc5e640446cbc0d3784f0d3d86a",
+        "stateHashBefore": "0a64c2d75fb9da8bd5f16a381fee8a090e376f96b9f57d5d689e8f2bac51eb1d",
+        "stateHashAfter": "1f1233094dec5c07f7b93e117f4c3d7b3f9e81d0d3447e7cf05fd8d2e972c066",
+        "saveShaBefore": "bb234b352f4115a34e9f5628479c967ff23032e2b6f0e006a3efe0cd4f2dbdbc",
+        "saveShaAfter": "35fe8ebfa16ea1fffe5e3d9d87ee496f6fa338132de06edc38af3115a7811255",
+        "completed": true,
+        "stateAndSaveStable": true
+      },
+      "sequence": [
+        56,
+        57
+      ],
+      "wallet": [
+        110,
+        104
+      ],
+      "random": [
+        {
+          "stream": "dice",
+          "before": 20261031,
+          "after": 20261031,
+          "draws": 0,
+          "kinds": {}
+        },
+        {
+          "stream": "shop",
+          "before": 3662007692,
+          "after": 494662326,
+          "draws": 1,
+          "kinds": {
+            "OfferId": 1
+          }
+        },
+        {
+          "stream": "effect",
+          "before": 20261033,
+          "after": 20261033,
+          "draws": 0,
+          "kinds": {}
+        }
+      ],
+      "changedTopLevel": [
+        "consumableOfferPurchases",
+        "nextOfferSerial",
+        "actionSequence",
+        "gold",
+        "shopRngState",
+        "lastRandomResults",
+        "processedReceipts",
+        "lastEffects",
+        "shop"
+      ],
+      "diceChanges": [],
+      "effects": [
+        {
+          "kind": "Purchased",
+          "sourceId": "O06",
+          "dieId": "",
+          "faceId": "",
+          "otherDieId": "",
+          "detail": "OFFER_00160",
+          "oldValue": 6,
+          "newValue": 104
+        }
+      ],
+      "setupCommands": 3,
+      "allSetupAccepted": true,
+      "maxSnapshotRenderers": 12,
+      "maxPreviewRenderers": 0,
+      "reducedTargetRotationsIdentity": false,
+      "video": {
+        "decodeExit": 0,
+        "decodeError": "",
+        "frames": 67,
+        "firstPts": 0.0,
+        "lastPts": 1.1,
+        "fps": "60/1",
+        "codec": "h264",
+        "noAudio": true,
+        "pngSequenceSsimExit": 0,
+        "pngSequenceSsimSummary": "[Parsed_ssim_0 @ 0000017d9cfa0840] SSIM Y:0.997219 (25.557650) U:0.995089 (23.088692) V:0.995523 (23.490420) All:0.996581 (24.661405)"
+      },
+      "files": {
+        "recording.json": "e8443877e9b1110e1b3ab5fc9d8a0b03391615d57da04c9ad34b7687a8cbae45",
+        "frames.jsonl": "94067a3cb872e28afe666e966a8d62051b9de1b7b3e77c49e888b320e331c4dc",
+        "source-snapshot.sha256": "b3c57170df1e1f9f6c4459e32a848c2fd21aca13fef1e14cc5607052138ad6bb",
+        "setup-commands.jsonl": "99f217ceb553854b9c1f9921b7d4cc256128f12b274de7efb4b640dcca88e161",
+        "state-before-transaction.json": "b10fc75528c774c28131998876b22dc0fbd0845bfde792ef471d71fd115c085c",
+        "state-committed.json": "cd26cfac975edbf85a8ef6a6659192660ff82974b7f03b9d8d9d9d3ac5e18841",
+        "transaction-receipt.json": "cd74eafe1f314017d28decbdf369218ed4693f7ba3005dc502fbcb1381ab0157",
+        "visual-silent.mp4": "25b1eda2d832e8e0a3bd05c6f3471305dc8403a3c2f43efd17861803c788b344"
+      },
+      "sourceFilesCaptured": 125,
+      "capturedSourceMatchesPreflightOrUnchangedHead": true,
+      "receiptFieldNote": "Generic top-level receiptId is scoring-only and empty for these clips; transaction.receiptId matches the committed receipt on every transaction/hold frame.",
+      "startedUtc": "2026-11-01T04:18:10.9002874Z",
+      "endedUtc": "2026-11-01T04:18:20.7232707Z",
+      "offerCountsBefore": {
+        "controller": 6,
+        "consumable": 4,
+        "hand_upgrade": 2,
+        "die_upgrade": 2,
+        "service": 1,
+        "new_die": 2
+      },
+      "offerCountsAfter": {
+        "controller": 6,
+        "consumable": 5,
+        "hand_upgrade": 2,
+        "die_upgrade": 2,
+        "service": 1,
+        "new_die": 2
+      },
+      "offersAdded": [
+        {
+          "offerId": "OFFER_00163",
+          "category": "consumable",
+          "contentId": "I06"
+        }
+      ],
+      "nonPurchasedOldOffersUnchanged": true,
+      "slotCounts": {
+        "controllerSlots": [
+          4,
+          4
+        ],
+        "consumableSlots": [
+          5,
+          5
+        ],
+        "controllerOfferPurchases": [
+          3,
+          3
+        ],
+        "consumableOfferPurchases": [
+          2,
+          3
+        ]
+      },
+      "receiptIdsAdded": [
+        "9d5c8cc5e640446cbc0d3784f0d3d86a"
+      ],
+      "receiptHistoryGrowth": 1,
+      "fontScale": "not explicitly present in recording metadata; no cross-font claim"
+    },
+    {
+      "clip": "RandomFace",
+      "reduced": false,
+      "directory": "artifacts/cache/v07-tx-randomface-normal-02",
+      "recordingStatus": "captured_pending_visual_review",
+      "errors": [],
+      "frames": 68,
+      "durationMs": 360,
+      "resolution": [
+        1920,
+        1080
+      ],
+      "runtimeMvid": "b5254e2b-fea4-45de-b803-7a41b53df2e0",
+      "coreMvid": "8f690e0d-a075-4b72-98e4-2cb64ced2fa3",
+      "sourceManifestSha256": "b3c57170df1e1f9f6c4459e32a848c2fd21aca13fef1e14cc5607052138ad6bb",
+      "unity": "6000.6.7f1",
+      "platform": "WindowsEditor",
+      "os": "Windows 10  (10.0.19045) 64bit",
+      "gpu": "NVIDIA GeForce RTX 3080",
+      "graphicsApi": "Direct3D11",
+      "normalSaveSha256": "e47852404c83400cd515001101402b91eece0218dda0cb0c7e4b844a49ae4e1d",
+      "cycle": {
+        "index": 0,
+        "firstFrame": 15,
+        "lastFrame": 37,
+        "durationMilliseconds": 360,
+        "clockTicks": 22,
+        "command": "Buy",
+        "receiptId": "49cb9290143049b29fa609af25487c00",
+        "stateHashBefore": "81a07bc1d439daac67cac03a7453285911d78115c20d071e66e7d5cd4f32b184",
+        "stateHashAfter": "a2b3c5946a40c6cc0868a18911b2f5e56193019f6f944f843b912bc649e27fdd",
+        "saveShaBefore": "c18fe2ede2cc3fd5c181ff2eb14edc1bfbe8aba7b913a08aafc6cd9c8ab17083",
+        "saveShaAfter": "b27c3823ed19f21f745b32ed5f42df54e85d0d065470cfd7517c24737e40d003",
+        "completed": true,
+        "stateAndSaveStable": true
+      },
+      "sequence": [
+        78,
+        79
+      ],
+      "wallet": [
+        110,
+        109
+      ],
+      "random": [
+        {
+          "stream": "dice",
+          "before": 20261031,
+          "after": 20261031,
+          "draws": 0,
+          "kinds": {}
+        },
+        {
+          "stream": "shop",
+          "before": 2812324887,
+          "after": 2812324887,
+          "draws": 0,
+          "kinds": {}
+        },
+        {
+          "stream": "effect",
+          "before": 20261033,
+          "after": 539692441,
+          "draws": 1,
+          "kinds": {
+            "FaceTransform": 1
+          }
+        }
+      ],
+      "changedTopLevel": [
+        "actionSequence",
+        "gold",
+        "effectRngState",
+        "dice",
+        "lastRandomResults",
+        "processedReceipts",
+        "lastEffects",
+        "shop"
+      ],
+      "diceChanges": [
+        {
+          "dieId": "D146",
+          "changedFields": [
+            "faces",
+            "dataRevision"
+          ],
+          "faces": [
+            {
+              "faceId": "F01",
+              "before": {
+                "faceId": "F01",
+                "permanentPip": 1,
+                "baseColor": "red",
+                "baseWeight": 1,
+                "texture": "none",
+                "isGold": false
+              },
+              "after": {
+                "faceId": "F01",
+                "permanentPip": 2,
+                "baseColor": "red",
+                "baseWeight": 1,
+                "texture": "none",
+                "isGold": false
+              }
+            }
+          ],
+          "glassBefore": false,
+          "glassAfter": false
+        }
+      ],
+      "effects": [
+        {
+          "kind": "FaceTransformed",
+          "sourceId": "U07",
+          "dieId": "D146",
+          "faceId": "F01",
+          "otherDieId": "",
+          "detail": "",
+          "oldValue": 1,
+          "newValue": 2
+        },
+        {
+          "kind": "DieUpgraded",
+          "sourceId": "U07",
+          "dieId": "D146",
+          "faceId": "F01",
+          "otherDieId": "",
+          "detail": "",
+          "oldValue": 0,
+          "newValue": 0
+        },
+        {
+          "kind": "Purchased",
+          "sourceId": "U07",
+          "dieId": "",
+          "faceId": "",
+          "otherDieId": "",
+          "detail": "OFFER_00285",
+          "oldValue": 1,
+          "newValue": 109
+        }
+      ],
+      "setupCommands": 21,
+      "allSetupAccepted": true,
+      "maxSnapshotRenderers": 16,
+      "maxPreviewRenderers": 5,
+      "reducedTargetRotationsIdentity": true,
+      "video": {
+        "decodeExit": 0,
+        "decodeError": "",
+        "frames": 68,
+        "firstPts": 0.0,
+        "lastPts": 1.116667,
+        "fps": "60/1",
+        "codec": "h264",
+        "noAudio": true,
+        "pngSequenceSsimExit": 0,
+        "pngSequenceSsimSummary": "[Parsed_ssim_0 @ 000001e1ce81c040] SSIM Y:0.997930 (26.839873) U:0.996690 (24.802151) V:0.996673 (24.778998) All:0.997514 (26.044453)"
+      },
+      "files": {
+        "recording.json": "0d1d7af127e72a5d458f5cb43ee1452438fe71250949177ce3d41dbb9f8c59db",
+        "frames.jsonl": "c9b8a38f631767c733c35a03b6ef2605d4cf47989dd6f71ad6b9a771a74facc4",
+        "source-snapshot.sha256": "b3c57170df1e1f9f6c4459e32a848c2fd21aca13fef1e14cc5607052138ad6bb",
+        "setup-commands.jsonl": "2939cf9a2a0ec359093c5986dcac712f6858af743e707e96a828cd40f6b58f0e",
+        "state-before-transaction.json": "a7d596ac1c15b445fa6fa75738a8a68d0c50a321b5f855a75452864528c680dc",
+        "state-committed.json": "913baab4f52e2cfc07137ac25aaec1de7c28885ab60b23147ebe3001d4aa0d3c",
+        "transaction-receipt.json": "60674c2b44d92905d7eb6ade609abb303bbd3a48605aa307109f4b76ef95ca87",
+        "visual-silent.mp4": "9c926caaa1958eb977c83e7397c81fc3e964d7968dceef3aa65efd723940da09"
+      },
+      "sourceFilesCaptured": 125,
+      "capturedSourceMatchesPreflightOrUnchangedHead": true,
+      "receiptFieldNote": "Generic top-level receiptId is scoring-only and empty for these clips; transaction.receiptId matches the committed receipt on every transaction/hold frame.",
+      "startedUtc": "2026-11-01T04:18:21.8209172Z",
+      "endedUtc": "2026-11-01T04:18:33.9913564Z",
+      "offerCountsBefore": {
+        "controller": 6,
+        "consumable": 5,
+        "hand_upgrade": 2,
+        "die_upgrade": 2,
+        "service": 1,
+        "new_die": 2
+      },
+      "offerCountsAfter": {
+        "controller": 6,
+        "consumable": 5,
+        "hand_upgrade": 2,
+        "die_upgrade": 2,
+        "service": 1,
+        "new_die": 2
+      },
+      "offersAdded": [],
+      "nonPurchasedOldOffersUnchanged": true,
+      "slotCounts": {
+        "controllerSlots": [
+          4,
+          4
+        ],
+        "consumableSlots": [
+          5,
+          5
+        ],
+        "controllerOfferPurchases": [
+          3,
+          3
+        ],
+        "consumableOfferPurchases": [
+          3,
+          3
+        ]
+      },
+      "receiptIdsAdded": [
+        "49cb9290143049b29fa609af25487c00"
+      ],
+      "receiptHistoryGrowth": 1,
+      "fontScale": "not explicitly present in recording metadata; no cross-font claim",
+      "u07AllAnimationFramesPixelDiagnostic": {
+        "region": [
+          960,
+          582,
+          300,
+          260
+        ],
+        "method": "R>120, R>1.4G, R>1.4B; 4-connected components >=5px. Supplemental diagnostic, not an acceptance threshold.",
+        "samples": [
+          {
+            "frame": 15,
+            "redPipComponents": [
+              {
+                "pixels": 320,
+                "bounds": [
+                  1100,
+                  704,
+                  1119,
+                  723
+                ]
+              }
+            ]
+          },
+          {
+            "frame": 16,
+            "redPipComponents": [
+              {
+                "pixels": 319,
+                "bounds": [
+                  1100,
+                  704,
+                  1119,
+                  723
+                ]
+              }
+            ]
+          },
+          {
+            "frame": 17,
+            "redPipComponents": [
+              {
+                "pixels": 310,
+                "bounds": [
+                  1100,
+                  704,
+                  1119,
+                  723
+                ]
+              }
+            ]
+          },
+          {
+            "frame": 18,
+            "redPipComponents": [
+              {
+                "pixels": 275,
+                "bounds": [
+                  1101,
+                  704,
+                  1118,
+                  723
+                ]
+              }
+            ]
+          },
+          {
+            "frame": 19,
+            "redPipComponents": [
+              {
+                "pixels": 212,
+                "bounds": [
+                  1103,
+                  704,
+                  1116,
+                  723
+                ]
+              }
+            ]
+          },
+          {
+            "frame": 20,
+            "redPipComponents": [
+              {
+                "pixels": 130,
+                "bounds": [
+                  1105,
+                  704,
+                  1114,
+                  723
+                ]
+              }
+            ]
+          },
+          {
+            "frame": 21,
+            "redPipComponents": [
+              {
+                "pixels": 55,
+                "bounds": [
+                  1107,
+                  704,
+                  1113,
+                  723
+                ]
+              }
+            ]
+          },
+          {
+            "frame": 22,
+            "redPipComponents": []
+          },
+          {
+            "frame": 23,
+            "redPipComponents": []
+          },
+          {
+            "frame": 24,
+            "redPipComponents": []
+          },
+          {
+            "frame": 25,
+            "redPipComponents": []
+          },
+          {
+            "frame": 26,
+            "redPipComponents": []
+          },
+          {
+            "frame": 27,
+            "redPipComponents": []
+          },
+          {
+            "frame": 28,
+            "redPipComponents": []
+          },
+          {
+            "frame": 29,
+            "redPipComponents": [
+              {
+                "pixels": 19,
+                "bounds": [
+                  1120,
+                  674,
+                  1124,
+                  688
+                ]
+              },
+              {
+                "pixels": 19,
+                "bounds": [
+                  1094,
+                  739,
+                  1098,
+                  753
+                ]
+              }
+            ]
+          },
+          {
+            "frame": 30,
+            "redPipComponents": [
+              {
+                "pixels": 72,
+                "bounds": [
+                  1124,
+                  673,
+                  1131,
+                  691
+                ]
+              },
+              {
+                "pixels": 70,
+                "bounds": [
+                  1088,
+                  735,
+                  1094,
+                  754
+                ]
+              }
+            ]
+          },
+          {
+            "frame": 31,
+            "redPipComponents": [
+              {
+                "pixels": 139,
+                "bounds": [
+                  1130,
+                  675,
+                  1139,
+                  694
+                ]
+              },
+              {
+                "pixels": 137,
+                "bounds": [
+                  1079,
+                  733,
+                  1088,
+                  751
+                ]
+              }
+            ]
+          },
+          {
+            "frame": 32,
+            "redPipComponents": [
+              {
+                "pixels": 209,
+                "bounds": [
+                  1135,
+                  678,
+                  1148,
+                  696
+                ]
+              },
+              {
+                "pixels": 211,
+                "bounds": [
+                  1070,
+                  730,
+                  1083,
+                  749
+                ]
+              }
+            ]
+          },
+          {
+            "frame": 33,
+            "redPipComponents": [
+              {
+                "pixels": 266,
+                "bounds": [
+                  1140,
+                  679,
+                  1156,
+                  698
+                ]
+              },
+              {
+                "pixels": 263,
+                "bounds": [
+                  1062,
+                  728,
+                  1079,
+                  747
+                ]
+              }
+            ]
+          },
+          {
+            "frame": 34,
+            "redPipComponents": [
+              {
+                "pixels": 302,
+                "bounds": [
+                  1143,
+                  681,
+                  1161,
+                  700
+                ]
+              },
+              {
+                "pixels": 301,
+                "bounds": [
+                  1058,
+                  727,
+                  1076,
+                  746
+                ]
+              }
+            ]
+          },
+          {
+            "frame": 35,
+            "redPipComponents": [
+              {
+                "pixels": 320,
+                "bounds": [
+                  1144,
+                  681,
+                  1163,
+                  700
+                ]
+              },
+              {
+                "pixels": 319,
+                "bounds": [
+                  1056,
+                  727,
+                  1075,
+                  746
+                ]
+              }
+            ]
+          },
+          {
+            "frame": 36,
+            "redPipComponents": [
+              {
+                "pixels": 323,
+                "bounds": [
+                  1144,
+                  681,
+                  1164,
+                  701
+                ]
+              },
+              {
+                "pixels": 322,
+                "bounds": [
+                  1055,
+                  726,
+                  1075,
+                  746
+                ]
+              }
+            ]
+          }
+        ],
+        "maximumRedComponents": 2
+      }
+    },
+    {
+      "clip": "GlassDie",
+      "reduced": false,
+      "directory": "artifacts/cache/v07-tx-glassdie-normal-02",
+      "recordingStatus": "captured_pending_visual_review",
+      "errors": [],
+      "frames": 72,
+      "durationMs": 420,
+      "resolution": [
+        1920,
+        1080
+      ],
+      "runtimeMvid": "b5254e2b-fea4-45de-b803-7a41b53df2e0",
+      "coreMvid": "8f690e0d-a075-4b72-98e4-2cb64ced2fa3",
+      "sourceManifestSha256": "b3c57170df1e1f9f6c4459e32a848c2fd21aca13fef1e14cc5607052138ad6bb",
+      "unity": "6000.6.7f1",
+      "platform": "WindowsEditor",
+      "os": "Windows 10  (10.0.19045) 64bit",
+      "gpu": "NVIDIA GeForce RTX 3080",
+      "graphicsApi": "Direct3D11",
+      "normalSaveSha256": "e47852404c83400cd515001101402b91eece0218dda0cb0c7e4b844a49ae4e1d",
+      "cycle": {
+        "index": 0,
+        "firstFrame": 15,
+        "lastFrame": 41,
+        "durationMilliseconds": 420,
+        "clockTicks": 26,
+        "command": "Buy",
+        "receiptId": "bc8f95e8ee9945578098ad21ea186cb2",
+        "stateHashBefore": "fbb88452a5f00df9a3c531f8040692a66fb589111cef9d9e7502d7db3c75b9b0",
+        "stateHashAfter": "5e43b2684c3562f80de1781e76e3a268d891c04248c0407c91472f6fc676f6c0",
+        "saveShaBefore": "e00e92640e5e8dc6a0f8781f54c11ce04cbdfb5f8f7283fa5610f7b8e50aa8e6",
+        "saveShaAfter": "9a24284942fedaa2dfdb41103bd5eb1d70700dd6f1d9e1d9a6a4a33912e78b04",
+        "completed": true,
+        "stateAndSaveStable": true
+      },
+      "sequence": [
+        82,
+        83
+      ],
+      "wallet": [
+        110,
+        109
+      ],
+      "random": [
+        {
+          "stream": "dice",
+          "before": 20261031,
+          "after": 20261031,
+          "draws": 0,
+          "kinds": {}
+        },
+        {
+          "stream": "shop",
+          "before": 494662326,
+          "after": 494662326,
+          "draws": 0,
+          "kinds": {}
+        },
+        {
+          "stream": "effect",
+          "before": 20261033,
+          "after": 20261033,
+          "draws": 0,
+          "kinds": {}
+        }
+      ],
+      "changedTopLevel": [
+        "actionSequence",
+        "gold",
+        "dice",
+        "lastRandomResults",
+        "processedReceipts",
+        "lastEffects",
+        "shop"
+      ],
+      "diceChanges": [
+        {
+          "dieId": "D151",
+          "changedFields": [
+            "isGlass",
+            "dataRevision"
+          ],
+          "faces": [],
+          "glassBefore": false,
+          "glassAfter": true
+        }
+      ],
+      "effects": [
+        {
+          "kind": "DieUpgraded",
+          "sourceId": "U05",
+          "dieId": "D151",
+          "faceId": "",
+          "otherDieId": "",
+          "detail": "",
+          "oldValue": 0,
+          "newValue": 0
+        },
+        {
+          "kind": "Purchased",
+          "sourceId": "U05",
+          "dieId": "",
+          "faceId": "",
+          "otherDieId": "",
+          "detail": "OFFER_00303",
+          "oldValue": 1,
+          "newValue": 109
+        }
+      ],
+      "setupCommands": 3,
+      "allSetupAccepted": true,
+      "maxSnapshotRenderers": 18,
+      "maxPreviewRenderers": 5,
+      "reducedTargetRotationsIdentity": true,
+      "video": {
+        "decodeExit": 0,
+        "decodeError": "",
+        "frames": 72,
+        "firstPts": 0.0,
+        "lastPts": 1.183333,
+        "fps": "60/1",
+        "codec": "h264",
+        "noAudio": true,
+        "pngSequenceSsimExit": 0,
+        "pngSequenceSsimSummary": "[Parsed_ssim_0 @ 000001270ef25200] SSIM Y:0.997883 (26.742187) U:0.996608 (24.694989) V:0.996513 (24.575935) All:0.997442 (25.920947)"
+      },
+      "files": {
+        "recording.json": "beef3db47cdf3416fdb004a920a553629a8a4615fb6c5295d21b45d836798c6b",
+        "frames.jsonl": "4b447cbb1565274924a6a7b94cb6b5d4cd1dcdc7a0fa4f935b42fe4b0adf1a70",
+        "source-snapshot.sha256": "b3c57170df1e1f9f6c4459e32a848c2fd21aca13fef1e14cc5607052138ad6bb",
+        "setup-commands.jsonl": "f69215252a0f9a3e830c31467cafb80a94eaa15aa5a23f557605af08e17fd304",
+        "state-before-transaction.json": "1365ed8c64bb96f6ff87f6169846ccd4e495270f2b21589df75768d4159d2276",
+        "state-committed.json": "424c24a15f7f5aaaac0020c0739df8a226418a5f6316d92b5d316b9f35a1c1f6",
+        "transaction-receipt.json": "0d570958bf4c784168180cc890787954b36453d8c0001cc062f46a1f3f7b6923",
+        "visual-silent.mp4": "e2c250f62e4f986fb2ff58d151ea8190a78076c259918eaa6f6e7f22694334fa"
+      },
+      "sourceFilesCaptured": 125,
+      "capturedSourceMatchesPreflightOrUnchangedHead": true,
+      "receiptFieldNote": "Generic top-level receiptId is scoring-only and empty for these clips; transaction.receiptId matches the committed receipt on every transaction/hold frame.",
+      "startedUtc": "2026-11-01T04:18:34.9405651Z",
+      "endedUtc": "2026-11-01T04:18:45.6812839Z",
+      "offerCountsBefore": {
+        "controller": 6,
+        "consumable": 5,
+        "hand_upgrade": 2,
+        "die_upgrade": 2,
+        "service": 1,
+        "new_die": 2
+      },
+      "offerCountsAfter": {
+        "controller": 6,
+        "consumable": 5,
+        "hand_upgrade": 2,
+        "die_upgrade": 2,
+        "service": 1,
+        "new_die": 2
+      },
+      "offersAdded": [],
+      "nonPurchasedOldOffersUnchanged": true,
+      "slotCounts": {
+        "controllerSlots": [
+          4,
+          4
+        ],
+        "consumableSlots": [
+          5,
+          5
+        ],
+        "controllerOfferPurchases": [
+          3,
+          3
+        ],
+        "consumableOfferPurchases": [
+          3,
+          3
+        ]
+      },
+      "receiptIdsAdded": [
+        "bc8f95e8ee9945578098ad21ea186cb2"
+      ],
+      "receiptHistoryGrowth": 1,
+      "fontScale": "not explicitly present in recording metadata; no cross-font claim"
+    },
+    {
+      "clip": "RefreshControllers",
+      "reduced": true,
+      "directory": "artifacts/cache/v07-tx-refreshcontrollers-reduced-02",
+      "recordingStatus": "captured_pending_visual_review",
+      "errors": [],
+      "frames": 54,
+      "durationMs": 120,
+      "resolution": [
+        1920,
+        1080
+      ],
+      "runtimeMvid": "b5254e2b-fea4-45de-b803-7a41b53df2e0",
+      "coreMvid": "8f690e0d-a075-4b72-98e4-2cb64ced2fa3",
+      "sourceManifestSha256": "b3c57170df1e1f9f6c4459e32a848c2fd21aca13fef1e14cc5607052138ad6bb",
+      "unity": "6000.6.7f1",
+      "platform": "WindowsEditor",
+      "os": "Windows 10  (10.0.19045) 64bit",
+      "gpu": "NVIDIA GeForce RTX 3080",
+      "graphicsApi": "Direct3D11",
+      "normalSaveSha256": "e47852404c83400cd515001101402b91eece0218dda0cb0c7e4b844a49ae4e1d",
+      "cycle": {
+        "index": 0,
+        "firstFrame": 15,
+        "lastFrame": 23,
+        "durationMilliseconds": 120,
+        "clockTicks": 8,
+        "command": "RefreshControllers",
+        "receiptId": "44b04c46541c480ebdbf316d79ecaf1a",
+        "stateHashBefore": "f412f053e160d82f63ad4e04541803b776b9e825bed52eb4c56d4bfe26b995ee",
+        "stateHashAfter": "d755035bd3aea1265e568f46e76f39753470941eee45a93dabcb8028e618feb6",
+        "saveShaBefore": "2ce54f93718c74b1cd1220dd05a6ebd61908d9b006e707d36dc656d7e51d3df4",
+        "saveShaAfter": "e0f97b91bdbf2d2931866de341791106f7d714e3e05a337d927b2b2675392086",
+        "completed": true,
+        "stateAndSaveStable": true
+      },
+      "sequence": [
+        86,
+        87
+      ],
+      "wallet": [
+        110,
+        107
+      ],
+      "random": [
+        {
+          "stream": "dice",
+          "before": 20261031,
+          "after": 20261031,
+          "draws": 0,
+          "kinds": {}
+        },
+        {
+          "stream": "shop",
+          "before": 494662326,
+          "after": 1096844459,
+          "draws": 12,
+          "kinds": {
+            "ControllerId": 6,
+            "ControllerEnchantment": 6
+          }
+        },
+        {
+          "stream": "effect",
+          "before": 20261033,
+          "after": 20261033,
+          "draws": 0,
+          "kinds": {}
+        }
+      ],
+      "changedTopLevel": [
+        "nextItemSerial",
+        "nextOfferSerial",
+        "actionSequence",
+        "gold",
+        "shopRngState",
+        "lastRandomResults",
+        "processedReceipts",
+        "lastEffects",
+        "shop"
+      ],
+      "diceChanges": [],
+      "effects": [
+        {
+          "kind": "ControllersRefreshed",
+          "sourceId": "",
+          "dieId": "",
+          "faceId": "",
+          "otherDieId": "",
+          "detail": "DEBUG_e1841a82f46849528f01632db4524ae5/STAGE_01/SHOP/controller/1",
+          "oldValue": 3,
+          "newValue": 1
+        }
+      ],
+      "setupCommands": 3,
+      "allSetupAccepted": true,
+      "maxSnapshotRenderers": 93,
+      "maxPreviewRenderers": 0,
+      "reducedTargetRotationsIdentity": true,
+      "video": {
+        "decodeExit": 0,
+        "decodeError": "",
+        "frames": 54,
+        "firstPts": 0.0,
+        "lastPts": 0.883333,
+        "fps": "60/1",
+        "codec": "h264",
+        "noAudio": true,
+        "pngSequenceSsimExit": 0,
+        "pngSequenceSsimSummary": "[Parsed_ssim_0 @ 000002c91bf5eb40] SSIM Y:0.998839 (29.352313) U:0.994684 (22.744017) V:0.995123 (23.118470) All:0.997527 (26.068202)"
+      },
+      "files": {
+        "recording.json": "0122d4e4cac2df111e7ddd4ee593e0eede8973e3bfc2c3ea8d1baa70c75197a8",
+        "frames.jsonl": "23d8f0ef0e9f77a9667ee0b6ded017895488744e597d647b4c8723c02a971ad4",
+        "source-snapshot.sha256": "b3c57170df1e1f9f6c4459e32a848c2fd21aca13fef1e14cc5607052138ad6bb",
+        "setup-commands.jsonl": "4d927ff4f056de8df1f2955bcff65bcee95dc56d173262caa0c31926db732e57",
+        "state-before-transaction.json": "094dde2de1ebe3a1f22eb3edd35d43607da1143dba9b141caba36c3b9ce8d3c5",
+        "state-committed.json": "ef2576fb273f4610d5448367fe6a42acf3ba755e63573dae1a5f28dfc1dd4a51",
+        "transaction-receipt.json": "57b688e116b66cebe45612334cb1f7df78900a4fadeab25de964040483f8d68c",
+        "visual-silent.mp4": "b12135da0039999d8b22a7339a8b7e7b30893d89f8ccd238b2e85d6d414a6a8b"
+      },
+      "sourceFilesCaptured": 125,
+      "capturedSourceMatchesPreflightOrUnchangedHead": true,
+      "receiptFieldNote": "Generic top-level receiptId is scoring-only and empty for these clips; transaction.receiptId matches the committed receipt on every transaction/hold frame.",
+      "startedUtc": "2026-11-01T04:18:46.7227687Z",
+      "endedUtc": "2026-11-01T04:18:52.9106914Z",
+      "offerCountsBefore": {
+        "controller": 6,
+        "consumable": 5,
+        "hand_upgrade": 2,
+        "die_upgrade": 2,
+        "service": 1,
+        "new_die": 2
+      },
+      "offerCountsAfter": {
+        "consumable": 5,
+        "hand_upgrade": 2,
+        "die_upgrade": 2,
+        "service": 1,
+        "new_die": 2,
+        "controller": 6
+      },
+      "offersAdded": [
+        {
+          "offerId": "OFFER_00326",
+          "category": "controller",
+          "contentId": "C38"
+        },
+        {
+          "offerId": "OFFER_00327",
+          "category": "controller",
+          "contentId": "C24"
+        },
+        {
+          "offerId": "OFFER_00328",
+          "category": "controller",
+          "contentId": "C28"
+        },
+        {
+          "offerId": "OFFER_00329",
+          "category": "controller",
+          "contentId": "C27"
+        },
+        {
+          "offerId": "OFFER_00330",
+          "category": "controller",
+          "contentId": "C03"
+        },
+        {
+          "offerId": "OFFER_00331",
+          "category": "controller",
+          "contentId": "C10"
+        }
+      ],
+      "nonPurchasedOldOffersUnchanged": true,
+      "slotCounts": {
+        "controllerSlots": [
+          4,
+          4
+        ],
+        "consumableSlots": [
+          5,
+          5
+        ],
+        "controllerOfferPurchases": [
+          3,
+          3
+        ],
+        "consumableOfferPurchases": [
+          3,
+          3
+        ]
+      },
+      "receiptIdsAdded": [
+        "44b04c46541c480ebdbf316d79ecaf1a"
+      ],
+      "receiptHistoryGrowth": 1,
+      "fontScale": "not explicitly present in recording metadata; no cross-font claim"
+    },
+    {
+      "clip": "RandomFace",
+      "reduced": true,
+      "directory": "artifacts/cache/v07-tx-randomface-reduced-02",
+      "recordingStatus": "captured_pending_visual_review",
+      "errors": [],
+      "frames": 54,
+      "durationMs": 120,
+      "resolution": [
+        1920,
+        1080
+      ],
+      "runtimeMvid": "b5254e2b-fea4-45de-b803-7a41b53df2e0",
+      "coreMvid": "8f690e0d-a075-4b72-98e4-2cb64ced2fa3",
+      "sourceManifestSha256": "b3c57170df1e1f9f6c4459e32a848c2fd21aca13fef1e14cc5607052138ad6bb",
+      "unity": "6000.6.7f1",
+      "platform": "WindowsEditor",
+      "os": "Windows 10  (10.0.19045) 64bit",
+      "gpu": "NVIDIA GeForce RTX 3080",
+      "graphicsApi": "Direct3D11",
+      "normalSaveSha256": "e47852404c83400cd515001101402b91eece0218dda0cb0c7e4b844a49ae4e1d",
+      "cycle": {
+        "index": 0,
+        "firstFrame": 15,
+        "lastFrame": 23,
+        "durationMilliseconds": 120,
+        "clockTicks": 8,
+        "command": "Buy",
+        "receiptId": "e2321f562df54fae94e33435af381959",
+        "stateHashBefore": "4e9dda7b604b5a9348d92468b3707d0cd17723c59b2c438318e89dd2d2ca7572",
+        "stateHashAfter": "c079f9c518135007c6eefbcff03ee54e7a7782a75819aeb6a190b75a2966c688",
+        "saveShaBefore": "9a6ddb6a7fb1881f66eb614c62667eeb83a18a8dd6b6014b73d79d08bc41c07f",
+        "saveShaAfter": "fd686a2b3276b8ad55e357b4f781b3a66d6e0c063362c0b833dfc6d25b563ee3",
+        "completed": true,
+        "stateAndSaveStable": true
+      },
+      "sequence": [
+        108,
+        109
+      ],
+      "wallet": [
+        110,
+        109
+      ],
+      "random": [
+        {
+          "stream": "dice",
+          "before": 20261031,
+          "after": 20261031,
+          "draws": 0,
+          "kinds": {}
+        },
+        {
+          "stream": "shop",
+          "before": 2812324887,
+          "after": 2812324887,
+          "draws": 0,
+          "kinds": {}
+        },
+        {
+          "stream": "effect",
+          "before": 20261033,
+          "after": 539692441,
+          "draws": 1,
+          "kinds": {
+            "FaceTransform": 1
+          }
+        }
+      ],
+      "changedTopLevel": [
+        "actionSequence",
+        "gold",
+        "effectRngState",
+        "dice",
+        "lastRandomResults",
+        "processedReceipts",
+        "lastEffects",
+        "shop"
+      ],
+      "diceChanges": [
+        {
+          "dieId": "D191",
+          "changedFields": [
+            "faces",
+            "dataRevision"
+          ],
+          "faces": [
+            {
+              "faceId": "F01",
+              "before": {
+                "faceId": "F01",
+                "permanentPip": 1,
+                "baseColor": "red",
+                "baseWeight": 1,
+                "texture": "none",
+                "isGold": false
+              },
+              "after": {
+                "faceId": "F01",
+                "permanentPip": 2,
+                "baseColor": "red",
+                "baseWeight": 1,
+                "texture": "none",
+                "isGold": false
+              }
+            }
+          ],
+          "glassBefore": false,
+          "glassAfter": false
+        }
+      ],
+      "effects": [
+        {
+          "kind": "FaceTransformed",
+          "sourceId": "U07",
+          "dieId": "D191",
+          "faceId": "F01",
+          "otherDieId": "",
+          "detail": "",
+          "oldValue": 1,
+          "newValue": 2
+        },
+        {
+          "kind": "DieUpgraded",
+          "sourceId": "U07",
+          "dieId": "D191",
+          "faceId": "F01",
+          "otherDieId": "",
+          "detail": "",
+          "oldValue": 0,
+          "newValue": 0
+        },
+        {
+          "kind": "Purchased",
+          "sourceId": "U07",
+          "dieId": "",
+          "faceId": "",
+          "otherDieId": "",
+          "detail": "OFFER_00453",
+          "oldValue": 1,
+          "newValue": 109
+        }
+      ],
+      "setupCommands": 21,
+      "allSetupAccepted": true,
+      "maxSnapshotRenderers": 16,
+      "maxPreviewRenderers": 5,
+      "reducedTargetRotationsIdentity": true,
+      "video": {
+        "decodeExit": 0,
+        "decodeError": "",
+        "frames": 54,
+        "firstPts": 0.0,
+        "lastPts": 0.883333,
+        "fps": "60/1",
+        "codec": "h264",
+        "noAudio": true,
+        "pngSequenceSsimExit": 0,
+        "pngSequenceSsimSummary": "[Parsed_ssim_0 @ 00000248397bf280] SSIM Y:0.999395 (32.185479) U:0.996488 (24.544894) V:0.996506 (24.567321) All:0.998429 (28.039384)"
+      },
+      "files": {
+        "recording.json": "dece91ae6b9813f47b277716588ae86e9823f5976fb37380a15b6a2dd91ee901",
+        "frames.jsonl": "1a2d6a25682f30ee2b555dd51ba0b9e802a04f12a83e216ceabdb473fb5ff6af",
+        "source-snapshot.sha256": "b3c57170df1e1f9f6c4459e32a848c2fd21aca13fef1e14cc5607052138ad6bb",
+        "setup-commands.jsonl": "f2115b50e8b62a60549c10918b0afe02e81722f85f093b1bb2ef456fbd0d4105",
+        "state-before-transaction.json": "8ed3b07f9f5e9c7e632a21e9efc250fb52339a64543689277965edf32c10411d",
+        "state-committed.json": "8497c5aa820f21f8c399e80456aa0432c320dae4d11a677ebd060e4d577fb604",
+        "transaction-receipt.json": "a67bcb8091a12b77a308821d7c5a05831aabf65d23a9bb46e9d58e8770633955",
+        "visual-silent.mp4": "bffa9bf0b58f8bfd4ce8c9a60da42c4292214dc10995c5c4389b75af77c6a7af"
+      },
+      "sourceFilesCaptured": 125,
+      "capturedSourceMatchesPreflightOrUnchangedHead": true,
+      "receiptFieldNote": "Generic top-level receiptId is scoring-only and empty for these clips; transaction.receiptId matches the committed receipt on every transaction/hold frame.",
+      "startedUtc": "2026-11-01T04:18:53.8372670Z",
+      "endedUtc": "2026-11-01T04:19:02.9245239Z",
+      "offerCountsBefore": {
+        "controller": 6,
+        "consumable": 5,
+        "hand_upgrade": 2,
+        "die_upgrade": 2,
+        "service": 1,
+        "new_die": 2
+      },
+      "offerCountsAfter": {
+        "controller": 6,
+        "consumable": 5,
+        "hand_upgrade": 2,
+        "die_upgrade": 2,
+        "service": 1,
+        "new_die": 2
+      },
+      "offersAdded": [],
+      "nonPurchasedOldOffersUnchanged": true,
+      "slotCounts": {
+        "controllerSlots": [
+          4,
+          4
+        ],
+        "consumableSlots": [
+          5,
+          5
+        ],
+        "controllerOfferPurchases": [
+          3,
+          3
+        ],
+        "consumableOfferPurchases": [
+          3,
+          3
+        ]
+      },
+      "receiptIdsAdded": [
+        "e2321f562df54fae94e33435af381959"
+      ],
+      "receiptHistoryGrowth": 1,
+      "fontScale": "not explicitly present in recording metadata; no cross-font claim",
+      "u07AllAnimationFramesPixelDiagnostic": {
+        "region": [
+          960,
+          582,
+          300,
+          260
+        ],
+        "method": "R>120, R>1.4G, R>1.4B; 4-connected components >=5px. Supplemental diagnostic, not an acceptance threshold.",
+        "samples": [
+          {
+            "frame": 15,
+            "redPipComponents": [
+              {
+                "pixels": 320,
+                "bounds": [
+                  1100,
+                  704,
+                  1119,
+                  723
+                ]
+              }
+            ]
+          },
+          {
+            "frame": 16,
+            "redPipComponents": [
+              {
+                "pixels": 320,
+                "bounds": [
+                  1100,
+                  704,
+                  1119,
+                  723
+                ]
+              }
+            ]
+          },
+          {
+            "frame": 17,
+            "redPipComponents": [
+              {
+                "pixels": 320,
+                "bounds": [
+                  1100,
+                  704,
+                  1119,
+                  723
+                ]
+              }
+            ]
+          },
+          {
+            "frame": 18,
+            "redPipComponents": []
+          },
+          {
+            "frame": 19,
+            "redPipComponents": []
+          },
+          {
+            "frame": 20,
+            "redPipComponents": [
+              {
+                "pixels": 322,
+                "bounds": [
+                  1144,
+                  681,
+                  1164,
+                  701
+                ]
+              },
+              {
+                "pixels": 322,
+                "bounds": [
+                  1055,
+                  726,
+                  1075,
+                  746
+                ]
+              }
+            ]
+          },
+          {
+            "frame": 21,
+            "redPipComponents": [
+              {
+                "pixels": 322,
+                "bounds": [
+                  1144,
+                  681,
+                  1164,
+                  701
+                ]
+              },
+              {
+                "pixels": 322,
+                "bounds": [
+                  1055,
+                  726,
+                  1075,
+                  746
+                ]
+              }
+            ]
+          },
+          {
+            "frame": 22,
+            "redPipComponents": [
+              {
+                "pixels": 322,
+                "bounds": [
+                  1144,
+                  681,
+                  1164,
+                  701
+                ]
+              },
+              {
+                "pixels": 322,
+                "bounds": [
+                  1055,
+                  726,
+                  1075,
+                  746
+                ]
+              }
+            ]
+          }
+        ],
+        "maximumRedComponents": 2
+      }
+    }
+  ],
+  "totalFrames": 512,
+  "sourceVerification": {
+    "files": [
+      {
+        "path": "DicePrototype/Assets/Game/Core/Rules/ConfigJsonContract.cs",
+        "captureSha256": "5c5eb51d4dcefe314ba4ea83f890e9a85a21386e6029b4b73c58f88972a7cde6",
+        "currentSha256": "5c5eb51d4dcefe314ba4ea83f890e9a85a21386e6029b4b73c58f88972a7cde6",
+        "currentMatches": true,
+        "preflightListed": false,
+        "headBlobExists": true,
+        "headBlobSha256": "5c5eb51d4dcefe314ba4ea83f890e9a85a21386e6029b4b73c58f88972a7cde6",
+        "headNormalizedLfMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/Core/Rules/ConfigValidation.cs",
+        "captureSha256": "bae50229b0fe5dd844228add4a44128d7fc3814bc0a71d3f1ee4aa44c4edbc92",
+        "currentSha256": "bae50229b0fe5dd844228add4a44128d7fc3814bc0a71d3f1ee4aa44c4edbc92",
+        "currentMatches": true,
+        "preflightListed": false,
+        "headBlobExists": true,
+        "headBlobSha256": "bae50229b0fe5dd844228add4a44128d7fc3814bc0a71d3f1ee4aa44c4edbc92",
+        "headNormalizedLfMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/Core/Rules/ControllerRules.cs",
+        "captureSha256": "b30c4847e86825baa74dcd5a127a660e6479a71ccdb928a54592f6520f1ce30c",
+        "currentSha256": "b30c4847e86825baa74dcd5a127a660e6479a71ccdb928a54592f6520f1ce30c",
+        "currentMatches": true,
+        "preflightListed": false,
+        "headBlobExists": true,
+        "headBlobSha256": "b30c4847e86825baa74dcd5a127a660e6479a71ccdb928a54592f6520f1ce30c",
+        "headNormalizedLfMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/Core/Rules/ExactScoreMath.cs",
+        "captureSha256": "8a1e024cf8a84ae3ab6e985374003fd14d47b613798204ce97c37b60fdbdc57c",
+        "currentSha256": "8a1e024cf8a84ae3ab6e985374003fd14d47b613798204ce97c37b60fdbdc57c",
+        "currentMatches": true,
+        "preflightListed": false,
+        "headBlobExists": true,
+        "headBlobSha256": "8a1e024cf8a84ae3ab6e985374003fd14d47b613798204ce97c37b60fdbdc57c",
+        "headNormalizedLfMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/Core/Rules/GameConfig.cs",
+        "captureSha256": "7346a0a6e7aeef72d725c80e741f1b41d70ddbc8e0a890842ce228e111cbf127",
+        "currentSha256": "7346a0a6e7aeef72d725c80e741f1b41d70ddbc8e0a890842ce228e111cbf127",
+        "currentMatches": true,
+        "preflightListed": false,
+        "headBlobExists": true,
+        "headBlobSha256": "7346a0a6e7aeef72d725c80e741f1b41d70ddbc8e0a890842ce228e111cbf127",
+        "headNormalizedLfMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/Core/Rules/GameRng.cs",
+        "captureSha256": "41614b1946d1c4d7b31b4a20957ef285b1bafa5a6ef7e250d05f8c79ae38e042",
+        "currentSha256": "41614b1946d1c4d7b31b4a20957ef285b1bafa5a6ef7e250d05f8c79ae38e042",
+        "currentMatches": true,
+        "preflightListed": false,
+        "headBlobExists": true,
+        "headBlobSha256": "41614b1946d1c4d7b31b4a20957ef285b1bafa5a6ef7e250d05f8c79ae38e042",
+        "headNormalizedLfMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/Core/Rules/HandbookRules.cs",
+        "captureSha256": "a4e7f14bd122ad5457be5f3e15add7905316141c58d87dc754d9e6598f3c5b2d",
+        "currentSha256": "a4e7f14bd122ad5457be5f3e15add7905316141c58d87dc754d9e6598f3c5b2d",
+        "currentMatches": true,
+        "preflightListed": false,
+        "headBlobExists": true,
+        "headBlobSha256": "a4e7f14bd122ad5457be5f3e15add7905316141c58d87dc754d9e6598f3c5b2d",
+        "headNormalizedLfMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/Core/Rules/Models.cs",
+        "captureSha256": "ffb09a2f52fcaf56e3370251f5bd45535091843482b12a372c71bfe5ce1b99bc",
+        "currentSha256": "ffb09a2f52fcaf56e3370251f5bd45535091843482b12a372c71bfe5ce1b99bc",
+        "currentMatches": true,
+        "preflightListed": false,
+        "headBlobExists": true,
+        "headBlobSha256": "ffb09a2f52fcaf56e3370251f5bd45535091843482b12a372c71bfe5ce1b99bc",
+        "headNormalizedLfMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/Core/Rules/ProbabilityCalculator.cs",
+        "captureSha256": "0f25d9a47ee0951bb87458d4d10f63c78ee867e749ba411d005fae225a312fb5",
+        "currentSha256": "0f25d9a47ee0951bb87458d4d10f63c78ee867e749ba411d005fae225a312fb5",
+        "currentMatches": true,
+        "preflightListed": false,
+        "headBlobExists": true,
+        "headBlobSha256": "0f25d9a47ee0951bb87458d4d10f63c78ee867e749ba411d005fae225a312fb5",
+        "headNormalizedLfMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/Core/Rules/ScoreCalculator.cs",
+        "captureSha256": "e72fc655366705e220d801e2aa7f6f73383368596712063c97c154103df97f43",
+        "currentSha256": "e72fc655366705e220d801e2aa7f6f73383368596712063c97c154103df97f43",
+        "currentMatches": true,
+        "preflightListed": false,
+        "headBlobExists": true,
+        "headBlobSha256": "e72fc655366705e220d801e2aa7f6f73383368596712063c97c154103df97f43",
+        "headNormalizedLfMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/Core/Rules/ScoreExplanation.cs",
+        "captureSha256": "b223493cbde54ed76abaa1856ede39df9d2dec78b66f933645c7c6c6338f8b08",
+        "currentSha256": "b223493cbde54ed76abaa1856ede39df9d2dec78b66f933645c7c6c6338f8b08",
+        "currentMatches": true,
+        "preflightListed": false,
+        "headBlobExists": true,
+        "headBlobSha256": "b223493cbde54ed76abaa1856ede39df9d2dec78b66f933645c7c6c6338f8b08",
+        "headNormalizedLfMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/Core/Session/DebugScene.cs",
+        "captureSha256": "8b3efad9f004106f1adafe3026ff28f077843224c04c1b5bbaa9efec00dc6b3e",
+        "currentSha256": "8b3efad9f004106f1adafe3026ff28f077843224c04c1b5bbaa9efec00dc6b3e",
+        "currentMatches": true,
+        "preflightListed": false,
+        "headBlobExists": true,
+        "headBlobSha256": "8b3efad9f004106f1adafe3026ff28f077843224c04c1b5bbaa9efec00dc6b3e",
+        "headNormalizedLfMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/Core/Session/GameSession.Debug.cs",
+        "captureSha256": "fdf1b07785590eea17ef5cc786bc129852e7915bd0e529bbfe96c502f4d0e868",
+        "currentSha256": "fdf1b07785590eea17ef5cc786bc129852e7915bd0e529bbfe96c502f4d0e868",
+        "currentMatches": true,
+        "preflightListed": false,
+        "headBlobExists": true,
+        "headBlobSha256": "fdf1b07785590eea17ef5cc786bc129852e7915bd0e529bbfe96c502f4d0e868",
+        "headNormalizedLfMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/Core/Session/GameSession.Shop.cs",
+        "captureSha256": "320e2bbaec4f65a001a996b5c3cf6276ce8e47eec39a7a3712907b7b737261c4",
+        "currentSha256": "320e2bbaec4f65a001a996b5c3cf6276ce8e47eec39a7a3712907b7b737261c4",
+        "currentMatches": true,
+        "preflightListed": false,
+        "headBlobExists": true,
+        "headBlobSha256": "320e2bbaec4f65a001a996b5c3cf6276ce8e47eec39a7a3712907b7b737261c4",
+        "headNormalizedLfMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/Core/Session/GameSession.Submission.cs",
+        "captureSha256": "bc126b48a254724bc21bcd2c5e190d33867566d2dbf2bb9c5c9582f4d6c2bd7e",
+        "currentSha256": "bc126b48a254724bc21bcd2c5e190d33867566d2dbf2bb9c5c9582f4d6c2bd7e",
+        "currentMatches": true,
+        "preflightListed": false,
+        "headBlobExists": true,
+        "headBlobSha256": "bc126b48a254724bc21bcd2c5e190d33867566d2dbf2bb9c5c9582f4d6c2bd7e",
+        "headNormalizedLfMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/Core/Session/GameSession.Validation.cs",
+        "captureSha256": "1f0a908e5b5df35db130175338256bf7a3ecdd05c0c12558b01b0ac9a71c1bcc",
+        "currentSha256": "1f0a908e5b5df35db130175338256bf7a3ecdd05c0c12558b01b0ac9a71c1bcc",
+        "currentMatches": true,
+        "preflightListed": false,
+        "headBlobExists": true,
+        "headBlobSha256": "1f0a908e5b5df35db130175338256bf7a3ecdd05c0c12558b01b0ac9a71c1bcc",
+        "headNormalizedLfMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/Core/Session/GameSession.cs",
+        "captureSha256": "b222230d309ea3c0a64a5e5e5ecfe9d3032fd997d51ec73dfd51a39de7aefc90",
+        "currentSha256": "b222230d309ea3c0a64a5e5e5ecfe9d3032fd997d51ec73dfd51a39de7aefc90",
+        "currentMatches": true,
+        "preflightListed": false,
+        "headBlobExists": true,
+        "headBlobSha256": "b222230d309ea3c0a64a5e5e5ecfe9d3032fd997d51ec73dfd51a39de7aefc90",
+        "headNormalizedLfMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/Core/Session/SessionModels.cs",
+        "captureSha256": "3091c46bb42c604f91c0cb9eea7a4006444ce542c70aa3026e3ecac4ee13d9aa",
+        "currentSha256": "3091c46bb42c604f91c0cb9eea7a4006444ce542c70aa3026e3ecac4ee13d9aa",
+        "currentMatches": true,
+        "preflightListed": false,
+        "headBlobExists": true,
+        "headBlobSha256": "3091c46bb42c604f91c0cb9eea7a4006444ce542c70aa3026e3ecac4ee13d9aa",
+        "headNormalizedLfMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/Data/P0Config.json",
+        "captureSha256": "747ed1efc7bea15873f66a81eee5c7654971c21031f2a1517ce629adce7b6e6c",
+        "currentSha256": "747ed1efc7bea15873f66a81eee5c7654971c21031f2a1517ce629adce7b6e6c",
+        "currentMatches": true,
+        "preflightListed": false,
+        "headBlobExists": true,
+        "headBlobSha256": "747ed1efc7bea15873f66a81eee5c7654971c21031f2a1517ce629adce7b6e6c",
+        "headNormalizedLfMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/Editor/Art07AssetLibrary.cs",
+        "captureSha256": "365c216ebee45d04ed49d53417db92aea0515ab35a4ff9cec6144004510fc28a",
+        "currentSha256": "365c216ebee45d04ed49d53417db92aea0515ab35a4ff9cec6144004510fc28a",
+        "currentMatches": true,
+        "preflightListed": true,
+        "preflightSha256": "365c216ebee45d04ed49d53417db92aea0515ab35a4ff9cec6144004510fc28a",
+        "preflightMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/Editor/Art07AudioSetup.cs",
+        "captureSha256": "1947566f54a296273fbe060001ccdff684fccf4fe3504863d53ccdaf1011e4ef",
+        "currentSha256": "1947566f54a296273fbe060001ccdff684fccf4fe3504863d53ccdaf1011e4ef",
+        "currentMatches": true,
+        "preflightListed": true,
+        "preflightSha256": "1947566f54a296273fbe060001ccdff684fccf4fe3504863d53ccdaf1011e4ef",
+        "preflightMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/Editor/ProjectSetup.cs",
+        "captureSha256": "085e44072e757398c0131165f3bdef76dd58bcdca444bd0204787ddff98cd1e8",
+        "currentSha256": "085e44072e757398c0131165f3bdef76dd58bcdca444bd0204787ddff98cd1e8",
+        "currentMatches": true,
+        "preflightListed": false,
+        "headBlobExists": true,
+        "headBlobSha256": "085e44072e757398c0131165f3bdef76dd58bcdca444bd0204787ddff98cd1e8",
+        "headNormalizedLfMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/Editor/PrototypeBuild.cs",
+        "captureSha256": "87670b3e08d9bf66a20f3db4bdcf5ca2702bbf2ca75789a35dc83cdfd18aeec6",
+        "currentSha256": "87670b3e08d9bf66a20f3db4bdcf5ca2702bbf2ca75789a35dc83cdfd18aeec6",
+        "currentMatches": true,
+        "preflightListed": true,
+        "preflightSha256": "87670b3e08d9bf66a20f3db4bdcf5ca2702bbf2ca75789a35dc83cdfd18aeec6",
+        "preflightMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/Editor/TestEvidence.cs",
+        "captureSha256": "e227b1089af2016ff1c0b1db039be425108a47d8d0a04e1a25166f6515ec6621",
+        "currentSha256": "e227b1089af2016ff1c0b1db039be425108a47d8d0a04e1a25166f6515ec6621",
+        "currentMatches": true,
+        "preflightListed": true,
+        "preflightSha256": "e227b1089af2016ff1c0b1db039be425108a47d8d0a04e1a25166f6515ec6621",
+        "preflightMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/Editor/V05Setup.cs",
+        "captureSha256": "bb775f98f0033ece31d2710781f4c7ef66f21e4d6afa8a3f1e52a53a8e748d06",
+        "currentSha256": "bb775f98f0033ece31d2710781f4c7ef66f21e4d6afa8a3f1e52a53a8e748d06",
+        "currentMatches": true,
+        "preflightListed": false,
+        "headBlobExists": true,
+        "headBlobSha256": "bb775f98f0033ece31d2710781f4c7ef66f21e4d6afa8a3f1e52a53a8e748d06",
+        "headNormalizedLfMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/Editor/V06Setup.cs",
+        "captureSha256": "777a7dfcebe118ecc06beffc270f967582c7996023dfce13656f95641ffc0aca",
+        "currentSha256": "777a7dfcebe118ecc06beffc270f967582c7996023dfce13656f95641ffc0aca",
+        "currentMatches": true,
+        "preflightListed": false,
+        "headBlobExists": true,
+        "headBlobSha256": "777a7dfcebe118ecc06beffc270f967582c7996023dfce13656f95641ffc0aca",
+        "headNormalizedLfMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/Editor/V07Setup.cs",
+        "captureSha256": "308d7b00bf2ce349353945568c5acce444abe034dbc2675badc71dd7c5abe32a",
+        "currentSha256": "308d7b00bf2ce349353945568c5acce444abe034dbc2675badc71dd7c5abe32a",
+        "currentMatches": true,
+        "preflightListed": true,
+        "preflightSha256": "308d7b00bf2ce349353945568c5acce444abe034dbc2675badc71dd7c5abe32a",
+        "preflightMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/Runtime/AtomicSaveStore.cs",
+        "captureSha256": "1cad1692e93f375c4c8b718bad320c64788973bb63fca77146de28409cb239b0",
+        "currentSha256": "1cad1692e93f375c4c8b718bad320c64788973bb63fca77146de28409cb239b0",
+        "currentMatches": true,
+        "preflightListed": false,
+        "headBlobExists": true,
+        "headBlobSha256": "1cad1692e93f375c4c8b718bad320c64788973bb63fca77146de28409cb239b0",
+        "headNormalizedLfMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/Runtime/DiceTable.cs",
+        "captureSha256": "1c60e87c973e7647a7f469f7f7ef0eb8986b6e4ff90e1854e93dcb0fd6ed1b19",
+        "currentSha256": "1c60e87c973e7647a7f469f7f7ef0eb8986b6e4ff90e1854e93dcb0fd6ed1b19",
+        "currentMatches": true,
+        "preflightListed": true,
+        "preflightSha256": "1c60e87c973e7647a7f469f7f7ef0eb8986b6e4ff90e1854e93dcb0fd6ed1b19",
+        "preflightMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/Runtime/DisplaySettings.cs",
+        "captureSha256": "6f0ca301e54df5aeec2d87ede1c20af8f2100e368941f37d73ca87c8a99fb998",
+        "currentSha256": "6f0ca301e54df5aeec2d87ede1c20af8f2100e368941f37d73ca87c8a99fb998",
+        "currentMatches": true,
+        "preflightListed": false,
+        "headBlobExists": true,
+        "headBlobSha256": "6f0ca301e54df5aeec2d87ede1c20af8f2100e368941f37d73ca87c8a99fb998",
+        "headNormalizedLfMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/Runtime/FramePacer.cs",
+        "captureSha256": "74970d291d1b3cbde7cb4f421da6decedae912a6f8c1f29003712b524a8ecba0",
+        "currentSha256": "74970d291d1b3cbde7cb4f421da6decedae912a6f8c1f29003712b524a8ecba0",
+        "currentMatches": true,
+        "preflightListed": false,
+        "headBlobExists": true,
+        "headBlobSha256": "74970d291d1b3cbde7cb4f421da6decedae912a6f8c1f29003712b524a8ecba0",
+        "headNormalizedLfMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/Runtime/GameApp.cs",
+        "captureSha256": "aa97bb1855ec7ad5c66a395247d8eb9c08d1bbdc774826e8e2153875d93ebed8",
+        "currentSha256": "ba538b9922c78112fdcaabd7f91cf31c95f957c46ff36050127d038cbdb41870",
+        "currentMatches": false,
+        "preflightListed": true,
+        "preflightSha256": "aa97bb1855ec7ad5c66a395247d8eb9c08d1bbdc774826e8e2153875d93ebed8",
+        "preflightMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/Runtime/Presentation/Art07FaceTransition.cs",
+        "captureSha256": "2ae962dfccd645cf5394acd71f17c22c7d7b17db7c9352b127174b5e7102d996",
+        "currentSha256": "2ae962dfccd645cf5394acd71f17c22c7d7b17db7c9352b127174b5e7102d996",
+        "currentMatches": true,
+        "preflightListed": true,
+        "preflightSha256": "2ae962dfccd645cf5394acd71f17c22c7d7b17db7c9352b127174b5e7102d996",
+        "preflightMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/Runtime/Presentation/Art07PrefabView.cs",
+        "captureSha256": "f1d7651f5a44757f27585bc2c0dc5f399976d5d625fec0af8a946ac681bea1cc",
+        "currentSha256": "f1d7651f5a44757f27585bc2c0dc5f399976d5d625fec0af8a946ac681bea1cc",
+        "currentMatches": true,
+        "preflightListed": true,
+        "preflightSha256": "f1d7651f5a44757f27585bc2c0dc5f399976d5d625fec0af8a946ac681bea1cc",
+        "preflightMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/Runtime/Presentation/Art07QualifiedStamp.cs",
+        "captureSha256": "95a20975127bd49fb78f102edd66d7ee55bb7aef725c2cc81c1169463eb544e7",
+        "currentSha256": "95a20975127bd49fb78f102edd66d7ee55bb7aef725c2cc81c1169463eb544e7",
+        "currentMatches": true,
+        "preflightListed": true,
+        "preflightSha256": "95a20975127bd49fb78f102edd66d7ee55bb7aef725c2cc81c1169463eb544e7",
+        "preflightMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/Runtime/Presentation/Art07ScoreBurstLayout.cs",
+        "captureSha256": "dd17e066f885098ed781bae37c6d660202e4dc70763bb4ca96ca14f367c4d97c",
+        "currentSha256": "dd17e066f885098ed781bae37c6d660202e4dc70763bb4ca96ca14f367c4d97c",
+        "currentMatches": true,
+        "preflightListed": true,
+        "preflightSha256": "dd17e066f885098ed781bae37c6d660202e4dc70763bb4ca96ca14f367c4d97c",
+        "preflightMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/Runtime/Presentation/Art07TransactionMotion.cs",
+        "captureSha256": "7a4b236c641f2d93ab7c5d8ed52c28bb544ab20b3e76831e12ec6d6404de1460",
+        "currentSha256": "7a4b236c641f2d93ab7c5d8ed52c28bb544ab20b3e76831e12ec6d6404de1460",
+        "currentMatches": true,
+        "preflightListed": true,
+        "preflightSha256": "7a4b236c641f2d93ab7c5d8ed52c28bb544ab20b3e76831e12ec6d6404de1460",
+        "preflightMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/Runtime/Presentation/Art07UpgradeSurface.cs",
+        "captureSha256": "fda8f3e1ab6b072f647be2e8a310cd79c6000b0a5f5070a50eeb49be59c22e73",
+        "currentSha256": "fda8f3e1ab6b072f647be2e8a310cd79c6000b0a5f5070a50eeb49be59c22e73",
+        "currentMatches": true,
+        "preflightListed": true,
+        "preflightSha256": "fda8f3e1ab6b072f647be2e8a310cd79c6000b0a5f5070a50eeb49be59c22e73",
+        "preflightMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/Runtime/Presentation/AudioCueMap.cs",
+        "captureSha256": "1db0ef2664832f257bc40fdb750121b614889fbc6b6610c46a69d2bad2dc1d2b",
+        "currentSha256": "1db0ef2664832f257bc40fdb750121b614889fbc6b6610c46a69d2bad2dc1d2b",
+        "currentMatches": true,
+        "preflightListed": true,
+        "preflightSha256": "1db0ef2664832f257bc40fdb750121b614889fbc6b6610c46a69d2bad2dc1d2b",
+        "preflightMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/Runtime/Presentation/PresentationAudio.cs",
+        "captureSha256": "6380371957b8178aaaff9aa2851c077e60860c795a916dcd928be4857a371fcd",
+        "currentSha256": "6380371957b8178aaaff9aa2851c077e60860c795a916dcd928be4857a371fcd",
+        "currentMatches": true,
+        "preflightListed": true,
+        "preflightSha256": "6380371957b8178aaaff9aa2851c077e60860c795a916dcd928be4857a371fcd",
+        "preflightMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/Runtime/Presentation/PresentationEffectBudget.cs",
+        "captureSha256": "0d23e5314762d2ea66efaf0e88e15c71acaef3942049f5336c242016d8ad17c0",
+        "currentSha256": "0d23e5314762d2ea66efaf0e88e15c71acaef3942049f5336c242016d8ad17c0",
+        "currentMatches": true,
+        "preflightListed": true,
+        "preflightSha256": "0d23e5314762d2ea66efaf0e88e15c71acaef3942049f5336c242016d8ad17c0",
+        "preflightMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/Runtime/Presentation/PresentationModels.cs",
+        "captureSha256": "6bc6eab0c33d9813bbf06e6074c4074b6ade286b5c2228df8a9b85494e9d181d",
+        "currentSha256": "6bc6eab0c33d9813bbf06e6074c4074b6ade286b5c2228df8a9b85494e9d181d",
+        "currentMatches": true,
+        "preflightListed": true,
+        "preflightSha256": "6bc6eab0c33d9813bbf06e6074c4074b6ade286b5c2228df8a9b85494e9d181d",
+        "preflightMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/Runtime/Presentation/PresentationReceiptAdapter.cs",
+        "captureSha256": "011071df761e327d81a77c88da3cda64d7d63c33dc9a02a750407119ff246236",
+        "currentSha256": "011071df761e327d81a77c88da3cda64d7d63c33dc9a02a750407119ff246236",
+        "currentMatches": true,
+        "preflightListed": true,
+        "preflightSha256": "011071df761e327d81a77c88da3cda64d7d63c33dc9a02a750407119ff246236",
+        "preflightMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/Runtime/Presentation/PresentationSequence.cs",
+        "captureSha256": "53952fbbb737d66bf650f5c8d9ee9f69191280ad7327beb38c1255b1f742940a",
+        "currentSha256": "53952fbbb737d66bf650f5c8d9ee9f69191280ad7327beb38c1255b1f742940a",
+        "currentMatches": true,
+        "preflightListed": true,
+        "preflightSha256": "53952fbbb737d66bf650f5c8d9ee9f69191280ad7327beb38c1255b1f742940a",
+        "preflightMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/Runtime/Verification/Art07AudioDiagnostic.cs",
+        "captureSha256": "fa8ba953ed04961aae410767ada34f8ee2e893b36337f2bc44dac0c5daee026f",
+        "currentSha256": "fa8ba953ed04961aae410767ada34f8ee2e893b36337f2bc44dac0c5daee026f",
+        "currentMatches": true,
+        "preflightListed": true,
+        "preflightSha256": "fa8ba953ed04961aae410767ada34f8ee2e893b36337f2bc44dac0c5daee026f",
+        "preflightMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/Runtime/Verification/Art07Fixtures.cs",
+        "captureSha256": "199de1d73ec378160fd68e56d4f638f3f99893a8b7a0b701647a5157f4948850",
+        "currentSha256": "199de1d73ec378160fd68e56d4f638f3f99893a8b7a0b701647a5157f4948850",
+        "currentMatches": true,
+        "preflightListed": true,
+        "preflightSha256": "199de1d73ec378160fd68e56d4f638f3f99893a8b7a0b701647a5157f4948850",
+        "preflightMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/Runtime/Verification/Art07ScreenRecorder.cs",
+        "captureSha256": "5d784144227db170af9bd7a3e9801138433fd32925e9d0c40fad481b7ce63bd1",
+        "currentSha256": "5d784144227db170af9bd7a3e9801138433fd32925e9d0c40fad481b7ce63bd1",
+        "currentMatches": true,
+        "preflightListed": true,
+        "preflightSha256": "5d784144227db170af9bd7a3e9801138433fd32925e9d0c40fad481b7ce63bd1",
+        "preflightMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/Runtime/Verification/Art07VisualRecorder.Transactions.cs",
+        "captureSha256": "666cc44c4fc2246383be219d3787dd69365e527dfff0d94fce5b3184ebb5775d",
+        "currentSha256": "666cc44c4fc2246383be219d3787dd69365e527dfff0d94fce5b3184ebb5775d",
+        "currentMatches": true,
+        "preflightListed": true,
+        "preflightSha256": "666cc44c4fc2246383be219d3787dd69365e527dfff0d94fce5b3184ebb5775d",
+        "preflightMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/Runtime/Verification/Art07VisualRecorder.cs",
+        "captureSha256": "49dc419ad0881ff2c5de9f48e331eceb56508fd83605d6a95ee624859307aa76",
+        "currentSha256": "49dc419ad0881ff2c5de9f48e331eceb56508fd83605d6a95ee624859307aa76",
+        "currentMatches": true,
+        "preflightListed": true,
+        "preflightSha256": "49dc419ad0881ff2c5de9f48e331eceb56508fd83605d6a95ee624859307aa76",
+        "preflightMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/Runtime/Verification/FramePacingExperiment.cs",
+        "captureSha256": "8f2249d44cadf8b341941c8801ca7846d326a8fa7f5eb7d198923de6d79a36f1",
+        "currentSha256": "8f2249d44cadf8b341941c8801ca7846d326a8fa7f5eb7d198923de6d79a36f1",
+        "currentMatches": true,
+        "preflightListed": false,
+        "headBlobExists": true,
+        "headBlobSha256": "8f2249d44cadf8b341941c8801ca7846d326a8fa7f5eb7d198923de6d79a36f1",
+        "headNormalizedLfMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/Runtime/Verification/PlayerVerification.V06.cs",
+        "captureSha256": "6bc9a45fb81aef83aebfb2b59bd1345b66879309c554df85f26377d611ae2b12",
+        "currentSha256": "4adf1d94db8c77d1f7b04702ff77f598b5630fd28739375c521f5aa4c1461bed",
+        "currentMatches": false,
+        "preflightListed": true,
+        "preflightSha256": "6bc9a45fb81aef83aebfb2b59bd1345b66879309c554df85f26377d611ae2b12",
+        "preflightMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/Runtime/Verification/PlayerVerification.cs",
+        "captureSha256": "f7aa131d259aa953d7a9ebc8340079f9d0fabe99c4605d5ee35e00d6a2732ed9",
+        "currentSha256": "f7aa131d259aa953d7a9ebc8340079f9d0fabe99c4605d5ee35e00d6a2732ed9",
+        "currentMatches": true,
+        "preflightListed": true,
+        "preflightSha256": "f7aa131d259aa953d7a9ebc8340079f9d0fabe99c4605d5ee35e00d6a2732ed9",
+        "preflightMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/Tests/EditMode/Persistence/AtomicSaveStoreTests.cs",
+        "captureSha256": "5a0061fd74c2d40c8a3dc46f40c27b79a7d51be08bcf7618fc786e92f78fc7ee",
+        "currentSha256": "5a0061fd74c2d40c8a3dc46f40c27b79a7d51be08bcf7618fc786e92f78fc7ee",
+        "currentMatches": true,
+        "preflightListed": false,
+        "headBlobExists": true,
+        "headBlobSha256": "5a0061fd74c2d40c8a3dc46f40c27b79a7d51be08bcf7618fc786e92f78fc7ee",
+        "headNormalizedLfMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/Tests/EditMode/Persistence/DisplaySettingsTests.cs",
+        "captureSha256": "8d4c85bdc7255994af5cf6edf7fd5e1efa95367cd152324e54aadcf3f54b7755",
+        "currentSha256": "8d4c85bdc7255994af5cf6edf7fd5e1efa95367cd152324e54aadcf3f54b7755",
+        "currentMatches": true,
+        "preflightListed": false,
+        "headBlobExists": true,
+        "headBlobSha256": "8d4c85bdc7255994af5cf6edf7fd5e1efa95367cd152324e54aadcf3f54b7755",
+        "headNormalizedLfMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/Tests/EditMode/Persistence/FramePacerTests.cs",
+        "captureSha256": "0d95554631b9eb321bcb7475658ae5f4ffb9e71b82106ed78122332ab833d127",
+        "currentSha256": "0d95554631b9eb321bcb7475658ae5f4ffb9e71b82106ed78122332ab833d127",
+        "currentMatches": true,
+        "preflightListed": false,
+        "headBlobExists": true,
+        "headBlobSha256": "0d95554631b9eb321bcb7475658ae5f4ffb9e71b82106ed78122332ab833d127",
+        "headNormalizedLfMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/Tests/EditMode/Persistence/V06ShopPersistenceTests.cs",
+        "captureSha256": "8d70b99a4f9095949cebb1f5d58bb022fa13f5fbe8ca78b0891af025eca45eef",
+        "currentSha256": "8d70b99a4f9095949cebb1f5d58bb022fa13f5fbe8ca78b0891af025eca45eef",
+        "currentMatches": true,
+        "preflightListed": false,
+        "headBlobExists": true,
+        "headBlobSha256": "8d70b99a4f9095949cebb1f5d58bb022fa13f5fbe8ca78b0891af025eca45eef",
+        "headNormalizedLfMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/Tests/EditMode/Presentation/PresentationTests.cs",
+        "captureSha256": "e13ddc74d3cd1f7ff832796df6858677808b5f404c6e87afbaab777229b0cffa",
+        "currentSha256": "e13ddc74d3cd1f7ff832796df6858677808b5f404c6e87afbaab777229b0cffa",
+        "currentMatches": true,
+        "preflightListed": true,
+        "preflightSha256": "e13ddc74d3cd1f7ff832796df6858677808b5f404c6e87afbaab777229b0cffa",
+        "preflightMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/Tests/EditMode/Rules/ControllerScoreTests.cs",
+        "captureSha256": "458726facac7306906bbacef0235409aada43dd5870386e3b3cc609938ae5bd1",
+        "currentSha256": "458726facac7306906bbacef0235409aada43dd5870386e3b3cc609938ae5bd1",
+        "currentMatches": true,
+        "preflightListed": false,
+        "headBlobExists": true,
+        "headBlobSha256": "458726facac7306906bbacef0235409aada43dd5870386e3b3cc609938ae5bd1",
+        "headNormalizedLfMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/Tests/EditMode/Rules/RulesTests.cs",
+        "captureSha256": "d1dcb91ea14eedbd723b3d51049f32a66cc2894d9dfdd8ee9641ad9b9d520526",
+        "currentSha256": "d1dcb91ea14eedbd723b3d51049f32a66cc2894d9dfdd8ee9641ad9b9d520526",
+        "currentMatches": true,
+        "preflightListed": false,
+        "headBlobExists": true,
+        "headBlobSha256": "d1dcb91ea14eedbd723b3d51049f32a66cc2894d9dfdd8ee9641ad9b9d520526",
+        "headNormalizedLfMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/Tests/EditMode/Rules/ScoreExplanationTests.cs",
+        "captureSha256": "21746ec8b2861c324a99aa0fa76769aadc9acaf85f50c6cc5165d30c6c242f4a",
+        "currentSha256": "21746ec8b2861c324a99aa0fa76769aadc9acaf85f50c6cc5165d30c6c242f4a",
+        "currentMatches": true,
+        "preflightListed": false,
+        "headBlobExists": true,
+        "headBlobSha256": "21746ec8b2861c324a99aa0fa76769aadc9acaf85f50c6cc5165d30c6c242f4a",
+        "headNormalizedLfMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/Tests/EditMode/Rules/V05RulesTests.cs",
+        "captureSha256": "0a5256d5bc8795c1bfe9e0a03677084e70c4ed820529294b12b1d1d2f84d7f3a",
+        "currentSha256": "0a5256d5bc8795c1bfe9e0a03677084e70c4ed820529294b12b1d1d2f84d7f3a",
+        "currentMatches": true,
+        "preflightListed": false,
+        "headBlobExists": true,
+        "headBlobSha256": "0a5256d5bc8795c1bfe9e0a03677084e70c4ed820529294b12b1d1d2f84d7f3a",
+        "headNormalizedLfMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/Tests/EditMode/Rules/V06SourceBoundaryTests.cs",
+        "captureSha256": "02efc8fb87dc09a61deb19a076cc15066b20b6f0a75b1b8260bf215e31421326",
+        "currentSha256": "02efc8fb87dc09a61deb19a076cc15066b20b6f0a75b1b8260bf215e31421326",
+        "currentMatches": true,
+        "preflightListed": false,
+        "headBlobExists": true,
+        "headBlobSha256": "02efc8fb87dc09a61deb19a076cc15066b20b6f0a75b1b8260bf215e31421326",
+        "headNormalizedLfMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/Tests/EditMode/Session/FlowTests.cs",
+        "captureSha256": "a2a695970b347e985568b9e6f5413e1b7f001b5c0409127d17f7d9366951bba2",
+        "currentSha256": "a2a695970b347e985568b9e6f5413e1b7f001b5c0409127d17f7d9366951bba2",
+        "currentMatches": true,
+        "preflightListed": false,
+        "headBlobExists": true,
+        "headBlobSha256": "a2a695970b347e985568b9e6f5413e1b7f001b5c0409127d17f7d9366951bba2",
+        "headNormalizedLfMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/Tests/EditMode/Session/ItemAndSaveTests.cs",
+        "captureSha256": "bd23b47b93b76cf7b78ae873a1c0675da88f9708886dcea5bfd340b38826e7db",
+        "currentSha256": "bd23b47b93b76cf7b78ae873a1c0675da88f9708886dcea5bfd340b38826e7db",
+        "currentMatches": true,
+        "preflightListed": false,
+        "headBlobExists": true,
+        "headBlobSha256": "bd23b47b93b76cf7b78ae873a1c0675da88f9708886dcea5bfd340b38826e7db",
+        "headNormalizedLfMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/Tests/EditMode/Session/SessionTestSupport.cs",
+        "captureSha256": "5ef852703c431c1d964bf1b5027a93988c0a095ec2ce69b829221fcb789583ed",
+        "currentSha256": "5ef852703c431c1d964bf1b5027a93988c0a095ec2ce69b829221fcb789583ed",
+        "currentMatches": true,
+        "preflightListed": false,
+        "headBlobExists": true,
+        "headBlobSha256": "5ef852703c431c1d964bf1b5027a93988c0a095ec2ce69b829221fcb789583ed",
+        "headNormalizedLfMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/Tests/EditMode/Session/ShopTests.cs",
+        "captureSha256": "e5ed090e913e20def82fbc929de7cf4e23bcad3e4a3d36835f4746a95b029faa",
+        "currentSha256": "e5ed090e913e20def82fbc929de7cf4e23bcad3e4a3d36835f4746a95b029faa",
+        "currentMatches": true,
+        "preflightListed": false,
+        "headBlobExists": true,
+        "headBlobSha256": "e5ed090e913e20def82fbc929de7cf4e23bcad3e4a3d36835f4746a95b029faa",
+        "headNormalizedLfMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/Tests/EditMode/Session/V05SessionTests.cs",
+        "captureSha256": "7d512af38be3df3dd4ec234474b3c85fe3c7083b79ba836179455e5fe4d3553d",
+        "currentSha256": "7d512af38be3df3dd4ec234474b3c85fe3c7083b79ba836179455e5fe4d3553d",
+        "currentMatches": true,
+        "preflightListed": false,
+        "headBlobExists": true,
+        "headBlobSha256": "7d512af38be3df3dd4ec234474b3c85fe3c7083b79ba836179455e5fe4d3553d",
+        "headNormalizedLfMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/Tests/EditMode/Session/V06SessionTests.cs",
+        "captureSha256": "9d6b43380c1f9ecf73787dd1275e38f8c57dba56d33d9d85903fbcb26e70c584",
+        "currentSha256": "9d6b43380c1f9ecf73787dd1275e38f8c57dba56d33d9d85903fbcb26e70c584",
+        "currentMatches": true,
+        "preflightListed": false,
+        "headBlobExists": true,
+        "headBlobSha256": "9d6b43380c1f9ecf73787dd1275e38f8c57dba56d33d9d85903fbcb26e70c584",
+        "headNormalizedLfMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/Tests/EditMode/Session/V06ShopCanonicalTests.cs",
+        "captureSha256": "3c0dedcfd4908eb04834cc4fceaa1188afd0c7018696a388e24e9e030bc6cf59",
+        "currentSha256": "3c0dedcfd4908eb04834cc4fceaa1188afd0c7018696a388e24e9e030bc6cf59",
+        "currentMatches": true,
+        "preflightListed": false,
+        "headBlobExists": true,
+        "headBlobSha256": "3c0dedcfd4908eb04834cc4fceaa1188afd0c7018696a388e24e9e030bc6cf59",
+        "headNormalizedLfMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/Tests/PlayMode/Art07AssetLibraryPlayModeTests.cs",
+        "captureSha256": "578d5baecef141e5b7488d0cc89c01f17a4d05c1320493f4fdc53fcc5cbd7698",
+        "currentSha256": "578d5baecef141e5b7488d0cc89c01f17a4d05c1320493f4fdc53fcc5cbd7698",
+        "currentMatches": true,
+        "preflightListed": true,
+        "preflightSha256": "578d5baecef141e5b7488d0cc89c01f17a4d05c1320493f4fdc53fcc5cbd7698",
+        "preflightMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/Tests/PlayMode/Art07BreakdownLayoutPlayModeTests.cs",
+        "captureSha256": "d65f5914147a8221dcf155d2b181d080fbee847b3937b94ab2d1909b0651bdc3",
+        "currentSha256": "d65f5914147a8221dcf155d2b181d080fbee847b3937b94ab2d1909b0651bdc3",
+        "currentMatches": true,
+        "preflightListed": true,
+        "preflightSha256": "d65f5914147a8221dcf155d2b181d080fbee847b3937b94ab2d1909b0651bdc3",
+        "preflightMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/Tests/PlayMode/Art07CardReadabilityPlayModeTests.cs",
+        "captureSha256": "f08255999e788566a9a19c59350b36f953bd1d654595fb345baff110115e8b6a",
+        "currentSha256": "f08255999e788566a9a19c59350b36f953bd1d654595fb345baff110115e8b6a",
+        "currentMatches": true,
+        "preflightListed": true,
+        "preflightSha256": "f08255999e788566a9a19c59350b36f953bd1d654595fb345baff110115e8b6a",
+        "preflightMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/Tests/PlayMode/Art07DiceDetailsPlayModeTests.cs",
+        "captureSha256": "7a16f05b6353b892e3d5cd5e7707ab1e7427315eeb0f39233d6cbfbd340f1d27",
+        "currentSha256": "7a16f05b6353b892e3d5cd5e7707ab1e7427315eeb0f39233d6cbfbd340f1d27",
+        "currentMatches": true,
+        "preflightListed": true,
+        "preflightSha256": "7a16f05b6353b892e3d5cd5e7707ab1e7427315eeb0f39233d6cbfbd340f1d27",
+        "preflightMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/Tests/PlayMode/Art07DiceLabelsPlayModeTests.cs",
+        "captureSha256": "d32240367aea232581135c14c86d56cf9cacc3525a213fd28f701db54533fa54",
+        "currentSha256": "d32240367aea232581135c14c86d56cf9cacc3525a213fd28f701db54533fa54",
+        "currentMatches": true,
+        "preflightListed": true,
+        "preflightSha256": "d32240367aea232581135c14c86d56cf9cacc3525a213fd28f701db54533fa54",
+        "preflightMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/Tests/PlayMode/Art07EdgeScreensPlayModeTests.cs",
+        "captureSha256": "fa3e27fc9e47589aff499ff656650e88e299ce02e757a5383bbedf34b94ae50f",
+        "currentSha256": "fa3e27fc9e47589aff499ff656650e88e299ce02e757a5383bbedf34b94ae50f",
+        "currentMatches": true,
+        "preflightListed": true,
+        "preflightSha256": "fa3e27fc9e47589aff499ff656650e88e299ce02e757a5383bbedf34b94ae50f",
+        "preflightMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/Tests/PlayMode/Art07ExtraCapturePlayModeTests.cs",
+        "captureSha256": "bc8ec5f8e6106f4f9284315a6b5a87b65d06c7cbcf753e33a605b7882331e647",
+        "currentSha256": "bc8ec5f8e6106f4f9284315a6b5a87b65d06c7cbcf753e33a605b7882331e647",
+        "currentMatches": true,
+        "preflightListed": true,
+        "preflightSha256": "bc8ec5f8e6106f4f9284315a6b5a87b65d06c7cbcf753e33a605b7882331e647",
+        "preflightMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/Tests/PlayMode/Art07FinalResultPlayModeTests.cs",
+        "captureSha256": "edc92798c0493814b5613564d14ab0965fa8a01c419adee6d93ca3b4a10f7923",
+        "currentSha256": "edc92798c0493814b5613564d14ab0965fa8a01c419adee6d93ca3b4a10f7923",
+        "currentMatches": true,
+        "preflightListed": true,
+        "preflightSha256": "edc92798c0493814b5613564d14ab0965fa8a01c419adee6d93ca3b4a10f7923",
+        "preflightMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/Tests/PlayMode/Art07FxIntegrationPlayModeTests.cs",
+        "captureSha256": "de7983eb4959f325a548def59d2df0df2084f72461f81a76b9eec0d60f978ff5",
+        "currentSha256": "de7983eb4959f325a548def59d2df0df2084f72461f81a76b9eec0d60f978ff5",
+        "currentMatches": true,
+        "preflightListed": true,
+        "preflightSha256": "de7983eb4959f325a548def59d2df0df2084f72461f81a76b9eec0d60f978ff5",
+        "preflightMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/Tests/PlayMode/Art07GuideLayoutPlayModeTests.cs",
+        "captureSha256": "dd51c842a4eb3f9ed53cb605f31c04679b87912a503bbf3d345e4e7405c96e95",
+        "currentSha256": "dd51c842a4eb3f9ed53cb605f31c04679b87912a503bbf3d345e4e7405c96e95",
+        "currentMatches": true,
+        "preflightListed": true,
+        "preflightSha256": "dd51c842a4eb3f9ed53cb605f31c04679b87912a503bbf3d345e4e7405c96e95",
+        "preflightMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/Tests/PlayMode/Art07InformationPlayModeTests.cs",
+        "captureSha256": "8f11c1fafe5729458f184be4518c790965bf7ace9f35fdc798dc28e28822e434",
+        "currentSha256": "8f11c1fafe5729458f184be4518c790965bf7ace9f35fdc798dc28e28822e434",
+        "currentMatches": true,
+        "preflightListed": true,
+        "preflightSha256": "8f11c1fafe5729458f184be4518c790965bf7ace9f35fdc798dc28e28822e434",
+        "preflightMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/Tests/PlayMode/Art07InteractionPlayModeTests.cs",
+        "captureSha256": "074c4a74740c4413b49edd5175c71134c7a1df7201d6dce5afe8e899ba4fc32e",
+        "currentSha256": "b7f09269bfbc5e833385e46edb4d937edbe357e922dbd0f29da0f3628435a246",
+        "currentMatches": false,
+        "preflightListed": true,
+        "preflightSha256": "074c4a74740c4413b49edd5175c71134c7a1df7201d6dce5afe8e899ba4fc32e",
+        "preflightMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/Tests/PlayMode/Art07LegacyUiNavigationPlayModeTests.cs",
+        "captureSha256": "1791d1afa5a2da70fa32af9dab1ace541ee77e5e9e4102385a11341d842aff94",
+        "currentSha256": "1791d1afa5a2da70fa32af9dab1ace541ee77e5e9e4102385a11341d842aff94",
+        "currentMatches": true,
+        "preflightListed": true,
+        "preflightSha256": "1791d1afa5a2da70fa32af9dab1ace541ee77e5e9e4102385a11341d842aff94",
+        "preflightMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/Tests/PlayMode/Art07PanelsAndHintsPlayModeTests.cs",
+        "captureSha256": "6726629c81f569e142295da274266ff0d38b9e2fa312571ac7b71f98f7576f49",
+        "currentSha256": "6726629c81f569e142295da274266ff0d38b9e2fa312571ac7b71f98f7576f49",
+        "currentMatches": true,
+        "preflightListed": true,
+        "preflightSha256": "6726629c81f569e142295da274266ff0d38b9e2fa312571ac7b71f98f7576f49",
+        "preflightMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/Tests/PlayMode/Art07PostEffectsPlayModeTests.cs",
+        "captureSha256": "19ab0544508780aa44bd886421197e1b85cc5a9b917d3ad351d67976ac2929fd",
+        "currentSha256": "19ab0544508780aa44bd886421197e1b85cc5a9b917d3ad351d67976ac2929fd",
+        "currentMatches": true,
+        "preflightListed": true,
+        "preflightSha256": "19ab0544508780aa44bd886421197e1b85cc5a9b917d3ad351d67976ac2929fd",
+        "preflightMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/Tests/PlayMode/Art07RemoteScrollPlayModeTests.cs",
+        "captureSha256": "c5b65fe8d39612fc8405e4cc4ed792685ed2c752bab224ff7d141e555a2492a7",
+        "currentSha256": "c5b65fe8d39612fc8405e4cc4ed792685ed2c752bab224ff7d141e555a2492a7",
+        "currentMatches": true,
+        "preflightListed": true,
+        "preflightSha256": "c5b65fe8d39612fc8405e4cc4ed792685ed2c752bab224ff7d141e555a2492a7",
+        "preflightMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/Tests/PlayMode/Art07ScoreLabelsPlayModeTests.cs",
+        "captureSha256": "502f1e75b46b7462aed554d638f68b4660c1378dd56d8c32874b39a6caf5d901",
+        "currentSha256": "502f1e75b46b7462aed554d638f68b4660c1378dd56d8c32874b39a6caf5d901",
+        "currentMatches": true,
+        "preflightListed": true,
+        "preflightSha256": "502f1e75b46b7462aed554d638f68b4660c1378dd56d8c32874b39a6caf5d901",
+        "preflightMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/Tests/PlayMode/Art07ShopInterestPlayModeTests.cs",
+        "captureSha256": "d44a024aed8d11e204d5d7f9dcb0802a79d3c47ed954a140660913edb68e0d1a",
+        "currentSha256": "d44a024aed8d11e204d5d7f9dcb0802a79d3c47ed954a140660913edb68e0d1a",
+        "currentMatches": true,
+        "preflightListed": true,
+        "preflightSha256": "d44a024aed8d11e204d5d7f9dcb0802a79d3c47ed954a140660913edb68e0d1a",
+        "preflightMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/Tests/PlayMode/Art07TransactionGlyphPlayModeTests.cs",
+        "captureSha256": "4168d5e8c1d6c583e09ad141239daa1048cd7cea54b3804b4ad7ea99f24be039",
+        "currentSha256": "4168d5e8c1d6c583e09ad141239daa1048cd7cea54b3804b4ad7ea99f24be039",
+        "currentMatches": true,
+        "preflightListed": true,
+        "preflightSha256": "4168d5e8c1d6c583e09ad141239daa1048cd7cea54b3804b4ad7ea99f24be039",
+        "preflightMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/Tests/PlayMode/Art07TransactionPlayModeTests.cs",
+        "captureSha256": "9aa905548c93d42845bcd485fc1ead32ba390c782b3888ef55105d0aef0c3e57",
+        "currentSha256": "9aa905548c93d42845bcd485fc1ead32ba390c782b3888ef55105d0aef0c3e57",
+        "currentMatches": true,
+        "preflightListed": true,
+        "preflightSha256": "9aa905548c93d42845bcd485fc1ead32ba390c782b3888ef55105d0aef0c3e57",
+        "preflightMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/Tests/PlayMode/Art07UpgradeVisualPlayModeTests.cs",
+        "captureSha256": "181a1950c1288a99e3faf040013f1deb6c4080745b604f828e0fe56c936407a3",
+        "currentSha256": "181a1950c1288a99e3faf040013f1deb6c4080745b604f828e0fe56c936407a3",
+        "currentMatches": true,
+        "preflightListed": true,
+        "preflightSha256": "181a1950c1288a99e3faf040013f1deb6c4080745b604f828e0fe56c936407a3",
+        "preflightMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/Tests/PlayMode/FailureAndInputPlayModeTests.cs",
+        "captureSha256": "6ad640d5042832473de4e10dacb63923f855ea7106e245e889edd3fa655cba05",
+        "currentSha256": "6ad640d5042832473de4e10dacb63923f855ea7106e245e889edd3fa655cba05",
+        "currentMatches": true,
+        "preflightListed": true,
+        "preflightSha256": "6ad640d5042832473de4e10dacb63923f855ea7106e245e889edd3fa655cba05",
+        "preflightMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/Tests/PlayMode/GameplayPlayModeTests.cs",
+        "captureSha256": "f2d2a894b8227ff8fc90cd46eba396b889ffdd3b351bc31d486e9d001ea9eaac",
+        "currentSha256": "f2d2a894b8227ff8fc90cd46eba396b889ffdd3b351bc31d486e9d001ea9eaac",
+        "currentMatches": true,
+        "preflightListed": true,
+        "preflightSha256": "f2d2a894b8227ff8fc90cd46eba396b889ffdd3b351bc31d486e9d001ea9eaac",
+        "preflightMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/Tests/PlayMode/Presentation07/Art07FixturePlayModeTests.cs",
+        "captureSha256": "5e6950432a6330efe8e89c909680273a03039db5ec8b1ad3417821eff786ae90",
+        "currentSha256": "5e6950432a6330efe8e89c909680273a03039db5ec8b1ad3417821eff786ae90",
+        "currentMatches": true,
+        "preflightListed": true,
+        "preflightSha256": "5e6950432a6330efe8e89c909680273a03039db5ec8b1ad3417821eff786ae90",
+        "preflightMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/Tests/PlayMode/Presentation07/DiceArt07PlayModeTests.cs",
+        "captureSha256": "ff0f3dfc5d5495bcba1ae539ba45f4c1cd797c82d9277ba35f14ef02339ad5c3",
+        "currentSha256": "ff0f3dfc5d5495bcba1ae539ba45f4c1cd797c82d9277ba35f14ef02339ad5c3",
+        "currentMatches": true,
+        "preflightListed": true,
+        "preflightSha256": "ff0f3dfc5d5495bcba1ae539ba45f4c1cd797c82d9277ba35f14ef02339ad5c3",
+        "preflightMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/Tests/PlayMode/Presentation07/PresentationAudioPlayModeTests.cs",
+        "captureSha256": "457e6c90b29dceaa20436eee8f72b4f54f0140fbae3cf300964e4d2b18173ca1",
+        "currentSha256": "457e6c90b29dceaa20436eee8f72b4f54f0140fbae3cf300964e4d2b18173ca1",
+        "currentMatches": true,
+        "preflightListed": true,
+        "preflightSha256": "457e6c90b29dceaa20436eee8f72b4f54f0140fbae3cf300964e4d2b18173ca1",
+        "preflightMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/Tests/PlayMode/ShopBoundaryPlayModeTests.cs",
+        "captureSha256": "5c772af8d6ca5600b7417c715b6b81cf65dd677e147d12aa68e25904dcfe3a64",
+        "currentSha256": "5c772af8d6ca5600b7417c715b6b81cf65dd677e147d12aa68e25904dcfe3a64",
+        "currentMatches": true,
+        "preflightListed": true,
+        "preflightSha256": "5c772af8d6ca5600b7417c715b6b81cf65dd677e147d12aa68e25904dcfe3a64",
+        "preflightMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/Tests/PlayMode/SubmissionHistoryPlayModeTests.cs",
+        "captureSha256": "91008978af9574418e36cee0eac4794382f47f152545d849fc5ec5f8ab352a6b",
+        "currentSha256": "91008978af9574418e36cee0eac4794382f47f152545d849fc5ec5f8ab352a6b",
+        "currentMatches": true,
+        "preflightListed": true,
+        "preflightSha256": "91008978af9574418e36cee0eac4794382f47f152545d849fc5ec5f8ab352a6b",
+        "preflightMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/Tests/PlayMode/UiBoundaryPlayModeTests.cs",
+        "captureSha256": "ce232c695e06c46f00d1e992bf40c6d73274d81434a49ade3fef91313733c318",
+        "currentSha256": "ce232c695e06c46f00d1e992bf40c6d73274d81434a49ade3fef91313733c318",
+        "currentMatches": true,
+        "preflightListed": true,
+        "preflightSha256": "ce232c695e06c46f00d1e992bf40c6d73274d81434a49ade3fef91313733c318",
+        "preflightMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/Tests/PlayMode/UiPoolingPlayModeTests.cs",
+        "captureSha256": "0d69373944195bbdf67aba3e7512a24a497b1b306ad2af337606d694276f2537",
+        "currentSha256": "0d69373944195bbdf67aba3e7512a24a497b1b306ad2af337606d694276f2537",
+        "currentMatches": true,
+        "preflightListed": true,
+        "preflightSha256": "0d69373944195bbdf67aba3e7512a24a497b1b306ad2af337606d694276f2537",
+        "preflightMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/Tests/PlayMode/V05InterfacePlayModeTests.cs",
+        "captureSha256": "0862c01f2e1580b26ef5147bed5e31818b96531026863a52bdbf0d67bb5be02d",
+        "currentSha256": "0862c01f2e1580b26ef5147bed5e31818b96531026863a52bdbf0d67bb5be02d",
+        "currentMatches": true,
+        "preflightListed": true,
+        "preflightSha256": "0862c01f2e1580b26ef5147bed5e31818b96531026863a52bdbf0d67bb5be02d",
+        "preflightMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/Tests/PlayMode/V06RuntimePlayModeTests.cs",
+        "captureSha256": "5b6a5c4e08939ce4c3301d0c0ac46d66a1a50ddbb9cd95b6f91e833b3f411d3c",
+        "currentSha256": "5b6a5c4e08939ce4c3301d0c0ac46d66a1a50ddbb9cd95b6f91e833b3f411d3c",
+        "currentMatches": true,
+        "preflightListed": true,
+        "preflightSha256": "5b6a5c4e08939ce4c3301d0c0ac46d66a1a50ddbb9cd95b6f91e833b3f411d3c",
+        "preflightMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/Tests/PlayMode/V06TargetSelectionPlayModeTests.cs",
+        "captureSha256": "7a06f09e5b009e4dafabfd970be2f62761b0aaa25ed46b36af772ec069ce8b52",
+        "currentSha256": "7a06f09e5b009e4dafabfd970be2f62761b0aaa25ed46b36af772ec069ce8b52",
+        "currentMatches": true,
+        "preflightListed": true,
+        "preflightSha256": "7a06f09e5b009e4dafabfd970be2f62761b0aaa25ed46b36af772ec069ce8b52",
+        "preflightMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/UI/Art07ButtonMotion.cs",
+        "captureSha256": "41ff428f1eccdd31f840c7ccfc59b87bd6d9c9b89c5b51a3140324374244e26c",
+        "currentSha256": "41ff428f1eccdd31f840c7ccfc59b87bd6d9c9b89c5b51a3140324374244e26c",
+        "currentMatches": true,
+        "preflightListed": true,
+        "preflightSha256": "41ff428f1eccdd31f840c7ccfc59b87bd6d9c9b89c5b51a3140324374244e26c",
+        "preflightMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/UI/Art07PanelMotion.cs",
+        "captureSha256": "b0fa31244a97cdae3be0fd8601d2229a62e2bd61ad3f7a7253b2cb98f5ed9263",
+        "currentSha256": "b0fa31244a97cdae3be0fd8601d2229a62e2bd61ad3f7a7253b2cb98f5ed9263",
+        "currentMatches": true,
+        "preflightListed": true,
+        "preflightSha256": "b0fa31244a97cdae3be0fd8601d2229a62e2bd61ad3f7a7253b2cb98f5ed9263",
+        "preflightMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/UI/Art07ScreenReveal.cs",
+        "captureSha256": "746e9a4e77eaaced6e843ae349cfa835d241377fbf3690192a7c575f3d6f3e4e",
+        "currentSha256": "746e9a4e77eaaced6e843ae349cfa835d241377fbf3690192a7c575f3d6f3e4e",
+        "currentMatches": true,
+        "preflightListed": true,
+        "preflightSha256": "746e9a4e77eaaced6e843ae349cfa835d241377fbf3690192a7c575f3d6f3e4e",
+        "preflightMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/UI/Art07ScrollIndicator.cs",
+        "captureSha256": "d724947e3b37907084b056921547371c6cf271213132b694aa015cf72c4adf38",
+        "currentSha256": "d724947e3b37907084b056921547371c6cf271213132b694aa015cf72c4adf38",
+        "currentMatches": true,
+        "preflightListed": true,
+        "preflightSha256": "d724947e3b37907084b056921547371c6cf271213132b694aa015cf72c4adf38",
+        "preflightMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/UI/GameApp.Art07.cs",
+        "captureSha256": "cbbed39d3fe3508675e7a15f412dace0ada97f17d0f8de7d96863b920be2cd6c",
+        "currentSha256": "7935b05249b49d3a59980d2615d08aa5b6e8cde2bc519054d208706936f1028e",
+        "currentMatches": false,
+        "preflightListed": true,
+        "preflightSha256": "cbbed39d3fe3508675e7a15f412dace0ada97f17d0f8de7d96863b920be2cd6c",
+        "preflightMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/UI/GameApp.Art07Effects.cs",
+        "captureSha256": "1de0afa92e3f39e97411e1402974c4b9649f617ad422da07dd933e783042d7ca",
+        "currentSha256": "1de0afa92e3f39e97411e1402974c4b9649f617ad422da07dd933e783042d7ca",
+        "currentMatches": true,
+        "preflightListed": true,
+        "preflightSha256": "1de0afa92e3f39e97411e1402974c4b9649f617ad422da07dd933e783042d7ca",
+        "preflightMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/UI/GameApp.Art07Guide.cs",
+        "captureSha256": "c482672b71fe2eac803391ff3f47d86c0da38fe97ba6a3959ae43ee532df513c",
+        "currentSha256": "c482672b71fe2eac803391ff3f47d86c0da38fe97ba6a3959ae43ee532df513c",
+        "currentMatches": true,
+        "preflightListed": true,
+        "preflightSha256": "c482672b71fe2eac803391ff3f47d86c0da38fe97ba6a3959ae43ee532df513c",
+        "preflightMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/UI/GameApp.Art07Interactions.cs",
+        "captureSha256": "f716c9235940fb0c1c2bdfd0dafe5b5f1a260e0525fe6e6d97209b4b4797cdb3",
+        "currentSha256": "c8e2ea0e0ede368a88af8c1b3907afc884cf152a76ffbd0c5ac2b3bcdd03f7df",
+        "currentMatches": false,
+        "preflightListed": true,
+        "preflightSha256": "f716c9235940fb0c1c2bdfd0dafe5b5f1a260e0525fe6e6d97209b4b4797cdb3",
+        "preflightMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/UI/GameApp.Art07PostEffects.cs",
+        "captureSha256": "72c2ab026365724566fd2d007f42b9fe49b409caafbe3059c152d688bade4064",
+        "currentSha256": "72c2ab026365724566fd2d007f42b9fe49b409caafbe3059c152d688bade4064",
+        "currentMatches": true,
+        "preflightListed": true,
+        "preflightSha256": "72c2ab026365724566fd2d007f42b9fe49b409caafbe3059c152d688bade4064",
+        "preflightMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/UI/GameApp.Art07Presentation.cs",
+        "captureSha256": "33b6ae37ec802ee3e75c92c7ebd429d3be0f1639aa83ede8efef934eeda24cef",
+        "currentSha256": "33b6ae37ec802ee3e75c92c7ebd429d3be0f1639aa83ede8efef934eeda24cef",
+        "currentMatches": true,
+        "preflightListed": true,
+        "preflightSha256": "33b6ae37ec802ee3e75c92c7ebd429d3be0f1639aa83ede8efef934eeda24cef",
+        "preflightMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/UI/GameApp.Art07Results.cs",
+        "captureSha256": "6d696546b730303f52a13f91d3a01e72e341a51bedc813c6580afc0dfdaa93ae",
+        "currentSha256": "6d696546b730303f52a13f91d3a01e72e341a51bedc813c6580afc0dfdaa93ae",
+        "currentMatches": true,
+        "preflightListed": true,
+        "preflightSha256": "6d696546b730303f52a13f91d3a01e72e341a51bedc813c6580afc0dfdaa93ae",
+        "preflightMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/UI/GameApp.Art07Settings.cs",
+        "captureSha256": "73bc818cd7191d90c2dfa9dc9dda306583e12bb9a7e76b743297e6523662d7c3",
+        "currentSha256": "73bc818cd7191d90c2dfa9dc9dda306583e12bb9a7e76b743297e6523662d7c3",
+        "currentMatches": true,
+        "preflightListed": true,
+        "preflightSha256": "73bc818cd7191d90c2dfa9dc9dda306583e12bb9a7e76b743297e6523662d7c3",
+        "preflightMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/UI/GameApp.Art07Shop.cs",
+        "captureSha256": "8524446b85a229a2c1784ffb0736a71945bcea998b62aaa845486f3f54f41713",
+        "currentSha256": "8524446b85a229a2c1784ffb0736a71945bcea998b62aaa845486f3f54f41713",
+        "currentMatches": true,
+        "preflightListed": true,
+        "preflightSha256": "8524446b85a229a2c1784ffb0736a71945bcea998b62aaa845486f3f54f41713",
+        "preflightMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/UI/GameApp.Art07StableResult.cs",
+        "captureSha256": "dc99c292ec5a119e272e09f1443160e6d3d90dd1b2c3f13849373a7907f7e915",
+        "currentSha256": "dc99c292ec5a119e272e09f1443160e6d3d90dd1b2c3f13849373a7907f7e915",
+        "currentMatches": true,
+        "preflightListed": true,
+        "preflightSha256": "dc99c292ec5a119e272e09f1443160e6d3d90dd1b2c3f13849373a7907f7e915",
+        "preflightMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/UI/GameApp.Art07UpgradePreview.cs",
+        "captureSha256": "bfaa1d59df365bf5f472215ee63265eec5459e8211c51b451e28c73cc9242563",
+        "currentSha256": "bfaa1d59df365bf5f472215ee63265eec5459e8211c51b451e28c73cc9242563",
+        "currentMatches": true,
+        "preflightListed": true,
+        "preflightSha256": "bfaa1d59df365bf5f472215ee63265eec5459e8211c51b451e28c73cc9242563",
+        "preflightMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/UI/GameApp.Controllers.cs",
+        "captureSha256": "b2f9bb2a80c528304e5642310ef56c1582c47b2d13c2746c39f2dcdf7509697d",
+        "currentSha256": "b2f9bb2a80c528304e5642310ef56c1582c47b2d13c2746c39f2dcdf7509697d",
+        "currentMatches": true,
+        "preflightListed": true,
+        "preflightSha256": "b2f9bb2a80c528304e5642310ef56c1582c47b2d13c2746c39f2dcdf7509697d",
+        "preflightMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/UI/GameApp.Debug.cs",
+        "captureSha256": "2473e4d43a9bd6e15e2b12082b1313ae6b65f684cd629079502610d969a1c301",
+        "currentSha256": "2473e4d43a9bd6e15e2b12082b1313ae6b65f684cd629079502610d969a1c301",
+        "currentMatches": true,
+        "preflightListed": true,
+        "preflightSha256": "2473e4d43a9bd6e15e2b12082b1313ae6b65f684cd629079502610d969a1c301",
+        "preflightMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/UI/GameApp.Display.cs",
+        "captureSha256": "518cda568d7e1f298ec89211da74f8f671c2ac2a1bb7816f40ac3800b57063dd",
+        "currentSha256": "518cda568d7e1f298ec89211da74f8f671c2ac2a1bb7816f40ac3800b57063dd",
+        "currentMatches": true,
+        "preflightListed": true,
+        "preflightSha256": "518cda568d7e1f298ec89211da74f8f671c2ac2a1bb7816f40ac3800b57063dd",
+        "preflightMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/UI/GameApp.Modals.cs",
+        "captureSha256": "a9343ca8c9ee26a701884fe0cb18840ecc8b517d5b67d7be078269aa60416a2b",
+        "currentSha256": "a9343ca8c9ee26a701884fe0cb18840ecc8b517d5b67d7be078269aa60416a2b",
+        "currentMatches": true,
+        "preflightListed": true,
+        "preflightSha256": "a9343ca8c9ee26a701884fe0cb18840ecc8b517d5b67d7be078269aa60416a2b",
+        "preflightMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/UI/GameApp.Shop.cs",
+        "captureSha256": "9c8046f65fa6b75f6216a05158e7d8dc7bf8efea95804dec5677aa7e5f25c84b",
+        "currentSha256": "9c8046f65fa6b75f6216a05158e7d8dc7bf8efea95804dec5677aa7e5f25c84b",
+        "currentMatches": true,
+        "preflightListed": true,
+        "preflightSha256": "9c8046f65fa6b75f6216a05158e7d8dc7bf8efea95804dec5677aa7e5f25c84b",
+        "preflightMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/UI/GameApp.V05.cs",
+        "captureSha256": "0a80378511b2eef56f270c9bc40ca23d8710ac27cb36ea08f123e18249fe8b10",
+        "currentSha256": "0a80378511b2eef56f270c9bc40ca23d8710ac27cb36ea08f123e18249fe8b10",
+        "currentMatches": true,
+        "preflightListed": true,
+        "preflightSha256": "0a80378511b2eef56f270c9bc40ca23d8710ac27cb36ea08f123e18249fe8b10",
+        "preflightMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/UI/UiElementPool.cs",
+        "captureSha256": "3c536f3e6dc7eea26f4fc80cac8b50a04b4aa7d5acd0517013aed0e94905d37d",
+        "currentSha256": "3c536f3e6dc7eea26f4fc80cac8b50a04b4aa7d5acd0517013aed0e94905d37d",
+        "currentMatches": true,
+        "preflightListed": true,
+        "preflightSha256": "3c536f3e6dc7eea26f4fc80cac8b50a04b4aa7d5acd0517013aed0e94905d37d",
+        "preflightMatches": true
+      },
+      {
+        "path": "DicePrototype/Assets/Game/UI/UiKit.cs",
+        "captureSha256": "4083ef2ec6bacdfe109acabb8dac7b3b6e25e7b65bcea11d76504ddb2e2703f5",
+        "currentSha256": "4083ef2ec6bacdfe109acabb8dac7b3b6e25e7b65bcea11d76504ddb2e2703f5",
+        "currentMatches": true,
+        "preflightListed": true,
+        "preflightSha256": "4083ef2ec6bacdfe109acabb8dac7b3b6e25e7b65bcea11d76504ddb2e2703f5",
+        "preflightMatches": true
+      }
+    ],
+    "currentDrift": [
+      "DicePrototype/Assets/Game/Runtime/GameApp.cs",
+      "DicePrototype/Assets/Game/Runtime/Verification/PlayerVerification.V06.cs",
+      "DicePrototype/Assets/Game/Tests/PlayMode/Art07InteractionPlayModeTests.cs",
+      "DicePrototype/Assets/Game/UI/GameApp.Art07.cs",
+      "DicePrototype/Assets/Game/UI/GameApp.Art07Interactions.cs"
+    ],
+    "listedPreflightFiles": 83,
+    "unlistedHeadFiles": 42,
+    "scopeNote": "Preflight lists candidate changed/new files, not every unchanged tracked source. Unlisted files compare to the recorded HEAD with LF normalization, while exact working-byte capture hashes separately match current. Current drift is a later-source limitation, not a captured-frame inconsistency."
+  },
+  "allCaptureConsistencyChecksPassed": true,
+  "visuallyInspectedFrames": [
+    {
+      "path": "artifacts/cache/v07-tx-refreshcontrollers-normal-02/frames/frame_000014.png",
+      "sha256": "393fbfb6bf8e9f85636f30728d88425ad4c2fde2f4408e46513be4df52ff7b57"
+    },
+    {
+      "path": "artifacts/cache/v07-tx-refreshcontrollers-normal-02/frames/frame_000015.png",
+      "sha256": "9ee548cbc1c3fb8b05d6c4cae53f896d176f12c2cfe9930ee68f0d58764fd367"
+    },
+    {
+      "path": "artifacts/cache/v07-tx-refreshcontrollers-normal-02/frames/frame_000020.png",
+      "sha256": "e3733454fc38eb7d85cee3ff02782aba572cef5f4fbd9e92f609852c7be22810"
+    },
+    {
+      "path": "artifacts/cache/v07-tx-refreshcontrollers-normal-02/frames/frame_000023.png",
+      "sha256": "c82362e7b67505baf72f0674b89ad996cb5b77f1cdf07924721c481a288d1cc9"
+    },
+    {
+      "path": "artifacts/cache/v07-tx-refreshcontrollers-normal-02/frames/frame_000031.png",
+      "sha256": "e0a7bc431cfebc6f51c153843cd0df29865d9b225007cf1d734e74f939c2406d"
+    },
+    {
+      "path": "artifacts/cache/v07-tx-refreshcontrollers-normal-02/frames/frame_000032.png",
+      "sha256": "7a1b4df914bdd98f067c64df7685eee546f73ef5e2d4fe1f2c3eb01e3fcc393b"
+    },
+    {
+      "path": "artifacts/cache/v07-tx-buycontroller-normal-02/frames/frame_000014.png",
+      "sha256": "393fbfb6bf8e9f85636f30728d88425ad4c2fde2f4408e46513be4df52ff7b57"
+    },
+    {
+      "path": "artifacts/cache/v07-tx-buycontroller-normal-02/frames/frame_000015.png",
+      "sha256": "4018f1554d7eb75fc4ff98327c443b3227b1f9405badb39a9ccae04fe1b3b4c9"
+    },
+    {
+      "path": "artifacts/cache/v07-tx-buycontroller-normal-02/frames/frame_000025.png",
+      "sha256": "72ba0d94d62b1b08f757a4f44f87d7a47e5ec1630102873d841a75ad895c3ead"
+    },
+    {
+      "path": "artifacts/cache/v07-tx-buycontroller-normal-02/frames/frame_000036.png",
+      "sha256": "b1ca6b53ac9e6c3463a7bcccbf545c64816ef3ed0fa9ebdf1006d259169eca11"
+    },
+    {
+      "path": "artifacts/cache/v07-tx-buycontroller-normal-02/frames/frame_000037.png",
+      "sha256": "b1ca6b53ac9e6c3463a7bcccbf545c64816ef3ed0fa9ebdf1006d259169eca11"
+    },
+    {
+      "path": "artifacts/cache/v07-tx-expandcontrollers-normal-02/frames/frame_000014.png",
+      "sha256": "5f0426a2c27707dd88b3a8d6bc5716b5e3a59756e656f5cfa25c78e3bfcb605c"
+    },
+    {
+      "path": "artifacts/cache/v07-tx-expandcontrollers-normal-02/frames/frame_000025.png",
+      "sha256": "397d12507e225de1b6984076aa9956b190f7000cb71628a7d0632af89239d534"
+    },
+    {
+      "path": "artifacts/cache/v07-tx-expandcontrollers-normal-02/frames/frame_000035.png",
+      "sha256": "2a0936d89f3f4cb80bd77d224fcf812831155c28d9b44ced9cbf81b9cc668d7a"
+    },
+    {
+      "path": "artifacts/cache/v07-tx-expandcontrollers-normal-02/frames/frame_000036.png",
+      "sha256": "14ea18f112a45d397ae70e078784d53c59f27cf99f87a8df8bdc5bc2bfd4eda8"
+    },
+    {
+      "path": "artifacts/cache/v07-tx-expanditems-normal-02/frames/frame_000014.png",
+      "sha256": "2e75f2b5f564afdfb42f9316c805a66fed99f081be901034d35f24c4c4b7b475"
+    },
+    {
+      "path": "artifacts/cache/v07-tx-expanditems-normal-02/frames/frame_000025.png",
+      "sha256": "1c46436800157b100bbd90c426182629a19e541b21a5add38b2637f6214956e6"
+    },
+    {
+      "path": "artifacts/cache/v07-tx-expanditems-normal-02/frames/frame_000033.png",
+      "sha256": "0bc36bd638c12ad9bb32a45d72b1ae1a8bc832f7e5261abc8e1a7fcb8f821aba"
+    },
+    {
+      "path": "artifacts/cache/v07-tx-expanditems-normal-02/frames/frame_000035.png",
+      "sha256": "86a084fd49180c099f8e4e063134fbab218fd56c1d8d4e117078eb6f2fbdacb8"
+    },
+    {
+      "path": "artifacts/cache/v07-tx-expanditems-normal-02/frames/frame_000036.png",
+      "sha256": "5d46b13928bc28c756e11008e41f2c17729234fec841065f460bcd1a208d71f9"
+    },
+    {
+      "path": "artifacts/cache/v07-tx-randomface-normal-02/frames/frame_000014.png",
+      "sha256": "f7d3ecbea86e42c13a3cca962784966decc3c0e8dfe0d1dc6ef8f0688ce42e60"
+    },
+    {
+      "path": "artifacts/cache/v07-tx-randomface-normal-02/frames/frame_000015.png",
+      "sha256": "6cff04a2dabb1e435494bdea9dfc537e55708a86cfe417983dab9719b449503e"
+    },
+    {
+      "path": "artifacts/cache/v07-tx-randomface-normal-02/frames/frame_000019.png",
+      "sha256": "b88e14e6f67942b13c9478410e386d13bb3ff462891bf68ea486241d93b23570"
+    },
+    {
+      "path": "artifacts/cache/v07-tx-randomface-normal-02/frames/frame_000023.png",
+      "sha256": "72bf0e988c8d4395e8a3ab8f5c108b35367ce225ca16024784f1c5cac3e64016"
+    },
+    {
+      "path": "artifacts/cache/v07-tx-randomface-normal-02/frames/frame_000025.png",
+      "sha256": "14a73cb1de020ef5bd2fef8cf37f0b1a5a0f4fb5e1e579bb9bf10ecb11021266"
+    },
+    {
+      "path": "artifacts/cache/v07-tx-randomface-normal-02/frames/frame_000027.png",
+      "sha256": "5047834a118d7185633270eef7282105d37e0e81149af11027abc39295369360"
+    },
+    {
+      "path": "artifacts/cache/v07-tx-randomface-normal-02/frames/frame_000030.png",
+      "sha256": "5e9317cb3a524b98c337f8c30a6cde2dddb4dcd2b66503ec03a5ad82df2a2def"
+    },
+    {
+      "path": "artifacts/cache/v07-tx-randomface-normal-02/frames/frame_000036.png",
+      "sha256": "2d9ddf106545fe2b4dfc02c9b83c21674acb281a6627f53ac4fc87cfcc3d05ef"
+    },
+    {
+      "path": "artifacts/cache/v07-tx-randomface-normal-02/frames/frame_000037.png",
+      "sha256": "57a7792b63eff99798aba26bb2bfaf7e1cdd046258a6f17fb10468af864ce807"
+    },
+    {
+      "path": "artifacts/cache/v07-tx-glassdie-normal-02/frames/frame_000014.png",
+      "sha256": "6dcdc27c4e330e5b6fbb047b79724ba5371391ab9a2f1fbfc24d8e5a2927f9fe"
+    },
+    {
+      "path": "artifacts/cache/v07-tx-glassdie-normal-02/frames/frame_000015.png",
+      "sha256": "7a375e8c0f37a60a054ec6ff09b94c1eaa1f2d1040ebdb9ca30e632f1fb980aa"
+    },
+    {
+      "path": "artifacts/cache/v07-tx-glassdie-normal-02/frames/frame_000022.png",
+      "sha256": "0f674dd512a4f4ead4111ca3a5073845a3904d5e74cbace8d5146de7273fe6e3"
+    },
+    {
+      "path": "artifacts/cache/v07-tx-glassdie-normal-02/frames/frame_000028.png",
+      "sha256": "3eb9de2a02e07f294cb51fcf7e9fbb00f0e5f7976cb044e60a10900777bd58c8"
+    },
+    {
+      "path": "artifacts/cache/v07-tx-glassdie-normal-02/frames/frame_000035.png",
+      "sha256": "0dca91d976c89b3c59fcbce8a89d8e67a0b8674b57467c9ed702006e0f78d5db"
+    },
+    {
+      "path": "artifacts/cache/v07-tx-glassdie-normal-02/frames/frame_000040.png",
+      "sha256": "2359edc1cdf00d81597d2de5d12d11e40614232e2aefd96f2a79b16192d61f50"
+    },
+    {
+      "path": "artifacts/cache/v07-tx-glassdie-normal-02/frames/frame_000041.png",
+      "sha256": "d5a78c42c0e4a042d8438f61caa07c5693a856c2e347751160cc412173a2d83d"
+    },
+    {
+      "path": "artifacts/cache/v07-tx-refreshcontrollers-reduced-02/frames/frame_000014.png",
+      "sha256": "d02723977a01f672e03ac25a8bbb80df4371eaf14b9de74b170123dfebd81e04"
+    },
+    {
+      "path": "artifacts/cache/v07-tx-refreshcontrollers-reduced-02/frames/frame_000015.png",
+      "sha256": "8aff82dbe6b9708033d882ed3741073a84cd22a855fe5d983174c885a188d167"
+    },
+    {
+      "path": "artifacts/cache/v07-tx-refreshcontrollers-reduced-02/frames/frame_000019.png",
+      "sha256": "5dfbabb9712d1b76c83e42a8f90e78103c1768fe5140f084c9f9a77c064b834d"
+    },
+    {
+      "path": "artifacts/cache/v07-tx-refreshcontrollers-reduced-02/frames/frame_000022.png",
+      "sha256": "621ad9c14ed1830b6ba488b4197aedd9f828a4985df28746ca4c7591119227e5"
+    },
+    {
+      "path": "artifacts/cache/v07-tx-refreshcontrollers-reduced-02/frames/frame_000023.png",
+      "sha256": "ce6e34a81b2a23ee67932f49ead0f6a28f4be4dfafec1221e56064423f5439ce"
+    },
+    {
+      "path": "artifacts/cache/v07-tx-randomface-reduced-02/frames/frame_000014.png",
+      "sha256": "94092c121ea0a1a77d1bc9710a40dc337e209c16490c8507fa3ce7a25efe57a8"
+    },
+    {
+      "path": "artifacts/cache/v07-tx-randomface-reduced-02/frames/frame_000015.png",
+      "sha256": "ef9c8dfda6dc71283995a30df8c6c73a0e4c2e09392af4f9d484db9b54f9f8d7"
+    },
+    {
+      "path": "artifacts/cache/v07-tx-randomface-reduced-02/frames/frame_000018.png",
+      "sha256": "77cdea83fadcf61dd8750fb75228e0eb134dc1f1d5abb8a7a0c39065c89ff19c"
+    },
+    {
+      "path": "artifacts/cache/v07-tx-randomface-reduced-02/frames/frame_000019.png",
+      "sha256": "160208092ba28dc0a6226fb7671e2aad94cc43c2fa43a6412e7c4776018620f1"
+    },
+    {
+      "path": "artifacts/cache/v07-tx-randomface-reduced-02/frames/frame_000021.png",
+      "sha256": "f5b1894f42e271680e7375451a403be7b5a7a442b2e6c45f670b3fe992aa47a9"
+    },
+    {
+      "path": "artifacts/cache/v07-tx-randomface-reduced-02/frames/frame_000022.png",
+      "sha256": "6e90346727548e41a9d5fab9b36945318a4ef9c098601cccf2fa73235e0bd6ed"
+    },
+    {
+      "path": "artifacts/cache/v07-tx-randomface-reduced-02/frames/frame_000023.png",
+      "sha256": "71832daac267a051490095628a027b77256f9d485b4b41d0eec3c99561cc2c9d"
+    }
+  ],
+  "visualInspectionMethod": "Actual original PNGs via view_image; all MP4 frames decoded and compared with original PNG sequence via SSIM. No claim of live realtime video playback or every frame visually reviewed.",
+  "visualFrameCount": 48
+}

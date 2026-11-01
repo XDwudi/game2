@@ -1,0 +1,771 @@
+{
+  "status": "both_resolutions_nine_states_visual_review_passed_with_scoped_limitations",
+  "reviewer": "/root/v07_art (independent from wallet implementer)",
+  "report": "evidence\\v07\\review\\WALLET_REWORK_REVIEW.md",
+  "reportSha256": "4b5a47a361d0d8e01f016eaaefa53522724187207e6954c0bce77622708591f8",
+  "records": [
+    {
+      "path": "artifacts/cache/v07-wallet-rework/manifest.json",
+      "sha256": "3658db427baef4a30657a3eeb01008b1e814398e77955c3c367e982410468755"
+    },
+    {
+      "path": "artifacts/cache/v07-wallet-rework/wallet-rework.patch",
+      "sha256": "dcbab0b25bbfd15a3ad78654749023b011204d2acad3d1c91c7825dc3f0dfc7d"
+    },
+    {
+      "path": "artifacts/cache/v07-wallet-rework/GameApp.Art07Wallet.cs",
+      "sha256": "ee502f0146fef98402c1bb01df8f932a944628435fb5980398a574bbaef8574d"
+    },
+    {
+      "path": "artifacts/cache/v07-wallet-rework/Art07WalletPlayModeTests.cs",
+      "sha256": "7fcb3bf7a10f6b11e9e14271a000bbe2837a489279d9f64527847766afa200db"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/UI/GameApp.Art07Wallet.cs",
+      "sha256": "ee502f0146fef98402c1bb01df8f932a944628435fb5980398a574bbaef8574d"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/UI/GameApp.Art07Shop.cs",
+      "sha256": "22a83b795d8ee99d9bd4636071c11e70658cc1da5de03d3e17b655d5a805f103"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/UI/GameApp.Shop.cs",
+      "sha256": "9c8046f65fa6b75f6216a05158e7d8dc7bf8efea95804dec5677aa7e5f25c84b"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Core/Session/GameSession.Shop.cs",
+      "sha256": "320e2bbaec4f65a001a996b5c3cf6276ce8e47eec39a7a3712907b7b737261c4"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Core/Session/GameSession.Validation.cs",
+      "sha256": "1f0a908e5b5df35db130175338256bf7a3ecdd05c0c12558b01b0ac9a71c1bcc"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Core/Session/GameSession.cs",
+      "sha256": "b222230d309ea3c0a64a5e5e5ecfe9d3032fd997d51ec73dfd51a39de7aefc90"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Core/Rules/ScoreCalculator.cs",
+      "sha256": "e72fc655366705e220d801e2aa7f6f73383368596712063c97c154103df97f43"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Core/Rules/HandbookRules.cs",
+      "sha256": "a4e7f14bd122ad5457be5f3e15add7905316141c58d87dc754d9e6598f3c5b2d"
+    },
+    {
+      "path": "docs/specs/v07/ART_SPEC.md",
+      "sha256": "5120a8d0983d24f25cc38e22f1da613fd1a56c70ab26f518771a2caf064dd228"
+    },
+    {
+      "path": "evidence/v07/unity/nunit-20261101-043900.xml",
+      "sha256": "1eb5217d2c054b0d7a54bd7816af99ae294e5c859fd27ef372867789547f5e22"
+    },
+    {
+      "path": "evidence/v07/unity/nunit-20261101-044120.xml",
+      "sha256": "89f3a12b7c92997ea6177d08fe9ad913b3f0b8b817486b859ee3b42ec9637d5a"
+    },
+    {
+      "path": "evidence/v07/unity/nunit-20261101-044120.binding.json",
+      "sha256": "10ae8b0de5879d8dfec8b4f1304680d3bb36711485d0d405ba02de8d4d1b989f"
+    },
+    {
+      "path": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0/DiceCraftTests_b7a078900cae42608979ec1bcba5e142/extra-capture/000-wallet-100-0.png",
+      "sha256": "f61ff6ac87cc6468536c6747971e0539b837ff8441c8725841cbaab417177f66"
+    },
+    {
+      "path": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0/DiceCraftTests_b7a078900cae42608979ec1bcba5e142/extra-capture/000-wallet-100-0.png.json",
+      "sha256": "1060e1f5111161cb6bf10b572985988433571db7278f9260071046bc2515e8b1"
+    },
+    {
+      "path": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0/DiceCraftTests_b7a078900cae42608979ec1bcba5e142/extra-capture/wallet-100-0-glyphs.json",
+      "sha256": "7f6c42dc0b2fcb92c35db239d709552423cc22405afa686e2b9902a005568fb7"
+    }
+  ],
+  "viewedPngs": [
+    "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0/DiceCraftTests_b7a078900cae42608979ec1bcba5e142/extra-capture/000-wallet-100-0.png"
+  ],
+  "resolutionCoverage": {
+    "1280x720": "all nine wallet states individually viewed and geometry validated",
+    "1920x1080": "all nine wallet states individually viewed and geometry validated"
+  },
+  "wallet720Batch": {
+    "report": "evidence/v07/unity/nunit-20261101-044648.xml",
+    "reportSha256": "227c54fe0e709a9426fe38c7b7c3c409b69fbfd79cac3064649a7bb6d9a47753",
+    "binding": "evidence/v07/unity/nunit-20261101-044648.binding.json",
+    "bindingSha256": "5e78088ef2c261519fb3dd989a74105d185f045221b72ee27f74569038e3c9c1",
+    "records": [
+      {
+        "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_df511a95a3ac47209bfde8a32e508929\\extra-capture\\000-wallet-100-0.png",
+        "archive": "artifacts\\cache\\v07-wallet-review-720-044648\\000-wallet-100-0.png",
+        "sha256": "b1c889800790067ea4c369944a36d3e9da2bdefecfc9462663df81e02028f7ad"
+      },
+      {
+        "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_df511a95a3ac47209bfde8a32e508929\\extra-capture\\000-wallet-100-0.png.json",
+        "archive": "artifacts\\cache\\v07-wallet-review-720-044648\\000-wallet-100-0.png.json",
+        "sha256": "43eb662451ac38c5d7d862f05fd50accebfdd3ef790fd17f135324d5040b7de1"
+      },
+      {
+        "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_df511a95a3ac47209bfde8a32e508929\\extra-capture\\001-wallet-100-1000010.png",
+        "archive": "artifacts\\cache\\v07-wallet-review-720-044648\\001-wallet-100-1000010.png",
+        "sha256": "79ef3f4b5b00c61811aa4882a97a653de34844437327fd575c0b661e6b5d44f8"
+      },
+      {
+        "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_df511a95a3ac47209bfde8a32e508929\\extra-capture\\001-wallet-100-1000010.png.json",
+        "archive": "artifacts\\cache\\v07-wallet-review-720-044648\\001-wallet-100-1000010.png.json",
+        "sha256": "b34d700f0a89add87ddeb4d71cd56308ea02631b366743a32bf8ae2b134ca9fe"
+      },
+      {
+        "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_df511a95a3ac47209bfde8a32e508929\\extra-capture\\002-wallet-100-1000000000.png",
+        "archive": "artifacts\\cache\\v07-wallet-review-720-044648\\002-wallet-100-1000000000.png",
+        "sha256": "1b6c210ae3bd7e8aa8c76fd1e248c82f2271d93fe932f78d574dacf55165cb96"
+      },
+      {
+        "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_df511a95a3ac47209bfde8a32e508929\\extra-capture\\002-wallet-100-1000000000.png.json",
+        "archive": "artifacts\\cache\\v07-wallet-review-720-044648\\002-wallet-100-1000000000.png.json",
+        "sha256": "033a9cffee54d3ca6583ca8f285bab6507d22f63a95128199b32827f100d52a6"
+      },
+      {
+        "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_df511a95a3ac47209bfde8a32e508929\\extra-capture\\003-wallet-125-0.png",
+        "archive": "artifacts\\cache\\v07-wallet-review-720-044648\\003-wallet-125-0.png",
+        "sha256": "226c18e9db669ebd015e6f7f03ea44dd439728fd0486c17012d339632139ff89"
+      },
+      {
+        "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_df511a95a3ac47209bfde8a32e508929\\extra-capture\\003-wallet-125-0.png.json",
+        "archive": "artifacts\\cache\\v07-wallet-review-720-044648\\003-wallet-125-0.png.json",
+        "sha256": "91a4111ce69d0fa2b0ed657614f53ed042b796034116e5e3e4e722ac859829eb"
+      },
+      {
+        "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_df511a95a3ac47209bfde8a32e508929\\extra-capture\\004-wallet-125-1000010.png",
+        "archive": "artifacts\\cache\\v07-wallet-review-720-044648\\004-wallet-125-1000010.png",
+        "sha256": "01ef7708dd9de351602790cd4108f29d0efc1bc329bc846e73c5e47d3209b217"
+      },
+      {
+        "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_df511a95a3ac47209bfde8a32e508929\\extra-capture\\004-wallet-125-1000010.png.json",
+        "archive": "artifacts\\cache\\v07-wallet-review-720-044648\\004-wallet-125-1000010.png.json",
+        "sha256": "855cdf075ed287134e2fb47708421c113cbff47b7f94138ef2707fc8ebcb0cf0"
+      },
+      {
+        "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_df511a95a3ac47209bfde8a32e508929\\extra-capture\\005-wallet-125-1000000000.png",
+        "archive": "artifacts\\cache\\v07-wallet-review-720-044648\\005-wallet-125-1000000000.png",
+        "sha256": "03690bed0c4f78b1289ce4cfc668a35f5f5e55ead319d4e43b728d4acef6b4da"
+      },
+      {
+        "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_df511a95a3ac47209bfde8a32e508929\\extra-capture\\005-wallet-125-1000000000.png.json",
+        "archive": "artifacts\\cache\\v07-wallet-review-720-044648\\005-wallet-125-1000000000.png.json",
+        "sha256": "0887acd317045ac531e11ea5f2fe5bcb6ecc9a69527b431a3f7c309bc9882fa8"
+      },
+      {
+        "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_df511a95a3ac47209bfde8a32e508929\\extra-capture\\006-wallet-150-0.png",
+        "archive": "artifacts\\cache\\v07-wallet-review-720-044648\\006-wallet-150-0.png",
+        "sha256": "5d1c8e0b14af4d7d30e6024f4608d0f1a3d9df8599eb6e19c573dd11eb020d9f"
+      },
+      {
+        "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_df511a95a3ac47209bfde8a32e508929\\extra-capture\\006-wallet-150-0.png.json",
+        "archive": "artifacts\\cache\\v07-wallet-review-720-044648\\006-wallet-150-0.png.json",
+        "sha256": "ce88907b9fb7303215385b41323ac7a7a966162d5571af67f4ba596a93a90d8f"
+      },
+      {
+        "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_df511a95a3ac47209bfde8a32e508929\\extra-capture\\007-wallet-150-1000010.png",
+        "archive": "artifacts\\cache\\v07-wallet-review-720-044648\\007-wallet-150-1000010.png",
+        "sha256": "ec6313676dcc0fc63443b9e50d1d2c174fee352d7b170f85184d81b1348773b2"
+      },
+      {
+        "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_df511a95a3ac47209bfde8a32e508929\\extra-capture\\007-wallet-150-1000010.png.json",
+        "archive": "artifacts\\cache\\v07-wallet-review-720-044648\\007-wallet-150-1000010.png.json",
+        "sha256": "334f2f8eba135cef6efb9a22148bfa10d35f7942e9c65a98f1b61558753c22ff"
+      },
+      {
+        "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_df511a95a3ac47209bfde8a32e508929\\extra-capture\\008-wallet-150-1000000000.png",
+        "archive": "artifacts\\cache\\v07-wallet-review-720-044648\\008-wallet-150-1000000000.png",
+        "sha256": "a933868b9017915f1eed05950f988bf28ce7e0926af9f93f2d38515d0b9f057b"
+      },
+      {
+        "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_df511a95a3ac47209bfde8a32e508929\\extra-capture\\008-wallet-150-1000000000.png.json",
+        "archive": "artifacts\\cache\\v07-wallet-review-720-044648\\008-wallet-150-1000000000.png.json",
+        "sha256": "64f4a3b76e679e03d4e2eb4d97fe1d61df29431324d6cb72267e1d82ac367890"
+      },
+      {
+        "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_df511a95a3ac47209bfde8a32e508929\\extra-capture\\extra-report.json",
+        "archive": "artifacts\\cache\\v07-wallet-review-720-044648\\extra-report.json",
+        "sha256": "d3a85e21348bd6c43f06d74687b4b70113a061cc467169a284f673f38c032feb"
+      },
+      {
+        "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_df511a95a3ac47209bfde8a32e508929\\extra-capture\\source-snapshot.sha256",
+        "archive": "artifacts\\cache\\v07-wallet-review-720-044648\\source-snapshot.sha256",
+        "sha256": "452aadfdb4a741580fb232a0cd84993d74a8479cab8d76493b5affab20b0ba7a"
+      },
+      {
+        "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_df511a95a3ac47209bfde8a32e508929\\extra-capture\\wallet-100-0-fixture.json",
+        "archive": "artifacts\\cache\\v07-wallet-review-720-044648\\wallet-100-0-fixture.json",
+        "sha256": "fced22523495183163a26dc802216b31f583e9d4eb7efa74ec50b032a659f32e"
+      },
+      {
+        "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_df511a95a3ac47209bfde8a32e508929\\extra-capture\\wallet-100-0-glyphs.json",
+        "archive": "artifacts\\cache\\v07-wallet-review-720-044648\\wallet-100-0-glyphs.json",
+        "sha256": "7d533b489d03edc062f18b352eb8b0aca02a6b02831ca6eeedd6039ebe04ae8f"
+      },
+      {
+        "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_df511a95a3ac47209bfde8a32e508929\\extra-capture\\wallet-100-1000000000-fixture.json",
+        "archive": "artifacts\\cache\\v07-wallet-review-720-044648\\wallet-100-1000000000-fixture.json",
+        "sha256": "a2db4b76ecd1adcf5ad0f756e8608e928347aff7fa8703d35788b39504064c94"
+      },
+      {
+        "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_df511a95a3ac47209bfde8a32e508929\\extra-capture\\wallet-100-1000000000-glyphs.json",
+        "archive": "artifacts\\cache\\v07-wallet-review-720-044648\\wallet-100-1000000000-glyphs.json",
+        "sha256": "fb463cff8af0b92d07bee65a5fd0efe2092a20e4c44fdeb5db312f88db619b2c"
+      },
+      {
+        "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_df511a95a3ac47209bfde8a32e508929\\extra-capture\\wallet-100-1000010-fixture.json",
+        "archive": "artifacts\\cache\\v07-wallet-review-720-044648\\wallet-100-1000010-fixture.json",
+        "sha256": "e2b5137307eb71a013359ec9d1d9fa5830c20896e2dbe9af83d128cb2b2333b8"
+      },
+      {
+        "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_df511a95a3ac47209bfde8a32e508929\\extra-capture\\wallet-100-1000010-glyphs.json",
+        "archive": "artifacts\\cache\\v07-wallet-review-720-044648\\wallet-100-1000010-glyphs.json",
+        "sha256": "3ab749036dde48e79343ecee4858bf8577d9221ea7679adac7788f8554835276"
+      },
+      {
+        "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_df511a95a3ac47209bfde8a32e508929\\extra-capture\\wallet-125-0-fixture.json",
+        "archive": "artifacts\\cache\\v07-wallet-review-720-044648\\wallet-125-0-fixture.json",
+        "sha256": "fced22523495183163a26dc802216b31f583e9d4eb7efa74ec50b032a659f32e"
+      },
+      {
+        "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_df511a95a3ac47209bfde8a32e508929\\extra-capture\\wallet-125-0-glyphs.json",
+        "archive": "artifacts\\cache\\v07-wallet-review-720-044648\\wallet-125-0-glyphs.json",
+        "sha256": "110767bb33f7259ebd02f0b6f63881361f0f865e582769dfbc6221dcaf1439ef"
+      },
+      {
+        "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_df511a95a3ac47209bfde8a32e508929\\extra-capture\\wallet-125-1000000000-fixture.json",
+        "archive": "artifacts\\cache\\v07-wallet-review-720-044648\\wallet-125-1000000000-fixture.json",
+        "sha256": "a2db4b76ecd1adcf5ad0f756e8608e928347aff7fa8703d35788b39504064c94"
+      },
+      {
+        "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_df511a95a3ac47209bfde8a32e508929\\extra-capture\\wallet-125-1000000000-glyphs.json",
+        "archive": "artifacts\\cache\\v07-wallet-review-720-044648\\wallet-125-1000000000-glyphs.json",
+        "sha256": "f6935af034305e4fc585fa5afa481540606e3b2e1a21a7b656ff55841d763895"
+      },
+      {
+        "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_df511a95a3ac47209bfde8a32e508929\\extra-capture\\wallet-125-1000010-fixture.json",
+        "archive": "artifacts\\cache\\v07-wallet-review-720-044648\\wallet-125-1000010-fixture.json",
+        "sha256": "e2b5137307eb71a013359ec9d1d9fa5830c20896e2dbe9af83d128cb2b2333b8"
+      },
+      {
+        "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_df511a95a3ac47209bfde8a32e508929\\extra-capture\\wallet-125-1000010-glyphs.json",
+        "archive": "artifacts\\cache\\v07-wallet-review-720-044648\\wallet-125-1000010-glyphs.json",
+        "sha256": "1d4564d70344e2c14cd7e3db1274457952c8f90008b5784d0fa92c548d84a7ea"
+      },
+      {
+        "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_df511a95a3ac47209bfde8a32e508929\\extra-capture\\wallet-150-0-fixture.json",
+        "archive": "artifacts\\cache\\v07-wallet-review-720-044648\\wallet-150-0-fixture.json",
+        "sha256": "fced22523495183163a26dc802216b31f583e9d4eb7efa74ec50b032a659f32e"
+      },
+      {
+        "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_df511a95a3ac47209bfde8a32e508929\\extra-capture\\wallet-150-0-glyphs.json",
+        "archive": "artifacts\\cache\\v07-wallet-review-720-044648\\wallet-150-0-glyphs.json",
+        "sha256": "f7e816310550f8822e65b77b9b2cc653e618a6dc521c77b6c8f4939614e6ddfe"
+      },
+      {
+        "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_df511a95a3ac47209bfde8a32e508929\\extra-capture\\wallet-150-1000000000-fixture.json",
+        "archive": "artifacts\\cache\\v07-wallet-review-720-044648\\wallet-150-1000000000-fixture.json",
+        "sha256": "a2db4b76ecd1adcf5ad0f756e8608e928347aff7fa8703d35788b39504064c94"
+      },
+      {
+        "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_df511a95a3ac47209bfde8a32e508929\\extra-capture\\wallet-150-1000000000-glyphs.json",
+        "archive": "artifacts\\cache\\v07-wallet-review-720-044648\\wallet-150-1000000000-glyphs.json",
+        "sha256": "04371967de666a3f4571181d87ecb8838e4d744a3a3e046d7e13d03fedeb645d"
+      },
+      {
+        "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_df511a95a3ac47209bfde8a32e508929\\extra-capture\\wallet-150-1000010-fixture.json",
+        "archive": "artifacts\\cache\\v07-wallet-review-720-044648\\wallet-150-1000010-fixture.json",
+        "sha256": "e2b5137307eb71a013359ec9d1d9fa5830c20896e2dbe9af83d128cb2b2333b8"
+      },
+      {
+        "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_df511a95a3ac47209bfde8a32e508929\\extra-capture\\wallet-150-1000010-glyphs.json",
+        "archive": "artifacts\\cache\\v07-wallet-review-720-044648\\wallet-150-1000010-glyphs.json",
+        "sha256": "2ce4db267d78230c0e5b2c2d29a6a24a0dae96386db3ccae674f2723b973ca03"
+      }
+    ],
+    "geometrySummary": [
+      {
+        "amount": "0",
+        "fontPercent": 100,
+        "amountFontSize": 38.0,
+        "tracking": 0.0,
+        "minimumDigitInkGapPixels": 0.0,
+        "glyphCount": 1
+      },
+      {
+        "amount": "1000000000",
+        "fontPercent": 100,
+        "amountFontSize": 38.0,
+        "tracking": 0.0,
+        "minimumDigitInkGapPixels": 2.515167236328125,
+        "glyphCount": 10
+      },
+      {
+        "amount": "1000010",
+        "fontPercent": 100,
+        "amountFontSize": 38.0,
+        "tracking": 0.0,
+        "minimumDigitInkGapPixels": 2.51519775390625,
+        "glyphCount": 7
+      },
+      {
+        "amount": "0",
+        "fontPercent": 125,
+        "amountFontSize": 47.5,
+        "tracking": 0.0,
+        "minimumDigitInkGapPixels": 0.0,
+        "glyphCount": 1
+      },
+      {
+        "amount": "1000000000",
+        "fontPercent": 125,
+        "amountFontSize": 47.5,
+        "tracking": 0.0,
+        "minimumDigitInkGapPixels": 3.143951416015625,
+        "glyphCount": 10
+      },
+      {
+        "amount": "1000010",
+        "fontPercent": 125,
+        "amountFontSize": 47.5,
+        "tracking": 0.0,
+        "minimumDigitInkGapPixels": 3.14398193359375,
+        "glyphCount": 7
+      },
+      {
+        "amount": "0",
+        "fontPercent": 150,
+        "amountFontSize": 57.0,
+        "tracking": 0.0,
+        "minimumDigitInkGapPixels": 0.0,
+        "glyphCount": 1
+      },
+      {
+        "amount": "1000000000",
+        "fontPercent": 150,
+        "amountFontSize": 57.0,
+        "tracking": -2.5,
+        "minimumDigitInkGapPixels": 2.82275390625,
+        "glyphCount": 10
+      },
+      {
+        "amount": "1000010",
+        "fontPercent": 150,
+        "amountFontSize": 57.0,
+        "tracking": 0.0,
+        "minimumDigitInkGapPixels": 3.77276611328125,
+        "glyphCount": 7
+      }
+    ],
+    "viewedPngs": [
+      "artifacts\\cache\\v07-wallet-review-720-044648\\000-wallet-100-0.png",
+      "artifacts\\cache\\v07-wallet-review-720-044648\\001-wallet-100-1000010.png",
+      "artifacts\\cache\\v07-wallet-review-720-044648\\002-wallet-100-1000000000.png",
+      "artifacts\\cache\\v07-wallet-review-720-044648\\003-wallet-125-0.png",
+      "artifacts\\cache\\v07-wallet-review-720-044648\\004-wallet-125-1000010.png",
+      "artifacts\\cache\\v07-wallet-review-720-044648\\005-wallet-125-1000000000.png",
+      "artifacts\\cache\\v07-wallet-review-720-044648\\006-wallet-150-0.png",
+      "artifacts\\cache\\v07-wallet-review-720-044648\\007-wallet-150-1000010.png",
+      "artifacts\\cache\\v07-wallet-review-720-044648\\008-wallet-150-1000000000.png"
+    ]
+  },
+  "colorRoutingAfterFix": {
+    "path": "DicePrototype/Assets/Game/UI/GameApp.Art07Shop.cs",
+    "sha256": "22a83b795d8ee99d9bd4636071c11e70658cc1da5de03d3e17b655d5a805f103",
+    "coreContract": "complete Run levels unchanged; category hand_upgrade may identify color content"
+  },
+  "allNineStatesVerifiedByResolution": {
+    "1280x720": true,
+    "1920x1080": true
+  },
+  "wallet1080Batch": {
+    "report": {
+      "path": "evidence/v07/unity/nunit-20261101-045449.xml",
+      "sha256": "80af18b0e2b8f5fecf51f01d6b8f2a276597443d52444fffe2c6d2a292e56999"
+    },
+    "binding": {
+      "path": "evidence/v07/unity/nunit-20261101-045449.binding.json",
+      "sha256": "936c7789a6678d703ebcd25d220702a3d9bcd0ca702762c7aca5104046d3f03d"
+    },
+    "result": {
+      "id": "2",
+      "testcasecount": "13",
+      "result": "Passed",
+      "total": "13",
+      "passed": "13",
+      "failed": "0",
+      "inconclusive": "0",
+      "skipped": "0",
+      "asserts": "0",
+      "engine-version": "3.5.0.0",
+      "clr-version": "4.0.30319.42000",
+      "start-time": "2026-11-01 04:50:38Z",
+      "end-time": "2026-11-01 04:54:49Z",
+      "duration": "250.6199811"
+    },
+    "assemblies": [
+      {
+        "name": "DiceCraft.Core",
+        "mvid": "8f690e0d-a075-4b72-98e4-2cb64ced2fa3",
+        "dllSha256": "44a137cd38d7b525382dfda7adbdb7676d12d1dbc05520638d8a14642a96031b"
+      },
+      {
+        "name": "DiceCraft.EditMode",
+        "mvid": "5b2131de-6898-48f3-a629-13fbd7d93d73",
+        "dllSha256": "c7d26343e0b6c0ebbb0fb5931a8d1df55f0c61a17cdf7d94e777d1e0b8a67f89"
+      },
+      {
+        "name": "DiceCraft.Editor",
+        "mvid": "2fb467ee-0b66-45af-850b-05ba4289bce0",
+        "dllSha256": "8ecc40c3ba1e43bd2ff3a7a1fe96011421e078de79f8be25a52205534fbc65d1"
+      },
+      {
+        "name": "DiceCraft.PlayModeTests",
+        "mvid": "bb7831e6-a596-4d76-bada-4af5362989df",
+        "dllSha256": "816af97a51ed606a224b7a41963d066248ec28dc52f3cd5bdcd42b7462af2c66"
+      },
+      {
+        "name": "DiceCraft.Runtime",
+        "mvid": "a6f0330c-52f3-428b-8bb0-877c4b30e971",
+        "dllSha256": "f5c05fe25f497c724e00100f61804c7e93bbb8c97279a6ab49bf6cb5202669f6"
+      }
+    ],
+    "sourceFileCount": 1288,
+    "sourceAndAssemblyStartEndIdentical": true,
+    "records": [
+      {
+        "group": "wallet",
+        "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_b5efae3ce5e142b68af56080eba5f7c1\\extra-capture\\000-wallet-100-0.png",
+        "archive": "artifacts\\cache\\v07-wallet-post-review-1080-045449\\wallet\\000-wallet-100-0.png",
+        "sha256": "f61ff6ac87cc6468536c6747971e0539b837ff8441c8725841cbaab417177f66"
+      },
+      {
+        "group": "wallet",
+        "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_b5efae3ce5e142b68af56080eba5f7c1\\extra-capture\\000-wallet-100-0.png.json",
+        "archive": "artifacts\\cache\\v07-wallet-post-review-1080-045449\\wallet\\000-wallet-100-0.png.json",
+        "sha256": "e0c3c710acac2a9846277e8015f223600019a1c7a500e644d7ee0cef2202ebf4"
+      },
+      {
+        "group": "wallet",
+        "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_b5efae3ce5e142b68af56080eba5f7c1\\extra-capture\\001-wallet-100-1000010.png",
+        "archive": "artifacts\\cache\\v07-wallet-post-review-1080-045449\\wallet\\001-wallet-100-1000010.png",
+        "sha256": "7d8bc4685fceb5b63a6448866d3c1997325a7205bfd9a075099227558d40a220"
+      },
+      {
+        "group": "wallet",
+        "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_b5efae3ce5e142b68af56080eba5f7c1\\extra-capture\\001-wallet-100-1000010.png.json",
+        "archive": "artifacts\\cache\\v07-wallet-post-review-1080-045449\\wallet\\001-wallet-100-1000010.png.json",
+        "sha256": "45b07fc45e6bcb305f42b963ffb6b31269e85458840d1d8eca1de9a88bf80809"
+      },
+      {
+        "group": "wallet",
+        "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_b5efae3ce5e142b68af56080eba5f7c1\\extra-capture\\002-wallet-100-1000000000.png",
+        "archive": "artifacts\\cache\\v07-wallet-post-review-1080-045449\\wallet\\002-wallet-100-1000000000.png",
+        "sha256": "3d3bfad9e32de0c3d8ba7bdc77f7d532d6e3901bcdd231911a5405e9578dac2b"
+      },
+      {
+        "group": "wallet",
+        "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_b5efae3ce5e142b68af56080eba5f7c1\\extra-capture\\002-wallet-100-1000000000.png.json",
+        "archive": "artifacts\\cache\\v07-wallet-post-review-1080-045449\\wallet\\002-wallet-100-1000000000.png.json",
+        "sha256": "8b485622117420b3176e16371ee773a1f8196b8b97a5149b7eff9208c25ddd02"
+      },
+      {
+        "group": "wallet",
+        "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_b5efae3ce5e142b68af56080eba5f7c1\\extra-capture\\003-wallet-125-0.png",
+        "archive": "artifacts\\cache\\v07-wallet-post-review-1080-045449\\wallet\\003-wallet-125-0.png",
+        "sha256": "666e6ed41fd598fc5de4080c72cdf95024eb8965378815691e331c1cd03ba681"
+      },
+      {
+        "group": "wallet",
+        "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_b5efae3ce5e142b68af56080eba5f7c1\\extra-capture\\003-wallet-125-0.png.json",
+        "archive": "artifacts\\cache\\v07-wallet-post-review-1080-045449\\wallet\\003-wallet-125-0.png.json",
+        "sha256": "8f23b3579cd52c6ac589d285008c21bbe5ffd1a54b69f05321fd73a7d5fc7908"
+      },
+      {
+        "group": "wallet",
+        "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_b5efae3ce5e142b68af56080eba5f7c1\\extra-capture\\004-wallet-125-1000010.png",
+        "archive": "artifacts\\cache\\v07-wallet-post-review-1080-045449\\wallet\\004-wallet-125-1000010.png",
+        "sha256": "d33bd14a8244278f0858ed74c4cf889e83d0b063b08dbfaac33146e01fb44055"
+      },
+      {
+        "group": "wallet",
+        "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_b5efae3ce5e142b68af56080eba5f7c1\\extra-capture\\004-wallet-125-1000010.png.json",
+        "archive": "artifacts\\cache\\v07-wallet-post-review-1080-045449\\wallet\\004-wallet-125-1000010.png.json",
+        "sha256": "6a50eae16eae1275f5cf22dc130a0a25ff8c470eb8e0ec0b0fb07f97f52748a9"
+      },
+      {
+        "group": "wallet",
+        "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_b5efae3ce5e142b68af56080eba5f7c1\\extra-capture\\005-wallet-125-1000000000.png",
+        "archive": "artifacts\\cache\\v07-wallet-post-review-1080-045449\\wallet\\005-wallet-125-1000000000.png",
+        "sha256": "406676c18b8f5d50124295570fd79db18ec98dac4eba39e113b958dd5b45880d"
+      },
+      {
+        "group": "wallet",
+        "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_b5efae3ce5e142b68af56080eba5f7c1\\extra-capture\\005-wallet-125-1000000000.png.json",
+        "archive": "artifacts\\cache\\v07-wallet-post-review-1080-045449\\wallet\\005-wallet-125-1000000000.png.json",
+        "sha256": "7e7333df3f34d4acba4ea621bf1331a9b2760dbf968d7d7e88be3e921bd3730a"
+      },
+      {
+        "group": "wallet",
+        "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_b5efae3ce5e142b68af56080eba5f7c1\\extra-capture\\006-wallet-150-0.png",
+        "archive": "artifacts\\cache\\v07-wallet-post-review-1080-045449\\wallet\\006-wallet-150-0.png",
+        "sha256": "5abd3b44d2b99b735c387a9cc10a169b55ad31962ce50c0059cfe09f0ef86d9c"
+      },
+      {
+        "group": "wallet",
+        "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_b5efae3ce5e142b68af56080eba5f7c1\\extra-capture\\006-wallet-150-0.png.json",
+        "archive": "artifacts\\cache\\v07-wallet-post-review-1080-045449\\wallet\\006-wallet-150-0.png.json",
+        "sha256": "1388a38cbbfd83ca02499335d0bd54ca6586ba41d8b8e561e727b2762c627b4a"
+      },
+      {
+        "group": "wallet",
+        "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_b5efae3ce5e142b68af56080eba5f7c1\\extra-capture\\007-wallet-150-1000010.png",
+        "archive": "artifacts\\cache\\v07-wallet-post-review-1080-045449\\wallet\\007-wallet-150-1000010.png",
+        "sha256": "c884612a15d109d2906edf4cfda8d24aa8930de44f0f6e940081e723fb55aea9"
+      },
+      {
+        "group": "wallet",
+        "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_b5efae3ce5e142b68af56080eba5f7c1\\extra-capture\\007-wallet-150-1000010.png.json",
+        "archive": "artifacts\\cache\\v07-wallet-post-review-1080-045449\\wallet\\007-wallet-150-1000010.png.json",
+        "sha256": "83f5619fa2a16d69626dae9a7de83dc97c27f7aad4bc4d6c97ac24f5823c0701"
+      },
+      {
+        "group": "wallet",
+        "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_b5efae3ce5e142b68af56080eba5f7c1\\extra-capture\\008-wallet-150-1000000000.png",
+        "archive": "artifacts\\cache\\v07-wallet-post-review-1080-045449\\wallet\\008-wallet-150-1000000000.png",
+        "sha256": "4bf114df56261fdc57341b248adf29be41b1a93b3d2f560b456e37771fee120b"
+      },
+      {
+        "group": "wallet",
+        "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_b5efae3ce5e142b68af56080eba5f7c1\\extra-capture\\008-wallet-150-1000000000.png.json",
+        "archive": "artifacts\\cache\\v07-wallet-post-review-1080-045449\\wallet\\008-wallet-150-1000000000.png.json",
+        "sha256": "bcf8f433673ff6b6c70fc147fd8d23e261afe053306faead1adb7e5474859359"
+      },
+      {
+        "group": "wallet",
+        "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_b5efae3ce5e142b68af56080eba5f7c1\\extra-capture\\extra-report.json",
+        "archive": "artifacts\\cache\\v07-wallet-post-review-1080-045449\\wallet\\extra-report.json",
+        "sha256": "b43cea033e96bf2892a172a154b8b0b8710a5cc2cf4fe18e9f7aebd3bfdfce4c"
+      },
+      {
+        "group": "wallet",
+        "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_b5efae3ce5e142b68af56080eba5f7c1\\extra-capture\\source-snapshot.sha256",
+        "archive": "artifacts\\cache\\v07-wallet-post-review-1080-045449\\wallet\\source-snapshot.sha256",
+        "sha256": "9bc394f5963e5a946113444b899a1883dadf95c812f1fc3efd924120eb0bb1d0"
+      },
+      {
+        "group": "wallet",
+        "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_b5efae3ce5e142b68af56080eba5f7c1\\extra-capture\\wallet-100-0-fixture.json",
+        "archive": "artifacts\\cache\\v07-wallet-post-review-1080-045449\\wallet\\wallet-100-0-fixture.json",
+        "sha256": "fced22523495183163a26dc802216b31f583e9d4eb7efa74ec50b032a659f32e"
+      },
+      {
+        "group": "wallet",
+        "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_b5efae3ce5e142b68af56080eba5f7c1\\extra-capture\\wallet-100-0-glyphs.json",
+        "archive": "artifacts\\cache\\v07-wallet-post-review-1080-045449\\wallet\\wallet-100-0-glyphs.json",
+        "sha256": "ead0c3ffaecfb49a8183ba69b5bf1cd04a202de0eb22ad163ce924db10d66774"
+      },
+      {
+        "group": "wallet",
+        "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_b5efae3ce5e142b68af56080eba5f7c1\\extra-capture\\wallet-100-1000000000-fixture.json",
+        "archive": "artifacts\\cache\\v07-wallet-post-review-1080-045449\\wallet\\wallet-100-1000000000-fixture.json",
+        "sha256": "a2db4b76ecd1adcf5ad0f756e8608e928347aff7fa8703d35788b39504064c94"
+      },
+      {
+        "group": "wallet",
+        "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_b5efae3ce5e142b68af56080eba5f7c1\\extra-capture\\wallet-100-1000000000-glyphs.json",
+        "archive": "artifacts\\cache\\v07-wallet-post-review-1080-045449\\wallet\\wallet-100-1000000000-glyphs.json",
+        "sha256": "ef582b1cae1fda50af2c27cb35b140d51d183424e07ff495262873cc501d5424"
+      },
+      {
+        "group": "wallet",
+        "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_b5efae3ce5e142b68af56080eba5f7c1\\extra-capture\\wallet-100-1000010-fixture.json",
+        "archive": "artifacts\\cache\\v07-wallet-post-review-1080-045449\\wallet\\wallet-100-1000010-fixture.json",
+        "sha256": "e2b5137307eb71a013359ec9d1d9fa5830c20896e2dbe9af83d128cb2b2333b8"
+      },
+      {
+        "group": "wallet",
+        "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_b5efae3ce5e142b68af56080eba5f7c1\\extra-capture\\wallet-100-1000010-glyphs.json",
+        "archive": "artifacts\\cache\\v07-wallet-post-review-1080-045449\\wallet\\wallet-100-1000010-glyphs.json",
+        "sha256": "1bc035b7307b18282a0fe8814ca8944ef3216ca7c66132bdc8fd8c98ac67a2f6"
+      },
+      {
+        "group": "wallet",
+        "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_b5efae3ce5e142b68af56080eba5f7c1\\extra-capture\\wallet-125-0-fixture.json",
+        "archive": "artifacts\\cache\\v07-wallet-post-review-1080-045449\\wallet\\wallet-125-0-fixture.json",
+        "sha256": "fced22523495183163a26dc802216b31f583e9d4eb7efa74ec50b032a659f32e"
+      },
+      {
+        "group": "wallet",
+        "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_b5efae3ce5e142b68af56080eba5f7c1\\extra-capture\\wallet-125-0-glyphs.json",
+        "archive": "artifacts\\cache\\v07-wallet-post-review-1080-045449\\wallet\\wallet-125-0-glyphs.json",
+        "sha256": "93ce4d796cf8393403534ccf6b38adad01898b0fc4c49250452bb9db3cac5915"
+      },
+      {
+        "group": "wallet",
+        "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_b5efae3ce5e142b68af56080eba5f7c1\\extra-capture\\wallet-125-1000000000-fixture.json",
+        "archive": "artifacts\\cache\\v07-wallet-post-review-1080-045449\\wallet\\wallet-125-1000000000-fixture.json",
+        "sha256": "a2db4b76ecd1adcf5ad0f756e8608e928347aff7fa8703d35788b39504064c94"
+      },
+      {
+        "group": "wallet",
+        "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_b5efae3ce5e142b68af56080eba5f7c1\\extra-capture\\wallet-125-1000000000-glyphs.json",
+        "archive": "artifacts\\cache\\v07-wallet-post-review-1080-045449\\wallet\\wallet-125-1000000000-glyphs.json",
+        "sha256": "55d4d27da639e280448fb96c272202c6bc31a23e8ac390eaab056ff91e7d197b"
+      },
+      {
+        "group": "wallet",
+        "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_b5efae3ce5e142b68af56080eba5f7c1\\extra-capture\\wallet-125-1000010-fixture.json",
+        "archive": "artifacts\\cache\\v07-wallet-post-review-1080-045449\\wallet\\wallet-125-1000010-fixture.json",
+        "sha256": "e2b5137307eb71a013359ec9d1d9fa5830c20896e2dbe9af83d128cb2b2333b8"
+      },
+      {
+        "group": "wallet",
+        "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_b5efae3ce5e142b68af56080eba5f7c1\\extra-capture\\wallet-125-1000010-glyphs.json",
+        "archive": "artifacts\\cache\\v07-wallet-post-review-1080-045449\\wallet\\wallet-125-1000010-glyphs.json",
+        "sha256": "01de535905a673f8e624e5d1f75a8f986c84cba8389f7af6d50b5a1c4f631654"
+      },
+      {
+        "group": "wallet",
+        "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_b5efae3ce5e142b68af56080eba5f7c1\\extra-capture\\wallet-150-0-fixture.json",
+        "archive": "artifacts\\cache\\v07-wallet-post-review-1080-045449\\wallet\\wallet-150-0-fixture.json",
+        "sha256": "fced22523495183163a26dc802216b31f583e9d4eb7efa74ec50b032a659f32e"
+      },
+      {
+        "group": "wallet",
+        "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_b5efae3ce5e142b68af56080eba5f7c1\\extra-capture\\wallet-150-0-glyphs.json",
+        "archive": "artifacts\\cache\\v07-wallet-post-review-1080-045449\\wallet\\wallet-150-0-glyphs.json",
+        "sha256": "b76675c91a34b213e994b1569f9c7011ced61100de0b987e8fbf775c51cbd0db"
+      },
+      {
+        "group": "wallet",
+        "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_b5efae3ce5e142b68af56080eba5f7c1\\extra-capture\\wallet-150-1000000000-fixture.json",
+        "archive": "artifacts\\cache\\v07-wallet-post-review-1080-045449\\wallet\\wallet-150-1000000000-fixture.json",
+        "sha256": "a2db4b76ecd1adcf5ad0f756e8608e928347aff7fa8703d35788b39504064c94"
+      },
+      {
+        "group": "wallet",
+        "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_b5efae3ce5e142b68af56080eba5f7c1\\extra-capture\\wallet-150-1000000000-glyphs.json",
+        "archive": "artifacts\\cache\\v07-wallet-post-review-1080-045449\\wallet\\wallet-150-1000000000-glyphs.json",
+        "sha256": "379b98b12d842448d4fbfe3023fe5e17a26952a8006792ee4e26ee8462158282"
+      },
+      {
+        "group": "wallet",
+        "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_b5efae3ce5e142b68af56080eba5f7c1\\extra-capture\\wallet-150-1000010-fixture.json",
+        "archive": "artifacts\\cache\\v07-wallet-post-review-1080-045449\\wallet\\wallet-150-1000010-fixture.json",
+        "sha256": "e2b5137307eb71a013359ec9d1d9fa5830c20896e2dbe9af83d128cb2b2333b8"
+      },
+      {
+        "group": "wallet",
+        "source": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_b5efae3ce5e142b68af56080eba5f7c1\\extra-capture\\wallet-150-1000010-glyphs.json",
+        "archive": "artifacts\\cache\\v07-wallet-post-review-1080-045449\\wallet\\wallet-150-1000010-glyphs.json",
+        "sha256": "4e6933b96902dea0645665b388b668e36dcff799a4ddccd85aa3619f4f59e427"
+      }
+    ],
+    "geometrySummary": [
+      {
+        "png": "artifacts/cache/v07-wallet-post-review-1080-045449/wallet/000-wallet-100-0.png",
+        "amount": "0",
+        "fontPercent": 100,
+        "fontSize": 38.0,
+        "tracking": 0.0,
+        "minimumDigitInkGapPixels": 0.0,
+        "stateSaveUnchanged": true,
+        "independentlyCheckedLabelPairs": 6
+      },
+      {
+        "png": "artifacts/cache/v07-wallet-post-review-1080-045449/wallet/001-wallet-100-1000010.png",
+        "amount": "1000010",
+        "fontPercent": 100,
+        "fontSize": 38.0,
+        "tracking": 0.0,
+        "minimumDigitInkGapPixels": 3.77276611328125,
+        "stateSaveUnchanged": true,
+        "independentlyCheckedLabelPairs": 6
+      },
+      {
+        "png": "artifacts/cache/v07-wallet-post-review-1080-045449/wallet/002-wallet-100-1000000000.png",
+        "amount": "1000000000",
+        "fontPercent": 100,
+        "fontSize": 38.0,
+        "tracking": 0.0,
+        "minimumDigitInkGapPixels": 3.77276611328125,
+        "stateSaveUnchanged": true,
+        "independentlyCheckedLabelPairs": 6
+      },
+      {
+        "png": "artifacts/cache/v07-wallet-post-review-1080-045449/wallet/003-wallet-125-0.png",
+        "amount": "0",
+        "fontPercent": 125,
+        "fontSize": 47.5,
+        "tracking": 0.0,
+        "minimumDigitInkGapPixels": 0.0,
+        "stateSaveUnchanged": true,
+        "independentlyCheckedLabelPairs": 6
+      },
+      {
+        "png": "artifacts/cache/v07-wallet-post-review-1080-045449/wallet/004-wallet-125-1000010.png",
+        "amount": "1000010",
+        "fontPercent": 125,
+        "fontSize": 47.5,
+        "tracking": 0.0,
+        "minimumDigitInkGapPixels": 4.7159423828125,
+        "stateSaveUnchanged": true,
+        "independentlyCheckedLabelPairs": 6
+      },
+      {
+        "png": "artifacts/cache/v07-wallet-post-review-1080-045449/wallet/005-wallet-125-1000000000.png",
+        "amount": "1000000000",
+        "fontPercent": 125,
+        "fontSize": 47.5,
+        "tracking": 0.0,
+        "minimumDigitInkGapPixels": 4.7159423828125,
+        "stateSaveUnchanged": true,
+        "independentlyCheckedLabelPairs": 6
+      },
+      {
+        "png": "artifacts/cache/v07-wallet-post-review-1080-045449/wallet/006-wallet-150-0.png",
+        "amount": "0",
+        "fontPercent": 150,
+        "fontSize": 57.0,
+        "tracking": 0.0,
+        "minimumDigitInkGapPixels": 0.0,
+        "stateSaveUnchanged": true,
+        "independentlyCheckedLabelPairs": 6
+      },
+      {
+        "png": "artifacts/cache/v07-wallet-post-review-1080-045449/wallet/007-wallet-150-1000010.png",
+        "amount": "1000010",
+        "fontPercent": 150,
+        "fontSize": 57.0,
+        "tracking": 0.0,
+        "minimumDigitInkGapPixels": 5.6591796875,
+        "stateSaveUnchanged": true,
+        "independentlyCheckedLabelPairs": 6
+      },
+      {
+        "png": "artifacts/cache/v07-wallet-post-review-1080-045449/wallet/008-wallet-150-1000000000.png",
+        "amount": "1000000000",
+        "fontPercent": 150,
+        "fontSize": 57.0,
+        "tracking": -2.5,
+        "minimumDigitInkGapPixels": 4.234130859375,
+        "stateSaveUnchanged": true,
+        "independentlyCheckedLabelPairs": 6
+      }
+    ],
+    "viewedPngs": [
+      "artifacts/cache/v07-wallet-post-review-1080-045449/wallet/000-wallet-100-0.png",
+      "artifacts/cache/v07-wallet-post-review-1080-045449/wallet/001-wallet-100-1000010.png",
+      "artifacts/cache/v07-wallet-post-review-1080-045449/wallet/002-wallet-100-1000000000.png",
+      "artifacts/cache/v07-wallet-post-review-1080-045449/wallet/003-wallet-125-0.png",
+      "artifacts/cache/v07-wallet-post-review-1080-045449/wallet/004-wallet-125-1000010.png",
+      "artifacts/cache/v07-wallet-post-review-1080-045449/wallet/005-wallet-125-1000000000.png",
+      "artifacts/cache/v07-wallet-post-review-1080-045449/wallet/006-wallet-150-0.png",
+      "artifacts/cache/v07-wallet-post-review-1080-045449/wallet/007-wallet-150-1000010.png",
+      "artifacts/cache/v07-wallet-post-review-1080-045449/wallet/008-wallet-150-1000000000.png"
+    ]
+  }
+}

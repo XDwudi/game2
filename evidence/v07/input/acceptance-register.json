@@ -1,0 +1,471 @@
+[
+  {
+    "id": "ART01",
+    "scenario": "颜色与文字",
+    "expected": "所有页面使用同一主题Tokens；红蓝/黄金/选中不会互相冒充",
+    "sourceLine": 1031,
+    "runtimeStatus": "not_run"
+  },
+  {
+    "id": "ART02",
+    "scenario": "内容完整性",
+    "expected": "50控制器、7道具、7服务、7骰强均有图标；五附魔角标可组合",
+    "sourceLine": 1032,
+    "runtimeStatus": "not_run"
+  },
+  {
+    "id": "ART03",
+    "scenario": "最大容量",
+    "expected": "10骰、8提交槽、10卡、5道具和商店6/5报价均可见可操作",
+    "sourceLine": 1033,
+    "runtimeStatus": "not_run"
+  },
+  {
+    "id": "ART04",
+    "scenario": "点数与面ID",
+    "expected": "六面初始映射正确；改点与改色不改变faceId；1至6逐项无错点",
+    "sourceLine": 1034,
+    "runtimeStatus": "not_run"
+  },
+  {
+    "id": "ART05",
+    "scenario": "组合外观",
+    "expected": "红粗糙黄金面＋玻璃骰＋锁定同时可读，背面点数不干扰",
+    "sourceLine": 1035,
+    "runtimeStatus": "not_run"
+  },
+  {
+    "id": "ART06",
+    "scenario": "规则结果落位",
+    "expected": "Roll_A/B、Fast/Instant与恢复最终朝上面均等于收据",
+    "sourceLine": 1036,
+    "runtimeStatus": "not_run"
+  },
+  {
+    "id": "ART07",
+    "scenario": "触发目标",
+    "expected": "C03首颗、C15全部内侧目标、C20实际K栏、C38首末与规则一致",
+    "sourceLine": 1037,
+    "runtimeStatus": "not_run"
+  },
+  {
+    "id": "ART08",
+    "scenario": "复制反馈",
+    "expected": "C41来源和真实状态所有者区分；丢失目标保留失效提示",
+    "sourceLine": 1038,
+    "runtimeStatus": "not_run"
+  },
+  {
+    "id": "ART09",
+    "scenario": "附魔反馈",
+    "expected": "预算发放只显示真实一次；纯被动实验计分附魔显示不触发原因",
+    "sourceLine": 1039,
+    "runtimeStatus": "not_run"
+  },
+  {
+    "id": "ART10",
+    "scenario": "倍率极值",
+    "expected": "×0不爆分；0.5/0.25正确；超Int64文本与详情无精度损失",
+    "sourceLine": 1040,
+    "runtimeStatus": "not_run"
+  },
+  {
+    "id": "ART11",
+    "scenario": "收据重播",
+    "expected": "快进、暂停、读档、重复显示不新增钱、升级、自毁或随机调用",
+    "sourceLine": 1041,
+    "runtimeStatus": "not_run"
+  },
+  {
+    "id": "ART12",
+    "scenario": "永久改造",
+    "expected": "当前手计分与提交后改面分开显示，下一手使用真实新状态",
+    "sourceLine": 1042,
+    "runtimeStatus": "not_run"
+  },
+  {
+    "id": "ART13",
+    "scenario": "输入隔离",
+    "expected": "特效不拦截射线，模态层不穿透，拖拽与文字焦点无错位",
+    "sourceLine": 1043,
+    "runtimeStatus": "not_run"
+  },
+  {
+    "id": "ART14",
+    "scenario": "图像边缘",
+    "expected": "三底色检查无白边、黑边、九宫格裂缝；Atlas不旋转UI",
+    "sourceLine": 1044,
+    "runtimeStatus": "not_run"
+  },
+  {
+    "id": "ART15",
+    "scenario": "小屏与放大",
+    "expected": "最低分辨率及150%文本下关键数值、关闭和确认按钮可达",
+    "sourceLine": 1045,
+    "runtimeStatus": "not_run"
+  },
+  {
+    "id": "ART16",
+    "scenario": "显示模式",
+    "expected": "两平台全屏/无边框/窗口正确；15秒回退不受暂停和倍速影响",
+    "sourceLine": 1046,
+    "runtimeStatus": "not_run"
+  },
+  {
+    "id": "ART17",
+    "scenario": "减少动态",
+    "expected": "所有非必要运动可关闭，仍可识别来源、损坏、成长和达标",
+    "sourceLine": 1047,
+    "runtimeStatus": "not_run"
+  },
+  {
+    "id": "ART18",
+    "scenario": "高倍率时长",
+    "expected": "普通最高一次计分≤3.2秒，Fast≤0.8秒，Instant直接终态",
+    "sourceLine": 1048,
+    "runtimeStatus": "not_run"
+  },
+  {
+    "id": "ART19",
+    "scenario": "对象池",
+    "expected": "连续200次表现重播后对象数回到基线，无材质持续增长",
+    "sourceLine": 1049,
+    "runtimeStatus": "not_run"
+  },
+  {
+    "id": "ART20",
+    "scenario": "音频",
+    "expected": "静音下流程信息完整；多卡触发不削波、不无限叠音",
+    "sourceLine": 1050,
+    "runtimeStatus": "not_run"
+  },
+  {
+    "id": "ART21",
+    "scenario": "性能记录",
+    "expected": "两平台各有3分钟压力记录，缺测项明确标未执行",
+    "sourceLine": 1051,
+    "runtimeStatus": "not_run"
+  },
+  {
+    "id": "ART22",
+    "scenario": "资源可复现",
+    "expected": "源文件、导出预设、导入预设、manifest、许可与Git版本匹配",
+    "sourceLine": 1052,
+    "runtimeStatus": "not_run"
+  },
+  {
+    "id": "UI01",
+    "scenario": "1280×720及150%文字",
+    "expected": "切换整屏紧凑坐标；K8为4×2，提交区高168最终像素而非168参考像素；目标、骰点及全部主动作可见；热区不小于40实际像素",
+    "sourceLine": 9386,
+    "runtimeStatus": "not_run"
+  },
+  {
+    "id": "UI02",
+    "scenario": "五骰首掷前",
+    "expected": "明确待投掷，不以静置面计算有效预览；首掷包含在总次数中",
+    "sourceLine": 9387,
+    "runtimeStatus": "not_run"
+  },
+  {
+    "id": "UI03",
+    "scenario": "待选两骰",
+    "expected": "虚线与空心勾；可取消；重掷、提交、道具、已锁排序、结束禁用",
+    "sourceLine": 9388,
+    "runtimeStatus": "not_run"
+  },
+  {
+    "id": "UI04",
+    "scenario": "确认锁定",
+    "expected": "相同dieId进入S；不复制视图对象为新规则实体；不能移回池",
+    "sourceLine": 9389,
+    "runtimeStatus": "not_run"
+  },
+  {
+    "id": "UI05",
+    "scenario": "提交K满、池还有骰",
+    "expected": "重掷按v0.6仍可执行；提示不能新增已锁成员，不做UI误禁用",
+    "sourceLine": 9390,
+    "runtimeStatus": "not_run"
+  },
+  {
+    "id": "UI06",
+    "scenario": "全骰已锁或零余掷",
+    "expected": "显示不同禁用原因；零余掷仍可锁定和提交，不自动替玩家锁骰",
+    "sourceLine": 9391,
+    "runtimeStatus": "not_run"
+  },
+  {
+    "id": "UI07",
+    "scenario": "已锁拖出与Esc",
+    "expected": "取消并恢复原序，不解锁，不留空洞，无随机消耗",
+    "sourceLine": 9392,
+    "runtimeStatus": "not_run"
+  },
+  {
+    "id": "UI08",
+    "scenario": "10控制器两排",
+    "expected": "使用5×2紧凑卡；第5与第6相邻；文字、角标和右邻连线可读",
+    "sourceLine": 9393,
+    "runtimeStatus": "not_run"
+  },
+  {
+    "id": "UI09",
+    "scenario": "C41拖拽和失效",
+    "expected": "关外可调序，关内冻结；目标丢失保留失效，不自动改绑",
+    "sourceLine": 9394,
+    "runtimeStatus": "not_run"
+  },
+  {
+    "id": "UI10",
+    "scenario": "五种附魔",
+    "expected": "角标源128×128，全卡32、紧凑28、详情40逻辑像素；无独立小热区；角标、1至3枚稀有度短刻度、当前技能三者独立；C41不显示复制目标附魔",
+    "sourceLine": 9395,
+    "runtimeStatus": "not_run"
+  },
+  {
+    "id": "UI11",
+    "scenario": "预算附魔",
+    "expected": "submit1仅StageStart，roll1仅HandStart授予；查看详情不播放假领取",
+    "sourceLine": 9396,
+    "runtimeStatus": "not_run"
+  },
+  {
+    "id": "UI12",
+    "scenario": "C53正常预览",
+    "expected": "范围或9分支，不泄露尚未抽出的值；模仿共享q",
+    "sourceLine": 9397,
+    "runtimeStatus": "not_run"
+  },
+  {
+    "id": "UI13",
+    "scenario": "C49无5且score0",
+    "expected": "明确×0来源；合法提交可执行，无假爆分与胜利庆祝",
+    "sourceLine": 9398,
+    "runtimeStatus": "not_run"
+  },
+  {
+    "id": "UI14",
+    "scenario": "牌型手册",
+    "expected": "14个定义行（13种可强化真牌型加散点）与2个独立颜色强化项；结构主牌型和计分项不同可看清；H打开，忙碌/拖动/目标选择时禁止",
+    "sourceLine": 9399,
+    "runtimeStatus": "not_run"
+  },
+  {
+    "id": "UI15",
+    "scenario": "关内达标且有剩次",
+    "expected": "不自动去商店；继续掷骰与结束本轮可选；不提前发关末钱",
+    "sourceLine": 9400,
+    "runtimeStatus": "not_run"
+  },
+  {
+    "id": "UI16",
+    "scenario": "未提交手结束",
+    "expected": "允许合法已锁状态结束；不退已用道具、掷骰或损坏",
+    "sourceLine": 9401,
+    "runtimeStatus": "not_run"
+  },
+  {
+    "id": "UI17",
+    "scenario": "关末与基金",
+    "expected": "提交收入标已入账；基金＋3写卖价；重复继续不再涨钱或卖价",
+    "sourceLine": 9402,
+    "runtimeStatus": "not_run"
+  },
+  {
+    "id": "UI18",
+    "scenario": "控制器刷新",
+    "expected": "仅本区变化；3/5/7或0/5/7准确；其他售罄不恢复",
+    "sourceLine": 9403,
+    "runtimeStatus": "not_run"
+  },
+  {
+    "id": "UI19",
+    "scenario": "O05/O06新增位",
+    "expected": "只新增一位；无候选显示空位与容量生效；不伪造商品",
+    "sourceLine": 9404,
+    "runtimeStatus": "not_run"
+  },
+  {
+    "id": "UI20",
+    "scenario": "成长基金替换",
+    "expected": "实际旧卖价、净支出或净收入、状态重置和最终槽位均可见",
+    "sourceLine": 9405,
+    "runtimeStatus": "not_run"
+  },
+  {
+    "id": "UI21",
+    "scenario": "骰子多层强化",
+    "expected": "红蓝、光滑/粗糙、黄金、玻璃、临时身份与锁定同时可辨",
+    "sourceLine": 9406,
+    "runtimeStatus": "not_run"
+  },
+  {
+    "id": "UI22",
+    "scenario": "遥控与强化目标",
+    "expected": "骰/物理面/当前点数明确；取消无成本；U07不提前预抽",
+    "sourceLine": 9407,
+    "runtimeStatus": "not_run"
+  },
+  {
+    "id": "UI23",
+    "scenario": "显示模式确认",
+    "expected": "15秒实时时钟、Esc/失焦超时/重启回退；确认按钮留在新安全区",
+    "sourceLine": 9408,
+    "runtimeStatus": "not_run"
+  },
+  {
+    "id": "UI24",
+    "scenario": "暂停和跳过演出",
+    "expected": "不撤销已提交规则；直接落最终状态，不重发命令",
+    "sourceLine": 9409,
+    "runtimeStatus": "not_run"
+  },
+  {
+    "id": "UI25",
+    "scenario": "Debug入口",
+    "expected": "精确XD is god；仅开启入口不标记正常Run；工作区前保存检查点并建独立副本，首次修改才给副本debug标记；工作区标签常驻",
+    "sourceLine": 9410,
+    "runtimeStatus": "not_run"
+  },
+  {
+    "id": "UI26",
+    "scenario": "Debug任意组合",
+    "expected": "50有效ID×任意五附魔可配；纯被动计分附魔显示无提交触发",
+    "sourceLine": 9411,
+    "runtimeStatus": "not_run"
+  },
+  {
+    "id": "UI27",
+    "scenario": "Debug当前提交",
+    "expected": "重建后回填本次faceId、覆盖点数、锁定顺序、hasRolled、C05标志",
+    "sourceLine": 9412,
+    "runtimeStatus": "not_run"
+  },
+  {
+    "id": "UI28",
+    "scenario": "Debug随机覆盖",
+    "expected": "下一次一次性，仍消费原随机，原值与覆盖值均可查；预览不消费",
+    "sourceLine": 9413,
+    "runtimeStatus": "not_run"
+  },
+  {
+    "id": "UI29",
+    "scenario": "保存失败",
+    "expected": "保留候选供重试，不重新随机；放弃恢复完整上一检查点",
+    "sourceLine": 9414,
+    "runtimeStatus": "not_run"
+  },
+  {
+    "id": "UI30",
+    "scenario": "恢复与结束",
+    "expected": "已完成收据不重播副作用；第24关无商店；无永久骰成功后终止原因清楚",
+    "sourceLine": 9415,
+    "runtimeStatus": "not_run"
+  },
+  {
+    "id": "UI31",
+    "scenario": "键盘与触控板",
+    "expected": "模态/输入/忙碌拦截下层；失焦解除按下态与拖拽，禁止重复提交",
+    "sourceLine": 9416,
+    "runtimeStatus": "not_run"
+  },
+  {
+    "id": "UI32",
+    "scenario": "三速与减少动态",
+    "expected": "Normal/Fast/Instant数字相同；减少动态保留目标/结果/命中说明",
+    "sourceLine": 9417,
+    "runtimeStatus": "not_run"
+  },
+  {
+    "id": "FX01",
+    "scenario": "档位边界",
+    "expected": "8/32/128/1024/8192的上下边界按精确分数判断，不四舍五入跳档",
+    "sourceLine": 9424,
+    "runtimeStatus": "not_run"
+  },
+  {
+    "id": "FX02",
+    "scenario": "高倍率零分",
+    "expected": "最终score=0时L0；仍显示×0原因、后置收入及成长",
+    "sourceLine": 9425,
+    "runtimeStatus": "not_run"
+  },
+  {
+    "id": "FX03",
+    "scenario": "连锁来源",
+    "expected": "同一emitter逐骰效果和自身附魔只计一次；纯发币、预算、基金不计",
+    "sourceLine": 9426,
+    "runtimeStatus": "not_run"
+  },
+  {
+    "id": "FX04",
+    "scenario": "C41+C53",
+    "expected": "共享一次q；q=0.5时两份合计0.25，预览不消费随机",
+    "sourceLine": 9427,
+    "runtimeStatus": "not_run"
+  },
+  {
+    "id": "FX05",
+    "scenario": "最大后置并发",
+    "expected": "复制、染色、点数净改、RBR和首末蓝按规则记录；视觉合并后≤480ms",
+    "sourceLine": 9428,
+    "runtimeStatus": "not_run"
+  },
+  {
+    "id": "FX06",
+    "scenario": "G147",
+    "expected": "967680、26880、N=4、L5；累计0且目标1800000时不达标",
+    "sourceLine": 9429,
+    "runtimeStatus": "not_run"
+  },
+  {
+    "id": "FX07",
+    "scenario": "十卡与调试32卡",
+    "expected": "全局1主3辅助，明细保留全部来源，整手≤3.2秒",
+    "sourceLine": 9430,
+    "runtimeStatus": "not_run"
+  },
+  {
+    "id": "FX08",
+    "scenario": "收据去重",
+    "expected": "跳过、恢复、暂停及重播不新增货币、随机、成长或自毁",
+    "sourceLine": 9431,
+    "runtimeStatus": "not_run"
+  },
+  {
+    "id": "FX09",
+    "scenario": "三速状态一致",
+    "expected": "同种子同指令Normal/Fast/Instant及减少动态的规则最终状态相同",
+    "sourceLine": 9432,
+    "runtimeStatus": "not_run"
+  },
+  {
+    "id": "FX10",
+    "scenario": "全局可读性",
+    "expected": "粒子和光环不盖分数、骰点或按钮，装饰不拦截输入",
+    "sourceLine": 9433,
+    "runtimeStatus": "not_run"
+  },
+  {
+    "id": "FX11",
+    "scenario": "音频映射",
+    "expected": "16逻辑事件映射25WAV；基金卖价增加没有现金到账音",
+    "sourceLine": 9434,
+    "runtimeStatus": "not_run"
+  },
+  {
+    "id": "FX12",
+    "scenario": "材质组合",
+    "expected": "单面黄金不改变红蓝；玻璃不透出背面点数；点阵仍按物理faceId",
+    "sourceLine": 9435,
+    "runtimeStatus": "not_run"
+  },
+  {
+    "id": "FX13",
+    "scenario": "真实交付",
+    "expected": "planned资源制作导入并实机核验后方可标verified；概念图不能代替运行截图",
+    "sourceLine": 9436,
+    "runtimeStatus": "not_run"
+  }
+]

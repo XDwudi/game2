@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="2" result="Passed" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-11-01 04:06:57Z" end-time="2026-11-01 04:07:04Z" duration="6.9775821">
+  <test-suite type="TestSuite" id="1127" name="DiceCraft P0" fullname="DiceCraft P0" runstate="Runnable" testcasecount="118" result="Passed" start-time="2026-11-01 04:06:57Z" end-time="2026-11-01 04:07:04Z" duration="6.977582" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <test-suite type="Assembly" id="1121" name="DiceCraft.PlayModeTests.dll" fullname="E:/agent_workspace/gpt/game2/DicePrototype/Library/ScriptAssemblies/DiceCraft.PlayModeTests.dll" runstate="Runnable" testcasecount="118" result="Passed" start-time="2026-11-01 04:06:57Z" end-time="2026-11-01 04:07:04Z" duration="6.964454" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="23240" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <test-suite type="TestSuite" id="1122" name="DiceCraft" fullname="DiceCraft" runstate="Runnable" testcasecount="118" result="Passed" start-time="2026-11-01 04:06:57Z" end-time="2026-11-01 04:07:04Z" duration="6.953822" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1123" name="Tests" fullname="DiceCraft.Tests" runstate="Runnable" testcasecount="118" result="Passed" start-time="2026-11-01 04:06:57Z" end-time="2026-11-01 04:07:04Z" duration="6.950070" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="1001" name="GameplayPlayModeTests" fullname="DiceCraft.Tests.GameplayPlayModeTests" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" testcasecount="116" result="Passed" start-time="2026-11-01 04:06:57Z" end-time="2026-11-01 04:07:04Z" duration="6.946007" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1079" name="PLAY_ART07_UPGRADE_ActualCeramicAndSingleQuestionFlipRenderBeforeMiddleAndAfter" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_UPGRADE_ActualCeramicAndSingleQuestionFlipRenderBeforeMiddleAndAfter" methodname="PLAY_ART07_UPGRADE_ActualCeramicAndSingleQuestionFlipRenderBeforeMiddleAndAfter" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="687595527" result="Passed" start-time="2026-11-01 04:06:57Z" end-time="2026-11-01 04:07:01Z" duration="4.111170" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[UPGRADE_GPU U05 progress=0 stage= turn=0 frame=24
+UPGRADE_GPU U05 progress=0.175 stage= turn=0 frame=25
+UPGRADE_GPU U05 progress=0.475 stage= turn=0 frame=26
+UPGRADE_GPU U05 progress=0.8 stage= turn=0 frame=27
+UPGRADE_GPU U05 progress=0.99 stage= turn=0 frame=28
+UPGRADE_GPU U07 progress=0 stage=OldPips turn=0 frame=31
+UPGRADE_GPU U07 progress=0.175 stage=OldPips turn=45 frame=32
+UPGRADE_GPU U07 progress=0.475 stage=Question turn=90 frame=34
+UPGRADE_GPU U07 progress=0.8 stage=CommittedPips turn=135 frame=35
+UPGRADE_GPU U07 progress=0.99 stage=CommittedPips turn=179.8341 frame=36
+Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_ab38cb4c478f47e4ac5a86e53315ac83
+]]></output>
+            </test-case>
+            <test-case id="1080" name="PLAY_ART07_UPGRADE_FastReducedPauseAndSkipKeepCommittedStateAndResetSurfaces" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_UPGRADE_FastReducedPauseAndSkipKeepCommittedStateAndResetSurfaces" methodname="PLAY_ART07_UPGRADE_FastReducedPauseAndSkipKeepCommittedStateAndResetSurfaces" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="163996687" result="Passed" start-time="2026-11-01 04:07:01Z" end-time="2026-11-01 04:07:04Z" duration="2.810461" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_303be27defac4816a2ec3da07e42d11f
+Saving results to: E:\agent_workspace\gpt\game2\evidence\v07\unity\nunit-20261101-040704.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

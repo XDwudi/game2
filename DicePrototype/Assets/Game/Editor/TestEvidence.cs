@@ -13,7 +13,25 @@ namespace DiceCraft.Editor
     public static class TestEvidence
     {
         static readonly TestRunnerApi Api;
-        static TestEvidence(){Api=ScriptableObject.CreateInstance<TestRunnerApi>();Api.RegisterCallbacks(new Capture());}
+        static readonly Capture Recorder=new Capture();
+        static TestEvidence(){Api=ScriptableObject.CreateInstance<TestRunnerApi>();Api.RegisterCallbacks(Recorder);}
+        public static void RunFiltered(TestMode mode,string nameFragment)
+            =>RunFilters(mode,nameFragment);
+        public static void RunFilters(TestMode mode,params string[] nameFragments)
+        {
+            // Other runner clients may replace callbacks. Re-register our single recorder
+            // immediately before this run, so the report binds actual start and finish.
+            Api.UnregisterCallbacks(Recorder);Api.RegisterCallbacks(Recorder);
+            Api.RetrieveTestList(mode,tree=>{
+                var names=new List<string>();Collect(tree,names);
+                var selected=names.Where(n=>nameFragments==null||nameFragments.Length==0||nameFragments.Any(fragment=>string.IsNullOrEmpty(fragment)||n.Contains(fragment))).ToArray();
+                // A callback exception leaves Unity's discovery job queued and repeating,
+                // which prevents subsequent valid requests from being discovered.
+                // Zero matches are an explicit error and never produce a passing report.
+                if(selected.Length==0){Debug.LogError("No tests match the requested evidence run; no tests executed.");return;}
+                Api.Execute(new ExecutionSettings(new Filter{testMode=mode,testNames=selected}));
+            });
+        }
         [MenuItem("DiceCraft/Record Complete Test Discovery")]
         public static void DiscoverAll()
         {
@@ -21,7 +39,7 @@ namespace DiceCraft.Editor
                 Api.RetrieveTestList(mode,tree=>{
                     var names=new List<string>();Collect(tree,names);names.Sort(StringComparer.Ordinal);
                     if(names.Count==0||names.Distinct().Count()!=names.Count)throw new InvalidOperationException("Invalid complete test discovery.");
-                    string dir=Path.GetFullPath("../evidence/v06/unity");Directory.CreateDirectory(dir);
+                    string dir=Path.GetFullPath("../evidence/v07/unity");Directory.CreateDirectory(dir);
                     File.WriteAllText(Path.Combine(dir,"discovery-"+mode+".json"),JsonUtility.ToJson(new Discovery{mode=mode.ToString(),unity=Application.unityVersion,names=names.ToArray()},true));
                 });
         }
@@ -31,7 +49,7 @@ namespace DiceCraft.Editor
         [Serializable]private sealed class FileProof{public string path,sha256;}
         [Serializable]private sealed class AssemblyProof{public string name,mvid,dllSha256;}
         [Serializable]private sealed class Snapshot{public string utc;public AssemblyProof[] assemblies;public FileProof[] files;}
-        [Serializable]private sealed class Binding{public string schema="v06-test-binding-1";public FileProof report;public Snapshot started,finished;}
+        [Serializable]private sealed class Binding{public string schema="v07-test-binding-1";public FileProof report;public Snapshot started,finished;}
         static string Hash(string path){using(var sha=SHA256.Create())using(var stream=File.OpenRead(path))return BitConverter.ToString(sha.ComputeHash(stream)).Replace("-","").ToLowerInvariant();}
         static Snapshot CaptureSnapshot()
         {
@@ -44,13 +62,13 @@ namespace DiceCraft.Editor
         }
         private sealed class Capture:ICallbacks
         {
-            const string Pending="Temp/v06-active-test-binding.json";
+            const string Pending="Temp/v07-active-test-binding.json";
             public void RunStarted(ITestAdaptor tests){File.WriteAllText(Pending,JsonUtility.ToJson(CaptureSnapshot(),true));}
             public void TestStarted(ITestAdaptor test){}
             public void TestFinished(ITestResultAdaptor result){}
             public void RunFinished(ITestResultAdaptor result)
             {
-                string dir=Path.GetFullPath("../evidence/v06/unity");Directory.CreateDirectory(dir);
+                string dir=Path.GetFullPath("../evidence/v07/unity");Directory.CreateDirectory(dir);
                 string stamp=DateTime.UtcNow.ToString("yyyyMMdd-HHmmss");
                 string report=Path.Combine(dir,"nunit-"+stamp+".xml");
                 TestRunnerApi.SaveResultToFile(result,report);

@@ -1,0 +1,16 @@
+00:00.516  blend            | Read blend: "E:\agent_workspace\gpt\game2\ArtSource\Art07\Dice\dice_master.blend"
+E:\agent_workspace\gpt\game2\tools\art_v07\render_dice_review.py:13: DeprecationWarning: 'Material.use_nodes' is expected to be removed in Blender 6.0
+  m=bpy.data.materials.new(name);m.use_nodes=True;rgb=tuple(lin(int(col[i:i+2],16)/255) for i in [0,2,4]);m.diffuse_color=(*rgb,1);n=m.node_tree.nodes['Principled BSDF'];n.inputs['Base Color'].default_value=(*rgb,1);n.inputs['Roughness'].default_value=rough;n.inputs['Metallic'].default_value=metal;return m
+00:01.422  render           | Saved: 'E:\agent_workspace\gpt\game2\ArtSource\Art07\Dice\Review\face_f01.png'
+00:02.032  render           | Saved: 'E:\agent_workspace\gpt\game2\ArtSource\Art07\Dice\Review\face_f02.png'
+00:02.657  render           | Saved: 'E:\agent_workspace\gpt\game2\ArtSource\Art07\Dice\Review\face_f03.png'
+00:03.297  render           | Saved: 'E:\agent_workspace\gpt\game2\ArtSource\Art07\Dice\Review\face_f04.png'
+00:03.891  render           | Saved: 'E:\agent_workspace\gpt\game2\ArtSource\Art07\Dice\Review\face_f05.png'
+00:04.469  render           | Saved: 'E:\agent_workspace\gpt\game2\ArtSource\Art07\Dice\Review\face_f06.png'
+00:05.032  render           | Saved: 'E:\agent_workspace\gpt\game2\ArtSource\Art07\Dice\Review\hero_ceramic.png'
+00:05.610  render           | Saved: 'E:\agent_workspace\gpt\game2\ArtSource\Art07\Dice\Review\hero_glass.png'
+00:06.219  render           | Saved: 'E:\agent_workspace\gpt\game2\ArtSource\Art07\Dice\Review\hero_gold.png'
+ART07_SOURCE_REVIEW_RENDERED
+Blender 5.2.3 LTS (hash e13b728c6880 built 2026-10-22 01:37:16)
+
+Blender quit

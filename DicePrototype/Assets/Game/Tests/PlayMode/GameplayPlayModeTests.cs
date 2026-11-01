@@ -27,6 +27,7 @@ namespace DiceCraft.Tests
         private GameApp app;
         private string saveDirectory;
         private readonly Dictionary<string, int?> intPreferences = new Dictionary<string, int?>();
+        private readonly Dictionary<string, string> bindingPreferences = new Dictionary<string, string>();
         private float? originalVolume;
 
         [UnitySetUp]
@@ -35,11 +36,19 @@ namespace DiceCraft.Tests
             saveDirectory = Path.Combine(Application.temporaryCachePath, "DiceCraftTests_" + Guid.NewGuid().ToString("N"));
             Directory.CreateDirectory(saveDirectory);
             GameApp.SaveDirectoryOverride = saveDirectory; GameApp.SuppressStartupDisplay=true;
-            foreach (string key in new[] {"fast", "reduced", "shopTab"})
+            foreach (string key in new[] {"fast", "reduced", "shopTab", "art07.instant", "art07.textScale", "art07.guideSeen"})
             {
                 intPreferences[key] = PlayerPrefs.HasKey(key) ? (int?)PlayerPrefs.GetInt(key) : null;
                 PlayerPrefs.SetInt(key, 0);
             }
+            foreach(string action in new[]{"Roll","Lock","Submit","Clear","Handbook"})
+            {
+                string key="art07.key."+action;
+                bindingPreferences[key]=PlayerPrefs.HasKey(key)?PlayerPrefs.GetString(key):null;
+                PlayerPrefs.DeleteKey(key);
+            }
+            PlayerPrefs.SetInt("art07.textScale",100);
+            PlayerPrefs.SetInt("art07.guideSeen",1);
             originalVolume = PlayerPrefs.HasKey("volume") ? (float?)PlayerPrefs.GetFloat("volume") : null;
             PlayerPrefs.SetFloat("volume", 0);
             yield return LoadBootstrap();
@@ -61,6 +70,9 @@ namespace DiceCraft.Tests
             GameApp.SaveDirectoryOverride = null; GameApp.SuppressStartupDisplay=false;
             foreach (var preference in intPreferences)
                 if (preference.Value.HasValue) PlayerPrefs.SetInt(preference.Key, preference.Value.Value);
+                else PlayerPrefs.DeleteKey(preference.Key);
+            foreach(var preference in bindingPreferences)
+                if(preference.Value!=null)PlayerPrefs.SetString(preference.Key,preference.Value);
                 else PlayerPrefs.DeleteKey(preference.Key);
             if (originalVolume.HasValue) PlayerPrefs.SetFloat("volume", originalVolume.Value);
             else PlayerPrefs.DeleteKey("volume");
@@ -96,7 +108,7 @@ namespace DiceCraft.Tests
             Assert.That(ids.Length, Is.EqualTo(71));
             Assert.That(app.contentIcons, Has.Length.EqualTo(71));
             Assert.That(app.contentIcons.All(sprite => sprite != null), Is.True);
-            CollectionAssert.AreEquivalent(ids, app.contentIcons.Select(sprite => sprite.name));
+            CollectionAssert.AreEquivalent(ids, app.contentIcons.Select(sprite => sprite.name.StartsWith("icon_",StringComparison.Ordinal)?sprite.name.Substring(5).ToUpperInvariant():sprite.name));
             Assert.That(app.uiFont, Is.Not.Null);
             string requiredText = "骰子构筑投掷确认锁定提交金币红蓝" + string.Concat(app.Config.controllers.Select(c => c.displayName))
                 + string.Concat(app.Config.consumables.Select(c => c.displayName)) + string.Concat(app.Config.services.Select(c => c.displayName))
@@ -134,7 +146,7 @@ namespace DiceCraft.Tests
             Click("Clear");
             Assert.That(app.Session.PendingIds, Is.Empty);
             Assert.That(app.Session.State.hand.orderedLockedIds, Is.Empty);
-            ClickDie("D002"); ClickDie("D001"); Click("Confirm");
+            ClickDie("D002"); ClickDie("D001"); Click("Confirm");yield return WaitForIdle();
             CollectionAssert.AreEqual(new[] {"D002", "D001"}, app.Session.State.hand.orderedLockedIds);
             Assert.That(app.Session.TogglePending("D001"), Is.False, "An ordinary click must not unlock confirmed dice.");
             string lockedState = StateJson();
@@ -191,7 +203,12 @@ namespace DiceCraft.Tests
             var normal = app.Session.State;
             Click("Pause"); Click("MainMenu");
             StartRun("71234"); Click("StartStage");
-            Click("Pause"); Click("Fast"); Click("Resume");
+            string beforeSettings=StateJson();byte[] beforeSettingsSave=File.ReadAllBytes(app.SaveLocation);
+            yield return LegacyClick07("Pause");yield return LegacyClick07("Settings");yield return LegacyClick07("SettingsTab2");
+            Assert.That(Button("Speed").GetComponentInChildren<TextMeshProUGUI>().text,Does.StartWith("Normal"));
+            yield return LegacyClick07("Speed");Assert.That(Button("Speed").GetComponentInChildren<TextMeshProUGUI>().text,Does.StartWith("Fast"));
+            yield return LegacyClick07("SettingsDone");
+            Assert.That(StateJson(),Is.EqualTo(beforeSettings));CollectionAssert.AreEqual(beforeSettingsSave,File.ReadAllBytes(app.SaveLocation));
             Assert.That(PlayerPrefs.GetInt("fast"), Is.EqualTo(1));
             Click("Roll");
             var accepted = app.Session.State;
@@ -209,7 +226,7 @@ namespace DiceCraft.Tests
         public IEnumerator PLAY_ReloadDuringRollRestoresLocksOrderAndAcceptedFaceResults()
         {
             StartRun("9281"); Click("StartStage"); Click("Roll"); Click("Skip");
-            ClickDie("D003"); ClickDie("D001"); Click("Confirm");
+            ClickDie("D003"); ClickDie("D001"); Click("Confirm");yield return WaitForIdle();
             DragLockedDieOnto("D003", "D001");
             Click("Roll");
             Assert.That(app.IsBusy, Is.True);
@@ -258,6 +275,9 @@ namespace DiceCraft.Tests
             var die = DiceFactory.CreateStandard(app.Config, 987);
             for (int i = 0; i < 6; i++)
             {
+                foreach(bool gold in new[]{false,true})foreach(string texture in new[]{"none","smooth","rough"})
+                {
+                die.faces[i].isGold=gold;die.faces[i].texture=texture;
                 var hand = new DieHandState {dieId = die.dieId, currentFaceId = die.faces[i].faceId, currentPip = die.faces[i].permanentPip, currentColor = die.faces[i].baseColor, hasRolled = true};
                 app.table.Display(die, hand, new Vector2(960, 540)); app.table.FinishRoll();
                 var orientation = app.table.GetFaceOrientation(die.dieId);
@@ -266,6 +286,7 @@ namespace DiceCraft.Tests
                 var face = orientation.Find("Face_" + hand.currentFaceId).GetComponent<MeshFilter>().sharedMesh;
                 Assert.That(ConnectedMeshComponents(face), Is.EqualTo(i + 1), "The face must render the exact pip count, independently of tessellation.");
                 yield return null;
+                }
             }
             var remote = new DieHandState {dieId = die.dieId, currentFaceId = "F01", currentPip = 6, currentColor = "red", hasRolled = true, remoteOverride = true};
             app.table.Display(die, remote, new Vector2(960, 540)); app.table.FinishRoll();
@@ -284,13 +305,13 @@ namespace DiceCraft.Tests
             StartRun("121212"); Click("StartStage");
             string formal = StateJson();
             byte[] formalSave = File.ReadAllBytes(app.SaveLocation);
-            Click("Pause"); Click("MainMenu"); Click("Tutorial");
+            Click("Pause"); Click("MainMenu"); Click("MenuHandbook"); Click("Tutorial");
             Assert.That(app.Session.State.isDebug, Is.True);
             Assert.That(app.Session.State.stage.target, Is.EqualTo("50"));
-            Assert.That(Button("Normal").GetComponentInChildren<TextMeshProUGUI>().text, Does.Contain("50 分"), "Tutorial challenge card must show its actual target.");
+            Assert.That(FindActive<Transform>("NormalCard").GetComponentsInChildren<TextMeshProUGUI>().Single(t=>t.name=="Goal").text, Does.Contain("50"), "Tutorial challenge card must show its actual target.");
             Click("StartStage"); Click("Roll"); Click("Skip");
             foreach (string id in app.Session.State.dice.Select(d => d.dieId).ToArray()) ClickDie(id);
-            Click("Confirm");
+            Click("Confirm");yield return WaitForIdle();
             var practiceScore = app.Session.PreviewScore();
             Assert.That(practiceScore.pipSum, Is.EqualTo("19"));
             Assert.That(practiceScore.unusedRollBonus, Is.EqualTo(6));
@@ -308,9 +329,7 @@ namespace DiceCraft.Tests
             Assert.That(app.Session.State.phase, Is.EqualTo("Shop"));
             var offer = app.Session.State.shop.offers.First(o => o.category == "controller");
             long goldBefore = app.Session.State.gold, price = app.Session.GetOfferPrice(offer);
-            var card = FindActive<Transform>("Offer_" + offer.offerId);
-            var inspect = card.GetComponentsInChildren<UnityEngine.UI.Button>().Single(b => b.name == "Inspect");
-            Assert.That(inspect.interactable, Is.True); inspect.onClick.Invoke();
+            Click("Offer_" + offer.offerId);
             Click("ConfirmPurchase");
             Assert.That(app.Session.State.gold, Is.EqualTo(goldBefore - price));
             Assert.That(app.Session.State.controllers.Any(c => c.contentId == offer.contentId), Is.True);
@@ -332,12 +351,16 @@ namespace DiceCraft.Tests
             yield return null;
             app = UObj.FindAnyObjectByType<GameApp>();
             Assert.That(app, Is.Not.Null, "Bootstrap did not instantiate GameApp.");
+            double startupDeadline=Time.realtimeSinceStartupAsDouble+30;
+            while(!app.StartupReady07&&Time.realtimeSinceStartupAsDouble<startupDeadline)yield return null;
+            Assert.That(app.StartupReady07,Is.True,"Bootstrap storage initialization did not finish within30s.");
             Canvas.ForceUpdateCanvases();
         }
         private void StartRun(string seed)
         {
-            FindActive<TMP_InputField>("SeedInput").text = seed;
             Click("NewRun");
+            FindActive<TMP_InputField>("SeedInput").text = seed;
+            Click("StartNew");
             Assert.That(app.Session.State, Is.Not.Null);
             Assert.That(app.Session.State.seed, Is.EqualTo(uint.Parse(seed)));
         }
@@ -392,7 +415,13 @@ namespace DiceCraft.Tests
         }
         private static int ConnectedMeshComponents(Mesh mesh)
         {
+            // art0.7 uses separate neutral outline geometry around each rule-colored pip.
+            // Pure-white vertices identify the pip fills that receive the rule tint;
+            // count those actual connected fill surfaces, excluding outlines/gold/texture.
+            // No assumption about triangles per dot or mesh-name metadata is used.
             int[] parent = Enumerable.Range(0, mesh.vertexCount).ToArray();
+            var colors=mesh.colors32;Assert.That(colors.Length,Is.EqualTo(mesh.vertexCount));
+            Func<int,bool> ruleFill=i=>colors[i].r==255&&colors[i].g==255&&colors[i].b==255&&colors[i].a==255;
             Func<int, int> find = null;
             find = n => parent[n] == n ? n : (parent[n] = find(parent[n]));
             int[] triangles = mesh.triangles;
@@ -400,6 +429,7 @@ namespace DiceCraft.Tests
             for (int i = 0; i < triangles.Length; i += 3)
             {
                 int a = triangles[i], b = triangles[i + 1], c = triangles[i + 2];
+                if(!ruleFill(a)||!ruleFill(b)||!ruleFill(c))continue;
                 parent[find(b)] = find(a); parent[find(c)] = find(a);
                 used.Add(a); used.Add(b); used.Add(c);
             }

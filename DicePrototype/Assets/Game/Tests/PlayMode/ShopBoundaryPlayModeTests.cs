@@ -28,24 +28,24 @@ namespace DiceCraft.Tests
                 yield return LoadBoundaryFixture(fixture); ResumeBoundaryFixture();
                 if (!studyFirst)
                 {
-                    BuyBoundaryOffer("C09");
+                    yield return BuyBoundaryOffer("C09");
                     Assert.That(app.Session.EffectiveCapacity, Is.EqualTo(4));
-                    OpenBoundaryOffer("straight");
+                    yield return OpenBoundaryOffer("straight");
                     Assert.That(Button("ConfirmPurchase").interactable, Is.False);
-                    Assert.That(FindActive<TextMeshProUGUI>("PurchaseUnavailable").text, Does.Contain("容量"));
-                    Click("CloseDialog"); Click("Study");
+                    Assert.That(FindActive<TextMeshProUGUI>("PriceBody").text, Does.Contain("容量"));
+                    Click("CloseDialog"); Click("Tab1"); Click("Study");
                     Assert.That(HasActive("StudyBuystraight"), Is.False, "Self-study must apply the same reduced capacity immediately.");
                     Click("CloseDialog");
                     string instance = app.Session.State.controllers.Single(c => c.contentId == "C09").instanceId;
                     long beforeSell = app.Session.State.gold;
-                    Click("Controller_" + instance); Click("SellController");
+                    Click("Controller_" + instance); Click("SellController"); Click("ConfirmSale");
                     Assert.That(app.Session.State.gold, Is.EqualTo(beforeSell + 1));
                     Assert.That(app.Session.EffectiveCapacity, Is.EqualTo(5));
-                    OpenBoundaryOffer("straight"); Assert.That(Button("ConfirmPurchase").interactable, Is.True); Click("CloseDialog");
+                    yield return OpenBoundaryOffer("straight"); Assert.That(Button("ConfirmPurchase").interactable, Is.True); Click("CloseDialog");
                     Click("Study"); Assert.That(HasActive("StudyBuystraight"), Is.True); Click("CloseDialog");
                     Assert.That(app.Session.State.shop.offers.Single(o => o.offerId == "C09").sold, Is.True, "Selling must not replenish the original offer.");
                     var beforeDiscount = app.Session.State;
-                    BuyBoundaryOffer("O02");
+                    yield return BuyBoundaryOffer("O02");
                     Assert.That(app.Session.State.gold, Is.EqualTo(beforeDiscount.gold - app.Config.Service("O02").baseBuyPrice), "The discount service itself uses the old price.");
                     Assert.That(app.Session.State.itemDiscount, Is.EqualTo(1));
                     AssertBoundaryCardPrice("I04", Math.Max(app.Config.minDiscountedItemPrice, app.Config.Consumable("I04").baseBuyPrice - 1));
@@ -61,19 +61,19 @@ namespace DiceCraft.Tests
                 int premium = app.Config.shop.selfStudyPremium;
                 if (studyFirst)
                 {
-                    Click("Tab2"); Click("Study");
+                    Click("Tab1"); Click("Study");
                     Assert.That(Button("StudyBuypair").GetComponentInChildren<TextMeshProUGUI>().text, Is.EqualTo((basePrice + premium) + " 金币"));
                     long gold = app.Session.State.gold; Click("StudyBuypair");
                     Assert.That(app.Session.State.gold, Is.EqualTo(gold - basePrice - premium));
-                    OpenBoundaryOffer("pair");
-                    Assert.That(DialogLabel("Price"), Does.StartWith("价格 " + (basePrice + increment) + " 金币"));
+                    yield return OpenBoundaryOffer("pair");
+                    Assert.That(DialogLabel("PriceBody"), Does.StartWith("价格 " + (basePrice + increment) + " 金币"));
                     gold = app.Session.State.gold; Click("ConfirmPurchase");
                     Assert.That(app.Session.State.gold, Is.EqualTo(gold - basePrice - increment));
                 }
                 else
                 {
-                    BuyBoundaryOffer("pair");
-                    Click("Study");
+                    yield return BuyBoundaryOffer("pair");
+                    Click("Tab1"); Click("Study");
                     Assert.That(FindActive<TextMeshProUGUI>("StudyNamepair").text, Does.Contain("Lv.1 → 2"));
                     Assert.That(Button("StudyBuypair").GetComponentInChildren<TextMeshProUGUI>().text, Is.EqualTo((basePrice + increment + premium) + " 金币"));
                     long gold = app.Session.State.gold; Click("StudyBuypair");
@@ -95,15 +95,15 @@ namespace DiceCraft.Tests
             foreach (string id in Enumerable.Range(1, 7).Select(i => "U" + i.ToString("D2")))
             {
                 string before = StateJson(); var priorDie = app.Session.State.dice.Single(d => d.dieId == "D001");
-                OpenBoundaryOffer(id);
-                Assert.That(HasActive("ConfirmPurchase"), Is.False, "Choosing an offer must not choose its target implicitly.");
+                yield return OpenBoundaryOffer(id);
+                Assert.That(Button("ConfirmPurchase").interactable, Is.False, "Choosing an offer must not choose its target implicitly.");
                 SelectUpgradeTarget(id);
                 Assert.That(Button("ConfirmPurchase").interactable, Is.True);
-                if (id == "U01") Assert.That(FaceLabel("F02", "Texture"), Does.Contain("光滑"));
-                if (id == "U07") Assert.That(FindActive<TextMeshProUGUI>("Details").text, Does.Contain("其他5个点数"));
+                if (id == "U01") Assert.That(FindActive<TextMeshProUGUI>("PurchasePreviewBody").text, Does.Contain("购买后：2点 · 蓝 B · 光滑"));
+                if (id == "U07") Assert.That(FindActive<TextMeshProUGUI>("PurchasePreviewBody").text, Does.Contain("等概率取一个").And.Contain("颜色、纹理、镀金保持"));
                 Click("CloseDialog");
                 Assert.That(StateJson(), Is.EqualTo(before), "Selecting and cancelling " + id + " must not charge, modify or draw RNG.");
-                OpenBoundaryOffer(id); SelectUpgradeTarget(id);
+                yield return OpenBoundaryOffer(id); SelectUpgradeTarget(id);
                 long gold = app.Session.State.gold; Click("ConfirmPurchase");
                 var current = app.Session.State;
                 Assert.That(current.gold, Is.EqualTo(gold - app.Config.Upgrade(id).buyPrice));
@@ -122,7 +122,7 @@ namespace DiceCraft.Tests
                     AddBoundaryOffer(fixture, "duplicate-smooth", "die_upgrade", "U01");
                     yield return LoadBoundaryFixture(fixture); ResumeBoundaryFixture();
                     string accepted = StateJson();
-                    OpenBoundaryOffer("duplicate-smooth"); SelectUpgradeTarget("U01");
+                    yield return OpenBoundaryOffer("duplicate-smooth"); SelectUpgradeTarget("U01");
                     Assert.That(Button("ConfirmPurchase").interactable, Is.False);
                     Assert.That(FindActive<TextMeshProUGUI>("PurchaseUnavailable").text, Does.Contain("相同属性"));
                     Click("CloseDialog"); Assert.That(StateJson(), Is.EqualTo(accepted));
@@ -147,21 +147,22 @@ namespace DiceCraft.Tests
             fixture.shop.offers = candidates.ToList(); AddBoundaryOffer(fixture, "remove", "service", "O04");
             string frozenCandidate = JsonUtility.ToJson(candidates[1].die);
             yield return LoadBoundaryFixture(fixture); ResumeBoundaryFixture();
-            BuyBoundaryOffer(candidates[0].offerId);
+            yield return BuyBoundaryOffer(candidates[0].offerId);
             Assert.That(app.Session.State.dice.Count, Is.EqualTo(8));
             string full = StateJson();
-            OpenBoundaryOffer(candidates[1].offerId);
+            yield return OpenBoundaryOffer(candidates[1].offerId);
             Assert.That(Button("ConfirmPurchase").interactable, Is.False);
             Assert.That(FindActive<TextMeshProUGUI>("PurchaseUnavailable").text, Does.Contain("已满"));
             Click("CloseDialog"); Assert.That(StateJson(), Is.EqualTo(full));
-            OpenBoundaryOffer("remove"); Click("Target_D001"); Click("CloseDialog");
+            yield return OpenBoundaryOffer("remove"); Click("Target_D001"); Click("CloseDialog");
             Assert.That(StateJson(), Is.EqualTo(full), "Cancelling deletion must retain the entire die and its upgrades.");
-            OpenBoundaryOffer("remove"); Click("Target_D001"); Click("ConfirmPurchase");
+            yield return OpenBoundaryOffer("remove"); Click("Target_D001"); Click("ConfirmPurchase");
             Assert.That(app.Session.State.dice.Count, Is.EqualTo(7));
             Assert.That(app.Session.State.baseSubmitCapacity, Is.EqualTo(5));
-            OpenBoundaryOffer(candidates[1].offerId);
+            yield return OpenBoundaryOffer(candidates[1].offerId);
             Assert.That(Button("ConfirmPurchase").interactable, Is.True);
-            foreach (var face in candidates[1].die.faces) Assert.That(FaceLabel(face.faceId, "Pip"), Is.EqualTo(face.permanentPip.ToString()));
+            foreach (var face in candidates[1].die.faces)
+                Assert.That(FindActive<Transform>("Face_"+face.faceId).Cast<Transform>().Count(t=>t.gameObject.activeSelf&&t.name.StartsWith("Pip")),Is.EqualTo(face.permanentPip),"The fixed candidate face must render its actual pip count.");
             Click("ConfirmPurchase");
             Assert.That(app.Session.State.dice.Count, Is.EqualTo(8));
             Assert.That(JsonUtility.ToJson(app.Session.State.shop.offers.Single(o => o.offerId == candidates[1].offerId).die), Is.EqualTo(frozenCandidate));
@@ -173,7 +174,7 @@ namespace DiceCraft.Tests
             AddBoundaryOffer(fixture, "last-remove", "service", "O04");
             yield return LoadBoundaryFixture(fixture); ResumeBoundaryFixture();
             string lastDieState = StateJson();
-            OpenBoundaryOffer("last-remove"); Click("Target_" + fixture.dice[0].dieId);
+            yield return OpenBoundaryOffer("last-remove"); Click("Target_" + fixture.dice[0].dieId);
             Assert.That(Button("ConfirmPurchase").interactable, Is.False);
             Assert.That(FindActive<TextMeshProUGUI>("PurchaseUnavailable").text, Does.Contain("没有合法目标"));
             Click("CloseDialog"); Assert.That(StateJson(), Is.EqualTo(lastDieState));
@@ -225,15 +226,16 @@ namespace DiceCraft.Tests
         private void ShopTabFor(string offerId)
         {
             var offer = app.Session.State.shop.offers.Single(o => o.offerId == offerId);
-            int tab = offer.category == "controller" ? 0 : offer.category == "consumable" || offer.category == "service" && offer.contentId != "O04" ? 1 : offer.category == "hand_upgrade" ? 2 : 3;
-            Click("Tab" + tab);
+            if(offer.category=="controller")return; // The controller shelf remains visible on all five tabs.
+            int tab=offer.category=="consumable"?0:offer.category=="hand_upgrade"||offer.category=="color_upgrade"?1:offer.category=="die_upgrade"?2:offer.category=="service"?3:4;
+            Click("Tab"+tab);
         }
-        private void OpenBoundaryOffer(string id) { ShopTabFor(id); InspectOfferCard(id); }
-        private void BuyBoundaryOffer(string id) { OpenBoundaryOffer(id); Click("ConfirmPurchase"); }
+        private IEnumerator OpenBoundaryOffer(string id) { yield return WaitForIdle(); ShopTabFor(id); yield return InspectOfferCard(id); }
+        private IEnumerator BuyBoundaryOffer(string id) { yield return OpenBoundaryOffer(id); yield return LegacyClick07("ConfirmPurchase"); yield return WaitForIdle(); }
         private void AssertBoundaryCardPrice(string id, int price)
         {
             ShopTabFor(id);
-            Assert.That(FindActive<Transform>("Offer_" + id).GetComponentsInChildren<TextMeshProUGUI>().Single(t => t.name == "Price").text, Is.EqualTo(price + " 金币"));
+            Assert.That(Button("Buy_"+id).GetComponentInChildren<TextMeshProUGUI>().text, Is.EqualTo("购买 "+price));
         }
         private string DialogLabel(string name) => FindActive<Transform>("Dialog").GetComponentsInChildren<TextMeshProUGUI>().Single(t => t.name == name).text;
         private string FaceLabel(string faceId, string name) => FindActive<Transform>("Face_" + faceId).GetComponentsInChildren<TextMeshProUGUI>().Single(t => t.name == name).text;

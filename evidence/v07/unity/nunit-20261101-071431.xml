@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="3" result="Failed(Child)" total="3" passed="0" failed="3" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-11-01 07:14:29Z" end-time="2026-11-01 07:14:31Z" duration="1.3639987">
+  <test-suite type="TestSuite" id="1159" name="DiceCraft P0" fullname="DiceCraft P0" runstate="Runnable" testcasecount="150" result="Failed" site="Child" start-time="2026-11-01 07:14:29Z" end-time="2026-11-01 07:14:31Z" duration="1.363999" total="3" passed="0" failed="3" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <failure>
+      <message><![CDATA[One or more child tests had errors]]></message>
+    </failure>
+    <test-suite type="Assembly" id="1153" name="DiceCraft.PlayModeTests.dll" fullname="E:/agent_workspace/gpt/game2/DicePrototype/Library/ScriptAssemblies/DiceCraft.PlayModeTests.dll" runstate="Runnable" testcasecount="150" result="Failed" site="Child" start-time="2026-11-01 07:14:29Z" end-time="2026-11-01 07:14:31Z" duration="1.317906" total="3" passed="0" failed="3" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="23240" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <failure>
+        <message><![CDATA[One or more child tests had errors]]></message>
+      </failure>
+      <test-suite type="TestSuite" id="1154" name="DiceCraft" fullname="DiceCraft" runstate="Runnable" testcasecount="150" result="Failed" site="Child" start-time="2026-11-01 07:14:29Z" end-time="2026-11-01 07:14:31Z" duration="1.315226" total="3" passed="0" failed="3" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <failure>
+          <message><![CDATA[One or more child tests had errors]]></message>
+        </failure>
+        <test-suite type="TestSuite" id="1155" name="Tests" fullname="DiceCraft.Tests" runstate="Runnable" testcasecount="150" result="Failed" site="Child" start-time="2026-11-01 07:14:29Z" end-time="2026-11-01 07:14:31Z" duration="1.313051" total="3" passed="0" failed="3" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <failure>
+            <message><![CDATA[One or more child tests had errors]]></message>
+          </failure>
+          <test-suite type="TestFixture" id="1001" name="GameplayPlayModeTests" fullname="DiceCraft.Tests.GameplayPlayModeTests" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" testcasecount="148" result="Failed" site="Child" start-time="2026-11-01 07:14:29Z" end-time="2026-11-01 07:14:31Z" duration="1.310329" total="3" passed="0" failed="3" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <failure>
+              <message><![CDATA[One or more child tests had errors]]></message>
+            </failure>
+            <test-case id="1062" name="PLAY_ART07_LOADING_UI_DestroyAndReloadSerializesSamePathWithoutAdoptingOldResult" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_LOADING_UI_DestroyAndReloadSerializesSamePathWithoutAdoptingOldResult" methodname="PLAY_ART07_LOADING_UI_DestroyAndReloadSerializesSamePathWithoutAdoptingOldResult" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="942119273" result="Failed" start-time="2026-11-01 07:14:29Z" end-time="2026-11-01 07:14:31Z" duration="1.071468" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <failure>
+                <message><![CDATA[SetUp :   Test isolation hook was not applied before Awake.
+  String lengths are both 113. Strings differ at index 2.
+  Expected: "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftTe..."
+  But was:  "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTe..."
+  -------------^
+]]></message>
+                <stack-trace><![CDATA[at DiceCraft.Tests.GameplayPlayModeTests+<Setup>d__290.MoveNext () [0x001da] in E:\agent_workspace\gpt\game2\DicePrototype\Assets\Game\Tests\PlayMode\GameplayPlayModeTests.cs:55
+at UnityEngine.TestTools.EnumeratorHelper+<ProgressOnEnumerator>d__5.MoveNext () [0x00017] in .\Library\PackageCache\com.unity.test-framework@ee3fe9477490\UnityEngine.TestRunner\NUnitExtensions\Attributes\EnumeratorHelper.cs:43
+at UnityEngine.TestTools.BeforeAfterTestCommandBase`1+<ExecuteEnumerable>d__16[T].MoveNext () [0x00132] in .\Library\PackageCache\com.unity.test-framework@ee3fe9477490\UnityEngine.TestRunner\NUnitExtensions\Commands\BeforeAfterTestCommandBase.cs:156
+]]></stack-trace>
+              </failure>
+              <output><![CDATA[Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_d65a60b10f034c5ebfeeba2ef8258fd0
+]]></output>
+            </test-case>
+            <test-case id="1061" name="PLAY_ART07_LOADING_UI_FastActiveBackupLegacyAndWorkerErrorKeepStoragePolicy" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_LOADING_UI_FastActiveBackupLegacyAndWorkerErrorKeepStoragePolicy" methodname="PLAY_ART07_LOADING_UI_FastActiveBackupLegacyAndWorkerErrorKeepStoragePolicy" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="1142460873" result="Failed" start-time="2026-11-01 07:14:31Z" end-time="2026-11-01 07:14:31Z" duration="0.096405" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <failure>
+                <message><![CDATA[SetUp :   Test isolation hook was not applied before Awake.
+  String lengths are both 113. Strings differ at index 2.
+  Expected: "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftTe..."
+  But was:  "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTe..."
+  -------------^
+]]></message>
+                <stack-trace><![CDATA[at DiceCraft.Tests.GameplayPlayModeTests+<Setup>d__290.MoveNext () [0x001da] in E:\agent_workspace\gpt\game2\DicePrototype\Assets\Game\Tests\PlayMode\GameplayPlayModeTests.cs:55
+at UnityEngine.TestTools.EnumeratorHelper+<ProgressOnEnumerator>d__5.MoveNext () [0x00017] in .\Library\PackageCache\com.unity.test-framework@ee3fe9477490\UnityEngine.TestRunner\NUnitExtensions\Attributes\EnumeratorHelper.cs:43
+at UnityEngine.TestTools.BeforeAfterTestCommandBase`1+<ExecuteEnumerable>d__16[T].MoveNext () [0x00132] in .\Library\PackageCache\com.unity.test-framework@ee3fe9477490\UnityEngine.TestRunner\NUnitExtensions\Commands\BeforeAfterTestCommandBase.cs:156
+]]></stack-trace>
+              </failure>
+              <output><![CDATA[Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_e17864c764fb44618571c4c74b426c46
+]]></output>
+            </test-case>
+            <test-case id="1060" name="PLAY_ART07_LOADING_UI_SlowReadThresholdRendersFramesAndRejectsCommandsUntilReady" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_LOADING_UI_SlowReadThresholdRendersFramesAndRejectsCommandsUntilReady" methodname="PLAY_ART07_LOADING_UI_SlowReadThresholdRendersFramesAndRejectsCommandsUntilReady" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="1860528183" result="Failed" start-time="2026-11-01 07:14:31Z" end-time="2026-11-01 07:14:31Z" duration="0.103463" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <failure>
+                <message><![CDATA[SetUp :   Test isolation hook was not applied before Awake.
+  String lengths are both 113. Strings differ at index 2.
+  Expected: "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftTe..."
+  But was:  "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTe..."
+  -------------^
+]]></message>
+                <stack-trace><![CDATA[at DiceCraft.Tests.GameplayPlayModeTests+<Setup>d__290.MoveNext () [0x001da] in E:\agent_workspace\gpt\game2\DicePrototype\Assets\Game\Tests\PlayMode\GameplayPlayModeTests.cs:55
+at UnityEngine.TestTools.EnumeratorHelper+<ProgressOnEnumerator>d__5.MoveNext () [0x00017] in .\Library\PackageCache\com.unity.test-framework@ee3fe9477490\UnityEngine.TestRunner\NUnitExtensions\Attributes\EnumeratorHelper.cs:43
+at UnityEngine.TestTools.BeforeAfterTestCommandBase`1+<ExecuteEnumerable>d__16[T].MoveNext () [0x00132] in .\Library\PackageCache\com.unity.test-framework@ee3fe9477490\UnityEngine.TestRunner\NUnitExtensions\Commands\BeforeAfterTestCommandBase.cs:156
+]]></stack-trace>
+              </failure>
+              <output><![CDATA[Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_ec9052e6f1b84ab58b11d7e2a261f0c7
+Saving results to: E:\agent_workspace\gpt\game2\evidence\v07\unity\nunit-20261101-071431.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

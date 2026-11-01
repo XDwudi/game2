@@ -24,7 +24,7 @@ namespace DiceCraft.Verification
     /// </summary>
     public sealed partial class PlayerVerification : MonoBehaviour
     {
-        private const string ProbeRevision = "p06-player-render-ready-input-16";
+        private const string ProbeRevision = "p07-player-art-ui-17";
         private const double WarmupSeconds = 10;
         private const double SampleSeconds = 180;
         private const double FrameBudgetMs = 16.7;
@@ -341,7 +341,7 @@ namespace DiceCraft.Verification
             Require(!Application.isEditor, "P0 player acceptance must run in a built player, not the Unity Editor.");
             Debug.Log("P0 verification evidence: " + configuredDirectory);
             double deadline = Time.realtimeSinceStartupAsDouble + 30;
-            while (app == null || app.Session == null || app.Config == null)
+            while (app == null || !app.StartupReady07 || app.Session == null || app.Config == null)
             {
                 app = FindAnyObjectByType<GameApp>();
                 Require(Time.realtimeSinceStartupAsDouble < deadline, "GameApp was not ready within 30 seconds.");
@@ -359,6 +359,10 @@ namespace DiceCraft.Verification
             // Fix presentation settings in memory only; never overwrite PlayerPrefs.
             SetPrivate(app, "fast", false);
             SetPrivate(app, "reduced", false);
+            SetPrivate(app, "instant07", false);
+            SetPrivate(app, "textScale07", 100);
+            SetPrivate(app, "guide07", false); // The separate guide UI checks do not alter saved preferences.
+            InvokePrivate("ApplyArtPreferences07");
             Require(app.table.ImportedRollClipCount == 2, "The built scene must contain both imported roll clips.");
             // A hidden/no-op initial window size can leave the first swapchain black.
             // Force a real alternate-size transition, then require actual rendered content.
@@ -401,6 +405,7 @@ namespace DiceCraft.Verification
             yield return Capture("startup-render-ready", 3);
             yield return Capture("main-menu-1920x1080");
             yield return CaptureResolutionSet("build-version",()=>InvokePrivate("ShowBuildVersion"));
+            yield return VerifyV07MenuAndSettings();
             phase = "NormalReplay";
             for (int i = 0; i < trace.steps.Length; i++)
             {
@@ -413,7 +418,12 @@ namespace DiceCraft.Verification
                 bool reducedThisRoll = kind == CommandKind.Roll && rollAnimations == 1;
                 if (reducedThisRoll) SetPrivate(app, "reduced", true);
                 CommandResult result = null;
-                if (kind == CommandKind.NewRun) app.StartNew(step.seed.ToString(CultureInfo.InvariantCulture));
+                if (kind == CommandKind.NewRun)
+                {
+                    yield return PressTargetReady("NewRun");
+                    Input("SeedInput", step.seed.ToString(CultureInfo.InvariantCulture));
+                    yield return PressTargetReady("StartNew");
+                }
                 else
                 {
                     if (kind == CommandKind.ConfirmLocks)
@@ -480,13 +490,17 @@ namespace DiceCraft.Verification
                 if (state.stage.qualified && state.phase == "HandReady" && screenshots.All(x => !x.StartsWith("normal-qualified", StringComparison.Ordinal))) yield return CaptureResolutionSet("normal-qualified-continue-or-end");
                 if (state.phase == "StageSettlement") yield return Capture("normal-stage-" + (state.stage.stageIndex + 1));
                 else if (state.phase == "Shop" && screenshots.All(x => !x.StartsWith("normal-shop", StringComparison.Ordinal)))
-                    yield return CaptureResolutionSet("normal-shop");
+                    {
+                        yield return VerifyV07ShopTabs();
+                        yield return CaptureResolutionSet("normal-shop");
+                    }
                 else if (state.phase == "Selecting" && state.hand.hasRolled && !app.IsBusy && screenshots.All(x => !x.StartsWith("normal-selecting", StringComparison.Ordinal)))
                 {
                     yield return CaptureResolutionSet("normal-selecting");
                     yield return VerifyHandbookPureReads();
                     yield return CaptureResolutionSet("normal-handbook", () => InvokePrivate("ShowHandbook"), true, "HandbookScroll");
                     string dieId = state.dice[0].dieId;
+                    yield return VerifyV07DiceSheet(dieId);
                     yield return CaptureResolutionSet("normal-die-detail-permanent-preview", () => InvokePrivate("ShowDie", dieId));
                 }
                 if (state.phase == "Selecting" && state.hand.orderedLockedIds.Count > 0 && screenshots.All(x => !x.StartsWith("normal-score-preview", StringComparison.Ordinal)))
@@ -543,10 +557,10 @@ namespace DiceCraft.Verification
                     string allText = string.Join("\n", texts);
                     Require(allText.Contains("散点"), "Handbook scatter row is missing.");
                     foreach (var hand in app.Config.handDefinitions) Require(allText.Contains(hand.displayName), "Handbook missing row " + hand.displayName);
-                    Press("HandbookColors"); yield return null;
+                    yield return PressTargetReady("HandbookColors");
                     string colors = string.Join("\n", app.canvas.GetComponentsInChildren<TMPro.TextMeshProUGUI>(false).Where(t => t.gameObject.activeInHierarchy).Select(t => t.text));
                     foreach (var color in app.Config.colorDefinitions) Require(colors.Contains(color.displayName), "Handbook color tab missing " + color.displayName);
-                    yield return Capture("v06-handbook-colors-independent"); Press("HandbookHands"); yield return null;
+                    yield return Capture("v06-handbook-colors-independent"); yield return PressTargetReady("HandbookHands");
                     V06Check("handbook-independent-color-tab", "Actual two-tab button events; 13 defined hands + scatter and two independent colors inspected", true);
                 }
                 InvokePrivate("CloseModal"); yield return null;
@@ -1362,6 +1376,7 @@ namespace DiceCraft.Verification
             return new Dictionary<string, object>
             {
                 ["utc"] = DateTime.UtcNow.ToString("O"), ["unityVersion"] = Application.unityVersion,
+                ["artVersion"] = GameApp.ArtVersion, ["rulesVersion"] = app?.Config?.configVersion, ["probeRevision"] = ProbeRevision,
                 ["buildGuid"] = Application.buildGUID, ["developmentBuild"] = Debug.isDebugBuild, ["isEditor"] = Application.isEditor,
                 ["platform"] = Application.platform.ToString(), ["os"] = SystemInfo.operatingSystem,
                 ["processArchitecture"] = RuntimeInformation.ProcessArchitecture.ToString(),
@@ -1378,7 +1393,9 @@ namespace DiceCraft.Verification
         {
             var report = new Dictionary<string, object>
             {
-                ["schema"] = "p0-player-verification-6", ["probeRevision"] = ProbeRevision,
+                ["schema"] = "p0-player-verification-7", ["probeRevision"] = ProbeRevision,
+                ["artVersion"] = GameApp.ArtVersion, ["rulesVersion"] = app?.Config?.configVersion,
+                ["legacyEvidenceNames"] = "v06-* filenames and v06Checks are retained for existing evidence readers; entries bind artVersion and probeRevision.",
                 ["probeAssemblyMvid"] = typeof(PlayerVerification).Module.ModuleVersionId.ToString(),
                 ["status"] = status, ["phase"] = phase, ["exitCode"] = exitCode,
                 ["verificationScope"] = VerificationScope(configuredDisplayOnly, configuredNativeExperiment, configuredDeferNativeDisplay),
@@ -1393,7 +1410,7 @@ namespace DiceCraft.Verification
                     ["normalIsDebug"] = false, ["terminalPhase"] = normalFinalPhase, ["terminalStage"] = normalFinalStage, ["completedAll24"] = normalPassed && normalFinalPhase == "RunWon" && normalFinalStage == 24, ["rollAnimations"] = rollAnimations, ["animationSkipsTotal"] = skippedAnimations,
                     ["reducedMotionChecks"] = reducedMotionChecks,
                     ["validation"] = "Each accepted command's sequence, phase, stage, score, gold, roll/submission budgets match trace; disk load and GameApp.ViewState equal committed state." },
-                ["v06Checks"] = v06Checks, ["displayChecks"] = displayChecks, ["debugTraceSha256"] = debugTraceHash,
+                ["uiChecks"] = v06Checks, ["v06Checks"] = v06Checks, ["displayChecks"] = displayChecks, ["debugTraceSha256"] = debugTraceHash,
                 ["inputDiagnostics"] = inputDiagnostics, ["resolutionDiagnostics"] = resolutionDiagnostics,
                 ["displayTransitions"] = displayTransitions,
                 ["handbookPureReadChecks"] = handbookPureReadChecks, ["debug24"] = new Dictionary<string, object> { ["passed"] = debug24Passed, ["isDebug"] = true, ["steps"] = debug24Steps, ["purpose"] = "24-stage/risk/shop/finalization integration only; not normal progression or difficulty evidence" },

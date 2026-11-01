@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="1" result="Passed" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-11-01 03:08:01Z" end-time="2026-11-01 03:08:05Z" duration="3.9181106">
+  <test-suite type="TestSuite" id="1118" name="DiceCraft P0" fullname="DiceCraft P0" runstate="Runnable" testcasecount="109" result="Passed" start-time="2026-11-01 03:08:01Z" end-time="2026-11-01 03:08:05Z" duration="3.918111" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <test-suite type="Assembly" id="1112" name="DiceCraft.PlayModeTests.dll" fullname="E:/agent_workspace/gpt/game2/DicePrototype/Library/ScriptAssemblies/DiceCraft.PlayModeTests.dll" runstate="Runnable" testcasecount="109" result="Passed" start-time="2026-11-01 03:08:01Z" end-time="2026-11-01 03:08:05Z" duration="3.897208" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="40096" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <test-suite type="TestSuite" id="1113" name="DiceCraft" fullname="DiceCraft" runstate="Runnable" testcasecount="109" result="Passed" start-time="2026-11-01 03:08:01Z" end-time="2026-11-01 03:08:05Z" duration="3.881905" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1114" name="Tests" fullname="DiceCraft.Tests" runstate="Runnable" testcasecount="109" result="Passed" start-time="2026-11-01 03:08:01Z" end-time="2026-11-01 03:08:05Z" duration="3.877859" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="1001" name="GameplayPlayModeTests" fullname="DiceCraft.Tests.GameplayPlayModeTests" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" testcasecount="107" result="Passed" start-time="2026-11-01 03:08:01Z" end-time="2026-11-01 03:08:05Z" duration="3.873656" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1032" name="PLAY_ART07_FX_PostScoreThreeTargetsRiskAndFrozenReplayPhysicalPips" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_FX_PostScoreThreeTargetsRiskAndFrozenReplayPhysicalPips" methodname="PLAY_ART07_FX_PostScoreThreeTargetsRiskAndFrozenReplayPhysicalPips" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="976432031" result="Passed" start-time="2026-11-01 03:08:01Z" end-time="2026-11-01 03:08:05Z" duration="3.849891" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Actual presentation phase trace: Wanted PostScore; speed=Normal; phases=Receipt@0+100,DiceContributions@100+300,BaseAndStructure@400+280,ControllerAndEnchant@680+140,FinalScore@820+420,PostScore@1240+480
+frame=15 dt=0.0169 elapsedMs=0.00 phase=Receipt playing=True focus=True paused=False
+frame=16 dt=0.3986 elapsedMs=398.61 phase=DiceContributions playing=True focus=True paused=False
+frame=17 dt=0.0130 elapsedMs=411.62 phase=BaseAndStructure playing=True focus=True paused=False
+frame=33 dt=0.0167 elapsedMs=680.86 phase=ControllerAndEnchant playing=True focus=True paused=False
+frame=42 dt=0.0163 elapsedMs=830.42 phase=FinalScore playing=True focus=True paused=False
+frame=67 dt=0.0167 elapsedMs=1246.81 phase=PostScore playing=True focus=True paused=False
+Observed final physical faces while presentation remains active:
+frame=67 elapsedMs=1246.81 dt=0.0167 playing=True replay=False phase=PostScore transitions=3 faces=Pips_4_Plain_0 visible=False;Pips_4_Plain_0 visible=False
+frame=68 elapsedMs=1290.76 dt=0.0439 playing=True replay=False phase=PostScore transitions=3 faces=Pips_4_Plain_0 visible=False;Pips_4_Plain_0 visible=False
+frame=69 elapsedMs=1307.39 dt=0.0166 playing=True replay=False phase=PostScore transitions=3 faces=Pips_4_Plain_0 visible=False;Pips_4_Plain_0 visible=False
+frame=70 elapsedMs=1324.26 dt=0.0169 playing=True replay=False phase=PostScore transitions=3 faces=Pips_4_Plain_0 visible=False;Pips_4_Plain_0 visible=False
+frame=71 elapsedMs=1340.98 dt=0.0167 playing=True replay=False phase=PostScore transitions=3 faces=Pips_4_Plain_0 visible=False;Pips_4_Plain_0 visible=False
+frame=72 elapsedMs=1357.18 dt=0.0162 playing=True replay=False phase=PostScore transitions=3 faces=Pips_4_Plain_0 visible=False;Pips_4_Plain_0 visible=False
+frame=73 elapsedMs=1373.91 dt=0.0167 playing=True replay=False phase=PostScore transitions=3 faces=Pips_4_Plain_0 visible=False;Pips_4_Plain_0 visible=False
+frame=74 elapsedMs=1390.46 dt=0.0165 playing=True replay=False phase=PostScore transitions=3 faces=Pips_4_Plain_0 visible=False;Pips_4_Plain_0 visible=False
+frame=75 elapsedMs=1406.87 dt=0.0164 playing=True replay=False phase=PostScore transitions=3 faces=Pips_4_Plain_0 visible=False;Pips_4_Plain_0 visible=False
+frame=76 elapsedMs=1423.77 dt=0.0169 playing=True replay=False phase=PostScore transitions=3 faces=Pips_4_Plain_0 visible=False;Pips_4_Plain_0 visible=False
+frame=77 elapsedMs=1440.78 dt=0.0170 playing=True replay=False phase=PostScore transitions=3 faces=Pips_4_Plain_0 visible=False;Pips_4_Plain_0 visible=False
+frame=78 elapsedMs=1458.01 dt=0.0172 playing=True replay=False phase=PostScore transitions=3 faces=Pips_4_Plain_0 visible=False;Pips_4_Plain_0 visible=False
+frame=79 elapsedMs=1473.65 dt=0.0156 playing=True replay=False phase=PostScore transitions=2 faces=Pips_4_Plain_0 visible=False;Pips_4_Plain_0 visible=False
+frame=80 elapsedMs=1490.23 dt=0.0166 playing=True replay=False phase=PostScore transitions=2 faces=Pips_4_Plain_0 visible=False;Pips_4_Plain_0 visible=False
+frame=81 elapsedMs=1507.41 dt=0.0172 playing=True replay=False phase=PostScore transitions=2 faces=Pips_4_Plain_0 visible=False;Pips_4_Plain_0 visible=False
+frame=82 elapsedMs=1524.05 dt=0.0166 playing=True replay=False phase=PostScore transitions=2 faces=Pips_4_Plain_0 visible=False;Pips_4_Plain_0 visible=False
+frame=83 elapsedMs=1540.18 dt=0.0161 playing=True replay=False phase=PostScore transitions=2 faces=Pips_4_Plain_0 visible=False;Pips_4_Plain_0 visible=False
+frame=84 elapsedMs=1557.40 dt=0.0172 playing=True replay=False phase=PostScore transitions=2 faces=Pips_4_Plain_0 visible=False;Pips_4_Plain_0 visible=False
+frame=85 elapsedMs=1573.95 dt=0.0166 playing=True replay=False phase=PostScore transitions=0 faces=Pips_4_Plain_0 visible=True;Pips_4_Plain_0 visible=True
+Actual presentation phase trace: Wanted PostScore; speed=Normal; phases=Receipt@0+100,DiceContributions@100+300,BaseAndStructure@400+280,ControllerAndEnchant@680+140,FinalScore@820+420,PostScore@1240+480
+frame=85 dt=0.0166 elapsedMs=0.00 phase=Receipt playing=True focus=True paused=False
+frame=90 dt=0.0161 elapsedMs=115.76 phase=DiceContributions playing=True focus=True paused=False
+frame=108 dt=0.0166 elapsedMs=416.40 phase=BaseAndStructure playing=True focus=True paused=False
+frame=124 dt=0.0169 elapsedMs=683.15 phase=ControllerAndEnchant playing=True focus=True paused=False
+frame=133 dt=0.0173 elapsedMs=833.02 phase=FinalScore playing=True focus=True paused=False
+frame=158 dt=0.0151 elapsedMs=1249.22 phase=PostScore playing=True focus=True paused=False
+Observed final physical faces while presentation remains active:
+frame=158 elapsedMs=1249.22 dt=0.0151 playing=True replay=True phase=PostScore transitions=3 faces=Pips_4_Plain_0 visible=False;Pips_4_Plain_0 visible=False
+frame=159 elapsedMs=1265.50 dt=0.0163 playing=True replay=True phase=PostScore transitions=3 faces=Pips_4_Plain_0 visible=False;Pips_4_Plain_0 visible=False
+frame=160 elapsedMs=1283.07 dt=0.0176 playing=True replay=True phase=PostScore transitions=3 faces=Pips_4_Plain_0 visible=False;Pips_4_Plain_0 visible=False
+frame=161 elapsedMs=1300.00 dt=0.0169 playing=True replay=True phase=PostScore transitions=3 faces=Pips_4_Plain_0 visible=False;Pips_4_Plain_0 visible=False
+frame=162 elapsedMs=1316.13 dt=0.0161 playing=True replay=True phase=PostScore transitions=3 faces=Pips_4_Plain_0 visible=False;Pips_4_Plain_0 visible=False
+frame=163 elapsedMs=1332.62 dt=0.0165 playing=True replay=True phase=PostScore transitions=3 faces=Pips_4_Plain_0 visible=False;Pips_4_Plain_0 visible=False
+frame=164 elapsedMs=1349.11 dt=0.0165 playing=True replay=True phase=PostScore transitions=3 faces=Pips_4_Plain_0 visible=False;Pips_4_Plain_0 visible=False
+frame=165 elapsedMs=1365.67 dt=0.0166 playing=True replay=True phase=PostScore transitions=3 faces=Pips_4_Plain_0 visible=False;Pips_4_Plain_0 visible=False
+frame=166 elapsedMs=1383.03 dt=0.0174 playing=True replay=True phase=PostScore transitions=3 faces=Pips_4_Plain_0 visible=False;Pips_4_Plain_0 visible=False
+frame=167 elapsedMs=1398.83 dt=0.0158 playing=True replay=True phase=PostScore transitions=3 faces=Pips_4_Plain_0 visible=False;Pips_4_Plain_0 visible=False
+frame=168 elapsedMs=1416.27 dt=0.0174 playing=True replay=True phase=PostScore transitions=3 faces=Pips_4_Plain_0 visible=False;Pips_4_Plain_0 visible=False
+frame=169 elapsedMs=1432.60 dt=0.0163 playing=True replay=True phase=PostScore transitions=3 faces=Pips_4_Plain_0 visible=False;Pips_4_Plain_0 visible=False
+frame=170 elapsedMs=1449.87 dt=0.0173 playing=True replay=True phase=PostScore transitions=3 faces=Pips_4_Plain_0 visible=False;Pips_4_Plain_0 visible=False
+frame=171 elapsedMs=1466.19 dt=0.0163 playing=True replay=True phase=PostScore transitions=2 faces=Pips_4_Plain_0 visible=False;Pips_4_Plain_0 visible=False
+frame=172 elapsedMs=1482.48 dt=0.0163 playing=True replay=True phase=PostScore transitions=2 faces=Pips_4_Plain_0 visible=False;Pips_4_Plain_0 visible=False
+frame=173 elapsedMs=1499.09 dt=0.0166 playing=True replay=True phase=PostScore transitions=2 faces=Pips_4_Plain_0 visible=False;Pips_4_Plain_0 visible=False
+frame=174 elapsedMs=1516.19 dt=0.0171 playing=True replay=True phase=PostScore transitions=2 faces=Pips_4_Plain_0 visible=False;Pips_4_Plain_0 visible=False
+frame=175 elapsedMs=1532.48 dt=0.0163 playing=True replay=True phase=PostScore transitions=2 faces=Pips_4_Plain_0 visible=False;Pips_4_Plain_0 visible=False
+frame=176 elapsedMs=1549.85 dt=0.0174 playing=True replay=True phase=PostScore transitions=2 faces=Pips_4_Plain_0 visible=False;Pips_4_Plain_0 visible=False
+frame=177 elapsedMs=1566.44 dt=0.0166 playing=True replay=True phase=PostScore transitions=0 faces=Pips_4_Plain_0 visible=True;Pips_4_Plain_0 visible=True
+Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_bcec4ce354854ef9b80476fcda106d99
+Saving results to: E:\agent_workspace\gpt\game2\evidence\v07\unity\nunit-20261101-030805.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

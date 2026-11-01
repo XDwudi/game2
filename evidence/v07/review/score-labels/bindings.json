@@ -1,0 +1,1194 @@
+{
+  "reviewer": "v07_spec_audit",
+  "actualPngViewed": 33,
+  "batches": [
+    {
+      "xml": "evidence\\v07\\unity\\nunit-20261101-031040.xml",
+      "sha256": "665bd0105ade0ea4bb096792092c534dc7595dd3db661d9eac6f97b0bfeffa44",
+      "hashMatchesBinding": true,
+      "sourcesStable": true,
+      "sourceCount": 1259,
+      "runtimeMvid": "febfc1ba-3057-4822-8cd8-298f528068ad",
+      "total": "3",
+      "passed": "2",
+      "failed": "1",
+      "duration": "7.202644",
+      "failures": [
+        {
+          "test": "PLAY_ART07_ScoreLabelsPreviewMixedZeroAndRandomKeepEveryGlyphAfterRedraw",
+          "message": "  Hand has no rendered GPU ink for ／ U+FF0F\n  Expected: greater than 0\n  But was:  0\n"
+        }
+      ],
+      "viewedNames": [
+        "score-fallback-reuse-font150"
+      ]
+    },
+    {
+      "xml": "evidence\\v07\\unity\\nunit-20261101-032026.xml",
+      "sha256": "eef4f265e4f71858afa329351022008e041f5d1043846e398d4414f027d1a917",
+      "hashMatchesBinding": true,
+      "sourcesStable": true,
+      "sourceCount": 1259,
+      "runtimeMvid": "1604f9be-8978-43a2-9a61-1fc34f69a3b7",
+      "total": "3",
+      "passed": "2",
+      "failed": "1",
+      "duration": "14.8169129",
+      "failures": [
+        {
+          "test": "PLAY_ART07_ScoreLabelsFallbackSubmeshSurvivesPooledReuseWithRealPixels",
+          "message": "System.IO.FileNotFoundException : Could not find file \"C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_3022aa68894e4fec9f04454d0c054ce0\\debug-run.json\""
+        }
+      ],
+      "viewedNames": [
+        "score-glyphs-MaximumTable-font100",
+        "score-glyphs-MaximumTable-font125",
+        "score-glyphs-MaximumTable-font150",
+        "score-glyphs-ZeroMultiplier-font150",
+        "score-glyphs-SharedHalf-font150",
+        "score-controller-overflow-font150"
+      ]
+    },
+    {
+      "xml": "evidence\\v07\\unity\\nunit-20261101-032743.xml",
+      "sha256": "6ca3f5abfd622acafcf2456561fcd43906dcecfd8d04b2906df30bbb00ec9285",
+      "hashMatchesBinding": true,
+      "sourcesStable": true,
+      "sourceCount": 1261,
+      "runtimeMvid": "cf4f28d9-e3b8-4b10-88fe-3bc3d2616409",
+      "total": "3",
+      "passed": "3",
+      "failed": "0",
+      "duration": "23.6563376",
+      "failures": [],
+      "viewedNames": [
+        "score-controller-overflow-font100",
+        "score-controller-overflow-font125",
+        "score-controller-overflow-font150",
+        "score-exact-controller-factor-font100",
+        "score-exact-controller-factor-font125",
+        "score-exact-controller-factor-font150",
+        "score-fallback-reuse-font100",
+        "score-fallback-reuse-font125",
+        "score-fallback-reuse-font150",
+        "score-glyphs-Debug32-font100",
+        "score-glyphs-Debug32-font125",
+        "score-glyphs-Debug32-font150",
+        "score-glyphs-MaximumTable-font100",
+        "score-glyphs-MaximumTable-font125",
+        "score-glyphs-MaximumTable-font150",
+        "score-glyphs-SharedHalf-font100",
+        "score-glyphs-SharedHalf-font125",
+        "score-glyphs-SharedHalf-font150",
+        "score-glyphs-ZeroMultiplier-font100",
+        "score-glyphs-ZeroMultiplier-font125",
+        "score-glyphs-ZeroMultiplier-font150"
+      ]
+    },
+    {
+      "xml": "evidence\\v07\\unity\\nunit-20261101-032835.xml",
+      "sha256": "7b051ccb52a1a099f47c2974cf0c607a5ff16fbb02a3d335060d19fad41cc8ac",
+      "hashMatchesBinding": true,
+      "sourcesStable": true,
+      "sourceCount": 1261,
+      "runtimeMvid": "cf4f28d9-e3b8-4b10-88fe-3bc3d2616409",
+      "total": "3",
+      "passed": "2",
+      "failed": "1",
+      "duration": "20.6376024",
+      "failures": [
+        {
+          "test": "PLAY_ART07_ScoreLabelsPreviewMixedZeroAndRandomKeepEveryGlyphAfterRedraw",
+          "message": "  FinalScore covers multiplier buttons\n  Expected: greater than or equal to 711.0f\n  But was:  701.431274f\n"
+        }
+      ],
+      "viewedNames": [
+        "score-glyphs-MaximumTable-font125",
+        "score-glyphs-SharedHalf-font100",
+        "score-glyphs-Debug32-font100",
+        "score-exact-controller-factor-font100",
+        "score-controller-overflow-font150"
+      ]
+    }
+  ],
+  "images": [
+    {
+      "png": "artifacts\\cache\\v07-score-720-031040\\score-controller-overflow-font100.png",
+      "pngSha256": "14ed5a0d1854ff77dc87d8d8af8c6e465636dda4e505a4d6bb589828aeed3e44",
+      "viewed": false,
+      "metadataSha256": "2adfedaa2dec2eb2f10f423a87b09b6ffd250ac6d42a6ac0d0519898528157fd",
+      "dimensions": [
+        1280,
+        720
+      ],
+      "dimensionsMatchMetadata": true,
+      "mvidMatchesBinding": true
+    },
+    {
+      "png": "artifacts\\cache\\v07-score-720-031040\\score-controller-overflow-font125.png",
+      "pngSha256": "0e82f84716bbbf08785b1c9e1a6970450ceaa766d65e52bf531b91daf7a6b682",
+      "viewed": false,
+      "metadataSha256": "da01638bedd01c0cdc26a487b270b302e696f242dc80df15b618f10519a11f10",
+      "dimensions": [
+        1280,
+        720
+      ],
+      "dimensionsMatchMetadata": true,
+      "mvidMatchesBinding": true
+    },
+    {
+      "png": "artifacts\\cache\\v07-score-720-031040\\score-controller-overflow-font150.png",
+      "pngSha256": "48b124ab9e636ef89f7e688a37b43f54243d38ba20b2048cba2401f156fd7418",
+      "viewed": false,
+      "metadataSha256": "aeb2d66481ad6ef073bcf01ace924b0fd8a7654dc80bdfc4910399785dd7c90b",
+      "dimensions": [
+        1280,
+        720
+      ],
+      "dimensionsMatchMetadata": true,
+      "mvidMatchesBinding": true
+    },
+    {
+      "png": "artifacts\\cache\\v07-score-720-031040\\score-fallback-reuse-font100.png",
+      "pngSha256": "99950ce13ce40d2ed5811422674415f98bd96b5710d44578a9c61227f7b5122c",
+      "viewed": false,
+      "metadataSha256": "ae28c8f5d3843edcd55621c44ec1cd9430dc10fb3a3041af781dd3178d8d8c6e",
+      "dimensions": [
+        1280,
+        720
+      ],
+      "dimensionsMatchMetadata": true,
+      "mvidMatchesBinding": true
+    },
+    {
+      "png": "artifacts\\cache\\v07-score-720-031040\\score-fallback-reuse-font125.png",
+      "pngSha256": "f31d09b915aaa24b0beb7c31060c9d9b818bff2728436bb664e78548de35d2f9",
+      "viewed": false,
+      "metadataSha256": "0dc1aafc1b6459f449bf4ff38f759104cb3594118c2ab24cb356b3b257719c42",
+      "dimensions": [
+        1280,
+        720
+      ],
+      "dimensionsMatchMetadata": true,
+      "mvidMatchesBinding": true
+    },
+    {
+      "png": "artifacts\\cache\\v07-score-720-031040\\score-fallback-reuse-font150.png",
+      "pngSha256": "657dcdec7230f5dd81e5125f01d64047af48754f787165e652a5bc7919f78c8b",
+      "viewed": true,
+      "metadataSha256": "b9ea8e9eb55f591549d86c48ed03ee0bc16fe241ef15d0d4c6a62ee99bd7041a",
+      "dimensions": [
+        1280,
+        720
+      ],
+      "dimensionsMatchMetadata": true,
+      "mvidMatchesBinding": true
+    },
+    {
+      "png": "artifacts\\cache\\v07-score-720-031040\\score-glyph-failure-frame263.png",
+      "pngSha256": "e6fe66fa7c3e8386454b03fc899b06ba9e4b6bb442f22cde189a2aa872ae6a4e",
+      "viewed": false,
+      "metadataSha256": null,
+      "dimensions": [
+        1280,
+        720
+      ],
+      "dimensionsMatchMetadata": false,
+      "mvidMatchesBinding": false
+    },
+    {
+      "png": "artifacts\\cache\\v07-score-720-032026\\score-controller-overflow-font100.png",
+      "pngSha256": "14ed5a0d1854ff77dc87d8d8af8c6e465636dda4e505a4d6bb589828aeed3e44",
+      "viewed": false,
+      "metadataSha256": "d7cd5cb7bc1756fb22cef493fd16b86e57afe2bbd7789eb3440bd1ac37f7590f",
+      "dimensions": [
+        1280,
+        720
+      ],
+      "dimensionsMatchMetadata": true,
+      "mvidMatchesBinding": true
+    },
+    {
+      "png": "artifacts\\cache\\v07-score-720-032026\\score-controller-overflow-font125.png",
+      "pngSha256": "0e82f84716bbbf08785b1c9e1a6970450ceaa766d65e52bf531b91daf7a6b682",
+      "viewed": false,
+      "metadataSha256": "67dbfa4b5d81d01ea779c57e314dc6c0f879342fda9e0fa3cd00793d93e41b4b",
+      "dimensions": [
+        1280,
+        720
+      ],
+      "dimensionsMatchMetadata": true,
+      "mvidMatchesBinding": true
+    },
+    {
+      "png": "artifacts\\cache\\v07-score-720-032026\\score-controller-overflow-font150.png",
+      "pngSha256": "48b124ab9e636ef89f7e688a37b43f54243d38ba20b2048cba2401f156fd7418",
+      "viewed": true,
+      "metadataSha256": "4527f76a4ac4bf2db8e7d1026c5aeeede682a1353ae8189626685729a5090616",
+      "dimensions": [
+        1280,
+        720
+      ],
+      "dimensionsMatchMetadata": true,
+      "mvidMatchesBinding": true
+    },
+    {
+      "png": "artifacts\\cache\\v07-score-720-032026\\score-glyphs-MaximumTable-font100.png",
+      "pngSha256": "e6fe66fa7c3e8386454b03fc899b06ba9e4b6bb442f22cde189a2aa872ae6a4e",
+      "viewed": true,
+      "metadataSha256": "4451d42741b930f94bd9a4522fe425ceaf92563251b3f1c0fb65626c0ad0d809",
+      "dimensions": [
+        1280,
+        720
+      ],
+      "dimensionsMatchMetadata": true,
+      "mvidMatchesBinding": true
+    },
+    {
+      "png": "artifacts\\cache\\v07-score-720-032026\\score-glyphs-MaximumTable-font125.png",
+      "pngSha256": "125671743322ac14fb3330c592c3adba5c1f8494168f028e83e75e0cfc4a524c",
+      "viewed": true,
+      "metadataSha256": "ae5a0cf83665d634d0d52e9a4c265a51f4e94a6ac61b451426bb1432bd7c96e9",
+      "dimensions": [
+        1280,
+        720
+      ],
+      "dimensionsMatchMetadata": true,
+      "mvidMatchesBinding": true
+    },
+    {
+      "png": "artifacts\\cache\\v07-score-720-032026\\score-glyphs-MaximumTable-font150.png",
+      "pngSha256": "2898b3ad2a066cb91a50a6e83c6ab117b74e894891d523674354772578266049",
+      "viewed": true,
+      "metadataSha256": "1da0ee47ae7c895796656f6a3607059bb14c7e0264677c9e7fb4e30da64b3894",
+      "dimensions": [
+        1280,
+        720
+      ],
+      "dimensionsMatchMetadata": true,
+      "mvidMatchesBinding": true
+    },
+    {
+      "png": "artifacts\\cache\\v07-score-720-032026\\score-glyphs-SharedHalf-font100.png",
+      "pngSha256": "adb0fc259a5b045b0e5abcbd1824ab35bf7336d8cb930e19e34ea05b68479b96",
+      "viewed": false,
+      "metadataSha256": "2d335e25efd120cbb768ab0468fc029ff3d5c31954233dc159464d1ff1d4ca73",
+      "dimensions": [
+        1280,
+        720
+      ],
+      "dimensionsMatchMetadata": true,
+      "mvidMatchesBinding": true
+    },
+    {
+      "png": "artifacts\\cache\\v07-score-720-032026\\score-glyphs-SharedHalf-font125.png",
+      "pngSha256": "184c807efe14ae269c31fbbcd65d40d9c267a2725f03c5b116f06dc6eb81652d",
+      "viewed": false,
+      "metadataSha256": "2cc2ec8ccfd9f579189484eafb0677f83b26b9dd6dbe9893d0e700ba0399121f",
+      "dimensions": [
+        1280,
+        720
+      ],
+      "dimensionsMatchMetadata": true,
+      "mvidMatchesBinding": true
+    },
+    {
+      "png": "artifacts\\cache\\v07-score-720-032026\\score-glyphs-SharedHalf-font150.png",
+      "pngSha256": "565fd7dad5db2ef057be914f1c51746d00d1e774dbc2ae1f2ba95f7a89d0c840",
+      "viewed": true,
+      "metadataSha256": "0ceac10240e72e8cb4c055c3374341a3c65e83e124397f9e927143a77bf0c138",
+      "dimensions": [
+        1280,
+        720
+      ],
+      "dimensionsMatchMetadata": true,
+      "mvidMatchesBinding": true
+    },
+    {
+      "png": "artifacts\\cache\\v07-score-720-032026\\score-glyphs-ZeroMultiplier-font100.png",
+      "pngSha256": "3c5933a36064c7988ceabd857b5851bef1b4edbc79687358add62ef719b97f8f",
+      "viewed": false,
+      "metadataSha256": "33673b4c4637008cf7a979750ad4750671da9b124696d9ea2d33edf4626c7d9b",
+      "dimensions": [
+        1280,
+        720
+      ],
+      "dimensionsMatchMetadata": true,
+      "mvidMatchesBinding": true
+    },
+    {
+      "png": "artifacts\\cache\\v07-score-720-032026\\score-glyphs-ZeroMultiplier-font125.png",
+      "pngSha256": "ce250516e7c7081065c312d6cf5b78c89a0262a06b09a15b938f82243631e9a9",
+      "viewed": false,
+      "metadataSha256": "b7a257c361c6cfddc3129148769d8db406511972a5bebc42f41d993cbdaba44f",
+      "dimensions": [
+        1280,
+        720
+      ],
+      "dimensionsMatchMetadata": true,
+      "mvidMatchesBinding": true
+    },
+    {
+      "png": "artifacts\\cache\\v07-score-720-032026\\score-glyphs-ZeroMultiplier-font150.png",
+      "pngSha256": "1ea61c6fa467cf955080b5816fdfcd00055548a83e7d70df1f6a4c763c749f16",
+      "viewed": true,
+      "metadataSha256": "f1e6bd199032bc430c73fe7bacda031a77fbab6fdfab63b2b3517dae2eef190b",
+      "dimensions": [
+        1280,
+        720
+      ],
+      "dimensionsMatchMetadata": true,
+      "mvidMatchesBinding": true
+    },
+    {
+      "png": "artifacts\\cache\\v07-score-720-032743\\score-controller-overflow-font100.png",
+      "pngSha256": "bbc3e69df6b28b98e0a8e8ddede1ef453b50809cec5f27d2484716cd79e0b916",
+      "viewed": true,
+      "metadataSha256": "5dfab71748aa79a4f3f47861aa2ca396f3f761e51b3be9a65070a113b8be68c6",
+      "dimensions": [
+        1280,
+        720
+      ],
+      "dimensionsMatchMetadata": true,
+      "mvidMatchesBinding": true
+    },
+    {
+      "png": "artifacts\\cache\\v07-score-720-032743\\score-controller-overflow-font125.png",
+      "pngSha256": "b6fd28a365839203beb18c88dd1481f9c1f2de18ec9831f4247ef2fe1237f33a",
+      "viewed": true,
+      "metadataSha256": "9a45c711ed2374abdfd4c9b27c4bf8cb57ed2290386e1fbec15d634d977f2f2a",
+      "dimensions": [
+        1280,
+        720
+      ],
+      "dimensionsMatchMetadata": true,
+      "mvidMatchesBinding": true
+    },
+    {
+      "png": "artifacts\\cache\\v07-score-720-032743\\score-controller-overflow-font150.png",
+      "pngSha256": "4d04cc8cdc1a6d4927c7704be718e7f3ac06baa22a344ba2c9dad00298a4da5d",
+      "viewed": true,
+      "metadataSha256": "49d033a567c68b00d705f7fa02c91d1e6b29b0555bbb1ff26497dd6d8a926d74",
+      "dimensions": [
+        1280,
+        720
+      ],
+      "dimensionsMatchMetadata": true,
+      "mvidMatchesBinding": true
+    },
+    {
+      "png": "artifacts\\cache\\v07-score-720-032743\\score-exact-controller-factor-font100.png",
+      "pngSha256": "90b74520b5a7d8b125092ad1a7b59fdf35bc929106605b0d0b5d9e40225c3378",
+      "viewed": true,
+      "metadataSha256": "5d0ba4c4e409558c95cabd36c61e4a14e414e1d47aeb37ce2dd5be0bcdbd7739",
+      "dimensions": [
+        1280,
+        720
+      ],
+      "dimensionsMatchMetadata": true,
+      "mvidMatchesBinding": true
+    },
+    {
+      "png": "artifacts\\cache\\v07-score-720-032743\\score-exact-controller-factor-font125.png",
+      "pngSha256": "e02c603eb9c790bee283b8addef7908a29e6495b752d10f71c2d851da3b3b714",
+      "viewed": true,
+      "metadataSha256": "ed95192da67455e5b2550d2a9058c1780ff3ad99183edfc4086e183fb4cd5009",
+      "dimensions": [
+        1280,
+        720
+      ],
+      "dimensionsMatchMetadata": true,
+      "mvidMatchesBinding": true
+    },
+    {
+      "png": "artifacts\\cache\\v07-score-720-032743\\score-exact-controller-factor-font150.png",
+      "pngSha256": "a9061b1d23c3331204abe478efec0c17097748f184e618db370664ca4e7f0036",
+      "viewed": true,
+      "metadataSha256": "95503100d144848f5e960923d2cfc8731b5b792a15de241562cda3f27512df51",
+      "dimensions": [
+        1280,
+        720
+      ],
+      "dimensionsMatchMetadata": true,
+      "mvidMatchesBinding": true
+    },
+    {
+      "png": "artifacts\\cache\\v07-score-720-032743\\score-fallback-reuse-font100.png",
+      "pngSha256": "99950ce13ce40d2ed5811422674415f98bd96b5710d44578a9c61227f7b5122c",
+      "viewed": true,
+      "metadataSha256": "8b31f07d2c7a28ab57e06873e19077a17897c0b42298e2a6ae56079a80d9021f",
+      "dimensions": [
+        1280,
+        720
+      ],
+      "dimensionsMatchMetadata": true,
+      "mvidMatchesBinding": true
+    },
+    {
+      "png": "artifacts\\cache\\v07-score-720-032743\\score-fallback-reuse-font125.png",
+      "pngSha256": "f31d09b915aaa24b0beb7c31060c9d9b818bff2728436bb664e78548de35d2f9",
+      "viewed": true,
+      "metadataSha256": "037464b221bef6dd3fd2c9e5bfd595936266d6ef059b352d580642dfe4bb0fb6",
+      "dimensions": [
+        1280,
+        720
+      ],
+      "dimensionsMatchMetadata": true,
+      "mvidMatchesBinding": true
+    },
+    {
+      "png": "artifacts\\cache\\v07-score-720-032743\\score-fallback-reuse-font150.png",
+      "pngSha256": "657dcdec7230f5dd81e5125f01d64047af48754f787165e652a5bc7919f78c8b",
+      "viewed": true,
+      "metadataSha256": "a81d81c38070ff5a51d3db2a62b03124eec3ccc1bc97a496a0e614cf5c09d51f",
+      "dimensions": [
+        1280,
+        720
+      ],
+      "dimensionsMatchMetadata": true,
+      "mvidMatchesBinding": true
+    },
+    {
+      "png": "artifacts\\cache\\v07-score-720-032743\\score-glyphs-Debug32-font100.png",
+      "pngSha256": "bbc3e69df6b28b98e0a8e8ddede1ef453b50809cec5f27d2484716cd79e0b916",
+      "viewed": true,
+      "metadataSha256": "b1f3eada0670ec4fb4f34b9337b0a5aec8c44c56d4af9de2ce4f8809c33a9298",
+      "dimensions": [
+        1280,
+        720
+      ],
+      "dimensionsMatchMetadata": true,
+      "mvidMatchesBinding": true
+    },
+    {
+      "png": "artifacts\\cache\\v07-score-720-032743\\score-glyphs-Debug32-font125.png",
+      "pngSha256": "b6fd28a365839203beb18c88dd1481f9c1f2de18ec9831f4247ef2fe1237f33a",
+      "viewed": true,
+      "metadataSha256": "4a3b17a1b659100b51ae717eaa67b41889a01731c8b74ca3c46329c7d0226b0a",
+      "dimensions": [
+        1280,
+        720
+      ],
+      "dimensionsMatchMetadata": true,
+      "mvidMatchesBinding": true
+    },
+    {
+      "png": "artifacts\\cache\\v07-score-720-032743\\score-glyphs-Debug32-font150.png",
+      "pngSha256": "4d04cc8cdc1a6d4927c7704be718e7f3ac06baa22a344ba2c9dad00298a4da5d",
+      "viewed": true,
+      "metadataSha256": "06e152cd1fa4b215357447ef33ecf6050193c06c80b961b42093969c43a56226",
+      "dimensions": [
+        1280,
+        720
+      ],
+      "dimensionsMatchMetadata": true,
+      "mvidMatchesBinding": true
+    },
+    {
+      "png": "artifacts\\cache\\v07-score-720-032743\\score-glyphs-MaximumTable-font100.png",
+      "pngSha256": "e6fe66fa7c3e8386454b03fc899b06ba9e4b6bb442f22cde189a2aa872ae6a4e",
+      "viewed": true,
+      "metadataSha256": "3290c808f47c71176ef031e2638286fc355461a797d8e5bff9ddefdc82ddf2be",
+      "dimensions": [
+        1280,
+        720
+      ],
+      "dimensionsMatchMetadata": true,
+      "mvidMatchesBinding": true
+    },
+    {
+      "png": "artifacts\\cache\\v07-score-720-032743\\score-glyphs-MaximumTable-font125.png",
+      "pngSha256": "125671743322ac14fb3330c592c3adba5c1f8494168f028e83e75e0cfc4a524c",
+      "viewed": true,
+      "metadataSha256": "5a7bba71f71f6ae582553259d7256c4c1bc395abcf4cf24406efed9d8a20a016",
+      "dimensions": [
+        1280,
+        720
+      ],
+      "dimensionsMatchMetadata": true,
+      "mvidMatchesBinding": true
+    },
+    {
+      "png": "artifacts\\cache\\v07-score-720-032743\\score-glyphs-MaximumTable-font150.png",
+      "pngSha256": "2898b3ad2a066cb91a50a6e83c6ab117b74e894891d523674354772578266049",
+      "viewed": true,
+      "metadataSha256": "0ccf12dd1727117617c56af6cd117e51054b56e9ddb4110f7b9e8ea47311fa5b",
+      "dimensions": [
+        1280,
+        720
+      ],
+      "dimensionsMatchMetadata": true,
+      "mvidMatchesBinding": true
+    },
+    {
+      "png": "artifacts\\cache\\v07-score-720-032743\\score-glyphs-SharedHalf-font100.png",
+      "pngSha256": "adb0fc259a5b045b0e5abcbd1824ab35bf7336d8cb930e19e34ea05b68479b96",
+      "viewed": true,
+      "metadataSha256": "943aaf0c220da98493511ce6f6ddfbf4b06fe9ee7ea9b580a897a7c626a5733b",
+      "dimensions": [
+        1280,
+        720
+      ],
+      "dimensionsMatchMetadata": true,
+      "mvidMatchesBinding": true
+    },
+    {
+      "png": "artifacts\\cache\\v07-score-720-032743\\score-glyphs-SharedHalf-font125.png",
+      "pngSha256": "184c807efe14ae269c31fbbcd65d40d9c267a2725f03c5b116f06dc6eb81652d",
+      "viewed": true,
+      "metadataSha256": "5a583415b06b6108f89550dd6c74905754c697198ea2b42121fe057a46f41409",
+      "dimensions": [
+        1280,
+        720
+      ],
+      "dimensionsMatchMetadata": true,
+      "mvidMatchesBinding": true
+    },
+    {
+      "png": "artifacts\\cache\\v07-score-720-032743\\score-glyphs-SharedHalf-font150.png",
+      "pngSha256": "565fd7dad5db2ef057be914f1c51746d00d1e774dbc2ae1f2ba95f7a89d0c840",
+      "viewed": true,
+      "metadataSha256": "ac9e806bda8c1063d1222344068015c65474199b0d058e1c81e13de5c78ee4e4",
+      "dimensions": [
+        1280,
+        720
+      ],
+      "dimensionsMatchMetadata": true,
+      "mvidMatchesBinding": true
+    },
+    {
+      "png": "artifacts\\cache\\v07-score-720-032743\\score-glyphs-ZeroMultiplier-font100.png",
+      "pngSha256": "41451f4b73bec4107af2a30ee678fd934b116a6bbe5061baa7577cde10ca6fcf",
+      "viewed": true,
+      "metadataSha256": "a7c2d26522047d31a40ef1a064e0d7b34eb032a015e1673d85e2401313acbc14",
+      "dimensions": [
+        1280,
+        720
+      ],
+      "dimensionsMatchMetadata": true,
+      "mvidMatchesBinding": true
+    },
+    {
+      "png": "artifacts\\cache\\v07-score-720-032743\\score-glyphs-ZeroMultiplier-font125.png",
+      "pngSha256": "e50afbc2ce38243a10efd9901dff2f5e4250d0f31fdd99c1fc6e7cbe79c9aa6f",
+      "viewed": true,
+      "metadataSha256": "a85210c9dcb1e6a541ef158f02de43c327f16c999ebdf1dbdb6e6a2de8381128",
+      "dimensions": [
+        1280,
+        720
+      ],
+      "dimensionsMatchMetadata": true,
+      "mvidMatchesBinding": true
+    },
+    {
+      "png": "artifacts\\cache\\v07-score-720-032743\\score-glyphs-ZeroMultiplier-font150.png",
+      "pngSha256": "a380433fec015bb99ee231d8ca384843040dd606b3b7f5800f0f04873ddbabcd",
+      "viewed": true,
+      "metadataSha256": "4d0d0759a23749a247caff467049fe2a8ac6d72145e224fe3f91b1a7118b1c7a",
+      "dimensions": [
+        1280,
+        720
+      ],
+      "dimensionsMatchMetadata": true,
+      "mvidMatchesBinding": true
+    },
+    {
+      "png": "artifacts\\cache\\v07-score-1080-032835\\score-controller-overflow-font100.png",
+      "pngSha256": "ebf202652b7bf192af8fa179fc97c7fd79016d0988026ca84d0f1e0d0adc83be",
+      "viewed": false,
+      "metadataSha256": "5b654ade8f1eb2b312ba9205ae9a8c27fbd8ab84ee7a8d5e82a8dc5ac2138638",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "dimensionsMatchMetadata": true,
+      "mvidMatchesBinding": true
+    },
+    {
+      "png": "artifacts\\cache\\v07-score-1080-032835\\score-controller-overflow-font125.png",
+      "pngSha256": "b92199d5a659de9aa77c9031bd33738f97d97df9dc96652cee24e31dce7ae3dc",
+      "viewed": false,
+      "metadataSha256": "1961a38ffee14bbb9b20784975f8c6e718be3d3b06db2cacedaf012018a39f24",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "dimensionsMatchMetadata": true,
+      "mvidMatchesBinding": true
+    },
+    {
+      "png": "artifacts\\cache\\v07-score-1080-032835\\score-controller-overflow-font150.png",
+      "pngSha256": "c900f99b4abf2f50ae4403f8a30c07c841d40253ee06bd1fec43f3f0d8fea253",
+      "viewed": true,
+      "metadataSha256": "a637c1cd52dc4f30c971d76ca4eb35106c6a525a925450618c156f1a9f741a00",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "dimensionsMatchMetadata": true,
+      "mvidMatchesBinding": true
+    },
+    {
+      "png": "artifacts\\cache\\v07-score-1080-032835\\score-exact-controller-factor-font100.png",
+      "pngSha256": "914674b9d934c64aec531437877c69fada5c0b4fd8f30a62a8a28973e2f2c151",
+      "viewed": true,
+      "metadataSha256": "f8c322d9c6f9d20969dbead9f8a6788023f017692a5a92c18eeac681a69a5fc2",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "dimensionsMatchMetadata": true,
+      "mvidMatchesBinding": true
+    },
+    {
+      "png": "artifacts\\cache\\v07-score-1080-032835\\score-exact-controller-factor-font125.png",
+      "pngSha256": "8bc3902035a924e14dd76ee17fe423641772b39a3f373f666466e69c372e1bef",
+      "viewed": false,
+      "metadataSha256": "952ac375f0894b14758efcca428382b0e141c8e863f143f849f8b408f6648f66",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "dimensionsMatchMetadata": true,
+      "mvidMatchesBinding": true
+    },
+    {
+      "png": "artifacts\\cache\\v07-score-1080-032835\\score-fallback-reuse-font100.png",
+      "pngSha256": "1f957877d3d24a9dce4fda4d11f9ce2fc7c98e51bca44d80f27e549d6061f977",
+      "viewed": false,
+      "metadataSha256": "79d091beaa9e4a62d2862ee2630da2e1e07061967b83ae6e96be9d7ab90ea627",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "dimensionsMatchMetadata": true,
+      "mvidMatchesBinding": true
+    },
+    {
+      "png": "artifacts\\cache\\v07-score-1080-032835\\score-fallback-reuse-font125.png",
+      "pngSha256": "2bda66bdd6dec28e1a27d9d8d6a0499f48a524d9ac5600e4b48a4989e59cf39c",
+      "viewed": false,
+      "metadataSha256": "fd6c3205f7608ff3a4bd3517dc2383f7413f60bf25b2467f434c5b32ac47ac9b",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "dimensionsMatchMetadata": true,
+      "mvidMatchesBinding": true
+    },
+    {
+      "png": "artifacts\\cache\\v07-score-1080-032835\\score-fallback-reuse-font150.png",
+      "pngSha256": "4c260fe262688225c4d41678f3871eb185c2b6839d254dc8c4a9c52ac4ff108e",
+      "viewed": false,
+      "metadataSha256": "bcb66a8f6e93b5a2c49c0d3acd7ae660fcf4f6e23274aec622948ab8a3469d61",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "dimensionsMatchMetadata": true,
+      "mvidMatchesBinding": true
+    },
+    {
+      "png": "artifacts\\cache\\v07-score-1080-032835\\score-glyphs-Debug32-font100.png",
+      "pngSha256": "ebf202652b7bf192af8fa179fc97c7fd79016d0988026ca84d0f1e0d0adc83be",
+      "viewed": true,
+      "metadataSha256": "92024440b287ced334d422017dd96ad286f5ea8f0cf1dfdad122afc480dc7b0d",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "dimensionsMatchMetadata": true,
+      "mvidMatchesBinding": true
+    },
+    {
+      "png": "artifacts\\cache\\v07-score-1080-032835\\score-glyphs-Debug32-font125.png",
+      "pngSha256": "b92199d5a659de9aa77c9031bd33738f97d97df9dc96652cee24e31dce7ae3dc",
+      "viewed": false,
+      "metadataSha256": "cd71de7c7159e306594a7665448a5b651d3368d9cb58a129daab94a711a04d6e",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "dimensionsMatchMetadata": true,
+      "mvidMatchesBinding": true
+    },
+    {
+      "png": "artifacts\\cache\\v07-score-1080-032835\\score-glyphs-MaximumTable-font100.png",
+      "pngSha256": "0aeb5e20fa9f28955db56265a2a095d23f8d9864b11b21284aca836c6f995b57",
+      "viewed": false,
+      "metadataSha256": "1b6af11241db8dac593a1a9b387506472d54240273479ad41ca100520795ab68",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "dimensionsMatchMetadata": true,
+      "mvidMatchesBinding": true
+    },
+    {
+      "png": "artifacts\\cache\\v07-score-1080-032835\\score-glyphs-MaximumTable-font125.png",
+      "pngSha256": "4c9f4d4024269e101ca9b0c5bf5804d0f49375c05e5824c9d88c1ac3963b7844",
+      "viewed": true,
+      "metadataSha256": "631d70611136cf5acd76e93123252bc60246ef6e95de0abed6676542c4f62757",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "dimensionsMatchMetadata": true,
+      "mvidMatchesBinding": true
+    },
+    {
+      "png": "artifacts\\cache\\v07-score-1080-032835\\score-glyphs-SharedHalf-font100.png",
+      "pngSha256": "bc6841796c89e82dd8c4fd401bb4d49b6c0ee1c1afb5b41ad5a1e6b538a8414a",
+      "viewed": true,
+      "metadataSha256": "f667ec5fecccc31b438730ff749ef26104dc90914223fe882b832bb811f864c8",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "dimensionsMatchMetadata": true,
+      "mvidMatchesBinding": true
+    },
+    {
+      "png": "artifacts\\cache\\v07-score-1080-032835\\score-glyphs-SharedHalf-font125.png",
+      "pngSha256": "b71d8c308245362fc4b44ce790eee66eab51eaa6a2e04dd0ec9991506083398b",
+      "viewed": false,
+      "metadataSha256": "0f9ff2f06fe4cc7e8828daf6a96c1ec535bfed587c19a8cc63bf8c4315316c05",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "dimensionsMatchMetadata": true,
+      "mvidMatchesBinding": true
+    },
+    {
+      "png": "artifacts\\cache\\v07-score-1080-032835\\score-glyphs-ZeroMultiplier-font100.png",
+      "pngSha256": "bd2f7e2c2ac9c0a233eb1b7c80e16ed17546a7150a90d2523e2142dfff4b7e2e",
+      "viewed": false,
+      "metadataSha256": "2cd6e19b4e356862796e6806b62ecc30e079011dc8ae4f588765ea6553eb3007",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "dimensionsMatchMetadata": true,
+      "mvidMatchesBinding": true
+    },
+    {
+      "png": "artifacts\\cache\\v07-score-1080-032835\\score-glyphs-ZeroMultiplier-font125.png",
+      "pngSha256": "c50bb76e1f3547826b95692b774782d1ed5f3e2a0e8e946eebb043adb8a05772",
+      "viewed": false,
+      "metadataSha256": "f44211a95589701f006eba33cf2ce735b439099a1fb44b6ceba495b9e03df291",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "dimensionsMatchMetadata": true,
+      "mvidMatchesBinding": true
+    }
+  ],
+  "gpu": {
+    "v07-score-720-032743": {
+      "reports": 51,
+      "glyphCount": 2415,
+      "minChangedPixels": 4,
+      "maxHiddenNoise": 0,
+      "stateStable": true,
+      "saveExistenceStable": true,
+      "noSaveReports": 9,
+      "jsonSha256": [
+        {
+          "path": "artifacts\\cache\\v07-score-720-032743\\score-pixels-frame105.json",
+          "sha256": "429d5acf29c786dfda133a71fb0e5d70e00a24d2cf907e4649827412c0a11718"
+        },
+        {
+          "path": "artifacts\\cache\\v07-score-720-032743\\score-pixels-frame157.json",
+          "sha256": "143e1b1faff4b42a2a1dd533d2067f4d7cfcd8c78d58e15b9a410a5833e795da"
+        },
+        {
+          "path": "artifacts\\cache\\v07-score-720-032743\\score-pixels-frame184.json",
+          "sha256": "9241a3eb484c9f2007efef98d0a93771cd7dace05c61e84e00a53cc4f38f8d88"
+        },
+        {
+          "path": "artifacts\\cache\\v07-score-720-032743\\score-pixels-frame188.json",
+          "sha256": "19f4ee60d159b0e8adb65d025d3c65755d6aea0fd6508e9856d1f63f99093218"
+        },
+        {
+          "path": "artifacts\\cache\\v07-score-720-032743\\score-pixels-frame192.json",
+          "sha256": "3b8e35e7e79c49bb5fcdabdf186cf1815edd41656154d390eccde7703f27a6ab"
+        },
+        {
+          "path": "artifacts\\cache\\v07-score-720-032743\\score-pixels-frame210.json",
+          "sha256": "f202d2221c3640339e3f93dfc33b086632e84a1a0b2f86510c81adf3524445bb"
+        },
+        {
+          "path": "artifacts\\cache\\v07-score-720-032743\\score-pixels-frame214.json",
+          "sha256": "c33ca57a8281b80139a5b600394533891eaf7db681616f27d9aff6e46085e4d1"
+        },
+        {
+          "path": "artifacts\\cache\\v07-score-720-032743\\score-pixels-frame218.json",
+          "sha256": "0d44f61fd744254fd1ed9255b9f3ce55ca6c987f47689b9a2381a511b1b30783"
+        },
+        {
+          "path": "artifacts\\cache\\v07-score-720-032743\\score-pixels-frame236.json",
+          "sha256": "d780ed0e95c88db87bcbd94663f0372182382a1a6ced9b020400914609f65d50"
+        },
+        {
+          "path": "artifacts\\cache\\v07-score-720-032743\\score-pixels-frame240.json",
+          "sha256": "6ee89b07d2622d68977ece81b723eaa3e5a47026f661bea086e2a8cb27b511c1"
+        },
+        {
+          "path": "artifacts\\cache\\v07-score-720-032743\\score-pixels-frame244.json",
+          "sha256": "75bcaa47440f519dd02b4fe9f8e3b00b9ec07036af7877b8291d2ff10fe18a2c"
+        },
+        {
+          "path": "artifacts\\cache\\v07-score-720-032743\\score-pixels-frame288.json",
+          "sha256": "f656fc9d2f2b3df96c227b2dc7d422ed2458d2baf07b0b16982add9d5827bfdf"
+        },
+        {
+          "path": "artifacts\\cache\\v07-score-720-032743\\score-pixels-frame292.json",
+          "sha256": "fb9e9da030d0a3933c783b5e7049521b8c832d42734639b15781d34522d58474"
+        },
+        {
+          "path": "artifacts\\cache\\v07-score-720-032743\\score-pixels-frame296.json",
+          "sha256": "4c8c098faf44337459bbeb70cc26737675f2d7ebaa05811eefab8f69457c93dc"
+        },
+        {
+          "path": "artifacts\\cache\\v07-score-720-032743\\score-pixels-frame330.json",
+          "sha256": "b8eb7a007302fc1d16c063c64a46d40644fc832e9f20cc0a1446a1d7d34d34bc"
+        },
+        {
+          "path": "artifacts\\cache\\v07-score-720-032743\\score-pixels-frame334.json",
+          "sha256": "3d3deacd3006111420ca2e185230a4405109880c093efa33abce00f935d382da"
+        },
+        {
+          "path": "artifacts\\cache\\v07-score-720-032743\\score-pixels-frame338.json",
+          "sha256": "ba47d96e879c9ad3fa885b419a148d0fe1430093eda042ade0defee0c47354cd"
+        },
+        {
+          "path": "artifacts\\cache\\v07-score-720-032743\\score-pixels-frame372.json",
+          "sha256": "cd17f7bcbedf77b3aa1461615347d994667b4b6c708326063d590ad338994403"
+        },
+        {
+          "path": "artifacts\\cache\\v07-score-720-032743\\score-pixels-frame376.json",
+          "sha256": "392334b90e00ee3e2e360608fd94f75744393b439cf2cdffe9e6ef42056d4ff0"
+        },
+        {
+          "path": "artifacts\\cache\\v07-score-720-032743\\score-pixels-frame380.json",
+          "sha256": "c03be04ac38467bfd43d96b5d6b795a09c8ad97859a90199fc609284b87beb89"
+        },
+        {
+          "path": "artifacts\\cache\\v07-score-720-032743\\score-pixels-frame414.json",
+          "sha256": "23062429df6d14fc8820512c9ac758d3f88fdedc9b49f4d642a45904affc16d5"
+        },
+        {
+          "path": "artifacts\\cache\\v07-score-720-032743\\score-pixels-frame418.json",
+          "sha256": "24b8fb7e7a236a3adbd54cfb5c5add60bc013d4226eec48d39bbbd4813b62cab"
+        },
+        {
+          "path": "artifacts\\cache\\v07-score-720-032743\\score-pixels-frame422.json",
+          "sha256": "b9f8251df3794cff103f26a1a1943f12dac4de177ec7c4686f38c445f302b1fa"
+        },
+        {
+          "path": "artifacts\\cache\\v07-score-720-032743\\score-pixels-frame452.json",
+          "sha256": "5db283ed68ec2cf24eb05507c80e6746215ccf4ef7bc33597d680fe2d77a18b2"
+        },
+        {
+          "path": "artifacts\\cache\\v07-score-720-032743\\score-pixels-frame489.json",
+          "sha256": "71bd8cefbfe644f4f01c236abd5464fe48a86dbe42007e6b02ca6afbee22ab57"
+        },
+        {
+          "path": "artifacts\\cache\\v07-score-720-032743\\score-pixels-frame493.json",
+          "sha256": "bdc54d447196dd1d9bc2cb7e8f88064d848c613f9529b169bde0f2c1368ad756"
+        },
+        {
+          "path": "artifacts\\cache\\v07-score-720-032743\\score-pixels-frame497.json",
+          "sha256": "8baef25f3379aab5383fa30847e584620ca82914ee97b615e4875cf1158f9c49"
+        },
+        {
+          "path": "artifacts\\cache\\v07-score-720-032743\\score-pixels-frame528.json",
+          "sha256": "57cbd86e074534c54e8c6080b085bc7b77a99ad6aa5adc391e6c2ed18716be6e"
+        },
+        {
+          "path": "artifacts\\cache\\v07-score-720-032743\\score-pixels-frame53.json",
+          "sha256": "18b56012a4aaf32a4e420f6d5c9749f845750b34405424c327a203daa3b61ad0"
+        },
+        {
+          "path": "artifacts\\cache\\v07-score-720-032743\\score-pixels-frame532.json",
+          "sha256": "7402d86b4ca5c6f29a6f016506987a6401d219cfb99d0493beb6c43d32c28cfd"
+        },
+        {
+          "path": "artifacts\\cache\\v07-score-720-032743\\score-pixels-frame536.json",
+          "sha256": "4e436fcf36ef1ad637523fb4d86287b71ccd168422e138040a1253bc3400ed04"
+        },
+        {
+          "path": "artifacts\\cache\\v07-score-720-032743\\score-pixels-frame570.json",
+          "sha256": "eeb3f7b73400eae4d78a113c0f29abba72add5974bf54e0c9ddfd0f1fe623fc7"
+        },
+        {
+          "path": "artifacts\\cache\\v07-score-720-032743\\score-pixels-frame574.json",
+          "sha256": "f7160af854c9ed898b88e9a043cc68233d171207a8d3070b66677f84786eebc2"
+        },
+        {
+          "path": "artifacts\\cache\\v07-score-720-032743\\score-pixels-frame578.json",
+          "sha256": "122dba394a83edf9ac49f01943c41dcbd8dfbbd351768acb27befeb1a9b5bd35"
+        },
+        {
+          "path": "artifacts\\cache\\v07-score-720-032743\\score-pixels-frame612.json",
+          "sha256": "e8769cfcf26fb9683046c4a4b0a5d409eb5bb7aa2d43123ba65071bfdfdd1493"
+        },
+        {
+          "path": "artifacts\\cache\\v07-score-720-032743\\score-pixels-frame616.json",
+          "sha256": "d4109c8d3906d001550039a7ce7cdef47909fe8e10a26cc3f21a2f785ac27ceb"
+        },
+        {
+          "path": "artifacts\\cache\\v07-score-720-032743\\score-pixels-frame620.json",
+          "sha256": "dd14125459a4bb19bd329e5dc48e66151b222c4d34a7eca9057c125bafd90cc9"
+        },
+        {
+          "path": "artifacts\\cache\\v07-score-720-032743\\score-pixels-frame650.json",
+          "sha256": "7823f9bfb6661b8affcaff8cd7facca2380dacf4e61a238b685f01e98ba2dc59"
+        },
+        {
+          "path": "artifacts\\cache\\v07-score-720-032743\\score-pixels-frame687.json",
+          "sha256": "cf4c01c000dc4f9356f64856238e875f2533ebb3f7cc562904e247f043445841"
+        },
+        {
+          "path": "artifacts\\cache\\v07-score-720-032743\\score-pixels-frame691.json",
+          "sha256": "9ca4b05dceb2211ecebad83b4b164adeaa0fb5ef1683f853e333b4da9be02486"
+        },
+        {
+          "path": "artifacts\\cache\\v07-score-720-032743\\score-pixels-frame695.json",
+          "sha256": "d88be2357df13d7eb91046cc732778b6201adb0ed84f0a91361bda510206e9f8"
+        },
+        {
+          "path": "artifacts\\cache\\v07-score-720-032743\\score-pixels-frame729.json",
+          "sha256": "9d94ab7c356f245a0a20a6e39c78163f62e40608797594115bc1669589194b57"
+        },
+        {
+          "path": "artifacts\\cache\\v07-score-720-032743\\score-pixels-frame733.json",
+          "sha256": "cae35cd5b19085945a73c285d2153e79abc453905cd9f5f63aeb24537c02954e"
+        },
+        {
+          "path": "artifacts\\cache\\v07-score-720-032743\\score-pixels-frame737.json",
+          "sha256": "27ef662160556a9c48ea933bfc2ca4ed5f5e20279a2d43b6b10cb49a3fdfa5b9"
+        },
+        {
+          "path": "artifacts\\cache\\v07-score-720-032743\\score-pixels-frame771.json",
+          "sha256": "74ad70ba01f2aae434611df729e01cd14cb10e89f1e58c87be43c748c549b98a"
+        },
+        {
+          "path": "artifacts\\cache\\v07-score-720-032743\\score-pixels-frame775.json",
+          "sha256": "bd04fc5d8000a87cc2a5eeb90502ad1e5df9d2253a29c34713e9775f4cfd4732"
+        },
+        {
+          "path": "artifacts\\cache\\v07-score-720-032743\\score-pixels-frame779.json",
+          "sha256": "62f23e5b5e5f179ac40a55b2e04298123db5ccf138799095eebb7478478e8211"
+        },
+        {
+          "path": "artifacts\\cache\\v07-score-720-032743\\score-pixels-frame813.json",
+          "sha256": "e13a1f038e286379bdb4203ad5362e58085431dc7db09fcb12282b711fd63f6f"
+        },
+        {
+          "path": "artifacts\\cache\\v07-score-720-032743\\score-pixels-frame817.json",
+          "sha256": "f62581fe239e41f4a32faedcaf3447ed99b6594d5e9ab600ae8d0ae967389035"
+        },
+        {
+          "path": "artifacts\\cache\\v07-score-720-032743\\score-pixels-frame821.json",
+          "sha256": "188c4bea13b85614f1f37c06fd0be88606d3f852b1e26bf2e03d02a5b04f9b53"
+        },
+        {
+          "path": "artifacts\\cache\\v07-score-720-032743\\score-pixels-frame851.json",
+          "sha256": "ec07782860d1b607b80a95a45d47ede13e9b9b7d6b3eee2f7869d7c3d0a9ee01"
+        }
+      ]
+    },
+    "v07-score-1080-032835": {
+      "reports": 39,
+      "glyphCount": 1681,
+      "minChangedPixels": 8,
+      "maxHiddenNoise": 0,
+      "stateStable": true,
+      "saveExistenceStable": true,
+      "noSaveReports": 9,
+      "jsonSha256": [
+        {
+          "path": "artifacts\\cache\\v07-score-1080-032835\\score-pixels-frame102.json",
+          "sha256": "e833d3dfdd2933f51c0a5910594bfb35eb13e085a259a475c44f8f2f920a5540"
+        },
+        {
+          "path": "artifacts\\cache\\v07-score-1080-032835\\score-pixels-frame154.json",
+          "sha256": "08f26bd32d48766b44508f84f9db60f4b85fc1505f9279ab5998e50b0bac4e0d"
+        },
+        {
+          "path": "artifacts\\cache\\v07-score-1080-032835\\score-pixels-frame181.json",
+          "sha256": "e727973fbd667552e39857466cc6d329638b231af382509c1049ee425e51525e"
+        },
+        {
+          "path": "artifacts\\cache\\v07-score-1080-032835\\score-pixels-frame185.json",
+          "sha256": "a6caf82a188bdc1305b29b5226bc24b0306176b61abfc305b6be61fbd75e9af0"
+        },
+        {
+          "path": "artifacts\\cache\\v07-score-1080-032835\\score-pixels-frame189.json",
+          "sha256": "2d27ca750951ec665034ed73c3b7d72b5db087c730ba85bf9000f3b9833a7c41"
+        },
+        {
+          "path": "artifacts\\cache\\v07-score-1080-032835\\score-pixels-frame207.json",
+          "sha256": "a181d37cff63b44d3671aab34ca713b0e424d5271cc3ba878e60b929fa557205"
+        },
+        {
+          "path": "artifacts\\cache\\v07-score-1080-032835\\score-pixels-frame211.json",
+          "sha256": "048745a5b1a6b3703a899f18c5d08669597f85aa3b5b9f23aa90b154ebd25ff0"
+        },
+        {
+          "path": "artifacts\\cache\\v07-score-1080-032835\\score-pixels-frame215.json",
+          "sha256": "0b38eb5ce58137a0ae2c638b07446aaaa4e9e4e9303f0383d161a6f561e4367a"
+        },
+        {
+          "path": "artifacts\\cache\\v07-score-1080-032835\\score-pixels-frame233.json",
+          "sha256": "18bf41b2e6d14529b01ca80b9bd09bf34d7d47083fedbc14718650a647a287be"
+        },
+        {
+          "path": "artifacts\\cache\\v07-score-1080-032835\\score-pixels-frame237.json",
+          "sha256": "67a787b67a9522b4e6a60c1ad403a1019508a9147016e7d6871ccd9ae0935785"
+        },
+        {
+          "path": "artifacts\\cache\\v07-score-1080-032835\\score-pixels-frame241.json",
+          "sha256": "302e3c1262fb73cf08af90626e4ea657a12bd08ee9bab28da9527eb892e9b998"
+        },
+        {
+          "path": "artifacts\\cache\\v07-score-1080-032835\\score-pixels-frame277.json",
+          "sha256": "f5d3516543774dcf3fb9ba3d138319b00c73ac8612a710f00552cedf6a225ff3"
+        },
+        {
+          "path": "artifacts\\cache\\v07-score-1080-032835\\score-pixels-frame281.json",
+          "sha256": "b36db5b2f730171c7a27e0396ac9698476b13a7d1a5d7e03b70f8dfe07821efc"
+        },
+        {
+          "path": "artifacts\\cache\\v07-score-1080-032835\\score-pixels-frame285.json",
+          "sha256": "f3c41610a54df8c37cfa293d683facbeafa098db437594717a6b025e92719a83"
+        },
+        {
+          "path": "artifacts\\cache\\v07-score-1080-032835\\score-pixels-frame319.json",
+          "sha256": "8796b6ee64f35b1e22fe2bf409a451b6d27a43f30b2466d67fccb59f885a086b"
+        },
+        {
+          "path": "artifacts\\cache\\v07-score-1080-032835\\score-pixels-frame323.json",
+          "sha256": "8b7dfeecae72c73a1174deb978c9a55ad8e7076b4eb3f60a25c04f0ed7494d5f"
+        },
+        {
+          "path": "artifacts\\cache\\v07-score-1080-032835\\score-pixels-frame327.json",
+          "sha256": "e0a20e40b862cbed7838a88609588838772ccbc362ea455080c5e72df1f9f047"
+        },
+        {
+          "path": "artifacts\\cache\\v07-score-1080-032835\\score-pixels-frame361.json",
+          "sha256": "9b7fb5df6aa411843f591365fc617486b65b44a1a9399ac26cbd5983bc3dbfab"
+        },
+        {
+          "path": "artifacts\\cache\\v07-score-1080-032835\\score-pixels-frame365.json",
+          "sha256": "ffae12a90706d90b057e33ae58436fb579fa84f8e6b947ceaa3ecdb1cf249207"
+        },
+        {
+          "path": "artifacts\\cache\\v07-score-1080-032835\\score-pixels-frame369.json",
+          "sha256": "411b361ba3807985041fa6c7421826604813fecd38448cb4e3527322b54955b9"
+        },
+        {
+          "path": "artifacts\\cache\\v07-score-1080-032835\\score-pixels-frame403.json",
+          "sha256": "8eecd54f7a86644fd1f90a08a0f44cb8088b142e89c77fbaba2ec5a17a461720"
+        },
+        {
+          "path": "artifacts\\cache\\v07-score-1080-032835\\score-pixels-frame407.json",
+          "sha256": "9bb6db2ebaa313e60ce2d3d2e76863fd0c6d44b31290902746b99b44361ca9a8"
+        },
+        {
+          "path": "artifacts\\cache\\v07-score-1080-032835\\score-pixels-frame411.json",
+          "sha256": "c97893ef61235f041170962aecaa2a8f516dc00827bb9fdd6bf99a4c31c34c52"
+        },
+        {
+          "path": "artifacts\\cache\\v07-score-1080-032835\\score-pixels-frame441.json",
+          "sha256": "5bbf44689bc24af412983b7067313f6b85adab04c1a1880a7933172015b91f82"
+        },
+        {
+          "path": "artifacts\\cache\\v07-score-1080-032835\\score-pixels-frame478.json",
+          "sha256": "dbeb0ba5940f39b4899e5aa6eca6925bb9ff96df1a830a4bae94c2c6274c49d2"
+        },
+        {
+          "path": "artifacts\\cache\\v07-score-1080-032835\\score-pixels-frame482.json",
+          "sha256": "c05e67c4ef27298055f5ab6596e5ec3975dd4266f24e505624d1d5424cccdbc0"
+        },
+        {
+          "path": "artifacts\\cache\\v07-score-1080-032835\\score-pixels-frame486.json",
+          "sha256": "a8a11e261d8f366e1895033c5d484d33f8d6ece7ef8134c50b5034f180e7e4e3"
+        },
+        {
+          "path": "artifacts\\cache\\v07-score-1080-032835\\score-pixels-frame50.json",
+          "sha256": "4f4f2d4ef1ad750a8ebc96f3927f8c22cd893bf83e3aa9bebab417d814b4aa66"
+        },
+        {
+          "path": "artifacts\\cache\\v07-score-1080-032835\\score-pixels-frame520.json",
+          "sha256": "7637e24411bd8e0c6058034dc1cf2897e5b5124f0dd0beda849139bbc7b7b3f0"
+        },
+        {
+          "path": "artifacts\\cache\\v07-score-1080-032835\\score-pixels-frame524.json",
+          "sha256": "f83f1cbb1d47fc5ca418ed03f959ed5244ec7df4d02c91722a23ad4cbc0100bb"
+        },
+        {
+          "path": "artifacts\\cache\\v07-score-1080-032835\\score-pixels-frame528.json",
+          "sha256": "fee822be5831a2311cf579b34952bf3bed9c5f60bf5cf66905caaad32e40470a"
+        },
+        {
+          "path": "artifacts\\cache\\v07-score-1080-032835\\score-pixels-frame562.json",
+          "sha256": "74cef43c07fdeb3285cd8f1b866830099241965996eec2e36de22a7086b7d581"
+        },
+        {
+          "path": "artifacts\\cache\\v07-score-1080-032835\\score-pixels-frame566.json",
+          "sha256": "53819533805c850e711cdd3927abf41a4fe51cd93b91649bc82448075d627d67"
+        },
+        {
+          "path": "artifacts\\cache\\v07-score-1080-032835\\score-pixels-frame570.json",
+          "sha256": "7c3f8abb9bf9f6f05a271d56d4c51c81fe78afffe8655467ad66b82d74676e1a"
+        },
+        {
+          "path": "artifacts\\cache\\v07-score-1080-032835\\score-pixels-frame604.json",
+          "sha256": "74ab938f0c9dcc726a1378719d695b26e625a4c55318302acc44cf86f2f4e434"
+        },
+        {
+          "path": "artifacts\\cache\\v07-score-1080-032835\\score-pixels-frame608.json",
+          "sha256": "af4a0a7c4d341bbeb1f9bc29f6da40384885c8e14cfeba3e8954809f9a710dc2"
+        },
+        {
+          "path": "artifacts\\cache\\v07-score-1080-032835\\score-pixels-frame612.json",
+          "sha256": "b012f171f52dd4b6a277ac85b7e3d8d555e4afc1613e0dddab46d8067186e823"
+        },
+        {
+          "path": "artifacts\\cache\\v07-score-1080-032835\\score-pixels-frame642.json",
+          "sha256": "112bf4d24097c7c325d4d0dfd22bc9a04bf8d180017979c72d363e6fe55bc551"
+        },
+        {
+          "path": "artifacts\\cache\\v07-score-1080-032835\\score-pixels-frame679.json",
+          "sha256": "711b44a5745f07c59c81e84fe62f09dc7eddf183265570fb92445f185261c5f2"
+        }
+      ]
+    }
+  },
+  "sourceAtReview": [
+    {
+      "path": "DicePrototype/Assets/Game/UI/GameApp.Modals.cs",
+      "sha256": "03ba80ced54d4e6af33f305ce73e81a004fdeda78f0e2c600cf52ff1795336f0",
+      "matches032835": true
+    },
+    {
+      "path": "DicePrototype/Assets/Game/UI/GameApp.Art07.cs",
+      "sha256": "be114e8d8e8b01f541dc7dd00eea5d1b110df7f97348847a436a45c22013b765",
+      "matches032835": false
+    },
+    {
+      "path": "DicePrototype/Assets/Game/UI/UiKit.cs",
+      "sha256": "4083ef2ec6bacdfe109acabb8dac7b3b6e25e7b65bcea11d76504ddb2e2703f5",
+      "matches032835": true
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Tests/PlayMode/Art07ScoreLabelsPlayModeTests.cs",
+      "sha256": "502f1e75b46b7462aed554d638f68b4660c1378dd56d8c32874b39a6caf5d901",
+      "matches032835": true
+    }
+  ]
+}

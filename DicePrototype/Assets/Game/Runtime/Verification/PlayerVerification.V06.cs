@@ -39,13 +39,13 @@ namespace DiceCraft.Verification
         }
         [Serializable] private sealed class RecoveryReceipt
         {
-            public string schema = "p06-native-display-recovery-1", buildIdentity, settingsPath, pendingSha256, status, evidenceDirectory;
+            public string schema = "p07-native-display-recovery-1", artVersion = GameApp.ArtVersion, probeRevision = ProbeRevision, buildIdentity, settingsPath, pendingSha256, status, evidenceDirectory;
             public int writerProcessId, readerProcessId;
             public DisplayChoice confirmed, candidate, actual;
         }
         private void V06Check(string id, string method, object actual)
         {
-            v06Checks.Add(new Dictionary<string, object> { ["id"] = id, ["status"] = "passed", ["method"] = method, ["actual"] = actual });
+            v06Checks.Add(new Dictionary<string, object> { ["id"] = id, ["status"] = "passed", ["method"] = method, ["actual"] = actual, ["artVersion"] = GameApp.ArtVersion, ["rulesVersion"] = app?.Config?.configVersion, ["probeRevision"] = ProbeRevision });
             File.WriteAllText(Path.Combine(configuredDirectory, "v06-checks.json"), Json(v06Checks), Encoding.UTF8);
         }
         // These adapters dispatch real uGUI events to active controls. No rules state is
@@ -205,48 +205,181 @@ namespace DiceCraft.Verification
             SetPrivate(app, "debugSaves", store); SetPrivate(app, "inMenu", false); SetPrivate(app, "tutorial", false);
             InvokePrivate("CloseModal"); app.Refresh();
         }
+        private void RequirePanelRect07(float x,float y,float width,float height)
+        {
+            var panel=ActiveControl<RectTransform>("Dialog");
+            Require(Vector2.Distance(panel.anchoredPosition,new Vector2(x,-y))<.01f&&Vector2.Distance(panel.sizeDelta,new Vector2(width,height))<.01f,
+                "v0.7 modal geometry differs from the declared design rectangle.");
+        }
+        private IEnumerator OpenRemote07(OwnedItem item)
+        {
+            yield return PressTargetReady("Item_"+item.instanceId);
+            yield return PressTargetReady("Use");
+        }
+        private IEnumerator OpenShopOffer07(ShopOffer offer)
+        {
+            if(offer.category=="controller")yield return PressTargetReady("Offer_"+offer.offerId);
+            else
+            {
+                int tab=offer.category=="consumable"?0:offer.category=="hand_upgrade"||offer.category=="color_upgrade"?1:offer.category=="die_upgrade"?2:offer.category=="service"?3:4;
+                yield return PressTargetReady("Tab"+tab);
+                yield return PressTargetReady("Inspect","Product_"+offer.offerId);
+            }
+        }
+        private void RequireReadableButton07(string name)
+        {
+            var button=ActiveControl<Button>(name);VisiblePoint(button);Canvas.ForceUpdateCanvases();
+            var corners=new Vector3[4];((RectTransform)button.transform).GetWorldCorners(corners);
+            var points=corners.Select(c=>RectTransformUtility.WorldToScreenPoint(null,c)).ToArray();
+            Require(points.Max(p=>p.x)-points.Min(p=>p.x)>=39.99f&&points.Max(p=>p.y)-points.Min(p=>p.y)>=39.99f,"Button actual hit area is below 40 px: "+name);
+            var label=button.GetComponentsInChildren<TextMeshProUGUI>().Single(t=>t.name=="Label");label.ForceMeshUpdate();
+            Require(label.GetPreferredValues(label.text,label.rectTransform.rect.width,float.PositiveInfinity).y<=label.rectTransform.rect.height+1,
+                "Button label exceeds its text rectangle at the actual font scale: "+name);
+        }
+        private IEnumerator VerifyV07MenuAndSettings()
+        {
+            phase="V07MenuSettings";
+            string original=JsonUtility.ToJson(app.Session.State);string[] pending=app.Session.PendingIds;
+            Require(GameApp.ArtVersion=="art0.7.0","The actual player is not the requested art baseline.");
+            foreach(string id in new[]{"ContinueRun","NewRun","MenuHandbook","MenuSettings","Quit"})ActiveControl<Button>(id);
+            Require(!ActiveControl<Button>("ContinueRun").IsInteractable(),"An empty isolated save must not offer Continue.");
+            Require(app.contentIcons!=null&&app.contentIcons.Length==71&&app.contentIcons.All(s=>s!=null),"The built v0.7 content icon set is incomplete.");
+            Require(app.enchantIcons!=null&&new[]{"slotless","base10","mult2","submit1","roll1"}.All(id=>app.enchantIcons.Any(s=>s!=null&&s.name=="badge_enchant_"+id)),"The five production v0.7 enchant badges are not bound.");
+            yield return PressTargetReady("NewRun");Input("SeedInput","707");yield return PressTargetReady("CloseDialog");
+            Require(JsonUtility.ToJson(app.Session.State)==original&&!File.Exists(normalSave),"Cancelling the seed dialog created or saved a run.");
+            yield return PressTargetReady("MenuHandbook");RequirePanelRect07(208,96,1504,888);
+            Require(app.canvas.GetComponentsInChildren<Transform>(false).Count(t=>t.name.StartsWith("HandbookRow_",StringComparison.Ordinal))==14,"Menu handbook must expose all 14 true hand rows.");
+            ActiveControl<Button>("Tutorial");ActiveControl<Button>("ReviewGuide");
+            yield return PressTargetReady("HandbookColors");
+            Require(app.canvas.GetComponentsInChildren<Transform>(false).Count(t=>t.name.StartsWith("HandbookRow_",StringComparison.Ordinal))==2,"Color rules must be on their independent page.");
+            yield return PressTargetReady("CloseDialog");
+            string[] preferenceKeys={"fast","art07.instant","art07.textScale"};
+            var preferences=preferenceKeys.ToDictionary(k=>k,k=>PlayerPrefs.HasKey(k)?(int?)PlayerPrefs.GetInt(k):null);
+            try
+            {
+                yield return PressTargetReady("MenuSettings");RequirePanelRect07(320,96,1280,888);
+                yield return PressTargetReady("SettingsTab0");
+                foreach(string id in new[]{"MasterSlider","MusicSlider","SFXSlider","UISlider"})ActiveControl<Slider>(id);
+                yield return PressTargetReady("SettingsTab1");ActiveControl<Button>("DisplaySettings");
+                yield return PressTargetReady("SettingsTab2");
+                foreach(string speed in new[]{"Fast","Instant","Normal"})
+                {
+                    yield return PressTargetReady("Speed");
+                    Require(ActiveControl<Button>("Speed").GetComponentInChildren<TextMeshProUGUI>().text==speed+"  >","The real speed control did not cycle to "+speed);
+                }
+                yield return PressTargetReady("TextScale");yield return PressTargetReady("TextScale");
+                Require((int)GetPrivate(app,"textScale07")==150&&Mathf.Abs(UiKit.FontScale-1.5f)<.001f,"150% text size was not applied through settings.");
+                yield return SetActualResolution(1280,720);app.Refresh();yield return PressTargetReady("SettingsTab2");
+                RequirePanelRect07(320,96,1280,888);RequireReadableButton07("SettingsDone");
+                foreach(string id in new[]{"SettingsTab0","SettingsTab1","SettingsTab2","Speed","Reduced","TextScale","BindRoll","ResetKeys","UnlockDebug"})RequireReadableButton07(id);
+                yield return Capture("v07-settings-720p-text150-bottom");
+                yield return PressTargetReady("TextScale");Require((int)GetPrivate(app,"textScale07")==100,"Text size did not restore to 100% through the control.");
+                yield return PressTargetReady("SettingsDone");
+                yield return SetActualResolution(1920,1080);app.Refresh();
+            }
+            finally
+            {
+                // Real settings controls persist values. Restore the user's exact key existence/value even on a failed probe.
+                foreach(var pair in preferences)if(pair.Value.HasValue)PlayerPrefs.SetInt(pair.Key,pair.Value.Value);else PlayerPrefs.DeleteKey(pair.Key);
+                PlayerPrefs.Save();SetPrivate(app,"fast",false);SetPrivate(app,"instant07",false);SetPrivate(app,"textScale07",100);InvokePrivate("ApplyArtPreferences07");
+                if((bool)GetPrivate(app,"modal"))InvokePrivate("CloseModal");
+            }
+            Require(JsonUtility.ToJson(app.Session.State)==original&&app.Session.PendingIds.SequenceEqual(pending)&&!File.Exists(normalSave),"Menu/settings inspection changed the empty ordinary checkpoint.");
+            V06Check("v07-menu-settings-navigation","Actual seed cancel, handbook, three settings tabs, speed cycle and 720p/150% critical-control hit areas and label bounds; user preference keys restored",new Dictionary<string,object>{["textScale"]="150% at 1280x720",["iconCount"]=71,["enchantBadgeCount"]=5,["stateAndSaveUnchanged"]=true});
+        }
+        private IEnumerator VerifyV07ShopTabs()
+        {
+            string before=GameSession.StateHash(app.Session.State),disk=FileHash(app.SaveLocation);var state=app.Session.State;
+            var offers=state.shop.offers.Where(o=>o.category=="controller").ToArray();
+            Require(offers.Length<=6,"Normal controller shelf exceeds its six-card art capacity.");
+            var positions=offers.ToDictionary(o=>o.offerId,o=>ActiveControl<RectTransform>("Offer_"+o.offerId).anchoredPosition);
+            for(int tab=0;tab<5;tab++)
+            {
+                yield return PressTargetReady("Tab"+tab);
+                foreach(var offer in offers)Require(ActiveControl<RectTransform>("Offer_"+offer.offerId).anchoredPosition==positions[offer.offerId],"Switching lower tab moved the fixed controller shelf.");
+                var expected=state.shop.offers.Where(o=>tab==(o.category=="consumable"?0:o.category=="hand_upgrade"||o.category=="color_upgrade"?1:o.category=="die_upgrade"?2:o.category=="service"?3:o.category=="new_die"?4:-1)).Select(o=>"Product_"+o.offerId).OrderBy(x=>x).ToArray();
+                var actual=app.canvas.GetComponentsInChildren<Transform>(false).Where(t=>t.name.StartsWith("Product_",StringComparison.Ordinal)).Select(t=>t.name).OrderBy(x=>x).ToArray();
+                Require(actual.SequenceEqual(expected),"Shop tab "+tab+" contains wrong product category.");
+                Require(GameSession.StateHash(app.Session.State)==before&&FileHash(app.SaveLocation)==disk,"Tab navigation regenerated quotes, spent currency or changed RNG.");
+                yield return Capture("v07-shop-tab-"+tab);
+            }
+            string counts=ActiveControl<TextMeshProUGUI>("ControllerCapacity07").text;
+            Require(counts.Contains("普通槽 "+ControllerRules.OrdinaryUsed(state.controllers)+"/"+state.controllerSlots)&&counts.Contains("总数 "+state.controllers.Count+"/"+app.Config.maxControllerInstances),"Normal shop ordinary/total counts are incorrect.");
+            V06Check("v07-shop-five-tabs-fixed-shelf","Actual five tab clicks; fixed controller positions; exact product category; full state/disk purity",new Dictionary<string,object>{["tabs"]=5,["controllerQuotes"]=offers.Length,["counts"]=counts});
+        }
+        private IEnumerator VerifyV07DiceSheet(string dieId)
+        {
+            string before=GameSession.StateHash(app.Session.State),disk=FileHash(app.SaveLocation);var die=app.Session.State.dice.Single(d=>d.dieId==dieId);
+            InvokePrivate("ShowDie",dieId);yield return null;RequirePanelRect07(208,96,1504,888);
+            var center=ActiveControl<RectTransform>("Face_F02");
+            var positions=new Dictionary<string,Vector2>{{"F01",new Vector2(0,96)},{"F02",Vector2.zero},{"F06",new Vector2(0,-96)},{"F05",new Vector2(0,-192)},{"F04",new Vector2(-96,0)},{"F03",new Vector2(96,0)}};
+            foreach(var position in positions)
+            {
+                var tile=ActiveControl<RectTransform>("Face_"+position.Key);
+                Require(tile.sizeDelta==new Vector2(88,88)&&tile.anchoredPosition-center.anchoredPosition==position.Value,"Dice face cross mapping or dimensions are wrong: "+position.Key);
+                Require(tile.Cast<Transform>().Count(t=>t.gameObject.activeSelf&&t.name.StartsWith("Pip",StringComparison.Ordinal))==die.faces.Single(f=>f.faceId==position.Key).permanentPip,"Dice net did not render permanent physical pips.");
+            }
+            var current=app.Session.State.hand.currentResults.Single(r=>r.dieId==dieId);
+            string layers=ActiveControl<TextMeshProUGUI>("LayersBody").text;
+            Require(layers.Contains(current.hasRolled?die.faces.Single(f=>f.faceId==current.currentFaceId).permanentPip+" → "+current.currentPip:"未生成"),"Permanent/current detail layers are conflated.");
+            if(current.hasRolled)Require(ActiveControl<RectTransform>("Face_"+current.currentFaceId).Find("CurrentFace").gameObject.activeInHierarchy,"Current physical top face has no white outline.");
+            yield return PressTargetReady("Face_F05");
+            Require(ActiveControl<RectTransform>("Face_F05").Find("SelectedH0").gameObject.activeInHierarchy,"Selected face has no distinct gold corner marker.");
+            if(!ActiveControl<Button>("ProbabilityGroups").GetComponentInChildren<TextMeshProUGUI>().text.StartsWith("按物理面",StringComparison.Ordinal))yield return PressTargetReady("ProbabilityGroups");
+            int[] probability=app.Session.ProbabilityUnits(dieId);
+            for(int i=0;i<die.faces.Length;i++)
+            {
+                Require(ActiveControl<TextMeshProUGUI>("ProbabilityValue"+(i+1)).text==(probability[i]/10000m).ToString("0.####")+"%","Physical face probability differs from the real calculator.");
+                if(probability[i]==0)Require(ActiveControl<RectTransform>("ProbabilityBar"+(i+1)).rect.width==0,"Zero probability was rendered with a positive-width bar.");
+            }
+            var rotate=ActiveControl<DiePointer>("RotatePreview");ExecuteEvents.Execute(rotate.gameObject,new PointerEventData(EventSystem.current){delta=new Vector2(80,40)},ExecuteEvents.dragHandler);
+            yield return Capture("v07-dice-sheet-physical-probability");yield return PressTargetReady("CloseDialog");
+            Require(GameSession.StateHash(app.Session.State)==before&&FileHash(app.SaveLocation)==disk,"Dice selection, probability expansion or preview rotation changed state/RNG/save.");
+            V06Check("v07-dice-sheet-cross-and-purity","Actual physical-face selection, probability expansion and preview drag; fixed mapping, permanent/current layers, authoritative probabilities, exact state/save preservation",new Dictionary<string,object>{["dieId"]=dieId,["faceSize"]=88,["gap"]=8,["layers"]=layers});
+        }
         private IEnumerator VerifyV06UiAndIsolation()
         {
-            phase = "V06DebugUi";
+            phase = "V07DebugUi";
             string normal = JsonUtility.ToJson(app.Session.State), disk = FileHash(normalSave);
-            InvokePrivate("Pause"); yield return null;
+            yield return PressTargetReady("Pause");
+            yield return PressTargetReady("Settings"); yield return PressTargetReady("SettingsTab2"); yield return null;
             Input("DebugPassword", "xd is god", true); yield return null;
             Require(!app.DebugUnlocked && JsonUtility.ToJson(app.Session.State) == normal, "Invalid password changed/unlocked ordinary challenge.");
             Input("DebugPassword", "XD is god ", true); yield return null;
             Require(!app.DebugUnlocked, "Trailing whitespace password was accepted.");
             Input("DebugPassword", "XD is god", true); yield return null;
             Require(app.DebugUnlocked && JsonUtility.ToJson(app.Session.State) == normal && FileHash(normalSave) == disk, "Unlock must not mutate ordinary challenge.");
-            Press("UnlockDebug"); yield return null;
+            yield return PressTargetReady("CopyCurrentToDebug"); yield return null;
             Require(app.IsDebugWorkspace && app.SaveLocation != normalSave, "UI did not enter independent debug workspace.");
             V06Check("debug-password-isolation", "TMP input submit + actual uGUI button events", new Dictionary<string, object> { ["wrongCaseRejected"] = true, ["whitespaceRejected"] = true, ["normalCheckpointUnchanged"] = true });
 
-            Press("DebugTab0");
+            yield return PressTargetReady("DebugTab0");
             yield return WheelToControl("AddC53");
             yield return Capture("v06-debug-last-controller-row-wheel");
             while (Draft.controllers.Count > 0)
             {
-                Press("DebugOwned" + Draft.controllers[0].instanceId); Press("DebugRemoveController");
+                yield return PressTargetReady("DebugOwned" + Draft.controllers[0].instanceId); yield return PressTargetReady("DebugRemoveController");
             }
             string[] cards = { "C41", "C53", "C44", "C51", "C45", "C52" };
             string[] enchants = { "base10", "mult2", "submit1", "roll1", "slotless", "none" };
             for (int i = 0; i < cards.Length; i++)
             {
-                Press("Add" + cards[i]); Press("DebugEnchant" + enchants[i]);
+                yield return PressTargetReady("Add" + cards[i]); yield return PressTargetReady("DebugEnchant" + enchants[i]);
                 if (cards[i] == "C51") Input("Turnover", "1000000000");
                 if (cards[i] == "C52") Input("Fund", "9");
             }
             yield return Capture("v06-debug-controllers");
-            Press("DebugTab1"); Press("FreshHand");
-            while (Draft.dice.Count < 32) Press("AddDie");
-            Press("BatchPip6"); Press("AllRed"); Press("CurrentFace");
+            yield return PressTargetReady("DebugTab1"); yield return PressTargetReady("FreshHand");
+            while (Draft.dice.Count < 32) yield return PressTargetReady("AddDie");
+            yield return PressTargetReady("BatchPip6"); yield return PressTargetReady("AllRed"); yield return PressTargetReady("CurrentFace");
             // Four red sixes, C44 and C51 make the preview exceed Int64 without floating point.
             foreach (string id in Draft.dice.Take(4).Select(x => x.dieId).ToArray())
-            { Press("DebugDie" + id); Press("DebugLock"); }
-            Press("DebugTab2"); Press("MaxLevels");
-            Press("DebugTab3"); Input("Wallet", "1000000000"); Input("Capacity", "32");
+            { yield return PressTargetReady("DebugDie" + id); yield return PressTargetReady("DebugLock"); }
+            yield return PressTargetReady("DebugTab2"); yield return PressTargetReady("MaxLevels");
+            yield return PressTargetReady("DebugTab3"); Input("Wallet", "1000000000"); Input("Capacity", "32");
             Input("RollsLeft", "3"); Input("SubmitsLeft", "3"); Input("StageScore", "0"); Input("Target", "1000000000000000000000000000000");
-            foreach (var item in app.Config.consumables) Press("AddItem" + item.id);
-            Press("ApplyDebugScene"); yield return WaitIdle();
+            foreach (var item in app.Config.consumables) yield return PressTargetReady("AddItem" + item.id);
+            yield return PressTargetReady("ApplyDebugScene"); yield return WaitIdle();
             var state = app.Session.State;
             Require(state.isDebug && state.debugWorkspace && state.dice.Count == 32 && state.stage.capacity == 32, "UI debug scene did not apply 32 dice/capacity.");
             Require(state.controllers.Count == cards.Length && state.controllers.Select(c => c.definitionId).SequenceEqual(cards), "UI debug controller combination differs.");
@@ -256,7 +389,7 @@ namespace DiceCraft.Verification
             Require(app.Config.consumables.All(c => state.inventory.Any(i => i.contentId == c.id)), "UI item editing omitted a consumable.");
             Require(FileHash(normalSave) == disk, "Applying debug scene wrote ordinary checkpoint.");
             File.WriteAllText(Path.Combine(configuredDirectory, "v06-ui-debug-state.json"), JsonUtility.ToJson(state, true), Encoding.UTF8);
-            Press("RunDebugScene"); yield return null;
+            yield return PressTargetReady("RunDebugScene"); yield return null;
             yield return Capture("v06-debug-32dice");
             string before = JsonUtility.ToJson(app.Session.State), debugDisk = FileHash(app.SaveLocation);
             var preview = app.Session.PreviewScoreRange();
@@ -275,25 +408,26 @@ namespace DiceCraft.Verification
                 ["normalCheckpointUnchanged"] = true, ["previewStateAndRngUnchanged"] = true
             });
             yield return VerifyV06Targets32();
-            app.ShowDebugPanel(); Press("ReturnNormal"); yield return null;
+            app.ShowDebugPanel(); yield return PressTargetReady("ReturnNormal"); yield return null;
             Require(JsonUtility.ToJson(app.Session.State) == normal && FileHash(normalSave) == disk && app.SaveLocation == normalSave, "Return to ordinary checkpoint did not preserve exact state.");
         }
 
         private IEnumerator VerifyV06Targets32()
         {
-            phase = "V06Targets32";
+            phase = "V07Targets32";
             Require(app.Session.State.isDebug && app.Session.State.dice.Count == 32, "Target regression requires the applied 32-die debug workspace.");
             var item = app.Session.State.inventory.Last(i => i.contentId == "I03");
             yield return CaptureResolutionSet("v06-remote-target32", () => InvokePrivate("RemoteTargets", item), true, "RemoteTargetList");
             string before = GameSession.StateHash(app.Session.State), disk = FileHash(app.SaveLocation);
-            InvokePrivate("RemoteTargets", item); yield return null;
+            yield return OpenRemote07(item);RequirePanelRect07(496,496,1280,400);
+            Require(!ActiveControl<Button>("RemoteConfirm").IsInteractable(),"Remote drawer must require two explicit distinct targets.");
             yield return WheelToControl("RemoteDieD031"); yield return PressTargetReady("RemoteDieD031"); yield return PressTargetReady("RemoteDieD032");
             yield return PressTargetReady("RemotePipD031_2"); yield return PressTargetReady("RemotePipD032_5");
             Require(ActiveControl<Button>("RemoteConfirm").IsInteractable(), "Remote target32 pair is not confirmable.");
             yield return Capture("v06-remote-D031-D032-selected");
             yield return PressTargetReady("CloseDialog"); yield return null;
             Require(GameSession.StateHash(app.Session.State) == before && FileHash(app.SaveLocation) == disk, "Cancelling remote target selection spent item/roll/RNG or wrote a save.");
-            InvokePrivate("RemoteTargets", item); yield return null;
+            yield return OpenRemote07(item);
             yield return PressTargetReady("RemoteDieD031"); yield return PressTargetReady("RemoteDieD032"); yield return PressTargetReady("RemotePipD031_2"); yield return PressTargetReady("RemotePipD032_5");
             var prior = app.Session.State;
             yield return PressTargetReady("RemoteConfirm"); yield return null;
@@ -317,7 +451,7 @@ namespace DiceCraft.Verification
             Accept(app.Send(new SessionCommand { kind = CommandKind.Continue })); yield return WaitIdle();
             var shop = app.Session.State; Require(shop.phase == "Shop", "Debug target test did not reach a real settled shop.");
             yield return VerifyV06ShopRefresh(shop.Clone());
-            phase = "V06Targets32";
+            phase = "V07Targets32";
             shop.shop.offers.Clear();
             var upgrade = new ShopOffer { offerId = "VERIFY_TARGET32_U06", category = "die_upgrade", contentId = "U06",
                 batchId = shop.shop.generationId + "/die_upgrade", basePrice = app.Config.Upgrade("U06").buyPrice };
@@ -327,20 +461,21 @@ namespace DiceCraft.Verification
             InstallDebugWorkspace(shop, "debug-target32-shop-save");
             yield return CaptureResolutionSet("v06-shop-target32", () => InvokePrivate("TargetDie", upgrade, null, 1f), true, "ShopTargetList");
             before = GameSession.StateHash(app.Session.State); disk = FileHash(app.SaveLocation);
-            InvokePrivate("TargetDie", upgrade, null, 1f); yield return null;
+            yield return OpenShopOffer07(upgrade);RequirePanelRect07(208,96,1504,888);
+            Require(!ActiveControl<Button>("ConfirmPurchase").IsInteractable(),"An upgrade offer must not implicitly choose or purchase a target.");
             yield return WheelToControl("Target_D032"); yield return PressTargetReady("Target_D032"); yield return PressTargetReady("Face_F01");
             yield return Capture("v06-upgrade-D032-F01-preview");
             yield return PressTargetReady("CloseDialog"); yield return null;
             Require(GameSession.StateHash(app.Session.State) == before && FileHash(app.SaveLocation) == disk, "Cancelling late-list upgrade selection mutated state/wallet/RNG.");
-            InvokePrivate("TargetDie", upgrade, null, 1f); yield return PressTargetReady("Target_D032"); yield return PressTargetReady("Face_F01");
+            yield return OpenShopOffer07(upgrade); yield return PressTargetReady("Target_D032"); yield return PressTargetReady("Face_F01");
             prior = app.Session.State; yield return PressTargetReady("ConfirmPurchase"); yield return WaitIdle(); after = app.Session.State;
             Require(after.actionSequence == prior.actionSequence + 1 && after.dice.Single(d => d.dieId == "D032").faces.Single(f => f.faceId == "F01").isGold
                 && after.shop.offers.Single(o => o.offerId == upgrade.offerId).sold && after.gold < prior.gold, "Late-list face purchase did not commit once on D032/F01.");
             before = GameSession.StateHash(after); disk = FileHash(app.SaveLocation);
-            InvokePrivate("TargetDie", deletion, null, 1f); yield return PressTargetReady("Target_D031");
+            yield return OpenShopOffer07(deletion); yield return PressTargetReady("Target_D031");
             yield return Capture("v06-delete-D031-preview"); yield return PressTargetReady("CloseDialog"); yield return null;
             Require(GameSession.StateHash(app.Session.State) == before && FileHash(app.SaveLocation) == disk, "Cancelling late-list deletion changed state.");
-            InvokePrivate("TargetDie", deletion, null, 1f); yield return PressTargetReady("Target_D031");
+            yield return OpenShopOffer07(deletion); yield return PressTargetReady("Target_D031");
             prior = app.Session.State; yield return PressTargetReady("ConfirmPurchase"); yield return WaitIdle(); after = app.Session.State;
             Require(after.actionSequence == prior.actionSequence + 1 && after.dice.Count == 31 && !after.dice.Any(d => d.dieId == "D031")
                 && after.dice.Any(d => d.dieId == "D032") && after.shop.offers.Single(o => o.offerId == deletion.offerId).sold,
@@ -361,7 +496,7 @@ namespace DiceCraft.Verification
         {
             Require(app.Session.GetRefreshPrice() == price, "Refresh session price differs from expected " + price);
             string label = ActiveControl<Button>("RefreshControllers").GetComponentInChildren<TextMeshProUGUI>().text;
-            Require(label == "刷新控制器 · " + price + " 金币", "Visible refresh price differs: " + label);
+            Require(label == (price==0?"本店首次免费":"刷新控制器  " + price), "Visible refresh price differs: " + label);
         }
         private IEnumerator VerifyRefreshClick(int price, List<Dictionary<string, object>> transactions)
         {
@@ -404,7 +539,7 @@ namespace DiceCraft.Verification
         }
         private IEnumerator VerifyV06ShopRefresh(RunState generatedShop)
         {
-            phase = "V06ShopRefreshUi";
+            phase = "V07ShopRefreshUi";
             Require(generatedShop.debugWorkspace && generatedShop.phase == "Shop" && generatedShop.shop.controllerRefreshCount == 0,
                 "Refresh UI requires a freshly generated valid debug Shop.");
             var fixture = generatedShop.Clone(); fixture.gold = 1000; fixture.freeFirstRefreshOwned = false;
@@ -427,10 +562,10 @@ namespace DiceCraft.Verification
             var service = new ShopOffer { offerId = "OFFER_" + (fixture.nextOfferSerial++).ToString("D5"), category = "service", contentId = "O07",
                 batchId = fixture.shop.generationId + "/service", basePrice = app.Config.Service("O07").baseBuyPrice };
             fixture.shop.offers.Add(service);
-            InstallDebugWorkspace(fixture, "debug-free-refresh-shop-save"); yield return PressTargetReady("Tab1");
+            InstallDebugWorkspace(fixture, "debug-free-refresh-shop-save"); yield return PressTargetReady("Tab3");
             long priceBefore = app.Session.GetOfferNetPrice(service), goldBefore = app.Session.State.gold;
             long seqBefore = app.Session.State.actionSequence;
-            yield return PressTargetReady("Inspect", "Offer_" + service.offerId); yield return PressTargetReady("ConfirmPurchase"); yield return WaitIdle();
+            yield return PressTargetReady("Inspect", "Product_" + service.offerId); yield return PressTargetReady("ConfirmPurchase"); yield return WaitIdle();
             Require(app.Session.State.freeFirstRefreshOwned && app.Session.State.gold == goldBefore - priceBefore
                 && app.Session.State.actionSequence == seqBefore + 1 && app.Session.State.shop.controllerRefreshCount == 0
                 && app.Session.State.shop.offers.Single(o => o.offerId == service.offerId).sold,
@@ -542,7 +677,7 @@ namespace DiceCraft.Verification
         }
         private IEnumerator VerifyV06ControllerDrag()
         {
-            phase = "V06ControllerDrag";
+            phase = "V07ControllerDrag";
             var state = GameSession.CreateDebugWorkspace(app.Config, new MemorySaveStore()).State;
             state.isDebug = true;
             string[] definitions = { "C41", "C21", "C46" };
@@ -695,7 +830,7 @@ namespace DiceCraft.Verification
                 "Native experiment requires a settled window and inactive production display preferences.");
             var original = app.DisplayPreferences.ReadActual();
             var arms = new List<Dictionary<string, object>>();
-            var record = new Dictionary<string, object> { ["schema"] = "p06-native-display-experiment-1", ["status"] = "diagnostic_running",
+            var record = new Dictionary<string, object> { ["schema"] = "p07-native-display-experiment-1", ["artVersion"] = GameApp.ArtVersion, ["probeRevision"] = ProbeRevision, ["status"] = "diagnostic_running",
                 ["scope"] = "Native Screen.SetResolution only; no normal/debug/stress/production-display acceptance",
                 ["probeRevision"] = ProbeRevision, ["processId"] = System.Diagnostics.Process.GetCurrentProcess().Id,
                 ["environment"] = environment, ["buildIdentity"] = Resources.Load<TextAsset>("BuildIdentity")?.text,
@@ -792,27 +927,27 @@ namespace DiceCraft.Verification
         }
         private void DisplayRecord(string id, string status, string reason = null)
         {
-            displayChecks.Add(new Dictionary<string, object> { ["id"] = id, ["status"] = status, ["reason"] = reason, ["actualNativeReadback"] = ActualDisplay() });
+            displayChecks.Add(new Dictionary<string, object> { ["id"] = id, ["status"] = status, ["reason"] = reason, ["artVersion"] = GameApp.ArtVersion, ["probeRevision"] = ProbeRevision, ["actualNativeReadback"] = ActualDisplay() });
             File.WriteAllText(Path.Combine(configuredDirectory, "v06-display-checks.json"), Json(displayChecks), Encoding.UTF8);
         }
         private IEnumerator VerifyV06Displays()
         {
-            phase = "V06NativeDisplay";
+            phase = "V07NativeDisplay";
             var prefs = app.DisplayPreferences;
             string before = JsonUtility.ToJson(app.Session.State), disk = FileHash(normalSave);
-            app.ShowDisplaySettings(); yield return null;
+            yield return PressTargetReady("Pause");yield return PressTargetReady("Settings");yield return PressTargetReady("SettingsTab1");yield return PressTargetReady("DisplaySettings");
             foreach (int mode in new[] { 0, 1, 2 })
             {
-                Press("Mode" + mode); yield return null;
+                yield return PressTargetReady("Mode" + mode); yield return null;
                 var draft = ((DisplayChoice)typeof(GameApp).GetField("displayDraft", PrivateInstance).GetValue(app)).Clone();
                 BeginDisplayDiagnostic("ui-mode-" + mode, draft, "Actual Mode/ApplyDisplay uGUI events");
-                Press("ApplyDisplay"); SampleDisplayDiagnostic("after-ui-apply-return"); PersistDisplayDiagnostics();
+                yield return PressTargetReady("ApplyDisplay"); SampleDisplayDiagnostic("after-ui-apply-return"); PersistDisplayDiagnostics();
                 yield return DisplayReady();
                 Require(prefs.IsPending && prefs.CanConfirm, "UI display mode could not reach confirmation: " + mode);
                 var expected = mode == 0 ? DisplaySettings.PlatformFullscreen : mode == 1 ? FullScreenMode.FullScreenWindow : FullScreenMode.Windowed;
                 Require(Screen.fullScreenMode == expected, "Native fullscreen mode differs from selected mode.");
                 yield return Capture("v06-display-mode-" + mode);
-                Press("ConfirmDisplay"); yield return null;
+                yield return PressTargetReady("ConfirmDisplay"); yield return null;
                 Require(!prefs.IsPending, "Display UI confirmation did not commit preference.");
                 DisplayRecord("mode-" + expected, "passed");
             }
@@ -837,7 +972,7 @@ namespace DiceCraft.Verification
             else DisplayRecord("exclusive-non-native-escape", "not_applicable", "macOS uses MaximizedWindow; no ExclusiveFullScreen claim is made.");
             // Arbitrary aspect ratios exercise the actual OS window and letterboxing,
             // never an offscreen render texture. Unsupported work areas are explicit.
-            foreach (var size in new[] { new Vector2Int(1280, 720), new Vector2Int(1920, 1080), new Vector2Int(2560, 1440), new Vector2Int(1600, 1000), new Vector2Int(1920, 800) })
+            foreach (var size in new[] { new Vector2Int(1280, 720), new Vector2Int(1920, 1080), new Vector2Int(2560, 1440), new Vector2Int(1600, 1000), new Vector2Int(1920, 800), new Vector2Int(1366, 768), new Vector2Int(2560, 1600), new Vector2Int(3440, 1440) })
             {
                 var d = Screen.mainWindowDisplayInfo;
                 string label = "window-" + size.x + "x" + size.y;
@@ -847,7 +982,7 @@ namespace DiceCraft.Verification
                 yield return DisplayReady();
                 Require(prefs.CanConfirm && Screen.width == size.x && Screen.height == size.y && Screen.fullScreenMode == FullScreenMode.Windowed, "Actual window size differs from request.");
                 app.ShowDisplaySettings(); yield return Capture("v06-display-" + size.x + "x" + size.y);
-                Press("ConfirmDisplay"); yield return null;
+                yield return PressTargetReady("ConfirmDisplay"); yield return null;
                 DisplayRecord(label, "passed");
             }
             var confirmed = prefs.ReadActual();

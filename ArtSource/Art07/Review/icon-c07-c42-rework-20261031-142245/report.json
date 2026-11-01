@@ -1,0 +1,787 @@
+{
+  "createdUtc": "2026-10-31T18:26:31.530351+00:00",
+  "scope": "C07/C42 offline repair only",
+  "status": "REVIEW",
+  "unityVerified": false,
+  "humanStyleAccepted": false,
+  "specSha256": "5120a8d0983d24f25cc38e22f1da613fd1a56c70ab26f518771a2caf064dd228",
+  "manifestSha256": "e96f218f24387ab1fff9f7991ae67159648e7f1bbca4ee8556bf288be49a0204",
+  "generatorSha256": "9605bd0e8b3bae29c01897ca3e811e2364deb80cbde8b50e896dc039c7ae4621",
+  "alphaExportHelperSha256": "ae1d12114fa307be854fa4ec30dab1eeb2669a5aa90e18f2a9ee67cf930abf0c",
+  "checkerSha256": "487828a6fbad1b93a77fc415d7bb092c622d161e4df397ffb24a7d665370b758",
+  "tool": "Krita5.3.4",
+  "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+  "passed": true,
+  "checkCount": 87,
+  "records": [
+    {
+      "id": "C07",
+      "motif": "两颗骰子之间一个方形复写箭头，左实右虚",
+      "palette": [
+        "violet",
+        "paper"
+      ],
+      "sourcePath": "ArtSource/Art07/Review/icon-c07-c42-rework-20261031-142245/candidate-sources/icon_c07.kra",
+      "targetSourcePath": "ArtSource/Art07/ContentIcons/Controllers/icon_c07.kra",
+      "sourceSha256": "0412d185c95766224d377cc0acc59367b032e907ac1ec963f8e3ecde0b64f7df",
+      "oraSha256": "1e5baabe91068fbef4d6c3be4bf945b118cbeb01ce691b98420d8bdca7838d86",
+      "runtimePath": "Assets/Art/Art07/ContentIcons/Controllers/icon_c07.png",
+      "runtimeSha256": "0bc460cb5c24d0bae5aa796adf0ab8cbf51828a5fbaac43a46bb2f735871e5fd",
+      "layerCount": 6,
+      "reopenedSha256": "af4a49f7c6af678e3363b8e33fb16b938cb902003920a79c73dc3cd3fbd806ea"
+    },
+    {
+      "id": "C42",
+      "motif": "半透明短炮筒，炮身一条菱形折射线",
+      "palette": [
+        "paper",
+        "danger"
+      ],
+      "sourcePath": "ArtSource/Art07/Review/icon-c07-c42-rework-20261031-142245/candidate-sources/icon_c42.kra",
+      "targetSourcePath": "ArtSource/Art07/ContentIcons/Controllers/icon_c42.kra",
+      "sourceSha256": "027d67a7f88b662019a02ed3503bf2a5fd623845178436cb71b6c355b18e7293",
+      "oraSha256": "3b9b19b39fa9961e7ed6c5b30ec3eb5fdd6135c788bb28ee784e61207b62a32a",
+      "runtimePath": "Assets/Art/Art07/ContentIcons/Controllers/icon_c42.png",
+      "runtimeSha256": "550fccd647a6f031a6d378b6fe03f427b581ab91063ce2409eeff302d53090d0",
+      "layerCount": 7,
+      "reopenedSha256": "dfff03c6c7017c0aaac5374c51e076d9fd9474b3118c3e62e99fb0b60f21be15"
+    }
+  ],
+  "unchanged69Exports": [
+    {
+      "id": "C01",
+      "sha256": "c9aa815e53764c4388038a60fdc960c2006e826a7aa8c6405bc3f4d2300ef8b3"
+    },
+    {
+      "id": "C02",
+      "sha256": "17d2ca58288e93336582b3131cee0e12926c7af9825c47c638b140dfd054e976"
+    },
+    {
+      "id": "C03",
+      "sha256": "23f4460bb78231fca5ec1dfd1f48225e4027d7c73a536c8291143bb24aef30cc"
+    },
+    {
+      "id": "C05",
+      "sha256": "b817b97bf9427de8c688550a530db4eefae75ad3a80edcdae5938c98f665cf50"
+    },
+    {
+      "id": "C06",
+      "sha256": "0a9df224b81f393ddf2958f552b3d7f9352f7d3978120acbca1e88e8c354376f"
+    },
+    {
+      "id": "C08",
+      "sha256": "62e6f384f0d03523c10b3e3e4dc0f6a817fa76ce961d8e3ec79328a301aa53ef"
+    },
+    {
+      "id": "C09",
+      "sha256": "fc2843a0b8b27cb3484ec7b19318e73f43661e9c1643daf08d86a7ee94368308"
+    },
+    {
+      "id": "C10",
+      "sha256": "daefd9c1d74307ffc0bdc199534b296ee19264f0efd5eca676c901824a7acfec"
+    },
+    {
+      "id": "C11",
+      "sha256": "ca1bf575a4f42ee89279b3dbf196ade53ee2f48384b41ebd805bbd80e4d64fc4"
+    },
+    {
+      "id": "C12",
+      "sha256": "2b16fcb6574127521d3934303b48804807e81c76b2c3148384a2be8667e593a9"
+    },
+    {
+      "id": "C13",
+      "sha256": "318f8ef41d8f35d96bf9480cc4d5850cf7fb288ab53bca4f2e9c763208455225"
+    },
+    {
+      "id": "C14",
+      "sha256": "ded9dda64e737f6e12d10f07bd7f4ebbf147c4041b5083f7707ab03959cf8349"
+    },
+    {
+      "id": "C15",
+      "sha256": "002ba15409f44aba7b41cbd20522ccba81cfcec09b94f21852a58b50d085093a"
+    },
+    {
+      "id": "C17",
+      "sha256": "8b603042ef94f6cca98c7a383268d3d278edec4b37ecfcdfb0721b06add49af0"
+    },
+    {
+      "id": "C18",
+      "sha256": "f02ae9a284b417bf066a03a5c5dcef59dfbcd0bc0ca5cbc63cea0d2ae2f71ac4"
+    },
+    {
+      "id": "C19",
+      "sha256": "5aa69a454bf0d373bfef90e24e9162aac342fbb76ed2d63a20971c8a6a503300"
+    },
+    {
+      "id": "C20",
+      "sha256": "4fea0ac7fc0aa47b0666877799c98d8377f6cabf3a51996e4550f478a7ca68f0"
+    },
+    {
+      "id": "C21",
+      "sha256": "2264ad33888afcfded0eefa324db98b6e1260af688f1295f910e0a25f3f0f735"
+    },
+    {
+      "id": "C22",
+      "sha256": "f085e66b433b844d05bbe98bf2fd899b128282ef108a94197dbecfefc1e74c82"
+    },
+    {
+      "id": "C24",
+      "sha256": "d65ac0bf303cf907bc29c3aa12dd018d9702461c815628d9635316e7446f705e"
+    },
+    {
+      "id": "C25",
+      "sha256": "bd517035b9511aa137e18565b2e0d686e57784a6535ea4877531d39d88412bc2"
+    },
+    {
+      "id": "C26",
+      "sha256": "e763be2bceff660be5c28ec0367d33c3744635fa46afd3cbd7a7d068761d3974"
+    },
+    {
+      "id": "C27",
+      "sha256": "93108828f97726f0ed30cbfd131284364431736f76601d915bef619ef7cd6e7a"
+    },
+    {
+      "id": "C28",
+      "sha256": "ef882e6b8f9c6daa3e7e7682ecd879469dfb01bc3da3d86bf6ab3350ab6f81a0"
+    },
+    {
+      "id": "C29",
+      "sha256": "4933a93b7094ffbb204672e7abc606dd4c2306299bf5bf6ae83d3539f36759bf"
+    },
+    {
+      "id": "C30",
+      "sha256": "30a74dd4de03b850f0cb03784cfa658c05bb3aa3beb9d128ea4d635c79424a68"
+    },
+    {
+      "id": "C31",
+      "sha256": "2172cf9090d0eb7cf26b2b13fda2e5930d0c2d67080b954a9c7e26b188472bc1"
+    },
+    {
+      "id": "C32",
+      "sha256": "15523e2e19c59c570e43cafced271d0ed5f455409f0d266ce179c57fbde11346"
+    },
+    {
+      "id": "C33",
+      "sha256": "54039dcefbb8e78b6cf86b80b1c0fe49f6f48ed5d999223468ba4905c5284531"
+    },
+    {
+      "id": "C34",
+      "sha256": "55c92c7ea605f4539edf78d6b0bb6fcd3b894fe880630b5df010fb5e64cde420"
+    },
+    {
+      "id": "C35",
+      "sha256": "6d8a5973064b7c785a902ccd4d02aec7b8caac3aa25e4ea00e76910c010ebc64"
+    },
+    {
+      "id": "C36",
+      "sha256": "cc99bdc4fd8875ead32730a9d438bb5dea3ec0168d840ec5b7f086a18757df13"
+    },
+    {
+      "id": "C37",
+      "sha256": "c9bb59b9b04947f025548dbb1bdfc66b9c829e782a4bce362eaf08cfd8ffbd3b"
+    },
+    {
+      "id": "C38",
+      "sha256": "78e2b9d51b4af963c6a8ea8bab1347c7ace3bee1f6137a998d56c53209309d38"
+    },
+    {
+      "id": "C39",
+      "sha256": "993040c5ce109dfc5ae16f462b55ac934e3bc61e12615dd0d6e72ccd37382e8d"
+    },
+    {
+      "id": "C40",
+      "sha256": "4cfe9e7a09635594d8e899bdafe4c7d415d118e481a1f7680988c5efe2657350"
+    },
+    {
+      "id": "C41",
+      "sha256": "29da8397aad35cc250e022695e4cbc4b99c034efdf9c985e94e1e5b91ecd0fcd"
+    },
+    {
+      "id": "C43",
+      "sha256": "395c3a06bb683f5577c6b7cdb020dc0c934e9dcb6b064e22f61c726e61fbbae6"
+    },
+    {
+      "id": "C44",
+      "sha256": "b6708638bf770e8195e87c526036217edad534c254e4ef78128b53cb08d7a1d0"
+    },
+    {
+      "id": "C45",
+      "sha256": "c51075f49b63a82da9f9683b54b72f75727cc76c6c7402a9cc41893d0fb7e69b"
+    },
+    {
+      "id": "C46",
+      "sha256": "e69206fce3ae8919c0a4eea6b5002aa92fe5c3fe3324749115b2c9f616929f03"
+    },
+    {
+      "id": "C47",
+      "sha256": "3070ad44cdfbbc2f04e0cd774fbe40a0d14e91432cf2459a6bbe59f3bf38bef4"
+    },
+    {
+      "id": "C48",
+      "sha256": "e6da0c6ff70cfe51ab30227840fa162e8aa03611e12005ce9317c52c73eefede"
+    },
+    {
+      "id": "C49",
+      "sha256": "f046977cd193ec583d9a4c504ab85636190f80684d81eb38a310697b1256b6b9"
+    },
+    {
+      "id": "C50",
+      "sha256": "059bf074310d5b00e012ffd2882c49655dbfbb79022ee3e861ce0a8a3ed3d189"
+    },
+    {
+      "id": "C51",
+      "sha256": "6fd8d5e46c6504ec64ac067d7f0eed94833f9b1c02d9f08efb24bb43f72f418e"
+    },
+    {
+      "id": "C52",
+      "sha256": "3f578c14f96b91f3f321f86cfdccbc8a33c7eb6c2444df3cfa0f5c9e28ee78ee"
+    },
+    {
+      "id": "C53",
+      "sha256": "1a2f1ef8ab149b7d0000b22969fcf86818f543a0649e6ff3985aa57cee64da5a"
+    },
+    {
+      "id": "I01",
+      "sha256": "463537780d664f243241efeacd4741b673b8260f719d3dad5d5e126cef376ccd"
+    },
+    {
+      "id": "I02",
+      "sha256": "fb3f54fcf14d19f4f48c87a9d770283418b6db462898784b70148a2af06f2de1"
+    },
+    {
+      "id": "I03",
+      "sha256": "621c39424375fc832930deab06d1b806546e0e2cba72d8f23f52db356b4ca8a5"
+    },
+    {
+      "id": "I04",
+      "sha256": "c2cdc1435ec5b8eff760608b5fc9e1341572691dbe2be871cd97ca0aec5a8ea6"
+    },
+    {
+      "id": "I05",
+      "sha256": "cf11e04e28e81a1fb68482290fca32ba005698644efe14b503ec29db29d33e56"
+    },
+    {
+      "id": "I06",
+      "sha256": "bceea20324b600389e176b122b7d986ecf3e7eac530042ac899d5236ec1c0dbf"
+    },
+    {
+      "id": "I07",
+      "sha256": "22637dcec377bdbf62d4bff02012973e4a3cfce34b412b39b6a04d4a3f6b4749"
+    },
+    {
+      "id": "O01",
+      "sha256": "b95b9c09c80c3a558a1e461a6dfe366ac8ac8de6d0cb1afbf7132f7a3abf812f"
+    },
+    {
+      "id": "O02",
+      "sha256": "963bb2763ed897b83fa3092472de0700e3875d0f69c2071034591c6d64d59eb1"
+    },
+    {
+      "id": "O03",
+      "sha256": "d6edc5a40f38423af986aa7232790636fdaf60c7ab4670aa31f001b28a96b06e"
+    },
+    {
+      "id": "O04",
+      "sha256": "fdb503be25360c71451f0b619bc23c9bb614c1ae59e49d6e874709aa620a3fdc"
+    },
+    {
+      "id": "O05",
+      "sha256": "a5382eba95e09a42d8882b73d52ee4fec329821781d63a7038e2ec16104d25b1"
+    },
+    {
+      "id": "O06",
+      "sha256": "4ea43e30f0a1d14eafd31b3ecb139db30aaa46bebec30b0375069abda3ddd7eb"
+    },
+    {
+      "id": "O07",
+      "sha256": "01eacb9469dcb49b5473b81dcce681fac9b1ac984f658e39b187064da7adbd13"
+    },
+    {
+      "id": "U01",
+      "sha256": "7d7f7ff5a3309a57f763c8792323c7735986398f02fb13d44dc27a358ab726bd"
+    },
+    {
+      "id": "U02",
+      "sha256": "b35da2e863b569963f6a8c5b18cd61630f51be98612792c7bada9da4ff3f6367"
+    },
+    {
+      "id": "U03",
+      "sha256": "173325fee57098fee9cdab9ca8c37e71c146107d1204c19a6b2834db14d4aebb"
+    },
+    {
+      "id": "U04",
+      "sha256": "44b96cde95c22c5d6cecc7ebff11662d5f53d320864fbbaa46f4763fee0360f3"
+    },
+    {
+      "id": "U05",
+      "sha256": "850e3d72775b8cf9ade02c31e59c187218233c76df01041e9c6df7ccc8b1b1db"
+    },
+    {
+      "id": "U06",
+      "sha256": "67ac1f6081bbdc534f1854bf81fef2e4f42cdb6cf43034a991302597db59d047"
+    },
+    {
+      "id": "U07",
+      "sha256": "1ad1c9648468363f6d5457bc9d92f284ab70aac722fc6bce3573bcac86608b6f"
+    }
+  ],
+  "checks": [
+    {
+      "id": "icon_c07/kra_mime",
+      "passed": true,
+      "detail": "Real Krita document"
+    },
+    {
+      "id": "icon_c07/editable_layers",
+      "passed": true,
+      "detail": 6
+    },
+    {
+      "id": "icon_c07/ora_export_equal",
+      "passed": true,
+      "detail": "Visible RGB and every alpha match"
+    },
+    {
+      "id": "icon_c07/real_krita_reopen_equal",
+      "passed": true,
+      "detail": "Actual KRA opened and exported by Krita"
+    },
+    {
+      "id": "icon_c07/source_size",
+      "passed": true,
+      "detail": [
+        256,
+        256
+      ]
+    },
+    {
+      "id": "icon_c07/24px_safe_border",
+      "passed": true,
+      "detail": [
+        36,
+        60,
+        220,
+        208
+      ]
+    },
+    {
+      "id": "icon_c07/64px_logical_grid",
+      "passed": true,
+      "detail": "4x nearest-neighbor pixels, including transparency"
+    },
+    {
+      "id": "icon_c07/translucent_body",
+      "passed": true,
+      "detail": 4144
+    },
+    {
+      "id": "icon_c07/changed_from_reviewed_failure",
+      "passed": true,
+      "detail": {
+        "before": "d2be4bf7a14b0a435ecd31210938720f1b8d9f64b52ee0115f0e2a1d6bd952be",
+        "after": "0bc460cb5c24d0bae5aa796adf0ab8cbf51828a5fbaac43a46bb2f735871e5fd"
+      }
+    },
+    {
+      "id": "icon_c42/kra_mime",
+      "passed": true,
+      "detail": "Real Krita document"
+    },
+    {
+      "id": "icon_c42/editable_layers",
+      "passed": true,
+      "detail": 7
+    },
+    {
+      "id": "icon_c42/ora_export_equal",
+      "passed": true,
+      "detail": "Visible RGB and every alpha match"
+    },
+    {
+      "id": "icon_c42/real_krita_reopen_equal",
+      "passed": true,
+      "detail": "Actual KRA opened and exported by Krita"
+    },
+    {
+      "id": "icon_c42/source_size",
+      "passed": true,
+      "detail": [
+        256,
+        256
+      ]
+    },
+    {
+      "id": "icon_c42/24px_safe_border",
+      "passed": true,
+      "detail": [
+        44,
+        52,
+        212,
+        216
+      ]
+    },
+    {
+      "id": "icon_c42/64px_logical_grid",
+      "passed": true,
+      "detail": "4x nearest-neighbor pixels, including transparency"
+    },
+    {
+      "id": "icon_c42/translucent_body",
+      "passed": true,
+      "detail": 4464
+    },
+    {
+      "id": "icon_c42/changed_from_reviewed_failure",
+      "passed": true,
+      "detail": {
+        "before": "6200490fb76e7af985dc16122e19308483494f951aeefcf622275a38a7dc16d2",
+        "after": "550fccd647a6f031a6d378b6fe03f427b581ab91063ce2409eeff302d53090d0"
+      }
+    },
+    {
+      "id": "C01/unaffected_export_rgba",
+      "passed": true,
+      "detail": "Revised bleed yields same existing RGBA without writing asset"
+    },
+    {
+      "id": "C02/unaffected_export_rgba",
+      "passed": true,
+      "detail": "Revised bleed yields same existing RGBA without writing asset"
+    },
+    {
+      "id": "C03/unaffected_export_rgba",
+      "passed": true,
+      "detail": "Revised bleed yields same existing RGBA without writing asset"
+    },
+    {
+      "id": "C05/unaffected_export_rgba",
+      "passed": true,
+      "detail": "Revised bleed yields same existing RGBA without writing asset"
+    },
+    {
+      "id": "C06/unaffected_export_rgba",
+      "passed": true,
+      "detail": "Revised bleed yields same existing RGBA without writing asset"
+    },
+    {
+      "id": "C08/unaffected_export_rgba",
+      "passed": true,
+      "detail": "Revised bleed yields same existing RGBA without writing asset"
+    },
+    {
+      "id": "C09/unaffected_export_rgba",
+      "passed": true,
+      "detail": "Revised bleed yields same existing RGBA without writing asset"
+    },
+    {
+      "id": "C10/unaffected_export_rgba",
+      "passed": true,
+      "detail": "Revised bleed yields same existing RGBA without writing asset"
+    },
+    {
+      "id": "C11/unaffected_export_rgba",
+      "passed": true,
+      "detail": "Revised bleed yields same existing RGBA without writing asset"
+    },
+    {
+      "id": "C12/unaffected_export_rgba",
+      "passed": true,
+      "detail": "Revised bleed yields same existing RGBA without writing asset"
+    },
+    {
+      "id": "C13/unaffected_export_rgba",
+      "passed": true,
+      "detail": "Revised bleed yields same existing RGBA without writing asset"
+    },
+    {
+      "id": "C14/unaffected_export_rgba",
+      "passed": true,
+      "detail": "Revised bleed yields same existing RGBA without writing asset"
+    },
+    {
+      "id": "C15/unaffected_export_rgba",
+      "passed": true,
+      "detail": "Revised bleed yields same existing RGBA without writing asset"
+    },
+    {
+      "id": "C17/unaffected_export_rgba",
+      "passed": true,
+      "detail": "Revised bleed yields same existing RGBA without writing asset"
+    },
+    {
+      "id": "C18/unaffected_export_rgba",
+      "passed": true,
+      "detail": "Revised bleed yields same existing RGBA without writing asset"
+    },
+    {
+      "id": "C19/unaffected_export_rgba",
+      "passed": true,
+      "detail": "Revised bleed yields same existing RGBA without writing asset"
+    },
+    {
+      "id": "C20/unaffected_export_rgba",
+      "passed": true,
+      "detail": "Revised bleed yields same existing RGBA without writing asset"
+    },
+    {
+      "id": "C21/unaffected_export_rgba",
+      "passed": true,
+      "detail": "Revised bleed yields same existing RGBA without writing asset"
+    },
+    {
+      "id": "C22/unaffected_export_rgba",
+      "passed": true,
+      "detail": "Revised bleed yields same existing RGBA without writing asset"
+    },
+    {
+      "id": "C24/unaffected_export_rgba",
+      "passed": true,
+      "detail": "Revised bleed yields same existing RGBA without writing asset"
+    },
+    {
+      "id": "C25/unaffected_export_rgba",
+      "passed": true,
+      "detail": "Revised bleed yields same existing RGBA without writing asset"
+    },
+    {
+      "id": "C26/unaffected_export_rgba",
+      "passed": true,
+      "detail": "Revised bleed yields same existing RGBA without writing asset"
+    },
+    {
+      "id": "C27/unaffected_export_rgba",
+      "passed": true,
+      "detail": "Revised bleed yields same existing RGBA without writing asset"
+    },
+    {
+      "id": "C28/unaffected_export_rgba",
+      "passed": true,
+      "detail": "Revised bleed yields same existing RGBA without writing asset"
+    },
+    {
+      "id": "C29/unaffected_export_rgba",
+      "passed": true,
+      "detail": "Revised bleed yields same existing RGBA without writing asset"
+    },
+    {
+      "id": "C30/unaffected_export_rgba",
+      "passed": true,
+      "detail": "Revised bleed yields same existing RGBA without writing asset"
+    },
+    {
+      "id": "C31/unaffected_export_rgba",
+      "passed": true,
+      "detail": "Revised bleed yields same existing RGBA without writing asset"
+    },
+    {
+      "id": "C32/unaffected_export_rgba",
+      "passed": true,
+      "detail": "Revised bleed yields same existing RGBA without writing asset"
+    },
+    {
+      "id": "C33/unaffected_export_rgba",
+      "passed": true,
+      "detail": "Revised bleed yields same existing RGBA without writing asset"
+    },
+    {
+      "id": "C34/unaffected_export_rgba",
+      "passed": true,
+      "detail": "Revised bleed yields same existing RGBA without writing asset"
+    },
+    {
+      "id": "C35/unaffected_export_rgba",
+      "passed": true,
+      "detail": "Revised bleed yields same existing RGBA without writing asset"
+    },
+    {
+      "id": "C36/unaffected_export_rgba",
+      "passed": true,
+      "detail": "Revised bleed yields same existing RGBA without writing asset"
+    },
+    {
+      "id": "C37/unaffected_export_rgba",
+      "passed": true,
+      "detail": "Revised bleed yields same existing RGBA without writing asset"
+    },
+    {
+      "id": "C38/unaffected_export_rgba",
+      "passed": true,
+      "detail": "Revised bleed yields same existing RGBA without writing asset"
+    },
+    {
+      "id": "C39/unaffected_export_rgba",
+      "passed": true,
+      "detail": "Revised bleed yields same existing RGBA without writing asset"
+    },
+    {
+      "id": "C40/unaffected_export_rgba",
+      "passed": true,
+      "detail": "Revised bleed yields same existing RGBA without writing asset"
+    },
+    {
+      "id": "C41/unaffected_export_rgba",
+      "passed": true,
+      "detail": "Revised bleed yields same existing RGBA without writing asset"
+    },
+    {
+      "id": "C43/unaffected_export_rgba",
+      "passed": true,
+      "detail": "Revised bleed yields same existing RGBA without writing asset"
+    },
+    {
+      "id": "C44/unaffected_export_rgba",
+      "passed": true,
+      "detail": "Revised bleed yields same existing RGBA without writing asset"
+    },
+    {
+      "id": "C45/unaffected_export_rgba",
+      "passed": true,
+      "detail": "Revised bleed yields same existing RGBA without writing asset"
+    },
+    {
+      "id": "C46/unaffected_export_rgba",
+      "passed": true,
+      "detail": "Revised bleed yields same existing RGBA without writing asset"
+    },
+    {
+      "id": "C47/unaffected_export_rgba",
+      "passed": true,
+      "detail": "Revised bleed yields same existing RGBA without writing asset"
+    },
+    {
+      "id": "C48/unaffected_export_rgba",
+      "passed": true,
+      "detail": "Revised bleed yields same existing RGBA without writing asset"
+    },
+    {
+      "id": "C49/unaffected_export_rgba",
+      "passed": true,
+      "detail": "Revised bleed yields same existing RGBA without writing asset"
+    },
+    {
+      "id": "C50/unaffected_export_rgba",
+      "passed": true,
+      "detail": "Revised bleed yields same existing RGBA without writing asset"
+    },
+    {
+      "id": "C51/unaffected_export_rgba",
+      "passed": true,
+      "detail": "Revised bleed yields same existing RGBA without writing asset"
+    },
+    {
+      "id": "C52/unaffected_export_rgba",
+      "passed": true,
+      "detail": "Revised bleed yields same existing RGBA without writing asset"
+    },
+    {
+      "id": "C53/unaffected_export_rgba",
+      "passed": true,
+      "detail": "Revised bleed yields same existing RGBA without writing asset"
+    },
+    {
+      "id": "I01/unaffected_export_rgba",
+      "passed": true,
+      "detail": "Revised bleed yields same existing RGBA without writing asset"
+    },
+    {
+      "id": "I02/unaffected_export_rgba",
+      "passed": true,
+      "detail": "Revised bleed yields same existing RGBA without writing asset"
+    },
+    {
+      "id": "I03/unaffected_export_rgba",
+      "passed": true,
+      "detail": "Revised bleed yields same existing RGBA without writing asset"
+    },
+    {
+      "id": "I04/unaffected_export_rgba",
+      "passed": true,
+      "detail": "Revised bleed yields same existing RGBA without writing asset"
+    },
+    {
+      "id": "I05/unaffected_export_rgba",
+      "passed": true,
+      "detail": "Revised bleed yields same existing RGBA without writing asset"
+    },
+    {
+      "id": "I06/unaffected_export_rgba",
+      "passed": true,
+      "detail": "Revised bleed yields same existing RGBA without writing asset"
+    },
+    {
+      "id": "I07/unaffected_export_rgba",
+      "passed": true,
+      "detail": "Revised bleed yields same existing RGBA without writing asset"
+    },
+    {
+      "id": "O01/unaffected_export_rgba",
+      "passed": true,
+      "detail": "Revised bleed yields same existing RGBA without writing asset"
+    },
+    {
+      "id": "O02/unaffected_export_rgba",
+      "passed": true,
+      "detail": "Revised bleed yields same existing RGBA without writing asset"
+    },
+    {
+      "id": "O03/unaffected_export_rgba",
+      "passed": true,
+      "detail": "Revised bleed yields same existing RGBA without writing asset"
+    },
+    {
+      "id": "O04/unaffected_export_rgba",
+      "passed": true,
+      "detail": "Revised bleed yields same existing RGBA without writing asset"
+    },
+    {
+      "id": "O05/unaffected_export_rgba",
+      "passed": true,
+      "detail": "Revised bleed yields same existing RGBA without writing asset"
+    },
+    {
+      "id": "O06/unaffected_export_rgba",
+      "passed": true,
+      "detail": "Revised bleed yields same existing RGBA without writing asset"
+    },
+    {
+      "id": "O07/unaffected_export_rgba",
+      "passed": true,
+      "detail": "Revised bleed yields same existing RGBA without writing asset"
+    },
+    {
+      "id": "U01/unaffected_export_rgba",
+      "passed": true,
+      "detail": "Revised bleed yields same existing RGBA without writing asset"
+    },
+    {
+      "id": "U02/unaffected_export_rgba",
+      "passed": true,
+      "detail": "Revised bleed yields same existing RGBA without writing asset"
+    },
+    {
+      "id": "U03/unaffected_export_rgba",
+      "passed": true,
+      "detail": "Revised bleed yields same existing RGBA without writing asset"
+    },
+    {
+      "id": "U04/unaffected_export_rgba",
+      "passed": true,
+      "detail": "Revised bleed yields same existing RGBA without writing asset"
+    },
+    {
+      "id": "U05/unaffected_export_rgba",
+      "passed": true,
+      "detail": "Revised bleed yields same existing RGBA without writing asset"
+    },
+    {
+      "id": "U06/unaffected_export_rgba",
+      "passed": true,
+      "detail": "Revised bleed yields same existing RGBA without writing asset"
+    },
+    {
+      "id": "U07/unaffected_export_rgba",
+      "passed": true,
+      "detail": "Revised bleed yields same existing RGBA without writing asset"
+    }
+  ]
+}

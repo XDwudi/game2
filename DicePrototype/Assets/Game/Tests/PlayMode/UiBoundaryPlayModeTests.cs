@@ -77,7 +77,7 @@ namespace DiceCraft.Tests
                 {
                     Assert.That(after.dice.Any(d => d.dieId == "D001"), Is.False);
                     Assert.That(HasActive("Die_D001"), Is.False);
-                    Assert.That(FindActive<TextMeshProUGUI>("Toast").text, Does.Contain("D001 玻璃损坏"));
+                    Assert.That(after.processedReceipts.Last().effects.Any(e=>e.kind=="DieBroken"&&e.dieId=="D001"),Is.True,"The committed break must identify the actual remote target.");
                     Assert.That(after.hand.currentResults.Count(r => r.remoteOverride), Is.EqualTo(1), "Broken targets are not replaced or refunded.");
                 }
                 else Assert.That(after.hand.currentResults.Single(r => r.dieId == "D001").currentPip, Is.EqualTo(1));
@@ -85,6 +85,7 @@ namespace DiceCraft.Tests
                 foreach (var die in after.dice)
                     Assert.That(JsonUtility.ToJson(die), Is.EqualTo(JsonUtility.ToJson(before.dice.Single(d => d.dieId == die.dieId))), "Remote must preserve permanent faces, colors, glass and physical IDs.");
                 Click("Skip");
+                if(breakTarget)Assert.That(FindActive<TextMeshProUGUI>("ActionReason").text,Does.Contain("玻璃骰已破碎 1 颗").And.Contain("提交容量保持"));
                 foreach (var result in after.hand.currentResults.Where(r => r.remoteOverride))
                 {
                     var orientation = app.table.GetFaceOrientation(result.dieId);
@@ -92,7 +93,7 @@ namespace DiceCraft.Tests
                     Assert.That(ConnectedMeshComponents(orientation.Find("Face_" + result.currentFaceId).GetComponent<MeshFilter>().sharedMesh), Is.EqualTo(result.currentPip), "The rolled physical face must show current, not C12 effective, pips.");
                     ClickDie(result.dieId);
                 }
-                Click("Confirm");
+                Click("Confirm");yield return WaitForIdle();
                 CollectionAssert.AreEqual(breakTarget ? new[] {6} : new[] {2, 6}, app.Session.PreviewScore().effectivePips);
                 yield return null;
             }
@@ -110,21 +111,23 @@ namespace DiceCraft.Tests
             yield return LoadBoundaryFixture(fixture);
             using (var keyboard = new RoutedKeyboard())
             {
-                string beforeSeedInput = StateJson();
+                string beforeSeedInput = StateJson();byte[] debugDiskBefore=File.ReadAllBytes(Path.Combine(saveDirectory,"debug-run.json"));
+                yield return LegacyClick07("NewRun");
                 var seed = FindActive<TMP_InputField>("SeedInput");
                 EventSystem.current.SetSelectedGameObject(seed.gameObject); seed.ActivateInputField();
                 yield return null;
                 Assert.That(seed.isFocused, Is.True);
-                foreach (Key key in new[] {Key.Digit1, Key.Digit0, Key.E, Key.Space, Key.Enter})
+                foreach (Key key in new[] {Key.Digit1, Key.Digit0, Key.L, Key.R, Key.Enter})
                     yield return keyboard.Press(key);
                 Assert.That(StateJson(), Is.EqualTo(beforeSeedInput), "Typing/focusing the seed must not execute commands on the existing saved Run.");
                 Assert.That(app.Session.PendingIds, Is.Empty);
                 seed.DeactivateInputField(); EventSystem.current.SetSelectedGameObject(null);
+                yield return LegacyClick07("CloseDialog");CollectionAssert.AreEqual(debugDiskBefore,File.ReadAllBytes(Path.Combine(saveDirectory,"debug-run.json")));
                 ResumeBoundaryFixture(); Click("StartStage");
                 long sequence = app.Session.State.actionSequence;
-                yield return keyboard.Press(Key.Space, 1.05f);
+                yield return keyboard.Press(Key.R, 1.05f);
                 yield return WaitForIdle();
-                Assert.That(app.Session.State.actionSequence, Is.EqualTo(sequence + 1), "A held Space must roll once, including after the animation ends.");
+                Assert.That(app.Session.State.actionSequence, Is.EqualTo(sequence + 1), "A held R must roll once, including after the animation ends.");
                 Assert.That(app.Session.State.dice.Count, Is.EqualTo(10));
                 Key[] digits = {Key.Digit1, Key.Digit2, Key.Digit3, Key.Digit4, Key.Digit5, Key.Digit6, Key.Digit7, Key.Digit8, Key.Digit9, Key.Digit0};
                 for (int index = 0; index < digits.Length; index++)
@@ -134,11 +137,11 @@ namespace DiceCraft.Tests
                     yield return keyboard.Press(digits[index]);
                     Assert.That(app.Session.PendingIds, Is.Empty);
                 }
-                yield return keyboard.Press(Key.Digit1); yield return keyboard.Press(Key.E);
+                yield return keyboard.Press(Key.Digit1); yield return keyboard.Press(Key.L);
                 CollectionAssert.AreEqual(new[] {"D001"}, app.Session.State.hand.orderedLockedIds);
-                yield return keyboard.Press(Key.Digit1); yield return keyboard.Press(Key.E);
+                yield return keyboard.Press(Key.Digit1); yield return keyboard.Press(Key.L);
                 CollectionAssert.AreEqual(new[] {"D001", "D002"}, app.Session.State.hand.orderedLockedIds, "Digits must follow the visible pool after a die is locked.");
-                yield return keyboard.Press(Key.Space);
+                yield return keyboard.Press(Key.R);
                 if (app.IsBusy) Click("Skip");
                 yield return WaitForIdle();
                 Assert.That(app.Session.State.dice.Any(d => d.dieId == "D005"), Is.False);
@@ -148,7 +151,7 @@ namespace DiceCraft.Tests
                 CollectionAssert.AreEqual(new[] {"D006"}, app.Session.PendingIds, "After locks and breakage, the third visible die is D006.");
                 string beforeModal = StateJson(); string[] pending = app.Session.PendingIds;
                 Click("Pause");
-                foreach (Key key in digits.Concat(new[] {Key.E, Key.Space, Key.Enter}))
+                foreach (Key key in digits.Concat(new[] {Key.L, Key.R, Key.Enter}))
                     yield return keyboard.Press(key);
                 Assert.That(StateJson(), Is.EqualTo(beforeModal));
                 CollectionAssert.AreEqual(pending, app.Session.PendingIds, "Modal input must not toggle pending selections either.");
@@ -157,7 +160,7 @@ namespace DiceCraft.Tests
                 Assert.That(HasActive("Dialog"), Is.False);
                 Assert.That(StateJson(), Is.EqualTo(beforeModal), "Escape closes only the modal.");
                 CollectionAssert.AreEqual(pending, app.Session.PendingIds);
-                yield return keyboard.Press(Key.E);
+                yield return keyboard.Press(Key.L);
                 long beforeSubmit = app.Session.State.actionSequence;
                 string expected = app.Session.PreviewScore().score;
                 yield return keyboard.Press(Key.Enter, .4f);
@@ -187,7 +190,7 @@ namespace DiceCraft.Tests
                 }
                 yield return LoadBoundaryFixture(fixture);
                 ResumeBoundaryFixture(); Click("StartStage");
-                if (kind == CommandKind.Submit) { Click("Roll"); Click("Skip"); ClickDie("D001"); ClickDie("D002"); Click("Confirm"); }
+                if (kind == CommandKind.Submit) { Click("Roll"); Click("Skip"); ClickDie("D001"); ClickDie("D002"); Click("Confirm");yield return WaitForIdle(); }
                 string before = StateJson(); byte[] diskBefore = File.ReadAllBytes(app.SaveLocation);
                 string log = Path.Combine(saveDirectory, "debug-actions.jsonl");
                 int loggedBefore = File.ReadAllLines(log).Length;
@@ -218,8 +221,9 @@ namespace DiceCraft.Tests
                 Assert.That(app.IsBusy, Is.True, "Retry must use the same presentation path as an ordinary successful command.");
                 Assert.That(StateJson(), Is.EqualTo(JsonUtility.ToJson(candidate)));
                 Assert.That(JsonUtility.ToJson(new AtomicSaveStore(app.SaveLocation, app.Config).Load()), Is.EqualTo(StateJson()));
-                string expectedToast = kind == CommandKind.Roll ? "D001 玻璃损坏" : "D001 的六面复制到 D002";
-                Assert.That(FindActive<TextMeshProUGUI>("Toast").text, Does.Contain(expectedToast));
+                if(kind==CommandKind.Roll)
+                    Assert.That(candidate.lastEffects.Any(e=>e.kind=="DieBroken"&&e.dieId=="D001"),Is.True,"The exact lost die remains in the same committed candidate.");
+                else Assert.That(candidate.lastEffects.Any(e=>e.kind=="DieCopied"&&e.dieId=="D002"&&e.otherDieId=="D001"),Is.True);
                 if (kind == CommandKind.Roll) Assert.That(HasActive("Die_D001"), Is.False);
                 else Assert.That(app.Session.State.dice.Single(d => d.dieId == "D002").dataRevision, Is.EqualTo(1));
                 var actionLines = File.ReadAllLines(log).Select(JsonUtility.FromJson<TestActionLine>).ToArray();
@@ -234,6 +238,15 @@ namespace DiceCraft.Tests
                 Click("Skip");
                 yield return WaitForIdle();
                 Assert.That(StateJson(), Is.EqualTo(committed));
+                if(kind==CommandKind.Roll)
+                    Assert.That(FindActive<TextMeshProUGUI>("ActionReason").text,Does.Contain("玻璃骰已破碎 1 颗").And.Contain("提交容量保持"));
+                else
+                {
+                    yield return LegacyClick07("PreviousSubmission");
+                    Assert.That(FindActive<TextMeshProUGUI>("Triggered").text,Does.Contain("D001 的六面复制到 D002"));
+                    yield return LegacyClick07("CloseDialog");
+                }
+                Assert.That(StateJson(),Is.EqualTo(committed));Assert.That(File.ReadAllLines(log).Length,Is.EqualTo(loggedBefore+1));
             }
         }
 

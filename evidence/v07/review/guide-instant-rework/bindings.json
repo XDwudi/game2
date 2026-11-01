@@ -1,0 +1,2416 @@
+{
+  "schema": "v07-guide-instant-independent-review-1",
+  "reviewer": "/root/v07_shop_ui",
+  "createdUtc": "2026-11-01T04:44:11.435154+00:00",
+  "scope": "S19 repaired paper layout, hollow pending checks/locked grips, Instant G147 synchronous committed HUD/pool placement; recorded WindowsEditor evidence only",
+  "authority": {
+    "path": "docs/specs/v07/ART_SPEC.md",
+    "sha256": "5120a8d0983d24f25cc38e22f1da613fd1a56c70ab26f518771a2caf064dd228",
+    "bytes": 417792
+  },
+  "nunit": [
+    {
+      "report": {
+        "path": "evidence/v07/unity/nunit-20261101-042447.xml",
+        "sha256": "a6b2252e4823a9a62d161ffad301ebc865ced380e54a9b56bb7269d133e91ee4",
+        "bytes": 5655
+      },
+      "binding": {
+        "path": "evidence/v07/unity/nunit-20261101-042447.binding.json",
+        "sha256": "cf2884a755d6200f5d9e1299e0e3f72ab7cdfceb238d9527ae1412fe76fadd51",
+        "bytes": 541127
+      },
+      "reportedShaMatches": true,
+      "result": {
+        "total": "2",
+        "passed": "2",
+        "failed": "0",
+        "skipped": "0",
+        "start-time": "2026-11-01 04:24:41Z",
+        "end-time": "2026-11-01 04:24:47Z"
+      },
+      "tests": [
+        {
+          "name": "PLAY_ART07_DICE_VisibleGripUsesExistingHitAndPendingHollowChecksKeepPipsClear",
+          "result": "Passed"
+        },
+        {
+          "name": "PLAY_ART07_LockedDieDropCommitsExactlyOneReorderWithoutUnlocking",
+          "result": "Passed"
+        }
+      ],
+      "sourceFileCount": 1280,
+      "startEndFilesIdentical": true,
+      "startEndAssembliesIdentical": true,
+      "assemblies": [
+        {
+          "name": "DiceCraft.Core",
+          "mvid": "8f690e0d-a075-4b72-98e4-2cb64ced2fa3",
+          "dllSha256": "44a137cd38d7b525382dfda7adbdb7676d12d1dbc05520638d8a14642a96031b"
+        },
+        {
+          "name": "DiceCraft.EditMode",
+          "mvid": "ad976b27-4849-4825-abf6-ac8677939e0c",
+          "dllSha256": "57f6d290e23442e8a4bae1cf0d8e73b072f03a39dce6f8c6830163456a82703c"
+        },
+        {
+          "name": "DiceCraft.Editor",
+          "mvid": "2aa2a7f3-9cbc-4458-af0e-cabc3b2a5314",
+          "dllSha256": "0d0d410a3be782285808ca5bc6e94ab0ba4c43216af7256bbf6ee5bf0f0be29a"
+        },
+        {
+          "name": "DiceCraft.PlayModeTests",
+          "mvid": "c198f22d-084e-4632-9e02-0b065bb038e9",
+          "dllSha256": "fff9b3c6b45e9dff2d39b109b7fdbecc76441798a71b3d814f92acd30da90987"
+        },
+        {
+          "name": "DiceCraft.Runtime",
+          "mvid": "0905cfbe-5333-403f-8339-7b517390169e",
+          "dllSha256": "ff51af390c185f037184e325c3839d2fb2dc75d72cf2f5d005bbd42ea3e3f0d0"
+        }
+      ],
+      "relevantSourceBindings": [
+        {
+          "path": "DicePrototype/Assets/Game/Runtime/Verification/Art07VisualRecorder.cs",
+          "capturedSha256": "49dc419ad0881ff2c5de9f48e331eceb56508fd83605d6a95ee624859307aa76",
+          "currentReviewSha256": "fa936fe488743e229af76aba9c6e61d1337f0e88453f776921c3769676d33c42"
+        },
+        {
+          "path": "DicePrototype/Assets/Game/Tests/PlayMode/Art07DiceAffordancePlayModeTests.cs",
+          "capturedSha256": "11956c4dd1e91b27ae7f742d8be69b8643e3b97545bcb785bac780d485cca25d",
+          "currentReviewSha256": "11956c4dd1e91b27ae7f742d8be69b8643e3b97545bcb785bac780d485cca25d"
+        },
+        {
+          "path": "DicePrototype/Assets/Game/Tests/PlayMode/Art07FinalResultPlayModeTests.cs",
+          "capturedSha256": "edc92798c0493814b5613564d14ab0965fa8a01c419adee6d93ca3b4a10f7923",
+          "currentReviewSha256": "82d1012cc162e9dcf64bc7f9c605e3fab094d5d31d69200a2e1e5897b5ba85c0"
+        },
+        {
+          "path": "DicePrototype/Assets/Game/Tests/PlayMode/Art07GuideLayoutPlayModeTests.cs",
+          "capturedSha256": "dd51c842a4eb3f9ed53cb605f31c04679b87912a503bbf3d345e4e7405c96e95",
+          "currentReviewSha256": "f63a7c2ff9e61dce25299393f96bbad85d381ba36836273595cf76f0c84d80c4"
+        },
+        {
+          "path": "DicePrototype/Assets/Game/UI/Art07HollowCheck.cs",
+          "capturedSha256": "ccb3a0a1f27f243a368e4fdf3a184c2303f3b1e349d9c3beffd99da5ed23eeab",
+          "currentReviewSha256": "ccb3a0a1f27f243a368e4fdf3a184c2303f3b1e349d9c3beffd99da5ed23eeab"
+        },
+        {
+          "path": "DicePrototype/Assets/Game/UI/GameApp.Art07.cs",
+          "capturedSha256": "7935b05249b49d3a59980d2615d08aa5b6e8cde2bc519054d208706936f1028e",
+          "currentReviewSha256": "a6623b595df1418eeb2c90c2ea130a11ce6c06b8e344613018f31c5809ae584e"
+        },
+        {
+          "path": "DicePrototype/Assets/Game/UI/GameApp.Art07DiceAffordances.cs",
+          "capturedSha256": "559c26e343af899526123787a952a8bc97e0162468e76fd5d4071c917769c334",
+          "currentReviewSha256": "559c26e343af899526123787a952a8bc97e0162468e76fd5d4071c917769c334"
+        },
+        {
+          "path": "DicePrototype/Assets/Game/UI/GameApp.Art07Guide.cs",
+          "capturedSha256": "c482672b71fe2eac803391ff3f47d86c0da38fe97ba6a3959ae43ee532df513c",
+          "currentReviewSha256": "bdea0880aa2b679d798b59390f989e2dc495e59e1303cdbe6772bedab6da3e6d"
+        },
+        {
+          "path": "DicePrototype/Assets/Game/UI/GameApp.Art07Presentation.cs",
+          "capturedSha256": "33b6ae37ec802ee3e75c92c7ebd429d3be0f1639aa83ede8efef934eeda24cef",
+          "currentReviewSha256": "33b6ae37ec802ee3e75c92c7ebd429d3be0f1639aa83ede8efef934eeda24cef"
+        }
+      ],
+      "originalAffordanceLogFiles": [
+        {
+          "loggedPath": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_efc9c24482e34a8898bd1a74e0e73ef1\\art07-dice-affordance\\pending-eight-font100.png",
+          "exists": true,
+          "sha256": "d9d3e4b9ae709d9bb20a75173e7f9fa941e6ea9f6cb7c6bdb00a593664330aff"
+        },
+        {
+          "loggedPath": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_efc9c24482e34a8898bd1a74e0e73ef1\\art07-dice-affordance\\locked-eight-grips-font100.png",
+          "exists": true,
+          "sha256": "663f1b72f71548f01da8026a977beec49e66819fdc66031dc05b6b55eba008b1"
+        },
+        {
+          "loggedPath": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_efc9c24482e34a8898bd1a74e0e73ef1\\art07-dice-affordance\\pending-eight-font125.png",
+          "exists": true,
+          "sha256": "bd98c2e820d55e2e9243422654d4a268c3b705ba67679832ce1fa1b34c87cf59"
+        },
+        {
+          "loggedPath": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_efc9c24482e34a8898bd1a74e0e73ef1\\art07-dice-affordance\\locked-eight-grips-font125.png",
+          "exists": true,
+          "sha256": "3e2a29fdbe4ea1dfc362ab0f3305c9068ece0d107083a97af1bbef4645d107b8"
+        },
+        {
+          "loggedPath": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_efc9c24482e34a8898bd1a74e0e73ef1\\art07-dice-affordance\\pending-eight-font150.png",
+          "exists": true,
+          "sha256": "5b86ccdb2231622f8b1b2d5fc861b3e056a97bc60838dd800d1f758b5548c940"
+        },
+        {
+          "loggedPath": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_efc9c24482e34a8898bd1a74e0e73ef1\\art07-dice-affordance\\locked-eight-grips-font150.png",
+          "exists": true,
+          "sha256": "e0e9e87fd4acdf7af424984e7a032520f11abf08b6dd6efe6d94c57a1312cff8"
+        }
+      ]
+    },
+    {
+      "report": {
+        "path": "evidence/v07/unity/nunit-20261101-042949.xml",
+        "sha256": "66da5ab9d725f2725de1959706ec4922a1825e0b9d3aebe7771c3ab7cff9e5ac",
+        "bytes": 12869
+      },
+      "binding": {
+        "path": "evidence/v07/unity/nunit-20261101-042949.binding.json",
+        "sha256": "86d0bf885c1930eece0d39fc5df81cc9c4473dfb87f004d0887e929d7c4cf9db",
+        "bytes": 541953
+      },
+      "reportedShaMatches": true,
+      "result": {
+        "total": "6",
+        "passed": "6",
+        "failed": "0",
+        "skipped": "0",
+        "start-time": "2026-11-01 04:29:24Z",
+        "end-time": "2026-11-01 04:29:49Z"
+      },
+      "tests": [
+        {
+          "name": "PLAY_ART07_FINAL_RealRendererNormalFastReducedInstantRetainCommittedScoreAndSources",
+          "result": "Passed"
+        },
+        {
+          "name": "PLAY_ART07_GuideLayoutAllFourActionsAvoidActualDiceAndHudAndPointAtLiveTargets",
+          "result": "Passed"
+        },
+        {
+          "name": "PLAY_ART07_GuideLayoutManualReopenAtMaximumCapacityKeepsCompleteInlineHelpAndClose",
+          "result": "Passed"
+        },
+        {
+          "name": "PLAY_ART07_GuideLayoutShopPaperLeavesPricesAndTabsVisibleAtBothFontScales",
+          "result": "Passed"
+        },
+        {
+          "name": "PLAY_ART07_UPGRADE_ActualCeramicAndSingleQuestionFlipRenderBeforeMiddleAndAfter",
+          "result": "Passed"
+        },
+        {
+          "name": "PLAY_ART07_UPGRADE_FastReducedPauseAndSkipKeepCommittedStateAndResetSurfaces",
+          "result": "Passed"
+        }
+      ],
+      "sourceFileCount": 1282,
+      "startEndFilesIdentical": true,
+      "startEndAssembliesIdentical": true,
+      "assemblies": [
+        {
+          "name": "DiceCraft.Core",
+          "mvid": "8f690e0d-a075-4b72-98e4-2cb64ced2fa3",
+          "dllSha256": "44a137cd38d7b525382dfda7adbdb7676d12d1dbc05520638d8a14642a96031b"
+        },
+        {
+          "name": "DiceCraft.EditMode",
+          "mvid": "5e73dfc9-1758-455e-ae83-882020b1d153",
+          "dllSha256": "5bfa4b4fdf2331505697a61f5c2ad3b6eef617f1f1e42f7d3843806cc45c1b71"
+        },
+        {
+          "name": "DiceCraft.Editor",
+          "mvid": "b63eb589-f5c6-4d20-bc71-5026d3796f43",
+          "dllSha256": "71ea356a4e0a23326fbd126c7bf8d76c914664cd1a0e9564da68ff527b781226"
+        },
+        {
+          "name": "DiceCraft.PlayModeTests",
+          "mvid": "cdbcbe27-ea4e-4be4-ba41-b584c5253eb3",
+          "dllSha256": "089813ee54c927e1436cb9a8e1bc2dd542edee1aed381c7db8d1434ee1e5fc6c"
+        },
+        {
+          "name": "DiceCraft.Runtime",
+          "mvid": "e6f3df26-917b-43a7-a772-70e5da5afab0",
+          "dllSha256": "6586eb2cd804d77fe0ade200f24d49bda7dabef0ef3fa88e68fd90713b091d30"
+        }
+      ],
+      "relevantSourceBindings": [
+        {
+          "path": "DicePrototype/Assets/Game/Runtime/Verification/Art07VisualRecorder.cs",
+          "capturedSha256": "49dc419ad0881ff2c5de9f48e331eceb56508fd83605d6a95ee624859307aa76",
+          "currentReviewSha256": "fa936fe488743e229af76aba9c6e61d1337f0e88453f776921c3769676d33c42"
+        },
+        {
+          "path": "DicePrototype/Assets/Game/Tests/PlayMode/Art07DiceAffordancePlayModeTests.cs",
+          "capturedSha256": "11956c4dd1e91b27ae7f742d8be69b8643e3b97545bcb785bac780d485cca25d",
+          "currentReviewSha256": "11956c4dd1e91b27ae7f742d8be69b8643e3b97545bcb785bac780d485cca25d"
+        },
+        {
+          "path": "DicePrototype/Assets/Game/Tests/PlayMode/Art07FinalResultPlayModeTests.cs",
+          "capturedSha256": "82d1012cc162e9dcf64bc7f9c605e3fab094d5d31d69200a2e1e5897b5ba85c0",
+          "currentReviewSha256": "82d1012cc162e9dcf64bc7f9c605e3fab094d5d31d69200a2e1e5897b5ba85c0"
+        },
+        {
+          "path": "DicePrototype/Assets/Game/Tests/PlayMode/Art07GuideLayoutPlayModeTests.cs",
+          "capturedSha256": "f63a7c2ff9e61dce25299393f96bbad85d381ba36836273595cf76f0c84d80c4",
+          "currentReviewSha256": "f63a7c2ff9e61dce25299393f96bbad85d381ba36836273595cf76f0c84d80c4"
+        },
+        {
+          "path": "DicePrototype/Assets/Game/UI/Art07HollowCheck.cs",
+          "capturedSha256": "ccb3a0a1f27f243a368e4fdf3a184c2303f3b1e349d9c3beffd99da5ed23eeab",
+          "currentReviewSha256": "ccb3a0a1f27f243a368e4fdf3a184c2303f3b1e349d9c3beffd99da5ed23eeab"
+        },
+        {
+          "path": "DicePrototype/Assets/Game/UI/GameApp.Art07.cs",
+          "capturedSha256": "7935b05249b49d3a59980d2615d08aa5b6e8cde2bc519054d208706936f1028e",
+          "currentReviewSha256": "a6623b595df1418eeb2c90c2ea130a11ce6c06b8e344613018f31c5809ae584e"
+        },
+        {
+          "path": "DicePrototype/Assets/Game/UI/GameApp.Art07DiceAffordances.cs",
+          "capturedSha256": "559c26e343af899526123787a952a8bc97e0162468e76fd5d4071c917769c334",
+          "currentReviewSha256": "559c26e343af899526123787a952a8bc97e0162468e76fd5d4071c917769c334"
+        },
+        {
+          "path": "DicePrototype/Assets/Game/UI/GameApp.Art07Guide.cs",
+          "capturedSha256": "bdea0880aa2b679d798b59390f989e2dc495e59e1303cdbe6772bedab6da3e6d",
+          "currentReviewSha256": "bdea0880aa2b679d798b59390f989e2dc495e59e1303cdbe6772bedab6da3e6d"
+        },
+        {
+          "path": "DicePrototype/Assets/Game/UI/GameApp.Art07GuideDock.cs",
+          "capturedSha256": "ef6f7cb2489e8742953787645a87640a76ac3b2bc2dccb17f9ec82f836dc9386",
+          "currentReviewSha256": "ef6f7cb2489e8742953787645a87640a76ac3b2bc2dccb17f9ec82f836dc9386"
+        },
+        {
+          "path": "DicePrototype/Assets/Game/UI/GameApp.Art07Presentation.cs",
+          "capturedSha256": "33b6ae37ec802ee3e75c92c7ebd429d3be0f1639aa83ede8efef934eeda24cef",
+          "currentReviewSha256": "33b6ae37ec802ee3e75c92c7ebd429d3be0f1639aa83ede8efef934eeda24cef"
+        }
+      ],
+      "originalAffordanceLogFiles": []
+    },
+    {
+      "report": {
+        "path": "evidence/v07/unity/nunit-20261101-043158.xml",
+        "sha256": "4f64f34f65d1b4a0410e27e40307271ccf9bb84d0321302a7c726a257ddf5d10",
+        "bytes": 18156
+      },
+      "binding": {
+        "path": "evidence/v07/unity/nunit-20261101-043158.binding.json",
+        "sha256": "a272f68a67bc1b2ecf0372fb4e1ba79729a44918c161b58469edd99a34207d35",
+        "bytes": 541953
+      },
+      "reportedShaMatches": true,
+      "result": {
+        "total": "10",
+        "passed": "10",
+        "failed": "0",
+        "skipped": "0",
+        "start-time": "2026-11-01 04:30:19Z",
+        "end-time": "2026-11-01 04:31:58Z"
+      },
+      "tests": [
+        {
+          "name": "PLAY_ART07_DICE_VisibleGripUsesExistingHitAndPendingHollowChecksKeepPipsClear",
+          "result": "Passed"
+        },
+        {
+          "name": "PLAY_ART07_FINAL_RealRendererNormalFastReducedInstantRetainCommittedScoreAndSources",
+          "result": "Passed"
+        },
+        {
+          "name": "PLAY_ART07_GuideLayoutAllFourActionsAvoidActualDiceAndHudAndPointAtLiveTargets",
+          "result": "Passed"
+        },
+        {
+          "name": "PLAY_ART07_GuideLayoutManualReopenAtMaximumCapacityKeepsCompleteInlineHelpAndClose",
+          "result": "Passed"
+        },
+        {
+          "name": "PLAY_ART07_GuideLayoutShopPaperLeavesPricesAndTabsVisibleAtBothFontScales",
+          "result": "Passed"
+        },
+        {
+          "name": "PLAY_ART07_LockedDieDropCommitsExactlyOneReorderWithoutUnlocking",
+          "result": "Passed"
+        },
+        {
+          "name": "PLAY_ART07_ToastActualPaperGlyphsAndMainActionsAtThreeFontsNormalReduced",
+          "result": "Passed"
+        },
+        {
+          "name": "PLAY_ART07_ToastPausePreservesVisibleTimeAndLongErrorsKeepCompleteDetails",
+          "result": "Passed"
+        },
+        {
+          "name": "PLAY_ART07_UPGRADE_ActualCeramicAndSingleQuestionFlipRenderBeforeMiddleAndAfter",
+          "result": "Passed"
+        },
+        {
+          "name": "PLAY_ART07_UPGRADE_FastReducedPauseAndSkipKeepCommittedStateAndResetSurfaces",
+          "result": "Passed"
+        }
+      ],
+      "sourceFileCount": 1282,
+      "startEndFilesIdentical": true,
+      "startEndAssembliesIdentical": true,
+      "assemblies": [
+        {
+          "name": "DiceCraft.Core",
+          "mvid": "8f690e0d-a075-4b72-98e4-2cb64ced2fa3",
+          "dllSha256": "44a137cd38d7b525382dfda7adbdb7676d12d1dbc05520638d8a14642a96031b"
+        },
+        {
+          "name": "DiceCraft.EditMode",
+          "mvid": "5e73dfc9-1758-455e-ae83-882020b1d153",
+          "dllSha256": "5bfa4b4fdf2331505697a61f5c2ad3b6eef617f1f1e42f7d3843806cc45c1b71"
+        },
+        {
+          "name": "DiceCraft.Editor",
+          "mvid": "b63eb589-f5c6-4d20-bc71-5026d3796f43",
+          "dllSha256": "71ea356a4e0a23326fbd126c7bf8d76c914664cd1a0e9564da68ff527b781226"
+        },
+        {
+          "name": "DiceCraft.PlayModeTests",
+          "mvid": "cdbcbe27-ea4e-4be4-ba41-b584c5253eb3",
+          "dllSha256": "089813ee54c927e1436cb9a8e1bc2dd542edee1aed381c7db8d1434ee1e5fc6c"
+        },
+        {
+          "name": "DiceCraft.Runtime",
+          "mvid": "e6f3df26-917b-43a7-a772-70e5da5afab0",
+          "dllSha256": "6586eb2cd804d77fe0ade200f24d49bda7dabef0ef3fa88e68fd90713b091d30"
+        }
+      ],
+      "relevantSourceBindings": [
+        {
+          "path": "DicePrototype/Assets/Game/Runtime/Verification/Art07VisualRecorder.cs",
+          "capturedSha256": "49dc419ad0881ff2c5de9f48e331eceb56508fd83605d6a95ee624859307aa76",
+          "currentReviewSha256": "fa936fe488743e229af76aba9c6e61d1337f0e88453f776921c3769676d33c42"
+        },
+        {
+          "path": "DicePrototype/Assets/Game/Tests/PlayMode/Art07DiceAffordancePlayModeTests.cs",
+          "capturedSha256": "11956c4dd1e91b27ae7f742d8be69b8643e3b97545bcb785bac780d485cca25d",
+          "currentReviewSha256": "11956c4dd1e91b27ae7f742d8be69b8643e3b97545bcb785bac780d485cca25d"
+        },
+        {
+          "path": "DicePrototype/Assets/Game/Tests/PlayMode/Art07FinalResultPlayModeTests.cs",
+          "capturedSha256": "82d1012cc162e9dcf64bc7f9c605e3fab094d5d31d69200a2e1e5897b5ba85c0",
+          "currentReviewSha256": "82d1012cc162e9dcf64bc7f9c605e3fab094d5d31d69200a2e1e5897b5ba85c0"
+        },
+        {
+          "path": "DicePrototype/Assets/Game/Tests/PlayMode/Art07GuideLayoutPlayModeTests.cs",
+          "capturedSha256": "f63a7c2ff9e61dce25299393f96bbad85d381ba36836273595cf76f0c84d80c4",
+          "currentReviewSha256": "f63a7c2ff9e61dce25299393f96bbad85d381ba36836273595cf76f0c84d80c4"
+        },
+        {
+          "path": "DicePrototype/Assets/Game/UI/Art07HollowCheck.cs",
+          "capturedSha256": "ccb3a0a1f27f243a368e4fdf3a184c2303f3b1e349d9c3beffd99da5ed23eeab",
+          "currentReviewSha256": "ccb3a0a1f27f243a368e4fdf3a184c2303f3b1e349d9c3beffd99da5ed23eeab"
+        },
+        {
+          "path": "DicePrototype/Assets/Game/UI/GameApp.Art07.cs",
+          "capturedSha256": "7935b05249b49d3a59980d2615d08aa5b6e8cde2bc519054d208706936f1028e",
+          "currentReviewSha256": "a6623b595df1418eeb2c90c2ea130a11ce6c06b8e344613018f31c5809ae584e"
+        },
+        {
+          "path": "DicePrototype/Assets/Game/UI/GameApp.Art07DiceAffordances.cs",
+          "capturedSha256": "559c26e343af899526123787a952a8bc97e0162468e76fd5d4071c917769c334",
+          "currentReviewSha256": "559c26e343af899526123787a952a8bc97e0162468e76fd5d4071c917769c334"
+        },
+        {
+          "path": "DicePrototype/Assets/Game/UI/GameApp.Art07Guide.cs",
+          "capturedSha256": "bdea0880aa2b679d798b59390f989e2dc495e59e1303cdbe6772bedab6da3e6d",
+          "currentReviewSha256": "bdea0880aa2b679d798b59390f989e2dc495e59e1303cdbe6772bedab6da3e6d"
+        },
+        {
+          "path": "DicePrototype/Assets/Game/UI/GameApp.Art07GuideDock.cs",
+          "capturedSha256": "ef6f7cb2489e8742953787645a87640a76ac3b2bc2dccb17f9ec82f836dc9386",
+          "currentReviewSha256": "ef6f7cb2489e8742953787645a87640a76ac3b2bc2dccb17f9ec82f836dc9386"
+        },
+        {
+          "path": "DicePrototype/Assets/Game/UI/GameApp.Art07Presentation.cs",
+          "capturedSha256": "33b6ae37ec802ee3e75c92c7ebd429d3be0f1639aa83ede8efef934eeda24cef",
+          "currentReviewSha256": "33b6ae37ec802ee3e75c92c7ebd429d3be0f1639aa83ede8efef934eeda24cef"
+        }
+      ],
+      "originalAffordanceLogFiles": [
+        {
+          "loggedPath": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_f3bf149fd2354d4781ca4600f5d22082\\art07-dice-affordance\\pending-eight-font100.png",
+          "exists": true,
+          "sha256": "a757b2cf0a3fddf9d378180989ade8e71cd7d5420cb91ac9f1eccec1715a43d8"
+        },
+        {
+          "loggedPath": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_f3bf149fd2354d4781ca4600f5d22082\\art07-dice-affordance\\locked-eight-grips-font100.png",
+          "exists": true,
+          "sha256": "ef655a9fa13d3f7ec8f94c53eb8f27a9afe1a23103b35f22b1a4bfbf4efefcac"
+        },
+        {
+          "loggedPath": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_f3bf149fd2354d4781ca4600f5d22082\\art07-dice-affordance\\pending-eight-font125.png",
+          "exists": true,
+          "sha256": "cacf28ab397edfad000b7e2408eb646f04494cbfddf9f0faeb067958969eb967"
+        },
+        {
+          "loggedPath": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_f3bf149fd2354d4781ca4600f5d22082\\art07-dice-affordance\\locked-eight-grips-font125.png",
+          "exists": true,
+          "sha256": "ad2e7f049693d79386f272406651339f076472590bac9add55c499180f833048"
+        },
+        {
+          "loggedPath": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_f3bf149fd2354d4781ca4600f5d22082\\art07-dice-affordance\\pending-eight-font150.png",
+          "exists": true,
+          "sha256": "efaed9ec273ef9efde56004cef1dda1e3640bb122cbe8d125f0b6988dcdb54a4"
+        },
+        {
+          "loggedPath": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_f3bf149fd2354d4781ca4600f5d22082\\art07-dice-affordance\\locked-eight-grips-font150.png",
+          "exists": true,
+          "sha256": "bb92ec9023322ae20179de9aacc183dc5aab45020570dae51b2126bc99b4a8fe"
+        }
+      ]
+    }
+  ],
+  "guideScreens": [
+    {
+      "path": "artifacts/cache/v07-guide-upgrade-720-042949/PLAY_ART07_GuideLayoutAllFourActionsAvoidActualDiceAndHudAndPointAtLiveTargets_art07-edge-screens/S19-guide-repaired-1-font100.png",
+      "sha256": "643e7ced79d872111a76fcd4d23ca7f67c42a904072f117086143f32c858b373",
+      "bytes": 696876,
+      "sidecar": {
+        "path": "artifacts/cache/v07-guide-upgrade-720-042949/PLAY_ART07_GuideLayoutAllFourActionsAvoidActualDiceAndHudAndPointAtLiveTargets_art07-edge-screens/S19-guide-repaired-1-font100.json",
+        "sha256": "26c44a9949cbe0a53e4e8f99bc7fb5db674376a02fe876274d4f20c7f983bd77",
+        "bytes": 458
+      },
+      "capture": {
+        "screen": "S19-guide-repaired-1-font100",
+        "unity": "6000.6.7f1",
+        "mvid": "e6f3df26-917b-43a7-a772-70e5da5afab0",
+        "stateHash": "b897ab4564260c8c352fbfc508d0b921d2e7b1b9a05805d003fdbe983d0b2676",
+        "phase": "HandReady",
+        "savePath": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftTests_fa49e6e451fd4777bb6427fbd9451b78\\active-run.json",
+        "width": 1280,
+        "height": 720,
+        "frame": 273,
+        "isolatedArtTest": true
+      },
+      "visuallyInspected": false
+    },
+    {
+      "path": "artifacts/cache/v07-guide-upgrade-720-042949/PLAY_ART07_GuideLayoutAllFourActionsAvoidActualDiceAndHudAndPointAtLiveTargets_art07-edge-screens/S19-guide-repaired-1-font125.png",
+      "sha256": "0d7d785306672e209e42eeccf800e2afeeb5790ce507e4ae6ba528e0046b384d",
+      "bytes": 745143,
+      "sidecar": {
+        "path": "artifacts/cache/v07-guide-upgrade-720-042949/PLAY_ART07_GuideLayoutAllFourActionsAvoidActualDiceAndHudAndPointAtLiveTargets_art07-edge-screens/S19-guide-repaired-1-font125.json",
+        "sha256": "8b4cc6a685090a53219efa6f7ec951f1bed07e136ba4279ec2254a1f6fac6853",
+        "bytes": 458
+      },
+      "capture": {
+        "screen": "S19-guide-repaired-1-font125",
+        "unity": "6000.6.7f1",
+        "mvid": "e6f3df26-917b-43a7-a772-70e5da5afab0",
+        "stateHash": "89f663c0cbe8418bdab66cbed1ed12ebf8669f32c2814815e51ed2e7d79aa83c",
+        "phase": "HandReady",
+        "savePath": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftTests_fa49e6e451fd4777bb6427fbd9451b78\\active-run.json",
+        "width": 1280,
+        "height": 720,
+        "frame": 409,
+        "isolatedArtTest": true
+      },
+      "visuallyInspected": false
+    },
+    {
+      "path": "artifacts/cache/v07-guide-upgrade-720-042949/PLAY_ART07_GuideLayoutAllFourActionsAvoidActualDiceAndHudAndPointAtLiveTargets_art07-edge-screens/S19-guide-repaired-1-font150.png",
+      "sha256": "fe493104ce20355086005654ff9fa039abf8a4a8e0209233ec83c9686856cbd1",
+      "bytes": 767209,
+      "sidecar": {
+        "path": "artifacts/cache/v07-guide-upgrade-720-042949/PLAY_ART07_GuideLayoutAllFourActionsAvoidActualDiceAndHudAndPointAtLiveTargets_art07-edge-screens/S19-guide-repaired-1-font150.json",
+        "sha256": "8acd5cde2523827eeed8ef36b7528930ba123a71fadb0ae27db30563e04471c7",
+        "bytes": 458
+      },
+      "capture": {
+        "screen": "S19-guide-repaired-1-font150",
+        "unity": "6000.6.7f1",
+        "mvid": "e6f3df26-917b-43a7-a772-70e5da5afab0",
+        "stateHash": "93d922ed7d4e4fd36412001974649a7bee78e255751eb30c49f5d9c8df92974f",
+        "phase": "HandReady",
+        "savePath": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftTests_fa49e6e451fd4777bb6427fbd9451b78\\active-run.json",
+        "width": 1280,
+        "height": 720,
+        "frame": 545,
+        "isolatedArtTest": true
+      },
+      "visuallyInspected": true
+    },
+    {
+      "path": "artifacts/cache/v07-guide-upgrade-720-042949/PLAY_ART07_GuideLayoutAllFourActionsAvoidActualDiceAndHudAndPointAtLiveTargets_art07-edge-screens/S19-guide-repaired-2-font100.png",
+      "sha256": "22d1d4514fe212f11d851219a376ba9d453b357c4814cc649e4014d81e545e3f",
+      "bytes": 697689,
+      "sidecar": {
+        "path": "artifacts/cache/v07-guide-upgrade-720-042949/PLAY_ART07_GuideLayoutAllFourActionsAvoidActualDiceAndHudAndPointAtLiveTargets_art07-edge-screens/S19-guide-repaired-2-font100.json",
+        "sha256": "c702e0a34ed6b87179f587e46be4a8829d4a60257dbb3346c56a81ac08f0621b",
+        "bytes": 458
+      },
+      "capture": {
+        "screen": "S19-guide-repaired-2-font100",
+        "unity": "6000.6.7f1",
+        "mvid": "e6f3df26-917b-43a7-a772-70e5da5afab0",
+        "stateHash": "401f8cf6d735db6ba5a1365758d81c0621370b846099e8d9f7c6918c336be65f",
+        "phase": "Selecting",
+        "savePath": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftTests_fa49e6e451fd4777bb6427fbd9451b78\\active-run.json",
+        "width": 1280,
+        "height": 720,
+        "frame": 304,
+        "isolatedArtTest": true
+      },
+      "visuallyInspected": false
+    },
+    {
+      "path": "artifacts/cache/v07-guide-upgrade-720-042949/PLAY_ART07_GuideLayoutAllFourActionsAvoidActualDiceAndHudAndPointAtLiveTargets_art07-edge-screens/S19-guide-repaired-2-font125.png",
+      "sha256": "6811fdcdf3c392459b905a7a65eeacb23cbfd9110f5fde01dafba1f472fe6756",
+      "bytes": 744959,
+      "sidecar": {
+        "path": "artifacts/cache/v07-guide-upgrade-720-042949/PLAY_ART07_GuideLayoutAllFourActionsAvoidActualDiceAndHudAndPointAtLiveTargets_art07-edge-screens/S19-guide-repaired-2-font125.json",
+        "sha256": "0b25e2ec54d927db20318a9925155c1ea8b22522628d31a4977cdc936c824208",
+        "bytes": 458
+      },
+      "capture": {
+        "screen": "S19-guide-repaired-2-font125",
+        "unity": "6000.6.7f1",
+        "mvid": "e6f3df26-917b-43a7-a772-70e5da5afab0",
+        "stateHash": "eed3f56c325f398cc363ff63ba9cfafdb02604060131a8adba6f469c0c9386ac",
+        "phase": "Selecting",
+        "savePath": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftTests_fa49e6e451fd4777bb6427fbd9451b78\\active-run.json",
+        "width": 1280,
+        "height": 720,
+        "frame": 440,
+        "isolatedArtTest": true
+      },
+      "visuallyInspected": false
+    },
+    {
+      "path": "artifacts/cache/v07-guide-upgrade-720-042949/PLAY_ART07_GuideLayoutAllFourActionsAvoidActualDiceAndHudAndPointAtLiveTargets_art07-edge-screens/S19-guide-repaired-2-font150.png",
+      "sha256": "58986682d9a6f504cc778478bdcaf341e9fa4bbc126deee814885110a456c7ef",
+      "bytes": 767090,
+      "sidecar": {
+        "path": "artifacts/cache/v07-guide-upgrade-720-042949/PLAY_ART07_GuideLayoutAllFourActionsAvoidActualDiceAndHudAndPointAtLiveTargets_art07-edge-screens/S19-guide-repaired-2-font150.json",
+        "sha256": "50f3e5a17ecc9e98940c47d62bb7e119d7bfa2d583d5ae0405e759e56f8d413d",
+        "bytes": 458
+      },
+      "capture": {
+        "screen": "S19-guide-repaired-2-font150",
+        "unity": "6000.6.7f1",
+        "mvid": "e6f3df26-917b-43a7-a772-70e5da5afab0",
+        "stateHash": "dc9e580c716f26d8192f04061c6332a34f68a6d33657f5bf0d2319223106c9fe",
+        "phase": "Selecting",
+        "savePath": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftTests_fa49e6e451fd4777bb6427fbd9451b78\\active-run.json",
+        "width": 1280,
+        "height": 720,
+        "frame": 576,
+        "isolatedArtTest": true
+      },
+      "visuallyInspected": true
+    },
+    {
+      "path": "artifacts/cache/v07-guide-upgrade-720-042949/PLAY_ART07_GuideLayoutAllFourActionsAvoidActualDiceAndHudAndPointAtLiveTargets_art07-edge-screens/S19-guide-repaired-3-font100.png",
+      "sha256": "3dffd28f9a08af258108001f0f45489cb9acfa9b7330298c293db902d8495d7c",
+      "bytes": 699239,
+      "sidecar": {
+        "path": "artifacts/cache/v07-guide-upgrade-720-042949/PLAY_ART07_GuideLayoutAllFourActionsAvoidActualDiceAndHudAndPointAtLiveTargets_art07-edge-screens/S19-guide-repaired-3-font100.json",
+        "sha256": "b1f3efeb501184999cb4a9a053c729206f49f729074470e93a69619d7b1d62a9",
+        "bytes": 458
+      },
+      "capture": {
+        "screen": "S19-guide-repaired-3-font100",
+        "unity": "6000.6.7f1",
+        "mvid": "e6f3df26-917b-43a7-a772-70e5da5afab0",
+        "stateHash": "401f8cf6d735db6ba5a1365758d81c0621370b846099e8d9f7c6918c336be65f",
+        "phase": "Selecting",
+        "savePath": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftTests_fa49e6e451fd4777bb6427fbd9451b78\\active-run.json",
+        "width": 1280,
+        "height": 720,
+        "frame": 335,
+        "isolatedArtTest": true
+      },
+      "visuallyInspected": false
+    },
+    {
+      "path": "artifacts/cache/v07-guide-upgrade-720-042949/PLAY_ART07_GuideLayoutAllFourActionsAvoidActualDiceAndHudAndPointAtLiveTargets_art07-edge-screens/S19-guide-repaired-3-font125.png",
+      "sha256": "e2c757c6cc9fb01423e9238a65365277232a9e893607be04658fd8c2f6ca0581",
+      "bytes": 746348,
+      "sidecar": {
+        "path": "artifacts/cache/v07-guide-upgrade-720-042949/PLAY_ART07_GuideLayoutAllFourActionsAvoidActualDiceAndHudAndPointAtLiveTargets_art07-edge-screens/S19-guide-repaired-3-font125.json",
+        "sha256": "d577132a3938e809cbcc93c0fed8ccf2e6a7d3e438753797d8eba06b1a5644d0",
+        "bytes": 458
+      },
+      "capture": {
+        "screen": "S19-guide-repaired-3-font125",
+        "unity": "6000.6.7f1",
+        "mvid": "e6f3df26-917b-43a7-a772-70e5da5afab0",
+        "stateHash": "eed3f56c325f398cc363ff63ba9cfafdb02604060131a8adba6f469c0c9386ac",
+        "phase": "Selecting",
+        "savePath": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftTests_fa49e6e451fd4777bb6427fbd9451b78\\active-run.json",
+        "width": 1280,
+        "height": 720,
+        "frame": 471,
+        "isolatedArtTest": true
+      },
+      "visuallyInspected": false
+    },
+    {
+      "path": "artifacts/cache/v07-guide-upgrade-720-042949/PLAY_ART07_GuideLayoutAllFourActionsAvoidActualDiceAndHudAndPointAtLiveTargets_art07-edge-screens/S19-guide-repaired-3-font150.png",
+      "sha256": "84bb6cc903afba7d19f567087f3b4b381a9e428d66a5c6de5db937644b2440b4",
+      "bytes": 768644,
+      "sidecar": {
+        "path": "artifacts/cache/v07-guide-upgrade-720-042949/PLAY_ART07_GuideLayoutAllFourActionsAvoidActualDiceAndHudAndPointAtLiveTargets_art07-edge-screens/S19-guide-repaired-3-font150.json",
+        "sha256": "3554106419bd294e747298892347eb5f20b035c57875bf7d65d8fbd75f7fa93b",
+        "bytes": 458
+      },
+      "capture": {
+        "screen": "S19-guide-repaired-3-font150",
+        "unity": "6000.6.7f1",
+        "mvid": "e6f3df26-917b-43a7-a772-70e5da5afab0",
+        "stateHash": "dc9e580c716f26d8192f04061c6332a34f68a6d33657f5bf0d2319223106c9fe",
+        "phase": "Selecting",
+        "savePath": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftTests_fa49e6e451fd4777bb6427fbd9451b78\\active-run.json",
+        "width": 1280,
+        "height": 720,
+        "frame": 607,
+        "isolatedArtTest": true
+      },
+      "visuallyInspected": true
+    },
+    {
+      "path": "artifacts/cache/v07-guide-upgrade-720-042949/PLAY_ART07_GuideLayoutAllFourActionsAvoidActualDiceAndHudAndPointAtLiveTargets_art07-edge-screens/S19-guide-repaired-4-font100.png",
+      "sha256": "7894b4bf98c9b629ec764db9f4350b8981a38e3369d1b73ec5ff43b26a1fb0e8",
+      "bytes": 713555,
+      "sidecar": {
+        "path": "artifacts/cache/v07-guide-upgrade-720-042949/PLAY_ART07_GuideLayoutAllFourActionsAvoidActualDiceAndHudAndPointAtLiveTargets_art07-edge-screens/S19-guide-repaired-4-font100.json",
+        "sha256": "8e4bc668635f4a475f7802ba485ad0da029b40c6ee4c32369ed2ab6e553e4136",
+        "bytes": 458
+      },
+      "capture": {
+        "screen": "S19-guide-repaired-4-font100",
+        "unity": "6000.6.7f1",
+        "mvid": "e6f3df26-917b-43a7-a772-70e5da5afab0",
+        "stateHash": "bf662d4c7012637cefde8efc2c79f0e4938990e65a56b0d2907125ae4c5096d8",
+        "phase": "Selecting",
+        "savePath": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftTests_fa49e6e451fd4777bb6427fbd9451b78\\active-run.json",
+        "width": 1280,
+        "height": 720,
+        "frame": 366,
+        "isolatedArtTest": true
+      },
+      "visuallyInspected": false
+    },
+    {
+      "path": "artifacts/cache/v07-guide-upgrade-720-042949/PLAY_ART07_GuideLayoutAllFourActionsAvoidActualDiceAndHudAndPointAtLiveTargets_art07-edge-screens/S19-guide-repaired-4-font125.png",
+      "sha256": "07b902bb4de49fb0e60ea8d5212587215d4e7a354bb5128745587d84987eaf8e",
+      "bytes": 756571,
+      "sidecar": {
+        "path": "artifacts/cache/v07-guide-upgrade-720-042949/PLAY_ART07_GuideLayoutAllFourActionsAvoidActualDiceAndHudAndPointAtLiveTargets_art07-edge-screens/S19-guide-repaired-4-font125.json",
+        "sha256": "6bc18f4e9e279f48ef3c5669542c47a05667e84485a4cceba9a6304807fd1fdd",
+        "bytes": 458
+      },
+      "capture": {
+        "screen": "S19-guide-repaired-4-font125",
+        "unity": "6000.6.7f1",
+        "mvid": "e6f3df26-917b-43a7-a772-70e5da5afab0",
+        "stateHash": "824da48e2beda776bec874000777d40aef7a0c2fc724439758c0e462e4ce23d4",
+        "phase": "Selecting",
+        "savePath": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftTests_fa49e6e451fd4777bb6427fbd9451b78\\active-run.json",
+        "width": 1280,
+        "height": 720,
+        "frame": 502,
+        "isolatedArtTest": true
+      },
+      "visuallyInspected": false
+    },
+    {
+      "path": "artifacts/cache/v07-guide-upgrade-720-042949/PLAY_ART07_GuideLayoutAllFourActionsAvoidActualDiceAndHudAndPointAtLiveTargets_art07-edge-screens/S19-guide-repaired-4-font150.png",
+      "sha256": "12f2307fec95379c26fddfdb5c080e6d83594ca2b2854a5c25b433aae0e31f9e",
+      "bytes": 779552,
+      "sidecar": {
+        "path": "artifacts/cache/v07-guide-upgrade-720-042949/PLAY_ART07_GuideLayoutAllFourActionsAvoidActualDiceAndHudAndPointAtLiveTargets_art07-edge-screens/S19-guide-repaired-4-font150.json",
+        "sha256": "0cf6d6abd148800332bf9e13f7fa67a4e496d262702fe4f6553315b917d5e1bf",
+        "bytes": 458
+      },
+      "capture": {
+        "screen": "S19-guide-repaired-4-font150",
+        "unity": "6000.6.7f1",
+        "mvid": "e6f3df26-917b-43a7-a772-70e5da5afab0",
+        "stateHash": "8293e2daaccb860ec7160145b65910c03e27976702c0e760ba05b29d22755fc6",
+        "phase": "Selecting",
+        "savePath": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftTests_fa49e6e451fd4777bb6427fbd9451b78\\active-run.json",
+        "width": 1280,
+        "height": 720,
+        "frame": 638,
+        "isolatedArtTest": true
+      },
+      "visuallyInspected": true
+    },
+    {
+      "path": "artifacts/cache/v07-guide-upgrade-720-042949/PLAY_ART07_GuideLayoutManualReopenAtMaximumCapacityKeepsCompleteInlineHelpAndClose_art07-edge-screens/S19-guide-repaired-full-paper-font100.png",
+      "sha256": "be06ef90e7891bd3a7ca8c9a2d59acafa26b2b155c1380b676c3a0f0a9276522",
+      "bytes": 619948,
+      "sidecar": {
+        "path": "artifacts/cache/v07-guide-upgrade-720-042949/PLAY_ART07_GuideLayoutManualReopenAtMaximumCapacityKeepsCompleteInlineHelpAndClose_art07-edge-screens/S19-guide-repaired-full-paper-font100.json",
+        "sha256": "38a5bc07c8694edd0f15cb90d3f59ffb46650b0338b0c5c10522a84aefba1fae",
+        "bytes": 467
+      },
+      "capture": {
+        "screen": "S19-guide-repaired-full-paper-font100",
+        "unity": "6000.6.7f1",
+        "mvid": "e6f3df26-917b-43a7-a772-70e5da5afab0",
+        "stateHash": "5d272f58901855e407e1490d6766252c6c3f9ffc3735d10bdcf52990225c6c69",
+        "phase": "HandReady",
+        "savePath": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftTests_4743825138dc41a8af2e0a6b752758ff\\active-run.json",
+        "width": 1280,
+        "height": 720,
+        "frame": 687,
+        "isolatedArtTest": true
+      },
+      "visuallyInspected": false
+    },
+    {
+      "path": "artifacts/cache/v07-guide-upgrade-720-042949/PLAY_ART07_GuideLayoutManualReopenAtMaximumCapacityKeepsCompleteInlineHelpAndClose_art07-edge-screens/S19-guide-repaired-full-paper-font125.png",
+      "sha256": "056cdcfc3e8bd2c0763f5443a086b1ca0326cafddff4af7890b8c6ea42c051c7",
+      "bytes": 659878,
+      "sidecar": {
+        "path": "artifacts/cache/v07-guide-upgrade-720-042949/PLAY_ART07_GuideLayoutManualReopenAtMaximumCapacityKeepsCompleteInlineHelpAndClose_art07-edge-screens/S19-guide-repaired-full-paper-font125.json",
+        "sha256": "551a2d9c0780dfeee4020eab3ae253aa00f514265ad98f3a9fbb42fa59b6f6de",
+        "bytes": 467
+      },
+      "capture": {
+        "screen": "S19-guide-repaired-full-paper-font125",
+        "unity": "6000.6.7f1",
+        "mvid": "e6f3df26-917b-43a7-a772-70e5da5afab0",
+        "stateHash": "65c9d3007cf8bb1d20ae53367cab076d3d216cc9b39ae1f2e56d6643492088f6",
+        "phase": "HandReady",
+        "savePath": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftTests_4743825138dc41a8af2e0a6b752758ff\\active-run.json",
+        "width": 1280,
+        "height": 720,
+        "frame": 730,
+        "isolatedArtTest": true
+      },
+      "visuallyInspected": false
+    },
+    {
+      "path": "artifacts/cache/v07-guide-upgrade-720-042949/PLAY_ART07_GuideLayoutManualReopenAtMaximumCapacityKeepsCompleteInlineHelpAndClose_art07-edge-screens/S19-guide-repaired-full-paper-font150.png",
+      "sha256": "b909b7b2fb39a8149c3ce472f4c948dd23007e089cf553e4c07f6827f2cfdd12",
+      "bytes": 687283,
+      "sidecar": {
+        "path": "artifacts/cache/v07-guide-upgrade-720-042949/PLAY_ART07_GuideLayoutManualReopenAtMaximumCapacityKeepsCompleteInlineHelpAndClose_art07-edge-screens/S19-guide-repaired-full-paper-font150.json",
+        "sha256": "b17fa6238e5e8b16a3ebd2ee1d4e6d2ee7f8a4b03392cbe96fbda0891e04bda9",
+        "bytes": 467
+      },
+      "capture": {
+        "screen": "S19-guide-repaired-full-paper-font150",
+        "unity": "6000.6.7f1",
+        "mvid": "e6f3df26-917b-43a7-a772-70e5da5afab0",
+        "stateHash": "2866f8e6e8f8fd3d2b72e1c8701735b2ccd7f97bd45a2dd14b2b077220136f97",
+        "phase": "HandReady",
+        "savePath": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftTests_4743825138dc41a8af2e0a6b752758ff\\active-run.json",
+        "width": 1280,
+        "height": 720,
+        "frame": 773,
+        "isolatedArtTest": true
+      },
+      "visuallyInspected": true
+    },
+    {
+      "path": "artifacts/cache/v07-guide-upgrade-720-042949/PLAY_ART07_GuideLayoutShopPaperLeavesPricesAndTabsVisibleAtBothFontScales_art07-edge-screens/S19-guide-repaired-shop-font100.png",
+      "sha256": "5393fa92f3919939f8554f77664a71faf250654840900772fc2321ec4da96f98",
+      "bytes": 596529,
+      "sidecar": {
+        "path": "artifacts/cache/v07-guide-upgrade-720-042949/PLAY_ART07_GuideLayoutShopPaperLeavesPricesAndTabsVisibleAtBothFontScales_art07-edge-screens/S19-guide-repaired-shop-font100.json",
+        "sha256": "a496d3d36c7fd7ce67c257bf0223ef1df8792a206dd91a5e5fa432a9e87d5ba4",
+        "bytes": 456
+      },
+      "capture": {
+        "screen": "S19-guide-repaired-shop-font100",
+        "unity": "6000.6.7f1",
+        "mvid": "e6f3df26-917b-43a7-a772-70e5da5afab0",
+        "stateHash": "8fd8322d7ce52f7c0db8297f3255ac5faacbb1b7aa8ccf129b2cd5df5b5e0433",
+        "phase": "Shop",
+        "savePath": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftTests_26a90fd742b64623b555ff10c5e5f996\\active-run.json",
+        "width": 1280,
+        "height": 720,
+        "frame": 822,
+        "isolatedArtTest": true
+      },
+      "visuallyInspected": false
+    },
+    {
+      "path": "artifacts/cache/v07-guide-upgrade-720-042949/PLAY_ART07_GuideLayoutShopPaperLeavesPricesAndTabsVisibleAtBothFontScales_art07-edge-screens/S19-guide-repaired-shop-font125.png",
+      "sha256": "b29023e55e74356b867dae28f1abe5339a386827bef858f3f553d9f4530a9ce1",
+      "bytes": 616646,
+      "sidecar": {
+        "path": "artifacts/cache/v07-guide-upgrade-720-042949/PLAY_ART07_GuideLayoutShopPaperLeavesPricesAndTabsVisibleAtBothFontScales_art07-edge-screens/S19-guide-repaired-shop-font125.json",
+        "sha256": "b85aabaae26cae4d93a3f6c33bef5adc62218416082013542470b4651994740d",
+        "bytes": 456
+      },
+      "capture": {
+        "screen": "S19-guide-repaired-shop-font125",
+        "unity": "6000.6.7f1",
+        "mvid": "e6f3df26-917b-43a7-a772-70e5da5afab0",
+        "stateHash": "7ee9ac5e891f7a05b2869e69710a810300a257da4c4799348421c9edb2cc4e8b",
+        "phase": "Shop",
+        "savePath": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftTests_26a90fd742b64623b555ff10c5e5f996\\active-run.json",
+        "width": 1280,
+        "height": 720,
+        "frame": 855,
+        "isolatedArtTest": true
+      },
+      "visuallyInspected": false
+    },
+    {
+      "path": "artifacts/cache/v07-guide-upgrade-720-042949/PLAY_ART07_GuideLayoutShopPaperLeavesPricesAndTabsVisibleAtBothFontScales_art07-edge-screens/S19-guide-repaired-shop-font150.png",
+      "sha256": "2f508069d7d80872f420ab397f72a9689de6da3d3365adb68ea9abe5d28df4eb",
+      "bytes": 642627,
+      "sidecar": {
+        "path": "artifacts/cache/v07-guide-upgrade-720-042949/PLAY_ART07_GuideLayoutShopPaperLeavesPricesAndTabsVisibleAtBothFontScales_art07-edge-screens/S19-guide-repaired-shop-font150.json",
+        "sha256": "74123b7ae6a48384298d6b133387eec7537a1856ce540d488ab7143631529fbc",
+        "bytes": 456
+      },
+      "capture": {
+        "screen": "S19-guide-repaired-shop-font150",
+        "unity": "6000.6.7f1",
+        "mvid": "e6f3df26-917b-43a7-a772-70e5da5afab0",
+        "stateHash": "2e93d43a34b7b8139b6eb39e4b716ac483a5cfb43d7f89b4820068a40590a11c",
+        "phase": "Shop",
+        "savePath": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftTests_26a90fd742b64623b555ff10c5e5f996\\active-run.json",
+        "width": 1280,
+        "height": 720,
+        "frame": 888,
+        "isolatedArtTest": true
+      },
+      "visuallyInspected": true
+    },
+    {
+      "path": "artifacts/cache/v07-guide-ui-1080-043158/PLAY_ART07_GuideLayoutAllFourActionsAvoidActualDiceAndHudAndPointAtLiveTargets_art07-edge-screens/S19-guide-repaired-1-font100.png",
+      "sha256": "1d5b18f3e265b1828094a8613c1154db74a53a1fe2fda60559881859f2d39fb5",
+      "bytes": 1341686,
+      "sidecar": {
+        "path": "artifacts/cache/v07-guide-ui-1080-043158/PLAY_ART07_GuideLayoutAllFourActionsAvoidActualDiceAndHudAndPointAtLiveTargets_art07-edge-screens/S19-guide-repaired-1-font100.json",
+        "sha256": "9e7709958bc7cf7ea718dfc964c73e5fbfb8e5b785ce9aa4214519937aa8f8a8",
+        "bytes": 459
+      },
+      "capture": {
+        "screen": "S19-guide-repaired-1-font100",
+        "unity": "6000.6.7f1",
+        "mvid": "e6f3df26-917b-43a7-a772-70e5da5afab0",
+        "stateHash": "d9065a0c10ee91dd57ed2bc1e624ca4368beb44cf12a8a4a227338c2d0819400",
+        "phase": "HandReady",
+        "savePath": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftTests_82e297533ae6430e85a4e2766319ff5d\\active-run.json",
+        "width": 1920,
+        "height": 1080,
+        "frame": 448,
+        "isolatedArtTest": true
+      },
+      "visuallyInspected": false
+    },
+    {
+      "path": "artifacts/cache/v07-guide-ui-1080-043158/PLAY_ART07_GuideLayoutAllFourActionsAvoidActualDiceAndHudAndPointAtLiveTargets_art07-edge-screens/S19-guide-repaired-1-font125.png",
+      "sha256": "83791cac61616087b7134e988ebc6e60e665315d38f2a0b3cc15d2906ccfa726",
+      "bytes": 1377586,
+      "sidecar": {
+        "path": "artifacts/cache/v07-guide-ui-1080-043158/PLAY_ART07_GuideLayoutAllFourActionsAvoidActualDiceAndHudAndPointAtLiveTargets_art07-edge-screens/S19-guide-repaired-1-font125.json",
+        "sha256": "0d83c5dbce9afe8250937e406b026ce6a7053cf002b31f08cd6b27471e10ef01",
+        "bytes": 459
+      },
+      "capture": {
+        "screen": "S19-guide-repaired-1-font125",
+        "unity": "6000.6.7f1",
+        "mvid": "e6f3df26-917b-43a7-a772-70e5da5afab0",
+        "stateHash": "d72120f3a83676a5adbf8eb59b2dbf21f11c6613d23914a43aa8f7e291acdbef",
+        "phase": "HandReady",
+        "savePath": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftTests_82e297533ae6430e85a4e2766319ff5d\\active-run.json",
+        "width": 1920,
+        "height": 1080,
+        "frame": 584,
+        "isolatedArtTest": true
+      },
+      "visuallyInspected": false
+    },
+    {
+      "path": "artifacts/cache/v07-guide-ui-1080-043158/PLAY_ART07_GuideLayoutAllFourActionsAvoidActualDiceAndHudAndPointAtLiveTargets_art07-edge-screens/S19-guide-repaired-1-font150.png",
+      "sha256": "1c0f03776d84b93a732e33aad0b17fcf7f0dd65e78ce59072cd465269ceac0fc",
+      "bytes": 1408920,
+      "sidecar": {
+        "path": "artifacts/cache/v07-guide-ui-1080-043158/PLAY_ART07_GuideLayoutAllFourActionsAvoidActualDiceAndHudAndPointAtLiveTargets_art07-edge-screens/S19-guide-repaired-1-font150.json",
+        "sha256": "1345147bc7a5bd1f277b80ef7b818ef638bdc72f3a46acefe393ef9d95e16bfe",
+        "bytes": 459
+      },
+      "capture": {
+        "screen": "S19-guide-repaired-1-font150",
+        "unity": "6000.6.7f1",
+        "mvid": "e6f3df26-917b-43a7-a772-70e5da5afab0",
+        "stateHash": "8ccc8c05fb2b6115bb639cb586e90be63a40bbd97b024497ce8e26b987f5d11e",
+        "phase": "HandReady",
+        "savePath": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftTests_82e297533ae6430e85a4e2766319ff5d\\active-run.json",
+        "width": 1920,
+        "height": 1080,
+        "frame": 720,
+        "isolatedArtTest": true
+      },
+      "visuallyInspected": true
+    },
+    {
+      "path": "artifacts/cache/v07-guide-ui-1080-043158/PLAY_ART07_GuideLayoutAllFourActionsAvoidActualDiceAndHudAndPointAtLiveTargets_art07-edge-screens/S19-guide-repaired-2-font100.png",
+      "sha256": "3cd888d53916f0c61fe26d98ef8afa566f35a1f810b1254e85e143f0bd002044",
+      "bytes": 1347566,
+      "sidecar": {
+        "path": "artifacts/cache/v07-guide-ui-1080-043158/PLAY_ART07_GuideLayoutAllFourActionsAvoidActualDiceAndHudAndPointAtLiveTargets_art07-edge-screens/S19-guide-repaired-2-font100.json",
+        "sha256": "99082e0bc51f2999187d1e685ccea586df936fd10bdfb0d0484cd9fd777c8dfd",
+        "bytes": 459
+      },
+      "capture": {
+        "screen": "S19-guide-repaired-2-font100",
+        "unity": "6000.6.7f1",
+        "mvid": "e6f3df26-917b-43a7-a772-70e5da5afab0",
+        "stateHash": "b9598c655fa70137b6b1aa4ca758ef63a8cb1c6ff32dbad2450f30233b76c59b",
+        "phase": "Selecting",
+        "savePath": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftTests_82e297533ae6430e85a4e2766319ff5d\\active-run.json",
+        "width": 1920,
+        "height": 1080,
+        "frame": 479,
+        "isolatedArtTest": true
+      },
+      "visuallyInspected": false
+    },
+    {
+      "path": "artifacts/cache/v07-guide-ui-1080-043158/PLAY_ART07_GuideLayoutAllFourActionsAvoidActualDiceAndHudAndPointAtLiveTargets_art07-edge-screens/S19-guide-repaired-2-font125.png",
+      "sha256": "83b5b87b24007075bd84dc1fee4e82940fe798e15c890c4920023e0d68b52c9a",
+      "bytes": 1383908,
+      "sidecar": {
+        "path": "artifacts/cache/v07-guide-ui-1080-043158/PLAY_ART07_GuideLayoutAllFourActionsAvoidActualDiceAndHudAndPointAtLiveTargets_art07-edge-screens/S19-guide-repaired-2-font125.json",
+        "sha256": "a3ab4d08cf6f58fa0d2ee33e65d30b6366666c12a5f8616980099f2f84cc81c8",
+        "bytes": 459
+      },
+      "capture": {
+        "screen": "S19-guide-repaired-2-font125",
+        "unity": "6000.6.7f1",
+        "mvid": "e6f3df26-917b-43a7-a772-70e5da5afab0",
+        "stateHash": "564817831444da1d35f5be8f4679496bbe08187fa72132f2c3663950a556938a",
+        "phase": "Selecting",
+        "savePath": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftTests_82e297533ae6430e85a4e2766319ff5d\\active-run.json",
+        "width": 1920,
+        "height": 1080,
+        "frame": 615,
+        "isolatedArtTest": true
+      },
+      "visuallyInspected": false
+    },
+    {
+      "path": "artifacts/cache/v07-guide-ui-1080-043158/PLAY_ART07_GuideLayoutAllFourActionsAvoidActualDiceAndHudAndPointAtLiveTargets_art07-edge-screens/S19-guide-repaired-2-font150.png",
+      "sha256": "86f57437c03ea255521933d64c24ba92ccb03ccefe9f6662e564519a16d2ea6b",
+      "bytes": 1413603,
+      "sidecar": {
+        "path": "artifacts/cache/v07-guide-ui-1080-043158/PLAY_ART07_GuideLayoutAllFourActionsAvoidActualDiceAndHudAndPointAtLiveTargets_art07-edge-screens/S19-guide-repaired-2-font150.json",
+        "sha256": "514258913d2069e4b9d32c62ca2f34fb9d80acd2574e22e3cf6258164ec72af2",
+        "bytes": 459
+      },
+      "capture": {
+        "screen": "S19-guide-repaired-2-font150",
+        "unity": "6000.6.7f1",
+        "mvid": "e6f3df26-917b-43a7-a772-70e5da5afab0",
+        "stateHash": "eab1bf464c8bdb6d03e111cb236b3f3304aeca991e5f465d509baf69967926db",
+        "phase": "Selecting",
+        "savePath": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftTests_82e297533ae6430e85a4e2766319ff5d\\active-run.json",
+        "width": 1920,
+        "height": 1080,
+        "frame": 751,
+        "isolatedArtTest": true
+      },
+      "visuallyInspected": true
+    },
+    {
+      "path": "artifacts/cache/v07-guide-ui-1080-043158/PLAY_ART07_GuideLayoutAllFourActionsAvoidActualDiceAndHudAndPointAtLiveTargets_art07-edge-screens/S19-guide-repaired-3-font100.png",
+      "sha256": "0e3c5040c2500560c4f6701b0e6ae8ce19df39223e56a8dd09cd7edc78bfc3be",
+      "bytes": 1343110,
+      "sidecar": {
+        "path": "artifacts/cache/v07-guide-ui-1080-043158/PLAY_ART07_GuideLayoutAllFourActionsAvoidActualDiceAndHudAndPointAtLiveTargets_art07-edge-screens/S19-guide-repaired-3-font100.json",
+        "sha256": "4fa427cedbd7cbd2b6725ea6781bb2c26f964e5fdd6efe75dc8c07ea7b094c78",
+        "bytes": 459
+      },
+      "capture": {
+        "screen": "S19-guide-repaired-3-font100",
+        "unity": "6000.6.7f1",
+        "mvid": "e6f3df26-917b-43a7-a772-70e5da5afab0",
+        "stateHash": "b9598c655fa70137b6b1aa4ca758ef63a8cb1c6ff32dbad2450f30233b76c59b",
+        "phase": "Selecting",
+        "savePath": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftTests_82e297533ae6430e85a4e2766319ff5d\\active-run.json",
+        "width": 1920,
+        "height": 1080,
+        "frame": 510,
+        "isolatedArtTest": true
+      },
+      "visuallyInspected": false
+    },
+    {
+      "path": "artifacts/cache/v07-guide-ui-1080-043158/PLAY_ART07_GuideLayoutAllFourActionsAvoidActualDiceAndHudAndPointAtLiveTargets_art07-edge-screens/S19-guide-repaired-3-font125.png",
+      "sha256": "b9f910afd52a9a47af435e8c0293c46ed4b5eda412a93a5f3df8c6fd9b7a2fbd",
+      "bytes": 1381903,
+      "sidecar": {
+        "path": "artifacts/cache/v07-guide-ui-1080-043158/PLAY_ART07_GuideLayoutAllFourActionsAvoidActualDiceAndHudAndPointAtLiveTargets_art07-edge-screens/S19-guide-repaired-3-font125.json",
+        "sha256": "b44cd54745902f6ff9d1d42b61bd1cf72553d0de8a35888476a9e2a0ea059051",
+        "bytes": 459
+      },
+      "capture": {
+        "screen": "S19-guide-repaired-3-font125",
+        "unity": "6000.6.7f1",
+        "mvid": "e6f3df26-917b-43a7-a772-70e5da5afab0",
+        "stateHash": "564817831444da1d35f5be8f4679496bbe08187fa72132f2c3663950a556938a",
+        "phase": "Selecting",
+        "savePath": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftTests_82e297533ae6430e85a4e2766319ff5d\\active-run.json",
+        "width": 1920,
+        "height": 1080,
+        "frame": 646,
+        "isolatedArtTest": true
+      },
+      "visuallyInspected": false
+    },
+    {
+      "path": "artifacts/cache/v07-guide-ui-1080-043158/PLAY_ART07_GuideLayoutAllFourActionsAvoidActualDiceAndHudAndPointAtLiveTargets_art07-edge-screens/S19-guide-repaired-3-font150.png",
+      "sha256": "0f5b67c53ad16db47d6db8a6184092d75f7c7b3ce92759e8d9dc137465bd60f1",
+      "bytes": 1411986,
+      "sidecar": {
+        "path": "artifacts/cache/v07-guide-ui-1080-043158/PLAY_ART07_GuideLayoutAllFourActionsAvoidActualDiceAndHudAndPointAtLiveTargets_art07-edge-screens/S19-guide-repaired-3-font150.json",
+        "sha256": "3aa066b922fedac8b1facf5e4826aaed0d0ce3dbeb2991d006be2e928e234ff7",
+        "bytes": 459
+      },
+      "capture": {
+        "screen": "S19-guide-repaired-3-font150",
+        "unity": "6000.6.7f1",
+        "mvid": "e6f3df26-917b-43a7-a772-70e5da5afab0",
+        "stateHash": "eab1bf464c8bdb6d03e111cb236b3f3304aeca991e5f465d509baf69967926db",
+        "phase": "Selecting",
+        "savePath": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftTests_82e297533ae6430e85a4e2766319ff5d\\active-run.json",
+        "width": 1920,
+        "height": 1080,
+        "frame": 782,
+        "isolatedArtTest": true
+      },
+      "visuallyInspected": true
+    },
+    {
+      "path": "artifacts/cache/v07-guide-ui-1080-043158/PLAY_ART07_GuideLayoutAllFourActionsAvoidActualDiceAndHudAndPointAtLiveTargets_art07-edge-screens/S19-guide-repaired-4-font100.png",
+      "sha256": "a984c9a63426da6b08e50a84c8eab6490c7f78deaeaf6b179459c450e132272f",
+      "bytes": 1340903,
+      "sidecar": {
+        "path": "artifacts/cache/v07-guide-ui-1080-043158/PLAY_ART07_GuideLayoutAllFourActionsAvoidActualDiceAndHudAndPointAtLiveTargets_art07-edge-screens/S19-guide-repaired-4-font100.json",
+        "sha256": "c310e2eee02b4b8edc14858ac26e86fb535e65a782867b549c8335e800670430",
+        "bytes": 459
+      },
+      "capture": {
+        "screen": "S19-guide-repaired-4-font100",
+        "unity": "6000.6.7f1",
+        "mvid": "e6f3df26-917b-43a7-a772-70e5da5afab0",
+        "stateHash": "44caa2ca078c637542e71e2e0e2b4d3bb36aa1baab7f5792a074052d6a0a0fce",
+        "phase": "Selecting",
+        "savePath": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftTests_82e297533ae6430e85a4e2766319ff5d\\active-run.json",
+        "width": 1920,
+        "height": 1080,
+        "frame": 541,
+        "isolatedArtTest": true
+      },
+      "visuallyInspected": false
+    },
+    {
+      "path": "artifacts/cache/v07-guide-ui-1080-043158/PLAY_ART07_GuideLayoutAllFourActionsAvoidActualDiceAndHudAndPointAtLiveTargets_art07-edge-screens/S19-guide-repaired-4-font125.png",
+      "sha256": "d766f3782defe0010bcb6a9481eb16694cf335124c8130c68850f62d33fbed99",
+      "bytes": 1377770,
+      "sidecar": {
+        "path": "artifacts/cache/v07-guide-ui-1080-043158/PLAY_ART07_GuideLayoutAllFourActionsAvoidActualDiceAndHudAndPointAtLiveTargets_art07-edge-screens/S19-guide-repaired-4-font125.json",
+        "sha256": "94b266df2d90414663bdbe2418d02d211f456ccaf1125e25d24eb06f49e011f5",
+        "bytes": 459
+      },
+      "capture": {
+        "screen": "S19-guide-repaired-4-font125",
+        "unity": "6000.6.7f1",
+        "mvid": "e6f3df26-917b-43a7-a772-70e5da5afab0",
+        "stateHash": "6b6e75dc66b3a4c9d64ff0e067ba74765001ae5726953de259e9edc5ceacb3fa",
+        "phase": "Selecting",
+        "savePath": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftTests_82e297533ae6430e85a4e2766319ff5d\\active-run.json",
+        "width": 1920,
+        "height": 1080,
+        "frame": 677,
+        "isolatedArtTest": true
+      },
+      "visuallyInspected": false
+    },
+    {
+      "path": "artifacts/cache/v07-guide-ui-1080-043158/PLAY_ART07_GuideLayoutAllFourActionsAvoidActualDiceAndHudAndPointAtLiveTargets_art07-edge-screens/S19-guide-repaired-4-font150.png",
+      "sha256": "0cdb2f937ac2025c52487112f471fdb1a430b13729355ac8b7252ae0805b58eb",
+      "bytes": 1412688,
+      "sidecar": {
+        "path": "artifacts/cache/v07-guide-ui-1080-043158/PLAY_ART07_GuideLayoutAllFourActionsAvoidActualDiceAndHudAndPointAtLiveTargets_art07-edge-screens/S19-guide-repaired-4-font150.json",
+        "sha256": "845efdb9bcfa6f83adc84f07d98ba871389dea2e9f3274bd57746d9ea8a2e8ff",
+        "bytes": 459
+      },
+      "capture": {
+        "screen": "S19-guide-repaired-4-font150",
+        "unity": "6000.6.7f1",
+        "mvid": "e6f3df26-917b-43a7-a772-70e5da5afab0",
+        "stateHash": "0e1abad3bffcc994c132f23bffa6068f8f3352350dc4cf40266b15d13f76adf0",
+        "phase": "Selecting",
+        "savePath": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftTests_82e297533ae6430e85a4e2766319ff5d\\active-run.json",
+        "width": 1920,
+        "height": 1080,
+        "frame": 813,
+        "isolatedArtTest": true
+      },
+      "visuallyInspected": true
+    },
+    {
+      "path": "artifacts/cache/v07-guide-ui-1080-043158/PLAY_ART07_GuideLayoutManualReopenAtMaximumCapacityKeepsCompleteInlineHelpAndClose_art07-edge-screens/S19-guide-repaired-full-paper-font100.png",
+      "sha256": "430935d49ebbeaddc5665d4b9cbd8bd3cf766325d28719501ffed8e3b8b55e15",
+      "bytes": 1203118,
+      "sidecar": {
+        "path": "artifacts/cache/v07-guide-ui-1080-043158/PLAY_ART07_GuideLayoutManualReopenAtMaximumCapacityKeepsCompleteInlineHelpAndClose_art07-edge-screens/S19-guide-repaired-full-paper-font100.json",
+        "sha256": "1eb1cf79a55ed1d9951862ea703a8609656f11f933c778f587a387c74a146847",
+        "bytes": 468
+      },
+      "capture": {
+        "screen": "S19-guide-repaired-full-paper-font100",
+        "unity": "6000.6.7f1",
+        "mvid": "e6f3df26-917b-43a7-a772-70e5da5afab0",
+        "stateHash": "5d272f58901855e407e1490d6766252c6c3f9ffc3735d10bdcf52990225c6c69",
+        "phase": "HandReady",
+        "savePath": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftTests_be037d3a78b24428a89aa2ad798a55c1\\active-run.json",
+        "width": 1920,
+        "height": 1080,
+        "frame": 862,
+        "isolatedArtTest": true
+      },
+      "visuallyInspected": false
+    },
+    {
+      "path": "artifacts/cache/v07-guide-ui-1080-043158/PLAY_ART07_GuideLayoutManualReopenAtMaximumCapacityKeepsCompleteInlineHelpAndClose_art07-edge-screens/S19-guide-repaired-full-paper-font125.png",
+      "sha256": "a0685cab78cdc5620f7cbe6bc64257f38bae12b4b91b97c5dd9944fb1eca8276",
+      "bytes": 1245833,
+      "sidecar": {
+        "path": "artifacts/cache/v07-guide-ui-1080-043158/PLAY_ART07_GuideLayoutManualReopenAtMaximumCapacityKeepsCompleteInlineHelpAndClose_art07-edge-screens/S19-guide-repaired-full-paper-font125.json",
+        "sha256": "05edbfdf9cda72800676939e9f35a520a0394629679ae3a775981761e2d78bed",
+        "bytes": 468
+      },
+      "capture": {
+        "screen": "S19-guide-repaired-full-paper-font125",
+        "unity": "6000.6.7f1",
+        "mvid": "e6f3df26-917b-43a7-a772-70e5da5afab0",
+        "stateHash": "65c9d3007cf8bb1d20ae53367cab076d3d216cc9b39ae1f2e56d6643492088f6",
+        "phase": "HandReady",
+        "savePath": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftTests_be037d3a78b24428a89aa2ad798a55c1\\active-run.json",
+        "width": 1920,
+        "height": 1080,
+        "frame": 906,
+        "isolatedArtTest": true
+      },
+      "visuallyInspected": false
+    },
+    {
+      "path": "artifacts/cache/v07-guide-ui-1080-043158/PLAY_ART07_GuideLayoutManualReopenAtMaximumCapacityKeepsCompleteInlineHelpAndClose_art07-edge-screens/S19-guide-repaired-full-paper-font150.png",
+      "sha256": "d5808295c1d29c944b3fa0f5e4fbc95a2e62693a9dbb03e8030f92ba47c510af",
+      "bytes": 1284440,
+      "sidecar": {
+        "path": "artifacts/cache/v07-guide-ui-1080-043158/PLAY_ART07_GuideLayoutManualReopenAtMaximumCapacityKeepsCompleteInlineHelpAndClose_art07-edge-screens/S19-guide-repaired-full-paper-font150.json",
+        "sha256": "e8616862d468d828b7edf835c14c75458b89bcad4386ea9dedb5bf2f355ed702",
+        "bytes": 468
+      },
+      "capture": {
+        "screen": "S19-guide-repaired-full-paper-font150",
+        "unity": "6000.6.7f1",
+        "mvid": "e6f3df26-917b-43a7-a772-70e5da5afab0",
+        "stateHash": "2866f8e6e8f8fd3d2b72e1c8701735b2ccd7f97bd45a2dd14b2b077220136f97",
+        "phase": "HandReady",
+        "savePath": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftTests_be037d3a78b24428a89aa2ad798a55c1\\active-run.json",
+        "width": 1920,
+        "height": 1080,
+        "frame": 950,
+        "isolatedArtTest": true
+      },
+      "visuallyInspected": true
+    },
+    {
+      "path": "artifacts/cache/v07-guide-ui-1080-043158/PLAY_ART07_GuideLayoutShopPaperLeavesPricesAndTabsVisibleAtBothFontScales_art07-edge-screens/S19-guide-repaired-shop-font100.png",
+      "sha256": "6aae56ac362b6eb8d8c06da4e5b8566f58fb347b5e6a827420a64040dbf857f4",
+      "bytes": 1077305,
+      "sidecar": {
+        "path": "artifacts/cache/v07-guide-ui-1080-043158/PLAY_ART07_GuideLayoutShopPaperLeavesPricesAndTabsVisibleAtBothFontScales_art07-edge-screens/S19-guide-repaired-shop-font100.json",
+        "sha256": "1cc3940957aa84aa83a404f4fdb3fdd1e32957dcde99ad83b687f65113e6bff7",
+        "bytes": 457
+      },
+      "capture": {
+        "screen": "S19-guide-repaired-shop-font100",
+        "unity": "6000.6.7f1",
+        "mvid": "e6f3df26-917b-43a7-a772-70e5da5afab0",
+        "stateHash": "8fd8322d7ce52f7c0db8297f3255ac5faacbb1b7aa8ccf129b2cd5df5b5e0433",
+        "phase": "Shop",
+        "savePath": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftTests_066a21bf692b4fc3be1fb0d303821746\\active-run.json",
+        "width": 1920,
+        "height": 1080,
+        "frame": 999,
+        "isolatedArtTest": true
+      },
+      "visuallyInspected": false
+    },
+    {
+      "path": "artifacts/cache/v07-guide-ui-1080-043158/PLAY_ART07_GuideLayoutShopPaperLeavesPricesAndTabsVisibleAtBothFontScales_art07-edge-screens/S19-guide-repaired-shop-font125.png",
+      "sha256": "a96088204cd32d5f0aa662eafdd65c3b7dd64c542cd2b93e0117390cdca5e971",
+      "bytes": 1104107,
+      "sidecar": {
+        "path": "artifacts/cache/v07-guide-ui-1080-043158/PLAY_ART07_GuideLayoutShopPaperLeavesPricesAndTabsVisibleAtBothFontScales_art07-edge-screens/S19-guide-repaired-shop-font125.json",
+        "sha256": "ffa1ccc006aebc71cfd0f745383f67504b785b51991768bda8eb1e162fb68080",
+        "bytes": 458
+      },
+      "capture": {
+        "screen": "S19-guide-repaired-shop-font125",
+        "unity": "6000.6.7f1",
+        "mvid": "e6f3df26-917b-43a7-a772-70e5da5afab0",
+        "stateHash": "7ee9ac5e891f7a05b2869e69710a810300a257da4c4799348421c9edb2cc4e8b",
+        "phase": "Shop",
+        "savePath": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftTests_066a21bf692b4fc3be1fb0d303821746\\active-run.json",
+        "width": 1920,
+        "height": 1080,
+        "frame": 1032,
+        "isolatedArtTest": true
+      },
+      "visuallyInspected": false
+    },
+    {
+      "path": "artifacts/cache/v07-guide-ui-1080-043158/PLAY_ART07_GuideLayoutShopPaperLeavesPricesAndTabsVisibleAtBothFontScales_art07-edge-screens/S19-guide-repaired-shop-font150.png",
+      "sha256": "e98ce1990d030a9cba3e7b11ec271fef105c47d8d07071d885f3d915b6fb9b6d",
+      "bytes": 1138015,
+      "sidecar": {
+        "path": "artifacts/cache/v07-guide-ui-1080-043158/PLAY_ART07_GuideLayoutShopPaperLeavesPricesAndTabsVisibleAtBothFontScales_art07-edge-screens/S19-guide-repaired-shop-font150.json",
+        "sha256": "83483940f0c89c6c284f2970aca30571138467c461565fee20df83cd61c910f4",
+        "bytes": 458
+      },
+      "capture": {
+        "screen": "S19-guide-repaired-shop-font150",
+        "unity": "6000.6.7f1",
+        "mvid": "e6f3df26-917b-43a7-a772-70e5da5afab0",
+        "stateHash": "2e93d43a34b7b8139b6eb39e4b716ac483a5cfb43d7f89b4820068a40590a11c",
+        "phase": "Shop",
+        "savePath": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftTests_066a21bf692b4fc3be1fb0d303821746\\active-run.json",
+        "width": 1920,
+        "height": 1080,
+        "frame": 1065,
+        "isolatedArtTest": true
+      },
+      "visuallyInspected": true
+    }
+  ],
+  "affordanceScreens": [
+    {
+      "path": "artifacts/cache/v07-new-ui-review/Affordance042447/locked-eight-grips-font100.png",
+      "sha256": "663f1b72f71548f01da8026a977beec49e66819fdc66031dc05b6b55eba008b1",
+      "bytes": 650156,
+      "size": [
+        1280,
+        720
+      ],
+      "visuallyInspected": true,
+      "matchesNunitLoggedOriginal": [
+        "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_efc9c24482e34a8898bd1a74e0e73ef1\\art07-dice-affordance\\locked-eight-grips-font100.png"
+      ]
+    },
+    {
+      "path": "artifacts/cache/v07-new-ui-review/Affordance042447/locked-eight-grips-font125.png",
+      "sha256": "3e2a29fdbe4ea1dfc362ab0f3305c9068ece0d107083a97af1bbef4645d107b8",
+      "bytes": 671304,
+      "size": [
+        1280,
+        720
+      ],
+      "visuallyInspected": true,
+      "matchesNunitLoggedOriginal": [
+        "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_efc9c24482e34a8898bd1a74e0e73ef1\\art07-dice-affordance\\locked-eight-grips-font125.png"
+      ]
+    },
+    {
+      "path": "artifacts/cache/v07-new-ui-review/Affordance042447/locked-eight-grips-font150.png",
+      "sha256": "e0e9e87fd4acdf7af424984e7a032520f11abf08b6dd6efe6d94c57a1312cff8",
+      "bytes": 698188,
+      "size": [
+        1280,
+        720
+      ],
+      "visuallyInspected": true,
+      "matchesNunitLoggedOriginal": [
+        "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_efc9c24482e34a8898bd1a74e0e73ef1\\art07-dice-affordance\\locked-eight-grips-font150.png"
+      ]
+    },
+    {
+      "path": "artifacts/cache/v07-new-ui-review/Affordance042447/pending-eight-font100.png",
+      "sha256": "d9d3e4b9ae709d9bb20a75173e7f9fa941e6ea9f6cb7c6bdb00a593664330aff",
+      "bytes": 641849,
+      "size": [
+        1280,
+        720
+      ],
+      "visuallyInspected": true,
+      "matchesNunitLoggedOriginal": [
+        "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_efc9c24482e34a8898bd1a74e0e73ef1\\art07-dice-affordance\\pending-eight-font100.png"
+      ]
+    },
+    {
+      "path": "artifacts/cache/v07-new-ui-review/Affordance042447/pending-eight-font125.png",
+      "sha256": "bd98c2e820d55e2e9243422654d4a268c3b705ba67679832ce1fa1b34c87cf59",
+      "bytes": 669256,
+      "size": [
+        1280,
+        720
+      ],
+      "visuallyInspected": true,
+      "matchesNunitLoggedOriginal": [
+        "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_efc9c24482e34a8898bd1a74e0e73ef1\\art07-dice-affordance\\pending-eight-font125.png"
+      ]
+    },
+    {
+      "path": "artifacts/cache/v07-new-ui-review/Affordance042447/pending-eight-font150.png",
+      "sha256": "5b86ccdb2231622f8b1b2d5fc861b3e056a97bc60838dd800d1f758b5548c940",
+      "bytes": 697352,
+      "size": [
+        1280,
+        720
+      ],
+      "visuallyInspected": true,
+      "matchesNunitLoggedOriginal": [
+        "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_efc9c24482e34a8898bd1a74e0e73ef1\\art07-dice-affordance\\pending-eight-font150.png"
+      ]
+    }
+  ],
+  "instant": {
+    "recording": {
+      "path": "artifacts/cache/v07-instant-0435/InstantHighest/recording.json",
+      "sha256": "5d7d99478bcce834469e86ae49bcaa0e4d5558155972baedcbf88959e58fb4e9",
+      "bytes": 3610
+    },
+    "captureReport": {
+      "schema": "art07-visual-recording-1",
+      "status": "captured_pending_visual_review",
+      "error": "",
+      "restoreError": "",
+      "startedUtc": "2026-11-01T04:34:20.8476852Z",
+      "endedUtc": "2026-11-01T04:34:27.8293926Z",
+      "outputDirectory": "E:\\agent_workspace\\gpt\\game2\\artifacts\\cache\\v07-instant-0435\\InstantHighest",
+      "mode": "InstantHighest",
+      "fixture": "G147",
+      "artVersion": "art0.7.0",
+      "configVersion": "p0.6.0",
+      "configSha256": "747ed1efc7bea15873f66a81eee5c7654971c21031f2a1517ce629adce7b6e6c",
+      "unityVersion": "6000.6.7f1",
+      "runtimeAssemblyMvid": "950ae19e-1f18-41f3-af1d-e479d3bed357",
+      "coreAssemblyMvid": "8f690e0d-a075-4b72-98e4-2cb64ced2fa3",
+      "recorderSourceSha256": "fa936fe488743e229af76aba9c6e61d1337f0e88453f776921c3769676d33c42",
+      "buildGuid": "00000000000000000000000000000000",
+      "platform": "WindowsEditor",
+      "os": "Windows 10  (10.0.19045) 64bit",
+      "gpu": "NVIDIA GeForce RTX 3080",
+      "graphicsApi": "Direct3D11",
+      "buildIdentity": "{\r\n  \"releaseVersion\": \"p0.6.0\",\r\n  \"sourceCommit\": \"08ef933f2fbc3198a5e357ecebaa2758fbee8643\",\r\n  \"contentConfigVersion\": \"p0.6.0\",\r\n  \"contentConfigSha256\": \"747ed1efc7bea15873f66a81eee5c7654971c21031f2a1517ce629adce7b6e6c\",\r\n  \"saveSchemaVersion\": 4,\r\n  \"goldenCaseSetSha256\": \"306cb86f79dafe0e3eb302714abd232af20fe0062a6713f7d713c11e2a6a5718\",\r\n  \"unityEditorVersion\": \"6000.6.7f1\",\r\n  \"backend\": \"Mono\"\r\n}\r\n",
+      "saveDirectory": "E:\\agent_workspace\\gpt\\game2\\artifacts\\cache\\v07-instant-0435-isolated-save",
+      "normalSaveShaBefore": "missing",
+      "normalSaveShaAfter": "missing",
+      "debugSaveShaBefore": "b0f1279eea0a1c537e032d04303c4fcb31e2983a2bc4b4686887946f6d555cf2",
+      "debugSaveShaAfter": "e3d834cb36da29aa63aaca9ffba5bf557a418c4905d32a4705ca3267cdefc8de",
+      "captureMethod": "ScreenCapture.CaptureScreenshotAsTexture after WaitForEndOfFrame",
+      "clock": "offline fixed presentation timestep 1/60; not a realtime performance result",
+      "framesPerSecond": 60,
+      "frames": 46,
+      "width": 1920,
+      "height": 1080,
+      "requestedCycles": 1,
+      "sourceTickCalls": 0,
+      "nonblockingTickCalls": 0,
+      "editor": true,
+      "batchMode": true,
+      "reducedMotion": false,
+      "fixedClockIntegrated": false,
+      "restoredTiming": true,
+      "restoredPreferences": true,
+      "normalSaveUnchanged": true,
+      "previousCaptureDeltaTime": 0.0,
+      "transactionClip": "",
+      "transactionSourceManifestSha256": "",
+      "previousPreferences": [
+        {
+          "key": "fast",
+          "existed": true,
+          "value": 0
+        },
+        {
+          "key": "reduced",
+          "existed": true,
+          "value": 0
+        },
+        {
+          "key": "art07.instant",
+          "existed": true,
+          "value": 0
+        }
+      ],
+      "cycles": [
+        {
+          "index": 0,
+          "firstFrame": 15,
+          "lastFrame": 15,
+          "durationMilliseconds": 0,
+          "clockTicks": 0,
+          "command": "Submit",
+          "receiptId": "5b9ae3a2120844b0aed323df4ff1bc2c",
+          "stateHashBefore": "b5c4783384abd8ecc503a7767f067411202370617148d49290360122544cc8fd",
+          "stateHashAfter": "51a457edf53d9cff000e1f02896347d58804a1f314d2776008bf923d0477532e",
+          "saveShaBefore": "e16867e49e7a3efcff353bdfc2b37c195a4ea107ac6187a20af524d23f8ab9a5",
+          "saveShaAfter": "e3d834cb36da29aa63aaca9ffba5bf557a418c4905d32a4705ca3267cdefc8de",
+          "completed": true,
+          "stateAndSaveStable": true
+        }
+      ]
+    },
+    "frameLog": {
+      "path": "artifacts/cache/v07-instant-0435/InstantHighest/frames.jsonl",
+      "sha256": "08ecfbbfc2214c88097175bdc396617787360ca2dcf4d2dfbd13e7982ad47c54",
+      "bytes": 59015
+    },
+    "fixture": {
+      "path": "artifacts/cache/v07-instant-0435/InstantHighest/fixture.json",
+      "sha256": "879c379256f7c06bb3251fabc7354146475bb7a15f0f1eb26a1d4365f81b2a51",
+      "bytes": 351
+    },
+    "stateSnapshots": [
+      {
+        "path": "artifacts/cache/v07-instant-0435/InstantHighest/state-before-fixture.json",
+        "sha256": "24c8c69e9d95b5b53b8dea9fbef7c2b6d7d0544af3a71af65e30db432d5e5552",
+        "bytes": 45717
+      },
+      {
+        "path": "artifacts/cache/v07-instant-0435/InstantHighest/state-before-submit.json",
+        "sha256": "65d2a86ce18c49227bf6000ffbc9be2b13ca9b6b737fb3557b7a042cc06e3718",
+        "bytes": 72673
+      },
+      {
+        "path": "artifacts/cache/v07-instant-0435/InstantHighest/state-committed.json",
+        "sha256": "b7df4e076e0f57ca32f43ac40624ebcb3963913d4a85834e7d87245e1f426109",
+        "bytes": 117094
+      }
+    ],
+    "video": {
+      "path": "artifacts/cache/v07-instant-0435/InstantHighest/visual-silent.mp4",
+      "sha256": "a1ff1e00f13847dd9c8e621d90bc3a32e4a0ecc35907ca92b4724dc3f89296a2",
+      "bytes": 173833
+    },
+    "actualFrameFiles": 46,
+    "allFrameHashesMatch": true,
+    "allIndicesContiguous": true,
+    "allUnityFramesContiguous": true,
+    "changesAtFrames": [
+      15
+    ],
+    "videoProbe": [
+      {
+        "codec_name": "h264",
+        "width": 1920,
+        "height": 1080,
+        "r_frame_rate": "60/1",
+        "avg_frame_rate": "60/1",
+        "duration": "0.766667",
+        "nb_frames": "46",
+        "disposition": {
+          "default": 1,
+          "dub": 0,
+          "original": 0,
+          "comment": 0,
+          "lyrics": 0,
+          "karaoke": 0,
+          "forced": 0,
+          "hearing_impaired": 0,
+          "visual_impaired": 0,
+          "clean_effects": 0,
+          "attached_pic": 0,
+          "timed_thumbnails": 0,
+          "non_diegetic": 0,
+          "captions": 0,
+          "descriptions": 0,
+          "metadata": 0,
+          "dependent": 0,
+          "still_image": 0,
+          "multilayer": 0
+        },
+        "tags": {
+          "language": "und",
+          "handler_name": "VideoHandler",
+          "vendor_id": "[0][0][0][0]",
+          "encoder": "Lavc61.19.100 libx264"
+        }
+      }
+    ],
+    "videoFrameCount": 46,
+    "videoPtsMaximumErrorSeconds": 3.33333333379926e-07,
+    "fullDecode": {
+      "exitCode": 0,
+      "stderr": ""
+    },
+    "pngVsEncodedVideoSsimDiagnosticOnly": {
+      "exitCode": 0,
+      "summary": "SSIM Y:0.997402 (25.854106) U:0.996412 (24.450881) V:0.996423 (24.464630) All:0.997074 (25.337146)"
+    },
+    "frame15vs16": {
+      "wholePixelsEqual": true,
+      "dicePoolCrop": [
+        365,
+        470,
+        1900,
+        745
+      ],
+      "dicePoolPixelsEqual": true
+    },
+    "actionSequence": [
+      2,
+      3
+    ],
+    "newReceiptCount": 1,
+    "newReceipt": {
+      "commandId": "5b9ae3a2120844b0aed323df4ff1bc2c",
+      "phase": "HandReady",
+      "message": "Submit",
+      "stateHash": "51a457edf53d9cff000e1f02896347d58804a1f314d2776008bf923d0477532e",
+      "score": "967680",
+      "actionSequence": 3,
+      "beforeSequence": 2,
+      "goldBefore": 30,
+      "goldAfter": 30,
+      "randomResults": []
+    },
+    "rng": [
+      {
+        "name": "diceRngState",
+        "before": 20261031,
+        "after": 20261031
+      },
+      {
+        "name": "shopRngState",
+        "before": 20261032,
+        "after": 20261032
+      },
+      {
+        "name": "effectRngState",
+        "before": 20261033,
+        "after": 20261033
+      }
+    ],
+    "permanentDiceUnchanged": true,
+    "handBefore": {
+      "rollsRemaining": 2,
+      "orderedLockedIds": [
+        "D011",
+        "D012",
+        "D013",
+        "D014",
+        "D015"
+      ]
+    },
+    "handAfter": {
+      "rollsRemaining": 3,
+      "orderedLockedIds": []
+    },
+    "stageBefore": {
+      "stageId": "STAGE_01",
+      "stageIndex": 0,
+      "capacity": 5,
+      "remainingSubmissions": 3,
+      "submissionOrdinal": 0,
+      "stageRollBonus": 0,
+      "reward": 5,
+      "target": "1800000",
+      "score": "0",
+      "controllerOrderSnapshot": [
+        "ITEM_00005",
+        "ITEM_00006",
+        "ITEM_00007",
+        "ITEM_00008"
+      ],
+      "submissionBonusSourceIds": [],
+      "mimicBindings": [],
+      "destroyedControllerIds": [],
+      "risk": false,
+      "started": true,
+      "qualified": false,
+      "settled": false,
+      "settlementContinuation": "",
+      "settlementId": ""
+    },
+    "stageAfter": {
+      "stageId": "STAGE_01",
+      "stageIndex": 0,
+      "capacity": 5,
+      "remainingSubmissions": 2,
+      "submissionOrdinal": 1,
+      "stageRollBonus": 0,
+      "reward": 5,
+      "target": "1800000",
+      "score": "967680",
+      "controllerOrderSnapshot": [
+        "ITEM_00005",
+        "ITEM_00006",
+        "ITEM_00007",
+        "ITEM_00008"
+      ],
+      "submissionBonusSourceIds": [],
+      "mimicBindings": [],
+      "destroyedControllerIds": [],
+      "risk": false,
+      "started": true,
+      "qualified": false,
+      "settled": false,
+      "settlementContinuation": "",
+      "settlementId": ""
+    },
+    "isolatedDebugSave": {
+      "path": "artifacts/cache/v07-instant-0435-isolated-save/debug-run.json",
+      "sha256": "e3d834cb36da29aa63aaca9ffba5bf557a418c4905d32a4705ca3267cdefc8de",
+      "bytes": 46677
+    },
+    "isolatedSaveMatchesRecordedAfter": true,
+    "recorderCurrentSource": {
+      "path": "DicePrototype/Assets/Game/Runtime/Verification/Art07VisualRecorder.cs",
+      "sha256": "fa936fe488743e229af76aba9c6e61d1337f0e88453f776921c3769676d33c42",
+      "bytes": 29751
+    },
+    "recorderCurrentMatchesCapturedSource": true,
+    "sourceBindingLimitation": "No capture-time full-source manifest for 04:34 Instant recording. Runtime MVID differs from 04:31:58 test; coordinator explicitly confirmed not to backfill. Current-source hash is diagnostic only. Final source-frozen re-record remains required.",
+    "frames": [
+      {
+        "path": "artifacts/cache/v07-instant-0435/InstantHighest/frames/frame_000000.png",
+        "sha256": "112997608b1ad40d8efc936e7c89bb4fff293413dea13f18329a3ddea022dd1e",
+        "bytes": 1305152,
+        "index": 0,
+        "unityFrame": 10163,
+        "videoSeconds": 0.0,
+        "stage": "lead",
+        "stateHash": "b5c4783384abd8ecc503a7767f067411202370617148d49290360122544cc8fd",
+        "saveSha256": "e16867e49e7a3efcff353bdfc2b37c195a4ea107ac6187a20af524d23f8ab9a5",
+        "receiptId": "",
+        "presentationPlaying": false,
+        "presentationTicks": 0,
+        "nonblockingTicks": 0,
+        "visuallyInspected": false
+      },
+      {
+        "path": "artifacts/cache/v07-instant-0435/InstantHighest/frames/frame_000001.png",
+        "sha256": "112997608b1ad40d8efc936e7c89bb4fff293413dea13f18329a3ddea022dd1e",
+        "bytes": 1305152,
+        "index": 1,
+        "unityFrame": 10164,
+        "videoSeconds": 0.016666666666666666,
+        "stage": "lead",
+        "stateHash": "b5c4783384abd8ecc503a7767f067411202370617148d49290360122544cc8fd",
+        "saveSha256": "e16867e49e7a3efcff353bdfc2b37c195a4ea107ac6187a20af524d23f8ab9a5",
+        "receiptId": "",
+        "presentationPlaying": false,
+        "presentationTicks": 0,
+        "nonblockingTicks": 0,
+        "visuallyInspected": false
+      },
+      {
+        "path": "artifacts/cache/v07-instant-0435/InstantHighest/frames/frame_000002.png",
+        "sha256": "112997608b1ad40d8efc936e7c89bb4fff293413dea13f18329a3ddea022dd1e",
+        "bytes": 1305152,
+        "index": 2,
+        "unityFrame": 10165,
+        "videoSeconds": 0.03333333333333333,
+        "stage": "lead",
+        "stateHash": "b5c4783384abd8ecc503a7767f067411202370617148d49290360122544cc8fd",
+        "saveSha256": "e16867e49e7a3efcff353bdfc2b37c195a4ea107ac6187a20af524d23f8ab9a5",
+        "receiptId": "",
+        "presentationPlaying": false,
+        "presentationTicks": 0,
+        "nonblockingTicks": 0,
+        "visuallyInspected": false
+      },
+      {
+        "path": "artifacts/cache/v07-instant-0435/InstantHighest/frames/frame_000003.png",
+        "sha256": "112997608b1ad40d8efc936e7c89bb4fff293413dea13f18329a3ddea022dd1e",
+        "bytes": 1305152,
+        "index": 3,
+        "unityFrame": 10166,
+        "videoSeconds": 0.05,
+        "stage": "lead",
+        "stateHash": "b5c4783384abd8ecc503a7767f067411202370617148d49290360122544cc8fd",
+        "saveSha256": "e16867e49e7a3efcff353bdfc2b37c195a4ea107ac6187a20af524d23f8ab9a5",
+        "receiptId": "",
+        "presentationPlaying": false,
+        "presentationTicks": 0,
+        "nonblockingTicks": 0,
+        "visuallyInspected": false
+      },
+      {
+        "path": "artifacts/cache/v07-instant-0435/InstantHighest/frames/frame_000004.png",
+        "sha256": "112997608b1ad40d8efc936e7c89bb4fff293413dea13f18329a3ddea022dd1e",
+        "bytes": 1305152,
+        "index": 4,
+        "unityFrame": 10167,
+        "videoSeconds": 0.06666666666666667,
+        "stage": "lead",
+        "stateHash": "b5c4783384abd8ecc503a7767f067411202370617148d49290360122544cc8fd",
+        "saveSha256": "e16867e49e7a3efcff353bdfc2b37c195a4ea107ac6187a20af524d23f8ab9a5",
+        "receiptId": "",
+        "presentationPlaying": false,
+        "presentationTicks": 0,
+        "nonblockingTicks": 0,
+        "visuallyInspected": false
+      },
+      {
+        "path": "artifacts/cache/v07-instant-0435/InstantHighest/frames/frame_000005.png",
+        "sha256": "112997608b1ad40d8efc936e7c89bb4fff293413dea13f18329a3ddea022dd1e",
+        "bytes": 1305152,
+        "index": 5,
+        "unityFrame": 10168,
+        "videoSeconds": 0.08333333333333333,
+        "stage": "lead",
+        "stateHash": "b5c4783384abd8ecc503a7767f067411202370617148d49290360122544cc8fd",
+        "saveSha256": "e16867e49e7a3efcff353bdfc2b37c195a4ea107ac6187a20af524d23f8ab9a5",
+        "receiptId": "",
+        "presentationPlaying": false,
+        "presentationTicks": 0,
+        "nonblockingTicks": 0,
+        "visuallyInspected": false
+      },
+      {
+        "path": "artifacts/cache/v07-instant-0435/InstantHighest/frames/frame_000006.png",
+        "sha256": "112997608b1ad40d8efc936e7c89bb4fff293413dea13f18329a3ddea022dd1e",
+        "bytes": 1305152,
+        "index": 6,
+        "unityFrame": 10169,
+        "videoSeconds": 0.1,
+        "stage": "lead",
+        "stateHash": "b5c4783384abd8ecc503a7767f067411202370617148d49290360122544cc8fd",
+        "saveSha256": "e16867e49e7a3efcff353bdfc2b37c195a4ea107ac6187a20af524d23f8ab9a5",
+        "receiptId": "",
+        "presentationPlaying": false,
+        "presentationTicks": 0,
+        "nonblockingTicks": 0,
+        "visuallyInspected": false
+      },
+      {
+        "path": "artifacts/cache/v07-instant-0435/InstantHighest/frames/frame_000007.png",
+        "sha256": "112997608b1ad40d8efc936e7c89bb4fff293413dea13f18329a3ddea022dd1e",
+        "bytes": 1305152,
+        "index": 7,
+        "unityFrame": 10170,
+        "videoSeconds": 0.11666666666666667,
+        "stage": "lead",
+        "stateHash": "b5c4783384abd8ecc503a7767f067411202370617148d49290360122544cc8fd",
+        "saveSha256": "e16867e49e7a3efcff353bdfc2b37c195a4ea107ac6187a20af524d23f8ab9a5",
+        "receiptId": "",
+        "presentationPlaying": false,
+        "presentationTicks": 0,
+        "nonblockingTicks": 0,
+        "visuallyInspected": false
+      },
+      {
+        "path": "artifacts/cache/v07-instant-0435/InstantHighest/frames/frame_000008.png",
+        "sha256": "112997608b1ad40d8efc936e7c89bb4fff293413dea13f18329a3ddea022dd1e",
+        "bytes": 1305152,
+        "index": 8,
+        "unityFrame": 10171,
+        "videoSeconds": 0.13333333333333333,
+        "stage": "lead",
+        "stateHash": "b5c4783384abd8ecc503a7767f067411202370617148d49290360122544cc8fd",
+        "saveSha256": "e16867e49e7a3efcff353bdfc2b37c195a4ea107ac6187a20af524d23f8ab9a5",
+        "receiptId": "",
+        "presentationPlaying": false,
+        "presentationTicks": 0,
+        "nonblockingTicks": 0,
+        "visuallyInspected": false
+      },
+      {
+        "path": "artifacts/cache/v07-instant-0435/InstantHighest/frames/frame_000009.png",
+        "sha256": "112997608b1ad40d8efc936e7c89bb4fff293413dea13f18329a3ddea022dd1e",
+        "bytes": 1305152,
+        "index": 9,
+        "unityFrame": 10172,
+        "videoSeconds": 0.15,
+        "stage": "lead",
+        "stateHash": "b5c4783384abd8ecc503a7767f067411202370617148d49290360122544cc8fd",
+        "saveSha256": "e16867e49e7a3efcff353bdfc2b37c195a4ea107ac6187a20af524d23f8ab9a5",
+        "receiptId": "",
+        "presentationPlaying": false,
+        "presentationTicks": 0,
+        "nonblockingTicks": 0,
+        "visuallyInspected": false
+      },
+      {
+        "path": "artifacts/cache/v07-instant-0435/InstantHighest/frames/frame_000010.png",
+        "sha256": "112997608b1ad40d8efc936e7c89bb4fff293413dea13f18329a3ddea022dd1e",
+        "bytes": 1305152,
+        "index": 10,
+        "unityFrame": 10173,
+        "videoSeconds": 0.16666666666666666,
+        "stage": "lead",
+        "stateHash": "b5c4783384abd8ecc503a7767f067411202370617148d49290360122544cc8fd",
+        "saveSha256": "e16867e49e7a3efcff353bdfc2b37c195a4ea107ac6187a20af524d23f8ab9a5",
+        "receiptId": "",
+        "presentationPlaying": false,
+        "presentationTicks": 0,
+        "nonblockingTicks": 0,
+        "visuallyInspected": false
+      },
+      {
+        "path": "artifacts/cache/v07-instant-0435/InstantHighest/frames/frame_000011.png",
+        "sha256": "112997608b1ad40d8efc936e7c89bb4fff293413dea13f18329a3ddea022dd1e",
+        "bytes": 1305152,
+        "index": 11,
+        "unityFrame": 10174,
+        "videoSeconds": 0.18333333333333332,
+        "stage": "lead",
+        "stateHash": "b5c4783384abd8ecc503a7767f067411202370617148d49290360122544cc8fd",
+        "saveSha256": "e16867e49e7a3efcff353bdfc2b37c195a4ea107ac6187a20af524d23f8ab9a5",
+        "receiptId": "",
+        "presentationPlaying": false,
+        "presentationTicks": 0,
+        "nonblockingTicks": 0,
+        "visuallyInspected": false
+      },
+      {
+        "path": "artifacts/cache/v07-instant-0435/InstantHighest/frames/frame_000012.png",
+        "sha256": "112997608b1ad40d8efc936e7c89bb4fff293413dea13f18329a3ddea022dd1e",
+        "bytes": 1305152,
+        "index": 12,
+        "unityFrame": 10175,
+        "videoSeconds": 0.2,
+        "stage": "lead",
+        "stateHash": "b5c4783384abd8ecc503a7767f067411202370617148d49290360122544cc8fd",
+        "saveSha256": "e16867e49e7a3efcff353bdfc2b37c195a4ea107ac6187a20af524d23f8ab9a5",
+        "receiptId": "",
+        "presentationPlaying": false,
+        "presentationTicks": 0,
+        "nonblockingTicks": 0,
+        "visuallyInspected": false
+      },
+      {
+        "path": "artifacts/cache/v07-instant-0435/InstantHighest/frames/frame_000013.png",
+        "sha256": "112997608b1ad40d8efc936e7c89bb4fff293413dea13f18329a3ddea022dd1e",
+        "bytes": 1305152,
+        "index": 13,
+        "unityFrame": 10176,
+        "videoSeconds": 0.21666666666666667,
+        "stage": "lead",
+        "stateHash": "b5c4783384abd8ecc503a7767f067411202370617148d49290360122544cc8fd",
+        "saveSha256": "e16867e49e7a3efcff353bdfc2b37c195a4ea107ac6187a20af524d23f8ab9a5",
+        "receiptId": "",
+        "presentationPlaying": false,
+        "presentationTicks": 0,
+        "nonblockingTicks": 0,
+        "visuallyInspected": false
+      },
+      {
+        "path": "artifacts/cache/v07-instant-0435/InstantHighest/frames/frame_000014.png",
+        "sha256": "112997608b1ad40d8efc936e7c89bb4fff293413dea13f18329a3ddea022dd1e",
+        "bytes": 1305152,
+        "index": 14,
+        "unityFrame": 10177,
+        "videoSeconds": 0.23333333333333334,
+        "stage": "lead",
+        "stateHash": "b5c4783384abd8ecc503a7767f067411202370617148d49290360122544cc8fd",
+        "saveSha256": "e16867e49e7a3efcff353bdfc2b37c195a4ea107ac6187a20af524d23f8ab9a5",
+        "receiptId": "",
+        "presentationPlaying": false,
+        "presentationTicks": 0,
+        "nonblockingTicks": 0,
+        "visuallyInspected": true
+      },
+      {
+        "path": "artifacts/cache/v07-instant-0435/InstantHighest/frames/frame_000015.png",
+        "sha256": "fd6bc4f7bd63a42b036f286d1d23d00f6907b0fd15c2f74b4f60e88dc670ad0f",
+        "bytes": 1312193,
+        "index": 15,
+        "unityFrame": 10178,
+        "videoSeconds": 0.25,
+        "stage": "presentation",
+        "stateHash": "51a457edf53d9cff000e1f02896347d58804a1f314d2776008bf923d0477532e",
+        "saveSha256": "e3d834cb36da29aa63aaca9ffba5bf557a418c4905d32a4705ca3267cdefc8de",
+        "receiptId": "5b9ae3a2120844b0aed323df4ff1bc2c",
+        "presentationPlaying": false,
+        "presentationTicks": 0,
+        "nonblockingTicks": 0,
+        "visuallyInspected": true
+      },
+      {
+        "path": "artifacts/cache/v07-instant-0435/InstantHighest/frames/frame_000016.png",
+        "sha256": "fd6bc4f7bd63a42b036f286d1d23d00f6907b0fd15c2f74b4f60e88dc670ad0f",
+        "bytes": 1312193,
+        "index": 16,
+        "unityFrame": 10179,
+        "videoSeconds": 0.26666666666666666,
+        "stage": "hold",
+        "stateHash": "51a457edf53d9cff000e1f02896347d58804a1f314d2776008bf923d0477532e",
+        "saveSha256": "e3d834cb36da29aa63aaca9ffba5bf557a418c4905d32a4705ca3267cdefc8de",
+        "receiptId": "5b9ae3a2120844b0aed323df4ff1bc2c",
+        "presentationPlaying": false,
+        "presentationTicks": 0,
+        "nonblockingTicks": 0,
+        "visuallyInspected": true
+      },
+      {
+        "path": "artifacts/cache/v07-instant-0435/InstantHighest/frames/frame_000017.png",
+        "sha256": "fd6bc4f7bd63a42b036f286d1d23d00f6907b0fd15c2f74b4f60e88dc670ad0f",
+        "bytes": 1312193,
+        "index": 17,
+        "unityFrame": 10180,
+        "videoSeconds": 0.2833333333333333,
+        "stage": "hold",
+        "stateHash": "51a457edf53d9cff000e1f02896347d58804a1f314d2776008bf923d0477532e",
+        "saveSha256": "e3d834cb36da29aa63aaca9ffba5bf557a418c4905d32a4705ca3267cdefc8de",
+        "receiptId": "5b9ae3a2120844b0aed323df4ff1bc2c",
+        "presentationPlaying": false,
+        "presentationTicks": 0,
+        "nonblockingTicks": 0,
+        "visuallyInspected": false
+      },
+      {
+        "path": "artifacts/cache/v07-instant-0435/InstantHighest/frames/frame_000018.png",
+        "sha256": "fd6bc4f7bd63a42b036f286d1d23d00f6907b0fd15c2f74b4f60e88dc670ad0f",
+        "bytes": 1312193,
+        "index": 18,
+        "unityFrame": 10181,
+        "videoSeconds": 0.3,
+        "stage": "hold",
+        "stateHash": "51a457edf53d9cff000e1f02896347d58804a1f314d2776008bf923d0477532e",
+        "saveSha256": "e3d834cb36da29aa63aaca9ffba5bf557a418c4905d32a4705ca3267cdefc8de",
+        "receiptId": "5b9ae3a2120844b0aed323df4ff1bc2c",
+        "presentationPlaying": false,
+        "presentationTicks": 0,
+        "nonblockingTicks": 0,
+        "visuallyInspected": false
+      },
+      {
+        "path": "artifacts/cache/v07-instant-0435/InstantHighest/frames/frame_000019.png",
+        "sha256": "fd6bc4f7bd63a42b036f286d1d23d00f6907b0fd15c2f74b4f60e88dc670ad0f",
+        "bytes": 1312193,
+        "index": 19,
+        "unityFrame": 10182,
+        "videoSeconds": 0.31666666666666665,
+        "stage": "hold",
+        "stateHash": "51a457edf53d9cff000e1f02896347d58804a1f314d2776008bf923d0477532e",
+        "saveSha256": "e3d834cb36da29aa63aaca9ffba5bf557a418c4905d32a4705ca3267cdefc8de",
+        "receiptId": "5b9ae3a2120844b0aed323df4ff1bc2c",
+        "presentationPlaying": false,
+        "presentationTicks": 0,
+        "nonblockingTicks": 0,
+        "visuallyInspected": false
+      },
+      {
+        "path": "artifacts/cache/v07-instant-0435/InstantHighest/frames/frame_000020.png",
+        "sha256": "fd6bc4f7bd63a42b036f286d1d23d00f6907b0fd15c2f74b4f60e88dc670ad0f",
+        "bytes": 1312193,
+        "index": 20,
+        "unityFrame": 10183,
+        "videoSeconds": 0.3333333333333333,
+        "stage": "hold",
+        "stateHash": "51a457edf53d9cff000e1f02896347d58804a1f314d2776008bf923d0477532e",
+        "saveSha256": "e3d834cb36da29aa63aaca9ffba5bf557a418c4905d32a4705ca3267cdefc8de",
+        "receiptId": "5b9ae3a2120844b0aed323df4ff1bc2c",
+        "presentationPlaying": false,
+        "presentationTicks": 0,
+        "nonblockingTicks": 0,
+        "visuallyInspected": false
+      },
+      {
+        "path": "artifacts/cache/v07-instant-0435/InstantHighest/frames/frame_000021.png",
+        "sha256": "fd6bc4f7bd63a42b036f286d1d23d00f6907b0fd15c2f74b4f60e88dc670ad0f",
+        "bytes": 1312193,
+        "index": 21,
+        "unityFrame": 10184,
+        "videoSeconds": 0.35,
+        "stage": "hold",
+        "stateHash": "51a457edf53d9cff000e1f02896347d58804a1f314d2776008bf923d0477532e",
+        "saveSha256": "e3d834cb36da29aa63aaca9ffba5bf557a418c4905d32a4705ca3267cdefc8de",
+        "receiptId": "5b9ae3a2120844b0aed323df4ff1bc2c",
+        "presentationPlaying": false,
+        "presentationTicks": 0,
+        "nonblockingTicks": 0,
+        "visuallyInspected": false
+      },
+      {
+        "path": "artifacts/cache/v07-instant-0435/InstantHighest/frames/frame_000022.png",
+        "sha256": "fd6bc4f7bd63a42b036f286d1d23d00f6907b0fd15c2f74b4f60e88dc670ad0f",
+        "bytes": 1312193,
+        "index": 22,
+        "unityFrame": 10185,
+        "videoSeconds": 0.36666666666666664,
+        "stage": "hold",
+        "stateHash": "51a457edf53d9cff000e1f02896347d58804a1f314d2776008bf923d0477532e",
+        "saveSha256": "e3d834cb36da29aa63aaca9ffba5bf557a418c4905d32a4705ca3267cdefc8de",
+        "receiptId": "5b9ae3a2120844b0aed323df4ff1bc2c",
+        "presentationPlaying": false,
+        "presentationTicks": 0,
+        "nonblockingTicks": 0,
+        "visuallyInspected": false
+      },
+      {
+        "path": "artifacts/cache/v07-instant-0435/InstantHighest/frames/frame_000023.png",
+        "sha256": "fd6bc4f7bd63a42b036f286d1d23d00f6907b0fd15c2f74b4f60e88dc670ad0f",
+        "bytes": 1312193,
+        "index": 23,
+        "unityFrame": 10186,
+        "videoSeconds": 0.38333333333333336,
+        "stage": "hold",
+        "stateHash": "51a457edf53d9cff000e1f02896347d58804a1f314d2776008bf923d0477532e",
+        "saveSha256": "e3d834cb36da29aa63aaca9ffba5bf557a418c4905d32a4705ca3267cdefc8de",
+        "receiptId": "5b9ae3a2120844b0aed323df4ff1bc2c",
+        "presentationPlaying": false,
+        "presentationTicks": 0,
+        "nonblockingTicks": 0,
+        "visuallyInspected": false
+      },
+      {
+        "path": "artifacts/cache/v07-instant-0435/InstantHighest/frames/frame_000024.png",
+        "sha256": "fd6bc4f7bd63a42b036f286d1d23d00f6907b0fd15c2f74b4f60e88dc670ad0f",
+        "bytes": 1312193,
+        "index": 24,
+        "unityFrame": 10187,
+        "videoSeconds": 0.4,
+        "stage": "hold",
+        "stateHash": "51a457edf53d9cff000e1f02896347d58804a1f314d2776008bf923d0477532e",
+        "saveSha256": "e3d834cb36da29aa63aaca9ffba5bf557a418c4905d32a4705ca3267cdefc8de",
+        "receiptId": "5b9ae3a2120844b0aed323df4ff1bc2c",
+        "presentationPlaying": false,
+        "presentationTicks": 0,
+        "nonblockingTicks": 0,
+        "visuallyInspected": false
+      },
+      {
+        "path": "artifacts/cache/v07-instant-0435/InstantHighest/frames/frame_000025.png",
+        "sha256": "fd6bc4f7bd63a42b036f286d1d23d00f6907b0fd15c2f74b4f60e88dc670ad0f",
+        "bytes": 1312193,
+        "index": 25,
+        "unityFrame": 10188,
+        "videoSeconds": 0.4166666666666667,
+        "stage": "hold",
+        "stateHash": "51a457edf53d9cff000e1f02896347d58804a1f314d2776008bf923d0477532e",
+        "saveSha256": "e3d834cb36da29aa63aaca9ffba5bf557a418c4905d32a4705ca3267cdefc8de",
+        "receiptId": "5b9ae3a2120844b0aed323df4ff1bc2c",
+        "presentationPlaying": false,
+        "presentationTicks": 0,
+        "nonblockingTicks": 0,
+        "visuallyInspected": false
+      },
+      {
+        "path": "artifacts/cache/v07-instant-0435/InstantHighest/frames/frame_000026.png",
+        "sha256": "fd6bc4f7bd63a42b036f286d1d23d00f6907b0fd15c2f74b4f60e88dc670ad0f",
+        "bytes": 1312193,
+        "index": 26,
+        "unityFrame": 10189,
+        "videoSeconds": 0.43333333333333335,
+        "stage": "hold",
+        "stateHash": "51a457edf53d9cff000e1f02896347d58804a1f314d2776008bf923d0477532e",
+        "saveSha256": "e3d834cb36da29aa63aaca9ffba5bf557a418c4905d32a4705ca3267cdefc8de",
+        "receiptId": "5b9ae3a2120844b0aed323df4ff1bc2c",
+        "presentationPlaying": false,
+        "presentationTicks": 0,
+        "nonblockingTicks": 0,
+        "visuallyInspected": false
+      },
+      {
+        "path": "artifacts/cache/v07-instant-0435/InstantHighest/frames/frame_000027.png",
+        "sha256": "fd6bc4f7bd63a42b036f286d1d23d00f6907b0fd15c2f74b4f60e88dc670ad0f",
+        "bytes": 1312193,
+        "index": 27,
+        "unityFrame": 10190,
+        "videoSeconds": 0.45,
+        "stage": "hold",
+        "stateHash": "51a457edf53d9cff000e1f02896347d58804a1f314d2776008bf923d0477532e",
+        "saveSha256": "e3d834cb36da29aa63aaca9ffba5bf557a418c4905d32a4705ca3267cdefc8de",
+        "receiptId": "5b9ae3a2120844b0aed323df4ff1bc2c",
+        "presentationPlaying": false,
+        "presentationTicks": 0,
+        "nonblockingTicks": 0,
+        "visuallyInspected": false
+      },
+      {
+        "path": "artifacts/cache/v07-instant-0435/InstantHighest/frames/frame_000028.png",
+        "sha256": "fd6bc4f7bd63a42b036f286d1d23d00f6907b0fd15c2f74b4f60e88dc670ad0f",
+        "bytes": 1312193,
+        "index": 28,
+        "unityFrame": 10191,
+        "videoSeconds": 0.4666666666666667,
+        "stage": "hold",
+        "stateHash": "51a457edf53d9cff000e1f02896347d58804a1f314d2776008bf923d0477532e",
+        "saveSha256": "e3d834cb36da29aa63aaca9ffba5bf557a418c4905d32a4705ca3267cdefc8de",
+        "receiptId": "5b9ae3a2120844b0aed323df4ff1bc2c",
+        "presentationPlaying": false,
+        "presentationTicks": 0,
+        "nonblockingTicks": 0,
+        "visuallyInspected": false
+      },
+      {
+        "path": "artifacts/cache/v07-instant-0435/InstantHighest/frames/frame_000029.png",
+        "sha256": "fd6bc4f7bd63a42b036f286d1d23d00f6907b0fd15c2f74b4f60e88dc670ad0f",
+        "bytes": 1312193,
+        "index": 29,
+        "unityFrame": 10192,
+        "videoSeconds": 0.48333333333333334,
+        "stage": "hold",
+        "stateHash": "51a457edf53d9cff000e1f02896347d58804a1f314d2776008bf923d0477532e",
+        "saveSha256": "e3d834cb36da29aa63aaca9ffba5bf557a418c4905d32a4705ca3267cdefc8de",
+        "receiptId": "5b9ae3a2120844b0aed323df4ff1bc2c",
+        "presentationPlaying": false,
+        "presentationTicks": 0,
+        "nonblockingTicks": 0,
+        "visuallyInspected": false
+      },
+      {
+        "path": "artifacts/cache/v07-instant-0435/InstantHighest/frames/frame_000030.png",
+        "sha256": "fd6bc4f7bd63a42b036f286d1d23d00f6907b0fd15c2f74b4f60e88dc670ad0f",
+        "bytes": 1312193,
+        "index": 30,
+        "unityFrame": 10193,
+        "videoSeconds": 0.5,
+        "stage": "hold",
+        "stateHash": "51a457edf53d9cff000e1f02896347d58804a1f314d2776008bf923d0477532e",
+        "saveSha256": "e3d834cb36da29aa63aaca9ffba5bf557a418c4905d32a4705ca3267cdefc8de",
+        "receiptId": "5b9ae3a2120844b0aed323df4ff1bc2c",
+        "presentationPlaying": false,
+        "presentationTicks": 0,
+        "nonblockingTicks": 0,
+        "visuallyInspected": false
+      },
+      {
+        "path": "artifacts/cache/v07-instant-0435/InstantHighest/frames/frame_000031.png",
+        "sha256": "fd6bc4f7bd63a42b036f286d1d23d00f6907b0fd15c2f74b4f60e88dc670ad0f",
+        "bytes": 1312193,
+        "index": 31,
+        "unityFrame": 10194,
+        "videoSeconds": 0.5166666666666667,
+        "stage": "hold",
+        "stateHash": "51a457edf53d9cff000e1f02896347d58804a1f314d2776008bf923d0477532e",
+        "saveSha256": "e3d834cb36da29aa63aaca9ffba5bf557a418c4905d32a4705ca3267cdefc8de",
+        "receiptId": "5b9ae3a2120844b0aed323df4ff1bc2c",
+        "presentationPlaying": false,
+        "presentationTicks": 0,
+        "nonblockingTicks": 0,
+        "visuallyInspected": false
+      },
+      {
+        "path": "artifacts/cache/v07-instant-0435/InstantHighest/frames/frame_000032.png",
+        "sha256": "fd6bc4f7bd63a42b036f286d1d23d00f6907b0fd15c2f74b4f60e88dc670ad0f",
+        "bytes": 1312193,
+        "index": 32,
+        "unityFrame": 10195,
+        "videoSeconds": 0.5333333333333333,
+        "stage": "hold",
+        "stateHash": "51a457edf53d9cff000e1f02896347d58804a1f314d2776008bf923d0477532e",
+        "saveSha256": "e3d834cb36da29aa63aaca9ffba5bf557a418c4905d32a4705ca3267cdefc8de",
+        "receiptId": "5b9ae3a2120844b0aed323df4ff1bc2c",
+        "presentationPlaying": false,
+        "presentationTicks": 0,
+        "nonblockingTicks": 0,
+        "visuallyInspected": false
+      },
+      {
+        "path": "artifacts/cache/v07-instant-0435/InstantHighest/frames/frame_000033.png",
+        "sha256": "fd6bc4f7bd63a42b036f286d1d23d00f6907b0fd15c2f74b4f60e88dc670ad0f",
+        "bytes": 1312193,
+        "index": 33,
+        "unityFrame": 10196,
+        "videoSeconds": 0.55,
+        "stage": "hold",
+        "stateHash": "51a457edf53d9cff000e1f02896347d58804a1f314d2776008bf923d0477532e",
+        "saveSha256": "e3d834cb36da29aa63aaca9ffba5bf557a418c4905d32a4705ca3267cdefc8de",
+        "receiptId": "5b9ae3a2120844b0aed323df4ff1bc2c",
+        "presentationPlaying": false,
+        "presentationTicks": 0,
+        "nonblockingTicks": 0,
+        "visuallyInspected": false
+      },
+      {
+        "path": "artifacts/cache/v07-instant-0435/InstantHighest/frames/frame_000034.png",
+        "sha256": "fd6bc4f7bd63a42b036f286d1d23d00f6907b0fd15c2f74b4f60e88dc670ad0f",
+        "bytes": 1312193,
+        "index": 34,
+        "unityFrame": 10197,
+        "videoSeconds": 0.5666666666666667,
+        "stage": "hold",
+        "stateHash": "51a457edf53d9cff000e1f02896347d58804a1f314d2776008bf923d0477532e",
+        "saveSha256": "e3d834cb36da29aa63aaca9ffba5bf557a418c4905d32a4705ca3267cdefc8de",
+        "receiptId": "5b9ae3a2120844b0aed323df4ff1bc2c",
+        "presentationPlaying": false,
+        "presentationTicks": 0,
+        "nonblockingTicks": 0,
+        "visuallyInspected": false
+      },
+      {
+        "path": "artifacts/cache/v07-instant-0435/InstantHighest/frames/frame_000035.png",
+        "sha256": "fd6bc4f7bd63a42b036f286d1d23d00f6907b0fd15c2f74b4f60e88dc670ad0f",
+        "bytes": 1312193,
+        "index": 35,
+        "unityFrame": 10198,
+        "videoSeconds": 0.5833333333333334,
+        "stage": "hold",
+        "stateHash": "51a457edf53d9cff000e1f02896347d58804a1f314d2776008bf923d0477532e",
+        "saveSha256": "e3d834cb36da29aa63aaca9ffba5bf557a418c4905d32a4705ca3267cdefc8de",
+        "receiptId": "5b9ae3a2120844b0aed323df4ff1bc2c",
+        "presentationPlaying": false,
+        "presentationTicks": 0,
+        "nonblockingTicks": 0,
+        "visuallyInspected": false
+      },
+      {
+        "path": "artifacts/cache/v07-instant-0435/InstantHighest/frames/frame_000036.png",
+        "sha256": "fd6bc4f7bd63a42b036f286d1d23d00f6907b0fd15c2f74b4f60e88dc670ad0f",
+        "bytes": 1312193,
+        "index": 36,
+        "unityFrame": 10199,
+        "videoSeconds": 0.6,
+        "stage": "hold",
+        "stateHash": "51a457edf53d9cff000e1f02896347d58804a1f314d2776008bf923d0477532e",
+        "saveSha256": "e3d834cb36da29aa63aaca9ffba5bf557a418c4905d32a4705ca3267cdefc8de",
+        "receiptId": "5b9ae3a2120844b0aed323df4ff1bc2c",
+        "presentationPlaying": false,
+        "presentationTicks": 0,
+        "nonblockingTicks": 0,
+        "visuallyInspected": false
+      },
+      {
+        "path": "artifacts/cache/v07-instant-0435/InstantHighest/frames/frame_000037.png",
+        "sha256": "fd6bc4f7bd63a42b036f286d1d23d00f6907b0fd15c2f74b4f60e88dc670ad0f",
+        "bytes": 1312193,
+        "index": 37,
+        "unityFrame": 10200,
+        "videoSeconds": 0.6166666666666667,
+        "stage": "hold",
+        "stateHash": "51a457edf53d9cff000e1f02896347d58804a1f314d2776008bf923d0477532e",
+        "saveSha256": "e3d834cb36da29aa63aaca9ffba5bf557a418c4905d32a4705ca3267cdefc8de",
+        "receiptId": "5b9ae3a2120844b0aed323df4ff1bc2c",
+        "presentationPlaying": false,
+        "presentationTicks": 0,
+        "nonblockingTicks": 0,
+        "visuallyInspected": false
+      },
+      {
+        "path": "artifacts/cache/v07-instant-0435/InstantHighest/frames/frame_000038.png",
+        "sha256": "fd6bc4f7bd63a42b036f286d1d23d00f6907b0fd15c2f74b4f60e88dc670ad0f",
+        "bytes": 1312193,
+        "index": 38,
+        "unityFrame": 10201,
+        "videoSeconds": 0.6333333333333333,
+        "stage": "hold",
+        "stateHash": "51a457edf53d9cff000e1f02896347d58804a1f314d2776008bf923d0477532e",
+        "saveSha256": "e3d834cb36da29aa63aaca9ffba5bf557a418c4905d32a4705ca3267cdefc8de",
+        "receiptId": "5b9ae3a2120844b0aed323df4ff1bc2c",
+        "presentationPlaying": false,
+        "presentationTicks": 0,
+        "nonblockingTicks": 0,
+        "visuallyInspected": false
+      },
+      {
+        "path": "artifacts/cache/v07-instant-0435/InstantHighest/frames/frame_000039.png",
+        "sha256": "fd6bc4f7bd63a42b036f286d1d23d00f6907b0fd15c2f74b4f60e88dc670ad0f",
+        "bytes": 1312193,
+        "index": 39,
+        "unityFrame": 10202,
+        "videoSeconds": 0.65,
+        "stage": "hold",
+        "stateHash": "51a457edf53d9cff000e1f02896347d58804a1f314d2776008bf923d0477532e",
+        "saveSha256": "e3d834cb36da29aa63aaca9ffba5bf557a418c4905d32a4705ca3267cdefc8de",
+        "receiptId": "5b9ae3a2120844b0aed323df4ff1bc2c",
+        "presentationPlaying": false,
+        "presentationTicks": 0,
+        "nonblockingTicks": 0,
+        "visuallyInspected": false
+      },
+      {
+        "path": "artifacts/cache/v07-instant-0435/InstantHighest/frames/frame_000040.png",
+        "sha256": "fd6bc4f7bd63a42b036f286d1d23d00f6907b0fd15c2f74b4f60e88dc670ad0f",
+        "bytes": 1312193,
+        "index": 40,
+        "unityFrame": 10203,
+        "videoSeconds": 0.6666666666666666,
+        "stage": "hold",
+        "stateHash": "51a457edf53d9cff000e1f02896347d58804a1f314d2776008bf923d0477532e",
+        "saveSha256": "e3d834cb36da29aa63aaca9ffba5bf557a418c4905d32a4705ca3267cdefc8de",
+        "receiptId": "5b9ae3a2120844b0aed323df4ff1bc2c",
+        "presentationPlaying": false,
+        "presentationTicks": 0,
+        "nonblockingTicks": 0,
+        "visuallyInspected": false
+      },
+      {
+        "path": "artifacts/cache/v07-instant-0435/InstantHighest/frames/frame_000041.png",
+        "sha256": "fd6bc4f7bd63a42b036f286d1d23d00f6907b0fd15c2f74b4f60e88dc670ad0f",
+        "bytes": 1312193,
+        "index": 41,
+        "unityFrame": 10204,
+        "videoSeconds": 0.6833333333333333,
+        "stage": "hold",
+        "stateHash": "51a457edf53d9cff000e1f02896347d58804a1f314d2776008bf923d0477532e",
+        "saveSha256": "e3d834cb36da29aa63aaca9ffba5bf557a418c4905d32a4705ca3267cdefc8de",
+        "receiptId": "5b9ae3a2120844b0aed323df4ff1bc2c",
+        "presentationPlaying": false,
+        "presentationTicks": 0,
+        "nonblockingTicks": 0,
+        "visuallyInspected": false
+      },
+      {
+        "path": "artifacts/cache/v07-instant-0435/InstantHighest/frames/frame_000042.png",
+        "sha256": "fd6bc4f7bd63a42b036f286d1d23d00f6907b0fd15c2f74b4f60e88dc670ad0f",
+        "bytes": 1312193,
+        "index": 42,
+        "unityFrame": 10205,
+        "videoSeconds": 0.7,
+        "stage": "hold",
+        "stateHash": "51a457edf53d9cff000e1f02896347d58804a1f314d2776008bf923d0477532e",
+        "saveSha256": "e3d834cb36da29aa63aaca9ffba5bf557a418c4905d32a4705ca3267cdefc8de",
+        "receiptId": "5b9ae3a2120844b0aed323df4ff1bc2c",
+        "presentationPlaying": false,
+        "presentationTicks": 0,
+        "nonblockingTicks": 0,
+        "visuallyInspected": false
+      },
+      {
+        "path": "artifacts/cache/v07-instant-0435/InstantHighest/frames/frame_000043.png",
+        "sha256": "fd6bc4f7bd63a42b036f286d1d23d00f6907b0fd15c2f74b4f60e88dc670ad0f",
+        "bytes": 1312193,
+        "index": 43,
+        "unityFrame": 10206,
+        "videoSeconds": 0.7166666666666667,
+        "stage": "hold",
+        "stateHash": "51a457edf53d9cff000e1f02896347d58804a1f314d2776008bf923d0477532e",
+        "saveSha256": "e3d834cb36da29aa63aaca9ffba5bf557a418c4905d32a4705ca3267cdefc8de",
+        "receiptId": "5b9ae3a2120844b0aed323df4ff1bc2c",
+        "presentationPlaying": false,
+        "presentationTicks": 0,
+        "nonblockingTicks": 0,
+        "visuallyInspected": false
+      },
+      {
+        "path": "artifacts/cache/v07-instant-0435/InstantHighest/frames/frame_000044.png",
+        "sha256": "fd6bc4f7bd63a42b036f286d1d23d00f6907b0fd15c2f74b4f60e88dc670ad0f",
+        "bytes": 1312193,
+        "index": 44,
+        "unityFrame": 10207,
+        "videoSeconds": 0.7333333333333333,
+        "stage": "hold",
+        "stateHash": "51a457edf53d9cff000e1f02896347d58804a1f314d2776008bf923d0477532e",
+        "saveSha256": "e3d834cb36da29aa63aaca9ffba5bf557a418c4905d32a4705ca3267cdefc8de",
+        "receiptId": "5b9ae3a2120844b0aed323df4ff1bc2c",
+        "presentationPlaying": false,
+        "presentationTicks": 0,
+        "nonblockingTicks": 0,
+        "visuallyInspected": false
+      },
+      {
+        "path": "artifacts/cache/v07-instant-0435/InstantHighest/frames/frame_000045.png",
+        "sha256": "fd6bc4f7bd63a42b036f286d1d23d00f6907b0fd15c2f74b4f60e88dc670ad0f",
+        "bytes": 1312193,
+        "index": 45,
+        "unityFrame": 10208,
+        "videoSeconds": 0.75,
+        "stage": "hold",
+        "stateHash": "51a457edf53d9cff000e1f02896347d58804a1f314d2776008bf923d0477532e",
+        "saveSha256": "e3d834cb36da29aa63aaca9ffba5bf557a418c4905d32a4705ca3267cdefc8de",
+        "receiptId": "5b9ae3a2120844b0aed323df4ff1bc2c",
+        "presentationPlaying": false,
+        "presentationTicks": 0,
+        "nonblockingTicks": 0,
+        "visuallyInspected": false
+      }
+    ]
+  },
+  "reviewConsistencyChecks": {
+    "guideSidecarsMatchExpectedRuntimeAndResolution": true,
+    "allFrameStateSaveTransitionsExactlyAt15": true,
+    "receiptStateMatchesFrame15": true,
+    "allInstantFramesIdleZeroTicks": true,
+    "scopeVisualImages": 21,
+    "passed": true
+  }
+}

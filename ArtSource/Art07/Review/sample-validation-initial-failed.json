@@ -1,0 +1,1305 @@
+{
+  "stage": "offline_source_and_export_only",
+  "unityVerified": false,
+  "passed": false,
+  "passedCount": 206,
+  "total": 215,
+  "checks": [
+    {
+      "check": "icon_c02/size",
+      "passed": true,
+      "detail": [
+        256,
+        256
+      ]
+    },
+    {
+      "check": "icon_c02/kra_exists",
+      "passed": true,
+      "detail": "ArtSource\\Art07\\ContentIcons\\Controllers\\icon_c02.kra"
+    },
+    {
+      "check": "icon_c02/layers",
+      "passed": true,
+      "detail": 4
+    },
+    {
+      "check": "icon_c02/source_alpha",
+      "passed": true,
+      "detail": "actual Krita merged image alpha equals PNG"
+    },
+    {
+      "check": "icon_c02/source_visible_pixels",
+      "passed": true,
+      "detail": {
+        "maxVisibleDiff": 0
+      }
+    },
+    {
+      "check": "icon_c02/safe_border",
+      "passed": true,
+      "detail": [
+        24,
+        32,
+        232,
+        220
+      ]
+    },
+    {
+      "check": "icon_c02/logical_grid",
+      "passed": true,
+      "detail": "64px silhouette grid"
+    },
+    {
+      "check": "icon_c41/size",
+      "passed": true,
+      "detail": [
+        256,
+        256
+      ]
+    },
+    {
+      "check": "icon_c41/kra_exists",
+      "passed": true,
+      "detail": "ArtSource\\Art07\\ContentIcons\\Controllers\\icon_c41.kra"
+    },
+    {
+      "check": "icon_c41/layers",
+      "passed": true,
+      "detail": 4
+    },
+    {
+      "check": "icon_c41/source_alpha",
+      "passed": true,
+      "detail": "actual Krita merged image alpha equals PNG"
+    },
+    {
+      "check": "icon_c41/source_visible_pixels",
+      "passed": true,
+      "detail": {
+        "maxVisibleDiff": 0
+      }
+    },
+    {
+      "check": "icon_c41/safe_border",
+      "passed": true,
+      "detail": [
+        32,
+        36,
+        228,
+        224
+      ]
+    },
+    {
+      "check": "icon_c41/logical_grid",
+      "passed": true,
+      "detail": "64px silhouette grid"
+    },
+    {
+      "check": "icon_c45/size",
+      "passed": true,
+      "detail": [
+        256,
+        256
+      ]
+    },
+    {
+      "check": "icon_c45/kra_exists",
+      "passed": true,
+      "detail": "ArtSource\\Art07\\ContentIcons\\Controllers\\icon_c45.kra"
+    },
+    {
+      "check": "icon_c45/layers",
+      "passed": true,
+      "detail": 4
+    },
+    {
+      "check": "icon_c45/source_alpha",
+      "passed": true,
+      "detail": "actual Krita merged image alpha equals PNG"
+    },
+    {
+      "check": "icon_c45/source_visible_pixels",
+      "passed": true,
+      "detail": {
+        "maxVisibleDiff": 0
+      }
+    },
+    {
+      "check": "icon_c45/safe_border",
+      "passed": false,
+      "detail": [
+        28,
+        28,
+        228,
+        236
+      ]
+    },
+    {
+      "check": "icon_c45/logical_grid",
+      "passed": true,
+      "detail": "64px silhouette grid"
+    },
+    {
+      "check": "icon_c52/size",
+      "passed": true,
+      "detail": [
+        256,
+        256
+      ]
+    },
+    {
+      "check": "icon_c52/kra_exists",
+      "passed": true,
+      "detail": "ArtSource\\Art07\\ContentIcons\\Controllers\\icon_c52.kra"
+    },
+    {
+      "check": "icon_c52/layers",
+      "passed": true,
+      "detail": 5
+    },
+    {
+      "check": "icon_c52/source_alpha",
+      "passed": true,
+      "detail": "actual Krita merged image alpha equals PNG"
+    },
+    {
+      "check": "icon_c52/source_visible_pixels",
+      "passed": true,
+      "detail": {
+        "maxVisibleDiff": 0
+      }
+    },
+    {
+      "check": "icon_c52/safe_border",
+      "passed": true,
+      "detail": [
+        32,
+        28,
+        232,
+        224
+      ]
+    },
+    {
+      "check": "icon_c52/logical_grid",
+      "passed": true,
+      "detail": "64px silhouette grid"
+    },
+    {
+      "check": "bg_felt_tile/size",
+      "passed": true,
+      "detail": [
+        512,
+        512
+      ]
+    },
+    {
+      "check": "bg_felt_tile/kra_exists",
+      "passed": true,
+      "detail": "ArtSource\\Art07\\Backgrounds\\bg_felt_tile.kra"
+    },
+    {
+      "check": "bg_felt_tile/layers",
+      "passed": true,
+      "detail": 1
+    },
+    {
+      "check": "bg_felt_tile/source_alpha",
+      "passed": true,
+      "detail": "actual Krita merged image alpha equals PNG"
+    },
+    {
+      "check": "bg_felt_tile/source_visible_pixels",
+      "passed": true,
+      "detail": {
+        "maxVisibleDiff": 0
+      }
+    },
+    {
+      "check": "bg_print_grain/size",
+      "passed": true,
+      "detail": [
+        128,
+        128
+      ]
+    },
+    {
+      "check": "bg_print_grain/kra_exists",
+      "passed": true,
+      "detail": "ArtSource\\Art07\\Backgrounds\\bg_print_grain.kra"
+    },
+    {
+      "check": "bg_print_grain/layers",
+      "passed": true,
+      "detail": 1
+    },
+    {
+      "check": "bg_print_grain/source_alpha",
+      "passed": true,
+      "detail": "actual Krita merged image alpha equals PNG"
+    },
+    {
+      "check": "bg_print_grain/source_visible_pixels",
+      "passed": true,
+      "detail": {
+        "maxVisibleDiff": 0
+      }
+    },
+    {
+      "check": "bg_vignette/size",
+      "passed": true,
+      "detail": [
+        1024,
+        1024
+      ]
+    },
+    {
+      "check": "bg_vignette/kra_exists",
+      "passed": true,
+      "detail": "ArtSource\\Art07\\Backgrounds\\bg_vignette.kra"
+    },
+    {
+      "check": "bg_vignette/layers",
+      "passed": true,
+      "detail": 1
+    },
+    {
+      "check": "bg_vignette/source_alpha",
+      "passed": true,
+      "detail": "actual Krita merged image alpha equals PNG"
+    },
+    {
+      "check": "bg_vignette/source_visible_pixels",
+      "passed": true,
+      "detail": {
+        "maxVisibleDiff": 0
+      }
+    },
+    {
+      "check": "ui_button_bevel/size",
+      "passed": true,
+      "detail": [
+        96,
+        96
+      ]
+    },
+    {
+      "check": "ui_button_bevel/kra_exists",
+      "passed": true,
+      "detail": "ArtSource\\Art07\\UI\\Templates\\ui_button_bevel.kra"
+    },
+    {
+      "check": "ui_button_bevel/layers",
+      "passed": true,
+      "detail": 2
+    },
+    {
+      "check": "ui_button_bevel/source_alpha",
+      "passed": true,
+      "detail": "actual Krita merged image alpha equals PNG"
+    },
+    {
+      "check": "ui_button_bevel/source_visible_pixels",
+      "passed": true,
+      "detail": {
+        "maxVisibleDiff": 0
+      }
+    },
+    {
+      "check": "ui_panel_plain/size",
+      "passed": true,
+      "detail": [
+        256,
+        256
+      ]
+    },
+    {
+      "check": "ui_panel_plain/kra_exists",
+      "passed": true,
+      "detail": "ArtSource\\Art07\\UI\\Templates\\ui_panel_plain.kra"
+    },
+    {
+      "check": "ui_panel_plain/layers",
+      "passed": true,
+      "detail": 2
+    },
+    {
+      "check": "ui_panel_plain/source_alpha",
+      "passed": true,
+      "detail": "actual Krita merged image alpha equals PNG"
+    },
+    {
+      "check": "ui_panel_plain/source_visible_pixels",
+      "passed": true,
+      "detail": {
+        "maxVisibleDiff": 0
+      }
+    },
+    {
+      "check": "ui_panel_modal/size",
+      "passed": true,
+      "detail": [
+        256,
+        256
+      ]
+    },
+    {
+      "check": "ui_panel_modal/kra_exists",
+      "passed": true,
+      "detail": "ArtSource\\Art07\\UI\\Templates\\ui_panel_modal.kra"
+    },
+    {
+      "check": "ui_panel_modal/layers",
+      "passed": true,
+      "detail": 2
+    },
+    {
+      "check": "ui_panel_modal/source_alpha",
+      "passed": true,
+      "detail": "actual Krita merged image alpha equals PNG"
+    },
+    {
+      "check": "ui_panel_modal/source_visible_pixels",
+      "passed": true,
+      "detail": {
+        "maxVisibleDiff": 0
+      }
+    },
+    {
+      "check": "ui_card_controller/size",
+      "passed": true,
+      "detail": [
+        256,
+        352
+      ]
+    },
+    {
+      "check": "ui_card_controller/kra_exists",
+      "passed": true,
+      "detail": "ArtSource\\Art07\\UI\\Templates\\ui_card_controller.kra"
+    },
+    {
+      "check": "ui_card_controller/layers",
+      "passed": true,
+      "detail": 2
+    },
+    {
+      "check": "ui_card_controller/source_alpha",
+      "passed": true,
+      "detail": "actual Krita merged image alpha equals PNG"
+    },
+    {
+      "check": "ui_card_controller/source_visible_pixels",
+      "passed": true,
+      "detail": {
+        "maxVisibleDiff": 0
+      }
+    },
+    {
+      "check": "ui_card_item/size",
+      "passed": true,
+      "detail": [
+        256,
+        352
+      ]
+    },
+    {
+      "check": "ui_card_item/kra_exists",
+      "passed": true,
+      "detail": "ArtSource\\Art07\\UI\\Templates\\ui_card_item.kra"
+    },
+    {
+      "check": "ui_card_item/layers",
+      "passed": true,
+      "detail": 2
+    },
+    {
+      "check": "ui_card_item/source_alpha",
+      "passed": true,
+      "detail": "actual Krita merged image alpha equals PNG"
+    },
+    {
+      "check": "ui_card_item/source_visible_pixels",
+      "passed": true,
+      "detail": {
+        "maxVisibleDiff": 0
+      }
+    },
+    {
+      "check": "ui_card_upgrade/size",
+      "passed": true,
+      "detail": [
+        256,
+        352
+      ]
+    },
+    {
+      "check": "ui_card_upgrade/kra_exists",
+      "passed": true,
+      "detail": "ArtSource\\Art07\\UI\\Templates\\ui_card_upgrade.kra"
+    },
+    {
+      "check": "ui_card_upgrade/layers",
+      "passed": true,
+      "detail": 2
+    },
+    {
+      "check": "ui_card_upgrade/source_alpha",
+      "passed": true,
+      "detail": "actual Krita merged image alpha equals PNG"
+    },
+    {
+      "check": "ui_card_upgrade/source_visible_pixels",
+      "passed": true,
+      "detail": {
+        "maxVisibleDiff": 0
+      }
+    },
+    {
+      "check": "ui_card_controller_compact/size",
+      "passed": true,
+      "detail": [
+        256,
+        128
+      ]
+    },
+    {
+      "check": "ui_card_controller_compact/kra_exists",
+      "passed": true,
+      "detail": "ArtSource\\Art07\\UI\\Templates\\ui_card_controller_compact.kra"
+    },
+    {
+      "check": "ui_card_controller_compact/layers",
+      "passed": true,
+      "detail": 2
+    },
+    {
+      "check": "ui_card_controller_compact/source_alpha",
+      "passed": true,
+      "detail": "actual Krita merged image alpha equals PNG"
+    },
+    {
+      "check": "ui_card_controller_compact/source_visible_pixels",
+      "passed": true,
+      "detail": {
+        "maxVisibleDiff": 0
+      }
+    },
+    {
+      "check": "ui_slot_dice/size",
+      "passed": true,
+      "detail": [
+        128,
+        128
+      ]
+    },
+    {
+      "check": "ui_slot_dice/kra_exists",
+      "passed": true,
+      "detail": "ArtSource\\Art07\\UI\\Templates\\ui_slot_dice.kra"
+    },
+    {
+      "check": "ui_slot_dice/layers",
+      "passed": true,
+      "detail": 2
+    },
+    {
+      "check": "ui_slot_dice/source_alpha",
+      "passed": false,
+      "detail": "actual Krita merged image alpha equals PNG"
+    },
+    {
+      "check": "ui_slot_dice/source_visible_pixels",
+      "passed": false,
+      "detail": {
+        "maxVisibleDiff": 225
+      }
+    },
+    {
+      "check": "ui_slot_inventory/size",
+      "passed": true,
+      "detail": [
+        128,
+        128
+      ]
+    },
+    {
+      "check": "ui_slot_inventory/kra_exists",
+      "passed": true,
+      "detail": "ArtSource\\Art07\\UI\\Templates\\ui_slot_inventory.kra"
+    },
+    {
+      "check": "ui_slot_inventory/layers",
+      "passed": true,
+      "detail": 2
+    },
+    {
+      "check": "ui_slot_inventory/source_alpha",
+      "passed": false,
+      "detail": "actual Krita merged image alpha equals PNG"
+    },
+    {
+      "check": "ui_slot_inventory/source_visible_pixels",
+      "passed": false,
+      "detail": {
+        "maxVisibleDiff": 225
+      }
+    },
+    {
+      "check": "ui_focus_frame/size",
+      "passed": true,
+      "detail": [
+        128,
+        128
+      ]
+    },
+    {
+      "check": "ui_focus_frame/kra_exists",
+      "passed": true,
+      "detail": "ArtSource\\Art07\\UI\\Templates\\ui_focus_frame.kra"
+    },
+    {
+      "check": "ui_focus_frame/layers",
+      "passed": true,
+      "detail": 1
+    },
+    {
+      "check": "ui_focus_frame/source_alpha",
+      "passed": true,
+      "detail": "actual Krita merged image alpha equals PNG"
+    },
+    {
+      "check": "ui_focus_frame/source_visible_pixels",
+      "passed": true,
+      "detail": {
+        "maxVisibleDiff": 0
+      }
+    },
+    {
+      "check": "ui_tooltip_frame/size",
+      "passed": true,
+      "detail": [
+        256,
+        256
+      ]
+    },
+    {
+      "check": "ui_tooltip_frame/kra_exists",
+      "passed": true,
+      "detail": "ArtSource\\Art07\\UI\\Templates\\ui_tooltip_frame.kra"
+    },
+    {
+      "check": "ui_tooltip_frame/layers",
+      "passed": true,
+      "detail": 2
+    },
+    {
+      "check": "ui_tooltip_frame/source_alpha",
+      "passed": false,
+      "detail": "actual Krita merged image alpha equals PNG"
+    },
+    {
+      "check": "ui_tooltip_frame/source_visible_pixels",
+      "passed": false,
+      "detail": {
+        "maxVisibleDiff": 237
+      }
+    },
+    {
+      "check": "ui_progress_track/size",
+      "passed": true,
+      "detail": [
+        96,
+        32
+      ]
+    },
+    {
+      "check": "ui_progress_track/kra_exists",
+      "passed": true,
+      "detail": "ArtSource\\Art07\\UI\\Templates\\ui_progress_track.kra"
+    },
+    {
+      "check": "ui_progress_track/layers",
+      "passed": true,
+      "detail": 2
+    },
+    {
+      "check": "ui_progress_track/source_alpha",
+      "passed": true,
+      "detail": "actual Krita merged image alpha equals PNG"
+    },
+    {
+      "check": "ui_progress_track/source_visible_pixels",
+      "passed": true,
+      "detail": {
+        "maxVisibleDiff": 0
+      }
+    },
+    {
+      "check": "ui_progress_fill/size",
+      "passed": true,
+      "detail": [
+        96,
+        32
+      ]
+    },
+    {
+      "check": "ui_progress_fill/kra_exists",
+      "passed": true,
+      "detail": "ArtSource\\Art07\\UI\\Templates\\ui_progress_fill.kra"
+    },
+    {
+      "check": "ui_progress_fill/layers",
+      "passed": true,
+      "detail": 2
+    },
+    {
+      "check": "ui_progress_fill/source_alpha",
+      "passed": true,
+      "detail": "actual Krita merged image alpha equals PNG"
+    },
+    {
+      "check": "ui_progress_fill/source_visible_pixels",
+      "passed": true,
+      "detail": {
+        "maxVisibleDiff": 0
+      }
+    },
+    {
+      "check": "ui_chip_label/size",
+      "passed": true,
+      "detail": [
+        128,
+        64
+      ]
+    },
+    {
+      "check": "ui_chip_label/kra_exists",
+      "passed": true,
+      "detail": "ArtSource\\Art07\\UI\\Templates\\ui_chip_label.kra"
+    },
+    {
+      "check": "ui_chip_label/layers",
+      "passed": true,
+      "detail": 2
+    },
+    {
+      "check": "ui_chip_label/source_alpha",
+      "passed": true,
+      "detail": "actual Krita merged image alpha equals PNG"
+    },
+    {
+      "check": "ui_chip_label/source_visible_pixels",
+      "passed": true,
+      "detail": {
+        "maxVisibleDiff": 0
+      }
+    },
+    {
+      "check": "ui_scroll_handle/size",
+      "passed": true,
+      "detail": [
+        64,
+        64
+      ]
+    },
+    {
+      "check": "ui_scroll_handle/kra_exists",
+      "passed": true,
+      "detail": "ArtSource\\Art07\\UI\\Templates\\ui_scroll_handle.kra"
+    },
+    {
+      "check": "ui_scroll_handle/layers",
+      "passed": true,
+      "detail": 2
+    },
+    {
+      "check": "ui_scroll_handle/source_alpha",
+      "passed": false,
+      "detail": "actual Krita merged image alpha equals PNG"
+    },
+    {
+      "check": "ui_scroll_handle/source_visible_pixels",
+      "passed": false,
+      "detail": {
+        "maxVisibleDiff": 248
+      }
+    },
+    {
+      "check": "badge_enchant_slotless/size",
+      "passed": true,
+      "detail": [
+        128,
+        128
+      ]
+    },
+    {
+      "check": "badge_enchant_slotless/kra_exists",
+      "passed": true,
+      "detail": "ArtSource\\Art07\\UI\\Badges\\badge_enchant_slotless.kra"
+    },
+    {
+      "check": "badge_enchant_slotless/layers",
+      "passed": true,
+      "detail": 3
+    },
+    {
+      "check": "badge_enchant_slotless/source_alpha",
+      "passed": true,
+      "detail": "actual Krita merged image alpha equals PNG"
+    },
+    {
+      "check": "badge_enchant_slotless/source_visible_pixels",
+      "passed": true,
+      "detail": {
+        "maxVisibleDiff": 0
+      }
+    },
+    {
+      "check": "badge_enchant_base10/size",
+      "passed": true,
+      "detail": [
+        128,
+        128
+      ]
+    },
+    {
+      "check": "badge_enchant_base10/kra_exists",
+      "passed": true,
+      "detail": "ArtSource\\Art07\\UI\\Badges\\badge_enchant_base10.kra"
+    },
+    {
+      "check": "badge_enchant_base10/layers",
+      "passed": true,
+      "detail": 3
+    },
+    {
+      "check": "badge_enchant_base10/source_alpha",
+      "passed": true,
+      "detail": "actual Krita merged image alpha equals PNG"
+    },
+    {
+      "check": "badge_enchant_base10/source_visible_pixels",
+      "passed": true,
+      "detail": {
+        "maxVisibleDiff": 0
+      }
+    },
+    {
+      "check": "badge_enchant_mult2/size",
+      "passed": true,
+      "detail": [
+        128,
+        128
+      ]
+    },
+    {
+      "check": "badge_enchant_mult2/kra_exists",
+      "passed": true,
+      "detail": "ArtSource\\Art07\\UI\\Badges\\badge_enchant_mult2.kra"
+    },
+    {
+      "check": "badge_enchant_mult2/layers",
+      "passed": true,
+      "detail": 3
+    },
+    {
+      "check": "badge_enchant_mult2/source_alpha",
+      "passed": true,
+      "detail": "actual Krita merged image alpha equals PNG"
+    },
+    {
+      "check": "badge_enchant_mult2/source_visible_pixels",
+      "passed": true,
+      "detail": {
+        "maxVisibleDiff": 0
+      }
+    },
+    {
+      "check": "badge_enchant_submit1/size",
+      "passed": true,
+      "detail": [
+        128,
+        128
+      ]
+    },
+    {
+      "check": "badge_enchant_submit1/kra_exists",
+      "passed": true,
+      "detail": "ArtSource\\Art07\\UI\\Badges\\badge_enchant_submit1.kra"
+    },
+    {
+      "check": "badge_enchant_submit1/layers",
+      "passed": true,
+      "detail": 3
+    },
+    {
+      "check": "badge_enchant_submit1/source_alpha",
+      "passed": true,
+      "detail": "actual Krita merged image alpha equals PNG"
+    },
+    {
+      "check": "badge_enchant_submit1/source_visible_pixels",
+      "passed": true,
+      "detail": {
+        "maxVisibleDiff": 0
+      }
+    },
+    {
+      "check": "badge_enchant_roll1/size",
+      "passed": true,
+      "detail": [
+        128,
+        128
+      ]
+    },
+    {
+      "check": "badge_enchant_roll1/kra_exists",
+      "passed": true,
+      "detail": "ArtSource\\Art07\\UI\\Badges\\badge_enchant_roll1.kra"
+    },
+    {
+      "check": "badge_enchant_roll1/layers",
+      "passed": true,
+      "detail": 3
+    },
+    {
+      "check": "badge_enchant_roll1/source_alpha",
+      "passed": true,
+      "detail": "actual Krita merged image alpha equals PNG"
+    },
+    {
+      "check": "badge_enchant_roll1/source_visible_pixels",
+      "passed": true,
+      "detail": {
+        "maxVisibleDiff": 0
+      }
+    },
+    {
+      "check": "dice_smooth_mask/size",
+      "passed": true,
+      "detail": [
+        512,
+        512
+      ]
+    },
+    {
+      "check": "dice_smooth_mask/kra_exists",
+      "passed": true,
+      "detail": "ArtSource\\Art07\\Dice\\Textures\\dice_smooth_mask.kra"
+    },
+    {
+      "check": "dice_smooth_mask/layers",
+      "passed": true,
+      "detail": 1
+    },
+    {
+      "check": "dice_smooth_mask/source_alpha",
+      "passed": true,
+      "detail": "actual Krita merged image alpha equals PNG"
+    },
+    {
+      "check": "dice_smooth_mask/source_visible_pixels",
+      "passed": true,
+      "detail": {
+        "maxVisibleDiff": 0
+      }
+    },
+    {
+      "check": "dice_rough_mask/size",
+      "passed": true,
+      "detail": [
+        512,
+        512
+      ]
+    },
+    {
+      "check": "dice_rough_mask/kra_exists",
+      "passed": true,
+      "detail": "ArtSource\\Art07\\Dice\\Textures\\dice_rough_mask.kra"
+    },
+    {
+      "check": "dice_rough_mask/layers",
+      "passed": true,
+      "detail": 1
+    },
+    {
+      "check": "dice_rough_mask/source_alpha",
+      "passed": true,
+      "detail": "actual Krita merged image alpha equals PNG"
+    },
+    {
+      "check": "dice_rough_mask/source_visible_pixels",
+      "passed": true,
+      "detail": {
+        "maxVisibleDiff": 0
+      }
+    },
+    {
+      "check": "dice_gold_edge_mask/size",
+      "passed": true,
+      "detail": [
+        512,
+        512
+      ]
+    },
+    {
+      "check": "dice_gold_edge_mask/kra_exists",
+      "passed": true,
+      "detail": "ArtSource\\Art07\\Dice\\Textures\\dice_gold_edge_mask.kra"
+    },
+    {
+      "check": "dice_gold_edge_mask/layers",
+      "passed": true,
+      "detail": 1
+    },
+    {
+      "check": "dice_gold_edge_mask/source_alpha",
+      "passed": true,
+      "detail": "actual Krita merged image alpha equals PNG"
+    },
+    {
+      "check": "dice_gold_edge_mask/source_visible_pixels",
+      "passed": true,
+      "detail": {
+        "maxVisibleDiff": 0
+      }
+    },
+    {
+      "check": "dice_contact_shadow/size",
+      "passed": true,
+      "detail": [
+        256,
+        256
+      ]
+    },
+    {
+      "check": "dice_contact_shadow/kra_exists",
+      "passed": true,
+      "detail": "ArtSource\\Art07\\Dice\\Textures\\dice_contact_shadow.kra"
+    },
+    {
+      "check": "dice_contact_shadow/layers",
+      "passed": true,
+      "detail": 1
+    },
+    {
+      "check": "dice_contact_shadow/source_alpha",
+      "passed": true,
+      "detail": "actual Krita merged image alpha equals PNG"
+    },
+    {
+      "check": "dice_contact_shadow/source_visible_pixels",
+      "passed": true,
+      "detail": {
+        "maxVisibleDiff": 0
+      }
+    },
+    {
+      "check": "fx_square_chip/size",
+      "passed": true,
+      "detail": [
+        64,
+        64
+      ]
+    },
+    {
+      "check": "fx_square_chip/kra_exists",
+      "passed": true,
+      "detail": "ArtSource\\Art07\\FX\\Textures\\fx_square_chip.kra"
+    },
+    {
+      "check": "fx_square_chip/layers",
+      "passed": true,
+      "detail": 1
+    },
+    {
+      "check": "fx_square_chip/source_alpha",
+      "passed": true,
+      "detail": "actual Krita merged image alpha equals PNG"
+    },
+    {
+      "check": "fx_square_chip/source_visible_pixels",
+      "passed": true,
+      "detail": {
+        "maxVisibleDiff": 0
+      }
+    },
+    {
+      "check": "fx_star_spark/size",
+      "passed": true,
+      "detail": [
+        64,
+        64
+      ]
+    },
+    {
+      "check": "fx_star_spark/kra_exists",
+      "passed": true,
+      "detail": "ArtSource\\Art07\\FX\\Textures\\fx_star_spark.kra"
+    },
+    {
+      "check": "fx_star_spark/layers",
+      "passed": true,
+      "detail": 1
+    },
+    {
+      "check": "fx_star_spark/source_alpha",
+      "passed": true,
+      "detail": "actual Krita merged image alpha equals PNG"
+    },
+    {
+      "check": "fx_star_spark/source_visible_pixels",
+      "passed": true,
+      "detail": {
+        "maxVisibleDiff": 0
+      }
+    },
+    {
+      "check": "fx_line_soft/size",
+      "passed": true,
+      "detail": [
+        128,
+        128
+      ]
+    },
+    {
+      "check": "fx_line_soft/kra_exists",
+      "passed": true,
+      "detail": "ArtSource\\Art07\\FX\\Textures\\fx_line_soft.kra"
+    },
+    {
+      "check": "fx_line_soft/layers",
+      "passed": true,
+      "detail": 1
+    },
+    {
+      "check": "fx_line_soft/source_alpha",
+      "passed": true,
+      "detail": "actual Krita merged image alpha equals PNG"
+    },
+    {
+      "check": "fx_line_soft/source_visible_pixels",
+      "passed": true,
+      "detail": {
+        "maxVisibleDiff": 0
+      }
+    },
+    {
+      "check": "fx_ring_soft/size",
+      "passed": true,
+      "detail": [
+        256,
+        256
+      ]
+    },
+    {
+      "check": "fx_ring_soft/kra_exists",
+      "passed": true,
+      "detail": "ArtSource\\Art07\\FX\\Textures\\fx_ring_soft.kra"
+    },
+    {
+      "check": "fx_ring_soft/layers",
+      "passed": true,
+      "detail": 1
+    },
+    {
+      "check": "fx_ring_soft/source_alpha",
+      "passed": true,
+      "detail": "actual Krita merged image alpha equals PNG"
+    },
+    {
+      "check": "fx_ring_soft/source_visible_pixels",
+      "passed": true,
+      "detail": {
+        "maxVisibleDiff": 0
+      }
+    },
+    {
+      "check": "fx_halo_soft/size",
+      "passed": true,
+      "detail": [
+        512,
+        512
+      ]
+    },
+    {
+      "check": "fx_halo_soft/kra_exists",
+      "passed": true,
+      "detail": "ArtSource\\Art07\\FX\\Textures\\fx_halo_soft.kra"
+    },
+    {
+      "check": "fx_halo_soft/layers",
+      "passed": true,
+      "detail": 1
+    },
+    {
+      "check": "fx_halo_soft/source_alpha",
+      "passed": true,
+      "detail": "actual Krita merged image alpha equals PNG"
+    },
+    {
+      "check": "fx_halo_soft/source_visible_pixels",
+      "passed": true,
+      "detail": {
+        "maxVisibleDiff": 0
+      }
+    },
+    {
+      "check": "fx_crack_card/size",
+      "passed": true,
+      "detail": [
+        128,
+        128
+      ]
+    },
+    {
+      "check": "fx_crack_card/kra_exists",
+      "passed": true,
+      "detail": "ArtSource\\Art07\\FX\\Textures\\fx_crack_card.kra"
+    },
+    {
+      "check": "fx_crack_card/layers",
+      "passed": true,
+      "detail": 1
+    },
+    {
+      "check": "fx_crack_card/source_alpha",
+      "passed": true,
+      "detail": "actual Krita merged image alpha equals PNG"
+    },
+    {
+      "check": "fx_crack_card/source_visible_pixels",
+      "passed": true,
+      "detail": {
+        "maxVisibleDiff": 0
+      }
+    },
+    {
+      "check": "fx_short_flame/size",
+      "passed": true,
+      "detail": [
+        256,
+        256
+      ]
+    },
+    {
+      "check": "fx_short_flame/kra_exists",
+      "passed": true,
+      "detail": "ArtSource\\Art07\\FX\\Textures\\fx_short_flame.kra"
+    },
+    {
+      "check": "fx_short_flame/layers",
+      "passed": true,
+      "detail": 1
+    },
+    {
+      "check": "fx_short_flame/source_alpha",
+      "passed": true,
+      "detail": "actual Krita merged image alpha equals PNG"
+    },
+    {
+      "check": "fx_short_flame/source_visible_pixels",
+      "passed": true,
+      "detail": {
+        "maxVisibleDiff": 0
+      }
+    },
+    {
+      "check": "pips/red/1",
+      "passed": true,
+      "detail": 1
+    },
+    {
+      "check": "pips/red/2",
+      "passed": true,
+      "detail": 2
+    },
+    {
+      "check": "pips/red/3",
+      "passed": true,
+      "detail": 3
+    },
+    {
+      "check": "pips/red/4",
+      "passed": true,
+      "detail": 4
+    },
+    {
+      "check": "pips/red/5",
+      "passed": true,
+      "detail": 5
+    },
+    {
+      "check": "pips/red/6",
+      "passed": true,
+      "detail": 6
+    },
+    {
+      "check": "pips/blue/1",
+      "passed": true,
+      "detail": 1
+    },
+    {
+      "check": "pips/blue/2",
+      "passed": true,
+      "detail": 2
+    },
+    {
+      "check": "pips/blue/3",
+      "passed": true,
+      "detail": 3
+    },
+    {
+      "check": "pips/blue/4",
+      "passed": true,
+      "detail": 4
+    },
+    {
+      "check": "pips/blue/5",
+      "passed": true,
+      "detail": 5
+    },
+    {
+      "check": "pips/blue/6",
+      "passed": true,
+      "detail": 6
+    },
+    {
+      "check": "dice/triangles",
+      "passed": true,
+      "detail": 188
+    },
+    {
+      "check": "dice/unit_size",
+      "passed": true,
+      "detail": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "check": "dice/fragments",
+      "passed": true,
+      "detail": 120
+    },
+    {
+      "check": "dice/opposites",
+      "passed": true,
+      "detail": [
+        "F06",
+        "F05",
+        "F04",
+        "F03",
+        "F02",
+        "F01"
+      ]
+    },
+    {
+      "check": "dice/markers",
+      "passed": true,
+      "detail": 6
+    }
+  ]
+}

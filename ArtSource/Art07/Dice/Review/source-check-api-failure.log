@@ -1,0 +1,11 @@
+00:00.531  blend            | Read blend: "E:\agent_workspace\gpt\game2\ArtSource\Art07\Dice\dice_master.blend"
+Traceback (most recent call last):
+  File "E:\agent_workspace\gpt\game2\tools\art_v07\verify_dice_source.py", line 16, in <module>
+    for f in range(1,frames+1):scene.frame_set(f);rot.append(pivot.rotation_euler.length);movement.append(pivot.location.length+sum(abs(v-1) for v in pivot.scale))
+                                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'Euler' object has no attribute 'length'
+
+Error: script failed, file: 'tools/art_v07/verify_dice_source.py', exiting.
+Blender 5.2.3 LTS (hash e13b728c6880 built 2026-10-22 01:37:16)
+
+Blender quit

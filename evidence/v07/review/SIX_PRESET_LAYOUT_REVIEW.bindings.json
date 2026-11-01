@@ -1,0 +1,2657 @@
+{
+  "schema": "v07-six-preset-layout-review/1",
+  "reviewer": "/root/v07_art",
+  "method": "102 individually opened original full-screen PNGs; viewer may resize >2048px images; named additional native pixel crops. Only selected static visible layout reviewed.",
+  "summary": {
+    "path": "artifacts/cache/v07-screens-final-layout-0521/source-bound-capture-summary.json",
+    "sha256": "c3676230850e0e2b0ce3d5c73a515cc80bbc050747b94172797dc1f80fcfc2e8"
+  },
+  "selectedPerPreset": 17,
+  "presets": [
+    {
+      "runtimeMvid": "9cc6a4d7-1fe3-41d6-bb49-7ed9ee2b9e60",
+      "coreMvid": "8f690e0d-a075-4b72-98e4-2cb64ced2fa3",
+      "recorderSourceSha256": "5d784144227db170af9bd7a3e9801138433fd32925e9d0c40fad481b7ce63bd1",
+      "configSha256": "747ed1efc7bea15873f66a81eee5c7654971c21031f2a1517ce629adce7b6e6c",
+      "unityVersion": "6000.6.7f1",
+      "artVersion": "art0.7.0",
+      "rulesVersion": "p0.6.0",
+      "platform": "WindowsEditor",
+      "os": "Windows 10  (10.0.19045) 64bit",
+      "gpu": "NVIDIA GeForce RTX 3080",
+      "graphicsApi": "Direct3D11",
+      "requested": {
+        "name": "Normal1080",
+        "width": 1920,
+        "height": 1080,
+        "fontPercent": 100,
+        "seed": 20261031,
+        "settleSeconds": 0.3499999940395355
+      },
+      "preferencesRestored": true,
+      "ordinaryCheckpointPreserved": true,
+      "normalSaveBeforeDebug": "181a14ab04ca161fd672acb95d06037adb5a58be5252950e85f98ff767f1f032",
+      "normalSaveAfterDebug": "181a14ab04ca161fd672acb95d06037adb5a58be5252950e85f98ff767f1f032",
+      "preset": "Normal1080",
+      "report": "artifacts/cache/v07-screens-final-layout-0521/Normal1080/screen-report.json",
+      "reportSha256": "2ae68f9582ed8f8e8e30f7a72937411d07647125089767f650755b9585c6b8f5",
+      "viewed": [
+        {
+          "id": "settings-tab-0-top",
+          "specScreen": "S17",
+          "scope": "Settings page 0; no native display transition.",
+          "width": 1920,
+          "height": 1080,
+          "fontScale": 1.0,
+          "stateHashBefore": "7c5f7d836779160ddf290e9d86d10054e7b81e2ae3876c3556401da3a2eac496",
+          "stateHashAfter": "7c5f7d836779160ddf290e9d86d10054e7b81e2ae3876c3556401da3a2eac496",
+          "saveShaBefore": "181a14ab04ca161fd672acb95d06037adb5a58be5252950e85f98ff767f1f032",
+          "saveShaAfter": "181a14ab04ca161fd672acb95d06037adb5a58be5252950e85f98ff767f1f032",
+          "contentValid": true,
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Normal1080/screens/009-settings-tab-0-top.png",
+          "sha256": "a9d3dbc04fa1da1ec7791c474d8e0de25305e4e170247ff69a80b77643e34c0f",
+          "visualReview": "opened-full-image; no newly observed layout collision in visible content"
+        },
+        {
+          "id": "handbook-hands",
+          "specScreen": "S14",
+          "scope": "Actual structure handbook.",
+          "width": 1920,
+          "height": 1080,
+          "fontScale": 1.0,
+          "stateHashBefore": "7c5f7d836779160ddf290e9d86d10054e7b81e2ae3876c3556401da3a2eac496",
+          "stateHashAfter": "7c5f7d836779160ddf290e9d86d10054e7b81e2ae3876c3556401da3a2eac496",
+          "saveShaBefore": "181a14ab04ca161fd672acb95d06037adb5a58be5252950e85f98ff767f1f032",
+          "saveShaAfter": "181a14ab04ca161fd672acb95d06037adb5a58be5252950e85f98ff767f1f032",
+          "contentValid": true,
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Normal1080/screens/015-handbook-hands.png",
+          "sha256": "7b6472f30e31d63737bb85a7b602e3d5779c56ca96cb7f24e172cfda46422aba",
+          "visualReview": "opened-full-image; no newly observed layout collision in visible content"
+        },
+        {
+          "id": "dice-probability-expanded",
+          "specScreen": "S12",
+          "scope": "Alternate real probability grouping, no edits.",
+          "width": 1920,
+          "height": 1080,
+          "fontScale": 1.0,
+          "stateHashBefore": "7c5f7d836779160ddf290e9d86d10054e7b81e2ae3876c3556401da3a2eac496",
+          "stateHashAfter": "7c5f7d836779160ddf290e9d86d10054e7b81e2ae3876c3556401da3a2eac496",
+          "saveShaBefore": "181a14ab04ca161fd672acb95d06037adb5a58be5252950e85f98ff767f1f032",
+          "saveShaAfter": "181a14ab04ca161fd672acb95d06037adb5a58be5252950e85f98ff767f1f032",
+          "contentValid": true,
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Normal1080/screens/023-dice-probability-expanded.png",
+          "sha256": "d769fcff46be747785789161aa95cda802cf7ac4cc5c970f23dd2d5662508b42",
+          "visualReview": "opened-full-image; no newly observed layout collision in visible content"
+        },
+        {
+          "id": "maximum-pool",
+          "specScreen": "S04",
+          "scope": "Explicit debug fixture: 10 dice/8 slots/10 controllers/5 items; not normal progression.",
+          "width": 1920,
+          "height": 1080,
+          "fontScale": 1.0,
+          "stateHashBefore": "2abc000382618654f4271aa2f444441ad7e1f09197a8e0b97f43245476437ad6",
+          "stateHashAfter": "2abc000382618654f4271aa2f444441ad7e1f09197a8e0b97f43245476437ad6",
+          "saveShaBefore": "3bc04ac35723c5918c377a6df03f43824ca2bc2073d38326f0e09db49ae1f428",
+          "saveShaAfter": "3bc04ac35723c5918c377a6df03f43824ca2bc2073d38326f0e09db49ae1f428",
+          "contentValid": true,
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Normal1080/screens/024-maximum-pool.png",
+          "sha256": "9629ed726010b7ccaa23f12cff719c9790c922e09a89b6023b79dfbf60aa6e69",
+          "visualReview": "opened-full-image; no newly observed layout collision in visible content"
+        },
+        {
+          "id": "maximum-locked-table",
+          "specScreen": "S06",
+          "scope": "Explicit fixture: eight locked/two pool; debug target 1, initial score 0.",
+          "width": 1920,
+          "height": 1080,
+          "fontScale": 1.0,
+          "stateHashBefore": "ac7b40a11f96493853f166fba6f318574e2d25c9b51f4a7d8a4b7ee4bd907cf6",
+          "stateHashAfter": "ac7b40a11f96493853f166fba6f318574e2d25c9b51f4a7d8a4b7ee4bd907cf6",
+          "saveShaBefore": "6b75d0a8db8be5d80316997e535fb516adcc5fceba81c041794d5155074cf03a",
+          "saveShaAfter": "6b75d0a8db8be5d80316997e535fb516adcc5fceba81c041794d5155074cf03a",
+          "contentValid": true,
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Normal1080/screens/025-maximum-locked-table.png",
+          "sha256": "c665e68341efc943e47fbf4f9998fc4cd23b2470fca5e78e7f2fbf23e9cf1aab",
+          "visualReview": "opened-full-image; no newly observed layout collision in visible content"
+        },
+        {
+          "id": "score-preview-detail",
+          "specScreen": "S07",
+          "scope": "Actual calculator preview.",
+          "width": 1920,
+          "height": 1080,
+          "fontScale": 1.0,
+          "stateHashBefore": "ac7b40a11f96493853f166fba6f318574e2d25c9b51f4a7d8a4b7ee4bd907cf6",
+          "stateHashAfter": "ac7b40a11f96493853f166fba6f318574e2d25c9b51f4a7d8a4b7ee4bd907cf6",
+          "saveShaBefore": "6b75d0a8db8be5d80316997e535fb516adcc5fceba81c041794d5155074cf03a",
+          "saveShaAfter": "6b75d0a8db8be5d80316997e535fb516adcc5fceba81c041794d5155074cf03a",
+          "contentValid": true,
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Normal1080/screens/026-score-preview-detail.png",
+          "sha256": "84b0d01408c382faccd9a67ea895079abe6942af808d45d8ea72e32925f3d9f5",
+          "visualReview": "opened-full-image; no newly observed layout collision in visible content"
+        },
+        {
+          "id": "controller-detail",
+          "specScreen": "S15",
+          "scope": "Actual first equipped controller.",
+          "width": 1920,
+          "height": 1080,
+          "fontScale": 1.0,
+          "stateHashBefore": "ac7b40a11f96493853f166fba6f318574e2d25c9b51f4a7d8a4b7ee4bd907cf6",
+          "stateHashAfter": "ac7b40a11f96493853f166fba6f318574e2d25c9b51f4a7d8a4b7ee4bd907cf6",
+          "saveShaBefore": "6b75d0a8db8be5d80316997e535fb516adcc5fceba81c041794d5155074cf03a",
+          "saveShaAfter": "6b75d0a8db8be5d80316997e535fb516adcc5fceba81c041794d5155074cf03a",
+          "contentValid": true,
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Normal1080/screens/028-controller-detail.png",
+          "sha256": "9cb6a8bdab6d11149d5a82d093b55fcaf950e6ac9c73102a4da8aba5caaff719",
+          "visualReview": "opened-full-image; no newly observed layout collision in visible content"
+        },
+        {
+          "id": "item-detail",
+          "specScreen": "S15",
+          "scope": "Actual held item; not used.",
+          "width": 1920,
+          "height": 1080,
+          "fontScale": 1.0,
+          "stateHashBefore": "ac7b40a11f96493853f166fba6f318574e2d25c9b51f4a7d8a4b7ee4bd907cf6",
+          "stateHashAfter": "ac7b40a11f96493853f166fba6f318574e2d25c9b51f4a7d8a4b7ee4bd907cf6",
+          "saveShaBefore": "6b75d0a8db8be5d80316997e535fb516adcc5fceba81c041794d5155074cf03a",
+          "saveShaAfter": "6b75d0a8db8be5d80316997e535fb516adcc5fceba81c041794d5155074cf03a",
+          "contentValid": true,
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Normal1080/screens/029-item-detail.png",
+          "sha256": "077e3b0db19cec0f494ef404b40ae63cfb0e4b86e7c1c73ed31520bbbf6978de",
+          "visualReview": "opened-full-image; no newly observed layout collision in visible content"
+        },
+        {
+          "id": "shop-tab-0",
+          "specScreen": "S10",
+          "scope": "Actual generated shop; fixed six controller quotes, lower tab 0.",
+          "width": 1920,
+          "height": 1080,
+          "fontScale": 1.0,
+          "stateHashBefore": "cea4e4e628fd26506485ccd21cfb05350bf068f682a9dec1f0a5d18b69665536",
+          "stateHashAfter": "cea4e4e628fd26506485ccd21cfb05350bf068f682a9dec1f0a5d18b69665536",
+          "saveShaBefore": "d24fbfc359e3c8823fe1cfe009d73165028f8465148851f4ad99cded878bd828",
+          "saveShaAfter": "d24fbfc359e3c8823fe1cfe009d73165028f8465148851f4ad99cded878bd828",
+          "contentValid": true,
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Normal1080/screens/033-shop-tab-0.png",
+          "sha256": "07cfb0033463a87a31d014ae6e87e266c751808bc83420864ec2c706a5649dcf",
+          "visualReview": "opened-full-image; no newly observed layout collision in visible content"
+        },
+        {
+          "id": "shop-tab-1",
+          "specScreen": "S10",
+          "scope": "Actual generated shop; fixed six controller quotes, lower tab 1.",
+          "width": 1920,
+          "height": 1080,
+          "fontScale": 1.0,
+          "stateHashBefore": "cea4e4e628fd26506485ccd21cfb05350bf068f682a9dec1f0a5d18b69665536",
+          "stateHashAfter": "cea4e4e628fd26506485ccd21cfb05350bf068f682a9dec1f0a5d18b69665536",
+          "saveShaBefore": "d24fbfc359e3c8823fe1cfe009d73165028f8465148851f4ad99cded878bd828",
+          "saveShaAfter": "d24fbfc359e3c8823fe1cfe009d73165028f8465148851f4ad99cded878bd828",
+          "contentValid": true,
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Normal1080/screens/034-shop-tab-1.png",
+          "sha256": "54dedc5affbac66d7c58fc156b680252dddb902d89a73a1a9cd2ca019cff5ddb",
+          "visualReview": "opened-full-image; no newly observed layout collision in visible content"
+        },
+        {
+          "id": "shop-tab-2",
+          "specScreen": "S10",
+          "scope": "Actual generated shop; fixed six controller quotes, lower tab 2.",
+          "width": 1920,
+          "height": 1080,
+          "fontScale": 1.0,
+          "stateHashBefore": "cea4e4e628fd26506485ccd21cfb05350bf068f682a9dec1f0a5d18b69665536",
+          "stateHashAfter": "cea4e4e628fd26506485ccd21cfb05350bf068f682a9dec1f0a5d18b69665536",
+          "saveShaBefore": "d24fbfc359e3c8823fe1cfe009d73165028f8465148851f4ad99cded878bd828",
+          "saveShaAfter": "d24fbfc359e3c8823fe1cfe009d73165028f8465148851f4ad99cded878bd828",
+          "contentValid": true,
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Normal1080/screens/035-shop-tab-2.png",
+          "sha256": "79b963e7cbaa2acdc38391351a8a3027b11b19ee141b626873b338a64df0c737",
+          "visualReview": "opened-full-image; no newly observed layout collision in visible content"
+        },
+        {
+          "id": "shop-tab-3",
+          "specScreen": "S10",
+          "scope": "Actual generated shop; fixed six controller quotes, lower tab 3.",
+          "width": 1920,
+          "height": 1080,
+          "fontScale": 1.0,
+          "stateHashBefore": "cea4e4e628fd26506485ccd21cfb05350bf068f682a9dec1f0a5d18b69665536",
+          "stateHashAfter": "cea4e4e628fd26506485ccd21cfb05350bf068f682a9dec1f0a5d18b69665536",
+          "saveShaBefore": "d24fbfc359e3c8823fe1cfe009d73165028f8465148851f4ad99cded878bd828",
+          "saveShaAfter": "d24fbfc359e3c8823fe1cfe009d73165028f8465148851f4ad99cded878bd828",
+          "contentValid": true,
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Normal1080/screens/036-shop-tab-3.png",
+          "sha256": "7599dd28e60b1c82ba99592a783953aac53e1bf1282676eecf2e494942132356",
+          "visualReview": "opened-full-image; no newly observed layout collision in visible content"
+        },
+        {
+          "id": "shop-tab-4",
+          "specScreen": "S10",
+          "scope": "Actual generated shop; fixed six controller quotes, lower tab 4.",
+          "width": 1920,
+          "height": 1080,
+          "fontScale": 1.0,
+          "stateHashBefore": "cea4e4e628fd26506485ccd21cfb05350bf068f682a9dec1f0a5d18b69665536",
+          "stateHashAfter": "cea4e4e628fd26506485ccd21cfb05350bf068f682a9dec1f0a5d18b69665536",
+          "saveShaBefore": "d24fbfc359e3c8823fe1cfe009d73165028f8465148851f4ad99cded878bd828",
+          "saveShaAfter": "d24fbfc359e3c8823fe1cfe009d73165028f8465148851f4ad99cded878bd828",
+          "contentValid": true,
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Normal1080/screens/037-shop-tab-4.png",
+          "sha256": "bbefd47a98dda3e043b9f6e1c5f6823b737abf420171ee4adf19c254a57a7faf",
+          "visualReview": "opened-full-image; no newly observed layout collision in visible content"
+        },
+        {
+          "id": "debug32-table",
+          "specScreen": "S21",
+          "scope": "Explicit 32 dice/controllers/items/capacity; real table pagination.",
+          "width": 1920,
+          "height": 1080,
+          "fontScale": 1.0,
+          "stateHashBefore": "20f1a63db503693ba3c9b9c1e8613fc08a04a47579f74c98d5cfca7b906ee521",
+          "stateHashAfter": "20f1a63db503693ba3c9b9c1e8613fc08a04a47579f74c98d5cfca7b906ee521",
+          "saveShaBefore": "a53bd1b40c4a8d4b3e0b369c3b2a941a5a0c3f0c4e573858eb82a713e7b483ad",
+          "saveShaAfter": "a53bd1b40c4a8d4b3e0b369c3b2a941a5a0c3f0c4e573858eb82a713e7b483ad",
+          "contentValid": true,
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Normal1080/screens/038-debug32-table.png",
+          "sha256": "55792980dfa3c1ab070151327661f464fcb69d92cd14f8b7443a0e0a58324718",
+          "visualReview": "opened-full-image; no newly observed layout collision in visible content"
+        },
+        {
+          "id": "debug32-DebugTab0",
+          "specScreen": "S21",
+          "scope": "Actual editor after re-reading applied 32-member scene; page top/selected anchor, not all 32 rows.",
+          "width": 1920,
+          "height": 1080,
+          "fontScale": 1.0,
+          "stateHashBefore": "20f1a63db503693ba3c9b9c1e8613fc08a04a47579f74c98d5cfca7b906ee521",
+          "stateHashAfter": "20f1a63db503693ba3c9b9c1e8613fc08a04a47579f74c98d5cfca7b906ee521",
+          "saveShaBefore": "a53bd1b40c4a8d4b3e0b369c3b2a941a5a0c3f0c4e573858eb82a713e7b483ad",
+          "saveShaAfter": "a53bd1b40c4a8d4b3e0b369c3b2a941a5a0c3f0c4e573858eb82a713e7b483ad",
+          "contentValid": true,
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Normal1080/screens/039-debug32-DebugTab0.png",
+          "sha256": "4d5411dba19f8520cbb0f8f345c10416accc67aa73faf868b9dbddd8199433ce",
+          "visualReview": "opened-full-image; no newly observed layout collision in visible content"
+        },
+        {
+          "id": "debug32-DebugNav3",
+          "specScreen": "S21",
+          "scope": "Actual editor after re-reading applied 32-member scene; page top/selected anchor, not all 32 rows.",
+          "width": 1920,
+          "height": 1080,
+          "fontScale": 1.0,
+          "stateHashBefore": "20f1a63db503693ba3c9b9c1e8613fc08a04a47579f74c98d5cfca7b906ee521",
+          "stateHashAfter": "20f1a63db503693ba3c9b9c1e8613fc08a04a47579f74c98d5cfca7b906ee521",
+          "saveShaBefore": "a53bd1b40c4a8d4b3e0b369c3b2a941a5a0c3f0c4e573858eb82a713e7b483ad",
+          "saveShaAfter": "a53bd1b40c4a8d4b3e0b369c3b2a941a5a0c3f0c4e573858eb82a713e7b483ad",
+          "contentValid": true,
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Normal1080/screens/042-debug32-DebugNav3.png",
+          "sha256": "0e1e87d4e72c8f0db807288d42459d0acc635fca132c8a910dd629c6be97a400",
+          "visualReview": "opened-full-image; no newly observed layout collision in visible content"
+        },
+        {
+          "id": "new-run-overwrite-summary",
+          "specScreen": "S02",
+          "scope": "Existing ordinary progress listed before replacement; cancel preserves checkpoint.",
+          "width": 1920,
+          "height": 1080,
+          "fontScale": 1.0,
+          "stateHashBefore": "7c5f7d836779160ddf290e9d86d10054e7b81e2ae3876c3556401da3a2eac496",
+          "stateHashAfter": "7c5f7d836779160ddf290e9d86d10054e7b81e2ae3876c3556401da3a2eac496",
+          "saveShaBefore": "181a14ab04ca161fd672acb95d06037adb5a58be5252950e85f98ff767f1f032",
+          "saveShaAfter": "181a14ab04ca161fd672acb95d06037adb5a58be5252950e85f98ff767f1f032",
+          "contentValid": true,
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Normal1080/screens/047-new-run-overwrite-summary.png",
+          "sha256": "86ce49d785ef6f3a07b8293864b502d2170ad8fcb498c9b09470448e4e8180df",
+          "visualReview": "opened-full-image; no newly observed layout collision in visible content"
+        }
+      ],
+      "notViewed": [
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Normal1080/screens/000-menu-empty.png",
+          "id": "menu-empty"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Normal1080/screens/001-new-run-seed.png",
+          "id": "new-run-seed"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Normal1080/screens/002-new-run-random-seed.png",
+          "id": "new-run-random-seed"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Normal1080/screens/003-stage-preview.png",
+          "id": "stage-preview"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Normal1080/screens/004-before-first-roll.png",
+          "id": "before-first-roll"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Normal1080/screens/005-rolled-unselected.png",
+          "id": "rolled-unselected"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Normal1080/screens/006-pending-die.png",
+          "id": "pending-die"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Normal1080/screens/007-confirmed-lock.png",
+          "id": "confirmed-lock"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Normal1080/screens/008-pause.png",
+          "id": "pause"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Normal1080/screens/010-settings-tab-1-top.png",
+          "id": "settings-tab-1-top"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Normal1080/screens/011-settings-tab-2-top.png",
+          "id": "settings-tab-2-top"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Normal1080/screens/012-settings-assist-bottom.png",
+          "id": "settings-assist-bottom"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Normal1080/screens/013-debug-password.png",
+          "id": "debug-password"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Normal1080/screens/014-debug-entry.png",
+          "id": "debug-entry"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Normal1080/screens/016-handbook-colors.png",
+          "id": "handbook-colors"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Normal1080/screens/017-dice-face-F01.png",
+          "id": "dice-face-F01"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Normal1080/screens/018-dice-face-F02.png",
+          "id": "dice-face-F02"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Normal1080/screens/019-dice-face-F03.png",
+          "id": "dice-face-F03"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Normal1080/screens/020-dice-face-F04.png",
+          "id": "dice-face-F04"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Normal1080/screens/021-dice-face-F05.png",
+          "id": "dice-face-F05"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Normal1080/screens/022-dice-face-F06.png",
+          "id": "dice-face-F06"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Normal1080/screens/027-score-preview-copied.png",
+          "id": "score-preview-copied"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Normal1080/screens/030-after-real-submit.png",
+          "id": "after-real-submit"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Normal1080/screens/031-history-detail.png",
+          "id": "history-detail"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Normal1080/screens/032-stage-settlement.png",
+          "id": "stage-settlement"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Normal1080/screens/040-debug32-DebugTab3.png",
+          "id": "debug32-DebugTab3"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Normal1080/screens/041-debug32-DebugTab1.png",
+          "id": "debug32-DebugTab1"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Normal1080/screens/043-debug32-DebugTab2.png",
+          "id": "debug32-DebugTab2"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Normal1080/screens/044-debug32-DebugNav5.png",
+          "id": "debug32-DebugNav5"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Normal1080/screens/045-debug32-DebugTab4.png",
+          "id": "debug32-DebugTab4"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Normal1080/screens/046-menu-continue.png",
+          "id": "menu-continue"
+        }
+      ]
+    },
+    {
+      "runtimeMvid": "9cc6a4d7-1fe3-41d6-bb49-7ed9ee2b9e60",
+      "coreMvid": "8f690e0d-a075-4b72-98e4-2cb64ced2fa3",
+      "recorderSourceSha256": "5d784144227db170af9bd7a3e9801138433fd32925e9d0c40fad481b7ce63bd1",
+      "configSha256": "747ed1efc7bea15873f66a81eee5c7654971c21031f2a1517ce629adce7b6e6c",
+      "unityVersion": "6000.6.7f1",
+      "artVersion": "art0.7.0",
+      "rulesVersion": "p0.6.0",
+      "platform": "WindowsEditor",
+      "os": "Windows 10  (10.0.19045) 64bit",
+      "gpu": "NVIDIA GeForce RTX 3080",
+      "graphicsApi": "Direct3D11",
+      "requested": {
+        "name": "Small720Font150",
+        "width": 1280,
+        "height": 720,
+        "fontPercent": 150,
+        "seed": 20261031,
+        "settleSeconds": 0.3499999940395355
+      },
+      "preferencesRestored": true,
+      "ordinaryCheckpointPreserved": true,
+      "normalSaveBeforeDebug": "aa797b729b5e71ddf5e6609753216aa98fe1e83d61ceb8203660b1a8eb79ba23",
+      "normalSaveAfterDebug": "aa797b729b5e71ddf5e6609753216aa98fe1e83d61ceb8203660b1a8eb79ba23",
+      "preset": "Small720Font150",
+      "report": "artifacts/cache/v07-screens-final-layout-0521/Small720Font150/screen-report.json",
+      "reportSha256": "4a0d21f2ab036be73618d20ad4f429a9c77ec5e8b3154bf938d17db82059d6d1",
+      "viewed": [
+        {
+          "id": "settings-tab-0-top",
+          "specScreen": "S17",
+          "scope": "Settings page 0; no native display transition.",
+          "width": 1280,
+          "height": 720,
+          "fontScale": 1.5,
+          "stateHashBefore": "8b6d0b5f1e4710d940a6a6ac61449d0c87be9754e676a5640090ebaa244a2495",
+          "stateHashAfter": "8b6d0b5f1e4710d940a6a6ac61449d0c87be9754e676a5640090ebaa244a2495",
+          "saveShaBefore": "aa797b729b5e71ddf5e6609753216aa98fe1e83d61ceb8203660b1a8eb79ba23",
+          "saveShaAfter": "aa797b729b5e71ddf5e6609753216aa98fe1e83d61ceb8203660b1a8eb79ba23",
+          "contentValid": true,
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Small720Font150/screens/009-settings-tab-0-top.png",
+          "sha256": "4d2aff2a1d555b58ec5d97f80e9aa800d274d6dd68433dd34800b127db99b286",
+          "visualReview": "opened-full-image; no newly observed layout collision in visible content"
+        },
+        {
+          "id": "handbook-hands",
+          "specScreen": "S14",
+          "scope": "Actual structure handbook.",
+          "width": 1280,
+          "height": 720,
+          "fontScale": 1.5,
+          "stateHashBefore": "8b6d0b5f1e4710d940a6a6ac61449d0c87be9754e676a5640090ebaa244a2495",
+          "stateHashAfter": "8b6d0b5f1e4710d940a6a6ac61449d0c87be9754e676a5640090ebaa244a2495",
+          "saveShaBefore": "aa797b729b5e71ddf5e6609753216aa98fe1e83d61ceb8203660b1a8eb79ba23",
+          "saveShaAfter": "aa797b729b5e71ddf5e6609753216aa98fe1e83d61ceb8203660b1a8eb79ba23",
+          "contentValid": true,
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Small720Font150/screens/015-handbook-hands.png",
+          "sha256": "aa30bbfc232d73b80db05deb77255e31de92dfd760cd8a5fbffa31c0f5bf3c5a",
+          "visualReview": "opened-full-image; no newly observed layout collision in visible content"
+        },
+        {
+          "id": "dice-probability-expanded",
+          "specScreen": "S12",
+          "scope": "Alternate real probability grouping, no edits.",
+          "width": 1280,
+          "height": 720,
+          "fontScale": 1.5,
+          "stateHashBefore": "8b6d0b5f1e4710d940a6a6ac61449d0c87be9754e676a5640090ebaa244a2495",
+          "stateHashAfter": "8b6d0b5f1e4710d940a6a6ac61449d0c87be9754e676a5640090ebaa244a2495",
+          "saveShaBefore": "aa797b729b5e71ddf5e6609753216aa98fe1e83d61ceb8203660b1a8eb79ba23",
+          "saveShaAfter": "aa797b729b5e71ddf5e6609753216aa98fe1e83d61ceb8203660b1a8eb79ba23",
+          "contentValid": true,
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Small720Font150/screens/023-dice-probability-expanded.png",
+          "sha256": "2737dec83f3fa5c9d08180afdfe69c53399ff720f84bb6ee8fc317542091243f",
+          "visualReview": "opened-full-image; no newly observed layout collision in visible content"
+        },
+        {
+          "id": "maximum-pool",
+          "specScreen": "S04",
+          "scope": "Explicit debug fixture: 10 dice/8 slots/10 controllers/5 items; not normal progression.",
+          "width": 1280,
+          "height": 720,
+          "fontScale": 1.5,
+          "stateHashBefore": "f88cda33d544bec72b4c3b325e7e2435046c56d935ebf6cd3cbb83b7000fee2d",
+          "stateHashAfter": "f88cda33d544bec72b4c3b325e7e2435046c56d935ebf6cd3cbb83b7000fee2d",
+          "saveShaBefore": "45afc1957061e303696be87320e06eb44498397efd88a4c9c4f46008ecbbbf69",
+          "saveShaAfter": "45afc1957061e303696be87320e06eb44498397efd88a4c9c4f46008ecbbbf69",
+          "contentValid": true,
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Small720Font150/screens/024-maximum-pool.png",
+          "sha256": "4c945c6a04e348b746ae12b505bd9235403490cfd51b7ce5b46cc2048e4d3afe",
+          "visualReview": "opened-full-image; no newly observed layout collision in visible content"
+        },
+        {
+          "id": "maximum-locked-table",
+          "specScreen": "S06",
+          "scope": "Explicit fixture: eight locked/two pool; debug target 1, initial score 0.",
+          "width": 1280,
+          "height": 720,
+          "fontScale": 1.5,
+          "stateHashBefore": "1ffff138189521941fcb10743f2d0aa521df3c6a1e3e67d7080e2eba5c1aec4b",
+          "stateHashAfter": "1ffff138189521941fcb10743f2d0aa521df3c6a1e3e67d7080e2eba5c1aec4b",
+          "saveShaBefore": "bdad667283ca042d12aa213c61a031206812f7df6398efaeaf912afc2a8fc2e2",
+          "saveShaAfter": "bdad667283ca042d12aa213c61a031206812f7df6398efaeaf912afc2a8fc2e2",
+          "contentValid": true,
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Small720Font150/screens/025-maximum-locked-table.png",
+          "sha256": "3920a3f57594773e3a3193c4010f70c82fc81d8bdf5c2dec231d83233c979972",
+          "visualReview": "opened-full-image; no newly observed layout collision in visible content"
+        },
+        {
+          "id": "score-preview-detail",
+          "specScreen": "S07",
+          "scope": "Actual calculator preview.",
+          "width": 1280,
+          "height": 720,
+          "fontScale": 1.5,
+          "stateHashBefore": "1ffff138189521941fcb10743f2d0aa521df3c6a1e3e67d7080e2eba5c1aec4b",
+          "stateHashAfter": "1ffff138189521941fcb10743f2d0aa521df3c6a1e3e67d7080e2eba5c1aec4b",
+          "saveShaBefore": "bdad667283ca042d12aa213c61a031206812f7df6398efaeaf912afc2a8fc2e2",
+          "saveShaAfter": "bdad667283ca042d12aa213c61a031206812f7df6398efaeaf912afc2a8fc2e2",
+          "contentValid": true,
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Small720Font150/screens/026-score-preview-detail.png",
+          "sha256": "83faaeb64ec84da225fd77f12722f62adc29244bfc5634eb0b552118e5a0adb4",
+          "visualReview": "opened-full-image; no newly observed layout collision in visible content"
+        },
+        {
+          "id": "controller-detail",
+          "specScreen": "S15",
+          "scope": "Actual first equipped controller.",
+          "width": 1280,
+          "height": 720,
+          "fontScale": 1.5,
+          "stateHashBefore": "1ffff138189521941fcb10743f2d0aa521df3c6a1e3e67d7080e2eba5c1aec4b",
+          "stateHashAfter": "1ffff138189521941fcb10743f2d0aa521df3c6a1e3e67d7080e2eba5c1aec4b",
+          "saveShaBefore": "bdad667283ca042d12aa213c61a031206812f7df6398efaeaf912afc2a8fc2e2",
+          "saveShaAfter": "bdad667283ca042d12aa213c61a031206812f7df6398efaeaf912afc2a8fc2e2",
+          "contentValid": true,
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Small720Font150/screens/028-controller-detail.png",
+          "sha256": "e4a89ec7058804552a09ef811437dbe23e29aba29642468ff36d3841d632e5a8",
+          "visualReview": "opened-full-image; no newly observed layout collision in visible content"
+        },
+        {
+          "id": "item-detail",
+          "specScreen": "S15",
+          "scope": "Actual held item; not used.",
+          "width": 1280,
+          "height": 720,
+          "fontScale": 1.5,
+          "stateHashBefore": "1ffff138189521941fcb10743f2d0aa521df3c6a1e3e67d7080e2eba5c1aec4b",
+          "stateHashAfter": "1ffff138189521941fcb10743f2d0aa521df3c6a1e3e67d7080e2eba5c1aec4b",
+          "saveShaBefore": "bdad667283ca042d12aa213c61a031206812f7df6398efaeaf912afc2a8fc2e2",
+          "saveShaAfter": "bdad667283ca042d12aa213c61a031206812f7df6398efaeaf912afc2a8fc2e2",
+          "contentValid": true,
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Small720Font150/screens/029-item-detail.png",
+          "sha256": "f4ddba8ec8249148d8fbd7e8b33677ad7bd4c3d38993fd8732171612a2fb8c21",
+          "visualReview": "opened-full-image; no newly observed layout collision in visible content"
+        },
+        {
+          "id": "shop-tab-0",
+          "specScreen": "S10",
+          "scope": "Actual generated shop; fixed six controller quotes, lower tab 0.",
+          "width": 1280,
+          "height": 720,
+          "fontScale": 1.5,
+          "stateHashBefore": "8cebc198bba14396df14a08cf3f55a65a2a168eafb08e23394de5859048d21cb",
+          "stateHashAfter": "8cebc198bba14396df14a08cf3f55a65a2a168eafb08e23394de5859048d21cb",
+          "saveShaBefore": "0b0d2a0af9e3d4ddc9b0bf50e94c4915ab65c405d2deaec7bb2debfb66b446bb",
+          "saveShaAfter": "0b0d2a0af9e3d4ddc9b0bf50e94c4915ab65c405d2deaec7bb2debfb66b446bb",
+          "contentValid": true,
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Small720Font150/screens/033-shop-tab-0.png",
+          "sha256": "b609bc92020f068949ef2397a8dca87a88850d79d72d4f96cd646f47670c0373",
+          "visualReview": "opened-full-image; no newly observed layout collision in visible content"
+        },
+        {
+          "id": "shop-tab-1",
+          "specScreen": "S10",
+          "scope": "Actual generated shop; fixed six controller quotes, lower tab 1.",
+          "width": 1280,
+          "height": 720,
+          "fontScale": 1.5,
+          "stateHashBefore": "8cebc198bba14396df14a08cf3f55a65a2a168eafb08e23394de5859048d21cb",
+          "stateHashAfter": "8cebc198bba14396df14a08cf3f55a65a2a168eafb08e23394de5859048d21cb",
+          "saveShaBefore": "0b0d2a0af9e3d4ddc9b0bf50e94c4915ab65c405d2deaec7bb2debfb66b446bb",
+          "saveShaAfter": "0b0d2a0af9e3d4ddc9b0bf50e94c4915ab65c405d2deaec7bb2debfb66b446bb",
+          "contentValid": true,
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Small720Font150/screens/034-shop-tab-1.png",
+          "sha256": "ecb4d071b77bf639f4eea6166268312104dfac5e9990c36edf13fc9203837cc7",
+          "visualReview": "opened-full-image; no newly observed layout collision in visible content"
+        },
+        {
+          "id": "shop-tab-2",
+          "specScreen": "S10",
+          "scope": "Actual generated shop; fixed six controller quotes, lower tab 2.",
+          "width": 1280,
+          "height": 720,
+          "fontScale": 1.5,
+          "stateHashBefore": "8cebc198bba14396df14a08cf3f55a65a2a168eafb08e23394de5859048d21cb",
+          "stateHashAfter": "8cebc198bba14396df14a08cf3f55a65a2a168eafb08e23394de5859048d21cb",
+          "saveShaBefore": "0b0d2a0af9e3d4ddc9b0bf50e94c4915ab65c405d2deaec7bb2debfb66b446bb",
+          "saveShaAfter": "0b0d2a0af9e3d4ddc9b0bf50e94c4915ab65c405d2deaec7bb2debfb66b446bb",
+          "contentValid": true,
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Small720Font150/screens/035-shop-tab-2.png",
+          "sha256": "8054d592fefb45ea2cb183263bf07a1fdd0946b02035fb099b7586f82ce21fb3",
+          "visualReview": "opened-full-image; no newly observed layout collision in visible content"
+        },
+        {
+          "id": "shop-tab-3",
+          "specScreen": "S10",
+          "scope": "Actual generated shop; fixed six controller quotes, lower tab 3.",
+          "width": 1280,
+          "height": 720,
+          "fontScale": 1.5,
+          "stateHashBefore": "8cebc198bba14396df14a08cf3f55a65a2a168eafb08e23394de5859048d21cb",
+          "stateHashAfter": "8cebc198bba14396df14a08cf3f55a65a2a168eafb08e23394de5859048d21cb",
+          "saveShaBefore": "0b0d2a0af9e3d4ddc9b0bf50e94c4915ab65c405d2deaec7bb2debfb66b446bb",
+          "saveShaAfter": "0b0d2a0af9e3d4ddc9b0bf50e94c4915ab65c405d2deaec7bb2debfb66b446bb",
+          "contentValid": true,
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Small720Font150/screens/036-shop-tab-3.png",
+          "sha256": "effbdb54ad41c9cb0448d361795eafb8b40d65560c5eeff5db465f9f32179773",
+          "visualReview": "opened-full-image; no newly observed layout collision in visible content"
+        },
+        {
+          "id": "shop-tab-4",
+          "specScreen": "S10",
+          "scope": "Actual generated shop; fixed six controller quotes, lower tab 4.",
+          "width": 1280,
+          "height": 720,
+          "fontScale": 1.5,
+          "stateHashBefore": "8cebc198bba14396df14a08cf3f55a65a2a168eafb08e23394de5859048d21cb",
+          "stateHashAfter": "8cebc198bba14396df14a08cf3f55a65a2a168eafb08e23394de5859048d21cb",
+          "saveShaBefore": "0b0d2a0af9e3d4ddc9b0bf50e94c4915ab65c405d2deaec7bb2debfb66b446bb",
+          "saveShaAfter": "0b0d2a0af9e3d4ddc9b0bf50e94c4915ab65c405d2deaec7bb2debfb66b446bb",
+          "contentValid": true,
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Small720Font150/screens/037-shop-tab-4.png",
+          "sha256": "cd65a0e430f831e0205d6a61f7dabe18f11c2c21e026335ce7a1467c00ac4f6e",
+          "visualReview": "opened-full-image; no newly observed layout collision in visible content"
+        },
+        {
+          "id": "debug32-table",
+          "specScreen": "S21",
+          "scope": "Explicit 32 dice/controllers/items/capacity; real table pagination.",
+          "width": 1280,
+          "height": 720,
+          "fontScale": 1.5,
+          "stateHashBefore": "2840432f76501da0105b7ebb2d2a3f1173baa3f9af538022c651bd68cc9bdad1",
+          "stateHashAfter": "2840432f76501da0105b7ebb2d2a3f1173baa3f9af538022c651bd68cc9bdad1",
+          "saveShaBefore": "ae850cbdeb79b384a33e0f05305c0530e1f119ca04d7233dfa08a2ae632d4d3f",
+          "saveShaAfter": "ae850cbdeb79b384a33e0f05305c0530e1f119ca04d7233dfa08a2ae632d4d3f",
+          "contentValid": true,
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Small720Font150/screens/038-debug32-table.png",
+          "sha256": "4c68abc1d08385f301e85a6226a4b6722763847ffc8ae79bd1c50f3cd39863eb",
+          "visualReview": "opened-full-image; no newly observed layout collision in visible content"
+        },
+        {
+          "id": "debug32-DebugTab0",
+          "specScreen": "S21",
+          "scope": "Actual editor after re-reading applied 32-member scene; page top/selected anchor, not all 32 rows.",
+          "width": 1280,
+          "height": 720,
+          "fontScale": 1.5,
+          "stateHashBefore": "2840432f76501da0105b7ebb2d2a3f1173baa3f9af538022c651bd68cc9bdad1",
+          "stateHashAfter": "2840432f76501da0105b7ebb2d2a3f1173baa3f9af538022c651bd68cc9bdad1",
+          "saveShaBefore": "ae850cbdeb79b384a33e0f05305c0530e1f119ca04d7233dfa08a2ae632d4d3f",
+          "saveShaAfter": "ae850cbdeb79b384a33e0f05305c0530e1f119ca04d7233dfa08a2ae632d4d3f",
+          "contentValid": true,
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Small720Font150/screens/039-debug32-DebugTab0.png",
+          "sha256": "b8b953fa7e7cae0732062ddb941f7240619f0f38d5a452b47bf7f41865490419",
+          "visualReview": "opened-full-image; no newly observed layout collision in visible content"
+        },
+        {
+          "id": "debug32-DebugNav3",
+          "specScreen": "S21",
+          "scope": "Actual editor after re-reading applied 32-member scene; page top/selected anchor, not all 32 rows.",
+          "width": 1280,
+          "height": 720,
+          "fontScale": 1.5,
+          "stateHashBefore": "2840432f76501da0105b7ebb2d2a3f1173baa3f9af538022c651bd68cc9bdad1",
+          "stateHashAfter": "2840432f76501da0105b7ebb2d2a3f1173baa3f9af538022c651bd68cc9bdad1",
+          "saveShaBefore": "ae850cbdeb79b384a33e0f05305c0530e1f119ca04d7233dfa08a2ae632d4d3f",
+          "saveShaAfter": "ae850cbdeb79b384a33e0f05305c0530e1f119ca04d7233dfa08a2ae632d4d3f",
+          "contentValid": true,
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Small720Font150/screens/042-debug32-DebugNav3.png",
+          "sha256": "b414f237ee04013818e55b2e4c12b75e5737a11ab4dc979868de20e95d89e106",
+          "visualReview": "opened-full-image; no newly observed layout collision in visible content"
+        },
+        {
+          "id": "new-run-overwrite-summary",
+          "specScreen": "S02",
+          "scope": "Existing ordinary progress listed before replacement; cancel preserves checkpoint.",
+          "width": 1280,
+          "height": 720,
+          "fontScale": 1.5,
+          "stateHashBefore": "8b6d0b5f1e4710d940a6a6ac61449d0c87be9754e676a5640090ebaa244a2495",
+          "stateHashAfter": "8b6d0b5f1e4710d940a6a6ac61449d0c87be9754e676a5640090ebaa244a2495",
+          "saveShaBefore": "aa797b729b5e71ddf5e6609753216aa98fe1e83d61ceb8203660b1a8eb79ba23",
+          "saveShaAfter": "aa797b729b5e71ddf5e6609753216aa98fe1e83d61ceb8203660b1a8eb79ba23",
+          "contentValid": true,
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Small720Font150/screens/047-new-run-overwrite-summary.png",
+          "sha256": "f13fed82280390c5abb57d8fdac1cac6804c47fd81a471364191934389379955",
+          "visualReview": "opened-full-image; no newly observed layout collision in visible content"
+        }
+      ],
+      "notViewed": [
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Small720Font150/screens/000-menu-empty.png",
+          "id": "menu-empty"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Small720Font150/screens/001-new-run-seed.png",
+          "id": "new-run-seed"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Small720Font150/screens/002-new-run-random-seed.png",
+          "id": "new-run-random-seed"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Small720Font150/screens/003-stage-preview.png",
+          "id": "stage-preview"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Small720Font150/screens/004-before-first-roll.png",
+          "id": "before-first-roll"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Small720Font150/screens/005-rolled-unselected.png",
+          "id": "rolled-unselected"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Small720Font150/screens/006-pending-die.png",
+          "id": "pending-die"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Small720Font150/screens/007-confirmed-lock.png",
+          "id": "confirmed-lock"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Small720Font150/screens/008-pause.png",
+          "id": "pause"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Small720Font150/screens/010-settings-tab-1-top.png",
+          "id": "settings-tab-1-top"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Small720Font150/screens/011-settings-tab-2-top.png",
+          "id": "settings-tab-2-top"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Small720Font150/screens/012-settings-assist-bottom.png",
+          "id": "settings-assist-bottom"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Small720Font150/screens/013-debug-password.png",
+          "id": "debug-password"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Small720Font150/screens/014-debug-entry.png",
+          "id": "debug-entry"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Small720Font150/screens/016-handbook-colors.png",
+          "id": "handbook-colors"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Small720Font150/screens/017-dice-face-F01.png",
+          "id": "dice-face-F01"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Small720Font150/screens/018-dice-face-F02.png",
+          "id": "dice-face-F02"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Small720Font150/screens/019-dice-face-F03.png",
+          "id": "dice-face-F03"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Small720Font150/screens/020-dice-face-F04.png",
+          "id": "dice-face-F04"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Small720Font150/screens/021-dice-face-F05.png",
+          "id": "dice-face-F05"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Small720Font150/screens/022-dice-face-F06.png",
+          "id": "dice-face-F06"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Small720Font150/screens/027-score-preview-copied.png",
+          "id": "score-preview-copied"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Small720Font150/screens/030-after-real-submit.png",
+          "id": "after-real-submit"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Small720Font150/screens/031-history-detail.png",
+          "id": "history-detail"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Small720Font150/screens/032-stage-settlement.png",
+          "id": "stage-settlement"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Small720Font150/screens/040-debug32-DebugTab3.png",
+          "id": "debug32-DebugTab3"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Small720Font150/screens/041-debug32-DebugTab1.png",
+          "id": "debug32-DebugTab1"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Small720Font150/screens/043-debug32-DebugTab2.png",
+          "id": "debug32-DebugTab2"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Small720Font150/screens/044-debug32-DebugNav5.png",
+          "id": "debug32-DebugNav5"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Small720Font150/screens/045-debug32-DebugTab4.png",
+          "id": "debug32-DebugTab4"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Small720Font150/screens/046-menu-continue.png",
+          "id": "menu-continue"
+        }
+      ]
+    },
+    {
+      "runtimeMvid": "9cc6a4d7-1fe3-41d6-bb49-7ed9ee2b9e60",
+      "coreMvid": "8f690e0d-a075-4b72-98e4-2cb64ced2fa3",
+      "recorderSourceSha256": "5d784144227db170af9bd7a3e9801138433fd32925e9d0c40fad481b7ce63bd1",
+      "configSha256": "747ed1efc7bea15873f66a81eee5c7654971c21031f2a1517ce629adce7b6e6c",
+      "unityVersion": "6000.6.7f1",
+      "artVersion": "art0.7.0",
+      "rulesVersion": "p0.6.0",
+      "platform": "WindowsEditor",
+      "os": "Windows 10  (10.0.19045) 64bit",
+      "gpu": "NVIDIA GeForce RTX 3080",
+      "graphicsApi": "Direct3D11",
+      "requested": {
+        "name": "Laptop768",
+        "width": 1366,
+        "height": 768,
+        "fontPercent": 100,
+        "seed": 20261031,
+        "settleSeconds": 0.3499999940395355
+      },
+      "preferencesRestored": true,
+      "ordinaryCheckpointPreserved": true,
+      "normalSaveBeforeDebug": "190183d4659591846e9587c3e143dc1b7406d5fa30f5c2954c29b071245cae77",
+      "normalSaveAfterDebug": "190183d4659591846e9587c3e143dc1b7406d5fa30f5c2954c29b071245cae77",
+      "preset": "Laptop768",
+      "report": "artifacts/cache/v07-screens-final-layout-0521/Laptop768/screen-report.json",
+      "reportSha256": "40f428bf6c3c6a4dfbd17aa8290bcc90ce15e38169f3809c4fb109d5b191bfe3",
+      "viewed": [
+        {
+          "id": "settings-tab-0-top",
+          "specScreen": "S17",
+          "scope": "Settings page 0; no native display transition.",
+          "width": 1366,
+          "height": 768,
+          "fontScale": 1.0,
+          "stateHashBefore": "9a544e6eba2790f34d7c2b51b04045c0e9c4d6383d3ed4437768c262d829c46e",
+          "stateHashAfter": "9a544e6eba2790f34d7c2b51b04045c0e9c4d6383d3ed4437768c262d829c46e",
+          "saveShaBefore": "190183d4659591846e9587c3e143dc1b7406d5fa30f5c2954c29b071245cae77",
+          "saveShaAfter": "190183d4659591846e9587c3e143dc1b7406d5fa30f5c2954c29b071245cae77",
+          "contentValid": true,
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Laptop768/screens/009-settings-tab-0-top.png",
+          "sha256": "84a4842060ec53c859afa61a3bdac472c382a8c9ca4a062b7fad2732a2af7096",
+          "visualReview": "opened-full-image; no newly observed layout collision in visible content"
+        },
+        {
+          "id": "handbook-hands",
+          "specScreen": "S14",
+          "scope": "Actual structure handbook.",
+          "width": 1366,
+          "height": 768,
+          "fontScale": 1.0,
+          "stateHashBefore": "9a544e6eba2790f34d7c2b51b04045c0e9c4d6383d3ed4437768c262d829c46e",
+          "stateHashAfter": "9a544e6eba2790f34d7c2b51b04045c0e9c4d6383d3ed4437768c262d829c46e",
+          "saveShaBefore": "190183d4659591846e9587c3e143dc1b7406d5fa30f5c2954c29b071245cae77",
+          "saveShaAfter": "190183d4659591846e9587c3e143dc1b7406d5fa30f5c2954c29b071245cae77",
+          "contentValid": true,
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Laptop768/screens/015-handbook-hands.png",
+          "sha256": "1be773e2c8faf11fd4f9c3737004411fa71ea96399adf802bae241207e8c9b3f",
+          "visualReview": "opened-full-image; no newly observed layout collision in visible content"
+        },
+        {
+          "id": "dice-probability-expanded",
+          "specScreen": "S12",
+          "scope": "Alternate real probability grouping, no edits.",
+          "width": 1366,
+          "height": 768,
+          "fontScale": 1.0,
+          "stateHashBefore": "9a544e6eba2790f34d7c2b51b04045c0e9c4d6383d3ed4437768c262d829c46e",
+          "stateHashAfter": "9a544e6eba2790f34d7c2b51b04045c0e9c4d6383d3ed4437768c262d829c46e",
+          "saveShaBefore": "190183d4659591846e9587c3e143dc1b7406d5fa30f5c2954c29b071245cae77",
+          "saveShaAfter": "190183d4659591846e9587c3e143dc1b7406d5fa30f5c2954c29b071245cae77",
+          "contentValid": true,
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Laptop768/screens/023-dice-probability-expanded.png",
+          "sha256": "cf7553a7d86eab8556e5599fe2e536999f87c5fecc0234a1853565fbb2879d44",
+          "visualReview": "opened-full-image; no newly observed layout collision in visible content"
+        },
+        {
+          "id": "maximum-pool",
+          "specScreen": "S04",
+          "scope": "Explicit debug fixture: 10 dice/8 slots/10 controllers/5 items; not normal progression.",
+          "width": 1366,
+          "height": 768,
+          "fontScale": 1.0,
+          "stateHashBefore": "9e0c9a993652265f712d8aab44a10b8392f1cf763b8317e512df4b841e929f3e",
+          "stateHashAfter": "9e0c9a993652265f712d8aab44a10b8392f1cf763b8317e512df4b841e929f3e",
+          "saveShaBefore": "e658e14131f083842baa2f4690599373b394765dfdd5f3e4e01bafe22c802051",
+          "saveShaAfter": "e658e14131f083842baa2f4690599373b394765dfdd5f3e4e01bafe22c802051",
+          "contentValid": true,
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Laptop768/screens/024-maximum-pool.png",
+          "sha256": "a699ece58b1354c97836f29f46c1e7e201f1a2663eaacba7a417ce8f16763001",
+          "visualReview": "opened-full-image; no newly observed layout collision in visible content"
+        },
+        {
+          "id": "maximum-locked-table",
+          "specScreen": "S06",
+          "scope": "Explicit fixture: eight locked/two pool; debug target 1, initial score 0.",
+          "width": 1366,
+          "height": 768,
+          "fontScale": 1.0,
+          "stateHashBefore": "d2b0e70ff4618394371e111840e1fc96b7b61c7d51b36e0b022325822de42753",
+          "stateHashAfter": "d2b0e70ff4618394371e111840e1fc96b7b61c7d51b36e0b022325822de42753",
+          "saveShaBefore": "7cfcd76f603e7f48dec8df1601a85f70d5cdf313e7cf0a0c4b05eb29e9774d44",
+          "saveShaAfter": "7cfcd76f603e7f48dec8df1601a85f70d5cdf313e7cf0a0c4b05eb29e9774d44",
+          "contentValid": true,
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Laptop768/screens/025-maximum-locked-table.png",
+          "sha256": "8bfd1797d9961ab2441f20ea9db86fd5cd2324c3458b9b324e95594cc00f7d7f",
+          "visualReview": "opened-full-image; no newly observed layout collision in visible content"
+        },
+        {
+          "id": "score-preview-detail",
+          "specScreen": "S07",
+          "scope": "Actual calculator preview.",
+          "width": 1366,
+          "height": 768,
+          "fontScale": 1.0,
+          "stateHashBefore": "d2b0e70ff4618394371e111840e1fc96b7b61c7d51b36e0b022325822de42753",
+          "stateHashAfter": "d2b0e70ff4618394371e111840e1fc96b7b61c7d51b36e0b022325822de42753",
+          "saveShaBefore": "7cfcd76f603e7f48dec8df1601a85f70d5cdf313e7cf0a0c4b05eb29e9774d44",
+          "saveShaAfter": "7cfcd76f603e7f48dec8df1601a85f70d5cdf313e7cf0a0c4b05eb29e9774d44",
+          "contentValid": true,
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Laptop768/screens/026-score-preview-detail.png",
+          "sha256": "9f386720e724f16af16315e4041aa2522196b8603f268c25b81492fcaafea7c0",
+          "visualReview": "opened-full-image; no newly observed layout collision in visible content"
+        },
+        {
+          "id": "controller-detail",
+          "specScreen": "S15",
+          "scope": "Actual first equipped controller.",
+          "width": 1366,
+          "height": 768,
+          "fontScale": 1.0,
+          "stateHashBefore": "d2b0e70ff4618394371e111840e1fc96b7b61c7d51b36e0b022325822de42753",
+          "stateHashAfter": "d2b0e70ff4618394371e111840e1fc96b7b61c7d51b36e0b022325822de42753",
+          "saveShaBefore": "7cfcd76f603e7f48dec8df1601a85f70d5cdf313e7cf0a0c4b05eb29e9774d44",
+          "saveShaAfter": "7cfcd76f603e7f48dec8df1601a85f70d5cdf313e7cf0a0c4b05eb29e9774d44",
+          "contentValid": true,
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Laptop768/screens/028-controller-detail.png",
+          "sha256": "8cd89a90ae53b672ad8ba97055500c5c41f21eb671d44455cf68a268a52080d9",
+          "visualReview": "opened-full-image; no newly observed layout collision in visible content"
+        },
+        {
+          "id": "item-detail",
+          "specScreen": "S15",
+          "scope": "Actual held item; not used.",
+          "width": 1366,
+          "height": 768,
+          "fontScale": 1.0,
+          "stateHashBefore": "d2b0e70ff4618394371e111840e1fc96b7b61c7d51b36e0b022325822de42753",
+          "stateHashAfter": "d2b0e70ff4618394371e111840e1fc96b7b61c7d51b36e0b022325822de42753",
+          "saveShaBefore": "7cfcd76f603e7f48dec8df1601a85f70d5cdf313e7cf0a0c4b05eb29e9774d44",
+          "saveShaAfter": "7cfcd76f603e7f48dec8df1601a85f70d5cdf313e7cf0a0c4b05eb29e9774d44",
+          "contentValid": true,
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Laptop768/screens/029-item-detail.png",
+          "sha256": "af0ff3a29e843036383108680e77d28214017ad5f1a371c8124569e234f9004f",
+          "visualReview": "opened-full-image; no newly observed layout collision in visible content"
+        },
+        {
+          "id": "shop-tab-0",
+          "specScreen": "S10",
+          "scope": "Actual generated shop; fixed six controller quotes, lower tab 0.",
+          "width": 1366,
+          "height": 768,
+          "fontScale": 1.0,
+          "stateHashBefore": "33e99d6811ca709132689c5ec3377b84687e4d3062a91178f9a94a995e865f31",
+          "stateHashAfter": "33e99d6811ca709132689c5ec3377b84687e4d3062a91178f9a94a995e865f31",
+          "saveShaBefore": "82621291f07518b7b5f8431a7491c574513e183794b7bba61ca657a6af41adef",
+          "saveShaAfter": "82621291f07518b7b5f8431a7491c574513e183794b7bba61ca657a6af41adef",
+          "contentValid": true,
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Laptop768/screens/033-shop-tab-0.png",
+          "sha256": "faf6cff5b372b4b769ac7908e541a511f46b4efcc43a6fd906052ca204b4c349",
+          "visualReview": "opened-full-image; no newly observed layout collision in visible content"
+        },
+        {
+          "id": "shop-tab-1",
+          "specScreen": "S10",
+          "scope": "Actual generated shop; fixed six controller quotes, lower tab 1.",
+          "width": 1366,
+          "height": 768,
+          "fontScale": 1.0,
+          "stateHashBefore": "33e99d6811ca709132689c5ec3377b84687e4d3062a91178f9a94a995e865f31",
+          "stateHashAfter": "33e99d6811ca709132689c5ec3377b84687e4d3062a91178f9a94a995e865f31",
+          "saveShaBefore": "82621291f07518b7b5f8431a7491c574513e183794b7bba61ca657a6af41adef",
+          "saveShaAfter": "82621291f07518b7b5f8431a7491c574513e183794b7bba61ca657a6af41adef",
+          "contentValid": true,
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Laptop768/screens/034-shop-tab-1.png",
+          "sha256": "43ba27006a1560fc6b5e3bb7270a88ece96d4dc9568da699dfb4b172fe0cd1fc",
+          "visualReview": "opened-full-image; no newly observed layout collision in visible content"
+        },
+        {
+          "id": "shop-tab-2",
+          "specScreen": "S10",
+          "scope": "Actual generated shop; fixed six controller quotes, lower tab 2.",
+          "width": 1366,
+          "height": 768,
+          "fontScale": 1.0,
+          "stateHashBefore": "33e99d6811ca709132689c5ec3377b84687e4d3062a91178f9a94a995e865f31",
+          "stateHashAfter": "33e99d6811ca709132689c5ec3377b84687e4d3062a91178f9a94a995e865f31",
+          "saveShaBefore": "82621291f07518b7b5f8431a7491c574513e183794b7bba61ca657a6af41adef",
+          "saveShaAfter": "82621291f07518b7b5f8431a7491c574513e183794b7bba61ca657a6af41adef",
+          "contentValid": true,
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Laptop768/screens/035-shop-tab-2.png",
+          "sha256": "62ba7b1bf664f4f3b5780c2c406e2f844a80ca29930e924c85008dd1e441df49",
+          "visualReview": "opened-full-image; no newly observed layout collision in visible content"
+        },
+        {
+          "id": "shop-tab-3",
+          "specScreen": "S10",
+          "scope": "Actual generated shop; fixed six controller quotes, lower tab 3.",
+          "width": 1366,
+          "height": 768,
+          "fontScale": 1.0,
+          "stateHashBefore": "33e99d6811ca709132689c5ec3377b84687e4d3062a91178f9a94a995e865f31",
+          "stateHashAfter": "33e99d6811ca709132689c5ec3377b84687e4d3062a91178f9a94a995e865f31",
+          "saveShaBefore": "82621291f07518b7b5f8431a7491c574513e183794b7bba61ca657a6af41adef",
+          "saveShaAfter": "82621291f07518b7b5f8431a7491c574513e183794b7bba61ca657a6af41adef",
+          "contentValid": true,
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Laptop768/screens/036-shop-tab-3.png",
+          "sha256": "0f34c533582375b41919dd62ea16341b4c71660a3d9c03cdf4364d1f8740b8f8",
+          "visualReview": "opened-full-image; no newly observed layout collision in visible content"
+        },
+        {
+          "id": "shop-tab-4",
+          "specScreen": "S10",
+          "scope": "Actual generated shop; fixed six controller quotes, lower tab 4.",
+          "width": 1366,
+          "height": 768,
+          "fontScale": 1.0,
+          "stateHashBefore": "33e99d6811ca709132689c5ec3377b84687e4d3062a91178f9a94a995e865f31",
+          "stateHashAfter": "33e99d6811ca709132689c5ec3377b84687e4d3062a91178f9a94a995e865f31",
+          "saveShaBefore": "82621291f07518b7b5f8431a7491c574513e183794b7bba61ca657a6af41adef",
+          "saveShaAfter": "82621291f07518b7b5f8431a7491c574513e183794b7bba61ca657a6af41adef",
+          "contentValid": true,
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Laptop768/screens/037-shop-tab-4.png",
+          "sha256": "376709de260133bf99c015a9c41dfb1f40b10eac87a8df17ca0531ada968acb3",
+          "visualReview": "opened-full-image; no newly observed layout collision in visible content"
+        },
+        {
+          "id": "debug32-table",
+          "specScreen": "S21",
+          "scope": "Explicit 32 dice/controllers/items/capacity; real table pagination.",
+          "width": 1366,
+          "height": 768,
+          "fontScale": 1.0,
+          "stateHashBefore": "a6cc815094b1d630b6cc17e8df01e7ed8993e01253a8928fa6736cbb6a8a427b",
+          "stateHashAfter": "a6cc815094b1d630b6cc17e8df01e7ed8993e01253a8928fa6736cbb6a8a427b",
+          "saveShaBefore": "75fc490ff2c282f9f5f4c2c77c4309db488f284a132696236f0c9d1a1a464bf7",
+          "saveShaAfter": "75fc490ff2c282f9f5f4c2c77c4309db488f284a132696236f0c9d1a1a464bf7",
+          "contentValid": true,
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Laptop768/screens/038-debug32-table.png",
+          "sha256": "a087116411f5a0c59d779336e6f238f22001fb6a251320ca1041c7b0fbda27e7",
+          "visualReview": "opened-full-image; no newly observed layout collision in visible content"
+        },
+        {
+          "id": "debug32-DebugTab0",
+          "specScreen": "S21",
+          "scope": "Actual editor after re-reading applied 32-member scene; page top/selected anchor, not all 32 rows.",
+          "width": 1366,
+          "height": 768,
+          "fontScale": 1.0,
+          "stateHashBefore": "a6cc815094b1d630b6cc17e8df01e7ed8993e01253a8928fa6736cbb6a8a427b",
+          "stateHashAfter": "a6cc815094b1d630b6cc17e8df01e7ed8993e01253a8928fa6736cbb6a8a427b",
+          "saveShaBefore": "75fc490ff2c282f9f5f4c2c77c4309db488f284a132696236f0c9d1a1a464bf7",
+          "saveShaAfter": "75fc490ff2c282f9f5f4c2c77c4309db488f284a132696236f0c9d1a1a464bf7",
+          "contentValid": true,
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Laptop768/screens/039-debug32-DebugTab0.png",
+          "sha256": "366c777ad3974f49fb0bcf0a52b4eda0d23bd350d16e8f88cf70fb64c4c704fd",
+          "visualReview": "opened-full-image; no newly observed layout collision in visible content"
+        },
+        {
+          "id": "debug32-DebugNav3",
+          "specScreen": "S21",
+          "scope": "Actual editor after re-reading applied 32-member scene; page top/selected anchor, not all 32 rows.",
+          "width": 1366,
+          "height": 768,
+          "fontScale": 1.0,
+          "stateHashBefore": "a6cc815094b1d630b6cc17e8df01e7ed8993e01253a8928fa6736cbb6a8a427b",
+          "stateHashAfter": "a6cc815094b1d630b6cc17e8df01e7ed8993e01253a8928fa6736cbb6a8a427b",
+          "saveShaBefore": "75fc490ff2c282f9f5f4c2c77c4309db488f284a132696236f0c9d1a1a464bf7",
+          "saveShaAfter": "75fc490ff2c282f9f5f4c2c77c4309db488f284a132696236f0c9d1a1a464bf7",
+          "contentValid": true,
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Laptop768/screens/042-debug32-DebugNav3.png",
+          "sha256": "dc820c0a7af76fd258077a4ab42f603a445b74f48ccac850170f38f0243e7e22",
+          "visualReview": "opened-full-image; no newly observed layout collision in visible content"
+        },
+        {
+          "id": "new-run-overwrite-summary",
+          "specScreen": "S02",
+          "scope": "Existing ordinary progress listed before replacement; cancel preserves checkpoint.",
+          "width": 1366,
+          "height": 768,
+          "fontScale": 1.0,
+          "stateHashBefore": "9a544e6eba2790f34d7c2b51b04045c0e9c4d6383d3ed4437768c262d829c46e",
+          "stateHashAfter": "9a544e6eba2790f34d7c2b51b04045c0e9c4d6383d3ed4437768c262d829c46e",
+          "saveShaBefore": "190183d4659591846e9587c3e143dc1b7406d5fa30f5c2954c29b071245cae77",
+          "saveShaAfter": "190183d4659591846e9587c3e143dc1b7406d5fa30f5c2954c29b071245cae77",
+          "contentValid": true,
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Laptop768/screens/047-new-run-overwrite-summary.png",
+          "sha256": "a1947da7a3856ff95fdcd19deb9b804f8104795ad905b219dca653066c61dc35",
+          "visualReview": "opened-full-image; no newly observed layout collision in visible content"
+        }
+      ],
+      "notViewed": [
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Laptop768/screens/000-menu-empty.png",
+          "id": "menu-empty"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Laptop768/screens/001-new-run-seed.png",
+          "id": "new-run-seed"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Laptop768/screens/002-new-run-random-seed.png",
+          "id": "new-run-random-seed"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Laptop768/screens/003-stage-preview.png",
+          "id": "stage-preview"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Laptop768/screens/004-before-first-roll.png",
+          "id": "before-first-roll"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Laptop768/screens/005-rolled-unselected.png",
+          "id": "rolled-unselected"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Laptop768/screens/006-pending-die.png",
+          "id": "pending-die"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Laptop768/screens/007-confirmed-lock.png",
+          "id": "confirmed-lock"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Laptop768/screens/008-pause.png",
+          "id": "pause"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Laptop768/screens/010-settings-tab-1-top.png",
+          "id": "settings-tab-1-top"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Laptop768/screens/011-settings-tab-2-top.png",
+          "id": "settings-tab-2-top"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Laptop768/screens/012-settings-assist-bottom.png",
+          "id": "settings-assist-bottom"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Laptop768/screens/013-debug-password.png",
+          "id": "debug-password"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Laptop768/screens/014-debug-entry.png",
+          "id": "debug-entry"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Laptop768/screens/016-handbook-colors.png",
+          "id": "handbook-colors"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Laptop768/screens/017-dice-face-F01.png",
+          "id": "dice-face-F01"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Laptop768/screens/018-dice-face-F02.png",
+          "id": "dice-face-F02"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Laptop768/screens/019-dice-face-F03.png",
+          "id": "dice-face-F03"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Laptop768/screens/020-dice-face-F04.png",
+          "id": "dice-face-F04"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Laptop768/screens/021-dice-face-F05.png",
+          "id": "dice-face-F05"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Laptop768/screens/022-dice-face-F06.png",
+          "id": "dice-face-F06"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Laptop768/screens/027-score-preview-copied.png",
+          "id": "score-preview-copied"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Laptop768/screens/030-after-real-submit.png",
+          "id": "after-real-submit"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Laptop768/screens/031-history-detail.png",
+          "id": "history-detail"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Laptop768/screens/032-stage-settlement.png",
+          "id": "stage-settlement"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Laptop768/screens/040-debug32-DebugTab3.png",
+          "id": "debug32-DebugTab3"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Laptop768/screens/041-debug32-DebugTab1.png",
+          "id": "debug32-DebugTab1"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Laptop768/screens/043-debug32-DebugTab2.png",
+          "id": "debug32-DebugTab2"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Laptop768/screens/044-debug32-DebugNav5.png",
+          "id": "debug32-DebugNav5"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Laptop768/screens/045-debug32-DebugTab4.png",
+          "id": "debug32-DebugTab4"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Laptop768/screens/046-menu-continue.png",
+          "id": "menu-continue"
+        }
+      ]
+    },
+    {
+      "runtimeMvid": "9cc6a4d7-1fe3-41d6-bb49-7ed9ee2b9e60",
+      "coreMvid": "8f690e0d-a075-4b72-98e4-2cb64ced2fa3",
+      "recorderSourceSha256": "5d784144227db170af9bd7a3e9801138433fd32925e9d0c40fad481b7ce63bd1",
+      "configSha256": "747ed1efc7bea15873f66a81eee5c7654971c21031f2a1517ce629adce7b6e6c",
+      "unityVersion": "6000.6.7f1",
+      "artVersion": "art0.7.0",
+      "rulesVersion": "p0.6.0",
+      "platform": "WindowsEditor",
+      "os": "Windows 10  (10.0.19045) 64bit",
+      "gpu": "NVIDIA GeForce RTX 3080",
+      "graphicsApi": "Direct3D11",
+      "requested": {
+        "name": "Normal1440",
+        "width": 2560,
+        "height": 1440,
+        "fontPercent": 100,
+        "seed": 20261031,
+        "settleSeconds": 0.3499999940395355
+      },
+      "preferencesRestored": true,
+      "ordinaryCheckpointPreserved": true,
+      "normalSaveBeforeDebug": "aeba87f9a42d1e200eae6033022ff6d97fb231c757a61b6d9797d4e1c25cd65a",
+      "normalSaveAfterDebug": "aeba87f9a42d1e200eae6033022ff6d97fb231c757a61b6d9797d4e1c25cd65a",
+      "preset": "Normal1440",
+      "report": "artifacts/cache/v07-screens-final-layout-0521/Normal1440/screen-report.json",
+      "reportSha256": "8296fe82b95c5f9f461861d3f1a8424da48d39ad1bec484424cdf5052b0f933f",
+      "viewed": [
+        {
+          "id": "settings-tab-0-top",
+          "specScreen": "S17",
+          "scope": "Settings page 0; no native display transition.",
+          "width": 2560,
+          "height": 1440,
+          "fontScale": 1.0,
+          "stateHashBefore": "422d32e34f213e23082a118e2dc31c525da0b4b631dd42be9cee758553c6f988",
+          "stateHashAfter": "422d32e34f213e23082a118e2dc31c525da0b4b631dd42be9cee758553c6f988",
+          "saveShaBefore": "aeba87f9a42d1e200eae6033022ff6d97fb231c757a61b6d9797d4e1c25cd65a",
+          "saveShaAfter": "aeba87f9a42d1e200eae6033022ff6d97fb231c757a61b6d9797d4e1c25cd65a",
+          "contentValid": true,
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Normal1440/screens/009-settings-tab-0-top.png",
+          "sha256": "7673daf976f25cb38c1155f8271b5da5ce01749fa284d048c0d6b5f447e89648",
+          "visualReview": "opened-full-image; no newly observed layout collision in visible content"
+        },
+        {
+          "id": "handbook-hands",
+          "specScreen": "S14",
+          "scope": "Actual structure handbook.",
+          "width": 2560,
+          "height": 1440,
+          "fontScale": 1.0,
+          "stateHashBefore": "422d32e34f213e23082a118e2dc31c525da0b4b631dd42be9cee758553c6f988",
+          "stateHashAfter": "422d32e34f213e23082a118e2dc31c525da0b4b631dd42be9cee758553c6f988",
+          "saveShaBefore": "aeba87f9a42d1e200eae6033022ff6d97fb231c757a61b6d9797d4e1c25cd65a",
+          "saveShaAfter": "aeba87f9a42d1e200eae6033022ff6d97fb231c757a61b6d9797d4e1c25cd65a",
+          "contentValid": true,
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Normal1440/screens/015-handbook-hands.png",
+          "sha256": "1e58a0cd1c52e953d2c6882b08bd49f0b084fef8a0f79a47b2be7135e85e3ddd",
+          "visualReview": "opened-full-image; no newly observed layout collision in visible content"
+        },
+        {
+          "id": "dice-probability-expanded",
+          "specScreen": "S12",
+          "scope": "Alternate real probability grouping, no edits.",
+          "width": 2560,
+          "height": 1440,
+          "fontScale": 1.0,
+          "stateHashBefore": "422d32e34f213e23082a118e2dc31c525da0b4b631dd42be9cee758553c6f988",
+          "stateHashAfter": "422d32e34f213e23082a118e2dc31c525da0b4b631dd42be9cee758553c6f988",
+          "saveShaBefore": "aeba87f9a42d1e200eae6033022ff6d97fb231c757a61b6d9797d4e1c25cd65a",
+          "saveShaAfter": "aeba87f9a42d1e200eae6033022ff6d97fb231c757a61b6d9797d4e1c25cd65a",
+          "contentValid": true,
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Normal1440/screens/023-dice-probability-expanded.png",
+          "sha256": "687c3f273c6bde89e7fd05e6582c44de138f06e610b71f7ae44fe5e2f982063f",
+          "visualReview": "opened-full-image; no newly observed layout collision in visible content"
+        },
+        {
+          "id": "maximum-pool",
+          "specScreen": "S04",
+          "scope": "Explicit debug fixture: 10 dice/8 slots/10 controllers/5 items; not normal progression.",
+          "width": 2560,
+          "height": 1440,
+          "fontScale": 1.0,
+          "stateHashBefore": "531ca2915e1e87dbfea7a60acea5391159497b4ace415be1508d972bae2288a4",
+          "stateHashAfter": "531ca2915e1e87dbfea7a60acea5391159497b4ace415be1508d972bae2288a4",
+          "saveShaBefore": "af6ffaff3237748f76b7fe94ac79cb53ad97425720949a59caed409ec95c3f62",
+          "saveShaAfter": "af6ffaff3237748f76b7fe94ac79cb53ad97425720949a59caed409ec95c3f62",
+          "contentValid": true,
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Normal1440/screens/024-maximum-pool.png",
+          "sha256": "ffd0db222ef22d0195999c425ff479089580967538deb784c69b83f2ec8fc80a",
+          "visualReview": "opened-full-image; no newly observed layout collision in visible content"
+        },
+        {
+          "id": "maximum-locked-table",
+          "specScreen": "S06",
+          "scope": "Explicit fixture: eight locked/two pool; debug target 1, initial score 0.",
+          "width": 2560,
+          "height": 1440,
+          "fontScale": 1.0,
+          "stateHashBefore": "8dca9ce191d369ba665cbb593a4df2eb5638ab35e21f0ca8e74fd3aabeef0fdd",
+          "stateHashAfter": "8dca9ce191d369ba665cbb593a4df2eb5638ab35e21f0ca8e74fd3aabeef0fdd",
+          "saveShaBefore": "3c77ef0c0ee518e32c4e6278c79b05bb9795e7d450befa033bfd2f18aa380486",
+          "saveShaAfter": "3c77ef0c0ee518e32c4e6278c79b05bb9795e7d450befa033bfd2f18aa380486",
+          "contentValid": true,
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Normal1440/screens/025-maximum-locked-table.png",
+          "sha256": "33e4ff1aafcd024d5a05b5777d70fb80a12658b458298eca658b934bdaf91492",
+          "visualReview": "opened-full-image; no newly observed layout collision in visible content"
+        },
+        {
+          "id": "score-preview-detail",
+          "specScreen": "S07",
+          "scope": "Actual calculator preview.",
+          "width": 2560,
+          "height": 1440,
+          "fontScale": 1.0,
+          "stateHashBefore": "8dca9ce191d369ba665cbb593a4df2eb5638ab35e21f0ca8e74fd3aabeef0fdd",
+          "stateHashAfter": "8dca9ce191d369ba665cbb593a4df2eb5638ab35e21f0ca8e74fd3aabeef0fdd",
+          "saveShaBefore": "3c77ef0c0ee518e32c4e6278c79b05bb9795e7d450befa033bfd2f18aa380486",
+          "saveShaAfter": "3c77ef0c0ee518e32c4e6278c79b05bb9795e7d450befa033bfd2f18aa380486",
+          "contentValid": true,
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Normal1440/screens/026-score-preview-detail.png",
+          "sha256": "68bbbc8c203475b17115dffcc20d2ad21867c51849b3e77c9546f985d8714cbf",
+          "visualReview": "opened-full-image; no newly observed layout collision in visible content"
+        },
+        {
+          "id": "controller-detail",
+          "specScreen": "S15",
+          "scope": "Actual first equipped controller.",
+          "width": 2560,
+          "height": 1440,
+          "fontScale": 1.0,
+          "stateHashBefore": "8dca9ce191d369ba665cbb593a4df2eb5638ab35e21f0ca8e74fd3aabeef0fdd",
+          "stateHashAfter": "8dca9ce191d369ba665cbb593a4df2eb5638ab35e21f0ca8e74fd3aabeef0fdd",
+          "saveShaBefore": "3c77ef0c0ee518e32c4e6278c79b05bb9795e7d450befa033bfd2f18aa380486",
+          "saveShaAfter": "3c77ef0c0ee518e32c4e6278c79b05bb9795e7d450befa033bfd2f18aa380486",
+          "contentValid": true,
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Normal1440/screens/028-controller-detail.png",
+          "sha256": "fb34aeed06fb56079b91d584efc430f943c6c041bd486f900273f2aa22bcb0fc",
+          "visualReview": "opened-full-image; no newly observed layout collision in visible content"
+        },
+        {
+          "id": "item-detail",
+          "specScreen": "S15",
+          "scope": "Actual held item; not used.",
+          "width": 2560,
+          "height": 1440,
+          "fontScale": 1.0,
+          "stateHashBefore": "8dca9ce191d369ba665cbb593a4df2eb5638ab35e21f0ca8e74fd3aabeef0fdd",
+          "stateHashAfter": "8dca9ce191d369ba665cbb593a4df2eb5638ab35e21f0ca8e74fd3aabeef0fdd",
+          "saveShaBefore": "3c77ef0c0ee518e32c4e6278c79b05bb9795e7d450befa033bfd2f18aa380486",
+          "saveShaAfter": "3c77ef0c0ee518e32c4e6278c79b05bb9795e7d450befa033bfd2f18aa380486",
+          "contentValid": true,
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Normal1440/screens/029-item-detail.png",
+          "sha256": "44c1fe622e9d53b1636e899ab2eaa4eb90356cf74085e14aa51193647eacd0f7",
+          "visualReview": "opened-full-image; no newly observed layout collision in visible content"
+        },
+        {
+          "id": "shop-tab-0",
+          "specScreen": "S10",
+          "scope": "Actual generated shop; fixed six controller quotes, lower tab 0.",
+          "width": 2560,
+          "height": 1440,
+          "fontScale": 1.0,
+          "stateHashBefore": "26d7f99075be31a9ed11de4d34f0a540ba1f2124f1d2e8dc97dc6deb1c1ba834",
+          "stateHashAfter": "26d7f99075be31a9ed11de4d34f0a540ba1f2124f1d2e8dc97dc6deb1c1ba834",
+          "saveShaBefore": "51c41fcec69786be7b43cec5e0ae28e2a427b006a501fff38dd5194834290356",
+          "saveShaAfter": "51c41fcec69786be7b43cec5e0ae28e2a427b006a501fff38dd5194834290356",
+          "contentValid": true,
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Normal1440/screens/033-shop-tab-0.png",
+          "sha256": "a8d80866bc8df417ed69b76d882fc3dc47a2acc3f4dfbfef80a9cc890306587c",
+          "visualReview": "opened-full-image; no newly observed layout collision in visible content"
+        },
+        {
+          "id": "shop-tab-1",
+          "specScreen": "S10",
+          "scope": "Actual generated shop; fixed six controller quotes, lower tab 1.",
+          "width": 2560,
+          "height": 1440,
+          "fontScale": 1.0,
+          "stateHashBefore": "26d7f99075be31a9ed11de4d34f0a540ba1f2124f1d2e8dc97dc6deb1c1ba834",
+          "stateHashAfter": "26d7f99075be31a9ed11de4d34f0a540ba1f2124f1d2e8dc97dc6deb1c1ba834",
+          "saveShaBefore": "51c41fcec69786be7b43cec5e0ae28e2a427b006a501fff38dd5194834290356",
+          "saveShaAfter": "51c41fcec69786be7b43cec5e0ae28e2a427b006a501fff38dd5194834290356",
+          "contentValid": true,
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Normal1440/screens/034-shop-tab-1.png",
+          "sha256": "0bca5255cda44e8bf407961aacc30b5efc38098bc7837251545aa049c2837db9",
+          "visualReview": "opened-full-image; no newly observed layout collision in visible content"
+        },
+        {
+          "id": "shop-tab-2",
+          "specScreen": "S10",
+          "scope": "Actual generated shop; fixed six controller quotes, lower tab 2.",
+          "width": 2560,
+          "height": 1440,
+          "fontScale": 1.0,
+          "stateHashBefore": "26d7f99075be31a9ed11de4d34f0a540ba1f2124f1d2e8dc97dc6deb1c1ba834",
+          "stateHashAfter": "26d7f99075be31a9ed11de4d34f0a540ba1f2124f1d2e8dc97dc6deb1c1ba834",
+          "saveShaBefore": "51c41fcec69786be7b43cec5e0ae28e2a427b006a501fff38dd5194834290356",
+          "saveShaAfter": "51c41fcec69786be7b43cec5e0ae28e2a427b006a501fff38dd5194834290356",
+          "contentValid": true,
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Normal1440/screens/035-shop-tab-2.png",
+          "sha256": "467a73843b73ed2411e56260f833f3bdb798afe85380da919247890c7b3d5316",
+          "visualReview": "opened-full-image; no newly observed layout collision in visible content"
+        },
+        {
+          "id": "shop-tab-3",
+          "specScreen": "S10",
+          "scope": "Actual generated shop; fixed six controller quotes, lower tab 3.",
+          "width": 2560,
+          "height": 1440,
+          "fontScale": 1.0,
+          "stateHashBefore": "26d7f99075be31a9ed11de4d34f0a540ba1f2124f1d2e8dc97dc6deb1c1ba834",
+          "stateHashAfter": "26d7f99075be31a9ed11de4d34f0a540ba1f2124f1d2e8dc97dc6deb1c1ba834",
+          "saveShaBefore": "51c41fcec69786be7b43cec5e0ae28e2a427b006a501fff38dd5194834290356",
+          "saveShaAfter": "51c41fcec69786be7b43cec5e0ae28e2a427b006a501fff38dd5194834290356",
+          "contentValid": true,
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Normal1440/screens/036-shop-tab-3.png",
+          "sha256": "9f0cb4602ac0063bee1ace6ddb1a5bc8ae677405d701b92cc8cb52ebdfb4e84f",
+          "visualReview": "opened-full-image; no newly observed layout collision in visible content"
+        },
+        {
+          "id": "shop-tab-4",
+          "specScreen": "S10",
+          "scope": "Actual generated shop; fixed six controller quotes, lower tab 4.",
+          "width": 2560,
+          "height": 1440,
+          "fontScale": 1.0,
+          "stateHashBefore": "26d7f99075be31a9ed11de4d34f0a540ba1f2124f1d2e8dc97dc6deb1c1ba834",
+          "stateHashAfter": "26d7f99075be31a9ed11de4d34f0a540ba1f2124f1d2e8dc97dc6deb1c1ba834",
+          "saveShaBefore": "51c41fcec69786be7b43cec5e0ae28e2a427b006a501fff38dd5194834290356",
+          "saveShaAfter": "51c41fcec69786be7b43cec5e0ae28e2a427b006a501fff38dd5194834290356",
+          "contentValid": true,
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Normal1440/screens/037-shop-tab-4.png",
+          "sha256": "0f2086bf201a4893cb6728db5d49385ef7c767002fad649e11377910f44474bf",
+          "visualReview": "opened-full-image; no newly observed layout collision in visible content"
+        },
+        {
+          "id": "debug32-table",
+          "specScreen": "S21",
+          "scope": "Explicit 32 dice/controllers/items/capacity; real table pagination.",
+          "width": 2560,
+          "height": 1440,
+          "fontScale": 1.0,
+          "stateHashBefore": "f9310910550279d4ebd4b54c87d3aac30839b342882a9736e716338a4750009e",
+          "stateHashAfter": "f9310910550279d4ebd4b54c87d3aac30839b342882a9736e716338a4750009e",
+          "saveShaBefore": "5eafef19dc93c6a1b0d8f8853a4e5c73f27a3417872179990236ac5aff17241b",
+          "saveShaAfter": "5eafef19dc93c6a1b0d8f8853a4e5c73f27a3417872179990236ac5aff17241b",
+          "contentValid": true,
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Normal1440/screens/038-debug32-table.png",
+          "sha256": "7ebbe95d3dcd9173aba948f89b8d03b0614e60017b504f72be0119f9498e2ec3",
+          "visualReview": "opened-full-image; no newly observed layout collision in visible content"
+        },
+        {
+          "id": "debug32-DebugTab0",
+          "specScreen": "S21",
+          "scope": "Actual editor after re-reading applied 32-member scene; page top/selected anchor, not all 32 rows.",
+          "width": 2560,
+          "height": 1440,
+          "fontScale": 1.0,
+          "stateHashBefore": "f9310910550279d4ebd4b54c87d3aac30839b342882a9736e716338a4750009e",
+          "stateHashAfter": "f9310910550279d4ebd4b54c87d3aac30839b342882a9736e716338a4750009e",
+          "saveShaBefore": "5eafef19dc93c6a1b0d8f8853a4e5c73f27a3417872179990236ac5aff17241b",
+          "saveShaAfter": "5eafef19dc93c6a1b0d8f8853a4e5c73f27a3417872179990236ac5aff17241b",
+          "contentValid": true,
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Normal1440/screens/039-debug32-DebugTab0.png",
+          "sha256": "3ee586b32fd20f17fa03bbfc347f433d3497fa48638727057fc7e336e0e6312b",
+          "visualReview": "opened-full-image; no newly observed layout collision in visible content"
+        },
+        {
+          "id": "debug32-DebugNav3",
+          "specScreen": "S21",
+          "scope": "Actual editor after re-reading applied 32-member scene; page top/selected anchor, not all 32 rows.",
+          "width": 2560,
+          "height": 1440,
+          "fontScale": 1.0,
+          "stateHashBefore": "f9310910550279d4ebd4b54c87d3aac30839b342882a9736e716338a4750009e",
+          "stateHashAfter": "f9310910550279d4ebd4b54c87d3aac30839b342882a9736e716338a4750009e",
+          "saveShaBefore": "5eafef19dc93c6a1b0d8f8853a4e5c73f27a3417872179990236ac5aff17241b",
+          "saveShaAfter": "5eafef19dc93c6a1b0d8f8853a4e5c73f27a3417872179990236ac5aff17241b",
+          "contentValid": true,
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Normal1440/screens/042-debug32-DebugNav3.png",
+          "sha256": "618f6ead661e8367a956d985119063a2ed466f42e346b1fe7fe8d7038b5ee9c6",
+          "visualReview": "opened-full-image; no newly observed layout collision in visible content"
+        },
+        {
+          "id": "new-run-overwrite-summary",
+          "specScreen": "S02",
+          "scope": "Existing ordinary progress listed before replacement; cancel preserves checkpoint.",
+          "width": 2560,
+          "height": 1440,
+          "fontScale": 1.0,
+          "stateHashBefore": "422d32e34f213e23082a118e2dc31c525da0b4b631dd42be9cee758553c6f988",
+          "stateHashAfter": "422d32e34f213e23082a118e2dc31c525da0b4b631dd42be9cee758553c6f988",
+          "saveShaBefore": "aeba87f9a42d1e200eae6033022ff6d97fb231c757a61b6d9797d4e1c25cd65a",
+          "saveShaAfter": "aeba87f9a42d1e200eae6033022ff6d97fb231c757a61b6d9797d4e1c25cd65a",
+          "contentValid": true,
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Normal1440/screens/047-new-run-overwrite-summary.png",
+          "sha256": "7bff36519068e08f2268acf7d51f18bf2ca762574500ac17b92c4187000559c2",
+          "visualReview": "opened-full-image; no newly observed layout collision in visible content"
+        }
+      ],
+      "notViewed": [
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Normal1440/screens/000-menu-empty.png",
+          "id": "menu-empty"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Normal1440/screens/001-new-run-seed.png",
+          "id": "new-run-seed"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Normal1440/screens/002-new-run-random-seed.png",
+          "id": "new-run-random-seed"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Normal1440/screens/003-stage-preview.png",
+          "id": "stage-preview"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Normal1440/screens/004-before-first-roll.png",
+          "id": "before-first-roll"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Normal1440/screens/005-rolled-unselected.png",
+          "id": "rolled-unselected"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Normal1440/screens/006-pending-die.png",
+          "id": "pending-die"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Normal1440/screens/007-confirmed-lock.png",
+          "id": "confirmed-lock"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Normal1440/screens/008-pause.png",
+          "id": "pause"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Normal1440/screens/010-settings-tab-1-top.png",
+          "id": "settings-tab-1-top"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Normal1440/screens/011-settings-tab-2-top.png",
+          "id": "settings-tab-2-top"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Normal1440/screens/012-settings-assist-bottom.png",
+          "id": "settings-assist-bottom"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Normal1440/screens/013-debug-password.png",
+          "id": "debug-password"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Normal1440/screens/014-debug-entry.png",
+          "id": "debug-entry"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Normal1440/screens/016-handbook-colors.png",
+          "id": "handbook-colors"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Normal1440/screens/017-dice-face-F01.png",
+          "id": "dice-face-F01"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Normal1440/screens/018-dice-face-F02.png",
+          "id": "dice-face-F02"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Normal1440/screens/019-dice-face-F03.png",
+          "id": "dice-face-F03"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Normal1440/screens/020-dice-face-F04.png",
+          "id": "dice-face-F04"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Normal1440/screens/021-dice-face-F05.png",
+          "id": "dice-face-F05"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Normal1440/screens/022-dice-face-F06.png",
+          "id": "dice-face-F06"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Normal1440/screens/027-score-preview-copied.png",
+          "id": "score-preview-copied"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Normal1440/screens/030-after-real-submit.png",
+          "id": "after-real-submit"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Normal1440/screens/031-history-detail.png",
+          "id": "history-detail"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Normal1440/screens/032-stage-settlement.png",
+          "id": "stage-settlement"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Normal1440/screens/040-debug32-DebugTab3.png",
+          "id": "debug32-DebugTab3"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Normal1440/screens/041-debug32-DebugTab1.png",
+          "id": "debug32-DebugTab1"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Normal1440/screens/043-debug32-DebugTab2.png",
+          "id": "debug32-DebugTab2"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Normal1440/screens/044-debug32-DebugNav5.png",
+          "id": "debug32-DebugNav5"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Normal1440/screens/045-debug32-DebugTab4.png",
+          "id": "debug32-DebugTab4"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Normal1440/screens/046-menu-continue.png",
+          "id": "menu-continue"
+        }
+      ]
+    },
+    {
+      "runtimeMvid": "9cc6a4d7-1fe3-41d6-bb49-7ed9ee2b9e60",
+      "coreMvid": "8f690e0d-a075-4b72-98e4-2cb64ced2fa3",
+      "recorderSourceSha256": "5d784144227db170af9bd7a3e9801138433fd32925e9d0c40fad481b7ce63bd1",
+      "configSha256": "747ed1efc7bea15873f66a81eee5c7654971c21031f2a1517ce629adce7b6e6c",
+      "unityVersion": "6000.6.7f1",
+      "artVersion": "art0.7.0",
+      "rulesVersion": "p0.6.0",
+      "platform": "WindowsEditor",
+      "os": "Windows 10  (10.0.19045) 64bit",
+      "gpu": "NVIDIA GeForce RTX 3080",
+      "graphicsApi": "Direct3D11",
+      "requested": {
+        "name": "Aspect16x10",
+        "width": 2560,
+        "height": 1600,
+        "fontPercent": 100,
+        "seed": 20261031,
+        "settleSeconds": 0.3499999940395355
+      },
+      "preferencesRestored": true,
+      "ordinaryCheckpointPreserved": true,
+      "normalSaveBeforeDebug": "0613f8e72f199ea4d963c1f0324dec5cfa4ed037b786ed7d1773cf3ebf57e724",
+      "normalSaveAfterDebug": "0613f8e72f199ea4d963c1f0324dec5cfa4ed037b786ed7d1773cf3ebf57e724",
+      "preset": "Aspect16x10",
+      "report": "artifacts/cache/v07-screens-final-layout-0521/Aspect16x10/screen-report.json",
+      "reportSha256": "39435af8cd27c562e4be8d03a62fba2540125915dc97088b671ce6ecf0432d31",
+      "viewed": [
+        {
+          "id": "settings-tab-0-top",
+          "specScreen": "S17",
+          "scope": "Settings page 0; no native display transition.",
+          "width": 2560,
+          "height": 1600,
+          "fontScale": 1.0,
+          "stateHashBefore": "8038234f9a1a65f8194fb552c0f4cb7efd353ac87417993b62643e426e8a5d5c",
+          "stateHashAfter": "8038234f9a1a65f8194fb552c0f4cb7efd353ac87417993b62643e426e8a5d5c",
+          "saveShaBefore": "0613f8e72f199ea4d963c1f0324dec5cfa4ed037b786ed7d1773cf3ebf57e724",
+          "saveShaAfter": "0613f8e72f199ea4d963c1f0324dec5cfa4ed037b786ed7d1773cf3ebf57e724",
+          "contentValid": true,
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Aspect16x10/screens/009-settings-tab-0-top.png",
+          "sha256": "5f3998f3a06d340511fa7063595caa8f4537f7513bc9dc53f86760e96a43d7af",
+          "visualReview": "opened-full-image; no newly observed layout collision in visible content"
+        },
+        {
+          "id": "handbook-hands",
+          "specScreen": "S14",
+          "scope": "Actual structure handbook.",
+          "width": 2560,
+          "height": 1600,
+          "fontScale": 1.0,
+          "stateHashBefore": "8038234f9a1a65f8194fb552c0f4cb7efd353ac87417993b62643e426e8a5d5c",
+          "stateHashAfter": "8038234f9a1a65f8194fb552c0f4cb7efd353ac87417993b62643e426e8a5d5c",
+          "saveShaBefore": "0613f8e72f199ea4d963c1f0324dec5cfa4ed037b786ed7d1773cf3ebf57e724",
+          "saveShaAfter": "0613f8e72f199ea4d963c1f0324dec5cfa4ed037b786ed7d1773cf3ebf57e724",
+          "contentValid": true,
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Aspect16x10/screens/015-handbook-hands.png",
+          "sha256": "a9261f1f4367a70b1cc188436f31f7475b4d72d96043c8668163918817adc5b7",
+          "visualReview": "opened-full-image; no newly observed layout collision in visible content"
+        },
+        {
+          "id": "dice-probability-expanded",
+          "specScreen": "S12",
+          "scope": "Alternate real probability grouping, no edits.",
+          "width": 2560,
+          "height": 1600,
+          "fontScale": 1.0,
+          "stateHashBefore": "8038234f9a1a65f8194fb552c0f4cb7efd353ac87417993b62643e426e8a5d5c",
+          "stateHashAfter": "8038234f9a1a65f8194fb552c0f4cb7efd353ac87417993b62643e426e8a5d5c",
+          "saveShaBefore": "0613f8e72f199ea4d963c1f0324dec5cfa4ed037b786ed7d1773cf3ebf57e724",
+          "saveShaAfter": "0613f8e72f199ea4d963c1f0324dec5cfa4ed037b786ed7d1773cf3ebf57e724",
+          "contentValid": true,
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Aspect16x10/screens/023-dice-probability-expanded.png",
+          "sha256": "6770cbeae0477dd6ff649a9a21cb741b0473691118d99ccb291e0a78a19509fe",
+          "visualReview": "opened-full-image; no newly observed layout collision in visible content"
+        },
+        {
+          "id": "maximum-pool",
+          "specScreen": "S04",
+          "scope": "Explicit debug fixture: 10 dice/8 slots/10 controllers/5 items; not normal progression.",
+          "width": 2560,
+          "height": 1600,
+          "fontScale": 1.0,
+          "stateHashBefore": "981c531abe13bbc8326f4600c54103577ac2177b8cc5a5195510bf1f4f5bfaca",
+          "stateHashAfter": "981c531abe13bbc8326f4600c54103577ac2177b8cc5a5195510bf1f4f5bfaca",
+          "saveShaBefore": "e0081e3e1c8e585b32051885c015eaff289796569c37d7b7bad8e9b9219c9caf",
+          "saveShaAfter": "e0081e3e1c8e585b32051885c015eaff289796569c37d7b7bad8e9b9219c9caf",
+          "contentValid": true,
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Aspect16x10/screens/024-maximum-pool.png",
+          "sha256": "ef47cda84f613870d7cfdc98291f757e41a0659780a9b15a3caa32218e047be5",
+          "visualReview": "opened-full-image; no newly observed layout collision in visible content"
+        },
+        {
+          "id": "maximum-locked-table",
+          "specScreen": "S06",
+          "scope": "Explicit fixture: eight locked/two pool; debug target 1, initial score 0.",
+          "width": 2560,
+          "height": 1600,
+          "fontScale": 1.0,
+          "stateHashBefore": "41b868e5d86c8a1efa0f6949f4525c35a3fca84340d974329b7ccba3caf15e69",
+          "stateHashAfter": "41b868e5d86c8a1efa0f6949f4525c35a3fca84340d974329b7ccba3caf15e69",
+          "saveShaBefore": "1438c00863c155fe62aad45ea6a646862d6094e1771308c1cea72b5d47b8f058",
+          "saveShaAfter": "1438c00863c155fe62aad45ea6a646862d6094e1771308c1cea72b5d47b8f058",
+          "contentValid": true,
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Aspect16x10/screens/025-maximum-locked-table.png",
+          "sha256": "7d9995533e189ced8c846063d55e67a14cdcef44c06ecd004132b41352fc6bba",
+          "visualReview": "opened-full-image; no newly observed layout collision in visible content"
+        },
+        {
+          "id": "score-preview-detail",
+          "specScreen": "S07",
+          "scope": "Actual calculator preview.",
+          "width": 2560,
+          "height": 1600,
+          "fontScale": 1.0,
+          "stateHashBefore": "41b868e5d86c8a1efa0f6949f4525c35a3fca84340d974329b7ccba3caf15e69",
+          "stateHashAfter": "41b868e5d86c8a1efa0f6949f4525c35a3fca84340d974329b7ccba3caf15e69",
+          "saveShaBefore": "1438c00863c155fe62aad45ea6a646862d6094e1771308c1cea72b5d47b8f058",
+          "saveShaAfter": "1438c00863c155fe62aad45ea6a646862d6094e1771308c1cea72b5d47b8f058",
+          "contentValid": true,
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Aspect16x10/screens/026-score-preview-detail.png",
+          "sha256": "4e4ef674948841cc3f01b41fae8976de236b7cbc492752287781cae85779702d",
+          "visualReview": "opened-full-image; no newly observed layout collision in visible content"
+        },
+        {
+          "id": "controller-detail",
+          "specScreen": "S15",
+          "scope": "Actual first equipped controller.",
+          "width": 2560,
+          "height": 1600,
+          "fontScale": 1.0,
+          "stateHashBefore": "41b868e5d86c8a1efa0f6949f4525c35a3fca84340d974329b7ccba3caf15e69",
+          "stateHashAfter": "41b868e5d86c8a1efa0f6949f4525c35a3fca84340d974329b7ccba3caf15e69",
+          "saveShaBefore": "1438c00863c155fe62aad45ea6a646862d6094e1771308c1cea72b5d47b8f058",
+          "saveShaAfter": "1438c00863c155fe62aad45ea6a646862d6094e1771308c1cea72b5d47b8f058",
+          "contentValid": true,
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Aspect16x10/screens/028-controller-detail.png",
+          "sha256": "384c23f4f625fe299d2b2b6f44762367a6d906dae9ed701fefd2073fb7c19bf3",
+          "visualReview": "opened-full-image; no newly observed layout collision in visible content"
+        },
+        {
+          "id": "item-detail",
+          "specScreen": "S15",
+          "scope": "Actual held item; not used.",
+          "width": 2560,
+          "height": 1600,
+          "fontScale": 1.0,
+          "stateHashBefore": "41b868e5d86c8a1efa0f6949f4525c35a3fca84340d974329b7ccba3caf15e69",
+          "stateHashAfter": "41b868e5d86c8a1efa0f6949f4525c35a3fca84340d974329b7ccba3caf15e69",
+          "saveShaBefore": "1438c00863c155fe62aad45ea6a646862d6094e1771308c1cea72b5d47b8f058",
+          "saveShaAfter": "1438c00863c155fe62aad45ea6a646862d6094e1771308c1cea72b5d47b8f058",
+          "contentValid": true,
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Aspect16x10/screens/029-item-detail.png",
+          "sha256": "12d62fb36541094d7be8c87e55cf6465e19b16fae251c3ac89c9d75529034c58",
+          "visualReview": "opened-full-image; no newly observed layout collision in visible content"
+        },
+        {
+          "id": "shop-tab-0",
+          "specScreen": "S10",
+          "scope": "Actual generated shop; fixed six controller quotes, lower tab 0.",
+          "width": 2560,
+          "height": 1600,
+          "fontScale": 1.0,
+          "stateHashBefore": "f94795157ee0be1b4320b63c91db00eeea5f8dbfb69be2d378eaa8b09c797d0b",
+          "stateHashAfter": "f94795157ee0be1b4320b63c91db00eeea5f8dbfb69be2d378eaa8b09c797d0b",
+          "saveShaBefore": "43e5e4296f1d906a3b8c06508cd649f8d3a54fccb1cec7ff8d4bc85b3dcf7277",
+          "saveShaAfter": "43e5e4296f1d906a3b8c06508cd649f8d3a54fccb1cec7ff8d4bc85b3dcf7277",
+          "contentValid": true,
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Aspect16x10/screens/033-shop-tab-0.png",
+          "sha256": "eedec232ceb12652b06eadf8657f355136fee1107049b0ea79b195cc74e7fc47",
+          "visualReview": "opened-full-image; no newly observed layout collision in visible content"
+        },
+        {
+          "id": "shop-tab-1",
+          "specScreen": "S10",
+          "scope": "Actual generated shop; fixed six controller quotes, lower tab 1.",
+          "width": 2560,
+          "height": 1600,
+          "fontScale": 1.0,
+          "stateHashBefore": "f94795157ee0be1b4320b63c91db00eeea5f8dbfb69be2d378eaa8b09c797d0b",
+          "stateHashAfter": "f94795157ee0be1b4320b63c91db00eeea5f8dbfb69be2d378eaa8b09c797d0b",
+          "saveShaBefore": "43e5e4296f1d906a3b8c06508cd649f8d3a54fccb1cec7ff8d4bc85b3dcf7277",
+          "saveShaAfter": "43e5e4296f1d906a3b8c06508cd649f8d3a54fccb1cec7ff8d4bc85b3dcf7277",
+          "contentValid": true,
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Aspect16x10/screens/034-shop-tab-1.png",
+          "sha256": "bd23ce39121c95f06619b34209185834535da8b2fb68629a0b191a8b7d1036b9",
+          "visualReview": "opened-full-image; no newly observed layout collision in visible content"
+        },
+        {
+          "id": "shop-tab-2",
+          "specScreen": "S10",
+          "scope": "Actual generated shop; fixed six controller quotes, lower tab 2.",
+          "width": 2560,
+          "height": 1600,
+          "fontScale": 1.0,
+          "stateHashBefore": "f94795157ee0be1b4320b63c91db00eeea5f8dbfb69be2d378eaa8b09c797d0b",
+          "stateHashAfter": "f94795157ee0be1b4320b63c91db00eeea5f8dbfb69be2d378eaa8b09c797d0b",
+          "saveShaBefore": "43e5e4296f1d906a3b8c06508cd649f8d3a54fccb1cec7ff8d4bc85b3dcf7277",
+          "saveShaAfter": "43e5e4296f1d906a3b8c06508cd649f8d3a54fccb1cec7ff8d4bc85b3dcf7277",
+          "contentValid": true,
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Aspect16x10/screens/035-shop-tab-2.png",
+          "sha256": "fc5af0c1603cd859009bff03e589735dab77ad4aa18c70f4bb2f84cc5301b367",
+          "visualReview": "opened-full-image; no newly observed layout collision in visible content"
+        },
+        {
+          "id": "shop-tab-3",
+          "specScreen": "S10",
+          "scope": "Actual generated shop; fixed six controller quotes, lower tab 3.",
+          "width": 2560,
+          "height": 1600,
+          "fontScale": 1.0,
+          "stateHashBefore": "f94795157ee0be1b4320b63c91db00eeea5f8dbfb69be2d378eaa8b09c797d0b",
+          "stateHashAfter": "f94795157ee0be1b4320b63c91db00eeea5f8dbfb69be2d378eaa8b09c797d0b",
+          "saveShaBefore": "43e5e4296f1d906a3b8c06508cd649f8d3a54fccb1cec7ff8d4bc85b3dcf7277",
+          "saveShaAfter": "43e5e4296f1d906a3b8c06508cd649f8d3a54fccb1cec7ff8d4bc85b3dcf7277",
+          "contentValid": true,
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Aspect16x10/screens/036-shop-tab-3.png",
+          "sha256": "d007347a46e7e12fd6646cdd7fd7d4fb266db349bef5cb4ded04de9c85fec4d0",
+          "visualReview": "opened-full-image; no newly observed layout collision in visible content"
+        },
+        {
+          "id": "shop-tab-4",
+          "specScreen": "S10",
+          "scope": "Actual generated shop; fixed six controller quotes, lower tab 4.",
+          "width": 2560,
+          "height": 1600,
+          "fontScale": 1.0,
+          "stateHashBefore": "f94795157ee0be1b4320b63c91db00eeea5f8dbfb69be2d378eaa8b09c797d0b",
+          "stateHashAfter": "f94795157ee0be1b4320b63c91db00eeea5f8dbfb69be2d378eaa8b09c797d0b",
+          "saveShaBefore": "43e5e4296f1d906a3b8c06508cd649f8d3a54fccb1cec7ff8d4bc85b3dcf7277",
+          "saveShaAfter": "43e5e4296f1d906a3b8c06508cd649f8d3a54fccb1cec7ff8d4bc85b3dcf7277",
+          "contentValid": true,
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Aspect16x10/screens/037-shop-tab-4.png",
+          "sha256": "f4b4c6f714bb961c9b4c6955c4f9c9f2d1c43480edf4c81a0c63f8d1bde39ada",
+          "visualReview": "opened-full-image; no newly observed layout collision in visible content"
+        },
+        {
+          "id": "debug32-table",
+          "specScreen": "S21",
+          "scope": "Explicit 32 dice/controllers/items/capacity; real table pagination.",
+          "width": 2560,
+          "height": 1600,
+          "fontScale": 1.0,
+          "stateHashBefore": "709b71a9822899c46a7771a42e8d96571f06fb8b8af737701994a4823cb9d179",
+          "stateHashAfter": "709b71a9822899c46a7771a42e8d96571f06fb8b8af737701994a4823cb9d179",
+          "saveShaBefore": "ad39810970d8a6ea0191a89193422c2f5661536178277c9494e5811ed4499a85",
+          "saveShaAfter": "ad39810970d8a6ea0191a89193422c2f5661536178277c9494e5811ed4499a85",
+          "contentValid": true,
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Aspect16x10/screens/038-debug32-table.png",
+          "sha256": "8ddf15cb3b20d172bc994715c16450b45cc2b20f1d97e14bf2eae3901fa00329",
+          "visualReview": "opened-full-image; no newly observed layout collision in visible content"
+        },
+        {
+          "id": "debug32-DebugTab0",
+          "specScreen": "S21",
+          "scope": "Actual editor after re-reading applied 32-member scene; page top/selected anchor, not all 32 rows.",
+          "width": 2560,
+          "height": 1600,
+          "fontScale": 1.0,
+          "stateHashBefore": "709b71a9822899c46a7771a42e8d96571f06fb8b8af737701994a4823cb9d179",
+          "stateHashAfter": "709b71a9822899c46a7771a42e8d96571f06fb8b8af737701994a4823cb9d179",
+          "saveShaBefore": "ad39810970d8a6ea0191a89193422c2f5661536178277c9494e5811ed4499a85",
+          "saveShaAfter": "ad39810970d8a6ea0191a89193422c2f5661536178277c9494e5811ed4499a85",
+          "contentValid": true,
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Aspect16x10/screens/039-debug32-DebugTab0.png",
+          "sha256": "f74e28e9624e30c34984f479cac071065112ea8025f3909f4a497a3aee02ccfa",
+          "visualReview": "opened-full-image; no newly observed layout collision in visible content"
+        },
+        {
+          "id": "debug32-DebugNav3",
+          "specScreen": "S21",
+          "scope": "Actual editor after re-reading applied 32-member scene; page top/selected anchor, not all 32 rows.",
+          "width": 2560,
+          "height": 1600,
+          "fontScale": 1.0,
+          "stateHashBefore": "709b71a9822899c46a7771a42e8d96571f06fb8b8af737701994a4823cb9d179",
+          "stateHashAfter": "709b71a9822899c46a7771a42e8d96571f06fb8b8af737701994a4823cb9d179",
+          "saveShaBefore": "ad39810970d8a6ea0191a89193422c2f5661536178277c9494e5811ed4499a85",
+          "saveShaAfter": "ad39810970d8a6ea0191a89193422c2f5661536178277c9494e5811ed4499a85",
+          "contentValid": true,
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Aspect16x10/screens/042-debug32-DebugNav3.png",
+          "sha256": "0343059c773f3a814b6e50da85af629a24e6d2f82d000439de0f9f18273964f7",
+          "visualReview": "opened-full-image; no newly observed layout collision in visible content"
+        },
+        {
+          "id": "new-run-overwrite-summary",
+          "specScreen": "S02",
+          "scope": "Existing ordinary progress listed before replacement; cancel preserves checkpoint.",
+          "width": 2560,
+          "height": 1600,
+          "fontScale": 1.0,
+          "stateHashBefore": "8038234f9a1a65f8194fb552c0f4cb7efd353ac87417993b62643e426e8a5d5c",
+          "stateHashAfter": "8038234f9a1a65f8194fb552c0f4cb7efd353ac87417993b62643e426e8a5d5c",
+          "saveShaBefore": "0613f8e72f199ea4d963c1f0324dec5cfa4ed037b786ed7d1773cf3ebf57e724",
+          "saveShaAfter": "0613f8e72f199ea4d963c1f0324dec5cfa4ed037b786ed7d1773cf3ebf57e724",
+          "contentValid": true,
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Aspect16x10/screens/047-new-run-overwrite-summary.png",
+          "sha256": "18cb4062b44ab18f12914a02e52ad2d202e375d3d4467c97dbdf1197d24045bc",
+          "visualReview": "opened-full-image; no newly observed layout collision in visible content"
+        }
+      ],
+      "notViewed": [
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Aspect16x10/screens/000-menu-empty.png",
+          "id": "menu-empty"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Aspect16x10/screens/001-new-run-seed.png",
+          "id": "new-run-seed"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Aspect16x10/screens/002-new-run-random-seed.png",
+          "id": "new-run-random-seed"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Aspect16x10/screens/003-stage-preview.png",
+          "id": "stage-preview"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Aspect16x10/screens/004-before-first-roll.png",
+          "id": "before-first-roll"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Aspect16x10/screens/005-rolled-unselected.png",
+          "id": "rolled-unselected"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Aspect16x10/screens/006-pending-die.png",
+          "id": "pending-die"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Aspect16x10/screens/007-confirmed-lock.png",
+          "id": "confirmed-lock"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Aspect16x10/screens/008-pause.png",
+          "id": "pause"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Aspect16x10/screens/010-settings-tab-1-top.png",
+          "id": "settings-tab-1-top"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Aspect16x10/screens/011-settings-tab-2-top.png",
+          "id": "settings-tab-2-top"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Aspect16x10/screens/012-settings-assist-bottom.png",
+          "id": "settings-assist-bottom"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Aspect16x10/screens/013-debug-password.png",
+          "id": "debug-password"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Aspect16x10/screens/014-debug-entry.png",
+          "id": "debug-entry"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Aspect16x10/screens/016-handbook-colors.png",
+          "id": "handbook-colors"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Aspect16x10/screens/017-dice-face-F01.png",
+          "id": "dice-face-F01"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Aspect16x10/screens/018-dice-face-F02.png",
+          "id": "dice-face-F02"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Aspect16x10/screens/019-dice-face-F03.png",
+          "id": "dice-face-F03"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Aspect16x10/screens/020-dice-face-F04.png",
+          "id": "dice-face-F04"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Aspect16x10/screens/021-dice-face-F05.png",
+          "id": "dice-face-F05"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Aspect16x10/screens/022-dice-face-F06.png",
+          "id": "dice-face-F06"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Aspect16x10/screens/027-score-preview-copied.png",
+          "id": "score-preview-copied"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Aspect16x10/screens/030-after-real-submit.png",
+          "id": "after-real-submit"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Aspect16x10/screens/031-history-detail.png",
+          "id": "history-detail"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Aspect16x10/screens/032-stage-settlement.png",
+          "id": "stage-settlement"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Aspect16x10/screens/040-debug32-DebugTab3.png",
+          "id": "debug32-DebugTab3"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Aspect16x10/screens/041-debug32-DebugTab1.png",
+          "id": "debug32-DebugTab1"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Aspect16x10/screens/043-debug32-DebugTab2.png",
+          "id": "debug32-DebugTab2"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Aspect16x10/screens/044-debug32-DebugNav5.png",
+          "id": "debug32-DebugNav5"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Aspect16x10/screens/045-debug32-DebugTab4.png",
+          "id": "debug32-DebugTab4"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Aspect16x10/screens/046-menu-continue.png",
+          "id": "menu-continue"
+        }
+      ]
+    },
+    {
+      "runtimeMvid": "9cc6a4d7-1fe3-41d6-bb49-7ed9ee2b9e60",
+      "coreMvid": "8f690e0d-a075-4b72-98e4-2cb64ced2fa3",
+      "recorderSourceSha256": "5d784144227db170af9bd7a3e9801138433fd32925e9d0c40fad481b7ce63bd1",
+      "configSha256": "747ed1efc7bea15873f66a81eee5c7654971c21031f2a1517ce629adce7b6e6c",
+      "unityVersion": "6000.6.7f1",
+      "artVersion": "art0.7.0",
+      "rulesVersion": "p0.6.0",
+      "platform": "WindowsEditor",
+      "os": "Windows 10  (10.0.19045) 64bit",
+      "gpu": "NVIDIA GeForce RTX 3080",
+      "graphicsApi": "Direct3D11",
+      "requested": {
+        "name": "Ultrawide",
+        "width": 3440,
+        "height": 1440,
+        "fontPercent": 100,
+        "seed": 20261031,
+        "settleSeconds": 0.3499999940395355
+      },
+      "preferencesRestored": true,
+      "ordinaryCheckpointPreserved": true,
+      "normalSaveBeforeDebug": "c66905f765aac4d62f6c069e787539ea943853b0797447c02bcf0374ae14e029",
+      "normalSaveAfterDebug": "c66905f765aac4d62f6c069e787539ea943853b0797447c02bcf0374ae14e029",
+      "preset": "Ultrawide",
+      "report": "artifacts/cache/v07-screens-final-layout-0521/Ultrawide/screen-report.json",
+      "reportSha256": "6768dcebf56c5d12891527ee4932f06276e99e6bd697f071871bd5e6a6a144ff",
+      "viewed": [
+        {
+          "id": "settings-tab-0-top",
+          "specScreen": "S17",
+          "scope": "Settings page 0; no native display transition.",
+          "width": 3440,
+          "height": 1440,
+          "fontScale": 1.0,
+          "stateHashBefore": "1ac8887c5bcee41b0e793e74f3a91da1bea16d8b9ad73e94552c56f9718ecacc",
+          "stateHashAfter": "1ac8887c5bcee41b0e793e74f3a91da1bea16d8b9ad73e94552c56f9718ecacc",
+          "saveShaBefore": "c66905f765aac4d62f6c069e787539ea943853b0797447c02bcf0374ae14e029",
+          "saveShaAfter": "c66905f765aac4d62f6c069e787539ea943853b0797447c02bcf0374ae14e029",
+          "contentValid": true,
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Ultrawide/screens/009-settings-tab-0-top.png",
+          "sha256": "72cdd90fe70eba98253e494ab097726dd755f3850a142628c0279ea8535e6445",
+          "visualReview": "opened-full-image; no newly observed layout collision in visible content"
+        },
+        {
+          "id": "handbook-hands",
+          "specScreen": "S14",
+          "scope": "Actual structure handbook.",
+          "width": 3440,
+          "height": 1440,
+          "fontScale": 1.0,
+          "stateHashBefore": "1ac8887c5bcee41b0e793e74f3a91da1bea16d8b9ad73e94552c56f9718ecacc",
+          "stateHashAfter": "1ac8887c5bcee41b0e793e74f3a91da1bea16d8b9ad73e94552c56f9718ecacc",
+          "saveShaBefore": "c66905f765aac4d62f6c069e787539ea943853b0797447c02bcf0374ae14e029",
+          "saveShaAfter": "c66905f765aac4d62f6c069e787539ea943853b0797447c02bcf0374ae14e029",
+          "contentValid": true,
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Ultrawide/screens/015-handbook-hands.png",
+          "sha256": "ef6150ac0325ccb8494c3c127c364560024b8a8e67c29c551c394cbbcfe361f4",
+          "visualReview": "opened-full-image; no newly observed layout collision in visible content"
+        },
+        {
+          "id": "dice-probability-expanded",
+          "specScreen": "S12",
+          "scope": "Alternate real probability grouping, no edits.",
+          "width": 3440,
+          "height": 1440,
+          "fontScale": 1.0,
+          "stateHashBefore": "1ac8887c5bcee41b0e793e74f3a91da1bea16d8b9ad73e94552c56f9718ecacc",
+          "stateHashAfter": "1ac8887c5bcee41b0e793e74f3a91da1bea16d8b9ad73e94552c56f9718ecacc",
+          "saveShaBefore": "c66905f765aac4d62f6c069e787539ea943853b0797447c02bcf0374ae14e029",
+          "saveShaAfter": "c66905f765aac4d62f6c069e787539ea943853b0797447c02bcf0374ae14e029",
+          "contentValid": true,
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Ultrawide/screens/023-dice-probability-expanded.png",
+          "sha256": "2ddbe92408a0a00431584c27d89f63f57aa13f1437a5fbc293efe9395220effc",
+          "visualReview": "opened-full-image; no newly observed layout collision in visible content"
+        },
+        {
+          "id": "maximum-pool",
+          "specScreen": "S04",
+          "scope": "Explicit debug fixture: 10 dice/8 slots/10 controllers/5 items; not normal progression.",
+          "width": 3440,
+          "height": 1440,
+          "fontScale": 1.0,
+          "stateHashBefore": "2b755e004c7bc6d3c09822471c976de8dd234964f7905dd8f096dcb2c669015c",
+          "stateHashAfter": "2b755e004c7bc6d3c09822471c976de8dd234964f7905dd8f096dcb2c669015c",
+          "saveShaBefore": "c13afca51ae6396ae72bb7bf4af54ed852e19ec0839ca027e13333eff6752a3d",
+          "saveShaAfter": "c13afca51ae6396ae72bb7bf4af54ed852e19ec0839ca027e13333eff6752a3d",
+          "contentValid": true,
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Ultrawide/screens/024-maximum-pool.png",
+          "sha256": "2f88f06ee6322fce017fc9d7da3a39efcb8195d0018c9ce3db9487ed7c71dee3",
+          "visualReview": "opened-full-image; no newly observed layout collision in visible content"
+        },
+        {
+          "id": "maximum-locked-table",
+          "specScreen": "S06",
+          "scope": "Explicit fixture: eight locked/two pool; debug target 1, initial score 0.",
+          "width": 3440,
+          "height": 1440,
+          "fontScale": 1.0,
+          "stateHashBefore": "3dccfd62f1c62657d88efbcae02e809a77fa39c07b57632767f03f7e614b2f47",
+          "stateHashAfter": "3dccfd62f1c62657d88efbcae02e809a77fa39c07b57632767f03f7e614b2f47",
+          "saveShaBefore": "38771e847596d5ed86c97dad55871347a82c7a54eb593adc787da242bc81d47e",
+          "saveShaAfter": "38771e847596d5ed86c97dad55871347a82c7a54eb593adc787da242bc81d47e",
+          "contentValid": true,
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Ultrawide/screens/025-maximum-locked-table.png",
+          "sha256": "c9f834a51d4b00eb676068849aeb95d376d556e3e35515a79f95389baeb03a88",
+          "visualReview": "opened-full-image; no newly observed layout collision in visible content"
+        },
+        {
+          "id": "score-preview-detail",
+          "specScreen": "S07",
+          "scope": "Actual calculator preview.",
+          "width": 3440,
+          "height": 1440,
+          "fontScale": 1.0,
+          "stateHashBefore": "3dccfd62f1c62657d88efbcae02e809a77fa39c07b57632767f03f7e614b2f47",
+          "stateHashAfter": "3dccfd62f1c62657d88efbcae02e809a77fa39c07b57632767f03f7e614b2f47",
+          "saveShaBefore": "38771e847596d5ed86c97dad55871347a82c7a54eb593adc787da242bc81d47e",
+          "saveShaAfter": "38771e847596d5ed86c97dad55871347a82c7a54eb593adc787da242bc81d47e",
+          "contentValid": true,
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Ultrawide/screens/026-score-preview-detail.png",
+          "sha256": "93b6422849c6252a003b76f4d25c544f97e9e5801e6a0fc12af2edb638fbeb70",
+          "visualReview": "opened-full-image; no newly observed layout collision in visible content"
+        },
+        {
+          "id": "controller-detail",
+          "specScreen": "S15",
+          "scope": "Actual first equipped controller.",
+          "width": 3440,
+          "height": 1440,
+          "fontScale": 1.0,
+          "stateHashBefore": "3dccfd62f1c62657d88efbcae02e809a77fa39c07b57632767f03f7e614b2f47",
+          "stateHashAfter": "3dccfd62f1c62657d88efbcae02e809a77fa39c07b57632767f03f7e614b2f47",
+          "saveShaBefore": "38771e847596d5ed86c97dad55871347a82c7a54eb593adc787da242bc81d47e",
+          "saveShaAfter": "38771e847596d5ed86c97dad55871347a82c7a54eb593adc787da242bc81d47e",
+          "contentValid": true,
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Ultrawide/screens/028-controller-detail.png",
+          "sha256": "445dc0217e7e33696bba5e47edd2c8d3d98729e79f0f8516ff9a9c010fe80e91",
+          "visualReview": "opened-full-image; no newly observed layout collision in visible content"
+        },
+        {
+          "id": "item-detail",
+          "specScreen": "S15",
+          "scope": "Actual held item; not used.",
+          "width": 3440,
+          "height": 1440,
+          "fontScale": 1.0,
+          "stateHashBefore": "3dccfd62f1c62657d88efbcae02e809a77fa39c07b57632767f03f7e614b2f47",
+          "stateHashAfter": "3dccfd62f1c62657d88efbcae02e809a77fa39c07b57632767f03f7e614b2f47",
+          "saveShaBefore": "38771e847596d5ed86c97dad55871347a82c7a54eb593adc787da242bc81d47e",
+          "saveShaAfter": "38771e847596d5ed86c97dad55871347a82c7a54eb593adc787da242bc81d47e",
+          "contentValid": true,
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Ultrawide/screens/029-item-detail.png",
+          "sha256": "1efe3f6d3f57cfd4d0dfd43f1d31e312c275586df70b669212cd08ebfbe49c12",
+          "visualReview": "opened-full-image; no newly observed layout collision in visible content"
+        },
+        {
+          "id": "shop-tab-0",
+          "specScreen": "S10",
+          "scope": "Actual generated shop; fixed six controller quotes, lower tab 0.",
+          "width": 3440,
+          "height": 1440,
+          "fontScale": 1.0,
+          "stateHashBefore": "1f5c355d15cb6bd26265e0336e6af8cf25d72066f9758458417df924d8e23ea9",
+          "stateHashAfter": "1f5c355d15cb6bd26265e0336e6af8cf25d72066f9758458417df924d8e23ea9",
+          "saveShaBefore": "e80b7899bd193718e8b763d899d05060d750e0cd400728c281aa0a76887b859c",
+          "saveShaAfter": "e80b7899bd193718e8b763d899d05060d750e0cd400728c281aa0a76887b859c",
+          "contentValid": true,
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Ultrawide/screens/033-shop-tab-0.png",
+          "sha256": "6566d61e245fe548d34d5f1896ace56347e4bf043a50da0f4f735c801de3f905",
+          "visualReview": "opened-full-image; no newly observed layout collision in visible content"
+        },
+        {
+          "id": "shop-tab-1",
+          "specScreen": "S10",
+          "scope": "Actual generated shop; fixed six controller quotes, lower tab 1.",
+          "width": 3440,
+          "height": 1440,
+          "fontScale": 1.0,
+          "stateHashBefore": "1f5c355d15cb6bd26265e0336e6af8cf25d72066f9758458417df924d8e23ea9",
+          "stateHashAfter": "1f5c355d15cb6bd26265e0336e6af8cf25d72066f9758458417df924d8e23ea9",
+          "saveShaBefore": "e80b7899bd193718e8b763d899d05060d750e0cd400728c281aa0a76887b859c",
+          "saveShaAfter": "e80b7899bd193718e8b763d899d05060d750e0cd400728c281aa0a76887b859c",
+          "contentValid": true,
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Ultrawide/screens/034-shop-tab-1.png",
+          "sha256": "629f8186af53caf57444e384ea3676e5ad5ca70baeed20595a23469feb0c0d7c",
+          "visualReview": "opened-full-image; no newly observed layout collision in visible content"
+        },
+        {
+          "id": "shop-tab-2",
+          "specScreen": "S10",
+          "scope": "Actual generated shop; fixed six controller quotes, lower tab 2.",
+          "width": 3440,
+          "height": 1440,
+          "fontScale": 1.0,
+          "stateHashBefore": "1f5c355d15cb6bd26265e0336e6af8cf25d72066f9758458417df924d8e23ea9",
+          "stateHashAfter": "1f5c355d15cb6bd26265e0336e6af8cf25d72066f9758458417df924d8e23ea9",
+          "saveShaBefore": "e80b7899bd193718e8b763d899d05060d750e0cd400728c281aa0a76887b859c",
+          "saveShaAfter": "e80b7899bd193718e8b763d899d05060d750e0cd400728c281aa0a76887b859c",
+          "contentValid": true,
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Ultrawide/screens/035-shop-tab-2.png",
+          "sha256": "f53f8b0a22a4ada188b7816f474897db53a73a576a676a15b61db39866d761f9",
+          "visualReview": "opened-full-image; no newly observed layout collision in visible content"
+        },
+        {
+          "id": "shop-tab-3",
+          "specScreen": "S10",
+          "scope": "Actual generated shop; fixed six controller quotes, lower tab 3.",
+          "width": 3440,
+          "height": 1440,
+          "fontScale": 1.0,
+          "stateHashBefore": "1f5c355d15cb6bd26265e0336e6af8cf25d72066f9758458417df924d8e23ea9",
+          "stateHashAfter": "1f5c355d15cb6bd26265e0336e6af8cf25d72066f9758458417df924d8e23ea9",
+          "saveShaBefore": "e80b7899bd193718e8b763d899d05060d750e0cd400728c281aa0a76887b859c",
+          "saveShaAfter": "e80b7899bd193718e8b763d899d05060d750e0cd400728c281aa0a76887b859c",
+          "contentValid": true,
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Ultrawide/screens/036-shop-tab-3.png",
+          "sha256": "0b6e0100b2ee0af2b05206ddec80942ece8c932a536b0d123c00d714864aede3",
+          "visualReview": "opened-full-image; no newly observed layout collision in visible content"
+        },
+        {
+          "id": "shop-tab-4",
+          "specScreen": "S10",
+          "scope": "Actual generated shop; fixed six controller quotes, lower tab 4.",
+          "width": 3440,
+          "height": 1440,
+          "fontScale": 1.0,
+          "stateHashBefore": "1f5c355d15cb6bd26265e0336e6af8cf25d72066f9758458417df924d8e23ea9",
+          "stateHashAfter": "1f5c355d15cb6bd26265e0336e6af8cf25d72066f9758458417df924d8e23ea9",
+          "saveShaBefore": "e80b7899bd193718e8b763d899d05060d750e0cd400728c281aa0a76887b859c",
+          "saveShaAfter": "e80b7899bd193718e8b763d899d05060d750e0cd400728c281aa0a76887b859c",
+          "contentValid": true,
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Ultrawide/screens/037-shop-tab-4.png",
+          "sha256": "b932b841a4e690818634a684aa50faac59f9598f7f24133fdcb2e7afc098005c",
+          "visualReview": "opened-full-image; no newly observed layout collision in visible content"
+        },
+        {
+          "id": "debug32-table",
+          "specScreen": "S21",
+          "scope": "Explicit 32 dice/controllers/items/capacity; real table pagination.",
+          "width": 3440,
+          "height": 1440,
+          "fontScale": 1.0,
+          "stateHashBefore": "d2632053bd420f334ee9775cc7693bdb4d321695a2917880e3f3b6133f86b37e",
+          "stateHashAfter": "d2632053bd420f334ee9775cc7693bdb4d321695a2917880e3f3b6133f86b37e",
+          "saveShaBefore": "5fa500ba7cc134fd289319615513675ed131f224b4f8904afb7fca02f379eec3",
+          "saveShaAfter": "5fa500ba7cc134fd289319615513675ed131f224b4f8904afb7fca02f379eec3",
+          "contentValid": true,
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Ultrawide/screens/038-debug32-table.png",
+          "sha256": "73e9b114d5e90fe688e5420dec6eb5fcd9c5331f46379299cac6d54802d3cbd4",
+          "visualReview": "opened-full-image; no newly observed layout collision in visible content"
+        },
+        {
+          "id": "debug32-DebugTab0",
+          "specScreen": "S21",
+          "scope": "Actual editor after re-reading applied 32-member scene; page top/selected anchor, not all 32 rows.",
+          "width": 3440,
+          "height": 1440,
+          "fontScale": 1.0,
+          "stateHashBefore": "d2632053bd420f334ee9775cc7693bdb4d321695a2917880e3f3b6133f86b37e",
+          "stateHashAfter": "d2632053bd420f334ee9775cc7693bdb4d321695a2917880e3f3b6133f86b37e",
+          "saveShaBefore": "5fa500ba7cc134fd289319615513675ed131f224b4f8904afb7fca02f379eec3",
+          "saveShaAfter": "5fa500ba7cc134fd289319615513675ed131f224b4f8904afb7fca02f379eec3",
+          "contentValid": true,
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Ultrawide/screens/039-debug32-DebugTab0.png",
+          "sha256": "5d48be3b8a5e1344d13322f112973daa466b0b954cb73a10be5550de66f4c542",
+          "visualReview": "opened-full-image; no newly observed layout collision in visible content"
+        },
+        {
+          "id": "debug32-DebugNav3",
+          "specScreen": "S21",
+          "scope": "Actual editor after re-reading applied 32-member scene; page top/selected anchor, not all 32 rows.",
+          "width": 3440,
+          "height": 1440,
+          "fontScale": 1.0,
+          "stateHashBefore": "d2632053bd420f334ee9775cc7693bdb4d321695a2917880e3f3b6133f86b37e",
+          "stateHashAfter": "d2632053bd420f334ee9775cc7693bdb4d321695a2917880e3f3b6133f86b37e",
+          "saveShaBefore": "5fa500ba7cc134fd289319615513675ed131f224b4f8904afb7fca02f379eec3",
+          "saveShaAfter": "5fa500ba7cc134fd289319615513675ed131f224b4f8904afb7fca02f379eec3",
+          "contentValid": true,
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Ultrawide/screens/042-debug32-DebugNav3.png",
+          "sha256": "818e7ac9631813c318748a0c04525aa637672f263acedfac08398344cda4a2b9",
+          "visualReview": "opened-full-image; no newly observed layout collision in visible content"
+        },
+        {
+          "id": "new-run-overwrite-summary",
+          "specScreen": "S02",
+          "scope": "Existing ordinary progress listed before replacement; cancel preserves checkpoint.",
+          "width": 3440,
+          "height": 1440,
+          "fontScale": 1.0,
+          "stateHashBefore": "1ac8887c5bcee41b0e793e74f3a91da1bea16d8b9ad73e94552c56f9718ecacc",
+          "stateHashAfter": "1ac8887c5bcee41b0e793e74f3a91da1bea16d8b9ad73e94552c56f9718ecacc",
+          "saveShaBefore": "c66905f765aac4d62f6c069e787539ea943853b0797447c02bcf0374ae14e029",
+          "saveShaAfter": "c66905f765aac4d62f6c069e787539ea943853b0797447c02bcf0374ae14e029",
+          "contentValid": true,
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Ultrawide/screens/047-new-run-overwrite-summary.png",
+          "sha256": "d23e27cf0651ca528a66e3f6179e4c5c7df4f664beab867b155e57b7ee12140c",
+          "visualReview": "opened-full-image; no newly observed layout collision in visible content"
+        }
+      ],
+      "notViewed": [
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Ultrawide/screens/000-menu-empty.png",
+          "id": "menu-empty"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Ultrawide/screens/001-new-run-seed.png",
+          "id": "new-run-seed"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Ultrawide/screens/002-new-run-random-seed.png",
+          "id": "new-run-random-seed"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Ultrawide/screens/003-stage-preview.png",
+          "id": "stage-preview"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Ultrawide/screens/004-before-first-roll.png",
+          "id": "before-first-roll"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Ultrawide/screens/005-rolled-unselected.png",
+          "id": "rolled-unselected"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Ultrawide/screens/006-pending-die.png",
+          "id": "pending-die"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Ultrawide/screens/007-confirmed-lock.png",
+          "id": "confirmed-lock"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Ultrawide/screens/008-pause.png",
+          "id": "pause"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Ultrawide/screens/010-settings-tab-1-top.png",
+          "id": "settings-tab-1-top"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Ultrawide/screens/011-settings-tab-2-top.png",
+          "id": "settings-tab-2-top"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Ultrawide/screens/012-settings-assist-bottom.png",
+          "id": "settings-assist-bottom"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Ultrawide/screens/013-debug-password.png",
+          "id": "debug-password"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Ultrawide/screens/014-debug-entry.png",
+          "id": "debug-entry"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Ultrawide/screens/016-handbook-colors.png",
+          "id": "handbook-colors"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Ultrawide/screens/017-dice-face-F01.png",
+          "id": "dice-face-F01"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Ultrawide/screens/018-dice-face-F02.png",
+          "id": "dice-face-F02"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Ultrawide/screens/019-dice-face-F03.png",
+          "id": "dice-face-F03"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Ultrawide/screens/020-dice-face-F04.png",
+          "id": "dice-face-F04"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Ultrawide/screens/021-dice-face-F05.png",
+          "id": "dice-face-F05"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Ultrawide/screens/022-dice-face-F06.png",
+          "id": "dice-face-F06"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Ultrawide/screens/027-score-preview-copied.png",
+          "id": "score-preview-copied"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Ultrawide/screens/030-after-real-submit.png",
+          "id": "after-real-submit"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Ultrawide/screens/031-history-detail.png",
+          "id": "history-detail"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Ultrawide/screens/032-stage-settlement.png",
+          "id": "stage-settlement"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Ultrawide/screens/040-debug32-DebugTab3.png",
+          "id": "debug32-DebugTab3"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Ultrawide/screens/041-debug32-DebugTab1.png",
+          "id": "debug32-DebugTab1"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Ultrawide/screens/043-debug32-DebugTab2.png",
+          "id": "debug32-DebugTab2"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Ultrawide/screens/044-debug32-DebugNav5.png",
+          "id": "debug32-DebugNav5"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Ultrawide/screens/045-debug32-DebugTab4.png",
+          "id": "debug32-DebugTab4"
+        },
+        {
+          "path": "artifacts/cache/v07-screens-final-layout-0521/Ultrawide/screens/046-menu-continue.png",
+          "id": "menu-continue"
+        }
+      ]
+    }
+  ],
+  "sourceEvidence": [
+    {
+      "path": "artifacts/cache/v07-render-source-0520-before.json",
+      "sha256": "fd6cde3b78641ce11ea36dd70880b13bd07338249b55a9ba424a65bcd0c8a0bf"
+    },
+    {
+      "path": "artifacts/cache/v07-render-source-0530-after.json",
+      "sha256": "995d17328d26707a7235611d03d4abc038701cf014f67c640b17df27cf0c4e08"
+    },
+    {
+      "path": "artifacts/cache/v07-render-pdb-0520.json",
+      "sha256": "6be22c7cccd527801cdf9ea3a46c970b8fc16c6c9439166a580410eda860520a"
+    },
+    {
+      "path": "artifacts/cache/v07-render-loaded-0520.json",
+      "sha256": "41e512e7a56061ce914714b3fefb42b3dd5f5372a95945575c9c2dc846a331a3"
+    }
+  ],
+  "nativeCrops": [
+    {
+      "source": "artifacts/cache/v07-screens-final-layout-0521/Ultrawide/screens/038-debug32-table.png",
+      "sourceSha256": "73e9b114d5e90fe688e5420dec6eb5fcd9c5331f46379299cac6d54802d3cbd4",
+      "boxXYXY": [
+        2200,
+        370,
+        2960,
+        590
+      ],
+      "path": "artifacts/cache/v07-six-layout-review/ultrawide-native-038-debug32-table.png",
+      "sha256": "444ff6ef64e338523818ba530bfed13cc375a0afc783798682a4ea5fba9bd2fa",
+      "scale": 1
+    },
+    {
+      "source": "artifacts/cache/v07-screens-final-layout-0521/Ultrawide/screens/025-maximum-locked-table.png",
+      "sourceSha256": "c9f834a51d4b00eb676068849aeb95d376d556e3e35515a79f95389baeb03a88",
+      "boxXYXY": [
+        1020,
+        1040,
+        1760,
+        1230
+      ],
+      "path": "artifacts/cache/v07-six-layout-review/ultrawide-native-025-maximum-locked-table.png",
+      "sha256": "0309e8f6abdd38d29accb081d0b3c16f565b8a0b8b08dcc63372bc95654ec072",
+      "scale": 1
+    },
+    {
+      "source": "artifacts/cache/v07-screens-final-layout-0521/Ultrawide/screens/039-debug32-DebugTab0.png",
+      "sourceSha256": "5d48be3b8a5e1344d13322f112973daa466b0b954cb73a10be5550de66f4c542",
+      "boxXYXY": [
+        2110,
+        235,
+        2910,
+        1080
+      ],
+      "path": "artifacts/cache/v07-six-layout-review/ultrawide-native-039-debug32-DebugTab0.png",
+      "sha256": "57114e168d2a1dfc0b3ed2a076ca6db93d5e2915437ebb3cb425e5d2870594dd",
+      "scale": 1
+    }
+  ],
+  "findings": [
+    {
+      "id": "SIX01",
+      "status": "incomplete",
+      "spec": "docs/specs/v07/ART_SPEC.md:174",
+      "actual": "S02 initial five dice shown as count text only; no five-dice visual preview in reviewed 047 frames.",
+      "affectedPresets": [
+        "Normal1080",
+        "Small720Font150",
+        "Laptop768",
+        "Normal1440",
+        "Aspect16x10",
+        "Ultrawide"
+      ]
+    }
+  ],
+  "notViewed": [],
+  "physicalSourceCount": 1289
+}

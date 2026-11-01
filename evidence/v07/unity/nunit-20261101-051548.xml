@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="10" result="Passed" total="10" passed="10" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-11-01 05:15:09Z" end-time="2026-11-01 05:15:48Z" duration="38.7956351">
+  <test-suite type="TestSuite" id="1133" name="DiceCraft P0" fullname="DiceCraft P0" runstate="Runnable" testcasecount="124" result="Passed" start-time="2026-11-01 05:15:09Z" end-time="2026-11-01 05:15:48Z" duration="38.795635" total="10" passed="10" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <test-suite type="Assembly" id="1127" name="DiceCraft.PlayModeTests.dll" fullname="E:/agent_workspace/gpt/game2/DicePrototype/Library/ScriptAssemblies/DiceCraft.PlayModeTests.dll" runstate="Runnable" testcasecount="124" result="Passed" start-time="2026-11-01 05:15:09Z" end-time="2026-11-01 05:15:48Z" duration="38.780318" total="10" passed="10" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="23240" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <test-suite type="TestSuite" id="1128" name="DiceCraft" fullname="DiceCraft" runstate="Runnable" testcasecount="124" result="Passed" start-time="2026-11-01 05:15:09Z" end-time="2026-11-01 05:15:48Z" duration="38.778080" total="10" passed="10" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1129" name="Tests" fullname="DiceCraft.Tests" runstate="Runnable" testcasecount="124" result="Passed" start-time="2026-11-01 05:15:09Z" end-time="2026-11-01 05:15:48Z" duration="38.775969" total="10" passed="10" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="1001" name="GameplayPlayModeTests" fullname="DiceCraft.Tests.GameplayPlayModeTests" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" testcasecount="122" result="Passed" start-time="2026-11-01 05:15:09Z" end-time="2026-11-01 05:15:48Z" duration="38.772923" total="10" passed="10" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1061" name="PLAY_ART07_POST_ExpiredCopyTargetUsesCommittedPermanentDataAndReplayIsBounded" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_POST_ExpiredCopyTargetUsesCommittedPermanentDataAndReplayIsBounded" methodname="PLAY_ART07_POST_ExpiredCopyTargetUsesCommittedPermanentDataAndReplayIsBounded" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="146208891" result="Passed" start-time="2026-11-01 05:15:09Z" end-time="2026-11-01 05:15:15Z" duration="5.138210" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Actual presentation phase trace: Wanted PostScore; speed=Normal; phases=Receipt@0+100,DiceContributions@100+120,BaseAndStructure@220+280,FinalScore@500+180,PostScore@680+480,TargetState@1160+280
+frame=17 dt=0.0166 elapsedMs=0.00 phase=Receipt playing=True focus=True paused=False
+frame=18 dt=0.3414 elapsedMs=341.36 phase=BaseAndStructure playing=True focus=True paused=False
+frame=28 dt=0.0165 elapsedMs=507.14 phase=FinalScore playing=True focus=True paused=False
+frame=39 dt=0.0170 elapsedMs=690.97 phase=PostScore playing=True focus=True paused=False
+Actual presentation phase trace: Wanted PostScore; speed=Normal; phases=Receipt@0+100,DiceContributions@100+120,BaseAndStructure@220+280,FinalScore@500+180,PostScore@680+480,TargetState@1160+280
+frame=63 dt=0.0171 elapsedMs=0.00 phase=Receipt playing=True focus=True paused=False
+frame=69 dt=0.0162 elapsedMs=107.27 phase=DiceContributions playing=True focus=True paused=False
+frame=76 dt=0.0165 elapsedMs=224.00 phase=BaseAndStructure playing=True focus=True paused=False
+frame=93 dt=0.0163 elapsedMs=507.30 phase=FinalScore playing=True focus=True paused=False
+frame=104 dt=0.0142 elapsedMs=691.02 phase=PostScore playing=True focus=True paused=False
+Actual presentation phase trace: Wanted PostScore; speed=Normal; phases=Receipt@0+100,DiceContributions@100+120,BaseAndStructure@220+280,FinalScore@500+180,PostScore@680+480,TargetState@1160+280
+frame=129 dt=0.0164 elapsedMs=0.00 phase=Receipt playing=True focus=True paused=False
+frame=135 dt=0.0172 elapsedMs=104.98 phase=DiceContributions playing=True focus=True paused=False
+frame=142 dt=0.0170 elapsedMs=221.62 phase=BaseAndStructure playing=True focus=True paused=False
+frame=159 dt=0.0166 elapsedMs=504.35 phase=FinalScore playing=True focus=True paused=False
+frame=170 dt=0.0165 elapsedMs=688.12 phase=PostScore playing=True focus=True paused=False
+Actual presentation phase trace: Wanted PostScore; speed=Normal; phases=Receipt@0+100,DiceContributions@100+120,BaseAndStructure@220+280,FinalScore@500+180,PostScore@680+480,TargetState@1160+280
+frame=195 dt=0.0165 elapsedMs=0.00 phase=Receipt playing=True focus=True paused=False
+frame=202 dt=0.0165 elapsedMs=116.10 phase=DiceContributions playing=True focus=True paused=False
+frame=209 dt=0.0170 elapsedMs=233.21 phase=BaseAndStructure playing=True focus=True paused=False
+frame=226 dt=0.0161 elapsedMs=516.09 phase=FinalScore playing=True focus=True paused=False
+frame=236 dt=0.0167 elapsedMs=683.19 phase=PostScore playing=True focus=True paused=False
+Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_3f73cad73551478385b95fa6c75ff9ad
+]]></output>
+            </test-case>
+            <test-case id="1066" name="PLAY_ART07_POST_FacePoolSurvivesPhysicalTargetDestructionAndDisable" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_POST_FacePoolSurvivesPhysicalTargetDestructionAndDisable" methodname="PLAY_ART07_POST_FacePoolSurvivesPhysicalTargetDestructionAndDisable" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="998392702" result="Passed" start-time="2026-11-01 05:15:15Z" end-time="2026-11-01 05:15:15Z" duration="0.308873" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_40ac6c90bf8e4a8386c377f6aec76b67
+]]></output>
+            </test-case>
+            <test-case id="1062" name="PLAY_ART07_POST_FastSharedHalfRevealsOnceWithoutWheelRotation" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_POST_FastSharedHalfRevealsOnceWithoutWheelRotation" methodname="PLAY_ART07_POST_FastSharedHalfRevealsOnceWithoutWheelRotation" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="896644440" result="Passed" start-time="2026-11-01 05:15:15Z" end-time="2026-11-01 05:15:15Z" duration="0.443954" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Actual presentation phase trace: Wanted ControllerAndEnchant; speed=Fast; phases=Receipt@0+40,DiceContributions@40+100,BaseAndStructure@140+100,ControllerAndEnchant@240+100,FinalScore@340+180
+frame=277 dt=0.0172 elapsedMs=0.00 phase=Receipt playing=True focus=True paused=False
+frame=278 dt=0.1897 elapsedMs=189.72 phase=BaseAndStructure playing=True focus=True paused=False
+frame=282 dt=0.0168 elapsedMs=256.32 phase=ControllerAndEnchant playing=True focus=True paused=False
+Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_157b730ab18f4a21b7a102d0fc8be65a
+]]></output>
+            </test-case>
+            <test-case id="1059" name="PLAY_ART07_POST_NetZeroUsesThinConfirmationWithoutWipeOrMeshSwap" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_POST_NetZeroUsesThinConfirmationWithoutWipeOrMeshSwap" methodname="PLAY_ART07_POST_NetZeroUsesThinConfirmationWithoutWipeOrMeshSwap" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="343371712" result="Passed" start-time="2026-11-01 05:15:15Z" end-time="2026-11-01 05:15:17Z" duration="1.257175" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Actual presentation phase trace: Wanted PostScore; speed=Normal; phases=Receipt@0+100,DiceContributions@100+300,BaseAndStructure@400+280,FinalScore@680+420,PostScore@1100+480
+frame=290 dt=0.0163 elapsedMs=0.00 phase=Receipt playing=True focus=True paused=False
+frame=291 dt=0.1518 elapsedMs=151.76 phase=DiceContributions playing=True focus=True paused=False
+frame=306 dt=0.0168 elapsedMs=401.73 phase=BaseAndStructure playing=True focus=True paused=False
+frame=323 dt=0.0165 elapsedMs=684.84 phase=FinalScore playing=True focus=True paused=False
+frame=348 dt=0.0165 elapsedMs=1101.71 phase=PostScore playing=True focus=True paused=False
+Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_3004ea4dfb3141dca1bd39b4b9a2f002
+]]></output>
+            </test-case>
+            <test-case id="1060" name="PLAY_ART07_POST_PermanentPipTransitionChangesActualGpuPixelsAndRestoresOpaqueFace" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_POST_PermanentPipTransitionChangesActualGpuPixelsAndRestoresOpaqueFace" methodname="PLAY_ART07_POST_PermanentPipTransitionChangesActualGpuPixelsAndRestoresOpaqueFace" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="1046956505" result="Passed" start-time="2026-11-01 05:15:17Z" end-time="2026-11-01 05:15:18Z" duration="1.474780" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Actual presentation phase trace: Wanted PostScore; speed=Normal; phases=Receipt@0+100,DiceContributions@100+300,BaseAndStructure@400+280,FinalScore@680+340,PostScore@1020+480
+frame=354 dt=0.0173 elapsedMs=0.00 phase=Receipt playing=True focus=True paused=False
+frame=355 dt=0.1500 elapsedMs=150.02 phase=DiceContributions playing=True focus=True paused=False
+frame=371 dt=0.0163 elapsedMs=415.51 phase=BaseAndStructure playing=True focus=True paused=False
+frame=387 dt=0.0163 elapsedMs=682.47 phase=FinalScore playing=True focus=True paused=False
+frame=408 dt=0.0163 elapsedMs=1032.43 phase=PostScore playing=True focus=True paused=False
+Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_3d70aff99a1b4dec8577ade8a2d3745a
+]]></output>
+            </test-case>
+            <test-case id="1063" name="PLAY_ART07_POST_QualifiedHasNonblockingTailPauseSkipAndNoSecondRealStamp" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_POST_QualifiedHasNonblockingTailPauseSkipAndNoSecondRealStamp" methodname="PLAY_ART07_POST_QualifiedHasNonblockingTailPauseSkipAndNoSecondRealStamp" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="520371642" result="Passed" start-time="2026-11-01 05:15:18Z" end-time="2026-11-01 05:15:21Z" duration="3.326993" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Actual presentation phase trace: Wanted TargetState; speed=Normal; phases=Receipt@0+100,DiceContributions@100+300,BaseAndStructure@400+280,ControllerAndEnchant@680+140,ControllerAndEnchant@820+140,ControllerAndEnchant@960+140,ControllerAndEnchant@1100+140,FinalScore@1240+600,TargetState@1840+280
+frame=433 dt=0.0170 elapsedMs=0.00 phase=Receipt playing=True focus=True paused=False
+frame=434 dt=0.1536 elapsedMs=153.60 phase=DiceContributions playing=True focus=True paused=False
+frame=449 dt=0.0169 elapsedMs=402.96 phase=BaseAndStructure playing=True focus=True paused=False
+frame=466 dt=0.0164 elapsedMs=686.14 phase=ControllerAndEnchant playing=True focus=True paused=False
+frame=500 dt=0.0168 elapsedMs=1252.92 phase=FinalScore playing=True focus=True paused=False
+frame=536 dt=0.0169 elapsedMs=1853.31 phase=TargetState playing=True focus=True paused=False
+Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_0e97909e346e4e7c91a923a7a106fd26
+]]></output>
+            </test-case>
+            <test-case id="1065" name="PLAY_ART07_POST_ShopTextureAndGoldUseRealTwoLayerFadeDuringMaterialWindow" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_POST_ShopTextureAndGoldUseRealTwoLayerFadeDuringMaterialWindow" methodname="PLAY_ART07_POST_ShopTextureAndGoldUseRealTwoLayerFadeDuringMaterialWindow" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="507449097" result="Passed" start-time="2026-11-01 05:15:21Z" end-time="2026-11-01 05:15:24Z" duration="2.173677" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_6088685b3d1d4de8b03f2d752e2fa8fc
+]]></output>
+            </test-case>
+            <test-case id="1064" name="PLAY_ART07_POST_ThirdAndFourthBrokenDiceKeepOriginalOutlineAndOnlyTwelveFragments" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_POST_ThirdAndFourthBrokenDiceKeepOriginalOutlineAndOnlyTwelveFragments" methodname="PLAY_ART07_POST_ThirdAndFourthBrokenDiceKeepOriginalOutlineAndOnlyTwelveFragments" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="443957407" result="Passed" start-time="2026-11-01 05:15:24Z" end-time="2026-11-01 05:15:24Z" duration="0.500911" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_ffbb21f3bf52428ebc62989592ca06dd
+]]></output>
+            </test-case>
+            <test-case id="1067" name="PLAY_ART07_POSTREWORK_ActualGpuNeverCombinesOldAndNewPipsKeepsOrnamentsAndState" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_POSTREWORK_ActualGpuNeverCombinesOldAndNewPipsKeepsOrnamentsAndState" methodname="PLAY_ART07_POSTREWORK_ActualGpuNeverCombinesOldAndNewPipsKeepsOrnamentsAndState" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="1264264779" result="Passed" start-time="2026-11-01 05:15:24Z" end-time="2026-11-01 05:15:26Z" duration="1.402489" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Actual presentation phase trace: Wanted PostScore; speed=Normal; phases=Receipt@0+100,DiceContributions@100+300,BaseAndStructure@400+280,FinalScore@680+340,PostScore@1020+480
+frame=689 dt=0.0163 elapsedMs=0.00 phase=Receipt playing=True focus=True paused=False
+frame=690 dt=0.1556 elapsedMs=155.57 phase=DiceContributions playing=True focus=True paused=False
+frame=705 dt=0.0166 elapsedMs=405.52 phase=BaseAndStructure playing=True focus=True paused=False
+frame=722 dt=0.0168 elapsedMs=688.41 phase=FinalScore playing=True focus=True paused=False
+frame=742 dt=0.0159 elapsedMs=1021.51 phase=PostScore playing=True focus=True paused=False
+POST_EXCLUSIVE_GPU progress=0 oldPixels=1042 newPixels=0
+POST_EXCLUSIVE_GPU progress=0.25 oldPixels=986 newPixels=0
+POST_EXCLUSIVE_GPU progress=0.49 oldPixels=934 newPixels=0
+POST_EXCLUSIVE_GPU progress=0.5 oldPixels=0 newPixels=0
+POST_EXCLUSIVE_GPU progress=0.51 oldPixels=0 newPixels=1380
+POST_EXCLUSIVE_GPU progress=0.75 oldPixels=0 newPixels=1380
+POST_EXCLUSIVE_GPU progress=0.99 oldPixels=0 newPixels=1380
+Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_8545880e296746339acb58f8d270b81b
+]]></output>
+            </test-case>
+            <test-case id="1068" name="PLAY_ART07_POSTREWORK_ThreeFontsNormalAndReducedKeepCompleteTransitionsInsideOwnSlot" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_POSTREWORK_ThreeFontsNormalAndReducedKeepCompleteTransitionsInsideOwnSlot" methodname="PLAY_ART07_POSTREWORK_ThreeFontsNormalAndReducedKeepCompleteTransitionsInsideOwnSlot" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="1139726249" result="Passed" start-time="2026-11-01 05:15:26Z" end-time="2026-11-01 05:15:48Z" duration="22.713101" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Actual presentation phase trace: Wanted PostScore; speed=Normal; phases=Receipt@0+100,DiceContributions@100+300,BaseAndStructure@400+280,ControllerAndEnchant@680+140,FinalScore@820+420,PostScore@1240+480
+frame=752 dt=0.0540 elapsedMs=0.00 phase=Receipt playing=True focus=True paused=False
+frame=753 dt=0.2255 elapsedMs=225.54 phase=DiceContributions playing=True focus=True paused=False
+frame=764 dt=0.0167 elapsedMs=408.37 phase=BaseAndStructure playing=True focus=True paused=False
+frame=781 dt=0.0169 elapsedMs=691.28 phase=ControllerAndEnchant playing=True focus=True paused=False
+frame=789 dt=0.0173 elapsedMs=825.08 phase=FinalScore playing=True focus=True paused=False
+frame=814 dt=0.0168 elapsedMs=1241.52 phase=PostScore playing=True focus=True paused=False
+POST_LABEL_INK DieStateD006 font=14 spacing=-20 lines=1/2 localInkGap=5.531891
+POST_LABEL_INK DieStateD007 font=14 spacing=-20 lines=1/2 localInkGap=5.531891
+POST_LABEL_INK DieStateD010 font=14 spacing=-20 lines=1/2 localInkGap=5.531891
+Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_cb79eaab0dd04c0e92f1eefce912b67b\art07-edge-screens\post-overlay-normal-font100-p0.png
+Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_cb79eaab0dd04c0e92f1eefce912b67b\art07-edge-screens\post-overlay-normal-font100-p50.png
+Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_cb79eaab0dd04c0e92f1eefce912b67b\art07-edge-screens\post-stamp-normal-font100-ms0.png
+Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_cb79eaab0dd04c0e92f1eefce912b67b\art07-edge-screens\post-stamp-normal-font100-ms220.png
+Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_cb79eaab0dd04c0e92f1eefce912b67b\art07-edge-screens\post-stamp-normal-font100-ms290.png
+Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_cb79eaab0dd04c0e92f1eefce912b67b\art07-edge-screens\post-stamp-normal-font100-ms360.png
+Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_cb79eaab0dd04c0e92f1eefce912b67b\art07-edge-screens\post-rework-normal-font100.png
+Actual presentation phase trace: Wanted PostScore; speed=Normal; phases=Receipt@0+100,DiceContributions@100+300,BaseAndStructure@400+280,ControllerAndEnchant@680+140,FinalScore@820+420,PostScore@1240+480
+frame=923 dt=0.0654 elapsedMs=0.00 phase=Receipt playing=True focus=True paused=False
+frame=924 dt=0.2211 elapsedMs=221.10 phase=DiceContributions playing=True focus=True paused=False
+frame=935 dt=0.0177 elapsedMs=403.25 phase=BaseAndStructure playing=True focus=True paused=False
+frame=952 dt=0.0166 elapsedMs=687.23 phase=ControllerAndEnchant playing=True focus=True paused=False
+frame=961 dt=0.0171 elapsedMs=837.09 phase=FinalScore playing=True focus=True paused=False
+frame=986 dt=0.0165 elapsedMs=1253.72 phase=PostScore playing=True focus=True paused=False
+POST_LABEL_INK DieStateD006 font=14 spacing=-20 lines=1/2 localInkGap=5.531891
+POST_LABEL_INK DieStateD007 font=14 spacing=-20 lines=1/2 localInkGap=5.531891
+POST_LABEL_INK DieStateD010 font=14 spacing=-20 lines=1/2 localInkGap=5.531891
+Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_cb79eaab0dd04c0e92f1eefce912b67b\art07-edge-screens\post-overlay-reduced-font100-p0.png
+Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_cb79eaab0dd04c0e92f1eefce912b67b\art07-edge-screens\post-overlay-reduced-font100-p50.png
+Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_cb79eaab0dd04c0e92f1eefce912b67b\art07-edge-screens\post-stamp-reduced-font100-ms0.png
+Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_cb79eaab0dd04c0e92f1eefce912b67b\art07-edge-screens\post-stamp-reduced-font100-ms40.png
+Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_cb79eaab0dd04c0e92f1eefce912b67b\art07-edge-screens\post-stamp-reduced-font100-ms80.png
+Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_cb79eaab0dd04c0e92f1eefce912b67b\art07-edge-screens\post-rework-reduced-font100.png
+Actual presentation phase trace: Wanted PostScore; speed=Normal; phases=Receipt@0+100,DiceContributions@100+300,BaseAndStructure@400+280,ControllerAndEnchant@680+140,FinalScore@820+420,PostScore@1240+480
+frame=1077 dt=0.0898 elapsedMs=0.00 phase=Receipt playing=True focus=True paused=False
+frame=1078 dt=0.2404 elapsedMs=240.36 phase=DiceContributions playing=True focus=True paused=False
+frame=1088 dt=0.0165 elapsedMs=406.13 phase=BaseAndStructure playing=True focus=True paused=False
+frame=1105 dt=0.0164 elapsedMs=689.56 phase=ControllerAndEnchant playing=True focus=True paused=False
+frame=1113 dt=0.0167 elapsedMs=823.45 phase=FinalScore playing=True focus=True paused=False
+frame=1138 dt=0.0166 elapsedMs=1240.17 phase=PostScore playing=True focus=True paused=False
+POST_LABEL_INK DieStateD006 font=17.5 spacing=-20 lines=1/2 localInkGap=6.914867
+POST_LABEL_INK DieStateD007 font=17.5 spacing=-20 lines=1/2 localInkGap=6.914867
+POST_LABEL_INK DieStateD010 font=17.5 spacing=-20 lines=1/2 localInkGap=6.914867
+Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_cb79eaab0dd04c0e92f1eefce912b67b\art07-edge-screens\post-overlay-normal-font125-p0.png
+Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_cb79eaab0dd04c0e92f1eefce912b67b\art07-edge-screens\post-overlay-normal-font125-p50.png
+Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_cb79eaab0dd04c0e92f1eefce912b67b\art07-edge-screens\post-stamp-normal-font125-ms0.png
+Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_cb79eaab0dd04c0e92f1eefce912b67b\art07-edge-screens\post-stamp-normal-font125-ms220.png
+Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_cb79eaab0dd04c0e92f1eefce912b67b\art07-edge-screens\post-stamp-normal-font125-ms290.png
+Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_cb79eaab0dd04c0e92f1eefce912b67b\art07-edge-screens\post-stamp-normal-font125-ms360.png
+Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_cb79eaab0dd04c0e92f1eefce912b67b\art07-edge-screens\post-rework-normal-font125.png
+Actual presentation phase trace: Wanted PostScore; speed=Normal; phases=Receipt@0+100,DiceContributions@100+300,BaseAndStructure@400+280,ControllerAndEnchant@680+140,FinalScore@820+420,PostScore@1240+480
+frame=1246 dt=0.0743 elapsedMs=0.00 phase=Receipt playing=True focus=True paused=False
+frame=1247 dt=0.2383 elapsedMs=238.30 phase=DiceContributions playing=True focus=True paused=False
+frame=1257 dt=0.0167 elapsedMs=404.37 phase=BaseAndStructure playing=True focus=True paused=False
+frame=1274 dt=0.0169 elapsedMs=688.17 phase=ControllerAndEnchant playing=True focus=True paused=False
+frame=1282 dt=0.0167 elapsedMs=821.48 phase=FinalScore playing=True focus=True paused=False
+frame=1308 dt=0.0165 elapsedMs=1254.35 phase=PostScore playing=True focus=True paused=False
+POST_LABEL_INK DieStateD006 font=17.5 spacing=-20 lines=1/2 localInkGap=6.914867
+POST_LABEL_INK DieStateD007 font=17.5 spacing=-20 lines=1/2 localInkGap=6.914867
+POST_LABEL_INK DieStateD010 font=17.5 spacing=-20 lines=1/2 localInkGap=6.914867
+Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_cb79eaab0dd04c0e92f1eefce912b67b\art07-edge-screens\post-overlay-reduced-font125-p0.png
+Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_cb79eaab0dd04c0e92f1eefce912b67b\art07-edge-screens\post-overlay-reduced-font125-p50.png
+Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_cb79eaab0dd04c0e92f1eefce912b67b\art07-edge-screens\post-stamp-reduced-font125-ms0.png
+Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_cb79eaab0dd04c0e92f1eefce912b67b\art07-edge-screens\post-stamp-reduced-font125-ms40.png
+Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_cb79eaab0dd04c0e92f1eefce912b67b\art07-edge-screens\post-stamp-reduced-font125-ms80.png
+Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_cb79eaab0dd04c0e92f1eefce912b67b\art07-edge-screens\post-rework-reduced-font125.png
+Actual presentation phase trace: Wanted PostScore; speed=Normal; phases=Receipt@0+100,DiceContributions@100+300,BaseAndStructure@400+280,ControllerAndEnchant@680+140,FinalScore@820+420,PostScore@1240+480
+frame=1401 dt=0.0662 elapsedMs=0.00 phase=Receipt playing=True focus=True paused=False
+frame=1402 dt=0.2392 elapsedMs=239.18 phase=DiceContributions playing=True focus=True paused=False
+frame=1412 dt=0.0162 elapsedMs=404.61 phase=BaseAndStructure playing=True focus=True paused=False
+frame=1429 dt=0.0160 elapsedMs=687.84 phase=ControllerAndEnchant playing=True focus=True paused=False
+frame=1437 dt=0.0170 elapsedMs=821.92 phase=FinalScore playing=True focus=True paused=False
+frame=1463 dt=0.0167 elapsedMs=1254.59 phase=PostScore playing=True focus=True paused=False
+POST_LABEL_INK DieStateD006 font=21 spacing=-20 lines=1/2 localInkGap=8.297844
+POST_LABEL_INK DieStateD007 font=21 spacing=-20 lines=1/2 localInkGap=8.297844
+POST_LABEL_INK DieStateD010 font=21 spacing=-20 lines=1/2 localInkGap=8.297844
+Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_cb79eaab0dd04c0e92f1eefce912b67b\art07-edge-screens\post-overlay-normal-font150-p0.png
+Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_cb79eaab0dd04c0e92f1eefce912b67b\art07-edge-screens\post-overlay-normal-font150-p50.png
+Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_cb79eaab0dd04c0e92f1eefce912b67b\art07-edge-screens\post-stamp-normal-font150-ms0.png
+Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_cb79eaab0dd04c0e92f1eefce912b67b\art07-edge-screens\post-stamp-normal-font150-ms220.png
+Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_cb79eaab0dd04c0e92f1eefce912b67b\art07-edge-screens\post-stamp-normal-font150-ms290.png
+Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_cb79eaab0dd04c0e92f1eefce912b67b\art07-edge-screens\post-stamp-normal-font150-ms360.png
+Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_cb79eaab0dd04c0e92f1eefce912b67b\art07-edge-screens\post-rework-normal-font150.png
+Actual presentation phase trace: Wanted PostScore; speed=Normal; phases=Receipt@0+100,DiceContributions@100+300,BaseAndStructure@400+280,ControllerAndEnchant@680+140,FinalScore@820+420,PostScore@1240+480
+frame=1571 dt=0.0735 elapsedMs=0.00 phase=Receipt playing=True focus=True paused=False
+frame=1572 dt=0.2414 elapsedMs=241.40 phase=DiceContributions playing=True focus=True paused=False
+frame=1582 dt=0.0171 elapsedMs=407.54 phase=BaseAndStructure playing=True focus=True paused=False
+frame=1599 dt=0.0163 elapsedMs=690.51 phase=ControllerAndEnchant playing=True focus=True paused=False
+frame=1607 dt=0.0171 elapsedMs=824.08 phase=FinalScore playing=True focus=True paused=False
+frame=1632 dt=0.0162 elapsedMs=1240.31 phase=PostScore playing=True focus=True paused=False
+POST_LABEL_INK DieStateD006 font=21 spacing=-20 lines=1/2 localInkGap=8.297844
+POST_LABEL_INK DieStateD007 font=21 spacing=-20 lines=1/2 localInkGap=8.297844
+POST_LABEL_INK DieStateD010 font=21 spacing=-20 lines=1/2 localInkGap=8.297844
+Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_cb79eaab0dd04c0e92f1eefce912b67b\art07-edge-screens\post-overlay-reduced-font150-p0.png
+Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_cb79eaab0dd04c0e92f1eefce912b67b\art07-edge-screens\post-overlay-reduced-font150-p50.png
+Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_cb79eaab0dd04c0e92f1eefce912b67b\art07-edge-screens\post-stamp-reduced-font150-ms0.png
+Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_cb79eaab0dd04c0e92f1eefce912b67b\art07-edge-screens\post-stamp-reduced-font150-ms40.png
+Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_cb79eaab0dd04c0e92f1eefce912b67b\art07-edge-screens\post-stamp-reduced-font150-ms80.png
+Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_cb79eaab0dd04c0e92f1eefce912b67b\art07-edge-screens\post-rework-reduced-font150.png
+Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_cb79eaab0dd04c0e92f1eefce912b67b
+Saving results to: E:\agent_workspace\gpt\game2\evidence\v07\unity\nunit-20261101-051548.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

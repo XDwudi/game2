@@ -48,21 +48,23 @@ namespace DiceCraft
         private void TickDisplay()
         {
             if(observedWidth!=Screen.width||observedHeight!=Screen.height||observedSafeArea!=Screen.safeArea)
-            {CancelControllerDrag();UpdateViewport();Refresh();if(controllerOrderPanel)ShowControllerOrder();else if(debugPanel)ShowDebugPanel();else if(displayPanel)ShowDisplaySettings();}
+            {CancelControllerDrag();CancelDieDrag07();UpdateViewport();Refresh();if(controllerOrderPanel)ShowControllerOrder();else if(debugPanel)ShowDebugPanel();else if(displayPanel)ShowDisplaySettings();}
             if(displayCountdown!=null&&displayPanel&&DisplayPreferences.IsPending)
-                displayCountdown.text=DisplayPreferences.Notice+"\n"+DisplayPreferences.SecondsLeft+" 秒内确认，否则恢复原设置。";
+                displayCountdown.text=Screen.width+" × "+Screen.height+" · "+DisplaySettings.ModeName(Screen.fullScreenMode)+"\n"+DisplayPreferences.SecondsLeft+" 秒内确认，否则恢复原设置。";
         }
         public void ShowDisplaySettings()
         {
             displayPanel=true;
-            var p=OpenModal("显示设置");
             if(DisplayPreferences.IsPending)
             {
-                displayCountdown=UiKit.Text(p,"DisplayCountdown",DisplayPreferences.Notice,40,135,1500,155,32,UiKit.Gold);
-                UiKit.Button(p,"ConfirmDisplay","保留此显示设置",40,410,725,80,()=>{if(DisplayPreferences.Confirm()){displayDraft=null;ShowDisplaySettings();}},DisplayPreferences.CanConfirm,true);
-                UiKit.Button(p,"RevertDisplay","恢复原设置 [Esc]",815,410,725,80,DisplayPreferences.Revert);
+                var confirm=Art07Modal("保留此显示设置？",600,360,720,360);
+                var title=confirm.Find("DialogTitle")?.GetComponent<TextMeshProUGUI>();if(title!=null){title.fontSize=26*UiKit.FontScale;title.rectTransform.sizeDelta=new Vector2(590,64);}
+                displayCountdown=UiKit.Text(confirm,"DisplayCountdown",Screen.width+" × "+Screen.height+" · "+DisplaySettings.ModeName(Screen.fullScreenMode)+"\n"+DisplayPreferences.SecondsLeft+" 秒内确认，否则恢复原设置。",24,100,672,128,24,UiKit.Gold);
+                UiKit.Button(confirm,"ConfirmDisplay","保留",24,264,324,64,()=>{if(DisplayPreferences.Confirm()){displayDraft=null;ShowDisplaySettings();}},DisplayPreferences.CanConfirm,true);
+                UiKit.Button(confirm,"RevertDisplay","恢复 [Esc]",372,264,324,64,DisplayPreferences.Revert);
                 return;
             }
+            var p=OpenModal("显示设置");
             displayDraft=displayDraft??DisplayPreferences.ReadActual();
             var displays=DisplayPreferences.Displays();
             int index=displays.FindIndex(d=>d.name==displayDraft.displayName);

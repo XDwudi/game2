@@ -1,0 +1,376 @@
+{
+  "status": "REWORK",
+  "report": {
+    "path": "evidence/v07/review/POST_REWORK_REVIEW.md",
+    "sha256": "a76d2630d1aff7b9cd84b5319fa7e020d04da3ff0966879305d4ec6d157fd6e6"
+  },
+  "reviewer": "/root/v07_art, independent from POST implementer",
+  "batches": {
+    "045449": {
+      "report": {
+        "path": "evidence/v07/unity/nunit-20261101-045449.xml",
+        "sha256": "80af18b0e2b8f5fecf51f01d6b8f2a276597443d52444fffe2c6d2a292e56999"
+      },
+      "binding": {
+        "path": "evidence/v07/unity/nunit-20261101-045449.binding.json",
+        "sha256": "936c7789a6678d703ebcd25d220702a3d9bcd0ca702762c7aca5104046d3f03d"
+      },
+      "result": {
+        "id": "2",
+        "testcasecount": "13",
+        "result": "Passed",
+        "total": "13",
+        "passed": "13",
+        "failed": "0",
+        "inconclusive": "0",
+        "skipped": "0",
+        "asserts": "0",
+        "engine-version": "3.5.0.0",
+        "clr-version": "4.0.30319.42000",
+        "start-time": "2026-11-01 04:50:38Z",
+        "end-time": "2026-11-01 04:54:49Z",
+        "duration": "250.6199811"
+      },
+      "assemblies": [
+        {
+          "name": "DiceCraft.Core",
+          "mvid": "8f690e0d-a075-4b72-98e4-2cb64ced2fa3",
+          "dllSha256": "44a137cd38d7b525382dfda7adbdb7676d12d1dbc05520638d8a14642a96031b"
+        },
+        {
+          "name": "DiceCraft.EditMode",
+          "mvid": "5b2131de-6898-48f3-a629-13fbd7d93d73",
+          "dllSha256": "c7d26343e0b6c0ebbb0fb5931a8d1df55f0c61a17cdf7d94e777d1e0b8a67f89"
+        },
+        {
+          "name": "DiceCraft.Editor",
+          "mvid": "2fb467ee-0b66-45af-850b-05ba4289bce0",
+          "dllSha256": "8ecc40c3ba1e43bd2ff3a7a1fe96011421e078de79f8be25a52205534fbc65d1"
+        },
+        {
+          "name": "DiceCraft.PlayModeTests",
+          "mvid": "bb7831e6-a596-4d76-bada-4af5362989df",
+          "dllSha256": "816af97a51ed606a224b7a41963d066248ec28dc52f3cd5bdcd42b7462af2c66"
+        },
+        {
+          "name": "DiceCraft.Runtime",
+          "mvid": "a6f0330c-52f3-428b-8bb0-877c4b30e971",
+          "dllSha256": "f5c05fe25f497c724e00100f61804c7e93bbb8c97279a6ab49bf6cb5202669f6"
+        }
+      ],
+      "sourceFileCount": 1288,
+      "sourceAndAssemblyStartEndIdentical": true
+    },
+    "045554": {
+      "report": {
+        "path": "evidence/v07/unity/nunit-20261101-045554.xml",
+        "sha256": "f8898655a93824f1ce9cc5105f7f25e4c9a3b5661d052a125a6ae59aa8a058e3"
+      },
+      "binding": {
+        "path": "evidence/v07/unity/nunit-20261101-045554.binding.json",
+        "sha256": "d7bb258a8998e9266efb29dc2a1e5bfc4bf06269c90bde9296b75d44fc5981fa"
+      },
+      "result": {
+        "id": "2",
+        "testcasecount": "10",
+        "result": "Passed",
+        "total": "10",
+        "passed": "10",
+        "failed": "0",
+        "inconclusive": "0",
+        "skipped": "0",
+        "asserts": "0",
+        "engine-version": "3.5.0.0",
+        "clr-version": "4.0.30319.42000",
+        "start-time": "2026-11-01 04:55:27Z",
+        "end-time": "2026-11-01 04:55:54Z",
+        "duration": "27.2887734"
+      },
+      "assemblies": [
+        {
+          "name": "DiceCraft.Core",
+          "mvid": "8f690e0d-a075-4b72-98e4-2cb64ced2fa3",
+          "dllSha256": "44a137cd38d7b525382dfda7adbdb7676d12d1dbc05520638d8a14642a96031b"
+        },
+        {
+          "name": "DiceCraft.EditMode",
+          "mvid": "5b2131de-6898-48f3-a629-13fbd7d93d73",
+          "dllSha256": "c7d26343e0b6c0ebbb0fb5931a8d1df55f0c61a17cdf7d94e777d1e0b8a67f89"
+        },
+        {
+          "name": "DiceCraft.Editor",
+          "mvid": "2fb467ee-0b66-45af-850b-05ba4289bce0",
+          "dllSha256": "8ecc40c3ba1e43bd2ff3a7a1fe96011421e078de79f8be25a52205534fbc65d1"
+        },
+        {
+          "name": "DiceCraft.PlayModeTests",
+          "mvid": "bb7831e6-a596-4d76-bada-4af5362989df",
+          "dllSha256": "816af97a51ed606a224b7a41963d066248ec28dc52f3cd5bdcd42b7462af2c66"
+        },
+        {
+          "name": "DiceCraft.Runtime",
+          "mvid": "a6f0330c-52f3-428b-8bb0-877c4b30e971",
+          "dllSha256": "f5c05fe25f497c724e00100f61804c7e93bbb8c97279a6ab49bf6cb5202669f6"
+        }
+      ],
+      "sourceFileCount": 1288,
+      "sourceAndAssemblyStartEndIdentical": true
+    }
+  },
+  "records": [
+    {
+      "path": "artifacts/cache/v07-wallet-post-review-1080-045449/post-gpu/pip-transition-0.png",
+      "sha256": "27b92ce925914c75d8ff4302797d0c5d569d1d503ca263284d35d2d2a800c1c3",
+      "resolutionBatch": "1920x1080",
+      "kind": "post-gpu",
+      "individuallyViewed": true
+    },
+    {
+      "path": "artifacts/cache/v07-wallet-post-review-1080-045449/post-gpu/pip-transition-25.png",
+      "sha256": "4a673ba313b2c6970da1fbd278ce157a02008a8076cd50f056c6914157caf135",
+      "resolutionBatch": "1920x1080",
+      "kind": "post-gpu",
+      "individuallyViewed": true
+    },
+    {
+      "path": "artifacts/cache/v07-wallet-post-review-1080-045449/post-gpu/pip-transition-49.png",
+      "sha256": "f4d6ac2afa7267f1bc62831b4d5b3f7b991249f5a1d1df221a029f22a32fb40e",
+      "resolutionBatch": "1920x1080",
+      "kind": "post-gpu",
+      "individuallyViewed": true
+    },
+    {
+      "path": "artifacts/cache/v07-wallet-post-review-1080-045449/post-gpu/pip-transition-50.png",
+      "sha256": "c9dc8d1f70370f2dc09e3b8e09fb9aa6cc05db8f9ab36270b838d7485a0f7918",
+      "resolutionBatch": "1920x1080",
+      "kind": "post-gpu",
+      "individuallyViewed": true
+    },
+    {
+      "path": "artifacts/cache/v07-wallet-post-review-1080-045449/post-gpu/pip-transition-51.png",
+      "sha256": "e13710ae8d7c6c009fc65c1e7d3f1037f18f6cd2aef3d792eceba90086e4ede4",
+      "resolutionBatch": "1920x1080",
+      "kind": "post-gpu",
+      "individuallyViewed": true
+    },
+    {
+      "path": "artifacts/cache/v07-wallet-post-review-1080-045449/post-gpu/pip-transition-75.png",
+      "sha256": "aa9d9e061b66fc3a53aabd330891fe770e182ce11506fe6c974a78f09f0a30f2",
+      "resolutionBatch": "1920x1080",
+      "kind": "post-gpu",
+      "individuallyViewed": true
+    },
+    {
+      "path": "artifacts/cache/v07-wallet-post-review-1080-045449/post-gpu/pip-transition-99.png",
+      "sha256": "f821c854a9d140bcf08b87cce9dda140efbd75ab3118ce6f5ef585a39f72f2d2",
+      "resolutionBatch": "1920x1080",
+      "kind": "post-gpu",
+      "individuallyViewed": true
+    },
+    {
+      "path": "artifacts/cache/v07-wallet-post-review-1080-045449/post-gpu/pip-transition-final.png",
+      "sha256": "820d45e5b75c59d8fc1fe153664706eb753b9672459af4d42593f72240ac2f98",
+      "resolutionBatch": "1920x1080",
+      "kind": "post-gpu",
+      "individuallyViewed": true
+    },
+    {
+      "path": "artifacts/cache/v07-wallet-post-review-1080-045449/post-screen/post-rework-normal-font100.png",
+      "sha256": "2092842bcfbd99d6eddddfd0937cf92f7a1ff42e116d1c5c92a96dc9b73676fa",
+      "resolutionBatch": "1920x1080",
+      "kind": "post-screen",
+      "individuallyViewed": true
+    },
+    {
+      "path": "artifacts/cache/v07-wallet-post-review-1080-045449/post-screen/post-rework-normal-font125.png",
+      "sha256": "cfb2b9c6d6253937f69afa8d9e673c6c169e79fb16f155ebe7c92bafcdbcbeab",
+      "resolutionBatch": "1920x1080",
+      "kind": "post-screen",
+      "individuallyViewed": true
+    },
+    {
+      "path": "artifacts/cache/v07-wallet-post-review-1080-045449/post-screen/post-rework-normal-font150.png",
+      "sha256": "c03aa3234b106a7485b0ef7e672f0a6a547111e27341619f9a166fdd27fc80db",
+      "resolutionBatch": "1920x1080",
+      "kind": "post-screen",
+      "individuallyViewed": true
+    },
+    {
+      "path": "artifacts/cache/v07-wallet-post-review-1080-045449/post-screen/post-rework-reduced-font100.png",
+      "sha256": "649c9a67ffd1e780a25cd311d175e6a837ea4db54cb808204e60ce8bbb52f6ab",
+      "resolutionBatch": "1920x1080",
+      "kind": "post-screen",
+      "individuallyViewed": true
+    },
+    {
+      "path": "artifacts/cache/v07-wallet-post-review-1080-045449/post-screen/post-rework-reduced-font125.png",
+      "sha256": "22de945ffb54710165e777277babbee01598d72af78d197495a1dc26bc860ee7",
+      "resolutionBatch": "1920x1080",
+      "kind": "post-screen",
+      "individuallyViewed": true
+    },
+    {
+      "path": "artifacts/cache/v07-wallet-post-review-1080-045449/post-screen/post-rework-reduced-font150.png",
+      "sha256": "4fc05c6820c1ffb520346c83add7c256adbb0e7e50326f0450cd859c78d40f9d",
+      "resolutionBatch": "1920x1080",
+      "kind": "post-screen",
+      "individuallyViewed": true
+    },
+    {
+      "path": "artifacts/cache/v07-post-review-720-045554/post-gpu/pip-transition-0.png",
+      "sha256": "27b92ce925914c75d8ff4302797d0c5d569d1d503ca263284d35d2d2a800c1c3",
+      "resolutionBatch": "1280x720",
+      "kind": "post-gpu",
+      "individuallyViewed": false
+    },
+    {
+      "path": "artifacts/cache/v07-post-review-720-045554/post-gpu/pip-transition-25.png",
+      "sha256": "4a673ba313b2c6970da1fbd278ce157a02008a8076cd50f056c6914157caf135",
+      "resolutionBatch": "1280x720",
+      "kind": "post-gpu",
+      "individuallyViewed": false
+    },
+    {
+      "path": "artifacts/cache/v07-post-review-720-045554/post-gpu/pip-transition-49.png",
+      "sha256": "f4d6ac2afa7267f1bc62831b4d5b3f7b991249f5a1d1df221a029f22a32fb40e",
+      "resolutionBatch": "1280x720",
+      "kind": "post-gpu",
+      "individuallyViewed": false
+    },
+    {
+      "path": "artifacts/cache/v07-post-review-720-045554/post-gpu/pip-transition-50.png",
+      "sha256": "c9dc8d1f70370f2dc09e3b8e09fb9aa6cc05db8f9ab36270b838d7485a0f7918",
+      "resolutionBatch": "1280x720",
+      "kind": "post-gpu",
+      "individuallyViewed": false
+    },
+    {
+      "path": "artifacts/cache/v07-post-review-720-045554/post-gpu/pip-transition-51.png",
+      "sha256": "e13710ae8d7c6c009fc65c1e7d3f1037f18f6cd2aef3d792eceba90086e4ede4",
+      "resolutionBatch": "1280x720",
+      "kind": "post-gpu",
+      "individuallyViewed": false
+    },
+    {
+      "path": "artifacts/cache/v07-post-review-720-045554/post-gpu/pip-transition-75.png",
+      "sha256": "aa9d9e061b66fc3a53aabd330891fe770e182ce11506fe6c974a78f09f0a30f2",
+      "resolutionBatch": "1280x720",
+      "kind": "post-gpu",
+      "individuallyViewed": false
+    },
+    {
+      "path": "artifacts/cache/v07-post-review-720-045554/post-gpu/pip-transition-99.png",
+      "sha256": "f821c854a9d140bcf08b87cce9dda140efbd75ab3118ce6f5ef585a39f72f2d2",
+      "resolutionBatch": "1280x720",
+      "kind": "post-gpu",
+      "individuallyViewed": false
+    },
+    {
+      "path": "artifacts/cache/v07-post-review-720-045554/post-gpu/pip-transition-final.png",
+      "sha256": "820d45e5b75c59d8fc1fe153664706eb753b9672459af4d42593f72240ac2f98",
+      "resolutionBatch": "1280x720",
+      "kind": "post-gpu",
+      "individuallyViewed": false
+    },
+    {
+      "path": "artifacts/cache/v07-post-review-720-045554/post-screen/post-rework-normal-font100.png",
+      "sha256": "e8b6219b0814a88c9c1cd33a733e29d60d8b3539acd56bdf65ff188335b49491",
+      "resolutionBatch": "1280x720",
+      "kind": "post-screen",
+      "individuallyViewed": true
+    },
+    {
+      "path": "artifacts/cache/v07-post-review-720-045554/post-screen/post-rework-normal-font125.png",
+      "sha256": "8d579fb05ccf58f864c066a7cde224bf1fb659989b3996b7dc74dc27cb683a01",
+      "resolutionBatch": "1280x720",
+      "kind": "post-screen",
+      "individuallyViewed": true
+    },
+    {
+      "path": "artifacts/cache/v07-post-review-720-045554/post-screen/post-rework-normal-font150.png",
+      "sha256": "119941c7e8e8f59aa4cc8760810a6d27946c32e4d085072cf3f8e0b9bfc62c1a",
+      "resolutionBatch": "1280x720",
+      "kind": "post-screen",
+      "individuallyViewed": true
+    },
+    {
+      "path": "artifacts/cache/v07-post-review-720-045554/post-screen/post-rework-reduced-font100.png",
+      "sha256": "e614c787cb2b2c1df56b8b3a3cb4a81c71d4297ee1843d151aca45f087efefb3",
+      "resolutionBatch": "1280x720",
+      "kind": "post-screen",
+      "individuallyViewed": true
+    },
+    {
+      "path": "artifacts/cache/v07-post-review-720-045554/post-screen/post-rework-reduced-font125.png",
+      "sha256": "3328ae560d0f8b56223d73e7fbefd4f1e4f4dc674d4cd967ac9f378c287fa77f",
+      "resolutionBatch": "1280x720",
+      "kind": "post-screen",
+      "individuallyViewed": true
+    },
+    {
+      "path": "artifacts/cache/v07-post-review-720-045554/post-screen/post-rework-reduced-font150.png",
+      "sha256": "3c3559c935ab450f8acd2dc70585ae7b43efebbd34617dc60a9b623f0d1ad0d3",
+      "resolutionBatch": "1280x720",
+      "kind": "post-screen",
+      "individuallyViewed": true
+    },
+    {
+      "path": "artifacts/cache/v07-wallet-post-review-1080-045449/source-bindings.json",
+      "sha256": "6d37c2c069a2eaefb5272cc4cc4d167518d385fc9315ebf1ba165135a69fb072"
+    },
+    {
+      "path": "artifacts/cache/v07-post-review-720-045554/source-bindings.json",
+      "sha256": "405c7ee5ccf0b21edff0f4043953bc7129a0d950fa619e8cda113ce3815ab586"
+    },
+    {
+      "path": "artifacts/cache/v07-wallet-post-review-1080-045449/post-actual-metrics.txt",
+      "sha256": "9b2b67a7ef33434ee40dc5ac8e8339eb1607652e3fbf2ee2e9e630bd7a4c3944"
+    },
+    {
+      "path": "artifacts/cache/v07-post-review-720-045554/post-actual-metrics.txt",
+      "sha256": "e3d90f51255e1828d61692e208456d8bdd015654d81120699edecce47d661e7e"
+    }
+  ],
+  "sourceRecords": [
+    {
+      "path": "DicePrototype/Assets/Game/UI/GameApp.Art07Presentation.cs",
+      "sha256": "33b6ae37ec802ee3e75c92c7ebd429d3be0f1639aa83ede8efef934eeda24cef",
+      "actualRunBoundSha256": "33b6ae37ec802ee3e75c92c7ebd429d3be0f1639aa83ede8efef934eeda24cef",
+      "currentMatchesRunBinding": true
+    },
+    {
+      "path": "DicePrototype/Assets/Game/UI/GameApp.Art07Effects.cs",
+      "sha256": "1de0afa92e3f39e97411e1402974c4b9649f617ad422da07dd933e783042d7ca",
+      "actualRunBoundSha256": "1de0afa92e3f39e97411e1402974c4b9649f617ad422da07dd933e783042d7ca",
+      "currentMatchesRunBinding": true
+    },
+    {
+      "path": "DicePrototype/Assets/Game/UI/UiKit.cs",
+      "sha256": "4083ef2ec6bacdfe109acabb8dac7b3b6e25e7b65bcea11d76504ddb2e2703f5",
+      "actualRunBoundSha256": "4083ef2ec6bacdfe109acabb8dac7b3b6e25e7b65bcea11d76504ddb2e2703f5",
+      "currentMatchesRunBinding": true
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Tests/PlayMode/Art07PostReworkPlayModeTests.cs",
+      "sha256": "c4c0f18e714bfde3b1280322cd8e2f8546c69c3b365631ae3dcefdb31cec721c",
+      "actualRunBoundSha256": "c4c0f18e714bfde3b1280322cd8e2f8546c69c3b365631ae3dcefdb31cec721c",
+      "currentMatchesRunBinding": true
+    },
+    {
+      "path": "docs/specs/v07/ART_SPEC.md",
+      "sha256": "5120a8d0983d24f25cc38e22f1da613fd1a56c70ab26f518771a2caf064dd228",
+      "actualRunBoundSha256": null,
+      "currentMatchesRunBinding": null
+    }
+  ],
+  "gpu720ByteEqual1080": true,
+  "viewedFullScreens": 12,
+  "viewedUniqueGpuImages": 8,
+  "continuousClips": "pending",
+  "defects": [
+    "POSTR01 permanent stamp overlaps permanent label",
+    "POSTR02 1080 font150 final score covered by details button",
+    "POSTR03 coin paper overlaps budget/debug entry",
+    "POSTR04 720 details button below 40 physical pixels"
+  ]
+}

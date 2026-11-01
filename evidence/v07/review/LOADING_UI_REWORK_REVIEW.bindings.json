@@ -1,0 +1,641 @@
+{
+  "scope": "Independent loading UI test-driver delta and 16 actual 150% screenshots; excludes author-owned QF and full S22 quality",
+  "batches": [
+    {
+      "path": "artifacts/cache/v07-qualified-loading-720-072646",
+      "reportSha256": "446418ebd7eeb0e48021ddfd8be29b5b8be9e7ef413fbf74c0e20b0e7f589239",
+      "bindingSha256": "cfca7262e733d00dbcdb7a0e388fc343bc78ab94a63cc8f392611cf3fad1e57e",
+      "archiveSha256": "a6af08c9b9c1410f2a5d503f6f7275601cb8f0c854db7ac5dccf35dcc9acee59",
+      "archiveFilesValidated": 122,
+      "sourceFilesStable": 1358,
+      "assembliesStable": 5,
+      "assemblies": [
+        {
+          "name": "DiceCraft.Core",
+          "mvid": "8f690e0d-a075-4b72-98e4-2cb64ced2fa3",
+          "dllSha256": "44a137cd38d7b525382dfda7adbdb7676d12d1dbc05520638d8a14642a96031b"
+        },
+        {
+          "name": "DiceCraft.EditMode",
+          "mvid": "72ee6111-518d-4daf-b551-60ed8f282366",
+          "dllSha256": "26564b6e6704fc81a71729bdd73ad010117b497932e4b44d01aac4c916e037fd"
+        },
+        {
+          "name": "DiceCraft.Editor",
+          "mvid": "c5165741-6376-48d0-b120-051af7ad9916",
+          "dllSha256": "84186aea698d1dd11a47341e6db8114f11f5a6c0de84b3efaa260317d9f47b6a"
+        },
+        {
+          "name": "DiceCraft.PlayModeTests",
+          "mvid": "622bc020-9f0f-4248-b09a-08b4ad01de8b",
+          "dllSha256": "527bbead9ba0864f16b0fe1b3b82a159e14782f3aa9b5ce8918cf7e3c83c43d3"
+        },
+        {
+          "name": "DiceCraft.Runtime",
+          "mvid": "bdb19d63-7c5b-4184-8daa-dce05e1c1b05",
+          "dllSha256": "6a44a07b75fd8ca613e6dbe4fac9f3a4b30dd9f4d8a3714505755cc10448ff23"
+        }
+      ],
+      "allTests": [
+        {
+          "name": "PLAY_ART07_LOADING_UI_DestroyAndReloadSerializesSamePathWithoutAdoptingOldResult",
+          "result": "Passed"
+        },
+        {
+          "name": "PLAY_ART07_LOADING_UI_FastActiveBackupLegacyAndWorkerErrorKeepStoragePolicy",
+          "result": "Passed"
+        },
+        {
+          "name": "PLAY_ART07_LOADING_UI_SlowReadThresholdRendersFramesAndRejectsCommandsUntilReady",
+          "result": "Passed"
+        },
+        {
+          "name": "PLAY_ART07_POST_QualifiedHasNonblockingTailPauseSkipAndNoSecondRealStamp",
+          "result": "Passed"
+        },
+        {
+          "name": "PLAY_ART07_QUALIFIED_RetargetDoesNotTeleportAndShortModesKeepSavedState",
+          "result": "Passed"
+        },
+        {
+          "name": "PLAY_ART07_QUALIFIED_StripKeepsEveryGlyphClearAndReceiptHandoffIsContinuous",
+          "result": "Passed"
+        },
+        {
+          "name": "PLAY_ART07_STATUS_ColdQualifiedSaveKeepsGoldBorderAndBadgeWithoutRestamping",
+          "result": "Passed"
+        },
+        {
+          "name": "PLAY_ART07_STATUS_QualifiedRewardsStayVisibleAboveNavigationAtAllTextScales",
+          "result": "Passed"
+        }
+      ],
+      "targetTests": [
+        {
+          "name": "PLAY_ART07_LOADING_UI_DestroyAndReloadSerializesSamePathWithoutAdoptingOldResult",
+          "result": "Passed",
+          "duration": "1.750148"
+        },
+        {
+          "name": "PLAY_ART07_LOADING_UI_FastActiveBackupLegacyAndWorkerErrorKeepStoragePolicy",
+          "result": "Passed",
+          "duration": "2.313248"
+        },
+        {
+          "name": "PLAY_ART07_LOADING_UI_SlowReadThresholdRendersFramesAndRejectsCommandsUntilReady",
+          "result": "Passed",
+          "duration": "0.801144"
+        }
+      ],
+      "boundLoadingSources": [
+        {
+          "path": "DicePrototype/Assets/Game/Tests/PlayMode/Art07LoadingThreadSpikePlayModeTests.cs",
+          "sha256": "4a6859c71059fcf1aaed8dc1330ae492d871518d1339f4954d60f3c442a8020f"
+        },
+        {
+          "path": "DicePrototype/Assets/Game/Tests/PlayMode/Art07LoadingThreadSpikePlayModeTests.cs.meta",
+          "sha256": "5d8f5f5248f46e88cd5c2a4924061f09f7494482e9da360bc1da8d6a8228b79b"
+        },
+        {
+          "path": "DicePrototype/Assets/Game/Tests/PlayMode/Art07LoadingUiPlayModeTests.cs",
+          "sha256": "2a027ffeb1131452e4686283c2685b92db7d95b9bde3ecce8baa66bee8518ecd"
+        },
+        {
+          "path": "DicePrototype/Assets/Game/Tests/PlayMode/Art07LoadingUiPlayModeTests.cs.meta",
+          "sha256": "4483a8b784e8ed92597895379c8b2f1a001dcfcdccc4e6c1efb06126c73ba539"
+        },
+        {
+          "path": "DicePrototype/Assets/Game/Tests/PlayMode/GameplayPlayModeTests.cs",
+          "sha256": "889e0823f5d79801ea6cfd4b1799e79c16ab4ad4f94d5bcf55f7c75d158b7851"
+        },
+        {
+          "path": "DicePrototype/Assets/Game/Tests/PlayMode/GameplayPlayModeTests.cs.meta",
+          "sha256": "2a0cc6a7d355c5c6973ac72b300e7ac00abb7bf00d727fbed7e7938b672a459f"
+        },
+        {
+          "path": "DicePrototype/Assets/Game/UI/GameApp.Art07Loading.cs",
+          "sha256": "5cafb537accfd32f56c24227475c5fe503237a39f140bbba579a7302cf6fe1f9"
+        },
+        {
+          "path": "DicePrototype/Assets/Game/UI/GameApp.Art07Loading.cs.meta",
+          "sha256": "101893f46760a47c86e41a3fdc90e2297f550b7b5195a674b29de4746907a8e7"
+        }
+      ],
+      "screens": [
+        {
+          "path": "artifacts/cache/v07-qualified-loading-720-072646/DiceCraftTests_5eca616d6413480c83251bdf9dc90a1a/art07-loading-ui/destroy-reload-ready.png",
+          "sha256": "df077441907a40f23f11e78c7da5ea15f69a7801560350bd75f265813c5dffd2",
+          "metadataSha256": "8872ba8ec7484c39b2ae59eae9ef0120b285c87ee4c7b3ddb3d8d195167c64af",
+          "metadata": {
+            "screen": "destroy-reload-ready",
+            "unity": "6000.6.7f1",
+            "runtimeMvid": "bdb19d63-7c5b-4184-8daa-dce05e1c1b05",
+            "testMvid": "622bc020-9f0f-4248-b09a-08b4ad01de8b",
+            "phase": "StagePreview",
+            "savePath": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftTests_5eca616d6413480c83251bdf9dc90a1a\\active-run.json",
+            "width": 1280,
+            "height": 720,
+            "frame": 62,
+            "workerThreadId": 63,
+            "ready": true,
+            "hintShown": true,
+            "readMilliseconds": 353.0116,
+            "firstHintMilliseconds": 208.4331,
+            "fontScale": 1.5
+          },
+          "actuallyViewed": true
+        },
+        {
+          "path": "artifacts/cache/v07-qualified-loading-720-072646/DiceCraftTests_5eca616d6413480c83251bdf9dc90a1a/art07-loading-ui/destroy-reload-waiting-for-path.png",
+          "sha256": "1c8ef129098cb122c33500df045a0734aed92b752b39ff431cb13c4c46e11e06",
+          "metadataSha256": "c297ddf50e3bc5be221cca08026bec33e74e2910cc8d492750dc59567936b89d",
+          "metadata": {
+            "screen": "destroy-reload-waiting-for-path",
+            "unity": "6000.6.7f1",
+            "runtimeMvid": "bdb19d63-7c5b-4184-8daa-dce05e1c1b05",
+            "testMvid": "622bc020-9f0f-4248-b09a-08b4ad01de8b",
+            "phase": "",
+            "savePath": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftTests_5eca616d6413480c83251bdf9dc90a1a\\active-run.json",
+            "width": 1280,
+            "height": 720,
+            "frame": 37,
+            "workerThreadId": 0,
+            "ready": false,
+            "hintShown": true,
+            "readMilliseconds": 326.265,
+            "firstHintMilliseconds": 208.4331,
+            "fontScale": 1.5
+          },
+          "actuallyViewed": true
+        },
+        {
+          "path": "artifacts/cache/v07-qualified-loading-720-072646/DiceCraftTests_6eee1b79bec54b4a9b9b70591bfc4973/art07-loading-ui/backup-ready-notice.png",
+          "sha256": "ad80fe0d41d6ecee29704b7d58b28a07ac744f8987512c6da0bb958bce81f6c5",
+          "metadataSha256": "4e7703a4f5b9d6d4228e8994c765c24fd259bb97d5919b7537d899b6a1866e6e",
+          "metadata": {
+            "screen": "backup-ready-notice",
+            "unity": "6000.6.7f1",
+            "runtimeMvid": "bdb19d63-7c5b-4184-8daa-dce05e1c1b05",
+            "testMvid": "622bc020-9f0f-4248-b09a-08b4ad01de8b",
+            "phase": "StagePreview",
+            "savePath": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftTests_6eee1b79bec54b4a9b9b70591bfc4973\\active-run.json",
+            "width": 1280,
+            "height": 720,
+            "frame": 118,
+            "workerThreadId": 63,
+            "ready": true,
+            "hintShown": false,
+            "readMilliseconds": 16.1565,
+            "firstHintMilliseconds": 0.0,
+            "fontScale": 1.5
+          },
+          "actuallyViewed": true
+        },
+        {
+          "path": "artifacts/cache/v07-qualified-loading-720-072646/DiceCraftTests_6eee1b79bec54b4a9b9b70591bfc4973/art07-loading-ui/fast-ready.png",
+          "sha256": "4eea039cf1616eb91732a30ae1bcbe9c3d8f9d4716e0f1efad971004a2aa3c39",
+          "metadataSha256": "ac2c6bd9ae851875ccefb3db04db5b683bcf96cf76a5956b8d7b50256920ac4b",
+          "metadata": {
+            "screen": "fast-ready",
+            "unity": "6000.6.7f1",
+            "runtimeMvid": "bdb19d63-7c5b-4184-8daa-dce05e1c1b05",
+            "testMvid": "622bc020-9f0f-4248-b09a-08b4ad01de8b",
+            "phase": "StagePreview",
+            "savePath": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftTests_6eee1b79bec54b4a9b9b70591bfc4973\\active-run.json",
+            "width": 1280,
+            "height": 720,
+            "frame": 94,
+            "workerThreadId": 63,
+            "ready": true,
+            "hintShown": false,
+            "readMilliseconds": 13.5396,
+            "firstHintMilliseconds": 0.0,
+            "fontScale": 1.5
+          },
+          "actuallyViewed": true
+        },
+        {
+          "path": "artifacts/cache/v07-qualified-loading-720-072646/DiceCraftTests_6eee1b79bec54b4a9b9b70591bfc4973/art07-loading-ui/legacy-ready-notice.png",
+          "sha256": "e5116363d5e7770629f742459f294976c64af6e9d4df463363cc7106de32a12c",
+          "metadataSha256": "ee92c0b7d3459724d9b1c7bf20e7540ee369e77cc3e8712fae3283c3ea7f5cb2",
+          "metadata": {
+            "screen": "legacy-ready-notice",
+            "unity": "6000.6.7f1",
+            "runtimeMvid": "bdb19d63-7c5b-4184-8daa-dce05e1c1b05",
+            "testMvid": "622bc020-9f0f-4248-b09a-08b4ad01de8b",
+            "phase": "",
+            "savePath": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftTests_6eee1b79bec54b4a9b9b70591bfc4973\\active-run.json",
+            "width": 1280,
+            "height": 720,
+            "frame": 143,
+            "workerThreadId": 63,
+            "ready": true,
+            "hintShown": false,
+            "readMilliseconds": 16.6016,
+            "firstHintMilliseconds": 0.0,
+            "fontScale": 1.5
+          },
+          "actuallyViewed": true
+        },
+        {
+          "path": "artifacts/cache/v07-qualified-loading-720-072646/DiceCraftTests_6eee1b79bec54b4a9b9b70591bfc4973/art07-loading-ui/worker-error-ready-notice.png",
+          "sha256": "d0adea6e8cfc05a484548b88ec55b3f4de1cd050477e944cd2b9d1362ee4e1fc",
+          "metadataSha256": "95d299add144524f183b9025bfecfe13933faf73fa2bf1c5a3151537cc543add",
+          "metadata": {
+            "screen": "worker-error-ready-notice",
+            "unity": "6000.6.7f1",
+            "runtimeMvid": "bdb19d63-7c5b-4184-8daa-dce05e1c1b05",
+            "testMvid": "622bc020-9f0f-4248-b09a-08b4ad01de8b",
+            "phase": "",
+            "savePath": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftTests_6eee1b79bec54b4a9b9b70591bfc4973\\active-run.json",
+            "width": 1280,
+            "height": 720,
+            "frame": 147,
+            "workerThreadId": 63,
+            "ready": true,
+            "hintShown": false,
+            "readMilliseconds": 17.2542,
+            "firstHintMilliseconds": 0.0,
+            "fontScale": 1.5
+          },
+          "actuallyViewed": true
+        },
+        {
+          "path": "artifacts/cache/v07-qualified-loading-720-072646/DiceCraftTests_c13987f0ad074de38e0387a5f1a99d43/art07-loading-ui/slow-pending.png",
+          "sha256": "1c8ef129098cb122c33500df045a0734aed92b752b39ff431cb13c4c46e11e06",
+          "metadataSha256": "11c12930c02670424da2ff1aecc5e9852cd54ef8a8b6ffaf9924a8f8bd5743bb",
+          "metadata": {
+            "screen": "slow-pending",
+            "unity": "6000.6.7f1",
+            "runtimeMvid": "bdb19d63-7c5b-4184-8daa-dce05e1c1b05",
+            "testMvid": "622bc020-9f0f-4248-b09a-08b4ad01de8b",
+            "phase": "",
+            "savePath": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftTests_c13987f0ad074de38e0387a5f1a99d43\\active-run.json",
+            "width": 1280,
+            "height": 720,
+            "frame": 171,
+            "workerThreadId": 0,
+            "ready": false,
+            "hintShown": true,
+            "readMilliseconds": 337.1631,
+            "firstHintMilliseconds": 215.9632,
+            "fontScale": 1.5
+          },
+          "actuallyViewed": true
+        },
+        {
+          "path": "artifacts/cache/v07-qualified-loading-720-072646/DiceCraftTests_c13987f0ad074de38e0387a5f1a99d43/art07-loading-ui/slow-ready-continued.png",
+          "sha256": "395ace6332548f5eb742eb036337b8907bf2b14be0dc01a13f30e1c4f9f25429",
+          "metadataSha256": "791a88fd18fe06ca427369248daa31a531cf7f5f68bbea48a0ae596226ebbbc3",
+          "metadata": {
+            "screen": "slow-ready-continued",
+            "unity": "6000.6.7f1",
+            "runtimeMvid": "bdb19d63-7c5b-4184-8daa-dce05e1c1b05",
+            "testMvid": "622bc020-9f0f-4248-b09a-08b4ad01de8b",
+            "phase": "StagePreview",
+            "savePath": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftTests_c13987f0ad074de38e0387a5f1a99d43\\active-run.json",
+            "width": 1280,
+            "height": 720,
+            "frame": 183,
+            "workerThreadId": 63,
+            "ready": true,
+            "hintShown": true,
+            "readMilliseconds": 339.1098,
+            "firstHintMilliseconds": 215.9632,
+            "fontScale": 1.5
+          },
+          "actuallyViewed": true
+        }
+      ]
+    },
+    {
+      "path": "artifacts/cache/v07-qualified-loading-1080-072807",
+      "reportSha256": "fbd1f51b510f40e8cd854271c57fe147ff615416262e1ed1fe54afb282307fa2",
+      "bindingSha256": "aa8c157936795abb204860c46a4571d8b61ee1c9126f2350d1d829aa48ca4c8a",
+      "archiveSha256": "b8c26874dc449c773fb59012b21b83a6af11f1589ea184b2605078e057290b02",
+      "archiveFilesValidated": 128,
+      "sourceFilesStable": 1358,
+      "assembliesStable": 5,
+      "assemblies": [
+        {
+          "name": "DiceCraft.Core",
+          "mvid": "8f690e0d-a075-4b72-98e4-2cb64ced2fa3",
+          "dllSha256": "44a137cd38d7b525382dfda7adbdb7676d12d1dbc05520638d8a14642a96031b"
+        },
+        {
+          "name": "DiceCraft.EditMode",
+          "mvid": "72ee6111-518d-4daf-b551-60ed8f282366",
+          "dllSha256": "26564b6e6704fc81a71729bdd73ad010117b497932e4b44d01aac4c916e037fd"
+        },
+        {
+          "name": "DiceCraft.Editor",
+          "mvid": "c5165741-6376-48d0-b120-051af7ad9916",
+          "dllSha256": "84186aea698d1dd11a47341e6db8114f11f5a6c0de84b3efaa260317d9f47b6a"
+        },
+        {
+          "name": "DiceCraft.PlayModeTests",
+          "mvid": "622bc020-9f0f-4248-b09a-08b4ad01de8b",
+          "dllSha256": "527bbead9ba0864f16b0fe1b3b82a159e14782f3aa9b5ce8918cf7e3c83c43d3"
+        },
+        {
+          "name": "DiceCraft.Runtime",
+          "mvid": "bdb19d63-7c5b-4184-8daa-dce05e1c1b05",
+          "dllSha256": "6a44a07b75fd8ca613e6dbe4fac9f3a4b30dd9f4d8a3714505755cc10448ff23"
+        }
+      ],
+      "allTests": [
+        {
+          "name": "PLAY_ART07_LEGACY_ExactVersionReadOnlyDetailsAndNewRunCancellationKeepOldBytes",
+          "result": "Passed"
+        },
+        {
+          "name": "PLAY_ART07_LOADING_UI_DestroyAndReloadSerializesSamePathWithoutAdoptingOldResult",
+          "result": "Passed"
+        },
+        {
+          "name": "PLAY_ART07_LOADING_UI_FastActiveBackupLegacyAndWorkerErrorKeepStoragePolicy",
+          "result": "Passed"
+        },
+        {
+          "name": "PLAY_ART07_LOADING_UI_SlowReadThresholdRendersFramesAndRejectsCommandsUntilReady",
+          "result": "Passed"
+        },
+        {
+          "name": "PLAY_ART07_POST_QualifiedHasNonblockingTailPauseSkipAndNoSecondRealStamp",
+          "result": "Passed"
+        },
+        {
+          "name": "PLAY_ART07_QUALIFIED_RetargetDoesNotTeleportAndShortModesKeepSavedState",
+          "result": "Passed"
+        },
+        {
+          "name": "PLAY_ART07_QUALIFIED_StripKeepsEveryGlyphClearAndReceiptHandoffIsContinuous",
+          "result": "Passed"
+        },
+        {
+          "name": "PLAY_ART07_STATUS_ColdQualifiedSaveKeepsGoldBorderAndBadgeWithoutRestamping",
+          "result": "Passed"
+        },
+        {
+          "name": "PLAY_ART07_STATUS_QualifiedRewardsStayVisibleAboveNavigationAtAllTextScales",
+          "result": "Failed"
+        }
+      ],
+      "targetTests": [
+        {
+          "name": "PLAY_ART07_LOADING_UI_DestroyAndReloadSerializesSamePathWithoutAdoptingOldResult",
+          "result": "Passed",
+          "duration": "1.248185"
+        },
+        {
+          "name": "PLAY_ART07_LOADING_UI_FastActiveBackupLegacyAndWorkerErrorKeepStoragePolicy",
+          "result": "Passed",
+          "duration": "2.503941"
+        },
+        {
+          "name": "PLAY_ART07_LOADING_UI_SlowReadThresholdRendersFramesAndRejectsCommandsUntilReady",
+          "result": "Passed",
+          "duration": "0.907943"
+        }
+      ],
+      "boundLoadingSources": [
+        {
+          "path": "DicePrototype/Assets/Game/Tests/PlayMode/Art07LoadingThreadSpikePlayModeTests.cs",
+          "sha256": "4a6859c71059fcf1aaed8dc1330ae492d871518d1339f4954d60f3c442a8020f"
+        },
+        {
+          "path": "DicePrototype/Assets/Game/Tests/PlayMode/Art07LoadingThreadSpikePlayModeTests.cs.meta",
+          "sha256": "5d8f5f5248f46e88cd5c2a4924061f09f7494482e9da360bc1da8d6a8228b79b"
+        },
+        {
+          "path": "DicePrototype/Assets/Game/Tests/PlayMode/Art07LoadingUiPlayModeTests.cs",
+          "sha256": "2a027ffeb1131452e4686283c2685b92db7d95b9bde3ecce8baa66bee8518ecd"
+        },
+        {
+          "path": "DicePrototype/Assets/Game/Tests/PlayMode/Art07LoadingUiPlayModeTests.cs.meta",
+          "sha256": "4483a8b784e8ed92597895379c8b2f1a001dcfcdccc4e6c1efb06126c73ba539"
+        },
+        {
+          "path": "DicePrototype/Assets/Game/Tests/PlayMode/GameplayPlayModeTests.cs",
+          "sha256": "889e0823f5d79801ea6cfd4b1799e79c16ab4ad4f94d5bcf55f7c75d158b7851"
+        },
+        {
+          "path": "DicePrototype/Assets/Game/Tests/PlayMode/GameplayPlayModeTests.cs.meta",
+          "sha256": "2a0cc6a7d355c5c6973ac72b300e7ac00abb7bf00d727fbed7e7938b672a459f"
+        },
+        {
+          "path": "DicePrototype/Assets/Game/UI/GameApp.Art07Loading.cs",
+          "sha256": "5cafb537accfd32f56c24227475c5fe503237a39f140bbba579a7302cf6fe1f9"
+        },
+        {
+          "path": "DicePrototype/Assets/Game/UI/GameApp.Art07Loading.cs.meta",
+          "sha256": "101893f46760a47c86e41a3fdc90e2297f550b7b5195a674b29de4746907a8e7"
+        }
+      ],
+      "screens": [
+        {
+          "path": "artifacts/cache/v07-qualified-loading-1080-072807/DiceCraftTests_639f20d4aeb047b09abb0674efb0e6a4/art07-loading-ui/destroy-reload-ready.png",
+          "sha256": "79d28ad503281152bff05653072dc9954f23e4c21a768e89772893a98db6a981",
+          "metadataSha256": "b1132dbf351a094820c89f1b1afcd0d97e63ba9174ce8b5a7b74ce88ba34133a",
+          "metadata": {
+            "screen": "destroy-reload-ready",
+            "unity": "6000.6.7f1",
+            "runtimeMvid": "bdb19d63-7c5b-4184-8daa-dce05e1c1b05",
+            "testMvid": "622bc020-9f0f-4248-b09a-08b4ad01de8b",
+            "phase": "StagePreview",
+            "savePath": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftTests_639f20d4aeb047b09abb0674efb0e6a4\\active-run.json",
+            "width": 1920,
+            "height": 1080,
+            "frame": 115,
+            "workerThreadId": 121,
+            "ready": true,
+            "hintShown": true,
+            "readMilliseconds": 413.7756,
+            "firstHintMilliseconds": 214.5386,
+            "fontScale": 1.5
+          },
+          "actuallyViewed": true
+        },
+        {
+          "path": "artifacts/cache/v07-qualified-loading-1080-072807/DiceCraftTests_639f20d4aeb047b09abb0674efb0e6a4/art07-loading-ui/destroy-reload-waiting-for-path.png",
+          "sha256": "2f516331039a740433e281f6ec5fc397b187c4e528c7e6ff72e046da4dc87f9e",
+          "metadataSha256": "94a7cd6ea69c499d01d109bfba5e28fce95585a245b60aafa6ccaab368466457",
+          "metadata": {
+            "screen": "destroy-reload-waiting-for-path",
+            "unity": "6000.6.7f1",
+            "runtimeMvid": "bdb19d63-7c5b-4184-8daa-dce05e1c1b05",
+            "testMvid": "622bc020-9f0f-4248-b09a-08b4ad01de8b",
+            "phase": "",
+            "savePath": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftTests_639f20d4aeb047b09abb0674efb0e6a4\\active-run.json",
+            "width": 1920,
+            "height": 1080,
+            "frame": 89,
+            "workerThreadId": 0,
+            "ready": false,
+            "hintShown": true,
+            "readMilliseconds": 386.4132,
+            "firstHintMilliseconds": 214.5386,
+            "fontScale": 1.5
+          },
+          "actuallyViewed": true
+        },
+        {
+          "path": "artifacts/cache/v07-qualified-loading-1080-072807/DiceCraftTests_a720b0d17fa543d6847abec9f8038677/art07-loading-ui/backup-ready-notice.png",
+          "sha256": "bfebb5f682bc146264f68a42d336d9dfb8922e9fad4b88c02a6a278931a3a27b",
+          "metadataSha256": "0a17d13d02bd455071403bd793070c0bf8b59b2ce4023b11f334aab38608a506",
+          "metadata": {
+            "screen": "backup-ready-notice",
+            "unity": "6000.6.7f1",
+            "runtimeMvid": "bdb19d63-7c5b-4184-8daa-dce05e1c1b05",
+            "testMvid": "622bc020-9f0f-4248-b09a-08b4ad01de8b",
+            "phase": "StagePreview",
+            "savePath": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftTests_a720b0d17fa543d6847abec9f8038677\\active-run.json",
+            "width": 1920,
+            "height": 1080,
+            "frame": 172,
+            "workerThreadId": 121,
+            "ready": true,
+            "hintShown": false,
+            "readMilliseconds": 16.4784,
+            "firstHintMilliseconds": 0.0,
+            "fontScale": 1.5
+          },
+          "actuallyViewed": true
+        },
+        {
+          "path": "artifacts/cache/v07-qualified-loading-1080-072807/DiceCraftTests_a720b0d17fa543d6847abec9f8038677/art07-loading-ui/fast-ready.png",
+          "sha256": "70e338a722995577e0886cf7e4e00e1f21ef6ec612ca729f99f36b2f1bf4f916",
+          "metadataSha256": "7f49300afa03cb144bd5c18debbf2a7e052fd294b1d009c37b8035ac62938d55",
+          "metadata": {
+            "screen": "fast-ready",
+            "unity": "6000.6.7f1",
+            "runtimeMvid": "bdb19d63-7c5b-4184-8daa-dce05e1c1b05",
+            "testMvid": "622bc020-9f0f-4248-b09a-08b4ad01de8b",
+            "phase": "StagePreview",
+            "savePath": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftTests_a720b0d17fa543d6847abec9f8038677\\active-run.json",
+            "width": 1920,
+            "height": 1080,
+            "frame": 147,
+            "workerThreadId": 121,
+            "ready": true,
+            "hintShown": false,
+            "readMilliseconds": 13.3315,
+            "firstHintMilliseconds": 0.0,
+            "fontScale": 1.5
+          },
+          "actuallyViewed": true
+        },
+        {
+          "path": "artifacts/cache/v07-qualified-loading-1080-072807/DiceCraftTests_a720b0d17fa543d6847abec9f8038677/art07-loading-ui/legacy-ready-notice.png",
+          "sha256": "d89506fbd536b7e85c2b8eabebddc8854e8ac2512714b77f6f3e3918ff36a06a",
+          "metadataSha256": "45441432c73a2011312f93d5c8e36db9c87e323f24bf97a213cedf5dd694bd4e",
+          "metadata": {
+            "screen": "legacy-ready-notice",
+            "unity": "6000.6.7f1",
+            "runtimeMvid": "bdb19d63-7c5b-4184-8daa-dce05e1c1b05",
+            "testMvid": "622bc020-9f0f-4248-b09a-08b4ad01de8b",
+            "phase": "",
+            "savePath": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftTests_a720b0d17fa543d6847abec9f8038677\\active-run.json",
+            "width": 1920,
+            "height": 1080,
+            "frame": 197,
+            "workerThreadId": 121,
+            "ready": true,
+            "hintShown": false,
+            "readMilliseconds": 15.1976,
+            "firstHintMilliseconds": 0.0,
+            "fontScale": 1.5
+          },
+          "actuallyViewed": true
+        },
+        {
+          "path": "artifacts/cache/v07-qualified-loading-1080-072807/DiceCraftTests_a720b0d17fa543d6847abec9f8038677/art07-loading-ui/worker-error-ready-notice.png",
+          "sha256": "1a597eb5813f49158e613289faf8f0ae901613be5a49507794a645b106a0ffbd",
+          "metadataSha256": "946a08dc2799d13d2c75d325f347b3f8603b1f6c20066f7b5470662a86f65491",
+          "metadata": {
+            "screen": "worker-error-ready-notice",
+            "unity": "6000.6.7f1",
+            "runtimeMvid": "bdb19d63-7c5b-4184-8daa-dce05e1c1b05",
+            "testMvid": "622bc020-9f0f-4248-b09a-08b4ad01de8b",
+            "phase": "",
+            "savePath": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftTests_a720b0d17fa543d6847abec9f8038677\\active-run.json",
+            "width": 1920,
+            "height": 1080,
+            "frame": 201,
+            "workerThreadId": 121,
+            "ready": true,
+            "hintShown": false,
+            "readMilliseconds": 13.898,
+            "firstHintMilliseconds": 0.0,
+            "fontScale": 1.5
+          },
+          "actuallyViewed": true
+        },
+        {
+          "path": "artifacts/cache/v07-qualified-loading-1080-072807/DiceCraftTests_c20fa851f8b64cf0abaf090ce76e749d/art07-loading-ui/slow-pending.png",
+          "sha256": "2f516331039a740433e281f6ec5fc397b187c4e528c7e6ff72e046da4dc87f9e",
+          "metadataSha256": "d1f5b785ac268cbfbcb72ffa497e636f7a80c3566c248af8cb9b09647f71370b",
+          "metadata": {
+            "screen": "slow-pending",
+            "unity": "6000.6.7f1",
+            "runtimeMvid": "bdb19d63-7c5b-4184-8daa-dce05e1c1b05",
+            "testMvid": "622bc020-9f0f-4248-b09a-08b4ad01de8b",
+            "phase": "",
+            "savePath": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftTests_c20fa851f8b64cf0abaf090ce76e749d\\active-run.json",
+            "width": 1920,
+            "height": 1080,
+            "frame": 224,
+            "workerThreadId": 0,
+            "ready": false,
+            "hintShown": true,
+            "readMilliseconds": 387.0736,
+            "firstHintMilliseconds": 207.3119,
+            "fontScale": 1.5
+          },
+          "actuallyViewed": true
+        },
+        {
+          "path": "artifacts/cache/v07-qualified-loading-1080-072807/DiceCraftTests_c20fa851f8b64cf0abaf090ce76e749d/art07-loading-ui/slow-ready-continued.png",
+          "sha256": "3aa2a6576b70b6d220e0462c06016c8d4400b7a73f8dd45f6d8b3a7f750d5c45",
+          "metadataSha256": "ad46b70d61d55be86de74a23cd9186d9067b2f3af2142613002aa3b4d9890113",
+          "metadata": {
+            "screen": "slow-ready-continued",
+            "unity": "6000.6.7f1",
+            "runtimeMvid": "bdb19d63-7c5b-4184-8daa-dce05e1c1b05",
+            "testMvid": "622bc020-9f0f-4248-b09a-08b4ad01de8b",
+            "phase": "StagePreview",
+            "savePath": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftTests_c20fa851f8b64cf0abaf090ce76e749d\\active-run.json",
+            "width": 1920,
+            "height": 1080,
+            "frame": 236,
+            "workerThreadId": 121,
+            "ready": true,
+            "hintShown": true,
+            "readMilliseconds": 390.2467,
+            "firstHintMilliseconds": 207.3119,
+            "fontScale": 1.5
+          },
+          "actuallyViewed": true
+        }
+      ]
+    }
+  ],
+  "reviewedSources": [
+    {
+      "path": "DicePrototype/Assets/Game/Tests/PlayMode/Art07LoadingUiPlayModeTests.cs",
+      "sha256": "2a027ffeb1131452e4686283c2685b92db7d95b9bde3ecce8baa66bee8518ecd"
+    },
+    {
+      "path": "artifacts/cache/v07-loading-rework/Art07LoadingUiPlayModeTests.cs",
+      "sha256": "23d04a9c476d5ebbb0e6d5f0c0de4ee1e42c3e7b16325d7bc63be9341786a33a"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Tests/PlayMode/GameplayPlayModeTests.cs",
+      "sha256": "889e0823f5d79801ea6cfd4b1799e79c16ab4ad4f94d5bcf55f7c75d158b7851"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/UI/GameApp.Art07Loading.cs",
+      "sha256": "5cafb537accfd32f56c24227475c5fe503237a39f140bbba579a7302cf6fe1f9"
+    }
+  ]
+}

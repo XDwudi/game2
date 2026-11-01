@@ -1,0 +1,1230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="199" result="Passed" total="199" passed="199" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-31 17:05:23Z" end-time="2026-10-31 17:05:25Z" duration="1.6706691">
+  <test-suite type="TestSuite" id="2071" name="DiceCraft P0" fullname="DiceCraft P0" runstate="Runnable" testcasecount="996" result="Passed" start-time="2026-10-31 17:05:23Z" end-time="2026-10-31 17:05:25Z" duration="1.670669" total="199" passed="199" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <test-suite type="Assembly" id="2054" name="DiceCraft.EditMode.dll" fullname="E:/agent_workspace/gpt/game2/DicePrototype/Library/ScriptAssemblies/DiceCraft.EditMode.dll" runstate="Runnable" testcasecount="996" result="Passed" start-time="2026-10-31 17:05:23Z" end-time="2026-10-31 17:05:25Z" duration="1.656900" total="199" passed="199" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="28916" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="2055" name="DiceCraft" fullname="DiceCraft" runstate="Runnable" testcasecount="996" result="Passed" start-time="2026-10-31 17:05:23Z" end-time="2026-10-31 17:05:25Z" duration="1.652143" total="199" passed="199" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="2058" name="Presentation" fullname="DiceCraft.Presentation" runstate="Runnable" testcasecount="199" result="Passed" start-time="2026-10-31 17:05:23Z" end-time="2026-10-31 17:05:25Z" duration="1.623500" total="199" passed="199" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestSuite" id="2059" name="Tests" fullname="DiceCraft.Presentation.Tests" runstate="Runnable" testcasecount="199" result="Passed" start-time="2026-10-31 17:05:23Z" end-time="2026-10-31 17:05:25Z" duration="1.621893" total="199" passed="199" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-suite type="TestFixture" id="1514" name="PresentationTests" fullname="DiceCraft.Presentation.Tests.PresentationTests" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" testcasecount="199" result="Passed" start-time="2026-10-31 17:05:23Z" end-time="2026-10-31 17:05:25Z" duration="1.619679" total="199" passed="199" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1705" name="AggregatedBaseContributionsPreserveEachFrozenEmitterAndExactSum" fullname="DiceCraft.Presentation.Tests.PresentationTests.AggregatedBaseContributionsPreserveEachFrozenEmitterAndExactSum" methodname="AggregatedBaseContributionsPreserveEachFrozenEmitterAndExactSum" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="145439988" result="Passed" start-time="2026-10-31 17:05:23Z" end-time="2026-10-31 17:05:23Z" duration="0.074826" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-suite type="ParameterizedMethod" id="1695" name="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" fullname="DiceCraft.Presentation.Tests.PresentationTests.AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" testcasecount="160" result="Passed" start-time="2026-10-31 17:05:23Z" end-time="2026-10-31 17:05:24Z" duration="1.228074" total="160" passed="160" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1535" name="ART07_RECEIPT_G001" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G001" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="1152786518" result="Passed" start-time="2026-10-31 17:05:23Z" end-time="2026-10-31 17:05:23Z" duration="0.023845" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1536" name="ART07_RECEIPT_G002" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G002" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="854671275" result="Passed" start-time="2026-10-31 17:05:23Z" end-time="2026-10-31 17:05:23Z" duration="0.005441" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1537" name="ART07_RECEIPT_G003" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G003" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="2139893418" result="Passed" start-time="2026-10-31 17:05:23Z" end-time="2026-10-31 17:05:23Z" duration="0.005187" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1538" name="ART07_RECEIPT_G004" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G004" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="1117099868" result="Passed" start-time="2026-10-31 17:05:23Z" end-time="2026-10-31 17:05:23Z" duration="0.014295" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1539" name="ART07_RECEIPT_G005" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G005" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="547243314" result="Passed" start-time="2026-10-31 17:05:23Z" end-time="2026-10-31 17:05:23Z" duration="0.005446" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1540" name="ART07_RECEIPT_G006" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G006" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="981546699" result="Passed" start-time="2026-10-31 17:05:23Z" end-time="2026-10-31 17:05:23Z" duration="0.005486" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1541" name="ART07_RECEIPT_G007" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G007" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="280934246" result="Passed" start-time="2026-10-31 17:05:23Z" end-time="2026-10-31 17:05:23Z" duration="0.005273" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1542" name="ART07_RECEIPT_G008" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G008" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="1795641431" result="Passed" start-time="2026-10-31 17:05:23Z" end-time="2026-10-31 17:05:23Z" duration="0.013425" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1543" name="ART07_RECEIPT_G009" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G009" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="496168008" result="Passed" start-time="2026-10-31 17:05:23Z" end-time="2026-10-31 17:05:23Z" duration="0.005125" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1544" name="ART07_RECEIPT_G010" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G010" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="1462193357" result="Passed" start-time="2026-10-31 17:05:23Z" end-time="2026-10-31 17:05:23Z" duration="0.005056" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1545" name="ART07_RECEIPT_G011" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G011" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="976826429" result="Passed" start-time="2026-10-31 17:05:23Z" end-time="2026-10-31 17:05:23Z" duration="0.008357" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1546" name="ART07_RECEIPT_G012" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G012" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="1209873624" result="Passed" start-time="2026-10-31 17:05:23Z" end-time="2026-10-31 17:05:23Z" duration="0.011655" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1547" name="ART07_RECEIPT_G013" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G013" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="2031884452" result="Passed" start-time="2026-10-31 17:05:23Z" end-time="2026-10-31 17:05:23Z" duration="0.005069" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1548" name="ART07_RECEIPT_G014" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G014" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="699434505" result="Passed" start-time="2026-10-31 17:05:23Z" end-time="2026-10-31 17:05:23Z" duration="0.005094" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1549" name="ART07_RECEIPT_G015" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G015" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="1126742778" result="Passed" start-time="2026-10-31 17:05:23Z" end-time="2026-10-31 17:05:23Z" duration="0.017223" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1550" name="ART07_RECEIPT_G016" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G016" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="1489144158" result="Passed" start-time="2026-10-31 17:05:23Z" end-time="2026-10-31 17:05:23Z" duration="0.026108" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1551" name="ART07_RECEIPT_G017" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G017" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="424822844" result="Passed" start-time="2026-10-31 17:05:23Z" end-time="2026-10-31 17:05:23Z" duration="0.004955" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1552" name="ART07_RECEIPT_G018" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G018" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="1189364525" result="Passed" start-time="2026-10-31 17:05:23Z" end-time="2026-10-31 17:05:23Z" duration="0.004985" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1553" name="ART07_RECEIPT_G019" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G019" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="502012640" result="Passed" start-time="2026-10-31 17:05:23Z" end-time="2026-10-31 17:05:23Z" duration="0.008040" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1554" name="ART07_RECEIPT_G020" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G020" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="1662576809" result="Passed" start-time="2026-10-31 17:05:23Z" end-time="2026-10-31 17:05:23Z" duration="0.008595" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1555" name="ART07_RECEIPT_G021" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G021" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="1547742970" result="Passed" start-time="2026-10-31 17:05:23Z" end-time="2026-10-31 17:05:23Z" duration="0.004994" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1556" name="ART07_RECEIPT_G022" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G022" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="1774921843" result="Passed" start-time="2026-10-31 17:05:23Z" end-time="2026-10-31 17:05:23Z" duration="0.005011" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1557" name="ART07_RECEIPT_G023" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G023" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="844208217" result="Passed" start-time="2026-10-31 17:05:23Z" end-time="2026-10-31 17:05:23Z" duration="0.012635" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1558" name="ART07_RECEIPT_G024" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G024" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="986780848" result="Passed" start-time="2026-10-31 17:05:23Z" end-time="2026-10-31 17:05:23Z" duration="0.005013" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1559" name="ART07_RECEIPT_G025" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G025" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="1073436192" result="Passed" start-time="2026-10-31 17:05:23Z" end-time="2026-10-31 17:05:23Z" duration="0.005320" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1560" name="ART07_RECEIPT_G026" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G026" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="104661747" result="Passed" start-time="2026-10-31 17:05:23Z" end-time="2026-10-31 17:05:23Z" duration="0.012893" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1561" name="ART07_RECEIPT_G027" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G027" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="1384386452" result="Passed" start-time="2026-10-31 17:05:23Z" end-time="2026-10-31 17:05:23Z" duration="0.005602" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1562" name="ART07_RECEIPT_G028" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G028" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="511437211" result="Passed" start-time="2026-10-31 17:05:23Z" end-time="2026-10-31 17:05:23Z" duration="0.004990" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1563" name="ART07_RECEIPT_G029" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G029" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="340318010" result="Passed" start-time="2026-10-31 17:05:23Z" end-time="2026-10-31 17:05:23Z" duration="0.008238" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1564" name="ART07_RECEIPT_G030" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G030" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="1283712976" result="Passed" start-time="2026-10-31 17:05:23Z" end-time="2026-10-31 17:05:23Z" duration="0.009545" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1565" name="ART07_RECEIPT_G031" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G031" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="372734696" result="Passed" start-time="2026-10-31 17:05:23Z" end-time="2026-10-31 17:05:23Z" duration="0.004934" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1566" name="ART07_RECEIPT_G032" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G032" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="1723823887" result="Passed" start-time="2026-10-31 17:05:23Z" end-time="2026-10-31 17:05:23Z" duration="0.004814" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1567" name="ART07_RECEIPT_G033" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G033" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="1439078988" result="Passed" start-time="2026-10-31 17:05:23Z" end-time="2026-10-31 17:05:23Z" duration="0.012341" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1568" name="ART07_RECEIPT_G034" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G034" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="356219285" result="Passed" start-time="2026-10-31 17:05:23Z" end-time="2026-10-31 17:05:23Z" duration="0.005005" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1569" name="ART07_RECEIPT_G035" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G035" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="99180129" result="Passed" start-time="2026-10-31 17:05:23Z" end-time="2026-10-31 17:05:23Z" duration="0.005216" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1570" name="ART07_RECEIPT_G036" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G036" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="1546043406" result="Passed" start-time="2026-10-31 17:05:23Z" end-time="2026-10-31 17:05:23Z" duration="0.005031" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1571" name="ART07_RECEIPT_G037" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G037" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="657099852" result="Passed" start-time="2026-10-31 17:05:23Z" end-time="2026-10-31 17:05:23Z" duration="0.009607" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1572" name="ART07_RECEIPT_G038" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G038" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="1674272980" result="Passed" start-time="2026-10-31 17:05:23Z" end-time="2026-10-31 17:05:23Z" duration="0.004868" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1573" name="ART07_RECEIPT_G039" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G039" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="1423100364" result="Passed" start-time="2026-10-31 17:05:23Z" end-time="2026-10-31 17:05:23Z" duration="0.005255" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1574" name="ART07_RECEIPT_G040" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G040" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="1121792357" result="Passed" start-time="2026-10-31 17:05:23Z" end-time="2026-10-31 17:05:23Z" duration="0.011974" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1575" name="ART07_RECEIPT_G041" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G041" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="460750487" result="Passed" start-time="2026-10-31 17:05:23Z" end-time="2026-10-31 17:05:23Z" duration="0.005037" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1576" name="ART07_RECEIPT_G042" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G042" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="544406718" result="Passed" start-time="2026-10-31 17:05:23Z" end-time="2026-10-31 17:05:23Z" duration="0.004749" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1577" name="ART07_RECEIPT_G043" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G043" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="1766225151" result="Passed" start-time="2026-10-31 17:05:23Z" end-time="2026-10-31 17:05:23Z" duration="0.004947" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1578" name="ART07_RECEIPT_G044" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G044" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="1705815439" result="Passed" start-time="2026-10-31 17:05:23Z" end-time="2026-10-31 17:05:23Z" duration="0.011601" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1579" name="ART07_RECEIPT_G045" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G045" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="601672258" result="Passed" start-time="2026-10-31 17:05:23Z" end-time="2026-10-31 17:05:23Z" duration="0.004967" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1580" name="ART07_RECEIPT_G046" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G046" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="2053275732" result="Passed" start-time="2026-10-31 17:05:23Z" end-time="2026-10-31 17:05:23Z" duration="0.005535" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1581" name="ART07_RECEIPT_G047" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G047" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="1710068850" result="Passed" start-time="2026-10-31 17:05:23Z" end-time="2026-10-31 17:05:23Z" duration="0.007956" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1582" name="ART07_RECEIPT_G048" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G048" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="1888378260" result="Passed" start-time="2026-10-31 17:05:23Z" end-time="2026-10-31 17:05:23Z" duration="0.008753" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1583" name="ART07_RECEIPT_G049" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G049" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="1812141756" result="Passed" start-time="2026-10-31 17:05:23Z" end-time="2026-10-31 17:05:23Z" duration="0.004725" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1584" name="ART07_RECEIPT_G050" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G050" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="1606788429" result="Passed" start-time="2026-10-31 17:05:23Z" end-time="2026-10-31 17:05:23Z" duration="0.004812" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1585" name="ART07_RECEIPT_G051" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G051" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="440283728" result="Passed" start-time="2026-10-31 17:05:23Z" end-time="2026-10-31 17:05:23Z" duration="0.012034" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1586" name="ART07_RECEIPT_G052" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G052" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="1434185409" result="Passed" start-time="2026-10-31 17:05:23Z" end-time="2026-10-31 17:05:23Z" duration="0.004803" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1587" name="ART07_RECEIPT_G053" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G053" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="148973329" result="Passed" start-time="2026-10-31 17:05:23Z" end-time="2026-10-31 17:05:23Z" duration="0.004782" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1588" name="ART07_RECEIPT_G054" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G054" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="1001585219" result="Passed" start-time="2026-10-31 17:05:23Z" end-time="2026-10-31 17:05:23Z" duration="0.005008" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1589" name="ART07_RECEIPT_G055" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G055" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="2128892149" result="Passed" start-time="2026-10-31 17:05:23Z" end-time="2026-10-31 17:05:23Z" duration="0.011949" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1590" name="ART07_RECEIPT_G056" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G056" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="1525348322" result="Passed" start-time="2026-10-31 17:05:23Z" end-time="2026-10-31 17:05:23Z" duration="0.004715" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1591" name="ART07_RECEIPT_G057" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G057" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="10463058" result="Passed" start-time="2026-10-31 17:05:23Z" end-time="2026-10-31 17:05:23Z" duration="0.004755" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1592" name="ART07_RECEIPT_G058" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G058" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="1153112570" result="Passed" start-time="2026-10-31 17:05:23Z" end-time="2026-10-31 17:05:23Z" duration="0.004765" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1593" name="ART07_RECEIPT_G059" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G059" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="43663676" result="Passed" start-time="2026-10-31 17:05:23Z" end-time="2026-10-31 17:05:23Z" duration="0.011726" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1594" name="ART07_RECEIPT_G060" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G060" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="442581567" result="Passed" start-time="2026-10-31 17:05:23Z" end-time="2026-10-31 17:05:23Z" duration="0.004842" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1595" name="ART07_RECEIPT_G061" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G061" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="1744643894" result="Passed" start-time="2026-10-31 17:05:23Z" end-time="2026-10-31 17:05:23Z" duration="0.004741" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1596" name="ART07_RECEIPT_G062" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G062" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="1916980682" result="Passed" start-time="2026-10-31 17:05:23Z" end-time="2026-10-31 17:05:23Z" duration="0.008073" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1597" name="ART07_RECEIPT_G063" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G063" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="1455323421" result="Passed" start-time="2026-10-31 17:05:23Z" end-time="2026-10-31 17:05:23Z" duration="0.008909" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1598" name="ART07_RECEIPT_G064" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G064" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="1359938679" result="Passed" start-time="2026-10-31 17:05:23Z" end-time="2026-10-31 17:05:23Z" duration="0.004713" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1599" name="ART07_RECEIPT_G065" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G065" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="1089458661" result="Passed" start-time="2026-10-31 17:05:23Z" end-time="2026-10-31 17:05:23Z" duration="0.004858" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1600" name="ART07_RECEIPT_G066" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G066" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="1400486189" result="Passed" start-time="2026-10-31 17:05:23Z" end-time="2026-10-31 17:05:24Z" duration="0.008184" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1601" name="ART07_RECEIPT_G067" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G067" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="1918278283" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.008447" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1602" name="ART07_RECEIPT_G068" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G068" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="1675665167" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.004788" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1603" name="ART07_RECEIPT_G069" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G069" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="600254376" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.004813" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1604" name="ART07_RECEIPT_G070" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G070" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="1728183019" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.008876" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1605" name="ART07_RECEIPT_G071" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G071" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="832044306" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.005002" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1606" name="ART07_RECEIPT_G072" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G072" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="898033511" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.004749" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1607" name="ART07_RECEIPT_G073" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G073" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="1913747808" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.004774" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1608" name="ART07_RECEIPT_G074" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G074" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="1527703930" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.014382" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1609" name="ART07_RECEIPT_G075" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G075" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="1201826322" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.024364" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1610" name="ART07_RECEIPT_G076" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G076" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="1003336252" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.004879" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1611" name="ART07_RECEIPT_G077" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G077" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="8696692" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.004791" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1612" name="ART07_RECEIPT_G078" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G078" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="1285876425" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.011466" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1613" name="ART07_RECEIPT_G079" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G079" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="385108590" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.004997" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1614" name="ART07_RECEIPT_G080" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G080" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="1167644107" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.004890" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1615" name="ART07_RECEIPT_G081" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G081" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="542076544" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.004987" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1616" name="ART07_RECEIPT_G082" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G082" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="1643491839" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.012190" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1617" name="ART07_RECEIPT_G083" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G083" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="846779102" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.004946" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1618" name="ART07_RECEIPT_G084" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G084" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="881013228" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.004933" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1619" name="ART07_RECEIPT_G085" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G085" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="843429248" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.012326" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1620" name="ART07_RECEIPT_G086" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G086" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="1086032934" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.004990" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1621" name="ART07_RECEIPT_G087" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G087" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="1574850558" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.004908" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1622" name="ART07_RECEIPT_G088" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G088" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="437493769" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.007992" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1623" name="ART07_RECEIPT_G089" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G089" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="374810783" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.008780" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1624" name="ART07_RECEIPT_G090" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G090" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="721315454" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.004919" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1625" name="ART07_RECEIPT_G091" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G091" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="1535580348" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.005090" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1626" name="ART07_RECEIPT_G092" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G092" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="1651470929" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.013537" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1627" name="ART07_RECEIPT_G093" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G093" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="1630609304" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.005054" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1628" name="ART07_RECEIPT_G094" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G094" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="980518797" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.004970" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1629" name="ART07_RECEIPT_G095" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G095" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="1524632110" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.005051" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1630" name="ART07_RECEIPT_G096" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G096" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="691253452" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.012273" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1631" name="ART07_RECEIPT_G097" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G097" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="1236566944" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.004981" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1632" name="ART07_RECEIPT_G098" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G098" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="406286472" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.004967" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1633" name="ART07_RECEIPT_G099" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G099" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="616356778" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.008853" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1634" name="ART07_RECEIPT_G100" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G100" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="1348669716" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.008778" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1635" name="ART07_RECEIPT_G101" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G101" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="134997449" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.004944" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1636" name="ART07_RECEIPT_G102" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G102" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="34403683" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.005085" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1637" name="ART07_RECEIPT_G103" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G103" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="1288123884" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.012518" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1638" name="ART07_RECEIPT_G104" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G104" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="83958737" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.004981" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1639" name="ART07_RECEIPT_G105" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G105" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="774744123" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.004832" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1640" name="ART07_RECEIPT_G106" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G106" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="1689733864" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.004903" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1641" name="ART07_RECEIPT_G107" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G107" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="1667921248" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.011978" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1642" name="ART07_RECEIPT_G108" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G108" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="768753046" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.004733" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1643" name="ART07_RECEIPT_G109" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G109" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="1947242544" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.004817" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1644" name="ART07_RECEIPT_G110" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G110" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="1125555897" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.007965" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1645" name="ART07_RECEIPT_G111" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G111" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="1516651630" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.008693" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1646" name="ART07_RECEIPT_G112" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G112" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="872070280" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.004768" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1647" name="ART07_RECEIPT_G113" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G113" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="768003980" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.005147" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1648" name="ART07_RECEIPT_G114" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G114" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="1023503216" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.012222" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1649" name="ART07_RECEIPT_G115" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G115" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="2047988670" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.004851" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1650" name="ART07_RECEIPT_G116" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G116" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="101152055" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.004731" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1651" name="ART07_RECEIPT_G117" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G117" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="1070201580" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.004915" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1652" name="ART07_RECEIPT_G118" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G118" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="574310193" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.011865" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1653" name="ART07_RECEIPT_G119" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G119" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="516509431" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.004761" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1654" name="ART07_RECEIPT_G120" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G120" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="3425727" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.004743" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1655" name="ART07_RECEIPT_G121" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G121" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="1973119278" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.004809" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1656" name="ART07_RECEIPT_G122" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G122" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="1480784514" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.011917" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1657" name="ART07_RECEIPT_G123" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G123" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="1300854384" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.004717" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1658" name="ART07_RECEIPT_G124" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G124" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="2026422569" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.004840" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1659" name="ART07_RECEIPT_G125" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G125" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="192602671" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.004800" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1660" name="ART07_RECEIPT_G126" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G126" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="1328057024" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.011700" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1661" name="ART07_RECEIPT_G127" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G127" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="1414907854" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.004679" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1662" name="ART07_RECEIPT_G128" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G128" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="933229011" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.004808" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1663" name="ART07_RECEIPT_G129" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G129" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="3071820" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.007933" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1664" name="ART07_RECEIPT_G130" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G130" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="510572870" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.009192" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1665" name="ART07_RECEIPT_G131" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G131" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="1914252955" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.004742" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1666" name="ART07_RECEIPT_G132" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G132" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="1749893867" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.004775" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1667" name="ART07_RECEIPT_G133" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G133" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="669519647" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.007994" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1668" name="ART07_RECEIPT_G134" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G134" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="1183922521" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.008666" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1669" name="ART07_RECEIPT_G135" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G135" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="1032646658" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.005746" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1670" name="ART07_RECEIPT_G136" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G136" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="507672861" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.004744" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1671" name="ART07_RECEIPT_G137" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G137" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="355367955" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.004852" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1672" name="ART07_RECEIPT_G138" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G138" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="762820365" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.030746" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1673" name="ART07_RECEIPT_G139" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G139" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="106269105" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.004988" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1674" name="ART07_RECEIPT_G140" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G140" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="1301179031" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.004730" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1675" name="ART07_RECEIPT_G141" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G141" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="1565595333" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.007823" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1676" name="ART07_RECEIPT_G142" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G142" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="806097512" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.008004" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1677" name="ART07_RECEIPT_G143" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G143" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="637734872" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.004666" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1678" name="ART07_RECEIPT_G144" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G144" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="1396738533" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.004631" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1679" name="ART07_RECEIPT_G145" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G145" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="1352147471" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.011055" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1680" name="ART07_RECEIPT_G146" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G146" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="663510068" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.004756" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1681" name="ART07_RECEIPT_G147" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G147" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="883466949" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.004805" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1682" name="ART07_RECEIPT_G148" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G148" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="607106088" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.011568" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1683" name="ART07_RECEIPT_G149" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G149" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="1080013774" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.004973" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1684" name="ART07_RECEIPT_G150" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G150" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="1423480055" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.004773" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1685" name="ART07_RECEIPT_G151" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G151" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="1768535519" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.007873" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1686" name="ART07_RECEIPT_G152" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G152" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="662256751" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.008287" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1687" name="ART07_RECEIPT_G153" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G153" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="2037260688" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.004657" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1688" name="ART07_RECEIPT_G154" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G154" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="612931051" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.004706" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1689" name="ART07_RECEIPT_G155" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G155" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="1523034085" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.011668" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1690" name="ART07_RECEIPT_G156" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G156" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="801696582" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.004850" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1691" name="ART07_RECEIPT_G157" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G157" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="881032946" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.004911" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1692" name="ART07_RECEIPT_G158" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G158" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="1409184962" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.008225" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1693" name="ART07_RECEIPT_G159" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G159" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="2038839713" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.010411" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1694" name="ART07_RECEIPT_G160" fullname="DiceCraft.Presentation.Tests.PresentationTests.ART07_RECEIPT_G160" methodname="AllFrozenGoldenReceiptsAdaptWithoutMutationOrBudgetOverflow" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="1594170746" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.004731" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+              </test-suite>
+              <test-case id="1702" name="EffectivePipIdempotentSourcesShareFrozenAttribution" fullname="DiceCraft.Presentation.Tests.PresentationTests.EffectivePipIdempotentSourcesShareFrozenAttribution" methodname="EffectivePipIdempotentSourcesShareFrozenAttribution" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="1982874381" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.008898" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1703" name="EffectiveRedIdentityAndItemOverrideDoNotFabricateContribution" fullname="DiceCraft.Presentation.Tests.PresentationTests.EffectiveRedIdentityAndItemOverrideDoNotFabricateContribution" methodname="EffectiveRedIdentityAndItemOverrideDoNotFabricateContribution" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="2096133598" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.009508" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-suite type="ParameterizedMethod" id="1533" name="FX01_ExactTierBoundaries" fullname="DiceCraft.Presentation.Tests.PresentationTests.FX01_ExactTierBoundaries" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" testcasecount="18" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.116383" total="18" passed="18" failed="0" inconclusive="0" skipped="0" asserts="0">
+                <properties />
+                <test-case id="1515" name="FX01_ExactTierBoundaries(&quot;799&quot;,&quot;100&quot;,0)" fullname="DiceCraft.Presentation.Tests.PresentationTests.FX01_ExactTierBoundaries(&quot;799&quot;,&quot;100&quot;,0)" methodname="FX01_ExactTierBoundaries" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="1846614947" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.004705" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1516" name="FX01_ExactTierBoundaries(&quot;800&quot;,&quot;100&quot;,1)" fullname="DiceCraft.Presentation.Tests.PresentationTests.FX01_ExactTierBoundaries(&quot;800&quot;,&quot;100&quot;,1)" methodname="FX01_ExactTierBoundaries" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="2000263542" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.004540" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1517" name="FX01_ExactTierBoundaries(&quot;801&quot;,&quot;100&quot;,1)" fullname="DiceCraft.Presentation.Tests.PresentationTests.FX01_ExactTierBoundaries(&quot;801&quot;,&quot;100&quot;,1)" methodname="FX01_ExactTierBoundaries" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="1339999826" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.011361" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1518" name="FX01_ExactTierBoundaries(&quot;3199&quot;,&quot;100&quot;,1)" fullname="DiceCraft.Presentation.Tests.PresentationTests.FX01_ExactTierBoundaries(&quot;3199&quot;,&quot;100&quot;,1)" methodname="FX01_ExactTierBoundaries" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="401795386" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.004545" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1519" name="FX01_ExactTierBoundaries(&quot;3200&quot;,&quot;100&quot;,2)" fullname="DiceCraft.Presentation.Tests.PresentationTests.FX01_ExactTierBoundaries(&quot;3200&quot;,&quot;100&quot;,2)" methodname="FX01_ExactTierBoundaries" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="714150965" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.004469" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1520" name="FX01_ExactTierBoundaries(&quot;3201&quot;,&quot;100&quot;,2)" fullname="DiceCraft.Presentation.Tests.PresentationTests.FX01_ExactTierBoundaries(&quot;3201&quot;,&quot;100&quot;,2)" methodname="FX01_ExactTierBoundaries" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="2013964760" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.004587" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1521" name="FX01_ExactTierBoundaries(&quot;12799&quot;,&quot;100&quot;,2)" fullname="DiceCraft.Presentation.Tests.PresentationTests.FX01_ExactTierBoundaries(&quot;12799&quot;,&quot;100&quot;,2)" methodname="FX01_ExactTierBoundaries" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="1009210817" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.011050" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1522" name="FX01_ExactTierBoundaries(&quot;12800&quot;,&quot;100&quot;,3)" fullname="DiceCraft.Presentation.Tests.PresentationTests.FX01_ExactTierBoundaries(&quot;12800&quot;,&quot;100&quot;,3)" methodname="FX01_ExactTierBoundaries" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="628889322" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.004563" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1523" name="FX01_ExactTierBoundaries(&quot;12801&quot;,&quot;100&quot;,3)" fullname="DiceCraft.Presentation.Tests.PresentationTests.FX01_ExactTierBoundaries(&quot;12801&quot;,&quot;100&quot;,3)" methodname="FX01_ExactTierBoundaries" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="1488903319" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.004431" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1524" name="FX01_ExactTierBoundaries(&quot;102399&quot;,&quot;100&quot;,3)" fullname="DiceCraft.Presentation.Tests.PresentationTests.FX01_ExactTierBoundaries(&quot;102399&quot;,&quot;100&quot;,3)" methodname="FX01_ExactTierBoundaries" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="1181718466" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.004527" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1525" name="FX01_ExactTierBoundaries(&quot;102400&quot;,&quot;100&quot;,4)" fullname="DiceCraft.Presentation.Tests.PresentationTests.FX01_ExactTierBoundaries(&quot;102400&quot;,&quot;100&quot;,4)" methodname="FX01_ExactTierBoundaries" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="1985915581" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.011455" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1526" name="FX01_ExactTierBoundaries(&quot;102401&quot;,&quot;100&quot;,4)" fullname="DiceCraft.Presentation.Tests.PresentationTests.FX01_ExactTierBoundaries(&quot;102401&quot;,&quot;100&quot;,4)" methodname="FX01_ExactTierBoundaries" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="522528880" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.004554" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1527" name="FX01_ExactTierBoundaries(&quot;819199&quot;,&quot;100&quot;,4)" fullname="DiceCraft.Presentation.Tests.PresentationTests.FX01_ExactTierBoundaries(&quot;819199&quot;,&quot;100&quot;,4)" methodname="FX01_ExactTierBoundaries" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="1625226406" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.004516" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1528" name="FX01_ExactTierBoundaries(&quot;819200&quot;,&quot;100&quot;,5)" fullname="DiceCraft.Presentation.Tests.PresentationTests.FX01_ExactTierBoundaries(&quot;819200&quot;,&quot;100&quot;,5)" methodname="FX01_ExactTierBoundaries" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="2110697153" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.007674" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1529" name="FX01_ExactTierBoundaries(&quot;819201&quot;,&quot;100&quot;,5)" fullname="DiceCraft.Presentation.Tests.PresentationTests.FX01_ExactTierBoundaries(&quot;819201&quot;,&quot;100&quot;,5)" methodname="FX01_ExactTierBoundaries" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="1659859012" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.008601" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1530" name="FX01_ExactTierBoundaries(&quot;1&quot;,&quot;4&quot;,0)" fullname="DiceCraft.Presentation.Tests.PresentationTests.FX01_ExactTierBoundaries(&quot;1&quot;,&quot;4&quot;,0)" methodname="FX01_ExactTierBoundaries" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="816534556" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.004449" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1531" name="FX01_ExactTierBoundaries(&quot;1&quot;,&quot;1&quot;,0)" fullname="DiceCraft.Presentation.Tests.PresentationTests.FX01_ExactTierBoundaries(&quot;1&quot;,&quot;1&quot;,0)" methodname="FX01_ExactTierBoundaries" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="1794940468" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.004574" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+                <test-case id="1532" name="FX01_ExactTierBoundaries(&quot;10000000000000000000000000000000000000000000000000000000000000000000000&quot;,&quot;3&quot;,5)" fullname="DiceCraft.Presentation.Tests.PresentationTests.FX01_ExactTierBoundaries(&quot;10000000000000000000000000000000000000000000000000000000000000000000000&quot;,&quot;3&quot;,5)" methodname="FX01_ExactTierBoundaries" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="141121474" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.007714" asserts="0">
+                  <properties>
+                    <property name="retryIteration" value="0" />
+                    <property name="repeatIteration" value="0" />
+                  </properties>
+                </test-case>
+              </test-suite>
+              <test-case id="1534" name="FX02_ZeroScoreOrMultiplierOverridesBurst" fullname="DiceCraft.Presentation.Tests.PresentationTests.FX02_ZeroScoreOrMultiplierOverridesBurst" methodname="FX02_ZeroScoreOrMultiplierOverridesBurst" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="1247863478" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.005725" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1699" name="FX03_C45NoMatchIsHitButNoChainUntilScoringEnchant" fullname="DiceCraft.Presentation.Tests.PresentationTests.FX03_C45NoMatchIsHitButNoChainUntilScoringEnchant" methodname="FX03_C45NoMatchIsHitButNoChainUntilScoringEnchant" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="559280784" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.004871" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1697" name="FX03_MultiDieAndOwnEnchantOnlyOneEmitter" fullname="DiceCraft.Presentation.Tests.PresentationTests.FX03_MultiDieAndOwnEnchantOnlyOneEmitter" methodname="FX03_MultiDieAndOwnEnchantOnlyOneEmitter" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="2053330400" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.004967" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1698" name="FX03_PostOnlyAndIdentityFactorsDoNotCount" fullname="DiceCraft.Presentation.Tests.PresentationTests.FX03_PostOnlyAndIdentityFactorsDoNotCount" methodname="FX03_PostOnlyAndIdentityFactorsDoNotCount" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="1256276911" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.012069" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1700" name="FX03_ZeroAndFractionAreNonIdentityScoringSources" fullname="DiceCraft.Presentation.Tests.PresentationTests.FX03_ZeroAndFractionAreNonIdentityScoringSources" methodname="FX03_ZeroAndFractionAreNonIdentityScoringSources" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="2093811504" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.006036" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1701" name="FX04_SharedHalfRevealOnceBeforeBothFactors" fullname="DiceCraft.Presentation.Tests.PresentationTests.FX04_SharedHalfRevealOnceBeforeBothFactors" methodname="FX04_SharedHalfRevealOnceBeforeBothFactors" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="412004940" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.005283" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1706" name="FX05_PostSourceGroupAndTrueEffectOrderRemainDetached" fullname="DiceCraft.Presentation.Tests.PresentationTests.FX05_PostSourceGroupAndTrueEffectOrderRemainDetached" methodname="FX05_PostSourceGroupAndTrueEffectOrderRemainDetached" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="1571630475" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.006962" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1696" name="FX06_G147ExactScoreMultiplierFourSourcesNoQualified" fullname="DiceCraft.Presentation.Tests.PresentationTests.FX06_G147ExactScoreMultiplierFourSourcesNoQualified" methodname="FX06_G147ExactScoreMultiplierFourSourcesNoQualified" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="710445175" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.012259" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1707" name="FX07_Debug32RetainsAllSourcesWithFourMainFoci" fullname="DiceCraft.Presentation.Tests.PresentationTests.FX07_Debug32RetainsAllSourcesWithFourMainFoci" methodname="FX07_Debug32RetainsAllSourcesWithFourMainFoci" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="1302772902" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.006290" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1713" name="FX07_GlobalFocusAndPoolBudgetsHaveScopedRelease" fullname="DiceCraft.Presentation.Tests.PresentationTests.FX07_GlobalFocusAndPoolBudgetsHaveScopedRelease" methodname="FX07_GlobalFocusAndPoolBudgetsHaveScopedRelease" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="1131928121" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.008579" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1714" name="FX07_PoolIsBoundedResetsBindingsAndIgnoresDoubleReturn" fullname="DiceCraft.Presentation.Tests.PresentationTests.FX07_PoolIsBoundedResetsBindingsAndIgnoresDoubleReturn" methodname="FX07_PoolIsBoundedResetsBindingsAndIgnoresDoubleReturn" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="1514903662" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.006434" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1708" name="FX08_PauseSkipRestoreReplayNeverReenterGameOrRepeatLiveEvents" fullname="DiceCraft.Presentation.Tests.PresentationTests.FX08_PauseSkipRestoreReplayNeverReenterGameOrRepeatLiveEvents" methodname="FX08_PauseSkipRestoreReplayNeverReenterGameOrRepeatLiveEvents" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="1523316659" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.025067" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1709" name="FX09_SpeedsAndReducedMotionShareExactReceipt" fullname="DiceCraft.Presentation.Tests.PresentationTests.FX09_SpeedsAndReducedMotionShareExactReceipt" methodname="FX09_SpeedsAndReducedMotionShareExactReceipt" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="1611256458" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.016449" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1712" name="FX11_AudioBudgetMergesThrottlesAndReleasesOnlyItsReceipt" fullname="DiceCraft.Presentation.Tests.PresentationTests.FX11_AudioBudgetMergesThrottlesAndReleasesOnlyItsReceipt" methodname="FX11_AudioBudgetMergesThrottlesAndReleasesOnlyItsReceipt" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="394606276" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.007812" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1711" name="FX11_AudioMapHasSixteenLogicalCuesTwentyFiveFiles" fullname="DiceCraft.Presentation.Tests.PresentationTests.FX11_AudioMapHasSixteenLogicalCuesTwentyFiveFiles" methodname="FX11_AudioMapHasSixteenLogicalCuesTwentyFiveFiles" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="99212731" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.005813" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1704" name="GroupingAndShortStraightOwnershipAreExplicit" fullname="DiceCraft.Presentation.Tests.PresentationTests.GroupingAndShortStraightOwnershipAreExplicit" methodname="GroupingAndShortStraightOwnershipAreExplicit" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="1489873266" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.011886" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1710" name="OnlyNewSuccessfullySavedResultMayStartPresentation" fullname="DiceCraft.Presentation.Tests.PresentationTests.OnlyNewSuccessfullySavedResultMayStartPresentation" methodname="OnlyNewSuccessfullySavedResultMayStartPresentation" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="495685306" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:24Z" duration="0.004832" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1715" name="QualifiedStampFollowsRealTransitionAndVictoryOnlyActualResultPhase" fullname="DiceCraft.Presentation.Tests.PresentationTests.QualifiedStampFollowsRealTransitionAndVictoryOnlyActualResultPhase" methodname="QualifiedStampFollowsRealTransitionAndVictoryOnlyActualResultPhase" classname="DiceCraft.Presentation.Tests.PresentationTests" runstate="Runnable" seed="1379415181" result="Passed" start-time="2026-10-31 17:05:24Z" end-time="2026-10-31 17:05:25Z" duration="0.005032" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[Saving results to: E:\agent_workspace\gpt\game2\evidence\v07\unity\nunit-20261031-170525.xml
+]]></output>
+              </test-case>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

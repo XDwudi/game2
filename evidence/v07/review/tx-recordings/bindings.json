@@ -1,0 +1,1608 @@
+{
+  "reviewer": "/root/v07_spec_audit",
+  "scope": "eight actual transaction recordings, WindowsEditor 1080p fixed timestep; not realtime performance or release",
+  "clips": [
+    {
+      "clip": "buycontroller-normal",
+      "recordingSha": "d5e8c5dc799d890f17b9009892f16bba607e86dbbec96051935958ce044054c1",
+      "sourceSnapshotSha": "fe46e2e94b239be3964a89b7cb41ca6e9bf49a62be5298b3d9ead04881eda667",
+      "sourceSnapshotMatches": true,
+      "runtimeMvid": "cf4f28d9-e3b8-4b10-88fe-3bc3d2616409",
+      "coreMvid": "8f690e0d-a075-4b72-98e4-2cb64ced2fa3",
+      "frames": 67,
+      "indexContinuous": true,
+      "pngHashMismatches": [],
+      "monotonicVideoSeconds": true,
+      "durationMilliseconds": 340,
+      "ticks": 21,
+      "stateHashesAfterCommit": [
+        "5d8a04819f06ff1196a8f3b91ea57ee6a2cc6d31be018f80f8cd90fb43d7d3ef"
+      ],
+      "saveHashesAfterCommit": [
+        "5c2002d31351443892d3647201884d4e08ccb0e42bc78b9063ffc5b3f3f7434e"
+      ],
+      "normalSaveHashes": [
+        "6d544a09c187b32a8f6d87e4607aa7920ad008c6f4038ac5b707283ed35d2beb"
+      ],
+      "normalSaveStable": true,
+      "restoredPreferences": true,
+      "restoredTiming": true,
+      "status": "captured_pending_visual_review",
+      "error": "",
+      "viewed": [
+        {
+          "index": 14,
+          "path": "E:\\agent_workspace\\gpt\\game2\\artifacts\\cache\\v07-tx-buycontroller-normal-01\\frames\\frame_000014.png",
+          "sha256": "393fbfb6bf8e9f85636f30728d88425ad4c2fde2f4408e46513be4df52ff7b57"
+        },
+        {
+          "index": 15,
+          "path": "E:\\agent_workspace\\gpt\\game2\\artifacts\\cache\\v07-tx-buycontroller-normal-01\\frames\\frame_000015.png",
+          "sha256": "96c40f59d5890f487aa6dba69d831cafeb5de63fd9bf614233843424df8e28e6"
+        },
+        {
+          "index": 25,
+          "path": "E:\\agent_workspace\\gpt\\game2\\artifacts\\cache\\v07-tx-buycontroller-normal-01\\frames\\frame_000025.png",
+          "sha256": "a31f565eeba89e29a6ef9577b9e6719b5323f031cad05cf4340cd76afcac722f"
+        },
+        {
+          "index": 36,
+          "path": "E:\\agent_workspace\\gpt\\game2\\artifacts\\cache\\v07-tx-buycontroller-normal-01\\frames\\frame_000036.png",
+          "sha256": "b1ca6b53ac9e6c3463a7bcccbf545c64816ef3ed0fa9ebdf1006d259169eca11"
+        },
+        {
+          "index": 37,
+          "path": "E:\\agent_workspace\\gpt\\game2\\artifacts\\cache\\v07-tx-buycontroller-normal-01\\frames\\frame_000037.png",
+          "sha256": "b1ca6b53ac9e6c3463a7bcccbf545c64816ef3ed0fa9ebdf1006d259169eca11"
+        }
+      ],
+      "gold": [
+        110,
+        104
+      ],
+      "sequence": [
+        7,
+        8
+      ],
+      "receiptSequence": 8,
+      "summary": "已装备 增加提交 · ITEM_00021 · 技能详情 · 免槽",
+      "targets": [
+        {
+          "name": "Offer_OFFER_00025",
+          "active": true,
+          "alpha": 0.0,
+          "position": {
+            "x": 392.0,
+            "y": -96.0,
+            "z": 0.0
+          },
+          "scale": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0,
+            "w": 1.0
+          }
+        },
+        {
+          "name": "Buy_OFFER_00025",
+          "active": true,
+          "alpha": 0.0,
+          "position": {
+            "x": 392.0,
+            "y": -328.0,
+            "z": 0.0
+          },
+          "scale": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0,
+            "w": 1.0
+          }
+        },
+        {
+          "name": "Controller_ITEM_00021",
+          "active": true,
+          "alpha": 0.0,
+          "position": {
+            "x": 0.0,
+            "y": -196.0,
+            "z": 0.0
+          },
+          "scale": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0,
+            "w": 1.0
+          }
+        }
+      ],
+      "addedOffers": [],
+      "offerUpgradeCounts": {
+        "controller": [
+          3,
+          3
+        ],
+        "consumable": [
+          3,
+          3
+        ]
+      },
+      "changedDice": []
+    },
+    {
+      "clip": "expandcontrollers-normal",
+      "recordingSha": "b601005cd1941d6c73fea7b9b5fbd86daf2d355785c16ccbff18b25cfac26630",
+      "sourceSnapshotSha": "fe46e2e94b239be3964a89b7cb41ca6e9bf49a62be5298b3d9ead04881eda667",
+      "sourceSnapshotMatches": true,
+      "runtimeMvid": "cf4f28d9-e3b8-4b10-88fe-3bc3d2616409",
+      "coreMvid": "8f690e0d-a075-4b72-98e4-2cb64ced2fa3",
+      "frames": 67,
+      "indexContinuous": true,
+      "pngHashMismatches": [],
+      "monotonicVideoSeconds": true,
+      "durationMilliseconds": 340,
+      "ticks": 21,
+      "stateHashesAfterCommit": [
+        "41fbe4f8428ac25eb274ef7016ef557e0b92567fbc8dca1e2320d0cf5c6d2041"
+      ],
+      "saveHashesAfterCommit": [
+        "ee972d9e29b6967c9930d6ca5ba107b6022f71b540837f1b43c524d96d3fe813"
+      ],
+      "normalSaveHashes": [
+        "6d544a09c187b32a8f6d87e4607aa7920ad008c6f4038ac5b707283ed35d2beb"
+      ],
+      "normalSaveStable": true,
+      "restoredPreferences": true,
+      "restoredTiming": true,
+      "status": "captured_pending_visual_review",
+      "error": "",
+      "viewed": [
+        {
+          "index": 14,
+          "path": "E:\\agent_workspace\\gpt\\game2\\artifacts\\cache\\v07-tx-expandcontrollers-normal-01\\frames\\frame_000014.png",
+          "sha256": "5f0426a2c27707dd88b3a8d6bc5716b5e3a59756e656f5cfa25c78e3bfcb605c"
+        },
+        {
+          "index": 25,
+          "path": "E:\\agent_workspace\\gpt\\game2\\artifacts\\cache\\v07-tx-expandcontrollers-normal-01\\frames\\frame_000025.png",
+          "sha256": "3aa92f89285d9798188c71367d8ccf1c97bc549c21140073c3a85992c68d36c2"
+        },
+        {
+          "index": 36,
+          "path": "E:\\agent_workspace\\gpt\\game2\\artifacts\\cache\\v07-tx-expandcontrollers-normal-01\\frames\\frame_000036.png",
+          "sha256": "14ea18f112a45d397ae70e078784d53c59f27cf99f87a8df8bdc5bc2bfd4eda8"
+        }
+      ],
+      "gold": [
+        110,
+        103
+      ],
+      "sequence": [
+        26,
+        27
+      ],
+      "receiptSequence": 27,
+      "summary": "控制器货架 5→6 · 容量升级已生效",
+      "targets": [
+        {
+          "name": "Offer_OFFER_00145",
+          "active": true,
+          "alpha": 0.0,
+          "position": {
+            "x": 1312.0,
+            "y": -96.0,
+            "z": 0.0
+          },
+          "scale": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": -0.6427876353263855,
+            "z": 0.0,
+            "w": 0.7660444974899292
+          }
+        },
+        {
+          "name": "Buy_OFFER_00145",
+          "active": true,
+          "alpha": 0.0,
+          "position": {
+            "x": 1312.0,
+            "y": -328.0,
+            "z": 0.0
+          },
+          "scale": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": -0.6427876353263855,
+            "z": 0.0,
+            "w": 0.7660444974899292
+          }
+        },
+        {
+          "name": "NewSlotOutline",
+          "active": true,
+          "alpha": 0.0,
+          "position": {
+            "x": 1312.0,
+            "y": -96.0,
+            "z": 0.0
+          },
+          "scale": {
+            "x": 0.0010000000474974513,
+            "y": 1.0,
+            "z": 1.0
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0,
+            "w": 1.0
+          }
+        }
+      ],
+      "addedOffers": [
+        {
+          "offerId": "OFFER_00145",
+          "category": "controller",
+          "contentId": "C11"
+        }
+      ],
+      "offerUpgradeCounts": {
+        "controller": [
+          2,
+          3
+        ],
+        "consumable": [
+          3,
+          3
+        ]
+      },
+      "changedDice": []
+    },
+    {
+      "clip": "expanditems-normal",
+      "recordingSha": "b43d794fc3b9999e88516025198f96c7e89fce66daeb8f669e62e7364df4efd3",
+      "sourceSnapshotSha": "fe46e2e94b239be3964a89b7cb41ca6e9bf49a62be5298b3d9ead04881eda667",
+      "sourceSnapshotMatches": true,
+      "runtimeMvid": "cf4f28d9-e3b8-4b10-88fe-3bc3d2616409",
+      "coreMvid": "8f690e0d-a075-4b72-98e4-2cb64ced2fa3",
+      "frames": 67,
+      "indexContinuous": true,
+      "pngHashMismatches": [],
+      "monotonicVideoSeconds": true,
+      "durationMilliseconds": 340,
+      "ticks": 21,
+      "stateHashesAfterCommit": [
+        "c7b2174c4e5b77a863dabc8cf660852296a460c958cb711a7cb1f533f69a7f04"
+      ],
+      "saveHashesAfterCommit": [
+        "e7af43cec6385b93c2de172bb2467458d3fd4db093636587addc2c7285ff9fb1"
+      ],
+      "normalSaveHashes": [
+        "6d544a09c187b32a8f6d87e4607aa7920ad008c6f4038ac5b707283ed35d2beb"
+      ],
+      "normalSaveStable": true,
+      "restoredPreferences": true,
+      "restoredTiming": true,
+      "status": "captured_pending_visual_review",
+      "error": "",
+      "viewed": [
+        {
+          "index": 14,
+          "path": "E:\\agent_workspace\\gpt\\game2\\artifacts\\cache\\v07-tx-expanditems-normal-01\\frames\\frame_000014.png",
+          "sha256": "2e75f2b5f564afdfb42f9316c805a66fed99f081be901034d35f24c4c4b7b475"
+        },
+        {
+          "index": 25,
+          "path": "E:\\agent_workspace\\gpt\\game2\\artifacts\\cache\\v07-tx-expanditems-normal-01\\frames\\frame_000025.png",
+          "sha256": "65b395bafd98db05ac2eea7534d9265097ed8957ffd459d5f02bc964a75826ed"
+        },
+        {
+          "index": 33,
+          "path": "E:\\agent_workspace\\gpt\\game2\\artifacts\\cache\\v07-tx-expanditems-normal-01\\frames\\frame_000033.png",
+          "sha256": "ee31d2b605c4f3d2561bf81e534607a00233321badfec5e85f4df3847de9a085"
+        },
+        {
+          "index": 35,
+          "path": "E:\\agent_workspace\\gpt\\game2\\artifacts\\cache\\v07-tx-expanditems-normal-01\\frames\\frame_000035.png",
+          "sha256": "c7e3c524fbb475254d984b2db9e6124dbb427ca4a33f2f6d03c9202077114ca8"
+        },
+        {
+          "index": 36,
+          "path": "E:\\agent_workspace\\gpt\\game2\\artifacts\\cache\\v07-tx-expanditems-normal-01\\frames\\frame_000036.png",
+          "sha256": "5d46b13928bc28c756e11008e41f2c17729234fec841065f460bcd1a208d71f9"
+        }
+      ],
+      "gold": [
+        110,
+        104
+      ],
+      "sequence": [
+        30,
+        31
+      ],
+      "receiptSequence": 31,
+      "summary": "道具货架 4→5 · 容量升级已生效",
+      "targets": [
+        {
+          "name": "AddedOffer_OFFER_00163",
+          "active": true,
+          "alpha": 0.0,
+          "position": {
+            "x": 1576.0,
+            "y": -512.0,
+            "z": 0.0
+          },
+          "scale": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": -0.6427876353263855,
+            "z": 0.0,
+            "w": 0.7660444974899292
+          }
+        },
+        {
+          "name": "NewSlotOutline",
+          "active": true,
+          "alpha": 0.0,
+          "position": {
+            "x": 1576.0,
+            "y": -512.0,
+            "z": 0.0
+          },
+          "scale": {
+            "x": 0.0010000000474974513,
+            "y": 1.0,
+            "z": 1.0
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0,
+            "w": 1.0
+          }
+        }
+      ],
+      "addedOffers": [
+        {
+          "offerId": "OFFER_00163",
+          "category": "consumable",
+          "contentId": "I06"
+        }
+      ],
+      "offerUpgradeCounts": {
+        "controller": [
+          3,
+          3
+        ],
+        "consumable": [
+          2,
+          3
+        ]
+      },
+      "changedDice": []
+    },
+    {
+      "clip": "glassdie-normal",
+      "recordingSha": "a3f189f607459bf6d2e4c944334b47432fadcf26e695f558fea9dbd251f4e082",
+      "sourceSnapshotSha": "fe46e2e94b239be3964a89b7cb41ca6e9bf49a62be5298b3d9ead04881eda667",
+      "sourceSnapshotMatches": true,
+      "runtimeMvid": "cf4f28d9-e3b8-4b10-88fe-3bc3d2616409",
+      "coreMvid": "8f690e0d-a075-4b72-98e4-2cb64ced2fa3",
+      "frames": 72,
+      "indexContinuous": true,
+      "pngHashMismatches": [],
+      "monotonicVideoSeconds": true,
+      "durationMilliseconds": 420,
+      "ticks": 26,
+      "stateHashesAfterCommit": [
+        "86b8b99cb592fdc70d80a13b29260551649f1851b53acd9f4c9d7f26f10140ed"
+      ],
+      "saveHashesAfterCommit": [
+        "14dd6b324f235e1613bea90c7f974ef0e0e7b964ab7e58d87003aa4fe3f91b5c"
+      ],
+      "normalSaveHashes": [
+        "6d544a09c187b32a8f6d87e4607aa7920ad008c6f4038ac5b707283ed35d2beb"
+      ],
+      "normalSaveStable": true,
+      "restoredPreferences": true,
+      "restoredTiming": true,
+      "status": "captured_pending_visual_review",
+      "error": "",
+      "viewed": [
+        {
+          "index": 14,
+          "path": "E:\\agent_workspace\\gpt\\game2\\artifacts\\cache\\v07-tx-glassdie-normal-01\\frames\\frame_000014.png",
+          "sha256": "5f14c5e39ba9d69fa8a8d5acf7aeb176a29595858d19b9f91459a0efb868a38f"
+        },
+        {
+          "index": 15,
+          "path": "E:\\agent_workspace\\gpt\\game2\\artifacts\\cache\\v07-tx-glassdie-normal-01\\frames\\frame_000015.png",
+          "sha256": "c484127cf396afbf84c59d1d1d0ef15119d13f646343972d2d01b2c2c3d0cd7d"
+        },
+        {
+          "index": 16,
+          "path": "E:\\agent_workspace\\gpt\\game2\\artifacts\\cache\\v07-tx-glassdie-normal-01\\frames\\frame_000016.png",
+          "sha256": "729aab0d56f401bc56617342f07198d0da1601e8656de2b9c447b922c183efcf"
+        },
+        {
+          "index": 28,
+          "path": "E:\\agent_workspace\\gpt\\game2\\artifacts\\cache\\v07-tx-glassdie-normal-01\\frames\\frame_000028.png",
+          "sha256": "579984d2eb8c6607bcc378459045d4fc80c41e661dd84bf4c9737a8e52908e60"
+        },
+        {
+          "index": 40,
+          "path": "E:\\agent_workspace\\gpt\\game2\\artifacts\\cache\\v07-tx-glassdie-normal-01\\frames\\frame_000040.png",
+          "sha256": "9e6aeef216d6abba386494322b015beecfbe93bef48f3396a44bfb1da82b90da"
+        },
+        {
+          "index": 41,
+          "path": "E:\\agent_workspace\\gpt\\game2\\artifacts\\cache\\v07-tx-glassdie-normal-01\\frames\\frame_000041.png",
+          "sha256": "d5a78c42c0e4a042d8438f61caa07c5693a856c2e347751160cc412173a2d83d"
+        },
+        {
+          "index": 42,
+          "path": "E:\\agent_workspace\\gpt\\game2\\artifacts\\cache\\v07-tx-glassdie-normal-01\\frames\\frame_000042.png",
+          "sha256": "d5a78c42c0e4a042d8438f61caa07c5693a856c2e347751160cc412173a2d83d"
+        }
+      ],
+      "gold": [
+        110,
+        109
+      ],
+      "sequence": [
+        56,
+        57
+      ],
+      "receiptSequence": 57,
+      "summary": "D086 · 永久玻璃 开启",
+      "targets": [
+        {
+          "name": "ShopProducts",
+          "active": true,
+          "alpha": 0.0,
+          "position": {
+            "x": 392.0,
+            "y": -512.0,
+            "z": 0.0
+          },
+          "scale": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0,
+            "w": 1.0
+          }
+        },
+        {
+          "name": "Result",
+          "active": true,
+          "alpha": 0.0,
+          "position": {
+            "x": 1030.0,
+            "y": -18.0,
+            "z": 0.0
+          },
+          "scale": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0,
+            "w": 1.0
+          }
+        }
+      ],
+      "addedOffers": [],
+      "offerUpgradeCounts": {
+        "controller": [
+          3,
+          3
+        ],
+        "consumable": [
+          3,
+          3
+        ]
+      },
+      "changedDice": [
+        {
+          "dieId": "D086",
+          "changedFields": [
+            "isGlass",
+            "dataRevision"
+          ],
+          "changedFaces": []
+        }
+      ]
+    },
+    {
+      "clip": "randomface-normal",
+      "recordingSha": "99d4d37967c6fb9d35f4cc5761f89f82fe593f21617b8664b8b4fb745c791ef9",
+      "sourceSnapshotSha": "fe46e2e94b239be3964a89b7cb41ca6e9bf49a62be5298b3d9ead04881eda667",
+      "sourceSnapshotMatches": true,
+      "runtimeMvid": "cf4f28d9-e3b8-4b10-88fe-3bc3d2616409",
+      "coreMvid": "8f690e0d-a075-4b72-98e4-2cb64ced2fa3",
+      "frames": 68,
+      "indexContinuous": true,
+      "pngHashMismatches": [],
+      "monotonicVideoSeconds": true,
+      "durationMilliseconds": 360,
+      "ticks": 22,
+      "stateHashesAfterCommit": [
+        "bcae6448439dd73ba4b05ab788a13898205ff8a555722e4f2da9331e87546d24"
+      ],
+      "saveHashesAfterCommit": [
+        "f47e4bc7248277b360b66fa2b88521180d783e8d9678299ee26e9b10d2626a89"
+      ],
+      "normalSaveHashes": [
+        "6d544a09c187b32a8f6d87e4607aa7920ad008c6f4038ac5b707283ed35d2beb"
+      ],
+      "normalSaveStable": true,
+      "restoredPreferences": true,
+      "restoredTiming": true,
+      "status": "captured_pending_visual_review",
+      "error": "",
+      "viewed": [
+        {
+          "index": 14,
+          "path": "E:\\agent_workspace\\gpt\\game2\\artifacts\\cache\\v07-tx-randomface-normal-01\\frames\\frame_000014.png",
+          "sha256": "78e547509124d4f64d0954dcb41c33ab0935f99a43ab3e211d068bcad042fd11"
+        },
+        {
+          "index": 15,
+          "path": "E:\\agent_workspace\\gpt\\game2\\artifacts\\cache\\v07-tx-randomface-normal-01\\frames\\frame_000015.png",
+          "sha256": "1b858321ba1a9a79e3dc5949c3fbce7871f2a2e5fb70961ec7e6283964b5816b"
+        },
+        {
+          "index": 16,
+          "path": "E:\\agent_workspace\\gpt\\game2\\artifacts\\cache\\v07-tx-randomface-normal-01\\frames\\frame_000016.png",
+          "sha256": "0e891d959555b94ceb839e38a009337afd2b4902bde7379e95c5c817353f06e8"
+        },
+        {
+          "index": 25,
+          "path": "E:\\agent_workspace\\gpt\\game2\\artifacts\\cache\\v07-tx-randomface-normal-01\\frames\\frame_000025.png",
+          "sha256": "8308da1694eb03f429bc59246b94881dc643f16a2d47dbee332efa0cb530434d"
+        },
+        {
+          "index": 36,
+          "path": "E:\\agent_workspace\\gpt\\game2\\artifacts\\cache\\v07-tx-randomface-normal-01\\frames\\frame_000036.png",
+          "sha256": "da4293aeaa0df8e4d70d3a0abed53534683fb8eba7ad2a3d040bcb7ad1f2e3c7"
+        },
+        {
+          "index": 37,
+          "path": "E:\\agent_workspace\\gpt\\game2\\artifacts\\cache\\v07-tx-randomface-normal-01\\frames\\frame_000037.png",
+          "sha256": "57a7792b63eff99798aba26bb2bfaf7e1cdd046258a6f17fb10468af864ce807"
+        },
+        {
+          "index": 38,
+          "path": "E:\\agent_workspace\\gpt\\game2\\artifacts\\cache\\v07-tx-randomface-normal-01\\frames\\frame_000038.png",
+          "sha256": "57a7792b63eff99798aba26bb2bfaf7e1cdd046258a6f17fb10468af864ce807"
+        }
+      ],
+      "gold": [
+        110,
+        109
+      ],
+      "sequence": [
+        52,
+        53
+      ],
+      "receiptSequence": 53,
+      "summary": "D081 · F01 永久：点数 1→2",
+      "targets": [
+        {
+          "name": "ShopProducts",
+          "active": true,
+          "alpha": 0.0,
+          "position": {
+            "x": 392.0,
+            "y": -512.0,
+            "z": 0.0
+          },
+          "scale": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0,
+            "w": 1.0
+          }
+        },
+        {
+          "name": "Result",
+          "active": true,
+          "alpha": 0.0,
+          "position": {
+            "x": 1030.0,
+            "y": -18.0,
+            "z": 0.0
+          },
+          "scale": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0,
+            "w": 1.0
+          }
+        }
+      ],
+      "addedOffers": [],
+      "offerUpgradeCounts": {
+        "controller": [
+          3,
+          3
+        ],
+        "consumable": [
+          3,
+          3
+        ]
+      },
+      "changedDice": [
+        {
+          "dieId": "D081",
+          "changedFields": [
+            "faces",
+            "dataRevision"
+          ],
+          "changedFaces": [
+            {
+              "faceId": "F01",
+              "before": {
+                "faceId": "F01",
+                "permanentPip": 1,
+                "baseColor": "red",
+                "baseWeight": 1,
+                "texture": "none",
+                "isGold": false
+              },
+              "after": {
+                "faceId": "F01",
+                "permanentPip": 2,
+                "baseColor": "red",
+                "baseWeight": 1,
+                "texture": "none",
+                "isGold": false
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "clip": "randomface-reduced",
+      "recordingSha": "a514dd20250d1d85b573a502cd0ad92293a157cacc356478f6822e6bdee8a8a8",
+      "sourceSnapshotSha": "fe46e2e94b239be3964a89b7cb41ca6e9bf49a62be5298b3d9ead04881eda667",
+      "sourceSnapshotMatches": true,
+      "runtimeMvid": "cf4f28d9-e3b8-4b10-88fe-3bc3d2616409",
+      "coreMvid": "8f690e0d-a075-4b72-98e4-2cb64ced2fa3",
+      "frames": 54,
+      "indexContinuous": true,
+      "pngHashMismatches": [],
+      "monotonicVideoSeconds": true,
+      "durationMilliseconds": 120,
+      "ticks": 8,
+      "stateHashesAfterCommit": [
+        "90a0f08e7bad8c4397d7e66adf442c03e49a6578bb981fc2d109979670787a76"
+      ],
+      "saveHashesAfterCommit": [
+        "65ea48d7d47af003b9823de9c4e85055bea3ce135e641787419597703a18e25d"
+      ],
+      "normalSaveHashes": [
+        "6d544a09c187b32a8f6d87e4607aa7920ad008c6f4038ac5b707283ed35d2beb"
+      ],
+      "normalSaveStable": true,
+      "restoredPreferences": true,
+      "restoredTiming": true,
+      "status": "captured_pending_visual_review",
+      "error": "",
+      "viewed": [
+        {
+          "index": 14,
+          "path": "E:\\agent_workspace\\gpt\\game2\\artifacts\\cache\\v07-tx-randomface-reduced-01\\frames\\frame_000014.png",
+          "sha256": "c5033be4210c1d706c5ffac6104213d8a14f69d19ea9e3d746c6bc7289f1d297"
+        },
+        {
+          "index": 19,
+          "path": "E:\\agent_workspace\\gpt\\game2\\artifacts\\cache\\v07-tx-randomface-reduced-01\\frames\\frame_000019.png",
+          "sha256": "c0298d6eefdba2111a6dc0517675392ef12bfe7154c5758f731a636dade207e3"
+        },
+        {
+          "index": 23,
+          "path": "E:\\agent_workspace\\gpt\\game2\\artifacts\\cache\\v07-tx-randomface-reduced-01\\frames\\frame_000023.png",
+          "sha256": "71832daac267a051490095628a027b77256f9d485b4b41d0eec3c99561cc2c9d"
+        }
+      ],
+      "gold": [
+        110,
+        109
+      ],
+      "sequence": [
+        82,
+        83
+      ],
+      "receiptSequence": 83,
+      "summary": "D126 · F01 永久：点数 1→2",
+      "targets": [
+        {
+          "name": "ShopProducts",
+          "active": true,
+          "alpha": 0.0,
+          "position": {
+            "x": 392.0,
+            "y": -512.0,
+            "z": 0.0
+          },
+          "scale": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0,
+            "w": 1.0
+          }
+        },
+        {
+          "name": "Result",
+          "active": true,
+          "alpha": 0.0,
+          "position": {
+            "x": 1030.0,
+            "y": -18.0,
+            "z": 0.0
+          },
+          "scale": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0,
+            "w": 1.0
+          }
+        }
+      ],
+      "addedOffers": [],
+      "offerUpgradeCounts": {
+        "controller": [
+          3,
+          3
+        ],
+        "consumable": [
+          3,
+          3
+        ]
+      },
+      "changedDice": [
+        {
+          "dieId": "D126",
+          "changedFields": [
+            "faces",
+            "dataRevision"
+          ],
+          "changedFaces": [
+            {
+              "faceId": "F01",
+              "before": {
+                "faceId": "F01",
+                "permanentPip": 1,
+                "baseColor": "red",
+                "baseWeight": 1,
+                "texture": "none",
+                "isGold": false
+              },
+              "after": {
+                "faceId": "F01",
+                "permanentPip": 2,
+                "baseColor": "red",
+                "baseWeight": 1,
+                "texture": "none",
+                "isGold": false
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "clip": "refreshcontrollers-normal",
+      "recordingSha": "ecc4fd1a21c8b9a16a44a5b3d793ce7dbd2b32b27ce44648158d802dbac0e679",
+      "sourceSnapshotSha": "fe46e2e94b239be3964a89b7cb41ca6e9bf49a62be5298b3d9ead04881eda667",
+      "sourceSnapshotMatches": true,
+      "runtimeMvid": "cf4f28d9-e3b8-4b10-88fe-3bc3d2616409",
+      "coreMvid": "8f690e0d-a075-4b72-98e4-2cb64ced2fa3",
+      "frames": 63,
+      "indexContinuous": true,
+      "pngHashMismatches": [],
+      "monotonicVideoSeconds": true,
+      "durationMilliseconds": 280,
+      "ticks": 17,
+      "stateHashesAfterCommit": [
+        "d82450fffdcd75df5eaf84f4cc78ffd4e840a275fac65718a1985367e4e97ed2"
+      ],
+      "saveHashesAfterCommit": [
+        "aed20bea32713e4aed9eed80d4f1a3a5cbfb500f33adb458636f9d9d4527d424"
+      ],
+      "normalSaveHashes": [
+        "6d544a09c187b32a8f6d87e4607aa7920ad008c6f4038ac5b707283ed35d2beb"
+      ],
+      "normalSaveStable": true,
+      "restoredPreferences": true,
+      "restoredTiming": true,
+      "status": "captured_pending_visual_review",
+      "error": "",
+      "viewed": [
+        {
+          "index": 14,
+          "path": "E:\\agent_workspace\\gpt\\game2\\artifacts\\cache\\v07-tx-refreshcontrollers-normal-01\\frames\\frame_000014.png",
+          "sha256": "393fbfb6bf8e9f85636f30728d88425ad4c2fde2f4408e46513be4df52ff7b57"
+        },
+        {
+          "index": 15,
+          "path": "E:\\agent_workspace\\gpt\\game2\\artifacts\\cache\\v07-tx-refreshcontrollers-normal-01\\frames\\frame_000015.png",
+          "sha256": "462ac1ea26c1f9bae1db56672fd7528ef3b504227e36b8f27f033358cfde112f"
+        },
+        {
+          "index": 23,
+          "path": "E:\\agent_workspace\\gpt\\game2\\artifacts\\cache\\v07-tx-refreshcontrollers-normal-01\\frames\\frame_000023.png",
+          "sha256": "4cfb5c68d63eacccd9b3cc03ae95620e0b26fa70eb058b2245d60d637ed15853"
+        },
+        {
+          "index": 32,
+          "path": "E:\\agent_workspace\\gpt\\game2\\artifacts\\cache\\v07-tx-refreshcontrollers-normal-01\\frames\\frame_000032.png",
+          "sha256": "7a1b4df914bdd98f067c64df7685eee546f73ef5e2d4fe1f2c3eb01e3fcc393b"
+        }
+      ],
+      "gold": [
+        110,
+        107
+      ],
+      "sequence": [
+        3,
+        4
+      ],
+      "receiptSequence": 4,
+      "summary": "控制器货架已刷新 · 实际支付 3 · 其他分区保持",
+      "targets": [
+        {
+          "name": "Offer_OFFER_00019",
+          "active": true,
+          "alpha": 0.0,
+          "position": {
+            "x": 392.0,
+            "y": -96.0,
+            "z": 0.0
+          },
+          "scale": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": -0.6427876353263855,
+            "z": 0.0,
+            "w": 0.7660444974899292
+          }
+        },
+        {
+          "name": "Buy_OFFER_00019",
+          "active": true,
+          "alpha": 0.0,
+          "position": {
+            "x": 392.0,
+            "y": -328.0,
+            "z": 0.0
+          },
+          "scale": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": -0.6427876353263855,
+            "z": 0.0,
+            "w": 0.7660444974899292
+          }
+        },
+        {
+          "name": "Offer_OFFER_00020",
+          "active": true,
+          "alpha": 0.0,
+          "position": {
+            "x": 576.0,
+            "y": -96.0,
+            "z": 0.0
+          },
+          "scale": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": -0.6427876353263855,
+            "z": 0.0,
+            "w": 0.7660444974899292
+          }
+        },
+        {
+          "name": "Buy_OFFER_00020",
+          "active": true,
+          "alpha": 0.0,
+          "position": {
+            "x": 576.0,
+            "y": -328.0,
+            "z": 0.0
+          },
+          "scale": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": -0.6427876353263855,
+            "z": 0.0,
+            "w": 0.7660444974899292
+          }
+        },
+        {
+          "name": "Offer_OFFER_00021",
+          "active": true,
+          "alpha": 0.0,
+          "position": {
+            "x": 760.0,
+            "y": -96.0,
+            "z": 0.0
+          },
+          "scale": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": -0.6427876353263855,
+            "z": 0.0,
+            "w": 0.7660444974899292
+          }
+        },
+        {
+          "name": "Buy_OFFER_00021",
+          "active": true,
+          "alpha": 0.0,
+          "position": {
+            "x": 760.0,
+            "y": -328.0,
+            "z": 0.0
+          },
+          "scale": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": -0.6427876353263855,
+            "z": 0.0,
+            "w": 0.7660444974899292
+          }
+        },
+        {
+          "name": "Offer_OFFER_00022",
+          "active": true,
+          "alpha": 0.0,
+          "position": {
+            "x": 944.0,
+            "y": -96.0,
+            "z": 0.0
+          },
+          "scale": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": -0.6427876353263855,
+            "z": 0.0,
+            "w": 0.7660444974899292
+          }
+        },
+        {
+          "name": "Buy_OFFER_00022",
+          "active": true,
+          "alpha": 0.0,
+          "position": {
+            "x": 944.0,
+            "y": -328.0,
+            "z": 0.0
+          },
+          "scale": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": -0.6427876353263855,
+            "z": 0.0,
+            "w": 0.7660444974899292
+          }
+        },
+        {
+          "name": "Offer_OFFER_00023",
+          "active": true,
+          "alpha": 0.0,
+          "position": {
+            "x": 1128.0,
+            "y": -96.0,
+            "z": 0.0
+          },
+          "scale": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": -0.6427876353263855,
+            "z": 0.0,
+            "w": 0.7660444974899292
+          }
+        },
+        {
+          "name": "Buy_OFFER_00023",
+          "active": true,
+          "alpha": 0.0,
+          "position": {
+            "x": 1128.0,
+            "y": -328.0,
+            "z": 0.0
+          },
+          "scale": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": -0.6427876353263855,
+            "z": 0.0,
+            "w": 0.7660444974899292
+          }
+        },
+        {
+          "name": "Offer_OFFER_00024",
+          "active": true,
+          "alpha": 0.0,
+          "position": {
+            "x": 1312.0,
+            "y": -96.0,
+            "z": 0.0
+          },
+          "scale": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": -0.6427876353263855,
+            "z": 0.0,
+            "w": 0.7660444974899292
+          }
+        },
+        {
+          "name": "Buy_OFFER_00024",
+          "active": true,
+          "alpha": 0.0,
+          "position": {
+            "x": 1312.0,
+            "y": -328.0,
+            "z": 0.0
+          },
+          "scale": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": -0.6427876353263855,
+            "z": 0.0,
+            "w": 0.7660444974899292
+          }
+        }
+      ],
+      "addedOffers": [
+        {
+          "offerId": "OFFER_00019",
+          "category": "controller",
+          "contentId": "C38"
+        },
+        {
+          "offerId": "OFFER_00020",
+          "category": "controller",
+          "contentId": "C24"
+        },
+        {
+          "offerId": "OFFER_00021",
+          "category": "controller",
+          "contentId": "C28"
+        },
+        {
+          "offerId": "OFFER_00022",
+          "category": "controller",
+          "contentId": "C27"
+        },
+        {
+          "offerId": "OFFER_00023",
+          "category": "controller",
+          "contentId": "C03"
+        },
+        {
+          "offerId": "OFFER_00024",
+          "category": "controller",
+          "contentId": "C10"
+        }
+      ],
+      "offerUpgradeCounts": {
+        "controller": [
+          3,
+          3
+        ],
+        "consumable": [
+          3,
+          3
+        ]
+      },
+      "changedDice": []
+    },
+    {
+      "clip": "refreshcontrollers-reduced",
+      "recordingSha": "536878c6784778e2afc14fe759f304a8e7fd9fb248fbfb63d3415831da60e1a4",
+      "sourceSnapshotSha": "fe46e2e94b239be3964a89b7cb41ca6e9bf49a62be5298b3d9ead04881eda667",
+      "sourceSnapshotMatches": true,
+      "runtimeMvid": "cf4f28d9-e3b8-4b10-88fe-3bc3d2616409",
+      "coreMvid": "8f690e0d-a075-4b72-98e4-2cb64ced2fa3",
+      "frames": 54,
+      "indexContinuous": true,
+      "pngHashMismatches": [],
+      "monotonicVideoSeconds": true,
+      "durationMilliseconds": 120,
+      "ticks": 8,
+      "stateHashesAfterCommit": [
+        "dddc8104a66b2022b0bd44db6de687401ec9f871243cd78c1c8b47c35359b5a7"
+      ],
+      "saveHashesAfterCommit": [
+        "2aed41f6fee9e19a2d57657dc4c2f722ba10329d401ca9596ef3194bd09cd746"
+      ],
+      "normalSaveHashes": [
+        "6d544a09c187b32a8f6d87e4607aa7920ad008c6f4038ac5b707283ed35d2beb"
+      ],
+      "normalSaveStable": true,
+      "restoredPreferences": true,
+      "restoredTiming": true,
+      "status": "captured_pending_visual_review",
+      "error": "",
+      "viewed": [
+        {
+          "index": 14,
+          "path": "E:\\agent_workspace\\gpt\\game2\\artifacts\\cache\\v07-tx-refreshcontrollers-reduced-01\\frames\\frame_000014.png",
+          "sha256": "d02723977a01f672e03ac25a8bbb80df4371eaf14b9de74b170123dfebd81e04"
+        },
+        {
+          "index": 19,
+          "path": "E:\\agent_workspace\\gpt\\game2\\artifacts\\cache\\v07-tx-refreshcontrollers-reduced-01\\frames\\frame_000019.png",
+          "sha256": "5998cb352707c032bc60b704d536b5309ce0e4865216dcdcfbaabb3cf867568a"
+        },
+        {
+          "index": 23,
+          "path": "E:\\agent_workspace\\gpt\\game2\\artifacts\\cache\\v07-tx-refreshcontrollers-reduced-01\\frames\\frame_000023.png",
+          "sha256": "ce6e34a81b2a23ee67932f49ead0f6a28f4be4dfafec1221e56064423f5439ce"
+        }
+      ],
+      "gold": [
+        110,
+        107
+      ],
+      "sequence": [
+        60,
+        61
+      ],
+      "receiptSequence": 61,
+      "summary": "控制器货架已刷新 · 实际支付 3 · 其他分区保持",
+      "targets": [
+        {
+          "name": "Offer_OFFER_00326",
+          "active": true,
+          "alpha": 0.0,
+          "position": {
+            "x": 392.0,
+            "y": -96.0,
+            "z": 0.0
+          },
+          "scale": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0,
+            "w": 1.0
+          }
+        },
+        {
+          "name": "Buy_OFFER_00326",
+          "active": true,
+          "alpha": 0.0,
+          "position": {
+            "x": 392.0,
+            "y": -328.0,
+            "z": 0.0
+          },
+          "scale": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0,
+            "w": 1.0
+          }
+        },
+        {
+          "name": "Offer_OFFER_00327",
+          "active": true,
+          "alpha": 0.0,
+          "position": {
+            "x": 576.0,
+            "y": -96.0,
+            "z": 0.0
+          },
+          "scale": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0,
+            "w": 1.0
+          }
+        },
+        {
+          "name": "Buy_OFFER_00327",
+          "active": true,
+          "alpha": 0.0,
+          "position": {
+            "x": 576.0,
+            "y": -328.0,
+            "z": 0.0
+          },
+          "scale": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0,
+            "w": 1.0
+          }
+        },
+        {
+          "name": "Offer_OFFER_00328",
+          "active": true,
+          "alpha": 0.0,
+          "position": {
+            "x": 760.0,
+            "y": -96.0,
+            "z": 0.0
+          },
+          "scale": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0,
+            "w": 1.0
+          }
+        },
+        {
+          "name": "Buy_OFFER_00328",
+          "active": true,
+          "alpha": 0.0,
+          "position": {
+            "x": 760.0,
+            "y": -328.0,
+            "z": 0.0
+          },
+          "scale": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0,
+            "w": 1.0
+          }
+        },
+        {
+          "name": "Offer_OFFER_00329",
+          "active": true,
+          "alpha": 0.0,
+          "position": {
+            "x": 944.0,
+            "y": -96.0,
+            "z": 0.0
+          },
+          "scale": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0,
+            "w": 1.0
+          }
+        },
+        {
+          "name": "Buy_OFFER_00329",
+          "active": true,
+          "alpha": 0.0,
+          "position": {
+            "x": 944.0,
+            "y": -328.0,
+            "z": 0.0
+          },
+          "scale": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0,
+            "w": 1.0
+          }
+        },
+        {
+          "name": "Offer_OFFER_00330",
+          "active": true,
+          "alpha": 0.0,
+          "position": {
+            "x": 1128.0,
+            "y": -96.0,
+            "z": 0.0
+          },
+          "scale": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0,
+            "w": 1.0
+          }
+        },
+        {
+          "name": "Buy_OFFER_00330",
+          "active": true,
+          "alpha": 0.0,
+          "position": {
+            "x": 1128.0,
+            "y": -328.0,
+            "z": 0.0
+          },
+          "scale": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0,
+            "w": 1.0
+          }
+        },
+        {
+          "name": "Offer_OFFER_00331",
+          "active": true,
+          "alpha": 0.0,
+          "position": {
+            "x": 1312.0,
+            "y": -96.0,
+            "z": 0.0
+          },
+          "scale": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0,
+            "w": 1.0
+          }
+        },
+        {
+          "name": "Buy_OFFER_00331",
+          "active": true,
+          "alpha": 0.0,
+          "position": {
+            "x": 1312.0,
+            "y": -328.0,
+            "z": 0.0
+          },
+          "scale": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0
+          },
+          "rotation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0,
+            "w": 1.0
+          }
+        }
+      ],
+      "addedOffers": [
+        {
+          "offerId": "OFFER_00326",
+          "category": "controller",
+          "contentId": "C38"
+        },
+        {
+          "offerId": "OFFER_00327",
+          "category": "controller",
+          "contentId": "C24"
+        },
+        {
+          "offerId": "OFFER_00328",
+          "category": "controller",
+          "contentId": "C28"
+        },
+        {
+          "offerId": "OFFER_00329",
+          "category": "controller",
+          "contentId": "C27"
+        },
+        {
+          "offerId": "OFFER_00330",
+          "category": "controller",
+          "contentId": "C03"
+        },
+        {
+          "offerId": "OFFER_00331",
+          "category": "controller",
+          "contentId": "C10"
+        }
+      ],
+      "offerUpgradeCounts": {
+        "controller": [
+          3,
+          3
+        ],
+        "consumable": [
+          3,
+          3
+        ]
+      },
+      "changedDice": []
+    }
+  ],
+  "totalFrames": 512,
+  "uniqueImagesViewed": 37,
+  "currentReadOnlySourceHashes": [
+    {
+      "path": "docs/specs/v07/ART_SPEC.md",
+      "sha256": "5120a8d0983d24f25cc38e22f1da613fd1a56c70ab26f518771a2caf064dd228",
+      "recordedSourceSha256": null,
+      "matchesRecordingSource": null
+    },
+    {
+      "path": "docs/tasks/P0-V07-ART.md",
+      "sha256": "b6b91894f2c4b8b7b3d08ac1265112e35ede1917f2caf10690dc99f25dd73d82",
+      "recordedSourceSha256": null,
+      "matchesRecordingSource": null
+    },
+    {
+      "path": "DicePrototype/Assets/Game/UI/GameApp.Art07Effects.cs",
+      "sha256": "68314ef97258b0649e137f05aa62f2f67dfe497ff25211ee958a92e322f4bc06",
+      "recordedSourceSha256": "68314ef97258b0649e137f05aa62f2f67dfe497ff25211ee958a92e322f4bc06",
+      "matchesRecordingSource": true
+    },
+    {
+      "path": "DicePrototype/Assets/Game/UI/GameApp.Art07PostEffects.cs",
+      "sha256": "72c2ab026365724566fd2d007f42b9fe49b409caafbe3059c152d688bade4064",
+      "recordedSourceSha256": "72c2ab026365724566fd2d007f42b9fe49b409caafbe3059c152d688bade4064",
+      "matchesRecordingSource": true
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Runtime/Presentation/Art07FaceTransition.cs",
+      "sha256": "2ae962dfccd645cf5394acd71f17c22c7d7b17db7c9352b127174b5e7102d996",
+      "recordedSourceSha256": "2ae962dfccd645cf5394acd71f17c22c7d7b17db7c9352b127174b5e7102d996",
+      "matchesRecordingSource": true
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Runtime/Presentation/Art07TransactionMotion.cs",
+      "sha256": "9444c02846a3f875780d724c637b76d33a63e17af9ed21475bd3198c61b9e5be",
+      "recordedSourceSha256": "9444c02846a3f875780d724c637b76d33a63e17af9ed21475bd3198c61b9e5be",
+      "matchesRecordingSource": true
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Runtime/Shaders/Art07Ceramic.shader",
+      "sha256": "4343e5cf1dfe207c47b3f1bc89461287fa41744162e9212cb6b99b4d6a543579",
+      "recordedSourceSha256": null,
+      "matchesRecordingSource": null
+    }
+  ]
+}

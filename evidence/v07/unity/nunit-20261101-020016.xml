@@ -1,0 +1,1359 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="48" result="Failed(Child)" total="48" passed="43" failed="5" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-11-01 01:57:49Z" end-time="2026-11-01 02:00:16Z" duration="146.4879503">
+  <test-suite type="TestSuite" id="1087" name="DiceCraft P0" fullname="DiceCraft P0" runstate="Runnable" testcasecount="78" result="Failed" site="Child" start-time="2026-11-01 01:57:49Z" end-time="2026-11-01 02:00:16Z" duration="146.487950" total="48" passed="43" failed="5" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <failure>
+      <message><![CDATA[One or more child tests had errors]]></message>
+    </failure>
+    <test-suite type="Assembly" id="1081" name="DiceCraft.PlayModeTests.dll" fullname="E:/agent_workspace/gpt/game2/DicePrototype/Library/ScriptAssemblies/DiceCraft.PlayModeTests.dll" runstate="Runnable" testcasecount="78" result="Failed" site="Child" start-time="2026-11-01 01:57:49Z" end-time="2026-11-01 02:00:16Z" duration="146.477709" total="48" passed="43" failed="5" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="40096" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <failure>
+        <message><![CDATA[One or more child tests had errors]]></message>
+      </failure>
+      <test-suite type="TestSuite" id="1082" name="DiceCraft" fullname="DiceCraft" runstate="Runnable" testcasecount="78" result="Failed" site="Child" start-time="2026-11-01 01:57:49Z" end-time="2026-11-01 02:00:16Z" duration="146.475796" total="48" passed="43" failed="5" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <failure>
+          <message><![CDATA[One or more child tests had errors]]></message>
+        </failure>
+        <test-suite type="TestSuite" id="1083" name="Tests" fullname="DiceCraft.Tests" runstate="Runnable" testcasecount="78" result="Failed" site="Child" start-time="2026-11-01 01:57:49Z" end-time="2026-11-01 02:00:16Z" duration="146.473542" total="48" passed="43" failed="5" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <failure>
+            <message><![CDATA[One or more child tests had errors]]></message>
+          </failure>
+          <test-suite type="TestFixture" id="1001" name="GameplayPlayModeTests" fullname="DiceCraft.Tests.GameplayPlayModeTests" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" testcasecount="76" result="Failed" site="Child" start-time="2026-11-01 01:57:49Z" end-time="2026-11-01 02:00:15Z" duration="145.934443" total="46" passed="41" failed="5" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <failure>
+              <message><![CDATA[One or more child tests had errors]]></message>
+            </failure>
+            <test-case id="1010" name="PLAY_Art07_AbandonUnsavedRollRestoresCheckpointWithoutReplayingOrReplacingCandidate" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_Art07_AbandonUnsavedRollRestoresCheckpointWithoutReplayingOrReplacingCandidate" methodname="PLAY_Art07_AbandonUnsavedRollRestoresCheckpointWithoutReplayingOrReplacingCandidate" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="1467068782" result="Passed" start-time="2026-11-01 01:57:49Z" end-time="2026-11-01 01:57:50Z" duration="0.878848" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_ea7c91df0aec459ca362815f760f44d2
+]]></output>
+            </test-case>
+            <test-case id="1054" name="PLAY_ART07_AllDiagnosticScenesValidateThroughRealSession" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_AllDiagnosticScenesValidateThroughRealSession" methodname="PLAY_ART07_AllDiagnosticScenesValidateThroughRealSession" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="2023492886" result="Passed" start-time="2026-11-01 01:57:50Z" end-time="2026-11-01 01:57:51Z" duration="0.895984" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_d6c92f8edd284b5a8ad0a4f031c0fb80
+]]></output>
+            </test-case>
+            <test-case id="1058" name="PLAY_ART07_BothRollSpeedsFixPhysicalFaceForFinal120Milliseconds" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_BothRollSpeedsFixPhysicalFaceForFinal120Milliseconds" methodname="PLAY_ART07_BothRollSpeedsFixPhysicalFaceForFinal120Milliseconds" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="534843738" result="Passed" start-time="2026-11-01 01:57:51Z" end-time="2026-11-01 01:57:52Z" duration="1.209669" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_3243e73b092a4dd5baf38600fba44d9f
+]]></output>
+            </test-case>
+            <test-case id="1004" name="PLAY_ART07_BurstL5ReducedThenL0ThenNormalCannotRetainCelebrationOrParticleMotion" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_BurstL5ReducedThenL0ThenNormalCannotRetainCelebrationOrParticleMotion" methodname="PLAY_ART07_BurstL5ReducedThenL0ThenNormalCannotRetainCelebrationOrParticleMotion" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="1969700592" result="Passed" start-time="2026-11-01 01:57:52Z" end-time="2026-11-01 01:57:52Z" duration="0.147137" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_5168dccbe4ed4b0a9f27c4db0fb06f4f
+]]></output>
+            </test-case>
+            <test-case id="1025" name="PLAY_ART07_CardInformationPreservesPricesAndGeometricRarity" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_CardInformationPreservesPricesAndGeometricRarity" methodname="PLAY_ART07_CardInformationPreservesPricesAndGeometricRarity" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="1549362224" result="Passed" start-time="2026-11-01 01:57:52Z" end-time="2026-11-01 01:57:53Z" duration="0.892756" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_cd108156d4a94eba80ae80717696d30e
+]]></output>
+            </test-case>
+            <test-case id="1026" name="PLAY_ART07_ChallengeSelectionIsUiOnlyAndStartCommitsOnlyNecessaryCommands" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_ChallengeSelectionIsUiOnlyAndStartCommitsOnlyNecessaryCommands" methodname="PLAY_ART07_ChallengeSelectionIsUiOnlyAndStartCommitsOnlyNecessaryCommands" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="891912534" result="Passed" start-time="2026-11-01 01:57:53Z" end-time="2026-11-01 01:57:54Z" duration="0.939415" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_7080c296ac574952a2e94a71fe17a233
+]]></output>
+            </test-case>
+            <test-case id="1027" name="PLAY_ART07_ChallengeStartSaveFaultKeepsSingleCandidateAndStopsBeforeNextCommand" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_ChallengeStartSaveFaultKeepsSingleCandidateAndStopsBeforeNextCommand" methodname="PLAY_ART07_ChallengeStartSaveFaultKeepsSingleCandidateAndStopsBeforeNextCommand" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="2131113651" result="Passed" start-time="2026-11-01 01:57:54Z" end-time="2026-11-01 01:57:55Z" duration="0.750418" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_636801e5256649ba8bd4b7861843942e
+]]></output>
+            </test-case>
+            <test-case id="1003" name="PLAY_ART07_ControllerFullCompactPoolReuseKeepsOneIdentityAndClearsBadgeTintAndOldClick" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_ControllerFullCompactPoolReuseKeepsOneIdentityAndClearsBadgeTintAndOldClick" methodname="PLAY_ART07_ControllerFullCompactPoolReuseKeepsOneIdentityAndClearsBadgeTintAndOldClick" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="927504005" result="Passed" start-time="2026-11-01 01:57:55Z" end-time="2026-11-01 01:57:55Z" duration="0.142473" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_d532f586f7fc4b9aba4b3583baf41f2d
+]]></output>
+            </test-case>
+            <test-case id="1005" name="PLAY_ART07_CopyLinkElbowThenStraightResetsBindingSegmentsAndArrowEndpoint" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_CopyLinkElbowThenStraightResetsBindingSegmentsAndArrowEndpoint" methodname="PLAY_ART07_CopyLinkElbowThenStraightResetsBindingSegmentsAndArrowEndpoint" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="1330861062" result="Passed" start-time="2026-11-01 01:57:55Z" end-time="2026-11-01 01:57:55Z" duration="0.146375" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_0535a26ca4f54a7197d2f3d959537b86
+]]></output>
+            </test-case>
+            <test-case id="1012" name="PLAY_ART07_DebugPasswordEntryDoesNotChangeOrdinaryRunBeforeExplicitCopy" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_DebugPasswordEntryDoesNotChangeOrdinaryRunBeforeExplicitCopy" methodname="PLAY_ART07_DebugPasswordEntryDoesNotChangeOrdinaryRunBeforeExplicitCopy" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="1027411286" result="Passed" start-time="2026-11-01 01:57:55Z" end-time="2026-11-01 01:57:56Z" duration="0.533830" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_7dbc01a785af4cbd88b762c1705032bd\art07-edge-screens\S20-debug-entry.png
+Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_7dbc01a785af4cbd88b762c1705032bd
+]]></output>
+            </test-case>
+            <test-case id="1057" name="PLAY_ART07_DiceLockAndRetargetMoveWithoutTeleportAndPendingLiftKeepsIdentity" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_DiceLockAndRetargetMoveWithoutTeleportAndPendingLiftKeepsIdentity" methodname="PLAY_ART07_DiceLockAndRetargetMoveWithoutTeleportAndPendingLiftKeepsIdentity" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="45209402" result="Passed" start-time="2026-11-01 01:57:56Z" end-time="2026-11-01 01:57:56Z" duration="0.610439" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_e649e80073454e1a9084d3af158856f3
+]]></output>
+            </test-case>
+            <test-case id="1009" name="PLAY_Art07_DiceNetSeparatesPermanentRemoteAndEffectiveAndKeepsZeroProbabilityEmpty" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_Art07_DiceNetSeparatesPermanentRemoteAndEffectiveAndKeepsZeroProbabilityEmpty" methodname="PLAY_Art07_DiceNetSeparatesPermanentRemoteAndEffectiveAndKeepsZeroProbabilityEmpty" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="1445124505" result="Passed" start-time="2026-11-01 01:57:56Z" end-time="2026-11-01 01:57:57Z" duration="0.504068" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_64bd26fabe584a688ecc96507d3d585c
+]]></output>
+            </test-case>
+            <test-case id="1032" name="PLAY_ART07_DiceSheetFadeKeepsApertureAndPreviewStationaryThenRestoresBoardSynchronously" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_DiceSheetFadeKeepsApertureAndPreviewStationaryThenRestoresBoardSynchronously" methodname="PLAY_ART07_DiceSheetFadeKeepsApertureAndPreviewStationaryThenRestoresBoardSynchronously" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="115528985" result="Passed" start-time="2026-11-01 01:57:57Z" end-time="2026-11-01 01:57:57Z" duration="0.487323" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_7b764a13c3d74d758c659fb04b09a668
+]]></output>
+            </test-case>
+            <test-case id="1008" name="PLAY_ART07_DieViewCommittedFaceBindingsAndGlassMaterialResetWithoutChangingSharedAssets" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_DieViewCommittedFaceBindingsAndGlassMaterialResetWithoutChangingSharedAssets" methodname="PLAY_ART07_DieViewCommittedFaceBindingsAndGlassMaterialResetWithoutChangingSharedAssets" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="1965364502" result="Passed" start-time="2026-11-01 01:57:57Z" end-time="2026-11-01 01:57:58Z" duration="0.136102" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_b55009d3eaef4945aedf65ffdea76df0
+]]></output>
+            </test-case>
+            <test-case id="1028" name="PLAY_ART07_DropOutsideSlotsCancelsEvenWhenNearestDieIsWithinOldRadius" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_DropOutsideSlotsCancelsEvenWhenNearestDieIsWithinOldRadius" methodname="PLAY_ART07_DropOutsideSlotsCancelsEvenWhenNearestDieIsWithinOldRadius" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="1196579334" result="Passed" start-time="2026-11-01 01:57:58Z" end-time="2026-11-01 01:57:58Z" duration="0.404231" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_7b63b160450f43e6a191994902ed5000
+]]></output>
+            </test-case>
+            <test-case id="1007" name="PLAY_ART07_ExactScoreAndZeroProbabilitySurvivePresentationAndClearOnPoolReturn" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_ExactScoreAndZeroProbabilitySurvivePresentationAndClearOnPoolReturn" methodname="PLAY_ART07_ExactScoreAndZeroProbabilitySurvivePresentationAndClearOnPoolReturn" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="1858796084" result="Passed" start-time="2026-11-01 01:57:58Z" end-time="2026-11-01 01:57:58Z" duration="0.141538" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_7d0b15bd4a074589b943619058941c50
+]]></output>
+            </test-case>
+            <test-case id="1034" name="PLAY_ART07_FirstBoundaryHintsOnlyChangeReadPreferencesAndNeverCoverActionsOrReplayAfterDismissal" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_FirstBoundaryHintsOnlyChangeReadPreferencesAndNeverCoverActionsOrReplayAfterDismissal" methodname="PLAY_ART07_FirstBoundaryHintsOnlyChangeReadPreferencesAndNeverCoverActionsOrReplayAfterDismissal" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="1749510229" result="Passed" start-time="2026-11-01 01:57:58Z" end-time="2026-11-01 01:57:59Z" duration="0.798039" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_50475ab55ee74853b5d030363ea96143
+]]></output>
+            </test-case>
+            <test-case id="1013" name="PLAY_ART07_FirstRunGuideFollowsRealActionsAndShopWithoutMutatingRules" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_FirstRunGuideFollowsRealActionsAndShopWithoutMutatingRules" methodname="PLAY_ART07_FirstRunGuideFollowsRealActionsAndShopWithoutMutatingRules" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="528488239" result="Passed" start-time="2026-11-01 01:57:59Z" end-time="2026-11-01 01:58:01Z" duration="1.578662" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_af579934aec242a896f881093dcd7a83\art07-edge-screens\S19-guide-roll.png
+Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_af579934aec242a896f881093dcd7a83\art07-edge-screens\S19-guide-submit.png
+Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_af579934aec242a896f881093dcd7a83\art07-edge-screens\S19-guide-shop.png
+Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_af579934aec242a896f881093dcd7a83
+]]></output>
+            </test-case>
+            <test-case id="1020" name="PLAY_ART07_FX_CopyRouteUsesFiveSegmentsAcrossRowsAndNoInventedHiddenAnchor" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_FX_CopyRouteUsesFiveSegmentsAcrossRowsAndNoInventedHiddenAnchor" methodname="PLAY_ART07_FX_CopyRouteUsesFiveSegmentsAcrossRowsAndNoInventedHiddenAnchor" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="1306568698" result="Passed" start-time="2026-11-01 01:58:01Z" end-time="2026-11-01 01:58:02Z" duration="1.564458" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_4c3fa071bc0d4031b42f9a1bf4a7bab0
+]]></output>
+            </test-case>
+            <test-case id="1019" name="PLAY_ART07_FX_ExtraSubmissionAndExtraRollReportDifferentActualBudgets" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_FX_ExtraSubmissionAndExtraRollReportDifferentActualBudgets" methodname="PLAY_ART07_FX_ExtraSubmissionAndExtraRollReportDifferentActualBudgets" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="66321633" result="Passed" start-time="2026-11-01 01:58:02Z" end-time="2026-11-01 01:58:02Z" duration="0.310757" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_7fd03c2239624a589fbc26185ad8d38a
+]]></output>
+            </test-case>
+            <test-case id="1014" name="PLAY_ART07_FX_FastSourceMarksLowQualityReplayAndSkipReset" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_FX_FastSourceMarksLowQualityReplayAndSkipReset" methodname="PLAY_ART07_FX_FastSourceMarksLowQualityReplayAndSkipReset" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="630873487" result="Passed" start-time="2026-11-01 01:58:02Z" end-time="2026-11-01 01:58:03Z" duration="0.851255" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_c17603bdadb74d7db4f02f78c95bb8c0
+]]></output>
+            </test-case>
+            <test-case id="1016" name="PLAY_ART07_FX_MultipleRandomOwnersAndSharedCopyUseCompleteCommittedList" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_FX_MultipleRandomOwnersAndSharedCopyUseCompleteCommittedList" methodname="PLAY_ART07_FX_MultipleRandomOwnersAndSharedCopyUseCompleteCommittedList" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="1953147003" result="Passed" start-time="2026-11-01 01:58:03Z" end-time="2026-11-01 01:58:05Z" duration="1.919952" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_6051ba43e23c42aeb51c903de855f619
+]]></output>
+            </test-case>
+            <test-case id="1015" name="PLAY_ART07_FX_NormalPunchCompletesAcrossAdjacentBeatsAndSkipResets" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_FX_NormalPunchCompletesAcrossAdjacentBeatsAndSkipResets" methodname="PLAY_ART07_FX_NormalPunchCompletesAcrossAdjacentBeatsAndSkipResets" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="223068126" result="Passed" start-time="2026-11-01 01:58:05Z" end-time="2026-11-01 01:58:06Z" duration="0.975384" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_0e1d64955e6748a685b8402c6271c320
+]]></output>
+            </test-case>
+            <test-case id="1017" name="PLAY_ART07_FX_PostScoreThreeTargetsRiskAndFrozenReplayPhysicalPips" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_FX_PostScoreThreeTargetsRiskAndFrozenReplayPhysicalPips" methodname="PLAY_ART07_FX_PostScoreThreeTargetsRiskAndFrozenReplayPhysicalPips" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="1603149077" result="Passed" start-time="2026-11-01 01:58:06Z" end-time="2026-11-01 01:58:09Z" duration="2.681491" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_d0a6e5bbe17545578f04a65cbda5e49a
+]]></output>
+            </test-case>
+            <test-case id="1018" name="PLAY_ART07_FX_RealRollAndRemoteBreakUsePlacedWorldPoolAndSkipResets" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_FX_RealRollAndRemoteBreakUsePlacedWorldPoolAndSkipResets" methodname="PLAY_ART07_FX_RealRollAndRemoteBreakUsePlacedWorldPoolAndSkipResets" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="249621608" result="Passed" start-time="2026-11-01 01:58:09Z" end-time="2026-11-01 01:58:10Z" duration="0.923590" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_c8cbdf1b491d48f1bac0e81212532087
+]]></output>
+            </test-case>
+            <test-case id="1053" name="PLAY_ART07_G147UsesPublicDebugCommandsAndPreservesNormalCheckpoint" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_G147UsesPublicDebugCommandsAndPreservesNormalCheckpoint" methodname="PLAY_ART07_G147UsesPublicDebugCommandsAndPreservesNormalCheckpoint" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="202162877" result="Passed" start-time="2026-11-01 01:58:10Z" end-time="2026-11-01 01:58:10Z" duration="0.347047" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_93131918bf754ed4ab8e48e34532c0c3
+]]></output>
+            </test-case>
+            <test-case id="1059" name="PLAY_ART07_GlassBackFacesHiddenAndGpuShellTransparentWhilePipsStayOpaque" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_GlassBackFacesHiddenAndGpuShellTransparentWhilePipsStayOpaque" methodname="PLAY_ART07_GlassBackFacesHiddenAndGpuShellTransparentWhilePipsStayOpaque" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="1615351997" result="Passed" start-time="2026-11-01 01:58:10Z" end-time="2026-11-01 01:58:10Z" duration="0.180044" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_b7813eabbc7941118abea68ba0abbe2a
+]]></output>
+            </test-case>
+            <test-case id="1021" name="PLAY_ART07_InvalidSeedKeepsDialogAndInputUntilCorrected" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_InvalidSeedKeepsDialogAndInputUntilCorrected" methodname="PLAY_ART07_InvalidSeedKeepsDialogAndInputUntilCorrected" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="1731143592" result="Passed" start-time="2026-11-01 01:58:10Z" end-time="2026-11-01 01:58:11Z" duration="0.227332" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_c6e5d5d49c7a4bfea8319064d185c065
+]]></output>
+            </test-case>
+            <test-case id="1002" name="PLAY_ART07_LibraryAll26SerializedPrefabsInstantiateWithRealMeshesTextAndSupportedMaterials" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_LibraryAll26SerializedPrefabsInstantiateWithRealMeshesTextAndSupportedMaterials" methodname="PLAY_ART07_LibraryAll26SerializedPrefabsInstantiateWithRealMeshesTextAndSupportedMaterials" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="1031713634" result="Passed" start-time="2026-11-01 01:58:11Z" end-time="2026-11-01 01:58:12Z" duration="1.027411" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_fc7c5ed7355241cb9adb6910c08f5593
+]]></output>
+            </test-case>
+            <test-case id="1033" name="PLAY_ART07_LoadIssueExplanationHasS22TimingAndDoesNotRewriteOrMigrateTheCheckpoint" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_LoadIssueExplanationHasS22TimingAndDoesNotRewriteOrMigrateTheCheckpoint" methodname="PLAY_ART07_LoadIssueExplanationHasS22TimingAndDoesNotRewriteOrMigrateTheCheckpoint" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="668649379" result="Passed" start-time="2026-11-01 01:58:12Z" end-time="2026-11-01 01:58:12Z" duration="0.245091" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_203ab4c838754fe0b1ce97c4672378e4
+]]></output>
+            </test-case>
+            <test-case id="1029" name="PLAY_ART07_LockedDieDragFollowsPointerAndEscapeOrFocusCallbackRestoresCheckpoint" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_LockedDieDragFollowsPointerAndEscapeOrFocusCallbackRestoresCheckpoint" methodname="PLAY_ART07_LockedDieDragFollowsPointerAndEscapeOrFocusCallbackRestoresCheckpoint" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="401685151" result="Passed" start-time="2026-11-01 01:58:12Z" end-time="2026-11-01 01:58:12Z" duration="0.656143" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_e4eb6ff2c5fb45fea83b185c01d7a425
+]]></output>
+            </test-case>
+            <test-case id="1030" name="PLAY_ART07_LockedDieDropCommitsExactlyOneReorderWithoutUnlocking" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_LockedDieDropCommitsExactlyOneReorderWithoutUnlocking" methodname="PLAY_ART07_LockedDieDropCommitsExactlyOneReorderWithoutUnlocking" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="621300316" result="Passed" start-time="2026-11-01 01:58:12Z" end-time="2026-11-01 01:58:13Z" duration="0.436696" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_d375c3bb3e8e45aea83ff9894119e70c
+]]></output>
+            </test-case>
+            <test-case id="1031" name="PLAY_ART07_ModalRedrawDoesNotRestartFadeAndCloseImmediatelyReleasesInputWithNoninteractiveTail" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_ModalRedrawDoesNotRestartFadeAndCloseImmediatelyReleasesInputWithNoninteractiveTail" methodname="PLAY_ART07_ModalRedrawDoesNotRestartFadeAndCloseImmediatelyReleasesInputWithNoninteractiveTail" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="1902918022" result="Passed" start-time="2026-11-01 01:58:13Z" end-time="2026-11-01 01:58:14Z" duration="0.885567" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_e5822caf8a984f199f26da38ad7df46c
+]]></output>
+            </test-case>
+            <test-case id="1006" name="PLAY_ART07_PooledTicketRealClockPauseResumeAndCancelNeverInvokeAnOldReceiptCallback" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_PooledTicketRealClockPauseResumeAndCancelNeverInvokeAnOldReceiptCallback" methodname="PLAY_ART07_PooledTicketRealClockPauseResumeAndCancelNeverInvokeAnOldReceiptCallback" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="1413940699" result="Passed" start-time="2026-11-01 01:58:14Z" end-time="2026-11-01 01:58:14Z" duration="0.321329" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_508261d406204d288cd5b193e3a73126
+]]></output>
+            </test-case>
+            <test-case id="1023" name="PLAY_ART07_RandomNineBranchesSharedOwnerAreExactAndReadOnly" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_RandomNineBranchesSharedOwnerAreExactAndReadOnly" methodname="PLAY_ART07_RandomNineBranchesSharedOwnerAreExactAndReadOnly" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="1545303408" result="Passed" start-time="2026-11-01 01:58:14Z" end-time="2026-11-01 01:58:15Z" duration="0.444780" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_8e908bc32a35405093c46cca18e26f7f
+]]></output>
+            </test-case>
+            <test-case id="1055" name="PLAY_ART07_RealCommittedReceiptThreeSpeedsAndReducedMotionPreserveStateAndSaveBytes" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_RealCommittedReceiptThreeSpeedsAndReducedMotionPreserveStateAndSaveBytes" methodname="PLAY_ART07_RealCommittedReceiptThreeSpeedsAndReducedMotionPreserveStateAndSaveBytes" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="930646930" result="Passed" start-time="2026-11-01 01:58:15Z" end-time="2026-11-01 01:58:15Z" duration="0.417121" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_5e59bdb7bb4c4b9ca74a0776d7421442
+]]></output>
+            </test-case>
+            <test-case id="1011" name="PLAY_ART07_ResultScreensUseRealTerminalCommandsAndPreserveExactReceipts" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_ResultScreensUseRealTerminalCommandsAndPreserveExactReceipts" methodname="PLAY_ART07_ResultScreensUseRealTerminalCommandsAndPreserveExactReceipts" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="1592374094" result="Passed" start-time="2026-11-01 01:58:15Z" end-time="2026-11-01 01:58:17Z" duration="1.895358" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_b1bf9edd95b34b4ab40b49780e856acd\art07-edge-screens\S18-win.png
+Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_b1bf9edd95b34b4ab40b49780e856acd\art07-edge-screens\S18-submissions.png
+Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_b1bf9edd95b34b4ab40b49780e856acd\art07-edge-screens\S18-temporary.png
+Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_b1bf9edd95b34b4ab40b49780e856acd\art07-edge-screens\S18-no-dice.png
+Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_b1bf9edd95b34b4ab40b49780e856acd
+]]></output>
+            </test-case>
+            <test-case id="1022" name="PLAY_ART07_ScoreStructureChosenItemAndZeroReasonRemainIndependent" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_ScoreStructureChosenItemAndZeroReasonRemainIndependent" methodname="PLAY_ART07_ScoreStructureChosenItemAndZeroReasonRemainIndependent" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="1689219232" result="Passed" start-time="2026-11-01 01:58:17Z" end-time="2026-11-01 01:58:17Z" duration="0.320648" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_c6c6a03e91e548bd8ca8d4b0ae6716e7
+]]></output>
+            </test-case>
+            <test-case id="1024" name="PLAY_ART07_SettlementUsesActualIncomeFundAndTemporaryCleanupReceipts" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_SettlementUsesActualIncomeFundAndTemporaryCleanupReceipts" methodname="PLAY_ART07_SettlementUsesActualIncomeFundAndTemporaryCleanupReceipts" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="1594716113" result="Passed" start-time="2026-11-01 01:58:17Z" end-time="2026-11-01 01:58:18Z" duration="0.451832" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_9da1dd2192b549bea5a7bb3d95a0ca57
+]]></output>
+            </test-case>
+            <test-case id="1056" name="PLAY_ART07_TwoHundredFullRendererReplaysKeepNodesMaterialsAndCommittedStateStable" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_TwoHundredFullRendererReplaysKeepNodesMaterialsAndCommittedStateStable" methodname="PLAY_ART07_TwoHundredFullRendererReplaysKeepNodesMaterialsAndCommittedStateStable" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="331530608" result="Passed" start-time="2026-11-01 01:58:18Z" end-time="2026-11-01 02:00:12Z" duration="114.702549" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="Timeout" value="600000" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_7e3a7b7fc12e415b90a2cde23db2d714
+]]></output>
+            </test-case>
+            <test-case id="1037" name="PLAY_ART07_TX_ExpansionAnimatesOnlyActuallyAddedSlotAndPreservesOtherOffers" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_TX_ExpansionAnimatesOnlyActuallyAddedSlotAndPreservesOtherOffers" methodname="PLAY_ART07_TX_ExpansionAnimatesOnlyActuallyAddedSlotAndPreservesOtherOffers" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="1683623579" result="Failed" label="Error" start-time="2026-11-01 02:00:12Z" end-time="2026-11-01 02:00:13Z" duration="0.827209" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <failure>
+                <message><![CDATA[UnityEngine.MissingComponentException : There is no 'CanvasGroup' attached to the "Offer_OFFER_00061" game object, but a script is trying to access it.
+You probably need to add a CanvasGroup to the game object "Offer_OFFER_00061". Or your script needs to check if the component is attached before using it.]]></message>
+                <stack-trace><![CDATA[  at UnityEngine.Object+MarshalledUnityObject.TryThrowEditorNullExceptionObject (UnityEngine.Object unityObj, System.String parameterName) [0x000b4] in <2a0aacfdb6844320ae79174c32157248>:0 
+  at UnityEngine.Bindings.ThrowHelper.ThrowNullReferenceException (System.Object obj) [0x0000a] in <2a0aacfdb6844320ae79174c32157248>:0 
+  at UnityEngine.CanvasGroup.get_alpha () [0x00006] in <9a15db796d814f08b2b47309b1cedeec>:0 
+  at DiceCraft.Presentation.Art07TransactionMotion.TrackReveal (UnityEngine.RectTransform rect, System.Single normalDelay, System.Single normalDuration, System.Boolean flip, System.Boolean rise, System.Boolean expand) [0x00055] in E:\agent_workspace\gpt\game2\DicePrototype\Assets\Game\Runtime\Presentation\Art07TransactionMotion.cs:77 
+  at DiceCraft.GameApp.BeginExpansionTransaction07 (DiceCraft.Core.ShopOffer bought, DiceCraft.Core.RunState before, DiceCraft.Core.RunState after) [0x0036b] in E:\agent_workspace\gpt\game2\DicePrototype\Assets\Game\UI\GameApp.Art07Effects.cs:511 
+  at DiceCraft.GameApp.BeginCommittedTransactionVisual07 (DiceCraft.Core.SessionCommand cmd, DiceCraft.Core.CommandResult result, DiceCraft.Core.RunState before, DiceCraft.Core.RunState after) [0x002ec] in E:\agent_workspace\gpt\game2\DicePrototype\Assets\Game\UI\GameApp.Art07Effects.cs:430 
+  at DiceCraft.GameApp.PresentTransactionEffects07 (DiceCraft.Core.SessionCommand cmd, DiceCraft.Core.CommandResult result, DiceCraft.Core.RunState before, DiceCraft.Core.RunState after) [0x0019e] in E:\agent_workspace\gpt\game2\DicePrototype\Assets\Game\UI\GameApp.Art07Effects.cs:323 
+  at DiceCraft.GameApp.PresentCommitted (DiceCraft.Core.SessionCommand cmd, DiceCraft.Core.CommandResult result) [0x002bc] in E:\agent_workspace\gpt\game2\DicePrototype\Assets\Game\UI\GameApp.Art07Presentation.cs:92 
+  at DiceCraft.GameApp.Send (DiceCraft.Core.SessionCommand cmd) [0x000fc] in E:\agent_workspace\gpt\game2\DicePrototype\Assets\Game\Runtime\GameApp.cs:150 
+  at DiceCraft.Tests.GameplayPlayModeTests+<PLAY_ART07_TX_ExpansionAnimatesOnlyActuallyAddedSlotAndPreservesOtherOffers>d__67.MoveNext () [0x00151] in E:\agent_workspace\gpt\game2\DicePrototype\Assets\Game\Tests\PlayMode\Art07TransactionPlayModeTests.cs:86 
+  at UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\Library\PackageCache\com.unity.test-framework@ee3fe9477490\UnityEngine.TestRunner\NUnitExtensions\Attributes\TestEnumerator.cs:52 ]]></stack-trace>
+              </failure>
+              <output><![CDATA[Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_ec872c205dee4b009772ff4305c0deab
+]]></output>
+            </test-case>
+            <test-case id="1039" name="PLAY_ART07_TX_FailedPurchaseDiscardsInvisibleCaptureAndKeepsCheckpoint" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_TX_FailedPurchaseDiscardsInvisibleCaptureAndKeepsCheckpoint" methodname="PLAY_ART07_TX_FailedPurchaseDiscardsInvisibleCaptureAndKeepsCheckpoint" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="417744929" result="Passed" start-time="2026-11-01 02:00:13Z" end-time="2026-11-01 02:00:14Z" duration="0.473053" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_f696de7540074fa7a33251d7d819b85c
+]]></output>
+            </test-case>
+            <test-case id="1038" name="PLAY_ART07_TX_PhysicalUpgradeUsesActualFaceAndOverlapping360Or420Timeline" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_TX_PhysicalUpgradeUsesActualFaceAndOverlapping360Or420Timeline" methodname="PLAY_ART07_TX_PhysicalUpgradeUsesActualFaceAndOverlapping360Or420Timeline" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="314748995" result="Failed" label="Error" start-time="2026-11-01 02:00:14Z" end-time="2026-11-01 02:00:14Z" duration="0.404498" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <failure>
+                <message><![CDATA[UnityEngine.MissingComponentException : There is no 'CanvasGroup' attached to the "ShopProducts" game object, but a script is trying to access it.
+You probably need to add a CanvasGroup to the game object "ShopProducts". Or your script needs to check if the component is attached before using it.]]></message>
+                <stack-trace><![CDATA[  at UnityEngine.Object+MarshalledUnityObject.TryThrowEditorNullExceptionObject (UnityEngine.Object unityObj, System.String parameterName) [0x000b4] in <2a0aacfdb6844320ae79174c32157248>:0 
+  at UnityEngine.Bindings.ThrowHelper.ThrowNullReferenceException (System.Object obj) [0x0000a] in <2a0aacfdb6844320ae79174c32157248>:0 
+  at UnityEngine.CanvasGroup.get_alpha () [0x00006] in <9a15db796d814f08b2b47309b1cedeec>:0 
+  at DiceCraft.Presentation.Art07TransactionMotion.HideUntilFinished (UnityEngine.RectTransform rect) [0x00055] in E:\agent_workspace\gpt\game2\DicePrototype\Assets\Game\Runtime\Presentation\Art07TransactionMotion.cs:82 
+  at DiceCraft.GameApp.BeginUpgradeTransaction07 (DiceCraft.Core.SessionCommand cmd, DiceCraft.Core.ShopOffer bought, DiceCraft.Core.RunState before, DiceCraft.Core.RunState after) [0x00567] in E:\agent_workspace\gpt\game2\DicePrototype\Assets\Game\UI\GameApp.Art07Effects.cs:560 
+  at DiceCraft.GameApp.BeginCommittedTransactionVisual07 (DiceCraft.Core.SessionCommand cmd, DiceCraft.Core.CommandResult result, DiceCraft.Core.RunState before, DiceCraft.Core.RunState after) [0x002b1] in E:\agent_workspace\gpt\game2\DicePrototype\Assets\Game\UI\GameApp.Art07Effects.cs:426 
+  at DiceCraft.GameApp.PresentTransactionEffects07 (DiceCraft.Core.SessionCommand cmd, DiceCraft.Core.CommandResult result, DiceCraft.Core.RunState before, DiceCraft.Core.RunState after) [0x0019e] in E:\agent_workspace\gpt\game2\DicePrototype\Assets\Game\UI\GameApp.Art07Effects.cs:323 
+  at DiceCraft.GameApp.PresentCommitted (DiceCraft.Core.SessionCommand cmd, DiceCraft.Core.CommandResult result) [0x002bc] in E:\agent_workspace\gpt\game2\DicePrototype\Assets\Game\UI\GameApp.Art07Presentation.cs:92 
+  at DiceCraft.GameApp.Send (DiceCraft.Core.SessionCommand cmd) [0x000fc] in E:\agent_workspace\gpt\game2\DicePrototype\Assets\Game\Runtime\GameApp.cs:150 
+  at DiceCraft.Tests.GameplayPlayModeTests+<PLAY_ART07_TX_PhysicalUpgradeUsesActualFaceAndOverlapping360Or420Timeline>d__68.MoveNext () [0x001a7] in E:\agent_workspace\gpt\game2\DicePrototype\Assets\Game\Tests\PlayMode\Art07TransactionPlayModeTests.cs:101 
+  at UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\Library\PackageCache\com.unity.test-framework@ee3fe9477490\UnityEngine.TestRunner\NUnitExtensions\Attributes\TestEnumerator.cs:52 ]]></stack-trace>
+              </failure>
+              <output><![CDATA[Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_661b0bfe49d44eb89e64bd7596e36115
+]]></output>
+            </test-case>
+            <test-case id="1036" name="PLAY_ART07_TX_PurchaseUsesCommittedNewInstanceAndSkipRestoresAllGroups" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_TX_PurchaseUsesCommittedNewInstanceAndSkipRestoresAllGroups" methodname="PLAY_ART07_TX_PurchaseUsesCommittedNewInstanceAndSkipRestoresAllGroups" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="1825291657" result="Failed" label="Error" start-time="2026-11-01 02:00:14Z" end-time="2026-11-01 02:00:14Z" duration="0.378800" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <failure>
+                <message><![CDATA[UnityEngine.MissingComponentException : There is no 'CanvasGroup' attached to the "Offer_OFFER_00001" game object, but a script is trying to access it.
+You probably need to add a CanvasGroup to the game object "Offer_OFFER_00001". Or your script needs to check if the component is attached before using it.]]></message>
+                <stack-trace><![CDATA[  at UnityEngine.Object+MarshalledUnityObject.TryThrowEditorNullExceptionObject (UnityEngine.Object unityObj, System.String parameterName) [0x000b4] in <2a0aacfdb6844320ae79174c32157248>:0 
+  at UnityEngine.Bindings.ThrowHelper.ThrowNullReferenceException (System.Object obj) [0x0000a] in <2a0aacfdb6844320ae79174c32157248>:0 
+  at UnityEngine.CanvasGroup.get_alpha () [0x00006] in <9a15db796d814f08b2b47309b1cedeec>:0 
+  at DiceCraft.Presentation.Art07TransactionMotion.TrackReveal (UnityEngine.RectTransform rect, System.Single normalDelay, System.Single normalDuration, System.Boolean flip, System.Boolean rise, System.Boolean expand) [0x00055] in E:\agent_workspace\gpt\game2\DicePrototype\Assets\Game\Runtime\Presentation\Art07TransactionMotion.cs:77 
+  at DiceCraft.GameApp.BeginCommittedTransactionVisual07 (DiceCraft.Core.SessionCommand cmd, DiceCraft.Core.CommandResult result, DiceCraft.Core.RunState before, DiceCraft.Core.RunState after) [0x00377] in E:\agent_workspace\gpt\game2\DicePrototype\Assets\Game\UI\GameApp.Art07Effects.cs:433 
+  at DiceCraft.GameApp.PresentTransactionEffects07 (DiceCraft.Core.SessionCommand cmd, DiceCraft.Core.CommandResult result, DiceCraft.Core.RunState before, DiceCraft.Core.RunState after) [0x0019e] in E:\agent_workspace\gpt\game2\DicePrototype\Assets\Game\UI\GameApp.Art07Effects.cs:323 
+  at DiceCraft.GameApp.PresentCommitted (DiceCraft.Core.SessionCommand cmd, DiceCraft.Core.CommandResult result) [0x002bc] in E:\agent_workspace\gpt\game2\DicePrototype\Assets\Game\UI\GameApp.Art07Presentation.cs:92 
+  at DiceCraft.GameApp.Send (DiceCraft.Core.SessionCommand cmd) [0x000fc] in E:\agent_workspace\gpt\game2\DicePrototype\Assets\Game\Runtime\GameApp.cs:150 
+  at DiceCraft.Tests.GameplayPlayModeTests+<PLAY_ART07_TX_PurchaseUsesCommittedNewInstanceAndSkipRestoresAllGroups>d__66.MoveNext () [0x000b6] in E:\agent_workspace\gpt\game2\DicePrototype\Assets\Game\Tests\PlayMode\Art07TransactionPlayModeTests.cs:69 
+  at UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\Library\PackageCache\com.unity.test-framework@ee3fe9477490\UnityEngine.TestRunner\NUnitExtensions\Attributes\TestEnumerator.cs:52 ]]></stack-trace>
+              </failure>
+              <output><![CDATA[Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_b4e4211e93ab49d7959f854e70b98572
+]]></output>
+            </test-case>
+            <test-case id="1035" name="PLAY_ART07_TX_RefreshOnlyControllerShelfUsesOld100AndNew180Milliseconds" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_TX_RefreshOnlyControllerShelfUsesOld100AndNew180Milliseconds" methodname="PLAY_ART07_TX_RefreshOnlyControllerShelfUsesOld100AndNew180Milliseconds" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="1913158867" result="Failed" label="Error" start-time="2026-11-01 02:00:14Z" end-time="2026-11-01 02:00:15Z" duration="0.381706" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <failure>
+                <message><![CDATA[UnityEngine.MissingComponentException : There is no 'CanvasGroup' attached to the "Offer_OFFER_00013" game object, but a script is trying to access it.
+You probably need to add a CanvasGroup to the game object "Offer_OFFER_00013". Or your script needs to check if the component is attached before using it.]]></message>
+                <stack-trace><![CDATA[  at UnityEngine.Object+MarshalledUnityObject.TryThrowEditorNullExceptionObject (UnityEngine.Object unityObj, System.String parameterName) [0x000b4] in <2a0aacfdb6844320ae79174c32157248>:0 
+  at UnityEngine.Bindings.ThrowHelper.ThrowNullReferenceException (System.Object obj) [0x0000a] in <2a0aacfdb6844320ae79174c32157248>:0 
+  at UnityEngine.CanvasGroup.get_alpha () [0x00006] in <9a15db796d814f08b2b47309b1cedeec>:0 
+  at DiceCraft.Presentation.Art07TransactionMotion.TrackReveal (UnityEngine.RectTransform rect, System.Single normalDelay, System.Single normalDuration, System.Boolean flip, System.Boolean rise, System.Boolean expand) [0x00055] in E:\agent_workspace\gpt\game2\DicePrototype\Assets\Game\Runtime\Presentation\Art07TransactionMotion.cs:77 
+  at DiceCraft.GameApp.BeginCommittedTransactionVisual07 (DiceCraft.Core.SessionCommand cmd, DiceCraft.Core.CommandResult result, DiceCraft.Core.RunState before, DiceCraft.Core.RunState after) [0x00231] in E:\agent_workspace\gpt\game2\DicePrototype\Assets\Game\UI\GameApp.Art07Effects.cs:419 
+  at DiceCraft.GameApp.PresentTransactionEffects07 (DiceCraft.Core.SessionCommand cmd, DiceCraft.Core.CommandResult result, DiceCraft.Core.RunState before, DiceCraft.Core.RunState after) [0x0019e] in E:\agent_workspace\gpt\game2\DicePrototype\Assets\Game\UI\GameApp.Art07Effects.cs:323 
+  at DiceCraft.GameApp.PresentCommitted (DiceCraft.Core.SessionCommand cmd, DiceCraft.Core.CommandResult result) [0x002bc] in E:\agent_workspace\gpt\game2\DicePrototype\Assets\Game\UI\GameApp.Art07Presentation.cs:92 
+  at DiceCraft.GameApp.Send (DiceCraft.Core.SessionCommand cmd) [0x000fc] in E:\agent_workspace\gpt\game2\DicePrototype\Assets\Game\Runtime\GameApp.cs:150 
+  at DiceCraft.Tests.GameplayPlayModeTests+<PLAY_ART07_TX_RefreshOnlyControllerShelfUsesOld100AndNew180Milliseconds>d__65.MoveNext () [0x000fa] in E:\agent_workspace\gpt\game2\DicePrototype\Assets\Game\Tests\PlayMode\Art07TransactionPlayModeTests.cs:51 
+  at UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\Library\PackageCache\com.unity.test-framework@ee3fe9477490\UnityEngine.TestRunner\NUnitExtensions\Attributes\TestEnumerator.cs:52 ]]></stack-trace>
+              </failure>
+              <output><![CDATA[Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_d1697a464e1145bf89034706fe730898
+]]></output>
+            </test-case>
+            <test-case id="1040" name="PLAY_ART07_TX_SaveFailureRetainsOldShelfAndRetryAnimatesSameSavedCandidate" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_TX_SaveFailureRetainsOldShelfAndRetryAnimatesSameSavedCandidate" methodname="PLAY_ART07_TX_SaveFailureRetainsOldShelfAndRetryAnimatesSameSavedCandidate" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="187061560" result="Failed" label="Error" start-time="2026-11-01 02:00:15Z" end-time="2026-11-01 02:00:15Z" duration="0.449052" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <failure>
+                <message><![CDATA[UnityEngine.MissingComponentException : There is no 'CanvasGroup' attached to the "Offer_OFFER_00013" game object, but a script is trying to access it.
+You probably need to add a CanvasGroup to the game object "Offer_OFFER_00013". Or your script needs to check if the component is attached before using it.]]></message>
+                <stack-trace><![CDATA[  at UnityEngine.Object+MarshalledUnityObject.TryThrowEditorNullExceptionObject (UnityEngine.Object unityObj, System.String parameterName) [0x000b4] in <2a0aacfdb6844320ae79174c32157248>:0 
+  at UnityEngine.Bindings.ThrowHelper.ThrowNullReferenceException (System.Object obj) [0x0000a] in <2a0aacfdb6844320ae79174c32157248>:0 
+  at UnityEngine.CanvasGroup.get_alpha () [0x00006] in <9a15db796d814f08b2b47309b1cedeec>:0 
+  at DiceCraft.Presentation.Art07TransactionMotion.TrackReveal (UnityEngine.RectTransform rect, System.Single normalDelay, System.Single normalDuration, System.Boolean flip, System.Boolean rise, System.Boolean expand) [0x00055] in E:\agent_workspace\gpt\game2\DicePrototype\Assets\Game\Runtime\Presentation\Art07TransactionMotion.cs:77 
+  at DiceCraft.GameApp.BeginCommittedTransactionVisual07 (DiceCraft.Core.SessionCommand cmd, DiceCraft.Core.CommandResult result, DiceCraft.Core.RunState before, DiceCraft.Core.RunState after) [0x00231] in E:\agent_workspace\gpt\game2\DicePrototype\Assets\Game\UI\GameApp.Art07Effects.cs:419 
+  at DiceCraft.GameApp.PresentTransactionEffects07 (DiceCraft.Core.SessionCommand cmd, DiceCraft.Core.CommandResult result, DiceCraft.Core.RunState before, DiceCraft.Core.RunState after) [0x0019e] in E:\agent_workspace\gpt\game2\DicePrototype\Assets\Game\UI\GameApp.Art07Effects.cs:323 
+  at DiceCraft.GameApp.PresentCommitted (DiceCraft.Core.SessionCommand cmd, DiceCraft.Core.CommandResult result) [0x002bc] in E:\agent_workspace\gpt\game2\DicePrototype\Assets\Game\UI\GameApp.Art07Presentation.cs:92 
+  at DiceCraft.GameApp.<SaveFailure>b__448_2 () [0x00049] in E:\agent_workspace\gpt\game2\DicePrototype\Assets\Game\UI\GameApp.Modals.cs:79 
+  at DiceCraft.UiKit+<>c__DisplayClass27_0.<Button>b__0 () [0x00000] in E:\agent_workspace\gpt\game2\DicePrototype\Assets\Game\UI\UiKit.cs:66 
+  at UnityEngine.Events.InvokableCall.Invoke () [0x0000d] in <2a0aacfdb6844320ae79174c32157248>:0 
+  at UnityEngine.Events.UnityEvent.Invoke () [0x0001b] in <2a0aacfdb6844320ae79174c32157248>:0 
+  at DiceCraft.Tests.GameplayPlayModeTests.Click (System.String name) [0x00027] in E:\agent_workspace\gpt\game2\DicePrototype\Assets\Game\Tests\PlayMode\GameplayPlayModeTests.cs:363 
+  at DiceCraft.Tests.GameplayPlayModeTests+<PLAY_ART07_TX_SaveFailureRetainsOldShelfAndRetryAnimatesSameSavedCandidate>d__70.MoveNext () [0x001d9] in E:\agent_workspace\gpt\game2\DicePrototype\Assets\Game\Tests\PlayMode\Art07TransactionPlayModeTests.cs:134 
+  at UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\Library\PackageCache\com.unity.test-framework@ee3fe9477490\UnityEngine.TestRunner\NUnitExtensions\Attributes\TestEnumerator.cs:52 ]]></stack-trace>
+              </failure>
+              <output><![CDATA[Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_2bed11e53d9e46878712c49ac8582aab
+]]></output>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1078" name="PresentationAudioPlayModeTests" fullname="DiceCraft.Tests.PresentationAudioPlayModeTests" classname="DiceCraft.Tests.PresentationAudioPlayModeTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-11-01 02:00:15Z" end-time="2026-11-01 02:00:16Z" duration="0.535791" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1079" name="PLAY_ART07_AudioPrewarmsTwelveShortVoicesOneMusicAndNoGrowthAcross200Receipts" fullname="DiceCraft.Tests.PresentationAudioPlayModeTests.PLAY_ART07_AudioPrewarmsTwelveShortVoicesOneMusicAndNoGrowthAcross200Receipts" methodname="PLAY_ART07_AudioPrewarmsTwelveShortVoicesOneMusicAndNoGrowthAcross200Receipts" classname="DiceCraft.Tests.PresentationAudioPlayModeTests" runstate="Runnable" seed="1289662955" result="Passed" start-time="2026-11-01 02:00:15Z" end-time="2026-11-01 02:00:16Z" duration="0.453762" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+]]></output>
+            </test-case>
+            <test-case id="1080" name="PLAY_ART07_AudioStopsOnlyOwningReceiptAndMuteAppliesImmediately" fullname="DiceCraft.Tests.PresentationAudioPlayModeTests.PLAY_ART07_AudioStopsOnlyOwningReceiptAndMuteAppliesImmediately" methodname="PLAY_ART07_AudioStopsOnlyOwningReceiptAndMuteAppliesImmediately" classname="DiceCraft.Tests.PresentationAudioPlayModeTests" runstate="Runnable" seed="107177273" result="Passed" start-time="2026-11-01 02:00:16Z" end-time="2026-11-01 02:00:16Z" duration="0.078558" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Saving results to: E:\agent_workspace\gpt\game2\evidence\v07\unity\nunit-20261101-020016.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

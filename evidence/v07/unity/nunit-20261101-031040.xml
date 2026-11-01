@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="3" result="Failed(Child)" total="3" passed="2" failed="1" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-11-01 03:10:33Z" end-time="2026-11-01 03:10:40Z" duration="7.202644">
+  <test-suite type="TestSuite" id="1118" name="DiceCraft P0" fullname="DiceCraft P0" runstate="Runnable" testcasecount="109" result="Failed" site="Child" start-time="2026-11-01 03:10:33Z" end-time="2026-11-01 03:10:40Z" duration="7.202644" total="3" passed="2" failed="1" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <failure>
+      <message><![CDATA[One or more child tests had errors]]></message>
+    </failure>
+    <test-suite type="Assembly" id="1112" name="DiceCraft.PlayModeTests.dll" fullname="E:/agent_workspace/gpt/game2/DicePrototype/Library/ScriptAssemblies/DiceCraft.PlayModeTests.dll" runstate="Runnable" testcasecount="109" result="Failed" site="Child" start-time="2026-11-01 03:10:33Z" end-time="2026-11-01 03:10:40Z" duration="7.185446" total="3" passed="2" failed="1" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="40096" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <failure>
+        <message><![CDATA[One or more child tests had errors]]></message>
+      </failure>
+      <test-suite type="TestSuite" id="1113" name="DiceCraft" fullname="DiceCraft" runstate="Runnable" testcasecount="109" result="Failed" site="Child" start-time="2026-11-01 03:10:33Z" end-time="2026-11-01 03:10:40Z" duration="7.181541" total="3" passed="2" failed="1" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <failure>
+          <message><![CDATA[One or more child tests had errors]]></message>
+        </failure>
+        <test-suite type="TestSuite" id="1114" name="Tests" fullname="DiceCraft.Tests" runstate="Runnable" testcasecount="109" result="Failed" site="Child" start-time="2026-11-01 03:10:33Z" end-time="2026-11-01 03:10:40Z" duration="7.178561" total="3" passed="2" failed="1" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <failure>
+            <message><![CDATA[One or more child tests had errors]]></message>
+          </failure>
+          <test-suite type="TestFixture" id="1001" name="GameplayPlayModeTests" fullname="DiceCraft.Tests.GameplayPlayModeTests" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" testcasecount="107" result="Failed" site="Child" start-time="2026-11-01 03:10:33Z" end-time="2026-11-01 03:10:40Z" duration="7.174323" total="3" passed="2" failed="1" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <failure>
+              <message><![CDATA[One or more child tests had errors]]></message>
+            </failure>
+            <test-case id="1064" name="PLAY_ART07_ScoreLabelsControllerOverflowHasDedicatedTenthCellAndCompleteLabel" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_ScoreLabelsControllerOverflowHasDedicatedTenthCellAndCompleteLabel" methodname="PLAY_ART07_ScoreLabelsControllerOverflowHasDedicatedTenthCellAndCompleteLabel" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="21689641" result="Passed" start-time="2026-11-01 03:10:33Z" end-time="2026-11-01 03:10:38Z" duration="4.993056" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_bd606569dfa645abb5e4c82c5a5be38c\art07-edge-screens\score-controller-overflow-font100.png
+Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_bd606569dfa645abb5e4c82c5a5be38c\art07-edge-screens\score-controller-overflow-font125.png
+Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_bd606569dfa645abb5e4c82c5a5be38c\art07-edge-screens\score-controller-overflow-font150.png
+Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_bd606569dfa645abb5e4c82c5a5be38c
+]]></output>
+            </test-case>
+            <test-case id="1063" name="PLAY_ART07_ScoreLabelsFallbackSubmeshSurvivesPooledReuseWithRealPixels" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_ScoreLabelsFallbackSubmeshSurvivesPooledReuseWithRealPixels" methodname="PLAY_ART07_ScoreLabelsFallbackSubmeshSurvivesPooledReuseWithRealPixels" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="1659435324" result="Passed" start-time="2026-11-01 03:10:38Z" end-time="2026-11-01 03:10:39Z" duration="1.443320" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_a67f2a83db524761976d7451670ebd4c\art07-edge-screens\score-fallback-reuse-font100.png
+Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_a67f2a83db524761976d7451670ebd4c\art07-edge-screens\score-fallback-reuse-font125.png
+Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_a67f2a83db524761976d7451670ebd4c\art07-edge-screens\score-fallback-reuse-font150.png
+Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_a67f2a83db524761976d7451670ebd4c
+]]></output>
+            </test-case>
+            <test-case id="1062" name="PLAY_ART07_ScoreLabelsPreviewMixedZeroAndRandomKeepEveryGlyphAfterRedraw" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_ScoreLabelsPreviewMixedZeroAndRandomKeepEveryGlyphAfterRedraw" methodname="PLAY_ART07_ScoreLabelsPreviewMixedZeroAndRandomKeepEveryGlyphAfterRedraw" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="1349422937" result="Failed" start-time="2026-11-01 03:10:39Z" end-time="2026-11-01 03:10:40Z" duration="0.711166" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <failure>
+                <message><![CDATA[  Hand has no rendered GPU ink for ／ U+FF0F
+  Expected: greater than 0
+  But was:  0
+]]></message>
+                <stack-trace><![CDATA[at DiceCraft.Tests.GameplayPlayModeTests.ScoreLabelGpuCheck07 (System.Collections.Generic.IEnumerable`1[T] labels, UnityEngine.Texture2D shot) [0x00369] in E:\agent_workspace\gpt\game2\DicePrototype\Assets\Game\Tests\PlayMode\Art07ScoreLabelsPlayModeTests.cs:205
+at DiceCraft.Tests.GameplayPlayModeTests+<ScoreLabelGpuCapture07>d__149.MoveNext () [0x001db] in E:\agent_workspace\gpt\game2\DicePrototype\Assets\Game\Tests\PlayMode\Art07ScoreLabelsPlayModeTests.cs:174
+at UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\Library\PackageCache\com.unity.test-framework@ee3fe9477490\UnityEngine.TestRunner\NUnitExtensions\Attributes\TestEnumerator.cs:52
+]]></stack-trace>
+              </failure>
+              <output><![CDATA[Actual failing GPU glyph frame: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_6f2c05087feb4509a86e291a992e7037\art07-edge-screens\score-glyph-failure-frame263.png
+Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_6f2c05087feb4509a86e291a992e7037
+Saving results to: E:\agent_workspace\gpt\game2\evidence\v07\unity\nunit-20261101-031040.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

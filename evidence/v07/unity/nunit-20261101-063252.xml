@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="2" result="Failed(Child)" total="2" passed="1" failed="1" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-11-01 06:32:50Z" end-time="2026-11-01 06:32:52Z" duration="2.7878995">
+  <test-suite type="TestSuite" id="1145" name="DiceCraft P0" fullname="DiceCraft P0" runstate="Runnable" testcasecount="136" result="Failed" site="Child" start-time="2026-11-01 06:32:50Z" end-time="2026-11-01 06:32:52Z" duration="2.787900" total="2" passed="1" failed="1" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <failure>
+      <message><![CDATA[One or more child tests had errors]]></message>
+    </failure>
+    <test-suite type="Assembly" id="1139" name="DiceCraft.PlayModeTests.dll" fullname="E:/agent_workspace/gpt/game2/DicePrototype/Library/ScriptAssemblies/DiceCraft.PlayModeTests.dll" runstate="Runnable" testcasecount="136" result="Failed" site="Child" start-time="2026-11-01 06:32:50Z" end-time="2026-11-01 06:32:52Z" duration="2.753775" total="2" passed="1" failed="1" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="23240" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <failure>
+        <message><![CDATA[One or more child tests had errors]]></message>
+      </failure>
+      <test-suite type="TestSuite" id="1140" name="DiceCraft" fullname="DiceCraft" runstate="Runnable" testcasecount="136" result="Failed" site="Child" start-time="2026-11-01 06:32:50Z" end-time="2026-11-01 06:32:52Z" duration="2.749970" total="2" passed="1" failed="1" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <failure>
+          <message><![CDATA[One or more child tests had errors]]></message>
+        </failure>
+        <test-suite type="TestSuite" id="1141" name="Tests" fullname="DiceCraft.Tests" runstate="Runnable" testcasecount="136" result="Failed" site="Child" start-time="2026-11-01 06:32:50Z" end-time="2026-11-01 06:32:52Z" duration="2.747392" total="2" passed="1" failed="1" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <failure>
+            <message><![CDATA[One or more child tests had errors]]></message>
+          </failure>
+          <test-suite type="TestFixture" id="1001" name="GameplayPlayModeTests" fullname="DiceCraft.Tests.GameplayPlayModeTests" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" testcasecount="134" result="Failed" site="Child" start-time="2026-11-01 06:32:50Z" end-time="2026-11-01 06:32:52Z" duration="2.743133" total="2" passed="1" failed="1" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <failure>
+              <message><![CDATA[One or more child tests had errors]]></message>
+            </failure>
+            <test-case id="1081" name="PLAY_ART07_StageCardEntranceDoesNotReplayOnChoiceAndExitPreservesLiveInput" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_StageCardEntranceDoesNotReplayOnChoiceAndExitPreservesLiveInput" methodname="PLAY_ART07_StageCardEntranceDoesNotReplayOnChoiceAndExitPreservesLiveInput" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="1708259961" result="Failed" label="Error" start-time="2026-11-01 06:32:50Z" end-time="2026-11-01 06:32:51Z" duration="1.364889" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <failure>
+                <message><![CDATA[System.ArgumentOutOfRangeException : Index was out of range. Must be non-negative and less than the size of the collection.
+Parameter name: index]]></message>
+                <stack-trace><![CDATA[  at System.Collections.Generic.List`1[T].get_Item (System.Int32 index) [0x00009] in <a8858c8db8794c73aac95c6a07c9f981>:0 
+  at DiceCraft.Tests.GameplayPlayModeTests+<PLAY_ART07_StageCardEntranceDoesNotReplayOnChoiceAndExitPreservesLiveInput>d__195.MoveNext () [0x0063a] in E:\agent_workspace\gpt\game2\DicePrototype\Assets\Game\Tests\PlayMode\Art07StageMotionPlayModeTests.cs:60 
+  at UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\Library\PackageCache\com.unity.test-framework@ee3fe9477490\UnityEngine.TestRunner\NUnitExtensions\Attributes\TestEnumerator.cs:52 ]]></stack-trace>
+              </failure>
+              <output><![CDATA[Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_d85f70186ede456cb641a9c05797262c
+]]></output>
+            </test-case>
+            <test-case id="1082" name="PLAY_ART07_StageCardExitWaitsForRealSaveRetryAndDoesNotCommitAgain" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_StageCardExitWaitsForRealSaveRetryAndDoesNotCommitAgain" methodname="PLAY_ART07_StageCardExitWaitsForRealSaveRetryAndDoesNotCommitAgain" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="360801898" result="Passed" start-time="2026-11-01 06:32:51Z" end-time="2026-11-01 06:32:52Z" duration="1.331005" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_e50966e64f1047759d32c814491c49da
+Saving results to: E:\agent_workspace\gpt\game2\evidence\v07\unity\nunit-20261101-063252.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="9" result="Passed" total="9" passed="9" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-11-01 07:22:18Z" end-time="2026-11-01 07:22:45Z" duration="27.1352759">
+  <test-suite type="TestSuite" id="1159" name="DiceCraft P0" fullname="DiceCraft P0" runstate="Runnable" testcasecount="150" result="Passed" start-time="2026-11-01 07:22:18Z" end-time="2026-11-01 07:22:45Z" duration="27.135276" total="9" passed="9" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <test-suite type="Assembly" id="1153" name="DiceCraft.PlayModeTests.dll" fullname="E:/agent_workspace/gpt/game2/DicePrototype/Library/ScriptAssemblies/DiceCraft.PlayModeTests.dll" runstate="Runnable" testcasecount="150" result="Passed" start-time="2026-11-01 07:22:18Z" end-time="2026-11-01 07:22:45Z" duration="27.124485" total="9" passed="9" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="10504" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <test-suite type="TestSuite" id="1154" name="DiceCraft" fullname="DiceCraft" runstate="Runnable" testcasecount="150" result="Passed" start-time="2026-11-01 07:22:18Z" end-time="2026-11-01 07:22:45Z" duration="27.122070" total="9" passed="9" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1155" name="Tests" fullname="DiceCraft.Tests" runstate="Runnable" testcasecount="150" result="Passed" start-time="2026-11-01 07:22:18Z" end-time="2026-11-01 07:22:45Z" duration="27.119941" total="9" passed="9" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="1001" name="GameplayPlayModeTests" fullname="DiceCraft.Tests.GameplayPlayModeTests" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" testcasecount="148" result="Passed" start-time="2026-11-01 07:22:18Z" end-time="2026-11-01 07:22:45Z" duration="27.116900" total="9" passed="9" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1089" name="PLAY_ART07_LEGACY_ExactVersionReadOnlyDetailsAndNewRunCancellationKeepOldBytes" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_LEGACY_ExactVersionReadOnlyDetailsAndNewRunCancellationKeepOldBytes" methodname="PLAY_ART07_LEGACY_ExactVersionReadOnlyDetailsAndNewRunCancellationKeepOldBytes" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="1198284100" result="Passed" start-time="2026-11-01 07:22:18Z" end-time="2026-11-01 07:22:20Z" duration="1.613215" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_e73e6777e690432ba07472eb8c933233\art07-edge-screens\legacy-specific-versions-font100.png
+Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_e73e6777e690432ba07472eb8c933233\art07-edge-screens\legacy-specific-versions-font125.png
+Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_e73e6777e690432ba07472eb8c933233\art07-edge-screens\legacy-specific-versions-font150.png
+Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_e73e6777e690432ba07472eb8c933233
+]]></output>
+            </test-case>
+            <test-case id="1062" name="PLAY_ART07_LOADING_UI_DestroyAndReloadSerializesSamePathWithoutAdoptingOldResult" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_LOADING_UI_DestroyAndReloadSerializesSamePathWithoutAdoptingOldResult" methodname="PLAY_ART07_LOADING_UI_DestroyAndReloadSerializesSamePathWithoutAdoptingOldResult" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="997455044" result="Passed" start-time="2026-11-01 07:22:20Z" end-time="2026-11-01 07:22:21Z" duration="0.737953" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_0125df5735e441749fc45b8a4c4518e4
+]]></output>
+            </test-case>
+            <test-case id="1061" name="PLAY_ART07_LOADING_UI_FastActiveBackupLegacyAndWorkerErrorKeepStoragePolicy" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_LOADING_UI_FastActiveBackupLegacyAndWorkerErrorKeepStoragePolicy" methodname="PLAY_ART07_LOADING_UI_FastActiveBackupLegacyAndWorkerErrorKeepStoragePolicy" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="1622428243" result="Passed" start-time="2026-11-01 07:22:21Z" end-time="2026-11-01 07:22:22Z" duration="0.887374" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_91d1a39fbef34cc1bc173a9637e89478
+]]></output>
+            </test-case>
+            <test-case id="1060" name="PLAY_ART07_LOADING_UI_SlowReadThresholdRendersFramesAndRejectsCommandsUntilReady" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_LOADING_UI_SlowReadThresholdRendersFramesAndRejectsCommandsUntilReady" methodname="PLAY_ART07_LOADING_UI_SlowReadThresholdRendersFramesAndRejectsCommandsUntilReady" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="1817306695" result="Passed" start-time="2026-11-01 07:22:22Z" end-time="2026-11-01 07:22:22Z" duration="0.614434" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Real under200ms frame samples: 12; first visible hint at 214.8788ms.
+Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_f328b7b7fcc3440984635f6614696c99
+]]></output>
+            </test-case>
+            <test-case id="1086" name="PLAY_ART07_SETTLE_BACKDROP_CommitAndColdRecoveryShowReadonlyBoardWithoutCommandsOrReplay" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_SETTLE_BACKDROP_CommitAndColdRecoveryShowReadonlyBoardWithoutCommandsOrReplay" methodname="PLAY_ART07_SETTLE_BACKDROP_CommitAndColdRecoveryShowReadonlyBoardWithoutCommandsOrReplay" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="1815452973" result="Passed" start-time="2026-11-01 07:22:22Z" end-time="2026-11-01 07:22:25Z" duration="3.013316" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_8d2c4fad16e947aca3dccac9eddcd5e7\art07-edge-screens\settlement-backdrop-live-font100.png
+Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_8d2c4fad16e947aca3dccac9eddcd5e7\art07-edge-screens\settlement-backdrop-live-font125.png
+Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_8d2c4fad16e947aca3dccac9eddcd5e7\art07-edge-screens\settlement-backdrop-live-font150.png
+Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_8d2c4fad16e947aca3dccac9eddcd5e7\art07-edge-screens\settlement-backdrop-cold-font150.png
+Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_8d2c4fad16e947aca3dccac9eddcd5e7
+]]></output>
+            </test-case>
+            <test-case id="1096" name="PLAY_ART07_STATUS_ColdLoadDuringSubmissionShowsSavedFinalWithoutReplayingEffects" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_STATUS_ColdLoadDuringSubmissionShowsSavedFinalWithoutReplayingEffects" methodname="PLAY_ART07_STATUS_ColdLoadDuringSubmissionShowsSavedFinalWithoutReplayingEffects" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="1998039481" result="Passed" start-time="2026-11-01 07:22:25Z" end-time="2026-11-01 07:22:27Z" duration="1.741486" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_1eaf090d18f6484eb74f3395dbd92393\art07-edge-screens\S02-recovered-font100.png
+Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_1eaf090d18f6484eb74f3395dbd92393\art07-edge-screens\S02-recovered-font125.png
+Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_1eaf090d18f6484eb74f3395dbd92393\art07-edge-screens\S02-recovered-font150.png
+Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_1eaf090d18f6484eb74f3395dbd92393
+]]></output>
+            </test-case>
+            <test-case id="1099" name="PLAY_ART07_STATUS_ColdQualifiedSaveKeepsGoldBorderAndBadgeWithoutRestamping" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_STATUS_ColdQualifiedSaveKeepsGoldBorderAndBadgeWithoutRestamping" methodname="PLAY_ART07_STATUS_ColdQualifiedSaveKeepsGoldBorderAndBadgeWithoutRestamping" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="278282450" result="Passed" start-time="2026-11-01 07:22:27Z" end-time="2026-11-01 07:22:29Z" duration="1.650895" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_4136142e7fa44d2891579c915f529c6e\art07-edge-screens\S08-qualified-cold-font100.png
+Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_4136142e7fa44d2891579c915f529c6e\art07-edge-screens\S08-qualified-cold-font125.png
+Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_4136142e7fa44d2891579c915f529c6e\art07-edge-screens\S08-qualified-cold-font150.png
+Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_4136142e7fa44d2891579c915f529c6e
+]]></output>
+            </test-case>
+            <test-case id="1097" name="PLAY_ART07_STATUS_ExcessPendingMarksOnlyOverflowAndCannotPartiallyLock" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_STATUS_ExcessPendingMarksOnlyOverflowAndCannotPartiallyLock" methodname="PLAY_ART07_STATUS_ExcessPendingMarksOnlyOverflowAndCannotPartiallyLock" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="1191219542" result="Passed" start-time="2026-11-01 07:22:29Z" end-time="2026-11-01 07:22:35Z" duration="6.003850" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_875b0cdf72c04bcfacfd242327d31809\art07-edge-screens\S05-excess-pending-150.png
+Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_875b0cdf72c04bcfacfd242327d31809
+]]></output>
+            </test-case>
+            <test-case id="1098" name="PLAY_ART07_STATUS_QualifiedRewardsStayVisibleAboveNavigationAtAllTextScales" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_STATUS_QualifiedRewardsStayVisibleAboveNavigationAtAllTextScales" methodname="PLAY_ART07_STATUS_QualifiedRewardsStayVisibleAboveNavigationAtAllTextScales" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="1471042495" result="Passed" start-time="2026-11-01 07:22:35Z" end-time="2026-11-01 07:22:45Z" duration="10.831105" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_d8c90b009ab74c319560d74189eb0306\art07-edge-screens\S08-qualified-sidebar-font100.png
+Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_d8c90b009ab74c319560d74189eb0306\art07-edge-screens\S08-qualified-sidebar-font125.png
+Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_d8c90b009ab74c319560d74189eb0306\art07-edge-screens\S08-qualified-sidebar-font150.png
+Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_d8c90b009ab74c319560d74189eb0306
+Saving results to: E:\agent_workspace\gpt\game2\evidence\v07\unity\nunit-20261101-072245.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

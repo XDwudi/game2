@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="2" result="Failed(Child)" total="2" passed="1" failed="1" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-11-01 06:44:18Z" end-time="2026-11-01 06:44:22Z" duration="3.4457288">
+  <test-suite type="TestSuite" id="1149" name="DiceCraft P0" fullname="DiceCraft P0" runstate="Runnable" testcasecount="140" result="Failed" site="Child" start-time="2026-11-01 06:44:18Z" end-time="2026-11-01 06:44:22Z" duration="3.445729" total="2" passed="1" failed="1" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <failure>
+      <message><![CDATA[One or more child tests had errors]]></message>
+    </failure>
+    <test-suite type="Assembly" id="1143" name="DiceCraft.PlayModeTests.dll" fullname="E:/agent_workspace/gpt/game2/DicePrototype/Library/ScriptAssemblies/DiceCraft.PlayModeTests.dll" runstate="Runnable" testcasecount="140" result="Failed" site="Child" start-time="2026-11-01 06:44:18Z" end-time="2026-11-01 06:44:22Z" duration="3.410045" total="2" passed="1" failed="1" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="23240" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <failure>
+        <message><![CDATA[One or more child tests had errors]]></message>
+      </failure>
+      <test-suite type="TestSuite" id="1144" name="DiceCraft" fullname="DiceCraft" runstate="Runnable" testcasecount="140" result="Failed" site="Child" start-time="2026-11-01 06:44:18Z" end-time="2026-11-01 06:44:22Z" duration="3.407030" total="2" passed="1" failed="1" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <failure>
+          <message><![CDATA[One or more child tests had errors]]></message>
+        </failure>
+        <test-suite type="TestSuite" id="1145" name="Tests" fullname="DiceCraft.Tests" runstate="Runnable" testcasecount="140" result="Failed" site="Child" start-time="2026-11-01 06:44:18Z" end-time="2026-11-01 06:44:22Z" duration="3.404666" total="2" passed="1" failed="1" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <failure>
+            <message><![CDATA[One or more child tests had errors]]></message>
+          </failure>
+          <test-suite type="TestFixture" id="1001" name="GameplayPlayModeTests" fullname="DiceCraft.Tests.GameplayPlayModeTests" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" testcasecount="138" result="Failed" site="Child" start-time="2026-11-01 06:44:18Z" end-time="2026-11-01 06:44:22Z" duration="3.401391" total="2" passed="1" failed="1" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <failure>
+              <message><![CDATA[One or more child tests had errors]]></message>
+            </failure>
+            <test-case id="1084" name="PLAY_ART07_StageCardEntranceDoesNotReplayOnChoiceAndExitPreservesLiveInput" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_StageCardEntranceDoesNotReplayOnChoiceAndExitPreservesLiveInput" methodname="PLAY_ART07_StageCardEntranceDoesNotReplayOnChoiceAndExitPreservesLiveInput" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="152629869" result="Failed" start-time="2026-11-01 06:44:18Z" end-time="2026-11-01 06:44:20Z" duration="1.981635" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <failure>
+                <message><![CDATA[  Normal
+  Expected: greater than 0
+  But was:  0
+]]></message>
+                <stack-trace><![CDATA[at DiceCraft.Tests.GameplayPlayModeTests.StageMotionPointer07 (System.String name) [0x0008c] in E:\agent_workspace\gpt\game2\DicePrototype\Assets\Game\Tests\PlayMode\Art07StageMotionPlayModeTests.cs:21
+at DiceCraft.Tests.GameplayPlayModeTests+<PLAY_ART07_StageCardEntranceDoesNotReplayOnChoiceAndExitPreservesLiveInput>d__204.MoveNext () [0x003df] in E:\agent_workspace\gpt\game2\DicePrototype\Assets\Game\Tests\PlayMode\Art07StageMotionPlayModeTests.cs:61
+at UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\Library\PackageCache\com.unity.test-framework@ee3fe9477490\UnityEngine.TestRunner\NUnitExtensions\Attributes\TestEnumerator.cs:52
+]]></stack-trace>
+              </failure>
+              <output><![CDATA[before-first-render frame=25 realtime=6.749992 screen=1920x1080 canvas=ScreenSpaceOverlay scale=1 roll=(x:0.00, y:-72.00, width:250.00, height:72.00) world=(368.000, 52.000, 0.000);(368.000, 124.000, 0.000);(618.000, 124.000, 0.000);(618.000, 52.000, 0.000) point=(493.00, 88.00) exit=0/0.22 hits=
+graphics=Roll:enabled=True,active=True,depth=-1,cull=False,raycast=True,alpha=1;Step:enabled=True,active=True,depth=-1,cull=False,raycast=False,alpha=1;Face:enabled=True,active=True,depth=-1,cull=False,raycast=False,alpha=1;Lip:enabled=True,active=True,depth=-1,cull=False,raycast=False,alpha=1;Label:enabled=True,active=True,depth=-1,cull=False,raycast=False,alpha=1;Top:enabled=True,active=False,depth=-1,cull=False,raycast=False,alpha=1;Bottom:enabled=True,active=False,depth=-1,cull=False,raycast=False,alpha=1;Left:enabled=True,active=False,depth=-1,cull=False,raycast=False,alpha=1;Right:enabled=True,active=False,depth=-1,cull=False,raycast=False,alpha=1;Dot00:enabled=True,active=False,depth=-1,cull=False,raycast=False,alpha=1;Dot10:enabled=True,active=False,depth=-1,cull=False,raycast=False,alpha=1;Dot20:enabled=True,active=False,depth=-1,cull=False,raycast=False,alpha=1;Dot30:enabled=True,active=False,depth=-1,cull=False,raycast=False,alpha=1;Dot40:enabled=True,active=False,depth=-1,cull=False,raycast=False,alpha=1;Dot01:enabled=True,active=False,depth=-1,cull=False,raycast=False,alpha=1;Dot11:enabled=True,active=False,depth=-1,cull=False,raycast=False,alpha=1;Dot21:enabled=True,active=False,depth=-1,cull=False,raycast=False,alpha=1;Dot31:enabled=True,active=False,depth=-1,cull=False,raycast=False,alpha=1;Dot41:enabled=True,active=False,depth=-1,cull=False,raycast=False,alpha=1;Dot02:enabled=True,active=False,depth=-1,cull=False,raycast=False,alpha=1;Dot12:enabled=True,active=False,depth=-1,cull=False,raycast=False,alpha=1;Dot22:enabled=True,active=False,depth=-1,cull=False,raycast=False,alpha=1;Dot32:enabled=True,active=False,depth=-1,cull=False,raycast=False,alpha=1;Dot42:enabled=True,active=False,depth=-1,cull=False,raycast=False,alpha=1
+groups=
+
+after-first-render frame=26 realtime=6.865262 screen=1920x1080 canvas=ScreenSpaceOverlay scale=1 roll=(x:0.00, y:-72.00, width:250.00, height:72.00) world=(368.000, 52.000, 0.000);(368.000, 124.000, 0.000);(618.000, 124.000, 0.000);(618.000, 52.000, 0.000) point=(493.00, 88.00) exit=0.013705/0.22 hits=Roll
+graphics=Roll:enabled=True,active=True,depth=109,cull=False,raycast=True,alpha=1;Step:enabled=True,active=True,depth=110,cull=False,raycast=False,alpha=1;Face:enabled=True,active=True,depth=111,cull=False,raycast=False,alpha=1;Lip:enabled=True,active=True,depth=112,cull=False,raycast=False,alpha=1;Label:enabled=True,active=True,depth=113,cull=False,raycast=False,alpha=1;Top:enabled=True,active=False,depth=-1,cull=False,raycast=False,alpha=1;Bottom:enabled=True,active=False,depth=-1,cull=False,raycast=False,alpha=1;Left:enabled=True,active=False,depth=-1,cull=False,raycast=False,alpha=1;Right:enabled=True,active=False,depth=-1,cull=False,raycast=False,alpha=1;Dot00:enabled=True,active=False,depth=-1,cull=False,raycast=False,alpha=1;Dot10:enabled=True,active=False,depth=-1,cull=False,raycast=False,alpha=1;Dot20:enabled=True,active=False,depth=-1,cull=False,raycast=False,alpha=1;Dot30:enabled=True,active=False,depth=-1,cull=False,raycast=False,alpha=1;Dot40:enabled=True,active=False,depth=-1,cull=False,raycast=False,alpha=1;Dot01:enabled=True,active=False,depth=-1,cull=False,raycast=False,alpha=1;Dot11:enabled=True,active=False,depth=-1,cull=False,raycast=False,alpha=1;Dot21:enabled=True,active=False,depth=-1,cull=False,raycast=False,alpha=1;Dot31:enabled=True,active=False,depth=-1,cull=False,raycast=False,alpha=1;Dot41:enabled=True,active=False,depth=-1,cull=False,raycast=False,alpha=1;Dot02:enabled=True,active=False,depth=-1,cull=False,raycast=False,alpha=1;Dot12:enabled=True,active=False,depth=-1,cull=False,raycast=False,alpha=1;Dot22:enabled=True,active=False,depth=-1,cull=False,raycast=False,alpha=1;Dot32:enabled=True,active=False,depth=-1,cull=False,raycast=False,alpha=1;Dot42:enabled=True,active=False,depth=-1,cull=False,raycast=False,alpha=1
+groups=
+
+Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_c9bf5e69baa240ef82860078891a8459
+]]></output>
+            </test-case>
+            <test-case id="1085" name="PLAY_ART07_StageCardExitWaitsForRealSaveRetryAndDoesNotCommitAgain" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_StageCardExitWaitsForRealSaveRetryAndDoesNotCommitAgain" methodname="PLAY_ART07_StageCardExitWaitsForRealSaveRetryAndDoesNotCommitAgain" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="2118616873" result="Passed" start-time="2026-11-01 06:44:20Z" end-time="2026-11-01 06:44:22Z" duration="1.376895" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_7f039caad4b548e7bc749bcee63e9918
+Saving results to: E:\agent_workspace\gpt\game2\evidence\v07\unity\nunit-20261101-064422.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

@@ -1,0 +1,990 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="18" result="Passed" total="18" passed="18" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-31 17:48:31Z" end-time="2026-10-31 17:50:33Z" duration="121.743224">
+  <test-suite type="TestSuite" id="1058" name="DiceCraft P0" fullname="DiceCraft P0" runstate="Runnable" testcasecount="48" result="Passed" start-time="2026-10-31 17:48:31Z" end-time="2026-10-31 17:50:33Z" duration="121.743224" total="18" passed="18" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <test-suite type="Assembly" id="1109" name="DiceCraft.PlayModeTests.dll" fullname="E:/agent_workspace/gpt/game2/DicePrototype/Library/ScriptAssemblies/DiceCraft.PlayModeTests.dll" runstate="Runnable" testcasecount="48" result="Passed" start-time="2026-10-31 17:48:31Z" end-time="2026-10-31 17:50:33Z" duration="121.733891" total="18" passed="18" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="40688" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <test-suite type="TestSuite" id="1110" name="DiceCraft" fullname="DiceCraft" runstate="Runnable" testcasecount="48" result="Passed" start-time="2026-10-31 17:48:31Z" end-time="2026-10-31 17:50:33Z" duration="121.720975" total="18" passed="18" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1111" name="Tests" fullname="DiceCraft.Tests" runstate="Runnable" testcasecount="48" result="Passed" start-time="2026-10-31 17:48:31Z" end-time="2026-10-31 17:50:33Z" duration="121.704240" total="18" passed="18" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="1059" name="GameplayPlayModeTests" fullname="DiceCraft.Tests.GameplayPlayModeTests" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" testcasecount="46" result="Passed" start-time="2026-10-31 17:48:31Z" end-time="2026-10-31 17:50:32Z" duration="121.124910" total="16" passed="16" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1068" name="PLAY_Art07_AbandonUnsavedRollRestoresCheckpointWithoutReplayingOrReplacingCandidate" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_Art07_AbandonUnsavedRollRestoresCheckpointWithoutReplayingOrReplacingCandidate" methodname="PLAY_Art07_AbandonUnsavedRollRestoresCheckpointWithoutReplayingOrReplacingCandidate" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="411475194" result="Passed" start-time="2026-10-31 17:48:31Z" end-time="2026-10-31 17:48:32Z" duration="0.644194" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_485b274ebef9402f9fdf59b8873c15ec
+]]></output>
+            </test-case>
+            <test-case id="1082" name="PLAY_ART07_AllDiagnosticScenesValidateThroughRealSession" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_AllDiagnosticScenesValidateThroughRealSession" methodname="PLAY_ART07_AllDiagnosticScenesValidateThroughRealSession" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="406511427" result="Passed" start-time="2026-10-31 17:48:32Z" end-time="2026-10-31 17:48:33Z" duration="0.807933" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_43ee453fefb14c2891a9227b4897ec5a
+]]></output>
+            </test-case>
+            <test-case id="1086" name="PLAY_ART07_BothRollSpeedsFixPhysicalFaceForFinal120Milliseconds" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_BothRollSpeedsFixPhysicalFaceForFinal120Milliseconds" methodname="PLAY_ART07_BothRollSpeedsFixPhysicalFaceForFinal120Milliseconds" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="1289350379" result="Passed" start-time="2026-10-31 17:48:33Z" end-time="2026-10-31 17:48:34Z" duration="1.167880" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_85fead03873042c5aa62005f3c6ccbbf
+]]></output>
+            </test-case>
+            <test-case id="1062" name="PLAY_ART07_BurstL5ReducedThenL0ThenNormalCannotRetainCelebrationOrParticleMotion" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_BurstL5ReducedThenL0ThenNormalCannotRetainCelebrationOrParticleMotion" methodname="PLAY_ART07_BurstL5ReducedThenL0ThenNormalCannotRetainCelebrationOrParticleMotion" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="845972205" result="Passed" start-time="2026-10-31 17:48:34Z" end-time="2026-10-31 17:48:34Z" duration="0.141690" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_5556381f015a47e7a4793e8fcb6bacda
+]]></output>
+            </test-case>
+            <test-case id="1061" name="PLAY_ART07_ControllerFullCompactPoolReuseKeepsOneIdentityAndClearsBadgeTintAndOldClick" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_ControllerFullCompactPoolReuseKeepsOneIdentityAndClearsBadgeTintAndOldClick" methodname="PLAY_ART07_ControllerFullCompactPoolReuseKeepsOneIdentityAndClearsBadgeTintAndOldClick" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="2042813334" result="Passed" start-time="2026-10-31 17:48:34Z" end-time="2026-10-31 17:48:34Z" duration="0.149450" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_bb25a3914ec14fe9b0bd14751ccb37b0
+]]></output>
+            </test-case>
+            <test-case id="1063" name="PLAY_ART07_CopyLinkElbowThenStraightResetsBindingSegmentsAndArrowEndpoint" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_CopyLinkElbowThenStraightResetsBindingSegmentsAndArrowEndpoint" methodname="PLAY_ART07_CopyLinkElbowThenStraightResetsBindingSegmentsAndArrowEndpoint" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="1841193057" result="Passed" start-time="2026-10-31 17:48:34Z" end-time="2026-10-31 17:48:34Z" duration="0.143860" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_99dc3532cdc24465b9883586124a6f23
+]]></output>
+            </test-case>
+            <test-case id="1085" name="PLAY_ART07_DiceLockAndRetargetMoveWithoutTeleportAndPendingLiftKeepsIdentity" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_DiceLockAndRetargetMoveWithoutTeleportAndPendingLiftKeepsIdentity" methodname="PLAY_ART07_DiceLockAndRetargetMoveWithoutTeleportAndPendingLiftKeepsIdentity" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="1359482864" result="Passed" start-time="2026-10-31 17:48:34Z" end-time="2026-10-31 17:48:35Z" duration="0.610818" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_31554ae18dea42da8470070bf7fa3a15
+]]></output>
+            </test-case>
+            <test-case id="1067" name="PLAY_Art07_DiceNetSeparatesPermanentRemoteAndEffectiveAndKeepsZeroProbabilityEmpty" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_Art07_DiceNetSeparatesPermanentRemoteAndEffectiveAndKeepsZeroProbabilityEmpty" methodname="PLAY_Art07_DiceNetSeparatesPermanentRemoteAndEffectiveAndKeepsZeroProbabilityEmpty" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="750724577" result="Passed" start-time="2026-10-31 17:48:35Z" end-time="2026-10-31 17:48:35Z" duration="0.477954" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_cf35d31b4e944a339bed35961d2fdd41
+]]></output>
+            </test-case>
+            <test-case id="1066" name="PLAY_ART07_DieViewCommittedFaceBindingsAndGlassMaterialResetWithoutChangingSharedAssets" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_DieViewCommittedFaceBindingsAndGlassMaterialResetWithoutChangingSharedAssets" methodname="PLAY_ART07_DieViewCommittedFaceBindingsAndGlassMaterialResetWithoutChangingSharedAssets" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="1197604983" result="Passed" start-time="2026-10-31 17:48:35Z" end-time="2026-10-31 17:48:35Z" duration="0.129242" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_50c9034131104b95888fde9e5a507ccc
+]]></output>
+            </test-case>
+            <test-case id="1065" name="PLAY_ART07_ExactScoreAndZeroProbabilitySurvivePresentationAndClearOnPoolReturn" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_ExactScoreAndZeroProbabilitySurvivePresentationAndClearOnPoolReturn" methodname="PLAY_ART07_ExactScoreAndZeroProbabilitySurvivePresentationAndClearOnPoolReturn" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="952161613" result="Passed" start-time="2026-10-31 17:48:35Z" end-time="2026-10-31 17:48:36Z" duration="0.143057" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_a8cdadc75d784b0898f6316a6146b87c
+]]></output>
+            </test-case>
+            <test-case id="1081" name="PLAY_ART07_G147UsesPublicDebugCommandsAndPreservesNormalCheckpoint" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_G147UsesPublicDebugCommandsAndPreservesNormalCheckpoint" methodname="PLAY_ART07_G147UsesPublicDebugCommandsAndPreservesNormalCheckpoint" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="1578128482" result="Passed" start-time="2026-10-31 17:48:36Z" end-time="2026-10-31 17:48:36Z" duration="0.268392" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_1e7a440f22cb409eb3debfa9a8a750e7
+]]></output>
+            </test-case>
+            <test-case id="1087" name="PLAY_ART07_GlassBackFacesHiddenAndGpuShellTransparentWhilePipsStayOpaque" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_GlassBackFacesHiddenAndGpuShellTransparentWhilePipsStayOpaque" methodname="PLAY_ART07_GlassBackFacesHiddenAndGpuShellTransparentWhilePipsStayOpaque" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="264822091" result="Passed" start-time="2026-10-31 17:48:36Z" end-time="2026-10-31 17:48:36Z" duration="0.135856" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_5a046c2bdd984ac890ae8c28cbd7e62b
+]]></output>
+            </test-case>
+            <test-case id="1060" name="PLAY_ART07_LibraryAll26SerializedPrefabsInstantiateWithRealMeshesTextAndSupportedMaterials" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_LibraryAll26SerializedPrefabsInstantiateWithRealMeshesTextAndSupportedMaterials" methodname="PLAY_ART07_LibraryAll26SerializedPrefabsInstantiateWithRealMeshesTextAndSupportedMaterials" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="154512097" result="Passed" start-time="2026-10-31 17:48:36Z" end-time="2026-10-31 17:48:37Z" duration="0.999932" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_64fb6343aab541c898102b0339238a77
+]]></output>
+            </test-case>
+            <test-case id="1064" name="PLAY_ART07_PooledTicketRealClockPauseResumeAndCancelNeverInvokeAnOldReceiptCallback" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_PooledTicketRealClockPauseResumeAndCancelNeverInvokeAnOldReceiptCallback" methodname="PLAY_ART07_PooledTicketRealClockPauseResumeAndCancelNeverInvokeAnOldReceiptCallback" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="1145226135" result="Passed" start-time="2026-10-31 17:48:37Z" end-time="2026-10-31 17:48:37Z" duration="0.301094" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_02d1b3b2a94c4314807833de778b9ae4
+]]></output>
+            </test-case>
+            <test-case id="1083" name="PLAY_ART07_RealCommittedReceiptThreeSpeedsAndReducedMotionPreserveStateAndSaveBytes" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_RealCommittedReceiptThreeSpeedsAndReducedMotionPreserveStateAndSaveBytes" methodname="PLAY_ART07_RealCommittedReceiptThreeSpeedsAndReducedMotionPreserveStateAndSaveBytes" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="1940555830" result="Passed" start-time="2026-10-31 17:48:37Z" end-time="2026-10-31 17:48:38Z" duration="0.374273" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_b4cc89624d65418aac4c32ea09702dd5
+]]></output>
+            </test-case>
+            <test-case id="1084" name="PLAY_ART07_TwoHundredFullRendererReplaysKeepNodesMaterialsAndCommittedStateStable" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_TwoHundredFullRendererReplaysKeepNodesMaterialsAndCommittedStateStable" methodname="PLAY_ART07_TwoHundredFullRendererReplaysKeepNodesMaterialsAndCommittedStateStable" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="386340493" result="Passed" start-time="2026-10-31 17:48:38Z" end-time="2026-10-31 17:50:32Z" duration="114.607068" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="Timeout" value="600000" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_f64df6d910f64428950cc6f41c288e25
+]]></output>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1106" name="PresentationAudioPlayModeTests" fullname="DiceCraft.Tests.PresentationAudioPlayModeTests" classname="DiceCraft.Tests.PresentationAudioPlayModeTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-31 17:50:32Z" end-time="2026-10-31 17:50:33Z" duration="0.561139" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1107" name="PLAY_ART07_AudioPrewarmsTwelveShortVoicesOneMusicAndNoGrowthAcross200Receipts" fullname="DiceCraft.Tests.PresentationAudioPlayModeTests.PLAY_ART07_AudioPrewarmsTwelveShortVoicesOneMusicAndNoGrowthAcross200Receipts" methodname="PLAY_ART07_AudioPrewarmsTwelveShortVoicesOneMusicAndNoGrowthAcross200Receipts" classname="DiceCraft.Tests.PresentationAudioPlayModeTests" runstate="Runnable" seed="2077216998" result="Passed" start-time="2026-10-31 17:50:32Z" end-time="2026-10-31 17:50:33Z" duration="0.478574" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+]]></output>
+            </test-case>
+            <test-case id="1108" name="PLAY_ART07_AudioStopsOnlyOwningReceiptAndMuteAppliesImmediately" fullname="DiceCraft.Tests.PresentationAudioPlayModeTests.PLAY_ART07_AudioStopsOnlyOwningReceiptAndMuteAppliesImmediately" methodname="PLAY_ART07_AudioStopsOnlyOwningReceiptAndMuteAppliesImmediately" classname="DiceCraft.Tests.PresentationAudioPlayModeTests" runstate="Runnable" seed="268926054" result="Passed" start-time="2026-10-31 17:50:33Z" end-time="2026-10-31 17:50:33Z" duration="0.077646" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Saving results to: E:\agent_workspace\gpt\game2\evidence\v07\unity\nunit-20261031-175033.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

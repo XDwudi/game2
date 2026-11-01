@@ -1,0 +1,687 @@
+{
+  "status": "LIMITED_INDEPENDENT_REVIEW_NOT_FINAL_ACCEPTANCE",
+  "utc": "2026-11-01T06:47:11.526927+00:00",
+  "reviewer": "/root/v07_spec_audit",
+  "producer": "/root",
+  "input": "art0.7.0 / p0.6.0 / schema4",
+  "archives": [
+    {
+      "archive": "v07-resultrows-1080-063327",
+      "archiveHash": "4705b83ea8d17887ad6e3b919bb5f81aeb15f704964a683059259712807919b8",
+      "files": 49,
+      "bad": [],
+      "binding": "artifacts/cache/v07-resultrows-1080-063327/nunit-20261101-063327.binding.json",
+      "reportHashMatches": true,
+      "sourceUnchanged": true,
+      "assembliesUnchanged": true,
+      "assemblies": [
+        {
+          "name": "DiceCraft.Core",
+          "mvid": "8f690e0d-a075-4b72-98e4-2cb64ced2fa3",
+          "dllSha256": "44a137cd38d7b525382dfda7adbdb7676d12d1dbc05520638d8a14642a96031b"
+        },
+        {
+          "name": "DiceCraft.EditMode",
+          "mvid": "588d65cd-14de-43cc-8855-ef72e6eefbc1",
+          "dllSha256": "dcbfc32e95db63f202055b0861ba94111890383e8d02d66412ea88f916c2f33e"
+        },
+        {
+          "name": "DiceCraft.Editor",
+          "mvid": "8363a76d-c9b7-41b3-adb8-a3c71e0203e1",
+          "dllSha256": "67f299eca4a20805142458eaa7d67b7dff2002bfbad4b63e1f1ace5d8c1bb9b6"
+        },
+        {
+          "name": "DiceCraft.PlayModeTests",
+          "mvid": "fc45e933-2575-4c18-a4be-ddc0a571c2a2",
+          "dllSha256": "1377d6e74c5dd450d2b71d31cb3014c01908b4e94de26f1a047a3a9fc4e8de4a"
+        },
+        {
+          "name": "DiceCraft.Runtime",
+          "mvid": "9b5b384a-fd2e-406c-a8fe-c6487feb8139",
+          "dllSha256": "275140cc76d48d95ccd6900825054a370b17229aa417fc96dc6802f056c0bbcb"
+        }
+      ],
+      "images": [
+        {
+          "path": "artifacts/cache/v07-resultrows-1080-063327/DiceCraftTests_a5a5bf164d8b4ee6b64e190336066e18/art07-edge-screens/S15-gameplay-item-hover.png",
+          "sha256": "3b20a1ac3546de47f3ca05d569490e2a02f3c56e682e74885cb66aa694b0fb70",
+          "size": [
+            1920,
+            1080
+          ],
+          "visualInspection": "original full image"
+        },
+        {
+          "path": "artifacts/cache/v07-resultrows-1080-063327/DiceCraftTests_bc41880c95ae4f7ba12ce7636560473e/art07-edge-screens/S18-reduced-mid-font150.png",
+          "sha256": "4f9a4f7dbf5551be913c91776a2d4614609a4427eb9fb9b3ed512b08d488359b",
+          "size": [
+            1920,
+            1080
+          ],
+          "visualInspection": "original full image"
+        },
+        {
+          "path": "artifacts/cache/v07-resultrows-1080-063327/DiceCraftTests_bc41880c95ae4f7ba12ce7636560473e/art07-edge-screens/S18-row0-font100.png",
+          "sha256": "986010908e9d946a9b63ca58d8f52b1933956018f7f03e528333e922a640b70f",
+          "size": [
+            1920,
+            1080
+          ],
+          "visualInspection": "original centre-paper crop via 6-frame sheet"
+        },
+        {
+          "path": "artifacts/cache/v07-resultrows-1080-063327/DiceCraftTests_bc41880c95ae4f7ba12ce7636560473e/art07-edge-screens/S18-row0-font125.png",
+          "sha256": "f8643c610d1df4ac99f8efc25e8742787d399d2d2fbaf14d891eb1814be5b94d",
+          "size": [
+            1920,
+            1080
+          ],
+          "visualInspection": "original centre-paper crop via 6-frame sheet"
+        },
+        {
+          "path": "artifacts/cache/v07-resultrows-1080-063327/DiceCraftTests_bc41880c95ae4f7ba12ce7636560473e/art07-edge-screens/S18-row0-font150.png",
+          "sha256": "4a9d325d566ecad0cba4a14a0ca838d7c47c75dfa5134a9301a7209e3cb95591",
+          "size": [
+            1920,
+            1080
+          ],
+          "visualInspection": "original centre-paper crop via 6-frame sheet"
+        },
+        {
+          "path": "artifacts/cache/v07-resultrows-1080-063327/DiceCraftTests_bc41880c95ae4f7ba12ce7636560473e/art07-edge-screens/S18-row1-font100.png",
+          "sha256": "c7453575d3547dbee6f2290cc888b890c54fa0c14d8b7dbf2763ec1e91f77c97",
+          "size": [
+            1920,
+            1080
+          ],
+          "visualInspection": "original centre-paper crop via 6-frame sheet"
+        },
+        {
+          "path": "artifacts/cache/v07-resultrows-1080-063327/DiceCraftTests_bc41880c95ae4f7ba12ce7636560473e/art07-edge-screens/S18-row1-font125.png",
+          "sha256": "26626a09477280683431009dc451f34e07f0579e7d271193c917f29198b22ea8",
+          "size": [
+            1920,
+            1080
+          ],
+          "visualInspection": "original centre-paper crop via 6-frame sheet"
+        },
+        {
+          "path": "artifacts/cache/v07-resultrows-1080-063327/DiceCraftTests_bc41880c95ae4f7ba12ce7636560473e/art07-edge-screens/S18-row1-font150.png",
+          "sha256": "ce6d9129d6bda30d0948eb0556e6235cdb812cf2ddf3291fced02593577f44d3",
+          "size": [
+            1920,
+            1080
+          ],
+          "visualInspection": "original centre-paper crop via 6-frame sheet"
+        },
+        {
+          "path": "artifacts/cache/v07-resultrows-1080-063327/DiceCraftTests_bc41880c95ae4f7ba12ce7636560473e/art07-edge-screens/S18-row2-font100.png",
+          "sha256": "fe1d44c54ed96a8e9745d4b8a5cd61b8a766c90ad1a274abddb97cf059ecdb88",
+          "size": [
+            1920,
+            1080
+          ],
+          "visualInspection": "original centre-paper crop via 6-frame sheet"
+        },
+        {
+          "path": "artifacts/cache/v07-resultrows-1080-063327/DiceCraftTests_bc41880c95ae4f7ba12ce7636560473e/art07-edge-screens/S18-row2-font125.png",
+          "sha256": "da685d8a8858dd789ff8bc04960cff5e44103b22d75b136b2c4c7d8404e5d0ec",
+          "size": [
+            1920,
+            1080
+          ],
+          "visualInspection": "original centre-paper crop via 6-frame sheet"
+        },
+        {
+          "path": "artifacts/cache/v07-resultrows-1080-063327/DiceCraftTests_bc41880c95ae4f7ba12ce7636560473e/art07-edge-screens/S18-row2-font150.png",
+          "sha256": "e4f1b24e9826e9171165805e64487d00a6e33fa8c007afee77168f2e08dce4da",
+          "size": [
+            1920,
+            1080
+          ],
+          "visualInspection": "original centre-paper crop via 6-frame sheet"
+        },
+        {
+          "path": "artifacts/cache/v07-resultrows-1080-063327/DiceCraftTests_bc41880c95ae4f7ba12ce7636560473e/art07-edge-screens/S18-row3-font100.png",
+          "sha256": "e0abc7fcbe8bfbe4bb5056b8dee4aa4098ff18327b30baed775e3911586fc81f",
+          "size": [
+            1920,
+            1080
+          ],
+          "visualInspection": "original centre-paper crop via 6-frame sheet"
+        },
+        {
+          "path": "artifacts/cache/v07-resultrows-1080-063327/DiceCraftTests_bc41880c95ae4f7ba12ce7636560473e/art07-edge-screens/S18-row3-font125.png",
+          "sha256": "71266f6e78cd8290e0eb3ed108f98945efcb86e76d6d57152160a26d5fbb6d43",
+          "size": [
+            1920,
+            1080
+          ],
+          "visualInspection": "original centre-paper crop via 6-frame sheet"
+        },
+        {
+          "path": "artifacts/cache/v07-resultrows-1080-063327/DiceCraftTests_bc41880c95ae4f7ba12ce7636560473e/art07-edge-screens/S18-row3-font150.png",
+          "sha256": "02f0853c42a9b2ad66fd13fe52ea91b5b104da1b0bf9670ae42b7f31297c1570",
+          "size": [
+            1920,
+            1080
+          ],
+          "visualInspection": "original centre-paper crop via 6-frame sheet"
+        },
+        {
+          "path": "artifacts/cache/v07-resultrows-1080-063327/DiceCraftTests_bc41880c95ae4f7ba12ce7636560473e/art07-edge-screens/S18-row4-font100.png",
+          "sha256": "e6e15cab2f676b4cdf72a512e4c69d01200065ec1aa545d93a96e6a28054fb32",
+          "size": [
+            1920,
+            1080
+          ],
+          "visualInspection": "original centre-paper crop via 6-frame sheet"
+        },
+        {
+          "path": "artifacts/cache/v07-resultrows-1080-063327/DiceCraftTests_bc41880c95ae4f7ba12ce7636560473e/art07-edge-screens/S18-row4-font125.png",
+          "sha256": "fc6a4aae348daa22c3e76b45e58eda4310ab6104857c83fc998596049601e8bc",
+          "size": [
+            1920,
+            1080
+          ],
+          "visualInspection": "original centre-paper crop via 6-frame sheet"
+        },
+        {
+          "path": "artifacts/cache/v07-resultrows-1080-063327/DiceCraftTests_bc41880c95ae4f7ba12ce7636560473e/art07-edge-screens/S18-row4-font150.png",
+          "sha256": "6251b26f7e4cd214f46fd8b796aba9bbdeefcf9b36a58a59504df79f31adf2d3",
+          "size": [
+            1920,
+            1080
+          ],
+          "visualInspection": "original centre-paper crop via 6-frame sheet"
+        },
+        {
+          "path": "artifacts/cache/v07-resultrows-1080-063327/DiceCraftTests_bc41880c95ae4f7ba12ce7636560473e/art07-edge-screens/S18-row5-font100.png",
+          "sha256": "d2deff4ff1935854e163d616db6cf7e427b6343d26708f417decd1ab7ec1b3e7",
+          "size": [
+            1920,
+            1080
+          ],
+          "visualInspection": "original centre-paper crop via 6-frame sheet"
+        },
+        {
+          "path": "artifacts/cache/v07-resultrows-1080-063327/DiceCraftTests_bc41880c95ae4f7ba12ce7636560473e/art07-edge-screens/S18-row5-font125.png",
+          "sha256": "8ecc5cba6c22bca6249cfe2700a5ece7b25a7984fdc326775b9c83ef7771867b",
+          "size": [
+            1920,
+            1080
+          ],
+          "visualInspection": "original centre-paper crop via 6-frame sheet"
+        },
+        {
+          "path": "artifacts/cache/v07-resultrows-1080-063327/DiceCraftTests_bc41880c95ae4f7ba12ce7636560473e/art07-edge-screens/S18-row5-font150.png",
+          "sha256": "421fc888f3a2e57610f2d08170a98dbd5599de470a02f4a4939c2f6ec159d58e",
+          "size": [
+            1920,
+            1080
+          ],
+          "visualInspection": "original centre-paper crop via 6-frame sheet; additionally opened original full image"
+        }
+      ]
+    },
+    {
+      "archive": "v07-resultrows-720-063404",
+      "archiveHash": "e6a69dc74ce9490ac5111018b7acb5a8fc2f295eec3c9d72053598f9477a4117",
+      "files": 49,
+      "bad": [],
+      "binding": "artifacts/cache/v07-resultrows-720-063404/nunit-20261101-063404.binding.json",
+      "reportHashMatches": true,
+      "sourceUnchanged": true,
+      "assembliesUnchanged": true,
+      "assemblies": [
+        {
+          "name": "DiceCraft.Core",
+          "mvid": "8f690e0d-a075-4b72-98e4-2cb64ced2fa3",
+          "dllSha256": "44a137cd38d7b525382dfda7adbdb7676d12d1dbc05520638d8a14642a96031b"
+        },
+        {
+          "name": "DiceCraft.EditMode",
+          "mvid": "588d65cd-14de-43cc-8855-ef72e6eefbc1",
+          "dllSha256": "dcbfc32e95db63f202055b0861ba94111890383e8d02d66412ea88f916c2f33e"
+        },
+        {
+          "name": "DiceCraft.Editor",
+          "mvid": "8363a76d-c9b7-41b3-adb8-a3c71e0203e1",
+          "dllSha256": "67f299eca4a20805142458eaa7d67b7dff2002bfbad4b63e1f1ace5d8c1bb9b6"
+        },
+        {
+          "name": "DiceCraft.PlayModeTests",
+          "mvid": "fc45e933-2575-4c18-a4be-ddc0a571c2a2",
+          "dllSha256": "1377d6e74c5dd450d2b71d31cb3014c01908b4e94de26f1a047a3a9fc4e8de4a"
+        },
+        {
+          "name": "DiceCraft.Runtime",
+          "mvid": "9b5b384a-fd2e-406c-a8fe-c6487feb8139",
+          "dllSha256": "275140cc76d48d95ccd6900825054a370b17229aa417fc96dc6802f056c0bbcb"
+        }
+      ],
+      "images": [
+        {
+          "path": "artifacts/cache/v07-resultrows-720-063404/DiceCraftTests_3fce4d1f5a014bd2af4ed9ea17c61654/art07-edge-screens/S15-gameplay-item-hover.png",
+          "sha256": "7a2082cb2c5ab39887cd198ce4d05d8c42cac723a33395041422848cdc018e5b",
+          "size": [
+            1280,
+            720
+          ],
+          "visualInspection": "original full image"
+        },
+        {
+          "path": "artifacts/cache/v07-resultrows-720-063404/DiceCraftTests_fb6089bcaebe4f0ea976a19932e666f1/art07-edge-screens/S18-reduced-mid-font150.png",
+          "sha256": "12c41d507f76ddefa3c5683d6bece4bc75f4f615e3c9b178c7fc8f364c191771",
+          "size": [
+            1280,
+            720
+          ],
+          "visualInspection": "original full image"
+        },
+        {
+          "path": "artifacts/cache/v07-resultrows-720-063404/DiceCraftTests_fb6089bcaebe4f0ea976a19932e666f1/art07-edge-screens/S18-row0-font100.png",
+          "sha256": "c71e3fd2d79cda1825ba2c93cf4a021a846a8d3f9daeb9602afd0a5365cf5d11",
+          "size": [
+            1280,
+            720
+          ],
+          "visualInspection": "original centre-paper crop via 6-frame sheet"
+        },
+        {
+          "path": "artifacts/cache/v07-resultrows-720-063404/DiceCraftTests_fb6089bcaebe4f0ea976a19932e666f1/art07-edge-screens/S18-row0-font125.png",
+          "sha256": "03b9d8a4caf6cd660928a2f2c14efabbb204738bc50232707785063c128a2ff3",
+          "size": [
+            1280,
+            720
+          ],
+          "visualInspection": "original centre-paper crop via 6-frame sheet"
+        },
+        {
+          "path": "artifacts/cache/v07-resultrows-720-063404/DiceCraftTests_fb6089bcaebe4f0ea976a19932e666f1/art07-edge-screens/S18-row0-font150.png",
+          "sha256": "f7db70da41d36f1f2e6963757c9dfb69c8a46f98724cea2e6522aa630e5656bf",
+          "size": [
+            1280,
+            720
+          ],
+          "visualInspection": "original centre-paper crop via 6-frame sheet"
+        },
+        {
+          "path": "artifacts/cache/v07-resultrows-720-063404/DiceCraftTests_fb6089bcaebe4f0ea976a19932e666f1/art07-edge-screens/S18-row1-font100.png",
+          "sha256": "9ed70eee43ed6a0b78be88513417c1bf50790d474040c097bd3dca6bc6e06727",
+          "size": [
+            1280,
+            720
+          ],
+          "visualInspection": "original centre-paper crop via 6-frame sheet"
+        },
+        {
+          "path": "artifacts/cache/v07-resultrows-720-063404/DiceCraftTests_fb6089bcaebe4f0ea976a19932e666f1/art07-edge-screens/S18-row1-font125.png",
+          "sha256": "cc4da8fca3313b8b92bd8318113b1758e652312935f6c1ed402cd4df0b6786da",
+          "size": [
+            1280,
+            720
+          ],
+          "visualInspection": "original centre-paper crop via 6-frame sheet"
+        },
+        {
+          "path": "artifacts/cache/v07-resultrows-720-063404/DiceCraftTests_fb6089bcaebe4f0ea976a19932e666f1/art07-edge-screens/S18-row1-font150.png",
+          "sha256": "6dc5625dc5c6047321f0456a98f4efb0f1a4f1e718577ea1a534e5c4c92e0473",
+          "size": [
+            1280,
+            720
+          ],
+          "visualInspection": "original centre-paper crop via 6-frame sheet"
+        },
+        {
+          "path": "artifacts/cache/v07-resultrows-720-063404/DiceCraftTests_fb6089bcaebe4f0ea976a19932e666f1/art07-edge-screens/S18-row2-font100.png",
+          "sha256": "d278701bd80ded62a11e7d9e70194f61e14c0aafe5de7ee540b07c8dbe5d3dae",
+          "size": [
+            1280,
+            720
+          ],
+          "visualInspection": "original centre-paper crop via 6-frame sheet"
+        },
+        {
+          "path": "artifacts/cache/v07-resultrows-720-063404/DiceCraftTests_fb6089bcaebe4f0ea976a19932e666f1/art07-edge-screens/S18-row2-font125.png",
+          "sha256": "7440d9f38de1d588287a1e09fa13685f591160d60217e45c506bf8dcf9fd4103",
+          "size": [
+            1280,
+            720
+          ],
+          "visualInspection": "original centre-paper crop via 6-frame sheet"
+        },
+        {
+          "path": "artifacts/cache/v07-resultrows-720-063404/DiceCraftTests_fb6089bcaebe4f0ea976a19932e666f1/art07-edge-screens/S18-row2-font150.png",
+          "sha256": "3b3bf7fdb8c6d810d61c15ea37afbe08328ff2b5ee460c551e95d6ed9c03373a",
+          "size": [
+            1280,
+            720
+          ],
+          "visualInspection": "original centre-paper crop via 6-frame sheet"
+        },
+        {
+          "path": "artifacts/cache/v07-resultrows-720-063404/DiceCraftTests_fb6089bcaebe4f0ea976a19932e666f1/art07-edge-screens/S18-row3-font100.png",
+          "sha256": "eaf953e8aae5e299714cde54c8bca36b735b3f7c55cba6f522a520bad8b33e57",
+          "size": [
+            1280,
+            720
+          ],
+          "visualInspection": "original centre-paper crop via 6-frame sheet"
+        },
+        {
+          "path": "artifacts/cache/v07-resultrows-720-063404/DiceCraftTests_fb6089bcaebe4f0ea976a19932e666f1/art07-edge-screens/S18-row3-font125.png",
+          "sha256": "380cf165feccbd36af6791fb64e755ca863936a59118793ccac4aa3c87ef1e38",
+          "size": [
+            1280,
+            720
+          ],
+          "visualInspection": "original centre-paper crop via 6-frame sheet"
+        },
+        {
+          "path": "artifacts/cache/v07-resultrows-720-063404/DiceCraftTests_fb6089bcaebe4f0ea976a19932e666f1/art07-edge-screens/S18-row3-font150.png",
+          "sha256": "36ca4999088032b5ae36316dd6fd4eecf4c3523ec245e1ae8a8483706afcf2c8",
+          "size": [
+            1280,
+            720
+          ],
+          "visualInspection": "original centre-paper crop via 6-frame sheet"
+        },
+        {
+          "path": "artifacts/cache/v07-resultrows-720-063404/DiceCraftTests_fb6089bcaebe4f0ea976a19932e666f1/art07-edge-screens/S18-row4-font100.png",
+          "sha256": "797487ff8e2ad4ab973b4c8391cf57e0388c227ff1c94713c11a273c17fccfe4",
+          "size": [
+            1280,
+            720
+          ],
+          "visualInspection": "original centre-paper crop via 6-frame sheet"
+        },
+        {
+          "path": "artifacts/cache/v07-resultrows-720-063404/DiceCraftTests_fb6089bcaebe4f0ea976a19932e666f1/art07-edge-screens/S18-row4-font125.png",
+          "sha256": "c73eb102c64cef06b0dc5401298fd31205fe45cd4c612d08ce0cf179ed02f34a",
+          "size": [
+            1280,
+            720
+          ],
+          "visualInspection": "original centre-paper crop via 6-frame sheet"
+        },
+        {
+          "path": "artifacts/cache/v07-resultrows-720-063404/DiceCraftTests_fb6089bcaebe4f0ea976a19932e666f1/art07-edge-screens/S18-row4-font150.png",
+          "sha256": "10f09e735a303d18df1ad77a1b9672d36eda433cec4292d538c9f674fc92f297",
+          "size": [
+            1280,
+            720
+          ],
+          "visualInspection": "original centre-paper crop via 6-frame sheet"
+        },
+        {
+          "path": "artifacts/cache/v07-resultrows-720-063404/DiceCraftTests_fb6089bcaebe4f0ea976a19932e666f1/art07-edge-screens/S18-row5-font100.png",
+          "sha256": "d64a57c77785a0cddaaebe2ee5ece7618bd240c58228be19bf25c458639941c2",
+          "size": [
+            1280,
+            720
+          ],
+          "visualInspection": "original centre-paper crop via 6-frame sheet"
+        },
+        {
+          "path": "artifacts/cache/v07-resultrows-720-063404/DiceCraftTests_fb6089bcaebe4f0ea976a19932e666f1/art07-edge-screens/S18-row5-font125.png",
+          "sha256": "d784f7451b271ffe35de40d4c8e5cfad0834c1066c448da504afe52f85ca67c1",
+          "size": [
+            1280,
+            720
+          ],
+          "visualInspection": "original centre-paper crop via 6-frame sheet"
+        },
+        {
+          "path": "artifacts/cache/v07-resultrows-720-063404/DiceCraftTests_fb6089bcaebe4f0ea976a19932e666f1/art07-edge-screens/S18-row5-font150.png",
+          "sha256": "47e0356c531d94ce8ae397e40ae4dcf0f101038d7de9bc5ddc2e8668f9541536",
+          "size": [
+            1280,
+            720
+          ],
+          "visualInspection": "original centre-paper crop via 6-frame sheet; additionally opened original full image"
+        }
+      ]
+    },
+    {
+      "archive": "v07-status-1080-063914",
+      "archiveHash": "893622130834294439966d5888aec35c3de3a1a9c7358b1f4018bb1902967763",
+      "files": 40,
+      "bad": [],
+      "binding": "artifacts/cache/v07-status-1080-063914/nunit-20261101-063914.binding.json",
+      "reportHashMatches": true,
+      "sourceUnchanged": true,
+      "assembliesUnchanged": true,
+      "assemblies": [
+        {
+          "name": "DiceCraft.Core",
+          "mvid": "8f690e0d-a075-4b72-98e4-2cb64ced2fa3",
+          "dllSha256": "44a137cd38d7b525382dfda7adbdb7676d12d1dbc05520638d8a14642a96031b"
+        },
+        {
+          "name": "DiceCraft.EditMode",
+          "mvid": "588d65cd-14de-43cc-8855-ef72e6eefbc1",
+          "dllSha256": "dcbfc32e95db63f202055b0861ba94111890383e8d02d66412ea88f916c2f33e"
+        },
+        {
+          "name": "DiceCraft.Editor",
+          "mvid": "8363a76d-c9b7-41b3-adb8-a3c71e0203e1",
+          "dllSha256": "67f299eca4a20805142458eaa7d67b7dff2002bfbad4b63e1f1ace5d8c1bb9b6"
+        },
+        {
+          "name": "DiceCraft.PlayModeTests",
+          "mvid": "53d54d81-06a2-407f-83b3-7f35094118ea",
+          "dllSha256": "d834a3a13ac4cfb128ca69b4a568a4e79906dec2c4aab17d1b524a82756230eb"
+        },
+        {
+          "name": "DiceCraft.Runtime",
+          "mvid": "9b5b384a-fd2e-406c-a8fe-c6487feb8139",
+          "dllSha256": "275140cc76d48d95ccd6900825054a370b17229aa417fc96dc6802f056c0bbcb"
+        }
+      ],
+      "images": [
+        {
+          "path": "artifacts/cache/v07-status-1080-063914/DiceCraftTests_6e73d643183144d39ca23e84acade79c/art07-edge-screens/S02-recovered-font100.png",
+          "sha256": "506f563a3c99a6cff963f2e2e377c3993e355c98f3f7c125d23c46f1a2866d31",
+          "size": [
+            1920,
+            1080
+          ],
+          "visualInspection": "original full image"
+        },
+        {
+          "path": "artifacts/cache/v07-status-1080-063914/DiceCraftTests_6e73d643183144d39ca23e84acade79c/art07-edge-screens/S02-recovered-font125.png",
+          "sha256": "68afbd96e3b63cc90cdfac8106b8a4880fb5f5c7f109fa1b2b75aecd26de82ad",
+          "size": [
+            1920,
+            1080
+          ],
+          "visualInspection": "original full image"
+        },
+        {
+          "path": "artifacts/cache/v07-status-1080-063914/DiceCraftTests_6e73d643183144d39ca23e84acade79c/art07-edge-screens/S02-recovered-font150.png",
+          "sha256": "3d59914c8a5361aafa0d5ce7f9bd11fe8ab7727f81879478c77c553e0b05e693",
+          "size": [
+            1920,
+            1080
+          ],
+          "visualInspection": "original full image"
+        },
+        {
+          "path": "artifacts/cache/v07-status-1080-063914/DiceCraftTests_9a5dd3f2e21f4237844107dade914141/art07-edge-screens/S08-qualified-cold-font100.png",
+          "sha256": "b83015a442af045a8abe1dfe1efbf261e2b0a060bf5b67e372f7be40bdaab0e2",
+          "size": [
+            1920,
+            1080
+          ],
+          "visualInspection": "original sidebar crop via 6-panel sheet"
+        },
+        {
+          "path": "artifacts/cache/v07-status-1080-063914/DiceCraftTests_9a5dd3f2e21f4237844107dade914141/art07-edge-screens/S08-qualified-cold-font125.png",
+          "sha256": "d81fd9526bdd9b923bc3ee2da2ef388378dc8df53ffebe46f5d44dbb30a67b96",
+          "size": [
+            1920,
+            1080
+          ],
+          "visualInspection": "original sidebar crop via 6-panel sheet"
+        },
+        {
+          "path": "artifacts/cache/v07-status-1080-063914/DiceCraftTests_9a5dd3f2e21f4237844107dade914141/art07-edge-screens/S08-qualified-cold-font150.png",
+          "sha256": "59728aac8b0d8054a7c5130321c4447675f236cfe3046faa03b859b6584fc02a",
+          "size": [
+            1920,
+            1080
+          ],
+          "visualInspection": "original sidebar crop via 6-panel sheet; additionally opened original full image"
+        },
+        {
+          "path": "artifacts/cache/v07-status-1080-063914/DiceCraftTests_c25a5af7df5d4e2a8ff2202dbf314591/art07-edge-screens/S08-qualified-sidebar-font100.png",
+          "sha256": "a8a4e9b21fcc0898fa14379489c4ab7f1659098e7e2c5c7209e7319edd1fe369",
+          "size": [
+            1920,
+            1080
+          ],
+          "visualInspection": "original sidebar crop via 6-panel sheet"
+        },
+        {
+          "path": "artifacts/cache/v07-status-1080-063914/DiceCraftTests_c25a5af7df5d4e2a8ff2202dbf314591/art07-edge-screens/S08-qualified-sidebar-font125.png",
+          "sha256": "dcb9fcd731a44415fc10507e0cfac88ca11b93dc89e939151c9a3d541812847e",
+          "size": [
+            1920,
+            1080
+          ],
+          "visualInspection": "original sidebar crop via 6-panel sheet"
+        },
+        {
+          "path": "artifacts/cache/v07-status-1080-063914/DiceCraftTests_c25a5af7df5d4e2a8ff2202dbf314591/art07-edge-screens/S08-qualified-sidebar-font150.png",
+          "sha256": "e84ade4b210fd8e3cf86adbfebab131c4b79ba618ebbfe456d94249e4e74cfa1",
+          "size": [
+            1920,
+            1080
+          ],
+          "visualInspection": "original sidebar crop via 6-panel sheet; additionally opened original full image"
+        },
+        {
+          "path": "artifacts/cache/v07-status-1080-063914/DiceCraftTests_d93d022b0d9e4880ab88ae2d27d27fe9/art07-edge-screens/S05-excess-pending-150.png",
+          "sha256": "af9a5d359b48c1ea3eb6d6e9be4799055a67b6e4dbad145e0b86bb016a205e32",
+          "size": [
+            1920,
+            1080
+          ],
+          "visualInspection": "original full image"
+        }
+      ]
+    }
+  ],
+  "sourceComparison": [
+    {
+      "archive": "v07-resultrows-1080-063327",
+      "path": "DicePrototype/Assets/Game/UI/GameApp.Art07Results.cs",
+      "recorded": "c431d5cdced3abdd3a77a3b73b0cc94d67be06378c5748004fda752499c5145d",
+      "current": "c431d5cdced3abdd3a77a3b73b0cc94d67be06378c5748004fda752499c5145d",
+      "matches": true
+    },
+    {
+      "archive": "v07-resultrows-1080-063327",
+      "path": "DicePrototype/Assets/Game/UI/Art07ScreenReveal.cs",
+      "recorded": "7ae4b581625d87dd78614310ab698e3c7c65036a6438ea69ea562bc7e96439a1",
+      "current": "7ae4b581625d87dd78614310ab698e3c7c65036a6438ea69ea562bc7e96439a1",
+      "matches": true
+    },
+    {
+      "archive": "v07-resultrows-1080-063327",
+      "path": "DicePrototype/Assets/Game/UI/GameApp.Art07PostEffects.cs",
+      "recorded": "503ecb0cc00a128da55e9317a1cdb2f3c601651e40595bf2b8662c47fb1c1beb",
+      "current": "503ecb0cc00a128da55e9317a1cdb2f3c601651e40595bf2b8662c47fb1c1beb",
+      "matches": true
+    },
+    {
+      "archive": "v07-resultrows-1080-063327",
+      "path": "DicePrototype/Assets/Game/UI/GameApp.Art07StatusDetails.cs",
+      "recorded": "86a54b6e15dc6b581d60c585a0479f6510c59480fa8ce43a6fcc73cb60bd5961",
+      "current": "86a54b6e15dc6b581d60c585a0479f6510c59480fa8ce43a6fcc73cb60bd5961",
+      "matches": true
+    },
+    {
+      "archive": "v07-resultrows-1080-063327",
+      "path": "DicePrototype/Assets/Game/UI/GameApp.Art07.cs",
+      "recorded": "ec9dba389b848407b409243ccd31f4c889ed114820e9d57a81821113b5a844a3",
+      "current": "2057fc9fd2a99239c4d86f604c48c4344c220b641aa2f612493124fdbc168090",
+      "matches": false
+    },
+    {
+      "archive": "v07-resultrows-1080-063327",
+      "path": "DicePrototype/Assets/Game/Tests/PlayMode/Art07ResultRowsPlayModeTests.cs",
+      "recorded": "57f2ca43a88eef2d19ad3082db8268af0fe4fe3fe982d21aaf48d878ba80796a",
+      "current": "57f2ca43a88eef2d19ad3082db8268af0fe4fe3fe982d21aaf48d878ba80796a",
+      "matches": true
+    },
+    {
+      "archive": "v07-resultrows-1080-063327",
+      "path": "DicePrototype/Assets/Game/Tests/PlayMode/Art07StatusRecoveryPlayModeTests.cs",
+      "recorded": "48f3b94b2f9e3a09d7a5ee33ffb192b772bd1029c6368a755f5d2aa22e003ea1",
+      "current": "669e735a9d78f8e3f1cd29397ae9661900a06a0d6f56d5117d40ef8a35c79ab6",
+      "matches": false
+    },
+    {
+      "archive": "v07-status-1080-063914",
+      "path": "DicePrototype/Assets/Game/UI/GameApp.Art07Results.cs",
+      "recorded": "c431d5cdced3abdd3a77a3b73b0cc94d67be06378c5748004fda752499c5145d",
+      "current": "c431d5cdced3abdd3a77a3b73b0cc94d67be06378c5748004fda752499c5145d",
+      "matches": true
+    },
+    {
+      "archive": "v07-status-1080-063914",
+      "path": "DicePrototype/Assets/Game/UI/Art07ScreenReveal.cs",
+      "recorded": "7ae4b581625d87dd78614310ab698e3c7c65036a6438ea69ea562bc7e96439a1",
+      "current": "7ae4b581625d87dd78614310ab698e3c7c65036a6438ea69ea562bc7e96439a1",
+      "matches": true
+    },
+    {
+      "archive": "v07-status-1080-063914",
+      "path": "DicePrototype/Assets/Game/UI/GameApp.Art07PostEffects.cs",
+      "recorded": "503ecb0cc00a128da55e9317a1cdb2f3c601651e40595bf2b8662c47fb1c1beb",
+      "current": "503ecb0cc00a128da55e9317a1cdb2f3c601651e40595bf2b8662c47fb1c1beb",
+      "matches": true
+    },
+    {
+      "archive": "v07-status-1080-063914",
+      "path": "DicePrototype/Assets/Game/UI/GameApp.Art07StatusDetails.cs",
+      "recorded": "86a54b6e15dc6b581d60c585a0479f6510c59480fa8ce43a6fcc73cb60bd5961",
+      "current": "86a54b6e15dc6b581d60c585a0479f6510c59480fa8ce43a6fcc73cb60bd5961",
+      "matches": true
+    },
+    {
+      "archive": "v07-status-1080-063914",
+      "path": "DicePrototype/Assets/Game/UI/GameApp.Art07.cs",
+      "recorded": "ec9dba389b848407b409243ccd31f4c889ed114820e9d57a81821113b5a844a3",
+      "current": "2057fc9fd2a99239c4d86f604c48c4344c220b641aa2f612493124fdbc168090",
+      "matches": false
+    },
+    {
+      "archive": "v07-status-1080-063914",
+      "path": "DicePrototype/Assets/Game/Tests/PlayMode/Art07ResultRowsPlayModeTests.cs",
+      "recorded": "57f2ca43a88eef2d19ad3082db8268af0fe4fe3fe982d21aaf48d878ba80796a",
+      "current": "57f2ca43a88eef2d19ad3082db8268af0fe4fe3fe982d21aaf48d878ba80796a",
+      "matches": true
+    },
+    {
+      "archive": "v07-status-1080-063914",
+      "path": "DicePrototype/Assets/Game/Tests/PlayMode/Art07StatusRecoveryPlayModeTests.cs",
+      "recorded": "eb38ae734b33f67a87c8979cf4e432c71ced01b9e2b3e4c00023e0ff8b77463d",
+      "current": "669e735a9d78f8e3f1cd29397ae9661900a06a0d6f56d5117d40ef8a35c79ab6",
+      "matches": false
+    }
+  ],
+  "uniqueImagesVisuallyInspected": 50,
+  "originalFullImagesOpened": 12,
+  "cropSheetsOpened": 7,
+  "cropNotes": "36 S18 originals in six unresampled centre-paper sheets, 6 S08 originals in one unresampled sidebar sheet; tool displayed 1080 composites downscaled; original full 150% images opened for legibility. Four full images overlap crop coverage. No generated artwork substituted.",
+  "notProven": [
+    "live-clock performance or real-time video smoothness",
+    "dynamic480ms qualification stamp relocation",
+    "new720 status source",
+    "final build/Player/Mac or whole art acceptance",
+    "S09 backdrop implementation by this reviewer"
+  ]
+}

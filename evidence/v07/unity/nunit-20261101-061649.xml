@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="2" result="Failed(Child)" total="2" passed="1" failed="1" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-11-01 06:16:43Z" end-time="2026-11-01 06:16:49Z" duration="5.8436129">
+  <test-suite type="TestSuite" id="1141" name="DiceCraft P0" fullname="DiceCraft P0" runstate="Runnable" testcasecount="132" result="Failed" site="Child" start-time="2026-11-01 06:16:43Z" end-time="2026-11-01 06:16:49Z" duration="5.843613" total="2" passed="1" failed="1" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <failure>
+      <message><![CDATA[One or more child tests had errors]]></message>
+    </failure>
+    <test-suite type="Assembly" id="1135" name="DiceCraft.PlayModeTests.dll" fullname="E:/agent_workspace/gpt/game2/DicePrototype/Library/ScriptAssemblies/DiceCraft.PlayModeTests.dll" runstate="Runnable" testcasecount="132" result="Failed" site="Child" start-time="2026-11-01 06:16:43Z" end-time="2026-11-01 06:16:49Z" duration="5.820503" total="2" passed="1" failed="1" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="23240" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <failure>
+        <message><![CDATA[One or more child tests had errors]]></message>
+      </failure>
+      <test-suite type="TestSuite" id="1136" name="DiceCraft" fullname="DiceCraft" runstate="Runnable" testcasecount="132" result="Failed" site="Child" start-time="2026-11-01 06:16:43Z" end-time="2026-11-01 06:16:49Z" duration="5.818255" total="2" passed="1" failed="1" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <failure>
+          <message><![CDATA[One or more child tests had errors]]></message>
+        </failure>
+        <test-suite type="TestSuite" id="1137" name="Tests" fullname="DiceCraft.Tests" runstate="Runnable" testcasecount="132" result="Failed" site="Child" start-time="2026-11-01 06:16:43Z" end-time="2026-11-01 06:16:49Z" duration="5.816342" total="2" passed="1" failed="1" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <failure>
+            <message><![CDATA[One or more child tests had errors]]></message>
+          </failure>
+          <test-suite type="TestFixture" id="1001" name="GameplayPlayModeTests" fullname="DiceCraft.Tests.GameplayPlayModeTests" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" testcasecount="130" result="Failed" site="Child" start-time="2026-11-01 06:16:43Z" end-time="2026-11-01 06:16:49Z" duration="5.813414" total="2" passed="1" failed="1" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <failure>
+              <message><![CDATA[One or more child tests had errors]]></message>
+            </failure>
+            <test-case id="1076" name="PLAY_ART07_SETTLE_FastReducedInstantAndReopenNeverRewardOrReplay" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_SETTLE_FastReducedInstantAndReopenNeverRewardOrReplay" methodname="PLAY_ART07_SETTLE_FastReducedInstantAndReopenNeverRewardOrReplay" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="793637167" result="Passed" start-time="2026-11-01 06:16:43Z" end-time="2026-11-01 06:16:46Z" duration="3.032242" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_7a18f034b9f94b0e93301261d406df98\art07-edge-screens\settlement-fast-font150-final.png
+Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_7a18f034b9f94b0e93301261d406df98\art07-edge-screens\settlement-reduced-font150-ms060.png
+Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_7a18f034b9f94b0e93301261d406df98\art07-edge-screens\settlement-reduced-font150-final.png
+Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_7a18f034b9f94b0e93301261d406df98\art07-edge-screens\settlement-instant-font150-final.png
+Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_7a18f034b9f94b0e93301261d406df98
+]]></output>
+            </test-case>
+            <test-case id="1075" name="PLAY_ART07_SETTLE_PaperCashStaggerPauseRedrawSkipAndFontsUseOneCommittedReceipt" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_SETTLE_PaperCashStaggerPauseRedrawSkipAndFontsUseOneCommittedReceipt" methodname="PLAY_ART07_SETTLE_PaperCashStaggerPauseRedrawSkipAndFontsUseOneCommittedReceipt" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="595344451" result="Failed" start-time="2026-11-01 06:16:46Z" end-time="2026-11-01 06:16:49Z" duration="2.755432" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <failure>
+                <message><![CDATA[  Expected: True
+  But was:  False
+]]></message>
+                <stack-trace><![CDATA[at DiceCraft.Tests.GameplayPlayModeTests+<PLAY_ART07_SETTLE_PaperCashStaggerPauseRedrawSkipAndFontsUseOneCommittedReceipt>d__186.MoveNext () [0x000cd] in E:\agent_workspace\gpt\game2\DicePrototype\Assets\Game\Tests\PlayMode\Art07SettlementLegacyPlayModeTests.cs:47
+at UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\Library\PackageCache\com.unity.test-framework@ee3fe9477490\UnityEngine.TestRunner\NUnitExtensions\Attributes\TestEnumerator.cs:52
+]]></stack-trace>
+              </failure>
+              <output><![CDATA[Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_b8d25666f05d4d5295a5af9a7b272bd2\art07-edge-screens\settlement-font100-ms000.png
+Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_b8d25666f05d4d5295a5af9a7b272bd2\art07-edge-screens\settlement-font100-ms180.png
+Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_b8d25666f05d4d5295a5af9a7b272bd2\art07-edge-screens\settlement-font100-ms280.png
+Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_b8d25666f05d4d5295a5af9a7b272bd2\art07-edge-screens\settlement-font100-ms380.png
+Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_b8d25666f05d4d5295a5af9a7b272bd2\art07-edge-screens\settlement-font100-ms480.png
+Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_b8d25666f05d4d5295a5af9a7b272bd2\art07-edge-screens\settlement-font100-ms600.png
+Actual rendered screen (pending visual review): C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_b8d25666f05d4d5295a5af9a7b272bd2\art07-edge-screens\settlement-font100-ms740.png
+Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_b8d25666f05d4d5295a5af9a7b272bd2
+Saving results to: E:\agent_workspace\gpt\game2\evidence\v07\unity\nunit-20261101-061649.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

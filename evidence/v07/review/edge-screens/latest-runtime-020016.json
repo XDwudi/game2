@@ -1,0 +1,271 @@
+{
+  "report": "evidence/v07/unity/nunit-20261101-020016.xml",
+  "sha256": "06dbfc4e390299be61a14b045c13aadffaeaf5ccdcc3426d6e9ad464688535aa",
+  "reportBindingMatches": true,
+  "attributes": {
+    "id": "2",
+    "testcasecount": "48",
+    "result": "Failed(Child)",
+    "total": "48",
+    "passed": "43",
+    "failed": "5",
+    "inconclusive": "0",
+    "skipped": "0",
+    "asserts": "0",
+    "engine-version": "3.5.0.0",
+    "clr-version": "4.0.30319.42000",
+    "start-time": "2026-11-01 01:57:49Z",
+    "end-time": "2026-11-01 02:00:16Z",
+    "duration": "146.4879503"
+  },
+  "startFileCount": 1226,
+  "endFileCount": 1226,
+  "sourceAndAssembliesStable": true,
+  "runtimeAssembly": {
+    "name": "DiceCraft.Runtime",
+    "mvid": "f3c7ed16-1c23-4475-b55c-05442e3986dc",
+    "dllSha256": "f4d7230c02a9b7a7a1918ce3221f8bd29d164c569ce0403445acb0ab34028333"
+  },
+  "tests": [
+    {
+      "name": "PLAY_Art07_AbandonUnsavedRollRestoresCheckpointWithoutReplayingOrReplacingCandidate",
+      "result": "Passed",
+      "failure": null
+    },
+    {
+      "name": "PLAY_ART07_AllDiagnosticScenesValidateThroughRealSession",
+      "result": "Passed",
+      "failure": null
+    },
+    {
+      "name": "PLAY_ART07_BothRollSpeedsFixPhysicalFaceForFinal120Milliseconds",
+      "result": "Passed",
+      "failure": null
+    },
+    {
+      "name": "PLAY_ART07_BurstL5ReducedThenL0ThenNormalCannotRetainCelebrationOrParticleMotion",
+      "result": "Passed",
+      "failure": null
+    },
+    {
+      "name": "PLAY_ART07_CardInformationPreservesPricesAndGeometricRarity",
+      "result": "Passed",
+      "failure": null
+    },
+    {
+      "name": "PLAY_ART07_ChallengeSelectionIsUiOnlyAndStartCommitsOnlyNecessaryCommands",
+      "result": "Passed",
+      "failure": null
+    },
+    {
+      "name": "PLAY_ART07_ChallengeStartSaveFaultKeepsSingleCandidateAndStopsBeforeNextCommand",
+      "result": "Passed",
+      "failure": null
+    },
+    {
+      "name": "PLAY_ART07_ControllerFullCompactPoolReuseKeepsOneIdentityAndClearsBadgeTintAndOldClick",
+      "result": "Passed",
+      "failure": null
+    },
+    {
+      "name": "PLAY_ART07_CopyLinkElbowThenStraightResetsBindingSegmentsAndArrowEndpoint",
+      "result": "Passed",
+      "failure": null
+    },
+    {
+      "name": "PLAY_ART07_DebugPasswordEntryDoesNotChangeOrdinaryRunBeforeExplicitCopy",
+      "result": "Passed",
+      "failure": null
+    },
+    {
+      "name": "PLAY_ART07_DiceLockAndRetargetMoveWithoutTeleportAndPendingLiftKeepsIdentity",
+      "result": "Passed",
+      "failure": null
+    },
+    {
+      "name": "PLAY_Art07_DiceNetSeparatesPermanentRemoteAndEffectiveAndKeepsZeroProbabilityEmpty",
+      "result": "Passed",
+      "failure": null
+    },
+    {
+      "name": "PLAY_ART07_DiceSheetFadeKeepsApertureAndPreviewStationaryThenRestoresBoardSynchronously",
+      "result": "Passed",
+      "failure": null
+    },
+    {
+      "name": "PLAY_ART07_DieViewCommittedFaceBindingsAndGlassMaterialResetWithoutChangingSharedAssets",
+      "result": "Passed",
+      "failure": null
+    },
+    {
+      "name": "PLAY_ART07_DropOutsideSlotsCancelsEvenWhenNearestDieIsWithinOldRadius",
+      "result": "Passed",
+      "failure": null
+    },
+    {
+      "name": "PLAY_ART07_ExactScoreAndZeroProbabilitySurvivePresentationAndClearOnPoolReturn",
+      "result": "Passed",
+      "failure": null
+    },
+    {
+      "name": "PLAY_ART07_FirstBoundaryHintsOnlyChangeReadPreferencesAndNeverCoverActionsOrReplayAfterDismissal",
+      "result": "Passed",
+      "failure": null
+    },
+    {
+      "name": "PLAY_ART07_FirstRunGuideFollowsRealActionsAndShopWithoutMutatingRules",
+      "result": "Passed",
+      "failure": null
+    },
+    {
+      "name": "PLAY_ART07_FX_CopyRouteUsesFiveSegmentsAcrossRowsAndNoInventedHiddenAnchor",
+      "result": "Passed",
+      "failure": null
+    },
+    {
+      "name": "PLAY_ART07_FX_ExtraSubmissionAndExtraRollReportDifferentActualBudgets",
+      "result": "Passed",
+      "failure": null
+    },
+    {
+      "name": "PLAY_ART07_FX_FastSourceMarksLowQualityReplayAndSkipReset",
+      "result": "Passed",
+      "failure": null
+    },
+    {
+      "name": "PLAY_ART07_FX_MultipleRandomOwnersAndSharedCopyUseCompleteCommittedList",
+      "result": "Passed",
+      "failure": null
+    },
+    {
+      "name": "PLAY_ART07_FX_NormalPunchCompletesAcrossAdjacentBeatsAndSkipResets",
+      "result": "Passed",
+      "failure": null
+    },
+    {
+      "name": "PLAY_ART07_FX_PostScoreThreeTargetsRiskAndFrozenReplayPhysicalPips",
+      "result": "Passed",
+      "failure": null
+    },
+    {
+      "name": "PLAY_ART07_FX_RealRollAndRemoteBreakUsePlacedWorldPoolAndSkipResets",
+      "result": "Passed",
+      "failure": null
+    },
+    {
+      "name": "PLAY_ART07_G147UsesPublicDebugCommandsAndPreservesNormalCheckpoint",
+      "result": "Passed",
+      "failure": null
+    },
+    {
+      "name": "PLAY_ART07_GlassBackFacesHiddenAndGpuShellTransparentWhilePipsStayOpaque",
+      "result": "Passed",
+      "failure": null
+    },
+    {
+      "name": "PLAY_ART07_InvalidSeedKeepsDialogAndInputUntilCorrected",
+      "result": "Passed",
+      "failure": null
+    },
+    {
+      "name": "PLAY_ART07_LibraryAll26SerializedPrefabsInstantiateWithRealMeshesTextAndSupportedMaterials",
+      "result": "Passed",
+      "failure": null
+    },
+    {
+      "name": "PLAY_ART07_LoadIssueExplanationHasS22TimingAndDoesNotRewriteOrMigrateTheCheckpoint",
+      "result": "Passed",
+      "failure": null
+    },
+    {
+      "name": "PLAY_ART07_LockedDieDragFollowsPointerAndEscapeOrFocusCallbackRestoresCheckpoint",
+      "result": "Passed",
+      "failure": null
+    },
+    {
+      "name": "PLAY_ART07_LockedDieDropCommitsExactlyOneReorderWithoutUnlocking",
+      "result": "Passed",
+      "failure": null
+    },
+    {
+      "name": "PLAY_ART07_ModalRedrawDoesNotRestartFadeAndCloseImmediatelyReleasesInputWithNoninteractiveTail",
+      "result": "Passed",
+      "failure": null
+    },
+    {
+      "name": "PLAY_ART07_PooledTicketRealClockPauseResumeAndCancelNeverInvokeAnOldReceiptCallback",
+      "result": "Passed",
+      "failure": null
+    },
+    {
+      "name": "PLAY_ART07_RandomNineBranchesSharedOwnerAreExactAndReadOnly",
+      "result": "Passed",
+      "failure": null
+    },
+    {
+      "name": "PLAY_ART07_RealCommittedReceiptThreeSpeedsAndReducedMotionPreserveStateAndSaveBytes",
+      "result": "Passed",
+      "failure": null
+    },
+    {
+      "name": "PLAY_ART07_ResultScreensUseRealTerminalCommandsAndPreserveExactReceipts",
+      "result": "Passed",
+      "failure": null
+    },
+    {
+      "name": "PLAY_ART07_ScoreStructureChosenItemAndZeroReasonRemainIndependent",
+      "result": "Passed",
+      "failure": null
+    },
+    {
+      "name": "PLAY_ART07_SettlementUsesActualIncomeFundAndTemporaryCleanupReceipts",
+      "result": "Passed",
+      "failure": null
+    },
+    {
+      "name": "PLAY_ART07_TwoHundredFullRendererReplaysKeepNodesMaterialsAndCommittedStateStable",
+      "result": "Passed",
+      "failure": null
+    },
+    {
+      "name": "PLAY_ART07_TX_ExpansionAnimatesOnlyActuallyAddedSlotAndPreservesOtherOffers",
+      "result": "Failed",
+      "failure": "UnityEngine.MissingComponentException : There is no 'CanvasGroup' attached to the \"Offer_OFFER_00061\" game object, but a script is trying to access it.\nYou probably need to add a CanvasGroup to the game object \"Offer_OFFER_00061\". Or your script needs to check if the component is attached before using it."
+    },
+    {
+      "name": "PLAY_ART07_TX_FailedPurchaseDiscardsInvisibleCaptureAndKeepsCheckpoint",
+      "result": "Passed",
+      "failure": null
+    },
+    {
+      "name": "PLAY_ART07_TX_PhysicalUpgradeUsesActualFaceAndOverlapping360Or420Timeline",
+      "result": "Failed",
+      "failure": "UnityEngine.MissingComponentException : There is no 'CanvasGroup' attached to the \"ShopProducts\" game object, but a script is trying to access it.\nYou probably need to add a CanvasGroup to the game object \"ShopProducts\". Or your script needs to check if the component is attached before using it."
+    },
+    {
+      "name": "PLAY_ART07_TX_PurchaseUsesCommittedNewInstanceAndSkipRestoresAllGroups",
+      "result": "Failed",
+      "failure": "UnityEngine.MissingComponentException : There is no 'CanvasGroup' attached to the \"Offer_OFFER_00001\" game object, but a script is trying to access it.\nYou probably need to add a CanvasGroup to the game object \"Offer_OFFER_00001\". Or your script needs to check if the component is attached before using it."
+    },
+    {
+      "name": "PLAY_ART07_TX_RefreshOnlyControllerShelfUsesOld100AndNew180Milliseconds",
+      "result": "Failed",
+      "failure": "UnityEngine.MissingComponentException : There is no 'CanvasGroup' attached to the \"Offer_OFFER_00013\" game object, but a script is trying to access it.\nYou probably need to add a CanvasGroup to the game object \"Offer_OFFER_00013\". Or your script needs to check if the component is attached before using it."
+    },
+    {
+      "name": "PLAY_ART07_TX_SaveFailureRetainsOldShelfAndRetryAnimatesSameSavedCandidate",
+      "result": "Failed",
+      "failure": "UnityEngine.MissingComponentException : There is no 'CanvasGroup' attached to the \"Offer_OFFER_00013\" game object, but a script is trying to access it.\nYou probably need to add a CanvasGroup to the game object \"Offer_OFFER_00013\". Or your script needs to check if the component is attached before using it."
+    },
+    {
+      "name": "PLAY_ART07_AudioPrewarmsTwelveShortVoicesOneMusicAndNoGrowthAcross200Receipts",
+      "result": "Passed",
+      "failure": null
+    },
+    {
+      "name": "PLAY_ART07_AudioStopsOnlyOwningReceiptAndMuteAppliesImmediately",
+      "result": "Passed",
+      "failure": null
+    }
+  ]
+}

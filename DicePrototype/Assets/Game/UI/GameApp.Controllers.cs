@@ -120,12 +120,12 @@ namespace DiceCraft
             {
                 var c=ViewState.controllers[i];float x=(i%3)*490,y=(i/3)*175;
                 var b=UiKit.Button(list,"OrderCard"+c.instanceId,(i+1)+". "+NameOf(c.definitionId)+" · "+EnchantShort(c.enchantmentId)+"\n"+ControllerStateLabel(c),x,y,470,105,()=>ShowController(c,ViewState.phase=="Shop"));
-                b.GetComponentInChildren<TextMeshProUGUI>().fontSize=21;AttachControllerDrag(b,c);
-                UiKit.Button(list,"MoveLeft"+c.instanceId,"←",x,y+115,225,43,()=>MoveController(c.instanceId,-1),CanReorderControllers&&i>0);
-                UiKit.Button(list,"MoveRight"+c.instanceId,"→",x+245,y+115,225,43,()=>MoveController(c.instanceId,1),CanReorderControllers&&i<ViewState.controllers.Count-1);
+                b.GetComponentInChildren<TextMeshProUGUI>().fontSize=21*UiKit.FontScale;AttachControllerDrag(b,c);
+                UiKit.Button(list,"MoveLeft"+c.instanceId,"←",x,y+115,225,60,()=>MoveController(c.instanceId,-1),CanReorderControllers&&i>0);
+                UiKit.Button(list,"MoveRight"+c.instanceId,"→",x+245,y+115,225,60,()=>MoveController(c.instanceId,1),CanReorderControllers&&i<ViewState.controllers.Count-1);
             }
             if(ViewState.controllers.Count==0)UiKit.Text(list,"EmptyControllers","当前没有控制器。",20,20,1400,80,28,UiKit.Muted);
         }
-        private void OnApplicationFocus(bool focused){if(!focused)CancelControllerDrag();}
+        private void OnApplicationFocus(bool focused){if(!focused){CancelControllerDrag();CancelDieDrag07();if(IsBusy)SkipVisual();}}
     }
 }

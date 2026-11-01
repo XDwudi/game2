@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="1" result="Failed(Child)" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-31 17:42:35Z" end-time="2026-10-31 17:42:35Z" duration="0.1659703">
+  <test-suite type="TestSuite" id="1051" name="DiceCraft P0" fullname="DiceCraft P0" runstate="Runnable" testcasecount="41" result="Failed" site="Child" start-time="2026-10-31 17:42:35Z" end-time="2026-10-31 17:42:35Z" duration="0.165970" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <failure>
+      <message><![CDATA[One or more child tests had errors]]></message>
+    </failure>
+    <test-suite type="Assembly" id="1095" name="DiceCraft.PlayModeTests.dll" fullname="E:/agent_workspace/gpt/game2/DicePrototype/Library/ScriptAssemblies/DiceCraft.PlayModeTests.dll" runstate="Runnable" testcasecount="41" result="Failed" site="Child" start-time="2026-10-31 17:42:35Z" end-time="2026-10-31 17:42:35Z" duration="0.156895" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="40688" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <failure>
+        <message><![CDATA[One or more child tests had errors]]></message>
+      </failure>
+      <test-suite type="TestSuite" id="1096" name="DiceCraft" fullname="DiceCraft" runstate="Runnable" testcasecount="41" result="Failed" site="Child" start-time="2026-10-31 17:42:35Z" end-time="2026-10-31 17:42:35Z" duration="0.144004" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <failure>
+          <message><![CDATA[One or more child tests had errors]]></message>
+        </failure>
+        <test-suite type="TestSuite" id="1097" name="Tests" fullname="DiceCraft.Tests" runstate="Runnable" testcasecount="41" result="Failed" site="Child" start-time="2026-10-31 17:42:35Z" end-time="2026-10-31 17:42:35Z" duration="0.127481" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <failure>
+            <message><![CDATA[One or more child tests had errors]]></message>
+          </failure>
+          <test-suite type="TestFixture" id="1092" name="PresentationAudioPlayModeTests" fullname="DiceCraft.Tests.PresentationAudioPlayModeTests" classname="DiceCraft.Tests.PresentationAudioPlayModeTests" runstate="Runnable" testcasecount="2" result="Failed" site="Child" start-time="2026-10-31 17:42:35Z" end-time="2026-10-31 17:42:35Z" duration="0.109568" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <failure>
+              <message><![CDATA[One or more child tests had errors]]></message>
+            </failure>
+            <test-case id="1093" name="PLAY_ART07_AudioPrewarmsTwelveShortVoicesOneMusicAndNoGrowthAcross200Receipts" fullname="DiceCraft.Tests.PresentationAudioPlayModeTests.PLAY_ART07_AudioPrewarmsTwelveShortVoicesOneMusicAndNoGrowthAcross200Receipts" methodname="PLAY_ART07_AudioPrewarmsTwelveShortVoicesOneMusicAndNoGrowthAcross200Receipts" classname="DiceCraft.Tests.PresentationAudioPlayModeTests" runstate="Runnable" seed="831322939" result="Failed" start-time="2026-10-31 17:42:35Z" end-time="2026-10-31 17:42:35Z" duration="0.085323" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <failure>
+                <message><![CDATA[  Iteration 0 frame 11 DSP 1096.832 activeListeners=0 prewarmPlaying=13
+Art07Voice_00 id=25871:4352 loop=False playing=True clip=sfx_card_trigger samples=0
+Art07Voice_01 id=25919:3328 loop=False playing=True clip=sfx_card_trigger samples=0
+Art07Voice_02 id=25851:4352 loop=False playing=True clip=sfx_card_trigger samples=0
+Art07Voice_03 id=27805:4864 loop=False playing=True clip=sfx_card_trigger samples=0
+Art07Voice_04 id=25859:3840 loop=False playing=True clip=sfx_card_trigger samples=0
+Art07Voice_05 id=25839:3328 loop=False playing=True clip=sfx_card_trigger samples=0
+Art07Voice_06 id=25863:3840 loop=False playing=True clip=sfx_card_trigger samples=0
+Art07Voice_07 id=27848:3840 loop=False playing=True clip=sfx_card_trigger samples=0
+Art07Voice_08 id=25860:4352 loop=False playing=True clip=<none> samples=0
+Art07Voice_09 id=27849:3840 loop=False playing=True clip=<none> samples=0
+Art07Voice_10 id=25852:4352 loop=False playing=True clip=<none> samples=0
+Art07Voice_11 id=25874:3328 loop=False playing=True clip=<none> samples=0
+Art07Music id=25864:3840 loop=True playing=True clip=music_table_loop samples=0
+  Expected: less than or equal to 8
+  But was:  12
+]]></message>
+                <stack-trace><![CDATA[at DiceCraft.Tests.PresentationAudioPlayModeTests+<PLAY_ART07_AudioPrewarmsTwelveShortVoicesOneMusicAndNoGrowthAcross200Receipts>d__4.MoveNext () [0x0032b] in E:\agent_workspace\gpt\game2\DicePrototype\Assets\Game\Tests\PlayMode\Presentation07\PresentationAudioPlayModeTests.cs:43
+at UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\Library\PackageCache\com.unity.test-framework@ee3fe9477490\UnityEngine.TestRunner\NUnitExtensions\Attributes\TestEnumerator.cs:52
+]]></stack-trace>
+              </failure>
+              <output><![CDATA[Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Attempting to get `timeSamples` on an audio source that has a resource assigned that is not a clip is ignored!
+Saving results to: E:\agent_workspace\gpt\game2\evidence\v07\unity\nunit-20261031-174235.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

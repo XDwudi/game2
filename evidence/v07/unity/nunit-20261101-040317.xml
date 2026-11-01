@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="1" result="Passed" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-11-01 04:03:13Z" end-time="2026-11-01 04:03:17Z" duration="3.525339">
+  <test-suite type="TestSuite" id="1127" name="DiceCraft P0" fullname="DiceCraft P0" runstate="Runnable" testcasecount="118" result="Passed" start-time="2026-11-01 04:03:13Z" end-time="2026-11-01 04:03:17Z" duration="3.525339" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <test-suite type="Assembly" id="1121" name="DiceCraft.PlayModeTests.dll" fullname="E:/agent_workspace/gpt/game2/DicePrototype/Library/ScriptAssemblies/DiceCraft.PlayModeTests.dll" runstate="Runnable" testcasecount="118" result="Passed" start-time="2026-11-01 04:03:13Z" end-time="2026-11-01 04:03:17Z" duration="3.512177" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="23240" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <test-suite type="TestSuite" id="1122" name="DiceCraft" fullname="DiceCraft" runstate="Runnable" testcasecount="118" result="Passed" start-time="2026-11-01 04:03:13Z" end-time="2026-11-01 04:03:17Z" duration="3.500024" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1123" name="Tests" fullname="DiceCraft.Tests" runstate="Runnable" testcasecount="118" result="Passed" start-time="2026-11-01 04:03:13Z" end-time="2026-11-01 04:03:17Z" duration="3.496549" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="1001" name="GameplayPlayModeTests" fullname="DiceCraft.Tests.GameplayPlayModeTests" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" testcasecount="116" result="Passed" start-time="2026-11-01 04:03:13Z" end-time="2026-11-01 04:03:17Z" duration="3.492348" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1079" name="PLAY_ART07_UPGRADE_ActualCeramicAndSingleQuestionFlipRenderBeforeMiddleAndAfter" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_UPGRADE_ActualCeramicAndSingleQuestionFlipRenderBeforeMiddleAndAfter" methodname="PLAY_ART07_UPGRADE_ActualCeramicAndSingleQuestionFlipRenderBeforeMiddleAndAfter" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="837391710" result="Passed" start-time="2026-11-01 04:03:13Z" end-time="2026-11-01 04:03:17Z" duration="3.469030" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[UPGRADE_GPU U05 progress=0 stage= turn=0 frame=24
+UPGRADE_GPU U05 progress=0.175 stage= turn=0 frame=25
+UPGRADE_GPU U05 progress=0.475 stage= turn=0 frame=26
+UPGRADE_GPU U05 progress=0.8 stage= turn=0 frame=27
+UPGRADE_GPU U05 progress=0.99 stage= turn=0 frame=28
+UPGRADE_GPU U07 progress=0 stage=OldPips turn=0 frame=31
+UPGRADE_GPU U07 progress=0.175 stage=OldPips turn=45 frame=32
+UPGRADE_GPU U07 progress=0.475 stage=Question turn=90 frame=34
+UPGRADE_GPU U07 progress=0.8 stage=CommittedPips turn=135 frame=35
+UPGRADE_GPU U07 progress=0.99 stage=CommittedPips turn=179.8341 frame=36
+Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_dcb2fd3476af495bb0a7e6051cd4f19b
+Saving results to: E:\agent_workspace\gpt\game2\evidence\v07\unity\nunit-20261101-040317.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

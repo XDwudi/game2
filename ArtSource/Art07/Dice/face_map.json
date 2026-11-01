@@ -1,0 +1,202 @@
+{
+  "schemaVersion": 1,
+  "artVersion": "art0.7.0",
+  "units": "metres",
+  "referenceEdgeLength": 1,
+  "surfaceOffset": 0.002,
+  "runtimeConvention": "Unity local +Y up; dynamic pips never identify faceId",
+  "faces": [
+    {
+      "faceId": "F01",
+      "unityNormal": [
+        0,
+        1,
+        0
+      ],
+      "unityCenter": [
+        0.0,
+        0.502,
+        0.0
+      ],
+      "blenderNormal": [
+        0,
+        0,
+        1
+      ],
+      "oppositeFaceId": "F06",
+      "markerObject": "Face_F01",
+      "uvTangentBlender": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "uvBitangentBlender": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "initialPip": 1,
+      "initialColor": "red"
+    },
+    {
+      "faceId": "F02",
+      "unityNormal": [
+        0,
+        0,
+        1
+      ],
+      "unityCenter": [
+        0.0,
+        0.0,
+        0.502
+      ],
+      "blenderNormal": [
+        0,
+        -1,
+        0
+      ],
+      "oppositeFaceId": "F05",
+      "markerObject": "Face_F02",
+      "uvTangentBlender": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "uvBitangentBlender": [
+        -0.0,
+        0.0,
+        1.0
+      ],
+      "initialPip": 2,
+      "initialColor": "blue"
+    },
+    {
+      "faceId": "F03",
+      "unityNormal": [
+        1,
+        0,
+        0
+      ],
+      "unityCenter": [
+        0.502,
+        0.0,
+        0.0
+      ],
+      "blenderNormal": [
+        1,
+        0,
+        0
+      ],
+      "oppositeFaceId": "F04",
+      "markerObject": "Face_F03",
+      "uvTangentBlender": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "uvBitangentBlender": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "initialPip": 3,
+      "initialColor": "blue"
+    },
+    {
+      "faceId": "F04",
+      "unityNormal": [
+        -1,
+        0,
+        0
+      ],
+      "unityCenter": [
+        -0.502,
+        0.0,
+        0.0
+      ],
+      "blenderNormal": [
+        -1,
+        0,
+        0
+      ],
+      "oppositeFaceId": "F03",
+      "markerObject": "Face_F04",
+      "uvTangentBlender": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "uvBitangentBlender": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "initialPip": 4,
+      "initialColor": "red"
+    },
+    {
+      "faceId": "F05",
+      "unityNormal": [
+        0,
+        0,
+        -1
+      ],
+      "unityCenter": [
+        0.0,
+        0.0,
+        -0.502
+      ],
+      "blenderNormal": [
+        0,
+        1,
+        0
+      ],
+      "oppositeFaceId": "F02",
+      "markerObject": "Face_F05",
+      "uvTangentBlender": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "uvBitangentBlender": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "initialPip": 5,
+      "initialColor": "blue"
+    },
+    {
+      "faceId": "F06",
+      "unityNormal": [
+        0,
+        -1,
+        0
+      ],
+      "unityCenter": [
+        0.0,
+        -0.502,
+        0.0
+      ],
+      "blenderNormal": [
+        0,
+        0,
+        -1
+      ],
+      "oppositeFaceId": "F01",
+      "markerObject": "Face_F06",
+      "uvTangentBlender": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "uvBitangentBlender": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "initialPip": 6,
+      "initialColor": "blue"
+    }
+  ]
+}

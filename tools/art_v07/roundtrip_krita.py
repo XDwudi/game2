@@ -1,0 +1,10 @@
+"""Professionally reopen every content .kra and compare exported visible pixels."""
+from pathlib import Path
+from PIL import Image,ImageChops
+import subprocess,os,json,hashlib,argparse,datetime
+ROOT=Path(__file__).resolve().parents[2];parser=argparse.ArgumentParser();parser.add_argument('--krita',required=True);a=parser.parse_args();exe=Path(a.krita).resolve();source=ROOT/'ArtSource/Art07';stamp=datetime.datetime.now().strftime('%Y%m%d-%H%M%S');out=source/f'Review/krita-roundtrip-{stamp}';out.mkdir(parents=True);rows=[]
+manifest=json.loads((source/'content_manifest.json').read_text(encoding='utf8'))
+for asset in manifest['assets']:
+ src=ROOT/asset['sourcePath'];target=out/(asset['assetId']+'.png');run=subprocess.run([str(exe),'--nosplash','--export','--export-filename',str(target),str(src)],cwd=exe.parent,timeout=75,capture_output=True,creationflags=subprocess.CREATE_NO_WINDOW if os.name=='nt' else 0);assert run.returncode==0 and target.exists(),asset['assetId']
+ expected=Image.open(ROOT/'DicePrototype'/asset['runtimePath']).convert('RGBA');actual=Image.open(target).convert('RGBA');diff=ImageChops.difference(expected,actual);visible=Image.new('RGB',expected.size);visible.paste(diff,(0,0),expected.getchannel('A'));ok=not visible.getbbox() and not ImageChops.difference(expected.getchannel('A'),actual.getchannel('A')).getbbox();rows.append({'id':asset['contentId'],'actualKritaReopenExport':True,'visiblePixelsEqual':ok,'sourceSha256':hashlib.sha256(src.read_bytes()).hexdigest(),'runtimeSha256':hashlib.sha256((ROOT/'DicePrototype'/asset['runtimePath']).read_bytes()).hexdigest()});assert ok,asset['assetId'];print('ROUNDTRIP',asset['contentId'],flush=True)
+result={'passed':all(r['visiblePixelsEqual'] for r in rows),'count':len(rows),'tool':'Krita5.3.4','checkerSha256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),'records':rows};(out/'report.json').write_text(json.dumps(result,indent=2),encoding='utf8');print(json.dumps({'passed':result['passed'],'count':len(rows),'report':str(out/'report.json')}))

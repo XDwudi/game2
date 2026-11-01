@@ -1,0 +1,935 @@
+{
+  "reviewer": "/root/v07_spec_audit",
+  "utc": "2026-11-01T07:21:47.671202+00:00",
+  "scope": "24 actual PNGs opened via view_image; 12 other PNGs integrity only. No Unity launch; static visual review, not Player/performance/animation acceptance.",
+  "auditPath": "artifacts/cache/v07-menu-nr01-0704/audit-four-cases.json",
+  "auditSha256": "42066327f7fc283320986527cdb9cfe2228da6057c75b74f7babb80a24f3546f",
+  "cases": [
+    {
+      "case": "1080-font100",
+      "report": "artifacts/cache/v07-menu-nr01-0704/1080-font100/capture-report.json",
+      "reportSha256": "906d0ebf3eb574b6037fb7ffa2b70e3c42a5f93a6b0b6eb1381a0446047a50e2",
+      "sourceStartSha256": "05d9aeb9206fb0381c943ce02f069989ca455b5440a858c9cadde4a227391198",
+      "sourceEndSha256": "05d9aeb9206fb0381c943ce02f069989ca455b5440a858c9cadde4a227391198",
+      "sourceFiles": 1349,
+      "sourceSnapshotsEqual": true,
+      "captureSourceSha256": "10242d786c3bb07639a2f2ae0ddc3a7f634ff8920f249d4bceba529cbe8fb5df",
+      "executedEvalSha256": "023a270b89dcf0344afd222a8425995479a8e0190ed0cf8932a46f688e0ddb32",
+      "captureDriverSha256": "456320c70230eb15d936c3b86a4af22486094e088d9a0c08c311790c5c99e451",
+      "driverResultSha256": "de2368b276b80830d99a0d5b0175f7e2538e6f3d66cb0244ddf8bc8ffa511c39",
+      "runtimeMvid": "2b0eb671-9659-49a3-889e-7b03ae9759b3",
+      "coreMvid": "8f690e0d-a075-4b72-98e4-2cb64ced2fa3",
+      "unity": "6000.6.7f1",
+      "platform": "WindowsEditor",
+      "gpu": "NVIDIA GeForce RTX 3080",
+      "graphicsApi": "Direct3D11",
+      "startedUtc": "2026-11-01T07:02:21.2452527Z",
+      "endedUtc": "2026-11-01T07:02:37.3318962Z",
+      "normalCheckpointPreserved": true,
+      "preferencesRestored": true,
+      "userOrdinaryPreserved": true,
+      "readonlyActions": 12,
+      "intentionalMutationActions": 1,
+      "images": [
+        {
+          "path": "artifacts/cache/v07-menu-nr01-0704/1080-font100/000-s01-menu-empty.png",
+          "sha256": "be78476c1747790cfd28da4f02951359ce13c4d5a8b343d4728c0df0229e9dc4",
+          "sidecarSha256": "f2d7167144fe5e6f8375999481b703c923ef4581101a3f60ac286fb7c2654629",
+          "dimensions": [
+            1920,
+            1080
+          ],
+          "actuallyViewed": true,
+          "stateAndSaveUnchanged": true,
+          "titleGlyphBounds": {
+            "left": 114.5,
+            "right": 495.8125,
+            "bottom": 788.358765,
+            "top": 882.265
+          },
+          "subtitleGlyphBounds": {
+            "left": 120.302734,
+            "right": 491.1914066,
+            "bottom": 711.2059,
+            "top": 741.4499875
+          },
+          "titleSubtitlePhysicalGap": 46.90877749999993,
+          "titleFontSize": 96.0,
+          "menuRulesBounds": {
+            "left": 120.21875,
+            "right": 502.8034063,
+            "bottom": 178.466614,
+            "top": 206.02002
+          },
+          "lockHintBounds": {
+            "left": 120.209656,
+            "right": 450.580078,
+            "bottom": 106.257813,
+            "top": 129.4000858
+          },
+          "truncatedVisibleTextRows": []
+        },
+        {
+          "path": "artifacts/cache/v07-menu-nr01-0704/1080-font100/001-s02-seed-empty.png",
+          "sha256": "32205b0a29ac1cfc0ba84f917c63e1606156081aef0a8f3f3539703326f01d00",
+          "sidecarSha256": "0ac3e63c2474821e5f1e2db4448abf9ca356d404247527cf31490f93b52e6832",
+          "dimensions": [
+            1920,
+            1080
+          ],
+          "actuallyViewed": true,
+          "stateAndSaveUnchanged": true,
+          "truncatedVisibleTextRows": []
+        },
+        {
+          "path": "artifacts/cache/v07-menu-nr01-0704/1080-font100/002-s02-seed-random.png",
+          "sha256": "4f182bf0392d56b7a7a4abd568f98395c1513cd784a9cf11c2a7560776f785d6",
+          "sidecarSha256": "3cd5be5cffb9060ca0605d7c29ca4537fc81071acf250ca07559058980d27484",
+          "dimensions": [
+            1920,
+            1080
+          ],
+          "actuallyViewed": true,
+          "stateAndSaveUnchanged": true,
+          "truncatedVisibleTextRows": []
+        },
+        {
+          "path": "artifacts/cache/v07-menu-nr01-0704/1080-font100/003-s02-invalid-seed.png",
+          "sha256": "37d38821515d2d82d7a592021a417b2baa22f2ff521d9ad2cd95d416060823d6",
+          "sidecarSha256": "2b2a90b35bd113b31460b0d8c582047f8e0fd3cb6dfd5637a5cd33fb863b9cf1",
+          "dimensions": [
+            1920,
+            1080
+          ],
+          "actuallyViewed": false,
+          "stateAndSaveUnchanged": true
+        },
+        {
+          "path": "artifacts/cache/v07-menu-nr01-0704/1080-font100/004-s01-cancel-empty.png",
+          "sha256": "beec0b7084a5cc9ea1447b4e28fd603ca30f3ff93dc07acf47944c39f642d433",
+          "sidecarSha256": "fdb129126bf1105db421ddc4770220e39e59a059b03db6d91f5cb0b6d53247c2",
+          "dimensions": [
+            1920,
+            1080
+          ],
+          "actuallyViewed": true,
+          "stateAndSaveUnchanged": true,
+          "titleGlyphBounds": {
+            "left": 114.5,
+            "right": 495.8125,
+            "bottom": 788.358765,
+            "top": 882.265
+          },
+          "subtitleGlyphBounds": {
+            "left": 120.302734,
+            "right": 491.1914066,
+            "bottom": 711.2059,
+            "top": 741.4499875
+          },
+          "titleSubtitlePhysicalGap": 46.90877749999993,
+          "titleFontSize": 96.0,
+          "menuRulesBounds": {
+            "left": 120.21875,
+            "right": 502.8034063,
+            "bottom": 178.466614,
+            "top": 206.02002
+          },
+          "lockHintBounds": {
+            "left": 120.209656,
+            "right": 450.580078,
+            "bottom": 106.257813,
+            "top": 129.4000858
+          },
+          "truncatedVisibleTextRows": []
+        },
+        {
+          "path": "artifacts/cache/v07-menu-nr01-0704/1080-font100/005-s03-stage-preview.png",
+          "sha256": "d6e318282c1c62a9fbee38d1476a8a8870225147c775e1c8a4a78a8c8cb2b7bb",
+          "sidecarSha256": "98a625442896cdb5b2d96cda98704cf0e1f87df918ddad9b1aa07bfb9d81805d",
+          "dimensions": [
+            1920,
+            1080
+          ],
+          "actuallyViewed": false,
+          "stateAndSaveUnchanged": true
+        },
+        {
+          "path": "artifacts/cache/v07-menu-nr01-0704/1080-font100/006-s01-menu-continue.png",
+          "sha256": "95e70a815ec17c81219d6db4a5dac9b2c7b455da12c89dd5d10d3ef012193d91",
+          "sidecarSha256": "f9cadc63522f19e8ba7d88dbdc19ae385bae35e0ba1debe2beab256b0bde8a9f",
+          "dimensions": [
+            1920,
+            1080
+          ],
+          "actuallyViewed": true,
+          "stateAndSaveUnchanged": true,
+          "titleGlyphBounds": {
+            "left": 114.5,
+            "right": 495.8125,
+            "bottom": 788.358765,
+            "top": 882.265
+          },
+          "subtitleGlyphBounds": {
+            "left": 120.302734,
+            "right": 491.1914066,
+            "bottom": 711.2059,
+            "top": 741.4499875
+          },
+          "titleSubtitlePhysicalGap": 46.90877749999993,
+          "titleFontSize": 96.0,
+          "menuRulesBounds": {
+            "left": 120.21875,
+            "right": 502.8034063,
+            "bottom": 178.466614,
+            "top": 206.02002
+          },
+          "lockHintBounds": {
+            "left": 120.209656,
+            "right": 450.580078,
+            "bottom": 106.257813,
+            "top": 129.4000858
+          },
+          "truncatedVisibleTextRows": []
+        },
+        {
+          "path": "artifacts/cache/v07-menu-nr01-0704/1080-font100/007-s02-overwrite-summary.png",
+          "sha256": "f4b8d694de6ff97df0a826ba0ec8b792716e08c23f171166e38720d38ef2b1a1",
+          "sidecarSha256": "4b25c55a11dc2c604fd5daf22f8e1d46dfa3e026d464c13940284bb30d1c3892",
+          "dimensions": [
+            1920,
+            1080
+          ],
+          "actuallyViewed": true,
+          "stateAndSaveUnchanged": true,
+          "truncatedVisibleTextRows": []
+        },
+        {
+          "path": "artifacts/cache/v07-menu-nr01-0704/1080-font100/008-s01-cancel-preserved.png",
+          "sha256": "942cf78e929a2a1e953e0e604c6c5aede1ec6b741ecb84d6e96769a747ea50dd",
+          "sidecarSha256": "982f6d809b3640f8577f87239bbc6208bda1bddafcd65b028dde99c831b871be",
+          "dimensions": [
+            1920,
+            1080
+          ],
+          "actuallyViewed": false,
+          "stateAndSaveUnchanged": true
+        }
+      ]
+    },
+    {
+      "case": "1080-font125",
+      "report": "artifacts/cache/v07-menu-nr01-0704/1080-font125/capture-report.json",
+      "reportSha256": "84e3c588236b78d1a55c6b7cb6ebc8c378dc3a9cef1ea73d2d1127a32f2265c7",
+      "sourceStartSha256": "05d9aeb9206fb0381c943ce02f069989ca455b5440a858c9cadde4a227391198",
+      "sourceEndSha256": "05d9aeb9206fb0381c943ce02f069989ca455b5440a858c9cadde4a227391198",
+      "sourceFiles": 1349,
+      "sourceSnapshotsEqual": true,
+      "captureSourceSha256": "10242d786c3bb07639a2f2ae0ddc3a7f634ff8920f249d4bceba529cbe8fb5df",
+      "executedEvalSha256": "90d58a229b0f6bc644e99cc985cbc7fb672db80e9c6c4696b0974fa9a74cacbd",
+      "captureDriverSha256": "456320c70230eb15d936c3b86a4af22486094e088d9a0c08c311790c5c99e451",
+      "driverResultSha256": "93e8ff14c172ee99df4cc182877b29e3acca27b31e1b928bb8546160d888eb6a",
+      "runtimeMvid": "2b0eb671-9659-49a3-889e-7b03ae9759b3",
+      "coreMvid": "8f690e0d-a075-4b72-98e4-2cb64ced2fa3",
+      "unity": "6000.6.7f1",
+      "platform": "WindowsEditor",
+      "gpu": "NVIDIA GeForce RTX 3080",
+      "graphicsApi": "Direct3D11",
+      "startedUtc": "2026-11-01T07:02:48.8316337Z",
+      "endedUtc": "2026-11-01T07:03:05.7934109Z",
+      "normalCheckpointPreserved": true,
+      "preferencesRestored": true,
+      "userOrdinaryPreserved": true,
+      "readonlyActions": 13,
+      "intentionalMutationActions": 1,
+      "images": [
+        {
+          "path": "artifacts/cache/v07-menu-nr01-0704/1080-font125/000-s01-menu-empty.png",
+          "sha256": "a56c557bae8c54c301f96df6f67c8b946635f4c763630740ef87f21ec058cf18",
+          "sidecarSha256": "8ba82efd6839db1b74c1ad57786b9bf15ccb90c54ee7d15c115ddd7fb9451179",
+          "dimensions": [
+            1920,
+            1080
+          ],
+          "actuallyViewed": true,
+          "stateAndSaveUnchanged": true,
+          "titleGlyphBounds": {
+            "left": 115.125,
+            "right": 591.765625,
+            "bottom": 757.9484,
+            "top": 875.33125
+          },
+          "subtitleGlyphBounds": {
+            "left": 120.378418,
+            "right": 583.9892583000001,
+            "bottom": 679.7473,
+            "top": 717.5524904
+          },
+          "titleSubtitlePhysicalGap": 40.39590959999998,
+          "titleFontSize": 120.0,
+          "menuRulesBounds": {
+            "left": 120.273438,
+            "right": 598.5041244,
+            "bottom": 147.823242,
+            "top": 182.26501480000002
+          },
+          "lockHintBounds": {
+            "left": 120.262024,
+            "right": 533.2250795,
+            "bottom": 77.0622559,
+            "top": 105.9901158
+          },
+          "truncatedVisibleTextRows": []
+        },
+        {
+          "path": "artifacts/cache/v07-menu-nr01-0704/1080-font125/001-s02-seed-empty.png",
+          "sha256": "48c1e6323218f63d19122c94d320908c8d796808a10d81e288c9c417db3711b2",
+          "sidecarSha256": "e27149e81a85f326333e8a8440023cc951f68176e0aa37218401b4d30eb10aca",
+          "dimensions": [
+            1920,
+            1080
+          ],
+          "actuallyViewed": true,
+          "stateAndSaveUnchanged": true,
+          "truncatedVisibleTextRows": []
+        },
+        {
+          "path": "artifacts/cache/v07-menu-nr01-0704/1080-font125/002-s02-seed-random.png",
+          "sha256": "da5ff8e1f9cb4cd5b87096c9f4bada9def1df6b10647bd5b7ca15694d67fa2e1",
+          "sidecarSha256": "3c75514d338802c814ada70443b9940aaaac215ab65e89f655b3ade1e1c283c0",
+          "dimensions": [
+            1920,
+            1080
+          ],
+          "actuallyViewed": true,
+          "stateAndSaveUnchanged": true,
+          "truncatedVisibleTextRows": []
+        },
+        {
+          "path": "artifacts/cache/v07-menu-nr01-0704/1080-font125/003-s02-invalid-seed.png",
+          "sha256": "3de3ccf17f779848140aafb9f0229035efe0b9b5aea26931b16c3afe3fc924c7",
+          "sidecarSha256": "227f9691f94f2b1c8b8e68a97b7557a9e26a44209ce8c791a0b864ef929a631b",
+          "dimensions": [
+            1920,
+            1080
+          ],
+          "actuallyViewed": false,
+          "stateAndSaveUnchanged": true
+        },
+        {
+          "path": "artifacts/cache/v07-menu-nr01-0704/1080-font125/004-s01-cancel-empty.png",
+          "sha256": "495ef49cdce2a13976e2414485f75413086ad04448bb9ab962c729ee85af1a7f",
+          "sidecarSha256": "236e8f687f01dde9ce29dedd974127778b96cf5c0ebc1d80c1550f7bdf1d93a4",
+          "dimensions": [
+            1920,
+            1080
+          ],
+          "actuallyViewed": true,
+          "stateAndSaveUnchanged": true,
+          "titleGlyphBounds": {
+            "left": 115.125,
+            "right": 591.765625,
+            "bottom": 757.9484,
+            "top": 875.33125
+          },
+          "subtitleGlyphBounds": {
+            "left": 120.378418,
+            "right": 583.9892583000001,
+            "bottom": 679.7473,
+            "top": 717.5524904
+          },
+          "titleSubtitlePhysicalGap": 40.39590959999998,
+          "titleFontSize": 120.0,
+          "menuRulesBounds": {
+            "left": 120.273438,
+            "right": 598.5041244,
+            "bottom": 147.823242,
+            "top": 182.26501480000002
+          },
+          "lockHintBounds": {
+            "left": 120.262024,
+            "right": 533.2250795,
+            "bottom": 77.0622559,
+            "top": 105.9901158
+          },
+          "truncatedVisibleTextRows": []
+        },
+        {
+          "path": "artifacts/cache/v07-menu-nr01-0704/1080-font125/005-s03-stage-preview.png",
+          "sha256": "9eb56013c2d96acf620595fe1411178936eb2a0da8452b5b4a1a4abef4183df7",
+          "sidecarSha256": "ed041cac3ba051b79c609b0cda3c659553e0c422f4489d82a1d8bf9009877f8f",
+          "dimensions": [
+            1920,
+            1080
+          ],
+          "actuallyViewed": false,
+          "stateAndSaveUnchanged": true
+        },
+        {
+          "path": "artifacts/cache/v07-menu-nr01-0704/1080-font125/006-s01-menu-continue.png",
+          "sha256": "b05d44d93cfc0f4b4ae2ddfa3d347c338864b58946c60baa0f4694c8d533309f",
+          "sidecarSha256": "d3d723afa3bfe63fc1caabfee73dbc7a6854ab273aefcdf9a6fb7ac03b174f50",
+          "dimensions": [
+            1920,
+            1080
+          ],
+          "actuallyViewed": true,
+          "stateAndSaveUnchanged": true,
+          "titleGlyphBounds": {
+            "left": 115.125,
+            "right": 591.765625,
+            "bottom": 757.9484,
+            "top": 875.33125
+          },
+          "subtitleGlyphBounds": {
+            "left": 120.378418,
+            "right": 583.9892583000001,
+            "bottom": 679.7473,
+            "top": 717.5524904
+          },
+          "titleSubtitlePhysicalGap": 40.39590959999998,
+          "titleFontSize": 120.0,
+          "menuRulesBounds": {
+            "left": 120.273438,
+            "right": 598.5041244,
+            "bottom": 147.823242,
+            "top": 182.26501480000002
+          },
+          "lockHintBounds": {
+            "left": 120.262024,
+            "right": 533.2250795,
+            "bottom": 77.0622559,
+            "top": 105.9901158
+          },
+          "truncatedVisibleTextRows": []
+        },
+        {
+          "path": "artifacts/cache/v07-menu-nr01-0704/1080-font125/007-s02-overwrite-summary.png",
+          "sha256": "0fca105949e7174295839bfc8afb689083a91ff05e0d5c7474ab63621338349b",
+          "sidecarSha256": "fb0e97ff06f1995debd4f01641d357b092d68b87494a3126cd0049bf3b24f403",
+          "dimensions": [
+            1920,
+            1080
+          ],
+          "actuallyViewed": true,
+          "stateAndSaveUnchanged": true,
+          "truncatedVisibleTextRows": []
+        },
+        {
+          "path": "artifacts/cache/v07-menu-nr01-0704/1080-font125/008-s01-cancel-preserved.png",
+          "sha256": "21665a779ae46c1b84da79fc31f7732e7f959edb6abd3d880e3483173106f76c",
+          "sidecarSha256": "163335de6ec5eeec8b59460c2af4fab2d1adb3c7d1684002e85c5ebd466e4db6",
+          "dimensions": [
+            1920,
+            1080
+          ],
+          "actuallyViewed": false,
+          "stateAndSaveUnchanged": true
+        }
+      ]
+    },
+    {
+      "case": "1080-font150",
+      "report": "artifacts/cache/v07-menu-nr01-0704/1080-font150/capture-report.json",
+      "reportSha256": "c04c041924b591236e2e785b9d9deca649dc034e8da077932d6db7a1b0d769d0",
+      "sourceStartSha256": "05d9aeb9206fb0381c943ce02f069989ca455b5440a858c9cadde4a227391198",
+      "sourceEndSha256": "05d9aeb9206fb0381c943ce02f069989ca455b5440a858c9cadde4a227391198",
+      "sourceFiles": 1349,
+      "sourceSnapshotsEqual": true,
+      "captureSourceSha256": "10242d786c3bb07639a2f2ae0ddc3a7f634ff8920f249d4bceba529cbe8fb5df",
+      "executedEvalSha256": "936c90bc74f87bd3bddcb0a9ac9035f848160e79b75289585b20dbdb8b5fea70",
+      "captureDriverSha256": "456320c70230eb15d936c3b86a4af22486094e088d9a0c08c311790c5c99e451",
+      "driverResultSha256": "381cb0a76e5e32a825a65a081e13eecf48b4edd0d968dc5d0947853f906f7118",
+      "runtimeMvid": "2b0eb671-9659-49a3-889e-7b03ae9759b3",
+      "coreMvid": "8f690e0d-a075-4b72-98e4-2cb64ced2fa3",
+      "unity": "6000.6.7f1",
+      "platform": "WindowsEditor",
+      "gpu": "NVIDIA GeForce RTX 3080",
+      "graphicsApi": "Direct3D11",
+      "startedUtc": "2026-11-01T07:03:18.0636149Z",
+      "endedUtc": "2026-11-01T07:03:35.8889871Z",
+      "normalCheckpointPreserved": true,
+      "preferencesRestored": true,
+      "userOrdinaryPreserved": true,
+      "readonlyActions": 14,
+      "intentionalMutationActions": 1,
+      "images": [
+        {
+          "path": "artifacts/cache/v07-menu-nr01-0704/1080-font150/000-s01-menu-empty.png",
+          "sha256": "54c68380cefdab502f3f165a56429ea5af4344c6365143925bca14cccb992b65",
+          "sidecarSha256": "0429237900ad3cb6eafd9f895d18fd2acda8ff83e75871473739babbac47fb33",
+          "dimensions": [
+            1920,
+            1080
+          ],
+          "actuallyViewed": true,
+          "stateAndSaveUnchanged": true,
+          "titleGlyphBounds": {
+            "left": 115.75,
+            "right": 687.71875,
+            "bottom": 727.538147,
+            "top": 868.3975
+          },
+          "subtitleGlyphBounds": {
+            "left": 120.4541,
+            "right": 676.7871359000001,
+            "bottom": 635.288757,
+            "top": 680.65498
+          },
+          "titleSubtitlePhysicalGap": 46.88316699999996,
+          "titleFontSize": 144.0,
+          "menuRulesBounds": {
+            "left": 120.328125,
+            "right": 694.20508,
+            "bottom": 104.179932,
+            "top": 145.5100095
+          },
+          "lockHintBounds": {
+            "left": 120.314453,
+            "right": 615.8701242,
+            "bottom": 34.8667,
+            "top": 69.58008000000001
+          },
+          "truncatedVisibleTextRows": []
+        },
+        {
+          "path": "artifacts/cache/v07-menu-nr01-0704/1080-font150/001-s02-seed-empty.png",
+          "sha256": "80f1f48a895ace35b4bd3b0f07090dc8d5595683a9c23a4ff4b56426eb080985",
+          "sidecarSha256": "1bcbeb268032012c51fc591d1212e663fc46812c107823827a80b5e7ea3f8a34",
+          "dimensions": [
+            1920,
+            1080
+          ],
+          "actuallyViewed": true,
+          "stateAndSaveUnchanged": true,
+          "truncatedVisibleTextRows": []
+        },
+        {
+          "path": "artifacts/cache/v07-menu-nr01-0704/1080-font150/002-s02-seed-random.png",
+          "sha256": "28d50dd859c3f6b2f701f528f54c964b9308717ad6bbd366599eadd05ba37472",
+          "sidecarSha256": "f94d654f71d2f772c11210a05b3aa16142b0b58f35a07b68f01d1a4cc470ef21",
+          "dimensions": [
+            1920,
+            1080
+          ],
+          "actuallyViewed": true,
+          "stateAndSaveUnchanged": true,
+          "truncatedVisibleTextRows": []
+        },
+        {
+          "path": "artifacts/cache/v07-menu-nr01-0704/1080-font150/003-s02-invalid-seed.png",
+          "sha256": "907e3396d45f86b13ad0878268c254d750adec098ddd85601ebb87913a809030",
+          "sidecarSha256": "2e8b8c58b9815f283a24dfd88edf97757ea650f7b939046131cf0603a71ae8ce",
+          "dimensions": [
+            1920,
+            1080
+          ],
+          "actuallyViewed": false,
+          "stateAndSaveUnchanged": true
+        },
+        {
+          "path": "artifacts/cache/v07-menu-nr01-0704/1080-font150/004-s01-cancel-empty.png",
+          "sha256": "047bd68d857d3518623ef227e39dfeead9e5fed3f23fc42701b7e9441c0b48d7",
+          "sidecarSha256": "8f8ae1548bbb20bef5e5cad5265cf5219a5db67f124dd4f1506b787a14d43f7a",
+          "dimensions": [
+            1920,
+            1080
+          ],
+          "actuallyViewed": true,
+          "stateAndSaveUnchanged": true,
+          "titleGlyphBounds": {
+            "left": 115.75,
+            "right": 687.71875,
+            "bottom": 727.538147,
+            "top": 868.3975
+          },
+          "subtitleGlyphBounds": {
+            "left": 120.4541,
+            "right": 676.7871359000001,
+            "bottom": 635.288757,
+            "top": 680.65498
+          },
+          "titleSubtitlePhysicalGap": 46.88316699999996,
+          "titleFontSize": 144.0,
+          "menuRulesBounds": {
+            "left": 120.328125,
+            "right": 694.20508,
+            "bottom": 104.179932,
+            "top": 145.5100095
+          },
+          "lockHintBounds": {
+            "left": 120.314453,
+            "right": 615.8701242,
+            "bottom": 34.8667,
+            "top": 69.58008000000001
+          },
+          "truncatedVisibleTextRows": []
+        },
+        {
+          "path": "artifacts/cache/v07-menu-nr01-0704/1080-font150/005-s03-stage-preview.png",
+          "sha256": "2914ec8c32e83bef22e2060f48eca4b8df7fcb503f0852a0c26e0788c97d2683",
+          "sidecarSha256": "dbe9977d8bd58627431524b166050bcadcd31832c9bd86f92f7a0f2ffd3bf611",
+          "dimensions": [
+            1920,
+            1080
+          ],
+          "actuallyViewed": false,
+          "stateAndSaveUnchanged": true
+        },
+        {
+          "path": "artifacts/cache/v07-menu-nr01-0704/1080-font150/006-s01-menu-continue.png",
+          "sha256": "78e3b1ea8ce9874e46734504830fc4718e60cd378bc6dc16c0fbbed4f734343b",
+          "sidecarSha256": "f44a11c60087756fdb28ebe1aa1594e123f3d9a48b7822af11f5effc5740a9a0",
+          "dimensions": [
+            1920,
+            1080
+          ],
+          "actuallyViewed": true,
+          "stateAndSaveUnchanged": true,
+          "titleGlyphBounds": {
+            "left": 115.75,
+            "right": 687.71875,
+            "bottom": 727.538147,
+            "top": 868.3975
+          },
+          "subtitleGlyphBounds": {
+            "left": 120.4541,
+            "right": 676.7871359000001,
+            "bottom": 635.288757,
+            "top": 680.65498
+          },
+          "titleSubtitlePhysicalGap": 46.88316699999996,
+          "titleFontSize": 144.0,
+          "menuRulesBounds": {
+            "left": 120.328125,
+            "right": 694.20508,
+            "bottom": 104.179932,
+            "top": 145.5100095
+          },
+          "lockHintBounds": {
+            "left": 120.314453,
+            "right": 615.8701242,
+            "bottom": 34.8667,
+            "top": 69.58008000000001
+          },
+          "truncatedVisibleTextRows": []
+        },
+        {
+          "path": "artifacts/cache/v07-menu-nr01-0704/1080-font150/007-s02-overwrite-summary.png",
+          "sha256": "159136cb1b785748295cdf294275db8fabc2c2e3b0ae7829fd063d75e35a2afa",
+          "sidecarSha256": "1012a83854af5a8fc8579326d33a910ee9f1f745ec810380c8083793ed92908d",
+          "dimensions": [
+            1920,
+            1080
+          ],
+          "actuallyViewed": true,
+          "stateAndSaveUnchanged": true,
+          "truncatedVisibleTextRows": []
+        },
+        {
+          "path": "artifacts/cache/v07-menu-nr01-0704/1080-font150/008-s01-cancel-preserved.png",
+          "sha256": "b9d516c31f6aa9f20fe8607b2a1ae4e741504af503f4ce2f4ecedec05ff6bc94",
+          "sidecarSha256": "9f0f6a07fa6ff86a6488b283191e170ab434d53f5f6f8ef4bdb4d01dd14347c1",
+          "dimensions": [
+            1920,
+            1080
+          ],
+          "actuallyViewed": false,
+          "stateAndSaveUnchanged": true
+        }
+      ]
+    },
+    {
+      "case": "720-font150",
+      "report": "artifacts/cache/v07-menu-nr01-0704/720-font150/capture-report.json",
+      "reportSha256": "95db733dc5e41009b96367488559482f64192af97ba3a91580a4a01dfd6e40cf",
+      "sourceStartSha256": "05d9aeb9206fb0381c943ce02f069989ca455b5440a858c9cadde4a227391198",
+      "sourceEndSha256": "05d9aeb9206fb0381c943ce02f069989ca455b5440a858c9cadde4a227391198",
+      "sourceFiles": 1349,
+      "sourceSnapshotsEqual": true,
+      "captureSourceSha256": "10242d786c3bb07639a2f2ae0ddc3a7f634ff8920f249d4bceba529cbe8fb5df",
+      "executedEvalSha256": "de92373779d2d8cc630a6f2b7796792bee60e644edde355f53f94154eae86544",
+      "captureDriverSha256": "456320c70230eb15d936c3b86a4af22486094e088d9a0c08c311790c5c99e451",
+      "driverResultSha256": "17bc78d2ffde7ddc48b2611ec7b494b27532e50afeccd2f9b3c1aaa07b7f8301",
+      "runtimeMvid": "2b0eb671-9659-49a3-889e-7b03ae9759b3",
+      "coreMvid": "8f690e0d-a075-4b72-98e4-2cb64ced2fa3",
+      "unity": "6000.6.7f1",
+      "platform": "WindowsEditor",
+      "gpu": "NVIDIA GeForce RTX 3080",
+      "graphicsApi": "Direct3D11",
+      "startedUtc": "2026-11-01T07:03:47.7951548Z",
+      "endedUtc": "2026-11-01T07:04:05.0513275Z",
+      "normalCheckpointPreserved": true,
+      "preferencesRestored": true,
+      "userOrdinaryPreserved": true,
+      "readonlyActions": 14,
+      "intentionalMutationActions": 1,
+      "images": [
+        {
+          "path": "artifacts/cache/v07-menu-nr01-0704/720-font150/000-s01-menu-empty.png",
+          "sha256": "bd850ff33ca1a1c671711624df4f4e0b84e6e83f3def01d2e4f4c0435e65d1e6",
+          "sidecarSha256": "c04c1d8f361ba92af729b0faa42bb7484f4c91852e12d69ca844b47b3f30fc8f",
+          "dimensions": [
+            1280,
+            720
+          ],
+          "actuallyViewed": true,
+          "stateAndSaveUnchanged": true,
+          "titleGlyphBounds": {
+            "left": 77.166626,
+            "right": 458.479156,
+            "bottom": 485.025452,
+            "top": 578.9317
+          },
+          "subtitleGlyphBounds": {
+            "left": 80.3027344,
+            "right": 451.1914066,
+            "bottom": 423.525848,
+            "top": 453.7699875
+          },
+          "titleSubtitlePhysicalGap": 31.25546449999996,
+          "titleFontSize": 144.0,
+          "menuRulesBounds": {
+            "left": 80.21875,
+            "right": 462.8033623,
+            "bottom": 69.45328,
+            "top": 97.0066515
+          },
+          "lockHintBounds": {
+            "left": 80.2095947,
+            "right": 410.580078,
+            "bottom": 23.2444458,
+            "top": 46.3867188
+          },
+          "truncatedVisibleTextRows": []
+        },
+        {
+          "path": "artifacts/cache/v07-menu-nr01-0704/720-font150/001-s02-seed-empty.png",
+          "sha256": "dc08655edade1227e8b79b7f1758b0dbc24a63361ee66e2715ec4b66f1c5a7da",
+          "sidecarSha256": "9cee55b26948d3208b88e1e5e5c0ed21d6ff922e3bce61b86e59b6ebaa9e0134",
+          "dimensions": [
+            1280,
+            720
+          ],
+          "actuallyViewed": true,
+          "stateAndSaveUnchanged": true,
+          "truncatedVisibleTextRows": []
+        },
+        {
+          "path": "artifacts/cache/v07-menu-nr01-0704/720-font150/002-s02-seed-random.png",
+          "sha256": "9db50bc71818b80478984a07edbb85fc1f49e0e843fe20ef17caa3ae75cc55e5",
+          "sidecarSha256": "0ff6b10f478cdf8ea1b24c350a2000881d18507bfb28d2a73f172039d5c688cd",
+          "dimensions": [
+            1280,
+            720
+          ],
+          "actuallyViewed": true,
+          "stateAndSaveUnchanged": true,
+          "truncatedVisibleTextRows": []
+        },
+        {
+          "path": "artifacts/cache/v07-menu-nr01-0704/720-font150/003-s02-invalid-seed.png",
+          "sha256": "bf8b92773ddb74b79badac0d8e61305f7599e3452c58b3ecca807ca801c328d0",
+          "sidecarSha256": "c90f5d5b49e85739b43b0249d21306f6304a14249b04dc6780f415a24b2b20e7",
+          "dimensions": [
+            1280,
+            720
+          ],
+          "actuallyViewed": false,
+          "stateAndSaveUnchanged": true
+        },
+        {
+          "path": "artifacts/cache/v07-menu-nr01-0704/720-font150/004-s01-cancel-empty.png",
+          "sha256": "ccb0bdb19cad777176b94daecf3cdd46aba771b60363556210a21e0b5dedfbf9",
+          "sidecarSha256": "4df3ebd88a726d402bc3f58989bf827dbdd4dbcac1f102801678dfcc3e6a8ef1",
+          "dimensions": [
+            1280,
+            720
+          ],
+          "actuallyViewed": true,
+          "stateAndSaveUnchanged": true,
+          "titleGlyphBounds": {
+            "left": 77.166626,
+            "right": 458.479156,
+            "bottom": 485.025452,
+            "top": 578.9317
+          },
+          "subtitleGlyphBounds": {
+            "left": 80.3027344,
+            "right": 451.1914066,
+            "bottom": 423.525848,
+            "top": 453.7699875
+          },
+          "titleSubtitlePhysicalGap": 31.25546449999996,
+          "titleFontSize": 144.0,
+          "menuRulesBounds": {
+            "left": 80.21875,
+            "right": 462.8033623,
+            "bottom": 69.45328,
+            "top": 97.0066515
+          },
+          "lockHintBounds": {
+            "left": 80.2095947,
+            "right": 410.580078,
+            "bottom": 23.2444458,
+            "top": 46.3867188
+          },
+          "truncatedVisibleTextRows": []
+        },
+        {
+          "path": "artifacts/cache/v07-menu-nr01-0704/720-font150/005-s03-stage-preview.png",
+          "sha256": "a8ac8d655c08920cb9c7c2c5894ec1cfa4e454e6f4ad1be8f65884132940bf3f",
+          "sidecarSha256": "ee85dfc5edcc960216e930859fcabf916a2142709cef8b5aacaaee7db0c43a29",
+          "dimensions": [
+            1280,
+            720
+          ],
+          "actuallyViewed": false,
+          "stateAndSaveUnchanged": true
+        },
+        {
+          "path": "artifacts/cache/v07-menu-nr01-0704/720-font150/006-s01-menu-continue.png",
+          "sha256": "bf69c905c87cb767bc859bab6c267b78bc18affea54818cc025d53a5585cd8e3",
+          "sidecarSha256": "c32fad8c38a3b58186040fab04b5e3f52d5888c11f627f4e113843c84ff8ce20",
+          "dimensions": [
+            1280,
+            720
+          ],
+          "actuallyViewed": true,
+          "stateAndSaveUnchanged": true,
+          "titleGlyphBounds": {
+            "left": 77.166626,
+            "right": 458.479156,
+            "bottom": 485.025452,
+            "top": 578.9317
+          },
+          "subtitleGlyphBounds": {
+            "left": 80.3027344,
+            "right": 451.1914066,
+            "bottom": 423.525848,
+            "top": 453.7699875
+          },
+          "titleSubtitlePhysicalGap": 31.25546449999996,
+          "titleFontSize": 144.0,
+          "menuRulesBounds": {
+            "left": 80.21875,
+            "right": 462.8033623,
+            "bottom": 69.45328,
+            "top": 97.0066515
+          },
+          "lockHintBounds": {
+            "left": 80.2095947,
+            "right": 410.580078,
+            "bottom": 23.2444458,
+            "top": 46.3867188
+          },
+          "truncatedVisibleTextRows": []
+        },
+        {
+          "path": "artifacts/cache/v07-menu-nr01-0704/720-font150/007-s02-overwrite-summary.png",
+          "sha256": "b6401590d4e74d28861f35c07dfb557004ae833b4009569a72e99b85420feb39",
+          "sidecarSha256": "11b931e1325139632ba44c0a41265e5394cd1b748a8b6f253c546d17cb43d50a",
+          "dimensions": [
+            1280,
+            720
+          ],
+          "actuallyViewed": true,
+          "stateAndSaveUnchanged": true,
+          "truncatedVisibleTextRows": []
+        },
+        {
+          "path": "artifacts/cache/v07-menu-nr01-0704/720-font150/008-s01-cancel-preserved.png",
+          "sha256": "ee636b7f8de2c2e376f8da18dba74de9800f4622f31a6467fe9e4b7b571813e6",
+          "sidecarSha256": "aad629d2c8c76f6be15f335d759827092d41fa0e67e8f6c1b45aab125488733e",
+          "dimensions": [
+            1280,
+            720
+          ],
+          "actuallyViewed": false,
+          "stateAndSaveUnchanged": true
+        }
+      ]
+    }
+  ],
+  "pdb": {
+    "path": "artifacts/cache/v07-menu-nr01-pdb-0704.json",
+    "sha256": "43f878a0bccb54a1e15c370a0fc13c62fe595443a4d2a7d896ee39f40614ba91",
+    "assemblies": [
+      {
+        "name": "DiceCraft.Core",
+        "mvid": "8f690e0d-a075-4b72-98e4-2cb64ced2fa3",
+        "dllSha256": "44a137cd38d7b525382dfda7adbdb7676d12d1dbc05520638d8a14642a96031b",
+        "pdbSha256": "ac0e604ab35e64c021e8ec3ee0a61952baa2a241fbaec388cf123c9bf7ff8d3b",
+        "dllLastWriteUtc": "2026-10-31T15:55:07.0278849Z",
+        "pdbMatchesDll": true,
+        "projectDocuments": 18
+      },
+      {
+        "name": "DiceCraft.Runtime",
+        "mvid": "2b0eb671-9659-49a3-889e-7b03ae9759b3",
+        "dllSha256": "b20adf8ef938a2ab46c23738042f36dc8c02470a3b7ddee4a6c5dc4db3bd6396",
+        "pdbSha256": "56adef20e2034eb017289b5a993a464db93156e45717120ff1c912a052b354aa",
+        "dllLastWriteUtc": "2026-11-01T06:58:47.6858833Z",
+        "pdbMatchesDll": true,
+        "projectDocuments": 71
+      },
+      {
+        "name": "DiceCraft.EditMode",
+        "mvid": "7b9442ee-500f-44ee-8be1-a325093f3000",
+        "dllSha256": "c100a5a9cb6160366a697a7b39a95ec962c14b9a58e65da400e1f88ad2f6a645",
+        "pdbSha256": "d0d800a4eb10cbac34229972a5dd5515fd86880724e64f755e2beed3b96c0854",
+        "dllLastWriteUtc": "2026-11-01T06:47:28.9968322Z",
+        "pdbMatchesDll": true,
+        "projectDocuments": 18
+      },
+      {
+        "name": "DiceCraft.PlayModeTests",
+        "mvid": "046c0edd-6fdc-4c7a-a8b6-1f6a4f083d77",
+        "dllSha256": "5745e1a3922c012a50405ff4b4360ae1f9c0db371672ab30040ecef39a1e1e82",
+        "pdbSha256": "fbf8403af4c076c27d02fcf93bc058684862f894e21de85779cf81563a505b4f",
+        "dllLastWriteUtc": "2026-11-01T06:58:48.3701642Z",
+        "pdbMatchesDll": true,
+        "projectDocuments": 48
+      },
+      {
+        "name": "DiceCraft.Editor",
+        "mvid": "d9bf23b2-4a45-4139-9800-6ced4108133f",
+        "dllSha256": "5143e0ed11af9589100c020d3156bf0f86eb7ac14e838fb419d40a6219d41c7e",
+        "pdbSha256": "89f6d4ae8fa71fc7c698afde9e9749be38792561785aacac756b3c0a0aa334ac",
+        "dllLastWriteUtc": "2026-11-01T06:52:33.1064187Z",
+        "pdbMatchesDll": true,
+        "projectDocuments": 8
+      }
+    ],
+    "documents": 163,
+    "recordedMismatchCount": 0,
+    "note": "Archived PDB audit inspected; reviewer did not rerun Editor or assert current DLL identity."
+  },
+  "relevantCurrentSources": [
+    {
+      "path": "DicePrototype/Assets/Game/UI/GameApp.Art07.cs",
+      "recordedSha256": "2057fc9fd2a99239c4d86f604c48c4344c220b641aa2f612493124fdbc168090",
+      "currentSha256": "c7ad97196bd51e99bc24304c332d1c0749b78b52b97fa74ad024a8272e878244",
+      "matchesRecorded": false
+    },
+    {
+      "path": "DicePrototype/Assets/Game/UI/GameApp.Art07NewRun.cs",
+      "recordedSha256": "ef648393e8236482c2b8687f23ae431ec5f0519dae149e1d65f84b437bf421b7",
+      "currentSha256": "ef648393e8236482c2b8687f23ae431ec5f0519dae149e1d65f84b437bf421b7",
+      "matchesRecorded": true
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Runtime/GameApp.cs",
+      "recordedSha256": "1555aeea1661b95bd4bd43fe52a38e2e2792616974f4a911784a7a8e60b36daa",
+      "currentSha256": "20bb8c43fb61c5f5aabe0767d0ee9ca9635ffaea1dd0f1d05f9d2d5bbe14a1d5",
+      "matchesRecorded": false
+    },
+    {
+      "path": "DicePrototype/Assets/Game/UI/UiKit.cs",
+      "recordedSha256": "4083ef2ec6bacdfe109acabb8dac7b3b6e25e7b65bcea11d76504ddb2e2703f5",
+      "currentSha256": "4083ef2ec6bacdfe109acabb8dac7b3b6e25e7b65bcea11d76504ddb2e2703f5",
+      "matchesRecorded": true
+    }
+  ],
+  "actualViewedCount": 24,
+  "integrityOnlyCount": 12
+}
