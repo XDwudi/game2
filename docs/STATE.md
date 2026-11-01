@@ -2,6 +2,14 @@
 
 ## 2026-10-31 v0.7 美术与表现实施中
 
+11:52UTC：revision20仅一处probe源码变更已独立审查通过（PLAYER_REDUCED_ROLL_COVERAGE_REVIEW）；114938现有DiceINTERACT完整/快速/减少动态/跳过/失焦与Busy保护两项2/2，7.3355843秒，2目录/22文件/7PNG归档cache/v07-reduced-roll-dependency-114938。实际11:51:41 SaveAssets空场景不dirty，五程序集169源PDB零差异，生产差异仅PlayerVerification.cs。准备新检查点，尚未新全量/Player/包。root独占Editor48748；全部既有失败、显示专项通过范围和外传/AudioMixer阻塞保持。
+
+11:50UTC：404新双构建Windows113937（GUIDbece24301d3647638e538bd931e59699，0错1警）/Mac114045（GUID2e00e497e25848a0bc18d3dbaf332912，0错75警）成功。actual Player1141已跨过旧商店断言，145/145 normal命令与保存/ViewState一致，终局stage8 RunFailed；随后原动画覆盖断言失败：49次Roll里1次完整+48次reduced，rollAnimations=1/skips=0/reducedChecks=0。probe错误用Busy动画计数选择第二Roll，reduced同步Busy=false使分支一直重复。现仅主PlayerVerification.cs加accepted-roll local计数、原Reduced立即断言移出Busy且仍在WaitReady前，revision20，原95 Require完整保留，独立静审通过；新实际专项在跑，尚无新全量/Player通过。原404双构建606文件513826309字节已完整SHA归档，10普通存档前后相同。独立display-only114229本次display_passed：3模式、6窗口精确、2尺寸not_supported、15.033秒超时、两Esc，报告PLAYER_4041766_DISPLAY_ONLY_REVIEW限域通过；不是strict/恢复/性能通过，不推断此前host失败原因。基于新显示结果重查Sky Hub截图两次仍window capture timed out，未输入或触碰用户Blender/安全设置，Mixer阻塞不变。root唯一新Editor48748（Windows Profile），生产其余保持，未封包/发布或推送源码。
+
+11:38UTC：4041766完整Edit111708为999/999，Play113731为154/154零失败/跳过，1195.5413346秒。152目录2944文件913PNG归档cache/v07-full-play-4041766-113731；实际SaveAssets后空场景不dirty、12公共偏好与前一致、5程序集169源PDB零差异，新gate绑定1368文件；源scopes clean。独立全量复核已派发，Editor36756已请求正常退出，准备同源双构建和新的实际Player。0f04媒体/821 ART14沿精确delta报告有限复用；ART_RESOURCE_TRACEABILITY已补齐真实源与许可/导入导出索引。新Player与三包尚未通过/制作，AudioMixer/人工/Mac和源码push拒绝仍保留。
+
+11:17UTC：probe商店前置修复已形成本地检查点404176661240a5d9834895416ed3719d6493e253（未推送）。实际11:16:48导入identity，Runtime MVID b37c1374-4c4e-44b5-9ff1-85e239f457fc；完整Edit111708为999/999，17.5225219秒；完整154 Play已启动，源码冻结，root唯一Editor36756写者。源与美术内容未改，仅两个probe文件。既有双构建均为821ec59旧失败候选，新构建/Player/包尚未执行；旧gate-821ec59保留，不放行新源。所有外传、AudioMixer、Mac/人工边界保持。
+
 11:15UTC：821ec59新双构建成功：Windows110535 GUID8d1595598e4748c98619ebf42f0a37b7，0错1警；Mac110657 GUIDd700895ac2884dbb9605d53084de9717，0错75警。实际Windows1107严格流程在第9步商店页签位置断言失败，独立显示仍未能确认mode0；未进入性能/完整恢复，不封包。10个普通存档文件前后SHA一致，两构建606文件/513825700字节已逐SHA归档cache/v07-builds-821ec59-player-failure。根因是probe在非Busy入场动画中抓位置，Tab刷新合法归终态；实际report无positions，未捏造偏移。现仅probe加6行等待活跃Screen的Art07ShopEntrance自然结束、3秒失败超时及revision19，原全部断言/游戏行为不变，独立审查通过；111438现有商店两项2/2。新完整源回归/Player待跑。ART14补充真实43PNG/567实例完成、1361源/15偏好前后不变、5程序集169PDB一致；000–015及016–042分别独立限域通过，深青柔光色阶Q-ART14-FX01作为观察保留，不签整体光效。60文件4374448字节及manifest已持久化evidence/v07/media/art14-821ec59-1103。root唯一Editor36756，源准备冻结；AudioMixer、Mac/人工及源码push审批缺口保持。
 
 10:57UTC：821ec59完整Edit103514为999/999、Play105539为154/154，零失败/跳过，Play1192.6815642秒。152隔离目录/2944文件/913PNG已归档cache/v07-full-play-821ec59-105539；实际idle SaveAssets后空场景不dirty，公共12偏好与前身份快照一致；新五程序集169源PDB零差异，gate实际绑定1368文件，生产scopes clean。完整回归独立审查中。ART14对账发现既有felt/paper/dark只覆盖C07/C42，不能代替白/深青/红全透明切片检查；正准备不改源的临时GPU补证，root唯一Editor36408写者。旧0f04媒体通过精确delta有限复用，禁止重标新身份。新双构建/Player/封包仍待真实执行，AudioMixer与Mac/人工未验；源码/证据push拒绝仍未解除。

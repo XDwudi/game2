@@ -1,0 +1,302 @@
+{
+  "schema": "art-resource-traceability-index-1",
+  "artVersion": "art0.7.0",
+  "rulesVersion": "p0.6.0",
+  "saveSchema": 4,
+  "resourceEvidenceCommit": "821ec5992c34b59eddfe2a0ae984fbaca48f41f8",
+  "sameResourceNewCommit": "404176661240a5d9834895416ed3719d6493e253",
+  "existingSourceChecks": {
+    "sourceExportPairs133Matched": true,
+    "kritaReopen69Plus2Matched": true,
+    "blenderMasterMatches": true,
+    "trackedPaths": 402,
+    "untracked": 0,
+    "scopeBinding": "artifacts/cache/v07-art14-resource-check/existing-evidence-bindings.json"
+  },
+  "atlasMetadata": [
+    {
+      "path": "DicePrototype/Assets/Art/Art07/FX/Atlases/atlas_fx_soft.spriteatlasv2.meta",
+      "sha256": "455ecf9fdf7cde0a83f2b085ee5c0e4df1667a83ccd9d1e880990b855ea175a8",
+      "values": {
+        "filterMode": [
+          "1"
+        ],
+        "enableMipMap": [],
+        "isReadable": [],
+        "sRGBTexture": [],
+        "maxTextureSize": [
+          "2048",
+          "2048"
+        ],
+        "textureCompression": [
+          "0",
+          "0"
+        ],
+        "padding": [
+          "4"
+        ],
+        "enableRotation": [
+          "0"
+        ],
+        "enableTightPacking": [
+          "0"
+        ],
+        "enableAlphaDilation": [
+          "1"
+        ],
+        "bindAsDefault": [
+          "1"
+        ],
+        "generateMipMaps": [
+          "0"
+        ],
+        "readable": [
+          "0"
+        ],
+        "sRGB": [
+          "1"
+        ]
+      }
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art07/UI/Atlases/atlas_content_icons_pixel.spriteatlasv2.meta",
+      "sha256": "07a401eb2b138ffaf1dc72c4d94971611972d8fd6e7b4d3f825a0bd1c22ee232",
+      "values": {
+        "filterMode": [
+          "0"
+        ],
+        "enableMipMap": [],
+        "isReadable": [],
+        "sRGBTexture": [],
+        "maxTextureSize": [
+          "2048",
+          "2048"
+        ],
+        "textureCompression": [
+          "0",
+          "0"
+        ],
+        "padding": [
+          "4"
+        ],
+        "enableRotation": [
+          "0"
+        ],
+        "enableTightPacking": [
+          "0"
+        ],
+        "enableAlphaDilation": [
+          "1"
+        ],
+        "bindAsDefault": [
+          "1"
+        ],
+        "generateMipMaps": [
+          "0"
+        ],
+        "readable": [
+          "0"
+        ],
+        "sRGB": [
+          "1"
+        ]
+      }
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art07/UI/Atlases/atlas_ui_pixel.spriteatlasv2.meta",
+      "sha256": "263010c3b287439461a5af0b30adc7df17e35455e8a8a96d5a5b03a0bff57bf1",
+      "values": {
+        "filterMode": [
+          "0"
+        ],
+        "enableMipMap": [],
+        "isReadable": [],
+        "sRGBTexture": [],
+        "maxTextureSize": [
+          "2048",
+          "2048"
+        ],
+        "textureCompression": [
+          "0",
+          "0"
+        ],
+        "padding": [
+          "4"
+        ],
+        "enableRotation": [
+          "0"
+        ],
+        "enableTightPacking": [
+          "0"
+        ],
+        "enableAlphaDilation": [
+          "1"
+        ],
+        "bindAsDefault": [
+          "1"
+        ],
+        "generateMipMaps": [
+          "0"
+        ],
+        "readable": [
+          "0"
+        ],
+        "sRGB": [
+          "1"
+        ]
+      }
+    }
+  ],
+  "libraryTests": [
+    {
+      "name": "DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_BurstL5ReducedThenL0ThenNormalCannotRetainCelebrationOrParticleMotion",
+      "result": "Passed",
+      "duration": "0.153663"
+    },
+    {
+      "name": "DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_ControllerFullCompactPoolReuseKeepsOneIdentityAndClearsBadgeTintAndOldClick",
+      "result": "Passed",
+      "duration": "0.143170"
+    },
+    {
+      "name": "DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_CopyLinkElbowThenStraightResetsBindingSegmentsAndArrowEndpoint",
+      "result": "Passed",
+      "duration": "0.153656"
+    },
+    {
+      "name": "DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_DieViewCommittedFaceBindingsAndGlassMaterialResetWithoutChangingSharedAssets",
+      "result": "Passed",
+      "duration": "0.154084"
+    },
+    {
+      "name": "DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_ExactScoreAndZeroProbabilitySurvivePresentationAndClearOnPoolReturn",
+      "result": "Passed",
+      "duration": "0.144099"
+    },
+    {
+      "name": "DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_LibraryAll26SerializedPrefabsInstantiateWithRealMeshesTextAndSupportedMaterials",
+      "result": "Passed",
+      "duration": "1.001981"
+    },
+    {
+      "name": "DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_PooledTicketRealClockPauseResumeAndCancelNeverInvokeAnOldReceiptCallback",
+      "result": "Passed",
+      "duration": "0.305098"
+    }
+  ],
+  "persistedArt14": {
+    "directory": "evidence/v07/media/art14-821ec59-1103",
+    "manifestEntries": 59,
+    "mismatches": [],
+    "pngCount": 43,
+    "reportMatchesOriginal": true
+  },
+  "fontSourceChecks": [
+    {
+      "path": "DicePrototype/Assets/Game/Fonts/NotoSansCJKsc-Regular.otf",
+      "sha256": "2c76254f6fc379fddfce0a7e84fb5385bb135d3e399294f6eeb6680d0365b74b",
+      "matchesSourceRecord": true
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Fonts/LICENSE.txt",
+      "sha256": "6a73f9541c2de74158c0e7cf6b0a58ef774f5a780bf191f2d7ec9cc53efe2bf2",
+      "matchesSourceRecord": true
+    }
+  ],
+  "evidenceFiles": [
+    {
+      "path": "ArtSource/Art07/README.md",
+      "sha256": "6f78f16bd3195832607d839e9467c149894e29418c32a5e98ebc3bfae799fb22"
+    },
+    {
+      "path": "ArtSource/Art07/Review/sample-validation-20261101-022802.json",
+      "sha256": "51020f01c0bbfdfce5abfbaf4941279123ed4bf5c48ce0a23e1d8f23b0c3f382"
+    },
+    {
+      "path": "ArtSource/Art07/Review/krita-roundtrip-20261031-131254/report.json",
+      "sha256": "d399f4531925f6b1ca7ed043585cf95be2c59949f4d62fe34e7a1c3d74c47fa4"
+    },
+    {
+      "path": "ArtSource/Art07/Review/icon-c07-c42-rework-20261031-142245/report.json",
+      "sha256": "b86411332e5ed09ba6ff91798498a54a73adade6314a8772c6a3bc1a1a99be7b"
+    },
+    {
+      "path": "ArtSource/Art07/krita_conversion.json",
+      "sha256": "485751b2c2983d7c88b0e31c8b5f0f64fad6c752c7a4604cee052333112bb6e1"
+    },
+    {
+      "path": "ArtSource/Art07/Dice/dice_master.blend",
+      "sha256": "ef5c702fb225a70ef6744356372a2bf342f7319582a3fca4a416b8f2ba504bbc"
+    },
+    {
+      "path": "ArtSource/Art07/Dice/Review/source-check-20261031-130251.json",
+      "sha256": "9a8f5cf84bee3bc7beeca9adfb14b8f59c539b5bcfec7696dba6e55ab64d3c94"
+    },
+    {
+      "path": "ArtSource/Art07/Dice/Review/generation.json",
+      "sha256": "a1f6eac058c2a328b1307bd0a0952614fd8cfddc7634abb129dcb3af3b882c73"
+    },
+    {
+      "path": "ArtSource/Art07/Review/library-build-20261101-045656.json",
+      "sha256": "3d21b90a8ec06004bc0368856931361d8ddbfb15258d662c5de5466843fe2934"
+    },
+    {
+      "path": "ArtSource/Art07/path_mappings.json",
+      "sha256": "eb03d4c97040f9d644fa855a8e2ae9ceea6cf825ce4038cdb1d2f968ca0c603d"
+    },
+    {
+      "path": "ArtSource/Art07/Audio/recipe.json",
+      "sha256": "ddf53522f2aef1b243fbe1d252ada32c0b4224c387dd5a0d909e7ac9171c5c0c"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Fonts/SOURCE.json",
+      "sha256": "d9bb7e17d841738632006d6e351869a8c575e3fcd51e40728fa7e80e53c7a7c7"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Fonts/LICENSE.txt",
+      "sha256": "6a73f9541c2de74158c0e7cf6b0a58ef774f5a780bf191f2d7ec9cc53efe2bf2"
+    },
+    {
+      "path": "evidence/v07/unity/nunit-20261101-105539.xml",
+      "sha256": "bfce04eb0857f4e3a705aa2ea92285cafc554c5e9a61a92af8b38090da79b4e1"
+    },
+    {
+      "path": "evidence/v07/review/FULL_REGRESSION_821EC59_REVIEW.md",
+      "sha256": "976d2e7e3addfcdec0390949bbc35e71f76b18b8b2c1599b7f2ad5820e19c20e"
+    },
+    {
+      "path": "evidence/v07/review/ART14_SLICES_REVIEW.md",
+      "sha256": "7cc1214035bccd02e23ba34e4e47c12d618fa7e7f440e20155c1fbd5d56fbfa7"
+    },
+    {
+      "path": "evidence/v07/review/ART14_TEXTURES_REVIEW.md",
+      "sha256": "ab962afdc3688e82e084df2de0471e5db780c97678ad39ebd21796e2961ac399"
+    },
+    {
+      "path": "evidence/v07/review/MEDIA_REUSE_821EC59_TO_4041766_REVIEW.md",
+      "sha256": "a7f4f3c26d456532dd4040b3601e17addcff34541ca30d98e1117e74e5393df6"
+    },
+    {
+      "path": "evidence/v07/media/art14-821ec59-1103/persisted-manifest.json",
+      "sha256": "c67ee0acbd552caef3048af1faf6cd7c6dc9bc661c8ca84b03a48ebea82347ed"
+    },
+    {
+      "path": "evidence/v07/media/art14-821ec59-1103/capture-report.json",
+      "sha256": "c24ce62251d9264610d164f20107f4509f53ee0d2bfef46c895930c2d1c6d117"
+    },
+    {
+      "path": "artifacts/cache/v07-art14-resource-check/existing-evidence-bindings.json",
+      "sha256": "2f28ec80a2fc676b83de0dd5c89c149ed25b04d66eaada887437eca44e73f223"
+    }
+  ],
+  "limits": [
+    "62 non-content KRA: structure/composite checked; not all native Krita roundtrips located",
+    "3 linear masks: diagnostic only",
+    "Q-ART14-FX01 native halo banding observation retained",
+    "AudioMixer missing",
+    "Human overall art/audio/experience approval and Mac execution not claimed",
+    "Inventory and authoritative manifest not promoted to all-verified"
+  ],
+  "newUnityOrBlenderExecution": false,
+  "reportSha256": "8c17c0bf07ec001d21bd9745b29d7c6c7213eb5b5bf0a8e6176da89182bbb0a7"
+}

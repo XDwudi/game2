@@ -1,0 +1,80 @@
+{
+  "utc": "2026-11-01T11:49:58.704525+00:00",
+  "reviewer": "/root/v07_spec_audit",
+  "baseCommit": "404176661240a5d9834895416ed3719d6493e253",
+  "probeRevision": "p07-player-art-ui-20",
+  "reviewedSourceSha256": "7e76293d6e9be83eb642c68bcbc2cba0245357fb7fef7852f56077c703cf6787",
+  "status": "STATIC_MINIMAL_PROBE_CORRECTION_REVIEW_PASS_RUNTIME_PENDING",
+  "originalRequireCount": 95,
+  "originalRequireMultisetUnchanged": true,
+  "noUnityOrPlayerExecuted": true,
+  "noProductionOrStandardsWritten": true,
+  "noExternalTransmission": true,
+  "bindings": [
+    {
+      "path": "evidence/v07/review/PLAYER_REDUCED_ROLL_COVERAGE_REVIEW.md",
+      "bytes": 3843,
+      "sha256": "86d29874aab4c4d12bb0e96a1f0e3fb493bfba7499e28b33f8626f178869b163"
+    },
+    {
+      "path": "artifacts/cache/v07-player-reduced-roll-review/integrated-revision20-audit.json",
+      "bytes": 1612,
+      "sha256": "b6adbc5786aa2b3aa9b810af4f52e814a9d06684385e3c4d5abf42eca6a907ea"
+    },
+    {
+      "path": "artifacts/cache/v07-player-reduced-roll-review/integrated-revision20.patch",
+      "bytes": 3299,
+      "sha256": "5399aeadaf9fe0639d681a337a97877c17d80316ff1adc59eb7e4103b800ec2c"
+    },
+    {
+      "path": "artifacts/cache/v07-player-reduced-roll-review/integrated-revision20.cs.txt",
+      "bytes": 107283,
+      "sha256": "7e76293d6e9be83eb642c68bcbc2cba0245357fb7fef7852f56077c703cf6787"
+    },
+    {
+      "path": "artifacts/cache/v07-player-reduced-roll-review/PlayerVerification-4041766.cs.txt",
+      "bytes": 107111,
+      "sha256": "1aa09930202f68d61a4fd9b8944cafcc8f0728a4735db30484e307c11c9b68f6"
+    },
+    {
+      "path": "artifacts/cache/v07-player-reduced-roll-review/REVIEW.md",
+      "bytes": 3496,
+      "sha256": "a55622c824a70238b00ca2d41c40dcac99b0e6ea694dded3d678bc68f608243a"
+    },
+    {
+      "path": "artifacts/cache/v07-player-reduced-roll-review/bindings.json",
+      "bytes": 5545,
+      "sha256": "6371536ca0adb847e4944c4d34152571eae7eedad2f13e2ad4436c7a23abd9cc"
+    },
+    {
+      "path": "evidence/v07/player-4041766-1141/strict-full/player-20261101-114126-2332a3de/player-report.json",
+      "bytes": 83697,
+      "sha256": "4749b9ed07082e3202c468100e20cb69760bdcf29993e080a7b01052d1a9c173"
+    },
+    {
+      "path": "evidence/v07/player-4041766-1141/strict-full/player-20261101-114126-2332a3de/normal-replay.jsonl",
+      "bytes": 75364,
+      "sha256": "cc59a4d0d18803d860aaa6e281e03f6f4c44a44898dd838f54fb00e99bd78759"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/UI/GameApp.Art07Presentation.cs",
+      "bytes": 19554,
+      "sha256": "2050f0a10f356f2aef0fab999fca6c90ba8935fcdd806349e87caadd2fad6afb"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Runtime/DiceTable.cs",
+      "bytes": 26564,
+      "sha256": "963796128ee879ff60b9fa117d03d4addd8d3ff7687dcfc2bcbf984fea9913ff"
+    },
+    {
+      "path": "artifacts/cache/v07-player-reduced-roll-rework/PlayerVerification.cs",
+      "bytes": 107111,
+      "sha256": "1aa09930202f68d61a4fd9b8944cafcc8f0728a4735db30484e307c11c9b68f6"
+    },
+    {
+      "path": "evidence/v07/unity/build-gate-4041766.json",
+      "bytes": 347921,
+      "sha256": "b54423eb8a70659cc66b20704754ef583c5b5ce1a44dcf26e09ac58fe3e791f7"
+    }
+  ]
+}

@@ -1,0 +1,255 @@
+{
+  "utc": "2026-11-01T11:41:44.097045+00:00",
+  "reviewer": "/root/v07_spec_audit",
+  "expectedHead": "404176661240a5d9834895416ed3719d6493e253",
+  "status": "EDITOR_FULL_REGRESSION_EVIDENCE_CONSISTENT_ONLY",
+  "noUnityExecuted": true,
+  "noProductionOrStandardsWritten": true,
+  "noExternalTransmission": true,
+  "runtimeMvid": "b37c1374-4c4e-44b5-9ff1-85e239f457fc",
+  "inputsAndOutputs": [
+    {
+      "path": "evidence/v07/review/FULL_REGRESSION_4041766_REVIEW.md",
+      "bytes": 5502,
+      "sha256": "20311fe3e5429db419922ae85a1862bded9a56dd96ac9628fdd5b9994917bc23"
+    },
+    {
+      "path": "evidence/v07/review/FULL_REGRESSION_821EC59_REVIEW.md",
+      "bytes": 5314,
+      "sha256": "976d2e7e3addfcdec0390949bbc35e71f76b18b8b2c1599b7f2ad5820e19c20e"
+    },
+    {
+      "path": "artifacts/cache/v07-player-motion-preconditions-review/REVIEW.md",
+      "bytes": 3981,
+      "sha256": "1a7e458ed0d1cd3d76653e6b4460c65d3eee5b99bca98011b3406a53d53231e5"
+    },
+    {
+      "path": "artifacts/cache/v07-player-motion-preconditions-review/bindings.json",
+      "bytes": 4502,
+      "sha256": "b66741e8db0b758c9f6029d88cd66287309d639ef9f357fe19e9d2232a01bfd8"
+    },
+    {
+      "path": "artifacts/cache/v07-player-motion-preconditions-review/probe-delta.patch",
+      "bytes": 2248,
+      "sha256": "cf18f00f317b1ad9f7c06579c4858aa052e515bff1cf7c053bada45f5709d032"
+    },
+    {
+      "path": "evidence/v07/unity/checkpoint-resource-identity-4041766.json",
+      "bytes": 3530,
+      "sha256": "4749689aac0e6793acf27d4d7fbaaa711a11c0213b4d5bed65741d5f1a91961e"
+    },
+    {
+      "path": "artifacts/cache/v07-post-full-4041766-preferences.json",
+      "bytes": 2865,
+      "sha256": "bc551f97ab6e7c106a03f7d09559357d6ec036130a14923225d172e4ae740cce"
+    },
+    {
+      "path": "artifacts/cache/v07-pdb-post-full-4041766-1138.json",
+      "bytes": 78447,
+      "sha256": "35cae232a01021b54b9f663fd1bdd767a7623d92dbde286abf93a904ef699c78"
+    },
+    {
+      "path": "evidence/v07/unity/build-gate.json",
+      "bytes": 347921,
+      "sha256": "b54423eb8a70659cc66b20704754ef583c5b5ce1a44dcf26e09ac58fe3e791f7"
+    },
+    {
+      "path": "evidence/v07/unity/discovery-EditMode.json",
+      "bytes": 81834,
+      "sha256": "3324ce15945342f75b2d49aaf9a430749142673e2ffa3015b093a1782e6dda0b"
+    },
+    {
+      "path": "evidence/v07/unity/discovery-PlayMode.json",
+      "bytes": 18810,
+      "sha256": "59daed02202b30153cbaf8ad75d182e0a615fb97970b6a8dbb87e0f60cbafcb4"
+    },
+    {
+      "path": "DicePrototype/Assets/Resources/BuildIdentity.json",
+      "bytes": 441,
+      "sha256": "5a833cd4fa024d0c236b2408673d2f63bbbc66250dd19a04de89986d4127d553"
+    },
+    {
+      "path": "tools/v07_delivery.py",
+      "bytes": 10736,
+      "sha256": "2c6a506e0f587063a76e9ba585d5d23f1770ee12149ecba7721fcd064e6a3e0e"
+    },
+    {
+      "path": "tools/package_v07.py",
+      "bytes": 24507,
+      "sha256": "2e4ca6219a1df35a3288a30ec3155d87f5f850d440416905838eea0f6de2cb2e"
+    },
+    {
+      "path": "tools/quality_check.py",
+      "bytes": 15240,
+      "sha256": "2a6aa3e5d5e5edb62b2a456ea7514df44d56d943dc168b4b086039092c33fed9"
+    },
+    {
+      "path": "artifacts/cache/v07-build-preflight/PdbAudit/Program.cs",
+      "bytes": 2789,
+      "sha256": "908c9d7ee2fb7025e714b53795966aa94d7a808bf63b14cde52f63b49d5a8668"
+    },
+    {
+      "path": "artifacts/cache/v07-build-preflight/PdbAudit/bin/Debug/net10.0/PdbAudit.dll",
+      "bytes": 16384,
+      "sha256": "bb9d5718f34ac6409b57e09fbce332631626e1074237163f4ee467098614dd7a"
+    },
+    {
+      "path": "docs/tasks/P0-V07-ART.md",
+      "bytes": 2656,
+      "sha256": "b6b91894f2c4b8b7b3d08ac1265112e35ede1917f2caf10690dc99f25dd73d82"
+    },
+    {
+      "path": "docs/specs/v07/ART_SPEC.md",
+      "bytes": 417792,
+      "sha256": "5120a8d0983d24f25cc38e22f1da613fd1a56c70ab26f518771a2caf064dd228"
+    },
+    {
+      "path": "docs/QUALITY_GATES.md",
+      "bytes": 10128,
+      "sha256": "b5eebec08987bb8220fe3ad87821da81267814d1b2a5931e66a98b1d1b4fdade"
+    },
+    {
+      "path": "artifacts/cache/v07-next-full-review/audit-full.py",
+      "bytes": 9831,
+      "sha256": "a9d5db55c444a8e182002dd40921a5247bb5149eb63522dc4a40376343881407"
+    },
+    {
+      "path": "evidence/v07/unity/nunit-20261101-111708.xml",
+      "bytes": 688933,
+      "sha256": "f489935c478dcaa50914b7007c454c4b7b8b98be7a12b8424562e354eaa50927"
+    },
+    {
+      "path": "evidence/v07/unity/nunit-20261101-111708.binding.json",
+      "bytes": 575635,
+      "sha256": "f2d517a7d11c6e70f0956a63cace46cc9b883665b06ed0f31344ba0b70dfef04"
+    },
+    {
+      "path": "evidence/v07/unity/nunit-20261101-113731.xml",
+      "bytes": 354524,
+      "sha256": "3d971e66afa8e4e8b1919ad3e603c278854758b82a3452b96027051a4d6df53b"
+    },
+    {
+      "path": "evidence/v07/unity/nunit-20261101-113731.binding.json",
+      "bytes": 575635,
+      "sha256": "c057e9083f973942bce304afd134090bf05fc931e33a78bfaab313dc9f4f345e"
+    },
+    {
+      "path": "evidence/v07/unity/nunit-20261101-075917.xml",
+      "bytes": 337720,
+      "sha256": "a62b142b41d44a7508ad115f71a7c1f9cd0bc3d7342422fcddb1452be25d94eb"
+    },
+    {
+      "path": "evidence/v07/unity/nunit-20261101-080637.xml",
+      "bytes": 16725,
+      "sha256": "aa3362d7571c605aa1c861c4ab4bfa981038fab8074683f4cadc2e4c6527aa2a"
+    },
+    {
+      "path": "evidence/v07/unity/nunit-20261101-085726.xml",
+      "bytes": 350090,
+      "sha256": "0b385fc436edf9a7c2a7ad4d37e5ab2e131bc3c51f2e65ec5316ca465caffe83"
+    },
+    {
+      "path": "evidence/v07/unity/nunit-20261101-092559.xml",
+      "bytes": 5229,
+      "sha256": "1685fbd0d30ae28b3b4b3a4367e65a75b8fe829683f0a2edacc48c77f5e9f61a"
+    },
+    {
+      "path": "evidence/v07/unity/nunit-20261101-092846.xml",
+      "bytes": 5192,
+      "sha256": "749c23d2369231401ff29a2219e08678a90dd35fb96a2ef8acfb1f947672fc30"
+    },
+    {
+      "path": "evidence/v07/unity/nunit-20261101-095947.xml",
+      "bytes": 354366,
+      "sha256": "d05cef105f8e6ae0d618ce655ad529f0a3eff993c31e9da3d24b05c81639eb21"
+    },
+    {
+      "path": "evidence/v07/unity/nunit-20261101-102406.xml",
+      "bytes": 4564,
+      "sha256": "a848c4254c7ced8302d2949669673fc0025aeaa57b35c688c049ae0434ab0da1"
+    },
+    {
+      "path": "evidence/v07/unity/nunit-20261101-103514.xml",
+      "bytes": 688893,
+      "sha256": "b574e95dc435fb83d7cb1ab7d0f791977534522582d6659090a51caa0b7d041f"
+    },
+    {
+      "path": "evidence/v07/unity/nunit-20261101-105539.xml",
+      "bytes": 354623,
+      "sha256": "bfce04eb0857f4e3a705aa2ea92285cafc554c5e9a61a92af8b38090da79b4e1"
+    },
+    {
+      "path": "evidence/v07/unity/nunit-20261101-111438.xml",
+      "bytes": 4645,
+      "sha256": "c9941ac8b072f21708394e81fc72d924a130296adf472bbfd8aad6913d564418"
+    },
+    {
+      "path": "artifacts/cache/v07-full-play-4041766-113731/archive.json",
+      "bytes": 695520,
+      "sha256": "d15af0d2e65df29c3f5573af48e3d0cc4e92dbf84eb7a6e1ad224d613689e9d2"
+    },
+    {
+      "path": "artifacts/cache/v07-full-play-4041766-113731/nunit-20261101-113731.xml",
+      "bytes": 354524,
+      "sha256": "3d971e66afa8e4e8b1919ad3e603c278854758b82a3452b96027051a4d6df53b"
+    },
+    {
+      "path": "artifacts/cache/v07-full-play-4041766-113731/nunit-20261101-113731.binding.json",
+      "bytes": 575635,
+      "sha256": "c057e9083f973942bce304afd134090bf05fc931e33a78bfaab313dc9f4f345e"
+    },
+    {
+      "path": "artifacts/cache/v07-full-regression-4041766-review/audit-archive-gate.py",
+      "bytes": 10168,
+      "sha256": "dde2d8755c9384afe8fb4bf699ed9a2cbd7c7dba65ece98fd47da04ed6d7f169"
+    },
+    {
+      "path": "artifacts/cache/v07-full-regression-4041766-review/full-113731-independent.json",
+      "bytes": 7836,
+      "sha256": "77a8fba02667145b7533396286fdc5b968f328699825f293359078ad908647cb"
+    },
+    {
+      "path": "artifacts/cache/v07-full-regression-4041766-review/full-archive-gate-preferences-independent.json",
+      "bytes": 11668,
+      "sha256": "4c45f2a9628823aee4a31fbe9f5d82aa219c50172af7f37eb48bcba563ab149f"
+    },
+    {
+      "path": "artifacts/cache/v07-full-regression-4041766-review/prior-suite-and-shop-check.json",
+      "bytes": 1962,
+      "sha256": "92c41c95d263f3710884f4b6be4ee7fe42b8cef992a338c2913f18e43ae602a0"
+    },
+    {
+      "path": "artifacts/cache/v07-full-regression-4041766-review/initial-output-directory-error.txt",
+      "bytes": 341,
+      "sha256": "6ed4e1fdc1168388a072ac0a28347d1eac0d1465615a78945a65b69205ff2a15"
+    }
+  ],
+  "actualAssembliesAtAudit": [
+    {
+      "name": "DiceCraft.Core",
+      "mvid": "65bc9884-1ce7-4869-9fc7-4b4dba3c1e43",
+      "dllSha256": "f6bda15a1af15992ed6d3921ee2da5dc807ee9387b867040f4814489336b43c4"
+    },
+    {
+      "name": "DiceCraft.EditMode",
+      "mvid": "850eadb0-295d-49af-8d44-4f308695babb",
+      "dllSha256": "9355303ee2c20045c4945d9545482bebd0b0c13972c5de7926e0d4fee9d9519b"
+    },
+    {
+      "name": "DiceCraft.Editor",
+      "mvid": "27fbe512-e273-4f95-ac91-aad462378516",
+      "dllSha256": "025c7b68b997af5469c8ec6e29d43a33fe0cb665aebe154675ab90409a25a84b"
+    },
+    {
+      "name": "DiceCraft.PlayModeTests",
+      "mvid": "4c2b723f-031c-4e08-881a-48fabd8fc650",
+      "dllSha256": "caaafcac423d1e6e23b2837dd4c4beabdad076cff56b5b042c98fa49be92b549"
+    },
+    {
+      "name": "DiceCraft.Runtime",
+      "mvid": "b37c1374-4c4e-44b5-9ff1-85e239f457fc",
+      "dllSha256": "599ee3faa79c58d4fa957d1e3bcd605702abdc9e866b7b66651de8c302da8ec5"
+    }
+  ],
+  "scope": "Complete Editor report/raw source/PDB/archive/12 recorded preference consistency only. No visual claim for 913 PNG or Player/Mac/performance/release/whole-art acceptance. Actual assembly hashes checked before root rebuild; later build output is not substituted."
+}

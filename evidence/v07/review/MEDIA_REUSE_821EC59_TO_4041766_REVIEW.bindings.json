@@ -1,0 +1,101 @@
+{
+  "reportSha256": "a7f4f3c26d456532dd4040b3601e17addcff34541ca30d98e1117e74e5393df6",
+  "deltaBindingPath": "artifacts/cache/v07-media-reuse-4041766-review/delta-bindings.json",
+  "deltaBindingSha256": "92c4f55773ebc0a1a8b9eecc177f597bbc7375e39c8c9235dc00ff609e22ac3e",
+  "oldCommit": "821ec5992c34b59eddfe2a0ae984fbaca48f41f8",
+  "newCommit": "404176661240a5d9834895416ed3719d6493e253",
+  "trackedPhysicalSourceCountBefore": 1360,
+  "trackedPhysicalSourceCountAfter": 1360,
+  "unchangedBlobs": 1358,
+  "changed": [
+    {
+      "path": "DicePrototype/Assets/Game/Runtime/Verification/PlayerVerification.V06.cs",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "ee90e02018efa55aa58a09d25ca9c938516e07f8"
+      },
+      "after": {
+        "mode": "100644",
+        "gitBlob": "80fb3abc6b6b1bf1251117c0362351f797fe7618"
+      },
+      "beforeSha256": "4adf1d94db8c77d1f7b04702ff77f598b5630fd28739375c521f5aa4c1461bed",
+      "afterSha256": "727ea9fe93c1c67e3ec39ce7aaca455269ee69ab71655b5da54f56c32c7d88e3",
+      "beforeRequireTokenCount": 150,
+      "afterRequireTokenCount": 151,
+      "originalBytesRestoredByRemovingApprovedDelta": true,
+      "lineOps": [
+        [
+          "insert",
+          294,
+          294,
+          294,
+          300
+        ]
+      ]
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Runtime/Verification/PlayerVerification.cs",
+      "before": {
+        "mode": "100644",
+        "gitBlob": "8a2b4f00e791ff4c341987ecc1cd4cc3475e75ff"
+      },
+      "after": {
+        "mode": "100644",
+        "gitBlob": "b2a661a858a30baf2c965312e1e66490045c079d"
+      },
+      "beforeSha256": "f5c5a80ab2c7be2b1efc77070398918d50bb1d93ea8fa51e2a5127d1a51e06d0",
+      "afterSha256": "1aa09930202f68d61a4fd9b8944cafcc8f0728a4735db30484e307c11c9b68f6",
+      "beforeRequireTokenCount": 95,
+      "afterRequireTokenCount": 95,
+      "originalBytesRestoredByRemovingApprovedDelta": true,
+      "lineOps": [
+        [
+          "replace",
+          26,
+          27,
+          26,
+          27
+        ]
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "path": "evidence/v07/review/MEDIA_REUSE_0F04E51_TO_821EC59_REVIEW.md",
+      "sha256": "47de75e38ca33200fad7282c5f3c7427b85635ad9fd9b2e496ec160226cbe3f6"
+    },
+    {
+      "path": "evidence/v07/review/FINAL_0F04E51_SCREEN_ART_INCREMENTAL_REVIEW.md",
+      "sha256": "d82ccdcaa026985a97cc2ac1b68659a00f68fc543838c0850a384e7a5f76f42d"
+    },
+    {
+      "path": "evidence/v07/review/FINAL_0F04E51_GRIP_SCREEN_REVIEW.md",
+      "sha256": "2f379e369248e269fdbce89bd10748d6e82ebf04e0c6289b90883714f666b03a"
+    },
+    {
+      "path": "evidence/v07/review/FINAL_0F04E51_CLIPS_REVIEW.md",
+      "sha256": "826f8ac5e60c4d01f57d4c49c6909d247c22fcec8412161a30c55eaee73e7a44"
+    },
+    {
+      "path": "evidence/v07/review/FINAL_0F04E51_POST_INCREMENTAL_REVIEW.md",
+      "sha256": "c7aeda830d7ac1b3d1c90a3e3a1aed75713a8c9a297bc023a6de07fe08571238"
+    },
+    {
+      "path": "evidence/v07/review/ART14_SLICES_REVIEW.md",
+      "sha256": "7cc1214035bccd02e23ba34e4e47c12d618fa7e7f440e20155c1fbd5d56fbfa7"
+    },
+    {
+      "path": "evidence/v07/review/ART14_TEXTURES_REVIEW.md",
+      "sha256": "ab962afdc3688e82e084df2de0471e5db780c97678ad39ebd21796e2961ac399"
+    },
+    {
+      "path": "artifacts/cache/v07-art14-gpu-1103/capture-report.json",
+      "sha256": "c24ce62251d9264610d164f20107f4509f53ee0d2bfef46c895930c2d1c6d117"
+    },
+    {
+      "path": "DicePrototype/Assets/Resources/BuildIdentity.json",
+      "sha256": "5a833cd4fa024d0c236b2408673d2f63bbbc66250dd19a04de89986d4127d553"
+    }
+  ],
+  "newRuntimeChecks": false
+}

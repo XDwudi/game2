@@ -24,7 +24,7 @@ namespace DiceCraft.Verification
     /// </summary>
     public sealed partial class PlayerVerification : MonoBehaviour
     {
-        private const string ProbeRevision = "p07-player-art-ui-19";
+        private const string ProbeRevision = "p07-player-art-ui-20";
         private const double WarmupSeconds = 10;
         private const double SampleSeconds = 180;
         private const double FrameBudgetMs = 16.7;
@@ -407,6 +407,7 @@ namespace DiceCraft.Verification
             yield return CaptureResolutionSet("build-version",()=>InvokePrivate("ShowBuildVersion"));
             yield return VerifyV07MenuAndSettings();
             phase = "NormalReplay";
+            int normalRolls = 0;
             for (int i = 0; i < trace.steps.Length; i++)
             {
                 currentStep = i;
@@ -415,7 +416,7 @@ namespace DiceCraft.Verification
                 yield return null; // Separate real inputs; never start a roll in a screenshot-encoding frame.
                 Require(i == 0 || step.kind != "NewRun", "The normal trace must contain exactly one NewRun.");
                 Require(Enum.TryParse(step.kind, out CommandKind kind) && Enum.IsDefined(typeof(CommandKind), kind), "Unknown trace command " + step.kind);
-                bool reducedThisRoll = kind == CommandKind.Roll && rollAnimations == 1;
+                bool reducedThisRoll = kind == CommandKind.Roll && normalRolls == 1;
                 if (reducedThisRoll) SetPrivate(app, "reduced", true);
                 CommandResult result = null;
                 if (kind == CommandKind.NewRun)
@@ -443,15 +444,17 @@ namespace DiceCraft.Verification
                     });
                     Require(result.accepted && !result.duplicate && !result.pendingSave, "Rejected " + step.kind + ": " + result.error);
                 }
+                // Count accepted rolls separately: reduced presentation can complete synchronously.
+                if (kind == CommandKind.Roll) normalRolls++;
+                if (reducedThisRoll)
+                {
+                    Require(!app.table.IsRolling, "Reduced-motion Roll must finish the table's zero-duration presentation immediately.");
+                    reducedMotionChecks++;
+                }
                 if (app.IsBusy)
                 {
                     if (kind == CommandKind.Roll) rollAnimations++;
                     if (kind == CommandKind.Roll && rollAnimations == 1) yield return VerifyFirstAnimatedRoll();
-                    if (reducedThisRoll)
-                    {
-                        Require(!app.table.IsRolling, "Reduced-motion Roll must finish the table's zero-duration presentation immediately.");
-                        reducedMotionChecks++;
-                    }
                     // Exercise both complete animations and the production skip path.
                     if (kind == CommandKind.Roll && rollAnimations % 3 == 0)
                     {

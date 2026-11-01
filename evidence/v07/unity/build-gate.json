@@ -1,6 +1,6 @@
 {
   "schema": "v07-build-gate-1",
-  "sourceCommit": "821ec5992c34b59eddfe2a0ae984fbaca48f41f8",
+  "sourceCommit": "404176661240a5d9834895416ed3719d6493e253",
   "editModePassed": 999,
   "playModePassed": 154,
   "scopes": [
@@ -11,7 +11,7 @@
   "identity": {
     "releaseVersion": "p0.7.0",
     "artVersion": "art0.7.0",
-    "sourceCommit": "821ec5992c34b59eddfe2a0ae984fbaca48f41f8",
+    "sourceCommit": "404176661240a5d9834895416ed3719d6493e253",
     "contentConfigVersion": "p0.6.0",
     "contentConfigSha256": "747ed1efc7bea15873f66a81eee5c7654971c21031f2a1517ce629adce7b6e6c",
     "saveSchemaVersion": 4,
@@ -1025,12 +1025,12 @@
         "DiceCraft.Tests.V06ShopPersistenceTests.SAVE_V06_RefreshShopRealJsonRoundTripPreservesQuoteHashRngAndReopen(True)"
       ],
       "report": {
-        "path": "evidence/v07/unity/nunit-20261101-103514.xml",
-        "sha256": "b574e95dc435fb83d7cb1ab7d0f791977534522582d6659090a51caa0b7d041f"
+        "path": "evidence/v07/unity/nunit-20261101-111708.xml",
+        "sha256": "f489935c478dcaa50914b7007c454c4b7b8b98be7a12b8424562e354eaa50927"
       },
       "binding": {
-        "path": "evidence/v07/unity/nunit-20261101-103514.binding.json",
-        "sha256": "2ad0e2a832ce606ee4ffd3b455ad5000a7dc53fa44d6951a8778a49252f52428"
+        "path": "evidence/v07/unity/nunit-20261101-111708.binding.json",
+        "sha256": "f2d517a7d11c6e70f0956a63cace46cc9b883665b06ed0f31344ba0b70dfef04"
       }
     },
     {
@@ -1193,18 +1193,18 @@
         "DiceCraft.Tests.PresentationAudioPlayModeTests.PLAY_ART07_AudioStopsOnlyOwningReceiptAndMuteAppliesImmediately"
       ],
       "report": {
-        "path": "evidence/v07/unity/nunit-20261101-105539.xml",
-        "sha256": "bfce04eb0857f4e3a705aa2ea92285cafc554c5e9a61a92af8b38090da79b4e1"
+        "path": "evidence/v07/unity/nunit-20261101-113731.xml",
+        "sha256": "3d971e66afa8e4e8b1919ad3e603c278854758b82a3452b96027051a4d6df53b"
       },
       "binding": {
-        "path": "evidence/v07/unity/nunit-20261101-105539.binding.json",
-        "sha256": "6d8c24ca705d69a22f42505986d770cba6dc2022bb357417420fe792292b5fc0"
+        "path": "evidence/v07/unity/nunit-20261101-113731.binding.json",
+        "sha256": "c057e9083f973942bce304afd134090bf05fc931e33a78bfaab313dc9f4f345e"
       }
     }
   ],
   "pdbAudit": {
-    "path": "artifacts/cache/v07-pdb-post-full-821ec59-1056.json",
-    "sha256": "337c446952e05e323487a65484f2f803d56e6798d78dcaa300693f50f148aea2"
+    "path": "artifacts/cache/v07-pdb-post-full-4041766-1138.json",
+    "sha256": "35cae232a01021b54b9f663fd1bdd767a7623d92dbde286abf93a904ef699c78"
   },
   "files": [
     {
@@ -4985,7 +4985,7 @@
     },
     {
       "path": "DicePrototype/Assets/Game/Runtime/Verification/PlayerVerification.cs",
-      "sha256": "f5c5a80ab2c7be2b1efc77070398918d50bb1d93ea8fa51e2a5127d1a51e06d0"
+      "sha256": "1aa09930202f68d61a4fd9b8944cafcc8f0728a4735db30484e307c11c9b68f6"
     },
     {
       "path": "DicePrototype/Assets/Game/Runtime/Verification/PlayerVerification.cs.meta",
@@ -4993,7 +4993,7 @@
     },
     {
       "path": "DicePrototype/Assets/Game/Runtime/Verification/PlayerVerification.V06.cs",
-      "sha256": "4adf1d94db8c77d1f7b04702ff77f598b5630fd28739375c521f5aa4c1461bed"
+      "sha256": "727ea9fe93c1c67e3ec39ce7aaca455269ee69ab71655b5da54f56c32c7d88e3"
     },
     {
       "path": "DicePrototype/Assets/Game/Runtime/Verification/PlayerVerification.V06.cs.meta",
@@ -6037,7 +6037,7 @@
     },
     {
       "path": "DicePrototype/Assets/Resources/BuildIdentity.json",
-      "sha256": "93a0d96d945bcd68d3d03ade10fe6e057a5c664cc7d9a4fca51ce0f48f85759e"
+      "sha256": "5a833cd4fa024d0c236b2408673d2f63bbbc66250dd19a04de89986d4127d553"
     },
     {
       "path": "DicePrototype/Assets/Resources/BuildIdentity.json.meta",
@@ -6652,16 +6652,16 @@
       "sha256": "edd2beb4a2e388312b4b7da241aa51070434005d82c59363f1237dd2e567585f"
     },
     {
-      "path": "evidence/v07/unity/nunit-20261101-103514.xml",
-      "sha256": "b574e95dc435fb83d7cb1ab7d0f791977534522582d6659090a51caa0b7d041f"
+      "path": "evidence/v07/unity/nunit-20261101-111708.xml",
+      "sha256": "f489935c478dcaa50914b7007c454c4b7b8b98be7a12b8424562e354eaa50927"
     },
     {
-      "path": "evidence/v07/unity/nunit-20261101-105539.xml",
-      "sha256": "bfce04eb0857f4e3a705aa2ea92285cafc554c5e9a61a92af8b38090da79b4e1"
+      "path": "evidence/v07/unity/nunit-20261101-113731.xml",
+      "sha256": "3d971e66afa8e4e8b1919ad3e603c278854758b82a3452b96027051a4d6df53b"
     },
     {
-      "path": "artifacts/cache/v07-pdb-post-full-821ec59-1056.json",
-      "sha256": "337c446952e05e323487a65484f2f803d56e6798d78dcaa300693f50f148aea2"
+      "path": "artifacts/cache/v07-pdb-post-full-4041766-1138.json",
+      "sha256": "35cae232a01021b54b9f663fd1bdd767a7623d92dbde286abf93a904ef699c78"
     },
     {
       "path": "evidence/v07/unity/discovery-EditMode.json",
@@ -6672,12 +6672,12 @@
       "sha256": "59daed02202b30153cbaf8ad75d182e0a615fb97970b6a8dbb87e0f60cbafcb4"
     },
     {
-      "path": "evidence/v07/unity/nunit-20261101-103514.binding.json",
-      "sha256": "2ad0e2a832ce606ee4ffd3b455ad5000a7dc53fa44d6951a8778a49252f52428"
+      "path": "evidence/v07/unity/nunit-20261101-111708.binding.json",
+      "sha256": "f2d517a7d11c6e70f0956a63cace46cc9b883665b06ed0f31344ba0b70dfef04"
     },
     {
-      "path": "evidence/v07/unity/nunit-20261101-105539.binding.json",
-      "sha256": "6d8c24ca705d69a22f42505986d770cba6dc2022bb357417420fe792292b5fc0"
+      "path": "evidence/v07/unity/nunit-20261101-113731.binding.json",
+      "sha256": "c057e9083f973942bce304afd134090bf05fc931e33a78bfaab313dc9f4f345e"
     }
   ],
   "expectedCounts": {
