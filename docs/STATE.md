@@ -2,6 +2,10 @@
 
 ## 2026-10-31 v0.7 美术与表现实施中
 
+08:36UTC：Player明细导航修复的真实UI依赖 `083357` 两项2/2，含C53/历史完整明细与池化重复入口，6PNG/30文件归档 `cache/v07-player-detail-dependency-083357`；这不是实际Player验收。取消后的真实偏好读取发现字号150，已按取消前r02/preferences-before.json明确记录恢复100，并保存下一批公共测试夹具所用6个整数、5个按键绑定及音量的偏好快照；其余旧偏好缺少取消前完整快照，不推称已全恢复。准备最后同源完整回归，生产仅Player验证器4行变更；仍保留AudioMixer与所有未运行平台/性能边界。
+
+08:33UTC：UO01两尺寸/两r02视频已独立实图关闭，报告 `UO01_UPGRADE_LABEL_REWORK_REVIEW.md`；旧r01失败保留。检查点 `0befca2` 完整Edit `082614` 999/999且独立绑定通过；随后Play尚未完成，08:31:01因静态核实Player验证器仍把S07抽屉当旧完整明细，使用Unity公开CancelTestRun取消具体GUID，确认Editor闲置；未产生RunFinished NUnit，不把它写成通过。开始快照与该批7个隔离目录/1254文件复制留存 `cache/v07-full-regression-0befca-review/cancelled-run-preserved`，取消请求/真实返回亦保留。已集成独立审过的4行Player验证导航：经真实FullScoreDetails按钮，再执行原三尺寸和中/底滚动；95处原Require及native/180s/P95门槛全部保留，Unity0错误0警告。当前只验真实UI依赖，不冒充Player运行；此修复后须新检查点完整重跑。
+
 08:25UTC：UO01最小两行生产排版修复已集成，保持原字号、字段、骰预览与动画；同名两UPGRADE用例扩100/150字形完整性/金框边界/跨标签不重叠检查。真实1080 `082218` 与720 `082307` 各2/2，每批34PNG和40文件已归档 `cache/v07-upgrade-label-*`。新r02两段实际交易录制仍72/68帧、保存/偏好/时钟恢复检查通过，`cache/v07-upgrade-owner-smoke-r02`，待独立实图收尾；旧r01缺陷录像原样保留。下一检查点完整回归/最终媒体与构建尚未通过，AudioMixer/Windows Player/性能/Mac/人工仍待。
 
 08:19UTC：新可审检查点 `8bc97f58c83bbf79e9de7c8fd9e3d404043536b8` 已建立，独立确认7项源修改范围及meta/GUID、旧ZIP完整保留；identity实际导入/读取，完整Edit `081525` 999/999。尚未开始该源完整Play：两段强化smoke独立实图发现150%字号U05购买前权重越金框、购买后权重与当前投出相叠；原72/68帧保留为REWORK证据，owner定位修复与新布局缺陷分开判断。art仅cache准备保留字号和全部字段的四行布局及150%字形断言，root未集成前不发完整媒体/构建门禁。此处真实缺陷关闭后再冻结同源完整回归。

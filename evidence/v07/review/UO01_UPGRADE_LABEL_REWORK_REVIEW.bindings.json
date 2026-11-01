@@ -1,0 +1,474 @@
+{
+  "scope": "independent UO01 readonly review, no Unity execution; 14 test images and 8 clip keyframes actually viewed",
+  "tests": [
+    {
+      "size": "1080",
+      "result": {
+        "id": "2",
+        "testcasecount": "2",
+        "result": "Passed",
+        "total": "2",
+        "passed": "2",
+        "failed": "0",
+        "inconclusive": "0",
+        "skipped": "0",
+        "asserts": "0",
+        "engine-version": "3.5.0.0",
+        "clr-version": "4.0.30319.42000",
+        "start-time": "2026-11-01 08:22:05Z",
+        "end-time": "2026-11-01 08:22:18Z",
+        "duration": "13.3016403"
+      },
+      "cases": [
+        {
+          "id": "1112",
+          "name": "PLAY_ART07_UPGRADE_ActualCeramicAndSingleQuestionFlipRenderBeforeMiddleAndAfter",
+          "fullname": "DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_UPGRADE_ActualCeramicAndSingleQuestionFlipRenderBeforeMiddleAndAfter",
+          "methodname": "PLAY_ART07_UPGRADE_ActualCeramicAndSingleQuestionFlipRenderBeforeMiddleAndAfter",
+          "classname": "DiceCraft.Tests.GameplayPlayModeTests",
+          "runstate": "Runnable",
+          "seed": "481267340",
+          "result": "Passed",
+          "start-time": "2026-11-01 08:22:05Z",
+          "end-time": "2026-11-01 08:22:12Z",
+          "duration": "7.355672",
+          "asserts": "0"
+        },
+        {
+          "id": "1113",
+          "name": "PLAY_ART07_UPGRADE_FastReducedPauseAndSkipKeepCommittedStateAndResetSurfaces",
+          "fullname": "DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_UPGRADE_FastReducedPauseAndSkipKeepCommittedStateAndResetSurfaces",
+          "methodname": "PLAY_ART07_UPGRADE_FastReducedPauseAndSkipKeepCommittedStateAndResetSurfaces",
+          "classname": "DiceCraft.Tests.GameplayPlayModeTests",
+          "runstate": "Runnable",
+          "seed": "309226901",
+          "result": "Passed",
+          "start-time": "2026-11-01 08:22:12Z",
+          "end-time": "2026-11-01 08:22:18Z",
+          "duration": "5.903152",
+          "asserts": "0"
+        }
+      ],
+      "archiveFilesVerified": 40,
+      "binding": {
+        "path": "artifacts/cache/v07-upgrade-label-1080-082218/nunit-20261101-082218.binding.json",
+        "sha256": "de61693fbee5da1a1bdc2073b2f15ccdbe8ca3c67af830e190a2a559a1bba7b6",
+        "bytes": 574701
+      },
+      "xml": {
+        "path": "artifacts/cache/v07-upgrade-label-1080-082218/nunit-20261101-082218.xml",
+        "sha256": "4a54e275e294fa1d9294d17b45db38f6daae75821ed44e3aef858615fc01aa50",
+        "bytes": 23097
+      },
+      "archive": {
+        "path": "artifacts/cache/v07-upgrade-label-1080-082218/archive.json",
+        "sha256": "7f2f0c62b19c66114b3a6eaa9ff9b5aa9713821156f4e340acbe7b82a7d58f06",
+        "bytes": 9748
+      },
+      "sourceFilesStable": 1358,
+      "liveSourceDifferences": [],
+      "imagesVerified": 34,
+      "visuallyViewed": [
+        {
+          "path": "artifacts/cache/v07-upgrade-label-1080-082218/DiceCraftTests_dbc5de9534d74393827553dba8f81395/art07-upgrade-frames/U05-font150-p0-45.png",
+          "sha256": "da6aa237d319d0871ceff89955c53a6205225286b8cf490290c2de03833e1d80",
+          "bytes": 972218
+        },
+        {
+          "path": "artifacts/cache/v07-upgrade-label-1080-082218/DiceCraftTests_dbc5de9534d74393827553dba8f81395/art07-upgrade-frames/U05-font150-p48-47.png",
+          "sha256": "126a3c2dbe3a4eb22ced63900c092483581d025ccedf3983819f3daddb512d98",
+          "bytes": 1025534
+        },
+        {
+          "path": "artifacts/cache/v07-upgrade-label-1080-082218/DiceCraftTests_dbc5de9534d74393827553dba8f81395/art07-upgrade-frames/U05-font150-p99-49.png",
+          "sha256": "e3e3922f6917ecb7839da005c81450969a579e1f52a17962f9899085f440555f",
+          "bytes": 1039731
+        },
+        {
+          "path": "artifacts/cache/v07-upgrade-label-1080-082218/DiceCraftTests_dbc5de9534d74393827553dba8f81395/art07-upgrade-frames/U05-font100-p99-29.png",
+          "sha256": "2f389e73c18a9fe455fe3a73e1f8570eb69db98ef5fa8720cba52cd4e7252186",
+          "bytes": 944883
+        },
+        {
+          "path": "artifacts/cache/v07-upgrade-label-1080-082218/DiceCraftTests_dbc5de9534d74393827553dba8f81395/art07-upgrade-frames/U07-font150-p99-57.png",
+          "sha256": "3a0fa745855041e05b522dcfc04e592cbfdff68be0fc26bfae2f90d18748b63a",
+          "bytes": 1022482
+        },
+        {
+          "path": "artifacts/cache/v07-upgrade-label-1080-082218/DiceCraftTests_627743fce302486bbc97dd0bc7c1639b/art07-upgrade-frames/U05-font150-fast-labels-101.png",
+          "sha256": "e3e3922f6917ecb7839da005c81450969a579e1f52a17962f9899085f440555f",
+          "bytes": 1039731
+        },
+        {
+          "path": "artifacts/cache/v07-upgrade-label-1080-082218/DiceCraftTests_627743fce302486bbc97dd0bc7c1639b/art07-upgrade-frames/U05-font150-reduced-labels-116.png",
+          "sha256": "b9076dfeae1f999c6187e53797ec346d2a5b9656395bbf9ba1ed8bf6739193c5",
+          "bytes": 341108
+        }
+      ],
+      "clockLogs": [
+        "UPGRADE_CLOCK exact=HUD/Art07TransactionMotion duration=0.42 elapsed=0 otherPooledClocks=1",
+        "UPGRADE_CLOCK exact=HUD/Art07TransactionMotion duration=0.36 elapsed=0 otherPooledClocks=1",
+        "UPGRADE_CLOCK exact=HUD/Art07TransactionMotion duration=0.42 elapsed=0 otherPooledClocks=1",
+        "UPGRADE_CLOCK exact=HUD/Art07TransactionMotion duration=0.36 elapsed=0 otherPooledClocks=1",
+        "UPGRADE_CLOCK exact=HUD/Art07TransactionMotion duration=0.15 elapsed=0 otherPooledClocks=1",
+        "UPGRADE_CLOCK exact=HUD/Art07TransactionMotion duration=0.15 elapsed=0 otherPooledClocks=1",
+        "UPGRADE_CLOCK exact=HUD/Art07TransactionMotion duration=0.12 elapsed=0 otherPooledClocks=1",
+        "UPGRADE_CLOCK exact=HUD/Art07TransactionMotion duration=0.12 elapsed=0 otherPooledClocks=1",
+        "UPGRADE_CLOCK exact=HUD/Art07TransactionMotion duration=0.15 elapsed=0 otherPooledClocks=1",
+        "UPGRADE_CLOCK exact=HUD/Art07TransactionMotion duration=0.15 elapsed=0 otherPooledClocks=1",
+        "UPGRADE_CLOCK exact=HUD/Art07TransactionMotion duration=0.12 elapsed=0 otherPooledClocks=1",
+        "UPGRADE_CLOCK exact=HUD/Art07TransactionMotion duration=0.12 elapsed=0 otherPooledClocks=1"
+      ]
+    },
+    {
+      "size": "720",
+      "result": {
+        "id": "2",
+        "testcasecount": "2",
+        "result": "Passed",
+        "total": "2",
+        "passed": "2",
+        "failed": "0",
+        "inconclusive": "0",
+        "skipped": "0",
+        "asserts": "0",
+        "engine-version": "3.5.0.0",
+        "clr-version": "4.0.30319.42000",
+        "start-time": "2026-11-01 08:22:56Z",
+        "end-time": "2026-11-01 08:23:07Z",
+        "duration": "11.6354281"
+      },
+      "cases": [
+        {
+          "id": "1112",
+          "name": "PLAY_ART07_UPGRADE_ActualCeramicAndSingleQuestionFlipRenderBeforeMiddleAndAfter",
+          "fullname": "DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_UPGRADE_ActualCeramicAndSingleQuestionFlipRenderBeforeMiddleAndAfter",
+          "methodname": "PLAY_ART07_UPGRADE_ActualCeramicAndSingleQuestionFlipRenderBeforeMiddleAndAfter",
+          "classname": "DiceCraft.Tests.GameplayPlayModeTests",
+          "runstate": "Runnable",
+          "seed": "635963362",
+          "result": "Passed",
+          "start-time": "2026-11-01 08:22:56Z",
+          "end-time": "2026-11-01 08:23:02Z",
+          "duration": "6.081523",
+          "asserts": "0"
+        },
+        {
+          "id": "1113",
+          "name": "PLAY_ART07_UPGRADE_FastReducedPauseAndSkipKeepCommittedStateAndResetSurfaces",
+          "fullname": "DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_UPGRADE_FastReducedPauseAndSkipKeepCommittedStateAndResetSurfaces",
+          "methodname": "PLAY_ART07_UPGRADE_FastReducedPauseAndSkipKeepCommittedStateAndResetSurfaces",
+          "classname": "DiceCraft.Tests.GameplayPlayModeTests",
+          "runstate": "Runnable",
+          "seed": "1040373160",
+          "result": "Passed",
+          "start-time": "2026-11-01 08:23:02Z",
+          "end-time": "2026-11-01 08:23:07Z",
+          "duration": "5.512084",
+          "asserts": "0"
+        }
+      ],
+      "archiveFilesVerified": 40,
+      "binding": {
+        "path": "artifacts/cache/v07-upgrade-label-720-082307/nunit-20261101-082307.binding.json",
+        "sha256": "780882fdd891eed25f1f4f2e34967e847da8df09f6530a2725e8622b5bff2f21",
+        "bytes": 574701
+      },
+      "xml": {
+        "path": "artifacts/cache/v07-upgrade-label-720-082307/nunit-20261101-082307.xml",
+        "sha256": "1434b248d08a348426a0bc486efbbc6f6c4c0d0caa6357b635777c6aeb75abde",
+        "bytes": 23098
+      },
+      "archive": {
+        "path": "artifacts/cache/v07-upgrade-label-720-082307/archive.json",
+        "sha256": "e8efa83dd4ffcc057c772d7483fc71b16e673c49253d538e1d7f9732437c3c15",
+        "bytes": 9740
+      },
+      "sourceFilesStable": 1358,
+      "liveSourceDifferences": [],
+      "imagesVerified": 34,
+      "visuallyViewed": [
+        {
+          "path": "artifacts/cache/v07-upgrade-label-720-082307/DiceCraftTests_3293786c825c4d0db24e31ea0f8b0270/art07-upgrade-frames/U05-font150-p0-42.png",
+          "sha256": "3cc5e39bbe99aae590c89bcaaf12949b90f77a10a7c0d6e26b3d94e09c55f198",
+          "bytes": 548940
+        },
+        {
+          "path": "artifacts/cache/v07-upgrade-label-720-082307/DiceCraftTests_3293786c825c4d0db24e31ea0f8b0270/art07-upgrade-frames/U05-font150-p48-44.png",
+          "sha256": "c974e375edb18a7f442fd9572f7e5e3826457b6fff4aa1ecd02a78b7a7b1456c",
+          "bytes": 580784
+        },
+        {
+          "path": "artifacts/cache/v07-upgrade-label-720-082307/DiceCraftTests_3293786c825c4d0db24e31ea0f8b0270/art07-upgrade-frames/U05-font150-p99-46.png",
+          "sha256": "86fcf142e8989c11dbdaa0325d6f0ecdd6407b39be4c38357d40c2c9f1e8db12",
+          "bytes": 589418
+        },
+        {
+          "path": "artifacts/cache/v07-upgrade-label-720-082307/DiceCraftTests_3293786c825c4d0db24e31ea0f8b0270/art07-upgrade-frames/U05-font100-p99-26.png",
+          "sha256": "f7581964c094735fb280a86b056d2264d6fa1a319321a6e5801d3e4c2cecce25",
+          "bytes": 516124
+        },
+        {
+          "path": "artifacts/cache/v07-upgrade-label-720-082307/DiceCraftTests_3293786c825c4d0db24e31ea0f8b0270/art07-upgrade-frames/U07-font150-p99-54.png",
+          "sha256": "ff32c4bff93330af9b1865ebb484650bb8a788d13cec3f6d6f698010ff7a004f",
+          "bytes": 578217
+        },
+        {
+          "path": "artifacts/cache/v07-upgrade-label-720-082307/DiceCraftTests_5bf16468a83f4cbc880ef0f80a37dbab/art07-upgrade-frames/U05-font150-fast-labels-98.png",
+          "sha256": "86fcf142e8989c11dbdaa0325d6f0ecdd6407b39be4c38357d40c2c9f1e8db12",
+          "bytes": 589418
+        },
+        {
+          "path": "artifacts/cache/v07-upgrade-label-720-082307/DiceCraftTests_5bf16468a83f4cbc880ef0f80a37dbab/art07-upgrade-frames/U05-font150-reduced-labels-113.png",
+          "sha256": "8b642a922b263c64ac941ec05dbbcecf4f5e41d188f1c87590734d34aca2768b",
+          "bytes": 220738
+        }
+      ],
+      "clockLogs": [
+        "UPGRADE_CLOCK exact=HUD/Art07TransactionMotion duration=0.42 elapsed=0 otherPooledClocks=1",
+        "UPGRADE_CLOCK exact=HUD/Art07TransactionMotion duration=0.36 elapsed=0 otherPooledClocks=1",
+        "UPGRADE_CLOCK exact=HUD/Art07TransactionMotion duration=0.42 elapsed=0 otherPooledClocks=1",
+        "UPGRADE_CLOCK exact=HUD/Art07TransactionMotion duration=0.36 elapsed=0 otherPooledClocks=1",
+        "UPGRADE_CLOCK exact=HUD/Art07TransactionMotion duration=0.15 elapsed=0 otherPooledClocks=1",
+        "UPGRADE_CLOCK exact=HUD/Art07TransactionMotion duration=0.15 elapsed=0 otherPooledClocks=1",
+        "UPGRADE_CLOCK exact=HUD/Art07TransactionMotion duration=0.12 elapsed=0 otherPooledClocks=1",
+        "UPGRADE_CLOCK exact=HUD/Art07TransactionMotion duration=0.12 elapsed=0 otherPooledClocks=1",
+        "UPGRADE_CLOCK exact=HUD/Art07TransactionMotion duration=0.15 elapsed=0 otherPooledClocks=1",
+        "UPGRADE_CLOCK exact=HUD/Art07TransactionMotion duration=0.15 elapsed=0 otherPooledClocks=1",
+        "UPGRADE_CLOCK exact=HUD/Art07TransactionMotion duration=0.12 elapsed=0 otherPooledClocks=1",
+        "UPGRADE_CLOCK exact=HUD/Art07TransactionMotion duration=0.12 elapsed=0 otherPooledClocks=1"
+      ]
+    }
+  ],
+  "assemblies": [
+    {
+      "name": "DiceCraft.Core",
+      "mvid": "8f690e0d-a075-4b72-98e4-2cb64ced2fa3",
+      "dllSha256": "44a137cd38d7b525382dfda7adbdb7676d12d1dbc05520638d8a14642a96031b"
+    },
+    {
+      "name": "DiceCraft.EditMode",
+      "mvid": "104a6faa-e8db-4a9d-8f20-4c0fd9e61ce8",
+      "dllSha256": "873e4b69f4cc2d77fd4fd6a09bf1dfa62ce5ddbc861b522b75463b92cc9109c0"
+    },
+    {
+      "name": "DiceCraft.Editor",
+      "mvid": "da788e33-9765-4d18-805d-e8c014459f81",
+      "dllSha256": "f8d966a2c128f40360b57e2af85d9ebe23a8c2a380d7c576da3e271c2648336c"
+    },
+    {
+      "name": "DiceCraft.PlayModeTests",
+      "mvid": "34768e8c-9352-44b4-9cb1-494d7e3fcc83",
+      "dllSha256": "e8512c29bf7bce8c43e06ebc39425ff98064b71ed5a588ee09b05f13c583db98"
+    },
+    {
+      "name": "DiceCraft.Runtime",
+      "mvid": "3084d099-dede-45b9-8b42-a0fe30d608d5",
+      "dllSha256": "2979f6d3c47b267c3d7e200c48cf5982355c21af051953ca4b173af790e50959"
+    }
+  ],
+  "decoder": {
+    "path": "artifacts/tools/video/imageio_ffmpeg/binaries/ffmpeg-win-x86_64-v7.1.exe",
+    "sha256": "2ce797a0f88d7f067180338fb227f7b1928ea727bd9a4d7a1d022f7c52af71a3",
+    "bytes": 87638016
+  },
+  "owners": [
+    {
+      "name": "FrozenUiGroup0",
+      "parent": "SettlementBackdrop07",
+      "active": false,
+      "playing": false,
+      "duration": 0,
+      "elapsed": 0,
+      "kind": null
+    },
+    {
+      "name": "Art07TransactionMotion",
+      "parent": "HUD",
+      "active": true,
+      "playing": false,
+      "duration": 0.36,
+      "elapsed": 0.36,
+      "kind": "die_upgrade"
+    }
+  ],
+  "ownersBinding": {
+    "path": "artifacts/cache/v07-upgrade-owner-smoke-r02/actual-clock-owners.json",
+    "sha256": "e1bdbd9634646d129516da5c2eb51b6f1ee1975267e4844ae963a4e8ed568eac",
+    "bytes": 376
+  },
+  "clips": [
+    {
+      "name": "GlassDie-normal",
+      "framesPngVerified": 72,
+      "fullyDecodedFrames": 72,
+      "decoderStderr": "",
+      "sourceEntriesVerified": 169,
+      "sourceManifestSha256": "8ab9e32040cb1cfc2aa3f4b246c476b649fa589979d163bdf4819f0fc0a0ca70",
+      "runtimeMvid": "3084d099-dede-45b9-8b42-a0fe30d608d5",
+      "coreMvid": "8f690e0d-a075-4b72-98e4-2cb64ced2fa3",
+      "ticks": 26,
+      "durationMilliseconds": 420,
+      "recording": {
+        "path": "artifacts/cache/v07-upgrade-owner-smoke-r02/GlassDie-normal/recording.json",
+        "sha256": "94effa3839328aa9f70b88f38a42bb4bf673e985d7b68d40d5d9db7faf32f0ec",
+        "bytes": 3716
+      },
+      "frames": {
+        "path": "artifacts/cache/v07-upgrade-owner-smoke-r02/GlassDie-normal/frames.jsonl",
+        "sha256": "d89f58ffe81a7bd7f1869b8657fcf6e302824f8ef340199255fdf6c8fbe4952b",
+        "bytes": 112040
+      },
+      "video": {
+        "path": "artifacts/cache/v07-upgrade-owner-smoke-r02/GlassDie-normal/visual-silent.mp4",
+        "sha256": "edfcf3a35671ca2210999a3e8e7dac733cf2a5bc5e624152e9dfea5d5be744ef",
+        "bytes": 436936
+      },
+      "visuallyViewed": [
+        {
+          "path": "artifacts/cache/v07-upgrade-owner-smoke-r02/GlassDie-normal/frames/frame_000015.png",
+          "sha256": "fe35e98b3ec35ffce7a8d4da839f0b92be6117abf3db9ebad13499c7dcc4a04f",
+          "bytes": 985812
+        },
+        {
+          "path": "artifacts/cache/v07-upgrade-owner-smoke-r02/GlassDie-normal/frames/frame_000027.png",
+          "sha256": "86e62eb9dca3589bfd6d65f6e1531529958669df03f5db858affd5423d8e87d6",
+          "bytes": 1038957
+        },
+        {
+          "path": "artifacts/cache/v07-upgrade-owner-smoke-r02/GlassDie-normal/frames/frame_000040.png",
+          "sha256": "44550cdb47d2c025ff05f2560925fff1d9c5546d6e01219eb6cb6248d9c9963a",
+          "bytes": 1046096
+        },
+        {
+          "path": "artifacts/cache/v07-upgrade-owner-smoke-r02/GlassDie-normal/frames/frame_000041.png",
+          "sha256": "aede67350f9aa12c9bd4b4a148cbba8d791e6fd16a57186d2221a2617227b1b7",
+          "bytes": 1041065
+        }
+      ],
+      "stateSaveStableOutsideSingleBuy": true,
+      "restoredTiming": true,
+      "restoredPreferences": true,
+      "normalSaveUnchanged": true,
+      "buildIdentity": {
+        "releaseVersion": "p0.7.0",
+        "artVersion": "art0.7.0",
+        "sourceCommit": "8bc97f58c83bbf79e9de7c8fd9e3d404043536b8",
+        "contentConfigVersion": "p0.6.0",
+        "contentConfigSha256": "747ed1efc7bea15873f66a81eee5c7654971c21031f2a1517ce629adce7b6e6c",
+        "saveSchemaVersion": 4,
+        "goldenCaseSetSha256": "306cb86f79dafe0e3eb302714abd232af20fe0062a6713f7d713c11e2a6a5718",
+        "unityEditorVersion": "6000.6.7f1",
+        "backend": "Mono"
+      }
+    },
+    {
+      "name": "RandomFace-normal",
+      "framesPngVerified": 68,
+      "fullyDecodedFrames": 68,
+      "decoderStderr": "",
+      "sourceEntriesVerified": 169,
+      "sourceManifestSha256": "8ab9e32040cb1cfc2aa3f4b246c476b649fa589979d163bdf4819f0fc0a0ca70",
+      "runtimeMvid": "3084d099-dede-45b9-8b42-a0fe30d608d5",
+      "coreMvid": "8f690e0d-a075-4b72-98e4-2cb64ced2fa3",
+      "ticks": 22,
+      "durationMilliseconds": 360,
+      "recording": {
+        "path": "artifacts/cache/v07-upgrade-owner-smoke-r02/RandomFace-normal/recording.json",
+        "sha256": "e2b11d9b8be4d384b67fe58e7a0db2a57e8646e3b247527def9c4f4023bd1ec7",
+        "bytes": 3781
+      },
+      "frames": {
+        "path": "artifacts/cache/v07-upgrade-owner-smoke-r02/RandomFace-normal/frames.jsonl",
+        "sha256": "6785b7c81ad04899a3e706ec5a829d3f2a9851e043a87cdf7343c068c5619b10",
+        "bytes": 105654
+      },
+      "video": {
+        "path": "artifacts/cache/v07-upgrade-owner-smoke-r02/RandomFace-normal/visual-silent.mp4",
+        "sha256": "aae5b5ea6f16f9e4fae620e63abf13e0e20a5609adaed5f0046481de2e175395",
+        "bytes": 396805
+      },
+      "visuallyViewed": [
+        {
+          "path": "artifacts/cache/v07-upgrade-owner-smoke-r02/RandomFace-normal/frames/frame_000015.png",
+          "sha256": "28f19a83671f6a81a67abc09bc5ca728b0c0b8453fb6a848f3c11706286142fa",
+          "bytes": 992396
+        },
+        {
+          "path": "artifacts/cache/v07-upgrade-owner-smoke-r02/RandomFace-normal/frames/frame_000025.png",
+          "sha256": "5c7b066ab0d9e399ee4302af6381c5e4874c0df80b2cbe01f82951bfda5c5d98",
+          "bytes": 994677
+        },
+        {
+          "path": "artifacts/cache/v07-upgrade-owner-smoke-r02/RandomFace-normal/frames/frame_000036.png",
+          "sha256": "f23e2ccd67ff917063ff96b998621eadb9e4a5dcdf66769926b883d8f39824d8",
+          "bytes": 1038014
+        },
+        {
+          "path": "artifacts/cache/v07-upgrade-owner-smoke-r02/RandomFace-normal/frames/frame_000037.png",
+          "sha256": "3e56efdb25a1335c46920317273da9b96f4eabd0673e78e6babce6d628f4b234",
+          "bytes": 1049647
+        }
+      ],
+      "stateSaveStableOutsideSingleBuy": true,
+      "restoredTiming": true,
+      "restoredPreferences": true,
+      "normalSaveUnchanged": true,
+      "buildIdentity": {
+        "releaseVersion": "p0.7.0",
+        "artVersion": "art0.7.0",
+        "sourceCommit": "8bc97f58c83bbf79e9de7c8fd9e3d404043536b8",
+        "contentConfigVersion": "p0.6.0",
+        "contentConfigSha256": "747ed1efc7bea15873f66a81eee5c7654971c21031f2a1517ce629adce7b6e6c",
+        "saveSchemaVersion": 4,
+        "goldenCaseSetSha256": "306cb86f79dafe0e3eb302714abd232af20fe0062a6713f7d713c11e2a6a5718",
+        "unityEditorVersion": "6000.6.7f1",
+        "backend": "Mono"
+      }
+    }
+  ],
+  "assertionRetention": {
+    "baseline": "8bc97f58c83bbf79e9de7c8fd9e3d404043536b8",
+    "original": 56,
+    "current": 81,
+    "missing": [],
+    "method": "whitespace-normalized semicolon-terminated Assert.That/CollectionAssert calls; independent static review additionally covered scope and control flow"
+  },
+  "extraBindings": [
+    {
+      "path": "artifacts/cache/v07-upgrade-label-review/audit.py",
+      "sha256": "bc0e1b2b4e9276e77ece4a68b120407624f1142474ee3b38f29aa13ffc321160",
+      "bytes": 7629
+    },
+    {
+      "path": "artifacts/cache/v07-upgrade-label-review/checks.json",
+      "sha256": "93ffed13ea7076409a184e725f70b76b3517ec8f5006a06ce45f9d277b98e920",
+      "bytes": 20152
+    },
+    {
+      "path": "DicePrototype/Assets/Game/UI/GameApp.Art07Effects.cs",
+      "sha256": "841a385f2f806c2b4d7f3b3936e60cec87a33137c329e8ac263875aa43579ab6",
+      "bytes": 55520
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Tests/PlayMode/Art07UpgradeVisualPlayModeTests.cs",
+      "sha256": "a0209e8fd7f62cd80bd314f600a0ca49d730dd80887cd34c769ba4cbcdca1047",
+      "bytes": 22583
+    },
+    {
+      "path": "docs/specs/v07/ART_SPEC.md",
+      "sha256": "5120a8d0983d24f25cc38e22f1da613fd1a56c70ab26f518771a2caf064dd228",
+      "bytes": 417792
+    },
+    {
+      "path": "evidence/v07/review/UO01_UPGRADE_LABEL_REWORK_REVIEW.md",
+      "sha256": "3f340ca16db11ddc28cc8a94fff752a13406653c35222e4f4dca5337a5f4d2be",
+      "bytes": 4753
+    },
+    {
+      "path": "evidence/v07/review/SEVEN_FIXES_AND_OWNER_0811_REVIEW.md",
+      "sha256": "89297d35a85b07c1c196c340bd640da66b37cccebdd0a5d1de8689b5c6ca6734",
+      "bytes": 7324
+    }
+  ]
+}

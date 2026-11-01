@@ -1266,6 +1266,10 @@ namespace DiceCraft.Verification
                 {
                     showModal();
                     Require((bool)GetPrivate(app, "modal"), "The real detail modal did not open.");
+                    // S07 first opens the three-column drawer. Use its actual button
+                    // before exercising the existing full-detail ScrollRect below.
+                    if (scrollDetail && scrollName == "ScoreDetail")
+                        yield return PressTargetReady("FullScoreDetails");
                 }
                 yield return Capture(name + "-" + widths[i] + "x" + heights[i]);
                 if (scrollDetail)

@@ -1,0 +1,27 @@
+{
+  "success": true,
+  "command": "command",
+  "data": {
+    "command": "script eval",
+    "parameters": {
+      "code": "UnityEditor.AssetDatabase.ImportAsset(\"Assets/Resources/BuildIdentity.json\",UnityEditor.ImportAssetOptions.ForceSynchronousImport);var t=UnityEngine.Resources.Load<UnityEngine.TextAsset>(\"BuildIdentity\");if(t==null||!t.text.Contains(\"0befca282bf5cd6da7dda9480423d36007386498\"))throw new System.InvalidOperationException(\"Stale identity\");DiceCraft.Editor.TestEvidence.DiscoverAll();return new{identity=t.text,utc=System.DateTime.UtcNow.ToString(\"O\"),playing=UnityEditor.EditorApplication.isPlaying};"
+    },
+    "result": {
+      "output": null,
+      "diagnostics": [],
+      "success": true,
+      "result": {
+        "identity": "{\r\n  \"releaseVersion\": \"p0.7.0\",\r\n  \"artVersion\": \"art0.7.0\",\r\n  \"sourceCommit\": \"0befca282bf5cd6da7dda9480423d36007386498\",\r\n  \"contentConfigVersion\": \"p0.6.0\",\r\n  \"contentConfigSha256\": \"747ed1efc7bea15873f66a81eee5c7654971c21031f2a1517ce629adce7b6e6c\",\r\n  \"saveSchemaVersion\": 4,\r\n  \"goldenCaseSetSha256\": \"306cb86f79dafe0e3eb302714abd232af20fe0062a6713f7d713c11e2a6a5718\",\r\n  \"unityEditorVersion\": \"6000.6.7f1\",\r\n  \"backend\": \"Mono\"\r\n}\r\n",
+        "utc": "2026-11-01T08:25:52.0734496Z",
+        "playing": false
+      }
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "E:\\agent_workspace\\gpt\\game2\\DicePrototype"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}
