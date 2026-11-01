@@ -19,9 +19,11 @@ namespace DiceCraft.Tests
             StartRun("42");Click("StartStage");Click("Roll");Click("Skip");ClickDie("D001");
             string before=StateJson();byte[] disk=File.ReadAllBytes(app.SaveLocation);
             var pending=app.Session.PendingIds;
+            Click("Handbook");Click("HandbookColors");
+            Assert.That(HasActive("HandbookRow_all_red"),Is.True);Click("CloseDialog");
             for(int i=0;i<20;i++)
             {
-                Click("Handbook");
+                Click("Handbook");Click("HandbookHands");
                 var rows=app.canvas.GetComponentsInChildren<Transform>().Where(t=>t.name.StartsWith("HandbookRow_")).ToArray();
                 Assert.That(rows.Length,Is.EqualTo(14));
                 Assert.That(rows.Any(t=>t.name=="HandbookRow_eight_kind"),Is.True);

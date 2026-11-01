@@ -24,7 +24,7 @@ namespace DiceCraft.Verification
     /// </summary>
     public sealed partial class PlayerVerification : MonoBehaviour
     {
-        private const string ProbeRevision = "p07-player-art-ui-17";
+        private const string ProbeRevision = "p07-player-art-ui-18";
         private const double WarmupSeconds = 10;
         private const double SampleSeconds = 180;
         private const double FrameBudgetMs = 16.7;
@@ -551,6 +551,9 @@ namespace DiceCraft.Verification
                 Require((bool)GetPrivate(app, "modal"), "Handbook did not open.");
                 if (i == 0)
                 {
+                    // The menu inspection leaves the persistent handbook on Colors.
+                    // Select the real Hands tab before checking its unchanged rows.
+                    yield return PressTargetReady("HandbookHands");
                     var texts = ((Transform)GetPrivate(app, "overlay")).GetComponentsInChildren<Component>(true)
                         .Where(c => c != null && c.gameObject.activeInHierarchy && c.GetType().FullName == "TMPro.TextMeshProUGUI")
                         .Select(c => c.GetType().GetProperty("text").GetValue(c)?.ToString() ?? "");

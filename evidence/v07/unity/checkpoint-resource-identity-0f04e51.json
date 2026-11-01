@@ -1,0 +1,88 @@
+{
+  "success": true,
+  "command": "command",
+  "data": {
+    "command": "script eval",
+    "parameters": {
+      "code": "if(UnityEditor.EditorApplication.isPlayingOrWillChangePlaymode||UnityEditor.EditorApplication.isCompiling)throw new System.Exception(\"Require idle\");UnityEditor.AssetDatabase.ImportAsset(\"Assets/Resources/BuildIdentity.json\",UnityEditor.ImportAssetOptions.ForceSynchronousImport);return new{utc=System.DateTime.UtcNow.ToString(\"O\"),identity=UnityEngine.Resources.Load<UnityEngine.TextAsset>(\"BuildIdentity\").text,runtimeMvid=typeof(DiceCraft.GameApp).Assembly.ManifestModule.ModuleVersionId.ToString(),intPreferences=new[]{\"fast\",\"reduced\",\"shopTab\",\"art07.instant\",\"art07.textScale\",\"art07.guideSeen\"}.Select(k=>new{key=k,had=UnityEngine.PlayerPrefs.HasKey(k),value=UnityEngine.PlayerPrefs.GetInt(k)}).ToArray(),keys=new[]{\"Roll\",\"Lock\",\"Submit\",\"Clear\",\"Handbook\"}.Select(a=>new{key=\"art07.key.\"+a,had=UnityEngine.PlayerPrefs.HasKey(\"art07.key.\"+a),value=UnityEngine.PlayerPrefs.GetString(\"art07.key.\"+a)}).ToArray(),hadVolume=UnityEngine.PlayerPrefs.HasKey(\"volume\"),volume=UnityEngine.PlayerPrefs.GetFloat(\"volume\",1)};"
+    },
+    "result": {
+      "output": null,
+      "diagnostics": [],
+      "success": true,
+      "result": {
+        "utc": "2026-11-01T09:39:14.7416856Z",
+        "identity": "{\r\n  \"releaseVersion\": \"p0.7.0\",\r\n  \"artVersion\": \"art0.7.0\",\r\n  \"sourceCommit\": \"0f04e51a2add69ca69f44c2d0c7b8425367e7a89\",\r\n  \"contentConfigVersion\": \"p0.6.0\",\r\n  \"contentConfigSha256\": \"747ed1efc7bea15873f66a81eee5c7654971c21031f2a1517ce629adce7b6e6c\",\r\n  \"saveSchemaVersion\": 4,\r\n  \"goldenCaseSetSha256\": \"306cb86f79dafe0e3eb302714abd232af20fe0062a6713f7d713c11e2a6a5718\",\r\n  \"unityEditorVersion\": \"6000.6.7f1\",\r\n  \"backend\": \"Mono\"\r\n}\r\n",
+        "runtimeMvid": "e858ca97-2062-4977-801f-579d213d9ff4",
+        "intPreferences": [
+          {
+            "key": "fast",
+            "had": true,
+            "value": 0
+          },
+          {
+            "key": "reduced",
+            "had": true,
+            "value": 0
+          },
+          {
+            "key": "shopTab",
+            "had": true,
+            "value": 0
+          },
+          {
+            "key": "art07.instant",
+            "had": true,
+            "value": 0
+          },
+          {
+            "key": "art07.textScale",
+            "had": true,
+            "value": 100
+          },
+          {
+            "key": "art07.guideSeen",
+            "had": true,
+            "value": 1
+          }
+        ],
+        "keys": [
+          {
+            "key": "art07.key.Roll",
+            "had": false,
+            "value": ""
+          },
+          {
+            "key": "art07.key.Lock",
+            "had": false,
+            "value": ""
+          },
+          {
+            "key": "art07.key.Submit",
+            "had": false,
+            "value": ""
+          },
+          {
+            "key": "art07.key.Clear",
+            "had": false,
+            "value": ""
+          },
+          {
+            "key": "art07.key.Handbook",
+            "had": false,
+            "value": ""
+          }
+        ],
+        "hadVolume": true,
+        "volume": 0
+      }
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "E:\\agent_workspace\\gpt\\game2\\DicePrototype"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

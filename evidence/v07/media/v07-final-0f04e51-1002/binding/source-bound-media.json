@@ -1,0 +1,418 @@
+{
+  "status": "source_bound_pending_independent_visual_review_not_release_or_performance_acceptance",
+  "sourceCommit": "0f04e51a2add69ca69f44c2d0c7b8425367e7a89",
+  "identity": {
+    "releaseVersion": "p0.7.0",
+    "artVersion": "art0.7.0",
+    "sourceCommit": "0f04e51a2add69ca69f44c2d0c7b8425367e7a89",
+    "contentConfigVersion": "p0.6.0",
+    "contentConfigSha256": "747ed1efc7bea15873f66a81eee5c7654971c21031f2a1517ce629adce7b6e6c",
+    "saveSchemaVersion": 4,
+    "goldenCaseSetSha256": "306cb86f79dafe0e3eb302714abd232af20fe0062a6713f7d713c11e2a6a5718",
+    "unityEditorVersion": "6000.6.7f1",
+    "backend": "Mono"
+  },
+  "sourceFiles": 1361,
+  "assemblies": [
+    {
+      "name": "DiceCraft.Core",
+      "mvid": "8f690e0d-a075-4b72-98e4-2cb64ced2fa3",
+      "dllSha256": "44a137cd38d7b525382dfda7adbdb7676d12d1dbc05520638d8a14642a96031b",
+      "pdbSha256": "ac0e604ab35e64c021e8ec3ee0a61952baa2a241fbaec388cf123c9bf7ff8d3b",
+      "dllLastWriteUtc": "2026-10-31T15:55:07.0278849Z",
+      "pdbMatchesDll": true,
+      "projectDocuments": 18
+    },
+    {
+      "name": "DiceCraft.Runtime",
+      "mvid": "e858ca97-2062-4977-801f-579d213d9ff4",
+      "dllSha256": "bb9d69a65c46d08d13eee252aefe4dc2c4ced6b7dddba73583014999e3187575",
+      "pdbSha256": "ae6d75ed945427de1f99deb211bbeacee2168a23971b43c6bd2e1023e460c6c7",
+      "dllLastWriteUtc": "2026-11-01T09:33:45.3383674Z",
+      "pdbMatchesDll": true,
+      "projectDocuments": 74
+    },
+    {
+      "name": "DiceCraft.EditMode",
+      "mvid": "096cd0ce-f226-4833-89cc-730f4cb27566",
+      "dllSha256": "d9de88a716c9ce88ac7be06a2fae88f9e7a84b48dfb42c69029a9750837d6a64",
+      "pdbSha256": "13eda41aef0dc490add5ee972ca279a494caf1d95a29f32c7fa59646e03da304",
+      "dllLastWriteUtc": "2026-11-01T09:29:46.0619055Z",
+      "pdbMatchesDll": true,
+      "projectDocuments": 18
+    },
+    {
+      "name": "DiceCraft.PlayModeTests",
+      "mvid": "b6956d7f-d369-487f-99e6-f59a629bf1b9",
+      "dllSha256": "8a78b5a04aff48e72baa730024aa4f322271a99f9cbcaa7f2a57e086a2db270b",
+      "pdbSha256": "9816f546bb9c51ee0157c74496bdce2408d3ee046013014c08527eb8d1be25f5",
+      "dllLastWriteUtc": "2026-11-01T09:33:46.0227789Z",
+      "pdbMatchesDll": true,
+      "projectDocuments": 51
+    },
+    {
+      "name": "DiceCraft.Editor",
+      "mvid": "95f3d244-3f39-4739-835a-4345307cdcc2",
+      "dllSha256": "2f85df6c8c68937ea9827d95b071f87ae3646858c92365c87467ce8d3f38ff89",
+      "pdbSha256": "4582a73d288ac4f695b255c4ee1a291fd54066985a00bc38e715c49cb20c1e2c",
+      "dllLastWriteUtc": "2026-11-01T09:29:45.8216288Z",
+      "pdbMatchesDll": true,
+      "projectDocuments": 8
+    }
+  ],
+  "screens": [
+    {
+      "preset": "Normal1080",
+      "reportSha256": "0b7dc9f72c0ac235df2b11cd505abed318c23b2ef06a4f77e784e843efbc1332",
+      "pngs": 48,
+      "representativeIds": [
+        "menu-empty",
+        "new-run-seed",
+        "before-first-roll",
+        "pending-die",
+        "confirmed-lock",
+        "settings-assist-bottom",
+        "maximum-pool",
+        "maximum-locked-table",
+        "score-preview-detail",
+        "after-real-submit",
+        "history-detail",
+        "stage-settlement",
+        "shop-tab-0",
+        "debug32-table",
+        "menu-continue",
+        "new-run-overwrite-summary"
+      ],
+      "dimensionsFont": [
+        1920,
+        1080,
+        100
+      ]
+    },
+    {
+      "preset": "Small720Font150",
+      "reportSha256": "4b98840182e9b58eb712f4c0aad215bed592019a603394d44925a43963cd00bd",
+      "pngs": 48,
+      "representativeIds": [
+        "menu-empty",
+        "new-run-seed",
+        "before-first-roll",
+        "pending-die",
+        "confirmed-lock",
+        "settings-assist-bottom",
+        "maximum-pool",
+        "maximum-locked-table",
+        "score-preview-detail",
+        "after-real-submit",
+        "history-detail",
+        "stage-settlement",
+        "shop-tab-0",
+        "debug32-table",
+        "menu-continue",
+        "new-run-overwrite-summary"
+      ],
+      "dimensionsFont": [
+        1280,
+        720,
+        150
+      ]
+    },
+    {
+      "preset": "Laptop768",
+      "reportSha256": "fa70d38cd856e9f5b03b24b65e639c0937dd3131df3c9732d85c71b9d88483f2",
+      "pngs": 48,
+      "representativeIds": [
+        "menu-empty",
+        "new-run-seed",
+        "before-first-roll",
+        "pending-die",
+        "confirmed-lock",
+        "settings-assist-bottom",
+        "maximum-pool",
+        "maximum-locked-table",
+        "score-preview-detail",
+        "after-real-submit",
+        "history-detail",
+        "stage-settlement",
+        "shop-tab-0",
+        "debug32-table",
+        "menu-continue",
+        "new-run-overwrite-summary"
+      ],
+      "dimensionsFont": [
+        1366,
+        768,
+        100
+      ]
+    },
+    {
+      "preset": "Normal1440",
+      "reportSha256": "cd8c70db2bc0b8cd70c6006f2d22b3036b3d234d9393fdba4a1a5c66c8d0f20b",
+      "pngs": 48,
+      "representativeIds": [
+        "menu-empty",
+        "new-run-seed",
+        "before-first-roll",
+        "pending-die",
+        "confirmed-lock",
+        "settings-assist-bottom",
+        "maximum-pool",
+        "maximum-locked-table",
+        "score-preview-detail",
+        "after-real-submit",
+        "history-detail",
+        "stage-settlement",
+        "shop-tab-0",
+        "debug32-table",
+        "menu-continue",
+        "new-run-overwrite-summary"
+      ],
+      "dimensionsFont": [
+        2560,
+        1440,
+        100
+      ]
+    },
+    {
+      "preset": "Aspect16x10",
+      "reportSha256": "287a12192fbe4c9bd83f73f131a0d87182a3da8b47c35852addfe5009b151fab",
+      "pngs": 48,
+      "representativeIds": [
+        "menu-empty",
+        "new-run-seed",
+        "before-first-roll",
+        "pending-die",
+        "confirmed-lock",
+        "settings-assist-bottom",
+        "maximum-pool",
+        "maximum-locked-table",
+        "score-preview-detail",
+        "after-real-submit",
+        "history-detail",
+        "stage-settlement",
+        "shop-tab-0",
+        "debug32-table",
+        "menu-continue",
+        "new-run-overwrite-summary"
+      ],
+      "dimensionsFont": [
+        2560,
+        1600,
+        100
+      ]
+    },
+    {
+      "preset": "Ultrawide",
+      "reportSha256": "815563eab9b8547707161e31b181302bf6bac8a062b1869ce0d4a871c557a83b",
+      "pngs": 48,
+      "representativeIds": [
+        "menu-empty",
+        "new-run-seed",
+        "before-first-roll",
+        "pending-die",
+        "confirmed-lock",
+        "settings-assist-bottom",
+        "maximum-pool",
+        "maximum-locked-table",
+        "score-preview-detail",
+        "after-real-submit",
+        "history-detail",
+        "stage-settlement",
+        "shop-tab-0",
+        "debug32-table",
+        "menu-continue",
+        "new-run-overwrite-summary"
+      ],
+      "dimensionsFont": [
+        3440,
+        1440,
+        100
+      ]
+    }
+  ],
+  "clips": [
+    {
+      "mode": "NormalHighest",
+      "frames": 157,
+      "ticks": 111,
+      "tailTicks": 0,
+      "reportSha256": "c6e6006d9d02206c0ac62afd1c0faf990c3318f1c2d37b92b26bf659a959c01f",
+      "indexSha256": "5c360c6d928d3f02f5fc1c6d7c7af75ddc5ba59e50b678f9881d2839f510b2d1",
+      "videoSha256": "816db97ac62b41c0adf61d57bc33a9b64022a90d380c50d6897220d2674cbf68",
+      "decoded": {
+        "frames": 157,
+        "decoderSha256": "2ce797a0f88d7f067180338fb227f7b1928ea727bd9a4d7a1d022f7c52af71a3",
+        "stderr": ""
+      },
+      "selectedFrameIndices": [
+        0,
+        15,
+        126,
+        156
+      ]
+    },
+    {
+      "mode": "FastHighest",
+      "frames": 79,
+      "ticks": 33,
+      "tailTicks": 0,
+      "reportSha256": "be735aee49c6e800bc76129eb3fd1e2309c17f33e89fe19aba95b0e36a52ac23",
+      "indexSha256": "56a897f7cd2a8580f411a4599cffb8b90628a552432c82bf52c0690f8b2e312a",
+      "videoSha256": "f1260259fb5f888fbb3e1f96ee388b4d638cb218b6eff7bce573dc78069e253c",
+      "decoded": {
+        "frames": 79,
+        "decoderSha256": "2ce797a0f88d7f067180338fb227f7b1928ea727bd9a4d7a1d022f7c52af71a3",
+        "stderr": ""
+      },
+      "selectedFrameIndices": [
+        0,
+        15,
+        48,
+        78
+      ]
+    },
+    {
+      "mode": "ReducedHighest",
+      "frames": 157,
+      "ticks": 111,
+      "tailTicks": 0,
+      "reportSha256": "4394ee065820e315d5a5b049b9d3a27d33fea8b3b6e4408e7776ed1c3f51a804",
+      "indexSha256": "9b32323501ccde75f1aae637329ebdb985cb47e3fe2428c1658bdec24d35c02c",
+      "videoSha256": "8e07e3454f1f56b4c18e5ac45b790bb00457eb62580a541080ce280a3319374c",
+      "decoded": {
+        "frames": 157,
+        "decoderSha256": "2ce797a0f88d7f067180338fb227f7b1928ea727bd9a4d7a1d022f7c52af71a3",
+        "stderr": ""
+      },
+      "selectedFrameIndices": [
+        0,
+        15,
+        126,
+        156
+      ]
+    },
+    {
+      "mode": "ContinuousHighest",
+      "frames": 393,
+      "ticks": 333,
+      "tailTicks": 0,
+      "reportSha256": "45c430d3e2a1b017b157e9c05abb9b76d201464d4917587bba143ddaa52316ad",
+      "indexSha256": "4a372f7ce6a826468d1429775e98ac415e94cf9f1d22dd4b86809cbcbe0fd849",
+      "videoSha256": "25a5e613af4b5d0686cbadaa1ca0a7b566fe0969517e6d4b277f7e86f5502ce5",
+      "decoded": {
+        "frames": 393,
+        "decoderSha256": "2ce797a0f88d7f067180338fb227f7b1928ea727bd9a4d7a1d022f7c52af71a3",
+        "stderr": ""
+      },
+      "selectedFrameIndices": [
+        0,
+        15,
+        126,
+        133,
+        244,
+        251,
+        362,
+        392
+      ]
+    },
+    {
+      "mode": "InstantHighest",
+      "frames": 46,
+      "ticks": 0,
+      "tailTicks": 0,
+      "reportSha256": "fd79e3dd91c0477262657766e20b59a38d2db76e29a00d5c73fd5b698d43a814",
+      "indexSha256": "c46d3b42c619f8810bfae71008a99f53b04650f2ff721de8c6de72603fb5a320",
+      "videoSha256": "29aaeee2e2db1ae73d47d0444bcd759ac2c28249c81252c006ba4e48f0386b4e",
+      "decoded": {
+        "frames": 46,
+        "decoderSha256": "2ce797a0f88d7f067180338fb227f7b1928ea727bd9a4d7a1d022f7c52af71a3",
+        "stderr": ""
+      },
+      "selectedFrameIndices": [
+        0,
+        15,
+        45
+      ]
+    },
+    {
+      "mode": "NormalQualified",
+      "frames": 133,
+      "ticks": 87,
+      "tailTicks": 11,
+      "reportSha256": "a430eae36ec114188f6fd060e478d251dc822c9355faaf61c01570b754ed2bb5",
+      "indexSha256": "835bcca89e7c9f4aea50530c0197a71c93dea51517bd995615dda85998ee2040",
+      "videoSha256": "6f31258578bc61a2cb1f69cb8775fd2d5b6b2b9c6b015dc63533c21a64ab5e80",
+      "decoded": {
+        "frames": 133,
+        "decoderSha256": "2ce797a0f88d7f067180338fb227f7b1928ea727bd9a4d7a1d022f7c52af71a3",
+        "stderr": ""
+      },
+      "selectedFrameIndices": [
+        0,
+        15,
+        102,
+        132
+      ]
+    },
+    {
+      "mode": "NormalPost",
+      "frames": 150,
+      "ticks": 104,
+      "tailTicks": 0,
+      "reportSha256": "9faf809c77409a0a3fb946d2f2fcb13fd4b4b640f929a1076ac756cbd1ff6da7",
+      "indexSha256": "872a37d22d78dbfd09fb8b43a5fe62eb76a6462306cdf354574d65a0f6bfae24",
+      "videoSha256": "271dac7c500847accc7e3111ff6e217779fb143cbf4d792af2d0409cdf9f7a1a",
+      "decoded": {
+        "frames": 150,
+        "decoderSha256": "2ce797a0f88d7f067180338fb227f7b1928ea727bd9a4d7a1d022f7c52af71a3",
+        "stderr": ""
+      },
+      "selectedFrameIndices": [
+        0,
+        15,
+        119,
+        149
+      ]
+    },
+    {
+      "mode": "FastPost",
+      "frames": 88,
+      "ticks": 42,
+      "tailTicks": 0,
+      "reportSha256": "9b0f817231a46379b2b1ab621ca5a1c1bd12fa56616f4544fdfb959c6e601150",
+      "indexSha256": "1c80c368d5d8279372d381567f5b6073e2719ec3edaf5bdd3bb142252a4fb399",
+      "videoSha256": "2036d2d7c60ed31fe06d2121f913b033a7db56919e1cd7d788273fc83754c325",
+      "decoded": {
+        "frames": 88,
+        "decoderSha256": "2ce797a0f88d7f067180338fb227f7b1928ea727bd9a4d7a1d022f7c52af71a3",
+        "stderr": ""
+      },
+      "selectedFrameIndices": [
+        0,
+        15,
+        57,
+        87
+      ]
+    },
+    {
+      "mode": "ReducedPost",
+      "frames": 150,
+      "ticks": 104,
+      "tailTicks": 0,
+      "reportSha256": "43f8b1354b1cedf0d7a24a697d3c09a17b9f170d6df9d0760b0d8662ed38e3f0",
+      "indexSha256": "6ca8e5469ef4f9c317770860fd333f5e50107746094ed98d83ea455cdeb704df",
+      "videoSha256": "f15edadcf48ed98dd1e5c06d8456fd7ae903343a8a5ff2965b9f35947939942b",
+      "decoded": {
+        "frames": 150,
+        "decoderSha256": "2ce797a0f88d7f067180338fb227f7b1928ea727bd9a4d7a1d022f7c52af71a3",
+        "stderr": ""
+      },
+      "selectedFrameIndices": [
+        0,
+        15,
+        119,
+        149
+      ]
+    }
+  ]
+}

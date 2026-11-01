@@ -88,6 +88,8 @@ def release_body(manifest):
 正常轨迹结果为 {manifest['ruleReproduction']['normalOutcome']}（第 {manifest['ruleReproduction']['normalFinalStage']} 关），debug24 仅验证流程，不代表正常平衡。
 这是预发布测试包；Mac、物理输入/显示环境与真人体验仍待验收。
 
+已知未完成项：真实 AudioMixer 总线尚未接入，声音当前使用分类音量回退。正式音频路由与混音听审仍待完成；本包不代表整版美术、声音或体验已验收。
+
 {hashes}
 """
 

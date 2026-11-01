@@ -1,0 +1,88 @@
+{
+  "utc": "2026-11-01T10:28:51.893698+00:00",
+  "reviewer": "/root/v07_spec_audit",
+  "mediaSourceCommit": "0f04e51a2add69ca69f44c2d0c7b8425367e7a89",
+  "status": "LIMITED_VISUAL_AND_MEDIA_CONSISTENCY_PASSED_POST_AUTHOR_OBSERVATIONS_ONLY",
+  "files": [
+    {
+      "path": "evidence/v07/review/FINAL_0F04E51_CLIPS_REVIEW.md",
+      "bytes": 7895,
+      "sha256": "826f8ac5e60c4d01f57d4c49c6909d247c22fcec8412161a30c55eaee73e7a44"
+    },
+    {
+      "path": "artifacts/cache/v07-final-clips-review/0f04e51-1002/audit.py",
+      "bytes": 8905,
+      "sha256": "eca48325c07910958a98bbeb73f391aa4c6592feec52696161585c1d386a1b94"
+    },
+    {
+      "path": "artifacts/cache/v07-final-clips-review/0f04e51-1002/audit-bindings.json",
+      "bytes": 470577,
+      "sha256": "d40831c7ec913be179288ed4b5875f35b64a09ff456ccf07df8ab88a1cff206c"
+    },
+    {
+      "path": "artifacts/cache/v07-final-clips-review/0f04e51-1002/make-rois.py",
+      "bytes": 2118,
+      "sha256": "7a7fb35c73f1996f3267f2f798a7968704ef7a5db3084d62d559696ed43eff55"
+    },
+    {
+      "path": "artifacts/cache/v07-final-clips-review/0f04e51-1002/roi-bindings.json",
+      "bytes": 8966,
+      "sha256": "2eab9580c8283da62c0311f700822004e0218b796ff58c9ac70c31d97288568a"
+    },
+    {
+      "path": "artifacts/cache/v07-final-clips-review/0f04e51-1002/actually-viewed.json",
+      "bytes": 22869,
+      "sha256": "cc83db639145ab8f472b03f47fc26d5cd98899906c0e1dd7451e083d283cb9e2"
+    },
+    {
+      "path": "artifacts/cache/v07-final-clips-review/0f04e51-1002/later-probe-delta.json",
+      "bytes": 727,
+      "sha256": "9fb0ee9ff8bddc0ef56b4d52f9ae19946f71b0b32693b2c501bec7ee0e42eead"
+    },
+    {
+      "path": "docs/specs/v07/ART_SPEC.md",
+      "bytes": 417792,
+      "sha256": "5120a8d0983d24f25cc38e22f1da613fd1a56c70ab26f518771a2caf064dd228"
+    },
+    {
+      "path": "evidence/v07/review/FINAL_POST_CLIPS_REVIEW.md",
+      "bytes": 5590,
+      "sha256": "463abb7e2bf75e8dad4e422180b0c8f8a46ab3ce9d44af3564735735d651db61"
+    },
+    {
+      "path": "evidence/v07/review/FULL_REGRESSION_0F04E51_REVIEW.md",
+      "bytes": 5432,
+      "sha256": "3e45b97cbd77686f4cad7af9ea04f0f36b21ff097160b2911cd01c3ff63e72b5"
+    },
+    {
+      "path": "evidence/v07/review/FX_MODES_0414_REVIEW.md",
+      "bytes": 8084,
+      "sha256": "06cce8d9d9782ef9eddc7d13597414302d94fe9309726ec013a3ab4b44a12b1e"
+    },
+    {
+      "path": "evidence/v07/review/FINAL_0F04E51_POST_INCREMENTAL_REVIEW.md",
+      "bytes": 5325,
+      "sha256": "c7aeda830d7ac1b3d1c90a3e3a1aed75713a8c9a297bc023a6de07fe08571238"
+    }
+  ],
+  "sourceAnd1353FrameBindings": "audit-bindings.json contains original source/PDB/loaded evidence and every PNG/MP4/index SHA. actually-viewed.json distinguishes actual views from integrity checks.",
+  "counts": {
+    "completeMp4Decodes": 9,
+    "pngHashes": 1353,
+    "fullScreensActuallyViewed": 13,
+    "overviewSheetsActuallyViewed": 9,
+    "nativeRoiSheetsActuallyViewed": 16,
+    "distinctFramesRepresentedInActualViews": 205
+  },
+  "noUnityExecuted": true,
+  "noProductionWritten": true,
+  "staticMediaNotPerformance": true,
+  "silentMediaNotAudio": true,
+  "postFinalIndependentSignoffByOtherReviewerRequired": true,
+  "independentPostReviewProvided": {
+    "path": "evidence/v07/review/FINAL_0F04E51_POST_INCREMENTAL_REVIEW.md",
+    "bytes": 5325,
+    "sha256": "c7aeda830d7ac1b3d1c90a3e3a1aed75713a8c9a297bc023a6de07fe08571238"
+  },
+  "postIndependenceRequirementSatisfiedForThisLimitedMediaScope": true
+}

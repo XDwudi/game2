@@ -1,0 +1,82 @@
+{
+    "schema": "art07-visual-recording-1",
+    "status": "captured_pending_visual_review",
+    "error": "",
+    "restoreError": "",
+    "startedUtc": "2026-11-01T10:11:35.2553054Z",
+    "endedUtc": "2026-11-01T10:11:57.0685669Z",
+    "outputDirectory": "E:\\agent_workspace\\gpt\\game2\\artifacts\\cache\\v07-final-0f04e51-1002-clips\\NormalHighest",
+    "mode": "NormalHighest",
+    "fixture": "G147",
+    "artVersion": "art0.7.0",
+    "configVersion": "p0.6.0",
+    "configSha256": "747ed1efc7bea15873f66a81eee5c7654971c21031f2a1517ce629adce7b6e6c",
+    "unityVersion": "6000.6.7f1",
+    "runtimeAssemblyMvid": "e858ca97-2062-4977-801f-579d213d9ff4",
+    "coreAssemblyMvid": "8f690e0d-a075-4b72-98e4-2cb64ced2fa3",
+    "recorderSourceSha256": "f3bd3bbb9ac3d232396255554576b41b87a071e8caa9974d084ba0b6d509287d",
+    "buildGuid": "00000000000000000000000000000000",
+    "platform": "WindowsEditor",
+    "os": "Windows 10  (10.0.19045) 64bit",
+    "gpu": "NVIDIA GeForce RTX 3080",
+    "graphicsApi": "Direct3D11",
+    "buildIdentity": "{\r\n  \"releaseVersion\": \"p0.7.0\",\r\n  \"artVersion\": \"art0.7.0\",\r\n  \"sourceCommit\": \"0f04e51a2add69ca69f44c2d0c7b8425367e7a89\",\r\n  \"contentConfigVersion\": \"p0.6.0\",\r\n  \"contentConfigSha256\": \"747ed1efc7bea15873f66a81eee5c7654971c21031f2a1517ce629adce7b6e6c\",\r\n  \"saveSchemaVersion\": 4,\r\n  \"goldenCaseSetSha256\": \"306cb86f79dafe0e3eb302714abd232af20fe0062a6713f7d713c11e2a6a5718\",\r\n  \"unityEditorVersion\": \"6000.6.7f1\",\r\n  \"backend\": \"Mono\"\r\n}\r\n",
+    "saveDirectory": "E:\\agent_workspace\\gpt\\game2\\artifacts\\cache\\v07-final-0f04e51-1002-clips-save",
+    "normalSaveShaBefore": "missing",
+    "normalSaveShaAfter": "missing",
+    "debugSaveShaBefore": "missing",
+    "debugSaveShaAfter": "b675b3b58267a6f1fb168e50c7dae29c7624cbcc631305fa9d4508a786638a5c",
+    "captureMethod": "ScreenCapture.CaptureScreenshotAsTexture after WaitForEndOfFrame",
+    "clock": "offline fixed presentation timestep 1/60; not a realtime performance result",
+    "framesPerSecond": 60,
+    "frames": 157,
+    "width": 1920,
+    "height": 1080,
+    "requestedCycles": 1,
+    "sourceTickCalls": 111,
+    "nonblockingTickCalls": 0,
+    "editor": true,
+    "batchMode": true,
+    "reducedMotion": false,
+    "fixedClockIntegrated": true,
+    "restoredTiming": true,
+    "restoredPreferences": true,
+    "normalSaveUnchanged": true,
+    "previousCaptureDeltaTime": 0.0,
+    "transactionClip": "",
+    "transactionSourceManifestSha256": "",
+    "previousPreferences": [
+        {
+            "key": "fast",
+            "existed": true,
+            "value": 0
+        },
+        {
+            "key": "reduced",
+            "existed": true,
+            "value": 0
+        },
+        {
+            "key": "art07.instant",
+            "existed": true,
+            "value": 0
+        }
+    ],
+    "cycles": [
+        {
+            "index": 0,
+            "firstFrame": 15,
+            "lastFrame": 126,
+            "durationMilliseconds": 1840,
+            "clockTicks": 111,
+            "command": "Submit",
+            "receiptId": "63bfd44470a049ad8aa24d09985f8208",
+            "stateHashBefore": "cf464c3be3eccdece35b9a7fc82073694818ac8587166015f28080d6cc8b50df",
+            "stateHashAfter": "b36a132c91916631b34f680030d816d233277673a612616ea8a8945cdf09dd29",
+            "saveShaBefore": "23a2ffb2650c47fe6e2cd0200ba4d648565a33c527c6d6b1d249587e5b094c95",
+            "saveShaAfter": "b675b3b58267a6f1fb168e50c7dae29c7624cbcc631305fa9d4508a786638a5c",
+            "completed": true,
+            "stateAndSaveStable": true
+        }
+    ]
+}
