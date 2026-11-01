@@ -561,9 +561,9 @@ namespace DiceCraft
             UiKit.Box(p,"LeftPaper",4,4,450,408,UiKit.Panel);UiKit.Box(p,"RightPaper",1014,4,478,408,UiKit.Panel);
             UiKit.Text(p,"Title",NameOf(bought.contentId)+" · 已保存",20,16,418,60,29,UiKit.Paper);
             UiKit.Text(p,"Identity",cmd.targetDieId+"\n"+(whole?"整骰属性":"物理目标 "+faceId),20,90,418,92,25,UiKit.Gold);
-            UiKit.Text(p,"Before","购买前\n"+UpgradeFaceDescription07(oldDie,oldFace,whole),20,194,418,194,23,UiKit.Muted);
+            UiKit.Text(p,"Before",(whole?"购买前 · ":"购买前\n")+UpgradeFaceDescription07(oldDie,oldFace,whole),20,194,418,206,23,UiKit.Muted);
             var result=UiKit.Rect(p,"Result",1030,18,446,378);
-            UiKit.Text(result,"After","购买后\n"+UpgradeFaceDescription07(newDie,newFace,whole),0,0,442,218,25,UiKit.Paper);
+            UiKit.Text(result,"After",(whole?"购买后 · ":"购买后\n")+UpgradeFaceDescription07(newDie,newFace,whole),0,0,442,218,25,UiKit.Paper);
             var current=after.hand?.currentResults.FirstOrDefault(d=>d.dieId==cmd.targetDieId);
             UiKit.Text(result,"Current",current?.hasRolled==true?"当前投出另计："+current.currentPip+"点 "+ColorText07(current.currentColor):"当前投出：未生成\n未修改其他物理面",0,242,442,118,22,UiKit.Muted);
             UiKit.Text(p,"TargetFace",whole?"整骰玻璃材质":faceId+" · 永久面",504,354,450,48,23,UiKit.Gold,TextAlignmentOptions.Center);

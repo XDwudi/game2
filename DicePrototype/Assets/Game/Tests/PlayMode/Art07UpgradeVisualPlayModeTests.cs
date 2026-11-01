@@ -6,6 +6,7 @@ using System.Linq;
 using DiceCraft.Core;
 using DiceCraft.Presentation;
 using NUnit.Framework;
+using TMPro;
 using UnityEngine;
 using UnityEngine.TestTools;
 
@@ -15,94 +16,106 @@ namespace DiceCraft.Tests
     {
         [UnityTest] public IEnumerator PLAY_ART07_UPGRADE_ActualCeramicAndSingleQuestionFlipRenderBeforeMiddleAndAfter()
         {
-            foreach(string upgrade in new[]{"U05","U07"})
+            int oldScale=PlayerPrefs.GetInt("art07.textScale",100);bool hadScale=PlayerPrefs.HasKey("art07.textScale");
+            try
             {
-                yield return TransactionShop07(s=>s.shop.offers.Any(o=>o.contentId==upgrade));Click("Tab2");yield return null;
-                var before=app.Session.State;var offer=before.shop.offers.First(o=>o.contentId==upgrade);
-                var die=before.dice.First(d=>d.lifetime=="permanent"&&!d.isGlass);string face=upgrade=="U05"?"F02":die.faces.First(f=>app.Session.IsUpgradeTargetLegal(upgrade,die.dieId,f.faceId)).faceId;
-                bool wasEnabled=app.enabled;var shots=new List<Texture2D>();Texture2D hiddenQuestion=null;
-                var ceramic=app.table.bodyMaterial.GetColor("_BaseColor");var glass=app.table.glassMaterial.GetColor("_BaseColor");
-                try
+                foreach(int fontScale in new[]{100,150})
                 {
-                    // Freeze automatic UI ticking, then drive the SAME real transaction clock.
-                    // Independent EOF captures still use the actual active GameView/GPU.
-                    app.enabled=false;
-                    var bought=app.Send(new SessionCommand{kind=CommandKind.Buy,offerId=offer.offerId,targetDieId=die.dieId,targetFaceId=upgrade=="U05"?null:face});
-                    Assert.That(bought.accepted,Is.True,bought.error);Assert.That(app.TransactionVisualDuration07,Is.EqualTo(upgrade=="U05"?.42f:.36f).Within(.0001f));
-                    var committed=app.Session.State;string state=GameSession.StateHash(committed);byte[] disk=File.ReadAllBytes(app.SaveLocation);
-                    var surface=app.GetComponentInChildren<Art07UpgradeSurface>(true);Assert.That(surface,Is.Not.Null);
-                    var clock=UpgradeTransactionClock07();Assert.That(clock,Is.Not.Null);
-                    var orientation=app.table.GetFaceOrientation("$die-preview");var body=orientation.Find("Body").GetComponent<MeshRenderer>();
-                    var faceRenderers=Enumerable.Range(1,6).Select(i=>orientation.Find("Face_F"+i.ToString("00")).GetComponent<MeshRenderer>()).ToArray();
-                    var meshes=faceRenderers.Select(r=>r.GetComponent<MeshFilter>().sharedMesh).ToArray();var transforms=faceRenderers.Select(r=>r.transform.localToWorldMatrix).ToArray();
-                    var props=new MaterialPropertyBlock();float previousAngle=-1;
-                    foreach(float progress in new[]{0f,.175f,.475f,.80f,.99f})
+                    PlayerPrefs.SetInt("art07.textScale",fontScale);yield return LoadBootstrap();
+                    Assert.That(UiKit.FontScale,Is.EqualTo(fontScale/100f));
+                    foreach(string upgrade in new[]{"U05","U07"})
                     {
-                        clock.Tick(Math.Max(0,clock.Duration*progress-clock.Elapsed),false);
-                        Assert.That(surface.IsActive,Is.True);Assert.That(surface.Progress,Is.EqualTo(progress).Within(.0001f));
-                        if(upgrade=="U05")
+                        yield return TransactionShop07(s=>s.shop.offers.Any(o=>o.contentId==upgrade));Click("Tab2");yield return null;
+                        var before=app.Session.State;var offer=before.shop.offers.First(o=>o.contentId==upgrade);
+                        var die=before.dice.First(d=>d.lifetime=="permanent"&&!d.isGlass);string face=upgrade=="U05"?"F02":die.faces.First(f=>app.Session.IsUpgradeTargetLegal(upgrade,die.dieId,f.faceId)).faceId;
+                        bool wasEnabled=app.enabled;var shots=new List<Texture2D>();Texture2D hiddenQuestion=null;
+                        var ceramic=app.table.bodyMaterial.GetColor("_BaseColor");var glass=app.table.glassMaterial.GetColor("_BaseColor");
+                        try
                         {
-                            body.GetPropertyBlock(props);Assert.That(Vector4.Distance(props.GetColor("_BaseColor"),Color.Lerp(ceramic,glass,progress)),Is.LessThan(.0001f));
-                            Assert.That(props.GetFloat("_Glass"),Is.EqualTo(progress).Within(.0001f));
-                            Assert.That(faceRenderers.Count(r=>r.enabled),Is.EqualTo(3),"Whole-die upgrade must show three physical faces, not a head-on flat tile.");
-                            foreach(var renderer in faceRenderers.Where(r=>r.enabled))
-                                Assert.That(Vector3.Dot(renderer.transform.forward,-app.table.viewCamera.transform.forward),Is.GreaterThan(.08f),"No edge-only substitute for a readable side face.");
-                        }
-                        else
-                        {
-                            var target=faceRenderers[DiceTable.FaceIndex(face)];var turning=target.transform.Find("UpgradeTurningPatch07");var question=target.transform.Find("UpgradeQuestion07");
-                            Assert.That(turning,Is.Not.Null);Assert.That(question,Is.Not.Null);
-                            Assert.That(Vector3.Dot(question.up,app.table.viewCamera.transform.up),Is.GreaterThan(.99f),"The question mark must stay upright on the screen, including downward-oriented physical face axes.");
-                            Assert.That(Vector3.Dot(question.TransformVector(Vector3.right).normalized,app.table.viewCamera.transform.right),Is.GreaterThan(.99f),"The question mark must not mirror when seen from a back-facing physical face plane.");
-                            bool unknown=progress>=.35f&&progress<.60f;
-                            Assert.That(question.gameObject.activeSelf,Is.EqualTo(unknown));Assert.That(turning.gameObject.activeSelf,Is.EqualTo(!unknown));
-                            Assert.That(surface.TurnDegrees,Is.GreaterThanOrEqualTo(previousAngle));previousAngle=surface.TurnDegrees;
-                            Assert.That(surface.VisibleFaceStage,Is.EqualTo(progress<.35f?"OldPips":unknown?"Question":"CommittedPips"));
-                            Assert.That(target.GetComponent<MeshFilter>().sharedMesh.name,Does.StartWith("Pips_"+committed.dice.Single(d=>d.dieId==die.dieId).faces.Single(f=>f.faceId==face).permanentPip+"_"));
-                            if(unknown)
+                            // Freeze automatic UI ticking, then drive the SAME real transaction clock.
+                            // Independent EOF captures still use the actual active GameView/GPU.
+                            app.enabled=false;
+                            var bought=app.Send(new SessionCommand{kind=CommandKind.Buy,offerId=offer.offerId,targetDieId=die.dieId,targetFaceId=upgrade=="U05"?null:face});
+                            Assert.That(bought.accepted,Is.True,bought.error);Assert.That(app.TransactionVisualDuration07,Is.EqualTo(upgrade=="U05"?.42f:.36f).Within(.0001f));
+                            var committed=app.Session.State;string state=GameSession.StateHash(committed);byte[] disk=File.ReadAllBytes(app.SaveLocation);
+                            var surface=app.GetComponentInChildren<Art07UpgradeSurface>(true);Assert.That(surface,Is.Not.Null);
+                            var clock=UpgradeTransactionClock07();Assert.That(clock,Is.Not.Null);
+                            var orientation=app.table.GetFaceOrientation("$die-preview");var body=orientation.Find("Body").GetComponent<MeshRenderer>();
+                            var faceRenderers=Enumerable.Range(1,6).Select(i=>orientation.Find("Face_F"+i.ToString("00")).GetComponent<MeshRenderer>()).ToArray();
+                            var meshes=faceRenderers.Select(r=>r.GetComponent<MeshFilter>().sharedMesh).ToArray();var transforms=faceRenderers.Select(r=>r.transform.localToWorldMatrix).ToArray();
+                            var props=new MaterialPropertyBlock();float previousAngle=-1;
+                            foreach(float progress in new[]{0f,.175f,.475f,.80f,.99f})
                             {
-                                question.gameObject.SetActive(false);
-                                yield return CaptureUpgradeGpu07(upgrade+"-question-hidden",t=>hiddenQuestion=t);
-                                question.gameObject.SetActive(true);
+                                clock.Tick(Math.Max(0,clock.Duration*progress-clock.Elapsed),false);
+                                Assert.That(surface.IsActive,Is.True);Assert.That(surface.Progress,Is.EqualTo(progress).Within(.0001f));
+                                if(upgrade=="U05")
+                                {
+                                    body.GetPropertyBlock(props);Assert.That(Vector4.Distance(props.GetColor("_BaseColor"),Color.Lerp(ceramic,glass,progress)),Is.LessThan(.0001f));
+                                    Assert.That(props.GetFloat("_Glass"),Is.EqualTo(progress).Within(.0001f));
+                                    Assert.That(faceRenderers.Count(r=>r.enabled),Is.EqualTo(3),"Whole-die upgrade must show three physical faces, not a head-on flat tile.");
+                                    foreach(var renderer in faceRenderers.Where(r=>r.enabled))
+                                        Assert.That(Vector3.Dot(renderer.transform.forward,-app.table.viewCamera.transform.forward),Is.GreaterThan(.08f),"No edge-only substitute for a readable side face.");
+                                }
+                                else
+                                {
+                                    var target=faceRenderers[DiceTable.FaceIndex(face)];var turning=target.transform.Find("UpgradeTurningPatch07");var question=target.transform.Find("UpgradeQuestion07");
+                                    Assert.That(turning,Is.Not.Null);Assert.That(question,Is.Not.Null);
+                                    Assert.That(Vector3.Dot(question.up,app.table.viewCamera.transform.up),Is.GreaterThan(.99f),"The question mark must stay upright on the screen, including downward-oriented physical face axes.");
+                                    Assert.That(Vector3.Dot(question.TransformVector(Vector3.right).normalized,app.table.viewCamera.transform.right),Is.GreaterThan(.99f),"The question mark must not mirror when seen from a back-facing physical face plane.");
+                                    bool unknown=progress>=.35f&&progress<.60f;
+                                    Assert.That(question.gameObject.activeSelf,Is.EqualTo(unknown));Assert.That(turning.gameObject.activeSelf,Is.EqualTo(!unknown));
+                                    Assert.That(surface.TurnDegrees,Is.GreaterThanOrEqualTo(previousAngle));previousAngle=surface.TurnDegrees;
+                                    Assert.That(surface.VisibleFaceStage,Is.EqualTo(progress<.35f?"OldPips":unknown?"Question":"CommittedPips"));
+                                    Assert.That(target.GetComponent<MeshFilter>().sharedMesh.name,Does.StartWith("Pips_"+committed.dice.Single(d=>d.dieId==die.dieId).faces.Single(f=>f.faceId==face).permanentPip+"_"));
+                                    if(unknown)
+                                    {
+                                        question.gameObject.SetActive(false);
+                                        yield return CaptureUpgradeGpu07(upgrade+"-font"+fontScale+"-question-hidden",t=>hiddenQuestion=t);
+                                        question.gameObject.SetActive(true);
+                                    }
+                                }
+                                for(int i=0;i<6;i++)
+                                {
+                                    Assert.That(faceRenderers[i].GetComponent<MeshFilter>().sharedMesh,Is.SameAs(meshes[i]));
+                                    Assert.That(faceRenderers[i].transform.localToWorldMatrix,Is.EqualTo(transforms[i]),"The flip must not rotate a physical face or another die face.");
+                                }
+                                Texture2D shot=null;yield return CaptureUpgradeGpu07(upgrade+"-font"+fontScale+"-p"+Mathf.RoundToInt(progress*100),t=>shot=t);shots.Add(shot);
+                                AssertUpgradeLabelGlyphs07(upgrade,fontScale,progress>=.80f);
+                                TestContext.WriteLine("UPGRADE_GPU "+upgrade+" progress="+progress+" stage="+surface.VisibleFaceStage+" turn="+surface.TurnDegrees+" frame="+Time.frameCount);
+                                if(upgrade=="U07"&&progress>.35f&&progress<.60f)
+                                {
+                                    var question=orientation.Find("Face_"+face+"/UpgradeQuestion07").GetComponent<MeshRenderer>();
+                                    Assert.That(UpgradeChangedPixels07(hiddenQuestion,shot,UpgradeMeshScreenRect07(question)),Is.GreaterThan(5),"Actual question glyph must contribute GPU pixels, not merely exist in a hierarchy.");
+                                }
+                                Assert.That(GameSession.StateHash(app.Session.State),Is.EqualTo(state));CollectionAssert.AreEqual(disk,File.ReadAllBytes(app.SaveLocation));
                             }
+                            Rect bodyRect=UpgradeMeshScreenRect07(body);
+                            Assert.That(UpgradeChangedPixels07(shots[0],shots[2],bodyRect),Is.GreaterThan(10),"Before and middle must visibly differ on the actual die.");
+                            Assert.That(UpgradeChangedPixels07(shots[0],shots[4],bodyRect),Is.GreaterThan(10),"Before and committed appearance must visibly differ.");
+                            clock.Tick(clock.Duration-clock.Elapsed+.001f,false);
+                            Assert.That(surface.IsActive,Is.False);Assert.That(app.TransactionVisualPlaying07,Is.False);Assert.That(orientation.gameObject.activeInHierarchy,Is.False);
+                            Assert.That(app.table.bodyMaterial.GetColor("_BaseColor"),Is.EqualTo(ceramic));Assert.That(app.table.glassMaterial.GetColor("_BaseColor"),Is.EqualTo(glass));
+                            Assert.That(GameSession.StateHash(app.Session.State),Is.EqualTo(state));CollectionAssert.AreEqual(disk,File.ReadAllBytes(app.SaveLocation));
                         }
-                        for(int i=0;i<6;i++)
+                        finally
                         {
-                            Assert.That(faceRenderers[i].GetComponent<MeshFilter>().sharedMesh,Is.SameAs(meshes[i]));
-                            Assert.That(faceRenderers[i].transform.localToWorldMatrix,Is.EqualTo(transforms[i]),"The flip must not rotate a physical face or another die face.");
+                            app.SkipVisual();app.enabled=wasEnabled;foreach(var shot in shots)if(shot!=null)UnityEngine.Object.Destroy(shot);if(hiddenQuestion!=null)UnityEngine.Object.Destroy(hiddenQuestion);
                         }
-                        Texture2D shot=null;yield return CaptureUpgradeGpu07(upgrade+"-p"+Mathf.RoundToInt(progress*100),t=>shot=t);shots.Add(shot);
-                        TestContext.WriteLine("UPGRADE_GPU "+upgrade+" progress="+progress+" stage="+surface.VisibleFaceStage+" turn="+surface.TurnDegrees+" frame="+Time.frameCount);
-                        if(upgrade=="U07"&&progress>.35f&&progress<.60f)
-                        {
-                            var question=orientation.Find("Face_"+face+"/UpgradeQuestion07").GetComponent<MeshRenderer>();
-                            Assert.That(UpgradeChangedPixels07(hiddenQuestion,shot,UpgradeMeshScreenRect07(question)),Is.GreaterThan(5),"Actual question glyph must contribute GPU pixels, not merely exist in a hierarchy.");
-                        }
-                        Assert.That(GameSession.StateHash(app.Session.State),Is.EqualTo(state));CollectionAssert.AreEqual(disk,File.ReadAllBytes(app.SaveLocation));
                     }
-                    Rect bodyRect=UpgradeMeshScreenRect07(body);
-                    Assert.That(UpgradeChangedPixels07(shots[0],shots[2],bodyRect),Is.GreaterThan(10),"Before and middle must visibly differ on the actual die.");
-                    Assert.That(UpgradeChangedPixels07(shots[0],shots[4],bodyRect),Is.GreaterThan(10),"Before and committed appearance must visibly differ.");
-                    clock.Tick(clock.Duration-clock.Elapsed+.001f,false);
-                    Assert.That(surface.IsActive,Is.False);Assert.That(app.TransactionVisualPlaying07,Is.False);Assert.That(orientation.gameObject.activeInHierarchy,Is.False);
-                    Assert.That(app.table.bodyMaterial.GetColor("_BaseColor"),Is.EqualTo(ceramic));Assert.That(app.table.glassMaterial.GetColor("_BaseColor"),Is.EqualTo(glass));
-                    Assert.That(GameSession.StateHash(app.Session.State),Is.EqualTo(state));CollectionAssert.AreEqual(disk,File.ReadAllBytes(app.SaveLocation));
-                }
-                finally
-                {
-                    app.SkipVisual();app.enabled=wasEnabled;foreach(var shot in shots)if(shot!=null)UnityEngine.Object.Destroy(shot);if(hiddenQuestion!=null)UnityEngine.Object.Destroy(hiddenQuestion);
                 }
             }
+            finally{if(hadScale)PlayerPrefs.SetInt("art07.textScale",oldScale);else PlayerPrefs.DeleteKey("art07.textScale");}
         }
 
         [UnityTest] public IEnumerator PLAY_ART07_UPGRADE_FastReducedPauseAndSkipKeepCommittedStateAndResetSurfaces()
         {
-            int oldFast=PlayerPrefs.GetInt("fast",0),oldReduced=PlayerPrefs.GetInt("reduced",0);bool hadFast=PlayerPrefs.HasKey("fast"),hadReduced=PlayerPrefs.HasKey("reduced");
+            int oldFast=PlayerPrefs.GetInt("fast",0),oldReduced=PlayerPrefs.GetInt("reduced",0),oldScale=PlayerPrefs.GetInt("art07.textScale",100);bool hadFast=PlayerPrefs.HasKey("fast"),hadReduced=PlayerPrefs.HasKey("reduced"),hadScale=PlayerPrefs.HasKey("art07.textScale");
             try
             {
-                foreach(bool reduce in new[]{false,true})foreach(string upgrade in new[]{"U05","U07"})
+                foreach(int fontScale in new[]{100,150})foreach(bool reduce in new[]{false,true})foreach(string upgrade in new[]{"U05","U07"})
                 {
-                    PlayerPrefs.SetInt("fast",reduce?0:1);PlayerPrefs.SetInt("reduced",reduce?1:0);yield return LoadBootstrap();
+                    PlayerPrefs.SetInt("art07.textScale",fontScale);PlayerPrefs.SetInt("fast",reduce?0:1);PlayerPrefs.SetInt("reduced",reduce?1:0);yield return LoadBootstrap();
+                    Assert.That(UiKit.FontScale,Is.EqualTo(fontScale/100f));
                     yield return TransactionShop07(s=>s.shop.offers.Any(o=>o.contentId==upgrade));Click("Tab2");yield return null;
                     var before=app.Session.State;var offer=before.shop.offers.First(o=>o.contentId==upgrade);var die=before.dice.First(d=>!d.isGlass);
                     string face=upgrade=="U05"?null:die.faces.First(f=>app.Session.IsUpgradeTargetLegal(upgrade,die.dieId,f.faceId)).faceId;
@@ -118,8 +131,13 @@ namespace DiceCraft.Tests
                         if(upgrade=="U07")
                         {
                             Assert.That(surface.VisibleFaceStage,Is.EqualTo("Question"));if(reduce)Assert.That(surface.TurnDegrees,Is.Zero);
-                            Texture2D shot=null;yield return CaptureUpgradeGpu07(upgrade+(reduce?"-reduced":"-fast")+"-question",t=>shot=t);UnityEngine.Object.Destroy(shot);
+                            Texture2D shot=null;yield return CaptureUpgradeGpu07(upgrade+"-font"+fontScale+(reduce?"-reduced":"-fast")+"-question",t=>shot=t);UnityEngine.Object.Destroy(shot);
                         }
+                        // Preserve the original pause/question checks, then inspect the real
+                        // visible result labels near the end of each compressed clock.
+                        clock.Tick(clock.Duration*.99f-clock.Elapsed,false);
+                        Texture2D labels=null;yield return CaptureUpgradeGpu07(upgrade+"-font"+fontScale+(reduce?"-reduced":"-fast")+"-labels",t=>labels=t);
+                        try{AssertUpgradeLabelGlyphs07(upgrade,fontScale,true);}finally{if(labels!=null)UnityEngine.Object.Destroy(labels);}
                         app.SkipVisual();Assert.That(surface.IsActive,Is.False);Assert.That(clock.IsPlaying,Is.False);Assert.That(app.Session.Busy,Is.False);
                         Assert.That(surface.GetComponentsInChildren<MeshRenderer>(true).Count(r=>r.gameObject.activeInHierarchy),Is.Zero);
                         Assert.That(GameSession.StateHash(app.Session.State),Is.EqualTo(state));CollectionAssert.AreEqual(disk,File.ReadAllBytes(app.SaveLocation));
@@ -128,7 +146,57 @@ namespace DiceCraft.Tests
                 }
             }
             finally
-            {if(hadFast)PlayerPrefs.SetInt("fast",oldFast);else PlayerPrefs.DeleteKey("fast");if(hadReduced)PlayerPrefs.SetInt("reduced",oldReduced);else PlayerPrefs.DeleteKey("reduced");}
+            {if(hadFast)PlayerPrefs.SetInt("fast",oldFast);else PlayerPrefs.DeleteKey("fast");if(hadReduced)PlayerPrefs.SetInt("reduced",oldReduced);else PlayerPrefs.DeleteKey("reduced");if(hadScale)PlayerPrefs.SetInt("art07.textScale",oldScale);else PlayerPrefs.DeleteKey("art07.textScale");}
+        }
+
+        private void AssertUpgradeLabelGlyphs07(string upgrade,int fontScale,bool requireResult)
+        {
+            var panel=TransactionRect07("PhysicalUpgrade07");
+            var bounds=panel.rect;var inside=Rect.MinMaxRect(bounds.xMin+3,bounds.yMin+3,bounds.xMax-3,bounds.yMax-3);
+            var paths=new[]{"Title","Identity","Before","Result/After","Result/Current","TargetFace"};
+            var sizes=new[]{29f,25f,23f,25f,22f,23f};
+            var glyphs=new List<Tuple<string,Rect>>();
+            for(int label=0;label<paths.Length;label++)
+            {
+                var text=panel.Find(paths[label]).GetComponent<TMP_Text>();Assert.That(text,Is.Not.Null,paths[label]);
+                Assert.That(text.fontSize,Is.EqualTo(sizes[label]*fontScale/100f),"Do not shrink upgrade text to hide a layout failure.");
+                Assert.That(text.enableAutoSizing,Is.False);text.ForceMeshUpdate();Canvas.ForceUpdateCanvases();
+                float alpha=text.canvasRenderer.GetInheritedAlpha();
+                if(label==3||label==4)
+                {
+                    if(requireResult)Assert.That(alpha,Is.GreaterThan(.5f),"Committed result must actually be visible at this sample.");
+                    if(alpha<=0)continue; // The existing 180ms delayed reveal is intentional.
+                }
+                else Assert.That(alpha,Is.GreaterThan(0),paths[label]);
+                Assert.That(text.textInfo.characterCount,Is.EqualTo(text.text.Length),"No truncated attribute string: "+paths[label]);
+                int visible=0;
+                for(int i=0;i<text.textInfo.characterCount;i++)
+                {
+                    var c=text.textInfo.characterInfo[i];if(char.IsWhiteSpace(c.character))continue;
+                    Assert.That(c.isVisible,Is.True,paths[label]+" missing visible glyph "+c.character);
+                    Assert.That(c.textElement,Is.Not.Null,paths[label]+" missing glyph data "+c.character);
+                    var mesh=text.textInfo.meshInfo[c.materialReferenceIndex];
+                    Assert.That(Enumerable.Range(0,4).Any(v=>mesh.colors32[c.vertexIndex+v].a>0),Is.True,paths[label]+" transparent glyph "+c.character);
+                    var vertices=Enumerable.Range(0,4).Select(v=>panel.InverseTransformPoint(text.transform.TransformPoint(mesh.vertices[c.vertexIndex+v]))).ToArray();
+                    var ink=Rect.MinMaxRect(vertices.Min(v=>v.x),vertices.Min(v=>v.y),vertices.Max(v=>v.x),vertices.Max(v=>v.y));
+                    string id=paths[label]+"/"+c.character+"["+i+"]";
+                    Assert.That(ink.width,Is.GreaterThan(0),id);Assert.That(ink.height,Is.GreaterThan(0),id);
+                    Assert.That(ink.xMin,Is.GreaterThanOrEqualTo(inside.xMin),id+" outside gold frame left");
+                    Assert.That(ink.xMax,Is.LessThanOrEqualTo(inside.xMax),id+" outside gold frame right");
+                    Assert.That(ink.yMin,Is.GreaterThanOrEqualTo(inside.yMin),id+" outside gold frame bottom");
+                    Assert.That(ink.yMax,Is.LessThanOrEqualTo(inside.yMax),id+" outside gold frame top");
+                    foreach(var other in glyphs.Where(g=>!g.Item1.StartsWith(paths[label]+"/",StringComparison.Ordinal)))
+                        Assert.That(ink.Overlaps(other.Item2),Is.False,id+" overlaps "+other.Item1+" font="+fontScale+" ink="+ink+" other="+other.Item2);
+                    glyphs.Add(Tuple.Create(id,ink));visible++;
+                }
+                Assert.That(visible,Is.GreaterThan(0),paths[label]);
+                TestContext.WriteLine("UPGRADE_LABEL "+upgrade+" font="+fontScale+" path="+paths[label]+" alpha="+alpha.ToString("R")+" glyphs="+visible+" text="+text.text.Replace("\n"," | "));
+            }
+            var before=panel.Find("Before").GetComponent<TMP_Text>();var after=panel.Find("Result/After").GetComponent<TMP_Text>();
+            Assert.That(before.text,Does.StartWith("购买前"));Assert.That(after.text,Does.StartWith("购买后"));
+            foreach(var text in new[]{before,after})Assert.That(text.text,Does.Contain("物理权重 "),"Physical weight must not disappear to fit the panel.");
+            if(upgrade=="U05"){Assert.That(before.text,Does.Contain("骰体：陶瓷"));Assert.That(after.text,Does.Contain("骰体：玻璃"));}
+            Assert.That(panel.Find("Result/Current").GetComponent<TMP_Text>().text,Does.Contain("当前投出"));
         }
 
         private Art07TransactionMotion UpgradeTransactionClock07()

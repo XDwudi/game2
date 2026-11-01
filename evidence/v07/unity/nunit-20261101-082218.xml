@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="2" result="Passed" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-11-01 08:22:05Z" end-time="2026-11-01 08:22:18Z" duration="13.3016403">
+  <test-suite type="TestSuite" id="1161" name="DiceCraft P0" fullname="DiceCraft P0" runstate="Runnable" testcasecount="152" result="Passed" start-time="2026-11-01 08:22:05Z" end-time="2026-11-01 08:22:18Z" duration="13.301640" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <test-suite type="Assembly" id="1155" name="DiceCraft.PlayModeTests.dll" fullname="E:/agent_workspace/gpt/game2/DicePrototype/Library/ScriptAssemblies/DiceCraft.PlayModeTests.dll" runstate="Runnable" testcasecount="152" result="Passed" start-time="2026-11-01 08:22:05Z" end-time="2026-11-01 08:22:18Z" duration="13.289688" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="41100" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <test-suite type="TestSuite" id="1156" name="DiceCraft" fullname="DiceCraft" runstate="Runnable" testcasecount="152" result="Passed" start-time="2026-11-01 08:22:05Z" end-time="2026-11-01 08:22:18Z" duration="13.286911" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1157" name="Tests" fullname="DiceCraft.Tests" runstate="Runnable" testcasecount="152" result="Passed" start-time="2026-11-01 08:22:05Z" end-time="2026-11-01 08:22:18Z" duration="13.284422" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="1001" name="GameplayPlayModeTests" fullname="DiceCraft.Tests.GameplayPlayModeTests" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" testcasecount="150" result="Passed" start-time="2026-11-01 08:22:05Z" end-time="2026-11-01 08:22:18Z" duration="13.281275" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1112" name="PLAY_ART07_UPGRADE_ActualCeramicAndSingleQuestionFlipRenderBeforeMiddleAndAfter" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_UPGRADE_ActualCeramicAndSingleQuestionFlipRenderBeforeMiddleAndAfter" methodname="PLAY_ART07_UPGRADE_ActualCeramicAndSingleQuestionFlipRenderBeforeMiddleAndAfter" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="481267340" result="Passed" start-time="2026-11-01 08:22:05Z" end-time="2026-11-01 08:22:12Z" duration="7.355672" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[UPGRADE_CLOCK exact=HUD/Art07TransactionMotion duration=0.42 elapsed=0 otherPooledClocks=1
+UPGRADE_LABEL U05 font=100 path=Title alpha=1 glyphs=8 text=骰子脆化 · 已保存
+UPGRADE_LABEL U05 font=100 path=Identity alpha=1 glyphs=8 text=D021 | 整骰属性
+UPGRADE_LABEL U05 font=100 path=Before alpha=1 glyphs=27 text=购买前 · 骰体：陶瓷 | F02  2点 · 蓝 | 普通 · 普通边 | 物理权重 1
+UPGRADE_LABEL U05 font=100 path=TargetFace alpha=1 glyphs=6 text=整骰玻璃材质
+UPGRADE_GPU U05 progress=0 stage= turn=0 frame=26
+UPGRADE_LABEL U05 font=100 path=Title alpha=1 glyphs=8 text=骰子脆化 · 已保存
+UPGRADE_LABEL U05 font=100 path=Identity alpha=1 glyphs=8 text=D021 | 整骰属性
+UPGRADE_LABEL U05 font=100 path=Before alpha=1 glyphs=27 text=购买前 · 骰体：陶瓷 | F02  2点 · 蓝 | 普通 · 普通边 | 物理权重 1
+UPGRADE_LABEL U05 font=100 path=TargetFace alpha=1 glyphs=6 text=整骰玻璃材质
+UPGRADE_GPU U05 progress=0.175 stage= turn=0 frame=27
+UPGRADE_LABEL U05 font=100 path=Title alpha=1 glyphs=8 text=骰子脆化 · 已保存
+UPGRADE_LABEL U05 font=100 path=Identity alpha=1 glyphs=8 text=D021 | 整骰属性
+UPGRADE_LABEL U05 font=100 path=Before alpha=1 glyphs=27 text=购买前 · 骰体：陶瓷 | F02  2点 · 蓝 | 普通 · 普通边 | 物理权重 1
+UPGRADE_LABEL U05 font=100 path=Result/After alpha=0.10833326 glyphs=27 text=购买后 · 骰体：玻璃 | F02  2点 · 蓝 | 普通 · 普通边 | 物理权重 1
+UPGRADE_LABEL U05 font=100 path=Result/Current alpha=0.10833326 glyphs=16 text=当前投出：未生成 | 未修改其他物理面
+UPGRADE_LABEL U05 font=100 path=TargetFace alpha=1 glyphs=6 text=整骰玻璃材质
+UPGRADE_GPU U05 progress=0.475 stage= turn=0 frame=28
+UPGRADE_LABEL U05 font=100 path=Title alpha=1 glyphs=8 text=骰子脆化 · 已保存
+UPGRADE_LABEL U05 font=100 path=Identity alpha=1 glyphs=8 text=D021 | 整骰属性
+UPGRADE_LABEL U05 font=100 path=Before alpha=1 glyphs=27 text=购买前 · 骰体：陶瓷 | F02  2点 · 蓝 | 普通 · 普通边 | 物理权重 1
+UPGRADE_LABEL U05 font=100 path=Result/After alpha=0.866666555 glyphs=27 text=购买后 · 骰体：玻璃 | F02  2点 · 蓝 | 普通 · 普通边 | 物理权重 1
+UPGRADE_LABEL U05 font=100 path=Result/Current alpha=0.866666555 glyphs=16 text=当前投出：未生成 | 未修改其他物理面
+UPGRADE_LABEL U05 font=100 path=TargetFace alpha=1 glyphs=6 text=整骰玻璃材质
+UPGRADE_GPU U05 progress=0.8 stage= turn=0 frame=29
+UPGRADE_LABEL U05 font=100 path=Title alpha=1 glyphs=8 text=骰子脆化 · 已保存
+UPGRADE_LABEL U05 font=100 path=Identity alpha=1 glyphs=8 text=D021 | 整骰属性
+UPGRADE_LABEL U05 font=100 path=Before alpha=1 glyphs=27 text=购买前 · 骰体：陶瓷 | F02  2点 · 蓝 | 普通 · 普通边 | 物理权重 1
+UPGRADE_LABEL U05 font=100 path=Result/After alpha=1 glyphs=27 text=购买后 · 骰体：玻璃 | F02  2点 · 蓝 | 普通 · 普通边 | 物理权重 1
+UPGRADE_LABEL U05 font=100 path=Result/Current alpha=1 glyphs=16 text=当前投出：未生成 | 未修改其他物理面
+UPGRADE_LABEL U05 font=100 path=TargetFace alpha=1 glyphs=6 text=整骰玻璃材质
+UPGRADE_GPU U05 progress=0.99 stage= turn=0 frame=30
+UPGRADE_CLOCK exact=HUD/Art07TransactionMotion duration=0.36 elapsed=0 otherPooledClocks=1
+UPGRADE_LABEL U07 font=100 path=Title alpha=1 glyphs=8 text=随机变形 · 已保存
+UPGRADE_LABEL U07 font=100 path=Identity alpha=1 glyphs=11 text=D031 | 物理目标 F01
+UPGRADE_LABEL U07 font=100 path=Before alpha=1 glyphs=21 text=购买前 | F01  1点 · 红 | 普通 · 普通边 | 物理权重 1
+UPGRADE_LABEL U07 font=100 path=TargetFace alpha=1 glyphs=7 text=F01 · 永久面
+UPGRADE_GPU U07 progress=0 stage=OldPips turn=0 frame=33
+UPGRADE_LABEL U07 font=100 path=Title alpha=1 glyphs=8 text=随机变形 · 已保存
+UPGRADE_LABEL U07 font=100 path=Identity alpha=1 glyphs=11 text=D031 | 物理目标 F01
+UPGRADE_LABEL U07 font=100 path=Before alpha=1 glyphs=21 text=购买前 | F01  1点 · 红 | 普通 · 普通边 | 物理权重 1
+UPGRADE_LABEL U07 font=100 path=TargetFace alpha=1 glyphs=7 text=F01 · 永久面
+UPGRADE_GPU U07 progress=0.175 stage=OldPips turn=45 frame=34
+UPGRADE_LABEL U07 font=100 path=Title alpha=1 glyphs=8 text=随机变形 · 已保存
+UPGRADE_LABEL U07 font=100 path=Identity alpha=1 glyphs=11 text=D031 | 物理目标 F01
+UPGRADE_LABEL U07 font=100 path=Before alpha=1 glyphs=21 text=购买前 | F01  1点 · 红 | 普通 · 普通边 | 物理权重 1
+UPGRADE_LABEL U07 font=100 path=TargetFace alpha=1 glyphs=7 text=F01 · 永久面
+UPGRADE_GPU U07 progress=0.475 stage=Question turn=90 frame=36
+UPGRADE_LABEL U07 font=100 path=Title alpha=1 glyphs=8 text=随机变形 · 已保存
+UPGRADE_LABEL U07 font=100 path=Identity alpha=1 glyphs=11 text=D031 | 物理目标 F01
+UPGRADE_LABEL U07 font=100 path=Before alpha=1 glyphs=21 text=购买前 | F01  1点 · 红 | 普通 · 普通边 | 物理权重 1
+UPGRADE_LABEL U07 font=100 path=Result/After alpha=0.6 glyphs=21 text=购买后 | F01  2点 · 红 | 普通 · 普通边 | 物理权重 1
+UPGRADE_LABEL U07 font=100 path=Result/Current alpha=0.6 glyphs=16 text=当前投出：未生成 | 未修改其他物理面
+UPGRADE_LABEL U07 font=100 path=TargetFace alpha=1 glyphs=7 text=F01 · 永久面
+UPGRADE_GPU U07 progress=0.8 stage=CommittedPips turn=135 frame=37
+UPGRADE_LABEL U07 font=100 path=Title alpha=1 glyphs=8 text=随机变形 · 已保存
+UPGRADE_LABEL U07 font=100 path=Identity alpha=1 glyphs=11 text=D031 | 物理目标 F01
+UPGRADE_LABEL U07 font=100 path=Before alpha=1 glyphs=21 text=购买前 | F01  1点 · 红 | 普通 · 普通边 | 物理权重 1
+UPGRADE_LABEL U07 font=100 path=Result/After alpha=0.98 glyphs=21 text=购买后 | F01  2点 · 红 | 普通 · 普通边 | 物理权重 1
+UPGRADE_LABEL U07 font=100 path=Result/Current alpha=0.98 glyphs=16 text=当前投出：未生成 | 未修改其他物理面
+UPGRADE_LABEL U07 font=100 path=TargetFace alpha=1 glyphs=7 text=F01 · 永久面
+UPGRADE_GPU U07 progress=0.99 stage=CommittedPips turn=179.8341 frame=38
+UPGRADE_CLOCK exact=HUD/Art07TransactionMotion duration=0.42 elapsed=0 otherPooledClocks=1
+UPGRADE_LABEL U05 font=150 path=Title alpha=1 glyphs=8 text=骰子脆化 · 已保存
+UPGRADE_LABEL U05 font=150 path=Identity alpha=1 glyphs=8 text=D021 | 整骰属性
+UPGRADE_LABEL U05 font=150 path=Before alpha=1 glyphs=27 text=购买前 · 骰体：陶瓷 | F02  2点 · 蓝 | 普通 · 普通边 | 物理权重 1
+UPGRADE_LABEL U05 font=150 path=TargetFace alpha=1 glyphs=6 text=整骰玻璃材质
+UPGRADE_GPU U05 progress=0 stage= turn=0 frame=46
+UPGRADE_LABEL U05 font=150 path=Title alpha=1 glyphs=8 text=骰子脆化 · 已保存
+UPGRADE_LABEL U05 font=150 path=Identity alpha=1 glyphs=8 text=D021 | 整骰属性
+UPGRADE_LABEL U05 font=150 path=Before alpha=1 glyphs=27 text=购买前 · 骰体：陶瓷 | F02  2点 · 蓝 | 普通 · 普通边 | 物理权重 1
+UPGRADE_LABEL U05 font=150 path=TargetFace alpha=1 glyphs=6 text=整骰玻璃材质
+UPGRADE_GPU U05 progress=0.175 stage= turn=0 frame=47
+UPGRADE_LABEL U05 font=150 path=Title alpha=1 glyphs=8 text=骰子脆化 · 已保存
+UPGRADE_LABEL U05 font=150 path=Identity alpha=1 glyphs=8 text=D021 | 整骰属性
+UPGRADE_LABEL U05 font=150 path=Before alpha=1 glyphs=27 text=购买前 · 骰体：陶瓷 | F02  2点 · 蓝 | 普通 · 普通边 | 物理权重 1
+UPGRADE_LABEL U05 font=150 path=Result/After alpha=0.10833326 glyphs=27 text=购买后 · 骰体：玻璃 | F02  2点 · 蓝 | 普通 · 普通边 | 物理权重 1
+UPGRADE_LABEL U05 font=150 path=Result/Current alpha=0.10833326 glyphs=16 text=当前投出：未生成 | 未修改其他物理面
+UPGRADE_LABEL U05 font=150 path=TargetFace alpha=1 glyphs=6 text=整骰玻璃材质
+UPGRADE_GPU U05 progress=0.475 stage= turn=0 frame=48
+UPGRADE_LABEL U05 font=150 path=Title alpha=1 glyphs=8 text=骰子脆化 · 已保存
+UPGRADE_LABEL U05 font=150 path=Identity alpha=1 glyphs=8 text=D021 | 整骰属性
+UPGRADE_LABEL U05 font=150 path=Before alpha=1 glyphs=27 text=购买前 · 骰体：陶瓷 | F02  2点 · 蓝 | 普通 · 普通边 | 物理权重 1
+UPGRADE_LABEL U05 font=150 path=Result/After alpha=0.866666555 glyphs=27 text=购买后 · 骰体：玻璃 | F02  2点 · 蓝 | 普通 · 普通边 | 物理权重 1
+UPGRADE_LABEL U05 font=150 path=Result/Current alpha=0.866666555 glyphs=16 text=当前投出：未生成 | 未修改其他物理面
+UPGRADE_LABEL U05 font=150 path=TargetFace alpha=1 glyphs=6 text=整骰玻璃材质
+UPGRADE_GPU U05 progress=0.8 stage= turn=0 frame=49
+UPGRADE_LABEL U05 font=150 path=Title alpha=1 glyphs=8 text=骰子脆化 · 已保存
+UPGRADE_LABEL U05 font=150 path=Identity alpha=1 glyphs=8 text=D021 | 整骰属性
+UPGRADE_LABEL U05 font=150 path=Before alpha=1 glyphs=27 text=购买前 · 骰体：陶瓷 | F02  2点 · 蓝 | 普通 · 普通边 | 物理权重 1
+UPGRADE_LABEL U05 font=150 path=Result/After alpha=1 glyphs=27 text=购买后 · 骰体：玻璃 | F02  2点 · 蓝 | 普通 · 普通边 | 物理权重 1
+UPGRADE_LABEL U05 font=150 path=Result/Current alpha=1 glyphs=16 text=当前投出：未生成 | 未修改其他物理面
+UPGRADE_LABEL U05 font=150 path=TargetFace alpha=1 glyphs=6 text=整骰玻璃材质
+UPGRADE_GPU U05 progress=0.99 stage= turn=0 frame=50
+UPGRADE_CLOCK exact=HUD/Art07TransactionMotion duration=0.36 elapsed=0 otherPooledClocks=1
+UPGRADE_LABEL U07 font=150 path=Title alpha=1 glyphs=8 text=随机变形 · 已保存
+UPGRADE_LABEL U07 font=150 path=Identity alpha=1 glyphs=11 text=D031 | 物理目标 F01
+UPGRADE_LABEL U07 font=150 path=Before alpha=1 glyphs=21 text=购买前 | F01  1点 · 红 | 普通 · 普通边 | 物理权重 1
+UPGRADE_LABEL U07 font=150 path=TargetFace alpha=1 glyphs=7 text=F01 · 永久面
+UPGRADE_GPU U07 progress=0 stage=OldPips turn=0 frame=53
+UPGRADE_LABEL U07 font=150 path=Title alpha=1 glyphs=8 text=随机变形 · 已保存
+UPGRADE_LABEL U07 font=150 path=Identity alpha=1 glyphs=11 text=D031 | 物理目标 F01
+UPGRADE_LABEL U07 font=150 path=Before alpha=1 glyphs=21 text=购买前 | F01  1点 · 红 | 普通 · 普通边 | 物理权重 1
+UPGRADE_LABEL U07 font=150 path=TargetFace alpha=1 glyphs=7 text=F01 · 永久面
+UPGRADE_GPU U07 progress=0.175 stage=OldPips turn=45 frame=54
+UPGRADE_LABEL U07 font=150 path=Title alpha=1 glyphs=8 text=随机变形 · 已保存
+UPGRADE_LABEL U07 font=150 path=Identity alpha=1 glyphs=11 text=D031 | 物理目标 F01
+UPGRADE_LABEL U07 font=150 path=Before alpha=1 glyphs=21 text=购买前 | F01  1点 · 红 | 普通 · 普通边 | 物理权重 1
+UPGRADE_LABEL U07 font=150 path=TargetFace alpha=1 glyphs=7 text=F01 · 永久面
+UPGRADE_GPU U07 progress=0.475 stage=Question turn=90 frame=56
+UPGRADE_LABEL U07 font=150 path=Title alpha=1 glyphs=8 text=随机变形 · 已保存
+UPGRADE_LABEL U07 font=150 path=Identity alpha=1 glyphs=11 text=D031 | 物理目标 F01
+UPGRADE_LABEL U07 font=150 path=Before alpha=1 glyphs=21 text=购买前 | F01  1点 · 红 | 普通 · 普通边 | 物理权重 1
+UPGRADE_LABEL U07 font=150 path=Result/After alpha=0.6 glyphs=21 text=购买后 | F01  2点 · 红 | 普通 · 普通边 | 物理权重 1
+UPGRADE_LABEL U07 font=150 path=Result/Current alpha=0.6 glyphs=16 text=当前投出：未生成 | 未修改其他物理面
+UPGRADE_LABEL U07 font=150 path=TargetFace alpha=1 glyphs=7 text=F01 · 永久面
+UPGRADE_GPU U07 progress=0.8 stage=CommittedPips turn=135 frame=57
+UPGRADE_LABEL U07 font=150 path=Title alpha=1 glyphs=8 text=随机变形 · 已保存
+UPGRADE_LABEL U07 font=150 path=Identity alpha=1 glyphs=11 text=D031 | 物理目标 F01
+UPGRADE_LABEL U07 font=150 path=Before alpha=1 glyphs=21 text=购买前 | F01  1点 · 红 | 普通 · 普通边 | 物理权重 1
+UPGRADE_LABEL U07 font=150 path=Result/After alpha=0.98 glyphs=21 text=购买后 | F01  2点 · 红 | 普通 · 普通边 | 物理权重 1
+UPGRADE_LABEL U07 font=150 path=Result/Current alpha=0.98 glyphs=16 text=当前投出：未生成 | 未修改其他物理面
+UPGRADE_LABEL U07 font=150 path=TargetFace alpha=1 glyphs=7 text=F01 · 永久面
+UPGRADE_GPU U07 progress=0.99 stage=CommittedPips turn=179.8341 frame=58
+Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_dbc5de9534d74393827553dba8f81395
+]]></output>
+            </test-case>
+            <test-case id="1113" name="PLAY_ART07_UPGRADE_FastReducedPauseAndSkipKeepCommittedStateAndResetSurfaces" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_UPGRADE_FastReducedPauseAndSkipKeepCommittedStateAndResetSurfaces" methodname="PLAY_ART07_UPGRADE_FastReducedPauseAndSkipKeepCommittedStateAndResetSurfaces" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="309226901" result="Passed" start-time="2026-11-01 08:22:12Z" end-time="2026-11-01 08:22:18Z" duration="5.903152" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[UPGRADE_CLOCK exact=HUD/Art07TransactionMotion duration=0.15 elapsed=0 otherPooledClocks=1
+UPGRADE_LABEL U05 font=100 path=Title alpha=1 glyphs=8 text=骰子脆化 · 已保存
+UPGRADE_LABEL U05 font=100 path=Identity alpha=1 glyphs=8 text=D021 | 整骰属性
+UPGRADE_LABEL U05 font=100 path=Before alpha=1 glyphs=27 text=购买前 · 骰体：陶瓷 | F02  2点 · 蓝 | 普通 · 普通边 | 物理权重 1
+UPGRADE_LABEL U05 font=100 path=Result/After alpha=1 glyphs=27 text=购买后 · 骰体：玻璃 | F02  2点 · 蓝 | 普通 · 普通边 | 物理权重 1
+UPGRADE_LABEL U05 font=100 path=Result/Current alpha=1 glyphs=16 text=当前投出：未生成 | 未修改其他物理面
+UPGRADE_LABEL U05 font=100 path=TargetFace alpha=1 glyphs=6 text=整骰玻璃材质
+UPGRADE_CLOCK exact=HUD/Art07TransactionMotion duration=0.15 elapsed=0 otherPooledClocks=1
+UPGRADE_LABEL U07 font=100 path=Title alpha=1 glyphs=8 text=随机变形 · 已保存
+UPGRADE_LABEL U07 font=100 path=Identity alpha=1 glyphs=11 text=D011 | 物理目标 F01
+UPGRADE_LABEL U07 font=100 path=Before alpha=1 glyphs=21 text=购买前 | F01  1点 · 红 | 普通 · 普通边 | 物理权重 1
+UPGRADE_LABEL U07 font=100 path=Result/After alpha=0.9800001 glyphs=21 text=购买后 | F01  2点 · 红 | 普通 · 普通边 | 物理权重 1
+UPGRADE_LABEL U07 font=100 path=Result/Current alpha=0.9800001 glyphs=16 text=当前投出：未生成 | 未修改其他物理面
+UPGRADE_LABEL U07 font=100 path=TargetFace alpha=1 glyphs=7 text=F01 · 永久面
+UPGRADE_CLOCK exact=HUD/Art07TransactionMotion duration=0.12 elapsed=0 otherPooledClocks=1
+UPGRADE_LABEL U05 font=100 path=Title alpha=1 glyphs=8 text=骰子脆化 · 已保存
+UPGRADE_LABEL U05 font=100 path=Identity alpha=1 glyphs=8 text=D021 | 整骰属性
+UPGRADE_LABEL U05 font=100 path=Before alpha=1 glyphs=27 text=购买前 · 骰体：陶瓷 | F02  2点 · 蓝 | 普通 · 普通边 | 物理权重 1
+UPGRADE_LABEL U05 font=100 path=Result/After alpha=1 glyphs=27 text=购买后 · 骰体：玻璃 | F02  2点 · 蓝 | 普通 · 普通边 | 物理权重 1
+UPGRADE_LABEL U05 font=100 path=Result/Current alpha=1 glyphs=16 text=当前投出：未生成 | 未修改其他物理面
+UPGRADE_LABEL U05 font=100 path=TargetFace alpha=1 glyphs=6 text=整骰玻璃材质
+UPGRADE_CLOCK exact=HUD/Art07TransactionMotion duration=0.12 elapsed=0 otherPooledClocks=1
+UPGRADE_LABEL U07 font=100 path=Title alpha=1 glyphs=8 text=随机变形 · 已保存
+UPGRADE_LABEL U07 font=100 path=Identity alpha=1 glyphs=11 text=D011 | 物理目标 F01
+UPGRADE_LABEL U07 font=100 path=Before alpha=1 glyphs=21 text=购买前 | F01  1点 · 红 | 普通 · 普通边 | 物理权重 1
+UPGRADE_LABEL U07 font=100 path=Result/After alpha=0.98 glyphs=21 text=购买后 | F01  2点 · 红 | 普通 · 普通边 | 物理权重 1
+UPGRADE_LABEL U07 font=100 path=Result/Current alpha=0.98 glyphs=16 text=当前投出：未生成 | 未修改其他物理面
+UPGRADE_LABEL U07 font=100 path=TargetFace alpha=1 glyphs=7 text=F01 · 永久面
+UPGRADE_CLOCK exact=HUD/Art07TransactionMotion duration=0.15 elapsed=0 otherPooledClocks=1
+UPGRADE_LABEL U05 font=150 path=Title alpha=1 glyphs=8 text=骰子脆化 · 已保存
+UPGRADE_LABEL U05 font=150 path=Identity alpha=1 glyphs=8 text=D021 | 整骰属性
+UPGRADE_LABEL U05 font=150 path=Before alpha=1 glyphs=27 text=购买前 · 骰体：陶瓷 | F02  2点 · 蓝 | 普通 · 普通边 | 物理权重 1
+UPGRADE_LABEL U05 font=150 path=Result/After alpha=1 glyphs=27 text=购买后 · 骰体：玻璃 | F02  2点 · 蓝 | 普通 · 普通边 | 物理权重 1
+UPGRADE_LABEL U05 font=150 path=Result/Current alpha=1 glyphs=16 text=当前投出：未生成 | 未修改其他物理面
+UPGRADE_LABEL U05 font=150 path=TargetFace alpha=1 glyphs=6 text=整骰玻璃材质
+UPGRADE_CLOCK exact=HUD/Art07TransactionMotion duration=0.15 elapsed=0 otherPooledClocks=1
+UPGRADE_LABEL U07 font=150 path=Title alpha=1 glyphs=8 text=随机变形 · 已保存
+UPGRADE_LABEL U07 font=150 path=Identity alpha=1 glyphs=11 text=D011 | 物理目标 F01
+UPGRADE_LABEL U07 font=150 path=Before alpha=1 glyphs=21 text=购买前 | F01  1点 · 红 | 普通 · 普通边 | 物理权重 1
+UPGRADE_LABEL U07 font=150 path=Result/After alpha=0.9800001 glyphs=21 text=购买后 | F01  2点 · 红 | 普通 · 普通边 | 物理权重 1
+UPGRADE_LABEL U07 font=150 path=Result/Current alpha=0.9800001 glyphs=16 text=当前投出：未生成 | 未修改其他物理面
+UPGRADE_LABEL U07 font=150 path=TargetFace alpha=1 glyphs=7 text=F01 · 永久面
+UPGRADE_CLOCK exact=HUD/Art07TransactionMotion duration=0.12 elapsed=0 otherPooledClocks=1
+UPGRADE_LABEL U05 font=150 path=Title alpha=1 glyphs=8 text=骰子脆化 · 已保存
+UPGRADE_LABEL U05 font=150 path=Identity alpha=1 glyphs=8 text=D021 | 整骰属性
+UPGRADE_LABEL U05 font=150 path=Before alpha=1 glyphs=27 text=购买前 · 骰体：陶瓷 | F02  2点 · 蓝 | 普通 · 普通边 | 物理权重 1
+UPGRADE_LABEL U05 font=150 path=Result/After alpha=1 glyphs=27 text=购买后 · 骰体：玻璃 | F02  2点 · 蓝 | 普通 · 普通边 | 物理权重 1
+UPGRADE_LABEL U05 font=150 path=Result/Current alpha=1 glyphs=16 text=当前投出：未生成 | 未修改其他物理面
+UPGRADE_LABEL U05 font=150 path=TargetFace alpha=1 glyphs=6 text=整骰玻璃材质
+UPGRADE_CLOCK exact=HUD/Art07TransactionMotion duration=0.12 elapsed=0 otherPooledClocks=1
+UPGRADE_LABEL U07 font=150 path=Title alpha=1 glyphs=8 text=随机变形 · 已保存
+UPGRADE_LABEL U07 font=150 path=Identity alpha=1 glyphs=11 text=D011 | 物理目标 F01
+UPGRADE_LABEL U07 font=150 path=Before alpha=1 glyphs=21 text=购买前 | F01  1点 · 红 | 普通 · 普通边 | 物理权重 1
+UPGRADE_LABEL U07 font=150 path=Result/After alpha=0.98 glyphs=21 text=购买后 | F01  2点 · 红 | 普通 · 普通边 | 物理权重 1
+UPGRADE_LABEL U07 font=150 path=Result/Current alpha=0.98 glyphs=16 text=当前投出：未生成 | 未修改其他物理面
+UPGRADE_LABEL U07 font=150 path=TargetFace alpha=1 glyphs=7 text=F01 · 永久面
+Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_627743fce302486bbc97dd0bc7c1639b
+Saving results to: E:\agent_workspace\gpt\game2\evidence\v07\unity\nunit-20261101-082218.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

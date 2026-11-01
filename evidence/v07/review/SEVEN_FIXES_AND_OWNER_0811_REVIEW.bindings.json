@@ -1,0 +1,294 @@
+{
+  "scope": "read-only independent limited seven-test and transaction-owner review; no Unity execution",
+  "testArchiveFilesVerified": 34,
+  "sourceFilesStartFinishAndCurrentMatch": 1358,
+  "assembliesStartFinishMatch": [
+    {
+      "name": "DiceCraft.Core",
+      "mvid": "8f690e0d-a075-4b72-98e4-2cb64ced2fa3",
+      "dllSha256": "44a137cd38d7b525382dfda7adbdb7676d12d1dbc05520638d8a14642a96031b"
+    },
+    {
+      "name": "DiceCraft.EditMode",
+      "mvid": "104a6faa-e8db-4a9d-8f20-4c0fd9e61ce8",
+      "dllSha256": "873e4b69f4cc2d77fd4fd6a09bf1dfa62ce5ddbc861b522b75463b92cc9109c0"
+    },
+    {
+      "name": "DiceCraft.Editor",
+      "mvid": "da788e33-9765-4d18-805d-e8c014459f81",
+      "dllSha256": "f8d966a2c128f40360b57e2af85d9ebe23a8c2a380d7c576da3e271c2648336c"
+    },
+    {
+      "name": "DiceCraft.PlayModeTests",
+      "mvid": "182da417-59d4-41e5-948f-90f980b31049",
+      "dllSha256": "0e3fe4a1fccbddcdf512b81c54d6e1e6c286b3e0a610048a77d595688ec9fbed"
+    },
+    {
+      "name": "DiceCraft.Runtime",
+      "mvid": "6a68fcb9-848d-429a-ac05-c25d6f6bfd8e",
+      "dllSha256": "744a270a5802fe860525c1a017c52914c4a64667abd60be31b8987e909cd297a"
+    }
+  ],
+  "testCases": [
+    {
+      "name": "PLAY_ART07_UPGRADE_ActualCeramicAndSingleQuestionFlipRenderBeforeMiddleAndAfter",
+      "result": "Passed",
+      "duration": "4.205011"
+    },
+    {
+      "name": "PLAY_ART07_UPGRADE_FastReducedPauseAndSkipKeepCommittedStateAndResetSurfaces",
+      "result": "Passed",
+      "duration": "2.701036"
+    },
+    {
+      "name": "PLAY_CoreLoop_ClickLockReorderAndSubmitMatchesPreview",
+      "result": "Passed",
+      "duration": "2.007361"
+    },
+    {
+      "name": "PLAY_PooledRefreshKeepsNodeIdentitiesAndResetsScrollInputAndSlider",
+      "result": "Passed",
+      "duration": "5.549476"
+    },
+    {
+      "name": "PLAY_RealKeyboardTenDiceMappingModalSeedFocusAndHeldKeys",
+      "result": "Passed",
+      "duration": "5.353215"
+    },
+    {
+      "name": "PLAY_ReloadDuringRollRestoresLocksOrderAndAcceptedFaceResults",
+      "result": "Passed",
+      "duration": "0.604293"
+    },
+    {
+      "name": "PLAY_V06_RemoteThirtyTwoTargetsScrollAndKeepExactlyTwoWithoutOverlap",
+      "result": "Passed",
+      "duration": "0.939031"
+    }
+  ],
+  "clockOwnerLogs": [
+    "UPGRADE_CLOCK exact=HUD/Art07TransactionMotion duration=0.42 elapsed=0 otherPooledClocks=1",
+    "UPGRADE_CLOCK exact=HUD/Art07TransactionMotion duration=0.36 elapsed=0 otherPooledClocks=1",
+    "UPGRADE_CLOCK exact=HUD/Art07TransactionMotion duration=0.15 elapsed=0 otherPooledClocks=1",
+    "UPGRADE_CLOCK exact=HUD/Art07TransactionMotion duration=0.15 elapsed=0 otherPooledClocks=1",
+    "UPGRADE_CLOCK exact=HUD/Art07TransactionMotion duration=0.12 elapsed=0 otherPooledClocks=1",
+    "UPGRADE_CLOCK exact=HUD/Art07TransactionMotion duration=0.12 elapsed=0 otherPooledClocks=1"
+  ],
+  "testImagesVisuallyViewed": [
+    {
+      "path": "artifacts/cache/v07-seven-fixes-081107/DiceCraftTests_05628f744ff34c87a824361aec105b33/art07-upgrade-frames/U05-p0-22.png",
+      "sha256": "b84dc7f69c4f1c5bccd0195561524969a3b874c78d3fddaa1db33a15fbf75278",
+      "bytes": 892526
+    },
+    {
+      "path": "artifacts/cache/v07-seven-fixes-081107/DiceCraftTests_05628f744ff34c87a824361aec105b33/art07-upgrade-frames/U05-p18-23.png",
+      "sha256": "5d533352fb64c142cec05b0e24b019ce279f1678c9a2cf00d76cb21625e9996e",
+      "bytes": 892749
+    },
+    {
+      "path": "artifacts/cache/v07-seven-fixes-081107/DiceCraftTests_05628f744ff34c87a824361aec105b33/art07-upgrade-frames/U05-p48-24.png",
+      "sha256": "3b874aae01b6ee614875ae533c7ed6cf967b93881c2b8ad87cb519f4924e9c84",
+      "bytes": 932280
+    },
+    {
+      "path": "artifacts/cache/v07-seven-fixes-081107/DiceCraftTests_05628f744ff34c87a824361aec105b33/art07-upgrade-frames/U05-p80-25.png",
+      "sha256": "fc8250050d506f8cb79bc789137d52ee739092b81797927e1aecb9aed668f098",
+      "bytes": 944934
+    },
+    {
+      "path": "artifacts/cache/v07-seven-fixes-081107/DiceCraftTests_05628f744ff34c87a824361aec105b33/art07-upgrade-frames/U05-p99-26.png",
+      "sha256": "16079c7c865e4c0523e57a26a35b5c50a85b8353cf7985eeb26db222899e3698",
+      "bytes": 944814
+    },
+    {
+      "path": "artifacts/cache/v07-seven-fixes-081107/DiceCraftTests_05628f744ff34c87a824361aec105b33/art07-upgrade-frames/U07-p0-29.png",
+      "sha256": "8259a7c8605406a6244fafc2daadce1bab7c5554e6081524b5e4d5dd95a148af",
+      "bytes": 901599
+    },
+    {
+      "path": "artifacts/cache/v07-seven-fixes-081107/DiceCraftTests_05628f744ff34c87a824361aec105b33/art07-upgrade-frames/U07-p18-30.png",
+      "sha256": "1fadbefd9c46ac923365a60b35f27e7d1f2e880c7f2431a5f3c6dabb445dc4c1",
+      "bytes": 902094
+    },
+    {
+      "path": "artifacts/cache/v07-seven-fixes-081107/DiceCraftTests_05628f744ff34c87a824361aec105b33/art07-upgrade-frames/U07-p48-32.png",
+      "sha256": "07368d18d148c9a0fc7f5c5c55ebfedb7834d4df621e5e7ce7d403708d8ac214",
+      "bytes": 903428
+    },
+    {
+      "path": "artifacts/cache/v07-seven-fixes-081107/DiceCraftTests_05628f744ff34c87a824361aec105b33/art07-upgrade-frames/U07-p80-33.png",
+      "sha256": "0e7ab3c89671177d4ec5eb390655142e9e2bfba55702c7a8e9342c44406e9e2b",
+      "bytes": 931775
+    },
+    {
+      "path": "artifacts/cache/v07-seven-fixes-081107/DiceCraftTests_05628f744ff34c87a824361aec105b33/art07-upgrade-frames/U07-p99-34.png",
+      "sha256": "823db52511ee93cad99fb31ce33ff6dacda5f72d7ef1cb0810aa051a0757be84",
+      "bytes": 934532
+    },
+    {
+      "path": "artifacts/cache/v07-seven-fixes-081107/DiceCraftTests_05628f744ff34c87a824361aec105b33/art07-upgrade-frames/U07-question-hidden-31.png",
+      "sha256": "6f06bb9f1bab54085b34e063b5b74315598ed0b6aa056f189d93ac1f8da944ee",
+      "bytes": 903946
+    },
+    {
+      "path": "artifacts/cache/v07-seven-fixes-081107/DiceCraftTests_88e6c1f69f1844be8a77a3272c7a6c7a/art07-upgrade-frames/U07-fast-question-53.png",
+      "sha256": "54daeb1ec66e007c48867971568f8b619924ca04d3f828513a0bda647451cf06",
+      "bytes": 904357
+    },
+    {
+      "path": "artifacts/cache/v07-seven-fixes-081107/DiceCraftTests_88e6c1f69f1844be8a77a3272c7a6c7a/art07-upgrade-frames/U07-reduced-question-66.png",
+      "sha256": "0b8ecfc3054297948ccf8d9da2d9a6a61db1f987569d2150026c9e396bd78c94",
+      "bytes": 207336
+    }
+  ],
+  "testBinding": {
+    "path": "artifacts/cache/v07-seven-fixes-081107/nunit-20261101-081107.binding.json",
+    "sha256": "3710d12cbf5cd2c6991f3861e41ca85c3cf4ebb2d03a1d72de12235ccd28d796",
+    "bytes": 574701
+  },
+  "testXml": {
+    "path": "artifacts/cache/v07-seven-fixes-081107/nunit-20261101-081107.xml",
+    "sha256": "356e2b335309772ae8a27bd3ae09f897f8ee3576afea001d000d9e768b8ba003",
+    "bytes": 12054
+  },
+  "clockOwners": {
+    "path": "artifacts/cache/v07-upgrade-owner-smoke-r01/actual-clock-owners.json",
+    "sha256": "e1bdbd9634646d129516da5c2eb51b6f1ee1975267e4844ae963a4e8ed568eac",
+    "bytes": 376
+  },
+  "owners": [
+    {
+      "name": "FrozenUiGroup0",
+      "parent": "SettlementBackdrop07",
+      "active": false,
+      "playing": false,
+      "duration": 0,
+      "elapsed": 0,
+      "kind": null
+    },
+    {
+      "name": "Art07TransactionMotion",
+      "parent": "HUD",
+      "active": true,
+      "playing": false,
+      "duration": 0.36,
+      "elapsed": 0.36,
+      "kind": "die_upgrade"
+    }
+  ],
+  "decoder": {
+    "path": "artifacts/tools/video/imageio_ffmpeg/binaries/ffmpeg-win-x86_64-v7.1.exe",
+    "sha256": "2ce797a0f88d7f067180338fb227f7b1928ea727bd9a4d7a1d022f7c52af71a3",
+    "bytes": 87638016
+  },
+  "clips": [
+    {
+      "name": "GlassDie-normal",
+      "framesPngVerified": 72,
+      "fullyDecodedFrames": 72,
+      "decoderStderr": "",
+      "sourceEntriesVerified": 169,
+      "sourceManifestSha256": "7c48358f76b00319955f955725dc567e46468770186bae8ecc584b558a3b9827",
+      "runtimeMvid": "6a68fcb9-848d-429a-ac05-c25d6f6bfd8e",
+      "coreMvid": "8f690e0d-a075-4b72-98e4-2cb64ced2fa3",
+      "ticks": 26,
+      "durationMilliseconds": 420,
+      "recording": {
+        "path": "artifacts/cache/v07-upgrade-owner-smoke-r01/GlassDie-normal/recording.json",
+        "sha256": "cf73b6a6808f3bf763d2adc1e13a563d0f08a0fcb0596dee0cbee46126e620f1",
+        "bytes": 3716
+      },
+      "frames": {
+        "path": "artifacts/cache/v07-upgrade-owner-smoke-r01/GlassDie-normal/frames.jsonl",
+        "sha256": "e794ebf57fcc72beafd5040b4d24464d7ea6995accf99d9cecf027ece83eb087",
+        "bytes": 112010
+      },
+      "video": {
+        "path": "artifacts/cache/v07-upgrade-owner-smoke-r01/GlassDie-normal/visual-silent.mp4",
+        "sha256": "382b65c1d2f444832ec73470b1c1787076ef9b8616d9023c5ad677d44433c0c6",
+        "bytes": 436074
+      },
+      "visuallyViewed": [
+        {
+          "path": "artifacts/cache/v07-upgrade-owner-smoke-r01/GlassDie-normal/frames/frame_000015.png",
+          "sha256": "e315d1a087b5b625dd99f602dc146fb0861c8bce4ab280e582509504f27e4bce",
+          "bytes": 986602
+        },
+        {
+          "path": "artifacts/cache/v07-upgrade-owner-smoke-r01/GlassDie-normal/frames/frame_000027.png",
+          "sha256": "7bc05f1fe0fd5e04e934cbc3cb6e6ffed6f9b362c285df8e5c7e7c9a130ba822",
+          "bytes": 1041811
+        },
+        {
+          "path": "artifacts/cache/v07-upgrade-owner-smoke-r01/GlassDie-normal/frames/frame_000040.png",
+          "sha256": "c91bebacd5e32b5c2a2acfad183688ddd395be62f32eb8098277c4485d99d50d",
+          "bytes": 1047511
+        },
+        {
+          "path": "artifacts/cache/v07-upgrade-owner-smoke-r01/GlassDie-normal/frames/frame_000041.png",
+          "sha256": "aede67350f9aa12c9bd4b4a148cbba8d791e6fd16a57186d2221a2617227b1b7",
+          "bytes": 1041065
+        }
+      ],
+      "stateSaveStableOutsideSingleBuy": true,
+      "restoredTiming": true,
+      "restoredPreferences": true,
+      "normalSaveUnchanged": true,
+      "identitySourceCommitIsHistoricalNotFullSourceFreeze": "86d740cdcc3045605e41417dc0353d4cb4d76c60"
+    },
+    {
+      "name": "RandomFace-normal",
+      "framesPngVerified": 68,
+      "fullyDecodedFrames": 68,
+      "decoderStderr": "",
+      "sourceEntriesVerified": 169,
+      "sourceManifestSha256": "7c48358f76b00319955f955725dc567e46468770186bae8ecc584b558a3b9827",
+      "runtimeMvid": "6a68fcb9-848d-429a-ac05-c25d6f6bfd8e",
+      "coreMvid": "8f690e0d-a075-4b72-98e4-2cb64ced2fa3",
+      "ticks": 22,
+      "durationMilliseconds": 360,
+      "recording": {
+        "path": "artifacts/cache/v07-upgrade-owner-smoke-r01/RandomFace-normal/recording.json",
+        "sha256": "3b0235de9fd9a337e6339a01a0df3becb4b1381650a6c4ffe7a7b300b9d464ac",
+        "bytes": 3781
+      },
+      "frames": {
+        "path": "artifacts/cache/v07-upgrade-owner-smoke-r01/RandomFace-normal/frames.jsonl",
+        "sha256": "f4c58b89f9fd65b44f1aad34b603bb6cc0e45d230c55c4bae1f548050c045dc0",
+        "bytes": 105646
+      },
+      "video": {
+        "path": "artifacts/cache/v07-upgrade-owner-smoke-r01/RandomFace-normal/visual-silent.mp4",
+        "sha256": "1b165a244ee9794ed1174179000eb19c06b499420996ad1afde07b77cd13f407",
+        "bytes": 397541
+      },
+      "visuallyViewed": [
+        {
+          "path": "artifacts/cache/v07-upgrade-owner-smoke-r01/RandomFace-normal/frames/frame_000015.png",
+          "sha256": "28f19a83671f6a81a67abc09bc5ca728b0c0b8453fb6a848f3c11706286142fa",
+          "bytes": 992396
+        },
+        {
+          "path": "artifacts/cache/v07-upgrade-owner-smoke-r01/RandomFace-normal/frames/frame_000025.png",
+          "sha256": "5c7b066ab0d9e399ee4302af6381c5e4874c0df80b2cbe01f82951bfda5c5d98",
+          "bytes": 994677
+        },
+        {
+          "path": "artifacts/cache/v07-upgrade-owner-smoke-r01/RandomFace-normal/frames/frame_000036.png",
+          "sha256": "f23e2ccd67ff917063ff96b998621eadb9e4a5dcdf66769926b883d8f39824d8",
+          "bytes": 1038014
+        }
+      ],
+      "stateSaveStableOutsideSingleBuy": true,
+      "restoredTiming": true,
+      "restoredPreferences": true,
+      "normalSaveUnchanged": true,
+      "identitySourceCommitIsHistoricalNotFullSourceFreeze": "86d740cdcc3045605e41417dc0353d4cb4d76c60"
+    }
+  ],
+  "visualDefect": "U05 1080 font150 PhysicalUpgrade07/Before exits frame; Result/After overlaps Current in frames15/27/40. Owner selection fixed does not close layout defect.",
+  "reviewReport": {
+    "path": "evidence/v07/review/SEVEN_FIXES_AND_OWNER_0811_REVIEW.md",
+    "sha256": "89297d35a85b07c1c196c340bd640da66b37cccebdd0a5d1de8689b5c6ca6734"
+  }
+}
