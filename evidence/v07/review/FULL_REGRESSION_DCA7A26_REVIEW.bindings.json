@@ -1,0 +1,185 @@
+{
+  "utc": "2026-11-02T02:36:28.597351+00:00",
+  "reviewer": "/root/v07_run_review",
+  "scope": "Frozen Editor full regression and 12 actually viewed modal-tail PNGs only",
+  "sourceCommit": "dca7a2610f39d65088b9541549d3465c388fd3e7",
+  "files": [
+    {
+      "path": "evidence/v07/review/FULL_REGRESSION_DCA7A26_REVIEW.md",
+      "sha256": "b5ca3709d28a0fb6404ee61a258d525d375f9de7ecf366660cca571ddfc63b69",
+      "bytes": 5650
+    },
+    {
+      "path": "artifacts/cache/v07-full-regression-dca7a26-review/frozen-audit.json",
+      "sha256": "c75958389258587d80c2ba99a70dbf546ce44cc60a78bb57343a6536bfd35a6b",
+      "bytes": 28881
+    },
+    {
+      "path": "artifacts/cache/v07-full-regression-dca7a26-review/current-gate-audit.json",
+      "sha256": "1e11522000568d798abc99e42eb006d91ccbb78decb5ed5ecfc929a73cffbe98",
+      "bytes": 1200
+    },
+    {
+      "path": "artifacts/cache/v07-full-regression-dca7a26-review/audit-frozen.py",
+      "sha256": "dfec984272dc981d9d828d08a3a306d78a681eae860d8bcd3cfd2cb3a8f0f430",
+      "bytes": 11459
+    },
+    {
+      "path": "artifacts/cache/v07-full-regression-dca7a26-review/audit-current.py",
+      "sha256": "60712319a43f707da6167fedbe258a2d26a733653e8f900e9b167a2162f4c1fc",
+      "bytes": 2165
+    },
+    {
+      "path": "artifacts/cache/v07-full-dca7a26-modal-visual-review/viewed-images.json",
+      "sha256": "3988211865a309f16831bae87e50a8d8848add5d77c83f86e66667d5be3b0952",
+      "bytes": 9109
+    },
+    {
+      "path": "artifacts/cache/v07-full-dca7a26-modal-visual-review/PROVISIONAL_VISUAL_REVIEW.md",
+      "sha256": "132136767286b3af5645af4d298bc5debaf48c009db64cd812b0a798f9b31829",
+      "bytes": 3810
+    },
+    {
+      "path": "evidence/v07/review/MODAL_TAIL_ATLAS_FIX_REVIEW.md",
+      "sha256": "df1fc84df5fbf4f448a97ede86f92ba908b412c6e7a000a4bc7fb4824e77f550",
+      "bytes": 6364
+    },
+    {
+      "path": "evidence/v07/review/resource-diagnostic-static/STATIC_REVIEW.md",
+      "sha256": "e0a31f6f7e7ceb15c877498c08ed265df2fd060f3053b9fc6b06f5e479800b55",
+      "bytes": 5481
+    },
+    {
+      "path": "evidence/v07/review/resource-diagnostic-integration/REVIEW.md",
+      "sha256": "180629dc4d4e58281e348232dbca671b8ceb549b253df13f508d3d55eea819d5",
+      "bytes": 7825
+    }
+  ],
+  "boundInputs": [
+    {
+      "path": "evidence/v07/unity/nunit-20261102-020742.xml",
+      "bytes": 703232,
+      "sha256": "c37978203cd319e28a5e5521f5b9b24322b377798d2a8178c7cd9c9d960be163"
+    },
+    {
+      "path": "evidence/v07/unity/nunit-20261102-020742.binding.json",
+      "bytes": 580209,
+      "sha256": "96169b719d6cb2c06f8327a48f3ce638dda0f82789248b533c140c48a4a48746"
+    },
+    {
+      "path": "evidence/v07/unity/discovery-EditMode.json",
+      "bytes": 83753,
+      "sha256": "eb9ea5c545f10db39e8be07d3aed428ab7b1754b34e74ac764a2a0714f4e9180"
+    },
+    {
+      "path": "evidence/v07/unity/nunit-20261102-022904.xml",
+      "bytes": 360479,
+      "sha256": "c04f507f1895e3c9c1a64aff96f89b95492006f67d9fb1dec78daa50fcfd9675"
+    },
+    {
+      "path": "evidence/v07/unity/nunit-20261102-022904.binding.json",
+      "bytes": 580209,
+      "sha256": "0e17f35a2f16d09998cfc9443477edbbd2269a0f5f0071fff9a5306028d1a65e"
+    },
+    {
+      "path": "evidence/v07/unity/discovery-PlayMode.json",
+      "bytes": 19321,
+      "sha256": "31a37c4386b7ab1aac95f8f3595f07f2167eed32be8f64b771d97d1788c38cb9"
+    },
+    {
+      "path": "evidence/v07/unity/pdb-dca7a26-final.json",
+      "bytes": 80777,
+      "sha256": "cb77504e0d901bb73e364313bdf4360d61f8b2826d441f12523aad414f0cc701"
+    },
+    {
+      "path": "artifacts/cache/v07-full-regression-dca7a26-review/compiled-final/manifest.json",
+      "bytes": 1762,
+      "sha256": "57dbd0c215e4f3655f7114def28c922db417505556e7c9aabd9eaafe3ea55c1f"
+    },
+    {
+      "path": "artifacts/cache/v07-full-regression-dca7a26-review/compiled-final/DiceCraft.Core.dll",
+      "bytes": 188416,
+      "sha256": "44a137cd38d7b525382dfda7adbdb7676d12d1dbc05520638d8a14642a96031b"
+    },
+    {
+      "path": "artifacts/cache/v07-full-regression-dca7a26-review/compiled-final/DiceCraft.Core.pdb",
+      "bytes": 57472,
+      "sha256": "ac0e604ab35e64c021e8ec3ee0a61952baa2a241fbaec388cf123c9bf7ff8d3b"
+    },
+    {
+      "path": "artifacts/cache/v07-full-regression-dca7a26-review/compiled-final/DiceCraft.Runtime.dll",
+      "bytes": 881152,
+      "sha256": "42908972c8980003204d62437901c6ee1bb51c9328d65b3b30cb89a10d24c613"
+    },
+    {
+      "path": "artifacts/cache/v07-full-regression-dca7a26-review/compiled-final/DiceCraft.Runtime.pdb",
+      "bytes": 232876,
+      "sha256": "1aa850c79798f5393932c6e521adc13c222cddde12898e705e34071e3a108914"
+    },
+    {
+      "path": "artifacts/cache/v07-full-regression-dca7a26-review/compiled-final/DiceCraft.EditMode.dll",
+      "bytes": 224768,
+      "sha256": "8e526f69a6cc5ee100c2edce32a5ca52db875b53ed3d0726d2d8bbcff8435b2c"
+    },
+    {
+      "path": "artifacts/cache/v07-full-regression-dca7a26-review/compiled-final/DiceCraft.EditMode.pdb",
+      "bytes": 75252,
+      "sha256": "81e21cde2ea315f82d50d9b596784ec24bf683fe2c7ee41374940a03fbe7abc8"
+    },
+    {
+      "path": "artifacts/cache/v07-full-regression-dca7a26-review/compiled-final/DiceCraft.PlayModeTests.dll",
+      "bytes": 765952,
+      "sha256": "be4b2b4f9f30169f53348c45c0573e77b5866d2f764886413a02d03d36e77913"
+    },
+    {
+      "path": "artifacts/cache/v07-full-regression-dca7a26-review/compiled-final/DiceCraft.PlayModeTests.pdb",
+      "bytes": 182688,
+      "sha256": "28283c9433d44b42d8bed1ae6f3c3ca727b8218103e796eb42ced83babce5da2"
+    },
+    {
+      "path": "artifacts/cache/v07-full-regression-dca7a26-review/compiled-final/DiceCraft.Editor.dll",
+      "bytes": 95232,
+      "sha256": "5faff608c391f95b0fc8de704d8773ef0ece903610217b34c44c9092c1f5c3b1"
+    },
+    {
+      "path": "artifacts/cache/v07-full-regression-dca7a26-review/compiled-final/DiceCraft.Editor.pdb",
+      "bytes": 43476,
+      "sha256": "65cd0c18a00ac64cd025bdccbb71109b0fc1aca227856cc16d665fb44c3cf161"
+    },
+    {
+      "path": "evidence/v07/unity/checkpoint-resource-identity-dca7a26.json",
+      "bytes": 3530,
+      "sha256": "8ed0c8e43d7d54f7ee2addd62df7d612d61e2b6dc7afe627b09483d2d1c61a47"
+    },
+    {
+      "path": "artifacts/cache/v07-post-full-dca7a26-preferences.json",
+      "bytes": 2865,
+      "sha256": "1d17e1979c0e81e8a17537f3335370809197352977fadc8ccd7f01a18d798ead"
+    },
+    {
+      "path": "artifacts/cache/v07-full-play-dca7a26-022904/archive.json",
+      "bytes": 707828,
+      "sha256": "494dc35f2d516ede5d78e2f78af7a19f0eebbb8dcc06a409771d8792570b8a9a"
+    },
+    {
+      "path": "evidence/v07/unity/nunit-20261102-003808.xml",
+      "bytes": 703263,
+      "sha256": "d123377e73b57228a21425375785c4148a93a3d03ab415d065333db9e9a65473"
+    },
+    {
+      "path": "evidence/v07/unity/nunit-20261102-005835.xml",
+      "bytes": 355948,
+      "sha256": "e0f7f0d11baa66859129109c1c236d32fbb063a544122b1d20551ed013ed048f"
+    },
+    {
+      "path": "artifacts/cache/v07-full-dca7a26-modal-visual-review/viewed-images.json",
+      "bytes": 9109,
+      "sha256": "3988211865a309f16831bae87e50a8d8848add5d77c83f86e66667d5be3b0952"
+    }
+  ],
+  "reviewFindings": [],
+  "actualViewedImageFiles": 12,
+  "uniqueViewedPngHashes": 7,
+  "entire932PngVisuallyReviewed": false,
+  "playerMacWholeReleaseAccepted": false
+}

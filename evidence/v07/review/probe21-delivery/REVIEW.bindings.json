@@ -1,0 +1,91 @@
+{
+  "schema": "v07-independent-tools-review-1",
+  "reviewUtc": "2026-11-02T00:56:53.815664+00:00",
+  "files": [
+    {
+      "path": "artifacts/cache/v07-probe21-delivery-readiness/candidate/tools/macos/v07/compare_replays.py",
+      "sha256": "19acb2397f85f347e96a194d3965b89f5b27e8c7fda56bcdf9b085a356e6fab9",
+      "bytes": 40206
+    },
+    {
+      "path": "artifacts/cache/v07-probe21-delivery-readiness/candidate/tools/package_v07.py",
+      "sha256": "0958bb0c14e792f85618d759659bacb6c5521ddfa9896b2f3a0c98dff9f82ae5",
+      "bytes": 24933
+    },
+    {
+      "path": "artifacts/cache/v07-probe21-delivery-readiness/candidate/tools/release_v07_manifest.py",
+      "sha256": "dd41a6a8aea14cce394c94968bdccab122fcf7d71adf8088f9a041468c647a0a",
+      "bytes": 11951
+    },
+    {
+      "path": "artifacts/cache/v07-probe21-delivery-readiness/candidate/tools/publish_v07_release.py",
+      "sha256": "96e919e2632660bc4326aaf132350c3661b0d2a5d11e187df521ab11e8289004",
+      "bytes": 22469
+    },
+    {
+      "path": "artifacts/cache/v07-probe21-delivery-readiness/candidate/tools/macos/v07/verify_mac.py",
+      "sha256": "e942278c9065fa28fe849975d56b35c3981a45101dba2efc66e237c6e7c62a44",
+      "bytes": 30073
+    },
+    {
+      "path": "artifacts/cache/v07-probe21-delivery-readiness/candidate/tools/macos/v07/VerifyMac.command",
+      "sha256": "6669b176ef4b20d58db8fafbc6fcf85ac4215c4309fa2a0a35a7d35b10092270",
+      "bytes": 2002
+    },
+    {
+      "path": "artifacts/cache/v07-probe21-delivery-readiness/candidate/docs/tasks/P0-V07-MAC-VERIFICATION.md",
+      "sha256": "aee38a061d71a47ad406c8beb4e34a7b524236bbdafd12f5c21db4287f5d1f4c",
+      "bytes": 12231
+    },
+    {
+      "path": "artifacts/cache/v07-probe21-delivery-readiness/candidate/tools/run_v07_windows_player.py",
+      "sha256": "ae37c33d5697b1121d9fed3bf22a9d7dabacd5f8c6c3c07a016c65e1fcf75d56",
+      "bytes": 15931
+    },
+    {
+      "path": "artifacts/cache/v07-probe21-delivery-readiness/candidate/tools/macos/v07/test_strict_failed_reference.py",
+      "sha256": "48e2bcfd6edd02a3bef40c901d2ac8d6809ef70f3ea8cb4b6fe381eaea309f85",
+      "bytes": 17227
+    },
+    {
+      "path": "artifacts/cache/v07-probe21-delivery-readiness/FROZEN_CANDIDATE.json",
+      "sha256": "9926ffce14e57a06afff9c327971e8e8016f254173bebc9c99d20cc266045772",
+      "bytes": 2274
+    },
+    {
+      "path": "artifacts/cache/v07-probe21-delivery-review/final-candidate-tests.log",
+      "sha256": "35a64694387a8eefdd2ff552d713ab6e11a256c6c359decdcbe049a16c6d588f",
+      "bytes": 20576
+    },
+    {
+      "path": "artifacts/cache/v07-probe21-delivery-review/independent-repository-tests.log",
+      "sha256": "cacad17bcf6af92b0a8acfea527758287108aaacb8f2b18b8b4f052a8bd9e926",
+      "bytes": 2928
+    },
+    {
+      "path": "artifacts/cache/v07-probe21-delivery-review/coverage-negative.json",
+      "sha256": "1dd00ba32148fb80ac7135e0b0fd91e70152f13b864d83dedb48de911bd95cde",
+      "bytes": 1929
+    },
+    {
+      "path": "artifacts/cache/v07-probe21-delivery-review/final-negative-results.json",
+      "sha256": "2d9dd21d5c9e92e18b050aa6cb7a123e697e76c9ceae073187e3571e1a79e9e3",
+      "bytes": 9904
+    },
+    {
+      "path": "artifacts/cache/v07-probe21-delivery-review/independent_negative_checks.py",
+      "sha256": "ee8bf516bdd8be2e2af125b67ba85d706a0cdd233c88265d18ce80897cb104b4",
+      "bytes": 5007
+    },
+    {
+      "path": "docs/PLAYER_README_V07.txt",
+      "sha256": "06f6a4b798ace0f4a48c72579f4ddf89e50d5508065143b6e75e97c61805bb9d",
+      "bytes": 3582
+    }
+  ],
+  "testedToolCases": 131,
+  "repositoryCases": 20,
+  "extraChecks": 17,
+  "newPlayerRun": false,
+  "macLauncherExecuted": false
+}

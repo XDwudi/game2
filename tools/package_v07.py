@@ -222,12 +222,14 @@ def validate_build(path, platform, identity):
 
 
 def validate_windows_report(directory, identity, review_candidate=False, allow_failed_windows_performance=False):
-    from macos.v07.compare_replays import validate_windows_reference, validate_trace_replay
+    from macos.v07.compare_replays import validate_windows_reference, validate_trace_replay, validate_failed_performance_csv
     value = read_json(directory / "player-report.json")
     failures = validate_windows_reference(value, review_candidate, allow_failed_windows_performance)
     if failures or json.loads(value.get("buildIdentity") or "{}") != identity:
         raise ValueError("Windows Player verification is missing/stale/non-passing: " + repr(failures))
     validate_trace_replay(value, directory, ROOT / "evidence/v07/session/normal-run-trace.json", ROOT / "evidence/v07/session/debug-24-trace.json")
+    if allow_failed_windows_performance:
+        validate_failed_performance_csv(value, directory)
     return value
 
 
@@ -291,6 +293,9 @@ def verification_kit(windows_results, review_candidate=False, allow_failed_windo
     for name in ("player-report.json", "normal-replay.jsonl", "debug24-replay.jsonl", "cross-platform-checkpoint/active-run.json",
                  "cross-platform-checkpoint/command.json", "cross-platform-checkpoint/expected.json"):
         inputs.append((windows_results / name, "inputs/windows-results/" + name))
+    from macos.v07.compare_replays import uses_strict_failed_performance_reference
+    if allow_failed_windows_performance and uses_strict_failed_performance_reference(report):
+        inputs.append((windows_results / "performance-frames.csv", "inputs/windows-results/performance-frames.csv"))
     if any(not path.is_file() for path, _ in inputs):
         raise ValueError("Verification kit input missing; no package was created")
     notice = json.dumps(candidate_notice(identity, report, allow_failed_windows_performance), ensure_ascii=False, indent=2).encode("utf-8") if review_candidate else None

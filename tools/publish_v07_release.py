@@ -17,7 +17,8 @@ import zipfile
 from package_v07 import (ROOT, RELEASE, TAG, GATE, read_json, sha, validated_gate, check_package, local_path,
                          validate_windows_report, candidate_directory, release_manifest_path)
 from macos.v07.package_checks import safe_archive_inventory
-from macos.v07.compare_replays import review_reference_notice, failed_performance_notice
+from macos.v07.compare_replays import (review_reference_notice, failed_performance_notice, diagnostic_release_status,
+                                      uses_strict_failed_performance_reference, validate_failed_performance_csv)
 
 API = "https://api.github.com/repos/XDwudi/game2"
 EVIDENCE = ROOT / "evidence/v07/delivery/github-release"
@@ -53,20 +54,37 @@ def release_inputs(review_candidate=False, allow_failed_windows_performance=Fals
     if sha(local_path(manifest["windowsEvidence"]) / "player-report.json") != manifest["windowsReportSha256"]:
         raise ValueError("Windows Player report differs from the frozen manifest")
     report = validate_windows_report(local_path(manifest["windowsEvidence"]), identity, review_candidate, allow_failed_windows_performance)
-    expected_status = "DIAGNOSTIC_TEST_CANDIDATE_WINDOWS_PERFORMANCE_FAILED_NATIVE_PENDING" if allow_failed_windows_performance else "RESTRICTED_TEST_CANDIDATE_WINDOWS_NATIVE_PENDING"
+    expected_status = diagnostic_release_status(report) if allow_failed_windows_performance else "RESTRICTED_TEST_CANDIDATE_WINDOWS_NATIVE_PENDING"
     if review_candidate and (manifest.get("fullReleaseAccepted") is not False
             or manifest.get("releaseStatus") != expected_status
             or manifest.get("windowsReference", {}).get("fullWindowsPassed") is not False
-            or manifest.get("windowsReference", {}).get("windowsNativeDisplayStatus") != "PENDING_P22_NOT_PASSED"):
+            or manifest.get("windowsReference", {}).get("windowsNativeDisplayStatus") != review_reference_notice(report, allow_failed_windows_performance)["windowsNativeDisplayStatus"]):
         raise ValueError("Review manifest does not clearly preserve its Windows native limitation")
     if allow_failed_windows_performance and (manifest.get("windowsReference") != review_reference_notice(report, True)
             or manifest.get("diagnosticSummary") != review_reference_notice(report, True)
             or manifest.get("windowsPerformance") != {**failed_performance_notice(report), "originalPerformanceReport": report["performance"]}):
         raise ValueError("Diagnostic manifest must retain the exact FAILED performance and focus/GPU observations")
+    if allow_failed_windows_performance and uses_strict_failed_performance_reference(report):
+        if manifest.get("windowsPerformanceRawEvidence") != validate_failed_performance_csv(report, local_path(manifest["windowsEvidence"])):
+            raise ValueError("Strict diagnostic raw CSV differs from manifest")
     tag = subprocess.run(["git", "rev-parse", "--verify", "refs/tags/" + TAG + "^{commit}"], cwd=ROOT, text=True, capture_output=True)
     if tag.returncode == 0 and tag.stdout.strip() != identity["sourceCommit"]:
         raise ValueError("Existing local release tag points to different source")
     return manifest, expected, identity["sourceCommit"]
+
+
+def release_title(manifest):
+    if manifest.get("allowFailedWindowsPerformance"):
+        native = manifest.get("windowsReference", {}).get("windowsNativeDisplayStatus")
+        if native == "AUTOMATED_CHECKS_PASSED_PHYSICAL_EVENTS_UNTESTED":
+            label = "性能失败的诊断候选（自动显示检查通过，物理场景待验）"
+        elif native == "PENDING_P22_NOT_PASSED":
+            label = "性能失败及原生显示待解决的诊断候选"
+        else:
+            raise ValueError("Diagnostic release title requires the validated native display scope")
+    else:
+        label = "原生显示待解决的限制版候选" if manifest.get("reviewCandidate") else "Windows / macOS 测试版"
+    return "骰子构筑 P0 v0.7 — " + label
 
 
 def release_body(manifest):
@@ -75,9 +93,11 @@ def release_body(manifest):
                        for item in manifest["platforms"] + [manifest["macVerificationKit"]])
     restriction = "**限制版测试候选：Windows 原生显示 P22 尚未通过，完整 Windows / 整版本验收未完成。以下 Windows 结果仅覆盖玩法、UI、轨迹与原门槛性能；不把 partial 报告改称 passed。按已授权渠道提供人工测试包；Mac 仍须完整严格实机验收，整个版本未 ACCEPTED。**\n\n" if manifest.get("reviewCandidate") else ""
     if manifest.get("allowFailedWindowsPerformance"):
+        native = manifest.get("windowsReference", {}).get("windowsNativeDisplayStatus")
+        native_text = "所选完整报告的自动原生显示检查通过，物理焦点/显示器变更未验；" if native == "AUTOMATED_CHECKS_PASSED_PHYSICAL_EVENTS_UNTESTED" else "原生独占 P22 未通过，"
         restriction = (f"**诊断测试候选：Windows 性能 FAILED，P95 {perf['p95FrameIntervalMs']} ms > 16.7 ms，"
-                       f"采样 {perf['sampleSeconds']} 秒，焦点帧 {perf['focusedSampleFrames']}，异常 GPU 样本 {perf['gpuInvalidSamples']}。"
-                       "原生独占 P22 未通过，Mac 实机未测，整个版本未 ACCEPTED。Windows 仅作玩法/UI/轨迹对照，原始失败报告保留；Mac 自身性能、原生显示和采样完整性仍须严格验收。**\n\n")
+                       f"采样 {perf['sampleSeconds']} 秒，焦点帧 {perf['focusedSampleFrames']}，异常 GPU 样本 {perf['gpuInvalidSamples']}、缺失 {perf['gpuMissingSamples']}，覆盖状态 {perf['measurementCoverageStatus']}。"
+                       + native_text + "Mac 实机未测，整个版本未 ACCEPTED。Windows 仅作玩法/UI/轨迹对照，原始失败报告保留；Mac 自身性能、原生显示和采样完整性仍须严格验收。**\n\n")
     return restriction + f"""P0 v0.7 美术与界面原型测试版，三个完整 ZIP 通过 GitHub 发行附件提供；无需 Git LFS。
 
 - Windows x64：完整解压后运行 `DicePrototype.exe`。真实 Unity EditMode {tests['unityEditMode']['passed']} 项、PlayMode {tests['unityPlayMode']['passed']} 项通过；记录设备压力采样 {perf['sampleSeconds']} 秒，LateUpdate 帧间隔 P95 {perf['p95FrameIntervalMs']} ms（门槛 16.7 ms）。
@@ -170,6 +190,7 @@ def main():
     # Reject before consulting credentials or making any network request.
     ensure_publish_allowed(manifest, args.action, args.allow_review_candidate, args.allow_failed_windows_performance)
     body = release_body(manifest)
+    title = release_title(manifest)
     auth = subprocess.run(["git", "credential", "fill"], cwd=ROOT,
                           input="protocol=https\nhost=github.com\n\n", text=True, capture_output=True)
     if auth.returncode:
@@ -206,7 +227,7 @@ def main():
         if release is None:
             release = request(API + "/releases", "POST", {
                 "tag_name": TAG, "target_commitish": target_commit,
-                "name": "骰子构筑 P0 v0.7 — " + ("性能失败及原生显示待解决的诊断候选" if args.allow_failed_windows_performance else "原生显示待解决的限制版候选" if args.review_candidate else "Windows / macOS 测试版"),
+                "name": title,
                 "body": body, "draft": True, "prerelease": True, "make_latest": "false"})
     if release is None:
         raise ValueError("Create draft before uploading")
@@ -288,7 +309,7 @@ def main():
                     or proof.get("matchesFrozenManifest") is not True or sha(local_path(proof["path"])) != item["sha256"]):
                 raise ValueError("Fresh download proof missing or mismatched")
         release = request(API + "/releases/" + str(release["id"]), "PATCH",
-                          {"draft": False, "prerelease": True, "make_latest": "false", "body": body})
+                          {"draft": False, "prerelease": True, "make_latest": "false", "name": title, "body": body})
         if remote_tag_target(request) != target_commit:
             raise ValueError("Published release tag differs from frozen source; retain failure for review")
     release = request(API + "/releases/" + str(release["id"]))

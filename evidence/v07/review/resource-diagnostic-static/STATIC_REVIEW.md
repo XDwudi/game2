@@ -1,0 +1,27 @@
+# Art07ResourceDiagnostic independent static review
+
+Reviewed 2026-11-02 01:55 UTC by `/root/v07_run_review`. Scope: original ART_SPEC §31, runtime object/reference ownership, command bootstrap isolation, idle observer and cleanup. No Editor/Player launch, production write, standard change or new test was performed by the reviewer.
+
+**Static implementation conclusion: suitable for root integration and real validation, provided both one-line bootstrap guards accompany the new source and meta.** No unresolved static blocker in the frozen candidate was found. **Runtime/resource quality conclusion: not yet verified.** Compilation, actual valid/invalid command runs, sampled values and external save/build guards remain required. This is neither a §31 result nor full Player/art/release acceptance.
+
+## Bound inputs
+
+`Art07ResourceDiagnostic.cs`: 42,960 bytes, SHA-256 `17d80bf9c7c0e82bd81c76e6dfafc334fc0e7fec9e43239bc86da14bb448bcfe`.
+
+New meta SHA `3ace87dc979de57fd5bddf33b481f1d415b646b19ffb161cfcbe030a5c7031c7`, GUID `9496788cc79e4884928da39e92eb5421`; no existing Assets meta GUID collision. `bootstrap-guards.diff` SHA `b63f63aeaaccd073f30d44385cb4c8dcc2dd53d7d7155ca35c5979e21b18c635`. Both current production source byte counts and hashes match the candidate's before-bindings. Exact copies, contract and all hashes are preserved in this review directory and `frozen-audit.json`.
+
+## Findings and closure
+
+1. The first draft rejected conflicting flags only inside its own handler. Existing PlayerVerification and pacing handlers could still start, making initialization order significant. The final patch adds one early return to each old bootstrap when the resource argument exists. The resource handler exclusively owns the launch, rejects mixed/duplicate/malformed roles, and sets a unique failure save override before argument validation. Absence of the resource flag exits before save/display mutation or diagnostic host creation. Both guards are necessary.
+2. The first draft allocated its phase record in the first sampled frame. Final setup puts phase/state/pending/file hashing before stable warmup, waits two full unsampled frames, resets/drains the GC recorder and crosses another frame. The hot observer uses preallocated arrays and cached motion references. No LINQ, filesystem enumeration, serialization or screenshot work occurs in the explicit idle window. A zero-sample counter batch is missing, not zero allocation. Missing, positive and zero GC values remain separate.
+3. Final report binds actual config text SHA, build GUID, loaded build identity, Runtime MVID and display/hardware details. Idle boundaries independently compare state hash, pending IDs and every isolated-directory file path/length/SHA. Focus, pointer movement, input, animation, action sequence and buffer conditions affect observation completeness. These conditions validate data collection; positive GC does not fail a newly invented performance budget.
+4. Native texture IDs are explicitly unique. Font attribution uses loaded TMP atlas references; art attribution uses actual assigned sprites, prefab components and scene shared materials. Unknowns and render targets remain visible; multiple owners are retained. Per-object native memory sums are not subtracted from the global Texture Memory counter or mislabeled as exact VRAM. No forced unload, forced GC or broad asset loading was introduced.
+5. Geometry follows actual die IDs to the Body mesh renderer, counting active enabled instances. Contour and physical face rows remain separate. Fragment source/pool rows retain shared mesh identity so unique mesh geometry and instantiated capacity can be calculated independently. A pooled inactive fragment list does not prove active maximum-combination presentation.
+6. Null/headless Player graphics are refused. Selected stable scene snapshots and continuous resource counters have phase/frame context; they are not a complete per-frame ownership trace or formal performance replacement.
+7. Cleanup separately handles recorder/iterator failures. Clock registration reads Session.State before the potentially stale ViewState, covering failure between EnterDebug's new session/clock creation and Refresh. The GameApp is destroyed before removing its diagnostic clock keys; registered and actually absent keys are reported separately, and residual keys are errors. The 23 known preference values/existence/type are compared, restored if changed, and read again. Unexpected changes remain failures even after restoration. External process kill cannot guarantee in-process cleanup, so the outer ordinary save/preference/build guard remains necessary.
+
+## Boundaries retained
+
+The 20-second idle route preserves the real GameApp timer, including its normal 30-second PlayerPrefs save. It does not prove an entire 30-second cycle, and product work is not disabled to manufacture zero GC. Only the currently saved shop tab is opened; no claim of every shop page's interaction coverage is made.
+
+The original suggested art texture budget, separate font accounting, idle aspiration, formal 180-second workload/P95, display rules and game rules are unchanged. No native display pass, maximum-combination effect pass, UI latency result, M5 result or human art acceptance follows from this static review. Root should compile and execute the existing contract's valid route and malformed/mixed-command negatives on the same rebuilt source, retaining failed reports and original logs.

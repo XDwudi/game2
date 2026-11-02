@@ -1,8 +1,8 @@
 {
   "schema": "v07-build-gate-1",
-  "sourceCommit": "69d2f4dc3afa6387d443e827eb0b96892e9f2cfb",
-  "editModePassed": 999,
-  "playModePassed": 154,
+  "sourceCommit": "dca7a2610f39d65088b9541549d3465c388fd3e7",
+  "editModePassed": 1013,
+  "playModePassed": 158,
   "scopes": [
     "DicePrototype/Assets",
     "DicePrototype/Packages",
@@ -11,7 +11,7 @@
   "identity": {
     "releaseVersion": "p0.7.0",
     "artVersion": "art0.7.0",
-    "sourceCommit": "69d2f4dc3afa6387d443e827eb0b96892e9f2cfb",
+    "sourceCommit": "dca7a2610f39d65088b9541549d3465c388fd3e7",
     "contentConfigVersion": "p0.6.0",
     "contentConfigSha256": "747ed1efc7bea15873f66a81eee5c7654971c21031f2a1517ce629adce7b6e6c",
     "saveSchemaVersion": 4,
@@ -22,7 +22,7 @@
   "tests": [
     {
       "mode": "EditMode",
-      "passed": 999,
+      "passed": 1013,
       "names": [
         "DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C02-boundary-single",
         "DiceCraft.Core.Tests.ControllerScoreTests.CONTENT-C02-hit",
@@ -730,6 +730,10 @@
         "DiceCraft.Tests.AtomicSaveStoreTests.SAVE_BothFilesCorruptReturnsNullAndNoticeWithoutOverwritingEvidence(\"hash\")",
         "DiceCraft.Tests.AtomicSaveStoreTests.SAVE_BothFilesCorruptReturnsNullAndNoticeWithoutOverwritingEvidence(\"schema\")",
         "DiceCraft.Tests.AtomicSaveStoreTests.SAVE_BothFilesCorruptReturnsNullAndNoticeWithoutOverwritingEvidence(\"structure\")",
+        "DiceCraft.Tests.AtomicSaveStoreTests.SAVE_CachedKnownGoodDetectsFullByteChangesAndPreservesBackup(\"first\")",
+        "DiceCraft.Tests.AtomicSaveStoreTests.SAVE_CachedKnownGoodDetectsFullByteChangesAndPreservesBackup(\"last\")",
+        "DiceCraft.Tests.AtomicSaveStoreTests.SAVE_CachedKnownGoodDetectsFullByteChangesAndPreservesBackup(\"middle\")",
+        "DiceCraft.Tests.AtomicSaveStoreTests.SAVE_CachedKnownGoodDetectsFullByteChangesAndPreservesBackup(\"truncated\")",
         "DiceCraft.Tests.AtomicSaveStoreTests.SAVE_DirectWriteWithoutLoadStillPreservesBackupWhenActiveIsCorrupt(\"hash\")",
         "DiceCraft.Tests.AtomicSaveStoreTests.SAVE_DirectWriteWithoutLoadStillPreservesBackupWhenActiveIsCorrupt(\"schema\")",
         "DiceCraft.Tests.AtomicSaveStoreTests.SAVE_DirectWriteWithoutLoadStillPreservesBackupWhenActiveIsCorrupt(\"structure\")",
@@ -814,6 +818,16 @@
         "DiceCraft.Tests.ItemAndSaveTests.RestoreRejectsWrongSchemaUnknownContentAndDuplicateDice",
         "DiceCraft.Tests.ItemAndSaveTests.StateCopiesCannotMutateAuthoritativeData",
         "DiceCraft.Tests.ItemAndSaveTests.TwentyFourStageFlowSupportsEightRiskBranchesAndNoFinalShop",
+        "DiceCraft.Tests.PlayerVerificationBindingTests.VERIFY_RecoveryBindingRejectsActualConfigBytesThatDifferFromBuildIdentity",
+        "DiceCraft.Tests.PlayerVerificationBindingTests.VERIFY_RecoveryRoleReportBindsActualConfigWithoutReplayInitialization(\"awaiting_external_process_termination\",-1)",
+        "DiceCraft.Tests.PlayerVerificationBindingTests.VERIFY_RecoveryRoleReportBindsActualConfigWithoutReplayInitialization(\"recovery_passed\",0)",
+        "DiceCraft.Tests.PlayerVerificationDisplayContractTests.VERIFY_ConfirmedWindowRejectsPostConfirmationDivergence(\"missing-confirmed\")",
+        "DiceCraft.Tests.PlayerVerificationDisplayContractTests.VERIFY_ConfirmedWindowRejectsPostConfirmationDivergence(\"native-display\")",
+        "DiceCraft.Tests.PlayerVerificationDisplayContractTests.VERIFY_ConfirmedWindowRejectsPostConfirmationDivergence(\"native-height\")",
+        "DiceCraft.Tests.PlayerVerificationDisplayContractTests.VERIFY_ConfirmedWindowRejectsPostConfirmationDivergence(\"native-mode\")",
+        "DiceCraft.Tests.PlayerVerificationDisplayContractTests.VERIFY_ConfirmedWindowRejectsPostConfirmationDivergence(\"pending\")",
+        "DiceCraft.Tests.PlayerVerificationDisplayContractTests.VERIFY_ConfirmedWindowRejectsPostConfirmationDivergence(\"saved-height\")",
+        "DiceCraft.Tests.PlayerVerificationDisplayContractTests.VERIFY_ConfirmedWindowRequiresMatchingActualAndDurableRequestedChoice",
         "DiceCraft.Tests.ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(\"C01\")",
         "DiceCraft.Tests.ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(\"C02\")",
         "DiceCraft.Tests.ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell(\"C03\")",
@@ -1025,18 +1039,19 @@
         "DiceCraft.Tests.V06ShopPersistenceTests.SAVE_V06_RefreshShopRealJsonRoundTripPreservesQuoteHashRngAndReopen(True)"
       ],
       "report": {
-        "path": "evidence/v07/unity/nunit-20261101-115359.xml",
-        "sha256": "2700bd1970b0adb9a07afdb7101be192f0963917644d3eed875a0c047d3f948e"
+        "path": "evidence/v07/unity/nunit-20261102-020742.xml",
+        "sha256": "c37978203cd319e28a5e5521f5b9b24322b377798d2a8178c7cd9c9d960be163"
       },
       "binding": {
-        "path": "evidence/v07/unity/nunit-20261101-115359.binding.json",
-        "sha256": "73f02ff05632800f6826bf79f5ca00c62594b8d6f96bfb606d39256b661c96a4"
+        "path": "evidence/v07/unity/nunit-20261102-020742.binding.json",
+        "sha256": "96169b719d6cb2c06f8327a48f3ce638dda0f82789248b533c140c48a4a48746"
       }
     },
     {
       "mode": "PlayMode",
-      "passed": 154,
+      "passed": 158,
       "names": [
+        "DiceCraft.Tests.Art07ResourceDiagnosticPlayModeTests.PLAY_ART07_ResourceDiagnostic_IsolatedRealRouteInventoryAndTwentySecondIdle",
         "DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_AllDiagnosticScenesValidateThroughRealSession",
         "DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_BothRollSpeedsFixPhysicalFaceForFinal120Milliseconds",
         "DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_BreakdownEverySourceFitsAndWheelRevealsRealGlyphsFont100",
@@ -1102,6 +1117,8 @@
         "DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_LoadIssueExplanationHasS22TimingAndDoesNotRewriteOrMigrateTheCheckpoint",
         "DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_LockedDieDragFollowsPointerAndEscapeOrFocusCallbackRestoresCheckpoint",
         "DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_LockedDieDropCommitsExactlyOneReorderWithoutUnlocking",
+        "DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_ModalExitGpuActualDebug32RetainsGlyphsNormalAndReduced",
+        "DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_ModalExitGpuFallbackAtlasSurvivesSourceCloseAndReusesOwnedMaterials",
         "DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_ModalRedrawDoesNotRestartFadeAndCloseImmediatelyReleasesInputWithNoninteractiveTail",
         "DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_POSTREWORK_ActualGpuNeverCombinesOldAndNewPipsKeepsOrnamentsAndState",
         "DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_POSTREWORK_ThreeFontsNormalAndReducedKeepCompleteTransitionsInsideOwnSlot",
@@ -1121,6 +1138,7 @@
         "DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_RandomNineBranchesSharedOwnerAreExactAndReadOnly",
         "DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_RealCommittedReceiptThreeSpeedsAndReducedMotionPreserveStateAndSaveBytes",
         "DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_RemoteThirtyTwoRowsEachWheelFullyVisibleAndScrollReadOnlyAtTwoFonts",
+        "DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_ResultReloadIgnoresNonSubmitPlaceholdersAndPreservesExactStatistics",
         "DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_ResultScreensUseRealTerminalCommandsAndPreserveExactReceipts",
         "DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_SETTLE_BACKDROP_CommitAndColdRecoveryShowReadonlyBoardWithoutCommandsOrReplay",
         "DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_SETTLE_BACKDROP_GpuThreeFontsAnd200RenderCyclesPreserveInkPoseAndOwnedMaterials",
@@ -1193,18 +1211,18 @@
         "DiceCraft.Tests.PresentationAudioPlayModeTests.PLAY_ART07_AudioStopsOnlyOwningReceiptAndMuteAppliesImmediately"
       ],
       "report": {
-        "path": "evidence/v07/unity/nunit-20261101-121426.xml",
-        "sha256": "f06983af31becc9d1b34a795c42f4cc1c9d4b32923e0225568e8024eaadb71f9"
+        "path": "evidence/v07/unity/nunit-20261102-022904.xml",
+        "sha256": "c04f507f1895e3c9c1a64aff96f89b95492006f67d9fb1dec78daa50fcfd9675"
       },
       "binding": {
-        "path": "evidence/v07/unity/nunit-20261101-121426.binding.json",
-        "sha256": "01aefab22aa6eb27269dab6b080c09e53d9f4f645166a2424a37221207398625"
+        "path": "evidence/v07/unity/nunit-20261102-022904.binding.json",
+        "sha256": "0e17f35a2f16d09998cfc9443477edbbd2269a0f5f0071fff9a5306028d1a65e"
       }
     }
   ],
   "pdbAudit": {
-    "path": "artifacts/cache/v07-pdb-post-full-69d2f4d-1215.json",
-    "sha256": "5c1bfd355d10ec996d900e60152e064b48acbad8930d406d37d45dd6b5665d2a"
+    "path": "evidence/v07/unity/pdb-dca7a26-final.json",
+    "sha256": "cb77504e0d901bb73e364313bdf4360d61f8b2826d441f12523aad414f0cc701"
   },
   "files": [
     {
@@ -4693,7 +4711,7 @@
     },
     {
       "path": "DicePrototype/Assets/Game/Runtime/AtomicSaveStore.cs",
-      "sha256": "11f32427d36df24e74b4d057b6fbcfca27e3fba557acd23d95b5eadd8dc4a08b"
+      "sha256": "ea6c7c5eafcc639585b14acc6a13c6c31ec83ab6caee02b7e74fe218625caa9c"
     },
     {
       "path": "DicePrototype/Assets/Game/Runtime/AtomicSaveStore.cs.meta",
@@ -4952,6 +4970,14 @@
       "sha256": "8cafeaf6a423f48e8f210169515fb8d7a0f3e1c030417a0dc42aa3aa57569e28"
     },
     {
+      "path": "DicePrototype/Assets/Game/Runtime/Verification/Art07ResourceDiagnostic.cs",
+      "sha256": "17d80bf9c7c0e82bd81c76e6dfafc334fc0e7fec9e43239bc86da14bb448bcfe"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Runtime/Verification/Art07ResourceDiagnostic.cs.meta",
+      "sha256": "3ace87dc979de57fd5bddf33b481f1d415b646b19ffb161cfcbe030a5c7031c7"
+    },
+    {
       "path": "DicePrototype/Assets/Game/Runtime/Verification/Art07ScreenRecorder.cs",
       "sha256": "bb538fbcf780feb7c8ddd3c7de0abb7a9b88e7a3f52c1a2056eb5267182af7ec"
     },
@@ -4977,7 +5003,7 @@
     },
     {
       "path": "DicePrototype/Assets/Game/Runtime/Verification/FramePacingExperiment.cs",
-      "sha256": "c973030a09b9a8db64197f1212dbfdaa992a2762f4fff798f6337053d6275cbc"
+      "sha256": "92a86d48dfab91252c1790a0212c242c93219f4a0a6cc9e11ffca4c627964524"
     },
     {
       "path": "DicePrototype/Assets/Game/Runtime/Verification/FramePacingExperiment.cs.meta",
@@ -4985,7 +5011,7 @@
     },
     {
       "path": "DicePrototype/Assets/Game/Runtime/Verification/PlayerVerification.cs",
-      "sha256": "7e76293d6e9be83eb642c68bcbc2cba0245357fb7fef7852f56077c703cf6787"
+      "sha256": "41343306cc667ecf0abae609759bc4ca5ca4620b54df7e66785420cbbf7f75f0"
     },
     {
       "path": "DicePrototype/Assets/Game/Runtime/Verification/PlayerVerification.cs.meta",
@@ -4993,7 +5019,7 @@
     },
     {
       "path": "DicePrototype/Assets/Game/Runtime/Verification/PlayerVerification.V06.cs",
-      "sha256": "727ea9fe93c1c67e3ec39ce7aaca455269ee69ab71655b5da54f56c32c7d88e3"
+      "sha256": "4f0c8bd00cc5183342ff704c123d40c3c12ba865235c13ebc4ed7b5a0ce4c302"
     },
     {
       "path": "DicePrototype/Assets/Game/Runtime/Verification/PlayerVerification.V06.cs.meta",
@@ -5045,7 +5071,7 @@
     },
     {
       "path": "DicePrototype/Assets/Game/Tests/EditMode/Persistence/AtomicSaveStoreTests.cs",
-      "sha256": "5a0061fd74c2d40c8a3dc46f40c27b79a7d51be08bcf7618fc786e92f78fc7ee"
+      "sha256": "500d72b0578450ba32878aeafb2180620697f50e9c8d8a1ccd12a9ec1111b777"
     },
     {
       "path": "DicePrototype/Assets/Game/Tests/EditMode/Persistence/AtomicSaveStoreTests.cs.meta",
@@ -5078,6 +5104,22 @@
     {
       "path": "DicePrototype/Assets/Game/Tests/EditMode/Persistence.meta",
       "sha256": "9d486176813f573bc4d9cf6a88c26868a7a52cffd5da2c4d411ea99ef75f2858"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Tests/EditMode/PlayerVerificationBindingTests.cs",
+      "sha256": "6cbcef7ee18f9b509c3fd371297955f543ba6020709ab3ce6f1803cac49238d3"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Tests/EditMode/PlayerVerificationBindingTests.cs.meta",
+      "sha256": "9b00033d4a7bbce0eb2da1d9552f6f3c97b6efc78db4c8710f5ba897aba05095"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Tests/EditMode/PlayerVerificationDisplayContractTests.cs",
+      "sha256": "0aa03af0a9ff0d9fca49ee8455512876c1d8e480cc7726781bc38287dc945767"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Tests/EditMode/PlayerVerificationDisplayContractTests.cs.meta",
+      "sha256": "e709d442dd42b81283f7caba132ab946cf449d82240cd680c0ababe608d9b646"
     },
     {
       "path": "DicePrototype/Assets/Game/Tests/EditMode/Presentation/PresentationTests.cs",
@@ -5273,7 +5315,7 @@
     },
     {
       "path": "DicePrototype/Assets/Game/Tests/PlayMode/Art07EdgeScreensPlayModeTests.cs",
-      "sha256": "3ad08e029c972ab91bd87b9e732b8b8cc00c6946daaefe3cffd5a98499d4c8b4"
+      "sha256": "203b16c30551836fce8247279888ce741a61a3baf57c6c2bd6d9fcd6bf952648"
     },
     {
       "path": "DicePrototype/Assets/Game/Tests/PlayMode/Art07EdgeScreensPlayModeTests.cs.meta",
@@ -5352,6 +5394,14 @@
       "sha256": "4483a8b784e8ed92597895379c8b2f1a001dcfcdccc4e6c1efb06126c73ba539"
     },
     {
+      "path": "DicePrototype/Assets/Game/Tests/PlayMode/Art07PanelGlyphPlayModeTests.cs",
+      "sha256": "077cadb542812a5584ba7a4179c051eb3288749adf01fc4a87bc6426b1da11f4"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Tests/PlayMode/Art07PanelGlyphPlayModeTests.cs.meta",
+      "sha256": "1ea92729b85bffe0d93321877cacf3843c85aa6f7f3ac45cb6e14884ec09bf47"
+    },
+    {
       "path": "DicePrototype/Assets/Game/Tests/PlayMode/Art07PanelsAndHintsPlayModeTests.cs",
       "sha256": "4894fdc342d23b7a8d81b5becf048620a5477b9de2995c295fc4d2268740ac61"
     },
@@ -5390,6 +5440,14 @@
     {
       "path": "DicePrototype/Assets/Game/Tests/PlayMode/Art07RemoteScrollPlayModeTests.cs.meta",
       "sha256": "a9f77caca4feb2aa5b5881ffcc2df61182fea3dfbb8a95c3d944c42d059aa281"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Tests/PlayMode/Art07ResourceDiagnosticPlayModeTests.cs",
+      "sha256": "f2a4664837c6e554a7e0b10f3a16bc5e7e2985a0a4687e607653ece92b30d6da"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Tests/PlayMode/Art07ResourceDiagnosticPlayModeTests.cs.meta",
+      "sha256": "db33f1e39b7e31b9f2d01223b11fec5b4a0243a7f4e8ec1059726f59d5c19576"
     },
     {
       "path": "DicePrototype/Assets/Game/Tests/PlayMode/Art07ResultRowsPlayModeTests.cs",
@@ -5661,7 +5719,7 @@
     },
     {
       "path": "DicePrototype/Assets/Game/UI/Art07PanelMotion.cs",
-      "sha256": "b0fa31244a97cdae3be0fd8601d2229a62e2bd61ad3f7a7253b2cb98f5ed9263"
+      "sha256": "da1bdd0e6ab6d85f7ebe28fe94620663fbfb30c2b705acaab4496f1a099715ea"
     },
     {
       "path": "DicePrototype/Assets/Game/UI/Art07PanelMotion.cs.meta",
@@ -5845,7 +5903,7 @@
     },
     {
       "path": "DicePrototype/Assets/Game/UI/GameApp.Art07Results.cs",
-      "sha256": "c431d5cdced3abdd3a77a3b73b0cc94d67be06378c5748004fda752499c5145d"
+      "sha256": "0e1838c81273137f9326b52481c37ddfef9730aa96c36e3032e17ed076f2b681"
     },
     {
       "path": "DicePrototype/Assets/Game/UI/GameApp.Art07Results.cs.meta",
@@ -6037,7 +6095,7 @@
     },
     {
       "path": "DicePrototype/Assets/Resources/BuildIdentity.json",
-      "sha256": "e6f778be536511566841148ebdfb7003c0628ca329ef773d302819404f97432f"
+      "sha256": "7d3f0a0bcde25a91487202bf0da3fab47c32add8c4ebe6afef99b8964b710eb3"
     },
     {
       "path": "DicePrototype/Assets/Resources/BuildIdentity.json.meta",
@@ -6652,37 +6710,37 @@
       "sha256": "edd2beb4a2e388312b4b7da241aa51070434005d82c59363f1237dd2e567585f"
     },
     {
-      "path": "evidence/v07/unity/nunit-20261101-115359.xml",
-      "sha256": "2700bd1970b0adb9a07afdb7101be192f0963917644d3eed875a0c047d3f948e"
+      "path": "evidence/v07/unity/nunit-20261102-020742.xml",
+      "sha256": "c37978203cd319e28a5e5521f5b9b24322b377798d2a8178c7cd9c9d960be163"
     },
     {
-      "path": "evidence/v07/unity/nunit-20261101-121426.xml",
-      "sha256": "f06983af31becc9d1b34a795c42f4cc1c9d4b32923e0225568e8024eaadb71f9"
+      "path": "evidence/v07/unity/nunit-20261102-022904.xml",
+      "sha256": "c04f507f1895e3c9c1a64aff96f89b95492006f67d9fb1dec78daa50fcfd9675"
     },
     {
-      "path": "artifacts/cache/v07-pdb-post-full-69d2f4d-1215.json",
-      "sha256": "5c1bfd355d10ec996d900e60152e064b48acbad8930d406d37d45dd6b5665d2a"
+      "path": "evidence/v07/unity/pdb-dca7a26-final.json",
+      "sha256": "cb77504e0d901bb73e364313bdf4360d61f8b2826d441f12523aad414f0cc701"
     },
     {
       "path": "evidence/v07/unity/discovery-EditMode.json",
-      "sha256": "3324ce15945342f75b2d49aaf9a430749142673e2ffa3015b093a1782e6dda0b"
+      "sha256": "eb9ea5c545f10db39e8be07d3aed428ab7b1754b34e74ac764a2a0714f4e9180"
     },
     {
       "path": "evidence/v07/unity/discovery-PlayMode.json",
-      "sha256": "59daed02202b30153cbaf8ad75d182e0a615fb97970b6a8dbb87e0f60cbafcb4"
+      "sha256": "31a37c4386b7ab1aac95f8f3595f07f2167eed32be8f64b771d97d1788c38cb9"
     },
     {
-      "path": "evidence/v07/unity/nunit-20261101-115359.binding.json",
-      "sha256": "73f02ff05632800f6826bf79f5ca00c62594b8d6f96bfb606d39256b661c96a4"
+      "path": "evidence/v07/unity/nunit-20261102-020742.binding.json",
+      "sha256": "96169b719d6cb2c06f8327a48f3ce638dda0f82789248b533c140c48a4a48746"
     },
     {
-      "path": "evidence/v07/unity/nunit-20261101-121426.binding.json",
-      "sha256": "01aefab22aa6eb27269dab6b080c09e53d9f4f645166a2424a37221207398625"
+      "path": "evidence/v07/unity/nunit-20261102-022904.binding.json",
+      "sha256": "0e17f35a2f16d09998cfc9443477edbbd2269a0f5f0071fff9a5306028d1a65e"
     }
   ],
   "expectedCounts": {
-    "EditMode": 999,
-    "PlayMode": 154
+    "EditMode": 1013,
+    "PlayMode": 158
   },
   "countPolicy": "Explicit frozen full-discovery counts; historical v0.6 floor is not v0.7 acceptance evidence"
 }

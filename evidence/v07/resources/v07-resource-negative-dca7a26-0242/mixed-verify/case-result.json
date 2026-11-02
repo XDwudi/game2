@@ -1,0 +1,56 @@
+{
+  "case": "mixed-verify",
+  "expectedRejection": "Resource diagnostic cannot run with verification or pacing modes.",
+  "startedUtc": "2026-11-02T02:42:38.965063+00:00",
+  "passed": true,
+  "wholeReleaseAccepted": false,
+  "errors": [],
+  "argv": [
+    "E:\\agent_workspace\\gpt\\game2\\Builds\\v07\\Windows\\DicePrototype.exe",
+    "--art07-resource-diagnostic",
+    "E:\\agent_workspace\\gpt\\game2\\artifacts\\cache\\v07-resource-negative-dca7a26-0242\\mixed-verify\\resource",
+    "--verify-p0",
+    "E:\\agent_workspace\\gpt\\game2\\evidence\\v07\\session\\normal-run-trace.json",
+    "--verify-debug-trace",
+    "E:\\agent_workspace\\gpt\\game2\\evidence\\v07\\session\\debug-24-trace.json",
+    "--evidence-dir",
+    "E:\\agent_workspace\\gpt\\game2\\artifacts\\cache\\v07-resource-negative-dca7a26-0242\\mixed-verify\\legacy-verify",
+    "-screen-width",
+    "1920",
+    "-screen-height",
+    "1080",
+    "-screen-fullscreen",
+    "0",
+    "-logFile",
+    "E:\\agent_workspace\\gpt\\game2\\artifacts\\cache\\v07-resource-negative-dca7a26-0242\\mixed-verify\\Player.log"
+  ],
+  "process": {
+    "startedUtc": "2026-11-02T02:42:38.970068+00:00",
+    "exitCode": 1,
+    "timedOut": false,
+    "ownedProcessTerminated": false,
+    "pid": 26988,
+    "ownedProcessStillRunning": false,
+    "endedUtc": "2026-11-02T02:42:43.150463+00:00"
+  },
+  "observations": {
+    "failures": [],
+    "expectedMessageObserved": true,
+    "resourceErrorOriginObserved": true,
+    "logSha256": "4ab6e5fc9299807befc5347062b6af728c70ce3f26e8734a70f70e2330aa472f",
+    "legacyDirectoriesCreated": {
+      "legacy-verify": false,
+      "legacy-pacing": false
+    },
+    "legacyLogMarkers": [],
+    "unrelatedCrashMarkers": [],
+    "resourceInputUnchanged": true,
+    "unexpectedReportOrCsvFiles": [],
+    "legacyScope": "No legacy bootstrap output/log observed; frozen code creates its output directory before its host. No live GameObject enumeration claimed."
+  },
+  "buildUnchanged": true,
+  "ordinarySavesUnchanged": true,
+  "gamePrefsUnchanged": true,
+  "engineScreenmanagerUnchanged": true,
+  "endedUtc": "2026-11-02T02:42:43.491586+00:00"
+}

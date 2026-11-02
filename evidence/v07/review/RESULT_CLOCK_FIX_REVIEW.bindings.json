@@ -1,0 +1,142 @@
+{
+  "utc": "2026-11-01T12:42:39.090564+00:00",
+  "reviewer": "/root/v07_spec_audit",
+  "status": "TARGETED_RC02_CLOCK_FIX_AND_RR01_REGRESSION_REVIEW_PASSED",
+  "sourceIdentity": "working tree based on 4f1a25cbd7ed885bd863c24411f1075d7888a18f; clock fix and expanded test compiled before actual capture; not relabelled as a later checkpoint",
+  "productionSha256": "0e1838c81273137f9326b52481c37ddfef9730aa96c36e3032e17ed076f2b681",
+  "testSha256": "203b16c30551836fce8247279888ce741a61a3baf57c6c2bd6d9fcd6bf952648",
+  "greenRuntimeMvid": "e2f02f1c-e73f-4b56-8fdb-5696bc606495",
+  "actuallyViewedPngs": 3,
+  "additionalArchivedPngsNotVisuallyReviewed": 4,
+  "noUnityExecutedByReviewer": true,
+  "noProductionTestsStandardsOrHeadWritten": true,
+  "noExternalTransmission": true,
+  "inputsAndOutputs": [
+    {
+      "path": "evidence/v07/review/RESULT_CLOCK_FIX_REVIEW.md",
+      "bytes": 6544,
+      "sha256": "cc906f3d67fea1543ce0a2aaddd120f9cbac430850287efd42292bfe5ebaf827"
+    },
+    {
+      "path": "artifacts/cache/v07-result-clock-review/red-green-and-images-audit.json",
+      "bytes": 13520,
+      "sha256": "dd0f373fcfe6e83927ec5fcdb66cd58f55acb0c95178d6fd02402422d8246a02"
+    },
+    {
+      "path": "artifacts/cache/v07-result-clock-review/persisted-images-check.json",
+      "bytes": 874,
+      "sha256": "09dc3668f53bc80c6c99475ecea574ddeb3e5e54fe8d98490cd6f0b235ac9a1f"
+    },
+    {
+      "path": "evidence/v07/media/result-reload-123717/persisted-manifest.json",
+      "bytes": 2934,
+      "sha256": "62cdcc33f969de461ed533ca72914aad0c35e009711fbef0df908d24f5be8d07"
+    },
+    {
+      "path": "evidence/v07/review/RESULT_RELOAD_FIX_REVIEW.md",
+      "bytes": 8039,
+      "sha256": "1008292ef291f269bd1d1b473597441bc66d19619c85e804583c5f3a4930fe34"
+    },
+    {
+      "path": "artifacts/cache/v07-result-clock-rework/HANDOFF.md",
+      "bytes": 3643,
+      "sha256": "b2fda99502641f950fb517970f989d4a33803530fd2890a58adcba624b3db7cd"
+    },
+    {
+      "path": "artifacts/cache/v07-result-clock-rework/candidates.json",
+      "bytes": 1072,
+      "sha256": "205a17f77adadded9d73c9ece41002edabd8840c6ba4b4e9906da8422612e5f7"
+    },
+    {
+      "path": "docs/specs/v07/ART_SPEC.md",
+      "bytes": 417792,
+      "sha256": "5120a8d0983d24f25cc38e22f1da613fd1a56c70ab26f518771a2caf064dd228"
+    },
+    {
+      "path": "evidence/v07/unity/nunit-20261101-123635.xml",
+      "bytes": 5199,
+      "sha256": "68899e34906ad019097a67128bb7a02708c4e204d143762c4491ba9a2e77b644"
+    },
+    {
+      "path": "evidence/v07/unity/nunit-20261101-123635.binding.json",
+      "bytes": 575635,
+      "sha256": "35fba316a46826e41ab5b04a8ad45cbc6e67c710b1f485545316f718c21f0a2e"
+    },
+    {
+      "path": "evidence/v07/unity/nunit-20261101-123717.xml",
+      "bytes": 5954,
+      "sha256": "9f33544f0188fb27a4f696380a1117c05953d9a48f4fad6d80e8172439eaa0d0"
+    },
+    {
+      "path": "evidence/v07/unity/nunit-20261101-123717.binding.json",
+      "bytes": 575635,
+      "sha256": "79afbbb07534fca70d883a0550be611f22f1b41f3e26f7ad6d32c403cb7bbaed"
+    },
+    {
+      "path": "artifacts/cache/v07-result-clock-red-123635/archive.json",
+      "bytes": 993,
+      "sha256": "c2a396a21e654c38e95dcb9ab8c181832f18488b50a5d76ae2b043e9e3c3c254"
+    },
+    {
+      "path": "artifacts/cache/v07-result-clock-green-123717/archive.json",
+      "bytes": 5319,
+      "sha256": "6c7fc2ded62a2da31b692fb6276d89887a0bc241bd9f9802f27c05ecf3e06cd1"
+    },
+    {
+      "path": "evidence/v07/media/result-reload-123717/S18-normal-terminal-cold-reload.json",
+      "bytes": 461,
+      "sha256": "d785e7e05fe1148525e335b1b5255c6d5046d746ae7ce8dc0565b8814d527ae2"
+    },
+    {
+      "path": "evidence/v07/media/result-reload-123717/S18-normal-terminal-cold-reload.png",
+      "bytes": 1106781,
+      "sha256": "a74cae69512dab2ebe5563d94644c78549a642a63fc2f20eb5273d539e87b1fb"
+    },
+    {
+      "path": "evidence/v07/media/result-reload-123717/S18-normal-terminal-no-clock.json",
+      "bytes": 458,
+      "sha256": "f16e7f3beb93f0a956ab8c43993361aa294c4fcbb1522ae683f61b2f38364d51"
+    },
+    {
+      "path": "evidence/v07/media/result-reload-123717/S18-normal-terminal-no-clock.png",
+      "bytes": 1108852,
+      "sha256": "b4288084b24de199b7cf4c5142d6251948facd2bcf3c46558b69ea3f817c1799"
+    },
+    {
+      "path": "evidence/v07/media/result-reload-123717/S18-normal-terminal-return.json",
+      "bytes": 456,
+      "sha256": "7e4446559cb56ee98a4341c3a285d4e1bbe5928ce0216f9ff7f4bd83abaaf924"
+    },
+    {
+      "path": "evidence/v07/media/result-reload-123717/S18-normal-terminal-return.png",
+      "bytes": 1124397,
+      "sha256": "f483e468cd0d675da0ffe56fc053d0925c529cfd4801acc4e2cfef6faf2567d9"
+    },
+    {
+      "path": "artifacts/cache/v07-result-clock-pdb-1238.json",
+      "bytes": 78447,
+      "sha256": "d2a18196dd57b2f5fc4dfaf150c4881ecb8cf8822f37bdeaefd58d5e248a1c2d"
+    },
+    {
+      "path": "evidence/v07/unity/checkpoint-resource-identity-4f1a25c.json",
+      "bytes": 3530,
+      "sha256": "b5dfbac174a3233d93e778f20f36bf3bf931f674b41c4ba935e9abe77c1d9984"
+    },
+    {
+      "path": "artifacts/cache/v07-result-clock-post-targeted-preferences.json",
+      "bytes": 2866,
+      "sha256": "afde13fd4861ccbc484369824384214464509cd0c89bf34193f88208d10bbae2"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Tests/PlayMode/Art07EdgeScreensPlayModeTests.cs",
+      "bytes": 18871,
+      "sha256": "203b16c30551836fce8247279888ce741a61a3baf57c6c2bd6d9fcd6bf952648"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/UI/GameApp.Art07Results.cs",
+      "bytes": 9417,
+      "sha256": "0e1838c81273137f9326b52481c37ddfef9730aa96c36e3032e17ed076f2b681"
+    }
+  ],
+  "scope": "Targeted code, actual red/green functionality and three1080p100% result images only. Not final full Editor suite, Player, Mac, performance, audio or release acceptance."
+}

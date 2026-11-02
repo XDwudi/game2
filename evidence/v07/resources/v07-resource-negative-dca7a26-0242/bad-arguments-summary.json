@@ -1,0 +1,237 @@
+{
+  "schema": "v07-resource-bad-arguments-1",
+  "startedUtc": "2026-11-02T02:42:28.966974+00:00",
+  "boundIdentity": {
+    "releaseVersion": "p0.7.0",
+    "artVersion": "art0.7.0",
+    "sourceCommit": "dca7a2610f39d65088b9541549d3465c388fd3e7",
+    "contentConfigVersion": "p0.6.0",
+    "contentConfigSha256": "747ed1efc7bea15873f66a81eee5c7654971c21031f2a1517ce629adce7b6e6c",
+    "saveSchemaVersion": 4,
+    "goldenCaseSetSha256": "306cb86f79dafe0e3eb302714abd232af20fe0062a6713f7d713c11e2a6a5718",
+    "unityEditorVersion": "6000.6.7f1",
+    "backend": "Mono"
+  },
+  "boundBuildGuid": "388c2eee37244ba48bb656114b6320bf",
+  "traceHashes": {
+    "normal-run-trace.json": "5efcc51eb14dd024d2cea3cc1f5e86ad5ec00123a794dce16cb1100471366564",
+    "debug-24-trace.json": "3d6f7cf39dba3c56ca161d4d8baf6d4a7e9f00bcd98a386211b5a07ad61d06b8"
+  },
+  "runnerV3Sha256": "859333e3d91837d136d17d091cddb3449f53b6b9ec7a5dd07d429daa324f07f0",
+  "scope": "Only explicit argument rejection and legacy bootstrap exclusion; no resource/performance/display/whole-release acceptance",
+  "wholeReleaseAccepted": false,
+  "cases": [
+    {
+      "case": "missing-path",
+      "expectedRejection": "requires one fresh absolute output directory.",
+      "startedUtc": "2026-11-02T02:42:29.307366+00:00",
+      "passed": true,
+      "wholeReleaseAccepted": false,
+      "errors": [],
+      "argv": [
+        "E:\\agent_workspace\\gpt\\game2\\Builds\\v07\\Windows\\DicePrototype.exe",
+        "--art07-resource-diagnostic",
+        "-screen-width",
+        "1920",
+        "-screen-height",
+        "1080",
+        "-screen-fullscreen",
+        "0",
+        "-logFile",
+        "E:\\agent_workspace\\gpt\\game2\\artifacts\\cache\\v07-resource-negative-dca7a26-0242\\missing-path\\Player.log"
+      ],
+      "process": {
+        "startedUtc": "2026-11-02T02:42:29.312371+00:00",
+        "exitCode": 1,
+        "timedOut": false,
+        "ownedProcessTerminated": false,
+        "pid": 25072,
+        "ownedProcessStillRunning": false,
+        "endedUtc": "2026-11-02T02:42:33.461554+00:00"
+      },
+      "observations": {
+        "failures": [],
+        "expectedMessageObserved": true,
+        "resourceErrorOriginObserved": true,
+        "logSha256": "fe48c7ab9b3e926600acc20a147bddcb9ac79bef0ce740f42c3c13ceca2b5416",
+        "legacyDirectoriesCreated": {
+          "legacy-verify": false,
+          "legacy-pacing": false
+        },
+        "legacyLogMarkers": [],
+        "unrelatedCrashMarkers": [],
+        "resourceInputUnchanged": true,
+        "unexpectedReportOrCsvFiles": [],
+        "legacyScope": "No legacy bootstrap output/log observed; frozen code creates its output directory before its host. No live GameObject enumeration claimed."
+      },
+      "buildUnchanged": true,
+      "ordinarySavesUnchanged": true,
+      "gamePrefsUnchanged": true,
+      "engineScreenmanagerUnchanged": false,
+      "endedUtc": "2026-11-02T02:42:33.800676+00:00"
+    },
+    {
+      "case": "nonempty-path",
+      "expectedRejection": "Evidence directory must be fresh or empty.",
+      "startedUtc": "2026-11-02T02:42:34.125540+00:00",
+      "passed": true,
+      "wholeReleaseAccepted": false,
+      "errors": [],
+      "argv": [
+        "E:\\agent_workspace\\gpt\\game2\\Builds\\v07\\Windows\\DicePrototype.exe",
+        "--art07-resource-diagnostic",
+        "E:\\agent_workspace\\gpt\\game2\\artifacts\\cache\\v07-resource-negative-dca7a26-0242\\nonempty-path\\resource",
+        "-screen-width",
+        "1920",
+        "-screen-height",
+        "1080",
+        "-screen-fullscreen",
+        "0",
+        "-logFile",
+        "E:\\agent_workspace\\gpt\\game2\\artifacts\\cache\\v07-resource-negative-dca7a26-0242\\nonempty-path\\Player.log"
+      ],
+      "process": {
+        "startedUtc": "2026-11-02T02:42:34.129919+00:00",
+        "exitCode": 1,
+        "timedOut": false,
+        "ownedProcessTerminated": false,
+        "pid": 13200,
+        "ownedProcessStillRunning": false,
+        "endedUtc": "2026-11-02T02:42:38.287686+00:00"
+      },
+      "observations": {
+        "failures": [],
+        "expectedMessageObserved": true,
+        "resourceErrorOriginObserved": true,
+        "logSha256": "139a837b7ba1f3685e648f54e9fe40b5f603b7707644587e574b67940598616d",
+        "legacyDirectoriesCreated": {
+          "legacy-verify": false,
+          "legacy-pacing": false
+        },
+        "legacyLogMarkers": [],
+        "unrelatedCrashMarkers": [],
+        "resourceInputUnchanged": true,
+        "unexpectedReportOrCsvFiles": [],
+        "legacyScope": "No legacy bootstrap output/log observed; frozen code creates its output directory before its host. No live GameObject enumeration claimed."
+      },
+      "buildUnchanged": true,
+      "ordinarySavesUnchanged": true,
+      "gamePrefsUnchanged": true,
+      "engineScreenmanagerUnchanged": true,
+      "endedUtc": "2026-11-02T02:42:38.630842+00:00"
+    },
+    {
+      "case": "mixed-verify",
+      "expectedRejection": "Resource diagnostic cannot run with verification or pacing modes.",
+      "startedUtc": "2026-11-02T02:42:38.965063+00:00",
+      "passed": true,
+      "wholeReleaseAccepted": false,
+      "errors": [],
+      "argv": [
+        "E:\\agent_workspace\\gpt\\game2\\Builds\\v07\\Windows\\DicePrototype.exe",
+        "--art07-resource-diagnostic",
+        "E:\\agent_workspace\\gpt\\game2\\artifacts\\cache\\v07-resource-negative-dca7a26-0242\\mixed-verify\\resource",
+        "--verify-p0",
+        "E:\\agent_workspace\\gpt\\game2\\evidence\\v07\\session\\normal-run-trace.json",
+        "--verify-debug-trace",
+        "E:\\agent_workspace\\gpt\\game2\\evidence\\v07\\session\\debug-24-trace.json",
+        "--evidence-dir",
+        "E:\\agent_workspace\\gpt\\game2\\artifacts\\cache\\v07-resource-negative-dca7a26-0242\\mixed-verify\\legacy-verify",
+        "-screen-width",
+        "1920",
+        "-screen-height",
+        "1080",
+        "-screen-fullscreen",
+        "0",
+        "-logFile",
+        "E:\\agent_workspace\\gpt\\game2\\artifacts\\cache\\v07-resource-negative-dca7a26-0242\\mixed-verify\\Player.log"
+      ],
+      "process": {
+        "startedUtc": "2026-11-02T02:42:38.970068+00:00",
+        "exitCode": 1,
+        "timedOut": false,
+        "ownedProcessTerminated": false,
+        "pid": 26988,
+        "ownedProcessStillRunning": false,
+        "endedUtc": "2026-11-02T02:42:43.150463+00:00"
+      },
+      "observations": {
+        "failures": [],
+        "expectedMessageObserved": true,
+        "resourceErrorOriginObserved": true,
+        "logSha256": "4ab6e5fc9299807befc5347062b6af728c70ce3f26e8734a70f70e2330aa472f",
+        "legacyDirectoriesCreated": {
+          "legacy-verify": false,
+          "legacy-pacing": false
+        },
+        "legacyLogMarkers": [],
+        "unrelatedCrashMarkers": [],
+        "resourceInputUnchanged": true,
+        "unexpectedReportOrCsvFiles": [],
+        "legacyScope": "No legacy bootstrap output/log observed; frozen code creates its output directory before its host. No live GameObject enumeration claimed."
+      },
+      "buildUnchanged": true,
+      "ordinarySavesUnchanged": true,
+      "gamePrefsUnchanged": true,
+      "engineScreenmanagerUnchanged": true,
+      "endedUtc": "2026-11-02T02:42:43.491586+00:00"
+    },
+    {
+      "case": "mixed-pacing",
+      "expectedRejection": "Resource diagnostic cannot run with verification or pacing modes.",
+      "startedUtc": "2026-11-02T02:42:43.832775+00:00",
+      "passed": true,
+      "wholeReleaseAccepted": false,
+      "errors": [],
+      "argv": [
+        "E:\\agent_workspace\\gpt\\game2\\Builds\\v07\\Windows\\DicePrototype.exe",
+        "--art07-resource-diagnostic",
+        "E:\\agent_workspace\\gpt\\game2\\artifacts\\cache\\v07-resource-negative-dca7a26-0242\\mixed-pacing\\resource",
+        "--pacing-experiment",
+        "E:\\agent_workspace\\gpt\\game2\\artifacts\\cache\\v07-resource-negative-dca7a26-0242\\mixed-pacing\\legacy-pacing",
+        "-screen-width",
+        "1920",
+        "-screen-height",
+        "1080",
+        "-screen-fullscreen",
+        "0",
+        "-logFile",
+        "E:\\agent_workspace\\gpt\\game2\\artifacts\\cache\\v07-resource-negative-dca7a26-0242\\mixed-pacing\\Player.log"
+      ],
+      "process": {
+        "startedUtc": "2026-11-02T02:42:43.837780+00:00",
+        "exitCode": 1,
+        "timedOut": false,
+        "ownedProcessTerminated": false,
+        "pid": 45040,
+        "ownedProcessStillRunning": false,
+        "endedUtc": "2026-11-02T02:42:47.971546+00:00"
+      },
+      "observations": {
+        "failures": [],
+        "expectedMessageObserved": true,
+        "resourceErrorOriginObserved": true,
+        "logSha256": "8603e25b4fddc284905800b99701b212a18ea7fb1b9011e4e0d8de9779b22c12",
+        "legacyDirectoriesCreated": {
+          "legacy-verify": false,
+          "legacy-pacing": false
+        },
+        "legacyLogMarkers": [],
+        "unrelatedCrashMarkers": [],
+        "resourceInputUnchanged": true,
+        "unexpectedReportOrCsvFiles": [],
+        "legacyScope": "No legacy bootstrap output/log observed; frozen code creates its output directory before its host. No live GameObject enumeration claimed."
+      },
+      "buildUnchanged": true,
+      "ordinarySavesUnchanged": true,
+      "gamePrefsUnchanged": true,
+      "engineScreenmanagerUnchanged": true,
+      "endedUtc": "2026-11-02T02:42:48.331541+00:00"
+    }
+  ],
+  "errors": [],
+  "engineScreenmanagerUnchanged": false,
+  "remainingCasesNotRun": [],
+  "passed": true,
+  "endedUtc": "2026-11-02T02:42:48.691485+00:00"
+}

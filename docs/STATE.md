@@ -1,6 +1,54 @@
 # 当前项目状态
 
+## 当前检查点：dca7a26 三包已生成、等待源码同步授权（2026-11-02 03:13 UTC）
+
+以下为最新状态，优先于下方历史检查点：
+
+- 冻结游戏源仍为dca7a2610f39d65088b9541549d3465c388fd3e7；1013 Edit/158 Play全通过、174源PDB零差异、1378文件gate，完整回归及新尾影实图独立复核通过其范围。所有本任务Editor/Player已退出，当前无Unity/Blender写锁；生产Assets保持冻结。
+- 双构建实际成功：Windows023220 GUID388c2eee37244ba48bb656114b6320bf（0错3警），Mac023332 GUIDb37777db216941e2b54f110d241df237（0错77警）。Mac仅交叉构建，M5/Intel未实跑。
+- Windows新实际串行evidence/v07/player-dca7a26-0234已结束。strict和native-only均未稳定达到可确认独占状态并回退；独立deferred普通145/Debug175回放完成，180.005549秒10115有效帧P95 16.7929ms >16.7，性能仍FAILED；GPU覆盖95.6401%达95%要求，不能合并为严格通过。跨进程恢复通过。305构建文件SHA独立核对；普通文件未变只有已审runner内存比较声明，未保留正式时段逐项前后清单，不能用后续资源守卫补造该历史证据。独立实看9/204张Player图，原尾影字块未复发。
+- 新成品资源/四拒绝证据已归档evidence/v07/resources（40原始文件全SHA核对）并独立复核。20.0021907秒1200帧：1199零GC、1帧132B；10Body1880tri；94纹理native对象总127.367395MiB，font/art/RT/unknown分账。结算Draw Calls峰值214，223采样行>180起始目标，idle均96；最高演出、全分辨率峰值及UI延迟仍未验。正例全部外部守卫一致；负例仅首例四项Screenmanager尺寸元数据改变，普通游戏偏好/存档/构建一致，不称全部偏好未变。
+- 三包在Releases/p0.7.0/review-candidate：Windows87218149B SHA c823056517851a786cfe8a185c43ad6829e3bdf2f5d8686eb9b17ff6a39169b1；Mac127598578B SHA437985740644806f220da8217aaf187a19c816421a20dd917e5578f2190641b6；M5 kit127707336B SHAe3807850f72fa0de3c41f1bed1364254b530356e0086ae78f926d70c8e9e23c6。CRC/SHA与同源manifest已生成；PACKAGE_DCA7A26_REVIEW独立复核本地封包完整性及规格符合性通过，范围不含运行/远端/整版放行。未创建远端发行、未上传、未完成远端下载/新目录运行。原4efd被替代包继续保留。
+- 9项交付工具和6项资源工具已经集成，29资源工具、133交付工具、20仓库检查实际通过；manifest远端恢复文案改为明确pending，仅影响描述，3ZIP字节保持。包内两说明已按新结果冻结，外部DELIVERY记录本地三包与待发布状态。
+- 原源码/内部证据push自动审批拒绝保持未执行；发行3附件授权有效，但整开发分支12个既有提交含约611MiB独立blob及内部媒体/本地路径，不能把它视为仅上传3包。最终包及交付说明已独立复核；精确本地metadata提交后，请求该具体源码同步授权，不尝试绕过拒绝。
+- 整版仍REWORK/待人工：Windows性能、原生独占、结算绘制目标、最高完整演出/UI延迟、AudioMixer接入、公共Krita62项原生补证、M5与人工美术/听审/体验未完成。用户此前要求桌面提示稍后处理，继续其余开发；不重复要求该桌面操作。下一步为metadata本地保存、明确源码push许可后按既有授权上传三附件并完整下载/新解压验证。
+
+### 本轮此前检查点（历史）
+
+- 完整Edit020742实际1013/1013（18.0938405秒）、Play022904实际158/158（1266.2926493秒），均零失败/跳过。156目录2994文件932PNG逐SHA归档cache/v07-full-play-dca7a26-022904；独立审查已实看其中12张尾影图，全部图像未逐张复看。02:30:44实际SaveAssets后空场景不dirty，12公共偏好恢复；PDB最终5程序集174源零差异，10个DLL/PDB已保存，新gate绑定1378文件。
+- root已正常退出唯一Editor30916，正在串行同源Windows/macOS构建。新Player、参数负例/资源采集、三包与独立完整回归结论尚待；不复用4efd通过给新源放行。其余代理生产只读或cache，无Unity写入者并发。
+
+- 本地源冻结dca7a2610f39d65088b9541549d3465c388fd3e7，9文件包含TMP退出尾影修复、独立资源诊断及互斥guard/真实集成测试；未网络推送。02:07:12实际导入identity，规则/黄金集哈希不变，Runtime MVID55356d69-1356-441b-8293-a913352d0d25。完整Edit已于02:07:22启动，完整Play/双构建/Player/三包尚待。
+- 资源专项020427实际1/1通过67.339秒，1目录7文件原样SHA归档；实际20.0004271秒1200行仅Editor集成证据，非Player资源预算通过。02:05:33 idle SaveAssets后空场景不dirty、12公共偏好恢复，5程序集174源PDB零差异。root唯一Editor30916/生产写入者，其他代理仅cache或独立证据报告。
+
+- 资源诊断17d80bf9与两旧bootstrap互斥guard已通过独立静审并由root集成；01:58实际Unity载入Runtime MVID55356d69-1356-441b-8293-a913352d0d25，编译无错误，新资源代码有两条obsolete警告。真实路线/20秒idle专项尚未执行，不能当资源通过。root仍独占Editor30916和Assets；perf只在cache补单项真实集成测试，review只读，recovery只在cache准备外部启动器与负例。
+- 独立外部启动器16项合成测试通过后，审查新增负例发现preflight后输入变化未重验；候选正在修正，尚未实际启动。完整回归、新双平台构建、Player及三包以最终新冻结源为准；现有4efd结果仅历史范围。
+
+- 规则仍为 p0.6.0/schema4，美术 art0.7.0；生产源冻结。仅优化完整存档字节比较，并修正 probe21 的恢复配置哈希和确认后窗口校验。专项30/30、完整Edit1013/1013、Play155/155通过，独立回归绑定复核通过；916张新回归图已归档但本次未逐图复看。
+- 同源Windows010055 GUID3e9ef773caed4efe96fc819ed40c3e5a（0错1警）、Mac010155 GUID2b0ca31707ce4739b2f66aa5c16081d7（0错75警）构建成功。Mac仅构建，M5仍待实机。
+- 当前正式Player runner evidence/v07/player-4efd2b7-0103 已结束：strict与native-only在独占mode0被原生接口拒绝并回退时失败（focused=true，非超时）；没有证据归因具体驱动。独立native-deferred普通145/Debug175步通过，180.0142251秒10101帧、P95 16.8835ms >16.7，性能仍失败；GPU覆盖0.960499 >=0.95，本次采样完整性缺口已关闭。不能将独立流程拼成strict通过。
+- 跨进程显示恢复outer runner与reader已实际通过，probe21配置哈希修复关闭；普通10文件和305构建文件守卫未变。当前候选可用于玩法/界面诊断，不是整版ACCEPTED。独立Player复核已完成并报告上述尾影缺陷；三包尚未完成。
+- 交付工具9文件与标题2文件已集成，经独立复核和root实际133/133工具、20/20仓库测试；不改性能、原生显示或平台标准。
+- 01:12–01:17另采同一EXE的Profiler诊断4.62GB，普通存档/构建守卫不变；只用于资源计数，不作为正式性能引用。root唯一Editor30916已完成提取且恢复Profiler历史；所有代理只读或仅cache候选，无生产写锁共享。
+- 新实图缺陷P07-MODAL-TMP-01已最小修复：PanelMotion使用TMP primary/fallback各自atlas，独立复用尾影材质并释放。实际013059新2项红（0/2），013206新2+原modal/详情4/4绿，013247原Guide3/3通过；独立实看14图、重算74字形44868像素零差异，专项质量通过。12偏好恢复，5程序集172源PDB零差异。源当前只有PanelMotion+新GPU测试/meta3文件未冻结，完整回归和新Player仍待。
+- 4efd已生成Windows/Mac两ZIP及原proof完整保存至superseded-4efd2b7-panel-tail，SHA保留，未创建kit/发布/推送；两构建606文件513836828字节已SHA归档。旧通过仅限原范围，不放行新源。
+- 为§31剩余资源分项，perf只在cache准备独立opt-in Player对象清单/idle诊断候选，root尚未集成；不修改正式180秒负载或验收阈值。root独占Editor30916/生产；其余代理只读或cache。完成候选复核再统一冻结，避免新旧身份混用。
+- Profiler公开事件试验已实际读出0–15913共15914帧、0holes/回调错误；4个counter各15913帧（首帧缺项保留），原history恢复。代理正在核时间/场景与资源分类，不能拿这次附加Profiler的帧耗时替代正式性能。
+- AudioMixer、公共Krita62项原生补证、完整最高演出/闲置/资源场景补证及M5/人工美术体验未完成。源码/内部证据push此前被自动审批拒绝且未执行；发行附件授权不撤销，具体三包完成后再处理源码同步确认。
+
+
 ## 2026-10-31 v0.7 美术与表现实施中
+
+00:28UTC：4f020f3实际Windows串行检查已结束：strict普通145步与Debug24 175步全部完成，180.00395秒9429帧P95 18.0941ms超过16.7，GPU有效覆盖0.8424未达0.95；deferred独立对照同样budget_exceeded（P95 33.5488，采样无焦点），不能合并为通过。native-only显示专项通过其限定范围。独立恢复reader原生1280×720窗口恢复成功，但report.configSha256为空，被正确拒绝；正在最小修复。10普通存档前后SHA及305构建守卫未改；两平台606文件513826952字节已归档cache/v07-builds-4f020f3-player-failure。root串行Editor/Assets拥有者；3代理仅cache分析/候选/独立复核。正在定位托管分配尖峰，无性能阈值/工作量/规则变更；尚未封包或发布，Mixer/M5/人工与源码push拒绝仍待。
+
+13:08UTC：4f020f3双构建成功：Windows build-windows-20261101-130604 GUID34d73d227f814c54bc6cd74e111f19f8（0错1警、190919043字节），Mac130720 GUIDb39abef90e0e41479b4978f71d2faa96（0错75警、322907909字节）。构建后source scopes clean、所有本任务Editor/worker已退出。Windows实际runner在跑 evidence/v07/player-4f020f3-1308，raw cache/v07/player-4f020f3-1308，终局恢复/完整UI/显示/性能/独立恢复尚待真实最终报告；开始前10普通存档文件已保存SHA守卫。root唯一集成者，无Editor写锁；独立全量复核收尾，三包尚未生成，所有旧失败/取消及Mixer/M5/人工/push拒绝保持。
+
+
+13:05UTC：4f020f3完整Edit124323为999/999，Play130400为155/155零失败跳过1209.835151秒，153目录2953文件916PNG逐SHA归档cache/v07-full-play-4f020f3-130400。实际idleSave后12公共偏好恢复/空场景不dirty，5程序集169源PDB零差异，gate绑定1368文件；10 DLL/PDB保留供独立复核。Editor32560正常退出，root开始同源Windows/Mac串行构建。Krita62公共源原生补证无新增通过，旧成功C02阳性对照也75秒超时，源/导出/用户配置未改、进程退出，独立补记KRITA_COMMON_NATIVE_CHECK_BLOCKED；私有profile留cache不发布。新Player/三包仍待，AudioMixer/M5/人工/push授权缺口保持。
+
+
+12:44UTC：独立RESULT_CLOCK_FIX_REVIEW完成，RC02首绘时长与RR01提交统计均在代码/红绿/3实图范围关闭，无新阻断。新本地检查点4f020f3b040493c0936eeb5026042c2452db396e（未推送），实际12:43:01 identity Runtime MVID e2f02f1c-e73f-4b56-8fdb-5696bc606495。完整Edit124323为999/999零失败跳过19.0337055秒；完整155 Play已于12:43:45.4889132启动，源码冻结，root唯一Editor32560。新完整回归/双构建/Player/三包仍待真实执行；不复用旧69gate放行新源。原始失败、取消4f1记录与音频Mixer/人工/M5/push拒绝保持。
+
 
 12:40UTC：时长修复提取SyncRunClock07并在终局绘制前读取本Run已有key，原Tick逻辑复用；不reset/增时/给旧无key档造时间。123635实际首帧时长断言红0/1，123717同用例+原四类终局绿2/2、5.192秒，2目录22文件7PNG完整归档cache/v07-result-clock-green-123717。独立已实际看新return/cold/no-clock三图：前二01:01:01，旧档准确未记录，三图14/6/×3及控件清晰；helper与测试限域审查无阻断，正式报告收尾。实际idleSave后12公共偏好恢复，5程序集169源PDB零差异。准备新冻结/完整999+155，不把取消4f1全量当通过。root唯一Editor32560，其他源/标准保持，Mixer/M5/人工与push拒绝未解除。
 

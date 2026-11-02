@@ -15,7 +15,7 @@ import sys
 import time
 import traceback
 
-from compare_replays import (compare_directories, load_json, sha256, validate_report, validate_recovery,
+from compare_replays import (validate_failed_performance_csv, uses_strict_failed_performance_reference, compare_directories, load_json, sha256, validate_report, validate_recovery,
                              validate_trace_replay, validate_windows_review_reference, review_reference_notice, validate_windows_reference, failed_performance_notice)
 from package_checks import macho_info, safe_archive_inventory
 
@@ -287,6 +287,8 @@ def execute(args, work, evidence, summary):
         raise RuntimeError("Windows reference/trace identity is missing, mismatched or not passed: " + repr(failures))
     validate_trace_replay(windows_report, args.windows_results, args.trace, args.debug_trace)
     summary["reviewCandidate"] = review_candidate
+    if allow_failed_windows_performance:
+        validate_failed_performance_csv(windows_report, args.windows_results)
     summary["windowsReference"] = review_reference_notice(windows_report, allow_failed_windows_performance) if review_candidate else {"status": windows_report["status"]}
     summary["fullReleaseAccepted"] = False
     write_json(evidence / "input-archive.json", safe_archive_inventory(args.package))
@@ -304,6 +306,8 @@ def execute(args, work, evidence, summary):
     windows.mkdir()
     for name in ("player-report.json", "normal-replay.jsonl", "debug24-replay.jsonl"):
         shutil.copy2(args.windows_results / name, windows / name)
+    if allow_failed_windows_performance and uses_strict_failed_performance_reference(windows_report):
+        shutil.copy2(args.windows_results / "performance-frames.csv", windows / "performance-frames.csv")
     checkpoint = windows / "cross-platform-checkpoint"
     checkpoint.mkdir()
     for name in ("active-run.json", "command.json", "expected.json"):
@@ -322,7 +326,7 @@ def execute(args, work, evidence, summary):
         if (notice.get("schema") != expected_schema or notice.get("identity") != identity
                 or bool(notice.get("allowFailedWindowsPerformance")) != allow_failed_windows_performance
                 or notice.get("reviewCandidate") is not True or notice.get("fullWindowsPassed") is not False
-                or notice.get("fullReleaseAccepted") is not False or notice.get("windowsNativeDisplayStatus") != "PENDING_P22_NOT_PASSED"):
+                or notice.get("fullReleaseAccepted") is not False or notice.get("windowsNativeDisplayStatus") != review_reference_notice(windows_report, allow_failed_windows_performance)["windowsNativeDisplayStatus"]):
             raise RuntimeError("Restricted transfer package is missing its explicit native-display limitation")
         if allow_failed_windows_performance and notice.get("windowsPerformance") != failed_performance_notice(windows_report):
             raise RuntimeError("Diagnostic transfer notice differs from the actual failed Windows performance")

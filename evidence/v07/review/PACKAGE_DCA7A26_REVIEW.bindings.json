@@ -1,0 +1,246 @@
+{
+  "schema": "package-review-binding-1",
+  "files": [
+    {
+      "path": "Releases/p0.7.0/review-candidate/review-candidate-manifest.json",
+      "byteSize": 29682,
+      "sha256": "c1e2b0f886b62fc8aef65bbdc9c8bd5c533099f476da26d822a3b09f42bbe13c"
+    },
+    {
+      "path": "Releases/p0.7.0/review-candidate/DicePrototype-p0.7.0-win-x64.zip",
+      "byteSize": 87218149,
+      "sha256": "c823056517851a786cfe8a185c43ad6829e3bdf2f5d8686eb9b17ff6a39169b1"
+    },
+    {
+      "path": "Releases/p0.7.0/review-candidate/DicePrototype-p0.7.0-macos-universal.zip",
+      "byteSize": 127598578,
+      "sha256": "437985740644806f220da8217aaf187a19c816421a20dd917e5578f2190641b6"
+    },
+    {
+      "path": "Releases/p0.7.0/review-candidate/DicePrototype-p0.7.0-MacVerificationKit.zip",
+      "byteSize": 127707336,
+      "sha256": "e3807850f72fa0de3c41f1bed1364254b530356e0086ae78f926d70c8e9e23c6"
+    },
+    {
+      "path": "tools/macos/v07/VerifyMac.command",
+      "byteSize": 2002,
+      "sha256": "6669b176ef4b20d58db8fafbc6fcf85ac4215c4309fa2a0a35a7d35b10092270"
+    },
+    {
+      "path": "tools/macos/v07/verify_mac.py",
+      "byteSize": 30073,
+      "sha256": "e942278c9065fa28fe849975d56b35c3981a45101dba2efc66e237c6e7c62a44"
+    },
+    {
+      "path": "tools/macos/v07/package_checks.py",
+      "byteSize": 7160,
+      "sha256": "75df35774305feac4c27cd2f3de36bccc6b72dd29289e802dd40e7b9e59a5bea"
+    },
+    {
+      "path": "tools/macos/v07/compare_replays.py",
+      "byteSize": 40206,
+      "sha256": "19acb2397f85f347e96a194d3965b89f5b27e8c7fda56bcdf9b085a356e6fab9"
+    },
+    {
+      "path": "evidence/v07/player-dca7a26-0234/native-deferred-independent/player-20261102-023622-9ef3d5e7/player-report.json",
+      "byteSize": 203558,
+      "sha256": "25c0df4089b9154b1c0d3f939513c42172afe7082c2eb1b24c7eb5d3062de206"
+    },
+    {
+      "path": "evidence/v07/player-dca7a26-0234/native-deferred-independent/player-20261102-023622-9ef3d5e7/normal-replay.jsonl",
+      "byteSize": 75364,
+      "sha256": "fe1380f97fcd0b0c380ab68097f06774ab689ee6eb1242ba9b249709085f4c03"
+    },
+    {
+      "path": "evidence/v07/player-dca7a26-0234/native-deferred-independent/player-20261102-023622-9ef3d5e7/debug24-replay.jsonl",
+      "byteSize": 46307,
+      "sha256": "13b350e608dfe9bed1c87bcb7edc3bbb23a9c87262233c451ec92ac0bb071b38"
+    },
+    {
+      "path": "evidence/v07/player-dca7a26-0234/native-deferred-independent/player-20261102-023622-9ef3d5e7/cross-platform-checkpoint/active-run.json",
+      "byteSize": 144903,
+      "sha256": "538aa806d071edf38bcc3095d9d61b6e9f2cfe2902aa489557b5c4cda6294440"
+    },
+    {
+      "path": "evidence/v07/player-dca7a26-0234/native-deferred-independent/player-20261102-023622-9ef3d5e7/cross-platform-checkpoint/command.json",
+      "byteSize": 946,
+      "sha256": "692dc65bc8dc8661cdce61bff9dbe2172ad94b61d3730b12506033b5af0555db"
+    },
+    {
+      "path": "evidence/v07/player-dca7a26-0234/native-deferred-independent/player-20261102-023622-9ef3d5e7/cross-platform-checkpoint/expected.json",
+      "byteSize": 198,
+      "sha256": "cb5559f615b0cff158ac12452edda59f7fafca01319453f80e71ade03765e261"
+    },
+    {
+      "path": "evidence/v07/session/normal-run-trace.json",
+      "byteSize": 75581,
+      "sha256": "5efcc51eb14dd024d2cea3cc1f5e86ad5ec00123a794dce16cb1100471366564"
+    },
+    {
+      "path": "evidence/v07/session/debug-24-trace.json",
+      "byteSize": 170257,
+      "sha256": "3d6f7cf39dba3c56ca161d4d8baf6d4a7e9f00bcd98a386211b5a07ad61d06b8"
+    },
+    {
+      "path": "evidence/v07/packages/windows-package-review-candidate.json",
+      "byteSize": 70805,
+      "sha256": "26929305165149ca8c5ef7d021675c29bf8e77c5c24b73a91bffea40eb467da4"
+    },
+    {
+      "path": "evidence/v07/unity/build-windows-20261102-023220.json",
+      "byteSize": 956,
+      "sha256": "63feef5f527850bebdbf8f4308ca6341107785e1c4125998346779d54248607e"
+    },
+    {
+      "path": "evidence/v07/packages/macos-package-review-candidate.json",
+      "byteSize": 79279,
+      "sha256": "0942431430ed39a4efd3defa42401d25b21d729757e311f0e764b477fc69be96"
+    },
+    {
+      "path": "evidence/v07/unity/build-macos-20261102-023332.json",
+      "byteSize": 953,
+      "sha256": "b9ebbbd4191b1910c0fb8f844a106131a7834cda2998acec4d498748db9a0c9c"
+    },
+    {
+      "path": "evidence/v07/unity/nunit-20261102-020742.xml",
+      "byteSize": 703232,
+      "sha256": "c37978203cd319e28a5e5521f5b9b24322b377798d2a8178c7cd9c9d960be163"
+    },
+    {
+      "path": "evidence/v07/unity/nunit-20261102-022904.xml",
+      "byteSize": 360479,
+      "sha256": "c04f507f1895e3c9c1a64aff96f89b95492006f67d9fb1dec78daa50fcfd9675"
+    },
+    {
+      "path": "evidence/v07/unity/build-gate.json",
+      "byteSize": 352319,
+      "sha256": "a7b955b2abee24b9c1ca0f8ce8c845275d9a789d5e0160b88d94d5455f9127c9"
+    },
+    {
+      "path": "evidence/v07/unity/nunit-20261102-020742.binding.json",
+      "byteSize": 580209,
+      "sha256": "96169b719d6cb2c06f8327a48f3ce638dda0f82789248b533c140c48a4a48746"
+    },
+    {
+      "path": "evidence/v07/unity/nunit-20261102-022904.binding.json",
+      "byteSize": 580209,
+      "sha256": "0e17f35a2f16d09998cfc9443477edbbd2269a0f5f0071fff9a5306028d1a65e"
+    },
+    {
+      "path": "evidence/v07/unity/discovery-EditMode.json",
+      "byteSize": 83753,
+      "sha256": "eb9ea5c545f10db39e8be07d3aed428ab7b1754b34e74ac764a2a0714f4e9180"
+    },
+    {
+      "path": "evidence/v07/unity/discovery-PlayMode.json",
+      "byteSize": 19321,
+      "sha256": "31a37c4386b7ab1aac95f8f3595f07f2167eed32be8f64b771d97d1788c38cb9"
+    },
+    {
+      "path": "DicePrototype/Assets/Resources/BuildIdentity.json",
+      "byteSize": 441,
+      "sha256": "7d3f0a0bcde25a91487202bf0da3fab47c32add8c4ebe6afef99b8964b710eb3"
+    },
+    {
+      "path": "evidence/v07/unity/pdb-dca7a26-final.json",
+      "byteSize": 80777,
+      "sha256": "cb77504e0d901bb73e364313bdf4360d61f8b2826d441f12523aad414f0cc701"
+    },
+    {
+      "path": "evidence/v07/player-dca7a26-0234/separate-process-display-recovery/ready-to-terminate.json",
+      "byteSize": 1934,
+      "sha256": "be366d929fd4b29f35e40e07c461f8d5ee381f5c10ac4c4343486ffcc5f68629"
+    },
+    {
+      "path": "evidence/v07/player-dca7a26-0234/separate-process-display-recovery/recovery-read-receipt.json",
+      "byteSize": 1906,
+      "sha256": "311682c2b3be4ef2f998b56a33b33797d039de743e4c05ebc59dc2a9745b7d7a"
+    },
+    {
+      "path": "evidence/v07/player-dca7a26-0234/separate-process-display-recovery/display-settings.json",
+      "byteSize": 509,
+      "sha256": "8d91e024c69cbee2f9b406c471bff808bd14c7e17df6dd67f77aaf9492b84178"
+    },
+    {
+      "path": "evidence/v07/player-dca7a26-0234/separate-process-display-recovery/reader/player-20261102-024146-d462c72e/player-report.json",
+      "byteSize": 18799,
+      "sha256": "b83b656e22bef47bd2bbfa89d259aa9bbde258f4c6a6bdce7555fad3952f5ead"
+    },
+    {
+      "path": "evidence/v07/player-dca7a26-0234/strict-full/player-20261102-023439-8877f2ff/player-report.json",
+      "byteSize": 135662,
+      "sha256": "2ef202f7ce5013b5d05cceac611ac7f013e21593e2cd369a02d898f0d0379892"
+    },
+    {
+      "path": "evidence/v07/player-dca7a26-0234/native-display-only/player-20261102-024136-c5f6535f/player-report.json",
+      "byteSize": 20269,
+      "sha256": "9c0f1dcf38e1ccd0a054d3a5cca7fbaceb8f463b007cdb67db903282b0dc5590"
+    },
+    {
+      "path": "evidence/v07/player-dca7a26-0234/native-deferred-independent/player-20261102-023622-9ef3d5e7/performance-frames.csv",
+      "byteSize": 2075569,
+      "sha256": "ef357b6abf47fc977710745db172cce6402e5e9cc85ec36d30d03c4e23a1d93d"
+    },
+    {
+      "path": "evidence/v07/packages/mac-verification-kit-review-candidate.json",
+      "byteSize": 3458,
+      "sha256": "208204f7bd0509c7ae1fd61e1fdd0e9aa7900b856adb93c6ce5a100019d389b4"
+    },
+    {
+      "path": "docs/PLAYER_README_V07.txt",
+      "byteSize": 4862,
+      "sha256": "d73761fd225cbe7bce1ef7bd2c347fa90e4e844ae64210d8e657f8d22ac54f50"
+    },
+    {
+      "path": "docs/tasks/P0-V07-MAC-VERIFICATION.md",
+      "byteSize": 13640,
+      "sha256": "78ecdf4a750dcfe42a0ad71a3015d8d9ac9d08287803c9d3469c857f7a3679a1"
+    },
+    {
+      "path": "tools/release_v07_manifest.py",
+      "byteSize": 11961,
+      "sha256": "1f5b43064d0aa1d2a4ea7eff7a5b8f1096c0a6b6ec6162a2506b89bfd77da19d"
+    },
+    {
+      "path": "tools/package_v07.py",
+      "byteSize": 24933,
+      "sha256": "0958bb0c14e792f85618d759659bacb6c5521ddfa9896b2f3a0c98dff9f82ae5"
+    },
+    {
+      "path": "artifacts/cache/v07-package-dca7a26-review/audit.py",
+      "byteSize": 20436,
+      "sha256": "647fddc9d5a3e996e730bde237ee1fe4170090c9643e826af93311f5da4edf03"
+    },
+    {
+      "path": "artifacts/cache/v07-package-dca7a26-review/facts.json",
+      "byteSize": 40074,
+      "sha256": "2e1cefd6acf9f3aadd90f45172618aac38f0ec9fba8189b8f7d4dd27899d19c1"
+    },
+    {
+      "path": "artifacts/cache/v07-package-dca7a26-review/DicePrototype-p0.7.0-macos-universal-inventory.json",
+      "byteSize": 81564,
+      "sha256": "8329fff046267327a0839a6e129a81b33e349c0ced9ad7723de99a2455c00f07"
+    },
+    {
+      "path": "artifacts/cache/v07-package-dca7a26-review/DicePrototype-p0.7.0-MacVerificationKit-inventory.json",
+      "byteSize": 4015,
+      "sha256": "2de762be87887de68056ef20431fb31cc48254a0dc1ec0a4128bda2f623e7788"
+    },
+    {
+      "path": "artifacts/cache/v07-package-dca7a26-review/DicePrototype-p0.7.0-win-x64-inventory.json",
+      "byteSize": 75782,
+      "sha256": "5fc367985eae12908937100d776d65d8ad295550b608b0fd26912545b2a1b85a"
+    },
+    {
+      "path": "evidence/v07/review/PACKAGE_DCA7A26_REVIEW.md",
+      "byteSize": 7697,
+      "sha256": "d1b2b8b1fc8926b34a88434a8e9155e647a0b12a9711bc4ff047bcb52792f9e2"
+    }
+  ],
+  "reviewer": "/root/v07_perf",
+  "utc": "2026-11-02T03:07:30.107383+00:00",
+  "sourceCommit": "dca7a2610f39d65088b9541549d3465c388fd3e7",
+  "scope": "Independent offline final ZIP content/integrity review; no Player execution, remote download, Mac runtime or whole-release acceptance",
+  "result": "LOCAL_DIAGNOSTIC_PACKAGE_CONFORMANCE_PASSED",
+  "fullReleaseAccepted": false
+}

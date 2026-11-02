@@ -1,0 +1,56 @@
+[
+  {
+    "case": "actual",
+    "validatorFailures": [],
+    "csv": "accepted",
+    "notice": {
+      "acceptanceStatus": "FAILED",
+      "status": "budget_exceeded",
+      "observedStatus": "budget_exceeded",
+      "sampleSeconds": 180.0039497,
+      "p95FrameIntervalMs": 18.0941000000416,
+      "thresholdMs": 16.7,
+      "frames": 9429,
+      "rawObservationRows": 9430,
+      "focusedSampleFrames": 9430,
+      "gpuInvalidSamples": 0,
+      "gpuMissingSamples": 1486,
+      "requiredMetricCoverage": 0.95,
+      "metricCoverage": {
+        "mainThread": 1,
+        "gpu": 0.842401102980168,
+        "gcAllocated": 1,
+        "uiRebuild": 1
+      },
+      "measurementCoverageStatus": "INCOMPLETE_OR_UNAVAILABLE",
+      "note": "Completed FAILED budget observation. Raw counters include the initial partial row; focus is context, not visibility proof. GPU and other metric coverage gaps remain explicit and uncorrected."
+    }
+  },
+  {
+    "case": "lowered_coverage",
+    "validatorFailures": [],
+    "csv": "accepted",
+    "notice": {
+      "acceptanceStatus": "FAILED",
+      "status": "budget_exceeded",
+      "observedStatus": "budget_exceeded",
+      "sampleSeconds": 180.0039497,
+      "p95FrameIntervalMs": 18.0941000000416,
+      "thresholdMs": 16.7,
+      "frames": 9429,
+      "rawObservationRows": 9430,
+      "focusedSampleFrames": 9430,
+      "gpuInvalidSamples": 0,
+      "gpuMissingSamples": 1486,
+      "requiredMetricCoverage": 0.5,
+      "metricCoverage": {
+        "mainThread": 1,
+        "gpu": 0.842401102980168,
+        "gcAllocated": 1,
+        "uiRebuild": 1
+      },
+      "measurementCoverageStatus": "COMPLETE_AS_REPORTED",
+      "note": "Completed FAILED budget observation. Raw counters include the initial partial row; focus is context, not visibility proof. GPU and other metric coverage gaps remain explicit and uncorrected."
+    }
+  }
+]

@@ -1,0 +1,47 @@
+{
+  "utc": "2026-11-02T01:18:12.190419+00:00",
+  "reviewer": "/root/v07_run_review",
+  "bindings": {
+    "tools/publish_v07_release.py": {
+      "beforeSha256": "96e919e2632660bc4326aaf132350c3661b0d2a5d11e187df521ab11e8289004",
+      "afterSha256": "dd1608d1c11f52b66498a326c5571f91a6732624e203d14bef5a351958a4c4b2"
+    },
+    "tools/macos/v07/test_release_titles.py": {
+      "beforeSha256": null,
+      "afterSha256": "dd110bf0e47bb20577363d905c9e588c34918302679016757510b6f3b76e4edd"
+    }
+  },
+  "toolTests": {
+    "count": 133,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0,
+    "seconds": 2.014
+  },
+  "repositoryTests": {
+    "count": 20,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0,
+    "seconds": 0.43
+  },
+  "astUnchangedFunctions": [
+    "release_inputs",
+    "release_body",
+    "ensure_publish_allowed",
+    "release_evidence",
+    "record",
+    "authenticated_url",
+    "remote_tag_target"
+  ],
+  "astChanged": [
+    "main"
+  ],
+  "astAdded": [
+    "release_title"
+  ],
+  "bothPostAndPatchUseComputedTitle": true,
+  "harnessNote": "First audit had correct test results but asserted AST breadth-first request order; corrected set/order-independent assertion passed without modifying product or tests.",
+  "networkCredentialsOrPublishing": false,
+  "findings": []
+}

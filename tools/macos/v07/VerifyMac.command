@@ -16,10 +16,14 @@ if [ "$#" -eq 0 ]; then
     --windows-results "$SCRIPT_DIR/inputs/windows-results" \
     --identity "$SCRIPT_DIR/inputs/BUILD_IDENTITY.json"
   if [ -f "$SCRIPT_DIR/inputs/review-candidate.json" ]; then
-    printf '%s\n' '限制版审阅候选：Windows 原生显示仍待解决；此 Windows 结果仅作玩法/UI/轨迹对照。Mac 自身仍执行完整严格验收。'
+    printf '%s\n' '受限测试候选：Windows 仅按随包真实报告的已验证范围作对照；完整 Windows / 整版未验收。Mac 自身仍执行完整严格验收。'
     set -- "$@" --review-candidate
     if python3 -c 'import json,sys; sys.exit(0 if json.load(open(sys.argv[1], encoding="utf-8")).get("allowFailedWindowsPerformance") is True else 1)' "$SCRIPT_DIR/inputs/review-candidate.json"; then
-      printf '%s\n' '诊断候选：Windows 性能 FAILED（P95 超标、焦点/GPU 采样异常），原生 P22 未通过；Mac 未测，整版未 ACCEPTED。Mac 自身仍执行原性能与显示门槛。'
+      native_text='Windows 原生 P22 未通过'
+      if python3 -c 'import json,sys; sys.exit(0 if json.load(open(sys.argv[1], encoding="utf-8")).get("windowsNativeDisplayStatus") == "AUTOMATED_CHECKS_PASSED_PHYSICAL_EVENTS_UNTESTED" else 1)' "$SCRIPT_DIR/inputs/review-candidate.json"; then
+        native_text='所选完整 Windows 报告的自动原生显示检查通过，物理焦点/显示器变更未验'
+      fi
+      printf '%s\n' "诊断候选：Windows 性能 FAILED（P95 超标，焦点/GPU 采样状态见原报告）；$native_text；Mac 未测，整版未 ACCEPTED。Mac 自身仍执行原性能与显示门槛。"
       set -- "$@" --allow-failed-windows-performance
     fi
   fi

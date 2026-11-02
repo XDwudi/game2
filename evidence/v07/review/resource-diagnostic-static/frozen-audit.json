@@ -1,0 +1,57 @@
+{
+  "reviewedUtc": "2026-11-02T01:55:36.014837+00:00",
+  "scope": "static only; no editor/player launched; no production/standard edits",
+  "candidateFiles": [
+    {
+      "path": "artifacts/cache/v07-resource-diagnostic-candidate/Art07ResourceDiagnostic.cs",
+      "bytes": 42960,
+      "sha256": "17d80bf9c7c0e82bd81c76e6dfafc334fc0e7fec9e43239bc86da14bb448bcfe"
+    },
+    {
+      "path": "artifacts/cache/v07-resource-diagnostic-candidate/Art07ResourceDiagnostic.cs.meta",
+      "bytes": 60,
+      "sha256": "3ace87dc979de57fd5bddf33b481f1d415b646b19ffb161cfcbe030a5c7031c7"
+    },
+    {
+      "path": "artifacts/cache/v07-resource-diagnostic-candidate/bootstrap-guards.diff",
+      "bytes": 1171,
+      "sha256": "b63f63aeaaccd073f30d44385cb4c8dcc2dd53d7d7155ca35c5979e21b18c635"
+    },
+    {
+      "path": "artifacts/cache/v07-resource-diagnostic-candidate/bootstrap-guards.bindings.json",
+      "bytes": 639,
+      "sha256": "ed8e22faad666e4275240a6f4efad2c4e88a6854c511d37ccb860e1a4553fff4"
+    },
+    {
+      "path": "artifacts/cache/v07-resource-diagnostic-candidate/VALIDATION_CONTRACT.md",
+      "bytes": 8073,
+      "sha256": "3649e14973d43ee7759eeba14162ded6e387b14447d05b54d1e429183dd677b3"
+    }
+  ],
+  "existingBootstrapBefore": [
+    {
+      "path": "DicePrototype/Assets/Game/Runtime/Verification/PlayerVerification.cs",
+      "beforeBytes": 108136,
+      "beforeSha256": "33f5d57fad0daa93bca1d55d55c5c66b58a9761c5f2fe43d39d25361b1f53cc3",
+      "note": "One early return only; root preserves original BOM/newline convention when integrating."
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Runtime/Verification/FramePacingExperiment.cs",
+      "beforeBytes": 24055,
+      "beforeSha256": "c973030a09b9a8db64197f1212dbfdaa992a2762f4fff798f6337053d6275cbc",
+      "note": "One early return only; root preserves original BOM/newline convention when integrating."
+    }
+  ],
+  "newMetaGuid": "9496788cc79e4884928da39e92eb5421",
+  "existingMetaGuidCollisions": [],
+  "newHostNormalStartup": "absent flag exits Configure before override/host; Launch configured=false",
+  "closedDraftFindings": [
+    "order-independent mutually exclusive bootstrap guards",
+    "idle setup and boundary hashing before warmed/drained sample",
+    "config SHA and state/pending/isolated files boundary guards",
+    "Null/headless graphics refusal",
+    "explicit texture identity uniqueness",
+    "safe cleanup continuation and actual clock removal reporting",
+    "Session.State clock registration before stale ViewState fallback"
+  ]
+}

@@ -1,0 +1,90 @@
+{
+  "identity": {
+    "releaseVersion": "p0.7.0",
+    "artVersion": "art0.7.0",
+    "sourceCommit": "dca7a2610f39d65088b9541549d3465c388fd3e7",
+    "contentConfigVersion": "p0.6.0",
+    "contentConfigSha256": "747ed1efc7bea15873f66a81eee5c7654971c21031f2a1517ce629adce7b6e6c",
+    "saveSchemaVersion": 4,
+    "goldenCaseSetSha256": "306cb86f79dafe0e3eb302714abd232af20fe0062a6713f7d713c11e2a6a5718",
+    "unityEditorVersion": "6000.6.7f1",
+    "backend": "Mono"
+  },
+  "packagePath": "Releases/p0.7.0/review-candidate/DicePrototype-p0.7.0-MacVerificationKit.zip",
+  "sha256": "e3807850f72fa0de3c41f1bed1364254b530356e0086ae78f926d70c8e9e23c6",
+  "byteSize": 127707336,
+  "sourceCommit": "dca7a2610f39d65088b9541549d3465c388fd3e7",
+  "windowsResults": "evidence/v07/player-dca7a26-0234/native-deferred-independent/player-20261102-023622-9ef3d5e7",
+  "crc": "passed",
+  "reviewCandidate": true,
+  "inputs": [
+    {
+      "path": "VerifyMac.command",
+      "sha256": "6669b176ef4b20d58db8fafbc6fcf85ac4215c4309fa2a0a35a7d35b10092270"
+    },
+    {
+      "path": "verify_mac.py",
+      "sha256": "e942278c9065fa28fe849975d56b35c3981a45101dba2efc66e237c6e7c62a44"
+    },
+    {
+      "path": "package_checks.py",
+      "sha256": "75df35774305feac4c27cd2f3de36bccc6b72dd29289e802dd40e7b9e59a5bea"
+    },
+    {
+      "path": "compare_replays.py",
+      "sha256": "19acb2397f85f347e96a194d3965b89f5b27e8c7fda56bcdf9b085a356e6fab9"
+    },
+    {
+      "path": "执行说明.md",
+      "sha256": "78ecdf4a750dcfe42a0ad71a3015d8d9ac9d08287803c9d3469c857f7a3679a1"
+    },
+    {
+      "path": "inputs/BUILD_IDENTITY.json",
+      "sha256": "7d3f0a0bcde25a91487202bf0da3fab47c32add8c4ebe6afef99b8964b710eb3"
+    },
+    {
+      "path": "inputs/macos.zip",
+      "sha256": "437985740644806f220da8217aaf187a19c816421a20dd917e5578f2190641b6"
+    },
+    {
+      "path": "inputs/normal-run-trace.json",
+      "sha256": "5efcc51eb14dd024d2cea3cc1f5e86ad5ec00123a794dce16cb1100471366564"
+    },
+    {
+      "path": "inputs/debug-24-trace.json",
+      "sha256": "3d6f7cf39dba3c56ca161d4d8baf6d4a7e9f00bcd98a386211b5a07ad61d06b8"
+    },
+    {
+      "path": "inputs/windows-results/player-report.json",
+      "sha256": "25c0df4089b9154b1c0d3f939513c42172afe7082c2eb1b24c7eb5d3062de206"
+    },
+    {
+      "path": "inputs/windows-results/normal-replay.jsonl",
+      "sha256": "fe1380f97fcd0b0c380ab68097f06774ab689ee6eb1242ba9b249709085f4c03"
+    },
+    {
+      "path": "inputs/windows-results/debug24-replay.jsonl",
+      "sha256": "13b350e608dfe9bed1c87bcb7edc3bbb23a9c87262233c451ec92ac0bb071b38"
+    },
+    {
+      "path": "inputs/windows-results/cross-platform-checkpoint/active-run.json",
+      "sha256": "538aa806d071edf38bcc3095d9d61b6e9f2cfe2902aa489557b5c4cda6294440"
+    },
+    {
+      "path": "inputs/windows-results/cross-platform-checkpoint/command.json",
+      "sha256": "692dc65bc8dc8661cdce61bff9dbe2172ad94b61d3730b12506033b5af0555db"
+    },
+    {
+      "path": "inputs/windows-results/cross-platform-checkpoint/expected.json",
+      "sha256": "cb5559f615b0cff158ac12452edda59f7fafca01319453f80e71ade03765e261"
+    },
+    {
+      "path": "inputs/review-candidate.json",
+      "sha256": "e8b488373bc4f8ffaf5b7fdb37c485b5185f305d938bf3001c1fc61a195d2e6d",
+      "generatedNotice": true
+    }
+  ],
+  "macRuntimeStatus": "NOT_RUN_ON_MAC",
+  "allowFailedWindowsPerformance": true,
+  "windowsReportSha256": "25c0df4089b9154b1c0d3f939513c42172afe7082c2eb1b24c7eb5d3062de206"
+}

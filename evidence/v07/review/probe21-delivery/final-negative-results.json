@@ -1,0 +1,272 @@
+{
+  "schema": "v07-independent-diagnostic-tool-negative-checks-1",
+  "candidateFrozenFiles": {
+    "tools/macos/v07/compare_replays.py": {
+      "beforeSha256": "2ab7d6c43ac2e6a7b154f0ddc92a6523a3fbcdd4df92ce419db08ad2de98aedc",
+      "afterSha256": "19acb2397f85f347e96a194d3965b89f5b27e8c7fda56bcdf9b085a356e6fab9"
+    },
+    "tools/package_v07.py": {
+      "beforeSha256": "2e4ca6219a1df35a3288a30ec3155d87f5f850d440416905838eea0f6de2cb2e",
+      "afterSha256": "0958bb0c14e792f85618d759659bacb6c5521ddfa9896b2f3a0c98dff9f82ae5"
+    },
+    "tools/release_v07_manifest.py": {
+      "beforeSha256": "f9325d1da3cbdc99e626b1ce3f30cfb459144909feef9d8bde0ba97ca559d5b6",
+      "afterSha256": "dd41a6a8aea14cce394c94968bdccab122fcf7d71adf8088f9a041468c647a0a"
+    },
+    "tools/publish_v07_release.py": {
+      "beforeSha256": "5b54f0436f0850d3c8ebec5df79834c4abdcdcbd30cbba4f9922c81e48f035f0",
+      "afterSha256": "96e919e2632660bc4326aaf132350c3661b0d2a5d11e187df521ab11e8289004"
+    },
+    "tools/macos/v07/verify_mac.py": {
+      "beforeSha256": "e2789f3867be56a81d316078019d6d5aaf8ecbdbaf63794b1c5b0eebfaf0d03d",
+      "afterSha256": "e942278c9065fa28fe849975d56b35c3981a45101dba2efc66e237c6e7c62a44"
+    },
+    "tools/macos/v07/VerifyMac.command": {
+      "beforeSha256": "6e42dd41d32d0b5c7aed9f6396ac1bfd82d4583be01a1e097aaad911c3b31dd2",
+      "afterSha256": "6669b176ef4b20d58db8fafbc6fcf85ac4215c4309fa2a0a35a7d35b10092270"
+    },
+    "docs/tasks/P0-V07-MAC-VERIFICATION.md": {
+      "beforeSha256": "4d116f6963653feec11c723f2186ebcdcd56a957508e27246bd580823ad4df25",
+      "afterSha256": "aee38a061d71a47ad406c8beb4e34a7b524236bbdafd12f5c21db4287f5d1f4c"
+    },
+    "tools/run_v07_windows_player.py": {
+      "beforeSha256": null,
+      "sourcePath": "artifacts/cache/v07-player-execution-plan/run_windows_player.py",
+      "sourceSha256": "974d5d8c76fc9012c3b3bd6d7c3b9dc38097143eda073df2387369da1228f034",
+      "afterSha256": "ae37c33d5697b1121d9fed3bf22a9d7dabacd5f8c6c3c07a016c65e1fcf75d56"
+    },
+    "tools/macos/v07/test_strict_failed_reference.py": {
+      "beforeSha256": null,
+      "afterSha256": "48e2bcfd6edd02a3bef40c901d2ac8d6809ef70f3ea8cb4b6fe381eaea309f85"
+    }
+  },
+  "realInputsUnchanged": {
+    "player-report.json": "7d288d278f3e86f4cab5563b335df2fc6163f6e8bddaa2e6a9949b1ca1e937e4",
+    "performance-frames.csv": "301855eb2a36be9cc8ec732c40a4f4146f0b1adfc3dd57b450d5db9c1ca92f7b",
+    "normal-replay.jsonl": "15e3f39fe5b6fae24accf44f25e0504b9a80305c7cce32fdbd3679c5df5abd11",
+    "debug24-replay.jsonl": "13b350e608dfe9bed1c87bcb7edc3bbb23a9c87262233c451ec92ac0bb071b38"
+  },
+  "cases": [
+    {
+      "case": "actual_strict_failed_only_explicit_diagnostic",
+      "accepted": true,
+      "raw": {
+        "file": "performance-frames.csv",
+        "sha256": "301855eb2a36be9cc8ec732c40a4f4146f0b1adfc3dd57b450d5db9c1ca92f7b",
+        "byteSize": 1917954,
+        "rawRows": 9430,
+        "validIntervals": 9429,
+        "excludedInitialPartialRows": 1,
+        "status": "RAW_FAILED_OBSERVATION_BOUND_NOT_ACCEPTED",
+        "focusLimitation": "No per-row focus field; reported counter is bounded by verified raw rows, not independently recomputed"
+      },
+      "notice": {
+        "status": "budget_exceeded",
+        "verificationScope": "full_or_recovery",
+        "use": "Gameplay/UI/trace reference ONLY; Windows performance FAILED; selected strict report's automated native checks passed, physical events untested",
+        "allowFailedWindowsPerformance": true,
+        "windowsPerformance": {
+          "acceptanceStatus": "FAILED",
+          "status": "budget_exceeded",
+          "observedStatus": "budget_exceeded",
+          "sampleSeconds": 180.0039497,
+          "p95FrameIntervalMs": 18.0941000000416,
+          "thresholdMs": 16.7,
+          "frames": 9429,
+          "rawObservationRows": 9430,
+          "focusedSampleFrames": 9430,
+          "gpuInvalidSamples": 0,
+          "gpuMissingSamples": 1486,
+          "requiredMetricCoverage": 0.95,
+          "metricCoverage": {
+            "mainThread": 1,
+            "gpu": 0.842401102980168,
+            "gcAllocated": 1,
+            "uiRebuild": 1
+          },
+          "measurementCoverageStatus": "INCOMPLETE_OR_UNAVAILABLE",
+          "note": "Completed FAILED budget observation. Raw counters include the initial partial row; focus is context, not visibility proof. GPU and other metric coverage gaps remain explicit and uncorrected."
+        },
+        "windowsNativeDisplayStatus": "AUTOMATED_CHECKS_PASSED_PHYSICAL_EVENTS_UNTESTED",
+        "nativeEvidenceSource": "Executed checks in selected strict main report only; not_executed checks excluded; no native-only report merged",
+        "nativeChecksNotExecuted": [
+          "crash-pending-recovery",
+          "physical-focus-loss-and-display-removal"
+        ],
+        "macRuntimeStatus": "NOT_RUN_ON_MAC",
+        "fullWindowsPassed": false,
+        "fullReleaseAccepted": false,
+        "publication": "User-authorized diagnostic test candidate; no performance, physical native-event or whole-release acceptance"
+      }
+    },
+    {
+      "case": "lowered_coverage_threshold",
+      "rejected": true,
+      "failures": [
+        {
+          "side": "windows",
+          "reason": "changed_metric_coverage_threshold"
+        }
+      ],
+      "coverageNotice": "INCOMPLETE_OR_UNAVAILABLE"
+    },
+    {
+      "case": "coverage_above_one",
+      "rejected": true,
+      "failures": [
+        {
+          "side": "windows",
+          "reason": "inconsistent_metric_coverage",
+          "field": "mainThread"
+        }
+      ],
+      "coverageNotice": "INCOMPLETE_OR_UNAVAILABLE"
+    },
+    {
+      "case": "sample_count_disagrees_with_coverage",
+      "rejected": true,
+      "failures": [
+        {
+          "side": "windows",
+          "reason": "inconsistent_metric_coverage",
+          "field": "gcAllocated"
+        }
+      ],
+      "coverageNotice": "INCOMPLETE_OR_UNAVAILABLE"
+    },
+    {
+      "case": "gpu_marked_unavailable_with_samples",
+      "rejected": true,
+      "failures": [
+        {
+          "side": "windows",
+          "reason": "inconsistent_metric_coverage",
+          "field": "gpu"
+        }
+      ],
+      "coverageNotice": "INCOMPLETE_OR_UNAVAILABLE"
+    },
+    {
+      "case": "focus_exceeds_verified_raw_rows",
+      "rejected": true,
+      "failures": [
+        {
+          "side": "windows",
+          "reason": "missing_or_invalid_performance_observation",
+          "field": "focusedSampleFrames"
+        }
+      ],
+      "coverageNotice": "INCOMPLETE_OR_UNAVAILABLE"
+    },
+    {
+      "case": "raw_frame_count_not_valid_plus_one",
+      "rejected": true,
+      "failures": [
+        {
+          "side": "windows",
+          "reason": "raw_partial_frame_count_inconsistent"
+        },
+        {
+          "side": "windows",
+          "reason": "missing_or_invalid_performance_observation",
+          "field": "focusedSampleFrames"
+        }
+      ],
+      "coverageNotice": "INCOMPLETE_OR_UNAVAILABLE"
+    },
+    {
+      "case": "short_sample",
+      "rejected": true,
+      "failures": [
+        {
+          "side": "windows",
+          "reason": "diagnostic_performance_run_incomplete_or_not_failed_budget"
+        }
+      ],
+      "coverageNotice": "INCOMPLETE_OR_UNAVAILABLE"
+    },
+    {
+      "case": "not_completed",
+      "rejected": true,
+      "failures": [
+        {
+          "side": "windows",
+          "reason": "not_explicit_completed_failed_performance_reference"
+        }
+      ],
+      "coverageNotice": "INCOMPLETE_OR_UNAVAILABLE"
+    },
+    {
+      "case": "failure_payload",
+      "rejected": true,
+      "failures": [
+        {
+          "side": "windows",
+          "reason": "not_explicit_completed_failed_performance_reference"
+        }
+      ],
+      "coverageNotice": "INCOMPLETE_OR_UNAVAILABLE"
+    },
+    {
+      "case": "missing_actual_config_hash",
+      "rejected": true,
+      "failures": [
+        {
+          "side": "windows",
+          "reason": "invalid_hash",
+          "field": "configSha256"
+        },
+        {
+          "side": "windows",
+          "reason": "invalid_embedded_identity"
+        }
+      ],
+      "coverageNotice": "INCOMPLETE_OR_UNAVAILABLE"
+    },
+    {
+      "case": "failed_ui",
+      "rejected": true,
+      "failures": [
+        {
+          "side": "windows",
+          "reason": "v07_ui_sections_missing_or_failed"
+        }
+      ],
+      "coverageNotice": "INCOMPLETE_OR_UNAVAILABLE"
+    },
+    {
+      "case": "wrong_confirmed_window_height",
+      "rejected": true,
+      "failures": [
+        {
+          "side": "windows",
+          "reason": "native_resolution_sections_missing_or_failed",
+          "id": "window-1280x720"
+        }
+      ],
+      "coverageNotice": "INCOMPLETE_OR_UNAVAILABLE"
+    },
+    {
+      "case": "raw_gpu_missing_count_mismatch",
+      "rejected": true,
+      "error": "Raw GPU observation count differs: gpuMissingSamples"
+    },
+    {
+      "case": "raw_p95_mismatch",
+      "rejected": true,
+      "error": "Raw CSV differs from reported frame interval p95"
+    },
+    {
+      "case": "missing_csv",
+      "rejected": true,
+      "error": "[Errno 2] No such file or directory: 'E:\\\\agent_workspace\\\\gpt\\\\game2\\\\artifacts\\\\cache\\\\v07-probe21-delivery-review\\\\tmp\\\\tmpfsf1xw03\\\\performance-frames.csv'"
+    },
+    {
+      "case": "truncated_csv",
+      "rejected": true,
+      "error": "Raw CSV count differs from valid intervals plus exactly one initial partial row"
+    }
+  ],
+  "caseCount": 17,
+  "scope": "Python consumers and synthetic negative mutations only; no Player, Editor, network or publication"
+}

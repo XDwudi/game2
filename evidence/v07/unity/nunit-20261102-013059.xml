@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="2" result="Failed(Child)" total="2" passed="0" failed="2" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-11-02 01:30:56Z" end-time="2026-11-02 01:30:59Z" duration="2.8393668">
+  <test-suite type="TestSuite" id="1166" name="DiceCraft P0" fullname="DiceCraft P0" runstate="Runnable" testcasecount="157" result="Failed" site="Child" start-time="2026-11-02 01:30:56Z" end-time="2026-11-02 01:30:59Z" duration="2.839367" total="2" passed="0" failed="2" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <failure>
+      <message><![CDATA[One or more child tests had errors]]></message>
+    </failure>
+    <test-suite type="Assembly" id="1160" name="DiceCraft.PlayModeTests.dll" fullname="E:/agent_workspace/gpt/game2/DicePrototype/Library/ScriptAssemblies/DiceCraft.PlayModeTests.dll" runstate="Runnable" testcasecount="157" result="Failed" site="Child" start-time="2026-11-02 01:30:56Z" end-time="2026-11-02 01:30:59Z" duration="2.828518" total="2" passed="0" failed="2" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="30916" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <failure>
+        <message><![CDATA[One or more child tests had errors]]></message>
+      </failure>
+      <test-suite type="TestSuite" id="1161" name="DiceCraft" fullname="DiceCraft" runstate="Runnable" testcasecount="157" result="Failed" site="Child" start-time="2026-11-02 01:30:56Z" end-time="2026-11-02 01:30:59Z" duration="2.826067" total="2" passed="0" failed="2" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <failure>
+          <message><![CDATA[One or more child tests had errors]]></message>
+        </failure>
+        <test-suite type="TestSuite" id="1162" name="Tests" fullname="DiceCraft.Tests" runstate="Runnable" testcasecount="157" result="Failed" site="Child" start-time="2026-11-02 01:30:56Z" end-time="2026-11-02 01:30:59Z" duration="2.823596" total="2" passed="0" failed="2" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <failure>
+            <message><![CDATA[One or more child tests had errors]]></message>
+          </failure>
+          <test-suite type="TestFixture" id="1001" name="GameplayPlayModeTests" fullname="DiceCraft.Tests.GameplayPlayModeTests" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" testcasecount="155" result="Failed" site="Child" start-time="2026-11-02 01:30:56Z" end-time="2026-11-02 01:30:59Z" duration="2.820604" total="2" passed="0" failed="2" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <failure>
+              <message><![CDATA[One or more child tests had errors]]></message>
+            </failure>
+            <test-case id="1066" name="PLAY_ART07_ModalExitGpuActualDebug32RetainsGlyphsNormalAndReduced" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_ModalExitGpuActualDebug32RetainsGlyphsNormalAndReduced" methodname="PLAY_ART07_ModalExitGpuActualDebug32RetainsGlyphsNormalAndReduced" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="354808332" result="Failed" start-time="2026-11-02 01:30:56Z" end-time="2026-11-02 01:30:58Z" duration="1.860642" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <failure>
+                <message><![CDATA[  DialogTitle tail/source RGB error: 调
+  Expected: less than or equal to 2.0f
+  But was:  109.833336f
+]]></message>
+                <stack-trace><![CDATA[at DiceCraft.Tests.GameplayPlayModeTests+<ModalExitGlyphPixels07>d__178.MoveNext () [0x0075d] in E:\agent_workspace\gpt\game2\DicePrototype\Assets\Game\Tests\PlayMode\Art07PanelGlyphPlayModeTests.cs:156
+at UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\Library\PackageCache\com.unity.test-framework@ee3fe9477490\UnityEngine.TestRunner\NUnitExtensions\Attributes\TestEnumerator.cs:52
+]]></stack-trace>
+              </failure>
+              <output><![CDATA[Real source/closed-panel tail GPU evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_a3859624df10435197630bd979fda179\art07-modal-exit-gpu\actual-debug32-normal-42
+Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_a3859624df10435197630bd979fda179
+]]></output>
+            </test-case>
+            <test-case id="1067" name="PLAY_ART07_ModalExitGpuFallbackAtlasSurvivesSourceCloseAndReusesOwnedMaterials" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_ModalExitGpuFallbackAtlasSurvivesSourceCloseAndReusesOwnedMaterials" methodname="PLAY_ART07_ModalExitGpuFallbackAtlasSurvivesSourceCloseAndReusesOwnedMaterials" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="2077096853" result="Failed" start-time="2026-11-02 01:30:58Z" end-time="2026-11-02 01:30:59Z" duration="0.939058" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <failure>
+                <message><![CDATA[  DialogTitle tail/source RGB error: H
+  Expected: less than or equal to 2.0f
+  But was:  120.247864f
+]]></message>
+                <stack-trace><![CDATA[at DiceCraft.Tests.GameplayPlayModeTests+<ModalExitGlyphPixels07>d__178.MoveNext () [0x0075d] in E:\agent_workspace\gpt\game2\DicePrototype\Assets\Game\Tests\PlayMode\Art07PanelGlyphPlayModeTests.cs:156
+at UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\Library\PackageCache\com.unity.test-framework@ee3fe9477490\UnityEngine.TestRunner\NUnitExtensions\Attributes\TestEnumerator.cs:52
+]]></stack-trace>
+              </failure>
+              <output><![CDATA[Real source/closed-panel tail GPU evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_ca053fb63bb54c5b8ea0099f7044238e\art07-modal-exit-gpu\actual-debug32-two-atlases-cycle0-72
+Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_ca053fb63bb54c5b8ea0099f7044238e
+Saving results to: E:\agent_workspace\gpt\game2\evidence\v07\unity\nunit-20261102-013059.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

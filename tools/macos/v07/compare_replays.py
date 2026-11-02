@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Compare actual Windows/macOS Player evidence. Uses only Python's standard library."""
 import argparse
+import csv
 import hashlib
 import json
 import math
@@ -209,6 +210,11 @@ def validate_windows_review_reference(report):
     return failures
 
 
+def uses_strict_failed_performance_reference(report):
+    """Scope selector only; callers must still run all reference validators."""
+    return report.get("verificationScope") == "full_or_recovery" and report.get("nativeDisplayDeferred") is False
+
+
 def validate_windows_failed_performance_reference(report):
     """Diagnostic gameplay reference with a completed, FAILED performance run.
 
@@ -216,15 +222,19 @@ def validate_windows_failed_performance_reference(report):
     accept an incomplete run, a differently failed probe, or pretend a pass.
     """
     import math
-    failures = [row for row in validate_windows_review_reference(report) if row["reason"] not in
-                {"not_explicit_completed_review_reference", "pressure_gate_not_met"}]
+    strict = uses_strict_failed_performance_reference(report)
+    failures = [row for row in (validate_report(report, "windows") if strict else validate_windows_review_reference(report))
+                if row["reason"] not in ({"player_did_not_pass", "pressure_gate_not_met"} if strict else
+                                         {"not_explicit_completed_review_reference", "pressure_gate_not_met"})]
     diagnostic_ui = (REQUIRED_V07_CHECKS - {"display-state-isolation"}) | {
         "handbook-independent-color-tab", "wheel-reach-AddC53", "wheel-reach-RemoteDieD031",
         "wheel-reach-Target_D032", "wheel-reach-OrderCardITEM_00014", "long-mimic-chain-destroyed-owner-ui"}
     if not diagnostic_ui.issubset({row.get("id") for row in report.get("uiChecks") or []}):
         failures.append({"side": "windows", "reason": "diagnostic_gameplay_ui_coverage_incomplete"})
-    if (report.get("status") != "budget_exceeded" or report.get("verificationScope") != REVIEW_SCOPE
-            or report.get("nativeDisplayDeferred") is not True or type(report.get("exitCode")) is not int
+    if (report.get("status") != "budget_exceeded"
+            or (strict and (report.get("phase") != "Completed" or report.get("stressCompleted") is not True))
+            or (not strict and (report.get("verificationScope") != REVIEW_SCOPE or report.get("nativeDisplayDeferred") is not True))
+            or type(report.get("exitCode")) is not int
             or report["exitCode"] != 3 or report.get("failure") is not None):
         failures.append({"side": "windows", "reason": "not_explicit_completed_failed_performance_reference"})
     perf = report.get("performance") or {}
@@ -240,9 +250,26 @@ def validate_windows_failed_performance_reference(report):
             or interval.get("available") is not True or interval.get("samples") != frames
             or interval.get("expectedFrames") != frames or interval.get("validFrameCoverage") != 1):
         failures.append({"side": "windows", "reason": "diagnostic_performance_run_incomplete_or_not_failed_budget"})
+    if strict:
+        if perf.get("requiredMetricCoverage") != .95:
+            failures.append({"side": "windows", "reason": "changed_metric_coverage_threshold"})
+        for key in ("mainThread", "gpu", "gcAllocated", "uiRebuild"):
+            metric = perf.get(key) or {}
+            count, coverage = metric.get("samples"), metric.get("validFrameCoverage")
+            if (type(frames) is not int or frames <= 0 or type(count) is not int or not 0 <= count <= frames
+                    or metric.get("expectedFrames") != frames or metric.get("available") is not (count > 0)
+                    or not finite(coverage) or not 0 <= coverage <= 1 or not math.isclose(coverage, count / frames, rel_tol=1e-9, abs_tol=1e-9)):
+                failures.append({"side": "windows", "reason": "inconsistent_metric_coverage", "field": key})
+    raw_rows = (perf.get("independentFrameClocks") or {}).get("rawRowsIncludingInitialPartialInterval")
+    raw_bound = frames
+    if strict or raw_rows is not None:
+        if type(raw_rows) is not int or type(frames) is not int or raw_rows != frames + 1:
+            failures.append({"side": "windows", "reason": "raw_partial_frame_count_inconsistent"})
+        else:
+            raw_bound = raw_rows
     for key in ("focusedSampleFrames", "gpuInvalidSamples", "gpuMissingSamples"):
         value = perf.get(key)
-        if type(value) is not int or value < 0 or type(frames) is not int or value > frames:
+        if type(value) is not int or value < 0 or type(raw_bound) is not int or value > raw_bound:
             failures.append({"side": "windows", "reason": "missing_or_invalid_performance_observation", "field": key})
     return failures
 
@@ -257,25 +284,102 @@ def validate_windows_reference(report, review_candidate=False, allow_failed_wind
 
 def failed_performance_notice(report):
     perf = report["performance"]
+    coverage = {key: (perf.get(key) or {}).get("validFrameCoverage") for key in ("mainThread", "gpu", "gcAllocated", "uiRebuild")}
+    required = perf.get("requiredMetricCoverage")
+    complete = (required == .95 and all(type(value) in (int, float) and math.isfinite(value) and .95 <= value <= 1 for value in coverage.values()))
     return {"acceptanceStatus": "FAILED", "status": perf["status"], "observedStatus": perf["status"], "sampleSeconds": perf["sampleSeconds"],
             "p95FrameIntervalMs": perf["frameInterval"]["p95"], "thresholdMs": 16.7, "frames": perf["frameCount"],
+            "rawObservationRows": (perf.get("independentFrameClocks") or {}).get("rawRowsIncludingInitialPartialInterval"),
             "focusedSampleFrames": perf["focusedSampleFrames"], "gpuInvalidSamples": perf["gpuInvalidSamples"],
-            "gpuMissingSamples": perf["gpuMissingSamples"],
-            "note": "Completed observation, not a performance pass or pending result. Focus and GPU anomalies remain uncorrected evidence."}
+            "gpuMissingSamples": perf["gpuMissingSamples"], "requiredMetricCoverage": required, "metricCoverage": coverage,
+            "measurementCoverageStatus": "COMPLETE_AS_REPORTED" if complete else "INCOMPLETE_OR_UNAVAILABLE",
+            "note": "Completed FAILED budget observation. Raw counters include the initial partial row; focus is context, not visibility proof. GPU and other metric coverage gaps remain explicit and uncorrected."}
 
 
 def review_reference_notice(report, allow_failed_windows_performance=False):
     if allow_failed_windows_performance:
+        strict = uses_strict_failed_performance_reference(report)
         return {"status": report.get("status"), "verificationScope": report.get("verificationScope"),
-                "use": "Gameplay/UI/trace reference ONLY; Windows performance FAILED and native P22 NOT PASSED",
+                "use": "Gameplay/UI/trace reference ONLY; Windows performance FAILED; " + ("selected strict report's automated native checks passed, physical events untested" if strict else "native P22 NOT PASSED"),
                 "allowFailedWindowsPerformance": True, "windowsPerformance": failed_performance_notice(report),
-                "windowsNativeDisplayStatus": "PENDING_P22_NOT_PASSED", "macRuntimeStatus": "NOT_RUN_ON_MAC",
-                "fullWindowsPassed": False, "fullReleaseAccepted": False,
-                "publication": "User-authorized diagnostic test candidate; no performance, native-display or whole-release acceptance"}
+                "windowsNativeDisplayStatus": "AUTOMATED_CHECKS_PASSED_PHYSICAL_EVENTS_UNTESTED" if strict else "PENDING_P22_NOT_PASSED",
+                "nativeEvidenceSource": "Executed checks in selected strict main report only; not_executed checks excluded; no native-only report merged" if strict else "Selected explicitly deferred report; no native pass inferred",
+                "nativeChecksNotExecuted": [row.get("id") for row in report.get("displayChecks") or [] if row.get("status") == "not_executed"],
+                "macRuntimeStatus": "NOT_RUN_ON_MAC", "fullWindowsPassed": False, "fullReleaseAccepted": False,
+                "publication": "User-authorized diagnostic test candidate; no performance, physical native-event or whole-release acceptance"}
     return {"status": report.get("status"), "verificationScope": report.get("verificationScope"),
             "use": "Gameplay/UI/trace/performance reference only", "windowsNativeDisplayStatus": "PENDING_P22_NOT_PASSED",
             "fullWindowsPassed": False, "fullReleaseAccepted": False,
             "publication": "User-authorized test candidate channel; technical scope remains restricted and the full release is not accepted"}
+
+
+def diagnostic_release_status(report):
+    return "DIAGNOSTIC_TEST_CANDIDATE_WINDOWS_PERFORMANCE_FAILED" + ("" if uses_strict_failed_performance_reference(report) else "_NATIVE_PENDING")
+
+
+def validate_failed_performance_csv(report, directory):
+    """Bind a strict FAILED diagnostic to the unedited raw CSV, never to a pass.
+
+    Existing deferred references keep their historical contract. Strict diagnostic
+    references require this extra raw evidence at every directory-level consumer.
+    No per-row focus column exists: its reported count is range-checked only.
+    """
+    if not uses_strict_failed_performance_reference(report):
+        return None
+    failures = validate_windows_failed_performance_reference(report)
+    if failures:
+        raise ValueError("Invalid strict failed-performance reference: " + repr(failures))
+    perf = report["performance"]
+    path = Path(directory) / "performance-frames.csv"
+    with path.open(encoding="utf-8-sig", newline="") as stream:
+        rows = list(csv.DictReader(stream))
+    raw_rows = perf["independentFrameClocks"]["rawRowsIncludingInitialPartialInterval"]
+    if len(rows) != raw_rows or raw_rows != perf["frameCount"] + 1 or raw_rows < 2:
+        raise ValueError("Raw CSV count differs from valid intervals plus exactly one initial partial row")
+    fields = {"frame", "elapsed_s", "interval_ms", "gpu_ms", "gpu_sample_status"}
+    if any(not fields.issubset(row) or None in row for row in rows):
+        raise ValueError("Raw CSV columns are missing or rows malformed")
+    def number(row, field):
+        value = float(row[field])
+        if not math.isfinite(value):
+            raise ValueError("Non-finite raw " + field)
+        return value
+    frames = [int(row["frame"]) for row in rows]
+    elapsed = [number(row, "elapsed_s") for row in rows]
+    intervals = [number(row, "interval_ms") for row in rows]
+    if any(b != a + 1 for a, b in zip(frames, frames[1:])) or elapsed[0] < 0 or any(value <= 0 for value in intervals):
+        raise ValueError("Raw CSV frame sequence or intervals invalid")
+    if any(b <= a or not math.isclose((b-a)*1000, intervals[i+1], rel_tol=1e-8, abs_tol=1e-5) for i, (a, b) in enumerate(zip(elapsed, elapsed[1:]))):
+        raise ValueError("Raw CSV interval/elapsed clocks disagree")
+    if not elapsed[-1] <= perf["sampleSeconds"] + 1e-6 or perf["sampleSeconds"] - elapsed[-1] > max(intervals)/1000 + .01:
+        raise ValueError("Raw CSV does not cover the reported measured interval")
+    metric = perf["frameInterval"]
+    valid = sorted(intervals[1:])
+    for key, expected in (("p50", valid[math.ceil(len(valid)*.5)-1]), ("p95", valid[math.ceil(len(valid)*.95)-1]), ("mean", sum(valid)/len(valid)), ("max", valid[-1])):
+        if type(metric.get(key)) not in (int, float) or not math.isclose(metric[key], expected, rel_tol=1e-9, abs_tol=1e-6):
+            raise ValueError("Raw CSV differs from reported frame interval " + key)
+    status = [int(row["gpu_sample_status"]) for row in rows]
+    if any(value not in range(6) for value in status):
+        raise ValueError("Raw GPU status outside probe legend")
+    for key, expected in (("gpuInvalidSamples", sum(value in (3,4) for value in status)), ("gpuMissingSamples", sum(value in (0,2,5) for value in status))):
+        if perf.get(key) != expected:
+            raise ValueError("Raw GPU observation count differs: " + key)
+    gpu = []
+    for row, state in zip(rows[1:], status[1:]):
+        if state == 1:
+            value = number(row, "gpu_ms")
+            if value <= 0: raise ValueError("Valid raw GPU sample is non-positive")
+            gpu.append(value)
+        elif row["gpu_ms"]:
+            raise ValueError("Unavailable raw GPU sample unexpectedly contains an accepted duration")
+    metric = perf.get("gpu") or {}
+    if (metric.get("samples") != len(gpu) or metric.get("expectedFrames") != len(valid)
+            or metric.get("available") is not bool(gpu) or type(metric.get("validFrameCoverage")) not in (int, float)
+            or not math.isclose(metric["validFrameCoverage"], len(gpu)/len(valid), rel_tol=1e-9, abs_tol=1e-9)):
+        raise ValueError("Raw GPU coverage differs from the report")
+    return {"file": path.name, "sha256": sha256(path), "byteSize": path.stat().st_size, "rawRows": len(rows),
+            "validIntervals": len(valid), "excludedInitialPartialRows": 1, "status": "RAW_FAILED_OBSERVATION_BOUND_NOT_ACCEPTED",
+            "focusLimitation": "No per-row focus field; reported counter is bounded by verified raw rows, not independently recomputed"}
 
 
 def validate_trace_replay(report, directory, normal_path, debug_path):
@@ -385,6 +489,11 @@ def compare_directories(windows_dir, mac_dir, review_candidate=False, allow_fail
             failures.append({"field": "buildIdentity." + key, "windows": identities[0].get(key), "macOS": identities[1].get(key)})
     for side, report in (("windows", windows), ("macOS", mac)):
         failures.extend(validate_windows_reference(report, review_candidate, allow_failed_windows_performance) if side == "windows" else validate_report(report, side))
+    if allow_failed_windows_performance and uses_strict_failed_performance_reference(windows):
+        try:
+            validate_failed_performance_csv(windows, windows_dir)
+        except (ValueError, OSError, TypeError, KeyError) as error:
+            failures.append({"side": "windows", "reason": "raw_failed_performance_evidence_invalid", "detail": str(error)})
     normal = compare_stream(load_rows(windows_dir / "normal-replay.jsonl"), load_rows(mac_dir / "normal-replay.jsonl"), NORMAL_FIELDS, "normal")
     debug = compare_stream(load_rows(windows_dir / "debug24-replay.jsonl"), load_rows(mac_dir / "debug24-replay.jsonl"), DEBUG_FIELDS, "debug24")
     for side, report, directory in (("windows", windows, windows_dir), ("macOS", mac, mac_dir)):

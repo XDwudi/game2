@@ -1,12 +1,14 @@
 # P0-004 v0.7 — M5 实机验收与最终 Mac 封装
 
-状态：工具与操作说明已准备，真实 v0.7 Mac 运行及人工验收待执行。本文不预填任何平台通过结果。具体包状态、Windows 原始报告和已知失败以同包 manifest / REVIEW_CANDIDATE.json 为准；v0.6 的历史失败不能当作 v0.7 的新测量或通过。
+状态：源码 `dca7a26` 的工具与操作说明已准备；真实 v0.7 Mac 运行及人工验收待执行。本文不预填Mac通过结果。具体包状态、Windows 原始报告和已知失败以同包 manifest / REVIEW_CANDIDATE.json 为准。
 
 输入：`docs/specs/v07/ART_SPEC.md`、`P0-V07-ART.md` 全部 ART01–22、UI01–32、FX01–13，并保留 v0.6 原玩法与平台标准。发行 p0.7.0；美术 art0.7.0；规则 p0.6.0 / 存档 schema4；Unity 6000.6.7f1 / Mono。测试对象是用户的 M5，实际 OS、CPU、GPU、进程架构由脚本记录。Windows 交叉构建和离线工具测试不代表 Mac 通过。
 
 主协调者提供同一冻结源的 Windows/Mac 构建、真实 Windows 报告和两份规则轨迹；用户在 M5 运行并做人工检查，独立审查者审阅原始证据。正常/调试轨迹可使用已核对未变的 p0.6.0 输入，仍必须由本版 Player 逐条重新执行。
 
 正式工具默认完整原生显示及 180 秒/P95≤16.7ms 性能标准。若包明确包含受限候选说明，Windows 参考只按其已测范围比较，失败观察原样保留；Mac 本身仍须完整严格验收。脚本不会把受限状态改成整版 ACCEPTED。
+
+本次Windows参考来自 `player-dca7a26-0234/native-deferred-independent/player-20261102-023622-9ef3d5e7`：普通145步、Debug24的175步回放完成；180.005549秒、10115帧压力采样P95 16.7929ms，性能失败，GPU有效覆盖95.6401%达到95%要求。该参考显式跳过原生显示；另两次严格/显示专项的独占全屏请求均未达到可确认状态，并回退到窗口模式，测试仍失败，原因未确定。跨进程显示恢复另有通过证据，不提升为完整Windows通过，也不预判Mac结果。同源Windows资源诊断另采稳定10骰桌面20.002秒、1200有效帧，其中1199帧零GC、1帧132B；10个普通骰体1880三角面。构建、普通存档、游戏与引擎显示偏好外部守卫未变。该诊断不涵盖最高档特效、完整资源峰值、UI延迟或Mac，不替代正式180秒性能。
 
 ## 收到的完整工具包
 
@@ -26,6 +28,7 @@ DicePrototype-MacVerification/
       player-report.json
       normal-replay.jsonl
       debug24-replay.jsonl
+      performance-frames.csv     # 完整 strict 性能失败参考时必需
       cross-platform-checkpoint/
         active-run.json
         command.json
@@ -34,9 +37,11 @@ DicePrototype-MacVerification/
 
 `inputs` 由真实产物填入；源码脚本不附预填通过结果。包内两个轨迹均须与 Windows Player 报告的 SHA-256 完全相同。正常轨迹允许实际失败；debug24 是独立的 24 关、23 商店、8 风险关流程测试，不是难度或胜率证明。
 
+完整 strict Windows 报告若已完成玩法、UI 与自动原生显示检查，但性能超标，可以作为明确标为 `FAILED` 的诊断参考；其原始 `performance-frames.csv` 必须随包提供，工具核对有效区间加一个初始部分帧、帧时统计、GPU 缺样与覆盖率。焦点计数包含初始部分帧，CSV 没有逐帧焦点列，因此该计数仅作有界上下文，不能当作窗口可见性证明。自动原生检查通过只来自所选完整报告，不能用另一次 native-only 结果拼接通过；物理焦点/显示器变更与整版验收仍未完成。若 Windows 参考显式跳过原生检查，则原生显示继续标为待验。以上两类参考均不降低 Mac 的原门槛。
+
 ## 在 M5 上运行
 
-需要 Python 3.9+；不要求 Unity、Blender、Rosetta 或第三方 Python 包。脚本不安装软件。打开终端，输入 `bash `（末尾保留空格），将 `VerifyMac.command` 拖到终端后回车。完整工具包无需额外参数；通过 bash 启动不依赖脚本自己的执行位。
+先完整解压 `DicePrototype-p0.7.0-MacVerificationKit.zip`；其中已含同版Mac包，无需另下。需要 Python 3.9+；不要求 Unity、Blender、Rosetta 或第三方 Python 包。脚本不安装软件。打开终端，输入 `bash `（末尾保留空格），将 `VerifyMac.command` 拖到终端后回车。完整工具包无需额外参数；通过 bash 启动不依赖脚本自己的执行位。
 
 保持电源、游戏窗口可见；自动阶段不要操作、最小化或运行另一份探针。脚本会生成桌面的全新结果目录，完整自动过程含真实显示模式切换/15秒超时、正常和 debug24 轨迹、分辨率截图及至少180秒压力采样，需数分钟。已有包、结果、用户普通存档及其他进程不覆盖。
 
@@ -113,3 +118,5 @@ python tools/macos/v07/compare_replays.py --windows-results <真实Windows目录
 ```
 
 合成测试仅验证解析、拒绝、比较、凭据重定向与版本绑定逻辑，不产生Mac通过证据。脚本不上传GitHub、不代签人工结论。主探针中的独立进程恢复项仍保留not_executed原值，脚本另外执行writer/reader并绑定其实际receipt，不改原报告冒充通过。物理显示拔插和焦点变化仍需人工；不能用组件重建冒充系统重启。
+
+本源已修复调试面板退出的矩形字块，1013项Edit与158项Play完整回归通过；本轮9张Player图的独立实看中，严格/参考运行的Debug32退出过渡未再出现该缺陷。真实AudioMixer、62项公共Krita原生重开补证、M5与Intel运行及人工美术体验仍未完成；本节仅记录当前边界，不改变上表验收条件。

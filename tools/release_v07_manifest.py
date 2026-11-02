@@ -7,12 +7,14 @@ from pathlib import Path
 from package_v07 import (ROOT, RELEASE, GATE, VERSION, TAG, read_json, sha, record, relative,
                          validated_gate, validate_build, validate_windows_report, check_package,
                          package_proof_name, kit_proof_name, release_manifest_path, candidate_notice)
-from macos.v07.compare_replays import validate_recovery, review_reference_notice, failed_performance_notice
+from macos.v07.compare_replays import (validate_recovery, review_reference_notice, failed_performance_notice,
+                                      uses_strict_failed_performance_reference, diagnostic_release_status, validate_failed_performance_csv)
 
 
 def create_manifest(windows_results, windows_build, macos_build, display_recovery=None, review_candidate=False, allow_failed_windows_performance=False):
     identity, _, tests = validated_gate()
     report = validate_windows_report(windows_results, identity, review_candidate, allow_failed_windows_performance)
+    strict_diagnostic = allow_failed_windows_performance and uses_strict_failed_performance_reference(report)
     if display_recovery is not None:
         recovery = validate_recovery(display_recovery, identity)
         if recovery["environment"].get("platform") != "WindowsPlayer":
@@ -45,9 +47,9 @@ def create_manifest(windows_results, windows_build, macos_build, display_recover
             "buildReport": {"path": relative(build_path), "sha256": sha(build_path)},
             "packageEvidence": {"path": relative(proof_path), "sha256": sha(proof_path)},
             "signingStatus": "No signing claim: inspect actual platform signature evidence",
-            "smokeStatus": ("GAMEPLAY_UI_ONLY_PERFORMANCE_FAILED_NATIVE_PENDING" if allow_failed_windows_performance else
+            "smokeStatus": (("GAMEPLAY_UI_NATIVE_AUTOMATED_PERFORMANCE_FAILED" if strict_diagnostic else "GAMEPLAY_UI_ONLY_PERFORMANCE_FAILED_NATIVE_PENDING") if allow_failed_windows_performance else
                             "AUTOMATED_GAMEPLAY_UI_PERF_ONLY_NATIVE_DISPLAY_PENDING" if review_candidate else "AUTOMATED_WINDOWS_PASSED") if platform == "windows" else "NOT_RUN_ON_MAC",
-            "packagingStatus": "CRC and safe archive paths verified; fresh remote extraction/runtime verified separately" if platform == "windows" else
+            "packagingStatus": "CRC and safe archive paths verified; fresh remote extraction/runtime pending separate verification" if platform == "windows" else
                                "Windows-created transfer candidate; native ditto/fresh-extraction/Metal/M5 run pending",
             "intelRuntimeStatus": "not_applicable" if platform == "windows" else "NOT_TESTED: x86_64 slice included; runtime unverified"})
     kit = read_json(ROOT / "evidence/v07/packages" / kit_proof_name(review_candidate))
@@ -67,6 +69,9 @@ def create_manifest(windows_results, windows_build, macos_build, display_recover
         raise ValueError("M5 kit Player report changed")
     if trace_inputs.get("inputs/macos.zip") != platforms[1]["sha256"]:
         raise ValueError("M5 kit contains a different Mac transfer package")
+    raw_proof = validate_failed_performance_csv(report, windows_results) if strict_diagnostic else None
+    if raw_proof and trace_inputs.get("inputs/windows-results/performance-frames.csv") != raw_proof["sha256"]:
+        raise ValueError("M5 kit is missing the bound strict diagnostic raw CSV")
     perf = report["performance"]
     manifest = {"schema": "v07-restricted-review-candidate-1" if review_candidate else "v07-release-candidate-1", **identity, "releaseTag": TAG,
         "reviewCandidate": review_candidate, "fullReleaseAccepted": False,
@@ -91,12 +96,15 @@ def create_manifest(windows_results, windows_build, macos_build, display_recover
     if review_candidate:
         manifest["windowsReference"] = review_reference_notice(report, allow_failed_windows_performance)
         manifest["deliveryAuthorization"] = "User-authorized GitHub test-candidate channel; explicit review switches prevent accidental scope claims, not an additional user approval"
-        manifest["requiredBeforeFullAcceptance"].insert(0, "Windows P22 native display and display-state isolation, including independent recovery when pending")
+        manifest["requiredBeforeFullAcceptance"].insert(0, "Windows physical focus/display removal remains untested; selected strict automated checks are not full native acceptance" if strict_diagnostic else "Windows P22 native display and display-state isolation, including independent recovery when pending")
     if allow_failed_windows_performance:
         manifest.update(schema="v07-diagnostic-review-candidate-1", allowFailedWindowsPerformance=True,
-                        releaseStatus="DIAGNOSTIC_TEST_CANDIDATE_WINDOWS_PERFORMANCE_FAILED_NATIVE_PENDING",
+                        releaseStatus=diagnostic_release_status(report),
                         windowsPerformance=failed_performance_notice(report))
         manifest["windowsPerformance"]["originalPerformanceReport"] = perf
+        if raw_proof: manifest["windowsPerformanceRawEvidence"] = raw_proof
+        if strict_diagnostic and recovery["status"] != "passed":
+            manifest["requiredBeforeFullAcceptance"].insert(0, "Windows separate-process display recovery pending; selected main report does not establish this check")
         manifest["requiredBeforeFullAcceptance"].insert(0, "Windows performance FAILED: repeat the unchanged 180-second/P95<=16.7ms condition with valid focus/timing evidence")
         manifest = {"diagnosticSummary": review_reference_notice(report, True), **manifest}
     target = release_manifest_path(review_candidate)
