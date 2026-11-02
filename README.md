@@ -8,7 +8,7 @@
 
 ## 当前原型
 
-- **v0.7 开发中，尚未发布或通过整版验收。** 输入见 [美术开发规格](docs/specs/v07/ART_SPEC.md)，进度、实际运行证据及剩余项见 [STATE](docs/STATE.md)。当前下载仍是以下历史版本。
+- **v0.7 诊断测试候选已发布，整版仍未验收通过。** [GitHub p0.7.0-rc.1](https://github.com/XDwudi/game2/releases/tag/p0.7.0-rc.1)提供Windows、Mac Universal与M5工具包；三附件已完整下载核验，Windows已做新目录隔离启动。1013项Edit、158项Play通过；Windows性能/原生显示、AudioMixer、Mac与人工待验。详见[交付说明](docs/DELIVERY_V07.md)和[STATE](docs/STATE.md)。输入见[美术开发规格](docs/specs/v07/ART_SPEC.md)，以下为历史版本。
 - v0.6 诊断测试版已在 [GitHub p0.6.0-rc.1](https://github.com/XDwudi/game2/releases/tag/p0.6.0-rc.1) 提供Windows、Mac和M5验收工具包三个附件；已全量远程下载和新目录启动/存档恢复核验。797项EditMode、30项PlayMode及玩法/UI回放通过；Windows独占全屏、性能未通过，Mac/人工待验，整版未ACCEPTED。详见 [v0.6交付说明](docs/DELIVERY_V06.md)。
 - v0.5 请看 [交付说明](docs/DELIVERY_V05.md) 与 [STATE](docs/STATE.md)；Windows、macOS与M5验收工具包已共同上传至 [GitHub预发布附件](https://github.com/XDwudi/game2/releases/tag/p0.5.0-rc.1)，三个完整下载均已核对SHA与ZIP完整性。用户已授权此渠道替代LFS。Windows 技术检查通过，Mac 实机待验。旧版 [交付说明](docs/DELIVERY.md) 和 `Builds/Windows/DiceCraft.exe` 仅为 v0.4 历史产物。
 - [运行、开发与复现说明](DicePrototype/README.md)

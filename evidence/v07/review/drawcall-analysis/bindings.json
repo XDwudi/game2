@@ -1,0 +1,156 @@
+{
+  "schema": "v07-drawcall-analysis-binding-1",
+  "utc": "2026-11-02T03:24:16.236550+00:00",
+  "sourceCommit": "dca7a2610f39d65088b9541549d3465c388fd3e7",
+  "reviewer": "/root/v07_perf",
+  "productionModified": false,
+  "editorOrPlayerLaunched": false,
+  "result": "HYPOTHESIS_WITH_MEASURED_PERSISTENCE_NOT_BATCH_ATTRIBUTION",
+  "files": [
+    {
+      "path": "evidence/v07/resources/v07-resource-player-dca7a26-0243/diagnostic/resource-report.json",
+      "byteSize": 827424,
+      "sha256": "ad98aa98990f4ce285fe652e71810439dba2393ddd1ec633c7254929fceedefb"
+    },
+    {
+      "path": "evidence/v07/resources/v07-resource-player-dca7a26-0243/diagnostic/resource-frames.csv",
+      "byteSize": 179154,
+      "sha256": "b5e2c868dca0a209e92062deadb9034f7d61920c9e48981ba40622df8404f397"
+    },
+    {
+      "path": "evidence/v07/resources/v07-resource-player-dca7a26-0243/diagnostic/isolated-saves/debug-run.json",
+      "byteSize": 68397,
+      "sha256": "e82a963e1fc095f5fa647f46f37e310839d88557694a5675333741fe4aadb82d"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Runtime/GameApp.cs",
+      "byteSize": 34501,
+      "sha256": "20bb8c43fb61c5f5aabe0767d0ee9ca9635ffaea1dd0f1d05f9d2d5bbe14a1d5"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Runtime/Verification/Art07ResourceDiagnostic.cs",
+      "byteSize": 42960,
+      "sha256": "17d80bf9c7c0e82bd81c76e6dfafc334fc0e7fec9e43239bc86da14bb448bcfe"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Runtime/Verification/Art07Fixtures.cs",
+      "byteSize": 13360,
+      "sha256": "199de1d73ec378160fd68e56d4f638f3f99893a8b7a0b701647a5157f4948850"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Runtime/Presentation/Art07TransactionMotion.cs",
+      "byteSize": 11975,
+      "sha256": "289b979bb395b0b2b7fa5652cc8940f6a796d7a8c2364f26e2aea7d7f395d957"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/UI/Art07SettlementBackdrop.cs",
+      "byteSize": 7528,
+      "sha256": "b3a6b8670748cbc687b0ca72100314ecf266ab0ea23e2bd6b8ed48cdfcc2d9e8"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/UI/GameApp.Art07SettlementBackdrop.cs",
+      "byteSize": 10975,
+      "sha256": "c19a0fb484905972fa0b3f1d2af1f0e9ee21ba8a4c6e7b875743b9b726ebcb9f"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/UI/GameApp.Art07Settlement.cs",
+      "byteSize": 8310,
+      "sha256": "afc468bbc05177cba84b0f0d3ffeefe62698bb886451e295ed34ca32cd1d28ad"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/UI/Art07SettlementReveal.cs",
+      "byteSize": 4701,
+      "sha256": "98061424de3845b53fde172f8a1505eedf12d19a277867c29aea28c50ba3788c"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/UI/GameApp.Art07.cs",
+      "byteSize": 42413,
+      "sha256": "8ed989c6839290f5a5b7b489b7b066e3a27dd6f803aa8a27081b0ddaae2e5efa"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/UI/UiKit.cs",
+      "byteSize": 10180,
+      "sha256": "4083ef2ec6bacdfe109acabb8dac7b3b6e25e7b65bcea11d76504ddb2e2703f5"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/UI/Art07PanelMotion.cs",
+      "byteSize": 9148,
+      "sha256": "da1bdd0e6ab6d85f7ebe28fe94620663fbfb30c2b705acaab4496f1a099715ea"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/UI/GameApp.Art07Effects.cs",
+      "byteSize": 55520,
+      "sha256": "841a385f2f806c2b4d7f3b3936e60cec87a33137c329e8ac263875aa43579ab6"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/UI/GameApp.Art07StageMotion.cs",
+      "byteSize": 4345,
+      "sha256": "714952dd10598ae5b04e18b2b22c673cdd6e7cdb56d50187893239fd810c3c86"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Tests/PlayMode/Art07SettlementBackdropPlayModeTests.cs",
+      "byteSize": 17488,
+      "sha256": "0ff959f8c6373d7b27872f5e125c84ba92f13f0f139352b3225499d7541e1832"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Tests/PlayMode/Art07SettlementRetryPlayModeTests.cs",
+      "byteSize": 2433,
+      "sha256": "5609fb63c47cb1527a6ecfcf8a8af9a6a2ff6b2726b874fc85ce5382cf78c804"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Tests/PlayMode/Art07SettlementLegacyPlayModeTests.cs",
+      "byteSize": 11802,
+      "sha256": "f44391cd1dfe5c5e811b75af359c6442a9b120866dd8f823a78d4dd56f6eb7df"
+    },
+    {
+      "path": "DicePrototype/Packages/manifest.json",
+      "byteSize": 1960,
+      "sha256": "81d5a761f124e46073d075f3826520b7606c97001ccd144351f7d8c1f713a529"
+    },
+    {
+      "path": "DicePrototype/Library/PackageCache/com.unity.ugui@eb824e41fbc7/Documentation~/ProfilerUI.md",
+      "byteSize": 4998,
+      "sha256": "c28fe1d217b46765197034ba86dd015aeb00fee82bf72c6b8969a4d10ef7690a"
+    },
+    {
+      "path": "docs/specs/v07/ART_SPEC.md",
+      "byteSize": 417792,
+      "sha256": "5120a8d0983d24f25cc38e22f1da613fd1a56c70ab26f518771a2caf064dd228"
+    },
+    {
+      "path": "docs/tasks/P0-V07-ART.md",
+      "byteSize": 2656,
+      "sha256": "b6b91894f2c4b8b7b3d08ac1265112e35ede1917f2caf10690dc99f25dd73d82"
+    },
+    {
+      "path": "artifacts/cache/v07-drawcall-analysis/README.md",
+      "byteSize": 11385,
+      "sha256": "bb18e6eb72a6dbb4aa583f5e1c486eb3e5c9c89e1771b40a8d4d535206e12c3f"
+    },
+    {
+      "path": "artifacts/cache/v07-drawcall-analysis/numeric.json",
+      "byteSize": 46969,
+      "sha256": "6bbfce48f32074a5ef84d28ffcdf87c017fd3f14a568c756426404aa235386b7"
+    },
+    {
+      "path": "artifacts/cache/v07-drawcall-analysis/analyze.py",
+      "byteSize": 3405,
+      "sha256": "9376096e5d2966f796e9f82ac6c31a3e3b87ec8d180da90ba6d4c3aac83aa917"
+    },
+    {
+      "path": "artifacts/cache/v07-full-play-dca7a26-022904/DiceCraftTests_1b538050c3384365a8fa34972669e313/art07-settlement-backdrop-gpu/font100-normal-32642/report.json",
+      "byteSize": 6349,
+      "sha256": "e8292ff8ff096d6e985874f87c3077b127e49f3b22158c143d49596969ceb0f6"
+    },
+    {
+      "path": "artifacts/cache/v07-full-play-dca7a26-022904/DiceCraftTests_1b538050c3384365a8fa34972669e313/art07-settlement-backdrop-gpu/font125-normal-32646/report.json",
+      "byteSize": 6352,
+      "sha256": "d9399c89d9a546efb2f8c02117835cf2ce7e1cccb5b9f806745a31ac12db3562"
+    },
+    {
+      "path": "artifacts/cache/v07-full-play-dca7a26-022904/DiceCraftTests_1b538050c3384365a8fa34972669e313/art07-settlement-backdrop-gpu/font150-normal-32650/report.json",
+      "byteSize": 6235,
+      "sha256": "a3929f99b82f732a4be037da20ed3144883e37ecd3f37c19c1f9255be2a7cce2"
+    }
+  ]
+}

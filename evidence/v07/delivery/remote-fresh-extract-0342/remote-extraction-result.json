@@ -1,0 +1,40 @@
+{
+  "status": "downloaded_extraction_diagnostic_completed_not_acceptance",
+  "wholeReleaseAccepted": false,
+  "formalPerformanceAcceptance": false,
+  "sourceMode": "downloaded",
+  "remoteDownloadEvidence": true,
+  "publisherReceiptFacts": {
+    "utc": "2026-11-02T03:39:06.001920+00:00",
+    "assetId": 700392401,
+    "downloadUrl": "https://github.com/XDwudi/game2/releases/download/untagged-c3095d2fc99df8ae7a31/DicePrototype-p0.7.0-win-x64.zip",
+    "finalHost": "release-assets.githubusercontent.com",
+    "httpStatus": 200,
+    "zipEntries": 309
+  },
+  "serverAssetFacts": {
+    "releaseId": 431044653,
+    "assetId": 700392401,
+    "releaseApiUrl": "https://api.github.com/repos/XDwudi/game2/releases/431044653",
+    "assetApiUrl": "https://api.github.com/repos/XDwudi/game2/releases/assets/700392401",
+    "tag": "p0.7.0-rc.1",
+    "targetCommit": "dca7a2610f39d65088b9541549d3465c388fd3e7",
+    "draft": true,
+    "browserDownloadUrl": "https://github.com/XDwudi/game2/releases/download/untagged-c3095d2fc99df8ae7a31/DicePrototype-p0.7.0-win-x64.zip",
+    "releaseHtmlUrl": "https://github.com/XDwudi/game2/releases/tag/untagged-c3095d2fc99df8ae7a31"
+  },
+  "inputHashes": {
+    "E:\\agent_workspace\\gpt\\game2\\tools\\diagnostics\\v07\\run_resource_diagnostic_v3.py": "859333e3d91837d136d17d091cddb3449f53b6b9ec7a5dd07d429daa324f07f0",
+    "E:\\agent_workspace\\gpt\\game2\\Releases\\p0.7.0\\review-candidate\\review-candidate-manifest.json": "c1e2b0f886b62fc8aef65bbdc9c8bd5c533099f476da26d822a3b09f42bbe13c",
+    "E:\\agent_workspace\\gpt\\game2\\evidence\\v07\\packages\\windows-package-review-candidate.json": "26929305165149ca8c5ef7d021675c29bf8e77c5c24b73a91bffea40eb467da4",
+    "E:\\agent_workspace\\gpt\\game2\\artifacts\\cache\\v07-release-review-download\\DicePrototype-p0.7.0-win-x64.zip": "c823056517851a786cfe8a185c43ad6829e3bdf2f5d8686eb9b17ff6a39169b1",
+    "E:\\agent_workspace\\gpt\\game2\\evidence\\v07\\delivery\\github-release\\review-candidate\\DicePrototype-p0.7.0-win-x64.zip.download.json": "0f8c2861c7fb6330131d638a826c9307d868e9d6de33d1eec270f701c3ea87d9",
+    "E:\\agent_workspace\\gpt\\game2\\evidence\\v07\\delivery\\github-release\\review-candidate\\DicePrototype-p0.7.0-win-x64.zip.upload.json": "e22be4557994007ddb249366274d88633651c183705fc99459cf88c473e02747",
+    "E:\\agent_workspace\\gpt\\game2\\evidence\\v07\\delivery\\github-release\\review-candidate\\release-upload-20261102-033620-435969.json": "ada2d9b0f0d81eb6d0f04a59db189ef1e8cc3c355b88a8ed3decf967ec1b0dbe"
+  },
+  "archive": "E:\\agent_workspace\\gpt\\game2\\artifacts\\cache\\v07-release-review-download\\DicePrototype-p0.7.0-win-x64.zip",
+  "extracted": "E:\\agent_workspace\\gpt\\game2\\artifacts\\cache\\v07-remote-fresh-extract-0342\\player",
+  "actualBuildReportUnmodified": "E:\\agent_workspace\\gpt\\game2\\evidence\\v07\\unity\\build-windows-20261102-023220.json",
+  "errors": [],
+  "runnerSummary": "E:\\agent_workspace\\gpt\\game2\\artifacts\\cache\\v07-remote-fresh-extract-0342\\run\\runner-summary.json"
+}

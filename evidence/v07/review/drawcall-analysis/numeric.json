@@ -1,0 +1,1809 @@
+{
+  "schema": "v07-drawcall-readonly-analysis-1",
+  "utc": "2026-11-02T03:21:38.853151+00:00",
+  "buildGuid": "388c2eee37244ba48bb656114b6320bf",
+  "runtimeMvid": "509a9a1c-df39-43d7-927f-c5f787977a35",
+  "identity": {
+    "releaseVersion": "p0.7.0",
+    "artVersion": "art0.7.0",
+    "sourceCommit": "dca7a2610f39d65088b9541549d3465c388fd3e7",
+    "contentConfigVersion": "p0.6.0",
+    "contentConfigSha256": "747ed1efc7bea15873f66a81eee5c7654971c21031f2a1517ce629adce7b6e6c",
+    "saveSchemaVersion": 4,
+    "goldenCaseSetSha256": "306cb86f79dafe0e3eb302714abd232af20fe0062a6713f7d713c11e2a6a5718",
+    "unityEditorVersion": "6000.6.7f1",
+    "backend": "Mono"
+  },
+  "display": {
+    "width": 1920,
+    "height": 1080,
+    "displayMode": "Windowed",
+    "graphicsApi": "Direct3D11"
+  },
+  "phases": [
+    {
+      "index": 0,
+      "frame": 2,
+      "realtime": 3.1444451017573694,
+      "name": "baseline-menu",
+      "rulePhase": "MainMenu",
+      "actionSequence": 0,
+      "rowCount": 181,
+      "missingDraws": 1,
+      "drawCountHistogram": {
+        "0": 1,
+        "37": 179
+      },
+      "minDraws": 0,
+      "maxDraws": 37,
+      "rowsAbove180": 0,
+      "afterOneSecondDrawHistogram": {
+        "37": 121
+      },
+      "tailTen": [
+        {
+          "unityFrame": "173",
+          "realtime_s": "5.99671350175737",
+          "phase": "0",
+          "textureBytes": "133554394",
+          "draws": "37",
+          "triangles": "4230"
+        },
+        {
+          "unityFrame": "174",
+          "realtime_s": "6.0133770017573696",
+          "phase": "0",
+          "textureBytes": "133554394",
+          "draws": "37",
+          "triangles": "4230"
+        },
+        {
+          "unityFrame": "175",
+          "realtime_s": "6.03004350175737",
+          "phase": "0",
+          "textureBytes": "133554394",
+          "draws": "37",
+          "triangles": "4230"
+        },
+        {
+          "unityFrame": "176",
+          "realtime_s": "6.04670850175737",
+          "phase": "0",
+          "textureBytes": "133554394",
+          "draws": "37",
+          "triangles": "4230"
+        },
+        {
+          "unityFrame": "177",
+          "realtime_s": "6.06337560175737",
+          "phase": "0",
+          "textureBytes": "133554394",
+          "draws": "37",
+          "triangles": "4230"
+        },
+        {
+          "unityFrame": "178",
+          "realtime_s": "6.0800428017573696",
+          "phase": "0",
+          "textureBytes": "133554394",
+          "draws": "37",
+          "triangles": "4230"
+        },
+        {
+          "unityFrame": "179",
+          "realtime_s": "6.09672440175737",
+          "phase": "0",
+          "textureBytes": "133554394",
+          "draws": "37",
+          "triangles": "4230"
+        },
+        {
+          "unityFrame": "180",
+          "realtime_s": "6.11338470175737",
+          "phase": "0",
+          "textureBytes": "133554394",
+          "draws": "37",
+          "triangles": "4230"
+        },
+        {
+          "unityFrame": "181",
+          "realtime_s": "6.1300476017573695",
+          "phase": "0",
+          "textureBytes": "133554394",
+          "draws": "37",
+          "triangles": "4230"
+        },
+        {
+          "unityFrame": "182",
+          "realtime_s": "6.14671370175737",
+          "phase": "0",
+          "textureBytes": "133554394",
+          "draws": "37",
+          "triangles": "4230"
+        }
+      ]
+    },
+    {
+      "index": 1,
+      "frame": 183,
+      "realtime": 6.15741800175737,
+      "name": "ui:MenuHandbook",
+      "rulePhase": "MainMenu",
+      "actionSequence": 0,
+      "rowCount": 186,
+      "missingDraws": 0,
+      "drawCountHistogram": {
+        "37": 2,
+        "38": 1,
+        "50": 183
+      },
+      "minDraws": 37,
+      "maxDraws": 50,
+      "rowsAbove180": 0,
+      "afterOneSecondDrawHistogram": {
+        "50": 129
+      },
+      "tailTen": [
+        {
+          "unityFrame": "359",
+          "realtime_s": "9.1504625017573691",
+          "phase": "1",
+          "textureBytes": "133554394",
+          "draws": "50",
+          "triangles": "6452"
+        },
+        {
+          "unityFrame": "360",
+          "realtime_s": "9.16713010175737",
+          "phase": "1",
+          "textureBytes": "133554394",
+          "draws": "50",
+          "triangles": "6452"
+        },
+        {
+          "unityFrame": "361",
+          "realtime_s": "9.18379210175737",
+          "phase": "1",
+          "textureBytes": "133554394",
+          "draws": "50",
+          "triangles": "6452"
+        },
+        {
+          "unityFrame": "362",
+          "realtime_s": "9.20046260175737",
+          "phase": "1",
+          "textureBytes": "133554394",
+          "draws": "50",
+          "triangles": "6452"
+        },
+        {
+          "unityFrame": "363",
+          "realtime_s": "9.21712700175737",
+          "phase": "1",
+          "textureBytes": "133554394",
+          "draws": "50",
+          "triangles": "6452"
+        },
+        {
+          "unityFrame": "364",
+          "realtime_s": "9.23379490175737",
+          "phase": "1",
+          "textureBytes": "133554394",
+          "draws": "50",
+          "triangles": "6452"
+        },
+        {
+          "unityFrame": "365",
+          "realtime_s": "9.25046480175737",
+          "phase": "1",
+          "textureBytes": "133554394",
+          "draws": "50",
+          "triangles": "6452"
+        },
+        {
+          "unityFrame": "366",
+          "realtime_s": "9.26712720175737",
+          "phase": "1",
+          "textureBytes": "133554394",
+          "draws": "50",
+          "triangles": "6452"
+        },
+        {
+          "unityFrame": "367",
+          "realtime_s": "9.2837941017573691",
+          "phase": "1",
+          "textureBytes": "133554394",
+          "draws": "50",
+          "triangles": "6452"
+        },
+        {
+          "unityFrame": "368",
+          "realtime_s": "9.30046670175737",
+          "phase": "1",
+          "textureBytes": "133554394",
+          "draws": "50",
+          "triangles": "6452"
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "frame": 369,
+      "realtime": 9.30475110175737,
+      "name": "ui:HandbookColors",
+      "rulePhase": "MainMenu",
+      "actionSequence": 0,
+      "rowCount": 182,
+      "missingDraws": 0,
+      "drawCountHistogram": {
+        "50": 2,
+        "49": 180
+      },
+      "minDraws": 49,
+      "maxDraws": 50,
+      "rowsAbove180": 0,
+      "afterOneSecondDrawHistogram": {
+        "49": 122
+      },
+      "tailTen": [
+        {
+          "unityFrame": "541",
+          "realtime_s": "12.18384160175737",
+          "phase": "2",
+          "textureBytes": "133554394",
+          "draws": "49",
+          "triangles": "5106"
+        },
+        {
+          "unityFrame": "542",
+          "realtime_s": "12.20050960175737",
+          "phase": "2",
+          "textureBytes": "133554394",
+          "draws": "49",
+          "triangles": "5106"
+        },
+        {
+          "unityFrame": "543",
+          "realtime_s": "12.217173801757371",
+          "phase": "2",
+          "textureBytes": "133554394",
+          "draws": "49",
+          "triangles": "5106"
+        },
+        {
+          "unityFrame": "544",
+          "realtime_s": "12.23384000175737",
+          "phase": "2",
+          "textureBytes": "133554394",
+          "draws": "49",
+          "triangles": "5106"
+        },
+        {
+          "unityFrame": "545",
+          "realtime_s": "12.25051200175737",
+          "phase": "2",
+          "textureBytes": "133554394",
+          "draws": "49",
+          "triangles": "5106"
+        },
+        {
+          "unityFrame": "546",
+          "realtime_s": "12.267174201757371",
+          "phase": "2",
+          "textureBytes": "133554394",
+          "draws": "49",
+          "triangles": "5106"
+        },
+        {
+          "unityFrame": "547",
+          "realtime_s": "12.28384190175737",
+          "phase": "2",
+          "textureBytes": "133554394",
+          "draws": "49",
+          "triangles": "5106"
+        },
+        {
+          "unityFrame": "548",
+          "realtime_s": "12.300507801757369",
+          "phase": "2",
+          "textureBytes": "133554394",
+          "draws": "49",
+          "triangles": "5106"
+        },
+        {
+          "unityFrame": "549",
+          "realtime_s": "12.317174801757369",
+          "phase": "2",
+          "textureBytes": "133554394",
+          "draws": "49",
+          "triangles": "5106"
+        },
+        {
+          "unityFrame": "550",
+          "realtime_s": "12.333841001757371",
+          "phase": "2",
+          "textureBytes": "133554394",
+          "draws": "49",
+          "triangles": "5106"
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "frame": 551,
+      "realtime": 12.33570270175737,
+      "name": "ui:CloseDialog",
+      "rulePhase": "MainMenu",
+      "actionSequence": 0,
+      "rowCount": 1,
+      "missingDraws": 0,
+      "drawCountHistogram": {
+        "49": 1
+      },
+      "minDraws": 49,
+      "maxDraws": 49,
+      "rowsAbove180": 0,
+      "afterOneSecondDrawHistogram": {},
+      "tailTen": [
+        {
+          "unityFrame": "551",
+          "realtime_s": "12.35051080175737",
+          "phase": "3",
+          "textureBytes": "133554394",
+          "draws": "49",
+          "triangles": "5106"
+        }
+      ]
+    },
+    {
+      "index": 4,
+      "frame": 552,
+      "realtime": 12.352375101757369,
+      "name": "ui:MenuSettings",
+      "rulePhase": "MainMenu",
+      "actionSequence": 0,
+      "rowCount": 1,
+      "missingDraws": 0,
+      "drawCountHistogram": {
+        "49": 1
+      },
+      "minDraws": 49,
+      "maxDraws": 49,
+      "rowsAbove180": 0,
+      "afterOneSecondDrawHistogram": {},
+      "tailTen": [
+        {
+          "unityFrame": "552",
+          "realtime_s": "12.36717630175737",
+          "phase": "4",
+          "textureBytes": "133554394",
+          "draws": "49",
+          "triangles": "5106"
+        }
+      ]
+    },
+    {
+      "index": 5,
+      "frame": 553,
+      "realtime": 12.36861230175737,
+      "name": "ui:SettingsTab0",
+      "rulePhase": "MainMenu",
+      "actionSequence": 0,
+      "rowCount": 188,
+      "missingDraws": 0,
+      "drawCountHistogram": {
+        "132": 1,
+        "38": 1,
+        "50": 186
+      },
+      "minDraws": 38,
+      "maxDraws": 132,
+      "rowsAbove180": 0,
+      "afterOneSecondDrawHistogram": {
+        "50": 128
+      },
+      "tailTen": [
+        {
+          "unityFrame": "731",
+          "realtime_s": "15.350911901757369",
+          "phase": "5",
+          "textureBytes": "133554394",
+          "draws": "50",
+          "triangles": "4580"
+        },
+        {
+          "unityFrame": "732",
+          "realtime_s": "15.367579201757369",
+          "phase": "5",
+          "textureBytes": "133554394",
+          "draws": "50",
+          "triangles": "4580"
+        },
+        {
+          "unityFrame": "733",
+          "realtime_s": "15.38424370175737",
+          "phase": "5",
+          "textureBytes": "133554394",
+          "draws": "50",
+          "triangles": "4580"
+        },
+        {
+          "unityFrame": "734",
+          "realtime_s": "15.40090920175737",
+          "phase": "5",
+          "textureBytes": "133554394",
+          "draws": "50",
+          "triangles": "4580"
+        },
+        {
+          "unityFrame": "735",
+          "realtime_s": "15.41757880175737",
+          "phase": "5",
+          "textureBytes": "133554394",
+          "draws": "50",
+          "triangles": "4580"
+        },
+        {
+          "unityFrame": "736",
+          "realtime_s": "15.43424680175737",
+          "phase": "5",
+          "textureBytes": "133554394",
+          "draws": "50",
+          "triangles": "4580"
+        },
+        {
+          "unityFrame": "737",
+          "realtime_s": "15.450909001757369",
+          "phase": "5",
+          "textureBytes": "133554394",
+          "draws": "50",
+          "triangles": "4580"
+        },
+        {
+          "unityFrame": "738",
+          "realtime_s": "15.467580101757369",
+          "phase": "5",
+          "textureBytes": "133554394",
+          "draws": "50",
+          "triangles": "4580"
+        },
+        {
+          "unityFrame": "739",
+          "realtime_s": "15.484249401757369",
+          "phase": "5",
+          "textureBytes": "133554394",
+          "draws": "50",
+          "triangles": "4580"
+        },
+        {
+          "unityFrame": "740",
+          "realtime_s": "15.500910801757369",
+          "phase": "5",
+          "textureBytes": "133554394",
+          "draws": "50",
+          "triangles": "4580"
+        }
+      ]
+    },
+    {
+      "index": 6,
+      "frame": 741,
+      "realtime": 15.50278480175737,
+      "name": "ui:SettingsTab1",
+      "rulePhase": "MainMenu",
+      "actionSequence": 0,
+      "rowCount": 182,
+      "missingDraws": 0,
+      "drawCountHistogram": {
+        "50": 182
+      },
+      "minDraws": 50,
+      "maxDraws": 50,
+      "rowsAbove180": 0,
+      "afterOneSecondDrawHistogram": {
+        "50": 122
+      },
+      "tailTen": [
+        {
+          "unityFrame": "913",
+          "realtime_s": "18.384303601757367",
+          "phase": "6",
+          "textureBytes": "133554394",
+          "draws": "50",
+          "triangles": "4710"
+        },
+        {
+          "unityFrame": "914",
+          "realtime_s": "18.40096860175737",
+          "phase": "6",
+          "textureBytes": "133554394",
+          "draws": "50",
+          "triangles": "4710"
+        },
+        {
+          "unityFrame": "915",
+          "realtime_s": "18.41763390175737",
+          "phase": "6",
+          "textureBytes": "133554394",
+          "draws": "50",
+          "triangles": "4710"
+        },
+        {
+          "unityFrame": "916",
+          "realtime_s": "18.434305401757371",
+          "phase": "6",
+          "textureBytes": "133554394",
+          "draws": "50",
+          "triangles": "4710"
+        },
+        {
+          "unityFrame": "917",
+          "realtime_s": "18.450968601757367",
+          "phase": "6",
+          "textureBytes": "133554394",
+          "draws": "50",
+          "triangles": "4710"
+        },
+        {
+          "unityFrame": "918",
+          "realtime_s": "18.467638901757368",
+          "phase": "6",
+          "textureBytes": "133554394",
+          "draws": "50",
+          "triangles": "4710"
+        },
+        {
+          "unityFrame": "919",
+          "realtime_s": "18.48430860175737",
+          "phase": "6",
+          "textureBytes": "133554394",
+          "draws": "50",
+          "triangles": "4710"
+        },
+        {
+          "unityFrame": "920",
+          "realtime_s": "18.500969401757366",
+          "phase": "6",
+          "textureBytes": "133554394",
+          "draws": "50",
+          "triangles": "4710"
+        },
+        {
+          "unityFrame": "921",
+          "realtime_s": "18.517636501757373",
+          "phase": "6",
+          "textureBytes": "133554394",
+          "draws": "50",
+          "triangles": "4710"
+        },
+        {
+          "unityFrame": "922",
+          "realtime_s": "18.534303801757368",
+          "phase": "6",
+          "textureBytes": "133554394",
+          "draws": "50",
+          "triangles": "4710"
+        }
+      ]
+    },
+    {
+      "index": 7,
+      "frame": 923,
+      "realtime": 18.536196001757368,
+      "name": "ui:SettingsTab2",
+      "rulePhase": "MainMenu",
+      "actionSequence": 0,
+      "rowCount": 182,
+      "missingDraws": 0,
+      "drawCountHistogram": {
+        "50": 2,
+        "65": 180
+      },
+      "minDraws": 50,
+      "maxDraws": 65,
+      "rowsAbove180": 0,
+      "afterOneSecondDrawHistogram": {
+        "65": 122
+      },
+      "tailTen": [
+        {
+          "unityFrame": "1095",
+          "realtime_s": "21.41784800175737",
+          "phase": "7",
+          "textureBytes": "133554394",
+          "draws": "65",
+          "triangles": "5068"
+        },
+        {
+          "unityFrame": "1096",
+          "realtime_s": "21.434513601757367",
+          "phase": "7",
+          "textureBytes": "133554394",
+          "draws": "65",
+          "triangles": "5068"
+        },
+        {
+          "unityFrame": "1097",
+          "realtime_s": "21.451176601757368",
+          "phase": "7",
+          "textureBytes": "133554394",
+          "draws": "65",
+          "triangles": "5068"
+        },
+        {
+          "unityFrame": "1098",
+          "realtime_s": "21.467844801757373",
+          "phase": "7",
+          "textureBytes": "133554394",
+          "draws": "65",
+          "triangles": "5068"
+        },
+        {
+          "unityFrame": "1099",
+          "realtime_s": "21.484511901757372",
+          "phase": "7",
+          "textureBytes": "133554394",
+          "draws": "65",
+          "triangles": "5068"
+        },
+        {
+          "unityFrame": "1100",
+          "realtime_s": "21.501178701757368",
+          "phase": "7",
+          "textureBytes": "133554394",
+          "draws": "65",
+          "triangles": "5068"
+        },
+        {
+          "unityFrame": "1101",
+          "realtime_s": "21.517848301757368",
+          "phase": "7",
+          "textureBytes": "133554394",
+          "draws": "65",
+          "triangles": "5068"
+        },
+        {
+          "unityFrame": "1102",
+          "realtime_s": "21.534513301757372",
+          "phase": "7",
+          "textureBytes": "133554394",
+          "draws": "65",
+          "triangles": "5068"
+        },
+        {
+          "unityFrame": "1103",
+          "realtime_s": "21.551179501757368",
+          "phase": "7",
+          "textureBytes": "133554394",
+          "draws": "65",
+          "triangles": "5068"
+        },
+        {
+          "unityFrame": "1104",
+          "realtime_s": "21.56784990175737",
+          "phase": "7",
+          "textureBytes": "133554394",
+          "draws": "65",
+          "triangles": "5068"
+        }
+      ]
+    },
+    {
+      "index": 8,
+      "frame": 1105,
+      "realtime": 21.570994401757368,
+      "name": "ui:SettingsDone",
+      "rulePhase": "MainMenu",
+      "actionSequence": 0,
+      "rowCount": 1,
+      "missingDraws": 0,
+      "drawCountHistogram": {
+        "65": 1
+      },
+      "minDraws": 65,
+      "maxDraws": 65,
+      "rowsAbove180": 0,
+      "afterOneSecondDrawHistogram": {},
+      "tailTen": [
+        {
+          "unityFrame": "1105",
+          "realtime_s": "21.584514501757369",
+          "phase": "8",
+          "textureBytes": "133554394",
+          "draws": "65",
+          "triangles": "5068"
+        }
+      ]
+    },
+    {
+      "index": 9,
+      "frame": 1106,
+      "realtime": 21.657977701757368,
+      "name": "applying-debug-resource-scene",
+      "rulePhase": "StagePreview",
+      "actionSequence": 0,
+      "rowCount": 190,
+      "missingDraws": 0,
+      "drawCountHistogram": {
+        "65": 1,
+        "147": 1,
+        "62": 11,
+        "60": 177
+      },
+      "minDraws": 60,
+      "maxDraws": 147,
+      "rowsAbove180": 0,
+      "afterOneSecondDrawHistogram": {
+        "60": 135
+      },
+      "tailTen": [
+        {
+          "unityFrame": "1286",
+          "realtime_s": "24.750310901757373",
+          "phase": "9",
+          "textureBytes": "133554394",
+          "draws": "60",
+          "triangles": "7090"
+        },
+        {
+          "unityFrame": "1287",
+          "realtime_s": "24.76697350175737",
+          "phase": "9",
+          "textureBytes": "133554394",
+          "draws": "60",
+          "triangles": "7090"
+        },
+        {
+          "unityFrame": "1288",
+          "realtime_s": "24.78364430175737",
+          "phase": "9",
+          "textureBytes": "133554394",
+          "draws": "60",
+          "triangles": "7090"
+        },
+        {
+          "unityFrame": "1289",
+          "realtime_s": "24.80030720175737",
+          "phase": "9",
+          "textureBytes": "133554394",
+          "draws": "60",
+          "triangles": "7090"
+        },
+        {
+          "unityFrame": "1290",
+          "realtime_s": "24.81697980175737",
+          "phase": "9",
+          "textureBytes": "133554394",
+          "draws": "60",
+          "triangles": "7090"
+        },
+        {
+          "unityFrame": "1291",
+          "realtime_s": "24.833644401757368",
+          "phase": "9",
+          "textureBytes": "133554394",
+          "draws": "60",
+          "triangles": "7090"
+        },
+        {
+          "unityFrame": "1292",
+          "realtime_s": "24.850307901757368",
+          "phase": "9",
+          "textureBytes": "133554394",
+          "draws": "60",
+          "triangles": "7090"
+        },
+        {
+          "unityFrame": "1293",
+          "realtime_s": "24.866977901757373",
+          "phase": "9",
+          "textureBytes": "133554394",
+          "draws": "60",
+          "triangles": "7090"
+        },
+        {
+          "unityFrame": "1294",
+          "realtime_s": "24.88365150175737",
+          "phase": "9",
+          "textureBytes": "133554394",
+          "draws": "60",
+          "triangles": "7090"
+        },
+        {
+          "unityFrame": "1295",
+          "realtime_s": "24.900313101757369",
+          "phase": "9",
+          "textureBytes": "133554394",
+          "draws": "60",
+          "triangles": "7090"
+        }
+      ]
+    },
+    {
+      "index": 10,
+      "frame": 1296,
+      "realtime": 24.901243801757367,
+      "name": "command:Submit",
+      "rulePhase": "Selecting",
+      "actionSequence": 1,
+      "rowCount": 274,
+      "missingDraws": 0,
+      "drawCountHistogram": {
+        "60": 22,
+        "62": 26,
+        "61": 1,
+        "63": 20,
+        "59": 205
+      },
+      "minDraws": 59,
+      "maxDraws": 63,
+      "rowsAbove180": 0,
+      "afterOneSecondDrawHistogram": {
+        "63": 13,
+        "59": 205
+      },
+      "tailTen": [
+        {
+          "unityFrame": "1560",
+          "realtime_s": "29.370540901757373",
+          "phase": "10",
+          "textureBytes": "133554394",
+          "draws": "59",
+          "triangles": "6690"
+        },
+        {
+          "unityFrame": "1561",
+          "realtime_s": "29.387211701757373",
+          "phase": "10",
+          "textureBytes": "133554394",
+          "draws": "59",
+          "triangles": "6690"
+        },
+        {
+          "unityFrame": "1562",
+          "realtime_s": "29.40387800175737",
+          "phase": "10",
+          "textureBytes": "133554394",
+          "draws": "59",
+          "triangles": "6690"
+        },
+        {
+          "unityFrame": "1563",
+          "realtime_s": "29.420549901757369",
+          "phase": "10",
+          "textureBytes": "133554394",
+          "draws": "59",
+          "triangles": "6690"
+        },
+        {
+          "unityFrame": "1564",
+          "realtime_s": "29.43720930175737",
+          "phase": "10",
+          "textureBytes": "133554394",
+          "draws": "59",
+          "triangles": "6690"
+        },
+        {
+          "unityFrame": "1565",
+          "realtime_s": "29.453880301757373",
+          "phase": "10",
+          "textureBytes": "133554394",
+          "draws": "59",
+          "triangles": "6690"
+        },
+        {
+          "unityFrame": "1566",
+          "realtime_s": "29.470542301757369",
+          "phase": "10",
+          "textureBytes": "133554394",
+          "draws": "59",
+          "triangles": "6690"
+        },
+        {
+          "unityFrame": "1567",
+          "realtime_s": "29.487213601757368",
+          "phase": "10",
+          "textureBytes": "133554394",
+          "draws": "59",
+          "triangles": "6690"
+        },
+        {
+          "unityFrame": "1568",
+          "realtime_s": "29.503879901757372",
+          "phase": "10",
+          "textureBytes": "133554394",
+          "draws": "59",
+          "triangles": "6690"
+        },
+        {
+          "unityFrame": "1569",
+          "realtime_s": "29.520543001757368",
+          "phase": "10",
+          "textureBytes": "133554394",
+          "draws": "59",
+          "triangles": "6690"
+        }
+      ]
+    },
+    {
+      "index": 11,
+      "frame": 1570,
+      "realtime": 29.521099801757373,
+      "name": "command:EndStage",
+      "rulePhase": "HandReady",
+      "actionSequence": 2,
+      "rowCount": 223,
+      "missingDraws": 0,
+      "drawCountHistogram": {
+        "59": 2,
+        "202": 1,
+        "212": 198,
+        "213": 4,
+        "214": 18
+      },
+      "minDraws": 59,
+      "maxDraws": 214,
+      "rowsAbove180": 221,
+      "afterOneSecondDrawHistogram": {
+        "212": 165
+      },
+      "tailTen": [
+        {
+          "unityFrame": "1783",
+          "realtime_s": "33.110013001757366",
+          "phase": "11",
+          "textureBytes": "133554394",
+          "draws": "212",
+          "triangles": "6806"
+        },
+        {
+          "unityFrame": "1784",
+          "realtime_s": "33.126685401757371",
+          "phase": "11",
+          "textureBytes": "133554394",
+          "draws": "212",
+          "triangles": "6806"
+        },
+        {
+          "unityFrame": "1785",
+          "realtime_s": "33.14335130175737",
+          "phase": "11",
+          "textureBytes": "133554394",
+          "draws": "212",
+          "triangles": "6806"
+        },
+        {
+          "unityFrame": "1786",
+          "realtime_s": "33.160013201757366",
+          "phase": "11",
+          "textureBytes": "133554394",
+          "draws": "212",
+          "triangles": "6806"
+        },
+        {
+          "unityFrame": "1787",
+          "realtime_s": "33.176680201757371",
+          "phase": "11",
+          "textureBytes": "133554394",
+          "draws": "212",
+          "triangles": "6806"
+        },
+        {
+          "unityFrame": "1788",
+          "realtime_s": "33.193348201757367",
+          "phase": "11",
+          "textureBytes": "133554394",
+          "draws": "212",
+          "triangles": "6806"
+        },
+        {
+          "unityFrame": "1789",
+          "realtime_s": "33.210018301757366",
+          "phase": "11",
+          "textureBytes": "133554394",
+          "draws": "212",
+          "triangles": "6806"
+        },
+        {
+          "unityFrame": "1790",
+          "realtime_s": "33.226689001757371",
+          "phase": "11",
+          "textureBytes": "133554394",
+          "draws": "212",
+          "triangles": "6806"
+        },
+        {
+          "unityFrame": "1791",
+          "realtime_s": "33.243356101757371",
+          "phase": "11",
+          "textureBytes": "133554394",
+          "draws": "212",
+          "triangles": "6806"
+        },
+        {
+          "unityFrame": "1792",
+          "realtime_s": "33.260017401757366",
+          "phase": "11",
+          "textureBytes": "133554394",
+          "draws": "212",
+          "triangles": "6806"
+        }
+      ]
+    },
+    {
+      "index": 12,
+      "frame": 1793,
+      "realtime": 33.260871001757366,
+      "name": "command:Continue",
+      "rulePhase": "StageSettlement",
+      "actionSequence": 3,
+      "rowCount": 196,
+      "missingDraws": 0,
+      "drawCountHistogram": {
+        "212": 2,
+        "28": 1,
+        "31": 2,
+        "32": 4,
+        "33": 187
+      },
+      "minDraws": 28,
+      "maxDraws": 212,
+      "rowsAbove180": 2,
+      "afterOneSecondDrawHistogram": {
+        "33": 139
+      },
+      "tailTen": [
+        {
+          "unityFrame": "1979",
+          "realtime_s": "36.416878101757369",
+          "phase": "12",
+          "textureBytes": "133554394",
+          "draws": "33",
+          "triangles": "1514"
+        },
+        {
+          "unityFrame": "1980",
+          "realtime_s": "36.433547701757369",
+          "phase": "12",
+          "textureBytes": "133554394",
+          "draws": "33",
+          "triangles": "1514"
+        },
+        {
+          "unityFrame": "1981",
+          "realtime_s": "36.450215801757366",
+          "phase": "12",
+          "textureBytes": "133554394",
+          "draws": "33",
+          "triangles": "1514"
+        },
+        {
+          "unityFrame": "1982",
+          "realtime_s": "36.466881701757366",
+          "phase": "12",
+          "textureBytes": "133554394",
+          "draws": "33",
+          "triangles": "1514"
+        },
+        {
+          "unityFrame": "1983",
+          "realtime_s": "36.483546301757372",
+          "phase": "12",
+          "textureBytes": "133554394",
+          "draws": "33",
+          "triangles": "1514"
+        },
+        {
+          "unityFrame": "1984",
+          "realtime_s": "36.500213001757366",
+          "phase": "12",
+          "textureBytes": "133554394",
+          "draws": "33",
+          "triangles": "1514"
+        },
+        {
+          "unityFrame": "1985",
+          "realtime_s": "36.516879101757368",
+          "phase": "12",
+          "textureBytes": "133554394",
+          "draws": "33",
+          "triangles": "1514"
+        },
+        {
+          "unityFrame": "1986",
+          "realtime_s": "36.53355130175737",
+          "phase": "12",
+          "textureBytes": "133554394",
+          "draws": "33",
+          "triangles": "1514"
+        },
+        {
+          "unityFrame": "1987",
+          "realtime_s": "36.55021420175737",
+          "phase": "12",
+          "textureBytes": "133554394",
+          "draws": "33",
+          "triangles": "1514"
+        },
+        {
+          "unityFrame": "1988",
+          "realtime_s": "36.566885801757365",
+          "phase": "12",
+          "textureBytes": "133554394",
+          "draws": "33",
+          "triangles": "1514"
+        }
+      ]
+    },
+    {
+      "index": 13,
+      "frame": 1989,
+      "realtime": 36.56739430175737,
+      "name": "actual-shop-current-tab",
+      "rulePhase": "Shop",
+      "actionSequence": 4,
+      "rowCount": 181,
+      "missingDraws": 0,
+      "drawCountHistogram": {
+        "33": 181
+      },
+      "minDraws": 33,
+      "maxDraws": 33,
+      "rowsAbove180": 0,
+      "afterOneSecondDrawHistogram": {
+        "33": 121
+      },
+      "tailTen": [
+        {
+          "unityFrame": "2160",
+          "realtime_s": "39.434631301757371",
+          "phase": "13",
+          "textureBytes": "133554394",
+          "draws": "33",
+          "triangles": "1514"
+        },
+        {
+          "unityFrame": "2161",
+          "realtime_s": "39.451297901757371",
+          "phase": "13",
+          "textureBytes": "133554394",
+          "draws": "33",
+          "triangles": "1514"
+        },
+        {
+          "unityFrame": "2162",
+          "realtime_s": "39.467965101757365",
+          "phase": "13",
+          "textureBytes": "133554394",
+          "draws": "33",
+          "triangles": "1514"
+        },
+        {
+          "unityFrame": "2163",
+          "realtime_s": "39.48463150175737",
+          "phase": "13",
+          "textureBytes": "133554394",
+          "draws": "33",
+          "triangles": "1514"
+        },
+        {
+          "unityFrame": "2164",
+          "realtime_s": "39.501299301757371",
+          "phase": "13",
+          "textureBytes": "133554394",
+          "draws": "33",
+          "triangles": "1514"
+        },
+        {
+          "unityFrame": "2165",
+          "realtime_s": "39.517968101757369",
+          "phase": "13",
+          "textureBytes": "133554394",
+          "draws": "33",
+          "triangles": "1514"
+        },
+        {
+          "unityFrame": "2166",
+          "realtime_s": "39.534633601757371",
+          "phase": "13",
+          "textureBytes": "133554394",
+          "draws": "33",
+          "triangles": "1514"
+        },
+        {
+          "unityFrame": "2167",
+          "realtime_s": "39.551319301757367",
+          "phase": "13",
+          "textureBytes": "133554394",
+          "draws": "33",
+          "triangles": "1514"
+        },
+        {
+          "unityFrame": "2168",
+          "realtime_s": "39.567991501757369",
+          "phase": "13",
+          "textureBytes": "133554394",
+          "draws": "33",
+          "triangles": "1514"
+        },
+        {
+          "unityFrame": "2169",
+          "realtime_s": "39.584642701757367",
+          "phase": "13",
+          "textureBytes": "133554394",
+          "draws": "33",
+          "triangles": "1514"
+        }
+      ]
+    },
+    {
+      "index": 14,
+      "frame": 2170,
+      "realtime": 39.58961890175737,
+      "name": "applying-debug-resource-scene",
+      "rulePhase": "Shop",
+      "actionSequence": 4,
+      "rowCount": 197,
+      "missingDraws": 0,
+      "drawCountHistogram": {
+        "33": 2,
+        "98": 18,
+        "96": 177
+      },
+      "minDraws": 33,
+      "maxDraws": 98,
+      "rowsAbove180": 0,
+      "afterOneSecondDrawHistogram": {
+        "96": 139
+      },
+      "tailTen": [
+        {
+          "unityFrame": "2357",
+          "realtime_s": "42.750857901757371",
+          "phase": "14",
+          "textureBytes": "133554394",
+          "draws": "96",
+          "triangles": "13146"
+        },
+        {
+          "unityFrame": "2358",
+          "realtime_s": "42.767528501757369",
+          "phase": "14",
+          "textureBytes": "133554394",
+          "draws": "96",
+          "triangles": "13146"
+        },
+        {
+          "unityFrame": "2359",
+          "realtime_s": "42.784197201757365",
+          "phase": "14",
+          "textureBytes": "133554394",
+          "draws": "96",
+          "triangles": "13146"
+        },
+        {
+          "unityFrame": "2360",
+          "realtime_s": "42.800860601757371",
+          "phase": "14",
+          "textureBytes": "133554394",
+          "draws": "96",
+          "triangles": "13146"
+        },
+        {
+          "unityFrame": "2361",
+          "realtime_s": "42.817527301757366",
+          "phase": "14",
+          "textureBytes": "133554394",
+          "draws": "96",
+          "triangles": "13146"
+        },
+        {
+          "unityFrame": "2362",
+          "realtime_s": "42.834192501757371",
+          "phase": "14",
+          "textureBytes": "133554394",
+          "draws": "96",
+          "triangles": "13146"
+        },
+        {
+          "unityFrame": "2363",
+          "realtime_s": "42.850859601757371",
+          "phase": "14",
+          "textureBytes": "133554394",
+          "draws": "96",
+          "triangles": "13146"
+        },
+        {
+          "unityFrame": "2364",
+          "realtime_s": "42.867526601757369",
+          "phase": "14",
+          "textureBytes": "133554394",
+          "draws": "96",
+          "triangles": "13146"
+        },
+        {
+          "unityFrame": "2365",
+          "realtime_s": "42.884192401757367",
+          "phase": "14",
+          "textureBytes": "133554394",
+          "draws": "96",
+          "triangles": "13146"
+        },
+        {
+          "unityFrame": "2366",
+          "realtime_s": "42.900859001757368",
+          "phase": "14",
+          "textureBytes": "133554394",
+          "draws": "96",
+          "triangles": "13146"
+        }
+      ]
+    },
+    {
+      "index": 15,
+      "frame": 2367,
+      "realtime": 42.90139300175737,
+      "name": "ten-ordinary-dice-after-ui-visits",
+      "rulePhase": "Selecting",
+      "actionSequence": 5,
+      "rowCount": 181,
+      "missingDraws": 0,
+      "drawCountHistogram": {
+        "96": 181
+      },
+      "minDraws": 96,
+      "maxDraws": 96,
+      "rowsAbove180": 0,
+      "afterOneSecondDrawHistogram": {
+        "96": 121
+      },
+      "tailTen": [
+        {
+          "unityFrame": "2538",
+          "realtime_s": "45.767679001757365",
+          "phase": "15",
+          "textureBytes": "133554394",
+          "draws": "96",
+          "triangles": "13146"
+        },
+        {
+          "unityFrame": "2539",
+          "realtime_s": "45.784340001757371",
+          "phase": "15",
+          "textureBytes": "133554394",
+          "draws": "96",
+          "triangles": "13146"
+        },
+        {
+          "unityFrame": "2540",
+          "realtime_s": "45.801007201757365",
+          "phase": "15",
+          "textureBytes": "133554394",
+          "draws": "96",
+          "triangles": "13146"
+        },
+        {
+          "unityFrame": "2541",
+          "realtime_s": "45.817676201757365",
+          "phase": "15",
+          "textureBytes": "133554394",
+          "draws": "96",
+          "triangles": "13146"
+        },
+        {
+          "unityFrame": "2542",
+          "realtime_s": "45.834339101757365",
+          "phase": "15",
+          "textureBytes": "133554394",
+          "draws": "96",
+          "triangles": "13146"
+        },
+        {
+          "unityFrame": "2543",
+          "realtime_s": "45.851006601757369",
+          "phase": "15",
+          "textureBytes": "133554394",
+          "draws": "96",
+          "triangles": "13146"
+        },
+        {
+          "unityFrame": "2544",
+          "realtime_s": "45.867677101757366",
+          "phase": "15",
+          "textureBytes": "133554394",
+          "draws": "96",
+          "triangles": "13146"
+        },
+        {
+          "unityFrame": "2545",
+          "realtime_s": "45.884339601757368",
+          "phase": "15",
+          "textureBytes": "133554394",
+          "draws": "96",
+          "triangles": "13146"
+        },
+        {
+          "unityFrame": "2546",
+          "realtime_s": "45.901172201757369",
+          "phase": "15",
+          "textureBytes": "133554394",
+          "draws": "96",
+          "triangles": "13146"
+        },
+        {
+          "unityFrame": "2547",
+          "realtime_s": "45.917849001757368",
+          "phase": "15",
+          "textureBytes": "133554394",
+          "draws": "96",
+          "triangles": "13146"
+        }
+      ]
+    },
+    {
+      "index": 16,
+      "frame": 2548,
+      "realtime": 45.92350130175737,
+      "name": "idle-warmup-and-observation",
+      "rulePhase": "Selecting",
+      "actionSequence": 5,
+      "rowCount": 1384,
+      "missingDraws": 0,
+      "drawCountHistogram": {
+        "96": 1384
+      },
+      "minDraws": 96,
+      "maxDraws": 96,
+      "rowsAbove180": 0,
+      "afterOneSecondDrawHistogram": {
+        "96": 1324
+      },
+      "tailTen": [
+        {
+          "unityFrame": "3922",
+          "realtime_s": "68.841893701757371",
+          "phase": "16",
+          "textureBytes": "133554394",
+          "draws": "96",
+          "triangles": "13146"
+        },
+        {
+          "unityFrame": "3923",
+          "realtime_s": "68.858557201757364",
+          "phase": "16",
+          "textureBytes": "133554394",
+          "draws": "96",
+          "triangles": "13146"
+        },
+        {
+          "unityFrame": "3924",
+          "realtime_s": "68.875227601757373",
+          "phase": "16",
+          "textureBytes": "133554394",
+          "draws": "96",
+          "triangles": "13146"
+        },
+        {
+          "unityFrame": "3925",
+          "realtime_s": "68.891892701757371",
+          "phase": "16",
+          "textureBytes": "133554394",
+          "draws": "96",
+          "triangles": "13146"
+        },
+        {
+          "unityFrame": "3926",
+          "realtime_s": "68.908555901757367",
+          "phase": "16",
+          "textureBytes": "133554394",
+          "draws": "96",
+          "triangles": "13146"
+        },
+        {
+          "unityFrame": "3927",
+          "realtime_s": "68.925226101757374",
+          "phase": "16",
+          "textureBytes": "133554394",
+          "draws": "96",
+          "triangles": "13146"
+        },
+        {
+          "unityFrame": "3928",
+          "realtime_s": "68.941895101757368",
+          "phase": "16",
+          "textureBytes": "133554394",
+          "draws": "96",
+          "triangles": "13146"
+        },
+        {
+          "unityFrame": "3929",
+          "realtime_s": "68.958556801757368",
+          "phase": "16",
+          "textureBytes": "133554394",
+          "draws": "96",
+          "triangles": "13146"
+        },
+        {
+          "unityFrame": "3930",
+          "realtime_s": "68.975229301757366",
+          "phase": "16",
+          "textureBytes": "133554394",
+          "draws": "96",
+          "triangles": "13146"
+        },
+        {
+          "unityFrame": "3931",
+          "realtime_s": "68.991894401757364",
+          "phase": "16",
+          "textureBytes": "133554394",
+          "draws": "96",
+          "triangles": "13146"
+        }
+      ]
+    },
+    {
+      "index": 17,
+      "frame": 3932,
+      "realtime": 68.99629820175737,
+      "name": "after-idle",
+      "rulePhase": "Selecting",
+      "actionSequence": 5,
+      "rowCount": 0,
+      "missingDraws": 0,
+      "drawCountHistogram": {},
+      "minDraws": null,
+      "maxDraws": null,
+      "rowsAbove180": 0,
+      "afterOneSecondDrawHistogram": {},
+      "tailTen": []
+    }
+  ],
+  "allRows": 3930,
+  "above180Total": 223,
+  "snapshotCoverage": [
+    {
+      "name": "baseline-menu",
+      "frame": 183,
+      "phase": "MainMenu",
+      "textures": 94,
+      "fonts": 5,
+      "meshes": 18
+    },
+    {
+      "name": "handbook-hands",
+      "frame": 369,
+      "phase": "MainMenu",
+      "textures": 94,
+      "fonts": 5,
+      "meshes": 18
+    },
+    {
+      "name": "handbook-colors",
+      "frame": 551,
+      "phase": "MainMenu",
+      "textures": 94,
+      "fonts": 5,
+      "meshes": 18
+    },
+    {
+      "name": "settings-tab-0",
+      "frame": 741,
+      "phase": "MainMenu",
+      "textures": 94,
+      "fonts": 5,
+      "meshes": 18
+    },
+    {
+      "name": "settings-tab-1",
+      "frame": 923,
+      "phase": "MainMenu",
+      "textures": 94,
+      "fonts": 5,
+      "meshes": 18
+    },
+    {
+      "name": "settings-tab-2",
+      "frame": 1105,
+      "phase": "MainMenu",
+      "textures": 94,
+      "fonts": 5,
+      "meshes": 18
+    },
+    {
+      "name": "actual-shop-current-tab",
+      "frame": 2170,
+      "phase": "Shop",
+      "textures": 94,
+      "fonts": 5,
+      "meshes": 18
+    },
+    {
+      "name": "ten-ordinary-dice-after-ui-visits",
+      "frame": 2548,
+      "phase": "Selecting",
+      "textures": 94,
+      "fonts": 5,
+      "meshes": 98
+    },
+    {
+      "name": "after-idle",
+      "frame": 3932,
+      "phase": "Selecting",
+      "textures": 94,
+      "fonts": 5,
+      "meshes": 98
+    }
+  ],
+  "actualFontsLoaded": [
+    {
+      "entityId": "1545:256",
+      "name": "LiberationSans SDF - Fallback",
+      "population": "Dynamic",
+      "atlasIds": [
+        "1543:256"
+      ],
+      "fallbackIds": [],
+      "atlasCount": 1
+    },
+    {
+      "entityId": "1549:256",
+      "name": "LiberationSans SDF",
+      "population": "Static",
+      "atlasIds": [
+        "1547:256"
+      ],
+      "fallbackIds": [
+        "1545:256"
+      ],
+      "atlasCount": 1
+    },
+    {
+      "entityId": "2068:256",
+      "name": "DiceChineseFallback",
+      "population": "Dynamic",
+      "atlasIds": [
+        "3047:256"
+      ],
+      "fallbackIds": [],
+      "atlasCount": 1
+    },
+    {
+      "entityId": "2069:256",
+      "name": "DiceChinese",
+      "population": "Static",
+      "atlasIds": [
+        "3048:256"
+      ],
+      "fallbackIds": [
+        "2068:256"
+      ],
+      "atlasCount": 1
+    },
+    {
+      "entityId": "2070:256",
+      "name": "font_numbers_tmp",
+      "population": "Static",
+      "atlasIds": [
+        "3052:256"
+      ],
+      "fallbackIds": [
+        "2069:256"
+      ],
+      "atlasCount": 1
+    }
+  ],
+  "actualSavedRoute": {
+    "receipts": [
+      {
+        "sequence": 1,
+        "commandKind": 16,
+        "phase": "Selecting",
+        "effects": [
+          "DebugSceneApplied"
+        ]
+      },
+      {
+        "sequence": 2,
+        "commandKind": 7,
+        "phase": "HandReady",
+        "effects": []
+      },
+      {
+        "sequence": 3,
+        "commandKind": 13,
+        "phase": "StageSettlement",
+        "effects": []
+      },
+      {
+        "sequence": 4,
+        "commandKind": 8,
+        "phase": "Shop",
+        "effects": []
+      },
+      {
+        "sequence": 5,
+        "commandKind": 16,
+        "phase": "Selecting",
+        "effects": [
+          "DebugSceneApplied"
+        ]
+      }
+    ],
+    "fixture": "art0.7.0 Qualified",
+    "diceCount": 5,
+    "capacity": 5,
+    "controllers": [
+      {
+        "definitionId": "C02",
+        "enchantment": "none"
+      },
+      {
+        "definitionId": "C30",
+        "enchantment": "none"
+      },
+      {
+        "definitionId": "C31",
+        "enchantment": "none"
+      },
+      {
+        "definitionId": "C32",
+        "enchantment": "none"
+      }
+    ],
+    "inventory": [
+      "I01",
+      "I02",
+      "I03",
+      "I04",
+      "I05"
+    ],
+    "submittedDice": [
+      {
+        "dieId": "D006",
+        "pip": 1,
+        "color": "blue",
+        "isGold": false,
+        "isGlass": false
+      },
+      {
+        "dieId": "D007",
+        "pip": 2,
+        "color": "blue",
+        "isGold": false,
+        "isGlass": false
+      },
+      {
+        "dieId": "D008",
+        "pip": 3,
+        "color": "blue",
+        "isGold": false,
+        "isGlass": false
+      },
+      {
+        "dieId": "D009",
+        "pip": 4,
+        "color": "blue",
+        "isGold": false,
+        "isGlass": false
+      },
+      {
+        "dieId": "D010",
+        "pip": 5,
+        "color": "blue",
+        "isGold": false,
+        "isGlass": false
+      }
+    ],
+    "settlement": {
+      "goldBefore": 30,
+      "goldAfter": 40,
+      "baseReward": 5,
+      "unusedSubmissionReward": 2,
+      "interest": 3,
+      "remainingSubmissions": 2,
+      "score": "1512",
+      "target": "1"
+    },
+    "note": "Persisted original receipts survive subsequent MaximumTable Apply. This binds actual earlier gameplay fixture, not render-material/Canvas inventory."
+  }
+}

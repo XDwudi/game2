@@ -1,0 +1,110 @@
+{
+  "utc": "2026-11-02T03:42:29.928879+00:00",
+  "reviewer": "/root/v07_run_review",
+  "status": "READY_FOR_ROOT_SERIAL_EXECUTION_OF_RECORDED_DOWNLOADED_WINDOWS_DRAFT",
+  "reviewedAdapterSha256": "e0bbcab91e6aa0ded5d32d83d1381fa94ac67606702b2f13d7de6c608b3ca169",
+  "actualExtraction": false,
+  "actualPlayerRun": false,
+  "registryAccess": false,
+  "networkAccess": false,
+  "wholeReleaseAccepted": false,
+  "inputs": [
+    {
+      "path": "artifacts/cache/v07-remote-extraction-plan/run_downloaded_windows.py",
+      "byteSize": 14405,
+      "sha256": "e0bbcab91e6aa0ded5d32d83d1381fa94ac67606702b2f13d7de6c608b3ca169"
+    },
+    {
+      "path": "artifacts/cache/v07-remote-extraction-review/run_downloaded_windows.py",
+      "byteSize": 10413,
+      "sha256": "f8ba6536f36a78a6220b8c7aeca50679d262b97790ab465cdee5fee27632b0f4"
+    },
+    {
+      "path": "tools/diagnostics/v07/run_resource_diagnostic_v3.py",
+      "byteSize": 19547,
+      "sha256": "859333e3d91837d136d17d091cddb3449f53b6b9ec7a5dd07d429daa324f07f0"
+    },
+    {
+      "path": "tools/publish_v07_release.py",
+      "byteSize": 23062,
+      "sha256": "dd1608d1c11f52b66498a326c5571f91a6732624e203d14bef5a351958a4c4b2"
+    },
+    {
+      "path": "tools/macos/v07/package_checks.py",
+      "byteSize": 7160,
+      "sha256": "75df35774305feac4c27cd2f3de36bccc6b72dd29289e802dd40e7b9e59a5bea"
+    },
+    {
+      "path": "Releases/p0.7.0/review-candidate/review-candidate-manifest.json",
+      "byteSize": 29682,
+      "sha256": "c1e2b0f886b62fc8aef65bbdc9c8bd5c533099f476da26d822a3b09f42bbe13c"
+    },
+    {
+      "path": "evidence/v07/packages/windows-package-review-candidate.json",
+      "byteSize": 70805,
+      "sha256": "26929305165149ca8c5ef7d021675c29bf8e77c5c24b73a91bffea40eb467da4"
+    },
+    {
+      "path": "evidence/v07/delivery/github-release/review-candidate/DicePrototype-p0.7.0-win-x64.zip.upload.json",
+      "byteSize": 1653,
+      "sha256": "e22be4557994007ddb249366274d88633651c183705fc99459cf88c473e02747"
+    },
+    {
+      "path": "evidence/v07/delivery/github-release/review-candidate/DicePrototype-p0.7.0-win-x64.zip.download.json",
+      "byteSize": 807,
+      "sha256": "0f8c2861c7fb6330131d638a826c9307d868e9d6de33d1eec270f701c3ea87d9"
+    },
+    {
+      "path": "evidence/v07/delivery/github-release/review-candidate/release-upload-20261102-033620-435969.json",
+      "byteSize": 5988,
+      "sha256": "ada2d9b0f0d81eb6d0f04a59db189ef1e8cc3c355b88a8ed3decf967ec1b0dbe"
+    }
+  ],
+  "reviewArtifacts": [
+    {
+      "path": "artifacts/cache/v07-remote-draft-adapter-review/bind_review.py",
+      "byteSize": 2264,
+      "sha256": "7ce1c5f243f44658a6c1391ef741d55bd93cc83270dacd8359472f1814b3bf4c"
+    },
+    {
+      "path": "artifacts/cache/v07-remote-draft-adapter-review/candidate-diff.patch",
+      "byteSize": 7518,
+      "sha256": "23d00ce79eae2a544234926df29aa3b15bf29c7b24819b72415d9507e302cd27"
+    },
+    {
+      "path": "artifacts/cache/v07-remote-draft-adapter-review/check_helper.py",
+      "byteSize": 3973,
+      "sha256": "27cb63d51f27e582ab601ec8dc655c361feabaf97d91ee77a8c5662a6ac3eb14"
+    },
+    {
+      "path": "artifacts/cache/v07-remote-draft-adapter-review/downloaded-plan.log",
+      "byteSize": 1964,
+      "sha256": "46ba49b743ae4654c1ca4250fd7c79b6628393000788e40d7f14fc781cc8addc"
+    },
+    {
+      "path": "artifacts/cache/v07-remote-draft-adapter-review/helper-checks.json",
+      "byteSize": 3615,
+      "sha256": "d0a381b6fbc2257237aac39b57f27a0647902c3004adbefc3ceae6c3a05723e6"
+    },
+    {
+      "path": "artifacts/cache/v07-remote-draft-adapter-review/helper-checks.log",
+      "byteSize": 114,
+      "sha256": "26284554a00573e7888a120598f15554020dc2743bbfa1f1cd2e039f0f5d32f3"
+    },
+    {
+      "path": "artifacts/cache/v07-remote-draft-adapter-review/plan-results.json",
+      "byteSize": 288,
+      "sha256": "8dcc6ebb73ff8fa75742fb901db467c279e0a85f2bbd5528201a61ac3cb49f4d"
+    },
+    {
+      "path": "artifacts/cache/v07-remote-draft-adapter-review/REVIEW.md",
+      "byteSize": 5802,
+      "sha256": "6f7a659947c0b5986793d37f450e4e222cf5dfd8e45ad59afd257f05c0e15276"
+    },
+    {
+      "path": "artifacts/cache/v07-remote-draft-adapter-review/run_downloaded_windows.py",
+      "byteSize": 14405,
+      "sha256": "e0bbcab91e6aa0ded5d32d83d1381fa94ac67606702b2f13d7de6c608b3ca169"
+    }
+  ]
+}

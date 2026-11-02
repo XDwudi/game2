@@ -1,0 +1,538 @@
+{
+  "utc": "2026-11-02T03:49:26.181279+00:00",
+  "reviewer": "/root/v07_run_review",
+  "status": "REMOTE_PACKAGE_INTEGRITY_AND_WINDOWS_EXTRACTION_DIAGNOSTIC_REVIEW_PASSED_ONLY",
+  "sourceCommit": "dca7a2610f39d65088b9541549d3465c388fd3e7",
+  "releaseId": 431044653,
+  "releaseSnapshotDraft": true,
+  "packages": [
+    {
+      "name": "DicePrototype-p0.7.0-win-x64.zip",
+      "byteSize": 87218149,
+      "sha256": "c823056517851a786cfe8a185c43ad6829e3bdf2f5d8686eb9b17ff6a39169b1",
+      "assetId": 700392401,
+      "receiptUtc": "2026-11-02T03:39:06.001920+00:00",
+      "zipEntries": 309,
+      "zipCrc": "passed",
+      "modes": {
+        "0o100644": 305,
+        "0o600": 2,
+        "0o100666": 2
+      },
+      "allMemberProofRowsRecomputed": 309,
+      "identityMatches": true
+    },
+    {
+      "name": "DicePrototype-p0.7.0-macos-universal.zip",
+      "byteSize": 127598578,
+      "sha256": "437985740644806f220da8217aaf187a19c816421a20dd917e5578f2190641b6",
+      "assetId": 700392416,
+      "receiptUtc": "2026-11-02T03:41:07.505800+00:00",
+      "zipEntries": 304,
+      "zipCrc": "passed",
+      "modes": {
+        "0o100644": 299,
+        "0o100755": 1,
+        "0o600": 2,
+        "0o100666": 2
+      },
+      "allMemberProofRowsRecomputed": 304,
+      "identityMatches": true,
+      "machoCpuTypes": [
+        16777223,
+        16777228
+      ],
+      "executableUnixMode": "0o100755",
+      "symlinks": 0,
+      "macRuntimeTested": false
+    },
+    {
+      "name": "DicePrototype-p0.7.0-MacVerificationKit.zip",
+      "byteSize": 127707336,
+      "sha256": "e3807850f72fa0de3c41f1bed1364254b530356e0086ae78f926d70c8e9e23c6",
+      "assetId": 700392347,
+      "receiptUtc": "2026-11-02T03:42:02.832566+00:00",
+      "zipEntries": 16,
+      "zipCrc": "passed",
+      "modes": {
+        "0o100666": 15,
+        "0o600": 1
+      },
+      "allKitInputsRecomputed": 16,
+      "nestedMacExact": true,
+      "launcherLfNoBom": true,
+      "launcherUnixMode": "0o100666",
+      "documentedLaunch": "bash VerifyMac.command; does not depend on execute bit",
+      "macRuntimeTested": false
+    }
+  ],
+  "identity": {
+    "releaseVersion": "p0.7.0",
+    "artVersion": "art0.7.0",
+    "sourceCommit": "dca7a2610f39d65088b9541549d3465c388fd3e7",
+    "contentConfigVersion": "p0.6.0",
+    "contentConfigSha256": "747ed1efc7bea15873f66a81eee5c7654971c21031f2a1517ce629adce7b6e6c",
+    "saveSchemaVersion": 4,
+    "goldenCaseSetSha256": "306cb86f79dafe0e3eb302714abd232af20fe0062a6713f7d713c11e2a6a5718",
+    "unityEditorVersion": "6000.6.7f1",
+    "backend": "Mono"
+  },
+  "inputs": [
+    {
+      "path": "Releases/p0.7.0/review-candidate/review-candidate-manifest.json",
+      "byteSize": 29682,
+      "sha256": "c1e2b0f886b62fc8aef65bbdc9c8bd5c533099f476da26d822a3b09f42bbe13c"
+    },
+    {
+      "path": "evidence/v07/delivery/github-release/review-candidate/release-download-20261102-034203-962631.json",
+      "byteSize": 9624,
+      "sha256": "d18cf80fc8fcc47bf15f8cddb7d5121d78af10db9bd5573495271ba69b97b0a8"
+    },
+    {
+      "path": "evidence/v07/delivery/github-release/review-candidate/DicePrototype-p0.7.0-win-x64.zip.download.json",
+      "byteSize": 807,
+      "sha256": "0f8c2861c7fb6330131d638a826c9307d868e9d6de33d1eec270f701c3ea87d9"
+    },
+    {
+      "path": "evidence/v07/delivery/github-release/review-candidate/DicePrototype-p0.7.0-win-x64.zip.upload.json",
+      "byteSize": 1653,
+      "sha256": "e22be4557994007ddb249366274d88633651c183705fc99459cf88c473e02747"
+    },
+    {
+      "path": "artifacts/cache/v07-release-review-download/DicePrototype-p0.7.0-win-x64.zip",
+      "byteSize": 87218149,
+      "sha256": "c823056517851a786cfe8a185c43ad6829e3bdf2f5d8686eb9b17ff6a39169b1"
+    },
+    {
+      "path": "evidence/v07/packages/windows-package-review-candidate.json",
+      "byteSize": 70805,
+      "sha256": "26929305165149ca8c5ef7d021675c29bf8e77c5c24b73a91bffea40eb467da4"
+    },
+    {
+      "path": "evidence/v07/delivery/github-release/review-candidate/DicePrototype-p0.7.0-macos-universal.zip.download.json",
+      "byteSize": 832,
+      "sha256": "7e6de1aa2856105c133ba1626c5226dd6a9e81a768ef7a0513e8074e66b43f92"
+    },
+    {
+      "path": "evidence/v07/delivery/github-release/review-candidate/DicePrototype-p0.7.0-macos-universal.zip.upload.json",
+      "byteSize": 1670,
+      "sha256": "3ba116a21a27b1827f1d1cf8b439b1b2bcc27c88ff0e4bcd648bc716d24cad85"
+    },
+    {
+      "path": "artifacts/cache/v07-release-review-download/DicePrototype-p0.7.0-macos-universal.zip",
+      "byteSize": 127598578,
+      "sha256": "437985740644806f220da8217aaf187a19c816421a20dd917e5578f2190641b6"
+    },
+    {
+      "path": "evidence/v07/packages/macos-package-review-candidate.json",
+      "byteSize": 79279,
+      "sha256": "0942431430ed39a4efd3defa42401d25b21d729757e311f0e764b477fc69be96"
+    },
+    {
+      "path": "evidence/v07/delivery/github-release/review-candidate/DicePrototype-p0.7.0-MacVerificationKit.zip.download.json",
+      "byteSize": 840,
+      "sha256": "d2b58bf65a90650e06baa269b0f0e140170e6d9e8a2f772ec105dfff6b41e6d7"
+    },
+    {
+      "path": "evidence/v07/delivery/github-release/review-candidate/DicePrototype-p0.7.0-MacVerificationKit.zip.upload.json",
+      "byteSize": 1676,
+      "sha256": "06b067772d7b9e617f2a3f10d7d61b60e630f8ec868aa7af9c05b93051ec62eb"
+    },
+    {
+      "path": "artifacts/cache/v07-release-review-download/DicePrototype-p0.7.0-MacVerificationKit.zip",
+      "byteSize": 127707336,
+      "sha256": "e3807850f72fa0de3c41f1bed1364254b530356e0086ae78f926d70c8e9e23c6"
+    },
+    {
+      "path": "evidence/v07/delivery/remote-fresh-extract-0342/archive.json",
+      "byteSize": 4737,
+      "sha256": "2ea0341ca950b6635e7583c0f5da110d1678d53fb2368d5ca06e59f21959b45f"
+    },
+    {
+      "path": "artifacts/cache/v07-remote-fresh-extract-0342/remote-extraction-result.json",
+      "byteSize": 3028,
+      "sha256": "ac73117f09ec489143c1201026c2a40c90ce4e3e9b1bd9b9537e99ce918247a6"
+    },
+    {
+      "path": "evidence/v07/delivery/remote-fresh-extract-0342/remote-extraction-result.json",
+      "byteSize": 3028,
+      "sha256": "ac73117f09ec489143c1201026c2a40c90ce4e3e9b1bd9b9537e99ce918247a6"
+    },
+    {
+      "path": "artifacts/cache/v07-remote-fresh-extract-0342/extracted-member-verification.json",
+      "byteSize": 59743,
+      "sha256": "c057ad2b462d553c9814083a2c9a32cb2dc078e75177ea8dd881254cffbb04b7"
+    },
+    {
+      "path": "evidence/v07/delivery/remote-fresh-extract-0342/extracted-member-verification.json",
+      "byteSize": 59743,
+      "sha256": "c057ad2b462d553c9814083a2c9a32cb2dc078e75177ea8dd881254cffbb04b7"
+    },
+    {
+      "path": "artifacts/cache/v07-remote-fresh-extract-0342/run/diagnostic/idle-frames.csv",
+      "byteSize": 65581,
+      "sha256": "7034d7d0fd982adbc8e0c0b33d290e170b79beda4e8831f95667aa7dd80bab58"
+    },
+    {
+      "path": "evidence/v07/delivery/remote-fresh-extract-0342/run/diagnostic/idle-frames.csv",
+      "byteSize": 65581,
+      "sha256": "7034d7d0fd982adbc8e0c0b33d290e170b79beda4e8831f95667aa7dd80bab58"
+    },
+    {
+      "path": "artifacts/cache/v07-remote-fresh-extract-0342/run/diagnostic/isolated-saves/debug-actions.jsonl",
+      "byteSize": 66525,
+      "sha256": "3c527b9066ca15a5c3a494954e9abdcf30a941eb1315d7effc12a33468099aa7"
+    },
+    {
+      "path": "evidence/v07/delivery/remote-fresh-extract-0342/run/diagnostic/isolated-saves/debug-actions.jsonl",
+      "byteSize": 66525,
+      "sha256": "3c527b9066ca15a5c3a494954e9abdcf30a941eb1315d7effc12a33468099aa7"
+    },
+    {
+      "path": "artifacts/cache/v07-remote-fresh-extract-0342/run/diagnostic/isolated-saves/debug-run.json",
+      "byteSize": 68397,
+      "sha256": "7d9488c7df31a379af46338db347d0a64f8e3c77c53a8f790039b5b81f3c133a"
+    },
+    {
+      "path": "evidence/v07/delivery/remote-fresh-extract-0342/run/diagnostic/isolated-saves/debug-run.json",
+      "byteSize": 68397,
+      "sha256": "7d9488c7df31a379af46338db347d0a64f8e3c77c53a8f790039b5b81f3c133a"
+    },
+    {
+      "path": "artifacts/cache/v07-remote-fresh-extract-0342/run/diagnostic/isolated-saves/debug-run.json.backup",
+      "byteSize": 67483,
+      "sha256": "0683179e49a77ef9a150dc3dc5d8e5151a1c6d86556dad97d43c0d634a601ef0"
+    },
+    {
+      "path": "evidence/v07/delivery/remote-fresh-extract-0342/run/diagnostic/isolated-saves/debug-run.json.backup",
+      "byteSize": 67483,
+      "sha256": "0683179e49a77ef9a150dc3dc5d8e5151a1c6d86556dad97d43c0d634a601ef0"
+    },
+    {
+      "path": "artifacts/cache/v07-remote-fresh-extract-0342/run/diagnostic/resource-frames.csv",
+      "byteSize": 180293,
+      "sha256": "6658d5d6a21cdbed6937c472eac641cfa4ac227145be622f855a14f2526cb739"
+    },
+    {
+      "path": "evidence/v07/delivery/remote-fresh-extract-0342/run/diagnostic/resource-frames.csv",
+      "byteSize": 180293,
+      "sha256": "6658d5d6a21cdbed6937c472eac641cfa4ac227145be622f855a14f2526cb739"
+    },
+    {
+      "path": "artifacts/cache/v07-remote-fresh-extract-0342/run/diagnostic/resource-report.json",
+      "byteSize": 827436,
+      "sha256": "577f5deea8aef2d9dca4fec248757a598e7e2170de24fdfce6b7327002385a8c"
+    },
+    {
+      "path": "evidence/v07/delivery/remote-fresh-extract-0342/run/diagnostic/resource-report.json",
+      "byteSize": 827436,
+      "sha256": "577f5deea8aef2d9dca4fec248757a598e7e2170de24fdfce6b7327002385a8c"
+    },
+    {
+      "path": "artifacts/cache/v07-remote-fresh-extract-0342/run/external-guards-after.json",
+      "byteSize": 76534,
+      "sha256": "8a2aadca458239f6c8ce44cb6e2391cfbef22973a82e175a65e1b18d7eb74613"
+    },
+    {
+      "path": "evidence/v07/delivery/remote-fresh-extract-0342/run/external-guards-after.json",
+      "byteSize": 76534,
+      "sha256": "8a2aadca458239f6c8ce44cb6e2391cfbef22973a82e175a65e1b18d7eb74613"
+    },
+    {
+      "path": "artifacts/cache/v07-remote-fresh-extract-0342/run/external-guards-before.json",
+      "byteSize": 76534,
+      "sha256": "8a2aadca458239f6c8ce44cb6e2391cfbef22973a82e175a65e1b18d7eb74613"
+    },
+    {
+      "path": "evidence/v07/delivery/remote-fresh-extract-0342/run/external-guards-before.json",
+      "byteSize": 76534,
+      "sha256": "8a2aadca458239f6c8ce44cb6e2391cfbef22973a82e175a65e1b18d7eb74613"
+    },
+    {
+      "path": "artifacts/cache/v07-remote-fresh-extract-0342/run/Player.log",
+      "byteSize": 15794,
+      "sha256": "5528425b63a88299aca48b8073799476502d239d8dd1598a41941e05f3c18d4e"
+    },
+    {
+      "path": "evidence/v07/delivery/remote-fresh-extract-0342/run/Player.log",
+      "byteSize": 15794,
+      "sha256": "5528425b63a88299aca48b8073799476502d239d8dd1598a41941e05f3c18d4e"
+    },
+    {
+      "path": "artifacts/cache/v07-remote-fresh-extract-0342/run/process-output.log",
+      "byteSize": 1885,
+      "sha256": "cd53b7ab6664f420cfdcd93aaaaead30bd934e00007bd1572a04350b9ec1cb4d"
+    },
+    {
+      "path": "evidence/v07/delivery/remote-fresh-extract-0342/run/process-output.log",
+      "byteSize": 1885,
+      "sha256": "cd53b7ab6664f420cfdcd93aaaaead30bd934e00007bd1572a04350b9ec1cb4d"
+    },
+    {
+      "path": "artifacts/cache/v07-remote-fresh-extract-0342/run/process.json",
+      "byteSize": 230,
+      "sha256": "9584310ee2ff975eb1f1155a25b775b1c9ae2849a7c1f54c5cfc60a6f3fedba6"
+    },
+    {
+      "path": "evidence/v07/delivery/remote-fresh-extract-0342/run/process.json",
+      "byteSize": 230,
+      "sha256": "9584310ee2ff975eb1f1155a25b775b1c9ae2849a7c1f54c5cfc60a6f3fedba6"
+    },
+    {
+      "path": "artifacts/cache/v07-remote-fresh-extract-0342/run/runner-summary.json",
+      "byteSize": 7009,
+      "sha256": "b526833c781473af642c432f07adb7ac5180f17d67d7f7e15e078d977aad9d33"
+    },
+    {
+      "path": "evidence/v07/delivery/remote-fresh-extract-0342/run/runner-summary.json",
+      "byteSize": 7009,
+      "sha256": "b526833c781473af642c432f07adb7ac5180f17d67d7f7e15e078d977aad9d33"
+    },
+    {
+      "path": "tools/diagnostics/v07/run_resource_diagnostic_v3.py",
+      "byteSize": 19547,
+      "sha256": "859333e3d91837d136d17d091cddb3449f53b6b9ec7a5dd07d429daa324f07f0"
+    },
+    {
+      "path": "evidence/v07/delivery/github-release/review-candidate/release-upload-20261102-033620-435969.json",
+      "byteSize": 5988,
+      "sha256": "ada2d9b0f0d81eb6d0f04a59db189ef1e8cc3c355b88a8ed3decf967ec1b0dbe"
+    },
+    {
+      "path": "evidence/v07/unity/build-windows-20261102-023220.json",
+      "byteSize": 956,
+      "sha256": "63feef5f527850bebdbf8f4308ca6341107785e1c4125998346779d54248607e"
+    },
+    {
+      "path": "artifacts/cache/v07-remote-fresh-extract-0342/player/DicePrototype.exe",
+      "byteSize": 667136,
+      "sha256": "3726509af94bdacbfe23f85da13109a7e70fb7d61913506e98690bd3208b2fd7"
+    },
+    {
+      "path": "artifacts/cache/v07-remote-fresh-extract-0342/player/DicePrototype_Data/Managed/DiceCraft.Runtime.dll",
+      "byteSize": 868352,
+      "sha256": "e021501fd335c05eb87110966a727533c6509fd041788e3c7207b726f24a8589"
+    },
+    {
+      "path": "artifacts/cache/v07-remote-fresh-extract-0342/player/DicePrototype_Data/boot.config",
+      "byteSize": 358,
+      "sha256": "b91f656a3921c5f430ce0801fece54f5a8421b2fa30dbbe137ae1d63e7e3750f"
+    },
+    {
+      "path": "evidence/v07/delivery/run_downloaded_windows.py",
+      "byteSize": 14405,
+      "sha256": "e0bbcab91e6aa0ded5d32d83d1381fa94ac67606702b2f13d7de6c608b3ca169"
+    }
+  ],
+  "wholeReleaseAccepted": false,
+  "reviewNetworkAccess": false,
+  "reviewLaunchedPlayer": false,
+  "reviewNote": "Initial reviewer audit assumed launcher execute bit; corrected to existing documented bash launch. No product or standards change.",
+  "archiveFiles": 14,
+  "archiveTotalBytes": 1516472,
+  "process": {
+    "startedUtc": "2026-11-02T03:42:09.963987+00:00",
+    "exitCode": 0,
+    "timedOut": false,
+    "ownedProcessTerminated": false,
+    "pid": 4436,
+    "ownedProcessStillRunning": false,
+    "endedUtc": "2026-11-02T03:43:20.163219+00:00"
+  },
+  "buildGuid": "388c2eee37244ba48bb656114b6320bf",
+  "runtimeMvid": "509a9a1c-df39-43d7-927f-c5f787977a35",
+  "adapterSha256": "e0bbcab91e6aa0ded5d32d83d1381fa94ac67606702b2f13d7de6c608b3ca169",
+  "actualExtractedFiles": 309,
+  "actualExtractedBytes": 190759584,
+  "guards": {
+    "completeJSONIdentical": true,
+    "buildFiles": 309,
+    "ordinaryFiles": 17,
+    "gamePreferenceHashes": 36,
+    "enginePreferenceHashes": 17,
+    "internalPreferences": 23,
+    "isolatedIdleFiles": 3,
+    "historicalFormal180OrdinaryGuardGapUnaffected": true
+  },
+  "phaseCount": 18,
+  "snapshots": [
+    {
+      "name": "baseline-menu",
+      "textures": 94,
+      "categoriesBytes": {
+        "unknown": 1690406,
+        "font": 12062258,
+        "referenced-art": 40896704,
+        "render-target": 78905026
+      },
+      "totalTextureObjectBytes": 133554394,
+      "activeBodies": 0,
+      "bodyTriangles": 0
+    },
+    {
+      "name": "handbook-hands",
+      "textures": 94,
+      "categoriesBytes": {
+        "unknown": 1690406,
+        "font": 12062258,
+        "referenced-art": 40896704,
+        "render-target": 78905026
+      },
+      "totalTextureObjectBytes": 133554394,
+      "activeBodies": 0,
+      "bodyTriangles": 0
+    },
+    {
+      "name": "handbook-colors",
+      "textures": 94,
+      "categoriesBytes": {
+        "unknown": 1690406,
+        "font": 12062258,
+        "referenced-art": 40896704,
+        "render-target": 78905026
+      },
+      "totalTextureObjectBytes": 133554394,
+      "activeBodies": 0,
+      "bodyTriangles": 0
+    },
+    {
+      "name": "settings-tab-0",
+      "textures": 94,
+      "categoriesBytes": {
+        "unknown": 1690406,
+        "font": 12062258,
+        "referenced-art": 40896704,
+        "render-target": 78905026
+      },
+      "totalTextureObjectBytes": 133554394,
+      "activeBodies": 0,
+      "bodyTriangles": 0
+    },
+    {
+      "name": "settings-tab-1",
+      "textures": 94,
+      "categoriesBytes": {
+        "unknown": 1690406,
+        "font": 12062258,
+        "referenced-art": 40896704,
+        "render-target": 78905026
+      },
+      "totalTextureObjectBytes": 133554394,
+      "activeBodies": 0,
+      "bodyTriangles": 0
+    },
+    {
+      "name": "settings-tab-2",
+      "textures": 94,
+      "categoriesBytes": {
+        "unknown": 1690406,
+        "font": 12062258,
+        "referenced-art": 40896704,
+        "render-target": 78905026
+      },
+      "totalTextureObjectBytes": 133554394,
+      "activeBodies": 0,
+      "bodyTriangles": 0
+    },
+    {
+      "name": "actual-shop-current-tab",
+      "textures": 94,
+      "categoriesBytes": {
+        "unknown": 1690406,
+        "font": 12062258,
+        "referenced-art": 40896704,
+        "render-target": 78905026
+      },
+      "totalTextureObjectBytes": 133554394,
+      "activeBodies": 0,
+      "bodyTriangles": 0
+    },
+    {
+      "name": "ten-ordinary-dice-after-ui-visits",
+      "textures": 94,
+      "categoriesBytes": {
+        "unknown": 1690406,
+        "font": 12062258,
+        "referenced-art": 40896704,
+        "render-target": 78905026
+      },
+      "totalTextureObjectBytes": 133554394,
+      "activeBodies": 10,
+      "bodyTriangles": 1880
+    },
+    {
+      "name": "after-idle",
+      "textures": 94,
+      "categoriesBytes": {
+        "unknown": 1690406,
+        "font": 12062258,
+        "referenced-art": 40896704,
+        "render-target": 78905026
+      },
+      "totalTextureObjectBytes": 133554394,
+      "activeBodies": 10,
+      "bodyTriangles": 1880
+    }
+  ],
+  "idle": {
+    "rows": 1200,
+    "firstFrame": 2734,
+    "lastFrame": 3933,
+    "lastElapsedSeconds": 20.00042839999999,
+    "reportedActualSeconds": 20.001565499999998,
+    "zeroGC": 1199,
+    "nonzero": [
+      {
+        "frame": 2891,
+        "elapsed": 2.6328280000000035,
+        "bytes": 132
+      }
+    ],
+    "focusedValidStationaryAll": true,
+    "csvDraws": {
+      "96": 1200
+    }
+  },
+  "resourceCSV": {
+    "rows": 3932,
+    "firstFrame": 2,
+    "lastFrame": 3933,
+    "firstRowCounterFields": {
+      "textureBytes": "",
+      "draws": "",
+      "triangles": ""
+    },
+    "drawRowsAbove180ByPhase": {
+      "11": 221,
+      "12": 2
+    },
+    "drawPeakByPhase": {
+      "0": 37,
+      "1": 50,
+      "2": 50,
+      "3": 49,
+      "4": 49,
+      "5": 132,
+      "6": 50,
+      "7": 65,
+      "8": 65,
+      "9": 147,
+      "10": 63,
+      "11": 214,
+      "12": 212,
+      "13": 33,
+      "14": 98,
+      "15": 96,
+      "16": 96
+    }
+  },
+  "ordinarySaveGuardScope": "New extraction time window only; retained before/after manifests independently compared, not live historical files",
+  "actualScreenshotsViewed": 0,
+  "formalPerformanceAcceptance": false,
+  "macRuntimeTested": false,
+  "report": {
+    "path": "evidence/v07/review/REMOTE_DELIVERY_DCA7A26_REVIEW.md",
+    "byteSize": 8825,
+    "sha256": "816bb35791c177d039c04b62a18a8b5b37e6c9971adb0416bce747394bc11b96"
+  }
+}

@@ -1,0 +1,220 @@
+{
+  "schema": "v07-resource-launcher-1",
+  "startedUtc": "2026-11-02T03:42:09.562046+00:00",
+  "wholeReleaseAccepted": false,
+  "formalPerformanceAcceptance": false,
+  "purpose": "Independent resource/idle diagnostic only",
+  "identity": {
+    "releaseVersion": "p0.7.0",
+    "artVersion": "art0.7.0",
+    "sourceCommit": "dca7a2610f39d65088b9541549d3465c388fd3e7",
+    "contentConfigVersion": "p0.6.0",
+    "contentConfigSha256": "747ed1efc7bea15873f66a81eee5c7654971c21031f2a1517ce629adce7b6e6c",
+    "saveSchemaVersion": 4,
+    "goldenCaseSetSha256": "306cb86f79dafe0e3eb302714abd232af20fe0062a6713f7d713c11e2a6a5718",
+    "unityEditorVersion": "6000.6.7f1",
+    "backend": "Mono"
+  },
+  "buildGuid": "388c2eee37244ba48bb656114b6320bf",
+  "timeoutSeconds": 270,
+  "inputHashes": {
+    "buildReportSha256": "63feef5f527850bebdbf8f4308ca6341107785e1c4125998346779d54248607e",
+    "exeSha256": "3726509af94bdacbfe23f85da13109a7e70fb7d61913506e98690bd3208b2fd7",
+    "runtimeSha256": "e021501fd335c05eb87110966a727533c6509fd041788e3c7207b726f24a8589",
+    "bootSha256": "b91f656a3921c5f430ce0801fece54f5a8421b2fa30dbbe137ae1d63e7e3750f"
+  },
+  "argv": [
+    "E:\\agent_workspace\\gpt\\game2\\artifacts\\cache\\v07-remote-fresh-extract-0342\\player\\DicePrototype.exe",
+    "--art07-resource-diagnostic",
+    "E:\\agent_workspace\\gpt\\game2\\artifacts\\cache\\v07-remote-fresh-extract-0342\\run\\diagnostic",
+    "-screen-width",
+    "1920",
+    "-screen-height",
+    "1080",
+    "-screen-fullscreen",
+    "0",
+    "-logFile",
+    "E:\\agent_workspace\\gpt\\game2\\artifacts\\cache\\v07-remote-fresh-extract-0342\\run\\Player.log"
+  ],
+  "errors": [],
+  "process": {
+    "startedUtc": "2026-11-02T03:42:09.963987+00:00",
+    "exitCode": 0,
+    "timedOut": false,
+    "ownedProcessTerminated": false,
+    "pid": 4436,
+    "ownedProcessStillRunning": false,
+    "endedUtc": "2026-11-02T03:43:20.163219+00:00"
+  },
+  "actualDiagnostic": {
+    "path": "E:\\agent_workspace\\gpt\\game2\\artifacts\\cache\\v07-remote-fresh-extract-0342\\run\\diagnostic\\resource-report.json",
+    "sha256": "577f5deea8aef2d9dca4fec248757a598e7e2170de24fdfce6b7327002385a8c",
+    "status": "diagnostic_completed_not_acceptance",
+    "error": "",
+    "phaseHistory": [
+      {
+        "index": 0,
+        "frame": 2,
+        "realtime": 3.1679360066893425,
+        "name": "baseline-menu",
+        "rulePhase": "MainMenu",
+        "actionSequence": 0
+      },
+      {
+        "index": 1,
+        "frame": 183,
+        "realtime": 6.1798405066893425,
+        "name": "ui:MenuHandbook",
+        "rulePhase": "MainMenu",
+        "actionSequence": 0
+      },
+      {
+        "index": 2,
+        "frame": 369,
+        "realtime": 9.323206006689343,
+        "name": "ui:HandbookColors",
+        "rulePhase": "MainMenu",
+        "actionSequence": 0
+      },
+      {
+        "index": 3,
+        "frame": 551,
+        "realtime": 12.354747706689343,
+        "name": "ui:CloseDialog",
+        "rulePhase": "MainMenu",
+        "actionSequence": 0
+      },
+      {
+        "index": 4,
+        "frame": 552,
+        "realtime": 12.371178206689343,
+        "name": "ui:MenuSettings",
+        "rulePhase": "MainMenu",
+        "actionSequence": 0
+      },
+      {
+        "index": 5,
+        "frame": 553,
+        "realtime": 12.387679806689343,
+        "name": "ui:SettingsTab0",
+        "rulePhase": "MainMenu",
+        "actionSequence": 0
+      },
+      {
+        "index": 6,
+        "frame": 742,
+        "realtime": 15.538278106689342,
+        "name": "ui:SettingsTab1",
+        "rulePhase": "MainMenu",
+        "actionSequence": 0
+      },
+      {
+        "index": 7,
+        "frame": 924,
+        "realtime": 18.57230830668934,
+        "name": "ui:SettingsTab2",
+        "rulePhase": "MainMenu",
+        "actionSequence": 0
+      },
+      {
+        "index": 8,
+        "frame": 1106,
+        "realtime": 21.60749530668934,
+        "name": "ui:SettingsDone",
+        "rulePhase": "MainMenu",
+        "actionSequence": 0
+      },
+      {
+        "index": 9,
+        "frame": 1107,
+        "realtime": 21.69449810668934,
+        "name": "applying-debug-resource-scene",
+        "rulePhase": "StagePreview",
+        "actionSequence": 0
+      },
+      {
+        "index": 10,
+        "frame": 1297,
+        "realtime": 24.938231906689342,
+        "name": "command:Submit",
+        "rulePhase": "Selecting",
+        "actionSequence": 1
+      },
+      {
+        "index": 11,
+        "frame": 1572,
+        "realtime": 29.571180906689342,
+        "name": "command:EndStage",
+        "rulePhase": "HandReady",
+        "actionSequence": 2
+      },
+      {
+        "index": 12,
+        "frame": 1795,
+        "realtime": 33.311725206689346,
+        "name": "command:Continue",
+        "rulePhase": "StageSettlement",
+        "actionSequence": 3
+      },
+      {
+        "index": 13,
+        "frame": 1991,
+        "realtime": 36.616576906689346,
+        "name": "actual-shop-current-tab",
+        "rulePhase": "Shop",
+        "actionSequence": 4
+      },
+      {
+        "index": 14,
+        "frame": 2172,
+        "realtime": 39.63764510668935,
+        "name": "applying-debug-resource-scene",
+        "rulePhase": "Shop",
+        "actionSequence": 4
+      },
+      {
+        "index": 15,
+        "frame": 2369,
+        "realtime": 42.94813330668934,
+        "name": "ten-ordinary-dice-after-ui-visits",
+        "rulePhase": "Selecting",
+        "actionSequence": 5
+      },
+      {
+        "index": 16,
+        "frame": 2550,
+        "realtime": 45.96942630668934,
+        "name": "idle-warmup-and-observation",
+        "rulePhase": "Selecting",
+        "actionSequence": 5
+      },
+      {
+        "index": 17,
+        "frame": 3934,
+        "realtime": 69.03968890668934,
+        "name": "after-idle",
+        "rulePhase": "Selecting",
+        "actionSequence": 5
+      }
+    ],
+    "lastPhase": {
+      "index": 17,
+      "frame": 3934,
+      "realtime": 69.03968890668934,
+      "name": "after-idle",
+      "rulePhase": "Selecting",
+      "actionSequence": 5
+    },
+    "scope": "Resource/idle diagnostic only; no highest-combo, UI latency, formal 180-second P95, native display or platform acceptance.",
+    "geometryScope": "Actual ten ordinary Body renderers; outlines and physical faces separately. Fragment prefab and instantiated pool meshes separately; inactive pool is not active-effect peak proof.",
+    "memoryMethod": "Profiler.GetRuntimeMemorySizeLong per unique native Texture object; Texture Memory counter separately. Not physical GPU residency or independently split CPU/GPU bytes.",
+    "idleObservationComplete": true
+  },
+  "buildFilesUnchanged": true,
+  "ordinarySaveFilesUnchanged": true,
+  "ordinaryGamePreferenceValuesUnchanged": true,
+  "engineScreenmanagerValuesUnchanged": true,
+  "engineScreenmanagerScope": "Unity engine persisted display values only; recorded separately, never merged into the game-preference guard",
+  "endedUtc": "2026-11-02T03:43:20.505989+00:00",
+  "status": "diagnostic_completed_not_acceptance"
+}
