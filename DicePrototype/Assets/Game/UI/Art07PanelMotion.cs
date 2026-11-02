@@ -12,6 +12,7 @@ namespace DiceCraft
             public RectTransform rect;
             public CanvasRenderer renderer;
             public Mesh mesh;
+            public Material material;
         }
         private readonly List<TailMesh> tailMeshes = new List<TailMesh>();
         private readonly List<Vector4> copiedUvs = new List<Vector4>();
@@ -84,9 +85,14 @@ namespace DiceCraft
                 for (int i = 0; i < vertices.Length; i++) vertices[i] = matrix.MultiplyPoint3x4(vertices[i]);
                 entry.mesh.vertices = vertices; entry.mesh.RecalculateBounds();
                 // Use original non-stencil material: the live Mask hierarchy is about to close.
-                // TMP's Graphic.material may still be the uGUI default; its rendered glyphs use fontSharedMaterial.
-                var material=graphic is TMPro.TMP_Text text?text.fontSharedMaterial:graphic.material;
-                entry.renderer.materialCount=1;entry.renderer.SetMaterial(material,0);entry.renderer.SetTexture(graphic.mainTexture);
+                // TMP's Graphic.mainTexture is white; primary and fallback glyphs each need their own font atlas.
+                var material=graphic is TMPro.TMP_Text text?text.fontSharedMaterial:graphic is TMPro.TMP_SubMeshUI sub?sub.sharedMaterial:graphic.material;
+                Texture texture=graphic is TMPro.TMP_Text||graphic is TMPro.TMP_SubMeshUI?material?.mainTexture:graphic.mainTexture;
+                // Closing the source panel can release TMP fallback materials. Each tail slot owns a reusable copy.
+                if(entry.material==null)entry.material=new Material(material){name="Art07 modal tail material "+count,hideFlags=HideFlags.DontSave};
+                else {entry.material.shader=material.shader;entry.material.CopyPropertiesFromMaterial(material);}
+                entry.material.shaderKeywords=material.shaderKeywords;entry.material.renderQueue=material.renderQueue;
+                entry.renderer.materialCount=1;entry.renderer.SetMaterial(entry.material,0);entry.renderer.SetTexture(texture);
                 Color tint = graphic.canvasRenderer.GetColor(); tint.a *= graphic.canvasRenderer.GetInheritedAlpha(); entry.renderer.SetColor(tint);
                 bool clipped = false; Rect clip = default;
                 foreach (var mask in graphic.GetComponentsInParent<Mask>(false))
@@ -122,6 +128,6 @@ namespace DiceCraft
             if (!clipped) { result = current; clipped = true; }
             else result = Rect.MinMaxRect(Mathf.Max(result.xMin, current.xMin), Mathf.Max(result.yMin, current.yMin), Mathf.Min(result.xMax, current.xMax), Mathf.Min(result.yMax, current.yMax));
         }
-        private void OnDestroy() { foreach (var entry in tailMeshes) if (entry.mesh != null) Destroy(entry.mesh); }
+        private void OnDestroy() { foreach (var entry in tailMeshes) { if (entry.mesh != null) Destroy(entry.mesh); if (entry.material != null) Destroy(entry.material); } }
     }
 }

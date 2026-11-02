@@ -52,6 +52,7 @@ namespace DiceCraft
         {
             directory = null;
             var args = Environment.GetCommandLineArgs();
+            if (Array.IndexOf(args, DiceCraft.Verification.Art07ResourceDiagnostic.Argument) >= 0) return;
             int index = Array.IndexOf(args, "--pacing-experiment");
             if (index < 0) return;
             try

@@ -232,6 +232,7 @@ namespace DiceCraft.Verification
         private static void Bootstrap()
         {
             string[] args = Environment.GetCommandLineArgs();
+            if (Array.IndexOf(args, DiceCraft.Verification.Art07ResourceDiagnostic.Argument) >= 0) return;
             int flag = Array.IndexOf(args, "--verify-p0");
             configuredDisplayOnly = Array.IndexOf(args, "--verify-display-only") >= 0;
             configuredNativeExperiment = Array.IndexOf(args, "--verify-native-display-experiment") >= 0;
