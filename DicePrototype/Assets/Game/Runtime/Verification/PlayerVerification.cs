@@ -24,7 +24,7 @@ namespace DiceCraft.Verification
     /// </summary>
     public sealed partial class PlayerVerification : MonoBehaviour
     {
-        private const string ProbeRevision = "p07-player-art-ui-20";
+        private const string ProbeRevision = "p07-player-art-ui-21";
         private const double WarmupSeconds = 10;
         private const double SampleSeconds = 180;
         private const double FrameBudgetMs = 16.7;
@@ -334,6 +334,18 @@ namespace DiceCraft.Verification
             }
         }
 
+        private void InitializeConfigBinding()
+        {
+            Require(app?.configAsset != null && app.Config != null, "Verification requires the loaded production configuration.");
+            // Bind every role before dispatch, including early-return writer/reader paths.
+            // Compute from the actual asset; never copy the expected identity hash into evidence.
+            configHash = Hash(app.configAsset.text);
+            var identity = Resources.Load<TextAsset>("BuildIdentity");
+            Require(identity != null, "Verification build identity is missing.");
+            Require(JsonMember(identity.text, "contentConfigSha256") == Json(configHash), "Loaded configuration hash differs from the build identity.");
+            Require(JsonMember(identity.text, "contentConfigVersion") == Json(app.Config.configVersion), "Loaded configuration version differs from the build identity.");
+        }
+
         private IEnumerator Run()
         {
             Directory.CreateDirectory(configuredDirectory);
@@ -351,6 +363,7 @@ namespace DiceCraft.Verification
             string[] launchArgs = Environment.GetCommandLineArgs();
             Require(!(configuredDisplayOnly && configuredNativeExperiment), "Choose display-only or native experiment, not both.");
             Require(!(configuredDisplayOnly || configuredNativeExperiment) || (Array.IndexOf(launchArgs, "--verify-display-recovery-write") < 0 && Array.IndexOf(launchArgs, "--verify-display-recovery-read") < 0), "Display diagnostic and recovery-process roles cannot be combined.");
+            InitializeConfigBinding();
             if (Array.IndexOf(launchArgs, "--verify-display-recovery-write") >= 0 || Array.IndexOf(launchArgs, "--verify-display-recovery-read") >= 0)
             { yield return VerifyDisplayRecoveryProcess(); yield break; }
             normalSave = app.SaveLocation;
@@ -372,7 +385,6 @@ namespace DiceCraft.Verification
             yield return SetActualResolution(1920, 1080);
             app.Refresh();
             environment = EnvironmentReport();
-            configHash = Hash(app.configAsset.text);
             if (configuredNativeExperiment)
             { yield return VerifyNativeDisplayExperiment(); yield break; }
             if (configuredDisplayOnly)
@@ -390,7 +402,6 @@ namespace DiceCraft.Verification
             }
             string json = File.ReadAllText(configuredTrace, Encoding.UTF8);
             traceHash = Hash(json);
-            configHash = Hash(app.configAsset.text);
             trace = JsonUtility.FromJson<Trace>(json);
             Require(trace != null && trace.steps != null && trace.steps.Length > 0, "Trace is empty.");
             Require(!trace.isDebug && trace.configVersion == app.Config.configVersion, "Trace is debug or uses another config version.");

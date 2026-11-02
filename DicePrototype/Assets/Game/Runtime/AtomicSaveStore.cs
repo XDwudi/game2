@@ -65,7 +65,7 @@ namespace DiceCraft
                 // validated and committed. Compare all bytes (never just mtime/length)
                 // to avoid parsing the growing receipt history again on every save.
                 // External changes and a fresh adapter retain the full original check.
-                bool valid = lastValidatedWrite != null && File.ReadAllBytes(SavePath).SequenceEqual(lastValidatedWrite);
+                bool valid = lastValidatedWrite != null && BytesEqual(File.ReadAllBytes(SavePath),lastValidatedWrite);
                 if(!valid)valid=TryRead(SavePath, out _, out _);
                 if (!valid)
                 {
@@ -77,6 +77,15 @@ namespace DiceCraft
             else File.Move(temp, SavePath);
             // Failed Replace/Move must leave the previous cache intact for exact retry.
             lastValidatedWrite=data;
+        }
+        // Compare every byte while avoiding Mono LINQ enumerator overhead on large saves.
+        // Length or timestamps alone never establish that the active file is still validated.
+        private static bool BytesEqual(byte[] left, byte[] right)
+        {
+            if (ReferenceEquals(left,right)) return true;
+            if (left==null||right==null||left.Length!=right.Length) return false;
+            for (int i=0;i<left.Length;i++) if(left[i]!=right[i]) return false;
+            return true;
         }
         public RunState Load()
         {

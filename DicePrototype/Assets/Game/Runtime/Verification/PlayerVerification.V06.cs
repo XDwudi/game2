@@ -931,10 +931,50 @@ namespace DiceCraft.Verification
             var d = app.DisplayPreferences.ReadActual();
             return new Dictionary<string, object> { ["display"] = d.displayName, ["width"] = d.width, ["height"] = d.height, ["mode"] = d.mode.ToString(), ["nativeWidth"] = d.nativeWidth, ["nativeHeight"] = d.nativeHeight, ["refreshNumerator"] = d.refreshNumerator, ["refreshDenominator"] = d.refreshDenominator, ["focused"] = Application.isFocused };
         }
-        private void DisplayRecord(string id, string status, string reason = null)
+        private void DisplayRecord(string id, string status, string reason = null, DisplayChoice requested = null, RectInt? requestWorkArea = null)
         {
-            displayChecks.Add(new Dictionary<string, object> { ["id"] = id, ["status"] = status, ["reason"] = reason, ["artVersion"] = GameApp.ArtVersion, ["probeRevision"] = ProbeRevision, ["actualNativeReadback"] = ActualDisplay() });
+            var record = new Dictionary<string, object> { ["id"] = id, ["status"] = status, ["reason"] = reason, ["artVersion"] = GameApp.ArtVersion, ["probeRevision"] = ProbeRevision, ["actualNativeReadback"] = ActualDisplay() };
+            if (requested != null) record["requested"] = requested;
+            if (requestWorkArea.HasValue) record["requestWorkArea"] = new Dictionary<string, object> { ["width"] = requestWorkArea.Value.width, ["height"] = requestWorkArea.Value.height };
+            displayChecks.Add(record);
             File.WriteAllText(Path.Combine(configuredDirectory, "v06-display-checks.json"), Json(displayChecks), Encoding.UTF8);
+        }
+        private static bool SameRequestedDisplay(DisplayChoice actual, DisplayChoice requested)
+        {
+            return actual != null && requested != null && actual.displayName == requested.displayName
+                && actual.width == requested.width && actual.height == requested.height && actual.mode == requested.mode;
+        }
+        private static void RequireConfirmedDisplay(DisplayChoice requested, DisplayChoice actual, string persisted)
+        {
+            Require(SameRequestedDisplay(actual, requested), "Confirmed native display differs from the requested display, dimensions or mode.");
+            Require(JsonMember(persisted, "pending") == "false", "Confirmed display preference remains pending on disk.");
+            string confirmedJson = JsonMember(persisted, "confirmed");
+            Require(confirmedJson != "null", "Persisted confirmed display is missing.");
+            var confirmed = JsonUtility.FromJson<DisplayChoice>(confirmedJson);
+            Require(SameRequestedDisplay(confirmed, requested), "Persisted confirmed display differs from the requested display, dimensions or mode.");
+        }
+        private IEnumerator VerifyConfirmedWindow(string label, DisplayChoice requested)
+        {
+            var prefs = app.DisplayPreferences;
+            BeginDisplayDiagnostic(label + "-confirmed", requested, "Post-confirmation native readback and persisted preference; at least 3 frames and 250 ms, bounded to 2 seconds");
+            double start = Time.realtimeSinceStartupAsDouble; int observedFrames = 0; bool passed = false;
+            try
+            {
+                do
+                {
+                    yield return null; SampleDisplayDiagnostic("post-confirm-frame"); observedFrames++;
+                    Require(Time.realtimeSinceStartupAsDouble - start < 2, "Confirmed window observation exceeded its two-second bound.");
+                    Require(!prefs.IsPending && !prefs.IsTransitioning && SameRequestedDisplay(prefs.ReadActual(), requested), "Native window changed after confirmation.");
+                } while (observedFrames < 3 || Time.realtimeSinceStartupAsDouble - start < .25);
+                string settings = (string)GetPrivate(prefs, "path");
+                RequireConfirmedDisplay(requested, prefs.ReadActual(), File.ReadAllText(settings, Encoding.UTF8));
+                passed = true;
+            }
+            finally
+            {
+                activeDisplayTransition["status"] = passed ? "confirmed_native_and_persisted_match" : "confirmed_readback_failed";
+                SampleDisplayDiagnostic("post-confirm-finally"); PersistDisplayDiagnostics(); activeDisplayTransition = null; activeDisplayFrames = null;
+            }
         }
         private IEnumerator VerifyV06Displays()
         {
@@ -982,14 +1022,16 @@ namespace DiceCraft.Verification
             {
                 var d = Screen.mainWindowDisplayInfo;
                 string label = "window-" + size.x + "x" + size.y;
+                var requested = prefs.Choice(d, FullScreenMode.Windowed, size.x, size.y);
                 if (size.x > d.workArea.width || size.y > d.workArea.height)
-                { DisplayRecord(label, "not_supported", "Requested client dimensions exceed current display work area."); continue; }
-                Require(ApplyDisplayDiagnostic(label, prefs.Choice(d, FullScreenMode.Windowed, size.x, size.y)), "Display API rejected supported test window.");
+                { DisplayRecord(label, "not_supported", "Requested client dimensions exceed current display work area.", requested, d.workArea); continue; }
+                Require(ApplyDisplayDiagnostic(label, requested), "Display API rejected supported test window.");
                 yield return DisplayReady();
                 Require(prefs.CanConfirm && Screen.width == size.x && Screen.height == size.y && Screen.fullScreenMode == FullScreenMode.Windowed, "Actual window size differs from request.");
                 app.ShowDisplaySettings(); yield return Capture("v06-display-" + size.x + "x" + size.y);
-                yield return PressTargetReady("ConfirmDisplay"); yield return null;
-                DisplayRecord(label, "passed");
+                yield return PressTargetReady("ConfirmDisplay");
+                yield return VerifyConfirmedWindow(label, requested);
+                DisplayRecord(label, "passed", "Requested dimensions and mode persisted and remained exact after confirmation.", requested, d.workArea);
             }
             var confirmed = prefs.ReadActual();
             var display = Screen.mainWindowDisplayInfo;

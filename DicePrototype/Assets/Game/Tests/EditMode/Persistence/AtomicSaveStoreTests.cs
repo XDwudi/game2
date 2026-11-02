@@ -89,6 +89,20 @@ namespace DiceCraft.Tests
             Corrupt(path,"hash");Assert.That(store.Load().actionSequence,Is.EqualTo(third.actionSequence));
         }
 
+        [TestCase("first")][TestCase("middle")][TestCase("last")][TestCase("truncated")]
+        public void SAVE_CachedKnownGoodDetectsFullByteChangesAndPreservesBackup(string position)
+        {
+            var store=PrepareTwoVersions();byte[] backup=File.ReadAllBytes(path+".backup");
+            byte[] bytes=File.ReadAllBytes(path);var writeTime=File.GetLastWriteTimeUtc(path);
+            if(position=="truncated")Array.Resize(ref bytes,bytes.Length-1);
+            else {int index=position=="first"?0:position=="last"?bytes.Length-1:bytes.Length/2;bytes[index]^=127;}
+            File.WriteAllBytes(path,bytes);File.SetLastWriteTimeUtc(path,writeTime);
+            // An independently constructed reader must reject the changed active file.
+            var independent=new AtomicSaveStore(path,config);Assert.That(independent.Load().actionSequence,Is.EqualTo(first.actionSequence));
+            Assert.That(independent.LastLoadNotice,Does.Contain("\u6709\u6548\u5907\u4efd"));
+            store.Save(third);AssertRecoveredWrite(store,backup,bytes);
+        }
+
         [TestCase("triggers")][TestCase("score")]
         public void SAVE_V05_CorruptFrozenHistoryWithValidHashFallsBackBeforeClone(string defect)
         {
