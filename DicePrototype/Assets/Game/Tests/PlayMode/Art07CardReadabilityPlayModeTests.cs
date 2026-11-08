@@ -37,6 +37,19 @@ namespace DiceCraft.Tests
         }
         private static bool CardOverlap07(Rect a,Rect b)=>Math.Min(a.xMax,b.xMax)-Math.Max(a.xMin,b.xMin)>.25f&&Math.Min(a.yMax,b.yMax)-Math.Max(a.yMin,b.yMin)>.25f;
         private static string CardWithoutSpace07(string text)=>new string(text.Where(c=>!char.IsWhiteSpace(c)).ToArray());
+        private static float CardPaperBottom07(RectTransform card)
+        {
+            var button=card.GetComponent<UnityEngine.UI.Button>();
+            var paper=button!=null?button.targetGraphic as UnityEngine.UI.Image:card.GetComponent<UnityEngine.UI.Image>();
+            Assert.That(paper,Is.Not.Null,"Card must expose its actual paper Image.");
+            Assert.That(paper.sprite,Is.Not.Null,"Card paper sprite is required for its physical inset.");
+            Assert.That(paper.type,Is.EqualTo(UnityEngine.UI.Image.Type.Sliced),"Paper border measurement expects the authored sliced surface.");
+            // Art071 card/compact/panel masters: paper ends at source y=990/1024,
+            // leaving 17 pixels below it in the 512px export. Nine-slicing preserves
+            // this inset; use the rendered Image PPU, not the old 224px card height.
+            float inset=17f/(paper.pixelsPerUnit*paper.pixelsPerUnitMultiplier);
+            return CardLocalRect07(card,paper.rectTransform).yMax-inset;
+        }
         private CardGlyph07 CardGlyphCheck07(RectTransform card,TextMeshProUGUI text,string expected,float paperBottom)
         {
             text.ForceMeshUpdate();var row=new CardGlyph07{name=text.name,text=text.text,font=text.font.name,fontSize=text.fontSize,
@@ -68,7 +81,7 @@ namespace DiceCraft.Tests
         }
         private CardRead07 CardCheck07(RectTransform card,ControllerInstance item,string kind,string footer=null)
         {
-            var config=app.Config.Controller(item.definitionId);float bottom=kind=="detail"?268:card.rect.height>200?204:card.rect.width<180?70:card.rect.height>=112?103:90;
+            var config=app.Config.Controller(item.definitionId);float bottom=CardPaperBottom07(card);
             var row=new CardRead07{kind=kind,instance=item.instanceId,definition=item.definitionId,rarity=config.rarity,enchantment=item.enchantmentId,card=new Rect(0,0,card.rect.width,card.rect.height)};
             string category=config.rarity=="rare"?"稀有":config.rarity=="uncommon"?"进阶":"常见";
             foreach(var pair in new[]{new[]{"RarityLabel",category},new[]{"Name",config.displayName},new[]{"State",footer},new[]{"Identity",item.instanceId}})

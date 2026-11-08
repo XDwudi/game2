@@ -43,13 +43,13 @@ namespace DiceCraft
         private bool DrawRecoveredScore07(RectTransform panel,float width,float height)
         {
             if(!RecoveredPresentationResultVisible07)return false;
-            var record=ViewState.lastSubmission;bool compact=Compact07;
+            var record=ViewState.lastSubmission;bool compact=Compact07,thin=height<110;
             UiKit.Text(panel,"RecoveredCaption07","已恢复上一手结果",20,12,width-680,42,compact?18:24,UiKit.Paper);
             var score=UiKit.Text(panel,"RecoveredScore07",CompactScore(record.breakdown.score),width-660,10,630,68,compact?28:48,UiKit.Gold,TextAlignmentOptions.MidlineRight);
             if(art07NumberFont!=null)score.font=art07NumberFont;
             score.rectTransform.pivot=new Vector2(1,.5f);score.rectTransform.anchoredPosition=new Vector2(width-30,compact?-34:-44);
-            UiKit.Text(panel,"RecoveredState07","结果已保存 · 本手尚未投掷",20,compact?65:82,width-290,compact?48:64,compact?17:21,UiKit.Muted);
-            UiKit.Button(panel,"RecoveredDetails07","只读收据",width-250,compact?58:84,230,60,()=>ShowBreakdown(record.snapshot,record.breakdown));
+            UiKit.Text(panel,"RecoveredState07","结果已保存 · 本手尚未投掷",20,thin?58:compact?65:82,width-290,thin?40:compact?48:64,thin?20:compact?17:21,UiKit.Muted);
+            UiKit.FlatButton(panel,"RecoveredDetails07","只读收据",width-250,thin?52:compact?58:84,230,thin?48:60,()=>ShowBreakdown(record.snapshot,record.breakdown));
             return true;
         }
         private void DrawQualifiedHeader07(float x,float y,float width,float height)

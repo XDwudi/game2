@@ -1,0 +1,242 @@
+{
+  "artVersion": "art0.7.1",
+  "units": "metres",
+  "referenceEdgeLength": 1,
+  "surfaceOffset": 0.002,
+  "runtimeConvention": "Unity local +Y up; dynamic pips never identify faceId",
+  "faces": [
+    {
+      "faceId": "F01",
+      "unityNormal": [
+        0,
+        1,
+        0
+      ],
+      "blenderNormal": [
+        0,
+        0,
+        1
+      ],
+      "unityCenter": [
+        0.0,
+        0.502,
+        0.0
+      ],
+      "oppositeFaceId": "F06",
+      "markerObject": "Face_F01"
+    },
+    {
+      "faceId": "F02",
+      "unityNormal": [
+        0,
+        0,
+        1
+      ],
+      "blenderNormal": [
+        0,
+        -1,
+        0
+      ],
+      "unityCenter": [
+        0.0,
+        0.0,
+        0.502
+      ],
+      "oppositeFaceId": "F05",
+      "markerObject": "Face_F02"
+    },
+    {
+      "faceId": "F03",
+      "unityNormal": [
+        1,
+        0,
+        0
+      ],
+      "blenderNormal": [
+        1,
+        0,
+        0
+      ],
+      "unityCenter": [
+        0.502,
+        0.0,
+        0.0
+      ],
+      "oppositeFaceId": "F04",
+      "markerObject": "Face_F03"
+    },
+    {
+      "faceId": "F04",
+      "unityNormal": [
+        -1,
+        0,
+        0
+      ],
+      "blenderNormal": [
+        -1,
+        0,
+        0
+      ],
+      "unityCenter": [
+        -0.502,
+        0.0,
+        0.0
+      ],
+      "oppositeFaceId": "F03",
+      "markerObject": "Face_F04"
+    },
+    {
+      "faceId": "F05",
+      "unityNormal": [
+        0,
+        0,
+        -1
+      ],
+      "blenderNormal": [
+        0,
+        1,
+        0
+      ],
+      "unityCenter": [
+        0.0,
+        0.0,
+        -0.502
+      ],
+      "oppositeFaceId": "F02",
+      "markerObject": "Face_F05"
+    },
+    {
+      "faceId": "F06",
+      "unityNormal": [
+        0,
+        -1,
+        0
+      ],
+      "blenderNormal": [
+        0,
+        0,
+        -1
+      ],
+      "unityCenter": [
+        0.0,
+        -0.502,
+        0.0
+      ],
+      "oppositeFaceId": "F01",
+      "markerObject": "Face_F06"
+    }
+  ],
+  "pipPositions": {
+    "1": [
+      [
+        0,
+        0
+      ]
+    ],
+    "2": [
+      [
+        -1,
+        1
+      ],
+      [
+        1,
+        -1
+      ]
+    ],
+    "3": [
+      [
+        -1,
+        1
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        1,
+        -1
+      ]
+    ],
+    "4": [
+      [
+        -1,
+        1
+      ],
+      [
+        1,
+        -1
+      ],
+      [
+        1,
+        1
+      ],
+      [
+        -1,
+        -1
+      ]
+    ],
+    "5": [
+      [
+        -1,
+        1
+      ],
+      [
+        1,
+        -1
+      ],
+      [
+        1,
+        1
+      ],
+      [
+        -1,
+        -1
+      ],
+      [
+        0,
+        0
+      ]
+    ],
+    "6": [
+      [
+        -1,
+        1
+      ],
+      [
+        1,
+        -1
+      ],
+      [
+        1,
+        1
+      ],
+      [
+        -1,
+        -1
+      ],
+      [
+        -1,
+        0
+      ],
+      [
+        1,
+        0
+      ]
+    ]
+  },
+  "params": {
+    "edge": 1.0,
+    "bevel": 0.1,
+    "bevel_segments": 4,
+    "ceramic_srgb": "F4E8CB",
+    "roughness": 0.32,
+    "metallic": 0,
+    "pip_radius": 0.075,
+    "pip_spacing": 0.22,
+    "pip_segments": 24,
+    "face_offset": 0.502,
+    "key_size": 3.5,
+    "key_energy": 700
+  },
+  "sourcePreviewOnly": "Review collection excluded from export; initial review pip color never enters gameplay"
+}

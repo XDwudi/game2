@@ -1,6 +1,6 @@
 # 人工主导的 AI 游戏开发框架
 
-这套框架用于让人掌握游戏创意与体验决策，让 AI 在明确的任务、专业工具和验收要求下制作。当前正在按用户 P0 v0.7 美术规格迭代骰子构筑原型，玩法保持 p0.6.0/schema4，目标 Windows x64 与 macOS Universal / Unity 6000.6.7f1。长期目标仍包含 PC、iOS、Android，移动端尚未验证。
+这套框架用于让人掌握游戏创意与体验决策，让 AI 在明确的任务、专业工具和验收要求下制作。当前正在按用户 v0.71 美术规格迭代骰子构筑原型，玩法保持 p0.6.0/schema4，目标 Windows x64 与 macOS Universal / Unity 6000.6.7f1。长期目标仍包含 PC、iOS、Android，移动端尚未验证。
 
 核心约定：按阶段验证风险，先做可玩的原型，再做达到目标品质的代表性片段，最后扩大生产。AI 交付必须有可检查的成果与证据；质量不由工作时长、token 数或 agent 数量决定。
 
@@ -8,13 +8,14 @@
 
 ## 当前原型
 
-- **v0.7 诊断测试候选已发布，整版仍未验收通过。** [GitHub p0.7.0-rc.1](https://github.com/XDwudi/game2/releases/tag/p0.7.0-rc.1)提供Windows、Mac Universal与M5工具包；三附件已完整下载核验，Windows已做新目录隔离启动。1013项Edit、158项Play通过；Windows性能/原生显示、AudioMixer、Mac与人工待验。详见[交付说明](docs/DELIVERY_V07.md)和[STATE](docs/STATE.md)。输入见[美术开发规格](docs/specs/v07/ART_SPEC.md)，以下为历史版本。
+- **v0.71 本地开发候选，最终全量回归、双平台构建与 Windows Player 启动待执行。** 首批接入 C48/C29/C03/I07 四张主题插画、共用纸卡/按钮和新陶瓷骰子母版；其余 67 项仍用旧图标，未宣称全量美术生产完成。已取得开发中的 48 张 Editor 页面截图和约 13 秒真实时间戳样板录制，后续修复的新图与最终验证另行绑定。见 [v0.71 交付说明](docs/DELIVERY_V071.md)、[美术规格](docs/specs/v071/ART_SPEC.md)、[A01—A18 素材路径表](docs/specs/v071/ASSET_MAP.md) 与 [当前状态](docs/STATE.md)。
+- **历史 v0.7 诊断测试候选已发布，整版仍未验收通过。** [GitHub p0.7.0-rc.1](https://github.com/XDwudi/game2/releases/tag/p0.7.0-rc.1)提供Windows、Mac Universal与M5工具包；三附件已完整下载核验，Windows已做新目录隔离启动。1013项Edit、158项Play通过；Windows性能/原生显示、AudioMixer、Mac与人工待验。详见[交付说明](docs/DELIVERY_V07.md)和[STATE](docs/STATE.md)。输入见[美术开发规格](docs/specs/v07/ART_SPEC.md)，以下为历史版本。
 - v0.6 诊断测试版已在 [GitHub p0.6.0-rc.1](https://github.com/XDwudi/game2/releases/tag/p0.6.0-rc.1) 提供Windows、Mac和M5验收工具包三个附件；已全量远程下载和新目录启动/存档恢复核验。797项EditMode、30项PlayMode及玩法/UI回放通过；Windows独占全屏、性能未通过，Mac/人工待验，整版未ACCEPTED。详见 [v0.6交付说明](docs/DELIVERY_V06.md)。
 - v0.5 请看 [交付说明](docs/DELIVERY_V05.md) 与 [STATE](docs/STATE.md)；Windows、macOS与M5验收工具包已共同上传至 [GitHub预发布附件](https://github.com/XDwudi/game2/releases/tag/p0.5.0-rc.1)，三个完整下载均已核对SHA与ZIP完整性。用户已授权此渠道替代LFS。Windows 技术检查通过，Mac 实机待验。旧版 [交付说明](docs/DELIVERY.md) 和 `Builds/Windows/DiceCraft.exe` 仅为 v0.4 历史产物。
 - [运行、开发与复现说明](DicePrototype/README.md)
-- [权威 P0 v0.6 规格](docs/specs/P0_v0.6.md)与[实施验收契约](docs/tasks/P0-V06-IMPLEMENTATION.md)；当前开发/实测状态以 STATE 的 v0.6 记录为准。
+- [权威 P0 v0.6 规格](docs/specs/P0_v0.6.md)与[实施验收契约](docs/tasks/P0-V06-IMPLEMENTATION.md)；当前表现层按 [v0.71 契约](docs/tasks/P0-V071-IMPLEMENTATION.md) 开发，实际进度以 STATE 最新记录为准。
 - [当前状态和剩余工作](docs/STATE.md)
-- evidence/unity、evidence/runs、evidence/review 保存真实测试、运行与独立复核记录。失败记录保留，不能把历史失败或旧版本通过当作当前结论。
+- 本版最终测试与构建证据使用 `evidence/v071/`，开发中图片/录制使用 `cache/v071/`；历史 evidence/unity、evidence/runs、evidence/review 及分版本目录继续保留。失败记录保留，不能把历史失败或旧版本通过当作当前结论。
 
 ## 后续项目与阶段的通用流程
 

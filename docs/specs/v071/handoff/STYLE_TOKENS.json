@@ -1,0 +1,245 @@
+{
+  "schema": "dice-art-style-proposal-v1",
+  "artVersion": "art0.7.1",
+  "gameplayBaseline": "p0.6.0",
+  "saveSchemaBaseline": 4,
+  "status": "proposed_visual_defaults_not_a_runtime_gameplay_config",
+  "usage": "Map to the project's existing style system. Reference imagery does not supply rule data.",
+  "direction": "retro_screen_print_dice_table",
+  "referenceResolution": [
+    1920,
+    1080
+  ],
+  "palette": {
+    "felt": "#173E40",
+    "bgDeep": "#102A2D",
+    "paper": "#F4E8CB",
+    "ink": "#162629",
+    "text": "#F7EED9",
+    "muted": "#B8C9C5",
+    "red": "#EC655D",
+    "blue": "#55B6D9",
+    "gold": "#F3BA58",
+    "positive": "#79C99C",
+    "violet": "#AD92DB",
+    "shadow": "#07191C"
+  },
+  "typography": {
+    "familyPreference": [
+      "Noto Sans CJK SC",
+      "Source Han Sans SC"
+    ],
+    "secondary": 20,
+    "body": 24,
+    "button": 26,
+    "cardTitle": 28,
+    "pageTitle": 36,
+    "scoreMin": 72,
+    "scoreMax": 96,
+    "wholeCanvasPixelation": false
+  },
+  "spacing": [
+    8,
+    16,
+    24,
+    32
+  ],
+  "surfaces": {
+    "information": {
+      "raised": false,
+      "shadow": "none_or_recessed"
+    },
+    "content": {
+      "raised": false,
+      "shadow": "short_soft_offset",
+      "paperGrain": "restrained"
+    },
+    "action": {
+      "raised": true,
+      "pressOffsetPx": 3,
+      "shadow": "short_solid_side"
+    }
+  },
+  "layout": {
+    "coordinateOrigin": "top_left",
+    "referenceOnly": true,
+    "sidebar": [
+      24,
+      24,
+      280,
+      1032
+    ],
+    "controllerArea": [
+      328,
+      24,
+      1272,
+      272
+    ],
+    "itemArea": [
+      1624,
+      24,
+      272,
+      272
+    ],
+    "scoreStrip": [
+      328,
+      320,
+      1568,
+      88
+    ],
+    "dicePool": [
+      328,
+      432,
+      1568,
+      256
+    ],
+    "lockedTray": [
+      328,
+      712,
+      1568,
+      184
+    ],
+    "actions": [
+      328,
+      920,
+      1568,
+      136
+    ],
+    "controllerCardFull": [
+      198,
+      264
+    ],
+    "controllerCompact": "two_rows_of_five_max; retain readable illustration and detail access",
+    "responsive": "Follow existing anchors and compact layouts; do not stretch dice or cards"
+  },
+  "illustration": {
+    "medium": "high_resolution_limited_color_screen_print",
+    "subjectCoverageRange": [
+      0.7,
+      0.85
+    ],
+    "cardIllustrationAreaRange": [
+      0.55,
+      0.65
+    ],
+    "dynamicTextBaked": false,
+    "ruleDicePatterns": "programmatic_only"
+  },
+  "dice": {
+    "body": "rounded_ivory_ceramic",
+    "pipColorSource": "runtime_face_data",
+    "faceMapping": "preserve_existing_project_mapping",
+    "normalizedEdge": 1,
+    "bevelStart": 0.06,
+    "bevelSegmentsRange": [
+      3,
+      4
+    ],
+    "blenderRoughnessStartRange": [
+      0.28,
+      0.38
+    ],
+    "unitySmoothness": "tune_in_engine_to_match_highlight_width",
+    "keyLightScreenDirection": "upper_left",
+    "shadowDirection": "lower_right",
+    "contactShadow": "existing_soft_shadow_or_one_soft_blob_never_double",
+    "gold": "selected_face_thin_rim_preserve_pip_color",
+    "glass": "opaque_front_pips_no_backface_pip_bleed"
+  },
+  "motionMs": {
+    "buttonHover": 90,
+    "buttonPress": 60,
+    "cardHover": 140,
+    "dicePending": 130,
+    "lock": 240,
+    "controllerTrigger": 320,
+    "scoreEmphasis": 280,
+    "rollNormalExisting": 900,
+    "rollFastExisting": 150,
+    "scoreNormalMaxExisting": 3200,
+    "scoreFastMaxExisting": 800
+  },
+  "motionAmounts": {
+    "cardHoverOffsetPx": 8,
+    "cardHoverScale": 1.03,
+    "controllerTriggerOffsetPx": 6,
+    "controllerTriggerScale": 1.05
+  },
+  "scorePresentation": {
+    "multiplierThresholds": [
+      0,
+      8,
+      32,
+      128,
+      1024,
+      8192
+    ],
+    "zeroScoreLevel": 0,
+    "highestBurstOnly": true,
+    "usesResolvedEventsOnly": true,
+    "affectsScore": false,
+    "instant": "snap_to_final_visual_state",
+    "reducedMotion": "static_values_and_markers_no_arc_shake_or_burst"
+  },
+  "suppliedFiles": [
+    {
+      "id": "REF_BATTLE_V071",
+      "path": "references/battle_master_v071.png",
+      "status": "visual_reference",
+      "pixelSize": [
+        1672,
+        941
+      ]
+    },
+    {
+      "id": "REF_SHOP_V071",
+      "path": "references/shop_derived_v071.png",
+      "status": "derived_visual_reference",
+      "pixelSize": [
+        1672,
+        941
+      ]
+    },
+    {
+      "id": "ART_STAIRS_CANDIDATE",
+      "path": "assets/controller_stairs_candidate_v071.png",
+      "status": "generated_rgba_candidate_not_unity_validated",
+      "pixelSize": [
+        1254,
+        1254
+      ],
+      "rulesDiagram": false
+    }
+  ],
+  "productionPriority": [
+    "A01",
+    "A02",
+    "A03",
+    "A04",
+    "A05",
+    "A06",
+    "A07",
+    "A08",
+    "A09",
+    "A10",
+    "A11",
+    "A12",
+    "A13",
+    "A14",
+    "A15",
+    "A16",
+    "A17",
+    "A18"
+  ],
+  "skillsPreferred": [
+    "imagegen",
+    "unity:ui",
+    "unity:ui-ugui_or_ui-uitk_based_on_existing_project",
+    "unity:unity-cli"
+  ],
+  "feedbackMoments": [
+    "master_and_components",
+    "unity_battle_sample",
+    "cross_screen_consistency"
+  ]
+}

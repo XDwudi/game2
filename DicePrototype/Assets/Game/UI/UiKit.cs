@@ -56,16 +56,17 @@ namespace DiceCraft
         }
         public static UnityEngine.UI.Button Button(Transform p, string name, string value, float x, float y, float w, float h, Action click, bool enabled = true, bool primary = false)
         {
-            var r = Rent(p,name,"Button",x,y,w,h);var image=Component<UnityEngine.UI.Image>(r.gameObject);image.color=Ink;image.raycastTarget=true;
-            Box(r,"Step",3,h-4,w-6,6,Shadow);
-            var face=Box(r,"Face",4,4,w-8,h-10,enabled?(primary?Gold:PanelLight):Panel);
+            var r = Rent(p,name,"Button",x,y,w,h);var image=Component<UnityEngine.UI.Image>(r.gameObject);image.color=Color.clear;image.raycastTarget=true;
+            var step=Box(r,"Step",2,8,w-4,h-6,enabled?(primary?Hex("B56B29"):Hex("8F453A")):Shadow);
+            step.GetComponent<UnityEngine.UI.Image>().sprite=Template("ui_button_bevel");step.GetComponent<UnityEngine.UI.Image>().type=UnityEngine.UI.Image.Type.Sliced;
+            var face=Box(r,"Face",0,0,w,h-7,enabled?(primary?Gold:Paper):PanelLight);
             var faceImage=face.GetComponent<UnityEngine.UI.Image>();faceImage.sprite=Template("ui_button_bevel");faceImage.type=UnityEngine.UI.Image.Type.Sliced;
-            Box(r,"Lip",8,5,w-16,2,enabled?(primary?Paper:Muted):PanelLight);
+            Box(r,"Lip",14,5,w-28,1,enabled?new Color(1,1,1,.35f):Color.clear);
             var b = Component<UnityEngine.UI.Button>(r.gameObject);b.onClick.RemoveAllListeners();b.targetGraphic=image;
             b.targetGraphic=face.GetComponent<UnityEngine.UI.Image>();
             var cs = b.colors; cs.normalColor = Color.white; cs.highlightedColor = new Color(1.08f,1.08f,1.08f); cs.pressedColor = new Color(.84f,.88f,.88f); cs.disabledColor = Color.white; b.colors = cs;
             b.interactable = enabled; b.onClick.AddListener(() => click?.Invoke());
-            Text(r, "Label", value, 8, 3, w-16, h-10, 23, primary&&enabled ? Ink : TextColor, TextAlignmentOptions.Center);
+            Text(r, "Label", value, 8, 0, w-16, h-7, 23, enabled ? Ink : Muted, TextAlignmentOptions.Center);
             Outline(r,"Focus",-3,-3,w+6,h+6,Paper,2);
             Component<Art07ButtonMotion>(r.gameObject).Configure(b,r.Find("Focus").gameObject);
             return b;
@@ -74,6 +75,30 @@ namespace DiceCraft
         {
             var image=button.targetGraphic as UnityEngine.UI.Image;if(image==null)return;
             image.sprite=Template(compact?"ui_card_controller_compact":"ui_card_controller");image.type=UnityEngine.UI.Image.Type.Sliced;image.color=Color.white;
+            var root=(RectTransform)button.transform;
+            image.rectTransform.anchoredPosition=Vector2.zero;image.rectTransform.sizeDelta=root.sizeDelta;
+            root.Find("Step")?.gameObject.SetActive(false);root.Find("Lip")?.gameObject.SetActive(false);
+            Component<Art07ButtonMotion>(root.gameObject).SetSurface(1);
+        }
+        public static UnityEngine.UI.Button FlatButton(Transform p,string name,string value,float x,float y,float w,float h,Action click,bool enabled=true,bool primary=false)
+        {
+            var button=Button(p,name,value,x,y,w,h,click,enabled,primary);
+            var root=(RectTransform)button.transform;
+            root.Find("Step").gameObject.SetActive(false);root.Find("Lip").gameObject.SetActive(false);
+            var face=(UnityEngine.UI.Image)button.targetGraphic;face.sprite=null;face.type=UnityEngine.UI.Image.Type.Simple;
+            face.color=primary?PanelLight:new Color(0,0,0,.08f);face.rectTransform.anchoredPosition=Vector2.zero;face.rectTransform.sizeDelta=new Vector2(w,h);
+            var label=root.Find("Label").GetComponent<TextMeshProUGUI>();label.color=enabled?(primary?Gold:TextColor):Muted;
+            label.rectTransform.sizeDelta=new Vector2(w-16,h);
+            Box(root,"Divider",8,h-1,w-16,1,PanelLight);
+            Component<Art07ButtonMotion>(root.gameObject).SetSurface(2);
+            return button;
+        }
+        public static RectTransform PaperFrame(Transform p,string name,float x,float y,float w,float h,Color fill,Color? edge=null,bool raycast=false)
+        {
+            var r=Box(p,name,x,y,w,h,Color.white,raycast);var image=r.GetComponent<UnityEngine.UI.Image>();
+            image.sprite=Template("ui_paper_panel");image.type=UnityEngine.UI.Image.Type.Sliced;image.fillCenter=true;
+            if(edge.HasValue&&edge.Value!=Ink)Outline(r,"SemanticEdge",5,5,w-10,h-10,edge.Value,2);
+            return r;
         }
         public static UnityEngine.UI.Button ActionButton(Transform p,string name,string value,float x,float y,float w,float h,Action click,Color color,bool enabled=true)
         {
@@ -84,10 +109,10 @@ namespace DiceCraft
         }
         public static RectTransform Frame(Transform p,string name,float x,float y,float w,float h,Color fill,Color? edge=null,bool raycast=false)
         {
-            var r=Box(p,name,x,y,w,h,edge??Ink,raycast);
-            Box(r,"Shadow",5,h-2,w-5,6,Shadow);
-            Box(r,"Fill",4,4,w-8,h-8,fill);
-            Box(r,"InsetTop",8,8,w-16,1,edge??PanelLight);
+            if(fill==Paper)return PaperFrame(p,name,x,y,w,h,fill,edge,raycast);
+            var r=Box(p,name,x,y,w,h,edge??PanelLight,raycast);
+            r.GetComponent<UnityEngine.UI.Image>().sprite=null;
+            Box(r,"Fill",1,1,w-2,h-2,fill);
             return r;
         }
         public static void Outline(Transform p,string name,float x,float y,float w,float h,Color color,float line=2)

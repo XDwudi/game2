@@ -1,0 +1,16 @@
+E:\agent_workspace\gpt\game2\tools\art_v071\build_dice.py:51: DeprecationWarning: 'Material.use_nodes' is expected to be removed in Blender 6.0
+  mat.use_nodes = True
+E:\agent_workspace\gpt\game2\tools\art_v071\build_dice.py:51: DeprecationWarning: 'Material.use_nodes' is expected to be removed in Blender 6.0
+  mat.use_nodes = True
+E:\agent_workspace\gpt\game2\tools\art_v071\build_dice.py:163: DeprecationWarning: 'World.use_nodes' is expected to be removed in Blender 6.0
+  scene.world.use_nodes = True
+00:01.218  image.write      | ERROR OpenImageIO write failed: Could not open file "\.thumbnails\large\blender_14140_e6d6019af5cbc0ef4b1665414d0ba49e.png.png"
+00:05.000  render           | Saved: 'E:\agent_workspace\gpt\game2\ArtSource\Art071\Dice\Review\source_ceramic.png'
+
+FBX export starting... 'E:\\agent_workspace\\gpt\\game2\\cache\\v071\\dice\\Export\\dice_body_bevel.fbx'
+export finished in 0.0087 sec.
+Info: Saved as "dice_master.blend"
+ART071_DICE_GENERATED {"blenderVersion": "5.2.3 LTS", "buildHash": "e13b728c6880", "bodyTriangles": 300, "bodyVertices": 152, "dimensions": [1.0, 1.0, 1.0], "exportObjects": ["DiceRoot", "RollPivot", "FaceOrientation", "DiceBody", "Face_F01", "Face_F02", "Face_F03", "Face_F04", "Face_F05", "Face_F06"], "hasBakedRulePips": false, "unityValidated": false}
+Blender 5.2.3 LTS (hash e13b728c6880 built 2026-10-22 01:37:16)
+
+Blender quit

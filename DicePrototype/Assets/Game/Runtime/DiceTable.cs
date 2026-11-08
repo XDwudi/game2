@@ -402,12 +402,40 @@ namespace DiceCraft
             var vertices=new List<Vector3>();var indices=new List<int>();var colors=new List<Color>();
             Action<float,float,float,Color> rawCircle=(x,y,r,color)=> { float z=color==Color.white?.001f:0;int s=vertices.Count; vertices.Add(new Vector3(x,y,z));colors.Add(color);
                 for(int j=0;j<=16;j++){float a=j*Mathf.PI*2/16;vertices.Add(new Vector3(x+Mathf.Cos(a)*r,y+Mathf.Sin(a)*r,z));colors.Add(color);if(j>0){indices.Add(s);indices.Add(s+j);indices.Add(s+j+1);}} };
-            Action<float,float,float,Color> circle=(x,y,r,color)=>{rawCircle(x,y,r+.009f,UiKit.Ink);rawCircle(x,y,r,color);};
+            // Recessed-enamel impression on the independent dynamic face layer.
+            // The blank ceramic body never fixes the face value or its rule color.
+            Action<float,float,float,Color> circle=(x,y,r,color)=>
+            {
+                rawCircle(x,y,r+.008f,UiKit.Paper);
+                const int segments=24;
+                int start=vertices.Count;
+                vertices.Add(new Vector3(x,y,.002f));colors.Add(new Color(.77f,.77f,.77f));
+                for(int j=0;j<=segments;j++)
+                {
+                    float angle=j*Mathf.PI*2/segments;
+                    // Bottom-right inner lip catches light; top-left inner wall is darker.
+                    float shade=.48f+.18f*(-Mathf.Sin(angle)+Mathf.Cos(angle))*.7071f;
+                    vertices.Add(new Vector3(x+Mathf.Cos(angle)*r,y+Mathf.Sin(angle)*r,.003f));
+                    colors.Add(new Color(shade,shade,shade));
+                    if(j>0){indices.Add(start);indices.Add(start+j);indices.Add(start+j+1);}
+                }
+                // Small enamel highlight is warm white, independent of red/blue tint.
+                int sparkle=vertices.Count;
+                Color glint=new Color(.96f,.985f,1f);
+                vertices.Add(new Vector3(x-r*.28f,y+r*.3f,.004f));colors.Add(glint);
+                for(int j=0;j<=12;j++)
+                {
+                    float a=j*Mathf.PI*2/12;
+                    vertices.Add(new Vector3(x-r*.28f+Mathf.Cos(a)*r*.14f,y+r*.3f+Mathf.Sin(a)*r*.09f,.004f));
+                    colors.Add(glint);
+                    if(j>0){indices.Add(sparkle);indices.Add(sparkle+j);indices.Add(sparkle+j+1);}
+                }
+            };
             Action<float,float,float,float,Color> bar=(x,y,w,h,color)=> {int s=vertices.Count;vertices.Add(new Vector3(x,y,0));vertices.Add(new Vector3(x+w,y,0));vertices.Add(new Vector3(x+w,y+h,0));vertices.Add(new Vector3(x,y+h,0));for(int k=0;k<4;k++)colors.Add(color);indices.AddRange(new[]{s,s+1,s+2,s,s+2,s+3});};
-            if(pip%2==1) circle(0,0,.064f,Color.white);
-            if(pip>=2) { circle(-.22f,.22f,.064f,Color.white);circle(.22f,-.22f,.064f,Color.white); }
-            if(pip>=4) { circle(.22f,.22f,.064f,Color.white);circle(-.22f,-.22f,.064f,Color.white); }
-            if(pip==6) { circle(-.22f,0,.064f,Color.white);circle(.22f,0,.064f,Color.white); }
+            if(pip%2==1) circle(0,0,.075f,Color.white);
+            if(pip>=2) { circle(-.22f,.22f,.075f,Color.white);circle(.22f,-.22f,.075f,Color.white); }
+            if(pip>=4) { circle(.22f,.22f,.075f,Color.white);circle(-.22f,-.22f,.075f,Color.white); }
+            if(pip==6) { circle(-.22f,0,.075f,Color.white);circle(.22f,0,.075f,Color.white); }
             // Frame and texture markers remain separate from the rule color/pip count.
             if(gold) { bar(-.42f,-.42f,.84f,.04f,UiKit.Gold);bar(-.42f,.38f,.84f,.04f,UiKit.Gold);bar(-.42f,-.42f,.04f,.84f,UiKit.Gold);bar(.38f,-.42f,.04f,.84f,UiKit.Gold); }
             // Texture marks stay outside the pip protection square and use neutral ink/paper,

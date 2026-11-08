@@ -28,21 +28,24 @@ namespace DiceCraft
             UiKit.Box(p,"PaperBottom",0,384,1040,256,UiKit.Paper,true);
             UiKit.Box(p,"PaperLeft",0,152,32,232,UiKit.Paper,true);
             UiKit.Box(p,"PaperRight",392,152,648,232,UiKit.Paper,true);
-            UiKit.Outline(p,"PaperFrame",0,0,1040,640,UiKit.Ink,3);
-            UiKit.Outline(p,"DiceTrayFrame",30,150,364,236,UiKit.Ink,2);
+            UiKit.Outline(p,"PaperFrame",0,0,1040,640,UiKit.Ink,2);
+            UiKit.Outline(p,"DiceTrayFrame",30,150,364,236,Color.Lerp(UiKit.Ink,UiKit.Paper,.5f),1);
             UiKit.Box(p,"DiceTrayRaycast",32,152,360,232,Color.clear,true);
-            UiKit.Text(p,"DialogTitle","新建挑战",24,8,880,80,32,UiKit.Ink);
-            UiKit.Button(p,"CloseDialog","×",952,12,64,64,CloseModal);
+            var title=UiKit.Text(p,"DialogTitle","新建挑战",24,4,880,88,40,UiKit.Ink);title.fontStyle=FontStyles.Bold;
+            ReceiptRule071(p,"HeadingRule",24,92,992);
+            var close=UiKit.FlatButton(p,"CloseDialog","×",952,12,64,64,CloseModal);
+            close.GetComponentInChildren<TextMeshProUGUI>().color=UiKit.Ink;
             UiKit.Text(p,"InitialDiceLabel","初始五骰 · 未投掷",32,96,360,48,20,UiKit.Ink);
             UiKit.Text(p,"StartRules",Config.totalRollsPerHand+" 次总投掷\n"+Config.submissionsPerStage+" 次提交\n"+Config.initialGold+" 金币",32,410,360,190,24,UiKit.Ink);
-            UiKit.Text(p,"SeedLabel","种子（留空自动生成）",464,100,544,56,20,UiKit.Ink);
+            ReceiptRule071(p,"StartRulesRule",32,400,360);
+            var seedLabel=UiKit.Text(p,"SeedLabel","种子（留空自动生成）",464,100,544,56,20,UiKit.Ink);seedLabel.fontStyle=FontStyles.Bold;
             seedField=UiKit.Input(p,"SeedInput","留空自动生成","",464,164,456,72);
             var random=UiKit.Button(p,"RandomSeed","",936,164,72,72,()=>
             {
                 var bytes=new byte[4];using(var rng=System.Security.Cryptography.RandomNumberGenerator.Create())rng.GetBytes(bytes);
                 seedField.text=BitConverter.ToUInt32(bytes,0).ToString(System.Globalization.CultureInfo.InvariantCulture);
             });
-            var icon=UiKit.Box(random.transform,"RandomIcon",20,18,32,32,Color.white).GetComponent<UnityEngine.UI.Image>();
+            var icon=UiKit.Box(random.transform,"RandomIcon",20,18,32,32,UiKit.Ink).GetComponent<UnityEngine.UI.Image>();
             icon.sprite=UiKit.Template("ui_icon_refresh");icon.raycastTarget=false;
             var details=UiKit.Scroll(p,"NewRunDetails",464,248,544,288,288);
             FillNewRunDetails07(details,"");

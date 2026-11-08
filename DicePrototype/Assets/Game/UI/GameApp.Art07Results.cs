@@ -82,20 +82,22 @@ namespace DiceCraft
                 }
                 if(pages>1)
                 {
-                    UiKit.Button(main,"ResultDicePrevious","上一页",1504,928,176,64,()=>{resultDicePage07--;Refresh();},resultDicePage07>0);
-                    UiKit.Button(main,"ResultDiceNext","下一页",1696,928,176,64,()=>{resultDicePage07++;Refresh();},resultDicePage07<pages-1);
+                    UiKit.FlatButton(main,"ResultDicePrevious","上一页",1504,928,176,64,()=>{resultDicePage07--;Refresh();},resultDicePage07>0);
+                    UiKit.FlatButton(main,"ResultDiceNext","下一页",1696,928,176,64,()=>{resultDicePage07++;Refresh();},resultDicePage07<pages-1);
                     UiKit.Text(main,"ResultDicePage",(resultDicePage07+1)+" / "+pages,1504,1000,368,48,22,UiKit.Muted,TextAlignmentOptions.Center);
                 }
             }
-            var p=UiKit.Frame(main,"RunResult",472,152,976,776,UiKit.Paper,UiKit.Ink);
+            var p=UiKit.PaperFrame(main,"RunResult",472,152,976,776,UiKit.Paper,UiKit.Ink);
             string failure=ViewState.failureReason=="NoDice"?"活动骰已耗尽。":ViewState.failureReason=="NoPermanentDice"?"本关已成功，但没有永久骰可继续。":"提交次数已用尽，未达到本关目标。";
             if(!won)
             {
-                UiKit.Box(p,"FailureTitleBand",24,16,928,112,UiKit.Ink);
-                var tag=UiKit.Frame(p,"FailureReasonTag",40,140,200,44,UiKit.Hex("87535A"),UiKit.Hex("87535A"));
-                UiKit.Text(tag,"Label",ViewState.failureReason=="NoDice"?"活动骰耗尽":ViewState.failureReason=="NoPermanentDice"?"无永久骰":"未达关卡目标",8,2,184,40,UiKit.FontScale>1?16:20,UiKit.Paper,TextAlignmentOptions.Center);
+                UiKit.Box(p,"FailureTitleBand",24,16,928,112,Color.Lerp(UiKit.Paper,UiKit.Ink,.08f));
+                var tag=UiKit.Rect(p,"FailureReasonTag",40,140,200,44);
+                UiKit.Outline(tag,"PrintedTag",0,0,200,44,UiKit.Hex("87535A"),1);
+                UiKit.Text(tag,"Label",ViewState.failureReason=="NoDice"?"活动骰耗尽":ViewState.failureReason=="NoPermanentDice"?"无永久骰":"未达关卡目标",8,2,184,40,UiKit.FontScale>1?16:20,UiKit.Hex("87535A"),TextAlignmentOptions.Center);
             }
-            var title=UiKit.Text(p,"EndTitle",won?"24 关完成":"本次挑战结束",40,28,896,100,UiKit.FontScale>1?40:58,won?UiKit.Ink:UiKit.Paper);
+            var title=UiKit.Text(p,"EndTitle",won?"24 关完成":"本次挑战结束",40,28,896,100,UiKit.FontScale>1?40:58,UiKit.Ink);title.fontStyle=FontStyles.Bold;
+            ReceiptRule071(p,"ResultHeadingRule",40,132,896);
             var delta=BigInteger.Max(0,ExactScoreMath.Parse(ViewState.stage.target)-ExactScoreMath.Parse(ViewState.stage.score));
             string detail=won?"这一桌，属于你的构筑。":failure+"\n距离本关目标还差 "+CompactScore(delta.ToString())+" 分。";
             var message=UiKit.Text(p,"EndMessage",detail,40,won?144:196,896,100,UiKit.FontScale>1?20:26,UiKit.Ink);
@@ -106,13 +108,19 @@ namespace DiceCraft
             {
                 victoryRows=new RectTransform[6];
                 string[] rowNames={"EndTotalScore","EndDuration","EndMaximumScore","EndMaximumMultiplier"};
-                for(int i=0;i<4;i++)victoryRows[i]=UiKit.Text(p,rowNames[i],values[i],40,244+i*48,896,48,UiKit.FontScale>1?21:28,UiKit.Ink).rectTransform;
+                for(int i=0;i<4;i++)
+                {
+                    var row=UiKit.Text(p,rowNames[i],values[i],40,244+i*48,896,48,UiKit.FontScale>1?21:28,UiKit.Ink);
+                    row.fontStyle=i==0?FontStyles.Bold:FontStyles.Normal;victoryRows[i]=row.rectTransform;
+                    ReceiptRule071(p,rowNames[i]+"Rule",40,290+i*48,896);
+                }
                 stats=UiKit.Text(p,"EndStats",values[4],40,540,896,48,UiKit.FontScale>1?18:24,UiKit.Ink);
                 victoryRows[5]=stats.rectTransform;
             }
             else stats=UiKit.Text(p,"EndStats",values[0]+"     "+values[1]+"\n"+string.Join("\n",values.Skip(2)),40,310,896,180,UiKit.FontScale>1?21:28,UiKit.Ink);
             var build=UiKit.Text(p,"EndBuild","构筑  "+(ViewState.controllers.Count==0?"无控制器":string.Join(" · ",ViewState.controllers.Select(c=>NameOf(c.definitionId)))),40,won?436:504,896,won?96:100,UiKit.FontScale>1?17:23,UiKit.Ink);build.overflowMode=TextOverflowModes.Ellipsis;
             if(won)victoryRows[4]=build.rectTransform;
+            ReceiptRule071(p,"ResultActionRule",40,634,896);
             UiKit.ActionButton(p,"Again","再开一局",40,650,280,66,ShowNewRun07,UiKit.Blue);
             UiKit.ActionButton(p,"EndBreakdown","查看构筑",348,650,280,66,ShowControllerOrder,UiKit.Paper);
             UiKit.ActionButton(p,"ReturnMenu","返回主菜单",656,650,280,66,ReturnMenu,UiKit.Paper);
@@ -122,10 +130,13 @@ namespace DiceCraft
             else reveal.Bind(ViewState.runId+":"+ViewState.phase,.12f,title.rectTransform,message.rectTransform,stats.rectTransform,build.rectTransform);
             if(won)
             {
-                var seal=UiKit.Frame(p,"RunVictorySeal07",720,24,216,100,UiKit.Paper,UiKit.Gold);
+                var seal=UiKit.Rect(p,"RunVictorySeal07",720,24,216,100);
+                UiKit.Outline(seal,"PrintedSeal",0,0,216,100,UiKit.Gold,3);
+                UiKit.Outline(seal,"InnerSeal",7,7,202,86,UiKit.Gold,1);
                 UiKit.Text(seal,"SealLabel","全关完成",12,22,192,56,24,UiKit.Ink,TextAlignmentOptions.Center);
                 reveal.BindStamp(revealKey,seal);
-                UiKit.Button(p,"SkipResultReveal","显示全部",704,592,232,60,CompleteRunResult07);
+                var skip=UiKit.FlatButton(p,"SkipResultReveal","显示全部",704,580,232,52,CompleteRunResult07);
+                skip.GetComponentInChildren<TextMeshProUGUI>().color=UiKit.Ink;
             }
         }
     }

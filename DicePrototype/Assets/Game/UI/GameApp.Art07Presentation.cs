@@ -209,6 +209,7 @@ namespace DiceCraft
         private void DrawReceiptScore07(Transform p,float w,float h)
         {
             if(receipt07==null)return;
+            bool thin=h<110;
             string[] phases={"接收提交","骰子贡献","基础 / 牌型 / 颜色 / 红组","控制器与附魔","本手得分","计分后变化","目标状态"};
             UiKit.Text(p,"Phase",(presentationPlayer07.IsReplay?"记录 · ":"")+phases[(int)(beat07?.Phase??PresentationPhase.Receipt)],20,12,w-650,42,Compact07?18:24,UiKit.Paper);
             bool final=beat07!=null&&beat07.Phase>=PresentationPhase.FinalScore;
@@ -223,8 +224,8 @@ namespace DiceCraft
             if(beat07!=null&&!final){var sources=beat07.Events.Where(e=>e.IsScoring).SelectMany(e=>e.SourceEmitterIds).Distinct().ToArray();if(sources.Length>0)details+=" · 来源 "+string.Join("、",sources.Select(SourceName07));}
             if(beat07?.Phase==PresentationPhase.TargetState)details=BudgetGrantSummary07(lastPresentationBefore07,lastPresentationAfter07);
             string text=final&&beat07?.Phase!=PresentationPhase.PostScore?multiplier+chain+(string.IsNullOrEmpty(details)?"":" · "+(beat07?.Phase==PresentationPhase.TargetState?details:"")):details;
-            var line=UiKit.Text(p,"ReceiptFactors",text,20,Compact07?65:88,w-290,Compact07?40:58,Compact07?17:23,UiKit.Muted);line.overflowMode=TextOverflowModes.Ellipsis;
-            UiKit.Button(p,"PresentationDetails07","完整记录",w-250,Compact07?60:88,230,60,ShowCommittedPresentationDetails07);
+            var line=UiKit.Text(p,"ReceiptFactors",text,20,thin?58:Compact07?65:88,w-290,thin?40:Compact07?40:58,thin?20:Compact07?17:23,UiKit.Muted);line.overflowMode=TextOverflowModes.Ellipsis;
+            UiKit.FlatButton(p,"PresentationDetails07","完整记录",w-250,thin?52:Compact07?60:88,230,thin?48:60,ShowCommittedPresentationDetails07);
         }
         private void TickPresentation07()
         {

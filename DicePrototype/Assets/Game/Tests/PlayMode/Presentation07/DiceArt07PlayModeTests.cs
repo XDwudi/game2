@@ -80,7 +80,10 @@ namespace DiceCraft.Tests
             Assert.That(orientation.Find("Face_F06").GetComponent<MeshRenderer>().enabled, Is.False);
             Assert.That(orientation.Find("Face_F01").GetComponent<MeshRenderer>().enabled, Is.True);
             var pipMesh = orientation.Find("Face_F01").GetComponent<MeshFilter>().sharedMesh;
-            Assert.That(pipMesh.vertices.Zip(pipMesh.colors, (v, c) => c == Color.white ? v.z : .001f).All(z => Mathf.Abs(z - .001f) < .000001f), Is.True, "Pip fill must retain its depth offset over ink outline.");
+            var tintablePips = pipMesh.vertices.Zip(pipMesh.colors, (v, c) => new { vertex=v, color=c })
+                .Where(p => Mathf.Approximately(p.color.r,p.color.g) && Mathf.Approximately(p.color.g,p.color.b) && p.color.r>0).ToArray();
+            Assert.That(tintablePips, Is.Not.Empty, "The rule-colored enamel mesh must contain actual tintable vertices; a zero-match scan cannot pass.");
+            Assert.That(tintablePips.All(p => p.vertex.z>0 && p.vertex.z<.01f), Is.True, "Every tintable pip must retain a shallow positive depth offset over its face, independently of its shading color.");
             var cameraObject = new GameObject("Art07GlassCapture"); var camera = cameraObject.AddComponent<Camera>();
             camera.enabled = false; camera.orthographic = true; camera.orthographicSize = .9f; camera.aspect = 1;
             camera.transform.position = root.position + new Vector3(0, 3, -1.73205f); camera.transform.LookAt(root.position);

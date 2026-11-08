@@ -4,6 +4,8 @@ Shader "DiceCraft/Art07/Ceramic"
     {
         _BaseColor("Ceramic",Color)=(.957,.91,.796,1)
         _EdgeColor("Ink edge",Color)=(.086,.15,.16,1)
+        _Smoothness("Ceramic smoothness",Range(0,1))=.62
+        _Specular("Ceramic highlight",Range(0,1))=.3
         _Glass("Glass shell",Range(0,1))=0
         _GlassOpacity("Glass shell opacity",Range(.15,.85))=.48
     }
@@ -31,19 +33,26 @@ Shader "DiceCraft/Art07/Ceramic"
             struct A {float4 vertex:POSITION;float3 normal:NORMAL;};
             struct V {float4 pos:SV_POSITION;float3 normal:TEXCOORD0;float3 world:TEXCOORD1;};
             CBUFFER_START(UnityPerMaterial)
-            half4 _BaseColor;half4 _EdgeColor;half _Glass;half _GlassOpacity;
+            half4 _BaseColor;half4 _EdgeColor;half _Glass;half _GlassOpacity;half _Smoothness;half _Specular;
             CBUFFER_END
             V vert(A a){V v;v.world=TransformObjectToWorld(a.vertex.xyz);v.pos=TransformWorldToHClip(v.world);v.normal=TransformObjectToWorldNormal(a.normal);return v;}
             half4 frag(V v):SV_Target
             {
                 half3 n=normalize(v.normal);Light key=GetMainLight();half l=saturate(dot(n,key.direction));
-                half shade=l>.65?1:l>.22?.82:.61;
-                half3 color=lerp(_EdgeColor.rgb,_BaseColor.rgb,shade);
-                half facing=saturate(dot(n,normalize(GetWorldSpaceViewDir(v.world))));
+                // Broad ceramic shading and a soft highlight share the scene key light.
+                // Rule tint belongs solely to the separate opaque face meshes.
+                half3 view=normalize(GetWorldSpaceViewDir(v.world));
+                half3 halfDirection=normalize(key.direction+view);
+                half diffuse=.59+.41*l;
+                half3 color=_BaseColor.rgb*diffuse;
+                color=lerp(color,half3(.15,.3,.31),.045*(1-l));
+                half highlight=pow(saturate(dot(n,halfDirection)),lerp(14,80,_Smoothness))*_Specular;
+                color+=highlight*half3(1,.96,.85)*key.color;
+                half facing=saturate(dot(n,view));
                 half rim=pow(1-facing,4);
                 half3 glassColor=lerp(_BaseColor.rgb,half3(.52,.79,.79),.18)*lerp(.8,1,l);
                 color=lerp(color,glassColor,_Glass);
-                color=lerp(color,_EdgeColor.rgb,rim*lerp(.25,.5,_Glass));
+                color=lerp(color,_EdgeColor.rgb,rim*lerp(.08,.5,_Glass));
                 half alpha=lerp(1,saturate(_GlassOpacity+rim*.22),_Glass);
                 return half4(color,alpha);
             }

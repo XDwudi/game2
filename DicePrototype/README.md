@@ -1,67 +1,86 @@
-# 骰子构筑 P0
+# 骰子构筑 P0 · v0.71
 
-基于用户提供的 v0.6 策划和配置 p0.6.0（save schema 4）的骰子构筑原型，目标 Windows x64 与 macOS Universal。验收状态请查 ../docs/STATE.md；这里提供操作与复现方法，不以文件存在代替测试通过。
+当前表现版本为 `art0.7.1`，预定发行身份 `p0.7.1`；玩法配置仍为 `p0.6.0`、存档 `schema4`。目标 Windows x64 与 macOS Universal，验收进度见 [STATE](../docs/STATE.md) 和 [v0.71 交付说明](../docs/DELIVERY_V071.md)。本说明准备时最终全量回归、双构建与 Windows Player 运行尚待完成；历史版本结果不能替代本版验证。
 
-## 运行
+## 运行与操作
 
-v0.6 输出为仓库根 `Builds/v06/Windows/DicePrototype.exe` 与 `Builds/v06/macOS/DicePrototype.app`；Windows须保留 Data 目录、UnityPlayer.dll 和全部运行文件。双平台完整压缩包通过 GitHub Release 发行附件交付，本地保留于 `Releases/p0.6.0/`。原始Builds缓存不提交。Mac原生实测、签名与Intel运行状态以该版本清单为准。
+本版构建目标为仓库根 `Builds/v071/Windows/DicePrototype.exe` 和 `Builds/v071/macOS/DicePrototype.app`。Windows 必须保留 Data 目录、UnityPlayer.dll 和全部运行文件；Mac 保留完整 `.app`。本地包使用 `Releases/p0.7.1/` 或其 `review-candidate/` 子目录，实际是否已生成/发布及 SHA 以交付说明为准。旧 `Builds/v06/`、`Builds/v07/` 和旧 Release 是历史产物。
 
-主菜单可输入0至4294967295的十进制种子，留空随机生成；“继续”恢复最后一次成功写入的操作。“练习”使用独立内存状态，不覆盖正式挑战。
+主菜单“新建挑战”打开种子与初始状态确认页；种子支持 0—4294967295 的十进制整数。“继续对局”恢复最后一次成功写入的状态；已有存档时新建需经过覆盖确认。固定骰练习使用独立状态，不覆盖正式挑战。
 
-## 操作
+默认键位以 `GameApp.Art07Settings.cs` 为准，玩家修改后以设置页为准：
 
-1. 选择关卡挑战，进入后点击投掷或按空格。
-2. 点击骰子或按1–9、0切换待锁。E确认锁定；确认后本手不能直接解锁。
-3. 拖动已锁骰子与已有栏位交换顺序；前n栏保持连续。右键骰子查看永久六面、概率与当前/有效值；详情右下可拖动旋转。
-4. Enter提交已锁骰。待锁未处理时，提交、投掷与道具操作会拒绝。
-5. 查看逐骰明细或“上一手”冻结快照，确认永久复制/染色的目标与实际效果。
-6. 达标且仍有提交次数时可以继续；“结束本轮”结算奖励后进入商店。待锁选择未处理或动画忙碌时不能结束。最后一关结束后进入整局结算。
-7. 商店按4类标签查看商品；购买前显示附魔、普通占槽、总持有数与替换净价。出售控制器/未用道具通常获得1金币；基金控制器按自身累计基金显示实际售价。控制器栏支持拖拽插入排序（商店/关卡预览），关内冻结。控制器区可刷新，基础首次3金币、每次+2；免费首刷服务按规则计价。买骰不改变提交容量K；C21/C22改变K但不增加骰子。
-8. H或右上“牌型手册”显示14行牌型（含散点）与独立全红/全蓝乘区、当前升级次数、倍率和可达条件。Esc打开设置或关闭弹窗。支持快动画、减少动态、音量与跳过表现。所有结果在动画前写盘；跳过不会重抽。
+| 动作 | 默认操作 |
+| --- | --- |
+| 投掷 / 重投 | R 或投掷按钮 |
+| 切换当前可见骰子的待选 | 点击骰子，或 1—9、0 |
+| 确认锁定 | L；确认后本手不能直接解锁 |
+| 提交已锁骰 | Enter |
+| 清除待选 | Backspace |
+| 牌型手册 | H 或左侧手册按钮 |
+| 暂停 / 关闭最上层弹窗 | Esc；有未确认显示变更时为回退 |
+| 查看骰子详情 | 右键骰子；详情预览可拖动旋转 |
+| 调整已锁骰顺序 | 拖动与已有栏位交换，前 n 栏保持连续 |
 
-共24关，第2、5、8、11、14、17、20、23关可选高压。正式规则与全部50个控制器以 ../docs/specs/P0_v0.6.md 为准。
+操作顺序为投掷 → 点选 → 确认锁定 → 提交。待选尚未处理时，提交、投掷及道具操作会被拒绝。输入框和模态窗口拦截底层快捷键；数字选骰和 Esc 保留。查看逐骰明细或“上一手”冻结快照可核对永久复制/染色的目标与实际效果。
 
-## 显示设置与调试
+达标后且仍有提交次数时可继续；“结束本轮”处理本关奖励，再进入商店。待选或动画忙碌时不能结束。共 24 关，第 2、5、8、11、14、17、20、23 关可选高压；最后一关结束进入整局结算。
 
-Esc 设置页可选择显示器、分辨率、全屏/无边框/窗口，并按实际屏幕选择窗口大小。应用后回读实际结果，15秒内确认；超时、Esc、未确认退出后重启都会恢复已确认设置。显示设置独立保存，不进入挑战RNG或动作序列。
+商店上方是控制器货架，下方为道具、研习、骰子强化、局外服务、骰柜五个分区。购买详情显示规则、附魔、普通占槽、总持有与实际净价；容量不足时购买入口先打开限制说明，不绕过最终购买条件。控制器和未用道具通常出售得 1 金币，基金控制器保留按累计基金计算的售价例外。控制器可在商店/关卡预览拖拽插入排序，关内冻结。刷新只重抽控制器，基础首次 3 金币、每次 +2；免费首刷服务沿用现有规则。买骰不改变提交容量 K，C21/C22 改变 K 但不增加骰子。
 
-设置输入框精确输入 `XD is god` 后开启本次进程的调试入口。测试工作区会克隆独立Run，首次应用修改后标为Debug，使用 `debug-run.json`，不覆盖普通挑战。可设置32颗骰子/控制器/道具、全部永久六面、当前结果和提交顺序、附魔、控制器状态、牌型及颜色等级0–100、钱包/目标/预算，以及指定随机结果。大列表可滚动，游戏骰池和提交栏有分页。修改先保留在草稿中，点击应用才执行；错误输入不会部分保存。可导出/导入本地复现JSON。返回普通挑战或主菜单时保留正常存档。
+手册包含 14 行牌型（含散点）及独立全红/全蓝、红组乘区，显示升级次数、倍率与可达条件。设置提供声音、画面、操作与辅助三个页签，支持演出速度、减少动态、文字缩放、颜色辅助、桌面震动与自定义快捷键。结果在表现前提交存档；跳过表现不重新抽样。
 
-## 存档与日志
+## 显示设置、调试与存档
 
-默认目录为 Unity persistentDataPath（Windows通常是 `%USERPROFILE%/AppData/LocalLow/XDwudi/DiceCraft P0`；Mac通常在 `~/Library/Application Support/XDwudi/DiceCraft P0`，实际路径可在暂停页查看）。active-run.json带schema/config和SHA-256；成功写盘保留backup，损坏原件另存rejected副本。读档先验证完整结构、冻结历史分数及规则不变量，失败回退上一有效备份，双损坏不会覆盖原件。v0.4/schema2 与 v0.5/schema3 的Run不迁移，原档和备份保留为legacy副本；设置与历史成绩不清空。
+显示设置支持显示器、分辨率、全屏/无边框/窗口和实际可用的窗口尺寸。应用后回读实际结果，15 秒内确认；超时、Esc 或未确认退出后重启恢复已确认设置。它独立保存，不进入挑战 RNG 或动作序列。当前主机原生独占是否通过必须看实际运行证据。
 
-IO失败会保留同一候选快照，点击重试不会重投、重复扣费或重复奖励。normal-actions.jsonl与debug-actions.jsonl分别记录操作。日志写入失败不应阻断已保存的动作。
+设置中精确输入 `XD is god` 后开启本次进程的组合试验入口。工作区克隆独立 Run，使用 `debug-run.json`，不覆盖普通挑战。可编辑最多 32 颗骰子/控制器/道具、永久六面、当前结果和提交顺序、附魔、动态状态、牌型/颜色等级、资源及指定随机结果。修改先留在草稿，应用时执行；错误输入不部分保存。可导出/导入复现 JSON。
 
-## 开发环境
+调试列表可滚动，骰池和锁定栏可分页。既有超常 Debug32 的对局 HUD 只显示前五件道具，其余仍可在组合试验“道具与服务”库存页管理；该限制不代表丢失数据，也不是普通五槽容量的验收结论。
 
-首次恢复源码请用 `git clone --config core.autocrlf=false https://github.com/XDwudi/game2.git`，保持已提交文件的原始行尾。Windows全局Git常默认自动转CRLF，这会改变配置、黄金例和源文件的字节哈希；不能直接沿用另一份工作区的构建身份或测试绑定。重新构建应按下文生成本机实际身份与证据。
+默认存档目录是 Unity `persistentDataPath`：Windows 通常为 `%USERPROFILE%/AppData/LocalLow/XDwudi/DiceCraft P0`；Mac 通常为 `~/Library/Application Support/XDwudi/DiceCraft P0`，实际路径可在暂停页查看。`active-run.json` 带 schema/config 和 SHA-256；成功写盘保留备份，损坏原件保留 rejected 副本。读档校验结构、冻结历史得分和规则不变量；失败回退有效备份，双损坏不覆盖原件。v0.4/schema2、v0.5/schema3 不迁移，原档和备份保留 legacy 副本。
 
-- Unity Editor 6000.6.7f1，Windows Mono x64/D3D11，Mac Mono Universal/Metal；URP 17.6.0、uGUI/TMP 2.6.0、Input System 1.20.1，精确依赖见 Packages/packages-lock.json。
-- Blender 5.2.3 LTS，可编辑源与可重跑导出脚本见 ../art/README.md。
-- Unity Pipeline 0.9.1-exp.1只用于开发自动化；游戏玩法不依赖外部服务。
-- 中文字体 Noto Sans CJK SC（SIL OFL），许可证随 Assets/Game/Fonts 保存。
+IO 失败时保留同一候选快照，重试不重复投掷、扣费或奖励。`normal-actions.jsonl`、`debug-actions.jsonl` 分别记录操作；日志写入失败不应阻断已经保存的动作。
 
-用指定Unity打开本目录，加载 Assets/Game/Scenes/Bootstrap.unity 即可Play。增量导入用 `DiceCraft/Upgrade v0.6 Assets and Profiles`；重新装配会替换Bootstrap，应先提交/备份。构建选择 `Assets/Settings/BuildProfiles/Windows_x64.asset` 或 `macOS_Universal.asset`，两者均用 `DiceCraft/Build Active Verified Profile`。旧Windows菜单也经过同一测试与源哈希门禁。
+## 开发环境与美术样板
 
-自动构建须分别启动两个Editor进程，不能并发写同一工程：
+首次恢复源码建议 `git clone --config core.autocrlf=false https://github.com/XDwudi/game2.git`，保留已提交行尾。字节哈希依赖实际源内容，不沿用另一工作区的身份与测试绑定。
+
+- Unity 6000.6.7f1；Windows Mono x64/D3D11、Mac Mono Universal/Metal；URP 17.6.0、uGUI/TMP 2.6.0、Input System 1.20.1。精确依赖见 `Packages/packages-lock.json`。
+- Blender 5.2.3 LTS；新母模型 `../ArtSource/Art071/Dice/dice_master.blend`，可重跑源脚本 `../tools/art_v071/build_dice.py`。
+- 首批大插画源在 `../ArtSource/Art071/Illustrations/`，公共表面源在 `../tools/art_v071/build_surfaces.py`；运行导出在 `Assets/Art/Art071/`。A01—A18 映射见 [素材表](../docs/specs/v071/ASSET_MAP.md)，它不是“18 张全新图片”清单。
+- 只替换 C48/C29/C03/I07 四项；其余 67 项旧图标继续使用，未计为新插画交付。插画装饰点数不作规则依据，动态点数/颜色/文字/价格仍由引擎显示。
+- Unity Pipeline 0.9.1-exp.1 用于开发自动化；中文字体 Noto Sans CJK SC（SIL OFL），许可证保留在 `Assets/Game/Fonts`。
+
+用指定 Editor 打开本目录，普通开发入口为 `Assets/Game/Scenes/Bootstrap.unity`。v0.71 已接入的资源不需要每次打开时重装；需要主动重接时用 `DiceCraft/Art071/Integrate print art and style lab`。该入口会修改 Bootstrap、导入设置、材质并重建 Lab，须先保存当前场景并串行执行；不要用旧版本整套重建入口覆盖当前表现层。
+
+`Assets/Game/Scenes/ArtStyleLab.unity` 是同资源、同组件的隔离样板。启动时设置独立 `../cache/v071/lab-saves/<UTC时间戳>/`，创建种子 71071 的测试 Run 和调试克隆，布置三控制器＋一个空位、一道具、三池骰（含一待选）和两锁骰。它使用真实命令，结束时恢复先前 SaveDirectoryOverride；**不是正式挑战、正常胜率或性能样本**。两份生产 BuildProfile 仅引用 Bootstrap，不把 Lab 当作玩家开局场景。
+
+## 测试与构建
+
+在 Unity Test Runner 分别执行完整 EditMode/PlayMode；`Editor/TestEvidence` 将本版报告保存到 `../evidence/v071/unity/`，并绑定实际发现清单、程序集与源哈希。先冻结源并生成本机身份，再实际运行完整测试，取得独立 PDB 核查，最后生成 gate。`--expect-*-count` 使用本轮完整发现数，不复用历史 1013/158 或最低阈值作为当前通过数。
+
+仓库根工具入口：
+
+```text
+python tools/v071_delivery.py identity
+python tools/v071_delivery.py gate --edit <实际EditMode XML> --play <实际PlayMode XML> --pdb <独立PDB报告> --expect-edit-count <本轮Edit发现数> --expect-play-count <本轮Play发现数>
+```
+
+identity 是源冻结后的派生文件；测试与构建必须绑定导入该身份后的实际程序集。修改源、资源或规则后，相关旧证据不再代表当前版本。
+
+构建使用 `Assets/Settings/BuildProfiles/Windows_x64.asset` 或 `macOS_Universal.asset`，菜单 `DiceCraft/Build Active Verified Profile`。两个 Editor 构建进程串行，不并发写同一工程：
 
 ```text
 Unity -batchmode -projectPath <绝对工程目录> -activeBuildProfile Assets/Settings/BuildProfiles/Windows_x64.asset -executeMethod DiceCraft.Editor.PrototypeBuild.BuildActiveProfile -logFile <绝对日志路径> -quit
 ```
 
-Mac替换Profile路径为 `Assets/Settings/BuildProfiles/macOS_Universal.asset`。先运行真实Unity EditMode/PlayMode并取得独立PDB源核验；提交源码后使用根目录 `tools/v06_delivery.py identity` 生成包内身份，再用 `gate --edit <NUnit路径> --play <NUnit路径> --pdb <独立报告>` 绑定。资源或源码改变必须重验受影响检查。身份JSON是提交后的派生产物；菜单版本页和包内BUILD_IDENTITY.json应与manifest一致。
+Mac 替换为 `macOS_Universal.asset`。成功构建仅证明构建完成，Mac 交叉构建不代表 M5/Intel 原生运行。
 
-Core/Rules和Core/Session为无Unity依赖的确定性C#。GameApp消费语义命令和冻结快照，DiceTable只呈现结果。配置和160个黄金示例（完整预期和追踪字段）从原规格机械提取；不得以改预期使测试通过。
+Windows 实际验证用 `../tools/run_v071_windows_player.py`；默认仅打印计划，提供实际 `--build-report`、`--expected-build-guid`、新的 `--evidence-root evidence/v071/...`、`--raw-root artifacts/cache/v071/...` 并加 `--execute` 才启动。运行器保留 strict、独立 deferred/native-only 和跨进程恢复边界，局部结果不能拼成 strict 通过。
 
-Windows Player使用通用60Hz帧调度，失败或移除时回退Unity原生60帧设置；失焦/暂停采用粗睡眠，恢复重新建立节拍。它不读取游戏状态或测试开关，不影响RNG、保存和规则。设计、成本及实际测量边界见 ../docs/decisions/P0-FRAME-PACING.md。
+本版只读复用 `../evidence/v07/session/normal-run-trace.json` 与 `debug-24-trace.json`。正常 trace 是 seed 20261031 的 145 条合法命令，预期第 8 关失败，不能称为正常 24 关通关或胜率证据；独立 Debug24 通过真实命令覆盖完整关卡/商店路线。Mac 工具在 `../tools/macos/v071/`，实机流程见 [Mac 验证任务](../docs/tasks/P0-V071-MAC-VERIFICATION.md)。
 
-## 验证
+Core/Rules、Core/Session 保持无 Unity 依赖的确定性 C#，UI 消费语义命令和冻结快照，DiceTable 只呈现结果。配置与黄金例不得通过改预期来消除测试失败。现有帧调度器的依据见 [FRAME-PACING](../docs/decisions/P0-FRAME-PACING.md)，是否满足性能预算以本轮真实采样为准。
 
-Unity Test Runner中分别运行DiceCraft.EditMode和DiceCraft.PlayModeTests。Editor/TestEvidence自动将NUnit XML保存到 ../evidence/v06/unity。真实Unity报告包括发现数、通过数和失败原因；不将离线.NET编译当作引擎测试。
-
-v0.6正常自动轨迹：`../evidence/v06/session/normal-run-trace.json`，seed 20261031，共145合法命令，真实预期为第8关失败。轨迹，只作功能复现，不是24关正常通关或玩家胜率证据。独立Debug24初态用真实命令覆盖24关、8次高压、23个商店与终局。
-
-完整播放器回放与180秒压力验证见 `../evidence/v06/player-support/HANDOFF.md`。使用 `--verify-p0 <轨迹绝对路径> --evidence-dir <输出目录>`；跨平台读档额外传 `--verify-import-save <另一平台cross-platform-checkpoint目录>`。普通启动不会启用探针。所有验收启动使用独立目录，不覆盖玩家存档；Debug压力场景不可当作正常通关。Mac脚本见 `../tools/macos/v06/VerifyMac.command` 与 `../docs/tasks/P0-V06-MAC-VERIFICATION.md`。
-
-本轮没有真人体验测试和移动端验收结论。验收报告必须同时查源版本/构建哈希，修改使相关旧证据失效。
+当前开发中已有 Editor 图片与样板录制；最终全量测试、双构建、Windows 实际启动、Mac、人工风格/体验和移动端结论须分别查实际证据。旧性能、原生独占、AudioMixer 等未验/失败项不会因本次美术版本自动关闭。

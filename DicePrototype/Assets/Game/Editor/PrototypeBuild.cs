@@ -29,29 +29,29 @@ namespace DiceCraft.Editor
             ValidateGate();
             var identity=AssetDatabase.LoadAssetAtPath<TextAsset>("Assets/Resources/BuildIdentity.json");
             if(identity==null)throw new InvalidOperationException("Freeze sourceCommit and write BuildIdentity before building.");
-            string output=mac?"../Builds/v07/macOS/DicePrototype.app":"../Builds/v07/Windows/DicePrototype.exe";
+            string output=mac?"../Builds/v071/macOS/DicePrototype.app":"../Builds/v071/Windows/DicePrototype.exe";
             Directory.CreateDirectory(Path.GetDirectoryName(output));
             var report=BuildPipeline.BuildPlayer(new BuildPlayerWithProfileOptions{buildProfile=profile,locationPathName=output,options=BuildOptions.StrictMode});
-            string evidence="../evidence/v07/unity/build-"+(mac?"macos":"windows")+"-"+DateTime.UtcNow.ToString("yyyyMMdd-HHmmss")+".json";
+            string evidence="../evidence/v071/unity/build-"+(mac?"macos":"windows")+"-"+DateTime.UtcNow.ToString("yyyyMMdd-HHmmss")+".json";
             Directory.CreateDirectory(Path.GetDirectoryName(evidence));
             File.WriteAllText(evidence,JsonUtility.ToJson(new Proof{profile=profilePath,platform=target.ToString(),unity=Application.unityVersion,
                 result=report.summary.result.ToString(),errors=report.summary.totalErrors,warnings=report.summary.totalWarnings,
                 bytes=report.summary.totalSize,seconds=report.summary.totalTime.TotalSeconds,buildGuid=report.summary.guid.ToString(),buildUtc=DateTime.UtcNow.ToString("O"),output=Path.GetFullPath(output),identity=identity.text},true));
             if(report.summary.result!=BuildResult.Succeeded)throw new InvalidOperationException("Player build failed: "+report.summary.result);
-            Debug.Log("V07_BUILD_SUCCEEDED "+Path.GetFullPath(output));
+            Debug.Log("V071_BUILD_SUCCEEDED "+Path.GetFullPath(output));
         }
         private static void ValidateGate()
         {
-            const string path="../evidence/v07/unity/build-gate.json";
+            const string path="../evidence/v071/unity/build-gate.json";
             if(!File.Exists(path))throw new InvalidOperationException("Run tests and bind their successful evidence before building.");
             var gate=JsonUtility.FromJson<Gate>(File.ReadAllText(path));
-            if(gate==null||gate.schema!="v07-build-gate-1"||gate.editModePassed<797||gate.playModePassed<30||gate.files==null||gate.files.Length==0)throw new InvalidOperationException("Incomplete v0.7 test gate (complete discovered EditMode / PlayMode suites required).");
+            if(gate==null||gate.schema!="v07-build-gate-1"||gate.editModePassed<797||gate.playModePassed<30||gate.files==null||gate.files.Length==0)throw new InvalidOperationException("Incomplete v0.71 test gate (complete discovered EditMode / PlayMode suites required).");
             Action<Entry> requireEvidence=e=>{if(e==null||string.IsNullOrEmpty(e.path)||string.IsNullOrEmpty(e.sha256)||!gate.files.Any(f=>f.path==e.path&&f.sha256==e.sha256))throw new InvalidOperationException("Required verification evidence is absent from the bound files.");};
             requireEvidence(gate.pdbAudit);
             if(gate.tests==null||gate.tests.Length!=2)throw new InvalidOperationException("Both complete test reports are required.");
             foreach(var mode in new[]{"EditMode","PlayMode"})
             {
-                string discoveryPath="evidence/v07/unity/discovery-"+mode+".json";
+                string discoveryPath="evidence/v071/unity/discovery-"+mode+".json";
                 requireEvidence(gate.files.SingleOrDefault(f=>f.path==discoveryPath));
                 var discovery=JsonUtility.FromJson<Discovery>(File.ReadAllText("../"+discoveryPath));
                 int count=mode=="EditMode"?gate.editModePassed:gate.playModePassed;
@@ -74,7 +74,7 @@ namespace DiceCraft.Editor
                     throw new InvalidOperationException("Verification source/evidence changed: "+file.path);
             }
             var identity=JsonUtility.FromJson<Identity>(File.ReadAllText("Assets/Resources/BuildIdentity.json"));
-            if(identity.releaseVersion!="p0.7.0"||identity.artVersion!="art0.7.0"||identity.contentConfigVersion!="p0.6.0"||identity.saveSchemaVersion!=4)
+            if(identity.releaseVersion!="p0.7.1"||identity.artVersion!="art0.7.1"||identity.contentConfigVersion!="p0.6.0"||identity.saveSchemaVersion!=4)
                 throw new InvalidOperationException("Art release identity must preserve the frozen p0.6.0/schema4 gameplay contract.");
             if(identity.sourceCommit!=gate.sourceCommit||identity.contentConfigSha256!=Hash("Assets/Game/Data/P0Config.json")||identity.goldenCaseSetSha256!=Hash("Assets/Game/Data/GoldenScores.json"))
                 throw new InvalidOperationException("Build identity does not match frozen source/config/cases.");

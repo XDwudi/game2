@@ -39,7 +39,7 @@ namespace DiceCraft.Editor
                 Api.RetrieveTestList(mode,tree=>{
                     var names=new List<string>();Collect(tree,names);names.Sort(StringComparer.Ordinal);
                     if(names.Count==0||names.Distinct().Count()!=names.Count)throw new InvalidOperationException("Invalid complete test discovery.");
-                    string dir=Path.GetFullPath("../evidence/v07/unity");Directory.CreateDirectory(dir);
+                    string dir=Path.GetFullPath("../evidence/v071/unity");Directory.CreateDirectory(dir);
                     File.WriteAllText(Path.Combine(dir,"discovery-"+mode+".json"),JsonUtility.ToJson(new Discovery{mode=mode.ToString(),unity=Application.unityVersion,names=names.ToArray()},true));
                 });
         }
@@ -62,13 +62,13 @@ namespace DiceCraft.Editor
         }
         private sealed class Capture:ICallbacks
         {
-            const string Pending="Temp/v07-active-test-binding.json";
+            const string Pending="Temp/v071-active-test-binding.json";
             public void RunStarted(ITestAdaptor tests){File.WriteAllText(Pending,JsonUtility.ToJson(CaptureSnapshot(),true));}
             public void TestStarted(ITestAdaptor test){}
             public void TestFinished(ITestResultAdaptor result){}
             public void RunFinished(ITestResultAdaptor result)
             {
-                string dir=Path.GetFullPath("../evidence/v07/unity");Directory.CreateDirectory(dir);
+                string dir=Path.GetFullPath("../evidence/v071/unity");Directory.CreateDirectory(dir);
                 string stamp=DateTime.UtcNow.ToString("yyyyMMdd-HHmmss");
                 string report=Path.Combine(dir,"nunit-"+stamp+".xml");
                 TestRunnerApi.SaveResultToFile(result,report);

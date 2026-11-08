@@ -12,6 +12,8 @@ namespace DiceCraft
         private RectTransform art07Tooltip;
         private string art07TooltipOwner;
         private string art07HandSelection;
+        private string art071ShopSelection;
+        private static Color PaperMuted071 => Color.Lerp(UiKit.Ink,UiKit.Paper,.28f);
 
         private static int Art07OfferTab(ShopOffer offer)
         {
@@ -51,21 +53,40 @@ namespace DiceCraft
         }
         private void DrawControllerFullBody07(Transform parent,string definition,string state,string enchantment,int ordinal=0)
         {
-            // Card paper ends above the template shadow: all readable ink stays above y204.
-            DrawControllerRarity07(parent,definition,false,160,224);
-            EnchantBadge(parent,enchantment,120,6,32);
-            // Noto CJK line metrics are 1.448 x size: preserve the full line box at 150%.
-            // At 125%+ the 64-high title box uses transparent ascent/descent space;
-            // visible title ink remains between the metadata and illustration.
-            bool enlarged=UiKit.FontScale>1;
-            var name=UiKit.Text(parent,"Name",NameOf(definition),12,enlarged?24:38,136,enlarged?64:36,20,UiKit.Ink,TextAlignmentOptions.Center);
+            // The same paper card is used by the HUD, shop and frozen settlement backdrop.
+            // Read its actual geometry instead of baking the old 160 x 224 layout into its ink.
+            var rect=parent as RectTransform;
+            float width=rect!=null&&rect.rect.width>0?rect.rect.width:160;
+            float height=rect!=null&&rect.rect.height>0?rect.rect.height:224;
+            bool full=width>=190&&height>=250;
+            float padding=full?12:10,bottom=height-(full?14:20);
+            float fontScale=Mathf.Max(1,UiKit.FontScale);
+            float metadataHeight=Mathf.Max(30,14*fontScale*1.55f);
+            DrawControllerRarity07(parent,definition,false,width,height);
+            var rarity=(RectTransform)parent.Find("RarityLabel");
+            rarity.anchoredPosition=new Vector2(48,-6);
+            rarity.sizeDelta=new Vector2(width-48-padding-40,metadataHeight);
+            var rarityText=rarity.GetComponent<TextMeshProUGUI>();
+            rarityText.fontSize=14*UiKit.FontScale;
+            var ticks=(RectTransform)parent.Find("RarityTicks");
+            ticks.anchoredPosition=new Vector2(padding,-(6+metadataHeight*.5f-2));
+            EnchantBadge(parent,enchantment,width-padding-32,6,32);
+
+            // Reserve a complete CJK line at enlarged text sizes. Decoration yields to readable ink.
+            float titleSize=full?24:20,titleHeight=titleSize*fontScale*1.55f;
+            float titleY=full?32:30;
+            var name=UiKit.Text(parent,"Name",NameOf(definition),padding,titleY,width-padding*2,titleHeight,titleSize,UiKit.Ink,TextAlignmentOptions.Center);
+            name.fontStyle=FontStyles.Bold;
             name.textWrappingMode=TextWrappingModes.NoWrap;name.overflowMode=TextOverflowModes.Ellipsis;
-            float icon=UiKit.FontScale>=1.5f?80:enlarged?88:96;
-            Icon(parent,definition,(160-icon)/2,enlarged?84:80,icon);
-            float footerY=UiKit.FontScale>=1.5f?166:enlarged?172:176;
-            if(ordinal>0)UiKit.Text(parent,"Ordinal",ordinal.ToString(),8,footerY,16,204-footerY,12,UiKit.Ink,TextAlignmentOptions.Center);
-            string shortState=state=="点击查看条件"?"查看条件":state.Replace("→ ","→");
-            var value=UiKit.Text(parent,"State",shortState,ordinal>0?24:12,footerY,ordinal>0?128:136,204-footerY,16,UiKit.Ink,TextAlignmentOptions.Center);
+            float footerHeight=Mathf.Max(24,16*fontScale*1.55f);
+            float footerY=bottom-footerHeight;
+            float imageTop=titleY+titleHeight+2;
+            float imageSize=Mathf.Min(width-padding*2,footerY-imageTop-3);
+            Icon(parent,definition,(width-imageSize)*.5f,imageTop,imageSize);
+            if(ordinal>0)UiKit.Text(parent,"Ordinal",ordinal.ToString(),padding,footerY,16,footerHeight,12,UiKit.Ink,TextAlignmentOptions.Center);
+            string shortState=state=="点击查看条件"?"查看条件":(state??"").Replace("→ ","→");
+            float stateX=ordinal>0?padding+18:padding;
+            var value=UiKit.Text(parent,"State",shortState,stateX,footerY,width-padding-stateX,footerHeight,16,UiKit.Ink,TextAlignmentOptions.Center);
             value.textWrappingMode=TextWrappingModes.NoWrap;value.overflowMode=TextOverflowModes.Ellipsis;
         }
         private string Art07OfferState(ControllerInstance item)
@@ -83,7 +104,9 @@ namespace DiceCraft
         }
         private void Art07ShopShelf()
         {
-            UiKit.Frame(main,"ControllerShelf",368,24,1528,400,UiKit.Panel,UiKit.PanelLight);
+            // An open shelf lets paper goods supply the visual weight; capacity is still explicit.
+            var shelf=UiKit.Box(main,"ControllerShelf",368,24,1528,408,Color.clear);
+            shelf.GetComponent<UnityEngine.UI.Image>().sprite=null;
             UiKit.Text(main,"ControllerShelfTitle","控制器货架",392,36,550,52,32,UiKit.Paper);
             int price=Session.GetRefreshPrice();
             UiKit.ActionButton(main,"RefreshControllers",price==0?"本店首次免费":"刷新控制器  "+price,1432,32,440,60,()=>
@@ -91,29 +114,82 @@ namespace DiceCraft
                 Send(new SessionCommand{kind=CommandKind.RefreshControllers});
             },UiKit.Blue,!IsBusy&&!Session.HasPendingSave&&ViewState.gold>=price);
             var offers=ViewState.shop.offers.Where(o=>o.category=="controller").ToArray();
+            bool residentDetails=offers.Length>0&&offers.Length<=3;
+            int capacity=Config.shop.initialControllerOffers+ViewState.controllerOfferPurchases;
+            var selected=offers.FirstOrDefault(o=>o.offerId==art071ShopSelection)??offers.FirstOrDefault(o=>!o.sold)??offers.FirstOrDefault();
+            art071ShopSelection=selected?.offerId;
+            const float cardWidth=198,cardHeight=264;
+            float step=residentDetails?246:244;
             for(int i=0;i<offers.Length;i++)
             {
-                var offer=offers[i];float x=392+i*184;
-                var card=UiKit.ActionButton(main,"Offer_"+offer.offerId,"",x,96,160,224,()=>InspectOffer(offer),UiKit.Paper,!IsBusy);
+                var offer=offers[i];float x=(residentDetails?412:392)+i*step;
+                var card=UiKit.Button(main,"Offer_"+offer.offerId,"",x,96,cardWidth,cardHeight,()=>InspectOffer(offer),!IsBusy);
                 UiKit.CardSurface(card,false);
                 DrawControllerFullBody07(card.transform,offer.contentId,Art07OfferState(offer.controller),offer.controller?.enchantmentId);
-                UiKit.Text(main,"OfferAvailability_"+offer.offerId,Art07Availability07(offer),x,394,160,44,18,UiKit.Gold,TextAlignmentOptions.Center);
-                Art07AttachTooltip(card,offer.offerId,NameOf(offer.contentId),Description(offer.contentId),EnchantLabel(offer.controller?.enchantmentId),()=>InspectOffer(offer));
-                Art07BuyButton(main,offer,x,328,160,64);
-                if(offer.sold)
+                Art07BuyButton(main,offer,x,366,cardWidth,62);
+                // The status shares the purchase region, instead of repeating a sold stamp three times.
+                string availability=offer.sold?"":Art07Availability07(offer);
+                UiKit.Text(main,"OfferAvailability_"+offer.offerId,availability,x,428,cardWidth,24,14,UiKit.Paper,TextAlignmentOptions.Center);
+                if(residentDetails)
                 {
-                    var stamp=UiKit.Frame(card.transform,"SoldStamp",8,88,144,48,UiKit.Paper,UiKit.Ink);
-                    UiKit.Text(stamp,"Text","已购买",4,4,136,40,23,UiKit.Ink,TextAlignmentOptions.Center);
-                    stamp.localRotation=Quaternion.Euler(0,0,7);
+                    var hover=UiKit.Component<Art07HoverTip>(card.gameObject);
+                    hover.show=()=>
+                    {
+                        if(modal||IsControllerDragging||IsBusy)return;
+                        art071ShopSelection=offer.offerId;
+                        DrawShopShelfDetail071(shelf,offer);
+                        foreach(var candidate in offers)
+                        {
+                            var target=main.Find("Offer_"+candidate.offerId);
+                            if(target!=null)UiKit.Outline(target,"SelectedOffer",2,2,cardWidth-4,cardHeight-4,candidate.offerId==offer.offerId?UiKit.Gold:Color.clear,2);
+                        }
+                    };
+                    hover.hide=()=>{};
+                    UiKit.Outline(card.transform,"SelectedOffer",2,2,cardWidth-4,cardHeight-4,selected==offer?UiKit.Gold:Color.clear,2);
                 }
+                else Art07AttachTooltip(card,offer.offerId,NameOf(offer.contentId),Description(offer.contentId),EnchantLabel(offer.controller?.enchantmentId),()=>InspectOffer(offer));
             }
-            int capacity=Config.shop.initialControllerOffers+ViewState.controllerOfferPurchases;
-            for(int i=offers.Length;i<capacity;i++)
+            int drawnCapacity=residentDetails?Math.Min(3,capacity):capacity;
+            for(int i=offers.Length;i<drawnCapacity;i++)
             {
-                var p=UiKit.Frame(main,"EmptyControllerOffer"+i,392+i*184,96,160,224,UiKit.Background,UiKit.PanelLight);
-                UiKit.Text(p,"Empty","本店暂无\n合法商品",12,40,136,110,22,UiKit.Muted,TextAlignmentOptions.Center);
-                UiKit.Text(p,"Applied","容量已生效",12,166,136,46,18,UiKit.Muted,TextAlignmentOptions.Center);
+                float x=(residentDetails?412:392)+i*step;
+                var empty=UiKit.Box(main,"EmptyControllerOffer"+i,x,96,cardWidth,cardHeight,new Color(0,0,0,.04f));
+                empty.GetComponent<UnityEngine.UI.Image>().sprite=null;
+                UiKit.Text(empty,"Empty","本店暂无合法商品",12,100,cardWidth-24,64,20,UiKit.Muted,TextAlignmentOptions.Center);
+                UiKit.Text(empty,"Applied","容量已生效",12,204,cardWidth-24,42,16,UiKit.Muted,TextAlignmentOptions.Center);
             }
+            if(residentDetails)DrawShopShelfDetail071(shelf,selected);
+            UiKit.Text(main,"ShelfCapacity071","货架 "+offers.Length+" / "+capacity,980,44,340,38,18,UiKit.Muted,TextAlignmentOptions.TopRight);
+        }
+        private void DrawShopShelfDetail071(Transform shelf,ShopOffer offer)
+        {
+            if(offer==null)return;
+            var panel=UiKit.PaperFrame(shelf,"ControllerShelfDetails",776,72,728,332,UiKit.Paper);
+            var title=UiKit.Text(panel,"ShelfDetailName",NameOf(offer.contentId),20,10,484,54,28,UiKit.Ink);
+            title.fontStyle=FontStyles.Bold;
+            PaperLink071(panel,"ShelfDetailOpen","完整详情",532,14,176,48,()=>InspectOffer(offer),!IsBusy);
+            Icon(panel,offer.contentId,20,94,164);
+            var text=UiKit.Scroll(panel,"ShelfDetailText",208,76,500,232,232);float y=0;
+            PaperDetailSection071(text,"Skill","基础技能",Description(offer.contentId),ref y,466);
+            PaperDetailSection071(text,"Enchant","附魔与状态",EnchantLabel(offer.controller?.enchantmentId)+"\n"+Art07OfferState(offer.controller),ref y,466);
+            PaperDetailSection071(text,"Purchase","交易与占槽",ControllerPurchaseText(offer),ref y,466);
+            string error=Session.PurchaseError(offer.offerId);
+            if(error!=null)PaperDetailSection071(text,"Unavailable","当前状态",error,ref y,466);
+            text.sizeDelta=new Vector2(text.sizeDelta.x,Mathf.Max(232,y+12));
+        }
+        private void PaperDetailSection071(Transform parent,string id,string heading,string content,ref float y,float width)
+        {
+            var title=UiKit.Text(parent,id+"Title",heading,0,y,width,40,19,PaperMuted071);
+            title.fontStyle=FontStyles.Bold;y+=FitHeight(title,36)+4;
+            var text=UiKit.Text(parent,id+"Body",content,0,y,width,40,22,UiKit.Ink);
+            y+=FitHeight(text,40)+18;
+        }
+        private UnityEngine.UI.Button PaperLink071(Transform parent,string name,string text,float x,float y,float width,float height,Action click,bool enabled=true)
+        {
+            var button=UiKit.FlatButton(parent,name,text,x,y,width,height,click,enabled);
+            button.transform.Find("Label").GetComponent<TextMeshProUGUI>().color=enabled?UiKit.Ink:PaperMuted071;
+            button.targetGraphic.color=new Color(0,0,0,.035f);
+            return button;
         }
         private void Art07BuyButton(Transform parent,ShopOffer offer,float x,float y,float width,float height)
         {
@@ -151,35 +227,44 @@ namespace DiceCraft
         private void Art07ProductCard(ShopOffer offer,float x,float y,float width,Transform parent=null)
         {
             parent=parent??main;
-            var p=UiKit.Frame(parent,"Product_"+offer.offerId,x,y,width,416,UiKit.Panel,UiKit.PanelLight);
+            var p=UiKit.PaperFrame(parent,"Product_"+offer.offerId,x,y,width,416,UiKit.Paper);
             string title=offer.category=="new_die"?"加入骰子":NameOf(offer.contentId);
-            UiKit.Text(p,"Name",title,16,12,width-32,64,27,UiKit.Paper,TextAlignmentOptions.Center);
+            var name=UiKit.Text(p,"Name",title,16,10,width-32,64,27,UiKit.Ink,TextAlignmentOptions.Center);name.fontStyle=FontStyles.Bold;
             if(offer.category=="new_die")
             {
-                for(int i=0;i<6;i++)Art07PipTile(p,"PreviewFace"+i,offer.die.faces[i].permanentPip,offer.die.faces[i].baseColor=="red"?UiKit.Red:UiKit.Blue,30+i*62,84,52);
-                UiKit.Text(p,"DiceCapacity","只增加骰池\n提交容量保持 K="+Session.EffectiveCapacity,24,160,width-48,96,24,UiKit.Muted,TextAlignmentOptions.Center);
+                for(int i=0;i<6;i++)Art07PipTile(p,"PreviewFace"+i,offer.die.faces[i].permanentPip,offer.die.faces[i].baseColor=="red"?UiKit.Red:UiKit.Blue,30+i*62,88,52);
+                UiKit.Text(p,"DiceCapacity","只增加骰池\n提交容量保持 K="+Session.EffectiveCapacity,24,170,width-48,96,24,UiKit.Ink,TextAlignmentOptions.Center);
             }
             else if(offer.category=="hand_upgrade"||offer.category=="color_upgrade")
             {
-                // The rule engine groups both upgrade types under hand_upgrade;
-                // distinguish their content definitions, as the study screen does.
                 bool color=Config.colorDefinitions.Any(definition=>definition.id==offer.contentId);
                 int level=(color?ViewState.colorLevels:ViewState.handLevels).First(l=>l.handId==offer.contentId).level;
                 int basis=color?Config.Color(offer.contentId).baseMult100:Config.Hand(offer.contentId).baseMult100;
                 int step=color?Config.Color(offer.contentId).incrementPerLevel100:Config.Hand(offer.contentId).incrementPerLevel100;
-                UiKit.Text(p,"Level","Lv."+level+"  →  "+(level+1),24,100,width-48,64,32,UiKit.Teal,TextAlignmentOptions.Center);
-                UiKit.Text(p,"Multiplier","×"+Factor(basis+step*level)+"  →  ×"+Factor(basis+step*(level+1)),24,182,width-48,88,29,UiKit.Gold,TextAlignmentOptions.Center);
+                var row=HandbookRules.Build(Config,ViewState.handLevels,ViewState.colorLevels,ViewState.controllers,Session.EffectiveCapacity,
+                    ViewState.dice.Count(d=>d.lifetime=="permanent"),ViewState.dice.Count,ViewBindings,ViewState.isDebug).First(r=>r.handId==offer.contentId);
+                int[] numbers=row.example.Where(char.IsDigit).Select(c=>c-'0').Where(n=>n>=1&&n<=6).ToArray();
+                float tile=Mathf.Min(54,(width-48-Mathf.Max(0,numbers.Length-1)*6)/Mathf.Max(1,numbers.Length));
+                float start=(width-(numbers.Length*tile+Mathf.Max(0,numbers.Length-1)*6))*.5f;
+                Color pip=color?(offer.contentId=="all_red"?UiKit.Red:UiKit.Blue):UiKit.Ink;
+                for(int i=0;i<numbers.Length;i++)Art07PipTile(p,"StudyExample"+i,numbers[i],pip,start+i*(tile+6),84,tile);
+                UiKit.Text(p,"Level","Lv."+level+"  →  "+(level+1),24,146,width-48,56,26,PaperMuted071,TextAlignmentOptions.Center);
+                var multiplier=UiKit.Text(p,"Multiplier","×"+Factor(basis+step*level)+"  →  ×"+Factor(basis+step*(level+1)),24,208,width-48,58,27,UiKit.Ink,TextAlignmentOptions.Center);multiplier.fontStyle=FontStyles.Bold;
             }
             else
             {
-                Icon(p,offer.contentId,width/2-56,80,112);
-                // Long conditions remain intact in the read-only detail sheet.
+                if(offer.category=="die_upgrade")DrawShopUpgradePreview071(p,offer,width);
+                else
+                {
+                    float size=width<320?144:166;
+                    Icon(p,offer.contentId,(width-size)*.5f,76,size);
+                }
                 string text=Description(offer.contentId);int stop=text.IndexOf('。');if(stop>=0)text=text.Substring(0,stop+1);
-                var description=UiKit.Text(p,"Summary",text,20,204,width-40,64,22,UiKit.Muted,TextAlignmentOptions.Center);
+                var description=UiKit.Text(p,"Summary",text,20,224,width-40,48,20,UiKit.Ink,TextAlignmentOptions.Center);
                 description.overflowMode=TextOverflowModes.Ellipsis;
             }
-            string availability=Art07Availability07(offer);
-            UiKit.Button(p,"Inspect",string.IsNullOrEmpty(availability)?"查看说明":availability,16,276,width-32,60,()=>InspectOffer(offer),!IsBusy);
+            string availability=offer.sold?"":Art07Availability07(offer);
+            PaperLink071(p,"Inspect",string.IsNullOrEmpty(availability)?"查看完整说明":availability,16,278,width-32,54,()=>InspectOffer(offer),!IsBusy);
             Art07BuyButton(p,offer,16,344,width-32,64);
         }
         private void Art07ShopOwned()
@@ -197,7 +282,7 @@ namespace DiceCraft
                 UiKit.CardSurface(button,true);
                 DrawControllerRarity07(button.transform,item.definitionId,true,134,rowHeight-8);
                 Icon(button.transform,item.definitionId,8,40,24);
-                var name=UiKit.Text(button.transform,"Name",NameOf(item.definitionId),38,36,88,34,14,UiKit.Ink,TextAlignmentOptions.Center);
+                var name=UiKit.Text(button.transform,"Name",NameOf(item.definitionId),36,36,86,34,13,UiKit.Ink,TextAlignmentOptions.Center);
                 name.textWrappingMode=TextWrappingModes.NoWrap;name.overflowMode=TextOverflowModes.Ellipsis;
                 EnchantBadge(button.transform,item.enchantmentId,98,2,28);
                 AttachControllerDrag(button,item);
@@ -254,19 +339,26 @@ namespace DiceCraft
                 if(modal||IsControllerDragging||IsBusy)return;
                 var corners=new Vector3[4];((RectTransform)button.transform).GetWorldCorners(corners);
                 Vector2 position=ScreenToDesign(RectTransformUtility.WorldToScreenPoint(null,corners[3]));
-                float x=Mathf.Clamp(position.x+12,24,1476),y=Mathf.Clamp(position.y+10,24,666);
-                art07TooltipOwner=owner;art07Tooltip=UiKit.Frame(overlay,"ContentTooltip",x,y,420,390,UiKit.Paper,UiKit.Ink);
+                bool besidePool=!Compact07&&UiKit.FontScale<=1&&ViewState.phase=="Selecting"&&ViewState.dice.Count<=5&&
+                    ViewState.dice.Count-ViewState.hand.orderedLockedIds.Count<=3;
+                float x=besidePool?1476:Mathf.Clamp(position.x+12,24,1476),y=besidePool?456:Mathf.Clamp(position.y+10,24,666);
+                art07TooltipOwner=owner;art07Tooltip=UiKit.Frame(overlay,"ContentTooltip",x,y,420,besidePool?286:390,UiKit.Paper,UiKit.Ink);
                 UiKit.Text(art07Tooltip,"Name",title,16,12,388,52,25,UiKit.Ink);
-                var text=UiKit.Text(art07Tooltip,"Description",description,16,76,388,150,20,UiKit.Ink);text.overflowMode=TextOverflowModes.Ellipsis;
-                var stateText=UiKit.Text(art07Tooltip,"State",state,16,234,388,88,19,UiKit.Ink);stateText.overflowMode=TextOverflowModes.Ellipsis;
-                UiKit.Text(art07Tooltip,"More","点击卡片查看完整说明",16,334,388,44,18,UiKit.Ink,TextAlignmentOptions.Center);
+                var text=UiKit.Text(art07Tooltip,"Description",description,16,besidePool?64:76,388,besidePool?108:150,20,UiKit.Ink);text.overflowMode=TextOverflowModes.Ellipsis;
+                var stateText=UiKit.Text(art07Tooltip,"State",state,16,besidePool?178:234,388,besidePool?54:88,19,UiKit.Ink);stateText.overflowMode=TextOverflowModes.Ellipsis;
+                UiKit.Text(art07Tooltip,"More","点击卡片查看完整说明",16,besidePool?238:334,388,44,18,UiKit.Ink,TextAlignmentOptions.Center);
                 UiKit.Component<Art07PanelMotion>(art07Tooltip.gameObject).Enter(.08f,.06f,true,reduced);
             };
             hover.hide=()=>{if(art07TooltipOwner==owner&&art07Tooltip!=null){art07Tooltip.gameObject.SetActive(false);art07TooltipOwner=null;}};
         }
         private RectTransform Art07PipTile(Transform parent,string name,int value,Color color,float x,float y,float size)
         {
-            var r=UiKit.Frame(parent,name,x,y,size,size,UiKit.Paper,UiKit.Ink);
+            // Tiny rules examples need a clean face: a sliced paper-card border
+            // would consume the corner-pip space at handbook's 30px size.
+            var r=UiKit.Box(parent,name,x,y,size,size,UiKit.Ink);
+            r.GetComponent<UnityEngine.UI.Image>().sprite=null;
+            var face=UiKit.Box(r,"ExampleFace",1,1,size-2,size-2,UiKit.Paper);
+            face.GetComponent<UnityEngine.UI.Image>().sprite=null;
             float dot=Math.Max(4,size*.095f);
             Action<float,float> pip=(px,py)=>UiKit.Box(r,"Pip"+px+"_"+py,size*px-dot/2,size*py-dot/2,dot,dot,color);
             if(value%2==1)pip(.5f,.5f);

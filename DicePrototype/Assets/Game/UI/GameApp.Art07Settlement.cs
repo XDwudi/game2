@@ -53,14 +53,20 @@ namespace DiceCraft
             bool animate=armedSettlement07==identity&&!shownSettlements07.Contains(identity);
             shownSettlements07.Add(identity);if(armedSettlement07==identity)armedSettlement07=null;
             var scrim=UiKit.Box(main,"SettlementScrim07",0,0,1920,1080,new Color(0,0,0,.35f),true);SettlementSkipTarget07(scrim);
-            var p=UiKit.Frame(main,"Rewards",520,168,880,744,UiKit.Paper,UiKit.Ink,true);SettlementSkipTarget07(p);
-            UiKit.Text(p,"Cleared","第 "+(ViewState.stage.stageIndex+1)+" 关完成",24,20,560,76,UiKit.FontScale>1?32:42,UiKit.Ink);
-            var skip=UiKit.Button(p,"SkipSettlementReveal07","跳过演出",604,28,252,60,CompleteSettlementReveal07);
+            var p=UiKit.PaperFrame(main,"Rewards",520,168,880,744,UiKit.Paper,UiKit.Ink,true);SettlementSkipTarget07(p);
+            var cleared=UiKit.Text(p,"Cleared","第 "+(ViewState.stage.stageIndex+1)+" 关完成",24,20,560,76,UiKit.FontScale>1?32:42,UiKit.Ink);cleared.fontStyle=FontStyles.Bold;
+            var skip=UiKit.FlatButton(p,"SkipSettlementReveal07","跳过演出",604,28,252,60,CompleteSettlementReveal07);
+            skip.GetComponentInChildren<TextMeshProUGUI>().color=UiKit.Ink;
             UiKit.Text(p,"FinalStageScore",CompactScore(r.score)+" / "+CompactScore(r.target),24,108,832,60,28,UiKit.Ink);
+            ReceiptRule071(p,"ReceiptHeadingRule",24,174,832);
             var list=UiKit.Scroll(p,"SettlementDetails",24,184,832,380,380);float y=0;
             Func<string,string,RectTransform> line=(id,text)=>
             {
-                var label=UiKit.Text(list,id,text,0,y,800,44,24,UiKit.Ink);y+=FitHeight(label,44)+24;return label.rectTransform;
+                bool total=id=="SettlementNetCash";
+                var label=UiKit.Text(list,id,text,12,y,776,44,24,UiKit.Ink);
+                label.fontStyle=total?FontStyles.Bold:FontStyles.Normal;
+                y+=FitHeight(label,44)+12;
+                ReceiptRule071(list,id+"Rule",12,y,776);y+=16;return label.rectTransform;
             };
             var cashRows=new[]{line("SettlementBaseReward","基础奖励  +"+r.baseReward),line("SettlementUnusedReward","剩余提交奖励  +"+r.unusedSubmissionReward),line("SettlementInterest","利息  +"+r.interest)};
             line("SettlementNetCash",$"本次现金净增  +{r.goldAfter-r.goldBefore}\n奖励前余额 {r.goldBefore} → 结算后余额 {r.goldAfter}");
@@ -85,6 +91,7 @@ namespace DiceCraft
             list.sizeDelta=new Vector2(list.sizeDelta.x,y+12);
             bool exhausted=ViewState.failureReason=="NoPermanentDice"&&ViewState.stage.settlementContinuation=="RunFailed";
             UiKit.Text(p,"SettlementStatus",exhausted?"本关成功 · 永久骰已耗尽，整局结束。":"本关奖励已处理。",24,574,832,62,24,UiKit.Ink);
+            ReceiptRule071(p,"ReceiptActionRule",24,640,832);
             UiKit.ActionButton(p,"SettlementContinue",exhausted?"查看结果 →":ViewState.stage.settlementContinuation=="Shop"?"进入商店 →":"查看整局结果 →",24,648,832,72,()=>{CompleteSettlementReveal07();Send(new SessionCommand{kind=CommandKind.Continue});},UiKit.Blue,!IsBusy&&!Session.HasPendingSave);
 
             // Symbols are below every HUD/paper label. They never cover wallet digits or controls.

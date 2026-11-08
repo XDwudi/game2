@@ -1,5 +1,25 @@
 # 当前项目状态
 
+## v0.71 制作与实机验证（2026-11-08）
+
+19:30UTC 冻结前检查点：当前Runtime `81b0db46-9ef8-437f-8df1-0063f51c09d7`，Editor20948唯一写者，已退出Play、空场景不dirty、无reload锁。最终整版测试/构建尚待执行。当前新专项累计包含190845五骰1/1通过；此前失败原件保留，不能将专项替代完整gate。
+
+- `cache/v071/screens-final-1080` 与 `screens-720-150` 各48张实际图，报告均记录截图状态/存档未变、偏好恢复及隔离普通checkpoint一致。720的强化卡直角缺陷已用 `final-special/shop-upgrade-720-150.png` 修后图替代其对应外观结论；其他历史图保留。
+- `cache/v071/recording-final` 13.088857秒/122帧真实操作，Runtime a7436318；RGBA无损MOV保留母片，MP4为明确丢弃720个非不透明alpha像素的RGB预览。其后仅改Modals选骰浅字两行，不影响该片对局表现；修后720/150未选与选中两图、完整前后JSON逐字节一致，Runtime81b0db46，见 `final-special`。
+- 独立复核 `cache/v071/review-final-root.md`、`review-final-pages.md` 已关闭本次P2/P3；素材导入复核见 `review-final-assets.md`。商店预览真实2→0弹窗→2关闭→0切页；正常两卡内容与viewport均416，无滚动区，不声称滚动实跑。三商品与六商品布局均有真实图。
+- 版本交付工具已适配，21项工具/20项仓库检查通过，旧链不改。源码准备冻结后生成真实identity，依原gate完成完整发现/两套测试/PDB，再串行双构建与Windows Player。
+- 文件锁更新：root独占Unity；其余代理生产冻结/只读，art_assets仅编码工具与录像。截图已从Assets/Temp原字节迁入 `cache/v071/editor-captures`，避免临时素材进入构建源。以下早先制作检查点作为历史保留，不视为当前仍未修复。
+
+- 用户要求按附件继续开发；输入、范围与V71-A～E见 `docs/tasks/P0-V071-IMPLEMENTATION.md`。BASE `b11694f8a2f7d767d2113e9b467713807efa403a`，玩法仍p0.6.0/schema4，Core/配置/黄金样例未改。`修改内容.txt`按真实DOCX提取，原输入SHA见 `docs/specs/v071/INPUTS.json`。基金售价例外保留。
+- 首批C48/C29/C03/I07四张真实透明插画、新九宫格公共表面、Blender5.2.3骰子母版/FBX（300tri/152顶点）、新陶瓷/动态点窝均已接入Bootstrap与独立ArtStyleLab。素材源与真实形式差异见 `docs/specs/v071/ASSET_MAP.md`；其余67项仍是旧图标，未冒充全量新插画。
+- 已迁移对局、商店、手册、主菜单/新局、章节契约、结算与结果页，共用UiKit。普通五骰放大；十骰/调试分页保留紧凑逻辑。真实样板已修复底板遮挡锁骰、累计分裁切、悬停根漂移、牌型结构信息丢失、纸框状态边色、放大骰点击范围等；受影响检查正在重跑，尚非最终通过。
+- 原生1920×1080实际13.0489秒/122帧操作录制在 `cache/v071/recording-01`，已无损VFR编码/逐帧RGB一致。其源后续有修复，保留为制作中证据，需更新相关最终展示。独立复核 `cache/v071/review-production.md` 发现的P2/P3已有针对性修复但还待最终复验。
+- 2026-11-08 18:43UTC专项实际9项：7通过、2失败，原报告 `evidence/v071/unity/nunit-20261108-184323.xml` 保留。失败显示普通放大误用于10/32骰，生产已限定范围；新增五骰玻璃/临时属性与可见骰面命中回归待运行。卡面三字号完整glyph、卡片底边hover/click、牌型结构信息等首轮通过，不提升为整版通过。
+- `cache/v071/screens-1080` 已实际采48张页面，报告captured_pending_visual_review，状态/存档检查与偏好恢复由报告记录。菜单下缘重叠和随机种子空白按钮正在修复；720p/150%、新完整测试、最终源提交、双构建/Player尚未完成。
+- 新交付工具仅适配v071路径和p0.7.1/art0.7.1身份，原门禁/schema/阈值保持；17项新工具、133项旧工具、20项仓库检查通过。BuildIdentity仍待真实最终源冻结后生成；没有创建新版发行或上传。
+- 文件锁：root唯一Unity写者（Editor20948），负责公共UI/场景/集成/验证；project_audit仅修Menu071/NewRun，之后冻结；dice_sample测试已冻结；art_assets只读跨页面复核。未留下预览reload锁；ArtStyleLab本次临时禁用自动样例已通过重开场景恢复，未写生产场景。
+- 下一步：收束具体视觉缺陷，完成720p/150%和受影响专项；最终冻结后沿现有门禁完整测试、Windows+Mac本地构建、Windows实际启动并独立复核。美术标杆/转入剩余插画量产由用户决定，尚未请求或取得该阶段认可。下列v0.7性能、独占、Mixer、Krita、Mac/人工待验保留。
+
 ## 最新交付：v0.7诊断预发布已公开（2026-11-02 03:51 UTC）
 
 - 用户已明确允许同步完整开发分支及内部证据。eea8720已无force推送并远端回读一致；GitHub分支为codex/v07-art-and-ui。冻结游戏源仍dca7a2610f39d65088b9541549d3465c388fd3e7，源码/规则未变，元数据提交不重新冒充构建。

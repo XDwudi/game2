@@ -240,7 +240,7 @@ namespace DiceCraft.Verification
         {
             phase="V07MenuSettings";
             string original=JsonUtility.ToJson(app.Session.State);string[] pending=app.Session.PendingIds;
-            Require(GameApp.ArtVersion=="art0.7.0","The actual player is not the requested art baseline.");
+            Require(GameApp.ArtVersion=="art0.7.1","The actual player is not the requested art baseline.");
             foreach(string id in new[]{"ContinueRun","NewRun","MenuHandbook","MenuSettings","Quit"})ActiveControl<Button>(id);
             Require(!ActiveControl<Button>("ContinueRun").IsInteractable(),"An empty isolated save must not offer Continue.");
             Require(app.contentIcons!=null&&app.contentIcons.Length==71&&app.contentIcons.All(s=>s!=null),"The built v0.7 content icon set is incomplete.");

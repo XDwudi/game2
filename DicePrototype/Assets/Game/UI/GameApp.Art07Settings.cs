@@ -93,7 +93,7 @@ namespace DiceCraft
             float scrollPosition=settingsScroll07!=null&&settingsRenderedTab07==settingsTab07?settingsScroll07.verticalNormalizedPosition:1;
             var p=Art07Modal("设置",320,96,1280,888);
             string[] tabs={"声音","画面","操作与辅助"};
-            for(int i=0;i<3;i++){int tab=i;UiKit.Button(p,"SettingsTab"+i,tabs[i],24+i*416,80,400,64,()=>{rebindingAction07=null;settingsNotice07="";settingsTab07=tab;ShowSettings07();},true,tab==settingsTab07);}
+            for(int i=0;i<3;i++){int tab=i;UiKit.FlatButton(p,"SettingsTab"+i,tabs[i],24+i*416,80,400,64,()=>{rebindingAction07=null;settingsNotice07="";settingsTab07=tab;ShowSettings07();},true,tab==settingsTab07);}
             float contentHeight=settingsTab07==2?Compact07?2120:1460:Compact07?1000:660;
             var list=UiKit.Scroll(p,"SettingsPage"+settingsTab07,24,160,1232,616,contentHeight);
             if(settingsTab07==0)

@@ -307,9 +307,9 @@ Light:
     m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
-    m_Strength: 0.35
-    m_Bias: 0.04
-    m_NormalBias: 0.1
+    m_Strength: 0.7
+    m_Bias: 0.015
+    m_NormalBias: 0.035
     m_NearPlane: 0.2
     m_CullingMatrixOverride:
       e00: 1
@@ -360,7 +360,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 152566309}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.09994071, y: 0.86598516, z: -0.45080334, w: 0.19198433}
+  m_LocalRotation: {x: 0.17247778, y: 0.7812392, z: -0.54702955, w: 0.2463238}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1180,7 +1180,6 @@ MonoBehaviour:
   contentIcons:
   - {fileID: 21300000, guid: 3a19ddb5fc4d6474c9f123621ace6b72, type: 3}
   - {fileID: 21300000, guid: 556457edcd0f7394cbdfa3ad5542458d, type: 3}
-  - {fileID: 21300000, guid: 4e2ba27a80549ac458054943b5b6441e, type: 3}
   - {fileID: 21300000, guid: a8fce51457d6f8446af5f33d0c999ae2, type: 3}
   - {fileID: 21300000, guid: 23b1880e84e03be4db72a96e2057d5db, type: 3}
   - {fileID: 21300000, guid: 873fbd25411b8bb4f92d712bb93a99dd, type: 3}
@@ -1203,7 +1202,6 @@ MonoBehaviour:
   - {fileID: 21300000, guid: b866605cdf7cac94f8e64cd38cebf30a, type: 3}
   - {fileID: 21300000, guid: a8ae7d8f773754d40a65ba87b4fb46f3, type: 3}
   - {fileID: 21300000, guid: 0f2e52aa6b52b1048800b0df79c140f6, type: 3}
-  - {fileID: 21300000, guid: 97d22ed23c220d747bf3bc4579b3462c, type: 3}
   - {fileID: 21300000, guid: 0f212fbf0d3f24145b86340911c05b67, type: 3}
   - {fileID: 21300000, guid: 1d562939ee7f5ed4497e2dddcc6e2a45, type: 3}
   - {fileID: 21300000, guid: 2b82afdf79d7ce44db43c2b2ccbfd99a, type: 3}
@@ -1222,7 +1220,6 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 8e9ed7646ccc6e54e885f8f1269e81db, type: 3}
   - {fileID: 21300000, guid: 366db256abfc7fd46b6e04d67411bbb3, type: 3}
   - {fileID: 21300000, guid: 3975920681c954e4089044eb3fe7c71a, type: 3}
-  - {fileID: 21300000, guid: ca6d6e01ea7f0134dbf100c06eea22f2, type: 3}
   - {fileID: 21300000, guid: 260f404c6edbdcb488d638d00e6de8f5, type: 3}
   - {fileID: 21300000, guid: 4ef5c73b7d37dae4d8fafe4c5eb433b5, type: 3}
   - {fileID: 21300000, guid: 1b6c44a62f047d04eb6bcca6862f91f2, type: 3}
@@ -1234,7 +1231,6 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 08a0cc182333c794e8cfb758722adce8, type: 3}
   - {fileID: 21300000, guid: 1eb6e1bacc823794ea9fa3bfb5c1eea1, type: 3}
   - {fileID: 21300000, guid: a818ec9d1d46c07478cbeceab4dc32fd, type: 3}
-  - {fileID: 21300000, guid: ad0ed84109083f74598720b2c7a0801b, type: 3}
   - {fileID: 21300000, guid: 926a510869c9aa9458831369b55cc757, type: 3}
   - {fileID: 21300000, guid: 0229f66c983ef3041befcfdf49106557, type: 3}
   - {fileID: 21300000, guid: 99b68800f4d6e0345a7213fe64c6eee9, type: 3}
@@ -1249,6 +1245,10 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 8073a7a2ec671ef4d9cace2121fa1520, type: 3}
   - {fileID: 21300000, guid: 9b9c96fdecc8ef54785d1f54b0cf7ccf, type: 3}
   - {fileID: 21300000, guid: 4f88d7c2eb0978f4ba0ec7bccedc1f1c, type: 3}
+  - {fileID: 21300000, guid: 8690d263f89f3f74489ab3aedf480a32, type: 3}
+  - {fileID: 21300000, guid: 93932ac39d4745b4181da2d26d805a2c, type: 3}
+  - {fileID: 21300000, guid: 50e981ca805832a47b78a6448c78a83b, type: 3}
+  - {fileID: 21300000, guid: 92e2c572b2885e048b8d8dbafe22b4a5, type: 3}
   enchantIcons:
   - {fileID: 21300000, guid: 715fdfabf63e71e45b228b8eade7942d, type: 3}
   - {fileID: 21300000, guid: 5b07ac750a0383849aadcbfc71473b8c, type: 3}
@@ -1335,9 +1335,6 @@ MonoBehaviour:
   - {fileID: 21300000, guid: d183b5ecd36c34343b97b9a4a8323ddd, type: 3}
   - {fileID: 21300000, guid: a2e0538fc9e36a344871fccf7834e1a4, type: 3}
   - {fileID: 21300000, guid: c8ce72ec399bb0c4d93d744b71251ae1, type: 3}
-  - {fileID: 21300000, guid: 32e34d5636ea33f49b346371e215f568, type: 3}
-  - {fileID: 21300000, guid: 131fcd10f1435dc40a60818236b57738, type: 3}
-  - {fileID: 21300000, guid: a53c9894d905a414e805e533c21525cd, type: 3}
   - {fileID: 21300000, guid: c70260448483bd641858d16f04d28657, type: 3}
   - {fileID: 21300000, guid: f215809a958a7754f9062cfa06b1d921, type: 3}
   - {fileID: 21300000, guid: e38004372cba6dc42ad7106c1b89863e, type: 3}
@@ -1350,6 +1347,11 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 545e5ad36f229c7408fb97f07ac447f7, type: 3}
   - {fileID: 21300000, guid: 00c7140a9d7055d4f8bef25df45c66d0, type: 3}
   - {fileID: 21300000, guid: 25c22c34e8d139f4a87490d9d2f3a73e, type: 3}
+  - {fileID: 21300000, guid: b1d65a23a8d09994aa432effb6465f2c, type: 3}
+  - {fileID: 21300000, guid: 081f1aaba1732874abe14e9bec9c4b6e, type: 3}
+  - {fileID: 21300000, guid: fe4a66c75a823b24eac8559132e7d1dd, type: 3}
+  - {fileID: 21300000, guid: 4a6c5829b4b650f41999091768309d90, type: 3}
+  - {fileID: 21300000, guid: 9851f2857e020c64faa2c4852fed3866, type: 3}
   art07Prefabs:
   - {fileID: 4890854897441046169, guid: 83df5f816ac2ba14bab4b08d7e169743, type: 3}
   - {fileID: 3862098906325590806, guid: c741a2bcd2cfb264bbdec6a8387789f7, type: 3}
@@ -1451,11 +1453,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: DiceCraft.Runtime::DiceCraft.DiceTable
   viewCamera: {fileID: 73739859}
-  bodyMesh: {fileID: -5532764219946649504, guid: 0e52832b61f162b4aa53ffe79fdc1541, type: 3}
-  bodyMaterial: {fileID: 2100000, guid: 8a1595f6d79e92a4a861890b82d73ead, type: 2}
+  bodyMesh: {fileID: -5532764219946649504, guid: db703d0544a55a34d80512b3ae8ad469, type: 3}
+  bodyMaterial: {fileID: 2100000, guid: a2bbdaaa238f07540b0af2a2a64c6773, type: 2}
   faceMaterial: {fileID: 2100000, guid: 77c09cb98565fc34c9906c805baaa961, type: 2}
-  glassMaterial: {fileID: 2100000, guid: 4d119e533feb7d04385f69dba60133f0, type: 2}
-  outlineMaterial: {fileID: 2100000, guid: 53e567bb7bf27b8479e2f0f1248830bf, type: 2}
+  glassMaterial: {fileID: 2100000, guid: db3be30a3a7732845a130fb26ca7cae0, type: 2}
+  outlineMaterial: {fileID: 2100000, guid: eb133b30615f9294eaa5de1d0172ab24, type: 2}
   rollClips:
   - {fileID: 7400000, guid: 99e3ce974e0ffb44ea1d13abdadcc005, type: 2}
   - {fileID: 7400000, guid: 8342e6a3724cc9f4b990b4e6f6e591ea, type: 2}

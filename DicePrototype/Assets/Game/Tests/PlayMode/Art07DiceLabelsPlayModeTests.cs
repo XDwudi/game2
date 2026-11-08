@@ -113,11 +113,22 @@ namespace DiceCraft.Tests
                 }
                 if(!locked)
                 {
-                    Assert.That(hit.width,Is.EqualTo((compact?180:126)*app.canvas.scaleFactor).Within(.5));
-                    Assert.That(hit.height,Is.EqualTo((compact?90:112)*app.canvas.scaleFactor).Within(.5));
                     int shown=pointers.Count(p=>!app.Session.State.hand.orderedLockedIds.Contains(p.name.Substring(4)));
-                    float expected=compact?.72f:shown>5?1.04f:1.18f;
-                    Assert.That(orientation.lossyScale.x,Is.EqualTo(expected).Within(.001),"Do not shrink bodies to conceal a label collision.");
+                    if(app.Session.State.dice.Count==5&&!compact&&Mathf.Approximately(UiKit.FontScale,1))
+                    {
+                        // Explicit v0.71 five-die composition. A last page of a larger
+                        // debug pool must continue through the unchanged branch below.
+                        Assert.That(hit.width,Is.EqualTo((shown<=3?220:148)*app.canvas.scaleFactor).Within(.5));
+                        Assert.That(hit.height,Is.EqualTo((shown<=3?240:200)*app.canvas.scaleFactor).Within(.5));
+                        Assert.That(orientation.lossyScale.x,Is.EqualTo(shown<=3?1.6f:1.35f).Within(.001),"Five-die composition must retain its authored body size.");
+                    }
+                    else
+                    {
+                        Assert.That(hit.width,Is.EqualTo((compact?180:126)*app.canvas.scaleFactor).Within(.5));
+                        Assert.That(hit.height,Is.EqualTo((compact?90:112)*app.canvas.scaleFactor).Within(.5));
+                        float expected=compact?.72f:shown>5?1.04f:1.18f;
+                        Assert.That(orientation.lossyScale.x,Is.EqualTo(expected).Within(.001),"Do not shrink bodies to conceal a label collision.");
+                    }
                 }
             }
             foreach(var pointer in pointers)

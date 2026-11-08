@@ -24,8 +24,9 @@ namespace DiceCraft
             var p=Art07Modal("牌型手册",208,96,1504,888);
             UiKit.Button(p,"Tutorial","独立固定骰练习",688,12,352,60,()=>{CloseModal();BeginTutorial();});
             UiKit.Button(p,"ReviewGuide","重新查看引导",1056,12,336,60,ShowGuide07);
-            UiKit.Button(p,"HandbookHands","牌型 · H",24,76,712,60,()=>{handbookColors=false;ShowHandbook();},true,!handbookColors);
-            UiKit.Button(p,"HandbookColors","颜色与红组 · C × R",760,76,720,60,()=>{handbookColors=true;ShowHandbook();},true,handbookColors);
+            UiKit.FlatButton(p,"HandbookHands","牌型",24,76,712,60,()=>{handbookColors=false;ShowHandbook();},true,!handbookColors);
+            UiKit.FlatButton(p,"HandbookColors","颜色与红组",760,76,720,60,()=>{handbookColors=true;ShowHandbook();},true,handbookColors);
+            UiKit.PaperFrame(p,"HandbookPaper",16,140,1472,732,UiKit.Paper);
             var preview=Session?.PreviewScoreRange()?.minimum;
             if(!handbookColors)
             {
@@ -34,23 +35,24 @@ namespace DiceCraft
                 for(int i=0;i<rows.Length;i++)
                 {
                     var r=rows[i];float x=(i/7)*736,y=(i%7)*rowHeight;
-                    var row=UiKit.Button(list,"HandbookRow_"+r.handId,"",x,y,712,rowHeight-4,()=>{art07HandSelection=r.handId;ShowHandbook();});
+                    var row=UiKit.FlatButton(list,"HandbookRow_"+r.handId,"",x,y,712,rowHeight-4,()=>{art07HandSelection=r.handId;ShowHandbook();});
+                    row.targetGraphic.color=art07HandSelection==r.handId?new Color(.08f,.18f,.18f,.12f):Color.clear;
                     bool primary=preview!=null&&(preview.primaryHandId==r.handId||(r.handId=="scatter"&&(preview.primaryHandId=="none"||preview.primaryHandId=="scatter")));
                     bool chosen=preview!=null&&(preview.chosenGroupId==r.handId||(r.handId=="straight"&&preview.straightMult100>0));
-                    if(primary)UiKit.Outline(row.transform,"Structure",2,2,708,rowHeight-8,UiKit.Gold);
-                    UiKit.Text(row.transform,"Name",r.displayName,12,8,350,42,24,UiKit.Paper);
-                    UiKit.Text(row.transform,"Level",r.maxLevel==0?"不可强化":"Lv."+r.level+" / "+r.maxLevel,390,8,306,42,20,UiKit.Muted,TextAlignmentOptions.TopRight);
+                    if(primary)UiKit.Box(row.transform,"Structure",3,8,3,rowHeight-20,UiKit.Gold);
+                    UiKit.Text(row.transform,"Name",r.displayName,12,8,350,42,24,UiKit.Ink);
+                    UiKit.Text(row.transform,"Level",r.maxLevel==0?"不可强化":"Lv."+r.level+" / "+r.maxLevel,390,8,306,42,20,PaperMuted071,TextAlignmentOptions.TopRight);
                     var numbers=r.example.Where(char.IsDigit).Select(c=>c-'0').Where(n=>n>=1&&n<=6).ToArray();
                     float bottom=UiKit.FontScale>1?76:46;
                     for(int n=0;n<numbers.Length;n++)Art07PipTile(row.transform,"Example"+n,numbers[n],UiKit.Ink,12+n*34,bottom,30);
-                    UiKit.Text(row.transform,"Multiplier","×"+Factor(r.currentMult100)+(chosen?" 计分":""),316,bottom-2,208,40,22,chosen?UiKit.Gold:UiKit.Paper);
-                    UiKit.Text(row.transform,"Reachable",r.canForm?"数量可达":"数量受限",534,bottom,162,38,18,r.canForm?UiKit.Teal:UiKit.Muted,TextAlignmentOptions.TopRight);
+                    UiKit.Text(row.transform,"Multiplier","×"+Factor(r.currentMult100)+(chosen?" 计分":""),316,bottom-2,208,40,22,UiKit.Ink);
+                    UiKit.Text(row.transform,"Reachable",r.canForm?"数量可达":"数量受限",534,bottom,162,38,18,PaperMuted071,TextAlignmentOptions.TopRight);
                 }
                 var selected=rows.FirstOrDefault(r=>r.handId==art07HandSelection)??rows[0];
                 art07HandSelection=selected.handId;
                 string requirement=selected.handId=="scatter"?"不可强化":$"最低 K {selected.minimumDice} · 永久骰门槛 {Config.Hand(selected.handId).requirePermanentDice} · {selected.upgradeReason}";
                 var explanation=UiKit.Scroll(p,"HandbookSelectionScroll",24,772,1456,100,100);
-                var selection=UiKit.Text(explanation,"HandbookSelection",selected.displayName+"："+selected.condition+"\n"+requirement+"\n"+selected.formReason,0,0,1424,100,20,UiKit.Muted);
+                var selection=UiKit.Text(explanation,"HandbookSelection",selected.displayName+"："+selected.condition+"\n"+requirement+"\n"+selected.formReason,0,0,1424,100,20,UiKit.Ink);
                 explanation.sizeDelta=new Vector2(explanation.sizeDelta.x,FitHeight(selection,100));
             }
             else
@@ -59,23 +61,25 @@ namespace DiceCraft
                 float sectionHeight=UiKit.FontScale>1?220:164;
                 for(int i=0;i<rows.Length;i++)
                 {
-                    var r=rows[i];bool red=r.handId=="all_red";var card=UiKit.Frame(list,"HandbookRow_"+r.handId,0,i*sectionHeight,1432,sectionHeight-12,UiKit.Panel,red?UiKit.Red:UiKit.Blue);
-                    UiKit.Text(card,"Name",(red?"● ":"◆ ")+r.displayName+"   Lv."+r.level,20,16,640,54,28,UiKit.Paper);
-                    UiKit.Text(card,"Value","独立相乘 ×"+Factor(r.currentMult100),724,16,680,54,28,UiKit.Gold,TextAlignmentOptions.TopRight);
-                    UiKit.Text(card,"Rule","非空且全部为有效"+(red?"红色":"蓝色")+"；没有数量要求。\n"+r.formReason+" · "+r.upgradeReason,20,80,1380,sectionHeight-88,23,UiKit.Muted);
+                    var r=rows[i];bool red=r.handId=="all_red";var card=UiKit.Box(list,"HandbookRow_"+r.handId,0,i*sectionHeight,1432,sectionHeight-12,Color.clear);
+                    UiKit.Box(card,"ColorMark",4,16,4,sectionHeight-44,red?UiKit.Red:UiKit.Blue);
+                    UiKit.Box(card,"Divider",16,sectionHeight-14,1400,1,PaperMuted071);
+                    UiKit.Text(card,"Name",(red?"● ":"◆ ")+r.displayName+"   Lv."+r.level,20,16,640,54,28,UiKit.Ink);
+                    UiKit.Text(card,"Value","独立相乘 ×"+Factor(r.currentMult100),724,16,680,54,28,UiKit.Ink,TextAlignmentOptions.TopRight);
+                    UiKit.Text(card,"Rule","非空且全部为有效"+(red?"红色":"蓝色")+"；没有数量要求。\n"+r.formReason+" · "+r.upgradeReason,20,80,1380,sectionHeight-88,23,PaperMuted071);
                 }
                 float redTop=sectionHeight*2+16;
-                UiKit.Text(list,"RedTitle","同点红组 · 独立红组奖励 R",12,redTop,1380,64,30,UiKit.Paper);
-                UiKit.Text(list,"RedRule","默认取同点且为红色的最大一组。全红／全蓝不属于牌型 H。",12,redTop+72,1380,64,24,UiKit.Muted);
+                UiKit.Text(list,"RedTitle","同点红组 · 独立相乘",12,redTop,1380,64,30,UiKit.Ink);
+                UiKit.Text(list,"RedRule","默认取同点且为红色的最大一组。全红／全蓝不属于牌型 H。",12,redTop+72,1380,64,24,PaperMuted071);
                 for(int i=0;i<Config.redRewards.Length;i++)
                 {
                     var reward=Config.redRewards[i];int col=i%4,row=i/4;
-                    var entry=UiKit.Frame(list,"RedReward"+i,col*356,redTop+152+row*76,336,68,UiKit.PanelLight);
-                    UiKit.Text(entry,"Value",reward.count+" 颗  ×"+Factor(reward.factor100),8,8,320,52,25,UiKit.Gold,TextAlignmentOptions.Center);
+                    var entry=UiKit.Box(list,"RedReward"+i,col*356,redTop+152+row*76,336,68,new Color(0,0,0,.04f));
+                    UiKit.Text(entry,"Value",reward.count+" 颗  ×"+Factor(reward.factor100),8,8,320,52,25,UiKit.Ink,TextAlignmentOptions.Center);
                 }
                 string sources=NameOf("C24")+"："+Description("C24")+"\n"+NameOf("C25")+"："+Description("C25");
                 float sourceTop=redTop+152+((Config.redRewards.Length+3)/4)*76+16;
-                var text=UiKit.Text(list,"GroupingSources",sources,12,sourceTop,1380,140,23,UiKit.Muted);
+                var text=UiKit.Text(list,"GroupingSources",sources,12,sourceTop,1380,140,23,PaperMuted071);
                 list.sizeDelta=new Vector2(list.sizeDelta.x,sourceTop+FitHeight(text,140)+20);
             }
             Canvas.ForceUpdateCanvases();
@@ -163,13 +167,13 @@ namespace DiceCraft
             UiKit.Button(p,"ConfirmSale","出售并获得 "+price,360,326,336,64,()=>{CloseModal();Send(new SessionCommand{kind=CommandKind.Sell,itemInstanceId=item.instanceId});});
             UiKit.Outline(p,"ConfirmOutline",360,326,336,64,UiKit.Red,2);
         }
-        [Serializable]private sealed class BuildIdentity{public string sourceCommit=null,goldenCaseSetSha256=null;}
+        [Serializable]private sealed class BuildIdentity{public string sourceCommit=null,goldenCaseSetSha256=null,releaseVersion=null,artVersion=null;}
         private void ShowBuildVersion()
         {
             var asset=Resources.Load<TextAsset>("BuildIdentity");var identity=asset==null?new BuildIdentity():JsonUtility.FromJson<BuildIdentity>(asset.text);
             var p=OpenModal("版本与构建");
             string hash;using(var sha=SHA256.Create())hash=BitConverter.ToString(sha.ComputeHash(Encoding.UTF8.GetBytes(configAsset.text))).Replace("-","").ToLowerInvariant();
-            UiKit.Text(p,"BuildIdentity",$"版本 {Config.configVersion} / 存档 schema {Config.saveSchemaVersion}\nUnity {Application.unityVersion} / {Application.platform}\n源码 {identity.sourceCommit??"开发工作树（未冻结）"}\n配置 SHA-256\n{hash}\n黄金样例 SHA-256\n{identity.goldenCaseSetSha256??"未写入构建身份"}",40,125,1510,540,25,UiKit.Paper);
+            UiKit.Text(p,"BuildIdentity",$"美术 {ArtVersion} / 发行 {identity.releaseVersion??"开发中"}\n玩法 {Config.configVersion} / 存档 schema {Config.saveSchemaVersion}\nUnity {Application.unityVersion} / {Application.platform}\n源码 {identity.sourceCommit??"开发工作树（未冻结）"}\n配置 SHA-256\n{hash}\n黄金样例 SHA-256\n{identity.goldenCaseSetSha256??"未写入构建身份"}",40,125,1510,600,25,UiKit.Paper);
         }
     }
 }

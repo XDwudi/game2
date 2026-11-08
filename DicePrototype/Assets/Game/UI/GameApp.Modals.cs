@@ -158,8 +158,8 @@ namespace DiceCraft
                 var d=candidates[i];string id=d.dieId;
                 var button=UiKit.Button(targets,"Target_"+id,"",0,i*104,296,96,()=>DrawDiceSheet07(id,offer,null,scroll.verticalNormalizedPosition),true,id==selectedDie);
                 Art07PipTile(button.transform,"DieThumbnail",d.faces[0].permanentPip,d.faces[0].baseColor=="red"?UiKit.Red:UiKit.Blue,8,20,52);
-                UiKit.Text(button.transform,"Identity",id,72,6,208,40,21,id==selectedDie?UiKit.Ink:UiKit.Paper);
-                UiKit.Text(button.transform,"Lifetime",(d.lifetime=="permanent"?"永久":"本关")+(d.isGlass?" · 玻璃":""),72,48,208,40,18,id==selectedDie?UiKit.Ink:UiKit.Muted);
+                UiKit.Text(button.transform,"Identity",id,72,6,208,40,21,UiKit.Ink);
+                UiKit.Text(button.transform,"Lifetime",(d.lifetime=="permanent"?"永久":"本关")+(d.isGlass?" · 玻璃":""),72,48,208,40,18,id==selectedDie?UiKit.Ink:PaperMuted071);
             }
             scroll.verticalNormalizedPosition=scrollPosition;
             UiKit.Text(p,"DieCount","活动骰 "+ViewState.dice.Count+" · 永久骰 "+ViewState.dice.Count(d=>d.lifetime=="permanent")+"\n物理对面 F01/F06 · F02/F05 · F03/F04",24,772,320,96,18,UiKit.Muted);

@@ -1,0 +1,161 @@
+{
+  "artVersion": "art0.7.1",
+  "inputSpec": "docs/specs/v071/ART_SPEC.md",
+  "inputSpecSha256": "e36670bd717c526f0ae3126c551092edb7c7b03a6198bb3297706c99f4ea37a0",
+  "contentSource": "DicePrototype/Assets/Game/Data/P0Config.json",
+  "contentSourceSha256": "747ed1efc7bea15873f66a81eee5c7654971c21031f2a1517ce629adce7b6e6c",
+  "baseline": {
+    "gameplay": "p0.6.0",
+    "saveSchema": 4
+  },
+  "references": [
+    {
+      "path": "docs/specs/v071/handoff/references/battle_master_v071.png",
+      "sha256": "02895a850ba48c636445c963f705244d190bdb8b94c07f449a0269fc5047f8dc"
+    },
+    {
+      "path": "docs/specs/v071/handoff/references/shop_derived_v071.png",
+      "sha256": "071122f9c0a4b68ecd783afac1f3238846c2d732954f818c88565196e975e6ac"
+    },
+    {
+      "path": "docs/specs/v071/handoff/assets/controller_stairs_candidate_v071.png",
+      "sha256": "d380eecb4921984d2aacb4b50b1c7ee6fdcbdbb9f3596550fa79b476d4320728"
+    }
+  ],
+  "notes": [
+    "Four image originals retained without crop, recolor, resize or alpha edits.",
+    "Source raster PNGs are editable raster artwork; no hand-painted layers or vector source are claimed.",
+    "Generated pip patterns are decorative only. Exact hand examples and face data must stay engine-generated.",
+    "AI self-check is not human aesthetic approval."
+  ],
+  "assets": [
+    {
+      "taskId": "A08",
+      "contentId": "C48",
+      "displayName": "有也不交",
+      "path": "ArtSource/Art071/Illustrations/illustration_c48.png",
+      "role": "theme illustration, never rule diagram",
+      "status": "raster prepared; Unity integration and final visual review pending",
+      "creation": "built-in image_gen.imagegen",
+      "source": "C:\\Users\\f\\.codex\\generated_images\\01a1bc4f-525d-7990-8359-1c935dd6133e\\exec-a7b01f0f-3021-4698-b56c-2e8143a44537.png",
+      "promptKey": "c48",
+      "imageReferences": [
+        "docs/specs/v071/handoff/references/battle_master_v071.png",
+        "docs/specs/v071/handoff/references/shop_derived_v071.png",
+        "docs/specs/v071/handoff/assets/controller_stairs_candidate_v071.png"
+      ],
+      "sha256": "2a980127906cc58d0c6e5c9d0a6fd7bb92d4a01f14917da3a26957361599e6b5",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "importRecommendation": {
+        "textureType": "Sprite (2D and UI)",
+        "alphaIsTransparency": true,
+        "filterMode": "Bilinear",
+        "wrapMode": "Clamp",
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "meshType": "FullRect",
+        "sRGB": true
+      }
+    },
+    {
+      "taskId": "A09",
+      "contentId": "C29",
+      "displayName": "简单顺子",
+      "path": "ArtSource/Art071/Illustrations/illustration_c29.png",
+      "role": "theme illustration, never rule diagram",
+      "status": "raster prepared; Unity integration and final visual review pending",
+      "creation": "original supplied candidate copied byte-for-byte",
+      "source": "docs/specs/v071/handoff/assets/controller_stairs_candidate_v071.png",
+      "promptKey": "docs/specs/v071/handoff/PROMPTS.md section 04",
+      "imageReferences": [],
+      "sha256": "d380eecb4921984d2aacb4b50b1c7ee6fdcbdbb9f3596550fa79b476d4320728",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "importRecommendation": {
+        "textureType": "Sprite (2D and UI)",
+        "alphaIsTransparency": true,
+        "filterMode": "Bilinear",
+        "wrapMode": "Clamp",
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "meshType": "FullRect",
+        "sRGB": true
+      }
+    },
+    {
+      "taskId": "A10",
+      "contentId": "C03",
+      "displayName": "首当其冲",
+      "path": "ArtSource/Art071/Illustrations/illustration_c03.png",
+      "role": "theme illustration, never rule diagram",
+      "status": "raster prepared; Unity integration and final visual review pending",
+      "creation": "built-in image_gen.imagegen",
+      "source": "C:\\Users\\f\\.codex\\generated_images\\01a1bc4f-525d-7990-8359-1c935dd6133e\\exec-8c286179-0c3a-4f3f-b519-b03e12f7f76d.png",
+      "promptKey": "c03",
+      "imageReferences": [
+        "docs/specs/v071/handoff/references/battle_master_v071.png",
+        "docs/specs/v071/handoff/references/shop_derived_v071.png",
+        "docs/specs/v071/handoff/assets/controller_stairs_candidate_v071.png"
+      ],
+      "sha256": "c6f1c1b826391246547fe142bce4b132699f8dfa98a381b98861984ba4219717",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "importRecommendation": {
+        "textureType": "Sprite (2D and UI)",
+        "alphaIsTransparency": true,
+        "filterMode": "Bilinear",
+        "wrapMode": "Clamp",
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "meshType": "FullRect",
+        "sRGB": true
+      }
+    },
+    {
+      "taskId": "A11",
+      "contentId": "I07",
+      "displayName": "增加投掷",
+      "path": "ArtSource/Art071/Illustrations/illustration_i07.png",
+      "role": "theme illustration, never rule diagram",
+      "status": "raster prepared; Unity integration and final visual review pending",
+      "creation": "built-in image_gen.imagegen",
+      "source": "C:\\Users\\f\\.codex\\generated_images\\01a1bc4f-525d-7990-8359-1c935dd6133e\\exec-4c58a366-1c0f-4660-b968-ad0cb189e7d9.png",
+      "promptKey": "i07",
+      "imageReferences": [
+        "docs/specs/v071/handoff/references/battle_master_v071.png",
+        "docs/specs/v071/handoff/assets/controller_stairs_candidate_v071.png",
+        "ArtSource/Art071/Illustrations/illustration_c48.png"
+      ],
+      "sha256": "e9861c407b4f90338748d9a44db0b0c6fd9b43e43486cedc2b21af251e8e91a3",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "importRecommendation": {
+        "textureType": "Sprite (2D and UI)",
+        "alphaIsTransparency": true,
+        "filterMode": "Bilinear",
+        "wrapMode": "Clamp",
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "meshType": "FullRect",
+        "sRGB": true
+      }
+    }
+  ]
+}

@@ -17,22 +17,23 @@ namespace DiceCraft
             for(int i=0;i<tabs.Length;i++)
             {
                 int tab=i;int available=ViewState.shop.offers.Count(o=>Art07OfferTab(o)==tab&&!o.sold);
-                UiKit.ActionButton(main,"Tab"+i,tabs[i]+"  "+available,392+i*296,448,280,60,
-                    ()=>{shopTab=tab;PlayerPrefs.SetInt("shopTab",tab);Refresh();},shopTab==i?UiKit.Paper:UiKit.Muted);
-                if(shopTab==i)UiKit.Box(main,"ActiveShopTab",400+i*296,501,264,3,UiKit.Gold);
+                UiKit.FlatButton(main,"Tab"+i,tabs[i]+"  "+available,392+i*296,464,280,52,
+                    ()=>{shopTab=tab;PlayerPrefs.SetInt("shopTab",tab);Refresh();},true,shopTab==i);
+                if(shopTab==i)UiKit.Box(main,"ActiveShopTab",400+i*296,513,264,3,UiKit.Gold);
             }
             var offers=ViewState.shop.offers.Where(o=>Art07OfferTab(o)==shopTab).ToArray();
-            float width=shopTab==0?280:456,gap=16;int columns=shopTab==0?5:3;
-            int products=offers.Length+(shopTab==1?1:0),rows=(products+columns-1)/columns;
-            var shelf=UiKit.Scroll(main,"ShopProducts",392,512,1496,416,Math.Max(416,rows*432-16));
+            int products=offers.Length+(shopTab==1?1:0);
+            int columns=shopTab==0&&products>3?5:3;float width=columns==5?280:456,gap=16;
+            int rows=(products+columns-1)/columns;
+            var shelf=UiKit.Scroll(main,"ShopProducts",392,528,1496,416,Math.Max(416,rows*432-16));
             for(int i=0;i<offers.Length;i++)Art07ProductCard(offers[i],(i%columns)*(width+gap),(i/columns)*432,width,shelf);
             if(shopTab==1)
             {
                 float x=(offers.Length%columns)*(width+gap),y=(offers.Length/columns)*432;
-                var p=UiKit.Frame(shelf,"SelfStudy",x,y,width,416,UiKit.Panel,UiKit.PanelLight);
-                UiKit.Text(p,"Name","自选研习",24,24,width-48,56,32,UiKit.Paper);
-                UiKit.Text(p,"Description","选择一种当前可升级的牌型或颜色。\n按正常升级价 +1，本店一次。",24,108,width-48,184,24,UiKit.Muted);
-                UiKit.Button(p,"Study",ViewState.shop.selfStudyUsed==0?"选择研习内容":"本店已研习",24,328,width-48,64,ShowStudy,ViewState.shop.selfStudyUsed==0&&!IsBusy);
+                var p=UiKit.PaperFrame(shelf,"SelfStudy",x,y,width,416,UiKit.Paper);
+                UiKit.Text(p,"Name","自选研习",24,24,width-48,56,32,UiKit.Ink);
+                UiKit.Text(p,"Description","选择一种当前可升级的牌型或颜色。\n按正常升级价 +1，本店一次。",24,108,width-48,184,24,UiKit.Ink);
+                UiKit.ActionButton(p,"Study",ViewState.shop.selfStudyUsed==0?"选择研习内容":"本店已研习",24,328,width-48,64,ShowStudy,UiKit.Gold,ViewState.shop.selfStudyUsed==0&&!IsBusy);
             }
             if(offers.Length==0&&shopTab!=1)
                 UiKit.Text(main,"NoOffers","本店暂无合法商品\n已有容量升级仍然生效。",424,592,1380,160,30,UiKit.Muted,TextAlignmentOptions.Center);
@@ -71,11 +72,12 @@ namespace DiceCraft
         }
         private void Icon(Transform p,string id,float x,float y,float size)
         {
-            var sprite=contentIcons?.FirstOrDefault(s=>s!=null&&(s.name==id||s.name.Equals("icon_"+id,StringComparison.OrdinalIgnoreCase)));
+            var sprite=contentIcons?.FirstOrDefault(s=>s!=null&&s.name.Equals("illustration_"+id,StringComparison.OrdinalIgnoreCase))
+                ??contentIcons?.FirstOrDefault(s=>s!=null&&(s.name==id||s.name.Equals("icon_"+id,StringComparison.OrdinalIgnoreCase)));
             var r=UiKit.Rect(p,"Icon_"+id,x,y,size,size);
             if(sprite!=null)
             {
-                var image=UiKit.Component<UnityEngine.UI.Image>(r.gameObject);image.sprite=sprite;image.color=Color.white;image.raycastTarget=false;
+                var image=UiKit.Component<UnityEngine.UI.Image>(r.gameObject);image.sprite=sprite;image.color=Color.white;image.raycastTarget=false;image.preserveAspect=true;
                 if(id=="C09"||id=="C46")
                 {
                     // Fixed multipliers are live, legible type inside the authored emblem.
