@@ -15,6 +15,34 @@ namespace DiceCraft.Tests
     public sealed partial class GameplayPlayModeTests
     {
         [UnityTest]
+        public IEnumerator PLAY_ART071_BoldMaterialSurvivesRefreshAndReleasesWithTheScene()
+        {
+            Canvas.ForceUpdateCanvases();yield return null;
+            var bold=UiKit.Font.fontWeightTable[7].regularTypeface;
+            Assert.That(bold,Is.Not.Null);
+            var materials=app.canvas.GetComponentsInChildren<TMP_SubMeshUI>(false)
+                .Select(s=>s.fallbackMaterial).Where(m=>m!=null&&m.HasProperty("_MainTex")&&m.GetTexture("_MainTex")==bold.atlasTexture).Distinct().ToArray();
+            Assert.That(materials,Has.Length.EqualTo(1),"Read the material actually used by visible bold text.");
+            var retained=materials[0];var identity=retained.GetEntityId();
+            for(int i=0;i<3;i++)
+            {
+                app.Refresh();yield return null;
+                var active=app.canvas.GetComponentsInChildren<TMP_SubMeshUI>(false).Where(s=>s.fallbackMaterial!=null&&s.fallbackMaterial.HasProperty("_MainTex")&&s.fallbackMaterial.GetTexture("_MainTex")==bold.atlasTexture).ToArray();
+                Assert.That(active,Is.Not.Empty);
+                Assert.That(active.All(s=>s.fallbackMaterial==retained),Is.True,"Redraw must reuse the rendered font material.");
+            }
+            var bootstrap=UnityEngine.SceneManagement.SceneManager.GetSceneByPath(ScenePath);
+            var empty=UnityEngine.SceneManagement.SceneManager.CreateScene("FontMaterialCleanup071");
+            UnityEngine.SceneManagement.SceneManager.SetActiveScene(empty);
+            yield return UnityEngine.SceneManagement.SceneManager.UnloadSceneAsync(bootstrap);
+            app=null;
+            // No Canvas remains to schedule another render. Flush TMP's normal
+            // zero-reference cleanup, rather than destroying the material ourselves.
+            TMP_MaterialManager.CleanupFallbackMaterials();yield return null;
+            Assert.That(Resources.FindObjectsOfTypeAll<Material>().Any(m=>m.GetEntityId()==identity),Is.False,"The scene must release its font-material ownership.");
+        }
+
+        [UnityTest]
         public IEnumerator PLAY_ART071_BoldEllipsisRendersAndPooledTextRestoresItsRequestedStyle()
         {
             var root=UiKit.Rect(app.canvas.transform,"FontWeightRegression071",600,400,500,100);

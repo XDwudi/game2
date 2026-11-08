@@ -72,12 +72,27 @@ namespace DiceCraft.Tests
                 }
                 yield return Replay(); yield return Replay();
                 string[] nodes = app.canvas.GetComponentsInChildren<Transform>(true).Select(t => t.GetEntityId().ToString()).OrderBy(x => x, System.StringComparer.Ordinal).ToArray();
-                string[] materials = Resources.FindObjectsOfTypeAll<Material>().Select(m => m.GetEntityId().ToString()).OrderBy(x => x, System.StringComparer.Ordinal).ToArray();
+                string Describe(Material m)
+                {
+                    var texture=m.HasProperty("_MainTex")?m.GetTexture("_MainTex"):null;
+                    return m.name+" | shader="+(m.shader==null?"null":m.shader.name)+" | texture="+(texture==null?"null":texture.name+"/"+texture.GetEntityId());
+                }
+                var materialDescriptions=Resources.FindObjectsOfTypeAll<Material>().ToDictionary(m=>m.GetEntityId().ToString(),Describe);
+                string[] materials = materialDescriptions.Keys.OrderBy(x => x, System.StringComparer.Ordinal).ToArray();
                 for (int i = 0; i < 200; i++)
                 {
                     yield return Replay();
                     CollectionAssert.AreEqual(nodes, app.canvas.GetComponentsInChildren<Transform>(true).Select(t => t.GetEntityId().ToString()).OrderBy(x => x, System.StringComparer.Ordinal).ToArray(), "Canvas node growth at replay " + i);
-                    CollectionAssert.AreEqual(materials, Resources.FindObjectsOfTypeAll<Material>().Select(m => m.GetEntityId().ToString()).OrderBy(x => x, System.StringComparer.Ordinal).ToArray(), "Material growth at replay " + i);
+                    var currentMaterials=Resources.FindObjectsOfTypeAll<Material>();
+                    string[] currentIds=currentMaterials.Select(m=>m.GetEntityId().ToString()).OrderBy(x=>x,System.StringComparer.Ordinal).ToArray();
+                    if(!materials.SequenceEqual(currentIds))
+                    {
+                        foreach(var id in materials.Except(currentIds))TestContext.WriteLine("MATERIAL_REMOVED "+id+" "+materialDescriptions[id]);
+                        foreach(var id in currentIds.Except(materials))TestContext.WriteLine("MATERIAL_ADDED "+id+" "+Describe(currentMaterials.Single(m=>m.GetEntityId().ToString()==id)));
+                        foreach(var sub in app.canvas.GetComponentsInChildren<TMP_SubMeshUI>(true))
+                            TestContext.WriteLine("TMP_SUBMESH "+sub.transform.parent.name+"/"+sub.name+" active="+sub.gameObject.activeInHierarchy+" fallback="+(sub.fallbackMaterial==null?"null":sub.fallbackMaterial.GetEntityId()+"/"+sub.fallbackMaterial.name));
+                    }
+                    CollectionAssert.AreEqual(materials,currentIds,"Material growth at replay " + i);
                 }
                 CollectionAssert.AreEqual(disk, File.ReadAllBytes(app.SaveLocation), "Read-only replay must not write the committed save.");
             }

@@ -49,6 +49,7 @@ namespace DiceCraft
             QualitySettings.vSyncCount=0; Application.targetFrameRate=60;
             FramePacer.Install();
             UiKit.Font=uiFont;
+            InitializeUiFontMaterials071();
             InitializeArtPreferences07();
             GameConfig.ValidateJson(configAsset.text);
             Config=JsonUtility.FromJson<GameConfig>(GameConfig.PrepareJsonForUnity(configAsset.text)); Config.Validate();
@@ -363,7 +364,7 @@ namespace DiceCraft
         }
         private void ReturnMenu(){if(!StartupReady07)return;CompleteSettlementReveal07();if(IsBusy)SkipVisual();if(Session.HasPendingSave){SaveFailure();return;}CloseModal();inMenu=true; if(tutorial||IsDebugWorkspace){tutorial=false;Session=new GameSession(Config,saves,saves.Load());debugDraft=null;}Refresh();}
         private void OnApplicationPause(bool paused){PauseNotices07(paused);if(paused){CancelControllerDrag();CancelDieDrag07();if(IsBusy)SkipVisual();}}
-        private void OnDestroy(){AbandonStartupLoad07();SaveRunClock07();FramePacer.Stop();UiKit.Font=null;}
+        private void OnDestroy(){ReleaseUiFontMaterials071();AbandonStartupLoad07();SaveRunClock07();FramePacer.Stop();UiKit.Font=null;}
         private void LogCommand(SessionCommand command,CommandResult result)
         {
             try {var s=Session.State;string file=Path.Combine(SaveDirectoryOverride??Application.persistentDataPath,(tutorial||s.isDebug||s.debugWorkspace?"debug":"normal")+"-actions.jsonl");
