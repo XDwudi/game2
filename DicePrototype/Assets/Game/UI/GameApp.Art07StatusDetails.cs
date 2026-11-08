@@ -48,8 +48,8 @@ namespace DiceCraft
             var score=UiKit.Text(panel,"RecoveredScore07",CompactScore(record.breakdown.score),width-660,10,630,68,compact?28:48,UiKit.Gold,TextAlignmentOptions.MidlineRight);
             if(art07NumberFont!=null)score.font=art07NumberFont;
             score.rectTransform.pivot=new Vector2(1,.5f);score.rectTransform.anchoredPosition=new Vector2(width-30,compact?-34:-44);
-            UiKit.Text(panel,"RecoveredState07","结果已保存 · 本手尚未投掷",20,thin?58:compact?65:82,width-290,thin?40:compact?48:64,thin?20:compact?17:21,UiKit.Muted);
-            UiKit.FlatButton(panel,"RecoveredDetails07","只读收据",width-250,thin?52:compact?58:84,230,thin?48:60,()=>ShowBreakdown(record.snapshot,record.breakdown));
+            UiKit.Text(panel,"RecoveredState07","结果已保存 · 本手尚未投掷",20,thin?58:compact?65:82,width-(thin?1180:290),thin?40:compact?48:64,thin?20:compact?17:21,UiKit.Muted);
+            UiKit.FlatButton(panel,"RecoveredDetails07","只读收据",width-(thin?910:250),thin?44:compact?58:84,230,60,()=>ShowBreakdown(record.snapshot,record.breakdown));
             return true;
         }
         private void DrawQualifiedHeader07(float x,float y,float width,float height)

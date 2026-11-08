@@ -173,7 +173,9 @@ namespace DiceCraft
         private void AlignQualifiedStamp07()
         {
             if(qualifiedStamp07==null||main==null)return;
-            var frame=main.Find("Stats07/StageScoreFrame") as RectTransform;if(frame==null)return;
+            // The pool retains inactive Box and Rect versions of the same role label.
+            // The stamp must follow the current visible score frame, not an older layout.
+            var frame=main.Find("Stats07")?.GetComponentsInChildren<RectTransform>(false).FirstOrDefault(r=>r.name=="StageScoreFrame");if(frame==null)return;
             Vector3 origin=main.InverseTransformPoint(frame.TransformPoint(Vector3.zero));
             var slot=main.Find("Stats07/QualifiedStampSlot07") as RectTransform;
             Vector2 start=slot!=null?(Vector2)main.InverseTransformPoint(slot.TransformPoint(Vector3.zero)):new Vector2(origin.x+12,origin.y+60);

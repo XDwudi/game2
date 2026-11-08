@@ -167,14 +167,14 @@ namespace DiceCraft
             var panel=UiKit.PaperFrame(shelf,"ControllerShelfDetails",776,72,728,332,UiKit.Paper);
             var title=UiKit.Text(panel,"ShelfDetailName",NameOf(offer.contentId),20,10,484,54,28,UiKit.Ink);
             title.fontStyle=FontStyles.Bold;
-            PaperLink071(panel,"ShelfDetailOpen","完整详情",532,14,176,48,()=>InspectOffer(offer),!IsBusy);
+            PaperLink071(panel,"ShelfDetailOpen","完整详情",532,14,176,60,()=>InspectOffer(offer),!IsBusy);
             Icon(panel,offer.contentId,20,94,164);
             var text=UiKit.Scroll(panel,"ShelfDetailText",208,76,500,232,232);float y=0;
             PaperDetailSection071(text,"Skill","基础技能",Description(offer.contentId),ref y,466);
             PaperDetailSection071(text,"Enchant","附魔与状态",EnchantLabel(offer.controller?.enchantmentId)+"\n"+Art07OfferState(offer.controller),ref y,466);
             PaperDetailSection071(text,"Purchase","交易与占槽",ControllerPurchaseText(offer),ref y,466);
             string error=Session.PurchaseError(offer.offerId);
-            if(error!=null)PaperDetailSection071(text,"Unavailable","当前状态",error,ref y,466);
+            if(error!=null)PaperDetailSection071(text,"ShelfUnavailable","当前状态",error,ref y,466);
             text.sizeDelta=new Vector2(text.sizeDelta.x,Mathf.Max(232,y+12));
         }
         private void PaperDetailSection071(Transform parent,string id,string heading,string content,ref float y,float width)
@@ -264,7 +264,7 @@ namespace DiceCraft
                 description.overflowMode=TextOverflowModes.Ellipsis;
             }
             string availability=offer.sold?"":Art07Availability07(offer);
-            PaperLink071(p,"Inspect",string.IsNullOrEmpty(availability)?"查看完整说明":availability,16,278,width-32,54,()=>InspectOffer(offer),!IsBusy);
+            PaperLink071(p,"Inspect",string.IsNullOrEmpty(availability)?"查看完整说明":availability,16,272,width-32,60,()=>InspectOffer(offer),!IsBusy);
             Art07BuyButton(p,offer,16,344,width-32,64);
         }
         private void Art07ShopOwned()

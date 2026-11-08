@@ -358,6 +358,8 @@ def package(platform, build_report, review_candidate=False, allow_failed_windows
             archive.writestr(item, os.readlink(path).encode("utf-8") if path.is_symlink() else path.read_bytes())
         archive.writestr("BUILD_IDENTITY.json", json.dumps(identity, ensure_ascii=False, indent=2))
         archive.write(ROOT / "DicePrototype/Assets/Game/Fonts/LICENSE.txt", "Licenses/NotoSansCJK-OFL.txt")
+        archive.write(ROOT / "ArtSource/Art071/Fonts/LICENSE.txt", "Licenses/NotoSansSC-Bold-OFL.txt")
+        archive.write(ROOT / "ArtSource/Art071/Fonts/COPYRIGHT.txt", "Licenses/NotoSansSC-Bold-COPYRIGHT.txt")
         archive.write(ROOT / "docs/PLAYER_README_V071.txt", "开始游玩.txt")
         if review_candidate:
             archive.writestr("REVIEW_CANDIDATE.json", json.dumps(candidate_notice(identity, report, allow_failed_windows_performance), ensure_ascii=False, indent=2))

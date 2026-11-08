@@ -242,7 +242,7 @@ namespace DiceCraft
                 }
                 var cash=beat.Events.FirstOrDefault(e=>e.EffectFamily=="SubmissionIncome"||e.EffectFamily=="stage_income");
                 if(cash!=null&&EffectReserve07("states",EffectPoolKind.NumberLabel,1)>0)
-                    Effect07("fx_cash_ticket",cash.EventId,new Vector2(960,Compact07?284:300),new Vector2(220,58),"+"+(cash.Operand??cash.AfterValue));
+                    Effect07("fx_cash_ticket",cash.EventId,new Vector2(960,Compact07?284:320),new Vector2(220,58),"+"+(cash.Operand??cash.AfterValue));
             }
         }
         private string PostSummary07(PresentationBeat beat)
@@ -352,7 +352,8 @@ namespace DiceCraft
                 {
                     EffectLayerOrder07();effectReceipt07=result.receipt.commandId;effectOnClock07=false;effectElapsed07=0;effectDuration07=TransactionVisualDuration07;
                     effectOptions07=CreatePresentationOptions07();EffectGroup07("main",true);
-                    if(EffectReserve07("main",EffectPoolKind.NumberLabel,1)>0)Effect07("fx_cash_ticket",result.receipt.commandId,new Vector2(1080,32),new Vector2(220,58),(cashDelta>0?"+":"")+cashDelta);
+                    // Keep the cash ticket in the header gap between its title and shelf capacity.
+                    if(EffectReserve07("main",EffectPoolKind.NumberLabel,1)>0)Effect07("fx_cash_ticket",result.receipt.commandId,new Vector2(744,32),new Vector2(220,58),(cashDelta>0?"+":"")+cashDelta);
                 }
                 return;
             }

@@ -224,8 +224,9 @@ namespace DiceCraft
             if(beat07!=null&&!final){var sources=beat07.Events.Where(e=>e.IsScoring).SelectMany(e=>e.SourceEmitterIds).Distinct().ToArray();if(sources.Length>0)details+=" · 来源 "+string.Join("、",sources.Select(SourceName07));}
             if(beat07?.Phase==PresentationPhase.TargetState)details=BudgetGrantSummary07(lastPresentationBefore07,lastPresentationAfter07);
             string text=final&&beat07?.Phase!=PresentationPhase.PostScore?multiplier+chain+(string.IsNullOrEmpty(details)?"":" · "+(beat07?.Phase==PresentationPhase.TargetState?details:"")):details;
-            var line=UiKit.Text(p,"ReceiptFactors",text,20,thin?58:Compact07?65:88,w-290,thin?40:Compact07?40:58,thin?20:Compact07?17:23,UiKit.Muted);line.overflowMode=TextOverflowModes.Ellipsis;
-            UiKit.FlatButton(p,"PresentationDetails07","完整记录",w-250,thin?52:Compact07?60:88,230,thin?48:60,ShowCommittedPresentationDetails07);
+            // The shallow panel reserves its whole right column for the animated number.
+            var line=UiKit.Text(p,"ReceiptFactors",text,20,thin?58:Compact07?65:88,w-(thin?1180:290),thin?40:Compact07?40:58,thin?20:Compact07?17:23,UiKit.Muted);line.overflowMode=TextOverflowModes.Ellipsis;
+            UiKit.FlatButton(p,"PresentationDetails07","完整记录",w-(thin?910:250),thin?44:Compact07?60:88,230,60,ShowCommittedPresentationDetails07);
         }
         private void TickPresentation07()
         {

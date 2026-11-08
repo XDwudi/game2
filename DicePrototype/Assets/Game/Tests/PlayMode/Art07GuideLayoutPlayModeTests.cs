@@ -112,7 +112,7 @@ namespace DiceCraft.Tests
                     var restored=app.canvas.GetComponentsInChildren<RectTransform>(false).Single(r=>r.name==original.Key);
                     Assert.That(restored.anchoredPosition,Is.EqualTo(original.Value),"Closing restores the original card/item layout: "+original.Key);
                 }
-                Assert.That(FindActive<RectTransform>("Stats07").Find("Brand").gameObject.activeSelf,Is.True);
+                Assert.That(FindActive<RectTransform>("Stats07").Find("BrandPaper/Brand").gameObject.activeInHierarchy,Is.True);
                 Assert.That(FindActive<RectTransform>("Stats07").Find("Edition").gameObject.activeSelf,Is.True);
                 Assert.That(StateJson(),Is.EqualTo(before));CollectionAssert.AreEqual(disk,File.ReadAllBytes(app.SaveLocation));
             }
@@ -123,7 +123,7 @@ namespace DiceCraft.Tests
             Canvas.ForceUpdateCanvases();var paper=FindActive<RectTransform>("FirstRunGuide");Rect card=GuideCheckScreenRect07(paper);
             float scale=app.canvas.scaleFactor;
             Assert.That(card.width,Is.EqualTo(400*scale).Within(1));Assert.That(card.height,Is.EqualTo(144*scale).Within(1));
-            Assert.That(paper.Find("Fill").GetComponent<UnityEngine.UI.Image>().color,Is.EqualTo(UiKit.Paper),"The guide remains an opaque paper at maximum capacity.");
+            Rect physicalPaper=GuidePhysicalPaperBounds071(paper);
             Assert.That(card.xMin,Is.GreaterThanOrEqualTo(Screen.safeArea.xMin));Assert.That(card.xMax,Is.LessThanOrEqualTo(Screen.safeArea.xMax));
             Assert.That(card.yMin,Is.GreaterThanOrEqualTo(Screen.safeArea.yMin));Assert.That(card.yMax,Is.LessThanOrEqualTo(Screen.safeArea.yMax));
             Rect close=GuideCheckScreenRect07((RectTransform)Button("DismissGuide").transform);
@@ -142,7 +142,8 @@ namespace DiceCraft.Tests
                     for(int i=0;i<4;i++)
                     {
                         Vector2 point=RectTransformUtility.WorldToScreenPoint(null,text.transform.TransformPoint(mesh.vertices[character.vertexIndex+i]));
-                        Assert.That(point.x,Is.InRange(card.xMin-.5f,card.xMax+.5f));Assert.That(point.y,Is.InRange(card.yMin-.5f,card.yMax+.5f));
+                        Assert.That(point.x,Is.InRange(physicalPaper.xMin-.5f,physicalPaper.xMax+.5f),name+" glyph escapes the actual sliced paper horizontally");
+                        Assert.That(point.y,Is.InRange(physicalPaper.yMin-.5f,physicalPaper.yMax+.5f),name+" glyph escapes the actual sliced paper vertically");
                     }
                 }
             }
@@ -172,6 +173,29 @@ namespace DiceCraft.Tests
                 foreach(var renderer in orientation.GetComponentsInChildren<Renderer>(false))if(renderer.enabled)
                     Assert.That(arrowRect.Overlaps(GuideCheckRendererRect07(renderer)),Is.False,"Guide arrow covers projected die "+die.dieId);
             }
+        }
+        private Rect GuidePhysicalPaperBounds071(RectTransform paper)
+        {
+            // v0.71 moved the paper from an opaque Fill child onto the root Image.
+            // Its rounded 512px master leaves real transparent/shadow padding:
+            // left 4, bottom 17, right 14, top 4px. Nine-slicing retains these
+            // insets at the Image's rendered PPU; the full 400x144 hit rect is
+            // not available paper for glyphs. Keep all old size/overlap checks.
+            var image=paper.GetComponent<Image>();
+            Assert.That(image,Is.Not.Null,"Guide must expose its actual paper Image.");
+            Assert.That(image.sprite,Is.SameAs(UiKit.Template("ui_paper_panel")));
+            Assert.That(image.sprite,Is.Not.Null);Assert.That(image.type,Is.EqualTo(Image.Type.Sliced));
+            Assert.That(image.fillCenter,Is.True,"The guide must retain its opaque paper center.");
+            Assert.That(image.color,Is.EqualTo(Color.white),"The authored paper texture must not be tinted or made translucent.");
+            float alpha=image.color.a*image.canvasRenderer.GetAlpha();
+            foreach(var group in image.GetComponentsInParent<CanvasGroup>(false))alpha*=group.alpha;
+            Assert.That(alpha,Is.GreaterThan(.99f));Assert.That(image.canvasRenderer.cull,Is.False);
+            float ppu=image.pixelsPerUnit*image.pixelsPerUnitMultiplier;
+            Rect local=image.GetPixelAdjustedRect();
+            local=Rect.MinMaxRect(local.xMin+4/ppu,local.yMin+17/ppu,local.xMax-14/ppu,local.yMax-4/ppu);
+            Vector2 low=RectTransformUtility.WorldToScreenPoint(null,image.rectTransform.TransformPoint(new Vector3(local.xMin,local.yMin,0)));
+            Vector2 high=RectTransformUtility.WorldToScreenPoint(null,image.rectTransform.TransformPoint(new Vector3(local.xMax,local.yMax,0)));
+            return Rect.MinMaxRect(low.x,low.y,high.x,high.y);
         }
         private static Rect GuideCheckScreenRect07(RectTransform transform)
         {

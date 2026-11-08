@@ -108,7 +108,13 @@ namespace DiceCraft.Tests
             Assert.That(ids.Length, Is.EqualTo(71));
             Assert.That(app.contentIcons, Has.Length.EqualTo(71));
             Assert.That(app.contentIcons.All(sprite => sprite != null), Is.True);
-            CollectionAssert.AreEquivalent(ids, app.contentIcons.Select(sprite => sprite.name.StartsWith("icon_",StringComparison.Ordinal)?sprite.name.Substring(5).ToUpperInvariant():sprite.name));
+            CollectionAssert.AreEquivalent(ids, app.contentIcons.Select(sprite =>
+            {
+                string name=sprite.name;
+                if(name.StartsWith("illustration_",StringComparison.OrdinalIgnoreCase))name=name.Substring("illustration_".Length);
+                else if(name.StartsWith("icon_",StringComparison.OrdinalIgnoreCase))name=name.Substring("icon_".Length);
+                return name.ToUpperInvariant();
+            }), "Every configured content ID must resolve exactly once across illustrations and legacy icons.");
             Assert.That(app.uiFont, Is.Not.Null);
             string requiredText = "骰子构筑投掷确认锁定提交金币红蓝" + string.Concat(app.Config.controllers.Select(c => c.displayName))
                 + string.Concat(app.Config.consumables.Select(c => c.displayName)) + string.Concat(app.Config.services.Select(c => c.displayName))
@@ -284,7 +290,7 @@ namespace DiceCraft.Tests
                 Assert.That(orientation, Is.Not.Null, die.dieId);
                 Assert.That(Vector3.Dot(orientation.TransformDirection(DiceTable.Normals[i]).normalized, Vector3.up), Is.GreaterThan(.999f), hand.currentFaceId);
                 var face = orientation.Find("Face_" + hand.currentFaceId).GetComponent<MeshFilter>().sharedMesh;
-                Assert.That(ConnectedMeshComponents(face), Is.EqualTo(i + 1), "The face must render the exact pip count, independently of tessellation.");
+                Assert.That(RecessedPipCount071(face), Is.EqualTo(i + 1), "The face must render the exact pip count, independently of tessellation.");
                 yield return null;
                 }
             }
@@ -293,7 +299,7 @@ namespace DiceCraft.Tests
             var physical = app.table.GetFaceOrientation(die.dieId);
             Assert.That(physical, Is.Not.Null, die.dieId);
             Assert.That(Vector3.Dot(physical.TransformDirection(DiceTable.Normals[0]), Vector3.up), Is.GreaterThan(.999f));
-            Assert.That(ConnectedMeshComponents(physical.Find("Face_F01").GetComponent<MeshFilter>().sharedMesh), Is.EqualTo(6));
+            Assert.That(RecessedPipCount071(physical.Find("Face_F01").GetComponent<MeshFilter>().sharedMesh), Is.EqualTo(6));
             Assert.That(die.faces[0].permanentPip, Is.EqualTo(1), "Remote display must not rewrite the permanent face.");
             Assert.That(remote.currentFaceId, Is.EqualTo("F01"));
             yield return null;
@@ -423,27 +429,58 @@ namespace DiceCraft.Tests
                 Assert.That(Vector3.Dot(orientation.TransformDirection(DiceTable.Normals[DiceTable.FaceIndex(result.currentFaceId)]).normalized, Vector3.up), Is.GreaterThan(.999f), result.dieId + "/" + result.currentFaceId);
             }
         }
-        private static int ConnectedMeshComponents(Mesh mesh)
+        private static int RecessedPipCount071(Mesh mesh)
         {
-            // art0.7 uses separate neutral outline geometry around each rule-colored pip.
-            // Pure-white vertices identify the pip fills that receive the rule tint;
-            // count those actual connected fill surfaces, excluding outlines/gold/texture.
-            // No assumption about triangles per dot or mesh-name metadata is used.
+            // art0.7.1 uses a gray center/ring fan for each tinted enamel recess.
+            // Paper rims, enamel glints, gold and texture marks are separate colored
+            // components. Count actual connected fills, then require one center and
+            // a complete circular fan per pip; do not infer count from mesh names.
+            Assert.That(mesh,Is.Not.Null);
             int[] parent = Enumerable.Range(0, mesh.vertexCount).ToArray();
             var colors=mesh.colors32;Assert.That(colors.Length,Is.EqualTo(mesh.vertexCount));
-            Func<int,bool> ruleFill=i=>colors[i].r==255&&colors[i].g==255&&colors[i].b==255&&colors[i].a==255;
+            var vertices=mesh.vertices;
+            Func<int,bool> ruleFill=i=>colors[i].r>0&&colors[i].r<255&&colors[i].r==colors[i].g&&colors[i].g==colors[i].b&&colors[i].a==255;
             Func<int, int> find = null;
             find = n => parent[n] == n ? n : (parent[n] = find(parent[n]));
             int[] triangles = mesh.triangles;
             var used = new HashSet<int>();
+            var fills=new List<int[]>();
             for (int i = 0; i < triangles.Length; i += 3)
             {
                 int a = triangles[i], b = triangles[i + 1], c = triangles[i + 2];
                 if(!ruleFill(a)||!ruleFill(b)||!ruleFill(c))continue;
                 parent[find(b)] = find(a); parent[find(c)] = find(a);
                 used.Add(a); used.Add(b); used.Add(c);
+                fills.Add(new[]{a,b,c});
             }
-            return used.Select(find).Distinct().Count();
+            CollectionAssert.AreEquivalent(Enumerable.Range(0,mesh.vertexCount).Where(ruleFill),used,
+                "Every tinted fill vertex must belong to an actual rendered triangle.");
+            var components=used.GroupBy(find).ToArray();
+            foreach(var component in components)
+            {
+                var centers=component.Where(i=>Mathf.Abs(vertices[i].z-.002f)<.00001f).ToArray();
+                Assert.That(centers.Length,Is.EqualTo(1),"Each pip must contain exactly one recessed center.");
+                int center=centers[0];
+                foreach(int vertex in component.Where(i=>i!=center))
+                {
+                    Assert.That(vertices[vertex].z,Is.EqualTo(.003f).Within(.00001f),"Pip rim depth.");
+                    var delta=vertices[vertex]-vertices[center];
+                    Assert.That(new Vector2(delta.x,delta.y).magnitude,Is.EqualTo(.075f).Within(.00001f),"Pip rim radius.");
+                }
+                float coveredDegrees=0;
+                foreach(var triangle in fills.Where(t=>find(t[0])==component.Key))
+                {
+                    Assert.That(triangle.Count(i=>i==center),Is.EqualTo(1),"A pip fill must be a center/ring fan.");
+                    int at=Array.IndexOf(triangle,center);
+                    var a=vertices[triangle[(at+1)%3]]-vertices[center];
+                    var b=vertices[triangle[(at+2)%3]]-vertices[center];
+                    float angle=Vector2.SignedAngle(new Vector2(a.x,a.y),new Vector2(b.x,b.y));
+                    Assert.That(angle,Is.GreaterThan(0),"Pip triangles must have consistent outward winding.");
+                    coveredDegrees+=angle;
+                }
+                Assert.That(coveredDegrees,Is.EqualTo(360f).Within(.01f),"Each pip fan must close a full circle without missing fill.");
+            }
+            return components.Length;
         }
     }
 }

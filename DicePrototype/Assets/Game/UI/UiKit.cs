@@ -51,7 +51,8 @@ namespace DiceCraft
         public static TextMeshProUGUI Text(Transform p, string name, string value, float x, float y, float w, float h, float size = 24, Color? color = null, TextAlignmentOptions align = TextAlignmentOptions.TopLeft)
         {
             var r = Rent(p,name,"Text",x,y,w,h); var t = Component<TextMeshProUGUI>(r.gameObject);
-            t.font = Font; t.text = value; t.fontSize = size*FontScale; t.color = color ?? TextColor; t.alignment = align;
+            t.font = Font; t.fontStyle = FontStyles.Normal; t.fontWeight = FontWeight.Regular;
+            t.text = value; t.fontSize = size*FontScale; t.color = color ?? TextColor; t.alignment = align;
             t.raycastTarget = false; t.textWrappingMode = TextWrappingModes.Normal; t.overflowMode = TextOverflowModes.Overflow; return t;
         }
         public static UnityEngine.UI.Button Button(Transform p, string name, string value, float x, float y, float w, float h, Action click, bool enabled = true, bool primary = false)

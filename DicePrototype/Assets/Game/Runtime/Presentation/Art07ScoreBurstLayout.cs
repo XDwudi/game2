@@ -67,7 +67,7 @@ namespace DiceCraft.Presentation
             for(int i=0;i<owner.burstLayers.Length;i++)if(owner.burstLayers[i]!=null)owner.burstLayers[i].SetActive(i==0||i==2&&tier==3||i==5&&tier==5&&!owner.ReducedMotion);
             if(owner.burstLayers.Length>0)Place((RectTransform)owner.burstLayers[0].transform,w-620,h-7,Mathf.Min(360,w-40),2);
             if(owner.burstLayers.Length>2)Place((RectTransform)owner.burstLayers[2].transform,20,h-10,(w-40)*(owner.ReducedMotion?1:1-Mathf.Pow(1-time,3)),4);
-            if(owner.burstLayers.Length>5)Place((RectTransform)owner.burstLayers[5].transform,w*.35f,h-46,238,32);
+            if(owner.burstLayers.Length>5)Place((RectTransform)owner.burstLayers[5].transform,h<110?368:w*.35f,h-46,238,32);
             for(int layer=0;layer<2;layer++)
             {
                 bool visible=tier>=2&&(layer==0||tier>=4);float inset=(layer==0?3:8)+(owner.ReducedMotion?0:3*Mathf.Pow(1-time,3)),step=tier==5?12:6,thickness=layer==0?(tier>=4?3:2):1;

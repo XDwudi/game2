@@ -147,7 +147,7 @@ namespace DiceCraft.Tests
                     Assert.That(width,Is.InRange(5f,7f),"Measure imported sprite alpha ink, not its transparent padding.");Assert.That(height,Is.InRange(5f,7f));
                     Assert.That(width*app.canvas.scaleFactor,Is.GreaterThanOrEqualTo(3f),"The square remains visible in the 720p layout.");
                     var visible=BurstRectIn07(chip,new Rect(chip.rect.xMin+ink.x*chip.rect.width,chip.rect.yMin+ink.y*chip.rect.height,ink.width*chip.rect.width,ink.height*chip.rect.height),scoreRoot);
-                    Assert.That(forbidden.Any(r=>r.Overlaps(visible)),Is.False,"Chip ink must not overlap any controller card, card glyph, score glyph, or details button.");
+                    Assert.That(forbidden.Any(r=>r.Overlaps(visible)),Is.False,"Chip ink must not overlap any controller card, card glyph, score glyph, or details button. Chip="+visible+" intersections="+string.Join(";",forbidden.Where(r=>r.Overlaps(visible)))+" score="+scoreRoot.rect);
                     Assert.That(visible.yMin,Is.GreaterThan(0f),"All visible ink must stay above the score panel and its inset gold border.");
                 }
                 var flame=(RectTransform)view.burstLayers[5].transform;var flameInk=Ink(flame.GetComponent<UnityEngine.UI.Image>());

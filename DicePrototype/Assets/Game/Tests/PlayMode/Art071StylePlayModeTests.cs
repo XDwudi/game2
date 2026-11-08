@@ -15,6 +15,35 @@ namespace DiceCraft.Tests
     public sealed partial class GameplayPlayModeTests
     {
         [UnityTest]
+        public IEnumerator PLAY_ART071_BoldEllipsisRendersAndPooledTextRestoresItsRequestedStyle()
+        {
+            var root=UiKit.Rect(app.canvas.transform,"FontWeightRegression071",600,400,500,100);
+            try
+            {
+                const string caption="控制器详细信息与实际效果说明";
+                var title=UiKit.Text(root,"Title",caption,0,0,160,70,30);
+                title.fontStyle=FontStyles.Bold;title.fontWeight=FontWeight.Bold;
+                title.textWrappingMode=TextWrappingModes.NoWrap;title.overflowMode=TextOverflowModes.Ellipsis;
+                Canvas.ForceUpdateCanvases();title.ForceMeshUpdate();
+                Assert.That(title.overflowMode,Is.EqualTo(TextOverflowModes.Ellipsis),"A missing bold ellipsis must not silently downgrade to truncation.");
+                var ellipsis=title.textInfo.characterInfo.Take(title.textInfo.characterCount).Where(c=>c.character=='…'&&c.isVisible).ToArray();
+                Assert.That(ellipsis,Has.Length.EqualTo(1),"The actual clipped title must display an ellipsis glyph.");
+                Assert.That(ellipsis[0].fontAsset,Is.SameAs(UiKit.Font.fontWeightTable[7].regularTypeface));
+                UiKit.Clear(root);
+                var reused=UiKit.Text(root,"Title",caption,0,0,490,70,30);
+                Assert.That(reused,Is.SameAs(title),"Exercise the production text pool rather than a fresh object.");
+                Assert.That(reused.fontStyle,Is.EqualTo(FontStyles.Normal));
+                Assert.That(reused.fontWeight,Is.EqualTo(FontWeight.Regular));
+                Canvas.ForceUpdateCanvases();reused.ForceMeshUpdate();
+                Assert.That(new string(reused.textInfo.characterInfo.Take(reused.textInfo.characterCount).Where(c=>c.isVisible).Select(c=>c.character).ToArray()),Is.EqualTo(caption));
+                Assert.That(reused.textInfo.characterInfo.Take(reused.textInfo.characterCount).Where(c=>!char.IsWhiteSpace(c.character)).All(c=>c.isVisible&&c.fontAsset==UiKit.Font),Is.True);
+                yield return null;
+                LogAssert.NoUnexpectedReceived();
+            }
+            finally{Object.Destroy(root.gameObject);}
+        }
+
+        [UnityTest]
         public IEnumerator PLAY_ART071_FiveDiceGlassTemporaryLabelsAndFaceHitsSurviveConfirmThenReroll()
         {
             yield return DiceLabelBegin07(100);

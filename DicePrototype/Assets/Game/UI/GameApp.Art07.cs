@@ -340,7 +340,8 @@ namespace DiceCraft
         }
         private void ScorePanel()
         {
-            bool c=Compact07,thin=Spacious071;float x=c?360:368,y=c?282:thin?344:288,w=c?1542:1528,h=c?122:thin?104:160;
+            // Reserve the gap for 1.03x triggered cards as well as rotating Combo chips.
+            bool c=Compact07,thin=Spacious071;float x=c?360:368,y=c?282:thin?350:308,w=c?1542:1528,h=c?122:thin?104:156;
             var p=UiKit.Frame(main,"ScorePanel",x,y,w,h,UiKit.Background,UiKit.PanelLight);
             if(IsPresenting07){DrawReceiptScore07(p,w,h);return;}
             if(DrawStablePresentationScore07(p,w,h))return;

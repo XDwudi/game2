@@ -90,7 +90,7 @@ namespace DiceCraft.Tests
                 {
                     var orientation = app.table.GetFaceOrientation(result.dieId);
                     Assert.That(Vector3.Dot(orientation.TransformDirection(DiceTable.Normals[DiceTable.FaceIndex(result.currentFaceId)]), Vector3.up), Is.GreaterThan(.999f));
-                    Assert.That(ConnectedMeshComponents(orientation.Find("Face_" + result.currentFaceId).GetComponent<MeshFilter>().sharedMesh), Is.EqualTo(result.currentPip), "The rolled physical face must show current, not C12 effective, pips.");
+                    Assert.That(RecessedPipCount071(orientation.Find("Face_" + result.currentFaceId).GetComponent<MeshFilter>().sharedMesh), Is.EqualTo(result.currentPip), "The rolled physical face must show current, not C12 effective, pips.");
                     ClickDie(result.dieId);
                 }
                 Click("Confirm");yield return WaitForIdle();

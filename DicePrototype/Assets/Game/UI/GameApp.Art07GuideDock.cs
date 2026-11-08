@@ -23,7 +23,7 @@ namespace DiceCraft
             // The sidebar's top 144 reference pixels contain branding only. Let
             // the first card column yield horizontally while a full paper is open.
             var stats=GuideElement07("Stats07");
-            if(stats!=null)foreach(string name in new[]{"Brand","Edition"}){var decoration=stats.Find(name);if(decoration!=null)decoration.gameObject.SetActive(false);}
+            if(stats!=null)foreach(string name in new[]{"BrandPaper","Edition"}){var decoration=stats.Find(name);if(decoration!=null)decoration.gameObject.SetActive(false);}
             float start=Compact07?426:432,right=Compact07?1612:1528,ordinaryGap=Compact07?12:24;
             int count=ViewState.controllers.Count,shown=Mathf.Min(10,count);
             for(int i=0;i<Mathf.Max(4,shown);i++)

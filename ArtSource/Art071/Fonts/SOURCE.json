@@ -1,0 +1,86 @@
+{
+  "schema": "v071-font-source-1",
+  "recordedUtc": "2026-11-08T20:20:09.295567+00:00",
+  "provenance": "Existing installed font, copied without modification; no download performed.",
+  "originalPath": "C:\\Windows\\Fonts\\Noto Sans SC Bold (TrueType).otf",
+  "originalSha256": "d1961be1161ea1be08496c920862d06ea5c23a757628f4fd69368de1d9f51bed",
+  "fontNames": {
+    "0": [
+      "© 2014-2020 Adobe (http://www.adobe.com/)."
+    ],
+    "1": [
+      "Noto Sans SC"
+    ],
+    "2": [
+      "Bold"
+    ],
+    "3": [
+      "2.002;GOOG;NotoSansSC-Bold;ADOBE"
+    ],
+    "4": [
+      "Noto Sans SC Bold"
+    ],
+    "5": [
+      "Version 2.002;hotconv 1.0.116;makeotfexe 2.5.65601"
+    ],
+    "6": [
+      "NotoSansSC-Bold"
+    ],
+    "7": [
+      "Noto is a trademark of Google Inc."
+    ],
+    "8": [
+      "Adobe"
+    ],
+    "9": [
+      "Ryoko NISHIZUKA 西塚涼子 (kana, bopomofo & ideographs); Paul D. Hunt (Latin, Greek & Cyrillic); Sandoll Communications 산돌커뮤니케이션, Soo-young JANG 장수영 & Joo-yeon KANG 강주연 (hangul elements, letters & syllables)"
+    ],
+    "13": [
+      "This Font Software is licensed under the SIL Open Font License, Version 1.1. This Font Software is distributed on an \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the SIL Open Font License for the specific language, permissions and limitations governing your use of this Font Software."
+    ],
+    "14": [
+      "http://scripts.sil.org/OFL"
+    ]
+  },
+  "weightClass": 700,
+  "embeddingFsType": 0,
+  "cmapEntries": 30892,
+  "regularCharacterCount": 844,
+  "missingRegularCodepoints": [],
+  "recipe": {
+    "editorMethod": "DiceCraft.Editor.V071FontSetup.BuildBold",
+    "glyphSource": "Assets/Game/Fonts/DiceChinese.asset characterTable, sorted unique Unicode",
+    "samplingPointSize": 48,
+    "atlasPadding": 7,
+    "atlasWidth": 2048,
+    "atlasHeight": 2048,
+    "renderMode": "SDFAA",
+    "finalPopulationMode": "Static",
+    "weightSlot": 7,
+    "boldAsset": "Assets/Game/Fonts/DiceChineseBold.asset"
+  },
+  "licenseNote": "Font name table 13 declares SIL OFL 1.1; unmodified full OFL text copied from existing project font license. Copyright and trademark from the source name table are preserved separately.",
+  "files": [
+    {
+      "path": "ArtSource/Art071/Fonts/NotoSansSC-Bold.otf",
+      "bytes": 8716392,
+      "sha256": "d1961be1161ea1be08496c920862d06ea5c23a757628f4fd69368de1d9f51bed"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Fonts/NotoSansSC-Bold.otf",
+      "bytes": 8716392,
+      "sha256": "d1961be1161ea1be08496c920862d06ea5c23a757628f4fd69368de1d9f51bed"
+    },
+    {
+      "path": "ArtSource/Art071/Fonts/LICENSE.txt",
+      "bytes": 4301,
+      "sha256": "6a73f9541c2de74158c0e7cf6b0a58ef774f5a780bf191f2d7ec9cc53efe2bf2"
+    },
+    {
+      "path": "ArtSource/Art071/Fonts/COPYRIGHT.txt",
+      "bytes": 133,
+      "sha256": "bbbd2a3a56a12928a11dc76ff951df53277f1da1d02ce092794e94df3a6207ce"
+    }
+  ],
+  "unityGeneratedAssetStatus": "not_generated_by_this_agent; root owns Unity execution"
+}

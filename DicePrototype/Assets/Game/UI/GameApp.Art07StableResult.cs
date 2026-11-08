@@ -46,9 +46,9 @@ namespace DiceCraft
             string zeroReason=receipt07.Events.Any(e=>e.AbilityId=="C49"&&e.IsScoring&&e.Operand=="0")?" · 千年老二 ×0，没有有效5点":"";
             var post=receipt07.Events.Where(e=>e.Phase==PresentationPhase.PostScore).ToArray();
             string changes=post.Length==0?"":"\n后置："+PostSummary07(new PresentationBeat(PresentationPhase.PostScore,0,0,null,true,post));
-            var detail=UiKit.Text(panel,"StableResultFactors07",multiplier+chain+zeroReason+changes,20,thin?58:compact?65:82,width-290,thin?40:compact?48:64,thin?20:compact?17:21,UiKit.Muted);
+            var detail=UiKit.Text(panel,"StableResultFactors07",multiplier+chain+zeroReason+changes,20,thin?58:compact?65:82,width-(thin?1180:290),thin?40:compact?48:64,thin?20:compact?17:21,UiKit.Muted);
             detail.textWrappingMode=TextWrappingModes.Normal;detail.overflowMode=TextOverflowModes.Ellipsis;
-            UiKit.FlatButton(panel,"StablePresentationDetails07","完整记录",width-250,thin?52:compact?58:84,230,thin?48:60,ShowCommittedPresentationDetails07);
+            UiKit.FlatButton(panel,"StablePresentationDetails07","完整记录",width-(thin?910:250),thin?44:compact?58:84,230,60,ShowCommittedPresentationDetails07);
             // These are persistent read-only markers, separate from the active FX pool.
             var marks=UiKit.Rect(main,"StableResultSourceMarks07",0,0,1920,1080);
             foreach(string id in receipt07.Events.Where(e=>e.IsScoring).SelectMany(e=>e.SourceEmitterIds).Distinct(StringComparer.Ordinal))

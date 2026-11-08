@@ -177,7 +177,13 @@ namespace DiceCraft.Tests
                 }
                 else
                 {
-                    Assert.That(HasActive("FailureReasonTag"),Is.True);Assert.That(FindActive<TextMeshProUGUI>("EndTitle").color,Is.EqualTo(UiKit.Paper));
+                    Assert.That(HasActive("FailureReasonTag"),Is.True);
+                    // The v0.71 result is a printed paper receipt: its title uses
+                    // ink while the reason tag continues to carry failure state.
+                    var paper=FindActive<RectTransform>("RunResult").GetComponent<UnityEngine.UI.Image>();
+                    Assert.That(paper,Is.Not.Null);Assert.That(paper.sprite,Is.SameAs(UiKit.Template("ui_paper_panel")));
+                    Assert.That(paper.type,Is.EqualTo(UnityEngine.UI.Image.Type.Sliced));Assert.That(paper.fillCenter,Is.True);
+                    Assert.That(FindActive<TextMeshProUGUI>("EndTitle").color,Is.EqualTo(UiKit.Ink));
                 }
                 string before=StateJson();byte[] disk=File.ReadAllBytes(app.SaveLocation);
                 yield return CaptureEdge07("S18-"+kind);

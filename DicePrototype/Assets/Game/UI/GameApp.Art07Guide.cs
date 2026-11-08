@@ -72,11 +72,12 @@ namespace DiceCraft
             const float w=400,h=144;
             var paper=UiKit.Frame(main,"FirstRunGuide",bounds.x,bounds.y,w,h,UiKit.Paper,UiKit.Ink);
             float close=Mathf.Max(60,40/Mathf.Max(.1f,canvas.scaleFactor));
-            // At 150%: title line 45.6px; two body lines 86.9px. The unchanged
-            // full copy fits the fixed paper without shrinking its 21/20 typography.
+            // At 150% the unchanged title/body need 46/88 reference pixels.
+            // The v0.71 sliced paper ends at y135.5 inside this 144px rect;
+            // stack the text through y135 instead of its transparent bottom edge.
             float textWidth=w-close-40;
-            UiKit.Text(paper,"GuideTitle",title,16,6,textWidth,46,21,UiKit.Ink);
-            var description=UiKit.Text(paper,"GuideBody",body,16,52,textWidth,88,20,UiKit.Ink);
+            UiKit.Text(paper,"GuideTitle",title,16,1,textWidth,46,21,UiKit.Ink);
+            var description=UiKit.Text(paper,"GuideBody",body,16,47,textWidth,88,20,UiKit.Ink);
             description.textWrappingMode=TextWrappingModes.Normal;description.overflowMode=TextOverflowModes.Overflow;
             UiKit.ActionButton(paper,"DismissGuide","×",w-close-8,6,close,close,DismissGuide07,UiKit.Paper);
             AnimateGuide07(paper,shop);
