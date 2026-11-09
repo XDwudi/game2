@@ -1,5 +1,7 @@
 # 人工主导的 AI 游戏开发框架
 
+**main 是当前开发基线。** 用户于 2026-11-09 确认将 v0.7 纳入 main，并保留已知问题；合并不代表整版验收通过。当前基线为 v0.7 交付提交 `b11694f8`（游戏构建源 `dca7a26`），不包含后续 v0.71。Windows 性能、独占全屏、AudioMixer、Mac 实机与人工体验等状态继续见 [交付说明](docs/DELIVERY_V07.md) 和 [STATE](docs/STATE.md)。
+
 这套框架用于让人掌握游戏创意与体验决策，让 AI 在明确的任务、专业工具和验收要求下制作。当前正在按用户 P0 v0.7 美术规格迭代骰子构筑原型，玩法保持 p0.6.0/schema4，目标 Windows x64 与 macOS Universal / Unity 6000.6.7f1。长期目标仍包含 PC、iOS、Android，移动端尚未验证。
 
 核心约定：按阶段验证风险，先做可玩的原型，再做达到目标品质的代表性片段，最后扩大生产。AI 交付必须有可检查的成果与证据；质量不由工作时长、token 数或 agent 数量决定。
@@ -12,7 +14,7 @@
 - v0.6 诊断测试版已在 [GitHub p0.6.0-rc.1](https://github.com/XDwudi/game2/releases/tag/p0.6.0-rc.1) 提供Windows、Mac和M5验收工具包三个附件；已全量远程下载和新目录启动/存档恢复核验。797项EditMode、30项PlayMode及玩法/UI回放通过；Windows独占全屏、性能未通过，Mac/人工待验，整版未ACCEPTED。详见 [v0.6交付说明](docs/DELIVERY_V06.md)。
 - v0.5 请看 [交付说明](docs/DELIVERY_V05.md) 与 [STATE](docs/STATE.md)；Windows、macOS与M5验收工具包已共同上传至 [GitHub预发布附件](https://github.com/XDwudi/game2/releases/tag/p0.5.0-rc.1)，三个完整下载均已核对SHA与ZIP完整性。用户已授权此渠道替代LFS。Windows 技术检查通过，Mac 实机待验。旧版 [交付说明](docs/DELIVERY.md) 和 `Builds/Windows/DiceCraft.exe` 仅为 v0.4 历史产物。
 - [运行、开发与复现说明](DicePrototype/README.md)
-- [权威 P0 v0.6 规格](docs/specs/P0_v0.6.md)与[实施验收契约](docs/tasks/P0-V06-IMPLEMENTATION.md)；当前开发/实测状态以 STATE 的 v0.6 记录为准。
+- [权威 P0 v0.6 玩法规格](docs/specs/P0_v0.6.md)与[v0.7 美术实施契约](docs/tasks/P0-V07-ART.md)；当前基线的开发/实测状态以 STATE 的 v0.7 记录为准。
 - [当前状态和剩余工作](docs/STATE.md)
 - evidence/unity、evidence/runs、evidence/review 保存真实测试、运行与独立复核记录。失败记录保留，不能把历史失败或旧版本通过当作当前结论。
 
