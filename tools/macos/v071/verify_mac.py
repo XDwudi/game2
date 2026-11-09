@@ -117,7 +117,8 @@ def inventory(app, repair_execute=False):
 
 def metadata_inventory(root):
     rows = []
-    names = ["BUILD_IDENTITY.json", "Licenses/NotoSansCJK-OFL.txt", "开始游玩.txt"]
+    names = ["BUILD_IDENTITY.json", "Licenses/NotoSansCJK-OFL.txt",
+             "Licenses/NotoSansSC-Bold-OFL.txt", "Licenses/NotoSansSC-Bold-COPYRIGHT.txt", "开始游玩.txt"]
     if (root / "REVIEW_CANDIDATE.json").exists():
         names.append("REVIEW_CANDIDATE.json")
     for name in names:

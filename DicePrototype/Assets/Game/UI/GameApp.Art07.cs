@@ -209,8 +209,9 @@ namespace DiceCraft
                 UiKit.Text(main,"PoolPageIndex",(poolPage+1)+" / "+((dice.Count+9)/10),poolX+4,poolY+60+pageSize,64,40,18,UiKit.Muted,TextAlignmentOptions.Center);
             }
             float sy=c?657:756,slotW=c?228:152,slotH=c?102:124,sgap=c?18:24;
-            UiKit.Text(main,"SlotsTitle",$"有序提交  {h.orderedLockedIds.Count} / {s.stage.capacity}",poolX+16,sy,740,c?36:32,c?18:22,UiKit.Paper);
-            UiKit.Text(main,"LockRule","已锁定 · 本手不可移回骰池",poolX+740,sy,poolW-756,32,c?16:20,UiKit.Gold,TextAlignmentOptions.TopRight);
+            float headingY=sy-7-Mathf.Max(0,(UiKit.FontScale-1)*24);
+            UiKit.Text(main,"SlotsTitle",$"有序提交  {h.orderedLockedIds.Count} / {s.stage.capacity}",poolX+16,headingY,740,c?36:32,c?18:22,UiKit.Paper);
+            UiKit.Text(main,"LockRule","已锁定 · 本手不可移回骰池",poolX+740,headingY,poolW-756,32,c?16:20,UiKit.Gold,TextAlignmentOptions.TopRight);
             slotPage=Math.Min(slotPage,Math.Max(0,(s.stage.capacity-1)/8));int slots=Math.Min(8,s.stage.capacity-slotPage*8);int columns=c?4:slots;
             float sx=poolX+(poolW-columns*(slotW+sgap)+sgap)/2;
             // Screen-space UI is composited over the real 3D dice: the shared tray

@@ -15,6 +15,78 @@ namespace DiceCraft.Tests
     public sealed partial class GameplayPlayModeTests
     {
         [UnityTest]
+        public IEnumerator PLAY_ART071_MaximumLockedHeadersKeepActualGlyphClearanceAtEveryTextScale()
+        {
+            foreach(int font in new[]{100,125,150})
+            {
+                yield return DiceLabelBegin07(font);
+                foreach(var kind in new[]{Art07FixtureKind.MaximumPool,Art07FixtureKind.MaximumTable})
+                {
+                    Art07Fixtures.Apply(app,kind);
+                    yield return WaitInteractionLayout07();
+                    var state=app.Session.State;
+                    Assert.That(state.dice.Count,Is.EqualTo(10));
+                    Assert.That(state.controllers.Count,Is.EqualTo(10));
+                    Assert.That(state.stage.capacity,Is.EqualTo(8));
+                    Assert.That(state.hand.orderedLockedIds.Count,Is.EqualTo(kind==Art07FixtureKind.MaximumPool?0:8));
+                    Assert.That(UiKit.FontScale,Is.EqualTo(font/100f).Within(.001f));
+                    string before=StateJson();byte[] disk=File.ReadAllBytes(app.SaveLocation);long sequence=app.Session.ActionSequence;
+                    string scope="v071-locked-headers-"+kind+"-font"+font+"-"+Screen.width+"x"+Screen.height;
+                    // Keep the real failing frame and its existing runtime/state binding
+                    // even if one of the geometry assertions below rejects the layout.
+                    yield return CaptureEdge07(scope);
+                    Canvas.ForceUpdateCanvases();
+
+                    var headers=new[]{FindActive<TextMeshProUGUI>("SlotsTitle"),FindActive<TextMeshProUGUI>("LockRule")};
+                    var glyphs=headers.ToDictionary(t=>t,t=>DiceLabelVisibleGlyphRects07(t));
+                    var frames=new Dictionary<string,Rect>{{"LockedTray071",V06ScreenRect(FindActive<RectTransform>("LockedTray071"))}};
+                    for(int slot=0;slot<8;slot++)frames.Add("Slot"+slot,V06ScreenRect(FindActive<RectTransform>("Slot"+slot)));
+                    var pointers=app.canvas.GetComponentsInChildren<DiePointer>(false).Where(p=>p.name.StartsWith("Die_")).ToArray();
+                    Assert.That(pointers,Has.Length.EqualTo(10),scope+" must retain every actual die view");
+                    var dice=new Dictionary<string,List<Rect>>();
+                    foreach(var pointer in pointers)
+                    {
+                        string id=pointer.name.Substring(4);var orientation=app.table.GetFaceOrientation(id);
+                        Assert.That(orientation,Is.Not.Null,id);
+                        dice[id]=orientation.GetComponentsInChildren<Renderer>(false).Where(r=>r.enabled).Select(DiceLabelRendererRect07).ToList();
+                        Assert.That(dice[id],Is.Not.Empty,id+" must have projected visible geometry");
+                    }
+                    var neighbours=app.canvas.GetComponentsInChildren<TextMeshProUGUI>(false)
+                        .Where(t=>t.name.StartsWith("DieState")||t.name.StartsWith("SlotIndex")||t.name.StartsWith("EmptySlot")||t.name=="PoolTitle")
+                        .ToDictionary(t=>t,t=>DiceLabelVisibleGlyphRects07(t));
+                    Assert.That(neighbours.Keys.Count(t=>t.name.StartsWith("SlotIndex")),Is.EqualTo(8));
+                    Assert.That(neighbours.Keys.Count(t=>t.name.StartsWith("DieState")),Is.EqualTo(10));
+                    float minimumClearance=float.MaxValue;
+                    foreach(var header in headers)
+                    {
+                        Assert.That(glyphs[header],Is.Not.Empty,header.name);
+                        Assert.That(header.isTextTruncated,Is.False,header.name);
+                        foreach(var glyph in glyphs[header])
+                        {
+                            Assert.That(ScoreContains07(Screen.safeArea,glyph),Is.True,scope+" "+header.name+" leaves the actual safe area");
+                            foreach(var frame in frames)
+                            {
+                                // Screen pixels, not the production heading offset or
+                                // a guessed font line height: captions sit above all slots.
+                                float clearance=glyph.yMin-frame.Value.yMax;
+                                minimumClearance=Mathf.Min(minimumClearance,clearance);
+                                Assert.That(clearance,Is.GreaterThanOrEqualTo(3f),scope+" "+header.name+" glyph touches "+frame.Key+"; actual clearance="+clearance);
+                            }
+                            foreach(var die in dice)foreach(var projected in die.Value)
+                                Assert.That(glyph.Overlaps(projected),Is.False,scope+" "+header.name+" overlaps projected die "+die.Key+"; glyph="+glyph+"; die="+projected);
+                            foreach(var neighbour in neighbours)foreach(var other in neighbour.Value)
+                                Assert.That(glyph.Overlaps(other),Is.False,scope+" "+header.name+" overlaps "+neighbour.Key.name+" glyph");
+                        }
+                    }
+                    foreach(var left in glyphs[headers[0]])foreach(var right in glyphs[headers[1]])
+                        Assert.That(left.Overlaps(right),Is.False,scope+" the two header captions overlap");
+                    AssertInteractionCheckpoint07(before,disk,sequence);
+                    TestContext.WriteLine(scope+" minimum actual header-to-tray/slot clearance="+minimumClearance+" px; font="+UiKit.FontScale+"; runtime="+typeof(GameApp).Module.ModuleVersionId+"; tests="+typeof(GameplayPlayModeTests).Module.ModuleVersionId);
+                }
+            }
+        }
+
+        [UnityTest]
         public IEnumerator PLAY_ART071_BoldMaterialSurvivesRefreshAndReleasesWithTheScene()
         {
             Canvas.ForceUpdateCanvases();yield return null;
