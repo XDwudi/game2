@@ -95,6 +95,7 @@ namespace DiceCraft
                     label.rectTransform.sizeDelta=new Vector2(slot.xMax-x,slot.yMax-y-2);
                 }
                 label.ForceMeshUpdate();
+                DrawTemporaryClock071(label,after,true,Compact07);
             }
             if(!changed)
             {

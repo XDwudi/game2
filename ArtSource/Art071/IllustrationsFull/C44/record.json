@@ -1,0 +1,61 @@
+{
+  "id": "C44",
+  "name": "有钱真好",
+  "status": "source_review_complete_pending_independent_and_unity",
+  "tool": "built-in imagegen",
+  "model_snapshot": "not exposed by tool",
+  "tool_source_path": "C:\\Users\\f\\.codex\\generated_images\\01a1bc4f-283e-7c00-80a6-e00ae79dd0a1\\exec-bb315e5c-deaa-40ae-adb1-a874ce37ec95.png",
+  "path": "ArtSource/Art071/IllustrationsFull/C44/original.png",
+  "sha256": "741d29e43b2e28525ee88fa5affee35fe5415a89d9d02f4f7d7c6763d414e628",
+  "dimensions": [
+    1254,
+    1254
+  ],
+  "mode": "RGBA",
+  "alpha_range": [
+    0,
+    255
+  ],
+  "alpha_bounds": [
+    0,
+    19,
+    1246,
+    1238
+  ],
+  "prompt_sha256": "191ca37b50f95e7599705354560f06a0032a01d3ad2c204092a7f6a4cf13616d",
+  "references": [
+    {
+      "path": "docs/specs/v071/handoff/references/battle_master_v071.png",
+      "sha256": "02895a850ba48c636445c963f705244d190bdb8b94c07f449a0269fc5047f8dc",
+      "role": "style master",
+      "actuallyViewed": true
+    },
+    {
+      "path": "ArtSource/Art071/Illustrations/illustration_c29.png",
+      "sha256": "d380eecb4921984d2aacb4b50b1c7ee6fdcbdbb9f3596550fa79b476d4320728",
+      "role": "fixed illustration style anchor",
+      "actuallyViewed": true
+    }
+  ],
+  "config": {
+    "path": "DicePrototype/Assets/Game/Data/P0Config.json",
+    "sha256": "747ed1efc7bea15873f66a81eee5c7654971c21031f2a1517ce629adce7b6e6c",
+    "version": "p0.6.0"
+  },
+  "configDescription": "每1金币令整手基础分+2，读取本次提交冻结时的钱包；本次提交新增金币不回算本手。",
+  "createdUtc": "2026-11-09T02:36:43.688622+00:00",
+  "unityIntegrated": false,
+  "authorReview": {
+    "originalViewed": true,
+    "surfaceAndSmallSizeViewed": true,
+    "evidence": "cache/v071-full/reviews/C41-C44-surface-and-size.png",
+    "observations": "主题物件与轮廓清楚；暖纸/深桌面/72px缩略已看；无可见白背景、文字、数值或裁切。C41/C43/C44存在边缘alpha=1原始残留，无可见影响；保留原图字节。",
+    "status": "source_candidate_for_independent_review_not_final_acceptance"
+  },
+  "technicalVerification": {
+    "selectedMatchesToolOriginal": true,
+    "rgbaDecoded": true,
+    "promptAndReferenceHashesVerified": true,
+    "noPixelPostprocessing": true
+  }
+}

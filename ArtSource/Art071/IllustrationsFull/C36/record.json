@@ -1,0 +1,57 @@
+{
+  "id": "C36",
+  "name": "不断成长",
+  "createdUtc": "2026-11-09T02:48:01.142350+00:00",
+  "author": "/root/project_audit",
+  "tool": "built-in imagegen",
+  "modelSnapshot": "not exposed",
+  "intent": "new standalone themed illustration matching fixed v071 reference pair",
+  "originalToolPath": "C:\\Users\\f\\.codex\\generated_images\\01a1bc4e-02cf-7610-8093-a866440df249\\exec-c58348b5-1fb7-495a-b46d-0e892060645e.png",
+  "file": "original.png",
+  "sha256": "d019d0bdd446f7670d4c9c88c4cf43535be2fb7194427bcfbca9a0038e5a06de",
+  "dimensions": [
+    1254,
+    1254
+  ],
+  "mode": "RGBA",
+  "alpha0": 979948,
+  "alpha255": 2430,
+  "alphaPartial": 590138,
+  "alphaBounds": [
+    41,
+    9,
+    1184,
+    1230
+  ],
+  "promptFile": "prompt.txt",
+  "promptSha256": "9b8a0d78c071f8695bd6480f54d24448457a1facb456e4f45ac833405f4fac76",
+  "configDescription": "至少提交2颗且S.Count<K，提交后前两颗本次物理面原值+1，上限6。",
+  "configPath": "DicePrototype/Assets/Game/Data/P0Config.json",
+  "configSha256": "747ed1efc7bea15873f66a81eee5c7654971c21031f2a1517ce629adce7b6e6c",
+  "references": [
+    {
+      "path": "docs/specs/v071/handoff/references/battle_master_v071.png",
+      "sha256": "02895a850ba48c636445c963f705244d190bdb8b94c07f449a0269fc5047f8dc",
+      "role": "style master"
+    },
+    {
+      "path": "ArtSource/Art071/Illustrations/illustration_c29.png",
+      "sha256": "d380eecb4921984d2aacb4b50b1c7ee6fdcbdbb9f3596550fa79b476d4320728",
+      "role": "fixed standalone style anchor"
+    }
+  ],
+  "status": "candidate; author source/edge/small-size checks completed; independent and engine review pending",
+  "sourcePixelsAltered": false,
+  "authorReview": {
+    "actualOriginalViewed": true,
+    "paperAndFeltPreviewViewed": true,
+    "previewSizes": [
+      420,
+      176,
+      64
+    ],
+    "groupPreview": "cache/v071-full/author-previews/group-4.png",
+    "observation": "骰形花盆与两片薄荷绿大叶，成长轮廓清楚。 正确RGBA浅纸/深青合成未见可见白框或主体裁切。",
+    "limitation": "author check only; not independent art acceptance or engine evidence"
+  }
+}

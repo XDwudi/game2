@@ -1,0 +1,57 @@
+{
+  "id": "C24",
+  "name": "我是状元",
+  "createdUtc": "2026-11-09T02:34:26.623796+00:00",
+  "author": "/root/project_audit",
+  "tool": "built-in imagegen",
+  "modelSnapshot": "not exposed",
+  "intent": "new standalone themed illustration matching fixed v071 reference pair",
+  "originalToolPath": "C:\\Users\\f\\.codex\\generated_images\\01a1bc4e-02cf-7610-8093-a866440df249\\exec-f236df25-ec02-41a0-94f8-27fcdd55f63d.png",
+  "file": "original.png",
+  "sha256": "cf64db14f1b82cb72d1ed0fbf5a9540672d46215b46b54bc4134de8f762949f2",
+  "dimensions": [
+    1254,
+    1254
+  ],
+  "mode": "RGBA",
+  "alpha0": 869099,
+  "alpha255": 2331,
+  "alphaPartial": 701086,
+  "alphaBounds": [
+    0,
+    0,
+    1253,
+    1254
+  ],
+  "promptFile": "prompt.txt",
+  "promptSha256": "c494b0e13d81dbedb1aef52cf996ce1a5d63d84bda86af273b2baa105a9b159d",
+  "configDescription": "仅计算红组时，红色有效1按4分组，与其他红4合组；其他计分不变。",
+  "configPath": "DicePrototype/Assets/Game/Data/P0Config.json",
+  "configSha256": "747ed1efc7bea15873f66a81eee5c7654971c21031f2a1517ce629adce7b6e6c",
+  "references": [
+    {
+      "path": "docs/specs/v071/handoff/references/battle_master_v071.png",
+      "sha256": "02895a850ba48c636445c963f705244d190bdb8b94c07f449a0269fc5047f8dc",
+      "role": "style master"
+    },
+    {
+      "path": "ArtSource/Art071/Illustrations/illustration_c29.png",
+      "sha256": "d380eecb4921984d2aacb4b50b1c7ee6fdcbdbb9f3596550fa79b476d4320728",
+      "role": "fixed standalone style anchor"
+    }
+  ],
+  "status": "candidate; author source/edge/small-size checks completed; independent and engine review pending",
+  "sourcePixelsAltered": false,
+  "authorReview": {
+    "actualOriginalViewed": true,
+    "paperAndFeltPreviewViewed": true,
+    "previewSizes": [
+      420,
+      176,
+      64
+    ],
+    "groupPreview": "cache/v071-full/author-previews/group-1.png",
+    "observation": "红帽/卷轴主体大，固定名次文字未烘焙；红组寓意由正文解释。 浅纸/深青预览未见可见白底框或主体裁切。",
+    "limitation": "author check only; not independent art acceptance or engine evidence"
+  }
+}

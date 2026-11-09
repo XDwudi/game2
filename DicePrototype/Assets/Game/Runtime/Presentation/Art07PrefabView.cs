@@ -21,11 +21,13 @@ namespace DiceCraft.Presentation
         public GameObject[] fullOnly = Array.Empty<GameObject>();
         public Image compactIcon, badge, compactBadge;
         public GameObject[] burstLayers = Array.Empty<GameObject>(), burstStaticStars = Array.Empty<GameObject>();
+        public Sprite scoreRing071,scoreArc071;
         public string[] fieldKeys = Array.Empty<string>();
         public TMP_Text[] fieldValues = Array.Empty<TMP_Text>();
         public UnityEngine.UI.Image icon, fill;
         public UnityEngine.UI.Button action;
         public RectTransform[] lineSegments = Array.Empty<RectTransform>();
+        public RectTransform[] uprightWheelLabels = Array.Empty<RectTransform>();
         public Transform[] particles = Array.Empty<Transform>();
         public MeshRenderer diceBody;
         public MeshFilter[] physicalFaces = Array.Empty<MeshFilter>();
@@ -58,7 +60,7 @@ namespace DiceCraft.Presentation
         public void ConfigureCommittedReveal(bool resultOnly,float phaseSeconds){committedRevealFadeOnly=resultOnly;committedRevealFadeFraction=Mathf.Clamp01(.08f/Mathf.Max(.001f,phaseSeconds));if(icon!=null&&resultOnly)icon.rectTransform.localRotation=Quaternion.Euler(0,0,revealAngle);Evaluate(0);}
         private Art07ScoreBurstLayout scoreBurstLayout;
         public int BurstLevel=>burstLevel;
-        public void ConfigureScoreBurst(Vector2 size) { if(motion!=Motion.Burst)throw new InvalidOperationException("Not a Combo view."); Initialize(); if(scoreBurstLayout==null){scoreBurstLayout=GetComponent<Art07ScoreBurstLayout>();if(scoreBurstLayout==null)scoreBurstLayout=gameObject.AddComponent<Art07ScoreBurstLayout>();scoreBurstLayout.Initialize(this);} scoreBurstLayout.Configure(size); }
+        public void ConfigureScoreBurst(Vector2 size,bool lowQuality=false) { if(motion!=Motion.Burst)throw new InvalidOperationException("Not a Combo view."); Initialize(); if(scoreBurstLayout==null){scoreBurstLayout=GetComponent<Art07ScoreBurstLayout>();if(scoreBurstLayout==null)scoreBurstLayout=gameObject.AddComponent<Art07ScoreBurstLayout>();scoreBurstLayout.Initialize(this);} scoreBurstLayout.Configure(size,lowQuality); }
 
         private void Awake() { Initialize(); if (motion == Motion.Burst) SetBurstLevel(0); }
 
@@ -214,6 +216,7 @@ namespace DiceCraft.Presentation
             if (fill != null && (motion == Motion.Wipe || motion == Motion.Probability)) fill.fillAmount = ReducedMotion ? 1 : eased;
             if (group != null && isEffect) group.alpha = motion==Motion.Reveal&&committedRevealFadeOnly?Mathf.Clamp01(t/Mathf.Max(.001f,committedRevealFadeFraction)):t < .7f ? 1 : 1 - (t - .7f) / .3f;
             if (ReducedMotion) { for (int i = 0; i < particles.Length; i++) if (particles[i] != null) particles[i].gameObject.SetActive(false); if (motion == Motion.Reveal && icon != null) icon.rectTransform.localRotation = Quaternion.Euler(0, 0, revealAngle); }
+            if(motion==Motion.Reveal&&icon!=null)foreach(var label in uprightWheelLabels)if(label!=null)label.localRotation=Quaternion.Inverse(icon.rectTransform.localRotation);
             scoreBurstLayout?.Evaluate(t);
         }
         public void Complete()

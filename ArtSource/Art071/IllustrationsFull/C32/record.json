@@ -1,0 +1,57 @@
+{
+  "id": "C32",
+  "name": "天地大同",
+  "createdUtc": "2026-11-09T02:43:40.604383+00:00",
+  "author": "/root/project_audit",
+  "tool": "built-in imagegen",
+  "modelSnapshot": "not exposed",
+  "intent": "new standalone themed illustration matching fixed v071 reference pair",
+  "originalToolPath": "C:\\Users\\f\\.codex\\generated_images\\01a1bc4e-02cf-7610-8093-a866440df249\\exec-d0a4ab43-779b-420d-9b46-0597f7983818.png",
+  "file": "original.png",
+  "sha256": "ea27e6121b37eca6a704169bcb1beb614e445d9a6cbd8f83a19030eac160c303",
+  "dimensions": [
+    1254,
+    1254
+  ],
+  "mode": "RGBA",
+  "alpha0": 826734,
+  "alpha255": 1345,
+  "alphaPartial": 744437,
+  "alphaBounds": [
+    0,
+    21,
+    1234,
+    1254
+  ],
+  "promptFile": "prompt.txt",
+  "promptSha256": "f88987f428bf77293b8e22e70e2e36c48bb5e8d7b5cb75ef3e45e0512ae400d6",
+  "configDescription": "非空提交只有一种有效点数时，整手得分×3；单骰也满足。",
+  "configPath": "DicePrototype/Assets/Game/Data/P0Config.json",
+  "configSha256": "747ed1efc7bea15873f66a81eee5c7654971c21031f2a1517ce629adce7b6e6c",
+  "references": [
+    {
+      "path": "docs/specs/v071/handoff/references/battle_master_v071.png",
+      "sha256": "02895a850ba48c636445c963f705244d190bdb8b94c07f449a0269fc5047f8dc",
+      "role": "style master"
+    },
+    {
+      "path": "ArtSource/Art071/Illustrations/illustration_c29.png",
+      "sha256": "d380eecb4921984d2aacb4b50b1c7ee6fdcbdbb9f3596550fa79b476d4320728",
+      "role": "fixed standalone style anchor"
+    }
+  ],
+  "status": "candidate; author source/edge/small-size checks completed; independent and engine review pending",
+  "sourcePixelsAltered": false,
+  "authorReview": {
+    "actualOriginalViewed": true,
+    "paperAndFeltPreviewViewed": true,
+    "previewSizes": [
+      420,
+      176,
+      64
+    ],
+    "groupPreview": "cache/v071-full/author-previews/group-3.png",
+    "observation": "同款骰围成花环，中央负空间明确；全同主题和三条/四角区分。 正确RGBA浅纸/深青合成未见可见白框或主体裁切。",
+    "limitation": "author check only; not independent art acceptance or engine evidence"
+  }
+}

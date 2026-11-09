@@ -94,8 +94,8 @@ namespace DiceCraft
             if(string.IsNullOrEmpty(id)||id=="none")return;
             var sprite=enchantIcons?.FirstOrDefault(s=>s!=null&&s.name=="badge_enchant_"+id)
                 ??enchantIcons?.FirstOrDefault(s=>s!=null&&s.name=="Enchant_"+id);
-            var box=UiKit.Box(parent,"EnchantFrame",x-2,y-2,size+4,size+4,id=="slotless"?UiKit.Teal:id=="base10"?UiKit.Gold:UiKit.Blue);
-            if(sprite!=null){var image=UiKit.Component<UnityEngine.UI.Image>(UiKit.Rect(box,"Badge",2,2,size,size).gameObject);image.sprite=sprite;image.raycastTarget=false;}
+            var box=UiKit.Rect(parent,"EnchantFrame",x-2,y-2,size+4,size+4);
+            if(sprite!=null){var image=UiKit.Component<UnityEngine.UI.Image>(UiKit.Rect(box,"Badge",2,2,size,size).gameObject);image.sprite=sprite;image.raycastTarget=false;image.preserveAspect=true;}
             else UiKit.Text(box,"Symbol",id=="slotless"?"−":id=="base10"?"+10":id=="mult2"?"×2":"+1",0,0,size+4,size+4,16,UiKit.Ink,TextAlignmentOptions.Center);
         }
         private string ControllerPurchaseText(ShopOffer offer)
@@ -116,11 +116,11 @@ namespace DiceCraft
             UiKit.Text(card,"Identity",item.instanceId,8,222,168,40,18,UiKit.Ink,TextAlignmentOptions.Center);
             EnchantBadge(card,item.enchantmentId,132,10,40);
             var source=ViewSources.FirstOrDefault(x=>x.emitterId==item.instanceId);
-            var list=UiKit.Scroll(p,"ControllerDetail",232,104,704,500,500);float y=0;
-            Art07DetailSection(list,"Skill","基础技能",Description(item.definitionId),ref y,672);
-            Art07DetailSection(list,"Enchantment","自身附魔",EnchantLabel(item.enchantmentId),ref y,672);
+            var list=PaperDetailScroll071(p,"ControllerDetail",232,104,704,500);float y=0;
+            Art07DetailSection(list,"Skill","基础技能",Description(item.definitionId),ref y,672,true);
+            Art07DetailSection(list,"Enchantment","自身附魔",EnchantLabel(item.enchantmentId),ref y,672,true);
             if((item.enchantmentId=="base10"||item.enchantmentId=="mult2")&&(source?.abilityId==null||!Config.Controller(source.abilityId).scoreEnchantEligible))
-                Art07DetailSection(list,"NoScoreTrigger","实验组合 · 无提交触发","保留附魔外观，但本实例当前技能不会产生计分附魔加成。",ref y,672);
+                Art07DetailSection(list,"NoScoreTrigger","实验组合 · 无提交触发","保留附魔外观，但本实例当前技能不会产生计分附魔加成。",ref y,672,true);
             string current=ControllerStateLabel(item);
             if(item.definitionId=="C41")
             {
@@ -136,13 +136,13 @@ namespace DiceCraft
                 var draw=last?.snapshot.resolvedRandomChoices.FirstOrDefault(q=>q.ownerInstanceId==source.stateOwnerId);
                 if(draw!=null)current+="\n上一提交记录：×"+(draw.units2/2m).ToString("0.#")+"（非下次预告）";
             }
-            Art07DetailSection(list,"Current","当前实例与目标",string.IsNullOrEmpty(current)?"当前 Run 生效；按技能条件判定。":current,ref y,672);
+            Art07DetailSection(list,"Current","当前实例与目标",string.IsNullOrEmpty(current)?"当前 Run 生效；按技能条件判定。":current,ref y,672,true);
             if(item.definitionId=="C41"||item.definitionId=="C52")
-                Art07DetailSection(list,"Fund","本实例基金","基础卖价 "+Config.baseControllerSellPrice+" + 基金累计 "+item.state.fundAccrual+" = 当前卖价 "+Session.GetControllerSalePrice(item.instanceId)+"。未出售时不进入钱包。",ref y,672);
+                Art07DetailSection(list,"Fund","本实例基金","基础卖价 "+Config.baseControllerSellPrice+" + 基金累计 "+item.state.fundAccrual+" = 当前卖价 "+Session.GetControllerSalePrice(item.instanceId)+"。未出售时不进入钱包。",ref y,672,true);
             var preview=Session.PreviewScoreRange();
             string trigger=preview==null?"锁定骰子后可查看当前提交条件。":preview.isRandom?"存在尚未抽取的随机结果；这里不预告下次结果。":preview.minimum.triggeredSourceIds.Contains(item.instanceId)?"当前提交：条件命中。实际增益以分项为准。":"当前提交：条件未满足。卡片仍然有效。";
-            Art07DetailSection(list,"Trigger","当前触发",trigger,ref y,672);
-            Art07DetailSection(list,"Price","交易与规则","当前卖价 "+Session.GetControllerSalePrice(item.instanceId)+"。出售会失去本实例及附魔，已完成的永久骰面改造保留。",ref y,672);
+            Art07DetailSection(list,"Trigger","当前触发",trigger,ref y,672,true);
+            Art07DetailSection(list,"Price","交易与规则","当前卖价 "+Session.GetControllerSalePrice(item.instanceId)+"。出售会失去本实例及附魔，已完成的永久骰面改造保留。",ref y,672,true);
             list.sizeDelta=new Vector2(list.sizeDelta.x,y+16);
             if(selling)
             {
@@ -151,10 +151,19 @@ namespace DiceCraft
             }
             else UiKit.Text(p,"HeldRule","关内顺序已固定；在商店出售或调整。",24,628,912,64,24,UiKit.Muted);
         }
-        private void Art07DetailSection(Transform parent,string id,string heading,string text,ref float y,float width)
+        // Keep existing viewport geometry and hierarchy; the paper is a non-raycasting
+        // sibling behind the content, so scrolling, focus and footer actions stay intact.
+        private RectTransform PaperDetailScroll071(Transform parent,string name,float x,float y,float width,float height)
         {
-            UiKit.Text(parent,id+"Title",heading,0,y,width,44,23,UiKit.Gold);y+=48*UiKit.FontScale;
-            var body=UiKit.Text(parent,id+"Body",text,0,y,width,40,24,UiKit.Paper);y+=FitHeight(body,40)+28;
+            UiKit.PaperFrame(parent,name+"Paper",x-12,y-12,width+24,height+24,UiKit.Paper);
+            return UiKit.Scroll(parent,name,x,y,width,height,height);
+        }
+        private void Art07DetailSection(Transform parent,string id,string heading,string text,ref float y,float width,bool onPaper=false)
+        {
+            // Dark amber remains a section accent on warm paper; warning/action colors
+            // outside this content panel keep their existing semantic treatment.
+            UiKit.Text(parent,id+"Title",heading,0,y,width,44,23,onPaper?new Color(.42f,.25f,.10f):UiKit.Gold);y+=48*UiKit.FontScale;
+            var body=UiKit.Text(parent,id+"Body",text,0,y,width,40,24,onPaper?UiKit.Ink:UiKit.Paper);y+=FitHeight(body,40)+28;
         }
         private void Art07ConfirmControllerSale(ControllerInstance item)
         {

@@ -1,0 +1,1813 @@
+{
+  "schema": "dicecraft-v071-full-ui-1",
+  "status": "source_export_review_not_integrated",
+  "editable_source": "tools/art_v071/build_full_ui.py",
+  "script_sha256": "24524dfbb7cb5967888b67b2e75f2b48429816c21847bec50247bdb987f8da75",
+  "tools": {
+    "python": "3.11.4",
+    "Pillow": "9.4.0",
+    "fontTools": "4.25.0",
+    "numpy": "1.24.3"
+  },
+  "palette": {
+    "felt": "#173E40",
+    "deep": "#102A2D",
+    "paper": "#F4E8CB",
+    "ink": "#162629",
+    "red": "#EC655D",
+    "blue": "#55B6D9",
+    "gold": "#F3BA58",
+    "mint": "#79C99C",
+    "violet": "#AD92DB",
+    "white": "#FFFFFF",
+    "shadow": "#07191C"
+  },
+  "font": {
+    "path": "DicePrototype/Assets/Game/Fonts/NotoSansSC-Bold.otf",
+    "sha256": "d1961be1161ea1be08496c920862d06ea5c23a757628f4fd69368de1d9f51bed",
+    "license": "ArtSource/Art071/Fonts/LICENSE.txt",
+    "copyright": "ArtSource/Art071/Fonts/COPYRIGHT.txt",
+    "use": "fixed title outlines only"
+  },
+  "reference": "docs/specs/v071/handoff/references/battle_master_v071.png",
+  "reference_sha256": "02895a850ba48c636445c963f705244d190bdb8b94c07f449a0269fc5047f8dc",
+  "assets": [
+    {
+      "id": "badge_enchant_base10",
+      "category": "Symbols",
+      "role": "base10 / mint plus stamp",
+      "source": "ArtSource/Art071/Full/Symbols/badge_enchant_base10.svg",
+      "export": "ArtSource/Art071/Full/Symbols/badge_enchant_base10.png",
+      "source_sha256": "ead72754bbee5f00276035f283365a2210dbccf401287786267a6e08a9c56bc7",
+      "sha256": "95b42442b72add929e572af778623e30302e2d323e398b1f3671cd24705e7a2a",
+      "dimensions": [
+        256,
+        256
+      ],
+      "alpha_bounds": [
+        12,
+        12,
+        244,
+        244
+      ],
+      "edge_alpha_max": 0,
+      "alpha_range": [
+        0,
+        255
+      ],
+      "consumers": [
+        "GameApp.V05.EnchantBadge",
+        "app.enchantIcons"
+      ],
+      "importer": {
+        "textureType": "Sprite",
+        "spriteMode": "Single",
+        "filterMode": "Bilinear",
+        "wrapMode": "Clamp",
+        "mipmapEnabled": false,
+        "alphaIsTransparency": true,
+        "sRGBTexture": true,
+        "compression": "Uncompressed",
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      }
+    },
+    {
+      "id": "fx_arc_short",
+      "category": "FX",
+      "role": "short tintable trajectory / new consumer required",
+      "source": "ArtSource/Art071/Full/FX/fx_arc_short.svg",
+      "export": "ArtSource/Art071/Full/FX/fx_arc_short.png",
+      "source_sha256": "140f2fe2f966eac077083578f7eb8059eba52d7505e720d8c06d4f48228975b3",
+      "sha256": "0064ee5a5956c6942cb6e7c2f6aefc8261e4e1c1e8281aa9b533fdd27ca6e7b8",
+      "dimensions": [
+        256,
+        256
+      ],
+      "alpha_bounds": [
+        17,
+        52,
+        235,
+        195
+      ],
+      "edge_alpha_max": 0,
+      "alpha_range": [
+        0,
+        255
+      ],
+      "consumers": [
+        "NEW: controller-to-score effect; do not replace orthogonal copy-link semantics"
+      ],
+      "importer": {
+        "textureType": "Sprite",
+        "spriteMode": "Single",
+        "filterMode": "Bilinear",
+        "wrapMode": "Clamp",
+        "mipmapEnabled": false,
+        "alphaIsTransparency": true,
+        "sRGBTexture": true,
+        "compression": "Uncompressed",
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      }
+    },
+    {
+      "id": "ui_wordmark_dicecraft",
+      "category": "UI",
+      "role": "fixed Chinese wordmark; original layout from licensed Noto glyphs",
+      "source": "ArtSource/Art071/Full/UI/ui_wordmark_dicecraft.svg",
+      "export": "ArtSource/Art071/Full/UI/ui_wordmark_dicecraft.png",
+      "source_sha256": "fe73adc51a3defea21cf6deb92f5a8199b6c892820447912c905bb9e2ba8148a",
+      "sha256": "a701800bb45cd83e0515d461981edd8790ddef9ba4206f3568a0be975c5971d1",
+      "dimensions": [
+        1440,
+        400
+      ],
+      "alpha_bounds": [
+        47,
+        48,
+        1333,
+        363
+      ],
+      "edge_alpha_max": 0,
+      "alpha_range": [
+        0,
+        255
+      ],
+      "consumers": [
+        "GameApp.Art071Screens.Menu071/MenuWordmark",
+        "GameApp.Art07 Brand optional"
+      ],
+      "importer": {
+        "textureType": "Sprite",
+        "spriteMode": "Single",
+        "filterMode": "Bilinear",
+        "wrapMode": "Clamp",
+        "mipmapEnabled": false,
+        "alphaIsTransparency": true,
+        "sRGBTexture": true,
+        "compression": "Uncompressed",
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      }
+    },
+    {
+      "id": "badge_enchant_mult2",
+      "category": "Symbols",
+      "role": "controller enchantment / mult2",
+      "source": "ArtSource/Art071/Full/Symbols/badge_enchant_mult2.svg",
+      "export": "ArtSource/Art071/Full/Symbols/badge_enchant_mult2.png",
+      "source_sha256": "d82a2675aa4180497120c4a6c205ab4b030e7b6692ea1d06b881c1e219ef9876",
+      "sha256": "b72088dccfe8d8f595f5a1dba9e44c0339ce29cd7954bf1346f65860abc1b58e",
+      "dimensions": [
+        256,
+        256
+      ],
+      "alpha_bounds": [
+        16,
+        16,
+        240,
+        240
+      ],
+      "edge_alpha_max": 0,
+      "alpha_range": [
+        0,
+        255
+      ],
+      "consumers": [
+        "GameApp.V05.EnchantBadge",
+        "app.enchantIcons"
+      ],
+      "importer": {
+        "textureType": "Sprite",
+        "spriteMode": "Single",
+        "filterMode": "Bilinear",
+        "wrapMode": "Clamp",
+        "mipmapEnabled": false,
+        "alphaIsTransparency": true,
+        "sRGBTexture": true,
+        "compression": "Uncompressed",
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      }
+    },
+    {
+      "id": "badge_enchant_slotless",
+      "category": "Symbols",
+      "role": "controller enchantment / slotless",
+      "source": "ArtSource/Art071/Full/Symbols/badge_enchant_slotless.svg",
+      "export": "ArtSource/Art071/Full/Symbols/badge_enchant_slotless.png",
+      "source_sha256": "2455058bbebe7502eb89809d091246fc3e1c02f202b6fb30db52035eb42e335a",
+      "sha256": "e22321803fa6f51dcb63735fe6d2713f5adb8d15df5c8bc743786d68a6306850",
+      "dimensions": [
+        256,
+        256
+      ],
+      "alpha_bounds": [
+        27,
+        31,
+        229,
+        225
+      ],
+      "edge_alpha_max": 0,
+      "alpha_range": [
+        0,
+        255
+      ],
+      "consumers": [
+        "GameApp.V05.EnchantBadge",
+        "app.enchantIcons"
+      ],
+      "importer": {
+        "textureType": "Sprite",
+        "spriteMode": "Single",
+        "filterMode": "Bilinear",
+        "wrapMode": "Clamp",
+        "mipmapEnabled": false,
+        "alphaIsTransparency": true,
+        "sRGBTexture": true,
+        "compression": "Uncompressed",
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      }
+    },
+    {
+      "id": "badge_enchant_submit1",
+      "category": "Symbols",
+      "role": "controller enchantment / submit1",
+      "source": "ArtSource/Art071/Full/Symbols/badge_enchant_submit1.svg",
+      "export": "ArtSource/Art071/Full/Symbols/badge_enchant_submit1.png",
+      "source_sha256": "bcf7de07f32e3a0e538a22ff326a81489a6eda33b9d428afba3d8286a8431001",
+      "sha256": "63b5df2672b8b22704d8639dbdc99cb9e32dcfb519ed8dd9bb7f30f9343aea70",
+      "dimensions": [
+        256,
+        256
+      ],
+      "alpha_bounds": [
+        14,
+        24,
+        242,
+        232
+      ],
+      "edge_alpha_max": 0,
+      "alpha_range": [
+        0,
+        255
+      ],
+      "consumers": [
+        "GameApp.V05.EnchantBadge",
+        "app.enchantIcons"
+      ],
+      "importer": {
+        "textureType": "Sprite",
+        "spriteMode": "Single",
+        "filterMode": "Bilinear",
+        "wrapMode": "Clamp",
+        "mipmapEnabled": false,
+        "alphaIsTransparency": true,
+        "sRGBTexture": true,
+        "compression": "Uncompressed",
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      }
+    },
+    {
+      "id": "badge_enchant_roll1",
+      "category": "Symbols",
+      "role": "controller enchantment / roll1",
+      "source": "ArtSource/Art071/Full/Symbols/badge_enchant_roll1.svg",
+      "export": "ArtSource/Art071/Full/Symbols/badge_enchant_roll1.png",
+      "source_sha256": "84aaaab343044352e4c1f223f198d4dfd11aaeddf16bfaecb6f5ecee9aced9ef",
+      "sha256": "80230f8c2977563df65c431cb9463c71d59f8a321562ace235238224428d02ad",
+      "dimensions": [
+        256,
+        256
+      ],
+      "alpha_bounds": [
+        17,
+        17,
+        239,
+        239
+      ],
+      "edge_alpha_max": 0,
+      "alpha_range": [
+        0,
+        255
+      ],
+      "consumers": [
+        "GameApp.V05.EnchantBadge",
+        "app.enchantIcons"
+      ],
+      "importer": {
+        "textureType": "Sprite",
+        "spriteMode": "Single",
+        "filterMode": "Bilinear",
+        "wrapMode": "Clamp",
+        "mipmapEnabled": false,
+        "alphaIsTransparency": true,
+        "sRGBTexture": true,
+        "compression": "Uncompressed",
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      }
+    },
+    {
+      "id": "ui_icon_arrow_right",
+      "category": "Symbols",
+      "role": "shared status/action / arrow_right",
+      "source": "ArtSource/Art071/Full/Symbols/ui_icon_arrow_right.svg",
+      "export": "ArtSource/Art071/Full/Symbols/ui_icon_arrow_right.png",
+      "source_sha256": "6a3a65f4d8b28af435627b6676baa34c2c14c6ac639857487b4b74e1569fa8d1",
+      "sha256": "32ca264a7c711074d2a9453916c322de97fe05126dc31356b5517eea02105e8b",
+      "dimensions": [
+        256,
+        256
+      ],
+      "alpha_bounds": [
+        19,
+        47,
+        235,
+        209
+      ],
+      "edge_alpha_max": 0,
+      "alpha_range": [
+        0,
+        255
+      ],
+      "consumers": [
+        "DicePrototype/Assets/Game/Editor/Art07AssetLibrary.cs:310",
+        "DicePrototype/Assets/Game/Editor/Art07AssetLibrary.cs:319"
+      ],
+      "importer": {
+        "textureType": "Sprite",
+        "spriteMode": "Single",
+        "filterMode": "Bilinear",
+        "wrapMode": "Clamp",
+        "mipmapEnabled": false,
+        "alphaIsTransparency": true,
+        "sRGBTexture": true,
+        "compression": "Uncompressed",
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      }
+    },
+    {
+      "id": "ui_icon_back",
+      "category": "Symbols",
+      "role": "shared status/action / back",
+      "source": "ArtSource/Art071/Full/Symbols/ui_icon_back.svg",
+      "export": "ArtSource/Art071/Full/Symbols/ui_icon_back.png",
+      "source_sha256": "1ecb69e9e0df6cf141e2bb9238a5d8a80db547a836ad33c386f240f20d6466f9",
+      "sha256": "06d8a1bf55677abbece51b03cc696b77fbf9afb25810d020cc5834616ef87f6a",
+      "dimensions": [
+        256,
+        256
+      ],
+      "alpha_bounds": [
+        21,
+        47,
+        237,
+        209
+      ],
+      "edge_alpha_max": 0,
+      "alpha_range": [
+        0,
+        255
+      ],
+      "consumers": [
+        "Serialized app uiTemplates / Art07 prefab image references; exact-name replacement"
+      ],
+      "importer": {
+        "textureType": "Sprite",
+        "spriteMode": "Single",
+        "filterMode": "Bilinear",
+        "wrapMode": "Clamp",
+        "mipmapEnabled": false,
+        "alphaIsTransparency": true,
+        "sRGBTexture": true,
+        "compression": "Uncompressed",
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      }
+    },
+    {
+      "id": "ui_icon_broken",
+      "category": "Symbols",
+      "role": "shared status/action / broken",
+      "source": "ArtSource/Art071/Full/Symbols/ui_icon_broken.svg",
+      "export": "ArtSource/Art071/Full/Symbols/ui_icon_broken.png",
+      "source_sha256": "c724348cc7334d3b9b9bc23fd477660e1942278dfbed27854a81dff8624e66bf",
+      "sha256": "518d40e184f01ac91f7d5ec9301d41c45eb3fca77eee121f37bf7fe0c8a8d089",
+      "dimensions": [
+        256,
+        256
+      ],
+      "alpha_bounds": [
+        47,
+        18,
+        209,
+        236
+      ],
+      "edge_alpha_max": 0,
+      "alpha_range": [
+        0,
+        255
+      ],
+      "consumers": [
+        "Serialized app uiTemplates / Art07 prefab image references; exact-name replacement"
+      ],
+      "importer": {
+        "textureType": "Sprite",
+        "spriteMode": "Single",
+        "filterMode": "Bilinear",
+        "wrapMode": "Clamp",
+        "mipmapEnabled": false,
+        "alphaIsTransparency": true,
+        "sRGBTexture": true,
+        "compression": "Uncompressed",
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      }
+    },
+    {
+      "id": "ui_icon_broken_link",
+      "category": "Symbols",
+      "role": "shared status/action / broken_link",
+      "source": "ArtSource/Art071/Full/Symbols/ui_icon_broken_link.svg",
+      "export": "ArtSource/Art071/Full/Symbols/ui_icon_broken_link.png",
+      "source_sha256": "0b1d392de669adf04c4f12af2399ebb1c62c56cb817ce86737b945d8755cb7ff",
+      "sha256": "105f8b0d06b45aa9f77e733e37536b0fd4bc8fe609695ed682928e39e71ae306",
+      "dimensions": [
+        256,
+        256
+      ],
+      "alpha_bounds": [
+        25,
+        19,
+        232,
+        226
+      ],
+      "edge_alpha_max": 0,
+      "alpha_range": [
+        0,
+        255
+      ],
+      "consumers": [
+        "Serialized app uiTemplates / Art07 prefab image references; exact-name replacement"
+      ],
+      "importer": {
+        "textureType": "Sprite",
+        "spriteMode": "Single",
+        "filterMode": "Bilinear",
+        "wrapMode": "Clamp",
+        "mipmapEnabled": false,
+        "alphaIsTransparency": true,
+        "sRGBTexture": true,
+        "compression": "Uncompressed",
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      }
+    },
+    {
+      "id": "ui_icon_check",
+      "category": "Symbols",
+      "role": "shared status/action / check",
+      "source": "ArtSource/Art071/Full/Symbols/ui_icon_check.svg",
+      "export": "ArtSource/Art071/Full/Symbols/ui_icon_check.png",
+      "source_sha256": "552198f499a7ba9c6171168e393ee62997536c16fcef9dbd166c32e1153e8b0b",
+      "sha256": "063c185b1ea996cf3a1e40c714b74df8337ddae76c0db94a9f0bd84d7ce36aca",
+      "dimensions": [
+        256,
+        256
+      ],
+      "alpha_bounds": [
+        23,
+        45,
+        233,
+        203
+      ],
+      "edge_alpha_max": 0,
+      "alpha_range": [
+        0,
+        255
+      ],
+      "consumers": [
+        "Serialized app uiTemplates / Art07 prefab image references; exact-name replacement"
+      ],
+      "importer": {
+        "textureType": "Sprite",
+        "spriteMode": "Single",
+        "filterMode": "Bilinear",
+        "wrapMode": "Clamp",
+        "mipmapEnabled": false,
+        "alphaIsTransparency": true,
+        "sRGBTexture": true,
+        "compression": "Uncompressed",
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      }
+    },
+    {
+      "id": "ui_icon_close",
+      "category": "Symbols",
+      "role": "shared status/action / close",
+      "source": "ArtSource/Art071/Full/Symbols/ui_icon_close.svg",
+      "export": "ArtSource/Art071/Full/Symbols/ui_icon_close.png",
+      "source_sha256": "cfe71cfeee65f4a4a5c65f2d1d74b1c411d5a4a20300cd23baafe0da4071eaec",
+      "sha256": "1731043c7954e7c42c6b12df015c3996e6025f7a2cea89d2baa0d49c6630539b",
+      "dimensions": [
+        256,
+        256
+      ],
+      "alpha_bounds": [
+        39,
+        39,
+        217,
+        217
+      ],
+      "edge_alpha_max": 0,
+      "alpha_range": [
+        0,
+        255
+      ],
+      "consumers": [
+        "Serialized app uiTemplates / Art07 prefab image references; exact-name replacement"
+      ],
+      "importer": {
+        "textureType": "Sprite",
+        "spriteMode": "Single",
+        "filterMode": "Bilinear",
+        "wrapMode": "Clamp",
+        "mipmapEnabled": false,
+        "alphaIsTransparency": true,
+        "sRGBTexture": true,
+        "compression": "Uncompressed",
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      }
+    },
+    {
+      "id": "ui_icon_coin",
+      "category": "Symbols",
+      "role": "shared status/action / coin",
+      "source": "ArtSource/Art071/Full/Symbols/ui_icon_coin.svg",
+      "export": "ArtSource/Art071/Full/Symbols/ui_icon_coin.png",
+      "source_sha256": "e1f9036d65e7af3b64dd928ac5659c8d9a951ccd0d5520b960eca940749150f3",
+      "sha256": "0f338f920f4b17ec4050892d750cad4c494a44421def25d8af513f9f37cd4a9b",
+      "dimensions": [
+        256,
+        256
+      ],
+      "alpha_bounds": [
+        29,
+        21,
+        227,
+        235
+      ],
+      "edge_alpha_max": 0,
+      "alpha_range": [
+        0,
+        255
+      ],
+      "consumers": [
+        "DicePrototype/Assets/Game/Editor/Art07AssetLibrary.cs:301",
+        "DicePrototype/Assets/Game/UI/GameApp.Art07Settlement.cs:104"
+      ],
+      "importer": {
+        "textureType": "Sprite",
+        "spriteMode": "Single",
+        "filterMode": "Bilinear",
+        "wrapMode": "Clamp",
+        "mipmapEnabled": false,
+        "alphaIsTransparency": true,
+        "sRGBTexture": true,
+        "compression": "Uncompressed",
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      }
+    },
+    {
+      "id": "ui_icon_color_blue",
+      "category": "Symbols",
+      "role": "shared status/action / color_blue",
+      "source": "ArtSource/Art071/Full/Symbols/ui_icon_color_blue.svg",
+      "export": "ArtSource/Art071/Full/Symbols/ui_icon_color_blue.png",
+      "source_sha256": "9acb688a55ddabbcb0b9a4371e817e6b3a4b2aae33804adb86ea0f3053fd3304",
+      "sha256": "7918ae4e0c46e455ce151bf9f49368bd0f2f3eda4ffc3baacb8f6587adb5bc32",
+      "dimensions": [
+        256,
+        256
+      ],
+      "alpha_bounds": [
+        16,
+        16,
+        240,
+        240
+      ],
+      "edge_alpha_max": 0,
+      "alpha_range": [
+        0,
+        255
+      ],
+      "consumers": [
+        "Serialized app uiTemplates / Art07 prefab image references; exact-name replacement"
+      ],
+      "importer": {
+        "textureType": "Sprite",
+        "spriteMode": "Single",
+        "filterMode": "Bilinear",
+        "wrapMode": "Clamp",
+        "mipmapEnabled": false,
+        "alphaIsTransparency": true,
+        "sRGBTexture": true,
+        "compression": "Uncompressed",
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      }
+    },
+    {
+      "id": "ui_icon_color_red",
+      "category": "Symbols",
+      "role": "shared status/action / color_red",
+      "source": "ArtSource/Art071/Full/Symbols/ui_icon_color_red.svg",
+      "export": "ArtSource/Art071/Full/Symbols/ui_icon_color_red.png",
+      "source_sha256": "e48abdb3f471837c5fe048af66fd9db2a16002681aa40d21ea11b111ec4343f6",
+      "sha256": "685a2e0b97c78004ee24fee7addc9c9a9fbee4794023da9f13a85490d2d919b4",
+      "dimensions": [
+        256,
+        256
+      ],
+      "alpha_bounds": [
+        37,
+        37,
+        219,
+        219
+      ],
+      "edge_alpha_max": 0,
+      "alpha_range": [
+        0,
+        255
+      ],
+      "consumers": [
+        "Serialized app uiTemplates / Art07 prefab image references; exact-name replacement"
+      ],
+      "importer": {
+        "textureType": "Sprite",
+        "spriteMode": "Single",
+        "filterMode": "Bilinear",
+        "wrapMode": "Clamp",
+        "mipmapEnabled": false,
+        "alphaIsTransparency": true,
+        "sRGBTexture": true,
+        "compression": "Uncompressed",
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      }
+    },
+    {
+      "id": "ui_icon_eye",
+      "category": "Symbols",
+      "role": "shared status/action / eye",
+      "source": "ArtSource/Art071/Full/Symbols/ui_icon_eye.svg",
+      "export": "ArtSource/Art071/Full/Symbols/ui_icon_eye.png",
+      "source_sha256": "3ef13f0f5b25aa44127286d2dad27ee9946b2bc7a795765ef141749f4b482df6",
+      "sha256": "2739f3854d7c1819a26a56dd2369299fc921f5a948b0ccc5b461795730beba1b",
+      "dimensions": [
+        256,
+        256
+      ],
+      "alpha_bounds": [
+        15,
+        51,
+        241,
+        205
+      ],
+      "edge_alpha_max": 0,
+      "alpha_range": [
+        0,
+        255
+      ],
+      "consumers": [
+        "Serialized app uiTemplates / Art07 prefab image references; exact-name replacement"
+      ],
+      "importer": {
+        "textureType": "Sprite",
+        "spriteMode": "Single",
+        "filterMode": "Bilinear",
+        "wrapMode": "Clamp",
+        "mipmapEnabled": false,
+        "alphaIsTransparency": true,
+        "sRGBTexture": true,
+        "compression": "Uncompressed",
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      }
+    },
+    {
+      "id": "ui_icon_glass",
+      "category": "Symbols",
+      "role": "shared status/action / glass",
+      "source": "ArtSource/Art071/Full/Symbols/ui_icon_glass.svg",
+      "export": "ArtSource/Art071/Full/Symbols/ui_icon_glass.png",
+      "source_sha256": "1491fef6d946ad0d1d9c527631c13dda0299fcff485800d422a7386de09ff187",
+      "sha256": "bb7c4b42a8daa7e9d38016a465fe439f19fb0cb27e81b0e592cfa0f283606e37",
+      "dimensions": [
+        256,
+        256
+      ],
+      "alpha_bounds": [
+        19,
+        23,
+        237,
+        233
+      ],
+      "edge_alpha_max": 0,
+      "alpha_range": [
+        0,
+        255
+      ],
+      "consumers": [
+        "Serialized app uiTemplates / Art07 prefab image references; exact-name replacement"
+      ],
+      "importer": {
+        "textureType": "Sprite",
+        "spriteMode": "Single",
+        "filterMode": "Bilinear",
+        "wrapMode": "Clamp",
+        "mipmapEnabled": false,
+        "alphaIsTransparency": true,
+        "sRGBTexture": true,
+        "compression": "Uncompressed",
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      }
+    },
+    {
+      "id": "ui_icon_gold",
+      "category": "Symbols",
+      "role": "shared status/action / gold",
+      "source": "ArtSource/Art071/Full/Symbols/ui_icon_gold.svg",
+      "export": "ArtSource/Art071/Full/Symbols/ui_icon_gold.png",
+      "source_sha256": "12827706542dc295d203b942cb2224d60639a11ec575a62e6ddfe1590b312f09",
+      "sha256": "bbb5eea73c63c132fe05dcd785f17d36b3d0eccc657fbe0c013f88d5bb6216b2",
+      "dimensions": [
+        256,
+        256
+      ],
+      "alpha_bounds": [
+        12,
+        12,
+        244,
+        244
+      ],
+      "edge_alpha_max": 0,
+      "alpha_range": [
+        0,
+        255
+      ],
+      "consumers": [
+        "Serialized app uiTemplates / Art07 prefab image references; exact-name replacement"
+      ],
+      "importer": {
+        "textureType": "Sprite",
+        "spriteMode": "Single",
+        "filterMode": "Bilinear",
+        "wrapMode": "Clamp",
+        "mipmapEnabled": false,
+        "alphaIsTransparency": true,
+        "sRGBTexture": true,
+        "compression": "Uncompressed",
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      }
+    },
+    {
+      "id": "ui_icon_info",
+      "category": "Symbols",
+      "role": "shared status/action / info",
+      "source": "ArtSource/Art071/Full/Symbols/ui_icon_info.svg",
+      "export": "ArtSource/Art071/Full/Symbols/ui_icon_info.png",
+      "source_sha256": "061601e6b0d981c11be60605b82eba761781808ba66a860bec8d890cc46388ec",
+      "sha256": "b1f07f222adebfc576648c981e4e5155a1b73c5740d4beed51c435165031277c",
+      "dimensions": [
+        256,
+        256
+      ],
+      "alpha_bounds": [
+        25,
+        25,
+        231,
+        231
+      ],
+      "edge_alpha_max": 0,
+      "alpha_range": [
+        0,
+        255
+      ],
+      "consumers": [
+        "Serialized app uiTemplates / Art07 prefab image references; exact-name replacement"
+      ],
+      "importer": {
+        "textureType": "Sprite",
+        "spriteMode": "Single",
+        "filterMode": "Bilinear",
+        "wrapMode": "Clamp",
+        "mipmapEnabled": false,
+        "alphaIsTransparency": true,
+        "sRGBTexture": true,
+        "compression": "Uncompressed",
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      }
+    },
+    {
+      "id": "ui_icon_lock",
+      "category": "Symbols",
+      "role": "shared status/action / lock",
+      "source": "ArtSource/Art071/Full/Symbols/ui_icon_lock.svg",
+      "export": "ArtSource/Art071/Full/Symbols/ui_icon_lock.png",
+      "source_sha256": "b64138ad4368efe7fd7cf59bb58c7624a56d6445b87417c74f3776566ce165b1",
+      "sha256": "aba7e9240bfa73a0fa27a446cb59f7f057a6d161f41182d56857815ef391caa3",
+      "dimensions": [
+        256,
+        256
+      ],
+      "alpha_bounds": [
+        39,
+        15,
+        217,
+        231
+      ],
+      "edge_alpha_max": 0,
+      "alpha_range": [
+        0,
+        255
+      ],
+      "consumers": [
+        "DicePrototype/Assets/Game/Editor/Art07AssetLibrary.cs:252",
+        "DicePrototype/Assets/Game/UI/GameApp.Art07.cs:182"
+      ],
+      "importer": {
+        "textureType": "Sprite",
+        "spriteMode": "Single",
+        "filterMode": "Bilinear",
+        "wrapMode": "Clamp",
+        "mipmapEnabled": false,
+        "alphaIsTransparency": true,
+        "sRGBTexture": true,
+        "compression": "Uncompressed",
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      }
+    },
+    {
+      "id": "ui_icon_multiply",
+      "category": "Symbols",
+      "role": "shared status/action / multiply",
+      "source": "ArtSource/Art071/Full/Symbols/ui_icon_multiply.svg",
+      "export": "ArtSource/Art071/Full/Symbols/ui_icon_multiply.png",
+      "source_sha256": "567a0659810797779408dc978ba9ba55cc806cb5469338bfde261ebdbe6f181a",
+      "sha256": "1731043c7954e7c42c6b12df015c3996e6025f7a2cea89d2baa0d49c6630539b",
+      "dimensions": [
+        256,
+        256
+      ],
+      "alpha_bounds": [
+        39,
+        39,
+        217,
+        217
+      ],
+      "edge_alpha_max": 0,
+      "alpha_range": [
+        0,
+        255
+      ],
+      "consumers": [
+        "Serialized app uiTemplates / Art07 prefab image references; exact-name replacement"
+      ],
+      "importer": {
+        "textureType": "Sprite",
+        "spriteMode": "Single",
+        "filterMode": "Bilinear",
+        "wrapMode": "Clamp",
+        "mipmapEnabled": false,
+        "alphaIsTransparency": true,
+        "sRGBTexture": true,
+        "compression": "Uncompressed",
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      }
+    },
+    {
+      "id": "ui_icon_muted",
+      "category": "Symbols",
+      "role": "shared status/action / muted",
+      "source": "ArtSource/Art071/Full/Symbols/ui_icon_muted.svg",
+      "export": "ArtSource/Art071/Full/Symbols/ui_icon_muted.png",
+      "source_sha256": "bdf303255367de8bf3fc56b5272b22a73fb15f22d4a1d740d18297ffd807a6d5",
+      "sha256": "90d19c272fed8c2f5e3f713d80e79b62465237df524f431e9cc565087c90d0f6",
+      "dimensions": [
+        256,
+        256
+      ],
+      "alpha_bounds": [
+        23,
+        37,
+        236,
+        219
+      ],
+      "edge_alpha_max": 0,
+      "alpha_range": [
+        0,
+        255
+      ],
+      "consumers": [
+        "Serialized app uiTemplates / Art07 prefab image references; exact-name replacement"
+      ],
+      "importer": {
+        "textureType": "Sprite",
+        "spriteMode": "Single",
+        "filterMode": "Bilinear",
+        "wrapMode": "Clamp",
+        "mipmapEnabled": false,
+        "alphaIsTransparency": true,
+        "sRGBTexture": true,
+        "compression": "Uncompressed",
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      }
+    },
+    {
+      "id": "ui_icon_pending",
+      "category": "Symbols",
+      "role": "shared status/action / pending",
+      "source": "ArtSource/Art071/Full/Symbols/ui_icon_pending.svg",
+      "export": "ArtSource/Art071/Full/Symbols/ui_icon_pending.png",
+      "source_sha256": "c8f1fa1d3f62c660cfb420a0512609c30292ba843094ea389d5ea43f7e5afdbf",
+      "sha256": "93d4bb6af60d08876f0d03fdcd64bfe40bcfb0ebb2ea598dd34b4f4fe16c05f7",
+      "dimensions": [
+        256,
+        256
+      ],
+      "alpha_bounds": [
+        24,
+        24,
+        232,
+        232
+      ],
+      "edge_alpha_max": 0,
+      "alpha_range": [
+        0,
+        255
+      ],
+      "consumers": [
+        "Serialized app uiTemplates / Art07 prefab image references; exact-name replacement"
+      ],
+      "importer": {
+        "textureType": "Sprite",
+        "spriteMode": "Single",
+        "filterMode": "Bilinear",
+        "wrapMode": "Clamp",
+        "mipmapEnabled": false,
+        "alphaIsTransparency": true,
+        "sRGBTexture": true,
+        "compression": "Uncompressed",
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      }
+    },
+    {
+      "id": "ui_icon_plus",
+      "category": "Symbols",
+      "role": "shared status/action / plus",
+      "source": "ArtSource/Art071/Full/Symbols/ui_icon_plus.svg",
+      "export": "ArtSource/Art071/Full/Symbols/ui_icon_plus.png",
+      "source_sha256": "ea1ae145d592ee296b6d7a34edd687c100d394abf9300a897669e528451bcfc8",
+      "sha256": "37c5f25b88028764824157583c0b8ef229ec90524d21e401eebabf668b3ee1d8",
+      "dimensions": [
+        256,
+        256
+      ],
+      "alpha_bounds": [
+        39,
+        39,
+        217,
+        217
+      ],
+      "edge_alpha_max": 0,
+      "alpha_range": [
+        0,
+        255
+      ],
+      "consumers": [
+        "DicePrototype/Assets/Game/Editor/Art07AssetLibrary.cs:297",
+        "DicePrototype/Assets/Game/Editor/Art07AssetLibrary.cs:301"
+      ],
+      "importer": {
+        "textureType": "Sprite",
+        "spriteMode": "Single",
+        "filterMode": "Bilinear",
+        "wrapMode": "Clamp",
+        "mipmapEnabled": false,
+        "alphaIsTransparency": true,
+        "sRGBTexture": true,
+        "compression": "Uncompressed",
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      }
+    },
+    {
+      "id": "ui_icon_refresh",
+      "category": "Symbols",
+      "role": "shared status/action / refresh",
+      "source": "ArtSource/Art071/Full/Symbols/ui_icon_refresh.svg",
+      "export": "ArtSource/Art071/Full/Symbols/ui_icon_refresh.png",
+      "source_sha256": "1b6db336a70c2097ce9126d5030297bbfa2e5467c593d2fae429281c9a93147a",
+      "sha256": "666926ad76542caaf1ded8b4d5e671e64a97b047b76ebafe987cb64f8636654f",
+      "dimensions": [
+        256,
+        256
+      ],
+      "alpha_bounds": [
+        27,
+        28,
+        222,
+        224
+      ],
+      "edge_alpha_max": 0,
+      "alpha_range": [
+        0,
+        255
+      ],
+      "consumers": [
+        "DicePrototype/Assets/Game/UI/GameApp.Art07NewRun.cs:49"
+      ],
+      "importer": {
+        "textureType": "Sprite",
+        "spriteMode": "Single",
+        "filterMode": "Bilinear",
+        "wrapMode": "Clamp",
+        "mipmapEnabled": false,
+        "alphaIsTransparency": true,
+        "sRGBTexture": true,
+        "compression": "Uncompressed",
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      }
+    },
+    {
+      "id": "ui_icon_roll",
+      "category": "Symbols",
+      "role": "shared status/action / roll",
+      "source": "ArtSource/Art071/Full/Symbols/ui_icon_roll.svg",
+      "export": "ArtSource/Art071/Full/Symbols/ui_icon_roll.png",
+      "source_sha256": "2299944e9ea17831cfe6632a0d399986df99b1d61166b6a176e13c84490b3191",
+      "sha256": "b43530290167dd162490e6dc2b6681770df31fd1785cfe755bd80953cc9e6f55",
+      "dimensions": [
+        256,
+        256
+      ],
+      "alpha_bounds": [
+        23,
+        16,
+        203,
+        213
+      ],
+      "edge_alpha_max": 0,
+      "alpha_range": [
+        0,
+        255
+      ],
+      "consumers": [
+        "DicePrototype/Assets/Game/UI/GameApp.Art07.cs:93"
+      ],
+      "importer": {
+        "textureType": "Sprite",
+        "spriteMode": "Single",
+        "filterMode": "Bilinear",
+        "wrapMode": "Clamp",
+        "mipmapEnabled": false,
+        "alphaIsTransparency": true,
+        "sRGBTexture": true,
+        "compression": "Uncompressed",
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      }
+    },
+    {
+      "id": "ui_icon_rough",
+      "category": "Symbols",
+      "role": "shared status/action / rough",
+      "source": "ArtSource/Art071/Full/Symbols/ui_icon_rough.svg",
+      "export": "ArtSource/Art071/Full/Symbols/ui_icon_rough.png",
+      "source_sha256": "c48050d807592028c1d176ff947236ae4f55de9e1fcb502b9ad05f2580324fcf",
+      "sha256": "b5faffbf6b71cd1af11a5738b7d4d111a181a5fc5c9699a0c56cac368e9b57ec",
+      "dimensions": [
+        256,
+        256
+      ],
+      "alpha_bounds": [
+        21,
+        29,
+        221,
+        237
+      ],
+      "edge_alpha_max": 0,
+      "alpha_range": [
+        0,
+        255
+      ],
+      "consumers": [
+        "Serialized app uiTemplates / Art07 prefab image references; exact-name replacement"
+      ],
+      "importer": {
+        "textureType": "Sprite",
+        "spriteMode": "Single",
+        "filterMode": "Bilinear",
+        "wrapMode": "Clamp",
+        "mipmapEnabled": false,
+        "alphaIsTransparency": true,
+        "sRGBTexture": true,
+        "compression": "Uncompressed",
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      }
+    },
+    {
+      "id": "ui_icon_settings",
+      "category": "Symbols",
+      "role": "shared status/action / settings",
+      "source": "ArtSource/Art071/Full/Symbols/ui_icon_settings.svg",
+      "export": "ArtSource/Art071/Full/Symbols/ui_icon_settings.png",
+      "source_sha256": "39225f7da1cae3f8c236482c69c3d4ff3406fa9370ba8f4e88d6c275d5950803",
+      "sha256": "c22db9dac642bf1348d97ed921ffadd28e30070df41d5c5c7dce21155abcb791",
+      "dimensions": [
+        256,
+        256
+      ],
+      "alpha_bounds": [
+        19,
+        19,
+        237,
+        237
+      ],
+      "edge_alpha_max": 0,
+      "alpha_range": [
+        0,
+        255
+      ],
+      "consumers": [
+        "Serialized app uiTemplates / Art07 prefab image references; exact-name replacement"
+      ],
+      "importer": {
+        "textureType": "Sprite",
+        "spriteMode": "Single",
+        "filterMode": "Bilinear",
+        "wrapMode": "Clamp",
+        "mipmapEnabled": false,
+        "alphaIsTransparency": true,
+        "sRGBTexture": true,
+        "compression": "Uncompressed",
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      }
+    },
+    {
+      "id": "ui_icon_smooth",
+      "category": "Symbols",
+      "role": "shared status/action / smooth",
+      "source": "ArtSource/Art071/Full/Symbols/ui_icon_smooth.svg",
+      "export": "ArtSource/Art071/Full/Symbols/ui_icon_smooth.png",
+      "source_sha256": "978e16d4398d095b8d7e516a26e7e5afb62cd3378c4980fadc1595116cede362",
+      "sha256": "8cbe76337aa448c4f3976ecbfe8241c6500f7d2eca3313101991501de2695637",
+      "dimensions": [
+        256,
+        256
+      ],
+      "alpha_bounds": [
+        18,
+        49,
+        238,
+        208
+      ],
+      "edge_alpha_max": 0,
+      "alpha_range": [
+        0,
+        255
+      ],
+      "consumers": [
+        "Serialized app uiTemplates / Art07 prefab image references; exact-name replacement"
+      ],
+      "importer": {
+        "textureType": "Sprite",
+        "spriteMode": "Single",
+        "filterMode": "Bilinear",
+        "wrapMode": "Clamp",
+        "mipmapEnabled": false,
+        "alphaIsTransparency": true,
+        "sRGBTexture": true,
+        "compression": "Uncompressed",
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      }
+    },
+    {
+      "id": "ui_icon_sound",
+      "category": "Symbols",
+      "role": "shared status/action / sound",
+      "source": "ArtSource/Art071/Full/Symbols/ui_icon_sound.svg",
+      "export": "ArtSource/Art071/Full/Symbols/ui_icon_sound.png",
+      "source_sha256": "f9f205386dae21e7ccc657ca9e281df8d81c18b5f8d03440419dd43040a863d2",
+      "sha256": "18336b81419b426bff2ec7c7a761319b17f681ad4ad22f04830010edd8127dcd",
+      "dimensions": [
+        256,
+        256
+      ],
+      "alpha_bounds": [
+        23,
+        37,
+        241,
+        219
+      ],
+      "edge_alpha_max": 0,
+      "alpha_range": [
+        0,
+        255
+      ],
+      "consumers": [
+        "Serialized app uiTemplates / Art07 prefab image references; exact-name replacement"
+      ],
+      "importer": {
+        "textureType": "Sprite",
+        "spriteMode": "Single",
+        "filterMode": "Bilinear",
+        "wrapMode": "Clamp",
+        "mipmapEnabled": false,
+        "alphaIsTransparency": true,
+        "sRGBTexture": true,
+        "compression": "Uncompressed",
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      }
+    },
+    {
+      "id": "ui_icon_submit",
+      "category": "Symbols",
+      "role": "shared status/action / submit",
+      "source": "ArtSource/Art071/Full/Symbols/ui_icon_submit.svg",
+      "export": "ArtSource/Art071/Full/Symbols/ui_icon_submit.png",
+      "source_sha256": "db7c9715f09568d751e3caf01e1cee174f098c8f2fb66ed9d625a269cdddda51",
+      "sha256": "f461582a781fcd67b1c96f1e3a2ca5f0b7bc36b535142fb03e87f500f4a65f22",
+      "dimensions": [
+        256,
+        256
+      ],
+      "alpha_bounds": [
+        24,
+        27,
+        232,
+        230
+      ],
+      "edge_alpha_max": 0,
+      "alpha_range": [
+        0,
+        255
+      ],
+      "consumers": [
+        "Serialized app uiTemplates / Art07 prefab image references; exact-name replacement"
+      ],
+      "importer": {
+        "textureType": "Sprite",
+        "spriteMode": "Single",
+        "filterMode": "Bilinear",
+        "wrapMode": "Clamp",
+        "mipmapEnabled": false,
+        "alphaIsTransparency": true,
+        "sRGBTexture": true,
+        "compression": "Uncompressed",
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      }
+    },
+    {
+      "id": "ui_icon_temporary",
+      "category": "Symbols",
+      "role": "shared status/action / temporary",
+      "source": "ArtSource/Art071/Full/Symbols/ui_icon_temporary.svg",
+      "export": "ArtSource/Art071/Full/Symbols/ui_icon_temporary.png",
+      "source_sha256": "0427702c4ef581ba1c9bdda957e36d389a62e0af2d15d6a2f5f64991c140bdd2",
+      "sha256": "41b3fceb445ee67fe90a63db036f2c13c6f062c463ff4d084df9a7d02e20bfe4",
+      "dimensions": [
+        256,
+        256
+      ],
+      "alpha_bounds": [
+        29,
+        29,
+        227,
+        227
+      ],
+      "edge_alpha_max": 0,
+      "alpha_range": [
+        0,
+        255
+      ],
+      "consumers": [
+        "Serialized app uiTemplates / Art07 prefab image references; exact-name replacement"
+      ],
+      "importer": {
+        "textureType": "Sprite",
+        "spriteMode": "Single",
+        "filterMode": "Bilinear",
+        "wrapMode": "Clamp",
+        "mipmapEnabled": false,
+        "alphaIsTransparency": true,
+        "sRGBTexture": true,
+        "compression": "Uncompressed",
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      }
+    },
+    {
+      "id": "ui_icon_unavailable",
+      "category": "Symbols",
+      "role": "shared status/action / unavailable",
+      "source": "ArtSource/Art071/Full/Symbols/ui_icon_unavailable.svg",
+      "export": "ArtSource/Art071/Full/Symbols/ui_icon_unavailable.png",
+      "source_sha256": "bc140783eee4c84366418aa18cbcee5a4862c7cd7bf6689e26bb138ade65542c",
+      "sha256": "6f3e02dcd5ada02f42f0145ecc130b438e2ba21691a8f5383886ae50fcc85d07",
+      "dimensions": [
+        256,
+        256
+      ],
+      "alpha_bounds": [
+        31,
+        31,
+        225,
+        225
+      ],
+      "edge_alpha_max": 0,
+      "alpha_range": [
+        0,
+        255
+      ],
+      "consumers": [
+        "Serialized app uiTemplates / Art07 prefab image references; exact-name replacement"
+      ],
+      "importer": {
+        "textureType": "Sprite",
+        "spriteMode": "Single",
+        "filterMode": "Bilinear",
+        "wrapMode": "Clamp",
+        "mipmapEnabled": false,
+        "alphaIsTransparency": true,
+        "sRGBTexture": true,
+        "compression": "Uncompressed",
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      }
+    },
+    {
+      "id": "ui_icon_warning",
+      "category": "Symbols",
+      "role": "shared status/action / warning",
+      "source": "ArtSource/Art071/Full/Symbols/ui_icon_warning.svg",
+      "export": "ArtSource/Art071/Full/Symbols/ui_icon_warning.png",
+      "source_sha256": "ab4b1dda80dd6790ba3df8dd9760d8f40405ae1ced9170c31b4d9ad88d07d203",
+      "sha256": "70940ac5f244a871ab52a20c9e3ab0288dd6cfea248269bd86afd0914472dd8f",
+      "dimensions": [
+        256,
+        256
+      ],
+      "alpha_bounds": [
+        16,
+        18,
+        240,
+        224
+      ],
+      "edge_alpha_max": 0,
+      "alpha_range": [
+        0,
+        255
+      ],
+      "consumers": [
+        "DicePrototype/Assets/Game/Editor/Art07AssetLibrary.cs:284"
+      ],
+      "importer": {
+        "textureType": "Sprite",
+        "spriteMode": "Single",
+        "filterMode": "Bilinear",
+        "wrapMode": "Clamp",
+        "mipmapEnabled": false,
+        "alphaIsTransparency": true,
+        "sRGBTexture": true,
+        "compression": "Uncompressed",
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      }
+    },
+    {
+      "id": "fx_crack_card",
+      "category": "FX",
+      "role": "white RGB tintable FX / crack_card",
+      "source": "ArtSource/Art071/Full/FX/fx_crack_card.svg",
+      "export": "ArtSource/Art071/Full/FX/fx_crack_card.png",
+      "source_sha256": "92b263399b44bba59a0f2389bfb6ddc7a77d00825490626f1aa1b64cde378c8e",
+      "sha256": "669bc9c3d9aafa03ddb4d2b73a2f1de61e5561670d12aaae12ee91670876ec88",
+      "dimensions": [
+        256,
+        256
+      ],
+      "alpha_bounds": [
+        55,
+        13,
+        195,
+        243
+      ],
+      "edge_alpha_max": 0,
+      "alpha_range": [
+        0,
+        255
+      ],
+      "consumers": [
+        "DicePrototype/Assets/Game/Editor/Art07AssetLibrary.cs:323"
+      ],
+      "importer": {
+        "textureType": "Sprite",
+        "spriteMode": "Single",
+        "filterMode": "Bilinear",
+        "wrapMode": "Clamp",
+        "mipmapEnabled": false,
+        "alphaIsTransparency": true,
+        "sRGBTexture": true,
+        "compression": "Uncompressed",
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      }
+    },
+    {
+      "id": "fx_halo_soft",
+      "category": "FX",
+      "role": "white RGB tintable FX / halo_soft",
+      "source": "ArtSource/Art071/Full/FX/fx_halo_soft.svg",
+      "export": "ArtSource/Art071/Full/FX/fx_halo_soft.png",
+      "source_sha256": "f68f4af5e88ce8bdc73a1d0077d3cb5386c66ef98f3268f0950f63739c7bf0dd",
+      "sha256": "1b3a02b882e2d8af831ba90fd4459ee372e06d4f1ba53f272efc719ec64f2879",
+      "dimensions": [
+        256,
+        256
+      ],
+      "alpha_bounds": [
+        18,
+        18,
+        238,
+        238
+      ],
+      "edge_alpha_max": 0,
+      "alpha_range": [
+        0,
+        127
+      ],
+      "consumers": [
+        "DicePrototype/Assets/Game/Editor/Art07AssetLibrary.cs:334"
+      ],
+      "importer": {
+        "textureType": "Sprite",
+        "spriteMode": "Single",
+        "filterMode": "Bilinear",
+        "wrapMode": "Clamp",
+        "mipmapEnabled": false,
+        "alphaIsTransparency": true,
+        "sRGBTexture": true,
+        "compression": "Uncompressed",
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      }
+    },
+    {
+      "id": "fx_line_soft",
+      "category": "FX",
+      "role": "white RGB tintable FX / line_soft",
+      "source": "ArtSource/Art071/Full/FX/fx_line_soft.svg",
+      "export": "ArtSource/Art071/Full/FX/fx_line_soft.png",
+      "source_sha256": "783413f482035819ed14888fb1bdbcf5a3ecf64592579506f9c8bb1a7afebddd",
+      "sha256": "9de0dfb3c3b1d5b9d03e1e1276fa10fc724573f09176132e8251b0316cc0b3f1",
+      "dimensions": [
+        256,
+        256
+      ],
+      "alpha_bounds": [
+        9,
+        112,
+        248,
+        144
+      ],
+      "edge_alpha_max": 0,
+      "alpha_range": [
+        0,
+        255
+      ],
+      "consumers": [
+        "DicePrototype/Assets/Game/Editor/Art07AssetLibrary.cs:332"
+      ],
+      "importer": {
+        "textureType": "Sprite",
+        "spriteMode": "Single",
+        "filterMode": "Bilinear",
+        "wrapMode": "Clamp",
+        "mipmapEnabled": false,
+        "alphaIsTransparency": true,
+        "sRGBTexture": true,
+        "compression": "Uncompressed",
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      }
+    },
+    {
+      "id": "fx_ring_soft",
+      "category": "FX",
+      "role": "white RGB tintable FX / ring_soft",
+      "source": "ArtSource/Art071/Full/FX/fx_ring_soft.svg",
+      "export": "ArtSource/Art071/Full/FX/fx_ring_soft.png",
+      "source_sha256": "b485caebc881fda2f7abba68f6974b71ef415f70793b1d78ac58173ef90d67d9",
+      "sha256": "e6fa827da2a520f7812b38e6d6f64fd1abf58f090f73782de86a4cb4c51d31ca",
+      "dimensions": [
+        256,
+        256
+      ],
+      "alpha_bounds": [
+        16,
+        16,
+        240,
+        240
+      ],
+      "edge_alpha_max": 0,
+      "alpha_range": [
+        0,
+        218
+      ],
+      "consumers": [
+        "DicePrototype/Assets/Game/Editor/Art07AssetLibrary.cs:331",
+        "DicePrototype/Assets/Game/Editor/Art07AssetLibrary.cs:333"
+      ],
+      "importer": {
+        "textureType": "Sprite",
+        "spriteMode": "Single",
+        "filterMode": "Bilinear",
+        "wrapMode": "Clamp",
+        "mipmapEnabled": false,
+        "alphaIsTransparency": true,
+        "sRGBTexture": true,
+        "compression": "Uncompressed",
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      }
+    },
+    {
+      "id": "fx_short_flame",
+      "category": "FX",
+      "role": "white RGB tintable FX / short_flame",
+      "source": "ArtSource/Art071/Full/FX/fx_short_flame.svg",
+      "export": "ArtSource/Art071/Full/FX/fx_short_flame.png",
+      "source_sha256": "da7b850e0ed8319a7c798861549681e80d9544d83c317c5ce69f047297a1f901",
+      "sha256": "1e32148f37e0306b646cb6c238d64ff852e9d814de70862eab66907e4c1f2d78",
+      "dimensions": [
+        256,
+        256
+      ],
+      "alpha_bounds": [
+        40,
+        35,
+        219,
+        217
+      ],
+      "edge_alpha_max": 0,
+      "alpha_range": [
+        0,
+        254
+      ],
+      "consumers": [
+        "DicePrototype/Assets/Game/Editor/Art07AssetLibrary.cs:335"
+      ],
+      "importer": {
+        "textureType": "Sprite",
+        "spriteMode": "Single",
+        "filterMode": "Bilinear",
+        "wrapMode": "Clamp",
+        "mipmapEnabled": false,
+        "alphaIsTransparency": true,
+        "sRGBTexture": true,
+        "compression": "Uncompressed",
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      }
+    },
+    {
+      "id": "fx_square_chip",
+      "category": "FX",
+      "role": "white RGB tintable FX / square_chip",
+      "source": "ArtSource/Art071/Full/FX/fx_square_chip.svg",
+      "export": "ArtSource/Art071/Full/FX/fx_square_chip.png",
+      "source_sha256": "1c1a773c6004d573452e3304754b0d42be479cf22d9e84fd7961f3bdaa9dbec5",
+      "sha256": "87e7093414cc056630b816feaf97d14a620832f3d467b40b09a5f66e7025705f",
+      "dimensions": [
+        256,
+        256
+      ],
+      "alpha_bounds": [
+        51,
+        44,
+        199,
+        209
+      ],
+      "edge_alpha_max": 0,
+      "alpha_range": [
+        0,
+        255
+      ],
+      "consumers": [
+        "DicePrototype/Assets/Game/Editor/Art07AssetLibrary.cs:324",
+        "DicePrototype/Assets/Game/Editor/Art07AssetLibrary.cs:336",
+        "DicePrototype/Assets/Game/Runtime/Presentation/Art07ScoreBurstLayout.cs:33",
+        "DicePrototype/Assets/Game/Runtime/Presentation/Art07ScoreBurstLayout.cs:35"
+      ],
+      "importer": {
+        "textureType": "Sprite",
+        "spriteMode": "Single",
+        "filterMode": "Bilinear",
+        "wrapMode": "Clamp",
+        "mipmapEnabled": false,
+        "alphaIsTransparency": true,
+        "sRGBTexture": true,
+        "compression": "Uncompressed",
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      }
+    },
+    {
+      "id": "fx_star_spark",
+      "category": "FX",
+      "role": "white RGB tintable FX / star_spark",
+      "source": "ArtSource/Art071/Full/FX/fx_star_spark.svg",
+      "export": "ArtSource/Art071/Full/FX/fx_star_spark.png",
+      "source_sha256": "e90c3551a43b61fd94c685e3591be844ccd65a5e77db10971cf73a8aab5c47c4",
+      "sha256": "753c192082bf13f9ae54f3a60da5a429cc77610cbee3b7a67d2b66ae2cec8379",
+      "dimensions": [
+        256,
+        256
+      ],
+      "alpha_bounds": [
+        31,
+        24,
+        217,
+        233
+      ],
+      "edge_alpha_max": 0,
+      "alpha_range": [
+        0,
+        255
+      ],
+      "consumers": [
+        "DicePrototype/Assets/Game/Editor/Art07AssetLibrary.cs:337"
+      ],
+      "importer": {
+        "textureType": "Sprite",
+        "spriteMode": "Single",
+        "filterMode": "Bilinear",
+        "wrapMode": "Clamp",
+        "mipmapEnabled": false,
+        "alphaIsTransparency": true,
+        "sRGBTexture": true,
+        "compression": "Uncompressed",
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      }
+    },
+    {
+      "id": "ui_card_back",
+      "category": "UI",
+      "role": "original printed dice seal; same stock and border as v071 paper",
+      "source": "ArtSource/Art071/Full/UI/ui_card_back.svg",
+      "export": "ArtSource/Art071/Full/UI/ui_card_back.png",
+      "source_sha256": "7b19092ff22e96b673a816cb6ccb67071e0aa1806981de94d6634e957557beaa",
+      "sha256": "9abe1efdef523f3b8f7e60d4ec3e51e3786c5875e48c0caae6ab7a091753f197",
+      "dimensions": [
+        768,
+        1024
+      ],
+      "alpha_bounds": [
+        5,
+        5,
+        755,
+        1011
+      ],
+      "edge_alpha_max": 0,
+      "alpha_range": [
+        0,
+        255
+      ],
+      "consumers": [
+        "GameApp.Art071Screens.Menu071/MenuCardBack*; preserve card container size"
+      ],
+      "importer": {
+        "textureType": "Sprite",
+        "spriteMode": "Single",
+        "filterMode": "Bilinear",
+        "wrapMode": "Clamp",
+        "mipmapEnabled": false,
+        "alphaIsTransparency": true,
+        "sRGBTexture": true,
+        "compression": "Uncompressed",
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      }
+    }
+  ]
+}

@@ -70,6 +70,15 @@ namespace DiceCraft.Presentation
                 else if (before != null)
                     sources = ControllerRules.ResolveSources(before.controllers, before.stage?.mimicBindings);
                 BuildPostEffects();
+                // This is a committed hand-boundary grant, not a scoring contribution.
+                // A normal non-qualifying Submit also creates a new hand; retaining an
+                // explicit event prevents its TargetState beat from being omitted.
+                if (after.hand != null && after.hand.handId != before?.hand?.handId &&
+                    after.hand.rollBonusSourceIds.Length > 0)
+                    Add(PresentationPhase.TargetState, "hand_roll_bonus",
+                        operand: checked(after.hand.rollBonusSourceIds.Length * cfg.enchantRules.rollBonus).ToString(CultureInfo.InvariantCulture),
+                        afterValue: after.hand.rollsRemaining.ToString(CultureInfo.InvariantCulture),
+                        detail: after.hand.handId, sourceEmitters: after.hand.rollBonusSourceIds);
                 if (!(before?.stage?.qualified ?? false) && (after.stage?.qualified ?? false))
                     Add(PresentationPhase.TargetState, "qualified", beforeValue: "false", afterValue: "true", audio: "SFX_QUALIFIED");
                 // A Run result is shown only once the actual Continue command has entered that result phase.

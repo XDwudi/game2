@@ -1,0 +1,59 @@
+{
+  "id": "C39",
+  "name": "蓝色价值",
+  "createdUtc": "2026-11-09T03:07:30.540447+00:00",
+  "author": "/root/project_audit",
+  "tool": "built-in imagegen",
+  "modelSnapshot": "not exposed",
+  "intent": "new standalone themed illustration matching fixed v071 reference pair",
+  "originalToolPath": "C:\\Users\\f\\.codex\\generated_images\\01a1bc4e-02cf-7610-8093-a866440df249\\exec-6c697d75-4442-4fb8-addc-d89b6c87d690.png",
+  "file": "original.png",
+  "sha256": "3404c77ad7ccd32595ce97011df4b26b8f278e1ca3d37b7e7f7f424662b1cbf8",
+  "dimensions": [
+    1254,
+    1254
+  ],
+  "mode": "RGBA",
+  "alpha0": 864628,
+  "alpha255": 2180,
+  "alphaPartial": 705708,
+  "alphaBounds": [
+    0,
+    19,
+    1222,
+    1254
+  ],
+  "promptFile": "prompt.txt",
+  "promptSha256": "1923170669aafaff49f861c39ea6b0b67d11fd14eeee517b9bffc8f936e3fead",
+  "configDescription": "每颗有效蓝色提交骰，点数贡献+6。",
+  "configPath": "DicePrototype/Assets/Game/Data/P0Config.json",
+  "configSha256": "747ed1efc7bea15873f66a81eee5c7654971c21031f2a1517ce629adce7b6e6c",
+  "references": [
+    {
+      "path": "docs/specs/v071/handoff/references/battle_master_v071.png",
+      "sha256": "02895a850ba48c636445c963f705244d190bdb8b94c07f449a0269fc5047f8dc",
+      "role": "style master"
+    },
+    {
+      "path": "ArtSource/Art071/Illustrations/illustration_c29.png",
+      "sha256": "d380eecb4921984d2aacb4b50b1c7ee6fdcbdbb9f3596550fa79b476d4320728",
+      "role": "fixed standalone style anchor"
+    }
+  ],
+  "status": "candidate; author source/edge/small-size checks completed; independent and engine review pending",
+  "sourcePixelsAltered": false,
+  "authorReview": {
+    "actualOriginalViewed": true,
+    "paperAndFeltPreviewViewed": true,
+    "previewSizes": [
+      420,
+      176,
+      64
+    ],
+    "groupPreview": "cache/v071-full/author-previews/group-4.png",
+    "observation": "蓝点骰镶座和星点构成价值主题，蓝色强化有明确轮廓；精简单ID重试后正常返回。 正确RGBA浅纸/深青合成未见可见白框或主体裁切。",
+    "limitation": "author check only; not independent art acceptance or engine evidence"
+  },
+  "priorUnfinishedAttempt": "cache/v071-full/unfinished-c38-c39/unfinished.json",
+  "retryReason": "original parallel pair waited over 15 minutes without output; parent authorized single-ID concise English retry; no prior output was archived"
+}

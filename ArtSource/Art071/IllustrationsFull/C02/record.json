@@ -1,0 +1,55 @@
+{
+  "contentId": "C02",
+  "displayName": "蓝色疯狂",
+  "configDescription": "非空提交没有有效红面时，整手得分×4。",
+  "artVersion": "art0.7.1",
+  "tool": "tools.image_gen__imagegen",
+  "generationRevision": 1,
+  "actualOutputPath": "C:\\Users\\f\\.codex\\generated_images\\01a1bc4f-525d-7990-8359-1c935dd6133e\\exec-25fd975b-04c3-4f87-a10b-40ed5d3880e1.png",
+  "originalPath": "E:\\agent_workspace\\gpt\\game2\\ArtSource\\Art071\\IllustrationsFull\\C02\\original.png",
+  "sha256": "2577ca9ed702eca412845d004d0efb6c981cd96f959b6ca184cd93ec907ef98d",
+  "copiedByteIdentical": true,
+  "dimensions": [
+    1312,
+    1199
+  ],
+  "mode": "RGBA",
+  "alphaExtrema": [
+    0,
+    255
+  ],
+  "transparentPixels": 790441,
+  "alphaBounds": [
+    0,
+    18,
+    1298,
+    1181
+  ],
+  "promptPath": "E:\\agent_workspace\\gpt\\game2\\ArtSource\\Art071\\IllustrationsFull\\C02\\prompt.txt",
+  "promptSha256": "ac9c727dda5314b80fe40b82eb6b986686a355fc263dc7f2886fd603a84edc0e",
+  "configPath": "DicePrototype/Assets/Game/Data/P0Config.json",
+  "configSha256": "747ed1efc7bea15873f66a81eee5c7654971c21031f2a1517ce629adce7b6e6c",
+  "references": [
+    {
+      "path": "E:\\agent_workspace\\gpt\\game2\\docs\\specs\\v071\\handoff\\references\\battle_master_v071.png",
+      "sha256": "02895a850ba48c636445c963f705244d190bdb8b94c07f449a0269fc5047f8dc",
+      "actuallyViewed": true
+    },
+    {
+      "path": "E:\\agent_workspace\\gpt\\game2\\ArtSource\\Art071\\Illustrations\\illustration_c29.png",
+      "sha256": "d380eecb4921984d2aacb4b50b1c7ee6fdcbdbb9f3596550fa79b476d4320728",
+      "actuallyViewed": true
+    }
+  ],
+  "status": "generated; author technical inspection complete; game integration and independent review pending",
+  "sourceType": "editable flattened raster PNG; no layered source claimed",
+  "recordedUtc": "2026-11-09T02:42:31.826530+00:00",
+  "authorInspection": {
+    "actuallyViewed": [
+      "returned original",
+      "technical-preview.png: light and dark, large and 120px"
+    ],
+    "result": "large distinct motif readable at 120px; no text or frame; actual composites show no rectangular matte/background; original dimensions and alpha preserved",
+    "limitation": "source-only author check, not independent game acceptance; non-square originals must retain aspect ratio"
+  }
+}

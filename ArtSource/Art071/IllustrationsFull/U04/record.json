@@ -1,0 +1,61 @@
+{
+  "id": "U04",
+  "name": "骰子染蓝",
+  "status": "source_review_complete_pending_independent_and_unity",
+  "tool": "built-in imagegen",
+  "model_snapshot": "not exposed by tool",
+  "tool_source_path": "C:\\Users\\f\\.codex\\generated_images\\01a1bc4f-283e-7c00-80a6-e00ae79dd0a1\\exec-0c087e8c-2063-4bec-9baf-23a1b22c6b7f.png",
+  "path": "ArtSource/Art071/IllustrationsFull/U04/original.png",
+  "sha256": "88ace1a5af3a3321b8fadaefab3fa2ce9fa19b0446ea44366eca27ce0846ff01",
+  "dimensions": [
+    1254,
+    1254
+  ],
+  "mode": "RGBA",
+  "alpha_range": [
+    0,
+    255
+  ],
+  "alpha_bounds": [
+    0,
+    17,
+    1236,
+    1254
+  ],
+  "prompt_sha256": "6855138b5c78e940b1412c20c8af0c1806e4f5b2e079677cefe502d3e43b50a1",
+  "references": [
+    {
+      "path": "docs/specs/v071/handoff/references/battle_master_v071.png",
+      "sha256": "02895a850ba48c636445c963f705244d190bdb8b94c07f449a0269fc5047f8dc",
+      "role": "style master",
+      "actuallyViewed": true
+    },
+    {
+      "path": "ArtSource/Art071/Illustrations/illustration_c29.png",
+      "sha256": "d380eecb4921984d2aacb4b50b1c7ee6fdcbdbb9f3596550fa79b476d4320728",
+      "role": "fixed illustration style anchor",
+      "actuallyViewed": true
+    }
+  ],
+  "config": {
+    "path": "DicePrototype/Assets/Game/Data/P0Config.json",
+    "sha256": "747ed1efc7bea15873f66a81eee5c7654971c21031f2a1517ce629adce7b6e6c",
+    "version": "p0.6.0"
+  },
+  "configDescription": "目标物理面永久蓝色，保持其他属性。",
+  "createdUtc": "2026-11-09T02:51:07.472352+00:00",
+  "unityIntegrated": false,
+  "authorReview": {
+    "originalViewed": true,
+    "surfaceAndSmallSizeViewed": true,
+    "evidence": "cache/v071-full/reviews/U01-U04-surface-and-size.png",
+    "observations": "蓝墨辊只涂一个可见面，L柄与红笔刷可区分。 暖纸/深桌面/72px实际看过，无可见白底/裁切。",
+    "status": "source_candidate_for_independent_review_not_final_acceptance"
+  },
+  "technicalVerification": {
+    "selectedMatchesToolOriginal": true,
+    "rgbaDecoded": true,
+    "promptAndReferenceHashesVerified": true,
+    "noPixelPostprocessing": true
+  }
+}

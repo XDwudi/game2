@@ -8,6 +8,7 @@ Shader "DiceCraft/Art07/Ceramic"
         _Specular("Ceramic highlight",Range(0,1))=.3
         _Glass("Glass shell",Range(0,1))=0
         _GlassOpacity("Glass shell opacity",Range(.15,.85))=.48
+        _ShadowCoverage071("Shadow coverage",Range(0,1))=1
     }
     SubShader
     {
@@ -33,7 +34,7 @@ Shader "DiceCraft/Art07/Ceramic"
             struct A {float4 vertex:POSITION;float3 normal:NORMAL;};
             struct V {float4 pos:SV_POSITION;float3 normal:TEXCOORD0;float3 world:TEXCOORD1;};
             CBUFFER_START(UnityPerMaterial)
-            half4 _BaseColor;half4 _EdgeColor;half _Glass;half _GlassOpacity;half _Smoothness;half _Specular;
+            half4 _BaseColor;half4 _EdgeColor;half _Glass;half _GlassOpacity;half _Smoothness;half _Specular;half _ShadowCoverage071;
             CBUFFER_END
             V vert(A a){V v;v.world=TransformObjectToWorld(a.vertex.xyz);v.pos=TransformWorldToHClip(v.world);v.normal=TransformObjectToWorldNormal(a.normal);return v;}
             half4 frag(V v):SV_Target
@@ -58,7 +59,55 @@ Shader "DiceCraft/Art07/Ceramic"
             }
             ENDHLSL
         }
-        UsePass "Universal Render Pipeline/Lit/ShadowCaster"
+        Pass
+        {
+            Name "ShadowCaster071"
+            Tags { "LightMode"="ShadowCaster" }
+            ZWrite On
+            ZTest LEqual
+            ColorMask 0
+            Cull Back
+            HLSLPROGRAM
+            #pragma target 3.0
+            #pragma vertex ShadowVertex071
+            #pragma fragment ShadowFragment071
+            #pragma multi_compile_vertex _ _CASTING_PUNCTUAL_LIGHT_SHADOW
+            #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
+            #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Shadows.hlsl"
+            CBUFFER_START(UnityPerMaterial)
+            half4 _BaseColor;half4 _EdgeColor;half _Glass;half _GlassOpacity;half _Smoothness;half _Specular;half _ShadowCoverage071;
+            CBUFFER_END
+            // URP ShadowUtils supplies these for the active shadow-casting light.
+            float3 _LightDirection;
+            float3 _LightPosition;
+            struct ShadowInput071 { float4 positionOS:POSITION;float3 normalOS:NORMAL; };
+            struct ShadowOutput071 { float4 positionCS:SV_POSITION; };
+            ShadowOutput071 ShadowVertex071(ShadowInput071 input)
+            {
+                ShadowOutput071 output;
+                float3 positionWS=TransformObjectToWorld(input.positionOS.xyz);
+                float3 normalWS=TransformObjectToWorldNormal(input.normalOS);
+                #if _CASTING_PUNCTUAL_LIGHT_SHADOW
+                float3 lightDirectionWS=normalize(_LightPosition-positionWS);
+                #else
+                float3 lightDirectionWS=_LightDirection;
+                #endif
+                output.positionCS=TransformWorldToHClip(ApplyShadowBias(positionWS,normalWS,lightDirectionWS));
+                output.positionCS=ApplyShadowClamping(output.positionCS);
+                return output;
+            }
+            half4 ShadowFragment071(ShadowOutput071 input):SV_TARGET
+            {
+                // Fixed ordered coverage in shadow-map pixels; no frame/time/face-dependent noise.
+                // Ordinary dice keep every sample. Existing PCF performs the softening.
+                static const half bayer[16]={0,8,2,10,12,4,14,6,3,11,1,9,15,7,13,5};
+                uint2 cell=((uint2)floor(input.positionCS.xy))&3u;
+                half threshold=(bayer[cell.y*4u+cell.x]+0.5)/16.0;
+                clip(saturate(_ShadowCoverage071)-threshold);
+                return 0;
+            }
+            ENDHLSL
+        }
         UsePass "Universal Render Pipeline/Lit/DepthOnly"
     }
 }

@@ -1,0 +1,62 @@
+{
+  "contentId": "C15",
+  "displayName": "红色扩散",
+  "configDescription": "扫描整个有序提交列；每个有效蓝面若左右相邻面均为有效红，则计分后将该物理面染红，全部目标从同一快照同时确定。",
+  "artVersion": "art0.7.1",
+  "tool": "tools.image_gen__imagegen",
+  "generationRevision": 1,
+  "actualOutputPath": "C:\\Users\\f\\.codex\\generated_images\\01a1bc4f-525d-7990-8359-1c935dd6133e\\exec-84519d3b-d1c4-4245-9fcf-4926ba818cc1.png",
+  "originalPath": "E:\\agent_workspace\\gpt\\game2\\ArtSource\\Art071\\IllustrationsFull\\C15\\original.png",
+  "sha256": "416d2f971078f66acb65ef988f6ebe39c0830e07bc042c87cea22ce5f12aa31c",
+  "copiedByteIdentical": true,
+  "dimensions": [
+    1536,
+    1024
+  ],
+  "mode": "RGBA",
+  "alphaExtrema": [
+    0,
+    254
+  ],
+  "transparentPixels": 903680,
+  "alphaBounds": [
+    0,
+    23,
+    1516,
+    996
+  ],
+  "opaqueBounds": [
+    55,
+    90,
+    1479,
+    943
+  ],
+  "promptPath": "E:\\agent_workspace\\gpt\\game2\\ArtSource\\Art071\\IllustrationsFull\\C15\\prompt.txt",
+  "promptSha256": "1583a5a82a256e61735f64dd7e8abf8fa1a7aa6fed9c098cfcf78e9498432821",
+  "configPath": "DicePrototype/Assets/Game/Data/P0Config.json",
+  "configSha256": "747ed1efc7bea15873f66a81eee5c7654971c21031f2a1517ce629adce7b6e6c",
+  "references": [
+    {
+      "path": "E:\\agent_workspace\\gpt\\game2\\docs\\specs\\v071\\handoff\\references\\battle_master_v071.png",
+      "sha256": "02895a850ba48c636445c963f705244d190bdb8b94c07f449a0269fc5047f8dc",
+      "actuallyViewed": true
+    },
+    {
+      "path": "E:\\agent_workspace\\gpt\\game2\\ArtSource\\Art071\\Illustrations\\illustration_c29.png",
+      "sha256": "d380eecb4921984d2aacb4b50b1c7ee6fdcbdbb9f3596550fa79b476d4320728",
+      "actuallyViewed": true
+    }
+  ],
+  "status": "generated; author technical inspection complete; game integration and independent review pending",
+  "sourceType": "editable flattened raster PNG; no layered PSD/KRA or vector source claimed",
+  "recordedUtc": "2026-11-09T02:53:07.301654+00:00",
+  "authorInspection": {
+    "actuallyViewed": [
+      "returned original",
+      "technical-preview.png: light and dark, large and 120px"
+    ],
+    "result": "complete thematic silhouette readable; no text/frame/rectangular matte in composites; real returned alpha and dimensions preserved",
+    "specificNote": "two coral rollers converge onto blue die-face center",
+    "limitation": "author self-check only; independent game rendering review and final art acceptance pending"
+  }
+}

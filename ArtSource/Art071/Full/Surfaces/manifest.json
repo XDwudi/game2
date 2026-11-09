@@ -1,0 +1,691 @@
+{
+  "schema": "dicecraft-v071-full-surfaces-1",
+  "status": "source_export_review_pending_independent_and_unity",
+  "editable_source": "tools/art_v071/build_full_surfaces.py",
+  "script_sha256": "3bd2b8758b117aad4f1ed549bbedbbcfe0d9eb7ece8ed7f6f0a442fa1c8f51ee",
+  "tools": {
+    "python": "3.11.4",
+    "Pillow": "9.4.0",
+    "numpy": "1.24.3"
+  },
+  "palette": {
+    "paper": "#F4E8CB",
+    "ink": "#162629",
+    "felt": "#173E40",
+    "deep": "#102A2D",
+    "info": "#173538",
+    "line": "#486365",
+    "gold": "#D6BC8A",
+    "shadow": "#07191C",
+    "blue": "#55B6D9",
+    "red": "#EC655D",
+    "focus": "#F3BA58",
+    "white": "#FFFFFF"
+  },
+  "reference": "docs/specs/v071/handoff/references/battle_master_v071.png",
+  "reference_sha256": "02895a850ba48c636445c963f705244d190bdb8b94c07f449a0269fc5047f8dc",
+  "family_reference": "tools/art_v071/build_surfaces.py",
+  "family_reference_sha256": "ae6d173a3f25c44f0d53fdb4bec71ac216edb4d44457f8f0df282d256491abae",
+  "assets": [
+    {
+      "id": "ui_card_item",
+      "source": "ArtSource/Art071/Full/Surfaces/ui_card_item.svg",
+      "export": "ArtSource/Art071/Full/Surfaces/ui_card_item.png",
+      "source_sha256": "433a8ce89b71e50e02714dbb4e863e6d6b13e63da9d1979c9be9d4dda0b2d149",
+      "sha256": "301651bd1880662004c3acfd6cfae89e6a83612ba0c41e730743a03204fdf580",
+      "dimensions": [
+        512,
+        512
+      ],
+      "layer": "content",
+      "tint_mode": "palette",
+      "transparent_center": false,
+      "alpha_bounds": [
+        1,
+        1,
+        505,
+        505
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "edge_alpha_max": 0,
+      "consumers": "item-card prefab Surface, Art07AssetLibrary.cs InterfaceView",
+      "importer": {
+        "textureType": "Sprite",
+        "spriteMode": "Single",
+        "filterMode": "Bilinear",
+        "wrapMode": "Clamp",
+        "mipmapEnabled": false,
+        "alphaIsTransparency": true,
+        "sRGBTexture": true,
+        "compression": "Uncompressed",
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "meshType": "FullRect",
+        "border": [
+          32,
+          32,
+          32,
+          32
+        ],
+        "pixelsPerUnit": 200
+      },
+      "image_usage": {
+        "type": "Sliced",
+        "preserveAspect": false,
+        "fillCenter": true,
+        "color": "Color.white"
+      }
+    },
+    {
+      "id": "ui_card_upgrade",
+      "source": "ArtSource/Art071/Full/Surfaces/ui_card_upgrade.svg",
+      "export": "ArtSource/Art071/Full/Surfaces/ui_card_upgrade.png",
+      "source_sha256": "953414e04a3eb708e73400173987d68997d6b0db5ac2c421bd6882b606e5db5b",
+      "sha256": "301651bd1880662004c3acfd6cfae89e6a83612ba0c41e730743a03204fdf580",
+      "dimensions": [
+        512,
+        512
+      ],
+      "layer": "content",
+      "tint_mode": "palette",
+      "transparent_center": false,
+      "alpha_bounds": [
+        1,
+        1,
+        505,
+        505
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "edge_alpha_max": 0,
+      "consumers": "upgrade-card prefab Surface, Art07AssetLibrary.cs InterfaceView",
+      "importer": {
+        "textureType": "Sprite",
+        "spriteMode": "Single",
+        "filterMode": "Bilinear",
+        "wrapMode": "Clamp",
+        "mipmapEnabled": false,
+        "alphaIsTransparency": true,
+        "sRGBTexture": true,
+        "compression": "Uncompressed",
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "meshType": "FullRect",
+        "border": [
+          32,
+          32,
+          32,
+          32
+        ],
+        "pixelsPerUnit": 200
+      },
+      "image_usage": {
+        "type": "Sliced",
+        "preserveAspect": false,
+        "fillCenter": true,
+        "color": "Color.white"
+      }
+    },
+    {
+      "id": "ui_chip_label",
+      "source": "ArtSource/Art071/Full/Surfaces/ui_chip_label.svg",
+      "export": "ArtSource/Art071/Full/Surfaces/ui_chip_label.png",
+      "source_sha256": "718518f4e51b5ea8e4e9db3d1c83918ff7c7a91fb9188abad92bd1fe71729bff",
+      "sha256": "c1168130b6c38bdf318e4ce78db25b12a9e4a1bbac909cbdb3d1cf9ac51f9f85",
+      "dimensions": [
+        512,
+        512
+      ],
+      "layer": "information",
+      "tint_mode": "palette",
+      "transparent_center": false,
+      "alpha_bounds": [
+        1,
+        1,
+        501,
+        498
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "edge_alpha_max": 0,
+      "consumers": "fx_value_ticket / fx_cash_ticket Surface",
+      "importer": {
+        "textureType": "Sprite",
+        "spriteMode": "Single",
+        "filterMode": "Bilinear",
+        "wrapMode": "Clamp",
+        "mipmapEnabled": false,
+        "alphaIsTransparency": true,
+        "sRGBTexture": true,
+        "compression": "Uncompressed",
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "meshType": "FullRect",
+        "border": [
+          32,
+          32,
+          32,
+          32
+        ],
+        "pixelsPerUnit": 200
+      },
+      "image_usage": {
+        "type": "Sliced",
+        "preserveAspect": false,
+        "fillCenter": true,
+        "color": "Color.white"
+      }
+    },
+    {
+      "id": "ui_focus_frame",
+      "source": "ArtSource/Art071/Full/Surfaces/ui_focus_frame.svg",
+      "export": "ArtSource/Art071/Full/Surfaces/ui_focus_frame.png",
+      "source_sha256": "000a0138881fd05fe59439c7ed6e5ba7d0882fc37667e230e0f6c5252db50ac0",
+      "sha256": "e2e64887979084246106da67df869869f450c7de365c5e13e880fb313fc9fda1",
+      "dimensions": [
+        512,
+        512
+      ],
+      "layer": "action_feedback",
+      "tint_mode": "white_alpha",
+      "transparent_center": true,
+      "alpha_bounds": [
+        2,
+        2,
+        510,
+        510
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "edge_alpha_max": 0,
+      "consumers": "dice-selection LocalFx material; target bracket / slot expand / face-change effects",
+      "importer": {
+        "textureType": "Sprite",
+        "spriteMode": "Single",
+        "filterMode": "Bilinear",
+        "wrapMode": "Clamp",
+        "mipmapEnabled": false,
+        "alphaIsTransparency": true,
+        "sRGBTexture": true,
+        "compression": "Uncompressed",
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "meshType": "FullRect",
+        "border": [
+          32,
+          32,
+          32,
+          32
+        ],
+        "pixelsPerUnit": 200
+      },
+      "image_usage": {
+        "type": "Sliced",
+        "preserveAspect": false,
+        "fillCenter": false,
+        "color": "runtime tint"
+      }
+    },
+    {
+      "id": "ui_panel_modal",
+      "source": "ArtSource/Art071/Full/Surfaces/ui_panel_modal.svg",
+      "export": "ArtSource/Art071/Full/Surfaces/ui_panel_modal.png",
+      "source_sha256": "2c4a82c8126b8a896ebff2b3702402749f7d2217f49cf590e20853560dd1a96c",
+      "sha256": "f93e299c0eebe1d7daeec78b258d9816e4d2c4437ec5e2f87df9c61bee780224",
+      "dimensions": [
+        512,
+        512
+      ],
+      "layer": "content",
+      "tint_mode": "palette",
+      "transparent_center": false,
+      "alpha_bounds": [
+        1,
+        1,
+        505,
+        505
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "edge_alpha_max": 0,
+      "consumers": "modal prefab Dialog; separate InputShield owns screen dimming",
+      "importer": {
+        "textureType": "Sprite",
+        "spriteMode": "Single",
+        "filterMode": "Bilinear",
+        "wrapMode": "Clamp",
+        "mipmapEnabled": false,
+        "alphaIsTransparency": true,
+        "sRGBTexture": true,
+        "compression": "Uncompressed",
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "meshType": "FullRect",
+        "border": [
+          32,
+          32,
+          32,
+          32
+        ],
+        "pixelsPerUnit": 200
+      },
+      "image_usage": {
+        "type": "Sliced",
+        "preserveAspect": false,
+        "fillCenter": true,
+        "color": "Color.white"
+      }
+    },
+    {
+      "id": "ui_panel_plain",
+      "source": "ArtSource/Art071/Full/Surfaces/ui_panel_plain.svg",
+      "export": "ArtSource/Art071/Full/Surfaces/ui_panel_plain.png",
+      "source_sha256": "1ed6884fb390def6ef1e28c41b814e0ae73df2c1d88e594ab5fe54ba792a3a43",
+      "sha256": "79ca7f8a51e63fd16b46ab40fbf5490ec6fc583731a9a050d6c3b2526e053b4c",
+      "dimensions": [
+        512,
+        512
+      ],
+      "layer": "information",
+      "tint_mode": "palette",
+      "transparent_center": false,
+      "alpha_bounds": [
+        1,
+        1,
+        511,
+        511
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "edge_alpha_max": 0,
+      "consumers": "legacy template compatibility; no current literal code consumer",
+      "importer": {
+        "textureType": "Sprite",
+        "spriteMode": "Single",
+        "filterMode": "Bilinear",
+        "wrapMode": "Clamp",
+        "mipmapEnabled": false,
+        "alphaIsTransparency": true,
+        "sRGBTexture": true,
+        "compression": "Uncompressed",
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "meshType": "FullRect",
+        "border": [
+          32,
+          32,
+          32,
+          32
+        ],
+        "pixelsPerUnit": 200
+      },
+      "image_usage": {
+        "type": "Sliced",
+        "preserveAspect": false,
+        "fillCenter": true,
+        "color": "Color.white"
+      }
+    },
+    {
+      "id": "ui_progress_fill",
+      "source": "ArtSource/Art071/Full/Surfaces/ui_progress_fill.svg",
+      "export": "ArtSource/Art071/Full/Surfaces/ui_progress_fill.png",
+      "source_sha256": "25b58ef3ac9deab1b63e59570f732933de93b10739ac21534887b5e2bded4515",
+      "sha256": "c752b43ddcaf5a35a1ac40341f487f1c87a4e012c6131b9bd0a366a02dc56f8c",
+      "dimensions": [
+        768,
+        96
+      ],
+      "layer": "information",
+      "tint_mode": "white_alpha",
+      "transparent_center": false,
+      "alpha_bounds": [
+        1,
+        1,
+        767,
+        95
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "edge_alpha_max": 0,
+      "consumers": "probability bar and probability effect Filled images",
+      "importer": {
+        "textureType": "Sprite",
+        "spriteMode": "Single",
+        "filterMode": "Bilinear",
+        "wrapMode": "Clamp",
+        "mipmapEnabled": false,
+        "alphaIsTransparency": true,
+        "sRGBTexture": true,
+        "compression": "Uncompressed",
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "meshType": "FullRect",
+        "border": [
+          48,
+          0,
+          48,
+          0
+        ],
+        "pixelsPerUnit": 200
+      },
+      "image_usage": {
+        "type": "Filled",
+        "preserveAspect": false,
+        "fillCenter": true,
+        "color": "runtime tint"
+      }
+    },
+    {
+      "id": "ui_progress_track",
+      "source": "ArtSource/Art071/Full/Surfaces/ui_progress_track.svg",
+      "export": "ArtSource/Art071/Full/Surfaces/ui_progress_track.png",
+      "source_sha256": "4a87b76d527cbc12881effbcde320b7f67741915904e0db0db92468bb1c84651",
+      "sha256": "8762e9371616056c85540f5d60123e1d3b36c1ba294210e9d2aedb3961d4066f",
+      "dimensions": [
+        768,
+        96
+      ],
+      "layer": "information",
+      "tint_mode": "neutral_rgb",
+      "transparent_center": false,
+      "alpha_bounds": [
+        1,
+        1,
+        767,
+        95
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "edge_alpha_max": 0,
+      "consumers": "probability bar Track tinted UiKit.Panel",
+      "importer": {
+        "textureType": "Sprite",
+        "spriteMode": "Single",
+        "filterMode": "Bilinear",
+        "wrapMode": "Clamp",
+        "mipmapEnabled": false,
+        "alphaIsTransparency": true,
+        "sRGBTexture": true,
+        "compression": "Uncompressed",
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "meshType": "FullRect",
+        "border": [
+          48,
+          0,
+          48,
+          0
+        ],
+        "pixelsPerUnit": 200
+      },
+      "image_usage": {
+        "type": "Simple",
+        "preserveAspect": false,
+        "fillCenter": true,
+        "color": "runtime tint"
+      }
+    },
+    {
+      "id": "ui_scroll_handle",
+      "source": "ArtSource/Art071/Full/Surfaces/ui_scroll_handle.svg",
+      "export": "ArtSource/Art071/Full/Surfaces/ui_scroll_handle.png",
+      "source_sha256": "1d33a6370d2d5be399a786882ccba01bced8df6af635848b2a878f7e35c1a484",
+      "sha256": "149bc8b70544fa15a406713d1e3caa1763326099c13d88da7b1b0a847d29336f",
+      "dimensions": [
+        512,
+        512
+      ],
+      "layer": "information",
+      "tint_mode": "neutral_rgb",
+      "transparent_center": false,
+      "alpha_bounds": [
+        2,
+        2,
+        510,
+        510
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "edge_alpha_max": 0,
+      "consumers": "legacy template compatibility; no current literal code consumer",
+      "importer": {
+        "textureType": "Sprite",
+        "spriteMode": "Single",
+        "filterMode": "Bilinear",
+        "wrapMode": "Clamp",
+        "mipmapEnabled": false,
+        "alphaIsTransparency": true,
+        "sRGBTexture": true,
+        "compression": "Uncompressed",
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "meshType": "FullRect",
+        "border": [
+          32,
+          32,
+          32,
+          32
+        ],
+        "pixelsPerUnit": 200
+      },
+      "image_usage": {
+        "type": "Sliced",
+        "preserveAspect": false,
+        "fillCenter": true,
+        "color": "runtime tint"
+      }
+    },
+    {
+      "id": "ui_slot_dice",
+      "source": "ArtSource/Art071/Full/Surfaces/ui_slot_dice.svg",
+      "export": "ArtSource/Art071/Full/Surfaces/ui_slot_dice.png",
+      "source_sha256": "ca4b8b5994f3e89541874329953e749b8d7b1cac6f6597bf2b91d1a6ada63bbb",
+      "sha256": "540adc79918761259c314df7f48d29c3c34773a367311da39039be5259c77247",
+      "dimensions": [
+        512,
+        512
+      ],
+      "layer": "information",
+      "tint_mode": "palette",
+      "transparent_center": true,
+      "alpha_bounds": [
+        2,
+        2,
+        510,
+        510
+      ],
+      "alpha_range": [
+        0,
+        233
+      ],
+      "edge_alpha_max": 0,
+      "consumers": "dice-slot prefab Surface",
+      "importer": {
+        "textureType": "Sprite",
+        "spriteMode": "Single",
+        "filterMode": "Bilinear",
+        "wrapMode": "Clamp",
+        "mipmapEnabled": false,
+        "alphaIsTransparency": true,
+        "sRGBTexture": true,
+        "compression": "Uncompressed",
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "meshType": "FullRect",
+        "border": [
+          32,
+          32,
+          32,
+          32
+        ],
+        "pixelsPerUnit": 200
+      },
+      "image_usage": {
+        "type": "Sliced",
+        "preserveAspect": false,
+        "fillCenter": false,
+        "color": "Color.white"
+      }
+    },
+    {
+      "id": "ui_slot_inventory",
+      "source": "ArtSource/Art071/Full/Surfaces/ui_slot_inventory.svg",
+      "export": "ArtSource/Art071/Full/Surfaces/ui_slot_inventory.png",
+      "source_sha256": "b09539d23d2e7b57de22f3e4032e2f8731fae10b949add74de58977223a90239",
+      "sha256": "dc887a9a26906c89bdeb31495aaf2c204fa29fab6260c9d2aa1a00c68782ca4a",
+      "dimensions": [
+        512,
+        512
+      ],
+      "layer": "information",
+      "tint_mode": "palette",
+      "transparent_center": true,
+      "alpha_bounds": [
+        2,
+        2,
+        510,
+        510
+      ],
+      "alpha_range": [
+        0,
+        233
+      ],
+      "edge_alpha_max": 0,
+      "consumers": "legacy template compatibility; no current literal code consumer",
+      "importer": {
+        "textureType": "Sprite",
+        "spriteMode": "Single",
+        "filterMode": "Bilinear",
+        "wrapMode": "Clamp",
+        "mipmapEnabled": false,
+        "alphaIsTransparency": true,
+        "sRGBTexture": true,
+        "compression": "Uncompressed",
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "meshType": "FullRect",
+        "border": [
+          32,
+          32,
+          32,
+          32
+        ],
+        "pixelsPerUnit": 200
+      },
+      "image_usage": {
+        "type": "Sliced",
+        "preserveAspect": false,
+        "fillCenter": false,
+        "color": "Color.white"
+      }
+    },
+    {
+      "id": "ui_tooltip_frame",
+      "source": "ArtSource/Art071/Full/Surfaces/ui_tooltip_frame.svg",
+      "export": "ArtSource/Art071/Full/Surfaces/ui_tooltip_frame.png",
+      "source_sha256": "50a852d44cd9bbf643c961ba17d6f05c32385fef09178d936e599438f4f15ef4",
+      "sha256": "c1b6c93b8c7778261acf97d20b9ab5ef7e65e2e548b4c171cd18a5b4f34b6714",
+      "dimensions": [
+        512,
+        512
+      ],
+      "layer": "content",
+      "tint_mode": "palette",
+      "transparent_center": false,
+      "alpha_bounds": [
+        1,
+        1,
+        505,
+        505
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "edge_alpha_max": 0,
+      "consumers": "tooltip prefab Surface",
+      "importer": {
+        "textureType": "Sprite",
+        "spriteMode": "Single",
+        "filterMode": "Bilinear",
+        "wrapMode": "Clamp",
+        "mipmapEnabled": false,
+        "alphaIsTransparency": true,
+        "sRGBTexture": true,
+        "compression": "Uncompressed",
+        "pivot": [
+          0.5,
+          0.5
+        ],
+        "meshType": "FullRect",
+        "border": [
+          32,
+          32,
+          32,
+          32
+        ],
+        "pixelsPerUnit": 200
+      },
+      "image_usage": {
+        "type": "Sliced",
+        "preserveAspect": false,
+        "fillCenter": true,
+        "color": "Color.white"
+      }
+    }
+  ],
+  "previews": [
+    "ArtSource/Art071/Full/Surfaces/preview-deep-light-scale.png"
+  ],
+  "notes": [
+    "Asset geometry is newly drawn at HD resolution; old textures are neither enlarged nor sampled.",
+    "Item and upgrade use the same approved paper stock geometry; category identity remains runtime illustration/text.",
+    "Bilinear, Clamp, no mipmaps, FullRect; normal surfaces 512 square, PPU200 and L/B/R/T border32.",
+    "Progress strips 768x96 with L/B/R/T border48/0/48/0; Filled/Simple consumers must set preserveAspect=false; fillAmount remains runtime-owned.",
+    "Focus frame is white RGB with alpha; works with LocalFx material/Graphic tint. Slots have fully transparent inner area and no baked capacity or ordinal.",
+    "Palette sprites use Color.white; neutral/white-alpha sprites accept runtime tint. Reset fillCenter correctly on pooled Images.",
+    "Source preview is a Pillow slice simulation at canvas reference PPU100; it does not prove Unity runtime appearance or input behavior."
+  ]
+}

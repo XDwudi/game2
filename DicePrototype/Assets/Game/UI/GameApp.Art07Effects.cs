@@ -41,6 +41,7 @@ namespace DiceCraft
             libraryEffects07=UiKit.Rect(canvas.transform,"Art07LocalEffects",0,0,1920,1080);
             effectLabels07=UiKit.Rect(libraryEffects07,"EffectLabels",0,0,1920,1080);
             sourceMarks07=UiKit.Rect(libraryEffects07,"SourceMarks",0,0,1920,1080);
+            InitializeEnchantCues071();
             foreach(var prefab in art07Prefabs??Array.Empty<Art07PrefabView>())
             {
                 if(prefab==null||!prefab.isEffect||effectPools07.ContainsKey(prefab.assetId))continue;
@@ -123,6 +124,7 @@ namespace DiceCraft
         {
             ReturnLibraryEffects07(false);EffectLayerOrder07();effectReceipt07=receipt07.GameReceiptId;effectOnClock07=true;effectDuration07=Math.Max(.001f,beat.DurationMs/1000f);
             effectOptions07=presentationPlayer07.Sequence.Options;EffectGroup07("main",true);MarkBeatSources07(beat);
+            PresentScoringEnchants071(beat);
             if(beat.FocusEmitterId!=null&&TryCardBounds07(beat.FocusEmitterId,out var source))
             {
                 Effect07("fx_source_hit",beat.FocusEmitterId,source.position,source.size);
@@ -167,7 +169,7 @@ namespace DiceCraft
                     // Above Fill, below exact text. Preserve the first visual-review correction.
                     var scoreRoot=receiptNumber07.rectTransform.parent as RectTransform;var r=(RectTransform)burst.transform;
                     r.SetParent(scoreRoot,false);r.anchoredPosition=Vector2.zero;
-                    burst.ConfigureScoreBurst(new Vector2(scoreRoot.rect.width,scoreRoot.rect.height));
+                    burst.ConfigureScoreBurst(new Vector2(scoreRoot.rect.width,scoreRoot.rect.height),effectOptions07.Quality==PresentationQuality.Low);
                     r.SetSiblingIndex(receiptNumber07.transform.GetSiblingIndex());
                 }
             }
@@ -347,6 +349,11 @@ namespace DiceCraft
             }
             if(BeginCommittedTransactionVisual07(cmd,result,before,after))
             {
+                if(!instant07&&TransactionVisualPlaying07)
+                {
+                    EffectLayerOrder07();effectReceipt07=result.receipt.commandId;effectOnClock07=false;effectElapsed07=0;effectDuration07=TransactionVisualDuration07;
+                    effectOptions07=CreatePresentationOptions07();EffectGroup07("main",true);PresentAcquiredEnchant071(before,after);
+                }
                 long cashDelta=after.gold-before.gold;
                 if(!instant07&&cashDelta!=0&&TransactionVisualPlaying07)
                 {
@@ -360,9 +367,10 @@ namespace DiceCraft
             if(instant07)return;
             ReturnLibraryEffects07(true);EffectLayerOrder07();effectReceipt07=result.receipt.commandId;effectOnClock07=false;effectElapsed07=0;effectDuration07=fast?.15f:.32f;
             effectOptions07=CreatePresentationOptions07();EffectGroup07("main",true);
+            PresentBudgetEnchants071(before,after);
             if(cmd.kind==CommandKind.Buy)
             {
-                var offer=before.shop?.offers.FirstOrDefault(o=>o.offerId==cmd.offerId);var icon=contentIcons?.FirstOrDefault(s=>s!=null&&s.name=="icon_"+offer?.contentId?.ToLowerInvariant());
+                var offer=before.shop?.offers.FirstOrDefault(o=>o.offerId==cmd.offerId);var icon=ContentSprite071(offer?.contentId);
                 var v=Effect07("fx_acquire_remove",cmd.offerId,new Vector2(1450,640),new Vector2(120,160),"","已获得");
                 if(v!=null){if(icon!=null)v.Bind(cmd.offerId,"","","已获得",icon);else if(v.icon!=null)v.icon.enabled=false;}
             }
@@ -671,12 +679,15 @@ namespace DiceCraft
             if(activeEffects07.Count==0&&effectReceipt07==null)return;
             float t=Mathf.Clamp01((effectOnClock07?(float)(presentationPlayer07.Clock.ElapsedMilliseconds-(beat07?.StartMs??0))/1000:(effectElapsed07+=visualDelta))/Math.Max(.001f,effectDuration07));
             foreach(var v in activeEffects07)v.Evaluate(effectLocalDurations07.TryGetValue(v,out float local)?Mathf.Clamp01(t*effectDuration07/local):t);
+            TickEnchantCues071(t);
             foreach(var outline in brokenOutlines07)if(outline.Value!=null)outline.Value.alpha=1-t;
             if(!effectOnClock07&&t>=1)ReturnLibraryEffects07(true);
         }
         private void FinishTransactionEffects07(){if(qualifiedStamp07?.IsPlaying==true)qualifiedStamp07.Finish();transactionMotion07?.Finish();cleanupTransactionView07?.Invoke();cleanupTransactionView07=null;ReturnLibraryEffects07(true);}
         private void ReturnLibraryEffects07(bool clearTails=true)
         {
+            foreach(var cue in enchantCues071)cue.ResetForPool();
+            enchantTargets071.Clear();
             permanentTransition07?.Finish();unchangedPermanentTargets07.Clear();brokenOutlines07.Clear();effectLocalDurations07.Clear();permanentStamps07.Clear();
             foreach(var view in activeEffects07){effectPools07[view.assetId].Return(view);if(view.transform is RectTransform)view.transform.SetParent(libraryEffects07,false);}activeEffects07.Clear();
             if(effectLabels07!=null)UiKit.Clear(effectLabels07);if(sourceMarks07!=null)UiKit.Clear(sourceMarks07);sourceMarkCount07=0;

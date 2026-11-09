@@ -1,0 +1,57 @@
+{
+  "id": "C33",
+  "name": "大数开路",
+  "createdUtc": "2026-11-09T02:43:40.611594+00:00",
+  "author": "/root/project_audit",
+  "tool": "built-in imagegen",
+  "modelSnapshot": "not exposed",
+  "intent": "new standalone themed illustration matching fixed v071 reference pair",
+  "originalToolPath": "C:\\Users\\f\\.codex\\generated_images\\01a1bc4e-02cf-7610-8093-a866440df249\\exec-13e572e2-0a75-44f3-8044-3fff89ec2389.png",
+  "file": "original.png",
+  "sha256": "f21e486c692262b49f782d6b94540ec996f0cb98429a9857e80b17d21d69485d",
+  "dimensions": [
+    1254,
+    1254
+  ],
+  "mode": "RGBA",
+  "alpha0": 913180,
+  "alpha255": 2063,
+  "alphaPartial": 657273,
+  "alphaBounds": [
+    0,
+    3,
+    1254,
+    1254
+  ],
+  "promptFile": "prompt.txt",
+  "promptSha256": "d0089ee04407116613718b159a8aa036a1cb0ef59db60fb659da550405609873",
+  "configDescription": "至少提交2颗，第一颗有效点数≥第二颗有效点数+2时，整手得分×7。",
+  "configPath": "DicePrototype/Assets/Game/Data/P0Config.json",
+  "configSha256": "747ed1efc7bea15873f66a81eee5c7654971c21031f2a1517ce629adce7b6e6c",
+  "references": [
+    {
+      "path": "docs/specs/v071/handoff/references/battle_master_v071.png",
+      "sha256": "02895a850ba48c636445c963f705244d190bdb8b94c07f449a0269fc5047f8dc",
+      "role": "style master"
+    },
+    {
+      "path": "ArtSource/Art071/Illustrations/illustration_c29.png",
+      "sha256": "d380eecb4921984d2aacb4b50b1c7ee6fdcbdbb9f3596550fa79b476d4320728",
+      "role": "fixed standalone style anchor"
+    }
+  ],
+  "status": "candidate; author source/edge/small-size checks completed; independent and engine review pending",
+  "sourcePixelsAltered": false,
+  "authorReview": {
+    "actualOriginalViewed": true,
+    "paperAndFeltPreviewViewed": true,
+    "previewSizes": [
+      420,
+      176,
+      64
+    ],
+    "groupPreview": "cache/v071-full/author-previews/group-3.png",
+    "observation": "大骰开路铲与尾随小骰形成单一物件组，64px仍辨开路轮廓。 正确RGBA浅纸/深青合成未见可见白框或主体裁切。",
+    "limitation": "author check only; not independent art acceptance or engine evidence"
+  }
+}

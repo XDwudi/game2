@@ -1,0 +1,59 @@
+{
+  "id": "O02",
+  "name": "道具打折",
+  "createdUtc": "2026-11-09T03:27:54.480629+00:00",
+  "author": "/root/project_audit",
+  "tool": "built-in imagegen",
+  "modelSnapshot": "not exposed",
+  "intent": "new standalone themed illustration matching fixed v071 reference pair",
+  "originalToolPath": "C:\\Users\\f\\.codex\\generated_images\\01a1bc4e-02cf-7610-8093-a866440df249\\exec-a89f6e09-9dcd-4f43-b9e2-ad17e49c60d0.png",
+  "file": "original.png",
+  "sha256": "1ad54d17b6f4c8d57324164428042914fbe47bcdfe7e5f416bbae4a58e4646b1",
+  "dimensions": [
+    1254,
+    1254
+  ],
+  "mode": "RGBA",
+  "alpha0": 917534,
+  "alpha255": 3211,
+  "alphaPartial": 651771,
+  "alphaBounds": [
+    0,
+    21,
+    1240,
+    1236
+  ],
+  "promptFile": "prompt.txt",
+  "promptSha256": "6cffe3633aacb19a5c2a531f70c6410f2c78fa900c8af74323a8396f9a5823b8",
+  "configDescription": "本Run局内道具与局外服务购买价−1，最多3层；不影响控制器、附魔、刷新、骰强及研习。",
+  "configPath": "DicePrototype/Assets/Game/Data/P0Config.json",
+  "configSha256": "747ed1efc7bea15873f66a81eee5c7654971c21031f2a1517ce629adce7b6e6c",
+  "references": [
+    {
+      "path": "docs/specs/v071/handoff/references/battle_master_v071.png",
+      "sha256": "02895a850ba48c636445c963f705244d190bdb8b94c07f449a0269fc5047f8dc",
+      "role": "style master"
+    },
+    {
+      "path": "ArtSource/Art071/Illustrations/illustration_c29.png",
+      "sha256": "d380eecb4921984d2aacb4b50b1c7ee6fdcbdbb9f3596550fa79b476d4320728",
+      "role": "fixed standalone style anchor"
+    }
+  ],
+  "status": "candidate; author visual and alpha checks completed; independent and engine review pending",
+  "sourcePixelsAltered": false,
+  "authorReview": {
+    "reviewedUtc": "2026-11-09T03:28:27.135647+00:00",
+    "method": "actual original displayed and RGBA composited light/dark preview at 420/176/64 viewed",
+    "previewPath": "cache/v071-full/author-previews/O02.png",
+    "previewSha256": "fd37ca988e8b290323ee01471a4d3a0de456c0cc5f1fe8ef643770f6d0380499",
+    "observation": "Ticket clipper cuts blank ticket corner with small coin; discount theme remains distinct at 176/64; no fabricated exact price.",
+    "visibleBackgroundOrClippingObserved": false,
+    "scope": "author source review only; not independent or engine acceptance"
+  },
+  "retryHistory": {
+    "unfinishedPair": "cache/v071-full/unfinished-o01-o02/unfinished.json",
+    "reason": "prior parallel tool calls returned no image/output after more than 15 minutes; parent authorized terminate and one concise single-ID retry",
+    "sourcePixelsAltered": false
+  }
+}

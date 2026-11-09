@@ -1,0 +1,55 @@
+{
+  "contentId": "C05",
+  "displayName": "再来三次",
+  "configDescription": "有效投掷后剩掷为0且剩1至2颗未锁存活骰时，剩掷+3；每手限1次。",
+  "artVersion": "art0.7.1",
+  "tool": "tools.image_gen__imagegen",
+  "generationRevision": 1,
+  "actualOutputPath": "C:\\Users\\f\\.codex\\generated_images\\01a1bc4f-525d-7990-8359-1c935dd6133e\\exec-2aa40516-049a-4943-a1e5-8e41954ed4ee.png",
+  "originalPath": "E:\\agent_workspace\\gpt\\game2\\ArtSource\\Art071\\IllustrationsFull\\C05\\original.png",
+  "sha256": "925416958caa8194378752ea5f99f2c4cc7f1670adff4d99d871b97e60d65259",
+  "copiedByteIdentical": true,
+  "dimensions": [
+    1254,
+    1254
+  ],
+  "mode": "RGBA",
+  "alphaExtrema": [
+    0,
+    255
+  ],
+  "transparentPixels": 956953,
+  "alphaBounds": [
+    0,
+    23,
+    1238,
+    1254
+  ],
+  "promptPath": "E:\\agent_workspace\\gpt\\game2\\ArtSource\\Art071\\IllustrationsFull\\C05\\prompt.txt",
+  "promptSha256": "198f250a74d5ec66741a019fce2146f48e7c176133a0195c4a370a9b8eb5aed8",
+  "configPath": "DicePrototype/Assets/Game/Data/P0Config.json",
+  "configSha256": "747ed1efc7bea15873f66a81eee5c7654971c21031f2a1517ce629adce7b6e6c",
+  "references": [
+    {
+      "path": "E:\\agent_workspace\\gpt\\game2\\docs\\specs\\v071\\handoff\\references\\battle_master_v071.png",
+      "sha256": "02895a850ba48c636445c963f705244d190bdb8b94c07f449a0269fc5047f8dc",
+      "actuallyViewed": true
+    },
+    {
+      "path": "E:\\agent_workspace\\gpt\\game2\\ArtSource\\Art071\\Illustrations\\illustration_c29.png",
+      "sha256": "d380eecb4921984d2aacb4b50b1c7ee6fdcbdbb9f3596550fa79b476d4320728",
+      "actuallyViewed": true
+    }
+  ],
+  "status": "generated; author technical inspection complete; game integration and independent review pending",
+  "sourceType": "editable flattened raster PNG; no layered source claimed",
+  "recordedUtc": "2026-11-09T02:42:32.001691+00:00",
+  "authorInspection": {
+    "actuallyViewed": [
+      "returned original",
+      "technical-preview.png: light and dark, large and 120px"
+    ],
+    "result": "large distinct motif readable at 120px; no text or frame; actual composites show no rectangular matte/background; original dimensions and alpha preserved",
+    "limitation": "source-only author check, not independent game acceptance; non-square originals must retain aspect ratio"
+  }
+}

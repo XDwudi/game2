@@ -70,15 +70,18 @@ namespace DiceCraft
                 else{UiKit.Box(main,"ItemEmpty"+i,x,y+18,itemW-8,75,UiKit.Panel);UiKit.Text(main,"ItemEmptyText"+i,"空槽",x+5,y+42,itemW-18,28,18,UiKit.Muted,TextAlignmentOptions.Center);}
             }
         }
+        private Sprite ContentSprite071(string id) => string.IsNullOrEmpty(id)?null:
+            contentIcons?.FirstOrDefault(s=>s!=null&&s.name.Equals("illustration_"+id,StringComparison.OrdinalIgnoreCase))
+            ??contentIcons?.FirstOrDefault(s=>s!=null&&(s.name==id||s.name.Equals("icon_"+id,StringComparison.OrdinalIgnoreCase)));
+
         private void Icon(Transform p,string id,float x,float y,float size)
         {
-            var sprite=contentIcons?.FirstOrDefault(s=>s!=null&&s.name.Equals("illustration_"+id,StringComparison.OrdinalIgnoreCase))
-                ??contentIcons?.FirstOrDefault(s=>s!=null&&(s.name==id||s.name.Equals("icon_"+id,StringComparison.OrdinalIgnoreCase)));
+            var sprite=ContentSprite071(id);
             var r=UiKit.Rect(p,"Icon_"+id,x,y,size,size);
             if(sprite!=null)
             {
                 var image=UiKit.Component<UnityEngine.UI.Image>(r.gameObject);image.sprite=sprite;image.color=Color.white;image.raycastTarget=false;image.preserveAspect=true;
-                if(id=="C09"||id=="C46")
+                if((id=="C09"||id=="C46")&&!sprite.name.StartsWith("illustration_",StringComparison.OrdinalIgnoreCase))
                 {
                     // Fixed multipliers are live, legible type inside the authored emblem.
                     float bx=id=="C09"?.34f:.26f,by=id=="C09"?.29f:.34f,bw=id=="C09"?.30f:.48f,bh=.30f;
@@ -98,12 +101,12 @@ namespace DiceCraft
         private void ShowOwned(OwnedItem item,bool selling)
         {
             var p=Art07Modal(NameOf(item.contentId),480,180,960,720);Icon(p,item.contentId,24,112,176);
-            var list=UiKit.Scroll(p,"ItemDetail",232,104,704,492,492);float y=0;
-            Art07DetailSection(list,"Skill","道具效果",Description(item.contentId),ref y,672);
+            var list=PaperDetailScroll071(p,"ItemDetail",232,104,704,492);float y=0;
+            Art07DetailSection(list,"Skill","道具效果",Description(item.contentId),ref y,672,true);
             string window=Config.Consumable(item.contentId).window;
-            Art07DetailSection(list,"Window","合法窗口",window=="Selecting"?"投掷后，至少已有一颗确认锁定的骰子。":window=="HandReady"?"本手第一次投掷前。":"本手投掷前或投掷后，先处理待锁选择。",ref y,672);
+            Art07DetailSection(list,"Window","合法窗口",window=="Selecting"?"投掷后，至少已有一颗确认锁定的骰子。":window=="HandReady"?"本手第一次投掷前。":"本手投掷前或投掷后，先处理待锁选择。",ref y,672,true);
             string reason=selling?null:Art07ItemUnavailable(item);
-            Art07DetailSection(list,"UseState",selling?"出售结果":"当前状态",selling?"未使用道具固定卖价 1 金币；出售后失去这件库存。":reason??"当前可以使用；成功后消耗一件库存。",ref y,672);
+            Art07DetailSection(list,"UseState",selling?"出售结果":"当前状态",selling?"未使用道具固定卖价 1 金币；出售后失去这件库存。":reason??"当前可以使用；成功后消耗一件库存。",ref y,672,true);
             list.sizeDelta=new Vector2(list.sizeDelta.x,y+16);
             if(selling)
             {
@@ -144,16 +147,16 @@ namespace DiceCraft
             var p=Art07Modal(NameOf(offer.contentId),480,180,960,720);
             Icon(p,offer.contentId,24,112,176);
             if(offer.category=="controller")EnchantBadge(p,offer.controller.enchantmentId,160,102,40);
-            var list=UiKit.Scroll(p,"OfferDetail",232,104,704,492,492);float y=0;
-            Art07DetailSection(list,"Skill","效果",Description(offer.contentId),ref y,672);
+            var list=PaperDetailScroll071(p,"OfferDetail",232,104,704,492);float y=0;
+            Art07DetailSection(list,"Skill","效果",Description(offer.contentId),ref y,672,true);
             if(offer.category=="controller")
             {
-                Art07DetailSection(list,"Enchant","附魔",EnchantLabel(offer.controller.enchantmentId),ref y,672);
-                Art07DetailSection(list,"Capacity","购入后",ControllerPurchaseText(offer)+"\n"+Art07OfferState(offer.controller),ref y,672);
+                Art07DetailSection(list,"Enchant","附魔",EnchantLabel(offer.controller.enchantmentId),ref y,672,true);
+                Art07DetailSection(list,"Capacity","购入后",ControllerPurchaseText(offer)+"\n"+Art07OfferState(offer.controller),ref y,672,true);
             }
-            else Art07DetailSection(list,"Category","作用范围",offer.category=="consumable"?$"买入库存，使用时消耗。库存 {ViewState.inventory.Count} / {ViewState.consumableSlots}。":"购买成功后，在当前 Run 立即生效。",ref y,672);
+            else Art07DetailSection(list,"Category","作用范围",offer.category=="consumable"?$"买入库存，使用时消耗。库存 {ViewState.inventory.Count} / {ViewState.consumableSlots}。":"购买成功后，在当前 Run 立即生效。",ref y,672,true);
             string error=Session.PurchaseError(offer.offerId);
-            Art07DetailSection(list,"Price","价格与余额","价格 "+Session.GetOfferPrice(offer)+" 金币 · 当前余额 "+ViewState.gold+(error==null?"":"\n"+error),ref y,672);
+            Art07DetailSection(list,"Price","价格与余额","价格 "+Session.GetOfferPrice(offer)+" 金币 · 当前余额 "+ViewState.gold+(error==null?"":"\n"+error),ref y,672,true);
             list.sizeDelta=new Vector2(list.sizeDelta.x,y+16);
             UiKit.ActionButton(p,"ConfirmPurchase",offer.sold?"已购买":"支付 "+Session.GetOfferPrice(offer)+" 并购买",24,628,912,64,()=>{CloseModal();Send(new SessionCommand{kind=CommandKind.Buy,offerId=offer.offerId});},UiKit.Gold,error==null&&!IsBusy);
         }

@@ -16,8 +16,8 @@ namespace DiceCraft
             UiKit.Box(mark,"RegistrationRule",30,24,880,3,UiKit.Ink);
             UiKit.Box(mark,"BlueRegistration",30,235,128,6,UiKit.Blue);
             UiKit.Box(mark,"RedRegistration",166,235,128,6,UiKit.Red);
-            var title=UiKit.Text(main,"Title","骰子构筑",146,140,852,214,UiKit.FontScale>1?76:96,UiKit.Ink);
-            title.fontStyle=FontStyles.Bold;title.textWrappingMode=TextWrappingModes.NoWrap;
+            var title=UiKit.Component<UnityEngine.UI.Image>(UiKit.Rect(main,"Title",146,146,852,150).gameObject);
+            title.sprite=UiKit.Template("ui_wordmark_dicecraft");title.preserveAspect=true;title.raycastTarget=false;
             // Rules have their own ink line on the title paper, clear of the real dice below.
             UiKit.Text(main,"MenuRules","投掷  →  选择  →  锁定  →  提交",146,302,852,52,23,UiKit.Ink);
             UiKit.Text(main,"Subtitle","把一次投掷，变成你的构筑。",128,408,940,66,28,UiKit.Paper);
@@ -33,13 +33,8 @@ namespace DiceCraft
                 if(i==1||i==2)DrawControllerFullBody07(card,i==1?"C48":"C29","控制器",null);
                 else
                 {
-                    UiKit.Outline(card,"PrintedBorder",16,16,186,248,UiKit.Ink,2);
-                    UiKit.Outline(card,"Inset",24,24,170,232,UiKit.Teal,2);
-                    var seal=UiKit.Rect(card,"BackSeal",62,94,94,94);
-                    UiKit.Outline(seal,"Diamond",12,12,70,70,UiKit.Ink,5);
-                    UiKit.Box(seal,"Pip",38,38,18,18,UiKit.Red);
-                    seal.localRotation=Quaternion.Euler(0,0,45);
-                    UiKit.Text(card,"BackCaption","DICE / BUILD",32,224,154,32,12,UiKit.Ink,TextAlignmentOptions.Center);
+                    var back=UiKit.Component<UnityEngine.UI.Image>(UiKit.Rect(card,"PrintedCardBack",4,4,210,272).gameObject);
+                    back.sprite=UiKit.Template("ui_card_back");back.preserveAspect=true;back.raycastTarget=false;
                 }
             }
             var centers=new[]{new Vector2(290,836),new Vector2(564,870),new Vector2(944,844)};

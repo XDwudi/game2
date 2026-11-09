@@ -1,0 +1,61 @@
+{
+  "contentId": "C07",
+  "displayName": "骰子复制",
+  "configDescription": "本关第一次有效提交恰好2颗且有效点数不同，提交后将第二颗永久数据深拷贝为第一颗。",
+  "artVersion": "art0.7.1",
+  "tool": "tools.image_gen__imagegen",
+  "generationRevision": 1,
+  "actualOutputPath": "C:\\Users\\f\\.codex\\generated_images\\01a1bc4f-525d-7990-8359-1c935dd6133e\\exec-b77eabb0-35bf-487b-a5a8-0c884f79e9c1.png",
+  "originalPath": "E:\\agent_workspace\\gpt\\game2\\ArtSource\\Art071\\IllustrationsFull\\C07\\original.png",
+  "sha256": "ed514250ea2837c21d63e125e98f33351905e355fdd33094d5cbfcbb3cedb981",
+  "copiedByteIdentical": true,
+  "dimensions": [
+    1312,
+    1199
+  ],
+  "mode": "RGBA",
+  "alphaExtrema": [
+    0,
+    255
+  ],
+  "transparentPixels": 776079,
+  "alphaBounds": [
+    25,
+    33,
+    1296,
+    1181
+  ],
+  "opaqueBounds": [
+    75,
+    48,
+    1280,
+    1178
+  ],
+  "promptPath": "E:\\agent_workspace\\gpt\\game2\\ArtSource\\Art071\\IllustrationsFull\\C07\\prompt.txt",
+  "promptSha256": "61ce8e0490f4acf2a706356d28aa8b7d9caba21c7dd5813b4d58e6f7e6be690b",
+  "configPath": "DicePrototype/Assets/Game/Data/P0Config.json",
+  "configSha256": "747ed1efc7bea15873f66a81eee5c7654971c21031f2a1517ce629adce7b6e6c",
+  "references": [
+    {
+      "path": "E:\\agent_workspace\\gpt\\game2\\docs\\specs\\v071\\handoff\\references\\battle_master_v071.png",
+      "sha256": "02895a850ba48c636445c963f705244d190bdb8b94c07f449a0269fc5047f8dc",
+      "actuallyViewed": true
+    },
+    {
+      "path": "E:\\agent_workspace\\gpt\\game2\\ArtSource\\Art071\\Illustrations\\illustration_c29.png",
+      "sha256": "d380eecb4921984d2aacb4b50b1c7ee6fdcbdbb9f3596550fa79b476d4320728",
+      "actuallyViewed": true
+    }
+  ],
+  "status": "generated; author technical inspection complete; game integration and independent review pending",
+  "sourceType": "editable flattened raster PNG; no layered PSD/KRA or vector source claimed",
+  "recordedUtc": "2026-11-09T02:47:29.680711+00:00",
+  "authorInspection": {
+    "actuallyViewed": [
+      "returned original",
+      "technical-preview.png: light and dark, large and 120px"
+    ],
+    "result": "distinct object silhouette readable; no text/frame/rectangular matte; C08 is deliberately wide boat, must preserve aspect ratio; C07/C09 narrow outer margins verified as complete objects in composite",
+    "limitation": "source-only author check; no final independent art acceptance or game rendering claimed"
+  }
+}

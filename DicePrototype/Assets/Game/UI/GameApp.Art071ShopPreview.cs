@@ -33,6 +33,13 @@ namespace DiceCraft
             UiKit.Outline(paper,"PreviewApertureBorder",apertureLeft-1,apertureTop-1,apertureWidth+2,apertureHeight+2,Color.Lerp(UiKit.Ink,UiKit.Paper,.5f),1);
             // Paper pieces were added after the title; keep its existing live TMP node above ink.
             paper.Find("Name")?.SetAsLastSibling();
+            // Theme artwork identifies the upgrade; the centre remains the real current die.
+            // Standard shop cards are 456 wide: this gives a 64px motif wholly inside
+            // the left paper column (x45..109), clear of the 3D aperture (x138..318).
+            float themeSize=Mathf.Min(64,apertureLeft-paperInset-12);
+            if(themeSize>=16)
+                Icon(paper,offer.contentId,(paperInset+apertureLeft-themeSize)*.5f,
+                    apertureTop+(apertureHeight-themeSize)*.5f,themeSize);
             UiKit.Text(paper,"CurrentDiePreviewLabel","当前骰子 · "+die.dieId,16,76,width-32,30,14,PaperMuted071,TextAlignmentOptions.Center);
             var aperture=UiKit.Rect(paper,"CurrentDiePreview071",apertureLeft,apertureTop,apertureWidth,apertureHeight);
             var scroll=paper.GetComponentInParent<UnityEngine.UI.ScrollRect>();

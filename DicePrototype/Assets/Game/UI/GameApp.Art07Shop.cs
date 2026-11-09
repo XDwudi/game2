@@ -295,6 +295,7 @@ namespace DiceCraft
             {
                 var item=ViewState.inventory[i];
                 var button=UiKit.Button(main,"ShopItem_"+item.instanceId,"",40+(i%3)*96,892+(i/3)*72,88,64,()=>ShowOwned(item,true),!IsBusy);
+                UiKit.CardSurface(button,true);((UnityEngine.UI.Image)button.targetGraphic).sprite=UiKit.Template("ui_card_item");
                 Icon(button.transform,item.contentId,20,6,48);
                 Art07AttachTooltip(button,item.instanceId,NameOf(item.contentId),Description(item.contentId),"出售获得 1 金币",()=>ShowOwned(item,true));
             }
@@ -319,13 +320,13 @@ namespace DiceCraft
             EnchantBadge(oldCard,old.enchantmentId,132,50,32);EnchantBadge(newCard,offer.controller.enchantmentId,132,50,32);
             UiKit.Text(oldCard,"Enchant",EnchantShort(old.enchantmentId),8,212,160,44,20,UiKit.Ink,TextAlignmentOptions.Center);
             UiKit.Text(newCard,"Enchant",EnchantShort(offer.controller.enchantmentId),8,212,160,44,20,UiKit.Ink,TextAlignmentOptions.Center);
-            var list=UiKit.Scroll(p,"ReplacementDetails",224,104,592,430,430);float y=0;
+            var list=PaperDetailScroll071(p,"ReplacementDetails",224,104,592,430);float y=0;
             long cost=Session.GetOfferNetPrice(offer),trade=Session.GetOfferTradeIn(offer);
-            Art07DetailSection(list,"Trade","本次交易","新卡标价 "+Session.GetOfferPrice(offer)+"\n旧卡回收 "+trade+"\n"+(cost>=0?"净支出 "+cost:"净收入 "+(-cost))+"\n余额 "+ViewState.gold+" → "+((System.Numerics.BigInteger)ViewState.gold-cost),ref y,560);
-            Art07DetailSection(list,"State","新实例重新初始化","旧实例的成长及附魔不会迁移。\n旧基金累计 "+old.state.fundAccrual+"；新基金累计 "+offer.controller.state.fundAccrual+"。\n"+Art07OfferState(offer.controller),ref y,560);
-            Art07DetailSection(list,"Capacity","装备占槽",ControllerPurchaseText(offer),ref y,560);
+            Art07DetailSection(list,"Trade","本次交易","新卡标价 "+Session.GetOfferPrice(offer)+"\n旧卡回收 "+trade+"\n"+(cost>=0?"净支出 "+cost:"净收入 "+(-cost))+"\n余额 "+ViewState.gold+" → "+((System.Numerics.BigInteger)ViewState.gold-cost),ref y,560,true);
+            Art07DetailSection(list,"State","新实例重新初始化","旧实例的成长及附魔不会迁移。\n旧基金累计 "+old.state.fundAccrual+"；新基金累计 "+offer.controller.state.fundAccrual+"。\n"+Art07OfferState(offer.controller),ref y,560,true);
+            Art07DetailSection(list,"Capacity","装备占槽",ControllerPurchaseText(offer),ref y,560,true);
             string error=Session.PurchaseError(offer.offerId);
-            if(error!=null)Art07DetailSection(list,"Unavailable","当前不可替换",error,ref y,560);
+            if(error!=null)Art07DetailSection(list,"Unavailable","当前不可替换",error,ref y,560,true);
             list.sizeDelta=new Vector2(list.sizeDelta.x,y+16);
             UiKit.Button(p,"CancelReplacement","取消",24,552,312,64,CloseModal);
             UiKit.ActionButton(p,"ConfirmPurchase",cost>=0?"支付 "+cost+" 并替换":"替换并获得 "+(-cost),360,552,656,64,

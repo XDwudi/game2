@@ -1,0 +1,34 @@
+{
+  "id": "O06",
+  "displayName": "增加道具",
+  "category": "services",
+  "configDescription": "每店局内道具报价数量永久+1，从2到最多5；当前店只新增一件报价，不增加背包槽。",
+  "subject": "一只小商店展示篮拉开外侧托盘，多露出一瓶和一枚票卷，构图为篮筐；不是O01随身腰包。",
+  "tool": "built-in imagegen",
+  "modelSnapshot": "not exposed by tool",
+  "sourceToolPath": "C:\\Users\\f\\.codex\\generated_images\\01a1bc4b-307a-7e83-a411-9569c8410a43\\exec-5976a70f-d9ba-4589-bebb-b27d550e6eff.png",
+  "file": "original.png",
+  "sha256": "0c5cb3c4ed8aaecfa9b2f8686aeb6329e09f88aba364543fd704b467cc95e73b",
+  "dimensions": [
+    1254,
+    1254
+  ],
+  "mode": "RGBA",
+  "promptFile": "prompt.txt",
+  "promptSha256": "63f6e5dd5e4f1dc315a1bcf4a891886efb8d226215faec697c5ff4ba5abadba1",
+  "references": [
+    {
+      "path": "docs/specs/v071/handoff/references/battle_master_v071.png",
+      "sha256": "02895a850ba48c636445c963f705244d190bdb8b94c07f449a0269fc5047f8dc",
+      "role": "style master"
+    },
+    {
+      "path": "ArtSource/Art071/Illustrations/illustration_c29.png",
+      "sha256": "d380eecb4921984d2aacb4b50b1c7ee6fdcbdbb9f3596550fa79b476d4320728",
+      "role": "style sample"
+    }
+  ],
+  "configSha256": "747ed1efc7bea15873f66a81eee5c7654971c21031f2a1517ce629adce7b6e6c",
+  "editableSourceType": "original raster PNG, not layered KRA/PSD",
+  "status": "generated candidate; independent visual and engine checks pending"
+}

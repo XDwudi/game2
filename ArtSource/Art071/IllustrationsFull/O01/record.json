@@ -1,0 +1,59 @@
+{
+  "id": "O01",
+  "name": "道具增加",
+  "createdUtc": "2026-11-09T03:27:04.747506+00:00",
+  "author": "/root/project_audit",
+  "tool": "built-in imagegen",
+  "modelSnapshot": "not exposed",
+  "intent": "new standalone themed illustration matching fixed v071 reference pair",
+  "originalToolPath": "C:\\Users\\f\\.codex\\generated_images\\01a1bc4e-02cf-7610-8093-a866440df249\\exec-e8bc0a59-c4af-4fd2-8354-c1f63c8cccad.png",
+  "file": "original.png",
+  "sha256": "58e8b6d6988122729ca4704a2759091f21649d0438f76e52493edf6e0564a374",
+  "dimensions": [
+    1254,
+    1254
+  ],
+  "mode": "RGBA",
+  "alpha0": 871428,
+  "alpha255": 1984,
+  "alphaPartial": 699104,
+  "alphaBounds": [
+    0,
+    27,
+    1202,
+    1230
+  ],
+  "promptFile": "prompt.txt",
+  "promptSha256": "ffb1e2dcbd69156f30f5c4a1570033df76597c54373bf21034b88821b6bb9fdc",
+  "configDescription": "道具槽从2增加到最多5；受折扣，最低1。",
+  "configPath": "DicePrototype/Assets/Game/Data/P0Config.json",
+  "configSha256": "747ed1efc7bea15873f66a81eee5c7654971c21031f2a1517ce629adce7b6e6c",
+  "references": [
+    {
+      "path": "docs/specs/v071/handoff/references/battle_master_v071.png",
+      "sha256": "02895a850ba48c636445c963f705244d190bdb8b94c07f449a0269fc5047f8dc",
+      "role": "style master"
+    },
+    {
+      "path": "ArtSource/Art071/Illustrations/illustration_c29.png",
+      "sha256": "d380eecb4921984d2aacb4b50b1c7ee6fdcbdbb9f3596550fa79b476d4320728",
+      "role": "fixed standalone style anchor"
+    }
+  ],
+  "status": "candidate; author visual and alpha checks completed; independent and engine review pending",
+  "sourcePixelsAltered": false,
+  "authorReview": {
+    "reviewedUtc": "2026-11-09T03:28:27.120633+00:00",
+    "method": "actual original displayed and RGBA composited light/dark preview at 420/176/64 viewed",
+    "previewPath": "cache/v071-full/author-previews/O01.png",
+    "previewSha256": "a29cf8c83d0f707f00cf60a92adba439099730d587a13eb526778e4db76ff97a",
+    "observation": "Open portable waist bag, visibly extended side pocket and corked bottle; no shop icon; coherent wide silhouette at 176/64.",
+    "visibleBackgroundOrClippingObserved": false,
+    "scope": "author source review only; not independent or engine acceptance"
+  },
+  "retryHistory": {
+    "unfinishedPair": "cache/v071-full/unfinished-o01-o02/unfinished.json",
+    "reason": "prior parallel tool calls returned no image/output after more than 15 minutes; parent authorized terminate and one concise single-ID retry",
+    "sourcePixelsAltered": false
+  }
+}

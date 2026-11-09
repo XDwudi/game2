@@ -1,0 +1,56 @@
+{
+  "contentId": "C01",
+  "displayName": "存钱罐",
+  "configDescription": "每次有效提交计分后获得1金币；每10金币额外增加1金币关末利息，计息本金仍最多50。",
+  "artVersion": "art0.7.1",
+  "tool": "tools.image_gen__imagegen",
+  "generationRevision": 2,
+  "priorAttempt": "attempt-01.unfinished.json",
+  "actualOutputPath": "C:\\Users\\f\\.codex\\generated_images\\01a1bc4f-525d-7990-8359-1c935dd6133e\\exec-6edc1f42-7804-4256-81fd-2171dd0fa5d5.png",
+  "originalPath": "E:\\agent_workspace\\gpt\\game2\\ArtSource\\Art071\\IllustrationsFull\\C01\\original.png",
+  "sha256": "6e7292161ef233ecf2024a614689cf1096ce3a461b4f42ae270c83d506cf393c",
+  "copiedByteIdentical": true,
+  "dimensions": [
+    1254,
+    1254
+  ],
+  "mode": "RGBA",
+  "alphaExtrema": [
+    0,
+    255
+  ],
+  "transparentPixels": 887719,
+  "alphaBounds": [
+    0,
+    21,
+    1226,
+    1238
+  ],
+  "promptPath": "E:\\agent_workspace\\gpt\\game2\\ArtSource\\Art071\\IllustrationsFull\\C01\\prompt.txt",
+  "promptSha256": "70c7c33aa161c1360b0acf404fa5b155ce01ab56a8da5706edd97672dc666d4b",
+  "configPath": "DicePrototype/Assets/Game/Data/P0Config.json",
+  "configSha256": "747ed1efc7bea15873f66a81eee5c7654971c21031f2a1517ce629adce7b6e6c",
+  "references": [
+    {
+      "path": "E:\\agent_workspace\\gpt\\game2\\docs\\specs\\v071\\handoff\\references\\battle_master_v071.png",
+      "sha256": "02895a850ba48c636445c963f705244d190bdb8b94c07f449a0269fc5047f8dc",
+      "actuallyViewed": true
+    },
+    {
+      "path": "E:\\agent_workspace\\gpt\\game2\\ArtSource\\Art071\\Illustrations\\illustration_c29.png",
+      "sha256": "d380eecb4921984d2aacb4b50b1c7ee6fdcbdbb9f3596550fa79b476d4320728",
+      "actuallyViewed": true
+    }
+  ],
+  "status": "generated; author technical inspection complete; game integration and independent review pending",
+  "sourceType": "editable flattened raster PNG; no layered PSD/KRA or vectors claimed",
+  "recordedUtc": "2026-11-09T02:38:48.180083+00:00",
+  "authorInspection": {
+    "actuallyViewed": [
+      "original returned image",
+      "technical-preview.png: light paper and dark felt, large and 120px"
+    ],
+    "result": "subject and silhouette readable; real alpha preserved; no text/frame; shadow edges and halftone remain legible on paper, petrol decorative rays intentionally lower contrast on felt",
+    "limitation": "author technical self-check only; actual card scale and independent style review owned by integration; not final acceptance"
+  }
+}

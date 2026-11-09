@@ -189,6 +189,7 @@ namespace DiceCraft
             v.outlineFilter.sharedMesh=bodyMesh;v.outlineRenderer.sharedMaterial=outlineMaterial;v.outlineRenderer.enabled=outlineMaterial!=null;
             Material material=d.isGlass ? glassMaterial : bodyMaterial;
             if (v.body.sharedMaterial != material) v.body.sharedMaterial=material;
+            ApplyTemporaryShadow071(v,d);
             for(int f=0;f<6;f++)
             {
                 var state=d.faces[f]; int pip=hand!=null && hand.hasRolled && f==current ? hand.currentPip : state.permanentPip;

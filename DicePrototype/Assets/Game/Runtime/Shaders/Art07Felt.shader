@@ -25,6 +25,11 @@ Shader "DiceCraft/Art07/Felt"
                 half3 cloth=SAMPLE_TEXTURE2D(_BaseMap,sampler_BaseMap,v.uv+ddx(v.uv)*_MenuDriftPixels).rgb;
                 half3 color=lerp(_BaseColor.rgb,cloth,_Grain);
                 Light key=GetMainLight(TransformWorldToShadowCoord(v.world));color*=lerp(.7,1,key.shadowAttenuation);
+                // Quiet light pool belongs to the table only; Canvas ink and dice stay untouched.
+                float2 screen=v.pos.xy/GetScaledScreenParams().xy;
+                float2 fromCenter=(screen-float2(.59,.47))*float2(1.12,1);
+                half edge=smoothstep(.24,.78,length(fromCenter));
+                color*=lerp(1.10,.86,edge);
                 color*=1-_Scanlines*.025*(.5+.5*sin(v.pos.y*1.57));color*=1+_MenuBreath;return half4(color,1);
             }
             ENDHLSL

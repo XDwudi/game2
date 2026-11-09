@@ -1,0 +1,57 @@
+{
+  "id": "C31",
+  "name": "四平八稳",
+  "createdUtc": "2026-11-09T02:40:29.651452+00:00",
+  "author": "/root/project_audit",
+  "tool": "built-in imagegen",
+  "modelSnapshot": "not exposed",
+  "intent": "new standalone themed illustration matching fixed v071 reference pair",
+  "originalToolPath": "C:\\Users\\f\\.codex\\generated_images\\01a1bc4e-02cf-7610-8093-a866440df249\\exec-10939001-0879-4fb7-a7e0-f861de423283.png",
+  "file": "original.png",
+  "sha256": "9ef0a4131dee69cc26cc21396000b8259dd4366b994e2cc0c14db8811ff8c088",
+  "dimensions": [
+    1254,
+    1254
+  ],
+  "mode": "RGBA",
+  "alpha0": 915015,
+  "alpha255": 1828,
+  "alphaPartial": 655673,
+  "alphaBounds": [
+    0,
+    83,
+    1230,
+    1254
+  ],
+  "promptFile": "prompt.txt",
+  "promptSha256": "d5ceb13c396fd53f256ffdb7283784890338d7f876c72c254c812eac9c25d706",
+  "configDescription": "提交中任一有效点数至少4颗时，整手得分×4；与三条开泰可叠乘。",
+  "configPath": "DicePrototype/Assets/Game/Data/P0Config.json",
+  "configSha256": "747ed1efc7bea15873f66a81eee5c7654971c21031f2a1517ce629adce7b6e6c",
+  "references": [
+    {
+      "path": "docs/specs/v071/handoff/references/battle_master_v071.png",
+      "sha256": "02895a850ba48c636445c963f705244d190bdb8b94c07f449a0269fc5047f8dc",
+      "role": "style master"
+    },
+    {
+      "path": "ArtSource/Art071/Illustrations/illustration_c29.png",
+      "sha256": "d380eecb4921984d2aacb4b50b1c7ee6fdcbdbb9f3596550fa79b476d4320728",
+      "role": "fixed standalone style anchor"
+    }
+  ],
+  "status": "candidate; author source/edge/small-size checks completed; independent and engine review pending",
+  "sourcePixelsAltered": false,
+  "authorReview": {
+    "actualOriginalViewed": true,
+    "paperAndFeltPreviewViewed": true,
+    "previewSizes": [
+      420,
+      176,
+      64
+    ],
+    "groupPreview": "cache/v071-full/author-previews/group-2.png",
+    "observation": "低重心宽平台由骰形脚支撑；后左脚局部遮挡，实机尺寸复核需注意，主题仍为稳定四角。 正确RGBA浅纸/深青合成未见可见白框或主体裁切。",
+    "limitation": "author check only; not independent art acceptance or engine evidence"
+  }
+}

@@ -136,6 +136,17 @@ namespace DiceCraft
             if(effects07==null){effects07=UiKit.Rect(canvas.transform,"PresentationEffects",0,0,1920,1080);effects07.SetSiblingIndex(0);}
             effects07.anchoredPosition=main.anchoredPosition;UiKit.Clear(effects07);particleCount07=0;
             ScorePanel();
+            // Build the actual target HUD before binding its icon anchors. The first
+            // qualified stamp changes the header layout from the ordinary variant.
+            if(beat.Phase==PresentationPhase.TargetState)
+            {
+                if(receipt07.QualifiedAfter&&!receipt07.QualifiedBefore)BeginQualifiedStamp07();
+                else
+                {
+                    var previousStats=main.Find("Stats07");int sibling=previousStats!=null?previousStats.GetSiblingIndex():0;
+                    Header();main.Find("Stats07")?.SetSiblingIndex(sibling);
+                }
+            }
             BeginBeatEffects07(beat);
             if(!string.IsNullOrEmpty(beat.FocusEmitterId)&&controllerRects.TryGetValue(beat.FocusEmitterId,out var card))
             {
@@ -151,7 +162,6 @@ namespace DiceCraft
                 for(int i=0;i<particleCount07;i++){float a=i*Mathf.PI*2/Math.Max(1,particleCount07);var origin=new Vector2(1560+Mathf.Cos(a)*160,i%2==0?(Compact07?270:276):(Compact07?402:454));particleOrigins07[i]=origin;particles07[i]=UiKit.Box(effects07,"Spark"+i,origin.x,origin.y,6+i%3*2,6+i%3*2,i%3==0?UiKit.Red:i%3==1?UiKit.Blue:UiKit.Gold);}
                 if(receipt07.ComboTier>0&&(art07Prefabs==null||art07Prefabs.Length==0))UiKit.Outline(effects07,"ComboRing",Compact07?354:362,Compact07?276:282,Compact07?1554:1540,Compact07?126:172,UiKit.Gold,2+receipt07.ComboTier);
             }
-            if(beat.Phase==PresentationPhase.TargetState&&receipt07.QualifiedAfter&&!receipt07.QualifiedBefore)BeginQualifiedStamp07();
         }
         private string EventText07(PresentationEvent e)
         {
@@ -179,6 +189,7 @@ namespace DiceCraft
                 case "ControllerDestroyed":return "控制器已消耗；附魔随实例移除";
                 case "DieBroken":return "玻璃骰已破碎；提交容量保持";
                 case "TemporaryDieExpired":return "本关临时骰已到期";
+                case "hand_roll_bonus":return "新手附魔剩掷 +"+e.Operand+" · 本手投掷预算 "+e.AfterValue;
                 case "qualified":return "本关目标已达成";
                 case "run_result":return e.AfterValue=="RunWon"?"24关完成":"本次挑战结束";
                 default:return "状态已更新";

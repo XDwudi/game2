@@ -1,0 +1,70 @@
+{
+  "contentId": "C17",
+  "displayName": "小鬼当家",
+  "configDescription": "每颗有效1、2、3点的提交骰，点数贡献+6。",
+  "artVersion": "art0.7.1",
+  "tool": "tools.image_gen__imagegen",
+  "generationRevision": 2,
+  "actualOutputPath": "C:\\Users\\f\\.codex\\generated_images\\01a1bc4f-525d-7990-8359-1c935dd6133e\\exec-3891e160-66d6-482d-8291-18da4c71cbaa.png",
+  "originalPath": "E:\\agent_workspace\\gpt\\game2\\ArtSource\\Art071\\IllustrationsFull\\C17\\original.png",
+  "sha256": "5e03b7fa8e19388c99837703b59da6e4eb6438b227ce423e3a50adbad9372b4e",
+  "copiedByteIdentical": true,
+  "dimensions": [
+    1312,
+    1199
+  ],
+  "mode": "RGBA",
+  "alphaExtrema": [
+    0,
+    255
+  ],
+  "transparentPixels": 855368,
+  "alphaBounds": [
+    57,
+    39,
+    1288,
+    1167
+  ],
+  "opaqueBounds": [
+    65,
+    69,
+    1247,
+    1156
+  ],
+  "promptPath": "E:\\agent_workspace\\gpt\\game2\\ArtSource\\Art071\\IllustrationsFull\\C17\\prompt.txt",
+  "promptSha256": "18b241da0ae7304c93b6c66c60e5a1fe2e29d42ae249f00393b8e166da89ac8b",
+  "configPath": "DicePrototype/Assets/Game/Data/P0Config.json",
+  "configSha256": "747ed1efc7bea15873f66a81eee5c7654971c21031f2a1517ce629adce7b6e6c",
+  "references": [
+    {
+      "path": "E:\\agent_workspace\\gpt\\game2\\ArtSource\\Art071\\IllustrationsFull\\C17\\attempt-01.original.png",
+      "sha256": "f8e610c6c0a7e62075c11b5201e3d29cf63e3c3b6c032445eb976845c69d12ea",
+      "actuallyViewed": true
+    },
+    {
+      "path": "E:\\agent_workspace\\gpt\\game2\\docs\\specs\\v071\\handoff\\references\\battle_master_v071.png",
+      "sha256": "02895a850ba48c636445c963f705244d190bdb8b94c07f449a0269fc5047f8dc",
+      "actuallyViewed": true
+    },
+    {
+      "path": "E:\\agent_workspace\\gpt\\game2\\ArtSource\\Art071\\Illustrations\\illustration_c29.png",
+      "sha256": "d380eecb4921984d2aacb4b50b1c7ee6fdcbdbb9f3596550fa79b476d4320728",
+      "actuallyViewed": true
+    }
+  ],
+  "status": "generated; author technical inspection complete; game integration and independent review pending",
+  "sourceType": "editable flattened raster PNG; no layered PSD/KRA or vector source claimed",
+  "recordedUtc": "2026-11-09T02:56:34.662418+00:00",
+  "priorAttempt": "attempt-01.record.json",
+  "editIntent": "Remove both mitten hands and use 3-pip front face; preserve style and main composition",
+  "parentImageSha256": "f8e610c6c0a7e62075c11b5201e3d29cf63e3c3b6c032445eb976845c69d12ea",
+  "authorInspection": {
+    "actuallyViewed": [
+      "returned original",
+      "technical-preview.png: light and dark, large and 120px"
+    ],
+    "result": "complete thematic silhouette readable; no text/frame/rectangular matte in composites; real returned alpha and dimensions preserved",
+    "specificNote": "revision2 actually removes both mittens and changes front face to diagonal3; initial source retained",
+    "limitation": "author self-check only; independent game rendering review and final art acceptance pending"
+  }
+}

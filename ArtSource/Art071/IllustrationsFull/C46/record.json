@@ -1,0 +1,61 @@
+{
+  "id": "C46",
+  "name": "稳稳乘数",
+  "status": "source_review_complete_pending_independent_and_unity",
+  "tool": "built-in imagegen",
+  "model_snapshot": "not exposed by tool",
+  "tool_source_path": "C:\\Users\\f\\.codex\\generated_images\\01a1bc4f-283e-7c00-80a6-e00ae79dd0a1\\exec-9a53b1ef-850e-4f1e-9995-39614d63961e.png",
+  "path": "ArtSource/Art071/IllustrationsFull/C46/original.png",
+  "sha256": "171d7bfca9a6abf5931b092b54f8c2b34caf25335e46da42aeb3d1da9e68e6a1",
+  "dimensions": [
+    1254,
+    1254
+  ],
+  "mode": "RGBA",
+  "alpha_range": [
+    0,
+    255
+  ],
+  "alpha_bounds": [
+    0,
+    21,
+    1254,
+    1254
+  ],
+  "prompt_sha256": "fa8ac0854d8d8dd866bb9ffcfd03806bb01bb69377a89c25007b7a3214a92f2c",
+  "references": [
+    {
+      "path": "docs/specs/v071/handoff/references/battle_master_v071.png",
+      "sha256": "02895a850ba48c636445c963f705244d190bdb8b94c07f449a0269fc5047f8dc",
+      "role": "style master",
+      "actuallyViewed": true
+    },
+    {
+      "path": "ArtSource/Art071/Illustrations/illustration_c29.png",
+      "sha256": "d380eecb4921984d2aacb4b50b1c7ee6fdcbdbb9f3596550fa79b476d4320728",
+      "role": "fixed illustration style anchor",
+      "actuallyViewed": true
+    }
+  ],
+  "config": {
+    "path": "DicePrototype/Assets/Game/Data/P0Config.json",
+    "sha256": "747ed1efc7bea15873f66a81eee5c7654971c21031f2a1517ce629adce7b6e6c",
+    "version": "p0.6.0"
+  },
+  "configDescription": "每次有效提交整手得分×3。",
+  "createdUtc": "2026-11-09T02:38:48.832952+00:00",
+  "unityIntegrated": false,
+  "authorReview": {
+    "originalViewed": true,
+    "surfaceAndSmallSizeViewed": true,
+    "evidence": "cache/v071-full/reviews/C45-C49-final-surface-and-size.png",
+    "observations": "宽厚飞轮、3辐条与中心骰，和C53偏心随机轮可区分。 暖纸/深桌面/72px缩略已实看，无可见裁切。",
+    "status": "source_candidate_for_independent_review_not_final_acceptance"
+  },
+  "technicalVerification": {
+    "selectedMatchesToolOriginal": true,
+    "rgbaDecoded": true,
+    "promptAndReferenceHashesVerified": true,
+    "noPixelPostprocessing": true
+  }
+}

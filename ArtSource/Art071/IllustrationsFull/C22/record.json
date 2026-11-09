@@ -1,0 +1,57 @@
+{
+  "id": "C22",
+  "name": "大量提交",
+  "createdUtc": "2026-11-09T02:34:26.628800+00:00",
+  "author": "/root/project_audit",
+  "tool": "built-in imagegen",
+  "modelSnapshot": "not exposed",
+  "intent": "new standalone themed illustration matching fixed v071 reference pair",
+  "originalToolPath": "C:\\Users\\f\\.codex\\generated_images\\01a1bc4e-02cf-7610-8093-a866440df249\\exec-59dd6027-a73d-4c5e-9e07-e0631405ecfa.png",
+  "file": "original.png",
+  "sha256": "c0a9c5059e11a90f4ea054469ca5ab8fabd76d24199b487270ffc73446536b6a",
+  "dimensions": [
+    1254,
+    1254
+  ],
+  "mode": "RGBA",
+  "alpha0": 1038204,
+  "alpha255": 1642,
+  "alphaPartial": 532670,
+  "alphaBounds": [
+    0,
+    48,
+    1220,
+    1235
+  ],
+  "promptFile": "prompt.txt",
+  "promptSha256": "4fd784ca4ca311bd9db4ffd37ddd7b4405c9c55522d8caed8abd18ef48bb2027",
+  "configDescription": "提交栏容量+2；可与C21叠加；不增加骰子数量。",
+  "configPath": "DicePrototype/Assets/Game/Data/P0Config.json",
+  "configSha256": "747ed1efc7bea15873f66a81eee5c7654971c21031f2a1517ce629adce7b6e6c",
+  "references": [
+    {
+      "path": "docs/specs/v071/handoff/references/battle_master_v071.png",
+      "sha256": "02895a850ba48c636445c963f705244d190bdb8b94c07f449a0269fc5047f8dc",
+      "role": "style master"
+    },
+    {
+      "path": "ArtSource/Art071/Illustrations/illustration_c29.png",
+      "sha256": "d380eecb4921984d2aacb4b50b1c7ee6fdcbdbb9f3596550fa79b476d4320728",
+      "role": "fixed standalone style anchor"
+    }
+  ],
+  "status": "candidate; author source/edge/small-size checks completed; independent and engine review pending",
+  "sourcePixelsAltered": false,
+  "authorReview": {
+    "actualOriginalViewed": true,
+    "paperAndFeltPreviewViewed": true,
+    "previewSizes": [
+      420,
+      176,
+      64
+    ],
+    "groupPreview": "cache/v071-full/author-previews/group-1.png",
+    "observation": "展开多翼托盘比C21更宽，未画新增骰子。 浅纸/深青预览未见可见白底框或主体裁切。",
+    "limitation": "author check only; not independent art acceptance or engine evidence"
+  }
+}

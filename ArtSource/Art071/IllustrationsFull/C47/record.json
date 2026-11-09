@@ -1,0 +1,61 @@
+{
+  "id": "C47",
+  "name": "控制欲",
+  "status": "source_review_complete_pending_independent_and_unity",
+  "tool": "built-in imagegen",
+  "model_snapshot": "not exposed by tool",
+  "tool_source_path": "C:\\Users\\f\\.codex\\generated_images\\01a1bc4f-283e-7c00-80a6-e00ae79dd0a1\\exec-3b83ba6d-acfb-4455-9915-4d95c89f4c8c.png",
+  "path": "ArtSource/Art071/IllustrationsFull/C47/original.png",
+  "sha256": "c03e95c8440a1a52c8ce271c1ea4f36b229a959b3e0be48369122a98a3ce86f1",
+  "dimensions": [
+    1254,
+    1254
+  ],
+  "mode": "RGBA",
+  "alpha_range": [
+    0,
+    255
+  ],
+  "alpha_bounds": [
+    0,
+    23,
+    1240,
+    1254
+  ],
+  "prompt_sha256": "71881e5601e597d53fda5e6b7935e25b9e2f8222b9d319c545c93c0d122f6a2f",
+  "references": [
+    {
+      "path": "docs/specs/v071/handoff/references/battle_master_v071.png",
+      "sha256": "02895a850ba48c636445c963f705244d190bdb8b94c07f449a0269fc5047f8dc",
+      "role": "style master",
+      "actuallyViewed": true
+    },
+    {
+      "path": "ArtSource/Art071/Illustrations/illustration_c29.png",
+      "sha256": "d380eecb4921984d2aacb4b50b1c7ee6fdcbdbb9f3596550fa79b476d4320728",
+      "role": "fixed illustration style anchor",
+      "actuallyViewed": true
+    }
+  ],
+  "config": {
+    "path": "DicePrototype/Assets/Game/Data/P0Config.json",
+    "sha256": "747ed1efc7bea15873f66a81eee5c7654971c21031f2a1517ce629adce7b6e6c",
+    "version": "p0.6.0"
+  },
+  "configDescription": "整手得分乘以提交快照中实际持有控制器实例数量；包括自身及免槽卡，不把模仿技能另算一件。",
+  "createdUtc": "2026-11-09T02:41:04.303281+00:00",
+  "unityIntegrated": false,
+  "authorReview": {
+    "originalViewed": true,
+    "surfaceAndSmallSizeViewed": true,
+    "evidence": "cache/v071-full/reviews/C45-C49-final-surface-and-size.png",
+    "observations": "实际木偶控制架与3张悬挂面牌，不是裸乘号。 暖纸/深桌面/72px缩略已实看，无可见裁切。",
+    "status": "source_candidate_for_independent_review_not_final_acceptance"
+  },
+  "technicalVerification": {
+    "selectedMatchesToolOriginal": true,
+    "rgbaDecoded": true,
+    "promptAndReferenceHashesVerified": true,
+    "noPixelPostprocessing": true
+  }
+}

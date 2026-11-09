@@ -1,0 +1,57 @@
+{
+  "id": "C34",
+  "name": "大数致胜",
+  "createdUtc": "2026-11-09T02:45:18.430358+00:00",
+  "author": "/root/project_audit",
+  "tool": "built-in imagegen",
+  "modelSnapshot": "not exposed",
+  "intent": "new standalone themed illustration matching fixed v071 reference pair",
+  "originalToolPath": "C:\\Users\\f\\.codex\\generated_images\\01a1bc4e-02cf-7610-8093-a866440df249\\exec-d7c47224-3aa8-4f6b-8617-f2955e62dfda.png",
+  "file": "original.png",
+  "sha256": "8c4dfb4872a79c6f65ad3a02271330f735feae36da3c76f4666b09313185c0eb",
+  "dimensions": [
+    1254,
+    1254
+  ],
+  "mode": "RGBA",
+  "alpha0": 856677,
+  "alpha255": 2004,
+  "alphaPartial": 713835,
+  "alphaBounds": [
+    0,
+    13,
+    1240,
+    1228
+  ],
+  "promptFile": "prompt.txt",
+  "promptSha256": "c522bc11f0b74efec27efd885d6880c95287d043525271787c273599652dc589",
+  "configDescription": "永久4至6点组的总概率最多增加15个百分点；从1至3点组按比例转移。",
+  "configPath": "DicePrototype/Assets/Game/Data/P0Config.json",
+  "configSha256": "747ed1efc7bea15873f66a81eee5c7654971c21031f2a1517ce629adce7b6e6c",
+  "references": [
+    {
+      "path": "docs/specs/v071/handoff/references/battle_master_v071.png",
+      "sha256": "02895a850ba48c636445c963f705244d190bdb8b94c07f449a0269fc5047f8dc",
+      "role": "style master"
+    },
+    {
+      "path": "ArtSource/Art071/Illustrations/illustration_c29.png",
+      "sha256": "d380eecb4921984d2aacb4b50b1c7ee6fdcbdbb9f3596550fa79b476d4320728",
+      "role": "fixed standalone style anchor"
+    }
+  ],
+  "status": "candidate; author source/edge/small-size checks completed; independent and engine review pending",
+  "sourcePixelsAltered": false,
+  "authorReview": {
+    "actualOriginalViewed": true,
+    "paperAndFeltPreviewViewed": true,
+    "previewSizes": [
+      420,
+      176,
+      64
+    ],
+    "groupPreview": "cache/v071-full/author-previews/group-3.png",
+    "observation": "漏斗与骰堆主轮廓明确；下方骰堆细节较密，实际紧凑卡面需重点复看；装饰点阵不作为概率表。 正确RGBA浅纸/深青合成未见可见白框或主体裁切。",
+    "limitation": "author check only; not independent art acceptance or engine evidence"
+  }
+}

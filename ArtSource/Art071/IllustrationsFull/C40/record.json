@@ -1,0 +1,57 @@
+{
+  "id": "C40",
+  "name": "不断增加",
+  "createdUtc": "2026-11-09T03:08:39.694279+00:00",
+  "author": "/root/project_audit",
+  "tool": "built-in imagegen",
+  "modelSnapshot": "not exposed",
+  "intent": "new standalone themed illustration matching fixed v071 reference pair",
+  "originalToolPath": "C:\\Users\\f\\.codex\\generated_images\\01a1bc4e-02cf-7610-8093-a866440df249\\exec-f9b1c287-5730-4d93-af26-9f4a1774d067.png",
+  "file": "original.png",
+  "sha256": "cd966a806f8e6e456883273bbf7bbf6d7e044adab2b5be0999313abdca6bdc6e",
+  "dimensions": [
+    1254,
+    1254
+  ],
+  "mode": "RGBA",
+  "alpha0": 1132981,
+  "alpha255": 1976,
+  "alphaPartial": 437559,
+  "alphaBounds": [
+    0,
+    16,
+    1224,
+    1254
+  ],
+  "promptFile": "prompt.txt",
+  "promptSha256": "28a76ddc2322c51a8cd2380ab3d4dce8c0d4f4d04e9ae64185c1d49734ea7432",
+  "configDescription": "至少提交3颗，前三颗有效点数形成公差大于0的等差数列时，整手得分×3。",
+  "configPath": "DicePrototype/Assets/Game/Data/P0Config.json",
+  "configSha256": "747ed1efc7bea15873f66a81eee5c7654971c21031f2a1517ce629adce7b6e6c",
+  "references": [
+    {
+      "path": "docs/specs/v071/handoff/references/battle_master_v071.png",
+      "sha256": "02895a850ba48c636445c963f705244d190bdb8b94c07f449a0269fc5047f8dc",
+      "role": "style master"
+    },
+    {
+      "path": "ArtSource/Art071/Illustrations/illustration_c29.png",
+      "sha256": "d380eecb4921984d2aacb4b50b1c7ee6fdcbdbb9f3596550fa79b476d4320728",
+      "role": "fixed standalone style anchor"
+    }
+  ],
+  "status": "candidate; author source/edge/small-size checks completed; independent and engine review pending",
+  "sourcePixelsAltered": false,
+  "authorReview": {
+    "actualOriginalViewed": true,
+    "paperAndFeltPreviewViewed": true,
+    "previewSizes": [
+      420,
+      176,
+      64
+    ],
+    "groupPreview": "cache/v071-full/author-previews/group-4.png",
+    "observation": "三铰链折尺等距上升与三骰，区别C29固定楼梯。 正确RGBA浅纸/深青合成未见可见白框或主体裁切。",
+    "limitation": "author check only; not independent art acceptance or engine evidence"
+  }
+}

@@ -76,21 +76,19 @@ namespace DiceCraft
         }
         private void DrawBudgetCounters07(Transform parent,float top=646)
         {
+            // The committed new-hand grant is presented at TargetState. Read its
+            // frozen budget without switching the old dice/controller display state.
+            var budgetState=IsPresenting07&&beat07?.Phase==DiceCraft.Presentation.PresentationPhase.TargetState&&
+                lastPresentationAfter07?.hand!=null&&lastPresentationAfter07.hand.handId!=lastPresentationBefore07?.hand?.handId
+                ?lastPresentationAfter07:ViewState;
             for(int i=0;i<2;i++)
             {
-                bool roll=i==0;float x=roll?18:166;int amount=roll?ViewState.hand.rollsRemaining:ViewState.stage.remainingSubmissions;
+                bool roll=i==0;float x=roll?18:166;int amount=roll?budgetState.hand.rollsRemaining:budgetState.stage.remainingSubmissions;
                 UiKit.Text(parent,roll?"RollBudgetLabel":"SubmitBudgetLabel",roll?"投掷":"提交",x,top,138,34,14,UiKit.Muted);
                 var icon=UiKit.Rect(parent,roll?"RollBudgetIcon":"SubmitBudgetIcon",x,top+34,30,28);
-                if(roll&&amount==0)
+                if(roll)
                 {
-                    UiKit.Box(icon,"EmptyCupBackground",0,0,30,28,Color.Lerp(UiKit.Background,UiKit.Blue,.25f));
-                    // Stepped hollow circle in the existing pixel-symbol style.
-                    foreach(var r in new[]{new Rect(9,2,12,3),new Rect(5,5,4,3),new Rect(2,8,3,12),new Rect(5,20,4,3),new Rect(9,23,12,3),new Rect(21,20,4,3),new Rect(25,8,3,12),new Rect(21,5,4,3)})
-                        UiKit.Box(icon,"Ring"+r.x+"_"+r.y,r.x,r.y,r.width,r.height,UiKit.Blue);
-                }
-                else if(roll)
-                {
-                    var cup=UiKit.Box(icon,"Cup",1,0,28,28,Color.white).GetComponent<UnityEngine.UI.Image>();cup.sprite=UiKit.Template("ui_icon_roll");cup.raycastTarget=false;
+                    var cup=UiKit.Box(icon,amount==0?"EmptyCup":"Cup",1,0,28,28,amount==0?new Color(1,1,1,.38f):Color.white).GetComponent<UnityEngine.UI.Image>();cup.sprite=UiKit.Template("ui_icon_roll");cup.raycastTarget=false;cup.preserveAspect=true;
                 }
                 else
                 {
@@ -174,7 +172,9 @@ namespace DiceCraft
             {
                 float px=x+(i%3)*(size+gap),py=y+36+i/3*(size+12);
                 if(i>=ViewState.inventory.Count){UiKit.Outline(main,"ItemEmpty"+i,px,py,size,size,UiKit.PanelLight);continue;}
-                var item=ViewState.inventory[i];var b=UiKit.Button(main,"Item_"+item.instanceId,"",px,py,size,size,()=>ShowOwned(item,false),!IsBusy);Icon(b.transform,item.contentId,8,6,size-16);
+                var item=ViewState.inventory[i];var b=UiKit.Button(main,"Item_"+item.instanceId,"",px,py,size,size,()=>ShowOwned(item,false),!IsBusy);
+                UiKit.CardSurface(b,true);((UnityEngine.UI.Image)b.targetGraphic).sprite=UiKit.Template("ui_card_item");
+                Icon(b.transform,item.contentId,8,6,size-16);
                 Art07AttachTooltip(b,item.instanceId,NameOf(item.contentId),Description(item.contentId),Art07ItemUnavailable(item)??"可使用 · 点击查看完整说明",()=>ShowOwned(item,false));
                 if(Art07ItemUnavailable(item)!=null)
                 {
@@ -309,11 +309,13 @@ namespace DiceCraft
                 }
                 var state=UiKit.Text(main,"DieState"+id,label,x,y+pendingHeight,labelWidth,stateHeight,stateFont,result?.currentColor=="red"?UiKit.Red:UiKit.Blue);
                 UiKit.Component<Art07PoolLabelFollower>(state.gameObject).Bind(table,id,center,!locked&&!selected&&LockVisualPlaying07);
-                state.lineSpacing=lineSpacing;state.textWrappingMode=TextWrappingModes.NoWrap;return;
+                state.lineSpacing=lineSpacing;state.textWrappingMode=TextWrappingModes.NoWrap;
+                DrawTemporaryClock071(state,die,locked,c);return;
             }
             if(properties.Length>0)label+="\n"+properties;
             var dieLabel=UiKit.Text(main,"DieState"+id,label,selected?center.x:center.x-w/2,center.y+(locked?(c?28:34):c?36:poolLabelOffset),selected?w/2:w,properties.Length>0?56:36,locked?14:c?14:17,result?.currentColor=="red"?UiKit.Red:UiKit.Blue,TextAlignmentOptions.Center);
             dieLabel.lineSpacing=0;dieLabel.textWrappingMode=TextWrappingModes.NoWrap;dieLabel.overflowMode=TextOverflowModes.Ellipsis;
+            DrawTemporaryClock071(dieLabel,die,locked,c);
         }
         private bool TryDieInsertion07(Vector2 position,out int destination,out Rect edge)
         {

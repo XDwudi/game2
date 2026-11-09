@@ -1,0 +1,57 @@
+{
+  "id": "C21",
+  "name": "增加提交",
+  "createdUtc": "2026-11-09T02:32:34.665591+00:00",
+  "author": "/root/project_audit",
+  "tool": "built-in imagegen",
+  "modelSnapshot": "not exposed",
+  "intent": "new standalone themed illustration matching fixed v071 reference pair",
+  "originalToolPath": "C:\\Users\\f\\.codex\\generated_images\\01a1bc4e-02cf-7610-8093-a866440df249\\exec-98bcd78f-e75d-4537-a2df-8ebba212189d.png",
+  "file": "original.png",
+  "sha256": "216371f3f00025bbf999cb92f482959859cb655efb5cd16ba40515aba173b2c9",
+  "dimensions": [
+    1254,
+    1254
+  ],
+  "mode": "RGBA",
+  "alpha0": 956931,
+  "alpha255": 1272,
+  "alphaPartial": 614313,
+  "alphaBounds": [
+    0,
+    9,
+    1190,
+    1254
+  ],
+  "promptFile": "prompt.txt",
+  "promptSha256": "3cb990840ecb8c9057c8e34fb0e3229fb253859d59f57d79f33812b1a21bdfeb",
+  "configDescription": "提交栏容量+1；不增加骰子数量或提交次数。",
+  "configPath": "DicePrototype/Assets/Game/Data/P0Config.json",
+  "configSha256": "747ed1efc7bea15873f66a81eee5c7654971c21031f2a1517ce629adce7b6e6c",
+  "references": [
+    {
+      "path": "docs/specs/v071/handoff/references/battle_master_v071.png",
+      "sha256": "02895a850ba48c636445c963f705244d190bdb8b94c07f449a0269fc5047f8dc",
+      "role": "style master"
+    },
+    {
+      "path": "ArtSource/Art071/Illustrations/illustration_c29.png",
+      "sha256": "d380eecb4921984d2aacb4b50b1c7ee6fdcbdbb9f3596550fa79b476d4320728",
+      "role": "fixed standalone style anchor"
+    }
+  ],
+  "status": "candidate; author source/edge/small-size checks completed; independent and engine review pending",
+  "sourcePixelsAltered": false,
+  "authorReview": {
+    "actualOriginalViewed": true,
+    "paperAndFeltPreviewViewed": true,
+    "previewSizes": [
+      420,
+      176,
+      64
+    ],
+    "groupPreview": "cache/v071-full/author-previews/group-1.png",
+    "observation": "单抽屉空位清晰，64px仍可辨单翼轮廓。 浅纸/深青预览未见可见白底框或主体裁切。",
+    "limitation": "author check only; not independent art acceptance or engine evidence"
+  }
+}

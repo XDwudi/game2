@@ -1,0 +1,57 @@
+{
+  "id": "C27",
+  "name": "对穿肠",
+  "createdUtc": "2026-11-09T02:38:47.730629+00:00",
+  "author": "/root/project_audit",
+  "tool": "built-in imagegen",
+  "modelSnapshot": "not exposed",
+  "intent": "new standalone themed illustration matching fixed v071 reference pair",
+  "originalToolPath": "C:\\Users\\f\\.codex\\generated_images\\01a1bc4e-02cf-7610-8093-a866440df249\\exec-66d691b0-109d-4735-83df-f6fd376bc576.png",
+  "file": "original.png",
+  "sha256": "56b4904033149b7d0001beea253a4e8606c4c976033cb049d5052baf95b6d243",
+  "dimensions": [
+    1254,
+    1254
+  ],
+  "mode": "RGBA",
+  "alpha0": 990479,
+  "alpha255": 1685,
+  "alphaPartial": 580352,
+  "alphaBounds": [
+    0,
+    48,
+    1240,
+    1254
+  ],
+  "promptFile": "prompt.txt",
+  "promptSha256": "db31bfc8fbeb7f1f0bea709962d7daa10ffba54a24c0239309e36fc85ee2b454",
+  "configDescription": "每个出现至少2颗的不同有效点数组，使整手基础分+10；四条只算一组，双三条算两组。",
+  "configPath": "DicePrototype/Assets/Game/Data/P0Config.json",
+  "configSha256": "747ed1efc7bea15873f66a81eee5c7654971c21031f2a1517ce629adce7b6e6c",
+  "references": [
+    {
+      "path": "docs/specs/v071/handoff/references/battle_master_v071.png",
+      "sha256": "02895a850ba48c636445c963f705244d190bdb8b94c07f449a0269fc5047f8dc",
+      "role": "style master"
+    },
+    {
+      "path": "ArtSource/Art071/Illustrations/illustration_c29.png",
+      "sha256": "d380eecb4921984d2aacb4b50b1c7ee6fdcbdbb9f3596550fa79b476d4320728",
+      "role": "fixed standalone style anchor"
+    }
+  ],
+  "status": "candidate; author source/edge/small-size checks completed; independent and engine review pending",
+  "sourcePixelsAltered": false,
+  "authorReview": {
+    "actualOriginalViewed": true,
+    "paperAndFeltPreviewViewed": true,
+    "previewSizes": [
+      420,
+      176,
+      64
+    ],
+    "groupPreview": "cache/v071-full/author-previews/group-2.png",
+    "observation": "两套筒以粗线相连，联结轮廓清楚；装饰点数不是规则示例。 正确RGBA浅纸/深青合成未见可见白框或主体裁切。",
+    "limitation": "author check only; not independent art acceptance or engine evidence"
+  }
+}

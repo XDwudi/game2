@@ -12,6 +12,7 @@ namespace DiceCraft.Presentation
         private readonly List<Original> originals=new List<Original>();
         private readonly RectTransform[] borders=new RectTransform[32];
         private Art07PrefabView owner;
+        private Art071ComboEdgeAccents edgeAccents071;
         private bool configured;
         private Vector2 extent;
         private Sprite squareChip;
@@ -20,6 +21,9 @@ namespace DiceCraft.Presentation
         public void Initialize(Art07PrefabView view)
         {
             if(owner!=null)return;owner=view;
+            edgeAccents071=view.GetComponent<Art071ComboEdgeAccents>();
+            if(edgeAccents071==null)edgeAccents071=view.gameObject.AddComponent<Art071ComboEdgeAccents>();
+            edgeAccents071.Initialize(view);
             Remember((RectTransform)view.transform);Remember(view.visualRoot);
             foreach(var layer in view.burstLayers)if(layer!=null)Remember(layer.transform as RectTransform);
             foreach(var star in view.burstStaticStars)if(star!=null)Remember(star.transform as RectTransform);
@@ -54,10 +58,10 @@ namespace DiceCraft.Presentation
             rect.pivot=new Vector2(0,1);rect.anchoredPosition=new Vector2(x,-y);rect.sizeDelta=new Vector2(width,height);rect.localScale=Vector3.one;rect.localRotation=Quaternion.identity;
             var image=rect.GetComponent<Image>();if(image!=null)image.preserveAspect=false;
         }
-        public void Configure(Vector2 size)
+        public void Configure(Vector2 size,bool lowQuality=false)
         {
             extent=size;configured=true;var root=(RectTransform)owner.transform;root.localScale=Vector3.one;root.sizeDelta=size;
-            owner.visualRoot.localScale=Vector3.one;owner.visualRoot.sizeDelta=size;owner.visualRoot.anchoredPosition=Vector2.zero;Evaluate(0);
+            owner.visualRoot.localScale=Vector3.one;owner.visualRoot.sizeDelta=size;owner.visualRoot.anchoredPosition=Vector2.zero;edgeAccents071.Configure(size,lowQuality);Evaluate(0);
         }
         public void Evaluate(float time)
         {
@@ -67,7 +71,12 @@ namespace DiceCraft.Presentation
             for(int i=0;i<owner.burstLayers.Length;i++)if(owner.burstLayers[i]!=null)owner.burstLayers[i].SetActive(i==0||i==2&&tier==3||i==5&&tier==5&&!owner.ReducedMotion);
             if(owner.burstLayers.Length>0)Place((RectTransform)owner.burstLayers[0].transform,w-620,h-7,Mathf.Min(360,w-40),2);
             if(owner.burstLayers.Length>2)Place((RectTransform)owner.burstLayers[2].transform,20,h-10,(w-40)*(owner.ReducedMotion?1:1-Mathf.Pow(1-time,3)),4);
-            if(owner.burstLayers.Length>5)Place((RectTransform)owner.burstLayers[5].transform,h<110?368:w*.35f,h-46,238,32);
+            if(owner.burstLayers.Length>5)
+            {
+                var flame=owner.burstLayers[5].GetComponent<Image>();var padding=UnityEngine.Sprites.DataUtility.GetPadding(flame.sprite);
+                float drawnHeight=(flame.sprite.rect.height-padding.y-padding.w)/flame.sprite.rect.height;
+                Place((RectTransform)flame.transform,h<110?368:w*.35f,h-46,238,26/Mathf.Max(.01f,drawnHeight));
+            }
             for(int layer=0;layer<2;layer++)
             {
                 bool visible=tier>=2&&(layer==0||tier>=4);float inset=(layer==0?3:8)+(owner.ReducedMotion?0:3*Mathf.Pow(1-time,3)),step=tier==5?12:6,thickness=layer==0?(tier>=4?3:2):1;
@@ -103,10 +112,11 @@ namespace DiceCraft.Presentation
                 owner.burstStaticStars[i].SetActive(owner.ReducedMotion&&i<tier);
                 Place((RectTransform)owner.burstStaticStars[i].transform,w-170+i*23,h-13,10,10);
             }
+            edgeAccents071.Evaluate(time);
         }
         public void ResetLayout()
         {
-            if(!configured)return;configured=false;
+            if(!configured)return;configured=false;edgeAccents071.ResetForPool();
             foreach(var saved in originals)if(saved.rect!=null){saved.rect.anchoredPosition=saved.position;saved.rect.sizeDelta=saved.size;saved.rect.pivot=saved.pivot;saved.rect.localScale=saved.scale;saved.rect.localRotation=saved.rotation;if(saved.image!=null){saved.image.preserveAspect=saved.preserveAspect;saved.image.sprite=saved.sprite;saved.image.color=saved.color;}}
             foreach(var rect in borders)if(rect!=null)rect.gameObject.SetActive(false);
         }

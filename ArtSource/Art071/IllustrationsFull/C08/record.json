@@ -1,0 +1,61 @@
+{
+  "contentId": "C08",
+  "displayName": "少数派",
+  "configDescription": "提交数量小于有效提交容量K时，整手得分×2。",
+  "artVersion": "art0.7.1",
+  "tool": "tools.image_gen__imagegen",
+  "generationRevision": 1,
+  "actualOutputPath": "C:\\Users\\f\\.codex\\generated_images\\01a1bc4f-525d-7990-8359-1c935dd6133e\\exec-35770770-4c10-4d86-bb44-98f23477e282.png",
+  "originalPath": "E:\\agent_workspace\\gpt\\game2\\ArtSource\\Art071\\IllustrationsFull\\C08\\original.png",
+  "sha256": "b03cc52e48cada7b85fe3fe0be899b4e8a4cde156d1eb7eaa7890e0837ac149e",
+  "copiedByteIdentical": true,
+  "dimensions": [
+    1774,
+    887
+  ],
+  "mode": "RGBA",
+  "alphaExtrema": [
+    0,
+    255
+  ],
+  "transparentPixels": 734716,
+  "alphaBounds": [
+    0,
+    0,
+    1758,
+    887
+  ],
+  "opaqueBounds": [
+    136,
+    102,
+    1633,
+    827
+  ],
+  "promptPath": "E:\\agent_workspace\\gpt\\game2\\ArtSource\\Art071\\IllustrationsFull\\C08\\prompt.txt",
+  "promptSha256": "fa0ec2e23f95dda131adc4f71a05be913783b744719afbffa3299f3161263d5b",
+  "configPath": "DicePrototype/Assets/Game/Data/P0Config.json",
+  "configSha256": "747ed1efc7bea15873f66a81eee5c7654971c21031f2a1517ce629adce7b6e6c",
+  "references": [
+    {
+      "path": "E:\\agent_workspace\\gpt\\game2\\docs\\specs\\v071\\handoff\\references\\battle_master_v071.png",
+      "sha256": "02895a850ba48c636445c963f705244d190bdb8b94c07f449a0269fc5047f8dc",
+      "actuallyViewed": true
+    },
+    {
+      "path": "E:\\agent_workspace\\gpt\\game2\\ArtSource\\Art071\\Illustrations\\illustration_c29.png",
+      "sha256": "d380eecb4921984d2aacb4b50b1c7ee6fdcbdbb9f3596550fa79b476d4320728",
+      "actuallyViewed": true
+    }
+  ],
+  "status": "generated; author technical inspection complete; game integration and independent review pending",
+  "sourceType": "editable flattened raster PNG; no layered PSD/KRA or vector source claimed",
+  "recordedUtc": "2026-11-09T02:47:29.858374+00:00",
+  "authorInspection": {
+    "actuallyViewed": [
+      "returned original",
+      "technical-preview.png: light and dark, large and 120px"
+    ],
+    "result": "distinct object silhouette readable; no text/frame/rectangular matte; C08 is deliberately wide boat, must preserve aspect ratio; C07/C09 narrow outer margins verified as complete objects in composite",
+    "limitation": "source-only author check; no final independent art acceptance or game rendering claimed"
+  }
+}

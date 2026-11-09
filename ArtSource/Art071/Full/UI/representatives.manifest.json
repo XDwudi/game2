@@ -1,0 +1,161 @@
+{
+  "schema": "dicecraft-v071-full-ui-1",
+  "status": "representatives_only_not_integrated",
+  "editable_source": "tools/art_v071/build_full_ui.py",
+  "script_sha256": "24524dfbb7cb5967888b67b2e75f2b48429816c21847bec50247bdb987f8da75",
+  "tools": {
+    "python": "3.11.4",
+    "Pillow": "9.4.0",
+    "fontTools": "4.25.0",
+    "numpy": "1.24.3"
+  },
+  "palette": {
+    "felt": "#173E40",
+    "deep": "#102A2D",
+    "paper": "#F4E8CB",
+    "ink": "#162629",
+    "red": "#EC655D",
+    "blue": "#55B6D9",
+    "gold": "#F3BA58",
+    "mint": "#79C99C",
+    "violet": "#AD92DB",
+    "white": "#FFFFFF",
+    "shadow": "#07191C"
+  },
+  "font": {
+    "path": "DicePrototype/Assets/Game/Fonts/NotoSansSC-Bold.otf",
+    "sha256": "d1961be1161ea1be08496c920862d06ea5c23a757628f4fd69368de1d9f51bed",
+    "license": "ArtSource/Art071/Fonts/LICENSE.txt",
+    "copyright": "ArtSource/Art071/Fonts/COPYRIGHT.txt",
+    "use": "fixed title outlines only"
+  },
+  "reference": "docs/specs/v071/handoff/references/battle_master_v071.png",
+  "reference_sha256": "02895a850ba48c636445c963f705244d190bdb8b94c07f449a0269fc5047f8dc",
+  "assets": [
+    {
+      "id": "badge_enchant_base10",
+      "category": "Symbols",
+      "role": "base10 / mint plus stamp",
+      "source": "ArtSource/Art071/Full/Symbols/badge_enchant_base10.svg",
+      "export": "ArtSource/Art071/Full/Symbols/badge_enchant_base10.png",
+      "source_sha256": "ead72754bbee5f00276035f283365a2210dbccf401287786267a6e08a9c56bc7",
+      "sha256": "95b42442b72add929e572af778623e30302e2d323e398b1f3671cd24705e7a2a",
+      "dimensions": [
+        256,
+        256
+      ],
+      "alpha_bounds": [
+        12,
+        12,
+        244,
+        244
+      ],
+      "edge_alpha_max": 0,
+      "alpha_range": [
+        0,
+        255
+      ],
+      "consumers": [
+        "GameApp.V05.EnchantBadge",
+        "app.enchantIcons"
+      ],
+      "importer": {
+        "textureType": "Sprite",
+        "spriteMode": "Single",
+        "filterMode": "Bilinear",
+        "wrapMode": "Clamp",
+        "mipmapEnabled": false,
+        "alphaIsTransparency": true,
+        "sRGBTexture": true,
+        "compression": "Uncompressed",
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      }
+    },
+    {
+      "id": "fx_arc_short",
+      "category": "FX",
+      "role": "short tintable trajectory / new consumer required",
+      "source": "ArtSource/Art071/Full/FX/fx_arc_short.svg",
+      "export": "ArtSource/Art071/Full/FX/fx_arc_short.png",
+      "source_sha256": "140f2fe2f966eac077083578f7eb8059eba52d7505e720d8c06d4f48228975b3",
+      "sha256": "0064ee5a5956c6942cb6e7c2f6aefc8261e4e1c1e8281aa9b533fdd27ca6e7b8",
+      "dimensions": [
+        256,
+        256
+      ],
+      "alpha_bounds": [
+        17,
+        52,
+        235,
+        195
+      ],
+      "edge_alpha_max": 0,
+      "alpha_range": [
+        0,
+        255
+      ],
+      "consumers": [
+        "NEW: controller-to-score effect; do not replace orthogonal copy-link semantics"
+      ],
+      "importer": {
+        "textureType": "Sprite",
+        "spriteMode": "Single",
+        "filterMode": "Bilinear",
+        "wrapMode": "Clamp",
+        "mipmapEnabled": false,
+        "alphaIsTransparency": true,
+        "sRGBTexture": true,
+        "compression": "Uncompressed",
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      }
+    },
+    {
+      "id": "ui_wordmark_dicecraft",
+      "category": "UI",
+      "role": "fixed Chinese wordmark; original layout from licensed Noto glyphs",
+      "source": "ArtSource/Art071/Full/UI/ui_wordmark_dicecraft.svg",
+      "export": "ArtSource/Art071/Full/UI/ui_wordmark_dicecraft.png",
+      "source_sha256": "fe73adc51a3defea21cf6deb92f5a8199b6c892820447912c905bb9e2ba8148a",
+      "sha256": "a701800bb45cd83e0515d461981edd8790ddef9ba4206f3568a0be975c5971d1",
+      "dimensions": [
+        1440,
+        400
+      ],
+      "alpha_bounds": [
+        47,
+        48,
+        1333,
+        363
+      ],
+      "edge_alpha_max": 0,
+      "alpha_range": [
+        0,
+        255
+      ],
+      "consumers": [
+        "GameApp.Art071Screens.Menu071/MenuWordmark",
+        "GameApp.Art07 Brand optional"
+      ],
+      "importer": {
+        "textureType": "Sprite",
+        "spriteMode": "Single",
+        "filterMode": "Bilinear",
+        "wrapMode": "Clamp",
+        "mipmapEnabled": false,
+        "alphaIsTransparency": true,
+        "sRGBTexture": true,
+        "compression": "Uncompressed",
+        "pivot": [
+          0.5,
+          0.5
+        ]
+      }
+    }
+  ]
+}

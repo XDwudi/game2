@@ -1,0 +1,74 @@
+{
+  "id": "C45",
+  "name": "飘忽不定",
+  "status": "source_review_complete_pending_independent_and_unity",
+  "tool": "built-in imagegen",
+  "model_snapshot": "not exposed by tool",
+  "tool_source_path": "C:\\Users\\f\\.codex\\generated_images\\01a1bc4f-283e-7c00-80a6-e00ae79dd0a1\\exec-9423b509-3735-4445-968f-3d2e219d6e94.png",
+  "path": "ArtSource/Art071/IllustrationsFull/C45/revision-01.png",
+  "sha256": "f3f98d20374f7ac0de6b869c54d386019d4fae130faa26bd93756575ab7e02e4",
+  "dimensions": [
+    1254,
+    1254
+  ],
+  "mode": "RGBA",
+  "alpha_range": [
+    0,
+    255
+  ],
+  "alpha_bounds": [
+    0,
+    43,
+    1230,
+    1238
+  ],
+  "prompt_sha256": "a6eb69e5a5e4e70c60be2b3d5d418271934efd2b03ff0e106e42fe72f952364a",
+  "references": [
+    {
+      "path": "docs/specs/v071/handoff/references/battle_master_v071.png",
+      "sha256": "02895a850ba48c636445c963f705244d190bdb8b94c07f449a0269fc5047f8dc",
+      "role": "style master",
+      "actuallyViewed": true
+    },
+    {
+      "path": "ArtSource/Art071/Illustrations/illustration_c29.png",
+      "sha256": "d380eecb4921984d2aacb4b50b1c7ee6fdcbdbb9f3596550fa79b476d4320728",
+      "role": "fixed illustration style anchor",
+      "actuallyViewed": true
+    }
+  ],
+  "config": {
+    "path": "DicePrototype/Assets/Game/Data/P0Config.json",
+    "sha256": "747ed1efc7bea15873f66a81eee5c7654971c21031f2a1517ce629adce7b6e6c",
+    "version": "p0.6.0"
+  },
+  "configDescription": "当前加成颜色的每颗骰，其逐骰基础贡献×3；初次获得随机红或蓝，每次有效提交后真实目标重新等概率抽取下一颜色，可与原色相同。",
+  "createdUtc": "2026-11-09T02:38:48.792915+00:00",
+  "unityIntegrated": false,
+  "originalPath": "ArtSource/Art071/IllustrationsFull/C45/original.png",
+  "originalSha256": "080d25867652aed34fe5011221c2f25f2569c5ef868e008dbea59cc7530c25b5",
+  "originalToolSourcePath": "C:\\Users\\f\\.codex\\generated_images\\01a1bc4f-283e-7c00-80a6-e00ae79dd0a1\\exec-0136217b-104b-4a94-9db5-3b0f6a636e1a.png",
+  "revision": {
+    "id": "revision-01",
+    "reason": "初稿4片叶而约定2片；仅移除下侧两片",
+    "tool": "built-in imagegen edit",
+    "promptPath": "ArtSource/Art071/IllustrationsFull/C45/revision-01.prompt.txt",
+    "promptSha256": "9b2222ca3ec42e7450bd15b36aaaab8109e9f22058ca30519f3c0c6045b23f50",
+    "parentSha256": "080d25867652aed34fe5011221c2f25f2569c5ef868e008dbea59cc7530c25b5",
+    "targetSource": "ArtSource/Art071/IllustrationsFull/C45/original.png",
+    "createdUtc": "2026-11-09T02:43:09.836475+00:00"
+  },
+  "authorReview": {
+    "originalViewed": true,
+    "surfaceAndSmallSizeViewed": true,
+    "evidence": "cache/v071-full/reviews/C45-C49-final-surface-and-size.png",
+    "observations": "仅2片对向红蓝叶；初稿4叶已通过一次内置编辑移除下侧2片；支点与色彩保持。 暖纸/深桌面/72px缩略已实看，无可见裁切。",
+    "status": "source_candidate_for_independent_review_not_final_acceptance"
+  },
+  "technicalVerification": {
+    "selectedMatchesToolOriginal": true,
+    "rgbaDecoded": true,
+    "promptAndReferenceHashesVerified": true,
+    "noPixelPostprocessing": true
+  }
+}

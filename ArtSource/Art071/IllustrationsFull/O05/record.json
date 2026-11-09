@@ -1,0 +1,97 @@
+{
+  "id": "O05",
+  "displayName": "增加控制",
+  "category": "services",
+  "configDescription": "每店控制器报价数量永久+1，从3到最多6；当前店只生成新位置的一件报价，不补其他已售商品。",
+  "subject": "小型卡片展示架向侧面打开一个新展示夹，夹上无字空白纸卡；这是商店控制器报价，不是持有槽。",
+  "tool": "built-in imagegen",
+  "modelSnapshot": "not exposed by tool",
+  "sourceToolPath": "C:/Users/f/.codex/generated_images/01a1bc4b-307a-7e83-a411-9569c8410a43/exec-da1e8f33-1b92-4e7b-a5b2-a647254ad053.png",
+  "file": "revision-02.png",
+  "sha256": "3fda040b236d6694ae9115c7981009f81590040b096308d251adcb7711909f04",
+  "dimensions": [
+    1254,
+    1254
+  ],
+  "mode": "RGBA",
+  "promptFile": "revision-02-prompt.txt",
+  "promptSha256": "70a63276e5214a6f10b5a5fa26bc9a8953843c1d8defcc3644c10dc68c0ade8e",
+  "references": [
+    {
+      "path": "docs/specs/v071/handoff/references/battle_master_v071.png",
+      "sha256": "02895a850ba48c636445c963f705244d190bdb8b94c07f449a0269fc5047f8dc",
+      "role": "style master"
+    },
+    {
+      "path": "ArtSource/Art071/Illustrations/illustration_c29.png",
+      "sha256": "d380eecb4921984d2aacb4b50b1c7ee6fdcbdbb9f3596550fa79b476d4320728",
+      "role": "style sample"
+    }
+  ],
+  "configSha256": "747ed1efc7bea15873f66a81eee5c7654971c21031f2a1517ce629adce7b6e6c",
+  "editableSourceType": "original raster PNG, not layered KRA/PSD",
+  "status": "source independently reviewed; actual Unity verification pending",
+  "initialGeneration": {
+    "id": "O05",
+    "displayName": "增加控制",
+    "category": "services",
+    "configDescription": "每店控制器报价数量永久+1，从3到最多6；当前店只生成新位置的一件报价，不补其他已售商品。",
+    "subject": "小型卡片展示架向侧面打开一个新展示夹，夹上无字空白纸卡；这是商店控制器报价，不是持有槽。",
+    "tool": "built-in imagegen",
+    "modelSnapshot": "not exposed by tool",
+    "sourceToolPath": "C:\\Users\\f\\.codex\\generated_images\\01a1bc4b-307a-7e83-a411-9569c8410a43\\exec-7c2dc49d-7bce-4f9f-8b0a-a92613df971d.png",
+    "file": "original.png",
+    "sha256": "807441b3f5d284fbed8a57d661ef907dfb3607e9d944fbbb96565afb2f2dfcf5",
+    "dimensions": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "promptFile": "prompt.txt",
+    "promptSha256": "dcc3bbf91f529ba0cc65ff7829cf46fd15b5597568b5d86b1bdca0a64122bec9",
+    "references": [
+      {
+        "path": "docs/specs/v071/handoff/references/battle_master_v071.png",
+        "sha256": "02895a850ba48c636445c963f705244d190bdb8b94c07f449a0269fc5047f8dc",
+        "role": "style master"
+      },
+      {
+        "path": "ArtSource/Art071/Illustrations/illustration_c29.png",
+        "sha256": "d380eecb4921984d2aacb4b50b1c7ee6fdcbdbb9f3596550fa79b476d4320728",
+        "role": "style sample"
+      }
+    ],
+    "configSha256": "747ed1efc7bea15873f66a81eee5c7654971c21031f2a1517ce629adce7b6e6c",
+    "editableSourceType": "original raster PNG, not layered KRA/PSD",
+    "status": "generated candidate; independent visual and engine checks pending"
+  },
+  "revisions": [
+    {
+      "file": "revision-01.png",
+      "sha256": "561ba8b60b181db7ea28c35a673190b2721937b7df4aa52414c84a37fbe3a833",
+      "sourceToolPath": "C:/Users/f/.codex/generated_images/01a1bc4b-307a-7e83-a411-9569c8410a43/exec-be73e326-b4a0-435f-9599-6f091a63a4c5.png",
+      "tool": "built-in imagegen",
+      "modelSnapshot": "not exposed by tool",
+      "promptFile": "revision-01-prompt.txt",
+      "promptSha256": "cdff358f24de5688918e40371803e99a5f4f664dad0d0fc30614b5ebd66d2ca0",
+      "parentFile": "original.png",
+      "parentSha256": "807441b3f5d284fbed8a57d661ef907dfb3607e9d944fbbb96565afb2f2dfcf5",
+      "reason": "static shelf expansion replaced calendar-like mechanism; gamepad emblems rejected",
+      "status": "rejected"
+    },
+    {
+      "file": "revision-02.png",
+      "sha256": "3fda040b236d6694ae9115c7981009f81590040b096308d251adcb7711909f04",
+      "sourceToolPath": "C:/Users/f/.codex/generated_images/01a1bc4b-307a-7e83-a411-9569c8410a43/exec-da1e8f33-1b92-4e7b-a5b2-a647254ad053.png",
+      "tool": "built-in imagegen",
+      "modelSnapshot": "not exposed by tool",
+      "promptFile": "revision-02-prompt.txt",
+      "promptSha256": "70a63276e5214a6f10b5a5fa26bc9a8953843c1d8defcc3644c10dc68c0ade8e",
+      "parentFile": "revision-01.png",
+      "parentSha256": "561ba8b60b181db7ea28c35a673190b2721937b7df4aa52414c84a37fbe3a833",
+      "reason": "remove four misleading gamepad emblems; preserve blank paper and rack",
+      "status": "source independently reviewed; engine pending"
+    }
+  ],
+  "path": "revision-02.png"
+}

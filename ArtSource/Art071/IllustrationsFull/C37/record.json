@@ -1,0 +1,57 @@
+{
+  "id": "C37",
+  "name": "缩小射线",
+  "createdUtc": "2026-11-09T02:48:01.137345+00:00",
+  "author": "/root/project_audit",
+  "tool": "built-in imagegen",
+  "modelSnapshot": "not exposed",
+  "intent": "new standalone themed illustration matching fixed v071 reference pair",
+  "originalToolPath": "C:\\Users\\f\\.codex\\generated_images\\01a1bc4e-02cf-7610-8093-a866440df249\\exec-73c08c1b-70d5-449a-81b1-bd46f1371e76.png",
+  "file": "original.png",
+  "sha256": "bf8ef718fbf7c3b518bbbf273372d3da0ecede867a39c44e55d9094ea9c4435c",
+  "dimensions": [
+    1254,
+    1254
+  ],
+  "mode": "RGBA",
+  "alpha0": 937382,
+  "alpha255": 1234,
+  "alphaPartial": 633900,
+  "alphaBounds": [
+    0,
+    23,
+    1226,
+    1222
+  ],
+  "promptFile": "prompt.txt",
+  "promptSha256": "e9bfa235301e9e1d946470ba91ee10d8282c380f2780be2b98e41e4035038964",
+  "configDescription": "至少提交2颗且S.Count<K，提交后前两颗本次物理面原值−1，下限1。",
+  "configPath": "DicePrototype/Assets/Game/Data/P0Config.json",
+  "configSha256": "747ed1efc7bea15873f66a81eee5c7654971c21031f2a1517ce629adce7b6e6c",
+  "references": [
+    {
+      "path": "docs/specs/v071/handoff/references/battle_master_v071.png",
+      "sha256": "02895a850ba48c636445c963f705244d190bdb8b94c07f449a0269fc5047f8dc",
+      "role": "style master"
+    },
+    {
+      "path": "ArtSource/Art071/Illustrations/illustration_c29.png",
+      "sha256": "d380eecb4921984d2aacb4b50b1c7ee6fdcbdbb9f3596550fa79b476d4320728",
+      "role": "fixed standalone style anchor"
+    }
+  ],
+  "status": "candidate; author source/edge/small-size checks completed; independent and engine review pending",
+  "sourcePixelsAltered": false,
+  "authorReview": {
+    "actualOriginalViewed": true,
+    "paperAndFeltPreviewViewed": true,
+    "previewSizes": [
+      420,
+      176,
+      64
+    ],
+    "groupPreview": "cache/v071-full/author-previews/group-4.png",
+    "observation": "反向聚焦镜的大小骰关系可辨，没有霓虹/整卡边框。 正确RGBA浅纸/深青合成未见可见白框或主体裁切。",
+    "limitation": "author check only; not independent art acceptance or engine evidence"
+  }
+}

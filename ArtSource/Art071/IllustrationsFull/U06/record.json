@@ -1,0 +1,61 @@
+{
+  "id": "U06",
+  "name": "黄金电镀",
+  "status": "source_review_complete_pending_independent_and_unity",
+  "tool": "built-in imagegen",
+  "model_snapshot": "not exposed by tool",
+  "tool_source_path": "C:\\Users\\f\\.codex\\generated_images\\01a1bc4f-283e-7c00-80a6-e00ae79dd0a1\\exec-77021167-e8ad-403c-b6eb-ee1557c9b9d5.png",
+  "path": "ArtSource/Art071/IllustrationsFull/U06/original.png",
+  "sha256": "85297a6f2c54887e46f0c3d99a2a8d307eaba4e3e6dd0563acd97db491c6bf64",
+  "dimensions": [
+    1254,
+    1254
+  ],
+  "mode": "RGBA",
+  "alpha_range": [
+    0,
+    255
+  ],
+  "alpha_bounds": [
+    0,
+    21,
+    1236,
+    1234
+  ],
+  "prompt_sha256": "71e1f8c61f90941cb5ab5777fbbef2acd616efdbb2e350337d47feeb4ce2a886",
+  "references": [
+    {
+      "path": "docs/specs/v071/handoff/references/battle_master_v071.png",
+      "sha256": "02895a850ba48c636445c963f705244d190bdb8b94c07f449a0269fc5047f8dc",
+      "role": "style master",
+      "actuallyViewed": true
+    },
+    {
+      "path": "ArtSource/Art071/Illustrations/illustration_c29.png",
+      "sha256": "d380eecb4921984d2aacb4b50b1c7ee6fdcbdbb9f3596550fa79b476d4320728",
+      "role": "fixed illustration style anchor",
+      "actuallyViewed": true
+    }
+  ],
+  "config": {
+    "path": "DicePrototype/Assets/Game/Data/P0Config.json",
+    "sha256": "747ed1efc7bea15873f66a81eee5c7654971c21031f2a1517ce629adce7b6e6c",
+    "version": "p0.6.0"
+  },
+  "configDescription": "目标面增加金层；该面朝上且提交时，该骰贡献×2，红蓝底色不变。",
+  "createdUtc": "2026-11-09T02:53:01.667860+00:00",
+  "unityIntegrated": false,
+  "authorReview": {
+    "originalViewed": true,
+    "surfaceAndSmallSizeViewed": true,
+    "evidence": "cache/v071-full/reviews/U04-U07-surface-and-size.png",
+    "observations": "C形夹具把薄金边压在单面，红蓝点保留，骰体非整块金属。 暖纸/深桌面/72px实际看过，无可见白底/裁切。",
+    "status": "source_candidate_for_independent_review_not_final_acceptance"
+  },
+  "technicalVerification": {
+    "selectedMatchesToolOriginal": true,
+    "rgbaDecoded": true,
+    "promptAndReferenceHashesVerified": true,
+    "noPixelPostprocessing": true
+  }
+}

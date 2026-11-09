@@ -1,0 +1,61 @@
+{
+  "id": "C42",
+  "name": "玻璃大炮",
+  "status": "source_review_complete_pending_independent_and_unity",
+  "tool": "built-in imagegen",
+  "model_snapshot": "not exposed by tool",
+  "tool_source_path": "C:\\Users\\f\\.codex\\generated_images\\01a1bc4f-283e-7c00-80a6-e00ae79dd0a1\\exec-cc1e2263-7ef0-4060-8062-2704f5e33018.png",
+  "path": "ArtSource/Art071/IllustrationsFull/C42/original.png",
+  "sha256": "ec2dc4e93ea964e37285d8fda197476c6ca6dfadadcd1b97ad5c57846c0582c5",
+  "dimensions": [
+    1254,
+    1254
+  ],
+  "mode": "RGBA",
+  "alpha_range": [
+    0,
+    255
+  ],
+  "alpha_bounds": [
+    92,
+    39,
+    1184,
+    1235
+  ],
+  "prompt_sha256": "84ae91f1b36ea74fc43aa3383710c915997cacacb83644c940b27cdc134e2948",
+  "references": [
+    {
+      "path": "docs/specs/v071/handoff/references/battle_master_v071.png",
+      "sha256": "02895a850ba48c636445c963f705244d190bdb8b94c07f449a0269fc5047f8dc",
+      "role": "style master",
+      "actuallyViewed": true
+    },
+    {
+      "path": "ArtSource/Art071/Illustrations/illustration_c29.png",
+      "sha256": "d380eecb4921984d2aacb4b50b1c7ee6fdcbdbb9f3596550fa79b476d4320728",
+      "role": "fixed illustration style anchor",
+      "actuallyViewed": true
+    }
+  ],
+  "config": {
+    "path": "DicePrototype/Assets/Game/Data/P0Config.json",
+    "sha256": "747ed1efc7bea15873f66a81eee5c7654971c21031f2a1517ce629adce7b6e6c",
+    "version": "p0.6.0"
+  },
+  "configDescription": "每次有效提交整手×10；计分与后置效果后，该效果来源实体独立15%概率永久损坏并消失。",
+  "createdUtc": "2026-11-09T02:34:10.167285+00:00",
+  "unityIntegrated": false,
+  "authorReview": {
+    "originalViewed": true,
+    "surfaceAndSmallSizeViewed": true,
+    "evidence": "cache/v071-full/reviews/C41-C44-surface-and-size.png",
+    "observations": "主题物件与轮廓清楚；暖纸/深桌面/72px缩略已看；无可见白背景、文字、数值或裁切。C41/C43/C44存在边缘alpha=1原始残留，无可见影响；保留原图字节。",
+    "status": "source_candidate_for_independent_review_not_final_acceptance"
+  },
+  "technicalVerification": {
+    "selectedMatchesToolOriginal": true,
+    "rgbaDecoded": true,
+    "promptAndReferenceHashesVerified": true,
+    "noPixelPostprocessing": true
+  }
+}

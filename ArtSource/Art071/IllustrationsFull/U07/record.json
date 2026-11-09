@@ -1,0 +1,61 @@
+{
+  "id": "U07",
+  "name": "随机变形",
+  "status": "source_review_complete_pending_independent_and_unity",
+  "tool": "built-in imagegen",
+  "model_snapshot": "not exposed by tool",
+  "tool_source_path": "C:\\Users\\f\\.codex\\generated_images\\01a1bc4f-283e-7c00-80a6-e00ae79dd0a1\\exec-4d92fbf4-08de-438b-86d0-1cfb203772d5.png",
+  "path": "ArtSource/Art071/IllustrationsFull/U07/original.png",
+  "sha256": "26f16ad58d5651d6b04fe3e1d629e59ddc1980ad7c9824a8e83853e916e1a204",
+  "dimensions": [
+    1254,
+    1254
+  ],
+  "mode": "RGBA",
+  "alpha_range": [
+    0,
+    255
+  ],
+  "alpha_bounds": [
+    0,
+    16,
+    1238,
+    1236
+  ],
+  "prompt_sha256": "3063ce1d7fb7f495b17b3febf45417aa5de49c4e00841d56c321610f9973b7da",
+  "references": [
+    {
+      "path": "docs/specs/v071/handoff/references/battle_master_v071.png",
+      "sha256": "02895a850ba48c636445c963f705244d190bdb8b94c07f449a0269fc5047f8dc",
+      "role": "style master",
+      "actuallyViewed": true
+    },
+    {
+      "path": "ArtSource/Art071/Illustrations/illustration_c29.png",
+      "sha256": "d380eecb4921984d2aacb4b50b1c7ee6fdcbdbb9f3596550fa79b476d4320728",
+      "role": "fixed illustration style anchor",
+      "actuallyViewed": true
+    }
+  ],
+  "config": {
+    "path": "DicePrototype/Assets/Game/Data/P0Config.json",
+    "sha256": "747ed1efc7bea15873f66a81eee5c7654971c21031f2a1517ce629adce7b6e6c",
+    "version": "p0.6.0"
+  },
+  "configDescription": "物理面原值等概率随机变为1至6中另外5种之一，颜色及其他属性不变。",
+  "createdUtc": "2026-11-09T02:54:19.637793+00:00",
+  "unityIntegrated": false,
+  "authorReview": {
+    "originalViewed": true,
+    "surfaceAndSmallSizeViewed": true,
+    "evidence": "cache/v071-full/reviews/U04-U07-surface-and-size.png",
+    "observations": "同色面片在可转动模具内翻转，简单2点/4点变化，无随机概率表。 暖纸/深桌面/72px实际看过，无可见白底/裁切。",
+    "status": "source_candidate_for_independent_review_not_final_acceptance"
+  },
+  "technicalVerification": {
+    "selectedMatchesToolOriginal": true,
+    "rgbaDecoded": true,
+    "promptAndReferenceHashesVerified": true,
+    "noPixelPostprocessing": true
+  }
+}

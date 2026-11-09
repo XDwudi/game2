@@ -1,0 +1,57 @@
+{
+  "id": "C35",
+  "name": "小数出奇",
+  "createdUtc": "2026-11-09T02:45:18.415345+00:00",
+  "author": "/root/project_audit",
+  "tool": "built-in imagegen",
+  "modelSnapshot": "not exposed",
+  "intent": "new standalone themed illustration matching fixed v071 reference pair",
+  "originalToolPath": "C:\\Users\\f\\.codex\\generated_images\\01a1bc4e-02cf-7610-8093-a866440df249\\exec-146fbfd9-301b-48ad-974e-38faaf4f6556.png",
+  "file": "original.png",
+  "sha256": "172559e16eec169253384d0bf96d62e3a2c5710e43f3eaf5d4b7f99ad0888f89",
+  "dimensions": [
+    1254,
+    1254
+  ],
+  "mode": "RGBA",
+  "alpha0": 990930,
+  "alpha255": 816,
+  "alphaPartial": 580770,
+  "alphaBounds": [
+    0,
+    0,
+    1235,
+    1232
+  ],
+  "promptFile": "prompt.txt",
+  "promptSha256": "e8ed05df8dc1c657d495e91a4644920a77137532905e68d7993518e1f63c9a43",
+  "configDescription": "永久1至3点组的总概率最多增加15个百分点；从4至6点组按比例转移。",
+  "configPath": "DicePrototype/Assets/Game/Data/P0Config.json",
+  "configSha256": "747ed1efc7bea15873f66a81eee5c7654971c21031f2a1517ce629adce7b6e6c",
+  "references": [
+    {
+      "path": "docs/specs/v071/handoff/references/battle_master_v071.png",
+      "sha256": "02895a850ba48c636445c963f705244d190bdb8b94c07f449a0269fc5047f8dc",
+      "role": "style master"
+    },
+    {
+      "path": "ArtSource/Art071/Illustrations/illustration_c29.png",
+      "sha256": "d380eecb4921984d2aacb4b50b1c7ee6fdcbdbb9f3596550fa79b476d4320728",
+      "role": "fixed standalone style anchor"
+    }
+  ],
+  "status": "candidate; author source/edge/small-size checks completed; independent and engine review pending",
+  "sourcePixelsAltered": false,
+  "authorReview": {
+    "actualOriginalViewed": true,
+    "paperAndFeltPreviewViewed": true,
+    "previewSizes": [
+      420,
+      176,
+      64
+    ],
+    "groupPreview": "cache/v071-full/author-previews/group-3.png",
+    "observation": "侧门弹出小骰与大骰形匣形成主体，和漏斗C34不同。 正确RGBA浅纸/深青合成未见可见白框或主体裁切。",
+    "limitation": "author check only; not independent art acceptance or engine evidence"
+  }
+}
