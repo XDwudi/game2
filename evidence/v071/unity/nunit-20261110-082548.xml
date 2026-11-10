@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="2" result="Failed(Child)" total="2" passed="1" failed="1" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-11-10 08:25:17Z" end-time="2026-11-10 08:25:48Z" duration="30.4870743">
+  <test-suite type="TestSuite" id="1197" name="DiceCraft P0" fullname="DiceCraft P0" runstate="Runnable" testcasecount="185" result="Failed" site="Child" start-time="2026-11-10 08:25:17Z" end-time="2026-11-10 08:25:48Z" duration="30.487074" total="2" passed="1" failed="1" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <failure>
+      <message><![CDATA[One or more child tests had errors]]></message>
+    </failure>
+    <test-suite type="Assembly" id="1191" name="DiceCraft.PlayModeTests.dll" fullname="E:/agent_workspace/gpt/game2/DicePrototype/Library/ScriptAssemblies/DiceCraft.PlayModeTests.dll" runstate="Runnable" testcasecount="185" result="Failed" site="Child" start-time="2026-11-10 08:25:17Z" end-time="2026-11-10 08:25:48Z" duration="30.476194" total="2" passed="1" failed="1" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="33852" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <failure>
+        <message><![CDATA[One or more child tests had errors]]></message>
+      </failure>
+      <test-suite type="TestSuite" id="1192" name="DiceCraft" fullname="DiceCraft" runstate="Runnable" testcasecount="185" result="Failed" site="Child" start-time="2026-11-10 08:25:17Z" end-time="2026-11-10 08:25:48Z" duration="30.473176" total="2" passed="1" failed="1" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <failure>
+          <message><![CDATA[One or more child tests had errors]]></message>
+        </failure>
+        <test-suite type="TestSuite" id="1193" name="Tests" fullname="DiceCraft.Tests" runstate="Runnable" testcasecount="185" result="Failed" site="Child" start-time="2026-11-10 08:25:17Z" end-time="2026-11-10 08:25:48Z" duration="30.470021" total="2" passed="1" failed="1" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <failure>
+            <message><![CDATA[One or more child tests had errors]]></message>
+          </failure>
+          <test-suite type="TestFixture" id="1001" name="GameplayPlayModeTests" fullname="DiceCraft.Tests.GameplayPlayModeTests" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" testcasecount="175" result="Failed" site="Child" start-time="2026-11-10 08:25:17Z" end-time="2026-11-10 08:25:48Z" duration="30.466707" total="2" passed="1" failed="1" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <failure>
+              <message><![CDATA[One or more child tests had errors]]></message>
+            </failure>
+            <test-case id="1011" name="PLAY_ART071_MenuTableRealFramesAnd150GlyphsPreserveWorldDiceAperture" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART071_MenuTableRealFramesAnd150GlyphsPreserveWorldDiceAperture" methodname="PLAY_ART071_MenuTableRealFramesAnd150GlyphsPreserveWorldDiceAperture" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="842547363" result="Failed" start-time="2026-11-10 08:25:17Z" end-time="2026-11-10 08:25:35Z" duration="17.662165" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <failure>
+                <message><![CDATA[  See retained glyph report and actual screenshot.
+  Expected: <empty>
+  But was:  < "SavedSeed: TMP overflow/truncation." >
+]]></message>
+                <stack-trace><![CDATA[at DiceCraft.Tests.GameplayPlayModeTests.MenuTableGlyphs071 (System.String name) [0x0049f] in E:\agent_workspace\gpt\game2\DicePrototype\Assets\Game\Tests\PlayMode\Art071MenuTablePlayModeTests.cs:145
+at DiceCraft.Tests.GameplayPlayModeTests+<PLAY_ART071_MenuTableRealFramesAnd150GlyphsPreserveWorldDiceAperture>d__21.MoveNext () [0x004ff] in E:\agent_workspace\gpt\game2\DicePrototype\Assets\Game\Tests\PlayMode\Art071MenuTablePlayModeTests.cs:177
+at UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\Library\PackageCache\com.unity.test-framework@ee3fe9477490\UnityEngine.TestRunner\NUnitExtensions\Attributes\TestEnumerator.cs:52
+]]></stack-trace>
+              </failure>
+              <output><![CDATA[Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_689a4c17bc0945758cb0c1d9e31893d9
+]]></output>
+            </test-case>
+            <test-case id="1010" name="PLAY_ART071_MenuTableRealMenuRoutesPreserveCancelAndContinueCheckpoint" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART071_MenuTableRealMenuRoutesPreserveCancelAndContinueCheckpoint" methodname="PLAY_ART071_MenuTableRealMenuRoutesPreserveCancelAndContinueCheckpoint" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="94748782" result="Passed" start-time="2026-11-10 08:25:35Z" end-time="2026-11-10 08:25:48Z" duration="12.788066" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Extra real capture, pending review: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_8ac2bf349ce647e3860a8185a56c6159\extra-capture
+Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_8ac2bf349ce647e3860a8185a56c6159
+Saving results to: E:\agent_workspace\gpt\game2\evidence\v071\unity\nunit-20261110-082548.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

@@ -20,6 +20,7 @@ namespace DiceCraft.Editor
             foreach(var raw in Directory.GetFiles(Root,"*.png",SearchOption.AllDirectories))
             {
                 string path=raw.Replace('\\','/');var im=(TextureImporter)AssetImporter.GetAtPath(path);
+                if(V071TableSetup.IsTableTexture(path)){V071TableSetup.ConfigureImporter(im);continue;}
                 im.textureType=TextureImporterType.Sprite;im.spriteImportMode=SpriteImportMode.Single;
                 im.spritePixelsPerUnit=path.Contains("/UI/")?200:100;
                 im.spriteBorder=path.Contains("/UI/")?new Vector4(32,32,32,32):Vector4.zero;

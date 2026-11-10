@@ -1,5 +1,16 @@
 # 当前项目状态
 
+## v0.71 Image2 主界面与桌面背景（REVIEW，2026-11-10）
+
+用户本轮明确要求 Image2 主界面图→实际主界面、桌上游玩的游戏背景、完成后上传 v0.71 源码；此授权覆盖源码上传，取代此前仅成品附件阶段的限制。交付分支为 `codex/v0.71`，本轮不合并main。源码上传与回读收据在完成后追加；旧 `p0.7.1-rc.1` 标签/三附件仍为历史原件。
+
+- 实际调用内置 image_gen.imagegen 两次，保留1672×941主界面概念和无UI桌面原图、完整提示词、参考图SHA与工具来源于 `ArtSource/Art071/MenuTable/`。主菜单实现标题纸、四张卡牌、三颗真实陶瓷骰和右侧纸菜单；真实存档/版本与五入口保留。世界Plane接入木沿、金缝线、深青毛毡背景，按比例Contain，保留真实骰子和接触阴影；HUD两处文字加入被动深青底色。PNG不是分层PSD。
+- Unity6000.6.7f1 / CLI beta.15 / D3D11：最终受影响矩阵1080p 8/8、720p 3/3、1920×1200 3/3；之后只将MenuRules上移20像素，三个画幅各补1/1视图回归。两阶段分别绑定，不声称最后一行修改后重跑全部14次。覆盖100/150%字形、真实pointer入口/取消/继续与存档守卫、五骰/最大锁槽/详情开孔、GPU背景方向/比例/Grain/Reduced及接触阴影。Python55项通过。Config/Golden与41aface原字节一致。
+- 初轮Subtitle/Version/SavedSeed字号溢出、提示穿骰、桌沿缝线穿HUD文字、流程文字贴卡顶边均保留缺陷证据并修复；独立代码、实际截图与源绑定复核归档 `evidence/v071-menu-table/`。最后菜单图片在其 `spacing/images/`。只有专项技术范围通过；人工风格/体验仍待用户。本轮未新建Player包，未把旧完整1200项/旧Player结果当作新源码验收。
+- Unity启动提示由computer use键盘处理，现有宿主仍显示Administrator；未修改系统安全设置。两次测试后均恢复原Free Aspect并移除两个任务临时分辨率，Editor已退出，无Unity/场景/资源写锁。历史性能、独占全屏、AudioMixer与Mac实机限制继续保留；Low档本轮无独立实机切换，按代码影响复核记录。
+
+当前产物、输入与验收对应 [主界面/桌面任务](tasks/P0-V071-MENU-TABLE.md)，查看 [最新源码分支](https://github.com/XDwudi/game2/tree/codex/v0.71)。下面main/v0.7和41aface发行记录保留原时间及范围。
+
 ## main 已纳入 v0.7 开发基线（2026-11-09）
 
 用户明确决定：“main 表示‘当前开发基线’，可以合并入 v0.7，同时保留问题。”已在隔离工作树将 main 从 `1fbc3cce` 快进纳入 v0.7 的 14 个提交至 `b11694f8`，另提交 README / STATE 的基线说明，最终提交为 `7de9857fe4072852b54f90118e991ff690c3fa98`。无 force 推送成功，远端 HEAD / main 已回读为该提交；[仓库首页](https://github.com/XDwudi/game2)现在显示 v0.7。游戏源仍为 `dca7a26`，整版 REWORK / 待人工、已知问题、失败证据与原验收标准均保留。

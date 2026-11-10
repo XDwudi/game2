@@ -1,5 +1,7 @@
 # 骰子构筑 P0 · v0.71
 
+2026-11-10源码追加：Image2主菜单构图与同风格完整桌面背景，含真实uGUI入口、存档摘要和世界骰子承影；源码在 `codex/v0.71`。用 Unity6000.6.7f1 打开本目录，运行 `Assets/Game/Scenes/Bootstrap.unity` 即可查看；图与材质已绑定，不需要重新生成全部美术。按需重绑仅调用菜单 `DiceCraft/Art071/Apply Image2 table background`。新画面只做受影响Editor验证，没有重建下述旧发行附件。
+
 当前表现版本为 `art0.7.1`，发行身份 `p0.7.1`；玩法配置仍为 `p0.6.0`、存档 `schema4`。目标 Windows x64 与 macOS Universal，验收进度见 [STATE](../docs/STATE.md) 和 [v0.71 交付说明](../docs/DELIVERY_V071.md)。本次全量源码41aface完整Edit1018/Play182通过，双构建与Windows实际运行完成。Windows性能/独占全屏仍失败，Mac及人工待验；[GitHub测试预发布](https://github.com/XDwudi/game2/releases/tag/p0.7.1-rc.1)已提供三个成品附件，完整远端下载与新目录启动已核，准确结论与下载见交付说明。
 
 ## 运行与操作

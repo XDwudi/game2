@@ -1,0 +1,83 @@
+{
+  "utc": "2026-11-10T08:25:01.097666+00:00",
+  "reviewer": "/root/project_audit",
+  "scope": "Independent static production review only. Current new Unity evidence pending.",
+  "files": [
+    {
+      "path": "DicePrototype/Assets/Game/UI/GameApp.Art071Screens.cs",
+      "bytes": 10480,
+      "sha256": "42d4ec92fe91c89d30f63876fdb9a27e80ab3816bd50c95886b91a98e651cb48"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Runtime/Shaders/Art07Felt.shader",
+      "bytes": 3630,
+      "sha256": "3bc8123983e4a2a50dbad240715ba26ecb095eae1933bc7f51fa07dae0b99d59"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Editor/V071TableSetup.cs",
+      "bytes": 2496,
+      "sha256": "28af5cc39eb6de52e82537f8d6df3d64ca67991afdb4e0886b6e767b8aff4d0a"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Editor/V071FullSetup.cs",
+      "bytes": 12277,
+      "sha256": "ea6d06f8aabe091c0ca0e2efb4c5b45780c584ed78080def8a0e855d1520dace"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Editor/V071Setup.cs",
+      "bytes": 5441,
+      "sha256": "de900a09e00846b9c4b97d54f56d8859319ac83b79764d9bd2192155564b329e"
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art071/Full/Materials/felt.mat",
+      "bytes": 3813,
+      "sha256": "f2ea032c162499efb4ef27c6d6ff6ad2a274f3dd88b82c1aa67625ad4a1fd94f"
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art071/Full/Materials/felt.mat.meta",
+      "bytes": 188,
+      "sha256": "0d043225cb2930c7dd9239b4f67f83d602b9fbd16ef28f77288995ecd71745b5"
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art071/Backgrounds/bg_table_scene.png",
+      "bytes": 2217447,
+      "sha256": "664ac49ea2183f1288033586d02aaff9d91877be77b20cb1125d0342772f35ea"
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art071/Backgrounds/bg_table_scene.png.meta",
+      "bytes": 3424,
+      "sha256": "032fb613ec3bffdca516bff1ac0f29d615a6904bd2ba31b4b3d2638dea9c16c2"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Scenes/Bootstrap.unity",
+      "bytes": 58010,
+      "sha256": "f970ff26dfd194cd07d306e3da8fd07a1952cd976becaf56ce04959d3a4f42ec"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Scenes/ArtStyleLab.unity",
+      "bytes": 59312,
+      "sha256": "90927fd761cc5c6520930344933d15b3cd46fda8f3ab82b5859f465f207cb8e1"
+    },
+    {
+      "path": "ArtSource/Art071/MenuTable/record.json",
+      "bytes": 2858,
+      "sha256": "360ee1fa91b6ea80e4effe6daabc2bc682c55a8e5ff1cd7484cd165d550b9a33"
+    },
+    {
+      "path": "ArtSource/Art071/MenuTable/table-background.png",
+      "bytes": 2217447,
+      "sha256": "664ac49ea2183f1288033586d02aaff9d91877be77b20cb1125d0342772f35ea"
+    },
+    {
+      "path": "DicePrototype/Library/PackageCache/com.unity.render-pipelines.universal@ffe395a3a1d1/ShaderLibrary/ShaderVariablesFunctions.hlsl",
+      "bytes": 19144,
+      "sha256": "ee5a335cb2aa0a111f73f62671a1e974303f4084ead924833a91cd6db63e7865"
+    },
+    {
+      "path": "cache/v071-table-update/code-review/PRODUCTION_STATIC_REVIEW.md",
+      "bytes": 5908,
+      "sha256": "d742ac0f77d001fdcf46fde9380260cd2fd3921e036dc6871dd92ff7ef8aac34"
+    }
+  ],
+  "reviewTiming": "Menu source snapshot is the root repair after first 1080 failure; historical risks in text explicitly refer to initial version. Current SHA42d4ec92 reviewed via focused read; actual rerun pending."
+}

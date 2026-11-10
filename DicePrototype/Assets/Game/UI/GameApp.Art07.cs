@@ -167,6 +167,8 @@ namespace DiceCraft
         private void DrawItems07()
         {
             bool c=Compact07;float x=c?1602:1536,y=c?18:24,size=c?84:88,gap=c?12:20;
+            // Keep the small caption legible where the authored table's stitching passes behind it.
+            UiKit.Box(main,"ItemsTitleUnderlay",x-8,y-4,316,40,UiKit.Panel);
             UiKit.Text(main,"ItemsTitle","局内道具",x,y,300,30,18,UiKit.Muted);
             for(int i=0;i<Math.Min(5,ViewState.consumableSlots);i++)
             {
@@ -242,6 +244,7 @@ namespace DiceCraft
             if(!busy&&s.stage.qualified)UiKit.Outline(endStage.transform,"QualifiedGoldBorder",0,0,widths[4],ah,UiKit.Gold,3);
             string reason=excess?"可再锁 "+lockRoom+" 颗；请取消超额待选，不会部分锁定":pending?"先确认锁定，或清除待选":!h.hasRolled?"先投掷，再选择骰子":dice.Count==0?"没有未锁骰；可提交已锁骰":h.rollsRemaining==0?"投掷已用尽；仍可锁定、排序与提交":h.orderedLockedIds.Count==s.stage.capacity?"提交栏已满；仅重掷未锁骰":"锁定不可撤销 · 提交将消耗 1 次提交";
             if(!busy&&!pending&&!string.IsNullOrEmpty(LastTransactionSummary07))reason=LastTransactionSummary07;
+            UiKit.Box(main,"ActionReasonUnderlay",c?368:374,c?1008:1030,1500,50,UiKit.Panel);
             UiKit.Text(main,"ActionReason",reason,c?378:384,c?1012:1034,1480,42,20,UiKit.Muted);
         }
         private void DrawDie(DieInstance die,DieHandState result,Vector2 center,bool locked,int index,float scale=1f,bool sideLabels=false)

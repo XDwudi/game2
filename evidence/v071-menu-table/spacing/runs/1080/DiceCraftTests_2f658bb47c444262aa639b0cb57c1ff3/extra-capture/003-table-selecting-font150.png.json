@@ -1,0 +1,182 @@
+{
+    "id": "table-selecting-font150",
+    "screen": "S04",
+    "scope": "Ordinary real roll at 150%; world table under real dice and live HUD.",
+    "png": "003-table-selecting-font150.png",
+    "pngSha256": "776bde6ab72596201340c6b9998b333844cf3a430902fdad26f9a8ac7895d260",
+    "stateHashBefore": "4afc0788172a42736b569c238181f3bc3939f769c125da5533d60546af6acb37",
+    "stateHashAfter": "4afc0788172a42736b569c238181f3bc3939f769c125da5533d60546af6acb37",
+    "saveShaBefore": "44982b0ae73df9aada1498a09271dc0237b3fe74d70368280e09eab3e2192581",
+    "saveShaAfter": "44982b0ae73df9aada1498a09271dc0237b3fe74d70368280e09eab3e2192581",
+    "pendingShaBefore": "missing",
+    "pendingShaAfter": "missing",
+    "phase": "Selecting",
+    "savePath": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftTests_2f658bb47c444262aa639b0cb57c1ff3\\active-run.json",
+    "mode": "Windowed",
+    "width": 1920,
+    "height": 1080,
+    "frame": 697,
+    "fontScale": 1.5,
+    "canvasScale": 1.0,
+    "sequence": 3,
+    "gold": 0,
+    "pendingSave": false,
+    "unchanged": true,
+    "nonBlackRatio": 0.9938631668489488,
+    "controls": [
+        {
+            "path": "HUD/Screen/Roll",
+            "text": "重掷 2 [R]",
+            "bounds": {
+                "serializedVersion": "2",
+                "x": 368.0,
+                "y": 52.0,
+                "width": 250.0,
+                "height": 72.0
+            },
+            "visibleBounds": {
+                "serializedVersion": "2",
+                "x": 368.0,
+                "y": 52.0,
+                "width": 250.0,
+                "height": 72.0
+            },
+            "interactable": true,
+            "hit40Physical": true,
+            "centerRaycastHits": true,
+            "textOverflow": false
+        },
+        {
+            "path": "HUD/Screen/Confirm",
+            "text": "确认锁定 0",
+            "bounds": {
+                "serializedVersion": "2",
+                "x": 636.0,
+                "y": 52.0,
+                "width": 310.0,
+                "height": 72.0
+            },
+            "visibleBounds": {
+                "serializedVersion": "2",
+                "x": 636.0,
+                "y": 52.0,
+                "width": 310.0,
+                "height": 72.0
+            },
+            "interactable": false,
+            "hit40Physical": true,
+            "centerRaycastHits": true,
+            "textOverflow": false
+        },
+        {
+            "path": "HUD/Screen/Clear",
+            "text": "清除待选",
+            "bounds": {
+                "serializedVersion": "2",
+                "x": 964.0,
+                "y": 52.0,
+                "width": 210.0,
+                "height": 72.0
+            },
+            "visibleBounds": {
+                "serializedVersion": "2",
+                "x": 964.0,
+                "y": 52.0,
+                "width": 210.0,
+                "height": 72.0
+            },
+            "interactable": false,
+            "hit40Physical": true,
+            "centerRaycastHits": true,
+            "textOverflow": false
+        },
+        {
+            "path": "HUD/Screen/Submit",
+            "text": "提交 0 颗",
+            "bounds": {
+                "serializedVersion": "2",
+                "x": 1192.0,
+                "y": 52.0,
+                "width": 310.0,
+                "height": 72.0
+            },
+            "visibleBounds": {
+                "serializedVersion": "2",
+                "x": 1192.0,
+                "y": 52.0,
+                "width": 310.0,
+                "height": 72.0
+            },
+            "interactable": false,
+            "hit40Physical": true,
+            "centerRaycastHits": true,
+            "textOverflow": false
+        },
+        {
+            "path": "HUD/Screen/EndStage",
+            "text": "结束本轮",
+            "bounds": {
+                "serializedVersion": "2",
+                "x": 1520.0,
+                "y": 52.0,
+                "width": 350.0,
+                "height": 72.0
+            },
+            "visibleBounds": {
+                "serializedVersion": "2",
+                "x": 1520.0,
+                "y": 52.0,
+                "width": 350.0,
+                "height": 72.0
+            },
+            "interactable": false,
+            "hit40Physical": true,
+            "centerRaycastHits": true,
+            "textOverflow": false
+        },
+        {
+            "path": "HUD/Screen/Pause",
+            "text": "设置 / 暂停",
+            "bounds": {
+                "serializedVersion": "2",
+                "x": 40.0,
+                "y": 76.0,
+                "width": 288.0,
+                "height": 60.0
+            },
+            "visibleBounds": {
+                "serializedVersion": "2",
+                "x": 40.0,
+                "y": 76.0,
+                "width": 288.0,
+                "height": 60.0
+            },
+            "interactable": true,
+            "hit40Physical": true,
+            "centerRaycastHits": true,
+            "textOverflow": false
+        },
+        {
+            "path": "HUD/Screen/Handbook",
+            "text": "牌型手册 [H]",
+            "bounds": {
+                "serializedVersion": "2",
+                "x": 40.0,
+                "y": 150.0,
+                "width": 288.0,
+                "height": 60.0
+            },
+            "visibleBounds": {
+                "serializedVersion": "2",
+                "x": 40.0,
+                "y": 150.0,
+                "width": 288.0,
+                "height": 60.0
+            },
+            "interactable": true,
+            "hit40Physical": true,
+            "centerRaycastHits": true,
+            "textOverflow": false
+        }
+    ]
+}

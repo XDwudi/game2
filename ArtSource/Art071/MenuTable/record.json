@@ -1,0 +1,70 @@
+{
+  "schema": "art071-menu-table-source-1",
+  "task": "P0-V071-MENU-TABLE",
+  "baseSourceCommit": "41aface80bba6c1e008bd3d35344210a28003553",
+  "tool": "built-in image_gen.imagegen",
+  "modelVisibility": "Project imagegen guidance identifies built-in capability as gpt-image-2; actual model snapshot/seed not exposed",
+  "userRequest": "Image2 menu concept implemented in Unity; tabletop gameplay background; upload v0.71 source to Git",
+  "status": "integrated_editor_verified_pending_human_style_review",
+  "transparentBackground": false,
+  "sources": [
+    {
+      "path": "ArtSource/Art071/MenuTable/menu-concept.png",
+      "role": "UI concept only; generated text is not runtime data",
+      "sha256": "556a87e4aa80219ca19fe46edb8ce0008ca1c40564d7ab918facc463be96ee66",
+      "bytes": 2529798,
+      "size": [
+        1672,
+        941
+      ],
+      "mode": "RGB",
+      "prompt": "ArtSource/Art071/MenuTable/menu-concept-prompt.txt",
+      "toolOutput": "C:/Users/f/.codex/generated_images/01a1bc4b-307a-7e83-a411-9569c8410a43/exec-0b965c4a-9bf8-43a7-a9cf-302135ad7770.png"
+    },
+    {
+      "path": "ArtSource/Art071/MenuTable/table-background.png",
+      "role": "Opaque production background; no UI or rule objects",
+      "sha256": "664ac49ea2183f1288033586d02aaff9d91877be77b20cb1125d0342772f35ea",
+      "bytes": 2217447,
+      "size": [
+        1672,
+        941
+      ],
+      "mode": "RGB",
+      "prompt": "ArtSource/Art071/MenuTable/table-background-prompt.txt",
+      "parent": "ArtSource/Art071/MenuTable/menu-concept.png",
+      "runtime": "DicePrototype/Assets/Art/Art071/Backgrounds/bg_table_scene.png",
+      "toolOutput": "C:/Users/f/.codex/generated_images/01a1bc4b-307a-7e83-a411-9569c8410a43/exec-710dcdea-2276-427e-807e-0fc8a59d531c.png"
+    }
+  ],
+  "references": [
+    {
+      "path": "docs/specs/v071/handoff/references/battle_master_v071.png",
+      "role": "print style/material palette",
+      "sha256": "02895a850ba48c636445c963f705244d190bdb8b94c07f449a0269fc5047f8dc",
+      "bytes": 2434842,
+      "size": [
+        1672,
+        941
+      ],
+      "mode": "RGB"
+    },
+    {
+      "path": "evidence/v07/input/concepts/image1.png",
+      "role": "table setting and ceramic dice; not pixel font or rule data",
+      "sha256": "8580ee3ce66daeffdffd162c92add77e6a80340338c5c19749b6749cba826f2c",
+      "bytes": 2298873,
+      "size": [
+        1671,
+        941
+      ],
+      "mode": "RGB"
+    }
+  ],
+  "notes": [
+    "Original raster PNGs are not layered PSD files.",
+    "Concept saved-session numbers/build date are illustrative; runtime derives actual values.",
+    "Generated output copied byte-for-byte; no code or Python repainting.",
+    "Old 127-resource manifest stays historical; this record adds one production background."
+  ]
+}

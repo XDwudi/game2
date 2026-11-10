@@ -1,0 +1,82 @@
+{
+  "schema": "v071-menu-table-image-review-1",
+  "utc": "2026-11-10T08:01:15.885751+00:00",
+  "reviewer": "art_assets; not image author",
+  "scope": "Independent source-image/reference visual review only",
+  "specificationConclusion": "CONFORMS_WITHIN_IMAGE_CANDIDATE_SCOPE",
+  "visibleProductionQuality": "NO_BLOCKING_REDRAW_DEFECT_OBSERVED",
+  "runtime": "NOT_RUN",
+  "humanArtAcceptance": "NOT_SIGNED",
+  "inputs": [
+    {
+      "path": "ArtSource/Art071/MenuTable/menu-concept.png",
+      "byteSize": 2529798,
+      "sha256": "556a87e4aa80219ca19fe46edb8ce0008ca1c40564d7ab918facc463be96ee66",
+      "width": 1672,
+      "height": 941,
+      "mode": "RGB",
+      "format": "PNG",
+      "actualImageViewed": true
+    },
+    {
+      "path": "ArtSource/Art071/MenuTable/table-background.png",
+      "byteSize": 2217447,
+      "sha256": "664ac49ea2183f1288033586d02aaff9d91877be77b20cb1125d0342772f35ea",
+      "width": 1672,
+      "height": 941,
+      "mode": "RGB",
+      "format": "PNG",
+      "actualImageViewed": true
+    },
+    {
+      "path": "ArtSource/Art071/MenuTable/menu-concept-prompt.txt",
+      "byteSize": 2290,
+      "sha256": "3f7978cf7dc968b61ce93bf78a33897fc4f0887d45f7117896653f72dfa4acc4"
+    },
+    {
+      "path": "ArtSource/Art071/MenuTable/table-background-prompt.txt",
+      "byteSize": 1510,
+      "sha256": "83d725ee5ae063fac2a890f365f864f2fd1e3baa8aabbe26b4a05e6ac024fccc"
+    },
+    {
+      "path": "docs/specs/v071/handoff/references/battle_master_v071.png",
+      "byteSize": 2434842,
+      "sha256": "02895a850ba48c636445c963f705244d190bdb8b94c07f449a0269fc5047f8dc",
+      "width": 1672,
+      "height": 941,
+      "mode": "RGB",
+      "format": "PNG",
+      "actualImageViewed": true
+    },
+    {
+      "path": "evidence/v07/input/concepts/image1.png",
+      "byteSize": 2298873,
+      "sha256": "8580ee3ce66daeffdffd162c92add77e6a80340338c5c19749b6749cba826f2c",
+      "width": 1671,
+      "height": 941,
+      "mode": "RGB",
+      "format": "PNG",
+      "actualImageViewed": true
+    },
+    {
+      "path": "docs/specs/v071/ART_SPEC.md",
+      "byteSize": 39754,
+      "sha256": "e36670bd717c526f0ae3126c551092edb7c7b03a6198bb3297706c99f4ea37a0"
+    },
+    {
+      "path": ".agents/skills/game-art-production/SKILL.md",
+      "byteSize": 4937,
+      "sha256": "88e58fd04b466583d90b4bcc8305783e7a54e4f04fa5b68fc864d893ab4e7103"
+    },
+    {
+      "path": "docs/art/AI_ART_PIPELINE.md",
+      "byteSize": 7765,
+      "sha256": "bdf565b68a30eae6f5a699aaee0779ddfcc503f7bdd849c46177144d1ee56311"
+    },
+    {
+      "path": "cache/v071-table-update/art-review/REVIEW.md",
+      "byteSize": 2604,
+      "sha256": "bde25361658c13ceec13cda8e9c58328b78a70aaa7c1759285bc2970ab0ac88f"
+    }
+  ]
+}

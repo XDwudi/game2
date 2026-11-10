@@ -1,0 +1,1372 @@
+{
+    "schema": "art07-extra-capture-1",
+    "status": "captured_pending_visual_review",
+    "startedUtc": "2026-11-10T08:48:19.2699101Z",
+    "endedUtc": "2026-11-10T08:48:35.8186017Z",
+    "output": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftTests_2f658bb47c444262aa639b0cb57c1ff3\\extra-capture",
+    "unity": "6000.6.7f1",
+    "platform": "WindowsEditor",
+    "os": "Windows 10  (10.0.19045) 64bit",
+    "gpu": "NVIDIA GeForce RTX 3080",
+    "graphicsApi": "Direct3D11",
+    "artVersion": "art0.7.1",
+    "rulesVersion": "p0.6.0",
+    "configSha256": "747ed1efc7bea15873f66a81eee5c7654971c21031f2a1517ce629adce7b6e6c",
+    "runtimeMvid": "5d15c310-0a76-4911-aa88-b75336a00bff",
+    "coreMvid": "8f690e0d-a075-4b72-98e4-2cb64ced2fa3",
+    "testMvid": "58900665-fbe0-400a-99b4-8491c3094dc3",
+    "runtimeAssemblySha256": "abcf44d9b4f1554e61691ebebf66b1f197c42a382c31e8bafdd623cf972879f0",
+    "sourceManifestSha256": "de1f052956e69a191c7e74cfa2deb2e668528839b584dcd9a3acba33f79371ca",
+    "buildIdentity": "{\r\n  \"releaseVersion\": \"p0.7.1\",\r\n  \"artVersion\": \"art0.7.1\",\r\n  \"sourceCommit\": \"41aface80bba6c1e008bd3d35344210a28003553\",\r\n  \"contentConfigVersion\": \"p0.6.0\",\r\n  \"contentConfigSha256\": \"747ed1efc7bea15873f66a81eee5c7654971c21031f2a1517ce629adce7b6e6c\",\r\n  \"saveSchemaVersion\": 4,\r\n  \"goldenCaseSetSha256\": \"306cb86f79dafe0e3eb302714abd232af20fe0062a6713f7d713c11e2a6a5718\",\r\n  \"unityEditorVersion\": \"6000.6.7f1\",\r\n  \"backend\": \"Mono\"\r\n}\r\n",
+    "sourceBinding": "Stable working-tree source SHA snapshot plus loaded assembly MVID; release commit acceptance remains pending",
+    "acceptance": "Actual capture/action evidence only; pending independent visual review, not acceptance",
+    "screens": [
+        {
+            "id": "table-menu-font100",
+            "screen": "S01",
+            "scope": "Real viewport and UI-set font; actual menu paper/cards/three world dice.",
+            "png": "000-table-menu-font100.png",
+            "pngSha256": "158e6f0d8ace1e27f91fab3fffa12511b63e8ac632e2324ceef47c6cd187e2cd",
+            "stateHashBefore": "no-run",
+            "stateHashAfter": "no-run",
+            "saveShaBefore": "missing",
+            "saveShaAfter": "missing",
+            "pendingShaBefore": "missing",
+            "pendingShaAfter": "missing",
+            "phase": "MainMenu",
+            "savePath": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftTests_2f658bb47c444262aa639b0cb57c1ff3\\active-run.json",
+            "mode": "Windowed",
+            "width": 1920,
+            "height": 1080,
+            "frame": 231,
+            "fontScale": 1.0,
+            "canvasScale": 1.0,
+            "sequence": 0,
+            "gold": 0,
+            "pendingSave": false,
+            "unchanged": true,
+            "nonBlackRatio": 0.9942884919188236,
+            "controls": [
+                {
+                    "path": "HUD/Screen/MenuPanel/ContinueRun",
+                    "text": "继续对局",
+                    "bounds": {
+                        "serializedVersion": "2",
+                        "x": 1252.0,
+                        "y": 768.0,
+                        "width": 544.0,
+                        "height": 88.0
+                    },
+                    "visibleBounds": {
+                        "serializedVersion": "2",
+                        "x": 1252.0,
+                        "y": 768.0,
+                        "width": 544.0,
+                        "height": 88.0
+                    },
+                    "interactable": false,
+                    "hit40Physical": true,
+                    "centerRaycastHits": true,
+                    "textOverflow": false
+                },
+                {
+                    "path": "HUD/Screen/MenuPanel/NewRun",
+                    "text": "新建挑战",
+                    "bounds": {
+                        "serializedVersion": "2",
+                        "x": 1252.0,
+                        "y": 582.0,
+                        "width": 544.0,
+                        "height": 80.0
+                    },
+                    "visibleBounds": {
+                        "serializedVersion": "2",
+                        "x": 1252.0,
+                        "y": 582.0,
+                        "width": 544.0,
+                        "height": 80.0
+                    },
+                    "interactable": true,
+                    "hit40Physical": true,
+                    "centerRaycastHits": true,
+                    "textOverflow": false
+                },
+                {
+                    "path": "HUD/Screen/MenuPanel/MenuHandbook",
+                    "text": "牌型手册",
+                    "bounds": {
+                        "serializedVersion": "2",
+                        "x": 1252.0,
+                        "y": 482.0,
+                        "width": 544.0,
+                        "height": 80.0
+                    },
+                    "visibleBounds": {
+                        "serializedVersion": "2",
+                        "x": 1252.0,
+                        "y": 482.0,
+                        "width": 544.0,
+                        "height": 80.0
+                    },
+                    "interactable": true,
+                    "hit40Physical": true,
+                    "centerRaycastHits": true,
+                    "textOverflow": false
+                },
+                {
+                    "path": "HUD/Screen/MenuPanel/MenuSettings",
+                    "text": "设置",
+                    "bounds": {
+                        "serializedVersion": "2",
+                        "x": 1252.0,
+                        "y": 382.0,
+                        "width": 544.0,
+                        "height": 80.0
+                    },
+                    "visibleBounds": {
+                        "serializedVersion": "2",
+                        "x": 1252.0,
+                        "y": 382.0,
+                        "width": 544.0,
+                        "height": 80.0
+                    },
+                    "interactable": true,
+                    "hit40Physical": true,
+                    "centerRaycastHits": true,
+                    "textOverflow": false
+                },
+                {
+                    "path": "HUD/Screen/MenuPanel/Quit",
+                    "text": "退出游戏",
+                    "bounds": {
+                        "serializedVersion": "2",
+                        "x": 1252.0,
+                        "y": 282.0,
+                        "width": 544.0,
+                        "height": 80.0
+                    },
+                    "visibleBounds": {
+                        "serializedVersion": "2",
+                        "x": 1252.0,
+                        "y": 282.0,
+                        "width": 544.0,
+                        "height": 80.0
+                    },
+                    "interactable": true,
+                    "hit40Physical": true,
+                    "centerRaycastHits": true,
+                    "textOverflow": false
+                },
+                {
+                    "path": "HUD/Screen/BuildVersion",
+                    "text": "版本与构建",
+                    "bounds": {
+                        "serializedVersion": "2",
+                        "x": 1264.0,
+                        "y": 108.0,
+                        "width": 520.0,
+                        "height": 64.0
+                    },
+                    "visibleBounds": {
+                        "serializedVersion": "2",
+                        "x": 1264.0,
+                        "y": 108.0,
+                        "width": 520.0,
+                        "height": 64.0
+                    },
+                    "interactable": true,
+                    "hit40Physical": true,
+                    "centerRaycastHits": true,
+                    "textOverflow": false
+                }
+            ]
+        },
+        {
+            "id": "table-menu-font150",
+            "screen": "S01",
+            "scope": "Real viewport and UI-set font; actual menu paper/cards/three world dice.",
+            "png": "001-table-menu-font150.png",
+            "pngSha256": "f34d5427da3d1f287c84f75958117a70fde78c079186362fe4fdd8065e60195f",
+            "stateHashBefore": "no-run",
+            "stateHashAfter": "no-run",
+            "saveShaBefore": "missing",
+            "saveShaAfter": "missing",
+            "pendingShaBefore": "missing",
+            "pendingShaAfter": "missing",
+            "phase": "MainMenu",
+            "savePath": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftTests_2f658bb47c444262aa639b0cb57c1ff3\\active-run.json",
+            "mode": "Windowed",
+            "width": 1920,
+            "height": 1080,
+            "frame": 414,
+            "fontScale": 1.5,
+            "canvasScale": 1.0,
+            "sequence": 0,
+            "gold": 0,
+            "pendingSave": false,
+            "unchanged": true,
+            "nonBlackRatio": 0.9942277311945559,
+            "controls": [
+                {
+                    "path": "HUD/Screen/MenuPanel/ContinueRun",
+                    "text": "继续对局",
+                    "bounds": {
+                        "serializedVersion": "2",
+                        "x": 1252.0,
+                        "y": 768.0,
+                        "width": 544.0,
+                        "height": 88.0
+                    },
+                    "visibleBounds": {
+                        "serializedVersion": "2",
+                        "x": 1252.0,
+                        "y": 768.0,
+                        "width": 544.0,
+                        "height": 88.0
+                    },
+                    "interactable": false,
+                    "hit40Physical": true,
+                    "centerRaycastHits": true,
+                    "textOverflow": false
+                },
+                {
+                    "path": "HUD/Screen/MenuPanel/NewRun",
+                    "text": "新建挑战",
+                    "bounds": {
+                        "serializedVersion": "2",
+                        "x": 1252.0,
+                        "y": 582.0,
+                        "width": 544.0,
+                        "height": 80.0
+                    },
+                    "visibleBounds": {
+                        "serializedVersion": "2",
+                        "x": 1252.0,
+                        "y": 582.0,
+                        "width": 544.0,
+                        "height": 80.0
+                    },
+                    "interactable": true,
+                    "hit40Physical": true,
+                    "centerRaycastHits": true,
+                    "textOverflow": false
+                },
+                {
+                    "path": "HUD/Screen/MenuPanel/MenuHandbook",
+                    "text": "牌型手册",
+                    "bounds": {
+                        "serializedVersion": "2",
+                        "x": 1252.0,
+                        "y": 482.0,
+                        "width": 544.0,
+                        "height": 80.0
+                    },
+                    "visibleBounds": {
+                        "serializedVersion": "2",
+                        "x": 1252.0,
+                        "y": 482.0,
+                        "width": 544.0,
+                        "height": 80.0
+                    },
+                    "interactable": true,
+                    "hit40Physical": true,
+                    "centerRaycastHits": true,
+                    "textOverflow": false
+                },
+                {
+                    "path": "HUD/Screen/MenuPanel/MenuSettings",
+                    "text": "设置",
+                    "bounds": {
+                        "serializedVersion": "2",
+                        "x": 1252.0,
+                        "y": 382.0,
+                        "width": 544.0,
+                        "height": 80.0
+                    },
+                    "visibleBounds": {
+                        "serializedVersion": "2",
+                        "x": 1252.0,
+                        "y": 382.0,
+                        "width": 544.0,
+                        "height": 80.0
+                    },
+                    "interactable": true,
+                    "hit40Physical": true,
+                    "centerRaycastHits": true,
+                    "textOverflow": false
+                },
+                {
+                    "path": "HUD/Screen/MenuPanel/Quit",
+                    "text": "退出游戏",
+                    "bounds": {
+                        "serializedVersion": "2",
+                        "x": 1252.0,
+                        "y": 282.0,
+                        "width": 544.0,
+                        "height": 80.0
+                    },
+                    "visibleBounds": {
+                        "serializedVersion": "2",
+                        "x": 1252.0,
+                        "y": 282.0,
+                        "width": 544.0,
+                        "height": 80.0
+                    },
+                    "interactable": true,
+                    "hit40Physical": true,
+                    "centerRaycastHits": true,
+                    "textOverflow": false
+                },
+                {
+                    "path": "HUD/Screen/BuildVersion",
+                    "text": "版本与构建",
+                    "bounds": {
+                        "serializedVersion": "2",
+                        "x": 1264.0,
+                        "y": 108.0,
+                        "width": 520.0,
+                        "height": 64.0
+                    },
+                    "visibleBounds": {
+                        "serializedVersion": "2",
+                        "x": 1264.0,
+                        "y": 108.0,
+                        "width": 520.0,
+                        "height": 64.0
+                    },
+                    "interactable": true,
+                    "hit40Physical": true,
+                    "centerRaycastHits": true,
+                    "textOverflow": false
+                }
+            ]
+        },
+        {
+            "id": "table-new-run-font150",
+            "screen": "S02",
+            "scope": "Actual paper aperture and live initial dice preview, not a baked background die.",
+            "png": "002-table-new-run-font150.png",
+            "pngSha256": "c83bc664c39ddd3b5571bcae34e1894ff5dc016592bb5c093d594af67d115086",
+            "stateHashBefore": "no-run",
+            "stateHashAfter": "no-run",
+            "saveShaBefore": "missing",
+            "saveShaAfter": "missing",
+            "pendingShaBefore": "missing",
+            "pendingShaAfter": "missing",
+            "phase": "MainMenu",
+            "savePath": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftTests_2f658bb47c444262aa639b0cb57c1ff3\\active-run.json",
+            "mode": "Windowed",
+            "width": 1920,
+            "height": 1080,
+            "frame": 463,
+            "fontScale": 1.5,
+            "canvasScale": 1.0,
+            "sequence": 0,
+            "gold": 0,
+            "pendingSave": false,
+            "unchanged": true,
+            "nonBlackRatio": 0.994896099161502,
+            "controls": [
+                {
+                    "path": "HUD/ModalLayer/Dialog/CloseDialog",
+                    "text": "×",
+                    "bounds": {
+                        "serializedVersion": "2",
+                        "x": 1392.0,
+                        "y": 784.0,
+                        "width": 64.0,
+                        "height": 64.0
+                    },
+                    "visibleBounds": {
+                        "serializedVersion": "2",
+                        "x": 1392.0,
+                        "y": 784.0,
+                        "width": 64.0,
+                        "height": 64.0
+                    },
+                    "interactable": true,
+                    "hit40Physical": true,
+                    "centerRaycastHits": true,
+                    "textOverflow": false
+                },
+                {
+                    "path": "HUD/ModalLayer/Dialog/SeedInput",
+                    "text": "​",
+                    "bounds": {
+                        "serializedVersion": "2",
+                        "x": 904.0,
+                        "y": 624.0,
+                        "width": 456.0,
+                        "height": 72.0
+                    },
+                    "visibleBounds": {
+                        "serializedVersion": "2",
+                        "x": 904.0,
+                        "y": 624.0,
+                        "width": 456.0,
+                        "height": 72.0
+                    },
+                    "interactable": true,
+                    "hit40Physical": true,
+                    "centerRaycastHits": true,
+                    "textOverflow": false
+                },
+                {
+                    "path": "HUD/ModalLayer/Dialog/RandomSeed",
+                    "text": "",
+                    "bounds": {
+                        "serializedVersion": "2",
+                        "x": 1376.0,
+                        "y": 624.0,
+                        "width": 72.0,
+                        "height": 72.0
+                    },
+                    "visibleBounds": {
+                        "serializedVersion": "2",
+                        "x": 1376.0,
+                        "y": 624.0,
+                        "width": 72.0,
+                        "height": 72.0
+                    },
+                    "interactable": true,
+                    "hit40Physical": true,
+                    "centerRaycastHits": true,
+                    "textOverflow": false
+                },
+                {
+                    "path": "HUD/ModalLayer/Dialog/StartNew",
+                    "text": "开始新局",
+                    "bounds": {
+                        "serializedVersion": "2",
+                        "x": 904.0,
+                        "y": 244.0,
+                        "width": 544.0,
+                        "height": 64.0
+                    },
+                    "visibleBounds": {
+                        "serializedVersion": "2",
+                        "x": 904.0,
+                        "y": 244.0,
+                        "width": 544.0,
+                        "height": 64.0
+                    },
+                    "interactable": true,
+                    "hit40Physical": true,
+                    "centerRaycastHits": true,
+                    "textOverflow": false
+                }
+            ]
+        },
+        {
+            "id": "table-selecting-font150",
+            "screen": "S04",
+            "scope": "Ordinary real roll at 150%; world table under real dice and live HUD.",
+            "png": "003-table-selecting-font150.png",
+            "pngSha256": "776bde6ab72596201340c6b9998b333844cf3a430902fdad26f9a8ac7895d260",
+            "stateHashBefore": "4afc0788172a42736b569c238181f3bc3939f769c125da5533d60546af6acb37",
+            "stateHashAfter": "4afc0788172a42736b569c238181f3bc3939f769c125da5533d60546af6acb37",
+            "saveShaBefore": "44982b0ae73df9aada1498a09271dc0237b3fe74d70368280e09eab3e2192581",
+            "saveShaAfter": "44982b0ae73df9aada1498a09271dc0237b3fe74d70368280e09eab3e2192581",
+            "pendingShaBefore": "missing",
+            "pendingShaAfter": "missing",
+            "phase": "Selecting",
+            "savePath": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftTests_2f658bb47c444262aa639b0cb57c1ff3\\active-run.json",
+            "mode": "Windowed",
+            "width": 1920,
+            "height": 1080,
+            "frame": 697,
+            "fontScale": 1.5,
+            "canvasScale": 1.0,
+            "sequence": 3,
+            "gold": 0,
+            "pendingSave": false,
+            "unchanged": true,
+            "nonBlackRatio": 0.9938631668489488,
+            "controls": [
+                {
+                    "path": "HUD/Screen/Roll",
+                    "text": "重掷 2 [R]",
+                    "bounds": {
+                        "serializedVersion": "2",
+                        "x": 368.0,
+                        "y": 52.0,
+                        "width": 250.0,
+                        "height": 72.0
+                    },
+                    "visibleBounds": {
+                        "serializedVersion": "2",
+                        "x": 368.0,
+                        "y": 52.0,
+                        "width": 250.0,
+                        "height": 72.0
+                    },
+                    "interactable": true,
+                    "hit40Physical": true,
+                    "centerRaycastHits": true,
+                    "textOverflow": false
+                },
+                {
+                    "path": "HUD/Screen/Confirm",
+                    "text": "确认锁定 0",
+                    "bounds": {
+                        "serializedVersion": "2",
+                        "x": 636.0,
+                        "y": 52.0,
+                        "width": 310.0,
+                        "height": 72.0
+                    },
+                    "visibleBounds": {
+                        "serializedVersion": "2",
+                        "x": 636.0,
+                        "y": 52.0,
+                        "width": 310.0,
+                        "height": 72.0
+                    },
+                    "interactable": false,
+                    "hit40Physical": true,
+                    "centerRaycastHits": true,
+                    "textOverflow": false
+                },
+                {
+                    "path": "HUD/Screen/Clear",
+                    "text": "清除待选",
+                    "bounds": {
+                        "serializedVersion": "2",
+                        "x": 964.0,
+                        "y": 52.0,
+                        "width": 210.0,
+                        "height": 72.0
+                    },
+                    "visibleBounds": {
+                        "serializedVersion": "2",
+                        "x": 964.0,
+                        "y": 52.0,
+                        "width": 210.0,
+                        "height": 72.0
+                    },
+                    "interactable": false,
+                    "hit40Physical": true,
+                    "centerRaycastHits": true,
+                    "textOverflow": false
+                },
+                {
+                    "path": "HUD/Screen/Submit",
+                    "text": "提交 0 颗",
+                    "bounds": {
+                        "serializedVersion": "2",
+                        "x": 1192.0,
+                        "y": 52.0,
+                        "width": 310.0,
+                        "height": 72.0
+                    },
+                    "visibleBounds": {
+                        "serializedVersion": "2",
+                        "x": 1192.0,
+                        "y": 52.0,
+                        "width": 310.0,
+                        "height": 72.0
+                    },
+                    "interactable": false,
+                    "hit40Physical": true,
+                    "centerRaycastHits": true,
+                    "textOverflow": false
+                },
+                {
+                    "path": "HUD/Screen/EndStage",
+                    "text": "结束本轮",
+                    "bounds": {
+                        "serializedVersion": "2",
+                        "x": 1520.0,
+                        "y": 52.0,
+                        "width": 350.0,
+                        "height": 72.0
+                    },
+                    "visibleBounds": {
+                        "serializedVersion": "2",
+                        "x": 1520.0,
+                        "y": 52.0,
+                        "width": 350.0,
+                        "height": 72.0
+                    },
+                    "interactable": false,
+                    "hit40Physical": true,
+                    "centerRaycastHits": true,
+                    "textOverflow": false
+                },
+                {
+                    "path": "HUD/Screen/Pause",
+                    "text": "设置 / 暂停",
+                    "bounds": {
+                        "serializedVersion": "2",
+                        "x": 40.0,
+                        "y": 76.0,
+                        "width": 288.0,
+                        "height": 60.0
+                    },
+                    "visibleBounds": {
+                        "serializedVersion": "2",
+                        "x": 40.0,
+                        "y": 76.0,
+                        "width": 288.0,
+                        "height": 60.0
+                    },
+                    "interactable": true,
+                    "hit40Physical": true,
+                    "centerRaycastHits": true,
+                    "textOverflow": false
+                },
+                {
+                    "path": "HUD/Screen/Handbook",
+                    "text": "牌型手册 [H]",
+                    "bounds": {
+                        "serializedVersion": "2",
+                        "x": 40.0,
+                        "y": 150.0,
+                        "width": 288.0,
+                        "height": 60.0
+                    },
+                    "visibleBounds": {
+                        "serializedVersion": "2",
+                        "x": 40.0,
+                        "y": 150.0,
+                        "width": 288.0,
+                        "height": 60.0
+                    },
+                    "interactable": true,
+                    "hit40Physical": true,
+                    "centerRaycastHits": true,
+                    "textOverflow": false
+                }
+            ]
+        },
+        {
+            "id": "table-dice-detail-font150",
+            "screen": "S14",
+            "scope": "Actual world dice preview through the existing modal aperture; visual inspection remains required.",
+            "png": "004-table-dice-detail-font150.png",
+            "pngSha256": "1a086a419a6b2f9953e8361d9adc8fb05195189a00fec94736b53ef18e5e6039",
+            "stateHashBefore": "b75b3433b77bbbdacb168d4c9a60c10600fd34937c68d5723f020f1432bbd9ce",
+            "stateHashAfter": "b75b3433b77bbbdacb168d4c9a60c10600fd34937c68d5723f020f1432bbd9ce",
+            "saveShaBefore": "f60836fc7b01b8278b8d0a63be00c36a6194030f2c54ae9c660ff6bf23e4df82",
+            "saveShaAfter": "f60836fc7b01b8278b8d0a63be00c36a6194030f2c54ae9c660ff6bf23e4df82",
+            "pendingShaBefore": "missing",
+            "pendingShaAfter": "missing",
+            "phase": "Selecting",
+            "savePath": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftTests_2f658bb47c444262aa639b0cb57c1ff3\\active-run.json",
+            "mode": "Windowed",
+            "width": 1920,
+            "height": 1080,
+            "frame": 812,
+            "fontScale": 1.5,
+            "canvasScale": 1.0,
+            "sequence": 4,
+            "gold": 0,
+            "pendingSave": false,
+            "unchanged": true,
+            "nonBlackRatio": 0.9929517559849314,
+            "controls": [
+                {
+                    "path": "HUD/ModalLayer/Dialog/CloseDialog",
+                    "text": "×",
+                    "bounds": {
+                        "serializedVersion": "2",
+                        "x": 1624.0,
+                        "y": 908.0,
+                        "width": 64.0,
+                        "height": 64.0
+                    },
+                    "visibleBounds": {
+                        "serializedVersion": "2",
+                        "x": 1624.0,
+                        "y": 908.0,
+                        "width": 64.0,
+                        "height": 64.0
+                    },
+                    "interactable": true,
+                    "hit40Physical": true,
+                    "centerRaycastHits": true,
+                    "textOverflow": false
+                },
+                {
+                    "path": "HUD/ModalLayer/Dialog/ShopTargetList/Viewport/Content/Target_D001",
+                    "text": "",
+                    "bounds": {
+                        "serializedVersion": "2",
+                        "x": 232.0,
+                        "y": 768.0,
+                        "width": 296.0,
+                        "height": 96.0
+                    },
+                    "visibleBounds": {
+                        "serializedVersion": "2",
+                        "x": 232.0,
+                        "y": 768.0,
+                        "width": 296.0,
+                        "height": 96.0
+                    },
+                    "interactable": true,
+                    "hit40Physical": true,
+                    "centerRaycastHits": true,
+                    "textOverflow": false
+                },
+                {
+                    "path": "HUD/ModalLayer/Dialog/ShopTargetList/Viewport/Content/Target_D002",
+                    "text": "",
+                    "bounds": {
+                        "serializedVersion": "2",
+                        "x": 232.0,
+                        "y": 664.0,
+                        "width": 296.0,
+                        "height": 96.0
+                    },
+                    "visibleBounds": {
+                        "serializedVersion": "2",
+                        "x": 232.0,
+                        "y": 664.0,
+                        "width": 296.0,
+                        "height": 96.0
+                    },
+                    "interactable": true,
+                    "hit40Physical": true,
+                    "centerRaycastHits": true,
+                    "textOverflow": false
+                },
+                {
+                    "path": "HUD/ModalLayer/Dialog/ShopTargetList/Viewport/Content/Target_D003",
+                    "text": "",
+                    "bounds": {
+                        "serializedVersion": "2",
+                        "x": 232.0,
+                        "y": 560.0,
+                        "width": 296.0,
+                        "height": 96.0
+                    },
+                    "visibleBounds": {
+                        "serializedVersion": "2",
+                        "x": 232.0,
+                        "y": 560.0,
+                        "width": 296.0,
+                        "height": 96.0
+                    },
+                    "interactable": true,
+                    "hit40Physical": true,
+                    "centerRaycastHits": true,
+                    "textOverflow": false
+                },
+                {
+                    "path": "HUD/ModalLayer/Dialog/ShopTargetList/Viewport/Content/Target_D004",
+                    "text": "",
+                    "bounds": {
+                        "serializedVersion": "2",
+                        "x": 232.0,
+                        "y": 456.0,
+                        "width": 296.0,
+                        "height": 96.0
+                    },
+                    "visibleBounds": {
+                        "serializedVersion": "2",
+                        "x": 232.0,
+                        "y": 456.0,
+                        "width": 296.0,
+                        "height": 96.0
+                    },
+                    "interactable": true,
+                    "hit40Physical": true,
+                    "centerRaycastHits": true,
+                    "textOverflow": false
+                },
+                {
+                    "path": "HUD/ModalLayer/Dialog/ShopTargetList/Viewport/Content/Target_D005",
+                    "text": "",
+                    "bounds": {
+                        "serializedVersion": "2",
+                        "x": 232.0,
+                        "y": 352.0,
+                        "width": 296.0,
+                        "height": 96.0
+                    },
+                    "visibleBounds": {
+                        "serializedVersion": "2",
+                        "x": 232.0,
+                        "y": 352.0,
+                        "width": 296.0,
+                        "height": 96.0
+                    },
+                    "interactable": true,
+                    "hit40Physical": true,
+                    "centerRaycastHits": true,
+                    "textOverflow": false
+                },
+                {
+                    "path": "HUD/ModalLayer/Dialog/Face_F01",
+                    "text": "F01",
+                    "bounds": {
+                        "serializedVersion": "2",
+                        "x": 1312.0,
+                        "y": 784.0,
+                        "width": 88.0,
+                        "height": 88.0
+                    },
+                    "visibleBounds": {
+                        "serializedVersion": "2",
+                        "x": 1312.0,
+                        "y": 784.0,
+                        "width": 88.0,
+                        "height": 88.0
+                    },
+                    "interactable": true,
+                    "hit40Physical": true,
+                    "centerRaycastHits": true,
+                    "textOverflow": true
+                },
+                {
+                    "path": "HUD/ModalLayer/Dialog/Face_F04",
+                    "text": "F04",
+                    "bounds": {
+                        "serializedVersion": "2",
+                        "x": 1216.0,
+                        "y": 688.0,
+                        "width": 88.0,
+                        "height": 88.0
+                    },
+                    "visibleBounds": {
+                        "serializedVersion": "2",
+                        "x": 1216.0,
+                        "y": 688.0,
+                        "width": 88.0,
+                        "height": 88.0
+                    },
+                    "interactable": true,
+                    "hit40Physical": true,
+                    "centerRaycastHits": true,
+                    "textOverflow": true
+                },
+                {
+                    "path": "HUD/ModalLayer/Dialog/Face_F02",
+                    "text": "F02",
+                    "bounds": {
+                        "serializedVersion": "2",
+                        "x": 1312.0,
+                        "y": 688.0,
+                        "width": 88.0,
+                        "height": 88.0
+                    },
+                    "visibleBounds": {
+                        "serializedVersion": "2",
+                        "x": 1312.0,
+                        "y": 688.0,
+                        "width": 88.0,
+                        "height": 88.0
+                    },
+                    "interactable": true,
+                    "hit40Physical": true,
+                    "centerRaycastHits": true,
+                    "textOverflow": true
+                },
+                {
+                    "path": "HUD/ModalLayer/Dialog/Face_F03",
+                    "text": "F03",
+                    "bounds": {
+                        "serializedVersion": "2",
+                        "x": 1408.0,
+                        "y": 688.0,
+                        "width": 88.0,
+                        "height": 88.0
+                    },
+                    "visibleBounds": {
+                        "serializedVersion": "2",
+                        "x": 1408.0,
+                        "y": 688.0,
+                        "width": 88.0,
+                        "height": 88.0
+                    },
+                    "interactable": true,
+                    "hit40Physical": true,
+                    "centerRaycastHits": true,
+                    "textOverflow": true
+                },
+                {
+                    "path": "HUD/ModalLayer/Dialog/Face_F06",
+                    "text": "F06",
+                    "bounds": {
+                        "serializedVersion": "2",
+                        "x": 1312.0,
+                        "y": 592.0,
+                        "width": 88.0,
+                        "height": 88.0
+                    },
+                    "visibleBounds": {
+                        "serializedVersion": "2",
+                        "x": 1312.0,
+                        "y": 592.0,
+                        "width": 88.0,
+                        "height": 88.0
+                    },
+                    "interactable": true,
+                    "hit40Physical": true,
+                    "centerRaycastHits": true,
+                    "textOverflow": true
+                },
+                {
+                    "path": "HUD/ModalLayer/Dialog/Face_F05",
+                    "text": "F05",
+                    "bounds": {
+                        "serializedVersion": "2",
+                        "x": 1312.0,
+                        "y": 496.0,
+                        "width": 88.0,
+                        "height": 88.0
+                    },
+                    "visibleBounds": {
+                        "serializedVersion": "2",
+                        "x": 1312.0,
+                        "y": 496.0,
+                        "width": 88.0,
+                        "height": 88.0
+                    },
+                    "interactable": true,
+                    "hit40Physical": true,
+                    "centerRaycastHits": true,
+                    "textOverflow": true
+                },
+                {
+                    "path": "HUD/ModalLayer/Dialog/ProbabilityGroups",
+                    "text": "按点数组 · 展开",
+                    "bounds": {
+                        "serializedVersion": "2",
+                        "x": 1056.0,
+                        "y": 420.0,
+                        "width": 600.0,
+                        "height": 60.0
+                    },
+                    "visibleBounds": {
+                        "serializedVersion": "2",
+                        "x": 1056.0,
+                        "y": 420.0,
+                        "width": 600.0,
+                        "height": 60.0
+                    },
+                    "interactable": true,
+                    "hit40Physical": true,
+                    "centerRaycastHits": true,
+                    "textOverflow": false
+                },
+                {
+                    "path": "HUD/ModalLayer/Dialog/DoneDiceDetail",
+                    "text": "完成查看",
+                    "bounds": {
+                        "serializedVersion": "2",
+                        "x": 1056.0,
+                        "y": 120.0,
+                        "width": 600.0,
+                        "height": 64.0
+                    },
+                    "visibleBounds": {
+                        "serializedVersion": "2",
+                        "x": 1056.0,
+                        "y": 120.0,
+                        "width": 600.0,
+                        "height": 64.0
+                    },
+                    "interactable": true,
+                    "hit40Physical": true,
+                    "centerRaycastHits": true,
+                    "textOverflow": false
+                }
+            ]
+        },
+        {
+            "id": "table-saved-menu-font150",
+            "screen": "S01",
+            "scope": "Two-line saved checkpoint and Continue at 150%.",
+            "png": "005-table-saved-menu-font150.png",
+            "pngSha256": "57d15a428075599c55093e60ac259d6cdd8173269313a14b9d7226da085cb868",
+            "stateHashBefore": "b75b3433b77bbbdacb168d4c9a60c10600fd34937c68d5723f020f1432bbd9ce",
+            "stateHashAfter": "b75b3433b77bbbdacb168d4c9a60c10600fd34937c68d5723f020f1432bbd9ce",
+            "saveShaBefore": "f60836fc7b01b8278b8d0a63be00c36a6194030f2c54ae9c660ff6bf23e4df82",
+            "saveShaAfter": "f60836fc7b01b8278b8d0a63be00c36a6194030f2c54ae9c660ff6bf23e4df82",
+            "pendingShaBefore": "missing",
+            "pendingShaAfter": "missing",
+            "phase": "Selecting",
+            "savePath": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftTests_2f658bb47c444262aa639b0cb57c1ff3\\active-run.json",
+            "mode": "Windowed",
+            "width": 1920,
+            "height": 1080,
+            "frame": 927,
+            "fontScale": 1.5,
+            "canvasScale": 1.0,
+            "sequence": 4,
+            "gold": 0,
+            "pendingSave": false,
+            "unchanged": true,
+            "nonBlackRatio": 0.9953821849556447,
+            "controls": [
+                {
+                    "path": "HUD/Screen/MenuPanel/ContinueRun",
+                    "text": "继续对局",
+                    "bounds": {
+                        "serializedVersion": "2",
+                        "x": 1252.0,
+                        "y": 768.0,
+                        "width": 544.0,
+                        "height": 88.0
+                    },
+                    "visibleBounds": {
+                        "serializedVersion": "2",
+                        "x": 1252.0,
+                        "y": 768.0,
+                        "width": 544.0,
+                        "height": 88.0
+                    },
+                    "interactable": true,
+                    "hit40Physical": true,
+                    "centerRaycastHits": true,
+                    "textOverflow": false
+                },
+                {
+                    "path": "HUD/Screen/MenuPanel/NewRun",
+                    "text": "新建挑战",
+                    "bounds": {
+                        "serializedVersion": "2",
+                        "x": 1252.0,
+                        "y": 582.0,
+                        "width": 544.0,
+                        "height": 80.0
+                    },
+                    "visibleBounds": {
+                        "serializedVersion": "2",
+                        "x": 1252.0,
+                        "y": 582.0,
+                        "width": 544.0,
+                        "height": 80.0
+                    },
+                    "interactable": true,
+                    "hit40Physical": true,
+                    "centerRaycastHits": true,
+                    "textOverflow": false
+                },
+                {
+                    "path": "HUD/Screen/MenuPanel/MenuHandbook",
+                    "text": "牌型手册",
+                    "bounds": {
+                        "serializedVersion": "2",
+                        "x": 1252.0,
+                        "y": 482.0,
+                        "width": 544.0,
+                        "height": 80.0
+                    },
+                    "visibleBounds": {
+                        "serializedVersion": "2",
+                        "x": 1252.0,
+                        "y": 482.0,
+                        "width": 544.0,
+                        "height": 80.0
+                    },
+                    "interactable": true,
+                    "hit40Physical": true,
+                    "centerRaycastHits": true,
+                    "textOverflow": false
+                },
+                {
+                    "path": "HUD/Screen/MenuPanel/MenuSettings",
+                    "text": "设置",
+                    "bounds": {
+                        "serializedVersion": "2",
+                        "x": 1252.0,
+                        "y": 382.0,
+                        "width": 544.0,
+                        "height": 80.0
+                    },
+                    "visibleBounds": {
+                        "serializedVersion": "2",
+                        "x": 1252.0,
+                        "y": 382.0,
+                        "width": 544.0,
+                        "height": 80.0
+                    },
+                    "interactable": true,
+                    "hit40Physical": true,
+                    "centerRaycastHits": true,
+                    "textOverflow": false
+                },
+                {
+                    "path": "HUD/Screen/MenuPanel/Quit",
+                    "text": "退出游戏",
+                    "bounds": {
+                        "serializedVersion": "2",
+                        "x": 1252.0,
+                        "y": 282.0,
+                        "width": 544.0,
+                        "height": 80.0
+                    },
+                    "visibleBounds": {
+                        "serializedVersion": "2",
+                        "x": 1252.0,
+                        "y": 282.0,
+                        "width": 544.0,
+                        "height": 80.0
+                    },
+                    "interactable": true,
+                    "hit40Physical": true,
+                    "centerRaycastHits": true,
+                    "textOverflow": false
+                },
+                {
+                    "path": "HUD/Screen/BuildVersion",
+                    "text": "版本与构建",
+                    "bounds": {
+                        "serializedVersion": "2",
+                        "x": 1264.0,
+                        "y": 108.0,
+                        "width": 520.0,
+                        "height": 64.0
+                    },
+                    "visibleBounds": {
+                        "serializedVersion": "2",
+                        "x": 1264.0,
+                        "y": 108.0,
+                        "width": 520.0,
+                        "height": 64.0
+                    },
+                    "interactable": true,
+                    "hit40Physical": true,
+                    "centerRaycastHits": true,
+                    "textOverflow": false
+                }
+            ]
+        }
+    ],
+    "actions": [
+        {
+            "name": "MenuSettings",
+            "stateBefore": "no-run",
+            "stateAfter": "no-run",
+            "saveBefore": "missing",
+            "saveAfter": "missing",
+            "mutationAllowed": false,
+            "pendingAllowed": false,
+            "beforeSequence": 0,
+            "afterSequence": 0
+        },
+        {
+            "name": "SettingsTab2",
+            "stateBefore": "no-run",
+            "stateAfter": "no-run",
+            "saveBefore": "missing",
+            "saveAfter": "missing",
+            "mutationAllowed": false,
+            "pendingAllowed": false,
+            "beforeSequence": 0,
+            "afterSequence": 0
+        },
+        {
+            "name": "SettingsDone",
+            "stateBefore": "no-run",
+            "stateAfter": "no-run",
+            "saveBefore": "missing",
+            "saveAfter": "missing",
+            "mutationAllowed": false,
+            "pendingAllowed": false,
+            "beforeSequence": 0,
+            "afterSequence": 0
+        },
+        {
+            "name": "MenuSettings",
+            "stateBefore": "no-run",
+            "stateAfter": "no-run",
+            "saveBefore": "missing",
+            "saveAfter": "missing",
+            "mutationAllowed": false,
+            "pendingAllowed": false,
+            "beforeSequence": 0,
+            "afterSequence": 0
+        },
+        {
+            "name": "SettingsTab2",
+            "stateBefore": "no-run",
+            "stateAfter": "no-run",
+            "saveBefore": "missing",
+            "saveAfter": "missing",
+            "mutationAllowed": false,
+            "pendingAllowed": false,
+            "beforeSequence": 0,
+            "afterSequence": 0
+        },
+        {
+            "name": "SettingsDone",
+            "stateBefore": "no-run",
+            "stateAfter": "no-run",
+            "saveBefore": "missing",
+            "saveAfter": "missing",
+            "mutationAllowed": false,
+            "pendingAllowed": false,
+            "beforeSequence": 0,
+            "afterSequence": 0
+        },
+        {
+            "name": "MenuSettings",
+            "stateBefore": "no-run",
+            "stateAfter": "no-run",
+            "saveBefore": "missing",
+            "saveAfter": "missing",
+            "mutationAllowed": false,
+            "pendingAllowed": false,
+            "beforeSequence": 0,
+            "afterSequence": 0
+        },
+        {
+            "name": "SettingsTab2",
+            "stateBefore": "no-run",
+            "stateAfter": "no-run",
+            "saveBefore": "missing",
+            "saveAfter": "missing",
+            "mutationAllowed": false,
+            "pendingAllowed": false,
+            "beforeSequence": 0,
+            "afterSequence": 0
+        },
+        {
+            "name": "TextScale",
+            "stateBefore": "no-run",
+            "stateAfter": "no-run",
+            "saveBefore": "missing",
+            "saveAfter": "missing",
+            "mutationAllowed": false,
+            "pendingAllowed": false,
+            "beforeSequence": 0,
+            "afterSequence": 0
+        },
+        {
+            "name": "TextScale",
+            "stateBefore": "no-run",
+            "stateAfter": "no-run",
+            "saveBefore": "missing",
+            "saveAfter": "missing",
+            "mutationAllowed": false,
+            "pendingAllowed": false,
+            "beforeSequence": 0,
+            "afterSequence": 0
+        },
+        {
+            "name": "SettingsDone",
+            "stateBefore": "no-run",
+            "stateAfter": "no-run",
+            "saveBefore": "missing",
+            "saveAfter": "missing",
+            "mutationAllowed": false,
+            "pendingAllowed": false,
+            "beforeSequence": 0,
+            "afterSequence": 0
+        },
+        {
+            "name": "NewRun",
+            "stateBefore": "no-run",
+            "stateAfter": "no-run",
+            "saveBefore": "missing",
+            "saveAfter": "missing",
+            "mutationAllowed": false,
+            "pendingAllowed": false,
+            "beforeSequence": 0,
+            "afterSequence": 0
+        },
+        {
+            "name": "CloseDialog",
+            "stateBefore": "no-run",
+            "stateAfter": "no-run",
+            "saveBefore": "missing",
+            "saveAfter": "missing",
+            "mutationAllowed": false,
+            "pendingAllowed": false,
+            "beforeSequence": 0,
+            "afterSequence": 0
+        },
+        {
+            "name": "NewRun",
+            "stateBefore": "no-run",
+            "stateAfter": "no-run",
+            "saveBefore": "missing",
+            "saveAfter": "missing",
+            "mutationAllowed": false,
+            "pendingAllowed": false,
+            "beforeSequence": 0,
+            "afterSequence": 0
+        },
+        {
+            "name": "StartNew",
+            "stateBefore": "no-run",
+            "stateAfter": "557d20e21d0bc8d0cdb312d7585e95cdcc5f7a330bf77d8df018f0804d5dc5c6",
+            "saveBefore": "missing",
+            "saveAfter": "7d40dd5297685733f808a648f0c661f902f115cedb38faa02ca18c9029a94bb7",
+            "mutationAllowed": true,
+            "pendingAllowed": false,
+            "beforeSequence": 0,
+            "afterSequence": 1
+        },
+        {
+            "name": "StartStage",
+            "stateBefore": "557d20e21d0bc8d0cdb312d7585e95cdcc5f7a330bf77d8df018f0804d5dc5c6",
+            "stateAfter": "59a36e5f9df7268b68769d0e2b3e21f088167e1108da41e6b174090d85bb7246",
+            "saveBefore": "7d40dd5297685733f808a648f0c661f902f115cedb38faa02ca18c9029a94bb7",
+            "saveAfter": "87f4c909e0244a9b689826a8c06649870b732fcb3eb19dba8e40d4b6fe412d8b",
+            "mutationAllowed": true,
+            "pendingAllowed": false,
+            "beforeSequence": 1,
+            "afterSequence": 2
+        },
+        {
+            "name": "Roll",
+            "stateBefore": "59a36e5f9df7268b68769d0e2b3e21f088167e1108da41e6b174090d85bb7246",
+            "stateAfter": "4afc0788172a42736b569c238181f3bc3939f769c125da5533d60546af6acb37",
+            "saveBefore": "87f4c909e0244a9b689826a8c06649870b732fcb3eb19dba8e40d4b6fe412d8b",
+            "saveAfter": "44982b0ae73df9aada1498a09271dc0237b3fe74d70368280e09eab3e2192581",
+            "mutationAllowed": true,
+            "pendingAllowed": false,
+            "beforeSequence": 2,
+            "afterSequence": 3
+        },
+        {
+            "name": "Confirm",
+            "stateBefore": "4afc0788172a42736b569c238181f3bc3939f769c125da5533d60546af6acb37",
+            "stateAfter": "b75b3433b77bbbdacb168d4c9a60c10600fd34937c68d5723f020f1432bbd9ce",
+            "saveBefore": "44982b0ae73df9aada1498a09271dc0237b3fe74d70368280e09eab3e2192581",
+            "saveAfter": "f60836fc7b01b8278b8d0a63be00c36a6194030f2c54ae9c660ff6bf23e4df82",
+            "mutationAllowed": true,
+            "pendingAllowed": false,
+            "beforeSequence": 3,
+            "afterSequence": 4
+        },
+        {
+            "name": "CloseDialog",
+            "stateBefore": "b75b3433b77bbbdacb168d4c9a60c10600fd34937c68d5723f020f1432bbd9ce",
+            "stateAfter": "b75b3433b77bbbdacb168d4c9a60c10600fd34937c68d5723f020f1432bbd9ce",
+            "saveBefore": "f60836fc7b01b8278b8d0a63be00c36a6194030f2c54ae9c660ff6bf23e4df82",
+            "saveAfter": "f60836fc7b01b8278b8d0a63be00c36a6194030f2c54ae9c660ff6bf23e4df82",
+            "mutationAllowed": false,
+            "pendingAllowed": false,
+            "beforeSequence": 4,
+            "afterSequence": 4
+        },
+        {
+            "name": "Pause",
+            "stateBefore": "b75b3433b77bbbdacb168d4c9a60c10600fd34937c68d5723f020f1432bbd9ce",
+            "stateAfter": "b75b3433b77bbbdacb168d4c9a60c10600fd34937c68d5723f020f1432bbd9ce",
+            "saveBefore": "f60836fc7b01b8278b8d0a63be00c36a6194030f2c54ae9c660ff6bf23e4df82",
+            "saveAfter": "f60836fc7b01b8278b8d0a63be00c36a6194030f2c54ae9c660ff6bf23e4df82",
+            "mutationAllowed": false,
+            "pendingAllowed": false,
+            "beforeSequence": 4,
+            "afterSequence": 4
+        },
+        {
+            "name": "MainMenu",
+            "stateBefore": "b75b3433b77bbbdacb168d4c9a60c10600fd34937c68d5723f020f1432bbd9ce",
+            "stateAfter": "b75b3433b77bbbdacb168d4c9a60c10600fd34937c68d5723f020f1432bbd9ce",
+            "saveBefore": "f60836fc7b01b8278b8d0a63be00c36a6194030f2c54ae9c660ff6bf23e4df82",
+            "saveAfter": "f60836fc7b01b8278b8d0a63be00c36a6194030f2c54ae9c660ff6bf23e4df82",
+            "mutationAllowed": false,
+            "pendingAllowed": false,
+            "beforeSequence": 4,
+            "afterSequence": 4
+        }
+    ]
+}

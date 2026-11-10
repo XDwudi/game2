@@ -25,6 +25,7 @@ namespace DiceCraft.Editor
             foreach(string raw in Directory.GetFiles(Root,"*.png",SearchOption.AllDirectories))
             {
                 string path=raw.Replace('\\','/');var importer=(TextureImporter)AssetImporter.GetAtPath(path);
+                if(V071TableSetup.IsTableTexture(path)){V071TableSetup.ConfigureImporter(importer);continue;}
                 bool background=path.Contains("/Backgrounds/"),surface=path.Contains("/Surfaces/")||path.StartsWith(Root+"/UI/",StringComparison.Ordinal);
                 importer.textureType=background?TextureImporterType.Default:TextureImporterType.Sprite;
                 importer.spriteImportMode=SpriteImportMode.Single;importer.spritePixelsPerUnit=surface?200:100;
@@ -106,6 +107,7 @@ namespace DiceCraft.Editor
             var felt=GameObject.Find("Art07Felt");if(felt==null)throw new InvalidOperationException("Missing felt table.");
             felt.GetComponent<Renderer>().sharedMaterial=materials["felt"];
             materials["felt"].SetTexture("_BaseMap",textures["bg_felt_tile"]);EditorUtility.SetDirty(materials["felt"]);
+            V071TableSetup.BindMaterial(materials["felt"]);
             EditorUtility.SetDirty(app);EditorSceneManager.MarkSceneDirty(scene);EditorSceneManager.SaveScene(scene);AssetDatabase.SaveAssets();
             const string lab="Assets/Game/Scenes/ArtStyleLab.unity";
             EditorSceneManager.SaveScene(scene,lab,true);scene=EditorSceneManager.OpenScene(lab);

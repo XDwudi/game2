@@ -1,0 +1,160 @@
+{
+    "id": "table-menu-font150",
+    "screen": "S01",
+    "scope": "Real viewport and UI-set font; actual menu paper/cards/three world dice.",
+    "png": "001-table-menu-font150.png",
+    "pngSha256": "b5bd5e8757da5e9cadf4d2da9470465e01ca5e5b856d7354e320017af5d2a463",
+    "stateHashBefore": "no-run",
+    "stateHashAfter": "no-run",
+    "saveShaBefore": "missing",
+    "saveShaAfter": "missing",
+    "pendingShaBefore": "missing",
+    "pendingShaAfter": "missing",
+    "phase": "MainMenu",
+    "savePath": "C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\\DiceCraftTests_03f8600b38374321b82c966dbf32ff1f\\active-run.json",
+    "mode": "Windowed",
+    "width": 1920,
+    "height": 1080,
+    "frame": 797,
+    "fontScale": 1.5,
+    "canvasScale": 1.0,
+    "sequence": 0,
+    "gold": 0,
+    "pendingSave": false,
+    "unchanged": true,
+    "nonBlackRatio": 0.9942277311945559,
+    "controls": [
+        {
+            "path": "HUD/Screen/MenuPanel/ContinueRun",
+            "text": "继续对局",
+            "bounds": {
+                "serializedVersion": "2",
+                "x": 1252.0,
+                "y": 768.0,
+                "width": 544.0,
+                "height": 88.0
+            },
+            "visibleBounds": {
+                "serializedVersion": "2",
+                "x": 1252.0,
+                "y": 768.0,
+                "width": 544.0,
+                "height": 88.0
+            },
+            "interactable": false,
+            "hit40Physical": true,
+            "centerRaycastHits": true,
+            "textOverflow": false
+        },
+        {
+            "path": "HUD/Screen/MenuPanel/NewRun",
+            "text": "新建挑战",
+            "bounds": {
+                "serializedVersion": "2",
+                "x": 1252.0,
+                "y": 582.0,
+                "width": 544.0,
+                "height": 80.0
+            },
+            "visibleBounds": {
+                "serializedVersion": "2",
+                "x": 1252.0,
+                "y": 582.0,
+                "width": 544.0,
+                "height": 80.0
+            },
+            "interactable": true,
+            "hit40Physical": true,
+            "centerRaycastHits": true,
+            "textOverflow": false
+        },
+        {
+            "path": "HUD/Screen/MenuPanel/MenuHandbook",
+            "text": "牌型手册",
+            "bounds": {
+                "serializedVersion": "2",
+                "x": 1252.0,
+                "y": 482.0,
+                "width": 544.0,
+                "height": 80.0
+            },
+            "visibleBounds": {
+                "serializedVersion": "2",
+                "x": 1252.0,
+                "y": 482.0,
+                "width": 544.0,
+                "height": 80.0
+            },
+            "interactable": true,
+            "hit40Physical": true,
+            "centerRaycastHits": true,
+            "textOverflow": false
+        },
+        {
+            "path": "HUD/Screen/MenuPanel/MenuSettings",
+            "text": "设置",
+            "bounds": {
+                "serializedVersion": "2",
+                "x": 1252.0,
+                "y": 382.0,
+                "width": 544.0,
+                "height": 80.0
+            },
+            "visibleBounds": {
+                "serializedVersion": "2",
+                "x": 1252.0,
+                "y": 382.0,
+                "width": 544.0,
+                "height": 80.0
+            },
+            "interactable": true,
+            "hit40Physical": true,
+            "centerRaycastHits": true,
+            "textOverflow": false
+        },
+        {
+            "path": "HUD/Screen/MenuPanel/Quit",
+            "text": "退出游戏",
+            "bounds": {
+                "serializedVersion": "2",
+                "x": 1252.0,
+                "y": 282.0,
+                "width": 544.0,
+                "height": 80.0
+            },
+            "visibleBounds": {
+                "serializedVersion": "2",
+                "x": 1252.0,
+                "y": 282.0,
+                "width": 544.0,
+                "height": 80.0
+            },
+            "interactable": true,
+            "hit40Physical": true,
+            "centerRaycastHits": true,
+            "textOverflow": false
+        },
+        {
+            "path": "HUD/Screen/BuildVersion",
+            "text": "版本与构建",
+            "bounds": {
+                "serializedVersion": "2",
+                "x": 1264.0,
+                "y": 108.0,
+                "width": 520.0,
+                "height": 64.0
+            },
+            "visibleBounds": {
+                "serializedVersion": "2",
+                "x": 1264.0,
+                "y": 108.0,
+                "width": 520.0,
+                "height": 64.0
+            },
+            "interactable": true,
+            "hit40Physical": true,
+            "centerRaycastHits": true,
+            "textOverflow": false
+        }
+    ]
+}

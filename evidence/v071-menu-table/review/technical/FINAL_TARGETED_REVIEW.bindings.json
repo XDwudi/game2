@@ -1,0 +1,837 @@
+{
+  "utc": "2026-11-10T08:41:45.375643+00:00",
+  "reviewer": "/root/project_audit",
+  "scope": "14 actual affected executions / 8 unique tests; no whole-game or platform acceptance",
+  "passedExecutions": 14,
+  "uniqueTests": [
+    "PLAY_ART071_FiveDiceGlassTemporaryLabelsAndFaceHitsSurviveConfirmThenReroll",
+    "PLAY_ART071_FullArtMenuUsesWordmarkAndPrintedBacks",
+    "PLAY_ART071_MaximumLockedHeadersKeepActualGlyphClearanceAtEveryTextScale",
+    "PLAY_ART071_MenuTableRealFramesAnd150GlyphsPreserveWorldDiceAperture",
+    "PLAY_ART071_MenuTableRealMenuRoutesPreserveCancelAndContinueCheckpoint",
+    "PLAY_ART071_TableWorldGpuMatchesAuthoredDirectionAndSurvivesGrainAndReduced",
+    "PLAY_ART071_TemporaryShadowActualGpuSamePoseHasVisibleLighterContactShadow",
+    "PLAY_ART07_DiceSheetFadeKeepsApertureAndPreviewStationaryThenRestoresBoardSynchronously"
+  ],
+  "sourceRows": 1781,
+  "allSourceRowsCurrentShaMatch": true,
+  "allStartFinishAndThreeRunSnapshotsIdentical": true,
+  "currentDllHashesMatchLoadedBindings": true,
+  "noNewPdbAuditClaimed": true,
+  "unchangedAgainst41aface": [
+    {
+      "path": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Data\\P0Config.json",
+      "sha256": "747ed1efc7bea15873f66a81eee5c7654971c21031f2a1517ce629adce7b6e6c",
+      "bytes": 51927
+    },
+    {
+      "path": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Data\\GoldenScores.json",
+      "sha256": "306cb86f79dafe0e3eb302714abd232af20fe0062a6713f7d713c11e2a6a5718",
+      "bytes": 373889
+    }
+  ],
+  "runs": [
+    {
+      "label": "1080",
+      "summary": {
+        "path": "E:\\agent_workspace\\gpt\\game2\\cache\\v071-table-update\\final-runs\\1080.json",
+        "sha256": "1c557b719a6ecd398792b7c502668aba488e6f1475d8778ff054f563600ab549",
+        "bytes": 1337
+      },
+      "nunit": {
+        "path": "E:\\agent_workspace\\gpt\\game2\\evidence\\v071\\unity\\nunit-20261110-083705.xml",
+        "sha256": "b582f485ccdfdbdcc7207a01a71b9b253bef2b09723c8ca2d06c6f62d11658c6",
+        "bytes": 14417
+      },
+      "binding": {
+        "path": "E:\\agent_workspace\\gpt\\game2\\evidence\\v071\\unity\\nunit-20261110-083705.binding.json",
+        "sha256": "1d3fbce879c9aefd7c61b59c73f1124d1208e3ed820fbd779fb5c86213d2e265",
+        "bytes": 757582
+      },
+      "total": 8,
+      "tests": [
+        "PLAY_ART07_DiceSheetFadeKeepsApertureAndPreviewStationaryThenRestoresBoardSynchronously",
+        "PLAY_ART071_FiveDiceGlassTemporaryLabelsAndFaceHitsSurviveConfirmThenReroll",
+        "PLAY_ART071_FullArtMenuUsesWordmarkAndPrintedBacks",
+        "PLAY_ART071_MaximumLockedHeadersKeepActualGlyphClearanceAtEveryTextScale",
+        "PLAY_ART071_MenuTableRealFramesAnd150GlyphsPreserveWorldDiceAperture",
+        "PLAY_ART071_MenuTableRealMenuRoutesPreserveCancelAndContinueCheckpoint",
+        "PLAY_ART071_TableWorldGpuMatchesAuthoredDirectionAndSurvivesGrainAndReduced",
+        "PLAY_ART071_TemporaryShadowActualGpuSamePoseHasVisibleLighterContactShadow"
+      ],
+      "duration": "55.0583139",
+      "sourceRows": 1781,
+      "assemblies": [
+        {
+          "name": "DiceCraft.Core",
+          "mvid": "8f690e0d-a075-4b72-98e4-2cb64ced2fa3",
+          "dllSha256": "44a137cd38d7b525382dfda7adbdb7676d12d1dbc05520638d8a14642a96031b"
+        },
+        {
+          "name": "DiceCraft.EditMode",
+          "mvid": "b2936f56-74b5-422a-b57c-0bf6e1cf7b48",
+          "dllSha256": "1f19735d54b7f297a9243841d17e9ee36494664d2a99d9f82e131b3a288f98f2"
+        },
+        {
+          "name": "DiceCraft.Editor",
+          "mvid": "7aa9aea0-3b9c-4e37-84b2-6609b950f4a4",
+          "dllSha256": "a17f7cc66102e3775cefb9b3d04b0b0bf6ccae7e1e8833c2cc017290628d674f"
+        },
+        {
+          "name": "DiceCraft.PlayModeTests",
+          "mvid": "58900665-fbe0-400a-99b4-8491c3094dc3",
+          "dllSha256": "2c8008e2050a9eff7ecd6d61dc65d6a77c3bacb50fa9082b51a98b7192759e17"
+        },
+        {
+          "name": "DiceCraft.Runtime",
+          "mvid": "1f982313-fac2-4234-9c13-1f632ee8cd25",
+          "dllSha256": "7d2957ddb67b6c8c191cfe53e800d5f4721aeb2a41b84e20d1c066a64abbc598"
+        }
+      ],
+      "directories": [
+        "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_03f8600b38374321b82c966dbf32ff1f",
+        "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_1f08e61c1fea47ee82d5ceb590df105a",
+        "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_5801271c20d249918a35ae9c7fd5890b",
+        "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_6a459601d7684017bb16e19be23f1ab9",
+        "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_81d2abdeef724289a86f64ab6a03784b",
+        "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_dc8d7a19929c4fe8bf6927bab93d58b4",
+        "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_e740999f00c6431386580b735fac0785",
+        "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_f93c9e8f060a4f40b11fb982172e137f"
+      ],
+      "extra": [
+        {
+          "report": {
+            "path": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_03f8600b38374321b82c966dbf32ff1f\\extra-capture\\extra-report.json",
+            "sha256": "e788f36d16899ca8b3960b325ca6ffec3aa63f580ab88bb56464c63d3ff481be",
+            "bytes": 53867
+          },
+          "screens": 6,
+          "readonlyActions": 17,
+          "allowedMutationActions": 4
+        },
+        {
+          "report": {
+            "path": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_1f08e61c1fea47ee82d5ceb590df105a\\extra-capture\\extra-report.json",
+            "sha256": "8cf241e5f7a58e84866515ab11ac8f73be80244a533259c4b9eacf7e6860075e",
+            "bytes": 2836
+          },
+          "screens": 0,
+          "readonlyActions": 3,
+          "allowedMutationActions": 0
+        },
+        {
+          "report": {
+            "path": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_6a459601d7684017bb16e19be23f1ab9\\extra-capture\\extra-report.json",
+            "sha256": "a667d5c4b002b7da052611b22376f9609a22aa341c246f8bcd0b8321024e6947",
+            "bytes": 8972
+          },
+          "screens": 1,
+          "readonlyActions": 3,
+          "allowedMutationActions": 0
+        },
+        {
+          "report": {
+            "path": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_e740999f00c6431386580b735fac0785\\extra-capture\\extra-report.json",
+            "sha256": "91838794e174a6d6649d21df75f94ce54f74f131bcb3be06e18d70981a46c886",
+            "bytes": 22714
+          },
+          "screens": 2,
+          "readonlyActions": 20,
+          "allowedMutationActions": 1
+        },
+        {
+          "report": {
+            "path": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_f93c9e8f060a4f40b11fb982172e137f\\extra-capture\\extra-report.json",
+            "sha256": "7defcf38b334305b609ed16c9a8c3b4da88e066bcd4ec6e81eae0343c26263a0",
+            "bytes": 8973
+          },
+          "screens": 0,
+          "readonlyActions": 21,
+          "allowedMutationActions": 0
+        }
+      ],
+      "glyphs": [
+        {
+          "report": {
+            "path": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_03f8600b38374321b82c966dbf32ff1f\\extra-capture\\table-menu-font100-glyphs.json",
+            "sha256": "1a1773b50a29e556ff03c56155e3bebf86c29db0772ff31d03a1f1fb08f762f5",
+            "bytes": 13243
+          },
+          "font": 100,
+          "labels": 12,
+          "renderedGlyphs": 100
+        },
+        {
+          "report": {
+            "path": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_03f8600b38374321b82c966dbf32ff1f\\extra-capture\\table-menu-font150-glyphs.json",
+            "sha256": "7abbcdfdc97f958a48f611edc89228dabb8a756b479ccd375f99f1073dba63d4",
+            "bytes": 13156
+          },
+          "font": 150,
+          "labels": 12,
+          "renderedGlyphs": 100
+        },
+        {
+          "report": {
+            "path": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_03f8600b38374321b82c966dbf32ff1f\\extra-capture\\table-saved-menu-font150-glyphs.json",
+            "sha256": "48593666a0333ae9483edd326dc1a3d6a12e0daf6c62ac4e4fa5db012859f047",
+            "bytes": 13301
+          },
+          "font": 150,
+          "labels": 12,
+          "renderedGlyphs": 110
+        }
+      ],
+      "gpu": [
+        {
+          "report": {
+            "path": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_f93c9e8f060a4f40b11fb982172e137f\\extra-capture\\table-world-gpu.json",
+            "sha256": "8c1035f1c063243dd0818642fc4a4b99616b244e5c0b2dc9a0ff47e1a6407f42",
+            "bytes": 97390
+          },
+          "runtimeMvid": "1f982313-fac2-4234-9c13-1f632ee8cd25",
+          "graphicsApi": "Direct3D11",
+          "colorSpace": "Linear",
+          "texture": "bg_table_scene",
+          "shaderSha": "3bc8123983e4a2a50dbad240715ba26ecb095eae1933bc7f51fa07dae0b99d59",
+          "textureSha": "664ac49ea2183f1288033586d02aaff9d91877be77b20cb1125d0342772f35ea",
+          "width": 1920,
+          "height": 1080,
+          "textureWidth": 1672,
+          "textureHeight": 941,
+          "fit": {
+            "serializedVersion": "2",
+            "x": 0.51007080078125,
+            "y": 0.0,
+            "width": 1918.9798583984375,
+            "height": 1080.0
+          },
+          "meanReferenceError": 0.005385835655033588,
+          "meanFlippedError": 0.013633505441248417,
+          "meanGrainDifference": 7.853916758904234e-05,
+          "meanReducedDifference": 0.0,
+          "meanDisabledDifference": 0.01820490136742592,
+          "referenceLumaRange": 0.13725490868091583,
+          "outsideLumaMax": 0.0,
+          "outsideSamples": 0
+        }
+      ],
+      "shadow": [
+        {
+          "report": {
+            "path": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_1f08e61c1fea47ee82d5ceb590df105a\\extra-capture\\temporary-shadow-gpu.json",
+            "sha256": "ae82fa74a65b6b2aa3cf9129e0f7f11a56ba4cada490d853394ebb834f9f0ff8",
+            "bytes": 507
+          },
+          "width": 1920,
+          "height": 1080,
+          "shadowPixels": 3680,
+          "changingBackgroundPixels": 0,
+          "ordinaryDarkness": 22582,
+          "temporaryDarkness": 11221,
+          "shaderSha256": "c739f55a885e67aca37ce0ed716fe4f31d49cc3fd2c6911a60174b7386ba4965",
+          "runtimeMvid": "1f982313-fac2-4234-9c13-1f632ee8cd25",
+          "graphicsApi": "Direct3D11",
+          "scope": "Same actual camera/light/material/pose, only body shadow casting/temporary coverage differs; visual review of softness and pattern still pending."
+        }
+      ],
+      "pngs": [
+        {
+          "path": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_03f8600b38374321b82c966dbf32ff1f\\extra-capture\\000-table-menu-font100.png",
+          "sha256": "c51e09705a3489685dc8ab1f27c7628968907405209b7563678fc10807ca14e4",
+          "bytes": 1983181
+        },
+        {
+          "path": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_03f8600b38374321b82c966dbf32ff1f\\extra-capture\\001-table-menu-font150.png",
+          "sha256": "b5bd5e8757da5e9cadf4d2da9470465e01ca5e5b856d7354e320017af5d2a463",
+          "bytes": 2008458
+        },
+        {
+          "path": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_03f8600b38374321b82c966dbf32ff1f\\extra-capture\\002-table-new-run-font150.png",
+          "sha256": "c83bc664c39ddd3b5571bcae34e1894ff5dc016592bb5c093d594af67d115086",
+          "bytes": 2197894
+        },
+        {
+          "path": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_03f8600b38374321b82c966dbf32ff1f\\extra-capture\\003-table-selecting-font150.png",
+          "sha256": "776bde6ab72596201340c6b9998b333844cf3a430902fdad26f9a8ac7895d260",
+          "bytes": 1857801
+        },
+        {
+          "path": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_03f8600b38374321b82c966dbf32ff1f\\extra-capture\\004-table-dice-detail-font150.png",
+          "sha256": "1a086a419a6b2f9953e8361d9adc8fb05195189a00fec94736b53ef18e5e6039",
+          "bytes": 1545778
+        },
+        {
+          "path": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_03f8600b38374321b82c966dbf32ff1f\\extra-capture\\005-table-saved-menu-font150.png",
+          "sha256": "2a19c4e97aa21141ef99003e02535793841eabe1ee65ba285c9011f839fbc602",
+          "bytes": 2013153
+        },
+        {
+          "path": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_6a459601d7684017bb16e19be23f1ab9\\extra-capture\\000-v071-full-menu.png",
+          "sha256": "4cbd52100585adcac199bfee929eb893e2b7a8ce64dcf8a0df49b21dcd0f7b76",
+          "bytes": 1982603
+        },
+        {
+          "path": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_e740999f00c6431386580b735fac0785\\extra-capture\\000-table-menu-empty.png",
+          "sha256": "1ec2b2685dd7075ec9334bc21cd45464b306324aa33cd1f85a9d7a4fad8cee81",
+          "bytes": 1982690
+        },
+        {
+          "path": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_e740999f00c6431386580b735fac0785\\extra-capture\\001-table-menu-saved.png",
+          "sha256": "f9d2b5cd2b1e7e164d404bdb0b0553383633075adac77332d539713469df2256",
+          "bytes": 1984532
+        }
+      ]
+    },
+    {
+      "label": "720",
+      "summary": {
+        "path": "E:\\agent_workspace\\gpt\\game2\\cache\\v071-table-update\\final-runs\\720.json",
+        "sha256": "d050aa9680c957739a561646ea378eaee36e683483404d809bdcedb49eec6e6b",
+        "bytes": 766
+      },
+      "nunit": {
+        "path": "E:\\agent_workspace\\gpt\\game2\\evidence\\v071\\unity\\nunit-20261110-083756.xml",
+        "sha256": "ad75cd0ee645906c270b80351a1d2ee9aacc282885a0a86e17236e8dc4b1a840",
+        "bytes": 6037
+      },
+      "binding": {
+        "path": "E:\\agent_workspace\\gpt\\game2\\evidence\\v071\\unity\\nunit-20261110-083756.binding.json",
+        "sha256": "9eee08141dc4b26369817adecb736626da18968de5ab9208ef20c05dde7c99d8",
+        "bytes": 757582
+      },
+      "total": 3,
+      "tests": [
+        "PLAY_ART071_MenuTableRealFramesAnd150GlyphsPreserveWorldDiceAperture",
+        "PLAY_ART071_MenuTableRealMenuRoutesPreserveCancelAndContinueCheckpoint",
+        "PLAY_ART071_TableWorldGpuMatchesAuthoredDirectionAndSurvivesGrainAndReduced"
+      ],
+      "duration": "41.7675457",
+      "sourceRows": 1781,
+      "assemblies": [
+        {
+          "name": "DiceCraft.Core",
+          "mvid": "8f690e0d-a075-4b72-98e4-2cb64ced2fa3",
+          "dllSha256": "44a137cd38d7b525382dfda7adbdb7676d12d1dbc05520638d8a14642a96031b"
+        },
+        {
+          "name": "DiceCraft.EditMode",
+          "mvid": "b2936f56-74b5-422a-b57c-0bf6e1cf7b48",
+          "dllSha256": "1f19735d54b7f297a9243841d17e9ee36494664d2a99d9f82e131b3a288f98f2"
+        },
+        {
+          "name": "DiceCraft.Editor",
+          "mvid": "7aa9aea0-3b9c-4e37-84b2-6609b950f4a4",
+          "dllSha256": "a17f7cc66102e3775cefb9b3d04b0b0bf6ccae7e1e8833c2cc017290628d674f"
+        },
+        {
+          "name": "DiceCraft.PlayModeTests",
+          "mvid": "58900665-fbe0-400a-99b4-8491c3094dc3",
+          "dllSha256": "2c8008e2050a9eff7ecd6d61dc65d6a77c3bacb50fa9082b51a98b7192759e17"
+        },
+        {
+          "name": "DiceCraft.Runtime",
+          "mvid": "1f982313-fac2-4234-9c13-1f632ee8cd25",
+          "dllSha256": "7d2957ddb67b6c8c191cfe53e800d5f4721aeb2a41b84e20d1c066a64abbc598"
+        }
+      ],
+      "directories": [
+        "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_388bbeaa912f4ba989583dc844b2e635",
+        "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_b3ff03cb4cbc4de9add4dc79ccd5901f",
+        "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_b5d5836eddd34523b91851270fbfac0b"
+      ],
+      "extra": [
+        {
+          "report": {
+            "path": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_388bbeaa912f4ba989583dc844b2e635\\extra-capture\\extra-report.json",
+            "sha256": "43261e164218403d3cdac24286046751528a442f5efe668a08c4f01f2cb7af6c",
+            "bytes": 56839
+          },
+          "screens": 6,
+          "readonlyActions": 17,
+          "allowedMutationActions": 4
+        },
+        {
+          "report": {
+            "path": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_b3ff03cb4cbc4de9add4dc79ccd5901f\\extra-capture\\extra-report.json",
+            "sha256": "a8d1f7132d52741f8a372e4171f55cee9fab3f5f463b0e5e1093f2aad0d37ae7",
+            "bytes": 8973
+          },
+          "screens": 0,
+          "readonlyActions": 21,
+          "allowedMutationActions": 0
+        },
+        {
+          "report": {
+            "path": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_b5d5836eddd34523b91851270fbfac0b\\extra-capture\\extra-report.json",
+            "sha256": "67b3dd55a535801940ab0859d70741b63c9c6f4887052197b3b738f2d08d02d2",
+            "bytes": 23786
+          },
+          "screens": 2,
+          "readonlyActions": 20,
+          "allowedMutationActions": 1
+        }
+      ],
+      "glyphs": [
+        {
+          "report": {
+            "path": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_388bbeaa912f4ba989583dc844b2e635\\extra-capture\\table-menu-font100-glyphs.json",
+            "sha256": "2994aff9318dbb80b91e41dc0583796d86bfff58a5eb469092140d86c8234d77",
+            "bytes": 13390
+          },
+          "font": 100,
+          "labels": 12,
+          "renderedGlyphs": 100
+        },
+        {
+          "report": {
+            "path": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_388bbeaa912f4ba989583dc844b2e635\\extra-capture\\table-menu-font150-glyphs.json",
+            "sha256": "aa1926b291d6957034c1b26aa4c6c78c51f0712762ab6dc9ba20f32e98c2d892",
+            "bytes": 13318
+          },
+          "font": 150,
+          "labels": 12,
+          "renderedGlyphs": 100
+        },
+        {
+          "report": {
+            "path": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_388bbeaa912f4ba989583dc844b2e635\\extra-capture\\table-saved-menu-font150-glyphs.json",
+            "sha256": "aa4fa00b21ca1f52e377605a923af80026fb54e8abbced65669285b5425b69e1",
+            "bytes": 13456
+          },
+          "font": 150,
+          "labels": 12,
+          "renderedGlyphs": 110
+        }
+      ],
+      "gpu": [
+        {
+          "report": {
+            "path": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_b3ff03cb4cbc4de9add4dc79ccd5901f\\extra-capture\\table-world-gpu.json",
+            "sha256": "1bcf33e4ec3aae9b4cf7fee6df3016874820673acadd7f89659c93a182a1cb29",
+            "bytes": 97455
+          },
+          "runtimeMvid": "1f982313-fac2-4234-9c13-1f632ee8cd25",
+          "graphicsApi": "Direct3D11",
+          "colorSpace": "Linear",
+          "texture": "bg_table_scene",
+          "shaderSha": "3bc8123983e4a2a50dbad240715ba26ecb095eae1933bc7f51fa07dae0b99d59",
+          "textureSha": "664ac49ea2183f1288033586d02aaff9d91877be77b20cb1125d0342772f35ea",
+          "width": 1280,
+          "height": 720,
+          "textureWidth": 1672,
+          "textureHeight": 941,
+          "fit": {
+            "serializedVersion": "2",
+            "x": 0.340087890625,
+            "y": 0.0,
+            "width": 1279.31982421875,
+            "height": 720.0
+          },
+          "meanReferenceError": 0.006105600390583277,
+          "meanFlippedError": 0.01174534298479557,
+          "meanGrainDifference": 7.746311894152313e-05,
+          "meanReducedDifference": 0.0,
+          "meanDisabledDifference": 0.01718604937195778,
+          "referenceLumaRange": 0.13725490868091583,
+          "outsideLumaMax": 0.0,
+          "outsideSamples": 0
+        }
+      ],
+      "shadow": [],
+      "pngs": [
+        {
+          "path": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_388bbeaa912f4ba989583dc844b2e635\\extra-capture\\000-table-menu-font100.png",
+          "sha256": "e987d61ae9e17b54161558af5d685c3f786aa170162df84c226ee6257969cae6",
+          "bytes": 992941
+        },
+        {
+          "path": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_388bbeaa912f4ba989583dc844b2e635\\extra-capture\\001-table-menu-font150.png",
+          "sha256": "d53c6074a89ff55111c8b29310f9767fda15f45a53a7c3eaaaa111da77527390",
+          "bytes": 1013112
+        },
+        {
+          "path": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_388bbeaa912f4ba989583dc844b2e635\\extra-capture\\002-table-new-run-font150.png",
+          "sha256": "4bd8beaf1aa0c2cc5975941d6a829313dadf6ee7a38f42070a2f5b510e240507",
+          "bytes": 1089846
+        },
+        {
+          "path": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_388bbeaa912f4ba989583dc844b2e635\\extra-capture\\003-table-selecting-font150.png",
+          "sha256": "1376dad7437a58052f7881d40a3224cd4d15c35ab2624f249f25481083651c6c",
+          "bytes": 1047187
+        },
+        {
+          "path": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_388bbeaa912f4ba989583dc844b2e635\\extra-capture\\004-table-dice-detail-font150.png",
+          "sha256": "466a1ecc1e7cee9fc176aba468be83edd41b31bca20bb87c78e0b7a2f994d376",
+          "bytes": 788231
+        },
+        {
+          "path": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_388bbeaa912f4ba989583dc844b2e635\\extra-capture\\005-table-saved-menu-font150.png",
+          "sha256": "3cd02831541ec030940d3da51e2a304a5118f8f3c8c08635fc50e3c27c4153bf",
+          "bytes": 1016149
+        },
+        {
+          "path": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_b5d5836eddd34523b91851270fbfac0b\\extra-capture\\000-table-menu-empty.png",
+          "sha256": "4c7b9852996967b0f8e55a07ec2297cd207799a9559746511a9207d55b99ae09",
+          "bytes": 991570
+        },
+        {
+          "path": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_b5d5836eddd34523b91851270fbfac0b\\extra-capture\\001-table-menu-saved.png",
+          "sha256": "abaab66b143dd98f4a8b19b9dcc8191a455919fd93c00412ec51591e28a03486",
+          "bytes": 992442
+        }
+      ]
+    },
+    {
+      "label": "1200",
+      "summary": {
+        "path": "E:\\agent_workspace\\gpt\\game2\\cache\\v071-table-update\\final-runs\\1200.json",
+        "sha256": "61770b7b762185b65a287bf795f5dcb4876d06275ecadcb5393271a87637c7c0",
+        "bytes": 767
+      },
+      "nunit": {
+        "path": "E:\\agent_workspace\\gpt\\game2\\evidence\\v071\\unity\\nunit-20261110-083847.xml",
+        "sha256": "85522f8c51cc1247afd14aa742b82c947fbb230a2853b9d116dfd95e8a8dee1f",
+        "bytes": 6037
+      },
+      "binding": {
+        "path": "E:\\agent_workspace\\gpt\\game2\\evidence\\v071\\unity\\nunit-20261110-083847.binding.json",
+        "sha256": "adf8766897bba207c8c039cd046e4dae1df78f0a52a3a26705eecafdbd9826c1",
+        "bytes": 757582
+      },
+      "total": 3,
+      "tests": [
+        "PLAY_ART071_MenuTableRealFramesAnd150GlyphsPreserveWorldDiceAperture",
+        "PLAY_ART071_MenuTableRealMenuRoutesPreserveCancelAndContinueCheckpoint",
+        "PLAY_ART071_TableWorldGpuMatchesAuthoredDirectionAndSurvivesGrainAndReduced"
+      ],
+      "duration": "42.607754",
+      "sourceRows": 1781,
+      "assemblies": [
+        {
+          "name": "DiceCraft.Core",
+          "mvid": "8f690e0d-a075-4b72-98e4-2cb64ced2fa3",
+          "dllSha256": "44a137cd38d7b525382dfda7adbdb7676d12d1dbc05520638d8a14642a96031b"
+        },
+        {
+          "name": "DiceCraft.EditMode",
+          "mvid": "b2936f56-74b5-422a-b57c-0bf6e1cf7b48",
+          "dllSha256": "1f19735d54b7f297a9243841d17e9ee36494664d2a99d9f82e131b3a288f98f2"
+        },
+        {
+          "name": "DiceCraft.Editor",
+          "mvid": "7aa9aea0-3b9c-4e37-84b2-6609b950f4a4",
+          "dllSha256": "a17f7cc66102e3775cefb9b3d04b0b0bf6ccae7e1e8833c2cc017290628d674f"
+        },
+        {
+          "name": "DiceCraft.PlayModeTests",
+          "mvid": "58900665-fbe0-400a-99b4-8491c3094dc3",
+          "dllSha256": "2c8008e2050a9eff7ecd6d61dc65d6a77c3bacb50fa9082b51a98b7192759e17"
+        },
+        {
+          "name": "DiceCraft.Runtime",
+          "mvid": "1f982313-fac2-4234-9c13-1f632ee8cd25",
+          "dllSha256": "7d2957ddb67b6c8c191cfe53e800d5f4721aeb2a41b84e20d1c066a64abbc598"
+        }
+      ],
+      "directories": [
+        "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_0d9d1367634240f39280501b65906b1c",
+        "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_5d63671836f44740b9b61a8a8df9b50d",
+        "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_cdebb93a35ad449fa0479791ad8f6f1e"
+      ],
+      "extra": [
+        {
+          "report": {
+            "path": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_0d9d1367634240f39280501b65906b1c\\extra-capture\\extra-report.json",
+            "sha256": "3263d5dddbbf40c30d80a28ac78d0a380080df368ea5690a961f202bbb2e7a2d",
+            "bytes": 22714
+          },
+          "screens": 2,
+          "readonlyActions": 20,
+          "allowedMutationActions": 1
+        },
+        {
+          "report": {
+            "path": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_5d63671836f44740b9b61a8a8df9b50d\\extra-capture\\extra-report.json",
+            "sha256": "071f04a07cf961f23ddea2f93bbaed3906cdade3c066d532075212c312501adf",
+            "bytes": 53876
+          },
+          "screens": 6,
+          "readonlyActions": 17,
+          "allowedMutationActions": 4
+        },
+        {
+          "report": {
+            "path": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_cdebb93a35ad449fa0479791ad8f6f1e\\extra-capture\\extra-report.json",
+            "sha256": "bc7d2f454c294006662b165fc9721926c752c3de0e8ce76b14437ee1dc078e74",
+            "bytes": 8973
+          },
+          "screens": 0,
+          "readonlyActions": 21,
+          "allowedMutationActions": 0
+        }
+      ],
+      "glyphs": [
+        {
+          "report": {
+            "path": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_5d63671836f44740b9b61a8a8df9b50d\\extra-capture\\table-menu-font100-glyphs.json",
+            "sha256": "a0716de2d6865de8fa7b1669668afddb58ae382a5c5e62f1e6406d912c6f9d0c",
+            "bytes": 13243
+          },
+          "font": 100,
+          "labels": 12,
+          "renderedGlyphs": 100
+        },
+        {
+          "report": {
+            "path": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_5d63671836f44740b9b61a8a8df9b50d\\extra-capture\\table-menu-font150-glyphs.json",
+            "sha256": "02cbbbab69526e0e7ec9d54b1f740b81e1a4ee21da369d543401627a19fad26e",
+            "bytes": 13156
+          },
+          "font": 150,
+          "labels": 12,
+          "renderedGlyphs": 100
+        },
+        {
+          "report": {
+            "path": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_5d63671836f44740b9b61a8a8df9b50d\\extra-capture\\table-saved-menu-font150-glyphs.json",
+            "sha256": "43724c87c7641ac8030975d54d59234efc913579b85b8b75c4ec6092dd47a8fc",
+            "bytes": 13301
+          },
+          "font": 150,
+          "labels": 12,
+          "renderedGlyphs": 110
+        }
+      ],
+      "gpu": [
+        {
+          "report": {
+            "path": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_cdebb93a35ad449fa0479791ad8f6f1e\\extra-capture\\table-world-gpu.json",
+            "sha256": "ff7a18c233a13c33008e7a8bb7d00f0e5137d53f64b3403def0f79d9f47e3642",
+            "bytes": 97494
+          },
+          "runtimeMvid": "1f982313-fac2-4234-9c13-1f632ee8cd25",
+          "graphicsApi": "Direct3D11",
+          "colorSpace": "Linear",
+          "texture": "bg_table_scene",
+          "shaderSha": "3bc8123983e4a2a50dbad240715ba26ecb095eae1933bc7f51fa07dae0b99d59",
+          "textureSha": "664ac49ea2183f1288033586d02aaff9d91877be77b20cb1125d0342772f35ea",
+          "width": 1920,
+          "height": 1200,
+          "textureWidth": 1672,
+          "textureHeight": 941,
+          "fit": {
+            "serializedVersion": "2",
+            "x": 0.0,
+            "y": 59.71295166015625,
+            "width": 1920.0,
+            "height": 1080.5740966796875
+          },
+          "meanReferenceError": 0.004605825059115887,
+          "meanFlippedError": 0.014428582042455673,
+          "meanGrainDifference": 7.961469236761332e-05,
+          "meanReducedDifference": 0.0,
+          "meanDisabledDifference": 0.018176930025219917,
+          "referenceLumaRange": 0.13725490868091583,
+          "outsideLumaMax": 0.007843137718737125,
+          "outsideSamples": 720
+        }
+      ],
+      "shadow": [],
+      "pngs": [
+        {
+          "path": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_0d9d1367634240f39280501b65906b1c\\extra-capture\\000-table-menu-empty.png",
+          "sha256": "7502c7cbf56b3eac0443585ac2e31e39543f1f4afe809337603f6ccc1034a7b5",
+          "bytes": 1975765
+        },
+        {
+          "path": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_0d9d1367634240f39280501b65906b1c\\extra-capture\\001-table-menu-saved.png",
+          "sha256": "a857124ea7b13d02e462c13b31214e1d533534ec3f7b8f167dd2e285d0781b31",
+          "bytes": 1978521
+        },
+        {
+          "path": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_5d63671836f44740b9b61a8a8df9b50d\\extra-capture\\000-table-menu-font100.png",
+          "sha256": "415277d6490ff32fddd661fba044d4ee5eefc73e48e7b9c8641dc6e5cf106c08",
+          "bytes": 1975533
+        },
+        {
+          "path": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_5d63671836f44740b9b61a8a8df9b50d\\extra-capture\\001-table-menu-font150.png",
+          "sha256": "cefbaf05a6f46bfca7328cfc87933753f922371f3019453e2ce32ec31ae744b5",
+          "bytes": 2000080
+        },
+        {
+          "path": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_5d63671836f44740b9b61a8a8df9b50d\\extra-capture\\002-table-new-run-font150.png",
+          "sha256": "6fab6af4242b12b94cb6ebdf0ddececd0f5cbda7e19fa9e8d565b3034fdb5742",
+          "bytes": 2206492
+        },
+        {
+          "path": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_5d63671836f44740b9b61a8a8df9b50d\\extra-capture\\003-table-selecting-font150.png",
+          "sha256": "ec6bc285a7b27ab177efccef3f89588e147a324befff3d6c67e8cae5ed6fbf9b",
+          "bytes": 1850574
+        },
+        {
+          "path": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_5d63671836f44740b9b61a8a8df9b50d\\extra-capture\\004-table-dice-detail-font150.png",
+          "sha256": "e29c667196097a1251135e82c8150916d612a3a676e6e2b92dd5cf21a63fdfd5",
+          "bytes": 1541907
+        },
+        {
+          "path": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_5d63671836f44740b9b61a8a8df9b50d\\extra-capture\\005-table-saved-menu-font150.png",
+          "sha256": "0c1381d973e9e909caddf85c435a81a6a7aa2104962f908a36a75d83c0fbbfcf",
+          "bytes": 2005825
+        }
+      ]
+    }
+  ],
+  "selectedImages": [
+    {
+      "label": "1080",
+      "path": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_03f8600b38374321b82c966dbf32ff1f\\extra-capture\\001-table-menu-font150.png",
+      "sha256": "b5bd5e8757da5e9cadf4d2da9470465e01ca5e5b856d7354e320017af5d2a463",
+      "bytes": 2008458
+    },
+    {
+      "label": "1080",
+      "path": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_03f8600b38374321b82c966dbf32ff1f\\extra-capture\\003-table-selecting-font150.png",
+      "sha256": "776bde6ab72596201340c6b9998b333844cf3a430902fdad26f9a8ac7895d260",
+      "bytes": 1857801
+    },
+    {
+      "label": "1080",
+      "path": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_03f8600b38374321b82c966dbf32ff1f\\extra-capture\\004-table-dice-detail-font150.png",
+      "sha256": "1a086a419a6b2f9953e8361d9adc8fb05195189a00fec94736b53ef18e5e6039",
+      "bytes": 1545778
+    },
+    {
+      "label": "1080",
+      "path": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_03f8600b38374321b82c966dbf32ff1f\\extra-capture\\005-table-saved-menu-font150.png",
+      "sha256": "2a19c4e97aa21141ef99003e02535793841eabe1ee65ba285c9011f839fbc602",
+      "bytes": 2013153
+    },
+    {
+      "label": "720",
+      "path": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_388bbeaa912f4ba989583dc844b2e635\\extra-capture\\001-table-menu-font150.png",
+      "sha256": "d53c6074a89ff55111c8b29310f9767fda15f45a53a7c3eaaaa111da77527390",
+      "bytes": 1013112
+    },
+    {
+      "label": "720",
+      "path": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_388bbeaa912f4ba989583dc844b2e635\\extra-capture\\003-table-selecting-font150.png",
+      "sha256": "1376dad7437a58052f7881d40a3224cd4d15c35ab2624f249f25481083651c6c",
+      "bytes": 1047187
+    },
+    {
+      "label": "720",
+      "path": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_388bbeaa912f4ba989583dc844b2e635\\extra-capture\\004-table-dice-detail-font150.png",
+      "sha256": "466a1ecc1e7cee9fc176aba468be83edd41b31bca20bb87c78e0b7a2f994d376",
+      "bytes": 788231
+    },
+    {
+      "label": "720",
+      "path": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_388bbeaa912f4ba989583dc844b2e635\\extra-capture\\005-table-saved-menu-font150.png",
+      "sha256": "3cd02831541ec030940d3da51e2a304a5118f8f3c8c08635fc50e3c27c4153bf",
+      "bytes": 1016149
+    },
+    {
+      "label": "1200",
+      "path": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_5d63671836f44740b9b61a8a8df9b50d\\extra-capture\\001-table-menu-font150.png",
+      "sha256": "cefbaf05a6f46bfca7328cfc87933753f922371f3019453e2ce32ec31ae744b5",
+      "bytes": 2000080
+    },
+    {
+      "label": "1200",
+      "path": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_5d63671836f44740b9b61a8a8df9b50d\\extra-capture\\003-table-selecting-font150.png",
+      "sha256": "ec6bc285a7b27ab177efccef3f89588e147a324befff3d6c67e8cae5ed6fbf9b",
+      "bytes": 1850574
+    },
+    {
+      "label": "1200",
+      "path": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_5d63671836f44740b9b61a8a8df9b50d\\extra-capture\\004-table-dice-detail-font150.png",
+      "sha256": "e29c667196097a1251135e82c8150916d612a3a676e6e2b92dd5cf21a63fdfd5",
+      "bytes": 1541907
+    },
+    {
+      "label": "1200",
+      "path": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_5d63671836f44740b9b61a8a8df9b50d\\extra-capture\\005-table-saved-menu-font150.png",
+      "sha256": "0c1381d973e9e909caddf85c435a81a6a7aa2104962f908a36a75d83c0fbbfcf",
+      "bytes": 2005825
+    }
+  ],
+  "gpuImages": [
+    {
+      "path": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_f93c9e8f060a4f40b11fb982172e137f\\extra-capture\\table-source-gpu-reference-linear.png",
+      "sha256": "9a9509da8e09ae06569c7d26d289069474d2730c660bf9ffb5e625852febe0fb",
+      "bytes": 1751926
+    },
+    {
+      "path": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_f93c9e8f060a4f40b11fb982172e137f\\extra-capture\\table-world-disabled-control-linear.png",
+      "sha256": "8dce709ddd267a3fdf1655206636a1540bc997cc29b9029340a712cb957035f8",
+      "bytes": 70435
+    },
+    {
+      "path": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_f93c9e8f060a4f40b11fb982172e137f\\extra-capture\\table-world-grain-off-linear.png",
+      "sha256": "ba5b8540b8c148eb5f3824d70bf5782148ff6050d8c58e0674118b4b41b526ee",
+      "bytes": 1970499
+    },
+    {
+      "path": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_f93c9e8f060a4f40b11fb982172e137f\\extra-capture\\table-world-grain-on-linear.png",
+      "sha256": "bc751744d9df272c2d5bbc719d67c619dd3ba400a5bca0e4949be778de4bdef9",
+      "bytes": 1973915
+    },
+    {
+      "path": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_f93c9e8f060a4f40b11fb982172e137f\\extra-capture\\table-world-reduced-linear.png",
+      "sha256": "ba5b8540b8c148eb5f3824d70bf5782148ff6050d8c58e0674118b4b41b526ee",
+      "bytes": 1970499
+    },
+    {
+      "path": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_b3ff03cb4cbc4de9add4dc79ccd5901f\\extra-capture\\table-source-gpu-reference-linear.png",
+      "sha256": "9a9509da8e09ae06569c7d26d289069474d2730c660bf9ffb5e625852febe0fb",
+      "bytes": 1751926
+    },
+    {
+      "path": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_b3ff03cb4cbc4de9add4dc79ccd5901f\\extra-capture\\table-world-disabled-control-linear.png",
+      "sha256": "486d010a87c3eb0924bc99a41192814e56deaebbf8371f0191897f699cc3645d",
+      "bytes": 38367
+    },
+    {
+      "path": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_b3ff03cb4cbc4de9add4dc79ccd5901f\\extra-capture\\table-world-grain-off-linear.png",
+      "sha256": "7e7442bd4ada47b48d14d6cafe6193c942f47fd7a290f4f38bc8fe1aadb5ec1d",
+      "bytes": 964241
+    },
+    {
+      "path": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_b3ff03cb4cbc4de9add4dc79ccd5901f\\extra-capture\\table-world-grain-on-linear.png",
+      "sha256": "4a046c25999dc4375e4e8d51aa95ae3e3af84ded105cb78bb3e587a82d138829",
+      "bytes": 965398
+    },
+    {
+      "path": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_b3ff03cb4cbc4de9add4dc79ccd5901f\\extra-capture\\table-world-reduced-linear.png",
+      "sha256": "7e7442bd4ada47b48d14d6cafe6193c942f47fd7a290f4f38bc8fe1aadb5ec1d",
+      "bytes": 964241
+    },
+    {
+      "path": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_cdebb93a35ad449fa0479791ad8f6f1e\\extra-capture\\table-source-gpu-reference-linear.png",
+      "sha256": "9a9509da8e09ae06569c7d26d289069474d2730c660bf9ffb5e625852febe0fb",
+      "bytes": 1751926
+    },
+    {
+      "path": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_cdebb93a35ad449fa0479791ad8f6f1e\\extra-capture\\table-world-disabled-control-linear.png",
+      "sha256": "570dda59bfa7b226b5578bc5902b3e400ce54c7fa5bb845f9b95a26de42678de",
+      "bytes": 76687
+    },
+    {
+      "path": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_cdebb93a35ad449fa0479791ad8f6f1e\\extra-capture\\table-world-grain-off-linear.png",
+      "sha256": "c177a1d20c57484789fda9bc30ccb9c347c1c6983e510b1e893c2b437ca844fc",
+      "bytes": 1976708
+    },
+    {
+      "path": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_cdebb93a35ad449fa0479791ad8f6f1e\\extra-capture\\table-world-grain-on-linear.png",
+      "sha256": "6028648f8ffdd427ea0ea1a36cea0aa913c82d1e48e1f3bef5c02e564a83b115",
+      "bytes": 1981432
+    },
+    {
+      "path": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_cdebb93a35ad449fa0479791ad8f6f1e\\extra-capture\\table-world-reduced-linear.png",
+      "sha256": "c177a1d20c57484789fda9bc30ccb9c347c1c6983e510b1e893c2b437ca844fc",
+      "bytes": 1976708
+    }
+  ],
+  "note": "Reviewer authored the three new test candidates; dice_sample independently reviewed their lifecycle/pointer code. This report independently reads root-run results and root production, not a self-signature of whole quality."
+}

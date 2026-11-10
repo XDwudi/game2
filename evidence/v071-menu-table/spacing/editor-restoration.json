@@ -1,0 +1,36 @@
+{
+  "success": true,
+  "command": "command",
+  "data": {
+    "command": "script eval",
+    "parameters": {
+      "code": "if(UnityEditor.EditorApplication.isPlaying)throw new System.Exception(\"Tests still playing\");var a=typeof(UnityEditor.Editor).Assembly;var f=System.Reflection.BindingFlags.Public|System.Reflection.BindingFlags.NonPublic|System.Reflection.BindingFlags.Instance|System.Reflection.BindingFlags.Static;var t=a.GetType(\"UnityEditor.GameView\");var w=UnityEditor.EditorWindow.GetWindow(t);var s=a.GetType(\"UnityEditor.GameViewSizes\");var inst=typeof(UnityEditor.ScriptableSingleton<>).MakeGenericType(s).GetProperty(\"instance\",f).GetValue(null);var g=s.GetProperty(\"currentGroup\",f).GetValue(inst);var texts=(string[])g.GetType().GetMethod(\"GetDisplayTexts\",f).Invoke(g,null);if(texts.Length!=9||!texts[7].Contains(\"V071TableReview720\")||!texts[8].Contains(\"V071TableReview1200\"))throw new System.Exception(\"Viewport settings changed unexpectedly; leave intact\");t.GetProperty(\"selectedSizeIndex\",f).SetValue(w,0);g.GetType().GetMethod(\"RemoveCustomSize\",f).Invoke(g,new object[]{8});g.GetType().GetMethod(\"RemoveCustomSize\",f).Invoke(g,new object[]{7});return new {selected=t.GetProperty(\"selectedSizeIndex\",f).GetValue(w),remaining=g.GetType().GetMethod(\"GetDisplayTexts\",f).Invoke(g,null),scene=UnityEditor.SceneManagement.EditorSceneManager.GetActiveScene().path,dirty=UnityEditor.SceneManagement.EditorSceneManager.GetActiveScene().isDirty};"
+    },
+    "result": {
+      "output": null,
+      "diagnostics": [],
+      "success": true,
+      "result": {
+        "selected": 0,
+        "remaining": [
+          "Free Aspect",
+          "16:9 Aspect",
+          "16:10 Aspect",
+          "Full HD (1920x1080)",
+          "WXGA (1366x768)",
+          "QHD (2560x1440)",
+          "4K UHD (3840x2160)"
+        ],
+        "scene": "",
+        "dirty": false
+      }
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "E:\\agent_workspace\\gpt\\game2\\DicePrototype"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

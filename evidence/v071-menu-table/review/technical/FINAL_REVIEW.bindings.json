@@ -1,0 +1,50 @@
+{
+  "utc": "2026-11-10T08:51:46.367077+00:00",
+  "reviewer": "/root/project_audit",
+  "verdict": "Affected engineering checks passed; MenuRules card-edge spacing defect closed by three actual PNGs; limited scope only",
+  "artifacts": [
+    {
+      "path": "E:\\agent_workspace\\gpt\\game2\\cache\\v071-table-update\\final-review\\FINAL_REVIEW.md",
+      "sha256": "e2ce3a3f71459e6ac2beb28d773c80d4df5661e26a76a1a8a97e4f1fec19e283",
+      "bytes": 3822
+    },
+    {
+      "path": "E:\\agent_workspace\\gpt\\game2\\cache\\v071-table-update\\final-review\\TARGETED_MATRIX_PRE_RULES_FIX.md",
+      "sha256": "7db2c71d27b10c026fb8c53e288d16020a1339a0e91ca7cbbc3b629001aad567",
+      "bytes": 4301
+    },
+    {
+      "path": "E:\\agent_workspace\\gpt\\game2\\cache\\v071-table-update\\final-review\\FINAL_TARGETED_REVIEW.bindings.json",
+      "sha256": "706aa8077a4038417e3476db41a7d099002b6251a21a236d7cb6df9e68dbb293",
+      "bytes": 41240
+    },
+    {
+      "path": "E:\\agent_workspace\\gpt\\game2\\cache\\v071-table-update\\final-review\\SPACING_REPAIR.bindings.json",
+      "sha256": "5c61d1076e353a797b18461ab33f018b2b28727f72c59bf3a9ed8c993cb8bb25",
+      "bytes": 17871
+    }
+  ],
+  "actuallyViewedNewPngs": [
+    {
+      "id": "table-saved-menu-font150",
+      "path": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_2f658bb47c444262aa639b0cb57c1ff3\\extra-capture\\005-table-saved-menu-font150.png",
+      "sha256": "57d15a428075599c55093e60ac259d6cdd8173269313a14b9d7226da085cb868",
+      "bytes": 2013064
+    },
+    {
+      "id": "table-saved-menu-font150",
+      "path": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_a2fa9c69a0ad4d3381e15205e6596d28\\extra-capture\\005-table-saved-menu-font150.png",
+      "sha256": "a996ad7e78a4818bb4cfed74bea0a734a72986f1c08f18aa33c6ec330394ad5f",
+      "bytes": 1016300
+    },
+    {
+      "id": "table-saved-menu-font150",
+      "path": "C:\\Users\\f\\AppData\\Local\\Temp\\XDwudi\\DiceCraft P0\\DiceCraftTests_d4ae3444c5a9464f8feb64e1ba2dc88c\\extra-capture\\005-table-saved-menu-font150.png",
+      "sha256": "7af77429ce16bcaeb3ca2bb7a43d20c16810a8ef96a12382b2f4c2491bdb9973",
+      "bytes": 2005633
+    }
+  ],
+  "latestRuntimeMvid": "5d15c310-0a76-4911-aa88-b75336a00bff",
+  "executionScope": "14 earlier executions / 8 unique tests plus 3 repaired-source frame/glyph executions / 1 repeated test",
+  "noWholeGameAcceptance": true
+}

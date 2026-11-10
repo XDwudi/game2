@@ -1,5 +1,7 @@
 # v0.71 全量素材路径表
 
+2026-11-10补充：`ArtSource/Art071/MenuTable/` 保存实际Image2主界面概念、独立空桌背景、完整提示词与SHA来源；新运行件 `Assets/Art/Art071/Backgrounds/bg_table_scene.png` 为1672×941 RGB原稿直拷。`V071TableSetup`按Clamp、sRGB、无mip独立导入，`Full/Materials/felt.mat`绑定`_TableMap`，由原世界Plane保留真实骰子/阴影。主菜单依概念重排，但文本、存档、版本、按钮与骰点仍为实时内容。此补充不重写旧127项全量manifest；旧桌布源保留。
+
 2026-11-09 UTC，全量资源已接入，实际表现专项验证中。71项活跃内容全部绑定高清主题插画，旧小图标不再由Bootstrap/Lab引用；下方首批记录保留为历史。全量技术验证不替代人工风格验收。
 
 | 范围 | 可编辑源 / 运行件 | 当前状态 |

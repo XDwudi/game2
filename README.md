@@ -8,6 +8,7 @@
 
 ## 当前原型
 
+- **v0.71 主界面与桌面背景更新**：按 Image2 主界面图重排纸质菜单、卡牌与真实骰子，并接入木沿/深青毛毡桌面。源码交付分支为 [codex/v0.71](https://github.com/XDwudi/game2/tree/codex/v0.71)，生成原图与提示词见 [MenuTable](ArtSource/Art071/MenuTable/record.json)，受影响验证见 [更新任务](docs/tasks/P0-V071-MENU-TABLE.md)。下方旧发行附件仍为41aface构建，不含这次界面更新。
 - **v0.71 全量美术测试版已通过 [GitHub发行附件](https://github.com/XDwudi/game2/releases/tag/p0.7.1-rc.1)提供下载。** 冻结源41aface，71项内容插画与公共资源已统一；Edit1018/1018、Play182/182通过，Windows实跑完成，三个附件已完整远端下载校验，下载版新目录启动诊断通过。Windows性能/独占全屏仍有失败，Mac与人工待验；首批249d980三包仅为历史。参见 [STATE](docs/STATE.md)、[素材路径](docs/specs/v071/ASSET_MAP.md) 与 [交付说明](docs/DELIVERY_V071.md)。
 - **历史 v0.7 诊断测试候选已发布，整版仍未验收通过。** [GitHub p0.7.0-rc.1](https://github.com/XDwudi/game2/releases/tag/p0.7.0-rc.1)提供Windows、Mac Universal与M5工具包；三附件已完整下载核验，Windows已做新目录隔离启动。1013项Edit、158项Play通过；Windows性能/原生显示、AudioMixer、Mac与人工待验。详见[交付说明](docs/DELIVERY_V07.md)和[STATE](docs/STATE.md)。输入见[美术开发规格](docs/specs/v07/ART_SPEC.md)，以下为历史版本。
 - v0.6 诊断测试版已在 [GitHub p0.6.0-rc.1](https://github.com/XDwudi/game2/releases/tag/p0.6.0-rc.1) 提供Windows、Mac和M5验收工具包三个附件；已全量远程下载和新目录启动/存档恢复核验。797项EditMode、30项PlayMode及玩法/UI回放通过；Windows独占全屏、性能未通过，Mac/人工待验，整版未ACCEPTED。详见 [v0.6交付说明](docs/DELIVERY_V06.md)。

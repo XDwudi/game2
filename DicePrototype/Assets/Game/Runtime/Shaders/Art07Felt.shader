@@ -1,6 +1,6 @@
 Shader "DiceCraft/Art07/Felt"
 {
-    Properties { _BaseMap("Felt",2D)="white"{} _BaseColor("Color",Color)=(.09,.243,.25,1) _Grain("Grain",Float)=1 _Scanlines("Scanlines",Float)=0 _MenuDriftPixels("Menu drift pixels",Float)=0 _MenuBreath("Menu light breath",Float)=0 }
+    Properties { _BaseMap("Felt",2D)="white"{} _TableMap("Table composition",2D)="white"{} _UseTableMap("Use table composition",Float)=0 _BaseColor("Color",Color)=(.09,.243,.25,1) _Grain("Grain",Float)=1 _Scanlines("Scanlines",Float)=0 _MenuDriftPixels("Menu drift pixels",Float)=0 _MenuBreath("Menu light breath",Float)=0 }
     SubShader
     {
         Tags { "RenderType"="Opaque" "RenderPipeline"="UniversalPipeline" }
@@ -15,8 +15,9 @@ Shader "DiceCraft/Art07/Felt"
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
             TEXTURE2D(_BaseMap);SAMPLER(sampler_BaseMap);
+            TEXTURE2D(_TableMap);SAMPLER(sampler_TableMap);
             CBUFFER_START(UnityPerMaterial)
-            float4 _BaseMap_ST;half4 _BaseColor;half _Grain;half _Scanlines;half _MenuDriftPixels;half _MenuBreath;
+            float4 _BaseMap_ST;float4 _TableMap_TexelSize;half4 _BaseColor;half _UseTableMap;half _Grain;half _Scanlines;half _MenuDriftPixels;half _MenuBreath;
             CBUFFER_END
             struct V{float4 pos:SV_POSITION;float2 uv:TEXCOORD0;float3 world:TEXCOORD1;};
             V vert(float4 p:POSITION,float2 uv:TEXCOORD0){V v;v.world=TransformObjectToWorld(p.xyz);v.pos=TransformWorldToHClip(v.world);v.uv=TRANSFORM_TEX(uv,_BaseMap);return v;}
@@ -24,12 +25,28 @@ Shader "DiceCraft/Art07/Felt"
             {
                 half3 cloth=SAMPLE_TEXTURE2D(_BaseMap,sampler_BaseMap,v.uv+ddx(v.uv)*_MenuDriftPixels).rgb;
                 half3 color=lerp(_BaseColor.rgb,cloth,_Grain);
-                Light key=GetMainLight(TransformWorldToShadowCoord(v.world));color*=lerp(.7,1,key.shadowAttenuation);
                 // Quiet light pool belongs to the table only; Canvas ink and dice stay untouched.
                 float2 screen=v.pos.xy/GetScaledScreenParams().xy;
                 float2 fromCenter=(screen-float2(.59,.47))*float2(1.12,1);
                 half edge=smoothstep(.24,.78,length(fromCenter));
                 color*=lerp(1.10,.86,edge);
+                if(_UseTableMap>.5)
+                {
+                    // Contain the authored table without stretching. Extra aspect-ratio space
+                    // is the dim room beyond the rim; UI and dice keep their existing design map.
+                    float2 uv=GetNormalizedScreenSpaceUV(v.pos);
+                    float aspect=GetScaledScreenParams().x/GetScaledScreenParams().y;
+                    float authored=_TableMap_TexelSize.z/max(1,_TableMap_TexelSize.w);
+                    float2 fit=float2(max(1,aspect/authored),max(1,authored/aspect));
+                    float2 tableUV=(uv-.5)*fit+.5;
+                    half inside=step(0,tableUV.x)*step(tableUV.x,1)*step(0,tableUV.y)*step(tableUV.y,1);
+                    half3 tabletop=SAMPLE_TEXTURE2D(_TableMap,sampler_TableMap,saturate(tableUV)).rgb;
+                    color=lerp(_BaseColor.rgb*.24,tabletop,inside);
+                    // Grain/reduced-motion preferences affect only optional microdetail,
+                    // never the table silhouette. Do not double the generated felt texture.
+                    color*=1+_Grain*.006*(sin(v.pos.x*1.73)*sin(v.pos.y*2.13));
+                }
+                Light key=GetMainLight(TransformWorldToShadowCoord(v.world));color*=lerp(.7,1,key.shadowAttenuation);
                 color*=1-_Scanlines*.025*(.5+.5*sin(v.pos.y*1.57));color*=1+_MenuBreath;return half4(color,1);
             }
             ENDHLSL
