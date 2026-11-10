@@ -239,6 +239,14 @@ class V071ReleaseTests(unittest.TestCase):
         self.assertEqual(b"preserve old ZIP",output.read_bytes());self.assertFalse(proof.exists())
 
     def test_custom_directories_build_two_zips_and_kit_from_actual_fixture_bytes(self):
+        self.package_fixture()
+
+    def test_rc2_builds_three_new_packages_and_rejects_rc1_mac_input(self):
+        self.package_fixture("p0.7.1-rc.2")
+
+    def package_fixture(self, release_tag=package.TAG):
+        output_dir = manifest.PACKAGE_DIRECTORY if release_tag == package.TAG else "Releases/p0.7.1/menu-table-rc2"
+        proof_dir = manifest.PROOF_DIRECTORY if release_tag == package.TAG else "evidence/v071-menu-table/packages-rc2"
         for name in ("DicePrototype/Assets/Game/Fonts/LICENSE.txt","ArtSource/Art071/Fonts/LICENSE.txt","ArtSource/Art071/Fonts/COPYRIGHT.txt","docs/PLAYER_README_V071.txt"):
             self.put(name,"synthetic metadata "+name)
         self.js(package.IDENTITY,self.identity)
@@ -268,18 +276,27 @@ class V071ReleaseTests(unittest.TestCase):
              mock.patch.object(package,"validate_build",side_effect=lambda path,platform,identity:builds[platform]), \
              mock.patch.object(package,"validate_windows_report",return_value={}):
             proofs={platform:package.package(platform,self.root/("build-"+platform+".json"),True,
-                      package_directory=manifest.PACKAGE_DIRECTORY,package_proof_directory=manifest.PROOF_DIRECTORY) for platform in ("windows","macos")}
-            kit=package.verification_kit(results,True,package_directory=manifest.PACKAGE_DIRECTORY,package_proof_directory=manifest.PROOF_DIRECTORY)
+                      package_directory=output_dir,package_proof_directory=proof_dir,release_tag=release_tag) for platform in ("windows","macos")}
+            if release_tag != package.TAG:
+                mac_path = self.root/proof_dir/package.package_proof_name("macos",True)
+                self.js(mac_path.relative_to(self.root),{k:v for k,v in proofs["macos"].items() if k != "releaseTag"})
+                with self.assertRaisesRegex(ValueError,"different release tag"):
+                    package.verification_kit(results,True,package_directory=output_dir,package_proof_directory=proof_dir,release_tag=release_tag)
+                self.assertFalse((self.root/output_dir/"DicePrototype-p0.7.1-MacVerificationKit.zip").exists())
+                self.js(mac_path.relative_to(self.root),proofs["macos"])
+            kit=package.verification_kit(results,True,package_directory=output_dir,package_proof_directory=proof_dir,release_tag=release_tag)
         self.assertEqual("must remain untouched",historical.read_text())
         for platform,proof in proofs.items():
-            self.assertEqual(self.root/manifest.PACKAGE_DIRECTORY,package.check_package(proof).parent)
-            self.assertTrue((self.root/manifest.PROOF_DIRECTORY/package.package_proof_name(platform,True)).is_file())
+            self.assertEqual(self.root/output_dir,package.check_package(proof).parent)
+            self.assertTrue((self.root/proof_dir/package.package_proof_name(platform,True)).is_file())
+            self.assertEqual(release_tag,proof.get("releaseTag",package.TAG))
             manifest.validate_packaged_build(proof,builds[platform],platform)
         with zipfile.ZipFile(package.check_package(kit)) as archive:
             self.assertEqual((self.root/proofs["macos"]["packagePath"]).read_bytes(),archive.read("DicePrototype-MacVerification/inputs/macos.zip"))
             for row in kit["inputs"]:
                 self.assertEqual(row["sha256"],hashlib.sha256(archive.read("DicePrototype-MacVerification/"+row["path"])).hexdigest())
-        self.assertTrue((self.root/manifest.PROOF_DIRECTORY/package.kit_proof_name(True)).is_file())
+        self.assertTrue((self.root/proof_dir/package.kit_proof_name(True)).is_file())
+        self.assertEqual(release_tag,kit.get("releaseTag",package.TAG))
 
     def test_authenticated_url_and_cross_host_redirect_strip_token(self):
         publisher.authenticated_url("https://api.github.com/repos/XDwudi/game2/releases")
@@ -339,6 +356,117 @@ class V071ReleaseTests(unittest.TestCase):
         with self.assertRaises(ValueError):publisher.ensure_publish_allowed(value,"publish",True,False)
         with self.assertRaises(ValueError):publisher.ensure_publish_allowed(value,"publish",False,True)
         publisher.ensure_publish_allowed(value,"publish",True,True)
+
+    def test_rc2_requires_new_paths_and_rejects_tag_or_path_injection(self):
+        tag="p0.7.1-rc.2"
+        for invalid in ("p0.7.1-rc.0","p0.7.1-rc.02","p0.7.2-rc.2","../rc.2","p0.7.1-rc.2/other"):
+            with self.subTest(tag=invalid),self.assertRaises(ValueError): package.validate_release_tag(invalid)
+        with self.assertRaisesRegex(ValueError,"explicit separate"):
+            package.package_directories(True,release_tag=tag)
+        for output,proofs in ((manifest.PACKAGE_DIRECTORY,"evidence/new-proof"),
+                              ("Releases/p0.7.1/rc2",manifest.PROOF_DIRECTORY),
+                              (package.REVIEW_RELEASE,"evidence/new-proof"),
+                              ("../escape","evidence/new-proof")):
+            with self.subTest(output=output,proofs=proofs),self.assertRaises(ValueError):
+                manifest.validate_directories(output,proofs,tag)
+        self.assertNotEqual(publisher.release_evidence(True),publisher.release_evidence(True,tag))
+        self.assertNotEqual(publisher.download_directory(True),publisher.download_directory(True,tag))
+
+    def test_rc2_menu_source_is_bound_to_runtime_and_gate(self):
+        rows=[];frozen=[]
+        for name in ("menu-concept","table-background"):
+            path=self.put("ArtSource/Art071/MenuTable/"+name+".png","synthetic "+name)
+            prompt=self.put("ArtSource/Art071/MenuTable/"+name+"-prompt.txt","synthetic prompt")
+            row={"path":path.relative_to(self.root).as_posix(),"sha256":package.sha(path),"prompt":prompt.relative_to(self.root).as_posix()}
+            if name=="table-background":
+                row["runtime"]="DicePrototype/Assets/Art/Art071/Backgrounds/bg_table_scene.png"
+                frozen.append(self.bind(self.put(row["runtime"],path.read_bytes())))
+            rows.append(row)
+        for path in ("DicePrototype/Assets/Art/Art071/Backgrounds/bg_table_scene.png.meta",
+                     "DicePrototype/Assets/Art/Art071/Full/Materials/felt.mat","DicePrototype/Assets/Game/Runtime/Shaders/Art07Felt.shader",
+                     "DicePrototype/Assets/Game/UI/GameApp.Art071Screens.cs","DicePrototype/Assets/Game/Editor/V071TableSetup.cs"):
+            frozen.append(self.bind(self.put(path,"synthetic frozen input")))
+        self.js("ArtSource/Art071/MenuTable/record.json",{"sources":rows})
+        gate={"files":frozen}
+        result=manifest.validate_menu_table(gate)
+        self.assertEqual(4,len(result["sourcesAndPrompts"]))
+        with self.assertRaisesRegex(ValueError,"missing from current gate"):
+            manifest.validate_menu_table({"files":frozen[:-1]})
+        self.put(rows[1]["runtime"],"replaced runtime")
+        with self.assertRaisesRegex(ValueError,"runtime background differ"):manifest.validate_menu_table(gate)
+
+    def test_release_inputs_rebuild_with_explicit_tag_and_reject_old_manifest_first(self):
+        tag="p0.7.1-rc.2"
+        inputs={key:"fixture/"+key for key in ("windowsResults","windowsBuild","macosBuild","artReviewEvidence","packageDirectory","packageProofDirectory")}
+        items=[{"packagePath":"Releases/p0.7.1/rc2/"+name} for name in sorted(manifest.EXPECTED_NAMES)]
+        value={"releaseTag":tag,"sourceCommit":"a"*40,"manifestInputs":inputs,"platforms":items[:2],"macVerificationKit":items[2]}
+        path=self.js("new-manifest.json",value)
+        with mock.patch.object(publisher,"build_manifest",return_value=value) as rebuild, \
+             mock.patch.object(publisher.subprocess,"run",return_value=mock.Mock(returncode=1)) as git:
+            publisher.release_inputs(path,release_tag=tag)
+            self.assertEqual(tag,rebuild.call_args.args[-1])
+            self.assertIn("refs/tags/"+tag+"^{commit}",git.call_args.args[0])
+            rebuild.reset_mock();git.reset_mock()
+            self.js("new-manifest.json",{**value,"releaseTag":package.TAG})
+            with self.assertRaisesRegex(ValueError,"explicit --release-tag"):publisher.release_inputs(path,release_tag=tag)
+            rebuild.assert_not_called();git.assert_not_called()
+
+    def test_rc2_proof_cannot_borrow_legacy_tag_or_other_anchor(self):
+        local=self.put("download.zip",b"fixture remote bytes");mp=self.put("manifest.json","fixture manifest")
+        item={"sha256":package.sha(local),"byteSize":local.stat().st_size};asset={"id":1,"name":"a.zip"}
+        proof={"assetId":1,"name":"a.zip",**item,"httpStatus":200,"crc":"passed","sourceCommit":"a"*40,
+               "manifestSha256":package.sha(mp),"matchesFrozenManifest":True,"path":str(local),
+               "releaseTag":"p0.7.1-rc.2","releaseTagCommit":"a"*40}
+        publisher.verify_download_proof(proof,asset,item,"a"*40,mp,"p0.7.1-rc.2","a"*40)
+        for change in ({"releaseTag":package.TAG},{"releaseTagCommit":"b"*40}):
+            with self.subTest(change=change),self.assertRaisesRegex(ValueError,"tag/anchor"):
+                publisher.verify_download_proof({**proof,**change},asset,item,"a"*40,mp,"p0.7.1-rc.2","a"*40)
+
+    def test_rc2_mock_api_draft_and_publish_never_modify_rc1(self):
+        # Real CLI and request construction, fake HTTP responses and credential helper only.
+        tag="p0.7.1-rc.2";source="a"*40;mp=self.put("rc2-manifest.json","fixture manifest")
+        expected={};assets=[]
+        for i,name in enumerate(sorted(manifest.EXPECTED_NAMES),1):
+            path=self.put("downloads/"+name,("fixture "+name).encode())
+            item={"packagePath":path.relative_to(self.root).as_posix(),"sha256":package.sha(path),"byteSize":path.stat().st_size}
+            expected[name]=item;assets.append({"id":i,"name":name,"state":"uploaded","size":item["byteSize"],"digest":"sha256:"+item["sha256"],"browser_download_url":"https://example.test/"+name})
+        evidence=self.root/"evidence/github"
+        for asset in assets:
+            item=expected[asset['name']]
+            self.js("evidence/github/"+tag+"/"+asset['name']+".download.json",{
+                "assetId":asset['id'],"name":asset['name'],"sha256":item['sha256'],"byteSize":item['byteSize'],
+                "httpStatus":200,"crc":"passed","sourceCommit":source,"manifestSha256":package.sha(mp),
+                "matchesFrozenManifest":True,"path":str(self.root/item['packagePath']),"releaseTag":tag,"releaseTagCommit":source})
+        old={"id":10,"tag_name":package.TAG,"target_commitish":"b"*40,"draft":False}
+        current={"id":20,"tag_name":tag,"target_commitish":source,"name":"fixture title","body":"fixture body","draft":True,"prerelease":True,"assets":assets,"html_url":"https://example.test/rc2"}
+        calls=[];state={"created":False}
+        def open_request(req,timeout):
+            url,method=req.full_url,req.get_method();payload=json.loads(req.data) if req.data else None
+            calls.append((url,method,payload))
+            if "/git/ref/tags/" in url:
+                self.assertTrue(url.endswith(tag));response={"object":{"type":"commit","sha":source}}
+            elif url.endswith("/releases?per_page=100"):response=[old]+([current] if state["created"] else [])
+            elif url.endswith("/releases") and method=="POST":state["created"]=True;response=current
+            elif url.endswith("/releases/20"):
+                if method=="PATCH":current.update(payload)
+                response=current
+            else:raise AssertionError("Unexpected fake API path: "+url)
+            return io.BytesIO(json.dumps(response).encode())
+        opener=mock.Mock();opener.open.side_effect=open_request
+        with mock.patch.object(publisher,"EVIDENCE",evidence), \
+             mock.patch.object(publisher,"release_inputs",return_value=({},expected,source)), \
+             mock.patch.object(publisher,"release_title",return_value="fixture title"), \
+             mock.patch.object(publisher,"release_body",return_value="fixture body"), \
+             mock.patch.object(publisher.subprocess,"check_output",return_value="https://github.com/XDwudi/game2.git\n"), \
+             mock.patch.object(publisher.subprocess,"run",return_value=mock.Mock(returncode=0,stdout="password=synthetic-test-only\n")), \
+             mock.patch.object(publisher.urllib.request,"build_opener",return_value=opener),contextlib.redirect_stdout(io.StringIO()):
+            for action in ("draft","publish"):
+                with mock.patch.object(sys,"argv",["publisher",action,"--manifest",str(mp),"--release-tag",tag]):publisher.main()
+        writes=[c for c in calls if c[1] in ("POST","PATCH")]
+        self.assertEqual(["POST","PATCH"],[c[1] for c in writes])
+        self.assertTrue(all(c[2]["tag_name"]==tag and c[2]["target_commitish"]==source for c in writes))
+        self.assertFalse(any(c[0].endswith("/releases/10") for c in calls))
+        self.assertFalse(current["draft"]);self.assertFalse(old["draft"])
 
 
 if __name__=="__main__":

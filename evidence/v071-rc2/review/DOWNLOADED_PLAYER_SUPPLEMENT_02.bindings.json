@@ -1,0 +1,176 @@
+{
+  "schema": "v071-rc2-downloaded-player-visual-supplement-1",
+  "utc": "2026-11-10T11:21:09.747639+00:00",
+  "reviewer": "/root/art_assets",
+  "status": "no_additional_visual_artifacts_diagnostic_failed",
+  "identity": {
+    "releaseVersion": "p0.7.1",
+    "artVersion": "art0.7.1",
+    "sourceCommit": "b005e0088b227b26e2f8fc44f1c59f68df0c0a35",
+    "contentConfigVersion": "p0.6.0",
+    "contentConfigSha256": "747ed1efc7bea15873f66a81eee5c7654971c21031f2a1517ce629adce7b6e6c",
+    "saveSchemaVersion": 4,
+    "goldenCaseSetSha256": "306cb86f79dafe0e3eb302714abd232af20fe0062a6713f7d713c11e2a6a5718",
+    "unityEditorVersion": "6000.6.7f1",
+    "backend": "Mono"
+  },
+  "downloadedRunDirectory": "artifacts/cache/v071-rc2-remote-b005e00-02",
+  "buildGuid": "75e7f6b0f1c34075a6527abbc6829e8b",
+  "runtimeMvid": "5c19060c-301d-4a32-8ed5-6d4ce85722a2",
+  "actualViewedNewImages": [],
+  "pngFilesFound": [],
+  "pngInventoryScope": "Recursive run directory only;6 phases are resource/state data, not6 images.",
+  "process": {
+    "startedUtc": "2026-11-10T11:09:35.479324+00:00",
+    "exitCode": 1,
+    "timedOut": false,
+    "ownedProcessTerminated": false,
+    "pid": 50384,
+    "ownedProcessStillRunning": false,
+    "endedUtc": "2026-11-10T11:12:39.529063+00:00"
+  },
+  "guardsReportedByRunner": {
+    "buildFilesUnchanged": true,
+    "ordinarySaveFilesUnchanged": true,
+    "ordinaryGamePreferenceValuesUnchanged": true,
+    "engineScreenmanagerValuesUnchanged": true
+  },
+  "independentGuardRecomputedByThisReviewer": false,
+  "underlyingResult": {
+    "extractionStatus": "failed_or_incomplete",
+    "runnerStatus": "diagnostic_failed_or_incomplete",
+    "diagnosticStatus": "diagnostic_failed",
+    "error": "System.TimeoutException: Resource diagnostic exceeded its bounded 180-second execution deadline.\r\n  at DiceCraft.Verification.Art07ResourceDiagnostic.CheckDeadline () [0x00021] in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Runtime\\Verification\\Art07ResourceDiagnostic.cs:355 \r\n  at DiceCraft.Verification.Art07ResourceDiagnostic+<Stable>d__60.MoveNext () [0x00031] in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Runtime\\Verification\\Art07ResourceDiagnostic.cs:334 \r\n  at DiceCraft.Verification.Art07ResourceDiagnostic+<Guarded>d__53.MoveNext () [0x0005b] in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Runtime\\Verification\\Art07ResourceDiagnostic.cs:231 ",
+    "endedUtc": "2026-11-10T11:12:39.3009073Z",
+    "phases": [
+      {
+        "index": 0,
+        "frame": 2,
+        "realtime": 3.184170900963719,
+        "name": "baseline-menu",
+        "rulePhase": "MainMenu",
+        "actionSequence": 0
+      },
+      {
+        "index": 1,
+        "frame": 183,
+        "realtime": 6.198012400963719,
+        "name": "ui:MenuHandbook",
+        "rulePhase": "MainMenu",
+        "actionSequence": 0
+      },
+      {
+        "index": 2,
+        "frame": 369,
+        "realtime": 9.340826100963719,
+        "name": "ui:HandbookColors",
+        "rulePhase": "MainMenu",
+        "actionSequence": 0
+      },
+      {
+        "index": 3,
+        "frame": 551,
+        "realtime": 12.37449940096372,
+        "name": "ui:CloseDialog",
+        "rulePhase": "MainMenu",
+        "actionSequence": 0
+      },
+      {
+        "index": 4,
+        "frame": 552,
+        "realtime": 12.390561500963718,
+        "name": "ui:MenuSettings",
+        "rulePhase": "MainMenu",
+        "actionSequence": 0
+      },
+      {
+        "index": 5,
+        "frame": 553,
+        "realtime": 12.406908700963719,
+        "name": "ui:SettingsTab0",
+        "rulePhase": "MainMenu",
+        "actionSequence": 0
+      }
+    ],
+    "idle": {
+      "requestedSeconds": 20.0,
+      "actualSeconds": 0.0,
+      "rows": 0,
+      "validGcRows": 0,
+      "missingGcRows": 0,
+      "zeroGcRows": 0,
+      "nonzeroGcRows": 0,
+      "unfocusedRows": 0,
+      "movingRows": 0,
+      "pointerChangedRows": 0,
+      "inputRows": 0,
+      "sequenceChangedRows": 0,
+      "maximumGcBytes": 0,
+      "observationComplete": false,
+      "scope": "Prewarmed stable ten-die debug table, no probe transactions during window. Reads previous completed Profiler counter batches; 0 samples is missing, not 0 B. Observer arrays preallocated; no enumeration, JSON, screenshot or file I/O during window."
+    },
+    "wholeReleaseAccepted": false
+  },
+  "bindings": [
+    {
+      "path": "artifacts/cache/v071-rc2-remote-b005e00-02/remote-extraction-result.json",
+      "sha256": "e7209b00f5ae5495ad62cbcd58ca8b537cd573846b9b9dcfcd4053cc523a6dd8",
+      "bytes": 4423
+    },
+    {
+      "path": "artifacts/cache/v071-rc2-remote-b005e00-02/run/runner-summary.json",
+      "sha256": "7eff44927e958b7a84668036c48d84a118c5449e9c9128d98397c957f00c99bd",
+      "bytes": 5277
+    },
+    {
+      "path": "artifacts/cache/v071-rc2-remote-b005e00-02/run/process.json",
+      "sha256": "8bba9c80c0fd524272ab2e0faef7f92f71c2c83e08176868877cdb23167d33cf",
+      "bytes": 231
+    },
+    {
+      "path": "artifacts/cache/v071-rc2-remote-b005e00-02/run/diagnostic/resource-report.json",
+      "sha256": "61f34b3f906e762b18db02d21b257907dcd4062e83579d7b506ebf474498a3a3",
+      "bytes": 490600
+    },
+    {
+      "path": "artifacts/cache/v071-rc2-remote-b005e00-02/run/diagnostic/idle-frames.csv",
+      "sha256": "de126dd5f492d71de97e73899005c7bc1dcd236fff04b8119df451d65daf7579",
+      "bytes": 120
+    },
+    {
+      "path": "artifacts/cache/v071-rc2-remote-b005e00-02/run/diagnostic/resource-frames.csv",
+      "sha256": "10cfd49b74e11673af49e5aa8ebfac960fbc6fe50a6cc9af5bcdf2753471ef13",
+      "bytes": 450085
+    },
+    {
+      "path": "artifacts/cache/v071-rc2-remote-b005e00-02/run/external-guards-before.json",
+      "sha256": "e9e448fd9c33edc049f9fcaf0c102520ad8c583f36c2d0b309a5f853d2f842a9",
+      "bytes": 79373
+    },
+    {
+      "path": "artifacts/cache/v071-rc2-remote-b005e00-02/run/external-guards-after.json",
+      "sha256": "e9e448fd9c33edc049f9fcaf0c102520ad8c583f36c2d0b309a5f853d2f842a9",
+      "bytes": 79373
+    }
+  ],
+  "unchangedFormalArtReview": {
+    "path": "cache/v071-rc2/art-review/full-art-review-b005e00.json",
+    "sha256": "549803b4d6a0afa2d483dfca021ba5d4baf3d5f49aaaf0424781155d35441a9c",
+    "bytes": 12914
+  },
+  "previousAttemptPreserved": {
+    "path": "cache/v071-rc2/art-review/DOWNLOADED_PLAYER_SUPPLEMENT_01.bindings.json",
+    "sha256": "56f75b032a73f2acd949cd79beb20e15579ba141069f9b98b9e8e6623c7c4643",
+    "bytes": 6174
+  },
+  "scope": "Read actual completed failure and absence of screenshots only; no new visual evidence or product rendering inference from deadline.",
+  "humanArtAccepted": false,
+  "newRunOrUiOperationPerformedByReviewer": false,
+  "limitations": [
+    "Idle was not reached;0 rows is no measurement, not0 B GC.",
+    "Natural process exit1 follows internal180-second diagnostic deadline; runner did not time out or kill process.",
+    "No PNG supplied here; earlier dim-detail visibility limitation remains.",
+    "Formal fullPlayer art review remains unchanged; auxiliary failure is not silently promoted to complete diagnostic/performance or release acceptance.",
+    "No further capture or run is requested."
+  ]
+}

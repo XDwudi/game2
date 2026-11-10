@@ -1,19 +1,12 @@
-# v0.71 M5 实机验证执行说明
+# v0.71 Mac 试玩与验证
 
-状态：v0.71全量美术Mac交叉构建已成功，尚未在真实Mac运行（NOT_RUN_ON_MAC）。实际构建源 `41aface80bba6c1e008bd3d35344210a28003553`，Mac GUID `a8eee2a94a304703b6fb1e54b3877b87`；Windows GUID `e36a7047e1f44fe9b16387cbf61ab639`。规则p0.6.0/schema4、Unity6000.6.7f1/Mono、原平台验收要求保持，执行对象以工具包inputs/BUILD_IDENTITY.json为准。
 
-工具包含同版Windows真实参考、正常145步/Debug24关原输入轨迹和实际运行报告。Windows原生独占确认仍失败；独立窗口模式普通145步、Debug175步、18项UI/50项动画完成且0Unity错误，跨进程恢复通过。压力采样180.0162698秒，P95 16.8078ms，GPU有效计时覆盖91.91%，性能FAILED。原始参考报告在inputs内，逐帧性能CSV保留在本地开发证据目录，不将其写成strict通过。Mac保持原性能/原生显示标准，不因Windows问题放宽。整个版本未ACCEPTED。
+这份工具包含主菜单与木沿毛毡桌面更新。开发基线 b005e00；实际构建源 `b005e0088b227b26e2f8fc44f1c59f68df0c0a35`，Mac GUID `b523ca601806410ca9fbb7ff3d943c8c`。macOS Universal 含 arm64 / x86_64，Mac 实机运行、Metal、签名与公证尚未验证；交叉构建成功不等于 Mac 运行通过。
 
-本次只发布具名成品附件，GitHub标签锚定已有远端提交；自动生成的Source code不是本版源码。按包内身份运行，不依赖该标签取源码。
+普通试玩可直接使用 macOS 游戏包中的 `DicePrototype.app`。协助验证时，完整解压 `DicePrototype-p0.7.1-MacVerificationKit.zip`；其中已含同版 Mac 游戏，无需重复下载。需要 Python 3.9+，工具不会自动安装。
 
-完整解压 `DicePrototype-p0.7.1-MacVerificationKit.zip`。工具包包含 VerifyMac.command、verify_mac.py、compare_replays.py、package_checks.py、Mac原包、两条规则轨迹和本版真实Windows参考证据。缺输入时脚本拒绝运行，不能手填通过结果。需要Python3.9+，脚本不自动安装。
+在终端输入 `bash `，把 `VerifyMac.command` 拖入终端后回车，或在解压目录执行 `bash VerifyMac.command`。运行时保持窗口可见。工具会在新目录解压、隔离存档，并执行回放、显示和压力检查；结束后请回传完整结果目录与日志，包括失败结果。
 
-在终端输入 `bash `，拖入 VerifyMac.command 后回车。也可在该目录执行 `bash VerifyMac.command`。完整工具包无需再单独下载Mac包；程序使用全新目录重解压并记录实际系统、架构、Metal、原生显示、隔离存档、回放及180秒压力采样。保持游戏窗口可见，自动阶段不要最小化或启动另一份探针。
+Windows 对照结果：完整严格流程已执行，正常与调试回放、UI、动画和自动原生显示检查通过，独立进程恢复通过；180.01 秒采样的 P95 为 16.847 ms，超过 16.7 ms，性能 FAILED，作为诊断对照保留原始失败结果。GPU 有效样本覆盖 97.22%；物理焦点/显示器变更仍未测。只使用 `inputs/windows-results/player-report.json` 内本轮真实结果；它不能代替 Mac 实机验证。逐帧 CSV 是否随包，以实际清单为准。Mac 保持原有至少 180 秒、P95 ≤16.7 ms 和显示检查标准，不因 Windows 的失败放宽要求。
 
-既有阈值不变：正式性能P95≤16.7ms，采样至少180秒，完整原生显示和相关恢复检查继续执行。若Windows参考为明确标记的受限/性能失败诊断，脚本只按其真实范围对照；Mac本身仍执行原严格要求。正常回放可能按既定轨迹在第8关失败；Debug24为功能覆盖，不代表玩家正常通关率。
-
-如果系统拒绝启动，保留原提示和生成证据。脚本不移除隔离属性、不关闭Gatekeeper、不重签，也不伪称已公证。通过Mac正常系统授权或正式签名流程解决后，再用新结果目录验证。
-
-结束后回传脚本生成的完整结果目录及日志，尤其是report、逐条回放、性能CSV、显示恢复、截图、存档检查点。失败记录原样保留。跨平台回传存档、真实焦点/显示器切换、人工风格、听审和试玩结论分别记录，不能只凭exit0把整版标为ACCEPTED。
-
-本版继续引用未改变的 `evidence/v07/session/normal-run-trace.json` 和 `debug-24-trace.json` 原输入；由本版Player实际重放并核对SHA。不会把旧版本Player报告作为本版运行证明。
+若系统阻止启动，请保留原提示。工具不移除隔离属性、关闭 Gatekeeper 或重签；按正常系统授权或正式签名流程解决后，再在新结果目录验证。AudioMixer 仍用分类音量回退，人工画面、声音、体验和实际显示器/焦点变化仍需分别反馈。

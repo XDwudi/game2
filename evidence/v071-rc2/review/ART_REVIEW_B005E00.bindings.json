@@ -1,0 +1,948 @@
+{
+  "schema": "v071-rc2-current-art-review-bindings-1",
+  "utc": "2026-11-10T10:54:49.848749+00:00",
+  "reviewer": "/root/art_assets",
+  "identity": {
+    "releaseVersion": "p0.7.1",
+    "artVersion": "art0.7.1",
+    "sourceCommit": "b005e0088b227b26e2f8fc44f1c59f68df0c0a35",
+    "contentConfigVersion": "p0.6.0",
+    "contentConfigSha256": "747ed1efc7bea15873f66a81eee5c7654971c21031f2a1517ce629adce7b6e6c",
+    "saveSchemaVersion": 4,
+    "goldenCaseSetSha256": "306cb86f79dafe0e3eb302714abd232af20fe0062a6713f7d713c11e2a6a5718",
+    "unityEditorVersion": "6000.6.7f1",
+    "backend": "Mono"
+  },
+  "buildGuid": "75e7f6b0f1c34075a6527abbc6829e8b",
+  "probeAssemblyMvid": "5c19060c-301d-4a32-8ed5-6d4ce85722a2",
+  "scope": "Technical art integration review, not new author approval, complete performance acceptance or human style acceptance.",
+  "playerReport": {
+    "path": "evidence/v071/player-b005e00-rc2/strict-full/player-20261110-104130-079c5f75/player-report.json",
+    "sha256": "434dca84c6272df1d6adf8a7734cd42e47b3e2432ff9b9d313c67e81c4a773c5",
+    "bytes": 818456
+  },
+  "serialSummary": {
+    "path": "evidence/v071/player-b005e00-rc2/serial-summary.json",
+    "sha256": "e4ba68cef8720251fcadaa7b2a3ab27d95d0f5d90218205639752ed3fa59615f",
+    "bytes": 57226
+  },
+  "buildReport": {
+    "path": "evidence/v071/unity/build-windows-20261110-103917.json",
+    "sha256": "56bfe4eaea6e75dc5532c3caec5109b2875612ba1586ed0f7667bca9ce85962c",
+    "bytes": 956
+  },
+  "gate": {
+    "path": "evidence/v071/unity/build-gate.json",
+    "sha256": "09a039922bcff77ef0cf2aef1ddfc4dc90383b777cbfc3e474ac86bfe236b155",
+    "bytes": 432177
+  },
+  "selectedReferenceScope": "diagnostic_performance_failed_strict_native_automated",
+  "rawPlayerStatus": "budget_exceeded",
+  "rawPlayerExitCode": 3,
+  "playerEnvironment": {
+    "utc": "2026-11-10T10:41:32.1905002Z",
+    "unityVersion": "6000.6.7f1",
+    "artVersion": "art0.7.1",
+    "rulesVersion": "p0.6.0",
+    "probeRevision": "p07-player-art-ui-21",
+    "buildGuid": "75e7f6b0f1c34075a6527abbc6829e8b",
+    "developmentBuild": true,
+    "isEditor": false,
+    "platform": "WindowsPlayer",
+    "os": "Windows 10  (10.0.19045) 64bit",
+    "processArchitecture": "X64",
+    "cpu": "AMD Ryzen 9 5900X 12-Core Processor ",
+    "cpuThreads": 24,
+    "systemMemoryMB": 65457,
+    "gpu": "NVIDIA GeForce RTX 3080",
+    "gpuMemoryMB": 10053,
+    "graphicsVersion": "Direct3D 11.0 [level 11.1]",
+    "graphicsApi": "Direct3D11",
+    "width": 1920,
+    "height": 1080,
+    "fullscreenMode": "Windowed",
+    "quality": "PC",
+    "vSyncCount": 0,
+    "targetFrameRate": -1,
+    "presentationFast": false,
+    "presentationReducedMotion": false,
+    "probeArguments": [
+      "--verify-p0",
+      "E:\\agent_workspace\\gpt\\game2\\evidence\\v07\\session\\normal-run-trace.json",
+      "--verify-debug-trace",
+      "E:\\agent_workspace\\gpt\\game2\\evidence\\v07\\session\\debug-24-trace.json",
+      "--evidence-dir",
+      "E:\\agent_workspace\\gpt\\game2\\evidence\\v071\\player-b005e00-rc2\\strict-full",
+      "-screen-width",
+      "1920",
+      "-screen-height",
+      "1080",
+      "-screen-fullscreen",
+      "0",
+      "-logFile",
+      "E:\\agent_workspace\\gpt\\game2\\artifacts\\cache\\v071\\player-b005e00-rc2\\strict-full-Player.log"
+    ]
+  },
+  "actuallyViewedCurrentPlayerImages": [
+    {
+      "path": "evidence/v071/player-b005e00-rc2/strict-full/player-20261110-104130-079c5f75/main-menu-1920x1080.png",
+      "sha256": "a93e6e201109b0b80960095b525ee99cf959f2eb69b22c78fb145cf6b890f463",
+      "bytes": 1987004,
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "actuallyViewed": true,
+      "platform": "WindowsPlayer",
+      "visualUse": "current_player_menu",
+      "observation": "New menu title, action column, printed-card/ceramic composition and build b005e008 footer are visible; no new overlap observed. Concept generated date is absent.",
+      "screenshotDetails": {
+        "file": "main-menu-1920x1080.png",
+        "width": 1920,
+        "height": 1080,
+        "screenWidth": 1920,
+        "screenHeight": 1080,
+        "dimensionsMatch": true,
+        "accepted": true,
+        "contentValid": true,
+        "content": {
+          "valid": true,
+          "sampledPixels": 8160,
+          "nonBlackPixels": 8110,
+          "brightPixels": 5444,
+          "quantizedColors": 194,
+          "minimumChannelMaximum": 1,
+          "maximumChannelMaximum": 255,
+          "nonBlackRatio": 0.9938725490196079,
+          "brightRatio": 0.667156862745098
+        },
+        "attempt": 1,
+        "requiredConsecutiveValidFrames": 1,
+        "consecutiveValidFrames": 1,
+        "classification": "accepted",
+        "phase": "MainMenu",
+        "runId": null,
+        "actionSequence": null,
+        "isDebug": false,
+        "isFocused": true,
+        "modalOpen": false
+      }
+    },
+    {
+      "path": "evidence/v071/player-b005e00-rc2/strict-full/player-20261110-104130-079c5f75/normal-selecting-1280x720.png",
+      "sha256": "223acef370114da2dbf9bd0c6789fa5fc4cd5a979ab91e6be3b2b3260188d4c9",
+      "bytes": 914236,
+      "dimensions": [
+        1280,
+        720
+      ],
+      "actuallyViewed": true,
+      "platform": "WindowsPlayer",
+      "visualUse": "current_player_table",
+      "observation": "New wood edge/felt and 5 true dice visible. Items title/action reason underlays separate text from seam.",
+      "screenshotDetails": {
+        "file": "normal-selecting-1280x720.png",
+        "width": 1280,
+        "height": 720,
+        "screenWidth": 1280,
+        "screenHeight": 720,
+        "dimensionsMatch": true,
+        "accepted": true,
+        "contentValid": true,
+        "content": {
+          "valid": true,
+          "sampledPixels": 3600,
+          "nonBlackPixels": 3561,
+          "brightPixels": 1495,
+          "quantizedColors": 94,
+          "minimumChannelMaximum": 4,
+          "maximumChannelMaximum": 255,
+          "nonBlackRatio": 0.9891666666666666,
+          "brightRatio": 0.4152777777777778
+        },
+        "attempt": 1,
+        "requiredConsecutiveValidFrames": 1,
+        "consecutiveValidFrames": 1,
+        "classification": "accepted",
+        "phase": "Selecting",
+        "runId": "RUN_3ae04ef478c847849ac024d89826593e",
+        "actionSequence": 3,
+        "isDebug": false,
+        "isFocused": true,
+        "modalOpen": false
+      }
+    },
+    {
+      "path": "evidence/v071/player-b005e00-rc2/strict-full/player-20261110-104130-079c5f75/normal-selecting-1920x1080.png",
+      "sha256": "6f3bcb6008aaa25d3336b23cd563eafc56b4b6ba79524e075371cf2678c578d9",
+      "bytes": 1816244,
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "actuallyViewed": true,
+      "platform": "WindowsPlayer",
+      "visualUse": "current_player_table",
+      "observation": "Same new background/HUD visual scope at 1920x1080; no new background-induced text overlap observed.",
+      "screenshotDetails": {
+        "file": "normal-selecting-1920x1080.png",
+        "width": 1920,
+        "height": 1080,
+        "screenWidth": 1920,
+        "screenHeight": 1080,
+        "dimensionsMatch": true,
+        "accepted": true,
+        "contentValid": true,
+        "content": {
+          "valid": true,
+          "sampledPixels": 8160,
+          "nonBlackPixels": 8156,
+          "brightPixels": 3249,
+          "quantizedColors": 140,
+          "minimumChannelMaximum": 3,
+          "maximumChannelMaximum": 255,
+          "nonBlackRatio": 0.9995098039215686,
+          "brightRatio": 0.3981617647058823
+        },
+        "attempt": 1,
+        "requiredConsecutiveValidFrames": 1,
+        "consecutiveValidFrames": 1,
+        "classification": "accepted",
+        "phase": "Selecting",
+        "runId": "RUN_3ae04ef478c847849ac024d89826593e",
+        "actionSequence": 3,
+        "isDebug": false,
+        "isFocused": true,
+        "modalOpen": false
+      }
+    },
+    {
+      "path": "evidence/v071/player-b005e00-rc2/strict-full/player-20261110-104130-079c5f75/normal-shop-1280x720.png",
+      "sha256": "f7ee36a4d1c1f3b34628214cddf02c5a628d37ee341bad1fccdd5385abf18752",
+      "bytes": 1051292,
+      "dimensions": [
+        1280,
+        720
+      ],
+      "actuallyViewed": true,
+      "platform": "WindowsPlayer",
+      "visualUse": "current_player_shop",
+      "observation": "Three offers and resident right paper detail visible; shelf/card/detail fit and new background remains subordinate.",
+      "screenshotDetails": {
+        "file": "normal-shop-1280x720.png",
+        "width": 1280,
+        "height": 720,
+        "screenWidth": 1280,
+        "screenHeight": 720,
+        "dimensionsMatch": true,
+        "accepted": true,
+        "contentValid": true,
+        "content": {
+          "valid": true,
+          "sampledPixels": 3600,
+          "nonBlackPixels": 3599,
+          "brightPixels": 2104,
+          "quantizedColors": 119,
+          "minimumChannelMaximum": 7,
+          "maximumChannelMaximum": 255,
+          "nonBlackRatio": 0.9997222222222222,
+          "brightRatio": 0.5844444444444444
+        },
+        "attempt": 1,
+        "requiredConsecutiveValidFrames": 1,
+        "consecutiveValidFrames": 1,
+        "classification": "accepted",
+        "phase": "Shop",
+        "runId": "RUN_3ae04ef478c847849ac024d89826593e",
+        "actionSequence": 9,
+        "isDebug": false,
+        "isFocused": true,
+        "modalOpen": false
+      }
+    },
+    {
+      "path": "evidence/v071/player-b005e00-rc2/strict-full/player-20261110-104130-079c5f75/normal-die-detail-permanent-preview-1280x720.png",
+      "sha256": "f4f8fcb4ebd8d7c4b2fda80bb64714d8225efa9498d6a69e0d325389bbda4a91",
+      "bytes": 1241041,
+      "dimensions": [
+        1280,
+        720
+      ],
+      "actuallyViewed": true,
+      "platform": "WindowsPlayer",
+      "visualUse": "excluded_preview_visibility",
+      "observation": "Dim entrance panel/opaque preview veil; cannot sign die visibility or stationary detail. Raw file retained.",
+      "screenshotDetails": {
+        "file": "normal-die-detail-permanent-preview-1280x720.png",
+        "width": 1280,
+        "height": 720,
+        "screenWidth": 1280,
+        "screenHeight": 720,
+        "dimensionsMatch": true,
+        "accepted": true,
+        "contentValid": true,
+        "content": {
+          "valid": true,
+          "sampledPixels": 3600,
+          "nonBlackPixels": 3592,
+          "brightPixels": 976,
+          "quantizedColors": 88,
+          "minimumChannelMaximum": 8,
+          "maximumChannelMaximum": 255,
+          "nonBlackRatio": 0.9977777777777778,
+          "brightRatio": 0.27111111111111114
+        },
+        "attempt": 1,
+        "requiredConsecutiveValidFrames": 1,
+        "consecutiveValidFrames": 1,
+        "classification": "accepted",
+        "phase": "Selecting",
+        "runId": "RUN_3ae04ef478c847849ac024d89826593e",
+        "actionSequence": 3,
+        "isDebug": false,
+        "isFocused": true,
+        "modalOpen": true
+      }
+    },
+    {
+      "path": "evidence/v071/player-b005e00-rc2/strict-full/player-20261110-104130-079c5f75/normal-die-detail-permanent-preview-1920x1080.png",
+      "sha256": "c5dc36090c5879f221f2602d76bc5e97be5e6143ce03f7c4dcb72b5d37065298",
+      "bytes": 2513803,
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "actuallyViewed": true,
+      "platform": "WindowsPlayer",
+      "visualUse": "excluded_preview_visibility",
+      "observation": "Dim entrance panel/opaque preview veil; same previously observed historical capture limitation, not new visibility proof.",
+      "screenshotDetails": {
+        "file": "normal-die-detail-permanent-preview-1920x1080.png",
+        "width": 1920,
+        "height": 1080,
+        "screenWidth": 1920,
+        "screenHeight": 1080,
+        "dimensionsMatch": true,
+        "accepted": true,
+        "contentValid": true,
+        "content": {
+          "valid": true,
+          "sampledPixels": 8160,
+          "nonBlackPixels": 8137,
+          "brightPixels": 2185,
+          "quantizedColors": 103,
+          "minimumChannelMaximum": 7,
+          "maximumChannelMaximum": 255,
+          "nonBlackRatio": 0.9971813725490196,
+          "brightRatio": 0.26776960784313725
+        },
+        "attempt": 1,
+        "requiredConsecutiveValidFrames": 1,
+        "consecutiveValidFrames": 1,
+        "classification": "accepted",
+        "phase": "Selecting",
+        "runId": "RUN_3ae04ef478c847849ac024d89826593e",
+        "actionSequence": 3,
+        "isDebug": false,
+        "isFocused": true,
+        "modalOpen": true
+      }
+    },
+    {
+      "path": "evidence/v071/player-b005e00-rc2/strict-full/player-20261110-104130-079c5f75/debug-stress-capacity-1280x720.png",
+      "sha256": "b7e5841f7b74c138bf0b174e651d1f0d00ff4c8046747d445beef9e0a907edd7",
+      "bytes": 986045,
+      "dimensions": [
+        1280,
+        720
+      ],
+      "actuallyViewed": true,
+      "platform": "WindowsPlayer",
+      "visualUse": "current_player_capacity_layout",
+      "observation": "8 locked dice visible inside slots plus 2 temporary dice above; ten controllers/HUD/title fit. Debug fixture, not ordinary gameplay progression.",
+      "screenshotDetails": {
+        "file": "debug-stress-capacity-1280x720.png",
+        "width": 1280,
+        "height": 720,
+        "screenWidth": 1280,
+        "screenHeight": 720,
+        "dimensionsMatch": true,
+        "accepted": true,
+        "contentValid": true,
+        "content": {
+          "valid": true,
+          "sampledPixels": 3600,
+          "nonBlackPixels": 3573,
+          "brightPixels": 1789,
+          "quantizedColors": 116,
+          "minimumChannelMaximum": 4,
+          "maximumChannelMaximum": 255,
+          "nonBlackRatio": 0.9925,
+          "brightRatio": 0.49694444444444447
+        },
+        "attempt": 1,
+        "requiredConsecutiveValidFrames": 1,
+        "consecutiveValidFrames": 1,
+        "classification": "accepted",
+        "phase": "Selecting",
+        "runId": "DEBUG-PERFORMANCE-b2f39f7769fd4d88a8deb96ae9ae62c0",
+        "actionSequence": 2,
+        "isDebug": true,
+        "isFocused": true,
+        "modalOpen": false
+      }
+    },
+    {
+      "path": "evidence/v071/player-b005e00-rc2/strict-full/player-20261110-104130-079c5f75/debug-stress-capacity-1920x1080.png",
+      "sha256": "daa3bd24732c4fc0b0c5ff710b2a80f082378b7192cfe0b9664987b714d5634a",
+      "bytes": 1958540,
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "actuallyViewed": true,
+      "platform": "WindowsPlayer",
+      "visualUse": "layout_only_transition_frame",
+      "observation": "HUD/table/title visible; dice still above slots during position transition. Not stationary locked-layout or motion-quality proof.",
+      "screenshotDetails": {
+        "file": "debug-stress-capacity-1920x1080.png",
+        "width": 1920,
+        "height": 1080,
+        "screenWidth": 1920,
+        "screenHeight": 1080,
+        "dimensionsMatch": true,
+        "accepted": true,
+        "contentValid": true,
+        "content": {
+          "valid": true,
+          "sampledPixels": 8160,
+          "nonBlackPixels": 8157,
+          "brightPixels": 4000,
+          "quantizedColors": 184,
+          "minimumChannelMaximum": 3,
+          "maximumChannelMaximum": 255,
+          "nonBlackRatio": 0.9996323529411765,
+          "brightRatio": 0.49019607843137253
+        },
+        "attempt": 1,
+        "requiredConsecutiveValidFrames": 1,
+        "consecutiveValidFrames": 1,
+        "classification": "accepted",
+        "phase": "Selecting",
+        "runId": "DEBUG-PERFORMANCE-b2f39f7769fd4d88a8deb96ae9ae62c0",
+        "actionSequence": 2,
+        "isDebug": true,
+        "isFocused": true,
+        "modalOpen": false
+      }
+    },
+    {
+      "path": "evidence/v071/player-b005e00-rc2/strict-full/player-20261110-104130-079c5f75/v07-dice-sheet-physical-probability.png",
+      "sha256": "420be057d1ca8348b9e658d5f6bf117f46d547d512384ebbc504675bfb940ab9",
+      "bytes": 1788880,
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "actuallyViewed": true,
+      "platform": "WindowsPlayer",
+      "visualUse": "current_player_stable_dice_sheet",
+      "observation": "True ceramic die visible through aperture alongside physical six-face net, probability list and controls. This is the dice-sheet view, not the two dim normal detail snapshots.",
+      "screenshotDetails": {
+        "file": "v07-dice-sheet-physical-probability.png",
+        "width": 1920,
+        "height": 1080,
+        "screenWidth": 1920,
+        "screenHeight": 1080,
+        "dimensionsMatch": true,
+        "accepted": true,
+        "contentValid": true,
+        "content": {
+          "valid": true,
+          "sampledPixels": 8160,
+          "nonBlackPixels": 8137,
+          "brightPixels": 5393,
+          "quantizedColors": 135,
+          "minimumChannelMaximum": 7,
+          "maximumChannelMaximum": 255,
+          "nonBlackRatio": 0.9971813725490196,
+          "brightRatio": 0.660906862745098
+        },
+        "attempt": 1,
+        "requiredConsecutiveValidFrames": 1,
+        "consecutiveValidFrames": 1,
+        "classification": "accepted",
+        "phase": "Selecting",
+        "runId": "RUN_3ae04ef478c847849ac024d89826593e",
+        "actionSequence": 3,
+        "isDebug": false,
+        "isFocused": true,
+        "modalOpen": true
+      }
+    },
+    {
+      "path": "evidence/v071/player-b005e00-rc2/strict-full/player-20261110-104130-079c5f75/normal-qualified-continue-or-end-1920x1080.png",
+      "sha256": "c7ad4ced4943425a6d40f754f82805388d7deac2469954c9c6f368444d865e65",
+      "bytes": 1900607,
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "actuallyViewed": true,
+      "platform": "WindowsPlayer",
+      "visualUse": "layout_only_transition_frame",
+      "observation": "Qualified score/continue-or-end controls/HUD visible. Dice overlap while repositioning and stamp is not fully revealed; not final settled dice/stamp or animation rhythm proof.",
+      "screenshotDetails": {
+        "file": "normal-qualified-continue-or-end-1920x1080.png",
+        "width": 1920,
+        "height": 1080,
+        "screenWidth": 1920,
+        "screenHeight": 1080,
+        "dimensionsMatch": true,
+        "accepted": true,
+        "contentValid": true,
+        "content": {
+          "valid": true,
+          "sampledPixels": 8160,
+          "nonBlackPixels": 8154,
+          "brightPixels": 3168,
+          "quantizedColors": 146,
+          "minimumChannelMaximum": 3,
+          "maximumChannelMaximum": 255,
+          "nonBlackRatio": 0.9992647058823529,
+          "brightRatio": 0.38823529411764707
+        },
+        "attempt": 1,
+        "requiredConsecutiveValidFrames": 1,
+        "consecutiveValidFrames": 1,
+        "classification": "accepted",
+        "phase": "HandReady",
+        "runId": "RUN_3ae04ef478c847849ac024d89826593e",
+        "actionSequence": 7,
+        "isDebug": false,
+        "isFocused": true,
+        "modalOpen": false
+      }
+    }
+  ],
+  "historicalComparisonImage": {
+    "path": "E:/agent_workspace/gpt/game2/evidence/v071/player-41aface-0455/native-deferred-independent/player-20261109-045708-df970e2d/normal-die-detail-permanent-preview-1920x1080.png",
+    "sha256": "418f33cb155e05e799959425ffdf2c4f465a5f94a216f04a1dec79208b83a8d2",
+    "bytes": 979418,
+    "dimensions": [
+      1920,
+      1080
+    ],
+    "actuallyViewed": true,
+    "visualUse": "Historical comparison only; same dim entrance and opaque preview veil seen in 41aface"
+  },
+  "unchangedCaptureAndModalSources": [
+    {
+      "path": "DicePrototype/Assets/Game/Runtime/Verification/PlayerVerification.cs",
+      "sha256": "41343306cc667ecf0abae609759bc4ca5ca4620b54df7e66785420cbbf7f75f0",
+      "matches41afaceGate": true
+    },
+    {
+      "path": "DicePrototype/Assets/Game/UI/GameApp.Modals.cs",
+      "sha256": "76d469318a47529fab6b4f2d8ba63432daadf18b0c444c5bd14a6028ed038a97",
+      "matches41afaceGate": true
+    },
+    {
+      "path": "DicePrototype/Assets/Game/UI/Art07PanelMotion.cs",
+      "sha256": "da1bdd0e6ab6d85f7ebe28fe94620663fbfb30c2b705acaab4496f1a099715ea",
+      "matches41afaceGate": true
+    }
+  ],
+  "editorDetailSupplement": {
+    "schema": "v071-rc2-current-editor-detail-supplement-1",
+    "scope": "Actually viewed stable current Editor image only; never substitute for the dim Windows Player PNGs.",
+    "image": {
+      "path": "E:/agent_workspace/gpt/game2/artifacts/cache/v071-rc2/full-play-archive/DiceCraftTests_3c32ad343e0b4c5d86cee9775cadaa61/extra-capture/004-table-dice-detail-font150.png",
+      "sha256": "1a086a419a6b2f9953e8361d9adc8fb05195189a00fec94736b53ef18e5e6039"
+    },
+    "sidecar": {
+      "path": "E:/agent_workspace/gpt/game2/artifacts/cache/v071-rc2/full-play-archive/DiceCraftTests_3c32ad343e0b4c5d86cee9775cadaa61/extra-capture/004-table-dice-detail-font150.png.json",
+      "sha256": "c40ec7fd385e20ac745fce40110235ebea1b0993283076ffd03e71b241b25941"
+    },
+    "report": {
+      "path": "E:/agent_workspace/gpt/game2/artifacts/cache/v071-rc2/full-play-archive/DiceCraftTests_3c32ad343e0b4c5d86cee9775cadaa61/extra-capture/extra-report.json",
+      "sha256": "e3cff571546b8cb3d5b2b256fd0eb35fdf011e15850e36eb1450c23886dca508"
+    },
+    "width": 1920,
+    "height": 1080,
+    "fontScale": 1.5,
+    "stateUnchanged": true,
+    "runtimeMvid": "5d15c310-0a76-4911-aa88-b75336a00bff",
+    "runtimeAssemblySha256": "abcf44d9b4f1554e61691ebebf66b1f197c42a382c31e8bafdd623cf972879f0",
+    "sourceManifestSha256": "de1f052956e69a191c7e74cfa2deb2e668528839b584dcd9a3acba33f79371ca",
+    "platform": "WindowsEditor",
+    "buildIdentity": "{\r\n  \"releaseVersion\": \"p0.7.1\",\r\n  \"artVersion\": \"art0.7.1\",\r\n  \"sourceCommit\": \"b005e0088b227b26e2f8fc44f1c59f68df0c0a35\",\r\n  \"contentConfigVersion\": \"p0.6.0\",\r\n  \"contentConfigSha256\": \"747ed1efc7bea15873f66a81eee5c7654971c21031f2a1517ce629adce7b6e6c\",\r\n  \"saveSchemaVersion\": 4,\r\n  \"goldenCaseSetSha256\": \"306cb86f79dafe0e3eb302714abd232af20fe0062a6713f7d713c11e2a6a5718\",\r\n  \"unityEditorVersion\": \"6000.6.7f1\",\r\n  \"backend\": \"Mono\"\r\n}\r\n",
+    "observation": "World die is fully visible through the stationary aperture; fully revealed panel and surrounding labels/buttons are visible.",
+    "newPlayerStablePreviewReviewed": false,
+    "humanArtAccepted": false
+  },
+  "currentPlayReport": {
+    "path": "evidence/v071/unity/nunit-20261110-103648.xml",
+    "sha256": "78e0bbd83ef5f54afad0fc7e500ba6cbc2ade858cc40ea69c002f1a0d2a19938",
+    "bytes": 394852
+  },
+  "currentDetailTest": {
+    "id": "1011",
+    "name": "PLAY_ART071_MenuTableRealFramesAnd150GlyphsPreserveWorldDiceAperture",
+    "fullname": "DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART071_MenuTableRealFramesAnd150GlyphsPreserveWorldDiceAperture",
+    "methodname": "PLAY_ART071_MenuTableRealFramesAnd150GlyphsPreserveWorldDiceAperture",
+    "classname": "DiceCraft.Tests.GameplayPlayModeTests",
+    "runstate": "Runnable",
+    "seed": "703884885",
+    "result": "Passed",
+    "start-time": "2026-11-10 10:34:56Z",
+    "end-time": "2026-11-10 10:35:13Z",
+    "duration": "16.639366",
+    "asserts": "0"
+  },
+  "animationEvidence": {
+    "count": 50,
+    "passed": 50,
+    "firstMotion": {
+      "check": "first-normal-roll-motion",
+      "passed": true,
+      "importedClipCount": 2,
+      "dice": [
+        {
+          "dieId": "D001",
+          "start": {
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "rotationQuaternion": [
+              0.309017,
+              0,
+              0.9510565,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ]
+          },
+          "sampleA": {
+            "position": [
+              0.04938461,
+              0.4394028,
+              -0.02259067
+            ],
+            "rotationQuaternion": [
+              0.007957992,
+              -0.6560153,
+              -0.6953011,
+              0.293491
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ]
+          },
+          "sampleB": {
+            "position": [
+              -0.01421695,
+              0.4937318,
+              0.009666055
+            ],
+            "rotationQuaternion": [
+              -0.8836175,
+              -0.08085018,
+              0.3760541,
+              0.2669582
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ]
+          },
+          "positionDelta": 0.08965091,
+          "rotationDeltaDegrees": 164.2383
+        },
+        {
+          "dieId": "D002",
+          "start": {
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "rotationQuaternion": [
+              0.6724985,
+              1.982871e-09,
+              -0.218508,
+              0.7071068
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ]
+          },
+          "sampleA": {
+            "position": [
+              0.04938461,
+              0.4394028,
+              -0.02259067
+            ],
+            "rotationQuaternion": [
+              -0.5547956,
+              -0.5655954,
+              0.5320298,
+              -0.2987442
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ]
+          },
+          "sampleB": {
+            "position": [
+              -0.01421695,
+              0.4937318,
+              0.009666055
+            ],
+            "rotationQuaternion": [
+              -0.4097705,
+              -0.01787147,
+              -0.6923909,
+              -0.5936022
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ]
+          },
+          "positionDelta": 0.08965091,
+          "rotationDeltaDegrees": 174.68
+        },
+        {
+          "dieId": "D003",
+          "start": {
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "rotationQuaternion": [
+              -0.218508,
+              1.982871e-09,
+              -0.6724986,
+              0.7071068
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ]
+          },
+          "sampleA": {
+            "position": [
+              0.04938461,
+              0.4394028,
+              -0.02259067
+            ],
+            "rotationQuaternion": [
+              0.5307164,
+              0.2760757,
+              -0.4225136,
+              -0.6808851
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ]
+          },
+          "sampleB": {
+            "position": [
+              -0.01421695,
+              0.4937318,
+              0.009666055
+            ],
+            "rotationQuaternion": [
+              -0.4526471,
+              -0.8656049,
+              -0.0498244,
+              0.2082217
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ]
+          },
+          "positionDelta": 0.08965091,
+          "rotationDeltaDegrees": 106.2712
+        },
+        {
+          "dieId": "D004",
+          "start": {
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "rotationQuaternion": [
+              0.218508,
+              1.982871e-09,
+              0.6724986,
+              0.7071068
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ]
+          },
+          "sampleA": {
+            "position": [
+              0.04938461,
+              0.4394028,
+              -0.02259067
+            ],
+            "rotationQuaternion": [
+              -0.7809602,
+              -0.3328769,
+              -0.09611788,
+              -0.5196686
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ]
+          },
+          "sampleB": {
+            "position": [
+              -0.01421695,
+              0.4937318,
+              0.009666055
+            ],
+            "rotationQuaternion": [
+              -0.1681666,
+              0.2226351,
+              -0.9023606,
+              -0.3284798
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ]
+          },
+          "positionDelta": 0.08965091,
+          "rotationDeltaDegrees": 143.32
+        },
+        {
+          "dieId": "D005",
+          "start": {
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "rotationQuaternion": [
+              -0.218508,
+              1.982871e-09,
+              -0.6724986,
+              0.7071068
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ]
+          },
+          "sampleA": {
+            "position": [
+              0.04938461,
+              0.4394028,
+              -0.02259067
+            ],
+            "rotationQuaternion": [
+              0.5307164,
+              0.2760757,
+              -0.4225136,
+              -0.6808851
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ]
+          },
+          "sampleB": {
+            "position": [
+              -0.01421695,
+              0.4937318,
+              0.009666055
+            ],
+            "rotationQuaternion": [
+              -0.4526471,
+              -0.8656049,
+              -0.0498244,
+              0.2082217
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ]
+          },
+          "positionDelta": 0.08965091,
+          "rotationDeltaDegrees": 106.2712
+        }
+      ],
+      "sampleASeconds": 0.3346723,
+      "sampleBSeconds": 0.4517881
+    },
+    "landingCheckCount": 49,
+    "presentations": {
+      "completed": 32,
+      "reduced-zero": 1,
+      "skipped": 16
+    },
+    "scope": "Read actual transform/motion/landing checks. No new video was watched or continuous animation aesthetic acceptance signed."
+  },
+  "performance": {
+    "status": "budget_exceeded",
+    "sampleSeconds": 180.0108082,
+    "frameCount": 10138,
+    "frameP95Ms": 16.8469999999843,
+    "targetFrameMs": 16.7,
+    "gpuCoverage": 0.972183862694812,
+    "frameBudgetMet": false,
+    "independentCsvRecomputedByThisReviewer": false
+  },
+  "sourceReuseAudit": {
+    "path": "cache/v071-rc2/art-review/byte-reuse-audit.json",
+    "sha256": "a3ff98e30f42f4c612456fc035929c4eb24cd3cf62d829eb7851a53a74b35a47",
+    "bytes": 269516
+  },
+  "historicalReview": {
+    "path": "evidence/v071-full/review/full-art-review-41aface.json",
+    "sha256": "d0f130b453087e2c99dc0372c0a3a49594331093f758ecb83e10bf3f436a4d72",
+    "bytes": 3577
+  },
+  "unresolvedBlockingArtDefects": [],
+  "humanArtAccepted": false,
+  "limitations": [
+    "Two normal-detail snapshots cannot prove preview visibility; historical same-code same appearance supports a capture-entry timing limitation, exact elapsed time was not recorded.",
+    "Two 1080 transition frames are layout-only; no stationary die/stamp claim from those files.",
+    "Current Player images have no explicit font-scale field; no claim of new Player 150-percent or complete aspect-ratio visual matrix.",
+    "Current Editor 150-percent detail is distinct from Windows Player. Stable dice-sheet Player capture is a different view.",
+    "Prior cross-author reviews cover unchanged artwork; this illustrator does not sign own illustrations anew.",
+    "Performance remains failed; native automated checks do not replace physical display events; Mac runtime/AudioMixer/human acceptance remain separate."
+  ]
+}

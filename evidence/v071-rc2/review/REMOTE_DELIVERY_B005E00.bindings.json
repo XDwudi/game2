@@ -1,0 +1,404 @@
+{
+  "schema": "v071-rc2-remote-delivery-independent-review-1",
+  "utc": "2026-11-10T11:23:55.415163+00:00",
+  "reviewer": "/root/project_audit",
+  "sourceCommit": "b005e0088b227b26e2f8fc44f1c59f68df0c0a35",
+  "releaseTag": "p0.7.1-rc.2",
+  "releaseId": 440245825,
+  "manifest": {
+    "path": "Releases/p0.7.1/menu-table-rc2/full-art-release-manifest.json",
+    "sha256": "a3c1dfaf91317c9916356dab19a346b7d1f3a373a2174c35616f507758abc42f",
+    "bytes": 68676
+  },
+  "serverRecord": {
+    "path": "evidence/v071-full/delivery/github-release/p0.7.1-rc.2/review-candidate/release-download-20261110-110731-858356.json",
+    "sha256": "26e3579eb1c8e46a68538f48dd3f6485ac7e0c0f1bc3e503a8b9ef3d687abba5",
+    "bytes": 10256
+  },
+  "downloads": [
+    {
+      "name": "DicePrototype-p0.7.1-win-x64.zip",
+      "assetId": 731100890,
+      "download": {
+        "path": "artifacts/cache/v071-full-release-review-download/p0.7.1-rc.2/DicePrototype-p0.7.1-win-x64.zip",
+        "sha256": "44ef23a3d91be201706b59c5f006886ec7198781f3cf4084c3d13adb93fe656a",
+        "bytes": 200441327
+      },
+      "receipt": {
+        "path": "evidence/v071-full/delivery/github-release/p0.7.1-rc.2/review-candidate/DicePrototype-p0.7.1-win-x64.zip.download.json",
+        "sha256": "3df3ac7c5970c811a73830a683a18f45baf49aea81a061521bfca591213683b6",
+        "bytes": 924
+      },
+      "members": 311,
+      "everyMemberShaSizeModeAndCrcMatched": true
+    },
+    {
+      "name": "DicePrototype-p0.7.1-macos-universal.zip",
+      "assetId": 731104688,
+      "download": {
+        "path": "artifacts/cache/v071-full-release-review-download/p0.7.1-rc.2/DicePrototype-p0.7.1-macos-universal.zip",
+        "sha256": "90b76360530c53c2fb46ed3e542b691225884c9259d2c5891030b9e81003b913",
+        "bytes": 240794669
+      },
+      "receipt": {
+        "path": "evidence/v071-full/delivery/github-release/p0.7.1-rc.2/review-candidate/DicePrototype-p0.7.1-macos-universal.zip.download.json",
+        "sha256": "2da09165d7a130bccaa6fa593eb902587074ce2f56197f139b339dcb23f6157a",
+        "bytes": 948
+      },
+      "members": 306,
+      "everyMemberShaSizeModeAndCrcMatched": true
+    },
+    {
+      "name": "DicePrototype-p0.7.1-MacVerificationKit.zip",
+      "assetId": 731111250,
+      "download": {
+        "path": "artifacts/cache/v071-full-release-review-download/p0.7.1-rc.2/DicePrototype-p0.7.1-MacVerificationKit.zip",
+        "sha256": "f6687b2e6ff41ae7c3433954239eb676859c2db8b160ddcd16bef407b8c31dd5",
+        "bytes": 241475500
+      },
+      "receipt": {
+        "path": "evidence/v071-full/delivery/github-release/p0.7.1-rc.2/review-candidate/DicePrototype-p0.7.1-MacVerificationKit.zip.download.json",
+        "sha256": "f85e2ea5d504e148351c0aec92cfc26c304d32cd6ad313d480b32bc8630dfa92",
+        "bytes": 956
+      },
+      "members": 17,
+      "everyMemberShaSizeModeAndCrcMatched": true
+    }
+  ],
+  "runs": [
+    {
+      "id": "01",
+      "extraction": {
+        "path": "artifacts/cache/v071-rc2-remote-b005e00-01/remote-extraction-result.json",
+        "sha256": "fff0291eaf07d347e6eead273dcb0f6fa6131b19f76fd23c0c60608d0eb06321",
+        "bytes": 4423
+      },
+      "extractedInventory": {
+        "path": "artifacts/cache/v071-rc2-remote-b005e00-01/extracted-member-verification.json",
+        "sha256": "2e4a2bfe401281e542f01f6040da5f0fb18dd79c5428b65b1e26d77b3e221697",
+        "bytes": 60083
+      },
+      "extractedFiles": 311,
+      "allExtractedMembersMatchDownloadedZip": true,
+      "runner": {
+        "path": "artifacts/cache/v071-rc2-remote-b005e00-01/run/runner-summary.json",
+        "sha256": "b60cd3d356afa6bf3751d2644ece85f1e2cada09c6f61917aaab893d300e9ac2",
+        "bytes": 6982
+      },
+      "process": {
+        "startedUtc": "2026-11-10T11:06:38.238938+00:00",
+        "exitCode": 3,
+        "timedOut": false,
+        "ownedProcessTerminated": false,
+        "pid": 15580,
+        "ownedProcessStillRunning": false,
+        "endedUtc": "2026-11-10T11:07:49.815444+00:00"
+      },
+      "actualReport": {
+        "path": "artifacts/cache/v071-rc2-remote-b005e00-01/run/diagnostic/resource-report.json",
+        "sha256": "8268eed3ec8857d13555e18497f9550b42e3a1a61ffb0f408200b125e9cbe436",
+        "bytes": 1532173
+      },
+      "resourceRows": 4006,
+      "resourceColumns": [
+        "unityFrame",
+        "realtime_s",
+        "phase",
+        "textureBytes",
+        "draws",
+        "triangles"
+      ],
+      "resourcePhaseCounts": {
+        "0": 261,
+        "1": 185,
+        "2": 182,
+        "3": 1,
+        "4": 1,
+        "5": 188,
+        "6": 181,
+        "7": 182,
+        "8": 1,
+        "9": 189,
+        "10": 274,
+        "11": 223,
+        "12": 196,
+        "13": 181,
+        "14": 196,
+        "15": 181,
+        "16": 1384
+      },
+      "diagnostic": {
+        "reason": "Exactly one observed input-active row prevents the unchanged all-inactive criterion",
+        "idleFlagFalseCounts": {
+          "gcAvailable": 0,
+          "focused": 0,
+          "motionIdle": 0,
+          "pointerUnchanged": 0,
+          "inputInactive": 1
+        },
+        "inputActiveRows": [
+          {
+            "unityFrame": "3368",
+            "elapsed_s": "9.3493938000000014",
+            "gcBytes": "0",
+            "gcAvailable": "True",
+            "counterBatch": "1",
+            "focused": "True",
+            "motionIdle": "True",
+            "pointerUnchanged": "True",
+            "inputInactive": "False",
+            "actionSequence": "5"
+          }
+        ],
+        "idle": {
+          "requestedSeconds": 20.0,
+          "actualSeconds": 20.00055569999998,
+          "rows": 1200,
+          "validGcRows": 1200,
+          "missingGcRows": 0,
+          "zeroGcRows": 1199,
+          "nonzeroGcRows": 1,
+          "unfocusedRows": 0,
+          "movingRows": 0,
+          "pointerChangedRows": 0,
+          "inputRows": 1,
+          "sequenceChangedRows": 0,
+          "maximumGcBytes": 132,
+          "observationComplete": false,
+          "scope": "Prewarmed stable ten-die debug table, no probe transactions during window. Reads previous completed Profiler counter batches; 0 samples is missing, not 0 B. Observer arrays preallocated; no enumeration, JSON, screenshot or file I/O during window."
+        }
+      },
+      "guards": {
+        "before": {
+          "path": "artifacts/cache/v071-rc2-remote-b005e00-01/run/external-guards-before.json",
+          "sha256": "87cd842542630456f93fa1798510f3bc35f7d9da9153342f7167d5cc0bce02c3",
+          "bytes": 79373
+        },
+        "after": {
+          "path": "artifacts/cache/v071-rc2-remote-b005e00-01/run/external-guards-after.json",
+          "sha256": "e9e448fd9c33edc049f9fcaf0c102520ad8c583f36c2d0b309a5f853d2f842a9",
+          "bytes": 79373
+        },
+        "ordinaryFiles": 17,
+        "gamePreferenceKeys": 48,
+        "buildSame": true,
+        "ordinarySame": true,
+        "gamePreferencesSame": true,
+        "engineScreenmanagerSame": false
+      },
+      "runFiles": [
+        {
+          "path": "artifacts/cache/v071-rc2-remote-b005e00-01/run/diagnostic/idle-frames.csv",
+          "sha256": "6393d62ff8dd1e989725ab5d4febaa2b64d2236b2579d1b860e3ce5f9dd066bc",
+          "bytes": 66347
+        },
+        {
+          "path": "artifacts/cache/v071-rc2-remote-b005e00-01/run/diagnostic/isolated-saves/debug-actions.jsonl",
+          "sha256": "4b591aee3ea0fce8c79545a34e00c051dd705e8cf53eb4c0a829b3c6f5d8db92",
+          "bytes": 66525
+        },
+        {
+          "path": "artifacts/cache/v071-rc2-remote-b005e00-01/run/diagnostic/isolated-saves/debug-run.json",
+          "sha256": "2c3a5d997fa1ad3cdc1e108d1e769ffab8a812a798fba323be9e232d80e3626f",
+          "bytes": 68397
+        },
+        {
+          "path": "artifacts/cache/v071-rc2-remote-b005e00-01/run/diagnostic/isolated-saves/debug-run.json.backup",
+          "sha256": "a25d3c1460b993989b8885b22d4a56c35d77bd3bdaccc3726a9a37204646e68e",
+          "bytes": 67483
+        },
+        {
+          "path": "artifacts/cache/v071-rc2-remote-b005e00-01/run/diagnostic/resource-frames.csv",
+          "sha256": "90d17dd5fc37169c0b67b0a61592541380d16231dd2ae0e83efb022b7af7a4f6",
+          "bytes": 185895
+        },
+        {
+          "path": "artifacts/cache/v071-rc2-remote-b005e00-01/run/diagnostic/resource-report.json",
+          "sha256": "8268eed3ec8857d13555e18497f9550b42e3a1a61ffb0f408200b125e9cbe436",
+          "bytes": 1532173
+        },
+        {
+          "path": "artifacts/cache/v071-rc2-remote-b005e00-01/run/external-guards-after.json",
+          "sha256": "e9e448fd9c33edc049f9fcaf0c102520ad8c583f36c2d0b309a5f853d2f842a9",
+          "bytes": 79373
+        },
+        {
+          "path": "artifacts/cache/v071-rc2-remote-b005e00-01/run/external-guards-before.json",
+          "sha256": "87cd842542630456f93fa1798510f3bc35f7d9da9153342f7167d5cc0bce02c3",
+          "bytes": 79373
+        },
+        {
+          "path": "artifacts/cache/v071-rc2-remote-b005e00-01/run/Player.log",
+          "sha256": "c7faa28e40ebd3038fe1b1b698739a1d2ac8613471928dafde09b332331ccae7",
+          "bytes": 15787
+        },
+        {
+          "path": "artifacts/cache/v071-rc2-remote-b005e00-01/run/process-output.log",
+          "sha256": "cd53b7ab6664f420cfdcd93aaaaead30bd934e00007bd1572a04350b9ec1cb4d",
+          "bytes": 1885
+        },
+        {
+          "path": "artifacts/cache/v071-rc2-remote-b005e00-01/run/process.json",
+          "sha256": "169c23c8de783fdbc0cf8b200a76ece9602b57838fef591f5448b7c4c293fc57",
+          "bytes": 231
+        },
+        {
+          "path": "artifacts/cache/v071-rc2-remote-b005e00-01/run/runner-summary.json",
+          "sha256": "b60cd3d356afa6bf3751d2644ece85f1e2cada09c6f61917aaab893d300e9ac2",
+          "bytes": 6982
+        }
+      ]
+    },
+    {
+      "id": "02",
+      "extraction": {
+        "path": "artifacts/cache/v071-rc2-remote-b005e00-02/remote-extraction-result.json",
+        "sha256": "e7209b00f5ae5495ad62cbcd58ca8b537cd573846b9b9dcfcd4053cc523a6dd8",
+        "bytes": 4423
+      },
+      "extractedInventory": {
+        "path": "artifacts/cache/v071-rc2-remote-b005e00-02/extracted-member-verification.json",
+        "sha256": "2e4a2bfe401281e542f01f6040da5f0fb18dd79c5428b65b1e26d77b3e221697",
+        "bytes": 60083
+      },
+      "extractedFiles": 311,
+      "allExtractedMembersMatchDownloadedZip": true,
+      "runner": {
+        "path": "artifacts/cache/v071-rc2-remote-b005e00-02/run/runner-summary.json",
+        "sha256": "7eff44927e958b7a84668036c48d84a118c5449e9c9128d98397c957f00c99bd",
+        "bytes": 5277
+      },
+      "process": {
+        "startedUtc": "2026-11-10T11:09:35.479324+00:00",
+        "exitCode": 1,
+        "timedOut": false,
+        "ownedProcessTerminated": false,
+        "pid": 50384,
+        "ownedProcessStillRunning": false,
+        "endedUtc": "2026-11-10T11:12:39.529063+00:00"
+      },
+      "actualReport": {
+        "path": "artifacts/cache/v071-rc2-remote-b005e00-02/run/diagnostic/resource-report.json",
+        "sha256": "61f34b3f906e762b18db02d21b257907dcd4062e83579d7b506ebf474498a3a3",
+        "bytes": 490600
+      },
+      "resourceRows": 10129,
+      "resourceColumns": [
+        "unityFrame",
+        "realtime_s",
+        "phase",
+        "textureBytes",
+        "draws",
+        "triangles"
+      ],
+      "resourcePhaseCounts": {
+        "0": 181,
+        "1": 186,
+        "2": 182,
+        "3": 1,
+        "4": 1,
+        "5": 9578
+      },
+      "diagnostic": {
+        "reason": "Original total deadline thrown from Stable after SettingsTab0; exact blocking focus/input/motion branch unrecorded",
+        "error": "System.TimeoutException: Resource diagnostic exceeded its bounded 180-second execution deadline.\r\n  at DiceCraft.Verification.Art07ResourceDiagnostic.CheckDeadline () [0x00021] in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Runtime\\Verification\\Art07ResourceDiagnostic.cs:355 \r\n  at DiceCraft.Verification.Art07ResourceDiagnostic+<Stable>d__60.MoveNext () [0x00031] in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Runtime\\Verification\\Art07ResourceDiagnostic.cs:334 \r\n  at DiceCraft.Verification.Art07ResourceDiagnostic+<Guarded>d__53.MoveNext () [0x0005b] in E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Runtime\\Verification\\Art07ResourceDiagnostic.cs:231 ",
+        "focusEvidence": "No focus column in resource CSV; zero idle rows. Cannot attribute this run to focus loss.",
+        "idleRows": 0
+      },
+      "guards": {
+        "before": {
+          "path": "artifacts/cache/v071-rc2-remote-b005e00-02/run/external-guards-before.json",
+          "sha256": "e9e448fd9c33edc049f9fcaf0c102520ad8c583f36c2d0b309a5f853d2f842a9",
+          "bytes": 79373
+        },
+        "after": {
+          "path": "artifacts/cache/v071-rc2-remote-b005e00-02/run/external-guards-after.json",
+          "sha256": "e9e448fd9c33edc049f9fcaf0c102520ad8c583f36c2d0b309a5f853d2f842a9",
+          "bytes": 79373
+        },
+        "ordinaryFiles": 17,
+        "gamePreferenceKeys": 48,
+        "buildSame": true,
+        "ordinarySame": true,
+        "gamePreferencesSame": true,
+        "engineScreenmanagerSame": true
+      },
+      "runFiles": [
+        {
+          "path": "artifacts/cache/v071-rc2-remote-b005e00-02/run/diagnostic/idle-frames.csv",
+          "sha256": "de126dd5f492d71de97e73899005c7bc1dcd236fff04b8119df451d65daf7579",
+          "bytes": 120
+        },
+        {
+          "path": "artifacts/cache/v071-rc2-remote-b005e00-02/run/diagnostic/resource-frames.csv",
+          "sha256": "10cfd49b74e11673af49e5aa8ebfac960fbc6fe50a6cc9af5bcdf2753471ef13",
+          "bytes": 450085
+        },
+        {
+          "path": "artifacts/cache/v071-rc2-remote-b005e00-02/run/diagnostic/resource-report.json",
+          "sha256": "61f34b3f906e762b18db02d21b257907dcd4062e83579d7b506ebf474498a3a3",
+          "bytes": 490600
+        },
+        {
+          "path": "artifacts/cache/v071-rc2-remote-b005e00-02/run/external-guards-after.json",
+          "sha256": "e9e448fd9c33edc049f9fcaf0c102520ad8c583f36c2d0b309a5f853d2f842a9",
+          "bytes": 79373
+        },
+        {
+          "path": "artifacts/cache/v071-rc2-remote-b005e00-02/run/external-guards-before.json",
+          "sha256": "e9e448fd9c33edc049f9fcaf0c102520ad8c583f36c2d0b309a5f853d2f842a9",
+          "bytes": 79373
+        },
+        {
+          "path": "artifacts/cache/v071-rc2-remote-b005e00-02/run/Player.log",
+          "sha256": "1ea801efc250ecddff2892cdafa01d54674cf1cbd9f92796d5b2ec38d660ac81",
+          "bytes": 15785
+        },
+        {
+          "path": "artifacts/cache/v071-rc2-remote-b005e00-02/run/process-output.log",
+          "sha256": "cd53b7ab6664f420cfdcd93aaaaead30bd934e00007bd1572a04350b9ec1cb4d",
+          "bytes": 1885
+        },
+        {
+          "path": "artifacts/cache/v071-rc2-remote-b005e00-02/run/process.json",
+          "sha256": "8bba9c80c0fd524272ab2e0faef7f92f71c2c83e08176868877cdb23167d33cf",
+          "bytes": 231
+        },
+        {
+          "path": "artifacts/cache/v071-rc2-remote-b005e00-02/run/runner-summary.json",
+          "sha256": "7eff44927e958b7a84668036c48d84a118c5449e9c9128d98397c957f00c99bd",
+          "bytes": 5277
+        }
+      ]
+    }
+  ],
+  "rootScope": {
+    "path": "evidence/v071-rc2/delivery/downloaded-launch-evidence.json",
+    "sha256": "91e7ab98b7a4ab9dd18a3bf208e45680eb739d3a3b16d24f0c3ec1e622baf7e6",
+    "bytes": 2211
+  },
+  "startupObserved": true,
+  "supplementaryDiagnosticPassed": false,
+  "wholeReleaseAccepted": false,
+  "rc205Scope": "Complete remote download/member integrity and actual fresh Windows startup satisfied; public publication/link checks still pending",
+  "causeLimits": [
+    "No exact focus/input/motion branch captured for second Stable timeout",
+    "No successful screenshot or actual UI input from the reported computer-use attempt is claimed",
+    "Reviewer short ZIP SHA read overlapped second run; original scope error and correction retained"
+  ],
+  "scopeCorrection": {
+    "path": "cache/v071-rc2/audit/REMOTE_RECEIPTS_LIGHT_SCOPE_CORRECTION.json",
+    "sha256": "1ea870184714d639492604ca11c27d6f0a9db11b805dcadf34a2b89beb30d7f7",
+    "bytes": 980
+  },
+  "stableSource": {
+    "path": "DicePrototype/Assets/Game/Runtime/Verification/Art07ResourceDiagnostic.cs",
+    "sha256": "17d80bf9c7c0e82bd81c76e6dfafc334fc0e7fec9e43239bc86da14bb448bcfe",
+    "bytes": 42960
+  },
+  "task": {
+    "path": "docs/tasks/P0-V071-RC2-PACKAGE.md",
+    "sha256": "7952799b51fb0fca2e73b9f9bcf200a84f570614d49f6751b6b5ba5064c06595",
+    "bytes": 4342
+  }
+}

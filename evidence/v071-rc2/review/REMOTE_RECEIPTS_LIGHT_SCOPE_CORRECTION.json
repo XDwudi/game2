@@ -1,0 +1,12 @@
+{
+  "utc": "2026-11-10T11:11:42.543081+00:00",
+  "corrects": {
+    "path": "cache/v071-rc2/audit/REMOTE_RECEIPTS_LIGHT_B005E00.bindings.json",
+    "sha256": "190c2af7c58a54f913ab434a129aed7f842253f1b15a08248221ed7f857db06f"
+  },
+  "originalReviewUtc": "2026-11-10T11:10:42.561085+00:00",
+  "scopeCorrection": "The call to publish_v071_release.verify_download_proof also read and SHA256-hashed all three downloaded ZIP files (about 682.7MB decimal total). The original scope and note claiming no archive reads are incorrect. No CRC traversal or extraction was performed. Actual SHA/size equality passed.",
+  "impact": "This brief local IO may overlap the second short downloaded-Player diagnostic. Root was informed immediately; it is not evidence for an uncontended performance run. The original mistaken scope record is retained, not silently replaced.",
+  "toolWallSeconds": 0.9525974,
+  "futureWork": "No further archive IO until root confirms diagnostic ended."
+}

@@ -237,6 +237,19 @@ def candidate_directory(review_candidate=False):
     return REVIEW_RELEASE if review_candidate else RELEASE
 
 
+def validate_release_tag(value):
+    if not isinstance(value, str) or not re.fullmatch(r"p0\.7\.1-rc\.[1-9][0-9]*", value):
+        raise ValueError("Release tag must be an exact p0.7.1-rc.N tag")
+    return value
+
+
+def validate_proof_tag(proof, release_tag=TAG):
+    validate_release_tag(release_tag)
+    # Historical rc.1 proofs predate this field; a newer release must bind it explicitly.
+    if proof.get("releaseTag", TAG) != release_tag:
+        raise ValueError("Package proof belongs to a different release tag")
+
+
 def release_manifest_path(review_candidate=False):
     return ROOT / candidate_directory(review_candidate) / ("review-candidate-manifest.json" if review_candidate else "release-manifest.json")
 
@@ -249,10 +262,19 @@ def kit_proof_name(review_candidate=False):
     return "mac-verification-kit-review-candidate.json" if review_candidate else "mac-verification-kit.json"
 
 
-def package_directories(review_candidate=False, package_directory=None, package_proof_directory=None):
+def package_directories(review_candidate=False, package_directory=None, package_proof_directory=None, release_tag=TAG):
     """Explicit alternative destinations; default legacy paths and validation stay unchanged."""
+    validate_release_tag(release_tag)
+    if release_tag != TAG and (package_directory is None or package_proof_directory is None):
+        raise ValueError("A new release tag requires explicit separate package and proof directories")
     output = local_path(package_directory if package_directory is not None else candidate_directory(review_candidate))
     proofs = local_path(package_proof_directory if package_proof_directory is not None else "evidence/v071/packages")
+    if release_tag != TAG:
+        old_packages = [local_path(REVIEW_RELEASE), local_path(RELEASE + "/full-art-candidate")]
+        old_proofs = [local_path("evidence/v071/packages"), local_path("evidence/v071-full/packages")]
+        if (output == local_path(RELEASE) or any(output == p or output.is_relative_to(p) for p in old_packages)
+                or any(proofs == p or proofs.is_relative_to(p) for p in old_proofs)):
+            raise ValueError("A new release tag must not reuse an rc.1 package/proof directory")
     for path in (output, proofs):
         if path.exists() and not path.is_dir():
             raise ValueError("Package/proof destination is not a directory")
@@ -291,14 +313,15 @@ def check_package(proof):
 
 
 def verification_kit(windows_results, review_candidate=False, allow_failed_windows_performance=False,
-                     package_directory=None, package_proof_directory=None):
-    output_directory, proof_directory = package_directories(review_candidate,package_directory,package_proof_directory)
+                     package_directory=None, package_proof_directory=None, release_tag=TAG):
+    output_directory, proof_directory = package_directories(review_candidate,package_directory,package_proof_directory,release_tag)
     output = output_directory / "DicePrototype-p0.7.1-MacVerificationKit.zip"
     proof_path = proof_directory / kit_proof_name(review_candidate)
     require_new_outputs(output,proof_path)
     identity, _, _ = validated_gate()
     report = validate_windows_report(windows_results, identity, review_candidate, allow_failed_windows_performance)
     mac_proof = read_json(proof_directory / package_proof_name("macos", review_candidate))
+    validate_proof_tag(mac_proof, release_tag)
     if (mac_proof.get("identity") != identity or bool(mac_proof.get("reviewCandidate")) != review_candidate
             or bool(mac_proof.get("allowFailedWindowsPerformance")) != allow_failed_windows_performance
             or allow_failed_windows_performance and mac_proof.get("windowsReportSha256") != sha(windows_results / "player-report.json")):
@@ -341,14 +364,16 @@ def verification_kit(windows_results, review_candidate=False, allow_failed_windo
              "inputs": actual_inputs, "macRuntimeStatus": "NOT_RUN_ON_MAC"}
     if allow_failed_windows_performance:
         proof.update(allowFailedWindowsPerformance=True, windowsReportSha256=sha(windows_results / "player-report.json"))
+    if release_tag != TAG:
+        proof["releaseTag"] = release_tag
     check_package(proof)
     record(proof_path, proof)
     return proof
 
 
 def package(platform, build_report, review_candidate=False, allow_failed_windows_performance=False, windows_results=None,
-            package_directory=None, package_proof_directory=None):
-    output_directory, proof_directory = package_directories(review_candidate,package_directory,package_proof_directory)
+            package_directory=None, package_proof_directory=None, release_tag=TAG):
+    output_directory, proof_directory = package_directories(review_candidate,package_directory,package_proof_directory,release_tag)
     output = output_directory / ("DicePrototype-p0.7.1-macos-universal.zip" if platform=="macos" else "DicePrototype-p0.7.1-win-x64.zip")
     proof_path = proof_directory / package_proof_name(platform, review_candidate)
     require_new_outputs(output,proof_path)
@@ -406,6 +431,8 @@ def package(platform, build_report, review_candidate=False, allow_failed_windows
              "macOSPackaging": "Windows-created transfer candidate; macOS ditto/fresh-extraction/native-M5-run pending" if mac else None}
     if allow_failed_windows_performance:
         proof.update(allowFailedWindowsPerformance=True, windowsReportSha256=sha(windows_results / "player-report.json"))
+    if release_tag != TAG:
+        proof["releaseTag"] = release_tag
     check_package(proof)
     record(proof_path, proof)
     return proof
@@ -414,6 +441,7 @@ def package(platform, build_report, review_candidate=False, allow_failed_windows
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("platform", choices=("windows", "macos", "kit"))
+    parser.add_argument("--release-tag", default=TAG, type=validate_release_tag)
     parser.add_argument("--windows-results", type=Path)
     parser.add_argument("--build-report", type=Path)
     parser.add_argument("--package-directory", type=Path, help="Optional workspace-local ZIP directory; default legacy destination unchanged")
@@ -425,12 +453,12 @@ def main():
         if args.windows_results is None:
             parser.error("kit requires --windows-results")
         proof = verification_kit(args.windows_results.resolve(), args.review_candidate, args.allow_failed_windows_performance,
-                                 args.package_directory,args.package_proof_directory)
+                                 args.package_directory,args.package_proof_directory,args.release_tag)
     else:
         if args.build_report is None:
             parser.error("player package requires --build-report")
         proof = package(args.platform, args.build_report.resolve(), args.review_candidate, args.allow_failed_windows_performance,
-                        args.windows_results.resolve() if args.windows_results else None,args.package_directory,args.package_proof_directory)
+                        args.windows_results.resolve() if args.windows_results else None,args.package_directory,args.package_proof_directory,args.release_tag)
     print(json.dumps({key: proof[key] for key in ("packagePath", "sha256", "byteSize", "crc")}, ensure_ascii=False))
 
 

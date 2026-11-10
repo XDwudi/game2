@@ -1,0 +1,1711 @@
+{
+  "diagnosticSummary": {
+    "status": "budget_exceeded",
+    "verificationScope": "full_or_recovery",
+    "use": "Gameplay/UI/trace reference ONLY; Windows performance FAILED; selected strict report's automated native checks passed, physical events untested",
+    "allowFailedWindowsPerformance": true,
+    "windowsPerformance": {
+      "acceptanceStatus": "FAILED",
+      "status": "budget_exceeded",
+      "observedStatus": "budget_exceeded",
+      "sampleSeconds": 180.0108082,
+      "p95FrameIntervalMs": 16.8469999999843,
+      "thresholdMs": 16.7,
+      "frames": 10138,
+      "rawObservationRows": 10139,
+      "focusedSampleFrames": 10139,
+      "gpuInvalidSamples": 0,
+      "gpuMissingSamples": 282,
+      "requiredMetricCoverage": 0.95,
+      "metricCoverage": {
+        "mainThread": 1,
+        "gpu": 0.972183862694812,
+        "gcAllocated": 1,
+        "uiRebuild": 1
+      },
+      "measurementCoverageStatus": "COMPLETE_AS_REPORTED",
+      "note": "Completed FAILED budget observation. Raw counters include the initial partial row; focus is context, not visibility proof. GPU and other metric coverage gaps remain explicit and uncorrected."
+    },
+    "windowsNativeDisplayStatus": "AUTOMATED_CHECKS_PASSED_PHYSICAL_EVENTS_UNTESTED",
+    "nativeEvidenceSource": "Executed checks in selected strict main report only; not_executed checks excluded; no native-only report merged",
+    "nativeChecksNotExecuted": [
+      "crash-pending-recovery",
+      "physical-focus-loss-and-display-removal"
+    ],
+    "macRuntimeStatus": "NOT_RUN_ON_MAC",
+    "fullWindowsPassed": false,
+    "fullReleaseAccepted": false,
+    "publication": "User-authorized diagnostic test candidate; no performance, physical native-event or whole-release acceptance"
+  },
+  "schema": "v071-full-art-diagnostic-review-candidate-1",
+  "releaseVersion": "p0.7.1",
+  "artVersion": "art0.7.1",
+  "sourceCommit": "b005e0088b227b26e2f8fc44f1c59f68df0c0a35",
+  "contentConfigVersion": "p0.6.0",
+  "contentConfigSha256": "747ed1efc7bea15873f66a81eee5c7654971c21031f2a1517ce629adce7b6e6c",
+  "saveSchemaVersion": 4,
+  "goldenCaseSetSha256": "306cb86f79dafe0e3eb302714abd232af20fe0062a6713f7d713c11e2a6a5718",
+  "unityEditorVersion": "6000.6.7f1",
+  "backend": "Mono",
+  "releaseTag": "p0.7.1-rc.2",
+  "reviewCandidate": true,
+  "fullReleaseAccepted": false,
+  "buildUtc": "2026-11-10T10:40:06.4927892Z",
+  "releaseStatus": "DIAGNOSTIC_TEST_CANDIDATE_WINDOWS_PERFORMANCE_FAILED",
+  "deliveryChannel": "GitHub Release: three complete ZIP attachments; no Git LFS dependency",
+  "platforms": [
+    {
+      "platform": "Windows",
+      "architecture": "x86_64",
+      "backend": "Mono",
+      "profile": "Assets/Settings/BuildProfiles/Windows_x64.asset",
+      "packagePath": "Releases/p0.7.1/menu-table-rc2/DicePrototype-p0.7.1-win-x64.zip",
+      "sha256": "44ef23a3d91be201706b59c5f006886ec7198781f3cf4084c3d13adb93fe656a",
+      "byteSize": 200441327,
+      "buildUtc": "2026-11-10T10:39:17.3089808Z",
+      "buildGuid": "75e7f6b0f1c34075a6527abbc6829e8b",
+      "buildWarnings": 3,
+      "buildReport": {
+        "path": "evidence/v071/unity/build-windows-20261110-103917.json",
+        "sha256": "56bfe4eaea6e75dc5532c3caec5109b2875612ba1586ed0f7667bca9ce85962c"
+      },
+      "packageEvidence": {
+        "path": "evidence/v071-rc2/packages/windows-package-review-candidate.json",
+        "sha256": "5180d806b092dc6fc6c319741562c6b9f246a87097aad851f04b3470ef132fef"
+      },
+      "signingStatus": "No signing claim: inspect actual platform signature evidence",
+      "smokeStatus": "GAMEPLAY_UI_NATIVE_AUTOMATED_PERFORMANCE_FAILED",
+      "packagingStatus": "CRC and safe archive paths verified; fresh remote extraction/runtime pending separate verification",
+      "intelRuntimeStatus": "not_applicable"
+    },
+    {
+      "platform": "macOS",
+      "architecture": "arm64+x86_64",
+      "backend": "Mono",
+      "profile": "Assets/Settings/BuildProfiles/macOS_Universal.asset",
+      "packagePath": "Releases/p0.7.1/menu-table-rc2/DicePrototype-p0.7.1-macos-universal.zip",
+      "sha256": "90b76360530c53c2fb46ed3e542b691225884c9259d2c5891030b9e81003b913",
+      "byteSize": 240794669,
+      "buildUtc": "2026-11-10T10:40:06.4927892Z",
+      "buildGuid": "b523ca601806410ca9fbb7ff3d943c8c",
+      "buildWarnings": 79,
+      "buildReport": {
+        "path": "evidence/v071/unity/build-macos-20261110-104006.json",
+        "sha256": "8dbcd039a093feb80c40ad4e1ade6a79e6eb06b2d87ea0f4c0e3ac046f5739a7"
+      },
+      "packageEvidence": {
+        "path": "evidence/v071-rc2/packages/macos-package-review-candidate.json",
+        "sha256": "4d5780b6487c285185b20c2cbe4c051ceb8a453bb708c32888792990e003b14b"
+      },
+      "signingStatus": "No signing claim: inspect actual platform signature evidence",
+      "smokeStatus": "NOT_RUN_ON_MAC",
+      "packagingStatus": "Windows-created transfer candidate; native ditto/fresh-extraction/Metal/M5 run pending",
+      "intelRuntimeStatus": "NOT_TESTED: x86_64 slice included; runtime unverified"
+    }
+  ],
+  "tests": {
+    "unityEditMode": {
+      "passed": 1018,
+      "failed": 0,
+      "reportPath": "evidence/v071/unity/nunit-20261110-101318.xml",
+      "reportSha256": "8f5ca0e6290690ca9781b1aad0b2ecebf0b31ba2c4c9a08d3793d792e8a76766"
+    },
+    "unityPlayMode": {
+      "passed": 185,
+      "failed": 0,
+      "reportPath": "evidence/v071/unity/nunit-20261110-103648.xml",
+      "reportSha256": "78e0bbd83ef5f54afad0fc7e500ba6cbc2ade858cc40ea69c002f1a0d2a19938"
+    }
+  },
+  "buildGate": {
+    "path": "evidence/v071/unity/build-gate.json",
+    "sha256": "09a039922bcff77ef0cf2aef1ddfc4dc90383b777cbfc3e474ac86bfe236b155"
+  },
+  "ruleReproduction": {
+    "normalSeed": 20261031,
+    "normalSteps": 145,
+    "normalOutcome": "RunFailed",
+    "normalFinalStage": 8,
+    "normalTraceSha256": "5efcc51eb14dd024d2cea3cc1f5e86ad5ec00123a794dce16cb1100471366564",
+    "debugTraceSha256": "3d6f7cf39dba3c56ca161d4d8baf6d4a7e9f00bcd98a386211b5a07ad61d06b8",
+    "debug24Passed": true,
+    "debugPurpose": "Transition integration, not progression/balance evidence",
+    "crossPlatformStatus": "NOT_RUN_ON_MAC"
+  },
+  "windowsPerformance": {
+    "acceptanceStatus": "FAILED",
+    "status": "budget_exceeded",
+    "observedStatus": "budget_exceeded",
+    "sampleSeconds": 180.0108082,
+    "p95FrameIntervalMs": 16.8469999999843,
+    "thresholdMs": 16.7,
+    "frames": 10138,
+    "rawObservationRows": 10139,
+    "focusedSampleFrames": 10139,
+    "gpuInvalidSamples": 0,
+    "gpuMissingSamples": 282,
+    "requiredMetricCoverage": 0.95,
+    "metricCoverage": {
+      "mainThread": 1,
+      "gpu": 0.972183862694812,
+      "gcAllocated": 1,
+      "uiRebuild": 1
+    },
+    "measurementCoverageStatus": "COMPLETE_AS_REPORTED",
+    "note": "Completed FAILED budget observation. Raw counters include the initial partial row; focus is context, not visibility proof. GPU and other metric coverage gaps remain explicit and uncorrected.",
+    "originalPerformanceReport": {
+      "status": "budget_exceeded",
+      "targetFrameMs": 16.7,
+      "targetFps": 60,
+      "targetResolution": "1920x1080",
+      "targetResolutionMet": true,
+      "isDebugFixture": true,
+      "dice": 10,
+      "submitSlots": 8,
+      "controllers": 10,
+      "inventory": 5,
+      "warmupSeconds": 10,
+      "sampleSeconds": 180.0108082,
+      "frameCount": 10138,
+      "frameBudgetMet": false,
+      "focusedSampleFrames": 10139,
+      "frameBufferInitialCapacity": 60000,
+      "warmupObservedFps": 58.679139347783,
+      "frameBufferMinimumCapacity": 60000,
+      "frameBufferCapacitySafetyFactor": 2,
+      "frameSampleRecordBytes": 184,
+      "frameBufferEstimatedObserverPayloadBytes": 11040000,
+      "frameBufferFinalCapacity": 60000,
+      "frameBufferGrowthEvents": 0,
+      "requiredMetricCoverage": 0.95,
+      "coverageCriterionSource": "Conservative probe evidence-completeness criterion; it does not replace or relax the P0 frame budget.",
+      "operationsIncludingWarmup": {
+        "roll": 190,
+        "reorder": 190,
+        "pendingSelectionAndClear": 190
+      },
+      "operationSchedule": "Each second: Roll at 0.00, SkipVisual at 0.25, rotate locked order at 0.50, TogglePending+Refresh at 0.70, ClearPending+Refresh at 0.85. Real autosave and UI preview remain active.",
+      "frameTimingEnabled": true,
+      "frameInterval": {
+        "available": true,
+        "unit": "ms",
+        "method": "monotonic LateUpdate-to-LateUpdate interval",
+        "unavailableReason": null,
+        "samples": 10138,
+        "expectedFrames": 10138,
+        "validFrameCoverage": 1,
+        "mean": 17.7545610475438,
+        "p50": 16.6665000000137,
+        "p95": 16.8469999999843,
+        "max": 71.4674999999829
+      },
+      "gpuTimerFrequency": 1000000000,
+      "cpuTimerFrequency": 10000000,
+      "frameTimingReadFrames": 10139,
+      "gpuInvalidSamples": 0,
+      "gpuMissingSamples": 282,
+      "gpuDuplicateTimestamps": 0,
+      "graphicsTimingWarningsDuringSampling": 0,
+      "gpuSampleStatusLegend": {
+        "0": "no timing returned",
+        "1": "valid",
+        "2": "zero/unavailable",
+        "3": "invalid negative or non-finite",
+        "4": "invalid: exceeds process lifetime",
+        "5": "duplicate timing timestamp"
+      },
+      "mainThread": {
+        "available": true,
+        "unit": "ms",
+        "method": "Main Thread",
+        "unavailableReason": null,
+        "samples": 10138,
+        "expectedFrames": 10138,
+        "validFrameCoverage": 1,
+        "mean": 17.7523158709805,
+        "p50": 16.6582,
+        "p95": 18.8622,
+        "max": 73.6124
+      },
+      "renderThread": {
+        "available": true,
+        "unit": "ms",
+        "method": "CPU Render Thread Frame Time",
+        "unavailableReason": null,
+        "samples": 10138,
+        "expectedFrames": 10138,
+        "validFrameCoverage": 1,
+        "mean": 0.281721027816137,
+        "p50": 0.2747,
+        "p95": 0.3569,
+        "max": 0.6779
+      },
+      "frameTimingCpu": {
+        "available": true,
+        "unit": "ms",
+        "method": "FrameTimingManager.cpuFrameTime",
+        "unavailableReason": null,
+        "samples": 10138,
+        "expectedFrames": 10138,
+        "validFrameCoverage": 1,
+        "mean": 17.7556733971197,
+        "p50": 16.6597,
+        "p95": 18.8648,
+        "max": 73.6158
+      },
+      "gpu": {
+        "available": true,
+        "unit": "ms",
+        "method": "FrameTimingManager.gpuFrameTime",
+        "unavailableReason": null,
+        "samples": 9856,
+        "expectedFrames": 10138,
+        "validFrameCoverage": 0.972183862694812,
+        "mean": 0.357060779220771,
+        "p50": 0.350208,
+        "p95": 0.354304,
+        "max": 1.410048
+      },
+      "gcAllocated": {
+        "available": true,
+        "unit": "bytes/frame",
+        "method": "GC Allocated In Frame",
+        "unavailableReason": null,
+        "samples": 10138,
+        "expectedFrames": 10138,
+        "validFrameCoverage": 1,
+        "mean": 277850.67774709,
+        "p50": 0,
+        "p95": 483104,
+        "max": 12823243
+      },
+      "gcUsed": {
+        "available": true,
+        "unit": "bytes",
+        "method": "GC Used Memory",
+        "unavailableReason": null,
+        "samples": 10138,
+        "expectedFrames": 10138,
+        "validFrameCoverage": 1,
+        "mean": 91816765.0581969,
+        "p50": 91426816,
+        "p95": 104448000,
+        "max": 121118720
+      },
+      "independentFrameClocks": {
+        "diagnosticOnly": true,
+        "cpuTimerFrequencyHz": 10000000,
+        "rawRowsIncludingInitialPartialInterval": 10139,
+        "frameStart": {
+          "available": true,
+          "unit": "ms",
+          "method": "FrameTiming.frameStartTimestamp difference",
+          "unavailableReason": null,
+          "samples": 10138,
+          "expectedFrames": 10138,
+          "validFrameCoverage": 1,
+          "mean": 17.7556826198461,
+          "p50": 16.6597,
+          "p95": 18.8648,
+          "max": 73.6158
+        },
+        "presentCalled": {
+          "available": true,
+          "unit": "ms",
+          "method": "FrameTiming.cpuTimePresentCalled difference",
+          "unavailableReason": null,
+          "samples": 10138,
+          "expectedFrames": 10138,
+          "validFrameCoverage": 1,
+          "mean": 17.7558652396923,
+          "p50": 16.658,
+          "p95": 18.7324,
+          "max": 73.655
+        },
+        "frameComplete": {
+          "available": true,
+          "unit": "ms",
+          "method": "FrameTiming.cpuTimeFrameComplete difference",
+          "unavailableReason": null,
+          "samples": 10138,
+          "expectedFrames": 10138,
+          "validFrameCoverage": 1,
+          "mean": 17.75585211087,
+          "p50": 16.6607,
+          "p95": 18.7129,
+          "max": 73.563
+        },
+        "observationStatusCounts": {
+          "4": 10138
+        },
+        "frameStartDeltaStatusCounts": {
+          "2": 10138
+        },
+        "presentDeltaStatusCounts": {
+          "2": 10138
+        },
+        "completeDeltaStatusCounts": {
+          "2": 10138
+        },
+        "zeroFrameStartRows": 0,
+        "zeroPresentRows": 0,
+        "zeroCompleteRows": 0,
+        "observationStatusLegend": "0 no timing; 1 zero frame-start; 2 repeated frame-start; 3 backward frame-start; 4 new frame-start; 5 new frame-start after skipped Unity observation (delta baseline reset).",
+        "deltaStatusLegend": "0 unavailable observation or zero axis; 1 valid current timestamp without adjacent baseline; 2 valid positive difference; 3 non-increasing axis; 4 CPU frequency unavailable.",
+        "definitions": "Unity 6000.6: frameStartTimestamp is CPU clock when frame started; cpuTimePresentCalled is CPU clock at Present call; cpuTimeFrameComplete is CPU clock when GPU finished rendering and interrupted CPU. Units are converted using GetCpuTimerFrequency.",
+        "adjacencyLimit": "Differences require adjacent Unity observations with new monotonic frame-start values and a valid monotonic axis. GetLatestTimings(1) does not prove no native records were skipped. No clock replaces the original LateUpdate interval or acceptance criteria."
+      },
+      "productionFramePacing": {
+        "classPresent": true,
+        "installed": true,
+        "strategyDescription": "60Hz maximum cadence; absolute QPC deadline reanchored to every actual release; ceil(QPC frequency/60); coarse Sleep + <=1.5ms spin tail; first PreLateUpdate child; paused/unfocused Sleep(17ms), no spin or catch-up",
+        "metadataIssue": null,
+        "stopwatchFrequencyHz": 10000000,
+        "vSyncCount": 0,
+        "applicationTargetFrameRate": -1,
+        "readTiming": "Outside sampling only; public static read-only metadata, never a per-frame reflection call."
+      },
+      "productionFramePacingAfterSampling": {
+        "classPresent": true,
+        "installed": true,
+        "strategyDescription": "60Hz maximum cadence; absolute QPC deadline reanchored to every actual release; ceil(QPC frequency/60); coarse Sleep + <=1.5ms spin tail; first PreLateUpdate child; paused/unfocused Sleep(17ms), no spin or catch-up",
+        "metadataIssue": null,
+        "stopwatchFrequencyHz": 10000000,
+        "vSyncCount": 0,
+        "applicationTargetFrameRate": -1,
+        "readTiming": "Outside sampling only; public static read-only metadata, never a per-frame reflection call."
+      },
+      "gpuRawApiValues": {
+        "available": true,
+        "unit": "ms (unvalidated)",
+        "method": "Raw FrameTimingManager.gpuFrameTime; diagnostic only, may contain invalid values",
+        "unavailableReason": null,
+        "samples": 10138,
+        "expectedFrames": 10138,
+        "validFrameCoverage": 1,
+        "mean": 0.347128727559669,
+        "p50": 0.350208,
+        "p95": 0.354304,
+        "max": 1.410048
+      },
+      "gpuProfilerCounter": {
+        "available": true,
+        "unit": "ms (diagnostic)",
+        "method": "GPU Frame Time",
+        "unavailableReason": null,
+        "samples": 10138,
+        "expectedFrames": 10138,
+        "validFrameCoverage": 1,
+        "mean": 0.347163371868211,
+        "p50": 0.350208,
+        "p95": 0.354304,
+        "max": 1.410048
+      },
+      "monoUsed": {
+        "available": true,
+        "unit": "bytes",
+        "method": "Profiler.GetMonoUsedSizeLong",
+        "unavailableReason": null,
+        "samples": 10138,
+        "expectedFrames": 10138,
+        "validFrameCoverage": 1,
+        "mean": 91818316.5121326,
+        "p50": 91426816,
+        "p95": 104448000,
+        "max": 121118720
+      },
+      "uiRebuild": {
+        "available": true,
+        "unit": "ms/frame",
+        "method": "Canvas.BuildBatch",
+        "unavailableReason": null,
+        "samples": 10138,
+        "expectedFrames": 10138,
+        "validFrameCoverage": 1,
+        "mean": 0.00218194910238706,
+        "p50": 0,
+        "p95": 0.024,
+        "max": 0.0421
+      },
+      "uiRebuildMarkerCalls": {
+        "available": true,
+        "unit": "marker invocations/frame",
+        "method": "Canvas.BuildBatch",
+        "unavailableReason": null,
+        "samples": 10138,
+        "expectedFrames": 10138,
+        "validFrameCoverage": 1,
+        "mean": 0.0901558492799369,
+        "p50": 0,
+        "p95": 1,
+        "max": 1
+      },
+      "gcCollections": {
+        "generation0": 184,
+        "generation1": 184,
+        "generation2": 184
+      },
+      "limitations": [
+        "This is automated player operation, not human playtesting, player win rate, or a mobile performance result.",
+        "The frame budget check uses P95 of measured frame intervals; CPU Main Thread may include presentation waits. Raw CPU/GPU metrics remain separately available for diagnosis.",
+        "Frame-start, Present-called and frame-complete timestamp differences are diagnostic peers of LateUpdate, never replacements for its original verdict. Present-called is not scanout; frame-complete is GPU completion interrupting the CPU. Adjacent unique GetLatestTimings(1) observations may still skip native records; explicit gaps are broken but native adjacency is not guaranteed.",
+        "Recorder units and exact marker names are retained. UI marker invocation count is not the number of individual rebuilt elements.",
+        "Before sampling, the probe allocates max(60000, ceil(warmup FPS * 180 seconds * 2)) frame records once. Estimated observer bytes cover record payload, not object headers or all profiler overhead. Any expansion during sampling still forces a gap.",
+        "GPU durations that are negative, non-finite or longer than the process lifetime are invalid, retained in raw CSV and force a measurement gap; no merely slow frame is filtered by the 16.7ms budget.",
+        "Focus is recorded as context, not proof of window visibility. Keep the actual player visible and unminimized; inspect the native player log for swapchain/timestamp warnings that may bypass Unity log callbacks.",
+        "Unavailable metrics are null; availability gaps or a non-1080p run cannot certify the complete performance condition. Independent review remains required."
+      ]
+    }
+  },
+  "windowsEvidence": "evidence/v071/player-b005e00-rc2/strict-full/player-20261110-104130-079c5f75",
+  "windowsReportSha256": "434dca84c6272df1d6adf8a7734cd42e47b3e2432ff9b9d313c67e81c4a773c5",
+  "windowsDisplayChecks": [
+    {
+      "id": "mode-ExclusiveFullScreen",
+      "status": "passed",
+      "reason": null,
+      "artVersion": "art0.7.1",
+      "probeRevision": "p07-player-art-ui-21",
+      "actualNativeReadback": {
+        "display": "VG27AQ1A",
+        "width": 2560,
+        "height": 1440,
+        "mode": "ExclusiveFullScreen",
+        "nativeWidth": 2560,
+        "nativeHeight": 1440,
+        "refreshNumerator": 144006,
+        "refreshDenominator": 1000,
+        "focused": true
+      }
+    },
+    {
+      "id": "mode-FullScreenWindow",
+      "status": "passed",
+      "reason": null,
+      "artVersion": "art0.7.1",
+      "probeRevision": "p07-player-art-ui-21",
+      "actualNativeReadback": {
+        "display": "VG27AQ1A",
+        "width": 2560,
+        "height": 1440,
+        "mode": "FullScreenWindow",
+        "nativeWidth": 2560,
+        "nativeHeight": 1440,
+        "refreshNumerator": 144006,
+        "refreshDenominator": 1000,
+        "focused": true
+      }
+    },
+    {
+      "id": "mode-Windowed",
+      "status": "passed",
+      "reason": null,
+      "artVersion": "art0.7.1",
+      "probeRevision": "p07-player-art-ui-21",
+      "actualNativeReadback": {
+        "display": "VG27AQ1A",
+        "width": 1920,
+        "height": 1080,
+        "mode": "Windowed",
+        "nativeWidth": 2560,
+        "nativeHeight": 1440,
+        "refreshNumerator": 144006,
+        "refreshDenominator": 1000,
+        "focused": true
+      }
+    },
+    {
+      "id": "exclusive-non-native-escape",
+      "status": "passed",
+      "reason": "Actual supported non-native exclusive mode followed by InputSystem Escape rollback.",
+      "artVersion": "art0.7.1",
+      "probeRevision": "p07-player-art-ui-21",
+      "actualNativeReadback": {
+        "display": "VG27AQ1A",
+        "width": 1920,
+        "height": 1080,
+        "mode": "Windowed",
+        "nativeWidth": 2560,
+        "nativeHeight": 1440,
+        "refreshNumerator": 144006,
+        "refreshDenominator": 1000,
+        "focused": true
+      }
+    },
+    {
+      "id": "window-1280x720",
+      "status": "passed",
+      "reason": "Requested dimensions and mode persisted and remained exact after confirmation.",
+      "artVersion": "art0.7.1",
+      "probeRevision": "p07-player-art-ui-21",
+      "actualNativeReadback": {
+        "display": "VG27AQ1A",
+        "width": 1280,
+        "height": 720,
+        "mode": "Windowed",
+        "nativeWidth": 2560,
+        "nativeHeight": 1440,
+        "refreshNumerator": 144006,
+        "refreshDenominator": 1000,
+        "focused": true
+      },
+      "requested": {
+        "displayName": "VG27AQ1A",
+        "nativeWidth": 2560,
+        "nativeHeight": 1440,
+        "width": 1280,
+        "height": 720,
+        "mode": 3,
+        "refreshNumerator": 144006,
+        "refreshDenominator": 1000
+      },
+      "requestWorkArea": {
+        "width": 2560,
+        "height": 1400
+      }
+    },
+    {
+      "id": "window-1920x1080",
+      "status": "passed",
+      "reason": "Requested dimensions and mode persisted and remained exact after confirmation.",
+      "artVersion": "art0.7.1",
+      "probeRevision": "p07-player-art-ui-21",
+      "actualNativeReadback": {
+        "display": "VG27AQ1A",
+        "width": 1920,
+        "height": 1080,
+        "mode": "Windowed",
+        "nativeWidth": 2560,
+        "nativeHeight": 1440,
+        "refreshNumerator": 144006,
+        "refreshDenominator": 1000,
+        "focused": true
+      },
+      "requested": {
+        "displayName": "VG27AQ1A",
+        "nativeWidth": 2560,
+        "nativeHeight": 1440,
+        "width": 1920,
+        "height": 1080,
+        "mode": 3,
+        "refreshNumerator": 144006,
+        "refreshDenominator": 1000
+      },
+      "requestWorkArea": {
+        "width": 2560,
+        "height": 1400
+      }
+    },
+    {
+      "id": "window-2560x1440",
+      "status": "not_supported",
+      "reason": "Requested client dimensions exceed current display work area.",
+      "artVersion": "art0.7.1",
+      "probeRevision": "p07-player-art-ui-21",
+      "actualNativeReadback": {
+        "display": "VG27AQ1A",
+        "width": 1920,
+        "height": 1080,
+        "mode": "Windowed",
+        "nativeWidth": 2560,
+        "nativeHeight": 1440,
+        "refreshNumerator": 144006,
+        "refreshDenominator": 1000,
+        "focused": true
+      },
+      "requested": {
+        "displayName": "VG27AQ1A",
+        "nativeWidth": 2560,
+        "nativeHeight": 1440,
+        "width": 2560,
+        "height": 1440,
+        "mode": 3,
+        "refreshNumerator": 144006,
+        "refreshDenominator": 1000
+      },
+      "requestWorkArea": {
+        "width": 2560,
+        "height": 1400
+      }
+    },
+    {
+      "id": "window-1600x1000",
+      "status": "passed",
+      "reason": "Requested dimensions and mode persisted and remained exact after confirmation.",
+      "artVersion": "art0.7.1",
+      "probeRevision": "p07-player-art-ui-21",
+      "actualNativeReadback": {
+        "display": "VG27AQ1A",
+        "width": 1600,
+        "height": 1000,
+        "mode": "Windowed",
+        "nativeWidth": 2560,
+        "nativeHeight": 1440,
+        "refreshNumerator": 144006,
+        "refreshDenominator": 1000,
+        "focused": true
+      },
+      "requested": {
+        "displayName": "VG27AQ1A",
+        "nativeWidth": 2560,
+        "nativeHeight": 1440,
+        "width": 1600,
+        "height": 1000,
+        "mode": 3,
+        "refreshNumerator": 144006,
+        "refreshDenominator": 1000
+      },
+      "requestWorkArea": {
+        "width": 2560,
+        "height": 1400
+      }
+    },
+    {
+      "id": "window-1920x800",
+      "status": "passed",
+      "reason": "Requested dimensions and mode persisted and remained exact after confirmation.",
+      "artVersion": "art0.7.1",
+      "probeRevision": "p07-player-art-ui-21",
+      "actualNativeReadback": {
+        "display": "VG27AQ1A",
+        "width": 1920,
+        "height": 800,
+        "mode": "Windowed",
+        "nativeWidth": 2560,
+        "nativeHeight": 1440,
+        "refreshNumerator": 144006,
+        "refreshDenominator": 1000,
+        "focused": true
+      },
+      "requested": {
+        "displayName": "VG27AQ1A",
+        "nativeWidth": 2560,
+        "nativeHeight": 1440,
+        "width": 1920,
+        "height": 800,
+        "mode": 3,
+        "refreshNumerator": 144006,
+        "refreshDenominator": 1000
+      },
+      "requestWorkArea": {
+        "width": 2560,
+        "height": 1400
+      }
+    },
+    {
+      "id": "window-1366x768",
+      "status": "passed",
+      "reason": "Requested dimensions and mode persisted and remained exact after confirmation.",
+      "artVersion": "art0.7.1",
+      "probeRevision": "p07-player-art-ui-21",
+      "actualNativeReadback": {
+        "display": "VG27AQ1A",
+        "width": 1366,
+        "height": 768,
+        "mode": "Windowed",
+        "nativeWidth": 2560,
+        "nativeHeight": 1440,
+        "refreshNumerator": 144006,
+        "refreshDenominator": 1000,
+        "focused": true
+      },
+      "requested": {
+        "displayName": "VG27AQ1A",
+        "nativeWidth": 2560,
+        "nativeHeight": 1440,
+        "width": 1366,
+        "height": 768,
+        "mode": 3,
+        "refreshNumerator": 144006,
+        "refreshDenominator": 1000
+      },
+      "requestWorkArea": {
+        "width": 2560,
+        "height": 1400
+      }
+    },
+    {
+      "id": "window-2560x1600",
+      "status": "not_supported",
+      "reason": "Requested client dimensions exceed current display work area.",
+      "artVersion": "art0.7.1",
+      "probeRevision": "p07-player-art-ui-21",
+      "actualNativeReadback": {
+        "display": "VG27AQ1A",
+        "width": 1366,
+        "height": 768,
+        "mode": "Windowed",
+        "nativeWidth": 2560,
+        "nativeHeight": 1440,
+        "refreshNumerator": 144006,
+        "refreshDenominator": 1000,
+        "focused": true
+      },
+      "requested": {
+        "displayName": "VG27AQ1A",
+        "nativeWidth": 2560,
+        "nativeHeight": 1440,
+        "width": 2560,
+        "height": 1600,
+        "mode": 3,
+        "refreshNumerator": 144006,
+        "refreshDenominator": 1000
+      },
+      "requestWorkArea": {
+        "width": 2560,
+        "height": 1400
+      }
+    },
+    {
+      "id": "window-3440x1440",
+      "status": "not_supported",
+      "reason": "Requested client dimensions exceed current display work area.",
+      "artVersion": "art0.7.1",
+      "probeRevision": "p07-player-art-ui-21",
+      "actualNativeReadback": {
+        "display": "VG27AQ1A",
+        "width": 1366,
+        "height": 768,
+        "mode": "Windowed",
+        "nativeWidth": 2560,
+        "nativeHeight": 1440,
+        "refreshNumerator": 144006,
+        "refreshDenominator": 1000,
+        "focused": true
+      },
+      "requested": {
+        "displayName": "VG27AQ1A",
+        "nativeWidth": 2560,
+        "nativeHeight": 1440,
+        "width": 3440,
+        "height": 1440,
+        "mode": 3,
+        "refreshNumerator": 144006,
+        "refreshDenominator": 1000
+      },
+      "requestWorkArea": {
+        "width": 2560,
+        "height": 1400
+      }
+    },
+    {
+      "id": "15-second-timeout-revert",
+      "status": "passed",
+      "reason": "Real elapsed time observed; no shortened timer or mocked clock.",
+      "artVersion": "art0.7.1",
+      "probeRevision": "p07-player-art-ui-21",
+      "actualNativeReadback": {
+        "display": "VG27AQ1A",
+        "width": 1366,
+        "height": 768,
+        "mode": "Windowed",
+        "nativeWidth": 2560,
+        "nativeHeight": 1440,
+        "refreshNumerator": 144006,
+        "refreshDenominator": 1000,
+        "focused": true
+      }
+    },
+    {
+      "id": "escape-revert",
+      "status": "passed",
+      "reason": "InputSystem keyboard state event handled by GameApp.Update.",
+      "artVersion": "art0.7.1",
+      "probeRevision": "p07-player-art-ui-21",
+      "actualNativeReadback": {
+        "display": "VG27AQ1A",
+        "width": 1366,
+        "height": 768,
+        "mode": "Windowed",
+        "nativeWidth": 2560,
+        "nativeHeight": 1440,
+        "refreshNumerator": 144006,
+        "refreshDenominator": 1000,
+        "focused": true
+      }
+    },
+    {
+      "id": "crash-pending-recovery",
+      "status": "not_executed",
+      "reason": "Requires separate --verify-display-recovery-write/read processes; this main probe does not simulate a crash by rebuilding a component.",
+      "artVersion": "art0.7.1",
+      "probeRevision": "p07-player-art-ui-21",
+      "actualNativeReadback": {
+        "display": "VG27AQ1A",
+        "width": 1366,
+        "height": 768,
+        "mode": "Windowed",
+        "nativeWidth": 2560,
+        "nativeHeight": 1440,
+        "refreshNumerator": 144006,
+        "refreshDenominator": 1000,
+        "focused": true
+      }
+    },
+    {
+      "id": "physical-focus-loss-and-display-removal",
+      "status": "not_executed",
+      "reason": "Physical Alt-Tab/display disconnect not performed by this probe.",
+      "artVersion": "art0.7.1",
+      "probeRevision": "p07-player-art-ui-21",
+      "actualNativeReadback": {
+        "display": "VG27AQ1A",
+        "width": 1366,
+        "height": 768,
+        "mode": "Windowed",
+        "nativeWidth": 2560,
+        "nativeHeight": 1440,
+        "refreshNumerator": 144006,
+        "refreshDenominator": 1000,
+        "focused": true
+      }
+    }
+  ],
+  "windowsSeparateProcessDisplayRecovery": {
+    "status": "passed",
+    "writerProcessId": 17760,
+    "readerProcessId": 844,
+    "actual": {
+      "displayName": "VG27AQ1A",
+      "nativeWidth": 2560,
+      "nativeHeight": 1440,
+      "width": 1280,
+      "height": 720,
+      "mode": 3,
+      "refreshNumerator": 144006,
+      "refreshDenominator": 1000
+    },
+    "environment": {
+      "utc": "2026-11-10T10:47:14.6772337Z",
+      "unityVersion": "6000.6.7f1",
+      "artVersion": "art0.7.1",
+      "rulesVersion": "p0.6.0",
+      "probeRevision": "p07-player-art-ui-21",
+      "buildGuid": "75e7f6b0f1c34075a6527abbc6829e8b",
+      "developmentBuild": true,
+      "isEditor": false,
+      "platform": "WindowsPlayer",
+      "os": "Windows 10  (10.0.19045) 64bit",
+      "processArchitecture": "X64",
+      "cpu": "AMD Ryzen 9 5900X 12-Core Processor ",
+      "cpuThreads": 24,
+      "systemMemoryMB": 65457,
+      "gpu": "NVIDIA GeForce RTX 3080",
+      "gpuMemoryMB": 10053,
+      "graphicsVersion": "Direct3D 11.0 [level 11.1]",
+      "graphicsApi": "Direct3D11",
+      "width": 1280,
+      "height": 720,
+      "fullscreenMode": "Windowed",
+      "quality": "PC",
+      "vSyncCount": 0,
+      "targetFrameRate": -1,
+      "presentationFast": false,
+      "presentationReducedMotion": false,
+      "probeArguments": [
+        "--verify-p0",
+        "E:\\agent_workspace\\gpt\\game2\\evidence\\v07\\session\\normal-run-trace.json",
+        "--verify-debug-trace",
+        "E:\\agent_workspace\\gpt\\game2\\evidence\\v07\\session\\debug-24-trace.json",
+        "--evidence-dir",
+        "E:\\agent_workspace\\gpt\\game2\\evidence\\v071\\player-b005e00-rc2\\separate-process-display-recovery\\reader",
+        "--verify-display-recovery-read",
+        "E:\\agent_workspace\\gpt\\game2\\evidence\\v071\\player-b005e00-rc2\\separate-process-display-recovery",
+        "-screen-width",
+        "1280",
+        "-screen-height",
+        "720",
+        "-screen-fullscreen",
+        "0",
+        "-logFile",
+        "E:\\agent_workspace\\gpt\\game2\\artifacts\\cache\\v071\\player-b005e00-rc2\\recovery\\read-Player.log"
+      ]
+    },
+    "files": [
+      {
+        "path": "evidence/v071/player-b005e00-rc2/separate-process-display-recovery/ready-to-terminate.json",
+        "sha256": "0f547226837a19431f495d56531aaa9545c381fafb98081452f5a6ba4aaf059e"
+      },
+      {
+        "path": "evidence/v071/player-b005e00-rc2/separate-process-display-recovery/recovery-read-receipt.json",
+        "sha256": "76402fe4942493c992848fb3ae76b3a78f80c4062b50059f1f4fef5fb332fd67"
+      },
+      {
+        "path": "evidence/v071/player-b005e00-rc2/separate-process-display-recovery/display-settings.json",
+        "sha256": "8d91e024c69cbee2f9b406c471bff808bd14c7e17df6dd67f77aaf9492b84178"
+      },
+      {
+        "path": "evidence/v071/player-b005e00-rc2/separate-process-display-recovery/reader/player-20261110-104713-2e757758/player-report.json",
+        "sha256": "74932f2a3ea79f3aa956fa99875511618e882b9adc1663ec46e31912a1d51cfa"
+      }
+    ],
+    "note": "Separate process result; the main probe's not_executed field is preserved."
+  },
+  "macVerificationKit": {
+    "identity": {
+      "releaseVersion": "p0.7.1",
+      "artVersion": "art0.7.1",
+      "sourceCommit": "b005e0088b227b26e2f8fc44f1c59f68df0c0a35",
+      "contentConfigVersion": "p0.6.0",
+      "contentConfigSha256": "747ed1efc7bea15873f66a81eee5c7654971c21031f2a1517ce629adce7b6e6c",
+      "saveSchemaVersion": 4,
+      "goldenCaseSetSha256": "306cb86f79dafe0e3eb302714abd232af20fe0062a6713f7d713c11e2a6a5718",
+      "unityEditorVersion": "6000.6.7f1",
+      "backend": "Mono"
+    },
+    "packagePath": "Releases/p0.7.1/menu-table-rc2/DicePrototype-p0.7.1-MacVerificationKit.zip",
+    "sha256": "f6687b2e6ff41ae7c3433954239eb676859c2db8b160ddcd16bef407b8c31dd5",
+    "byteSize": 241475500,
+    "sourceCommit": "b005e0088b227b26e2f8fc44f1c59f68df0c0a35",
+    "windowsResults": "evidence/v071/player-b005e00-rc2/strict-full/player-20261110-104130-079c5f75",
+    "crc": "passed",
+    "reviewCandidate": true,
+    "inputs": [
+      {
+        "path": "VerifyMac.command",
+        "sha256": "6669b176ef4b20d58db8fafbc6fcf85ac4215c4309fa2a0a35a7d35b10092270"
+      },
+      {
+        "path": "verify_mac.py",
+        "sha256": "86e6a043614f3758367e122cf865e51a947aba1841e1f1b705fb7939b0627865"
+      },
+      {
+        "path": "package_checks.py",
+        "sha256": "75df35774305feac4c27cd2f3de36bccc6b72dd29289e802dd40e7b9e59a5bea"
+      },
+      {
+        "path": "compare_replays.py",
+        "sha256": "8626d638ce31792e1b95f8dfa07cfd5d089b6ea3d6a1825aefec43336fc361b3"
+      },
+      {
+        "path": "执行说明.md",
+        "sha256": "48457ee024ac4fda0ac73cf50eaaebf7fb162d36bde89e3d439a86fd9637b5d7"
+      },
+      {
+        "path": "inputs/BUILD_IDENTITY.json",
+        "sha256": "ef8df0328a88a7a3fdccd68d9855faba388519336ad8e0f81989321484d7ce9c"
+      },
+      {
+        "path": "inputs/macos.zip",
+        "sha256": "90b76360530c53c2fb46ed3e542b691225884c9259d2c5891030b9e81003b913"
+      },
+      {
+        "path": "inputs/normal-run-trace.json",
+        "sha256": "5efcc51eb14dd024d2cea3cc1f5e86ad5ec00123a794dce16cb1100471366564"
+      },
+      {
+        "path": "inputs/debug-24-trace.json",
+        "sha256": "3d6f7cf39dba3c56ca161d4d8baf6d4a7e9f00bcd98a386211b5a07ad61d06b8"
+      },
+      {
+        "path": "inputs/windows-results/player-report.json",
+        "sha256": "434dca84c6272df1d6adf8a7734cd42e47b3e2432ff9b9d313c67e81c4a773c5"
+      },
+      {
+        "path": "inputs/windows-results/normal-replay.jsonl",
+        "sha256": "81ccc1eaecf533ac8a81ac157be239847e91e62327d5c290ee74bd68f6c4f3a5"
+      },
+      {
+        "path": "inputs/windows-results/debug24-replay.jsonl",
+        "sha256": "13b350e608dfe9bed1c87bcb7edc3bbb23a9c87262233c451ec92ac0bb071b38"
+      },
+      {
+        "path": "inputs/windows-results/cross-platform-checkpoint/active-run.json",
+        "sha256": "57715c82cc11495285cd8b1ff064e559cbfc2f5e0e9ea501f272657a1e698331"
+      },
+      {
+        "path": "inputs/windows-results/cross-platform-checkpoint/command.json",
+        "sha256": "692dc65bc8dc8661cdce61bff9dbe2172ad94b61d3730b12506033b5af0555db"
+      },
+      {
+        "path": "inputs/windows-results/cross-platform-checkpoint/expected.json",
+        "sha256": "cb5559f615b0cff158ac12452edda59f7fafca01319453f80e71ade03765e261"
+      },
+      {
+        "path": "inputs/windows-results/performance-frames.csv",
+        "sha256": "9fe674f2944161835dad53947cc4d9c7ad8a89a4d383205bee6df5f81c157903"
+      },
+      {
+        "path": "inputs/review-candidate.json",
+        "sha256": "40fc8ce4478dec325738f75c82e98303891cf0a2284643ea7fe01af0166dfff8",
+        "generatedNotice": true
+      }
+    ],
+    "macRuntimeStatus": "NOT_RUN_ON_MAC",
+    "allowFailedWindowsPerformance": true,
+    "windowsReportSha256": "434dca84c6272df1d6adf8a7734cd42e47b3e2432ff9b9d313c67e81c4a773c5",
+    "releaseTag": "p0.7.1-rc.2"
+  },
+  "remoteRestoreStatus": "PENDING_FRESH_RELEASE_ASSET_DOWNLOAD_AND_WINDOWS_EXTRACTED_RUN",
+  "requiredBeforeFullAcceptance": [
+    "Windows performance FAILED: repeat the unchanged 180-second/P95<=16.7ms condition with valid focus/timing evidence",
+    "Windows physical focus/display removal remains untested; selected strict automated checks are not full native acceptance",
+    "M5 native arm64/Metal run and screenshots",
+    "Mac ditto repack and fresh-extraction run",
+    "Actual Mac signature/quarantine/Gatekeeper outputs",
+    "Windows-to-Mac checkpoint and identical normal/debug24 replay",
+    "Returned Mac checkpoint replayed on Windows",
+    "Physical Mac mouse/trackpad, focus/display changes and quit/resume",
+    "Password/debug32/controller-drag/display-confirmation manual review",
+    "Fresh GitHub asset download and extracted Windows run",
+    "v0.71 art0.7.1 human review: readable 720p/150% UI, color assist, reduced motion, dice layers and sound",
+    "Human playtesting"
+  ],
+  "note": "sourceCommit identifies the real frozen gameplay Git tree. Packaging and automated Windows tests do not sign off Mac or human acceptance.",
+  "windowsReference": {
+    "status": "budget_exceeded",
+    "verificationScope": "full_or_recovery",
+    "use": "Gameplay/UI/trace reference ONLY; Windows performance FAILED; selected strict report's automated native checks passed, physical events untested",
+    "allowFailedWindowsPerformance": true,
+    "windowsPerformance": {
+      "acceptanceStatus": "FAILED",
+      "status": "budget_exceeded",
+      "observedStatus": "budget_exceeded",
+      "sampleSeconds": 180.0108082,
+      "p95FrameIntervalMs": 16.8469999999843,
+      "thresholdMs": 16.7,
+      "frames": 10138,
+      "rawObservationRows": 10139,
+      "focusedSampleFrames": 10139,
+      "gpuInvalidSamples": 0,
+      "gpuMissingSamples": 282,
+      "requiredMetricCoverage": 0.95,
+      "metricCoverage": {
+        "mainThread": 1,
+        "gpu": 0.972183862694812,
+        "gcAllocated": 1,
+        "uiRebuild": 1
+      },
+      "measurementCoverageStatus": "COMPLETE_AS_REPORTED",
+      "note": "Completed FAILED budget observation. Raw counters include the initial partial row; focus is context, not visibility proof. GPU and other metric coverage gaps remain explicit and uncorrected."
+    },
+    "windowsNativeDisplayStatus": "AUTOMATED_CHECKS_PASSED_PHYSICAL_EVENTS_UNTESTED",
+    "nativeEvidenceSource": "Executed checks in selected strict main report only; not_executed checks excluded; no native-only report merged",
+    "nativeChecksNotExecuted": [
+      "crash-pending-recovery",
+      "physical-focus-loss-and-display-removal"
+    ],
+    "macRuntimeStatus": "NOT_RUN_ON_MAC",
+    "fullWindowsPassed": false,
+    "fullReleaseAccepted": false,
+    "publication": "User-authorized diagnostic test candidate; no performance, physical native-event or whole-release acceptance"
+  },
+  "deliveryAuthorization": "User-authorized GitHub test-candidate channel; explicit review switches prevent accidental scope claims, not an additional user approval",
+  "allowFailedWindowsPerformance": true,
+  "windowsPerformanceRawEvidence": {
+    "file": "performance-frames.csv",
+    "sha256": "9fe674f2944161835dad53947cc4d9c7ad8a89a4d383205bee6df5f81c157903",
+    "byteSize": 2098103,
+    "rawRows": 10139,
+    "validIntervals": 10138,
+    "excludedInitialPartialRows": 1,
+    "status": "RAW_FAILED_OBSERVATION_BOUND_NOT_ACCEPTED",
+    "focusLimitation": "No per-row focus field; reported counter is bounded by verified raw rows, not independently recomputed"
+  },
+  "fullArt": {
+    "scope": "all_71_active_content_and_public_v071_art",
+    "activeIds": [
+      "C01",
+      "C02",
+      "C03",
+      "C05",
+      "C06",
+      "C07",
+      "C08",
+      "C09",
+      "C10",
+      "C11",
+      "C12",
+      "C13",
+      "C14",
+      "C15",
+      "C17",
+      "C18",
+      "C19",
+      "C20",
+      "C21",
+      "C22",
+      "C24",
+      "C25",
+      "C26",
+      "C27",
+      "C28",
+      "C29",
+      "C30",
+      "C31",
+      "C32",
+      "C33",
+      "C34",
+      "C35",
+      "C36",
+      "C37",
+      "C38",
+      "C39",
+      "C40",
+      "C41",
+      "C42",
+      "C43",
+      "C44",
+      "C45",
+      "C46",
+      "C47",
+      "C48",
+      "C49",
+      "C50",
+      "C51",
+      "C52",
+      "C53",
+      "I01",
+      "I02",
+      "I03",
+      "I04",
+      "I05",
+      "I06",
+      "I07",
+      "O01",
+      "O02",
+      "O03",
+      "O04",
+      "O05",
+      "O06",
+      "O07",
+      "U01",
+      "U02",
+      "U03",
+      "U04",
+      "U05",
+      "U06",
+      "U07"
+    ],
+    "illustrationCount": 71,
+    "newPublicResourceCount": 56,
+    "stagedManifest": {
+      "path": "DicePrototype/Assets/Art/Art071/FullSourceManifest.json",
+      "sha256": "50c07c5a00194769937edcb8d1de2e919e713daf98db641ae42e45b8c3eb96c9"
+    },
+    "sourceCatalogs": [
+      {
+        "path": "ArtSource/Art071/Full/UI/manifest.json",
+        "sha256": "e6f32e9b1a87f8af400929dd6a0cc39774299e670429f5f2c0620c4ceb0d4eee"
+      },
+      {
+        "path": "ArtSource/Art071/Full/Surfaces/manifest.json",
+        "sha256": "f9fffbda7de764403ec11b3e373c27c9ccfaacc5f8d32f755c1508b5fdd4e1a0"
+      }
+    ],
+    "illustrationRecords": {
+      "illustration_c01": {
+        "path": "ArtSource/Art071/IllustrationsFull/C01/record.json",
+        "sha256": "4ea35919675647f10233f7a748d392cc91f0c1ff7594c3ba201a96b0f8bf12ee"
+      },
+      "illustration_c02": {
+        "path": "ArtSource/Art071/IllustrationsFull/C02/record.json",
+        "sha256": "bce4a152d0b3aced3b361cd48d28f616a43269e1bc3b1ee2b49818111aef1086"
+      },
+      "illustration_c03": {
+        "path": "ArtSource/Art071/Illustrations/manifest.json",
+        "sha256": "24d182e82f643cf11d52ec7cb044d060f8f68d4a2d3425fe9f26fd71a95970dc"
+      },
+      "illustration_c05": {
+        "path": "ArtSource/Art071/IllustrationsFull/C05/record.json",
+        "sha256": "080ef2709d53516119e1ba4a668e3bb35f6c64bcea58ed4188456727544df2b9"
+      },
+      "illustration_c06": {
+        "path": "ArtSource/Art071/IllustrationsFull/C06/record.json",
+        "sha256": "ace671650eb46067a97ba220dc841829bd047a61e26e77a3aaa3acdcd5f0a147"
+      },
+      "illustration_c07": {
+        "path": "ArtSource/Art071/IllustrationsFull/C07/record.json",
+        "sha256": "a3ee28f7898370935569cb5e2eeb67a096191a439121b2f8530af978f552b132"
+      },
+      "illustration_c08": {
+        "path": "ArtSource/Art071/IllustrationsFull/C08/record.json",
+        "sha256": "2ff32e9945fbf5e7de8051b7ddf0843be6e192c00b903b57e1eb0120bf8e58c4"
+      },
+      "illustration_c09": {
+        "path": "ArtSource/Art071/IllustrationsFull/C09/record.json",
+        "sha256": "4180383edc17309ff257d177ce357eb4f5ba28fb2543a383ee23332c2e3416ad"
+      },
+      "illustration_c10": {
+        "path": "ArtSource/Art071/IllustrationsFull/C10/record.json",
+        "sha256": "3c545b99b698a6104ae8f3fc39d524f21840cf9e7258367662bd1fc3c1d9435f"
+      },
+      "illustration_c11": {
+        "path": "ArtSource/Art071/IllustrationsFull/C11/record.json",
+        "sha256": "2317adf0735f8926a981937249e6f442bcee430f82111df25e8f137589a83d1a"
+      },
+      "illustration_c12": {
+        "path": "ArtSource/Art071/IllustrationsFull/C12/record.json",
+        "sha256": "89a1e79b9c4760bf1cd0d93b3221ab521cb80d4408d6017cc0d3b1057a04614b"
+      },
+      "illustration_c13": {
+        "path": "ArtSource/Art071/IllustrationsFull/C13/record.json",
+        "sha256": "f0a8a13a340576af001fa7bf704592f48adf6bbc8b2d994ee7bec5510cbd0dc0"
+      },
+      "illustration_c14": {
+        "path": "ArtSource/Art071/IllustrationsFull/C14/record.json",
+        "sha256": "63973fb34b8adabaec6e84c39c60ae21c276a2a8482a1e0e26c76b2975200c91"
+      },
+      "illustration_c15": {
+        "path": "ArtSource/Art071/IllustrationsFull/C15/record.json",
+        "sha256": "37f9e7259f0c21c4e54e3386053e79ec9a3f97ef23666420a9406f01513eeac2"
+      },
+      "illustration_c17": {
+        "path": "ArtSource/Art071/IllustrationsFull/C17/record.json",
+        "sha256": "226794b0905ef03b13cf37ee780313628c65f0a51fee61034ccb0ac23134050e"
+      },
+      "illustration_c18": {
+        "path": "ArtSource/Art071/IllustrationsFull/C18/record.json",
+        "sha256": "fa9e952efb87a7fba10d88fffc405bf8740b347745b1c9827644bce81cc7cb4a"
+      },
+      "illustration_c19": {
+        "path": "ArtSource/Art071/IllustrationsFull/C19/record.json",
+        "sha256": "9c4c92862f5a064042767f74fb0b235800b5839c729f1c506483aed7c0074017"
+      },
+      "illustration_c20": {
+        "path": "ArtSource/Art071/IllustrationsFull/C20/record.json",
+        "sha256": "bc6a9c171b746c67a6f9118eafdee522a1a190e719e4e7c1f4605da420c70a8c"
+      },
+      "illustration_c21": {
+        "path": "ArtSource/Art071/IllustrationsFull/C21/record.json",
+        "sha256": "e3382d84ddeb23953dbf02c40986c757d08f2c2053322b9d8a5c383690c00059"
+      },
+      "illustration_c22": {
+        "path": "ArtSource/Art071/IllustrationsFull/C22/record.json",
+        "sha256": "979050ee2624656c88732d014dc6bb2eaf1524dfb20d1d6029e1c878bb7d363c"
+      },
+      "illustration_c24": {
+        "path": "ArtSource/Art071/IllustrationsFull/C24/record.json",
+        "sha256": "f79cafd4f4787b1b023774659572105c4ff04094c1c03f020194a3a8bb73e5e4"
+      },
+      "illustration_c25": {
+        "path": "ArtSource/Art071/IllustrationsFull/C25/record.json",
+        "sha256": "92a6ca2477046ca481d25dace0c1c556ef43345cb3bbac4da710b7f1b65d2e13"
+      },
+      "illustration_c26": {
+        "path": "ArtSource/Art071/IllustrationsFull/C26/record.json",
+        "sha256": "401a40d1d1998e96ecca1f76df7ad284ae9b4c4084c955e1f199a0146f7c87fa"
+      },
+      "illustration_c27": {
+        "path": "ArtSource/Art071/IllustrationsFull/C27/record.json",
+        "sha256": "ef5967ed7f672f70d0e321361bd61071d50664d9da8e0168026c3839ab42aec3"
+      },
+      "illustration_c28": {
+        "path": "ArtSource/Art071/IllustrationsFull/C28/record.json",
+        "sha256": "392f23abc55a9fa6fdc75e35570261e42b54fa99aaa83ca9aff73b164204b5f7"
+      },
+      "illustration_c29": {
+        "path": "ArtSource/Art071/IllustrationsFull/C29/record.json",
+        "sha256": "549eaccef9c602d95536ad7eaa8d166a625088f37691d4d8f7332994c80b2a5a"
+      },
+      "illustration_c30": {
+        "path": "ArtSource/Art071/IllustrationsFull/C30/record.json",
+        "sha256": "a9125b452f3e6cdb92cb0e7336a7661d5000915899a582a35988fd0be724cc01"
+      },
+      "illustration_c31": {
+        "path": "ArtSource/Art071/IllustrationsFull/C31/record.json",
+        "sha256": "a345ff1ab304a3f6532cd62ad8449703cb628005444cc1fbdc6cfc58d2c19966"
+      },
+      "illustration_c32": {
+        "path": "ArtSource/Art071/IllustrationsFull/C32/record.json",
+        "sha256": "ae114df31f5f19a316f0a96b8fa70d92f02e2e33cf77494327b18fdc87cb5853"
+      },
+      "illustration_c33": {
+        "path": "ArtSource/Art071/IllustrationsFull/C33/record.json",
+        "sha256": "9ded0e54f3126b8cb1dfed7db7f3902094e1c47819a12594d2f85bd15a4c28cb"
+      },
+      "illustration_c34": {
+        "path": "ArtSource/Art071/IllustrationsFull/C34/record.json",
+        "sha256": "9dce0815312407b0f580be2c4c6995a9558bb32a0d7ef27e78cd43bb59777a0d"
+      },
+      "illustration_c35": {
+        "path": "ArtSource/Art071/IllustrationsFull/C35/record.json",
+        "sha256": "24b469ba3a20ca6e8baa207b44bf64ea26e994f83559fec96e312551e8ba7b58"
+      },
+      "illustration_c36": {
+        "path": "ArtSource/Art071/IllustrationsFull/C36/record.json",
+        "sha256": "ff55b949d32811b205c1c8b3c8631121bf066cea987dc26242df9598b6979d5e"
+      },
+      "illustration_c37": {
+        "path": "ArtSource/Art071/IllustrationsFull/C37/record.json",
+        "sha256": "5b3067f945197d10a87b641cfd56154e1eda957b3926f76bfc543036d5762f97"
+      },
+      "illustration_c38": {
+        "path": "ArtSource/Art071/IllustrationsFull/C38/record.json",
+        "sha256": "9a8bed1b4005e0121a442c5f3e6837712e6dec29f5a84cbe1199827fe5115dab"
+      },
+      "illustration_c39": {
+        "path": "ArtSource/Art071/IllustrationsFull/C39/record.json",
+        "sha256": "2a8062f0931410e08556c6cab6694ef32c431cd5bc9bc714bbf612bed5760abd"
+      },
+      "illustration_c40": {
+        "path": "ArtSource/Art071/IllustrationsFull/C40/record.json",
+        "sha256": "ee19152d82107c0b831c044668e5426257eaf56a2a4c65bcdb75199c6626e8c5"
+      },
+      "illustration_c41": {
+        "path": "ArtSource/Art071/IllustrationsFull/C41/record.json",
+        "sha256": "4cdb75614e22ada3b453a9b9cda9463646a77c2dc3612848091e1418a2fe4172"
+      },
+      "illustration_c42": {
+        "path": "ArtSource/Art071/IllustrationsFull/C42/record.json",
+        "sha256": "0def4455ecc0060fe1b3ab4fc72913bc2244065ead01d53c06e3b40a16f752e3"
+      },
+      "illustration_c43": {
+        "path": "ArtSource/Art071/IllustrationsFull/C43/record.json",
+        "sha256": "d7adc305c90f9d29b6a63b306192a983f8bbfbca8192c7fe50950fefdeaadeb8"
+      },
+      "illustration_c44": {
+        "path": "ArtSource/Art071/IllustrationsFull/C44/record.json",
+        "sha256": "d8e2c3047c44b3f72cbfa85202ad1c1b8590238f0c08392c63350eb699093783"
+      },
+      "illustration_c45": {
+        "path": "ArtSource/Art071/IllustrationsFull/C45/record.json",
+        "sha256": "1c2ab87607aa3fbeadaa830a9bb0013ca8f7a7ea2f90a0477075e9e7dc4fe074"
+      },
+      "illustration_c46": {
+        "path": "ArtSource/Art071/IllustrationsFull/C46/record.json",
+        "sha256": "17e0d06b248aa76b5861240f1215c67b7d021f5a400df8e6463abb94de7d5dc3"
+      },
+      "illustration_c47": {
+        "path": "ArtSource/Art071/IllustrationsFull/C47/record.json",
+        "sha256": "54963824b9efeccd2d116a2726d42f8ab8cdb2e873999756235c2227a4b21946"
+      },
+      "illustration_c48": {
+        "path": "ArtSource/Art071/Illustrations/manifest.json",
+        "sha256": "24d182e82f643cf11d52ec7cb044d060f8f68d4a2d3425fe9f26fd71a95970dc"
+      },
+      "illustration_c49": {
+        "path": "ArtSource/Art071/IllustrationsFull/C49/record.json",
+        "sha256": "bf3e59ea59485b7df724cd44e2804deed8e0241aa805e6f0113387452edae5b1"
+      },
+      "illustration_c50": {
+        "path": "ArtSource/Art071/IllustrationsFull/C50/record.json",
+        "sha256": "00b62af1bbb1e43d76bdc58238a55fce2f26bbab62f8ba8060bad87264810df8"
+      },
+      "illustration_c51": {
+        "path": "ArtSource/Art071/IllustrationsFull/C51/record.json",
+        "sha256": "b6f2ed650c9c059dd3dc6c4e6da8c0a2f97abfcdd48295a4e64b588241037acd"
+      },
+      "illustration_c52": {
+        "path": "ArtSource/Art071/IllustrationsFull/C52/record.json",
+        "sha256": "2d265db4c2a9e1ecb0c90a0d27e021dfa55424bc95ff0af35dac307601435a9c"
+      },
+      "illustration_c53": {
+        "path": "ArtSource/Art071/IllustrationsFull/C53/record.json",
+        "sha256": "eaa64c0ee532a2048fac7bb1cbb073a2f6c7383a4cb5017e541af93f57b83cff"
+      },
+      "illustration_i01": {
+        "path": "ArtSource/Art071/IllustrationsFull/I01/record.json",
+        "sha256": "72d2f8f4a9624f97e3d54ce154a24e944655abbc8c058a70801be57adac11280"
+      },
+      "illustration_i02": {
+        "path": "ArtSource/Art071/IllustrationsFull/I02/record.json",
+        "sha256": "863a5992af7bd9a7983ef46821243ea1f4d138db9d76572c5f3df567b87d2285"
+      },
+      "illustration_i03": {
+        "path": "ArtSource/Art071/IllustrationsFull/I03/record.json",
+        "sha256": "3481e9fb77b4096bf419ac30c89c1fd25e94b4dbe41638b622aeed0a4a49ebeb"
+      },
+      "illustration_i04": {
+        "path": "ArtSource/Art071/IllustrationsFull/I04/record.json",
+        "sha256": "67d06996c7399cc85d73230b7257fb6336842671e4741770eafb714a6be319b0"
+      },
+      "illustration_i05": {
+        "path": "ArtSource/Art071/IllustrationsFull/I05/record.json",
+        "sha256": "68e38510cacacb3274814bd635e79987bdc0ec4ae5ca114740b2ea1f5c75b778"
+      },
+      "illustration_i06": {
+        "path": "ArtSource/Art071/IllustrationsFull/I06/record.json",
+        "sha256": "4021139b554b423c5de8487e24c6918054ddc6641e38400bca796466a80ca0a4"
+      },
+      "illustration_i07": {
+        "path": "ArtSource/Art071/Illustrations/manifest.json",
+        "sha256": "24d182e82f643cf11d52ec7cb044d060f8f68d4a2d3425fe9f26fd71a95970dc"
+      },
+      "illustration_o01": {
+        "path": "ArtSource/Art071/IllustrationsFull/O01/record.json",
+        "sha256": "6d3b9c3553236195c93c0d1dcd82c48778548455ba92e50b883534372575d907"
+      },
+      "illustration_o02": {
+        "path": "ArtSource/Art071/IllustrationsFull/O02/record.json",
+        "sha256": "c18fd95d7a66b0117f95ec51d43bbd5fcf7d5442edb4e6f0143a40c5511e76f2"
+      },
+      "illustration_o03": {
+        "path": "ArtSource/Art071/IllustrationsFull/O03/record.json",
+        "sha256": "d9ff8860803b8cf1402f1d7abaefc344c85c1d49a531a8c1abba7d3a589074e7"
+      },
+      "illustration_o04": {
+        "path": "ArtSource/Art071/IllustrationsFull/O04/record.json",
+        "sha256": "ce329f8a47f263aecc152261670e689283f1db8405fc261dedfe362f259e7160"
+      },
+      "illustration_o05": {
+        "path": "ArtSource/Art071/IllustrationsFull/O05/record.json",
+        "sha256": "2149c16ed4636fb16b0b28d0e55d993acaf127be3201040e57b20511b750beba"
+      },
+      "illustration_o06": {
+        "path": "ArtSource/Art071/IllustrationsFull/O06/record.json",
+        "sha256": "a90e931b05e8f501ce3e1adc07089742f90cec9106465e7c3eafebb10b8e2f9a"
+      },
+      "illustration_o07": {
+        "path": "ArtSource/Art071/IllustrationsFull/O07/record.json",
+        "sha256": "27e0d1ae37f7e6ecb3d5f9bc30eafac1f0f2b598e588db6a89755b3bbf19d590"
+      },
+      "illustration_u01": {
+        "path": "ArtSource/Art071/IllustrationsFull/U01/record.json",
+        "sha256": "3b4de98f8fafd1ca4262427f4bbc3e84cd074e84a86552b0f1d5f8d85f2f7f6b"
+      },
+      "illustration_u02": {
+        "path": "ArtSource/Art071/IllustrationsFull/U02/record.json",
+        "sha256": "f93e76ffb2a7bc385663f8f95b552092df211f282f3e8d223f0f28847c4ee753"
+      },
+      "illustration_u03": {
+        "path": "ArtSource/Art071/IllustrationsFull/U03/record.json",
+        "sha256": "ae32965c20d4a7761354bf8fd558acba1dc5051c7e4e8cd564c70c8742629a32"
+      },
+      "illustration_u04": {
+        "path": "ArtSource/Art071/IllustrationsFull/U04/record.json",
+        "sha256": "16964cab5b142718e63c6e8d5bd75817728fbc18ad29a823dbaef96f8a54ef1b"
+      },
+      "illustration_u05": {
+        "path": "ArtSource/Art071/IllustrationsFull/U05/record.json",
+        "sha256": "fa0be59859e288e7403068f5f0176a30d1eaaf5489e780a6bbe922c8e52b2356"
+      },
+      "illustration_u06": {
+        "path": "ArtSource/Art071/IllustrationsFull/U06/record.json",
+        "sha256": "277c6c55c469c2ba434ebd04588ae3cd1debcd9b6aa97ee42fd1d739b29d95e4"
+      },
+      "illustration_u07": {
+        "path": "ArtSource/Art071/IllustrationsFull/U07/record.json",
+        "sha256": "6f0350f026cd195a9445360b8852d1f20d0cf5efb73d232fe31ad28157fa9a4b"
+      }
+    },
+    "review": {
+      "path": "cache/v071-rc2/art-review/full-art-review-b005e00.json",
+      "sha256": "549803b4d6a0afa2d483dfca021ba5d4baf3d5f49aaaf0424781155d35441a9c"
+    },
+    "evidence": [
+      {
+        "path": "evidence/v071-full/visual-41aface/final-import-snapshot.json",
+        "sha256": "aea4bd3c9af400e62402142af3a2b4f0624fa18f3ba70cfe3b9b110dd984b2e0",
+        "kind": "unity-import",
+        "scope": "Historical actual132 importer observation reused for exact unchanged PNG/meta bytes; no new Unity invocation."
+      },
+      {
+        "path": "cache/v071-rc2/art-review/byte-reuse-audit.json",
+        "sha256": "a3ff98e30f42f4c612456fc035929c4eb24cd3cf62d829eb7851a53a74b35a47",
+        "kind": "source-byte-reuse",
+        "scope": "127 source/runtime and132 historicalPNG/meta exact byte audit; current menuTable tracked separately."
+      },
+      {
+        "path": "evidence/v071-full/review/full-art-review-41aface.json",
+        "sha256": "d0f130b453087e2c99dc0372c0a3a49594331093f758ecb83e10bf3f436a4d72",
+        "kind": "historical-review",
+        "scope": "Original full71 cross-author/source provenance retains41aface identity; not current runtime."
+      },
+      {
+        "path": "evidence/v071-full/review/FULL_REGRESSION_41AFACE_REVIEW.md",
+        "sha256": "a3662b2925bd26907e1f0bd1024d72cf9f35a58abbd188a4b87069f5f365b7b3",
+        "kind": "historical-independent-review",
+        "scope": "Original actual production/visual scope only; unchanged asset bytes reuse, never relabelled current Player."
+      },
+      {
+        "path": "cache/v071-full/final-scope-review/scope-review.md",
+        "sha256": "0838edf167c80d1d8a55f554536477a53d360a34f781b4dab7e62a4dd92ae3e8",
+        "kind": "historical-independent-review",
+        "scope": "Original actual production/visual scope only; unchanged asset bytes reuse, never relabelled current Player."
+      },
+      {
+        "path": "cache/v071-full/controller-c21-c40-root-review.md",
+        "sha256": "1f7e42f127e347489b27e2485ea01c52982fc90ecf277776435173cd75f74dee",
+        "kind": "historical-independent-review",
+        "scope": "Original actual production/visual scope only; unchanged asset bytes reuse, never relabelled current Player."
+      },
+      {
+        "path": "cache/v071-full/recording-review/existing-runtime-supplement.md",
+        "sha256": "40e8a2aea76ef0b2512ccc164d4fb4886f0427363604c5e5637de03e71a3f5c8",
+        "kind": "historical-independent-review",
+        "scope": "Original actual production/visual scope only; unchanged asset bytes reuse, never relabelled current Player."
+      },
+      {
+        "path": "cache/v071-full/final-scope-review/temporary-closure-040217-040605.md",
+        "sha256": "d6e143decbbb9b2a124a740b64d4a5ca4451e6723c4ad3512fee753143f22552",
+        "kind": "historical-independent-review",
+        "scope": "Original actual production/visual scope only; unchanged asset bytes reuse, never relabelled current Player."
+      },
+      {
+        "path": "cache/v071-full/final-scope-review/combo-041301-closure.md",
+        "sha256": "210d84d39c32d129b2857ab6ddd5dd65a3f49af4373351126779ba523968f4f6",
+        "kind": "historical-independent-review",
+        "scope": "Original actual production/visual scope only; unchanged asset bytes reuse, never relabelled current Player."
+      },
+      {
+        "path": "cache/v071-full/enchant-wiring-review/REVIEW.md",
+        "sha256": "124b2fa8ab20ca7e1110dc5f5de020eab3bb12dfe571faefc120aed2d54aa5ac",
+        "kind": "historical-independent-review",
+        "scope": "Original actual production/visual scope only; unchanged asset bytes reuse, never relabelled current Player."
+      },
+      {
+        "path": "cache/v071-full/root-final-visual-review/REVIEW.md",
+        "sha256": "2c480623ccd5b155352026f91dbb5abcc6a6a804d14b47173b125d3439daaf80",
+        "kind": "historical-independent-review",
+        "scope": "Original actual production/visual scope only; unchanged asset bytes reuse, never relabelled current Player."
+      },
+      {
+        "path": "cache/v071-full/recording-review/recording-41aface-review.md",
+        "sha256": "5d5465df8acacc8976c2dd27c9bcf7e0c2fa3a7adb141bfd6a598ca9e64fc207",
+        "kind": "historical-independent-review",
+        "scope": "Original actual production/visual scope only; unchanged asset bytes reuse, never relabelled current Player."
+      },
+      {
+        "path": "evidence/v071/player-b005e00-rc2/strict-full/player-20261110-104130-079c5f75/player-report.json",
+        "sha256": "434dca84c6272df1d6adf8a7734cd42e47b3e2432ff9b9d313c67e81c4a773c5",
+        "kind": "runtime-visual",
+        "scope": "Current complete actual Windows report; performance failed, visual checks carry explicit capture limits."
+      },
+      {
+        "path": "evidence/v071/player-b005e00-rc2/serial-summary.json",
+        "sha256": "e4ba68cef8720251fcadaa7b2a3ab27d95d0f5d90218205639752ed3fa59615f",
+        "kind": "runtime-identity",
+        "scope": "Actual selected strict-native diagnostic reference with failed performance; not full acceptance."
+      },
+      {
+        "path": "evidence/v071/unity/build-windows-20261110-103917.json",
+        "sha256": "56bfe4eaea6e75dc5532c3caec5109b2875612ba1586ed0f7667bca9ce85962c",
+        "kind": "runtime-identity",
+        "scope": "Actual buildGUID/identity matched current Windows Player."
+      },
+      {
+        "path": "evidence/v071/unity/nunit-20261110-103648.xml",
+        "sha256": "78e0bbd83ef5f54afad0fc7e500ba6cbc2ade858cc40ea69c002f1a0d2a19938",
+        "kind": "runtime-visual",
+        "scope": "Current185-case fullEditor report with stable menuTable detail test; not WindowsPlayer."
+      },
+      {
+        "path": "artifacts/cache/v071-rc2/full-play-archive/DiceCraftTests_3c32ad343e0b4c5d86cee9775cadaa61/extra-capture/004-table-dice-detail-font150.png",
+        "sha256": "1a086a419a6b2f9953e8361d9adc8fb05195189a00fec94736b53ef18e5e6039",
+        "kind": "runtime-visual",
+        "scope": "Actually viewed current Editor1920x1080font150 stable die detail, distinct from Player capture."
+      },
+      {
+        "path": "artifacts/cache/v071-rc2/full-play-archive/DiceCraftTests_3c32ad343e0b4c5d86cee9775cadaa61/extra-capture/004-table-dice-detail-font150.png.json",
+        "sha256": "c40ec7fd385e20ac745fce40110235ebea1b0993283076ffd03e71b241b25941",
+        "kind": "runtime-visual",
+        "scope": "Actual image dimensions/state fontscale and current source metadata."
+      },
+      {
+        "path": "artifacts/cache/v071-rc2/full-play-archive/DiceCraftTests_3c32ad343e0b4c5d86cee9775cadaa61/extra-capture/extra-report.json",
+        "sha256": "e3cff571546b8cb3d5b2b256fd0eb35fdf011e15850e36eb1450c23886dca508",
+        "kind": "runtime-visual",
+        "scope": "Original Editor extra-report with actual MVID/source bindings."
+      },
+      {
+        "path": "cache/v071-rc2/art-review/ART_REVIEW_B005E00.md",
+        "sha256": "e4a5030cf9303f86bebcb8642bbc5473a88fbe10532bf4cc4ced7c75cae82e22",
+        "kind": "independent-review",
+        "scope": "Current technical art review by art_assets, limited to integration/capture scope; own unchanged artwork relies on original cross-author review."
+      },
+      {
+        "path": "cache/v071-rc2/art-review/ART_REVIEW_B005E00.bindings.json",
+        "sha256": "4ff65afbcf8040136504cb3e9b454ad73f8f37552f3618c641bd28e43ac30776",
+        "kind": "independent-review",
+        "scope": "All10 actually viewed current Player images+old comparison+currentEditor supplement+raw identity hashes and exclusions."
+      },
+      {
+        "path": "cache/v071-rc2/full-play-review/FINAL_REVIEW.md",
+        "sha256": "b3f8c6a15a20abfc716d592b9afcc71724f87448f5024c28ec67bb691191dd91",
+        "kind": "independent-review",
+        "scope": "Current185 actual fullreport/archive/source review by dice_sample, no blanket image acceptance."
+      },
+      {
+        "path": "cache/v071-rc2/full-play-review/FINAL_REVIEW.bindings.json",
+        "sha256": "3f1bc3c9f812816cff80ef12f10bcf91155e77465945974f10c240ec9907c769",
+        "kind": "independent-review",
+        "scope": "Current fullEditor evidence bindings."
+      },
+      {
+        "path": "cache/v071-rc2/audit/FULL_REGRESSION_BUILD_B005E00.bindings.json",
+        "sha256": "00568f203e6e089a3d35127edff4e44839a24cc178906b95a392df7acaf42536",
+        "kind": "independent-review",
+        "scope": "project_audit current Edit/Play/gate/PDB/two actual builds; no human acceptance."
+      },
+      {
+        "path": "evidence/v071-menu-table/review/art/MENU_RULES_CLOSURE.md",
+        "sha256": "fc5075b576b33e2707074500a6bfe66b08dec67369a50bd8f35b2a98deb6a953",
+        "kind": "historical-editor-review",
+        "scope": "Actual prior three-aspect final menu spacing closure; not new Player matrix."
+      },
+      {
+        "path": "evidence/v071-menu-table/review/technical/FINAL_REVIEW.md",
+        "sha256": "e2ce3a3f71459e6ac2beb28d773c80d4df5661e26a76a1a8a97e4f1fec19e283",
+        "kind": "historical-editor-review",
+        "scope": "Menu/table GPU/interface technical targeted closure retains actual capture identity."
+      }
+    ],
+    "reusedResources": "Previously qualified paper family and ceramic mother model remain covered by the source gate and this art review",
+    "humanArtAccepted": false
+  },
+  "menuTable": {
+    "record": {
+      "path": "ArtSource/Art071/MenuTable/record.json",
+      "sha256": "9f89c8ae9776bf2459a257c20c7c480af9f19c4962f6f28356926a7aa5d5a020"
+    },
+    "sourcesAndPrompts": [
+      {
+        "path": "ArtSource/Art071/MenuTable/menu-concept.png",
+        "sha256": "556a87e4aa80219ca19fe46edb8ce0008ca1c40564d7ab918facc463be96ee66"
+      },
+      {
+        "path": "ArtSource/Art071/MenuTable/menu-concept-prompt.txt",
+        "sha256": "3f7978cf7dc968b61ce93bf78a33897fc4f0887d45f7117896653f72dfa4acc4"
+      },
+      {
+        "path": "ArtSource/Art071/MenuTable/table-background.png",
+        "sha256": "664ac49ea2183f1288033586d02aaff9d91877be77b20cb1125d0342772f35ea"
+      },
+      {
+        "path": "ArtSource/Art071/MenuTable/table-background-prompt.txt",
+        "sha256": "83d725ee5ae063fac2a890f365f864f2fd1e3baa8aabbe26b4a05e6ac024fccc"
+      }
+    ],
+    "runtimeInputs": [
+      {
+        "path": "DicePrototype/Assets/Art/Art071/Backgrounds/bg_table_scene.png",
+        "sha256": "664ac49ea2183f1288033586d02aaff9d91877be77b20cb1125d0342772f35ea"
+      },
+      {
+        "path": "DicePrototype/Assets/Art/Art071/Backgrounds/bg_table_scene.png.meta",
+        "sha256": "032fb613ec3bffdca516bff1ac0f29d615a6904bd2ba31b4b3d2638dea9c16c2"
+      },
+      {
+        "path": "DicePrototype/Assets/Art/Art071/Full/Materials/felt.mat",
+        "sha256": "f2ea032c162499efb4ef27c6d6ff6ad2a274f3dd88b82c1aa67625ad4a1fd94f"
+      },
+      {
+        "path": "DicePrototype/Assets/Game/Runtime/Shaders/Art07Felt.shader",
+        "sha256": "3bc8123983e4a2a50dbad240715ba26ecb095eae1933bc7f51fa07dae0b99d59"
+      },
+      {
+        "path": "DicePrototype/Assets/Game/UI/GameApp.Art071Screens.cs",
+        "sha256": "c6cdf5f29757dbecf62a102f271ae2e525cf7e219797da302cc4f9d9cf1d9f1e"
+      },
+      {
+        "path": "DicePrototype/Assets/Game/Editor/V071TableSetup.cs",
+        "sha256": "28af5cc39eb6de52e82537f8d6df3d64ca67991afdb4e0886b6e767b8aff4d0a"
+      }
+    ],
+    "humanArtAccepted": false
+  },
+  "manifestInputs": {
+    "windowsResults": "evidence/v071/player-b005e00-rc2/strict-full/player-20261110-104130-079c5f75",
+    "windowsBuild": "evidence/v071/unity/build-windows-20261110-103917.json",
+    "macosBuild": "evidence/v071/unity/build-macos-20261110-104006.json",
+    "artReviewEvidence": "cache/v071-rc2/art-review/full-art-review-b005e00.json",
+    "displayRecovery": "evidence/v071/player-b005e00-rc2/separate-process-display-recovery",
+    "packageDirectory": "Releases/p0.7.1/menu-table-rc2",
+    "packageProofDirectory": "evidence/v071-rc2/packages"
+  },
+  "macVerificationKitEvidence": {
+    "path": "evidence/v071-rc2/packages/mac-verification-kit-review-candidate.json",
+    "sha256": "9aac615323a32de19620be43d595edc8ae76aa635a1e34819b634bfa9d7e63e1"
+  }
+}

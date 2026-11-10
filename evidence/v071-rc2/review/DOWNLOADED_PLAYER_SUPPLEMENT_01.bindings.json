@@ -1,0 +1,189 @@
+{
+  "schema": "v071-rc2-downloaded-player-visual-supplement-1",
+  "utc": "2026-11-10T11:09:31.658726+00:00",
+  "reviewer": "/root/art_assets",
+  "status": "no_additional_visual_artifacts_in_this_diagnostic",
+  "identity": {
+    "releaseVersion": "p0.7.1",
+    "artVersion": "art0.7.1",
+    "sourceCommit": "b005e0088b227b26e2f8fc44f1c59f68df0c0a35",
+    "contentConfigVersion": "p0.6.0",
+    "contentConfigSha256": "747ed1efc7bea15873f66a81eee5c7654971c21031f2a1517ce629adce7b6e6c",
+    "saveSchemaVersion": 4,
+    "goldenCaseSetSha256": "306cb86f79dafe0e3eb302714abd232af20fe0062a6713f7d713c11e2a6a5718",
+    "unityEditorVersion": "6000.6.7f1",
+    "backend": "Mono"
+  },
+  "downloadedRunDirectory": "artifacts/cache/v071-rc2-remote-b005e00-01",
+  "buildGuid": "75e7f6b0f1c34075a6527abbc6829e8b",
+  "runtimeMvid": "5c19060c-301d-4a32-8ed5-6d4ce85722a2",
+  "platform": "WindowsPlayer",
+  "width": 1920,
+  "height": 1080,
+  "actualViewedNewImages": [],
+  "pngInventoryScope": "Recursive files under this attempt run directory only; no new screenshot was generated or requested.",
+  "pngFilesFound": [],
+  "phases": [
+    {
+      "index": 0,
+      "name": "baseline-menu",
+      "rulePhase": "MainMenu"
+    },
+    {
+      "index": 1,
+      "name": "ui:MenuHandbook",
+      "rulePhase": "MainMenu"
+    },
+    {
+      "index": 2,
+      "name": "ui:HandbookColors",
+      "rulePhase": "MainMenu"
+    },
+    {
+      "index": 3,
+      "name": "ui:CloseDialog",
+      "rulePhase": "MainMenu"
+    },
+    {
+      "index": 4,
+      "name": "ui:MenuSettings",
+      "rulePhase": "MainMenu"
+    },
+    {
+      "index": 5,
+      "name": "ui:SettingsTab0",
+      "rulePhase": "MainMenu"
+    },
+    {
+      "index": 6,
+      "name": "ui:SettingsTab1",
+      "rulePhase": "MainMenu"
+    },
+    {
+      "index": 7,
+      "name": "ui:SettingsTab2",
+      "rulePhase": "MainMenu"
+    },
+    {
+      "index": 8,
+      "name": "ui:SettingsDone",
+      "rulePhase": "MainMenu"
+    },
+    {
+      "index": 9,
+      "name": "applying-debug-resource-scene",
+      "rulePhase": "StagePreview"
+    },
+    {
+      "index": 10,
+      "name": "command:Submit",
+      "rulePhase": "Selecting"
+    },
+    {
+      "index": 11,
+      "name": "command:EndStage",
+      "rulePhase": "HandReady"
+    },
+    {
+      "index": 12,
+      "name": "command:Continue",
+      "rulePhase": "StageSettlement"
+    },
+    {
+      "index": 13,
+      "name": "actual-shop-current-tab",
+      "rulePhase": "Shop"
+    },
+    {
+      "index": 14,
+      "name": "applying-debug-resource-scene",
+      "rulePhase": "Shop"
+    },
+    {
+      "index": 15,
+      "name": "ten-ordinary-dice-after-ui-visits",
+      "rulePhase": "Selecting"
+    },
+    {
+      "index": 16,
+      "name": "idle-warmup-and-observation",
+      "rulePhase": "Selecting"
+    },
+    {
+      "index": 17,
+      "name": "after-idle",
+      "rulePhase": "Selecting"
+    }
+  ],
+  "phaseDataIsImageEvidence": false,
+  "underlyingResult": {
+    "extractionStatus": "failed_or_incomplete",
+    "runnerStatus": "diagnostic_failed_or_incomplete",
+    "diagnosticStatus": "diagnostic_incomplete",
+    "endedUtc": "2026-11-10T11:07:49.5565425Z",
+    "idle": {
+      "requestedSeconds": 20.0,
+      "actualSeconds": 20.00055569999998,
+      "rows": 1200,
+      "validGcRows": 1200,
+      "missingGcRows": 0,
+      "zeroGcRows": 1199,
+      "nonzeroGcRows": 1,
+      "unfocusedRows": 0,
+      "movingRows": 0,
+      "pointerChangedRows": 0,
+      "inputRows": 1,
+      "sequenceChangedRows": 0,
+      "maximumGcBytes": 132,
+      "observationComplete": false,
+      "scope": "Prewarmed stable ten-die debug table, no probe transactions during window. Reads previous completed Profiler counter batches; 0 samples is missing, not 0 B. Observer arrays preallocated; no enumeration, JSON, screenshot or file I/O during window."
+    },
+    "wholeReleaseAccepted": false
+  },
+  "bindings": [
+    {
+      "path": "artifacts/cache/v071-rc2-remote-b005e00-01/remote-extraction-result.json",
+      "sha256": "fff0291eaf07d347e6eead273dcb0f6fa6131b19f76fd23c0c60608d0eb06321",
+      "bytes": 4423
+    },
+    {
+      "path": "artifacts/cache/v071-rc2-remote-b005e00-01/run/runner-summary.json",
+      "sha256": "b60cd3d356afa6bf3751d2644ece85f1e2cada09c6f61917aaab893d300e9ac2",
+      "bytes": 6982
+    },
+    {
+      "path": "artifacts/cache/v071-rc2-remote-b005e00-01/run/diagnostic/resource-report.json",
+      "sha256": "8268eed3ec8857d13555e18497f9550b42e3a1a61ffb0f408200b125e9cbe436",
+      "bytes": 1532173
+    },
+    {
+      "path": "artifacts/cache/v071-rc2-remote-b005e00-01/run/diagnostic/idle-frames.csv",
+      "sha256": "6393d62ff8dd1e989725ab5d4febaa2b64d2236b2579d1b860e3ce5f9dd066bc",
+      "bytes": 66347
+    },
+    {
+      "path": "artifacts/cache/v071-rc2-remote-b005e00-01/run/diagnostic/resource-frames.csv",
+      "sha256": "90d17dd5fc37169c0b67b0a61592541380d16231dd2ae0e83efb022b7af7a4f6",
+      "bytes": 185895
+    }
+  ],
+  "diagnosticSource": {
+    "path": "DicePrototype/Assets/Game/Runtime/Verification/Art07ResourceDiagnostic.cs",
+    "sha256": "17d80bf9c7c0e82bd81c76e6dfafc334fc0e7fec9e43239bc86da14bb448bcfe",
+    "bytes": 42960
+  },
+  "unchangedFormalArtReview": {
+    "path": "cache/v071-rc2/art-review/full-art-review-b005e00.json",
+    "sha256": "549803b4d6a0afa2d483dfca021ba5d4baf3d5f49aaaf0424781155d35441a9c",
+    "bytes": 12914
+  },
+  "limitations": [
+    "No screenshot or visual acceptance is claimed from18 resource phases or texture/mesh snapshots.",
+    "Attempt01 diagnostic remains incomplete because idle inputRows=1, observationComplete=false; original report not modified.",
+    "This supplement does not revise performance, native-display, Mac, AudioMixer, human style acceptance or sealed manifest inputs.",
+    "Earlier Player dim detail capture limitation remains; no same-name stable detail image was produced here."
+  ],
+  "humanArtAccepted": false,
+  "productionSourceOrUiChanged": false,
+  "networkOrPlayerStartedByReviewer": false
+}

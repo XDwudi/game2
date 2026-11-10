@@ -1,0 +1,244 @@
+{
+  "schema": "v071-full-art-review-1",
+  "status": "full_art_review_complete",
+  "identity": {
+    "releaseVersion": "p0.7.1",
+    "artVersion": "art0.7.1",
+    "sourceCommit": "b005e0088b227b26e2f8fc44f1c59f68df0c0a35",
+    "contentConfigVersion": "p0.6.0",
+    "contentConfigSha256": "747ed1efc7bea15873f66a81eee5c7654971c21031f2a1517ce629adce7b6e6c",
+    "saveSchemaVersion": 4,
+    "goldenCaseSetSha256": "306cb86f79dafe0e3eb302714abd232af20fe0062a6713f7d713c11e2a6a5718",
+    "unityEditorVersion": "6000.6.7f1",
+    "backend": "Mono"
+  },
+  "stagedManifest": {
+    "path": "DicePrototype/Assets/Art/Art071/FullSourceManifest.json",
+    "sha256": "50c07c5a00194769937edcb8d1de2e919e713daf98db641ae42e45b8c3eb96c9"
+  },
+  "unresolvedBlockingArtDefects": [],
+  "humanArtAccepted": false,
+  "evidence": [
+    {
+      "path": "evidence/v071-full/visual-41aface/final-import-snapshot.json",
+      "sha256": "aea4bd3c9af400e62402142af3a2b4f0624fa18f3ba70cfe3b9b110dd984b2e0",
+      "kind": "unity-import",
+      "scope": "Historical actual132 importer observation reused for exact unchanged PNG/meta bytes; no new Unity invocation."
+    },
+    {
+      "path": "cache/v071-rc2/art-review/byte-reuse-audit.json",
+      "sha256": "a3ff98e30f42f4c612456fc035929c4eb24cd3cf62d829eb7851a53a74b35a47",
+      "kind": "source-byte-reuse",
+      "scope": "127 source/runtime and132 historicalPNG/meta exact byte audit; current menuTable tracked separately."
+    },
+    {
+      "path": "evidence/v071-full/review/full-art-review-41aface.json",
+      "sha256": "d0f130b453087e2c99dc0372c0a3a49594331093f758ecb83e10bf3f436a4d72",
+      "kind": "historical-review",
+      "scope": "Original full71 cross-author/source provenance retains41aface identity; not current runtime."
+    },
+    {
+      "path": "evidence/v071-full/review/FULL_REGRESSION_41AFACE_REVIEW.md",
+      "sha256": "a3662b2925bd26907e1f0bd1024d72cf9f35a58abbd188a4b87069f5f365b7b3",
+      "kind": "historical-independent-review",
+      "scope": "Original actual production/visual scope only; unchanged asset bytes reuse, never relabelled current Player."
+    },
+    {
+      "path": "cache/v071-full/final-scope-review/scope-review.md",
+      "sha256": "0838edf167c80d1d8a55f554536477a53d360a34f781b4dab7e62a4dd92ae3e8",
+      "kind": "historical-independent-review",
+      "scope": "Original actual production/visual scope only; unchanged asset bytes reuse, never relabelled current Player."
+    },
+    {
+      "path": "cache/v071-full/controller-c21-c40-root-review.md",
+      "sha256": "1f7e42f127e347489b27e2485ea01c52982fc90ecf277776435173cd75f74dee",
+      "kind": "historical-independent-review",
+      "scope": "Original actual production/visual scope only; unchanged asset bytes reuse, never relabelled current Player."
+    },
+    {
+      "path": "cache/v071-full/recording-review/existing-runtime-supplement.md",
+      "sha256": "40e8a2aea76ef0b2512ccc164d4fb4886f0427363604c5e5637de03e71a3f5c8",
+      "kind": "historical-independent-review",
+      "scope": "Original actual production/visual scope only; unchanged asset bytes reuse, never relabelled current Player."
+    },
+    {
+      "path": "cache/v071-full/final-scope-review/temporary-closure-040217-040605.md",
+      "sha256": "d6e143decbbb9b2a124a740b64d4a5ca4451e6723c4ad3512fee753143f22552",
+      "kind": "historical-independent-review",
+      "scope": "Original actual production/visual scope only; unchanged asset bytes reuse, never relabelled current Player."
+    },
+    {
+      "path": "cache/v071-full/final-scope-review/combo-041301-closure.md",
+      "sha256": "210d84d39c32d129b2857ab6ddd5dd65a3f49af4373351126779ba523968f4f6",
+      "kind": "historical-independent-review",
+      "scope": "Original actual production/visual scope only; unchanged asset bytes reuse, never relabelled current Player."
+    },
+    {
+      "path": "cache/v071-full/enchant-wiring-review/REVIEW.md",
+      "sha256": "124b2fa8ab20ca7e1110dc5f5de020eab3bb12dfe571faefc120aed2d54aa5ac",
+      "kind": "historical-independent-review",
+      "scope": "Original actual production/visual scope only; unchanged asset bytes reuse, never relabelled current Player."
+    },
+    {
+      "path": "cache/v071-full/root-final-visual-review/REVIEW.md",
+      "sha256": "2c480623ccd5b155352026f91dbb5abcc6a6a804d14b47173b125d3439daaf80",
+      "kind": "historical-independent-review",
+      "scope": "Original actual production/visual scope only; unchanged asset bytes reuse, never relabelled current Player."
+    },
+    {
+      "path": "cache/v071-full/recording-review/recording-41aface-review.md",
+      "sha256": "5d5465df8acacc8976c2dd27c9bcf7e0c2fa3a7adb141bfd6a598ca9e64fc207",
+      "kind": "historical-independent-review",
+      "scope": "Original actual production/visual scope only; unchanged asset bytes reuse, never relabelled current Player."
+    },
+    {
+      "path": "evidence/v071/player-b005e00-rc2/strict-full/player-20261110-104130-079c5f75/player-report.json",
+      "sha256": "434dca84c6272df1d6adf8a7734cd42e47b3e2432ff9b9d313c67e81c4a773c5",
+      "kind": "runtime-visual",
+      "scope": "Current complete actual Windows report; performance failed, visual checks carry explicit capture limits."
+    },
+    {
+      "path": "evidence/v071/player-b005e00-rc2/serial-summary.json",
+      "sha256": "e4ba68cef8720251fcadaa7b2a3ab27d95d0f5d90218205639752ed3fa59615f",
+      "kind": "runtime-identity",
+      "scope": "Actual selected strict-native diagnostic reference with failed performance; not full acceptance."
+    },
+    {
+      "path": "evidence/v071/unity/build-windows-20261110-103917.json",
+      "sha256": "56bfe4eaea6e75dc5532c3caec5109b2875612ba1586ed0f7667bca9ce85962c",
+      "kind": "runtime-identity",
+      "scope": "Actual buildGUID/identity matched current Windows Player."
+    },
+    {
+      "path": "evidence/v071/unity/nunit-20261110-103648.xml",
+      "sha256": "78e0bbd83ef5f54afad0fc7e500ba6cbc2ade858cc40ea69c002f1a0d2a19938",
+      "kind": "runtime-visual",
+      "scope": "Current185-case fullEditor report with stable menuTable detail test; not WindowsPlayer."
+    },
+    {
+      "path": "artifacts/cache/v071-rc2/full-play-archive/DiceCraftTests_3c32ad343e0b4c5d86cee9775cadaa61/extra-capture/004-table-dice-detail-font150.png",
+      "sha256": "1a086a419a6b2f9953e8361d9adc8fb05195189a00fec94736b53ef18e5e6039",
+      "kind": "runtime-visual",
+      "scope": "Actually viewed current Editor1920x1080font150 stable die detail, distinct from Player capture."
+    },
+    {
+      "path": "artifacts/cache/v071-rc2/full-play-archive/DiceCraftTests_3c32ad343e0b4c5d86cee9775cadaa61/extra-capture/004-table-dice-detail-font150.png.json",
+      "sha256": "c40ec7fd385e20ac745fce40110235ebea1b0993283076ffd03e71b241b25941",
+      "kind": "runtime-visual",
+      "scope": "Actual image dimensions/state fontscale and current source metadata."
+    },
+    {
+      "path": "artifacts/cache/v071-rc2/full-play-archive/DiceCraftTests_3c32ad343e0b4c5d86cee9775cadaa61/extra-capture/extra-report.json",
+      "sha256": "e3cff571546b8cb3d5b2b256fd0eb35fdf011e15850e36eb1450c23886dca508",
+      "kind": "runtime-visual",
+      "scope": "Original Editor extra-report with actual MVID/source bindings."
+    },
+    {
+      "path": "cache/v071-rc2/art-review/ART_REVIEW_B005E00.md",
+      "sha256": "e4a5030cf9303f86bebcb8642bbc5473a88fbe10532bf4cc4ced7c75cae82e22",
+      "kind": "independent-review",
+      "scope": "Current technical art review by art_assets, limited to integration/capture scope; own unchanged artwork relies on original cross-author review."
+    },
+    {
+      "path": "cache/v071-rc2/art-review/ART_REVIEW_B005E00.bindings.json",
+      "sha256": "4ff65afbcf8040136504cb3e9b454ad73f8f37552f3618c641bd28e43ac30776",
+      "kind": "independent-review",
+      "scope": "All10 actually viewed current Player images+old comparison+currentEditor supplement+raw identity hashes and exclusions."
+    },
+    {
+      "path": "cache/v071-rc2/full-play-review/FINAL_REVIEW.md",
+      "sha256": "b3f8c6a15a20abfc716d592b9afcc71724f87448f5024c28ec67bb691191dd91",
+      "kind": "independent-review",
+      "scope": "Current185 actual fullreport/archive/source review by dice_sample, no blanket image acceptance."
+    },
+    {
+      "path": "cache/v071-rc2/full-play-review/FINAL_REVIEW.bindings.json",
+      "sha256": "3f1bc3c9f812816cff80ef12f10bcf91155e77465945974f10c240ec9907c769",
+      "kind": "independent-review",
+      "scope": "Current fullEditor evidence bindings."
+    },
+    {
+      "path": "cache/v071-rc2/audit/FULL_REGRESSION_BUILD_B005E00.bindings.json",
+      "sha256": "00568f203e6e089a3d35127edff4e44839a24cc178906b95a392df7acaf42536",
+      "kind": "independent-review",
+      "scope": "project_audit current Edit/Play/gate/PDB/two actual builds; no human acceptance."
+    },
+    {
+      "path": "evidence/v071-menu-table/review/art/MENU_RULES_CLOSURE.md",
+      "sha256": "fc5075b576b33e2707074500a6bfe66b08dec67369a50bd8f35b2a98deb6a953",
+      "kind": "historical-editor-review",
+      "scope": "Actual prior three-aspect final menu spacing closure; not new Player matrix."
+    },
+    {
+      "path": "evidence/v071-menu-table/review/technical/FINAL_REVIEW.md",
+      "sha256": "e2ce3a3f71459e6ac2beb28d773c80d4df5661e26a76a1a8a97e4f1fec19e283",
+      "kind": "historical-editor-review",
+      "scope": "Menu/table GPU/interface technical targeted closure retains actual capture identity."
+    }
+  ],
+  "reviewer": "/root/art_assets",
+  "reviewedUtc": "2026-11-10T10:54:49.910889+00:00",
+  "menuTable": {
+    "record": {
+      "path": "ArtSource/Art071/MenuTable/record.json",
+      "sha256": "9f89c8ae9776bf2459a257c20c7c480af9f19c4962f6f28356926a7aa5d5a020"
+    },
+    "sourcesAndPrompts": [
+      {
+        "path": "ArtSource/Art071/MenuTable/menu-concept.png",
+        "sha256": "556a87e4aa80219ca19fe46edb8ce0008ca1c40564d7ab918facc463be96ee66"
+      },
+      {
+        "path": "ArtSource/Art071/MenuTable/menu-concept-prompt.txt",
+        "sha256": "3f7978cf7dc968b61ce93bf78a33897fc4f0887d45f7117896653f72dfa4acc4"
+      },
+      {
+        "path": "ArtSource/Art071/MenuTable/table-background.png",
+        "sha256": "664ac49ea2183f1288033586d02aaff9d91877be77b20cb1125d0342772f35ea"
+      },
+      {
+        "path": "ArtSource/Art071/MenuTable/table-background-prompt.txt",
+        "sha256": "83d725ee5ae063fac2a890f365f864f2fd1e3baa8aabbe26b4a05e6ac024fccc"
+      }
+    ],
+    "runtimeInputs": [
+      {
+        "path": "DicePrototype/Assets/Art/Art071/Backgrounds/bg_table_scene.png",
+        "sha256": "664ac49ea2183f1288033586d02aaff9d91877be77b20cb1125d0342772f35ea"
+      },
+      {
+        "path": "DicePrototype/Assets/Art/Art071/Backgrounds/bg_table_scene.png.meta",
+        "sha256": "032fb613ec3bffdca516bff1ac0f29d615a6904bd2ba31b4b3d2638dea9c16c2"
+      },
+      {
+        "path": "DicePrototype/Assets/Art/Art071/Full/Materials/felt.mat",
+        "sha256": "f2ea032c162499efb4ef27c6d6ff6ad2a274f3dd88b82c1aa67625ad4a1fd94f"
+      },
+      {
+        "path": "DicePrototype/Assets/Game/Runtime/Shaders/Art07Felt.shader",
+        "sha256": "3bc8123983e4a2a50dbad240715ba26ecb095eae1933bc7f51fa07dae0b99d59"
+      },
+      {
+        "path": "DicePrototype/Assets/Game/UI/GameApp.Art071Screens.cs",
+        "sha256": "c6cdf5f29757dbecf62a102f271ae2e525cf7e219797da302cc4f9d9cf1d9f1e"
+      },
+      {
+        "path": "DicePrototype/Assets/Game/Editor/V071TableSetup.cs",
+        "sha256": "28af5cc39eb6de52e82537f8d6df3d64ca67991afdb4e0886b6e767b8aff4d0a"
+      }
+    ],
+    "humanArtAccepted": false
+  },
+  "currentPlayer": {
+    "buildGuid": "75e7f6b0f1c34075a6527abbc6829e8b",
+    "probeAssemblyMvid": "5c19060c-301d-4a32-8ed5-6d4ce85722a2",
+    "referenceScope": "diagnostic_performance_failed_strict_native_automated",
+    "performanceAccepted": false,
+    "actualViewedPngCount": 10,
+    "excludedPreviewVisibilityFiles": [
+      "normal-die-detail-permanent-preview-1280x720.png",
+      "normal-die-detail-permanent-preview-1920x1080.png"
+    ]
+  },
+  "scope": "All71 unchanged art production/source provenance retained through original cross-author reviews and exact127 source/runtime plus132 import bytes; currentb005e00 Windows menu/table/shop/stable dice-sheet images and currentEditor150 detail actually viewed. Two dark normal-detail captures excluded from visibility claims; two moving1080 frames layout-only. No new art blocker in reviewed integration scope. No own-illustration final self-approval, no new animation aesthetic/video claim, no performance/nativephysical/Mac/AudioMixer/human acceptance. New downloaded-run evidence must be appended separately after package sealing."
+}

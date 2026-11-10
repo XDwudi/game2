@@ -1,0 +1,877 @@
+{
+  "schema": "v071-offline-pdb-audit-1",
+  "reviewer": "/root/project_audit",
+  "utc": "2026-11-10T10:41:35.3113329Z",
+  "method": "Offline Mono.Cecil PortablePdbReaderProvider with ThrowIfSymbolsAreNotMatching=true; no Unity invoked",
+  "assemblySet": "Player",
+  "binaryDirectory": "E:\\agent_workspace\\gpt\\game2\\Builds\\v071\\macOS\\DicePrototype.app\\Contents\\Resources\\Data\\Managed",
+  "assemblies": [
+    {
+      "name": "DiceCraft.Core",
+      "mvid": "fc5675af-4598-42ba-8bf6-e69d9ab380cb",
+      "pdbMatchesDll": true,
+      "projectDocuments": 18,
+      "dllSha256": "705b2b4b1324c27ac9bcbe5a85b39aae532843d517f6a2673f94936cc9bb0ba6",
+      "pdbSha256": "96ef7adf4236b685eee8bb249c989fc89de3742f5b3db4e37c7a236c54273f22"
+    },
+    {
+      "name": "DiceCraft.Runtime",
+      "mvid": "810eb4c8-c878-4718-b2b7-e1676556aa44",
+      "pdbMatchesDll": true,
+      "projectDocuments": 87,
+      "dllSha256": "b9599c08a95d73265341d440b58b1b3282261403e7c939fb601b663eafbcbee7",
+      "pdbSha256": "a2bd73ef7c9094fc0220bbc546d3a38c189d1f1157604c3bdb7ba081127e4b93"
+    }
+  ],
+  "documents": [
+    {
+      "assembly": "DiceCraft.Core",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Core\\Rules\\ConfigJsonContract.cs",
+      "algorithm": "SHA256",
+      "expectedChecksum": "5c5eb51d4dcefe314ba4ea83f890e9a85a21386e6029b4b73c58f88972a7cde6",
+      "currentChecksum": "5c5eb51d4dcefe314ba4ea83f890e9a85a21386e6029b4b73c58f88972a7cde6",
+      "matches": true
+    },
+    {
+      "assembly": "DiceCraft.Core",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Core\\Rules\\ConfigValidation.cs",
+      "algorithm": "SHA256",
+      "expectedChecksum": "bae50229b0fe5dd844228add4a44128d7fc3814bc0a71d3f1ee4aa44c4edbc92",
+      "currentChecksum": "bae50229b0fe5dd844228add4a44128d7fc3814bc0a71d3f1ee4aa44c4edbc92",
+      "matches": true
+    },
+    {
+      "assembly": "DiceCraft.Core",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Core\\Rules\\GameConfig.cs",
+      "algorithm": "SHA256",
+      "expectedChecksum": "7346a0a6e7aeef72d725c80e741f1b41d70ddbc8e0a890842ce228e111cbf127",
+      "currentChecksum": "7346a0a6e7aeef72d725c80e741f1b41d70ddbc8e0a890842ce228e111cbf127",
+      "matches": true
+    },
+    {
+      "assembly": "DiceCraft.Core",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Core\\Rules\\ControllerRules.cs",
+      "algorithm": "SHA256",
+      "expectedChecksum": "b30c4847e86825baa74dcd5a127a660e6479a71ccdb928a54592f6520f1ce30c",
+      "currentChecksum": "b30c4847e86825baa74dcd5a127a660e6479a71ccdb928a54592f6520f1ce30c",
+      "matches": true
+    },
+    {
+      "assembly": "DiceCraft.Core",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Core\\Rules\\ExactScoreMath.cs",
+      "algorithm": "SHA256",
+      "expectedChecksum": "8a1e024cf8a84ae3ab6e985374003fd14d47b613798204ce97c37b60fdbdc57c",
+      "currentChecksum": "8a1e024cf8a84ae3ab6e985374003fd14d47b613798204ce97c37b60fdbdc57c",
+      "matches": true
+    },
+    {
+      "assembly": "DiceCraft.Core",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Core\\Rules\\GameRng.cs",
+      "algorithm": "SHA256",
+      "expectedChecksum": "41614b1946d1c4d7b31b4a20957ef285b1bafa5a6ef7e250d05f8c79ae38e042",
+      "currentChecksum": "41614b1946d1c4d7b31b4a20957ef285b1bafa5a6ef7e250d05f8c79ae38e042",
+      "matches": true
+    },
+    {
+      "assembly": "DiceCraft.Core",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Core\\Rules\\HandbookRules.cs",
+      "algorithm": "SHA256",
+      "expectedChecksum": "a4e7f14bd122ad5457be5f3e15add7905316141c58d87dc754d9e6598f3c5b2d",
+      "currentChecksum": "a4e7f14bd122ad5457be5f3e15add7905316141c58d87dc754d9e6598f3c5b2d",
+      "matches": true
+    },
+    {
+      "assembly": "DiceCraft.Core",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Core\\Rules\\Models.cs",
+      "algorithm": "SHA256",
+      "expectedChecksum": "ffb09a2f52fcaf56e3370251f5bd45535091843482b12a372c71bfe5ce1b99bc",
+      "currentChecksum": "ffb09a2f52fcaf56e3370251f5bd45535091843482b12a372c71bfe5ce1b99bc",
+      "matches": true
+    },
+    {
+      "assembly": "DiceCraft.Core",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Core\\Rules\\ProbabilityCalculator.cs",
+      "algorithm": "SHA256",
+      "expectedChecksum": "0f25d9a47ee0951bb87458d4d10f63c78ee867e749ba411d005fae225a312fb5",
+      "currentChecksum": "0f25d9a47ee0951bb87458d4d10f63c78ee867e749ba411d005fae225a312fb5",
+      "matches": true
+    },
+    {
+      "assembly": "DiceCraft.Core",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Core\\Rules\\ScoreCalculator.cs",
+      "algorithm": "SHA256",
+      "expectedChecksum": "e72fc655366705e220d801e2aa7f6f73383368596712063c97c154103df97f43",
+      "currentChecksum": "e72fc655366705e220d801e2aa7f6f73383368596712063c97c154103df97f43",
+      "matches": true
+    },
+    {
+      "assembly": "DiceCraft.Core",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Core\\Rules\\ScoreExplanation.cs",
+      "algorithm": "SHA256",
+      "expectedChecksum": "b223493cbde54ed76abaa1856ede39df9d2dec78b66f933645c7c6c6338f8b08",
+      "currentChecksum": "b223493cbde54ed76abaa1856ede39df9d2dec78b66f933645c7c6c6338f8b08",
+      "matches": true
+    },
+    {
+      "assembly": "DiceCraft.Core",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Core\\Session\\DebugScene.cs",
+      "algorithm": "SHA256",
+      "expectedChecksum": "8b3efad9f004106f1adafe3026ff28f077843224c04c1b5bbaa9efec00dc6b3e",
+      "currentChecksum": "8b3efad9f004106f1adafe3026ff28f077843224c04c1b5bbaa9efec00dc6b3e",
+      "matches": true
+    },
+    {
+      "assembly": "DiceCraft.Core",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Core\\Session\\GameSession.Debug.cs",
+      "algorithm": "SHA256",
+      "expectedChecksum": "fdf1b07785590eea17ef5cc786bc129852e7915bd0e529bbfe96c502f4d0e868",
+      "currentChecksum": "fdf1b07785590eea17ef5cc786bc129852e7915bd0e529bbfe96c502f4d0e868",
+      "matches": true
+    },
+    {
+      "assembly": "DiceCraft.Core",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Core\\Session\\GameSession.Shop.cs",
+      "algorithm": "SHA256",
+      "expectedChecksum": "320e2bbaec4f65a001a996b5c3cf6276ce8e47eec39a7a3712907b7b737261c4",
+      "currentChecksum": "320e2bbaec4f65a001a996b5c3cf6276ce8e47eec39a7a3712907b7b737261c4",
+      "matches": true
+    },
+    {
+      "assembly": "DiceCraft.Core",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Core\\Session\\GameSession.Submission.cs",
+      "algorithm": "SHA256",
+      "expectedChecksum": "bc126b48a254724bc21bcd2c5e190d33867566d2dbf2bb9c5c9582f4d6c2bd7e",
+      "currentChecksum": "bc126b48a254724bc21bcd2c5e190d33867566d2dbf2bb9c5c9582f4d6c2bd7e",
+      "matches": true
+    },
+    {
+      "assembly": "DiceCraft.Core",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Core\\Session\\GameSession.Validation.cs",
+      "algorithm": "SHA256",
+      "expectedChecksum": "1f0a908e5b5df35db130175338256bf7a3ecdd05c0c12558b01b0ac9a71c1bcc",
+      "currentChecksum": "1f0a908e5b5df35db130175338256bf7a3ecdd05c0c12558b01b0ac9a71c1bcc",
+      "matches": true
+    },
+    {
+      "assembly": "DiceCraft.Core",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Core\\Session\\GameSession.cs",
+      "algorithm": "SHA256",
+      "expectedChecksum": "b222230d309ea3c0a64a5e5e5ecfe9d3032fd997d51ec73dfd51a39de7aefc90",
+      "currentChecksum": "b222230d309ea3c0a64a5e5e5ecfe9d3032fd997d51ec73dfd51a39de7aefc90",
+      "matches": true
+    },
+    {
+      "assembly": "DiceCraft.Core",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Core\\Session\\SessionModels.cs",
+      "algorithm": "SHA256",
+      "expectedChecksum": "3091c46bb42c604f91c0cb9eea7a4006444ce542c70aa3026e3ecac4ee13d9aa",
+      "currentChecksum": "3091c46bb42c604f91c0cb9eea7a4006444ce542c70aa3026e3ecac4ee13d9aa",
+      "matches": true
+    },
+    {
+      "assembly": "DiceCraft.Runtime",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Runtime\\Art07StartupLoad.cs",
+      "algorithm": "SHA256",
+      "expectedChecksum": "d8bfaa9e2a09fbac3b6817cb0257646e5851b81984fe3a228065cef472190ab6",
+      "currentChecksum": "d8bfaa9e2a09fbac3b6817cb0257646e5851b81984fe3a228065cef472190ab6",
+      "matches": true
+    },
+    {
+      "assembly": "DiceCraft.Runtime",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Runtime\\AtomicSaveStore.cs",
+      "algorithm": "SHA256",
+      "expectedChecksum": "ea6c7c5eafcc639585b14acc6a13c6c31ec83ab6caee02b7e74fe218625caa9c",
+      "currentChecksum": "ea6c7c5eafcc639585b14acc6a13c6c31ec83ab6caee02b7e74fe218625caa9c",
+      "matches": true
+    },
+    {
+      "assembly": "DiceCraft.Runtime",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Runtime\\DiceTable.Interaction07.cs",
+      "algorithm": "SHA256",
+      "expectedChecksum": "7db5432e612006adcaa7d781872d5dcc93e473f6e10b8ed40123eec6dbe3ca8b",
+      "currentChecksum": "7db5432e612006adcaa7d781872d5dcc93e473f6e10b8ed40123eec6dbe3ca8b",
+      "matches": true
+    },
+    {
+      "assembly": "DiceCraft.Runtime",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Runtime\\DiceTable.Temporary071.cs",
+      "algorithm": "SHA256",
+      "expectedChecksum": "f8fafccb385d55b194aadaee2a32141a6fec255435d670992e78594c0ece3df2",
+      "currentChecksum": "f8fafccb385d55b194aadaee2a32141a6fec255435d670992e78594c0ece3df2",
+      "matches": true
+    },
+    {
+      "assembly": "DiceCraft.Runtime",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Runtime\\DiceTable.cs",
+      "algorithm": "SHA256",
+      "expectedChecksum": "72f3decdb3fa39e9f3448134087fd8336bb7d0a1964ba1abbc10ec037336f2a8",
+      "currentChecksum": "72f3decdb3fa39e9f3448134087fd8336bb7d0a1964ba1abbc10ec037336f2a8",
+      "matches": true
+    },
+    {
+      "assembly": "DiceCraft.Runtime",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Runtime\\DisplaySettings.cs",
+      "algorithm": "SHA256",
+      "expectedChecksum": "6f0ca301e54df5aeec2d87ede1c20af8f2100e368941f37d73ca87c8a99fb998",
+      "currentChecksum": "6f0ca301e54df5aeec2d87ede1c20af8f2100e368941f37d73ca87c8a99fb998",
+      "matches": true
+    },
+    {
+      "assembly": "DiceCraft.Runtime",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Runtime\\FramePacer.cs",
+      "algorithm": "SHA256",
+      "expectedChecksum": "74970d291d1b3cbde7cb4f421da6decedae912a6f8c1f29003712b524a8ecba0",
+      "currentChecksum": "74970d291d1b3cbde7cb4f421da6decedae912a6f8c1f29003712b524a8ecba0",
+      "matches": true
+    },
+    {
+      "assembly": "DiceCraft.Runtime",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Runtime\\GameApp.cs",
+      "algorithm": "SHA256",
+      "expectedChecksum": "c5aca6be5f6c7e8778910b12432713bd5f1110f6746cdd51a0e1e55391df0909",
+      "currentChecksum": "c5aca6be5f6c7e8778910b12432713bd5f1110f6746cdd51a0e1e55391df0909",
+      "matches": true
+    },
+    {
+      "assembly": "DiceCraft.Runtime",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\UI\\GameApp.Art07.cs",
+      "algorithm": "SHA256",
+      "expectedChecksum": "7df2e82f36dbfc3ea9aec89773a5f5995ce6099671494df1a06e3b7f4d9d498b",
+      "currentChecksum": "7df2e82f36dbfc3ea9aec89773a5f5995ce6099671494df1a06e3b7f4d9d498b",
+      "matches": true
+    },
+    {
+      "assembly": "DiceCraft.Runtime",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\UI\\GameApp.Art071Enchants.cs",
+      "algorithm": "SHA256",
+      "expectedChecksum": "b7d933e6378ff190cb97008f18e33d78d1d541d15dcb9cb2114e4a1d77bfae09",
+      "currentChecksum": "b7d933e6378ff190cb97008f18e33d78d1d541d15dcb9cb2114e4a1d77bfae09",
+      "matches": true
+    },
+    {
+      "assembly": "DiceCraft.Runtime",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\UI\\GameApp.Art071FontMaterials.cs",
+      "algorithm": "SHA256",
+      "expectedChecksum": "74f86fd401b4a6c13e5e1705bf74e233004ee0174b9dca5e9978cf362743ff5a",
+      "currentChecksum": "74f86fd401b4a6c13e5e1705bf74e233004ee0174b9dca5e9978cf362743ff5a",
+      "matches": true
+    },
+    {
+      "assembly": "DiceCraft.Runtime",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\UI\\GameApp.Art071Screens.cs",
+      "algorithm": "SHA256",
+      "expectedChecksum": "c6cdf5f29757dbecf62a102f271ae2e525cf7e219797da302cc4f9d9cf1d9f1e",
+      "currentChecksum": "c6cdf5f29757dbecf62a102f271ae2e525cf7e219797da302cc4f9d9cf1d9f1e",
+      "matches": true
+    },
+    {
+      "assembly": "DiceCraft.Runtime",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\UI\\GameApp.Art071ShopPreview.cs",
+      "algorithm": "SHA256",
+      "expectedChecksum": "13a8635a9e11ec54030da3110f834afad85066e6f38ef96553881adb2597e873",
+      "currentChecksum": "13a8635a9e11ec54030da3110f834afad85066e6f38ef96553881adb2597e873",
+      "matches": true
+    },
+    {
+      "assembly": "DiceCraft.Runtime",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\UI\\GameApp.Art071TemporaryDice.cs",
+      "algorithm": "SHA256",
+      "expectedChecksum": "139932eb2580130dfc377088d05219930e9534bb5902878cb55376854c17cb81",
+      "currentChecksum": "139932eb2580130dfc377088d05219930e9534bb5902878cb55376854c17cb81",
+      "matches": true
+    },
+    {
+      "assembly": "DiceCraft.Runtime",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\UI\\GameApp.Art07DiceAffordances.cs",
+      "algorithm": "SHA256",
+      "expectedChecksum": "eed00d6ad982c2a79555268f2b555b5fc2111d5ffa611193496c7c914eb97144",
+      "currentChecksum": "eed00d6ad982c2a79555268f2b555b5fc2111d5ffa611193496c7c914eb97144",
+      "matches": true
+    },
+    {
+      "assembly": "DiceCraft.Runtime",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\UI\\GameApp.Art07DiceInteraction.cs",
+      "algorithm": "SHA256",
+      "expectedChecksum": "18cfdbdcf36a875308b0bd2cff21e08ae305439aeb3b344242a4eb299143e4cf",
+      "currentChecksum": "18cfdbdcf36a875308b0bd2cff21e08ae305439aeb3b344242a4eb299143e4cf",
+      "matches": true
+    },
+    {
+      "assembly": "DiceCraft.Runtime",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\UI\\GameApp.Art07Effects.cs",
+      "algorithm": "SHA256",
+      "expectedChecksum": "d2e1ac39ed485b32de66b6783912be1ba9b6c6639a62ecc9f0ae9f6c97ad5660",
+      "currentChecksum": "d2e1ac39ed485b32de66b6783912be1ba9b6c6639a62ecc9f0ae9f6c97ad5660",
+      "matches": true
+    },
+    {
+      "assembly": "DiceCraft.Runtime",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\UI\\GameApp.Art07Guide.cs",
+      "algorithm": "SHA256",
+      "expectedChecksum": "b61b57bf9b0906815ba8f23eae3cc6e9cd3d117637dfa0faabf70dcc4d08fe23",
+      "currentChecksum": "b61b57bf9b0906815ba8f23eae3cc6e9cd3d117637dfa0faabf70dcc4d08fe23",
+      "matches": true
+    },
+    {
+      "assembly": "DiceCraft.Runtime",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\UI\\GameApp.Art07GuideDock.cs",
+      "algorithm": "SHA256",
+      "expectedChecksum": "fc9ba99bca159ad3145fda5638d2bf7765a82f9d1caf233d2e69a59ad5009585",
+      "currentChecksum": "fc9ba99bca159ad3145fda5638d2bf7765a82f9d1caf233d2e69a59ad5009585",
+      "matches": true
+    },
+    {
+      "assembly": "DiceCraft.Runtime",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\UI\\GameApp.Art07Interactions.cs",
+      "algorithm": "SHA256",
+      "expectedChecksum": "c8e2ea0e0ede368a88af8c1b3907afc884cf152a76ffbd0c5ac2b3bcdd03f7df",
+      "currentChecksum": "c8e2ea0e0ede368a88af8c1b3907afc884cf152a76ffbd0c5ac2b3bcdd03f7df",
+      "matches": true
+    },
+    {
+      "assembly": "DiceCraft.Runtime",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\UI\\GameApp.Art07LegacySave.cs",
+      "algorithm": "SHA256",
+      "expectedChecksum": "605dde462a32b18ff5e495931389733297786257cb8e8e4fef64b82aba010581",
+      "currentChecksum": "605dde462a32b18ff5e495931389733297786257cb8e8e4fef64b82aba010581",
+      "matches": true
+    },
+    {
+      "assembly": "DiceCraft.Runtime",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\UI\\GameApp.Art07Loading.cs",
+      "algorithm": "SHA256",
+      "expectedChecksum": "5cafb537accfd32f56c24227475c5fe503237a39f140bbba579a7302cf6fe1f9",
+      "currentChecksum": "5cafb537accfd32f56c24227475c5fe503237a39f140bbba579a7302cf6fe1f9",
+      "matches": true
+    },
+    {
+      "assembly": "DiceCraft.Runtime",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\UI\\GameApp.Art07NewRun.cs",
+      "algorithm": "SHA256",
+      "expectedChecksum": "44a5853b89a2ba259a4487ad3198b7b309642eff786bee796d3387d8bdf85fe5",
+      "currentChecksum": "44a5853b89a2ba259a4487ad3198b7b309642eff786bee796d3387d8bdf85fe5",
+      "matches": true
+    },
+    {
+      "assembly": "DiceCraft.Runtime",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\UI\\GameApp.Art07PostEffects.cs",
+      "algorithm": "SHA256",
+      "expectedChecksum": "c62f340e75127c70970a7c553d82ff1ad30f0344d766fbef65795033a1dba3a5",
+      "currentChecksum": "c62f340e75127c70970a7c553d82ff1ad30f0344d766fbef65795033a1dba3a5",
+      "matches": true
+    },
+    {
+      "assembly": "DiceCraft.Runtime",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\UI\\GameApp.Art07Presentation.cs",
+      "algorithm": "SHA256",
+      "expectedChecksum": "08a74cb9be480f3259aa4b351b68da6f7b428151f4ea72562129aecea015f5bd",
+      "currentChecksum": "08a74cb9be480f3259aa4b351b68da6f7b428151f4ea72562129aecea015f5bd",
+      "matches": true
+    },
+    {
+      "assembly": "DiceCraft.Runtime",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\UI\\GameApp.Art07Results.cs",
+      "algorithm": "SHA256",
+      "expectedChecksum": "8bbb594434a350ce408721f5745cdd980c4be8d360e14535e7f949dc9cb45cff",
+      "currentChecksum": "8bbb594434a350ce408721f5745cdd980c4be8d360e14535e7f949dc9cb45cff",
+      "matches": true
+    },
+    {
+      "assembly": "DiceCraft.Runtime",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\UI\\GameApp.Art07ScoreDrawer.cs",
+      "algorithm": "SHA256",
+      "expectedChecksum": "72f8ba1663580f9f43a9bd88475cd3310cafd7c841b67ec6e52b87ef0cb17151",
+      "currentChecksum": "72f8ba1663580f9f43a9bd88475cd3310cafd7c841b67ec6e52b87ef0cb17151",
+      "matches": true
+    },
+    {
+      "assembly": "DiceCraft.Runtime",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\UI\\GameApp.Art07Settings.cs",
+      "algorithm": "SHA256",
+      "expectedChecksum": "3bb51090af78cf66b6aaa89b2c61108dfbc2f5f50d5c71fb9e043878be8e618b",
+      "currentChecksum": "3bb51090af78cf66b6aaa89b2c61108dfbc2f5f50d5c71fb9e043878be8e618b",
+      "matches": true
+    },
+    {
+      "assembly": "DiceCraft.Runtime",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\UI\\GameApp.Art07Settlement.cs",
+      "algorithm": "SHA256",
+      "expectedChecksum": "8d9ea59c28cb255be67ea067933583315a169c27a9afb86a4ed3f0757f0af3cf",
+      "currentChecksum": "8d9ea59c28cb255be67ea067933583315a169c27a9afb86a4ed3f0757f0af3cf",
+      "matches": true
+    },
+    {
+      "assembly": "DiceCraft.Runtime",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\UI\\GameApp.Art07SettlementBackdrop.cs",
+      "algorithm": "SHA256",
+      "expectedChecksum": "c19a0fb484905972fa0b3f1d2af1f0e9ee21ba8a4c6e7b875743b9b726ebcb9f",
+      "currentChecksum": "c19a0fb484905972fa0b3f1d2af1f0e9ee21ba8a4c6e7b875743b9b726ebcb9f",
+      "matches": true
+    },
+    {
+      "assembly": "DiceCraft.Runtime",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\UI\\GameApp.Art07Shop.cs",
+      "algorithm": "SHA256",
+      "expectedChecksum": "154c420686f77e675cec64fc661799dc0ff55e95a4aadfcac5a27ee8a7a2fda0",
+      "currentChecksum": "154c420686f77e675cec64fc661799dc0ff55e95a4aadfcac5a27ee8a7a2fda0",
+      "matches": true
+    },
+    {
+      "assembly": "DiceCraft.Runtime",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\UI\\GameApp.Art07ShopEntrance.cs",
+      "algorithm": "SHA256",
+      "expectedChecksum": "92f3c4071cd1ac14b1ae7672361c301d13916235ceaf21bf48ba6afcb7c0d3a3",
+      "currentChecksum": "92f3c4071cd1ac14b1ae7672361c301d13916235ceaf21bf48ba6afcb7c0d3a3",
+      "matches": true
+    },
+    {
+      "assembly": "DiceCraft.Runtime",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\UI\\GameApp.Art07StableResult.cs",
+      "algorithm": "SHA256",
+      "expectedChecksum": "78421d7519d7ef6c1eae6baae147d89d96fd5d3aa794300998743a817afb7c83",
+      "currentChecksum": "78421d7519d7ef6c1eae6baae147d89d96fd5d3aa794300998743a817afb7c83",
+      "matches": true
+    },
+    {
+      "assembly": "DiceCraft.Runtime",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\UI\\GameApp.Art07StageMotion.cs",
+      "algorithm": "SHA256",
+      "expectedChecksum": "714952dd10598ae5b04e18b2b22c673cdd6e7cdb56d50187893239fd810c3c86",
+      "currentChecksum": "714952dd10598ae5b04e18b2b22c673cdd6e7cdb56d50187893239fd810c3c86",
+      "matches": true
+    },
+    {
+      "assembly": "DiceCraft.Runtime",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\UI\\GameApp.Art07StatusDetails.cs",
+      "algorithm": "SHA256",
+      "expectedChecksum": "2aaf9380fe8e0b9745b81b39f36094c4e053e8987e2c4ca966934eab4af7dcc1",
+      "currentChecksum": "2aaf9380fe8e0b9745b81b39f36094c4e053e8987e2c4ca966934eab4af7dcc1",
+      "matches": true
+    },
+    {
+      "assembly": "DiceCraft.Runtime",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\UI\\GameApp.Art07Toasts.cs",
+      "algorithm": "SHA256",
+      "expectedChecksum": "191696e6b46cf3b632e1b2efb63fcba005f35a927754bd991310f3050eac2c96",
+      "currentChecksum": "191696e6b46cf3b632e1b2efb63fcba005f35a927754bd991310f3050eac2c96",
+      "matches": true
+    },
+    {
+      "assembly": "DiceCraft.Runtime",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\UI\\GameApp.Art07UpgradePreview.cs",
+      "algorithm": "SHA256",
+      "expectedChecksum": "bfaa1d59df365bf5f472215ee63265eec5459e8211c51b451e28c73cc9242563",
+      "currentChecksum": "bfaa1d59df365bf5f472215ee63265eec5459e8211c51b451e28c73cc9242563",
+      "matches": true
+    },
+    {
+      "assembly": "DiceCraft.Runtime",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\UI\\GameApp.Art07Wallet.cs",
+      "algorithm": "SHA256",
+      "expectedChecksum": "ee502f0146fef98402c1bb01df8f932a944628435fb5980398a574bbaef8574d",
+      "currentChecksum": "ee502f0146fef98402c1bb01df8f932a944628435fb5980398a574bbaef8574d",
+      "matches": true
+    },
+    {
+      "assembly": "DiceCraft.Runtime",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\UI\\GameApp.Controllers.cs",
+      "algorithm": "SHA256",
+      "expectedChecksum": "b2f9bb2a80c528304e5642310ef56c1582c47b2d13c2746c39f2dcdf7509697d",
+      "currentChecksum": "b2f9bb2a80c528304e5642310ef56c1582c47b2d13c2746c39f2dcdf7509697d",
+      "matches": true
+    },
+    {
+      "assembly": "DiceCraft.Runtime",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\UI\\GameApp.Debug.cs",
+      "algorithm": "SHA256",
+      "expectedChecksum": "1738e30d2dbd2431ed8a525d04abbe9a276d12b216f53fbc4f3126efdb3d8455",
+      "currentChecksum": "1738e30d2dbd2431ed8a525d04abbe9a276d12b216f53fbc4f3126efdb3d8455",
+      "matches": true
+    },
+    {
+      "assembly": "DiceCraft.Runtime",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\UI\\GameApp.Display.cs",
+      "algorithm": "SHA256",
+      "expectedChecksum": "b40ae3b1bcaac4d8669806e98687abfbd03fd8ca6386a34b6eca89c9a868a749",
+      "currentChecksum": "b40ae3b1bcaac4d8669806e98687abfbd03fd8ca6386a34b6eca89c9a868a749",
+      "matches": true
+    },
+    {
+      "assembly": "DiceCraft.Runtime",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\UI\\GameApp.Modals.cs",
+      "algorithm": "SHA256",
+      "expectedChecksum": "76d469318a47529fab6b4f2d8ba63432daadf18b0c444c5bd14a6028ed038a97",
+      "currentChecksum": "76d469318a47529fab6b4f2d8ba63432daadf18b0c444c5bd14a6028ed038a97",
+      "matches": true
+    },
+    {
+      "assembly": "DiceCraft.Runtime",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\UI\\GameApp.Shop.cs",
+      "algorithm": "SHA256",
+      "expectedChecksum": "8436f1357a85a940783c1581d7e103e0672aaaf577db9ec58220e220b86c58d5",
+      "currentChecksum": "8436f1357a85a940783c1581d7e103e0672aaaf577db9ec58220e220b86c58d5",
+      "matches": true
+    },
+    {
+      "assembly": "DiceCraft.Runtime",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\UI\\GameApp.V05.cs",
+      "algorithm": "SHA256",
+      "expectedChecksum": "8ff77c2ca534f4d876e89a3a009546b3a874046d4b9b6e92b0abe879141c9ffc",
+      "currentChecksum": "8ff77c2ca534f4d876e89a3a009546b3a874046d4b9b6e92b0abe879141c9ffc",
+      "matches": true
+    },
+    {
+      "assembly": "DiceCraft.Runtime",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Runtime\\Verification\\Art071StyleLab.cs",
+      "algorithm": "SHA256",
+      "expectedChecksum": "4db6d6ab6980364ba9641db0e283b8e16c61c26414f06d48d6e9dc159ff98814",
+      "currentChecksum": "4db6d6ab6980364ba9641db0e283b8e16c61c26414f06d48d6e9dc159ff98814",
+      "matches": true
+    },
+    {
+      "assembly": "DiceCraft.Runtime",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Runtime\\Verification\\FramePacingExperiment.cs",
+      "algorithm": "SHA256",
+      "expectedChecksum": "92a86d48dfab91252c1790a0212c242c93219f4a0a6cc9e11ffca4c627964524",
+      "currentChecksum": "92a86d48dfab91252c1790a0212c242c93219f4a0a6cc9e11ffca4c627964524",
+      "matches": true
+    },
+    {
+      "assembly": "DiceCraft.Runtime",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\UI\\Art071ShopDiePreview.cs",
+      "algorithm": "SHA256",
+      "expectedChecksum": "436b8fc9efca17f305a4873e9a8c751a9d9a781b6713d6dfae25efc998117c4e",
+      "currentChecksum": "436b8fc9efca17f305a4873e9a8c751a9d9a781b6713d6dfae25efc998117c4e",
+      "matches": true
+    },
+    {
+      "assembly": "DiceCraft.Runtime",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\UI\\Art071TemporaryClock.cs",
+      "algorithm": "SHA256",
+      "expectedChecksum": "eb1391ea133693cafc34e261dd4706870ec0fb226c94973b3def269232654791",
+      "currentChecksum": "eb1391ea133693cafc34e261dd4706870ec0fb226c94973b3def269232654791",
+      "matches": true
+    },
+    {
+      "assembly": "DiceCraft.Runtime",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\UI\\Art07ButtonMotion.cs",
+      "algorithm": "SHA256",
+      "expectedChecksum": "4fa78e173de9e0b6f5067a2f0cf6916611e9fde57fdc9ad958ce94c979189ce5",
+      "currentChecksum": "4fa78e173de9e0b6f5067a2f0cf6916611e9fde57fdc9ad958ce94c979189ce5",
+      "matches": true
+    },
+    {
+      "assembly": "DiceCraft.Runtime",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\UI\\Art07DieHover.cs",
+      "algorithm": "SHA256",
+      "expectedChecksum": "7457ccf9e4b841d90b001211ecc8cac176cd5cce0257878fc2b6aed682952625",
+      "currentChecksum": "7457ccf9e4b841d90b001211ecc8cac176cd5cce0257878fc2b6aed682952625",
+      "matches": true
+    },
+    {
+      "assembly": "DiceCraft.Runtime",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\UI\\Art07HollowCheck.cs",
+      "algorithm": "SHA256",
+      "expectedChecksum": "ccb3a0a1f27f243a368e4fdf3a184c2303f3b1e349d9c3beffd99da5ed23eeab",
+      "currentChecksum": "ccb3a0a1f27f243a368e4fdf3a184c2303f3b1e349d9c3beffd99da5ed23eeab",
+      "matches": true
+    },
+    {
+      "assembly": "DiceCraft.Runtime",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\UI\\Art07MenuReveal.cs",
+      "algorithm": "SHA256",
+      "expectedChecksum": "70c773784d421a72b8dc8b1646e37bc5ca0a083f7a2967673f25119f7ed588e5",
+      "currentChecksum": "70c773784d421a72b8dc8b1646e37bc5ca0a083f7a2967673f25119f7ed588e5",
+      "matches": true
+    },
+    {
+      "assembly": "DiceCraft.Runtime",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\UI\\Art07PanelMotion.cs",
+      "algorithm": "SHA256",
+      "expectedChecksum": "da1bdd0e6ab6d85f7ebe28fe94620663fbfb30c2b705acaab4496f1a099715ea",
+      "currentChecksum": "da1bdd0e6ab6d85f7ebe28fe94620663fbfb30c2b705acaab4496f1a099715ea",
+      "matches": true
+    },
+    {
+      "assembly": "DiceCraft.Runtime",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\UI\\Art07PoolLabelFollower.cs",
+      "algorithm": "SHA256",
+      "expectedChecksum": "2f6ddce192a3216e1138a52a27a0019752cf432d8e8b0db217402e93e7956f41",
+      "currentChecksum": "2f6ddce192a3216e1138a52a27a0019752cf432d8e8b0db217402e93e7956f41",
+      "matches": true
+    },
+    {
+      "assembly": "DiceCraft.Runtime",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\UI\\Art07RollButtonDots.cs",
+      "algorithm": "SHA256",
+      "expectedChecksum": "c0efb550a24215183168082c7545c435ad904ae27b12f982d97e7e036d6a1cf6",
+      "currentChecksum": "c0efb550a24215183168082c7545c435ad904ae27b12f982d97e7e036d6a1cf6",
+      "matches": true
+    },
+    {
+      "assembly": "DiceCraft.Runtime",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\UI\\Art07ScoreDrawerMotion.cs",
+      "algorithm": "SHA256",
+      "expectedChecksum": "180387923b2a1bfea929c1b56be4e72ac64eac996ed7f5eebe51e500a4fb5723",
+      "currentChecksum": "180387923b2a1bfea929c1b56be4e72ac64eac996ed7f5eebe51e500a4fb5723",
+      "matches": true
+    },
+    {
+      "assembly": "DiceCraft.Runtime",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\UI\\Art07ScreenReveal.cs",
+      "algorithm": "SHA256",
+      "expectedChecksum": "7ae4b581625d87dd78614310ab698e3c7c65036a6438ea69ea562bc7e96439a1",
+      "currentChecksum": "7ae4b581625d87dd78614310ab698e3c7c65036a6438ea69ea562bc7e96439a1",
+      "matches": true
+    },
+    {
+      "assembly": "DiceCraft.Runtime",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\UI\\Art07ScrollIndicator.cs",
+      "algorithm": "SHA256",
+      "expectedChecksum": "d724947e3b37907084b056921547371c6cf271213132b694aa015cf72c4adf38",
+      "currentChecksum": "d724947e3b37907084b056921547371c6cf271213132b694aa015cf72c4adf38",
+      "matches": true
+    },
+    {
+      "assembly": "DiceCraft.Runtime",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\UI\\Art07SettlementBackdrop.cs",
+      "algorithm": "SHA256",
+      "expectedChecksum": "b3a6b8670748cbc687b0ca72100314ecf266ab0ea23e2bd6b8ed48cdfcc2d9e8",
+      "currentChecksum": "b3a6b8670748cbc687b0ca72100314ecf266ab0ea23e2bd6b8ed48cdfcc2d9e8",
+      "matches": true
+    },
+    {
+      "assembly": "DiceCraft.Runtime",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\UI\\Art07SettlementReveal.cs",
+      "algorithm": "SHA256",
+      "expectedChecksum": "98061424de3845b53fde172f8a1505eedf12d19a277867c29aea28c50ba3788c",
+      "currentChecksum": "98061424de3845b53fde172f8a1505eedf12d19a277867c29aea28c50ba3788c",
+      "matches": true
+    },
+    {
+      "assembly": "DiceCraft.Runtime",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\UI\\Art07ShopEntrance.cs",
+      "algorithm": "SHA256",
+      "expectedChecksum": "f972e9648234cf27f512af61963673a449ccbea9acdd573ec8ed452744678ac8",
+      "currentChecksum": "f972e9648234cf27f512af61963673a449ccbea9acdd573ec8ed452744678ac8",
+      "matches": true
+    },
+    {
+      "assembly": "DiceCraft.Runtime",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\UI\\Art07StageCardsMotion.cs",
+      "algorithm": "SHA256",
+      "expectedChecksum": "86bf28ed3a7276197afafb9bd7497c068a32bd467543175e2588bbe9c1335032",
+      "currentChecksum": "86bf28ed3a7276197afafb9bd7497c068a32bd467543175e2588bbe9c1335032",
+      "matches": true
+    },
+    {
+      "assembly": "DiceCraft.Runtime",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\UI\\UiElementPool.cs",
+      "algorithm": "SHA256",
+      "expectedChecksum": "3c536f3e6dc7eea26f4fc80cac8b50a04b4aa7d5acd0517013aed0e94905d37d",
+      "currentChecksum": "3c536f3e6dc7eea26f4fc80cac8b50a04b4aa7d5acd0517013aed0e94905d37d",
+      "matches": true
+    },
+    {
+      "assembly": "DiceCraft.Runtime",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\UI\\UiKit.cs",
+      "algorithm": "SHA256",
+      "expectedChecksum": "1f240e5661eaaba37e9e85edb2944d713dc9b2b821fa3f9d3e938fc90fb8cf9b",
+      "currentChecksum": "1f240e5661eaaba37e9e85edb2944d713dc9b2b821fa3f9d3e938fc90fb8cf9b",
+      "matches": true
+    },
+    {
+      "assembly": "DiceCraft.Runtime",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Runtime\\Verification\\Art071LabRecording.cs",
+      "algorithm": "SHA256",
+      "expectedChecksum": "ccd750fae605329a5441d01e2d69283a6e9c0ebf24c350812af78ce5e16aee8e",
+      "currentChecksum": "ccd750fae605329a5441d01e2d69283a6e9c0ebf24c350812af78ce5e16aee8e",
+      "matches": true
+    },
+    {
+      "assembly": "DiceCraft.Runtime",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Runtime\\Verification\\Art07AudioDiagnostic.cs",
+      "algorithm": "SHA256",
+      "expectedChecksum": "fa8ba953ed04961aae410767ada34f8ee2e893b36337f2bc44dac0c5daee026f",
+      "currentChecksum": "fa8ba953ed04961aae410767ada34f8ee2e893b36337f2bc44dac0c5daee026f",
+      "matches": true
+    },
+    {
+      "assembly": "DiceCraft.Runtime",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Runtime\\Verification\\Art07Fixtures.cs",
+      "algorithm": "SHA256",
+      "expectedChecksum": "199de1d73ec378160fd68e56d4f638f3f99893a8b7a0b701647a5157f4948850",
+      "currentChecksum": "199de1d73ec378160fd68e56d4f638f3f99893a8b7a0b701647a5157f4948850",
+      "matches": true
+    },
+    {
+      "assembly": "DiceCraft.Runtime",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Runtime\\Verification\\Art07ResourceDiagnostic.cs",
+      "algorithm": "SHA256",
+      "expectedChecksum": "17d80bf9c7c0e82bd81c76e6dfafc334fc0e7fec9e43239bc86da14bb448bcfe",
+      "currentChecksum": "17d80bf9c7c0e82bd81c76e6dfafc334fc0e7fec9e43239bc86da14bb448bcfe",
+      "matches": true
+    },
+    {
+      "assembly": "DiceCraft.Runtime",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Runtime\\Verification\\Art07ScreenRecorder.cs",
+      "algorithm": "SHA256",
+      "expectedChecksum": "bb538fbcf780feb7c8ddd3c7de0abb7a9b88e7a3f52c1a2056eb5267182af7ec",
+      "currentChecksum": "bb538fbcf780feb7c8ddd3c7de0abb7a9b88e7a3f52c1a2056eb5267182af7ec",
+      "matches": true
+    },
+    {
+      "assembly": "DiceCraft.Runtime",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Runtime\\Verification\\Art07VisualRecorder.Transactions.cs",
+      "algorithm": "SHA256",
+      "expectedChecksum": "d95ea2fe400669b7e838f5db68ee7776a4da663671d5e4f188d730e7123f7435",
+      "currentChecksum": "d95ea2fe400669b7e838f5db68ee7776a4da663671d5e4f188d730e7123f7435",
+      "matches": true
+    },
+    {
+      "assembly": "DiceCraft.Runtime",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Runtime\\Verification\\Art07VisualRecorder.cs",
+      "algorithm": "SHA256",
+      "expectedChecksum": "f3bd3bbb9ac3d232396255554576b41b87a071e8caa9974d084ba0b6d509287d",
+      "currentChecksum": "f3bd3bbb9ac3d232396255554576b41b87a071e8caa9974d084ba0b6d509287d",
+      "matches": true
+    },
+    {
+      "assembly": "DiceCraft.Runtime",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Runtime\\Verification\\PlayerVerification.V06.cs",
+      "algorithm": "SHA256",
+      "expectedChecksum": "7899a0b2784692f58748eae42b9a30ad4776b77e1591abc3797dedbcc9bcf59c",
+      "currentChecksum": "7899a0b2784692f58748eae42b9a30ad4776b77e1591abc3797dedbcc9bcf59c",
+      "matches": true
+    },
+    {
+      "assembly": "DiceCraft.Runtime",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Runtime\\Verification\\PlayerVerification.cs",
+      "algorithm": "SHA256",
+      "expectedChecksum": "41343306cc667ecf0abae609759bc4ca5ca4620b54df7e66785420cbbf7f75f0",
+      "currentChecksum": "41343306cc667ecf0abae609759bc4ca5ca4620b54df7e66785420cbbf7f75f0",
+      "matches": true
+    },
+    {
+      "assembly": "DiceCraft.Runtime",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Runtime\\Presentation\\Art071ComboEdgeAccents.cs",
+      "algorithm": "SHA256",
+      "expectedChecksum": "60ce0de11a55df1651f6f9da6fc1571a721e73845e425d9a0715fcf176491c2d",
+      "currentChecksum": "60ce0de11a55df1651f6f9da6fc1571a721e73845e425d9a0715fcf176491c2d",
+      "matches": true
+    },
+    {
+      "assembly": "DiceCraft.Runtime",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Runtime\\Presentation\\Art071EnchantCue.cs",
+      "algorithm": "SHA256",
+      "expectedChecksum": "cbaf36972795f6800f76cbaa275f15d7b86876e1069f7702c20ef93e8f30881e",
+      "currentChecksum": "cbaf36972795f6800f76cbaa275f15d7b86876e1069f7702c20ef93e8f30881e",
+      "matches": true
+    },
+    {
+      "assembly": "DiceCraft.Runtime",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Runtime\\Presentation\\Art07FaceTransition.cs",
+      "algorithm": "SHA256",
+      "expectedChecksum": "b9182a72b1b0781993643abcf5688ea3aecdacbbcb690e7e98c801f06e10ceb4",
+      "currentChecksum": "b9182a72b1b0781993643abcf5688ea3aecdacbbcb690e7e98c801f06e10ceb4",
+      "matches": true
+    },
+    {
+      "assembly": "DiceCraft.Runtime",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Runtime\\Presentation\\Art07PrefabView.cs",
+      "algorithm": "SHA256",
+      "expectedChecksum": "7f41892d80e35ded3905e7573486d2d5329092973d5261edb9ec5a06a915ce7a",
+      "currentChecksum": "7f41892d80e35ded3905e7573486d2d5329092973d5261edb9ec5a06a915ce7a",
+      "matches": true
+    },
+    {
+      "assembly": "DiceCraft.Runtime",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Runtime\\Presentation\\Art07QualifiedStamp.cs",
+      "algorithm": "SHA256",
+      "expectedChecksum": "376a29163da5b57ac512b49c57aa1528ad7006b405b7d926d89a697a98581de1",
+      "currentChecksum": "376a29163da5b57ac512b49c57aa1528ad7006b405b7d926d89a697a98581de1",
+      "matches": true
+    },
+    {
+      "assembly": "DiceCraft.Runtime",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Runtime\\Presentation\\Art07ScoreBurstLayout.cs",
+      "algorithm": "SHA256",
+      "expectedChecksum": "7c09aa24231a37f0d9aab497948fa9c4218828382667e704bd5382ba708dc003",
+      "currentChecksum": "7c09aa24231a37f0d9aab497948fa9c4218828382667e704bd5382ba708dc003",
+      "matches": true
+    },
+    {
+      "assembly": "DiceCraft.Runtime",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Runtime\\Presentation\\Art07TransactionMotion.cs",
+      "algorithm": "SHA256",
+      "expectedChecksum": "289b979bb395b0b2b7fa5652cc8940f6a796d7a8c2364f26e2aea7d7f395d957",
+      "currentChecksum": "289b979bb395b0b2b7fa5652cc8940f6a796d7a8c2364f26e2aea7d7f395d957",
+      "matches": true
+    },
+    {
+      "assembly": "DiceCraft.Runtime",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Runtime\\Presentation\\Art07UpgradeSurface.cs",
+      "algorithm": "SHA256",
+      "expectedChecksum": "fda8f3e1ab6b072f647be2e8a310cd79c6000b0a5f5070a50eeb49be59c22e73",
+      "currentChecksum": "fda8f3e1ab6b072f647be2e8a310cd79c6000b0a5f5070a50eeb49be59c22e73",
+      "matches": true
+    },
+    {
+      "assembly": "DiceCraft.Runtime",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Runtime\\Presentation\\AudioCueMap.cs",
+      "algorithm": "SHA256",
+      "expectedChecksum": "1db0ef2664832f257bc40fdb750121b614889fbc6b6610c46a69d2bad2dc1d2b",
+      "currentChecksum": "1db0ef2664832f257bc40fdb750121b614889fbc6b6610c46a69d2bad2dc1d2b",
+      "matches": true
+    },
+    {
+      "assembly": "DiceCraft.Runtime",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Runtime\\Presentation\\PresentationAudio.cs",
+      "algorithm": "SHA256",
+      "expectedChecksum": "6380371957b8178aaaff9aa2851c077e60860c795a916dcd928be4857a371fcd",
+      "currentChecksum": "6380371957b8178aaaff9aa2851c077e60860c795a916dcd928be4857a371fcd",
+      "matches": true
+    },
+    {
+      "assembly": "DiceCraft.Runtime",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Runtime\\Presentation\\PresentationEffectBudget.cs",
+      "algorithm": "SHA256",
+      "expectedChecksum": "0d23e5314762d2ea66efaf0e88e15c71acaef3942049f5336c242016d8ad17c0",
+      "currentChecksum": "0d23e5314762d2ea66efaf0e88e15c71acaef3942049f5336c242016d8ad17c0",
+      "matches": true
+    },
+    {
+      "assembly": "DiceCraft.Runtime",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Runtime\\Presentation\\PresentationModels.cs",
+      "algorithm": "SHA256",
+      "expectedChecksum": "6bc6eab0c33d9813bbf06e6074c4074b6ade286b5c2228df8a9b85494e9d181d",
+      "currentChecksum": "6bc6eab0c33d9813bbf06e6074c4074b6ade286b5c2228df8a9b85494e9d181d",
+      "matches": true
+    },
+    {
+      "assembly": "DiceCraft.Runtime",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Runtime\\Presentation\\PresentationReceiptAdapter.cs",
+      "algorithm": "SHA256",
+      "expectedChecksum": "d0675a5ca61aeb67e38be7aae8187c4bc842db01f0a161b4d154794395244180",
+      "currentChecksum": "d0675a5ca61aeb67e38be7aae8187c4bc842db01f0a161b4d154794395244180",
+      "matches": true
+    },
+    {
+      "assembly": "DiceCraft.Runtime",
+      "source": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Game\\Runtime\\Presentation\\PresentationSequence.cs",
+      "algorithm": "SHA256",
+      "expectedChecksum": "53952fbbb737d66bf650f5c8d9ee9f69191280ad7327beb38c1255b1f742940a",
+      "currentChecksum": "53952fbbb737d66bf650f5c8d9ee9f69191280ad7327beb38c1255b1f742940a",
+      "matches": true
+    }
+  ],
+  "mismatches": 0,
+  "sourceSetComplete": false,
+  "binaryAndSourceStableDuringRead": true,
+  "inspector": {
+    "path": "E:\\agent_workspace\\gpt\\game2\\cache\\v071-rc2\\audit\\Read-UnityPdb.ps1",
+    "sha256": "d84e1ce4a3565585686c28dfdc3a4e8338d74559a7ce3d65ead4f182566f2812",
+    "cecilPath": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Library\\PackageCache\\com.unity.nuget.mono-cecil@ecb9724e46ff\\Mono.Cecil.dll",
+    "cecilSha256": "0b71905f5995fc8c5224619c4eb40293e6d401ffce0ede5770a222da76c2120b"
+  }
+}

@@ -1,5 +1,15 @@
 # 当前项目状态
 
+## v0.71 rc.2 最新界面试玩包（已发行测试候选 / REVIEW，2026-11-10）
+
+用户要求按现有约定打包并提供可试玩版本，延续GitHub附件发行授权。以已上传 `b005e0088b227b26e2f8fc44f1c59f68df0c0a35` 为实际构建源，包含最新Image2主菜单与木沿毛毡桌面；已独立发行 `p0.7.1-rc.2`，保留rc.1、main与历史失败。任务见 [RC2打包](tasks/P0-V071-RC2-PACKAGE.md)。
+
+完整EditMode1018/1018、PlayMode185/185通过，源码/首尾程序集/PDB独立匹配；实际Windows与Mac严格构建成功，Windows GUID `75e7f6b0f1c34075a6527abbc6829e8b`、Mac GUID `b523ca601806410ca9fbb7ff3d943c8c`。Editor PDB五程序集/198源文件、各Player两程序集/105源文件一致，Mac六原生组件均双架构。发布工具61项回归与独立复核通过。
+
+新Windows Player正常145/调试175条回放、19 UI/50动画检查通过；自动原生显示检查及独立进程恢复通过，物理焦点/显示器变更未验。180.0108082秒/P95 16.847ms超过16.7ms，仍为性能FAILED诊断候选；GPU有效覆盖97.2184%。实际原件在 `evidence/v071/player-b005e00-rc2/`；runner普通存档守卫仅保存前后相等布尔，未归档前置哈希明细，不能重建其历史字节。构建305文件运行前后逐SHA一致。
+
+三个新ZIP已于 2026-11-10T11:22:20Z 发布至 [GitHub p0.7.1-rc.2](https://github.com/XDwudi/game2/releases/tag/p0.7.1-rc.2)；Windows200441327B、Mac240794669B、Kit241475500B，实际完整远端下载SHA/CRC与311/306/17成员均匹配。发行ID440245825，新标签绑定已上传游戏源b005e00；main与rc.1保持。下载版新目录01真实执行18资源阶段到after-idle，但20秒闲置inputRows=1致diagnostic_incomplete；02在SettingsTab0等待Stable条件时触发原180秒内部截止，具体失焦/输入/动效分支未知，未改阈值或重标通过。两轮普通存档/游戏偏好/构建守卫均真，01的Unity Screenmanager变化单列。未生成新PNG，CUA仅列出游戏窗口、应用访问审批超时，未成功截图或输入。可证明下载文件完整及实际启动，辅助诊断未通过，不能声称整版验收。证据见 `evidence/v071-rc2/delivery/`。测试退出时自动序列化的字体缓存已保留差异并恢复精确已测原件，构建期预加载设置已自动恢复，Assets/Packages/ProjectSettings当前干净；无Unity编辑器写锁。最终人工体验、Mac实机及AudioMixer回退限制保留。
+
 ## v0.71 Image2 主界面与桌面背景（REVIEW，2026-11-10）
 
 用户本轮明确要求 Image2 主界面图→实际主界面、桌上游玩的游戏背景、完成后上传 v0.71 源码；此授权覆盖源码上传，取代此前仅成品附件阶段的限制。源码已普通推送到 `codex/v0.71`，游戏变更提交为 `bd57633b24eedbf41f3c4df63504d38d9c8eafb8`，Git远端及GitHub API已精确回读；收据见 `evidence/v071-menu-table/source-upload.json`。main仍7de9857，旧 `p0.7.1-rc.1` 标签仍b11694f/三附件仍为历史原件。本段及最终暂存复核是其后的纯交付文档提交，不改变已测Assets。

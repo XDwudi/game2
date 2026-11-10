@@ -1,0 +1,75 @@
+{
+  "schema": "v071-rc2-public-final-review-1",
+  "utc": "2026-11-10T11:25:31.197835+00:00",
+  "reviewer": "/root/project_audit",
+  "verdict": "RC2_05_DIAGNOSTIC_CANDIDATE_DELIVERY_COMPLETE_AUXILIARY_DIAGNOSTIC_NOT_PASSED",
+  "releaseId": 440245825,
+  "sourceCommit": "b005e0088b227b26e2f8fc44f1c59f68df0c0a35",
+  "releaseTag": "p0.7.1-rc.2",
+  "url": "https://github.com/XDwudi/game2/releases/tag/p0.7.1-rc.2",
+  "publishedAt": "2026-11-10T11:22:20Z",
+  "assets": [
+    {
+      "name": "DicePrototype-p0.7.1-macos-universal.zip",
+      "assetId": 731104688,
+      "url": "https://github.com/XDwudi/game2/releases/download/p0.7.1-rc.2/DicePrototype-p0.7.1-macos-universal.zip",
+      "sha256": "90b76360530c53c2fb46ed3e542b691225884c9259d2c5891030b9e81003b913",
+      "bytes": 240794669
+    },
+    {
+      "name": "DicePrototype-p0.7.1-MacVerificationKit.zip",
+      "assetId": 731111250,
+      "url": "https://github.com/XDwudi/game2/releases/download/p0.7.1-rc.2/DicePrototype-p0.7.1-MacVerificationKit.zip",
+      "sha256": "f6687b2e6ff41ae7c3433954239eb676859c2db8b160ddcd16bef407b8c31dd5",
+      "bytes": 241475500
+    },
+    {
+      "name": "DicePrototype-p0.7.1-win-x64.zip",
+      "assetId": 731100890,
+      "url": "https://github.com/XDwudi/game2/releases/download/p0.7.1-rc.2/DicePrototype-p0.7.1-win-x64.zip",
+      "sha256": "44ef23a3d91be201706b59c5f006886ec7198781f3cf4084c3d13adb93fe656a",
+      "bytes": 200441327
+    }
+  ],
+  "manifest": {
+    "path": "Releases/p0.7.1/menu-table-rc2/full-art-release-manifest.json",
+    "sha256": "a3c1dfaf91317c9916356dab19a346b7d1f3a373a2174c35616f507758abc42f",
+    "bytes": 68676
+  },
+  "publishedReceipt": {
+    "path": "evidence/v071-full/delivery/github-release/p0.7.1-rc.2/review-candidate/release-publish-20261110-112232-284364.json",
+    "sha256": "a95e7363fa76c464fa32bf98886eeddfd515cfd1f13b9653b2ce11c3f770bde4",
+    "bytes": 10321
+  },
+  "anonymousPublicProof": {
+    "path": "evidence/v071-rc2/delivery/public-release-verification.json",
+    "sha256": "a461a32c45a6a5018b8765724b129d652cbea8e354b5c7711cab950b43450cba",
+    "bytes": 2203
+  },
+  "downloadAndRestoreReview": {
+    "path": "cache/v071-rc2/audit/REMOTE_DELIVERY_B005E00.bindings.json",
+    "sha256": "d4c9476561d41301517a3f8ead3d99496a2af05d096cc208e7b9be773f2b42bf",
+    "bytes": 16981
+  },
+  "packageReview": {
+    "path": "cache/v071-rc2/audit/PACKAGES_B005E00.bindings.json",
+    "sha256": "21cdef90fb28578ca9623650eb76b4dafe2d13cd6449d2ef698c60660d102eed",
+    "bytes": 192784
+  },
+  "playerReview": {
+    "path": "cache/v071-rc2/audit/PLAYER_B005E00.bindings.json",
+    "sha256": "f6fe33c0dc52ce9c526297560c17dac3136457c305bbf11d1f731382f27b243c",
+    "bytes": 133235
+  },
+  "wholeReleaseAccepted": false,
+  "auxiliaryDiagnosticPassed": false,
+  "windowsPerformance": "FAILED",
+  "macRuntime": "NOT_RUN_ON_MAC",
+  "networkScope": "Reviewer made no network calls; cross-checked actual saved anonymous public/API and HEAD receipts with already verified full downloads. HEAD alone is not full download SHA proof.",
+  "oldRefsScope": "Recorded public proof retains main/rc.1 and historical asset IDs; no independent network query made by reviewer.",
+  "scopeCorrection": {
+    "path": "cache/v071-rc2/audit/REMOTE_RECEIPTS_LIGHT_SCOPE_CORRECTION.json",
+    "sha256": "1ea870184714d639492604ca11c27d6f0a9db11b805dcadf34a2b89beb30d7f7",
+    "bytes": 980
+  }
+}

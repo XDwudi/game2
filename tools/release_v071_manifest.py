@@ -9,7 +9,8 @@ import zipfile
 
 from package_v071 import (ROOT, GATE, TAG, read_json, sha, record, relative,
                          validated_gate, validate_build, validate_windows_report, check_package,
-                         package_proof_name, kit_proof_name, candidate_notice, local_path, CONFIG)
+                         package_proof_name, kit_proof_name, candidate_notice, local_path, CONFIG,
+                         package_directories, validate_release_tag, validate_proof_tag)
 from macos.v071.compare_replays import (validate_recovery, review_reference_notice, failed_performance_notice,
                                       uses_strict_failed_performance_reference, diagnostic_release_status, validate_failed_performance_csv)
 from macos.v071.package_checks import macho_info
@@ -35,7 +36,8 @@ def checked_binding(row):
     return local_path(row["path"])
 
 
-def validate_directories(package_directory, proof_directory):
+def validate_directories(package_directory, proof_directory, release_tag=TAG):
+    package_directories(True, package_directory, proof_directory, release_tag)
     packages, proofs = local_path(package_directory), local_path(proof_directory)
     old = local_path("Releases/p0.7.1/review-candidate")
     if (not packages.is_relative_to(local_path("Releases/p0.7.1"))
@@ -44,6 +46,39 @@ def validate_directories(package_directory, proof_directory):
     if proofs == local_path("evidence/v071/packages") or proofs.is_relative_to(local_path("evidence/v071/packages")):
         raise ValueError("Full-art package proofs must not overwrite the first-batch proof directory")
     return packages, proofs
+
+
+def validate_menu_table(gate):
+    """Bind the additional menu/table sources without changing the historical 127-asset catalog."""
+    record_path = local_path("ArtSource/Art071/MenuTable/record.json")
+    source = read_json(record_path)
+    expected = {
+        "ArtSource/Art071/MenuTable/menu-concept.png": "ArtSource/Art071/MenuTable/menu-concept-prompt.txt",
+        "ArtSource/Art071/MenuTable/table-background.png": "ArtSource/Art071/MenuTable/table-background-prompt.txt",
+    }
+    rows = source.get("sources") or []
+    if len(rows) != 2 or {row.get("path") for row in rows} != set(expected):
+        raise ValueError("Menu/table release requires both actual Image2 sources")
+    records = []
+    for row in rows:
+        path = local_path(row["path"])
+        if sha(path) != row.get("sha256") or row.get("prompt") != expected[row["path"]]:
+            raise ValueError("Menu/table source or prompt mapping changed")
+        records.extend([binding(path), binding(row["prompt"])])
+    runtime = "DicePrototype/Assets/Art/Art071/Backgrounds/bg_table_scene.png"
+    background = next(row for row in rows if row["path"].endswith("table-background.png"))
+    if background.get("runtime") != runtime or sha(local_path(runtime)) != background["sha256"]:
+        raise ValueError("Menu/table source and runtime background differ")
+    required = [runtime, runtime + ".meta", "DicePrototype/Assets/Art/Art071/Full/Materials/felt.mat",
+                "DicePrototype/Assets/Game/Runtime/Shaders/Art07Felt.shader",
+                "DicePrototype/Assets/Game/UI/GameApp.Art071Screens.cs",
+                "DicePrototype/Assets/Game/Editor/V071TableSetup.cs"]
+    frozen = {row["path"]: row["sha256"] for row in gate["files"]}
+    for path in required:
+        if frozen.get(path) != sha(local_path(path)):
+            raise ValueError("Menu/table runtime input missing from current gate: " + path)
+    return {"record": binding(record_path), "sourcesAndPrompts": records,
+            "runtimeInputs": [binding(p) for p in required], "humanArtAccepted": False}
 
 
 def validate_illustration_source(row):
@@ -222,12 +257,14 @@ def validate_packaged_build(proof, build, platform):
 
 def build_manifest(windows_results, windows_build, macos_build, art_review_evidence, display_recovery=None,
                    review_candidate=False, allow_failed_windows_performance=False,
-                   package_directory=PACKAGE_DIRECTORY, package_proof_directory=PROOF_DIRECTORY):
+                   package_directory=PACKAGE_DIRECTORY, package_proof_directory=PROOF_DIRECTORY, release_tag=TAG):
     if allow_failed_windows_performance and not review_candidate:
         raise ValueError("Failed performance requires an explicit review candidate")
-    package_directory, package_proof_directory = validate_directories(package_directory, package_proof_directory)
+    validate_release_tag(release_tag)
+    package_directory, package_proof_directory = validate_directories(package_directory, package_proof_directory, release_tag)
     identity, gate, tests = validated_gate()
     full_art = validate_full_art(identity, gate, local_path(art_review_evidence))
+    menu_table = validate_menu_table(gate) if release_tag != TAG else None
     report = validate_windows_report(windows_results, identity, review_candidate, allow_failed_windows_performance)
     strict_diagnostic = allow_failed_windows_performance and uses_strict_failed_performance_reference(report)
     if display_recovery is not None:
@@ -246,6 +283,7 @@ def build_manifest(windows_results, windows_build, macos_build, art_review_evide
         build = validate_build(build_path, platform, identity)
         proof_path = package_proof_directory / package_proof_name(platform, review_candidate)
         proof = read_json(proof_path)
+        validate_proof_tag(proof, release_tag)
         if (proof.get("identity") != identity or proof.get("buildReport", {}).get("sha256") != sha(build_path)
                 or bool(proof.get("reviewCandidate")) != review_candidate
                 or bool(proof.get("allowFailedWindowsPerformance")) != allow_failed_windows_performance
@@ -271,6 +309,7 @@ def build_manifest(windows_results, windows_build, macos_build, art_review_evide
             "intelRuntimeStatus": "not_applicable" if platform == "windows" else "NOT_TESTED: x86_64 slice included; runtime unverified"})
     kit_proof_path = package_proof_directory / kit_proof_name(review_candidate)
     kit = read_json(kit_proof_path)
+    validate_proof_tag(kit, release_tag)
     if (kit.get("identity") != identity or kit.get("windowsResults") != relative(windows_results)
             or bool(kit.get("reviewCandidate")) != review_candidate
             or bool(kit.get("allowFailedWindowsPerformance")) != allow_failed_windows_performance
@@ -293,7 +332,7 @@ def build_manifest(windows_results, windows_build, macos_build, art_review_evide
     if raw_proof and trace_inputs.get("inputs/windows-results/performance-frames.csv") != raw_proof["sha256"]:
         raise ValueError("M5 kit is missing the bound strict diagnostic raw CSV")
     perf = report["performance"]
-    manifest = {"schema": "v071-full-art-restricted-review-candidate-1" if review_candidate else "v071-full-art-release-candidate-1", **identity, "releaseTag": TAG,
+    manifest = {"schema": "v071-full-art-restricted-review-candidate-1" if review_candidate else "v071-full-art-release-candidate-1", **identity, "releaseTag": release_tag,
         "reviewCandidate": review_candidate, "fullReleaseAccepted": False,
         "buildUtc": max(item["buildUtc"] for item in platforms), "releaseStatus": "RESTRICTED_TEST_CANDIDATE_WINDOWS_NATIVE_PENDING" if review_candidate else "CANDIDATE_MAC_AND_HUMAN_VALIDATION_PENDING",
         "deliveryChannel": "GitHub Release: three complete ZIP attachments; no Git LFS dependency", "platforms": platforms,
@@ -328,6 +367,8 @@ def build_manifest(windows_results, windows_build, macos_build, art_review_evide
         manifest["requiredBeforeFullAcceptance"].insert(0, "Windows performance FAILED: repeat the unchanged 180-second/P95<=16.7ms condition with valid focus/timing evidence")
         manifest = {"diagnosticSummary": review_reference_notice(report, True), **manifest}
     manifest["fullArt"] = full_art
+    if menu_table is not None:
+        manifest["menuTable"] = menu_table
     manifest["manifestInputs"] = {"windowsResults":relative(windows_results), "windowsBuild":relative(windows_build),
         "macosBuild":relative(macos_build), "artReviewEvidence":relative(art_review_evidence),
         "displayRecovery":relative(display_recovery) if display_recovery else None,
@@ -345,6 +386,7 @@ def create_manifest(*args, output=None, **kwargs):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--release-tag", default=TAG, type=validate_release_tag)
     parser.add_argument("--windows-results", required=True, type=Path)
     parser.add_argument("--windows-build", required=True, type=Path)
     parser.add_argument("--macos-build", required=True, type=Path)
@@ -361,7 +403,7 @@ def main():
     print(create_manifest(args.windows_results.resolve(), args.windows_build.resolve(), args.macos_build.resolve(),
                           args.art_review_evidence.resolve(), args.display_recovery.resolve() if args.display_recovery else None,
                           args.review_candidate, args.allow_failed_windows_performance,
-                          args.package_directory,args.package_proof_directory,output=args.output))
+                          args.package_directory,args.package_proof_directory,args.release_tag,output=args.output))
 
 
 if __name__ == "__main__":
