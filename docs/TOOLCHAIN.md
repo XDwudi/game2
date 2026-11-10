@@ -6,6 +6,8 @@ P0以 `vSyncCount=0`、`targetFrameRate=60` 为原生回退；Windows Player成�
 
 ## 工具职责与选择原则
 
+AI 美术的项目级入口见 [AI_ART_PIPELINE](art/AI_ART_PIPELINE.md) 和 [game-art-production](../.agents/skills/game-art-production/SKILL.md)。当前优先内置 imagegen、现有可编辑源/Blender脚本与Unity组件；本次图像生成接通证据独立归档。Krita AI Diffusion、ComfyUI/MCP、LoRA、图生3D是有条件的候选，实际接通与采纳边界见 [研究报告](research/AI_ART_TOOLS_RESEARCH.md)，不能据名称宣称安装成功。
+
 | 工作 | 候选工具或入口 | 必须验证的结果 |
 | --- | --- | --- |
 | 游戏运行与集成 | Unity 或选定的游戏引擎 | 场景能运行、资源正确导入、目标平台能构建并启动 |

@@ -1,0 +1,85 @@
+{
+  "schemaVersion": 1,
+  "scope": "PNG and manifest integrity only; not game or artistic acceptance",
+  "createdUtc": "2026-11-08T19:43:49.385312+00:00",
+  "tool": {
+    "path": "tools/art_asset_audit.py",
+    "sha256": "f794c98d8ea02a1a3462136d8271fd27a14f13e4985a7cc890f3531d6c130791",
+    "python": "3.11.4",
+    "pillow": "9.4.0"
+  },
+  "root": "E:\\agent_workspace\\gpt\\game2",
+  "requireAlpha": true,
+  "runtimeDirectory": null,
+  "inputs": [
+    {
+      "role": "inputSpec",
+      "path": "docs/specs/v071/ART_SPEC.md",
+      "sha256": "e36670bd717c526f0ae3126c551092edb7c7b03a6198bb3297706c99f4ea37a0",
+      "bytes": 39754
+    },
+    {
+      "role": "contentSource",
+      "path": "DicePrototype/Assets/Game/Data/P0Config.json",
+      "sha256": "747ed1efc7bea15873f66a81eee5c7654971c21031f2a1517ce629adce7b6e6c",
+      "bytes": 51927
+    },
+    {
+      "role": "reference[0]",
+      "path": "docs/specs/v071/handoff/references/battle_master_v071.png",
+      "sha256": "02895a850ba48c636445c963f705244d190bdb8b94c07f449a0269fc5047f8dc",
+      "bytes": 2434842
+    },
+    {
+      "role": "reference[1]",
+      "path": "ArtSource/Art071/Illustrations/illustration_i07.png",
+      "sha256": "e9861c407b4f90338748d9a44db0b0c6fd9b43e43486cedc2b21af251e8e91a3",
+      "bytes": 846872
+    }
+  ],
+  "assets": [
+    {
+      "index": 0,
+      "result": "INTEGRITY_PASSED",
+      "contentId": "I07",
+      "path": "ArtSource/AIConcepts/imagegen-probe-20261108/illustration_i07_concept.png",
+      "sha256": "d8d23e258fdfa907df84136ca1dd4f1dba3f98c813d436d390f86c886217bd55",
+      "bytes": 831294,
+      "image": {
+        "format": "PNG",
+        "mode": "RGBA",
+        "dimensions": [
+          1254,
+          1254
+        ],
+        "alphaExtrema": [
+          0,
+          255
+        ],
+        "transparentPixels": 1023178,
+        "partialAlphaPixels": 547286,
+        "opaquePixels": 2052,
+        "visibleBounds": [
+          0,
+          17,
+          1234,
+          1222
+        ]
+      }
+    }
+  ],
+  "errors": [],
+  "notVerified": [
+    "style consistency, subject correctness, edge halos, legibility and visual quality",
+    "Unity importer settings, GUID bindings, scene usage and actual rendering",
+    "native editable-source roundtrip, game behaviour, builds and performance",
+    "human approval, rights clearance and production acceptance"
+  ],
+  "manifest": {
+    "path": "ArtSource/AIConcepts/imagegen-probe-20261108/manifest.json",
+    "sha256": "e6516d6687b1852bfa4e217b4f7d6cdfc4b99983a8592f1afd51a6230ca48c21"
+  },
+  "checkedAssets": 1,
+  "passedAssets": 1,
+  "result": "INTEGRITY_PASSED"
+}

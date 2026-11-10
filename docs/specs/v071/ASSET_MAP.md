@@ -1,3 +1,25 @@
+# v0.71 全量素材路径表
+
+2026-11-09 UTC，全量资源已接入，实际表现专项验证中。71项活跃内容全部绑定高清主题插画，旧小图标不再由Bootstrap/Lab引用；下方首批记录保留为历史。全量技术验证不替代人工风格验收。
+
+| 范围 | 可编辑源 / 运行件 | 当前状态 |
+| --- | --- | --- |
+| 71项插画 | `ArtSource/Art071/IllustrationsFull/<ID>/` 原图、完整prompt、record；C03/C48/I07复用 `Illustrations/` 原稿 → `DicePrototype/Assets/Art/Art071/Illustrations/illustration_<id>.png` | 50控制器、7道具、7服务、7强化全量。C29新修订，C45/revision-01、O05/revision-02为最终选图。全部原稿保留。 |
+| A01/A02 桌布/光照 | `tools/art_v071/build_full_background.py` → `ArtSource/Art071/Full/Backgrounds/` → `Assets/Art/Art071/Full/Backgrounds/`；Art07Felt.shader | 新1024²无缝Repeat纹理；中心受光与边缘压暗在桌面Shader，不覆盖文字/骰点。 |
+| A03—A06 共享纸面/按钮/页签 | 既有 `build_surfaces.py` 的5表面与UiKit，新增 `build_full_surfaces.py` 的12表面 → `Full/Surfaces/` | 清楚的信息/内容/动作层；库存内容纸卡去厚按钮侧边，实际命中保留。页签与精确线条继续代码绘制。 |
+| A07/A18 卡背/字标 | `tools/art_v071/build_full_ui.py` → `ArtSource/Art071/Full/UI/` SVG+PNG → `Assets/Art/Art071/Full/UI/` | 768×1024卡背、1440×400标题字标接入菜单，正文仍TMP。 |
+| A08—A11 代表插画 | C48/C29/C03/I07路径同上 | 复用3件并重新修订C29，已做全量Unity并排。 |
+| A12 附魔/状态 | `build_full_ui.py` → `Full/Symbols/`（5附魔与28状态符号，实际路径以manifest为准） | 5附魔徽记、28公共符号，256²高清，含实际代码颜色/状态。5类表现按提交事件与真实实例绑定。 |
+| A13—A16 骰子/点阵/材质/阴影 | `ArtSource/Art071/Dice/dice_master.blend`、face_map/export_preset；现有 `build_dice.py`；`Assets/Art/Art071/Dice/`；DiceTable/Art07Ceramic/Art07Felt | 陶瓷母模型复用；点阵按真实配置生成，浅点窝/玻璃/金属/光滑/纹理层保留。新增临时小钟与减轻投影已完成真实GPU及720/1080锁槽专项，独立限域复核通过。 |
+| A17 FX | `build_full_ui.py` → `ArtSource/Art071/Full/FX/` 8张SVG+PNG → `Assets/Art/Art071/Full/FX/` | 含新短弧、环、星、方片、火焰。新高档环/短弧与五附魔已通过实际接线及720/1080专项；完整冻结回归仍按STATE推进。 |
+| 实际共享Prefab/材质 | `Assets/Art/Art071/Full/Prefabs/`、`Full/Materials/` | 26个Prefab重绑新素材；功能轮盘仍由引擎显示9个真实分区与结果，不用主题插画代替随机结果。 |
+
+完整逐件源/运行SHA以 `DicePrototype/Assets/Art/Art071/FullSourceManifest.json` 为准（127件=71插画+43公共+12表面+1背景）。可重跑接入入口为 `tools/art_v071/stage_full_art.py --complete` 和 `Assets/Game/Editor/V071FullSetup.cs`。生成PNG是可编辑栅格原稿，不冒称有手绘图层的KRA/PSD；公共SVG、脚本与Blender源另保留。
+
+新实机证据：`nunit-20261109-035235`图册/三字体卡片/强化交易专项3/3通过；修正图册共12页，每项有大卡、176/64深浅底共5真实实例。71项独立逐图限域审查已完成。新增临时钟旧失败保留于034902/040031，修后040217/040605通过；高档Combo041014/041301通过。源码41aface完整Edit1018通过、Play182运行中，双平台最终构建、Windows运行与发布仍待，最终以STATE为准。
+
+## 以下为首批历史记录（已被全量范围覆盖）
+
 # v0.71 首批素材路径表（交付草稿）
 
 2026-11-08，只读盘点。输入是 [ART_SPEC.md §08 / A01—A18](ART_SPEC.md) 与随包母版；本表记录当前源文件、引擎接入和缺口，不把“文件存在”写成最终美术验收。首批只有 C48、C29、C03、I07 四张大插画；其他 67 项保留旧图标并待后续替换。没有扩大量产。
@@ -30,6 +52,8 @@
 | A18 标题字标 | `Game/UI/GameApp.Art071Screens.cs` 的 `MenuWordmark/Title/RegistrationRule`；共用 A03 纸表面和项目中文 TMP 字体 | 已有代码排版的固定标题视觉，未导出独立矢量或高清标题图片。该资产形式差异保留在表中。 |
 
 ## 首批 4 项与其余 67 项
+
+公共中文字体仍以 `Game/Fonts/DiceChinese.asset` 为主；v0.71 修复粗体省略号时新增 `Game/Fonts/DiceChineseBold.asset`，由主字体 weight7 引用。真实 Noto Sans SC Bold 2.002 源、许可、版权及 SHA 位于 `ArtSource/Art071/Fonts/`，生产导入副本为 `Game/Fonts/NotoSansSC-Bold.otf`。`Game/Editor/V071FontSetup.cs` 按现有48pt、padding7、2048²、SDFAA生成844字符的单张Static图集。原Regular 2.004图集与字表未变；新增字重不冒称与Regular完全相同源版本。两平台包保留两套字体的许可说明。
 
 配置唯一来源为 [P0Config.json](../../../DicePrototype/Assets/Game/Data/P0Config.json)：50 控制器 + 7 道具 + 7 服务 + 7 骰子强化 = 71 项。C48/C29/C03/I07 的真实 ID、名称、提示词、参考路径、原图路径与 SHA 记录于 [首批 manifest](../../../ArtSource/Art071/Illustrations/manifest.json) 和 [prompts](../../../ArtSource/Art071/Illustrations/prompts.json)。图片内装饰骰点不作为玩法示例。
 

@@ -1,6 +1,10 @@
 # v0.71 M5 实机验证执行说明
 
-状态：工具已按 p0.7.1/art0.7.1 作版本适配；本说明撰写时尚无本版最终Mac构建或M5实机结果。规则 p0.6.0 / schema4、Unity6000.6.7f1 / Mono、原平台验收要求保持。执行对象以工具包 inputs/BUILD_IDENTITY.json 为准，不能套用历史v0.7通过结果。
+状态：v0.71全量美术Mac交叉构建已成功，尚未在真实Mac运行（NOT_RUN_ON_MAC）。实际构建源 `41aface80bba6c1e008bd3d35344210a28003553`，Mac GUID `a8eee2a94a304703b6fb1e54b3877b87`；Windows GUID `e36a7047e1f44fe9b16387cbf61ab639`。规则p0.6.0/schema4、Unity6000.6.7f1/Mono、原平台验收要求保持，执行对象以工具包inputs/BUILD_IDENTITY.json为准。
+
+工具包含同版Windows真实参考、正常145步/Debug24关原输入轨迹和实际运行报告。Windows原生独占确认仍失败；独立窗口模式普通145步、Debug175步、18项UI/50项动画完成且0Unity错误，跨进程恢复通过。压力采样180.0162698秒，P95 16.8078ms，GPU有效计时覆盖91.91%，性能FAILED。原始参考报告在inputs内，逐帧性能CSV保留在本地开发证据目录，不将其写成strict通过。Mac保持原性能/原生显示标准，不因Windows问题放宽。整个版本未ACCEPTED。
+
+本次只发布具名成品附件，GitHub标签锚定已有远端提交；自动生成的Source code不是本版源码。按包内身份运行，不依赖该标签取源码。
 
 完整解压 `DicePrototype-p0.7.1-MacVerificationKit.zip`。工具包包含 VerifyMac.command、verify_mac.py、compare_replays.py、package_checks.py、Mac原包、两条规则轨迹和本版真实Windows参考证据。缺输入时脚本拒绝运行，不能手填通过结果。需要Python3.9+，脚本不自动安装。
 

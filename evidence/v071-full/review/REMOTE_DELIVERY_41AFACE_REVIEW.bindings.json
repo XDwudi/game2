@@ -1,0 +1,247 @@
+{
+  "schema": "v071-independent-remote-delivery-review-1",
+  "utc": "2026-11-09T05:41:29.899607+00:00",
+  "status": "RECORDED_REMOTE_DOWNLOAD_AND_ISOLATED_DIAGNOSTIC_MATCHED_NOT_ACCEPTANCE",
+  "reviewer": "art_assets; no network or process launch",
+  "sourceCommit": "41aface80bba6c1e008bd3d35344210a28003553",
+  "releaseTagCommit": "b11694f8a2f7d767d2113e9b467713807efa403a",
+  "releaseId": 438762609,
+  "serverPublicationStateReviewed": "draft",
+  "wholeReleaseAccepted": false,
+  "formalPerformanceAcceptance": false,
+  "packages": [
+    {
+      "path": "artifacts/cache/v071-full-release-review-download/DicePrototype-p0.7.1-win-x64.zip",
+      "byteSize": 197187916,
+      "sha256": "cba88bd84ce7b7b97cadf27aa544cc1953f31ef13fd10774854eb585a2bc3163",
+      "assetId": 726309465,
+      "memberCount": 311,
+      "crc": "passed",
+      "receiptHttpStatus": 200,
+      "downloadUtc": "2026-11-09T05:27:47.075599+00:00",
+      "fullLocalPackageShaMatch": true,
+      "uploadDownloadServerBinding": true
+    },
+    {
+      "path": "artifacts/cache/v071-full-release-review-download/DicePrototype-p0.7.1-macos-universal.zip",
+      "byteSize": 237545640,
+      "sha256": "83c4fc9eb1bbcd74e180412ae8cdfded6345f3f34921d7cbbdb8e0725a6a3bc6",
+      "assetId": 726340871,
+      "memberCount": 306,
+      "crc": "passed",
+      "receiptHttpStatus": 200,
+      "downloadUtc": "2026-11-09T05:27:54.052319+00:00",
+      "fullLocalPackageShaMatch": true,
+      "uploadDownloadServerBinding": true
+    },
+    {
+      "path": "artifacts/cache/v071-full-release-review-download/DicePrototype-p0.7.1-MacVerificationKit.zip",
+      "byteSize": 237649059,
+      "sha256": "cb182df2b29c29ca3ad901602595886cbc149020a654c334ccdc6aae6626a54b",
+      "assetId": 726344440,
+      "memberCount": 16,
+      "crc": "passed",
+      "receiptHttpStatus": 200,
+      "downloadUtc": "2026-11-09T05:34:45.034702+00:00",
+      "fullLocalPackageShaMatch": true,
+      "uploadDownloadServerBinding": true
+    }
+  ],
+  "runtimeMvid": "7f0848c4-f0dd-43e1-ae93-09cc1d3b7253",
+  "buildGuid": "e36a7047e1f44fe9b16387cbf61ab639",
+  "checks": {
+    "downloadPackageCount": 3,
+    "inputHashCount": 14,
+    "extractedMemberCount": 311,
+    "originalBuildFiles": 305,
+    "ordinaryLocalLowFileCount": 17,
+    "gamePreferenceCount": 46,
+    "gameAndSaveGuardsMatch": true,
+    "engineScreenmanagerUnchanged": false,
+    "idleRows": 1200,
+    "resourceRows": 3931,
+    "snapshotCount": 9
+  },
+  "inputs": [
+    {
+      "path": "Releases/p0.7.1/full-art-candidate/full-art-release-manifest.json",
+      "byteSize": 48740,
+      "sha256": "e880f6bbd42b5caf120a3f183683834f7eca6c17f6ce86c062e83c483d383d26"
+    },
+    {
+      "path": "evidence/v071-full/delivery/github-release/review-candidate/release-upload-20261109-052825-495082.json",
+      "byteSize": 10561,
+      "sha256": "07ac71edef6da780153d646aeb13e599b27980ead825bde9ffb0a6a02744e4da"
+    },
+    {
+      "path": "cache/v071-full/remote-delivery-review/check_downloads.py",
+      "byteSize": 4174,
+      "sha256": "10e4b5df49a75d95bd841b4192ed4037cae82890f263fc66e7bfe51995b2f881"
+    },
+    {
+      "path": "evidence/v071-full/delivery/github-release/review-candidate/DicePrototype-p0.7.1-win-x64.zip.download.json",
+      "byteSize": 880,
+      "sha256": "e95c58dbce84183a868096ae4478b90a6908908cc6d7c4766c550d87c5952849"
+    },
+    {
+      "path": "evidence/v071-full/delivery/github-release/review-candidate/DicePrototype-p0.7.1-win-x64.zip.upload.json",
+      "byteSize": 1654,
+      "sha256": "cefbe01bc4743ffe207ed5ab0d140b10a85abc27ae3a5676cd418d59812a15f5"
+    },
+    {
+      "path": "evidence/v071-full/delivery/github-release/review-candidate/DicePrototype-p0.7.1-macos-universal.zip.download.json",
+      "byteSize": 904,
+      "sha256": "0280dde7c29e2023615916cf91c99a194a532b157b4eceb07e04ce1ae0b21958"
+    },
+    {
+      "path": "evidence/v071-full/delivery/github-release/review-candidate/DicePrototype-p0.7.1-macos-universal.zip.upload.json",
+      "byteSize": 1670,
+      "sha256": "fdd3f78a8fa47901c1ab98958d2a68089180c4c870bfe84be44bcc03f7a421ba"
+    },
+    {
+      "path": "evidence/v071-full/delivery/github-release/review-candidate/DicePrototype-p0.7.1-MacVerificationKit.zip.download.json",
+      "byteSize": 912,
+      "sha256": "dbc81bca475429b3155b665a4b6517799245fe408a053bf37c0ddcb22ee545ac"
+    },
+    {
+      "path": "evidence/v071-full/delivery/github-release/review-candidate/DicePrototype-p0.7.1-MacVerificationKit.zip.upload.json",
+      "byteSize": 1676,
+      "sha256": "42a540902c705bf24f4d2e71c44813684a1c36422f2c905587b1d9fbd714014a"
+    },
+    {
+      "path": "artifacts/cache/v071-full-remote-41aface-01/remote-extraction-result.json",
+      "byteSize": 4722,
+      "sha256": "798ad5d42448dcb878b4f4361853b309b1d39b4c90f7957b1efebcb4de6c7e66"
+    },
+    {
+      "path": "artifacts/cache/v071-full-remote-41aface-01/extracted-member-verification.json",
+      "byteSize": 60083,
+      "sha256": "d8a49075e6b468e224d7d1e6891e443d6b5bed74698cbacac8c9b910fbb4a8f7"
+    },
+    {
+      "path": "artifacts/cache/v071-full-remote-41aface-01/run/runner-summary.json",
+      "byteSize": 7001,
+      "sha256": "5e14643704b736163d0b76fda06f83ed0755ab4f542359c5904fdeba0ea190f4"
+    },
+    {
+      "path": "artifacts/cache/v071-full-remote-41aface-01/run/external-guards-before.json",
+      "byteSize": 78960,
+      "sha256": "1d68b313db79c24a3869aa2c991236a19f9a8c7feb1501095ccaa64134118a8e"
+    },
+    {
+      "path": "artifacts/cache/v071-full-remote-41aface-01/run/external-guards-after.json",
+      "byteSize": 78960,
+      "sha256": "f65433e6f86031af4ca9c370cb86162f8a47792c0d3b1927aa1934c1c86a992b"
+    },
+    {
+      "path": "artifacts/cache/v071-full-remote-41aface-01/run/diagnostic/resource-report.json",
+      "byteSize": 1526106,
+      "sha256": "376148764690328dbf0230682e645b2bc1f346a8d12b20325f31a21726bbf6ca"
+    },
+    {
+      "path": "artifacts/cache/v071-full-remote-41aface-01/run/diagnostic/idle-frames.csv",
+      "byteSize": 65593,
+      "sha256": "e6148fb45aeb2c2a20091e22e3a98154f0949188d01357415de4c301ae3fc7bf"
+    },
+    {
+      "path": "artifacts/cache/v071-full-remote-41aface-01/run/diagnostic/resource-frames.csv",
+      "byteSize": 182346,
+      "sha256": "534e20496d403030c8ee1ce3628e352601552794b37e28256cf51154c1bc61d0"
+    },
+    {
+      "path": "evidence/v071-full/packages/windows-package-review-candidate.json",
+      "byteSize": 71213,
+      "sha256": "8e30805f766dd6c03771a67b0b3b507b587327830fec592705aec99bc6b0a489"
+    },
+    {
+      "path": "evidence/v071/player-41aface-0455/native-deferred-independent/player-20261109-045708-df970e2d/player-report.json",
+      "byteSize": 203586,
+      "sha256": "4f8622000a2c1d88c1c64abfc94430b0a35a49633b38c584769fa9fa71e87ebc"
+    },
+    {
+      "path": "cache/v071-full/remote-delivery-review/check_run.py",
+      "byteSize": 11573,
+      "sha256": "bf37607f8c6f6da5c53aebf27ca56ab00020885c51a1a487d295dd980a697573"
+    },
+    {
+      "path": "cache/v071-full/remote-delivery-review/downloads-draft.bindings.json",
+      "byteSize": 4096,
+      "sha256": "867f2a5c3f67c71b6ee4d6c5d73d2960dc1e6c086c5e299e569aa89d8e1ef0e1"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Runtime/Verification/Art07ResourceDiagnostic.cs",
+      "byteSize": 42960,
+      "sha256": "17d80bf9c7c0e82bd81c76e6dfafc334fc0e7fec9e43239bc86da14bb448bcfe"
+    },
+    {
+      "path": "cache/v071-full/remote-launch/run_downloaded_windows.py",
+      "byteSize": 22165,
+      "sha256": "9f565cbdbcf56eb18675db7658b2034ba88abd682526f14122736b5436fd5602"
+    },
+    {
+      "path": "tools/diagnostics/v07/run_resource_diagnostic_v3.py",
+      "byteSize": 19547,
+      "sha256": "859333e3d91837d136d17d091cddb3449f53b6b9ec7a5dd07d429daa324f07f0"
+    },
+    {
+      "path": "artifacts/cache/v071-full-release-review-download/DicePrototype-p0.7.1-win-x64.zip",
+      "byteSize": 197187916,
+      "sha256": "cba88bd84ce7b7b97cadf27aa544cc1953f31ef13fd10774854eb585a2bc3163"
+    },
+    {
+      "path": "evidence/v071/unity/build-windows-20261109-045307.json",
+      "byteSize": 957,
+      "sha256": "6e0c7defc636f3e82ccf273b39ad1ec79d8e37fac00c3ec581ca3c4ff3fd95c4"
+    },
+    {
+      "path": "cache/v071-full/existing-release-anchor.json",
+      "byteSize": 462,
+      "sha256": "9ab6e8cc11022615de3f651d47464a095ba15dc57b879372fffc282a5b19a92d"
+    },
+    {
+      "path": "tools/publish_v071_release.py",
+      "byteSize": 22745,
+      "sha256": "3f50612655f19b7d84c381e2b66ba0b74a8bba13f1af68c7491a6b504b436d4e"
+    },
+    {
+      "path": "tools/release_v071_manifest.py",
+      "byteSize": 27576,
+      "sha256": "327789c31985c5cfb8e8d7e3aa61f4d4368ed595d8bc139c8be086eb31e7a654"
+    },
+    {
+      "path": "tools/package_v071.py",
+      "byteSize": 27495,
+      "sha256": "5d0229b3c660935add68ed34b51b0faf79a3651ccdd4dbea27b00a11bb493348"
+    },
+    {
+      "path": "tools/macos/v071/package_checks.py",
+      "byteSize": 7160,
+      "sha256": "75df35774305feac4c27cd2f3de36bccc6b72dd29289e802dd40e7b9e59a5bea"
+    },
+    {
+      "path": "cache/v071-full/remote-delivery-review/run-recomputed.bindings.json",
+      "byteSize": 44727,
+      "sha256": "130fe0c50fb70b681b430782022fad1415b25c789e44684b5c7ad716b40e427e"
+    },
+    {
+      "path": "evidence/v071-full/review/REMOTE_DELIVERY_41AFACE_REVIEW.md",
+      "byteSize": 7133,
+      "sha256": "4b1a155936758c572a7c3ead95616b3e157dcd62fb1b1132d46e7d3534800a0e"
+    },
+    {
+      "path": "cache/v071-full/remote-delivery-review/recompute-notes.md",
+      "byteSize": 716,
+      "sha256": "65c6d1ac71e4ad5303d65d4ef3e5e9487bbd85964bfaef618cd9820089acff9d"
+    },
+    {
+      "path": "cache/v071-full/tag-publish-review/review.md",
+      "byteSize": 2663,
+      "sha256": "46857859fb19666a63d026599b6485c905341614f1c7bb1ce692576fce736b8f"
+    },
+    {
+      "path": "cache/v071-full/tag-publish-review/review.bindings.json",
+      "byteSize": 3866,
+      "sha256": "babd0f01d8b99d37313a5853e8d7e8d791684bec3bbf1140c4c7c5dd85b0d46d"
+    }
+  ]
+}

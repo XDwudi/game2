@@ -8,14 +8,14 @@
 
 ## 当前原型
 
-- **v0.71 本地开发候选，最终全量回归、双平台构建与 Windows Player 启动待执行。** 首批接入 C48/C29/C03/I07 四张主题插画、共用纸卡/按钮和新陶瓷骰子母版；其余 67 项仍用旧图标，未宣称全量美术生产完成。已取得开发中的 48 张 Editor 页面截图和约 13 秒真实时间戳样板录制，后续修复的新图与最终验证另行绑定。见 [v0.71 交付说明](docs/DELIVERY_V071.md)、[美术规格](docs/specs/v071/ART_SPEC.md)、[A01—A18 素材路径表](docs/specs/v071/ASSET_MAP.md) 与 [当前状态](docs/STATE.md)。
+- **v0.71 全量美术测试版已通过 [GitHub发行附件](https://github.com/XDwudi/game2/releases/tag/p0.7.1-rc.1)提供下载。** 冻结源41aface，71项内容插画与公共资源已统一；Edit1018/1018、Play182/182通过，Windows实跑完成，三个附件已完整远端下载校验，下载版新目录启动诊断通过。Windows性能/独占全屏仍有失败，Mac与人工待验；首批249d980三包仅为历史。参见 [STATE](docs/STATE.md)、[素材路径](docs/specs/v071/ASSET_MAP.md) 与 [交付说明](docs/DELIVERY_V071.md)。
 - **历史 v0.7 诊断测试候选已发布，整版仍未验收通过。** [GitHub p0.7.0-rc.1](https://github.com/XDwudi/game2/releases/tag/p0.7.0-rc.1)提供Windows、Mac Universal与M5工具包；三附件已完整下载核验，Windows已做新目录隔离启动。1013项Edit、158项Play通过；Windows性能/原生显示、AudioMixer、Mac与人工待验。详见[交付说明](docs/DELIVERY_V07.md)和[STATE](docs/STATE.md)。输入见[美术开发规格](docs/specs/v07/ART_SPEC.md)，以下为历史版本。
 - v0.6 诊断测试版已在 [GitHub p0.6.0-rc.1](https://github.com/XDwudi/game2/releases/tag/p0.6.0-rc.1) 提供Windows、Mac和M5验收工具包三个附件；已全量远程下载和新目录启动/存档恢复核验。797项EditMode、30项PlayMode及玩法/UI回放通过；Windows独占全屏、性能未通过，Mac/人工待验，整版未ACCEPTED。详见 [v0.6交付说明](docs/DELIVERY_V06.md)。
 - v0.5 请看 [交付说明](docs/DELIVERY_V05.md) 与 [STATE](docs/STATE.md)；Windows、macOS与M5验收工具包已共同上传至 [GitHub预发布附件](https://github.com/XDwudi/game2/releases/tag/p0.5.0-rc.1)，三个完整下载均已核对SHA与ZIP完整性。用户已授权此渠道替代LFS。Windows 技术检查通过，Mac 实机待验。旧版 [交付说明](docs/DELIVERY.md) 和 `Builds/Windows/DiceCraft.exe` 仅为 v0.4 历史产物。
 - [运行、开发与复现说明](DicePrototype/README.md)
-- [权威 P0 v0.6 规格](docs/specs/P0_v0.6.md)与[实施验收契约](docs/tasks/P0-V06-IMPLEMENTATION.md)；当前表现层按 [v0.71 契约](docs/tasks/P0-V071-IMPLEMENTATION.md) 开发，实际进度以 STATE 最新记录为准。
+- [权威 P0 v0.6 规格](docs/specs/P0_v0.6.md)与[实施验收契约](docs/tasks/P0-V06-IMPLEMENTATION.md)；当前表现层按 [v0.71 契约](docs/tasks/P0-V071-IMPLEMENTATION.md) 开发，本次全量范围见 [全量美术任务](docs/tasks/P0-V071-FULL-ART.md)，实际进度以 STATE 最新记录为准。
 - [当前状态和剩余工作](docs/STATE.md)
-- 本版最终测试与构建证据使用 `evidence/v071/`，开发中图片/录制使用 `cache/v071/`；历史 evidence/unity、evidence/runs、evidence/review 及分版本目录继续保留。失败记录保留，不能把历史失败或旧版本通过当作当前结论。
+- 本版最终测试与构建证据使用 `evidence/v071/`，全量美术与发行复核使用 `evidence/v071-full/`；开发图片/录制位于 `cache/v071/`、`cache/v071-full/`；历史 evidence/unity、evidence/runs、evidence/review 及分版本目录继续保留。失败记录保留，不能把历史失败或旧版本通过当作当前结论。
 
 ## 后续项目与阶段的通用流程
 
@@ -28,6 +28,8 @@
 5. 每轮按 [质量验收规则](docs/QUALITY_GATES.md) 验证、返工和记录，更新 [当前状态](docs/STATE.md)。
 
 ## 文件导航
+
+美术制作入口：[AI 美术生产流程](docs/art/AI_ART_PIPELINE.md)与项目技能 [game-art-production](.agents/skills/game-art-production/SKILL.md)。包含 Image2 内置调用、参考图与来源归档、只读素材检查、当前项目审计和候选工具研究；不代替人工风格验收。
 
 | 文件 | 用途 | 主要维护者 |
 | --- | --- | --- |
@@ -51,7 +53,7 @@
 
 ## 当前可用程度
 
-目前可以使用项目规则、任务模板，以及三个本地检查命令：来源副本校验、输入与产物快照校验、NUnit 测试报告检查。检查器有实际运行的负例测试。检查通过只代表相应结构与一致性满足，不代表游戏品质通过。
+目前可以使用项目规则、任务模板，原有三个本地检查命令（来源副本、输入与产物快照、NUnit 报告），以及新增的 [PNG 美术完整性检查器](tools/ART_ASSET_AUDIT.md)。检查器有实际运行的负例测试；检查通过只代表覆盖范围内的结构与一致性满足，不代表游戏品质通过。
 
 已下载三个参考仓库，选择性保留 35 份固定提交原文件及许可证。未启用上游插件或 hooks，游戏工程在 DicePrototype/，本项目已建立 Git 并接入用户指定 origin。真实运行证据和未验项以 docs/STATE.md 为准；尚未配置 CI 或执行三端验收，真人试玩需人工完成。
 

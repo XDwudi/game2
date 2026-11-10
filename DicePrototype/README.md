@@ -1,10 +1,10 @@
 # 骰子构筑 P0 · v0.71
 
-当前表现版本为 `art0.7.1`，预定发行身份 `p0.7.1`；玩法配置仍为 `p0.6.0`、存档 `schema4`。目标 Windows x64 与 macOS Universal，验收进度见 [STATE](../docs/STATE.md) 和 [v0.71 交付说明](../docs/DELIVERY_V071.md)。本说明准备时最终全量回归、双构建与 Windows Player 运行尚待完成；历史版本结果不能替代本版验证。
+当前表现版本为 `art0.7.1`，发行身份 `p0.7.1`；玩法配置仍为 `p0.6.0`、存档 `schema4`。目标 Windows x64 与 macOS Universal，验收进度见 [STATE](../docs/STATE.md) 和 [v0.71 交付说明](../docs/DELIVERY_V071.md)。本次全量源码41aface完整Edit1018/Play182通过，双构建与Windows实际运行完成。Windows性能/独占全屏仍失败，Mac及人工待验；[GitHub测试预发布](https://github.com/XDwudi/game2/releases/tag/p0.7.1-rc.1)已提供三个成品附件，完整远端下载与新目录启动已核，准确结论与下载见交付说明。
 
 ## 运行与操作
 
-本版构建目标为仓库根 `Builds/v071/Windows/DicePrototype.exe` 和 `Builds/v071/macOS/DicePrototype.app`。Windows 必须保留 Data 目录、UnityPlayer.dll 和全部运行文件；Mac 保留完整 `.app`。本地包使用 `Releases/p0.7.1/` 或其 `review-candidate/` 子目录，实际是否已生成/发布及 SHA 以交付说明为准。旧 `Builds/v06/`、`Builds/v07/` 和旧 Release 是历史产物。
+本版构建目标为仓库根 `Builds/v071/Windows/DicePrototype.exe` 和 `Builds/v071/macOS/DicePrototype.app`。Windows 必须保留 Data 目录、UnityPlayer.dll 和全部运行文件；Mac 保留完整 `.app`。本次全量包使用 `Releases/p0.7.1/full-art-candidate/` 子目录；首批 `review-candidate/` 为历史，实际是否已生成/发布及 SHA 以交付说明为准。旧 `Builds/v06/`、`Builds/v07/` 和旧 Release 是历史产物。
 
 主菜单“新建挑战”打开种子与初始状态确认页；种子支持 0—4294967295 的十进制整数。“继续对局”恢复最后一次成功写入的状态；已有存档时新建需经过覆盖确认。固定骰练习使用独立状态，不覆盖正式挑战。
 

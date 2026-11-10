@@ -1,0 +1,206 @@
+{
+  "schemaVersion": 1,
+  "scope": "PNG and manifest integrity only; not game or artistic acceptance",
+  "createdUtc": "2026-11-08T19:40:08.589093+00:00",
+  "tool": {
+    "path": "tools/art_asset_audit.py",
+    "sha256": "8ccc14c82a5fe4ad7a84730b5cbee16a77f86cfdca313127f57dbad6d33ac8f3",
+    "python": "3.11.4",
+    "pillow": "9.4.0"
+  },
+  "root": "E:\\agent_workspace\\gpt\\game2",
+  "requireAlpha": true,
+  "runtimeDirectory": "DicePrototype/Assets/Art/Art071/Illustrations",
+  "inputs": [
+    {
+      "role": "inputSpec",
+      "path": "docs/specs/v071/ART_SPEC.md",
+      "sha256": "e36670bd717c526f0ae3126c551092edb7c7b03a6198bb3297706c99f4ea37a0",
+      "bytes": 39754
+    },
+    {
+      "role": "contentSource",
+      "path": "DicePrototype/Assets/Game/Data/P0Config.json",
+      "sha256": "747ed1efc7bea15873f66a81eee5c7654971c21031f2a1517ce629adce7b6e6c",
+      "bytes": 51927
+    },
+    {
+      "role": "reference[0]",
+      "path": "docs/specs/v071/handoff/references/battle_master_v071.png",
+      "sha256": "02895a850ba48c636445c963f705244d190bdb8b94c07f449a0269fc5047f8dc",
+      "bytes": 2434842
+    },
+    {
+      "role": "reference[1]",
+      "path": "docs/specs/v071/handoff/references/shop_derived_v071.png",
+      "sha256": "071122f9c0a4b68ecd783afac1f3238846c2d732954f818c88565196e975e6ac",
+      "bytes": 2540351
+    },
+    {
+      "role": "reference[2]",
+      "path": "docs/specs/v071/handoff/assets/controller_stairs_candidate_v071.png",
+      "sha256": "d380eecb4921984d2aacb4b50b1c7ee6fdcbdbb9f3596550fa79b476d4320728",
+      "bytes": 956688
+    }
+  ],
+  "assets": [
+    {
+      "index": 0,
+      "result": "INTEGRITY_PASSED",
+      "contentId": "C48",
+      "path": "ArtSource/Art071/Illustrations/illustration_c48.png",
+      "sha256": "2a980127906cc58d0c6e5c9d0a6fd7bb92d4a01f14917da3a26957361599e6b5",
+      "bytes": 1086545,
+      "image": {
+        "format": "PNG",
+        "mode": "RGBA",
+        "dimensions": [
+          1254,
+          1254
+        ],
+        "alphaExtrema": [
+          0,
+          255
+        ],
+        "transparentPixels": 945129,
+        "partialAlphaPixels": 626332,
+        "opaquePixels": 1055,
+        "visibleBounds": [
+          0,
+          0,
+          1240,
+          1198
+        ]
+      },
+      "runtime": {
+        "path": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c48.png",
+        "sha256": "2a980127906cc58d0c6e5c9d0a6fd7bb92d4a01f14917da3a26957361599e6b5",
+        "bytes": 1086545,
+        "metaPath": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c48.png.meta",
+        "metaSha256": "754f1c3c91a063a1a1be4c43a3be85a193caa735070264c0e3fdd09b034edca8"
+      }
+    },
+    {
+      "index": 1,
+      "result": "INTEGRITY_PASSED",
+      "contentId": "C29",
+      "path": "ArtSource/Art071/Illustrations/illustration_c29.png",
+      "sha256": "d380eecb4921984d2aacb4b50b1c7ee6fdcbdbb9f3596550fa79b476d4320728",
+      "bytes": 956688,
+      "image": {
+        "format": "PNG",
+        "mode": "RGBA",
+        "dimensions": [
+          1254,
+          1254
+        ],
+        "alphaExtrema": [
+          0,
+          255
+        ],
+        "transparentPixels": 929965,
+        "partialAlphaPixels": 641764,
+        "opaquePixels": 787,
+        "visibleBounds": [
+          0,
+          3,
+          1240,
+          1254
+        ]
+      },
+      "runtime": {
+        "path": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c29.png",
+        "sha256": "d380eecb4921984d2aacb4b50b1c7ee6fdcbdbb9f3596550fa79b476d4320728",
+        "bytes": 956688,
+        "metaPath": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c29.png.meta",
+        "metaSha256": "6e15768cecf018e1e74ad575efec95c02e68bb7a04db4b6a9804b4684f373cea"
+      }
+    },
+    {
+      "index": 2,
+      "result": "INTEGRITY_PASSED",
+      "contentId": "C03",
+      "path": "ArtSource/Art071/Illustrations/illustration_c03.png",
+      "sha256": "c6f1c1b826391246547fe142bce4b132699f8dfa98a381b98861984ba4219717",
+      "bytes": 981930,
+      "image": {
+        "format": "PNG",
+        "mode": "RGBA",
+        "dimensions": [
+          1254,
+          1254
+        ],
+        "alphaExtrema": [
+          0,
+          255
+        ],
+        "transparentPixels": 1016080,
+        "partialAlphaPixels": 554705,
+        "opaquePixels": 1731,
+        "visibleBounds": [
+          0,
+          21,
+          1236,
+          1254
+        ]
+      },
+      "runtime": {
+        "path": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c03.png",
+        "sha256": "c6f1c1b826391246547fe142bce4b132699f8dfa98a381b98861984ba4219717",
+        "bytes": 981930,
+        "metaPath": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c03.png.meta",
+        "metaSha256": "136ebe9c0326f06dfe99dec91ea46141426f5efaf66b9910650cb0f20d42c1f7"
+      }
+    },
+    {
+      "index": 3,
+      "result": "INTEGRITY_PASSED",
+      "contentId": "I07",
+      "path": "ArtSource/Art071/Illustrations/illustration_i07.png",
+      "sha256": "e9861c407b4f90338748d9a44db0b0c6fd9b43e43486cedc2b21af251e8e91a3",
+      "bytes": 846872,
+      "image": {
+        "format": "PNG",
+        "mode": "RGBA",
+        "dimensions": [
+          1254,
+          1254
+        ],
+        "alphaExtrema": [
+          0,
+          255
+        ],
+        "transparentPixels": 1032042,
+        "partialAlphaPixels": 538625,
+        "opaquePixels": 1849,
+        "visibleBounds": [
+          27,
+          7,
+          1202,
+          1196
+        ]
+      },
+      "runtime": {
+        "path": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_i07.png",
+        "sha256": "e9861c407b4f90338748d9a44db0b0c6fd9b43e43486cedc2b21af251e8e91a3",
+        "bytes": 846872,
+        "metaPath": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_i07.png.meta",
+        "metaSha256": "344d39c1ac8c9f7678e7a8639784265414e09059398521fa740bd60bef54bf40"
+      }
+    }
+  ],
+  "errors": [],
+  "notVerified": [
+    "style consistency, subject correctness, edge halos, legibility and visual quality",
+    "Unity importer settings, GUID bindings, scene usage and actual rendering",
+    "native editable-source roundtrip, game behaviour, builds and performance",
+    "human approval, rights clearance and production acceptance"
+  ],
+  "manifest": {
+    "path": "ArtSource/Art071/Illustrations/manifest.json",
+    "sha256": "24d182e82f643cf11d52ec7cb044d060f8f68d4a2d3425fe9f26fd71a95970dc"
+  },
+  "checkedAssets": 4,
+  "passedAssets": 4,
+  "result": "INTEGRITY_PASSED"
+}

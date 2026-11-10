@@ -1,0 +1,103 @@
+{
+  "base": "246646b0e4fb87595727b0fbf48559f1947230ba",
+  "files": [
+    {
+      "path": ".agents/skills/game-art-production/SKILL.md",
+      "sha256": "88e58fd04b466583d90b4bcc8305783e7a54e4f04fa5b68fc864d893ab4e7103"
+    },
+    {
+      "path": ".agents/skills/game-art-production/references/imagegen.md",
+      "sha256": "f4935887f916ba020c78477b4545bd29515bd31d7c83e3309a43e7b2e7c10ce1"
+    },
+    {
+      "path": ".agents/skills/game-art-production/agents/openai.yaml",
+      "sha256": "8e6f1d81254edb7ff5861c7ca3428a8c62787be91f235c8fcdcae3de073e6268"
+    },
+    {
+      "path": "docs/art/AI_ART_PIPELINE.md",
+      "sha256": "bdf565b68a30eae6f5a699aaee0779ddfcc503f7bdd849c46177144d1ee56311"
+    },
+    {
+      "path": "templates/AI_ART_JOB.md",
+      "sha256": "88eb5c204190c95fc59d2dd3962d73f7c55606db26eb20e66099bdd73bd37cb6"
+    },
+    {
+      "path": "tools/art_asset_audit.py",
+      "sha256": "f794c98d8ea02a1a3462136d8271fd27a14f13e4985a7cc890f3531d6c130791"
+    },
+    {
+      "path": "tools/ART_ASSET_AUDIT.md",
+      "sha256": "ea04979c23b8eb27e48fb93670109e89f0f523da5e5294f4f9b8a8162e55daae"
+    },
+    {
+      "path": "tests/test_art_asset_audit.py",
+      "sha256": "bad8d72f64733b3915c3b85ea6f0ce2e54d54c4e8c1955b4be2c57ed3a874b66"
+    },
+    {
+      "path": "docs/research/AI_ART_TOOLS_RESEARCH.md",
+      "sha256": "e16d541b2110fd39e271bc96de3c78ec2a9a53268243f29b517ee09e758dd18e"
+    },
+    {
+      "path": "docs/research/AI_ART_PROJECT_AUDIT.md",
+      "sha256": "bff42da0437d8d4246a373c15478add0ff45f19054967040f59226bfffc6dd5f"
+    },
+    {
+      "path": "ArtSource/AIConcepts/imagegen-probe-20261108/prompt.txt",
+      "sha256": "bb338bb20fe1e99213010082a3441288be889497b23a30d80da7785941ac378d"
+    },
+    {
+      "path": "ArtSource/AIConcepts/imagegen-probe-20261108/manifest.json",
+      "sha256": "e6516d6687b1852bfa4e217b4f7d6cdfc4b99983a8592f1afd51a6230ca48c21"
+    },
+    {
+      "path": "ArtSource/AIConcepts/imagegen-probe-20261108/illustration_i07_concept.png",
+      "sha256": "d8d23e258fdfa907df84136ca1dd4f1dba3f98c813d436d390f86c886217bd55"
+    },
+    {
+      "path": "AGENTS.md",
+      "sha256": "13d6ac426434dca20eee22c4301614512b693bb521b37f4a6ccaf99adc4cf75c"
+    },
+    {
+      "path": "README.md",
+      "sha256": "a43d21e8b8bbbd3dd74d22448d6bf7b4457f0e32bd3cd0e30e2d9a84aa960d49"
+    },
+    {
+      "path": "docs/TOOLCHAIN.md",
+      "sha256": "e451d8052a830741b6b3b83a195dab3d8459f343e98b6a84836d6bc440598034"
+    },
+    {
+      "path": "docs/tasks/AI-ART-PIPELINE-PREFLIGHT.md",
+      "sha256": "079288baf0f2229ab4d1f2a0e09fc8e8a0f9a9908df89707874fc110a45d0092"
+    },
+    {
+      "path": "evidence/ai-art-pipeline/VALIDATION.md",
+      "sha256": "b4f5d172be5eab39db352440d3bfa81cf55bff11a5937ea61adf3725d357a258"
+    },
+    {
+      "path": "ArtSource/AIConcepts/imagegen-probe-20261108/REVIEW.md",
+      "sha256": "e5a28da43260913b6bb5e267a011d16b4fd02c21b98f1ceafc5fd217f87ba2d7"
+    }
+  ],
+  "note": "Accepted tool/guidance/source snapshot. STATE/task metadata was REVIEW when checked; root may transcribe independent acceptance and release task locks without changing reviewed product files. Not artistic or game acceptance.",
+  "metadataAtReview": [
+    {
+      "path": "docs/STATE.md",
+      "sha256": "de9a9461f5da12d9ad3b9e7eac7e7626f0a648ab2270070879bfb79fce333c17"
+    },
+    {
+      "path": "docs/tasks/AI-ART-PIPELINE.md",
+      "sha256": "45295cbae5b4cfa18a8bdd53f1fcdc471e7ad232aaf7894412e0bae39ab88d5f"
+    }
+  ],
+  "finalMetadata": [
+    {
+      "path": "docs/STATE.md",
+      "sha256": "ee5f454d9a34b5665dc54e27564829e1f09c7a81a824e2ee073c6d2460bfd904"
+    },
+    {
+      "path": "docs/tasks/AI-ART-PIPELINE.md",
+      "sha256": "972074029e5196b123cab98636beb9039d5ac9402558e273c0821e694e518f3a"
+    }
+  ],
+  "metadataFinalReview": "Root transcribed independent limited acceptance, released this task locks, and kept prior game/art omissions. VALIDATION added command-format and link-check provenance; no product behavior changes."
+}

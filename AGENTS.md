@@ -14,6 +14,7 @@
 2. 与当前任务有关的已确认策划、决策记录和任务契约。
 3. docs/QUALITY_GATES.md，以及适用的工具或美术规范。
 4. 正式制作或新任务规划时，按需读取 docs/QUALITY_FIRST_WORKFLOW.md 和 docs/AGENT_WORKFLOW.md；研究来历见 docs/research/OPEN_SOURCE_REVIEW.md。
+5. 制作、批量扩展或审查美术时，读取 `.agents/skills/game-art-production/SKILL.md` 与 `docs/art/AI_ART_PIPELINE.md`；沿 STATE 定位当前美术规格和母版。图像生成按该技能的 imagegen 引用执行，固定几何/规则点阵保留确定性路线。旧像素资产检查不自动适用于 v0.71 高清插画。
 
 不要求每次加载全部文档。发现冲突时记录冲突并核对用户最新决定，不默默选择最方便的解释。
 

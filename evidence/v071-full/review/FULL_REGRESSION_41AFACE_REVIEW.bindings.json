@@ -1,0 +1,388 @@
+{
+  "schema": "v071-full-regression-independent-review-1",
+  "utc": "2026-11-09T04:53:45.168104+00:00",
+  "reviewer": "/root/project_audit",
+  "sourceCommit": "41aface80bba6c1e008bd3d35344210a28003553",
+  "identity": {
+    "releaseVersion": "p0.7.1",
+    "artVersion": "art0.7.1",
+    "sourceCommit": "41aface80bba6c1e008bd3d35344210a28003553",
+    "contentConfigVersion": "p0.6.0",
+    "contentConfigSha256": "747ed1efc7bea15873f66a81eee5c7654971c21031f2a1517ce629adce7b6e6c",
+    "saveSchemaVersion": 4,
+    "goldenCaseSetSha256": "306cb86f79dafe0e3eb302714abd232af20fe0062a6713f7d713c11e2a6a5718",
+    "unityEditorVersion": "6000.6.7f1",
+    "backend": "Mono"
+  },
+  "status": "Complete Edit1018/Play182 and source/PDB/gate checks passed; actual representative views reviewed within stated authorship scope. Builds/Player/release and human art acceptance not covered.",
+  "gate": {
+    "path": "evidence/v071/unity/build-gate.json",
+    "sha256": "e6e466367bec231c9a15539d4c16f26269a6a080d1460fb375aa6b968ae33208",
+    "bytes": 430562
+  },
+  "gateFileCount": 1782,
+  "exactCurrentProjectFileCount": 1775,
+  "runSourceFileCount": 1774,
+  "gateEvidenceAndCurrentSourcesExact": true,
+  "tests": [
+    {
+      "mode": "EditMode",
+      "report": {
+        "path": "evidence/v071/unity/nunit-20261109-042306.xml",
+        "sha256": "fb13b7af6481a64eaf0c50d82e5330b72c18d7a9efbdffc477adf971a04790d7",
+        "bytes": 708625
+      },
+      "binding": {
+        "path": "evidence/v071/unity/nunit-20261109-042306.binding.json",
+        "sha256": "3b81aad0b4ff3373b9124525eeb9bf24bc170fa48685ce5a3f14e2eff1a1ee57",
+        "bytes": 754620
+      },
+      "discovery": {
+        "path": "evidence/v071/unity/discovery-EditMode.json",
+        "sha256": "b4c20edfdc55838ac732dc27633a9de62f1b14ef344d95f961250df4cc5b51f0",
+        "bytes": 84583
+      },
+      "nunitTotals": {
+        "id": "2",
+        "testcasecount": "1018",
+        "result": "Passed",
+        "total": "1018",
+        "passed": "1018",
+        "failed": "0",
+        "inconclusive": "0",
+        "skipped": "0",
+        "asserts": "0",
+        "engine-version": "3.5.0.0",
+        "clr-version": "4.0.30319.42000",
+        "start-time": "2026-11-09 04:22:46Z",
+        "end-time": "2026-11-09 04:23:06Z",
+        "duration": "20.2536939"
+      },
+      "exactDiscoveredLeaves": true,
+      "allLeavesPassed": true,
+      "sourceAndAssemblyStartEndEqual": true
+    },
+    {
+      "mode": "PlayMode",
+      "report": {
+        "path": "evidence/v071/unity/nunit-20261109-044536.xml",
+        "sha256": "3a7f8c71c557a301e4c59211022b63d38e879907942d20f7543b2e91ea762ab8",
+        "bytes": 391314
+      },
+      "binding": {
+        "path": "evidence/v071/unity/nunit-20261109-044536.binding.json",
+        "sha256": "27c7b29ffcc18824c22b502cd81b5abe62622d2a4baa485e9959291fe7d238df",
+        "bytes": 754620
+      },
+      "discovery": {
+        "path": "evidence/v071/unity/discovery-PlayMode.json",
+        "sha256": "f60ae053f5d0e2f4b3ab78a1b8174b62935951b8cb4605372e63219fd17b470a",
+        "bytes": 22397
+      },
+      "nunitTotals": {
+        "id": "2",
+        "testcasecount": "182",
+        "result": "Passed",
+        "total": "182",
+        "passed": "182",
+        "failed": "0",
+        "inconclusive": "0",
+        "skipped": "0",
+        "asserts": "0",
+        "engine-version": "3.5.0.0",
+        "clr-version": "4.0.30319.42000",
+        "start-time": "2026-11-09 04:23:44Z",
+        "end-time": "2026-11-09 04:45:36Z",
+        "duration": "1311.3326933"
+      },
+      "exactDiscoveredLeaves": true,
+      "allLeavesPassed": true,
+      "sourceAndAssemblyStartEndEqual": true
+    }
+  ],
+  "runtime": "c60036e3-947b-4c96-9dba-8d62aee16895",
+  "assemblies": [
+    {
+      "name": "DiceCraft.Core",
+      "mvid": "8f690e0d-a075-4b72-98e4-2cb64ced2fa3",
+      "dllSha256": "44a137cd38d7b525382dfda7adbdb7676d12d1dbc05520638d8a14642a96031b"
+    },
+    {
+      "name": "DiceCraft.EditMode",
+      "mvid": "35244def-2aff-4d61-a776-d3bef007ecf9",
+      "dllSha256": "ee1bcc37bc1633ea5125e973d1da1b504e4e82a333c8913d3c17a3c3333cf046"
+    },
+    {
+      "name": "DiceCraft.Editor",
+      "mvid": "baffe34c-5d87-4581-9071-81dc54ed03c6",
+      "dllSha256": "b59107218da5a26217dce05fb78aefb7bc9f685c21c4355555d9bd5583e52bc6"
+    },
+    {
+      "name": "DiceCraft.PlayModeTests",
+      "mvid": "f53a1755-5567-411e-b683-d90ed7eba1e8",
+      "dllSha256": "750b10d92a1b572d6abd4cbcc2a106c5c0409e3ba327f687c38a3ddc9bde38db"
+    },
+    {
+      "name": "DiceCraft.Runtime",
+      "mvid": "c60036e3-947b-4c96-9dba-8d62aee16895",
+      "dllSha256": "453e0e0626a745c20ae21471f9e62b8a0d3c3eed01a397ea0aa0e2099339a593"
+    }
+  ],
+  "pdb": {
+    "rootAudit": {
+      "path": "evidence/v071/unity/pdb-full-art-41aface-final.json",
+      "sha256": "5f1ab0d80fcec6efd32d23b68b89ef0ac9589a6d208e22858cc3b83972de368b",
+      "bytes": 90690
+    },
+    "independentDirectRead": {
+      "path": "cache/v071-full/binary-only-review/independent-pdb.json",
+      "sha256": "647d987bc23e1584b96ddb8b80ad16e1285fb4e72533e4fed40a195ee84806c9",
+      "bytes": 84320
+    },
+    "documents": 196,
+    "mismatches": 0,
+    "exactCurrentCsSet": true,
+    "frozenSnapshot": {
+      "path": "evidence/v071-full/unity-assemblies-41aface/snapshot.json",
+      "sha256": "a92edcb99c458cc9b9ee6e35cd32c834eecedcbb6938fef9308fc0db75e50940",
+      "bytes": 1923
+    },
+    "frozenFiles": [
+      {
+        "path": "evidence/v071-full/unity-assemblies-41aface/DiceCraft.Core.dll",
+        "sha256": "44a137cd38d7b525382dfda7adbdb7676d12d1dbc05520638d8a14642a96031b",
+        "bytes": 188416
+      },
+      {
+        "path": "evidence/v071-full/unity-assemblies-41aface/DiceCraft.Core.pdb",
+        "sha256": "ac0e604ab35e64c021e8ec3ee0a61952baa2a241fbaec388cf123c9bf7ff8d3b",
+        "bytes": 57472
+      },
+      {
+        "path": "evidence/v071-full/unity-assemblies-41aface/DiceCraft.Runtime.dll",
+        "sha256": "453e0e0626a745c20ae21471f9e62b8a0d3c3eed01a397ea0aa0e2099339a593",
+        "bytes": 927232
+      },
+      {
+        "path": "evidence/v071-full/unity-assemblies-41aface/DiceCraft.Runtime.pdb",
+        "sha256": "b8365c6994b6e3e2573e501df75176265e335a5e4c459644e2f1212bad551de6",
+        "bytes": 249152
+      },
+      {
+        "path": "evidence/v071-full/unity-assemblies-41aface/DiceCraft.EditMode.dll",
+        "sha256": "ee1bcc37bc1633ea5125e973d1da1b504e4e82a333c8913d3c17a3c3333cf046",
+        "bytes": 228352
+      },
+      {
+        "path": "evidence/v071-full/unity-assemblies-41aface/DiceCraft.EditMode.pdb",
+        "sha256": "8e3be93ef06ce37c18850ad2861ac8248955f31d52e8c3dc3890b2d0daadc37f",
+        "bytes": 76152
+      },
+      {
+        "path": "evidence/v071-full/unity-assemblies-41aface/DiceCraft.PlayModeTests.dll",
+        "sha256": "750b10d92a1b572d6abd4cbcc2a106c5c0409e3ba327f687c38a3ddc9bde38db",
+        "bytes": 858112
+      },
+      {
+        "path": "evidence/v071-full/unity-assemblies-41aface/DiceCraft.PlayModeTests.pdb",
+        "sha256": "22f1401cedcbc695dccd63357d27e5219caf81dea6e30f1e28e080cfbc4c8e7f",
+        "bytes": 201752
+      },
+      {
+        "path": "evidence/v071-full/unity-assemblies-41aface/DiceCraft.Editor.dll",
+        "sha256": "b59107218da5a26217dce05fb78aefb7bc9f685c21c4355555d9bd5583e52bc6",
+        "bytes": 114688
+      },
+      {
+        "path": "evidence/v071-full/unity-assemblies-41aface/DiceCraft.Editor.pdb",
+        "sha256": "7433b61de36ed490ea444d59a0e63aeae8b4a109b565989f91b342f19b15fc3e",
+        "bytes": 48600
+      }
+    ]
+  },
+  "rawArchive": {
+    "manifest": {
+      "path": "cache/v071-full/full-replay-044536/archive.json",
+      "sha256": "f4d40258737fdc4a2ed8fcee6269cfe81d0f30cfdcd17349d0fa73378c99ad2d",
+      "bytes": 1704592
+    },
+    "directories": 173,
+    "emptyDirectories": 17,
+    "files": 3121,
+    "png": 979,
+    "bytes": 1020262856,
+    "allCurrentArchiveBytesRehashed": true,
+    "exactAllReportedDirectorySet": true,
+    "oldPngSubset": {
+      "path": "cache/v071-full/complete-run-20261109-044536/archive.json",
+      "sha256": "e9000fa4351a6c62d87c959e6361dd6a013a2d1d34d350507a58eef436010a27",
+      "bytes": 1302059
+    },
+    "oldSubsetFiles": 2856,
+    "oldSubsetDirectories": 77,
+    "oldSubsetPreserved": true,
+    "additionalNoPngFiles": 265
+  },
+  "actualImages": [
+    {
+      "image": {
+        "path": "cache/v071-full/full-replay-044536/DiceCraftTests_5723e2735afd4dad92f5c0c5f25540db/art07-edge-screens/v071-locked-headers-MaximumPool-font150-1920x1080.png",
+        "sha256": "b5ed06b44e1858d90b5985554f3333e4063d5b8156ca199adadad244f9ee3eb4",
+        "bytes": 1128524
+      },
+      "actuallyViewedByteIdenticalPath": "cache/v071-full/complete-run-20261109-044536/DiceCraftTests_5723e2735afd4dad92f5c0c5f25540db/art07-edge-screens/v071-locked-headers-MaximumPool-font150-1920x1080.png",
+      "metadata": {
+        "path": "cache/v071-full/full-replay-044536/DiceCraftTests_5723e2735afd4dad92f5c0c5f25540db/art07-edge-screens/v071-locked-headers-MaximumPool-font150-1920x1080.json",
+        "sha256": "09998963942bd6107422d9d99673c9df544e23d1cf20ecb5b9e89fb77e518f64",
+        "bytes": 481
+      },
+      "observation": "Independent: 10 pool dice/8 empty ordered slots, actual150% header and temporary clock clear; no new border/glyph collision.",
+      "width": 1920,
+      "height": 1080
+    },
+    {
+      "image": {
+        "path": "cache/v071-full/full-replay-044536/DiceCraftTests_2ff1fe3349274f03946cca5639c50825/art07-edge-screens/v071-combo-edge-L5-ten-font150-peak-score-pose.png",
+        "sha256": "895d51d5408b2aab96eac3338e5cc2b948db6d2fb5d2f5a99f94ffcad9a6aaf0",
+        "bytes": 1070684
+      },
+      "actuallyViewedByteIdenticalPath": "cache/v071-full/complete-run-20261109-044536/DiceCraftTests_2ff1fe3349274f03946cca5639c50825/art07-edge-screens/v071-combo-edge-L5-ten-font150-peak-score-pose.png",
+      "metadata": {
+        "path": "cache/v071-full/full-replay-044536/DiceCraftTests_2ff1fe3349274f03946cca5639c50825/art07-edge-screens/v071-combo-edge-L5-ten-font150-peak-score-pose.json",
+        "sha256": "147c2329364cba18aeb0c8aa2a47f801e38457f585926d97eefc7f654a043030",
+        "bytes": 478
+      },
+      "observation": "Independent non-author Combo: max-pulse score, multiplier, chain and details remain readable; ring/arcs/flame/stars avoid ink. A sampled peak pose, not video.",
+      "width": 1920,
+      "height": 1080
+    },
+    {
+      "image": {
+        "path": "cache/v071-full/full-replay-044536/DiceCraftTests_16744636dc8f432d82b7f55f5dc53055/extra-capture/000-v071-full-gallery-00.png",
+        "sha256": "0f70ccf56b80bee7a46b68151bfef00e0c34e190b405b7932a0e4fb823ab76d2",
+        "bytes": 956860
+      },
+      "actuallyViewedByteIdenticalPath": "cache/v071-full/complete-run-20261109-044536/DiceCraftTests_16744636dc8f432d82b7f55f5dc53055/extra-capture/000-v071-full-gallery-00.png",
+      "metadata": {
+        "path": "cache/v071-full/full-replay-044536/DiceCraftTests_16744636dc8f432d82b7f55f5dc53055/extra-capture/000-v071-full-gallery-00.png.json",
+        "sha256": "a4fe294c55eeb9965c4fd18dc3d63bddada0835aecbdb6ac368701fbb3e97095",
+        "bytes": 4960
+      },
+      "observation": "Independent non-self C01/C02/C03/C05/C06/C07: production full card plus176/64 on both grounds, no visible fringe/gray box/clipped silhouette. Asset inspection, not gameplay proof.",
+      "width": 1920,
+      "height": 1080
+    },
+    {
+      "image": {
+        "path": "cache/v071-full/full-replay-044536/DiceCraftTests_002a4ca27bca4b8d96a33b9368ca2bd2/art07-edge-screens/S19-guide-repaired-full-paper-font150.png",
+        "sha256": "ac0bf46379525c1f986a417b533fc3661d9ac9369445e4202ee1237d0ec5f401",
+        "bytes": 1071408
+      },
+      "actuallyViewedByteIdenticalPath": "cache/v071-full/complete-run-20261109-044536/DiceCraftTests_002a4ca27bca4b8d96a33b9368ca2bd2/art07-edge-screens/S19-guide-repaired-full-paper-font150.png",
+      "metadata": {
+        "path": "cache/v071-full/full-replay-044536/DiceCraftTests_002a4ca27bca4b8d96a33b9368ca2bd2/art07-edge-screens/S19-guide-repaired-full-paper-font150.json",
+        "sha256": "8b9273da2eafa3b3c4cbb1f80004df205e092bda06ddbbb10bce8ce72a8cbe47",
+        "bytes": 470
+      },
+      "observation": "Author-limited observation: own Guide layout remains complete and clear of dice/cards/roll action in this actual150% view; not independent quality signoff.",
+      "width": 1920,
+      "height": 1080
+    },
+    {
+      "image": {
+        "path": "cache/v071-full/full-replay-044536/DiceCraftTests_78400e919bd343178db5549f6a340bfb/extra-capture/014-font150-shop-six-plus-owned.png",
+        "sha256": "61dff6ed8903bc43264db3ebd83d95cbd42bd91f953212cb2934944d9190ee44",
+        "bytes": 1331664
+      },
+      "actuallyViewedByteIdenticalPath": "cache/v071-full/complete-run-20261109-044536/DiceCraftTests_78400e919bd343178db5549f6a340bfb/extra-capture/014-font150-shop-six-plus-owned.png",
+      "metadata": {
+        "path": "cache/v071-full/full-replay-044536/DiceCraftTests_78400e919bd343178db5549f6a340bfb/extra-capture/014-font150-shop-six-plus-owned.png.json",
+        "sha256": "d58d03a5006071fa3da7e0ae959b0af463bdc307fba4106c98658a29143e8ed3",
+        "bytes": 17514
+      },
+      "observation": "Author-limited page observation: 6 actual cards, prices/actions and tabs readable150%; illustrations shown include non-self authors. Existing own shared-page work not independently signed.",
+      "width": 1920,
+      "height": 1080
+    },
+    {
+      "image": {
+        "path": "cache/v071-full/full-replay-044536/DiceCraftTests_93d41cb85c5a4d3ea9e2af25461432eb/extra-capture/002-upgrade-after.png",
+        "sha256": "362ea6af7f8797df84ed2c6eb78ab6fd62cd1a01372c13a9d5ca30733489a376",
+        "bytes": 1112260
+      },
+      "actuallyViewedByteIdenticalPath": "cache/v071-full/complete-run-20261109-044536/DiceCraftTests_93d41cb85c5a4d3ea9e2af25461432eb/extra-capture/002-upgrade-after.png",
+      "metadata": {
+        "path": "cache/v071-full/full-replay-044536/DiceCraftTests_93d41cb85c5a4d3ea9e2af25461432eb/extra-capture/002-upgrade-after.png.json",
+        "sha256": "ca955b82296ceae3f4ea932e88c098603b01adf39fe4dddbfcb7b1365ecd5258",
+        "bytes": 11128
+      },
+      "observation": "Author-limited theme integration observation: U01/U07/U05 motifs remain beside real current3D dice and actual purchased state; ellipsis retains full-description entry. Not fake3D enhancement prediction.",
+      "width": 1920,
+      "height": 1080
+    }
+  ],
+  "actualHeaderClearancesPx": [
+    6.968262,
+    6.968262,
+    5.460327,
+    5.460327,
+    3.952393,
+    3.952393
+  ],
+  "priorScopedEvidence": [
+    {
+      "path": "evidence/v071-full/review/PREBUILD_41AFACE_REVIEW.md",
+      "sha256": "985bc30d923299a8b993e4d3dce97ae68c2f97751e7782ec00353fed43ab7aa5",
+      "bytes": 4709
+    },
+    {
+      "path": "evidence/v071-full/review/PREBUILD_41AFACE_REVIEW.bindings.json",
+      "sha256": "7943dfb6e81a06627da063c37983e25ec2caee13a0dbc4c20415234c5dee146d",
+      "bytes": 979340
+    },
+    {
+      "path": "cache/v071-full/binary-only-review/independent-pdb.json",
+      "sha256": "647d987bc23e1584b96ddb8b80ad16e1285fb4e72533e4fed40a195ee84806c9",
+      "bytes": 84320
+    },
+    {
+      "path": "cache/v071-full/final-scope-review/scope-review.md",
+      "sha256": "0838edf167c80d1d8a55f554536477a53d360a34f781b4dab7e62a4dd92ae3e8",
+      "bytes": 8245
+    },
+    {
+      "path": "cache/v071-full/final-scope-review/scope-review.bindings.json",
+      "sha256": "a7dfdd868b55bb1f63397027648fb8cd17d4b7a7aac6553df34442c6335cfb4e",
+      "bytes": 120939
+    },
+    {
+      "path": "cache/v071-full/final-scope-review/temporary-closure-040217-040605.md",
+      "sha256": "d6e143decbbb9b2a124a740b64d4a5ca4451e6723c4ad3512fee753143f22552",
+      "bytes": 3572
+    },
+    {
+      "path": "cache/v071-full/final-scope-review/combo-041301-closure.md",
+      "sha256": "210d84d39c32d129b2857ab6ddd5dd65a3f49af4373351126779ba523968f4f6",
+      "bytes": 3110
+    },
+    {
+      "path": "cache/v071-full/recording-review/existing-runtime-supplement.md",
+      "sha256": "40e8a2aea76ef0b2512ccc164d4fb4886f0427363604c5e5637de03e71a3f5c8",
+      "bytes": 2125
+    },
+    {
+      "path": "cache/v071-full/recording-review/existing-runtime-supplement.bindings.json",
+      "sha256": "09ea75d46d624cf7f07d5e82399ede4e8ec263b92dfdc4d405a86f543eef18cb",
+      "bytes": 6680
+    }
+  ],
+  "all127SourceRuntimeAssetsStillMatchPrebuildReview": true,
+  "limits": [
+    "Latest full run actual representative PNGs are1920x1080. Earlier720专项 has its own exact source/range evidence, not falsely claimed as this full run720.",
+    "200-renderer-replay/material identity, reduced motion, actual glyph/40px hit and complete gallery tests passed as real leaves; screenshot samples alone do not prove their full interactions.",
+    "This reviewer authored18C+O01/O02 and parts of shared shop/Guide/details; independent art/page acceptance remains other reviewers/user. Own-page observations explicitly labelled.",
+    "The first screenshot-mtime archive omitted no-PNG roots; full report-ID-based supplemental archive now preserves all173 roots and original files; original subset unchanged.",
+    "Editor-close font atlas reset must be byte-restored to bound source before this script can pass; no changed font accepted by updating hashes.",
+    "No platform build, performance, actual Player, remote upload/download or human ACCEPTED conclusion here."
+  ]
+}

@@ -249,6 +249,23 @@ def kit_proof_name(review_candidate=False):
     return "mac-verification-kit-review-candidate.json" if review_candidate else "mac-verification-kit.json"
 
 
+def package_directories(review_candidate=False, package_directory=None, package_proof_directory=None):
+    """Explicit alternative destinations; default legacy paths and validation stay unchanged."""
+    output = local_path(package_directory if package_directory is not None else candidate_directory(review_candidate))
+    proofs = local_path(package_proof_directory if package_proof_directory is not None else "evidence/v071/packages")
+    for path in (output, proofs):
+        if path.exists() and not path.is_dir():
+            raise ValueError("Package/proof destination is not a directory")
+    return output, proofs
+
+
+def require_new_outputs(package_path, proof_path):
+    # Fail before writing a new archive when the matching proof already exists.
+    # ZIP 'x' and record 'x' remain the final no-overwrite checks against races.
+    if package_path.exists() or package_path.is_symlink() or proof_path.exists() or proof_path.is_symlink():
+        raise ValueError("Package or proof already exists; refusing to overwrite or reuse it")
+
+
 def candidate_notice(identity, report=None, allow_failed_windows_performance=False):
     if allow_failed_windows_performance:
         from macos.v071.compare_replays import validate_windows_failed_performance_reference, review_reference_notice
@@ -273,16 +290,22 @@ def check_package(proof):
     return path
 
 
-def verification_kit(windows_results, review_candidate=False, allow_failed_windows_performance=False):
+def verification_kit(windows_results, review_candidate=False, allow_failed_windows_performance=False,
+                     package_directory=None, package_proof_directory=None):
+    output_directory, proof_directory = package_directories(review_candidate,package_directory,package_proof_directory)
+    output = output_directory / "DicePrototype-p0.7.1-MacVerificationKit.zip"
+    proof_path = proof_directory / kit_proof_name(review_candidate)
+    require_new_outputs(output,proof_path)
     identity, _, _ = validated_gate()
     report = validate_windows_report(windows_results, identity, review_candidate, allow_failed_windows_performance)
-    mac_proof = read_json(ROOT / "evidence/v071/packages" / package_proof_name("macos", review_candidate))
+    mac_proof = read_json(proof_directory / package_proof_name("macos", review_candidate))
     if (mac_proof.get("identity") != identity or bool(mac_proof.get("reviewCandidate")) != review_candidate
             or bool(mac_proof.get("allowFailedWindowsPerformance")) != allow_failed_windows_performance
             or allow_failed_windows_performance and mac_proof.get("windowsReportSha256") != sha(windows_results / "player-report.json")):
         raise ValueError("Mac transfer package belongs to another source")
     mac_package = check_package(mac_proof)
-    output = ROOT / candidate_directory(review_candidate) / "DicePrototype-p0.7.1-MacVerificationKit.zip"
+    if mac_package.parent != output_directory or mac_package.name != "DicePrototype-p0.7.1-macos-universal.zip":
+        raise ValueError("Mac proof must refer to the package in the selected output directory")
     prefix = "DicePrototype-MacVerification/"
     inputs = [(ROOT / "tools/macos/v071" / name, name) for name in
               ("VerifyMac.command", "verify_mac.py", "package_checks.py", "compare_replays.py")]
@@ -305,19 +328,30 @@ def verification_kit(windows_results, review_candidate=False, allow_failed_windo
             archive.write(path, prefix + name, compress_type=zipfile.ZIP_STORED if name == "inputs/macos.zip" else zipfile.ZIP_DEFLATED)
         if review_candidate:
             archive.writestr(prefix + "inputs/review-candidate.json", notice)
+    actual_inputs = []
+    with zipfile.ZipFile(output) as archive:
+        for item in archive.infolist():
+            with archive.open(item) as stream:
+                row = {"path":item.filename.removeprefix(prefix),"sha256":hashlib.file_digest(stream,"sha256").hexdigest()}
+            if row["path"] == "inputs/review-candidate.json":
+                row["generatedNotice"] = True
+            actual_inputs.append(row)
     proof = {"identity": identity, "packagePath": relative(output), "sha256": sha(output), "byteSize": output.stat().st_size,
              "sourceCommit": identity["sourceCommit"], "windowsResults": relative(windows_results), "crc": "passed", "reviewCandidate": review_candidate,
-             "inputs": [{"path": name, "sha256": sha(path)} for path, name in inputs], "macRuntimeStatus": "NOT_RUN_ON_MAC"}
+             "inputs": actual_inputs, "macRuntimeStatus": "NOT_RUN_ON_MAC"}
     if allow_failed_windows_performance:
         proof.update(allowFailedWindowsPerformance=True, windowsReportSha256=sha(windows_results / "player-report.json"))
-    if review_candidate:
-        proof["inputs"].append({"path": "inputs/review-candidate.json", "sha256": hashlib.sha256(notice).hexdigest(), "generatedNotice": True})
     check_package(proof)
-    record(ROOT / "evidence/v071/packages" / kit_proof_name(review_candidate), proof)
+    record(proof_path, proof)
     return proof
 
 
-def package(platform, build_report, review_candidate=False, allow_failed_windows_performance=False, windows_results=None):
+def package(platform, build_report, review_candidate=False, allow_failed_windows_performance=False, windows_results=None,
+            package_directory=None, package_proof_directory=None):
+    output_directory, proof_directory = package_directories(review_candidate,package_directory,package_proof_directory)
+    output = output_directory / ("DicePrototype-p0.7.1-macos-universal.zip" if platform=="macos" else "DicePrototype-p0.7.1-win-x64.zip")
+    proof_path = proof_directory / package_proof_name(platform, review_candidate)
+    require_new_outputs(output,proof_path)
     identity, _, _ = validated_gate()
     report = None
     if allow_failed_windows_performance:
@@ -331,7 +365,6 @@ def package(platform, build_report, review_candidate=False, allow_failed_windows
     required = main / "Contents/Info.plist" if mac else main
     if not required.is_file() or Path(build["output"]).resolve() != main.resolve():
         raise ValueError("Build report output does not match complete player directory")
-    output = ROOT / candidate_directory(review_candidate) / ("DicePrototype-p0.7.1-macos-universal.zip" if mac else "DicePrototype-p0.7.1-win-x64.zip")
     output.parent.mkdir(parents=True, exist_ok=True)
     files = sorted(p for p in directory.rglob("*") if (p.is_file() or p.is_symlink())
                    and not any("BackUpThisFolder" in part or "BurstDebugInformation" in part for part in p.parts))
@@ -374,7 +407,7 @@ def package(platform, build_report, review_candidate=False, allow_failed_windows
     if allow_failed_windows_performance:
         proof.update(allowFailedWindowsPerformance=True, windowsReportSha256=sha(windows_results / "player-report.json"))
     check_package(proof)
-    record(ROOT / "evidence/v071/packages" / package_proof_name(platform, review_candidate), proof)
+    record(proof_path, proof)
     return proof
 
 
@@ -383,18 +416,21 @@ def main():
     parser.add_argument("platform", choices=("windows", "macos", "kit"))
     parser.add_argument("--windows-results", type=Path)
     parser.add_argument("--build-report", type=Path)
+    parser.add_argument("--package-directory", type=Path, help="Optional workspace-local ZIP directory; default legacy destination unchanged")
+    parser.add_argument("--package-proof-directory", type=Path, help="Optional workspace-local proof directory, also used to read the Mac input proof for kit")
     parser.add_argument("--review-candidate", action="store_true", help="Separate restricted candidate paths; does not claim full Windows acceptance")
     parser.add_argument("--allow-failed-windows-performance", action="store_true", help="Diagnostic review only; requires actual failed Windows results and explicitly labels performance FAILED")
     args = parser.parse_args()
     if args.platform == "kit":
         if args.windows_results is None:
             parser.error("kit requires --windows-results")
-        proof = verification_kit(args.windows_results.resolve(), args.review_candidate, args.allow_failed_windows_performance)
+        proof = verification_kit(args.windows_results.resolve(), args.review_candidate, args.allow_failed_windows_performance,
+                                 args.package_directory,args.package_proof_directory)
     else:
         if args.build_report is None:
             parser.error("player package requires --build-report")
         proof = package(args.platform, args.build_report.resolve(), args.review_candidate, args.allow_failed_windows_performance,
-                        args.windows_results.resolve() if args.windows_results else None)
+                        args.windows_results.resolve() if args.windows_results else None,args.package_directory,args.package_proof_directory)
     print(json.dumps({key: proof[key] for key in ("packagePath", "sha256", "byteSize", "crc")}, ensure_ascii=False))
 
 

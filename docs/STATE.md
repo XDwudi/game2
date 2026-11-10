@@ -1,6 +1,75 @@
 # 当前项目状态
 
+## main 已纳入 v0.7 开发基线（2026-11-09）
+
+用户明确决定：“main 表示‘当前开发基线’，可以合并入 v0.7，同时保留问题。”已在隔离工作树将 main 从 `1fbc3cce` 快进纳入 v0.7 的 14 个提交至 `b11694f8`，另提交 README / STATE 的基线说明，最终提交为 `7de9857fe4072852b54f90118e991ff690c3fa98`。无 force 推送成功，远端 HEAD / main 已回读为该提交；[仓库首页](https://github.com/XDwudi/game2)现在显示 v0.7。游戏源仍为 `dca7a26`，整版 REWORK / 待人工、已知问题、失败证据与原验收标准均保留。
+
+独立复核通过本次集成范围：相对 v0.7 只改 README 与 STATE，Assets / Packages / ProjectSettings 与已测源相同，没有重新运行或冒称通过游戏测试。v0.71 未混入 main；当前开发工作树 HEAD 仍为 `41aface`，既有 11 份修改文件在本状态追加前 SHA 全部未变，原 index 也未变。此次仅 Git / 文档工作，没有 Unity / Blender 制作锁。隔离 main 工作树位于 `artifacts/cache/v07-main-integration-20261109`，审核记录位于 `artifacts/cache/v07-main-merge-audit-20261109/review.json`。
+
+下一步仍为已知性能 / 原生显示等问题修复及 Mac / 人工验证；后续 v0.71 源码同步与是否纳入 main 另行处理。以下 v0.71 制作与发行记录保留原版本范围，不代表它已合入 main。
+
+## v0.71 全量美术与GitHub测试发行（REVIEW，2026-11-09 UTC）
+
+用户已授权全部美术按附件修改并通过GitHub发行附件下载测试；[任务](tasks/P0-V071-FULL-ART.md)覆盖旧仅首批4项范围。实际成品源冻结为 `41aface80bba6c1e008bd3d35344210a28003553`；玩法p0.6.0/schema4、Config与Golden保持。全量美术、完整回归、双平台构建和Windows实跑均已完成；**三个成品附件已于05:40:34 UTC发布至 [GitHub p0.7.1-rc.1](https://github.com/XDwudi/game2/releases/tag/p0.7.1-rc.1)**，完整远端下载和Windows下载版新目录启动已验证，用户可下载测试。整版未ACCEPTED。
+
+- 71活跃内容（50控制器、7道具、7服务、7强化）全部接入；127清单=71插画+43公共+12表面+1桌布。C03/C48/I07复用，C29新稿、C45/revision-01、O05/revision-02；失败稿与来源保留。公共SVG/脚本/Blender源保留，PNG不冒称分层手绘源。132实际PNG导入包括5复用纸面；Bootstrap旧Art07 PNG依赖为0。
+- 临时钟与轻影、实际新手附魔预算/HUD锚点、免槽跟随、倍率短弧、库存纸卡、强化货架主题、详情纸面以及高档Combo环/短弧已修复。全部71项有Unity图册和5种尺寸/底色实例、跨作者视觉复核；720/1080及150%字号专项已完成。13.0013326秒/140真实帧操作录像逐像素核对，位于cache/v071-full/visual-41aface；不作性能证据。人工风格/体验仍待用户评定。
+- 完整Edit `nunit-20261109-042306.xml` **1018/1018**，Play `nunit-20261109-044536.xml` **182/182**，均0失败/跳过；Editor PDB5程序集196源码零差异，gate1782文件。完整Play现场173隔离目录（17空）、3121文件、979PNG，逐源前/目标/源后SHA归档cache/v071-full/full-replay-044536。独立复核见evidence/v071-full/review/FULL_REGRESSION_41AFACE_REVIEW.md。
+- Windows045307构建GUID **e36a7047e1f44fe9b16387cbf61ab639**，0错3警；Mac045424构建GUID **a8eee2a94a304703b6fb1e54b3877b87**，0错79警。各Player105源码/2程序集PDB零差异，Mac6个实际Mach-O均arm64+x86_64。Editor退出自动保存动态字体新增“图”字/图集缓存曾使首两次Windows门禁失败；差异保留，已恢复与41aface/完整测试相同字节SHA ad4bd727…，第三次构建成功，未改gate。最终双构建后门禁重验通过。
+- Windows真实运行evidence/v071/player-41aface-0455：普通145步、Debug24关/175步、18项UI、50项动画、0Unity错误；独立双进程显示恢复通过。strict及native-only仍在独占全屏确认失败；deferred窗口完成180.0162698秒/10102帧间隔，P95 **16.8078ms >16.7ms**、GPU有效覆盖**91.91% <95%**，性能明确FAILED。普通存档12文件与构建305文件前后未变；前后存档SHA另持久保存。构建/运行独立复核见BUILD_PLAYER_41AFACE_REVIEW.md，不能合成strict通过。
+- 当前三包在Releases/p0.7.1/full-art-candidate；Windows197187916B/SHA cba88bd8…，Mac237545640B/83c4fc9e…，MacVerificationKit237649059B/cb182df2…。所有成员CRC/SHA、实际构建与Mac架构已独立复核。Kit仅修正CSV位置说明后重封，旧Kit与manifest在superseded-kit-csv-doc保留；两游戏ZIP未改。最终manifestSHA **e880f6bbd42b5caf120a3f183683834f7eca6c17f6ce86c062e83c483d383d26**。
+- 两次源码push在执行前被自动审批拒绝：附件授权不含源码、read_thread历史记录未被接受为本轮可信授权；没有绕路推送。采用仅三个成品附件方案，实际包源仍41aface，发行标签借用既有远端 **b11694f8a2f7d767d2113e9b467713807efa403a**。GitHub自动Source code不是本版源码；Mac工具包包含验证脚本与Windows对照数据。发布器55项测试和独立审查已完成。
+- GitHub发行 **438762609 / p0.7.1-rc.1** 已公开，draft=false/prerelease=true。三个asset ID为Win726309465、Mac726340871、Kit726344440，大小/SHA与封包精确相同。三个包从GitHub完整下载分别311/306/16成员，SHA/CRC通过；最终匿名GET及三个canonical下载HEAD均HTTP200且长度匹配。发布及public-link-check凭据在evidence/v071-full/delivery/github-release/review-candidate，未推送源或Git对象。公开身份、精确正文及同一三附件由project_audit独立匹配，绑定见cache/v071-full/public-delivery-review/final-review.bindings.json。
+- 下载版Windows在artifacts/cache/v071-full-remote-41aface-01新目录执行资源诊断，进程exit0/未超时，18阶段、9快照、3931资源行、20.0031986秒1200空闲行。311解压成员/305原构建/14输入SHA一致；LocalLow17文件（12游戏数据+5辅助）与46游戏偏好前后一致。Unity自己的Screenmanager值有变化，原始证据保留。1199行零GC、1行132B；native纹理585825814B、art484783772B，不冒称GPU驻留或性能通过。独立REMOTE_DELIVERY_41AFACE_REVIEW签该技术范围无剩余阻断，原正式性能/native失败不变。
+- 发行过程失败记录保留：Kit说明修正后草稿tag_name被GitHub改alias；显式恢复tag/target后下载URL alias变化触发旧全对象比较失败，实际附件内容未变；原/新收据均存。发布器只补显式tag/target，55测试与模拟API正/反例通过独立复核。Mac首次上传网络FileNotFoundError后GET确认无新附件，同包重试成功。历史工具错误没有作为通过证据，见transport-and-draft-history.json。
+- Unity互动Editor及双构建进程已退出；此前Administrator启动经桌面操作恢复，未改系统安全设置。GameView原index0已还原；新增720项未显式写磁盘，移除调用后缓存仍有条目，未声称验证删除。本轮自有Player/构建已退出；所有制作文件锁释放，源码冻结，文档与真实证据已更新。并行AI-ART-PIPELINE成果、旧失败/旧包与用户修改保留。
+
+下一步：用户下载评定美术与体验，在Mac执行随包验证；历史性能/原生独占继续REWORK，Mac/Metal/签名公证、AudioMixer、人工美术/听审/体验及移动端未验，不以全量素材完成替代。首批249d980包不用于本次全量交付。
+
+## 历史：v0.71 首批样板249d980（已由上方全量版本取代）
+
+**首批表现层候选进入REVIEW，三个本地诊断测试包已生成；整版未ACCEPTED。** 源提交 `249d980f2ae3615d573df089403f298a6713ae96`（本地，未推送），p0.7.1/art0.7.1，规则p0.6.0/schema4。具体路径、SHA与运行方法见 [DELIVERY_V071](DELIVERY_V071.md)。下面各时间点继续作为历史记录，不能覆盖本节最终结果。
+
+- 完整Edit `nunit-20261109-004145.xml` **1013/1013**、Play `nunit-20261109-010402.xml` **163/163**，均0失败/跳过；gate1432文件，Editor PDB5程序集183源码、两Player各99源码零差异。完整回归与双构建独立复核通过各自技术范围。最终全现场161目录/3027文件/941PNG逐SHA保留。
+- Windows构建 `build-windows-20261109-010717.json`，GUID `2af8d019326049369f05314a26d58bcc`，0错3警；Mac `build-macos-20261109-010906.json`，GUID `6b7f1b4093024970b2b044cb2e8e26f8`，0错79警，6个Mach-O原生组件均arm64+x86_64。Mac警告包括3类CS0618、1类UAC0007、75条shader警告，实际Mac图形/启动未验。
+- Windows实际运行 `evidence/v071/player-249d980-0112/`：strict-full及native-only均在独占全屏确认失败；独立deferred进程完成普通145步、Debug24关/175步、18项UI检查及压力场景，0Unity错误。180.0039074秒/10096帧，P95 **16.9258ms > 16.7ms**，GPU有效覆盖 **91.37% < 95%**，明确FAILED。独立双进程恢复通过，runner记录普通存档及build文件前后未变；不能合成strict通过。
+- 三包在 `Releases/p0.7.1/review-candidate/`：Windows **93,949,463B**（SHA `9b72cb68f18ad05cf0fa394b608373e2efadcbe174e4a583686ad818f1c03145`）；Mac **134,324,560B**（`e2644cf5818927ede765b672786c81f655234fc4161f3ca3386a3e8dbcb61783`）；含Mac原包的工具包 **134,427,883B**（`6ff75e485cd3931f34639a36afeefd3b46d0475c90c4322400b58932bf6147b2`）。CRC及逐文件SHA记录在 `evidence/v071/packages/`；全部带真实失败范围声明。未上传、未发布，未声称Mac实跑/签名/公证。
+- 最终[Player独立复核](../evidence/v071/review/PLAYER_249D980_REVIEW.md)已全量核对145+175回放命令、复算10097行CSV并保留性能/显示失败；[封包独立复核](../evidence/v071/review/PACKAGE_249D980_REVIEW.md)已核三包CRC、633条目SHA及全新解压一致，无封包返工项。真实普通存档前hash清单未持久化，故该保护结论来自runner实际前后比较记录；不夸大为审查者重建双快照。工具包含Windows报告/回放/检查点，本次deferred分支未内置原始性能CSV，原件在项目证据中。
+- 最终样板为 `evidence/v071/visual-249d980/`：120原始帧、13.0041726秒，实际时间戳及像素校验；便于播放的H.264预览为30fps有损派生，不能当游戏性能证据。大字号槽标题在1080/720各6场景通过并独立限域关闭；root另实际复看最终150%Guide/Shop两图，未发现对应遮挡。部分Player达标图捕获桌面缓动中间态，不用于证明稳定落位。
+- 已接入4张插画C48/C29/C03/I07、公共表面/组件和陶瓷骰子，余67项保留旧图标。人工风格/体验尚待判断；性能、原生独占继续REWORK，Mac/Mixer/旧公共资源原生补证/最高档特效与UI延迟/人工听审等未验项保持。移动端未验。
+- 本轮Unity Editor、Player与构建进程均已退出，Unity Hub自有后台服务保留；所有制作文件锁已释放。源码冻结，文档/证据按实际结果更新；并行AI-ART-PIPELINE成果保留。下一步：查看本地样板决定后续插画扩展；处理已复现性能/原生显示问题；在Mac执行随包验证并回传原始结果。不得把本次候选当正式发布批准。
+
+## AI 美术技能与工具接入（2026-11-08）
+
+本次任务 `AI-ART-PIPELINE` 已由独立审查者 `/root/art_pipeline_review` 接受（ACCEPTED，仅研究、项目级技能、只读检查器及隔离概念调用）；[独立结论](../evidence/ai-art-pipeline/review/REVIEW.md)不改变下列 v0.71 制作/验收状态。BASE `246646b0e4fb87595727b0fbf48559f1947230ba`，完整文件与验证见 [任务](tasks/AI-ART-PIPELINE.md) 和 `evidence/ai-art-pipeline/`。
+
+- 已加入 [.agents/skills/game-art-production](../.agents/skills/game-art-production/SKILL.md)，AGENTS/README/TOOLCHAIN 已有入口；[生产流程](art/AI_ART_PIPELINE.md) 复用 v071 母版、三个对照点和 V71-A～E，不另建风格评分或逐图审批。技能UTF-8结构验证通过，独立agent实际发现并读取；普通重复制作继续按已有授权执行。
+- [项目审计](research/AI_ART_PROJECT_AUDIT.md) 实看9张代表图；[工具研究](research/AI_ART_TOOLS_RESEARCH.md) 已核第一方资料。当前首选内置 imagegen + 既有可编辑源/Blender脚本 + Unity共享组件；Krita AI Diffusion/ComfyUI/ControlNet/LoRA/图生3D是条件候选，本轮未安装或宣称接通。
+- `tools/art_asset_audit.py` 已实际验证现有四张插画及运行副本，4/4完整性通过；全套确定性 unittest33/33通过（13新增、20原有），独立复核重跑。它只检查文件/哈希/尺寸/alpha/副本，不能代签艺术、实际导入或运行。旧64px像素检查不直接施加到v071高清插画。
+- 已实际调用内置 imagegen 一次，I07隔离概念原图、提示词、参考/输出SHA在 `ArtSource/AIConcepts/imagegen-probe-20261108/`；1254² RGBA、1/1完整性通过。官方文档标内置模型为gpt-image-2；工具未暴露实际模型快照。未调用独立API、未新增密钥或账户。低alpha外围残留保留为候选检查项，浅/深底与引擎缩放未验，未替换现有I07或批准新风格。
+- 独立review已运行检查器、测试、技能结构校验与C01任务准备演练；正式结论/哈希绑定见 `evidence/ai-art-pipeline/review/`。初次技能校验GBK读取失败已记录，改用 `python -X utf8`后通过，未修改上游校验器。
+- 本任务没有Unity/Blender/场景/Prefab写入；生产资产/配置/源码未改，旧源、失败报告、未跟踪发行包保留。本任务文档/工具文件写锁已释放，未解除其他任务历史锁。
+- 下一步：后续美术开发直接使用该技能，先由用户判定现有样板风格，再按授权扩展同类插画。67项旧图标、完整回归/双构建/Windows运行、Mac/性能/独占/Mixer/Krita/人工等原有缺口继续保留；它们不因本次能力接入而关闭。
+
 ## v0.71 制作与实机验证（2026-11-08）
+
+2026-11-09 01:05UTC：249d980最终完整Edit004145 **1013/1013**、Play010402 **163/163** 均0失败/跳过（Play1290.934秒）。真实SaveAssets后空场景不dirty，五项偏好逐byte恢复，GameView恢复index0，Editor27300正常退出。新gate绑定1432文件，后退出只读验证通过；全现场161目录/3027文件/941PNG逐SHA归档regression-249d980。独立最终回归复核进行中；Windows严格同源批处理PID24952已启动，随后串行Mac和实际Windows。新120帧13.0041726秒录制与兼容MP4在visual-249d980，独立标题缺陷已限域关闭。最终Player/包与Mac运行尚无通过结论。
+
+2026-11-09 00:41UTC验证：标题最终仅上移7/13/19参考px，1080专项003445与720专项003557均1/1通过、各6实际场景，最低间距3.952393px；独立报告HEADER_CLEARANCE_003445_003557_REVIEW已关闭V071-VISUAL-SLOTS-150-01（限域），三轮原失败保留。新源码冻结于本地 `249d980f2ae3615d573df089403f298a6713ae96`，Runtime `a50a81a2-a6bd-4d1e-8bd2-0177d0dcd176`，未推送。完整发现1013 Edit/163 Play，新Edit执行中；PDB5程序集183源码零不匹配，10DLL/PDB已冻结。新1080样板实际录制13.0041726秒/120帧，前后五项偏好逐byte一致，编码/实图复核进行中。状态VERIFYING，root独占Editor27300，生产源冻结，代理只写外部证据。双平台最终构建/Player/三包尚未执行，b4fc旧Windows继续保留为历史。
+
+2026-11-09 00:30UTC恢复：用户回复已点击启动按钮，Editor27300/7800现ready，启动阻塞解除。标题修复已实际编译；1080首轮002731检查出100%标题距盘边仅2.16687px，原失败/截图已归档header-repair-002731。现仅追加4参考px标题上移，100/125/150为4/14/24px，槽/骰/命中不改；Runtime `c3b8205d-7fbc-4df6-bcfe-bbcc3458af22`正在重跑两分辨率专项。状态VERIFYING；尚未生成新完整gate或最终构建，旧通过范围不扩张。
+
+22:05UTC当前状态：**BLOCKED（Unity启动提示等待人工点击），标题修复待实测，未完成最终交付。** b4fc0a8的1013 Edit/162 Play完整自动回归通过，Windows215316构建成功（GUID `3a4c113557db4f6ea92435d555bc748e`，0错3警）；独立实看发现1080/150%/8槽的槽盘上缘穿过SlotsTitle/LockRule，记V071-VISUAL-SLOTS-150-01为REWORK。root已仅把两标题按字号上移0/10/20参考像素，槽/骰/命中位置不变；新测试MaximumLockedHeaders覆盖3字体×10池骰/8锁骰、实际字形到边框≥3px与重叠/状态检查。两处源修改尚未提交/编译/运行，不能将旧1013/162通过套到新修复。静审见cache/v071/header-fix-static-review.md。重开Unity后Administrator Privileges Detected提示阻塞，UI可读Restart as Standard User，但点击报coordinate input geometry is unavailable，截图FrameArrived超时；已向用户请求手动点击普通权限重启，未点击Ignore Warning/未改安全设置。当前没有运行中的测试/构建；Unity启动窗口仍开，root保留Unity唯一写入所有权，其余代理文件锁已释放。原Windows306文件已逐SHA保留到Builds/v071/superseded-b4fc0a8/Windows，原gate保留regression-b4fc0a8；未生成Mac/Player/三ZIP。下一步：用户点击后接回同一工程→720/1080新标题专项各6场景→新冻结/完整发现与回归→双构建/实际Windows→三包及最终记录。
+
+21:52UTC：b4fc0a8完整Play `nunit-20261108-214916.xml` **162/162通过**（1295.091秒，0失败/跳过），完整Edit212429为1013/1013通过；真实SaveAssets后空场景不dirty，五项偏好与录制前相同，GameView已恢复原index0，Editor20948正常退出。最终gate绑定1432文件，独立审查已核核心绑定，实图抽查进行中；全现场160目录/3009文件/935PNG逐SHA归档regression-b4fc0a8。当前完整回归实图为1080，720引用此前受影响专项，不冒称当前全量720。CLI拒绝profile+execute-method组合，按同一Profile/StrictMode/ValidateGate改用官方Editor批处理；Windows新构建PID12504正在执行，Mac/Player/三包尚未完成。
+
+21:28UTC验证：字体材质修复已冻结于本地 `b4fc0a8d3804fe65f6b9354bcb6befbc7ac09bf7`（未推送），Runtime `5a07af60-f8a6-42aa-b032-e43c38466a26`。200次演出身份稳定、真实场景卸载释放、粗体省略号及池复用专项 `nunit-20261108-211352.xml` 为4/4通过；完整Edit `nunit-20261108-212429.xml` 1013/1013通过，完整Play162正在执行。独立PDB工具实查5程序集/183源码零不匹配，10个DLL/PDB已冻结保存。新1080p真实录制13.0439612秒，前后五项偏好逐字节相同，编码/独立复核进行中。当前状态VERIFYING，尚无新完整gate/双构建/Windows Player结论；root唯一Unity写者，所有生产源冻结。
+
+21:10UTC返工：30584eb完整Play `nunit-20261108-205921.xml` 为160/161通过。唯一失败为200次重复演出中TMP粗体fallback材质身份被替换；原报告比较EntityId，不是内存字节，初步“512字节增长”解释已纠正。诊断210717明确旧/新材质同名、同Bold图集，但每次刷新归零释放后重建。原161场景的159目录/3009文件/935PNG已逐SHA归档 `evidence/v071/regression-30584eb/play-temporary-output`。root正在给GameApp增加一份有界字体材质引用并在场景销毁时释放，原200次身份检查不改阈值；新增真实刷新/场景卸载释放检查。210607诊断自身访问无_MainTex材质造成日志失败，原报告保留，诊断已加HasProperty。当前生产源较30584eb有修复，尚无通过的新全量/gate/构建；root独占Unity，其余代理只读/外部证据。
+
+20:39UTC：修复已冻结到本地 `30584eb87f14ebf37ea72c48e1eefb020d1dbafb`（未推送），Runtime `c1760466-c459-4d41-9615-897a893c4978`。原14类失败已逐类修复并复验；最后720p点击高度两项203533为2/2通过，Combo/Guide/Qualified在203240专项已通过，所有中间失败与现场保留。完整发现1013 Edit/161 Play；新Edit `nunit-20261108-203902.xml` 1013/1013通过，完整161 Play正在执行，尚无新gate/双构建/Player结论。新增真实Bold Static字型覆盖844字符，Regular仅weight7引用改变，源/许可及独立静审已齐；新增实际省略号与池复用测试通过。修后1080p录制 `cache/v071/recording-30584eb` 为13.0323012秒/124帧，真实交互，前后五项偏好逐字节一致；编码与独立实看进行中。root唯一Unity写者；所有生产源冻结，代理只做外部cache证据/复核。玩法Core、配置与GoldenScores未变。
+
+完整回归返工：本地检查点 `246646b0e4fb87595727b0fbf48559f1947230ba` 的 Edit `nunit-20261108-193459.xml` 为1013/1013通过；Play `nunit-20261108-200208.xml` 为146/160通过、14失败。失败现场158目录/2857文件已逐SHA归档至 `evidence/v071/regression-246646b/play-temporary-output`，原失败保留。修复范围为 Combo/最终分数/达标章/引导/商店提示遮挡、正式粗体省略号配置，以及纸卡/插画/点窝的新结构测试适配；玩法与阈值不变。尚无通过的新整版gate或v071双构建。root独占Editor20948；project_audit仅Guide两源、art_assets仅QualifiedStamp源、dice_sample仅新字体源/Editor生成工具，其余生产冻结。AI-ART-PIPELINE任务的并行文档/技能/检查器改动保留，不纳入本次生产修复提交。
 
 19:30UTC 冻结前检查点：当前Runtime `81b0db46-9ef8-437f-8df1-0063f51c09d7`，Editor20948唯一写者，已退出Play、空场景不dirty、无reload锁。最终整版测试/构建尚待执行。当前新专项累计包含190845五骰1/1通过；此前失败原件保留，不能将专项替代完整gate。
 
