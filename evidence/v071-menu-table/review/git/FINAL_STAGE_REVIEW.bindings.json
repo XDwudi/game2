@@ -1,0 +1,1725 @@
+{
+  "schema": "v071-final-stage-review-1",
+  "utc": "2026-11-10T09:00:57.335482+00:00",
+  "head": "32d715b65f0be4240d9f21968e22d61fc4304821",
+  "branch": "codex/v0.71",
+  "main": "7de9857fe4072852b54f90118e991ff690c3fa98",
+  "localOldTagPresent": false,
+  "gitMutationPerformed": false,
+  "networkPerformed": false,
+  "remoteTagWasNotRequeried": true,
+  "expectedCount": 215,
+  "stagedCount": 215,
+  "exactAllowlist": true,
+  "addedOutsideAllowlist": [],
+  "expectedNotStaged": [],
+  "totalStagedBytes": 46341487,
+  "largest": [
+    {
+      "path": "ArtSource/Art071/MenuTable/menu-concept.png",
+      "mode": "100644",
+      "gitBlobOid": "cb8f6574547bf65285e19dcdebd8c38ecdb53337",
+      "bytes": 2529798,
+      "sha256": "556a87e4aa80219ca19fe46edb8ce0008ca1c40564d7ab918facc463be96ee66"
+    },
+    {
+      "path": "ArtSource/Art071/MenuTable/table-background.png",
+      "mode": "100644",
+      "gitBlobOid": "2a46838e71bce0997bb973827e30b80a7a60b56c",
+      "bytes": 2217447,
+      "sha256": "664ac49ea2183f1288033586d02aaff9d91877be77b20cb1125d0342772f35ea"
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art071/Backgrounds/bg_table_scene.png",
+      "mode": "100644",
+      "gitBlobOid": "2a46838e71bce0997bb973827e30b80a7a60b56c",
+      "bytes": 2217447,
+      "sha256": "664ac49ea2183f1288033586d02aaff9d91877be77b20cb1125d0342772f35ea"
+    },
+    {
+      "path": "evidence/v071-menu-table/images/1080-005-table-saved-menu-font150.png",
+      "mode": "100644",
+      "gitBlobOid": "1b625e82d57a200ddeda086ba0e23d95b8b0002e",
+      "bytes": 2013153,
+      "sha256": "2a19c4e97aa21141ef99003e02535793841eabe1ee65ba285c9011f839fbc602"
+    },
+    {
+      "path": "evidence/v071-menu-table/spacing/images/1080-005-table-saved-menu-font150.png",
+      "mode": "100644",
+      "gitBlobOid": "88aee3f36a814400c76a017077966475ed2402a3",
+      "bytes": 2013064,
+      "sha256": "57d15a428075599c55093e60ac259d6cdd8173269313a14b9d7226da085cb868"
+    }
+  ],
+  "forbiddenPaths": [],
+  "credentialPatternFindings": [],
+  "worktreeByteMismatches": [],
+  "missingAssetMeta": [],
+  "sourceChecks": [
+    {
+      "path": "ArtSource/Art071/MenuTable/menu-concept.png",
+      "hashMatch": true,
+      "sizeMatch": true,
+      "modeMatch": true,
+      "bytesMatch": true
+    },
+    {
+      "prompt": "ArtSource/Art071/MenuTable/menu-concept-prompt.txt",
+      "presentNonempty": true,
+      "sha256": "3f7978cf7dc968b61ce93bf78a33897fc4f0887d45f7117896653f72dfa4acc4"
+    },
+    {
+      "path": "ArtSource/Art071/MenuTable/table-background.png",
+      "hashMatch": true,
+      "sizeMatch": true,
+      "modeMatch": true,
+      "bytesMatch": true
+    },
+    {
+      "prompt": "ArtSource/Art071/MenuTable/table-background-prompt.txt",
+      "presentNonempty": true,
+      "sha256": "83d725ee5ae063fac2a890f365f864f2fd1e3baa8aabbe26b4a05e6ac024fccc"
+    },
+    {
+      "source": "ArtSource/Art071/MenuTable/table-background.png",
+      "runtime": "DicePrototype/Assets/Art/Art071/Backgrounds/bg_table_scene.png",
+      "byteIdentical": true
+    },
+    {
+      "path": "docs/specs/v071/handoff/references/battle_master_v071.png",
+      "hashMatch": true,
+      "sizeMatch": true,
+      "modeMatch": true,
+      "bytesMatch": true
+    },
+    {
+      "path": "evidence/v07/input/concepts/image1.png",
+      "hashMatch": true,
+      "sizeMatch": true,
+      "modeMatch": true,
+      "bytesMatch": true
+    },
+    {
+      "tableGuid": "ef3c92dddbd20ce4ea073cd048341e89",
+      "materialReferencesTable": true,
+      "enabled": true
+    }
+  ],
+  "fixtureDependencies": [
+    {
+      "path": "DicePrototype/Assets/Game/Tests/PlayMode/GameplayPlayModeTests.cs",
+      "inIndex": true,
+      "sha256": "4b827d06029b5b38d31b37e78f8e70322bf6f3af16bb0f84a3ee8527ce45d40f"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Tests/PlayMode/Art071StylePlayModeTests.cs",
+      "inIndex": true,
+      "sha256": "a38f78132ee405ba8ae7901a3037d3f363f644cd22113d2a0bcecf7d064ea1ac"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Tests/PlayMode/Art07ExtraCapturePlayModeTests.cs",
+      "inIndex": true,
+      "sha256": "bc8ec5f8e6106f4f9284315a6b5a87b65d06c7cbcf753e33a605b7882331e647"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Tests/PlayMode/Art07CardReadabilityPlayModeTests.cs",
+      "inIndex": true,
+      "sha256": "ab82b0d0a56fb34b5ec309ab8bf90027c593d3c4273f5a21b31356a54ab6f2e6"
+    }
+  ],
+  "evidenceManifestChecks": [
+    {
+      "path": "evidence/v071-menu-table/manifest.json",
+      "copyCount": 99,
+      "copyShaAndSizeErrors": [],
+      "runs": [
+        {
+          "report": "evidence/v071/unity/nunit-20261110-083705.xml",
+          "binding": "evidence/v071/unity/nunit-20261110-083705.binding.json",
+          "inIndex": true,
+          "result": "Passed",
+          "total": 8,
+          "passed": 8,
+          "failed": 0
+        },
+        {
+          "report": "evidence/v071/unity/nunit-20261110-083756.xml",
+          "binding": "evidence/v071/unity/nunit-20261110-083756.binding.json",
+          "inIndex": true,
+          "result": "Passed",
+          "total": 3,
+          "passed": 3,
+          "failed": 0
+        },
+        {
+          "report": "evidence/v071/unity/nunit-20261110-083847.xml",
+          "binding": "evidence/v071/unity/nunit-20261110-083847.binding.json",
+          "inIndex": true,
+          "result": "Passed",
+          "total": 3,
+          "passed": 3,
+          "failed": 0
+        }
+      ]
+    },
+    {
+      "path": "evidence/v071-menu-table/spacing/manifest.json",
+      "copyCount": 55,
+      "copyShaAndSizeErrors": [],
+      "runs": [
+        {
+          "report": "evidence/v071/unity/nunit-20261110-084835.xml",
+          "binding": "evidence/v071/unity/nunit-20261110-084835.binding.json",
+          "inIndex": true,
+          "result": "Passed",
+          "total": 1,
+          "passed": 1,
+          "failed": 0
+        },
+        {
+          "report": "evidence/v071/unity/nunit-20261110-084902.xml",
+          "binding": "evidence/v071/unity/nunit-20261110-084902.binding.json",
+          "inIndex": true,
+          "result": "Passed",
+          "total": 1,
+          "passed": 1,
+          "failed": 0
+        },
+        {
+          "report": "evidence/v071/unity/nunit-20261110-084928.xml",
+          "binding": "evidence/v071/unity/nunit-20261110-084928.binding.json",
+          "inIndex": true,
+          "result": "Passed",
+          "total": 1,
+          "passed": 1,
+          "failed": 0
+        }
+      ]
+    }
+  ],
+  "diffCheck": {
+    "command": "git -c core.whitespace=cr-at-eol diff --cached --check",
+    "exit": 2,
+    "trailingWhitespaceRows": [
+      "DicePrototype/Assets/Art/Art071/Backgrounds.meta:6: trailing whitespace.",
+      "DicePrototype/Assets/Art/Art071/Backgrounds.meta:7: trailing whitespace.",
+      "DicePrototype/Assets/Art/Art071/Backgrounds.meta:8: trailing whitespace.",
+      "DicePrototype/Assets/Art/Art071/Backgrounds/bg_table_scene.png.meta:128: trailing whitespace.",
+      "DicePrototype/Assets/Art/Art071/Backgrounds/bg_table_scene.png.meta:131: trailing whitespace.",
+      "DicePrototype/Assets/Art/Art071/Backgrounds/bg_table_scene.png.meta:134: trailing whitespace.",
+      "DicePrototype/Assets/Art/Art071/Backgrounds/bg_table_scene.png.meta:141: trailing whitespace.",
+      "DicePrototype/Assets/Art/Art071/Backgrounds/bg_table_scene.png.meta:143: trailing whitespace.",
+      "DicePrototype/Assets/Art/Art071/Backgrounds/bg_table_scene.png.meta:144: trailing whitespace.",
+      "DicePrototype/Assets/Art/Art071/Backgrounds/bg_table_scene.png.meta:145: trailing whitespace."
+    ],
+    "onlyUnityBackgroundMeta": true
+  },
+  "indexStableDuringReview": true,
+  "files": [
+    {
+      "path": "ArtSource/Art071/MenuTable/menu-concept-prompt.txt",
+      "mode": "100644",
+      "gitBlobOid": "126f7c7f63066cc05857655814a378155808eb2c",
+      "bytes": 2290,
+      "sha256": "3f7978cf7dc968b61ce93bf78a33897fc4f0887d45f7117896653f72dfa4acc4"
+    },
+    {
+      "path": "ArtSource/Art071/MenuTable/menu-concept.png",
+      "mode": "100644",
+      "gitBlobOid": "cb8f6574547bf65285e19dcdebd8c38ecdb53337",
+      "bytes": 2529798,
+      "sha256": "556a87e4aa80219ca19fe46edb8ce0008ca1c40564d7ab918facc463be96ee66"
+    },
+    {
+      "path": "ArtSource/Art071/MenuTable/record.json",
+      "mode": "100644",
+      "gitBlobOid": "ccd5d86f3df8d7e9915359eb2258654806cffb94",
+      "bytes": 2851,
+      "sha256": "9f89c8ae9776bf2459a257c20c7c480af9f19c4962f6f28356926a7aa5d5a020"
+    },
+    {
+      "path": "ArtSource/Art071/MenuTable/table-background-prompt.txt",
+      "mode": "100644",
+      "gitBlobOid": "ec8612babb786019d2c74ab43056724b50f1758a",
+      "bytes": 1510,
+      "sha256": "83d725ee5ae063fac2a890f365f864f2fd1e3baa8aabbe26b4a05e6ac024fccc"
+    },
+    {
+      "path": "ArtSource/Art071/MenuTable/table-background.png",
+      "mode": "100644",
+      "gitBlobOid": "2a46838e71bce0997bb973827e30b80a7a60b56c",
+      "bytes": 2217447,
+      "sha256": "664ac49ea2183f1288033586d02aaff9d91877be77b20cb1125d0342772f35ea"
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art071/Backgrounds.meta",
+      "mode": "100644",
+      "gitBlobOid": "6027ee515dce23674d1cf6b1873d5e6ac5c055ec",
+      "bytes": 172,
+      "sha256": "1bb15be3b3955e4a5b77e9a1b55966b37902ce4503c717c071f79a9404803355"
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art071/Backgrounds/bg_table_scene.png",
+      "mode": "100644",
+      "gitBlobOid": "2a46838e71bce0997bb973827e30b80a7a60b56c",
+      "bytes": 2217447,
+      "sha256": "664ac49ea2183f1288033586d02aaff9d91877be77b20cb1125d0342772f35ea"
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art071/Backgrounds/bg_table_scene.png.meta",
+      "mode": "100644",
+      "gitBlobOid": "f0826bd0cb320d6a4a4113caad7e4382d53150d2",
+      "bytes": 3424,
+      "sha256": "032fb613ec3bffdca516bff1ac0f29d615a6904bd2ba31b4b3d2638dea9c16c2"
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art071/Full/Materials/felt.mat",
+      "mode": "100644",
+      "gitBlobOid": "83e59e0460b99f0857f6d7375c31856264cf1603",
+      "bytes": 3813,
+      "sha256": "f2ea032c162499efb4ef27c6d6ff6ad2a274f3dd88b82c1aa67625ad4a1fd94f"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Editor/V071FullSetup.cs",
+      "mode": "100644",
+      "gitBlobOid": "62855ce293f28e179f32d11ceeec000d04f53601",
+      "bytes": 12277,
+      "sha256": "ea6d06f8aabe091c0ca0e2efb4c5b45780c584ed78080def8a0e855d1520dace"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Editor/V071Setup.cs",
+      "mode": "100644",
+      "gitBlobOid": "dc9cd7a95a700a5d5796a16651f1d056ae65abca",
+      "bytes": 5441,
+      "sha256": "de900a09e00846b9c4b97d54f56d8859319ac83b79764d9bd2192155564b329e"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Editor/V071TableSetup.cs",
+      "mode": "100644",
+      "gitBlobOid": "92e499e76a4f5c80f186f367a0819fd6862db711",
+      "bytes": 2496,
+      "sha256": "28af5cc39eb6de52e82537f8d6df3d64ca67991afdb4e0886b6e767b8aff4d0a"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Editor/V071TableSetup.cs.meta",
+      "mode": "100644",
+      "gitBlobOid": "5f7b9c94b2e722344d7b75a3c662b3fde32cd1a2",
+      "bytes": 59,
+      "sha256": "3b9ae83f8bbe1bbbae7b76a75107d7fc2f87d00074918bf5491a9e3f76acdc9c"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Runtime/Shaders/Art07Felt.shader",
+      "mode": "100644",
+      "gitBlobOid": "bb470b253fa79bb2209acfdd5551b1d77406736b",
+      "bytes": 3630,
+      "sha256": "3bc8123983e4a2a50dbad240715ba26ecb095eae1933bc7f51fa07dae0b99d59"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Tests/PlayMode/Art071MenuTablePlayModeTests.cs",
+      "mode": "100644",
+      "gitBlobOid": "7c813f0ec3bca8401c6cf2d6beb9d2b22b3138e1",
+      "bytes": 23598,
+      "sha256": "caf42a536459fb8085e8847a0c86b13664db88b175aa6ec6a1fbf32c32b1cdcf"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Tests/PlayMode/Art071MenuTablePlayModeTests.cs.meta",
+      "mode": "100644",
+      "gitBlobOid": "8045b78e6477a83378ab1496f0b3b28b444f63aa",
+      "bytes": 59,
+      "sha256": "9b4dc396305396281aaeacf07888c063173a52ae633791325201333013eb9131"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/UI/GameApp.Art07.cs",
+      "mode": "100644",
+      "gitBlobOid": "67ba8e2c8cf76cbe8d61d6f3a941e818ffbe2af7",
+      "bytes": 37628,
+      "sha256": "7df2e82f36dbfc3ea9aec89773a5f5995ce6099671494df1a06e3b7f4d9d498b"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/UI/GameApp.Art071Screens.cs",
+      "mode": "100644",
+      "gitBlobOid": "ce579196f8d9891396ca3cfbb4d2ef8307d85a26",
+      "bytes": 10481,
+      "sha256": "c6cdf5f29757dbecf62a102f271ae2e525cf7e219797da302cc4f9d9cf1d9f1e"
+    },
+    {
+      "path": "DicePrototype/README.md",
+      "mode": "100644",
+      "gitBlobOid": "0bd40971145a6f7c285b24c1aeddca053d28bfcd",
+      "bytes": 10784,
+      "sha256": "b7fa527849b61d075bc55e77aa01e423593acabcaa0bd3902dcbd1439ff96deb"
+    },
+    {
+      "path": "README.md",
+      "mode": "100644",
+      "gitBlobOid": "b487a68493d8dfa63ba92e5853d450eb4b48d34f",
+      "bytes": 9003,
+      "sha256": "b2bf9c5a5b16b6785ab76da6d75125e8625207fc3512bad4cdac8054510e8878"
+    },
+    {
+      "path": "docs/DELIVERY_V071.md",
+      "mode": "100644",
+      "gitBlobOid": "9d3b038c08dfea7a8896677b51d42ba1460e608c",
+      "bytes": 6370,
+      "sha256": "fe78fe7a8149ea7dc5ffd75d40ef1b0e10652051ba91898796bae3349390eef1"
+    },
+    {
+      "path": "docs/STATE.md",
+      "mode": "100644",
+      "gitBlobOid": "8d8fe90c86df6a48ce39a2d10bc58b74d53fd810",
+      "bytes": 116899,
+      "sha256": "7a84383ef8617361362843e55ef1122e989070cd9e8331a5079b3c2ecc3c97ff"
+    },
+    {
+      "path": "docs/specs/v071/ASSET_MAP.md",
+      "mode": "100644",
+      "gitBlobOid": "0c080ad917a37eecfa0d36f9caddf54a6978aea5",
+      "bytes": 14069,
+      "sha256": "da2cb21e657c716671233eb98c1908a8dc730fa6273e86af70d83ba6eb51529f"
+    },
+    {
+      "path": "docs/tasks/P0-V071-MENU-TABLE.md",
+      "mode": "100644",
+      "gitBlobOid": "f2fa4f6d530d25dd80a2ea8b360ef5ddc8c7ad42",
+      "bytes": 3969,
+      "sha256": "dff1a55ec2a8185447c7b75b6db26db421cb3e7d4e691bd1f25bca464ae30fed"
+    },
+    {
+      "path": "evidence/v071-menu-table/README.md",
+      "mode": "100644",
+      "gitBlobOid": "9a685b44a657f14ca5124b9d5a3d738b8238e413",
+      "bytes": 1447,
+      "sha256": "36a817cac9299b112d1bebd6669aa302517bcdf14109917eea3c6bc2214de7f4"
+    },
+    {
+      "path": "evidence/v071-menu-table/editor-restoration.json",
+      "mode": "100644",
+      "gitBlobOid": "f4dd2226ba92de95f5205304dc374ab4e80d15fe",
+      "bytes": 2131,
+      "sha256": "f48d635324e736c338aa4e4a8f718504a1e9e5f51d20573577107b3b34696c72"
+    },
+    {
+      "path": "evidence/v071-menu-table/failures/first-glyph-overflow/table-menu-font100-glyphs.json",
+      "mode": "100644",
+      "gitBlobOid": "54cdc2a0bd048758df5e353ad255dbe5d7902106",
+      "bytes": 13233,
+      "sha256": "8463981995bf53ddb62987c454e2d3551a100c7d12cc210aa06bd5f08dc772a9"
+    },
+    {
+      "path": "evidence/v071-menu-table/failures/first-glyph-overflow/table-menu-font150-glyphs.json",
+      "mode": "100644",
+      "gitBlobOid": "f393d07007ecb1a83cb0ab4bee9623fac8604c80",
+      "bytes": 13365,
+      "sha256": "d6270ccd61f3b1edec24ee677e25fd6d47807a4b5dceb02c4e14752e6bbd1010"
+    },
+    {
+      "path": "evidence/v071-menu-table/failures/saved-summary-overflow/table-menu-font100-glyphs.json",
+      "mode": "100644",
+      "gitBlobOid": "a52d58641faa1be69a997bba9cc021296f8abb92",
+      "bytes": 13242,
+      "sha256": "856a0febfc322ed7f0ea66496f08dcc94d3365d0322d6c6a8ff3a58e87b31a43"
+    },
+    {
+      "path": "evidence/v071-menu-table/failures/saved-summary-overflow/table-menu-font150-glyphs.json",
+      "mode": "100644",
+      "gitBlobOid": "380cfbf6042e41fb991751c67a8a9aaf140a0b6d",
+      "bytes": 13155,
+      "sha256": "341b856b41f74c289794d6ea89e8800f63d439a68ef9991a054fb0ba989383cb"
+    },
+    {
+      "path": "evidence/v071-menu-table/failures/saved-summary-overflow/table-saved-menu-font150-glyphs.json",
+      "mode": "100644",
+      "gitBlobOid": "f1d885a0a4016788239820b4935d39965995f440",
+      "bytes": 13406,
+      "sha256": "d783b245b4f5bd247688ce55abc21344e4e6c67f0ddaaf99205fdd6b1ff8b250"
+    },
+    {
+      "path": "evidence/v071-menu-table/images/1080-000-table-menu-font100.png",
+      "mode": "100644",
+      "gitBlobOid": "94dacd61a322058b1d31d008bfe3e4f33a1989b2",
+      "bytes": 1983181,
+      "sha256": "c51e09705a3489685dc8ab1f27c7628968907405209b7563678fc10807ca14e4"
+    },
+    {
+      "path": "evidence/v071-menu-table/images/1080-001-table-menu-font150.png",
+      "mode": "100644",
+      "gitBlobOid": "d3d41cac46ebe0a69e8fff5f9f3a0b98f09ea889",
+      "bytes": 2008458,
+      "sha256": "b5bd5e8757da5e9cadf4d2da9470465e01ca5e5b856d7354e320017af5d2a463"
+    },
+    {
+      "path": "evidence/v071-menu-table/images/1080-003-table-selecting-font150.png",
+      "mode": "100644",
+      "gitBlobOid": "6b4996a3bf93b56b73b96898a63ef66e4926d3b5",
+      "bytes": 1857801,
+      "sha256": "776bde6ab72596201340c6b9998b333844cf3a430902fdad26f9a8ac7895d260"
+    },
+    {
+      "path": "evidence/v071-menu-table/images/1080-004-table-dice-detail-font150.png",
+      "mode": "100644",
+      "gitBlobOid": "d8c57d6ecad4e0020f7bf4c2c08d15c4be71587c",
+      "bytes": 1545778,
+      "sha256": "1a086a419a6b2f9953e8361d9adc8fb05195189a00fec94736b53ef18e5e6039"
+    },
+    {
+      "path": "evidence/v071-menu-table/images/1080-005-table-saved-menu-font150.png",
+      "mode": "100644",
+      "gitBlobOid": "1b625e82d57a200ddeda086ba0e23d95b8b0002e",
+      "bytes": 2013153,
+      "sha256": "2a19c4e97aa21141ef99003e02535793841eabe1ee65ba285c9011f839fbc602"
+    },
+    {
+      "path": "evidence/v071-menu-table/images/1200-001-table-menu-font150.png",
+      "mode": "100644",
+      "gitBlobOid": "9d83d9ecbab829f0e749c4f188e77fb31b31d941",
+      "bytes": 2000080,
+      "sha256": "cefbaf05a6f46bfca7328cfc87933753f922371f3019453e2ce32ec31ae744b5"
+    },
+    {
+      "path": "evidence/v071-menu-table/images/1200-003-table-selecting-font150.png",
+      "mode": "100644",
+      "gitBlobOid": "c88ab294cdfe2f08ffaf6d7eda6b370fb93dee7e",
+      "bytes": 1850574,
+      "sha256": "ec6bc285a7b27ab177efccef3f89588e147a324befff3d6c67e8cae5ed6fbf9b"
+    },
+    {
+      "path": "evidence/v071-menu-table/images/720-001-table-menu-font150.png",
+      "mode": "100644",
+      "gitBlobOid": "85b4fd7ff4de182fbe864d3407a79e5276e2b82a",
+      "bytes": 1013112,
+      "sha256": "d53c6074a89ff55111c8b29310f9767fda15f45a53a7c3eaaaa111da77527390"
+    },
+    {
+      "path": "evidence/v071-menu-table/images/720-003-table-selecting-font150.png",
+      "mode": "100644",
+      "gitBlobOid": "879f09a2bad8df69cfabc5bd7a65a0b0f07c0920",
+      "bytes": 1047187,
+      "sha256": "1376dad7437a58052f7881d40a3224cd4d15c35ab2624f249f25481083651c6c"
+    },
+    {
+      "path": "evidence/v071-menu-table/manifest.json",
+      "mode": "100644",
+      "gitBlobOid": "3c6eebe6eeb53080f63c256c78608ecf43bf9285",
+      "bytes": 44671,
+      "sha256": "49fb918fd91b0f9e483b5c03b06370d7a81921f776f81b5a9aef96c7104b31b3"
+    },
+    {
+      "path": "evidence/v071-menu-table/python-tests.txt",
+      "mode": "100644",
+      "gitBlobOid": "976b1c858ad528af7a7275f863c94d8355e25788",
+      "bytes": 8306,
+      "sha256": "d225bdb34bba111fdac4cf7ccdc2c2c489d24cc769b5e0e0b7f325720d1ac264"
+    },
+    {
+      "path": "evidence/v071-menu-table/review/art/FINAL_REVIEW.bindings.json",
+      "mode": "100644",
+      "gitBlobOid": "e22ba1db00f2cd82a8b4e1ee948712475a5c139b",
+      "bytes": 24387,
+      "sha256": "b0a6e1323d9b0cc6f7d04fd12278738be94ecf69eac810b4bc4313a962aca107"
+    },
+    {
+      "path": "evidence/v071-menu-table/review/art/FINAL_REVIEW.md",
+      "mode": "100644",
+      "gitBlobOid": "4270cffd28f5412bd6f519ac33f4454c16d89343",
+      "bytes": 3750,
+      "sha256": "2df30d5872dc6718327f19504fa4fe9cdca330664a6075e2bcbfcc4dc6eefd9b"
+    },
+    {
+      "path": "evidence/v071-menu-table/review/art/MENU_RULES_CLOSURE.bindings.json",
+      "mode": "100644",
+      "gitBlobOid": "d465711989da32a6f410a9a1d5eae50231766a5b",
+      "bytes": 17628,
+      "sha256": "7cf56ba72d4fbc982c17c656f0ab0e471fff0d579cc3a5889ccd378f88d863d1"
+    },
+    {
+      "path": "evidence/v071-menu-table/review/art/MENU_RULES_CLOSURE.md",
+      "mode": "100644",
+      "gitBlobOid": "0366508b1a8f22b8a5a7eb71138ebebf0e0ba030",
+      "bytes": 2424,
+      "sha256": "fc5075b576b33e2707074500a6bfe66b08dec67369a50bd8f35b2a98deb6a953"
+    },
+    {
+      "path": "evidence/v071-menu-table/review/art/MENU_RULES_INITIAL_FINDING.md",
+      "mode": "100644",
+      "gitBlobOid": "c1cc8af9c8cf665c9d7ccb2cce4b9f86e26c0f1b",
+      "bytes": 928,
+      "sha256": "3704a5db34b16114ad8fb4405db3222f5f924cf84a8d3bc9789b3fa891e24def"
+    },
+    {
+      "path": "evidence/v071-menu-table/review/art/REVIEW_1080_720.md",
+      "mode": "100644",
+      "gitBlobOid": "289fa3abfbd3ce45caa44c2f8411014fb641f1e1",
+      "bytes": 3651,
+      "sha256": "5cc6438d4b79315ed3257ae7bb3f46bc25a0c7380d801ee02e37b5cb029e1420"
+    },
+    {
+      "path": "evidence/v071-menu-table/review/art/bindings_1080_720.json",
+      "mode": "100644",
+      "gitBlobOid": "ddbcc8f283fee804030fbbc88ea7cb5e07a6c7b2",
+      "bytes": 15526,
+      "sha256": "56c4c68de7d8f45a8ac17b33e465be18155b2568db65aaf0077f1d627a9ba2fc"
+    },
+    {
+      "path": "evidence/v071-menu-table/review/code/PRODUCTION_STATIC_REVIEW.bindings.json",
+      "mode": "100644",
+      "gitBlobOid": "1e8e6f53e481b350370c15ad9e684402a60bd364",
+      "bytes": 3404,
+      "sha256": "bb8682b8d7ae2b1ac42c1d906027704f81512c84ef36272658daf931e86fcf56"
+    },
+    {
+      "path": "evidence/v071-menu-table/review/code/PRODUCTION_STATIC_REVIEW.md",
+      "mode": "100644",
+      "gitBlobOid": "339967007eb5ad694f9bda660c8eeb44321f057e",
+      "bytes": 5908,
+      "sha256": "d742ac0f77d001fdcf46fde9380260cd2fd3921e036dc6871dd92ff7ef8aac34"
+    },
+    {
+      "path": "evidence/v071-menu-table/review/generated/REVIEW.md",
+      "mode": "100644",
+      "gitBlobOid": "edac9c56e37b0fdd795cc6829455fc1526eef194",
+      "bytes": 2604,
+      "sha256": "bde25361658c13ceec13cda8e9c58328b78a70aaa7c1759285bc2970ab0ac88f"
+    },
+    {
+      "path": "evidence/v071-menu-table/review/generated/bindings.json",
+      "mode": "100644",
+      "gitBlobOid": "c11aa1ee1df12fee288f690d0829144aae2a01f5",
+      "bytes": 2725,
+      "sha256": "05cd745fc55fabd69a78ec85ca7d581b8f07bce3890c42c0dc7b72330866e375"
+    },
+    {
+      "path": "evidence/v071-menu-table/review/technical/FINAL_REVIEW.bindings.json",
+      "mode": "100644",
+      "gitBlobOid": "6e64a3c10e5a4ee0cce4a65f0cc03fe5774d2fd6",
+      "bytes": 2486,
+      "sha256": "bffb9efbd57d96a85eea7d2438cbf5b4489030bc2b9164a0fadc2308b9655282"
+    },
+    {
+      "path": "evidence/v071-menu-table/review/technical/FINAL_REVIEW.md",
+      "mode": "100644",
+      "gitBlobOid": "26271f850d560b1364b32741e6f23fe313d5db93",
+      "bytes": 3822,
+      "sha256": "e2ce3a3f71459e6ac2beb28d773c80d4df5661e26a76a1a8a97e4f1fec19e283"
+    },
+    {
+      "path": "evidence/v071-menu-table/review/technical/FINAL_TARGETED_REVIEW.bindings.json",
+      "mode": "100644",
+      "gitBlobOid": "1e2605b49f192b65102ed607308465aae8294442",
+      "bytes": 41240,
+      "sha256": "706aa8077a4038417e3476db41a7d099002b6251a21a236d7cb6df9e68dbb293"
+    },
+    {
+      "path": "evidence/v071-menu-table/review/technical/MT03_LOW_STATIC_ADDENDUM.bindings.json",
+      "mode": "100644",
+      "gitBlobOid": "9118ee59f009acf79a7314cbabc8855e7dc6c602",
+      "bytes": 1320,
+      "sha256": "fbee3c35579432d8f163e1707b449ba5555341222baacdacc289b09024a61d6b"
+    },
+    {
+      "path": "evidence/v071-menu-table/review/technical/MT03_LOW_STATIC_ADDENDUM.md",
+      "mode": "100644",
+      "gitBlobOid": "83489339734109dc60e5265dcefe33aa517ebbb4",
+      "bytes": 1348,
+      "sha256": "e2024ddf4da54bf4509e94e55e573ca091a27e6a793a476fd77e522639543901"
+    },
+    {
+      "path": "evidence/v071-menu-table/review/technical/SPACING_REPAIR.bindings.json",
+      "mode": "100644",
+      "gitBlobOid": "c7e6618d7b6bfc18d433383d366892ce15d79ad5",
+      "bytes": 17871,
+      "sha256": "5c61d1076e353a797b18461ab33f018b2b28727f72c59bf3a9ed8c993cb8bb25"
+    },
+    {
+      "path": "evidence/v071-menu-table/review/technical/TARGETED_MATRIX_PRE_RULES_FIX.md",
+      "mode": "100644",
+      "gitBlobOid": "930eb6f018650d4b7e22e33ed6a849aa3007b9b2",
+      "bytes": 4301,
+      "sha256": "7db2c71d27b10c026fb8c53e288d16020a1339a0e91ca7cbbc3b629001aad567"
+    },
+    {
+      "path": "evidence/v071-menu-table/runs/1080/DiceCraftTests_03f8600b38374321b82c966dbf32ff1f/active-run.json",
+      "mode": "100644",
+      "gitBlobOid": "d6d6493ac7a3f1ca75bcee455ba21d228a111bbe",
+      "bytes": 23651,
+      "sha256": "8bdabdb2137ea77fe3e9507c4870fc194cf4d19492b9fab787a2531f87e3e47e"
+    },
+    {
+      "path": "evidence/v071-menu-table/runs/1080/DiceCraftTests_03f8600b38374321b82c966dbf32ff1f/extra-capture/000-table-menu-font100.png.json",
+      "mode": "100644",
+      "gitBlobOid": "7c4b260a7b7a7889d8b648a1ee1aaaa8f9ac4382",
+      "bytes": 4865,
+      "sha256": "d5c0ee6d3959c0a44a37fbd4d77097eba8701afc544db83aac7e5ccd99e0bdb7"
+    },
+    {
+      "path": "evidence/v071-menu-table/runs/1080/DiceCraftTests_03f8600b38374321b82c966dbf32ff1f/extra-capture/001-table-menu-font150.png.json",
+      "mode": "100644",
+      "gitBlobOid": "8d48571172e0738f14d1a8c7298dbfb92f50df67",
+      "bytes": 4865,
+      "sha256": "62bb63240199b50ddb688052abed41eb337a5895134c3d451d4ae605e8492453"
+    },
+    {
+      "path": "evidence/v071-menu-table/runs/1080/DiceCraftTests_03f8600b38374321b82c966dbf32ff1f/extra-capture/002-table-new-run-font150.png.json",
+      "mode": "100644",
+      "gitBlobOid": "be123394160cb67532a7e694ff1d5cfbcf3e065e",
+      "bytes": 3530,
+      "sha256": "92e184a43ce0d86d608042f9b41240d2ccf7dc382216789a933d8f3cd4b26547"
+    },
+    {
+      "path": "evidence/v071-menu-table/runs/1080/DiceCraftTests_03f8600b38374321b82c966dbf32ff1f/extra-capture/003-table-selecting-font150.png.json",
+      "mode": "100644",
+      "gitBlobOid": "94360cbd4945236dec16c09b1a459c5741fef431",
+      "bytes": 5672,
+      "sha256": "372210c4118271b890f217be20872ffbfc7b9efbeed29057155d95c653a65551"
+    },
+    {
+      "path": "evidence/v071-menu-table/runs/1080/DiceCraftTests_03f8600b38374321b82c966dbf32ff1f/extra-capture/004-table-dice-detail-font150.png.json",
+      "mode": "100644",
+      "gitBlobOid": "eee4d7c8a3f14d298e7c6a5315236ce0c22b05d6",
+      "bytes": 10491,
+      "sha256": "2d17e67192a9dd19388ddd5ee388e7fdbbe35c81da5580aeb779321a19d7017e"
+    },
+    {
+      "path": "evidence/v071-menu-table/runs/1080/DiceCraftTests_03f8600b38374321b82c966dbf32ff1f/extra-capture/005-table-saved-menu-font150.png.json",
+      "mode": "100644",
+      "gitBlobOid": "275b01ca045d3d658b4ec3dd528c6da4de8cc7d2",
+      "bytes": 5083,
+      "sha256": "a7c9081eed149825d6279299a81836bfb60ed7aa0466f572d4de8bcdacdebdf7"
+    },
+    {
+      "path": "evidence/v071-menu-table/runs/1080/DiceCraftTests_03f8600b38374321b82c966dbf32ff1f/extra-capture/extra-report.json",
+      "mode": "100644",
+      "gitBlobOid": "127054e11de5b643dd8287c1feb0c490b1163cfa",
+      "bytes": 53867,
+      "sha256": "e788f36d16899ca8b3960b325ca6ffec3aa63f580ab88bb56464c63d3ff481be"
+    },
+    {
+      "path": "evidence/v071-menu-table/runs/1080/DiceCraftTests_03f8600b38374321b82c966dbf32ff1f/extra-capture/source-snapshot.sha256",
+      "mode": "100644",
+      "gitBlobOid": "5e09d2d486d316a9f7516267c34443e411245d9a",
+      "bytes": 31437,
+      "sha256": "7b6a84e421d1403b55760ea8a18f98c820b3c5dc79251292c013071f3bd9b75e"
+    },
+    {
+      "path": "evidence/v071-menu-table/runs/1080/DiceCraftTests_03f8600b38374321b82c966dbf32ff1f/extra-capture/table-menu-font100-glyphs.json",
+      "mode": "100644",
+      "gitBlobOid": "cd56d0dece965e84df0bd7cbb32d88b89b98695c",
+      "bytes": 13243,
+      "sha256": "1a1773b50a29e556ff03c56155e3bebf86c29db0772ff31d03a1f1fb08f762f5"
+    },
+    {
+      "path": "evidence/v071-menu-table/runs/1080/DiceCraftTests_03f8600b38374321b82c966dbf32ff1f/extra-capture/table-menu-font150-glyphs.json",
+      "mode": "100644",
+      "gitBlobOid": "d45221712b38b045e5f8dfdc3dfddfc8406be631",
+      "bytes": 13156,
+      "sha256": "7abbcdfdc97f958a48f611edc89228dabb8a756b479ccd375f99f1073dba63d4"
+    },
+    {
+      "path": "evidence/v071-menu-table/runs/1080/DiceCraftTests_03f8600b38374321b82c966dbf32ff1f/extra-capture/table-saved-menu-font150-glyphs.json",
+      "mode": "100644",
+      "gitBlobOid": "795ac099780564c4cc5786a3c0159d02b85073cd",
+      "bytes": 13301,
+      "sha256": "48593666a0333ae9483edd326dc1a3d6a12e0daf6c62ac4e4fa5db012859f047"
+    },
+    {
+      "path": "evidence/v071-menu-table/runs/1080/DiceCraftTests_1f08e61c1fea47ee82d5ceb590df105a/extra-capture/extra-report.json",
+      "mode": "100644",
+      "gitBlobOid": "dace5626807eb59ba06ecc870766bca969900651",
+      "bytes": 2836,
+      "sha256": "8cf241e5f7a58e84866515ab11ac8f73be80244a533259c4b9eacf7e6860075e"
+    },
+    {
+      "path": "evidence/v071-menu-table/runs/1080/DiceCraftTests_1f08e61c1fea47ee82d5ceb590df105a/extra-capture/source-snapshot.sha256",
+      "mode": "100644",
+      "gitBlobOid": "5e09d2d486d316a9f7516267c34443e411245d9a",
+      "bytes": 31437,
+      "sha256": "7b6a84e421d1403b55760ea8a18f98c820b3c5dc79251292c013071f3bd9b75e"
+    },
+    {
+      "path": "evidence/v071-menu-table/runs/1080/DiceCraftTests_1f08e61c1fea47ee82d5ceb590df105a/extra-capture/temporary-shadow-gpu.json",
+      "mode": "100644",
+      "gitBlobOid": "2b5056d89bd64d2482121143ab48dac49b9a04f9",
+      "bytes": 507,
+      "sha256": "ae82fa74a65b6b2aa3cf9129e0f7f11a56ba4cada490d853394ebb834f9f0ff8"
+    },
+    {
+      "path": "evidence/v071-menu-table/runs/1080/DiceCraftTests_5801271c20d249918a35ae9c7fd5890b/active-run.json",
+      "mode": "100644",
+      "gitBlobOid": "d56a7f60b0aae30d169630e3ac2eb718174312a0",
+      "bytes": 11844,
+      "sha256": "f1649cbb63783b6a7ac07922e1b50cc11360b2a797867dfd8772280e861dab46"
+    },
+    {
+      "path": "evidence/v071-menu-table/runs/1080/DiceCraftTests_5801271c20d249918a35ae9c7fd5890b/art07-edge-screens/v071-five-dice-confirmed-and-rerolled.json",
+      "mode": "100644",
+      "gitBlobOid": "aca23d66e075ea2921c881aa74cddcd6100e151f",
+      "bytes": 467,
+      "sha256": "6304778062b682c82ed95de8e5db4a4a84d4ae01e0f7a7e2b46565e7ee9f4079"
+    },
+    {
+      "path": "evidence/v071-menu-table/runs/1080/DiceCraftTests_5801271c20d249918a35ae9c7fd5890b/art07-edge-screens/v071-five-dice-full-pool-attributes.json",
+      "mode": "100644",
+      "gitBlobOid": "4f1f4ed855847920c9bfb5a014fa3ae3b7ce73a7",
+      "bytes": 464,
+      "sha256": "ead97307181772202f8ecff892d83ce302fdaed58c3141b30a7cab562b57cbac"
+    },
+    {
+      "path": "evidence/v071-menu-table/runs/1080/DiceCraftTests_5801271c20d249918a35ae9c7fd5890b/art07-edge-screens/v071-three-pool-glass-temporary-pending.json",
+      "mode": "100644",
+      "gitBlobOid": "df9c93b03a07a0c55e7d82069c03234efedcd4d7",
+      "bytes": 468,
+      "sha256": "817b116764193f629aef2e606d2ddceb38aeb2d7e1bbab534908a625f4b16a60"
+    },
+    {
+      "path": "evidence/v071-menu-table/runs/1080/DiceCraftTests_5801271c20d249918a35ae9c7fd5890b/debug-run.json",
+      "mode": "100644",
+      "gitBlobOid": "208bcb6a15b9662ad420ad37a06b9e2dd23058f7",
+      "bytes": 31644,
+      "sha256": "5c0bd90e9e133e18d53d5ec4f2194aeee0cafda08ae82c07a816beac0b300e04"
+    },
+    {
+      "path": "evidence/v071-menu-table/runs/1080/DiceCraftTests_6a459601d7684017bb16e19be23f1ab9/extra-capture/000-v071-full-menu.png.json",
+      "mode": "100644",
+      "gitBlobOid": "c7ff71ac86332cf348d32c172281e667bef039c4",
+      "bytes": 4850,
+      "sha256": "3ba3d1048978a39d8f7b9d1ab1aabddc4e59e810064110367550f9376b9336d7"
+    },
+    {
+      "path": "evidence/v071-menu-table/runs/1080/DiceCraftTests_6a459601d7684017bb16e19be23f1ab9/extra-capture/extra-report.json",
+      "mode": "100644",
+      "gitBlobOid": "eb6ef7f71134e6547e4251247aa3d60ff97cacbd",
+      "bytes": 8972,
+      "sha256": "a667d5c4b002b7da052611b22376f9609a22aa341c246f8bcd0b8321024e6947"
+    },
+    {
+      "path": "evidence/v071-menu-table/runs/1080/DiceCraftTests_6a459601d7684017bb16e19be23f1ab9/extra-capture/source-snapshot.sha256",
+      "mode": "100644",
+      "gitBlobOid": "5e09d2d486d316a9f7516267c34443e411245d9a",
+      "bytes": 31437,
+      "sha256": "7b6a84e421d1403b55760ea8a18f98c820b3c5dc79251292c013071f3bd9b75e"
+    },
+    {
+      "path": "evidence/v071-menu-table/runs/1080/DiceCraftTests_81d2abdeef724289a86f64ab6a03784b/active-run.json",
+      "mode": "100644",
+      "gitBlobOid": "935f68f8bfc014a0ba3c36cf0990f69459b0de2d",
+      "bytes": 23639,
+      "sha256": "9c8beffde6e216b5d937af4fd335d8d5414f4e0b46afe23eff5a8ba76f1fdc32"
+    },
+    {
+      "path": "evidence/v071-menu-table/runs/1080/DiceCraftTests_dc8d7a19929c4fe8bf6927bab93d58b4/active-run.json",
+      "mode": "100644",
+      "gitBlobOid": "7f3552029e5b6446a242aa6c1f6077ddad810510",
+      "bytes": 11844,
+      "sha256": "036c4fd41e22ce20999cd3f9f7b64c932a4c22f7c00fc62cf4e53f09dbceb2d1"
+    },
+    {
+      "path": "evidence/v071-menu-table/runs/1080/DiceCraftTests_dc8d7a19929c4fe8bf6927bab93d58b4/art07-edge-screens/v071-locked-headers-MaximumPool-font100-1920x1080.json",
+      "mode": "100644",
+      "gitBlobOid": "8269a0b8a2c14e3568e95e8fcecbc9388f8eb4c1",
+      "bytes": 479,
+      "sha256": "8ec2285f610110d40f5dc4c6f1cbdaf5b0150b2b2ac7957e8dd7989aba20aaaa"
+    },
+    {
+      "path": "evidence/v071-menu-table/runs/1080/DiceCraftTests_dc8d7a19929c4fe8bf6927bab93d58b4/art07-edge-screens/v071-locked-headers-MaximumPool-font125-1920x1080.json",
+      "mode": "100644",
+      "gitBlobOid": "ae0fdf3bc1ac3cd7cf9d558b376379dbb7193844",
+      "bytes": 479,
+      "sha256": "926ca7da565e7a151f2464ca6f9d81b1590712b10cd24b2c05a4ca8084b75535"
+    },
+    {
+      "path": "evidence/v071-menu-table/runs/1080/DiceCraftTests_dc8d7a19929c4fe8bf6927bab93d58b4/art07-edge-screens/v071-locked-headers-MaximumPool-font150-1920x1080.json",
+      "mode": "100644",
+      "gitBlobOid": "a91ace1e034ed6245a8d35a01602274203e8e9f2",
+      "bytes": 479,
+      "sha256": "6b8cc259ad85fc845fdb2d1d9427410d68cd4d8d848a5279a9e5baa8e89c7419"
+    },
+    {
+      "path": "evidence/v071-menu-table/runs/1080/DiceCraftTests_dc8d7a19929c4fe8bf6927bab93d58b4/art07-edge-screens/v071-locked-headers-MaximumTable-font100-1920x1080.json",
+      "mode": "100644",
+      "gitBlobOid": "c12a08d003b9c62f254f6cb06126f79ed398d0fd",
+      "bytes": 480,
+      "sha256": "3391ba7d9242218fe0e44539811ce559b4553dad7ff614669837828f47c6f332"
+    },
+    {
+      "path": "evidence/v071-menu-table/runs/1080/DiceCraftTests_dc8d7a19929c4fe8bf6927bab93d58b4/art07-edge-screens/v071-locked-headers-MaximumTable-font125-1920x1080.json",
+      "mode": "100644",
+      "gitBlobOid": "d2d780174ac5203d820c7bffd3dc3364ed40a2e6",
+      "bytes": 480,
+      "sha256": "1ef4a31a291a168223b38ae67f3ad507b9f6eaed5a324ba4cc578782666d2c74"
+    },
+    {
+      "path": "evidence/v071-menu-table/runs/1080/DiceCraftTests_dc8d7a19929c4fe8bf6927bab93d58b4/art07-edge-screens/v071-locked-headers-MaximumTable-font150-1920x1080.json",
+      "mode": "100644",
+      "gitBlobOid": "dedcbecb1a68777a028d7bd247cf71d54f139a31",
+      "bytes": 480,
+      "sha256": "1fd9b5b6a0845b13336adaba37e0fdb776e55aa0943193fb60f2e8a4690c7f06"
+    },
+    {
+      "path": "evidence/v071-menu-table/runs/1080/DiceCraftTests_dc8d7a19929c4fe8bf6927bab93d58b4/debug-run.json",
+      "mode": "100644",
+      "gitBlobOid": "298e0c0360c7321e506452ddd4ee6a8b4e14c0d9",
+      "bytes": 50068,
+      "sha256": "ef635760d2cb8a759522894d28aa239ccde0cef1db9966f867874b732e56b0b1"
+    },
+    {
+      "path": "evidence/v071-menu-table/runs/1080/DiceCraftTests_e740999f00c6431386580b735fac0785/active-run.json",
+      "mode": "100644",
+      "gitBlobOid": "b79392b7b60dd101d032ee3464df44f857234742",
+      "bytes": 11850,
+      "sha256": "6832ea93a7641631c1dd8eb78ebdbbf7af84c15e6f2f932715e004dfad5f8851"
+    },
+    {
+      "path": "evidence/v071-menu-table/runs/1080/DiceCraftTests_e740999f00c6431386580b735fac0785/extra-capture/000-table-menu-empty.png.json",
+      "mode": "100644",
+      "gitBlobOid": "d4ebf1b4a876af57272296d0f4212a3e38d07373",
+      "bytes": 4851,
+      "sha256": "c849815ed2d1fbe921d1cf1ff4ebf64bdc92fd960bb0653968244d31745e3d7c"
+    },
+    {
+      "path": "evidence/v071-menu-table/runs/1080/DiceCraftTests_e740999f00c6431386580b735fac0785/extra-capture/001-table-menu-saved.png.json",
+      "mode": "100644",
+      "gitBlobOid": "d7ee3746436969be2fe64c4eb7ffac501ac0a8e7",
+      "bytes": 5088,
+      "sha256": "2ddc062eb7fb4f1960f3fce6b812b58ae0a06c1781cd19d27eb057fcfd95b0a5"
+    },
+    {
+      "path": "evidence/v071-menu-table/runs/1080/DiceCraftTests_e740999f00c6431386580b735fac0785/extra-capture/extra-report.json",
+      "mode": "100644",
+      "gitBlobOid": "e335b975768883c2f6118a88a0ae7f989cddd9d5",
+      "bytes": 22714,
+      "sha256": "91838794e174a6d6649d21df75f94ce54f74f131bcb3be06e18d70981a46c886"
+    },
+    {
+      "path": "evidence/v071-menu-table/runs/1080/DiceCraftTests_e740999f00c6431386580b735fac0785/extra-capture/source-snapshot.sha256",
+      "mode": "100644",
+      "gitBlobOid": "5e09d2d486d316a9f7516267c34443e411245d9a",
+      "bytes": 31437,
+      "sha256": "7b6a84e421d1403b55760ea8a18f98c820b3c5dc79251292c013071f3bd9b75e"
+    },
+    {
+      "path": "evidence/v071-menu-table/runs/1080/DiceCraftTests_f93c9e8f060a4f40b11fb982172e137f/extra-capture/extra-report.json",
+      "mode": "100644",
+      "gitBlobOid": "13236adb513c4f99e668505e6db7e3b88e49ab03",
+      "bytes": 8973,
+      "sha256": "7defcf38b334305b609ed16c9a8c3b4da88e066bcd4ec6e81eae0343c26263a0"
+    },
+    {
+      "path": "evidence/v071-menu-table/runs/1080/DiceCraftTests_f93c9e8f060a4f40b11fb982172e137f/extra-capture/source-snapshot.sha256",
+      "mode": "100644",
+      "gitBlobOid": "5e09d2d486d316a9f7516267c34443e411245d9a",
+      "bytes": 31437,
+      "sha256": "7b6a84e421d1403b55760ea8a18f98c820b3c5dc79251292c013071f3bd9b75e"
+    },
+    {
+      "path": "evidence/v071-menu-table/runs/1080/DiceCraftTests_f93c9e8f060a4f40b11fb982172e137f/extra-capture/table-world-gpu.json",
+      "mode": "100644",
+      "gitBlobOid": "bf728297a6000ea24cd5a652c7a0cd923827bf9f",
+      "bytes": 97390,
+      "sha256": "8c1035f1c063243dd0818642fc4a4b99616b244e5c0b2dc9a0ff47e1a6407f42"
+    },
+    {
+      "path": "evidence/v071-menu-table/runs/1080/execution.json",
+      "mode": "100644",
+      "gitBlobOid": "0f6e1b1e73c5922342a8b588df0edaeafe0b2ae9",
+      "bytes": 1337,
+      "sha256": "1c557b719a6ecd398792b7c502668aba488e6f1475d8778ff054f563600ab549"
+    },
+    {
+      "path": "evidence/v071-menu-table/runs/1200/DiceCraftTests_0d9d1367634240f39280501b65906b1c/active-run.json",
+      "mode": "100644",
+      "gitBlobOid": "a933b24f07eab925877e842e3c8245281d122674",
+      "bytes": 11850,
+      "sha256": "540df6233e7ff434e4f8781826613bd1311e437cefcc1dc9d09aa5230d95bf8e"
+    },
+    {
+      "path": "evidence/v071-menu-table/runs/1200/DiceCraftTests_0d9d1367634240f39280501b65906b1c/extra-capture/000-table-menu-empty.png.json",
+      "mode": "100644",
+      "gitBlobOid": "69ff6b1451cb57ea931b0836c586e7ed073d9090",
+      "bytes": 4851,
+      "sha256": "0eba02070ade994a878a57413c98be3337cc55d2f9e8fc52cee0e4fb1d0aaf81"
+    },
+    {
+      "path": "evidence/v071-menu-table/runs/1200/DiceCraftTests_0d9d1367634240f39280501b65906b1c/extra-capture/001-table-menu-saved.png.json",
+      "mode": "100644",
+      "gitBlobOid": "bb4333cd8a2853578942bda8a5d175231da3c13e",
+      "bytes": 5088,
+      "sha256": "b19276146e630c2e74cf3d5cbbca41be3c521ed613a46eb7d68522a90e512d7f"
+    },
+    {
+      "path": "evidence/v071-menu-table/runs/1200/DiceCraftTests_0d9d1367634240f39280501b65906b1c/extra-capture/extra-report.json",
+      "mode": "100644",
+      "gitBlobOid": "522508ce9e46d890ef6a99f5ade164eff7dece25",
+      "bytes": 22714,
+      "sha256": "3263d5dddbbf40c30d80a28ac78d0a380080df368ea5690a961f202bbb2e7a2d"
+    },
+    {
+      "path": "evidence/v071-menu-table/runs/1200/DiceCraftTests_0d9d1367634240f39280501b65906b1c/extra-capture/source-snapshot.sha256",
+      "mode": "100644",
+      "gitBlobOid": "5e09d2d486d316a9f7516267c34443e411245d9a",
+      "bytes": 31437,
+      "sha256": "7b6a84e421d1403b55760ea8a18f98c820b3c5dc79251292c013071f3bd9b75e"
+    },
+    {
+      "path": "evidence/v071-menu-table/runs/1200/DiceCraftTests_5d63671836f44740b9b61a8a8df9b50d/active-run.json",
+      "mode": "100644",
+      "gitBlobOid": "b3a6d2a4271419dd582cef80d45db6aadf76d579",
+      "bytes": 23651,
+      "sha256": "712f1f93809de42bf6b5b5e5cc955cc7f868c45c03efb2d0c8cd64cde7a1dd99"
+    },
+    {
+      "path": "evidence/v071-menu-table/runs/1200/DiceCraftTests_5d63671836f44740b9b61a8a8df9b50d/extra-capture/000-table-menu-font100.png.json",
+      "mode": "100644",
+      "gitBlobOid": "b1c5e474ab51d887492726ca27dc09f2e5634cb0",
+      "bytes": 4865,
+      "sha256": "6bba7ddfbbdce2ee0f35f4a1d4ea833acbf60f4bde9cef78137bf202f277a40f"
+    },
+    {
+      "path": "evidence/v071-menu-table/runs/1200/DiceCraftTests_5d63671836f44740b9b61a8a8df9b50d/extra-capture/001-table-menu-font150.png.json",
+      "mode": "100644",
+      "gitBlobOid": "e09d0e2345d4618d10162a409b85bc8a5eae968f",
+      "bytes": 4864,
+      "sha256": "bc6b25eee85841b59e4215e2d2ae3387f300a678285d6534086ae3e587e9f814"
+    },
+    {
+      "path": "evidence/v071-menu-table/runs/1200/DiceCraftTests_5d63671836f44740b9b61a8a8df9b50d/extra-capture/002-table-new-run-font150.png.json",
+      "mode": "100644",
+      "gitBlobOid": "5bed92cd387bab9ec85125df5783d2d6e46adcf6",
+      "bytes": 3531,
+      "sha256": "642466c3b9545385e72e6257a4dcb9fff9ef5e3c463b6f113c37f4adaddcee69"
+    },
+    {
+      "path": "evidence/v071-menu-table/runs/1200/DiceCraftTests_5d63671836f44740b9b61a8a8df9b50d/extra-capture/003-table-selecting-font150.png.json",
+      "mode": "100644",
+      "gitBlobOid": "fabb3a87b4472bd12a9a9eec2aa924d8e86b861e",
+      "bytes": 5683,
+      "sha256": "145f1b75bd25d12032d81eddf4d12c9ac5d2deee077ecddfbc3d9c2e6b425a79"
+    },
+    {
+      "path": "evidence/v071-menu-table/runs/1200/DiceCraftTests_5d63671836f44740b9b61a8a8df9b50d/extra-capture/004-table-dice-detail-font150.png.json",
+      "mode": "100644",
+      "gitBlobOid": "ac4666b562b3a5a098286552caa388a44577509d",
+      "bytes": 10490,
+      "sha256": "3d2c1024a0cfe92e80edab4829f1fcc9d1659313bb2800c7a46cc66375e80887"
+    },
+    {
+      "path": "evidence/v071-menu-table/runs/1200/DiceCraftTests_5d63671836f44740b9b61a8a8df9b50d/extra-capture/005-table-saved-menu-font150.png.json",
+      "mode": "100644",
+      "gitBlobOid": "b442466f11c239d5f1077e263d7d7f86dacb0439",
+      "bytes": 5082,
+      "sha256": "5a17503817685af56d696f5656d59da54b5c4cf8f8ad07497f4c5c627f7a06c0"
+    },
+    {
+      "path": "evidence/v071-menu-table/runs/1200/DiceCraftTests_5d63671836f44740b9b61a8a8df9b50d/extra-capture/extra-report.json",
+      "mode": "100644",
+      "gitBlobOid": "40810b5f2929a325a329dce91b5b7ef60389e1bb",
+      "bytes": 53876,
+      "sha256": "071f04a07cf961f23ddea2f93bbaed3906cdade3c066d532075212c312501adf"
+    },
+    {
+      "path": "evidence/v071-menu-table/runs/1200/DiceCraftTests_5d63671836f44740b9b61a8a8df9b50d/extra-capture/source-snapshot.sha256",
+      "mode": "100644",
+      "gitBlobOid": "5e09d2d486d316a9f7516267c34443e411245d9a",
+      "bytes": 31437,
+      "sha256": "7b6a84e421d1403b55760ea8a18f98c820b3c5dc79251292c013071f3bd9b75e"
+    },
+    {
+      "path": "evidence/v071-menu-table/runs/1200/DiceCraftTests_5d63671836f44740b9b61a8a8df9b50d/extra-capture/table-menu-font100-glyphs.json",
+      "mode": "100644",
+      "gitBlobOid": "586883621cf8a15414fa9106487d77e3390342e4",
+      "bytes": 13243,
+      "sha256": "a0716de2d6865de8fa7b1669668afddb58ae382a5c5e62f1e6406d912c6f9d0c"
+    },
+    {
+      "path": "evidence/v071-menu-table/runs/1200/DiceCraftTests_5d63671836f44740b9b61a8a8df9b50d/extra-capture/table-menu-font150-glyphs.json",
+      "mode": "100644",
+      "gitBlobOid": "9d3c9d896b88aff1fe332deeced98997b016e59d",
+      "bytes": 13156,
+      "sha256": "02cbbbab69526e0e7ec9d54b1f740b81e1a4ee21da369d543401627a19fad26e"
+    },
+    {
+      "path": "evidence/v071-menu-table/runs/1200/DiceCraftTests_5d63671836f44740b9b61a8a8df9b50d/extra-capture/table-saved-menu-font150-glyphs.json",
+      "mode": "100644",
+      "gitBlobOid": "b3854679b4345a33a5f866d5541a3defcb71883e",
+      "bytes": 13301,
+      "sha256": "43724c87c7641ac8030975d54d59234efc913579b85b8b75c4ec6092dd47a8fc"
+    },
+    {
+      "path": "evidence/v071-menu-table/runs/1200/DiceCraftTests_cdebb93a35ad449fa0479791ad8f6f1e/extra-capture/extra-report.json",
+      "mode": "100644",
+      "gitBlobOid": "c78213413682a735c0b1fe21e5e84cfb770e80bd",
+      "bytes": 8973,
+      "sha256": "bc7d2f454c294006662b165fc9721926c752c3de0e8ce76b14437ee1dc078e74"
+    },
+    {
+      "path": "evidence/v071-menu-table/runs/1200/DiceCraftTests_cdebb93a35ad449fa0479791ad8f6f1e/extra-capture/source-snapshot.sha256",
+      "mode": "100644",
+      "gitBlobOid": "5e09d2d486d316a9f7516267c34443e411245d9a",
+      "bytes": 31437,
+      "sha256": "7b6a84e421d1403b55760ea8a18f98c820b3c5dc79251292c013071f3bd9b75e"
+    },
+    {
+      "path": "evidence/v071-menu-table/runs/1200/DiceCraftTests_cdebb93a35ad449fa0479791ad8f6f1e/extra-capture/table-world-gpu.json",
+      "mode": "100644",
+      "gitBlobOid": "0b797dbae227a7d422d9c9e35b6373a7ea914570",
+      "bytes": 97494,
+      "sha256": "ff7a18c233a13c33008e7a8bb7d00f0e5137d53f64b3403def0f79d9f47e3642"
+    },
+    {
+      "path": "evidence/v071-menu-table/runs/1200/execution.json",
+      "mode": "100644",
+      "gitBlobOid": "1d2fb3cafde7a0039d68bb1bf1fdb77308bd9335",
+      "bytes": 767,
+      "sha256": "61770b7b762185b65a287bf795f5dcb4876d06275ecadcb5393271a87637c7c0"
+    },
+    {
+      "path": "evidence/v071-menu-table/runs/720/DiceCraftTests_388bbeaa912f4ba989583dc844b2e635/active-run.json",
+      "mode": "100644",
+      "gitBlobOid": "9b0d81c646b952ce6c79f3e497f7d50c2f918b82",
+      "bytes": 23651,
+      "sha256": "5ac0277eab7397cef2e8bc7f35dd4fc2e759bc968ea485dfa9a2c799f47e9090"
+    },
+    {
+      "path": "evidence/v071-menu-table/runs/720/DiceCraftTests_388bbeaa912f4ba989583dc844b2e635/extra-capture/000-table-menu-font100.png.json",
+      "mode": "100644",
+      "gitBlobOid": "fcebb704b872d6ed1199b5374dcb4f0b3cee00fe",
+      "bytes": 5401,
+      "sha256": "424c1fb2eed8109726450099e158f6621e977e42289dcfcd48bb3d90ef0fa3c9"
+    },
+    {
+      "path": "evidence/v071-menu-table/runs/720/DiceCraftTests_388bbeaa912f4ba989583dc844b2e635/extra-capture/001-table-menu-font150.png.json",
+      "mode": "100644",
+      "gitBlobOid": "10efb22a5e61b07947a724fbf5a8af9af03b236a",
+      "bytes": 5401,
+      "sha256": "b945e1871b51974a2f32e9974a8bfc6847d5d89b445b9e3e2f06c58b6a1febd0"
+    },
+    {
+      "path": "evidence/v071-menu-table/runs/720/DiceCraftTests_388bbeaa912f4ba989583dc844b2e635/extra-capture/002-table-new-run-font150.png.json",
+      "mode": "100644",
+      "gitBlobOid": "201117ab1f1a0b8aa97c85669b96abd9fb115bf6",
+      "bytes": 3766,
+      "sha256": "171e8ef19c43b21d0a0100ef82f391ad8d72d4c5200d0aa2ff9b1e9e01659c03"
+    },
+    {
+      "path": "evidence/v071-menu-table/runs/720/DiceCraftTests_388bbeaa912f4ba989583dc844b2e635/extra-capture/003-table-selecting-font150.png.json",
+      "mode": "100644",
+      "gitBlobOid": "a6e9d13f39e831c49add7afb3447a2a9966bb783",
+      "bytes": 5709,
+      "sha256": "663d789eff44104b10f433628739cadac6036acaf3061f7a83b6cddb8c0fefb8"
+    },
+    {
+      "path": "evidence/v071-menu-table/runs/720/DiceCraftTests_388bbeaa912f4ba989583dc844b2e635/extra-capture/004-table-dice-detail-font150.png.json",
+      "mode": "100644",
+      "gitBlobOid": "0d32bd251f3a1e214ca5c9a8f415868c3c6ff972",
+      "bytes": 11583,
+      "sha256": "72176cd3f5155bdb97470fa474556869b261312ca91da272b24c326e08d7cfb7"
+    },
+    {
+      "path": "evidence/v071-menu-table/runs/720/DiceCraftTests_388bbeaa912f4ba989583dc844b2e635/extra-capture/005-table-saved-menu-font150.png.json",
+      "mode": "100644",
+      "gitBlobOid": "114e1e6f8d9feb049f2cb4196a390a9ca9a37e98",
+      "bytes": 5618,
+      "sha256": "7d8c9ab5a04a1a02f9cf3a6961cc22318a3c70257e4ae97043f3bcb2ea787f71"
+    },
+    {
+      "path": "evidence/v071-menu-table/runs/720/DiceCraftTests_388bbeaa912f4ba989583dc844b2e635/extra-capture/extra-report.json",
+      "mode": "100644",
+      "gitBlobOid": "72ec89899278cb30eb97b153be818da6001034aa",
+      "bytes": 56839,
+      "sha256": "43261e164218403d3cdac24286046751528a442f5efe668a08c4f01f2cb7af6c"
+    },
+    {
+      "path": "evidence/v071-menu-table/runs/720/DiceCraftTests_388bbeaa912f4ba989583dc844b2e635/extra-capture/source-snapshot.sha256",
+      "mode": "100644",
+      "gitBlobOid": "5e09d2d486d316a9f7516267c34443e411245d9a",
+      "bytes": 31437,
+      "sha256": "7b6a84e421d1403b55760ea8a18f98c820b3c5dc79251292c013071f3bd9b75e"
+    },
+    {
+      "path": "evidence/v071-menu-table/runs/720/DiceCraftTests_388bbeaa912f4ba989583dc844b2e635/extra-capture/table-menu-font100-glyphs.json",
+      "mode": "100644",
+      "gitBlobOid": "30f10f1b8343a9be6ca7cabcf1e51204cc6f43ac",
+      "bytes": 13390,
+      "sha256": "2994aff9318dbb80b91e41dc0583796d86bfff58a5eb469092140d86c8234d77"
+    },
+    {
+      "path": "evidence/v071-menu-table/runs/720/DiceCraftTests_388bbeaa912f4ba989583dc844b2e635/extra-capture/table-menu-font150-glyphs.json",
+      "mode": "100644",
+      "gitBlobOid": "9bfb9231e9f6ee3dea817fd783c783fa56f31250",
+      "bytes": 13318,
+      "sha256": "aa1926b291d6957034c1b26aa4c6c78c51f0712762ab6dc9ba20f32e98c2d892"
+    },
+    {
+      "path": "evidence/v071-menu-table/runs/720/DiceCraftTests_388bbeaa912f4ba989583dc844b2e635/extra-capture/table-saved-menu-font150-glyphs.json",
+      "mode": "100644",
+      "gitBlobOid": "525db80208fe635c7d009d11ce7b124abb97705d",
+      "bytes": 13456,
+      "sha256": "aa4fa00b21ca1f52e377605a923af80026fb54e8abbced65669285b5425b69e1"
+    },
+    {
+      "path": "evidence/v071-menu-table/runs/720/DiceCraftTests_b3ff03cb4cbc4de9add4dc79ccd5901f/extra-capture/extra-report.json",
+      "mode": "100644",
+      "gitBlobOid": "929c057ca608c412b187415bb6549709c358a90e",
+      "bytes": 8973,
+      "sha256": "a8d1f7132d52741f8a372e4171f55cee9fab3f5f463b0e5e1093f2aad0d37ae7"
+    },
+    {
+      "path": "evidence/v071-menu-table/runs/720/DiceCraftTests_b3ff03cb4cbc4de9add4dc79ccd5901f/extra-capture/source-snapshot.sha256",
+      "mode": "100644",
+      "gitBlobOid": "5e09d2d486d316a9f7516267c34443e411245d9a",
+      "bytes": 31437,
+      "sha256": "7b6a84e421d1403b55760ea8a18f98c820b3c5dc79251292c013071f3bd9b75e"
+    },
+    {
+      "path": "evidence/v071-menu-table/runs/720/DiceCraftTests_b3ff03cb4cbc4de9add4dc79ccd5901f/extra-capture/table-world-gpu.json",
+      "mode": "100644",
+      "gitBlobOid": "db683b837ff005200923102f68de8645d7d2e541",
+      "bytes": 97455,
+      "sha256": "1bcf33e4ec3aae9b4cf7fee6df3016874820673acadd7f89659c93a182a1cb29"
+    },
+    {
+      "path": "evidence/v071-menu-table/runs/720/DiceCraftTests_b5d5836eddd34523b91851270fbfac0b/active-run.json",
+      "mode": "100644",
+      "gitBlobOid": "ccf410869c7dacd12571ccc5df1da8b10c53e76e",
+      "bytes": 11850,
+      "sha256": "85057d88eb4ca7cf443236eca6f77c1a05fb90832d875f076809f78428a2a179"
+    },
+    {
+      "path": "evidence/v071-menu-table/runs/720/DiceCraftTests_b5d5836eddd34523b91851270fbfac0b/extra-capture/000-table-menu-empty.png.json",
+      "mode": "100644",
+      "gitBlobOid": "f6ac0c75bb1ea5c8a871eb138d21ea53d544083f",
+      "bytes": 5387,
+      "sha256": "d2715c092f1d39e51528f647206ffbd3e6393ca02ef89f3794e830de5f6eff18"
+    },
+    {
+      "path": "evidence/v071-menu-table/runs/720/DiceCraftTests_b5d5836eddd34523b91851270fbfac0b/extra-capture/001-table-menu-saved.png.json",
+      "mode": "100644",
+      "gitBlobOid": "3f04435122508f3337bd165b44373ed2f79b5e04",
+      "bytes": 5624,
+      "sha256": "d7852e6b6ec7fa1b9b55eacbef582569d93605cd19390ac8a0c26bf2bec8165e"
+    },
+    {
+      "path": "evidence/v071-menu-table/runs/720/DiceCraftTests_b5d5836eddd34523b91851270fbfac0b/extra-capture/extra-report.json",
+      "mode": "100644",
+      "gitBlobOid": "c75680ff648e3ef2d5387d64339687412febc287",
+      "bytes": 23786,
+      "sha256": "67b3dd55a535801940ab0859d70741b63c9c6f4887052197b3b738f2d08d02d2"
+    },
+    {
+      "path": "evidence/v071-menu-table/runs/720/DiceCraftTests_b5d5836eddd34523b91851270fbfac0b/extra-capture/source-snapshot.sha256",
+      "mode": "100644",
+      "gitBlobOid": "5e09d2d486d316a9f7516267c34443e411245d9a",
+      "bytes": 31437,
+      "sha256": "7b6a84e421d1403b55760ea8a18f98c820b3c5dc79251292c013071f3bd9b75e"
+    },
+    {
+      "path": "evidence/v071-menu-table/runs/720/execution.json",
+      "mode": "100644",
+      "gitBlobOid": "0574528b0e8c1df6a0f8f7bb083e5ec24953aa56",
+      "bytes": 766,
+      "sha256": "d050aa9680c957739a561646ea378eaee36e683483404d809bdcedb49eec6e6b"
+    },
+    {
+      "path": "evidence/v071-menu-table/spacing/editor-restoration.json",
+      "mode": "100644",
+      "gitBlobOid": "f4dd2226ba92de95f5205304dc374ab4e80d15fe",
+      "bytes": 2131,
+      "sha256": "f48d635324e736c338aa4e4a8f718504a1e9e5f51d20573577107b3b34696c72"
+    },
+    {
+      "path": "evidence/v071-menu-table/spacing/failures/first-glyph-overflow/table-menu-font100-glyphs.json",
+      "mode": "100644",
+      "gitBlobOid": "54cdc2a0bd048758df5e353ad255dbe5d7902106",
+      "bytes": 13233,
+      "sha256": "8463981995bf53ddb62987c454e2d3551a100c7d12cc210aa06bd5f08dc772a9"
+    },
+    {
+      "path": "evidence/v071-menu-table/spacing/failures/first-glyph-overflow/table-menu-font150-glyphs.json",
+      "mode": "100644",
+      "gitBlobOid": "f393d07007ecb1a83cb0ab4bee9623fac8604c80",
+      "bytes": 13365,
+      "sha256": "d6270ccd61f3b1edec24ee677e25fd6d47807a4b5dceb02c4e14752e6bbd1010"
+    },
+    {
+      "path": "evidence/v071-menu-table/spacing/failures/saved-summary-overflow/table-menu-font100-glyphs.json",
+      "mode": "100644",
+      "gitBlobOid": "a52d58641faa1be69a997bba9cc021296f8abb92",
+      "bytes": 13242,
+      "sha256": "856a0febfc322ed7f0ea66496f08dcc94d3365d0322d6c6a8ff3a58e87b31a43"
+    },
+    {
+      "path": "evidence/v071-menu-table/spacing/failures/saved-summary-overflow/table-menu-font150-glyphs.json",
+      "mode": "100644",
+      "gitBlobOid": "380cfbf6042e41fb991751c67a8a9aaf140a0b6d",
+      "bytes": 13155,
+      "sha256": "341b856b41f74c289794d6ea89e8800f63d439a68ef9991a054fb0ba989383cb"
+    },
+    {
+      "path": "evidence/v071-menu-table/spacing/failures/saved-summary-overflow/table-saved-menu-font150-glyphs.json",
+      "mode": "100644",
+      "gitBlobOid": "f1d885a0a4016788239820b4935d39965995f440",
+      "bytes": 13406,
+      "sha256": "d783b245b4f5bd247688ce55abc21344e4e6c67f0ddaaf99205fdd6b1ff8b250"
+    },
+    {
+      "path": "evidence/v071-menu-table/spacing/images/1080-000-table-menu-font100.png",
+      "mode": "100644",
+      "gitBlobOid": "8a69556ddd3794eec6e0ffc4f415ffd3aaf9c683",
+      "bytes": 1983850,
+      "sha256": "158e6f0d8ace1e27f91fab3fffa12511b63e8ac632e2324ceef47c6cd187e2cd"
+    },
+    {
+      "path": "evidence/v071-menu-table/spacing/images/1080-001-table-menu-font150.png",
+      "mode": "100644",
+      "gitBlobOid": "51090b7e9791c43946e4bd8a0a471b8ba91f17fe",
+      "bytes": 2009043,
+      "sha256": "f34d5427da3d1f287c84f75958117a70fde78c079186362fe4fdd8065e60195f"
+    },
+    {
+      "path": "evidence/v071-menu-table/spacing/images/1080-003-table-selecting-font150.png",
+      "mode": "100644",
+      "gitBlobOid": "6b4996a3bf93b56b73b96898a63ef66e4926d3b5",
+      "bytes": 1857801,
+      "sha256": "776bde6ab72596201340c6b9998b333844cf3a430902fdad26f9a8ac7895d260"
+    },
+    {
+      "path": "evidence/v071-menu-table/spacing/images/1080-004-table-dice-detail-font150.png",
+      "mode": "100644",
+      "gitBlobOid": "d8c57d6ecad4e0020f7bf4c2c08d15c4be71587c",
+      "bytes": 1545778,
+      "sha256": "1a086a419a6b2f9953e8361d9adc8fb05195189a00fec94736b53ef18e5e6039"
+    },
+    {
+      "path": "evidence/v071-menu-table/spacing/images/1080-005-table-saved-menu-font150.png",
+      "mode": "100644",
+      "gitBlobOid": "88aee3f36a814400c76a017077966475ed2402a3",
+      "bytes": 2013064,
+      "sha256": "57d15a428075599c55093e60ac259d6cdd8173269313a14b9d7226da085cb868"
+    },
+    {
+      "path": "evidence/v071-menu-table/spacing/images/1200-001-table-menu-font150.png",
+      "mode": "100644",
+      "gitBlobOid": "7b427706c3d51ae9cc360b7afc7a3685374142af",
+      "bytes": 2001120,
+      "sha256": "8d34fc7a80851e9e0aeb2e9cb4ff4a7944cdea8402be61f14daede8341034432"
+    },
+    {
+      "path": "evidence/v071-menu-table/spacing/images/1200-003-table-selecting-font150.png",
+      "mode": "100644",
+      "gitBlobOid": "c88ab294cdfe2f08ffaf6d7eda6b370fb93dee7e",
+      "bytes": 1850574,
+      "sha256": "ec6bc285a7b27ab177efccef3f89588e147a324befff3d6c67e8cae5ed6fbf9b"
+    },
+    {
+      "path": "evidence/v071-menu-table/spacing/images/720-001-table-menu-font150.png",
+      "mode": "100644",
+      "gitBlobOid": "0e0f8c1e8730dbe12d5a771e0642029f86459e52",
+      "bytes": 1013821,
+      "sha256": "f57206b4444eeb93e13edf98a724209a648e261af2b0b13de9b00ec9822b0388"
+    },
+    {
+      "path": "evidence/v071-menu-table/spacing/images/720-003-table-selecting-font150.png",
+      "mode": "100644",
+      "gitBlobOid": "879f09a2bad8df69cfabc5bd7a65a0b0f07c0920",
+      "bytes": 1047187,
+      "sha256": "1376dad7437a58052f7881d40a3224cd4d15c35ab2624f249f25481083651c6c"
+    },
+    {
+      "path": "evidence/v071-menu-table/spacing/manifest.json",
+      "mode": "100644",
+      "gitBlobOid": "bedb7d2c30fa3d0ab0531dfa44858b0f92099e4e",
+      "bytes": 24900,
+      "sha256": "3ca8aa892598de02dcc09975d8573db05f1ade652526484a89856d285d9f4cdc"
+    },
+    {
+      "path": "evidence/v071-menu-table/spacing/python-tests.txt",
+      "mode": "100644",
+      "gitBlobOid": "976b1c858ad528af7a7275f863c94d8355e25788",
+      "bytes": 8306,
+      "sha256": "d225bdb34bba111fdac4cf7ccdc2c2c489d24cc769b5e0e0b7f325720d1ac264"
+    },
+    {
+      "path": "evidence/v071-menu-table/spacing/runs/1080/DiceCraftTests_2f658bb47c444262aa639b0cb57c1ff3/active-run.json",
+      "mode": "100644",
+      "gitBlobOid": "19324e8f2ae433b88b8cb75347e605e59dbf3fe8",
+      "bytes": 23651,
+      "sha256": "f60836fc7b01b8278b8d0a63be00c36a6194030f2c54ae9c660ff6bf23e4df82"
+    },
+    {
+      "path": "evidence/v071-menu-table/spacing/runs/1080/DiceCraftTests_2f658bb47c444262aa639b0cb57c1ff3/extra-capture/000-table-menu-font100.png.json",
+      "mode": "100644",
+      "gitBlobOid": "d36da6f23f6c7a25fda932aa1cb1b3329038c922",
+      "bytes": 4865,
+      "sha256": "fc61af940238acaa2c634495401aef389c11a508262ace03016485cb637aae1a"
+    },
+    {
+      "path": "evidence/v071-menu-table/spacing/runs/1080/DiceCraftTests_2f658bb47c444262aa639b0cb57c1ff3/extra-capture/001-table-menu-font150.png.json",
+      "mode": "100644",
+      "gitBlobOid": "502adddd0d401b02baa65cf77fb1780898ed984c",
+      "bytes": 4865,
+      "sha256": "4aa2792009d01af277676a94d45bf1a3e87db681328b6bf80f51f9a8f641b301"
+    },
+    {
+      "path": "evidence/v071-menu-table/spacing/runs/1080/DiceCraftTests_2f658bb47c444262aa639b0cb57c1ff3/extra-capture/002-table-new-run-font150.png.json",
+      "mode": "100644",
+      "gitBlobOid": "82e2ac2a8edf461cf545cc62de6470b859c1c945",
+      "bytes": 3530,
+      "sha256": "e2c59c5f9879f7d41cdb643469b334f5244e41e854adfc6f1ea6e574d9a56dbe"
+    },
+    {
+      "path": "evidence/v071-menu-table/spacing/runs/1080/DiceCraftTests_2f658bb47c444262aa639b0cb57c1ff3/extra-capture/003-table-selecting-font150.png.json",
+      "mode": "100644",
+      "gitBlobOid": "f1042e0d129ee2421d196af51da27778118c497c",
+      "bytes": 5671,
+      "sha256": "f34fb24cb68ab0305dd554cf3121b685385885e924ae90fe5384e09a8f006ad1"
+    },
+    {
+      "path": "evidence/v071-menu-table/spacing/runs/1080/DiceCraftTests_2f658bb47c444262aa639b0cb57c1ff3/extra-capture/004-table-dice-detail-font150.png.json",
+      "mode": "100644",
+      "gitBlobOid": "1fd338332806dd32dce912333c6fd510587aebe1",
+      "bytes": 10490,
+      "sha256": "f6b3b5d405c7a784670be67665bfe2b3ffcbbeab33ed485772dc79d8ef0eb080"
+    },
+    {
+      "path": "evidence/v071-menu-table/spacing/runs/1080/DiceCraftTests_2f658bb47c444262aa639b0cb57c1ff3/extra-capture/005-table-saved-menu-font150.png.json",
+      "mode": "100644",
+      "gitBlobOid": "d21267371043e65cab32cd84a3f146278ae15d44",
+      "bytes": 5082,
+      "sha256": "b0da3b567c4409e94937bc24aaaa02b19d4f4aea22bf0f6be0959954835c4e81"
+    },
+    {
+      "path": "evidence/v071-menu-table/spacing/runs/1080/DiceCraftTests_2f658bb47c444262aa639b0cb57c1ff3/extra-capture/extra-report.json",
+      "mode": "100644",
+      "gitBlobOid": "fcb2328cc6d9de74e657c07889b06d597be0cb33",
+      "bytes": 53864,
+      "sha256": "f5f2a7801d94266b9743e96505d888c9705d706e653e7d62ec14039892d56e2f"
+    },
+    {
+      "path": "evidence/v071-menu-table/spacing/runs/1080/DiceCraftTests_2f658bb47c444262aa639b0cb57c1ff3/extra-capture/source-snapshot.sha256",
+      "mode": "100644",
+      "gitBlobOid": "0f14e1f82b7041906086d568b9f749ebd3ac074b",
+      "bytes": 31437,
+      "sha256": "de1f052956e69a191c7e74cfa2deb2e668528839b584dcd9a3acba33f79371ca"
+    },
+    {
+      "path": "evidence/v071-menu-table/spacing/runs/1080/DiceCraftTests_2f658bb47c444262aa639b0cb57c1ff3/extra-capture/table-menu-font100-glyphs.json",
+      "mode": "100644",
+      "gitBlobOid": "65801fcfe5d3119fde517dadd26f37880bf1e506",
+      "bytes": 13243,
+      "sha256": "470a673ace56471f0715df34990410d3213553185a5c3cad356e3b22f0597b24"
+    },
+    {
+      "path": "evidence/v071-menu-table/spacing/runs/1080/DiceCraftTests_2f658bb47c444262aa639b0cb57c1ff3/extra-capture/table-menu-font150-glyphs.json",
+      "mode": "100644",
+      "gitBlobOid": "2e6001c694a78434a605ebcb2b3bcdf2216899cd",
+      "bytes": 13156,
+      "sha256": "859654b8ae69ff42b30cf58b95ef2b40ce94a26c9327b63abd5bec2911db50a0"
+    },
+    {
+      "path": "evidence/v071-menu-table/spacing/runs/1080/DiceCraftTests_2f658bb47c444262aa639b0cb57c1ff3/extra-capture/table-saved-menu-font150-glyphs.json",
+      "mode": "100644",
+      "gitBlobOid": "162beaca96e001536912499cf2816253f74090d0",
+      "bytes": 13301,
+      "sha256": "d6f28df0228f77ac29cced129f2dc59911984af49ef5554c996156caeedb90a2"
+    },
+    {
+      "path": "evidence/v071-menu-table/spacing/runs/1080/execution.json",
+      "mode": "100644",
+      "gitBlobOid": "24c16c58a9c85357b8f9969c1692a745d44c1ba0",
+      "bytes": 539,
+      "sha256": "13f618f97d0b8132d59c04d1d09d7742e2181523d5e6196ccd91700975a00cd6"
+    },
+    {
+      "path": "evidence/v071-menu-table/spacing/runs/1200/DiceCraftTests_d4ae3444c5a9464f8feb64e1ba2dc88c/active-run.json",
+      "mode": "100644",
+      "gitBlobOid": "3249ade08ae5d0656230bea52c9bb2d6cff725ce",
+      "bytes": 23651,
+      "sha256": "0b3e67f190cf32383bfae4549559eedb6ed311dad5841696e65baca412fe5aed"
+    },
+    {
+      "path": "evidence/v071-menu-table/spacing/runs/1200/DiceCraftTests_d4ae3444c5a9464f8feb64e1ba2dc88c/extra-capture/000-table-menu-font100.png.json",
+      "mode": "100644",
+      "gitBlobOid": "b28965bc5abb08d075b7d34556124d2f70a46264",
+      "bytes": 4865,
+      "sha256": "958a80491155aed4d57baf457cf092be039fd3171aecb72c439aacd804c8862e"
+    },
+    {
+      "path": "evidence/v071-menu-table/spacing/runs/1200/DiceCraftTests_d4ae3444c5a9464f8feb64e1ba2dc88c/extra-capture/001-table-menu-font150.png.json",
+      "mode": "100644",
+      "gitBlobOid": "94e5b662432f271ffe243370cd5b4482e0f818ff",
+      "bytes": 4864,
+      "sha256": "1a3cbb3358329d93865c2600e7bb7a10a1324dc4fe50cefd715a3f4f7d5327eb"
+    },
+    {
+      "path": "evidence/v071-menu-table/spacing/runs/1200/DiceCraftTests_d4ae3444c5a9464f8feb64e1ba2dc88c/extra-capture/002-table-new-run-font150.png.json",
+      "mode": "100644",
+      "gitBlobOid": "7f1dff8de2ac94a18de3eeffdf91f1c45af813ae",
+      "bytes": 3531,
+      "sha256": "5132e5c07a974e89b6be314174ddc66046c226a899a1d20dcb731d80df0b33b4"
+    },
+    {
+      "path": "evidence/v071-menu-table/spacing/runs/1200/DiceCraftTests_d4ae3444c5a9464f8feb64e1ba2dc88c/extra-capture/003-table-selecting-font150.png.json",
+      "mode": "100644",
+      "gitBlobOid": "8065af8a8c9561eb21c8f3b479fb0c01dd1066d3",
+      "bytes": 5683,
+      "sha256": "7a781a9ca17cad137a0c96759efebe07b68a07eb7c76a9156a2735313f0a7a3b"
+    },
+    {
+      "path": "evidence/v071-menu-table/spacing/runs/1200/DiceCraftTests_d4ae3444c5a9464f8feb64e1ba2dc88c/extra-capture/004-table-dice-detail-font150.png.json",
+      "mode": "100644",
+      "gitBlobOid": "e6bc028768c7d483caef40ae685ccf2e586c813e",
+      "bytes": 10490,
+      "sha256": "9fb51c4dcde63acc90b6c31bcf22c02f8f5523f0206c7309024fee9097f9f31a"
+    },
+    {
+      "path": "evidence/v071-menu-table/spacing/runs/1200/DiceCraftTests_d4ae3444c5a9464f8feb64e1ba2dc88c/extra-capture/005-table-saved-menu-font150.png.json",
+      "mode": "100644",
+      "gitBlobOid": "47fea637ccfd6e5bde2ff263c290040ef75139b8",
+      "bytes": 5082,
+      "sha256": "6bc4ce0a774c294dd66f03f03ea9a45a6dc8df66897f9ef722ac5940ef50e819"
+    },
+    {
+      "path": "evidence/v071-menu-table/spacing/runs/1200/DiceCraftTests_d4ae3444c5a9464f8feb64e1ba2dc88c/extra-capture/extra-report.json",
+      "mode": "100644",
+      "gitBlobOid": "299b0d51cdfcc2330c9abdf1d291d175f98dfbe4",
+      "bytes": 53876,
+      "sha256": "c3325d765bfc87517b2920e273cd46c943f89ee1d955255013b4c73ec41b58ab"
+    },
+    {
+      "path": "evidence/v071-menu-table/spacing/runs/1200/DiceCraftTests_d4ae3444c5a9464f8feb64e1ba2dc88c/extra-capture/source-snapshot.sha256",
+      "mode": "100644",
+      "gitBlobOid": "0f14e1f82b7041906086d568b9f749ebd3ac074b",
+      "bytes": 31437,
+      "sha256": "de1f052956e69a191c7e74cfa2deb2e668528839b584dcd9a3acba33f79371ca"
+    },
+    {
+      "path": "evidence/v071-menu-table/spacing/runs/1200/DiceCraftTests_d4ae3444c5a9464f8feb64e1ba2dc88c/extra-capture/table-menu-font100-glyphs.json",
+      "mode": "100644",
+      "gitBlobOid": "9400541cf7c5dbbd6152f85720bffc20f79e0023",
+      "bytes": 13243,
+      "sha256": "5ebe5ee8c4121b1ee844ad4bd024bef52897786f26da6fe23bc7c9f4a51e3cca"
+    },
+    {
+      "path": "evidence/v071-menu-table/spacing/runs/1200/DiceCraftTests_d4ae3444c5a9464f8feb64e1ba2dc88c/extra-capture/table-menu-font150-glyphs.json",
+      "mode": "100644",
+      "gitBlobOid": "a9fe31ed65e91686f7532c7bee861ec7d8121dc8",
+      "bytes": 13156,
+      "sha256": "4e137966d63a014df5bff519b24cc617798890b8ec6d9dad75f78370643319cc"
+    },
+    {
+      "path": "evidence/v071-menu-table/spacing/runs/1200/DiceCraftTests_d4ae3444c5a9464f8feb64e1ba2dc88c/extra-capture/table-saved-menu-font150-glyphs.json",
+      "mode": "100644",
+      "gitBlobOid": "b185864cc2bac2efddfaaba1b1d3b939ad1a0bf6",
+      "bytes": 13301,
+      "sha256": "631c5d11a43070cb830a117422a240297336304ef1b8f26d2321d9580eaa79f8"
+    },
+    {
+      "path": "evidence/v071-menu-table/spacing/runs/1200/execution.json",
+      "mode": "100644",
+      "gitBlobOid": "182ef06252baca0b3a605e5501bcc746da48b25a",
+      "bytes": 539,
+      "sha256": "ef519caa0b693dfad491065e6bc94e7843ce3d9b47b4f9d71162b4ac64d30134"
+    },
+    {
+      "path": "evidence/v071-menu-table/spacing/runs/720/DiceCraftTests_a2fa9c69a0ad4d3381e15205e6596d28/active-run.json",
+      "mode": "100644",
+      "gitBlobOid": "1877e28b9764be498053b22c1732f9a6d431a7fa",
+      "bytes": 23651,
+      "sha256": "fa3254fcf191c9cca2e34a19d0a137cd9693dda06a16255a11c32bec032338fb"
+    },
+    {
+      "path": "evidence/v071-menu-table/spacing/runs/720/DiceCraftTests_a2fa9c69a0ad4d3381e15205e6596d28/extra-capture/000-table-menu-font100.png.json",
+      "mode": "100644",
+      "gitBlobOid": "456161ee7ba251512e03f2e085ee0ab8f4a843c5",
+      "bytes": 5401,
+      "sha256": "6bd637e0e71862839b278b2fa86a801139a472fb656d2448c0b852c1c942d173"
+    },
+    {
+      "path": "evidence/v071-menu-table/spacing/runs/720/DiceCraftTests_a2fa9c69a0ad4d3381e15205e6596d28/extra-capture/001-table-menu-font150.png.json",
+      "mode": "100644",
+      "gitBlobOid": "65c1fe31dfbc096dbb31b8170b3cb72adc33444b",
+      "bytes": 5401,
+      "sha256": "71c7514ed212d43fcc339147a8ad1c864c137bfe8407b17699733779bbecf699"
+    },
+    {
+      "path": "evidence/v071-menu-table/spacing/runs/720/DiceCraftTests_a2fa9c69a0ad4d3381e15205e6596d28/extra-capture/002-table-new-run-font150.png.json",
+      "mode": "100644",
+      "gitBlobOid": "273e1028d04557cd986fff27b52337a5c2047f39",
+      "bytes": 3766,
+      "sha256": "b2dab641f5e5f8853f579604255a608dc90585690b4d9afd323f3b8e26298346"
+    },
+    {
+      "path": "evidence/v071-menu-table/spacing/runs/720/DiceCraftTests_a2fa9c69a0ad4d3381e15205e6596d28/extra-capture/003-table-selecting-font150.png.json",
+      "mode": "100644",
+      "gitBlobOid": "c79d9da441ce0c346b2b189c50dc0bfed8af6e06",
+      "bytes": 5709,
+      "sha256": "86b9f9cf49624dcac1703494c00cd463dc48a5fe541f367f9468f551c66fd0c3"
+    },
+    {
+      "path": "evidence/v071-menu-table/spacing/runs/720/DiceCraftTests_a2fa9c69a0ad4d3381e15205e6596d28/extra-capture/004-table-dice-detail-font150.png.json",
+      "mode": "100644",
+      "gitBlobOid": "8a4f408b36d00264e47fec315ed3411405c18539",
+      "bytes": 11583,
+      "sha256": "b5ce4ce7655a0e4c363123b364e969eab5ca94da6fa7cd43a9fd4f0949038747"
+    },
+    {
+      "path": "evidence/v071-menu-table/spacing/runs/720/DiceCraftTests_a2fa9c69a0ad4d3381e15205e6596d28/extra-capture/005-table-saved-menu-font150.png.json",
+      "mode": "100644",
+      "gitBlobOid": "6b981a8980f5fffb12518a690898175445b26fc7",
+      "bytes": 5618,
+      "sha256": "17dcac3ddb9c5034a3e74a692a8e248f1b9b3592a6b3253a2dc679010408d654"
+    },
+    {
+      "path": "evidence/v071-menu-table/spacing/runs/720/DiceCraftTests_a2fa9c69a0ad4d3381e15205e6596d28/extra-capture/extra-report.json",
+      "mode": "100644",
+      "gitBlobOid": "fcb09c8dce7c1fc63a748d2ff7ae0c5066b048d2",
+      "bytes": 56839,
+      "sha256": "2360e1c3a3615baab98ff511f6bf6a3e7375d6cfb1c9c1351a1747bc9ce5a4d2"
+    },
+    {
+      "path": "evidence/v071-menu-table/spacing/runs/720/DiceCraftTests_a2fa9c69a0ad4d3381e15205e6596d28/extra-capture/source-snapshot.sha256",
+      "mode": "100644",
+      "gitBlobOid": "0f14e1f82b7041906086d568b9f749ebd3ac074b",
+      "bytes": 31437,
+      "sha256": "de1f052956e69a191c7e74cfa2deb2e668528839b584dcd9a3acba33f79371ca"
+    },
+    {
+      "path": "evidence/v071-menu-table/spacing/runs/720/DiceCraftTests_a2fa9c69a0ad4d3381e15205e6596d28/extra-capture/table-menu-font100-glyphs.json",
+      "mode": "100644",
+      "gitBlobOid": "a2f4c991eaec9575480c6ea1e4fb731854dd6e7d",
+      "bytes": 13385,
+      "sha256": "e3d2ad1bc85619734001ad1b3969b2c138620bce2046d2d8c3195c8e7357c2e4"
+    },
+    {
+      "path": "evidence/v071-menu-table/spacing/runs/720/DiceCraftTests_a2fa9c69a0ad4d3381e15205e6596d28/extra-capture/table-menu-font150-glyphs.json",
+      "mode": "100644",
+      "gitBlobOid": "77e442c6b50fa0014aef1e915efbb4d4192472ea",
+      "bytes": 13318,
+      "sha256": "2d9a53125b151ef4ef687c726f68f47ad69b9fd80557f4212115a06949f3c071"
+    },
+    {
+      "path": "evidence/v071-menu-table/spacing/runs/720/DiceCraftTests_a2fa9c69a0ad4d3381e15205e6596d28/extra-capture/table-saved-menu-font150-glyphs.json",
+      "mode": "100644",
+      "gitBlobOid": "e0b1a8faed7c15811468a88d3fc3582d38d364e8",
+      "bytes": 13456,
+      "sha256": "612400917c4902fa9fd29a471482a7f5a5421b41893439086ab5adeb66036c10"
+    },
+    {
+      "path": "evidence/v071-menu-table/spacing/runs/720/execution.json",
+      "mode": "100644",
+      "gitBlobOid": "c721d6eba22a5a308300952ac73e7bbb868f1ee1",
+      "bytes": 538,
+      "sha256": "fa288880dd040ddc0c380ad4c3fe86de2a3a6f387ac698fabad11c89556967c0"
+    },
+    {
+      "path": "evidence/v071/unity/nunit-20261110-082158.binding.json",
+      "mode": "100644",
+      "gitBlobOid": "7b96fa858b14d0ff9ce5102e548a90fc88a81eec",
+      "bytes": 757582,
+      "sha256": "c929894a341de3f2f0cbaf325f71f66c496c270997f7aacb7b4210e38d400ee8"
+    },
+    {
+      "path": "evidence/v071/unity/nunit-20261110-082158.xml",
+      "mode": "100644",
+      "gitBlobOid": "d0c8993e3063d3e9e98e1913ab1f2acbd003f8cc",
+      "bytes": 6385,
+      "sha256": "6c38110dc22a5376d9a33ba49bddf9c86b0ef7044a30795e1b4457dc9f1473ea"
+    },
+    {
+      "path": "evidence/v071/unity/nunit-20261110-082548.binding.json",
+      "mode": "100644",
+      "gitBlobOid": "d9482f87bded442f3d77d5f05ca0a4c4c2c150ca",
+      "bytes": 757582,
+      "sha256": "22d13133f6668e5c8bdd7a5952094cd48fc851114a6ec0a1c4bfb59923ab916d"
+    },
+    {
+      "path": "evidence/v071/unity/nunit-20261110-082548.xml",
+      "mode": "100644",
+      "gitBlobOid": "41fcc029f596256bf3af3ab7e6e4805d19a19021",
+      "bytes": 6348,
+      "sha256": "433456e674d6561eef737b3935f96f905395c6f9c1ddfe35bf264b6417c2e154"
+    },
+    {
+      "path": "evidence/v071/unity/nunit-20261110-083705.binding.json",
+      "mode": "100644",
+      "gitBlobOid": "80e578ea7bfe0c8b8f1736aef440ad2a2c4a2b3a",
+      "bytes": 757582,
+      "sha256": "1d3fbce879c9aefd7c61b59c73f1124d1208e3ed820fbd779fb5c86213d2e265"
+    },
+    {
+      "path": "evidence/v071/unity/nunit-20261110-083705.xml",
+      "mode": "100644",
+      "gitBlobOid": "c745426f40189333c5e805f6df89a419652b6f20",
+      "bytes": 14417,
+      "sha256": "b582f485ccdfdbdcc7207a01a71b9b253bef2b09723c8ca2d06c6f62d11658c6"
+    },
+    {
+      "path": "evidence/v071/unity/nunit-20261110-083756.binding.json",
+      "mode": "100644",
+      "gitBlobOid": "8e6ed348b333786de8c3e8926a8a6c748e9e4d43",
+      "bytes": 757582,
+      "sha256": "9eee08141dc4b26369817adecb736626da18968de5ab9208ef20c05dde7c99d8"
+    },
+    {
+      "path": "evidence/v071/unity/nunit-20261110-083756.xml",
+      "mode": "100644",
+      "gitBlobOid": "51d079e0c04f4d89d11af9167388c54ffc3770eb",
+      "bytes": 6037,
+      "sha256": "ad75cd0ee645906c270b80351a1d2ee9aacc282885a0a86e17236e8dc4b1a840"
+    },
+    {
+      "path": "evidence/v071/unity/nunit-20261110-083847.binding.json",
+      "mode": "100644",
+      "gitBlobOid": "b60e7c19b29b08e0798732dcdd920f5eb1791752",
+      "bytes": 757582,
+      "sha256": "adf8766897bba207c8c039cd046e4dae1df78f0a52a3a26705eecafdbd9826c1"
+    },
+    {
+      "path": "evidence/v071/unity/nunit-20261110-083847.xml",
+      "mode": "100644",
+      "gitBlobOid": "1b98563a29bfbd602dc1fbe21a348a682cb9f62c",
+      "bytes": 6037,
+      "sha256": "85522f8c51cc1247afd14aa742b82c947fbb230a2853b9d116dfd95e8a8dee1f"
+    },
+    {
+      "path": "evidence/v071/unity/nunit-20261110-084835.binding.json",
+      "mode": "100644",
+      "gitBlobOid": "e88634735f8f49c5703fec0ae4e710cd98ab84ae",
+      "bytes": 757582,
+      "sha256": "2c287f3fc776ed3b1566c03bbe81932f9ca9d7967bf2ac8b8757d124b18724e1"
+    },
+    {
+      "path": "evidence/v071/unity/nunit-20261110-084835.xml",
+      "mode": "100644",
+      "gitBlobOid": "cda5418f050df36c08208a56554923f8b57146b3",
+      "bytes": 3777,
+      "sha256": "d3a3a6f1e938ba3e26589b99aade69453e3105dc9190be81b7d3ca5412bbda45"
+    },
+    {
+      "path": "evidence/v071/unity/nunit-20261110-084902.binding.json",
+      "mode": "100644",
+      "gitBlobOid": "6c5a043d9989892cff91ce74afd7b7f023ed9310",
+      "bytes": 757582,
+      "sha256": "d4706687dce2afa85b1635bd121bf696261672a0c7f8e4526b30d6b8d058ab60"
+    },
+    {
+      "path": "evidence/v071/unity/nunit-20261110-084902.xml",
+      "mode": "100644",
+      "gitBlobOid": "56eeaab2d20548718cf2cc36a055abc8e0925dd1",
+      "bytes": 3778,
+      "sha256": "ddb3ed26f67811e164d6d6a5c28f9cc91a71119213d84d36f71d4801d3cc0303"
+    },
+    {
+      "path": "evidence/v071/unity/nunit-20261110-084928.binding.json",
+      "mode": "100644",
+      "gitBlobOid": "b1a04ae3f4486df2789a93e52c6bb8dc7d3faaa7",
+      "bytes": 757582,
+      "sha256": "ef6e72556d197f688f381a2687429cad4ab665d2b3cbbd4cca8441d9f6f12bda"
+    },
+    {
+      "path": "evidence/v071/unity/nunit-20261110-084928.xml",
+      "mode": "100644",
+      "gitBlobOid": "367f6f2653401e8c6570cd15ebbcecdbafd67707",
+      "bytes": 3778,
+      "sha256": "7b646ecb85f99237d9068182871a5bc0216adab669c2e924a03326504a0454d3"
+    }
+  ]
+}
