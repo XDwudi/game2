@@ -1,5 +1,26 @@
 # 当前项目状态
 
+## v0.72 高清简约美术试玩版（已发行测试候选 / REVIEW，2026-11-11）
+
+用户 2026-11-11 要求优化整体美术、骰子、卡片、动画与 UI，先出方案与原型再开发，完成后推送源码并发行试玩包。
+最初按“像素、简约”实施，用户看过像素原型后否决（“完全是糊了”），同日改为高清、锐利、简约方向；像素素材与渲染代码已全部删除。
+规格见 [v0.72 方案](specs/v072/ART_SPEC.md)，验收与断言变更见 [任务](tasks/P0-V072-ART.md)。玩法仍为 p0.6.0 / schema4，Core、Config、Golden 未改。
+
+- 产物：`tools/art_v072/build_art.py` 以矢量形状生成 18 个九宫格表面件、字标、卡背、圆点、桌面与毛毡（共 23 个 PNG，可逐字节复现），
+  由 `V072Setup` 按名称重绑到 Bootstrap / ArtStyleLab 与 26 个预制体副本。71 张插画、33 个符号、8 张特效、骰子模型与材质沿用 v0.71。
+  新增卡牌呼吸与指向倾斜、字标浮动、毛毡光带（减少动态时停止）；深色框改为圆角 2 单位边，左栏读数放入内凹条，骰面预览改圆角圆点。
+- 验证：冻结源 `b9c45f1aa67f1dfb0dce70f2f14ecb181c052841`。完整 EditMode 1018/1018（`nunit-20261111-170034`）、PlayMode 185/185（`nunit-20261111-172336`，1920×1080 Game 视图）；
+  PDB 5 程序集 / 203 源 0 差异；门禁 1935 文件。两处断言因美术变更调整并已记录，未删用例、未改阈值。此前 167/185、184/185 的失败报告保留。
+- 构建与包：Windows `build-windows-20261111-172553`，GUID `d7f5f8d368e54749a7d098b026714f27`。`DicePrototype-p0.7.2-win-x64.zip` 198,082,248 B / 306 成员，
+  SHA-256 `074997398ed8dd4f9a94a9218d19e06b38532983d300ffd274cbea20825ed391`。新目录解压后自动巡览 60 步（主菜单→对局→结算→商店→下一关）完成，Player 日志 0 异常；
+  减少动态两帧最大像素差 2。截图在 `evidence/v072/screens/`。
+- 交付：源码分支 [codex/v0.72](https://github.com/XDwudi/game2/tree/codex/v0.72)；预发布 [p0.7.2-rc.1](https://github.com/XDwudi/game2/releases/tag/p0.7.2-rc.1)（release 442002548，标签指向 `c16e3d2`），
+  附件经带凭据完整回读 SHA 一致，收据 `evidence/v072/delivery/github-release.json`。main 与旧发行未动。
+- 未做 / 遗留：1280×720 完整 PlayMode；Windows 帧时间与独占全屏专项（v0.7 起未通过，本版未重测）；macOS 构建、封包与实机；独立复核；人工风格与体验评定；
+  AudioMixer 总线；构建仍带 Development Build 角标。本版没有调用 Blender（骰子模型未改），也没有图像生成工具可用。
+- 环境记录：无界面批处理下 PlayMode 的 `WaitForEndOfFrame` 不触发，完整 PlayMode 必须用带窗口的编辑器；本机会话为管理员，编辑器启动提示由界面自动化点 Ignore Warning 通过，未改系统设置。
+  每次带窗口运行后编辑器会改写 `DiceChineseFallback.asset` 字体缓存，已用 git 恢复为冻结字节。当前无 Unity 进程与文件锁。
+- 下一步：用户下载评定风格与手感；如认可，再补 720p 完整回归与 macOS 包，并处理历史性能 / 独占全屏问题。
 ## v0.71 rc.2 最新界面试玩包（已发行测试候选 / REVIEW，2026-11-10）
 
 用户要求按现有约定打包并提供可试玩版本，延续GitHub附件发行授权。以已上传 `b005e0088b227b26e2f8fc44f1c59f68df0c0a35` 为实际构建源，包含最新Image2主菜单与木沿毛毡桌面；已独立发行 `p0.7.1-rc.2`，保留rc.1、main与历史失败。任务见 [RC2打包](tasks/P0-V071-RC2-PACKAGE.md)。
