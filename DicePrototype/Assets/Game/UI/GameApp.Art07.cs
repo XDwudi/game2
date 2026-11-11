@@ -11,7 +11,7 @@ namespace DiceCraft
     // Presentation only. Coordinates refer to the design root shared by UI and DiceTable.
     public sealed partial class GameApp
     {
-        public const string ArtVersion="art0.7.1";
+        public const string ArtVersion="art0.7.2";
         private int textScale07=100;
         private bool colorAssist07=true, instant07, shake07=true, grain07=true;
         private string draggedDie07;
@@ -50,7 +50,8 @@ namespace DiceCraft
             var brandText=UiKit.Text(brand,"Brand","骰子构筑",12,10,w-48,64,c?30:36,UiKit.Ink);brandText.fontStyle=FontStyles.Bold;
             UiKit.Text(p,"Edition",ViewState.debugWorkspace?"调试对局":"复古印刷骰桌",26,90,w-52,36,18,UiKit.Ink);
             int n=ViewState.stage.stageIndex+1;
-            UiKit.Box(p,"StageRibbon",18,156,w-36,64,UiKit.Danger);
+            var ribbon=UiKit.Box(p,"StageRibbon",18,156,w-36,64,UiKit.Danger).GetComponent<UnityEngine.UI.Image>();
+            ribbon.sprite=UiKit.Template("ui_button_bevel");ribbon.type=ribbon.sprite!=null?UnityEngine.UI.Image.Type.Sliced:UnityEngine.UI.Image.Type.Simple;
             var stageTitle=UiKit.Text(p,"Stage",$"第 {n} 关",18,150,w-36,70,38,UiKit.Paper,TextAlignmentOptions.Center);stageTitle.fontStyle=FontStyles.Bold;
             UiKit.Text(p,"Chapter",$"第 {(n-1)/3+1} 章 · {(n-1)%3+1} / 3",18,224,w-36,40,20,UiKit.Muted);
             Stat07(p,"Target","目标分数",CompactScore(ViewState.stage.target),286,w,UiKit.Red);
@@ -69,7 +70,8 @@ namespace DiceCraft
         }
         private void Stat07(Transform parent,string id,string label,string value,float y,float width,Color color)
         {
-            UiKit.Box(parent,id+"Frame",18,y+108,width-36,1,UiKit.PanelLight);
+            UiKit.Inset(parent,id+"Inset",12,y+2,width-24,114);
+            UiKit.Box(parent,id+"Frame",18,y+108,width-36,1,Color.clear);
             UiKit.Text(parent,id+"Label",label,26,y+10,width-52,34,20,UiKit.Muted);
             var t=UiKit.Text(parent,id,value,26,y+42,width-52,66,value.Length>10?24:textScale07>100?28:id=="StageScore"?44:37,color);
             t.textWrappingMode=TextWrappingModes.NoWrap;t.overflowMode=TextOverflowModes.Ellipsis;
@@ -118,7 +120,7 @@ namespace DiceCraft
             for(int i=0;i<Math.Max(4,shown);i++)
             {
                 float px=x+(i%5)*(cw+gap),py=y+(mini?i/5*(ch+rowGap):0);
-                if(i>=shown){var empty=UiKit.Frame(main,"ControllerEmpty"+i,px,py,cw,ch,Color.Lerp(UiKit.Felt,UiKit.Background,.2f),UiKit.Panel);UiKit.Text(empty,"Capacity","·  ·  ·",8,ch/2-20,cw-16,40,22,UiKit.PanelLight,TextAlignmentOptions.Center);continue;}
+                if(i>=shown){var empty=UiKit.Frame(main,"ControllerEmpty"+i,px,py,cw,ch,Color.Lerp(UiKit.Felt,UiKit.Background,.2f),UiKit.Panel);UiKit.Surface(empty,"ui_slot_inventory");UiKit.Text(empty,"Capacity","·  ·  ·",8,ch/2-20,cw-16,40,22,UiKit.PanelLight,TextAlignmentOptions.Center);continue;}
                 var item=ViewState.controllers[i];DrawController07(main,item,px,py,cw,ch,mini,false);
             }
             if(count>10)
@@ -173,7 +175,7 @@ namespace DiceCraft
             for(int i=0;i<Math.Min(5,ViewState.consumableSlots);i++)
             {
                 float px=x+(i%3)*(size+gap),py=y+36+i/3*(size+12);
-                if(i>=ViewState.inventory.Count){UiKit.Outline(main,"ItemEmpty"+i,px,py,size,size,UiKit.PanelLight);continue;}
+                if(i>=ViewState.inventory.Count){UiKit.Outline(main,"ItemEmpty"+i,px,py,size,size,UiKit.PanelLight,UiKit.EdgeUnit);continue;}
                 var item=ViewState.inventory[i];var b=UiKit.Button(main,"Item_"+item.instanceId,"",px,py,size,size,()=>ShowOwned(item,false),!IsBusy);
                 UiKit.CardSurface(b,true);((UnityEngine.UI.Image)b.targetGraphic).sprite=UiKit.Template("ui_card_item");
                 Icon(b.transform,item.contentId,8,6,size-16);
@@ -218,7 +220,7 @@ namespace DiceCraft
             float sx=poolX+(poolW-columns*(slotW+sgap)+sgap)/2;
             // Screen-space UI is composited over the real 3D dice: the shared tray
             // is an open outline, never an opaque panel that can hide locked dice.
-            UiKit.Outline(main,"LockedTray071",sx-12,sy+30,columns*(slotW+sgap)-sgap+24,(c?2:1)*(slotH+18)+12,UiKit.PanelLight,1);
+            UiKit.Outline(main,"LockedTray071",sx-12,sy+30,columns*(slotW+sgap)-sgap+24,(c?2:1)*(slotH+18)+12,UiKit.PanelLight,UiKit.EdgeUnit);
             for(int j=0;j<slots;j++)
             {
                 int i=j+slotPage*8;float x=sx+j%columns*(slotW+sgap),y=sy+(c?36:36)+j/columns*(slotH+18);

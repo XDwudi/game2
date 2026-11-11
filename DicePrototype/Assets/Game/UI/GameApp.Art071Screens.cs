@@ -16,6 +16,7 @@ namespace DiceCraft
             UiKit.Box(mark,"RegistrationRule",34,24,932,2,UiKit.Ink);
             var title=UiKit.Component<UnityEngine.UI.Image>(UiKit.Rect(main,"Title",166,120,924,174).gameObject);
             title.sprite=UiKit.Template("ui_wordmark_dicecraft");title.preserveAspect=true;title.raycastTarget=false;
+            UiKit.Component<Art072IdleFloat>(title.gameObject).Configure(4,3.2f,0);
             UiKit.Text(main,"Subtitle","把一次投掷，变成你的构筑。",166,298,924,74,25,UiKit.Ink,TextAlignmentOptions.Center);
             UiKit.Text(main,"MenuRules","投掷  →  选择  →  锁定  →  提交",166,382,924,48,21,UiKit.Paper,TextAlignmentOptions.Center);
 

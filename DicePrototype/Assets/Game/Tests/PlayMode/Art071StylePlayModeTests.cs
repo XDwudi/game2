@@ -277,6 +277,11 @@ namespace DiceCraft.Tests
             }
         }
 
+        [TearDown]
+
+        public void RestoreIdleSway072() { Art07ButtonMotion.IdleSway072 = true; }
+
+
         [UnityTest]
         public IEnumerator PLAY_ART071_CompactCardHoverKeepsBottomHitAndClickThenRestoresPooledVisuals()
         {
@@ -286,6 +291,9 @@ namespace DiceCraft.Tests
             Art07Fixtures.Apply(app, Art07FixtureKind.MaximumPool);
             yield return WaitInteractionLayout07();
             Assert.That(UiKit.ReducedMotion, Is.False);
+            // v0.72 adds a slow idle sway to cards (ART_SPEC M1). This case measures that hover returns
+            // every painted child to its authored transform, so it isolates hover from the idle motion.
+            Art07ButtonMotion.IdleSway072 = false;
             var item = app.Session.State.controllers[0];
             var button = Button("Controller_" + item.instanceId);
             var root = (RectTransform)button.transform;

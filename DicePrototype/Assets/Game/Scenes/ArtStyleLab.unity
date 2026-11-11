@@ -270,50 +270,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.InputSystem::UnityEngine.InputSystem.InputActionReference
   m_Asset: {fileID: 440422753}
   m_ActionId: 24908448-c609-4bc3-a128-ea258674378a
---- !u!1 &137952328
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 137952330}
-  - component: {fileID: 137952329}
-  m_Layer: 0
-  m_Name: ArtStyleLab_IsolatedPreview
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &137952329
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 137952328}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 94cad20cff7f7df4eaaf8092b86b517f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: DiceCraft.Runtime::DiceCraft.Art071StyleLab
---- !u!4 &137952330
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 137952328}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &152566309
 GameObject:
   m_ObjectHideFlags: 0
@@ -1346,11 +1302,11 @@ MonoBehaviour:
   - {fileID: 8300000, guid: c766ec2beda94af43832d7241adb01c5, type: 3}
   - {fileID: 8300000, guid: 474e02a3aeeba524fa9a847fb9239710, type: 3}
   art07Templates:
-  - {fileID: 21300000, guid: b1d65a23a8d09994aa432effb6465f2c, type: 3}
-  - {fileID: 21300000, guid: 081f1aaba1732874abe14e9bec9c4b6e, type: 3}
-  - {fileID: 21300000, guid: fe4a66c75a823b24eac8559132e7d1dd, type: 3}
-  - {fileID: 21300000, guid: 4a6c5829b4b650f41999091768309d90, type: 3}
-  - {fileID: 21300000, guid: 9851f2857e020c64faa2c4852fed3866, type: 3}
+  - {fileID: 21300000, guid: 395ed2221213e344e8801953cd561dbf, type: 3}
+  - {fileID: 21300000, guid: b41692cfaeb0eab4e8a7ce3b472895db, type: 3}
+  - {fileID: 21300000, guid: 9f8a1cf5d97ecc642a504df078946903, type: 3}
+  - {fileID: 21300000, guid: b70a3b7af212ec146a23de8900814979, type: 3}
+  - {fileID: 21300000, guid: c3f1a77abd7dc024cbf4accc22c7eacd, type: 3}
   - {fileID: 21300000, guid: 4f407e5f19f9a324e9ea3faa99c12e7b, type: 3}
   - {fileID: 21300000, guid: 8343e8db9ee38fc42a99eab706decf1e, type: 3}
   - {fileID: 21300000, guid: fe5a7aaa604769345bc80438090e857e, type: 3}
@@ -1359,18 +1315,18 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 141cf6d6d159488419e1cb235a1b0e3b, type: 3}
   - {fileID: 21300000, guid: 931afa3fc3e04844cb4578fe23db57ca, type: 3}
   - {fileID: 21300000, guid: da45e4c8254d49946ad3a50994ea427b, type: 3}
-  - {fileID: 21300000, guid: 8f6763bf1e03836459043c9e7bc054c8, type: 3}
-  - {fileID: 21300000, guid: 808b91c50dd1ac54390207c3dc4663ed, type: 3}
-  - {fileID: 21300000, guid: 1c6b4f23848226c4e88e2979672b8bb3, type: 3}
-  - {fileID: 21300000, guid: 482c22adff6c3b24b90cd35c7ece04fb, type: 3}
-  - {fileID: 21300000, guid: a1c72176602a6f6458ce1d721d667815, type: 3}
-  - {fileID: 21300000, guid: 926d5fe2131ceac4aae356c1e0c7c68d, type: 3}
-  - {fileID: 21300000, guid: f31a3a9277f53934bb318ff391c43072, type: 3}
-  - {fileID: 21300000, guid: e5cef3faf3b23ee4bb28849291d87037, type: 3}
-  - {fileID: 21300000, guid: ac1af82e8f3f5434b8583ebe95e8a1ea, type: 3}
-  - {fileID: 21300000, guid: 8bdd9b56077dc6c4c8ff2d5422020744, type: 3}
-  - {fileID: 21300000, guid: 7fa2db127d32e9945b13c890f1e3b27c, type: 3}
-  - {fileID: 21300000, guid: 83934f6b7ae79d240b4938af2add41c1, type: 3}
+  - {fileID: 21300000, guid: e85d9b7ce51e8054ba2d540f6f2ea8a0, type: 3}
+  - {fileID: 21300000, guid: 94aee73fbd2a02343a2cb01eb91d5733, type: 3}
+  - {fileID: 21300000, guid: 799d65f1f6f5ad04cae9af45d076d9f4, type: 3}
+  - {fileID: 21300000, guid: 8ae105df7cd45fc48a2eaa94d1242562, type: 3}
+  - {fileID: 21300000, guid: 9bc16286df09793468bc2037757804b3, type: 3}
+  - {fileID: 21300000, guid: 5ad11352f3736734ba7e58bde8b14c07, type: 3}
+  - {fileID: 21300000, guid: 874cf52e19f980842b61021185463898, type: 3}
+  - {fileID: 21300000, guid: 0b79d7f703a4bd34abe3e72567122ef8, type: 3}
+  - {fileID: 21300000, guid: b2ff79bfe5f2a354e98ffadba4af6837, type: 3}
+  - {fileID: 21300000, guid: 43c93ca2abbcedf47ae561047d0e95d6, type: 3}
+  - {fileID: 21300000, guid: d897ecbc48c26744c9de2a0e17b86a71, type: 3}
+  - {fileID: 21300000, guid: c4a8df99febfa4445adcd164e8c30ab5, type: 3}
   - {fileID: 21300000, guid: b3583e1daca593a4881f24f7b5398b1d, type: 3}
   - {fileID: 21300000, guid: 9c470f2aa9cf6b744b12aed9367bf0ac, type: 3}
   - {fileID: 21300000, guid: caefb14861385b446ba9648716141d19, type: 3}
@@ -1404,35 +1360,37 @@ MonoBehaviour:
   - {fileID: 21300000, guid: fea6d9ea09beca94d936359d01de1724, type: 3}
   - {fileID: 21300000, guid: b430b198005d8bf4d9bab51b5e6dabb3, type: 3}
   - {fileID: 21300000, guid: 57c615a599ad55349b128faf6d07a920, type: 3}
-  - {fileID: 21300000, guid: b977b67645a01e048827aff9c7696664, type: 3}
-  - {fileID: 21300000, guid: b8e701763fe3e6f4c8f24e8749edd572, type: 3}
+  - {fileID: 21300000, guid: 4f7b041e874daf9409438454808ba68a, type: 3}
+  - {fileID: 21300000, guid: c0f70c7996ddcc24a89b441381a6d036, type: 3}
+  - {fileID: 21300000, guid: bec74a3ad6a53bc4eb3510c7ba3f2ff1, type: 3}
+  - {fileID: 21300000, guid: dd7ba28eab4e74e46ad37026adb7198c, type: 3}
   art07Prefabs:
-  - {fileID: 4890854897441046169, guid: 7689d5a766e32394588d3296a0ae046e, type: 3}
-  - {fileID: 3862098906325590806, guid: 3d568860484a3cd4d8ca7509c2aa5ecb, type: 3}
-  - {fileID: 7154549150200774104, guid: 051d5979f9083c948b81b4d5efdf2f63, type: 3}
-  - {fileID: 8236673904246515666, guid: 037ae42048f6f584cb3bdb0cdee6ba1c, type: 3}
-  - {fileID: 6110918246308955825, guid: 63ff98fa8169aa34fb1b682646ee3e8e, type: 3}
-  - {fileID: 1877311319325841816, guid: df80bf288db22084e837c29bf3b07475, type: 3}
-  - {fileID: 7173318610918185904, guid: e186f8621ebe6ea44a98ef932a4001b2, type: 3}
-  - {fileID: 4380445149419342155, guid: 179b61df68ba4d349b03228cec8f0301, type: 3}
-  - {fileID: 3495762217412726760, guid: 0f74db1af48e4ff44812a2ad4bd434a5, type: 3}
-  - {fileID: 6113163740604817751, guid: a8a38feca0cf3c944a35c9ae96cd6d71, type: 3}
-  - {fileID: 8957227305401612570, guid: e189d2e28c5d47f4696c8c04e1210c58, type: 3}
-  - {fileID: 5043598320762585812, guid: 1158d3a52c45d0941bd663a1f751dd16, type: 3}
-  - {fileID: 7317779674929274469, guid: 30f918c8e2f30f84091b71f5acbfc994, type: 3}
-  - {fileID: 8414437538206946223, guid: 15dcb998abe1e5449b649adb8b4c4106, type: 3}
-  - {fileID: 9038097092059842348, guid: 86bb43f1c935116459b37ecc3cddc892, type: 3}
-  - {fileID: 7928681687136788440, guid: 919a2da66e24d9942bee684fcc80d19f, type: 3}
-  - {fileID: 979048925621552979, guid: 8a7472516b51e5442aa0160bd5e8ad80, type: 3}
-  - {fileID: 1759191187408423664, guid: f4b1cf44802f52d4b88ed34d8992b7b4, type: 3}
-  - {fileID: 5462704244113856385, guid: b6961e0d565e556428ba7a018f9d2cdf, type: 3}
-  - {fileID: 4707065427671591214, guid: 55b9a163443c86046836acf4e9c8752b, type: 3}
-  - {fileID: 6399351650852170110, guid: 2bf0d487ed09e9c489ca10b889eed940, type: 3}
-  - {fileID: 8669520761643092587, guid: 5bac1c7f47351a6478b681f516c83771, type: 3}
-  - {fileID: 2395848417897990027, guid: 3927d395937954241ba977acaf85cd18, type: 3}
-  - {fileID: 5337417228020544329, guid: 9d13dbc6768db6548888691842e9a03b, type: 3}
-  - {fileID: 5567469772914398593, guid: d58063a642f8baf479b2bc07e78166f8, type: 3}
-  - {fileID: 8322827620587443220, guid: 0225eddd323f2f2408e1cb6bd6181a0b, type: 3}
+  - {fileID: 4890854897441046169, guid: 92905fe6d9944104ba078e53982e2fe7, type: 3}
+  - {fileID: 3862098906325590806, guid: 6d017ad2bfc5ae54bbe8b84785715b08, type: 3}
+  - {fileID: 7154549150200774104, guid: f54a9ab854eefe54eaa429cfe6b7365a, type: 3}
+  - {fileID: 8236673904246515666, guid: bfa020ad1d0cc68449e3c8198beaa8f4, type: 3}
+  - {fileID: 6110918246308955825, guid: 2272c245a528cf54083429a4bfdba0fd, type: 3}
+  - {fileID: 1877311319325841816, guid: ce710c010c31cec409a98ce84765efb0, type: 3}
+  - {fileID: 7173318610918185904, guid: 5efe578ae0a359a4b8cf599aff007b8f, type: 3}
+  - {fileID: 4380445149419342155, guid: c7453f93e6b7674418f18173ca4d7ea9, type: 3}
+  - {fileID: 3495762217412726760, guid: ebf53171b47ea6a4d9b0f7dba659a3af, type: 3}
+  - {fileID: 6113163740604817751, guid: d91c186061e256041b0e6abb7803d8b0, type: 3}
+  - {fileID: 8957227305401612570, guid: ebd47fce0df4d83439a245009dda018a, type: 3}
+  - {fileID: 5043598320762585812, guid: a97fb74ded04bbd48a1c57ab7a9777e6, type: 3}
+  - {fileID: 7317779674929274469, guid: 18cd7b1b8153e254386c3110a37c911d, type: 3}
+  - {fileID: 8414437538206946223, guid: 3748e19968e864346aed5eb18087ef90, type: 3}
+  - {fileID: 9038097092059842348, guid: bb51c3560cd2c244b8c0709094cfa67f, type: 3}
+  - {fileID: 7928681687136788440, guid: 53e137dc448d36b49910cf7b80649d0b, type: 3}
+  - {fileID: 979048925621552979, guid: f957f9e6e78eb974eb9c1ee66d00e28b, type: 3}
+  - {fileID: 1759191187408423664, guid: 0b81ef9563707074fa5ac43494948c1d, type: 3}
+  - {fileID: 5462704244113856385, guid: dc061301353624e439c69f15d4f6c73f, type: 3}
+  - {fileID: 4707065427671591214, guid: 7d2949170b80ded4d8bb2866e86f890a, type: 3}
+  - {fileID: 6399351650852170110, guid: ed6ee5a11cd697d49a537234cb071ff4, type: 3}
+  - {fileID: 8669520761643092587, guid: 1a290065ad35308489d9db95e12f1436, type: 3}
+  - {fileID: 2395848417897990027, guid: 1419c80636c4ba04782642891cfca3d4, type: 3}
+  - {fileID: 5337417228020544329, guid: b1b1dd1227f4d3f428ea84ec27bcc605, type: 3}
+  - {fileID: 5567469772914398593, guid: c5a1525948dfe0e4f8487a1c6ddfdba6, type: 3}
+  - {fileID: 8322827620587443220, guid: 9b76f8f0c181e2844b482c3241f5b782, type: 3}
   art07NumberFont: {fileID: 11400000, guid: af5bcad9e3f6b82458a108f2de8e0e9e, type: 2}
 --- !u!4 &946877580
 Transform:
@@ -1508,10 +1466,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: DiceCraft.Runtime::DiceCraft.DiceTable
   viewCamera: {fileID: 73739859}
   bodyMesh: {fileID: -5532764219946649504, guid: db703d0544a55a34d80512b3ae8ad469, type: 3}
-  bodyMaterial: {fileID: 2100000, guid: a2bbdaaa238f07540b0af2a2a64c6773, type: 2}
+  bodyMaterial: {fileID: 2100000, guid: ea6beee5784ff544d9674c7a54b886d7, type: 2}
   faceMaterial: {fileID: 2100000, guid: 77c09cb98565fc34c9906c805baaa961, type: 2}
-  glassMaterial: {fileID: 2100000, guid: db3be30a3a7732845a130fb26ca7cae0, type: 2}
-  outlineMaterial: {fileID: 2100000, guid: eb133b30615f9294eaa5de1d0172ab24, type: 2}
+  glassMaterial: {fileID: 2100000, guid: f631d661049abae45b0211dae02ba936, type: 2}
+  outlineMaterial: {fileID: 2100000, guid: 785bb42e6de43aa4da3b689f335118f9, type: 2}
   rollClips:
   - {fileID: 7400000, guid: 99e3ce974e0ffb44ea1d13abdadcc005, type: 2}
   - {fileID: 7400000, guid: 8342e6a3724cc9f4b990b4e6f6e591ea, type: 2}
@@ -1588,7 +1546,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: cfb94f3758bca38438ce8842cc667d98, type: 2}
+  - {fileID: 2100000, guid: 754f10a0ed9df30469ef1067d15d26ea, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1742,6 +1700,50 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1849708290
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1849708292}
+  - component: {fileID: 1849708291}
+  m_Layer: 0
+  m_Name: ArtStyleLab_IsolatedPreview
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1849708291
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1849708290}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94cad20cff7f7df4eaaf8092b86b517f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: DiceCraft.Runtime::DiceCraft.Art071StyleLab
+--- !u!4 &1849708292
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1849708290}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1940954995
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1767,4 +1769,4 @@ SceneRoots:
   - {fileID: 1340625665}
   - {fileID: 946877580}
   - {fileID: 1525079849}
-  - {fileID: 137952330}
+  - {fileID: 1849708292}

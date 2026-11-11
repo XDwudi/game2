@@ -51,7 +51,7 @@ namespace DiceCraft
             else if(reduced)FinishTransactionEffects07();
             var light=table.viewCamera!=null?UnityEngine.Object.FindFirstObjectByType<Light>():null;
             if(light!=null)light.shadows=quality07==0?LightShadows.None:LightShadows.Soft;
-            var felt=GameObject.Find("Art07Felt");if(felt!=null){var r=felt.GetComponent<Renderer>();var props=new MaterialPropertyBlock();r.GetPropertyBlock(props);props.SetFloat("_Grain",grain07&&!reduced?1:0);props.SetFloat("_Scanlines",scanlines07&&!reduced&&quality07>0?1:0);r.SetPropertyBlock(props);}
+            var felt=GameObject.Find("Art07Felt");if(felt!=null){var r=felt.GetComponent<Renderer>();var props=new MaterialPropertyBlock();r.GetPropertyBlock(props);props.SetFloat("_Grain",grain07&&!reduced?1:0);props.SetFloat("_Scanlines",scanlines07&&!reduced&&quality07>0?1:0);props.SetFloat("_Sweep072",reduced?0:1);r.SetPropertyBlock(props);}
         }
         private void PresentCommitted(SessionCommand cmd,CommandResult result)
         {

@@ -13,6 +13,8 @@ namespace DiceCraft
         public static readonly Color Ink = Hex("162629"), Panel = Hex("203F43"), PanelLight = Hex("315358"),
             Paper = Hex("F4E8CB"), Muted = Hex("B8C9C5"), Gold = Hex("F3BA58"), Teal = Hex("79C99C"), Red = Hex("EC655D"), Blue = Hex("55B6D9"),
             Background=Hex("102A2D"), Felt=Hex("173E40"), TextColor=Hex("F7EED9"), Violet=Hex("AD92DB"), Danger=Hex("9E3440"), Shadow=Hex("07191C");
+        /// <summary>v0.72 frame edge weight in reference units (matches the 2x-density ink line of the HD surfaces).</summary>
+        public const float EdgeUnit=2f;
         public static float FontScale=1f;
         public static bool ReducedMotion;
         public static Action<string> Feedback;
@@ -111,9 +113,26 @@ namespace DiceCraft
         public static RectTransform Frame(Transform p,string name,float x,float y,float w,float h,Color fill,Color? edge=null,bool raycast=false)
         {
             if(fill==Paper)return PaperFrame(p,name,x,y,w,h,fill,edge,raycast);
+            // v0.72: a rounded two-unit edge from the shared HD block instead of a square hairline.
             var r=Box(p,name,x,y,w,h,edge??PanelLight,raycast);
-            r.GetComponent<UnityEngine.UI.Image>().sprite=null;
-            Box(r,"Fill",1,1,w-2,h-2,fill);
+            var block=Template("ui_frame_block");float line=block!=null&&w>=12&&h>=12?EdgeUnit:1;
+            var edgeImage=r.GetComponent<UnityEngine.UI.Image>();edgeImage.sprite=block;edgeImage.type=block!=null?UnityEngine.UI.Image.Type.Sliced:UnityEngine.UI.Image.Type.Simple;
+            var inner=Box(r,"Fill",line,line,w-2*line,h-2*line,fill).GetComponent<UnityEngine.UI.Image>();
+            inner.sprite=block;inner.type=block!=null?UnityEngine.UI.Image.Type.Sliced:UnityEngine.UI.Image.Type.Simple;
+            return r;
+        }
+        /// <summary>v0.72: give a flat frame an authored surface (empty slot, inset strip). No-op without the art.</summary>
+        public static void Surface(RectTransform frame,string template,Color? tint=null)
+        {
+            var sprite=Template(template);var image=frame!=null?frame.GetComponent<UnityEngine.UI.Image>():null;if(sprite==null||image==null)return;
+            image.sprite=sprite;image.type=UnityEngine.UI.Image.Type.Sliced;image.color=tint??Color.white;
+            frame.Find("Fill")?.gameObject.SetActive(false);
+        }
+        /// <summary>v0.72 sunken strip behind a group of readouts. Purely decorative; never a raycast target.</summary>
+        public static RectTransform Inset(Transform p,string name,float x,float y,float w,float h)
+        {
+            var r=Box(p,name,x,y,w,h,Template("ui_info_inset")!=null?Color.white:new Color(0,0,0,.18f));
+            var image=r.GetComponent<UnityEngine.UI.Image>();image.sprite=Template("ui_info_inset");image.type=image.sprite!=null?UnityEngine.UI.Image.Type.Sliced:UnityEngine.UI.Image.Type.Simple;
             return r;
         }
         public static void Outline(Transform p,string name,float x,float y,float w,float h,Color color,float line=2)

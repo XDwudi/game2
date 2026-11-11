@@ -356,12 +356,16 @@ namespace DiceCraft
         {
             // Tiny rules examples need a clean face: a sliced paper-card border
             // would consume the corner-pip space at handbook's 30px size.
+            // v0.72: tiles with room for it read as small dice (rounded body, round pips);
+            // the handbook's tiny examples keep the plain square face.
+            bool shaped=size>=36;var block=shaped?UiKit.Template("ui_frame_block"):null;var round=shaped?UiKit.Template("ui_pip_dot"):null;
+            float edge=block!=null?UiKit.EdgeUnit:1;
             var r=UiKit.Box(parent,name,x,y,size,size,UiKit.Ink);
-            r.GetComponent<UnityEngine.UI.Image>().sprite=null;
-            var face=UiKit.Box(r,"ExampleFace",1,1,size-2,size-2,UiKit.Paper);
-            face.GetComponent<UnityEngine.UI.Image>().sprite=null;
-            float dot=Math.Max(4,size*.095f);
-            Action<float,float> pip=(px,py)=>UiKit.Box(r,"Pip"+px+"_"+py,size*px-dot/2,size*py-dot/2,dot,dot,color);
+            var body=r.GetComponent<UnityEngine.UI.Image>();body.sprite=block;body.type=block!=null?UnityEngine.UI.Image.Type.Sliced:UnityEngine.UI.Image.Type.Simple;
+            var face=UiKit.Box(r,"ExampleFace",edge,edge,size-2*edge,size-2*edge,UiKit.Paper).GetComponent<UnityEngine.UI.Image>();
+            face.sprite=block;face.type=block!=null?UnityEngine.UI.Image.Type.Sliced:UnityEngine.UI.Image.Type.Simple;
+            float dot=Math.Max(4,size*(round!=null?.17f:.095f));
+            Action<float,float> pip=(px,py)=>UiKit.Box(r,"Pip"+px+"_"+py,size*px-dot/2,size*py-dot/2,dot,dot,color).GetComponent<UnityEngine.UI.Image>().sprite=round;
             if(value%2==1)pip(.5f,.5f);
             if(value>=2){pip(.28f,.28f);pip(.72f,.72f);}
             if(value>=4){pip(.28f,.72f);pip(.72f,.28f);}
