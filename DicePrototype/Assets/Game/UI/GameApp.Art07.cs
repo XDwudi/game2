@@ -405,8 +405,10 @@ namespace DiceCraft
             string[] labels={"基础 "+(b.baseTotal.Length>9?ScoreFactorShort07(b.baseTotal):CompactScore(b.baseTotal)),"牌型 ×"+Factor(b.totalHandMult100),"颜色 ×"+Factor(b.colorMult100),"红组 ×"+Factor(b.redMult100),control,"附魔 ×2^"+b.enchantMultiplierCount};
             float bw=(w-(thin?440:48))/6;for(int i=0;i<6;i++)
             {
-                float factorHeight=c?60:thin?52:64;
-                var button=UiKit.FlatButton(p,"Factor"+i,labels[i],16+i*bw,c?62:thin?48:80,bw-8,factorHeight,()=>ShowBreakdown(DisplayScoreSnapshot07(),b),!LockVisualPlaying07);
+                // rc.2: the shallow rail's factor hit area is 60 units (was 52) so it stays 40 physical
+                // pixels high at 1280x720; the painted chip below is trimmed to stay inside the slab.
+                float factorHeight=c?60:thin?60:64;
+                var button=UiKit.FlatButton(p,"Factor"+i,labels[i],16+i*bw,c?62:thin?44:80,bw-8,factorHeight,()=>ShowBreakdown(DisplayScoreSnapshot07(),b),!LockVisualPlaying07);
                 var text=button.GetComponentInChildren<TextMeshProUGUI>();text.fontSize=(c?15:UiKit.FontScale>1?16:20)*UiKit.FontScale;
                 text.rectTransform.anchoredPosition=new Vector2(8,-2);text.rectTransform.sizeDelta=new Vector2(bw-24,factorHeight-4);
                 text.textWrappingMode=TextWrappingModes.NoWrap;text.lineSpacing=i==4&&zeroFive?-20:0;
@@ -414,9 +416,11 @@ namespace DiceCraft
                 StyleFactorChip072(button,i,neutral);
                 if(thin)
                 {
-                    // The shallow rail is 104 high: keep the painted chip inside the slab (hit rectangle unchanged).
-                    ((UnityEngine.UI.Image)button.targetGraphic).rectTransform.sizeDelta=new Vector2(bw-8,factorHeight-8);
-                    text.rectTransform.anchoredPosition=new Vector2(8,2);
+                    // The shallow rail is 104 high: the painted chip (50..94) stays inside the slab while the
+                    // hit rectangle fills 44..104.
+                    var chipFace=((UnityEngine.UI.Image)button.targetGraphic).rectTransform;
+                    chipFace.anchoredPosition=new Vector2(0,-6);chipFace.sizeDelta=new Vector2(bw-8,factorHeight-16);
+                    text.rectTransform.anchoredPosition=new Vector2(8,0);
                 }
             }
         }
