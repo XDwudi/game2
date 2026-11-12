@@ -20,7 +20,7 @@ namespace DiceCraft
                 // rc.2: 60 units tall (was 52) so the tab is still 40 physical pixels high at 1280x720.
                 UiKit.FlatButton(main,"Tab"+i,tabs[i]+"  "+available,392+i*296,460,280,60,
                     ()=>{shopTab=tab;PlayerPrefs.SetInt("shopTab",tab);Refresh();},true,shopTab==i);
-                if(shopTab==i)UiKit.Box(main,"ActiveShopTab",404+i*296,514,256,3,UiKit.Gold);
+                if(shopTab==i)UiKit.Box(main,"ActiveShopTab",400+i*296,514,264,3,UiKit.Gold);
             }
             var offers=ViewState.shop.offers.Where(o=>Art07OfferTab(o)==shopTab).ToArray();
             int products=offers.Length+(shopTab==1?1:0);
