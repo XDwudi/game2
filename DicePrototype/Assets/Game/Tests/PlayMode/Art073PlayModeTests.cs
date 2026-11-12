@@ -206,8 +206,11 @@ namespace DiceCraft.Tests
                 yield return LoadBoundaryFixture(fixture);ResumeBoundaryFixture();yield return Art073Settle(.8f);
                 Art073CheckShopPage("maximum font "+font);
                 // Six controller cards: two rows of three, all inside the shelf, none under the refresh button.
-                var rows=app.Session.State.shop.offers.Where(o=>o.category=="controller").Select(o=>FindActive<RectTransform>("Offer_"+o.offerId).anchoredPosition.y).Distinct().Count();
-                Assert.That(rows,Is.EqualTo(2));
+                // Rows are told apart by a whole card gap: a card under the real mouse pointer or mid-press rests a few units off its row.
+                var tops=app.Session.State.shop.offers.Where(o=>o.category=="controller").Select(o=>-FindActive<RectTransform>("Offer_"+o.offerId).anchoredPosition.y).OrderBy(v=>v).ToArray();
+                int rows=1;for(int i=1;i<tops.Length;i++)if(tops[i]-tops[i-1]>60)rows++;
+                Assert.That(tops.Length,Is.EqualTo(6));Assert.That(rows,Is.EqualTo(2),"controller card tops: "+string.Join(", ",tops));
+                TestContext.WriteLine("controller card tops at font "+font+": "+string.Join(", ",tops));
                 Assert.That(HasActive("ConsumableShelf"),Is.True,"More than three consumables scroll inside their own section.");
                 foreach(var text in FindActive<RectTransform>("Stats07").GetComponentsInChildren<TextMeshProUGUI>(false))
                     Assert.That(Art073Inside(V06ScreenRect(text.rectTransform),V06ScreenRect(FindActive<RectTransform>("Stats07")),3),Is.True,"font "+font+": "+text.name+" leaves the status panel");
