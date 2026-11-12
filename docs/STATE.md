@@ -21,7 +21,7 @@ rc.1 发行后用户再次反馈：分数栏仍然粗劣、边缘过渡不自然
   `DicePrototype-p0.7.2-win-x64.zip` 198,186,265 B / 306 成员 / SHA-256 `34c34499e081e32ce37b8fff860d96aaf0ce647cb67797b6e885e3b76ba5f2db`；
   `DicePrototype-p0.7.2-macos-universal.zip` 238,545,236 B / 301 成员 / SHA-256 `af371e9a3b4ee63a35134ac94d5976f799ef5df0581a7d6f2ee0308a69487ce4`，6 个原生组件均为 x86_64 + arm64。
   Windows 包新目录解压后自动巡览 60 步完成，Player 日志 0 异常；减少动态两帧最大像素差 2。截图在 `evidence/v072/screens/rc2/`。
-- 交付：DELIVERY_PLACEHOLDER
+- 交付：源码分支 [codex/v0.72](https://github.com/XDwudi/game2/tree/codex/v0.72)；预发布 [p0.7.2-rc.2](https://github.com/XDwudi/game2/releases/tag/p0.7.2-rc.2)（release 442460984，标签指向 `6337dbe`），Windows 与 macOS 两个附件经带凭据完整回读 SHA 一致，收据 `evidence/v072/delivery/github-release-p0.7.2-rc.2.json`。rc.1（release 442002548，标签 `c16e3d2`）、main 与旧发行未动；rc.1 的收据、门禁与包证明以 rc1 命名保留。
 - 未做 / 遗留：macOS 实机启动与运行（包在 Windows 上构建与压缩，无开发者签名、无公证）；Windows 帧时间与独占全屏专项（v0.7 起未通过，本版未重测）；
   独立复核；风格与体验待用户判定；AudioMixer 总线；构建仍带 Development Build 角标。规格 5A 末尾列出了自评后仍未处理的界面与动画不足。
   本版没有调用 Blender（骰子模型未改），也没有图像生成工具可用。
