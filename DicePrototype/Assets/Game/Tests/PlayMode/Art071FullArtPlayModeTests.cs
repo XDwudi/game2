@@ -30,7 +30,7 @@ namespace DiceCraft.Tests
                     Assert.That(image.sprite.name.StartsWith("icon_",StringComparison.OrdinalIgnoreCase),Is.False,original.assetId+"/"+image.name);
                     Assert.That(image.sprite.texture.filterMode,Is.EqualTo(FilterMode.Bilinear),original.assetId+"/"+image.name);
                     #if UNITY_EDITOR
-                    Assert.That(UnityEditor.AssetDatabase.GetAssetPath(image.sprite),Does.StartWith("Assets/Art/Art071/").Or.StartWith("Assets/Art/Art072/"),original.assetId+"/"+image.name); // v0.72 replaces the shared surfaces by name; illustrations, symbols and FX stay Art071.
+                    Assert.That(UnityEditor.AssetDatabase.GetAssetPath(image.sprite),Does.StartWith("Assets/Art/Art071/").Or.StartWith("Assets/Art/Art072/").Or.StartWith("Assets/Art/Art073/"),original.assetId+"/"+image.name); // v0.72 and v0.73 replace the shared surfaces by name; illustrations, symbols and FX stay Art071.
                     #endif
                 }
             }

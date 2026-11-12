@@ -549,6 +549,8 @@ namespace DiceCraft
                         UiKit.Text(p,"Item",NameOf(offer.contentId),12,236,256,66,24,UiKit.Ink,TextAlignmentOptions.Center);
                         UiKit.Text(p,"Price",Session.GetOfferPrice(offer)+" 金币 · 道具页",12,326,256,66,21,UiKit.Ink,TextAlignmentOptions.Center);roots=new[]{p};
                     }
+                    // v0.73: a product added to a scrolling section is brought into view before it is framed.
+                    RevealInScroll073(roots[0]);
                     ExpansionFrame07(roots[0]);
                     foreach(var root in roots)transactionMotion07.TrackReveal(root,.16f,.18f,true);
                 }
@@ -559,6 +561,13 @@ namespace DiceCraft
                 if(empty==null){empty=UiKit.Frame(transactionReadout07,"AddedEmptySlot07",392+Math.Min(4,oldSlots)*296,512,280,416,UiKit.Background,UiKit.PanelLight);UiKit.Text(empty,"Empty","本店暂无合法商品\n容量升级已生效",12,84,256,200,25,UiKit.Muted,TextAlignmentOptions.Center);}
                 ExpansionFrame07(empty);transactionMotion07.TrackReveal(empty,.16f,.18f,true);
             }
+        }
+        private static void RevealInScroll073(RectTransform target)
+        {
+            var scroll=target==null?null:target.GetComponentInParent<UnityEngine.UI.ScrollRect>();if(scroll==null)return;
+            float range=scroll.content.rect.height-scroll.viewport.rect.height;if(range<=0)return;
+            float top=-((RectTransform)target).anchoredPosition.y;
+            scroll.StopMovement();scroll.verticalNormalizedPosition=1-Mathf.Clamp01((top-Math.Max(0,scroll.viewport.rect.height-target.rect.height)*.5f)/range);Canvas.ForceUpdateCanvases();
         }
         private void ExpansionFrame07(RectTransform target)
         {

@@ -10,15 +10,10 @@ namespace DiceCraft
         {
             if(shop)
             {
-                // Preserve the complete shop hint alongside the paper. No price,
-                // purchase target, dice preview, or leave-shop button is displaced.
-                var hint=GuideElement07("ShopHint");
-                if(hint!=null)
-                {
-                    hint.anchoredPosition=new Vector2(816,-936);hint.sizeDelta=new Vector2(632,120);
-                    var text=hint.GetComponent<TMPro.TMP_Text>();if(text!=null)text.textWrappingMode=TMPro.TextWrappingModes.Normal;
-                }
-                return new Rect(392,928,400,144);
+                // v0.73: the paper rests on the owned-dice strip, right of its caption and left of the
+                // item slots. No price, purchase target or leave-shop button is displaced; the strip's
+                // dice under the paper hide while it is open (see CoveredByGuide073).
+                return new Rect(504,928,400,144);
             }
             // The sidebar's top 144 reference pixels contain branding only. Let
             // the first card column yield horizontally while a full paper is open.

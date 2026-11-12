@@ -78,7 +78,6 @@ namespace DiceCraft
         private void Shop073()
         {
             var title=UiKit.Text(main,"ShopTitle","商店",ShopLeft073+4,10,220,60,42,UiKit.TextColor);title.fontStyle=FontStyles.Bold;
-            UiKit.Text(main,"ShopHint","只有控制器会刷新 · 点卡片看完整说明",ShopLeft073+190,28,900,36,18,UiKit.Muted);
             ShopControllers073();
             ShopDiceCounter073();
             ShopProducts073();
@@ -135,27 +134,25 @@ namespace DiceCraft
             string availability=offer.sold?"":Art07Availability07(offer);
             if(wide)
             {
-                Icon(card.transform,offer.contentId,10,34,84);
+                // Two rows of small cards: the top 104 units are exactly the compact HUD card body.
                 DrawControllerRarity07(card.transform,offer.contentId,true,w,h);
-                EnchantBadge(card.transform,enchant,w-40,6,30);
-                var name=UiKit.Text(card.transform,"Name",NameOf(offer.contentId),102,24,w-112,36,20,UiKit.Ink,TextAlignmentOptions.MidlineLeft);
-                name.fontStyle=FontStyles.Bold;name.textWrappingMode=TextWrappingModes.NoWrap;name.overflowMode=TextOverflowModes.Ellipsis;
-                PriceChip073(card.transform,"PriceChip",PriceText073(cost),102,64,w-114,34,offer.sold);
-                UiKit.Text(main,"OfferAvailability_"+id,availability,x+6,y+h-52,92,44,13,UiKit.Danger,TextAlignmentOptions.Center);
-                BuyButton073(main,offer,x+102,y+104,w-114,62);
+                EnchantBadge(card.transform,enchant,w-40,2,28);
+                Icon(card.transform,offer.contentId,12,38,64);
+                var name=UiKit.Text(card.transform,"Name",NameOf(offer.contentId),84,28,w-96,42,18,UiKit.Ink,TextAlignmentOptions.Center);
+                name.textWrappingMode=TextWrappingModes.NoWrap;name.overflowMode=TextOverflowModes.Ellipsis;
+                var state=UiKit.Text(card.transform,"State",Art07OfferState(offer.controller),84,68,w-96,34,14,UiKit.Ink,TextAlignmentOptions.Center);
+                state.textWrappingMode=TextWrappingModes.NoWrap;state.overflowMode=TextOverflowModes.Ellipsis;
+                PriceChip073(card.transform,"PriceChip",PriceText073(cost),12,112,96,34,offer.sold);
+                var reason=UiKit.Text(main,"OfferAvailability_"+id,availability,x+8,y+148,104,22,12,UiKit.Danger,TextAlignmentOptions.Center);reason.textWrappingMode=TextWrappingModes.NoWrap;
+                BuyButton073(main,offer,x+118,y+108,w-130,62);
             }
             else
             {
-                float buyY=h-72,chipY=buyY-40,availY=chipY-22,stateY=availY-26,art=Mathf.Min(w-56,stateY-80);
-                DrawControllerRarity07(card.transform,offer.contentId,false,w,h);
-                EnchantBadge(card.transform,enchant,w-48,8,34);
-                var name=UiKit.Text(card.transform,"Name",NameOf(offer.contentId),10,38,w-20,38,w>=240?24:20,UiKit.Ink,TextAlignmentOptions.Center);
-                name.fontStyle=FontStyles.Bold;name.textWrappingMode=TextWrappingModes.NoWrap;name.overflowMode=TextOverflowModes.Ellipsis;
-                Icon(card.transform,offer.contentId,(w-art)*.5f,78,art);
-                var state=UiKit.Text(card.transform,"State",Art07OfferState(offer.controller),10,stateY,w-20,26,16,PaperMuted071,TextAlignmentOptions.Center);
-                state.textWrappingMode=TextWrappingModes.NoWrap;state.overflowMode=TextOverflowModes.Ellipsis;
-                PriceChip073(card.transform,"PriceChip",PriceText073(cost),(w-124)*.5f,chipY,124,36,offer.sold);
-                UiKit.Text(main,"OfferAvailability_"+id,availability,x+8,y+availY,w-16,22,14,UiKit.Danger,TextAlignmentOptions.Center);
+                // One row of tall cards: the upper 250 units are exactly the full controller card body.
+                const float body=250;float buyY=h-70,chipY=buyY-38,availY=body-12;
+                DrawControllerFullBody07(card.transform,offer.contentId,Art07OfferState(offer.controller),enchant,0,body);
+                PriceChip073(card.transform,"PriceChip",PriceText073(cost),(w-124)*.5f,chipY,124,34,offer.sold);
+                var reason=UiKit.Text(main,"OfferAvailability_"+id,availability,x+8,y+availY,w-16,22,14,UiKit.Danger,TextAlignmentOptions.Center);reason.textWrappingMode=TextWrappingModes.NoWrap;
                 BuyButton073(main,offer,x+16,y+buyY,w-32,62);
             }
             Art07AttachTooltip(card,id,NameOf(offer.contentId),Description(offer.contentId),EnchantLabel(enchant)+"\n"+Art07OfferState(offer.controller),()=>InspectOffer(offer));
@@ -189,10 +186,12 @@ namespace DiceCraft
                 stand.gameObject.SetActive(stand.sprite!=null);
                 // The real die: drag to turn it, click to open the full candidate sheet.
                 DieView073(p,"DiePreview073","shop-die-"+offer.offerId,offer.die,16,44,w-32,138,1.02f,false,true,()=>InspectOffer(offer));
-                var summary=UiKit.Text(p,"Summary",DieSummary073(offer.die),10,214,w-20,44,14,PaperMuted071,TextAlignmentOptions.Center);summary.lineSpacing=-10;
+                var summary=UiKit.Text(p,"Summary",DieSummary073(offer.die),10,186,w-20,44,13,PaperMuted071,TextAlignmentOptions.Center);summary.lineSpacing=-10;
+                // The die itself owns drag and click above; this strip under it opens the same candidate sheet.
+                HitArea073(p,"Inspect",0,184,w-6,66,()=>{if(!IsBusy)InspectOffer(offer);});
                 string availability=offer.sold?"":Art07Availability07(offer);
                 long cost=Session.GetOfferNetPrice(offer);
-                UiKit.Text(p,"Availability",availability,8,h-134,w-16,22,14,UiKit.Danger,TextAlignmentOptions.Center);
+                UiKit.Text(p,"Availability",availability,8,h-136,w-16,22,14,UiKit.Danger,TextAlignmentOptions.Center);
                 PriceChip073(p,"PriceChip",PriceText073(cost),(w-124)*.5f,h-112,124,36,offer.sold);
                 BuyButton073(p,offer,16,h-72,w-32,62);
                 if(offer.sold)SoldVeil073(p,w,h);
@@ -215,28 +214,30 @@ namespace DiceCraft
             const float h=ProductsHeight073;
 
             var items=Section073(root,"ConsumableSection","消耗品","ConsumableTitle",0,0,452,h,SectionRed073);
-            if(consumables.Length<=2)ProductRow073(items,consumables,12,52,428,356,2);
-            else
-            {
-                int rows=(consumables.Length+1)/2;
-                var list=UiKit.Scroll(items,"ConsumableShelf",12,52,434,356,rows*364-8);
-                ProductRow073(list,consumables,0,0,404,356,2);
-            }
+            ProductShelf073(items,"ConsumableShelf",consumables,12,52,428,356,consumables.Length==3?3:2);
             if(consumables.Length==0)UiKit.Text(items,"NoOffers","本店暂无道具",12,160,428,60,20,UiKit.Muted,TextAlignmentOptions.Center);
 
             var study=Section073(root,"ResearchSection","研究强化","ResearchTitle",464,0,452,h,SectionTeal073);
             var selfStudy=UiKit.ActionButton(study,"Study",ViewState.shop.selfStudyUsed==0?"自选研习 · 正常价 +1":"本店已研习",12,52,428,60,ShowStudy,UiKit.Gold,ViewState.shop.selfStudyUsed==0&&!IsBusy);
             selfStudy.transform.Find("Label").GetComponent<TextMeshProUGUI>().fontSize=20*UiKit.FontScale;
-            ProductRow073(study,research,12,120,428,288,2);
+            ProductShelf073(study,"ResearchShelf",research,12,120,428,288,2);
             if(research.Length==0)UiKit.Text(study,"NoResearch","本店没有可升级的牌型",12,220,428,60,20,UiKit.Muted,TextAlignmentOptions.Center);
 
             var faces=Section073(root,"UpgradeSection","骰面改造","UpgradeTitle",928,0,392,h,SectionTeal073);
-            ProductRow073(faces,upgrades,12,52,368,356,2);
+            ProductShelf073(faces,"UpgradeShelf",upgrades,12,52,368,356,2);
             if(upgrades.Length==0)UiKit.Text(faces,"NoUpgrades","本店暂无改造",12,160,368,60,20,UiKit.Muted,TextAlignmentOptions.Center);
 
             var service=Section073(root,"ServiceSection","商店服务","ServiceTitle",1332,0,196,h,SectionViolet073);
-            ProductRow073(service,services,12,52,172,356,1);
+            ProductShelf073(service,"ServiceShelf",services,12,52,172,356,1);
             if(services.Length==0)UiKit.Text(service,"NoServices","暂无服务",12,160,172,60,20,UiKit.Muted,TextAlignmentOptions.Center);
+        }
+        /// <summary>One row of cards; more goods than one row scroll inside the section instead of leaving it.</summary>
+        private void ProductShelf073(Transform section,string scrollName,ShopOffer[] offers,float x,float y,float width,float cardHeight,int columns)
+        {
+            if(offers.Length<=columns){ProductRow073(section,offers,x,y,width,cardHeight,columns);return;}
+            int rows=(offers.Length+columns-1)/columns;
+            var list=UiKit.Scroll(section,scrollName,x,y,width+6,cardHeight,rows*(cardHeight+8)-8);
+            ProductRow073(list,offers,0,0,width-18,cardHeight,columns);
         }
         private void ProductRow073(Transform parent,ShopOffer[] offers,float x,float y,float width,float cardHeight,int columns)
         {
@@ -247,7 +248,9 @@ namespace DiceCraft
         {
             var p=UiKit.PaperFrame(parent,"Product_"+offer.offerId,x,y,w,h,UiKit.Paper);ShopCardSurface073(p.GetComponent<Image>());
             float buyY=h-72,chipY=buyY-40,availY=chipY-22;
-            var name=UiKit.Text(p,"Name",NameOf(offer.contentId),8,6,w-16,38,w>=200?22:19,UiKit.Ink,TextAlignmentOptions.Center);
+            // Reserve one complete line at the chosen text size: a clipped CJK line renders as nothing at all.
+            float nameSize=w>=200?22:19,nameHeight=Mathf.Max(38,Mathf.Ceil(nameSize*UiKit.FontScale*1.5f)),bodyTop=6+nameHeight+2;
+            var name=UiKit.Text(p,"Name",NameOf(offer.contentId),8,6,w-16,nameHeight,nameSize,UiKit.Ink,TextAlignmentOptions.Center);
             name.fontStyle=FontStyles.Bold;name.textWrappingMode=TextWrappingModes.NoWrap;name.overflowMode=TextOverflowModes.Ellipsis;
             if(offer.category=="hand_upgrade"||offer.category=="color_upgrade")
             {
@@ -259,19 +262,21 @@ namespace DiceCraft
                     ViewState.dice.Count(d=>d.lifetime=="permanent"),ViewState.dice.Count,ViewBindings,ViewState.isDebug).First(r=>r.handId==offer.contentId);
                 // A hand pattern, not the faces of a die: the small tiles stay as the handbook draws them.
                 int[] numbers=row.example.Where(char.IsDigit).Select(c=>c-'0').Where(n=>n>=1&&n<=6).ToArray();
-                float tile=Mathf.Min(38,(w-24-Mathf.Max(0,numbers.Length-1)*5)/Mathf.Max(1,numbers.Length));
+                float tile=Mathf.Min(UiKit.FontScale>1?30:38,(w-24-Mathf.Max(0,numbers.Length-1)*5)/Mathf.Max(1,numbers.Length));
                 float start=(w-(numbers.Length*tile+Mathf.Max(0,numbers.Length-1)*5))*.5f;
                 Color pip=color?(offer.contentId=="all_red"?UiKit.Red:UiKit.Blue):UiKit.Ink;
-                for(int i=0;i<numbers.Length;i++)Art07PipTile(p,"StudyExample"+i,numbers[i],pip,start+i*(tile+5),48,tile);
-                UiKit.Text(p,"Level","Lv."+level+" → "+(level+1),8,92,w-16,26,18,PaperMuted071,TextAlignmentOptions.Center);
-                var multiplier=UiKit.Text(p,"Multiplier","×"+Factor(basis+step*level)+" → ×"+Factor(basis+step*(level+1)),8,118,w-16,30,21,UiKit.Ink,TextAlignmentOptions.Center);multiplier.fontStyle=FontStyles.Bold;
+                for(int i=0;i<numbers.Length;i++)Art07PipTile(p,"StudyExample"+i,numbers[i],pip,start+i*(tile+5),bodyTop+2,tile);
+                float levelTop=bodyTop+tile+6,levelHeight=Mathf.Max(26,Mathf.Ceil(18*UiKit.FontScale*1.45f)*.82f);
+                UiKit.Text(p,"Level","Lv."+level+" → "+(level+1),8,levelTop,w-16,levelHeight,UiKit.FontScale>1?15:18,PaperMuted071,TextAlignmentOptions.Center);
+                var multiplier=UiKit.Text(p,"Multiplier","×"+Factor(basis+step*level)+" → ×"+Factor(basis+step*(level+1)),8,levelTop+levelHeight,w-16,Mathf.Max(30,availY-levelTop-levelHeight),UiKit.FontScale>1?17:21,UiKit.Ink,TextAlignmentOptions.Top);multiplier.fontStyle=FontStyles.Bold;
             }
             else
             {
-                float art=Mathf.Min(w-48,Mathf.Min(124,availY-52-50));
-                Icon(p,offer.contentId,(w-art)*.5f,46,art);
+                float summaryHeight=Mathf.Max(46,Mathf.Ceil(15*UiKit.FontScale*1.5f)+4);
+                float art=Mathf.Clamp(availY-bodyTop-summaryHeight-4,40,Mathf.Min(w-48,124));
+                Icon(p,offer.contentId,(w-art)*.5f,bodyTop,art);
                 string text=Description(offer.contentId);int stop=text.IndexOf('。');if(stop>=0)text=text.Substring(0,stop);
-                var summary=UiKit.Text(p,"Summary",text,10,50+art,w-20,availY-52-art,15,UiKit.Ink,TextAlignmentOptions.Top);
+                var summary=UiKit.Text(p,"Summary",text,10,bodyTop+art+4,w-20,availY-bodyTop-art-4,15,UiKit.Ink,TextAlignmentOptions.Top);
                 summary.overflowMode=TextOverflowModes.Ellipsis;summary.lineSpacing=-8;
             }
             string availability=offer.sold?"":Art07Availability07(offer);
@@ -296,14 +301,14 @@ namespace DiceCraft
             for(int i=0;i<ViewState.controllers.Count;i++)
             {
                 var item=ViewState.controllers[i];
-                var button=UiKit.ActionButton(list,"Controller_"+item.instanceId,"",(i%2)*138,(i/2)*rowHeight,130,rowHeight-8,()=>ShowController(item,true),UiKit.Paper,!IsBusy);
+                var button=UiKit.ActionButton(list,"Controller_"+item.instanceId,"",(i%2)*142,(i/2)*rowHeight,134,rowHeight-8,()=>ShowController(item,true),UiKit.Paper,!IsBusy);
                 UiKit.CardSurface(button,true);
-                EnchantFrame073(button.transform,item.enchantmentId,130,rowHeight-8);
-                DrawControllerRarity07(button.transform,item.definitionId,true,130,rowHeight-8);
+                EnchantFrame073(button.transform,item.enchantmentId,134,rowHeight-8);
+                DrawControllerRarity07(button.transform,item.definitionId,true,134,rowHeight-8);
                 Icon(button.transform,item.definitionId,8,40,24);
-                var name=UiKit.Text(button.transform,"Name",NameOf(item.definitionId),36,36,84,34,13,UiKit.Ink,TextAlignmentOptions.Center);
+                var name=UiKit.Text(button.transform,"Name",NameOf(item.definitionId),36,36,86,34,13,UiKit.Ink,TextAlignmentOptions.Center);
                 name.textWrappingMode=TextWrappingModes.NoWrap;name.overflowMode=TextOverflowModes.Ellipsis;
-                EnchantBadge(button.transform,item.enchantmentId,96,2,28);
+                EnchantBadge(button.transform,item.enchantmentId,98,2,28);
                 AttachControllerDrag(button,item);
                 Art07AttachTooltip(button,item.instanceId,NameOf(item.definitionId),Description(item.definitionId),ControllerStateLabel(item),()=>ShowController(item,true));
             }
@@ -323,7 +328,7 @@ namespace DiceCraft
                 if(i>=shown)continue;
                 var die=dice[i];string id=die.dieId;
                 // Real dice, not face tiles: drag turns one, a click opens the dice library on it.
-                DieView073(strip,"OwnedDie_"+id,"owned-"+id,die,x,16,66,72,.52f,false,false,()=>{if(!IsBusy)ShowDie(id);});
+                DieView073(strip,"OwnedDie_"+id,"owned-"+id,die,x,16,66,72,.52f,false,false,()=>{if(!IsBusy&&!modal)ShowDie(id);});
             }
             if(dice.Length>shown)UiKit.Text(strip,"OwnedDiceMore","+"+(dice.Length-shown),122+8*72-4,34,40,36,17,UiKit.Muted,TextAlignmentOptions.Center);
             float itemsX=122+8*72+38;
@@ -365,7 +370,7 @@ namespace DiceCraft
 
         private void BindShopEntrance073()
         {
-            var shelfNames=new[]{"ShopTitle","ShopHint","ControllerShelf","DiceCounter","RefreshControllers","OwnedStrip","LeaveShop"};
+            var shelfNames=new[]{"ShopTitle","ControllerShelf","DiceCounter","RefreshControllers","OwnedStrip","LeaveShop"};
             var shelf=shelfNames.Select(n=>main.Find(n) as RectTransform).Where(r=>r!=null&&r.gameObject.activeInHierarchy).ToList();
             var products=main.Find("ShopProducts");
             if(products!=null)for(int i=0;i<products.childCount;i++){var section=products.GetChild(i) as RectTransform;if(section!=null&&section.gameObject.activeInHierarchy)shelf.Add(section);}
@@ -375,8 +380,13 @@ namespace DiceCraft
                 cards.Add(new[]{main.Find("Offer_"+offer.offerId) as RectTransform,main.Find("Buy_"+offer.offerId) as RectTransform,main.Find("OfferAvailability_"+offer.offerId) as RectTransform});
             int capacity=Config.shop.initialControllerOffers+ViewState.controllerOfferPurchases;
             for(int i=controllers.Length;i<capacity;i++)cards.Add(new[]{main.Find("EmptyControllerOffer"+i) as RectTransform});
-            foreach(var card in main.GetComponentsInChildren<RectTransform>(false))
-                if(card.name.StartsWith("Product_",StringComparison.Ordinal)||card.name=="Study")cards.Add(new[]{card});
+            // One group per section keeps the whole first entrance inside its 0.52 s budget however many goods there are.
+            foreach(string sectionName in new[]{"DiceCounter","ShopProducts/ConsumableSection","ShopProducts/ResearchSection","ShopProducts/UpgradeSection","ShopProducts/ServiceSection"})
+            {
+                var section=main.Find(sectionName);if(section==null)continue;
+                var group=section.GetComponentsInChildren<RectTransform>(false).Where(r=>r.name.StartsWith("Product_",StringComparison.Ordinal)||r.name=="Study").ToArray();
+                if(group.Length>0)cards.Add(group);
+            }
             UiKit.Component<Art07ShopEntrance>(main.gameObject).Bind(ViewState.shop.generationId,reduced,instant07,()=>modal||inMenu,shelf.ToArray(),cards.ToArray());
         }
     }

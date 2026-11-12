@@ -35,7 +35,7 @@ namespace DiceCraft.Tests
                     var fixture=ShopBoundaryFixture();fixture.gold=gold;fixture.controllers.Clear();
                     fixture.controllers.Add(BoundaryController(fixture,"C41"));fixture.controllers.Add(BoundaryController(fixture,"C01"));
                     string id="wallet-"+font+"-"+gold;
-                    yield return ExtraLoadFixture07(fixture,id);yield return ExtraPress07("Tab0");
+                    yield return ExtraLoadFixture07(fixture,id);
                     string state=StateJson();byte[] saved=File.ReadAllBytes(app.SaveLocation);long sequence=app.Session.ActionSequence;
                     string amount=gold.ToString(System.Globalization.CultureInfo.InvariantCulture);
                     var panel=FindActive<RectTransform>("Stats07");var money=FindActive<TextMeshProUGUI>("Money");
@@ -78,8 +78,8 @@ namespace DiceCraft.Tests
                     Assert.That(report.labels.SelectMany(l=>l.errors).ToArray(),Is.Empty,"Full glyph vertices and bounds must pass before GPU verification.");
                     yield return ScoreLabelGpuCapture07(labels);
                     yield return ExtraCapture07(id,"S10","Exact wallet digits, separate currency, complete real interest and navigation; real GPU glyph evidence at this actual resolution/font.");
-                    // Keep the same wallet visible across the actual shop sections, without creating a transaction.
-                    foreach(string tab in new[]{"Tab1","Tab2","Tab3","Tab4"})yield return ExtraPress07(tab);
+                    // v0.73: every shop section is on this one page. A plain redraw must keep the same wallet, without creating a transaction.
+                    app.Refresh();yield return null;
                     Assert.That(FindActive<TextMeshProUGUI>("Money").text,Is.EqualTo(amount));
                     Assert.That(StateJson(),Is.EqualTo(state));Assert.That(app.Session.ActionSequence,Is.EqualTo(sequence));
                     CollectionAssert.AreEqual(saved,File.ReadAllBytes(app.SaveLocation));

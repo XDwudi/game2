@@ -107,7 +107,7 @@ namespace DiceCraft.Tests
             Assert.That(Button("ConfirmPurchase").interactable, Is.False);
             Assert.That(FindActive<TextMeshProUGUI>("UnavailableBody").text, Is.EqualTo(app.Session.PurchaseError(controller.offerId)).And.Contains("控制器"));
             Assert.That(StateJson(), Is.EqualTo(before));
-            Click("CloseDialog"); Click("Tab0");
+            Click("CloseDialog");
             yield return InspectOfferCard(consumable.offerId);
             Assert.That(app.Session.PurchaseError(consumable.offerId), Is.Not.Null);
             Assert.That(Button("ConfirmPurchase").interactable, Is.False);

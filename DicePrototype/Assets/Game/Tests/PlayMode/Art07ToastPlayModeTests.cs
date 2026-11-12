@@ -47,7 +47,7 @@ namespace DiceCraft.Tests
                     var buy=app.Send(new SessionCommand{kind=CommandKind.Buy,offerId="missing-toast-probe"});
                     var sell=app.Send(new SessionCommand{kind=CommandKind.Sell,itemInstanceId="missing-toast-probe"});
                     Assert.That(buy.accepted||sell.accepted,Is.False);yield return null;
-                    var shopLabels=ToastLabels07();Assert.That(shopLabels.Length,Is.EqualTo(2),"The shop bottom band must show both complete errors.");
+                    var shopLabels=ToastLabels07();Assert.That(shopLabels.Length,Is.EqualTo(2),"The shop must show both complete errors.\n"+string.Join("\n",app.NoticeBlockerReport073(49*UiKit.FontScale)));
                     CollectionAssert.AreEquivalent(new[]{buy.error,sell.error},shopLabels.Select(t=>t.text));
                     foreach(var label in shopLabels)ToastBounds07(label,false);
                     yield return ScoreLabelGpuCapture07(shopLabels);
@@ -139,7 +139,7 @@ namespace DiceCraft.Tests
             Assert.That(panel.rect.width,Is.EqualTo(480));Assert.That(label.textInfo.lineCount,Is.InRange(1,2));Assert.That(label.isTextOverflowing||label.isTextTruncated,Is.False);
             foreach(var glyph in ScoreGlyphRects07(label))Assert.That(ScoreContains07(paper,glyph),Is.True,label.text);
             Assert.That(ScoreContains07(new Rect(0,0,Screen.width,Screen.height),paper),Is.True);
-            string[] actions=app.Session.State.phase=="Shop"?new[]{"LeaveShop","RefreshControllers","Pause","Handbook","Tab0","Tab1","Tab2","Tab3","Tab4"}:new[]{"Roll","Confirm","Clear","Submit","EndStage","Pause","Handbook"};
+            string[] actions=app.Session.State.phase=="Shop"?new[]{"LeaveShop","RefreshControllers","Pause","Handbook","Study"}:new[]{"Roll","Confirm","Clear","Submit","EndStage","Pause","Handbook"};
             if(app.Session.State.phase!="Shop"&&HasActive("Factor0"))actions=actions.Concat(Enumerable.Range(0,6).Select(i=>"Factor"+i)).ToArray();
             foreach(string name in actions)
             {

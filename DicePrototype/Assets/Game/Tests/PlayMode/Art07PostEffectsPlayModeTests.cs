@@ -126,7 +126,7 @@ namespace DiceCraft.Tests
         {
             foreach(string upgrade in new[]{"U01","U06"})
             {
-                yield return TransactionShop07(s=>s.shop.offers.Any(o=>o.contentId==upgrade));Click("Tab2");yield return null;
+                yield return TransactionShop07(s=>s.shop.offers.Any(o=>o.contentId==upgrade));yield return null;
                 var before=app.Session.State;var offer=before.shop.offers.Single(o=>o.contentId==upgrade);var die=before.dice.First(d=>d.lifetime=="permanent");string face=die.faces.First(f=>app.Session.IsUpgradeTargetLegal(upgrade,die.dieId,f.faceId)).faceId;
                 Assert.That(app.Send(new SessionCommand{kind=CommandKind.Buy,offerId=offer.offerId,targetDieId=die.dieId,targetFaceId=face}).accepted,Is.True);
                 string state=GameSession.StateHash(app.Session.State);byte[] save=File.ReadAllBytes(app.SaveLocation);yield return TransactionAt07(.14f);

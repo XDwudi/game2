@@ -8,49 +8,8 @@ namespace DiceCraft
 {
     public sealed partial class GameApp
     {
-        // v0.73: one page with every section visible (reference image 2). The tabbed v0.7 shop below is kept
-        // only as LegacyTabbedShop07 for reference and is no longer reachable.
+        // v0.73: one page with every section visible (reference image 2); the tabbed v0.7 shop is gone.
         private void Shop()=>Shop073();
-        private void LegacyTabbedShop07()
-        {
-            shopTab=Mathf.Clamp(shopTab,0,4);
-            Art07ShopShelf();
-            Art07ShopOwned();
-            string[] tabs={"道具","研习","骰子强化","局外服务","骰柜"};
-            for(int i=0;i<tabs.Length;i++)
-            {
-                int tab=i;int available=ViewState.shop.offers.Count(o=>Art07OfferTab(o)==tab&&!o.sold);
-                // rc.2: 60 units tall (was 52) so the tab is still 40 physical pixels high at 1280x720.
-                UiKit.FlatButton(main,"Tab"+i,tabs[i]+"  "+available,392+i*296,460,280,60,
-                    ()=>{shopTab=tab;PlayerPrefs.SetInt("shopTab",tab);Refresh();},true,shopTab==i);
-                if(shopTab==i)UiKit.Box(main,"ActiveShopTab",400+i*296,514,264,3,UiKit.Gold);
-            }
-            var offers=ViewState.shop.offers.Where(o=>Art07OfferTab(o)==shopTab).ToArray();
-            int products=offers.Length+(shopTab==1?1:0);
-            int columns=shopTab==0&&products>3?5:3;float width=columns==5?280:456,gap=16;
-            int rows=(products+columns-1)/columns;
-            var shelf=UiKit.Scroll(main,"ShopProducts",392,528,1496,416,Math.Max(416,rows*432-16));
-            for(int i=0;i<offers.Length;i++)Art07ProductCard(offers[i],(i%columns)*(width+gap),(i/columns)*432,width,shelf);
-            if(shopTab==1)
-            {
-                float x=(offers.Length%columns)*(width+gap),y=(offers.Length/columns)*432;
-                var p=UiKit.PaperFrame(shelf,"SelfStudy",x,y,width,416,UiKit.Paper);
-                UiKit.Text(p,"Name","自选研习",24,24,width-48,56,32,UiKit.Ink);
-                UiKit.Text(p,"Description","选择一种当前可升级的牌型或颜色。\n按正常升级价 +1，本店一次。",24,108,width-48,184,24,UiKit.Ink);
-                UiKit.ActionButton(p,"Study",ViewState.shop.selfStudyUsed==0?"选择研习内容":"本店已研习",24,328,width-48,64,ShowStudy,UiKit.Gold,ViewState.shop.selfStudyUsed==0&&!IsBusy);
-            }
-            if(offers.Length==0&&shopTab!=1)
-                UiKit.Text(main,"NoOffers","本店暂无合法商品\n已有容量升级仍然生效。",424,592,1380,160,30,UiKit.Muted,TextAlignmentOptions.Center);
-            UiKit.Text(main,"ShopHint","只有控制器会刷新；切换分区不会重抽商品。",392,948,1000,48,22,UiKit.Muted);
-            UiKit.ActionButton(main,"LeaveShop","离开商店  →",1464,976,408,72,
-                ()=>{CloseModal();Send(new SessionCommand{kind=CommandKind.LeaveShop});},UiKit.Paper,!IsBusy&&!Session.HasPendingSave);
-            BindShopEntrance07();
-        }
-        private void OfferCard(Transform parent,ShopOffer offer,int slot,float x,float y)
-        {
-            // Kept for existing integrations; the v0.7 shop uses the fixed shelves below.
-            Art07ProductCard(offer,x,y,456,parent);
-        }
         private void InventoryStrip(bool selling)
         {
             float y=878;controllerRects.Clear();
@@ -191,21 +150,6 @@ namespace DiceCraft
         private void PreviewFacePurchase(ShopOffer offer,DieInstance die,string faceId)
         {
             DrawDiceSheet07(die.dieId,offer,faceId,1);
-        }
-        private void FaceCards(Transform p,DieInstance die,float y,Action<string> choose,int[] probabilities)
-        {
-            var units=probabilities??FaceProbability(die);
-            for(int i=0;i<6;i++)
-            {
-                var f=die.faces[i];float x=40+i*250;var card=UiKit.Box(p,"Face_"+f.faceId,x,y,235,235,UiKit.PanelLight);
-                UiKit.Text(card,"ID",f.faceId,14,12,205,35,23,UiKit.Muted);
-                UiKit.Text(card,"Pip",f.permanentPip.ToString(),14,53,205,85,60,f.baseColor=="red"?UiKit.Red:UiKit.Blue,TextAlignmentOptions.Center);
-                UiKit.Text(card,"Color",(f.baseColor=="red"?"红 R":"蓝 B")+(f.isGold?" · 镀金":""),10,140,215,35,22,UiKit.Paper,TextAlignmentOptions.Center);
-                UiKit.Text(card,"Texture",(f.texture=="smooth"?"光滑":f.texture=="rough"?"粗糙":"无纹理")+"   "+(units[i]/10000f).ToString("0.00")+"%",10,181,215,34,20,UiKit.Muted,TextAlignmentOptions.Center);
-                var faceButton=card.GetComponent<UnityEngine.UI.Button>();
-                if(faceButton!=null){faceButton.onClick.RemoveAllListeners();faceButton.enabled=false;faceButton.interactable=false;}
-                if(choose!=null){string id=f.faceId;faceButton=UiKit.Component<UnityEngine.UI.Button>(card.gameObject);faceButton.enabled=true;faceButton.interactable=true;faceButton.targetGraphic=card.GetComponent<UnityEngine.UI.Image>();faceButton.targetGraphic.raycastTarget=true;faceButton.onClick.AddListener(()=>choose(id));}
-            }
         }
     }
 }

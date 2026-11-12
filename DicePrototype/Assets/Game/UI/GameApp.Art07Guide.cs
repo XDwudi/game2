@@ -54,7 +54,7 @@ namespace DiceCraft
             if(shop)guideStep07=4;else if(guideStep07==4)return;
             string[] title={"1 / 5  投掷","2 / 5  待选","3 / 5  确认锁定","4 / 5  提交","5 / 5  关末构筑"};
             string[] body={"每手总投掷包含首掷。点击掷骰开始。","点选骰子进入待选；再点一次可取消。","确认后，本手不能随时解除锁定。","牌型、颜色、红组分别计算，再相乘。","买骰只增加骰池，提交栏需要独立扩容。"};
-            RectTransform target=GuideElement07(shop?"Tab4":guideStep07==0?"Roll":guideStep07==1?
+            RectTransform target=GuideElement07(shop?"DiceCounter":guideStep07==0?"Roll":guideStep07==1?
                 "Die_"+visibleDice.FirstOrDefault():guideStep07==2?"Confirm":"Submit");
             if(target==null)return;
             var obstacles=GuideObstacles07();Rect targetBounds=GuideBounds07(target);

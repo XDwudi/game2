@@ -150,15 +150,16 @@ namespace DiceCraft.Tests
         {
             foreach(string service in new[]{"O05","O06"})
             {
-                yield return TransactionShop07(s=>s.shop.offers.Any(o=>o.contentId==service));Click("Tab3");yield return null;
+                yield return TransactionShop07(s=>s.shop.offers.Any(o=>o.contentId==service));yield return null;
                 var before=app.Session.State;var offer=before.shop.offers.Single(o=>o.contentId==service);string category=service=="O05"?"controller":"consumable";
                 var result=app.Send(new SessionCommand{kind=CommandKind.Buy,offerId=offer.offerId});Assert.That(result.accepted,Is.True,result.error);
                 var after=app.Session.State;var added=after.shop.offers.Where(o=>o.category==category&&!before.shop.offers.Any(b=>b.offerId==o.offerId)).ToArray();Assert.That(added,Has.Length.EqualTo(1));
                 Assert.That(app.TransactionVisualKind07,Is.EqualTo("offer_expansion"));Assert.That(app.TransactionVisualDuration07,Is.EqualTo(.34f).Within(.0001f));
                 Assert.That(app.TransactionAnimatedTargets07.All(n=>n=="NewSlotOutline"||n.Contains(added[0].offerId)),Is.True);
                 foreach(var prior in before.shop.offers.Where(o=>o.offerId!=offer.offerId))Assert.That(JsonUtility.ToJson(after.shop.offers.Single(o=>o.offerId==prior.offerId)),Is.EqualTo(JsonUtility.ToJson(prior)));
-                if(service=="O06"){Assert.That(app.TransactionAnimatedTargets07,Does.Contain("AddedOffer_"+added[0].offerId));Assert.That(TransactionRect07("Product_"+offer.offerId),Is.Not.Null,"Service tab stays visible.");}
-                AssertExpansionFrameMatchesFinalTarget07((service=="O05"?"Offer_":"AddedOffer_")+added[0].offerId);
+                // v0.73: every section is on one page, so the new consumable is its real product card (scrolled into view), not a stand-in.
+                if(service=="O06"){Assert.That(app.TransactionAnimatedTargets07,Does.Contain("Product_"+added[0].offerId));Assert.That(TransactionRect07("Product_"+offer.offerId),Is.Not.Null,"The service card stays visible.");}
+                AssertExpansionFrameMatchesFinalTarget07((service=="O05"?"Offer_":"Product_")+added[0].offerId);
                 string hash=GameSession.StateHash(after);byte[] save=File.ReadAllBytes(app.SaveLocation);yield return TransactionDone07();Assert.That(GameSession.StateHash(app.Session.State),Is.EqualTo(hash));CollectionAssert.AreEqual(save,File.ReadAllBytes(app.SaveLocation));
             }
         }
@@ -166,7 +167,7 @@ namespace DiceCraft.Tests
         {
             foreach(string upgrade in new[]{"U07","U05"})
             {
-                yield return TransactionShop07(s=>s.shop.offers.Any(o=>o.contentId==upgrade));Click("Tab2");yield return null;
+                yield return TransactionShop07(s=>s.shop.offers.Any(o=>o.contentId==upgrade));yield return null;
                 var before=app.Session.State;var offer=before.shop.offers.Single(o=>o.contentId==upgrade);var die=before.dice.First(d=>d.lifetime=="permanent");string face=upgrade=="U05"?null:die.faces.First(f=>app.Session.IsUpgradeTargetLegal(upgrade,die.dieId,f.faceId)).faceId;
                 var result=app.Send(new SessionCommand{kind=CommandKind.Buy,offerId=offer.offerId,targetDieId=die.dieId,targetFaceId=face});Assert.That(result.accepted,Is.True,result.error);
                 Assert.That(app.TransactionVisualKind07,Is.EqualTo("die_upgrade"));Assert.That(app.TransactionVisualDuration07,Is.EqualTo(upgrade=="U05"?.42f:.36f).Within(.0001f));
@@ -183,7 +184,7 @@ namespace DiceCraft.Tests
         }
         [UnityTest] public IEnumerator PLAY_ART07_TX_FailedPurchaseDiscardsInvisibleCaptureAndKeepsCheckpoint()
         {
-            yield return TransactionShop07(s=>s.shop.offers.Any(o=>o.category=="die_upgrade"));Click("Tab2");yield return null;
+            yield return TransactionShop07(s=>s.shop.offers.Any(o=>o.category=="die_upgrade"));yield return null;
             var before=app.Session.State;var offer=before.shop.offers.First(o=>o.category=="die_upgrade");string hash=GameSession.StateHash(before);byte[] save=File.ReadAllBytes(app.SaveLocation);
             var result=app.Send(new SessionCommand{kind=CommandKind.Buy,offerId=offer.offerId,targetDieId="missing",targetFaceId="F01"});Assert.That(result.accepted,Is.False);
             Assert.That(app.TransactionVisualPlaying07,Is.False);Assert.That(app.Session.Busy,Is.False);Assert.That(app.TransactionSnapshotGraphicCount07,Is.Zero);

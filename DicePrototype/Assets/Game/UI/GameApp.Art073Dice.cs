@@ -33,9 +33,20 @@ namespace DiceCraft
         {
             var rect = UiKit.Rect(parent, name, x, y, w, h);
             var view = UiKit.Component<Art073DieView>(rect.gameObject);
-            view.Bind(UiDice073, slot, die, size, DieRest073(restFace), () => inModal ? modal : !modal && !inMenu, clip, true, spin);
+            view.Bind(UiDice073, slot, die, size, DieRest073(restFace), () => inModal ? modal : !modal && !inMenu && !CoveredByGuide073(rect), clip, true, spin);
             view.clicked = click; view.faceClicked = faceClick; view.turned = null;
             return view;
+        }
+
+        /// <summary>
+        /// Interface dice are drawn above the whole screen layer. The first-run guide paper lives in that
+        /// layer, so a die it covers must step aside instead of showing through the paper.
+        /// </summary>
+        private bool CoveredByGuide073(RectTransform cell)
+        {
+            if (!guide07 && !guideDockTailHold07) return false;
+            var paper = GuideElement07("FirstRunGuide"); if (paper == null) return false;
+            return GuideBounds07(paper).Overlaps(GuideBounds07(cell));
         }
 
         /// <summary>Soft floor shadow under an interface die (the dice texture itself carries no shadow).</summary>

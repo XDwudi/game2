@@ -18,7 +18,7 @@ namespace DiceCraft
         public float Duration { get; private set; }
         public int EnterSequence { get; private set; }
         public int CardGroupCount { get; private set; }
-        public const float ShelfSeconds=.24f,CardSeconds=.18f,CardStagger=.03f,CardRise=12;
+        public const float ShelfSeconds=.24f,CardSeconds=.18f,CardStagger=.03f,CardRise=12,MaxStepSeconds=.1f;
 
         public void Bind(string shopIdentity,bool reduce,bool instant,Func<bool> isPaused,RectTransform[] shelfRoots,RectTransform[][] cardGroups)
         {
@@ -47,7 +47,8 @@ namespace DiceCraft
         {
             if(!IsPlaying)return;
             if(tracks.Count==0||tracks[0].root==null||!tracks[0].root.gameObject.activeInHierarchy){Complete();return;}
-            double now=Time.realtimeSinceStartupAsDouble;float delta=(float)Math.Max(0,now-lastClock);lastClock=now;
+            // v0.73: one slow frame (first use of new shop art) must not swallow the whole entrance.
+            double now=Time.realtimeSinceStartupAsDouble;float delta=Mathf.Min(MaxStepSeconds,(float)Math.Max(0,now-lastClock));lastClock=now;
             if(paused?.Invoke()==true)return;
             Elapsed=Mathf.Min(Duration,Elapsed+delta);Evaluate();if(Elapsed>=Duration)Complete();
         }

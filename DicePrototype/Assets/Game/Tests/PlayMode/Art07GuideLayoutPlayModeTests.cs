@@ -64,7 +64,8 @@ namespace DiceCraft.Tests
                 Click("Confirm");yield return WaitForIdle();Click("Submit");app.SkipVisual();Assert.That(app.Session.CanEndStage,Is.True);
                 Click("EndStage");Click("SettlementContinue");yield return new WaitForSecondsRealtime(.25f);
                 Assert.That(app.Session.State.phase,Is.EqualTo("Shop"));Assert.That(FindActive<TextMeshProUGUI>("GuideTitle").text,Does.StartWith("5 / 5"));
-                string before=StateJson();byte[] disk=File.ReadAllBytes(app.SaveLocation);GuideCheckLayout07("Tab4");
+                string before=StateJson();byte[] disk=File.ReadAllBytes(app.SaveLocation);// v0.73: step 5 points at the dice counter section (the old dice-cabinet tab is gone).
+                GuideCheckLayout07("DiceCounter");
                 yield return CaptureEdge07("S19-guide-repaired-shop-font"+font);
                 Assert.That(StateJson(),Is.EqualTo(before));CollectionAssert.AreEqual(disk,File.ReadAllBytes(app.SaveLocation));
             }

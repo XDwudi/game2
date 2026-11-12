@@ -25,14 +25,16 @@ namespace DiceCraft.Tests
             var dialog=FindActive<RectTransform>("Dialog");
             Assert.That(dialog.anchoredPosition,Is.EqualTo(new Vector2(208,-96)));
             Assert.That(dialog.sizeDelta,Is.EqualTo(new Vector2(1504,888)));
+            // v0.73: no flat face net. Six face buttons in physical order turn the real die; each is 92 x 64.
             string[] ids={"F01","F02","F03","F04","F05","F06"};
-            var expected=new[]{new Vector2(1104,-112),new Vector2(1104,-208),new Vector2(1200,-208),new Vector2(1008,-208),new Vector2(1104,-400),new Vector2(1104,-304)};
             for(int i=0;i<ids.Length;i++)
             {
                 var face=FindActive<RectTransform>("Face_"+ids[i]);
-                Assert.That(face.sizeDelta,Is.EqualTo(new Vector2(88,88)));
-                Assert.That(face.anchoredPosition,Is.EqualTo(expected[i]),"Physical face mapping: "+ids[i]);
+                Assert.That(face.sizeDelta,Is.EqualTo(new Vector2(92,64)));
+                Assert.That(face.anchoredPosition,Is.EqualTo(new Vector2(848+i*101,-160)),"Face button order: "+ids[i]);
+                Assert.That(face.Find("Label").GetComponent<TextMeshProUGUI>().text,Is.EqualTo("面 "+(i+1)));
             }
+            Assert.That(app.canvas.GetComponentsInChildren<RectTransform>(false).Any(r=>r.name=="ExampleFace"),Is.False,"The dice sheet must not draw flat face tiles.");
             string layers=FindActive<TextMeshProUGUI>("LayersBody").text;
             Assert.That(layers,Does.Contain("1 → 3 / 蓝 B（遥控） → 4 / 蓝 B"));
             var current=app.Session.State.hand.currentResults.Single(r=>r.dieId=="D001");
@@ -41,6 +43,10 @@ namespace DiceCraft.Tests
             Assert.That(FindActive<TextMeshProUGUI>("ProbabilityValue2").text,Is.EqualTo("0%"));
             Click("Face_F05");
             Assert.That(FindActive<Transform>("Face_F05").Find("SelectedH0").gameObject.activeSelf,Is.True);
+            // The real die turns to the chosen face (instantly under reduced motion, otherwise within 0.18 s).
+            double turnDeadline=Time.realtimeSinceStartupAsDouble+2;while(app.SheetTurning073&&Time.realtimeSinceStartupAsDouble<turnDeadline)yield return null;
+            Assert.That(app.SheetFacingFace073,Is.EqualTo(4),"Face 5 must look at the player after its button is pressed.");
+            Assert.That(FindActive<TextMeshProUGUI>("FacingFace073").text,Does.Contain("面 5"));
             var rotate=FindActive<DiePointer>("RotatePreview");
             ExecuteEvents.Execute(rotate.gameObject,new PointerEventData(EventSystem.current){delta=new Vector2(80,40)},ExecuteEvents.dragHandler);
             Click("ProbabilityGroups");Click("CloseDialog");

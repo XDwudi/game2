@@ -192,7 +192,7 @@ namespace DiceCraft.Tests
                 var fixture=ShopBoundaryFixture();fixture.shop.offers.RemoveAll(o=>o.category=="service");fixture.freeFirstRefreshOwned=free;
                 AddBoundaryOffer(fixture,"extra-O05","service","O05");AddBoundaryOffer(fixture,"extra-O06","service","O06");
                 yield return ExtraLoadFixture07(fixture,free?"refresh-free":"refresh-paid");
-                var consumable=app.Session.State.shop.offers.First(o=>o.category=="consumable");yield return ExtraPress07("Tab0");yield return ExtraPress07("Buy_"+consumable.offerId,true);
+                var consumable=app.Session.State.shop.offers.First(o=>o.category=="consumable");yield return ExtraPress07("Buy_"+consumable.offerId,true);
                 string prefix=free?"free":"paid";yield return ExtraCapture07(prefix+"-refresh-before","S11","Actual first price and a sold non-controller quote before refresh.");
                 for(int i=0;i<2;i++)
                 {
@@ -206,13 +206,13 @@ namespace DiceCraft.Tests
                 }
                 if(!free)foreach(string service in new[]{"O05","O06"})
                 {
-                    yield return ExtraPress07("Tab3");var before=app.Session.State;string category=service=="O05"?"controller":"consumable";
+                    var before=app.Session.State;string category=service=="O05"?"controller":"consumable";
                     var prior=before.shop.offers.Where(o=>o.category==category).Select(JsonUtility.ToJson).ToArray();
                     yield return ExtraCapture07("expand-"+service+"-before","S11","Actual service quote before a single capacity purchase.");
                     yield return ExtraPress07("Buy_extra-"+service,true);var after=app.Session.State;Assert.That(after.actionSequence,Is.EqualTo(before.actionSequence+1));
                     var expanded=after.shop.offers.Where(o=>o.category==category).ToArray();Assert.That(expanded.Length,Is.EqualTo(prior.Length+1));CollectionAssert.AreEqual(prior,expanded.Take(prior.Length).Select(JsonUtility.ToJson));
                     Assert.That(service=="O05"?after.controllerOfferPurchases:after.consumableOfferPurchases,Is.EqualTo((service=="O05"?before.controllerOfferPurchases:before.consumableOfferPurchases)+1));
-                    yield return ExtraPress07("Tab0");yield return ExtraCapture07("expand-"+service+"-after","S11","Exactly one legal new quote; old shelf entries preserved. Empty-candidate branch not covered.");
+                    yield return ExtraCapture07("expand-"+service+"-after","S11","Exactly one legal new quote; old shelf entries preserved. Empty-candidate branch not covered.");
                 }
             }
             ExtraFinish07();
@@ -222,7 +222,7 @@ namespace DiceCraft.Tests
         {
             yield return ExtraBegin07();var fixture=ShopBoundaryFixture();fixture.shop.offers.Clear();
             foreach(string id in new[]{"U01","U07","U05"})AddBoundaryOffer(fixture,"extra-"+id,"die_upgrade",id);
-            yield return ExtraLoadFixture07(fixture,"upgrades");yield return ExtraPress07("Tab2");
+            yield return ExtraLoadFixture07(fixture,"upgrades");
             string before=StateJson();byte[] disk=File.ReadAllBytes(app.SaveLocation);
             yield return ExtraPress07("Buy_extra-U01");Assert.That(Button("ConfirmPurchase").interactable,Is.False);
             yield return ExtraCapture07("upgrade-no-target","S13","No implicit die/face target; confirm disabled.");
@@ -240,7 +240,7 @@ namespace DiceCraft.Tests
             yield return ExtraPress07("ConfirmPurchase",true);Assert.That(app.Session.State.dice.Single(d=>d.dieId=="D001").isGlass,Is.True);Assert.That(string.IsNullOrEmpty(app.Session.State.processedReceipts.Last().command.targetFaceId),Is.True);
             yield return ExtraPress07("Buy_extra-U07");yield return ExtraPress07("Target_D001");yield return ExtraPress07("Face_F02");yield return ExtraCapture07("glass-with-smooth-face","S13","Actual committed glass body with the prior permanent smooth face.");yield return ExtraPress07("CloseDialog");
             fixture=app.Session.State;fixture.shop.offers.RemoveAll(o=>o.contentId=="U01");AddBoundaryOffer(fixture,"extra-duplicate","die_upgrade","U01");yield return ExtraLoadFixture07(fixture,"duplicate-upgrade");
-            yield return ExtraPress07("Tab2");yield return ExtraPress07("Buy_extra-duplicate");yield return ExtraPress07("Target_D001");yield return ExtraPress07("Face_F02");
+            yield return ExtraPress07("Buy_extra-duplicate");yield return ExtraPress07("Target_D001");yield return ExtraPress07("Face_F02");
             Assert.That(Button("ConfirmPurchase").interactable,Is.False);yield return ExtraCapture07("upgrade-already-owned","S13","Core rejects duplicate attribute; price/target retained and no transaction.");yield return ExtraPress07("CloseDialog");ExtraFinish07();
         }
 

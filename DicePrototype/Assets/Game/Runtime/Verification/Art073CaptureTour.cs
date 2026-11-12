@@ -30,7 +30,7 @@ namespace DiceCraft.Verification
             public bool reducedMotion;public List<string> images=new List<string>();public List<string> notes=new List<string>();
             public int highScoreTierMax;
         }
-        private string directory,tracePath;
+        private string directory,tracePath,fixture;
         private int maxSteps=40;
         private bool reduced;
         private readonly Report report=new Report();
@@ -50,6 +50,7 @@ namespace DiceCraft.Verification
             int trace=Array.IndexOf(args,"--art073-trace");if(trace>=0&&trace+1<args.Length)tour.tracePath=Path.GetFullPath(args[trace+1]);
             int steps=Array.IndexOf(args,"--art073-steps");if(steps>=0&&steps+1<args.Length)tour.maxSteps=int.Parse(args[steps+1],CultureInfo.InvariantCulture);
             tour.reduced=Array.IndexOf(args,"--art073-reduced")>=0;
+            int scene=Array.IndexOf(args,"--art073-fixture");if(scene>=0&&scene+1<args.Length)tour.fixture=args[scene+1];
         }
 
         private IEnumerator Start()
@@ -82,6 +83,25 @@ namespace DiceCraft.Verification
             yield return new WaitForSecondsRealtime(.6f);
             yield return Capture("menu");
             report.screenWidth=Screen.width;report.screenHeight=Screen.height;
+            if(!string.IsNullOrEmpty(fixture))
+            {
+                // Reference image 4 is this exact committed hand: 967,680 at x26,880 with four scoring cards.
+                var kind=(Art07FixtureKind)Enum.Parse(typeof(Art07FixtureKind),fixture);
+                Art07Fixtures.Apply(app,kind);yield return new WaitForSecondsRealtime(.8f);
+                yield return Capture("fixture-"+fixture+"-before");
+                Art07Fixtures.Submit(app,kind);
+                float end=Time.realtimeSinceStartup+4f,next=Time.realtimeSinceStartup+.7f;int frame=0,best=0;
+                while(Time.realtimeSinceStartup<end&&(app.IsBusy||app.HighScoreTierShown073>0))
+                {
+                    best=Math.Max(best,app.HighScoreTierShown073);
+                    if(Time.realtimeSinceStartup>=next&&frame<8){yield return Capture("fixture-"+fixture+"-score-"+(char)('a'+frame));frame++;next=Time.realtimeSinceStartup+.14f;}
+                    yield return null;
+                }
+                report.highScoreTierMax=best;report.notes.Add("fixture "+fixture+": high-score tier "+best);
+                yield return new WaitForSecondsRealtime(.6f);
+                yield return Capture("fixture-"+fixture+"-after");
+                yield break;
+            }
             if(string.IsNullOrEmpty(tracePath))yield break;
             var trace=JsonUtility.FromJson<Trace>(File.ReadAllText(tracePath));
             app.StartNew(trace.seed.ToString(CultureInfo.InvariantCulture));
@@ -100,6 +120,15 @@ namespace DiceCraft.Verification
                 }
                 if(kind==CommandKind.Submit&&seen.Add("library"))yield return DiceLibrary(app);
                 if(kind==CommandKind.LeaveShop&&seen.Add("upgrade-target"))yield return UpgradeTarget(app);
+                if(kind==CommandKind.LeaveShop&&seen.Add("shop-notice"))
+                {
+                    // A real rejected purchase: where the notice goes on the one-page shop, and what would block it.
+                    app.Send(new SessionCommand{kind=CommandKind.Buy,offerId="missing-notice-probe"});
+                    yield return new WaitForSecondsRealtime(.3f);
+                    foreach(string line in app.NoticeBlockerReport073(49))report.notes.Add("notice "+line);
+                    yield return Capture("shop-notice");
+                    yield return new WaitForSecondsRealtime(2.4f);
+                }
                 string before=app.ViewState?.phase;
                 var result=app.Send(new SessionCommand
                 {

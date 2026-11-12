@@ -172,7 +172,11 @@ namespace DiceCraft
             if(debugPanel&&modal){yield return new Vector2(1392,980-height);yield break;}
             if(inMenu){yield return new Vector2(120,1000-height);yield return new Vector2(616,1000-height);yield break;}
             if(ViewState?.phase=="Shop")
-            {yield return new Vector2(392,1048-height);yield return new Vector2(888,1048-height);yield break;}
+            {
+                // v0.73: first the owned strip (its captions yield), then the title row above the shelves.
+                yield return new Vector2(392,1048-height);yield return new Vector2(888,1048-height);
+                yield return new Vector2(600,24);yield return new Vector2(1096,24);yield break;
+            }
             if(Compact07)
             {
                 bool lowerRowEmpty=(ViewState?.hand?.orderedLockedIds.Count??0)<=4;
@@ -198,7 +202,7 @@ namespace DiceCraft
             var root=((RectTransform)canvas.transform).rect;
             return Rect.MinMaxRect(points.Min(p=>p.x)-root.xMin,root.yMax-points.Max(p=>p.y),points.Max(p=>p.x)-root.xMin,root.yMax-points.Min(p=>p.y));
         }
-        private static bool ToastSecondaryLabel07(string name)=>name.StartsWith("EmptySlot",StringComparison.Ordinal)||name=="LockRule"||name=="ShopHint"||name=="DebugStatus";
+        private static bool ToastSecondaryLabel07(string name)=>name.StartsWith("EmptySlot",StringComparison.Ordinal)||name=="LockRule"||name=="ShopHint"||name=="DebugStatus"||name=="OwnedLabel"||name=="OwnedItemsTitle"||name=="OwnedDiceMore";
         private Rect ToastClip07(Rect rect,Transform target)
         {
             Rect Intersect(Rect a,Rect b)
@@ -210,10 +214,22 @@ namespace DiceCraft
             foreach(var mask in target.GetComponentsInParent<RectMask2D>(false))if(mask.isActiveAndEnabled)rect=Intersect(rect,ToastRect07(mask.rectTransform));
             return Intersect(rect,new Rect(0,0,1920,1080));
         }
-        private List<Rect> ToastBlockers07()
+        /// <summary>Verification aid: the screen elements that block a notice of this height at each candidate position.</summary>
+        public string[] NoticeBlockerReport073(float height)
+        {
+            var names=new List<string>();var blockers=ToastBlockers07(names);var lines=new List<string>();
+            foreach(var point in ToastCandidates07(height))
+            {
+                var rect=new Rect(point.x,point.y,480,height);var hits=new List<string>();
+                for(int i=0;i<blockers.Count;i++)if(ToastOverlap07(rect,blockers[i],4))hits.Add(names[i]+"@"+blockers[i]);
+                lines.Add(rect+": "+(hits.Count==0?"free":string.Join(" | ",hits.Take(6))));
+            }
+            return lines.ToArray();
+        }
+        private List<Rect> ToastBlockers07(List<string> names=null)
         {
             Transform source=modal?overlay:main;var result=new List<Rect>();
-            void Add(Rect rect,Transform target){rect=ToastClip07(rect,target);if(rect.width>0&&rect.height>0)result.Add(rect);}
+            void Add(Rect rect,Transform target){rect=ToastClip07(rect,target);if(rect.width>0&&rect.height>0){result.Add(rect);names?.Add(target.name);}}
             foreach(var selectable in source.GetComponentsInChildren<Selectable>(false))Add(ToastRect07((RectTransform)selectable.transform),selectable.transform);
             foreach(var pointer in source.GetComponentsInChildren<DiePointer>(false))
             {var rect=ToastRect07((RectTransform)pointer.transform);rect.xMin-=16;rect.xMax+=16;rect.yMin-=16;rect.yMax+=16;Add(rect,pointer.transform);}

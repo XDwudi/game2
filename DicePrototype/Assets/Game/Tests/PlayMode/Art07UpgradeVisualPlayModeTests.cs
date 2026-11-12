@@ -25,7 +25,7 @@ namespace DiceCraft.Tests
                     Assert.That(UiKit.FontScale,Is.EqualTo(fontScale/100f));
                     foreach(string upgrade in new[]{"U05","U07"})
                     {
-                        yield return TransactionShop07(s=>s.shop.offers.Any(o=>o.contentId==upgrade));Click("Tab2");yield return null;
+                        yield return TransactionShop07(s=>s.shop.offers.Any(o=>o.contentId==upgrade));yield return null;
                         var before=app.Session.State;var offer=before.shop.offers.First(o=>o.contentId==upgrade);
                         var die=before.dice.First(d=>d.lifetime=="permanent"&&!d.isGlass);string face=upgrade=="U05"?"F02":die.faces.First(f=>app.Session.IsUpgradeTargetLegal(upgrade,die.dieId,f.faceId)).faceId;
                         bool wasEnabled=app.enabled;var shots=new List<Texture2D>();Texture2D hiddenQuestion=null;
@@ -116,7 +116,7 @@ namespace DiceCraft.Tests
                 {
                     PlayerPrefs.SetInt("art07.textScale",fontScale);PlayerPrefs.SetInt("fast",reduce?0:1);PlayerPrefs.SetInt("reduced",reduce?1:0);yield return LoadBootstrap();
                     Assert.That(UiKit.FontScale,Is.EqualTo(fontScale/100f));
-                    yield return TransactionShop07(s=>s.shop.offers.Any(o=>o.contentId==upgrade));Click("Tab2");yield return null;
+                    yield return TransactionShop07(s=>s.shop.offers.Any(o=>o.contentId==upgrade));yield return null;
                     var before=app.Session.State;var offer=before.shop.offers.First(o=>o.contentId==upgrade);var die=before.dice.First(d=>!d.isGlass);
                     string face=upgrade=="U05"?null:die.faces.First(f=>app.Session.IsUpgradeTargetLegal(upgrade,die.dieId,f.faceId)).faceId;
                     bool wasEnabled=app.enabled;

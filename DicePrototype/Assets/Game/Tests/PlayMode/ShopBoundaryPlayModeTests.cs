@@ -33,7 +33,7 @@ namespace DiceCraft.Tests
                     yield return OpenBoundaryOffer("straight");
                     Assert.That(Button("ConfirmPurchase").interactable, Is.False);
                     Assert.That(FindActive<TextMeshProUGUI>("PriceBody").text, Does.Contain("容量"));
-                    Click("CloseDialog"); Click("Tab1"); Click("Study");
+                    Click("CloseDialog"); Click("Study");
                     Assert.That(HasActive("StudyBuystraight"), Is.False, "Self-study must apply the same reduced capacity immediately.");
                     Click("CloseDialog");
                     string instance = app.Session.State.controllers.Single(c => c.contentId == "C09").instanceId;
@@ -61,7 +61,7 @@ namespace DiceCraft.Tests
                 int premium = app.Config.shop.selfStudyPremium;
                 if (studyFirst)
                 {
-                    Click("Tab1"); Click("Study");
+                    Click("Study");
                     Assert.That(Button("StudyBuypair").GetComponentInChildren<TextMeshProUGUI>().text, Is.EqualTo((basePrice + premium) + " 金币"));
                     long gold = app.Session.State.gold; Click("StudyBuypair");
                     Assert.That(app.Session.State.gold, Is.EqualTo(gold - basePrice - premium));
@@ -73,7 +73,7 @@ namespace DiceCraft.Tests
                 else
                 {
                     yield return BuyBoundaryOffer("pair");
-                    Click("Tab1"); Click("Study");
+                    Click("Study");
                     Assert.That(FindActive<TextMeshProUGUI>("StudyNamepair").text, Does.Contain("Lv.1 → 2"));
                     Assert.That(Button("StudyBuypair").GetComponentInChildren<TextMeshProUGUI>().text, Is.EqualTo((basePrice + increment + premium) + " 金币"));
                     long gold = app.Session.State.gold; Click("StudyBuypair");
@@ -161,8 +161,13 @@ namespace DiceCraft.Tests
             Assert.That(app.Session.State.baseSubmitCapacity, Is.EqualTo(5));
             yield return OpenBoundaryOffer(candidates[1].offerId);
             Assert.That(Button("ConfirmPurchase").interactable, Is.True);
+            // v0.73: the candidate's faces are on the real die (drag or the face buttons show each one), not on flat tiles.
+            var candidatePose = app.table.GetFaceOrientation("$die-preview"); Assert.That(candidatePose, Is.Not.Null);
             foreach (var face in candidates[1].die.faces)
-                Assert.That(FindActive<Transform>("Face_"+face.faceId).Cast<Transform>().Count(t=>t.gameObject.activeSelf&&t.name.StartsWith("Pip")),Is.EqualTo(face.permanentPip),"The fixed candidate face must render its actual pip count.");
+            {
+                Assert.That(candidatePose.Find("Face_"+face.faceId).GetComponent<MeshFilter>().sharedMesh.name, Does.StartWith("Pips_"+face.permanentPip+"_"), "The fixed candidate die must carry its actual pip count on every physical face.");
+                Assert.That(FindActive<Transform>("Face_"+face.faceId).Cast<Transform>().Any(t=>t.gameObject.activeSelf&&t.name.StartsWith("Pip")), Is.False, "No flat pips on the face buttons.");
+            }
             Click("ConfirmPurchase");
             Assert.That(app.Session.State.dice.Count, Is.EqualTo(8));
             Assert.That(JsonUtility.ToJson(app.Session.State.shop.offers.Single(o => o.offerId == candidates[1].offerId).die), Is.EqualTo(frozenCandidate));
@@ -225,17 +230,19 @@ namespace DiceCraft.Tests
         }
         private void ShopTabFor(string offerId)
         {
-            var offer = app.Session.State.shop.offers.Single(o => o.offerId == offerId);
-            if(offer.category=="controller")return; // The controller shelf remains visible on all five tabs.
-            int tab=offer.category=="consumable"?0:offer.category=="hand_upgrade"||offer.category=="color_upgrade"?1:offer.category=="die_upgrade"?2:offer.category=="service"?3:4;
-            Click("Tab"+tab);
+            // v0.73: the shop is one page; every section is always visible, so there is no tab to open.
+            Assert.That(app.Session.State.shop.offers.Count(o => o.offerId == offerId), Is.EqualTo(1));
         }
         private IEnumerator OpenBoundaryOffer(string id) { yield return WaitForIdle(); ShopTabFor(id); yield return InspectOfferCard(id); }
         private IEnumerator BuyBoundaryOffer(string id) { yield return OpenBoundaryOffer(id); yield return LegacyClick07("ConfirmPurchase"); yield return WaitForIdle(); }
         private void AssertBoundaryCardPrice(string id, int price)
         {
             ShopTabFor(id);
-            Assert.That(Button("Buy_"+id).GetComponentInChildren<TextMeshProUGUI>().text, Is.EqualTo("购买 "+price));
+            // v0.73: the transaction price is on the gold price chip; the button below it only says what it does.
+            var priced = app.Session.State.shop.offers.Single(o => o.offerId == id);
+            var priceCard = FindActive<Transform>((priced.category=="controller"?"Offer_":"Product_")+id);
+            Assert.That(priceCard.Find("PriceChip/Price").GetComponent<TextMeshProUGUI>().text, Is.EqualTo(price.ToString()));
+            Assert.That(Button("Buy_"+id).GetComponentInChildren<TextMeshProUGUI>().text, Is.EqualTo("购买"));
         }
         private string DialogLabel(string name) => FindActive<Transform>("Dialog").GetComponentsInChildren<TextMeshProUGUI>().Single(t => t.name == name).text;
         private string FaceLabel(string faceId, string name) => FindActive<Transform>("Face_" + faceId).GetComponentsInChildren<TextMeshProUGUI>().Single(t => t.name == name).text;

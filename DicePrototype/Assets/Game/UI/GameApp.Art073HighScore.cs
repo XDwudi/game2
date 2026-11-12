@@ -36,6 +36,11 @@ namespace DiceCraft
             {
                 highScore073=UiKit.Rect(canvas.transform,"HighScore073",0,0,1920,1080);
                 highScoreGroup073=highScore073.gameObject.AddComponent<CanvasGroup>();highScoreGroup073.blocksRaycasts=false;highScoreGroup073.interactable=false;
+                // The tier words use glyphs from the dynamic fallback font. The plate is rebuilt on every replay,
+                // which would create and release that fallback material each time; this invisible, always-active
+                // text keeps it alive from the first celebration on (the 200-replay stability rule).
+                var keeper=UiKit.Text(canvas.transform,"HighScoreGlyphs073","高分超爆",0,0,8,8,22,Color.clear);
+                keeper.textWrappingMode=TextWrappingModes.NoWrap;keeper.transform.SetSiblingIndex(0);
             }
             highScore073.anchoredPosition=main.anchoredPosition;highScore073.SetSiblingIndex(main.GetSiblingIndex()+1);
             highScore073.gameObject.SetActive(true);UiKit.Clear(highScore073);highScoreRays073.Clear();highScoreSparks073.Clear();
@@ -59,10 +64,12 @@ namespace DiceCraft
             if(plate.sprite==null)plate.color=new Color(.03f,.09f,.1f,.94f);
             highScorePlate073.pivot=new Vector2(.5f,.5f);highScorePlate073.anchoredPosition=new Vector2(cx,-cy);
             string title=tier==HighScore073.Burst?"爆  分":tier==HighScore073.Super?"超 高 分":"高  分";
-            var caption=UiKit.Text(highScorePlate073,"Caption",title,0,c?10:14,pw,34,22,line,TextAlignmentOptions.Center);caption.fontStyle=FontStyles.Bold;
+            // Regular weight on purpose: this text is rebuilt on every replay and a bold run would churn a fallback material.
+            UiKit.Text(highScorePlate073,"Caption",title,0,c?10:14,pw,34,22,line,TextAlignmentOptions.Center);
             highScoreNumber073=UiKit.Text(highScorePlate073,"Number",CompactScore(HighScore073.CountValue(highScoreValue073,highScoreCount073>0?0:1)),30,c?36:44,pw-60,c?96:112,c?78:tier==HighScore073.High?88:100,
                 tier==HighScore073.High?UiKit.TextColor:UiKit.Hex("FFF1CF"),TextAlignmentOptions.Midline);
-            if(art07NumberFont!=null)highScoreNumber073.font=art07NumberFont;
+            // The interface font on purpose: the separate number font has no comma, and a text that is rebuilt on every
+            // replay would create and release that fallback material each time (the 200-replay stability rule).
             highScoreNumber073.textWrappingMode=TextWrappingModes.NoWrap;highScoreNumber073.enableAutoSizing=true;
             highScoreNumber073.fontSizeMin=36;highScoreNumber073.fontSizeMax=highScoreNumber073.fontSize;
             string multiplier=receipt07.MultiplierDenominatorDecimal=="1"&&receipt07.MultiplierNumeratorDecimal.Length<=12?Big(receipt07.MultiplierNumeratorDecimal):ScoreFactorShort07(receipt07.MultiplierNumeratorDecimal,receipt07.MultiplierDenominatorDecimal);
@@ -76,7 +83,7 @@ namespace DiceCraft
                 var chip=UiKit.Box(highScore073,"FormulaChip",cx-fw*.5f,cy+ph*.5f-22,fw,46,Color.white).GetComponent<Image>();
                 chip.sprite=UiKit.Template("fx_formula_chip");chip.type=chip.sprite!=null?Image.Type.Sliced:Image.Type.Simple;if(chip.sprite==null)chip.color=UiKit.Background;
                 var text=UiKit.Text(chip.transform,"Formula",formula,12,0,fw-24,46,22,UiKit.TextColor,TextAlignmentOptions.Midline);
-                text.textWrappingMode=TextWrappingModes.NoWrap;text.overflowMode=TextOverflowModes.Ellipsis;
+                text.textWrappingMode=TextWrappingModes.NoWrap;text.overflowMode=TextOverflowModes.Overflow;
             }
             highScoreCrown073=null;
             if(tier==HighScore073.Burst)

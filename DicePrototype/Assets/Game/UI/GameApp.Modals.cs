@@ -269,28 +269,6 @@ namespace DiceCraft
         }
         private static string ColorName07(string color)=>color=="red"?"红 R":"蓝 B";
         private static string FaceSummary07(FaceState f)=>f.permanentPip+"点 · "+ColorName07(f.baseColor)+" · "+(f.texture=="smooth"?"光滑":f.texture=="rough"?"粗糙":"无纹理")+(f.isGold?" · 黄金":"");
-        private void DrawFaceNet07(Transform parent,DieInstance die,string currentFace,string selectedFace,Action<string> select)
-        {
-            string[] ids={"F01","F04","F02","F03","F06","F05"};int[] cols={1,0,1,2,1,1},rows={0,1,1,1,2,3};
-            for(int i=0;i<ids.Length;i++)
-            {
-                string id=ids[i];var face=die.faces.First(f=>f.faceId==id);float x=1008+cols[i]*96,y=112+rows[i]*96;
-                var tile=Art07PipTile(parent,"Face_"+id,face.permanentPip,face.baseColor=="red"?UiKit.Red:UiKit.Blue,x,y,88);
-                foreach(RectTransform child in tile)if(child.gameObject.activeSelf&&child.name.StartsWith("Pip"))child.anchoredPosition=new Vector2(child.anchoredPosition.x,child.anchoredPosition.y*.7f-20);
-                UiKit.Text(tile,"ID",id,4,0,80,30,18,UiKit.Ink,TextAlignmentOptions.Center);
-                if(face.isGold)UiKit.Outline(tile,"GoldRim",5,5,78,78,UiKit.Gold,2);
-                if(id==currentFace)UiKit.Outline(tile,"CurrentFace",-4,-4,96,96,UiKit.Paper,3);
-                if(id==selectedFace)for(int corner=0;corner<4;corner++)
-                {
-                    float cx=corner%2==0?-6:78,cy=corner<2?-6:90;
-                    UiKit.Box(tile,"SelectedH"+corner,cx,cy,16,4,UiKit.Gold);
-                    UiKit.Box(tile,"SelectedV"+corner,corner%2==0?-6:90,corner<2?-6:78,4,16,UiKit.Gold);
-                }
-                var button=UiKit.Component<UnityEngine.UI.Button>(tile.gameObject);button.enabled=select!=null;button.interactable=select!=null;button.onClick.RemoveAllListeners();
-                button.targetGraphic=tile.GetComponent<UnityEngine.UI.Image>();button.targetGraphic.raycastTarget=true;if(select!=null)button.onClick.AddListener(()=>select(id));
-            }
-            UiKit.Text(parent,"FaceLegend","纸白框：当前朝上\n金角标：已选物理面",848,112,152,200,18,UiKit.Muted);
-        }
         private void DrawProbability07(Transform parent,DieInstance die,DieInstance afterDie,int[] before,int[] after,bool comparison)
         {
             var list=UiKit.Scroll(parent,"FaceProbabilities",848,576,600,200,396);int row=0;
