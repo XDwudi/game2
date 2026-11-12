@@ -22,6 +22,9 @@ namespace DiceCraft.Tests
         {
             double until=Time.realtimeSinceStartupAsDouble+seconds;
             while(Time.realtimeSinceStartupAsDouble<until)yield return null;
+            // Layout is read only after the first-visit shop entrance has finished moving its cards.
+            var entrance=app.canvas.GetComponentInChildren<Art07ShopEntrance>(true);double limit=Time.realtimeSinceStartupAsDouble+5;
+            while(entrance!=null&&entrance.IsPlaying&&Time.realtimeSinceStartupAsDouble<limit)yield return null;
             Canvas.ForceUpdateCanvases();yield return null;
         }
         private Art073DieView[] Art073Views(string under)

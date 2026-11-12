@@ -36,11 +36,15 @@ namespace DiceCraft.Tests
             saveDirectory = Path.Combine(Application.temporaryCachePath, "DiceCraftTests_" + Guid.NewGuid().ToString("N"));
             Directory.CreateDirectory(saveDirectory);
             GameApp.SaveDirectoryOverride = saveDirectory; GameApp.SuppressStartupDisplay=true;
-            foreach (string key in new[] {"fast", "reduced", "shopTab", "art07.instant", "art07.textScale", "art07.guideSeen"})
+            // v0.73: the quality preference is isolated like the others. A test that fails after switching to
+            // low quality used to leave it behind (an iterator's finally does not run when a nested wait throws),
+            // and every later test that assumes the standard default then failed with it.
+            foreach (string key in new[] {"fast", "reduced", "shopTab", "art07.instant", "art07.textScale", "art07.guideSeen", "art07.quality"})
             {
                 intPreferences[key] = PlayerPrefs.HasKey(key) ? (int?)PlayerPrefs.GetInt(key) : null;
                 PlayerPrefs.SetInt(key, 0);
             }
+            PlayerPrefs.SetInt("art07.quality",1);
             foreach(string action in new[]{"Roll","Lock","Submit","Clear","Handbook"})
             {
                 string key="art07.key."+action;
