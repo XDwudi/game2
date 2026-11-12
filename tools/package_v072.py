@@ -32,8 +32,9 @@ def read_json(path):
 
 def main():
     parser = argparse.ArgumentParser()
-    # macOS is not packaged in v0.72: the Mac build is not produced or verified this round.
-    parser.add_argument("--platform", required=True, choices=["windows"])
+    # rc.2 adds the macOS Universal transfer package. It is built and zipped on Windows: unsigned,
+    # not notarized and never launched on a Mac. The proof and the player note say so.
+    parser.add_argument("--platform", required=True, choices=["windows", "macos"])
     parser.add_argument("--build-report", required=True)
     args = parser.parse_args()
     mac = args.platform == "macos"
@@ -62,15 +63,30 @@ def main():
     if output.exists():
         raise ValueError("Refusing to overwrite an existing package: " + str(output))
     top = f"DicePrototype-{VERSION}"
-    members = []
+    members, native = [], []
+    if mac:
+        import sys
+        sys.path.insert(0, str(ROOT / "tools"))
+        from macos.v071.package_checks import macho_info
+        for path in files:
+            info = macho_info(path)
+            if info is not None:
+                native.append({"path": path.relative_to(directory).as_posix(), "architectures": info["architectures"]})
+        main = [n for n in native if n["path"].endswith("Contents/MacOS/DicePrototype")]
+        if not main or sorted(main[0]["architectures"]) != ["arm64", "x86_64"]:
+            raise ValueError("Mac player executable is not a Universal (x86_64 + arm64) binary")
+    executable = {n["path"] for n in native}
     with zipfile.ZipFile(output, "w", zipfile.ZIP_DEFLATED, compresslevel=6) as archive:
         archive.write(README, f"{top}/开始游玩.txt")
         members.append({"path": f"{top}/开始游玩.txt", "sha256": sha(README)})
         for path in files:
-            member = f"{top}/{path.relative_to(directory).as_posix()}"
+            relative = path.relative_to(directory).as_posix()
+            member = f"{top}/{relative}"
             info = zipfile.ZipInfo.from_file(path, member)
-            if mac and (path.parent.name == "MacOS" or path.suffix in (".dylib", ".bundle")):
-                info.external_attr = (0o100755 << 16)
+            if mac:
+                # Created on Windows: write Unix modes explicitly so unzip on macOS keeps binaries runnable.
+                info.create_system = 3
+                info.external_attr = ((0o100755 if relative in executable else 0o100644) << 16)
             with path.open("rb") as stream:
                 archive.writestr(info, stream.read(), zipfile.ZIP_DEFLATED, 6)
             members.append({"path": member, "sha256": sha(path)})
@@ -83,6 +99,9 @@ def main():
              "gate": {"sha256": sha(GATE), "editModePassed": gate["editModePassed"], "playModePassed": gate["playModePassed"]},
              "notRun": ["Windows frame-time / exclusive-fullscreen verification run", "macOS launch on real hardware", "signing and notarization"],
              "files": members}
+    if mac:
+        proof["machO"] = native
+        proof["macOSPackaging"] = "Windows-created transfer package: unsigned, not notarized, never launched on macOS"
     (PROOFS / (name + ".json")).write_text(json.dumps(proof, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print(json.dumps({k: proof[k] for k in ("package", "bytes", "sha256", "members")}))
 

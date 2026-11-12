@@ -21,7 +21,7 @@ EXPECTED = {
     "Surfaces": {**{name: (512, 512) for name in (
         "ui_paper_panel", "ui_card_controller", "ui_card_controller_compact", "ui_card_item", "ui_card_upgrade", "ui_panel_modal",
         "ui_tooltip_frame", "ui_button_bevel", "ui_info_inset", "ui_panel_plain", "ui_chip_label", "ui_slot_dice", "ui_slot_inventory",
-        "ui_focus_frame", "ui_scroll_handle", "ui_frame_block")}, "ui_progress_track": (768, 96), "ui_progress_fill": (768, 96)},
+        "ui_focus_frame", "ui_scroll_handle", "ui_frame_block", "ui_panel_hud", "ui_button_ghost", "ui_ring", "ui_tab_bottom")},"ui_progress_track": (768, 96), "ui_progress_fill": (768, 96)},
     "UI": {"ui_wordmark_dicecraft": (1440, 400), "ui_card_back": (768, 1024), "ui_pip_dot": (64, 64)},
     "Backgrounds": {"bg_table_scene": (1920, 1080), "bg_felt_tile": (1024, 1024)},
 }

@@ -45,7 +45,7 @@ namespace DiceCraft
             bool c=Compact07;float x=c?18:24,y=c?18:24,w=c?324:320,h=c?1044:1032;
             if(ViewState.phase=="Shop"){DrawShopWallet07();return;}
             if(QualifiedStampPlayingForCurrentStage07||ViewState.stage.qualified&&ViewState.hand!=null&&(ViewState.phase=="HandReady"||ViewState.phase=="Selecting")){DrawQualifiedHeader07(x,y,w,h);return;}
-            var p=UiKit.Frame(main,"Stats07",x,y,w,h,UiKit.Background,UiKit.PanelLight);
+            var p=UiKit.Frame(main,"Stats07",x,y,w,h,UiKit.Background,UiKit.PanelLight);UiKit.Surface(p,"ui_panel_hud");
             var brand=UiKit.PaperFrame(p,"BrandPaper",12,14,w-24,124,UiKit.Paper);
             var brandText=UiKit.Text(brand,"Brand","骰子构筑",12,10,w-48,64,c?30:36,UiKit.Ink);brandText.fontStyle=FontStyles.Bold;
             UiKit.Text(p,"Edition",ViewState.debugWorkspace?"调试对局":"复古印刷骰桌",26,90,w-52,36,18,UiKit.Ink);
@@ -72,9 +72,28 @@ namespace DiceCraft
         {
             UiKit.Inset(parent,id+"Inset",12,y+2,width-24,114);
             UiKit.Box(parent,id+"Frame",18,y+108,width-36,1,Color.clear);
+            // rc.2: a colour key on the lit edge ties each well to its number.
+            UiKit.Box(parent,id+"Accent",16,y+16,3,86,new Color(color.r,color.g,color.b,.9f));
             UiKit.Text(parent,id+"Label",label,26,y+10,width-52,34,20,UiKit.Muted);
+            if(id=="StageScore")StageProgress072(parent,y+22,width,20,width-26,ViewState.stage.score,ViewState.stage.qualified);
             var t=UiKit.Text(parent,id,value,26,y+42,width-52,66,value.Length>10?24:textScale07>100?28:id=="StageScore"?44:37,color);
             t.textWrappingMode=TextWrappingModes.NoWrap;t.overflowMode=TextOverflowModes.Ellipsis;
+            ReadoutStyle072(t,id,value);
+        }
+        // rc.2 presentation of existing numbers only: heavier numerals, a pop when the value changes,
+        // and a slim meter of stage score against the target next to the "本关累计" caption.
+        private void ReadoutStyle072(TextMeshProUGUI text,string id,string value)
+        {
+            text.fontStyle=FontStyles.Bold;
+            UiKit.Component<Art072ValuePop>(text.gameObject).Configure(ViewState.runId+"|"+ViewState.stage.stageId+"|"+id,value);
+        }
+        private void StageProgress072(Transform parent,float y,float width,float labelSize,float right,string shownScore,bool qualified)
+        {
+            // Uses the same score string the readout shows (the detached "after" snapshot during a stamp).
+            float left=Mathf.Round(38+labelSize*4.3f*UiKit.FontScale);if(right-left<48)return;
+            BigInteger target=ExactScoreMath.Parse(ViewState.stage.target),score=ExactScoreMath.Parse(shownScore);
+            float ratio=target.IsZero||target.Sign<0?1:(float)BigInteger.Min(1000,score*1000/target)/1000f;
+            UiKit.Progress(parent,"StageProgress072",left,y,right-left,10,ratio,qualified?UiKit.Gold:UiKit.Blue,ViewState.runId+"|"+ViewState.stage.stageId);
         }
         private void DrawBudgetCounters07(Transform parent,float top=646)
         {
@@ -98,7 +117,9 @@ namespace DiceCraft
                     UiKit.Box(icon,"TicketLine1",6,8,18,2,UiKit.Ink);UiKit.Box(icon,"TicketLine2",6,14,12,2,UiKit.Ink);
                     UiKit.Box(icon,"LeftNotch",0,12,4,5,UiKit.Background);UiKit.Box(icon,"RightNotch",26,12,4,5,UiKit.Background);
                 }
-                UiKit.Text(parent,roll?"RollBudgetValue":"SubmitBudgetValue",amount.ToString(),x+38,top+24,100,52,22,amount==0?UiKit.Muted:UiKit.Teal,TextAlignmentOptions.MidlineLeft);
+                var budget=UiKit.Text(parent,roll?"RollBudgetValue":"SubmitBudgetValue",amount.ToString(),x+38,top+24,100,52,22,amount==0?UiKit.Muted:UiKit.Teal,TextAlignmentOptions.MidlineLeft);
+                budget.fontStyle=FontStyles.Bold;
+                UiKit.Component<Art072ValuePop>(budget.gameObject).Configure(budgetState.runId+"|"+budgetState.stage.stageId+"|"+(roll?budgetState.hand.handId:"submit"),amount.ToString());
             }
         }
         private void Menu()=>Menu071();
@@ -170,12 +191,13 @@ namespace DiceCraft
         {
             bool c=Compact07;float x=c?1602:1536,y=c?18:24,size=c?84:88,gap=c?12:20;
             // Keep the small caption legible where the authored table's stitching passes behind it.
-            UiKit.Box(main,"ItemsTitleUnderlay",x-8,y-4,316,40,UiKit.Panel);
+            // rc.2: the table no longer has stitching here, so the caption needs no opaque patch.
+            UiKit.Box(main,"ItemsTitleUnderlay",x-8,y-4,316,40,Color.clear);
             UiKit.Text(main,"ItemsTitle","局内道具",x,y,300,30,18,UiKit.Muted);
             for(int i=0;i<Math.Min(5,ViewState.consumableSlots);i++)
             {
                 float px=x+(i%3)*(size+gap),py=y+36+i/3*(size+12);
-                if(i>=ViewState.inventory.Count){UiKit.Outline(main,"ItemEmpty"+i,px,py,size,size,UiKit.PanelLight,UiKit.EdgeUnit);continue;}
+                if(i>=ViewState.inventory.Count){UiKit.Ring(main,"ItemEmpty"+i,px,py,size,size,UiKit.PanelLight);continue;}
                 var item=ViewState.inventory[i];var b=UiKit.Button(main,"Item_"+item.instanceId,"",px,py,size,size,()=>ShowOwned(item,false),!IsBusy);
                 UiKit.CardSurface(b,true);((UnityEngine.UI.Image)b.targetGraphic).sprite=UiKit.Template("ui_card_item");
                 Icon(b.transform,item.contentId,8,6,size-16);
@@ -220,11 +242,11 @@ namespace DiceCraft
             float sx=poolX+(poolW-columns*(slotW+sgap)+sgap)/2;
             // Screen-space UI is composited over the real 3D dice: the shared tray
             // is an open outline, never an opaque panel that can hide locked dice.
-            UiKit.Outline(main,"LockedTray071",sx-12,sy+30,columns*(slotW+sgap)-sgap+24,(c?2:1)*(slotH+18)+12,UiKit.PanelLight,UiKit.EdgeUnit);
+            UiKit.Ring(main,"LockedTray071",sx-12,sy+30,columns*(slotW+sgap)-sgap+24,(c?2:1)*(slotH+18)+12,new Color(UiKit.PanelLight.r,UiKit.PanelLight.g,UiKit.PanelLight.b,.7f));
             for(int j=0;j<slots;j++)
             {
                 int i=j+slotPage*8;float x=sx+j%columns*(slotW+sgap),y=sy+(c?36:36)+j/columns*(slotH+18);
-                bool locked=i<h.orderedLockedIds.Count;UiKit.Outline(main,"Slot"+i,x,y,slotW,slotH,locked?UiKit.Gold:UiKit.PanelLight,3);
+                bool locked=i<h.orderedLockedIds.Count;UiKit.Ring(main,"Slot"+i,x,y,slotW,slotH,locked?UiKit.Gold:UiKit.Ghost);
                 UiKit.Text(main,"SlotIndex"+i,(i+1).ToString("00"),x+(locked?(c?126:94):8),y+4,locked?(c?50:32):38,32,16,UiKit.Muted);
                 if(locked){var id=h.orderedLockedIds[i];DrawLockMark07(x+(c?198:128),y+10,i,id);lockedSlotRects07[id]=new Rect(x,y,slotW,slotH);DrawDie(s.dice.First(d=>d.dieId==id),h.currentResults.First(r=>r.dieId==id),new Vector2(x+(c?82:44),y+(c?52:62)),true,i,c?.65f:.82f,true);}
                 else UiKit.Text(main,"EmptySlot"+i,"·  ·  ·",x+30,y+38,slotW-60,48,20,UiKit.PanelLight,TextAlignmentOptions.Center);
@@ -243,10 +265,13 @@ namespace DiceCraft
             UiKit.FlatButton(main,"Clear","清除待选",ax,ay,widths[2],ah,()=>{Session.ClearPending();Refresh();},!busy&&pending);ax+=widths[2]+gap;
             UiKit.ActionButton(main,"Submit","提交 "+h.orderedLockedIds.Count+" 颗",ax,ay,widths[3],ah,()=>Send(new SessionCommand{kind=CommandKind.Submit}),UiKit.Paper,!busy&&!pending&&h.hasRolled&&h.orderedLockedIds.Count>0&&s.stage.remainingSubmissions>0);ax+=widths[3]+gap;
             var endStage=UiKit.Button(main,busy?"Skip":"EndStage",busy?"显示最终结果":"结束本轮",ax,ay,widths[4],ah,busy?(Action)SkipVisual:()=>Send(new SessionCommand{kind=CommandKind.EndStage}),busy||Session.CanEndStage);
-            if(!busy&&s.stage.qualified)UiKit.Outline(endStage.transform,"QualifiedGoldBorder",0,0,widths[4],ah,UiKit.Gold,3);
+            if(!busy&&s.stage.qualified)UiKit.Ring(endStage.transform,"QualifiedGoldBorder",-3,-3,widths[4]+6,ah+4,UiKit.Gold);
             string reason=excess?"可再锁 "+lockRoom+" 颗；请取消超额待选，不会部分锁定":pending?"先确认锁定，或清除待选":!h.hasRolled?"先投掷，再选择骰子":dice.Count==0?"没有未锁骰；可提交已锁骰":h.rollsRemaining==0?"投掷已用尽；仍可锁定、排序与提交":h.orderedLockedIds.Count==s.stage.capacity?"提交栏已满；仅重掷未锁骰":"锁定不可撤销 · 提交将消耗 1 次提交";
             if(!busy&&!pending&&!string.IsNullOrEmpty(LastTransactionSummary07))reason=LastTransactionSummary07;
-            UiKit.Box(main,"ActionReasonUnderlay",c?368:374,c?1008:1030,1500,50,UiKit.Panel);
+            // rc.2: the hint is a tab docked on the bottom rail, not a loose rectangle over the wood.
+            var reasonTab=UiKit.Box(main,"ActionReasonUnderlay",c?368:374,c?1008:1030,1500,50,UiKit.Panel).GetComponent<UnityEngine.UI.Image>();
+            reasonTab.sprite=UiKit.Template("ui_tab_bottom");reasonTab.type=reasonTab.sprite!=null?UnityEngine.UI.Image.Type.Sliced:UnityEngine.UI.Image.Type.Simple;
+            if(reasonTab.sprite!=null)reasonTab.color=Color.white;
             UiKit.Text(main,"ActionReason",reason,c?378:384,c?1012:1034,1480,42,20,UiKit.Muted);
         }
         private void DrawDie(DieInstance die,DieHandState result,Vector2 center,bool locked,int index,float scale=1f,bool sideLabels=false)
@@ -285,7 +310,9 @@ namespace DiceCraft
             if(selected)
             {
                 float edgeHeight=sideLabels?(c?96:scale>1.1f?154:132):(c?92:scale>=1.5f?204:144),edgeWidth=sideLabels?(c?88:scale>1.1f?132:124):w+16;
-                for(int i=0;i<6;i++){float y=center.y-(sideLabels?6:0)-edgeHeight/2+i*edgeHeight/6;UiKit.Box(main,"PendingLeft"+id+i,center.x-edgeWidth/2,y,3,edgeHeight/12,UiKit.Gold);UiKit.Box(main,"PendingRight"+id+i,center.x+edgeWidth/2,y,3,edgeHeight/12,UiKit.Gold);}
+                // rc.2: one breathing gold ring instead of two columns of dashes; same footprint.
+                var pendingRing=UiKit.Ring(main,"PendingRing"+id,center.x-edgeWidth/2-4,center.y-(sideLabels?6:0)-edgeHeight/2-8,edgeWidth+9,edgeHeight+16,UiKit.Gold);
+                UiKit.Component<Art072Pulse>(pendingRing.gameObject).Configure(UiKit.Gold);
                 string order=(Array.IndexOf(Session.PendingIds,id)+1).ToString("00");
                 if(Array.IndexOf(Session.PendingIds,id)>=Math.Max(0,ViewState.stage.capacity-ViewState.hand.orderedLockedIds.Count))
                 {
@@ -350,7 +377,7 @@ namespace DiceCraft
         {
             // Reserve the gap for 1.03x triggered cards as well as rotating Combo chips.
             bool c=Compact07,thin=Spacious071;float x=c?360:368,y=c?282:thin?350:308,w=c?1542:1528,h=c?122:thin?104:156;
-            var p=UiKit.Frame(main,"ScorePanel",x,y,w,h,UiKit.Background,UiKit.PanelLight);
+            var p=UiKit.Frame(main,"ScorePanel",x,y,w,h,UiKit.Background,UiKit.PanelLight);UiKit.Surface(p,"ui_panel_hud");
             if(IsPresenting07){DrawReceiptScore07(p,w,h);return;}
             if(DrawStablePresentationScore07(p,w,h))return;
             if(DrawRecoveredScore07(p,w,h))return;
@@ -363,8 +390,10 @@ namespace DiceCraft
             string caption=preview.isRandom?"随机结果范围":randomSource?"预计得分 · 调试覆盖":"预计得分";
             string structure=primary==chosen?chosen:"结构 "+primary+"／计分 "+chosen;
             UiKit.Text(p,"Hand",thin?caption+" · "+structure+" · "+color:"结构 "+primary+"／计分 "+chosen+"\n"+caption+" · "+color,20,4,randomSource?530:w-650,c?56:thin?44:68,c?14:UiKit.FontScale>1?18:20,UiKit.Paper);
+            var well=ScoreWell072(p);
             var finalScore=UiKit.Text(p,"FinalScore",preview.isRandom?CompactScore(b.score)+" — "+CompactScore(preview.maximum.score):CompactScore(b.score),w-(thin?420:620),thin?-4:0,thin?390:580,c?58:thin?100:76,c?24:thin?64:40,UiKit.Paper,TextAlignmentOptions.MidlineRight);
             finalScore.textWrappingMode=TextWrappingModes.NoWrap;finalScore.lineSpacing=0;
+            FitScoreWell072(well,finalScore,w,c?29:thin?48:38,c?25:thin?40:36,thin?416:600);
             if(randomSource)
             {
                 int owners=b.multiplierFactors.Where(f=>f.abilityId=="C53").Select(f=>f.stateOwnerId).Distinct().Count();
@@ -381,6 +410,14 @@ namespace DiceCraft
                 var text=button.GetComponentInChildren<TextMeshProUGUI>();text.fontSize=(c?15:UiKit.FontScale>1?16:20)*UiKit.FontScale;
                 text.rectTransform.anchoredPosition=new Vector2(8,-2);text.rectTransform.sizeDelta=new Vector2(bw-24,factorHeight-4);
                 text.textWrappingMode=TextWrappingModes.NoWrap;text.lineSpacing=i==4&&zeroFive?-20:0;
+                bool neutral=i==1?b.totalHandMult100==100:i==2?b.colorMult100==100:i==3?b.redMult100==100:i==4?!zeroFive&&b.controllerMultiplierNumerator==b.controllerMultiplierDenominator:i==5&&b.enchantMultiplierCount==0;
+                StyleFactorChip072(button,i,neutral);
+                if(thin)
+                {
+                    // The shallow rail is 104 high: keep the painted chip inside the slab (hit rectangle unchanged).
+                    ((UnityEngine.UI.Image)button.targetGraphic).rectTransform.sizeDelta=new Vector2(bw-8,factorHeight-8);
+                    text.rectTransform.anchoredPosition=new Vector2(8,2);
+                }
             }
         }
         // HUD-only approximation. The button retains the original exact breakdown.

@@ -124,6 +124,22 @@ def paper(print_line=None, fill=PAPER, radius=22, edge=5, shadow=(6, 8, 105)):
     return p
 
 
+def soft_inset(fill, radius=16, depth=13.0, dark=0.52, light=None):
+    """Recessed well: a soft shade falls in from the lit (top/left) lip, the far lip catches light."""
+    light = light or TEAL_EDGE
+    p = Plate(N, N)
+    p.rrect(0, 0, N, N, radius, fill=fill)
+    a = np.asarray(p.export()).astype(np.float32)
+    dist = rounded_field(N, N, 0, 0, N, N, radius)
+    yy, xx = np.mgrid[0:N, 0:N].astype(np.float32)
+    far = np.clip(((xx + yy) / (2.0 * N) - 0.5) * 6 + 0.5, 0, 1)        # 0 toward the light, 1 away from it
+    shade = np.clip(1 - dist / depth, 0, 1) ** 1.6
+    a[..., :3] *= (1 - dark * shade * (1 - far))[..., None]
+    lip = np.clip(1 - np.abs(dist - 1.6) / 1.6, 0, 1) * far * 0.8
+    a[..., :3] = a[..., :3] * (1 - lip[..., None]) + np.array(light[:3], dtype=np.float32) * lip[..., None]
+    return Image.fromarray(np.clip(a + 0.5, 0, 255).astype(np.uint8), "RGBA")
+
+
 def surfaces():
     out = {}
     out["ui_paper_panel"] = paper()
@@ -145,10 +161,35 @@ def surfaces():
     button.rrect(2, 2, N - 2, N - 2, 18, outline=INK, width=5)
     out["ui_button_bevel"] = button
 
-    inset = Plate(N, N)
-    inset.rrect(0, 0, N, N, 16, fill=TEAL_DEEP)
-    inset.ring_split(0, 0, N, N, 16, 4, INK_DEEP, TEAL_EDGE[:3] + (190,))
-    out["ui_info_inset"] = inset
+    # rc.2: readout wells are recessed with a soft inner shade instead of a hard two-tone line.
+    out["ui_info_inset"] = soft_inset(rgb("0B1E21"))
+
+    # rc.2: the scoreboard slab. Dark, raised, same ink/shadow language as the paper stock.
+    hud = Plate(N, N)
+    sx, sy = 5, 7
+    hud.rrect(2 + sx, 2 + sy, N - 2, N - 2, 20, fill=SHADOW[:3] + (120,))
+    hud.rrect(2, 2, N - 2 - sx, N - 2 - sy, 20, fill=rgb("102A2D"))
+    hud.ring_split(7, 7, N - 7 - sx, N - 7 - sy, 15, 2.5, TEAL_EDGE, INK_DEEP)
+    hud.rrect(2, 2, N - 2 - sx, N - 2 - sy, 20, outline=INK_DEEP, width=5)
+    out["ui_panel_hud"] = hud
+
+    # rc.2: quiet secondary button: tintable rounded outline with a breath of fill.
+    ghost = Plate(N, N)
+    ghost.rrect(0, 0, N, N, 16, fill=(255, 255, 255, 30))
+    ghost.rrect(0, 0, N, N, 16, outline=(255, 255, 255, 205), width=4)
+    out["ui_button_ghost"] = ghost
+
+    # rc.2: tintable rounded ring with an open centre (dice stay visible through it).
+    ring = Plate(N, N)
+    ring.rrect(0, 0, N, N, 18, outline=WHITE, width=5)
+    out["ui_ring"] = ring
+
+    # rc.2: status tab docked to the bottom rim: only the top corners are rounded.
+    tab = Plate(N, N)
+    tab.rrect(0, 0, N, N + 80, 18, fill=rgb("0F2629", 240))
+    tab.rrect(4, 4, N - 4, N + 80, 14, outline=TEAL_EDGE[:3] + (150,), width=2.5)
+    tab.rrect(0, 0, N, N + 80, 18, outline=INK_DEEP, width=4)
+    out["ui_tab_bottom"] = tab
 
     plain = Plate(N, N)
     plain.rrect(0, 0, N, N, 18, fill=TEAL_PANEL)
@@ -313,31 +354,33 @@ def table():
         t = np.clip(dist / feather + 0.5, 0, 1)
         canvas[:] = mix(canvas, np.array(color[:3], dtype=np.float32), t)
 
-    outer = field(8, 56)
+    # rc.2: a slim rail (felt starts 20 units in) so every HUD panel sits on the felt instead of
+    # straddling the wood; the rail's shade then fades softly into the cloth.
+    outer = field(3, 30)
     cover(outer, WOOD_LO)
-    cover(field(11, 53), WOOD)
-    band = field(11, 53)
-    cover(np.minimum(band - 3, 8 - band), WOOD_HI)          # lit lip
-    cover(np.minimum(band - 15, 17.5 - band), GOLD_DARK)    # inlay
-    cover(np.minimum(band - 26, 33 - band), WOOD_LO)        # inner shadow edge
+    band = field(4.5, 28.5)
+    cover(band, WOOD)
+    cover(np.minimum(band - 1.2, 3.6 - band), WOOD_HI)       # lit lip
+    cover(np.minimum(band - 6.2, 7.6 - band), GOLD_DARK)     # inlay
+    cover(np.minimum(band - 11.0, 15.5 - band), WOOD_LO)     # inner shadow edge
 
-    felt = field(44, 26)
+    felt = field(20, 13)
     yy, xx = np.mgrid[0:h, 0:w].astype(np.float32)
     d = np.hypot((xx / w - 0.57) / 0.62, (yy / h - 0.46) / 0.66)
     light = np.clip(1.0 - d, 0, 1) ** 1.25
     base = mix(np.array(rgb("0F2A2B")[:3], dtype=np.float32) * np.ones((h, w, 3), dtype=np.float32),
                np.array(rgb("25595B")[:3], dtype=np.float32), light)
     base *= weave(h, w, 72072)[..., None]
-    base *= (0.80 + 0.20 * np.clip(felt / 30.0, 0, 1) ** 0.7)[..., None]   # soft shade under the rim
+    base *= (0.68 + 0.32 * np.clip(felt / 48.0, 0, 1) ** 0.6)[..., None]   # soft shade under the rail
     t = np.clip(felt / 0.75 + 0.5, 0, 1)
     canvas[:] = mix(canvas, base, t)
 
     image = Image.fromarray(np.clip(canvas + 0.5, 0, 255).astype(np.uint8), "RGB").convert("RGBA")
     draw = ImageDraw.Draw(image)
-    for sx, sy in ((27, 27), (1893, 27), (27, 1053), (1893, 1053)):
-        for radius, color in ((10, WOOD_LO), (7.5, GOLD_DARK), (5, GOLD)):
+    for sx, sy in ((17.5, 17.5), (1902.5, 17.5), (17.5, 1062.5), (1902.5, 1062.5)):
+        for radius, color in ((4.8, WOOD_LO), (3.5, GOLD_DARK), (2.3, GOLD)):
             draw.ellipse([(sx - radius) * s, (sy - radius) * s, (sx + radius) * s, (sy + radius) * s], fill=color)
-        draw.ellipse([(sx - 3.5) * s, (sy - 3.5) * s, (sx - 0.5) * s, (sy - 0.5) * s], fill=GOLD_HI)
+        draw.ellipse([(sx - 1.7) * s, (sy - 1.7) * s, (sx - 0.3) * s, (sy - 0.3) * s], fill=GOLD_HI)
     return image.resize((1920, 1080), Image.LANCZOS).convert("RGB")
 
 

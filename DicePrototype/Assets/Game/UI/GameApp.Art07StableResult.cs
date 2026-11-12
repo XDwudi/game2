@@ -38,8 +38,10 @@ namespace DiceCraft
             stableSourceMarks07=0;if(!StablePresentationResultVisible07)return false;
             bool compact=Compact07,thin=height<110;
             UiKit.Text(panel,"StableResultCaption07","上一手得分 · 已保存",20,12,width-680,42,compact?18:24,UiKit.Paper);
+            var well=ScoreWell072(panel);
             var score=UiKit.Text(panel,"StableResultScore07",CompactScore(receipt07.ScoreDecimal),width-660,10,630,68,compact?28:48,UiKit.Gold,TextAlignmentOptions.MidlineRight);
             if(art07NumberFont!=null)score.font=art07NumberFont;
+            FitScoreWell072(well,score,width,compact?34:44,compact?24:36);
             score.rectTransform.pivot=new Vector2(1,.5f);score.rectTransform.anchoredPosition=new Vector2(width-30,compact?-34:-44);
             string multiplier="总倍率 ×"+DisplayFraction07(receipt07.MultiplierNumeratorDecimal+(receipt07.MultiplierDenominatorDecimal=="1"?"":"/"+receipt07.MultiplierDenominatorDecimal));
             string chain=receipt07.ChainCount==0?"":" · 连锁 "+receipt07.ChainCount;
@@ -48,7 +50,7 @@ namespace DiceCraft
             string changes=post.Length==0?"":"\n后置："+PostSummary07(new PresentationBeat(PresentationPhase.PostScore,0,0,null,true,post));
             var detail=UiKit.Text(panel,"StableResultFactors07",multiplier+chain+zeroReason+changes,20,thin?58:compact?65:82,width-(thin?1180:290),thin?40:compact?48:64,thin?20:compact?17:21,UiKit.Muted);
             detail.textWrappingMode=TextWrappingModes.Normal;detail.overflowMode=TextOverflowModes.Ellipsis;
-            UiKit.FlatButton(panel,"StablePresentationDetails07","完整记录",width-(thin?910:250),thin?44:compact?58:84,230,60,ShowCommittedPresentationDetails07);
+            TrimRailButton072(UiKit.FlatButton(panel,"StablePresentationDetails07","完整记录",width-(thin?910:250),thin?44:compact?58:84,230,60,ShowCommittedPresentationDetails07),thin);
             // These are persistent read-only markers, separate from the active FX pool.
             var marks=UiKit.Rect(main,"StableResultSourceMarks07",0,0,1920,1080);
             foreach(string id in receipt07.Events.Where(e=>e.IsScoring).SelectMany(e=>e.SourceEmitterIds).Distinct(StringComparer.Ordinal))

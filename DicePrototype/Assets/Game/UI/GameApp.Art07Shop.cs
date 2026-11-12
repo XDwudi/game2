@@ -188,7 +188,7 @@ namespace DiceCraft
         {
             var button=UiKit.FlatButton(parent,name,text,x,y,width,height,click,enabled);
             button.transform.Find("Label").GetComponent<TextMeshProUGUI>().color=enabled?UiKit.Ink:PaperMuted071;
-            button.targetGraphic.color=new Color(0,0,0,.035f);
+            button.targetGraphic.color=enabled?PaperMuted071:new Color(PaperMuted071.r,PaperMuted071.g,PaperMuted071.b,.5f);
             return button;
         }
         private void Art07BuyButton(Transform parent,ShopOffer offer,float x,float y,float width,float height)

@@ -45,16 +45,18 @@ namespace DiceCraft
             if(!RecoveredPresentationResultVisible07)return false;
             var record=ViewState.lastSubmission;bool compact=Compact07,thin=height<110;
             UiKit.Text(panel,"RecoveredCaption07","已恢复上一手结果",20,12,width-680,42,compact?18:24,UiKit.Paper);
+            var well=ScoreWell072(panel);
             var score=UiKit.Text(panel,"RecoveredScore07",CompactScore(record.breakdown.score),width-660,10,630,68,compact?28:48,UiKit.Gold,TextAlignmentOptions.MidlineRight);
             if(art07NumberFont!=null)score.font=art07NumberFont;
+            FitScoreWell072(well,score,width,compact?34:44,compact?24:36);
             score.rectTransform.pivot=new Vector2(1,.5f);score.rectTransform.anchoredPosition=new Vector2(width-30,compact?-34:-44);
             UiKit.Text(panel,"RecoveredState07","结果已保存 · 本手尚未投掷",20,thin?58:compact?65:82,width-(thin?1180:290),thin?40:compact?48:64,thin?20:compact?17:21,UiKit.Muted);
-            UiKit.FlatButton(panel,"RecoveredDetails07","只读收据",width-(thin?910:250),thin?44:compact?58:84,230,60,()=>ShowBreakdown(record.snapshot,record.breakdown));
+            TrimRailButton072(UiKit.FlatButton(panel,"RecoveredDetails07","只读收据",width-(thin?910:250),thin?44:compact?58:84,230,60,()=>ShowBreakdown(record.snapshot,record.breakdown)),thin);
             return true;
         }
         private void DrawQualifiedHeader07(float x,float y,float width,float height)
         {
-            var p=UiKit.Frame(main,"Stats07",x,y,width,height,UiKit.Background,UiKit.PanelLight);
+            var p=UiKit.Frame(main,"Stats07",x,y,width,height,UiKit.Background,UiKit.PanelLight);UiKit.Surface(p,"ui_panel_hud");
             int n=ViewState.stage.stageIndex+1;
             UiKit.Text(p,"Brand","骰子构筑",18,8,width-36,52,26,UiKit.Paper);
             UiKit.Text(p,"Stage",$"第 {n} 关 · 第 {(n-1)/3+1} 章",18,60,width-36,42,20,UiKit.Paper);
@@ -64,7 +66,7 @@ namespace DiceCraft
             UiKit.Rect(p,"QualifiedStampSlot07",24,196,272,52);
             string displayedStageScore=QualifiedStampPlayingForCurrentStage07&&IsPresenting07&&lastPresentationAfter07?.stage?.stageId==ViewState.stage.stageId
                 ?lastPresentationAfter07.stage.score:ViewState.stage.score;
-            QualifiedStat07(p,"StageScore","本关累计",CompactScore(displayedStageScore),252,width,UiKit.Blue);
+            QualifiedStat07(p,"StageScore","本关累计",CompactScore(displayedStageScore),252,width,UiKit.Blue,displayedStageScore);
             if(qualifiedStamp07==null||qualifiedStage07!=ViewState.stage.stageId)
             {
                 var badge=UiKit.Frame(p,"QualifiedSavedBadge07",width-44,256,28,28,UiKit.Gold,UiKit.Ink);
@@ -89,12 +91,16 @@ namespace DiceCraft
             }
             if(ViewState.debugWorkspace)UiKit.Box(main,"DebugMark",0,0,1920,6,UiKit.Violet);
         }
-        private void QualifiedStat07(Transform parent,string id,string label,string value,float y,float width,Color color)
+        private void QualifiedStat07(Transform parent,string id,string label,string value,float y,float width,Color color,string rawScore=null)
         {
-            UiKit.Outline(parent,id+"Frame",12,y,width-24,86,UiKit.PanelLight);
+            // rc.2: the same recessed well and colour key as the ordinary header; same rectangle as before.
+            UiKit.Inset(parent,id+"Frame",12,y,width-24,86);
+            UiKit.Box(parent,id+"Accent",16,y+12,3,62,new Color(color.r,color.g,color.b,.9f));
             UiKit.Text(parent,id+"Label",label,26,y+2,width-52,34,16,UiKit.Muted);
+            if(rawScore!=null)StageProgress072(parent,y+12,width,16,width-56,rawScore,true);
             var t=UiKit.Text(parent,id,value,26,y+34,width-52,50,23,color);
             t.textWrappingMode=TextWrappingModes.NoWrap;t.overflowMode=TextOverflowModes.Ellipsis;
+            ReadoutStyle072(t,id,value);
         }
     }
 }

@@ -65,7 +65,7 @@ namespace DiceCraft
             UiKit.Text(main,"Version",Config.configVersion+" / "+ArtVersion+"\n构建 "+build,1264,804,520,96,16,PaperMuted071,TextAlignmentOptions.Center);
             var version=UiKit.FlatButton(main,"BuildVersion","版本与构建",1264,908,520,64,ShowBuildVersion);
             version.GetComponentInChildren<TextMeshProUGUI>().color=UiKit.Ink;
-            version.transform.Find("Divider").GetComponent<UnityEngine.UI.Image>().color=PaperMuted071;
+            version.targetGraphic.color=PaperMuted071;
             DrawNotice07();
             var veil=UiKit.Box(main,"MenuEntranceVeil",0,0,1920,1080,UiKit.Background).GetComponent<UnityEngine.UI.Image>();veil.transform.SetAsLastSibling();
             UiKit.Component<Art07MenuReveal>(main.gameObject).Bind("menu:"+(ViewState?.runId??"new")+":"+(ViewState?.actionSequence??0),p,veil,
@@ -86,9 +86,11 @@ namespace DiceCraft
                     int index=chapter*3+within;float x=left+within*56;
                     bool complete=index<ViewState.stage.stageIndex,current=index==ViewState.stage.stageIndex;
                     Color fill=current?UiKit.Gold:complete?Color.Lerp(UiKit.Felt,UiKit.Teal,.35f):UiKit.Felt;
-                    UiKit.Box(main,"StageTick"+index,x,380,48,28,fill);
+                    // rc.2: rounded stage pips; the current one is the only filled gold pip, so it needs no extra box.
+                    var tick=UiKit.Box(main,"StageTick"+index,x,380,48,28,fill).GetComponent<UnityEngine.UI.Image>();
+                    tick.sprite=UiKit.Template("ui_frame_block");tick.type=tick.sprite!=null?UnityEngine.UI.Image.Type.Sliced:UnityEngine.UI.Image.Type.Simple;tick.pixelsPerUnitMultiplier=1.6f;
                     UiKit.Text(main,"StageTickLabel"+index,complete?"✓":(index+1).ToString(),x,380,48,28,12,current?UiKit.Ink:complete?UiKit.Teal:UiKit.Muted,TextAlignmentOptions.Center);
-                    if(current)UiKit.Outline(main,"CurrentStageOutline",x-2,378,52,32,UiKit.Gold,1);
+                    if(current)UiKit.Outline(main,"CurrentStageOutline",x-2,378,52,32,Color.clear,1);
                 }
             }
             var def=Config.stages[ViewState.stage.stageIndex];float x0=def.riskEnabled?464:816;
@@ -104,7 +106,7 @@ namespace DiceCraft
         {
             bool selected=PreviewRisk07==risk;
             var p=UiKit.PaperFrame(main,id+"Card",x,432,480,360,UiKit.Paper,UiKit.Ink);
-            if(selected)UiKit.Outline(p,"SelectedContract",-4,-4,488,368,UiKit.Gold,3);
+            if(selected)UiKit.Ring(p,"SelectedContract",-4,-4,485,364,UiKit.Gold);
             UiKit.Box(p,"ContractRule",24,96,432,2,Color.Lerp(UiKit.Ink,UiKit.Paper,.65f));
             var heading=UiKit.Text(p,"Title",title,24,24,300,68,30,UiKit.Ink);heading.fontStyle=FontStyles.Bold;
             if(risk)
@@ -131,8 +133,7 @@ namespace DiceCraft
             UiKit.Text(p,"Reward","基础奖励  +"+reward+" 金币",24,224,432,54,23,UiKit.Ink);
             var select=UiKit.FlatButton(p,id,selected?"✓ 已选择":"选择挑战",24,284,432,60,()=>ChoosePreview07(risk),true,selected);
             select.GetComponentInChildren<TextMeshProUGUI>().color=UiKit.Ink;
-            ((UnityEngine.UI.Image)select.targetGraphic).color=selected?Color.Lerp(UiKit.Paper,UiKit.Gold,.45f):new Color(0,0,0,.04f);
-            select.transform.Find("Divider").GetComponent<UnityEngine.UI.Image>().color=Color.Lerp(UiKit.Ink,UiKit.Paper,.6f);
+            ((UnityEngine.UI.Image)select.targetGraphic).color=selected?Color.Lerp(UiKit.Paper,UiKit.Gold,.45f):PaperMuted071;
         }
 
         private static void ReceiptRule071(Transform parent,string name,float x,float y,float width)

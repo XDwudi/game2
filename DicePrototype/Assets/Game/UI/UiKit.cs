@@ -13,6 +13,8 @@ namespace DiceCraft
         public static readonly Color Ink = Hex("162629"), Panel = Hex("203F43"), PanelLight = Hex("315358"),
             Paper = Hex("F4E8CB"), Muted = Hex("B8C9C5"), Gold = Hex("F3BA58"), Teal = Hex("79C99C"), Red = Hex("EC655D"), Blue = Hex("55B6D9"),
             Background=Hex("102A2D"), Felt=Hex("173E40"), TextColor=Hex("F7EED9"), Violet=Hex("AD92DB"), Danger=Hex("9E3440"), Shadow=Hex("07191C");
+        /// <summary>v0.72 rc.2 tint of the quiet secondary-button outline; readable on felt and on paper.</summary>
+        public static readonly Color Ghost=Hex("6A9296");
         /// <summary>v0.72 frame edge weight in reference units (matches the 2x-density ink line of the HD surfaces).</summary>
         public const float EdgeUnit=2f;
         public static float FontScale=1f;
@@ -88,11 +90,15 @@ namespace DiceCraft
             var button=Button(p,name,value,x,y,w,h,click,enabled,primary);
             var root=(RectTransform)button.transform;
             root.Find("Step").gameObject.SetActive(false);root.Find("Lip").gameObject.SetActive(false);
-            var face=(UnityEngine.UI.Image)button.targetGraphic;face.sprite=null;face.type=UnityEngine.UI.Image.Type.Simple;
-            face.color=primary?PanelLight:new Color(0,0,0,.08f);face.rectTransform.anchoredPosition=Vector2.zero;face.rectTransform.sizeDelta=new Vector2(w,h);
+            // v0.72 rc.2: a quiet rounded outline (or a solid rounded tab when selected) replaces the
+            // square tint + hairline underline. Callers that recolour the face keep working: it only tints.
+            var face=(UnityEngine.UI.Image)button.targetGraphic;var ghost=Template(primary?"ui_frame_block":"ui_button_ghost");
+            face.sprite=ghost;face.type=ghost!=null?UnityEngine.UI.Image.Type.Sliced:UnityEngine.UI.Image.Type.Simple;
+            face.color=primary?PanelLight:ghost!=null?(enabled?Ghost:new Color(Ghost.r,Ghost.g,Ghost.b,.45f)):new Color(0,0,0,.08f);
+            face.rectTransform.anchoredPosition=Vector2.zero;face.rectTransform.sizeDelta=new Vector2(w,h);
             var label=root.Find("Label").GetComponent<TextMeshProUGUI>();label.color=enabled?(primary?Gold:TextColor):Muted;
             label.rectTransform.sizeDelta=new Vector2(w-16,h);
-            Box(root,"Divider",8,h-1,w-16,1,PanelLight);
+            Box(root,"Divider",8,h-1,w-16,1,ghost!=null?Color.clear:PanelLight);
             Component<Art07ButtonMotion>(root.gameObject).SetSurface(2);
             return button;
         }
@@ -134,6 +140,28 @@ namespace DiceCraft
             var r=Box(p,name,x,y,w,h,Template("ui_info_inset")!=null?Color.white:new Color(0,0,0,.18f));
             var image=r.GetComponent<UnityEngine.UI.Image>();image.sprite=Template("ui_info_inset");image.type=image.sprite!=null?UnityEngine.UI.Image.Type.Sliced:UnityEngine.UI.Image.Type.Simple;
             return r;
+        }
+        /// <summary>v0.72 rc.2: rounded open ring (slots, trays, selection). The centre is never painted, so 3D dice show through.</summary>
+        public static RectTransform Ring(Transform p,string name,float x,float y,float w,float h,Color color)
+        {
+            var sprite=Template("ui_ring");
+            var r=Box(p,name,x,y,w,h,sprite!=null?color:Color.clear);var image=r.GetComponent<UnityEngine.UI.Image>();
+            image.sprite=sprite;image.type=sprite!=null?UnityEngine.UI.Image.Type.Sliced:UnityEngine.UI.Image.Type.Simple;image.fillCenter=false;
+            if(sprite==null)Outline(r,"Edge",0,0,w,h,color,EdgeUnit);
+            return r;
+        }
+        /// <summary>v0.72 rc.2: slim rounded meter. The fill eases to its new width; purely decorative.</summary>
+        public static RectTransform Progress(Transform p,string name,float x,float y,float w,float h,float ratio,Color fill,string context)
+        {
+            var track=Box(p,name,x,y,w,h,Hex("07191C"));var trackImage=track.GetComponent<UnityEngine.UI.Image>();
+            trackImage.sprite=Template("ui_progress_track");trackImage.type=trackImage.sprite!=null?UnityEngine.UI.Image.Type.Sliced:UnityEngine.UI.Image.Type.Simple;
+            trackImage.pixelsPerUnitMultiplier=48f/Mathf.Max(1,h);
+            float target=ratio<=0?0:Mathf.Max(h,w*Mathf.Clamp01(ratio));
+            var bar=Box(track,"Fill",0,0,target,h,fill);var barImage=bar.GetComponent<UnityEngine.UI.Image>();
+            barImage.sprite=Template("ui_progress_fill");barImage.type=barImage.sprite!=null?UnityEngine.UI.Image.Type.Sliced:UnityEngine.UI.Image.Type.Simple;
+            barImage.pixelsPerUnitMultiplier=48f/Mathf.Max(1,h);
+            Component<Art072ProgressEase>(bar.gameObject).Configure(context,target,h);
+            return track;
         }
         public static void Outline(Transform p,string name,float x,float y,float w,float h,Color color,float line=2)
         {

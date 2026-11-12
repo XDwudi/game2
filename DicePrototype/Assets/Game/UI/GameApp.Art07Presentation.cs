@@ -224,8 +224,10 @@ namespace DiceCraft
             string[] phases={"接收提交","骰子贡献","基础 / 牌型 / 颜色 / 红组","控制器与附魔","本手得分","计分后变化","目标状态"};
             UiKit.Text(p,"Phase",(presentationPlayer07.IsReplay?"记录 · ":"")+phases[(int)(beat07?.Phase??PresentationPhase.Receipt)],20,12,w-650,42,Compact07?18:24,UiKit.Paper);
             bool final=beat07!=null&&beat07.Phase>=PresentationPhase.FinalScore;
+            var well=ScoreWell072(p);
             receiptNumber07=UiKit.Text(p,"FinalScore",final?CompactScore(receipt07.ScoreDecimal):"计算中",w-660,10,630,68,Compact07?28:48,UiKit.Gold,TextAlignmentOptions.MidlineRight);
             if(final&&art07NumberFont!=null)receiptNumber07.font=art07NumberFont;
+            FitScoreWell072(well,receiptNumber07,w,Compact07?34:44,Compact07?24:36);
             receiptNumber07.rectTransform.pivot=new Vector2(1,.5f);
             receiptNumber07.rectTransform.anchoredPosition=new Vector2(w-30,Compact07?-34:-44);
             receiptNumberOrigin07=receiptNumber07.rectTransform.anchoredPosition;
@@ -237,7 +239,7 @@ namespace DiceCraft
             string text=final&&beat07?.Phase!=PresentationPhase.PostScore?multiplier+chain+(string.IsNullOrEmpty(details)?"":" · "+(beat07?.Phase==PresentationPhase.TargetState?details:"")):details;
             // The shallow panel reserves its whole right column for the animated number.
             var line=UiKit.Text(p,"ReceiptFactors",text,20,thin?58:Compact07?65:88,w-(thin?1180:290),thin?40:Compact07?40:58,thin?20:Compact07?17:23,UiKit.Muted);line.overflowMode=TextOverflowModes.Ellipsis;
-            UiKit.FlatButton(p,"PresentationDetails07","完整记录",w-(thin?910:250),thin?44:Compact07?60:88,230,60,ShowCommittedPresentationDetails07);
+            TrimRailButton072(UiKit.FlatButton(p,"PresentationDetails07","完整记录",w-(thin?910:250),thin?44:Compact07?60:88,230,60,ShowCommittedPresentationDetails07),thin);
         }
         private void TickPresentation07()
         {
