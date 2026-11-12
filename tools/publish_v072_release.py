@@ -125,7 +125,8 @@ def main():
     EVIDENCE.mkdir(parents=True, exist_ok=True)
     receipt = {"schema": "v072-release-1", "utc": datetime.now(timezone.utc).isoformat(), "releaseId": published["id"], "tag": published["tag_name"],
                "target": target, "url": published["html_url"], "draft": published["draft"], "prerelease": published["prerelease"], "assets": uploaded}
-    (EVIDENCE / "github-release.json").write_text(json.dumps(receipt, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    # One receipt per tag: an earlier release candidate's record is never overwritten.
+    (EVIDENCE / f"github-release-{published['tag_name']}.json").write_text(json.dumps(receipt, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print(json.dumps(receipt, ensure_ascii=False, indent=2))
 
 

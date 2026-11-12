@@ -11,10 +11,10 @@ rc.2 相对 rc.1：重做了分数栏和左侧计分板（读数窗、因子色�
 Windows：完整解压后运行 DicePrototype.exe，保留同目录的 DicePrototype_Data、UnityPlayer.dll 和其他文件。
 
 macOS（Universal，Intel 与 Apple 芯片）：完整解压后保留整个 DicePrototype.app。
-这个包是在 Windows 上构建和压缩的，没有签名、没有公证，也没有在任何 Mac 上启动过，能否运行尚未验证。
+这个包是在 Windows 上构建和压缩的，没有开发者签名、没有公证，也没有在任何 Mac 上启动过，能否运行尚未验证。
 系统很可能拦截首次打开。可在“终端”里依次执行（把路径换成你解压的位置）：
   xattr -cr DicePrototype.app
-  chmod +x DicePrototype.app/Contents/MacOS/DicePrototype
+  chmod +x "DicePrototype.app/Contents/MacOS/DiceCraft P0"
   codesign --force --deep --sign - DicePrototype.app
 然后右键 DicePrototype.app 选择“打开”。如果仍无法启动，请把提示文字和系统版本反馈给我们。
 

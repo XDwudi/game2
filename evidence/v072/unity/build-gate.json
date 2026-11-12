@@ -1,6 +1,6 @@
 {
   "schema": "v07-build-gate-1",
-  "sourceCommit": "b9c45f1aa67f1dfb0dce70f2f14ecb181c052841",
+  "sourceCommit": "cf9f790017c45790ab0563bca27426a3ffff8458",
   "editModePassed": 1018,
   "playModePassed": 185,
   "scopes": [
@@ -11,7 +11,7 @@
   "identity": {
     "releaseVersion": "p0.7.2",
     "artVersion": "art0.7.2",
-    "sourceCommit": "b9c45f1aa67f1dfb0dce70f2f14ecb181c052841",
+    "sourceCommit": "cf9f790017c45790ab0563bca27426a3ffff8458",
     "contentConfigVersion": "p0.6.0",
     "contentConfigSha256": "747ed1efc7bea15873f66a81eee5c7654971c21031f2a1517ce629adce7b6e6c",
     "saveSchemaVersion": 4,
@@ -1044,12 +1044,12 @@
         "DiceCraft.Tests.V06ShopPersistenceTests.SAVE_V06_RefreshShopRealJsonRoundTripPreservesQuoteHashRngAndReopen(True)"
       ],
       "report": {
-        "path": "evidence/v072/unity/nunit-20261111-170034.xml",
-        "sha256": "1f0fc260a071683af073a85b414eb6686d6df5140c63e84e5b42b6f37a2a2fc6"
+        "path": "evidence/v072/unity/nunit-20261112-023145.xml",
+        "sha256": "4b06cdd8d11b47de87335f9fc17013b2799131e505cbc05e31cb88cf745015f7"
       },
       "binding": {
-        "path": "evidence/v072/unity/nunit-20261111-170034.binding.json",
-        "sha256": "f648ab76d3466abda2ae0f8e5badecf43389d8fd3c69a3f93b2f093e592ef928"
+        "path": "evidence/v072/unity/nunit-20261112-023145.binding.json",
+        "sha256": "a69b0c72674e4c715e318d3ea2e15784e27c22b417e0068cdbde189469af6f37"
       }
     },
     {
@@ -1243,18 +1243,18 @@
         "DiceCraft.Tests.PresentationAudioPlayModeTests.PLAY_ART07_AudioStopsOnlyOwningReceiptAndMuteAppliesImmediately"
       ],
       "report": {
-        "path": "evidence/v072/unity/nunit-20261111-172336.xml",
-        "sha256": "076473a642ec3bea6b4505d47554768a494be361b1c7353d1aa95acb0540217e"
+        "path": "evidence/v072/unity/nunit-20261112-025451.xml",
+        "sha256": "721abe6ddd017a3b8a681acc92af097783556031c88ae66f34a18c20a480b30d"
       },
       "binding": {
-        "path": "evidence/v072/unity/nunit-20261111-172336.binding.json",
-        "sha256": "307504ed2ee373fff0bb00ff905ccfb5c950f30eab00c570ff8cfb6313f8872e"
+        "path": "evidence/v072/unity/nunit-20261112-025451.binding.json",
+        "sha256": "26a5041f3b2a5ae8f7d53ef819fdf517fc52164802ad4cb9d3038a6bfa545c24"
       }
     }
   ],
   "pdbAudit": {
-    "path": "evidence/v072/unity/pdb-b9c45f1.json",
-    "sha256": "d46dea7675353acb0333fb33804991016c62c3c2f394edd8baa569f3800808df"
+    "path": "evidence/v072/unity/pdb-cf9f790.json",
+    "sha256": "db54da93a4ed8068aef06e6c072b394ce59456ade0ce7baec6161b81e21c319d"
   },
   "files": [
     {
@@ -4735,7 +4735,7 @@
     },
     {
       "path": "DicePrototype/Assets/Art/Art072/Backgrounds/bg_table_scene.png",
-      "sha256": "89ccf6e29cbf5bf0af9f8b7c83e4d93941af25fca3dd00a05d46d2e039684679"
+      "sha256": "7e6b595da3d9f1d54d65f883aa736d15622c7a29bb9e774c273ea5b7d9d89637"
     },
     {
       "path": "DicePrototype/Assets/Art/Art072/Backgrounds/bg_table_scene.png.meta",
@@ -5058,6 +5058,14 @@
       "sha256": "17db9aa7e11ea25160d6740724790e0368e1729a81c33761a7f609533a0bb47b"
     },
     {
+      "path": "DicePrototype/Assets/Art/Art072/Surfaces/ui_button_ghost.png",
+      "sha256": "e6747dddf75228ede1dfdc5e541467063b8283d2360818e7053ae38b0f253a12"
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art072/Surfaces/ui_button_ghost.png.meta",
+      "sha256": "0082a683213a16b7b9b6633e53b682f6ece5b19caf061e121f9e674915eea4ff"
+    },
+    {
       "path": "DicePrototype/Assets/Art/Art072/Surfaces/ui_card_controller.png",
       "sha256": "3c50d5687f1a3c8f28cdeaed67ad99a0fd0afa0c1add28690487b64fd5dbb612"
     },
@@ -5115,11 +5123,19 @@
     },
     {
       "path": "DicePrototype/Assets/Art/Art072/Surfaces/ui_info_inset.png",
-      "sha256": "b48d4dedc086b13b0ace336794c90d4f1f11890f5e3ac7c29b08357d11bda2f7"
+      "sha256": "34150eb9e5eb5c0494322eeb9d8f9d3169db686c49966de68c26230e2ad000d0"
     },
     {
       "path": "DicePrototype/Assets/Art/Art072/Surfaces/ui_info_inset.png.meta",
       "sha256": "88641ae4b3f85c028866c828bfce54811c2322330b1edb4809104eccd014bdc9"
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art072/Surfaces/ui_panel_hud.png",
+      "sha256": "fbc4d3379620807b006edc1b10a518e2b10568a12d8f88173984c3965ed5616d"
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art072/Surfaces/ui_panel_hud.png.meta",
+      "sha256": "3d2632e86143bc8ff2cd7d5c64b8056a8d15eddf22e07645ea4d54bb0bf75985"
     },
     {
       "path": "DicePrototype/Assets/Art/Art072/Surfaces/ui_panel_modal.png",
@@ -5162,6 +5178,14 @@
       "sha256": "0cc68088dfee5ec1824af748cb90c7fc126b0bb09112e404f98a9c84e90edc2b"
     },
     {
+      "path": "DicePrototype/Assets/Art/Art072/Surfaces/ui_ring.png",
+      "sha256": "ff65bf87dd7c2cd1dc264a863b176defd742168261e591184b5222e49d93d6a5"
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art072/Surfaces/ui_ring.png.meta",
+      "sha256": "d5091365402fb984462907c55e0ad643294a26c800a2deabe6bc12f561865d7b"
+    },
+    {
       "path": "DicePrototype/Assets/Art/Art072/Surfaces/ui_scroll_handle.png",
       "sha256": "0be817474bbd6824802d0be64b0c1f98bd98923ef7576a58adc259aa65a945d9"
     },
@@ -5184,6 +5208,14 @@
     {
       "path": "DicePrototype/Assets/Art/Art072/Surfaces/ui_slot_inventory.png.meta",
       "sha256": "d2bbcd6746d188d21beb8d8eae99445b119ca8df928d2da2c6a6685b224da7e3"
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art072/Surfaces/ui_tab_bottom.png",
+      "sha256": "a5093066700f95f1f332e39fe310e074323c0606befda9b6f9bd24acf76346dc"
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art072/Surfaces/ui_tab_bottom.png.meta",
+      "sha256": "bb71f855dbf0f8fe691a21000f3389b2fac407230b43cf95e14e61d745328219"
     },
     {
       "path": "DicePrototype/Assets/Art/Art072/Surfaces/ui_tooltip_frame.png",
@@ -7127,7 +7159,7 @@
     },
     {
       "path": "DicePrototype/Assets/Game/Scenes/ArtStyleLab.unity",
-      "sha256": "1848c57790dfeb00a3bd54f5830a0718de3b574794467a7448bf4668babf582b"
+      "sha256": "f134071d0b20ff5224b2b3111508e222d86407530afc1ad6fae678c33b43efdd"
     },
     {
       "path": "DicePrototype/Assets/Game/Scenes/ArtStyleLab.unity.meta",
@@ -7135,7 +7167,7 @@
     },
     {
       "path": "DicePrototype/Assets/Game/Scenes/Bootstrap.unity",
-      "sha256": "ea938a5464af0ce284c560a12cbd192d5cfc3adb5fae64483e7938674838a5a6"
+      "sha256": "80aea4ba0d4c36be86b93524ca3de8a137ef181a71ac5bac8f759753ef5d5987"
     },
     {
       "path": "DicePrototype/Assets/Game/Scenes/Bootstrap.unity.meta",
@@ -7866,6 +7898,14 @@
       "sha256": "5eea8d6de83249e8939a11061ea1b6c08ea466bd9b9bc6bace7ac01e91f49cc1"
     },
     {
+      "path": "DicePrototype/Assets/Game/UI/Art072Motion.cs",
+      "sha256": "4aa81072f79635fad33cd3284db5324e9916f09697fddc8f0dd32ff089cc711f"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/UI/Art072Motion.cs.meta",
+      "sha256": "3c2730d24b8407fe512d22c77498123ee27b1e48869b38cb81755295a4d62b04"
+    },
+    {
       "path": "DicePrototype/Assets/Game/UI/Art07ButtonMotion.cs",
       "sha256": "d8129e720a2fe74312da87b1dcf4562f00febcff978622b8806f5086009aa8cd"
     },
@@ -7987,7 +8027,7 @@
     },
     {
       "path": "DicePrototype/Assets/Game/UI/GameApp.Art07.cs",
-      "sha256": "c0856e9af168edde62eb0472bfbcfeb76a1d77c8d01f45aab6cefd8607ec1d03"
+      "sha256": "4873a2d0ebd010bd0fc2a1d942f6081e78e32f7b8510fa7e21600ecfb34284f1"
     },
     {
       "path": "DicePrototype/Assets/Game/UI/GameApp.Art07.cs.meta",
@@ -8011,7 +8051,7 @@
     },
     {
       "path": "DicePrototype/Assets/Game/UI/GameApp.Art071Screens.cs",
-      "sha256": "54a0ec379fd92aa5f901ce2690dde82d216f33ab93b6e121db53d14bf500f9ec"
+      "sha256": "d68439213511c68c65ab7405e531fd85393c1958b72134db346ec0a8aa09d006"
     },
     {
       "path": "DicePrototype/Assets/Game/UI/GameApp.Art071Screens.cs.meta",
@@ -8032,6 +8072,14 @@
     {
       "path": "DicePrototype/Assets/Game/UI/GameApp.Art071TemporaryDice.cs.meta",
       "sha256": "fa6e84f20850305eda63956e639b7b9e97dfb397a04f83ed9f22bbad7451b6f6"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/UI/GameApp.Art072Score.cs",
+      "sha256": "9fe8f64660d538aefbb283f2af2744b97c6b874e681d7d6c097a1196239202be"
+    },
+    {
+      "path": "DicePrototype/Assets/Game/UI/GameApp.Art072Score.cs.meta",
+      "sha256": "fcb6b1c15bf36f1d7e09437e08029e8b9b393cbf90aa4873c35b1104b708a03f"
     },
     {
       "path": "DicePrototype/Assets/Game/UI/GameApp.Art07DiceAffordances.cs",
@@ -8115,7 +8163,7 @@
     },
     {
       "path": "DicePrototype/Assets/Game/UI/GameApp.Art07Presentation.cs",
-      "sha256": "3f204461ae987a5bd626ef185630adfb145cd332af6b5cdcd690fbc8d527f548"
+      "sha256": "525efc8e1cbfee647d02f1f8f9f9b77d262dea6e82bf9cd062fa9d00fd65a717"
     },
     {
       "path": "DicePrototype/Assets/Game/UI/GameApp.Art07Presentation.cs.meta",
@@ -8163,7 +8211,7 @@
     },
     {
       "path": "DicePrototype/Assets/Game/UI/GameApp.Art07Shop.cs",
-      "sha256": "73e08d55dc1b6f42d105278b7ffc08f336991a84fe235bd8e07fcad820355deb"
+      "sha256": "556e8df422d077053cfe26f301730db5310d66535129d0d0e59bd79b19f85e3c"
     },
     {
       "path": "DicePrototype/Assets/Game/UI/GameApp.Art07Shop.cs.meta",
@@ -8179,7 +8227,7 @@
     },
     {
       "path": "DicePrototype/Assets/Game/UI/GameApp.Art07StableResult.cs",
-      "sha256": "78421d7519d7ef6c1eae6baae147d89d96fd5d3aa794300998743a817afb7c83"
+      "sha256": "215afdf1e3edc03460f2ca8d95883b2928486719afd93e087785191f790f7886"
     },
     {
       "path": "DicePrototype/Assets/Game/UI/GameApp.Art07StableResult.cs.meta",
@@ -8195,7 +8243,7 @@
     },
     {
       "path": "DicePrototype/Assets/Game/UI/GameApp.Art07StatusDetails.cs",
-      "sha256": "2aaf9380fe8e0b9745b81b39f36094c4e053e8987e2c4ca966934eab4af7dcc1"
+      "sha256": "59648a1cc0a5f7a839d710c302ad5a173467d55ac23f6e455b3013924a146d3c"
     },
     {
       "path": "DicePrototype/Assets/Game/UI/GameApp.Art07StatusDetails.cs.meta",
@@ -8219,7 +8267,7 @@
     },
     {
       "path": "DicePrototype/Assets/Game/UI/GameApp.Art07Wallet.cs",
-      "sha256": "ee502f0146fef98402c1bb01df8f932a944628435fb5980398a574bbaef8574d"
+      "sha256": "ca9fdeea709aebdc9df33ad156e28f0c552afc768c4efb408177b11e72607f82"
     },
     {
       "path": "DicePrototype/Assets/Game/UI/GameApp.Art07Wallet.cs.meta",
@@ -8259,7 +8307,7 @@
     },
     {
       "path": "DicePrototype/Assets/Game/UI/GameApp.Shop.cs",
-      "sha256": "8436f1357a85a940783c1581d7e103e0672aaaf577db9ec58220e220b86c58d5"
+      "sha256": "ef3489681373af906d79fc6716034beb8f62350c0fc7fdeeb48d20fbaea65e61"
     },
     {
       "path": "DicePrototype/Assets/Game/UI/GameApp.Shop.cs.meta",
@@ -8283,7 +8331,7 @@
     },
     {
       "path": "DicePrototype/Assets/Game/UI/UiKit.cs",
-      "sha256": "d8be149a49c3094505bf1872c004217b0aeab5eb1ec78158066add86f6943b22"
+      "sha256": "68290e128a58aaa4c9537e02b86ed782e24f0dfeb0b3da7801606fa2b774b320"
     },
     {
       "path": "DicePrototype/Assets/Game/UI/UiKit.cs.meta",
@@ -8298,12 +8346,28 @@
       "sha256": "c51475a9d0dc840cd1f5b34cf765bfb18f85ac04cc73dbc6e49451ce82b3e659"
     },
     {
+      "path": "DicePrototype/Assets/InitTestScene025b8c2a-43c5-4488-bb1e-b2ffe180a210.unity",
+      "sha256": "46b7f9b4ec570699705aec523a501ad2d6b1fa117808de01ad62316d29272c7d"
+    },
+    {
+      "path": "DicePrototype/Assets/InitTestScene025b8c2a-43c5-4488-bb1e-b2ffe180a210.unity.meta",
+      "sha256": "fa58a7f68e84dbba3636622dcb36adcbb0399ba5fc49c90272c2b43a9f833175"
+    },
+    {
       "path": "DicePrototype/Assets/InitTestScene1415b98f-d827-431c-8f4a-7677442cb038.unity",
       "sha256": "ad63f875b23725e29e5100325e8a6b73e196c84bf46a15d4462331912f74de7c"
     },
     {
       "path": "DicePrototype/Assets/InitTestScene1415b98f-d827-431c-8f4a-7677442cb038.unity.meta",
       "sha256": "1069ee44aa4c3668e6163d14ba9d317bf36a8d0cc9f7e1f16783c30fce9dea2d"
+    },
+    {
+      "path": "DicePrototype/Assets/InitTestScene30bd46dc-f390-470d-ae46-f65ff329184f.unity",
+      "sha256": "90d48f5722d2d56163109e6ef779936bcee92beb47c2b6ffd27ba5a7d5e1fe7f"
+    },
+    {
+      "path": "DicePrototype/Assets/InitTestScene30bd46dc-f390-470d-ae46-f65ff329184f.unity.meta",
+      "sha256": "6efb50ecf6257cdcb3abbe0073b1b2fdbf3b77741e1644a707ac5140c45488b9"
     },
     {
       "path": "DicePrototype/Assets/InitTestScene423be07b-ba13-4b1d-b40b-c420768a7574.unity",
@@ -8314,12 +8378,36 @@
       "sha256": "372b7b6685bcc8d79d8bc4fd194bdafad680e1b89b711ce73f2655e2203ebb64"
     },
     {
+      "path": "DicePrototype/Assets/InitTestScene485c7884-8101-4453-8539-f57f924d6a57.unity",
+      "sha256": "a455b4c26295791baf8bddfe91d4d759092a4194a7f93832dc88147212fd1262"
+    },
+    {
+      "path": "DicePrototype/Assets/InitTestScene485c7884-8101-4453-8539-f57f924d6a57.unity.meta",
+      "sha256": "36a4e769ebbe391b01f878010ee1e751a7282d95effe7c8bf3e1dd41d01f2771"
+    },
+    {
       "path": "DicePrototype/Assets/InitTestScene580771d3-afb9-4b4b-bf5f-6fdb199a497c.unity",
       "sha256": "4cd1c4a46efa48552c9240385962bf4f71a9b7c64c81ba0721c0e36c47244e41"
     },
     {
       "path": "DicePrototype/Assets/InitTestScene580771d3-afb9-4b4b-bf5f-6fdb199a497c.unity.meta",
       "sha256": "6b859857fced7ae9044aa95eb7e0b29ed4361dcd2a9ae03ac6c9ba72da37f229"
+    },
+    {
+      "path": "DicePrototype/Assets/InitTestSceneade573fc-7e39-497a-a6f0-7e5cd7c118c6.unity",
+      "sha256": "2324219d9c376b673ac3e2be35ded0475ec7dcf6117c941408b8af54e65f2d2b"
+    },
+    {
+      "path": "DicePrototype/Assets/InitTestSceneade573fc-7e39-497a-a6f0-7e5cd7c118c6.unity.meta",
+      "sha256": "313e013f55890da92a2f166b477bc5f387f6c1127a86c9a3fc8bcf19a8581ad4"
+    },
+    {
+      "path": "DicePrototype/Assets/InitTestScenec9928eab-2039-4ae5-a164-906cbb74c983.unity",
+      "sha256": "65e488b68e55d01f52ba6328654bda264265a12f6d564f2186482138e1d7be0e"
+    },
+    {
+      "path": "DicePrototype/Assets/InitTestScenec9928eab-2039-4ae5-a164-906cbb74c983.unity.meta",
+      "sha256": "b158831cd486c0d057936cc9e9e53f9712ffa5fe831f035339c521106b321e49"
     },
     {
       "path": "DicePrototype/Assets/InitTestScenecaf665f9-ae1b-4d68-8c4c-b2c718e7f9f4.unity",
@@ -8330,12 +8418,36 @@
       "sha256": "288e3ff2d5cf929780a2eed0caa58b8dedf154f8694ac3d4252d5d7ce4b2c58b"
     },
     {
+      "path": "DicePrototype/Assets/InitTestScenece65e80d-dcb6-420d-9438-a1b8f6888127.unity",
+      "sha256": "cf2ab3c27aaa559e4fddb161731bcb76af83f72bebf7745acee46d547df47263"
+    },
+    {
+      "path": "DicePrototype/Assets/InitTestScenece65e80d-dcb6-420d-9438-a1b8f6888127.unity.meta",
+      "sha256": "9cfdd28377579ffc3844a1ac7cf7b39440d97655e30723ff29059ddb75f4ddc3"
+    },
+    {
+      "path": "DicePrototype/Assets/InitTestScenedf9b0ccd-5823-492e-a4a8-9615d705d0c6.unity",
+      "sha256": "0112351859c9137bbdf7a27112b5a5ee93a97296bec1d213d3a10d1eb04b4c82"
+    },
+    {
+      "path": "DicePrototype/Assets/InitTestScenedf9b0ccd-5823-492e-a4a8-9615d705d0c6.unity.meta",
+      "sha256": "48d95eda9cdad576bbfb0ef68f3e8497511e1a87af7155de59ada7b1aca62968"
+    },
+    {
       "path": "DicePrototype/Assets/InitTestSceneecc2f076-c2a5-42c5-be57-ce57f43715ae.unity",
       "sha256": "9924f2bfeb712171a265a6ca8be5c1ba3998e480b7cdd9d3d5a0df0f128464be"
     },
     {
       "path": "DicePrototype/Assets/InitTestSceneecc2f076-c2a5-42c5-be57-ce57f43715ae.unity.meta",
       "sha256": "b4cce566f7c80269708ed56bedcfe7f77df9cf2f2387bfd0e191578168d5af0d"
+    },
+    {
+      "path": "DicePrototype/Assets/InitTestScenefd58db5b-9c3a-48f0-946f-3c91b1ae0005.unity",
+      "sha256": "d92c390ec823b3d600741d99d488b96156d5b5fccf7fd358ba87e3fc3b6ee394"
+    },
+    {
+      "path": "DicePrototype/Assets/InitTestScenefd58db5b-9c3a-48f0-946f-3c91b1ae0005.unity.meta",
+      "sha256": "09495a688dda6ff22129a5412494fee59506960ab5f1e7d42f9fc4db536e22a6"
     },
     {
       "path": "DicePrototype/Assets/InputSystem_Actions.inputactions",
@@ -8355,7 +8467,7 @@
     },
     {
       "path": "DicePrototype/Assets/Resources/BuildIdentity.json",
-      "sha256": "8600c87744c3a5ee92ce890d1ddb044fb547e36e68a322328a8e9f1ae1d61ef9"
+      "sha256": "6ef1280584844fd26ef8bab9f7fc7e6265bc15d4d201319732d3ae89adfedbc3"
     },
     {
       "path": "DicePrototype/Assets/Resources/BuildIdentity.json.meta",
@@ -8970,16 +9082,16 @@
       "sha256": "edd2beb4a2e388312b4b7da241aa51070434005d82c59363f1237dd2e567585f"
     },
     {
-      "path": "evidence/v072/unity/nunit-20261111-170034.xml",
-      "sha256": "1f0fc260a071683af073a85b414eb6686d6df5140c63e84e5b42b6f37a2a2fc6"
+      "path": "evidence/v072/unity/nunit-20261112-023145.xml",
+      "sha256": "4b06cdd8d11b47de87335f9fc17013b2799131e505cbc05e31cb88cf745015f7"
     },
     {
-      "path": "evidence/v072/unity/nunit-20261111-172336.xml",
-      "sha256": "076473a642ec3bea6b4505d47554768a494be361b1c7353d1aa95acb0540217e"
+      "path": "evidence/v072/unity/nunit-20261112-025451.xml",
+      "sha256": "721abe6ddd017a3b8a681acc92af097783556031c88ae66f34a18c20a480b30d"
     },
     {
-      "path": "evidence/v072/unity/pdb-b9c45f1.json",
-      "sha256": "d46dea7675353acb0333fb33804991016c62c3c2f394edd8baa569f3800808df"
+      "path": "evidence/v072/unity/pdb-cf9f790.json",
+      "sha256": "db54da93a4ed8068aef06e6c072b394ce59456ade0ce7baec6161b81e21c319d"
     },
     {
       "path": "evidence/v072/unity/discovery-EditMode.json",
@@ -8990,12 +9102,12 @@
       "sha256": "a6acce0daa46c553fb8176f15ee831f60a65c0d68efff89e75a9e8911b6ad547"
     },
     {
-      "path": "evidence/v072/unity/nunit-20261111-170034.binding.json",
-      "sha256": "f648ab76d3466abda2ae0f8e5badecf43389d8fd3c69a3f93b2f093e592ef928"
+      "path": "evidence/v072/unity/nunit-20261112-023145.binding.json",
+      "sha256": "a69b0c72674e4c715e318d3ea2e15784e27c22b417e0068cdbde189469af6f37"
     },
     {
-      "path": "evidence/v072/unity/nunit-20261111-172336.binding.json",
-      "sha256": "307504ed2ee373fff0bb00ff905ccfb5c950f30eab00c570ff8cfb6313f8872e"
+      "path": "evidence/v072/unity/nunit-20261112-025451.binding.json",
+      "sha256": "26a5041f3b2a5ae8f7d53ef819fdf517fc52164802ad4cb9d3038a6bfa545c24"
     }
   ],
   "expectedCounts": {

@@ -1,7 +1,7 @@
 {
   "schema": "art072-verify-2",
-  "utc": "2026-11-11T16:57:31.560739+00:00",
-  "items": 23,
+  "utc": "2026-11-12T01:13:24.772974+00:00",
+  "items": 27,
   "failures": [],
   "result": "CHECKS_PASSED",
   "assets": [
@@ -20,7 +20,7 @@
         1920,
         1080
       ],
-      "sha256": "89ccf6e29cbf5bf0af9f8b7c83e4d93941af25fca3dd00a05d46d2e039684679",
+      "sha256": "7e6b595da3d9f1d54d65f883aa736d15622c7a29bb9e774c273ea5b7d9d89637",
       "reproduced": true
     },
     {
@@ -30,6 +30,15 @@
         512
       ],
       "sha256": "19f950e6d707adb02db12ab905d994053bf8957919496797ae69d298e0bafc30",
+      "reproduced": true
+    },
+    {
+      "path": "Surfaces/ui_button_ghost.png",
+      "size": [
+        512,
+        512
+      ],
+      "sha256": "e6747dddf75228ede1dfdc5e541467063b8283d2360818e7053ae38b0f253a12",
       "reproduced": true
     },
     {
@@ -101,7 +110,16 @@
         512,
         512
       ],
-      "sha256": "b48d4dedc086b13b0ace336794c90d4f1f11890f5e3ac7c29b08357d11bda2f7",
+      "sha256": "34150eb9e5eb5c0494322eeb9d8f9d3169db686c49966de68c26230e2ad000d0",
+      "reproduced": true
+    },
+    {
+      "path": "Surfaces/ui_panel_hud.png",
+      "size": [
+        512,
+        512
+      ],
+      "sha256": "fbc4d3379620807b006edc1b10a518e2b10568a12d8f88173984c3965ed5616d",
       "reproduced": true
     },
     {
@@ -150,6 +168,15 @@
       "reproduced": true
     },
     {
+      "path": "Surfaces/ui_ring.png",
+      "size": [
+        512,
+        512
+      ],
+      "sha256": "ff65bf87dd7c2cd1dc264a863b176defd742168261e591184b5222e49d93d6a5",
+      "reproduced": true
+    },
+    {
       "path": "Surfaces/ui_scroll_handle.png",
       "size": [
         512,
@@ -174,6 +201,15 @@
         512
       ],
       "sha256": "c8648181ae70910845750bc24ed151ba72323e50a4fcc8957257c655614f36cf",
+      "reproduced": true
+    },
+    {
+      "path": "Surfaces/ui_tab_bottom.png",
+      "size": [
+        512,
+        512
+      ],
+      "sha256": "a5093066700f95f1f332e39fe310e074323c0606befda9b6f9bd24acf76346dc",
       "reproduced": true
     },
     {

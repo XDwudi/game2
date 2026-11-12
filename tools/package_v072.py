@@ -54,7 +54,8 @@ def main():
         raise ValueError("Frozen source commit is not in the current history")
     directory = ROOT / ("Builds/v072/macOS" if mac else "Builds/v072/Windows")
     files = sorted(p for p in directory.rglob("*") if p.is_file() and not any(part.endswith(SKIP) for part in p.relative_to(directory).parts))
-    if not files or not any(p.name == ("DicePrototype" if mac else "DicePrototype.exe") for p in files):
+    # The Mac executable carries the product name ("DiceCraft P0"), so look for the bundle layout instead.
+    if not files or not any((p.parent.name == "MacOS" and p.parent.parent.name == "Contents") if mac else p.name == "DicePrototype.exe" for p in files):
         raise ValueError("Player build output is missing: " + str(directory))
     name = f"DicePrototype-{VERSION}-{'macos-universal' if mac else 'win-x64'}.zip"
     RELEASE.mkdir(parents=True, exist_ok=True)
@@ -72,9 +73,11 @@ def main():
             info = macho_info(path)
             if info is not None:
                 native.append({"path": path.relative_to(directory).as_posix(), "architectures": info["architectures"]})
-        main = [n for n in native if n["path"].endswith("Contents/MacOS/DicePrototype")]
-        if not main or sorted(main[0]["architectures"]) != ["arm64", "x86_64"]:
-            raise ValueError("Mac player executable is not a Universal (x86_64 + arm64) binary")
+        main = [n for n in native if "/Contents/MacOS/" in n["path"]]
+        if len(main) != 1 or sorted(main[0]["architectures"]) != ["arm64", "x86_64"]:
+            raise ValueError("Mac player executable is not a single Universal (x86_64 + arm64) binary")
+        if any(sorted(n["architectures"]) != ["arm64", "x86_64"] for n in native):
+            raise ValueError("A native Mac component is not Universal")
     executable = {n["path"] for n in native}
     with zipfile.ZipFile(output, "w", zipfile.ZIP_DEFLATED, compresslevel=6) as archive:
         archive.write(README, f"{top}/开始游玩.txt")
@@ -101,7 +104,9 @@ def main():
              "files": members}
     if mac:
         proof["machO"] = native
-        proof["macOSPackaging"] = "Windows-created transfer package: unsigned, not notarized, never launched on macOS"
+        proof["codeSignatureFolderPresent"] = any("/_CodeSignature/" in ("/" + m["path"]) for m in members)
+        proof["macOSPackaging"] = ("Windows-created transfer package: no Developer ID signature, not notarized, never launched on macOS; "
+                                   "any _CodeSignature folder is whatever the Unity build wrote and was not verified with codesign")
     (PROOFS / (name + ".json")).write_text(json.dumps(proof, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print(json.dumps({k: proof[k] for k in ("package", "bytes", "sha256", "members")}))
 
