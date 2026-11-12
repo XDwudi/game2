@@ -33,9 +33,22 @@ namespace DiceCraft
                 else{UiKit.Box(main,"ItemEmpty"+i,x,y+18,itemW-8,75,UiKit.Panel);UiKit.Text(main,"ItemEmptyText"+i,"空槽",x+5,y+42,itemW-18,28,18,UiKit.Muted,TextAlignmentOptions.Center);}
             }
         }
-        private Sprite ContentSprite071(string id) => string.IsNullOrEmpty(id)?null:
-            contentIcons?.FirstOrDefault(s=>s!=null&&s.name.Equals("illustration_"+id,StringComparison.OrdinalIgnoreCase))
-            ??contentIcons?.FirstOrDefault(s=>s!=null&&(s.name==id||s.name.Equals("icon_"+id,StringComparison.OrdinalIgnoreCase)));
+        private Sprite[] contentIndexSource073;
+        private System.Collections.Generic.Dictionary<string,Sprite> contentIndex073;
+        // v0.73: indexed once per icon set. The former scan read every sprite name (a native call and a new
+        // string each) for every card on every redraw.
+        private Sprite ContentSprite071(string id)
+        {
+            if(string.IsNullOrEmpty(id)||contentIcons==null)return null;
+            if(contentIndex073==null||!ReferenceEquals(contentIndexSource073,contentIcons))
+            {
+                contentIndexSource073=contentIcons;contentIndex073=new System.Collections.Generic.Dictionary<string,Sprite>(contentIcons.Length,StringComparer.OrdinalIgnoreCase);
+                foreach(var sprite in contentIcons)if(sprite!=null&&!contentIndex073.ContainsKey(sprite.name))contentIndex073.Add(sprite.name,sprite);
+            }
+            if(contentIndex073.TryGetValue("illustration_"+id,out var art)&&art!=null)return art;
+            if(contentIndex073.TryGetValue(id,out art)&&art!=null)return art;
+            return contentIndex073.TryGetValue("icon_"+id,out art)&&art!=null?art:null;
+        }
 
         private void Icon(Transform p,string id,float x,float y,float size)
         {

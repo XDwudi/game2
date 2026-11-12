@@ -20,8 +20,28 @@ namespace DiceCraft
         public static float FontScale=1f;
         public static bool ReducedMotion;
         public static Action<string> Feedback;
-        public static Sprite[] Templates;
-        public static Sprite Template(string name)=>Templates?.FirstOrDefault(s=>s!=null&&s.name==name);
+        private static Sprite[] templates;
+        private static Dictionary<string,Sprite> templateIndex;
+        public static Sprite[] Templates
+        {
+            get=>templates;
+            set{templates=value;templateIndex=null;}
+        }
+        /// <summary>
+        /// Shared surface by name (first match wins, as before). v0.73: indexed once per template set;
+        /// the old linear scan read every sprite's name on every call and allocated a string each time,
+        /// which made every redraw slower as the set grew.
+        /// </summary>
+        public static Sprite Template(string name)
+        {
+            if(templates==null||name==null)return null;
+            if(templateIndex==null)
+            {
+                templateIndex=new Dictionary<string,Sprite>(templates.Length,StringComparer.Ordinal);
+                foreach(var sprite in templates)if(sprite!=null&&!templateIndex.ContainsKey(sprite.name))templateIndex.Add(sprite.name,sprite);
+            }
+            return templateIndex.TryGetValue(name,out var hit)&&hit!=null?hit:null;
+        }
         public static TMP_FontAsset Font;
         public static Color Hex(string s) { ColorUtility.TryParseHtmlString("#" + s, out Color c); return c; }
         public static RectTransform Rect(Transform parent, string name, float x, float y, float w, float h)
