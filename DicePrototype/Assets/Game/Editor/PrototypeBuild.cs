@@ -29,10 +29,10 @@ namespace DiceCraft.Editor
             ValidateGate();
             var identity=AssetDatabase.LoadAssetAtPath<TextAsset>("Assets/Resources/BuildIdentity.json");
             if(identity==null)throw new InvalidOperationException("Freeze sourceCommit and write BuildIdentity before building.");
-            string output=mac?"../Builds/v072/macOS/DicePrototype.app":"../Builds/v072/Windows/DicePrototype.exe";
+            string output=mac?"../Builds/v073/macOS/DicePrototype.app":"../Builds/v073/Windows/DicePrototype.exe";
             Directory.CreateDirectory(Path.GetDirectoryName(output));
             var report=BuildPipeline.BuildPlayer(new BuildPlayerWithProfileOptions{buildProfile=profile,locationPathName=output,options=BuildOptions.StrictMode});
-            string evidence="../evidence/v072/unity/build-"+(mac?"macos":"windows")+"-"+DateTime.UtcNow.ToString("yyyyMMdd-HHmmss")+".json";
+            string evidence="../evidence/v073/unity/build-"+(mac?"macos":"windows")+"-"+DateTime.UtcNow.ToString("yyyyMMdd-HHmmss")+".json";
             Directory.CreateDirectory(Path.GetDirectoryName(evidence));
             File.WriteAllText(evidence,JsonUtility.ToJson(new Proof{profile=profilePath,platform=target.ToString(),unity=Application.unityVersion,
                 result=report.summary.result.ToString(),errors=report.summary.totalErrors,warnings=report.summary.totalWarnings,
@@ -42,7 +42,7 @@ namespace DiceCraft.Editor
         }
         private static void ValidateGate()
         {
-            const string path="../evidence/v072/unity/build-gate.json";
+            const string path="../evidence/v073/unity/build-gate.json";
             if(!File.Exists(path))throw new InvalidOperationException("Run tests and bind their successful evidence before building.");
             var gate=JsonUtility.FromJson<Gate>(File.ReadAllText(path));
             if(gate==null||gate.schema!="v07-build-gate-1"||gate.editModePassed<797||gate.playModePassed<30||gate.files==null||gate.files.Length==0)throw new InvalidOperationException("Incomplete v0.72 test gate (complete discovered EditMode / PlayMode suites required).");
@@ -51,7 +51,7 @@ namespace DiceCraft.Editor
             if(gate.tests==null||gate.tests.Length!=2)throw new InvalidOperationException("Both complete test reports are required.");
             foreach(var mode in new[]{"EditMode","PlayMode"})
             {
-                string discoveryPath="evidence/v072/unity/discovery-"+mode+".json";
+                string discoveryPath="evidence/v073/unity/discovery-"+mode+".json";
                 requireEvidence(gate.files.SingleOrDefault(f=>f.path==discoveryPath));
                 var discovery=JsonUtility.FromJson<Discovery>(File.ReadAllText("../"+discoveryPath));
                 int count=mode=="EditMode"?gate.editModePassed:gate.playModePassed;
@@ -74,7 +74,7 @@ namespace DiceCraft.Editor
                     throw new InvalidOperationException("Verification source/evidence changed: "+file.path);
             }
             var identity=JsonUtility.FromJson<Identity>(File.ReadAllText("Assets/Resources/BuildIdentity.json"));
-            if(identity.releaseVersion!="p0.7.2"||identity.artVersion!="art0.7.2"||identity.contentConfigVersion!="p0.6.0"||identity.saveSchemaVersion!=4)
+            if(identity.releaseVersion!="p0.7.3"||identity.artVersion!="art0.7.3"||identity.contentConfigVersion!="p0.6.0"||identity.saveSchemaVersion!=4)
                 throw new InvalidOperationException("Art release identity must preserve the frozen p0.6.0/schema4 gameplay contract.");
             if(identity.sourceCommit!=gate.sourceCommit||identity.contentConfigSha256!=Hash("Assets/Game/Data/P0Config.json")||identity.goldenCaseSetSha256!=Hash("Assets/Game/Data/GoldenScores.json"))
                 throw new InvalidOperationException("Build identity does not match frozen source/config/cases.");

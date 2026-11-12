@@ -7,7 +7,9 @@ namespace DiceCraft
     {
         private void DrawShopWallet07()
         {
-            var panel=UiKit.Frame(main,"Stats07",24,24,320,356,UiKit.Background,UiKit.PanelLight);UiKit.Surface(panel,"ui_panel_hud");
+            // v0.73: the wallet block keeps its v0.72 geometry; next stage, dice and capacity rows follow it.
+            var panel=UiKit.Frame(main,"Stats07",24,24,320,504,UiKit.Background,UiKit.PanelLight);UiKit.Surface(panel,"ui_panel_hud");
+            ShopStatus073(panel);
             UiKit.Inset(panel,"MoneyInset072",10,86,300,84);
             var brand=UiKit.Text(panel,"Brand","骰子构筑",18,18,284,72,32);
             brand.textWrappingMode=TextWrappingModes.NoWrap;
@@ -29,7 +31,6 @@ namespace DiceCraft
                 while(money.GetPreferredValues(amount).x>304&&money.characterSpacing>-4)
                     money.characterSpacing-=.25f;
             }
-            UiKit.Text(panel,"Interest",ShopInterestText07(),18,182,284,104,21,UiKit.Muted);
-        }
+            UiKit.Text(panel,"Interest",ShopInterestText07(),18,182,284,104,21,UiKit.Muted);        }
     }
 }

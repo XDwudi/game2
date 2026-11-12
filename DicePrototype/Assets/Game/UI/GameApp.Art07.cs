@@ -11,7 +11,7 @@ namespace DiceCraft
     // Presentation only. Coordinates refer to the design root shared by UI and DiceTable.
     public sealed partial class GameApp
     {
-        public const string ArtVersion="art0.7.2";
+        public const string ArtVersion="art0.7.3";
         private int textScale07=100;
         private bool colorAssist07=true, instant07, shake07=true, grain07=true;
         private string draggedDie07;
@@ -34,11 +34,23 @@ namespace DiceCraft
         private void DrawNavigation07()
         {
             float x=Compact07?C07(24):40,w=Compact07?C07(192):288;
-            if(ViewState.phase=="Shop"){UiKit.Button(main,"Pause","设置",40,316,132,60,Pause);UiKit.Button(main,"Handbook","手册",186,316,132,60,ShowHandbook);return;}
+            if(ViewState.phase=="Shop")
+            {
+                // v0.73: settings and handbook sit at the bottom of the left column, each with its icon.
+                NavIcon073(UiKit.Button(main,"Pause","设置",24,976,154,72,Pause),"ui_icon_gear");
+                NavIcon073(UiKit.Button(main,"Handbook","手册",190,976,154,72,ShowHandbook),"ui_icon_book");return;
+            }
             UiKit.Button(main,"Pause","设置 / 暂停",x,Compact07?C07(650):944,w,60,Pause);
             UiKit.Button(main,"Handbook","牌型手册 [H]",x,Compact07?C07(600):870,w,60,ShowHandbook,!IsBusy&&!Session.HasPendingSave);
             if(ViewState.lastSubmission!=null)UiKit.Button(main,"PreviousSubmission","上一手得分明细",x,Compact07?C07(550):802,w,60,()=>ShowBreakdown(ViewState.lastSubmission.snapshot,ViewState.lastSubmission.breakdown),!IsBusy);
             if(DebugUnlocked&&IsDebugWorkspace)UiKit.Button(main,"DebugWorkspace","组合试验",x,Compact07?C07(500):730,w,60,ShowDebugPanel,!IsBusy);
+        }
+        private static void NavIcon073(UnityEngine.UI.Button button,string sprite)
+        {
+            var art=UiKit.Template(sprite);if(art==null)return;
+            var icon=UiKit.Box(button.transform,"NavIcon",14,16,34,34,UiKit.Ink).GetComponent<UnityEngine.UI.Image>();icon.sprite=art;icon.raycastTarget=false;
+            var label=button.transform.Find("Label").GetComponent<TextMeshProUGUI>();
+            label.rectTransform.anchoredPosition=new Vector2(48,0);label.rectTransform.sizeDelta=new Vector2(((RectTransform)button.transform).sizeDelta.x-58,label.rectTransform.sizeDelta.y);
         }
         private void Header()
         {
@@ -208,6 +220,8 @@ namespace DiceCraft
                     var symbol=UiKit.Box(mark,"Lock",3,3,22,24,Color.white).GetComponent<UnityEngine.UI.Image>();symbol.sprite=UiKit.Template("ui_icon_lock");symbol.raycastTarget=false;
                 }
             }
+            // v0.73: the grid shows at most five item slots; its sixth cell opens the dice library.
+            DrawViewDiceButton073(x+2*(size+gap),y+36+(size+12),size);
         }
         private void Gameplay()
         {
@@ -248,6 +262,13 @@ namespace DiceCraft
                 int i=j+slotPage*8;float x=sx+j%columns*(slotW+sgap),y=sy+(c?36:36)+j/columns*(slotH+18);
                 bool locked=i<h.orderedLockedIds.Count;UiKit.Ring(main,"Slot"+i,x,y,slotW,slotH,locked?UiKit.Gold:UiKit.Ghost);
                 UiKit.Text(main,"SlotIndex"+i,(i+1).ToString("00"),x+(locked?(c?126:94):8),y+4,locked?(c?50:32):38,32,16,UiKit.Muted);
+                if(locked&&!c)
+                {
+                    // v0.73: the dark tray lip a locked die sits on (reference image 3). Below the die, never over it.
+                    var lip=UiKit.Box(main,"SlotTray073_"+i,x+4,y+slotH-4,slotW-8,22,Color.white).GetComponent<UnityEngine.UI.Image>();
+                    lip.sprite=UiKit.Template("ui_tray_front");lip.type=lip.sprite!=null?UnityEngine.UI.Image.Type.Sliced:UnityEngine.UI.Image.Type.Simple;lip.raycastTarget=false;
+                    lip.gameObject.SetActive(lip.sprite!=null);
+                }
                 if(locked){var id=h.orderedLockedIds[i];DrawLockMark07(x+(c?198:128),y+10,i,id);lockedSlotRects07[id]=new Rect(x,y,slotW,slotH);DrawDie(s.dice.First(d=>d.dieId==id),h.currentResults.First(r=>r.dieId==id),new Vector2(x+(c?82:44),y+(c?52:62)),true,i,c?.65f:.82f,true);}
                 else UiKit.Text(main,"EmptySlot"+i,"·  ·  ·",x+30,y+38,slotW-60,48,20,UiKit.PanelLight,TextAlignmentOptions.Center);
             }
@@ -371,7 +392,14 @@ namespace DiceCraft
         private void DrawLockMark07(float x,float y,int index,string dieId)
         {
             var mark=UiKit.Rect(main,"LockMark"+index,x,y,22,24);
-            UiKit.Outline(mark,"Shackle",5,0,12,12,UiKit.Gold,2);UiKit.Box(mark,"Body",1,9,20,14,UiKit.Gold);UiKit.Box(mark,"Keyhole",10,13,2,6,UiKit.Ink);BindLockArrival07(mark,dieId);
+            var padlock=UiKit.Template("ui_tag_lock");
+            if(padlock!=null)
+            {
+                // v0.73: brass padlock art in the same 22 x 24 footprint as the v0.7 block mark.
+                var art=UiKit.Box(mark,"Padlock",-3,-4,28,30,Color.white).GetComponent<UnityEngine.UI.Image>();art.sprite=padlock;art.raycastTarget=false;art.preserveAspect=true;
+            }
+            else{UiKit.Outline(mark,"Shackle",5,0,12,12,UiKit.Gold,2);UiKit.Box(mark,"Body",1,9,20,14,UiKit.Gold);UiKit.Box(mark,"Keyhole",10,13,2,6,UiKit.Ink);}
+            BindLockArrival07(mark,dieId);
         }
         private void ScorePanel()
         {

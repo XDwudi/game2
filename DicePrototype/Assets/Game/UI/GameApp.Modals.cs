@@ -62,7 +62,7 @@ namespace DiceCraft
                     var motion=panel.GetComponent<Art07PanelMotion>();modalTail07.CaptureExit(panel,motion!=null?motion.ExitDuration:.1f,reduced);break;
                 }
             }
-            bool restoreDice=diceSheet07;diceSheet07=false;CancelControllerDrag();displayPanel=false;debugPanel=false;controllerOrderPanel=false;modal=false;modalIdentity07=null;detailDieId=null;table.HidePreview();main.gameObject.SetActive(true);UiKit.Clear(overlay);if(restoreDice)Refresh();else SyncLockedGripsAfterModal07();
+            bool restoreDice=diceSheet07;diceSheet07=false;CancelControllerDrag();displayPanel=false;debugPanel=false;controllerOrderPanel=false;modal=false;modalIdentity07=null;detailDieId=null;EndSheetDie073();table.HidePreview();main.gameObject.SetActive(true);UiKit.Clear(overlay);if(restoreDice)Refresh();else SyncLockedGripsAfterModal07();
         }
         private void SaveFailure()
         {
@@ -125,6 +125,7 @@ namespace DiceCraft
         private RectTransform OpenDiceSheet07(string title)
         {
             bool fresh=PrepareModalMotion07("dice-sheet");
+            sheetDie073=null;sheetFacing073=null;
             modal=true;diceSheet07=true;UiKit.Clear(overlay);table.HidePreview();table.Hide();main.gameObject.SetActive(false);
             // The real 3D preview uses an aperture; opaque screen-space panels cover all other areas.
             var scrim=new Color(.015f,.03f,.035f,.35f);
@@ -157,9 +158,10 @@ namespace DiceCraft
             {
                 var d=candidates[i];string id=d.dieId;
                 var button=UiKit.Button(targets,"Target_"+id,"",0,i*104,296,96,()=>DrawDiceSheet07(id,offer,null,scroll.verticalNormalizedPosition),true,id==selectedDie);
-                Art07PipTile(button.transform,"DieThumbnail",d.faces[0].permanentPip,d.faces[0].baseColor=="red"?UiKit.Red:UiKit.Blue,8,20,52);
-                UiKit.Text(button.transform,"Identity",id,72,6,208,40,21,UiKit.Ink);
-                UiKit.Text(button.transform,"Lifetime",(d.lifetime=="permanent"?"永久":"本关")+(d.isGlass?" · 玻璃":""),72,48,208,40,18,id==selectedDie?UiKit.Ink:PaperMuted071);
+                // v0.73: the list shows the real die (drag turns it, a click picks it), not one flat face.
+                DieView073(button.transform,"DieThumbnail","sheet-"+id,d,6,4,84,82,.56f,true,false,()=>DrawDiceSheet07(id,offer,null,scroll.verticalNormalizedPosition),null,scroll.viewport);
+                UiKit.Text(button.transform,"Identity",id,98,6,186,40,21,UiKit.Ink);
+                UiKit.Text(button.transform,"Lifetime",(d.lifetime=="permanent"?"永久":"本关")+(d.isGlass?" · 玻璃":""),98,48,186,40,18,id==selectedDie?UiKit.Ink:PaperMuted071);
             }
             scroll.verticalNormalizedPosition=scrollPosition;
             UiKit.Text(p,"DieCount","活动骰 "+ViewState.dice.Count+" · 永久骰 "+ViewState.dice.Count(d=>d.lifetime=="permanent")+"\n物理对面 F01/F06 · F02/F05 · F03/F04",24,772,320,96,18,UiKit.Muted);
@@ -184,14 +186,16 @@ namespace DiceCraft
                 }
             }
             var after=offer==null?before:FaceProbability(afterDie);
-            Action<string> select=face=>DrawDiceSheet07(die.dieId,offer,face,scroll.verticalNormalizedPosition);
-            DrawFaceNet07(p,die,rolled?current.currentFaceId:null,selectedFace,whole?null:select);
-            var rotation=Quaternion.Euler(20,25,15);var center=new Vector2(804,408);
-            table.ShowPreview(die,center,rotation,2.15f);
+            // v0.73: choosing a face turns the real die to it; the flat cross of face tiles is gone.
+            Action<string> select=face=>{TurnSheetToFace073(face);DrawDiceSheet07(die.dieId,offer,face,scroll.verticalNormalizedPosition);};
+            BeginSheetDie073(die,(offer?.offerId??"view")+"|"+die.dieId,new Vector2(804,408),before);
+            DrawFaceChips073(p,die,rolled?current.currentFaceId:null,selectedFace,select,whole);
+            table.ShowPreview(die,sheetCenter073,sheetRotation073,2.15f);
             var hit=UiKit.Component<DiePointer>(UiKit.Box(p,"RotatePreview",368,112,456,400,Color.clear,true).gameObject);
-            hit.clicked=null;hit.dragStart=null;hit.dragged=e=>{rotation=Quaternion.Euler(e.delta.y*.65f,-e.delta.x*.65f,0)*rotation;table.ShowPreview(die,center,rotation,2.15f);};hit.dragEnd=null;
+            hit.dragStart=null;hit.dragEnd=null;hit.dragged=DragSheetDie073;
+            hit.clicked=whole?(Action<UnityEngine.EventSystems.PointerEventData>)null:e=>{if(table.TryPickPreviewFace073(e.position,out int picked))select(die.faces.First(f=>DiceTable.FaceIndex(f.faceId)==picked).faceId);};
             if(whole)UiKit.Outline(p,"WholeDieTarget",370,114,452,396,UiKit.Gold,3);
-            UiKit.Text(p,"PreviewHint","拖动旋转 · 永久六面",368,520,456,40,20,UiKit.Muted,TextAlignmentOptions.Center);
+            UiKit.Text(p,"PreviewHint",whole?"拖动旋转 · 永久六面":"拖动旋转 · 点骰面可选中",368,520,456,40,20,UiKit.Muted,TextAlignmentOptions.Center);
             var layers=UiKit.Scroll(p,"DieLayers",368,568,456,208,208);float ly=0;
             var snapshot=Session.PreviewSnapshot();var score=Session.PreviewScoreRange()?.minimum;
             int at=snapshot==null?-1:Array.FindIndex(snapshot.dice,d=>d.dieId==die.dieId);
@@ -251,11 +255,12 @@ namespace DiceCraft
             foreach(var face in die.faces)Art07DetailSection(attributes,face.faceId,face.faceId,FaceSummary07(face),ref y,288);
             if(offer.priceReasons!=null&&offer.priceReasons.Length>0)Art07DetailSection(attributes,"PriceReasons","价格来源",string.Join(" · ",offer.priceReasons),ref y,288);
             attributes.sizeDelta=new Vector2(attributes.sizeDelta.x,y+16);
-            DrawFaceNet07(p,die,null,null,null);DrawProbability07(p,die,die,FaceProbability(die),FaceProbability(die),false);
+            BeginSheetDie073(die,"candidate|"+offer.offerId,new Vector2(804,408),FaceProbability(die));
+            DrawFaceChips073(p,die,null,null,null,false);DrawProbability07(p,die,die,FaceProbability(die),FaceProbability(die),false);
             UiKit.Button(p,"ProbabilityGroups",faceProbabilityExpanded07?"按物理面 · 收起":"按点数组 · 展开",848,504,600,60,()=>{faceProbabilityExpanded07=!faceProbabilityExpanded07;ShowNewDieOffer07(offer);});
-            var rotation=Quaternion.Euler(20,25,15);var center=new Vector2(804,408);table.ShowPreview(die,center,rotation,2.15f);
+            table.ShowPreview(die,sheetCenter073,sheetRotation073,2.15f);
             var hit=UiKit.Component<DiePointer>(UiKit.Box(p,"RotatePreview",368,112,456,400,Color.clear,true).gameObject);
-            hit.clicked=null;hit.dragStart=null;hit.dragEnd=null;hit.dragged=e=>{rotation=Quaternion.Euler(e.delta.y*.65f,-e.delta.x*.65f,0)*rotation;table.ShowPreview(die,center,rotation,2.15f);};
+            hit.clicked=null;hit.dragStart=null;hit.dragEnd=null;hit.dragged=DragSheetDie073;
             UiKit.Text(p,"CandidateNotice","拖动旋转 · 候选永久六面\n当前值：未生成\n查看和取消不会重新生成候选。",368,528,456,208,23,UiKit.Muted);
             string error=Session.PurchaseError(offer.offerId);int price=Session.GetOfferPrice(offer);
             var reason=UiKit.Scroll(p,"CandidatePurchaseReason",368,760,456,104,104);

@@ -10,6 +10,12 @@ namespace DiceCraft
         public Camera viewCamera;
         public Mesh bodyMesh;
         public Material bodyMaterial, faceMaterial, glassMaterial, outlineMaterial;
+        /// <summary>v0.73 per-face finish layer (glaze, grain, gold rim). Null keeps the v0.72 look.</summary>
+        public Material styleMaterial;
+        /// <summary>v0.73: layer of every renderer this table creates. The interface table uses its own layer and camera.</summary>
+        public int visualLayer;
+        /// <summary>v0.73: dice drawn into the interface texture have no floor to shade.</summary>
+        public bool castShadows = true;
         public AnimationClip[] rollClips;
         private readonly Dictionary<string, Visual> visuals = new Dictionary<string, Visual>();
         private readonly Stack<Visual> spareVisuals = new Stack<Visual>(33);
@@ -38,6 +44,7 @@ namespace DiceCraft
             public readonly MeshRenderer[] faceRenderers = new MeshRenderer[6];
             public readonly int[] faceKeys = { -1, -1, -1, -1, -1, -1 };
             public readonly int[] faceColors = { -1, -1, -1, -1, -1, -1 };
+            public readonly bool[] faceStyled = new bool[6];
             public Quaternion target, previousOrientation, compensation;
             public Vector3 resting, previousCenter, initialOffset;
             public Vector3 layoutFrom, layoutScaleFrom, layoutScaleTo;
@@ -201,6 +208,7 @@ namespace DiceCraft
                     if (faceMeshes[key] == null)
                     {
                         faceMeshes[key] = MakeFace(pip,state.isGold,state.texture);
+                        AddFinish073(faceMeshes[key],state.isGold,state.texture);
                         faceMeshes[key].name = "Pips_" + pip + "_" + (state.isGold ? "Gold_" : "Plain_") + texture;
                         cachedMeshCount++;
                     }
@@ -208,9 +216,12 @@ namespace DiceCraft
                     v.faceKeys[f]=key;
                 }
                 int color = state.baseColor == "red" ? 0 : 1;
-                if (v.faceColors[f] != color || v.faceRenderers[f].sharedMaterial != faceMaterial)
+                // v0.73: a finished face carries its glaze/grain/gold as a second submesh.
+                bool styled = styleMaterial != null && v.faces[f].sharedMesh.subMeshCount > 1;
+                if (v.faceColors[f] != color || v.faceStyled[f] != styled || v.faceRenderers[f].sharedMaterial != faceMaterial)
                 {
-                    v.faceRenderers[f].sharedMaterial=faceMaterial;
+                    v.faceRenderers[f].sharedMaterials = styled ? StyledMaterials073() : PlainMaterials073();
+                    v.faceStyled[f] = styled;
                     faceProperties.SetColor(baseColorId,color == 0 ? UiKit.Red : UiKit.Blue);
                     v.faceRenderers[f].SetPropertyBlock(faceProperties);
                     v.faceColors[f]=color;
@@ -240,6 +251,7 @@ namespace DiceCraft
                 face.transform.localPosition=Normals[f]*.502f;face.transform.localRotation=Quaternion.FromToRotation(Vector3.forward,Normals[f]);
                 v.faces[f]=face.GetComponent<MeshFilter>();v.faceRenderers[f]=face.GetComponent<MeshRenderer>();
             }
+            ApplyLayer073(v);
             return v;
         }
 

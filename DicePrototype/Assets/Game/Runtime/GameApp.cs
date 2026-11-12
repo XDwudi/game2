@@ -59,6 +59,7 @@ namespace DiceCraft
             InitializePresentation07();
             main=UiKit.Rect(canvas.transform,"Screen",0,0,1920,1080); overlay=UiKit.Rect(canvas.transform,"ModalLayer",0,0,1920,1080);
             InitializeDisplay();
+            InitializeUiDice073();
             ApplyArtPreferences07();
             BeginStartupLoad07();
         }
@@ -80,7 +81,7 @@ namespace DiceCraft
             { ViewState=Session?.State;displayedSession=Session;controllerSourceCache=null; }
             SyncSettlementBackdropView07();
             UiKit.Clear(main); table.Hide(); visibleDice.Clear(); dieCenters.Clear(); controllerRects.Clear();lockedSlotRects07.Clear();
-            if(inMenu || ViewState==null) { inMenu=true; Menu(); if(Session.HasPendingSave)SaveFailure(); return; }
+            if(inMenu || ViewState==null) { inMenu=true; HideHighScore073(); Menu(); if(Session.HasPendingSave)SaveFailure(); return; }
             Header();
             switch(ViewState.phase)
             {
@@ -332,6 +333,7 @@ namespace DiceCraft
         {
             if(!StartupReady07){TickStartupLoad07();TickDisplay();return;}
             TickDisplay();
+            TickDiceSheet073();
             TickRunClock07();
             TickNotice07();
             TickTerminalCue07();

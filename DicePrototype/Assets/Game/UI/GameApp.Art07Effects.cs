@@ -512,7 +512,13 @@ namespace DiceCraft
             var p=UiKit.Frame(transactionReadout07,"AcquiredInstance07",1440,536,420,360,UiKit.Paper,UiKit.Ink);
             UiKit.Text(p,"Title",die==null?NameOf(offer.contentId):"新增永久骰",16,12,388,58,26,UiKit.Ink,TextAlignmentOptions.Center);
             if(die==null)Icon(p,offer.contentId,154,94,112);
-            else for(int i=0;i<6;i++){var face=die.faces[i];Art07PipTile(p,"PhysicalFace"+face.faceId,face.permanentPip,face.baseColor=="red"?UiKit.Red:UiKit.Blue,48+i%3*112,88+i/3*94,76);}
+            else
+            {
+                // v0.73: no flat face tiles. This 0.34 s receipt names the die; its real faces are on the
+                // dice counter it came from and in the dice library.
+                var emblem=UiKit.Box(p,"NewDieEmblem",146,90,128,128,Color.white).GetComponent<UnityEngine.UI.Image>();emblem.sprite=UiKit.Template("ui_icon_dice_view");emblem.raycastTarget=false;
+                var summary=UiKit.Text(p,"NewDieSummary",DieSummary073(die),16,224,388,52,18,PaperMuted071,TextAlignmentOptions.Center);summary.lineSpacing=-8;
+            }
             UiKit.Text(p,"Identity",identity,16,280,388,48,21,UiKit.Ink,TextAlignmentOptions.Center);return p;
         }
         private void FocusTransactionAcquisition07()

@@ -8,7 +8,10 @@ namespace DiceCraft
 {
     public sealed partial class GameApp
     {
-        private void Shop()
+        // v0.73: one page with every section visible (reference image 2). The tabbed v0.7 shop below is kept
+        // only as LegacyTabbedShop07 for reference and is no longer reachable.
+        private void Shop()=>Shop073();
+        private void LegacyTabbedShop07()
         {
             shopTab=Mathf.Clamp(shopTab,0,4);
             Art07ShopShelf();

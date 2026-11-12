@@ -37,7 +37,7 @@ namespace DiceCraft
             var root=(RectTransform)canvas.transform;
             Vector2 offset=new Vector2((safe.x+(safe.width-1920*scale)/2)/scale,(Screen.height-safe.yMax+(safe.height-1080*scale)/2)/scale);
             main.anchoredPosition=overlay.anchoredPosition=new Vector2(offset.x,-offset.y);
-            table.designRoot=main;
+            table.designRoot=main;if(UiDice073!=null)UiDice073.designRoot=main;
             observedWidth=Screen.width;observedHeight=Screen.height;observedSafeArea=safe;
         }
         private Vector2 ScreenToDesign(Vector2 position)

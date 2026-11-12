@@ -9,6 +9,7 @@ Shader "DiceCraft/Art07/Ceramic"
         _Glass("Glass shell",Range(0,1))=0
         _GlassOpacity("Glass shell opacity",Range(.15,.85))=.48
         _ShadowCoverage071("Shadow coverage",Range(0,1))=1
+        _Glass073("v0.73 clear glass",Range(0,1))=0
     }
     SubShader
     {
@@ -17,11 +18,45 @@ Shader "DiceCraft/Art07/Ceramic"
         Tags { "RenderType"="Transparent" "Queue"="Transparent" "RenderPipeline"="UniversalPipeline" }
         Pass
         {
+            // v0.73: the far inner walls of a clear glass die, drawn before its front shell.
+            // Ceramic and legacy glass discard every fragment here.
+            Name "GlassInterior073"
+            Tags { "LightMode"="SRPDefaultUnlit" }
+            Cull Front
+            ZWrite Off
+            ZTest LEqual
+            Blend SrcAlpha OneMinusSrcAlpha, One OneMinusSrcAlpha
+            HLSLPROGRAM
+            #pragma vertex vert
+            #pragma fragment frag
+            #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
+            #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
+            struct A {float4 vertex:POSITION;float3 normal:NORMAL;};
+            struct V {float4 pos:SV_POSITION;float3 normal:TEXCOORD0;float3 world:TEXCOORD1;};
+            CBUFFER_START(UnityPerMaterial)
+            half4 _BaseColor;half4 _EdgeColor;half _Glass;half _GlassOpacity;half _Smoothness;half _Specular;half _ShadowCoverage071;half _Glass073;
+            CBUFFER_END
+            V vert(A a){V v;v.world=TransformObjectToWorld(a.vertex.xyz);v.pos=TransformWorldToHClip(v.world);v.normal=TransformObjectToWorldNormal(a.normal);return v;}
+            half4 frag(V v):SV_Target
+            {
+                clip(_Glass*_Glass073-.5);
+                // Inner walls face away from the viewer: shade them by how squarely they do.
+                half3 n=normalize(v.normal);half3 view=normalize(GetWorldSpaceViewDir(v.world));
+                half away=saturate(-dot(n,view));
+                half3 color=_BaseColor.rgb*lerp(.42,.7,away);
+                return half4(color,lerp(.5,.28,away));
+            }
+            ENDHLSL
+        }
+        Pass
+        {
             Name "Ceramic"
             Tags { "LightMode"="UniversalForward" }
             Cull Back
             ZWrite On
-            Blend SrcAlpha OneMinusSrcAlpha
+            // Colour blends as before; the separate alpha term keeps coverage correct when the
+            // die is drawn into a transparent texture for the interface (v0.73).
+            Blend SrcAlpha OneMinusSrcAlpha, One OneMinusSrcAlpha
             // URP reserves high stencil bits; bit8 belongs to StencilUsage.UserMask.
             // The later contour pass rejects this exact front silhouette, so a glass
             // body does not reveal an opaque inverted-hull interior behind the shell.
@@ -34,12 +69,22 @@ Shader "DiceCraft/Art07/Ceramic"
             struct A {float4 vertex:POSITION;float3 normal:NORMAL;};
             struct V {float4 pos:SV_POSITION;float3 normal:TEXCOORD0;float3 world:TEXCOORD1;};
             CBUFFER_START(UnityPerMaterial)
-            half4 _BaseColor;half4 _EdgeColor;half _Glass;half _GlassOpacity;half _Smoothness;half _Specular;half _ShadowCoverage071;
+            half4 _BaseColor;half4 _EdgeColor;half _Glass;half _GlassOpacity;half _Smoothness;half _Specular;half _ShadowCoverage071;half _Glass073;
             CBUFFER_END
             V vert(A a){V v;v.world=TransformObjectToWorld(a.vertex.xyz);v.pos=TransformWorldToHClip(v.world);v.normal=TransformObjectToWorldNormal(a.normal);return v;}
             half4 frag(V v):SV_Target
             {
                 half3 n=normalize(v.normal);Light key=GetMainLight();half l=saturate(dot(n,key.direction));
+                if(_Glass*_Glass073>.5)
+                {
+                    // v0.73 clear glass: saturated body colour, glossy key highlight, bright rim.
+                    half3 eye=normalize(GetWorldSpaceViewDir(v.world));
+                    half gloss=pow(saturate(dot(n,normalize(key.direction+eye))),90);
+                    half fresnel=pow(1-saturate(dot(n,eye)),2.2);
+                    half3 glass=_BaseColor.rgb*lerp(.74,1.06,l)+gloss*.9*key.color;
+                    glass=lerp(glass,half3(.88,.97,1),fresnel*.72);
+                    return half4(glass,saturate(_GlassOpacity+fresnel*.38+gloss*.4));
+                }
                 // Broad ceramic shading and a soft highlight share the scene key light.
                 // Rule tint belongs solely to the separate opaque face meshes.
                 half3 view=normalize(GetWorldSpaceViewDir(v.world));
@@ -75,7 +120,7 @@ Shader "DiceCraft/Art07/Ceramic"
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Shadows.hlsl"
             CBUFFER_START(UnityPerMaterial)
-            half4 _BaseColor;half4 _EdgeColor;half _Glass;half _GlassOpacity;half _Smoothness;half _Specular;half _ShadowCoverage071;
+            half4 _BaseColor;half4 _EdgeColor;half _Glass;half _GlassOpacity;half _Smoothness;half _Specular;half _ShadowCoverage071;half _Glass073;
             CBUFFER_END
             // URP ShadowUtils supplies these for the active shadow-casting light.
             float3 _LightDirection;

@@ -17,6 +17,11 @@ namespace DiceCraft
         private void CompletePresentationView07(PresentationReceipt completed)
         {
             FinishReceiptTailOnSkip07();
+            // v0.73: a skipped presentation, or one that leaves the hand screen, drops the celebration at once;
+            // a presentation that ran to its end lets it fade over the next hand without blocking input.
+            bool cut=presentationPlayer07.Sequence==null||presentationPlayer07.Clock.ElapsedMilliseconds<presentationPlayer07.Sequence.TotalDurationMs;
+            string next=Session?.State?.phase;
+            EndHighScore073(cut||next!="HandReady"&&next!="Selecting");
             ClearPresentationEffects07();
             stableResultRequested07=completed!=null&&receipt07!=null&&completed.GameReceiptId==receipt07.GameReceiptId;
             Session.Busy=false;ViewState=null;Refresh();
