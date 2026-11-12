@@ -150,7 +150,7 @@ namespace DiceCraft
             {
                 // One row of tall cards: the upper 250 units are exactly the full controller card body.
                 const float body=250;float buyY=h-70,chipY=buyY-38,availY=body-12;
-                DrawControllerFullBody07(card.transform,offer.contentId,Art07OfferState(offer.controller),enchant,0,body);
+                DrawControllerBody073(card.transform,offer.contentId,Art07OfferState(offer.controller),enchant,0,body);
                 PriceChip073(card.transform,"PriceChip",PriceText073(cost),(w-124)*.5f,chipY,124,34,offer.sold);
                 var reason=UiKit.Text(main,"OfferAvailability_"+id,availability,x+8,y+availY,w-16,22,14,UiKit.Danger,TextAlignmentOptions.Center);reason.textWrappingMode=TextWrappingModes.NoWrap;
                 BuyButton073(main,offer,x+16,y+buyY,w-32,62);
@@ -182,13 +182,13 @@ namespace DiceCraft
                 var offer=offers[i];const float w=232,h=368;float x=12+i*244,y=52;
                 var p=UiKit.PaperFrame(counter,"Product_"+offer.offerId,x,y,w,h,UiKit.Paper);ShopCardSurface073(p.GetComponent<Image>());
                 var name=UiKit.Text(p,"Name","骰子 "+(char)('A'+i),10,8,w-20,38,24,UiKit.Ink,TextAlignmentOptions.Center);name.fontStyle=FontStyles.Bold;
-                var stand=UiKit.Box(p,"Pedestal",(w-176)*.5f,132,176,88,Color.white).GetComponent<Image>();stand.sprite=UiKit.Template("ui_pedestal");stand.raycastTarget=false;
+                var stand=UiKit.Box(p,"Pedestal",(w-160)*.5f,112,160,80,Color.white).GetComponent<Image>();stand.sprite=UiKit.Template("ui_pedestal");stand.raycastTarget=false;
                 stand.gameObject.SetActive(stand.sprite!=null);
                 // The real die: drag to turn it, click to open the full candidate sheet.
-                DieView073(p,"DiePreview073","shop-die-"+offer.offerId,offer.die,16,44,w-32,138,1.02f,false,true,()=>InspectOffer(offer));
-                var summary=UiKit.Text(p,"Summary",DieSummary073(offer.die),10,186,w-20,44,13,PaperMuted071,TextAlignmentOptions.Center);summary.lineSpacing=-10;
+                DieView073(p,"DiePreview073","shop-die-"+offer.offerId,offer.die,16,36,w-32,136,1.0f,false,true,()=>InspectOffer(offer));
+                var summary=UiKit.Text(p,"Summary",DieSummary073(offer.die),10,194,w-20,40,13,PaperMuted071,TextAlignmentOptions.Center);summary.lineSpacing=-10;
                 // The die itself owns drag and click above; this strip under it opens the same candidate sheet.
-                HitArea073(p,"Inspect",0,184,w-6,66,()=>{if(!IsBusy)InspectOffer(offer);});
+                HitArea073(p,"Inspect",0,192,w-6,62,()=>{if(!IsBusy)InspectOffer(offer);});
                 string availability=offer.sold?"":Art07Availability07(offer);
                 long cost=Session.GetOfferNetPrice(offer);
                 UiKit.Text(p,"Availability",availability,8,h-136,w-16,22,14,UiKit.Danger,TextAlignmentOptions.Center);

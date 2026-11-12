@@ -50,7 +50,9 @@ namespace DiceCraft
                 mini?12:detail?16:compact?13:14,UiKit.Ink,TextAlignmentOptions.MidlineLeft);
             label.textWrappingMode=TextWrappingModes.NoWrap;label.overflowMode=TextOverflowModes.Ellipsis;
         }
-        private void DrawControllerFullBody07(Transform parent,string definition,string state,string enchantment,int ordinal=0,float bodyHeight=0)
+        // The five-argument form is the stable entry point (the asset gallery calls it by name).
+        private void DrawControllerFullBody07(Transform parent,string definition,string state,string enchantment,int ordinal=0)=>DrawControllerBody073(parent,definition,state,enchantment,ordinal,0);
+        private void DrawControllerBody073(Transform parent,string definition,string state,string enchantment,int ordinal,float bodyHeight)
         {
             // The same paper card is used by the HUD, shop and frozen settlement backdrop.
             // Read its actual geometry instead of baking the old 160 x 224 layout into its ink.
