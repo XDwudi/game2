@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="1" result="Failed(Child)" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-11-12 19:53:13Z" end-time="2026-11-12 19:53:15Z" duration="2.0897203">
+  <test-suite type="TestSuite" id="1204" name="DiceCraft P0" fullname="DiceCraft P0" runstate="Runnable" testcasecount="192" result="Failed" site="Child" start-time="2026-11-12 19:53:13Z" end-time="2026-11-12 19:53:15Z" duration="2.089720" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <failure>
+      <message><![CDATA[One or more child tests had errors]]></message>
+    </failure>
+    <test-suite type="Assembly" id="1198" name="DiceCraft.PlayModeTests.dll" fullname="E:/agent_workspace/gpt/game2/DicePrototype/Library/ScriptAssemblies/DiceCraft.PlayModeTests.dll" runstate="Runnable" testcasecount="192" result="Failed" site="Child" start-time="2026-11-12 19:53:13Z" end-time="2026-11-12 19:53:15Z" duration="2.078974" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="32300" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <failure>
+        <message><![CDATA[One or more child tests had errors]]></message>
+      </failure>
+      <test-suite type="TestSuite" id="1199" name="DiceCraft" fullname="DiceCraft" runstate="Runnable" testcasecount="192" result="Failed" site="Child" start-time="2026-11-12 19:53:13Z" end-time="2026-11-12 19:53:15Z" duration="2.076399" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <failure>
+          <message><![CDATA[One or more child tests had errors]]></message>
+        </failure>
+        <test-suite type="TestSuite" id="1200" name="Tests" fullname="DiceCraft.Tests" runstate="Runnable" testcasecount="192" result="Failed" site="Child" start-time="2026-11-12 19:53:13Z" end-time="2026-11-12 19:53:15Z" duration="2.074334" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <failure>
+            <message><![CDATA[One or more child tests had errors]]></message>
+          </failure>
+          <test-suite type="TestFixture" id="1001" name="GameplayPlayModeTests" fullname="DiceCraft.Tests.GameplayPlayModeTests" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" testcasecount="182" result="Failed" site="Child" start-time="2026-11-12 19:53:13Z" end-time="2026-11-12 19:53:15Z" duration="2.071387" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <failure>
+              <message><![CDATA[One or more child tests had errors]]></message>
+            </failure>
+            <test-case id="1069" name="PLAY_ART07_FX_FastSourceMarksLowQualityReplayAndSkipReset" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_FX_FastSourceMarksLowQualityReplayAndSkipReset" methodname="PLAY_ART07_FX_FastSourceMarksLowQualityReplayAndSkipReset" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="905376924" result="Failed" start-time="2026-11-12 19:53:13Z" end-time="2026-11-12 19:53:15Z" duration="2.054552" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <failure>
+                <message><![CDATA[  Presentation must still be playing at ControllerAndEnchant
+Wanted ControllerAndEnchant; speed=Fast; phases=Receipt@0+40,DiceContributions@40+100,BaseAndStructure@140+100,ControllerAndEnchant@240+100,FinalScore@340+200
+frame=18 dt=0.0166 elapsedMs=0.00 phase=Receipt playing=True focus=True paused=False
+frame=19 dt=0.3926 elapsedMs=392.62 phase=FinalScore playing=True focus=True paused=False
+frame=27 dt=0.0162 elapsedMs=546.81 phase=FinalScore playing=False focus=True paused=False
+  Expected: True
+  But was:  False
+]]></message>
+                <stack-trace><![CDATA[at DiceCraft.Tests.GameplayPlayModeTests+<WaitFxPhase07>d__179.MoveNext () [0x001e7] in E:\agent_workspace\gpt\game2\DicePrototype\Assets\Game\Tests\PlayMode\Art07FxIntegrationPlayModeTests.cs:48
+at UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\Library\PackageCache\com.unity.test-framework@ee3fe9477490\UnityEngine.TestRunner\NUnitExtensions\Attributes\TestEnumerator.cs:52
+]]></stack-trace>
+              </failure>
+              <output><![CDATA[PROBE073 submit clone=0 receipt=10 play=15 refresh=10 frame=18
+PROBE073 late-update ms=5 frame=18
+PROBE073 update-start ms=16 frame=19 dt=0.3926154
+PROBE073 late-update ms=37 frame=19
+PROBE073 update-start ms=53 frame=20 dt=0.0406836
+PROBE073 late-update ms=54 frame=20
+PROBE073 update-start ms=67 frame=21 dt=0.0138764
+PROBE073 late-update ms=67 frame=21
+PROBE073 update-start ms=83 frame=22 dt=0.0161694
+Actual presentation phase trace: Wanted ControllerAndEnchant; speed=Fast; phases=Receipt@0+40,DiceContributions@40+100,BaseAndStructure@140+100,ControllerAndEnchant@240+100,FinalScore@340+200
+frame=18 dt=0.0166 elapsedMs=0.00 phase=Receipt playing=True focus=True paused=False
+frame=19 dt=0.3926 elapsedMs=392.62 phase=FinalScore playing=True focus=True paused=False
+frame=27 dt=0.0162 elapsedMs=546.81 phase=FinalScore playing=False focus=True paused=False
+Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_43702cee05e0454591b2541a44d6a027
+Saving results to: E:\agent_workspace\gpt\game2\evidence\v073\unity\nunit-20261112-195315.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

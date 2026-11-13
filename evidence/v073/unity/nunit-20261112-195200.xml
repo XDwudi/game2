@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="2" result="Failed(Child)" total="2" passed="1" failed="1" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-11-12 19:51:56Z" end-time="2026-11-12 19:52:00Z" duration="3.1520556">
+  <test-suite type="TestSuite" id="1204" name="DiceCraft P0" fullname="DiceCraft P0" runstate="Runnable" testcasecount="192" result="Failed" site="Child" start-time="2026-11-12 19:51:56Z" end-time="2026-11-12 19:52:00Z" duration="3.152056" total="2" passed="1" failed="1" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <failure>
+      <message><![CDATA[One or more child tests had errors]]></message>
+    </failure>
+    <test-suite type="Assembly" id="1198" name="DiceCraft.PlayModeTests.dll" fullname="E:/agent_workspace/gpt/game2/DicePrototype/Library/ScriptAssemblies/DiceCraft.PlayModeTests.dll" runstate="Runnable" testcasecount="192" result="Failed" site="Child" start-time="2026-11-12 19:51:56Z" end-time="2026-11-12 19:52:00Z" duration="3.140877" total="2" passed="1" failed="1" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="24916" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <failure>
+        <message><![CDATA[One or more child tests had errors]]></message>
+      </failure>
+      <test-suite type="TestSuite" id="1199" name="DiceCraft" fullname="DiceCraft" runstate="Runnable" testcasecount="192" result="Failed" site="Child" start-time="2026-11-12 19:51:56Z" end-time="2026-11-12 19:52:00Z" duration="3.138094" total="2" passed="1" failed="1" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <failure>
+          <message><![CDATA[One or more child tests had errors]]></message>
+        </failure>
+        <test-suite type="TestSuite" id="1200" name="Tests" fullname="DiceCraft.Tests" runstate="Runnable" testcasecount="192" result="Failed" site="Child" start-time="2026-11-12 19:51:56Z" end-time="2026-11-12 19:52:00Z" duration="3.135679" total="2" passed="1" failed="1" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <failure>
+            <message><![CDATA[One or more child tests had errors]]></message>
+          </failure>
+          <test-suite type="TestFixture" id="1001" name="GameplayPlayModeTests" fullname="DiceCraft.Tests.GameplayPlayModeTests" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" testcasecount="182" result="Failed" site="Child" start-time="2026-11-12 19:51:56Z" end-time="2026-11-12 19:52:00Z" duration="3.132533" total="2" passed="1" failed="1" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <failure>
+              <message><![CDATA[One or more child tests had errors]]></message>
+            </failure>
+            <test-case id="1069" name="PLAY_ART07_FX_FastSourceMarksLowQualityReplayAndSkipReset" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_FX_FastSourceMarksLowQualityReplayAndSkipReset" methodname="PLAY_ART07_FX_FastSourceMarksLowQualityReplayAndSkipReset" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="1197497432" result="Failed" start-time="2026-11-12 19:51:56Z" end-time="2026-11-12 19:51:59Z" duration="2.082096" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <failure>
+                <message><![CDATA[  Presentation must still be playing at ControllerAndEnchant
+Wanted ControllerAndEnchant; speed=Fast; phases=Receipt@0+40,DiceContributions@40+100,BaseAndStructure@140+100,ControllerAndEnchant@240+100,FinalScore@340+200
+frame=18 dt=0.0163 elapsedMs=0.00 phase=Receipt playing=True focus=True paused=False
+frame=19 dt=0.3979 elapsedMs=397.90 phase=FinalScore playing=True focus=True paused=False
+frame=26 dt=0.0164 elapsedMs=545.72 phase=FinalScore playing=False focus=True paused=False
+  Expected: True
+  But was:  False
+]]></message>
+                <stack-trace><![CDATA[at DiceCraft.Tests.GameplayPlayModeTests+<WaitFxPhase07>d__179.MoveNext () [0x001e7] in E:\agent_workspace\gpt\game2\DicePrototype\Assets\Game\Tests\PlayMode\Art07FxIntegrationPlayModeTests.cs:48
+at UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\Library\PackageCache\com.unity.test-framework@ee3fe9477490\UnityEngine.TestRunner\NUnitExtensions\Attributes\TestEnumerator.cs:52
+]]></stack-trace>
+              </failure>
+              <output><![CDATA[PROBE073 submit clone=0 receipt=10 play=14 refresh=10 frame=18
+Actual presentation phase trace: Wanted ControllerAndEnchant; speed=Fast; phases=Receipt@0+40,DiceContributions@40+100,BaseAndStructure@140+100,ControllerAndEnchant@240+100,FinalScore@340+200
+frame=18 dt=0.0163 elapsedMs=0.00 phase=Receipt playing=True focus=True paused=False
+frame=19 dt=0.3979 elapsedMs=397.90 phase=FinalScore playing=True focus=True paused=False
+frame=26 dt=0.0164 elapsedMs=545.72 phase=FinalScore playing=False focus=True paused=False
+Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_658e9e189a4b45f6923615cd1c187d26
+]]></output>
+            </test-case>
+            <test-case id="1070" name="PLAY_ART07_FX_NormalPunchCompletesAcrossAdjacentBeatsAndSkipResets" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_FX_NormalPunchCompletesAcrossAdjacentBeatsAndSkipResets" methodname="PLAY_ART07_FX_NormalPunchCompletesAcrossAdjacentBeatsAndSkipResets" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="1586682782" result="Passed" start-time="2026-11-12 19:51:59Z" end-time="2026-11-12 19:52:00Z" duration="1.031658" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[PROBE073 submit clone=0 receipt=0 play=1 refresh=11 frame=32
+Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_a0cbadd271bc4042b45edc0fcb610e36
+Saving results to: E:\agent_workspace\gpt\game2\evidence\v073\unity\nunit-20261112-195200.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

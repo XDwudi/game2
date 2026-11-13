@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="1" result="Passed" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-11-12 23:03:30Z" end-time="2026-11-12 23:03:34Z" duration="3.8815866">
+  <test-suite type="TestSuite" id="1204" name="DiceCraft P0" fullname="DiceCraft P0" runstate="Runnable" testcasecount="192" result="Passed" start-time="2026-11-12 23:03:30Z" end-time="2026-11-12 23:03:34Z" duration="3.881587" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <test-suite type="Assembly" id="1198" name="DiceCraft.PlayModeTests.dll" fullname="E:/agent_workspace/gpt/game2/DicePrototype/Library/ScriptAssemblies/DiceCraft.PlayModeTests.dll" runstate="Runnable" testcasecount="192" result="Passed" start-time="2026-11-12 23:03:30Z" end-time="2026-11-12 23:03:34Z" duration="3.870476" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="49744" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <test-suite type="TestSuite" id="1199" name="DiceCraft" fullname="DiceCraft" runstate="Runnable" testcasecount="192" result="Passed" start-time="2026-11-12 23:03:30Z" end-time="2026-11-12 23:03:34Z" duration="3.867921" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1200" name="Tests" fullname="DiceCraft.Tests" runstate="Runnable" testcasecount="192" result="Passed" start-time="2026-11-12 23:03:30Z" end-time="2026-11-12 23:03:34Z" duration="3.865785" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="1001" name="GameplayPlayModeTests" fullname="DiceCraft.Tests.GameplayPlayModeTests" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" testcasecount="182" result="Passed" start-time="2026-11-12 23:03:30Z" end-time="2026-11-12 23:03:34Z" duration="3.862615" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1025" name="PLAY_ART073_ShopAtMaximumShelfSizesStillFitsOnePage" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART073_ShopAtMaximumShelfSizesStillFitsOnePage" methodname="PLAY_ART073_ShopAtMaximumShelfSizesStillFitsOnePage" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="1303978696" result="Passed" start-time="2026-11-12 23:03:30Z" end-time="2026-11-12 23:03:34Z" duration="3.845925" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[controller card tops at font 100: 124, 124, 124, 316, 316, 316
+controller card tops at font 150: 124, 124, 124, 316, 316, 316
+Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_b492f805c4fd471c873d933a1f2437e4
+Saving results to: E:\agent_workspace\gpt\game2\evidence\v073\unity\nunit-20261112-230334.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

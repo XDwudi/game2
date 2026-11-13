@@ -1,6 +1,6 @@
 # 人工主导的 AI 游戏开发框架
 
-这套框架用于让人掌握游戏创意与体验决策，让 AI 在明确的任务、专业工具和验收要求下制作。当前正在按用户 v0.71 美术规格迭代骰子构筑原型，玩法保持 p0.6.0/schema4，目标 Windows x64 与 macOS Universal / Unity 6000.6.7f1。长期目标仍包含 PC、iOS、Android，移动端尚未验证。
+这套框架用于让人掌握游戏创意与体验决策，让 AI 在明确的任务、专业工具和验收要求下制作。当前在 v0.71 美术规格之上迭代到 v0.73 的骰子构筑原型，玩法保持 p0.6.0/schema4，目标 Windows x64 与 macOS Universal / Unity 6000.6.7f1。长期目标仍包含 PC、iOS、Android，移动端尚未验证。
 
 核心约定：按阶段验证风险，先做可玩的原型，再做达到目标品质的代表性片段，最后扩大生产。AI 交付必须有可检查的成果与证据；质量不由工作时长、token 数或 agent 数量决定。
 
@@ -8,6 +8,8 @@
 
 ## 当前原型
 
+- **v0.8 平衡性更新方案（提案，待确认）**：对现行数值的卡牌强度、难度曲线、金币曲线的模拟分析与调整方案见 [BALANCE_PLAN](docs/specs/v08/BALANCE_PLAN.md)，工具见 [balance_sim](tools/balance_sim/README.md)。尚未改动游戏工程。
+- **v0.73 商店、骰子样式、高分动画与查看骰子（rc.1）**：按 2026-11-12 的四张参考图，商店改为单页分区；骰子区分光滑 / 粗糙 / 黄金 / 玻璃等材质，锁定骰挂锁坐托盘；高分提交弹出三档分数牌；关卡内新增“查看骰子”，所有展示骰面的地方改为可拖动的立体骰子；界面统一为阶梯切角。玩法仍为 p0.6.0/schema4。Windows 与 macOS 试玩包见 [GitHub p0.7.3-rc.1](https://github.com/XDwudi/game2/releases/tag/p0.7.3-rc.1)，源码分支 [codex/v0.73](https://github.com/XDwudi/game2/tree/codex/v0.73)。EditMode 1035/1035，PlayMode 在 1080p 与 720p 下均 192/192；macOS 实机、性能专项、独立复核未做，风格待用户判定。详见 [STATE](docs/STATE.md)、[策划方案](docs/specs/v073/VERSION_PLAN.md)、[美术方案](docs/specs/v073/ART_PLAN.md) 与 [任务](docs/tasks/P0-V073.md)。
 - **v0.72 高清简约美术试玩版（rc.2）**：界面件、桌面、字标与卡背重做为边缘干净的高清矢量质感，卡牌有呼吸与倾斜等常驻动画；rc.2 按试玩反馈重做了分数栏与计分板、收窄桌沿、统一圆角并加入读数反馈动画；玩法仍为 p0.6.0/schema4。Windows 与 macOS 试玩包见 [GitHub p0.7.2-rc.2](https://github.com/XDwudi/game2/releases/tag/p0.7.2-rc.2)，源码分支 [codex/v0.72](https://github.com/XDwudi/game2/tree/codex/v0.72)。EditMode 1018/1018，PlayMode 在 1080p 与 720p 下均 185/185；macOS 实机、性能专项、独立复核未做，风格待用户判定。详见 [STATE](docs/STATE.md)、[方案](docs/specs/v072/ART_SPEC.md) 与 [任务](docs/tasks/P0-V072-ART.md)。
 - **v0.71 主界面与桌面背景更新**：按 Image2 主界面图重排纸质菜单、卡牌与真实骰子，并接入木沿/深青毛毡桌面。源码交付分支为 [codex/v0.71](https://github.com/XDwudi/game2/tree/codex/v0.71)，生成原图与提示词见 [MenuTable](ArtSource/Art071/MenuTable/record.json)，受影响验证见 [更新任务](docs/tasks/P0-V071-MENU-TABLE.md)。下方旧发行附件仍为41aface构建，不含这次界面更新。
 - **v0.71 全量美术测试版已通过 [GitHub发行附件](https://github.com/XDwudi/game2/releases/tag/p0.7.1-rc.1)提供下载。** 冻结源41aface，71项内容插画与公共资源已统一；Edit1018/1018、Play182/182通过，Windows实跑完成，三个附件已完整远端下载校验，下载版新目录启动诊断通过。Windows性能/独占全屏仍有失败，Mac与人工待验；首批249d980三包仅为历史。参见 [STATE](docs/STATE.md)、[素材路径](docs/specs/v071/ASSET_MAP.md) 与 [交付说明](docs/DELIVERY_V071.md)。

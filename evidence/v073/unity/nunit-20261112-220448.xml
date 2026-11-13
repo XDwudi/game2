@@ -1,0 +1,436 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="14" result="Passed" total="14" passed="14" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-11-12 22:04:28Z" end-time="2026-11-12 22:04:48Z" duration="20.2830307">
+  <test-suite type="TestSuite" id="1204" name="DiceCraft P0" fullname="DiceCraft P0" runstate="Runnable" testcasecount="192" result="Passed" start-time="2026-11-12 22:04:28Z" end-time="2026-11-12 22:04:48Z" duration="20.283031" total="14" passed="14" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <test-suite type="Assembly" id="1198" name="DiceCraft.PlayModeTests.dll" fullname="E:/agent_workspace/gpt/game2/DicePrototype/Library/ScriptAssemblies/DiceCraft.PlayModeTests.dll" runstate="Runnable" testcasecount="192" result="Passed" start-time="2026-11-12 22:04:28Z" end-time="2026-11-12 22:04:48Z" duration="20.271830" total="14" passed="14" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="28120" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <test-suite type="TestSuite" id="1199" name="DiceCraft" fullname="DiceCraft" runstate="Runnable" testcasecount="192" result="Passed" start-time="2026-11-12 22:04:28Z" end-time="2026-11-12 22:04:48Z" duration="20.269363" total="14" passed="14" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1200" name="Tests" fullname="DiceCraft.Tests" runstate="Runnable" testcasecount="192" result="Passed" start-time="2026-11-12 22:04:28Z" end-time="2026-11-12 22:04:48Z" duration="20.267109" total="14" passed="14" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="1001" name="GameplayPlayModeTests" fullname="DiceCraft.Tests.GameplayPlayModeTests" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" testcasecount="182" result="Passed" start-time="2026-11-12 22:04:28Z" end-time="2026-11-12 22:04:48Z" duration="20.263964" total="14" passed="14" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1067" name="PLAY_ART07_FINAL_ComboKeepsUniformChipsAndEmptyNumberBackground" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_FINAL_ComboKeepsUniformChipsAndEmptyNumberBackground" methodname="PLAY_ART07_FINAL_ComboKeepsUniformChipsAndEmptyNumberBackground" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="1495322611" result="Passed" start-time="2026-11-12 22:04:28Z" end-time="2026-11-12 22:04:31Z" duration="2.829108" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[PROBE073 send-begin ApplyDebugScene t=13474.5 frame=18
+PROBE073 send-end ApplyDebugScene t=13572.5 frame=18
+PROBE073 pause-begin t=13583.3 frame=18
+PROBE073 settings-begin tab=0 t=13588.6 frame=18
+PROBE073 settings-begin tab=1 t=13600.3 frame=18
+PROBE073 done-begin t=13612.6 frame=18
+PROBE073 prefs-saved t=13612.8 frame=18
+PROBE073 modal-closed t=13613.7 frame=18
+PROBE073 pause-begin t=13614.3 frame=18
+PROBE073 settings-begin tab=1 t=13616.2 frame=18
+PROBE073 settings-begin tab=2 t=13619.4 frame=18
+PROBE073 done-begin t=13649.8 frame=18
+PROBE073 prefs-saved t=13650.0 frame=18
+PROBE073 modal-closed t=13652.1 frame=18
+PROBE073 send-begin Submit t=13652.7 frame=18
+PROBE073 send-end Submit t=13734.8 frame=18
+Actual presentation phase trace: Wanted FinalScore; speed=Normal; phases=Receipt@0+100,DiceContributions@100+300,BaseAndStructure@400+280,ControllerAndEnchant@680+140,ControllerAndEnchant@820+140,ControllerAndEnchant@960+140,ControllerAndEnchant@1100+140,FinalScore@1240+600
+frame=18 dt=0.0164 elapsedMs=0.00 phase=Receipt playing=True focus=True paused=False
+frame=19 dt=0.4027 elapsedMs=402.71 phase=BaseAndStructure playing=True focus=True paused=False
+frame=36 dt=0.0166 elapsedMs=684.59 phase=ControllerAndEnchant playing=True focus=True paused=False
+frame=70 dt=0.0170 elapsedMs=1251.46 phase=FinalScore playing=True focus=True paused=False
+Burst atlas fx_square_chip original=(x:0.00, y:0.00, width:256.00, height:256.00) trimmed=(x:49.08, y:45.08, width:151.85, height:168.87) offset=(49.08, 45.08) packing=None padding=(49.08, 45.08, 55.08, 42.05) uv=(0.19, 0.18, 0.78, 0.84) ink=(x:0.21, y:0.20, width:0.56, height:0.63)
+Burst atlas fx_short_flame original=(x:0.00, y:0.00, width:256.00, height:256.00) trimmed=(x:38.04, y:37.08, width:182.92, height:185.92) offset=(38.04, 37.08) packing=None padding=(38.04, 37.08, 35.04, 33.00) uv=(0.15, 0.14, 0.86, 0.87) ink=(x:0.16, y:0.16, width:0.68, height:0.70)
+Burst alpha-ink geometry t=0.05: particles=36 firstInkRef=5.50415 flameInk=(x:407.05, y:-88.07, width:161.77, height:25.03) canvasScale=1
+Burst alpha-ink geometry t=0.45: particles=36 firstInkRef=5.50415 flameInk=(x:407.05, y:-88.07, width:161.77, height:25.03) canvasScale=1
+Burst alpha-ink geometry t=0.8: particles=36 firstInkRef=5.50415 flameInk=(x:407.05, y:-88.07, width:161.77, height:25.03) canvasScale=1
+Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_7f3dd277206c43d981a2fe1c93c66245
+]]></output>
+            </test-case>
+            <test-case id="1066" name="PLAY_ART07_FINAL_EnablingReducedWhileTransactionPausedSettlesFinalUi" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_FINAL_EnablingReducedWhileTransactionPausedSettlesFinalUi" methodname="PLAY_ART07_FINAL_EnablingReducedWhileTransactionPausedSettlesFinalUi" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="1405364046" result="Passed" start-time="2026-11-12 22:04:31Z" end-time="2026-11-12 22:04:31Z" duration="0.665026" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[PROBE073 send-begin ApplyDebugScene t=14922.8 frame=77
+PROBE073 send-end ApplyDebugScene t=14951.8 frame=77
+PROBE073 send-begin ApplyDebugScene t=14957.0 frame=77
+PROBE073 send-end ApplyDebugScene t=14986.3 frame=77
+PROBE073 send-begin Submit t=14986.5 frame=77
+PROBE073 send-end Submit t=15032.0 frame=77
+PROBE073 send-begin Continue t=15047.3 frame=77
+PROBE073 send-end Continue t=15151.2 frame=77
+PROBE073 send-begin RefreshControllers t=15164.9 frame=78
+PROBE073 send-end RefreshControllers t=15227.3 frame=78
+PROBE073 pause-begin t=15229.2 frame=78
+PROBE073 settings-begin tab=0 t=15235.5 frame=78
+PROBE073 settings-begin tab=2 t=15248.5 frame=78
+PROBE073 settings-begin tab=2 t=15291.2 frame=78
+PROBE073 done-begin t=15297.0 frame=78
+PROBE073 prefs-saved t=15297.3 frame=78
+PROBE073 modal-closed t=15298.1 frame=78
+Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_398c293234b34010b1753a690ef51952
+]]></output>
+            </test-case>
+            <test-case id="1065" name="PLAY_ART07_FINAL_FocusLossSettlesRollAndTransactionWithoutAnotherCommit" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_FINAL_FocusLossSettlesRollAndTransactionWithoutAnotherCommit" methodname="PLAY_ART07_FINAL_FocusLossSettlesRollAndTransactionWithoutAnotherCommit" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="51011377" result="Passed" start-time="2026-11-12 22:04:31Z" end-time="2026-11-12 22:04:32Z" duration="0.730099" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[PROBE073 send-begin ApplyDebugScene t=15578.9 frame=85
+PROBE073 send-end ApplyDebugScene t=15607.9 frame=85
+PROBE073 send-begin Submit t=15613.9 frame=85
+PROBE073 send-end Submit t=15654.8 frame=85
+PROBE073 send-begin Roll t=15671.0 frame=85
+PROBE073 send-end Roll t=15693.7 frame=85
+PROBE073 send-begin ApplyDebugScene t=15752.8 frame=85
+PROBE073 send-end ApplyDebugScene t=15778.5 frame=85
+PROBE073 send-begin ApplyDebugScene t=15787.8 frame=85
+PROBE073 send-end ApplyDebugScene t=15820.9 frame=85
+PROBE073 send-begin Submit t=15821.1 frame=85
+PROBE073 send-end Submit t=15850.0 frame=85
+PROBE073 send-begin Continue t=15858.8 frame=85
+PROBE073 send-end Continue t=15916.9 frame=85
+PROBE073 send-begin RefreshControllers t=15926.0 frame=86
+PROBE073 send-end RefreshControllers t=15993.0 frame=86
+Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_f1dc9a6070f04a879038f02fadb3cef4
+]]></output>
+            </test-case>
+            <test-case id="1068" name="PLAY_ART07_FINAL_HighestTenCardsKeepsChipInkOutsideCardBordersAndGlyphs" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_FINAL_HighestTenCardsKeepsChipInkOutsideCardBordersAndGlyphs" methodname="PLAY_ART07_FINAL_HighestTenCardsKeepsChipInkOutsideCardBordersAndGlyphs" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="365223274" result="Passed" start-time="2026-11-12 22:04:32Z" end-time="2026-11-12 22:04:34Z" duration="1.489997" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[PROBE073 send-begin ApplyDebugScene t=16308.9 frame=93
+PROBE073 send-end ApplyDebugScene t=16339.0 frame=93
+PROBE073 send-begin ApplyDebugScene t=16375.2 frame=93
+PROBE073 send-end ApplyDebugScene t=16402.7 frame=93
+PROBE073 send-begin ApplyDebugScene t=16411.4 frame=93
+PROBE073 send-end ApplyDebugScene t=16451.9 frame=93
+PROBE073 pause-begin t=16452.2 frame=93
+PROBE073 settings-begin tab=0 t=16456.4 frame=93
+PROBE073 settings-begin tab=1 t=16465.1 frame=93
+PROBE073 done-begin t=16471.7 frame=93
+PROBE073 prefs-saved t=16471.9 frame=93
+PROBE073 modal-closed t=16472.7 frame=93
+PROBE073 pause-begin t=16473.2 frame=93
+PROBE073 settings-begin tab=1 t=16475.1 frame=93
+PROBE073 settings-begin tab=2 t=16478.3 frame=93
+PROBE073 done-begin t=16492.1 frame=93
+PROBE073 prefs-saved t=16492.3 frame=93
+PROBE073 modal-closed t=16493.4 frame=93
+PROBE073 send-begin Submit t=16493.8 frame=93
+PROBE073 send-end Submit t=16538.0 frame=93
+Actual presentation phase trace: Wanted FinalScore; speed=Normal; phases=Receipt@0+100,DiceContributions@100+300,BaseAndStructure@400+280,ControllerAndEnchant@680+140,ControllerAndEnchant@820+140,ControllerAndEnchant@960+140,ControllerAndEnchant@1100+140,FinalScore@1240+600,PostScore@1840+480
+frame=93 dt=0.0153 elapsedMs=0.00 phase=Receipt playing=True focus=True paused=False
+frame=94 dt=0.3080 elapsedMs=308.01 phase=DiceContributions playing=True focus=True paused=False
+frame=100 dt=0.0168 elapsedMs=405.40 phase=BaseAndStructure playing=True focus=True paused=False
+frame=117 dt=0.0168 elapsedMs=688.87 phase=ControllerAndEnchant playing=True focus=True paused=False
+frame=151 dt=0.0168 elapsedMs=1255.20 phase=FinalScore playing=True focus=True paused=False
+Burst atlas fx_square_chip original=(x:0.00, y:0.00, width:256.00, height:256.00) trimmed=(x:49.08, y:45.08, width:151.85, height:168.87) offset=(49.08, 45.08) packing=None padding=(49.08, 45.08, 55.08, 42.05) uv=(0.19, 0.18, 0.78, 0.84) ink=(x:0.21, y:0.20, width:0.56, height:0.63)
+Burst atlas fx_short_flame original=(x:0.00, y:0.00, width:256.00, height:256.00) trimmed=(x:38.04, y:37.08, width:182.92, height:185.92) offset=(38.04, 37.08) packing=None padding=(38.04, 37.08, 35.04, 33.00) uv=(0.15, 0.14, 0.86, 0.87) ink=(x:0.16, y:0.16, width:0.68, height:0.70)
+Burst alpha-ink geometry t=0.05: particles=36 firstInkRef=5.50415 flameInk=(x:573.85, y:-140.07, width:161.77, height:25.03) canvasScale=1
+Burst alpha-ink geometry t=0.45: particles=36 firstInkRef=5.50415 flameInk=(x:573.85, y:-140.07, width:161.77, height:25.03) canvasScale=1
+Burst alpha-ink geometry t=0.8: particles=36 firstInkRef=5.50415 flameInk=(x:573.85, y:-140.07, width:161.77, height:25.03) canvasScale=1
+Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_c6de37e706eb4dac8222603b2cf6cf96
+]]></output>
+            </test-case>
+            <test-case id="1062" name="PLAY_ART07_FINAL_RealRendererNormalFastReducedInstantRetainCommittedScoreAndSources" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_FINAL_RealRendererNormalFastReducedInstantRetainCommittedScoreAndSources" methodname="PLAY_ART07_FINAL_RealRendererNormalFastReducedInstantRetainCommittedScoreAndSources" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="883478229" result="Passed" start-time="2026-11-12 22:04:34Z" end-time="2026-11-12 22:04:38Z" duration="4.723746" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[PROBE073 send-begin ApplyDebugScene t=17809.0 frame=158
+PROBE073 send-end ApplyDebugScene t=17837.4 frame=158
+PROBE073 pause-begin t=17842.9 frame=158
+PROBE073 settings-begin tab=0 t=17846.7 frame=158
+PROBE073 settings-begin tab=2 t=17854.7 frame=158
+PROBE073 done-begin t=17868.5 frame=158
+PROBE073 prefs-saved t=17868.7 frame=158
+PROBE073 modal-closed t=17869.8 frame=158
+PROBE073 send-begin Submit t=17873.4 frame=158
+PROBE073 send-end Submit t=17915.3 frame=158
+PROBE073 send-begin ApplyDebugScene t=19663.3 frame=260
+PROBE073 send-end ApplyDebugScene t=19690.3 frame=260
+PROBE073 pause-begin t=19697.1 frame=260
+PROBE073 settings-begin tab=2 t=19699.9 frame=260
+PROBE073 settings-begin tab=2 t=19705.5 frame=260
+PROBE073 settings-begin tab=2 t=19711.6 frame=260
+PROBE073 done-begin t=19717.4 frame=260
+PROBE073 prefs-saved t=19717.6 frame=260
+PROBE073 modal-closed t=19718.9 frame=260
+PROBE073 send-begin Submit t=19719.5 frame=260
+PROBE073 send-end Submit t=19766.8 frame=260
+PROBE073 send-begin ApplyDebugScene t=20234.3 frame=285
+PROBE073 send-end ApplyDebugScene t=20267.5 frame=285
+PROBE073 pause-begin t=20274.0 frame=285
+PROBE073 settings-begin tab=2 t=20276.8 frame=285
+PROBE073 settings-begin tab=2 t=20282.7 frame=285
+PROBE073 settings-begin tab=2 t=20288.7 frame=285
+PROBE073 settings-begin tab=2 t=20294.5 frame=285
+PROBE073 settings-begin tab=2 t=20300.2 frame=285
+PROBE073 done-begin t=20305.8 frame=285
+PROBE073 prefs-saved t=20306.0 frame=285
+PROBE073 modal-closed t=20307.1 frame=285
+PROBE073 send-begin Submit t=20307.7 frame=285
+PROBE073 send-end Submit t=20337.8 frame=285
+PROBE073 send-begin ApplyDebugScene t=22117.2 frame=388
+PROBE073 send-end ApplyDebugScene t=22149.1 frame=388
+PROBE073 pause-begin t=22156.6 frame=388
+PROBE073 settings-begin tab=2 t=22159.4 frame=388
+PROBE073 settings-begin tab=2 t=22165.0 frame=388
+PROBE073 settings-begin tab=2 t=22171.0 frame=388
+PROBE073 settings-begin tab=2 t=22176.6 frame=388
+PROBE073 settings-begin tab=2 t=22182.2 frame=388
+PROBE073 done-begin t=22187.8 frame=388
+PROBE073 prefs-saved t=22188.0 frame=388
+PROBE073 modal-closed t=22189.2 frame=388
+PROBE073 send-begin Submit t=22189.9 frame=388
+PROBE073 send-end Submit t=22230.4 frame=388
+Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_f4455a8b63824f1088d98d6b78f367a0
+]]></output>
+            </test-case>
+            <test-case id="1064" name="PLAY_ART07_FINAL_RejectedActionKeepsFinalSuccessfulRollClearsIt" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_FINAL_RejectedActionKeepsFinalSuccessfulRollClearsIt" methodname="PLAY_ART07_FINAL_RejectedActionKeepsFinalSuccessfulRollClearsIt" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="693647065" result="Passed" start-time="2026-11-12 22:04:38Z" end-time="2026-11-12 22:04:39Z" duration="0.401475" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[PROBE073 send-begin ApplyDebugScene t=22532.2 frame=395
+PROBE073 send-end ApplyDebugScene t=22561.2 frame=395
+PROBE073 send-begin Submit t=22566.9 frame=395
+PROBE073 send-end Submit t=22607.8 frame=395
+PROBE073 send-begin Submit t=22625.1 frame=395
+PROBE073 send-begin Roll t=22666.1 frame=395
+PROBE073 send-end Roll t=22685.6 frame=395
+Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_6f923be4b274418694a1a7a70c56be17
+]]></output>
+            </test-case>
+            <test-case id="1063" name="PLAY_ART07_FINAL_SkipKeepsZeroScorePostChangesAndReadOnlyDetails" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_FINAL_SkipKeepsZeroScorePostChangesAndReadOnlyDetails" methodname="PLAY_ART07_FINAL_SkipKeepsZeroScorePostChangesAndReadOnlyDetails" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="980724468" result="Passed" start-time="2026-11-12 22:04:39Z" end-time="2026-11-12 22:04:39Z" duration="0.357028" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[PROBE073 send-begin ApplyDebugScene t=22934.6 frame=402
+PROBE073 send-end ApplyDebugScene t=22964.0 frame=402
+PROBE073 send-begin Submit t=22969.6 frame=402
+PROBE073 send-end Submit t=23010.1 frame=402
+Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_95753b3b64de4d49927192bc41483ab8
+]]></output>
+            </test-case>
+            <test-case id="1075" name="PLAY_ART07_FX_CopyRouteUsesFiveSegmentsAcrossRowsAndNoInventedHiddenAnchor" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_FX_CopyRouteUsesFiveSegmentsAcrossRowsAndNoInventedHiddenAnchor" methodname="PLAY_ART07_FX_CopyRouteUsesFiveSegmentsAcrossRowsAndNoInventedHiddenAnchor" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="1665514720" result="Passed" start-time="2026-11-12 22:04:39Z" end-time="2026-11-12 22:04:41Z" duration="1.606080" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[PROBE073 send-begin ApplyDebugScene t=23289.9 frame=409
+PROBE073 send-end ApplyDebugScene t=23319.0 frame=409
+PROBE073 send-begin ApplyDebugScene t=23325.4 frame=409
+PROBE073 send-end ApplyDebugScene t=23366.5 frame=409
+PROBE073 send-begin Submit t=23366.8 frame=409
+PROBE073 send-end Submit t=23420.5 frame=409
+PROBE073 send-begin ApplyDebugScene t=23981.1 frame=440
+PROBE073 send-end ApplyDebugScene t=24017.4 frame=440
+PROBE073 send-begin ApplyDebugScene t=24024.1 frame=440
+PROBE073 send-end ApplyDebugScene t=24059.9 frame=440
+PROBE073 send-begin Submit t=24060.2 frame=440
+PROBE073 send-end Submit t=24095.6 frame=440
+Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_be1f85d131d745c39560202865b339c5
+]]></output>
+            </test-case>
+            <test-case id="1074" name="PLAY_ART07_FX_ExtraSubmissionAndExtraRollReportDifferentActualBudgets" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_FX_ExtraSubmissionAndExtraRollReportDifferentActualBudgets" methodname="PLAY_ART07_FX_ExtraSubmissionAndExtraRollReportDifferentActualBudgets" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="85244989" result="Passed" start-time="2026-11-12 22:04:41Z" end-time="2026-11-12 22:04:41Z" duration="0.365211" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[PROBE073 send-begin ApplyDebugScene t=24898.1 frame=480
+PROBE073 send-end ApplyDebugScene t=24926.9 frame=480
+PROBE073 send-begin ApplyDebugScene t=24932.7 frame=480
+PROBE073 send-end ApplyDebugScene t=24960.8 frame=480
+PROBE073 send-begin UseItem t=24964.1 frame=480
+PROBE073 send-end UseItem t=24983.6 frame=480
+PROBE073 send-begin UseItem t=24993.0 frame=480
+PROBE073 send-end UseItem t=25016.9 frame=480
+Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_dee5aaced62f4f8ab331ef2e5387ef63
+]]></output>
+            </test-case>
+            <test-case id="1069" name="PLAY_ART07_FX_FastSourceMarksLowQualityReplayAndSkipReset" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_FX_FastSourceMarksLowQualityReplayAndSkipReset" methodname="PLAY_ART07_FX_FastSourceMarksLowQualityReplayAndSkipReset" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="1481062640" result="Passed" start-time="2026-11-12 22:04:41Z" end-time="2026-11-12 22:04:42Z" duration="0.894518" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[PROBE073 send-begin ApplyDebugScene t=25256.9 frame=487
+PROBE073 send-end ApplyDebugScene t=25285.8 frame=487
+PROBE073 pause-begin t=25291.7 frame=487
+PROBE073 settings-begin tab=0 t=25296.0 frame=487
+PROBE073 settings-begin tab=1 t=25304.4 frame=487
+PROBE073 quality-click t=25311.0 frame=487
+PROBE073 quality-applied t=25311.4 frame=487
+PROBE073 settings-begin tab=1 t=25311.6 frame=487
+PROBE073 quality-click t=25315.3 frame=487
+PROBE073 quality-applied t=25315.6 frame=487
+PROBE073 settings-begin tab=1 t=25315.8 frame=487
+PROBE073 settings-begin tab=2 t=25319.1 frame=487
+PROBE073 settings-begin tab=2 t=25335.8 frame=487
+PROBE073 done-begin t=25341.3 frame=487
+PROBE073 prefs-saved t=25341.6 frame=487
+PROBE073 modal-closed t=25342.9 frame=487
+PROBE073 send-begin Submit t=25343.4 frame=487
+PROBE073 send-end Submit t=25386.8 frame=487
+Actual presentation phase trace: Wanted ControllerAndEnchant; speed=Fast; phases=Receipt@0+40,DiceContributions@40+100,BaseAndStructure@140+100,ControllerAndEnchant@240+100,FinalScore@340+200
+frame=487 dt=0.0156 elapsedMs=0.00 phase=Receipt playing=True focus=True paused=False
+frame=488 dt=0.2087 elapsedMs=208.67 phase=BaseAndStructure playing=True focus=True paused=False
+frame=491 dt=0.0170 elapsedMs=255.89 phase=ControllerAndEnchant playing=True focus=True paused=False
+Actual presentation phase trace: Wanted FinalScore; speed=Fast; phases=Receipt@0+40,DiceContributions@40+100,BaseAndStructure@140+100,ControllerAndEnchant@240+100,FinalScore@340+200
+frame=491 dt=0.0170 elapsedMs=255.89 phase=ControllerAndEnchant playing=True focus=True paused=False
+frame=497 dt=0.0170 elapsedMs=355.68 phase=FinalScore playing=True focus=True paused=False
+Actual presentation phase trace: Wanted FinalScore; speed=Fast; phases=Receipt@0+40,DiceContributions@40+100,BaseAndStructure@140+100,ControllerAndEnchant@240+100,FinalScore@340+200
+frame=497 dt=0.0170 elapsedMs=0.00 phase=Receipt playing=True focus=True paused=False
+frame=499 dt=0.0137 elapsedMs=44.96 phase=DiceContributions playing=True focus=True paused=False
+frame=505 dt=0.0167 elapsedMs=145.09 phase=BaseAndStructure playing=True focus=True paused=False
+frame=511 dt=0.0170 elapsedMs=245.42 phase=ControllerAndEnchant playing=True focus=True paused=False
+frame=517 dt=0.0172 elapsedMs=345.71 phase=FinalScore playing=True focus=True paused=False
+Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_b9d2579cdc714f69b7fb24dc4e4ebc4b
+]]></output>
+            </test-case>
+            <test-case id="1071" name="PLAY_ART07_FX_MultipleRandomOwnersAndSharedCopyUseCompleteCommittedList" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_FX_MultipleRandomOwnersAndSharedCopyUseCompleteCommittedList" methodname="PLAY_ART07_FX_MultipleRandomOwnersAndSharedCopyUseCompleteCommittedList" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="2045228806" result="Passed" start-time="2026-11-12 22:04:42Z" end-time="2026-11-12 22:04:43Z" duration="0.910529" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[PROBE073 send-begin ApplyDebugScene t=26153.0 frame=523
+PROBE073 send-end ApplyDebugScene t=26181.7 frame=523
+PROBE073 send-begin ApplyDebugScene t=26187.4 frame=523
+PROBE073 send-end ApplyDebugScene t=26213.5 frame=523
+PROBE073 send-begin Submit t=26213.8 frame=523
+PROBE073 send-end Submit t=26257.5 frame=523
+Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_d475057907a64772bda4bd6c92a8ac63
+]]></output>
+            </test-case>
+            <test-case id="1070" name="PLAY_ART07_FX_NormalPunchCompletesAcrossAdjacentBeatsAndSkipResets" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_FX_NormalPunchCompletesAcrossAdjacentBeatsAndSkipResets" methodname="PLAY_ART07_FX_NormalPunchCompletesAcrossAdjacentBeatsAndSkipResets" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="1917010184" result="Passed" start-time="2026-11-12 22:04:43Z" end-time="2026-11-12 22:04:44Z" duration="0.989133" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[PROBE073 send-begin ApplyDebugScene t=27065.2 frame=562
+PROBE073 send-end ApplyDebugScene t=27094.9 frame=562
+PROBE073 send-begin Submit t=27100.9 frame=562
+PROBE073 send-end Submit t=27143.9 frame=562
+Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_830076d431844a32adab17d741ddbcf2
+]]></output>
+            </test-case>
+            <test-case id="1072" name="PLAY_ART07_FX_PostScoreThreeTargetsRiskAndFrozenReplayPhysicalPips" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_FX_PostScoreThreeTargetsRiskAndFrozenReplayPhysicalPips" methodname="PLAY_ART07_FX_PostScoreThreeTargetsRiskAndFrozenReplayPhysicalPips" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="1585759995" result="Passed" start-time="2026-11-12 22:04:44Z" end-time="2026-11-12 22:04:47Z" duration="3.336575" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[PROBE073 send-begin ApplyDebugScene t=28061.7 frame=609
+PROBE073 send-end ApplyDebugScene t=28091.5 frame=609
+PROBE073 send-begin ApplyDebugScene t=28098.0 frame=609
+PROBE073 send-end ApplyDebugScene t=28129.6 frame=609
+PROBE073 send-begin Submit t=28129.9 frame=609
+PROBE073 send-end Submit t=28174.3 frame=609
+Actual presentation phase trace: Wanted PostScore; speed=Normal; phases=Receipt@0+100,DiceContributions@100+300,BaseAndStructure@400+280,ControllerAndEnchant@680+140,FinalScore@820+420,PostScore@1240+480
+frame=609 dt=0.0155 elapsedMs=0.00 phase=Receipt playing=True focus=True paused=False
+frame=610 dt=0.1924 elapsedMs=192.43 phase=DiceContributions playing=True focus=True paused=False
+frame=623 dt=0.0165 elapsedMs=405.89 phase=BaseAndStructure playing=True focus=True paused=False
+frame=640 dt=0.0163 elapsedMs=689.22 phase=ControllerAndEnchant playing=True focus=True paused=False
+frame=648 dt=0.0167 elapsedMs=822.58 phase=FinalScore playing=True focus=True paused=False
+frame=674 dt=0.0165 elapsedMs=1256.14 phase=PostScore playing=True focus=True paused=False
+Observed final physical faces while presentation remains active:
+frame=674 elapsedMs=1256.14 dt=0.0165 playing=True replay=False phase=PostScore transitions=3 faces=Pips_4_Plain_0 visible=False;Pips_4_Plain_0 visible=False
+frame=675 elapsedMs=1288.74 dt=0.0326 playing=True replay=False phase=PostScore transitions=3 faces=Pips_4_Plain_0 visible=False;Pips_4_Plain_0 visible=False
+frame=676 elapsedMs=1302.12 dt=0.0134 playing=True replay=False phase=PostScore transitions=3 faces=Pips_4_Plain_0 visible=False;Pips_4_Plain_0 visible=False
+frame=677 elapsedMs=1319.23 dt=0.0171 playing=True replay=False phase=PostScore transitions=3 faces=Pips_4_Plain_0 visible=False;Pips_4_Plain_0 visible=False
+frame=678 elapsedMs=1335.32 dt=0.0161 playing=True replay=False phase=PostScore transitions=3 faces=Pips_4_Plain_0 visible=False;Pips_4_Plain_0 visible=False
+frame=679 elapsedMs=1351.72 dt=0.0164 playing=True replay=False phase=PostScore transitions=3 faces=Pips_4_Plain_0 visible=False;Pips_4_Plain_0 visible=False
+frame=680 elapsedMs=1369.24 dt=0.0175 playing=True replay=False phase=PostScore transitions=3 faces=Pips_4_Plain_0 visible=False;Pips_4_Plain_0 visible=False
+frame=681 elapsedMs=1385.68 dt=0.0164 playing=True replay=False phase=PostScore transitions=3 faces=Pips_4_Plain_0 visible=False;Pips_4_Plain_0 visible=False
+frame=682 elapsedMs=1401.91 dt=0.0162 playing=True replay=False phase=PostScore transitions=3 faces=Pips_4_Plain_0 visible=False;Pips_4_Plain_0 visible=False
+frame=683 elapsedMs=1418.98 dt=0.0171 playing=True replay=False phase=PostScore transitions=3 faces=Pips_4_Plain_0 visible=False;Pips_4_Plain_0 visible=False
+frame=684 elapsedMs=1435.22 dt=0.0162 playing=True replay=False phase=PostScore transitions=3 faces=Pips_4_Plain_0 visible=False;Pips_4_Plain_0 visible=False
+frame=685 elapsedMs=1452.09 dt=0.0169 playing=True replay=False phase=PostScore transitions=3 faces=Pips_4_Plain_0 visible=False;Pips_4_Plain_0 visible=False
+frame=686 elapsedMs=1469.21 dt=0.0171 playing=True replay=False phase=PostScore transitions=2 faces=Pips_4_Plain_0 visible=False;Pips_4_Plain_0 visible=False
+frame=687 elapsedMs=1485.68 dt=0.0165 playing=True replay=False phase=PostScore transitions=2 faces=Pips_4_Plain_0 visible=False;Pips_4_Plain_0 visible=False
+frame=688 elapsedMs=1501.79 dt=0.0161 playing=True replay=False phase=PostScore transitions=2 faces=Pips_4_Plain_0 visible=False;Pips_4_Plain_0 visible=False
+frame=689 elapsedMs=1518.78 dt=0.0170 playing=True replay=False phase=PostScore transitions=2 faces=Pips_4_Plain_0 visible=False;Pips_4_Plain_0 visible=False
+frame=690 elapsedMs=1535.29 dt=0.0165 playing=True replay=False phase=PostScore transitions=2 faces=Pips_4_Plain_0 visible=False;Pips_4_Plain_0 visible=False
+frame=691 elapsedMs=1552.63 dt=0.0173 playing=True replay=False phase=PostScore transitions=2 faces=Pips_4_Plain_0 visible=False;Pips_4_Plain_0 visible=False
+frame=692 elapsedMs=1568.56 dt=0.0159 playing=True replay=False phase=PostScore transitions=0 faces=Pips_4_Plain_0 visible=True;Pips_4_Plain_0 visible=True
+PROBE073 send-begin ApplyDebugScene t=29571.3 frame=692
+PROBE073 send-end ApplyDebugScene t=29594.2 frame=692
+Actual presentation phase trace: Wanted PostScore; speed=Normal; phases=Receipt@0+100,DiceContributions@100+300,BaseAndStructure@400+280,ControllerAndEnchant@680+140,FinalScore@820+420,PostScore@1240+480
+frame=692 dt=0.0159 elapsedMs=0.00 phase=Receipt playing=True focus=True paused=False
+frame=697 dt=0.0168 elapsedMs=114.41 phase=DiceContributions playing=True focus=True paused=False
+frame=715 dt=0.0167 elapsedMs=414.13 phase=BaseAndStructure playing=True focus=True paused=False
+frame=731 dt=0.0161 elapsedMs=680.65 phase=ControllerAndEnchant playing=True focus=True paused=False
+frame=740 dt=0.0163 elapsedMs=830.41 phase=FinalScore playing=True focus=True paused=False
+frame=765 dt=0.0163 elapsedMs=1247.09 phase=PostScore playing=True focus=True paused=False
+Observed final physical faces while presentation remains active:
+frame=765 elapsedMs=1247.09 dt=0.0163 playing=True replay=True phase=PostScore transitions=3 faces=Pips_4_Plain_0 visible=False;Pips_4_Plain_0 visible=False
+frame=766 elapsedMs=1263.71 dt=0.0166 playing=True replay=True phase=PostScore transitions=3 faces=Pips_4_Plain_0 visible=False;Pips_4_Plain_0 visible=False
+frame=767 elapsedMs=1280.63 dt=0.0169 playing=True replay=True phase=PostScore transitions=3 faces=Pips_4_Plain_0 visible=False;Pips_4_Plain_0 visible=False
+frame=768 elapsedMs=1297.25 dt=0.0166 playing=True replay=True phase=PostScore transitions=3 faces=Pips_4_Plain_0 visible=False;Pips_4_Plain_0 visible=False
+frame=769 elapsedMs=1314.18 dt=0.0169 playing=True replay=True phase=PostScore transitions=3 faces=Pips_4_Plain_0 visible=False;Pips_4_Plain_0 visible=False
+frame=770 elapsedMs=1330.27 dt=0.0161 playing=True replay=True phase=PostScore transitions=3 faces=Pips_4_Plain_0 visible=False;Pips_4_Plain_0 visible=False
+frame=771 elapsedMs=1346.99 dt=0.0167 playing=True replay=True phase=PostScore transitions=3 faces=Pips_4_Plain_0 visible=False;Pips_4_Plain_0 visible=False
+frame=772 elapsedMs=1363.92 dt=0.0169 playing=True replay=True phase=PostScore transitions=3 faces=Pips_4_Plain_0 visible=False;Pips_4_Plain_0 visible=False
+frame=773 elapsedMs=1380.73 dt=0.0168 playing=True replay=True phase=PostScore transitions=3 faces=Pips_4_Plain_0 visible=False;Pips_4_Plain_0 visible=False
+frame=774 elapsedMs=1397.49 dt=0.0168 playing=True replay=True phase=PostScore transitions=3 faces=Pips_4_Plain_0 visible=False;Pips_4_Plain_0 visible=False
+frame=775 elapsedMs=1413.69 dt=0.0162 playing=True replay=True phase=PostScore transitions=3 faces=Pips_4_Plain_0 visible=False;Pips_4_Plain_0 visible=False
+frame=776 elapsedMs=1431.25 dt=0.0176 playing=True replay=True phase=PostScore transitions=3 faces=Pips_4_Plain_0 visible=False;Pips_4_Plain_0 visible=False
+frame=777 elapsedMs=1447.06 dt=0.0158 playing=True replay=True phase=PostScore transitions=3 faces=Pips_4_Plain_0 visible=False;Pips_4_Plain_0 visible=False
+frame=778 elapsedMs=1464.39 dt=0.0173 playing=True replay=True phase=PostScore transitions=2 faces=Pips_4_Plain_0 visible=False;Pips_4_Plain_0 visible=False
+frame=779 elapsedMs=1480.74 dt=0.0163 playing=True replay=True phase=PostScore transitions=2 faces=Pips_4_Plain_0 visible=False;Pips_4_Plain_0 visible=False
+frame=780 elapsedMs=1497.35 dt=0.0166 playing=True replay=True phase=PostScore transitions=2 faces=Pips_4_Plain_0 visible=False;Pips_4_Plain_0 visible=False
+frame=781 elapsedMs=1514.54 dt=0.0172 playing=True replay=True phase=PostScore transitions=2 faces=Pips_4_Plain_0 visible=False;Pips_4_Plain_0 visible=False
+frame=782 elapsedMs=1530.35 dt=0.0158 playing=True replay=True phase=PostScore transitions=2 faces=Pips_4_Plain_0 visible=False;Pips_4_Plain_0 visible=False
+frame=783 elapsedMs=1547.47 dt=0.0171 playing=True replay=True phase=PostScore transitions=2 faces=Pips_4_Plain_0 visible=False;Pips_4_Plain_0 visible=False
+frame=784 elapsedMs=1563.87 dt=0.0164 playing=True replay=True phase=PostScore transitions=0 faces=Pips_4_Plain_0 visible=True;Pips_4_Plain_0 visible=True
+Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_a35c4837fa924270b111604485017486
+]]></output>
+            </test-case>
+            <test-case id="1073" name="PLAY_ART07_FX_RealRollAndRemoteBreakUsePlacedWorldPoolAndSkipResets" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_FX_RealRollAndRemoteBreakUsePlacedWorldPoolAndSkipResets" methodname="PLAY_ART07_FX_RealRollAndRemoteBreakUsePlacedWorldPoolAndSkipResets" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="770740666" result="Passed" start-time="2026-11-12 22:04:47Z" end-time="2026-11-12 22:04:48Z" duration="0.943290" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[PROBE073 send-begin ApplyDebugScene t=31394.0 frame=790
+PROBE073 send-end ApplyDebugScene t=31423.3 frame=790
+PROBE073 send-begin ApplyDebugScene t=31429.2 frame=790
+PROBE073 send-end ApplyDebugScene t=31453.8 frame=790
+PROBE073 send-begin Roll t=31675.4 frame=804
+PROBE073 send-end Roll t=31699.4 frame=804
+PROBE073 send-begin ApplyDebugScene t=31757.6 frame=805
+PROBE073 send-end ApplyDebugScene t=31782.3 frame=805
+PROBE073 send-begin ApplyDebugScene t=31788.5 frame=805
+PROBE073 send-end ApplyDebugScene t=31814.8 frame=805
+PROBE073 send-begin UseItem t=32035.8 frame=819
+PROBE073 send-end UseItem t=32055.4 frame=819
+Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_dd8fbbbfdb2241af9289640271b9f78e
+Saving results to: E:\agent_workspace\gpt\game2\evidence\v073\unity\nunit-20261112-220448.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

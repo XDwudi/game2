@@ -96,7 +96,7 @@ def main():
     if status == 200:
         raise ValueError("Release tag already exists; choose the next rc number")
     status, body = call("POST", f"{API}/releases", secret, json.dumps({
-        "tag_name": args.tag, "target_commitish": target, "name": "骰子构筑 P0 v0.73 高清简约美术测试版 (" + args.tag + ")",
+        "tag_name": args.tag, "target_commitish": target, "name": "骰子构筑 P0 v0.73 商店、骰子样式与高分动画测试版 (" + args.tag + ")",
         "body": notes, "draft": True, "prerelease": True}).encode("utf-8"))
     if status != 201:
         raise ValueError(f"Create release failed: HTTP {status} {body[:300]!r}")
