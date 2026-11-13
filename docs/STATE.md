@@ -37,6 +37,7 @@
   `DicePrototype-p0.7.3-win-x64.zip` 198,319,645 B / 306 成员 / SHA-256 `14fc7f09d5ace661ad37fc5f893f557a1c0a2235a355de6044ff1ff538173a3c`；
   `DicePrototype-p0.7.3-macos-universal.zip` 238,675,095 B / 301 成员 / SHA-256 `1f5e25da4c3f0705315f199655c3104d917e1cfbb0d3a5da5acf9798c1539254`。
   Windows 包新目录解压后自动巡检 60 步、64 张截图、Player 日志 0 异常；G147 场景触发爆分档。截图在 `evidence/v073/screens/rc1/`。
+- 交付：源码分支 [codex/v0.73](https://github.com/XDwudi/game2/tree/codex/v0.73)；预发布 [p0.7.3-rc.1](https://github.com/XDwudi/game2/releases/tag/p0.7.3-rc.1)（release 443655816，标签指向 `0cb3546`，构建源 `57b5c0a`），Windows 与 macOS 两个附件经带凭据完整回读 SHA 一致、匿名 HEAD 可达且长度一致，收据 `evidence/v073/delivery/github-release-p0.7.3-rc.1.json`。v0.72 的两个发行、main 与更早的发行未动。
 - 未做 / 遗留：macOS 实机启动与运行（用户自测；包在 Windows 上构建与压缩，无签名、无公证）；Windows 帧时间与独占全屏专项（v0.7 起未通过，本版未重测）；独立复核；风格与体验待用户判定。
   已知不足列在任务 §6：骰池临时骰无纸签、托盘不印编号、插画未重画、无专属音效、玻璃通透感与光滑高光仍可改进、Development Build 角标、AudioMixer 总线。Blender 与图像生成工具本版未使用。
 - 环境记录：本机长时间连续跑 PlayMode 会阶段性降速，对实时敏感的旧测试 `PLAY_ART07_FX_FastSourceMarks…` 余量只有约 1.6 倍；两轮全量之间留出几分钟空闲后三轮均通过。
