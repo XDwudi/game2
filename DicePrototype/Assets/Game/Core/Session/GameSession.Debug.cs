@@ -57,6 +57,8 @@ namespace DiceCraft.Core
                 && input.rollsRemaining >= -1 && input.rollsRemaining <= cfg.debug.maxEditableBudget
                 && input.submissionOrdinal >= 0 && input.submissionOrdinal <= cfg.debug.maxEditableBudget
                 && input.stageRollBonus >= 0 && input.stageRollBonus <= cfg.debug.maxEditableBudget, "调试预算输入必须为0至999，-1仅表示使用默认预算。");
+            Check(input.rollsUsed >= 0 && input.rollsUsed <= cfg.debug.maxEditableBudget && input.warIncomeCount >= 0 && input.warIncomeCount <= cfg.Controller("C97").parameters.maxTriggersPerStage
+                && input.controllerSlotPurchases >= 0 && input.controllerSlotPurchases <= cfg.maxOrdinaryControllerSlots - cfg.initialControllerSlots, "调试场景的投掷次数、以战养战次数或栏位购买次数无效。");
             Check(input.randomOverrides.All(x => x != null), "调试随机覆盖不完整。");
             // Only a target already lost in the committed history may remain unresolved.
             var historicalMissing = s.stage == null ? Array.Empty<string>() : s.stage.destroyedControllerIds.ToArray();
@@ -68,7 +70,7 @@ namespace DiceCraft.Core
             s.consumableSlots = draft.consumableSlots; s.itemDiscount = draft.itemDiscount;
             s.controllerOfferPurchases = draft.controllerOfferPurchases; s.consumableOfferPurchases = draft.consumableOfferPurchases; s.freeFirstRefreshOwned = draft.freeFirstRefreshOwned;
             s.previousPrimaryHandId = draft.previousPrimaryHandId; s.submissionOrdinalGlobal = draft.submissionOrdinalGlobal; s.randomOverrides = draft.randomOverrides;
-            s.controllerSlots = cfg.initialControllerSlots; s.controllerSlotPurchases = 0; s.failureReason = null; s.lastSubmission = null; s.lastStageSettlement = null; s.shop = null;
+            s.controllerSlotPurchases = draft.controllerSlotPurchases; s.controllerSlots = cfg.initialControllerSlots + draft.controllerSlotPurchases; s.failureReason = null; s.lastSubmission = null; s.lastStageSettlement = null; s.shop = null;
             s.nextDieSerial = Math.Max(s.nextDieSerial, checked(s.dice.Max(d => d.createdSerial) + 1));
             int maxController = s.controllers.Select(c => c.acquiredSerial).DefaultIfEmpty(0).Max();
             int maxItem = s.inventory.Select(i => ParseItemSerial(i.instanceId)).DefaultIfEmpty(0).Max();
@@ -79,7 +81,7 @@ namespace DiceCraft.Core
                 stageId = stage.stageId, stageIndex = draft.stageIndex, risk = draft.risk, target = draft.target, score = draft.score,
                 capacity = draft.capacityOverride, reward = draft.risk ? stage.riskReward : stage.normalReward,
                 remainingSubmissions = draft.remainingSubmissions < 0 ? ControllerRules.SubmissionBudget(s.controllers, cfg) : draft.remainingSubmissions,
-                submissionOrdinal = draft.submissionOrdinal, stageRollBonus = draft.stageRollBonus, started = true,
+                submissionOrdinal = draft.submissionOrdinal, stageRollBonus = draft.stageRollBonus, warIncomeCount = draft.warIncomeCount, started = true,
                 controllerOrderSnapshot = s.controllers.Select(c => c.instanceId).ToArray(),
                 mimicBindings = draft.mimicBindings ?? ControllerRules.FreezeBindings(s.controllers.ToArray()),
                 destroyedControllerIds = historicalMissing.ToList(),
@@ -108,7 +110,7 @@ namespace DiceCraft.Core
                     r.isLocked = draft.orderedLockedIds.Contains(r.dieId);
                 }
                 s.hand.hasRolled = s.hand.currentResults.Any(r => r.hasRolled);
-                s.hand.rollsUsed = s.hand.hasRolled ? 1 : 0;
+                s.hand.rollsUsed = s.hand.hasRolled ? Math.Max(1, draft.rollsUsed) : 0;
                 s.hand.orderedLockedIds = draft.orderedLockedIds;
                 s.phase = s.hand.hasRolled ? "Selecting" : "HandReady";
             }
@@ -130,7 +132,7 @@ namespace DiceCraft.Core
                 && order.All(id => s.controllers.Any(c => c.instanceId == id)), "控制器调序必须保留同一组实例。");
             if (order.SequenceEqual(s.controllers.Select(c => c.instanceId))) return false;
             s.controllers = order.Select(id => s.controllers.First(c => c.instanceId == id)).ToList();
-            if (s.phase == "StagePreview") s.stage.capacity = ShopCapacity(s);
+            if (s.phase == "StagePreview") { s.stage.capacity = PreviewCapacity(s); s.stage.remainingSubmissions = ControllerRules.SubmissionBudget(ControllerRules.AfterAltars(s.controllers), cfg); }
             s.lastEffects.Add(new EffectRecord { kind = "ControllersReordered", detail = string.Join(",", order) });
             return true;
         }

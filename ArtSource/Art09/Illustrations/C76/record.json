@@ -36,5 +36,12 @@
       "sha256": "d380eecb4921984d2aacb4b50b1c7ee6fdcbdbb9f3596550fa79b476d4320728",
       "role": "fixed standalone style anchor"
     }
-  ]
+  ],
+  "runCheck": {
+    "tool": "tools/art_gen/artgen.py check_run via tools/art_v09/audit_runs.py",
+    "status": "VALID",
+    "modelInputImages": 2,
+    "problems": [],
+    "threadId": "01a1db47-1a8e-7d81-b779-c8de88afc425"
+  }
 }

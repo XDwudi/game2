@@ -1,45 +1,111 @@
 # 平衡模拟器（balance_sim）
 
-为 v0.8 平衡性方案提供数据的离线工具。它直接编译游戏的规则核心（`DicePrototype/Assets/Game/Core/Rules` 与 `Core/Session`），
-不修改游戏工程里的任何文件，也不被游戏加载。
+为平衡性方案提供数据的离线工具（v0.8 起用，现已升级到规则 p0.9.0）。它直接编译游戏的规则核心
+（`DicePrototype/Assets/Game/Core/Rules` 与 `Core/Session`），不修改游戏工程里的任何文件，也不被游戏加载。
 
 ## 它做什么
 
 | 模式 | 用途 |
 | --- | --- |
-| `verify` | 把模拟器内部的快速计分模型与游戏真实的 `ScoreCalculator.Evaluate` 逐次对拍（随机控制器、骰面、等级、附魔） |
-| `cards` | 每张控制器在两个参照构筑里的等效倍率（有它 ÷ 没它的期望单手得分）与触发率 |
+| `verify` | 把模拟器内部的快速计分模型与游戏真实的 `ScoreCalculator.Evaluate` 逐次对拍，并打印每张控制器“出现 / 触发”的覆盖次数 |
+| `cards` | 每张控制器在两个参照构筑里的等效倍率（有它 ÷ 没它的期望整关得分）与触发率；成长卡各列两行（成长 0 与标明的中期成长值） |
 | `scen` | 手工搭好的场景：骰面养成的终态、乘区四件套、裸装过关概率等 |
-| `run` | 机器人通过真实的 `GameSession` 用合法命令打完整局，输出逐关到达率、通过率、金币收支和购买统计 |
+| `run` | 机器人通过真实的 `GameSession` 用合法命令打完整局，输出逐关到达率、通过率、金币收支、购买统计、死亡分布 |
 | `trace` | 把机器人某一局开头的若干条命令录成 JSON（`--seed`、`--steps`、`--out`），供打包后的游戏用 `--art073-capture … --art073-trace …` 回放并截图 |
 
 ## 运行
 
-需要 .NET SDK 10。从仓库根目录执行：
+需要 .NET SDK 10。从仓库根目录执行（`--threads` 限制并行度，默认最多 8）：
 
 ```powershell
 dotnet build tools/balance_sim/BalanceSim.csproj -c Release
-dotnet tools/balance_sim/bin/Release/net10.0/BalanceSim.dll verify --n 300000
-dotnet tools/balance_sim/bin/Release/net10.0/BalanceSim.dll cards --hands 3000 --out evidence/v08-balance/cards_v06.json
+dotnet tools/balance_sim/bin/Release/net10.0/BalanceSim.dll verify --n 300000 --out evidence/v09/balance/verify_p090.json
+dotnet tools/balance_sim/bin/Release/net10.0/BalanceSim.dll cards --hands 3000 --threads 8 --out evidence/v09/balance/cards_p090.json
 dotnet tools/balance_sim/bin/Release/net10.0/BalanceSim.dll scen --hands 2000
-dotnet tools/balance_sim/bin/Release/net10.0/BalanceSim.dll run --first 5000 --seeds 300 --out evidence/v08-balance/run_v06.json
+dotnet tools/balance_sim/bin/Release/net10.0/BalanceSim.dll run --first 5000 --seeds 300 --threads 8 --out evidence/v09/balance/run_p090_shipped.json
 ```
 
-所有模式都接受 `--config <路径>`，用来模拟候选数值。候选配置由 `make_candidate.py` 从现行 `P0Config.json` 生成，
-每一处改动都写在脚本顶部的表里：
+所有模式都接受 `--config <路径>`，用来模拟候选数值。
+
+- p0.9.0 的关卡目标候选由 `make_targets.py` 从现行 `P0Config.json` 生成：只改第 12–24 关的 `normalTarget`，
+  以及有高压挑战的关卡的 `riskTarget = normalTarget × 5/4`，其余原样复制。
+- `calibrate.py summary` 汇总若干次 `run` 的结果；`calibrate.py predict / solve` 是挑候选时用的纸面估算
+  （用已有模拟拟合“实力 ÷ 目标 → 通过率”，再把每个种子按新目标重走一遍），**只用于选候选，不是证据**，每个候选都要真跑。
+- `make_candidate.py`、`fill_plan.py` 与 `report_tables.py` 是 v0.8 方案用的旧脚本，输入是 `baseline/` 里冻结的旧配置。
 
 ```powershell
-python tools/balance_sim/make_candidate.py --out tools/balance_sim/candidates/v08_candidate.json
-python tools/balance_sim/report_tables.py stages evidence/v08-balance/run_v06.json
+python tools/balance_sim/make_targets.py --name v09_t1 --targets 50000,85000,...   # 13 个数：第 12..24 关
+dotnet tools/balance_sim/bin/Release/net10.0/BalanceSim.dll run --config tools/balance_sim/candidates/v09_t1.json --first 5000 --seeds 300 --threads 8 --out evidence/v09/balance/run_v09_t1.json
+python tools/balance_sim/calibrate.py summary evidence/v09/balance/run_p090_shipped.json evidence/v09/balance/run_v09_t1.json
 ```
+
+## 快速计分模型与对拍（`Fast.cs`）
+
+`Build.Score` 用 double 复刻 `ScoreCalculator.Evaluate` 的全部 100 张控制器：留池骰（数量、点数和、指定点数的数量、红面数量）、
+本手已投次数、剩余投掷、本关剩余提交、永久骰数量、逐骰事实（朝上面的纹理、整骰同色、整骰同点、对面点数）、再计、
+牌型倍率加值、场外红人并入红组、成长值，以及百变模仿与被复制卡共用成长值。
+
+`verify` 的判定比 v0.8 更严：快速值与真实计分的**精确有理数**（`scoreNumerator / scoreDenominator`）相对误差 ≤ 1e-9，
+向下取整后的分数一致，主牌型一致，并且**触发的控制器集合**与真实计分完全一致。随机样本覆盖：0–9 张随机控制器加附魔，
+四分之一的样本在随机位置放一张百变模仿，成长卡带 0–200 的成长值；1–10 颗骰子，随机点数 / 颜色 / 纹理 / 黄金 / 玻璃，
+含整骰同色与整骰同点；留池骰 0–5 颗；已投 1–6 次；剩余提交 1–4；永久骰数量 0–8；提交栏容量一半取自控制器、一半随机 1–8；
+一半样本把朝上的面往某种牌型（同点、对子、三条、顺子）凑，保证牌型类卡片有足够触发次数。
+输出末尾按控制器列出“出现次数 / 触发次数”，任何计分类控制器有一项为 0 则判失败。
 
 ## 机器人怎么玩
 
 - 对局：每次投掷后，对“锁哪些骰、是否提交”做抽样前瞻（最多看两次投掷），目标是尽快凑够本关剩余分数。
   它只看当前可见的骰面，不读取任何随机数状态；规划用自己独立的随机流。
+  p0.9.0 起，前瞻里每一次估分都带着真实的提交上下文：这次提交后**留在池里的骰子**、**已投次数**、**剩余投掷**、
+  **本关剩余提交次数**。因此它知道“一锤定音”只在第一投后提交才有 ×3、“孤注一掷”要把投掷用完、留池类卡片要少交骰子、
+  “谢幕 / 背水一战”只在最后一次提交生效。前瞻视野到头而还有投掷剩余时，对“越挫越勇 / 孤注一掷”额外估一次
+  “锁住这手、把剩下的投掷空投在留池骰上”的分数。
+  `run` 会统计“规划器对自己选定的提交给出的分数”与真实会话结算的分数是否一致（不含错乱乘积），输出在 `planner self-check` 一行。
 - 商店：对每件商品，用同一批模拟手牌估算“买了之后的关卡得分 ÷ 现在的关卡得分”，按每金币收益排序购买。
   估值同时看平均手和较差的一手（第 25 百分位），所以高方差的卡不会按好运气估价。
   下一关看起来危险时不留钱，安全时为利息留钱；超过利息上限的余钱只要有提升就会花掉。
+- 栏位：用本局的 `controllerSlots`（开局 5）。普通栏位用满、至少还剩 3 关时，把“扩充栏位 O08”当作每金币 0.10 收益的商品
+  （与“增加控制 O05”的 0.06 同一写法），也就是在不动用利息储备的前提下购买。
+- 栏位已满时换卡：只尝试卖掉“拿掉后损失最小”的两张（按拿掉后的实力加上它的金币价值排序），不再对每件商品把每张卡都试一遍。
+  百变模仿的位置：自己持有的构筑和货架上的百变模仿仍然全位置搜索；估其它商品时只试“当前位置”和“紧贴新卡左侧”。
+  这两处是为了让 5–7 栏位下的整局模拟在可接受的时间内跑完。
+
+### 成长卡怎么估值
+
+成长卡买来时成长值是 0。商店估值时，对构筑里的每张成长卡（已有的和候选的一视同仁）先把成长值推到
+
+> growth′ = min(上限, 当前成长 + 每关成长率 × 视野)，视野 = min(剩余关数, 6)；下一关看起来危险时取 2
+
+再算实力。上限：乘法卡 100（×6），加法卡 300。每关成长率用机器人看得到的量估（S = 最近各关平均用掉的提交次数）：
+
+| 卡 | 每关成长率 |
+| --- | --- |
+| C55 积少成多 | 2 × S |
+| C56 深蓝 | 2 × S × 模拟手牌里“没有红面”的提交占比 |
+| C57 红火 | 3 × S × 模拟手牌里“红组 ≥ 3”的提交占比 |
+| C58 老当益壮 | 4 |
+| C59 余勇可贾 | 4 × 最近各关平均剩余的提交次数 |
+| C60 千锤百炼 | 2 × 最近各店平均购买的骰面改造次数 |
+| C61 学无止境 | 2 × 最近各店平均购买的牌型 / 颜色等级数 |
+| C62 熟能生巧 | 1 × 模拟手牌的平均投掷次数 × S |
+| C90 玻璃心 | 15 × 玻璃骰数量 × 碎裂概率 × 平均投掷次数 × S ÷ 2 |
+| C54 连庄 | 3 × S × p（p = 相邻两手主牌型相同的概率），且不超过稳态值 3p ÷ (1 − p) |
+| C100 祭坛 | 0（机器人不喂它） |
+
+“最近各关”的量与一个相当于三关的先验值混合，避免开局几关的偶然值。判断“下一关危不危险”仍用当前真实成长值。
+
+### 经济卡怎么估值
+
+不计分的卡按“等价金币”折成收益：1 金币 = 0.04（机器人平时的每金币购买门槛）× 还能生效的关数（封顶）× 折扣。
+
+| 卡 | 每关等价金币 |
+| --- | --- |
+| C01 存钱罐 / C52 成长基金 / C43 牌型提升 | 沿用 v0.8 |
+| C95 铁饭碗 | 3 |
+| C96 利滚利 | (钱包 − 25) ÷ 5，0–5；机器人处于“宽裕”状态时至少按 2.5 计。持有后它的留钱上限同步提高到 50 |
+| C97 以战养战 | 3 × min(2, S × 模拟手牌里单手 ≥ 下一关目标一半的占比) |
+| C98 砍价高手 | 1 × 最近各店平均购买的控制器与骰面改造件数 |
+| C99 聚宝盆 | 最近各店平均卖出的控制器件数 × 剩余关数 × min(剩余关数, 6) ÷ 2（整段剩余流程的合计） |
 
 ## 已知局限（解读数据时必须考虑）
 
@@ -48,6 +114,15 @@ python tools/balance_sim/report_tables.py stages evidence/v08-balance/run_v06.js
 2. 机器人不使用：光滑 / 粗糙 / 随机变形骰面，红色浪潮、遥控骰子、大数多来、小数多来，以及道具槽、折扣、免费刷新、删除骰子等服务。
    达标后它立刻结束本关，不会为了养成而多提交。
 3. 机器人胜率不是玩家胜率。它适合比较两套数值的相对差异和曲线形状，不能直接当作“玩家有百分之多少能通关”。
-4. 候选方案里需要改代码的三项无法在这里模拟：控制器半价回收、C53 的新结果表、C51 的成长上限。
-   模拟时卖价仍是固定 1 金币（偏保守），C53 从商店移除。
-5. `ConfigValidationRelaxed.cs` 取代了游戏里钉死 p0.6.0 数值的 `Validate()`，只在模拟器里生效。
+4. p0.9.0 新增的盲区：
+   - **C100 祭坛永远不买**（若因故持有，会把它排到最右，不摧毁任何卡）。它的强度只在 `cards` 里按假定成长值列出。
+   - 成长卡只在商店估值时被“预支”成长；对局里的手牌策略不会为了成长去改打法
+     （不会为深蓝刻意交全蓝、为红火凑红组、为熟能生巧多投、为连庄维持同一主牌型、为余勇可贾省提交）。
+   - 依赖它不会做的操作的卡被低估或永远不触发：C91 纹理大师（不买光滑 / 粗糙面）、C103 精兵简政（不删骰子，永久骰不会 ≤ 4）、
+     C92 纯色主义与 C93 始终如一（不会刻意把一颗骰子做成同色 / 同点）、C90 玻璃心（很少买玻璃骰）、C60 千锤百炼（买骰面改造少）。
+   - 前瞻最多看两次投掷：有“再给一次”、投掷附魔或“再来三次”而剩余投掷 ≥ 3 时，对“孤注一掷 / 越挫越勇”只是近似。
+   - 栏位已满时只试两张“最不重要”的卡作为被换下的对象；与最弱两张都不搭、却与别的卡强互斥的换法会被漏掉。
+   - 实力估计里“只在本关最后一次提交生效”的卡（C68、C102）按每关一手计入平均实力，但不进入“较差一手”的估计。
+5. `ConfigValidationRelaxed.cs` 取代了游戏里钉死数值的 `Validate()`，只在模拟器里生效。
+6. v0.8 文档里“候选方案需要改代码的三项”（控制器半价回收、C53 新结果表、C51 成长上限）已进入 p0.8.0 / p0.9.0 的规则核心，
+   模拟器直接使用真实实现。

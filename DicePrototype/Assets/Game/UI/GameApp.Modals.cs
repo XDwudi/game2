@@ -334,6 +334,9 @@ namespace DiceCraft
             string label=step.sourceId!=null?NameOf(step.sourceId):step.kind=="glass"?"玻璃":step.kind=="gold"?"本面镀金":step.kind=="unused_rolls"?"剩余投掷奖励":step.kind=="hand"?"牌型总倍率":step.kind=="color"?"独立颜色乘区":step.kind=="red_group"?"同点红组":step.kind=="floor"?"最后向下取整":"最终加分";
             if(step.kind=="enchantment_base"||step.kind=="enchantment_multiplier")label+=" · 附魔";
             if(step.kind=="retrigger")label+=" · 再计一次";
+            // p0.9.0: name the cards that changed a shared step ("C84:150" = +1.5 on the hand multiplier, "C73:2" = two pool dice).
+            if(!string.IsNullOrEmpty(step.note))
+                label+="（含 "+string.Join("、",step.note.Split(',').Select(part=>{var kv=part.Split(':');return NameOf(kv[0])+(step.kind=="hand"?" +"+(int.Parse(kv[1])/100m).ToString("0.##"):" +"+kv[1]+" 颗");}))+"）";
             if(!string.IsNullOrEmpty(step.emitterId))label+=" ["+step.emitterId+(step.stateOwnerId!=step.emitterId&&!string.IsNullOrEmpty(step.stateOwnerId)?" → "+step.stateOwnerId:"")+"]";
             return label;
         }

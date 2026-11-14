@@ -88,7 +88,12 @@ def run_one(codex, plan, entry, log_dir):
 
 def generate(codex, plan, prompt, target, log_path):
     request = "\n".join([
-        "You are generating one game illustration. Use the built-in image_gen tool exactly once (no CLI or API fallback, do not write code to draw the image). The two attached images are style references only.",
+        "You are generating one game illustration. Use the built-in image_gen tool exactly once (no CLI or API fallback, do not write code to draw the image).",
+        # Attaching images with -i is not enough: the agent may call the image tool without them (found by the
+        # ART-PIPELINE-2 calibration). Name the files and require them in the tool call; audit_runs.py verifies it.
+        "The image tool call MUST pass these two style reference files, in this order, as referenced_image_paths, and transparent_background true:",
+        *[str(ROOT / reference["path"]) for reference in plan["references"]],
+        "Pass the image prompt below to the tool verbatim, as one literal string, without rewriting it.",
         "",
         "Image prompt to pass to image_gen (request a REAL transparent background):",
         prompt,

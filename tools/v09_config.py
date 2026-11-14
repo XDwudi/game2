@@ -17,11 +17,11 @@ TARGET = ROOT / "DicePrototype" / "Assets" / "Game" / "Data" / "P0Config.json"
 
 RARITY = {"普通": "common", "罕见": "uncommon", "稀有": "rare"}
 
-# Stages 12-24. Stages 1-11 stay at p0.8.0. Final values are recorded in docs/tasks/P0-V09.md with the simulation.
+# Stages 12-24, calibrated with the upgraded simulator (candidate v09_t1, evidence/v09/balance/run_v09_t1.*):
+# 300 bot runs, 26% wins, median power/target 3.1 at stage 24. Stages 1-11 stay at p0.8.0.
 LATE_TARGETS = {
-    12: 38000, 13: 58000, 14: 88000, 15: 132000, 16: 198000, 17: 295000, 18: 440000,
-    19: 650000, 20: 950000, 21: 1380000, 22: 2000000, 23: 2850000, 24: 4000000,
-}
+    12: 46000, 13: 82000, 14: 145000, 15: 255000, 16: 440000, 17: 740000, 18: 1200000,
+    19: 1950000, 20: 3100000, 21: 4800000, 22: 7200000, 23: 10500000, 24: 15000000,}
 
 NON_SUBMIT = ["C78", "C79", "C95", "C96", "C97", "C98", "C99"]
 
@@ -112,7 +112,7 @@ CARDS = [
     ("C95", "铁饭碗", "普通", 5, "StageFinalize", {"goldPerStage": 3},
      "每关结算额外获得3金币。"),
     ("C96", "利滚利", "罕见", 5, "StageFinalize", {"interestPrincipalAdd": 25},
-     "计息本金上限+25（每关利息最多10）。"),
+     "计息本金上限+25（单张时每关利息最多10）。"),
     ("C97", "以战养战", "罕见", 4, "AfterScore", {"goldPerTrigger": 3, "maxTriggersPerStage": 2, "targetDivisor": 2},
      "单次提交得分达到本关目标的一半时获得3金币，每关最多2次。"),
     ("C98", "砍价高手", "罕见", 5, "ShopPrice", {"priceDelta": -1},
@@ -120,7 +120,7 @@ CARDS = [
     ("C99", "聚宝盆", "罕见", 5, "StageFinalize", {"saleBonusPerStage": 1},
      "每关结算时，持有的每件控制器卖价+1。"),
     ("C100", "祭坛", "稀有", 6, "GrowthMultiply", {"growthPerBuyPrice": 2},
-     "整手得分×n，n从1起。每关开始时摧毁右侧相邻的控制器，n增加该卡买入价的十分之一。"),
+     "整手得分×n，n从1起。每关开始时摧毁右侧相邻的控制器，n增加该卡基础买入价（不含附魔加价）的十分之一。放在最右侧则不摧毁。"),
     ("C101", "双刃剑", "稀有", 6, "ScoreMultiply", {"scoreMultiplier": 4, "submissionsDelta": -1},
      "整手得分×4；每关提交次数−1，最少1次。"),
     ("C102", "背水一战", "罕见", 5, "ScoreMultiply", {"scoreMultiplier": 3},

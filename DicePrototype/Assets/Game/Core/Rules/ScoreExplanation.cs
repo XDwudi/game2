@@ -11,6 +11,9 @@ namespace DiceCraft.Core
         public string kind, sourceId, emitterId, stateOwnerId, operation;
         // Reduced nonnegative rational strings, never rounded display doubles.
         public string before, operand, after;
+        // v0.9: who changed this step without owning it, as "C84:150,C85:300" (hand multiplier adds, units of 0.01)
+        // or "C73:2" (pool dice merged into the red group). Display only.
+        public string note;
     }
     [Serializable] public sealed class DieScoreTrace { public string dieId; public long contribution; public ScoreStep[] steps; /* v0.9: contribution x (1 + retriggers) */ public int retriggers; public string total; }
     [Serializable] public sealed class ScoreTrace { public DieScoreTrace[] dice; public ScoreStep[] global; }
@@ -71,8 +74,10 @@ namespace DiceCraft.Core
             foreach (var source in sources.Where(s => s.enchantmentId == "base10" && breakdown.triggeredSourceIds.Contains(s.emitterId))) Step(steps, "enchantment_base", source, "+", ref value, new ExactFraction(cfg.enchantRules.baseAdd, 1));
             if (value.Numerator != ExactScoreMath.Parse(breakdown.baseTotal)) throw new ArgumentException("Frozen base mismatch.");
             Step(steps, "hand", null, "×", ref value, new ExactFraction(breakdown.totalHandMult100, 100));
+            steps[steps.Count - 1].note = string.Join(",", sources.Where(s => (s.abilityId == "C84" || s.abilityId == "C85") && breakdown.triggeredSourceIds.Contains(s.emitterId)).Select(s => s.abilityId + ":" + cfg.Controller(s.abilityId).parameters.handMultAdd100));
             Step(steps, "color", null, "×", ref value, new ExactFraction(breakdown.colorMult100, 100));
             Step(steps, "red_group", null, "×", ref value, new ExactFraction(breakdown.redMult100, 100));
+            if (breakdown.redPoolCount > 0) steps[steps.Count - 1].note = "C73:" + breakdown.redPoolCount;
             foreach (var factor in breakdown.multiplierFactors) Step(steps, "controller", sources.Single(s => s.emitterId == factor.emitterId), "×", ref value, new ExactFraction(ExactScoreMath.Parse(factor.numerator), ExactScoreMath.Parse(factor.denominator)));
             foreach (var source in sources.Where(s => s.enchantmentId == "mult2" && breakdown.triggeredSourceIds.Contains(s.emitterId))) Step(steps, "enchantment_multiplier", source, "×", ref value, new ExactFraction(cfg.enchantRules.scoreMultiplier, 1));
             string floor = ExactScoreMath.SaveDecimal(value.Numerator / value.Denominator);

@@ -136,7 +136,7 @@ namespace DiceCraft.Tests
         }
         [Test] public void TwentyFourStageFlowSupportsEightRiskBranchesAndNoFinalShop()
         {
-            var s=Edit(New(),x=>{foreach(var d in x.dice)foreach(var f in d.faces){f.permanentPip=4;f.baseColor="red";f.isGold=true;}Equip(x,"C25","C30","C31","C32");foreach(var h in x.handLevels)h.level=8;foreach(var h in x.colorLevels)h.level=8;foreach(var c in x.controllers)c.enchantmentId="mult2";});
+            var s=Edit(New(),x=>{foreach(var d in x.dice)foreach(var f in d.faces){f.permanentPip=4;f.baseColor="red";f.isGold=true;}Equip(x,"C25","C30","C31","C32","C46");/* p0.9.0: the fifth card lifts this one-submission fixture from 11.7M to 46.6M, above the new 15M final target */foreach(var h in x.handLevels)h.level=8;foreach(var h in x.colorLevels)h.level=8;foreach(var c in x.controllers)c.enchantmentId="mult2";});
             for(int stage=0;stage<24;stage++){
                 if(cfg.stages[stage].riskEnabled)Do(s,CommandKind.ChooseChallenge,c=>c.risk=true);
                 Do(s,CommandKind.StartStage);Do(s,CommandKind.Roll);Lock(s,s.State.dice.Select(x=>x.dieId).ToArray());Do(s,CommandKind.Submit);

@@ -97,7 +97,8 @@ namespace DiceCraft
             ChallengeCard071("Normal","普通挑战",tutorial?"50":def.normalTarget,def.normalReward,x0,false);
             if(def.riskEnabled)ChallengeCard071("Risk","高压挑战",def.riskTarget,def.riskReward,1056,true);
             UiKit.Text(main,"PreviewBudgets",$"投掷 {Session.InitialRolls} 次 / 手     提交 {Session.InitialSubmissions} 次 / 关     容量 K {Session.EffectiveCapacity}",416,830,1380,58,26,UiKit.Muted);
-            UiKit.Text(main,"ControllerOrderWarning","入关后，控制器顺序固定。",416,890,1380,40,20,UiKit.Gold);
+            var doomed=ControllerRules.AltarPlan(ViewState.controllers).Select(p=>NameOf(ViewState.controllers.First(c=>c.instanceId==p.Value).definitionId)).ToArray();
+            UiKit.Text(main,"ControllerOrderWarning",doomed.Length>0?"入关后，控制器顺序固定。开始后祭坛将摧毁："+string.Join("、",doomed)+"（可先在上方拖动调序）":"入关后，控制器顺序固定。",416,890,1380,40,20,doomed.Length>0?UiKit.Danger:UiKit.Gold);
             UiKit.ActionButton(main,"StartStage","开始挑战 →",816,936,720,76,StartPreviewStage07,UiKit.Blue);
             BindStageCardsEntrance07();
         }

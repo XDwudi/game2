@@ -277,6 +277,120 @@ namespace DiceCraft.Tests
             Assert.That(s.State.lastSubmission.breakdown.score, Is.EqualTo("3456"));
         }
 
+        // ---- added after the independent review (docs/tasks/P0-V09.md): real rolls, altar previews, mimic stacking,
+        // last-submission cards, replacement, the slot service with a discount, and a normal (non-debug) save.
+        private static bool Triggered(GameSession s, string definitionId)
+        {
+            string instance = s.State.lastSubmission.snapshot.equippedControllers.Single(c => c.definitionId == definitionId).instanceId;
+            return s.State.lastSubmission.breakdown.triggeredSourceIds.Contains(instance);
+        }
+
+        [Test] public void V09_RealRollsDecideC75C76C77()
+        {
+            var thrice = Ready("C75", "C76", "C77");
+            Do(thrice, CommandKind.Roll); Do(thrice, CommandKind.Roll); Do(thrice, CommandKind.Roll);
+            Lock(thrice, "D001"); Do(thrice, CommandKind.Submit);
+            var snapshot = thrice.State.lastSubmission.snapshot; var b = thrice.State.lastSubmission.breakdown;
+            Assert.That(snapshot.rollsUsed, Is.EqualTo(3)); Assert.That(snapshot.rollsRemaining, Is.Zero); Assert.That(snapshot.poolDice.Length, Is.EqualTo(4));
+            Assert.That(Triggered(thrice, "C75"), Is.False, "Three rolls: no x3."); Assert.That(Triggered(thrice, "C77"), Is.True, "No rolls left: x2.");
+            Assert.That(b.controllerBaseAdds.Single(a => a.abilityId == "C76").amount, Is.EqualTo("20"), "+10 for each roll after the first");
+
+            var once = Ready("C75", "C76", "C77");
+            Do(once, CommandKind.Roll); Lock(once, "D001"); Do(once, CommandKind.Submit);
+            Assert.That(once.State.lastSubmission.snapshot.rollsUsed, Is.EqualTo(1)); Assert.That(once.State.lastSubmission.snapshot.rollsRemaining, Is.EqualTo(2));
+            Assert.That(Triggered(once, "C75"), Is.True); Assert.That(Triggered(once, "C76"), Is.False); Assert.That(Triggered(once, "C77"), Is.False);
+        }
+
+        [Test] public void V09_StagePreviewQuotesBudgetsForTheControllersThatSurviveTheAltar()
+        {
+            // The altar will destroy C79 (+1 submission). C78 (+1 roll) and C21 (+1 capacity) are further right and survive.
+            var s = Edit(New(), x => Equip(x, "C100", "C79", "C78", "C21"));
+            Assert.That(ControllerRules.AltarPlan(s.State.controllers).Select(p => s.State.controllers.First(c => c.instanceId == p.Value).definitionId), Is.EqualTo(new[] { "C79" }));
+            Assert.That(s.InitialSubmissions, Is.EqualTo(3)); Assert.That(s.InitialRolls, Is.EqualTo(4)); Assert.That(s.EffectiveCapacity, Is.EqualTo(6));
+            Do(s, CommandKind.StartStage);
+            Assert.That(s.State.stage.remainingSubmissions, Is.EqualTo(3)); Assert.That(s.State.hand.rollsRemaining, Is.EqualTo(4)); Assert.That(s.State.stage.capacity, Is.EqualTo(6));
+
+            // Dragging the budget card out of the altar's reach changes the quote before the stage starts.
+            var moved = Edit(New(), x => Equip(x, "C100", "C79", "C78"));
+            var order = moved.State.controllers.Select(c => c.instanceId).ToArray();
+            Do(moved, CommandKind.ReorderControllers, c => c.controllerIds = new[] { order[1], order[2], order[0] });
+            Assert.That(ControllerRules.AltarPlan(moved.State.controllers), Is.Empty); Assert.That(moved.InitialSubmissions, Is.EqualTo(4));
+            Assert.That(moved.State.stage.remainingSubmissions, Is.EqualTo(4));
+        }
+
+        [Test] public void V09_MimicIsASecondSourceOfStageIncomeAndOfTheInterestCap()
+        {
+            var income = Selecting(Fours, Reds, new[] { "C41", "C95", "C96" });
+            income = Edit(income, x => x.gold = 60); Do(income, CommandKind.Submit); Do(income, CommandKind.EndStage);
+            var r = income.State.lastStageSettlement;
+            Assert.That(r.controllerIncome, Is.EqualTo(6), "C95 and its mimic"); Assert.That(r.interestPrincipalCap, Is.EqualTo(50)); Assert.That(r.interest, Is.EqualTo(10));
+
+            var cap = Selecting(Fours, Reds, new[] { "C41", "C96" });
+            cap = Edit(cap, x => x.gold = 200); Do(cap, CommandKind.Submit); Do(cap, CommandKind.EndStage);
+            Assert.That(cap.State.lastStageSettlement.interestPrincipalCap, Is.EqualTo(75)); Assert.That(cap.State.lastStageSettlement.interest, Is.EqualTo(15));
+        }
+
+        [Test] public void V09_C68AndC102OnlyActOnTheLastSubmissionOfTheStage()
+        {
+            var s = Selecting(Fours, Reds, new[] { "C102", "C68" });
+            Do(s, CommandKind.Submit); Assert.That(s.State.lastSubmission.breakdown.score, Is.EqualTo("2400")); Assert.That(Triggered(s, "C102"), Is.False);
+            s = Force(s, Fours, "red"); Do(s, CommandKind.Submit); Assert.That(s.State.lastSubmission.breakdown.score, Is.EqualTo("2400"));
+            s = Force(s, Fours, "red"); Do(s, CommandKind.Submit);
+            // Last chance: every die counts twice (base 40), and C102 multiplies by 3: 40 x 12 x 2 x 5 x 3.
+            Assert.That(s.State.lastSubmission.snapshot.submissionsRemainingBefore, Is.EqualTo(1));
+            Assert.That(s.State.lastSubmission.breakdown.pipRetriggers, Is.EqualTo(new[] { 1, 1, 1, 1, 1 }));
+            Assert.That(s.State.lastSubmission.breakdown.score, Is.EqualTo("14400"));
+        }
+
+        [Test] public void V09_ReplacingAGrownCardTradesInItsBonusAndStartsFromZero()
+        {
+            string offer = null;
+            var s = Edit(Shop(), x => { x.gold = 100; Equip(x, "C55"); x.controllers[0].state.growth = 40; x.controllers[0].state.saleBonus = 3; offer = Enchanted(x, "C55", "base10"); });
+            var quoted = s.State.shop.offers.Single(o => o.offerId == offer);
+            // List 4 + base10 premium 2 = 6; the old card trades in at half of 4 plus its sale bonus of 3.
+            Assert.That(s.GetOfferPrice(quoted), Is.EqualTo(6)); Assert.That(s.GetOfferTradeIn(quoted), Is.EqualTo(5)); Assert.That(s.GetOfferNetPrice(quoted), Is.EqualTo(1));
+            Do(s, CommandKind.Buy, c => c.offerId = offer);
+            var card = s.State.controllers.Single();
+            Assert.That(card.enchantmentId, Is.EqualTo("base10")); Assert.That(card.state.growth, Is.Zero); Assert.That(card.state.saleBonus, Is.Zero); Assert.That(s.State.gold, Is.EqualTo(99));
+        }
+
+        [Test] public void V09_SlotServiceTakesTheItemDiscountAndIsNeverOfferedAtSevenSlots()
+        {
+            string offer = null;
+            var s = Edit(Shop(), x => { x.gold = 100; x.itemDiscount = 2; offer = PutOffer(x, "service", "O08"); });
+            Assert.That(s.GetOfferPrice(s.State.shop.offers.Single(o => o.offerId == offer)), Is.EqualTo(6));
+            Do(s, CommandKind.Buy, c => c.offerId = offer);
+            s = Edit(s, x => offer = PutOffer(x, "service", "O08"));
+            Assert.That(s.GetOfferPrice(s.State.shop.offers.Single(o => o.offerId == offer)), Is.EqualTo(12));
+
+            int offeredAtFive = 0;
+            for (uint seed = 1; seed <= 40; seed++)
+                foreach (int slots in new[] { 5, 7 })
+                {
+                    var stage = Selecting(Fours, Reds); Do(stage, CommandKind.Submit); Do(stage, CommandKind.EndStage);
+                    stage = Edit(stage, x => { x.controllerSlots = slots; x.controllerSlotPurchases = slots - 5; x.shopRngState = new GameRng(seed).State; });
+                    Do(stage, CommandKind.Continue);
+                    var services = stage.State.shop.offers.Where(o => o.category == "service").Select(o => o.contentId).ToArray();
+                    Assert.That(services.Length, Is.EqualTo(2)); Assert.That(services.Distinct().Count(), Is.EqualTo(2));
+                    if (slots == 7) Assert.That(services, Has.None.EqualTo("O08"), "seed " + seed);
+                    else if (services.Contains("O08")) offeredAtFive++;
+                }
+            Assert.That(offeredAtFive, Is.GreaterThan(0), "The slot service does appear while slots can still be bought.");
+        }
+
+        [Test] public void V09_ANormalSaveEnforcesItsOwnSlotCountAndUniqueControllers()
+        {
+            Func<Action<RunState>, RunState> normal = edit => { var state = New().State; edit(state); return state; };
+            Assert.That(new GameSession(cfg, new MemorySaveStore(), normal(x => Equip(x, "C01", "C02", "C03", "C06", "C08"))).State.controllers.Count, Is.EqualTo(5));
+            // Equip raises controllerSlots to the count it is given; a normal save must then also record the purchase.
+            Assert.That(() => new GameSession(cfg, new MemorySaveStore(), normal(x => Equip(x, "C01", "C02", "C03", "C06", "C08", "C13"))), Throws.Exception);
+            Assert.That(new GameSession(cfg, new MemorySaveStore(), normal(x => { Equip(x, "C01", "C02", "C03", "C06", "C08", "C13"); x.controllerSlotPurchases = 1; })).State.controllerSlots, Is.EqualTo(6));
+            Assert.That(() => new GameSession(cfg, new MemorySaveStore(), normal(x => { Equip(x, "C01", "C02", "C03", "C06", "C08", "C13"); x.controllerSlots = 5; })), Throws.Exception, "Six ordinary cards do not fit five slots.");
+            Assert.That(() => new GameSession(cfg, new MemorySaveStore(), normal(x => Equip(x, "C55", "C55"))), Throws.Exception, "Duplicates are a debug-only construction.");
+            var full = normal(x => { Equip(x, "C01", "C02", "C03", "C06", "C08", "C13", "C14"); x.controllerSlotPurchases = 2; foreach (string id in new[] { "C17", "C19", "C20" }) { int serial = x.nextItemSerial++; x.controllers.Add(new ControllerInstance { definitionId = id, enchantmentId = "slotless", acquiredSerial = serial, instanceId = "ITEM_" + serial.ToString("D5") }); } });
+            Assert.That(new GameSession(cfg, new MemorySaveStore(), full).State.controllers.Count, Is.EqualTo(10), "Seven slots plus three slotless cards is the legal maximum.");
+        }
+
         [Test] public void V09_GrowthBelongsOnlyToGrowthCardsAndNeverToShopOffers()
         {
             var state = Edit(New(), x => Equip(x, "C13")).State; state.isDebug = false; state.debugWorkspace = false;

@@ -37,6 +37,8 @@ namespace DiceCraft.Core
         // -1 means use the freshly prepared default. Zero is an explicit experimental budget.
         public int remainingSubmissions = -1, rollsRemaining = -1, submissionOrdinal, stageRollBonus;
         public bool redWave, largeBuff, smallBuff;
+        // v0.9: rolls already thrown this hand (0 = derive from the results), C97 triggers used this stage, bought slots.
+        public int rollsUsed, warIncomeCount, controllerSlotPurchases;
         public List<DieInstance> dice = new List<DieInstance>();
         public List<ControllerInstance> controllers = new List<ControllerInstance>();
         public List<OwnedItem> inventory = new List<OwnedItem>();
@@ -63,6 +65,7 @@ namespace DiceCraft.Core
                 dice = s.dice.Select(x => x.Clone()).ToList(), controllers = s.controllers.Select(x => x.Clone()).ToList(),
                 inventory = s.inventory.Select(x => x.Clone()).ToList(), handLevels = s.handLevels.Select(x => x.Clone()).ToList(), colorLevels = s.colorLevels.Select(x => x.Clone()).ToList(),
                 rollsRemaining = s.hand == null ? -1 : s.hand.rollsRemaining,
+                rollsUsed = s.hand == null ? 0 : s.hand.rollsUsed, warIncomeCount = s.stage.warIncomeCount, controllerSlotPurchases = s.controllerSlotPurchases,
                 redWave = s.hand != null && s.hand.redWave, largeBuff = s.hand != null && s.hand.largeBuff, smallBuff = s.hand != null && s.hand.smallBuff,
                 currentResults = s.hand == null ? null : s.hand.currentResults.Select(x => x.Clone()).ToList(),
                 orderedLockedIds = s.hand == null ? new List<string>() : new List<string>(s.hand.orderedLockedIds),

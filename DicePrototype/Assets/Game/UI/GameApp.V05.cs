@@ -163,7 +163,7 @@ namespace DiceCraft
             }
             Art07DetailSection(list,"Current","当前实例与目标",string.IsNullOrEmpty(current)?"当前 Run 生效；按技能条件判定。":current,ref y,672,true);
             if(item.definitionId=="C41"||item.definitionId=="C52")
-                Art07DetailSection(list,"Fund","本实例基金","基础卖价 "+(Session.GetControllerSalePrice(item.instanceId)-item.state.fundAccrual)+"（标价的一半） + 基金累计 "+item.state.fundAccrual+" = 当前卖价 "+Session.GetControllerSalePrice(item.instanceId)+"。未出售时不进入钱包。",ref y,672,true);
+                Art07DetailSection(list,"Fund","本实例基金","基础卖价 "+(Session.GetControllerSalePrice(item.instanceId)-item.state.fundAccrual-item.state.saleBonus)+"（标价的一半） + 基金累计 "+item.state.fundAccrual+(item.state.saleBonus>0?" + 聚宝盆 "+item.state.saleBonus:"")+" = 当前卖价 "+Session.GetControllerSalePrice(item.instanceId)+"。未出售时不进入钱包。",ref y,672,true);
             var preview=Session.PreviewScoreRange();
             string trigger=preview==null?"锁定骰子后可查看当前提交条件。":preview.isRandom?"存在尚未抽取的随机结果；这里不预告下次结果。":preview.minimum.triggeredSourceIds.Contains(item.instanceId)?"当前提交：条件命中。实际增益以分项为准。":"当前提交：条件未满足。卡片仍然有效。";
             Art07DetailSection(list,"Trigger","当前触发",trigger,ref y,672,true);

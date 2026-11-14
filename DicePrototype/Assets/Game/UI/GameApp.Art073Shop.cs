@@ -230,7 +230,9 @@ namespace DiceCraft
             if(upgrades.Length==0)UiKit.Text(faces,"NoUpgrades","本店暂无改造",12,160,368,60,20,UiKit.Muted,TextAlignmentOptions.Center);
 
             var service=Section073(root,"ServiceSection","商店服务","ServiceTitle",1332,0,196,h,SectionViolet073);
-            ProductShelf073(service,"ServiceShelf",services,12,52,172,356,1);
+            // p0.9.0: every shop offers two services; at the normal text size both stay visible as two compact cards.
+            if(services.Length==2&&UiKit.FontScale<=1){for(int i=0;i<2;i++)ServiceCard09(service,services[i],12,52+i*182,172,174);}
+            else ProductShelf073(service,"ServiceShelf",services,12,52,172,356,1);
             if(services.Length==0)UiKit.Text(service,"NoServices","暂无服务",12,160,172,60,20,UiKit.Muted,TextAlignmentOptions.Center);
         }
         /// <summary>One row of cards; more goods than one row scroll inside the section instead of leaving it.</summary>
@@ -291,13 +293,35 @@ namespace DiceCraft
             if(offer.sold)SoldVeil073(p,w,h);
         }
 
+        /// <summary>Half-height service card: name, small picture and one-line summary, then price and buy on one row.</summary>
+        private void ServiceCard09(Transform parent,ShopOffer offer,float x,float y,float w,float h)
+        {
+            var p=UiKit.PaperFrame(parent,"Product_"+offer.offerId,x,y,w,h,UiKit.Paper);ShopCardSurface073(p.GetComponent<Image>());
+            var name=UiKit.Text(p,"Name",NameOf(offer.contentId),8,2,w-16,32,19,UiKit.Ink,TextAlignmentOptions.Center);
+            name.fontStyle=FontStyles.Bold;name.textWrappingMode=TextWrappingModes.NoWrap;name.overflowMode=TextOverflowModes.Ellipsis;
+            Icon(p,offer.contentId,8,36,52);
+            string text=Description(offer.contentId);int stop=text.IndexOf('。');if(stop>=0)text=text.Substring(0,stop);
+            var summary=UiKit.Text(p,"Summary",text,64,34,w-72,52,13,UiKit.Ink,TextAlignmentOptions.TopLeft);
+            summary.overflowMode=TextOverflowModes.Ellipsis;summary.lineSpacing=-10;
+            string availability=offer.sold?"":Art07Availability07(offer);
+            UiKit.Text(p,"Availability",availability,6,84,w-12,16,12,UiKit.Danger,TextAlignmentOptions.Center);
+            long cost=Session.GetOfferNetPrice(offer);
+            var inspect=HitArea073(p,"Inspect",0,0,w-6,98,()=>{if(!IsBusy)InspectOffer(offer);});
+            Art07AttachTooltip(inspect,offer.offerId,NameOf(offer.contentId),Description(offer.contentId),string.IsNullOrEmpty(availability)?"价格 "+PriceText073(cost)+" 金币":availability,()=>InspectOffer(offer));
+            PriceChip073(p,"PriceChip",PriceText073(cost),6,112,72,36,offer.sold);
+            BuyButton073(p,offer,82,100,w-96,62);
+            if(offer.sold)SoldVeil073(p,w,h);
+        }
+
         // ---------------------------------------------------------------- what the player owns
         private void ShopOwnedControllers073()
         {
             controllerRects.Clear();
             string capacity=ViewState.debugWorkspace?"调试配置 · 持有 "+ViewState.controllers.Count+"\n普通占槽 "+ControllerRules.OrdinaryUsed(ViewState.controllers):"普通槽 "+ControllerRules.OrdinaryUsed(ViewState.controllers)+"/"+ViewState.controllerSlots+" · 总数 "+ViewState.controllers.Count+"/"+Config.maxControllerInstances;
             UiKit.Text(main,"ControllerCapacity07",capacity,40,540,288,48,17,UiKit.Paper);
-            UiKit.Text(main,"OwnedControllersTitle","已装备 · 拖拽排序",40,590,288,34,19,UiKit.Muted);
+            // p0.9.0 C100: the card to the right of an altar is destroyed when the next stage starts; say so before it happens.
+            var doomed=AltarVictims09();
+            UiKit.Text(main,"OwnedControllersTitle",doomed.Count>0?"红框的卡将被祭坛摧毁 · 可拖拽调序":"已装备 · 拖拽排序",40,590,288,34,doomed.Count>0?17:19,doomed.Count>0?UiKit.Danger:UiKit.Muted);
             const float rowHeight=92;
             var list=UiKit.Scroll(main,"ShopOwnedControllers",40,628,288,328,Math.Max(328,((ViewState.controllers.Count+1)/2)*rowHeight));
             for(int i=0;i<ViewState.controllers.Count;i++)
@@ -311,6 +335,7 @@ namespace DiceCraft
                 var name=UiKit.Text(button.transform,"Name",NameOf(item.definitionId),36,36,86,34,13,UiKit.Ink,TextAlignmentOptions.Center);
                 name.textWrappingMode=TextWrappingModes.NoWrap;name.overflowMode=TextOverflowModes.Ellipsis;
                 EnchantBadge(button.transform,item.enchantmentId,98,2,28);
+                if(doomed.Contains(item.instanceId)){UiKit.Outline(button.transform,"AltarVictim09",1,1,132,rowHeight-10,UiKit.Danger,2);name.color=UiKit.Danger;}
                 AttachControllerDrag(button,item);
                 Art07AttachTooltip(button,item.instanceId,NameOf(item.definitionId),Description(item.definitionId),ControllerStateLabel(item),()=>ShowController(item,true));
             }

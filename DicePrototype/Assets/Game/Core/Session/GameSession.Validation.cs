@@ -54,7 +54,7 @@ namespace DiceCraft.Core
             Check(string.IsNullOrEmpty(s.previousPrimaryHandId) || s.previousPrimaryHandId == "scatter" || cfg.handDefinitions.Any(h => h.id == s.previousPrimaryHandId), "上一主牌型无效。");
             Check(s.stage != null && s.stage.stageIndex >= 0 && s.stage.stageIndex < cfg.stages.Length && s.stage.stageId == cfg.stages[s.stage.stageIndex].stageId, "关卡身份无效。");
             Check(ExactScoreMath.Parse(s.stage.target) > 0 && ExactScoreMath.Parse(s.stage.score) >= 0 && s.stage.remainingSubmissions >= 0
-                && s.stage.submissionOrdinal >= 0 && s.stage.stageRollBonus >= 0 && s.stage.warIncomeCount >= 0 && s.stage.warIncomeCount <= cfg.Controller("C97").parameters.maxTriggersPerStage && s.stage.capacity >= 1 && s.stage.capacity <= (s.isDebug ? cfg.debug.maxSubmitCapacity : cfg.maxSubmitCapacity), "关卡数值无效。");
+                && s.stage.submissionOrdinal >= 0 && s.stage.stageRollBonus >= 0 && s.stage.warIncomeCount >= 0 && s.stage.warIncomeCount <= cfg.Controller("C97").parameters.maxTriggersPerStage && (s.isDebug || s.stage.warIncomeCount <= s.stage.submissionOrdinal) && s.stage.capacity >= 1 && s.stage.capacity <= (s.isDebug ? cfg.debug.maxSubmitCapacity : cfg.maxSubmitCapacity), "关卡数值无效。");
             Check(s.stage.qualified == (ExactScoreMath.Compare(s.stage.score, s.stage.target) >= 0), "达标标记与累计分不一致。");
             Check(!s.stage.settled || (s.stage.qualified && s.stage.settlementId == s.runId + "/" + s.stage.stageId), "关卡结算身份无效。");
             var stageDef = cfg.stages[s.stage.stageIndex];
@@ -132,7 +132,7 @@ namespace DiceCraft.Core
         {
             Check(s.stage.started && !s.stage.settled && (s.isDebug || s.stage.remainingSubmissions > 0) && s.dice.Count > 0, "活动关卡无效。");
             Check(s.hand != null && s.hand.orderedLockedIds != null && s.hand.currentResults != null && s.hand.c05UsedEmitterIds != null && s.hand.rollBonusSourceIds != null, "手牌状态缺失。");
-            Check(s.hand.rollsRemaining >= 0 && s.hand.rollsUsed >= 0 && !string.IsNullOrEmpty(s.hand.handId), "投掷预算无效。");
+            Check(s.hand.rollsRemaining >= 0 && s.hand.rollsUsed >= 0 && s.hand.hasRolled == (s.hand.rollsUsed > 0) && !string.IsNullOrEmpty(s.hand.handId), "投掷预算无效。");
             Check(s.hand.currentResults.Count == s.dice.Count && s.hand.currentResults.All(r => r != null && s.dice.Any(d => d.dieId == r.dieId))
                 && s.hand.currentResults.Select(x => x.dieId).Distinct().Count() == s.dice.Count, "当前骰结果身份不匹配。");
             Check(s.hand.orderedLockedIds.Count <= s.stage.capacity && s.hand.orderedLockedIds.Distinct().Count() == s.hand.orderedLockedIds.Count

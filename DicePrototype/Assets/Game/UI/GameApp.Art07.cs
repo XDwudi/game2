@@ -193,6 +193,7 @@ namespace DiceCraft
         private string CardState07(ControllerInstance item)
         {
             var source=ViewSources.FirstOrDefault(s=>s.emitterId==item.instanceId);
+            if(AltarVictims09().Contains(item.instanceId))return "将被祭坛摧毁";
             if(item.definitionId=="C41")return source?.abilityId==null?"右邻失效":"→ "+NameOf(source.abilityId);
             if(source?.abilityId=="C45")return source.state.activeColor=="red"?"当前红":"当前蓝";
             if(source?.abilityId=="C51")return "当前 ×"+(source.state.turnoverUnits2/2m).ToString("0.#");

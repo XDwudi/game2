@@ -150,7 +150,7 @@ namespace DiceCraft.Tests
         [Test] public void V08_StageCurveStartsAt300EndsAt1500000AndGrowsBetween1Point3And2EveryStage()
         {
             Assert.That(cfg.stages.Length, Is.EqualTo(24));
-            Assert.That(cfg.stages[0].normalTarget, Is.EqualTo("300")); Assert.That(cfg.stages[10].normalTarget, Is.EqualTo("24000"), "stages 1-11 keep their p0.8.0 targets"); Assert.That(cfg.stages[23].normalTarget, Is.EqualTo("4000000"), "p0.9.0 raises stages 12-24");
+            Assert.That(cfg.stages[0].normalTarget, Is.EqualTo("300")); Assert.That(cfg.stages[10].normalTarget, Is.EqualTo("24000"), "stages 1-11 keep their p0.8.0 targets"); Assert.That(cfg.stages[23].normalTarget, Is.EqualTo("15000000"), "p0.9.0 raises stages 12-24");
             BigInteger previous = 0; int risky = 0;
             foreach (var stage in cfg.stages)
             {

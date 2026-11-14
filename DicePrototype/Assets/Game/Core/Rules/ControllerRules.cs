@@ -51,6 +51,27 @@ namespace DiceCraft.Core
         public static bool IsGrowthMultiplier(string id) => GrowthMultipliers.Contains(id);
         public static bool IsGrowthBase(string id) => GrowthBases.Contains(id);
         public static bool HasGrowth(string id) => GrowthMultipliers.Contains(id) || GrowthBases.Contains(id);
+        /// <summary>
+        /// v0.9 C100: which controllers the altars destroy when the next stage starts, as (altar, victim) pairs in the
+        /// order they happen. Each real altar, left to right, destroys its immediate right neighbour; a destroyed altar
+        /// does not act. Pure: StartStage applies exactly this plan and the interface shows it beforehand.
+        /// </summary>
+        public static KeyValuePair<string, string>[] AltarPlan(IEnumerable<ControllerInstance> instances)
+        {
+            var order = instances.Where(c => c != null && c.alive).ToList(); var plan = new List<KeyValuePair<string, string>>();
+            for (int i = 0; i + 1 < order.Count; i++)
+            {
+                if (order[i].definitionId != "C100") continue;
+                plan.Add(new KeyValuePair<string, string>(order[i].instanceId, order[i + 1].instanceId)); order.RemoveAt(i + 1);
+            }
+            return plan.ToArray();
+        }
+        /// <summary>The controllers that will still exist once the next stage has started.</summary>
+        public static ControllerInstance[] AfterAltars(IEnumerable<ControllerInstance> instances)
+        {
+            var all = instances.ToArray(); var victims = new HashSet<string>(AltarPlan(all).Select(p => p.Value), StringComparer.Ordinal);
+            return all.Where(c => !victims.Contains(c.instanceId)).ToArray();
+        }
         public static bool Has(IEnumerable<ControllerInstance> instances, string id) => instances.Any(c => c.alive && c.definitionId == id);
         public static int Capacity(IEnumerable<ControllerInstance> instances, GameConfig cfg, bool debug = false, MimicBinding[] bindings = null)
         {

@@ -1,0 +1,828 @@
+{
+  "config": "p0.9.0",
+  "cases": 300000,
+  "mismatches": 0,
+  "maxRelativeError": 5.304388535297446E-16,
+  "features": {
+    "enchant base10 or mult2 counted": 147740,
+    "exactly one roll used": 50099,
+    "growth > 0 on a growth card": 91631,
+    "hand multiplier add > 0": 5624,
+    "last submission of the stage": 74891,
+    "mimic (C41) copying a growth card": 5746,
+    "mimic (C41) copying an ability": 52733,
+    "no rolls left": 75010,
+    "pool dice > 0": 171780,
+    "pool red merged into red group (C73)": 4338,
+    "retriggers > 0": 40288,
+    "submitted die: glass": 114445,
+    "submitted die: gold face up": 114356,
+    "submitted die: mono-colour": 125835,
+    "submitted die: mono-pip": 102001,
+    "submitted die: textured face up": 188670,
+    "v0.9 controller base add > 0": 54478
+  },
+  "controllers": [
+    {
+      "id": "C01",
+      "name": "存钱罐",
+      "scoring": true,
+      "isNew": false,
+      "present": 13617,
+      "triggered": 13617
+    },
+    {
+      "id": "C02",
+      "name": "蓝色疯狂",
+      "scoring": true,
+      "isNew": false,
+      "present": 13726,
+      "triggered": 3271
+    },
+    {
+      "id": "C03",
+      "name": "首当其冲",
+      "scoring": true,
+      "isNew": false,
+      "present": 13690,
+      "triggered": 13690
+    },
+    {
+      "id": "C05",
+      "name": "再来三次",
+      "scoring": false,
+      "isNew": false,
+      "present": 13636,
+      "triggered": 0
+    },
+    {
+      "id": "C06",
+      "name": "数字多多",
+      "scoring": true,
+      "isNew": false,
+      "present": 13602,
+      "triggered": 3352
+    },
+    {
+      "id": "C07",
+      "name": "骰子复制",
+      "scoring": true,
+      "isNew": false,
+      "present": 13549,
+      "triggered": 811
+    },
+    {
+      "id": "C08",
+      "name": "少数派",
+      "scoring": true,
+      "isNew": false,
+      "present": 13752,
+      "triggered": 11085
+    },
+    {
+      "id": "C09",
+      "name": "简化提交",
+      "scoring": true,
+      "isNew": false,
+      "present": 13577,
+      "triggered": 13577
+    },
+    {
+      "id": "C10",
+      "name": "少就是多",
+      "scoring": true,
+      "isNew": false,
+      "present": 13540,
+      "triggered": 5565
+    },
+    {
+      "id": "C11",
+      "name": "2233",
+      "scoring": true,
+      "isNew": false,
+      "present": 13679,
+      "triggered": 77
+    },
+    {
+      "id": "C12",
+      "name": "不要奇数",
+      "scoring": true,
+      "isNew": false,
+      "present": 14095,
+      "triggered": 10113
+    },
+    {
+      "id": "C13",
+      "name": "就要奇数",
+      "scoring": true,
+      "isNew": false,
+      "present": 13708,
+      "triggered": 9239
+    },
+    {
+      "id": "C14",
+      "name": "只要奇数",
+      "scoring": true,
+      "isNew": false,
+      "present": 13499,
+      "triggered": 3588
+    },
+    {
+      "id": "C15",
+      "name": "红色扩散",
+      "scoring": true,
+      "isNew": false,
+      "present": 13625,
+      "triggered": 1099
+    },
+    {
+      "id": "C17",
+      "name": "小鬼当家",
+      "scoring": true,
+      "isNew": false,
+      "present": 13753,
+      "triggered": 10938
+    },
+    {
+      "id": "C18",
+      "name": "红蓝相当",
+      "scoring": true,
+      "isNew": false,
+      "present": 13733,
+      "triggered": 2025
+    },
+    {
+      "id": "C19",
+      "name": "小头大用",
+      "scoring": true,
+      "isNew": false,
+      "present": 13717,
+      "triggered": 6870
+    },
+    {
+      "id": "C20",
+      "name": "66大顺",
+      "scoring": true,
+      "isNew": false,
+      "present": 13606,
+      "triggered": 327
+    },
+    {
+      "id": "C21",
+      "name": "增加提交",
+      "scoring": false,
+      "isNew": false,
+      "present": 13793,
+      "triggered": 0
+    },
+    {
+      "id": "C22",
+      "name": "大量提交",
+      "scoring": false,
+      "isNew": false,
+      "present": 13555,
+      "triggered": 0
+    },
+    {
+      "id": "C24",
+      "name": "我是状元",
+      "scoring": true,
+      "isNew": false,
+      "present": 13998,
+      "triggered": 3517
+    },
+    {
+      "id": "C25",
+      "name": "红运当头",
+      "scoring": true,
+      "isNew": false,
+      "present": 13676,
+      "triggered": 10360
+    },
+    {
+      "id": "C26",
+      "name": "红色主义",
+      "scoring": true,
+      "isNew": false,
+      "present": 13572,
+      "triggered": 5172
+    },
+    {
+      "id": "C27",
+      "name": "对穿肠",
+      "scoring": true,
+      "isNew": false,
+      "present": 13687,
+      "triggered": 4576
+    },
+    {
+      "id": "C28",
+      "name": "对对穿肠",
+      "scoring": true,
+      "isNew": false,
+      "present": 13584,
+      "triggered": 742
+    },
+    {
+      "id": "C29",
+      "name": "简单顺子",
+      "scoring": true,
+      "isNew": false,
+      "present": 13643,
+      "triggered": 298
+    },
+    {
+      "id": "C30",
+      "name": "三条开泰",
+      "scoring": true,
+      "isNew": false,
+      "present": 13695,
+      "triggered": 995
+    },
+    {
+      "id": "C31",
+      "name": "四平八稳",
+      "scoring": true,
+      "isNew": false,
+      "present": 13870,
+      "triggered": 195
+    },
+    {
+      "id": "C32",
+      "name": "天地大同",
+      "scoring": true,
+      "isNew": false,
+      "present": 13664,
+      "triggered": 6195
+    },
+    {
+      "id": "C33",
+      "name": "大数开路",
+      "scoring": true,
+      "isNew": false,
+      "present": 13691,
+      "triggered": 1274
+    },
+    {
+      "id": "C34",
+      "name": "大数致胜",
+      "scoring": false,
+      "isNew": false,
+      "present": 13627,
+      "triggered": 0
+    },
+    {
+      "id": "C35",
+      "name": "小数出奇",
+      "scoring": false,
+      "isNew": false,
+      "present": 13436,
+      "triggered": 0
+    },
+    {
+      "id": "C36",
+      "name": "不断成长",
+      "scoring": true,
+      "isNew": false,
+      "present": 13608,
+      "triggered": 6571
+    },
+    {
+      "id": "C37",
+      "name": "缩小射线",
+      "scoring": true,
+      "isNew": false,
+      "present": 13877,
+      "triggered": 6726
+    },
+    {
+      "id": "C38",
+      "name": "蓝色扩散",
+      "scoring": true,
+      "isNew": false,
+      "present": 13557,
+      "triggered": 13557
+    },
+    {
+      "id": "C39",
+      "name": "蓝色价值",
+      "scoring": true,
+      "isNew": false,
+      "present": 13567,
+      "triggered": 8505
+    },
+    {
+      "id": "C40",
+      "name": "不断增加",
+      "scoring": true,
+      "isNew": false,
+      "present": 13802,
+      "triggered": 210
+    },
+    {
+      "id": "C41",
+      "name": "百变模仿",
+      "scoring": false,
+      "isNew": false,
+      "present": 0,
+      "triggered": 0
+    },
+    {
+      "id": "C42",
+      "name": "玻璃大炮",
+      "scoring": true,
+      "isNew": false,
+      "present": 13636,
+      "triggered": 13636
+    },
+    {
+      "id": "C43",
+      "name": "牌型提升",
+      "scoring": true,
+      "isNew": false,
+      "present": 13721,
+      "triggered": 302
+    },
+    {
+      "id": "C44",
+      "name": "有钱真好",
+      "scoring": true,
+      "isNew": false,
+      "present": 13675,
+      "triggered": 13431
+    },
+    {
+      "id": "C45",
+      "name": "飘忽不定",
+      "scoring": true,
+      "isNew": false,
+      "present": 13603,
+      "triggered": 13603
+    },
+    {
+      "id": "C46",
+      "name": "稳稳乘数",
+      "scoring": true,
+      "isNew": false,
+      "present": 13574,
+      "triggered": 13574
+    },
+    {
+      "id": "C47",
+      "name": "控制欲",
+      "scoring": true,
+      "isNew": false,
+      "present": 13487,
+      "triggered": 13487
+    },
+    {
+      "id": "C48",
+      "name": "有也不交",
+      "scoring": true,
+      "isNew": false,
+      "present": 13669,
+      "triggered": 11018
+    },
+    {
+      "id": "C49",
+      "name": "千年老二",
+      "scoring": true,
+      "isNew": false,
+      "present": 13590,
+      "triggered": 13590
+    },
+    {
+      "id": "C50",
+      "name": "稳稳分数",
+      "scoring": true,
+      "isNew": false,
+      "present": 13775,
+      "triggered": 13775
+    },
+    {
+      "id": "C51",
+      "name": "人员流动",
+      "scoring": true,
+      "isNew": false,
+      "present": 13647,
+      "triggered": 13647
+    },
+    {
+      "id": "C52",
+      "name": "成长基金",
+      "scoring": false,
+      "isNew": false,
+      "present": 13740,
+      "triggered": 0
+    },
+    {
+      "id": "C53",
+      "name": "错乱乘积",
+      "scoring": true,
+      "isNew": false,
+      "present": 13512,
+      "triggered": 13512
+    },
+    {
+      "id": "C54",
+      "name": "连庄",
+      "scoring": true,
+      "isNew": true,
+      "present": 13593,
+      "triggered": 13593
+    },
+    {
+      "id": "C55",
+      "name": "积少成多",
+      "scoring": true,
+      "isNew": true,
+      "present": 13519,
+      "triggered": 13519
+    },
+    {
+      "id": "C56",
+      "name": "深蓝",
+      "scoring": true,
+      "isNew": true,
+      "present": 13574,
+      "triggered": 13574
+    },
+    {
+      "id": "C57",
+      "name": "红火",
+      "scoring": true,
+      "isNew": true,
+      "present": 13861,
+      "triggered": 13861
+    },
+    {
+      "id": "C58",
+      "name": "老当益壮",
+      "scoring": true,
+      "isNew": true,
+      "present": 13711,
+      "triggered": 13711
+    },
+    {
+      "id": "C59",
+      "name": "余勇可贾",
+      "scoring": true,
+      "isNew": true,
+      "present": 13899,
+      "triggered": 13899
+    },
+    {
+      "id": "C60",
+      "name": "千锤百炼",
+      "scoring": true,
+      "isNew": true,
+      "present": 13556,
+      "triggered": 13556
+    },
+    {
+      "id": "C61",
+      "name": "学无止境",
+      "scoring": true,
+      "isNew": true,
+      "present": 13521,
+      "triggered": 13521
+    },
+    {
+      "id": "C62",
+      "name": "熟能生巧",
+      "scoring": true,
+      "isNew": true,
+      "present": 13381,
+      "triggered": 13381
+    },
+    {
+      "id": "C63",
+      "name": "收藏家",
+      "scoring": true,
+      "isNew": true,
+      "present": 13556,
+      "triggered": 13556
+    },
+    {
+      "id": "C64",
+      "name": "一马当先",
+      "scoring": true,
+      "isNew": true,
+      "present": 13601,
+      "triggered": 13601
+    },
+    {
+      "id": "C65",
+      "name": "压轴好戏",
+      "scoring": true,
+      "isNew": true,
+      "present": 13632,
+      "triggered": 2655
+    },
+    {
+      "id": "C66",
+      "name": "小小回声",
+      "scoring": true,
+      "isNew": true,
+      "present": 13656,
+      "triggered": 9669
+    },
+    {
+      "id": "C67",
+      "name": "掷地有声",
+      "scoring": true,
+      "isNew": true,
+      "present": 13723,
+      "triggered": 3554
+    },
+    {
+      "id": "C68",
+      "name": "谢幕",
+      "scoring": true,
+      "isNew": true,
+      "present": 13595,
+      "triggered": 3406
+    },
+    {
+      "id": "C69",
+      "name": "红色共鸣",
+      "scoring": true,
+      "isNew": true,
+      "present": 13469,
+      "triggered": 10208
+    },
+    {
+      "id": "C70",
+      "name": "板凳深度",
+      "scoring": true,
+      "isNew": true,
+      "present": 13547,
+      "triggered": 7828
+    },
+    {
+      "id": "C71",
+      "name": "幕后推手",
+      "scoring": true,
+      "isNew": true,
+      "present": 13716,
+      "triggered": 2060
+    },
+    {
+      "id": "C72",
+      "name": "厚积薄发",
+      "scoring": true,
+      "isNew": true,
+      "present": 13421,
+      "triggered": 7629
+    },
+    {
+      "id": "C73",
+      "name": "场外红人",
+      "scoring": true,
+      "isNew": true,
+      "present": 13775,
+      "triggered": 4338
+    },
+    {
+      "id": "C74",
+      "name": "空城计",
+      "scoring": true,
+      "isNew": true,
+      "present": 13483,
+      "triggered": 4738
+    },
+    {
+      "id": "C75",
+      "name": "一锤定音",
+      "scoring": true,
+      "isNew": true,
+      "present": 13708,
+      "triggered": 2245
+    },
+    {
+      "id": "C76",
+      "name": "越挫越勇",
+      "scoring": true,
+      "isNew": true,
+      "present": 13745,
+      "triggered": 11455
+    },
+    {
+      "id": "C77",
+      "name": "孤注一掷",
+      "scoring": true,
+      "isNew": true,
+      "present": 13667,
+      "triggered": 3493
+    },
+    {
+      "id": "C78",
+      "name": "再给一次",
+      "scoring": false,
+      "isNew": true,
+      "present": 13615,
+      "triggered": 0
+    },
+    {
+      "id": "C79",
+      "name": "多交一手",
+      "scoring": false,
+      "isNew": true,
+      "present": 13643,
+      "triggered": 0
+    },
+    {
+      "id": "C80",
+      "name": "天生一对",
+      "scoring": true,
+      "isNew": true,
+      "present": 13592,
+      "triggered": 3088
+    },
+    {
+      "id": "C81",
+      "name": "散兵游勇",
+      "scoring": true,
+      "isNew": true,
+      "present": 13723,
+      "triggered": 9086
+    },
+    {
+      "id": "C82",
+      "name": "满堂彩",
+      "scoring": true,
+      "isNew": true,
+      "present": 13667,
+      "triggered": 219
+    },
+    {
+      "id": "C83",
+      "name": "顺水推舟",
+      "scoring": true,
+      "isNew": true,
+      "present": 13572,
+      "triggered": 63
+    },
+    {
+      "id": "C84",
+      "name": "成双成对",
+      "scoring": true,
+      "isNew": true,
+      "present": 13598,
+      "triggered": 4642
+    },
+    {
+      "id": "C85",
+      "name": "三足鼎立",
+      "scoring": true,
+      "isNew": true,
+      "present": 13560,
+      "triggered": 1030
+    },
+    {
+      "id": "C86",
+      "name": "三三得九",
+      "scoring": true,
+      "isNew": true,
+      "present": 13609,
+      "triggered": 49
+    },
+    {
+      "id": "C87",
+      "name": "得寸进尺",
+      "scoring": true,
+      "isNew": true,
+      "present": 13510,
+      "triggered": 184
+    },
+    {
+      "id": "C88",
+      "name": "杂牌军",
+      "scoring": true,
+      "isNew": true,
+      "present": 13797,
+      "triggered": 433
+    },
+    {
+      "id": "C89",
+      "name": "金玉满堂",
+      "scoring": true,
+      "isNew": true,
+      "present": 13604,
+      "triggered": 5185
+    },
+    {
+      "id": "C90",
+      "name": "玻璃心",
+      "scoring": true,
+      "isNew": true,
+      "present": 13782,
+      "triggered": 13782
+    },
+    {
+      "id": "C91",
+      "name": "纹理大师",
+      "scoring": true,
+      "isNew": true,
+      "present": 13591,
+      "triggered": 8526
+    },
+    {
+      "id": "C92",
+      "name": "纯色主义",
+      "scoring": true,
+      "isNew": true,
+      "present": 13564,
+      "triggered": 5651
+    },
+    {
+      "id": "C93",
+      "name": "始终如一",
+      "scoring": true,
+      "isNew": true,
+      "present": 13641,
+      "triggered": 4644
+    },
+    {
+      "id": "C94",
+      "name": "表里如一",
+      "scoring": true,
+      "isNew": true,
+      "present": 13832,
+      "triggered": 13832
+    },
+    {
+      "id": "C95",
+      "name": "铁饭碗",
+      "scoring": false,
+      "isNew": true,
+      "present": 13556,
+      "triggered": 0
+    },
+    {
+      "id": "C96",
+      "name": "利滚利",
+      "scoring": false,
+      "isNew": true,
+      "present": 13642,
+      "triggered": 0
+    },
+    {
+      "id": "C97",
+      "name": "以战养战",
+      "scoring": false,
+      "isNew": true,
+      "present": 13557,
+      "triggered": 0
+    },
+    {
+      "id": "C98",
+      "name": "砍价高手",
+      "scoring": false,
+      "isNew": true,
+      "present": 13540,
+      "triggered": 0
+    },
+    {
+      "id": "C99",
+      "name": "聚宝盆",
+      "scoring": false,
+      "isNew": true,
+      "present": 13702,
+      "triggered": 0
+    },
+    {
+      "id": "C100",
+      "name": "祭坛",
+      "scoring": true,
+      "isNew": true,
+      "present": 13653,
+      "triggered": 13653
+    },
+    {
+      "id": "C101",
+      "name": "双刃剑",
+      "scoring": true,
+      "isNew": true,
+      "present": 13621,
+      "triggered": 13621
+    },
+    {
+      "id": "C102",
+      "name": "背水一战",
+      "scoring": true,
+      "isNew": true,
+      "present": 13597,
+      "triggered": 3314
+    },
+    {
+      "id": "C103",
+      "name": "精兵简政",
+      "scoring": true,
+      "isNew": true,
+      "present": 13483,
+      "triggered": 7495
+    }
+  ],
+  "coverageGaps": []
+}

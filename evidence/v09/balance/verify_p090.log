@@ -1,0 +1,44 @@
+﻿config=DicePrototype/Assets/Game/Data/P0Config.json version=p0.9.0 threads=8
+verify: 300000 random submissions, mismatches=0, max relative error vs exact rational=5.30E-016
+
+coverage: cases where each input was exercised
+  enchant base10 or mult2 counted            147740
+  exactly one roll used                      50099
+  growth > 0 on a growth card                91631
+  hand multiplier add > 0                    5624
+  last submission of the stage               74891
+  mimic (C41) copying a growth card          5746
+  mimic (C41) copying an ability             52733
+  no rolls left                              75010
+  pool dice > 0                              171780
+  pool red merged into red group (C73)       4338
+  retriggers > 0                             40288
+  submitted die: glass                       114445
+  submitted die: gold face up                114356
+  submitted die: mono-colour                 125835
+  submitted die: mono-pip                    102001
+  submitted die: textured face up            188670
+  v0.9 controller base add > 0               54478
+
+coverage per controller: present = cases where the ability was a source (owned or mimicked), triggered = cases where the real calculator listed it as triggered
+  C01    13617/13617    C02    13726/3271     C03    13690/13690    C05    13636/0      * C06    13602/3352     C07    13549/811      
+  C08    13752/11085    C09    13577/13577    C10    13540/5565     C11    13679/77       C12    14095/10113    C13    13708/9239     
+  C14    13499/3588     C15    13625/1099     C17    13753/10938    C18    13733/2025     C19    13717/6870     C20    13606/327      
+  C21    13793/0      * C22    13555/0      * C24    13998/3517     C25    13676/10360    C26    13572/5172     C27    13687/4576     
+  C28    13584/742      C29    13643/298      C30    13695/995      C31    13870/195      C32    13664/6195     C33    13691/1274     
+  C34    13627/0      * C35    13436/0      * C36    13608/6571     C37    13877/6726     C38    13557/13557    C39    13567/8505     
+  C40    13802/210      C41        0/0      * C42    13636/13636    C43    13721/302      C44    13675/13431    C45    13603/13603    
+  C46    13574/13574    C47    13487/13487    C48    13669/11018    C49    13590/13590    C50    13775/13775    C51    13647/13647    
+  C52    13740/0      * C53    13512/13512    C54    13593/13593    C55    13519/13519    C56    13574/13574    C57    13861/13861    
+  C58    13711/13711    C59    13899/13899    C60    13556/13556    C61    13521/13521    C62    13381/13381    C63    13556/13556    
+  C64    13601/13601    C65    13632/2655     C66    13656/9669     C67    13723/3554     C68    13595/3406     C69    13469/10208    
+  C70    13547/7828     C71    13716/2060     C72    13421/7629     C73    13775/4338     C74    13483/4738     C75    13708/2245     
+  C76    13745/11455    C77    13667/3493     C78    13615/0      * C79    13643/0      * C80    13592/3088     C81    13723/9086     
+  C82    13667/219      C83    13572/63       C84    13598/4642     C85    13560/1030     C86    13609/49       C87    13510/184      
+  C88    13797/433      C89    13604/5185     C90    13782/13782    C91    13591/8526     C92    13564/5651     C93    13641/4644     
+  C94    13832/13832    C95    13556/0      * C96    13642/0      * C97    13557/0      * C98    13540/0      * C99    13702/0      * 
+  C100   13653/13653    C101   13621/13621    C102   13597/3314     C103   13483/7495     
+  (* = non-scoring by rule: never a triggered source. C41 is counted under the ability it copies.)
+
+new scoring controllers (C54..C103 minus non-scoring): 43; with present>0 and triggered>0: 43; min present=13381, min triggered=49
+coverage: OK, every scoring controller was present and triggered at least once

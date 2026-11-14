@@ -176,9 +176,12 @@ namespace DiceCraft.Core
             }
         }
 
-        public int EffectiveCapacity { get { lock (gate) return state == null ? cfg.initialSubmitCapacity : ShopCapacity(state); } }
-        public int InitialRolls { get { lock (gate) return state == null ? cfg.totalRollsPerHand : InitialRollBudget(state); } }
-        public int InitialSubmissions { get { lock (gate) return state == null ? cfg.submissionsPerStage : ControllerRules.SubmissionBudget(state.controllers, cfg); } }
+                // Between stages the next stage's numbers are quoted for the controllers that will survive the altars (C100).
+        private static bool BeforeStage(RunState s) => s.phase == "StagePreview";
+        public int EffectiveCapacity { get { lock (gate) return state == null ? cfg.initialSubmitCapacity : BeforeStage(state) ? PreviewCapacity(state) : ShopCapacity(state); } }
+        public int InitialRolls { get { lock (gate) return state == null ? cfg.totalRollsPerHand : BeforeStage(state) ? ControllerRules.RollBudget(ControllerRules.AfterAltars(state.controllers), cfg) : InitialRollBudget(state); } }
+        public int InitialSubmissions { get { lock (gate) return state == null ? cfg.submissionsPerStage : ControllerRules.SubmissionBudget(BeforeStage(state) ? ControllerRules.AfterAltars(state.controllers) : state.controllers.ToArray(), cfg); } }
+        private int PreviewCapacity(RunState s) => s.isDebug && s.debugCapacityOverride > 0 ? s.debugCapacityOverride : ControllerRules.Capacity(ControllerRules.AfterAltars(s.controllers), cfg);
         public int GetOfferPrice(ShopOffer offer) { lock (gate) { Check(state != null, "没有活动挑战。"); return OfferPrice(state, offer); } }
         public long GetOfferTradeIn(ShopOffer offer) { lock (gate) { Check(state != null, "没有活动挑战。"); return OfferTradeIn(state, offer); } }
         public long GetOfferNetPrice(ShopOffer offer) { lock (gate) { Check(state != null, "没有活动挑战。"); return checked(OfferPrice(state, offer) - OfferTradeIn(state, offer)); } }
@@ -210,7 +213,7 @@ namespace DiceCraft.Core
             Check(index >= 0 && index < cfg.stages.Length, "没有下一关。");
             var def = cfg.stages[index];
             s.stage = new StageState { stageIndex = index, stageId = def.stageId, target = def.normalTarget,
-                reward = def.normalReward, capacity = ShopCapacity(s), remainingSubmissions = ControllerRules.SubmissionBudget(s.controllers, cfg) };
+                reward = def.normalReward, capacity = PreviewCapacity(s), remainingSubmissions = ControllerRules.SubmissionBudget(ControllerRules.AfterAltars(s.controllers), cfg) };
             s.hand = null; s.shop = null; s.phase = "StagePreview";
         }
 
@@ -227,10 +230,10 @@ namespace DiceCraft.Core
             RequirePhase(s, "StagePreview");
             Check(s.dice.Count > 0, "骰组耗尽。");
             // v0.9 C100: each real altar, left to right, destroys its right neighbour before order and bindings freeze.
-            for (int i = 0; i + 1 < s.controllers.Count; i++)
+            foreach (var pair in ControllerRules.AltarPlan(s.controllers))
             {
-                var altar = s.controllers[i]; if (altar.definitionId != "C100") continue;
-                var victim = s.controllers[i + 1]; s.controllers.RemoveAt(i + 1); long before = altar.state.growth;
+                var altar = s.controllers.First(c => c.instanceId == pair.Key); var victim = s.controllers.First(c => c.instanceId == pair.Value);
+                s.controllers.Remove(victim); s.randomOverrides.RemoveAll(o => o.sourceId == victim.instanceId); long before = altar.state.growth;
                 altar.state.growth = checked(before + (long)cfg.Controller(victim.definitionId).buyPrice * cfg.Controller("C100").parameters.growthPerBuyPrice);
                 s.lastEffects.Add(new EffectRecord { kind = "ControllerSacrificed", sourceId = "C100", detail = altar.instanceId + ":" + victim.instanceId + ":" + victim.definitionId, oldValue = before, newValue = altar.state.growth });
             }

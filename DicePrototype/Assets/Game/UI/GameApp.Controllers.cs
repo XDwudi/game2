@@ -29,10 +29,18 @@ namespace DiceCraft
             if(abilityId=="C63")return "×"+(Math.Max(10,ViewState.dice.Count(d=>d.lifetime=="permanent")*Config.Controller("C63").parameters.perDieUnits10)/10m).ToString("0.#");
             return null;
         }
+        /// <summary>v0.9 C100: before a stage starts, the controllers the altars will destroy when it does.</summary>
+        private System.Collections.Generic.HashSet<string> AltarVictims09()
+        {
+            var victims=new System.Collections.Generic.HashSet<string>(StringComparer.Ordinal);
+            if(ViewState==null||(ViewState.phase!="Shop"&&ViewState.phase!="StagePreview"))return victims;
+            foreach(var pair in ControllerRules.AltarPlan(ViewState.controllers))victims.Add(pair.Value);
+            return victims;
+        }
         private string ControllerStateLabel(ControllerInstance c)
         {
             var source=ViewSources.FirstOrDefault(s=>s.emitterId==c.instanceId);
-            string text="";
+            string text=AltarVictims09().Contains(c.instanceId)?"下一关开始时被左侧的祭坛摧毁（可拖动调序避开）":"";
             if(c.definitionId=="C41")
             {
                 var target=(ViewBindings??ControllerRules.FreezeBindings(ViewState.controllers)).FirstOrDefault(b=>b.sourceInstanceId==c.instanceId)?.targetInstanceId;

@@ -54,6 +54,27 @@ namespace DiceCraft.Tests
         }
 
         [UnityTest]
+        public IEnumerator PLAY_V09_AltarVictimIsMarkedInTheShopAndNamedBeforeTheStageStarts()
+        {
+            var fixture = ShopBoundaryFixture(); fixture.shop.offers.Clear();
+            Equip09(fixture, "C13", "C100", "C50");
+            yield return LoadBoundaryFixture(fixture); ResumeBoundaryFixture(); yield return WaitForIdle();
+            string altar = app.Session.State.controllers.Single(c => c.definitionId == "C100").instanceId, victim = app.Session.State.controllers.Single(c => c.definitionId == "C50").instanceId;
+            Assert.That(FindActive<TextMeshProUGUI>("OwnedControllersTitle").text, Does.Contain("祭坛"));
+            Assert.That(FindActive<Transform>("Controller_" + victim).Find("AltarVictim09"), Is.Not.Null, "The card right of the altar is outlined.");
+            Assert.That(FindActive<Transform>("Controller_" + altar).Find("AltarVictim09"), Is.Null);
+            Click("LeaveShop"); yield return WaitForIdle();
+            Assert.That(app.Session.State.phase, Is.EqualTo("StagePreview"));
+            Assert.That(FindActive<TextMeshProUGUI>("ControllerOrderWarning").text, Does.Contain("祭坛将摧毁").And.Contain(app.Config.Controller("C50").displayName));
+            Assert.That(app.Session.State.controllers.Count, Is.EqualTo(3), "Nothing is destroyed before the stage starts.");
+            Click("StartStage"); yield return WaitForIdle();
+            Assert.That(app.Session.State.stage.started, Is.True);
+            Assert.That(app.Session.State.controllers.Select(c => c.definitionId), Is.EqualTo(new[] { "C13", "C100" }));
+            // C50 costs 4: the altar grows by 0.4.
+            Assert.That(CardState09("C100"), Is.EqualTo("当前 ×1.4"));
+        }
+
+        [UnityTest]
         public IEnumerator PLAY_V09_HandScreenShowsGrowthPoolSummaryAndTheNewHandbookPage()
         {
             var fixture = NewBoundaryFixture("v09-hand-fixture");
