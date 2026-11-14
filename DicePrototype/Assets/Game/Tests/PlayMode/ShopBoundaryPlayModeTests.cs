@@ -81,11 +81,13 @@ namespace DiceCraft.Tests
                 }
                 Assert.That(app.Session.State.handLevels.Single(h => h.handId == "pair").level, Is.EqualTo(2));
                 Assert.That(app.Session.State.shop.selfStudyUsed, Is.EqualTo(1));
+                yield return WaitForIdle();
                 Assert.That(Button("Study").interactable, Is.True, "p0.8.0 allows two self-studies per shop.");
                 Click("Study"); long secondGold = app.Session.State.gold; Click("StudyBuypair");
                 Assert.That(app.Session.State.gold, Is.EqualTo(secondGold - basePrice - 2 * increment - premium));
                 Assert.That(app.Session.State.handLevels.Single(h => h.handId == "pair").level, Is.EqualTo(3));
                 Assert.That(app.Session.State.shop.selfStudyUsed, Is.EqualTo(2));
+                yield return WaitForIdle();
                 Assert.That(Button("Study").interactable, Is.False);
                 Assert.That(JsonUtility.ToJson(new AtomicSaveStore(app.SaveLocation, app.Config).Load()), Is.EqualTo(StateJson()));
             }

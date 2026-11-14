@@ -107,14 +107,14 @@ namespace DiceCraft.Tests
         }
         [UnityTest] public IEnumerator PLAY_ART07_FX_MultipleRandomOwnersAndSharedCopyUseCompleteCommittedList()
         {
-            var scene=FxScene07(s=>{FxControllers07(s,"C41","C53","C53");s.randomOverrides.Add(new DebugRandomOverride{kind="C53",sourceId=s.controllers[1].instanceId,value="1"});s.randomOverrides.Add(new DebugRandomOverride{kind="C53",sourceId=s.controllers[2].instanceId,value="16"});});
+            var scene=FxScene07(s=>{FxControllers07(s,"C41","C53","C53");s.randomOverrides.Add(new DebugRandomOverride{kind="C53",sourceId=s.controllers[1].instanceId,value="1"});s.randomOverrides.Add(new DebugRandomOverride{kind="C53",sourceId=s.controllers[2].instanceId,value="10"});});
             var result=app.Send(new SessionCommand{kind=CommandKind.Submit});Assert.That(result.accepted,Is.True,result.error);
             double limit=Time.realtimeSinceStartupAsDouble+6;
             while(app.PresentationPlaying07&&app.RevealedOwnerIds07.Length<2&&Time.realtimeSinceStartupAsDouble<limit)yield return null;
             CollectionAssert.AreEquivalent(scene.controllers.Skip(1).Select(c=>c.instanceId),app.RevealedOwnerIds07);
             Assert.That(LiveFx07("fx_random_reveal"),Is.Empty,"Multiple owners use a static list, not one misleading wheel.");
             Assert.That(app.CommittedPresentationDetails07.Count(x=>x.StartsWith("已提交随机结果",StringComparison.Ordinal)),Is.EqualTo(2));
-            Assert.That(string.Join("\n",app.CommittedPresentationDetails07),Does.Contain("×0.5").And.Contain("×8"));
+            Assert.That(string.Join("\n",app.CommittedPresentationDetails07),Does.Contain("×0.5").And.Contain("×5"));
             string hash=GameSession.StateHash(app.Session.State);byte[] save=File.ReadAllBytes(app.SaveLocation);
             app.ShowCommittedPresentationDetails07();yield return null;
             var rows=app.canvas.GetComponentsInChildren<TextMeshProUGUI>(true).Where(t=>t.gameObject.activeInHierarchy&&t.name.StartsWith("Event",StringComparison.Ordinal)).ToArray();
