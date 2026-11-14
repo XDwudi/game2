@@ -77,18 +77,19 @@ namespace DiceCraft.Tests
             Assert.That(() => new GameSession(cfg, new MemorySaveStore(), state), Throws.Exception, "Eight ordinary slots exceed the limit.");
         }
 
-        [TestCase(new[] { "C78" }, 4)] [TestCase(new[] { "C41", "C78" }, 5)] [TestCase(new[] { "C78", "C13" }, 4)] [TestCase(new[] { "C13" }, 3)]
-        public void V09_C78AddsARollPerSource(string[] controllers, int rolls)
+        // Controllers are written as one comma-separated string so every case has its own name in the report.
+        [TestCase("C78", 4)] [TestCase("C41,C78", 5)] [TestCase("C78,C13", 4)] [TestCase("C13", 3)]
+        public void V09_C78AddsARollPerSource(string controllers, int rolls)
         {
-            var s = Ready(controllers);
+            var s = Ready(controllers.Split(','));
             Assert.That(s.State.hand.rollsRemaining, Is.EqualTo(rolls));
         }
 
-        [TestCase(new[] { "C79" }, 4)] [TestCase(new[] { "C101" }, 2)] [TestCase(new[] { "C41", "C101" }, 1)] [TestCase(new[] { "C41", "C101", "C79" }, 2)]
-        [TestCase(new[] { "C101", "C41", "C79" }, 4)] [TestCase(new[] { "C13" }, 3)]
-        public void V09_C79AndC101ChangeSubmissionsPerSourceWithAFloorOfOne(string[] controllers, int submissions)
+        [TestCase("C79", 4)] [TestCase("C101", 2)] [TestCase("C41,C101", 1)] [TestCase("C41,C101,C79", 2)]
+        [TestCase("C101,C41,C79", 4)] [TestCase("C13", 3)]
+        public void V09_C79AndC101ChangeSubmissionsPerSourceWithAFloorOfOne(string controllers, int submissions)
         {
-            var s = Ready(controllers);
+            var s = Ready(controllers.Split(','));
             Assert.That(s.State.stage.remainingSubmissions, Is.EqualTo(submissions));
         }
 
