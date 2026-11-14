@@ -15,13 +15,15 @@ namespace DiceCraft.Tests
         [TestCase("359", "180", 0, 2)]
         [TestCase("360", "180", 0, 3)]
         [TestCase("1", "1000000", 2, 0)]
-        [TestCase("1", "1000000", 3, 1)]
-        [TestCase("1", "1000000", 4, 2)]
-        [TestCase("1", "1000000", 5, 3)]
-        [TestCase("967680", "1800000", 5, 3)]
+        // p0.9.0 (docs/specs/v09/RULES_SPEC.md section 0): only the share of the stage target raises the tier.
+        // The four rows below used to expect 1, 2, 3 and 3 from the total-multiplier tier alone.
+        [TestCase("1", "1000000", 3, 0)]
+        [TestCase("1", "1000000", 4, 0)]
+        [TestCase("1", "1000000", 5, 0)]
+        [TestCase("967680", "1800000", 5, 1)]
         [TestCase("967680", "1800000", 2, 1)]
         [TestCase("0", "1", 5, 0)]
-        public void HighScore_TierFollowsScoreShareOfTargetOrTotalMultiplier(string score, string target, int combo, int expected)
+        public void HighScore_TierFollowsScoreShareOfTargetOnly(string score, string target, int combo, int expected)
         {
             Assert.That(HighScore073.Tier(score, target, combo), Is.EqualTo(expected));
         }

@@ -1,0 +1,40 @@
+{
+  "id": "C83",
+  "name": "顺水推舟",
+  "createdUtc": "2026-11-14T18:25:16.284580+00:00",
+  "tool": "Codex CLI built-in image_gen, one call, two reference images attached",
+  "modelSnapshot": "not exposed by the tool",
+  "codexCli": "codex-cli 0.167.0-alpha.3.2",
+  "file": "original.png",
+  "sha256": "8991003046e88d5476c32f507fd560d1795ac17463ab4f31a3d987744534a2d4",
+  "dimensions": [
+    1254,
+    1254
+  ],
+  "mode": "RGBA",
+  "alpha0": 960150,
+  "alpha255": 1475,
+  "alphaPartial": 610891,
+  "alphaBounds": [
+    0,
+    19,
+    1240,
+    1224
+  ],
+  "sourcePixelsAltered": false,
+  "originalToolPathAsReported": "C:\\Users\\f\\.codex\\generated_images\\01a1db4c-a774-7ff3-8ac8-043f077302b1\\exec-e7b67538-6ae2-4fae-a1bb-3c9ff852fe27.png",
+  "promptFile": "prompt.txt",
+  "promptSha256": "0023dc4ba760feb727d3fb04fc9a5a564b224a776bd6d8f1bb556adaf0326114",
+  "references": [
+    {
+      "path": "docs/specs/v071/handoff/references/battle_master_v071.png",
+      "sha256": "02895a850ba48c636445c963f705244d190bdb8b94c07f449a0269fc5047f8dc",
+      "role": "style master"
+    },
+    {
+      "path": "ArtSource/Art071/Illustrations/illustration_c29.png",
+      "sha256": "d380eecb4921984d2aacb4b50b1c7ee6fdcbdbb9f3596550fa79b476d4320728",
+      "role": "fixed standalone style anchor"
+    }
+  ]
+}

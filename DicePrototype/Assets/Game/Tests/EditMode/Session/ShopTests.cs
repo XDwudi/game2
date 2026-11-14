@@ -29,6 +29,8 @@ namespace DiceCraft.Tests
         [TestCase("C31")] [TestCase("C32")] [TestCase("C33")] [TestCase("C34")] [TestCase("C35")]
         [TestCase("C36")] [TestCase("C37")] [TestCase("C38")] [TestCase("C39")] [TestCase("C40")]
         [TestCase("C41")] [TestCase("C42")] [TestCase("C43")] [TestCase("C44")] [TestCase("C45")] [TestCase("C46")] [TestCase("C47")] [TestCase("C48")] [TestCase("C49")] [TestCase("C50")] [TestCase("C51")] [TestCase("C52")] [TestCase("C53")]
+        // p0.9.0: the 50 new controllers
+        [TestCase("C54")] [TestCase("C55")] [TestCase("C56")] [TestCase("C57")] [TestCase("C58")] [TestCase("C59")] [TestCase("C60")] [TestCase("C61")] [TestCase("C62")] [TestCase("C63")] [TestCase("C64")] [TestCase("C65")] [TestCase("C66")] [TestCase("C67")] [TestCase("C68")] [TestCase("C69")] [TestCase("C70")] [TestCase("C71")] [TestCase("C72")] [TestCase("C73")] [TestCase("C74")] [TestCase("C75")] [TestCase("C76")] [TestCase("C77")] [TestCase("C78")] [TestCase("C79")] [TestCase("C80")] [TestCase("C81")] [TestCase("C82")] [TestCase("C83")] [TestCase("C84")] [TestCase("C85")] [TestCase("C86")] [TestCase("C87")] [TestCase("C88")] [TestCase("C89")] [TestCase("C90")] [TestCase("C91")] [TestCase("C92")] [TestCase("C93")] [TestCase("C94")] [TestCase("C95")] [TestCase("C96")] [TestCase("C97")] [TestCase("C98")] [TestCase("C99")] [TestCase("C100")] [TestCase("C101")] [TestCase("C102")] [TestCase("C103")]
         public void CONTENT_ControllerPurchaseDuplicateAndSell(string id)
         {
             if (cfg.removedControllerIds.Contains(id)) {
@@ -46,7 +48,7 @@ namespace DiceCraft.Tests
         }
         [Test] public void FLOW_E03_ControllerFullRejectsWithoutRestocking()
         {
-            string offer = null; var s = Edit(Shop(), x => { x.gold = 100; Equip(x,"C01","C02","C03","C06"); offer = PutOffer(x,"controller","C05"); });
+            string offer = null; var s = Edit(Shop(), x => { x.gold = 100; Equip(x,"C01","C02","C03","C06","C08"); offer = PutOffer(x,"controller","C05"); }); // p0.9.0: five ordinary slots
             var c = Command(s,CommandKind.Buy); c.offerId=offer; var before=s.State;
             Assert.That(s.Execute(c).accepted,Is.False); AssertUnchanged(before,s.State);
             int count=s.State.shop.offers.Count; Do(s,CommandKind.Sell,c2=>c2.itemInstanceId=s.State.controllers[0].instanceId);
@@ -152,7 +154,7 @@ namespace DiceCraft.Tests
         {
             var s=Shop();var offers=s.State.shop.offers;
             foreach(var category in new[]{"controller","consumable","hand_upgrade","die_upgrade","service","new_die"}){
-                int expected=category=="controller"?3:category=="service"?1:2;
+                int expected=category=="controller"?4:2; // p0.9.0: four controller offers, two services
                 Assert.That(offers.Count(x=>x.category==category),Is.EqualTo(expected),category);
                 if(category!="new_die") Assert.That(offers.Where(x=>x.category==category).Select(x=>x.contentId).Distinct().Count(),Is.EqualTo(expected));
             }
@@ -164,7 +166,7 @@ namespace DiceCraft.Tests
             var item=s.State.shop.offers.First(x=>x.category=="consumable");var c=Command(s,CommandKind.Buy);c.offerId=item.offerId;Assert.That(s.Execute(c).accepted,Is.False);
             Do(s,CommandKind.Sell,c2=>c2.itemInstanceId=s.State.inventory[0].instanceId);Do(s,CommandKind.Buy,c2=>c2.offerId=item.offerId);
             foreach(var offer in s.State.shop.offers.Where(x=>x.category=="controller").ToArray()) Do(s,CommandKind.Buy,c2=>c2.offerId=offer.offerId);
-            Assert.That(s.State.shop.offers.Count,Is.EqualTo(before));Assert.That(s.State.controllers.Count,Is.EqualTo(3));
+            Assert.That(s.State.shop.offers.Count,Is.EqualTo(before));Assert.That(s.State.controllers.Count,Is.EqualTo(4));
         }
         [TestCase("U01")] [TestCase("U02")] [TestCase("U03")] [TestCase("U04")] [TestCase("U05")] [TestCase("U06")] [TestCase("U07")]
         public void CONTENT_UpgradeRejectsMissingTargetWithoutConsumingOffer(string id)

@@ -8,7 +8,9 @@ namespace DiceCraft.Verification
 {
     // Burst08: the G147 table with the five-of-a-kind level raised to 20, so the top presentation tier (total multiplier
     // >= x8192) still has a reproducible scene after p0.8.0 compressed the controller multipliers. G147 itself stays the golden example.
-    public enum Art07FixtureKind { G147, GoldenSample, MaximumTable, MaximumPool, Debug32, ZeroMultiplier, SharedHalf, PermanentPost, Qualified, Burst08 }
+    // Burst09: the Burst08 hand against a 250,000 target. p0.9.0 celebrates by share of the stage target only, so the top
+    // high-score tier needs a hand worth at least twice the target (which also qualifies the stage).
+    public enum Art07FixtureKind { G147, GoldenSample, MaximumTable, MaximumPool, Debug32, ZeroMultiplier, SharedHalf, PermanentPost, Qualified, Burst08, Burst09 }
 
     public sealed class Art07FixtureReport
     {
@@ -24,13 +26,13 @@ namespace DiceCraft.Verification
         {
             if (cfg == null) throw new ArgumentNullException(nameof(cfg));
             if (firstItemSerial < 1 || firstDieSerial < 1) throw new ArgumentOutOfRangeException();
-            bool golden = kind == Art07FixtureKind.G147 || kind == Art07FixtureKind.Burst08;
+            bool burst = kind == Art07FixtureKind.Burst08 || kind == Art07FixtureKind.Burst09, golden = kind == Art07FixtureKind.G147 || burst;
             var scene = new DebugScene {
                 configVersion = cfg.configVersion, sourceRunId = "Art07Fixture", note = "art0.7.0 " + kind,
                 seed = 20261031, diceRngState = 20261031, shopRngState = 20261032, effectRngState = 20261033,
                 stageIndex = 0, gold = 30, target = "1800000", score = "0", capacityOverride = 5,
                 remainingSubmissions = 3, rollsRemaining = 2, consumableSlots = 5,
-                handLevels = cfg.handDefinitions.Select(h => new HandLevel { handId = h.id, level = !golden ? 0 : kind == Art07FixtureKind.Burst08 && h.id == "five_kind" ? 20 : 4 }).ToList(),
+                handLevels = cfg.handDefinitions.Select(h => new HandLevel { handId = h.id, level = !golden ? 0 : burst && h.id == "five_kind" ? 20 : 4 }).ToList(),
                 colorLevels = cfg.colorDefinitions.Select(h => new HandLevel { handId = h.id, level = golden ? 4 : 0 }).ToList()
             };
             int dieCount = kind == Art07FixtureKind.Debug32 ? 32 : kind == Art07FixtureKind.MaximumTable || kind == Art07FixtureKind.MaximumPool ? 10 : 5;
@@ -40,6 +42,7 @@ namespace DiceCraft.Verification
             switch (kind)
             {
                 case Art07FixtureKind.G147: case Art07FixtureKind.Burst08: definitions = new[] { "C02", "C30", "C31", "C32" }; break;
+                case Art07FixtureKind.Burst09: definitions = new[] { "C02", "C30", "C31", "C32" }; scene.target = "250000"; break;
                 case Art07FixtureKind.GoldenSample: definitions = new[] { "C02", "C41", "C45", "C52" }; break;
                 case Art07FixtureKind.MaximumTable: case Art07FixtureKind.MaximumPool: definitions = new[] { "C02", "C41", "C45", "C52", "C30", "C31", "C32", "C39", "C48", "C50" }; break;
                 case Art07FixtureKind.Debug32: definitions = Enumerable.Repeat("C46", 32).ToArray(); break;
@@ -128,6 +131,8 @@ namespace DiceCraft.Verification
                 throw new InvalidOperationException("G147 final presentation does not match the frozen example.");
             if (expectedKind == Art07FixtureKind.Burst08 && (receipt.ScoreDecimal != "596160" || receipt.MultiplierNumeratorDecimal != "16560" || receipt.MultiplierDenominatorDecimal != "1" || receipt.ChainCount != 4 || receipt.ComboTier != 5 || receipt.QualifiedAfter))
                 throw new InvalidOperationException("Burst08 final presentation is not the top tier it was built to be.");
+            if (expectedKind == Art07FixtureKind.Burst09 && (receipt.ScoreDecimal != "596160" || receipt.MultiplierNumeratorDecimal != "16560" || receipt.ComboTier != 5 || !receipt.QualifiedAfter))
+                throw new InvalidOperationException("Burst09 must score 596,160 against its 250,000 target.");
             if (expectedKind == Art07FixtureKind.ZeroMultiplier && (receipt.ScoreDecimal != "0" || receipt.ComboTier != 0 || !receipt.Events.Any(e => e.EffectFamily == "SubmissionIncome") || !receipt.Events.Any(e => e.EffectFamily == "HandGrown")))
                 throw new InvalidOperationException("Zero multiplier fixture lost its legal post-score effects.");
             if(expectedKind==Art07FixtureKind.PermanentPost&&(!result.receipt.effects.Any(e=>e.kind=="FaceValueChanged"&&e.oldValue==3&&e.newValue==4)||!result.receipt.effects.Any(e=>e.kind=="ControllerDestroyed")))
@@ -146,10 +151,10 @@ namespace DiceCraft.Verification
         public static void Verify(Art07FixtureKind kind, RunState state, ScorePreview preview)
         {
             if (state == null || !state.debugWorkspace || !state.isDebug || state.phase != "Selecting") throw new InvalidOperationException("Fixture is not an applied independent debug scene.");
-            if (kind == Art07FixtureKind.G147 || kind == Art07FixtureKind.Burst08)
+            if (kind == Art07FixtureKind.G147 || kind == Art07FixtureKind.Burst08 || kind == Art07FixtureKind.Burst09)
             {
                 string expected = kind == Art07FixtureKind.G147 ? "181440" : "596160";
-                if (preview?.minimum?.score != expected || preview.maximum.score != expected || preview.isRandom || state.stage.target != "1800000" || state.stage.score != "0" || state.stage.qualified || state.hand.rollsRemaining != 2 || state.hand.orderedLockedIds.Count != 5)
+                if (preview?.minimum?.score != expected || preview.maximum.score != expected || preview.isRandom || state.stage.target != (kind == Art07FixtureKind.Burst09 ? "250000" : "1800000") || state.stage.score != "0" || state.stage.qualified || state.hand.rollsRemaining != 2 || state.hand.orderedLockedIds.Count != 5)
                     throw new InvalidOperationException(kind + " fixture differs from the authoritative example.");
             }
             if ((kind == Art07FixtureKind.MaximumTable || kind == Art07FixtureKind.MaximumPool) && (state.dice.Count != 10 || state.controllers.Count != 10 || state.stage.capacity != 8 || state.inventory.Count != 5)) throw new InvalidOperationException("Maximum ordinary-sized fixture is incomplete.");

@@ -25,7 +25,7 @@ namespace DiceCraft.Editor
         }
         public static void Discover()
         {
-            string dir=Path.GetFullPath("../evidence/v08/unity");
+            string dir=Path.GetFullPath("../evidence/v09/unity");
             DateTime started=DateTime.UtcNow;double deadline=EditorApplication.timeSinceStartup+300;
             TestEvidence.DiscoverAll();
             EditorApplication.update+=Poll;

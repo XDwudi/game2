@@ -8,7 +8,7 @@ namespace DiceCraft.Core
     /// <summary>Frozen exact arithmetic and event plan. No random draw, mutation, storage or session dependency.</summary>
     public static class ScoreCalculator
     {
-        private static readonly HashSet<string> FixedMultipliers = new HashSet<string>(new[] { "C02", "C06", "C08", "C09", "C11", "C14", "C18", "C28", "C30", "C31", "C32", "C33", "C40", "C42", "C46" }, StringComparer.Ordinal);
+        private static readonly HashSet<string> FixedMultipliers = new HashSet<string>(new[] { "C02", "C06", "C08", "C09", "C11", "C14", "C18", "C28", "C30", "C31", "C32", "C33", "C40", "C42", "C46", "C74", "C75", "C77", "C81", "C82", "C83", "C86", "C88", "C101", "C102" }, StringComparer.Ordinal);
         public static ScorePreview Preview(SubmissionSnapshot snapshot, GameConfig cfg)
         {
             if (snapshot == null) throw new ArgumentNullException(nameof(snapshot));
@@ -46,8 +46,18 @@ namespace DiceCraft.Core
             string primary = matched.Concat(hasStraight ? new[] { "straight" } : Array.Empty<string>()).Select(cfg.Hand).OrderByDescending(h => h.structuralPriority).FirstOrDefault()?.id ?? "scatter";
             string colorId = redN == n ? "all_red" : redN == 0 ? "all_blue" : null;
             int color = colorId == null ? 100 : HandEvaluator.ColorMultiplier100(cfg.Color(colorId), Level(colorLevels, colorId), s.debug ? cfg.debug.maxColorLevel : cfg.maxColorLevel);
-            int hand = Math.Max(100, checked(group + straight));
+            int hand = Math.Max(100, checked(group + straight)); // re-evaluated below once the v0.9 hand multiplier adds are known
             int[] spread = Enumerable.Range(1, Math.Max(0, n - 2)).Where(i => colors[i] == "blue" && colors[i - 1] == "red" && colors[i + 1] == "red").ToArray();
+            // v0.9 frozen context: pool dice, pairs summing to pairSum, and the red group (needed by trigger predicates).
+            var pool = s.poolDice ?? Array.Empty<PoolDie>();
+            int pairSum = cfg.Controller("C80").parameters.pairSum, sumPairs = 0;
+            for (int a = 1; a * 2 <= pairSum; a++) sumPairs += a * 2 == pairSum ? Count(counts, a) / 2 : Math.Min(Count(counts, a), Count(counts, pairSum - a));
+            bool merge = has("C25"), map = has("C24");
+            var redGroup = Enumerable.Range(0, n).Where(i => colors[i] == "red").GroupBy(i => merge ? 0 : map && pips[i] == cfg.Controller("C24").parameters.redGroupKeyFrom ? cfg.Controller("C24").parameters.redGroupKeyTo : pips[i]).OrderByDescending(g => g.Count()).ThenByDescending(g => g.Key).FirstOrDefault();
+            int[] redMembers = redGroup?.ToArray() ?? Array.Empty<int>();
+            int submittedRed = redMembers.Length, redValue = redGroup?.Key ?? 0;
+            int redPool = has("C73") && submittedRed > 0 ? pool.Count(d => d.currentColor == "red") : 0;
+            int redCount = checked(submittedRed + redPool);
             var triggered = new List<AbilitySource>();
             foreach (var source in sources)
             {
@@ -83,13 +93,72 @@ namespace DiceCraft.Core
                     case "C40": hit = n >= 3 && pips[1] > pips[0] && pips[2] - pips[1] == pips[1] - pips[0]; break;
                     case "C43": hit = primary != "scatter" && primary == s.previousPrimaryHandId; break;
                     case "C44": hit = s.wallet > 0; break;
+                    // v0.9
+                    case "C54": case "C55": case "C56": case "C57": case "C58": case "C59": case "C60": case "C61": case "C62": case "C63": case "C64": case "C90": case "C94": case "C100": case "C101": hit = true; break;
+                    case "C65": hit = n == s.capacity; break;
+                    case "C66": case "C67": hit = pips.Any(v => p.pips.Contains(v)); break;
+                    case "C68": case "C102": hit = s.submissionsRemainingBefore == 1; break;
+                    case "C69": hit = submittedRed > 0; break;
+                    case "C70": case "C72": hit = pool.Length > 0; break;
+                    case "C71": hit = pool.Any(d => d.currentPip == p.pip); break;
+                    case "C73": hit = submittedRed > 0 && pool.Any(d => d.currentColor == "red"); break;
+                    case "C74": hit = pool.Length >= n; break;
+                    case "C75": hit = s.rollsUsed == p.maxRollsUsed; break;
+                    case "C76": hit = s.rollsUsed >= 2; break;
+                    case "C77": hit = s.rollsRemaining == 0; break;
+                    case "C80": hit = sumPairs > 0; break;
+                    case "C81": hit = primary == "scatter"; break;
+                    case "C82": case "C86": hit = matched.Any(m => p.handIds.Contains(m)); break;
+                    case "C83": hit = hasStraight; break;
+                    case "C84": case "C85": case "C87": hit = maxSame >= p.minSamePip; break;
+                    case "C88": hit = n >= p.minDice && counts.Count == n; break;
+                    case "C89": hit = s.dice.Any(d => d.isGold); break;
+                    case "C91": hit = s.dice.Any(d => p.textures.Contains(DieFacts.Texture(d))); break;
+                    case "C92": hit = s.dice.Any(DieFacts.MonoColor); break;
+                    case "C93": hit = s.dice.Any(DieFacts.MonoPip); break;
+                    case "C103": hit = s.permanentDiceCount <= p.maxOwnedPermanentDice; break;
                     default: hit = false; break;
                 }
                 if (hit) triggered.Add(source);
             }
             Func<string, int> hits = id => triggered.Count(t => t.abilityId == id);
             var contributions = Enumerable.Range(0, n).Select(i => ScoreExplanation.DescribeDie(s, i, pips[i], colors[i], cfg, sources).contribution).ToArray();
-            BigInteger pipSum = contributions.Aggregate(BigInteger.Zero, (a, b) => a + b);
+            // v0.9 retriggers: each entry adds `count` extra copies of one die's contribution.
+            var retriggerEntries = new List<RetriggerEntry>(); var retriggers = new int[n];
+            foreach (var t in triggered)
+            {
+                var p = cfg.Controller(t.abilityId).parameters; int[] targets;
+                switch (t.abilityId)
+                {
+                    case "C64": targets = new[] { p.index }; break;
+                    case "C65": targets = new[] { n - 1 }; break;
+                    case "C66": case "C67": targets = Enumerable.Range(0, n).Where(i => p.pips.Contains(pips[i])).ToArray(); break;
+                    case "C68": targets = Enumerable.Range(0, n).ToArray(); break;
+                    case "C69": targets = redMembers; break;
+                    default: continue;
+                }
+                foreach (int i in targets) { retriggers[i] = checked(retriggers[i] + p.retriggers); retriggerEntries.Add(new RetriggerEntry { emitterId = t.emitterId, abilityId = t.abilityId, stateOwnerId = t.stateOwnerId, dieIndex = i, count = p.retriggers }); }
+            }
+            BigInteger pipSum = Enumerable.Range(0, n).Aggregate(BigInteger.Zero, (a, i) => a + (BigInteger)contributions[i] * (1 + retriggers[i]));
+            // v0.9 whole-hand base adds, in controller order.
+            var controllerAdds = new List<ControllerBaseAdd>(); BigInteger controllerAddTotal = 0;
+            foreach (var t in triggered)
+            {
+                var p = cfg.Controller(t.abilityId).parameters; BigInteger amount;
+                switch (t.abilityId)
+                {
+                    case "C55": case "C59": case "C62": amount = t.state.growth; break;
+                    case "C70": amount = (BigInteger)pool.Length * p.baseAddPerPoolDie; break;
+                    case "C72": amount = (BigInteger)pool.Sum(d => d.currentPip) * p.poolPipSumMultiplier; break;
+                    case "C76": amount = (BigInteger)(s.rollsUsed - 1) * p.baseAddPerExtraRoll; break;
+                    case "C80": amount = (BigInteger)sumPairs * p.baseAddPerPair; break;
+                    default: continue;
+                }
+                if (amount == 0) continue;
+                controllerAdds.Add(new ControllerBaseAdd { emitterId = t.emitterId, abilityId = t.abilityId, stateOwnerId = t.stateOwnerId, amount = ExactScoreMath.SaveDecimal(amount) }); controllerAddTotal += amount;
+            }
+            int handAdd = checked(triggered.Where(t => t.abilityId == "C84" || t.abilityId == "C85").Sum(t => cfg.Controller(t.abilityId).parameters.handMultAdd100));
+            hand = Math.Max(100, checked(group + straight + handAdd));
             int bonus = checked(cfg.bonusPerUnusedRoll * s.rollsRemaining);
             int pairAdd = checked(hits("C27") * pairKinds * cfg.Controller("C27").parameters.baseAddPerDistinctPairedPip);
             BigInteger walletAdd = (BigInteger)s.wallet * hits("C44") * cfg.Controller("C44").parameters.baseAddPerFrozenGold;
@@ -97,10 +166,7 @@ namespace DiceCraft.Core
             int steadyAdd = checked(hits("C50") * cfg.Controller("C50").parameters.baseAdd);
             int baseCount = triggered.Count(t => t.enchantmentId == "base10"), multCount = triggered.Count(t => t.enchantmentId == "mult2");
             int enchantAdd = checked(baseCount * cfg.enchantRules.baseAdd);
-            BigInteger baseTotal = pipSum + bonus + pairAdd + walletAdd + emptyAdd + steadyAdd + enchantAdd;
-            bool merge = has("C25"), map = has("C24");
-            var redGroup = Enumerable.Range(0, n).Where(i => colors[i] == "red").GroupBy(i => merge ? 0 : map && pips[i] == cfg.Controller("C24").parameters.redGroupKeyFrom ? cfg.Controller("C24").parameters.redGroupKeyTo : pips[i]).OrderByDescending(g => g.Count()).ThenByDescending(g => g.Key).FirstOrDefault();
-            int redCount = redGroup?.Count() ?? 0, redValue = redGroup?.Key ?? 0;
+            BigInteger baseTotal = pipSum + bonus + pairAdd + walletAdd + emptyAdd + steadyAdd + controllerAddTotal + enchantAdd;
             int redMult = cfg.redRewards.Single(r => r.count == Math.Min(redCount, cfg.debug.redGroupCapForExperiments)).factor100;
             var factors = new List<MultiplierFactor>(); BigInteger xnum = 1, xden = 1;
             var choices = (s.resolvedRandomChoices ?? Array.Empty<RandomMultiplierChoice>()).ToDictionary(c => c.ownerInstanceId, c => c.units2, StringComparer.Ordinal);
@@ -113,6 +179,13 @@ namespace DiceCraft.Core
                         case "C47": num = Math.Max(2, checked(instances.Count(c => c.alive) * cfg.Controller("C47").parameters.perControllerUnits2)); den = 2; break;
                         case "C49": num = Count(counts, 5); break;
                         case "C51": num = t.state.turnoverUnits2; den = 2; break;
+                        // v0.9
+                        case "C54": case "C56": case "C57": case "C58": case "C60": case "C61": case "C90": case "C100": num = 20 + (BigInteger)t.state.growth; den = 20; break;
+                        case "C63": { var q = cfg.Controller("C63").parameters; num = Math.Max(10, checked(s.permanentDiceCount * q.perDieUnits10)); den = 10; break; }
+                        case "C71": { var q = cfg.Controller("C71").parameters; int k = pool.Count(d => d.currentPip == q.pip); num = BigInteger.Pow(q.stepNumerator, k); den = BigInteger.Pow(q.stepDenominator, k); break; }
+                        case "C87": { var q = cfg.Controller("C87").parameters; int k = maxSame - q.minSamePip + 1; num = BigInteger.Pow(q.stepNumerator, k); den = BigInteger.Pow(q.stepDenominator, k); break; }
+                        case "C89": { var q = cfg.Controller("C89").parameters; int k = s.dice.Count(d => d.isGold); num = BigInteger.Pow(q.stepNumerator, k); den = BigInteger.Pow(q.stepDenominator, k); break; }
+                        case "C103": { var q = cfg.Controller("C103").parameters; num = s.permanentDiceCount <= q.strictMaxOwnedPermanentDice ? q.strictScoreMultiplier : q.scoreMultiplier; break; }
                         case "C53": if (!choices.TryGetValue(t.stateOwnerId, out int units)) throw new ArgumentException("C53 outcome must be frozen before Evaluate; use Preview for ranges."); num = units; den = 2; break;
                         default: multiply = false; break;
                     }
@@ -120,6 +193,18 @@ namespace DiceCraft.Core
                 var gcd = BigInteger.GreatestCommonDivisor(num, den); num /= gcd; den /= gcd;
                 factors.Add(new MultiplierFactor { emitterId = t.emitterId, abilityId = t.abilityId, stateOwnerId = t.stateOwnerId, numerator = ExactScoreMath.SaveDecimal(num), denominator = ExactScoreMath.SaveDecimal(den) });
                 xnum *= num; xden *= den; gcd = BigInteger.GreatestCommonDivisor(xnum, xden); xnum /= gcd; xden /= gcd;
+            }
+            // v0.9 growth of real instances, applied by the session after this score is recorded.
+            var growthChanges = new List<GrowthChange>();
+            foreach (var c in instances.Where(x => x.alive))
+            {
+                switch (c.definitionId)
+                {
+                    case "C54": growthChanges.Add(!string.IsNullOrEmpty(s.previousPrimaryHandId) && primary == s.previousPrimaryHandId ? new GrowthChange { ownerInstanceId = c.instanceId, abilityId = "C54", delta = cfg.Controller("C54").parameters.growthPerEvent } : new GrowthChange { ownerInstanceId = c.instanceId, abilityId = "C54", reset = true }); break;
+                    case "C55": growthChanges.Add(new GrowthChange { ownerInstanceId = c.instanceId, abilityId = "C55", delta = cfg.Controller("C55").parameters.growthPerEvent }); break;
+                    case "C56": if (redN == 0) growthChanges.Add(new GrowthChange { ownerInstanceId = c.instanceId, abilityId = "C56", delta = cfg.Controller("C56").parameters.growthPerEvent }); break;
+                    case "C57": if (redCount >= cfg.Controller("C57").parameters.minRedGroup) growthChanges.Add(new GrowthChange { ownerInstanceId = c.instanceId, abilityId = "C57", delta = cfg.Controller("C57").parameters.growthPerEvent }); break;
+                }
             }
             int requested = checked(hits("C43") * cfg.Controller("C43").parameters.levelAddPerSource);
             var plan = new AfterScorePlan
@@ -137,7 +222,8 @@ namespace DiceCraft.Core
                 nextPreviousPrimary = primary,
                 nextColorOwnerIds = instances.Where(c => c.alive && c.definitionId == "C45").Select(c => c.instanceId).ToArray(),
                 randomFactorOwnerIds = instances.Where(c => c.alive && c.definitionId == "C53").Select(c => c.instanceId).ToArray(),
-                cannonRiskEmitterIds = triggered.Where(t => t.abilityId == "C42").Select(t => t.emitterId).ToArray()
+                cannonRiskEmitterIds = triggered.Where(t => t.abilityId == "C42").Select(t => t.emitterId).ToArray(),
+                growthChanges = growthChanges.ToArray()
             };
             BigInteger numerator = baseTotal * hand * color * redMult * xnum * BigInteger.Pow(cfg.enchantRules.scoreMultiplier, multCount), denominator = 1000000 * xden;
             return new ScoreBreakdown
@@ -176,6 +262,11 @@ namespace DiceCraft.Core
                 triggeredControllerIds = triggered.Select(t => t.abilityId).Distinct(StringComparer.Ordinal).OrderBy(id => id, StringComparer.Ordinal).ToArray(),
                 triggeredSourceIds = triggered.Select(t => t.emitterId).ToArray(),
                 afterScorePlan = plan,
+                pipRetriggers = retriggers,
+                retriggerEntries = retriggerEntries.ToArray(),
+                handMultAdd100 = handAdd,
+                redPoolCount = redPool,
+                controllerBaseAdds = controllerAdds.ToArray(),
                 scoreNumerator = ExactScoreMath.SaveDecimal(numerator),
                 scoreDenominator = ExactScoreMath.SaveDecimal(denominator),
                 score = ExactScoreMath.SaveDecimal(numerator / denominator)
@@ -197,6 +288,10 @@ namespace DiceCraft.Core
             if (s.previousPrimaryHandId != null && s.previousPrimaryHandId != "" && s.previousPrimaryHandId != "scatter") cfg.Hand(s.previousPrimaryHandId);
             var choices = s.resolvedRandomChoices ?? Array.Empty<RandomMultiplierChoice>();
             if (choices.Any(c => c == null || string.IsNullOrEmpty(c.ownerInstanceId) || !cfg.Controller("C53").parameters.factorUnits2.Contains(c.units2)) || choices.Select(c => c.ownerInstanceId).Distinct(StringComparer.Ordinal).Count() != choices.Length) throw new ArgumentException("Invalid random score choices.");
+            if (s.rollsUsed < 0 || s.submissionsRemainingBefore < 0 || s.permanentDiceCount < 0) throw new ArgumentException("Invalid frozen hand context.");
+            var pool = s.poolDice ?? Array.Empty<PoolDie>();
+            if (pool.Length > (s.debug ? cfg.debug.maxDice : cfg.maxActiveDice) || pool.Any(d => d == null || string.IsNullOrEmpty(d.dieId) || d.currentPip < 1 || d.currentPip > 6 || (d.currentColor != "red" && d.currentColor != "blue"))
+                || pool.Select(d => d.dieId).Concat(s.dice.Select(d => d.dieId)).Distinct(StringComparer.Ordinal).Count() != pool.Length + s.dice.Length) throw new ArgumentException("Invalid frozen pool dice.");
             var owners = ControllerRules.Resolve(s).Where(c => c.alive && c.definitionId == "C53").Select(c => c.instanceId).ToArray();
             if (choices.Any(c => !owners.Contains(c.ownerInstanceId))) throw new ArgumentException("Random choice owner is not a live C53.");
         }
@@ -204,6 +299,19 @@ namespace DiceCraft.Core
         {
             var levels = entries ?? Array.Empty<HandLevel>(); if (levels.Any(h => h == null) || levels.Select(h => h.handId).Distinct(StringComparer.Ordinal).Count() != levels.Length) throw new ArgumentException("Duplicate/null levels.");
             foreach (var h in levels) { int bound = max(h.handId); if (h.level < 0 || h.level > (debugMax > 0 ? debugMax : bound)) throw new ArgumentException("Level out of range."); }
+        }
+    }
+    /// <summary>v0.9: facts about a submitted die derived from its frozen six faces. A snapshot without the face copy never qualifies.</summary>
+    public static class DieFacts
+    {
+        private static bool Complete(SubmissionDie d) => d.permanentFacesCopy != null && d.permanentFacesCopy.Length == 6 && d.permanentFacesCopy.All(f => f != null);
+        public static string Texture(SubmissionDie d) => Complete(d) ? d.permanentFacesCopy.FirstOrDefault(f => f.faceId == d.faceId)?.texture ?? "none" : "none";
+        public static bool MonoColor(SubmissionDie d) => Complete(d) && d.permanentFacesCopy.All(f => f.baseColor == d.permanentFacesCopy[0].baseColor);
+        public static bool MonoPip(SubmissionDie d) => Complete(d) && d.permanentFacesCopy.All(f => f.permanentPip == d.permanentFacesCopy[0].permanentPip);
+        public static int OppositePip(SubmissionDie d, GameConfig cfg)
+        {
+            if (!Complete(d)) return 0; string opposite = cfg.Opposite(d.faceId);
+            return d.permanentFacesCopy.FirstOrDefault(f => f.faceId == opposite)?.permanentPip ?? 0;
         }
     }
     public static class HandEvaluator

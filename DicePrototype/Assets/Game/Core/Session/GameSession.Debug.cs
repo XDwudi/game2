@@ -68,7 +68,7 @@ namespace DiceCraft.Core
             s.consumableSlots = draft.consumableSlots; s.itemDiscount = draft.itemDiscount;
             s.controllerOfferPurchases = draft.controllerOfferPurchases; s.consumableOfferPurchases = draft.consumableOfferPurchases; s.freeFirstRefreshOwned = draft.freeFirstRefreshOwned;
             s.previousPrimaryHandId = draft.previousPrimaryHandId; s.submissionOrdinalGlobal = draft.submissionOrdinalGlobal; s.randomOverrides = draft.randomOverrides;
-            s.controllerSlots = cfg.initialControllerSlots; s.failureReason = null; s.lastSubmission = null; s.lastStageSettlement = null; s.shop = null;
+            s.controllerSlots = cfg.initialControllerSlots; s.controllerSlotPurchases = 0; s.failureReason = null; s.lastSubmission = null; s.lastStageSettlement = null; s.shop = null;
             s.nextDieSerial = Math.Max(s.nextDieSerial, checked(s.dice.Max(d => d.createdSerial) + 1));
             int maxController = s.controllers.Select(c => c.acquiredSerial).DefaultIfEmpty(0).Max();
             int maxItem = s.inventory.Select(i => ParseItemSerial(i.instanceId)).DefaultIfEmpty(0).Max();
@@ -180,7 +180,7 @@ namespace DiceCraft.Core
         {
             return c != null && string.IsNullOrEmpty(c.instanceId) && string.IsNullOrEmpty(c.definitionId)
                 && c.enchantmentId == "none" && c.acquiredSerial == 0 && c.alive && c.state != null
-                && string.IsNullOrEmpty(c.state.activeColor) && c.state.turnoverUnits2 == 3 && c.state.fundAccrual == 0;
+                && string.IsNullOrEmpty(c.state.activeColor) && c.state.turnoverUnits2 == 3 && c.state.fundAccrual == 0 && c.state.growth == 0 && c.state.saleBonus == 0;
         }
         private static bool EmptyOfferDie(DieInstance d)
         {

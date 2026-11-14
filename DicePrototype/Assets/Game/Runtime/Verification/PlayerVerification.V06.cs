@@ -243,7 +243,7 @@ namespace DiceCraft.Verification
             Require(GameApp.ArtVersion=="art0.7.3","The actual player is not the requested art baseline.");
             foreach(string id in new[]{"ContinueRun","NewRun","MenuHandbook","MenuSettings","Quit"})ActiveControl<Button>(id);
             Require(!ActiveControl<Button>("ContinueRun").IsInteractable(),"An empty isolated save must not offer Continue.");
-            Require(app.contentIcons!=null&&app.contentIcons.Length==71&&app.contentIcons.All(s=>s!=null),"The built v0.7 content icon set is incomplete.");
+            Require(app.contentIcons!=null&&app.contentIcons.Length==app.Config.activeContentCount&&app.contentIcons.All(s=>s!=null),"The built v0.7 content icon set is incomplete.");
             Require(app.enchantIcons!=null&&new[]{"slotless","base10","mult2","submit1","roll1"}.All(id=>app.enchantIcons.Any(s=>s!=null&&s.name=="badge_enchant_"+id)),"The five production v0.7 enchant badges are not bound.");
             yield return PressTargetReady("NewRun");Input("SeedInput","707");yield return PressTargetReady("CloseDialog");
             Require(JsonUtility.ToJson(app.Session.State)==original&&!File.Exists(normalSave),"Cancelling the seed dialog created or saved a run.");

@@ -333,6 +333,7 @@ namespace DiceCraft
         {
             string label=step.sourceId!=null?NameOf(step.sourceId):step.kind=="glass"?"玻璃":step.kind=="gold"?"本面镀金":step.kind=="unused_rolls"?"剩余投掷奖励":step.kind=="hand"?"牌型总倍率":step.kind=="color"?"独立颜色乘区":step.kind=="red_group"?"同点红组":step.kind=="floor"?"最后向下取整":"最终加分";
             if(step.kind=="enchantment_base"||step.kind=="enchantment_multiplier")label+=" · 附魔";
+            if(step.kind=="retrigger")label+=" · 再计一次";
             if(!string.IsNullOrEmpty(step.emitterId))label+=" ["+step.emitterId+(step.stateOwnerId!=step.emitterId&&!string.IsNullOrEmpty(step.stateOwnerId)?" → "+step.stateOwnerId:"")+"]";
             return label;
         }
@@ -341,6 +342,9 @@ namespace DiceCraft
             string label=ScoreStepSource07(step),before=step.before,after=step.after;
             return step.operation=="floor"?$"{label}：{before} → {after}":$"{label}：{before} {step.operation} {step.operand} → {after}";
         }
+        /// <summary>v0.9: a growth counter shown the way the card uses it ("×1.35" or "+24").</summary>
+        private static string GrowthValue09(string abilityId,long growth)
+            => ControllerRules.IsGrowthMultiplier(abilityId)?"×"+((20+growth)/20m).ToString("0.##"):"+"+growth;
         private string EffectText(EffectRecord e)
         {
             switch(e.kind)
@@ -357,6 +361,13 @@ namespace DiceCraft
                 case "ActiveColorChanged":return "飘忽不定：下一颜色 "+e.detail;
                 case "ControllerDestroyed":return "玻璃大炮："+e.detail+" 本次计分后自毁";
                 case "FundAccrued":return "成长基金：本实例累积增值 "+e.newValue;
+                // v0.9
+                case "ControllerGrown":return NameOf(e.sourceId)+"：成长 "+GrowthValue09(e.sourceId,e.oldValue)+" → "+GrowthValue09(e.sourceId,e.newValue);
+                case "ControllerGrowthReset":return NameOf(e.sourceId)+"：牌型中断，回到 "+GrowthValue09(e.sourceId,e.newValue);
+                case "ControllerSacrificed":return "祭坛：摧毁右侧的"+NameOf((e.detail??"").Split(':').LastOrDefault())+"，成长到 "+GrowthValue09("C100",e.newValue);
+                case "WarIncome":return "以战养战：+"+e.newValue+" 金币（本关第 "+e.oldValue+" 次）";
+                case "SaleBonusGrown":return "聚宝盆："+e.oldValue+" 件控制器卖价各 +"+e.newValue;
+                case "ControllerSlotAdded":return "扩充栏位：普通栏位 "+e.oldValue+" → "+e.newValue;
                 default:return (string.IsNullOrEmpty(e.sourceId)?"":NameOf(e.sourceId)+" · ")+e.kind;
             }
         }

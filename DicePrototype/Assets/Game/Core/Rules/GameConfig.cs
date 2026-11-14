@@ -1,5 +1,6 @@
 // Generated from authoritative P0 v0.6 Appendix A; see tools/generate_v06_dtos.py.
 // v0.8 added by hand: controllerSellDivisor, perControllerUnits2 (C47), maxGrowthPerShop (C51); see docs/specs/v08/RULES_DELTA.md.
+// v0.9 added by hand: maxOrdinaryControllerSlots, controllerSlotPriceStep and the C54-C103 parameters; see docs/specs/v09/RULES_SPEC.md.
 using System;
 
 namespace DiceCraft.Core
@@ -31,6 +32,8 @@ namespace DiceCraft.Core
         public int maxInterestPrincipal;
         public string interestBalanceTiming;
         public int initialControllerSlots;
+        public int maxOrdinaryControllerSlots;
+        public int controllerSlotPriceStep;
         public int maxControllerInstances;
         public bool slotlessConsumesBaseSlot;
         public int initialConsumableSlots;
@@ -291,6 +294,36 @@ namespace DiceCraft.Core
         public bool uniform;
         public bool drawOncePerRealOwnerPerSubmit;
         public bool mimicReusesOwnerOutcome;
+        // v0.9 (docs/specs/v09/RULES_SPEC.md), added by hand.
+        public int growthPerEvent;
+        public int growthPerBuyPrice;
+        public int minRedGroup;
+        public int perDieUnits10;
+        public int retriggers;
+        public int baseAddPerPoolDie;
+        public int poolPipSumMultiplier;
+        public int stepNumerator;
+        public int stepDenominator;
+        public int maxRollsUsed;
+        public int baseAddPerExtraRoll;
+        public int rollsPerHandDelta;
+        public int submissionsDelta;
+        public int pairSum;
+        public int baseAddPerPair;
+        public string[] handIds;
+        public int handMultAdd100;
+        public string[] textures;
+        public int dieContributionMultiplier;
+        public int goldPerStage;
+        public int interestPrincipalAdd;
+        public int goldPerTrigger;
+        public int maxTriggersPerStage;
+        public int targetDivisor;
+        public int priceDelta;
+        public int saleBonusPerStage;
+        public int maxOwnedPermanentDice;
+        public int strictScoreMultiplier;
+        public int strictMaxOwnedPermanentDice;
     }
 
     [Serializable]

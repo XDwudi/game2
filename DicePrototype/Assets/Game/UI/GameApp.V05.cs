@@ -10,7 +10,29 @@ namespace DiceCraft
 {
     public sealed partial class GameApp
     {
-        private bool handbookColors;
+        private bool handbookColors,handbookRules09;
+        private static readonly string[][] HandbookRules09=
+        {
+            new[]{"计分顺序","点数合计（含再计一次）＋各种加值 ＝ 基础分；再依次乘以牌型倍率、颜色倍率、红组倍率、各控制器倍率和倍率附魔，最后向下取整一次。"},
+            new[]{"成长值","卡面写着“当前 ×n”或“当前 +n”的控制器会随对局变强。成长发生在触发它的那次计分之后，所以触发成长的那一手用的还是成长前的数值。卖出、替换或损毁就失去成长值；百变模仿使用被模仿那张卡的成长值，但自己不成长。"},
+            new[]{"再计一次","指定的提交骰把自己的点数贡献再加进基础分一次，逐骰加值、玻璃和黄金都一并翻倍。多个来源可以叠加成再计多次。不改变牌型、红组和骰子数量。"},
+            new[]{"留池骰","本手投出后没有锁进提交栏的骰子。它们不计分，但板凳深度、厚积薄发、幕后推手、空城计和场外红人会读取它们的数量、点数和颜色。骰子比提交栏多时，留什么在池里也是一种选择。"},
+            new[]{"牌型倍率加值","成双成对、三足鼎立把数值直接加在牌型倍率上，例如一对从 ×2 变成 ×3.5，之后仍会被颜色、红组和控制器倍率继续放大。"},
+            new[]{"投掷次数","一锤定音要求只投 1 次就提交；越挫越勇从第 2 次投掷起每次加分；孤注一掷要求把投掷次数用完；熟能生巧每投 1 次成长一点。"},
+            new[]{"栏位","普通栏位开局 5 个，商店服务“扩充栏位”最多加到 7 个。免槽附魔的控制器不占普通栏位；所有控制器合计最多 10 件。"},
+            new[]{"祭坛","每关开始时摧毁它右侧相邻的控制器并成长。把它放在最右边就不会摧毁任何东西；想喂它，就把便宜的卡排在它右边。"}
+        };
+        private void DrawHandbookRules09(Transform p)
+        {
+            var list=UiKit.Scroll(p,"HandbookScroll",24,144,1456,720,720);float y=8;
+            for(int i=0;i<HandbookRules09.Length;i++)
+            {
+                var title=UiKit.Text(list,"Rule09Title"+i,HandbookRules09[i][0],16,y,1400,44,26,UiKit.Ink);title.fontStyle=FontStyles.Bold;y+=FitHeight(title,44)+2;
+                var body=UiKit.Text(list,"Rule09Body"+i,HandbookRules09[i][1],16,y,1400,60,22,PaperMuted071);y+=FitHeight(body,60)+10;
+                UiKit.Box(list,"Rule09Divider"+i,16,y,1400,1,PaperMuted071);y+=14;
+            }
+            list.sizeDelta=new Vector2(list.sizeDelta.x,Math.Max(720,y+8));
+        }
         public void ShowHandbook()
         {
             if(Config==null||IsBusy||IsControllerDragging||Session?.HasPendingSave==true)return;
@@ -24,9 +46,12 @@ namespace DiceCraft
             var p=Art07Modal("牌型手册",208,96,1504,888);
             UiKit.Button(p,"Tutorial","独立固定骰练习",688,12,352,60,()=>{CloseModal();BeginTutorial();});
             UiKit.Button(p,"ReviewGuide","重新查看引导",1056,12,336,60,ShowGuide07);
-            UiKit.FlatButton(p,"HandbookHands","牌型",24,76,712,60,()=>{handbookColors=false;ShowHandbook();},true,!handbookColors);
-            UiKit.FlatButton(p,"HandbookColors","颜色与红组",760,76,720,60,()=>{handbookColors=true;ShowHandbook();},true,handbookColors);
+            // p0.9.0: a third page explains growth, retriggers, pool dice, hand multiplier adds and slots.
+            UiKit.FlatButton(p,"HandbookHands","牌型",24,76,476,60,()=>{handbookColors=false;handbookRules09=false;ShowHandbook();},true,!handbookColors&&!handbookRules09);
+            UiKit.FlatButton(p,"HandbookColors","颜色与红组",514,76,476,60,()=>{handbookColors=true;handbookRules09=false;ShowHandbook();},true,handbookColors&&!handbookRules09);
+            UiKit.FlatButton(p,"HandbookRules09","成长与新机制",1004,76,476,60,()=>{handbookRules09=true;ShowHandbook();},true,handbookRules09);
             UiKit.PaperFrame(p,"HandbookPaper",16,140,1472,732,UiKit.Paper);
+            if(handbookRules09){DrawHandbookRules09(p);Canvas.ForceUpdateCanvases();return;}
             var preview=Session?.PreviewScoreRange()?.minimum;
             if(!handbookColors)
             {

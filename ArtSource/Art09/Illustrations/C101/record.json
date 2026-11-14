@@ -1,0 +1,40 @@
+{
+  "id": "C101",
+  "name": "双刃剑",
+  "createdUtc": "2026-11-14T18:41:32.480657+00:00",
+  "tool": "Codex CLI built-in image_gen, one call, two reference images attached",
+  "modelSnapshot": "not exposed by the tool",
+  "codexCli": "codex-cli 0.167.0-alpha.3.2",
+  "file": "original.png",
+  "sha256": "c8a47d8659fc0dfe26a280c673f566c6487fe9530d3efb132e9c20ecd70777ca",
+  "dimensions": [
+    1254,
+    1254
+  ],
+  "mode": "RGBA",
+  "alpha0": 1003413,
+  "alpha255": 2519,
+  "alphaPartial": 566584,
+  "alphaBounds": [
+    0,
+    17,
+    1240,
+    1235
+  ],
+  "sourcePixelsAltered": false,
+  "originalToolPathAsReported": "C:\\Users\\f\\.codex\\generated_images\\01a1db5b-bd7d-72d2-9b44-c51eb69b8f77\\exec-a6fdac95-eea2-4b1f-bc3c-c5a55b1109ed.png",
+  "promptFile": "prompt.txt",
+  "promptSha256": "a99a40336203462a0bbb00d22eedb6ad9281e87b28457318a8c569bc5bcd3b58",
+  "references": [
+    {
+      "path": "docs/specs/v071/handoff/references/battle_master_v071.png",
+      "sha256": "02895a850ba48c636445c963f705244d190bdb8b94c07f449a0269fc5047f8dc",
+      "role": "style master"
+    },
+    {
+      "path": "ArtSource/Art071/Illustrations/illustration_c29.png",
+      "sha256": "d380eecb4921984d2aacb4b50b1c7ee6fdcbdbb9f3596550fa79b476d4320728",
+      "role": "fixed standalone style anchor"
+    }
+  ]
+}

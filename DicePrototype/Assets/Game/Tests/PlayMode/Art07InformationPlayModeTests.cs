@@ -122,7 +122,7 @@ namespace DiceCraft.Tests
 
         [UnityTest] public IEnumerator PLAY_ART07_CardInformationPreservesPricesAndGeometricRarity()
         {
-            StartRun("70795");var scene=InformationScene07(Art07FixtureKind.MaximumTable);scene.target="1";scene.controllerOfferPurchases=3;scene.gold=100;
+            StartRun("70795");var scene=InformationScene07(Art07FixtureKind.MaximumTable);scene.target="1";scene.controllerOfferPurchases=2;scene.gold=100; /* p0.9.0: shelf 4 + 2 = 6 */
             ApplyInformationScene07(scene);string instance=app.Session.State.controllers.First(c=>c.enchantmentId!="none").instanceId;
             var card=Button("Controller_"+instance);Assert.That(card.GetComponent<Art07HoverTip>(),Is.Not.Null);
             Assert.That(card.transform.Find("RarityTicks").childCount,Is.InRange(1,3));

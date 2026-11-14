@@ -15,7 +15,7 @@ namespace DiceCraft
             float y=878;controllerRects.Clear();
             string controllerTitle=ViewState.debugWorkspace?$"控制器 · 调试配置 · 持有 {ViewState.controllers.Count} · 普通占槽 {ControllerRules.OrdinaryUsed(ViewState.controllers)}":$"控制器 · 普通槽 {ControllerRules.OrdinaryUsed(ViewState.controllers)}/{ViewState.controllerSlots} · 持有 {ViewState.controllers.Count}/{Config.maxControllerInstances}";
             UiKit.Text(main,"ControllersTitle",controllerTitle,40,y-22,1100,30,21,UiKit.Muted);
-            int slots=Math.Min(10,Math.Max(4,ViewState.controllers.Count));float width=1100f/Math.Min(slots,5);
+            int slots=Math.Min(10,Math.Max(ViewState.controllerSlots,ViewState.controllers.Count));float width=1100f/Math.Min(slots,5);
             for(int i=0;i<slots;i++)
             {
                 int row=i/5,col=i%5;float x=40+col*width,cy=y+18+row*63;

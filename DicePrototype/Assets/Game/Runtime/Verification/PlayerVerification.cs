@@ -812,7 +812,7 @@ namespace DiceCraft.Verification
             Accept(isolated.Execute(new SessionCommand { kind = CommandKind.StartStage, commandId = "debug-fixture-start", expectedActionSequence = 1 }));
             RunState s = isolated.State;
             s.isDebug = true; s.debugWorkspace = true; s.runId = "DEBUG-PERFORMANCE-" + Guid.NewGuid().ToString("N");
-            s.baseSubmitCapacity = 5; s.controllerSlots = 4; s.consumableSlots = 5; s.debugCapacityOverride = 8;
+            s.baseSubmitCapacity = 5; s.controllerSlots = config.initialControllerSlots; s.consumableSlots = 5; s.debugCapacityOverride = 8;
             s.stage.capacity = 8;
             s.phase = "Selecting"; s.dice.Clear(); s.hand.currentResults.Clear(); s.hand.orderedLockedIds.Clear();
             // Extra rolls are a Debug stress budget, never part of the normal run.

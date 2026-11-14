@@ -30,7 +30,8 @@ namespace DiceCraft
         {
             // Match settlement's resolved ability sources, including current C41 copies.
             long rate=1L+ViewSources.Count(s=>s.abilityId=="C01")*Config.Controller("C01").parameters.extraInterestPerTen;
-            return "每"+Config.interestDivisor+"金币利息 +"+rate+"\n计息本金上限 "+Config.maxInterestPrincipal;
+            long cap=Config.maxInterestPrincipal+(long)ViewSources.Count(s=>s.abilityId=="C96")*Config.Controller("C96").parameters.interestPrincipalAdd;
+            return "每"+Config.interestDivisor+"金币利息 +"+rate+"\n计息本金上限 "+cap;
         }
         private string Art07Rarity(string id)
         {
@@ -102,7 +103,10 @@ namespace DiceCraft
                 case "C52":return "卖价 "+ControllerRules.SalePrice(item,Config);
                 case "C41":return "模拟右邻";
                 case "C53":return "随机倍率";
-                default:return "技能详情";
+                default:
+                    if(ControllerRules.IsGrowthMultiplier(item.definitionId))return "从 ×1 成长";
+                    if(ControllerRules.IsGrowthBase(item.definitionId))return "从 +0 成长";
+                    return "技能详情";
             }
         }
         private string Art07Availability07(ShopOffer offer)
@@ -115,7 +119,7 @@ namespace DiceCraft
                 var old=ViewState.controllers.FirstOrDefault(c=>c.definitionId==offer.contentId);
                 var final=ViewState.controllers.Where(c=>c!=old).Concat(new[]{offer.controller}).ToArray();
                 if(final.Length>Config.maxControllerInstances)return "总持有已满";
-                if(ControllerRules.OrdinaryUsed(final)>Config.initialControllerSlots)return "普通槽已满";
+                if(ControllerRules.OrdinaryUsed(final)>ViewState.controllerSlots)return "普通槽已满";
                 if(old!=null)return "替换旧实例";
             }
             if(offer.category=="consumable"&&ViewState.inventory.Count>=ViewState.consumableSlots)return "道具库存满";

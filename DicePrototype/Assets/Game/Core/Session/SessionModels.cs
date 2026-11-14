@@ -64,7 +64,7 @@ namespace DiceCraft.Core
     public sealed class StageState
     {
         public string stageId;
-        public int stageIndex, capacity, remainingSubmissions, submissionOrdinal, stageRollBonus, reward;
+        public int stageIndex, capacity, remainingSubmissions, submissionOrdinal, stageRollBonus, reward, warIncomeCount;
         public string target = "0", score = "0";
         public string[] controllerOrderSnapshot = Array.Empty<string>();
         public string[] submissionBonusSourceIds = Array.Empty<string>();
@@ -116,7 +116,7 @@ namespace DiceCraft.Core
     public sealed class StageSettlement
     {
         public string settlementId, stageId;
-        public long goldBefore, unusedSubmissionReward, interest, interestPrincipal, goldAfter;
+        public long goldBefore, unusedSubmissionReward, interest, interestPrincipal, goldAfter, controllerIncome, interestPrincipalCap;
         public int baseReward, remainingSubmissions, pigSourceCount;
         public string score = "0", target = "0";
         public bool risk, pig;
@@ -149,7 +149,7 @@ namespace DiceCraft.Core
     {
         public string runId, configVersion, phase, failureReason, sourceRunId, previousPrimaryHandId;
         public int saveSchemaVersion, baseSubmitCapacity, controllerSlots, consumableSlots, itemDiscount;
-        public int controllerOfferPurchases, consumableOfferPurchases, debugCapacityOverride;
+        public int controllerOfferPurchases, consumableOfferPurchases, debugCapacityOverride, controllerSlotPurchases;
         public bool freeFirstRefreshOwned, debugWorkspace;
         public int nextDieSerial, nextItemSerial, nextOfferSerial, nextHandSerial;
         public long actionSequence, gold, submissionOrdinalGlobal;

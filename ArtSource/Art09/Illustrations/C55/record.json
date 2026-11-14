@@ -1,0 +1,40 @@
+{
+  "id": "C55",
+  "name": "积少成多",
+  "createdUtc": "2026-11-14T18:00:41.120702+00:00",
+  "tool": "Codex CLI built-in image_gen, one call, two reference images attached",
+  "modelSnapshot": "not exposed by the tool",
+  "codexCli": "codex-cli 0.167.0-alpha.3.2",
+  "file": "original.png",
+  "sha256": "2c435c1650cadbd9ce986f3b5a4a323363dc12e81ac9d919a5ca0dd5e91856be",
+  "dimensions": [
+    1254,
+    1254
+  ],
+  "mode": "RGBA",
+  "alpha0": 883849,
+  "alpha255": 2366,
+  "alphaPartial": 686301,
+  "alphaBounds": [
+    0,
+    19,
+    1238,
+    1236
+  ],
+  "sourcePixelsAltered": false,
+  "originalToolPathAsReported": "C:\\Users\\f\\.codex\\generated_images\\01a1db36-42f9-7c42-a98d-b4956e944c1c\\exec-6e92d408-fc45-47c4-b35e-e221339e902d.png",
+  "promptFile": "prompt.txt",
+  "promptSha256": "404569ae0e0f2dbd18ef20989ac2d3bafeafd8ffda4077709a49eb8c2bb4528d",
+  "references": [
+    {
+      "path": "docs/specs/v071/handoff/references/battle_master_v071.png",
+      "sha256": "02895a850ba48c636445c963f705244d190bdb8b94c07f449a0269fc5047f8dc",
+      "role": "style master"
+    },
+    {
+      "path": "ArtSource/Art071/Illustrations/illustration_c29.png",
+      "sha256": "d380eecb4921984d2aacb4b50b1c7ee6fdcbdbb9f3596550fa79b476d4320728",
+      "role": "fixed standalone style anchor"
+    }
+  ]
+}

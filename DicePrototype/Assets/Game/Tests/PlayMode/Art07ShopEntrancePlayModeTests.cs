@@ -38,7 +38,7 @@ namespace DiceCraft.Tests
             Art07Fixtures.Apply(app,Art07FixtureKind.G147);FinalOptions07("Normal",reduce);
             var s=app.Session.State;var scene=Art07Fixtures.Create(app.Config,Art07FixtureKind.G147,s.nextItemSerial,s.nextDieSerial);
             scene.sourceRunId=s.sourceRunId;scene.stageIndex=stage;scene.gold=1000000;
-            scene.target="1";scene.remainingSubmissions=1;scene.controllerOfferPurchases=3;scene.consumableOfferPurchases=3;
+            scene.target="1";scene.remainingSubmissions=1;scene.controllerOfferPurchases=2;scene.consumableOfferPurchases=3; /* p0.9.0: shelf 4 + 2 = 6 */
             File.WriteAllText(Path.Combine(saveDirectory,"shop-entrance-"+stage+"-fixture.json"),JsonUtility.ToJson(scene,true));
             var applied=app.Send(new SessionCommand{kind=CommandKind.ApplyDebugScene,debugScene=scene});Assert.That(applied.accepted,Is.True,applied.error);
             yield return app.StartCoroutine(ShopEntranceFrame07());

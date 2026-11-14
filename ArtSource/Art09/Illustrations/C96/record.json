@@ -1,0 +1,40 @@
+{
+  "id": "C96",
+  "name": "利滚利",
+  "createdUtc": "2026-11-14T18:36:10.640449+00:00",
+  "tool": "Codex CLI built-in image_gen, one call, two reference images attached",
+  "modelSnapshot": "not exposed by the tool",
+  "codexCli": "codex-cli 0.167.0-alpha.3.2",
+  "file": "original.png",
+  "sha256": "45daa317796c106b6cf291080416f1bf76a51caa30198da4229a5138d5858a7d",
+  "dimensions": [
+    1254,
+    1254
+  ],
+  "mode": "RGBA",
+  "alpha0": 899036,
+  "alpha255": 1527,
+  "alphaPartial": 671953,
+  "alphaBounds": [
+    0,
+    8,
+    1240,
+    1254
+  ],
+  "sourcePixelsAltered": false,
+  "originalToolPathAsReported": "C:\\Users\\f\\.codex\\generated_images\\01a1db56-dd25-74e3-aa62-e3c9c1486988\\exec-380094c8-7c27-4c2f-8de8-0d27695204ca.png",
+  "promptFile": "prompt.txt",
+  "promptSha256": "a904dc74e6938b0ed79f6e3b980782806701b251d61b950754b9eec21b4c17b3",
+  "references": [
+    {
+      "path": "docs/specs/v071/handoff/references/battle_master_v071.png",
+      "sha256": "02895a850ba48c636445c963f705244d190bdb8b94c07f449a0269fc5047f8dc",
+      "role": "style master"
+    },
+    {
+      "path": "ArtSource/Art071/Illustrations/illustration_c29.png",
+      "sha256": "d380eecb4921984d2aacb4b50b1c7ee6fdcbdbb9f3596550fa79b476d4320728",
+      "role": "fixed standalone style anchor"
+    }
+  ]
+}

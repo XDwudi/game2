@@ -109,8 +109,8 @@ namespace DiceCraft.Tests
             }
             string[] ids = app.Config.controllers.Select(c => c.id).Concat(app.Config.consumables.Select(c => c.id))
                 .Concat(app.Config.services.Select(c => c.id)).Concat(app.Config.diceUpgrades.Select(c => c.id)).ToArray();
-            Assert.That(ids.Length, Is.EqualTo(71));
-            Assert.That(app.contentIcons, Has.Length.EqualTo(71));
+            Assert.That(ids.Length, Is.EqualTo(122)); // p0.9.0: 100 controllers, 7 items, 8 services, 7 die upgrades
+            Assert.That(app.contentIcons, Has.Length.EqualTo(122));
             Assert.That(app.contentIcons.All(sprite => sprite != null), Is.True);
             CollectionAssert.AreEquivalent(ids, app.contentIcons.Select(sprite =>
             {

@@ -226,11 +226,19 @@ namespace DiceCraft.Core
         {
             RequirePhase(s, "StagePreview");
             Check(s.dice.Count > 0, "骰组耗尽。");
+            // v0.9 C100: each real altar, left to right, destroys its right neighbour before order and bindings freeze.
+            for (int i = 0; i + 1 < s.controllers.Count; i++)
+            {
+                var altar = s.controllers[i]; if (altar.definitionId != "C100") continue;
+                var victim = s.controllers[i + 1]; s.controllers.RemoveAt(i + 1); long before = altar.state.growth;
+                altar.state.growth = checked(before + (long)cfg.Controller(victim.definitionId).buyPrice * cfg.Controller("C100").parameters.growthPerBuyPrice);
+                s.lastEffects.Add(new EffectRecord { kind = "ControllerSacrificed", sourceId = "C100", detail = altar.instanceId + ":" + victim.instanceId + ":" + victim.definitionId, oldValue = before, newValue = altar.state.growth });
+            }
             s.stage.controllerOrderSnapshot = s.controllers.Select(c => c.instanceId).ToArray();
             s.stage.mimicBindings = ControllerRules.FreezeBindings(s.controllers.ToArray());
             s.stage.submissionBonusSourceIds = s.controllers.Where(c => c.enchantmentId == "submit1").Select(c => c.instanceId).ToArray();
             s.stage.capacity = ShopCapacity(s); s.stage.started = true;
-            s.stage.remainingSubmissions = ControllerRules.SubmissionBudget(s.controllers, cfg);
+            s.stage.remainingSubmissions = ControllerRules.SubmissionBudget(s.controllers, cfg, s.stage.mimicBindings);
             StartHand(s);
         }
 
@@ -275,12 +283,14 @@ namespace DiceCraft.Core
             Check(unlocked.Length > 0, "全部骰子已锁定，不能空投。");
             var diceRng = new GameRng(s.diceRngState); var effectRng = new GameRng(s.effectRngState);
             s.hand.rollsRemaining--; s.hand.rollsUsed++; s.hand.hasRolled = true;
+            Grow(s, "C62", cfg.Controller("C62").parameters.growthPerEvent);
             foreach (var die in unlocked)
             {
                 if (die.isGlass && DrawRisk(s, effectRng, "Glass", die.dieId, cfg.glassBreakPercent))
                 {
                     s.dice.Remove(die); s.hand.currentResults.RemoveAll(x => x.dieId == die.dieId);
                     s.lastEffects.Add(new EffectRecord { kind = "DieBroken", sourceId = "U05", dieId = die.dieId });
+                    Grow(s, "C90", cfg.Controller("C90").parameters.growthPerEvent);
                     continue;
                 }
                 var faces = die.faces.OrderBy(x => x.faceId, StringComparer.Ordinal).ToArray();
@@ -315,6 +325,16 @@ namespace DiceCraft.Core
             s.phase = "Selecting";
         }
 
+        /// <summary>v0.9: adds growth to every real instance of one controller. Mimics share the owner's value and never grow.</summary>
+        private void Grow(RunState s, string definitionId, long delta)
+        {
+            if (delta == 0) return;
+            foreach (var c in s.controllers.Where(x => x.definitionId == definitionId))
+            {
+                long before = c.state.growth; c.state.growth = checked(before + delta);
+                s.lastEffects.Add(new EffectRecord { kind = "ControllerGrown", sourceId = definitionId, detail = c.instanceId, oldValue = before, newValue = c.state.growth });
+            }
+        }
         private static MimicBinding[] ActiveBindings(RunState s) { return s.stage != null && s.stage.started && !s.stage.settled ? s.stage.mimicBindings : null; }
         private static AbilitySource[] Sources(RunState s) { return ControllerRules.ResolveSources(s.controllers.ToArray(), ActiveBindings(s)); }
         private static bool Has(RunState s, string id) { return s.controllers.Any(x => x.contentId == id); }

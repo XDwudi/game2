@@ -315,7 +315,7 @@ namespace DiceCraft
             UiKit.Text(main,"ScoreTarget","目标 "+CompactScore(r.target)+"  ·  溢出分不带入下一关",105,550,900,55,26,UiKit.Muted);
             var p=UiKit.Box(main,"Rewards",1090,220,690,590,UiKit.Panel);
             UiKit.Text(p,"RewardTitle","本关收益",34,32,620,60,36);
-            UiKit.Text(p,"RewardRows",$"奖励前金币                 {r.goldBefore}\n基础奖励                     +{r.baseReward}\n剩余提交                     +{r.unusedSubmissionReward}\n利息{(r.pig?"（存钱罐）":"")}                     +{r.interest}\n计息本金 {r.interestPrincipal} / 50",34,132,620,280,29);
+            UiKit.Text(p,"RewardRows",$"奖励前金币                 {r.goldBefore}\n基础奖励                     +{r.baseReward}\n剩余提交                     +{r.unusedSubmissionReward}\n利息{(r.pig?"（存钱罐）":"")}                     +{r.interest}{(r.controllerIncome>0?"\n铁饭碗                     +"+r.controllerIncome:"")}\n计息本金 {r.interestPrincipal} / {r.interestPrincipalCap}",34,132,620,280,29);
             UiKit.Text(p,"Balance","余额  "+r.goldAfter,34,435,620,80,47,UiKit.Gold);
             UiKit.Button(main,"SettlementContinue",ViewState.stage.settlementContinuation=="Shop"?"前往商店  →":"查看挑战结果  →",1090,850,690,76,()=>Send(new SessionCommand{kind=CommandKind.Continue}),true,true);
             UiKit.Button(main,"LastBreakdown","查看刚才的得分",100,740,700,64,()=>ShowBreakdown(ViewState.lastSubmission.snapshot,ViewState.lastSubmission.breakdown));

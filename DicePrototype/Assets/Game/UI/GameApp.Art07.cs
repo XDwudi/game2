@@ -71,7 +71,7 @@ namespace DiceCraft
             Stat07(p,"Money","金币",ViewState.gold.ToString(),534,w,UiKit.Gold);
             if(ViewState.phase=="Shop")
             {
-                UiKit.Text(p,"ShopBudget",$"普通槽 {ControllerRules.OrdinaryUsed(ViewState.controllers)} / {ViewState.controllerSlots}\n总持有 {ViewState.controllers.Count} / 10\n永久骰 {ViewState.dice.Count(d=>d.lifetime=="permanent")} / 8",18,672,w-36,134,20,UiKit.Muted);
+                UiKit.Text(p,"ShopBudget",$"普通槽 {ControllerRules.OrdinaryUsed(ViewState.controllers)} / {ViewState.controllerSlots}\n总持有 {ViewState.controllers.Count} / {Config.maxControllerInstances}\n永久骰 {ViewState.dice.Count(d=>d.lifetime=="permanent")} / 8",18,672,w-36,134,20,UiKit.Muted);
             }
             else if(ViewState.hand!=null&&(ViewState.phase=="HandReady"||ViewState.phase=="Selecting"))
             {
@@ -150,7 +150,9 @@ namespace DiceCraft
             bool c=Compact07;float x=c?360:368,y=c?18:24;
             int count=ViewState.controllers.Count;bool mini=count>5||c;int shown=count>10?9:count;
             float cw=c?234:mini?208:Spacious071&&count<=4?228:198,ch=c?117:mini?104:Spacious071&&count<=4?304:264,gap=c?12:24,rowGap=c?18:16;
-            for(int i=0;i<Math.Max(4,shown);i++)
+            // p0.9.0: empty places follow the run's ordinary slots (5 to 7); the single large row holds at most five.
+            int places=Math.Max(shown,Math.Min(mini?10:5,ViewState.controllerSlots));
+            for(int i=0;i<places;i++)
             {
                 float px=x+(i%5)*(cw+gap),py=y+(mini?i/5*(ch+rowGap):0);
                 if(i>=shown){var empty=UiKit.Frame(main,"ControllerEmpty"+i,px,py,cw,ch,Color.Lerp(UiKit.Felt,UiKit.Background,.2f),UiKit.Panel);UiKit.Surface(empty,"ui_slot_inventory");UiKit.Text(empty,"Capacity","·  ·  ·",8,ch/2-20,cw-16,40,22,UiKit.PanelLight,TextAlignmentOptions.Center);continue;}
@@ -195,6 +197,8 @@ namespace DiceCraft
             if(source?.abilityId=="C45")return source.state.activeColor=="red"?"当前红":"当前蓝";
             if(source?.abilityId=="C51")return "当前 ×"+(source.state.turnoverUnits2/2m).ToString("0.#");
             if(source?.abilityId=="C53")return "随机倍率";
+            string growth=GrowthText09(source?.abilityId,source?.state);
+            if(growth!=null)return "当前 "+growth;
             if(item.definitionId=="C52")return "售价 "+ControllerRules.SalePrice(item,Config);
             if(source?.abilityId=="C05")return ViewState.hand?.c05UsedEmitterIds.Contains(item.instanceId)==true?"本手已用":"本手可用";
             return "点击查看条件";
@@ -230,6 +234,14 @@ namespace DiceCraft
             float poolX=c?360:368,poolY=c?408:472,poolW=c?1542:1528;
             UiKit.Text(main,"PoolTitle","骰池",poolX+8,poolY,72,36,c?18:22,UiKit.Muted);
             var dice=s.dice.Where(d=>!h.orderedLockedIds.Contains(d.dieId)).OrderBy(d=>d.createdSerial).ToList();poolPage=Math.Min(poolPage,Math.Max(0,(dice.Count-1)/10));
+            // p0.9.0: with a controller that reads the dice left in the pool, say what would stay behind right now.
+            if(h.hasRolled&&ViewSources.Any(x=>x.abilityId=="C70"||x.abilityId=="C71"||x.abilityId=="C72"||x.abilityId=="C73"||x.abilityId=="C74"))
+            {
+                var left=h.currentResults.Where(r=>r.hasRolled&&!r.isLocked).ToArray();
+                var summary=UiKit.Text(main,"PoolSummary09","留池 "+left.Length+" 颗 · 点数和 "+left.Sum(r=>r.currentPip)+" · 红 "+left.Count(r=>r.currentColor=="red")+" · 6点 "+left.Count(r=>r.currentPip==6),
+                    poolX+88,poolY,520,36,c?16:19,UiKit.Teal);
+                summary.textWrappingMode=TextWrappingModes.NoWrap;summary.overflowMode=TextOverflowModes.Ellipsis;summary.raycastTarget=false;
+            }
             int shown=Math.Min(10,dice.Count-poolPage*10);const float cellWidth=280;
             bool largePool=!c&&UiKit.FontScale<=1&&s.dice.Count<=5;
             for(int j=0;j<shown;j++)

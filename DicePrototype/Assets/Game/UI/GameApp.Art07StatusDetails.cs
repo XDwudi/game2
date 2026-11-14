@@ -83,7 +83,7 @@ namespace DiceCraft
                 UiKit.Text(p,"Qualified","现在结束的奖励",18,508,width-36,40,18,UiKit.Gold);
                 if(r!=null)
                 {
-                    string[] lines={"基础奖励  +"+r.baseReward,"剩次奖励  +"+r.unusedSubmissionReward,"预计利息  +"+r.interest};
+                    string[] lines={"基础奖励  +"+r.baseReward,"剩次奖励  +"+r.unusedSubmissionReward,"预计利息  +"+r.interest+(r.controllerIncome>0?"  ·  铁饭碗 +"+r.controllerIncome:"")};
                     for(int i=0;i<lines.Length;i++)UiKit.Text(p,"QualifiedReward"+i,lines[i],18,548+i*40,width-36,40,18,UiKit.Paper);
                 }
                 int income=ViewSources.Count(s=>s.abilityId=="C01")*Config.Controller("C01").parameters.goldPerValidSubmission;

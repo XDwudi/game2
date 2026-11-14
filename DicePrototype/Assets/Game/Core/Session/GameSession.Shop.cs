@@ -32,10 +32,10 @@ namespace DiceCraft.Core
             Check(offer != null, "商品不存在。");
             switch (offer.category)
             {
-                case "controller": return checked(cfg.Controller(offer.contentId).buyPrice + ControllerRules.EnchantPrice(offer.controller.enchantmentId, cfg));
+                case "controller": return Math.Max(1, checked(cfg.Controller(offer.contentId).buyPrice + ControllerRules.EnchantPrice(offer.controller.enchantmentId, cfg) + BargainDelta(s)));
                 case "consumable": return Discount(s, cfg.Consumable(offer.contentId).baseBuyPrice);
                 case "hand_upgrade": return HandPrice(s, offer.contentId, false);
-                case "die_upgrade": return cfg.Upgrade(offer.contentId).buyPrice;
+                case "die_upgrade": return Math.Max(1, checked(cfg.Upgrade(offer.contentId).buyPrice + BargainDelta(s)));
                 case "new_die": return Discount(s, offer.basePrice);
                 case "service":
                     int basePrice = cfg.Service(offer.contentId).baseBuyPrice;
@@ -43,11 +43,14 @@ namespace DiceCraft.Core
                     if (offer.contentId == "O01") basePrice = checked(basePrice + 2 * (s.consumableSlots - cfg.initialConsumableSlots));
                     if (offer.contentId == "O05") basePrice = checked(basePrice + 2 * s.controllerOfferPurchases);
                     if (offer.contentId == "O06") basePrice = checked(basePrice + 2 * s.consumableOfferPurchases);
+                    if (offer.contentId == "O08") basePrice = checked(basePrice + cfg.controllerSlotPriceStep * s.controllerSlotPurchases);
                     return Discount(s, basePrice);
                 default: throw new RuleViolation("商品类别无效。");
             }
         }
 
+        /// <summary>v0.9 C98: a negative price change on controllers and die upgrades, per source.</summary>
+        private int BargainDelta(RunState s) => checked(Sources(s).Count(x => x.abilityId == "C98") * cfg.Controller("C98").parameters.priceDelta);
         private int Discount(RunState s, int price) { return Math.Max(cfg.minDiscountedItemPrice, price - s.itemDiscount); }
         private long OfferTradeIn(RunState s, ShopOffer offer)
         {
@@ -186,6 +189,7 @@ namespace DiceCraft.Core
                 case "O05": return s.controllerOfferPurchases < cfg.shop.maxOfferExpansionPurchases && ControllerOfferCount(s) < cfg.shop.maxControllerOffers;
                 case "O06": return s.consumableOfferPurchases < cfg.shop.maxOfferExpansionPurchases && ConsumableOfferCount(s) < cfg.shop.maxConsumableOffers;
                 case "O07": return !s.freeFirstRefreshOwned;
+                case "O08": return s.controllerSlots < cfg.maxOrdinaryControllerSlots;
                 default: return false;
             }
         }
@@ -244,7 +248,7 @@ namespace DiceCraft.Core
                     var old = s.controllers.FirstOrDefault(c => c.definitionId == offer.contentId);
                     Check(old == null || (offer.controller.enchantmentId != "none" && offer.controller.enchantmentId != old.enchantmentId), "同名控制器只能替换为不同的非空附魔。");
                     var equipment = s.controllers.Where(c => c != old).Concat(new[] { offer.controller }).ToArray();
-                    Check(equipment.Length <= cfg.maxControllerInstances && ControllerRules.OrdinaryUsed(equipment) <= cfg.initialControllerSlots, "普通控制器槽或总件数已满，可先出售控制器。");
+                    Check(equipment.Length <= cfg.maxControllerInstances && ControllerRules.OrdinaryUsed(equipment) <= s.controllerSlots, "普通控制器槽或总件数已满，可先出售控制器。");
                     Check(equipment.Select(c => c.definitionId).Distinct(StringComparer.Ordinal).Count() == equipment.Length, "控制器定义重复。");
                     Check(ControllerRules.IsEnchantmentLegal(offer.contentId, offer.controller.enchantmentId, cfg), "控制器附魔不合法。");
                     break;
@@ -288,7 +292,7 @@ namespace DiceCraft.Core
                     if (old != null) GrowTurnover(s, retainedTurnover);
                     break;
                 case "consumable": s.inventory.Add(NewOwnedItem(s, offer.contentId)); break;
-                case "hand_upgrade": s.handLevels.Concat(s.colorLevels).First(x => x.handId == offer.contentId).level++; break;
+                case "hand_upgrade": s.handLevels.Concat(s.colorLevels).First(x => x.handId == offer.contentId).level++; Grow(s, "C61", cfg.Controller("C61").parameters.growthPerEvent); break;
                 case "new_die":
                     var d = offer.die.Clone(); d.createdSerial = s.nextDieSerial++; d.dieId = "D" + d.createdSerial.ToString("D3");
                     d.lifetime = "permanent"; d.createdStageId = ""; s.dice.Add(d);
@@ -304,10 +308,11 @@ namespace DiceCraft.Core
                         s.shopRngState = rng.State;
                     }
                     else if (offer.contentId == "O07") s.freeFirstRefreshOwned = true;
+                    else if (offer.contentId == "O08") { s.controllerSlots++; s.controllerSlotPurchases++; s.lastEffects.Add(new EffectRecord { kind = "ControllerSlotAdded", sourceId = "O08", oldValue = s.controllerSlots - 1, newValue = s.controllerSlots }); }
                     else if (offer.contentId == "O04") { s.dice.RemoveAll(x => x.dieId == command.targetDieId); s.lastEffects.Add(new EffectRecord { kind = "DieRemoved", sourceId = "O04", dieId = command.targetDieId }); }
                     else throw new RuleViolation("服务不能以此方式购买。");
                     break;
-                case "die_upgrade": ApplyUpgrade(s, offer.contentId, command.targetDieId, command.targetFaceId); break;
+                case "die_upgrade": ApplyUpgrade(s, offer.contentId, command.targetDieId, command.targetFaceId); Grow(s, "C60", cfg.Controller("C60").parameters.growthPerEvent); break;
             }
             offer.sold = true;
             s.lastEffects.Add(new EffectRecord { kind = "Purchased", sourceId = offer.contentId, detail = offer.offerId, oldValue = price, newValue = s.gold });
@@ -343,7 +348,7 @@ namespace DiceCraft.Core
             Check(s.shop.selfStudyUsed < cfg.shop.selfStudyLimit, "本店自选研习机会已使用。");
             Check(IsHandLegal(s, handId), "牌型已满级，或当前容量/永久骰数量不足。");
             int price = HandPrice(s, handId, true); Check(s.gold >= price, "金币不足。");
-            s.gold = checked(s.gold - price); s.handLevels.Concat(s.colorLevels).First(x => x.handId == handId).level++; s.shop.selfStudyUsed++;
+            s.gold = checked(s.gold - price); s.handLevels.Concat(s.colorLevels).First(x => x.handId == handId).level++; s.shop.selfStudyUsed++; Grow(s, "C61", cfg.Controller("C61").parameters.growthPerEvent);
             s.lastEffects.Add(new EffectRecord { kind = "HandStudied", sourceId = handId, oldValue = price, newValue = Level(s, handId) });
         }
 

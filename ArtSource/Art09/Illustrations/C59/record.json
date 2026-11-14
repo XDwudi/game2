@@ -1,0 +1,40 @@
+{
+  "id": "C59",
+  "name": "余勇可贾",
+  "createdUtc": "2026-11-14T18:03:53.657191+00:00",
+  "tool": "Codex CLI built-in image_gen, one call, two reference images attached",
+  "modelSnapshot": "not exposed by the tool",
+  "codexCli": "codex-cli 0.167.0-alpha.3.2",
+  "file": "original.png",
+  "sha256": "72a9d0c8fcb2d9cbce48af2b5292d0f3d8d6c59a6e3d687dcc1493245dc0c6d9",
+  "dimensions": [
+    1254,
+    1254
+  ],
+  "mode": "RGBA",
+  "alpha0": 879880,
+  "alpha255": 1255,
+  "alphaPartial": 691381,
+  "alphaBounds": [
+    0,
+    18,
+    1236,
+    1254
+  ],
+  "sourcePixelsAltered": false,
+  "originalToolPathAsReported": "C:\\Users\\f\\.codex\\generated_images\\01a1db39-76f9-7e83-b737-924b041e041b\\exec-5c60d047-8957-4d7d-aed9-5c0fb0ac06f3.png",
+  "promptFile": "prompt.txt",
+  "promptSha256": "7e2f59f41210b78260715f345c9c0b01e4926ebb2cb3c60d67174c4bd95efb90",
+  "references": [
+    {
+      "path": "docs/specs/v071/handoff/references/battle_master_v071.png",
+      "sha256": "02895a850ba48c636445c963f705244d190bdb8b94c07f449a0269fc5047f8dc",
+      "role": "style master"
+    },
+    {
+      "path": "ArtSource/Art071/Illustrations/illustration_c29.png",
+      "sha256": "d380eecb4921984d2aacb4b50b1c7ee6fdcbdbb9f3596550fa79b476d4320728",
+      "role": "fixed standalone style anchor"
+    }
+  ]
+}

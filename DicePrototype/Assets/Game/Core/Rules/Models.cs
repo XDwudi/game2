@@ -24,6 +24,10 @@ namespace DiceCraft.Core
         public string activeColor;
         public int turnoverUnits2 = 3;
         public long fundAccrual;
+        // v0.9: permanent growth counter (0.05 steps for multiplier cards, raw points for base-add cards) and the
+        // resale bonus granted by C99. Both stay with the real instance and are lost when it is sold or destroyed.
+        public long growth;
+        public long saleBonus;
         public ControllerDynamicState Clone() => (ControllerDynamicState)MemberwiseClone();
     }
     [Serializable]
@@ -95,6 +99,15 @@ namespace DiceCraft.Core
         }
     }
 
+    /// <summary>v0.9: a rolled, surviving die that was left in the pool instead of being submitted.</summary>
+    [Serializable]
+    public sealed class PoolDie
+    {
+        public string dieId, faceId, currentColor;
+        public int currentPip;
+        public PoolDie Clone() => (PoolDie)MemberwiseClone();
+    }
+
     [Serializable]
     public sealed class HandLevel
     {
@@ -119,6 +132,9 @@ namespace DiceCraft.Core
         // Null means preview adjacency; empty means a frozen map with no bindings.
         public MimicBinding[] mimicBindings;
         public RandomMultiplierChoice[] resolvedRandomChoices = Array.Empty<RandomMultiplierChoice>();
+        // v0.9 frozen context: rolls thrown this hand, submissions left before this one, owned permanent dice, pool dice.
+        public int rollsUsed, submissionsRemainingBefore, permanentDiceCount;
+        public PoolDie[] poolDice = Array.Empty<PoolDie>();
         public SubmissionSnapshot Clone()
         {
             var result = (SubmissionSnapshot)MemberwiseClone();
@@ -129,6 +145,7 @@ namespace DiceCraft.Core
             result.colorLevels = (colorLevels ?? Array.Empty<HandLevel>()).Select(h => h.Clone()).ToArray();
             result.mimicBindings = mimicBindings?.Select(b => b.Clone()).ToArray();
             result.resolvedRandomChoices = (resolvedRandomChoices ?? Array.Empty<RandomMultiplierChoice>()).Select(c => c.Clone()).ToArray();
+            result.poolDice = (poolDice ?? Array.Empty<PoolDie>()).Select(d => d.Clone()).ToArray();
             return result;
         }
     }
@@ -153,6 +170,12 @@ namespace DiceCraft.Core
         public MultiplierFactor[] multiplierFactors;
         public AfterScorePlan afterScorePlan;
         public string score;
+        // v0.9: per-die retrigger counts (pipSum = sum of contribution x (1 + retriggers)), hand multiplier add,
+        // pool dice merged into the red group, and the base adds of the v0.9 controllers in source order.
+        public int[] pipRetriggers = Array.Empty<int>();
+        public RetriggerEntry[] retriggerEntries = Array.Empty<RetriggerEntry>();
+        public int handMultAdd100, redPoolCount;
+        public ControllerBaseAdd[] controllerBaseAdds = Array.Empty<ControllerBaseAdd>();
         public ScoreBreakdown Clone()
         {
             var result = (ScoreBreakdown)MemberwiseClone();
@@ -165,6 +188,9 @@ namespace DiceCraft.Core
             result.triggeredSourceIds = (string[])triggeredSourceIds.Clone();
             result.multiplierFactors = multiplierFactors.Select(f => f.Clone()).ToArray();
             result.afterScorePlan = afterScorePlan.Clone();
+            result.pipRetriggers = (int[])(pipRetriggers ?? Array.Empty<int>()).Clone();
+            result.retriggerEntries = (retriggerEntries ?? Array.Empty<RetriggerEntry>()).Select(a => a.Clone()).ToArray();
+            result.controllerBaseAdds = (controllerBaseAdds ?? Array.Empty<ControllerBaseAdd>()).Select(a => a.Clone()).ToArray();
             return result;
         }
     }
@@ -178,6 +204,7 @@ namespace DiceCraft.Core
     [Serializable]
     public sealed class AfterScorePlan
     {
+        public GrowthChange[] growthChanges = Array.Empty<GrowthChange>();
         public int earnedGold;
         public bool copyFirstToSecond;
         public int[] redSpreadIndices = Array.Empty<int>();
@@ -192,8 +219,31 @@ namespace DiceCraft.Core
         {
             var c = (AfterScorePlan)MemberwiseClone();
             c.redSpreadIndices = (int[])redSpreadIndices.Clone(); c.growthIndices = (int[])growthIndices.Clone(); c.blueSpreadIndices = (int[])blueSpreadIndices.Clone();
-            c.nextColorOwnerIds = (string[])nextColorOwnerIds.Clone(); c.randomFactorOwnerIds = (string[])randomFactorOwnerIds.Clone(); c.cannonRiskEmitterIds = (string[])cannonRiskEmitterIds.Clone(); return c;
+            c.nextColorOwnerIds = (string[])nextColorOwnerIds.Clone(); c.randomFactorOwnerIds = (string[])randomFactorOwnerIds.Clone(); c.cannonRiskEmitterIds = (string[])cannonRiskEmitterIds.Clone();
+            c.growthChanges = (growthChanges ?? Array.Empty<GrowthChange>()).Select(g => g.Clone()).ToArray(); return c;
         }
+    }
+    [Serializable]
+    public sealed class ControllerBaseAdd
+    {
+        public string emitterId, abilityId, stateOwnerId, amount;
+        public ControllerBaseAdd Clone() => (ControllerBaseAdd)MemberwiseClone();
+    }
+    [Serializable]
+    public sealed class RetriggerEntry
+    {
+        public string emitterId, abilityId, stateOwnerId;
+        public int dieIndex, count;
+        public RetriggerEntry Clone() => (RetriggerEntry)MemberwiseClone();
+    }
+    /// <summary>v0.9: growth applied to a real controller instance after this submission is scored.</summary>
+    [Serializable]
+    public sealed class GrowthChange
+    {
+        public string ownerInstanceId, abilityId;
+        public long delta;
+        public bool reset;
+        public GrowthChange Clone() => (GrowthChange)MemberwiseClone();
     }
     [Serializable]
     public sealed class ScorePreview

@@ -187,7 +187,7 @@ namespace DiceCraft.Tests
                 ApplyInformationScene07(scene);yield return CardCapture07("font"+font+"-hud-current-states");
                 yield return ExtraPress07("Controller_"+app.Session.State.controllers[0].instanceId);yield return CardCapture07("font"+font+"-detail",detail:true);yield return ExtraPress07("CloseDialog");
                 scene=InformationScene07(Art07FixtureKind.MaximumPool);ApplyInformationScene07(scene);yield return CardCapture07("font"+font+"-ten-compact-cards");
-                var shop=ShopBoundaryFixture();shop.controllers.Clear();shop.shop.offers.Clear();shop.controllerOfferPurchases=3;
+                var shop=ShopBoundaryFixture();shop.controllers.Clear();shop.shop.offers.Clear();shop.controllerOfferPurchases=2; /* p0.9.0: the shelf starts at 4, so two expansions reach the maximum of 6 */
                 foreach(string id in ids){var item=BoundaryController(shop,id,"slotless");if(id=="C45")item.state.activeColor="blue";if(id=="C52")item.state.fundAccrual=6;shop.controllers.Add(item);}
                 string[] quotes={"C01","C02","C45","C41","C51","C52"};
                 foreach(string id in quotes){AddBoundaryOffer(shop,"read-"+id,"controller",id);var offer=shop.shop.offers.Last();offer.controller.enchantmentId="slotless";}

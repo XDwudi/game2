@@ -209,7 +209,7 @@ namespace DiceCraft.Verification
             yield return Idle();string before=StateHash(),save=HashFile(app.SaveLocation);
             if(!app.DebugUnlocked||!app.EnterDebugWorkspace())throw new InvalidOperationException("Actual password UI must unlock debug before applying fixtures.");
             var state=app.Session.State;var scene=Art07Fixtures.Create(app.Config,kind,state.nextItemSerial,state.nextDieSerial);scene.sourceRunId=state.sourceRunId;
-            if(expandedShop){scene.target="1";scene.score="0";scene.controllerOfferPurchases=3;scene.consumableOfferPurchases=3;scene.note+="; expanded-shop capture; debug target=1, initial score=0";}
+            if(expandedShop){scene.target="1";scene.score="0";scene.controllerOfferPurchases=2;scene.consumableOfferPurchases=3;scene.note+="; expanded-shop capture; debug target=1, initial score=0";}
             if(all32){scene.consumableSlots=32;for(int i=scene.inventory.Count;i<32;i++)scene.inventory.Add(new OwnedItem{instanceId="ITEM_"+(state.nextItemSerial+64+i).ToString("D5"),contentId="I"+(i%7+1).ToString("D2")});}
             File.WriteAllText(Path.Combine(report.outputDirectory,"fixture-"+kind+".json"),JsonUtility.ToJson(scene,true));
             var result=app.Send(new SessionCommand{kind=CommandKind.ApplyDebugScene,debugScene=scene});

@@ -15,8 +15,9 @@ namespace DiceCraft.Presentation
         public const float PopSeconds = .12f, MaxCountSeconds = .42f, MinVisibleSeconds = .45f, FadeSeconds = .16f, ReducedFadeSeconds = .12f;
 
         /// <summary>
-        /// 1: hand score reaches half of the stage target, or total multiplier tier 3 (x128).
-        /// 2: hand score reaches the target, or tier 4 (x1024). 3: twice the target, or tier 5 (x8192).
+        /// 1: hand score reaches half of the stage target. 2: reaches the target. 3: twice the target.
+        /// p0.9.0 (docs/specs/v09/RULES_SPEC.md section 0): the total-multiplier tier no longer raises the celebration,
+        /// so growing multipliers cannot make every hand a top-tier one. comboTier is still validated for callers.
         /// </summary>
         public static int Tier(string handScore, string stageTarget, int comboTier)
         {
@@ -30,9 +31,6 @@ namespace DiceCraft.Presentation
                 if (score >= target) tier = Super;
                 if (score >= target * 2) tier = Burst;
             }
-            if (comboTier >= 3) tier = Math.Max(tier, High);
-            if (comboTier >= 4) tier = Math.Max(tier, Super);
-            if (comboTier >= 5) tier = Burst;
             return tier;
         }
 

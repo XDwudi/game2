@@ -106,7 +106,7 @@ namespace DiceCraft.Core.Tests
         [Test]
         public void AllNewAndReplacementEnchantTicketsMatchIndependentPoolTables()
         {
-            string[] order = { "none", "slotless", "base10", "mult2", "submit1", "roll1" }; int[] ordinary = { 50, 18, 10, 4, 9, 9 }, special = { 100, 50, 0, 0, 25, 25 }; string[] passive = { "C05", "C21", "C22", "C34", "C35", "C52" }; int fresh = 0, replacements = 0, pools = 0;
+            string[] order = { "none", "slotless", "base10", "mult2", "submit1", "roll1" }; int[] ordinary = { 50, 18, 10, 4, 9, 9 }, special = { 100, 50, 0, 0, 25, 25 }; string[] passive = { "C05", "C21", "C22", "C34", "C35", "C52", "C78", "C79", "C95", "C96", "C97", "C98", "C99" }; int fresh = 0, replacements = 0, pools = 0;
             foreach (var def in cfg.controllers)
             {
                 var weights = passive.Contains(def.id) ? special : ordinary;
@@ -123,7 +123,7 @@ namespace DiceCraft.Core.Tests
                     }
                 }
             }
-            Assert.That(fresh, Is.EqualTo(5600)); Assert.That(pools, Is.EqualTo(288)); Assert.That(replacements, Is.EqualTo(12800));
+            /* p0.9.0: 87 scoring x 100 + 13 non-scoring x 200; 87 x 6 + 13 x 4 pools; 87 x 250 + 13 x 300 replacement tickets */ Assert.That(fresh, Is.EqualTo(11300)); Assert.That(pools, Is.EqualTo(574)); Assert.That(replacements, Is.EqualTo(25650));
         }
         [Test]
         public void NumericConfigKeysPreserveValuesAndRejectMissingUnknownOrWrongTypes()

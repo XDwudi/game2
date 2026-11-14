@@ -1,0 +1,40 @@
+{
+  "id": "C102",
+  "name": "背水一战",
+  "createdUtc": "2026-11-14T18:41:44.569795+00:00",
+  "tool": "Codex CLI built-in image_gen, one call, two reference images attached",
+  "modelSnapshot": "not exposed by the tool",
+  "codexCli": "codex-cli 0.167.0-alpha.3.2",
+  "file": "original.png",
+  "sha256": "96bc0f49a84248c8b33bc50921315e0e58a992a9c2ebdf358bc8dae9a0348eff",
+  "dimensions": [
+    1254,
+    1254
+  ],
+  "mode": "RGBA",
+  "alpha0": 770875,
+  "alpha255": 2410,
+  "alphaPartial": 799231,
+  "alphaBounds": [
+    0,
+    21,
+    1238,
+    1222
+  ],
+  "sourcePixelsAltered": false,
+  "originalToolPathAsReported": "C:\\Users\\f\\.codex\\generated_images\\01a1db5b-d5ab-7ff1-9ead-5a2da832e1fc\\exec-f46a3a8a-3e5e-407c-ab50-1ef31661aad8.png",
+  "promptFile": "prompt.txt",
+  "promptSha256": "d4732dd424177c64bcc272369abd920f6842dc2e906f6b9ab577b2289ccac329",
+  "references": [
+    {
+      "path": "docs/specs/v071/handoff/references/battle_master_v071.png",
+      "sha256": "02895a850ba48c636445c963f705244d190bdb8b94c07f449a0269fc5047f8dc",
+      "role": "style master"
+    },
+    {
+      "path": "ArtSource/Art071/Illustrations/illustration_c29.png",
+      "sha256": "d380eecb4921984d2aacb4b50b1c7ee6fdcbdbb9f3596550fa79b476d4320728",
+      "role": "fixed standalone style anchor"
+    }
+  ]
+}

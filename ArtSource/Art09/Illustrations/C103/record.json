@@ -1,0 +1,40 @@
+{
+  "id": "C103",
+  "name": "精兵简政",
+  "createdUtc": "2026-11-14T18:43:22.529008+00:00",
+  "tool": "Codex CLI built-in image_gen, one call, two reference images attached",
+  "modelSnapshot": "not exposed by the tool",
+  "codexCli": "codex-cli 0.167.0-alpha.3.2",
+  "file": "original.png",
+  "sha256": "c49a197b5d6612d25e9bd702b926d46fea9f179914cc7e362dae8bf0e1153563",
+  "dimensions": [
+    1254,
+    1254
+  ],
+  "mode": "RGBA",
+  "alpha0": 1032293,
+  "alpha255": 2111,
+  "alphaPartial": 538112,
+  "alphaBounds": [
+    0,
+    18,
+    1254,
+    1234
+  ],
+  "sourcePixelsAltered": false,
+  "originalToolPathAsReported": "C:\\Users\\f\\.codex\\generated_images\\01a1db5d-6207-7622-8869-74c01f06f362\\exec-89cc90d6-3f57-45ee-aca0-2515e63855a8.png",
+  "promptFile": "prompt.txt",
+  "promptSha256": "bf1de087c5b705dd76174db0d69b8757f42d830192bc72975b7bcc54da021331",
+  "references": [
+    {
+      "path": "docs/specs/v071/handoff/references/battle_master_v071.png",
+      "sha256": "02895a850ba48c636445c963f705244d190bdb8b94c07f449a0269fc5047f8dc",
+      "role": "style master"
+    },
+    {
+      "path": "ArtSource/Art071/Illustrations/illustration_c29.png",
+      "sha256": "d380eecb4921984d2aacb4b50b1c7ee6fdcbdbb9f3596550fa79b476d4320728",
+      "role": "fixed standalone style anchor"
+    }
+  ]
+}

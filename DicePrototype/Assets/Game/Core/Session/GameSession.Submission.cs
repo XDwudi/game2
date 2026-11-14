@@ -15,6 +15,9 @@ namespace DiceCraft.Core
                 mimicBindings = s.stage.mimicBindings.Select(x => new MimicBinding { sourceInstanceId = x.sourceInstanceId, targetInstanceId = x.targetInstanceId }).ToArray(),
                 colorLevels = s.colorLevels.Select(x => x.Clone()).ToArray(), equippedControllers = s.controllers.Select(x => x.Clone()).ToArray(),
                 handLevels = s.handLevels.Select(x => new HandLevel { handId = x.handId, level = x.level }).ToArray(),
+                rollsUsed = s.hand.rollsUsed, submissionsRemainingBefore = s.stage.remainingSubmissions, permanentDiceCount = PermanentCount(s),
+                poolDice = s.dice.OrderBy(d => d.createdSerial).Where(d => !s.hand.orderedLockedIds.Contains(d.dieId)).Select(d => s.hand.currentResults.First(x => x.dieId == d.dieId)).Where(r => r.hasRolled)
+                    .Select(r => new PoolDie { dieId = r.dieId, faceId = r.currentFaceId, currentPip = r.currentPip, currentColor = r.currentColor }).ToArray(),
                 dice = s.hand.orderedLockedIds.Select(id => {
                     var d = FindDie(s, id); var r = s.hand.currentResults.First(x => x.dieId == id);
                     var face = d.faces.First(f => f.faceId == r.currentFaceId);
@@ -48,6 +51,15 @@ namespace DiceCraft.Core
             s.stage.score = ExactScoreMath.Add(s.stage.score, score.score);
 
             ApplySubmissionEffects(s, snapshot, score);
+            // v0.9 C97: a single submission worth at least target / targetDivisor pays gold, a limited number of times per stage.
+            var war = cfg.Controller("C97").parameters; int warSources = Sources(s).Count(x => x.abilityId == "C97");
+            if (warSources > 0 && s.stage.warIncomeCount < war.maxTriggersPerStage
+                && ExactScoreMath.Parse(score.score) * war.targetDivisor >= ExactScoreMath.Parse(s.stage.target))
+            {
+                long income = checked((long)warSources * war.goldPerTrigger);
+                s.stage.warIncomeCount++; s.gold = checked(s.gold + income);
+                s.lastEffects.Add(new EffectRecord { kind = "WarIncome", sourceId = "C97", oldValue = s.stage.warIncomeCount, newValue = income });
+            }
             s.stage.qualified = s.stage.qualified || ExactScoreMath.Compare(s.stage.score, s.stage.target) >= 0;
             if (s.stage.remainingSubmissions == 0 || s.dice.Count == 0)
             {
@@ -62,6 +74,12 @@ namespace DiceCraft.Core
         {
             var plan = score.afterScorePlan;
             ApplyPermanentEffects(s, snapshot, plan);
+            foreach (var change in plan.growthChanges)
+            {
+                var owner = s.controllers.First(c => c.instanceId == change.ownerInstanceId); long before = owner.state.growth;
+                owner.state.growth = change.reset ? 0 : checked(before + change.delta);
+                if (owner.state.growth != before) s.lastEffects.Add(new EffectRecord { kind = change.reset ? "ControllerGrowthReset" : "ControllerGrown", sourceId = change.abilityId, detail = owner.instanceId, oldValue = before, newValue = owner.state.growth });
+            }
             if (plan.earnedGold != 0)
             {
                 s.gold = checked(s.gold + plan.earnedGold);
@@ -72,6 +90,7 @@ namespace DiceCraft.Core
                 var level = s.handLevels.First(h => h.handId == plan.upgradeHandId);
                 int old = level.level; level.level = checked(level.level + plan.upgradeApplied);
                 s.lastEffects.Add(new EffectRecord { kind = "HandGrown", sourceId = "C43", detail = plan.upgradeHandId, oldValue = old, newValue = level.level });
+                Grow(s, "C61", checked((long)cfg.Controller("C61").parameters.growthPerEvent * plan.upgradeApplied));
             }
             s.previousPrimaryHandId = plan.nextPreviousPrimary;
             var rng = new GameRng(s.effectRngState);
@@ -155,6 +174,15 @@ namespace DiceCraft.Core
                 emitter.state.fundAccrual = checked(emitter.state.fundAccrual + 3);
                 s.lastEffects.Add(new EffectRecord { kind = "FundAccrued", sourceId = "C52", detail = emitterId, newValue = emitter.state.fundAccrual });
             }
+            // v0.9 stage-clear growth: C58 per stage, C59 per unused submission, C99 raises every owned controller's resale.
+            Grow(s, "C58", cfg.Controller("C58").parameters.growthPerEvent);
+            Grow(s, "C59", checked((long)cfg.Controller("C59").parameters.growthPerEvent * s.stage.remainingSubmissions));
+            long saleBonus = checked((long)Sources(s).Count(x => x.abilityId == "C99") * cfg.Controller("C99").parameters.saleBonusPerStage);
+            if (saleBonus > 0)
+            {
+                foreach (var c in s.controllers) c.state.saleBonus = checked(c.state.saleBonus + saleBonus);
+                s.lastEffects.Add(new EffectRecord { kind = "SaleBonusGrown", sourceId = "C99", oldValue = s.controllers.Count, newValue = saleBonus });
+            }
             s.gold = s.lastStageSettlement.goldAfter;
             s.stage.settlementId = s.lastStageSettlement.settlementId;
             s.stage.settled = true;
@@ -181,7 +209,10 @@ namespace DiceCraft.Core
 
         private StageSettlement CalculateStageSettlement(RunState s)
         {
-            long principal = Math.Min(s.gold, cfg.maxInterestPrincipal);
+            var sources = Sources(s);
+            long principalCap = checked(cfg.maxInterestPrincipal + (long)sources.Count(x => x.abilityId == "C96") * cfg.Controller("C96").parameters.interestPrincipalAdd);
+            long controllerIncome = checked((long)sources.Count(x => x.abilityId == "C95") * cfg.Controller("C95").parameters.goldPerStage);
+            long principal = Math.Min(s.gold, principalCap);
             int pigs = Sources(s).Count(x => x.abilityId == "C01");
             int interestPerTen = 1 + pigs * cfg.Controller("C01").parameters.extraInterestPerTen;
             long interest = checked(interestPerTen * (principal / cfg.interestDivisor));
@@ -190,7 +221,8 @@ namespace DiceCraft.Core
                 settlementId = s.runId + "/" + s.stage.stageId, stageId = s.stage.stageId,
                 goldBefore = s.gold, baseReward = s.stage.reward, remainingSubmissions = s.stage.remainingSubmissions,
                 unusedSubmissionReward = unusedReward, interest = interest, interestPrincipal = principal,
-                goldAfter = checked(s.gold + s.stage.reward + unusedReward + interest),
+                interestPrincipalCap = principalCap, controllerIncome = controllerIncome,
+                goldAfter = checked(s.gold + s.stage.reward + unusedReward + interest + controllerIncome),
                 score = s.stage.score, target = s.stage.target, risk = s.stage.risk, pig = pigs > 0, pigSourceCount = pigs
             };
         }

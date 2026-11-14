@@ -61,7 +61,7 @@ namespace DiceCraft
             var button=main.Find("EndStage")?.GetComponent<Button>();if(button==null)return;
             var r=Session.PreviewStageSettlement();if(r==null)return;
             int pigs=ViewSources.Count(x=>x.abilityId=="C01");
-            string text="基础奖励 +"+r.baseReward+"\n余次奖励 +"+r.unusedSubmissionReward+"\n利息 +"+r.interest+"（本金 "+r.interestPrincipal+"）";
+            string text="基础奖励 +"+r.baseReward+"\n余次奖励 +"+r.unusedSubmissionReward+"\n利息 +"+r.interest+"（本金 "+r.interestPrincipal+"）"+(r.controllerIncome>0?"\n铁饭碗 +"+r.controllerIncome:"");
             if(pigs>0)text+="\n继续提交：每次合法提交收入 +"+(pigs*Config.Controller("C01").parameters.goldPerValidSubmission)+"，不计入现在结束的奖励。";
             text+="\n本手未提交骰不计分；已用道具与投掷不退。";
             var hover=UiKit.Component<Art07HoverTip>(button.gameObject);

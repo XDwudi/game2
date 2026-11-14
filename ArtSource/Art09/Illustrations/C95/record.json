@@ -1,0 +1,40 @@
+{
+  "id": "C95",
+  "name": "铁饭碗",
+  "createdUtc": "2026-11-14T18:35:53.293339+00:00",
+  "tool": "Codex CLI built-in image_gen, one call, two reference images attached",
+  "modelSnapshot": "not exposed by the tool",
+  "codexCli": "codex-cli 0.167.0-alpha.3.2",
+  "file": "original.png",
+  "sha256": "890e2017bc7571f0b8fd76b78679460fecbde0c3aa707ba6bacc284eadd0c4d3",
+  "dimensions": [
+    1254,
+    1254
+  ],
+  "mode": "RGBA",
+  "alpha0": 768430,
+  "alpha255": 1165,
+  "alphaPartial": 802921,
+  "alphaBounds": [
+    0,
+    17,
+    1241,
+    1254
+  ],
+  "sourcePixelsAltered": false,
+  "originalToolPathAsReported": "C:\\Users\\f\\.codex\\generated_images\\01a1db56-8a14-7200-9449-ba65059ec4aa\\exec-031f3d4c-6d98-4561-afbf-67ddd8020d45.png",
+  "promptFile": "prompt.txt",
+  "promptSha256": "d993f5887d48ddd200e8fad62b35bc4255c8ea199000dc82ce4f77b8b87acd68",
+  "references": [
+    {
+      "path": "docs/specs/v071/handoff/references/battle_master_v071.png",
+      "sha256": "02895a850ba48c636445c963f705244d190bdb8b94c07f449a0269fc5047f8dc",
+      "role": "style master"
+    },
+    {
+      "path": "ArtSource/Art071/Illustrations/illustration_c29.png",
+      "sha256": "d380eecb4921984d2aacb4b50b1c7ee6fdcbdbb9f3596550fa79b476d4320728",
+      "role": "fixed standalone style anchor"
+    }
+  ]
+}

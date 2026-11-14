@@ -171,7 +171,8 @@ namespace DiceCraft.Presentation
                 {
                     var abilities = (effect.sourceId ?? "").Split('+');
                     var owners = sources.Where(s => abilities.Contains(s.abilityId) && (score == null || Hit(s))).ToArray();
-                    string explicitEmitter = effect.kind == "ControllerDestroyed" || effect.kind == "FundAccrued" ? effect.detail : null;
+                    string explicitEmitter = effect.kind == "ControllerDestroyed" || effect.kind == "FundAccrued" || effect.kind == "ControllerGrown" || effect.kind == "ControllerGrowthReset" ? effect.detail
+                        : effect.kind == "ControllerSacrificed" ? (effect.detail ?? "").Split(':')[0] : null;
                     if (explicitEmitter != null) owners = sources.Where(s => s.emitterId == explicitEmitter).ToArray();
                     string ownerId = null, old = effect.oldValue.ToString(CultureInfo.InvariantCulture), value = effect.newValue.ToString(CultureInfo.InvariantCulture), family = effect.kind;
                     string audio = null; string[] dice = effect.dieId == null ? Array.Empty<string>() : new[] { effect.dieId };

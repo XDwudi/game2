@@ -1,0 +1,40 @@
+{
+  "id": "C90",
+  "name": "玻璃心",
+  "createdUtc": "2026-11-14T18:30:26.412757+00:00",
+  "tool": "Codex CLI built-in image_gen, one call, two reference images attached",
+  "modelSnapshot": "not exposed by the tool",
+  "codexCli": "codex-cli 0.167.0-alpha.3.2",
+  "file": "original.png",
+  "sha256": "5418d12a5cf0d9d1104215c4e29b1798d8dee296feaadd54cc16923aec76c1f8",
+  "dimensions": [
+    1254,
+    1254
+  ],
+  "mode": "RGBA",
+  "alpha0": 866830,
+  "alpha255": 1304,
+  "alphaPartial": 704382,
+  "alphaBounds": [
+    0,
+    55,
+    1226,
+    1238
+  ],
+  "sourcePixelsAltered": false,
+  "originalToolPathAsReported": "C:\\Users\\f\\.codex\\generated_images\\01a1db51-d49a-71e0-9fa9-bed8d8266f45\\exec-d0562090-b796-472d-9d61-e186373519ef.png",
+  "promptFile": "prompt.txt",
+  "promptSha256": "8c48561b56f3832153c97cd16d93b8ace97caf73e15d5e129f38c661ccdc0228",
+  "references": [
+    {
+      "path": "docs/specs/v071/handoff/references/battle_master_v071.png",
+      "sha256": "02895a850ba48c636445c963f705244d190bdb8b94c07f449a0269fc5047f8dc",
+      "role": "style master"
+    },
+    {
+      "path": "ArtSource/Art071/Illustrations/illustration_c29.png",
+      "sha256": "d380eecb4921984d2aacb4b50b1c7ee6fdcbdbb9f3596550fa79b476d4320728",
+      "role": "fixed standalone style anchor"
+    }
+  ]
+}

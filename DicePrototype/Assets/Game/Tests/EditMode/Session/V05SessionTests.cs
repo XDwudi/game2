@@ -176,8 +176,8 @@ namespace DiceCraft.Tests
         [Test] public void V05_SlotlessFitsBeyondFourAndReplaceUsesFinalEquipment()
         {
             string offer = null;
-            var s = Edit(Shop(), x => { x.gold = 100; Equip(x, "C01", "C02", "C03", "C05"); x.isDebug = false; offer = EnchantedOffer(x, "C06", "slotless"); });
-            Do(s, CommandKind.Buy, c => c.offerId = offer); Assert.That(s.State.controllers.Count, Is.EqualTo(5)); Assert.That(s.OrdinaryControllerSlotsUsed, Is.EqualTo(4));
+            var s = Edit(Shop(), x => { x.gold = 100; Equip(x, "C01", "C02", "C03", "C05", "C08"); x.isDebug = false; offer = EnchantedOffer(x, "C06", "slotless"); }); // p0.9.0: five ordinary slots
+            Do(s, CommandKind.Buy, c => c.offerId = offer); Assert.That(s.State.controllers.Count, Is.EqualTo(6)); Assert.That(s.OrdinaryControllerSlotsUsed, Is.EqualTo(5));
             s = Edit(s, x => { x.isDebug = false; offer = EnchantedOffer(x, "C06", "base10"); });
             var before = s.State; var bad = Command(s, CommandKind.Buy); bad.offerId = offer;
             Assert.That(s.Execute(bad).accepted, Is.False); AssertUnchanged(before, s.State);
@@ -185,13 +185,13 @@ namespace DiceCraft.Tests
             Do(s, CommandKind.Sell, c => c.itemInstanceId = s.State.controllers.Single(v => v.definitionId == "C01").instanceId);
             var quoted = s.State.shop.offers.Single(o => o.offerId == offer); Assert.That(s.GetOfferPrice(quoted), Is.EqualTo(6)); Assert.That(s.GetOfferNetPrice(quoted), Is.EqualTo(2));
             long gold = s.State.gold; Do(s, CommandKind.Buy, c => c.offerId = offer);
-            Assert.That(s.State.gold, Is.EqualTo(gold - 2)); Assert.That(s.State.controllers.Count, Is.EqualTo(4));
+            Assert.That(s.State.gold, Is.EqualTo(gold - 2)); Assert.That(s.State.controllers.Count, Is.EqualTo(5));
         }
 
         [Test] public void V05_ReplacingAtTenDoesNotCreateEleventhInstanceAndNewEleventhRejects()
         {
             string offer = null;
-            var s = Edit(Shop(), x => { x.gold = 100; Equip(x, "C01", "C02", "C03", "C05", "C06", "C07", "C08", "C09", "C10", "C11"); x.controllerSlots = 4; x.isDebug = false; foreach (var c in x.controllers.Skip(4)) c.enchantmentId = "slotless"; offer = EnchantedOffer(x, "C02", "base10"); });
+            var s = Edit(Shop(), x => { x.gold = 100; Equip(x, "C01", "C02", "C03", "C05", "C06", "C07", "C08", "C09", "C10", "C11"); x.controllerSlots = cfg.initialControllerSlots; x.isDebug = false; foreach (var c in x.controllers.Skip(cfg.initialControllerSlots)) c.enchantmentId = "slotless"; offer = EnchantedOffer(x, "C02", "base10"); });
             Do(s, CommandKind.Buy, c => c.offerId = offer); Assert.That(s.State.controllers.Count, Is.EqualTo(10));
             s = Edit(s, x => { x.isDebug = false; offer = EnchantedOffer(x, "C12", "slotless"); });
             var before = s.State; var bad = Command(s, CommandKind.Buy); bad.offerId = offer;
@@ -265,13 +265,13 @@ namespace DiceCraft.Tests
             state = s.State; state.baseSubmitCapacity = 6; Assert.That(() => new GameSession(cfg, new MemorySaveStore(), state), Throws.Exception);
         }
 
-        [TestCase(1u, "C38:none,C30:none,C10:none")]
-        [TestCase(0u, "C03:submit1,C29:none,C21:none")]
-        [TestCase(20261030u, "C01:slotless,C03:none,C27:slotless")]
-        [TestCase(4294967295u, "C01:submit1,C14:slotless,C13:base10")]
+        [TestCase(1u, "C13:none,C78:slotless,C67:none,C98:roll1")]
+        [TestCase(0u, "C81:submit1,C78:none,C24:none,C68:none")]
+        [TestCase(20261030u, "C10:slotless,C84:none,C78:none,C71:none")]
+        [TestCase(4294967295u, "C53:submit1,C37:slotless,C103:base10,C69:none")]
         public void V05_ShopInterleavesIdAndEnchantmentWithFrozenReferenceVectors(uint seed, string expected)
         {
-            // p0.8.0 vectors from tools/v08_session_vectors.py, an independent reference that first reproduces the four p0.6.0 vectors; not copied from observed C# output.
+            // p0.9.0 vectors (four offers, 100 controllers) from tools/v08_session_vectors.py, an independent reference that first reproduces the four p0.6.0 vectors; not copied from observed C# output.
             var s = Qualified(); Do(s, CommandKind.EndStage);
             s = Edit(s, x => x.shopRngState = new GameRng(seed ^ 0xC8013EA4u).State);
             Do(s, CommandKind.Continue);

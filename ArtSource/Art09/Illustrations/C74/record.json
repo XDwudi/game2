@@ -1,0 +1,40 @@
+{
+  "id": "C74",
+  "name": "空城计",
+  "createdUtc": "2026-11-14T18:17:12.392957+00:00",
+  "tool": "Codex CLI built-in image_gen, one call, two reference images attached",
+  "modelSnapshot": "not exposed by the tool",
+  "codexCli": "codex-cli 0.167.0-alpha.3.2",
+  "file": "original.png",
+  "sha256": "ae7b51215117638dea9db887ec5fd752e88b41f39001a1483cd360e0a4db17a9",
+  "dimensions": [
+    1254,
+    1254
+  ],
+  "mode": "RGBA",
+  "alpha0": 707610,
+  "alpha255": 1973,
+  "alphaPartial": 862933,
+  "alphaBounds": [
+    0,
+    8,
+    1236,
+    1240
+  ],
+  "sourcePixelsAltered": false,
+  "originalToolPathAsReported": "C:\\Users\\f\\.codex\\generated_images\\01a1db45-40ad-7ce1-8f16-7aff0ff3465d\\exec-b62c287f-0849-4b0c-9a16-d8709a2466f2.png",
+  "promptFile": "prompt.txt",
+  "promptSha256": "5adafeff87e0eaa057a1be1ae6e8015f723988753e038591e0de670b1759248d",
+  "references": [
+    {
+      "path": "docs/specs/v071/handoff/references/battle_master_v071.png",
+      "sha256": "02895a850ba48c636445c963f705244d190bdb8b94c07f449a0269fc5047f8dc",
+      "role": "style master"
+    },
+    {
+      "path": "ArtSource/Art071/Illustrations/illustration_c29.png",
+      "sha256": "d380eecb4921984d2aacb4b50b1c7ee6fdcbdbb9f3596550fa79b476d4320728",
+      "role": "fixed standalone style anchor"
+    }
+  ]
+}

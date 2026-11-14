@@ -16,7 +16,7 @@ namespace DiceCraft.Core
             Check(!s.isDebug || s.debugWorkspace, "调试存档必须属于独立工作区。");
             Check(s.debugWorkspace || (s.debugCapacityOverride == 0 && s.randomOverrides != null && s.randomOverrides.Count == 0), "普通存档不能包含实验覆盖。");
             Check(s.baseSubmitCapacity == cfg.initialSubmitCapacity, "基础提交容量无效。");
-            Check(s.controllerSlots == cfg.initialControllerSlots || (s.isDebug && s.controllerSlots >= 1 && s.controllerSlots <= cfg.debug.maxControllerInstances), "控制器槽位无效。");
+            Check((s.controllerSlotPurchases >= 0 && s.controllerSlots == cfg.initialControllerSlots + s.controllerSlotPurchases && s.controllerSlots <= cfg.maxOrdinaryControllerSlots) || (s.isDebug && s.controllerSlots >= 1 && s.controllerSlots <= cfg.debug.maxControllerInstances), "控制器槽位无效。");
             Check(s.consumableSlots >= cfg.initialConsumableSlots && s.consumableSlots <= (s.isDebug ? cfg.debug.maxConsumableInventory : cfg.maxConsumableSlots)
                 && s.itemDiscount >= 0 && s.itemDiscount <= cfg.maxItemDiscount, "道具容量或折扣无效。");
             Check(s.controllerOfferPurchases >= 0 && s.controllerOfferPurchases <= cfg.shop.maxOfferExpansionPurchases
@@ -35,7 +35,7 @@ namespace DiceCraft.Core
                 Check(d.createdSerial > 0 && d.createdSerial < s.nextDieSerial && d.dieId == "D" + d.createdSerial.ToString("D3"), "骰子身份无效。");
                 Check((d.lifetime == "permanent" || d.lifetime == "stage_temporary") && d.dataRevision >= 0, "骰子寿命或版本无效。"); cfg.ValidateFaces(d.faces);
             }
-            ControllerRules.ValidateEquipment(s.controllers, cfg, s.isDebug);
+            ControllerRules.ValidateEquipment(s.controllers, cfg, s.isDebug, s.controllerSlots);
             Check(s.controllers.All(c => c.alive && c.acquiredSerial > 0 && c.acquiredSerial < s.nextItemSerial && c.instanceId == "ITEM_" + c.acquiredSerial.ToString("D5")), "控制器实例身份无效。");
             foreach (var c in s.controllers) ValidateDynamicState(c, false);
             Check(s.inventory.Count <= (s.isDebug ? cfg.debug.maxConsumableInventory : s.consumableSlots)
@@ -54,7 +54,7 @@ namespace DiceCraft.Core
             Check(string.IsNullOrEmpty(s.previousPrimaryHandId) || s.previousPrimaryHandId == "scatter" || cfg.handDefinitions.Any(h => h.id == s.previousPrimaryHandId), "上一主牌型无效。");
             Check(s.stage != null && s.stage.stageIndex >= 0 && s.stage.stageIndex < cfg.stages.Length && s.stage.stageId == cfg.stages[s.stage.stageIndex].stageId, "关卡身份无效。");
             Check(ExactScoreMath.Parse(s.stage.target) > 0 && ExactScoreMath.Parse(s.stage.score) >= 0 && s.stage.remainingSubmissions >= 0
-                && s.stage.submissionOrdinal >= 0 && s.stage.stageRollBonus >= 0 && s.stage.capacity >= 1 && s.stage.capacity <= (s.isDebug ? cfg.debug.maxSubmitCapacity : cfg.maxSubmitCapacity), "关卡数值无效。");
+                && s.stage.submissionOrdinal >= 0 && s.stage.stageRollBonus >= 0 && s.stage.warIncomeCount >= 0 && s.stage.warIncomeCount <= cfg.Controller("C97").parameters.maxTriggersPerStage && s.stage.capacity >= 1 && s.stage.capacity <= (s.isDebug ? cfg.debug.maxSubmitCapacity : cfg.maxSubmitCapacity), "关卡数值无效。");
             Check(s.stage.qualified == (ExactScoreMath.Compare(s.stage.score, s.stage.target) >= 0), "达标标记与累计分不一致。");
             Check(!s.stage.settled || (s.stage.qualified && s.stage.settlementId == s.runId + "/" + s.stage.stageId), "关卡结算身份无效。");
             var stageDef = cfg.stages[s.stage.stageIndex];
@@ -71,10 +71,12 @@ namespace DiceCraft.Core
                 var r = s.lastStageSettlement;
                 Check(r != null && r.settlementId == s.stage.settlementId && r.stageId == s.stage.stageId && r.score == s.stage.score && r.target == s.stage.target
                     && r.remainingSubmissions == s.stage.remainingSubmissions, "结算回执不匹配。");
-                Check(r.goldBefore >= 0 && r.pigSourceCount >= 0 && r.pig == (r.pigSourceCount > 0) && r.interestPrincipal == Math.Min(r.goldBefore, cfg.maxInterestPrincipal)
+                long capAdd = cfg.Controller("C96").parameters.interestPrincipalAdd, stageGold = cfg.Controller("C95").parameters.goldPerStage;
+                Check(r.interestPrincipalCap >= cfg.maxInterestPrincipal && (r.interestPrincipalCap - cfg.maxInterestPrincipal) % capAdd == 0 && r.controllerIncome >= 0 && r.controllerIncome % stageGold == 0, "结算控制器收益无效。");
+                Check(r.goldBefore >= 0 && r.pigSourceCount >= 0 && r.pig == (r.pigSourceCount > 0) && r.interestPrincipal == Math.Min(r.goldBefore, r.interestPrincipalCap)
                     && r.interest == checked((1L + r.pigSourceCount * cfg.Controller("C01").parameters.extraInterestPerTen) * (r.interestPrincipal / cfg.interestDivisor))
                     && r.unusedSubmissionReward == checked((long)r.remainingSubmissions * cfg.goldPerUnusedSubmission)
-                    && r.goldAfter == checked(r.goldBefore + r.baseReward + r.unusedSubmissionReward + r.interest), "结算收益无效。");
+                    && r.goldAfter == checked(r.goldBefore + r.baseReward + r.unusedSubmissionReward + r.interest + r.controllerIncome), "结算收益无效。");
             }
             if (s.phase == "RunWon") Check(s.stage.stageIndex == cfg.stages.Length - 1, "非最终关不能胜利。");
             if (s.phase == "StageSettlement") Check(new[] { "Shop", "RunWon", "RunFailed" }.Contains(s.stage.settlementContinuation), "结算后继无效。");
@@ -98,8 +100,9 @@ namespace DiceCraft.Core
             Check(c.state != null && c.state.fundAccrual >= 0 && c.state.fundAccrual % 3 == 0 && c.state.turnoverUnits2 >= 3, "控制器动态状态无效。");
             Check(c.definitionId == "C41" || c.definitionId == "C52" || c.state.fundAccrual == 0, "非基金实例不能保存基金累计。");
             Check(c.definitionId == "C51" || c.state.turnoverUnits2 == 3, "非周转实例不能保存成长倍率。");
+            Check(c.state.growth >= 0 && c.state.saleBonus >= 0 && (c.state.growth == 0 || ControllerRules.HasGrowth(c.definitionId)), "控制器成长值无效。");
             Check(c.definitionId == "C45" ? (offer ? string.IsNullOrEmpty(c.state.activeColor) : c.state.activeColor == "red" || c.state.activeColor == "blue") : string.IsNullOrEmpty(c.state.activeColor), "控制器颜色状态无效。");
-            if (offer) Check(c.state.fundAccrual == 0 && c.state.turnoverUnits2 == 3, "商品不能继承旧实例状态。");
+            if (offer) Check(c.state.fundAccrual == 0 && c.state.turnoverUnits2 == 3 && c.state.growth == 0 && c.state.saleBonus == 0, "商品不能继承旧实例状态。");
         }
 
         private void ValidateBindings(RunState s)

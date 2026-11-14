@@ -279,6 +279,8 @@ namespace DiceCraft
                 UiKit.Button(p,"DebugRemoveController","移除（不触发卖出成长）",610,y,490,48,()=>{debugDraft.controllers.Remove(selected);debugDraft.mimicBindings=null;debugSelectedController=null;DraftChanged();});y+=65;
                 DebugField(p,"Turnover","人员流动本体倍率 n（≥1.5，0.5步进）",(selected.state.turnoverUnits2/2m).ToString(CultureInfo.InvariantCulture),10,y,650,v=>{decimal n=decimal.Parse(v,CultureInfo.InvariantCulture);if(n<1.5m||n*2!=decimal.Truncate(n*2))throw new FormatException();selected.state.turnoverUnits2=checked((int)(n*2));},selected.definitionId=="C51");
                 DebugField(p,"Fund","本实例基金累积（3的倍数）",selected.state.fundAccrual.ToString(),710,y,740,v=>{long n=DebugLong(v,0,long.MaxValue-1);if(n%3!=0)throw new FormatException();selected.state.fundAccrual=n;},selected.definitionId=="C52"||selected.definitionId=="C41");y+=100;
+                // p0.9.0: growth counter of the growth cards (0.05 per step on multiplier cards, points on base cards).
+                DebugField(p,"Growth","成长值（倍率卡每 1 为 0.05；加分卡为分数）",selected.state.growth.ToString(CultureInfo.InvariantCulture),10,y,650,v=>{selected.state.growth=DebugLong(v,0,1000000);},ControllerRules.HasGrowth(selected.definitionId));y+=100;
                 UiKit.Button(p,"ActiveColor","当前颜色："+(selected.state.activeColor??"不适用"),10,y,450,48,()=>{selected.state.activeColor=selected.state.activeColor=="red"?"blue":"red";DraftChanged();},selected.definitionId=="C45");
                 bool canUseC05=false;try{canUseC05=ControllerRules.ResolveSources(debugDraft.controllers,debugDraft.mimicBindings).Any(s=>s.emitterId==selected.instanceId&&s.abilityId=="C05");}catch(ArgumentException){}
                 UiKit.Button(p,"C05Used","再来三次已用："+debugDraft.c05UsedEmitterIds.Contains(selected.instanceId),490,y,450,48,()=>{if(!debugDraft.c05UsedEmitterIds.Remove(selected.instanceId))debugDraft.c05UsedEmitterIds.Add(selected.instanceId);DraftChanged();},canUseC05);y+=62;
@@ -290,7 +292,7 @@ namespace DiceCraft
                     UiKit.Button(p,"MimicAdjacent","按当前右邻绑定",960,y,490,48,()=>{debugDraft.mimicBindings=null;DraftChanged();});y+=62;
                 }
             }
-            UiKit.Text(p,"AddControllerTitle","添加控制器（全部50项）",10,y,1450,45,27,UiKit.Teal);y+=55;
+            UiKit.Text(p,"AddControllerTitle","添加控制器（全部"+Config.controllers.Length+"项）",10,y,1450,45,27,UiKit.Teal);y+=55;
             for(int i=0;i<Config.controllers.Length;i++)
             {
                 var c=Config.controllers[i];UiKit.Button(p,"Add"+c.id,c.id+" · "+c.displayName,(i%4)*365,y+(i/4)*64,350,52,()=>

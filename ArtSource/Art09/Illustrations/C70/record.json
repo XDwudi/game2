@@ -1,0 +1,40 @@
+{
+  "id": "C70",
+  "name": "板凳深度",
+  "createdUtc": "2026-11-14T18:13:18.095826+00:00",
+  "tool": "Codex CLI built-in image_gen, one call, two reference images attached",
+  "modelSnapshot": "not exposed by the tool",
+  "codexCli": "codex-cli 0.167.0-alpha.3.2",
+  "file": "original.png",
+  "sha256": "f1870ae75b47837d3dac51e0aa988078d1caaf83c34bc98a04633a3d5fd2a00e",
+  "dimensions": [
+    1254,
+    1254
+  ],
+  "mode": "RGBA",
+  "alpha0": 913004,
+  "alpha255": 1426,
+  "alphaPartial": 658086,
+  "alphaBounds": [
+    0,
+    27,
+    1214,
+    1254
+  ],
+  "sourcePixelsAltered": false,
+  "originalToolPathAsReported": "C:\\Users\\f\\.codex\\generated_images\\01a1db41-d64e-7410-b1cb-f5d6b6910882\\exec-513dddb7-8dfd-4812-9b13-cbb3ed11599b.png",
+  "promptFile": "prompt.txt",
+  "promptSha256": "617a443aacc859a53b46a5cf152d9dc2db01e58e73ed52d93fe71b72339049b6",
+  "references": [
+    {
+      "path": "docs/specs/v071/handoff/references/battle_master_v071.png",
+      "sha256": "02895a850ba48c636445c963f705244d190bdb8b94c07f449a0269fc5047f8dc",
+      "role": "style master"
+    },
+    {
+      "path": "ArtSource/Art071/Illustrations/illustration_c29.png",
+      "sha256": "d380eecb4921984d2aacb4b50b1c7ee6fdcbdbb9f3596550fa79b476d4320728",
+      "role": "fixed standalone style anchor"
+    }
+  ]
+}

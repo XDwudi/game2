@@ -256,12 +256,12 @@ namespace DiceCraft.Tests
         [UnityTest]
         public IEnumerator PLAY_ART073_HighScoreBurstStartsOnFinalScoreCountsUpAndLeavesWithoutBlocking()
         {
-            Art07Fixtures.Apply(app,Art07FixtureKind.Burst08);FinalOptions07("Normal",false);
+            Art07Fixtures.Apply(app,Art07FixtureKind.Burst09);FinalOptions07("Normal",false);
             Assert.That(app.HighScoreTierShown073,Is.Zero);
-            Art07Fixtures.Submit(app,Art07FixtureKind.Burst08);string state=GameSession.StateHash(app.Session.State);byte[] save=File.ReadAllBytes(app.SaveLocation);
+            Art07Fixtures.Submit(app,Art07FixtureKind.Burst09);string state=GameSession.StateHash(app.Session.State);byte[] save=File.ReadAllBytes(app.SaveLocation);
             Assert.That(app.HighScoreTierShown073,Is.Zero,"Nothing before the committed final-score beat.");
             yield return WaitFxPhase07(PresentationPhase.FinalScore);
-            Assert.That(app.HighScoreTierShown073,Is.EqualTo(HighScore073.Burst),"596,160 at total multiplier x16,560 is the top tier.");
+            Assert.That(app.HighScoreTierShown073,Is.EqualTo(HighScore073.Burst),"596,160 is more than twice the 250,000 target: the top tier (p0.9.0 celebrates by share of the target only).");
             Assert.That(HasActive("Crown"),Is.True);Assert.That(HasActive("Ray0"),Is.True);Assert.That(HasActive("Spark0"),Is.True);
             var layer=FindActive<RectTransform>("HighScore073");var group=layer.GetComponent<CanvasGroup>();
             Assert.That(group.blocksRaycasts,Is.False);Assert.That(group.interactable,Is.False);
@@ -296,8 +296,8 @@ namespace DiceCraft.Tests
         {
             foreach(string mode in new[]{"Fast","Reduced","Instant","Skip"})
             {
-                Art07Fixtures.Apply(app,Art07FixtureKind.Burst08);FinalOptions07(mode=="Fast"||mode=="Instant"?mode:"Normal",mode=="Reduced");
-                Art07Fixtures.Submit(app,Art07FixtureKind.Burst08);string state=GameSession.StateHash(app.Session.State);
+                Art07Fixtures.Apply(app,Art07FixtureKind.Burst09);FinalOptions07(mode=="Fast"||mode=="Instant"?mode:"Normal",mode=="Reduced");
+                Art07Fixtures.Submit(app,Art07FixtureKind.Burst09);string state=GameSession.StateHash(app.Session.State);
                 if(mode=="Instant")
                 {
                     Assert.That(app.PresentationPlaying07,Is.False);Assert.That(app.HighScoreTierShown073,Is.Zero,"Instant never shows the celebration.");
@@ -326,7 +326,7 @@ namespace DiceCraft.Tests
             // A hand that scores nothing never celebrates; a replay of a high hand celebrates again.
             Art07Fixtures.Apply(app,Art07FixtureKind.ZeroMultiplier);FinalOptions07("Normal",false);Art07Fixtures.Submit(app,Art07FixtureKind.ZeroMultiplier);
             {double limit=Time.realtimeSinceStartupAsDouble+6;while(app.PresentationPlaying07&&Time.realtimeSinceStartupAsDouble<limit){Assert.That(app.HighScoreTierShown073,Is.Zero);yield return null;}}
-            Art07Fixtures.Apply(app,Art07FixtureKind.Burst08);Art07Fixtures.Submit(app,Art07FixtureKind.Burst08);app.SkipVisual();yield return null;
+            Art07Fixtures.Apply(app,Art07FixtureKind.Burst09);Art07Fixtures.Submit(app,Art07FixtureKind.Burst09);app.SkipVisual();yield return null;
             Assert.That(app.ReplayLastPresentation07(),Is.True);yield return WaitFxPhase07(PresentationPhase.FinalScore);
             Assert.That(app.HighScoreTierShown073,Is.EqualTo(HighScore073.Burst),"Read-only replay shows the same celebration.");
             app.SkipVisual();Assert.That(app.HighScoreTierShown073,Is.Zero);

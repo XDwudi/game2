@@ -1,0 +1,40 @@
+{
+  "id": "C73",
+  "name": "场外红人",
+  "createdUtc": "2026-11-14T18:16:08.119970+00:00",
+  "tool": "Codex CLI built-in image_gen, one call, two reference images attached",
+  "modelSnapshot": "not exposed by the tool",
+  "codexCli": "codex-cli 0.167.0-alpha.3.2",
+  "file": "original.png",
+  "sha256": "f9dc49cf84c56e761e2e1ef0d1d612102868c865d399d124975219a33157b235",
+  "dimensions": [
+    1254,
+    1254
+  ],
+  "mode": "RGBA",
+  "alpha0": 1065166,
+  "alpha255": 2709,
+  "alphaPartial": 504641,
+  "alphaBounds": [
+    31,
+    32,
+    1234,
+    1230
+  ],
+  "sourcePixelsAltered": false,
+  "originalToolPathAsReported": "C:\\Users\\f\\.codex\\generated_images\\01a1db44-91f3-70c1-a7ae-6b1eab835ad7\\exec-510a092f-7ad8-4a00-86df-5013b4e090db.png",
+  "promptFile": "prompt.txt",
+  "promptSha256": "ae65aa472e4fd494b42e74a6fd234777533e2b5b016f78d11a5da9a9b4e0c81d",
+  "references": [
+    {
+      "path": "docs/specs/v071/handoff/references/battle_master_v071.png",
+      "sha256": "02895a850ba48c636445c963f705244d190bdb8b94c07f449a0269fc5047f8dc",
+      "role": "style master"
+    },
+    {
+      "path": "ArtSource/Art071/Illustrations/illustration_c29.png",
+      "sha256": "d380eecb4921984d2aacb4b50b1c7ee6fdcbdbb9f3596550fa79b476d4320728",
+      "role": "fixed standalone style anchor"
+    }
+  ]
+}

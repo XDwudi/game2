@@ -168,9 +168,11 @@ namespace DiceCraft.Core.Tests
         [Test]
         public void EquipmentSeparatesFourOrdinarySlotsTenInstancesAndDuplicateIds()
         {
-            var all = cfg.controllers.Take(10).Select((c, i) => Card(c.id, i < 4 ? "none" : "slotless", i + 1)).ToArray();
-            Assert.DoesNotThrow(() => ControllerRules.ValidateEquipment(all, cfg)); Assert.That(ControllerRules.OrdinaryUsed(all), Is.EqualTo(4));
-            all[4].enchantmentId = "none"; Assert.Throws<ArgumentException>(() => ControllerRules.ValidateEquipment(all, cfg)); all[4].enchantmentId = "slotless";
+            // p0.9.0: five ordinary slots by default; a run that bought slots passes its own count (up to seven).
+            var all = cfg.controllers.Take(10).Select((c, i) => Card(c.id, i < 5 ? "none" : "slotless", i + 1)).ToArray();
+            Assert.DoesNotThrow(() => ControllerRules.ValidateEquipment(all, cfg)); Assert.That(ControllerRules.OrdinaryUsed(all), Is.EqualTo(5));
+            all[5].enchantmentId = "none"; Assert.Throws<ArgumentException>(() => ControllerRules.ValidateEquipment(all, cfg));
+            Assert.DoesNotThrow(() => ControllerRules.ValidateEquipment(all, cfg, false, 6)); Assert.Throws<ArgumentException>(() => ControllerRules.ValidateEquipment(all, cfg, false, 5)); all[5].enchantmentId = "slotless";
             Assert.Throws<ArgumentException>(() => ControllerRules.ValidateEquipment(all.Concat(new[] { Card("C11", "slotless", 11) }), cfg));
             all[9].definitionId = "C01"; Assert.Throws<ArgumentException>(() => ControllerRules.ValidateEquipment(all, cfg));
         }

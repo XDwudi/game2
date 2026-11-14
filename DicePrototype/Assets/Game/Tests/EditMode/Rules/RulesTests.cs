@@ -136,7 +136,7 @@ namespace DiceCraft.Core.Tests
         [Test]
         public void Configuration_ContainsExactly71SupportedItemsAnd13Hands2Colors()
         {
-            Assert.That(config.controllers.Length + config.consumables.Length + config.services.Length + config.diceUpgrades.Length, Is.EqualTo(71));
+            Assert.That(config.controllers.Length + config.consumables.Length + config.services.Length + config.diceUpgrades.Length, Is.EqualTo(122)); // p0.9.0: 100 controllers, 7 consumables, 8 services, 7 die upgrades
             Assert.That(config.handDefinitions.Length, Is.EqualTo(13));
         }
         [Test]

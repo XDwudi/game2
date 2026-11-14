@@ -1,0 +1,40 @@
+{
+  "id": "C87",
+  "name": "得寸进尺",
+  "createdUtc": "2026-11-14T18:28:52.529247+00:00",
+  "tool": "Codex CLI built-in image_gen, one call, two reference images attached",
+  "modelSnapshot": "not exposed by the tool",
+  "codexCli": "codex-cli 0.167.0-alpha.3.2",
+  "file": "original.png",
+  "sha256": "fafc84e3e761927926c9c35b0d7e2cc56c2297ac721306c43b90f8700055df55",
+  "dimensions": [
+    1254,
+    1254
+  ],
+  "mode": "RGBA",
+  "alpha0": 1041299,
+  "alpha255": 1755,
+  "alphaPartial": 529462,
+  "alphaBounds": [
+    0,
+    21,
+    1238,
+    1254
+  ],
+  "sourcePixelsAltered": false,
+  "originalToolPathAsReported": "C:\\Users\\f\\.codex\\generated_images\\01a1db50-3e0b-7511-9ba2-5e7b62059956\\exec-ede18520-6aa3-4269-8fcd-778ee1b71b04.png",
+  "promptFile": "prompt.txt",
+  "promptSha256": "ef6b3dd6587662a2907c5e2e73ba3b8dc42861d9171363a2e2c144717a870d49",
+  "references": [
+    {
+      "path": "docs/specs/v071/handoff/references/battle_master_v071.png",
+      "sha256": "02895a850ba48c636445c963f705244d190bdb8b94c07f449a0269fc5047f8dc",
+      "role": "style master"
+    },
+    {
+      "path": "ArtSource/Art071/Illustrations/illustration_c29.png",
+      "sha256": "d380eecb4921984d2aacb4b50b1c7ee6fdcbdbb9f3596550fa79b476d4320728",
+      "role": "fixed standalone style anchor"
+    }
+  ]
+}

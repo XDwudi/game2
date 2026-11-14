@@ -164,6 +164,7 @@ namespace DiceCraft
                 if(receipt07.ComboTier>0&&(art07Prefabs==null||art07Prefabs.Length==0))UiKit.Outline(effects07,"ComboRing",Compact07?354:362,Compact07?276:282,Compact07?1554:1540,Compact07?126:172,UiKit.Gold,2+receipt07.ComboTier);
             }
         }
+        private static long ParseLong09(string value)=>long.TryParse(value,System.Globalization.NumberStyles.Integer,System.Globalization.CultureInfo.InvariantCulture,out long parsed)?parsed:0;
         private string EventText07(PresentationEvent e)
         {
             string name;
@@ -172,6 +173,14 @@ namespace DiceCraft
                 case "committed":return "结果已保存";
                 case "die_pips":name="有效点数";break;
                 case "contribution":case "controller_die":case "controller_base":case "controller":name=e.AbilityId==null?"控制器":NameOf(e.AbilityId);break;
+                case "retrigger":name=(e.AbilityId==null?"控制器":NameOf(e.AbilityId))+" 再计";break;
+                // v0.9 growth and economy events
+                case "ControllerGrown":return (e.AbilityId==null?"成长":NameOf(e.AbilityId))+" "+GrowthValue09(e.AbilityId,ParseLong09(e.BeforeValue))+" → "+GrowthValue09(e.AbilityId,ParseLong09(e.AfterValue));
+                case "ControllerGrowthReset":return (e.AbilityId==null?"成长":NameOf(e.AbilityId))+" 回到 "+GrowthValue09(e.AbilityId,ParseLong09(e.AfterValue));
+                case "ControllerSacrificed":return "祭坛吞下右侧控制器 → "+GrowthValue09("C100",ParseLong09(e.AfterValue));
+                case "WarIncome":return "以战养战 +"+e.AfterValue+" 金币";
+                case "SaleBonusGrown":return "聚宝盆：控制器卖价 +"+e.AfterValue;
+                case "ControllerSlotAdded":return "普通栏位 "+e.BeforeValue+" → "+e.AfterValue;
                 case "glass":name="玻璃贡献";break;case "gold":name="黄金贡献";break;
                 case "unused_rolls":name="剩掷奖励";break;case "hand":name="牌型";break;case "color":name="颜色";break;case "red_group":name="红组";break;
                 case "enchantment_base":name="附魔基础";break;case "enchantment_multiplier":name="附魔倍率";break;

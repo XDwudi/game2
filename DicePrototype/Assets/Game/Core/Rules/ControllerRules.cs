@@ -44,7 +44,13 @@ namespace DiceCraft.Core
         }
         public static int SourceCount(IEnumerable<AbilitySource> sources, string abilityId) => sources.Count(s => s.abilityId == abilityId);
         private static bool IsActiveDefinition(string id)
-            => id != null && id.Length == 3 && id[0] == 'C' && int.TryParse(id.Substring(1), out int number) && number >= 1 && number <= 53 && id == "C" + number.ToString("D2") && number != 4 && number != 16 && number != 23;
+            => id != null && id.Length >= 3 && id.Length <= 4 && id[0] == 'C' && int.TryParse(id.Substring(1), System.Globalization.NumberStyles.None, System.Globalization.CultureInfo.InvariantCulture, out int number) && number >= 1 && number <= 103 && id == "C" + number.ToString("D2") && number != 4 && number != 16 && number != 23;
+        private static readonly HashSet<string> GrowthMultipliers = new HashSet<string>(new[] { "C54", "C56", "C57", "C58", "C60", "C61", "C90", "C100" }, StringComparer.Ordinal);
+        private static readonly HashSet<string> GrowthBases = new HashSet<string>(new[] { "C55", "C59", "C62" }, StringComparer.Ordinal);
+        /// <summary>v0.9: growth is a multiplier of (20 + growth) / 20 on these, a base add of `growth` on the base cards.</summary>
+        public static bool IsGrowthMultiplier(string id) => GrowthMultipliers.Contains(id);
+        public static bool IsGrowthBase(string id) => GrowthBases.Contains(id);
+        public static bool HasGrowth(string id) => GrowthMultipliers.Contains(id) || GrowthBases.Contains(id);
         public static bool Has(IEnumerable<ControllerInstance> instances, string id) => instances.Any(c => c.alive && c.definitionId == id);
         public static int Capacity(IEnumerable<ControllerInstance> instances, GameConfig cfg, bool debug = false, MimicBinding[] bindings = null)
         {
@@ -53,9 +59,19 @@ namespace DiceCraft.Core
             return Math.Max(1, Math.Min(debug ? cfg.debug.maxSubmitCapacity : cfg.maxSubmitCapacity, n));
         }
         public static int RollBudget(IEnumerable<ControllerInstance> instances, GameConfig cfg, int stageBonus = 0, MimicBinding[] bindings = null)
-            => checked(cfg.totalRollsPerHand + stageBonus + instances.Count(c => c.alive && c.enchantmentId == "roll1") * cfg.enchantRules.rollBonus);
+        {
+            // v0.9: C78 adds rolls per source (a mimic of C78 counts as another source).
+            var all = instances.ToArray();
+            int extra = checked(SourceCount(ResolveSources(all, bindings), "C78") * cfg.Controller("C78").parameters.rollsPerHandDelta);
+            return checked(cfg.totalRollsPerHand + stageBonus + all.Count(c => c.alive && c.enchantmentId == "roll1") * cfg.enchantRules.rollBonus + extra);
+        }
         public static int SubmissionBudget(IEnumerable<ControllerInstance> instances, GameConfig cfg, MimicBinding[] bindings = null)
-            => checked(cfg.submissionsPerStage + instances.Count(c => c.alive && c.enchantmentId == "submit1") * cfg.enchantRules.submissionBonus);
+        {
+            // v0.9: C79 adds and C101 removes submissions per source; a stage always keeps at least one.
+            var all = instances.ToArray(); var sources = ResolveSources(all, bindings);
+            int delta = checked(SourceCount(sources, "C79") * cfg.Controller("C79").parameters.submissionsDelta + SourceCount(sources, "C101") * cfg.Controller("C101").parameters.submissionsDelta);
+            return Math.Max(1, checked(cfg.submissionsPerStage + all.Count(c => c.alive && c.enchantmentId == "submit1") * cfg.enchantRules.submissionBonus + delta));
+        }
         public static int RollsPerHand(IEnumerable<ControllerInstance> instances, GameConfig cfg) => RollBudget(instances, cfg);
         public static int SubmissionsPerStage(IEnumerable<ControllerInstance> instances, GameConfig cfg) => SubmissionBudget(instances, cfg);
         public static int OrdinaryUsed(IEnumerable<ControllerInstance> instances) => instances.Count(c => c.alive && c.enchantmentId != "slotless");
@@ -69,22 +85,24 @@ namespace DiceCraft.Core
             // rounded down and never below baseControllerSellPrice. Fund accrual still adds on top for C41/C52.
             long listPrice = checked((long)definition.buyPrice + EnchantPrice(string.IsNullOrEmpty(instance.enchantmentId) ? "none" : instance.enchantmentId, cfg));
             long resale = Math.Max(cfg.baseControllerSellPrice, listPrice / cfg.controllerSellDivisor);
-            return checked(resale + ((instance.definitionId == "C41" || instance.definitionId == "C52") ? fund : 0));
+            long saleBonus = instance.state?.saleBonus ?? 0;
+            if (saleBonus < 0) throw new ArgumentException("Invalid sale bonus.");
+            return checked(resale + saleBonus + ((instance.definitionId == "C41" || instance.definitionId == "C52") ? fund : 0));
         }
         public static int EnchantPrice(string enchantmentId, GameConfig cfg) => cfg.Enchantment(enchantmentId).buyPremium;
         public static bool IsEnchantmentLegal(string controllerId, string enchantmentId, GameConfig cfg)
             => cfg.controllers.Any(c => c.id == controllerId) && cfg.enchantments.Any(e => e.id == enchantmentId) && (!cfg.enchantRules.nonSubmitControllerIds.Contains(controllerId) || (enchantmentId != "base10" && enchantmentId != "mult2"));
-        public static void ValidateEquipment(IEnumerable<ControllerInstance> instances, GameConfig cfg, bool debug = false) => ValidateInstances(instances, cfg, debug, true);
-        internal static void ValidateInstances(IEnumerable<ControllerInstance> instances, GameConfig cfg, bool debug, bool enforceSlots)
+        public static void ValidateEquipment(IEnumerable<ControllerInstance> instances, GameConfig cfg, bool debug = false, int ordinarySlots = -1) => ValidateInstances(instances, cfg, debug, true, ordinarySlots);
+        internal static void ValidateInstances(IEnumerable<ControllerInstance> instances, GameConfig cfg, bool debug, bool enforceSlots, int ordinarySlots = -1)
         {
             if (instances == null) throw new ArgumentNullException(nameof(instances)); var all = instances.ToArray();
             if (all.Any(c => c == null) || all.Count(c => c.alive) > (debug ? cfg.debug.maxControllerInstances : cfg.maxControllerInstances) || all.Any(c => string.IsNullOrEmpty(c.instanceId)) || all.Select(c => c.instanceId).Distinct(StringComparer.Ordinal).Count() != all.Length) throw new ArgumentException("Invalid controller identities or limits.");
-            if (enforceSlots && !debug && (all.Where(c => c.alive).Select(c => c.definitionId).Distinct(StringComparer.Ordinal).Count() != all.Count(c => c.alive) || OrdinaryUsed(all) > cfg.initialControllerSlots)) throw new ArgumentException("Normal equipment limits.");
+            if (enforceSlots && !debug && (all.Where(c => c.alive).Select(c => c.definitionId).Distinct(StringComparer.Ordinal).Count() != all.Count(c => c.alive) || OrdinaryUsed(all) > (ordinarySlots < 0 ? cfg.initialControllerSlots : ordinarySlots))) throw new ArgumentException("Normal equipment limits.");
             foreach (var c in all)
             {
                 cfg.Controller(c.definitionId);
                 if (!cfg.enchantments.Any(e => e.id == c.enchantmentId) || (!debug && !IsEnchantmentLegal(c.definitionId, c.enchantmentId, cfg))) throw new ArgumentException("Illegal controller enchantment.");
-                if (c.state == null || c.state.fundAccrual < 0 || c.state.fundAccrual % 3 != 0 || c.state.turnoverUnits2 < 3) throw new ArgumentException("Invalid controller state.");
+                if (c.state == null || c.state.fundAccrual < 0 || c.state.fundAccrual % 3 != 0 || c.state.turnoverUnits2 < 3 || c.state.growth < 0 || c.state.saleBonus < 0) throw new ArgumentException("Invalid controller state.");
                 if (!string.IsNullOrEmpty(c.state.activeColor) && c.state.activeColor != "red" && c.state.activeColor != "blue") throw new ArgumentException("Invalid dynamic color.");
                 if (c.definitionId == "C45" && c.state.activeColor != "red" && c.state.activeColor != "blue") throw new ArgumentException("C45 requires persisted active color.");
             }
