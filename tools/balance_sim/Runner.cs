@@ -35,6 +35,8 @@ public sealed class Runner
     GameSession session; int seq; RunLog log; StageLog cur;
     readonly Planner strong = new Planner(), cheap = new Planner { depthMax = 1, s0 = 6, fullEnum = 0 };
     ulong powerSeed;
+    /// <summary>When set, every accepted command is recorded in the format the in-game capture tour replays.</summary>
+    public List<Dictionary<string, object>> recorded;
 
     public Runner(GameConfig cfg, Params P, BotOptions opt) { this.cfg = cfg; this.P = P; this.opt = opt; if (opt.weak) { strong.depthMax = 1; strong.s0 = 8; } }
 
@@ -45,6 +47,10 @@ public sealed class Runner
         if (kind == CommandKind.ConfirmLocks) foreach (string id in command.dieIds) if (!session.TogglePending(id)) throw new Exception("Illegal pending " + id);
         var result = session.Execute(command);
         if (!result.accepted) throw new Exception("Rejected " + kind + ": " + result.error);
+        recorded?.Add(new Dictionary<string, object> {
+            ["kind"] = kind.ToString(), ["seed"] = command.seed, ["risk"] = command.risk, ["offerId"] = command.offerId, ["itemInstanceId"] = command.itemInstanceId,
+            ["targetDieId"] = command.targetDieId, ["targetFaceId"] = command.targetFaceId, ["handId"] = command.handId,
+            ["dieIds"] = command.dieIds ?? Array.Empty<string>(), ["targetPips"] = command.targetPips ?? Array.Empty<int>() });
     }
 
     public RunLog Play(uint seed)

@@ -35,6 +35,7 @@ public static class Program
             case "verify": return Verify(int.Parse(Arg(args, "--n", "200000")));
             case "cards": return Cards(int.Parse(Arg(args, "--hands", "1500")), Arg(args, "--out", null));
             case "scen": return Scenarios(int.Parse(Arg(args, "--hands", "3000")), Arg(args, "--out", null));
+            case "trace": return Trace(uint.Parse(Arg(args, "--seed", "5000")), int.Parse(Arg(args, "--steps", "80")), Arg(args, "--out", "trace.json"));
             case "run": return Runs(uint.Parse(Arg(args, "--first", "1000")), int.Parse(Arg(args, "--seeds", "200")), Arg(args, "--out", null), args.Contains("--weak"), int.Parse(Arg(args, "--threads", "0")));
             default: Console.WriteLine("unknown mode"); return 2;
         }
@@ -207,6 +208,22 @@ public static class Program
         Console.WriteLine("\n-- 裸装三手合计达标概率 --");
         foreach (var stage in cfg.stages.Take(4)) { var s = Measure(Fresh(), hands * 3, 7, 0, double.Parse(stage.normalTarget)); Console.WriteLine($"{stage.stageId} target={stage.normalTarget}: P(clear with no controllers)={s.stage3 * 100:F1}%"); }
         if (outPath != null) File.WriteAllText(outPath, JsonSerializer.Serialize(Enumerable.Range(0, list.Count).Select(i => data[i]), new JsonSerializerOptions { WriteIndented = true, Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping }));
+        return 0;
+    }
+
+    // ------------------------------------------------------------------ trace
+    /// <summary>Records the bot's first commands of one run so the packaged game can replay them (capture tour).
+    /// The tour cannot send controller reordering, so a seed whose opening needs it is refused.</summary>
+    static int Trace(uint seed, int steps, string outPath)
+    {
+        var runner = new Runner(cfg, P, new BotOptions()) { recorded = new List<Dictionary<string, object>>() };
+        var log = runner.Play(seed);
+        var all = runner.recorded; var head = all.Take(steps + 1).ToList();
+        if (head.Count <= steps) { Console.WriteLine($"seed {seed}: run ended after {all.Count - 1} commands, fewer than {steps}"); return 3; }
+        if (head.Any(s => (string)s["kind"] == "ReorderControllers")) { Console.WriteLine($"seed {seed}: opening uses ReorderControllers, pick another seed"); return 4; }
+        File.WriteAllText(outPath, JsonSerializer.Serialize(new Dictionary<string, object> { ["seed"] = seed, ["configVersion"] = cfg.configVersion, ["policy"] = "balance_sim bot, legal commands only", ["steps"] = head },
+            new JsonSerializerOptions { WriteIndented = true, Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping }));
+        Console.WriteLine($"seed {seed}: wrote {head.Count} steps ({string.Join(",", head.GroupBy(s => (string)s["kind"]).Select(g => g.Key + "=" + g.Count()))}); run reached stage {log.reached}, won={log.won}");
         return 0;
     }
 
