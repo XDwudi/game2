@@ -34,7 +34,7 @@
 
 ## 文件导航
 
-美术制作入口：[AI 美术生产流程](docs/art/AI_ART_PIPELINE.md)与项目技能 [game-art-production](.agents/skills/game-art-production/SKILL.md)。包含 Image2 内置调用、参考图与来源归档、只读素材检查、当前项目审计和候选工具研究；不代替人工风格验收。
+美术制作入口：[美术风格总纲](docs/art/STYLE_GUIDE.md)（现行各层风格、色板、锚点集与待决项）、[标准化生产流程](docs/art/AI_ART_PIPELINE.md)（S0–S8、路线、审查清单、签署）与项目技能 [game-art-production](.agents/skills/game-art-production/SKILL.md)。插画经 [artgen](tools/art_gen/README.md) 调用本机 Codex 的 GPT 图像生成，自动核对参考图确实传入并生成一致性审查单；不代替人工风格验收。
 
 | 文件 | 用途 | 主要维护者 |
 | --- | --- | --- |

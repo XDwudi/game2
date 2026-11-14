@@ -1,0 +1,226 @@
+{
+  "kitVersion": "style-kit-1.1",
+  "status": "PROPOSED: anchors picked by AI from the shipped v0.71 illustration set; awaiting user confirmation (docs/art/STYLE_GUIDE.md section 7)",
+  "updated": "2026-11-14",
+  "changelog": [
+    "style-kit-1 (2026-11-14): 8 anchors pinned, plate built; used by ArtSource/AIConcepts/artkit-probe-20261114/clock/r01. Exact bytes archived in history/style_kit_style-kit-1.json (SHA-256 ecabad40..., reconstructed and byte-verified against the r01 record).",
+    "style-kit-1.1 (2026-11-14, after independent review, not yet used by any run): anchors and plate unchanged. Composition text now states the subject width measured on the shipped set and allows coral or ink action strokes as the shipped art does; drift ranges now come from the 71 shipped illustrations (indicatorRanges; geometry keys from the 60 square ones) instead of the 8 anchors. Still PROPOSED."
+  ],
+  "authority": "docs/art/STYLE_GUIDE.md",
+  "changeRule": "Anchors, plate and prompt blocks change only with a new kitVersion and a recorded user decision; before a bump, copy the old kit bytes to history/style_kit_<version>.json. Never edit a pinned value to make a check pass.",
+  "palette": {
+    "ivory": "F4E8CB",
+    "petrol": "173E40",
+    "ink": "162629",
+    "coral": "EC655D",
+    "cyan": "55B6D9",
+    "amber": "F3BA58",
+    "mint": "79C99C",
+    "violet": "AD92DB"
+  },
+  "categories": {
+    "illustration": {
+      "appliesTo": "Card theme illustrations: controllers C*, consumables I*, services O*, dice upgrades U* (P0Config ids).",
+      "route": "Codex built-in image generation through tools/art_gen/artgen.py",
+      "output": {
+        "transparent": true,
+        "canvas": "square",
+        "observedSize": [
+          1254,
+          1254
+        ],
+        "instruction": "True transparent alpha background with no backdrop of any colour. A single finished illustration, not a sheet of variants."
+      },
+      "displaySizes": [
+        170,
+        128,
+        85,
+        64
+      ],
+      "displaySizesNote": "Approximate on-screen widths: shop card at 1440p / 1080p / 720p, and a compact slot. Measured from v0.8 screenshots, not from layout code.",
+      "anchors": [
+        {
+          "id": "C29",
+          "path": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c29.png",
+          "sha256": "d90d1d1934d710640faf7df1dc2fbd08d47a2f7f5b6f214618dc61894beb7cd9"
+        },
+        {
+          "id": "C48",
+          "path": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c48.png",
+          "sha256": "2a980127906cc58d0c6e5c9d0a6fd7bb92d4a01f14917da3a26957361599e6b5"
+        },
+        {
+          "id": "I07",
+          "path": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_i07.png",
+          "sha256": "e9861c407b4f90338748d9a44db0b0c6fd9b43e43486cedc2b21af251e8e91a3"
+        },
+        {
+          "id": "C03",
+          "path": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c03.png",
+          "sha256": "c6f1c1b826391246547fe142bce4b132699f8dfa98a381b98861984ba4219717"
+        },
+        {
+          "id": "C01",
+          "path": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c01.png",
+          "sha256": "6e7292161ef233ecf2024a614689cf1096ce3a461b4f42ae270c83d506cf393c"
+        },
+        {
+          "id": "C42",
+          "path": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c42.png",
+          "sha256": "ec2dc4e93ea964e37285d8fda197476c6ca6dfadadcd1b97ad5c57846c0582c5"
+        },
+        {
+          "id": "O03",
+          "path": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_o03.png",
+          "sha256": "3d9d8478fe4eb65aacc9214c5c6aab860ba58b8feb37db5ab5ee1d2ca02392d7"
+        },
+        {
+          "id": "C37",
+          "path": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c37.png",
+          "sha256": "bf8ef718fbf7c3b518bbbf273372d3da0ecede867a39c44e55d9094ea9c4435c"
+        }
+      ],
+      "plate": {
+        "path": "ArtSource/StyleKit/plates/illustration_plate_style-kit-1.png",
+        "sha256": "a653982f60b065b968c92551074e45e8666952b9a5fe38a4a91e661a55a5581c",
+        "columns": 4,
+        "cell": 384,
+        "padding": 24,
+        "background": "F4E8CB",
+        "builtWith": "artgen-1.0; Pillow 9.4.0"
+      },
+      "plateRole": "STYLE PLATE: eight finished illustrations from this game on a plain ivory backdrop. Copy their rendering exactly (outline weight, flat planes, halftone, colour roles, viewpoint, lighting). Do not copy their subjects, their layout or the backdrop.",
+      "styleBlock": "Match the STYLE PLATE (reference image 1) exactly. High-resolution limited-colour screen-print illustration: bold, even dark petrol-ink outlines; broad flat colour planes; one hard-edged shadow plane per form; fine halftone dots only inside shaded planes; small crisp ivory highlights; light from the upper left. Objects are chunky, simplified and slightly toy-like, seen in three-quarter view from slightly above. Ceramic dice are rounded warm-ivory cubes with dark ink pips unless the subject asks for red or blue pips.",
+      "colorRoles": "Warm ivory #F4E8CB for lit surfaces and dark petrol #173E40 for shadow planes, bases and dark parts carry most of the picture; ink #162629 for outlines and pips. Accents only, each on a few small areas: coral red #EC655D, cyan blue #55B6D9, amber gold #F3BA58 (amber only for coins, brass, rewards or a single highlight). No other hues, no gradients, no glow.",
+      "composition": "One cohesive subject group of at most three objects, centred on a square canvas; the subject spans roughly 70 to 95 percent of the canvas width without touching the edges, with even transparent margin on every side; the silhouette must stay readable at 64 pixels. Two or three short action strokes or a small spark near the upper left of the subject are allowed when they express the effect (usually cyan; coral or ink when the subject is red or dark).",
+      "avoid": "text, letters, numbers, labels, prices, card frames, UI elements, paper or coloured backdrop, ground scenery, checkerboard, a drop-shadow slab under the object, photorealism, 3D-render look, soft airbrush gradients, pixel art, neon glow, grunge, torn or burnt paper, human characters, expressive faces.",
+      "indicatorRanges": {
+        "source": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_*.png",
+        "count": 71,
+        "squareCount": 60,
+        "geometryKeysSquareOnly": [
+          "transparentShare",
+          "subjectWidthShare",
+          "subjectHeightShare"
+        ],
+        "computedWith": "artgen-1.1",
+        "files": [
+          "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c01.png",
+          "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c02.png",
+          "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c03.png",
+          "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c05.png",
+          "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c06.png",
+          "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c07.png",
+          "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c08.png",
+          "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c09.png",
+          "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c10.png",
+          "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c11.png",
+          "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c12.png",
+          "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c13.png",
+          "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c14.png",
+          "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c15.png",
+          "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c17.png",
+          "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c18.png",
+          "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c19.png",
+          "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c20.png",
+          "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c21.png",
+          "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c22.png",
+          "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c24.png",
+          "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c25.png",
+          "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c26.png",
+          "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c27.png",
+          "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c28.png",
+          "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c29.png",
+          "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c30.png",
+          "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c31.png",
+          "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c32.png",
+          "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c33.png",
+          "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c34.png",
+          "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c35.png",
+          "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c36.png",
+          "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c37.png",
+          "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c38.png",
+          "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c39.png",
+          "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c40.png",
+          "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c41.png",
+          "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c42.png",
+          "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c43.png",
+          "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c44.png",
+          "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c45.png",
+          "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c46.png",
+          "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c47.png",
+          "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c48.png",
+          "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c49.png",
+          "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c50.png",
+          "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c51.png",
+          "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c52.png",
+          "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c53.png",
+          "DicePrototype/Assets/Art/Art071/Illustrations/illustration_i01.png",
+          "DicePrototype/Assets/Art/Art071/Illustrations/illustration_i02.png",
+          "DicePrototype/Assets/Art/Art071/Illustrations/illustration_i03.png",
+          "DicePrototype/Assets/Art/Art071/Illustrations/illustration_i04.png",
+          "DicePrototype/Assets/Art/Art071/Illustrations/illustration_i05.png",
+          "DicePrototype/Assets/Art/Art071/Illustrations/illustration_i06.png",
+          "DicePrototype/Assets/Art/Art071/Illustrations/illustration_i07.png",
+          "DicePrototype/Assets/Art/Art071/Illustrations/illustration_o01.png",
+          "DicePrototype/Assets/Art/Art071/Illustrations/illustration_o02.png",
+          "DicePrototype/Assets/Art/Art071/Illustrations/illustration_o03.png",
+          "DicePrototype/Assets/Art/Art071/Illustrations/illustration_o04.png",
+          "DicePrototype/Assets/Art/Art071/Illustrations/illustration_o05.png",
+          "DicePrototype/Assets/Art/Art071/Illustrations/illustration_o06.png",
+          "DicePrototype/Assets/Art/Art071/Illustrations/illustration_o07.png",
+          "DicePrototype/Assets/Art/Art071/Illustrations/illustration_u01.png",
+          "DicePrototype/Assets/Art/Art071/Illustrations/illustration_u02.png",
+          "DicePrototype/Assets/Art/Art071/Illustrations/illustration_u03.png",
+          "DicePrototype/Assets/Art/Art071/Illustrations/illustration_u04.png",
+          "DicePrototype/Assets/Art/Art071/Illustrations/illustration_u05.png",
+          "DicePrototype/Assets/Art/Art071/Illustrations/illustration_u06.png",
+          "DicePrototype/Assets/Art/Art071/Illustrations/illustration_u07.png"
+        ],
+        "setSha256": "5886f0522610ba4a584fdd0c26d766199cfc3c94f8ababceb9a3ddd297f0502c",
+        "ranges": {
+          "role.dark": [
+            0.2334,
+            0.663
+          ],
+          "role.ivory": [
+            0.2232,
+            0.5806
+          ],
+          "role.coral": [
+            0.0001,
+            0.4389
+          ],
+          "role.cyan": [
+            0.0,
+            0.4455
+          ],
+          "role.amber": [
+            0.0,
+            0.1043
+          ],
+          "role.other": [
+            0.0046,
+            0.1741
+          ],
+          "transparentShare": [
+            0.3564,
+            0.7399
+          ],
+          "subjectWidthShare": [
+            0.6762,
+            0.9809
+          ],
+          "subjectHeightShare": [
+            0.6276,
+            0.9577
+          ],
+          "lightFringeShare": [
+            0.0,
+            0.1345
+          ]
+        }
+      }
+    }
+  }
+}

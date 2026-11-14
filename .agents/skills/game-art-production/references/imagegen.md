@@ -10,6 +10,17 @@
 
 本任务实际例子：`ArtSource/AIConcepts/imagegen-probe-20261108/`。它是 I07 的独立概念候选，未替换生产图。
 
+## 外部代理经 Codex CLI 调用（2026-11-14 实测）
+
+Claude Code 等不在 Codex 会话里的代理，用 `python tools/art_gen/artgen.py generate --job <job.json>`。它在临时目录里以只读沙箱运行 `codex exec`，用法见 [流程 §4](../../../../docs/art/AI_ART_PIPELINE.md)。本机 Codex CLI 为 0.167.0-alpha.3.2，用 ChatGPT 登录，`image_generation` 功能已开启。
+
+实测中发现一个问题：只用 `codex exec -i` 附上参考图时，Codex 代理调用 `image_gen.imagegen` **没有**传 `referenced_image_paths`，参考图被静默丢弃，结果只按文字生成。因此，不论交互式还是 CLI 调用，都必须：
+
+- 在请求里写明 `referenced_image_paths` 的绝对路径；
+- 事后从会话日志 `~/.codex/sessions/**/rollout-*<thread>.jsonl` 核对实际调用。
+
+artgen 会自动完成核对，不符时记为 INVALID_RUN。证据见 `ArtSource/AIConcepts/artkit-probe-20261114/`。
+
 ## 可直接改用的调用
 
 先用 `view_image` 查看所有本地输入图，并给每张图标明角色。把下面示例绝对路径替换为当前仓库根目录；`prompt` 必须读取或使用当前任务完整提示词。此段是工具调用示例，不能当普通 Node/Python 脚本运行。
@@ -30,7 +41,7 @@ generatedImage(result);
 
 ## 项目提示词与保存
 
-复用 ART_SPEC §10，按单一资产裁剪：
+固定段以 `ArtSource/StyleKit/style_kit.json` 为准（画法、色彩角色、构图、输出、禁止项；`artgen prompt --job` 可直接打印拼好的全文）。旧 ART_SPEC §10 仅作历史参考。交互调用时按单一资产裁剪：
 
 1. 用途/ID：概念、独立插画或局部修订；真实主体来自配置和任务。
 2. 输入角色：母版只约束风格；已选插画约束描边/色块；目标图是要编辑的文件。实机图只约束功能位置。

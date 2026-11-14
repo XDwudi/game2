@@ -1,0 +1,98 @@
+{
+  "schema": "artgen-record-1",
+  "toolVersion": "artgen-1.0",
+  "jobId": "ARTKIT-PROBE-20261114-CLOCK",
+  "jobPath": "ArtSource/AIConcepts/artkit-probe-20261114/clock/job.json",
+  "jobSha256": "af3f5af8524744310b8d588e6effaf4e9364954987920d94c1d5da430b54ce45",
+  "category": "illustration",
+  "revision": "r01",
+  "mode": "new",
+  "content": null,
+  "styleKit": {
+    "path": "ArtSource/StyleKit/style_kit.json",
+    "sha256": "ecabad40886975863877a35779849d7dc99d5384f2d2156885b7b6dfad658479",
+    "kitVersion": "style-kit-1",
+    "status": "PROPOSED: anchors picked by AI from the shipped v0.71 illustration set; awaiting user confirmation (docs/art/STYLE_GUIDE.md section 7)"
+  },
+  "references": [
+    {
+      "index": 1,
+      "path": "ArtSource/StyleKit/plates/illustration_plate_style-kit-1.png",
+      "sha256": "a653982f60b065b968c92551074e45e8666952b9a5fe38a4a91e661a55a5581c",
+      "role": "STYLE PLATE: eight finished illustrations from this game on a plain ivory backdrop. Copy their rendering exactly (outline weight, flat planes, halftone, colour roles, viewpoint, lighting). Do not copy their subjects, their layout or the backdrop."
+    }
+  ],
+  "prompt": {
+    "imagePromptPath": "ArtSource/AIConcepts/artkit-probe-20261114/clock/r01/prompt.txt",
+    "imagePromptSha256": "66fc76c3616cecc0369ba2fa810f6d741df9d9fe8d561d380d7f128c1f49e5f5",
+    "agentRequestPath": "ArtSource/AIConcepts/artkit-probe-20261114/clock/r01/codex-request.txt"
+  },
+  "codex": {
+    "command": [
+      "C:\\Users\\f\\AppData\\Local\\OpenAI\\Codex\\bin\\f71a721e0e6193a9\\codex.exe"
+    ],
+    "version": "codex-cli 0.167.0-alpha.3.2",
+    "exitCode": 0,
+    "threadId": "01a1db3c-43ca-7310-aed6-3c6704b31d96",
+    "sessionLog": "C:\\Users\\f\\.codex\\sessions\\2026\\11\\14\\rollout-2026-11-14T13-05-22-01a1db3c-43ca-7310-aed6-3c6704b31d96.jsonl",
+    "agentModel": "gpt-6-astra",
+    "usage": {
+      "input_tokens": 57787,
+      "cached_input_tokens": 50048,
+      "cache_write_input_tokens": 0,
+      "output_tokens": 648,
+      "reasoning_output_tokens": 0
+    },
+    "durationSeconds": 81.4,
+    "quotaUsedPercentFirst": 77.0,
+    "quotaUsedPercentLast": 78.0
+  },
+  "imageTool": {
+    "name": "image_gen.imagegen (Codex built-in)",
+    "modelSnapshot": "not exposed by the tool; OpenAI documents the built-in tool as gpt-image-2",
+    "generations": [
+      {
+        "id": "exec-13daa43d-3d21-4d24-9133-2e2e92fa8196",
+        "status": "completed",
+        "revisedPrompt": "Create ONE standalone card-theme illustration. Subject: a small brass alarm clock with one rounded ivory ceramic die resting beside it\nStyle: Match the STYLE PLATE (reference image 1) exactly. High-resolution limited-colour screen-print illustration: bold, even dark petrol-ink outlines; broad flat colour planes; one hard-edged shadow plane per form; fine halftone dots only inside shaded planes; small crisp ivory highlights; light from the upper left. Objects are chunky, simplified and slightly toy-like, seen in three-quarter view from slightly above. Ceramic dice are rounded warm-ivory cubes with dark ink pips unless the subject asks for red or blue pips.\nColour roles: Warm ivory #F4E8CB for lit surfaces and dark petrol #173E40 for shadow planes, bases and dark parts carry most of the picture; ink #162629 for outlines and pips. Accents only, each on a few small areas: coral red #EC655D, cyan blue #55B6D9, amber gold #F3BA58 (amber only for coins, brass, rewards or a single highlight). No other hues, no gradients, no glow.\nComposition: One cohesive subject group of at most three objects, centred on a square canvas; the subject spans about three quarters of the canvas width (never touching the edges) with even transparent margin on every side; the silhouette must stay readable at 64 pixels. Two or three short cyan action strokes near the upper left of the subject are allowed when they express the effect.\nOutput: True transparent alpha background with no backdrop of any colour. A single finished illustration, not a sheet of variants.\nAvoid: text, letters, numbers, labels, prices, card frames, UI elements, paper or coloured backdrop, ground scenery, checkerboard, a drop-shadow slab under the object, photorealism, 3D-render look, soft airbrush gradients, pixel art, neon glow, grunge, torn or burnt paper, human characters, expressive faces."
+      }
+    ],
+    "callChecks": {
+      "imageCallCount": 1,
+      "referencedImagePaths": [
+        "E:/agent_workspace/gpt/game2/ArtSource/StyleKit/plates/illustration_plate_style-kit-1.png"
+      ],
+      "transparentBackground": true,
+      "promptVerbatim": true
+    }
+  },
+  "output": {
+    "sourcePath": "C:\\Users\\f\\.codex\\generated_images\\01a1db3c-43ca-7310-aed6-3c6704b31d96\\exec-13daa43d-3d21-4d24-9133-2e2e92fa8196.png",
+    "archivedPath": "ArtSource/AIConcepts/artkit-probe-20261114/clock/r01/original.png",
+    "sha256": "22df293324f98b865cc3f9b32d67d672b54b15ae2f666dd5b7171bdf1cb22fb5",
+    "copiedByteIdentical": true,
+    "dimensions": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alphaExtrema": [
+      0,
+      255
+    ],
+    "transparentShare": 0.6453,
+    "alphaBounds": [
+      117,
+      159,
+      1076,
+      1100
+    ],
+    "subjectWidthShare": 0.7648,
+    "subjectHeightShare": 0.7504,
+    "subjectAreaShare": 0.3399
+  },
+  "runValid": true,
+  "runProblems": [],
+  "status": "CANDIDATE: review pending",
+  "recordedUtc": "2026-11-14T18:06:43.625147+00:00"
+}
