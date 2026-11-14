@@ -17,10 +17,13 @@ namespace DiceCraft.Tests
         {
             app.StartNew("20261031"); byte[] normal = File.ReadAllBytes(app.SaveLocation);
             var report = Art07Fixtures.Apply(app, Art07FixtureKind.G147);
-            Assert.That(report.expectedValuesMatched, Is.True); Assert.That(report.previewScore, Is.EqualTo("967680")); Assert.That(report.locked, Is.EqualTo(5));
+            Assert.That(report.expectedValuesMatched, Is.True); Assert.That(report.previewScore, Is.EqualTo("181440")); Assert.That(report.locked, Is.EqualTo(5));
             var receipt = Art07Fixtures.Submit(app, Art07FixtureKind.G147); string committed = GameSession.StateHash(app.Session.State);
-            Assert.That(receipt.ChainCount, Is.EqualTo(4)); Assert.That(receipt.ComboTier, Is.EqualTo(5)); app.SkipVisual();
+            Assert.That(receipt.ChainCount, Is.EqualTo(4)); Assert.That(receipt.ComboTier, Is.EqualTo(4)); app.SkipVisual();
             Assert.That(GameSession.StateHash(app.Session.State), Is.EqualTo(committed));
+            // The top tier keeps its own reproducible scene.
+            var burst = Art07Fixtures.Apply(app, Art07FixtureKind.Burst08); Assert.That(burst.previewScore, Is.EqualTo("596160"));
+            var top = Art07Fixtures.Submit(app, Art07FixtureKind.Burst08); Assert.That(top.ChainCount, Is.EqualTo(4)); Assert.That(top.ComboTier, Is.EqualTo(5)); app.SkipVisual();
             CollectionAssert.AreEqual(normal, File.ReadAllBytes(Path.Combine(saveDirectory, "active-run.json")));
             yield return null;
         }
@@ -45,7 +48,7 @@ namespace DiceCraft.Tests
                 var player = new PresentationPlayer(); var sequence = PresentationSequence.Create(receipt, new PresentationOptions(speed, reduced));
                 PresentationReceipt final = null; player.FinalStateRequested += r => final = r;
                 player.Play(sequence); player.Clock.Paused = true; player.Tick(100); player.Clock.Paused = false; player.Tick(10);
-                Assert.That(final.ScoreDecimal, Is.EqualTo("967680")); Assert.That(final.MultiplierNumeratorDecimal, Is.EqualTo("26880"));
+                Assert.That(final.ScoreDecimal, Is.EqualTo("181440")); Assert.That(final.MultiplierNumeratorDecimal, Is.EqualTo("5040"));
                 Assert.That(GameSession.StateHash(app.Session.State), Is.EqualTo(state)); CollectionAssert.AreEqual(disk, File.ReadAllBytes(app.SaveLocation));
                 yield return null;
             }

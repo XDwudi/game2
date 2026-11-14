@@ -110,7 +110,7 @@ namespace DiceCraft.Tests
         {
             string file=app.SaveLocation;byte[] old=System.Text.Encoding.UTF8.GetBytes("{\"schema\":3,\"config\":\"p0.5.0\",\"payload\":\"{}\",\"sha256\":\"legacy-fixture\"}");
             File.WriteAllBytes(file,old);yield return LoadBootstrap();
-            Assert.That(app.Session.State,Is.Null);Assert.That(InformationText07("LegacyVersions07Body"),Does.Contain("p0.5.0").And.Contain("schema 3").And.Contain("p0.6.0").And.Contain("schema 4"));
+            Assert.That(app.Session.State,Is.Null);Assert.That(InformationText07("LegacyVersions07Body"),Does.Contain("p0.5.0").And.Contain("schema 3").And.Contain("p0.8.0").And.Contain("schema 4"));
             var archives=Directory.GetFiles(saveDirectory,"*.legacy-schema3-*");Assert.That(archives.Length,Is.EqualTo(1));CollectionAssert.AreEqual(old,File.ReadAllBytes(archives[0]));
             foreach(int font in new[]{100,125,150})
             {

@@ -256,22 +256,22 @@ namespace DiceCraft.Tests
         [UnityTest]
         public IEnumerator PLAY_ART073_HighScoreBurstStartsOnFinalScoreCountsUpAndLeavesWithoutBlocking()
         {
-            Art07Fixtures.Apply(app,Art07FixtureKind.G147);FinalOptions07("Normal",false);
+            Art07Fixtures.Apply(app,Art07FixtureKind.Burst08);FinalOptions07("Normal",false);
             Assert.That(app.HighScoreTierShown073,Is.Zero);
-            Art07Fixtures.Submit(app,Art07FixtureKind.G147);string state=GameSession.StateHash(app.Session.State);byte[] save=File.ReadAllBytes(app.SaveLocation);
+            Art07Fixtures.Submit(app,Art07FixtureKind.Burst08);string state=GameSession.StateHash(app.Session.State);byte[] save=File.ReadAllBytes(app.SaveLocation);
             Assert.That(app.HighScoreTierShown073,Is.Zero,"Nothing before the committed final-score beat.");
             yield return WaitFxPhase07(PresentationPhase.FinalScore);
-            Assert.That(app.HighScoreTierShown073,Is.EqualTo(HighScore073.Burst),"967,680 at total multiplier x26,880 is the top tier.");
+            Assert.That(app.HighScoreTierShown073,Is.EqualTo(HighScore073.Burst),"596,160 at total multiplier x16,560 is the top tier.");
             Assert.That(HasActive("Crown"),Is.True);Assert.That(HasActive("Ray0"),Is.True);Assert.That(HasActive("Spark0"),Is.True);
             var layer=FindActive<RectTransform>("HighScore073");var group=layer.GetComponent<CanvasGroup>();
             Assert.That(group.blocksRaycasts,Is.False);Assert.That(group.interactable,Is.False);
             Assert.That(layer.GetComponentsInChildren<UnityEngine.UI.Graphic>(false).Where(g=>g.name!="Number"&&g.name!="Caption"&&g.name!="Chain"&&g.name!="Formula").All(g=>!g.raycastTarget||!group.blocksRaycasts),Is.True);
-            Assert.That(FindActive<TextMeshProUGUI>("Chain").text,Does.Contain("连锁").And.Contain("26,880"));
+            Assert.That(FindActive<TextMeshProUGUI>("Chain").text,Does.Contain("连锁").And.Contain("16,560"));
             Assert.That(FindActive<TextMeshProUGUI>("Formula").text.Count(c=>c=='×'),Is.GreaterThanOrEqualTo(2));
             int ticks=layer.GetComponentsInChildren<RectTransform>(false).Count(r=>r.name.StartsWith("Scored",StringComparison.Ordinal));
             Assert.That(ticks,Is.EqualTo(4),"One gold tick per scoring controller.");
             // The number counts up to the committed score and never passes it.
-            System.Numerics.BigInteger last=-1,final=System.Numerics.BigInteger.Parse("967680");bool counted=false;
+            System.Numerics.BigInteger last=-1,final=System.Numerics.BigInteger.Parse("596160");bool counted=false;
             double limit=Time.realtimeSinceStartupAsDouble+6;
             while(app.PresentationPlaying07&&Time.realtimeSinceStartupAsDouble<limit)
             {
@@ -285,7 +285,7 @@ namespace DiceCraft.Tests
             Assert.That(app.PresentationPlaying07||app.IsBusy,Is.False);
             // After the presentation it only fades: input is free and the final number is exact.
             Assert.That(app.HighScoreTierShown073,Is.EqualTo(HighScore073.Burst));Assert.That(app.HighScoreFading073,Is.True);
-            Assert.That(app.HighScoreText073,Is.EqualTo("967,680"));
+            Assert.That(app.HighScoreText073,Is.EqualTo("596,160"));
             limit=Time.realtimeSinceStartupAsDouble+2;while(app.HighScoreTierShown073>0&&Time.realtimeSinceStartupAsDouble<limit){Assert.That(app.IsBusy,Is.False);yield return null;}
             Assert.That(app.HighScoreTierShown073,Is.Zero);Assert.That(HasActive("Plate"),Is.False);
             Assert.That(GameSession.StateHash(app.Session.State),Is.EqualTo(state));CollectionAssert.AreEqual(save,File.ReadAllBytes(app.SaveLocation));
@@ -296,8 +296,8 @@ namespace DiceCraft.Tests
         {
             foreach(string mode in new[]{"Fast","Reduced","Instant","Skip"})
             {
-                Art07Fixtures.Apply(app,Art07FixtureKind.G147);FinalOptions07(mode=="Fast"||mode=="Instant"?mode:"Normal",mode=="Reduced");
-                Art07Fixtures.Submit(app,Art07FixtureKind.G147);string state=GameSession.StateHash(app.Session.State);
+                Art07Fixtures.Apply(app,Art07FixtureKind.Burst08);FinalOptions07(mode=="Fast"||mode=="Instant"?mode:"Normal",mode=="Reduced");
+                Art07Fixtures.Submit(app,Art07FixtureKind.Burst08);string state=GameSession.StateHash(app.Session.State);
                 if(mode=="Instant")
                 {
                     Assert.That(app.PresentationPlaying07,Is.False);Assert.That(app.HighScoreTierShown073,Is.Zero,"Instant never shows the celebration.");
@@ -305,7 +305,7 @@ namespace DiceCraft.Tests
                 }
                 yield return WaitFxPhase07(PresentationPhase.FinalScore);
                 Assert.That(app.HighScoreTierShown073,Is.EqualTo(HighScore073.Burst),mode);
-                if(mode=="Fast"||mode=="Reduced")Assert.That(app.HighScoreText073,Is.EqualTo("967,680"),mode+" shows the final value at once.");
+                if(mode=="Fast"||mode=="Reduced")Assert.That(app.HighScoreText073,Is.EqualTo("596,160"),mode+" shows the final value at once.");
                 if(mode=="Reduced")
                 {
                     Assert.That(HasActive("Ray0"),Is.False);Assert.That(HasActive("Spark0"),Is.False);Assert.That(HasActive("Crown"),Is.True);
@@ -326,7 +326,7 @@ namespace DiceCraft.Tests
             // A hand that scores nothing never celebrates; a replay of a high hand celebrates again.
             Art07Fixtures.Apply(app,Art07FixtureKind.ZeroMultiplier);FinalOptions07("Normal",false);Art07Fixtures.Submit(app,Art07FixtureKind.ZeroMultiplier);
             {double limit=Time.realtimeSinceStartupAsDouble+6;while(app.PresentationPlaying07&&Time.realtimeSinceStartupAsDouble<limit){Assert.That(app.HighScoreTierShown073,Is.Zero);yield return null;}}
-            Art07Fixtures.Apply(app,Art07FixtureKind.G147);Art07Fixtures.Submit(app,Art07FixtureKind.G147);app.SkipVisual();yield return null;
+            Art07Fixtures.Apply(app,Art07FixtureKind.Burst08);Art07Fixtures.Submit(app,Art07FixtureKind.Burst08);app.SkipVisual();yield return null;
             Assert.That(app.ReplayLastPresentation07(),Is.True);yield return WaitFxPhase07(PresentationPhase.FinalScore);
             Assert.That(app.HighScoreTierShown073,Is.EqualTo(HighScore073.Burst),"Read-only replay shows the same celebration.");
             app.SkipVisual();Assert.That(app.HighScoreTierShown073,Is.Zero);

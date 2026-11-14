@@ -29,7 +29,7 @@ namespace DiceCraft.Editor
             ValidateGate();
             var identity=AssetDatabase.LoadAssetAtPath<TextAsset>("Assets/Resources/BuildIdentity.json");
             if(identity==null)throw new InvalidOperationException("Freeze sourceCommit and write BuildIdentity before building.");
-            string output=mac?"../Builds/v073/macOS/DicePrototype.app":"../Builds/v073/Windows/DicePrototype.exe";
+            string output=mac?"../Builds/v08/macOS/DicePrototype.app":"../Builds/v08/Windows/DicePrototype.exe";
             Directory.CreateDirectory(Path.GetDirectoryName(output));
             var report=BuildPipeline.BuildPlayer(new BuildPlayerWithProfileOptions{buildProfile=profile,locationPathName=output,options=BuildOptions.StrictMode});
             string evidence="../evidence/v08/unity/build-"+(mac?"macos":"windows")+"-"+DateTime.UtcNow.ToString("yyyyMMdd-HHmmss")+".json";

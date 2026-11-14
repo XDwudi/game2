@@ -37,8 +37,8 @@ namespace DiceCraft.Tests
                 double limit=Time.realtimeSinceStartupAsDouble+6;
                 while(app.PresentationPlaying07&&Time.realtimeSinceStartupAsDouble<limit)yield return null;
                 Assert.That(app.PresentationPlaying07||app.IsBusy,Is.False);Assert.That(app.StablePresentationResultVisible07,Is.True,mode);
-                Assert.That(VisibleFinalText07("StableResultScore07").text.Replace(",",""),Is.EqualTo("967680"));
-                Assert.That(VisibleFinalText07("StableResultFactors07").text,Does.Contain("26880").And.Contain("连锁 4"));
+                Assert.That(VisibleFinalText07("StableResultScore07").text.Replace(",",""),Is.EqualTo("181440"));
+                Assert.That(VisibleFinalText07("StableResultFactors07").text,Does.Contain("5040").And.Contain("连锁 4"));
                 Assert.That(app.StablePresentationSourceMarks07,Is.EqualTo(4));
                 app.Refresh();yield return null;
                 Assert.That(app.StablePresentationResultVisible07,Is.True);Assert.That(GameSession.StateHash(app.Session.State),Is.EqualTo(state));CollectionAssert.AreEqual(save,File.ReadAllBytes(app.SaveLocation));
@@ -93,20 +93,20 @@ namespace DiceCraft.Tests
             bool hadQuality=PlayerPrefs.HasKey("art07.quality");int oldQuality=PlayerPrefs.GetInt("art07.quality",1);
             try
             {
-            Art07Fixtures.Apply(app,Art07FixtureKind.G147);
+            Art07Fixtures.Apply(app,Art07FixtureKind.Burst08);
             if(tenCards)FxScene07(scene=>
             {
                 int first=scene.controllers.Max(c=>c.acquiredSerial)+1;
                 string[] added={"C01","C05","C17","C19","C20","C34"};
                 for(int i=0;i<added.Length;i++)scene.controllers.Add(new ControllerInstance{instanceId="ITEM_"+(first+i).ToString("D5"),acquiredSerial=first+i,definitionId=added[i],enchantmentId="slotless",state=new ControllerDynamicState()});
-            });
+            },Art07FixtureKind.Burst08);
             Click("Pause");Click("Settings");Click("SettingsTab1");
             for(int i=0;i<3&&!Button("Quality").GetComponentInChildren<TextMeshProUGUI>().text.StartsWith("标准",StringComparison.Ordinal);i++)Click("Quality");
             Assert.That(Button("Quality").GetComponentInChildren<TextMeshProUGUI>().text,Does.StartWith("标准"));Click("SettingsDone");
             FinalOptions07("Normal",false);
             var before=app.Session.State;var result=app.Send(new SessionCommand{kind=CommandKind.Submit});Assert.That(result.accepted,Is.True,result.error);
             var receipt=PresentationReceiptAdapter.BuildCommitted(result,before,app.Session.State,app.Config);Assert.That(receipt.ComboTier,Is.EqualTo(5));
-            if(!tenCards)Assert.That(receipt.ScoreDecimal,Is.EqualTo("967680"));
+            if(!tenCards)Assert.That(receipt.ScoreDecimal,Is.EqualTo("596160"));
             string stateHash=GameSession.StateHash(app.Session.State);byte[] save=File.ReadAllBytes(app.SaveLocation);
             yield return WaitFxPhase07(PresentationPhase.FinalScore);
             var view=LiveFx07("fx_combo_burst").Single();Assert.That(view.GetComponent<Art07ScoreBurstLayout>().IsConfigured,Is.True);Assert.That(view.transform.localScale,Is.EqualTo(Vector3.one));

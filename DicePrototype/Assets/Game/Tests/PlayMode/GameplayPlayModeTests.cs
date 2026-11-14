@@ -337,7 +337,9 @@ namespace DiceCraft.Tests
             Assert.That(app.Session.State.phase, Is.EqualTo("StageSettlement"));
             Click("SettlementContinue");
             Assert.That(app.Session.State.phase, Is.EqualTo("Shop"));
-            var offer = app.Session.State.shop.offers.First(o => o.category == "controller");
+            // p0.8.0: the first offer of this fixed practice seed carries a slotless enchant the practice wallet cannot afford,
+            // so the purchase step buys the first controller the player can actually pay for.
+            var offer = app.Session.State.shop.offers.First(o => o.category == "controller" && app.Session.GetOfferPrice(o) <= app.Session.State.gold);
             long goldBefore = app.Session.State.gold, price = app.Session.GetOfferPrice(offer);
             Click("Offer_" + offer.offerId);
             Click("ConfirmPurchase");

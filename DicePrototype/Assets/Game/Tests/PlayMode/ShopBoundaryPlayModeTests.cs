@@ -39,7 +39,7 @@ namespace DiceCraft.Tests
                     string instance = app.Session.State.controllers.Single(c => c.contentId == "C09").instanceId;
                     long beforeSell = app.Session.State.gold;
                     Click("Controller_" + instance); Click("SellController"); Click("ConfirmSale");
-                    Assert.That(app.Session.State.gold, Is.EqualTo(beforeSell + 1));
+                    Assert.That(app.Session.State.gold, Is.EqualTo(beforeSell + Math.Max(1, app.Config.Controller("C09").buyPrice / 2)));
                     Assert.That(app.Session.EffectiveCapacity, Is.EqualTo(5));
                     yield return OpenBoundaryOffer("straight"); Assert.That(Button("ConfirmPurchase").interactable, Is.True); Click("CloseDialog");
                     Click("Study"); Assert.That(HasActive("StudyBuystraight"), Is.True); Click("CloseDialog");
@@ -81,6 +81,11 @@ namespace DiceCraft.Tests
                 }
                 Assert.That(app.Session.State.handLevels.Single(h => h.handId == "pair").level, Is.EqualTo(2));
                 Assert.That(app.Session.State.shop.selfStudyUsed, Is.EqualTo(1));
+                Assert.That(Button("Study").interactable, Is.True, "p0.8.0 allows two self-studies per shop.");
+                Click("Study"); long secondGold = app.Session.State.gold; Click("StudyBuypair");
+                Assert.That(app.Session.State.gold, Is.EqualTo(secondGold - basePrice - 2 * increment - premium));
+                Assert.That(app.Session.State.handLevels.Single(h => h.handId == "pair").level, Is.EqualTo(3));
+                Assert.That(app.Session.State.shop.selfStudyUsed, Is.EqualTo(2));
                 Assert.That(Button("Study").interactable, Is.False);
                 Assert.That(JsonUtility.ToJson(new AtomicSaveStore(app.SaveLocation, app.Config).Load()), Is.EqualTo(StateJson()));
             }

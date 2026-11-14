@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using DiceCraft.Core;
 using DiceCraft.Presentation;
+using DiceCraft.Verification;
 using NUnit.Framework;
 using TMPro;
 using UnityEngine;
@@ -27,13 +28,15 @@ namespace DiceCraft.Tests
                     app.enabled=wasEnabled;
                     FxScene07(scene=>
                     {
-                        string[] defs=tier==3?new[]{"C46"}:tier==4?new[]{"C02","C30"}:new[]{"C02","C30","C31","C32"};
+                        // p0.8.0 multipliers on the level-4 five-of-a-kind / all-blue table (x140): C46 x2 = 280 (tier 3), C02 x C31 = x9 -> 1260 (tier 4);
+                        // the four-card table needs the level-20 scene to pass x8192 (tier 5).
+                        string[] defs=tier==3?new[]{"C46"}:tier==4?new[]{"C02","C31"}:new[]{"C02","C30","C31","C32"};
                         // Additional C01 instances exercise the real ten-card renderer
                         // in the isolated debug fixture without altering score factors.
                         if(ten)defs=defs.Concat(Enumerable.Repeat("C01",10-defs.Length)).ToArray();
                         FxControllers07(scene,defs);
                         if(ten)foreach(var c in scene.controllers.Skip(4))c.enchantmentId="slotless";
-                    });
+                    },tier==5?Art07FixtureKind.Burst08:Art07FixtureKind.G147);
                     FinalOptions07("Normal",false);SettlementField07("textScale07",font);UiKit.FontScale=font/100f;app.Refresh();
                     Canvas.ForceUpdateCanvases();app.enabled=false;
                     var before=app.Session.State;var result=app.Send(new SessionCommand{kind=CommandKind.Submit});Assert.That(result.accepted,Is.True,result.error);

@@ -85,7 +85,7 @@ namespace DiceCraft.Verification
             report.screenWidth=Screen.width;report.screenHeight=Screen.height;
             if(!string.IsNullOrEmpty(fixture))
             {
-                // Reference image 4 is this exact committed hand: 967,680 at x26,880 with four scoring cards.
+                // Reference image 4 was the p0.6.0 G147 hand (967,680 at x26,880). Under p0.8.0 pass Burst08 for the top tier (596,160 at x16,560).
                 var kind=(Art07FixtureKind)Enum.Parse(typeof(Art07FixtureKind),fixture);
                 Art07Fixtures.Apply(app,kind);yield return new WaitForSecondsRealtime(.8f);
                 yield return Capture("fixture-"+fixture+"-before");

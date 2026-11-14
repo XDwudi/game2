@@ -218,7 +218,9 @@ namespace DiceCraft
             if(consumables.Length==0)UiKit.Text(items,"NoOffers","本店暂无道具",12,160,428,60,20,UiKit.Muted,TextAlignmentOptions.Center);
 
             var study=Section073(root,"ResearchSection","研究强化","ResearchTitle",464,0,452,h,SectionTeal073);
-            var selfStudy=UiKit.ActionButton(study,"Study",ViewState.shop.selfStudyUsed==0?"自选研习 · 正常价 +1":"本店已研习",12,52,428,60,ShowStudy,UiKit.Gold,ViewState.shop.selfStudyUsed==0&&!IsBusy);
+            // p0.8.0: the number of self-studies per shop comes from the configuration (2), not a fixed single use.
+            int studyLeft=Config.shop.selfStudyLimit-ViewState.shop.selfStudyUsed;
+            var selfStudy=UiKit.ActionButton(study,"Study",studyLeft<=0?"本店已研习":ViewState.shop.selfStudyUsed==0?"自选研习 · 正常价 +1":"自选研习 · 还可 "+studyLeft+" 次",12,52,428,60,ShowStudy,UiKit.Gold,studyLeft>0&&!IsBusy);
             selfStudy.transform.Find("Label").GetComponent<TextMeshProUGUI>().fontSize=20*UiKit.FontScale;
             ProductShelf073(study,"ResearchShelf",research,12,120,428,288,2);
             if(research.Length==0)UiKit.Text(study,"NoResearch","本店没有可升级的牌型",12,220,428,60,20,UiKit.Muted,TextAlignmentOptions.Center);

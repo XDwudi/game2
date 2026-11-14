@@ -14,11 +14,11 @@ namespace DiceCraft.Tests
 {
     public sealed partial class GameplayPlayModeTests
     {
-        private DebugScene FxScene07(Action<DebugScene> edit)
+        private DebugScene FxScene07(Action<DebugScene> edit,Art07FixtureKind kind=Art07FixtureKind.G147)
         {
-            Art07Fixtures.Apply(app,Art07FixtureKind.G147);
+            Art07Fixtures.Apply(app,kind);
             var s=app.Session.State;
-            var scene=Art07Fixtures.Create(app.Config,Art07FixtureKind.G147,s.nextItemSerial,s.nextDieSerial);
+            var scene=Art07Fixtures.Create(app.Config,kind,s.nextItemSerial,s.nextDieSerial);
             edit(scene);var result=app.Send(new SessionCommand{kind=CommandKind.ApplyDebugScene,debugScene=scene});
             Assert.That(result.accepted,Is.True,result.error);return scene;
         }

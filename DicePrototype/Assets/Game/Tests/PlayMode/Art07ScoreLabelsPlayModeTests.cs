@@ -49,8 +49,8 @@ namespace DiceCraft.Tests
                     if(kind==Art07FixtureKind.Debug32)
                     {
                         var exact=app.Session.PreviewScoreRange().minimum;
-                        Assert.That(exact.controllerMultiplierNumerator,Is.EqualTo("1853020188851841"));
-                        Assert.That(Button("Factor4").GetComponentInChildren<TextMeshProUGUI>().text,Is.EqualTo("控制器 ×≈1.85e15"));
+                        Assert.That(exact.controllerMultiplierNumerator,Is.EqualTo("4294967296"));
+                        Assert.That(Button("Factor4").GetComponentInChildren<TextMeshProUGUI>().text,Is.EqualTo("控制器 ×≈4.29e9"));
                         Click("Factor4");yield return new WaitForSecondsRealtime(.2f);
                         Click("FullScoreDetails");yield return new WaitForSecondsRealtime(.2f);
                         var formula=FindActive<TextMeshProUGUI>("Formula");

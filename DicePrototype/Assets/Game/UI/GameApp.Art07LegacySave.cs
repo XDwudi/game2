@@ -30,7 +30,7 @@ namespace DiceCraft
             if(legacy==null)UiKit.ActionButton(p,"CloseLoadIssue07","返回主菜单",24,644,912,60,()=>{CloseModal();inMenu=true;Refresh();},UiKit.Paper);
             else
             {
-                var begin=UiKit.ActionButton(p,"LegacyNewRun07","保留备份并开始 v0.6 规则的新局",24,644,912,60,()=>{CloseModal();inMenu=true;Refresh();ShowNewRun07();},UiKit.Paper);
+                var begin=UiKit.ActionButton(p,"LegacyNewRun07","保留备份并开始 v0.8 规则的新局",24,644,912,60,()=>{CloseModal();inMenu=true;Refresh();ShowNewRun07();},UiKit.Paper);
                 // Opens the existing seed/confirmation UI only; this callback does not issue NewRun.
                 var label=begin.GetComponentInChildren<TMPro.TextMeshProUGUI>();label.fontSize=22*UiKit.FontScale;
             }
