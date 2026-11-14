@@ -137,7 +137,7 @@ Windows `build-windows-20261114-104448`，macOS Universal `build-macos-20261114-
 | `Releases/p0.8.0/DicePrototype-p0.8.0-win-x64.zip` | 198,317,774 B | 306 | `ab0099499793ae32dbfbfba6256b257a9b23ea60d29c34e79481e73fb48e1ef8` |
 | `Releases/p0.8.0/DicePrototype-p0.8.0-macos-universal.zip` | 238,677,072 B | 301 | `42098298847a8a88ba66cb0830d0da059d24f90241cc78eedf0edfc5a86422e9` |
 
-两个包只在本机，**没有上传、没有发行、源码分支没有推送**（本次指令没有授权对外发布）。
+用户 2026-11-14 指示后已推送分支 `codex/v0.8` 并发行预发布 `p0.8.0-rc.1`（release 445477124），两个附件回读 SHA-256 与上表一致；收据 `evidence/v08/delivery/github-release-p0.8.0-rc.1.json`。
 
 ### V8-G：最终数值的平衡模拟
 
