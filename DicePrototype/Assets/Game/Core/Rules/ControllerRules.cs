@@ -62,10 +62,14 @@ namespace DiceCraft.Core
         public static long SalePrice(ControllerInstance instance, GameConfig cfg)
         {
             if (instance == null || !instance.alive) throw new ArgumentException("Cannot sell absent controller.");
-            cfg.Controller(instance.definitionId);
+            var definition = cfg.Controller(instance.definitionId);
             long fund = instance.state?.fundAccrual ?? 0;
             if (fund < 0 || fund % 3 != 0) throw new ArgumentException("Invalid fund accrual.");
-            return checked((long)cfg.baseControllerSellPrice + ((instance.definitionId == "C41" || instance.definitionId == "C52") ? fund : 0));
+            // v0.8: a controller sells for its list price (base + enchant premium) divided by controllerSellDivisor,
+            // rounded down and never below baseControllerSellPrice. Fund accrual still adds on top for C41/C52.
+            long listPrice = checked((long)definition.buyPrice + EnchantPrice(string.IsNullOrEmpty(instance.enchantmentId) ? "none" : instance.enchantmentId, cfg));
+            long resale = Math.Max(cfg.baseControllerSellPrice, listPrice / cfg.controllerSellDivisor);
+            return checked(resale + ((instance.definitionId == "C41" || instance.definitionId == "C52") ? fund : 0));
         }
         public static int EnchantPrice(string enchantmentId, GameConfig cfg) => cfg.Enchantment(enchantmentId).buyPremium;
         public static bool IsEnchantmentLegal(string controllerId, string enchantmentId, GameConfig cfg)

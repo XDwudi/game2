@@ -349,11 +349,17 @@ namespace DiceCraft.Core
 
         private void GrowTurnover(RunState s, string[] beforeIds)
         {
+            // v0.8: at most maxGrowthPerShop growth events per shop, so buying and reselling cheap cards cannot farm it.
+            int cap = cfg.Controller("C51").parameters.maxGrowthPerShop;
+            if (cap > 0 && s.shop != null && s.shop.turnoverGrowthCount >= cap) return;
+            bool grown = false;
             foreach (var c in s.controllers.Where(c => c.definitionId == "C51" && beforeIds.Contains(c.instanceId)))
             {
-                c.state.turnoverUnits2 = checked(c.state.turnoverUnits2 + 1);
+                c.state.turnoverUnits2 = checked(c.state.turnoverUnits2 + cfg.Controller("C51").parameters.addUnits2PerRealControllerSale);
                 s.lastEffects.Add(new EffectRecord { kind = "TurnoverGrown", sourceId = "C51", detail = c.instanceId, newValue = c.state.turnoverUnits2 });
+                grown = true;
             }
+            if (grown && s.shop != null) s.shop.turnoverGrowthCount = checked(s.shop.turnoverGrowthCount + 1);
         }
 
         private void Sell(RunState s, string instanceId)

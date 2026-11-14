@@ -31,7 +31,7 @@ namespace DiceCraft.Tests
         {
             var s = New().State; Assert.That(s.gold, Is.Zero); Assert.That(s.saveSchemaVersion, Is.EqualTo(4));
             Assert.That(s.handLevels.Count, Is.EqualTo(13)); Assert.That(s.colorLevels.Select(x => x.handId), Is.EquivalentTo(new[]{"all_red","all_blue"}));
-            Assert.That(s.stage.target, Is.EqualTo("180")); Assert.That(s.stage.score, Is.EqualTo("0"));
+            Assert.That(s.stage.target, Is.EqualTo("300")); Assert.That(s.stage.score, Is.EqualTo("0"));
         }
 
         [Test] public void V06_ReorderOnlyPreviewOrShopNoOpDoesNotSaveOrAdvance()
@@ -101,7 +101,7 @@ namespace DiceCraft.Tests
 
         [Test] public void V06_ZeroScoreStillConsumesDrawsIncomeAndConsecutiveGrowth()
         {
-            var s=Scene(Selecting(new[]{2,2},controllers:new[]{"C49","C01","C43","C53"}),d=>{d.previousPrimaryHandId="pair";d.randomOverrides.Add(new DebugRandomOverride{kind="C53",sourceId=d.controllers[3].instanceId,value="16"});});
+            var s=Scene(Selecting(new[]{2,2},controllers:new[]{"C49","C01","C43","C53"}),d=>{d.previousPrimaryHandId="pair";d.randomOverrides.Add(new DebugRandomOverride{kind="C53",sourceId=d.controllers[3].instanceId,value="10"});});
             var before=s.State;Do(s,CommandKind.Submit);
             Assert.That(s.State.lastSubmission.breakdown.score,Is.EqualTo("0"));Assert.That(s.State.stage.remainingSubmissions,Is.EqualTo(before.stage.remainingSubmissions-1));
             Assert.That(s.State.gold,Is.EqualTo(before.gold+1));Assert.That(s.State.handLevels.Single(h=>h.handId=="pair").level,Is.EqualTo(1));
@@ -123,15 +123,15 @@ namespace DiceCraft.Tests
             Assert.That(s.State.controllers.Select(c=>c.state.fundAccrual),Is.EqualTo(new long[]{3,33}));
             Assert.That(s.Execute(finish).duplicate,Is.True);Do(s,CommandKind.Continue);
             Assert.That(s.State.controllers.Select(c=>c.state.fundAccrual),Is.EqualTo(new long[]{3,33}));
-            Assert.That(s.GetControllerSalePrice(s.State.controllers[0].instanceId),Is.EqualTo(4));
+            Assert.That(s.GetControllerSalePrice(s.State.controllers[0].instanceId),Is.EqualTo(7));
         }
 
         [Test] public void V06_MatureFundReplacementCreditsNegativeNetKeepsPositionAndNewState()
         {
             var s=Edit(Shop(),x=>{x.gold=0;Equip(x,"C51","C52","C41");x.controllers[1].state.fundAccrual=30;x.controllers[2].state.fundAccrual=6;});
             string old=s.State.controllers[1].instanceId;string offer=Offer(s,"C52","slotless",out s);var quote=s.State.shop.offers.Single(o=>o.offerId==offer);
-            Assert.That(s.GetOfferNetPrice(quote),Is.EqualTo(-24));Do(s,CommandKind.Buy,c=>c.offerId=offer);
-            Assert.That(s.State.gold,Is.EqualTo(24));Assert.That(s.State.controllers[1].definitionId,Is.EqualTo("C52"));Assert.That(s.State.controllers[1].instanceId,Is.Not.EqualTo(old));
+            Assert.That(s.GetOfferNetPrice(quote),Is.EqualTo(-23));Do(s,CommandKind.Buy,c=>c.offerId=offer);
+            Assert.That(s.State.gold,Is.EqualTo(23));Assert.That(s.State.controllers[1].definitionId,Is.EqualTo("C52"));Assert.That(s.State.controllers[1].instanceId,Is.Not.EqualTo(old));
             Assert.That(s.State.controllers[1].state.fundAccrual,Is.Zero);Assert.That(s.State.controllers[2].state.fundAccrual,Is.EqualTo(6));Assert.That(s.State.controllers[0].state.turnoverUnits2,Is.EqualTo(4));
         }
 

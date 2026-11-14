@@ -117,7 +117,7 @@ namespace DiceCraft.Tests
         [Test] public void FLOW_C09_C11_BrokenRemoteTargetsConsumeItemAndNoDiceFails()
         {
             uint seed = 1;
-            while (true) { var r = new GameRng(seed); if (r.NextIndex(100) < 15 && r.NextIndex(100) < 15) break; seed++; }
+            while (true) { var r = new GameRng(seed); if (r.NextIndex(100) < cfg.glassBreakPercent && r.NextIndex(100) < cfg.glassBreakPercent) break; seed++; }
             string item = null; var s = Edit(Ready("C05"), x => { x.dice.RemoveRange(2,3); x.hand.currentResults.RemoveRange(2,3); foreach (var d in x.dice) d.isGlass = true; x.effectRngState = seed; x.hand.rollsRemaining = 1; item = AddItem(x, "I03"); });
             var oldDiceRng = s.State.diceRngState;
             Do(s, CommandKind.UseItem, c => { c.itemInstanceId = item; c.dieIds = new[] { "D001","D002" }; c.targetPips = new[] { 6,6 }; });

@@ -1,4 +1,5 @@
 // Generated from authoritative P0 v0.6 Appendix A; see tools/generate_v06_dtos.py.
+// v0.8 added by hand: controllerSellDivisor, perControllerUnits2 (C47), maxGrowthPerShop (C51); see docs/specs/v08/RULES_DELTA.md.
 using System;
 
 namespace DiceCraft.Core
@@ -35,6 +36,7 @@ namespace DiceCraft.Core
         public int initialConsumableSlots;
         public int maxConsumableSlots;
         public int baseControllerSellPrice;
+        public int controllerSellDivisor;
         public int consumableSellPrice;
         public int minDiscountedItemPrice;
         public int maxItemDiscount;
@@ -284,6 +286,8 @@ namespace DiceCraft.Core
         public int baseSellPrice;
         public int sellPriceAddPerSuccessfulStageFinalize;
         public int[] factorUnits2;
+        public int perControllerUnits2;
+        public int maxGrowthPerShop;
         public bool uniform;
         public bool drawOncePerRealOwnerPerSubmit;
         public bool mimicReusesOwnerOutcome;

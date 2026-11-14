@@ -45,7 +45,7 @@ namespace DiceCraft.Core.Tests
         public void C53PreviewUsesSharedUnknownOwnerRangeAndPreservesExplicitBranch()
         {
             var snap = Snap(new[] { 5 }, Card("C41", 1), Card("C53", 2)); string before = JsonUtility.ToJson(snap); var p = ScoreCalculator.Preview(snap, cfg);
-            Assert.That(p.isRandom, Is.True); CollectionAssert.AreEqual(new[] { "c2" }, p.randomOwnerIds); Assert.That(p.minimum.score, Is.EqualTo("3")); Assert.That(p.maximum.score, Is.EqualTo("960")); Assert.That(JsonUtility.ToJson(snap), Is.EqualTo(before));
+            Assert.That(p.isRandom, Is.True); CollectionAssert.AreEqual(new[] { "c2" }, p.randomOwnerIds); Assert.That(p.minimum.score, Is.EqualTo("3")); Assert.That(p.maximum.score, Is.EqualTo("375")); Assert.That(JsonUtility.ToJson(snap), Is.EqualTo(before));
             Assert.Throws<ArgumentException>(() => ScoreCalculator.Evaluate(snap, cfg)); snap.resolvedRandomChoices = new[] { new RandomMultiplierChoice { ownerInstanceId = "c2", units2 = 6 } };
             p = ScoreCalculator.Preview(snap, cfg); Assert.That(p.isRandom, Is.False); Assert.That(p.minimum.score, Is.EqualTo("135")); Assert.That(p.maximum.score, Is.EqualTo("135"));
         }
@@ -80,7 +80,7 @@ namespace DiceCraft.Core.Tests
         public void C44ConvertsWalletBeforeMultiplicationAndExactScoreExceedsInt64()
         {
             var snap = Snap(new[] { 6 }, Card("C44", 1)); snap.wallet = long.MaxValue; var r = ScoreCalculator.Evaluate(snap, cfg);
-            Assert.That(r.walletBaseAdd, Is.EqualTo("18446744073709551614")); Assert.That(ExactScoreMath.Parse(r.score), Is.GreaterThan(new BigInteger(long.MaxValue)));
+            Assert.That(r.walletBaseAdd, Is.EqualTo("9223372036854775807")); Assert.That(ExactScoreMath.Parse(r.score), Is.GreaterThan(new BigInteger(long.MaxValue)));
             Assert.That(ScoreExplanation.Build(snap, r, cfg).global.Last().after, Is.EqualTo(r.score));
         }
         [Test]
@@ -95,7 +95,7 @@ namespace DiceCraft.Core.Tests
         public void OwnFundSaleDoesNotReadBoundTargetsAndOverflowIsRejected()
         {
             var mimic = Card("C41", 1); var fund = Card("C52", 2); fund.state.fundAccrual = 30;
-            Assert.That(ControllerRules.SalePrice(mimic, cfg), Is.EqualTo(1)); Assert.That(ControllerRules.SalePrice(fund, cfg), Is.EqualTo(31)); mimic.state.fundAccrual = 9; Assert.That(ControllerRules.SalePrice(mimic, cfg), Is.EqualTo(10));
+            Assert.That(ControllerRules.SalePrice(mimic, cfg), Is.EqualTo(4)); Assert.That(ControllerRules.SalePrice(fund, cfg), Is.EqualTo(32)); mimic.state.fundAccrual = 9; Assert.That(ControllerRules.SalePrice(mimic, cfg), Is.EqualTo(13));
             fund.state.fundAccrual = 1; Assert.Throws<ArgumentException>(() => ControllerRules.SalePrice(fund, cfg));
         }
         [TestCase(2, new[] { 66667, 66667, 66667, 266667, 266666, 266666 })]

@@ -99,7 +99,7 @@ namespace DiceCraft.Core
     {
         public string shopId, generationId;
         public bool generated;
-        public int selfStudyUsed, controllerRefreshCount, controllerGeneration;
+        public int selfStudyUsed, controllerRefreshCount, controllerGeneration, turnoverGrowthCount;
         public List<ShopOffer> offers = new List<ShopOffer>();
         public ShopState Clone() { var c = (ShopState)MemberwiseClone(); c.offers = offers.Select(x => x.Clone()).ToList(); return c; }
     }

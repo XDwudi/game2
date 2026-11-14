@@ -62,11 +62,11 @@ namespace DiceCraft.Core.Tests
             var die = ScoreExplanation.Build(snapshot, breakdown, config).dice.Single();
             CollectionAssert.AreEqual(new[] { "C10", "C13", "C17", "C19", null, null }, die.steps.Select(s => s.sourceId));
             CollectionAssert.AreEqual(new[] { "contribution", "contribution", "contribution", "contribution", "glass", "gold" }, die.steps.Select(s => s.kind));
-            CollectionAssert.AreEqual(new string[] { "1", "11", "14", "20", "25", "50" }, die.steps.Select(s => s.before));
-            CollectionAssert.AreEqual(new string[] { "10", "3", "6", "5", "2", "2" }, die.steps.Select(s => s.operand));
-            CollectionAssert.AreEqual(new string[] { "11", "14", "20", "25", "50", "100" }, die.steps.Select(s => s.after));
-            Assert.That(die.contribution, Is.EqualTo(100));
-            Assert.That(breakdown.score, Is.EqualTo("300"));
+            CollectionAssert.AreEqual(new string[] { "1", "11", "15", "21", "29", "87" }, die.steps.Select(s => s.before));
+            CollectionAssert.AreEqual(new string[] { "10", "4", "6", "8", "3", "2" }, die.steps.Select(s => s.operand));
+            CollectionAssert.AreEqual(new string[] { "11", "15", "21", "29", "87", "174" }, die.steps.Select(s => s.after));
+            Assert.That(die.contribution, Is.EqualTo(174));
+            Assert.That(breakdown.score, Is.EqualTo("522"));
         }
 
         [Test]
@@ -89,14 +89,14 @@ namespace DiceCraft.Core.Tests
             var breakdown = ScoreCalculator.Evaluate(snapshot, config);
             var steps = ScoreExplanation.Build(snapshot, breakdown, config).global;
             CollectionAssert.AreEqual(new[] { "unused_rolls", "hand", "color", "red_group", "controller", "controller", "floor" }, steps.Select(s => s.kind));
-            CollectionAssert.AreEqual(new string[] { "17", "17", "187/4", "187/4", "1309/16", "1309/4", "3927/4" }, steps.Select(s => s.before));
-            CollectionAssert.AreEqual(new string[] { "17", "187/4", "187/4", "1309/16", "1309/4", "3927/4", "981" }, steps.Select(s => s.after));
+            CollectionAssert.AreEqual(new string[] { "26", "26", "143/2", "143/2", "1001/8", "3003/8", "3003/2" }, steps.Select(s => s.before));
+            CollectionAssert.AreEqual(new string[] { "26", "143/2", "143/2", "1001/8", "3003/8", "3003/2", "1501" }, steps.Select(s => s.after));
             Assert.That(steps[4].sourceId, Is.EqualTo("C09"));
             Assert.That(steps[5].sourceId, Is.EqualTo("C18"));
             Assert.That(ScoreExplanation.Build(snapshot, breakdown, config).dice.Last().steps.Single().sourceId, Is.EqualTo("C20"));
-            Assert.That(breakdown.score, Is.EqualTo("981"));
-            decimal prematurelyRounded = decimal.Floor(decimal.Floor(17m * 2.75m) * 1.75m) * 4 * 3;
-            Assert.That(prematurelyRounded, Is.EqualTo(960));
+            Assert.That(breakdown.score, Is.EqualTo("1501"));
+            decimal prematurelyRounded = decimal.Floor(decimal.Floor(26m * 2.75m) * 1.75m) * 3 * 4;
+            Assert.That(prematurelyRounded, Is.EqualTo(1488));
             Assert.That(steps.Last().after, Is.Not.EqualTo(prematurelyRounded.ToString()), "The explanation must not introduce intermediate floors.");
         }
 

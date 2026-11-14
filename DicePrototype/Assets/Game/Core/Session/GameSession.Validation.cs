@@ -186,7 +186,7 @@ namespace DiceCraft.Core
             Check(s.randomOverrides.Count == 0 || (s.isDebug && s.debugWorkspace), "正常挑战不允许随机覆盖。");
             foreach (var o in s.randomOverrides)
             {
-                if (o.kind == "C53") Check(s.controllers.Any(c => c.instanceId == o.sourceId && c.definitionId == "C53") && new[] { "1", "2", "4", "6", "8", "10", "12", "14", "16" }.Contains(o.value), "C53覆盖必须指向真实所有者和合法倍率。");
+                if (o.kind == "C53") Check(s.controllers.Any(c => c.instanceId == o.sourceId && c.definitionId == "C53") && cfg.Controller("C53").parameters.factorUnits2.Any(u => u.ToString(System.Globalization.CultureInfo.InvariantCulture) == o.value), "C53覆盖必须指向真实所有者和合法倍率。");
                 else if (o.kind == "C45") Check(s.controllers.Any(c => c.instanceId == o.sourceId && c.definitionId == "C45") && (o.value == "red" || o.value == "blue"), "C45覆盖无效。");
                 else if (o.kind == "C42") Check(Sources(s).Any(c => c.emitterId == o.sourceId && c.abilityId == "C42") && (o.value == "break" || o.value == "keep"), "C42覆盖无效。");
                 else if (o.kind == "Glass") Check(s.dice.Any(d => d.dieId == o.sourceId && d.isGlass) && (o.value == "break" || o.value == "keep"), "玻璃覆盖无效。");

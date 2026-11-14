@@ -209,7 +209,7 @@ namespace DiceCraft
             UiKit.Button(main,"Normal",$"普通挑战\n{normalTarget} 分 · 基础奖励 {def.normalReward}",1040,275,720,145,()=>Send(new SessionCommand{kind=CommandKind.ChooseChallenge,risk=false}),true,!ViewState.stage.risk);
             if(def.riskEnabled)UiKit.Button(main,"Risk",$"高压挑战\n{def.riskTarget} 分 · 基础奖励 {def.riskReward}",1040,445,720,145,()=>Send(new SessionCommand{kind=CommandKind.ChooseChallenge,risk=true}),true,ViewState.stage.risk);
             else UiKit.Text(main,"NoRisk","本关仅开放普通挑战",1040,475,720,60,26,UiKit.Muted);
-            UiKit.Text(main,"ChoiceHint","进入后无法更改挑战。\n过关奖励 + 剩余提交 + 旧余额利息（计息本金最多50）。",1040,640,720,105,26,UiKit.Muted);
+            UiKit.Text(main,"ChoiceHint","进入后无法更改挑战。\n过关奖励 + 剩余提交 + 旧余额利息（计息本金最多"+Config.maxInterestPrincipal+"）。",1040,640,720,105,26,UiKit.Muted);
             UiKit.Button(main,"PreviewControllers","排列控制器 · 查看状态",90,905,1670,58,ShowControllerOrder);
             UiKit.Button(main,"StartStage","进入挑战  →",1040,795,720,84,()=>Send(new SessionCommand{kind=CommandKind.StartStage}),true,true);
         }

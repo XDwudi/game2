@@ -59,11 +59,11 @@ namespace DiceCraft.Core
             {"C44", new[]{"baseAddPerFrozenGold"}},
             {"C45", new[]{"matchingDieContributionMultiplier","colors","initialDrawOnAcquisition","nextDrawEveryValidSubmit","sharedStateAdvancesOnce"}},
             {"C46", new[]{"scoreMultiplier"}},
-            {"C47", new[]{"factor"}},
+            {"C47", new[]{"factor","perControllerUnits2"}},
             {"C48", new[]{"baseAddPerEmptySubmitSlot"}},
             {"C49", new[]{"factor","allowZero"}},
             {"C50", new[]{"baseAdd"}},
-            {"C51", new[]{"initialMultiplierUnits2","addUnits2PerRealControllerSale","mimicsDoNotDuplicateStateGrowth","saleRecipients"}},
+            {"C51", new[]{"initialMultiplierUnits2","addUnits2PerRealControllerSale","maxGrowthPerShop","mimicsDoNotDuplicateStateGrowth","saleRecipients"}},
             {"C52", new[]{"baseBuyPrice","baseSellPrice","sellPriceAddPerSuccessfulStageFinalize"}},
             {"C53", new[]{"factorUnits2","uniform","drawOncePerRealOwnerPerSubmit","mimicReusesOwnerOutcome"}}
         };

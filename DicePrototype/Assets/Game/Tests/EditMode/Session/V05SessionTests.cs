@@ -89,10 +89,10 @@ namespace DiceCraft.Tests
             Assert.That(s.State.lastStageSettlement.unusedSubmissionReward, Is.Zero); Assert.That(s.State.gold, Is.EqualTo(5));
         }
 
-        [TestCase(false, 112)] [TestCase(true, 117)] public void V05_InterestCapsPrincipalNotBalance(bool pig, int goldAfter)
+        [TestCase(false, 112)] [TestCase(true, 112)] public void V05_InterestCapsPrincipalNotBalance(bool pig, int goldAfter)
         {
             var s = Qualified(pig ? new[] { "C01" } : Array.Empty<string>()); s = Edit(s, x => x.gold = 100);
-            var preview = s.PreviewStageSettlement(); Assert.That(preview.interestPrincipal, Is.EqualTo(50)); Assert.That(preview.goldAfter, Is.EqualTo(goldAfter));
+            var preview = s.PreviewStageSettlement(); Assert.That(preview.interestPrincipal, Is.EqualTo(25)); Assert.That(preview.interest, Is.EqualTo(5)); Assert.That(preview.goldAfter, Is.EqualTo(goldAfter));
             Do(s, CommandKind.EndStage); Assert.That(s.State.gold, Is.EqualTo(goldAfter));
         }
 
@@ -107,7 +107,7 @@ namespace DiceCraft.Tests
 
         [TestCase(false)] [TestCase(true)] public void V05_AllGlassLostAfterQualificationUsesSingleSettlementAndFinalPriority(bool final)
         {
-            var s = Qualified(); uint rng = 1; while (new GameRng(rng).NextIndex(100) >= 15) rng++;
+            var s = Qualified(); uint rng = 1; while (new GameRng(rng).NextIndex(100) >= cfg.glassBreakPercent) rng++;
             s = Edit(s, x => {
                 x.dice.RemoveRange(1, x.dice.Count - 1); x.hand.currentResults.RemoveRange(1, x.hand.currentResults.Count - 1);
                 x.dice[0].isGlass = true; x.effectRngState = rng;
@@ -183,9 +183,9 @@ namespace DiceCraft.Tests
             Assert.That(s.Execute(bad).accepted, Is.False); AssertUnchanged(before, s.State);
             Assert.That(s.State.controllers.Single(c => c.definitionId == "C06").enchantmentId, Is.EqualTo("slotless"));
             Do(s, CommandKind.Sell, c => c.itemInstanceId = s.State.controllers.Single(v => v.definitionId == "C01").instanceId);
-            var quoted = s.State.shop.offers.Single(o => o.offerId == offer); Assert.That(s.GetOfferPrice(quoted), Is.EqualTo(6)); Assert.That(s.GetOfferNetPrice(quoted), Is.EqualTo(5));
+            var quoted = s.State.shop.offers.Single(o => o.offerId == offer); Assert.That(s.GetOfferPrice(quoted), Is.EqualTo(6)); Assert.That(s.GetOfferNetPrice(quoted), Is.EqualTo(2));
             long gold = s.State.gold; Do(s, CommandKind.Buy, c => c.offerId = offer);
-            Assert.That(s.State.gold, Is.EqualTo(gold - 5)); Assert.That(s.State.controllers.Count, Is.EqualTo(4));
+            Assert.That(s.State.gold, Is.EqualTo(gold - 2)); Assert.That(s.State.controllers.Count, Is.EqualTo(4));
         }
 
         [Test] public void V05_ReplacingAtTenDoesNotCreateEleventhInstanceAndNewEleventhRejects()
@@ -202,8 +202,8 @@ namespace DiceCraft.Tests
         {
             string offer = null; var s = Edit(Shop(), x => { x.gold = 100; Equip(x, "C02"); offer = EnchantedOffer(x, "C02", "mult2"); });
             Do(s, CommandKind.Sell, c => c.itemInstanceId = s.State.controllers.Single().instanceId);
-            var quoted = s.State.shop.offers.Single(o => o.offerId == offer); Assert.That(s.GetOfferTradeIn(quoted), Is.Zero); Assert.That(s.GetOfferNetPrice(quoted), Is.EqualTo(10));
-            Do(s, CommandKind.Buy, c => c.offerId = offer); Assert.That(s.State.gold, Is.EqualTo(91));
+            var quoted = s.State.shop.offers.Single(o => o.offerId == offer); Assert.That(s.State.gold, Is.EqualTo(103)); Assert.That(s.GetOfferTradeIn(quoted), Is.Zero); Assert.That(s.GetOfferNetPrice(quoted), Is.EqualTo(13));
+            Do(s, CommandKind.Buy, c => c.offerId = offer); Assert.That(s.State.gold, Is.EqualTo(90));
         }
 
         [Test] public void V05_ReplacementInsufficientMoneyAndWriteFailureAreAtomic()
@@ -214,7 +214,7 @@ namespace DiceCraft.Tests
             var store = new FaultStore(); s = Edit(s, x => x.gold = 100, store); before = s.State;
             command = Command(s, CommandKind.Buy); command.offerId = offer; Assert.That(s.Execute(command).pendingSave, Is.True); AssertUnchanged(before, s.State);
             var expected = store.attempted; store.fail = false; Assert.That(s.RetrySave().accepted, Is.True);
-            Assert.That(s.State.controllers.Single().instanceId, Is.EqualTo(expected.controllers.Single().instanceId)); Assert.That(s.State.gold, Is.EqualTo(91));
+            Assert.That(s.State.controllers.Single().instanceId, Is.EqualTo(expected.controllers.Single().instanceId)); Assert.That(s.State.gold, Is.EqualTo(90));
             Assert.That(s.State.shopRngState, Is.EqualTo(before.shopRngState)); Assert.That(s.Execute(command).duplicate, Is.True);
         }
 
@@ -243,7 +243,7 @@ namespace DiceCraft.Tests
             var s = Edit(Shop(), x => { x.gold = 500; Equip(x, "C21", "C22"); for (int i = 6; i <= 8; i++) x.dice.Add(DiceFactory.CreateStandard(cfg, i)); x.nextDieSerial = 9; });
             Assert.That(s.LegalStudyHands(), Does.Contain("eight_kind"));
             s = Edit(s, x => x.handLevels.Single(h => h.handId == "eight_kind").level = 7);
-            Assert.That(s.GetStudyPrice("eight_kind"), Is.EqualTo(13)); Do(s, CommandKind.Study, c => c.handId = "eight_kind");
+            Assert.That(s.GetStudyPrice("eight_kind"), Is.EqualTo(20)); Do(s, CommandKind.Study, c => c.handId = "eight_kind");
             Assert.That(s.State.handLevels.Single(h => h.handId == "eight_kind").level, Is.EqualTo(8)); Assert.That(s.LegalStudyHands(), Does.Not.Contain("eight_kind"));
             s = Edit(s, x => { x.handLevels.Single(h => h.handId == "eight_kind").level = 0; x.dice[7].lifetime = "stage_temporary"; x.dice[7].createdStageId = x.stage.stageId; });
             Assert.That(s.LegalStudyHands(), Does.Not.Contain("eight_kind"));
@@ -265,13 +265,13 @@ namespace DiceCraft.Tests
             state = s.State; state.baseSubmitCapacity = 6; Assert.That(() => new GameSession(cfg, new MemorySaveStore(), state), Throws.Exception);
         }
 
-        [TestCase(1u, "C26:none,C13:none,C27:none")]
-        [TestCase(0u, "C48:submit1,C27:none,C11:none")]
-        [TestCase(20261030u, "C50:slotless,C28:none,C19:slotless")]
-        [TestCase(4294967295u, "C34:none,C01:slotless,C15:base10")]
+        [TestCase(1u, "C38:none,C30:none,C10:none")]
+        [TestCase(0u, "C03:submit1,C29:none,C21:none")]
+        [TestCase(20261030u, "C01:slotless,C03:none,C27:slotless")]
+        [TestCase(4294967295u, "C01:submit1,C14:slotless,C13:base10")]
         public void V05_ShopInterleavesIdAndEnchantmentWithFrozenReferenceVectors(uint seed, string expected)
         {
-            // v0.6 vectors independently generated by tools/v06_session_vectors.py from Appendix D, not copied from observed C# output.
+            // p0.8.0 vectors from tools/v08_session_vectors.py, an independent reference that first reproduces the four p0.6.0 vectors; not copied from observed C# output.
             var s = Qualified(); Do(s, CommandKind.EndStage);
             s = Edit(s, x => x.shopRngState = new GameRng(seed ^ 0xC8013EA4u).State);
             Do(s, CommandKind.Continue);

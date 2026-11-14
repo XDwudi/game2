@@ -1,0 +1,35 @@
+﻿config=tools/balance_sim/candidates/v08_candidate.json version=p0.6.0
+起手裸装                                    	E[hand]=         323	median=         240	p10=        96	p90=         648	dice=4.5	pair=16% two_pair=21% trips=27% full_house=16% quads=16%
+全1骰面                                    	E[hand]=         307	median=         240	p10=       168	p90=         396	dice=4.6	quads=38% five_kind=62%
+全1骰面+少就是多C10                            	E[hand]=        2700	median=        2196	p10=      1650	p90=        6600	dice=4.7	quads=31% five_kind=69%
+全1骰面+C10+天地大同C32                        	E[hand]=        5399	median=        4392	p10=      3300	p90=       13200	dice=4.7	quads=31% five_kind=69%
+全1骰面+C10+C32+三条开泰C30+四平八稳C31            	E[hand]=       32396	median=       26352	p10=     19800	p90=       79200	dice=4.7	quads=31% five_kind=69%
+半成型:每骰1/2/3点面已减为1(15次减点)                	E[hand]=         314	median=         240	p10=       102	p90=         600	dice=4.6	pair=6% two_pair=18% trips=25% full_house=21% quads=26%
+半成型:同上+少就是多C10                          	E[hand]=        1107	median=        1056	p10=       384	p90=        1980	dice=4.7	trips=18% full_house=9% quads=42% five_kind=27%
+全1骰面+C10+小头大用C19                        	E[hand]=        4617	median=        3636	p10=      2850	p90=       11400	dice=4.7	quads=31% five_kind=69%
+半成型:每骰4/5/6点面已加为6(15次加点)                	E[hand]=         617	median=         576	p10=       208	p90=        1080	dice=4.7	trips=17% full_house=8% quads=42% five_kind=29%
+全6骰面+66大顺C20                            	E[hand]=        2170	median=        1836	p10=      1350	p90=        5400	dice=5.0	five_kind=98%
+全6骰面                                    	E[hand]=        1477	median=        1296	p10=       630	p90=        3600	dice=4.7	quads=31% five_kind=69%
+全6骰面+C32+C30+C31                        	E[hand]=       17723	median=       15552	p10=      7560	p90=       43200	dice=4.7	quads=31% five_kind=69%
+全蓝骰面                                    	E[hand]=         317	median=         243	p10=       114	p90=         630	dice=5.0	pair=20% two_pair=20% trips=21% full_house=15% quads=12% straight=8%
+全蓝骰面+蓝色疯狂C02                            	E[hand]=         952	median=         729	p10=       342	p90=        1890	dice=5.0	pair=20% two_pair=20% trips=21% full_house=15% quads=12% straight=8%
+全蓝骰面+C02+蓝色价值C39                        	E[hand]=        2266	median=        1836	p10=       864	p90=        4320	dice=5.0	pair=19% two_pair=18% trips=20% full_house=15% quads=14% straight=9%
+全红骰面                                    	E[hand]=         571	median=         420	p10=       140	p90=        1288	dice=5.0	pair=15% two_pair=18% trips=27% full_house=17% quads=17%
+全红骰面+红运当头C25                            	E[hand]=        1057	median=         810	p10=       380	p90=        2100	dice=5.0	pair=20% two_pair=20% trips=21% full_house=15% quads=12% straight=8%
+全红+C25+8骰K=8(C21+C22)                   	E[hand]=       12382	median=       12376	p10=      6468	p90=       17640	dice=8.0	full_house=18% three_pair=21% quads=15% two_trips=10% five_kind=11% six_kind=5% straight=15%
+起手+蓝色扩散C38(未染色)                         	E[hand]=         323	median=         240	p10=        96	p90=         648	dice=4.5	pair=16% two_pair=21% trips=27% full_house=16% quads=16%
+乘区四件:C33+C42+C09+C46                    	E[hand]=       20373	median=       19440	p10=      7560	p90=       34560	dice=3.9	pair=28% two_pair=22% trips=44%
+乘区四件:C30+C31+C32+C46                    	E[hand]=        4590	median=        1440	p10=       224	p90=       13824	dice=3.6	pair=24% two_pair=9% trips=36% full_house=6% quads=21%
+基础四件:C50+C27+C48+C39                    	E[hand]=        1342	median=        1032	p10=       476	p90=        2464	dice=3.9	pair=18% two_pair=15% trips=31% full_house=13% quads=19%
+有钱真好C44@50金                             	E[hand]=        1327	median=        1060	p10=       392	p90=        3024	dice=4.1	pair=20% two_pair=12% trips=32% full_house=12% quads=20%
+控制欲C47+3件无关卡                            	E[hand]=        1291	median=         960	p10=       384	p90=        2592	dice=4.5	pair=16% two_pair=21% trips=27% full_house=16% quads=16%
+全牌型Lv8(无卡)                              	E[hand]=        2969	median=        2058	p10=       756	p90=        5610	dice=4.2	pair=21% two_pair=17% trips=29% full_house=15% quads=15%
+5骰全黄金面                                  	E[hand]=         645	median=         480	p10=       200	p90=        1248	dice=4.5	pair=16% two_pair=19% trips=27% full_house=17% quads=16%
+5骰全玻璃                                   	E[hand]=         696	median=         540	p10=       180	p90=        1458	dice=3.9	pair=29% two_pair=14% trips=28% full_house=10% quads=11%
+8颗标准骰K=5                                	E[hand]=         954	median=         696	p10=       242	p90=        2400	dice=4.9	two_pair=6% trips=6% full_house=23% quads=31% five_kind=33%
+
+-- 裸装三手合计达标概率 --
+STAGE_01 target=300: P(clear with no controllers)=99.2%
+STAGE_02 target=600: P(clear with no controllers)=79.8%
+STAGE_03 target=1050: P(clear with no controllers)=34.8%
+STAGE_04 target=1800: P(clear with no controllers)=4.6%

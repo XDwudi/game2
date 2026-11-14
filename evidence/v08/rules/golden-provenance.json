@@ -1,0 +1,100 @@
+{
+  "generator": "tools/v08_golden.py",
+  "reference_validated_against": {
+    "config": "tools\\balance_sim\\baseline\\P0Config.p0.6.0.json",
+    "vectors": "tools\\balance_sim\\baseline\\GoldenScores.p0.6.0.json",
+    "cases": 160,
+    "all_fields_exact": true
+  },
+  "derived_from_production_code": false,
+  "config_sha256": "8a41e73f14bbae49fbad4df16fcda242117a2894c629ea2d2808b9b2729c9abd",
+  "golden_sha256": "f9ffc7640d31d3a1eded22084e963ef1029d2c74745fb9fdd421d0295e33fd60",
+  "cases": 160,
+  "cases_with_changed_expected_values": 51,
+  "c53_outcomes_remapped_by_table_position": [
+    {
+      "id": "G096",
+      "owner": "ctl_01",
+      "from": 4,
+      "to": 2
+    },
+    {
+      "id": "G097",
+      "owner": "ctl_01",
+      "from": 6,
+      "to": 3
+    },
+    {
+      "id": "G098",
+      "owner": "ctl_01",
+      "from": 8,
+      "to": 4
+    },
+    {
+      "id": "G099",
+      "owner": "ctl_01",
+      "from": 10,
+      "to": 4
+    },
+    {
+      "id": "G100",
+      "owner": "ctl_01",
+      "from": 12,
+      "to": 6
+    },
+    {
+      "id": "G101",
+      "owner": "ctl_01",
+      "from": 14,
+      "to": 8
+    },
+    {
+      "id": "G102",
+      "owner": "ctl_01",
+      "from": 16,
+      "to": 10
+    },
+    {
+      "id": "G105",
+      "owner": "ctl_02",
+      "from": 4,
+      "to": 2
+    },
+    {
+      "id": "G106",
+      "owner": "ctl_02",
+      "from": 6,
+      "to": 3
+    },
+    {
+      "id": "G107",
+      "owner": "ctl_02",
+      "from": 8,
+      "to": 4
+    },
+    {
+      "id": "G108",
+      "owner": "ctl_02",
+      "from": 10,
+      "to": 4
+    },
+    {
+      "id": "G109",
+      "owner": "ctl_02",
+      "from": 12,
+      "to": 6
+    },
+    {
+      "id": "G110",
+      "owner": "ctl_02",
+      "from": 14,
+      "to": 8
+    },
+    {
+      "id": "G111",
+      "owner": "ctl_02",
+      "from": 16,
+      "to": 10
+    }
+  ]
+}

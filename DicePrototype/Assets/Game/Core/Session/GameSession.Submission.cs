@@ -35,8 +35,8 @@ namespace DiceCraft.Core
             var snapshot = FreezeSubmission(s);
             var effectRng = new GameRng(s.effectRngState);
             snapshot.resolvedRandomChoices = snapshot.equippedControllers.Where(c => c.definitionId == "C53").Select(c => {
-                var trace = DrawRaw(s, effectRng, "effect", "C53", c.instanceId, 9);
-                int[] map = { 2, 4, 6, 8, 10, 12, 14, 16, 1 };
+                int[] map = cfg.Controller("C53").parameters.factorUnits2;
+                var trace = DrawRaw(s, effectRng, "effect", "C53", c.instanceId, map.Length);
                 int selected = int.Parse(ApplyOverride(s, trace, map[trace.rawTicket].ToString(CultureInfo.InvariantCulture)), CultureInfo.InvariantCulture);
                 return new RandomMultiplierChoice { ownerInstanceId = c.instanceId, units2 = selected };
             }).ToArray();

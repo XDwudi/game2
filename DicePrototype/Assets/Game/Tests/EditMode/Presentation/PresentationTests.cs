@@ -51,8 +51,8 @@ namespace DiceCraft.Presentation.Tests
         {
             var snap = Snap(new[] { 6, 6, 6, 6, 6 }, Card("C02", 1), Card("C30", 2), Card("C31", 3), Card("C32", 4));
             snap.handLevels = new[] { new HandLevel { handId = "five_kind", level = 4 } }; snap.colorLevels = new[] { new HandLevel { handId = "all_blue", level = 4 } }; snap.rollsRemaining = 2;
-            var r = Build(snap); Assert.That(r.ScoreDecimal, Is.EqualTo("967680")); Assert.That(r.MultiplierNumeratorDecimal, Is.EqualTo("26880")); Assert.That(r.MultiplierDenominatorDecimal, Is.EqualTo("1"));
-            Assert.That(r.ChainCount, Is.EqualTo(4)); Assert.That(r.ComboTier, Is.EqualTo(5)); Assert.That(r.QualifiedAfter, Is.False); Assert.That(r.Events.Any(e => e.EffectFamily == "qualified"), Is.False);
+            var r = Build(snap); Assert.That(r.ScoreDecimal, Is.EqualTo("181440")); Assert.That(r.MultiplierNumeratorDecimal, Is.EqualTo("5040")); Assert.That(r.MultiplierDenominatorDecimal, Is.EqualTo("1"));
+            Assert.That(r.ChainCount, Is.EqualTo(4)); Assert.That(r.ComboTier, Is.EqualTo(4)); Assert.That(r.QualifiedAfter, Is.False); Assert.That(r.Events.Any(e => e.EffectFamily == "qualified"), Is.False);
         }
         [Test] public void FX03_MultiDieAndOwnEnchantOnlyOneEmitter()
         { var r = Build(Snap(new[] { 1, 1, 1 }, Card("C10", 1, "mult2"))); Assert.That(r.ChainCount, Is.EqualTo(1)); Assert.That(r.Events.Count(e => e.EmitterId == "c1" && e.IsScoring), Is.EqualTo(4)); }
@@ -102,7 +102,7 @@ namespace DiceCraft.Presentation.Tests
             var snap = Snap(new[] { 2, 2 }, Card("C41", 1), Card("C44", 2)); snap.wallet = 9007199254740993L;
             var r = Build(snap); var adds = r.Events.Where(e => e.EffectFamily == "controller_base").ToArray();
             Assert.That(adds.Length, Is.EqualTo(2)); Assert.That(adds.Select(e => e.EmitterId), Is.EquivalentTo(new[] { "c1", "c2" }));
-            Assert.That(adds[0].Operand, Is.EqualTo("18014398509481986")); Assert.That(adds[1].AfterValue, Is.EqualTo("36028797018963976"));
+            Assert.That(adds[0].Operand, Is.EqualTo("9007199254740993")); Assert.That(adds[1].AfterValue, Is.EqualTo("18014398509481990"));
         }
         [Test] public void FX05_PostSourceGroupAndTrueEffectOrderRemainDetached()
         {

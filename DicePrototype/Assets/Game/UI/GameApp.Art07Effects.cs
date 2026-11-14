@@ -265,7 +265,12 @@ namespace DiceCraft
             }
             return string.Join(" · ",parts);
         }
-        private static string DisplayFraction07(string exact)=>exact=="1/2"?"0.5":exact;
+        // Halves (C47, C51, C53) read better as decimals: "3/2" -> "1.5". Other fractions stay exact.
+        private static string DisplayFraction07(string exact)
+        {
+            if(exact==null||!exact.EndsWith("/2",StringComparison.Ordinal))return exact;
+            return System.Numerics.BigInteger.TryParse(exact.Substring(0,exact.Length-2),out var numerator)?(numerator/2)+".5":exact;
+        }
         private void ShowEffectSummary07(string text,bool multiline=false,Action details=null)
         {
             // Reserved score area: never cover the pool or the action buttons.

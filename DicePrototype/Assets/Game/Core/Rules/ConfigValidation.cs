@@ -29,15 +29,15 @@ namespace DiceCraft.Core
         }
         public void Validate()
         {
-            Check(configVersion == "p0.6.0" && saveSchemaVersion == 4, "Unsupported config/save version.");
+            Check(configVersion == "p0.8.0" && saveSchemaVersion == 4, "Unsupported config/save version.");
             Check(unityMajorMinor == "6000.6" && blenderMajorMinor == "5.2", "Toolchain.");
             Check(initialDiceCount == 5 && initialGold == 0 && maxPermanentDice == 8 && maxTemporaryDice == 3 && maxActiveDice == 10, "Initial/dice limits.");
             Check(initialSubmitCapacity == 5 && maxSubmitCapacity == 8 && !purchasedDiceChangeCapacity, "Independent submit capacity.");
             Check(totalRollsPerHand == 3 && submissionsPerStage == 3 && bonusPerUnusedRoll == 3, "Budgets.");
             Check(initialControllerSlots == 4 && maxControllerInstances == 10 && !slotlessConsumesBaseSlot, "Controller limits.");
             Check(initialConsumableSlots == 2 && maxConsumableSlots == 5 && minDiscountedItemPrice == 1 && maxItemDiscount == 3, "Consumable economy.");
-            Check(baseControllerSellPrice == 1 && consumableSellPrice == 1 && baseStageReward > 0 && riskStageReward > baseStageReward && goldPerUnusedSubmission >= 0, "Economy.");
-            Check(interestDivisor == 10 && maxInterestPrincipal == 50 && interestBalanceTiming == "finalize_before_rewards_after_all_submit_income", "Interest.");
+            Check(baseControllerSellPrice == 1 && controllerSellDivisor >= 1 && consumableSellPrice == 1 && baseStageReward > 0 && riskStageReward > baseStageReward && goldPerUnusedSubmission >= 0, "Economy.");
+            Check(interestDivisor > 0 && maxInterestPrincipal >= interestDivisor && maxInterestPrincipal % interestDivisor == 0 && interestBalanceTiming == "finalize_before_rewards_after_all_submit_income", "Interest.");
             Check(minPipValue == 1 && maxPipValue == 6 && minStraightLength == 5 && maxHandLevel == 8 && maxColorLevel == 8, "Hand/pip limits.");
             Check(scoreStorage == "nonnegative_big_integer_decimal_string" && walletStorage == "checked_nonnegative_int64" && rounding == "single_final_floor", "Exact storage contract.");
             Check(probabilityUnits == 1000000 && probabilityRounding == "largest_remainder_face_id_tie" && allowZeroProbabilityAfterGroupTransfer, "Probability precision.");
@@ -88,7 +88,7 @@ namespace DiceCraft.Core
         private void ValidateEnchantments()
         {
             string[] ids = { "none", "slotless", "base10", "mult2", "submit1", "roll1" }; ValidateIds(enchantments, e => e.id, ids);
-            Check(enchantments.Select(e => e.id).SequenceEqual(ids) && enchantments.Select(e => e.weight).SequenceEqual(new[] { 50, 18, 10, 4, 9, 9 }) && enchantments.Select(e => e.buyPremium).SequenceEqual(new[] { 0, 3, 2, 5, 3, 2 }), "Enchantments.");
+            Check(enchantments.Select(e => e.id).SequenceEqual(ids) && enchantments.Select(e => e.weight).SequenceEqual(new[] { 50, 18, 10, 4, 9, 9 }) && enchantments[0].buyPremium == 0 && enchantments.Skip(1).All(e => e.buyPremium > 0), "Enchantments.");
             Check(enchantRules != null && enchantRules.rawDrawOrder.SequenceEqual(ids) && enchantRules.nonSubmitControllerIds.SequenceEqual(new[] { "C05", "C21", "C22", "C34", "C35", "C52" }) && enchantRules.baseAdd == 10 && enchantRules.scoreMultiplier == 2 && enchantRules.submissionBonus == 1 && enchantRules.rollBonus == 1 && !enchantRules.copyTargetEnchantment && enchantRules.triggerCountPerSourcePerSubmitMax == 1, "Enchant policies.");
             var w = enchantRules.nonSubmitDrawWeights; Check(w != null && w.none == 100 && w.slotless == 50 && w.submit1 == 25 && w.roll1 == 25, "Dedicated enchant pool.");
             foreach (var c in controllers) Check(c.scoreEnchantEligible == !enchantRules.nonSubmitControllerIds.Contains(c.id), "Score enchant eligibility.");
@@ -100,7 +100,8 @@ namespace DiceCraft.Core
             Check(Controller("C03").parameters.index == 0 && Controller("C12").parameters.oddToEvenAdd == 1 && Controller("C09").parameters.capacityDelta == -1 && Controller("C21").parameters.capacityDelta == 1 && Controller("C22").parameters.capacityDelta == 2, "Effective/structural parameters.");
             Check(Controller("C34").parameters.probabilityPointsPerSource == 15 && Controller("C35").parameters.probabilityPointsPerSource == 15, "Probability source points.");
             Check(Controller("C45").parameters.matchingDieContributionMultiplier == 3 && Controller("C51").parameters.initialMultiplierUnits2 == 3 && Controller("C52").buyPrice == 4 && Controller("C52").parameters.sellPriceAddPerSuccessfulStageFinalize == 3, "Dynamic sources.");
-            Check(Controller("C53").parameters.factorUnits2.SequenceEqual(new[] { 2, 4, 6, 8, 10, 12, 14, 16, 1 }), "C53 sample order.");
+            Check(Controller("C53").parameters.factorUnits2 != null && Controller("C53").parameters.factorUnits2.Length > 0 && Controller("C53").parameters.factorUnits2.All(u => u > 0), "C53 outcome table.");
+            Check(Controller("C47").parameters.perControllerUnits2 >= 1 && Controller("C51").parameters.maxGrowthPerShop >= 0 && Controller("C51").parameters.addUnits2PerRealControllerSale >= 1, "v0.8 scaling coefficients.");
         }
         private void ValidateRange(int[] r) => Check(r != null && r.Length == 2 && r[0] >= minPipValue && r[1] <= maxPipValue && r[0] <= r[1], "Pip range.");
         public string Opposite(string id)

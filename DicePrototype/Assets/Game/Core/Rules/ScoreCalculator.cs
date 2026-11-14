@@ -110,7 +110,7 @@ namespace DiceCraft.Core
                 if (FixedMultipliers.Contains(t.abilityId)) num = cfg.Controller(t.abilityId).parameters.scoreMultiplier;
                 else switch (t.abilityId)
                     {
-                        case "C47": num = instances.Count(c => c.alive); break;
+                        case "C47": num = Math.Max(2, checked(instances.Count(c => c.alive) * cfg.Controller("C47").parameters.perControllerUnits2)); den = 2; break;
                         case "C49": num = Count(counts, 5); break;
                         case "C51": num = t.state.turnoverUnits2; den = 2; break;
                         case "C53": if (!choices.TryGetValue(t.stateOwnerId, out int units)) throw new ArgumentException("C53 outcome must be frozen before Evaluate; use Preview for ranges."); num = units; den = 2; break;

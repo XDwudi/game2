@@ -30,7 +30,7 @@ namespace DiceCraft.Core.Tests
                 "C17|1,2,3|RBB|4,5,6|RBB", "C18|1,2|RB|1,2,3|RBB", "C19|1|R||", "C20|1,2,3,4,6|RBBRB|1,2,3,6|RBBB",
                 "C24|1,4|RR|1,4|BR", "C25|1,2,6|RRR|1,2|BB", "C26|2|B|2,3|BB", "C27|2,2|BB|2,3|BB",
                 "C28|2,2,3,3|BBBB|2,2,2,2|BBBB", "C29|1,2,3,4|RBBR|1,2,3,5|RBBB", "C30|2,2,2,5|BBBB|2,2,5|BBB",
-                "C31|2,2,2,2|BBBB|2,2,2,5|BBBB", "C32|4|R|4,4,5|RRB", "C33|6,4|BR|5,4|BR",
+                "C31|2,2,2,2|BBBB|2,2,2,5|BBBB", "C32|4|R|4,4,5|RRB", "C33|6,3|BR|6,4|BR",
                 "C36|2,5|BB|2|B", "C37|2,5|BB|2|B", "C38|2|B||", "C39|2,3,4|BRB|2,3|RR", "C40|1,3,5|RBB|1,2,4|RBR"
             };
             foreach (string row in rows)
@@ -83,7 +83,7 @@ namespace DiceCraft.Core.Tests
             Assert.That(ScoreCalculator.Evaluate(dye, cfg).enchantBaseAdd, Is.Zero);
             var gold = Snapshot("1,2,3,4,6", "RBBRB", "C20", "base10"); gold.dice[4].isGold = gold.dice[4].isGlass = true;
             var contribution = ScoreCalculator.Evaluate(gold, cfg);
-            Assert.That(contribution.pipContributions[4], Is.EqualTo(48));
+            Assert.That(contribution.pipContributions[4], Is.EqualTo(126));
             Assert.That(contribution.enchantBaseAdd, Is.EqualTo(10));
         }
         [Test]
