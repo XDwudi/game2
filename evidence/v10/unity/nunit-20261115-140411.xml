@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="8" result="Passed" total="8" passed="8" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-11-15 14:03:41Z" end-time="2026-11-15 14:04:11Z" duration="30.7090373">
+  <test-suite type="TestSuite" id="1212" name="DiceCraft P0" fullname="DiceCraft P0" runstate="Runnable" testcasecount="200" result="Passed" start-time="2026-11-15 14:03:41Z" end-time="2026-11-15 14:04:11Z" duration="30.709037" total="8" passed="8" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <test-suite type="Assembly" id="1206" name="DiceCraft.PlayModeTests.dll" fullname="E:/agent_workspace/gpt/game2/DicePrototype/Library/ScriptAssemblies/DiceCraft.PlayModeTests.dll" runstate="Runnable" testcasecount="200" result="Passed" start-time="2026-11-15 14:03:41Z" end-time="2026-11-15 14:04:11Z" duration="30.697931" total="8" passed="8" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="44940" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <test-suite type="TestSuite" id="1207" name="DiceCraft" fullname="DiceCraft" runstate="Runnable" testcasecount="200" result="Passed" start-time="2026-11-15 14:03:41Z" end-time="2026-11-15 14:04:11Z" duration="30.695521" total="8" passed="8" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1208" name="Tests" fullname="DiceCraft.Tests" runstate="Runnable" testcasecount="200" result="Passed" start-time="2026-11-15 14:03:41Z" end-time="2026-11-15 14:04:11Z" duration="30.693287" total="8" passed="8" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="1001" name="GameplayPlayModeTests" fullname="DiceCraft.Tests.GameplayPlayModeTests" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" testcasecount="190" result="Passed" start-time="2026-11-15 14:03:41Z" end-time="2026-11-15 14:04:11Z" duration="30.690175" total="8" passed="8" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1126" name="PLAY_ART07_ShopRedrawSettlesWithoutReplayingAndRefreshKeepsItsOwnTransaction" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_ShopRedrawSettlesWithoutReplayingAndRefreshKeepsItsOwnTransaction" methodname="PLAY_ART07_ShopRedrawSettlesWithoutReplayingAndRefreshKeepsItsOwnTransaction" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="264363261" result="Passed" start-time="2026-11-15 14:03:41Z" end-time="2026-11-15 14:03:45Z" duration="4.481919" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_7890d0b812de4c19b3c25b7d9ef2b0f5
+]]></output>
+            </test-case>
+            <test-case id="1007" name="PLAY_ART071_FullArtEveryContentAndPrefabUsesPrintAssets" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART071_FullArtEveryContentAndPrefabUsesPrintAssets" methodname="PLAY_ART071_FullArtEveryContentAndPrefabUsesPrintAssets" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="1597780474" result="Passed" start-time="2026-11-15 14:03:45Z" end-time="2026-11-15 14:03:45Z" duration="0.215046" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_b8b9697dbe664cb8b7f43f9fb3c73c46
+]]></output>
+            </test-case>
+            <test-case id="1009" name="PLAY_ART071_FullArtGalleryRendersAll71ThroughProductionViews" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART071_FullArtGalleryRendersAll71ThroughProductionViews" methodname="PLAY_ART071_FullArtGalleryRendersAll71ThroughProductionViews" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="1724478542" result="Passed" start-time="2026-11-15 14:03:45Z" end-time="2026-11-15 14:04:01Z" duration="15.253955" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Extra real capture, pending review: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_da5503bf03ad4cb59eedfc84aeb57d66\extra-capture
+Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_da5503bf03ad4cb59eedfc84aeb57d66
+]]></output>
+            </test-case>
+            <test-case id="1008" name="PLAY_ART071_FullArtMenuUsesWordmarkAndPrintedBacks" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART071_FullArtMenuUsesWordmarkAndPrintedBacks" methodname="PLAY_ART071_FullArtMenuUsesWordmarkAndPrintedBacks" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="1433574112" result="Passed" start-time="2026-11-15 14:04:01Z" end-time="2026-11-15 14:04:03Z" duration="2.385820" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Extra real capture, pending review: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_7671fe44c34c43409e6521b84d685240\extra-capture
+Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_7671fe44c34c43409e6521b84d685240
+]]></output>
+            </test-case>
+            <test-case id="1189" name="PLAY_V10_BossStageDisablesCardsShowsItsModifierAndPaysLootInTheShop" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_V10_BossStageDisablesCardsShowsItsModifierAndPaysLootInTheShop" methodname="PLAY_V10_BossStageDisablesCardsShowsItsModifierAndPaysLootInTheShop" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="2075115190" result="Passed" start-time="2026-11-15 14:04:03Z" end-time="2026-11-15 14:04:07Z" duration="3.665155" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_379b507b5d6d4355b9e5f2c345c69774
+]]></output>
+            </test-case>
+            <test-case id="1190" name="PLAY_V10_GiftControllerAddsAFreePickToTheNextShop" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_V10_GiftControllerAddsAFreePickToTheNextShop" methodname="PLAY_V10_GiftControllerAddsAFreePickToTheNextShop" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="156561094" result="Passed" start-time="2026-11-15 14:04:07Z" end-time="2026-11-15 14:04:10Z" duration="3.376699" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_f5aca888144d4e3da5b98e75e067b745
+]]></output>
+            </test-case>
+            <test-case id="1191" name="PLAY_V10_HandbookListsTheCycleRulesAndTheBossOfThisChapter" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_V10_HandbookListsTheCycleRulesAndTheBossOfThisChapter" methodname="PLAY_V10_HandbookListsTheCycleRulesAndTheBossOfThisChapter" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="1714833632" result="Passed" start-time="2026-11-15 14:04:10Z" end-time="2026-11-15 14:04:11Z" duration="0.631528" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_62379eb16efd43988a4228601e3a082e
+]]></output>
+            </test-case>
+            <test-case id="1188" name="PLAY_V10_ShopButtonAndStageSelectShowTheThreeStagesOfTheCycle" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_V10_ShopButtonAndStageSelectShowTheThreeStagesOfTheCycle" methodname="PLAY_V10_ShopButtonAndStageSelectShowTheThreeStagesOfTheCycle" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="686597315" result="Passed" start-time="2026-11-15 14:04:11Z" end-time="2026-11-15 14:04:11Z" duration="0.660606" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_169a18bea853450c9e42543c31e8e3fb
+Saving results to: E:\agent_workspace\gpt\game2\evidence\v10\unity\nunit-20261115-140411.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

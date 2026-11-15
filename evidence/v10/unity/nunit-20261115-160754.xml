@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="6" result="Passed" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-11-15 16:07:40Z" end-time="2026-11-15 16:07:54Z" duration="14.3129686">
+  <test-suite type="TestSuite" id="1212" name="DiceCraft P0" fullname="DiceCraft P0" runstate="Runnable" testcasecount="200" result="Passed" start-time="2026-11-15 16:07:40Z" end-time="2026-11-15 16:07:54Z" duration="14.312969" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <test-suite type="Assembly" id="1206" name="DiceCraft.PlayModeTests.dll" fullname="E:/agent_workspace/gpt/game2/DicePrototype/Library/ScriptAssemblies/DiceCraft.PlayModeTests.dll" runstate="Runnable" testcasecount="200" result="Passed" start-time="2026-11-15 16:07:40Z" end-time="2026-11-15 16:07:54Z" duration="14.301629" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="55612" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <test-suite type="TestSuite" id="1207" name="DiceCraft" fullname="DiceCraft" runstate="Runnable" testcasecount="200" result="Passed" start-time="2026-11-15 16:07:40Z" end-time="2026-11-15 16:07:54Z" duration="14.298979" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1208" name="Tests" fullname="DiceCraft.Tests" runstate="Runnable" testcasecount="200" result="Passed" start-time="2026-11-15 16:07:40Z" end-time="2026-11-15 16:07:54Z" duration="14.296497" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="1001" name="GameplayPlayModeTests" fullname="DiceCraft.Tests.GameplayPlayModeTests" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" testcasecount="190" result="Passed" start-time="2026-11-15 16:07:40Z" end-time="2026-11-15 16:07:54Z" duration="14.293010" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1070" name="PLAY_ART07_FX_NormalPunchCompletesAcrossAdjacentBeatsAndSkipResets" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_ART07_FX_NormalPunchCompletesAcrossAdjacentBeatsAndSkipResets" methodname="PLAY_ART07_FX_NormalPunchCompletesAcrossAdjacentBeatsAndSkipResets" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="442171246" result="Passed" start-time="2026-11-15 16:07:40Z" end-time="2026-11-15 16:07:44Z" duration="3.750811" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_5f3fd6c3e8824d91812a4c7919186afa
+]]></output>
+            </test-case>
+            <test-case id="1187" name="PLAY_V09_SettlementListsStageIncomeFromControllersAndTheWiderInterestCap" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_V09_SettlementListsStageIncomeFromControllersAndTheWiderInterestCap" methodname="PLAY_V09_SettlementListsStageIncomeFromControllersAndTheWiderInterestCap" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="114719962" result="Passed" start-time="2026-11-15 16:07:44Z" end-time="2026-11-15 16:07:46Z" duration="2.111496" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_fb2dc85194704ab299459727ba251f82
+]]></output>
+            </test-case>
+            <test-case id="1189" name="PLAY_V10_BossStageDisablesCardsShowsItsModifierAndPaysLootInTheShop" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_V10_BossStageDisablesCardsShowsItsModifierAndPaysLootInTheShop" methodname="PLAY_V10_BossStageDisablesCardsShowsItsModifierAndPaysLootInTheShop" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="461973367" result="Passed" start-time="2026-11-15 16:07:46Z" end-time="2026-11-15 16:07:50Z" duration="3.720883" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_cc930c99e4b54817a8fbed8b98d5848c
+]]></output>
+            </test-case>
+            <test-case id="1190" name="PLAY_V10_GiftControllerAddsAFreePickToTheNextShop" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_V10_GiftControllerAddsAFreePickToTheNextShop" methodname="PLAY_V10_GiftControllerAddsAFreePickToTheNextShop" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="1500452211" result="Passed" start-time="2026-11-15 16:07:50Z" end-time="2026-11-15 16:07:53Z" duration="3.400243" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_36062f2c2ac14340a4ae4ea91d4c6bbf
+]]></output>
+            </test-case>
+            <test-case id="1191" name="PLAY_V10_HandbookListsTheCycleRulesAndTheBossOfThisChapter" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_V10_HandbookListsTheCycleRulesAndTheBossOfThisChapter" methodname="PLAY_V10_HandbookListsTheCycleRulesAndTheBossOfThisChapter" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="1788475950" result="Passed" start-time="2026-11-15 16:07:53Z" end-time="2026-11-15 16:07:54Z" duration="0.620013" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_099171baf35d436a902cb75211a6788d
+]]></output>
+            </test-case>
+            <test-case id="1188" name="PLAY_V10_ShopButtonAndStageSelectShowTheThreeStagesOfTheCycle" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_V10_ShopButtonAndStageSelectShowTheThreeStagesOfTheCycle" methodname="PLAY_V10_ShopButtonAndStageSelectShowTheThreeStagesOfTheCycle" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="431238419" result="Passed" start-time="2026-11-15 16:07:54Z" end-time="2026-11-15 16:07:54Z" duration="0.670132" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_2edd633d8c8a4fa394bd61090f3ea95b
+Saving results to: E:\agent_workspace\gpt\game2\evidence\v10\unity\nunit-20261115-160754.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>
