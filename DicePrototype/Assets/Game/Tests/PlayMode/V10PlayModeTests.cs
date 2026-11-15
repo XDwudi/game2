@@ -38,6 +38,22 @@ namespace DiceCraft.Tests
                 if (HasActive(name)) Assert.That(chip.Overlaps(ScreenRect10(FindActive<RectTransform>(name))), Is.False, "The boss readout must not sit under the " + name + " button.");
             var body = FindActive<TextMeshProUGUI>("BossModifierText"); body.ForceMeshUpdate();
             Assert.That(body.text, Is.EqualTo(app.Config.Modifier(modifierId).description)); Assert.That(body.isTextOverflowing, Is.False, "The description of " + modifierId + " must fit its box.");
+            // Both lines must really be drawn: every non-blank character has a visible glyph that lies inside the readout.
+            foreach (var text in new[] { FindActive<TextMeshProUGUI>("BossModifierName"), body })
+            {
+                text.ForceMeshUpdate(); var info = text.textInfo; int drawn = 0;
+                Assert.That(info.characterCount, Is.EqualTo(text.text.Length), text.name + " of " + modifierId + " lost characters");
+                for (int i = 0; i < info.characterCount; i++)
+                {
+                    var c = info.characterInfo[i]; if (char.IsWhiteSpace(c.character)) continue;
+                    Assert.That(c.isVisible, Is.True, text.name + " of " + modifierId + ": character " + c.character + " is not drawn"); drawn++;
+                    Vector3 low = text.transform.TransformPoint(c.bottomLeft), high = text.transform.TransformPoint(c.topRight);
+                    Assert.That(low.x, Is.GreaterThanOrEqualTo(chip.xMin - 1)); Assert.That(high.x, Is.LessThanOrEqualTo(chip.xMax + 1));
+                    Assert.That(low.y, Is.GreaterThanOrEqualTo(chip.yMin - 1), text.name + " of " + modifierId + " hangs below the readout"); Assert.That(high.y, Is.LessThanOrEqualTo(chip.yMax + 1), text.name + " of " + modifierId + " rises above the readout");
+                }
+                Assert.That(drawn, Is.GreaterThan(0));
+            }
+            Assert.That(FindActive<TextMeshProUGUI>("BossModifierName").text, Does.Contain(app.Config.Modifier(modifierId).displayName));
         }
         private static void AllRedFours10(RunState fixture)
         {
@@ -96,6 +112,8 @@ namespace DiceCraft.Tests
                 yield return WaitForIdle();
                 Assert.That(app.Session.State.stage.modifierId, Is.EqualTo(modifier.id)); Assert.That(Text10("BossModifierName"), Does.Contain(modifier.displayName));
                 AssertBossReadoutVisible10(modifier.id);
+                // Two real frames are kept beside the isolated save for a human to look at: a short and the longest description.
+                if (modifier.id == "B06" || modifier.id == "B38") yield return ShopEntrancePng07("v10-boss-readout-" + modifier.id);
             }
         }
 

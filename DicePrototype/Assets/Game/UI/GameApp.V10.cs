@@ -81,12 +81,13 @@ namespace DiceCraft
             // The readout sits in the free band of the left column, between the budget counters and the buttons. (Its first
             // version was a 164 px box lower down, which the previous-hand, handbook and pause buttons covered.) The text
             // shrinks to fit two lines; a click or hover gives the full stage intel.
-            var box=UiKit.Frame(panel,"BossModifier10",12,708,width-24,66,Color.Lerp(UiKit.Background,UiKit.Danger,lifted?.04f:.16f),lifted?UiKit.PanelLight:UiKit.Danger);
-            var title=UiKit.Text(box,"BossModifierName",(lifted?"减益已解除 · ":"首领减益 · ")+NameOf(id),10,2,width-44,24,17,lifted?UiKit.Muted:UiKit.Danger);
-            title.fontStyle=FontStyles.Bold;title.textWrappingMode=TextWrappingModes.NoWrap;title.overflowMode=TextOverflowModes.Ellipsis;
-            var body=UiKit.Text(box,"BossModifierText",Description(id),10,25,width-44,39,14,lifted?UiKit.Muted:UiKit.TextColor);
+            var box=UiKit.Frame(panel,"BossModifier10",12,709,width-24,67,Color.Lerp(UiKit.Background,UiKit.Danger,lifted?.04f:.16f),lifted?UiKit.PanelLight:UiKit.Danger);
+            // The title row is 30 px for a 16 px face: a row shorter than the line height renders nothing at all in ellipsis mode.
+            var title=UiKit.Text(box,"BossModifierName",(lifted?"减益已解除 · ":"首领减益 · ")+NameOf(id),10,0,width-44,30,16,lifted?UiKit.Muted:UiKit.Paper);
+            title.fontStyle=FontStyles.Bold;title.textWrappingMode=TextWrappingModes.NoWrap;title.overflowMode=TextOverflowModes.Overflow;
+            var body=UiKit.Text(box,"BossModifierText",Description(id),10,27,width-44,38,14,lifted?UiKit.Muted:UiKit.TextColor);
             body.enableAutoSizing=true;body.fontSizeMin=11;body.fontSizeMax=14;body.overflowMode=TextOverflowModes.Ellipsis;body.lineSpacing=-8;
-            var open=HitArea073(box,"BossModifierOpen",0,0,width-24,66,()=>{if(!IsBusy)ShowCycle10();});
+            var open=HitArea073(box,"BossModifierOpen",0,0,width-24,67,()=>{if(!IsBusy)ShowCycle10();});
             Art07AttachTooltip(open,"boss-modifier",NameOf(id),Description(id),lifted?"已解除":"本关生效",()=>{if(!IsBusy)ShowCycle10();});
         }
 
