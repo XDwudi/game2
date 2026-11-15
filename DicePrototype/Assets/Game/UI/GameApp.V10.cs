@@ -33,6 +33,17 @@ namespace DiceCraft
         private bool DisabledNext10(string instanceId)=>DisabledNextIds10().Contains(instanceId);
         /// <summary>What an owned controller sells for, including the recycler (C140).</summary>
         private long OwnedSalePrice10(ControllerInstance c)=>Session.ControllerSalePriceIn(ViewState,c);
+        /// <summary>
+        /// Names what raised the interest principal cap of a settlement. The cap itself comes from the receipt; the share
+        /// of the adviser service (O10) is its purchase count times the configured step, the rest is the snowball card (C96).
+        /// </summary>
+        private string InterestCapNote10(StageSettlement r)
+        {
+            if(r.interestPrincipalCap<=Config.maxInterestPrincipal)return "";
+            long adviser=(long)Config.interestPrincipalStep*ViewState.interestCapPurchases,snowball=r.interestPrincipalCap-Config.maxInterestPrincipal-adviser;
+            var names=new System.Collections.Generic.List<string>();if(snowball>0)names.Add(NameOf("C96"));if(adviser>0)names.Add(NameOf("O10"));
+            return "（"+string.Join("、",names)+"：计息本金上限 "+r.interestPrincipalCap+"）";
+        }
         private string StageKindLabel10(int stageIndex,bool risk)
         {
             string kind=Config.stages[Mathf.Clamp(stageIndex,0,Config.stages.Length-1)].stageKind;

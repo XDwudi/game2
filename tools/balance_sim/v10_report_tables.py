@@ -176,18 +176,19 @@ def render(mode: str, paths: list) -> str:
 def fill(report: str, check: bool) -> int:
     path = Path(report)
     text = path.read_text(encoding="utf-8")
-    pattern = re.compile(r"(<!-- BEGIN:(\w+) ([^>]*?) -->\n)(.*?)(\n<!-- END:\2 -->)", re.S)
+    pattern = re.compile(r"(<!-- BEGIN:(\w+) ([^>]*?) -->\r?\n)(.*?)(<!-- END:\2 -->)", re.S)
     count = 0
 
     def replace(match):
         nonlocal count
         count += 1
-        return match.group(1) + render(match.group(2), match.group(3).split()) + match.group(5)
+        return match.group(1) + render(match.group(2), match.group(3).split()) + "\n" + match.group(5)
 
     updated = pattern.sub(replace, text)
     if check:
-        print("report tables match the evidence" if updated == text else "report tables differ from the evidence")
-        return 0 if updated == text and count else 1
+        ok = updated == text and count > 0
+        print(f"report tables match the evidence ({count} tables)" if ok else f"report tables differ from the evidence or no table markers were found ({count} markers)")
+        return 0 if ok else 1
     path.write_text(updated, encoding="utf-8", newline="\n")
     print(f"filled {count} tables")
     return 0 if count else 1
