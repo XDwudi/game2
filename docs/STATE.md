@@ -26,7 +26,7 @@
 - 构建与包：Windows `build-windows-20261115-203823`，macOS Universal `build-macos-20261115-203918`。
   `DicePrototype-p1.0.0-win-x64.zip` 362,557,580 B / 306 成员 / SHA-256 `69e783f8895243a14f10412b7a47d236f9a283489f670f334311af5b77cb6471`；
   `DicePrototype-p1.0.0-macos-universal.zip` 402,910,309 B / 301 成员 / SHA-256 `413878c3dc8267941e3a61dec87bfc56a2e7a4d6016a49f66e54132f171af6af`。
-  Windows 包新目录解压后回放 180 步（种子 5004，三个首领关、三家战利品商店）、173 张截图、Player 日志 0 异常；节选截图在 `evidence/v10/screens/tour-5004/`。macOS 包没有在任何 Mac 上启动过。
+  Windows 包新目录解压后回放 180 步（种子 5004，三个首领关、三家战利品商店）、173 张截图、Player 日志 0 异常（另有 4 条渲染管线告警：`GaussianDepthOfField`、`BokehDepthOfField`、`PaniniProjection` 着色器被裁剪，对应的后处理不执行；游戏不使用它们，没有进一步调查）；节选截图在 `evidence/v10/screens/tour-5004/`。macOS 包没有在任何 Mac 上启动过。
 - 交付（依据用户 2026-11-14“以后开发完成后都直接提交”的长期指示）：【待填:交付】
 - 未做 / 遗留：真人试玩；macOS 实机；Windows 帧时间与独占全屏专项；首领减益、战利品、骰面养成的专属演出与音效；64 px 以下插画图标的锯齿；后期金币偏多；机器人不覆盖的打法（定向养成、单骰、顺子、为首领调序）；复核列出的部分规则仍无仓库内测试。详见任务 §9。
 - 待用户决定：
