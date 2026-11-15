@@ -27,7 +27,7 @@
   `DicePrototype-p1.0.0-win-x64.zip` 362,557,580 B / 306 成员 / SHA-256 `69e783f8895243a14f10412b7a47d236f9a283489f670f334311af5b77cb6471`；
   `DicePrototype-p1.0.0-macos-universal.zip` 402,910,309 B / 301 成员 / SHA-256 `413878c3dc8267941e3a61dec87bfc56a2e7a4d6016a49f66e54132f171af6af`。
   Windows 包新目录解压后回放 180 步（种子 5004，三个首领关、三家战利品商店）、173 张截图、Player 日志 0 异常（另有 4 条渲染管线告警：`GaussianDepthOfField`、`BokehDepthOfField`、`PaniniProjection` 着色器被裁剪，对应的后处理不执行；游戏不使用它们，没有进一步调查）；节选截图在 `evidence/v10/screens/tour-5004/`。macOS 包没有在任何 Mac 上启动过。
-- 交付（依据用户 2026-11-14“以后开发完成后都直接提交”的长期指示）：【待填:交付】
+- 交付（依据用户 2026-11-14“以后开发完成后都直接提交”的长期指示）：源码分支 [codex/v1.0](https://github.com/XDwudi/game2/tree/codex/v1.0)；预发布 [p1.0.0-rc.1](https://github.com/XDwudi/game2/releases/tag/p1.0.0-rc.1)（release 446359171，标签指向 `fe37f88`，构建源 `c7d9379`），两个附件上传后经带凭据完整回读，SHA-256 与本地一致，收据 `evidence/v10/delivery/github-release-p1.0.0-rc.1.json`。main 与更早的发行未动。
 - 未做 / 遗留：真人试玩；macOS 实机；Windows 帧时间与独占全屏专项；首领减益、战利品、骰面养成的专属演出与音效；64 px 以下插画图标的锯齿；后期金币偏多；机器人不覆盖的打法（定向养成、单骰、顺子、为首领调序）；复核列出的部分规则仍无仓库内测试。详见任务 §9。
 - 待用户决定：
   1. 整体难度（机器人 29%）与目标曲线；高压挑战的回报（×1.5 目标换 +5 金币）是否有吸引力。
