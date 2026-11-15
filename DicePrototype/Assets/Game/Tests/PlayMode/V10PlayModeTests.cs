@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Linq;
 using DiceCraft.Core;
+using DiceCraft.Verification;
 using NUnit.Framework;
 using TMPro;
 using UnityEngine;
@@ -25,6 +26,18 @@ namespace DiceCraft.Tests
             x.stage.settlementId = x.runId + "/" + def.stageId; x.lastStageSettlement.settlementId = x.stage.settlementId; x.lastStageSettlement.stageId = def.stageId;
             x.lastStageSettlement.score = x.stage.score; x.lastStageSettlement.target = x.stage.target; x.lastStageSettlement.stageKind = def.stageKind;
             x.shop.offers.Clear(); return x;
+        }
+        private static Rect ScreenRect10(RectTransform t) { var c = new Vector3[4]; t.GetWorldCorners(c); return Rect.MinMaxRect(c[0].x, c[0].y, c[2].x, c[2].y); }
+        /// <summary>The in-stage boss readout is on screen, not under a left-column button, and its description is not cut.</summary>
+        private void AssertBossReadoutVisible10(string modifierId)
+        {
+            Canvas.ForceUpdateCanvases();
+            var chip = ScreenRect10(FindActive<RectTransform>("BossModifier10"));
+            Assert.That(chip.xMin, Is.GreaterThanOrEqualTo(0)); Assert.That(chip.yMin, Is.GreaterThanOrEqualTo(0)); Assert.That(chip.xMax, Is.LessThanOrEqualTo(Screen.width)); Assert.That(chip.yMax, Is.LessThanOrEqualTo(Screen.height));
+            foreach (string name in new[] { "PreviousSubmission", "Handbook", "Pause" })
+                if (HasActive(name)) Assert.That(chip.Overlaps(ScreenRect10(FindActive<RectTransform>(name))), Is.False, "The boss readout must not sit under the " + name + " button.");
+            var body = FindActive<TextMeshProUGUI>("BossModifierText"); body.ForceMeshUpdate();
+            Assert.That(body.text, Is.EqualTo(app.Config.Modifier(modifierId).description)); Assert.That(body.isTextOverflowing, Is.False, "The description of " + modifierId + " must fit its box.");
         }
         private static void AllRedFours10(RunState fixture)
         {
@@ -70,6 +83,23 @@ namespace DiceCraft.Tests
         }
 
         [UnityTest]
+        public IEnumerator PLAY_V10_EveryBossModifierReadoutIsUncoveredAndFitsItsBoxDuringAStage()
+        {
+            // Explicit debug scenes: the same hand screen under each of the 39 modifiers. This only checks the readout
+            // (position, not covered by the left-column buttons, description not cut); the rules are tested elsewhere.
+            Art07Fixtures.Apply(app, Art07FixtureKind.G147); yield return WaitForIdle();
+            foreach (var modifier in app.Config.bossModifiers)
+            {
+                var s = app.Session.State; var scene = Art07Fixtures.Create(app.Config, Art07FixtureKind.G147, s.nextItemSerial, s.nextDieSerial);
+                scene.sourceRunId = s.sourceRunId; scene.stageIndex = modifier.tier == 4 ? app.Config.stages.Length - 1 : 2; scene.modifierId = modifier.id;
+                var applied = app.Send(new SessionCommand { kind = CommandKind.ApplyDebugScene, debugScene = scene }); Assert.That(applied.accepted, Is.True, modifier.id + ": " + applied.error);
+                yield return WaitForIdle();
+                Assert.That(app.Session.State.stage.modifierId, Is.EqualTo(modifier.id)); Assert.That(Text10("BossModifierName"), Does.Contain(modifier.displayName));
+                AssertBossReadoutVisible10(modifier.id);
+            }
+        }
+
+        [UnityTest]
         public IEnumerator PLAY_V10_BossStageDisablesCardsShowsItsModifierAndPaysLootInTheShop()
         {
             var fixture = ShopAfterStage10(1); AllRedFours10(fixture);
@@ -87,7 +117,10 @@ namespace DiceCraft.Tests
             Assert.That(Text10("BossModifierName"), Does.Contain(app.Config.Modifier("B25").displayName)); Assert.That(Text10("BossModifierText"), Is.EqualTo(app.Config.Modifier("B25").description));
             Assert.That(CardState09("C50"), Is.EqualTo("本关失效")); Assert.That(CardState09("C46"), Is.EqualTo("本关失效"));
             Assert.That(Text10("Chapter"), Does.Contain("首领关"));
+            AssertBossReadoutVisible10("B25");
             yield return PlayFiveRedFours10();
+            // After the first hand the previous-hand button exists and the qualified header is drawn: the readout must still be there, uncovered.
+            Assert.That(HasActive("PreviousSubmission"), Is.True); AssertBossReadoutVisible10("B25");
             // C50 (+20) and C46 (x2) are disabled; two rolls are left unused (+3 each): (20 + 6) x 12 x 2 x 5.
             Assert.That(app.Session.State.lastSubmission.breakdown.score, Is.EqualTo("3120")); Assert.That(app.Session.State.stage.qualified, Is.True);
             var end = app.Send(new SessionCommand { kind = CommandKind.EndStage }); Assert.That(end.accepted, Is.True, end.error); yield return WaitForIdle();

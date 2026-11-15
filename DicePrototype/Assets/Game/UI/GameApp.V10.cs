@@ -78,11 +78,16 @@ namespace DiceCraft
         {
             if(!InStageView10||ViewState.stage.stageKind!="boss"||string.IsNullOrEmpty(ViewState.stage.modifierId))return;
             bool lifted=ViewState.stage.modifierNullified;string id=ViewState.stage.modifierId;
-            var box=UiKit.Frame(panel,"BossModifier10",18,796,width-36,164,Color.Lerp(UiKit.Background,UiKit.Danger,lifted?.04f:.16f),lifted?UiKit.PanelLight:UiKit.Danger);
-            var title=UiKit.Text(box,"BossModifierName",(lifted?"减益已解除 · ":"首领减益 · ")+NameOf(id),12,8,width-60,34,19,lifted?UiKit.Muted:UiKit.Danger);
+            // The readout sits in the free band of the left column, between the budget counters and the buttons. (Its first
+            // version was a 164 px box lower down, which the previous-hand, handbook and pause buttons covered.) The text
+            // shrinks to fit two lines; a click or hover gives the full stage intel.
+            var box=UiKit.Frame(panel,"BossModifier10",12,708,width-24,66,Color.Lerp(UiKit.Background,UiKit.Danger,lifted?.04f:.16f),lifted?UiKit.PanelLight:UiKit.Danger);
+            var title=UiKit.Text(box,"BossModifierName",(lifted?"减益已解除 · ":"首领减益 · ")+NameOf(id),10,2,width-44,24,17,lifted?UiKit.Muted:UiKit.Danger);
             title.fontStyle=FontStyles.Bold;title.textWrappingMode=TextWrappingModes.NoWrap;title.overflowMode=TextOverflowModes.Ellipsis;
-            var body=UiKit.Text(box,"BossModifierText",Description(id),12,44,width-60,112,15,lifted?UiKit.Muted:UiKit.TextColor);
-            body.overflowMode=TextOverflowModes.Ellipsis;body.lineSpacing=-6;
+            var body=UiKit.Text(box,"BossModifierText",Description(id),10,25,width-44,39,14,lifted?UiKit.Muted:UiKit.TextColor);
+            body.enableAutoSizing=true;body.fontSizeMin=11;body.fontSizeMax=14;body.overflowMode=TextOverflowModes.Ellipsis;body.lineSpacing=-8;
+            var open=HitArea073(box,"BossModifierOpen",0,0,width-24,66,()=>{if(!IsBusy)ShowCycle10();});
+            Art07AttachTooltip(open,"boss-modifier",NameOf(id),Description(id),lifted?"已解除":"本关生效",()=>{if(!IsBusy)ShowCycle10();});
         }
 
         // ---------------------------------------------------------------- stage-select screen

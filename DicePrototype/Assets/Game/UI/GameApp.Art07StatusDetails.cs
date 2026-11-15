@@ -89,6 +89,7 @@ namespace DiceCraft
                 int income=ViewSources.Count(s=>s.abilityId=="C01")*Config.Controller("C01").parameters.goldPerValidSubmission;
                 UiKit.Text(p,"QualifiedContinueIncome","续交 C01  +"+income+" / 次",18,660,width-36,40,18,UiKit.Gold);
             }
+            DrawModifierChip10(p,width); // p1.0.0: the boss readout stays visible after the stage is qualified
             if(ViewState.debugWorkspace)UiKit.Box(main,"DebugMark",0,0,1920,6,UiKit.Violet);
         }
         private void QualifiedStat07(Transform parent,string id,string label,string value,float y,float width,Color color,string rawScore=null)
