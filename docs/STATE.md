@@ -20,7 +20,7 @@
   `DicePrototype-p0.9.0-win-x64.zip` 277,711,291 B / 306 成员 / SHA-256 `13b0db21d74aa504dbc3d71f6f1c941f13df06b30ad4c0cb46284903780f0142`；
   `DicePrototype-p0.9.0-macos-universal.zip` 318,070,755 B / 301 成员 / SHA-256 `e5cfc24c3d0f0b3a9807241300778f1e2ed707b99ac89ec640fec2d8692844f6`。
   Windows 包新目录解压后回放 150 步、146 张截图、Player 日志 0 异常；截图在 `evidence/v09/screens/`。
-- 交付：推送与发行见本条后续更新。
+- 交付（依据用户 2026-11-14 的指示：先把源码提交 git 并上传发行附件，以后开发完成后都直接提交；实施者把它理解为也包含上传预发布附件）：源码分支 [codex/v0.9](https://github.com/XDwudi/game2/tree/codex/v0.9)；预发布 [p0.9.0-rc.1](https://github.com/XDwudi/game2/releases/tag/p0.9.0-rc.1)（release 445721792，标签指向 `91dfa6e`，构建源 `7f56dc2`），两个附件经带凭据完整回读 SHA 一致，收据 `evidence/v09/delivery/github-release-p0.9.0-rc.1.json`。main 与更早的发行未动。
 - 与美术标准流程（下一节，ART-PIPELINE-2）的关系：该流程在本批插画生成期间建立，并指出本批有运行没有把参考图传给模型。本任务用它的核对规则回放了全部 51 次运行：45 张通过，C59、C67、C71、C78、C80、C90 六张未收到参考图，已重做并复核为 51/51（`evidence/v09/art/run-audit.json`）。
   本批仍然不同于标准流程之处（参考图用的是 v0.71 的那一对而不是风格套件的锚点、没有逐张审查单、没有独立美术复核）列在 `ArtSource/Art09/README.md`，是否按标准流程整批重做由用户决定。下一节里关于 v0.9 批次的描述是当时的只读观察，已被本条取代。
 - 未做 / 遗留：真人试玩；macOS 实机；Windows 帧时间与独占全屏专项；卡面的美术复核；新机制的专属演出与音效；机器人不覆盖的成型流派强度；商店里拖动百变模仿的取舍（复核 F3）。详见任务 §9。
