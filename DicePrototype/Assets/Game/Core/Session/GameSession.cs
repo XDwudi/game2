@@ -205,13 +205,33 @@ namespace DiceCraft.Core
             rules = StageRules.For(cfg, modifier, ControllerRules.DisabledBy(after, cfg, modifier));
             return after.ToArray();
         }
+        /// <summary>The one place a boss modifier scales a target (TargetPercent); any other modifier leaves it as it is.</summary>
+        private string ScaledTarget(string target, string modifierId)
+            => ControllerRules.ModifierHas(cfg, modifierId, "TargetPercent") ? ExactScoreMath.SaveDecimal(ExactScoreMath.Parse(target) * cfg.Modifier(modifierId).amount / 100) : target;
         private string StageTarget(RunState s, StageDefinition def, bool risk)
-        {
-            string target = risk ? def.riskTarget : def.normalTarget;
-            if (!ModifierPending(s) || !ControllerRules.ModifierHas(cfg, s.stage.modifierId, "TargetPercent")) return target;
-            return ExactScoreMath.SaveDecimal(ExactScoreMath.Parse(target) * cfg.Modifier(s.stage.modifierId).amount / 100);
-        }
+            => ScaledTarget(risk ? def.riskTarget : def.normalTarget, ModifierPending(s) ? s.stage.modifierId : null);
         public string CurrentModifierId { get { lock (gate) return state == null ? null : ActiveModifierId(state); } }
+
+        // ---- v1.0 quotes for the interface: it asks for these numbers instead of re-deriving a rule ----
+        /// <summary>The interest principal cap: base + C96 sources + the O10 purchases of this run.</summary>
+        private long InterestPrincipalCap(RunState s) => checked(cfg.maxInterestPrincipal + (long)Sources(s).Count(x => x.abilityId == "C96") * cfg.Controller("C96").parameters.interestPrincipalAdd + (long)cfg.interestPrincipalStep * s.interestCapPurchases);
+        /// <summary>v1.0 C145: the break chance of a glass die per roll (a disabled C145 is not a source).</summary>
+        private int GlassBreakPercent(RunState s) => Sources(s).Any(x => x.abilityId == "C145") ? cfg.Controller("C145").parameters.glassBreakPercent : cfg.glassBreakPercent;
+        public long InterestPrincipalCapIn(RunState view) { lock (gate) return InterestPrincipalCap(view); }
+        public int GlassBreakPercentIn(RunState view) { lock (gate) return GlassBreakPercent(view); }
+        /// <summary>What an owned controller would sell for in the given state (C140, shop-acquired rule, funds and bonuses included).</summary>
+        public long ControllerSalePriceIn(RunState view, ControllerInstance c) { lock (gate) return SalePrice(view, c); }
+        /// <summary>The capacity <see cref="EffectiveCapacity"/> would report if the controllers stood in this order (drag preview).</summary>
+        public int CapacityForOrder(IList<string> orderedInstanceIds)
+        {
+            lock (gate)
+            {
+                if (state == null) return cfg.initialSubmitCapacity;
+                var copy = state.Clone(); Check(orderedInstanceIds != null && orderedInstanceIds.Count == copy.controllers.Count && orderedInstanceIds.All(id => copy.controllers.Any(c => c.instanceId == id)), "控制器顺序无效。");
+                copy.controllers = orderedInstanceIds.Select(id => copy.controllers.First(c => c.instanceId == id)).ToList();
+                return BeforeStage(copy) ? PreviewCapacity(copy) : InStage(copy) ? copy.stage.capacity : ShopCapacity(copy);
+            }
+        }
 
         /// <summary>v1.0: draws the whole cycle plan (boss modifier and loot kind per cycle) from the stage stream.</summary>
         private void BuildCyclePlan(RunState s)
@@ -260,7 +280,7 @@ namespace DiceCraft.Core
                         stageIndex = i, stageKind = def.stageKind, normalTarget = def.normalTarget, riskTarget = def.riskTarget, normalReward = def.normalReward, riskReward = def.riskReward,
                         cleared = i < state.stage.stageIndex || (own && state.stage.settled), current = i == focus, risk = own && state.stage.risk,
                         modifierId = boss ? plan.modifierId : "", lootKind = boss ? plan.lootKind : "", modifierNullified = own && state.stage.modifierNullified,
-                        bossTarget = boss && ControllerRules.ModifierHas(cfg, plan.modifierId, "TargetPercent") ? ExactScoreMath.SaveDecimal(ExactScoreMath.Parse(def.normalTarget) * cfg.Modifier(plan.modifierId).amount / 100) : def.normalTarget
+                        bossTarget = ScaledTarget(def.normalTarget, boss ? plan.modifierId : null)
                     };
                 }).ToArray();
             }
@@ -450,7 +470,7 @@ namespace DiceCraft.Core
             var diceRng = new GameRng(s.diceRngState); var effectRng = new GameRng(s.effectRngState);
             s.hand.rollsRemaining--; s.hand.rollsUsed++; s.hand.hasRolled = true;
             Grow(s, "C62", cfg.Controller("C62").parameters.growthPerEvent);
-            int breakPercent = Sources(s).Any(x => x.abilityId == "C145") ? cfg.Controller("C145").parameters.glassBreakPercent : cfg.glassBreakPercent; // v1.0 C145
+            int breakPercent = GlassBreakPercent(s);
             foreach (var die in unlocked)
             {
                 if (die.isGlass && DrawRisk(s, effectRng, "Glass", die.dieId, breakPercent))
@@ -492,11 +512,16 @@ namespace DiceCraft.Core
             s.phase = "Selecting";
         }
 
-        /// <summary>v0.9: adds growth to every real instance of one controller. Mimics share the owner's value and never grow.</summary>
+        /// <summary>
+        /// v0.9: adds growth to every real instance of one controller. Mimics share the owner's value and never grow.
+        /// v1.0: a controller disabled for the stage has no ability, so its growth value does not move either — this
+        /// includes the countdown of C141 (spec 2.3 step 3); a boss modifier can also freeze every growth value.
+        /// </summary>
         private void Grow(RunState s, string definitionId, long delta)
         {
-            if (delta == 0 || Fx(s, "GrowthFreeze")) return; // v1.0: a boss modifier can freeze every growth value for the stage
-            foreach (var c in s.controllers.Where(x => x.definitionId == definitionId))
+            if (delta == 0 || Fx(s, "GrowthFreeze")) return;
+            var disabled = ActiveDisabled(s);
+            foreach (var c in s.controllers.Where(x => x.definitionId == definitionId && !disabled.Contains(x.instanceId)))
             {
                 long before = c.state.growth; c.state.growth = checked(before + delta);
                 s.lastEffects.Add(new EffectRecord { kind = "ControllerGrown", sourceId = definitionId, detail = c.instanceId, oldValue = before, newValue = c.state.growth });

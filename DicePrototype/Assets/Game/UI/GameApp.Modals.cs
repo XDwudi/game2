@@ -210,7 +210,7 @@ namespace DiceCraft
             if(offer!=null)
             {
                 string change=offer.contentId=="U07"&&chosen!=null?"购买后：在 "+string.Join("、",Enumerable.Range(1,6).Where(n=>n!=chosen.permanentPip))+" 中等概率取一个。颜色、纹理、镀金保持；不预抽结果。":
-                    whole?offer.contentId=="O04"?"购买后：移除此骰及全部强化；提交容量保持。至少保留 1 颗永久骰。":"购买后：整骰玻璃。每次实际参与投掷有 "+Config.glassBreakPercent+"% 永久损坏风险；锁定时不判定。":
+                    whole?offer.contentId=="O04"?"购买后：移除此骰及全部强化；提交容量保持。至少保留 1 颗永久骰。":"购买后：整骰玻璃。每次实际参与投掷有 "+Session.GlassBreakPercentIn(ViewState)+"% 永久损坏风险；锁定时不判定。":
                     afterFace==null?"请选择右侧的物理面。":offer.contentId=="U11"?"对面 "+Config.Opposite(chosen.faceId)+" 当前："+FaceSummary07(die.faces.First(f=>f.faceId==Config.Opposite(chosen.faceId)))+"\n购买后："+FaceSummary07(afterDie.faces.First(f=>f.faceId==Config.Opposite(chosen.faceId))):"当前："+FaceSummary07(chosen)+"\n购买后："+FaceSummary07(afterFace);
                 Art07DetailSection(layers,"PurchasePreview","改造预览",change,ref ly,424);
             }

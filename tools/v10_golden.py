@@ -1054,11 +1054,11 @@ def build_cases(cfg):
     add("C41复制C107：同一颗+20", "1r 2b", "C41 C107", s="23", chk={"pipContributions": [1, 22]})
     add("C107 只提交1颗：不触发", "6b", "C107", s="18", chk={"triggeredSourceIds": []})
     add("C107加谢幕：加值也被再计", "5b 6b", "C107 C68", srb=1, s="126", chk={"pipContributions": [5, 16], "pipSum": "42"})
-    add("C108排头兵 首骰3点：基础分+15", PAIR, "C108", s="64", chk={"baseTotal": "32", "controllerBaseAdds": adds(("ctl_01", "C108", "15"))})
-    add("C108 单颗6点：+30", "6b", "C108", s="108")
-    add("C108加不要奇数：首骰1点按有效2点算", "1r 3b 5b", "C12 C108", s="22", chk={"controllerBaseAdds": adds(("ctl_02", "C108", "10"))})
-    add("C41复制C108：两个来源各+15", PAIR, "C41 C108", s="94", chk={"controllerBaseAdds": adds(("ctl_01", "C108", "15"), ("ctl_02", "C108", "15"))})
-    add("C108 遥控把首骰定为6点：按当前点数6算", [die(6, face=2, remote=True)] + dice("3b 3b"), "C108", s="252")
+    add("C108排头兵 首骰3点：基础分+12", PAIR, "C108", s="58", chk={"baseTotal": "29", "controllerBaseAdds": adds(("ctl_01", "C108", "12"))})
+    add("C108 单颗6点：+24", "6b", "C108", s="90")
+    add("C108加不要奇数：首骰1点按有效2点算，+8", "1r 3b 5b", "C12 C108", s="20", chk={"controllerBaseAdds": adds(("ctl_02", "C108", "8"))})
+    add("C41复制C108：两个来源各+12", PAIR, "C41 C108", s="82", chk={"controllerBaseAdds": adds(("ctl_01", "C108", "12"), ("ctl_02", "C108", "12"))})
+    add("C108 遥控把首骰定为6点：按当前点数6算，+24", [die(6, face=2, remote=True)] + dice("3b 3b"), "C108", s="216")
     add("C109中流砥柱 5颗：正中间那颗再计2次", PAIR, "C109", s="54", chk={"pipRetriggers": [0, 0, 2, 0, 0], "pipSum": "27"})
     add("C109 3颗", "3b 6b 3b", "C109", s="144", chk={"pipRetriggers": [0, 2, 0]})
     add("C109 4颗（偶数）：不触发", "3b 3b 5b 4r", "C109", s="30", chk={"triggeredSourceIds": []})
@@ -1183,10 +1183,10 @@ def build_cases(cfg):
     add("C134 成长0", PAIR, "C134", s="34", chk={"triggeredSourceIds": ["ctl_01"]})
     add("C134 成长9：×1.45", PAIR, "C134:g=9", s="49")
     add("C135囤积居奇 背包为空：不触发", PAIR, "C135", s="34", chk={"triggeredSourceIds": [], "controllerBaseAdds": []})
-    add("C135 背包1个道具：+12", PAIR, "C135", inv=1, s="58", chk={"controllerBaseAdds": adds(("ctl_01", "C135", "12"))})
-    add("C135 背包2个：+24", PAIR, "C135", inv=2, s="82")
-    add("C135 背包5个（道具槽上限）：+60", PAIR, "C135", inv=5, s="154")
-    add("C41复制C135 背包2个：两个来源各+24", PAIR, "C41 C135", inv=2, s="130")
+    add("C135 背包1个道具：+10", PAIR, "C135", inv=1, s="54", chk={"controllerBaseAdds": adds(("ctl_01", "C135", "10"))})
+    add("C135 背包2个：+20", PAIR, "C135", inv=2, s="74")
+    add("C135 背包5个（道具槽上限）：+50", PAIR, "C135", inv=5, s="134")
+    add("C41复制C135 背包2个：两个来源各+20", PAIR, "C41 C135", inv=2, s="114")
     add("C137客串明星：提交的临时骰+15", "3b 3b 5b:temp 4r 2b", "C137", s="64", chk={"pipContributions": [3, 3, 20, 4, 2]})
     add("C137 临时骰留在池里：不触发", PAIR, "C137", p="6b", perm=5, s="34", chk={"triggeredSourceIds": []})
     add("C137 两颗临时骰", "3b:temp 3b:temp 5b", "C137", p="1r 2b 4r 6b", s="246", chk={"pipContributions": [18, 18, 5]})
@@ -1217,20 +1217,20 @@ def build_cases(cfg):
     add("C41复制C139 钱包40：×4", PAIR, "C41 C139", wallet=40, s="136")
     add("C138加C139 钱包12：富甲一方读冻结钱包，不受扣款影响", PAIR, "C138 C139", wallet=12, s="127", chk={"goldSpent": 3})
     add("C139加有钱真好 钱包20：两张卡读同一个冻结钱包", PAIR, "C139 C44", wallet=20, s="111", chk={"baseTotal": "37"})
-    add("C141昙花一现 已过0关：×3", PAIR, "C141", s="102", chk={"growthChanges": []})
-    add("C141 已过1关：×2.5", PAIR, "C141:g=1", s="85", chk={"controllerMultiplierNumerator": "5", "controllerMultiplierDenominator": "2"})
-    add("C141 已过2关：×2", PAIR, "C141:g=2", s="68")
-    add("C141 已过3关：×1.5", PAIR, "C141:g=3", s="51")
-    add("C41复制C141 已过1关：×6.25", PAIR, "C41 C141:g=1", s="212")
+    add("C141昙花一现 已过0关：×2.5", PAIR, "C141", s="85", chk={"growthChanges": [], "controllerMultiplierNumerator": "5", "controllerMultiplierDenominator": "2"})
+    add("C141 已过1关：×2", PAIR, "C141:g=1", s="68", chk={"controllerMultiplierNumerator": "2", "controllerMultiplierDenominator": "1"})
+    add("C141 已过2关（到期前最后一关）：×1.5", PAIR, "C141:g=2", s="51", chk={"controllerMultiplierNumerator": "3", "controllerMultiplierDenominator": "2"})
+    add("C141 已过2关 全蓝手：×1.5", BLUE, "C141:g=2", s="171")
+    add("C41复制C141 已过1关：×4", PAIR, "C41 C141:g=1", s="136")
 
     # ---- 6.7 hands and archetypes ----
     family[0] = "6.7 hands / archetypes"
-    add("C142一条龙 顺子：牌型倍率10+5", STR, "C142", s="225", chk={"totalHandMult100": 1500, "handMultAdd100": 500, "handMultBeforeModifier100": 1500})
+    add("C142一条龙 顺子：牌型倍率10+10", STR, "C142", s="300", chk={"totalHandMult100": 2000, "handMultAdd100": 1000, "handMultBeforeModifier100": 2000})
     add("C142 没有顺子：不触发", PAIR, "C142", s="34", chk={"triggeredSourceIds": [], "handMultAdd100": 0})
-    add("C142加简单顺子：四连顺子也+5", "2b 3b 4r 5b", "C29 C142", s="210", chk={"totalHandMult100": 1500})
-    add("C41复制C142：+10", STR, "C41 C142", s="300", chk={"totalHandMult100": 2000, "handMultAdd100": 1000})
-    add("C142 一对加顺子：2+10+5", STRP, "C142", cap=6, s="340", chk={"totalHandMult100": 1700})
-    add("C142 顺子3级：19+5", STR, "C142", lv={"straight": 3}, s="360", chk={"totalHandMult100": 2400})
+    add("C142加简单顺子：四连顺子也+10", "2b 3b 4r 5b", "C29 C142", s="280", chk={"totalHandMult100": 2000})
+    add("C41复制C142：+20", STR, "C41 C142", s="450", chk={"totalHandMult100": 3000, "handMultAdd100": 2000})
+    add("C142 一对加顺子：2+10+10", STRP, "C142", cap=6, s="440", chk={"totalHandMult100": 2200})
+    add("C142 顺子3级：19+10", STR, "C142", lv={"straight": 3}, s="435", chk={"totalHandMult100": 2900})
     add("C143好事成双 一对：两颗各再计1次", PAIR, "C143", s="46", chk={"pipRetriggers": [1, 1, 0, 0, 0], "pipSum": "23"})
     add("C143 三条不是恰好2颗：不触发", RED3, "C143", s="200", chk={"triggeredSourceIds": []})
     add("C143 两对：四颗各再计", "3b 3b 5b 5b 2b", "C143", s="306", chk={"pipRetriggers": [1, 1, 1, 1, 0]})
@@ -1305,7 +1305,7 @@ def build_cases(cfg):
     add("C131 C133 C136 C140 C145 在场（雇佣兵给的临时骰留在池里）：都不触发、不改分", PAIR, "C131 C133 C136 C140 C145", p="6b", perm=5, s="34", chk={"triggeredSourceIds": []})
     add("带基础分附魔的百变模仿复制C133：不触发不加分", PAIR, "C41:base10 C133", s="34", chk={"triggeredSourceIds": []})
     add("百变模仿复制C128：不触发", PAIR, "C41 C128", s="34", chk={"triggeredSourceIds": []})
-    add("非计分新卡带免槽/提交/投掷附魔，旁边的排头兵照常", PAIR, "C110:slotless C120:submit1 C128:roll1 C108", s="64", chk={"triggeredSourceIds": ["ctl_04"]})
+    add("非计分新卡带免槽/提交/投掷附魔，旁边的排头兵照常", PAIR, "C110:slotless C120:submit1 C128:roll1 C108", s="58", chk={"triggeredSourceIds": ["ctl_04"]})
     add("控制欲把非计分新卡计入件数：5件×2.5", PAIR, "C47 C110 C111 C112 C113", s="85")
 
     # ---- blue wave ----
@@ -1336,7 +1336,7 @@ def build_cases(cfg):
     family[0] = "modifier: seals"
     add("出头鸟：第一颗被封印，贡献0", PAIR, mod="B05", s="28", chk={"sealedDice": [T, F, F, F, F], "pipContributions": [0, 3, 5, 4, 2]})
     add("出头鸟加一马当先：被封印的首骰再计也是0", PAIR, "C64", mod="B05", s="28", chk={"pipRetriggers": [1, 0, 0, 0, 0], "pipSum": "14", "triggeredSourceIds": ["ctl_01"]})
-    add("出头鸟加排头兵：整手加值仍按首骰有效点数", PAIR, "C108", mod="B05", s="58", chk={"baseTotal": "29"})
+    add("出头鸟加排头兵：整手加值仍按首骰有效点数", PAIR, "C108", mod="B05", s="52", chk={"baseTotal": "26"})
     add("出头鸟：被封印的骰仍参与牌型与红组", RED3, mod="B05", s="160", chk={"redCount": 3, "primaryHandId": "trips"})
     add("出头鸟加少就是多、黄金面：加值与倍率都不产生分数，仍算触发", "1r:gold 3b", "C10", mod="B05", s="3", chk={"pipContributions": [0, 3], "triggeredSourceIds": ["ctl_01"]})
     add("出头鸟加客串明星：被封印的临时骰仍算触发", "5b:temp 3b 3b", "C137", p="1r 2b 6b", mod="B05", s="36", chk={"triggeredSourceIds": ["ctl_01"]})
@@ -1366,13 +1366,15 @@ def build_cases(cfg):
     add("封蓝 全红：不封印", "4r 1r", mod="B18", s="10")
     add("封蓝加蓝色浪潮：全部被封印", PAIR, bwave=True, mod="B18", s="0")
     add("封蓝加首当其冲：首骰视红，逃过封印", BLUE, "C03", mod="B18", s="6", chk={"sealedDice": [F, T, T, T, T]})
-    add("隔行封印：第1、3、5位被封印", PAIR, mod="B38", s="14", chk={"sealedDice": [T, F, T, F, T]})
-    add("隔行封印 8颗：第1、3、5、7位", "3b 3b 5b 5b 2b 2b 6b 6b", cap=8, mod="B38", s="576", chk={"sealedDice": [T, F, T, F, T, F, T, F]})
-    add("隔行封印 4颗", "3b 3b 5b 4r", mod="B38", s="14")
-    add("隔行封印加压轴好戏：末骰被封印，再计无分", PAIR, "C65", mod="B38", s="14", chk={"pipRetriggers": [0, 0, 0, 0, 2]})
-    add("隔行封印加好事成双：一对里只有第2位那颗有分", PAIR, "C143", mod="B38", s="20", chk={"pipRetriggers": [1, 1, 0, 0, 0], "pipSum": "10"})
-    add("隔行封印 单骰", "6b", mod="B38", s="0")
-    add("隔行封印加点金手：被封印的末骰照常列入骰面变更", PAIR, "C117", mod="B38", s="14", chk={"faceChanges": [fc("C117", "ctl_01", "D005", "F02", "gold", 1)]})
+    add("隔行封印：第1、3、5位被封印，一对×2减半到×1", PAIR, mod="B38", s="7",
+        chk={"sealedDice": [T, F, T, F, T], "pipContributions": [0, 3, 0, 4, 0], "handMultBeforeModifier100": 200, "totalHandMult100": 100})
+    add("隔行封印 8颗：第1、3、5、7位被封印，四对子×12减半到×6", "3b 3b 5b 5b 2b 2b 6b 6b", cap=8, mod="B38", s="288",
+        chk={"sealedDice": [T, F, T, F, T, F, T, F], "handMultBeforeModifier100": 1200, "totalHandMult100": 600})
+    add("隔行封印 4颗：第1、3位被封印，一对减半到×1", "3b 3b 5b 4r", mod="B38", s="7")
+    add("隔行封印加压轴好戏：末骰被封印，再计无分", PAIR, "C65", mod="B38", s="7", chk={"pipRetriggers": [0, 0, 0, 0, 2]})
+    add("隔行封印加好事成双：一对里只有第2位那颗有分", PAIR, "C143", mod="B38", s="10", chk={"pipRetriggers": [1, 1, 0, 0, 0], "pipSum": "10"})
+    add("隔行封印 单骰：被封印，散点×1不再减半", "6b", mod="B38", s="0", chk={"totalHandMult100": 100})
+    add("隔行封印加点金手：被封印的末骰照常列入骰面变更", PAIR, "C117", mod="B38", s="7", chk={"faceChanges": [fc("C117", "ctl_01", "D005", "F02", "gold", 1)]})
     add("隔行封印加千年老二无5点：得分本来就是0", "3b 3b 2b", "C49", mod="B38", s="0")
 
     # ---- PipsOnly ----
@@ -1413,7 +1415,7 @@ def build_cases(cfg):
     add("返璞归真：成长型乘法卡按成长0算，×1仍算触发", PAIR, "C58:g=8", mod="B35", s="34",
         chk={"controllerMultiplierNumerator": "1", "controllerMultiplierDenominator": "1", "triggeredSourceIds": ["ctl_01"]})
     add("返璞归真：成长加法卡+0，不列入加值，成长计划照常", PAIR, "C55:g=14", mod="B35", s="34", chk={"controllerBaseAdds": [], "growthChanges": one("ctl_01", "C55", 2)})
-    add("返璞归真：昙花一现不属于成长型，照常×2.5", PAIR, "C141:g=1", mod="B35", s="85")
+    add("返璞归真：昙花一现不属于成长型，已过1关照常×2", PAIR, "C141:g=1", mod="B35", s="68")
     add("返璞归真：屠龙者、高压锅、物尽其用都×1", PAIR, "C129:g=10 C132:g=12 C134:g=3", mod="B35", s="34", chk={"triggeredSourceIds": ["ctl_01", "ctl_02", "ctl_03"]})
     add("返璞归真加连庄：按成长0计分，成长计划照常+3", PAIR, "C54:g=6", prev="pair", mod="B35", s="34", chk={"growthChanges": one("ctl_01", "C54", 3)})
     add("返璞归真：人员流动的倍率不是成长值，照常×2.5", PAIR, "C51:t=5", mod="B35", s="85")
@@ -1457,7 +1459,7 @@ def build_cases(cfg):
     add("半吊子 三条×4减半到×2", RED3, mod="B19", s="100")
     add("半吊子加成双成对：先加后减半 3.5→1.75", PAIR, "C84", mod="B19", s="29", chk={"handMultBeforeModifier100": 350, "totalHandMult100": 175})
     add("半吊子 一对1级加顺子：12.75→6.37", STRP, cap=6, lv={"pair": 1}, mod="B19", s="127", chk={"handMultBeforeModifier100": 1275, "totalHandMult100": 637})
-    add("半吊子加一条龙：15→7.5", STR, "C142", mod="B19", s="112", chk={"handMultBeforeModifier100": 1500, "totalHandMult100": 750, "handMultAdd100": 500})
+    add("半吊子加一条龙：20→10", STR, "C142", mod="B19", s="150", chk={"handMultBeforeModifier100": 2000, "totalHandMult100": 1000, "handMultAdd100": 1000})
 
     # ---- SmallHandsOnly ----
     family[0] = "modifier: SmallHandsOnly"
@@ -1527,7 +1529,7 @@ def build_cases(cfg):
     # ---- session-only modifiers: nothing changes in scoring ----
     family[0] = "modifier: session-only"
     add("满员（会话类）：计分不变", PAIR, mod="B01", s="34")
-    add("徒手（会话类）：囤积居奇照常数背包", PAIR, "C135", inv=2, mod="B02", s="82")
+    add("徒手（会话类）：囤积居奇照常数背包", PAIR, "C135", inv=2, mod="B02", s="74")
     add("苛税（会话类）：不计入goldSpent，有钱真好读冻结钱包", PAIR, "C44", wallet=10, mod="B03", s="54", chk={"goldSpent": 0})
     add("白干（会话类）", PAIR, mod="B04", s="34")
     add("停滞（会话类）：成长计划照常给出，由会话决定不执行", PAIR, "C55:g=14", mod="B07", s="62", chk={"growthChanges": one("ctl_01", "C55", 2)})
@@ -1582,19 +1584,19 @@ def build_cases(cfg):
     add("倍率附魔在百变模仿上，复制的开门红未触发", PAIR, "C41:mult2 C153", srb=2, s="34")
     add("基础分附魔在C146上，有红组", RED2, "C146:base10", s="145")
     add("基础分附魔在C146上，没有红骰", BLUE, "C146:base10", s="114")
-    add("倍率附魔在C141上 已过3关", PAIR, "C141:g=3:mult2", s="102")
+    add("倍率附魔在C141上 已过2关：×1.5×2", PAIR, "C141:g=2:mult2", s="102")
     add("基础分附魔在C126上，没有留池骰", PAIR, "C126:base10", s="34")
     add("基础分附魔在C126上，有留池骰", PAIR, "C126:base10", p="6b", s="54")
     add("倍率附魔在C135上，背包为空", PAIR, "C135:mult2", s="34")
-    add("倍率附魔在C135上，背包1个", PAIR, "C135:mult2", inv=1, s="116")
+    add("倍率附魔在C135上，背包1个", PAIR, "C135:mult2", inv=1, s="108")
     add("提交附魔在C150上：本关4次提交，第4次×4", PAIR, "C150:submit1", srb=1, s="136")
 
     # ---- larger builds ----
     family[0] = "large build"
-    add("顺序流：对称2-3-4-3-2，六张顺序与再计卡", "2b 3b 4r 3b 2b", "C106 C107 C108 C109 C143 C153", s="1656",
-        chk={"pipContributions": [2, 13, 14, 3, 2], "pipRetriggers": [1, 1, 2, 1, 1], "pipSum": "82", "baseTotal": "92", "controllerMultiplierNumerator": "6"})
-    add("金币流：钱包47，一掷千金、富甲一方、有钱真好、模仿昙花一现、囤积居奇", RED2, "C138 C139 C44 C41 C141:g=1 C135", wallet=47, inv=3, s="13387",
-        chk={"baseTotal": "102", "goldSpent": 3, "controllerMultiplierNumerator": "75", "controllerMultiplierDenominator": "2"})
+    add("顺序流：对称2-3-4-3-2，六张顺序与再计卡", "2b 3b 4r 3b 2b", "C106 C107 C108 C109 C143 C153", s="1620",
+        chk={"pipContributions": [2, 13, 14, 3, 2], "pipRetriggers": [1, 1, 2, 1, 1], "pipSum": "82", "baseTotal": "90", "controllerMultiplierNumerator": "6"})
+    add("金币流：钱包47，一掷千金、富甲一方、有钱真好、模仿昙花一现、囤积居奇", RED2, "C138 C139 C44 C41 C141:g=1 C135", wallet=47, inv=3, s="8064",
+        chk={"baseTotal": "96", "goldSpent": 3, "controllerMultiplierNumerator": "24", "controllerMultiplierDenominator": "1"})
     add("首领关强弩之末 第3次提交：逆流而上、渐入佳境、背水一战、谢幕、屠龙者", FULL, "C130 C150 C102 C68 C129:g=10", srb=1, prev="pair", mod="B30", s="13851",
         chk={"pipSum": "38", "controllerMultiplierNumerator": "81", "controllerMultiplierDenominator": "2", "globalFactors": [half("B30")]})
     add("终局釜底抽薪：五颗6点，加值全不计，倍率与再计照常", "6b:gold 6b:glass 6b 6b:temp 6b", "C67 C87 C137 C147 C55:g=40 C50:mult2 C31", p="6b", mod="B39", s="36450",
@@ -1648,13 +1650,16 @@ def coverage(cfg, cases, families):
             problems.append(cid)
 
     effects = {code: {"cases": 0, "effect": 0, "neutral": 0, "scoreNeutral": 0} for code in SCORING_EFFECTS}
-    modifiers = {m["id"]: {"effects": m["effects"], "cases": 0} for m in cfg["bossModifiers"]}
+    modifiers = {m["id"]: {"effects": m["effects"], "cases": 0,
+                           "byEffect": {e: {"effect": 0, "neutral": 0} for e in m["effects"] if e in SCORING_EFFECTS}} for m in cfg["bossModifiers"]}
     for f in families:
         if f["modifier"]:
             modifiers[f["modifier"]]["cases"] += 1
         for code, outcome in f["effects"].items():
+            kind = "effect" if outcome.startswith("effect") else "neutral"
             effects[code]["cases"] += 1
-            effects[code]["effect" if outcome.startswith("effect") else "neutral"] += 1
+            effects[code][kind] += 1
+            modifiers[f["modifier"]]["byEffect"][code][kind] += 1
             if outcome != "effect":
                 effects[code]["scoreNeutral"] += 1
     for code, row in effects.items():
@@ -1664,6 +1669,8 @@ def coverage(cfg, cases, families):
     for mid, row in modifiers.items():
         if not row["cases"] and any(e in SCORING_EFFECTS for e in row["effects"]):
             problems.append(mid)
+        # A modifier with several scoring effects must have each of them exercised under that modifier.
+        problems += [f"{mid}/{code}" for code, seen in row["byEffect"].items() if seen["effect"] < 1]
     used_codes = {e for m in cfg["bossModifiers"] for e in m["effects"]}
     problems += [f"effect code {e} is not used by any modifier" for e in SCORING_EFFECTS if e not in used_codes]
     return table, dict(sorted(mentions.items(), key=lambda kv: int(kv[0][1:]))), effects, modifiers, problems

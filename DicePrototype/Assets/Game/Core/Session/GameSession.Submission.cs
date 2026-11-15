@@ -333,7 +333,7 @@ namespace DiceCraft.Core
         {
             var sources = Sources(s);
             // v1.0: O10 raises the cap; C133 pays a bounty on boss and pressure stages; NoReward voids the stage reward.
-            long principalCap = checked(cfg.maxInterestPrincipal + (long)sources.Count(x => x.abilityId == "C96") * cfg.Controller("C96").parameters.interestPrincipalAdd + (long)cfg.interestPrincipalStep * s.interestCapPurchases);
+            long principalCap = InterestPrincipalCap(s);
             var hunter = cfg.Controller("C133").parameters; bool boss = StageKind(s) == "boss", voided = Fx(s, "NoReward");
             long bounty = checked((long)sources.Count(x => x.abilityId == "C133") * ((boss ? hunter.goldPerBoss : 0) + (s.stage.risk ? hunter.goldPerPressure : 0)));
             long controllerIncome = checked((long)sources.Count(x => x.abilityId == "C95") * cfg.Controller("C95").parameters.goldPerStage + bounty);
@@ -384,7 +384,12 @@ namespace DiceCraft.Core
                 s.stage.capacity = Math.Max(1, Math.Min(s.isDebug ? cfg.debug.maxSubmitCapacity : cfg.maxSubmitCapacity, s.stage.capacity + ControllerRules.Capacity(s.controllers, cfg, false, bindings, without) - capacity));
             s.stage.remainingSubmissions = Math.Max(1, checked(s.stage.remainingSubmissions + ControllerRules.SubmissionBudget(s.controllers, cfg, bindings, without) - submissions));
             s.hand.rollsRemaining = Math.Max(0, checked(s.hand.rollsRemaining + ControllerRules.RollBudget(s.controllers, cfg, 0, bindings, without) - rolls));
-            if (ControllerRules.ModifierHas(cfg, modifier, "TargetPercent")) s.stage.target = ExactScoreMath.SaveDecimal(ExactScoreMath.Parse(s.stage.target) * 100 / cfg.Modifier(modifier).amount);
+            if (ControllerRules.ModifierHas(cfg, modifier, "TargetPercent"))
+            {
+                // A normal run takes the target from the configuration again; a debug scene may carry a custom target, which is scaled back.
+                s.stage.target = s.isDebug ? ExactScoreMath.SaveDecimal(ExactScoreMath.Parse(s.stage.target) * 100 / cfg.Modifier(modifier).amount) : StageTarget(s, cfg.stages[s.stage.stageIndex], s.stage.risk);
+                s.stage.qualified = s.stage.qualified || ExactScoreMath.Compare(s.stage.score, s.stage.target) >= 0;
+            }
             s.stage.submissionBonusSourceIds = s.controllers.Where(c => c.enchantmentId == "submit1").Select(c => c.instanceId).ToArray();
             s.hand.rollBonusSourceIds = s.controllers.Where(c => c.enchantmentId == "roll1").Select(c => c.instanceId).ToArray();
             s.lastEffects.Add(new EffectRecord { kind = "ModifierNullified", sourceId = sourceId, detail = ":" + modifier });

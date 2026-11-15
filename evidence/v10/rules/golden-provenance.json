@@ -4,10 +4,10 @@
   "configVersion": "p1.0.0",
   "derived_from_production_code": false,
   "rules": "docs/specs/v10/RULES_SPEC.md",
-  "generator_sha256": "6acd500623cf5314d6b5198838f18ae93112bd8f60386eefb04631aa24b12893",
-  "rules_sha256": "f6d15e0133423d7348e7c951603682143c176b336a8eef36ffb8f227c107030b",
+  "generator_sha256": "8357807122c3da042dfdb356bdabf9e9556715ec3da042a3fd9faac411e0afc9",
+  "rules_sha256": "ea7c41c49a1aa7a775efd4cb6111afaa309a69adae0971c3c2a54acc1adb3f26",
   "rules_v09_sha256": "a3d6b6219956efc9f4eac3fe2b40af759dad774296bcb90d8b609b928704f217",
-  "config_sha256": "7eb647ad4b6e304b559a5d304dfce0fe77b0fb0a6c0b76737170812f47d25af7",
+  "config_sha256": "e7eca862182200f67b1dbb408991f982a85f34e59907a28b0ff536ef05708e2c",
   "baseline_sha256": {
     "tools/balance_sim/baseline/P0Config.p0.8.0.json": "8a41e73f14bbae49fbad4df16fcda242117a2894c629ea2d2808b9b2729c9abd",
     "tools/balance_sim/baseline/P0Config.p0.9.0.json": "f72083647cf988c325aa30e610528d487f94cf8811d85b031ea51dea383ef9ac",
@@ -15,7 +15,7 @@
     "tools/balance_sim/baseline/GoldenScoresV09.p0.9.0.json": "2aff977888f4b6e2a33560ff5ad9d3b91e2486acc1ebe61d1e93a46cea82de56"
   },
   "golden": "DicePrototype/Assets/Game/Data/GoldenScoresV10.json",
-  "golden_sha256": "b96aa88ff523dd0801b6320365a496aa4c6274423ea23faedb044cf65ff86d8c",
+  "golden_sha256": "e9b6d1f41dbf83c34b51767c48b6d84943f2cb049d8adf2dc5bff3936b7f1ef1",
   "cases": 446,
   "cases_with_hand_computed_assertions": 446,
   "cases_with_modifier": 193,
@@ -565,10 +565,10 @@
       "scoreNeutral": 4
     },
     "HandHalf": {
-      "cases": 7,
-      "effect": 6,
-      "neutral": 1,
-      "scoreNeutral": 1
+      "cases": 15,
+      "effect": 13,
+      "neutral": 2,
+      "scoreNeutral": 3
     },
     "ZeroLevels": {
       "cases": 20,
@@ -628,238 +628,400 @@
       "effects": [
         "MustFill"
       ],
-      "cases": 1
+      "cases": 1,
+      "byEffect": {}
     },
     "B02": {
       "effects": [
         "NoItems"
       ],
-      "cases": 1
+      "cases": 1,
+      "byEffect": {}
     },
     "B03": {
       "effects": [
         "TaxPerDie"
       ],
-      "cases": 1
+      "cases": 1,
+      "byEffect": {}
     },
     "B04": {
       "effects": [
         "NoReward"
       ],
-      "cases": 2
+      "cases": 2,
+      "byEffect": {}
     },
     "B05": {
       "effects": [
         "SealFirst"
       ],
-      "cases": 8
+      "cases": 8,
+      "byEffect": {
+        "SealFirst": {
+          "effect": 8,
+          "neutral": 0
+        }
+      }
     },
     "B06": {
       "effects": [
         "EnchantSilence"
       ],
-      "cases": 6
+      "cases": 6,
+      "byEffect": {
+        "EnchantSilence": {
+          "effect": 3,
+          "neutral": 3
+        }
+      }
     },
     "B07": {
       "effects": [
         "GrowthFreeze"
       ],
-      "cases": 1
+      "cases": 1,
+      "byEffect": {}
     },
     "B08": {
       "effects": [
         "NoStraight"
       ],
-      "cases": 9
+      "cases": 9,
+      "byEffect": {
+        "NoStraight": {
+          "effect": 8,
+          "neutral": 1
+        }
+      }
     },
     "B09": {
       "effects": [
         "RollsDelta"
       ],
-      "cases": 1
+      "cases": 1,
+      "byEffect": {}
     },
     "B10": {
       "effects": [
         "CapacityDelta"
       ],
-      "cases": 1
+      "cases": 1,
+      "byEffect": {}
     },
     "B11": {
       "effects": [
         "TargetPercent"
       ],
-      "cases": 1
+      "cases": 1,
+      "byEffect": {}
     },
     "B12": {
       "effects": [
         "LoseHalfGold"
       ],
-      "cases": 1
+      "cases": 1,
+      "byEffect": {}
     },
     "B13": {
       "effects": [
         "SealOdd"
       ],
-      "cases": 4
+      "cases": 4,
+      "byEffect": {
+        "SealOdd": {
+          "effect": 2,
+          "neutral": 2
+        }
+      }
     },
     "B14": {
       "effects": [
         "SealEven"
       ],
-      "cases": 3
+      "cases": 3,
+      "byEffect": {
+        "SealEven": {
+          "effect": 2,
+          "neutral": 1
+        }
+      }
     },
     "B15": {
       "effects": [
         "SealLow"
       ],
-      "cases": 3
+      "cases": 3,
+      "byEffect": {
+        "SealLow": {
+          "effect": 1,
+          "neutral": 2
+        }
+      }
     },
     "B16": {
       "effects": [
         "SealHigh"
       ],
-      "cases": 4
+      "cases": 4,
+      "byEffect": {
+        "SealHigh": {
+          "effect": 3,
+          "neutral": 1
+        }
+      }
     },
     "B17": {
       "effects": [
         "SealRed"
       ],
-      "cases": 6
+      "cases": 6,
+      "byEffect": {
+        "SealRed": {
+          "effect": 4,
+          "neutral": 2
+        }
+      }
     },
     "B18": {
       "effects": [
         "SealBlue"
       ],
-      "cases": 4
+      "cases": 4,
+      "byEffect": {
+        "SealBlue": {
+          "effect": 3,
+          "neutral": 1
+        }
+      }
     },
     "B19": {
       "effects": [
         "HandHalf"
       ],
-      "cases": 7
+      "cases": 7,
+      "byEffect": {
+        "HandHalf": {
+          "effect": 6,
+          "neutral": 1
+        }
+      }
     },
     "B20": {
       "effects": [
         "SmallHandsOnly"
       ],
-      "cases": 14
+      "cases": 14,
+      "byEffect": {
+        "SmallHandsOnly": {
+          "effect": 12,
+          "neutral": 2
+        }
+      }
     },
     "B21": {
       "effects": [
         "NoRepeatHand"
       ],
-      "cases": 10
+      "cases": 10,
+      "byEffect": {
+        "NoRepeatHand": {
+          "effect": 6,
+          "neutral": 4
+        }
+      }
     },
     "B22": {
       "effects": [
         "NoRed"
       ],
-      "cases": 8
+      "cases": 8,
+      "byEffect": {
+        "NoRed": {
+          "effect": 6,
+          "neutral": 2
+        }
+      }
     },
     "B23": {
       "effects": [
         "NoBlue"
       ],
-      "cases": 5
+      "cases": 5,
+      "byEffect": {
+        "NoBlue": {
+          "effect": 3,
+          "neutral": 2
+        }
+      }
     },
     "B24": {
       "effects": [
         "HandDowngrade"
       ],
-      "cases": 1
+      "cases": 1,
+      "byEffect": {}
     },
     "B25": {
       "effects": [
         "DisableLeftmost"
       ],
-      "cases": 18
+      "cases": 18,
+      "byEffect": {}
     },
     "B26": {
       "effects": [
         "FirstHalf"
       ],
-      "cases": 6
+      "cases": 6,
+      "byEffect": {
+        "FirstHalf": {
+          "effect": 5,
+          "neutral": 1
+        }
+      }
     },
     "B27": {
       "effects": [
         "SubmissionsDelta"
       ],
-      "cases": 1
+      "cases": 1,
+      "byEffect": {}
     },
     "B28": {
       "effects": [
         "ZeroLevels"
       ],
-      "cases": 8
+      "cases": 8,
+      "byEffect": {
+        "ZeroLevels": {
+          "effect": 6,
+          "neutral": 2
+        }
+      }
     },
     "B29": {
       "effects": [
         "DisableRarity"
       ],
-      "cases": 4
+      "cases": 4,
+      "byEffect": {}
     },
     "B30": {
       "effects": [
         "LaterHalf"
       ],
-      "cases": 5
+      "cases": 5,
+      "byEffect": {
+        "LaterHalf": {
+          "effect": 4,
+          "neutral": 1
+        }
+      }
     },
     "B31": {
       "effects": [
         "TargetPercent"
       ],
-      "cases": 1
+      "cases": 1,
+      "byEffect": {}
     },
     "B32": {
       "effects": [
         "RollsFixed"
       ],
-      "cases": 1
+      "cases": 1,
+      "byEffect": {}
     },
     "B33": {
       "effects": [
         "SubmissionsDelta"
       ],
-      "cases": 1
+      "cases": 1,
+      "byEffect": {}
     },
     "B34": {
       "effects": [
         "CapacityDelta"
       ],
-      "cases": 1
+      "cases": 1,
+      "byEffect": {}
     },
     "B35": {
       "effects": [
         "ZeroLevels",
         "GrowthZero"
       ],
-      "cases": 12
+      "cases": 12,
+      "byEffect": {
+        "ZeroLevels": {
+          "effect": 2,
+          "neutral": 10
+        },
+        "GrowthZero": {
+          "effect": 7,
+          "neutral": 5
+        }
+      }
     },
     "B36": {
       "effects": [
         "NoRed",
         "NoBlue"
       ],
-      "cases": 4
+      "cases": 4,
+      "byEffect": {
+        "NoRed": {
+          "effect": 2,
+          "neutral": 2
+        },
+        "NoBlue": {
+          "effect": 1,
+          "neutral": 3
+        }
+      }
     },
     "B37": {
       "effects": [
         "DisableLeftmost",
         "EnchantSilence"
       ],
-      "cases": 5
+      "cases": 5,
+      "byEffect": {
+        "EnchantSilence": {
+          "effect": 2,
+          "neutral": 3
+        }
+      }
     },
     "B38": {
       "effects": [
-        "SealAlternate"
+        "SealAlternate",
+        "HandHalf"
       ],
-      "cases": 8
+      "cases": 8,
+      "byEffect": {
+        "SealAlternate": {
+          "effect": 8,
+          "neutral": 0
+        },
+        "HandHalf": {
+          "effect": 7,
+          "neutral": 1
+        }
+      }
     },
     "B39": {
       "effects": [
         "PipsOnly"
       ],
-      "cases": 16
+      "cases": 16,
+      "byEffect": {
+        "PipsOnly": {
+          "effect": 11,
+          "neutral": 5
+        }
+      }
     }
   },
   "spec_readings_resolved": {

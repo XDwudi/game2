@@ -30,7 +30,7 @@ namespace DiceCraft
         {
             // Match settlement's resolved ability sources, including current C41 copies.
             long rate=1L+ViewSources.Count(s=>s.abilityId=="C01")*Config.Controller("C01").parameters.extraInterestPerTen;
-            long cap=Config.maxInterestPrincipal+(long)ViewSources.Count(s=>s.abilityId=="C96")*Config.Controller("C96").parameters.interestPrincipalAdd;
+            long cap=Session.InterestPrincipalCapIn(ViewState); // p1.0.0: C96 and the O10 purchases, as the settlement will use it
             return "每"+Config.interestDivisor+"金币利息 +"+rate+"\n计息本金上限 "+cap;
         }
         private string Art07Rarity(string id)

@@ -32,7 +32,7 @@ namespace DiceCraft
         }
         private bool DisabledNext10(string instanceId)=>DisabledNextIds10().Contains(instanceId);
         /// <summary>What an owned controller sells for, including the recycler (C140).</summary>
-        private long OwnedSalePrice10(ControllerInstance c)=>ControllerRules.SalePrice(c,Config,ViewSources.Any(s=>s.abilityId=="C140"));
+        private long OwnedSalePrice10(ControllerInstance c)=>Session.ControllerSalePriceIn(ViewState,c);
         private string StageKindLabel10(int stageIndex,bool risk)
         {
             string kind=Config.stages[Mathf.Clamp(stageIndex,0,Config.stages.Length-1)].stageKind;

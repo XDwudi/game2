@@ -265,10 +265,10 @@ namespace DiceCraft.Tests
             state = s.State; state.baseSubmitCapacity = 6; Assert.That(() => new GameSession(cfg, new MemorySaveStore(), state), Throws.Exception);
         }
 
-        [TestCase(1u, "C13:none,C78:slotless,C67:none,C98:roll1")]
-        [TestCase(0u, "C81:submit1,C78:none,C24:none,C68:none")]
-        [TestCase(20261030u, "C10:slotless,C84:none,C78:none,C71:none")]
-        [TestCase(4294967295u, "C53:submit1,C37:slotless,C103:base10,C69:none")]
+        [TestCase(1u, "C84:none,C66:none,C59:none,C48:submit1")]
+        [TestCase(0u, "C10:submit1,C95:none,C66:none,C20:none")]
+        [TestCase(20261030u, "C11:slotless,C67:none,C58:slotless,C55:none")]
+        [TestCase(4294967295u, "C94:submit1,C57:slotless,C153:base10,C36:none")]
         public void V05_ShopInterleavesIdAndEnchantmentWithFrozenReferenceVectors(uint seed, string expected)
         {
             // p0.9.0 vectors (four offers, 100 controllers) from tools/v08_session_vectors.py, an independent reference that first reproduces the four p0.6.0 vectors; not copied from observed C# output.
@@ -281,7 +281,7 @@ namespace DiceCraft.Tests
         [Test] public void V05_ShopExcludesSlotlessNonSubmitOwnedButCanOfferDifferentScoringEnchant()
         {
             int replacementOffers = 0;
-            for (uint seed = 1; seed <= 80; seed++)
+            for (uint seed = 1; seed <= 400; seed++) // p1.0.0: 150 controllers, so a rare repeats far less often per shop; 80 seeds no longer contained one
             {
                 var s = Qualified(); Do(s, CommandKind.EndStage);
                 s = Edit(s, x => { Equip(x, "C05", "C02"); foreach (var c in x.controllers) c.enchantmentId = "slotless"; x.shopRngState = new GameRng(seed ^ 0xC8013EA4u).State; });

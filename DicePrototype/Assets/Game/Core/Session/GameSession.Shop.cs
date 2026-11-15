@@ -62,8 +62,16 @@ namespace DiceCraft.Core
             return old == null ? 0 : SalePrice(s, old);
         }
 
-        /// <summary>v1.0 C140: controllers resell at their full list price while any source of it is held.</summary>
-        private long SalePrice(RunState s, ControllerInstance c) => ControllerRules.SalePrice(c, cfg, Sources(s).Any(x => x.abilityId == "C140"));
+        /// <summary>
+        /// v1.0 C140: while any source of it is held, controllers resell at their full list price — except the ones
+        /// acquired in the shop that is open right now, which still resell at half (no buy-and-resell profit with C98,
+        /// no profit from selling loot that was just claimed).
+        /// </summary>
+        private long SalePrice(RunState s, ControllerInstance c)
+        {
+            bool fresh = c != null && s.phase == "Shop" && s.shop != null && s.shop.acquiredControllerIds.Contains(c.instanceId);
+            return ControllerRules.SalePrice(c, cfg, !fresh && Sources(s).Any(x => x.abilityId == "C140"));
+        }
 
         private ShopOffer MakeOffer(RunState s, string category, string contentId, int basePrice)
         {
@@ -418,7 +426,7 @@ namespace DiceCraft.Core
                     var old = s.controllers.FirstOrDefault(c => c.definitionId == offer.contentId);
                     var retainedTurnover = s.controllers.Where(c => c.definitionId == "C51").Select(c => c.instanceId).ToArray();
                     int location = old == null ? s.controllers.Count : s.controllers.IndexOf(old);
-                    if (old != null) { long credit = SalePrice(s, old); s.controllers.Remove(old); s.lastEffects.Add(new EffectRecord { kind = "ControllerReplaced", sourceId = old.definitionId, detail = old.instanceId, newValue = credit }); }
+                    if (old != null) { long credit = SalePrice(s, old); s.controllers.Remove(old); s.shop.acquiredControllerIds.Remove(old.instanceId); s.lastEffects.Add(new EffectRecord { kind = "ControllerReplaced", sourceId = old.definitionId, detail = old.instanceId, newValue = credit }); }
                     var acquired = offer.controller.Clone(); acquired.state = new ControllerDynamicState(); acquired.alive = true;
                     if (acquired.definitionId == "C45")
                     {
@@ -426,7 +434,7 @@ namespace DiceCraft.Core
                         acquired.state.activeColor = trace.rawValue = trace.appliedValue = trace.rawTicket == 0 ? "red" : "blue";
                         s.effectRngState = effect.State;
                     }
-                    s.controllers.Insert(location, acquired);
+                    s.controllers.Insert(location, acquired); s.shop.acquiredControllerIds.Add(acquired.instanceId);
                     if (old != null) GrowTurnover(s, retainedTurnover);
                     break;
                 case "consumable": s.inventory.Add(NewOwnedItem(s, offer.contentId)); break;
@@ -555,7 +563,7 @@ namespace DiceCraft.Core
             string contentId;
             if (c != null) {
                 var oldTurnover = s.controllers.Where(x => x.definitionId == "C51").Select(x => x.instanceId).ToArray();
-                sellPrice = SalePrice(s, c); contentId = c.contentId; s.controllers.Remove(c); GrowTurnover(s, oldTurnover);
+                sellPrice = SalePrice(s, c); contentId = c.contentId; s.controllers.Remove(c); s.shop.acquiredControllerIds.Remove(c.instanceId); GrowTurnover(s, oldTurnover);
             }
             else { s.inventory.Remove(item); sellPrice = cfg.consumableSellPrice; contentId = item.contentId; }
             s.gold = checked(s.gold + sellPrice);

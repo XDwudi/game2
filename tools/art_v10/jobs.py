@@ -15,14 +15,14 @@ ROOT = Path(__file__).resolve().parents[2]
 JOBS = ROOT / "ArtSource" / "AIConcepts" / "v10-illustrations"
 
 SUBJECTS = [
-    ("C104", "three large dice threaded on a short cord like beads, the two outer dice with red pips and the middle die with blue pips"),
+    ("C104", "three large dice threaded on a short cord like beads and packed in a tight diagonal row rising from lower left to upper right, the two outer dice with red pips and the middle die with blue pips"),
     ("C105", "a shallow sorting tray with a raised divider down the middle, red dice gathered in the left half and blue dice in the right half"),
     ("C106", "a folded paper butterfly opened flat with a crease down its middle, one die sitting on each wing at matching positions"),
     ("C107", "a curling vine with three dice growing along it like melons, each die slightly larger than the one before"),
     ("C108", "one large die wearing a tall plumed marching hat, leading two smaller dice that follow in a line behind it"),
     ("C109", "a sturdy stone pillar standing in a stream with a die resting on top, the water splitting around the pillar"),
     ("C110", "an open drawstring pouch spilling out a small potion bottle, a rolled scroll and a die"),
-    ("C111", "a peddler's tall wooden backpack frame loaded with small potion bottles and rolled scrolls, a small rattle drum hanging from its side"),
+    ("C111", "a peddler's tall wooden backpack frame loaded with small red and blue potion bottles and rolled scrolls, a small rattle drum hanging from its side"),
     ("C112", "a pan flute with a blank playing card slipped in between its pipes like one extra pipe"),
     ("C113", "a bellows blowing into a small brick forge where a die sits on the glowing coals"),
     ("C114", "the tip of a wand touching a blank playing card, a burst of small stars rising from the touched spot"),
@@ -83,12 +83,12 @@ SUBJECTS = [
 # Round r02, after the independent review evidence/v10/art/ART_REVIEW_R1.md. The r01 subject of each id stays in
 # its r01/prompt.txt; the reason for the change is recorded here and in ArtSource/Art10/README.md.
 REVISED = {
-    "C104": "r01 came out on a 1536x1024 canvas; fewer, larger dice so the subject fits the square canvas; red / blue shown as pip colour (STYLE_GUIDE 4.1)",
+    "C104": "r01 came out on a 1536x1024 canvas; fewer, larger dice so the subject fits the square canvas; red / blue shown as pip colour (STYLE_GUIDE 4.1). r02 was again 1536x1024, so r03 asks for a diagonal row",
     "C106": "REWORK C3: same subject as the shipped C93 (die against a standing mirror); the mirror motif is left to U11",
-    "C111": "r01 came out on a 1536x1024 canvas; the shoulder pole is inherently wide, replaced by an upright backpack frame",
+    "C111": "r01 came out on a 1536x1024 canvas; the shoulder pole is inherently wide, replaced by an upright backpack frame. r02 had amber at 17% (yellow bottles), so r03 names the bottle colours",
     "C118": "REWORK B4: the r01 subject asked for the underside, which produced an impossible die",
     "C139": "REWORK B2: gold was 42.5% of the picture; the volume moves from coins to the throne",
-    "C140": "MINOR: playing-card suits; controllers are drawn as blank cards in this set",
+    "C140": "MINOR: playing-card suits; controllers are drawn as blank cards in this set. r02 carried a faint semi-transparent haze over a quarter of the canvas (lightFringeShare 0.86) and touched the top edge; r03 is a re-roll of the same subject",
     "C142": "MINOR: read as dice on a string like C104; fewer dice and a kite head",
     "C143": "REWORK C3: near-duplicate of the shipped C80 (two dice under a red bow); also a 1312x1199 canvas",
     "C149": "REWORK A3: subject only 39% of the canvas width; the blade now lies diagonally",

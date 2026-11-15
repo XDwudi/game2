@@ -336,10 +336,10 @@ namespace DiceCraft.Tests
 
         [Test] public void V10_TheFadingCardCountsStagesMultipliesLessEachTimeAndExpires()
         {
-            var s = Force(Ready("C141"), Fours, "red"); Assert.That(Submit(s), Is.EqualTo("7200"), "x3 when new");
+            var s = Force(Ready("C141"), Fours, "red"); Assert.That(Submit(s), Is.EqualTo("6000"), "x2.5 when new");
             Do(s, CommandKind.EndStage); Assert.That(Growth(s, "C141"), Is.EqualTo(1));
-            var worn = Force(Edit(Ready("C141"), x => x.controllers[0].state.growth = 2), Fours, "red"); Assert.That(Submit(worn), Is.EqualTo("4800"), "x2 after two stages");
-            var last = Force(Edit(Ready("C141"), x => x.controllers[0].state.growth = 3), Fours, "red"); Assert.That(Submit(last), Is.EqualTo("3600"), "x1.5 on its last stage");
+            var worn = Force(Edit(Ready("C141"), x => x.controllers[0].state.growth = 1), Fours, "red"); Assert.That(Submit(worn), Is.EqualTo("4800"), "x2 after one stage");
+            var last = Force(Edit(Ready("C141"), x => x.controllers[0].state.growth = 2), Fours, "red"); Assert.That(Submit(last), Is.EqualTo("3600"), "x1.5 on its last stage");
             var end = Do(last, CommandKind.EndStage);
             Assert.That(last.State.controllers, Is.Empty); Assert.That(end.receipt.effects.Any(e => e.kind == "ControllerExpired" && e.sourceId == "C141"), Is.True);
         }
@@ -347,19 +347,24 @@ namespace DiceCraft.Tests
         [Test] public void V10_BossAndPressureClearsGrowTheirCardsAndPayTheBounty()
         {
             var boss = Force(Boss("B05", "C129", "C132", "C133"), Fours, "red"); Submit(boss); var end = Do(boss, CommandKind.EndStage).receipt.settlement;
-            Assert.That(Growth(boss, "C129"), Is.EqualTo(10)); Assert.That(Growth(boss, "C132"), Is.Zero);
-            Assert.That(end.bountyIncome, Is.EqualTo(5)); Assert.That(end.controllerIncome, Is.EqualTo(5)); Assert.That(end.stageKind, Is.EqualTo("boss")); Assert.That(end.lootKind, Is.EqualTo(boss.State.cycles[0].lootKind));
+            Assert.That(Growth(boss, "C129"), Is.EqualTo(8)); Assert.That(Growth(boss, "C132"), Is.Zero);
+            Assert.That(end.bountyIncome, Is.EqualTo(4)); Assert.That(end.controllerIncome, Is.EqualTo(4)); Assert.That(end.stageKind, Is.EqualTo("boss")); Assert.That(end.lootKind, Is.EqualTo(boss.State.cycles[0].lootKind));
             var pressure = ShopAfterStage(0, x => Equip(x, "C129", "C132", "C133")); Do(pressure, CommandKind.LeaveShop); Do(pressure, CommandKind.ChooseChallenge, c => c.risk = true); Do(pressure, CommandKind.StartStage);
             pressure = Force(pressure, Fours, "red"); Submit(pressure); end = Do(pressure, CommandKind.EndStage).receipt.settlement;
-            Assert.That(Growth(pressure, "C132"), Is.EqualTo(12)); Assert.That(Growth(pressure, "C129"), Is.Zero);
-            Assert.That(end.bountyIncome, Is.EqualTo(3)); Assert.That(end.baseReward, Is.EqualTo(10)); Assert.That(end.lootKind ?? "", Is.Empty);
+            Assert.That(Growth(pressure, "C132"), Is.EqualTo(8)); Assert.That(Growth(pressure, "C129"), Is.Zero);
+            Assert.That(end.bountyIncome, Is.EqualTo(2)); Assert.That(end.baseReward, Is.EqualTo(10)); Assert.That(end.lootKind ?? "", Is.Empty);
             var calm = Force(Ready("C129", "C132", "C133"), Fours, "red"); Submit(calm); end = Do(calm, CommandKind.EndStage).receipt.settlement;
             Assert.That(end.bountyIncome, Is.Zero); Assert.That(Growth(calm, "C129") + Growth(calm, "C132"), Is.Zero);
         }
 
         [Test] public void V10_StageEndGeneratorsGrantACommonCardRandomFaceUpgradesAndAfterABossAnEnchantAndADie()
         {
-            var s = Force(Ready("C112", "C115"), Fours, "red"); Submit(s); var end = Do(s, CommandKind.EndStage);
+            var s = Force(Ready("C112", "C115"), Fours, "red"); Submit(s);
+            Func<DieInstance, string> faces = d => string.Join(",", d.faces.Select(f => f.faceId + ":" + f.permanentPip + f.baseColor + f.texture + f.isGold));
+            var facesBefore = s.State.dice.ToDictionary(d => d.dieId, faces); var end = Do(s, CommandKind.EndStage);
+            // Every applied (not missed) random upgrade really changed a face of the die it names.
+            foreach (var applied in end.receipt.effects.Where(e => e.sourceId == "C115" && e.kind == "RandomUpgrade"))
+                Assert.That(faces(s.State.dice.Single(d => d.dieId == applied.dieId)), Is.Not.EqualTo(facesBefore[applied.dieId]), "C115 changed " + applied.dieId);
             var granted = s.State.controllers.Last();
             Assert.That(s.State.controllers.Count, Is.EqualTo(3)); Assert.That(cfg.Controller(granted.definitionId).rarity, Is.EqualTo("common")); Assert.That(granted.enchantmentId, Is.EqualTo("none"));
             Assert.That(end.receipt.effects.Count(e => e.sourceId == "C115" && (e.kind == "RandomUpgrade" || e.kind == "RandomUpgradeMissed")), Is.EqualTo(2));
@@ -446,7 +451,7 @@ namespace DiceCraft.Tests
             var wide = Edit(Ready(), x => id = AddItem(x, "I12")); Do(wide, CommandKind.UseItem, c => c.itemInstanceId = id);
             Assert.That(wide.State.stage.capacity, Is.EqualTo(6)); Assert.That(wide.EffectiveCapacity, Is.EqualTo(6));
             var used = Edit(Ready("C134"), x => id = AddItem(x, "I12")); Do(used, CommandKind.UseItem, c => c.itemInstanceId = id);
-            Assert.That(Growth(used, "C134"), Is.EqualTo(3), "every used item grows C134");
+            Assert.That(Growth(used, "C134"), Is.EqualTo(2), "every used item grows C134");
         }
 
         // ---- shop: loot, gifts, services, upgrades ----
@@ -609,6 +614,180 @@ namespace DiceCraft.Tests
             Do(copy, CommandKind.ApplyDebugScene, c => c.debugScene = scene);
             Assert.That(copy.State.stage.modifierId, Is.EqualTo("B19")); Assert.That(copy.State.hand.doubleScore, Is.True);
             Assert.That(Submit(copy), Is.EqualTo("2400"), "2400 halved by the boss, doubled by the item");
+        }
+
+        // ---- independent review R1 (evidence/v10/review/RULES_REVIEW_R1.md): the fixed findings and rules it found untested ----
+
+        /// <summary>A legal ordinary save: the state is edited and loaded through the normal constructor, so the full validation runs.</summary>
+        private GameSession Reload(GameSession s, Action<RunState> edit = null)
+        {
+            var x = s.State; edit?.Invoke(x); Assert.That(x.isDebug, Is.False, "these tests must stay outside the debug workspace");
+            return new GameSession(cfg, new MemorySaveStore(), x);
+        }
+        /// <summary>Finishes the running stage of an ordinary run: the score is preset one point short, then one real hand is rolled and submitted.</summary>
+        private GameSession Finish(GameSession s)
+        {
+            s = Reload(s, x => x.stage.score = (System.Numerics.BigInteger.Parse(x.stage.target) - 1).ToString());
+            Do(s, CommandKind.Roll); Lock(s, s.State.hand.currentResults.Select(r => r.dieId).Take(s.State.stage.capacity).ToArray()); Do(s, CommandKind.Submit);
+            if (s.State.phase != "StageSettlement") Do(s, CommandKind.EndStage);
+            return s;
+        }
+        private GameSession ClearStage(GameSession s) { Do(s, CommandKind.StartStage); return Finish(s); }
+
+        [Test] public void V10R_AnOrdinaryRunKeepsItsBossStageAndLootShopThroughSaveRoundTrips()
+        {
+            var s = New(11);
+            s = ClearStage(s); Do(s, CommandKind.Continue); Do(s, CommandKind.LeaveShop);
+            s = ClearStage(s); Do(s, CommandKind.Continue); s = Reload(s); Do(s, CommandKind.LeaveShop);
+            string planned = s.State.cycles[0].modifierId, loot = s.State.cycles[0].lootKind;
+            Assert.That(s.State.stage.modifierId, Is.EqualTo(planned)); Assert.That(s.State.stage.stageKind, Is.EqualTo("boss"));
+            s = Reload(s); Do(s, CommandKind.StartStage); Assert.That(s.CurrentModifierId, Is.EqualTo(planned));
+            s = Reload(s); Assert.That(s.CurrentModifierId, Is.EqualTo(planned), "the boss stage survives a reload");
+            s = Finish(s); var settlement = s.State.lastStageSettlement;
+            Assert.That(settlement.stageKind, Is.EqualTo("boss")); Assert.That(settlement.lootKind, Is.EqualTo(loot));
+            s = Reload(s); Do(s, CommandKind.Continue); s = Reload(s);
+            var group = s.ShopGroups().Single(g => g.groupId == "LOOT"); Assert.That(group.kind, Is.EqualTo(loot)); Assert.That(group.closed, Is.False);
+            long gold = s.State.gold; var cash = s.State.shop.offers.Single(o => o.groupId == "LOOT" && o.category == "gold");
+            Do(s, CommandKind.Buy, c => c.offerId = cash.offerId); s = Reload(s);
+            Assert.That(s.State.gold, Is.EqualTo(gold + cfg.lootGoldValue)); Assert.That(s.ShopGroups().Single(g => g.groupId == "LOOT").closed, Is.True);
+            Do(s, CommandKind.LeaveShop); Assert.That(s.State.stage.stageIndex, Is.EqualTo(3)); Assert.That(s.State.stage.modifierId ?? "", Is.Empty, "stage 4 is a normal stage");
+        }
+
+        [Test] public void V10R_TheCapacityCharmStopsAtEightInAnOrdinaryRun()
+        {
+            var s = New(3); Do(s, CommandKind.StartStage);
+            s = Reload(s, x => { AddItem(x, "I12"); AddItem(x, "I12"); });
+            foreach (string id in s.State.inventory.Select(i => i.instanceId).ToArray()) Do(s, CommandKind.UseItem, c => c.itemInstanceId = id);
+            s = Reload(s, x => { AddItem(x, "I12"); AddItem(x, "I12"); }); var more = s.State.inventory.Select(i => i.instanceId).ToArray();
+            Do(s, CommandKind.UseItem, c => c.itemInstanceId = more[0]); Assert.That(s.State.stage.capacity, Is.EqualTo(cfg.maxSubmitCapacity));
+            var fourth = Command(s, CommandKind.UseItem); fourth.itemInstanceId = more[1];
+            Assert.That(s.Execute(fourth).accepted, Is.False, "the row never grows past 8 outside the debug workspace"); Assert.That(s.State.inventory.Count, Is.EqualTo(1));
+        }
+
+        [Test] public void V10R_TheTalismanTakesTheTargetFromTheConfigurationAndRechecksTheQualifiedFlag()
+        {
+            // Ordinary run, second boss (stage 6) with the thick wall: the target comes back from the configuration, not from a division.
+            var s = New(5);
+            for (int stage = 0; stage < 5; stage++) { s = ClearStage(s); Do(s, CommandKind.Continue); if (stage < 4) Do(s, CommandKind.LeaveShop); }
+            s = Reload(s, x => { var clash = x.cycles.FirstOrDefault(c => c.modifierId == "B11"); if (clash != null) clash.modifierId = x.cycles[1].modifierId; x.cycles[1].modifierId = "B11"; });
+            Do(s, CommandKind.LeaveShop); Do(s, CommandKind.StartStage);
+            Assert.That(s.State.stage.target, Is.EqualTo((System.Numerics.BigInteger.Parse(cfg.stages[5].normalTarget) * 3 / 2).ToString()));
+            string talisman = null; s = Reload(s, x => talisman = AddItem(x, "I08"));
+            Do(s, CommandKind.UseItem, c => c.itemInstanceId = talisman);
+            Assert.That(s.State.stage.target, Is.EqualTo(cfg.stages[5].normalTarget)); Assert.That(s.State.stage.qualified, Is.False); Assert.That(s.CurrentModifierId ?? "", Is.Empty);
+            // A debug scene can hold a score between the two targets: lifting the wall must mark the stage as qualified at once.
+            var scene = Boss("B11"); string second = null; scene = Edit(scene, x => { second = AddItem(x, "I08"); x.stage.score = "1200"; });
+            Assert.That(scene.State.stage.qualified, Is.False);
+            Do(scene, CommandKind.UseItem, c => c.itemInstanceId = second);
+            Assert.That(scene.State.stage.target, Is.EqualTo(cfg.stages[2].normalTarget)); Assert.That(scene.State.stage.qualified, Is.True);
+        }
+
+        [Test] public void V10R_ADisabledControllerKeepsItsGrowthValueThroughRollsItemsClearsAndSettlement()
+        {
+            // B25 disables the two leftmost cards. C62 grows per roll, C58 per stage cleared; the live C55 grows per submission.
+            var s = Boss("B25", "C62", "C58", "C55"); Do(s, CommandKind.Roll);
+            Assert.That(Growth(s, "C62"), Is.Zero, "a disabled C62 does not grow on a roll");
+            s = Force(s, Fours, "red"); Submit(s); Assert.That(Growth(s, "C55"), Is.EqualTo(cfg.Controller("C55").parameters.growthPerEvent), "the live card still grows");
+            Do(s, CommandKind.EndStage); Assert.That(Growth(s, "C58"), Is.Zero, "a disabled C58 does not grow at settlement"); Assert.That(Growth(s, "C62"), Is.Zero);
+            // Item use (C134) and the boss clear (C129).
+            var t = Boss("B25", "C134", "C129", "C13"); string item = null; t = Edit(t, x => item = AddItem(x, "I07"));
+            Do(t, CommandKind.UseItem, c => c.itemInstanceId = item); Assert.That(Growth(t, "C134"), Is.Zero, "a disabled C134 does not grow on an item");
+            t = Force(t, Fours, "red"); Submit(t); Do(t, CommandKind.EndStage); Assert.That(Growth(t, "C129"), Is.Zero, "a disabled C129 does not grow on the boss clear");
+            // Unused submissions (C59) and the countdown of the fading card (C141).
+            var u = Force(Boss("B25", "C141", "C59", "C13"), Fours, "red"); Submit(u); Do(u, CommandKind.EndStage);
+            Assert.That(Growth(u, "C141"), Is.Zero, "the fading card does not count a stage it was disabled in"); Assert.That(Growth(u, "C59"), Is.Zero);
+            Assert.That(u.State.controllers.Any(c => c.definitionId == "C141"), Is.True);
+            // The same boss card grows when it stands third and stays live.
+            var live = Force(Boss("B25", "C13", "C12", "C129"), Fours, "red"); Submit(live); Do(live, CommandKind.EndStage);
+            Assert.That(Growth(live, "C129"), Is.EqualTo(cfg.Controller("C129").parameters.growthPerEvent));
+        }
+
+        [Test] public void V10R_DisabledEconomyCardsPayNothingAndADisabledFilmLeavesGlassAtItsBaseRisk()
+        {
+            var s = Force(Boss("B25", "C95", "C133", "C13"), Fours, "red"); Submit(s); var end = Do(s, CommandKind.EndStage).receipt.settlement;
+            Assert.That(end.controllerIncome, Is.Zero, "disabled C95 and C133 pay nothing at settlement"); Assert.That(end.bountyIncome, Is.Zero);
+            var off = Boss("B25", "C145", "C13", "C12"); Assert.That(off.GlassBreakPercentIn(off.State), Is.EqualTo(cfg.glassBreakPercent));
+            var on = Boss("B25", "C13", "C12", "C145"); Assert.That(on.GlassBreakPercentIn(on.State), Is.EqualTo(cfg.Controller("C145").parameters.glassBreakPercent));
+        }
+
+        [Test] public void V10R_TheAltarActsBeforeTheScapegoatAndAMimicOfTheScapegoatDoesNothing()
+        {
+            var eaten = Boss("B05", "C100", "C131"); // the altar destroys its right neighbour first, so no scapegoat is left to act
+            Assert.That(eaten.State.controllers.Select(c => c.definitionId), Is.EqualTo(new[] { "C100" })); Assert.That(eaten.CurrentModifierId, Is.EqualTo("B05"));
+            var copied = Boss("B05", "C41", "C131"); // only the real scapegoat removes itself; the mimic stays
+            Assert.That(copied.State.controllers.Select(c => c.definitionId), Is.EqualTo(new[] { "C41" }));
+            Assert.That(copied.State.stage.modifierNullified, Is.True); Assert.That(copied.CurrentModifierId ?? "", Is.Empty);
+        }
+
+        [Test] public void V10R_TheSparkIsLostWhenTheStageEndsWithoutASubmissionAndTheGildingPenRefusesAGoldFace()
+        {
+            var s = Force(Ready(), Fours, "red"); Submit(s); // stage 1 is cleared by the first hand; a second hand is ready
+            string spark = null; s = Edit(s, x => spark = AddItem(x, "I09")); Do(s, CommandKind.UseItem, c => c.itemInstanceId = spark);
+            Assert.That(s.State.hand.doubleScore, Is.True);
+            Do(s, CommandKind.EndStage); Do(s, CommandKind.Continue); Do(s, CommandKind.LeaveShop); Do(s, CommandKind.StartStage);
+            Assert.That(s.State.hand.doubleScore, Is.False, "the effect does not carry into the next stage"); Assert.That(s.State.inventory, Is.Empty, "the item is spent");
+            var g = Force(Ready(), Fours, "red"); string pen = null;
+            g = Edit(g, x =>
+            {
+                pen = AddItem(x, "I11"); var first = x.hand.currentResults.First(r => r.dieId == x.hand.orderedLockedIds[0]);
+                x.dice.First(d => d.dieId == first.dieId).faces.First(f => f.faceId == first.currentFaceId).isGold = true;
+            });
+            var use = Command(g, CommandKind.UseItem); use.itemInstanceId = pen; Assert.That(g.Execute(use).accepted, Is.False, "an already gilded face is not a legal target");
+        }
+
+        [Test] public void V10R_BribingAfterStageTwentyOneRedrawsTheFinalBossFromTheFinalPool()
+        {
+            string offer = null; var s = ShopAfterStage(20, x => { x.gold = 50; offer = PutOffer(x, "service", "O09"); });
+            string before = s.State.cycles[7].modifierId; var others = s.State.cycles.Take(7).Select(c => c.modifierId).ToArray();
+            Do(s, CommandKind.Buy, c => c.offerId = offer);
+            Assert.That(s.State.cycles[7].modifierId, Is.Not.EqualTo(before)); Assert.That(cfg.Modifier(s.State.cycles[7].modifierId).tier, Is.EqualTo(4));
+            Assert.That(s.State.cycles.Take(7).Select(c => c.modifierId), Is.EqualTo(others), "earlier cycles are not touched");
+        }
+
+        [Test] public void V10R_TheFinalBossPaysNoLootRunsNoBossClearGeneratorsAndWinsTheRun()
+        {
+            var s = ShopAfterStage(22, x => { x.cycles[7].modifierId = "B31"; Equip(x, "C114", "C116", "C13"); });
+            Do(s, CommandKind.LeaveShop); Do(s, CommandKind.StartStage); Assert.That(s.CurrentModifierId, Is.EqualTo("B31"));
+            int dice = s.State.dice.Count; s = Edit(s, x => x.stage.target = "1"); s = Force(s, Fours, "red"); Submit(s);
+            if (s.State.phase != "StageSettlement") Do(s, CommandKind.EndStage);
+            Assert.That(s.State.lastStageSettlement.lootKind ?? "", Is.Empty); Assert.That(s.State.stage.settlementContinuation, Is.EqualTo("RunWon"));
+            Assert.That(s.State.controllers.All(c => c.enchantmentId == "none"), Is.True, "C114 does not act after the final boss");
+            Assert.That(s.State.dice.Count, Is.EqualTo(dice), "C116 does not act after the final boss");
+            Do(s, CommandKind.Continue); Assert.That(s.State.phase, Is.EqualTo("RunWon"));
+        }
+
+        [Test] public void V10R_TheRecyclerPaysFullPriceOnlyForControllersThatWereNotAcquiredInThisShop()
+        {
+            var s = Edit(Shop(), x => { Equip(x, "C140", "C98", "C46"); x.gold = 30; x.controllerSlots = 5; });
+            var old = s.State.controllers.Single(c => c.definitionId == "C46");
+            Assert.That(s.GetControllerSalePrice(old.instanceId), Is.EqualTo(cfg.Controller("C46").buyPrice), "a card held before this shop sells at its full list price");
+            string offer = null; s = Edit(s, x => offer = PutOffer(x, "controller", "C72"));
+            long before = s.State.gold, price = s.GetOfferPrice(s.State.shop.offers.Single(o => o.offerId == offer));
+            Assert.That(price, Is.EqualTo(cfg.Controller("C72").buyPrice + cfg.Controller("C98").parameters.priceDelta), "C98 lowers the buy price");
+            Do(s, CommandKind.Buy, c => c.offerId = offer); var bought = s.State.controllers.Single(c => c.definitionId == "C72");
+            Assert.That(s.State.shop.acquiredControllerIds, Is.EqualTo(new[] { bought.instanceId }));
+            Assert.That(s.GetControllerSalePrice(bought.instanceId), Is.EqualTo(cfg.Controller("C72").buyPrice / cfg.controllerSellDivisor), "a card bought in this shop still sells at half");
+            Do(s, CommandKind.Sell, c => c.itemInstanceId = bought.instanceId);
+            Assert.That(s.State.gold, Is.LessThan(before), "buying and reselling in one shop never profits, even with C98"); Assert.That(s.State.shop.acquiredControllerIds, Is.Empty);
+            // Bought here and kept through a stage: in the next shop it sells at full price.
+            s = Edit(s, x => offer = PutOffer(x, "controller", "C72")); Do(s, CommandKind.Buy, c => c.offerId = offer);
+            Do(s, CommandKind.LeaveShop); Do(s, CommandKind.StartStage); s = Force(s, Fours, "red"); Submit(s);
+            if (s.State.phase != "StageSettlement") Do(s, CommandKind.EndStage);
+            Do(s, CommandKind.Continue);
+            var kept = s.State.controllers.Single(c => c.definitionId == "C72");
+            Assert.That(s.GetControllerSalePrice(kept.instanceId), Is.EqualTo(cfg.Controller("C72").buyPrice));
+            // A same-id replacement credits the old instance at full price, and the replacement itself counts as acquired here.
+            s = Edit(s, x => { offer = PutOffer(x, "controller", "C46"); x.shop.offers.Single(o => o.offerId == offer).controller.enchantmentId = "base10"; x.gold = 30; });
+            long goldBefore = s.State.gold; long net = s.GetOfferPrice(s.State.shop.offers.Single(o => o.offerId == offer)) - cfg.Controller("C46").buyPrice;
+            Do(s, CommandKind.Buy, c => c.offerId = offer);
+            Assert.That(s.State.gold, Is.EqualTo(goldBefore - net), "trade-in credit = full list price of the old card");
+            var replacement = s.State.controllers.Single(c => c.definitionId == "C46");
+            Assert.That(s.GetControllerSalePrice(replacement.instanceId), Is.EqualTo((cfg.Controller("C46").buyPrice + ControllerRules.EnchantPrice("base10", cfg)) / cfg.controllerSellDivisor));
+            // A loot controller claimed in this shop sells at half as well, never above the gold option.
+            var loot = LootShop("L1", null, "C140"); var card = Loot(loot).First(o => o.category == "controller");
+            Do(loot, CommandKind.Buy, c => c.offerId = card.offerId); var claimed = loot.State.controllers.Single(c => c.definitionId == card.contentId);
+            Assert.That(loot.GetControllerSalePrice(claimed.instanceId), Is.EqualTo(cfg.Controller(card.contentId).buyPrice / cfg.controllerSellDivisor));
+            Assert.That(loot.GetControllerSalePrice(claimed.instanceId), Is.LessThanOrEqualTo(cfg.lootGoldValue));
         }
     }
 }

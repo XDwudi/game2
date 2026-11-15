@@ -43,12 +43,12 @@ namespace DiceCraft.Tests
             Assert.That(JsonUtility.ToJson(session.State.lastSubmission), Is.EqualTo(JsonUtility.ToJson(live)), "The recorded submission, including the boss context and face changes, is preserved.");
             var second = session.State.dice.Single(d => d.dieId == "D002"); var up = second.faces.Single(f => f.faceId == live.snapshot.dice[1].faceId);
             Assert.That(up.isGold, Is.True); Assert.That(up.baseWeight, Is.EqualTo(2));
-            Assert.That(session.State.stage.primaryHandsUsed.Count, Is.LessThanOrEqualTo(1));
+            CollectionAssert.AreEqual(live.breakdown.primaryHandId == "scatter" ? new string[0] : new[] { live.breakdown.primaryHandId }, session.State.stage.primaryHandsUsed, "The primary hands scored in this stage are part of the save.");
 
             Do(session, CommandKind.EndStage);
             session = Reopen(session, path);
             var r = session.State.lastStageSettlement;
-            Assert.That(r.stageKind, Is.EqualTo("boss")); Assert.That(r.lootKind, Is.EqualTo(session.State.cycles[0].lootKind)); Assert.That(r.bountyIncome, Is.EqualTo(5)); Assert.That(r.controllerIncome, Is.EqualTo(5));
+            Assert.That(r.stageKind, Is.EqualTo("boss")); Assert.That(r.lootKind, Is.EqualTo(session.State.cycles[0].lootKind)); Assert.That(r.bountyIncome, Is.EqualTo(4)); Assert.That(r.controllerIncome, Is.EqualTo(4));
             Do(session, CommandKind.Continue);
             session = Reopen(session, path);
             var groups = session.ShopGroups();

@@ -188,6 +188,8 @@ namespace DiceCraft.Core
                 && (g.groupId == "LOOT" ? cfg.lootKinds.Any(k => k.id == g.kind) : g.groupId == "GIFT_" + g.kind && (g.kind == "C111" || g.kind == "C113")))
                 && shop.groups.Select(g => g.groupId).Distinct(StringComparer.Ordinal).Count() == shop.groups.Count, "赠礼组无效。");
             Check(shop.offers.All(o => Shelf(o) ? o.category != "gold" && o.levels == 0 : shop.groups.Any(g => g.groupId == o.groupId) && o.levels >= 0), "赠礼报价无效。");
+            Check(shop.acquiredControllerIds != null && shop.acquiredControllerIds.Distinct(StringComparer.Ordinal).Count() == shop.acquiredControllerIds.Count
+                && shop.acquiredControllerIds.All(id => s.controllers.Any(c => c.instanceId == id)), "本店购入记录无效。");
             foreach (var g in shop.groups)
             {
                 var own = shop.offers.Where(o => o.groupId == g.groupId).ToArray();

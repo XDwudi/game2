@@ -68,7 +68,7 @@ namespace DiceCraft
                 y+=FitHeight(label,44)+12;
                 ReceiptRule071(list,id+"Rule",12,y,776);y+=16;return label.rectTransform;
             };
-            var cashList=new System.Collections.Generic.List<RectTransform>{line("SettlementBaseReward","基础奖励  +"+r.baseReward+(r.rewardVoided?"（首领减益：本关没有过关金币与剩余提交奖励）":"")),line("SettlementUnusedReward","剩余提交奖励  +"+r.unusedSubmissionReward),line("SettlementInterest","利息  +"+r.interest+(r.interestPrincipalCap>Config.maxInterestPrincipal?"（利滚利：本金上限 "+r.interestPrincipalCap+"）":""))};
+            var cashList=new System.Collections.Generic.List<RectTransform>{line("SettlementBaseReward","基础奖励  +"+r.baseReward+(r.rewardVoided?"（首领减益：本关没有过关金币与剩余提交奖励）":"")),line("SettlementUnusedReward","剩余提交奖励  +"+r.unusedSubmissionReward),line("SettlementInterest","利息  +"+r.interest+(r.interestPrincipalCap>Config.maxInterestPrincipal?"（计息本金上限 "+r.interestPrincipalCap+"）":""))};
             // p0.9.0: C95 pays at stage clear; the row exists only when it paid.
             if(r.controllerIncome-r.bountyIncome>0)cashList.Add(line("SettlementControllerIncome","铁饭碗  +"+(r.controllerIncome-r.bountyIncome)));
             // p1.0.0: C133 pays a bounty on boss and pressure stages.

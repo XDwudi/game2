@@ -1,31 +1,40 @@
-"""Stage-target calibration helper for `BalanceSim run` output (p0.9.0, stages 12-24).
+"""Stage-target calibration helper for `BalanceSim run` output (p1.0.0: all 24 stages, three-stage cycles).
 
     python tools/balance_sim/calibrate.py summary <run.json> [<run2.json> ...] [--md]
-        Headline numbers of each run: win rate, death share per four-stage block, median power/target at the last
-        stage, clear rate of stages 13-24, step factors of the targets.
+        Headline numbers of each run: win rate, death share per four-stage block, clear rate per stage and per stage
+        kind, pressure acceptance, median power/target at the last stage before the final-boss modifier.
 
-    python tools/balance_sim/calibrate.py predict --fit <run.json>[,<run2.json>...] --base <run.json> --targets t12,...,t24
-        Planning aid only (never evidence): estimates what a different set of targets for stages 12-24 would do,
-        from runs that were already simulated.
-          1. A logistic model P(clear | ln(mean power / target), ln(safe power / target)) is fitted on every
-             stage >= 12 that any of the --fit runs reached.
-          2. Every seed of --base that reached stage 12 is replayed on paper: its logged power at each stage is
-             compared with the new target; stages it never reached are extrapolated with the median stage-to-stage
-             power growth of the seeds that did reach them.
+    python tools/balance_sim/calibrate.py predict --fit <run.json>[,<run2.json>...] --base <run.json> --targets t1,...,t24 [--from K]
+        Planning aid only (never evidence): estimates what a different set of targets would do, from runs that were
+        already simulated. --targets lists the stages from --from (default 1) to the last one; earlier stages keep
+        the targets of --base.
+          1. A logistic model P(clear | ln(mean power / target), ln(safe power / target)) is fitted on every stage
+             that any of the --fit runs reached. Power and target are the ones the stage was really played with
+             (pressure x1.5 when accepted, the boss modifier in force unless lifted, TargetPercent included).
+          2. Every seed of --base is replayed on paper. Its logged power at each stage is compared with the new
+             target; stages it never reached are extrapolated with the median stage-to-stage power growth of the
+             seeds that did reach them. Stage kinds are respected:
+               pressure  the bot's own rule is applied to the new target: it accepts when safe power >= 1.3 x (1.5 x target);
+               boss      the seed's logged ratio between "as entered" and "without modifier" (its boss modifier,
+                         TargetPercent, a lifted modifier) is kept; unreached boss stages use the stage's median ratio.
           3. Reach, clear and death shares are the sums of those probabilities.
         It ignores that the bot shops differently when targets move, so every candidate is then simulated for real.
 
-    python tools/balance_sim/calibrate.py solve --fit ... --base ... --clear 0.95,0.90 [--round]
-        Chooses targets for stages 12-24 one stage at a time so that the predicted clear rate follows --clear
-        (one number, or "first,last" interpolated linearly from stage 12 to the last stage), keeping every step
-        factor inside [1.3, 2.0].
+    python tools/balance_sim/calibrate.py solve --fit ... --base ... [--from K] [--win 0.25] [--boss-gap 0.03] [--min-clear 0.86]
+                                               [--steps 1.2,2.6] [--round] [--last-power 2.5]
+        Chooses targets one stage at a time so that the predicted clear rates follow a schedule built from the goals:
+        deaths spread evenly over the four-stage blocks for the requested win rate, boss stages --boss-gap harder
+        than the other stages of their block, no stage below --min-clear. Step factors stay inside --steps.
+        --last-power caps the last target so that the median power/target there (before the final-boss modifier)
+        is at least that value. --clear a[,b] instead gives a plain schedule (one value, or first,last interpolated).
 """
 import argparse
 import json
 import math
 from pathlib import Path
 
-FIRST = 12
+RISK_FACTOR = 1.5      # pressure target = normal target x 1.5 (p1.0.0)
+BOT_RISK_MARGIN = 1.3  # BotOptions.riskFactor: the bot accepts when safe power >= margin x pressure target
 
 
 def load(path):
@@ -37,13 +46,22 @@ def blocks(n_stages):
 
 
 def median(values):
-    values = sorted(values)
+    values = sorted(v for v in values if v is not None and not math.isnan(v))
     return values[len(values) // 2] if values else float("nan")
+
+
+def stage_kinds(run):
+    kinds = run["summary"].get("stageKinds")
+    if kinds:
+        return kinds
+    n = len(run["summary"]["targets"])
+    return [("normal", "pressure", "boss")[i % 3] for i in range(n)]
 
 
 def headline(run):
     logs = run["logs"]
     targets = [int(t) for t in run["summary"]["targets"]]
+    kinds = stage_kinds(run)
     n = len(targets)
     deaths = {}
     for log in logs:
@@ -55,12 +73,29 @@ def headline(run):
     by_stage = {s["stage"]: s for s in run["stages"]}
     clear = [by_stage[k]["clear"] if k in by_stage else float("nan") for k in range(1, n + 1)]
     reach = [by_stage[k]["reach"] if k in by_stage else 0.0 for k in range(1, n + 1)]
+    stages = [s for log in logs for s in log["stages"]]
+    by_kind = {}
+    for kind in ("normal", "pressure", "boss"):
+        at = [s for s in stages if s.get("kind") == kind]
+        by_kind[kind] = 100.0 * sum(1 for s in at if s["cleared"]) / len(at) if at else float("nan")
+    offered = [s for s in stages if s.get("riskOffered")]
+    accepted = [s for s in offered if s["risk"]]
+    last = [s for s in stages if s["stage"] == n]
     return {
         "name": Path(run.get("configPath", "?")).stem, "runs": len(logs), "wins": run["wins"], "win": 100.0 * run["wins"] / len(logs),
-        "share": share, "share_runs": share_runs, "power_last": by_stage[n]["power"] if n in by_stage else float("nan"),
+        "share": share, "share_runs": share_runs,
+        "power_last": median([s["powerRaw"] / s["targetBase"] for s in last]) if last and "powerRaw" in last[0] else (by_stage[n]["power"] if n in by_stage else float("nan")),
+        "power_last_mod": median([s["powerMod"] / s["targetMod"] for s in last if s.get("targetMod")]) if last else float("nan"),
         "power": [by_stage[k]["power"] if k in by_stage else float("nan") for k in range(1, n + 1)],
-        "clear": clear, "reach": reach, "targets": targets, "deaths": deaths,
+        "clear": clear, "reach": reach, "targets": targets, "kinds": kinds, "deaths": deaths, "by_kind": by_kind,
+        "risk_accept": 100.0 * len(accepted) / len(offered) if offered else float("nan"),
+        "risk_clear": 100.0 * sum(1 for s in accepted if s["cleared"]) / len(accepted) if accepted else float("nan"),
+        "self_check": run.get("plannerSelfCheck", {}),
     }
+
+
+def fmt(x, digits=0):
+    return "-" if x is None or (isinstance(x, float) and math.isnan(x)) else f"{x:.{digits}f}"
 
 
 def summary(paths, md):
@@ -68,23 +103,29 @@ def summary(paths, md):
     for r, p in zip(rows, paths):
         r["file"] = Path(p).name
     if md:
-        print("| run | win % | deaths by block 1-4 / 5-8 / 9-12 / 13-16 / 17-20 / 21-24 (% of deaths) | stage-24 power/target (median) | clear % stages 13-24 | in 85-95 |")
-        print("| --- | --- | --- | --- | --- | --- |")
+        print("| run | win % | deaths by block 1-4 / 5-8 / 9-12 / 13-16 / 17-20 / 21-24 (% of deaths) | clear % normal / pressure / boss | lowest stage clear % | pressure accepted % | stage-24 power/target before modifier (median) |")
+        print("| --- | --- | --- | --- | --- | --- | --- |")
     for r in rows:
-        late = r["clear"][12:]
-        inside = sum(1 for c in late if 85 <= c <= 95)
+        valid = [(c, k + 1) for k, c in enumerate(r["clear"]) if not math.isnan(c)]
+        low = min(valid) if valid else (float("nan"), 0)
         if md:
-            print(f"| {r['file']} | {r['win']:.1f} | {' / '.join(f'{s:.0f}' for s in r['share'])} | {r['power_last']:.2f} | {' '.join(f'{c:.0f}' for c in late)} | {inside}/12 |")
+            print(f"| {r['file']} | {r['win']:.1f} | {' / '.join(f'{s:.0f}' for s in r['share'])} | {fmt(r['by_kind']['normal'], 1)} / {fmt(r['by_kind']['pressure'], 1)} / {fmt(r['by_kind']['boss'], 1)} | {low[0]:.0f} (stage {low[1]}) | {fmt(r['risk_accept'])} | {fmt(r['power_last'], 2)} |")
             continue
-        print(f"\n== {r['file']}  ({r['name']})  runs={r['runs']} wins={r['wins']} ({r['win']:.1f}%)")
-        print("targets 12-24: " + ",".join(str(t) for t in r["targets"][FIRST - 1:]))
-        print("step factors 12-24: " + " ".join(f"{r['targets'][i] / r['targets'][i - 1]:.2f}" for i in range(FIRST - 1, len(r["targets"]))))
-        print("death share by block, % of deaths: " + "  ".join(f"{a}-{b}: {s:.0f}%" for (a, b), s in zip(blocks(len(r["targets"])), r["share"])))
-        print("death share by block, % of runs:   " + "  ".join(f"{a}-{b}: {s:.0f}%" for (a, b), s in zip(blocks(len(r["targets"])), r["share_runs"])))
-        print(f"median power/target at the last stage: {r['power_last']:.2f}")
-        print("median power/target stages 12-24: " + " ".join(f"{x:.1f}" for x in r["power"][FIRST - 1:]))
-        print("clear % stages 12-24: " + " ".join(f"{c:.0f}" for c in r["clear"][FIRST - 1:]) + f"   (stages 13-24 inside 85-95: {inside}/12)")
-        print("reach % stages 12-24: " + " ".join(f"{c:.0f}" for c in r["reach"][FIRST - 1:]))
+        n = len(r["targets"])
+        print(f"\n== {r['file']}  ({r['name']})  runs={r['runs']} wins={r['wins']} ({r['win']:.1f}%)  planner self-check={r['self_check']}")
+        print("targets: " + ",".join(str(t) for t in r["targets"]))
+        print("step factors 2..%d: %s" % (n, " ".join(f"{r['targets'][i] / r['targets'][i - 1]:.2f}" for i in range(1, n))))
+        print("death share by block, % of deaths: " + "  ".join(f"{a}-{b}: {s:.0f}%" for (a, b), s in zip(blocks(n), r["share"])))
+        print("death share by block, % of runs:   " + "  ".join(f"{a}-{b}: {s:.0f}%" for (a, b), s in zip(blocks(n), r["share_runs"])))
+        print("clear % by stage kind: " + "  ".join(f"{k}: {fmt(v, 1)}" for k, v in r["by_kind"].items()))
+        print(f"pressure challenge: accepted {fmt(r['risk_accept'])}% of offers, cleared {fmt(r['risk_clear'])}% of the accepted")
+        print(f"median power/target at the last stage: {fmt(r['power_last'], 2)} before the final-boss modifier, {fmt(r['power_last_mod'], 2)} with it")
+        print("stage:            " + " ".join(f"{k:>4}" for k in range(1, n + 1)))
+        print("kind:             " + " ".join(f"{r['kinds'][k][0].upper():>4}" for k in range(n)))
+        print("clear %:          " + " ".join(f"{fmt(c):>4}" for c in r["clear"]))
+        print("reach %:          " + " ".join(f"{fmt(c):>4}" for c in r["reach"]))
+        print("power/target med: " + " ".join(f"{fmt(x, 1):>4}" for x in r["power"]))
+        print(f"lowest stage clear rate: {low[0]:.0f}% at stage {low[1]};  stages below 85%: " + (" ".join(str(k) for c, k in valid if c < 85) or "none"))
 
 
 # ---------------------------------------------------------------- prediction
@@ -94,7 +135,7 @@ def fit_logistic(rows):
     X = np.array([[1.0, a, b] for a, b, _ in rows])
     y = np.array([float(c) for _, _, c in rows])
     w = np.zeros(3)
-    for _ in range(60):
+    for _ in range(80):
         p = 1.0 / (1.0 + np.exp(-np.clip(X @ w, -30, 30)))
         grad = X.T @ (y - p) - 1e-3 * w
         hess = (X * (p * (1 - p))[:, None]).T @ X + 1e-3 * np.eye(3)
@@ -105,56 +146,95 @@ def fit_logistic(rows):
     return [float(v) for v in w]
 
 
-def feature_rows(runs):
+def safe_of(s, key_safe="safe", key_power="power"):
+    return max(s[key_safe], s[key_power] * 0.02, 1e-9)
+
+
+def feature_rows(runs, first):
     rows = []
     for run in runs:
         for log in run["logs"]:
             for s in log["stages"]:
-                if s["stage"] >= FIRST and s["power"] > 0:
-                    rows.append((math.log(s["power"] / s["target"]), math.log(max(s["safe"], s["power"] * 0.02) / s["target"]), bool(s["cleared"])))
+                if s["stage"] >= first and s["power"] > 0 and s["target"] > 0:
+                    rows.append((math.log(s["power"] / s["target"]), math.log(safe_of(s) / s["target"]), bool(s["cleared"])))
     return rows
 
 
 class Model:
-    def __init__(self, fit_runs, base):
-        self.w = fit_logistic(feature_rows(fit_runs))
+    def __init__(self, fit_runs, base, first):
+        self.first = first
+        self.w = fit_logistic(feature_rows(fit_runs, 1))
         self.base = base
+        self.kinds = stage_kinds(base)
         self.n = len(base["summary"]["targets"])
         self.fixed = [int(t) for t in base["summary"]["targets"]]
-        # median growth of mean / safe power from stage k-1 to k among seeds that have both
-        self.growth = {}
-        for k in range(FIRST + 1, self.n + 1):
+        logs = base["logs"]
+        # Median growth of raw mean / safe power from stage k-1 to k among seeds that have both, and for boss stages
+        # the median factors between "as entered" and "without modifier" (in units of power / target).
+        self.growth, self.boss_factor = {}, {}
+        for k in range(2, self.n + 1):
             gm, gs = [], []
-            for log in base["logs"]:
+            for log in logs:
                 st = {s["stage"]: s for s in log["stages"]}
-                if k in st and k - 1 in st and st[k - 1]["power"] > 0:
-                    gm.append(st[k]["power"] / st[k - 1]["power"])
-                    gs.append(max(st[k]["safe"], 1e-9) / max(st[k - 1]["safe"], 1e-9))
+                if k in st and k - 1 in st and st[k - 1]["powerRaw"] > 0:
+                    gm.append(st[k]["powerRaw"] / st[k - 1]["powerRaw"])
+                    gs.append(safe_of(st[k], "safeRaw", "powerRaw") / safe_of(st[k - 1], "safeRaw", "powerRaw"))
             self.growth[k] = (median(gm) if gm else 1.3, median(gs) if gs else 1.3)
-        self.seeds = []
-        for log in base["logs"]:
-            st = {s["stage"]: s for s in log["stages"]}
-            if FIRST not in st:
+        for k in range(1, self.n + 1):
+            if self.kinds[k - 1] != "boss":
                 continue
-            mean, safe = {}, {}
-            for k in range(FIRST, self.n + 1):
-                if k in st:
-                    mean[k], safe[k] = st[k]["power"], max(st[k]["safe"], st[k]["power"] * 0.02)
+            fm, fs = [], []
+            for log in logs:
+                for s in log["stages"]:
+                    if s["stage"] == k and s["powerRaw"] > 0:
+                        fm.append((s["power"] / s["target"]) / (s["powerRaw"] / s["targetBase"]))
+                        fs.append((safe_of(s) / s["target"]) / (safe_of(s, "safeRaw", "powerRaw") / s["targetBase"]))
+            self.boss_factor[k] = (median(fm) if fm else 0.7, median(fs) if fs else 0.7)
+        # Per seed and stage: raw mean power, raw safe power, boss factors (mean, safe).
+        self.seeds = []
+        for log in logs:
+            st = {s["stage"]: s for s in log["stages"]}
+            mean, safe, factor = {}, {}, {}
+            for k in range(1, self.n + 1):
+                if k in st and st[k]["powerRaw"] > 0:
+                    s = st[k]
+                    mean[k], safe[k] = s["powerRaw"], safe_of(s, "safeRaw", "powerRaw")
+                    if self.kinds[k - 1] == "boss":
+                        factor[k] = ((s["power"] / s["target"]) / (mean[k] / s["targetBase"]), (safe_of(s) / s["target"]) / (safe[k] / s["targetBase"]))
                 else:
                     mean[k], safe[k] = mean[k - 1] * self.growth[k][0], safe[k - 1] * self.growth[k][1]
-            self.seeds.append((mean, safe))
+                    if self.kinds[k - 1] == "boss":
+                        factor[k] = self.boss_factor[k]
+            self.seeds.append((mean, safe, factor))
 
-    def p_clear(self, mean, safe, target):
-        z = self.w[0] + self.w[1] * math.log(mean / target) + self.w[2] * math.log(safe / target)
+    def p_clear(self, mean_over_target, safe_over_target):
+        z = self.w[0] + self.w[1] * math.log(mean_over_target) + self.w[2] * math.log(safe_over_target)
         return 1.0 / (1.0 + math.exp(-max(-30.0, min(30.0, z))))
 
+    def ratios(self, seed, k, target):
+        """(mean / target, safe / target, pressure accepted) for one seed at stage k under a normal target."""
+        mean, safe, factor = seed
+        kind = self.kinds[k - 1]
+        if kind == "pressure":
+            risk = safe[k] >= BOT_RISK_MARGIN * RISK_FACTOR * target
+            t = target * RISK_FACTOR if risk else target
+            return mean[k] / t, safe[k] / t, risk
+        if kind == "boss":
+            return mean[k] / target * factor[k][0], safe[k] / target * factor[k][1], False
+        return mean[k] / target, safe[k] / target, False
+
     def walk(self, targets):
-        """targets: dict stage -> target for stages FIRST..n. Returns per-stage (reach weight, clear rate) and win weight."""
+        """targets: dict stage -> normal target for every stage. Returns per-stage (reach weight, clear rate,
+        median raw power / target of reachers, pressure acceptance) and the win weight."""
         weight = [1.0] * len(self.seeds)
         out = {}
-        for k in range(FIRST, self.n + 1):
+        for k in range(1, self.n + 1):
             reach = sum(weight)
-            nxt = [w * self.p_clear(m[k], s[k], targets[k]) for w, (m, s) in zip(weight, self.seeds)]
+            nxt, accepted = [], 0.0
+            for w, seed in zip(weight, self.seeds):
+                m, s, risk = self.ratios(seed, k, targets[k])
+                nxt.append(w * self.p_clear(m, s))
+                accepted += w if risk else 0.0
             order = sorted(range(len(self.seeds)), key=lambda i: self.seeds[i][0][k])
             acc, med = 0.0, float("nan")
             for i in order:
@@ -162,37 +242,72 @@ class Model:
                 if acc >= reach / 2:
                     med = self.seeds[i][0][k] / targets[k]
                     break
-            out[k] = (reach, sum(nxt) / reach if reach > 0 else float("nan"), med)
+            out[k] = (reach, sum(nxt) / reach if reach > 0 else float("nan"), med, accepted / reach if reach > 0 else 0.0)
             weight = nxt
         return out, sum(weight)
 
-    def report(self, targets):
+    def full(self, partial):
+        targets = {k: self.fixed[k - 1] for k in range(1, self.n + 1)}
+        targets.update(partial)
+        return targets
+
+    def report(self, partial):
+        targets = self.full(partial)
         total = len(self.base["logs"])
         out, wins = self.walk(targets)
-        early = {}
-        for log in self.base["logs"]:
-            if not log["won"] and log["reached"] < FIRST:
-                early[log["reached"]] = early.get(log["reached"], 0) + 1
-        deaths = dict(early)
-        for k in range(FIRST, self.n + 1):
-            deaths[k] = out[k][0] * (1 - out[k][1])
+        deaths = {k: out[k][0] * (1 - out[k][1]) for k in range(1, self.n + 1)}
         all_deaths = sum(deaths.values()) or 1
-        print(f"logistic fit on stages >= {FIRST}: z = {self.w[0]:.3f} + {self.w[1]:.3f} ln(mean/target) + {self.w[2]:.3f} ln(safe/target)")
-        print("stage  target      step  reach%  clear%  power/target(median of reachers)")
-        prev = self.fixed[FIRST - 2]
-        for k in range(FIRST, self.n + 1):
-            reach, clear, med = out[k]
-            print(f"{k:>5}  {targets[k]:>10,}  x{targets[k] / prev:.2f}  {100 * reach / total:5.1f}  {100 * clear:5.1f}  {med:6.2f}")
+        print(f"logistic fit on all stages: z = {self.w[0]:.3f} + {self.w[1]:.3f} ln(mean/target) + {self.w[2]:.3f} ln(safe/target)")
+        print("stage kind      target      step  reach%  clear%  power/target(median of reachers, no modifier)  pressure accepted%")
+        prev = None
+        for k in range(1, self.n + 1):
+            reach, clear, med, acc = out[k]
+            step = f"x{targets[k] / prev:.2f}" if prev else "     "
+            kind = self.kinds[k - 1]
+            print(f"{k:>5} {kind:<8} {int(targets[k]):>11,}  {step}  {100 * reach / total:5.1f}  {100 * clear:5.1f}  {med:6.2f}" + (f"  {100 * acc:5.0f}" if kind == "pressure" else ""))
             prev = targets[k]
         print(f"predicted win rate: {100 * wins / total:.1f}%")
         print("predicted death share by block (% of deaths): " + "  ".join(
             f"{a}-{b}: {100 * sum(v for k, v in deaths.items() if a <= k <= b) / all_deaths:.0f}%" for a, b in blocks(self.n)))
+        for kind in ("normal", "pressure", "boss"):
+            ks = [k for k in range(1, self.n + 1) if self.kinds[k - 1] == kind]
+            reach = sum(out[k][0] for k in ks)
+            print(f"predicted clear rate, {kind} stages: {100 * sum(out[k][0] * out[k][1] for k in ks) / reach:.1f}%")
+        print("targets: " + ",".join(str(int(targets[k])) for k in range(1, self.n + 1)))
 
 
 def nice(value):
-    """Round to two significant digits, preferring steps of 5 in the second digit for large numbers."""
-    exp = 10 ** (int(math.floor(math.log10(value))) - 1)
-    return int(round(value / exp) * exp)
+    """Round to two significant digits (three below 1000) and keep the result even."""
+    digits = 3 if value < 1000 else 2
+    exp = 10 ** (int(math.floor(math.log10(value))) - digits + 1)
+    rounded = int(round(value / exp) * exp)
+    return rounded + (rounded % 2)
+
+
+def schedule(model, win, gap, floor):
+    """Clear rate wanted at each stage: every block loses the same share of the starting runs, and a boss stage
+    is `gap` harder than the other stages of its block (never below `floor`)."""
+    want = {}
+    n_blocks = len(blocks(model.n))
+    for b, (a, z) in enumerate(blocks(model.n)):
+        before = 1 - b * (1 - win) / n_blocks
+        after = 1 - (b + 1) * (1 - win) / n_blocks
+        survive = after / before
+        stages = list(range(a, z + 1))
+        bosses = [k for k in stages if model.kinds[k - 1] == "boss"]
+        lo, hi = floor, 1.0
+        for _ in range(60):
+            c = (lo + hi) / 2
+            product = 1.0
+            for k in stages:
+                product *= max(floor, c - gap) if k in bosses else c
+            if product > survive:
+                hi = c
+            else:
+                lo = c
+        for k in stages:
+            want[k] = max(floor, lo - gap) if k in bosses else lo
+    return want
 
 
 def main():
@@ -203,38 +318,56 @@ def main():
     ap.add_argument("--fit")
     ap.add_argument("--base")
     ap.add_argument("--targets")
-    ap.add_argument("--clear", default="0.90")
+    ap.add_argument("--from", dest="first", type=int, default=1)
+    ap.add_argument("--clear")
+    ap.add_argument("--win", type=float, default=0.25)
+    ap.add_argument("--boss-gap", type=float, default=0.03)
+    ap.add_argument("--min-clear", type=float, default=0.86)
+    ap.add_argument("--steps", default="1.2,2.6")
+    ap.add_argument("--last-power", type=float, default=0.0)
     ap.add_argument("--round", action="store_true")
     args = ap.parse_args()
     if args.mode == "summary":
         summary(args.files, args.md)
         return
-    model = Model([load(p) for p in args.fit.split(",")], load(args.base))
+    model = Model([load(p) for p in args.fit.split(",")], load(args.base), args.first)
     if args.mode == "predict":
-        values = [int(x) for x in args.targets.split(",")]
-        model.report({FIRST + i: v for i, v in enumerate(values)})
+        values = [int(x) for x in args.targets.replace("_", "").split(",")]
+        if len(values) != model.n - args.first + 1:
+            raise SystemExit(f"need {model.n - args.first + 1} targets for stages {args.first}..{model.n}")
+        model.report({args.first + i: v for i, v in enumerate(values)})
         return
-    # solve: stage by stage bisection on the target so that the predicted clear rate equals --clear
-    targets = {}
-    ends = [float(x) for x in args.clear.split(",")]
-    prev = model.fixed[FIRST - 2]
-    for k in range(FIRST, model.n + 1):
-        want = ends[0] if len(ends) == 1 else ends[0] + (ends[1] - ends[0]) * (k - FIRST) / (model.n - FIRST)
-        lo, hi = 1e3, 1e12
-        for _ in range(60):
+    # solve: stage by stage bisection on the target so that the predicted clear rate equals the schedule
+    if args.clear:
+        ends = [float(x) for x in args.clear.split(",")]
+        want = {k: ends[0] if len(ends) == 1 else ends[0] + (ends[1] - ends[0]) * (k - args.first) / max(1, model.n - args.first) for k in range(args.first, model.n + 1)}
+    else:
+        want = schedule(model, args.win, args.boss_gap, args.min_clear)
+    step_lo, step_hi = [float(x) for x in args.steps.split(",")]
+    targets = {k: model.fixed[k - 1] for k in range(1, args.first)}
+    prev = model.fixed[args.first - 2] if args.first > 1 else None
+    for k in range(args.first, model.n + 1):
+        lo, hi = 10.0, 1e13
+        for _ in range(70):
             mid = math.sqrt(lo * hi)
             trial = dict(targets)
             for j in range(k, model.n + 1):
                 trial[j] = mid
             out, _ = model.walk(trial)
-            if out[k][1] > want:
+            if out[k][1] > want[k]:
                 lo = mid
             else:
                 hi = mid
-        value = min(2.0 * prev, max(1.3 * prev, lo))
-        targets[k] = nice(value) if args.round else int(value)
+        value = lo if prev is None else min(step_hi * prev, max(step_lo * prev, lo))
+        if k == model.n and args.last_power > 0:
+            trial = dict(targets)
+            trial[k] = value
+            out, _ = model.walk(trial)
+            if out[k][2] < args.last_power:      # median power/target would be too low: lower the last target
+                value = max(step_lo * prev, value * out[k][2] / args.last_power)
+        targets[k] = nice(value) if args.round else int(value) + int(value) % 2
         prev = targets[k]
-    print("targets: " + ",".join(str(targets[k]) for k in range(FIRST, model.n + 1)))
+    print("wanted clear % by stage: " + " ".join(f"{100 * want[k]:.0f}" for k in range(args.first, model.n + 1)))
     model.report(targets)
 
 

@@ -80,7 +80,7 @@ namespace DiceCraft.Core
         public bool modifierNullified;
         public string[] disabledControllerIds = Array.Empty<string>();
         public List<string> primaryHandsUsed = new List<string>();
-        public int itemCapacityBonus;
+        public int itemCapacityBonus; // capacity added by I12 this stage; rules read stage.capacity, this is kept for the debug scene round trip
         public StageState Clone() { var c = (StageState)MemberwiseClone(); c.controllerOrderSnapshot = (string[])controllerOrderSnapshot.Clone(); c.disabledControllerIds = (string[])disabledControllerIds.Clone(); c.primaryHandsUsed = new List<string>(primaryHandsUsed); c.submissionBonusSourceIds = (string[])submissionBonusSourceIds.Clone(); c.mimicBindings = mimicBindings.Select(x => new MimicBinding { sourceInstanceId = x.sourceInstanceId, targetInstanceId = x.targetInstanceId }).ToArray(); c.destroyedControllerIds = new List<string>(destroyedControllerIds); return c; }
     }
 
@@ -115,7 +115,10 @@ namespace DiceCraft.Core
         public int selfStudyUsed, controllerRefreshCount, controllerGeneration, turnoverGrowthCount;
         public List<ShopOffer> offers = new List<ShopOffer>();
         public List<ShopGroup> groups = new List<ShopGroup>();
-        public ShopState Clone() { var c = (ShopState)MemberwiseClone(); c.offers = offers.Select(x => x.Clone()).ToList(); c.groups = groups.Select(x => x.Clone()).ToList(); return c; }
+        // v1.0: controllers acquired in this shop (bought, claimed as loot or taken as a replacement). C140 pays the
+        // full list price only for controllers that are not in this list, so buying and reselling in one shop never profits.
+        public List<string> acquiredControllerIds = new List<string>();
+        public ShopState Clone() { var c = (ShopState)MemberwiseClone(); c.offers = offers.Select(x => x.Clone()).ToList(); c.groups = groups.Select(x => x.Clone()).ToList(); c.acquiredControllerIds = new List<string>(acquiredControllerIds); return c; }
     }
 
     /// <summary>v1.0: a group of free offers. kind is a loot kind id (L1..L6) or the granting controller definition (C111, C113).</summary>

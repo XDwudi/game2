@@ -2263,10 +2263,10 @@
       "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
-        "baseAddPerPip": 5,
+        "baseAddPerPip": 4,
         "index": 0
       },
-      "description": "第一颗提交骰的有效点数×5，加入整手基础分。"
+      "description": "第一颗提交骰的有效点数×4，加入整手基础分。"
     },
     {
       "id": "C109",
@@ -2337,11 +2337,11 @@
     {
       "id": "C113",
       "displayName": "铁匠铺",
-      "buyPrice": 6,
+      "buyPrice": 5,
       "baseSellPrice": 1,
       "salePriceMode": "fixed",
-      "rarity": "rare",
-      "offerWeight": 2,
+      "rarity": "uncommon",
+      "offerWeight": 4,
       "trigger": "ShopGift",
       "maxOwnedNormal": 1,
       "scoreEnchantEligible": false,
@@ -2354,7 +2354,7 @@
     {
       "id": "C114",
       "displayName": "点化",
-      "buyPrice": 7,
+      "buyPrice": 6,
       "baseSellPrice": 1,
       "salePriceMode": "fixed",
       "rarity": "rare",
@@ -2389,12 +2389,12 @@
           "U07"
         ]
       },
-      "description": "每关结算时，随机2个永久骰面各获得一种随机的骰面改造（光滑、粗糙、染红、染蓝、黄金、随机变形）。"
+      "description": "每关结算时做2次：随机1个永久骰面尝试一种随机的骰面改造（光滑、粗糙、染红、染蓝、黄金、随机变形）；该面已有这种属性时落空。"
     },
     {
       "id": "C116",
       "displayName": "招兵买马",
-      "buyPrice": 5,
+      "buyPrice": 4,
       "baseSellPrice": 1,
       "salePriceMode": "fixed",
       "rarity": "uncommon",
@@ -2474,7 +2474,7 @@
     {
       "id": "C121",
       "displayName": "大事化小",
-      "buyPrice": 5,
+      "buyPrice": 4,
       "baseSellPrice": 1,
       "salePriceMode": "fixed",
       "rarity": "uncommon",
@@ -2619,9 +2619,9 @@
       "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
-        "growthPerEvent": 10
+        "growthPerEvent": 8
       },
-      "description": "整手得分×n，n从1起。每通过一个首领关n+0.5。"
+      "description": "整手得分×n，n从1起。每通过一个首领关n+0.4。"
     },
     {
       "id": "C130",
@@ -2656,7 +2656,7 @@
     {
       "id": "C132",
       "displayName": "高压锅",
-      "buyPrice": 4,
+      "buyPrice": 5,
       "baseSellPrice": 1,
       "salePriceMode": "fixed",
       "rarity": "uncommon",
@@ -2665,9 +2665,9 @@
       "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
-        "growthPerEvent": 12
+        "growthPerEvent": 8
       },
-      "description": "整手得分×n，n从1起。每完成一次高压挑战n+0.6。"
+      "description": "整手得分×n，n从1起。每完成一次高压挑战n+0.4。"
     },
     {
       "id": "C133",
@@ -2681,10 +2681,10 @@
       "maxOwnedNormal": 1,
       "scoreEnchantEligible": false,
       "parameters": {
-        "goldPerBoss": 5,
-        "goldPerPressure": 3
+        "goldPerBoss": 4,
+        "goldPerPressure": 2
       },
-      "description": "通过首领关结算额外+5金币；完成高压挑战结算额外+3金币。"
+      "description": "通过首领关结算额外+4金币；完成高压挑战结算额外+2金币。"
     },
     {
       "id": "C134",
@@ -2698,9 +2698,9 @@
       "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
-        "growthPerEvent": 3
+        "growthPerEvent": 2
       },
-      "description": "整手得分×n，n从1起。每使用1个道具n+0.15。"
+      "description": "整手得分×n，n从1起。每使用1个道具n+0.1。"
     },
     {
       "id": "C135",
@@ -2714,9 +2714,9 @@
       "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
-        "baseAddPerItem": 12
+        "baseAddPerItem": 10
       },
-      "description": "背包里每有1个道具，整手基础分+12。"
+      "description": "背包里每有1个道具，整手基础分+10。"
     },
     {
       "id": "C136",
@@ -2797,7 +2797,7 @@
       "maxOwnedNormal": 1,
       "scoreEnchantEligible": false,
       "parameters": {},
-      "description": "控制器按标价（买入价加附魔加价）全额回收。"
+      "description": "控制器按标价（买入价加附魔加价）全额回收；在本家商店刚取得的仍按半价。"
     },
     {
       "id": "C141",
@@ -2811,10 +2811,10 @@
       "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
-        "initialMultiplierUnits2": 6,
-        "expireGrowth": 4
+        "initialMultiplierUnits2": 5,
+        "expireGrowth": 3
       },
-      "description": "整手得分×3；每通过一关倍率−0.5；降到×1时自毁。"
+      "description": "整手得分×2.5；每通过一关倍率−0.5；降到×1时自毁。"
     },
     {
       "id": "C142",
@@ -2828,9 +2828,9 @@
       "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
-        "handMultAdd100": 500
+        "handMultAdd100": 1000
       },
-      "description": "顺子成立时，牌型倍率+5。"
+      "description": "顺子成立时，牌型倍率+10。"
     },
     {
       "id": "C143",
@@ -2868,7 +2868,7 @@
     {
       "id": "C145",
       "displayName": "防碎膜",
-      "buyPrice": 5,
+      "buyPrice": 4,
       "baseSellPrice": 1,
       "salePriceMode": "fixed",
       "rarity": "uncommon",
@@ -2900,7 +2900,7 @@
     {
       "id": "C147",
       "displayName": "观众席",
-      "buyPrice": 5,
+      "buyPrice": 4,
       "baseSellPrice": 1,
       "salePriceMode": "fixed",
       "rarity": "uncommon",
@@ -2963,11 +2963,11 @@
     {
       "id": "C151",
       "displayName": "留白",
-      "buyPrice": 4,
+      "buyPrice": 6,
       "baseSellPrice": 1,
       "salePriceMode": "fixed",
-      "rarity": "uncommon",
-      "offerWeight": 4,
+      "rarity": "rare",
+      "offerWeight": 2,
       "trigger": "ScoreMultiply",
       "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
@@ -3183,7 +3183,7 @@
       "displayName": "贿赂首领",
       "baseBuyPrice": 4,
       "priceRule": "4+2×本局此前购买次数",
-      "description": "重新抽取本周期首领的减益；受折扣，最低1。"
+      "description": "重新抽取下一个首领（“查看关卡”里显示的那个）的减益；受折扣，最低1。"
     },
     {
       "id": "O10",
@@ -4023,11 +4023,12 @@
       "tier": 4,
       "minCycle": 8,
       "effects": [
-        "SealAlternate"
+        "SealAlternate",
+        "HandHalf"
       ],
       "amount": 0,
       "filter": "",
-      "description": "提交栏第1、3、5、7位的骰子被封印（点数贡献为0）。"
+      "description": "提交栏第1、3、5、7位的骰子被封印（点数贡献为0）；牌型倍率减半，最低×1。"
     },
     {
       "id": "B39",
