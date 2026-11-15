@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="3" result="Failed(Child)" total="3" passed="2" failed="1" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-11-14 19:18:04Z" end-time="2026-11-14 19:18:10Z" duration="6.7048119">
+  <test-suite type="TestSuite" id="1207" name="DiceCraft P0" fullname="DiceCraft P0" runstate="Runnable" testcasecount="195" result="Failed" site="Child" start-time="2026-11-14 19:18:04Z" end-time="2026-11-14 19:18:10Z" duration="6.704812" total="3" passed="2" failed="1" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <failure>
+      <message><![CDATA[One or more child tests had errors]]></message>
+    </failure>
+    <test-suite type="Assembly" id="1201" name="DiceCraft.PlayModeTests.dll" fullname="E:/agent_workspace/gpt/game2/DicePrototype/Library/ScriptAssemblies/DiceCraft.PlayModeTests.dll" runstate="Runnable" testcasecount="195" result="Failed" site="Child" start-time="2026-11-14 19:18:04Z" end-time="2026-11-14 19:18:10Z" duration="6.693407" total="3" passed="2" failed="1" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="25036" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <failure>
+        <message><![CDATA[One or more child tests had errors]]></message>
+      </failure>
+      <test-suite type="TestSuite" id="1202" name="DiceCraft" fullname="DiceCraft" runstate="Runnable" testcasecount="195" result="Failed" site="Child" start-time="2026-11-14 19:18:04Z" end-time="2026-11-14 19:18:10Z" duration="6.691027" total="3" passed="2" failed="1" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <failure>
+          <message><![CDATA[One or more child tests had errors]]></message>
+        </failure>
+        <test-suite type="TestSuite" id="1203" name="Tests" fullname="DiceCraft.Tests" runstate="Runnable" testcasecount="195" result="Failed" site="Child" start-time="2026-11-14 19:18:04Z" end-time="2026-11-14 19:18:10Z" duration="6.688833" total="3" passed="2" failed="1" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <failure>
+            <message><![CDATA[One or more child tests had errors]]></message>
+          </failure>
+          <test-suite type="TestFixture" id="1001" name="GameplayPlayModeTests" fullname="DiceCraft.Tests.GameplayPlayModeTests" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" testcasecount="185" result="Failed" site="Child" start-time="2026-11-14 19:18:04Z" end-time="2026-11-14 19:18:10Z" duration="6.685667" total="3" passed="2" failed="1" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <failure>
+              <message><![CDATA[One or more child tests had errors]]></message>
+            </failure>
+            <test-case id="1185" name="PLAY_V09_HandScreenShowsGrowthPoolSummaryAndTheNewHandbookPage" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_V09_HandScreenShowsGrowthPoolSummaryAndTheNewHandbookPage" methodname="PLAY_V09_HandScreenShowsGrowthPoolSummaryAndTheNewHandbookPage" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="1180902275" result="Failed" start-time="2026-11-14 19:18:04Z" end-time="2026-11-14 19:18:07Z" duration="3.022916" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <failure>
+                <message><![CDATA[  Expected: String containing "留池" and containing "板凳深度"
+  But was:  "本手投出后没有锁进提交栏的骰子。它们不计分，但板凳深度、厚积薄发、幕后推手、空城计和场外红人会读取它们的数量、点数和颜色。骰子比提交栏多时，留什么在池里也是一种选择。"
+]]></message>
+                <stack-trace><![CDATA[at DiceCraft.Tests.GameplayPlayModeTests+<PLAY_V09_HandScreenShowsGrowthPoolSummaryAndTheNewHandbookPage>d__449.MoveNext () [0x003bb] in E:\agent_workspace\gpt\game2\DicePrototype\Assets\Game\Tests\PlayMode\V09PlayModeTests.cs:81
+at UnityEngine.TestTools.TestEnumerator+<Execute>d__8.MoveNext () [0x0003a] in .\Library\PackageCache\com.unity.test-framework@ee3fe9477490\UnityEngine.TestRunner\NUnitExtensions\Attributes\TestEnumerator.cs:52
+]]></stack-trace>
+              </failure>
+              <output><![CDATA[Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_3dc63519b79f4f9a8ae1440c894d0ffe
+]]></output>
+            </test-case>
+            <test-case id="1186" name="PLAY_V09_SettlementListsStageIncomeFromControllersAndTheWiderInterestCap" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_V09_SettlementListsStageIncomeFromControllersAndTheWiderInterestCap" methodname="PLAY_V09_SettlementListsStageIncomeFromControllersAndTheWiderInterestCap" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="1710033794" result="Passed" start-time="2026-11-14 19:18:07Z" end-time="2026-11-14 19:18:09Z" duration="2.086997" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_45a5be19f1874a48b34859ea7057aa9b
+]]></output>
+            </test-case>
+            <test-case id="1184" name="PLAY_V09_ShopSellsASlotShowsTheDiscountAndUnblocksTheSixthController" fullname="DiceCraft.Tests.GameplayPlayModeTests.PLAY_V09_ShopSellsASlotShowsTheDiscountAndUnblocksTheSixthController" methodname="PLAY_V09_ShopSellsASlotShowsTheDiscountAndUnblocksTheSixthController" classname="DiceCraft.Tests.GameplayPlayModeTests" runstate="Runnable" seed="176957939" result="Passed" start-time="2026-11-14 19:18:09Z" end-time="2026-11-14 19:18:10Z" duration="1.557397" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Isolated save/log evidence: C:/Users/f/AppData/Local/Temp/XDwudi/DiceCraft P0\DiceCraftTests_b8b24875d3974c928ce368fdf6e7f1e0
+Saving results to: E:\agent_workspace\gpt\game2\evidence\v09\unity\nunit-20261114-191810.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>
