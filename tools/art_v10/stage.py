@@ -75,7 +75,7 @@ def stage(check: bool) -> int:
             shutil.copyfile(rev / "original.png", runtime)
         entries.append({
             "id": content_id, "revision": rev.name, "sha256": digest, "dimensions": record["output"]["dimensions"],
-            "subject": subject, "kitVersion": record.get("styleKit", {}).get("version"), "runValid": record["runValid"],
+            "subject": subject, "kitVersion": record.get("styleKit", {}).get("kitVersion"), "runValid": record["runValid"],
             "runtime": str(runtime.relative_to(ROOT)).replace("\\", "/"),
         })
     manifest = {"schema": "v10-illustration-manifest-1", "count": len(entries), "missing": missing, "entries": entries}

@@ -88,8 +88,8 @@ namespace DiceCraft.Tests
             Assert.That(CardState09("C50"), Is.EqualTo("本关失效")); Assert.That(CardState09("C46"), Is.EqualTo("本关失效"));
             Assert.That(Text10("Chapter"), Does.Contain("首领关"));
             yield return PlayFiveRedFours10();
-            // C50 (+20) and C46 (x2) are disabled: 20 x 12 x 2 x 5.
-            Assert.That(app.Session.State.lastSubmission.breakdown.score, Is.EqualTo("2400")); Assert.That(app.Session.State.stage.qualified, Is.True);
+            // C50 (+20) and C46 (x2) are disabled; two rolls are left unused (+3 each): (20 + 6) x 12 x 2 x 5.
+            Assert.That(app.Session.State.lastSubmission.breakdown.score, Is.EqualTo("3120")); Assert.That(app.Session.State.stage.qualified, Is.True);
             var end = app.Send(new SessionCommand { kind = CommandKind.EndStage }); Assert.That(end.accepted, Is.True, end.error); yield return WaitForIdle();
             Assert.That(Text10("SettlementLoot10"), Does.Contain(app.Config.Loot("L1").displayName).And.Contain("商店"));
             Click("SettlementContinue"); yield return WaitForIdle();

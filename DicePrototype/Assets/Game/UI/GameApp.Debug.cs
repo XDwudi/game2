@@ -233,7 +233,7 @@ namespace DiceCraft
             if(debugTab==0)return 900+((Config.controllers.Length+3)/4)*64+((debugDraft.controllers.Count+2)/3)*62;
             if(debugTab==1)return 1150+((debugDraft.dice.Count+7)/8)*55;
             if(debugTab==2)return 1600;
-            if(debugTab==3)return 1450+((debugDraft.inventory.Count+3)/4)*60;
+            if(debugTab==3)return 1600+((debugDraft.inventory.Count+3)/4)*60;
             return 1250+debugDraft.controllers.Count*64+debugDraft.dice.Count*52;
         }
         private string DebugStatusText()=>debugErrors.Count>0?string.Join("；",debugErrors.Values.Take(3)):debugMessage;
@@ -376,8 +376,16 @@ namespace DiceCraft
             UiKit.Button(p,"RedWave","本手红潮："+debugDraft.redWave,990,y,460,48,()=>{debugDraft.redWave=!debugDraft.redWave;DraftChanged();});y+=65;
             UiKit.Button(p,"LargeBias","本手大数加权："+debugDraft.largeBuff,10,y,700,48,()=>{debugDraft.largeBuff=!debugDraft.largeBuff;DraftChanged();});
             UiKit.Button(p,"SmallBias","本手小数加权："+debugDraft.smallBuff,750,y,700,48,()=>{debugDraft.smallBuff=!debugDraft.smallBuff;DraftChanged();});y+=70;
+            // p1.0.0: force a boss modifier onto the scene (the button cycles none -> B01 ... B39) and the two new hand effects.
+            string modifier=debugDraft.modifierId??"";
+            UiKit.Button(p,"BossModifier10","首领减益："+(modifier==""?"无":modifier+" "+NameOf(modifier)),10,y,700,48,()=>
+            {
+                var ids=new[]{""}.Concat(Config.bossModifiers.Select(m=>m.id)).ToArray();debugDraft.modifierId=ids[(Array.IndexOf(ids,modifier)+1)%ids.Length];DraftChanged();
+            });
+            UiKit.Button(p,"BlueWave10","本手蓝潮："+debugDraft.blueWave,750,y,340,48,()=>{debugDraft.blueWave=!debugDraft.blueWave;if(debugDraft.blueWave)debugDraft.redWave=false;DraftChanged();});
+            UiKit.Button(p,"DoubleScore10","灵光一闪："+debugDraft.doubleScore,1110,y,340,48,()=>{debugDraft.doubleScore=!debugDraft.doubleScore;DraftChanged();});y+=70;
             UiKit.Text(p,"ItemsDebug","添加局内道具 · "+debugDraft.inventory.Count+" / 32",10,y,1430,45,26,UiKit.Teal);y+=55;
-            for(int i=0;i<Config.consumables.Length;i++){var item=Config.consumables[i];UiKit.Button(p,"AddItem"+item.id,item.displayName,(i%4)*365,y+(i/4)*62,350,48,()=>{int serial=NextDebugItemSerial();debugDraft.inventory.Add(new OwnedItem{instanceId="ITEM_"+serial.ToString("D5"),contentId=item.id});debugDraft.consumableSlots=Math.Max(debugDraft.consumableSlots,debugDraft.inventory.Count);DraftChanged();},debugDraft.inventory.Count<32);}y+=140;
+            for(int i=0;i<Config.consumables.Length;i++){var item=Config.consumables[i];UiKit.Button(p,"AddItem"+item.id,item.displayName,(i%4)*365,y+(i/4)*62,350,48,()=>{int serial=NextDebugItemSerial();debugDraft.inventory.Add(new OwnedItem{instanceId="ITEM_"+serial.ToString("D5"),contentId=item.id});debugDraft.consumableSlots=Math.Max(debugDraft.consumableSlots,debugDraft.inventory.Count);DraftChanged();},debugDraft.inventory.Count<32);}y+=((Config.consumables.Length+3)/4)*62+16;
             UiKit.Text(p,"RemoveItemTitle","点击移除已添加道具（不产生出售收入）",10,y,1430,40,23,UiKit.Muted);y+=48;
             for(int i=0;i<debugDraft.inventory.Count;i++){var item=debugDraft.inventory[i];UiKit.Button(p,"RemoveItem"+item.instanceId,NameOf(item.contentId)+" ×",(i%4)*365,y+(i/4)*60,350,46,()=>{debugDraft.inventory.Remove(item);DraftChanged();});}
         }

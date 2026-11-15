@@ -251,8 +251,10 @@ namespace DiceCraft.Core
                 xnum *= num; xden *= den; gcd = BigInteger.GreatestCommonDivisor(xnum, xden); xnum /= gcd; xden /= gcd;
             }
             // v0.9 growth of real instances, applied by the session after this score is recorded.
+            // A controller disabled for this stage has no ability at all, so it plans no state change either (spec 2.3 step 3).
+            var disabledNow = new HashSet<string>(s.disabledControllerIds ?? Array.Empty<string>(), StringComparer.Ordinal);
             var growthChanges = new List<GrowthChange>();
-            foreach (var c in instances.Where(x => x.alive))
+            foreach (var c in instances.Where(x => x.alive && !disabledNow.Contains(x.instanceId)))
             {
                 switch (c.definitionId)
                 {
@@ -305,8 +307,8 @@ namespace DiceCraft.Core
                 upgradeRequested = requested,
                 upgradeApplied = requested > 0 ? Math.Min(requested, (s.debug ? cfg.debug.maxHandLevel : cfg.maxHandLevel) - Level(levels, primary)) : 0,
                 nextPreviousPrimary = primary,
-                nextColorOwnerIds = instances.Where(c => c.alive && c.definitionId == "C45").Select(c => c.instanceId).ToArray(),
-                randomFactorOwnerIds = instances.Where(c => c.alive && c.definitionId == "C53").Select(c => c.instanceId).ToArray(),
+                nextColorOwnerIds = instances.Where(c => c.alive && !disabledNow.Contains(c.instanceId) && c.definitionId == "C45").Select(c => c.instanceId).ToArray(),
+                randomFactorOwnerIds = instances.Where(c => c.alive && !disabledNow.Contains(c.instanceId) && c.definitionId == "C53").Select(c => c.instanceId).ToArray(),
                 cannonRiskEmitterIds = triggered.Where(t => t.abilityId == "C42").Select(t => t.emitterId).ToArray(),
                 growthChanges = growthChanges.ToArray(),
                 faceChanges = faceChanges.ToArray(),

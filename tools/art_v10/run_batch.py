@@ -6,6 +6,7 @@ For each job in tools/art_v10/jobs.py order: skip ids that already have a valid 
 tools/art_v10/stage.py does that after review.
 
     python tools/art_v10/run_batch.py [--only C104,C105] [--retries 2] [--status]
+    python tools/art_v10/run_batch.py --only C104 --redo   # after review: one more revision even though a valid one exists
 """
 import argparse
 import json
@@ -48,6 +49,7 @@ def main() -> int:
     ap.add_argument("--only", default="")
     ap.add_argument("--retries", type=int, default=2)
     ap.add_argument("--status", action="store_true")
+    ap.add_argument("--redo", action="store_true", help="with --only: generate a new revision although a valid one exists")
     args = ap.parse_args()
     if args.status:
         rows = status()
@@ -62,7 +64,8 @@ def main() -> int:
     for content_id, _ in SUBJECTS:
         if only and content_id not in only:
             continue
-        if any(r["valid"] for r in revisions(content_id)):
+        before = len(revisions(content_id))
+        if any(r["valid"] for r in revisions(content_id)) and not (args.redo and only):
             continue
         ok = False
         for attempt in range(args.retries + 1):
@@ -77,7 +80,7 @@ def main() -> int:
                 if proc.returncode != 0:
                     handle.write("  stdout: " + proc.stdout[-600:].replace("\n", " | ") + "\n  stderr: " + proc.stderr[-600:].replace("\n", " | ") + "\n")
             print(line, flush=True)
-            if last["valid"] and proc.returncode == 0:
+            if last["valid"] and proc.returncode == 0 and len(revs) > before:
                 ok = True
                 break
         if not ok:

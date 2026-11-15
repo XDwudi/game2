@@ -25,10 +25,12 @@ namespace DiceCraft
         private void DrawHandbookRules09(Transform p)
         {
             var list=UiKit.Scroll(p,"HandbookScroll",24,144,1456,720,720);float y=8;
-            for(int i=0;i<HandbookRules09.Length;i++)
+            // p1.0.0: the cycle, boss and face-growth rules follow the v0.9 rows on the same page.
+            var rules=HandbookRules09.Concat(HandbookRules10()).ToArray();
+            for(int i=0;i<rules.Length;i++)
             {
-                var title=UiKit.Text(list,"Rule09Title"+i,HandbookRules09[i][0],16,y,1400,44,26,UiKit.Ink);title.fontStyle=FontStyles.Bold;y+=FitHeight(title,44)+2;
-                var body=UiKit.Text(list,"Rule09Body"+i,HandbookRules09[i][1],16,y,1400,60,22,PaperMuted071);y+=FitHeight(body,60)+10;
+                var title=UiKit.Text(list,"Rule09Title"+i,rules[i][0],16,y,1400,44,26,UiKit.Ink);title.fontStyle=FontStyles.Bold;y+=FitHeight(title,44)+2;
+                var body=UiKit.Text(list,"Rule09Body"+i,rules[i][1],16,y,1400,60,22,PaperMuted071);y+=FitHeight(body,60)+10;
                 UiKit.Box(list,"Rule09Divider"+i,16,y,1400,1,PaperMuted071);y+=14;
             }
             list.sizeDelta=new Vector2(list.sizeDelta.x,Math.Max(720,y+8));

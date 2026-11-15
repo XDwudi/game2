@@ -246,7 +246,7 @@ namespace DiceCraft
             else
             {
                 Icon(p,offer.contentId,(w-96)*.5f,50,96);
-                text=(offer.category=="controller"?Art07Rarity(Config.Controller(offer.contentId).rarity)+(offer.controller.enchantmentId!="none"?" · "+EnchantShort(offer.controller.enchantmentId):"")+"\n":"")+Description(offer.contentId);
+                text=(offer.category=="controller"?Art07Rarity(offer.contentId)+(offer.controller.enchantmentId!="none"?" · "+EnchantShort(offer.controller.enchantmentId):"")+"\n":"")+Description(offer.contentId);
             }
             bool picture=offer.category!="gold"&&offer.category!="new_die"&&offer.category!="hand_upgrade";
             float top=offer.category=="gold"?136:picture?150:54;

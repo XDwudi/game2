@@ -1,0 +1,885 @@
+{
+  "generator": "tools/v10_golden.py",
+  "schema": "v10-golden-1",
+  "configVersion": "p1.0.0",
+  "derived_from_production_code": false,
+  "rules": "docs/specs/v10/RULES_SPEC.md",
+  "generator_sha256": "6acd500623cf5314d6b5198838f18ae93112bd8f60386eefb04631aa24b12893",
+  "rules_sha256": "f6d15e0133423d7348e7c951603682143c176b336a8eef36ffb8f227c107030b",
+  "rules_v09_sha256": "a3d6b6219956efc9f4eac3fe2b40af759dad774296bcb90d8b609b928704f217",
+  "config_sha256": "7eb647ad4b6e304b559a5d304dfce0fe77b0fb0a6c0b76737170812f47d25af7",
+  "baseline_sha256": {
+    "tools/balance_sim/baseline/P0Config.p0.8.0.json": "8a41e73f14bbae49fbad4df16fcda242117a2894c629ea2d2808b9b2729c9abd",
+    "tools/balance_sim/baseline/P0Config.p0.9.0.json": "f72083647cf988c325aa30e610528d487f94cf8811d85b031ea51dea383ef9ac",
+    "tools/balance_sim/baseline/GoldenScores.p0.8.0.json": "f9ffc7640d31d3a1eded22084e963ef1029d2c74745fb9fdd421d0295e33fd60",
+    "tools/balance_sim/baseline/GoldenScoresV09.p0.9.0.json": "2aff977888f4b6e2a33560ff5ad9d3b91e2486acc1ebe61d1e93a46cea82de56"
+  },
+  "golden": "DicePrototype/Assets/Game/Data/GoldenScoresV10.json",
+  "golden_sha256": "b96aa88ff523dd0801b6320365a496aa4c6274423ea23faedb044cf65ff86d8c",
+  "cases": 446,
+  "cases_with_hand_computed_assertions": 446,
+  "cases_with_modifier": 193,
+  "legacy_checks": [
+    {
+      "check": "A",
+      "config": "tools/balance_sim/baseline/P0Config.p0.8.0.json",
+      "configVersion": "p0.8.0",
+      "vectors": "tools/balance_sim/baseline/GoldenScores.p0.8.0.json",
+      "cases": 160,
+      "exact": 160,
+      "fieldMismatches": 0,
+      "all_fields_exact": true
+    },
+    {
+      "check": "A",
+      "config": "tools/balance_sim/baseline/P0Config.p0.9.0.json",
+      "configVersion": "p0.9.0",
+      "vectors": "tools/balance_sim/baseline/GoldenScores.p0.8.0.json",
+      "cases": 160,
+      "exact": 160,
+      "fieldMismatches": 0,
+      "all_fields_exact": true
+    },
+    {
+      "check": "A",
+      "config": "DicePrototype/Assets/Game/Data/P0Config.json",
+      "configVersion": "p1.0.0",
+      "vectors": "tools/balance_sim/baseline/GoldenScores.p0.8.0.json",
+      "cases": 160,
+      "exact": 160,
+      "fieldMismatches": 0,
+      "all_fields_exact": true
+    },
+    {
+      "check": "B",
+      "config": "tools/balance_sim/baseline/P0Config.p0.9.0.json",
+      "configVersion": "p0.9.0",
+      "vectors": "tools/balance_sim/baseline/GoldenScoresV09.p0.9.0.json",
+      "cases": 260,
+      "exact": 260,
+      "fieldMismatches": 0,
+      "all_fields_exact": true
+    },
+    {
+      "check": "B",
+      "config": "DicePrototype/Assets/Game/Data/P0Config.json",
+      "configVersion": "p1.0.0",
+      "vectors": "tools/balance_sim/baseline/GoldenScoresV09.p0.9.0.json",
+      "cases": 260,
+      "exact": 260,
+      "fieldMismatches": 0,
+      "all_fields_exact": true
+    }
+  ],
+  "cases_per_family": {
+    "6.1 order": 44,
+    "6.3 face change": 44,
+    "6.4 boss / pressure": 12,
+    "6.5 items / temporary dice": 15,
+    "6.6 gold": 25,
+    "6.7 hands / archetypes": 51,
+    "6.8 build": 18,
+    "non-scoring": 7,
+    "blue wave": 11,
+    "item multiplier": 6,
+    "modifier: seals": 40,
+    "modifier: PipsOnly": 15,
+    "modifier: EnchantSilence": 9,
+    "modifier: GrowthZero / ZeroLevels": 20,
+    "modifier: NoRepeatHand": 11,
+    "modifier: HandHalf": 7,
+    "modifier: SmallHandsOnly": 14,
+    "modifier: NoStraight": 9,
+    "modifier: NoRed / NoBlue": 17,
+    "modifier: FirstHalf / LaterHalf": 10,
+    "modifier: session-only": 15,
+    "disabled controllers": 23,
+    "enchant": 17,
+    "large build": 6
+  },
+  "remote_control_cases": [
+    "P037",
+    "P053",
+    "P058",
+    "P062",
+    "P084"
+  ],
+  "synthetic_disabled_cases": [
+    "P423"
+  ],
+  "cases_mentioning_controller": {
+    "C01": 1,
+    "C02": 4,
+    "C03": 7,
+    "C08": 1,
+    "C09": 1,
+    "C10": 4,
+    "C12": 12,
+    "C13": 2,
+    "C17": 1,
+    "C18": 1,
+    "C20": 2,
+    "C22": 1,
+    "C25": 2,
+    "C27": 1,
+    "C28": 1,
+    "C29": 4,
+    "C30": 1,
+    "C31": 2,
+    "C39": 2,
+    "C41": 45,
+    "C44": 8,
+    "C45": 2,
+    "C46": 29,
+    "C47": 4,
+    "C48": 1,
+    "C49": 2,
+    "C50": 17,
+    "C51": 1,
+    "C53": 1,
+    "C54": 3,
+    "C55": 5,
+    "C56": 2,
+    "C57": 3,
+    "C58": 3,
+    "C59": 1,
+    "C60": 1,
+    "C61": 1,
+    "C62": 1,
+    "C64": 17,
+    "C65": 6,
+    "C67": 1,
+    "C68": 4,
+    "C69": 5,
+    "C70": 1,
+    "C72": 1,
+    "C73": 6,
+    "C74": 1,
+    "C75": 2,
+    "C76": 1,
+    "C77": 1,
+    "C78": 1,
+    "C79": 2,
+    "C80": 1,
+    "C81": 1,
+    "C82": 1,
+    "C83": 3,
+    "C84": 3,
+    "C85": 2,
+    "C86": 1,
+    "C87": 2,
+    "C88": 1,
+    "C90": 1,
+    "C91": 1,
+    "C92": 1,
+    "C93": 1,
+    "C94": 1,
+    "C95": 6,
+    "C96": 4,
+    "C97": 2,
+    "C98": 1,
+    "C100": 1,
+    "C102": 3,
+    "C104": 10,
+    "C105": 9,
+    "C106": 9,
+    "C107": 11,
+    "C108": 9,
+    "C109": 8,
+    "C110": 3,
+    "C111": 2,
+    "C112": 2,
+    "C113": 2,
+    "C114": 1,
+    "C115": 2,
+    "C116": 1,
+    "C117": 10,
+    "C118": 8,
+    "C119": 7,
+    "C120": 2,
+    "C121": 1,
+    "C122": 6,
+    "C123": 5,
+    "C124": 5,
+    "C125": 8,
+    "C126": 6,
+    "C127": 7,
+    "C128": 3,
+    "C129": 6,
+    "C130": 7,
+    "C131": 1,
+    "C132": 4,
+    "C133": 3,
+    "C134": 4,
+    "C135": 10,
+    "C136": 1,
+    "C137": 10,
+    "C138": 17,
+    "C139": 11,
+    "C140": 1,
+    "C141": 8,
+    "C142": 9,
+    "C143": 11,
+    "C144": 6,
+    "C145": 1,
+    "C146": 17,
+    "C147": 8,
+    "C148": 6,
+    "C149": 5,
+    "C150": 10,
+    "C151": 11,
+    "C152": 9,
+    "C153": 10
+  },
+  "new_controller_coverage": {
+    "C104": {
+      "mentions": 10,
+      "hit": 5,
+      "miss": 5
+    },
+    "C105": {
+      "mentions": 9,
+      "hit": 4,
+      "miss": 5
+    },
+    "C106": {
+      "mentions": 9,
+      "hit": 7,
+      "miss": 2
+    },
+    "C107": {
+      "mentions": 11,
+      "hit": 7,
+      "miss": 4
+    },
+    "C108": {
+      "mentions": 9,
+      "hit": 9,
+      "miss": 0
+    },
+    "C109": {
+      "mentions": 8,
+      "hit": 6,
+      "miss": 2
+    },
+    "C110": {
+      "mentions": 3,
+      "hit": 0,
+      "miss": 3
+    },
+    "C111": {
+      "mentions": 2,
+      "hit": 0,
+      "miss": 2
+    },
+    "C112": {
+      "mentions": 2,
+      "hit": 0,
+      "miss": 2
+    },
+    "C113": {
+      "mentions": 2,
+      "hit": 0,
+      "miss": 2
+    },
+    "C114": {
+      "mentions": 1,
+      "hit": 0,
+      "miss": 1
+    },
+    "C115": {
+      "mentions": 2,
+      "hit": 0,
+      "miss": 2
+    },
+    "C116": {
+      "mentions": 1,
+      "hit": 0,
+      "miss": 1
+    },
+    "C117": {
+      "mentions": 10,
+      "hit": 9,
+      "miss": 0
+    },
+    "C118": {
+      "mentions": 8,
+      "hit": 7,
+      "miss": 0
+    },
+    "C119": {
+      "mentions": 7,
+      "hit": 7,
+      "miss": 0
+    },
+    "C120": {
+      "mentions": 2,
+      "hit": 0,
+      "miss": 2
+    },
+    "C121": {
+      "mentions": 1,
+      "hit": 0,
+      "miss": 1
+    },
+    "C122": {
+      "mentions": 6,
+      "hit": 6,
+      "miss": 0
+    },
+    "C123": {
+      "mentions": 5,
+      "hit": 5,
+      "miss": 0
+    },
+    "C124": {
+      "mentions": 5,
+      "hit": 5,
+      "miss": 0
+    },
+    "C125": {
+      "mentions": 8,
+      "hit": 8,
+      "miss": 0
+    },
+    "C126": {
+      "mentions": 6,
+      "hit": 4,
+      "miss": 2
+    },
+    "C127": {
+      "mentions": 7,
+      "hit": 5,
+      "miss": 2
+    },
+    "C128": {
+      "mentions": 3,
+      "hit": 0,
+      "miss": 3
+    },
+    "C129": {
+      "mentions": 6,
+      "hit": 6,
+      "miss": 0
+    },
+    "C130": {
+      "mentions": 7,
+      "hit": 5,
+      "miss": 2
+    },
+    "C131": {
+      "mentions": 1,
+      "hit": 0,
+      "miss": 1
+    },
+    "C132": {
+      "mentions": 4,
+      "hit": 4,
+      "miss": 0
+    },
+    "C133": {
+      "mentions": 3,
+      "hit": 0,
+      "miss": 3
+    },
+    "C134": {
+      "mentions": 4,
+      "hit": 4,
+      "miss": 0
+    },
+    "C135": {
+      "mentions": 10,
+      "hit": 8,
+      "miss": 2
+    },
+    "C136": {
+      "mentions": 1,
+      "hit": 0,
+      "miss": 1
+    },
+    "C137": {
+      "mentions": 10,
+      "hit": 8,
+      "miss": 2
+    },
+    "C138": {
+      "mentions": 17,
+      "hit": 11,
+      "miss": 5
+    },
+    "C139": {
+      "mentions": 11,
+      "hit": 10,
+      "miss": 1
+    },
+    "C140": {
+      "mentions": 1,
+      "hit": 0,
+      "miss": 1
+    },
+    "C141": {
+      "mentions": 8,
+      "hit": 8,
+      "miss": 0
+    },
+    "C142": {
+      "mentions": 9,
+      "hit": 6,
+      "miss": 3
+    },
+    "C143": {
+      "mentions": 11,
+      "hit": 9,
+      "miss": 2
+    },
+    "C144": {
+      "mentions": 6,
+      "hit": 5,
+      "miss": 1
+    },
+    "C145": {
+      "mentions": 1,
+      "hit": 0,
+      "miss": 1
+    },
+    "C146": {
+      "mentions": 17,
+      "hit": 12,
+      "miss": 4
+    },
+    "C147": {
+      "mentions": 8,
+      "hit": 7,
+      "miss": 1
+    },
+    "C148": {
+      "mentions": 6,
+      "hit": 5,
+      "miss": 1
+    },
+    "C149": {
+      "mentions": 5,
+      "hit": 4,
+      "miss": 1
+    },
+    "C150": {
+      "mentions": 10,
+      "hit": 8,
+      "miss": 2
+    },
+    "C151": {
+      "mentions": 11,
+      "hit": 10,
+      "miss": 1
+    },
+    "C152": {
+      "mentions": 9,
+      "hit": 7,
+      "miss": 2
+    },
+    "C153": {
+      "mentions": 10,
+      "hit": 7,
+      "miss": 3
+    }
+  },
+  "always_triggering_new_controllers": [
+    "C108",
+    "C117",
+    "C118",
+    "C119",
+    "C122",
+    "C123",
+    "C124",
+    "C125",
+    "C129",
+    "C132",
+    "C134",
+    "C141"
+  ],
+  "scoring_effect_coverage": {
+    "SealOdd": {
+      "cases": 4,
+      "effect": 2,
+      "neutral": 2,
+      "scoreNeutral": 2
+    },
+    "SealEven": {
+      "cases": 3,
+      "effect": 2,
+      "neutral": 1,
+      "scoreNeutral": 1
+    },
+    "SealLow": {
+      "cases": 3,
+      "effect": 1,
+      "neutral": 2,
+      "scoreNeutral": 2
+    },
+    "SealHigh": {
+      "cases": 4,
+      "effect": 3,
+      "neutral": 1,
+      "scoreNeutral": 1
+    },
+    "SealRed": {
+      "cases": 6,
+      "effect": 4,
+      "neutral": 2,
+      "scoreNeutral": 2
+    },
+    "SealBlue": {
+      "cases": 4,
+      "effect": 3,
+      "neutral": 1,
+      "scoreNeutral": 1
+    },
+    "SealFirst": {
+      "cases": 8,
+      "effect": 8,
+      "neutral": 0,
+      "scoreNeutral": 1
+    },
+    "SealAlternate": {
+      "cases": 8,
+      "effect": 8,
+      "neutral": 0,
+      "scoreNeutral": 1
+    },
+    "NoStraight": {
+      "cases": 9,
+      "effect": 8,
+      "neutral": 1,
+      "scoreNeutral": 1
+    },
+    "SmallHandsOnly": {
+      "cases": 14,
+      "effect": 12,
+      "neutral": 2,
+      "scoreNeutral": 3
+    },
+    "NoRepeatHand": {
+      "cases": 10,
+      "effect": 6,
+      "neutral": 4,
+      "scoreNeutral": 4
+    },
+    "HandHalf": {
+      "cases": 7,
+      "effect": 6,
+      "neutral": 1,
+      "scoreNeutral": 1
+    },
+    "ZeroLevels": {
+      "cases": 20,
+      "effect": 8,
+      "neutral": 12,
+      "scoreNeutral": 12
+    },
+    "NoRed": {
+      "cases": 12,
+      "effect": 8,
+      "neutral": 4,
+      "scoreNeutral": 4
+    },
+    "NoBlue": {
+      "cases": 9,
+      "effect": 4,
+      "neutral": 5,
+      "scoreNeutral": 5
+    },
+    "FirstHalf": {
+      "cases": 6,
+      "effect": 5,
+      "neutral": 1,
+      "scoreNeutral": 1
+    },
+    "LaterHalf": {
+      "cases": 5,
+      "effect": 4,
+      "neutral": 1,
+      "scoreNeutral": 1
+    },
+    "PipsOnly": {
+      "cases": 16,
+      "effect": 11,
+      "neutral": 5,
+      "scoreNeutral": 5
+    },
+    "GrowthZero": {
+      "cases": 12,
+      "effect": 7,
+      "neutral": 5,
+      "scoreNeutral": 5
+    },
+    "EnchantSilence": {
+      "cases": 11,
+      "effect": 5,
+      "neutral": 6,
+      "scoreNeutral": 6
+    }
+  },
+  "always_effective_codes": [
+    "SealFirst",
+    "SealAlternate"
+  ],
+  "modifier_coverage": {
+    "B01": {
+      "effects": [
+        "MustFill"
+      ],
+      "cases": 1
+    },
+    "B02": {
+      "effects": [
+        "NoItems"
+      ],
+      "cases": 1
+    },
+    "B03": {
+      "effects": [
+        "TaxPerDie"
+      ],
+      "cases": 1
+    },
+    "B04": {
+      "effects": [
+        "NoReward"
+      ],
+      "cases": 2
+    },
+    "B05": {
+      "effects": [
+        "SealFirst"
+      ],
+      "cases": 8
+    },
+    "B06": {
+      "effects": [
+        "EnchantSilence"
+      ],
+      "cases": 6
+    },
+    "B07": {
+      "effects": [
+        "GrowthFreeze"
+      ],
+      "cases": 1
+    },
+    "B08": {
+      "effects": [
+        "NoStraight"
+      ],
+      "cases": 9
+    },
+    "B09": {
+      "effects": [
+        "RollsDelta"
+      ],
+      "cases": 1
+    },
+    "B10": {
+      "effects": [
+        "CapacityDelta"
+      ],
+      "cases": 1
+    },
+    "B11": {
+      "effects": [
+        "TargetPercent"
+      ],
+      "cases": 1
+    },
+    "B12": {
+      "effects": [
+        "LoseHalfGold"
+      ],
+      "cases": 1
+    },
+    "B13": {
+      "effects": [
+        "SealOdd"
+      ],
+      "cases": 4
+    },
+    "B14": {
+      "effects": [
+        "SealEven"
+      ],
+      "cases": 3
+    },
+    "B15": {
+      "effects": [
+        "SealLow"
+      ],
+      "cases": 3
+    },
+    "B16": {
+      "effects": [
+        "SealHigh"
+      ],
+      "cases": 4
+    },
+    "B17": {
+      "effects": [
+        "SealRed"
+      ],
+      "cases": 6
+    },
+    "B18": {
+      "effects": [
+        "SealBlue"
+      ],
+      "cases": 4
+    },
+    "B19": {
+      "effects": [
+        "HandHalf"
+      ],
+      "cases": 7
+    },
+    "B20": {
+      "effects": [
+        "SmallHandsOnly"
+      ],
+      "cases": 14
+    },
+    "B21": {
+      "effects": [
+        "NoRepeatHand"
+      ],
+      "cases": 10
+    },
+    "B22": {
+      "effects": [
+        "NoRed"
+      ],
+      "cases": 8
+    },
+    "B23": {
+      "effects": [
+        "NoBlue"
+      ],
+      "cases": 5
+    },
+    "B24": {
+      "effects": [
+        "HandDowngrade"
+      ],
+      "cases": 1
+    },
+    "B25": {
+      "effects": [
+        "DisableLeftmost"
+      ],
+      "cases": 18
+    },
+    "B26": {
+      "effects": [
+        "FirstHalf"
+      ],
+      "cases": 6
+    },
+    "B27": {
+      "effects": [
+        "SubmissionsDelta"
+      ],
+      "cases": 1
+    },
+    "B28": {
+      "effects": [
+        "ZeroLevels"
+      ],
+      "cases": 8
+    },
+    "B29": {
+      "effects": [
+        "DisableRarity"
+      ],
+      "cases": 4
+    },
+    "B30": {
+      "effects": [
+        "LaterHalf"
+      ],
+      "cases": 5
+    },
+    "B31": {
+      "effects": [
+        "TargetPercent"
+      ],
+      "cases": 1
+    },
+    "B32": {
+      "effects": [
+        "RollsFixed"
+      ],
+      "cases": 1
+    },
+    "B33": {
+      "effects": [
+        "SubmissionsDelta"
+      ],
+      "cases": 1
+    },
+    "B34": {
+      "effects": [
+        "CapacityDelta"
+      ],
+      "cases": 1
+    },
+    "B35": {
+      "effects": [
+        "ZeroLevels",
+        "GrowthZero"
+      ],
+      "cases": 12
+    },
+    "B36": {
+      "effects": [
+        "NoRed",
+        "NoBlue"
+      ],
+      "cases": 4
+    },
+    "B37": {
+      "effects": [
+        "DisableLeftmost",
+        "EnchantSilence"
+      ],
+      "cases": 5
+    },
+    "B38": {
+      "effects": [
+        "SealAlternate"
+      ],
+      "cases": 8
+    },
+    "B39": {
+      "effects": [
+        "PipsOnly"
+      ],
+      "cases": 16
+    }
+  },
+  "spec_readings_resolved": {
+    "R1": "3.1 sealed-dice paragraph: the retrigger count of a sealed die is still recorded (times 0). As implemented.",
+    "R2": "3.1 sealed-dice paragraph: C108 reads the first die's effective pip and is not reduced by a seal. As implemented.",
+    "R3": "3.1 NoStraight row, decided the other way: C29's trigger is 'the straight holds at its length', so under NoStraight C29 does not trigger and its enchantment does not fire; C83 and C142 likewise. Reference and vectors changed accordingly.",
+    "R4": "Appendix A tail: C118 lists one entry per submitted die, also when the opposite face already has that colour. As implemented.",
+    "R5": "Appendix A tail: the C146 +1 counts for the red group size read by C57's growth condition. As implemented.",
+    "R6": "5.2 step 4 and Appendix A tail: a disabled controller plans no post-score state change; disabled C54-C57 are not listed in growthChanges. As implemented (C45 / C53 follow-ups are not golden fields).",
+    "R7": "3.1 GrowthZero row: only the value used for scoring changes, growth plans are produced as usual. As implemented.",
+    "R8": "3.1 GrowthZero row: growth cards are C54-C62, C90, C100, C129, C132, C134; C51, C63, C141 are not. As implemented.",
+    "R9": "Appendix A tail: a disabled controller with the slotless enchantment still does not occupy an ordinary slot. As implemented.",
+    "R10": "3.1 sealed-dice paragraph: face changes are produced for sealed dice as usual. As implemented.",
+    "R11": "Appendix A tail: goldSpent and faceChanges[].amount are integers, globalFactors numerator / denominator are strings, faceChanges[].text is the empty string when the kind has no text. As implemented.",
+    "R12": "Appendix A tail: C127's texture entry carries the source texture verbatim (none included), gold is 0 when the source is not gold. As implemented.",
+    "R13": "3.1 NoRed / NoBlue paragraph: only the multipliers are fixed; colorId, redCount and the triggers of C02, C25, C69, C73, C146 are unchanged. As implemented.",
+    "R14": "5.1 lifetime note: lifetime is carried by the submitted dice only, pool dice keep the p0.9.0 fields. As implemented.",
+    "R15": "Appendix A tail: C130 still triggers in a boss stage whose modifier has been lifted. As implemented.",
+    "R16": "Appendix A tail: C124 always lists weightDelta +1 per submitted die, the cap is applied by the session. As implemented.",
+    "O1": "5.1 lifetime note, corrected in the rules text: the values are permanent / stage_temporary (the die model's values), the default is permanent and any other value is illegal. As implemented (LIFETIME_PERMANENT / LIFETIME_TEMPORARY; adapt() and validate() reject other values); no vector changed."
+  },
+  "spec_readings_open": {}
+}

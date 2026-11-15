@@ -117,7 +117,10 @@ namespace DiceCraft.Tests
             double deadline=Time.realtimeSinceStartupAsDouble+3;while(app.TransactionVisualPlaying07&&Time.realtimeSinceStartupAsDouble<deadline){AssertInteractionCheckpoint07(state,disk,seq);yield return null;}
             Assert.That(app.TransactionVisualPlaying07,Is.False);AssertInteractionCheckpoint07(state,disk,seq);
             Assert.That(motion.EnterSequence,Is.EqualTo(enters));Assert.That(motion.IsPlaying,Is.False);
-            foreach(var offer in app.Session.State.shop.offers.Where(o=>o.category=="controller"))
+            // p1.0.0: this shop follows a boss stage (stage index 2), so it may also hold loot offers of category
+            // "controller". Those live in the gift panel, not on the shelf; the shelf is the offers without a group.
+            var shelf=app.Session.State.shop.offers.Where(o=>o.category=="controller"&&string.IsNullOrEmpty(o.groupId)).ToArray();Assert.That(shelf.Length,Is.EqualTo(6));
+            foreach(var offer in shelf)
             {var root=ShopEntranceRoot07("Offer_"+offer.offerId);Assert.That(root.anchoredPosition.y,Is.EqualTo(-124).Within(.01).Or.EqualTo(-316).Within(.01));Assert.That(root.GetComponent<CanvasGroup>().alpha,Is.EqualTo(1));}
             yield return app.StartCoroutine(ShopEntrancePng07("shop-entrance-refresh-final"));
         }
