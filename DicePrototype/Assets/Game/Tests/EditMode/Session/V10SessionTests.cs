@@ -98,7 +98,7 @@ namespace DiceCraft.Tests
             var afterBoss = ShopAfterStage(2); view = afterBoss.CycleView();
             Assert.That(view[0].stageIndex, Is.EqualTo(3), "after a boss the panel shows the next cycle"); Assert.That(view[2].modifierId, Is.EqualTo(afterBoss.State.cycles[1].modifierId));
             var wall = ShopAfterStage(1, x => x.cycles[0].modifierId = "B11");
-            Assert.That(wall.CycleView()[2].bossTarget, Is.EqualTo("1575"), "1050 x 1.5");
+            Assert.That(wall.CycleView()[2].bossTarget, Is.EqualTo("1500"), "1000 x 1.5");
         }
 
         // ---- budget modifiers ----
@@ -144,7 +144,7 @@ namespace DiceCraft.Tests
             var s = BossPreview("B09", null, "C78");
             Assert.That(s.InitialRolls, Is.EqualTo(3), "3 + C78 - 1"); Assert.That(s.EntryView().modifierId, Is.EqualTo("B09"));
             s = BossPreview("B11", null);
-            Assert.That(s.State.stage.target, Is.EqualTo("1575")); Assert.That(s.EntryView().target, Is.EqualTo("1575"));
+            Assert.That(s.State.stage.target, Is.EqualTo("1500")); Assert.That(s.EntryView().target, Is.EqualTo("1500"));
             s = BossPreview("B25", null, "C50", "C46", "C13");
             Assert.That(s.EntryView().disabledControllerIds, Is.EqualTo(s.State.controllers.Take(2).Select(c => c.instanceId).ToArray()));
             s = BossPreview("B27", null, "C79");
@@ -268,7 +268,7 @@ namespace DiceCraft.Tests
             Assert.That(s.State.controllers.Select(c => c.definitionId), Is.EqualTo(new[] { "C13" })); Assert.That(s.State.stage.modifierNullified, Is.True);
             Assert.That(s.State.hand.rollsRemaining, Is.EqualTo(3)); Assert.That(start.receipt.effects.Any(e => e.kind == "ModifierNullified" && e.sourceId == "C131"), Is.True);
             var wall = BossPreview("B11", x => x.gold = 9, "C131"); Do(wall, CommandKind.StartStage);
-            Assert.That(wall.State.stage.target, Is.EqualTo("1050"));
+            Assert.That(wall.State.stage.target, Is.EqualTo("1000"));
             var toll = BossPreview("B12", x => x.gold = 9, "C131"); Do(toll, CommandKind.StartStage);
             Assert.That(toll.State.gold, Is.EqualTo(9), "the toll never applies");
             var plain = Edit(ShopAfterStage(0, x => Equip(x, "C131")), x => { }); Do(plain, CommandKind.LeaveShop); Do(plain, CommandKind.StartStage);
@@ -283,8 +283,8 @@ namespace DiceCraft.Tests
             Do(s, CommandKind.UseItem, c => c.itemInstanceId = talisman); Assert.That(s.State.stage.remainingSubmissions, Is.EqualTo(4), "3 base + 1 from the item");
             s = Edit(Boss("B09"), x => talisman = AddItem(x, "I08")); Do(s, CommandKind.UseItem, c => c.itemInstanceId = talisman);
             Assert.That(s.State.hand.rollsRemaining, Is.EqualTo(3));
-            s = Edit(Boss("B11"), x => talisman = AddItem(x, "I08")); Assert.That(s.State.stage.target, Is.EqualTo("1575"));
-            Do(s, CommandKind.UseItem, c => c.itemInstanceId = talisman); Assert.That(s.State.stage.target, Is.EqualTo("1050"));
+            s = Edit(Boss("B11"), x => talisman = AddItem(x, "I08")); Assert.That(s.State.stage.target, Is.EqualTo("1500"));
+            Do(s, CommandKind.UseItem, c => c.itemInstanceId = talisman); Assert.That(s.State.stage.target, Is.EqualTo("1000"));
             s = Edit(Boss("B25", "C50", "C46"), x => talisman = AddItem(x, "I08")); Do(s, CommandKind.UseItem, c => c.itemInstanceId = talisman);
             Assert.That(s.State.stage.disabledControllerIds, Is.Empty);
             Assert.That(Submit(Force(s, Fours, "red")), Is.EqualTo("9600"), "(20 + 20) x 12 x 2 x 5 x 2");

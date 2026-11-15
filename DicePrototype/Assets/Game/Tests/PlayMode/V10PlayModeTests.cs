@@ -53,7 +53,7 @@ namespace DiceCraft.Tests
             Assert.That(CardText10("CycleCard2", "ModifierName"), Is.EqualTo(app.Config.Modifier("B25").displayName));
             Assert.That(CardText10("CycleCard2", "ModifierText"), Is.EqualTo(app.Config.Modifier("B25").description));
             Assert.That(CardText10("CycleCard2", "Loot"), Does.Contain(app.Config.Loot("L1").displayName));
-            Assert.That(CardText10("CycleCard2", "Goal"), Is.EqualTo("1,050").Or.EqualTo("1050"));
+            Assert.That(CardText10("CycleCard2", "Goal"), Is.EqualTo("1,000").Or.EqualTo("1000"));
             Assert.That(FindActive<Transform>("CycleCard1").Find("CurrentCycleCard"), Is.Not.Null, "In the shop the panel highlights the next stage.");
             Assert.That(HasActive("Risk"), Is.False, "The shop panel is read-only.");
             Click("CloseCycle"); Assert.That(HasActive("CycleCard0"), Is.False);
