@@ -111,7 +111,7 @@ namespace DiceCraft.Core.Tests
         public void GoldenV09_FileCoversEveryScoringNewControllerBothTriggeredAndPresent()
         {
             var file = ReadFile();
-            Assert.That(file.schema, Is.EqualTo("v09-golden-1")); Assert.That(file.configVersion, Is.EqualTo(config.configVersion));
+            Assert.That(file.schema, Is.EqualTo("v09-golden-1")); Assert.That(file.configVersion, Is.EqualTo("p0.9.0"), "the v0.9 vectors stay frozen; p1.0.0 must still reproduce them");
             Assert.That(file.cases.Length, Is.GreaterThanOrEqualTo(150)); Assert.That(file.cases.Select(c => c.id).Distinct().Count(), Is.EqualTo(file.cases.Length));
             var present = new Dictionary<string, int>(); var triggered = new Dictionary<string, int>(); var missed = new Dictionary<string, int>();
             foreach (var example in file.cases)
@@ -127,7 +127,7 @@ namespace DiceCraft.Core.Tests
             }
             // These always count as triggered by rule, so a "miss" case cannot exist for them.
             var always = new HashSet<string> { "C54", "C55", "C56", "C57", "C58", "C59", "C60", "C61", "C62", "C63", "C64", "C90", "C94", "C100", "C101" };
-            foreach (var definition in config.controllers.Where(c => int.Parse(c.id.Substring(1)) >= 54))
+            foreach (var definition in config.controllers.Where(c => int.Parse(c.id.Substring(1)) >= 54 && int.Parse(c.id.Substring(1)) <= 103)) // C104+ are covered by GoldenScoresV10.json
             {
                 if (config.enchantRules.nonSubmitControllerIds.Contains(definition.id))
                 {

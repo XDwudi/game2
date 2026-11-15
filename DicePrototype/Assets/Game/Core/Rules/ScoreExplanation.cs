@@ -19,9 +19,15 @@ namespace DiceCraft.Core
     [Serializable] public sealed class ScoreTrace { public DieScoreTrace[] dice; public ScoreStep[] global; }
     public static class ScoreExplanation
     {
-        internal static DieScoreTrace DescribeDie(SubmissionSnapshot snapshot, int index, int pip, string color, GameConfig cfg, AbilitySource[] sources)
+        internal static DieScoreTrace DescribeDie(SubmissionSnapshot snapshot, int index, int[] pips, string color, GameConfig cfg, AbilitySource[] sources, bool pipsOnly = false, bool sealedDie = false)
         {
-            var die = snapshot.dice[index]; var steps = new List<ScoreStep>(); var value = new ExactFraction(pip, 1);
+            int pip = pips[index]; var die = snapshot.dice[index]; var steps = new List<ScoreStep>(); var value = new ExactFraction(pip, 1);
+            // v1.0 boss modifiers: PipsOnly keeps the bare effective pip; a sealed die contributes nothing.
+            if (pipsOnly || sealedDie)
+            {
+                if (sealedDie) Step(steps, "sealed", new AbilitySource { abilityId = snapshot.modifierId }, "×", ref value, new ExactFraction(0, 1));
+                return new DieScoreTrace { dieId = die.dieId, contribution = checked((long)value.Numerator), steps = steps.ToArray() };
+            }
             foreach (var source in sources)
             {
                 if (source.abilityId == null) continue; var p = cfg.Controller(source.abilityId).parameters; int add = 0;
@@ -36,6 +42,8 @@ namespace DiceCraft.Core
                     case "C91": if (p.textures.Contains(DieFacts.Texture(die))) add = p.perDieAdd; break;
                     case "C92": if (DieFacts.MonoColor(die)) add = p.perDieAdd; break;
                     case "C94": add = DieFacts.OppositePip(die, cfg); break;
+                    case "C107": if (index > 0 && pip == pips[index - 1] + 1) add = p.perDieAdd; break;
+                    case "C137": if (die.lifetime == "stage_temporary") add = p.perDieAdd; break;
                 }
                 if (add != 0) Step(steps, "contribution", source, "+", ref value, new ExactFraction(add, 1));
             }
@@ -48,8 +56,10 @@ namespace DiceCraft.Core
         public static ScoreTrace Build(SubmissionSnapshot snapshot, ScoreBreakdown breakdown, GameConfig cfg)
         {
             if (snapshot == null || breakdown == null || cfg == null) throw new ArgumentNullException();
-            var sources = ControllerRules.ResolveSources(ControllerRules.Resolve(snapshot), snapshot.mimicBindings);
-            var dice = snapshot.dice.Select((d, i) => DescribeDie(snapshot, i, breakdown.effectivePips[i], breakdown.effectiveColors[i], cfg, sources)).ToArray();
+            var sources = ControllerRules.ResolveSources(ControllerRules.Resolve(snapshot), snapshot.mimicBindings, snapshot.disabledControllerIds);
+            bool pipsOnly = ControllerRules.ModifierHas(cfg, snapshot.modifierId, "PipsOnly"); var sealedDice = breakdown.sealedDice ?? Array.Empty<bool>();
+            if (sealedDice.Length != 0 && sealedDice.Length != snapshot.dice.Length) throw new ArgumentException("Frozen seal mismatch.");
+            var dice = snapshot.dice.Select((d, i) => DescribeDie(snapshot, i, breakdown.effectivePips, breakdown.effectiveColors[i], cfg, sources, pipsOnly, sealedDice.Length != 0 && sealedDice[i])).ToArray();
             if (dice.Where((d, i) => d.contribution != breakdown.pipContributions[i]).Any()) throw new ArgumentException("Frozen contribution mismatch.");
             // v0.9: each retrigger source appends one "+ contribution x count" step to the die it repeats.
             var retriggers = breakdown.pipRetriggers ?? Array.Empty<int>(); var entries = breakdown.retriggerEntries ?? Array.Empty<RetriggerEntry>();
@@ -71,15 +81,21 @@ namespace DiceCraft.Core
             Step(steps, "unused_rolls", null, "+", ref value, new ExactFraction(breakdown.unusedRollBonus, 1));
             Add(steps, "C27", breakdown.pairBaseAdd, ref value); Add(steps, "C44", ExactScoreMath.Parse(breakdown.walletBaseAdd), ref value); Add(steps, "C48", breakdown.emptySlotBaseAdd, ref value); Add(steps, "C50", breakdown.steadyBaseAdd, ref value);
             foreach (var add in breakdown.controllerBaseAdds ?? Array.Empty<ControllerBaseAdd>()) Step(steps, "controller_base", sources.Single(s => s.emitterId == add.emitterId), "+", ref value, new ExactFraction(ExactScoreMath.Parse(add.amount), 1));
-            foreach (var source in sources.Where(s => s.enchantmentId == "base10" && breakdown.triggeredSourceIds.Contains(s.emitterId))) Step(steps, "enchantment_base", source, "+", ref value, new ExactFraction(cfg.enchantRules.baseAdd, 1));
+            bool silence = ControllerRules.ModifierHas(cfg, snapshot.modifierId, "EnchantSilence");
+            if (!silence && !pipsOnly) foreach (var source in sources.Where(s => s.enchantmentId == "base10" && breakdown.triggeredSourceIds.Contains(s.emitterId))) Step(steps, "enchantment_base", source, "+", ref value, new ExactFraction(cfg.enchantRules.baseAdd, 1));
             if (value.Numerator != ExactScoreMath.Parse(breakdown.baseTotal)) throw new ArgumentException("Frozen base mismatch.");
-            Step(steps, "hand", null, "×", ref value, new ExactFraction(breakdown.totalHandMult100, 100));
-            steps[steps.Count - 1].note = string.Join(",", sources.Where(s => (s.abilityId == "C84" || s.abilityId == "C85") && breakdown.triggeredSourceIds.Contains(s.emitterId)).Select(s => s.abilityId + ":" + cfg.Controller(s.abilityId).parameters.handMultAdd100));
+            // v1.0: the hand step shows the multiplier before NoRepeatHand / HandHalf; the boss step carries the rest.
+            int handBefore = breakdown.handMultBeforeModifier100 > 0 ? breakdown.handMultBeforeModifier100 : breakdown.totalHandMult100;
+            Step(steps, "hand", null, "×", ref value, new ExactFraction(handBefore, 100));
+            steps[steps.Count - 1].note = string.Join(",", sources.Where(s => (s.abilityId == "C84" || s.abilityId == "C85" || s.abilityId == "C142") && breakdown.triggeredSourceIds.Contains(s.emitterId)).Select(s => s.abilityId + ":" + cfg.Controller(s.abilityId).parameters.handMultAdd100));
+            if (handBefore != breakdown.totalHandMult100) Step(steps, "boss_hand", new AbilitySource { abilityId = snapshot.modifierId }, "×", ref value, new ExactFraction(breakdown.totalHandMult100, handBefore));
             Step(steps, "color", null, "×", ref value, new ExactFraction(breakdown.colorMult100, 100));
             Step(steps, "red_group", null, "×", ref value, new ExactFraction(breakdown.redMult100, 100));
-            if (breakdown.redPoolCount > 0) steps[steps.Count - 1].note = "C73:" + breakdown.redPoolCount;
+            steps[steps.Count - 1].note = string.Join(",", new[] { breakdown.redPoolCount > 0 ? "C73:" + breakdown.redPoolCount : null, breakdown.redBonusCount > 0 ? "C146:" + breakdown.redBonusCount : null }.Where(x => x != null));
+            if (steps[steps.Count - 1].note == "") steps[steps.Count - 1].note = null;
             foreach (var factor in breakdown.multiplierFactors) Step(steps, "controller", sources.Single(s => s.emitterId == factor.emitterId), "×", ref value, new ExactFraction(ExactScoreMath.Parse(factor.numerator), ExactScoreMath.Parse(factor.denominator)));
-            foreach (var source in sources.Where(s => s.enchantmentId == "mult2" && breakdown.triggeredSourceIds.Contains(s.emitterId))) Step(steps, "enchantment_multiplier", source, "×", ref value, new ExactFraction(cfg.enchantRules.scoreMultiplier, 1));
+            if (!silence) foreach (var source in sources.Where(s => s.enchantmentId == "mult2" && breakdown.triggeredSourceIds.Contains(s.emitterId))) Step(steps, "enchantment_multiplier", source, "×", ref value, new ExactFraction(cfg.enchantRules.scoreMultiplier, 1));
+            foreach (var factor in breakdown.globalFactors ?? Array.Empty<MultiplierFactor>()) Step(steps, factor.emitterId == "ITEM" ? "item" : "boss", new AbilitySource { abilityId = factor.abilityId }, "×", ref value, new ExactFraction(ExactScoreMath.Parse(factor.numerator), ExactScoreMath.Parse(factor.denominator)));
             string floor = ExactScoreMath.SaveDecimal(value.Numerator / value.Denominator);
             steps.Add(new ScoreStep { kind = "floor", operation = "floor", before = value.ToString(), operand = "1", after = floor });
             if (floor != breakdown.score) throw new ArgumentException("Frozen score mismatch.");

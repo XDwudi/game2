@@ -53,7 +53,7 @@ namespace DiceCraft
                 var die=snapshot.dice[i];var face=die.permanentFacesCopy.Single(f=>f.faceId==die.faceId);
                 Row("Die"+i,(i+1)+". "+die.dieId+" / "+die.faceId,
                     $"永久 {face.permanentPip} → 当前 {die.currentPip} → 有效 {b.effectivePips[i]}\n有效颜色 {(b.effectiveColors[i]=="red"?"红 R":"蓝 B")}\n永久六面和 {die.permanentSixFaceSum}",
-                    "本骰点数贡献\n"+b.pipContributions[i],25,UiKit.Paper);
+                    "本骰点数贡献\n"+b.pipContributions[i]+(b.sealedDice!=null&&i<b.sealedDice.Length&&b.sealedDice[i]?"（封印）":""),25,UiKit.Paper);
                 for(int j=0;j<trace.dice[i].steps.Length;j++)
                 {
                     var step=trace.dice[i].steps[j];Row("Die"+i+"Step"+j,ScoreStepSource07(step),ScoreStepCalculation07(step),step.after,23,UiKit.Paper);
@@ -74,7 +74,7 @@ namespace DiceCraft
             if(historical&&receipt07!=null)UiKit.Button(p,"ReplayReceipt","回放记录",24+2*(bw+12),by,bw,64,()=>{CloseModal();ReplayLastPresentation07();},!IsBusy);
             if(historical&&HasCommittedPresentationDetails07(snapshot.handId))UiKit.Button(p,"ReceiptEffectsDetails","表现与后置",24+3*(bw+12),by,bw,64,ShowCommittedPresentationDetails07,!IsBusy);
         }
-        private string ScoreFormula07(ScoreBreakdown b)=>$"基础 {b.baseTotal} × 牌型 {Factor(b.totalHandMult100)} × 颜色 {Factor(b.colorMult100)} × 红组 {Factor(b.redMult100)} × 控制器 {b.controllerMultiplierNumerator}/{b.controllerMultiplierDenominator} × 2^{b.enchantMultiplierCount}\n全部相乘后向下取整一次 = {Big(b.score)}";
+        private string ScoreFormula07(ScoreBreakdown b)=>$"基础 {b.baseTotal} × 牌型 {Factor(b.totalHandMult100)} × 颜色 {Factor(b.colorMult100)} × 红组 {Factor(b.redMult100)} × 控制器 {b.controllerMultiplierNumerator}/{b.controllerMultiplierDenominator} × 2^{b.enchantMultiplierCount}{GlobalFactorText10(b)}\n全部相乘后向下取整一次 = {Big(b.score)}";
         private static string ScoreStepCalculation07(ScoreStep step)=>step.operation=="floor"?step.before+" → 向下取整一次":step.before+" "+step.operation+" "+step.operand;
     }
 }

@@ -6,7 +6,7 @@ namespace DiceCraft.Core
 {
     public sealed partial class GameSession
     {
-        private int ShopCapacity(RunState s) { return s.isDebug && s.debugCapacityOverride > 0 ? s.debugCapacityOverride : ControllerRules.Capacity(s.controllers, cfg, false, ActiveBindings(s)); }
+        private int ShopCapacity(RunState s) { return s.isDebug && s.debugCapacityOverride > 0 ? s.debugCapacityOverride : ControllerRules.Capacity(s.controllers, cfg, false, ActiveBindings(s), ActiveRules(s)); }
         private int PermanentCount(RunState s) { return s.dice.Count(x => x.lifetime == "permanent"); }
         private int Level(RunState s, string id) { return s.handLevels.Concat(s.colorLevels).First(x => x.handId == id).level; }
         private IEnumerable<string> StudyIds(RunState s) { return cfg.handDefinitions.Select(h => h.id).Concat(cfg.colorDefinitions.Select(h => h.id)).Where(id => IsHandLegal(s, id)); }
@@ -30,6 +30,7 @@ namespace DiceCraft.Core
         private int OfferPrice(RunState s, ShopOffer offer)
         {
             Check(offer != null, "商品不存在。");
+            if (!string.IsNullOrEmpty(offer.groupId)) return 0; // v1.0: gift-group offers are free
             switch (offer.category)
             {
                 case "controller": return Math.Max(1, checked(cfg.Controller(offer.contentId).buyPrice + ControllerRules.EnchantPrice(offer.controller.enchantmentId, cfg) + BargainDelta(s)));
@@ -44,6 +45,9 @@ namespace DiceCraft.Core
                     if (offer.contentId == "O05") basePrice = checked(basePrice + 2 * s.controllerOfferPurchases);
                     if (offer.contentId == "O06") basePrice = checked(basePrice + 2 * s.consumableOfferPurchases);
                     if (offer.contentId == "O08") basePrice = checked(basePrice + cfg.controllerSlotPriceStep * s.controllerSlotPurchases);
+                    if (offer.contentId == "O09") basePrice = checked(basePrice + 2 * s.bossRerolls);
+                    if (offer.contentId == "O10") basePrice = checked(basePrice + 4 * s.interestCapPurchases);
+                    if (offer.contentId == "O11") basePrice = checked(basePrice + 3 * s.enchantTablePurchases);
                     return Discount(s, basePrice);
                 default: throw new RuleViolation("商品类别无效。");
             }
@@ -55,8 +59,11 @@ namespace DiceCraft.Core
         private long OfferTradeIn(RunState s, ShopOffer offer)
         {
             var old = offer != null && offer.category == "controller" ? s.controllers.FirstOrDefault(c => c.definitionId == offer.contentId) : null;
-            return old == null ? 0 : ControllerRules.SalePrice(old, cfg);
+            return old == null ? 0 : SalePrice(s, old);
         }
+
+        /// <summary>v1.0 C140: controllers resell at their full list price while any source of it is held.</summary>
+        private long SalePrice(RunState s, ControllerInstance c) => ControllerRules.SalePrice(c, cfg, Sources(s).Any(x => x.abilityId == "C140"));
 
         private ShopOffer MakeOffer(RunState s, string category, string contentId, int basePrice)
         {
@@ -64,6 +71,7 @@ namespace DiceCraft.Core
         }
 
         private static string BatchId(ShopState shop, string category) => shop.generationId + "/" + category + (category == "controller" ? "/" + shop.controllerGeneration : "");
+        private static bool Shelf(ShopOffer o) => string.IsNullOrEmpty(o.groupId);
         private int ControllerOfferCount(RunState s) => cfg.shop.initialControllerOffers + s.controllerOfferPurchases;
         private int ConsumableOfferCount(RunState s) => cfg.shop.initialConsumableOffers + s.consumableOfferPurchases;
         private ControllerDefinition[] ControllerCandidates(RunState s, IEnumerable<string> excluded = null)
@@ -74,13 +82,13 @@ namespace DiceCraft.Core
                 .OrderBy(x => x.id, StringComparer.Ordinal).ToArray();
         }
 
-        private string DrawControllerEnchantment(RunState s, string id, string current, GameRng rng)
+        private string DrawControllerEnchantment(RunState s, string id, string current, GameRng rng, string stream = "shop")
         {
             bool special = cfg.enchantRules.nonSubmitControllerIds.Contains(id);
             Func<string, int> weight = e => !special ? cfg.Enchantment(e).weight : e == "none" ? 100 : e == "slotless" ? 50 : e == "submit1" || e == "roll1" ? 25 : 0;
             var pool = cfg.enchantRules.rawDrawOrder.Where(e => weight(e) > 0 && (current == null || (e != "none" && e != current))).ToArray();
             Check(pool.Length > 0, "没有可用附魔候选。");
-            var trace = DrawRaw(s, rng, "shop", "ControllerEnchantment", id, pool.Sum(weight));
+            var trace = DrawRaw(s, rng, stream, "ControllerEnchantment", id, pool.Sum(weight));
             int draw = trace.rawTicket;
             foreach (var enchant in pool) { draw -= weight(enchant); if (draw < 0) { trace.rawValue = trace.appliedValue = enchant; return enchant; } }
             throw new RuleViolation("附魔抽样未覆盖票值。");
@@ -122,25 +130,139 @@ namespace DiceCraft.Core
                     var offer = MakeOffer(s, "new_die", "O03", QuoteNewDie(die, reasons));
                     offer.die = die; offer.priceReasons = reasons.ToArray(); shop.offers.Add(offer);
                 }
+            // v1.0 gift groups, generated after everything else: boss loot first, then controller gifts left to right.
+            var stageDef = cfg.stages[s.stage.stageIndex];
+            if (stageDef.stageKind == "boss" && s.stage.stageIndex / 3 < s.cycles.Count && !string.IsNullOrEmpty(s.cycles[s.stage.stageIndex / 3].lootKind)) AddLoot(s, rng, s.cycles[s.stage.stageIndex / 3].lootKind);
+            var gifts = Sources(s).Where(x => x.abilityId == "C111" || x.abilityId == "C113").ToArray();
+            foreach (string ability in gifts.Select(x => x.abilityId).Distinct(StringComparer.Ordinal).ToArray())
+            {
+                var p = cfg.Controller(ability).parameters; int sources = gifts.Count(x => x.abilityId == ability);
+                var candidates = ability == "C111" ? cfg.consumables.Select(x => x.id) : cfg.diceUpgrades.Where(x => HasUpgradeTarget(s, x.id)).Select(x => x.id);
+                var picked = PickUniform(s, rng, candidates, p.giftChoices, "Gift" + ability); if (picked.Count == 0) continue;
+                var group = NewGroup(s, "GIFT_" + ability, ability, Math.Min(picked.Count, checked(p.giftPicks * sources)));
+                foreach (string id in picked) AddGroupOffer(s, group, ability == "C111" ? "consumable" : "die_upgrade", id, ability == "C111" ? cfg.Consumable(id).baseBuyPrice : cfg.Upgrade(id).buyPrice);
+            }
             s.shopRngState = rng.State;
         }
 
+        // ---- v1.0 gift groups ----
+        private ShopGroup NewGroup(RunState s, string groupId, string kind, int picks)
+        {
+            var group = new ShopGroup { groupId = groupId, kind = kind, picks = picks }; s.shop.groups.Add(group); return group;
+        }
+        private ShopOffer AddGroupOffer(RunState s, ShopGroup group, string category, string contentId, int basePrice)
+        {
+            var offer = MakeOffer(s, category, contentId, basePrice); offer.groupId = group.groupId; offer.batchId = s.shop.generationId + "/" + group.groupId;
+            s.shop.offers.Add(offer); return offer;
+        }
+        private List<string> PickUniform(RunState s, GameRng rng, IEnumerable<string> candidates, int count, string kind)
+        {
+            var ids = candidates.Distinct(StringComparer.Ordinal).OrderBy(x => x, StringComparer.Ordinal).ToList(); var picked = new List<string>();
+            for (int i = 0; i < count && ids.Count > 0; i++)
+            {
+                var trace = DrawRaw(s, rng, "shop", kind, s.shop.generationId, ids.Count); string id = ids[trace.rawTicket]; trace.rawValue = trace.appliedValue = id;
+                ids.RemoveAt(trace.rawTicket); picked.Add(id);
+            }
+            return picked;
+        }
+        private void AddLoot(RunState s, GameRng rng, string kind)
+        {
+            var def = cfg.Loot(kind); var group = NewGroup(s, "LOOT", kind, def.picks); const int choices = 3;
+            var shelf = new HashSet<string>(s.shop.offers.Where(o => o.category == "controller").Select(o => o.contentId), StringComparer.Ordinal);
+            switch (kind)
+            {
+                case "L1":
+                    foreach (string id in PickUniform(s, rng, cfg.controllers.Where(c => c.rarity == "rare" && !Has(s, c.id) && !shelf.Contains(c.id)).Select(c => c.id), choices, "LootController"))
+                        AddLootController(s, group, id, "none");
+                    break;
+                case "L2":
+                    {
+                        var pool = cfg.controllers.Where(c => !Has(s, c.id) && !shelf.Contains(c.id)).OrderBy(c => c.id, StringComparer.Ordinal).ToList();
+                        for (int i = 0; i < choices && pool.Count > 0; i++)
+                        {
+                            var trace = DrawRaw(s, rng, "shop", "LootController", s.shop.generationId, pool.Sum(c => c.offerWeight)); int draw = trace.rawTicket; var picked = pool[0];
+                            foreach (var option in pool) { draw -= option.offerWeight; if (draw < 0) { picked = option; break; } }
+                            trace.rawValue = trace.appliedValue = picked.id; pool.Remove(picked);
+                            AddLootController(s, group, picked.id, DrawControllerEnchantment(s, picked.id, "none", rng));
+                        }
+                        break;
+                    }
+                case "L3":
+                    foreach (string id in PickUniform(s, rng, StudyIds(s), choices, "LootHand")) AddGroupOffer(s, group, "hand_upgrade", id, HandPrice(s, id, false)).levels = cfg.lootHandLevels;
+                    break;
+                case "L4":
+                    foreach (string id in PickUniform(s, rng, cfg.diceUpgrades.Where(x => HasUpgradeTarget(s, x.id)).Select(x => x.id), choices, "LootUpgrade")) AddGroupOffer(s, group, "die_upgrade", id, cfg.Upgrade(id).buyPrice);
+                    break;
+                case "L5":
+                    if (PermanentCount(s) < cfg.maxPermanentDice && s.dice.Count < cfg.maxActiveDice)
+                        for (int template = 0; template < choices; template++)
+                        {
+                            var die = GenerateSpecialDie(s, rng, template); var reasons = new List<string>();
+                            var offer = AddGroupOffer(s, group, "new_die", "O03", QuoteNewDie(die, reasons)); offer.die = die; offer.priceReasons = reasons.ToArray();
+                        }
+                    break;
+                case "L6":
+                    foreach (string id in PickUniform(s, rng, cfg.consumables.Select(x => x.id), choices, "LootItem")) AddGroupOffer(s, group, "consumable", id, cfg.Consumable(id).baseBuyPrice);
+                    break;
+                default: throw new RuleViolation("未知战利品种类。");
+            }
+            group.picks = Math.Max(1, Math.Min(group.picks, s.shop.offers.Count(o => o.groupId == group.groupId)));
+            AddGroupOffer(s, group, "gold", "GOLD", cfg.lootGoldValue);
+        }
+        private void AddLootController(RunState s, ShopGroup group, string id, string enchant)
+        {
+            var offer = AddGroupOffer(s, group, "controller", id, cfg.Controller(id).buyPrice); int serial = s.nextItemSerial++;
+            offer.controller = new ControllerInstance { instanceId = "ITEM_" + serial.ToString("D5"), acquiredSerial = serial, definitionId = id, enchantmentId = enchant };
+        }
+        /// <summary>v1.0 loot dice: 0 = one pip on all six faces, 1 = one colour on all six faces, 2 = two gold faces.</summary>
+        private DieInstance GenerateSpecialDie(RunState s, GameRng rng, int template)
+        {
+            int[] range = cfg.generation.pipRange; var d = DiceFactory.CreateStandard(cfg, 1); d.dieId = ""; d.createdSerial = 0; d.isGlass = false;
+            var faces = d.faces.OrderBy(x => x.faceId, StringComparer.Ordinal).ToArray();
+            foreach (var f in faces)
+            {
+                f.permanentPip = range[0] + DrawRaw(s, rng, "shop", "DiePip", f.faceId, range[1] - range[0] + 1).rawTicket;
+                f.baseColor = DrawRaw(s, rng, "shop", "DieColor", f.faceId, 100).rawTicket < cfg.generation.redFaceChancePercent ? "red" : "blue";
+                f.texture = "none"; f.isGold = false; f.baseWeight = 1;
+            }
+            if (template == 0) { int pip = range[0] + DrawRaw(s, rng, "shop", "SpecialPip", "L5", range[1] - range[0] + 1).rawTicket; foreach (var f in faces) f.permanentPip = pip; }
+            else if (template == 1) { string color = DrawRaw(s, rng, "shop", "SpecialColor", "L5", 2).rawTicket == 0 ? "red" : "blue"; foreach (var f in faces) f.baseColor = color; }
+            else
+            {
+                int first = DrawRaw(s, rng, "shop", "SpecialGold", "L5", 6).rawTicket, second = DrawRaw(s, rng, "shop", "SpecialGold", "L5", 5).rawTicket;
+                if (second >= first) second++;
+                faces[first].isGold = true; faces[second].isGold = true;
+            }
+            return d;
+        }
+        private ShopGroup GroupOf(RunState s, ShopOffer offer) => string.IsNullOrEmpty(offer.groupId) ? null : s.shop.groups.FirstOrDefault(g => g.groupId == offer.groupId);
+        /// <summary>Gives a random enchantment to one random controller that has none. Returns false when there is no candidate.</summary>
+        private bool EnchantRandomController(RunState s, GameRng rng, string sourceId, string excludedInstanceId)
+        {
+            var candidates = s.controllers.Where(c => c.enchantmentId == "none" && c.instanceId != excludedInstanceId).ToArray(); if (candidates.Length == 0) return false;
+            var trace = DrawRaw(s, rng, "effect", "EnchantTarget", sourceId, candidates.Length); var target = candidates[trace.rawTicket]; trace.rawValue = trace.appliedValue = target.instanceId;
+            target.enchantmentId = DrawControllerEnchantment(s, target.definitionId, "none", rng, "effect");
+            s.lastEffects.Add(new EffectRecord { kind = "ControllerEnchanted", sourceId = sourceId, detail = target.instanceId + ":" + target.enchantmentId });
+            return true;
+        }
+        public ShopGroup[] ShopGroups() { lock (gate) return state == null || state.shop == null ? Array.Empty<ShopGroup>() : state.shop.groups.Select(g => g.Clone()).ToArray(); }
+
         public int GetRefreshPrice() { lock (gate) { Check(state != null && state.shop != null, "当前没有商店。"); return RefreshPrice(state); } }
-        public long GetControllerSalePrice(string instanceId) { lock (gate) { Check(state != null, "没有活动挑战。"); return ControllerRules.SalePrice(state.controllers.FirstOrDefault(c => c.instanceId == instanceId), cfg); } }
+        public long GetControllerSalePrice(string instanceId) { lock (gate) { Check(state != null, "没有活动挑战。"); return SalePrice(state, state.controllers.FirstOrDefault(c => c.instanceId == instanceId)); } }
         private int RefreshPrice(RunState s) => s.freeFirstRefreshOwned && s.shop.controllerRefreshCount == 0 ? 0 : checked(cfg.shop.firstRefreshPrice + cfg.shop.refreshPriceStep * s.shop.controllerRefreshCount);
         private void RefreshControllers(RunState s)
         {
             RequirePhase(s, "Shop"); int price = RefreshPrice(s);
             Check(s.gold >= price, "金币不足。"); Check(ControllerCandidates(s).Length > 0, "没有合法控制器候选。");
             s.gold = checked(s.gold - price); s.shop.controllerRefreshCount = checked(s.shop.controllerRefreshCount + 1); s.shop.controllerGeneration = checked(s.shop.controllerGeneration + 1);
-            s.shop.offers.RemoveAll(o => o.category == "controller"); var rng = new GameRng(s.shopRngState);
+            s.shop.offers.RemoveAll(o => o.category == "controller" && Shelf(o)); var rng = new GameRng(s.shopRngState);
             AppendControllers(s, rng, ControllerOfferCount(s), true); s.shopRngState = rng.State;
             s.lastEffects.Add(new EffectRecord { kind = "ControllersRefreshed", oldValue = price, newValue = s.shop.controllerRefreshCount, detail = BatchId(s.shop, "controller") });
         }
 
         private void AddUniformOffers(RunState s, ShopState shop, GameRng rng, IEnumerable<string> candidates, int count, string category, Func<string, int> price)
         {
-            var ids = candidates.Except(shop.offers.Where(o => o.category == category).Select(o => o.contentId), StringComparer.Ordinal).OrderBy(x => x, StringComparer.Ordinal).ToList();
+            var ids = candidates.Except(shop.offers.Where(o => o.category == category && Shelf(o)).Select(o => o.contentId), StringComparer.Ordinal).OrderBy(x => x, StringComparer.Ordinal).ToList();
             for (int i = 0; i < count && ids.Count > 0; i++)
             {
                 var trace = DrawRaw(s, rng, "shop", "OfferId", category, ids.Count); int index = trace.rawTicket; string id = ids[index]; trace.rawValue = trace.appliedValue = id; ids.RemoveAt(index);
@@ -148,17 +270,17 @@ namespace DiceCraft.Core
             }
         }
 
-        private DieInstance GenerateDie(RunState s, GameRng rng)
+        private DieInstance GenerateDie(RunState s, GameRng rng, string stream = "shop")
         {
             var weights = cfg.generation.newDieTemplateWeights;
-            int selection = DrawRaw(s, rng, "shop", "DieTemplate", "O03", weights.random + weights.low + weights.high).rawTicket;
+            int selection = DrawRaw(s, rng, stream, "DieTemplate", "O03", weights.random + weights.low + weights.high).rawTicket;
             int[] range = selection < weights.random ? cfg.generation.pipRange
                 : selection < weights.random + weights.low ? cfg.generation.lowRange : cfg.generation.highRange;
             var d = DiceFactory.CreateStandard(cfg, 1); d.dieId = ""; d.createdSerial = 0;
             foreach (var f in d.faces.OrderBy(x => x.faceId, StringComparer.Ordinal))
             {
-                f.permanentPip = range[0] + DrawRaw(s, rng, "shop", "DiePip", f.faceId, range[1] - range[0] + 1).rawTicket;
-                f.baseColor = DrawRaw(s, rng, "shop", "DieColor", f.faceId, 100).rawTicket < cfg.generation.redFaceChancePercent ? "red" : "blue";
+                f.permanentPip = range[0] + DrawRaw(s, rng, stream, "DiePip", f.faceId, range[1] - range[0] + 1).rawTicket;
+                f.baseColor = DrawRaw(s, rng, stream, "DieColor", f.faceId, 100).rawTicket < cfg.generation.redFaceChancePercent ? "red" : "blue";
                 f.texture = "none"; f.isGold = false; f.baseWeight = 1;
             }
             d.isGlass = false; return d;
@@ -190,6 +312,10 @@ namespace DiceCraft.Core
                 case "O06": return s.consumableOfferPurchases < cfg.shop.maxOfferExpansionPurchases && ConsumableOfferCount(s) < cfg.shop.maxConsumableOffers;
                 case "O07": return !s.freeFirstRefreshOwned;
                 case "O08": return s.controllerSlots < cfg.maxOrdinaryControllerSlots;
+                // v1.0: O09 rerolls the boss of the cycle that contains the next stage; O10 raises the interest cap; O11 enchants.
+                case "O09": { int next = s.stage.stageIndex + 1; return next < cfg.stages.Length && ModifierPool(next / 3 + 1, s.cycles.Select(c => c.modifierId)).Length > 0; }
+                case "O10": return s.interestCapPurchases < cfg.maxInterestPrincipalPurchases;
+                case "O11": return s.controllers.Any(c => c.enchantmentId == "none");
                 default: return false;
             }
         }
@@ -207,6 +333,11 @@ namespace DiceCraft.Core
                 case "U04": return face.baseColor != "blue";
                 case "U06": return !face.isGold;
                 case "U07": return true;
+                // v1.0
+                case "U08": return face.permanentPip < cfg.maxPipValue;
+                case "U09": return face.permanentPip > cfg.minPipValue;
+                case "U10": return face.baseWeight < cfg.maxFaceWeight;
+                case "U11": { var opposite = die.faces.First(f => f.faceId == cfg.Opposite(face.faceId)); return opposite.permanentPip != face.permanentPip || opposite.baseColor != face.baseColor; }
                 default: return false;
             }
         }
@@ -240,6 +371,12 @@ namespace DiceCraft.Core
             RequirePhase(s, "Shop");
             var offer = s.shop.offers.FirstOrDefault(x => x.offerId == offerId);
             Check(offer != null && !offer.sold, "商品不存在或已售罄。");
+            var group = GroupOf(s, offer);
+            if (!string.IsNullOrEmpty(offer.groupId))
+            {
+                Check(group != null && !group.closed && group.picked < group.picks, "这一组已经领完。");
+                Check(offer.category != "gold" || group.picked == 0, "已经领取过战利品，不能再折现。");
+            }
             Check(s.gold >= checked(OfferPrice(s, offer) - OfferTradeIn(s, offer)), "金币不足。");
             switch (offer.category)
             {
@@ -264,6 +401,7 @@ namespace DiceCraft.Core
                     Check(ServiceLegal(s, offer.contentId), "此服务已达上限或没有合法目标。");
                     if (offer.contentId == "O04") Check(s.dice.Any(x => x.dieId == dieId && x.lifetime == "permanent"), "请选择永久骰子。");
                     break;
+                case "gold": Check(group != null && offer.contentId == "GOLD", "折现报价无效。"); break;
                 default: throw new RuleViolation("未知商品类型。");
             }
             return offer;
@@ -280,7 +418,7 @@ namespace DiceCraft.Core
                     var old = s.controllers.FirstOrDefault(c => c.definitionId == offer.contentId);
                     var retainedTurnover = s.controllers.Where(c => c.definitionId == "C51").Select(c => c.instanceId).ToArray();
                     int location = old == null ? s.controllers.Count : s.controllers.IndexOf(old);
-                    if (old != null) { s.controllers.Remove(old); s.lastEffects.Add(new EffectRecord { kind = "ControllerReplaced", sourceId = old.definitionId, detail = old.instanceId, newValue = ControllerRules.SalePrice(old, cfg) }); }
+                    if (old != null) { long credit = SalePrice(s, old); s.controllers.Remove(old); s.lastEffects.Add(new EffectRecord { kind = "ControllerReplaced", sourceId = old.definitionId, detail = old.instanceId, newValue = credit }); }
                     var acquired = offer.controller.Clone(); acquired.state = new ControllerDynamicState(); acquired.alive = true;
                     if (acquired.definitionId == "C45")
                     {
@@ -292,7 +430,16 @@ namespace DiceCraft.Core
                     if (old != null) GrowTurnover(s, retainedTurnover);
                     break;
                 case "consumable": s.inventory.Add(NewOwnedItem(s, offer.contentId)); break;
-                case "hand_upgrade": s.handLevels.Concat(s.colorLevels).First(x => x.handId == offer.contentId).level++; Grow(s, "C61", cfg.Controller("C61").parameters.growthPerEvent); break;
+                case "hand_upgrade":
+                    {
+                        // v1.0: a free loot upgrade can grant several levels at once, never past the cap.
+                        var entry = s.handLevels.Concat(s.colorLevels).First(x => x.handId == offer.contentId); bool isColor = cfg.colorDefinitions.Any(c => c.id == offer.contentId);
+                        int applied = Math.Min(Math.Max(1, offer.levels), (isColor ? cfg.maxColorLevel : cfg.Hand(offer.contentId).maxLevel) - entry.level);
+                        entry.level = checked(entry.level + applied); Grow(s, "C61", checked((long)cfg.Controller("C61").parameters.growthPerEvent * applied)); break;
+                    }
+                case "gold":
+                    s.gold = checked(s.gold + offer.basePrice);
+                    s.lastEffects.Add(new EffectRecord { kind = "LootGold", sourceId = GroupOf(s, offer)?.kind, newValue = offer.basePrice }); break;
                 case "new_die":
                     var d = offer.die.Clone(); d.createdSerial = s.nextDieSerial++; d.dieId = "D" + d.createdSerial.ToString("D3");
                     d.lifetime = "permanent"; d.createdStageId = ""; s.dice.Add(d);
@@ -310,11 +457,25 @@ namespace DiceCraft.Core
                     else if (offer.contentId == "O07") s.freeFirstRefreshOwned = true;
                     else if (offer.contentId == "O08") { s.controllerSlots++; s.controllerSlotPurchases++; s.lastEffects.Add(new EffectRecord { kind = "ControllerSlotAdded", sourceId = "O08", oldValue = s.controllerSlots - 1, newValue = s.controllerSlots }); }
                     else if (offer.contentId == "O04") { s.dice.RemoveAll(x => x.dieId == command.targetDieId); s.lastEffects.Add(new EffectRecord { kind = "DieRemoved", sourceId = "O04", dieId = command.targetDieId }); }
+                    else if (offer.contentId == "O09")
+                    {
+                        int cycle = (s.stage.stageIndex + 1) / 3; var stageRng = new GameRng(s.stageRngState); string before = s.cycles[cycle].modifierId;
+                        s.cycles[cycle].modifierId = DrawModifier(s, stageRng, cycle + 1, s.cycles.Select(c => c.modifierId)); s.stageRngState = stageRng.State; s.bossRerolls++;
+                        s.lastEffects.Add(new EffectRecord { kind = "BossRerolled", sourceId = "O09", detail = before + ":" + s.cycles[cycle].modifierId, newValue = cycle + 1 });
+                    }
+                    else if (offer.contentId == "O10") { s.interestCapPurchases++; s.lastEffects.Add(new EffectRecord { kind = "InterestCapRaised", sourceId = "O10", newValue = checked(cfg.maxInterestPrincipal + (long)cfg.interestPrincipalStep * s.interestCapPurchases) }); }
+                    else if (offer.contentId == "O11")
+                    {
+                        var effect = new GameRng(s.effectRngState); Check(EnchantRandomController(s, effect, "O11", null), "没有可以附魔的控制器。");
+                        s.effectRngState = effect.State; s.enchantTablePurchases++;
+                    }
                     else throw new RuleViolation("服务不能以此方式购买。");
                     break;
                 case "die_upgrade": ApplyUpgrade(s, offer.contentId, command.targetDieId, command.targetFaceId); Grow(s, "C60", cfg.Controller("C60").parameters.growthPerEvent); break;
             }
             offer.sold = true;
+            var taken = GroupOf(s, offer);
+            if (taken != null) { taken.picked++; if (offer.category == "gold" || taken.picked >= taken.picks) taken.closed = true; }
             s.lastEffects.Add(new EffectRecord { kind = "Purchased", sourceId = offer.contentId, detail = offer.offerId, oldValue = price, newValue = s.gold });
         }
 
@@ -336,6 +497,23 @@ namespace DiceCraft.Core
                     var rng = new GameRng(s.effectRngState); f.permanentPip = candidates[DrawRaw(s, rng, "effect", "FaceTransform", dieId + "/" + faceId, candidates.Length).rawTicket]; s.effectRngState = rng.State;
                     s.lastEffects.Add(new EffectRecord { kind = "FaceTransformed", sourceId = id, dieId = dieId, faceId = faceId, oldValue = old, newValue = f.permanentPip });
                     break;
+                // v1.0
+                case "U08": case "U09":
+                    {
+                        int before = f.permanentPip; f.permanentPip = before + (id == "U08" ? 1 : -1);
+                        s.lastEffects.Add(new EffectRecord { kind = "FaceValueChanged", sourceId = id, dieId = dieId, faceId = faceId, oldValue = before, newValue = f.permanentPip }); break;
+                    }
+                case "U10":
+                    {
+                        int before = f.baseWeight; f.baseWeight = before + 1;
+                        s.lastEffects.Add(new EffectRecord { kind = "FaceChanged", sourceId = id, dieId = dieId, faceId = faceId, detail = "weightDelta", oldValue = before, newValue = f.baseWeight }); break;
+                    }
+                case "U11":
+                    {
+                        var opposite = d.faces.First(x => x.faceId == cfg.Opposite(faceId)); int before = opposite.permanentPip;
+                        opposite.permanentPip = f.permanentPip; opposite.baseColor = f.baseColor;
+                        s.lastEffects.Add(new EffectRecord { kind = "FaceMirrored", sourceId = id, dieId = dieId, faceId = opposite.faceId, detail = f.baseColor, oldValue = before, newValue = opposite.permanentPip }); break;
+                    }
                 default: throw new RuleViolation("未知骰子强化。");
             }
             d.dataRevision++;
@@ -377,7 +555,7 @@ namespace DiceCraft.Core
             string contentId;
             if (c != null) {
                 var oldTurnover = s.controllers.Where(x => x.definitionId == "C51").Select(x => x.instanceId).ToArray();
-                sellPrice = ControllerRules.SalePrice(c, cfg); contentId = c.contentId; s.controllers.Remove(c); GrowTurnover(s, oldTurnover);
+                sellPrice = SalePrice(s, c); contentId = c.contentId; s.controllers.Remove(c); GrowTurnover(s, oldTurnover);
             }
             else { s.inventory.Remove(item); sellPrice = cfg.consumableSellPrice; contentId = item.contentId; }
             s.gold = checked(s.gold + sellPrice);

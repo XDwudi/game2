@@ -109,8 +109,8 @@ namespace DiceCraft.Tests
             }
             string[] ids = app.Config.controllers.Select(c => c.id).Concat(app.Config.consumables.Select(c => c.id))
                 .Concat(app.Config.services.Select(c => c.id)).Concat(app.Config.diceUpgrades.Select(c => c.id)).ToArray();
-            Assert.That(ids.Length, Is.EqualTo(122)); // p0.9.0: 100 controllers, 7 items, 8 services, 7 die upgrades
-            Assert.That(app.contentIcons, Has.Length.EqualTo(122));
+            Assert.That(ids.Length, Is.EqualTo(184)); // p1.0.0: 150 controllers, 12 items, 11 services, 11 die upgrades
+            Assert.That(app.contentIcons, Has.Length.EqualTo(184));
             Assert.That(app.contentIcons.All(sprite => sprite != null), Is.True);
             CollectionAssert.AreEquivalent(ids, app.contentIcons.Select(sprite =>
             {
@@ -318,7 +318,7 @@ namespace DiceCraft.Tests
             Click("Pause"); Click("MainMenu"); Click("MenuHandbook"); Click("Tutorial");
             Assert.That(app.Session.State.isDebug, Is.True);
             Assert.That(app.Session.State.stage.target, Is.EqualTo("50"));
-            Assert.That(FindActive<Transform>("NormalCard").GetComponentsInChildren<TextMeshProUGUI>().Single(t=>t.name=="Goal").text, Does.Contain("50"), "Tutorial challenge card must show its actual target.");
+            Assert.That(FindActive<Transform>("CycleCard0").GetComponentsInChildren<TextMeshProUGUI>().Single(t=>t.name=="Goal").text, Does.Contain("50"), "Tutorial challenge card must show its actual target.");
             Click("StartStage"); Click("Roll"); Click("Skip");
             foreach (string id in app.Session.State.dice.Select(d => d.dieId).ToArray()) ClickDie(id);
             Click("Confirm");yield return WaitForIdle();

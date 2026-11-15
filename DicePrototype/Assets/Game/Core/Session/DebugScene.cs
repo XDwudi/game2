@@ -39,6 +39,12 @@ namespace DiceCraft.Core
         public bool redWave, largeBuff, smallBuff;
         // v0.9: rolls already thrown this hand (0 = derive from the results), C97 triggers used this stage, bought slots.
         public int rollsUsed, warIncomeCount, controllerSlotPurchases;
+        // v1.0: the boss modifier forced onto the scene (empty = none), hands already scored this stage, item effects
+        // of the hand, capacity added by items, and the O10 purchase count.
+        public string modifierId = "";
+        public List<string> primaryHandsUsed = new List<string>();
+        public bool blueWave, doubleScore;
+        public int itemCapacityBonus, interestCapPurchases;
         public List<DieInstance> dice = new List<DieInstance>();
         public List<ControllerInstance> controllers = new List<ControllerInstance>();
         public List<OwnedItem> inventory = new List<OwnedItem>();
@@ -66,6 +72,8 @@ namespace DiceCraft.Core
                 inventory = s.inventory.Select(x => x.Clone()).ToList(), handLevels = s.handLevels.Select(x => x.Clone()).ToList(), colorLevels = s.colorLevels.Select(x => x.Clone()).ToList(),
                 rollsRemaining = s.hand == null ? -1 : s.hand.rollsRemaining,
                 rollsUsed = s.hand == null ? 0 : s.hand.rollsUsed, warIncomeCount = s.stage.warIncomeCount, controllerSlotPurchases = s.controllerSlotPurchases,
+                modifierId = s.stage.started && !s.stage.settled && !s.stage.modifierNullified ? s.stage.modifierId ?? "" : "", primaryHandsUsed = new List<string>(s.stage.primaryHandsUsed),
+                blueWave = s.hand != null && s.hand.blueWave, doubleScore = s.hand != null && s.hand.doubleScore, itemCapacityBonus = s.stage.itemCapacityBonus, interestCapPurchases = s.interestCapPurchases,
                 redWave = s.hand != null && s.hand.redWave, largeBuff = s.hand != null && s.hand.largeBuff, smallBuff = s.hand != null && s.hand.smallBuff,
                 currentResults = s.hand == null ? null : s.hand.currentResults.Select(x => x.Clone()).ToList(),
                 orderedLockedIds = s.hand == null ? new List<string>() : new List<string>(s.hand.orderedLockedIds),
@@ -82,6 +90,7 @@ namespace DiceCraft.Core
             c.inventory = inventory?.Select(x => x?.Clone()).ToList(); c.handLevels = handLevels?.Select(x => x?.Clone()).ToList(); c.colorLevels = colorLevels?.Select(x => x?.Clone()).ToList();
             c.currentResults = currentResults?.Select(x => x?.Clone()).ToList();
             c.orderedLockedIds = orderedLockedIds == null ? null : new List<string>(orderedLockedIds);
+            c.primaryHandsUsed = primaryHandsUsed == null ? new List<string>() : new List<string>(primaryHandsUsed);
             c.c05UsedEmitterIds = c05UsedEmitterIds == null ? null : new List<string>(c05UsedEmitterIds);
             c.mimicBindings = mimicBindings?.Select(CloneBinding).ToArray(); c.randomOverrides = randomOverrides?.Select(x => x?.Clone()).ToList();
             return c;

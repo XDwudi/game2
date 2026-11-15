@@ -178,10 +178,104 @@ namespace DiceCraft.Core
 
                 // Between stages the next stage's numbers are quoted for the controllers that will survive the altars (C100).
         private static bool BeforeStage(RunState s) => s.phase == "StagePreview";
-        public int EffectiveCapacity { get { lock (gate) return state == null ? cfg.initialSubmitCapacity : BeforeStage(state) ? PreviewCapacity(state) : ShopCapacity(state); } }
-        public int InitialRolls { get { lock (gate) return state == null ? cfg.totalRollsPerHand : BeforeStage(state) ? ControllerRules.RollBudget(ControllerRules.AfterAltars(state.controllers), cfg) : InitialRollBudget(state); } }
-        public int InitialSubmissions { get { lock (gate) return state == null ? cfg.submissionsPerStage : ControllerRules.SubmissionBudget(BeforeStage(state) ? ControllerRules.AfterAltars(state.controllers) : state.controllers.ToArray(), cfg); } }
-        private int PreviewCapacity(RunState s) => s.isDebug && s.debugCapacityOverride > 0 ? s.debugCapacityOverride : ControllerRules.Capacity(ControllerRules.AfterAltars(s.controllers), cfg);
+        public int EffectiveCapacity { get { lock (gate) return state == null ? cfg.initialSubmitCapacity : BeforeStage(state) ? PreviewCapacity(state) : InStage(state) ? state.stage.capacity : ShopCapacity(state); } }
+        public int InitialRolls { get { lock (gate) { if (state == null) return cfg.totalRollsPerHand; if (!BeforeStage(state)) return InitialRollBudget(state); var entering = Entering(state, out var rules); return ControllerRules.RollBudget(entering, cfg, 0, null, rules); } } }
+        public int InitialSubmissions { get { lock (gate) { if (state == null) return cfg.submissionsPerStage; if (!BeforeStage(state)) return ControllerRules.SubmissionBudget(state.controllers.ToArray(), cfg, ActiveBindings(state), ActiveRules(state)); var entering = Entering(state, out var rules); return ControllerRules.SubmissionBudget(entering, cfg, null, rules); } } }
+        private int PreviewCapacity(RunState s) { if (s.isDebug && s.debugCapacityOverride > 0) return s.debugCapacityOverride; var entering = Entering(s, out var rules); return ControllerRules.Capacity(entering, cfg, false, null, rules); }
+
+        // ---- v1.0 stage context ----
+        private static bool InStage(RunState s) => s.stage != null && s.stage.started && !s.stage.settled;
+        /// <summary>The kind of the current stage, always read from the configuration (debug scenes may jump stages).</summary>
+        private string StageKind(RunState s) => cfg.stages[s.stage.stageIndex].stageKind;
+        /// <summary>The stage carries a boss modifier that has not been nullified (whether or not the stage has started).</summary>
+        private static bool ModifierPending(RunState s) => s.stage != null && !string.IsNullOrEmpty(s.stage.modifierId) && !s.stage.modifierNullified;
+        /// <summary>The boss modifier in force right now: only between StartStage and the end of settlement.</summary>
+        private static string ActiveModifierId(RunState s) => InStage(s) && ModifierPending(s) ? s.stage.modifierId : null;
+        private bool Fx(RunState s, string effect) => ControllerRules.ModifierHas(cfg, ActiveModifierId(s), effect);
+        private static string[] ActiveDisabled(RunState s) => InStage(s) ? s.stage.disabledControllerIds : Array.Empty<string>();
+        private StageRules ActiveRules(RunState s) => StageRules.For(cfg, ActiveModifierId(s), ActiveDisabled(s));
+        /// <summary>
+        /// The controllers that will enter the stage being previewed and the rules it will run under: after the altars
+        /// (C100) and after a scapegoat (C131) has removed itself and the modifier.
+        /// </summary>
+        private ControllerInstance[] Entering(RunState s, out StageRules rules)
+        {
+            var after = ControllerRules.AfterAltars(s.controllers).ToList(); string modifier = ModifierPending(s) ? s.stage.modifierId : null;
+            if (modifier != null) { var goat = after.FirstOrDefault(c => c.definitionId == "C131"); if (goat != null) { after.Remove(goat); modifier = null; } }
+            rules = StageRules.For(cfg, modifier, ControllerRules.DisabledBy(after, cfg, modifier));
+            return after.ToArray();
+        }
+        private string StageTarget(RunState s, StageDefinition def, bool risk)
+        {
+            string target = risk ? def.riskTarget : def.normalTarget;
+            if (!ModifierPending(s) || !ControllerRules.ModifierHas(cfg, s.stage.modifierId, "TargetPercent")) return target;
+            return ExactScoreMath.SaveDecimal(ExactScoreMath.Parse(target) * cfg.Modifier(s.stage.modifierId).amount / 100);
+        }
+        public string CurrentModifierId { get { lock (gate) return state == null ? null : ActiveModifierId(state); } }
+
+        /// <summary>v1.0: draws the whole cycle plan (boss modifier and loot kind per cycle) from the stage stream.</summary>
+        private void BuildCyclePlan(RunState s)
+        {
+            var rng = new GameRng(s.stageRngState); int cycles = cfg.stages.Length / 3; string previousLoot = null;
+            for (int cycle = 1; cycle <= cycles; cycle++)
+            {
+                bool final = cycle == cycles; string modifier = DrawModifier(s, rng, cycle, s.cycles.Select(c => c.modifierId)); string loot = "";
+                if (!final)
+                {
+                    var kinds = cfg.lootKinds.Where(k => k.id != previousLoot).OrderBy(k => k.id, StringComparer.Ordinal).ToArray();
+                    var trace = DrawRaw(s, rng, "stage", "LootKind", "CYCLE_" + cycle, kinds.Sum(k => k.weight)); int draw = trace.rawTicket;
+                    foreach (var kind in kinds) { draw -= kind.weight; if (draw < 0) { loot = kind.id; break; } }
+                    trace.rawValue = trace.appliedValue = loot; previousLoot = loot;
+                }
+                s.cycles.Add(new CyclePlan { modifierId = modifier, lootKind = loot });
+            }
+            s.stageRngState = rng.State;
+        }
+        private BossModifierDefinition[] ModifierPool(int cycle, IEnumerable<string> excluded)
+        {
+            bool final = cycle == cfg.stages.Length / 3; var omit = new HashSet<string>(excluded ?? Array.Empty<string>(), StringComparer.Ordinal);
+            return cfg.bossModifiers.Where(m => (final ? m.tier == 4 : m.tier < 4 && m.minCycle <= cycle) && !omit.Contains(m.id)).OrderBy(m => m.id, StringComparer.Ordinal).ToArray();
+        }
+        private string DrawModifier(RunState s, GameRng rng, int cycle, IEnumerable<string> excluded)
+        {
+            var pool = ModifierPool(cycle, excluded); Check(pool.Length > 0, "没有可用的首领减益。");
+            Func<BossModifierDefinition, int> weight = m => m.tier == 4 ? 1 : m.tier;
+            var trace = DrawRaw(s, rng, "stage", "BossModifier", "CYCLE_" + cycle, pool.Sum(weight)); int draw = trace.rawTicket; string picked = pool[0].id;
+            foreach (var m in pool) { draw -= weight(m); if (draw < 0) { picked = m.id; break; } }
+            trace.rawValue = trace.appliedValue = picked; return picked;
+        }
+        /// <summary>v1.0 read-only view of the three stages of the cycle that contains the next stage to play.</summary>
+        public CycleStageView[] CycleView()
+        {
+            lock (gate)
+            {
+                if (state == null || state.stage == null) return Array.Empty<CycleStageView>();
+                bool ahead = state.phase == "Shop" || state.phase == "StageSettlement" || state.phase == "RunWon";
+                int focus = Math.Min(cfg.stages.Length - 1, state.stage.stageIndex + (ahead && state.stage.settled ? 1 : 0)), first = focus / 3 * 3; var plan = state.cycles[focus / 3];
+                return Enumerable.Range(first, 3).Select(i =>
+                {
+                    var def = cfg.stages[i]; bool boss = def.stageKind == "boss", own = i == state.stage.stageIndex;
+                    return new CycleStageView
+                    {
+                        stageIndex = i, stageKind = def.stageKind, normalTarget = def.normalTarget, riskTarget = def.riskTarget, normalReward = def.normalReward, riskReward = def.riskReward,
+                        cleared = i < state.stage.stageIndex || (own && state.stage.settled), current = i == focus, risk = own && state.stage.risk,
+                        modifierId = boss ? plan.modifierId : "", lootKind = boss ? plan.lootKind : "", modifierNullified = own && state.stage.modifierNullified,
+                        bossTarget = boss && ControllerRules.ModifierHas(cfg, plan.modifierId, "TargetPercent") ? ExactScoreMath.SaveDecimal(ExactScoreMath.Parse(def.normalTarget) * cfg.Modifier(plan.modifierId).amount / 100) : def.normalTarget
+                    };
+                }).ToArray();
+            }
+        }
+        /// <summary>v1.0: what entering the previewed stage will do, for the stage-select screen.</summary>
+        public StageEntryView EntryView()
+        {
+            lock (gate)
+            {
+                if (state == null || !BeforeStage(state)) return null;
+                var entering = Entering(state, out var rules); bool goat = ModifierPending(state) && ControllerRules.AfterAltars(state.controllers).Any(c => c.definitionId == "C131");
+                return new StageEntryView { scapegoat = goat, modifierId = goat || !ModifierPending(state) ? "" : state.stage.modifierId, disabledControllerIds = rules.disabledIds,
+                    target = goat ? cfg.stages[state.stage.stageIndex].normalTarget : state.stage.target };
+            }
+        }
         public int GetOfferPrice(ShopOffer offer) { lock (gate) { Check(state != null, "没有活动挑战。"); return OfferPrice(state, offer); } }
         public long GetOfferTradeIn(ShopOffer offer) { lock (gate) { Check(state != null, "没有活动挑战。"); return OfferTradeIn(state, offer); } }
         public long GetOfferNetPrice(ShopOffer offer) { lock (gate) { Check(state != null, "没有活动挑战。"); return checked(OfferPrice(state, offer) - OfferTradeIn(state, offer)); } }
@@ -198,12 +292,14 @@ namespace DiceCraft.Core
                 controllerSlots = cfg.initialControllerSlots, consumableSlots = cfg.initialConsumableSlots,
                 nextDieSerial = cfg.initialDiceCount + 1, nextItemSerial = 1, nextOfferSerial = 1, nextHandSerial = 1,
                 diceRngState = new GameRng(command.seed ^ cfg.rng.diceSeedXor).State,
+                stageRngState = new GameRng(command.seed ^ cfg.rng.stageSeedXor).State,
                 shopRngState = new GameRng(command.seed ^ cfg.rng.shopSeedXor).State,
                 effectRngState = new GameRng(command.seed ^ cfg.rng.effectSeedXor).State
             };
             for (int i = 1; i <= cfg.initialDiceCount; i++) s.dice.Add(DiceFactory.CreateStandard(cfg, i));
             foreach (var h in cfg.handDefinitions) s.handLevels.Add(new HandLevel { handId = h.id, level = 0 });
             foreach (var c in cfg.colorDefinitions) s.colorLevels.Add(new HandLevel { handId = c.id, level = 0 });
+            BuildCyclePlan(s);
             PrepareStagePreview(s, 0);
             return s;
         }
@@ -212,9 +308,16 @@ namespace DiceCraft.Core
         {
             Check(index >= 0 && index < cfg.stages.Length, "没有下一关。");
             var def = cfg.stages[index];
-            s.stage = new StageState { stageIndex = index, stageId = def.stageId, target = def.normalTarget,
-                reward = def.normalReward, capacity = PreviewCapacity(s), remainingSubmissions = ControllerRules.SubmissionBudget(ControllerRules.AfterAltars(s.controllers), cfg) };
+            s.stage = new StageState { stageIndex = index, stageId = def.stageId, reward = def.normalReward, stageKind = def.stageKind,
+                modifierId = def.stageKind == "boss" ? s.cycles[index / 3].modifierId : "" };
+            s.stage.target = StageTarget(s, def, false); RefreshPreviewBudgets(s);
             s.hand = null; s.shop = null; s.phase = "StagePreview";
+        }
+
+        private void RefreshPreviewBudgets(RunState s)
+        {
+            var entering = Entering(s, out var rules);
+            s.stage.capacity = PreviewCapacity(s); s.stage.remainingSubmissions = ControllerRules.SubmissionBudget(entering, cfg, null, rules);
         }
 
         private void ChooseChallenge(RunState s, bool risk)
@@ -222,7 +325,7 @@ namespace DiceCraft.Core
             RequirePhase(s, "StagePreview");
             var def = cfg.stages[s.stage.stageIndex];
             Check(!risk || def.riskEnabled, "本关没有高压挑战。");
-            s.stage.risk = risk; s.stage.target = risk ? def.riskTarget : def.normalTarget; s.stage.reward = risk ? def.riskReward : def.normalReward;
+            s.stage.risk = risk; s.stage.target = StageTarget(s, def, risk); s.stage.reward = risk ? def.riskReward : def.normalReward;
         }
 
         private void StartStage(RunState s)
@@ -237,22 +340,82 @@ namespace DiceCraft.Core
                 altar.state.growth = checked(before + (long)cfg.Controller(victim.definitionId).buyPrice * cfg.Controller("C100").parameters.growthPerBuyPrice);
                 s.lastEffects.Add(new EffectRecord { kind = "ControllerSacrificed", sourceId = "C100", detail = altar.instanceId + ":" + victim.instanceId + ":" + victim.definitionId, oldValue = before, newValue = altar.state.growth });
             }
+            // v1.0 C131: the leftmost scapegoat destroys itself and lifts the boss modifier before anything else of it applies.
+            if (ModifierPending(s))
+            {
+                var goat = s.controllers.FirstOrDefault(c => c.definitionId == "C131");
+                if (goat != null)
+                {
+                    s.controllers.Remove(goat); s.randomOverrides.RemoveAll(o => o.sourceId == goat.instanceId); s.stage.modifierNullified = true;
+                    s.stage.target = StageTarget(s, cfg.stages[s.stage.stageIndex], s.stage.risk);
+                    s.lastEffects.Add(new EffectRecord { kind = "ModifierNullified", sourceId = "C131", detail = goat.instanceId + ":" + s.stage.modifierId });
+                }
+            }
             s.stage.controllerOrderSnapshot = s.controllers.Select(c => c.instanceId).ToArray();
             s.stage.mimicBindings = ControllerRules.FreezeBindings(s.controllers.ToArray());
-            s.stage.submissionBonusSourceIds = s.controllers.Where(c => c.enchantmentId == "submit1").Select(c => c.instanceId).ToArray();
-            s.stage.capacity = ShopCapacity(s); s.stage.started = true;
-            s.stage.remainingSubmissions = ControllerRules.SubmissionBudget(s.controllers, cfg, s.stage.mimicBindings);
+            s.stage.started = true;
+            s.stage.disabledControllerIds = ControllerRules.DisabledBy(s.controllers, cfg, ActiveModifierId(s));
+            foreach (string id in s.stage.disabledControllerIds) s.lastEffects.Add(new EffectRecord { kind = "ControllerDisabled", sourceId = s.stage.modifierId, detail = id });
+            if (Fx(s, "LoseHalfGold"))
+            {
+                long before = s.gold; s.gold = checked(before - before / 2);
+                s.lastEffects.Add(new EffectRecord { kind = "GoldLost", sourceId = s.stage.modifierId, oldValue = before, newValue = s.gold });
+            }
+            ApplyStageStartControllers(s);
+            var rules = ActiveRules(s);
+            s.stage.submissionBonusSourceIds = rules.silence ? Array.Empty<string>() : s.controllers.Where(c => c.enchantmentId == "submit1" && !rules.disabledIds.Contains(c.instanceId)).Select(c => c.instanceId).ToArray();
+            s.stage.capacity = ShopCapacity(s);
+            s.stage.remainingSubmissions = ControllerRules.SubmissionBudget(s.controllers, cfg, s.stage.mimicBindings, rules);
             StartHand(s);
+        }
+
+        /// <summary>v1.0 stage-start abilities, left to right: C128 glass, C136 temporary die, C110 random item.</summary>
+        private void ApplyStageStartControllers(RunState s)
+        {
+            var rng = new GameRng(s.effectRngState);
+            foreach (var source in Sources(s))
+            {
+                if (source.abilityId == "C128" && source.emitterDefinitionId == "C128")
+                {
+                    for (int i = 0; i < cfg.Controller("C128").parameters.dicePerStage; i++)
+                    {
+                        var die = s.dice.Where(d => d.lifetime == "permanent" && !d.isGlass).OrderBy(d => d.createdSerial).FirstOrDefault(); if (die == null) break;
+                        die.isGlass = true; die.dataRevision++;
+                        s.lastEffects.Add(new EffectRecord { kind = "DieGlassed", sourceId = "C128", dieId = die.dieId, detail = source.emitterId });
+                    }
+                }
+                else if (source.abilityId == "C136")
+                {
+                    for (int i = 0; i < cfg.Controller("C136").parameters.dicePerStage; i++)
+                    {
+                        if (s.dice.Count >= (s.isDebug ? cfg.debug.maxDice : cfg.maxActiveDice) || (!s.isDebug && s.dice.Count(x => x.lifetime == "stage_temporary") >= cfg.maxTemporaryDice)) break;
+                        var die = DiceFactory.CreateStandard(cfg, s.nextDieSerial++, "stage_temporary", s.stage.stageId); s.dice.Add(die);
+                        s.lastEffects.Add(new EffectRecord { kind = "DieAdded", sourceId = "C136", dieId = die.dieId, detail = source.emitterId });
+                    }
+                }
+                else if (source.abilityId == "C110")
+                {
+                    for (int i = 0; i < cfg.Controller("C110").parameters.itemsPerStage; i++)
+                    {
+                        if (s.inventory.Count >= s.consumableSlots) break;
+                        var ids = cfg.consumables.Select(c => c.id).OrderBy(x => x, StringComparer.Ordinal).ToArray();
+                        var trace = DrawRaw(s, rng, "effect", "C110Item", source.emitterId, ids.Length); string id = ids[trace.rawTicket]; trace.rawValue = trace.appliedValue = id;
+                        var item = NewOwnedItem(s, id); s.inventory.Add(item);
+                        s.lastEffects.Add(new EffectRecord { kind = "ItemGranted", sourceId = "C110", detail = item.instanceId + ":" + id });
+                    }
+                }
+            }
+            s.effectRngState = rng.State;
         }
 
         private int InitialRollBudget(RunState s)
         {
-            return ControllerRules.RollBudget(s.controllers, cfg, s.stage == null ? 0 : s.stage.stageRollBonus, ActiveBindings(s));
+            return ControllerRules.RollBudget(s.controllers, cfg, s.stage == null ? 0 : s.stage.stageRollBonus, ActiveBindings(s), ActiveRules(s));
         }
 
         private void StartHand(RunState s)
         {
-            s.hand = new HandState { handId = "H" + (s.nextHandSerial++).ToString("D4"), rollsRemaining = InitialRollBudget(s), rollBonusSourceIds = s.controllers.Where(c => c.enchantmentId == "roll1").Select(c => c.instanceId).ToArray() };
+            s.hand = new HandState { handId = "H" + (s.nextHandSerial++).ToString("D4"), rollsRemaining = InitialRollBudget(s), rollBonusSourceIds = ActiveRules(s).silence ? Array.Empty<string>() : s.controllers.Where(c => c.enchantmentId == "roll1" && !ActiveDisabled(s).Contains(c.instanceId)).Select(c => c.instanceId).ToArray() };
             foreach (var die in s.dice.OrderBy(x => x.createdSerial)) s.hand.currentResults.Add(new DieHandState { dieId = die.dieId });
             s.phase = "HandReady";
         }
@@ -287,9 +450,10 @@ namespace DiceCraft.Core
             var diceRng = new GameRng(s.diceRngState); var effectRng = new GameRng(s.effectRngState);
             s.hand.rollsRemaining--; s.hand.rollsUsed++; s.hand.hasRolled = true;
             Grow(s, "C62", cfg.Controller("C62").parameters.growthPerEvent);
+            int breakPercent = Sources(s).Any(x => x.abilityId == "C145") ? cfg.Controller("C145").parameters.glassBreakPercent : cfg.glassBreakPercent; // v1.0 C145
             foreach (var die in unlocked)
             {
-                if (die.isGlass && DrawRisk(s, effectRng, "Glass", die.dieId, cfg.glassBreakPercent))
+                if (die.isGlass && DrawRisk(s, effectRng, "Glass", die.dieId, breakPercent))
                 {
                     s.dice.Remove(die); s.hand.currentResults.RemoveAll(x => x.dieId == die.dieId);
                     s.lastEffects.Add(new EffectRecord { kind = "DieBroken", sourceId = "U05", dieId = die.dieId });
@@ -331,7 +495,7 @@ namespace DiceCraft.Core
         /// <summary>v0.9: adds growth to every real instance of one controller. Mimics share the owner's value and never grow.</summary>
         private void Grow(RunState s, string definitionId, long delta)
         {
-            if (delta == 0) return;
+            if (delta == 0 || Fx(s, "GrowthFreeze")) return; // v1.0: a boss modifier can freeze every growth value for the stage
             foreach (var c in s.controllers.Where(x => x.definitionId == definitionId))
             {
                 long before = c.state.growth; c.state.growth = checked(before + delta);
@@ -339,7 +503,7 @@ namespace DiceCraft.Core
             }
         }
         private static MimicBinding[] ActiveBindings(RunState s) { return s.stage != null && s.stage.started && !s.stage.settled ? s.stage.mimicBindings : null; }
-        private static AbilitySource[] Sources(RunState s) { return ControllerRules.ResolveSources(s.controllers.ToArray(), ActiveBindings(s)); }
+        private static AbilitySource[] Sources(RunState s) { return ControllerRules.ResolveSources(s.controllers.ToArray(), ActiveBindings(s), ActiveDisabled(s)); }
         private static bool Has(RunState s, string id) { return s.controllers.Any(x => x.contentId == id); }
         private static DieInstance FindDie(RunState s, string id) { var d = s.dice.FirstOrDefault(x => x.dieId == id); Check(d != null, "目标骰子不存在。"); return d; }
         private static void RequirePhase(RunState s, params string[] phases) { Check(phases.Contains(s.phase), "当前阶段不能执行此操作。"); }

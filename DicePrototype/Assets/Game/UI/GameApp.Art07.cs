@@ -65,7 +65,8 @@ namespace DiceCraft
             var ribbon=UiKit.Box(p,"StageRibbon",18,156,w-36,64,UiKit.Danger).GetComponent<UnityEngine.UI.Image>();
             ribbon.sprite=UiKit.Template("ui_button_bevel");ribbon.type=ribbon.sprite!=null?UnityEngine.UI.Image.Type.Sliced:UnityEngine.UI.Image.Type.Simple;
             var stageTitle=UiKit.Text(p,"Stage",$"第 {n} 关",18,150,w-36,70,38,UiKit.Paper,TextAlignmentOptions.Center);stageTitle.fontStyle=FontStyles.Bold;
-            UiKit.Text(p,"Chapter",$"第 {(n-1)/3+1} 章 · {(n-1)%3+1} / 3",18,224,w-36,40,20,UiKit.Muted);
+            UiKit.Text(p,"Chapter",$"第 {(n-1)/3+1} 章 · {(n-1)%3+1} / 3 · {StageKindLabel10(ViewState.stage.stageIndex,ViewState.stage.risk)}",18,224,w-36,40,20,UiKit.Muted);
+            DrawModifierChip10(p,w);
             Stat07(p,"Target","目标分数",CompactScore(ViewState.stage.target),286,w,UiKit.Red);
             Stat07(p,"StageScore","本关累计",CompactScore(ViewState.stage.score),410,w,UiKit.Blue);
             Stat07(p,"Money","金币",ViewState.gold.ToString(),534,w,UiKit.Gold);
@@ -144,7 +145,7 @@ namespace DiceCraft
             ShowHandbook();
         }
         private void ConfirmQuit07(){var p=OpenModal("退出游戏");UiKit.Text(p,"QuitHint","最近一次成功操作已保存。",40,160,1500,100,32);UiKit.ActionButton(p,"ConfirmQuit","退出",500,430,600,72,()=>Application.Quit(),UiKit.Paper);}
-        private void StagePreview()=>StagePreview071();
+        private void StagePreview()=>StagePreview10();
         private void DrawControllers07()
         {
             bool c=Compact07;float x=c?360:368,y=c?18:24;
@@ -194,13 +195,15 @@ namespace DiceCraft
         {
             var source=ViewSources.FirstOrDefault(s=>s.emitterId==item.instanceId);
             if(AltarVictims09().Contains(item.instanceId))return "将被祭坛摧毁";
+            if(DisabledNow10(item.instanceId))return "本关失效";
+            if(DisabledNext10(item.instanceId))return "首领关将失效";
             if(item.definitionId=="C41")return source?.abilityId==null?"右邻失效":"→ "+NameOf(source.abilityId);
             if(source?.abilityId=="C45")return source.state.activeColor=="red"?"当前红":"当前蓝";
             if(source?.abilityId=="C51")return "当前 ×"+(source.state.turnoverUnits2/2m).ToString("0.#");
             if(source?.abilityId=="C53")return "随机倍率";
             string growth=GrowthText09(source?.abilityId,source?.state);
             if(growth!=null)return "当前 "+growth;
-            if(item.definitionId=="C52")return "售价 "+ControllerRules.SalePrice(item,Config);
+            if(item.definitionId=="C52")return "售价 "+OwnedSalePrice10(item);
             if(source?.abilityId=="C05")return ViewState.hand?.c05UsedEmitterIds.Contains(item.instanceId)==true?"本手已用":"本手可用";
             return "点击查看条件";
         }
@@ -270,6 +273,7 @@ namespace DiceCraft
             // Screen-space UI is composited over the real 3D dice: the shared tray
             // is an open outline, never an opaque panel that can hide locked dice.
             UiKit.Ring(main,"LockedTray071",sx-12,sy+30,columns*(slotW+sgap)-sgap+24,(c?2:1)*(slotH+18)+12,new Color(UiKit.PanelLight.r,UiKit.PanelLight.g,UiKit.PanelLight.b,.7f));
+            var sealed10=SealedPreview10(); // p1.0.0: dice the boss modifier seals in the hand as it stands
             for(int j=0;j<slots;j++)
             {
                 int i=j+slotPage*8;float x=sx+j%columns*(slotW+sgap),y=sy+(c?36:36)+j/columns*(slotH+18);
@@ -284,6 +288,7 @@ namespace DiceCraft
                 }
                 if(locked){var id=h.orderedLockedIds[i];DrawLockMark07(x+(c?198:128),y+10,i,id);lockedSlotRects07[id]=new Rect(x,y,slotW,slotH);DrawDie(s.dice.First(d=>d.dieId==id),h.currentResults.First(r=>r.dieId==id),new Vector2(x+(c?82:44),y+(c?52:62)),true,i,c?.65f:.82f,true);}
                 else UiKit.Text(main,"EmptySlot"+i,"·  ·  ·",x+30,y+38,slotW-60,48,20,UiKit.PanelLight,TextAlignmentOptions.Center);
+                if(locked&&i<sealed10.Length&&sealed10[i])SealedMark10(x,y,slotW,slotH,i);
             }
             if(s.stage.capacity>8)
             {
@@ -297,11 +302,12 @@ namespace DiceCraft
             int lockRoom=Math.Max(0,s.stage.capacity-h.orderedLockedIds.Count);bool excess=Session.PendingIds.Length>lockRoom;
             UiKit.ActionButton(main,"Confirm",excess?"可再锁 "+lockRoom+" 颗":"确认锁定 "+Session.PendingIds.Length,ax,ay,widths[1],ah,()=>Send(new SessionCommand{kind=CommandKind.ConfirmLocks}),UiKit.Gold,!busy&&pending&&!excess);ax+=widths[1]+gap;
             UiKit.FlatButton(main,"Clear","清除待选",ax,ay,widths[2],ah,()=>{Session.ClearPending();Refresh();},!busy&&pending);ax+=widths[2]+gap;
-            UiKit.ActionButton(main,"Submit","提交 "+h.orderedLockedIds.Count+" 颗",ax,ay,widths[3],ah,()=>Send(new SessionCommand{kind=CommandKind.Submit}),UiKit.Paper,!busy&&!pending&&h.hasRolled&&h.orderedLockedIds.Count>0&&s.stage.remainingSubmissions>0);ax+=widths[3]+gap;
+            UiKit.ActionButton(main,"Submit","提交 "+h.orderedLockedIds.Count+" 颗",ax,ay,widths[3],ah,()=>Send(new SessionCommand{kind=CommandKind.Submit}),UiKit.Paper,!busy&&!pending&&h.hasRolled&&h.orderedLockedIds.Count>0&&s.stage.remainingSubmissions>0&&!MustFillBlocked10);ax+=widths[3]+gap;
             var endStage=UiKit.Button(main,busy?"Skip":"EndStage",busy?"显示最终结果":"结束本轮",ax,ay,widths[4],ah,busy?(Action)SkipVisual:()=>Send(new SessionCommand{kind=CommandKind.EndStage}),busy||Session.CanEndStage);
             if(!busy&&s.stage.qualified)UiKit.Ring(endStage.transform,"QualifiedGoldBorder",-3,-3,widths[4]+6,ah+4,UiKit.Gold);
             string reason=excess?"可再锁 "+lockRoom+" 颗；请取消超额待选，不会部分锁定":pending?"先确认锁定，或清除待选":!h.hasRolled?"先投掷，再选择骰子":dice.Count==0?"没有未锁骰；可提交已锁骰":h.rollsRemaining==0?"投掷已用尽；仍可锁定、排序与提交":h.orderedLockedIds.Count==s.stage.capacity?"提交栏已满；仅重掷未锁骰":"锁定不可撤销 · 提交将消耗 1 次提交";
-            if(!busy&&!pending&&!string.IsNullOrEmpty(LastTransactionSummary07))reason=LastTransactionSummary07;
+            if(!busy&&!pending&&h.hasRolled&&MustFillBlocked10)reason="首领减益“满员”：要占满提交栏（"+Math.Min(s.stage.capacity,s.dice.Count)+" 颗）才能提交";
+            else if(!busy&&!pending&&!string.IsNullOrEmpty(LastTransactionSummary07))reason=LastTransactionSummary07;
             // rc.2: the hint is a tab docked on the bottom rail, not a loose rectangle over the wood.
             var reasonTab=UiKit.Box(main,"ActionReasonUnderlay",c?368:374,c?1008:1030,1500,50,UiKit.Panel).GetComponent<UnityEngine.UI.Image>();
             reasonTab.sprite=UiKit.Template("ui_tab_bottom");reasonTab.type=reasonTab.sprite!=null?UnityEngine.UI.Image.Type.Sliced:UnityEngine.UI.Image.Type.Simple;

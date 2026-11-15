@@ -54,7 +54,7 @@ namespace DiceCraft.Tests
                 double deadline=Time.realtimeSinceStartupAsDouble+2;
                 while(motion.IsPlaying&&Time.realtimeSinceStartupAsDouble<deadline)
                 {
-                    Assert.That(FindActive<RectTransform>("NormalCard").anchoredPosition.y,Is.EqualTo(-432-motion.Offset).Within(.01));
+                    Assert.That(FindActive<RectTransform>("CycleCard0").anchoredPosition.y,Is.EqualTo(-432-motion.Offset).Within(.01));
                     AssertInteractionCheckpoint07(before,disk,seq);
                     foreach(var c in controllers)Assert.That(FindActive<RectTransform>(c.Key).position,Is.EqualTo(c.Value));
                     yield return null;

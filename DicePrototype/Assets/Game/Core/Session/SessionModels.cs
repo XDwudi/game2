@@ -44,6 +44,8 @@ namespace DiceCraft.Core
         public string handId;
         public int rollsUsed, rollsRemaining;
         public bool hasRolled, redWave, largeBuff, smallBuff;
+        // v1.0 items: I10 blue wave and I09 double score for the next valid submission of this hand.
+        public bool blueWave, doubleScore;
         public bool c05Used { get { return c05UsedEmitterIds.Count > 0; } }
         public List<string> c05UsedEmitterIds = new List<string>();
         public string[] rollBonusSourceIds = Array.Empty<string>();
@@ -72,7 +74,14 @@ namespace DiceCraft.Core
         public List<string> destroyedControllerIds = new List<string>();
         public bool risk, started, qualified, settled;
         public string settlementContinuation, settlementId;
-        public StageState Clone() { var c = (StageState)MemberwiseClone(); c.controllerOrderSnapshot = (string[])controllerOrderSnapshot.Clone(); c.submissionBonusSourceIds = (string[])submissionBonusSourceIds.Clone(); c.mimicBindings = mimicBindings.Select(x => new MimicBinding { sourceInstanceId = x.sourceInstanceId, targetInstanceId = x.targetInstanceId }).ToArray(); c.destroyedControllerIds = new List<string>(destroyedControllerIds); return c; }
+        // v1.0: stage kind, the boss modifier assigned to this stage (empty unless a boss stage), whether it was
+        // nullified, the controllers it disables, primary hands already scored here, capacity added by items.
+        public string stageKind, modifierId;
+        public bool modifierNullified;
+        public string[] disabledControllerIds = Array.Empty<string>();
+        public List<string> primaryHandsUsed = new List<string>();
+        public int itemCapacityBonus;
+        public StageState Clone() { var c = (StageState)MemberwiseClone(); c.controllerOrderSnapshot = (string[])controllerOrderSnapshot.Clone(); c.disabledControllerIds = (string[])disabledControllerIds.Clone(); c.primaryHandsUsed = new List<string>(primaryHandsUsed); c.submissionBonusSourceIds = (string[])submissionBonusSourceIds.Clone(); c.mimicBindings = mimicBindings.Select(x => new MimicBinding { sourceInstanceId = x.sourceInstanceId, targetInstanceId = x.targetInstanceId }).ToArray(); c.destroyedControllerIds = new List<string>(destroyedControllerIds); return c; }
     }
 
     [Serializable]
@@ -84,6 +93,10 @@ namespace DiceCraft.Core
         public DieInstance die;
         public ControllerInstance controller;
         public string[] priceReasons = Array.Empty<string>();
+        // v1.0: a free offer belongs to a gift group (boss loot or a controller gift); levels is the number of hand
+        // levels a free hand upgrade grants (0 means 1).
+        public string groupId;
+        public int levels;
         public ShopOffer Clone()
         {
             var c = (ShopOffer)MemberwiseClone();
@@ -101,7 +114,26 @@ namespace DiceCraft.Core
         public bool generated;
         public int selfStudyUsed, controllerRefreshCount, controllerGeneration, turnoverGrowthCount;
         public List<ShopOffer> offers = new List<ShopOffer>();
-        public ShopState Clone() { var c = (ShopState)MemberwiseClone(); c.offers = offers.Select(x => x.Clone()).ToList(); return c; }
+        public List<ShopGroup> groups = new List<ShopGroup>();
+        public ShopState Clone() { var c = (ShopState)MemberwiseClone(); c.offers = offers.Select(x => x.Clone()).ToList(); c.groups = groups.Select(x => x.Clone()).ToList(); return c; }
+    }
+
+    /// <summary>v1.0: a group of free offers. kind is a loot kind id (L1..L6) or the granting controller definition (C111, C113).</summary>
+    [Serializable]
+    public sealed class ShopGroup
+    {
+        public string groupId, kind;
+        public int picks, picked;
+        public bool closed;
+        public ShopGroup Clone() { return (ShopGroup)MemberwiseClone(); }
+    }
+
+    /// <summary>v1.0: the boss modifier and loot kind of one three-stage cycle, drawn when the run is created.</summary>
+    [Serializable]
+    public sealed class CyclePlan
+    {
+        public string modifierId, lootKind;
+        public CyclePlan Clone() { return (CyclePlan)MemberwiseClone(); }
     }
 
     [Serializable]
@@ -120,6 +152,10 @@ namespace DiceCraft.Core
         public int baseReward, remainingSubmissions, pigSourceCount;
         public string score = "0", target = "0";
         public bool risk, pig;
+        // v1.0: rewards voided by the boss modifier, the bounty part of controllerIncome (C133), loot waiting in the shop.
+        public bool rewardVoided;
+        public long bountyIncome;
+        public string stageKind, lootKind;
         public StageSettlement Clone() { return (StageSettlement)MemberwiseClone(); }
     }
 
@@ -150,6 +186,10 @@ namespace DiceCraft.Core
         public string runId, configVersion, phase, failureReason, sourceRunId, previousPrimaryHandId;
         public int saveSchemaVersion, baseSubmitCapacity, controllerSlots, consumableSlots, itemDiscount;
         public int controllerOfferPurchases, consumableOfferPurchases, debugCapacityOverride, controllerSlotPurchases;
+        // v1.0: cycle plan stream and purchase counters of the services O09, O10, O11.
+        public int bossRerolls, interestCapPurchases, enchantTablePurchases;
+        public uint stageRngState;
+        public List<CyclePlan> cycles = new List<CyclePlan>();
         public bool freeFirstRefreshOwned, debugWorkspace;
         public int nextDieSerial, nextItemSerial, nextOfferSerial, nextHandSerial;
         public long actionSequence, gold, submissionOrdinalGlobal;
@@ -175,6 +215,7 @@ namespace DiceCraft.Core
         {
             var c = (RunState)MemberwiseClone();
             c.dice = dice.Select(x => x.Clone()).ToList();
+            c.cycles = cycles.Select(x => x.Clone()).ToList();
             c.controllers = controllers.Select(x => x.Clone()).ToList();
             c.inventory = inventory.Select(x => x.Clone()).ToList();
             c.handLevels = handLevels.Select(x => new HandLevel { handId = x.handId, level = x.level }).ToList();
@@ -189,6 +230,22 @@ namespace DiceCraft.Core
             c.lastStageSettlement = lastStageSettlement == null ? null : lastStageSettlement.Clone();
             return c;
         }
+    }
+
+    /// <summary>v1.0 read-only row of the cycle panel (stage select screen and the shop's stage button).</summary>
+    public sealed class CycleStageView
+    {
+        public int stageIndex, normalReward, riskReward;
+        public string stageKind, normalTarget, riskTarget, bossTarget, modifierId, lootKind;
+        public bool cleared, current, risk, modifierNullified;
+    }
+
+    /// <summary>v1.0: what entering the previewed stage will do (scapegoat, disabled controllers, actual target).</summary>
+    public sealed class StageEntryView
+    {
+        public bool scapegoat;
+        public string modifierId, target;
+        public string[] disabledControllerIds = Array.Empty<string>();
     }
 
     public sealed class CommandResult

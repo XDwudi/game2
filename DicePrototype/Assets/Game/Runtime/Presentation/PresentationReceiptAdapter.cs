@@ -59,16 +59,19 @@ namespace DiceCraft.Presentation
                 {
                     snap = receipt.submission.snapshot; score = receipt.submission.breakdown;
                     if (snap == null || score == null) throw new ArgumentException("Incomplete submission receipt.");
-                    sources = ControllerRules.ResolveSources(ControllerRules.Resolve(snap), snap.mimicBindings);
-                    multiplier = new ExactFraction((BigInteger)score.totalHandMult100 * score.colorMult100 * score.redMult100 * ExactScoreMath.Parse(score.controllerMultiplierNumerator) * BigInteger.Pow(cfg.enchantRules.scoreMultiplier, score.enchantMultiplierCount),
-                        1000000 * ExactScoreMath.Parse(score.controllerMultiplierDenominator));
+                    sources = ControllerRules.ResolveSources(ControllerRules.Resolve(snap), snap.mimicBindings, snap.disabledControllerIds);
+                    // p1.0.0: the item multiplier and the boss half-score factor are part of the total multiplier.
+                    BigInteger globalNumerator = 1, globalDenominator = 1;
+                    foreach (var factor in score.globalFactors ?? Array.Empty<MultiplierFactor>()) { globalNumerator *= ExactScoreMath.Parse(factor.numerator); globalDenominator *= ExactScoreMath.Parse(factor.denominator); }
+                    multiplier = new ExactFraction((BigInteger)score.totalHandMult100 * score.colorMult100 * score.redMult100 * ExactScoreMath.Parse(score.controllerMultiplierNumerator) * BigInteger.Pow(cfg.enchantRules.scoreMultiplier, score.enchantMultiplierCount) * globalNumerator,
+                        1000000 * ExactScoreMath.Parse(score.controllerMultiplierDenominator) * globalDenominator);
                     BuildScoring();
                     Add(PresentationPhase.FinalScore, "final_score", beforeValue: "0", afterValue: score.score,
                         detail: score.score == "0" && score.multiplierFactors.Any(f => f.numerator == "0") ? "千年老二 ×0：没有有效5点" : null,
                         audio: ScorePresentationTier.Resolve(score.score, ExactScoreMath.SaveDecimal(multiplier.Numerator), ExactScoreMath.SaveDecimal(multiplier.Denominator)) >= 3 ? "SFX_SCORE_BURST" : "SFX_SCORE_STEP");
                 }
                 else if (before != null)
-                    sources = ControllerRules.ResolveSources(before.controllers, before.stage?.mimicBindings);
+                    sources = ControllerRules.ResolveSources(before.controllers, before.stage?.mimicBindings, before.stage != null && before.stage.started && !before.stage.settled ? before.stage.disabledControllerIds : null);
                 BuildPostEffects();
                 // This is a committed hand-boundary grant, not a scoring contribution.
                 // A normal non-qualifying Submit also creates a new hand; retaining an

@@ -68,11 +68,14 @@ namespace DiceCraft
                 y+=FitHeight(label,44)+12;
                 ReceiptRule071(list,id+"Rule",12,y,776);y+=16;return label.rectTransform;
             };
-            var cashList=new System.Collections.Generic.List<RectTransform>{line("SettlementBaseReward","基础奖励  +"+r.baseReward),line("SettlementUnusedReward","剩余提交奖励  +"+r.unusedSubmissionReward),line("SettlementInterest","利息  +"+r.interest+(r.interestPrincipalCap>Config.maxInterestPrincipal?"（利滚利：本金上限 "+r.interestPrincipalCap+"）":""))};
+            var cashList=new System.Collections.Generic.List<RectTransform>{line("SettlementBaseReward","基础奖励  +"+r.baseReward+(r.rewardVoided?"（首领减益：本关没有过关金币与剩余提交奖励）":"")),line("SettlementUnusedReward","剩余提交奖励  +"+r.unusedSubmissionReward),line("SettlementInterest","利息  +"+r.interest+(r.interestPrincipalCap>Config.maxInterestPrincipal?"（利滚利：本金上限 "+r.interestPrincipalCap+"）":""))};
             // p0.9.0: C95 pays at stage clear; the row exists only when it paid.
-            if(r.controllerIncome>0)cashList.Add(line("SettlementControllerIncome","铁饭碗  +"+r.controllerIncome));
+            if(r.controllerIncome-r.bountyIncome>0)cashList.Add(line("SettlementControllerIncome","铁饭碗  +"+(r.controllerIncome-r.bountyIncome)));
+            // p1.0.0: C133 pays a bounty on boss and pressure stages.
+            if(r.bountyIncome>0)cashList.Add(line("SettlementBounty10","赏金猎人  +"+r.bountyIncome));
             var cashRows=cashList.ToArray();
             line("SettlementNetCash",$"本次现金净增  +{r.goldAfter-r.goldBefore}\n奖励前余额 {r.goldBefore} → 结算后余额 {r.goldAfter}");
+            if(!string.IsNullOrEmpty(r.lootKind))line("SettlementLoot10","首领战利品 · "+LootText10(r.lootKind)+"\n进入商店后，在右上角的“首领战利品”里领取。");
             var receipt=ViewState.processedReceipts.LastOrDefault(q=>q.settlement?.settlementId==r.settlementId);
             var through=ViewState.processedReceipts.Where(q=>receipt!=null&&q.actionSequence<=receipt.actionSequence).ToArray();
             var boundary=through.LastOrDefault(q=>q.command!=null&&(q.command.kind==CommandKind.StartStage||q.command.kind==CommandKind.ApplyDebugScene||q.command.kind==CommandKind.NewRun));

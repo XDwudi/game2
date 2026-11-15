@@ -120,6 +120,15 @@ namespace DiceCraft.Verification
                 }
                 if(kind==CommandKind.Submit&&seen.Add("library"))yield return DiceLibrary(app);
                 if(kind==CommandKind.LeaveShop&&seen.Add("upgrade-target"))yield return UpgradeTarget(app);
+                // v1.0: the stage-intel panel of the shop, and the loot / gift dialog whenever a shop has one.
+                if(kind==CommandKind.LeaveShop&&seen.Add("cycle-panel")&&Press("ViewCycle"))
+                {
+                    yield return new WaitForSecondsRealtime(.6f);yield return Capture("shop-cycle-panel");Press("CloseCycle");yield return new WaitForSecondsRealtime(.3f);
+                }
+                if(kind==CommandKind.LeaveShop&&app.ViewState?.shop?.groups!=null&&app.ViewState.shop.groups.Count>0&&seen.Add("gifts-"+string.Join("+",app.ViewState.shop.groups.Select(g=>g.kind)))&&Press("ViewGifts"))
+                {
+                    yield return new WaitForSecondsRealtime(.6f);yield return Capture("shop-gifts-"+string.Join("-",app.ViewState.shop.groups.Select(g=>g.kind)));Press("CloseDialog");yield return new WaitForSecondsRealtime(.3f);
+                }
                 if(kind==CommandKind.LeaveShop&&seen.Add("shop-notice"))
                 {
                     // A real rejected purchase: where the notice goes on the one-page shop, and what would block it.
@@ -153,6 +162,9 @@ namespace DiceCraft.Verification
                     report.notes.Add("submit at step "+i+": high-score tier "+best);
                 }
                 yield return Settle(app);
+                // v1.0: one picture of every stage-select screen kind and of every boss stage the trace reaches.
+                if(kind==CommandKind.LeaveShop&&app.ViewState?.phase=="StagePreview")yield return CaptureOnce("stage-select-"+app.ViewState.stage.stageKind+"-"+(app.ViewState.stage.stageIndex+1));
+                if(kind==CommandKind.StartStage&&app.ViewState?.stage?.stageKind=="boss")yield return Capture("boss-stage-"+(app.ViewState.stage.stageIndex+1)+"-"+app.ViewState.stage.modifierId);
                 yield return CaptureOnce(step.kind.ToLowerInvariant()+"-to-"+(app.ViewState?.phase??"none").ToLowerInvariant());
                 if(app.ViewState?.phase!=before)yield return Capture("phase-"+(app.ViewState?.phase??"none").ToLowerInvariant());
             }

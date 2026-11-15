@@ -101,14 +101,15 @@ namespace DiceCraft
             if(Session.PendingIds.Length>0)return "先确认锁定或清除待选。";
             var s=ViewState;var h=s.hand;
             if(s.phase!="HandReady"&&s.phase!="Selecting")return "此道具只能在关内使用。";
+            if(item.contentId!="I08"&&ControllerRules.ModifierHas(Config,Session.CurrentModifierId,"NoItems"))return "首领减益“徒手”：本关不能使用道具。";
             switch(item.contentId)
             {
-                case "I01":return !h.hasRolled||h.orderedLockedIds.Count==0?"需要投掷并至少锁定一颗骰子。":h.redWave?"本手已经生效。":null;
+                case "I01":return !h.hasRolled||h.orderedLockedIds.Count==0?"需要投掷并至少锁定一颗骰子。":h.redWave?"本手已经生效。":h.blueWave?"本手已经用了蓝色浪潮。":null;
                 case "I02":return s.phase!="HandReady"?"只能在本手首掷前使用。":s.dice.Count>=(s.isDebug?Config.debug.maxDice:Config.maxActiveDice)||(!s.isDebug&&s.dice.Count(d=>d.lifetime=="stage_temporary")>=Config.maxTemporaryDice)?"临时骰或活动骰数量已满。":null;
                 case "I03":return h.rollsRemaining<=0?"需要至少一次剩余投掷。":s.dice.Count(d=>!h.orderedLockedIds.Contains(d.dieId))<2?"需要两颗不同的未锁骰。":null;
                 case "I04":return h.largeBuff?"本手已经生效。":h.rollsRemaining<=0||!s.dice.Any(d=>!h.orderedLockedIds.Contains(d.dieId)&&d.faces.Any(f=>f.permanentPip==6))?"需要可投掷且含永久 6 点面的未锁骰。":null;
                 case "I05":return h.smallBuff?"本手已经生效。":h.rollsRemaining<=0||!s.dice.Any(d=>!h.orderedLockedIds.Contains(d.dieId)&&d.faces.Any(f=>f.permanentPip==1))?"需要可投掷且含永久 1 点面的未锁骰。":null;
-                default:return null;
+                default:return ItemUnavailable10(item);
             }
         }
         private void InspectOffer(ShopOffer offer)
@@ -134,7 +135,7 @@ namespace DiceCraft
             string error=Session.PurchaseError(offer.offerId);
             Art07DetailSection(list,"Price","价格与余额","价格 "+Session.GetOfferPrice(offer)+" 金币 · 当前余额 "+ViewState.gold+(error==null?"":"\n"+error),ref y,672,true);
             list.sizeDelta=new Vector2(list.sizeDelta.x,y+16);
-            UiKit.ActionButton(p,"ConfirmPurchase",offer.sold?"已购买":"支付 "+Session.GetOfferPrice(offer)+" 并购买",24,628,912,64,()=>{CloseModal();Send(new SessionCommand{kind=CommandKind.Buy,offerId=offer.offerId});},UiKit.Gold,error==null&&!IsBusy);
+            UiKit.ActionButton(p,"ConfirmPurchase",offer.sold?"已购买":!string.IsNullOrEmpty(offer.groupId)?"免费领取":"支付 "+Session.GetOfferPrice(offer)+" 并购买",24,628,912,64,()=>{CloseModal();Send(new SessionCommand{kind=CommandKind.Buy,offerId=offer.offerId});},UiKit.Gold,error==null&&!IsBusy);
         }
         private void BuyFooter(Transform p,ShopOffer offer,string die,string face)
         {

@@ -13,11 +13,11 @@
   <ItemGroup>
     <Compile Include="../*.cs" />
     <Compile Include="../../Session/*.cs" />
-    <Compile Include="../../../Runtime/*.cs" />
-    <Compile Include="../../../UI/*.cs" />
-    <Compile Include="../../../Tests/EditMode/Rules/*.cs" />
-    <Compile Include="../../../Tests/EditMode/Persistence/*.cs" />
-    <Compile Include="../../../Tests/PlayMode/*.cs" />
+    <!-- v1.0: include every runtime, UI and test source (sub-folders too) so that method bodies are really checked. -->
+    <Compile Include="../../../Runtime/**/*.cs" Exclude="../../../Runtime/**/Validation~/**" />
+    <Compile Include="../../../UI/**/*.cs" />
+    <Compile Include="../../../Tests/EditMode/**/*.cs" />
+    <Compile Include="../../../Tests/PlayMode/**/*.cs" />
     <Reference Include="E:/unity/6000.6.7f1/Editor/Data/Managed/UnityEngine/*.dll" />
     <Reference Include="../../../../../Library/ScriptAssemblies/*.dll" Exclude="../../../../../Library/ScriptAssemblies/DiceCraft.*.dll;../../../../../Library/ScriptAssemblies/Assembly-CSharp*.dll" />
     <Reference Include="../../../../../Library/PackageCache/com.unity.ext.nunit@0198eae3b53e/net472/unity-custom/nunit.framework.dll" />

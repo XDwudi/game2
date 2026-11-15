@@ -1,6 +1,7 @@
 // Generated from authoritative P0 v0.6 Appendix A; see tools/generate_v06_dtos.py.
 // v0.8 added by hand: controllerSellDivisor, perControllerUnits2 (C47), maxGrowthPerShop (C51); see docs/specs/v08/RULES_DELTA.md.
 // v0.9 added by hand: maxOrdinaryControllerSlots, controllerSlotPriceStep and the C54-C103 parameters; see docs/specs/v09/RULES_SPEC.md.
+// v1.0 added by hand: boss modifiers, loot kinds, stageKind, face weights and the C104-C153 parameters; see docs/specs/v10/RULES_SPEC.md.
 using System;
 
 namespace DiceCraft.Core
@@ -30,6 +31,8 @@ namespace DiceCraft.Core
         public int goldPerUnusedSubmission;
         public int interestDivisor;
         public int maxInterestPrincipal;
+        public int interestPrincipalStep;
+        public int maxInterestPrincipalPurchases;
         public string interestBalanceTiming;
         public int initialControllerSlots;
         public int maxOrdinaryControllerSlots;
@@ -64,6 +67,7 @@ namespace DiceCraft.Core
         public int glassBreakPercent;
         public int glassContributionMultiplier;
         public int goldContributionMultiplier;
+        public int maxFaceWeight;
         public RedReward[] redRewards;
         public EnchantmentDefinition[] enchantments;
         public EnchantmentRules enchantRules;
@@ -74,6 +78,10 @@ namespace DiceCraft.Core
         public ServiceDefinition[] services;
         public DieUpgradeDefinition[] diceUpgrades;
         public StageDefinition[] stages;
+        public BossModifierDefinition[] bossModifiers;
+        public LootKindDefinition[] lootKinds;
+        public int lootGoldValue;
+        public int lootHandLevels;
         public StageFlowConfig stageFlow;
         public ControllerOrderConfig controllerOrder;
         public ShopConfig shop;
@@ -324,6 +332,28 @@ namespace DiceCraft.Core
         public int maxOwnedPermanentDice;
         public int strictScoreMultiplier;
         public int strictMaxOwnedPermanentDice;
+        // v1.0 (docs/specs/v10/RULES_SPEC.md), added by hand.
+        public int baseAddPerPip;
+        public int itemsPerStage;
+        public int giftChoices;
+        public int giftPicks;
+        public string rarity;
+        public int enchantsPerBoss;
+        public int facesPerStage;
+        public string[] upgradeIds;
+        public int dicePerBoss;
+        public int dicePerStage;
+        public int goldPerBoss;
+        public int goldPerPressure;
+        public int baseAddPerItem;
+        public int goldCost;
+        public int goldPerStep;
+        public int stepUnits4;
+        public int maxSteps;
+        public int expireGrowth;
+        public int glassBreakPercent;
+        public int perRollUnits2;
+        public int perSlotUnits2;
     }
 
     [Serializable]
@@ -371,12 +401,38 @@ namespace DiceCraft.Core
         public string stageId;
         public int chapter;
         public int indexInChapter;
+        public string stageKind;
         public string normalTarget;
         public int normalReward;
         public bool riskEnabled;
         public string riskTarget;
         public int riskReward;
         public bool shopAfterClear;
+    }
+
+    /// <summary>v1.0: a boss-stage debuff. tier 1-3 are the regular pool, tier 4 the final-boss pool.</summary>
+    [Serializable]
+    public sealed class BossModifierDefinition
+    {
+        public string id;
+        public string displayName;
+        public int tier;
+        public int minCycle;
+        public string[] effects;
+        public int amount;
+        public string filter;
+        public string description;
+    }
+
+    /// <summary>v1.0: a kind of boss loot offered as a free group in the shop after a boss stage.</summary>
+    [Serializable]
+    public sealed class LootKindDefinition
+    {
+        public string id;
+        public string displayName;
+        public int weight;
+        public int picks;
+        public string description;
     }
 
     [Serializable]
@@ -485,6 +541,7 @@ namespace DiceCraft.Core
         public uint diceSeedXor;
         public uint shopSeedXor;
         public uint effectSeedXor;
+        public uint stageSeedXor;
         public uint zeroSeedReplacement;
         public string[] submitEffectDrawOrder;
     }

@@ -17,7 +17,7 @@ namespace DiceCraft
         public float StageCardExitDuration07=>stageCardExit07?.Duration??0;
         public int StageCardExitGraphicCount07=>stageCardExit07?.CapturedGraphicCount??0;
 
-        private RectTransform[] StageCardRoots07()=>new[]{main.Find("NormalCard") as RectTransform,main.Find("RiskCard") as RectTransform}
+        private RectTransform[] StageCardRoots07()=>new[]{main.Find("CycleCard0") as RectTransform,main.Find("CycleCard1") as RectTransform,main.Find("CycleCard2") as RectTransform}
             .Where(r=>r!=null&&r.gameObject.activeInHierarchy).ToArray();
         private void BindStageCardsEntrance07()
         {

@@ -112,6 +112,7 @@ namespace DiceCraft
         private string Art07Availability07(ShopOffer offer)
         {
             if(offer.sold)return "已购买";
+            if(!string.IsNullOrEmpty(offer.groupId)&&ViewState.shop.groups.Any(g=>g.groupId==offer.groupId&&g.closed))return "已作废";
             long cost=Session.GetOfferNetPrice(offer);
             if(cost>ViewState.gold)return "还差 "+(cost-ViewState.gold);
             if(offer.category=="controller")

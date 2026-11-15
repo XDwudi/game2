@@ -24,7 +24,8 @@ namespace DiceCraft.Core
                 && ControllerOfferCount(s) <= cfg.shop.maxControllerOffers && ConsumableOfferCount(s) <= cfg.shop.maxConsumableOffers, "商店扩容状态无效。");
             Check(s.debugCapacityOverride >= 0 && s.debugCapacityOverride <= cfg.debug.maxSubmitCapacity && (s.isDebug || s.debugCapacityOverride == 0), "调试容量覆盖无效。");
             Check(s.nextDieSerial > 0 && s.nextItemSerial > 0 && s.nextOfferSerial > 0 && s.nextHandSerial > 0, "实例计数器无效。");
-            Check(s.diceRngState != 0 && s.shopRngState != 0 && s.effectRngState != 0, "随机流状态无效。");
+            Check(s.diceRngState != 0 && s.shopRngState != 0 && s.effectRngState != 0 && s.stageRngState != 0, "随机流状态无效。");
+            ValidateCycles(s);
             Check(s.dice != null && s.controllers != null && s.inventory != null && s.handLevels != null && s.colorLevels != null && s.processedReceipts != null
                 && s.lastEffects != null && s.lastRandomResults != null && s.randomOverrides != null && s.consumedItemIds != null, "存档缺少集合。");
             Check(s.dice.All(x => x != null) && s.dice.Count <= (s.isDebug ? cfg.debug.maxDice : cfg.maxActiveDice), "骰子数量无效。");
@@ -34,6 +35,7 @@ namespace DiceCraft.Core
             {
                 Check(d.createdSerial > 0 && d.createdSerial < s.nextDieSerial && d.dieId == "D" + d.createdSerial.ToString("D3"), "骰子身份无效。");
                 Check((d.lifetime == "permanent" || d.lifetime == "stage_temporary") && d.dataRevision >= 0, "骰子寿命或版本无效。"); cfg.ValidateFaces(d.faces);
+                Check(s.isDebug || d.faces.All(f => f.baseWeight <= cfg.maxFaceWeight), "骰面权重超过上限。");
             }
             ControllerRules.ValidateEquipment(s.controllers, cfg, s.isDebug, s.controllerSlots);
             Check(s.controllers.All(c => c.alive && c.acquiredSerial > 0 && c.acquiredSerial < s.nextItemSerial && c.instanceId == "ITEM_" + c.acquiredSerial.ToString("D5")), "控制器实例身份无效。");
@@ -59,8 +61,15 @@ namespace DiceCraft.Core
             Check(!s.stage.settled || (s.stage.qualified && s.stage.settlementId == s.runId + "/" + s.stage.stageId), "关卡结算身份无效。");
             var stageDef = cfg.stages[s.stage.stageIndex];
             Check(!s.stage.risk || stageDef.riskEnabled, "高压分支无效。");
-            Check(s.isDebug || (s.stage.target == (s.stage.risk ? stageDef.riskTarget : stageDef.normalTarget)
+            Check(s.isDebug || (s.stage.target == StageTarget(s, stageDef, s.stage.risk)
                 && s.stage.reward == (s.stage.risk ? stageDef.riskReward : stageDef.normalReward)), "关卡目标或奖励与配置不符。");
+            // v1.0 stage context
+            Check((s.isDebug || (s.stage.stageKind ?? "") == stageDef.stageKind) && s.stage.disabledControllerIds != null && s.stage.primaryHandsUsed != null && s.stage.itemCapacityBonus >= 0, "关卡类型或首领状态缺失。");
+            Check(string.IsNullOrEmpty(s.stage.modifierId) ? !s.stage.modifierNullified : cfg.bossModifiers.Any(m => m.id == s.stage.modifierId), "首领减益无效。");
+            Check(s.isDebug || (s.stage.modifierId ?? "") == (stageDef.stageKind == "boss" ? s.cycles[s.stage.stageIndex / 3].modifierId : ""), "首领减益与周期计划不符。");
+            Check(s.stage.disabledControllerIds.Distinct(StringComparer.Ordinal).Count() == s.stage.disabledControllerIds.Length && (s.stage.disabledControllerIds.Length == 0 || (s.stage.started && !s.stage.modifierNullified && !string.IsNullOrEmpty(s.stage.modifierId))), "失效控制器名单无效。");
+            Check(s.stage.settled || s.stage.disabledControllerIds.All(id => s.controllers.Any(c => c.instanceId == id) || s.stage.destroyedControllerIds.Contains(id)), "失效控制器不在装备中。");
+            Check(s.stage.primaryHandsUsed.Distinct(StringComparer.Ordinal).Count() == s.stage.primaryHandsUsed.Count && s.stage.primaryHandsUsed.All(h => cfg.handDefinitions.Any(d => d.id == h)), "本关主牌型记录无效。");
             Check(s.dice.Where(x => x.lifetime == "stage_temporary").All(x => x.createdStageId == s.stage.stageId), "临时骰来自其他关卡。");
             ValidateBindings(s);
             if (s.phase == "HandReady" || s.phase == "Selecting") ValidateActiveHand(s);
@@ -71,11 +80,12 @@ namespace DiceCraft.Core
                 var r = s.lastStageSettlement;
                 Check(r != null && r.settlementId == s.stage.settlementId && r.stageId == s.stage.stageId && r.score == s.stage.score && r.target == s.stage.target
                     && r.remainingSubmissions == s.stage.remainingSubmissions, "结算回执不匹配。");
-                long capAdd = cfg.Controller("C96").parameters.interestPrincipalAdd, stageGold = cfg.Controller("C95").parameters.goldPerStage;
-                Check(r.interestPrincipalCap >= cfg.maxInterestPrincipal && (r.interestPrincipalCap - cfg.maxInterestPrincipal) % capAdd == 0 && r.controllerIncome >= 0 && r.controllerIncome % stageGold == 0, "结算控制器收益无效。");
+                long stageGold = cfg.Controller("C95").parameters.goldPerStage;
+                Check(r.interestPrincipalCap >= cfg.maxInterestPrincipal && (r.interestPrincipalCap - cfg.maxInterestPrincipal) % cfg.interestDivisor == 0 && r.bountyIncome >= 0 && r.controllerIncome >= r.bountyIncome && (r.controllerIncome - r.bountyIncome) % stageGold == 0, "结算控制器收益无效。");
+                Check((r.stageKind ?? "") == StageKind(s) && (string.IsNullOrEmpty(r.lootKind) || cfg.lootKinds.Any(k => k.id == r.lootKind)) && (!r.rewardVoided || r.baseReward == 0), "结算首领信息无效。");
                 Check(r.goldBefore >= 0 && r.pigSourceCount >= 0 && r.pig == (r.pigSourceCount > 0) && r.interestPrincipal == Math.Min(r.goldBefore, r.interestPrincipalCap)
                     && r.interest == checked((1L + r.pigSourceCount * cfg.Controller("C01").parameters.extraInterestPerTen) * (r.interestPrincipal / cfg.interestDivisor))
-                    && r.unusedSubmissionReward == checked((long)r.remainingSubmissions * cfg.goldPerUnusedSubmission)
+                    && r.unusedSubmissionReward == (r.rewardVoided ? 0 : checked((long)r.remainingSubmissions * cfg.goldPerUnusedSubmission))
                     && r.goldAfter == checked(r.goldBefore + r.baseReward + r.unusedSubmissionReward + r.interest + r.controllerIncome), "结算收益无效。");
             }
             if (s.phase == "RunWon") Check(s.stage.stageIndex == cfg.stages.Length - 1, "非最终关不能胜利。");
@@ -95,12 +105,28 @@ namespace DiceCraft.Core
             if (s.lastSubmission != null) ValidateSubmissionHistory(s.lastSubmission, s.runId);
         }
 
+        /// <summary>v1.0: the cycle plan must be complete, legal for each cycle and free of repeats; the service counters in range.</summary>
+        private void ValidateCycles(RunState s)
+        {
+            int cycles = cfg.stages.Length / 3;
+            Check(s.cycles != null && s.cycles.Count == cycles && s.cycles.All(c => c != null), "周期计划缺失。");
+            for (int i = 0; i < cycles; i++)
+            {
+                var plan = s.cycles[i]; var modifier = cfg.bossModifiers.FirstOrDefault(m => m.id == plan.modifierId); bool final = i == cycles - 1;
+                // A debug workspace may plan any modifier for any cycle; a normal run must follow the tier rules.
+                Check(modifier != null && (s.isDebug || (final ? modifier.tier == 4 : modifier.tier < 4 && modifier.minCycle <= i + 1)), "周期计划里的首领减益无效。");
+                Check(final ? string.IsNullOrEmpty(plan.lootKind) : cfg.lootKinds.Any(k => k.id == plan.lootKind), "周期计划里的战利品无效。");
+            }
+            Check(s.isDebug || s.cycles.Select(c => c.modifierId).Distinct(StringComparer.Ordinal).Count() == cycles, "周期计划里的首领减益重复。");
+            Check(s.bossRerolls >= 0 && s.enchantTablePurchases >= 0 && s.interestCapPurchases >= 0 && s.interestCapPurchases <= cfg.maxInterestPrincipalPurchases, "服务购买次数无效。");
+        }
+
         private void ValidateDynamicState(ControllerInstance c, bool offer)
         {
             Check(c.state != null && c.state.fundAccrual >= 0 && c.state.fundAccrual % 3 == 0 && c.state.turnoverUnits2 >= 3, "控制器动态状态无效。");
             Check(c.definitionId == "C41" || c.definitionId == "C52" || c.state.fundAccrual == 0, "非基金实例不能保存基金累计。");
             Check(c.definitionId == "C51" || c.state.turnoverUnits2 == 3, "非周转实例不能保存成长倍率。");
-            Check(c.state.growth >= 0 && c.state.saleBonus >= 0 && (c.state.growth == 0 || ControllerRules.HasGrowth(c.definitionId)), "控制器成长值无效。");
+            Check(c.state.growth >= 0 && c.state.saleBonus >= 0 && (c.state.growth == 0 || ControllerRules.HasGrowthCounter(c.definitionId)), "控制器成长值无效。");
             Check(c.definitionId == "C45" ? (offer ? string.IsNullOrEmpty(c.state.activeColor) : c.state.activeColor == "red" || c.state.activeColor == "blue") : string.IsNullOrEmpty(c.state.activeColor), "控制器颜色状态无效。");
             if (offer) Check(c.state.fundAccrual == 0 && c.state.turnoverUnits2 == 3 && c.state.growth == 0 && c.state.saleBonus == 0, "商品不能继承旧实例状态。");
         }
@@ -133,6 +159,7 @@ namespace DiceCraft.Core
             Check(s.stage.started && !s.stage.settled && (s.isDebug || s.stage.remainingSubmissions > 0) && s.dice.Count > 0, "活动关卡无效。");
             Check(s.hand != null && s.hand.orderedLockedIds != null && s.hand.currentResults != null && s.hand.c05UsedEmitterIds != null && s.hand.rollBonusSourceIds != null, "手牌状态缺失。");
             Check(s.hand.rollsRemaining >= 0 && s.hand.rollsUsed >= 0 && s.hand.hasRolled == (s.hand.rollsUsed > 0) && !string.IsNullOrEmpty(s.hand.handId), "投掷预算无效。");
+            Check(!(s.hand.redWave && s.hand.blueWave), "红色浪潮与蓝色浪潮不能同时生效。");
             Check(s.hand.currentResults.Count == s.dice.Count && s.hand.currentResults.All(r => r != null && s.dice.Any(d => d.dieId == r.dieId))
                 && s.hand.currentResults.Select(x => x.dieId).Distinct().Count() == s.dice.Count, "当前骰结果身份不匹配。");
             Check(s.hand.orderedLockedIds.Count <= s.stage.capacity && s.hand.orderedLockedIds.Distinct().Count() == s.hand.orderedLockedIds.Count
@@ -155,7 +182,18 @@ namespace DiceCraft.Core
             Check(shop != null && shop.generated && shop.offers != null && !string.IsNullOrEmpty(shop.generationId) && shop.controllerRefreshCount >= 0
                 && shop.controllerGeneration == shop.controllerRefreshCount && shop.selfStudyUsed >= 0 && shop.selfStudyUsed <= cfg.shop.selfStudyLimit, "商店状态无效。");
             Check(shop.offers.All(x => x != null && !string.IsNullOrEmpty(x.offerId)) && shop.offers.Select(x => x.offerId).Distinct().Count() == shop.offers.Count, "商品身份重复。");
-            Check(shop.offers.Count(o => o.category == "controller") <= ControllerOfferCount(s) && shop.offers.Count(o => o.category == "consumable") <= ConsumableOfferCount(s), "商品格数量超限。");
+            Check(shop.offers.Count(o => o.category == "controller" && Shelf(o)) <= ControllerOfferCount(s) && shop.offers.Count(o => o.category == "consumable" && Shelf(o)) <= ConsumableOfferCount(s), "商品格数量超限。");
+            // v1.0 gift groups
+            Check(shop.groups != null && shop.groups.All(g => g != null && !string.IsNullOrEmpty(g.groupId) && g.picks >= 1 && g.picked >= 0 && g.picked <= g.picks
+                && (g.groupId == "LOOT" ? cfg.lootKinds.Any(k => k.id == g.kind) : g.groupId == "GIFT_" + g.kind && (g.kind == "C111" || g.kind == "C113")))
+                && shop.groups.Select(g => g.groupId).Distinct(StringComparer.Ordinal).Count() == shop.groups.Count, "赠礼组无效。");
+            Check(shop.offers.All(o => Shelf(o) ? o.category != "gold" && o.levels == 0 : shop.groups.Any(g => g.groupId == o.groupId) && o.levels >= 0), "赠礼报价无效。");
+            foreach (var g in shop.groups)
+            {
+                var own = shop.offers.Where(o => o.groupId == g.groupId).ToArray();
+                Check(own.Count(o => o.sold) == g.picked && (!own.Any(o => o.sold && o.category == "gold") || g.picked == 1), "赠礼领取记录无效。");
+                Check(!g.closed || g.picked >= 1, "赠礼组关闭状态无效。");
+            }
             foreach (var o in shop.offers)
             {
                 Check(o.category == "controller" || o.controller == null || EmptyOfferController(o.controller), "非控制器报价携带了控制器数据。");
@@ -165,8 +203,9 @@ namespace DiceCraft.Core
                     : o.category == "hand_upgrade" ? cfg.handDefinitions.Any(x => x.id == o.contentId) || cfg.colorDefinitions.Any(x => x.id == o.contentId)
                     : o.category == "die_upgrade" ? cfg.diceUpgrades.Any(x => x.id == o.contentId)
                     : o.category == "service" ? cfg.services.Any(x => x.id == o.contentId && x.id != "O03")
+                    : o.category == "gold" ? o.contentId == "GOLD" && o.basePrice == cfg.lootGoldValue
                     : o.category == "new_die" && o.contentId == "O03" && o.die != null;
-                Check(known && o.basePrice >= 0 && o.priceReasons != null && o.batchId == BatchId(shop, o.category), "商品定义或批次无效。");
+                Check(known && o.basePrice >= 0 && o.priceReasons != null && o.batchId == (Shelf(o) ? BatchId(shop, o.category) : shop.generationId + "/" + o.groupId), "商品定义或批次无效。");
                 if (o.category == "controller")
                 {
                     var c = o.controller;
@@ -178,7 +217,7 @@ namespace DiceCraft.Core
                 if (o.category == "new_die") { cfg.ValidateFaces(o.die.faces); Check(o.basePrice == QuoteNewDie(o.die), "新骰报价不匹配。"); }
             }
             foreach (var category in new[] { "controller", "consumable", "hand_upgrade", "die_upgrade", "service" })
-            { var offers = shop.offers.Where(o => o.category == category).ToArray(); Check(offers.Select(o => o.contentId).Distinct().Count() == offers.Length, "同批商品定义重复。"); }
+            { var offers = shop.offers.Where(o => o.category == category).ToArray(); Check(offers.Select(o => (o.groupId ?? "") + "/" + o.contentId).Distinct().Count() == offers.Length, "同批商品定义重复。"); }
             var cards = shop.offers.Where(o => o.category == "controller").Select(o => o.controller).ToArray();
             Check(cards.Select(c => c.instanceId).Distinct().Count() == cards.Length && shop.offers.Where(o => o.category == "controller" && !o.sold).All(o => !instances.Contains(o.controller.instanceId)), "商品实例与装备身份冲突。");
         }
@@ -199,7 +238,7 @@ namespace DiceCraft.Core
 
         private static void ValidateRandomRecords(System.Collections.Generic.IEnumerable<RandomRecord> records)
         {
-            Check(records.All(r => r != null && new[] { "dice", "shop", "effect" }.Contains(r.stream) && r.beforeState != 0 && r.afterState != 0
+            Check(records.All(r => r != null && new[] { "dice", "shop", "effect", "stage" }.Contains(r.stream) && r.beforeState != 0 && r.afterState != 0
                 && r.range > 0 && r.rawTicket >= 0 && r.rawTicket < r.range && r.rawValue != null && r.appliedValue != null), "随机回执无效。");
         }
 

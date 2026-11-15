@@ -19,13 +19,14 @@ namespace DiceCraft
         private bool CanReorderControllers => ViewState!=null&&(ViewState.phase=="Shop"||ViewState.phase=="StagePreview")&&!IsBusy&&!Session.HasPendingSave;
         private MimicBinding[] ViewBindings => ViewState.stage.started&&ViewState.phase!="Shop"&&ViewState.phase!="StagePreview"?ViewState.stage.mimicBindings:null;
         private AbilitySource[] controllerSourceCache;
-        private AbilitySource[] ViewSources => controllerSourceCache??(controllerSourceCache=ControllerRules.ResolveSources(ViewState.controllers,ViewBindings));
+        private AbilitySource[] ViewSources => controllerSourceCache??(controllerSourceCache=ControllerRules.ResolveSources(ViewState.controllers,ViewBindings,ViewDisabled10));
         /// <summary>v0.9: the current value of a growth card ("×1.35" / "+24"), or null for other abilities.</summary>
         private string GrowthText09(string abilityId,ControllerDynamicState state)
         {
             if(abilityId==null||state==null)return null;
             if(ControllerRules.IsGrowthMultiplier(abilityId))return "×"+((20+state.growth)/20m).ToString("0.##");
             if(ControllerRules.IsGrowthBase(abilityId))return "+"+state.growth;
+            if(abilityId=="C141")return "×"+((Config.Controller("C141").parameters.initialMultiplierUnits2-state.growth)/2m).ToString("0.#");
             if(abilityId=="C63")return "×"+(Math.Max(10,ViewState.dice.Count(d=>d.lifetime=="permanent")*Config.Controller("C63").parameters.perDieUnits10)/10m).ToString("0.#");
             return null;
         }
@@ -40,7 +41,7 @@ namespace DiceCraft
         private string ControllerStateLabel(ControllerInstance c)
         {
             var source=ViewSources.FirstOrDefault(s=>s.emitterId==c.instanceId);
-            string text=AltarVictims09().Contains(c.instanceId)?"下一关开始时被左侧的祭坛摧毁（可拖动调序避开）":"";
+            string text=AltarVictims09().Contains(c.instanceId)?"下一关开始时被左侧的祭坛摧毁（可拖动调序避开）":DisabledNow10(c.instanceId)?"本关被首领减益封住，没有任何效果":DisabledNext10(c.instanceId)?"首领关开始后将失效（可拖动调序）":"";
             if(c.definitionId=="C41")
             {
                 var target=(ViewBindings??ControllerRules.FreezeBindings(ViewState.controllers)).FirstOrDefault(b=>b.sourceInstanceId==c.instanceId)?.targetInstanceId;
@@ -52,10 +53,10 @@ namespace DiceCraft
             if(source?.abilityId=="C51")text+=(text.Length>0?" · ":"")+"×"+(source.state.turnoverUnits2/2m).ToString("0.#");
             string growth=GrowthText09(source?.abilityId,source?.state);
             if(growth!=null)text+=(text.Length>0?" · ":"")+"当前 "+growth;
-            if(c.state!=null&&c.state.saleBonus>0&&c.definitionId!="C52"&&c.definitionId!="C41")text+=(text.Length>0?" · ":"")+"售价 "+ControllerRules.SalePrice(c,Config);
+            if(c.state!=null&&c.state.saleBonus>0&&c.definitionId!="C52"&&c.definitionId!="C41")text+=(text.Length>0?" · ":"")+"售价 "+OwnedSalePrice10(c);
             if(source?.abilityId=="C05")text+=(text.Length>0?" · ":"")+(ViewState.hand?.c05UsedEmitterIds.Contains(c.instanceId)==true?"本手已用":"本手未用");
             if(source?.abilityId=="C43")text+=(text.Length>0?" · ":"")+"上次 "+NameOf(ViewState.previousPrimaryHandId);
-            if(c.definitionId=="C52"||c.definitionId=="C41")text+=(text.Length>0?" · ":"")+"售价 "+ControllerRules.SalePrice(c,Config);
+            if(c.definitionId=="C52"||c.definitionId=="C41")text+=(text.Length>0?" · ":"")+"售价 "+OwnedSalePrice10(c);
             return text;
         }
         private string CompactControllerState(ControllerInstance item)

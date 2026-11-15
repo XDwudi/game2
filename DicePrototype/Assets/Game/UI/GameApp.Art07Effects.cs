@@ -239,7 +239,7 @@ namespace DiceCraft
                         var label=controllerRects[id].Find("State")?.GetComponent<TextMeshProUGUI>();
                         if(label==null)continue;
                         if(e.EffectFamily=="ActiveColorChanged")label.text=(e.BeforeValue==e.AfterValue?"仍为":"下手")+ColorText07(e.AfterValue);
-                        else {var owner=lastPresentationAfter07?.controllers.FirstOrDefault(c=>c.instanceId==id);if(owner!=null)label.text="售价 "+ControllerRules.SalePrice(owner,Config);}
+                        else {var owner=lastPresentationAfter07?.controllers.FirstOrDefault(c=>c.instanceId==id);if(owner!=null)label.text="售价 "+OwnedSalePrice10(owner);}
                     }
                 }
                 var cash=beat.Events.FirstOrDefault(e=>e.EffectFamily=="SubmissionIncome"||e.EffectFamily=="stage_income");
@@ -350,7 +350,7 @@ namespace DiceCraft
             if(cmd.kind==CommandKind.UseItem)
             {
                 string id=before.inventory.FirstOrDefault(i=>i.instanceId==cmd.itemInstanceId)?.contentId;
-                LastTransactionSummary07=id=="I06"?"提交 +"+(after.stage.remainingSubmissions-before.stage.remainingSubmissions):id=="I07"?"剩掷 +"+(after.hand.rollsRemaining-before.hand.rollsRemaining):id=="I04"?"本手 6 点偏置已应用":id=="I05"?"本手 1 点偏置已应用":id=="I01"?"本次计分有效全红 · 永久骰面不变":id=="I02"?"本关临时骰 +"+(after.dice.Count-before.dice.Count):"本次遥控投掷已提交";
+                LastTransactionSummary07=id=="I06"?"提交 +"+(after.stage.remainingSubmissions-before.stage.remainingSubmissions):id=="I07"?"剩掷 +"+(after.hand.rollsRemaining-before.hand.rollsRemaining):id=="I04"?"本手 6 点偏置已应用":id=="I05"?"本手 1 点偏置已应用":id=="I01"?"本次计分有效全红 · 永久骰面不变":id=="I02"?"本关临时骰 +"+(after.dice.Count-before.dice.Count):id=="I03"?"本次遥控投掷已提交":ItemSummary10(id,before,after);
             }
             if(BeginCommittedTransactionVisual07(cmd,result,before,after))
             {
@@ -419,7 +419,7 @@ namespace DiceCraft
             var before=presentationBefore07;if(before?.phase!="Shop")return;
             var sources=new List<RectTransform>();
             if(cmd.kind==CommandKind.RefreshControllers)
-                foreach(var offer in before.shop.offers.Where(o=>o.category=="controller"))sources.AddRange(TransactionOfferRoots07(offer));
+                foreach(var offer in before.shop.offers.Where(o=>o.category=="controller"&&string.IsNullOrEmpty(o.groupId)))sources.AddRange(TransactionOfferRoots07(offer));
             else
             {
                 var offer=before.shop.offers.FirstOrDefault(o=>o.offerId==cmd.offerId);
@@ -456,7 +456,7 @@ namespace DiceCraft
             {
                 LastTransactionSummary07="控制器货架已刷新 · 实际支付 "+(before.gold-after.gold)+" · 其他分区保持";
                 transactionMotion07.Begin("controller_refresh",.28f,.10f,false,fast,reduced,CompleteTransactionVisual07);
-                foreach(var offer in after.shop.offers.Where(o=>o.category=="controller"))foreach(var root in TransactionOfferRoots07(offer))transactionMotion07.TrackReveal(root,.10f,.18f,true);
+                foreach(var offer in after.shop.offers.Where(o=>o.category=="controller"&&string.IsNullOrEmpty(o.groupId)))foreach(var root in TransactionOfferRoots07(offer))transactionMotion07.TrackReveal(root,.10f,.18f,true);
                 return true;
             }
             var bought=before.shop.offers.FirstOrDefault(o=>o.offerId==cmd.offerId);
@@ -503,7 +503,7 @@ namespace DiceCraft
             {
                 bool c=offer.contentId=="O05";int oldCount=c?Config.shop.initialControllerOffers+before.controllerOfferPurchases:Config.shop.initialConsumableOffers+before.consumableOfferPurchases;
                 int newCount=c?Config.shop.initialControllerOffers+after.controllerOfferPurchases:Config.shop.initialConsumableOffers+after.consumableOfferPurchases;
-                bool added=after.shop.offers.Any(o=>o.category==(c?"controller":"consumable")&&!before.shop.offers.Any(b=>b.offerId==o.offerId));
+                bool added=after.shop.offers.Any(o=>o.category==(c?"controller":"consumable")&&string.IsNullOrEmpty(o.groupId)&&!before.shop.offers.Any(b=>b.offerId==o.offerId));
                 return (c?"控制器":"道具")+"货架 "+oldCount+"→"+newCount+" · 容量升级已生效"+(added?"":" · 本店暂无合法商品");
             }
             var controller=after.controllers.FirstOrDefault(c=>!before.controllers.Any(b=>b.instanceId==c.instanceId));
@@ -538,7 +538,7 @@ namespace DiceCraft
             bool controllers=bought.contentId=="O05";string category=controllers?"controller":"consumable";
             int oldSlots=controllers?Config.shop.initialControllerOffers+before.controllerOfferPurchases:Config.shop.initialConsumableOffers+before.consumableOfferPurchases;
             int newSlots=controllers?Config.shop.initialControllerOffers+after.controllerOfferPurchases:Config.shop.initialConsumableOffers+after.consumableOfferPurchases;
-            var added=after.shop.offers.Where(o=>o.category==category&&!before.shop.offers.Any(b=>b.offerId==o.offerId)).ToArray();
+            var added=after.shop.offers.Where(o=>o.category==category&&string.IsNullOrEmpty(o.groupId)&&!before.shop.offers.Any(b=>b.offerId==o.offerId)).ToArray();
             LastTransactionSummary07=(controllers?"控制器":"道具")+"货架 "+oldSlots+"→"+newSlots+" · 容量升级已生效"+(added.Length==0?" · 本店暂无合法商品":"");
             transactionMotion07.Begin("offer_expansion",.34f,0,false,fast,reduced,CompleteTransactionVisual07);
             if(added.Length>0)
@@ -548,7 +548,7 @@ namespace DiceCraft
                     var roots=TransactionOfferRoots07(offer);
                     if(roots.Length==0)
                     {
-                        int index=Array.FindIndex(after.shop.offers.Where(o=>o.category==category).ToArray(),o=>o.offerId==offer.offerId);
+                        int index=Array.FindIndex(after.shop.offers.Where(o=>o.category==category&&string.IsNullOrEmpty(o.groupId)).ToArray(),o=>o.offerId==offer.offerId);
                         var p=UiKit.Frame(transactionReadout07,"AddedOffer_"+offer.offerId,392+Math.Min(4,index)*296,512,280,416,UiKit.Paper,UiKit.Ink);
                         UiKit.Text(p,"Title","新增道具位 "+(index+1),12,12,256,64,24,UiKit.Ink,TextAlignmentOptions.Center);Icon(p,offer.contentId,84,104,112);
                         UiKit.Text(p,"Item",NameOf(offer.contentId),12,236,256,66,24,UiKit.Ink,TextAlignmentOptions.Center);

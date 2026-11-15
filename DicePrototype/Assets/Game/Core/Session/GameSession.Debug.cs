@@ -60,6 +60,9 @@ namespace DiceCraft.Core
             Check(input.rollsUsed >= 0 && input.rollsUsed <= cfg.debug.maxEditableBudget && input.warIncomeCount >= 0 && input.warIncomeCount <= cfg.Controller("C97").parameters.maxTriggersPerStage
                 && input.controllerSlotPurchases >= 0 && input.controllerSlotPurchases <= cfg.maxOrdinaryControllerSlots - cfg.initialControllerSlots, "调试场景的投掷次数、以战养战次数或栏位购买次数无效。");
             Check(input.randomOverrides.All(x => x != null), "调试随机覆盖不完整。");
+            Check(string.IsNullOrEmpty(input.modifierId) || cfg.bossModifiers.Any(m => m.id == input.modifierId), "调试场景的首领减益无效。");
+            Check(input.itemCapacityBonus >= 0 && input.interestCapPurchases >= 0 && input.interestCapPurchases <= cfg.maxInterestPrincipalPurchases && !(input.redWave && input.blueWave)
+                && (input.primaryHandsUsed == null || input.primaryHandsUsed.All(h => cfg.handDefinitions.Any(d => d.id == h))), "调试场景的首领或道具状态无效。");
             // Only a target already lost in the committed history may remain unresolved.
             var historicalMissing = s.stage == null ? Array.Empty<string>() : s.stage.destroyedControllerIds.ToArray();
             var draft = input.Clone();
@@ -70,6 +73,7 @@ namespace DiceCraft.Core
             s.consumableSlots = draft.consumableSlots; s.itemDiscount = draft.itemDiscount;
             s.controllerOfferPurchases = draft.controllerOfferPurchases; s.consumableOfferPurchases = draft.consumableOfferPurchases; s.freeFirstRefreshOwned = draft.freeFirstRefreshOwned;
             s.previousPrimaryHandId = draft.previousPrimaryHandId; s.submissionOrdinalGlobal = draft.submissionOrdinalGlobal; s.randomOverrides = draft.randomOverrides;
+            s.interestCapPurchases = draft.interestCapPurchases;
             s.controllerSlotPurchases = draft.controllerSlotPurchases; s.controllerSlots = cfg.initialControllerSlots + draft.controllerSlotPurchases; s.failureReason = null; s.lastSubmission = null; s.lastStageSettlement = null; s.shop = null;
             s.nextDieSerial = Math.Max(s.nextDieSerial, checked(s.dice.Max(d => d.createdSerial) + 1));
             int maxController = s.controllers.Select(c => c.acquiredSerial).DefaultIfEmpty(0).Max();
@@ -80,7 +84,10 @@ namespace DiceCraft.Core
             s.stage = new StageState {
                 stageId = stage.stageId, stageIndex = draft.stageIndex, risk = draft.risk, target = draft.target, score = draft.score,
                 capacity = draft.capacityOverride, reward = draft.risk ? stage.riskReward : stage.normalReward,
-                remainingSubmissions = draft.remainingSubmissions < 0 ? ControllerRules.SubmissionBudget(s.controllers, cfg) : draft.remainingSubmissions,
+                stageKind = stage.stageKind, modifierId = draft.modifierId ?? "", itemCapacityBonus = draft.itemCapacityBonus,
+                primaryHandsUsed = (draft.primaryHandsUsed ?? new List<string>()).Distinct(StringComparer.Ordinal).ToList(),
+                disabledControllerIds = ControllerRules.DisabledBy(s.controllers, cfg, draft.modifierId),
+                remainingSubmissions = draft.remainingSubmissions < 0 ? ControllerRules.SubmissionBudget(s.controllers, cfg, null, StageRules.For(cfg, draft.modifierId, ControllerRules.DisabledBy(s.controllers, cfg, draft.modifierId))) : draft.remainingSubmissions,
                 submissionOrdinal = draft.submissionOrdinal, stageRollBonus = draft.stageRollBonus, warIncomeCount = draft.warIncomeCount, started = true,
                 controllerOrderSnapshot = s.controllers.Select(c => c.instanceId).ToArray(),
                 mimicBindings = draft.mimicBindings ?? ControllerRules.FreezeBindings(s.controllers.ToArray()),
@@ -92,7 +99,7 @@ namespace DiceCraft.Core
             foreach (var die in s.dice.Where(d => d.lifetime == "stage_temporary")) die.createdStageId = stage.stageId;
             StartHand(s);
             if (draft.rollsRemaining >= 0) s.hand.rollsRemaining = draft.rollsRemaining;
-            s.hand.redWave = draft.redWave; s.hand.largeBuff = draft.largeBuff; s.hand.smallBuff = draft.smallBuff;
+            s.hand.redWave = draft.redWave; s.hand.largeBuff = draft.largeBuff; s.hand.smallBuff = draft.smallBuff; s.hand.blueWave = draft.blueWave; s.hand.doubleScore = draft.doubleScore;
             s.hand.c05UsedEmitterIds = draft.c05UsedEmitterIds;
             if (draft.currentResults != null)
             {
@@ -132,7 +139,7 @@ namespace DiceCraft.Core
                 && order.All(id => s.controllers.Any(c => c.instanceId == id)), "控制器调序必须保留同一组实例。");
             if (order.SequenceEqual(s.controllers.Select(c => c.instanceId))) return false;
             s.controllers = order.Select(id => s.controllers.First(c => c.instanceId == id)).ToList();
-            if (s.phase == "StagePreview") { s.stage.capacity = PreviewCapacity(s); s.stage.remainingSubmissions = ControllerRules.SubmissionBudget(ControllerRules.AfterAltars(s.controllers), cfg); }
+            if (s.phase == "StagePreview") RefreshPreviewBudgets(s);
             s.lastEffects.Add(new EffectRecord { kind = "ControllersReordered", detail = string.Join(",", order) });
             return true;
         }

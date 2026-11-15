@@ -182,6 +182,10 @@ namespace DiceCraft
                 {
                     case "U01":afterFace.texture="smooth";break;case "U02":afterFace.texture="rough";break;
                     case "U03":afterFace.baseColor="red";break;case "U04":afterFace.baseColor="blue";break;case "U06":afterFace.isGold=true;break;
+                    // p1.0.0: carve, plane, weight and mirror are deterministic, so they can be previewed.
+                    case "U08":afterFace.permanentPip=Math.Min(Config.maxPipValue,afterFace.permanentPip+1);break;case "U09":afterFace.permanentPip=Math.Max(Config.minPipValue,afterFace.permanentPip-1);break;
+                    case "U10":afterFace.baseWeight=Math.Min(Config.maxFaceWeight,afterFace.baseWeight+1);break;
+                    case "U11":{var opposite=afterDie.faces.First(f=>f.faceId==Config.Opposite(afterFace.faceId));opposite.permanentPip=afterFace.permanentPip;opposite.baseColor=afterFace.baseColor;break;}
                     // U07 has no deterministic candidate: never consume RNG in an inspection screen.
                 }
             }
@@ -207,7 +211,7 @@ namespace DiceCraft
             {
                 string change=offer.contentId=="U07"&&chosen!=null?"购买后：在 "+string.Join("、",Enumerable.Range(1,6).Where(n=>n!=chosen.permanentPip))+" 中等概率取一个。颜色、纹理、镀金保持；不预抽结果。":
                     whole?offer.contentId=="O04"?"购买后：移除此骰及全部强化；提交容量保持。至少保留 1 颗永久骰。":"购买后：整骰玻璃。每次实际参与投掷有 "+Config.glassBreakPercent+"% 永久损坏风险；锁定时不判定。":
-                    afterFace==null?"请选择右侧的物理面。":"当前："+FaceSummary07(chosen)+"\n购买后："+FaceSummary07(afterFace);
+                    afterFace==null?"请选择右侧的物理面。":offer.contentId=="U11"?"对面 "+Config.Opposite(chosen.faceId)+" 当前："+FaceSummary07(die.faces.First(f=>f.faceId==Config.Opposite(chosen.faceId)))+"\n购买后："+FaceSummary07(afterDie.faces.First(f=>f.faceId==Config.Opposite(chosen.faceId))):"当前："+FaceSummary07(chosen)+"\n购买后："+FaceSummary07(afterFace);
                 Art07DetailSection(layers,"PurchasePreview","改造预览",change,ref ly,424);
             }
             Art07DetailSection(layers,"Layers","永久 → 当前 → 有效",permanent+" → "+actual+" → "+effective,ref ly,424);
@@ -240,7 +244,7 @@ namespace DiceCraft
                 bool targetReady=whole||selectedFace!=null;
                 string error=targetReady?Session.PurchaseError(offer.offerId,die.dieId,whole?null:selectedFace):"请选择一个物理面。";
                 bool same=targetReady&&offer.category=="die_upgrade"&&!Session.IsUpgradeTargetLegal(offer.contentId,die.dieId,whole?null:selectedFace);
-                string label=same?"已拥有此强化":!targetReady?"请选择目标面":offer.contentId=="O04"?"支付 "+Session.GetOfferPrice(offer)+" 并移除":"支付 "+Session.GetOfferPrice(offer)+" 并强化";
+                string label=same?"这个目标不能再改造":!targetReady?"请选择目标面":offer.contentId=="O04"?"支付 "+Session.GetOfferPrice(offer)+" 并移除":!string.IsNullOrEmpty(offer.groupId)?"免费改造":"支付 "+Session.GetOfferPrice(offer)+" 并强化";
                 var reason=UiKit.Scroll(p,"TargetPurchaseReason",368,792,456,72,72);
                 var reasonText=UiKit.Text(reason,"PurchaseUnavailable",error??"余额 "+ViewState.gold+" → "+((System.Numerics.BigInteger)ViewState.gold-Session.GetOfferPrice(offer)),0,0,420,64,19,error==null?UiKit.Muted:UiKit.Gold);reason.sizeDelta=new Vector2(reason.sizeDelta.x,FitHeight(reasonText,64));
                 UiKit.ActionButton(p,"ConfirmPurchase",label,848,800,600,64,()=>{CloseModal();Send(new SessionCommand{kind=CommandKind.Buy,offerId=offer.offerId,targetDieId=die.dieId,targetFaceId=whole?null:selectedFace});},UiKit.Gold,error==null&&!IsBusy);
@@ -268,7 +272,7 @@ namespace DiceCraft
             UiKit.ActionButton(p,"ConfirmPurchase","支付 "+price+" 并加入",848,800,600,64,()=>{CloseModal();Send(new SessionCommand{kind=CommandKind.Buy,offerId=offer.offerId});},UiKit.Gold,error==null&&!IsBusy);
         }
         private static string ColorName07(string color)=>color=="red"?"红 R":"蓝 B";
-        private static string FaceSummary07(FaceState f)=>f.permanentPip+"点 · "+ColorName07(f.baseColor)+" · "+(f.texture=="smooth"?"光滑":f.texture=="rough"?"粗糙":"无纹理")+(f.isGold?" · 黄金":"");
+        private static string FaceSummary07(FaceState f)=>f.permanentPip+"点 · "+ColorName07(f.baseColor)+" · "+(f.texture=="smooth"?"光滑":f.texture=="rough"?"粗糙":"无纹理")+(f.isGold?" · 黄金":"")+(f.baseWeight>1?" · 权重 "+f.baseWeight:"");
         private void DrawProbability07(Transform parent,DieInstance die,DieInstance afterDie,int[] before,int[] after,bool comparison)
         {
             var list=UiKit.Scroll(parent,"FaceProbabilities",848,576,600,200,396);int row=0;
@@ -334,6 +338,10 @@ namespace DiceCraft
             string label=step.sourceId!=null?NameOf(step.sourceId):step.kind=="glass"?"玻璃":step.kind=="gold"?"本面镀金":step.kind=="unused_rolls"?"剩余投掷奖励":step.kind=="hand"?"牌型总倍率":step.kind=="color"?"独立颜色乘区":step.kind=="red_group"?"同点红组":step.kind=="floor"?"最后向下取整":"最终加分";
             if(step.kind=="enchantment_base"||step.kind=="enchantment_multiplier")label+=" · 附魔";
             if(step.kind=="retrigger")label+=" · 再计一次";
+            // p1.0.0: boss modifier and item steps.
+            if(step.kind=="sealed")label+=" · 封印";
+            if(step.kind=="boss_hand")label+=" · 牌型倍率";
+            if(step.kind=="boss")label+=" · 得分减半";
             // p0.9.0: name the cards that changed a shared step ("C84:150" = +1.5 on the hand multiplier, "C73:2" = two pool dice).
             if(!string.IsNullOrEmpty(step.note))
                 label+="（含 "+string.Join("、",step.note.Split(',').Select(part=>{var kv=part.Split(':');return NameOf(kv[0])+(step.kind=="hand"?" +"+(int.Parse(kv[1])/100m).ToString("0.##"):" +"+kv[1]+" 颗");}))+"）";
@@ -350,6 +358,7 @@ namespace DiceCraft
             => ControllerRules.IsGrowthMultiplier(abilityId)?"×"+((20+growth)/20m).ToString("0.##"):"+"+growth;
         private string EffectText(EffectRecord e)
         {
+            string added=EffectText10(e);if(added!=null)return added;
             switch(e.kind)
             {
                 case "DieCopied":return NameOf(e.sourceId)+"："+e.otherDieId+" 的六面复制到 "+e.dieId;
@@ -365,7 +374,7 @@ namespace DiceCraft
                 case "ControllerDestroyed":return "玻璃大炮："+e.detail+" 本次计分后自毁";
                 case "FundAccrued":return "成长基金：本实例累积增值 "+e.newValue;
                 // v0.9
-                case "ControllerGrown":return NameOf(e.sourceId)+"：成长 "+GrowthValue09(e.sourceId,e.oldValue)+" → "+GrowthValue09(e.sourceId,e.newValue);
+                case "ControllerGrown":return e.sourceId=="C141"?"昙花一现：已过 "+e.newValue+" 关，倍率 −0.5":NameOf(e.sourceId)+"：成长 "+GrowthValue09(e.sourceId,e.oldValue)+" → "+GrowthValue09(e.sourceId,e.newValue);
                 case "ControllerGrowthReset":return NameOf(e.sourceId)+"：牌型中断，回到 "+GrowthValue09(e.sourceId,e.newValue);
                 case "ControllerSacrificed":return "祭坛：摧毁右侧的"+NameOf((e.detail??"").Split(':').LastOrDefault())+"，成长到 "+GrowthValue09("C100",e.newValue);
                 case "WarIncome":return "以战养战：+"+e.newValue+" 金币（本关第 "+e.oldValue+" 次）";

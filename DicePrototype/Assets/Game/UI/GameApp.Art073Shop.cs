@@ -59,8 +59,10 @@ namespace DiceCraft
         private UnityEngine.UI.Button BuyButton073(Transform parent,ShopOffer offer,float x,float y,float w,float h)
         {
             long cost=Session.GetOfferNetPrice(offer);
-            string label=offer.sold?"已购买":cost<0?"替换":"购买";
-            return UiKit.ActionButton(parent,"Buy_"+offer.offerId,label,x,y,w,h,()=>Art07BuyOffer(offer),UiKit.Paper,!offer.sold&&!IsBusy&&!Session.HasPendingSave);
+            // v1.0: a gift-group offer is taken, not bought; once its group is closed the rest are void.
+            bool gift=!string.IsNullOrEmpty(offer.groupId),closed=gift&&ViewState.shop.groups.Any(g=>g.groupId==offer.groupId&&g.closed);
+            string label=gift?(offer.sold?"已领取":closed?"已作废":"领取"):offer.sold?"已购买":cost<0?"替换":"购买";
+            return UiKit.ActionButton(parent,"Buy_"+offer.offerId,label,x,y,w,h,()=>{if(gift)CloseModal();Art07BuyOffer(offer);},UiKit.Paper,!offer.sold&&!closed&&!IsBusy&&!Session.HasPendingSave);
         }
         private UnityEngine.UI.Button HitArea073(Transform parent,string name,float x,float y,float w,float h,Action click)
         {
@@ -83,6 +85,7 @@ namespace DiceCraft
             ShopProducts073();
             ShopOwnedControllers073();
             ShopOwnedStrip073();
+            ShopCycleAndGifts10();
             var leave=UiKit.ActionButton(main,"LeaveShop","下一关",1512,952,384,96,
                 ()=>{CloseModal();Send(new SessionCommand{kind=CommandKind.LeaveShop});},UiKit.Gold,!IsBusy&&!Session.HasPendingSave);
             var leaveLabel=leave.transform.Find("Label").GetComponent<TextMeshProUGUI>();leaveLabel.fontSize=34*UiKit.FontScale;leaveLabel.fontStyle=FontStyles.Bold;
@@ -94,7 +97,7 @@ namespace DiceCraft
         // ---------------------------------------------------------------- controllers
         private void ShopControllers073()
         {
-            var offers=ViewState.shop.offers.Where(o=>o.category=="controller").ToArray();
+            var offers=ViewState.shop.offers.Where(o=>o.category=="controller"&&string.IsNullOrEmpty(o.groupId)).ToArray();
             int capacity=Config.shop.initialControllerOffers+ViewState.controllerOfferPurchases;
             var shelf=Section073(main,"ControllerShelf","控制器卡牌","ControllerShelfTitle",ShopLeft073,ShelfTop073,1012,ShelfHeight073,SectionRed073);
             UiKit.Text(shelf,"ShelfCapacity071","货架 "+offers.Length+" / "+capacity,560,5,430,40,18,UiKit.Muted,TextAlignmentOptions.MidlineRight);
@@ -172,7 +175,7 @@ namespace DiceCraft
         private void ShopDiceCounter073()
         {
             var counter=Section073(main,"DiceCounter","骰子柜台","DiceCounterTitle",ShopLeft073+1028,ShelfTop073,500,ShelfHeight073,SectionTeal073);
-            var offers=ViewState.shop.offers.Where(o=>o.category=="new_die").ToArray();
+            var offers=ViewState.shop.offers.Where(o=>o.category=="new_die"&&string.IsNullOrEmpty(o.groupId)).ToArray();
             if(offers.Length==0)
             {
                 UiKit.Text(counter,"NoDiceOffers","永久骰已满\n本店不出售骰子",24,160,452,120,22,UiKit.Muted,TextAlignmentOptions.Center);return;
@@ -206,7 +209,7 @@ namespace DiceCraft
         private void ShopProducts073()
         {
             var root=UiKit.Rect(main,"ShopProducts",ShopLeft073,ProductsTop073,ShopWidth073,ProductsHeight073);
-            var offers=ViewState.shop.offers;
+            var offers=ViewState.shop.offers.Where(o=>string.IsNullOrEmpty(o.groupId)).ToArray(); // v1.0: gift-group offers live in their own dialog
             var consumables=offers.Where(o=>o.category=="consumable").ToArray();
             var research=offers.Where(o=>o.category=="hand_upgrade"||o.category=="color_upgrade").ToArray();
             var upgrades=offers.Where(o=>o.category=="die_upgrade").ToArray();
@@ -402,7 +405,7 @@ namespace DiceCraft
             var products=main.Find("ShopProducts");
             if(products!=null)for(int i=0;i<products.childCount;i++){var section=products.GetChild(i) as RectTransform;if(section!=null&&section.gameObject.activeInHierarchy)shelf.Add(section);}
             var cards=new List<RectTransform[]>();
-            var controllers=ViewState.shop.offers.Where(o=>o.category=="controller").ToArray();
+            var controllers=ViewState.shop.offers.Where(o=>o.category=="controller"&&string.IsNullOrEmpty(o.groupId)).ToArray();
             foreach(var offer in controllers)
                 cards.Add(new[]{main.Find("Offer_"+offer.offerId) as RectTransform,main.Find("Buy_"+offer.offerId) as RectTransform,main.Find("OfferAvailability_"+offer.offerId) as RectTransform});
             int capacity=Config.shop.initialControllerOffers+ViewState.controllerOfferPurchases;

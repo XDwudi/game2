@@ -174,8 +174,15 @@ namespace DiceCraft
                 case "die_pips":name="有效点数";break;
                 case "contribution":case "controller_die":case "controller_base":case "controller":name=e.AbilityId==null?"控制器":NameOf(e.AbilityId);break;
                 case "retrigger":name=(e.AbilityId==null?"控制器":NameOf(e.AbilityId))+" 再计";break;
+                // p1.0.0 boss, item and face-growth events
+                case "sealed":return "首领减益 · 这颗骰子被封印";
+                case "boss_hand":name="首领减益 · 牌型";break;case "boss":name="首领减益";break;case "item":name="灵光一闪";break;
+                case "FaceChanged":return "骰面已改写";
+                case "GoldSpent":return "一掷千金 −"+(ParseLong09(e.BeforeValue)-ParseLong09(e.AfterValue))+" 金币";
+                case "GoldTaxed":return "首领减益 −"+(ParseLong09(e.BeforeValue)-ParseLong09(e.AfterValue))+" 金币";
+                case "HandDowngraded":return "首领减益：牌型等级 "+e.BeforeValue+" → "+e.AfterValue;
                 // v0.9 growth and economy events
-                case "ControllerGrown":return (e.AbilityId==null?"成长":NameOf(e.AbilityId))+" "+GrowthValue09(e.AbilityId,ParseLong09(e.BeforeValue))+" → "+GrowthValue09(e.AbilityId,ParseLong09(e.AfterValue));
+                case "ControllerGrown":return e.AbilityId=="C141"?"昙花一现 倍率 −0.5":(e.AbilityId==null?"成长":NameOf(e.AbilityId))+" "+GrowthValue09(e.AbilityId,ParseLong09(e.BeforeValue))+" → "+GrowthValue09(e.AbilityId,ParseLong09(e.AfterValue));
                 case "ControllerGrowthReset":return (e.AbilityId==null?"成长":NameOf(e.AbilityId))+" 回到 "+GrowthValue09(e.AbilityId,ParseLong09(e.AfterValue));
                 case "ControllerSacrificed":return "祭坛吞下右侧控制器 → "+GrowthValue09("C100",ParseLong09(e.AfterValue));
                 case "WarIncome":return "以战养战 +"+e.AfterValue+" 金币";

@@ -14,6 +14,9 @@ namespace DiceCraft.Core
         public ConsumableDefinition Consumable(string id) => Required(consumables, d => d.id, id);
         public ServiceDefinition Service(string id) => Required(services, d => d.id, id);
         public DieUpgradeDefinition Upgrade(string id) => Required(diceUpgrades, d => d.id, id);
+        public BossModifierDefinition Modifier(string id) => Required(bossModifiers, d => d.id, id);
+        public LootKindDefinition Loot(string id) => Required(lootKinds, d => d.id, id);
+        public static readonly string[] ModifierEffects = { "SealOdd", "SealEven", "SealLow", "SealHigh", "SealRed", "SealBlue", "SealFirst", "SealAlternate", "NoStraight", "SmallHandsOnly", "NoRepeatHand", "HandHalf", "ZeroLevels", "NoRed", "NoBlue", "FirstHalf", "LaterHalf", "PipsOnly", "GrowthZero", "EnchantSilence", "RollsDelta", "RollsFixed", "SubmissionsDelta", "CapacityDelta", "TargetPercent", "MustFill", "NoItems", "LoseHalfGold", "TaxPerDie", "NoReward", "GrowthFreeze", "HandDowngrade", "DisableLeftmost", "DisableRarity" };
         private static T Required<T>(T[] entries, Func<T, string> key, string id)
         {
             if (entries == null) throw new InvalidOperationException("Configuration is not loaded.");
@@ -29,7 +32,7 @@ namespace DiceCraft.Core
         }
         public void Validate()
         {
-            Check(configVersion == "p0.9.0" && saveSchemaVersion == 5, "Unsupported config/save version.");
+            Check(configVersion == "p1.0.0" && saveSchemaVersion == 6, "Unsupported config/save version.");
             Check(unityMajorMinor == "6000.6" && blenderMajorMinor == "5.2", "Toolchain.");
             Check(initialDiceCount == 5 && initialGold == 0 && maxPermanentDice == 8 && maxTemporaryDice == 3 && maxActiveDice == 10, "Initial/dice limits.");
             Check(initialSubmitCapacity == 5 && maxSubmitCapacity == 8 && !purchasedDiceChangeCapacity, "Independent submit capacity.");
@@ -37,12 +40,12 @@ namespace DiceCraft.Core
             Check(initialControllerSlots == 5 && maxOrdinaryControllerSlots == 7 && controllerSlotPriceStep > 0 && maxControllerInstances == 10 && !slotlessConsumesBaseSlot, "Controller limits.");
             Check(initialConsumableSlots == 2 && maxConsumableSlots == 5 && minDiscountedItemPrice == 1 && maxItemDiscount == 3, "Consumable economy.");
             Check(baseControllerSellPrice == 1 && controllerSellDivisor >= 1 && consumableSellPrice == 1 && baseStageReward > 0 && riskStageReward > baseStageReward && goldPerUnusedSubmission >= 0, "Economy.");
-            Check(interestDivisor > 0 && maxInterestPrincipal >= interestDivisor && maxInterestPrincipal % interestDivisor == 0 && interestBalanceTiming == "finalize_before_rewards_after_all_submit_income", "Interest.");
+            Check(interestDivisor > 0 && maxInterestPrincipal >= interestDivisor && maxInterestPrincipal % interestDivisor == 0 && interestPrincipalStep > 0 && interestPrincipalStep % interestDivisor == 0 && maxInterestPrincipalPurchases >= 0 && interestBalanceTiming == "finalize_before_rewards_after_all_submit_income", "Interest.");
             Check(minPipValue == 1 && maxPipValue == 6 && minStraightLength == 5 && maxHandLevel == 8 && maxColorLevel == 8, "Hand/pip limits.");
             Check(scoreStorage == "nonnegative_big_integer_decimal_string" && walletStorage == "checked_nonnegative_int64" && rounding == "single_final_floor", "Exact storage contract.");
             Check(probabilityUnits == 1000000 && probabilityRounding == "largest_remainder_face_id_tie" && allowZeroProbabilityAfterGroupTransfer, "Probability precision.");
             Check(smoothOppositeWeight100 > 0 && smoothOtherWeight100 > 0 && roughOppositeWeight100 > 0 && roughOtherWeight100 > 0 && temporaryPipBiasWeight100 > 0, "Probability weights.");
-            Check(glassBreakPercent >= 0 && glassBreakPercent <= 100 && glassContributionMultiplier > 0 && goldContributionMultiplier > 0, "Glass/gold.");
+            Check(glassBreakPercent >= 0 && glassBreakPercent <= 100 && glassContributionMultiplier > 0 && goldContributionMultiplier > 0 && maxFaceWeight >= 1, "Glass/gold/weight.");
             Check(diceDefinition != null && diceDefinition.id == "standard_d6" && diceDefinition.faces != null && diceDefinition.faces.Length == 6 && diceDefinition.faces.All(f => f != null), "Standard die.");
             ValidateFaces(DiceFactory.CreateStandard(this, 1).faces);
             Check(faceOpposites != null, "Opposites missing."); for (int i = 1; i <= 6; i++) { string id = "F" + i.ToString("D2"); Check(Opposite(id) != id && Opposite(Opposite(id)) == id, "Opposites."); }
@@ -55,9 +58,9 @@ namespace DiceCraft.Core
             ValidateIds(colorDefinitions, c => c.id, new[] { "all_blue", "all_red" });
             foreach (var c in colorDefinitions) Check(c.baseMult100 >= 100 && c.incrementPerLevel100 > 0 && c.baseUpgradePrice > 0 && c.maxLevel == maxColorLevel && c.minSubmittedDice == 1 && !c.countsAsHand && c.multiplierZone == "independent_color", "Independent color.");
             Check(removedControllerIds != null && removedControllerIds.SequenceEqual(new[] { "C04", "C16", "C23" }), "Retired IDs.");
-            ValidateIds(controllers, c => c.id, Ids("C", 103).Except(removedControllerIds).ToArray());
-            ValidateIds(consumables, c => c.id, Ids("I", 7)); ValidateIds(services, s => s.id, Ids("O", 8)); ValidateIds(diceUpgrades, u => u.id, Ids("U", 7));
-            Check(activeContentCount == 122 && controllers.Length + consumables.Length + services.Length + diceUpgrades.Length == activeContentCount, "Content count.");
+            ValidateIds(controllers, c => c.id, Ids("C", 153).Except(removedControllerIds).ToArray());
+            ValidateIds(consumables, c => c.id, Ids("I", 12)); ValidateIds(services, s => s.id, Ids("O", 11)); ValidateIds(diceUpgrades, u => u.id, Ids("U", 11));
+            Check(activeContentCount == 184 && controllers.Length + consumables.Length + services.Length + diceUpgrades.Length == activeContentCount, "Content count.");
             Check(shop != null && shop.controllerWeights != null, "Shop missing.");
             foreach (var c in controllers)
             {
@@ -68,9 +71,9 @@ namespace DiceCraft.Core
             foreach (var c in consumables) Check(c.baseBuyPrice >= 1 && c.sellPrice == 1 && (c.window == "Selecting" || c.window == "HandReady" || c.window == "HandReadyOrSelecting"), "Consumable.");
             foreach (var s in services) Check(s.baseBuyPrice >= 1 && !string.IsNullOrWhiteSpace(s.priceRule), "Service.");
             foreach (var u in diceUpgrades) Check(u.buyPrice >= 1 && u.target == (u.id == "U05" ? "Die" : "Face"), "Die upgrade.");
-            ValidateEnchantments(); ValidateParameters();
+            ValidateEnchantments(); ValidateParameters(); ValidateBosses();
             ValidateIds(stages, s => s.stageId, Enumerable.Range(1, 24).Select(i => "STAGE_" + i.ToString("D2")).ToArray());
-            foreach (var s in stages) Check(ExactScoreMath.Parse(s.normalTarget) > 0 && s.normalReward > 0 && s.shopAfterClear == (s.stageId != "STAGE_24") && (s.riskEnabled ? (ExactScoreMath.Parse(s.riskTarget) > ExactScoreMath.Parse(s.normalTarget) && s.riskReward > s.normalReward) : (string.IsNullOrEmpty(s.riskTarget) && s.riskReward == 0)), "Stage.");
+            foreach (var s in stages) Check(s.indexInChapter >= 1 && s.indexInChapter <= 3 && s.stageKind == new[] { "normal", "pressure", "boss" }[s.indexInChapter - 1] && s.riskEnabled == (s.stageKind == "pressure") && ExactScoreMath.Parse(s.normalTarget) > 0 && s.normalReward > 0 && s.shopAfterClear == (s.stageId != "STAGE_24") && (s.riskEnabled ? (ExactScoreMath.Parse(s.riskTarget) > ExactScoreMath.Parse(s.normalTarget) && s.riskReward > s.normalReward) : (string.IsNullOrEmpty(s.riskTarget) && s.riskReward == 0)), "Stage.");
             Check(stageFlow != null && stageFlow.latchQualified && !stageFlow.autoEndOnReached && stageFlow.autoEndWhenNoSubmissions && stageFlow.manualEndRequiresQualified && stageFlow.manualEndDiscardsUnsubmittedHand && stageFlow.overScoreGold == 0 && stageFlow.clearRewardOnlyAtFinalization && stageFlow.submissionIncomeAppliedWithinSubmit, "Stage flow.");
             Check(controllerOrder != null && controllerOrder.stageBindingsFrozen && controllerOrder.dragChangesOnlyOrder && controllerOrder.maxMimicResolveDepth == 32 && controllerOrder.onTargetLost == "no_base_effect_until_next_stage", "Controller binding.");
             Check(shop.initialControllerOffers == 4 && shop.maxControllerOffers == 6 && shop.serviceOffers == 2 && shop.initialConsumableOffers == 2 && shop.maxConsumableOffers == 5 && shop.upgradeOffers == 2 && shop.paidRefreshEnabled && shop.firstRefreshPrice == 3 && shop.refreshPriceStep == 2 && shop.refreshTarget == "controllers_only" && shop.freeRefreshConsumesFirstIndex && shop.replacementCredit == "actual_old_instance_sale_price" && shop.replacementCountsAsOneControllerSale && shop.maxOfferExpansionPurchases == 3, "Shop contracts.");
@@ -79,7 +82,7 @@ namespace DiceCraft.Core
             ValidateRange(generation.pipRange); ValidateRange(generation.lowRange); ValidateRange(generation.highRange);
             Check(generation.newDieBasePrice == 3 && generation.maxNewDieBasePrice == 6 && generation.redFaceChancePercent >= 0 && generation.redFaceChancePercent <= 100, "Die prices.");
             Check(rng != null && rng.algorithm == "xorshift32_v1" && rng.diceSeedXor != rng.shopSeedXor && rng.diceSeedXor != rng.effectSeedXor && rng.shopSeedXor != rng.effectSeedXor && rng.zeroSeedReplacement == 0x9E3779B9u, "RNG.");
-            Check(presentation != null && presentation.rollSeconds > 0 && presentation.fastRollSeconds > 0 && presentation.handbookHandRows == 14 && presentation.handbookColorRows == 2 && presentation.contentIconCount == 122 && presentation.enchantmentBadgeCount == 5, "Presentation counts.");
+            Check(presentation != null && presentation.rollSeconds > 0 && presentation.fastRollSeconds > 0 && presentation.handbookHandRows == 14 && presentation.handbookColorRows == 2 && presentation.contentIconCount == 184 && presentation.enchantmentBadgeCount == 5, "Presentation counts.");
             Check(buildTargets != null && buildTargets.SequenceEqual(new[] { "Windows_x86_64", "macOS_Universal" }), "Build targets.");
             Check(display != null && display.initialMode == "borderless" && display.confirmationTimeoutSeconds == 15 && display.persistOnlyConfirmedSettings, "Display contract.");
             Check(debug != null && debug.unlockPhrase == "XD is god" && debug.caseSensitive && !debug.trimInput && debug.separateSaveSlot && debug.markRunAsDebugOnFirstMutation && debug.allowDuplicateControllerIds && debug.maxDice == 32 && debug.maxSubmitCapacity == 32 && debug.maxControllerInstances == 32 && debug.maxHandLevel == 100 && debug.maxColorLevel == 100 && debug.maxEditableWallet == 1000000000 && debug.maxEditableBudget == 999, "Debug limits.");
@@ -89,7 +92,7 @@ namespace DiceCraft.Core
         {
             string[] ids = { "none", "slotless", "base10", "mult2", "submit1", "roll1" }; ValidateIds(enchantments, e => e.id, ids);
             Check(enchantments.Select(e => e.id).SequenceEqual(ids) && enchantments.Select(e => e.weight).SequenceEqual(new[] { 50, 18, 10, 4, 9, 9 }) && enchantments[0].buyPremium == 0 && enchantments.Skip(1).All(e => e.buyPremium > 0), "Enchantments.");
-            Check(enchantRules != null && enchantRules.rawDrawOrder.SequenceEqual(ids) && enchantRules.nonSubmitControllerIds.SequenceEqual(new[] { "C05", "C21", "C22", "C34", "C35", "C52", "C78", "C79", "C95", "C96", "C97", "C98", "C99" }) && enchantRules.baseAdd == 10 && enchantRules.scoreMultiplier == 2 && enchantRules.submissionBonus == 1 && enchantRules.rollBonus == 1 && !enchantRules.copyTargetEnchantment && enchantRules.triggerCountPerSourcePerSubmitMax == 1, "Enchant policies.");
+            Check(enchantRules != null && enchantRules.rawDrawOrder.SequenceEqual(ids) && enchantRules.nonSubmitControllerIds.SequenceEqual(new[] { "C05", "C21", "C22", "C34", "C35", "C52", "C78", "C79", "C95", "C96", "C97", "C98", "C99", "C110", "C111", "C112", "C113", "C114", "C115", "C116", "C120", "C121", "C128", "C131", "C133", "C136", "C140", "C145" }) && enchantRules.baseAdd == 10 && enchantRules.scoreMultiplier == 2 && enchantRules.submissionBonus == 1 && enchantRules.rollBonus == 1 && !enchantRules.copyTargetEnchantment && enchantRules.triggerCountPerSourcePerSubmitMax == 1, "Enchant policies.");
             var w = enchantRules.nonSubmitDrawWeights; Check(w != null && w.none == 100 && w.slotless == 50 && w.submit1 == 25 && w.roll1 == 25, "Dedicated enchant pool.");
             foreach (var c in controllers) Check(c.scoreEnchantEligible == !enchantRules.nonSubmitControllerIds.Contains(c.id), "Score enchant eligibility.");
         }
@@ -114,6 +117,42 @@ namespace DiceCraft.Core
             Check(Controller("C78").parameters.rollsPerHandDelta > 0 && Controller("C79").parameters.submissionsDelta > 0 && Controller("C101").parameters.submissionsDelta < 0, "v0.9 budgets.");
             Check(Controller("C95").parameters.goldPerStage > 0 && Controller("C96").parameters.interestPrincipalAdd > 0 && Controller("C96").parameters.interestPrincipalAdd % interestDivisor == 0 && Controller("C97").parameters.goldPerTrigger > 0 && Controller("C97").parameters.maxTriggersPerStage > 0 && Controller("C97").parameters.targetDivisor > 0 && Controller("C98").parameters.priceDelta < 0 && Controller("C99").parameters.saleBonusPerStage > 0 && Controller("C100").parameters.growthPerBuyPrice > 0, "v0.9 economy.");
             Check(Controller("C103").parameters.maxOwnedPermanentDice > Controller("C103").parameters.strictMaxOwnedPermanentDice && Controller("C103").parameters.strictScoreMultiplier > 0, "C103.");
+            // v1.0 (docs/specs/v10/RULES_SPEC.md)
+            foreach (string id in new[] { "C104", "C105", "C106", "C130", "C138", "C144", "C149", "C153" }) Check(Controller(id).parameters.scoreMultiplier > 0, id + " multiplier.");
+            foreach (string id in new[] { "C129", "C132", "C134" }) Check(Controller(id).parameters.growthPerEvent > 0, id + " growth.");
+            foreach (string id in new[] { "C109", "C143" }) Check(Controller(id).parameters.retriggers > 0, id + " retriggers.");
+            foreach (string id in new[] { "C139", "C147", "C152" }) Check(Controller(id).parameters.stepUnits4 > 0, id + " step.");
+            Check(Controller("C107").parameters.perDieAdd > 0 && Controller("C137").parameters.perDieAdd > 0 && Controller("C108").parameters.baseAddPerPip > 0 && Controller("C135").parameters.baseAddPerItem > 0 && Controller("C142").parameters.handMultAdd100 > 0, "v1.0 adds.");
+            Check(Controller("C110").parameters.itemsPerStage > 0 && Controller("C111").parameters.giftChoices > 0 && Controller("C111").parameters.giftPicks > 0 && Controller("C113").parameters.giftChoices > 0 && Controller("C113").parameters.giftPicks > 0 && Controller("C114").parameters.enchantsPerBoss > 0 && Controller("C116").parameters.dicePerBoss > 0 && Controller("C128").parameters.dicePerStage > 0 && Controller("C136").parameters.dicePerStage > 0, "v1.0 generators.");
+            Check(Controller("C112").parameters.rarity == "common" && Controller("C152").parameters.rarity == "common", "v1.0 rarity filters.");
+            Check(Controller("C115").parameters.facesPerStage > 0 && Controller("C115").parameters.upgradeIds != null && Controller("C115").parameters.upgradeIds.Length > 0 && Controller("C115").parameters.upgradeIds.All(u => diceUpgrades.Any(d => d.id == u && d.target == "Face")), "C115 upgrades.");
+            Check(Controller("C120").parameters.delta == 1 && Controller("C121").parameters.delta == -1 && Controller("C124").parameters.delta > 0 && Controller("C126").parameters.delta > 0 && Controller("C122").parameters.pip >= minPipValue && Controller("C122").parameters.pip <= maxPipValue, "v1.0 face growth.");
+            Check(Controller("C123").parameters.pips != null && Controller("C123").parameters.pips.Length == 2 && Controller("C123").parameters.pips[0] <= Controller("C123").parameters.pips[1] && Controller("C125").parameters.textures != null && Controller("C125").parameters.textures.Length == 1, "v1.0 face lists.");
+            Check(Controller("C133").parameters.goldPerBoss >= 0 && Controller("C133").parameters.goldPerPressure >= 0 && Controller("C138").parameters.goldCost > 0 && Controller("C139").parameters.goldPerStep > 0 && Controller("C139").parameters.maxSteps > 0, "v1.0 gold.");
+            Check(Controller("C141").parameters.initialMultiplierUnits2 > 2 && Controller("C141").parameters.expireGrowth == Controller("C141").parameters.initialMultiplierUnits2 - 2, "C141 decay.");
+            Check(Controller("C145").parameters.glassBreakPercent >= 0 && Controller("C145").parameters.glassBreakPercent <= glassBreakPercent && Controller("C148").parameters.perRollUnits2 > 0 && Controller("C151").parameters.perSlotUnits2 > 0, "v1.0 misc.");
+        }
+        private void ValidateBosses()
+        {
+            ValidateIds(bossModifiers, m => m.id, Ids("B", 39));
+            foreach (var m in bossModifiers)
+            {
+                Check(!string.IsNullOrWhiteSpace(m.displayName) && !string.IsNullOrWhiteSpace(m.description) && m.tier >= 1 && m.tier <= 4 && m.filter != null, "Boss modifier: " + m.id);
+                Check(m.minCycle == (m.tier == 1 ? 1 : m.tier == 2 ? 2 : m.tier == 3 ? 4 : 8), "Boss modifier cycle: " + m.id);
+                Check(m.effects != null && m.effects.Length > 0 && m.effects.Distinct(StringComparer.Ordinal).Count() == m.effects.Length && m.effects.All(e => ModifierEffects.Contains(e)), "Boss modifier effects: " + m.id);
+                foreach (string e in m.effects)
+                {
+                    if (e == "RollsDelta" || e == "SubmissionsDelta" || e == "CapacityDelta") Check(m.amount < 0, e + " amount: " + m.id);
+                    if (e == "RollsFixed" || e == "TaxPerDie" || e == "HandDowngrade" || e == "DisableLeftmost") Check(m.amount > 0, e + " amount: " + m.id);
+                    if (e == "TargetPercent") Check(m.amount > 100 && stages.All(s => (ExactScoreMath.Parse(s.normalTarget) * m.amount) % 100 == 0), "TargetPercent: " + m.id);
+                    if (e == "DisableRarity") Check(m.filter == "common" || m.filter == "uncommon" || m.filter == "rare", "DisableRarity filter: " + m.id);
+                }
+            }
+            Check(bossModifiers.Count(m => m.tier < 4) >= 8 && bossModifiers.Count(m => m.tier == 1) >= 2 && bossModifiers.Count(m => m.tier == 4) >= 2, "Boss pools.");
+            ValidateIds(lootKinds, k => k.id, Enumerable.Range(1, 6).Select(i => "L" + i).ToArray());
+            foreach (var k in lootKinds) Check(!string.IsNullOrWhiteSpace(k.displayName) && !string.IsNullOrWhiteSpace(k.description) && k.weight > 0 && k.picks >= 1 && k.picks <= 3, "Loot kind: " + k.id);
+            Check(lootGoldValue > 0 && lootHandLevels >= 1 && rng.stageSeedXor != rng.diceSeedXor && rng.stageSeedXor != rng.shopSeedXor && rng.stageSeedXor != rng.effectSeedXor && rng.stageSeedXor != 0, "Loot/stage stream.");
+            Check(stages.Length % 3 == 0, "Stages must form complete cycles.");
         }
         private void ValidateRange(int[] r) => Check(r != null && r.Length == 2 && r[0] >= minPipValue && r[1] <= maxPipValue && r[0] <= r[1], "Pip range.");
         public string Opposite(string id)

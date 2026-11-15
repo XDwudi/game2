@@ -135,6 +135,12 @@ namespace DiceCraft.Core
         // v0.9 frozen context: rolls thrown this hand, submissions left before this one, owned permanent dice, pool dice.
         public int rollsUsed, submissionsRemainingBefore, permanentDiceCount;
         public PoolDie[] poolDice = Array.Empty<PoolDie>();
+        // v1.0 frozen context: stage kind, the active boss modifier (empty when none or nullified), controllers disabled
+        // for this stage, primary hands already scored this stage, inventory size, ordinary slots, item effects.
+        public string stageKind, modifierId;
+        public string[] disabledControllerIds = Array.Empty<string>(), stageHandsUsed = Array.Empty<string>();
+        public int inventoryCount, ordinaryControllerSlots, scoreItemMultiplier;
+        public bool blueWave;
         public SubmissionSnapshot Clone()
         {
             var result = (SubmissionSnapshot)MemberwiseClone();
@@ -146,6 +152,8 @@ namespace DiceCraft.Core
             result.mimicBindings = mimicBindings?.Select(b => b.Clone()).ToArray();
             result.resolvedRandomChoices = (resolvedRandomChoices ?? Array.Empty<RandomMultiplierChoice>()).Select(c => c.Clone()).ToArray();
             result.poolDice = (poolDice ?? Array.Empty<PoolDie>()).Select(d => d.Clone()).ToArray();
+            result.disabledControllerIds = (string[])(disabledControllerIds ?? Array.Empty<string>()).Clone();
+            result.stageHandsUsed = (string[])(stageHandsUsed ?? Array.Empty<string>()).Clone();
             return result;
         }
     }
@@ -176,6 +184,11 @@ namespace DiceCraft.Core
         public RetriggerEntry[] retriggerEntries = Array.Empty<RetriggerEntry>();
         public int handMultAdd100, redPoolCount;
         public ControllerBaseAdd[] controllerBaseAdds = Array.Empty<ControllerBaseAdd>();
+        // v1.0: dice sealed by the boss modifier (contribution 0), factors outside the controller chain (item x2,
+        // boss half), the hand multiplier before NoRepeatHand / HandHalf, and the extra red count from C146.
+        public bool[] sealedDice = Array.Empty<bool>();
+        public MultiplierFactor[] globalFactors = Array.Empty<MultiplierFactor>();
+        public int handMultBeforeModifier100, redBonusCount;
         public ScoreBreakdown Clone()
         {
             var result = (ScoreBreakdown)MemberwiseClone();
@@ -191,6 +204,8 @@ namespace DiceCraft.Core
             result.pipRetriggers = (int[])(pipRetriggers ?? Array.Empty<int>()).Clone();
             result.retriggerEntries = (retriggerEntries ?? Array.Empty<RetriggerEntry>()).Select(a => a.Clone()).ToArray();
             result.controllerBaseAdds = (controllerBaseAdds ?? Array.Empty<ControllerBaseAdd>()).Select(a => a.Clone()).ToArray();
+            result.sealedDice = (bool[])(sealedDice ?? Array.Empty<bool>()).Clone();
+            result.globalFactors = (globalFactors ?? Array.Empty<MultiplierFactor>()).Select(f => f.Clone()).ToArray();
             return result;
         }
     }
@@ -215,12 +230,16 @@ namespace DiceCraft.Core
         public int upgradeRequested, upgradeApplied;
         public string nextPreviousPrimary;
         public string[] nextColorOwnerIds = Array.Empty<string>(), randomFactorOwnerIds = Array.Empty<string>(), cannonRiskEmitterIds = Array.Empty<string>();
+        // v1.0: permanent face changes applied in order after the older effects, and gold spent by C138.
+        public FaceChange[] faceChanges = Array.Empty<FaceChange>();
+        public int goldSpent;
         public AfterScorePlan Clone()
         {
             var c = (AfterScorePlan)MemberwiseClone();
             c.redSpreadIndices = (int[])redSpreadIndices.Clone(); c.growthIndices = (int[])growthIndices.Clone(); c.blueSpreadIndices = (int[])blueSpreadIndices.Clone();
             c.nextColorOwnerIds = (string[])nextColorOwnerIds.Clone(); c.randomFactorOwnerIds = (string[])randomFactorOwnerIds.Clone(); c.cannonRiskEmitterIds = (string[])cannonRiskEmitterIds.Clone();
-            c.growthChanges = (growthChanges ?? Array.Empty<GrowthChange>()).Select(g => g.Clone()).ToArray(); return c;
+            c.growthChanges = (growthChanges ?? Array.Empty<GrowthChange>()).Select(g => g.Clone()).ToArray();
+            c.faceChanges = (faceChanges ?? Array.Empty<FaceChange>()).Select(f => f.Clone()).ToArray(); return c;
         }
     }
     [Serializable]
@@ -244,6 +263,15 @@ namespace DiceCraft.Core
         public long delta;
         public bool reset;
         public GrowthChange Clone() => (GrowthChange)MemberwiseClone();
+    }
+    /// <summary>v1.0: one permanent change to a die face, produced from the frozen snapshot and applied by the session.
+    /// kind: pipDelta, pipSet, color, gold, texture, weightDelta.</summary>
+    [Serializable]
+    public sealed class FaceChange
+    {
+        public string sourceId, emitterId, dieId, faceId, kind, text;
+        public int amount;
+        public FaceChange Clone() => (FaceChange)MemberwiseClone();
     }
     [Serializable]
     public sealed class ScorePreview

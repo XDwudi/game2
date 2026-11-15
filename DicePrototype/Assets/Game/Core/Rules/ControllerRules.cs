@@ -18,8 +18,10 @@ namespace DiceCraft.Core
             return all.Select((c, i) => new { c, i }).Where(x => x.c.alive && x.c.definitionId == "C41")
                 .Select(x => new MimicBinding { sourceInstanceId = x.c.instanceId, targetInstanceId = x.i + 1 < all.Length ? all[x.i + 1].instanceId : null }).ToArray();
         }
-        public static AbilitySource[] ResolveSources(IEnumerable<ControllerInstance> instances, MimicBinding[] bindings = null)
+        public static AbilitySource[] ResolveSources(IEnumerable<ControllerInstance> instances, MimicBinding[] bindings = null, IEnumerable<string> disabledIds = null)
         {
+            // v1.0: a controller disabled for the stage has no ability and cannot be copied; it still occupies its place.
+            var disabled = new HashSet<string>(disabledIds ?? Array.Empty<string>(), StringComparer.Ordinal);
             if (instances == null) throw new ArgumentNullException(nameof(instances));
             var all = instances.ToArray();
             if (all.Any(c => c == null || string.IsNullOrEmpty(c.instanceId)) || all.Select(c => c.instanceId).Distinct(StringComparer.Ordinal).Count() != all.Length) throw new ArgumentException("Invalid controller instance IDs.");
@@ -32,11 +34,11 @@ namespace DiceCraft.Core
             for (int i = 0; i < all.Length; i++)
             {
                 var emitter = all[i]; if (!emitter.alive) continue;
-                var owner = emitter; var seen = new HashSet<string>(StringComparer.Ordinal);
+                var owner = disabled.Contains(emitter.instanceId) ? null : emitter; var seen = new HashSet<string>(StringComparer.Ordinal);
                 while (owner != null && owner.definitionId == "C41")
                 {
                     if (!seen.Add(owner.instanceId) || seen.Count > 32) throw new ArgumentException("Cyclic or excessive mimic chain.");
-                    owner = map.TryGetValue(owner.instanceId, out string target) && !string.IsNullOrEmpty(target) && lookup.TryGetValue(target, out var candidate) && candidate.alive ? candidate : null;
+                    owner = map.TryGetValue(owner.instanceId, out string target) && !string.IsNullOrEmpty(target) && lookup.TryGetValue(target, out var candidate) && candidate.alive && !disabled.Contains(candidate.instanceId) ? candidate : null;
                 }
                 sources.Add(new AbilitySource { emitterId = emitter.instanceId, emitterDefinitionId = emitter.definitionId, abilityId = owner?.definitionId, stateOwnerId = owner?.instanceId, state = owner?.state?.Clone(), enchantmentId = emitter.enchantmentId, orderIndex = i });
             }
@@ -44,13 +46,16 @@ namespace DiceCraft.Core
         }
         public static int SourceCount(IEnumerable<AbilitySource> sources, string abilityId) => sources.Count(s => s.abilityId == abilityId);
         private static bool IsActiveDefinition(string id)
-            => id != null && id.Length >= 3 && id.Length <= 4 && id[0] == 'C' && int.TryParse(id.Substring(1), System.Globalization.NumberStyles.None, System.Globalization.CultureInfo.InvariantCulture, out int number) && number >= 1 && number <= 103 && id == "C" + number.ToString("D2") && number != 4 && number != 16 && number != 23;
-        private static readonly HashSet<string> GrowthMultipliers = new HashSet<string>(new[] { "C54", "C56", "C57", "C58", "C60", "C61", "C90", "C100" }, StringComparer.Ordinal);
+            => id != null && id.Length >= 3 && id.Length <= 4 && id[0] == 'C' && int.TryParse(id.Substring(1), System.Globalization.NumberStyles.None, System.Globalization.CultureInfo.InvariantCulture, out int number) && number >= 1 && number <= 153 && id == "C" + number.ToString("D2") && number != 4 && number != 16 && number != 23;
+        private static readonly HashSet<string> GrowthMultipliers = new HashSet<string>(new[] { "C54", "C56", "C57", "C58", "C60", "C61", "C90", "C100", "C129", "C132", "C134" }, StringComparer.Ordinal);
         private static readonly HashSet<string> GrowthBases = new HashSet<string>(new[] { "C55", "C59", "C62" }, StringComparer.Ordinal);
         /// <summary>v0.9: growth is a multiplier of (20 + growth) / 20 on these, a base add of `growth` on the base cards.</summary>
         public static bool IsGrowthMultiplier(string id) => GrowthMultipliers.Contains(id);
         public static bool IsGrowthBase(string id) => GrowthBases.Contains(id);
         public static bool HasGrowth(string id) => GrowthMultipliers.Contains(id) || GrowthBases.Contains(id);
+        /// <summary>v1.0: C141 counts cleared stages in the same field without being a growth card.</summary>
+        public static bool HasGrowthCounter(string id) => HasGrowth(id) || id == "C141";
+        public static bool ModifierHas(GameConfig cfg, string modifierId, string effect) => !string.IsNullOrEmpty(modifierId) && cfg.Modifier(modifierId).effects.Contains(effect);
         /// <summary>
         /// v0.9 C100: which controllers the altars destroy when the next stage starts, as (altar, victim) pairs in the
         /// order they happen. Each real altar, left to right, destroys its immediate right neighbour; a destroyed altar
@@ -73,30 +78,43 @@ namespace DiceCraft.Core
             return all.Where(c => !victims.Contains(c.instanceId)).ToArray();
         }
         public static bool Has(IEnumerable<ControllerInstance> instances, string id) => instances.Any(c => c.alive && c.definitionId == id);
-        public static int Capacity(IEnumerable<ControllerInstance> instances, GameConfig cfg, bool debug = false, MimicBinding[] bindings = null)
+        public static int Capacity(IEnumerable<ControllerInstance> instances, GameConfig cfg, bool debug = false, MimicBinding[] bindings = null, StageRules rules = null)
         {
-            int n = cfg.initialSubmitCapacity;
-            foreach (var s in ResolveSources(instances, bindings)) if (s.abilityId == "C09" || s.abilityId == "C21" || s.abilityId == "C22") n = checked(n + cfg.Controller(s.abilityId).parameters.capacityDelta);
-            return Math.Max(1, Math.Min(debug ? cfg.debug.maxSubmitCapacity : cfg.maxSubmitCapacity, n));
+            rules = rules ?? StageRules.None; int n = cfg.initialSubmitCapacity;
+            foreach (var s in ResolveSources(instances, bindings, rules.disabledIds)) if (s.abilityId == "C09" || s.abilityId == "C21" || s.abilityId == "C22") n = checked(n + cfg.Controller(s.abilityId).parameters.capacityDelta);
+            return Math.Max(1, Math.Min(debug ? cfg.debug.maxSubmitCapacity : cfg.maxSubmitCapacity, checked(n + rules.capacityDelta)));
         }
-        public static int RollBudget(IEnumerable<ControllerInstance> instances, GameConfig cfg, int stageBonus = 0, MimicBinding[] bindings = null)
+        public static int RollBudget(IEnumerable<ControllerInstance> instances, GameConfig cfg, int stageBonus = 0, MimicBinding[] bindings = null, StageRules rules = null)
         {
             // v0.9: C78 adds rolls per source (a mimic of C78 counts as another source).
-            var all = instances.ToArray();
-            int extra = checked(SourceCount(ResolveSources(all, bindings), "C78") * cfg.Controller("C78").parameters.rollsPerHandDelta);
-            return checked(cfg.totalRollsPerHand + stageBonus + all.Count(c => c.alive && c.enchantmentId == "roll1") * cfg.enchantRules.rollBonus + extra);
+            // v1.0: boss modifiers change the base budget; item bonuses of the stage are added on top.
+            rules = rules ?? StageRules.None; var all = instances.ToArray();
+            if (rules.rollsFixed > 0) return checked(rules.rollsFixed + stageBonus);
+            int extra = checked(SourceCount(ResolveSources(all, bindings, rules.disabledIds), "C78") * cfg.Controller("C78").parameters.rollsPerHandDelta);
+            int enchants = rules.silence ? 0 : all.Count(c => c.alive && c.enchantmentId == "roll1" && !rules.disabledIds.Contains(c.instanceId)) * cfg.enchantRules.rollBonus;
+            return checked(Math.Max(1, checked(cfg.totalRollsPerHand + enchants + extra + rules.rollsDelta)) + stageBonus);
         }
-        public static int SubmissionBudget(IEnumerable<ControllerInstance> instances, GameConfig cfg, MimicBinding[] bindings = null)
+        public static int SubmissionBudget(IEnumerable<ControllerInstance> instances, GameConfig cfg, MimicBinding[] bindings = null, StageRules rules = null)
         {
             // v0.9: C79 adds and C101 removes submissions per source; a stage always keeps at least one.
-            var all = instances.ToArray(); var sources = ResolveSources(all, bindings);
+            rules = rules ?? StageRules.None; var all = instances.ToArray(); var sources = ResolveSources(all, bindings, rules.disabledIds);
             int delta = checked(SourceCount(sources, "C79") * cfg.Controller("C79").parameters.submissionsDelta + SourceCount(sources, "C101") * cfg.Controller("C101").parameters.submissionsDelta);
-            return Math.Max(1, checked(cfg.submissionsPerStage + all.Count(c => c.alive && c.enchantmentId == "submit1") * cfg.enchantRules.submissionBonus + delta));
+            int enchants = rules.silence ? 0 : all.Count(c => c.alive && c.enchantmentId == "submit1" && !rules.disabledIds.Contains(c.instanceId)) * cfg.enchantRules.submissionBonus;
+            return Math.Max(1, checked(cfg.submissionsPerStage + enchants + delta + rules.submissionsDelta));
+        }
+        /// <summary>v1.0: which controllers a boss modifier disables for the stage, for the order that enters the stage.</summary>
+        public static string[] DisabledBy(IEnumerable<ControllerInstance> instances, GameConfig cfg, string modifierId)
+        {
+            if (string.IsNullOrEmpty(modifierId)) return Array.Empty<string>();
+            var m = cfg.Modifier(modifierId); var alive = instances.Where(c => c != null && c.alive).ToArray(); var ids = new List<string>();
+            if (m.effects.Contains("DisableLeftmost")) ids.AddRange(alive.Take(m.amount).Select(c => c.instanceId));
+            if (m.effects.Contains("DisableRarity")) ids.AddRange(alive.Where(c => cfg.Controller(c.definitionId).rarity == m.filter).Select(c => c.instanceId));
+            return ids.Distinct(StringComparer.Ordinal).ToArray();
         }
         public static int RollsPerHand(IEnumerable<ControllerInstance> instances, GameConfig cfg) => RollBudget(instances, cfg);
         public static int SubmissionsPerStage(IEnumerable<ControllerInstance> instances, GameConfig cfg) => SubmissionBudget(instances, cfg);
         public static int OrdinaryUsed(IEnumerable<ControllerInstance> instances) => instances.Count(c => c.alive && c.enchantmentId != "slotless");
-        public static long SalePrice(ControllerInstance instance, GameConfig cfg)
+        public static long SalePrice(ControllerInstance instance, GameConfig cfg, bool fullPrice = false)
         {
             if (instance == null || !instance.alive) throw new ArgumentException("Cannot sell absent controller.");
             var definition = cfg.Controller(instance.definitionId);
@@ -105,7 +123,7 @@ namespace DiceCraft.Core
             // v0.8: a controller sells for its list price (base + enchant premium) divided by controllerSellDivisor,
             // rounded down and never below baseControllerSellPrice. Fund accrual still adds on top for C41/C52.
             long listPrice = checked((long)definition.buyPrice + EnchantPrice(string.IsNullOrEmpty(instance.enchantmentId) ? "none" : instance.enchantmentId, cfg));
-            long resale = Math.Max(cfg.baseControllerSellPrice, listPrice / cfg.controllerSellDivisor);
+            long resale = Math.Max(cfg.baseControllerSellPrice, fullPrice ? listPrice : listPrice / cfg.controllerSellDivisor); // v1.0 C140: full list price
             long saleBonus = instance.state?.saleBonus ?? 0;
             if (saleBonus < 0) throw new ArgumentException("Invalid sale bonus.");
             return checked(resale + saleBonus + ((instance.definitionId == "C41" || instance.definitionId == "C52") ? fund : 0));
@@ -123,7 +141,7 @@ namespace DiceCraft.Core
             {
                 cfg.Controller(c.definitionId);
                 if (!cfg.enchantments.Any(e => e.id == c.enchantmentId) || (!debug && !IsEnchantmentLegal(c.definitionId, c.enchantmentId, cfg))) throw new ArgumentException("Illegal controller enchantment.");
-                if (c.state == null || c.state.fundAccrual < 0 || c.state.fundAccrual % 3 != 0 || c.state.turnoverUnits2 < 3 || c.state.growth < 0 || c.state.saleBonus < 0) throw new ArgumentException("Invalid controller state.");
+                if (c.state == null || c.state.fundAccrual < 0 || c.state.fundAccrual % 3 != 0 || c.state.turnoverUnits2 < 3 || c.state.growth < 0 || c.state.saleBonus < 0 || (c.definitionId == "C141" && c.state.growth >= cfg.Controller("C141").parameters.expireGrowth)) throw new ArgumentException("Invalid controller state.");
                 if (!string.IsNullOrEmpty(c.state.activeColor) && c.state.activeColor != "red" && c.state.activeColor != "blue") throw new ArgumentException("Invalid dynamic color.");
                 if (c.definitionId == "C45" && c.state.activeColor != "red" && c.state.activeColor != "blue") throw new ArgumentException("C45 requires persisted active color.");
             }
@@ -151,6 +169,26 @@ namespace DiceCraft.Core
             int draw = rng.NextIndex(pool.Sum(e => Weight(controllerId, e, cfg)));
             foreach (string e in pool) { int weight = Weight(controllerId, e, cfg); if (draw < weight) return e; draw -= weight; }
             throw new InvalidOperationException("Enchantment CDF uncovered draw.");
+        }
+    }
+    /// <summary>v1.0: how the active boss modifier changes a stage's budgets. None = no modifier.</summary>
+    public sealed class StageRules
+    {
+        public static readonly StageRules None = new StageRules();
+        public string[] disabledIds = Array.Empty<string>();
+        public bool silence;
+        public int rollsDelta, rollsFixed, submissionsDelta, capacityDelta;
+        public static StageRules For(GameConfig cfg, string modifierId, IEnumerable<string> disabledIds)
+        {
+            var rules = new StageRules { disabledIds = (disabledIds ?? Array.Empty<string>()).ToArray() };
+            if (string.IsNullOrEmpty(modifierId)) return rules;
+            var m = cfg.Modifier(modifierId);
+            rules.silence = m.effects.Contains("EnchantSilence");
+            if (m.effects.Contains("RollsDelta")) rules.rollsDelta = m.amount;
+            if (m.effects.Contains("RollsFixed")) rules.rollsFixed = m.amount;
+            if (m.effects.Contains("SubmissionsDelta")) rules.submissionsDelta = m.amount;
+            if (m.effects.Contains("CapacityDelta")) rules.capacityDelta = m.amount;
+            return rules;
         }
     }
 }

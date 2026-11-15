@@ -43,7 +43,7 @@ namespace DiceCraft.Tests
                     Assert.That(expected, Is.LessThan(list), "Buying and reselling must always lose gold: " + def.id + ":" + enchant.id);
                     checkedPairs++;
                 }
-            Assert.That(checkedPairs, Is.EqualTo(87 * 6 + 13 * 4)); // p0.9.0: 87 scoring controllers, 13 non-scoring
+            Assert.That(checkedPairs, Is.EqualTo(122 * 6 + 28 * 4)); // p1.0.0: 122 scoring controllers, 28 non-scoring
             Assert.That(ControllerRules.SalePrice(Card("C13", 1), cfg), Is.EqualTo(1));
             Assert.That(ControllerRules.SalePrice(Card("C42", 1), cfg), Is.EqualTo(3));
             Assert.That(ControllerRules.SalePrice(Card("C47", 1, "slotless"), cfg), Is.EqualTo(6));
@@ -164,8 +164,8 @@ namespace DiceCraft.Tests
                 if (stage.riskEnabled)
                 {
                     risky++;
-                    Assert.That(ExactScoreMath.Parse(stage.riskTarget) * 4, Is.EqualTo(target * 5), stage.stageId + " risk target is 1.25x");
-                    Assert.That(stage.riskReward, Is.EqualTo(stage.normalReward + 3), stage.stageId);
+                    Assert.That(ExactScoreMath.Parse(stage.riskTarget) * 2, Is.EqualTo(target * 3), stage.stageId + " risk target is 1.5x (p1.0.0)");
+                    Assert.That(stage.riskReward, Is.EqualTo(stage.normalReward + 5), stage.stageId + " pressure reward is +5 (p1.0.0)");
                 }
                 previous = target;
             }
