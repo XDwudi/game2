@@ -1015,5 +1015,96 @@ namespace DiceCraft.Tests
             var third = Command(items, CommandKind.Buy); third.offerId = supply[2].offerId; Assert.That(items.Execute(third).accepted, Is.False, "two of two item slots are taken");
             Do(items, CommandKind.LeaveShop); Assert.That(items.State.inventory.Count, Is.EqualTo(2));
         }
+
+        // ---- user decision D on stacked C98 discounts (RULES_DELTA 1.1 item 9 and 5.1): a card bought in the open shop
+        // resells for at most the price actually paid until the player leaves that shop ----
+
+        /// <summary>A shop after stage 1 with the given bargainers (slotless, so they take no ordinary slot) and one shelf offer.</summary>
+        private GameSession BargainShop(int bargainers, string card, out string offer, params string[] others)
+        {
+            string id = null;
+            var s = Edit(Shop(), x =>
+            {
+                x.gold = 50; Equip(x, others.Concat(Enumerable.Repeat("C98", bargainers)).ToArray());
+                foreach (var c in x.controllers.Where(c => c.definitionId == "C98")) c.enchantmentId = "slotless";
+                id = PutOffer(x, "controller", card);
+            });
+            offer = id; return s;
+        }
+
+        [Test] public void V11_ThreeOrMoreBargainersCanNoLongerBuyAndResellAtAProfitInTheSameShop()
+        {
+            // List 4 with three C98: bought for max(1, 4 - 3) = 1; half of 4 would resell for 2, the cap keeps it at 1.
+            var s = BargainShop(3, "C50", out string offer);
+            Assert.That(s.GetOfferPrice(s.State.shop.offers.Single(o => o.offerId == offer)), Is.EqualTo(1));
+            long before = s.State.gold; Do(s, CommandKind.Buy, c => c.offerId = offer);
+            var bought = s.State.controllers.Last(); Assert.That(bought.definitionId, Is.EqualTo("C50"));
+            Assert.That(s.State.shop.paidControllerPrices.Select(p => p.instanceId + ":" + p.paid), Is.EqualTo(new[] { bought.instanceId + ":1" }));
+            Assert.That(s.GetControllerSalePrice(bought.instanceId), Is.EqualTo(1)); Assert.That(s.ControllerSalePriceIn(s.State, bought), Is.EqualTo(1));
+            Do(s, CommandKind.Sell, c => c.itemInstanceId = bought.instanceId);
+            Assert.That(s.State.gold, Is.EqualTo(before), "no profit"); Assert.That(s.State.shop.paidControllerPrices, Is.Empty);
+            // List 8 with five C98: bought for 3; half of 8 would be 4, the cap keeps it at 3.
+            var dear = BargainShop(5, "C47", out string dearOffer);
+            before = dear.State.gold; Do(dear, CommandKind.Buy, c => c.offerId = dearOffer); var card = dear.State.controllers.Last();
+            Assert.That(dear.State.gold, Is.EqualTo(before - 3)); Assert.That(dear.GetControllerSalePrice(card.instanceId), Is.EqualTo(3));
+            Do(dear, CommandKind.Sell, c => c.itemInstanceId = card.instanceId); Assert.That(dear.State.gold, Is.EqualTo(before));
+            // Without a discount the cap changes nothing: list 4 bought for 4 still resells for half, 2.
+            var plain = BargainShop(0, "C50", out string plainOffer); Do(plain, CommandKind.Buy, c => c.offerId = plainOffer);
+            Assert.That(plain.GetControllerSalePrice(plain.State.controllers.Last().instanceId), Is.EqualTo(2));
+        }
+
+        [Test] public void V11_TheResaleCapEndsWhenThePlayerLeavesTheShop()
+        {
+            var s = BargainShop(3, "C50", out string offer); Do(s, CommandKind.Buy, c => c.offerId = offer); string bought = s.State.controllers.Last().instanceId;
+            Assert.That(s.GetControllerSalePrice(bought), Is.EqualTo(1));
+            Do(s, CommandKind.LeaveShop); Assert.That(s.State.shop, Is.Null);
+            Assert.That(s.GetControllerSalePrice(bought), Is.EqualTo(2), "after leaving, half of the list price of 4");
+            Do(s, CommandKind.StartStage); s = Force(s, Fours, "red"); Submit(s);
+            if (s.State.phase != "StageSettlement") Do(s, CommandKind.EndStage);
+            Do(s, CommandKind.Continue); Assert.That(s.State.phase, Is.EqualTo("Shop"));
+            long gold = s.State.gold; Do(s, CommandKind.Sell, c => c.itemInstanceId = bought);
+            Assert.That(s.State.gold, Is.EqualTo(gold + 2), "a later shop pays the ordinary price, more than the 1 paid");
+        }
+
+        [Test] public void V11_AFreeLootCardIsNotCappedByItsZeroPrice()
+        {
+            var s = LootShop("L1", null, "C98", "C98", "C98"); var card = Loot(s).First(o => o.category == "controller");
+            Do(s, CommandKind.Buy, c => c.offerId = card.offerId);
+            Assert.That(s.State.shop.paidControllerPrices, Is.Empty, "a free claim is not a purchase");
+            Assert.That(s.State.shop.acquiredControllerIds, Does.Contain(card.controller.instanceId));
+            Assert.That(s.GetControllerSalePrice(card.controller.instanceId), Is.EqualTo(Math.Max(cfg.baseControllerSellPrice, cfg.Controller(card.contentId).buyPrice / cfg.controllerSellDivisor)),
+                "half of its list price, as a just-claimed loot card already sold for in p1.0.0");
+        }
+
+        [Test] public void V11_TheRecyclerKeepsHalfPriceForCardsBoughtHereAndTheCapAppliesOnTop()
+        {
+            var s = BargainShop(3, "C50", out string offer, "C140", "C46");
+            string held = s.State.controllers.Single(c => c.definitionId == "C46").instanceId;
+            Assert.That(s.GetControllerSalePrice(held), Is.EqualTo(cfg.Controller("C46").buyPrice), "a card held before this shop: full list price");
+            Do(s, CommandKind.Buy, c => c.offerId = offer); string bought = s.State.controllers.Last().instanceId;
+            Assert.That(s.GetControllerSalePrice(bought), Is.EqualTo(1), "bought here: half (2) by the recycler's rule, then capped at the 1 paid");
+            Do(s, CommandKind.LeaveShop);
+            Assert.That(s.GetControllerSalePrice(bought), Is.EqualTo(cfg.Controller("C50").buyPrice), "after leaving, the recycler pays the full list price");
+        }
+
+        [Test] public void V11_ThePaidPriceSurvivesARestoreAndTamperedRecordsAreRejected()
+        {
+            var s = BargainShop(3, "C50", out string offer); Do(s, CommandKind.Buy, c => c.offerId = offer); string bought = s.State.controllers.Last().instanceId;
+            var restored = new GameSession(cfg, new MemorySaveStore(), s.State);
+            Assert.That(restored.GetControllerSalePrice(bought), Is.EqualTo(1)); Assert.That(restored.State.shop.paidControllerPrices.Single().paid, Is.EqualTo(1));
+            // Each tampered copy must be refused by the paid-price rule itself, not by an unrelated check or a crash.
+            const string invalid = "本店买价记录无效。";
+            Func<Action<RunState>, TestDelegate> tampered = edit => () => { var x = s.State; edit(x); new GameSession(cfg, new MemorySaveStore(), x); };
+            Assert.That(tampered(x => x.shop.paidControllerPrices.Clear()), Throws.Exception.With.Message.EqualTo(invalid), "a card bought from the shelf keeps its paid price");
+            Assert.That(tampered(x => x.shop.paidControllerPrices[0].paid = 5), Throws.Exception.With.Message.EqualTo(invalid), "more than the list price of 4");
+            Assert.That(tampered(x => x.shop.paidControllerPrices[0].paid = 0), Throws.Exception.With.Message.EqualTo(invalid), "a purchase costs at least 1");
+            Assert.That(tampered(x => x.shop.paidControllerPrices.Add(x.shop.paidControllerPrices[0].Clone())), Throws.Exception.With.Message.EqualTo(invalid), "one record per card");
+            Assert.That(tampered(x => x.shop.paidControllerPrices.Add(new ShopPaidPrice { instanceId = x.controllers[0].instanceId, paid = 1 })), Throws.Exception.With.Message.EqualTo(invalid), "a card not acquired in this shop");
+            Assert.That(tampered(x => x.shop.paidControllerPrices.Add(null)), Throws.Exception.With.Message.EqualTo(invalid), "a null record");
+            Assert.That(tampered(x => x.shop.paidControllerPrices = null), Throws.Exception.With.Message.EqualTo(invalid), "a missing list");
+            var loot = LootShop("L1"); var card = Loot(loot).First(o => o.category == "controller"); Do(loot, CommandKind.Buy, c => c.offerId = card.offerId);
+            Assert.That(() => { var x = loot.State; x.shop.paidControllerPrices.Add(new ShopPaidPrice { instanceId = card.controller.instanceId, paid = 1 }); new GameSession(cfg, new MemorySaveStore(), x); },
+                Throws.Exception.With.Message.EqualTo(invalid), "a free loot claim has no paid price");
+        }
     }
 }

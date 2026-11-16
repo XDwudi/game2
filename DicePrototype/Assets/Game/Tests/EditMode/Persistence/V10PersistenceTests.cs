@@ -99,6 +99,12 @@ namespace DiceCraft.Tests
             session = Reopen(session, path); Assert.That(session.IsLootPending, Is.True, "selling does not resolve the loot");
             Do(session, CommandKind.Buy, c => c.offerId = session.State.shop.offers.Single(o => o.groupId == "LOOT" && o.category == "gold").offerId);
             session = Reopen(session, path); Assert.That(session.IsLootPending, Is.False);
+            // The price paid for a card bought here (user decision D on stacked C98 discounts) is part of the saved shop.
+            string shelf = null; session = Edit(session, x => shelf = PutOffer(x, "controller", "C50"), store);
+            Do(session, CommandKind.Buy, c => c.offerId = shelf); string bought = session.State.controllers.Last().instanceId;
+            session = Reopen(session, path);
+            Assert.That(session.State.shop.paidControllerPrices.Select(p => p.instanceId + ":" + p.paid), Is.EqualTo(new[] { bought + ":" + cfg.Controller("C50").buyPrice }));
+            Assert.That(session.GetControllerSalePrice(bought), Is.EqualTo(cfg.Controller("C50").buyPrice / cfg.controllerSellDivisor));
             Do(session, CommandKind.LeaveShop);
             session = Reopen(session, path);
             Assert.That(session.State.stage.stageIndex, Is.EqualTo(3)); Assert.That(session.State.controllers.Count(c => c.definitionId == "C55"), Is.EqualTo(2));

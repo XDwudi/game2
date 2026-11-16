@@ -190,6 +190,17 @@ namespace DiceCraft.Core
             Check(shop.offers.All(o => Shelf(o) ? o.category != "gold" && o.levels == 0 : shop.groups.Any(g => g.groupId == o.groupId) && o.levels >= 0), "赠礼报价无效。");
             Check(shop.acquiredControllerIds != null && shop.acquiredControllerIds.Distinct(StringComparer.Ordinal).Count() == shop.acquiredControllerIds.Count
                 && shop.acquiredControllerIds.All(id => s.controllers.Any(c => c.instanceId == id)), "本店购入记录无效。");
+            // v1.1 (user decision D on stacked C98 discounts): one paid price per card bought from this shop's shelf, between
+            // 1 and the card's list price, and none for a card claimed as loot.
+            Check(shop.paidControllerPrices != null && shop.paidControllerPrices.All(p => p != null && shop.acquiredControllerIds.Contains(p.instanceId))
+                && shop.paidControllerPrices.Select(p => p.instanceId).Distinct(StringComparer.Ordinal).Count() == shop.paidControllerPrices.Count, "本店买价记录无效。");
+            foreach (var p in shop.paidControllerPrices)
+            {
+                var bought = s.controllers.First(c => c.instanceId == p.instanceId);
+                Check(p.paid >= 1 && p.paid <= checked((long)cfg.Controller(bought.definitionId).buyPrice + ControllerRules.EnchantPrice(bought.enchantmentId, cfg)), "本店买价记录无效。");
+            }
+            foreach (var o in shop.offers.Where(o => o.category == "controller" && o.sold && o.controller != null && shop.acquiredControllerIds.Contains(o.controller.instanceId)))
+                Check(Shelf(o) == shop.paidControllerPrices.Any(p => p.instanceId == o.controller.instanceId), "本店买价记录无效。");
             foreach (var g in shop.groups)
             {
                 var own = shop.offers.Where(o => o.groupId == g.groupId).ToArray();

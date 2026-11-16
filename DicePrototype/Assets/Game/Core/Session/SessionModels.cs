@@ -117,9 +117,21 @@ namespace DiceCraft.Core
         public List<ShopGroup> groups = new List<ShopGroup>();
         // v1.0: controllers acquired in this shop (bought, or claimed as loot or a gift). C140 pays the full list price
         // only for controllers that are not in this list, so C140 adds no buy-and-resell profit within one shop.
-        // v1.1: several C98 copies can still make such a resale profitable (bounded; docs/specs/v11/RULES_DELTA.md 5).
         public List<string> acquiredControllerIds = new List<string>();
-        public ShopState Clone() { var c = (ShopState)MemberwiseClone(); c.offers = offers.Select(x => x.Clone()).ToList(); c.groups = groups.Select(x => x.Clone()).ToList(); c.acquiredControllerIds = new List<string>(acquiredControllerIds); return c; }
+        // v1.1 (user decision D on stacked C98 discounts): the price actually paid for each controller bought from the
+        // shelf of this shop. Until the player leaves the shop, such a card resells for at most this price, so no number
+        // of C98 copies makes a buy-then-sell profit. Free loot is not listed. A subset of acquiredControllerIds.
+        public List<ShopPaidPrice> paidControllerPrices = new List<ShopPaidPrice>();
+        public ShopState Clone() { var c = (ShopState)MemberwiseClone(); c.offers = offers.Select(x => x.Clone()).ToList(); c.groups = groups.Select(x => x.Clone()).ToList(); c.acquiredControllerIds = new List<string>(acquiredControllerIds); c.paidControllerPrices = paidControllerPrices?.Select(x => x?.Clone()).ToList(); return c; }
+    }
+
+    /// <summary>v1.1: what the player paid for one controller instance bought in the shop that is open.</summary>
+    [Serializable]
+    public sealed class ShopPaidPrice
+    {
+        public string instanceId;
+        public long paid;
+        public ShopPaidPrice Clone() { return (ShopPaidPrice)MemberwiseClone(); }
     }
 
     /// <summary>v1.0: a group of free offers. kind is a loot kind id (L1..L6) or the granting controller definition (C111, C113).</summary>
