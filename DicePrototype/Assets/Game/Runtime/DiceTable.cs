@@ -61,6 +61,15 @@ namespace DiceCraft
         }
 
         public RectTransform designRoot;
+        /// <summary>V1.1 (W11): unthrown dice of a hand rest on varied faces (the play table only; interface dice never).</summary>
+        public bool RestVariety11 { get; set; }
+        /// <summary>FNV-1a of the die id: the same die always rests the same way, on every machine and refresh.</summary>
+        public static uint RestHash11(string id)
+        {
+            uint h=2166136261u;
+            if(id!=null)foreach(char c in id){h^=c;h*=16777619u;}
+            return h;
+        }
         public bool IsRolling => animate;
         public float RollTimeRemaining => animate ? Mathf.Max(0, duration - elapsed) : 0;
         public bool ReducedMotion { get; set; }
@@ -171,7 +180,12 @@ namespace DiceCraft
             bool changed = (destination - v.resting).sqrMagnitude > .0000001f || (Vector3.one * size - v.layoutScaleTo).sqrMagnitude > .0000001f;
             bool newlyLocked = hand != null && hand.isLocked && !v.locked;
             v.resting = destination;
-            int current=FaceIndex(hand?.currentFaceId); v.target=Quaternion.AngleAxis(18,Vector3.up)*Quaternion.FromToRotation(Normals[current],Vector3.up);
+            int current=FaceIndex(hand?.currentFaceId);
+            // V1.1 (W11, B4): before the first throw of a hand a die rests on a face and turn of its own (stable per die id)
+            // instead of every die showing face 1. Presentation only; the shown face is that face's permanent pip.
+            int rest=current;float yaw=18;
+            if(RestVariety11&&hand!=null&&!hand.hasRolled&&!hand.isLocked&&!preview&&!dragged){uint h=RestHash11(id);rest=(int)(h%6);yaw=6+(h/6%27);}
+            v.target=Quaternion.AngleAxis(yaw,Vector3.up)*Quaternion.FromToRotation(Normals[rest],Vector3.up);
             bool scheduledLock = newlyLocked && lockDelays07.ContainsKey(id);
             if (changed && v.hasDisplayed && !preview && !dragged && !preserveMotion && !v.lockTrack07 && !ReducedMotion && !UiKit.ReducedMotion)
             {

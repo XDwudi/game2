@@ -15,27 +15,10 @@ namespace DiceCraft
                 // dice under the paper hide while it is open (see CoveredByGuide073).
                 return new Rect(504,928,400,144);
             }
-            // The sidebar's top 144 reference pixels contain branding only. Let
-            // the first card column yield horizontally while a full paper is open.
-            var stats=GuideElement07("Stats07");
-            if(stats!=null)foreach(string name in new[]{"BrandPaper","Edition"}){var decoration=stats.Find(name);if(decoration!=null)decoration.gameObject.SetActive(false);}
-            float start=Compact07?426:432,right=Compact07?1612:1528,ordinaryGap=Compact07?12:24;
-            int count=ViewState.controllers.Count,shown=Mathf.Min(10,count);
-            for(int i=0;i<Mathf.Max(4,shown);i++)
-            {
-                RectTransform card=i<shown?GuideElement07("Controller_"+ViewState.controllers[i].instanceId):GuideElement07("ControllerEmpty"+i);
-                if(card==null)continue;
-                float gap=Mathf.Min(ordinaryGap,Mathf.Max(4,(right-start-5*card.rect.width)/4));
-                card.anchoredPosition=new Vector2(start+i%5*(card.rect.width+gap),card.anchoredPosition.y);
-            }
-            if(Compact07)
-                for(int i=0;i<main.childCount;i++)
-                {
-                    var child=main.GetChild(i) as RectTransform;
-                    if(child!=null&&(child.name=="ItemsTitle"||child.name.StartsWith("Item_")||child.name.StartsWith("ItemEmpty")))
-                        child.anchoredPosition+=Vector2.right*18;
-                }
-            return new Rect(Compact07?18:24,Compact07?18:24,400,144);
+            // V1.1 (W11): with no free spot on the table the paper rests on the stage card, which steps aside while the paper
+            // is open (its information is also one click away in the stage intel). No card, die or action moves.
+            var l=L11;var stage=GuideElement07("StageCard11");if(stage!=null)stage.gameObject.SetActive(false);
+            return new Rect(l.stage.x-4,l.stage.y+50,400,144);
         }
         private IEnumerator ReleaseGuideDock07()
         {

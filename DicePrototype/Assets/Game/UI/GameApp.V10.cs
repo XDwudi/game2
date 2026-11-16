@@ -95,10 +95,13 @@ namespace DiceCraft
         // ---------------------------------------------------------------- stage-select screen
         private void StagePreview10()
         {
-            DrawControllers07();
+            // V1.1 (W11): the stage select shares the play screen's top bar and card row, so the cards do not jump when the
+            // stage starts; its own content is centred below them (the left status column is gone).
+            DrawCards11();
+            const float shift=-160;
             for(int chapter=0;chapter<Config.stages.Length/3;chapter++)
             {
-                float left=380+chapter*188;bool currentChapter=chapter==ViewState.stage.stageIndex/3;
+                float left=380+shift+chapter*188;bool currentChapter=chapter==ViewState.stage.stageIndex/3;
                 var caption=UiKit.Text(main,"StageChapter"+chapter,"第 "+(chapter+1)+" 章",left,340,164,40,17,currentChapter?UiKit.Gold:UiKit.Muted,TextAlignmentOptions.Center);
                 caption.fontStyle=currentChapter?FontStyles.Bold:FontStyles.Normal;
                 UiKit.Box(main,"StageChapterRule"+chapter,left,412,164,currentChapter?3:1,currentChapter?UiKit.Gold:UiKit.PanelLight);
@@ -113,8 +116,8 @@ namespace DiceCraft
                     if(current)UiKit.Outline(main,"CurrentStageOutline",x-2,378,52,32,Color.clear,1);
                 }
             }
-            DrawCycleCards10(main,380,432,true);
-            UiKit.Text(main,"PreviewBudgets",$"投掷 {Session.InitialRolls} 次 / 手     提交 {Session.InitialSubmissions} 次 / 关     提交栏 {Session.EffectiveCapacity} 格",416,822,1380,48,26,UiKit.Muted);
+            DrawCycleCards10(main,380+shift-10,432,true);
+            UiKit.Text(main,"PreviewBudgets",$"投掷 {Session.InitialRolls} 次 / 手     提交 {Session.InitialSubmissions} 次 / 关     提交栏 {Session.EffectiveCapacity} 格",416+shift,822,1380,48,26,UiKit.Muted);
             var doomed=ControllerRules.AltarPlan(ViewState.controllers).Select(p=>NameOf(ViewState.controllers.First(c=>c.instanceId==p.Value).definitionId)).ToArray();
             var entry=Session.EntryView();
             var disabled=(entry?.disabledControllerIds??Array.Empty<string>()).Select(id=>ViewState.controllers.FirstOrDefault(c=>c.instanceId==id)).Where(c=>c!=null).Select(c=>NameOf(c.definitionId)).ToArray();
@@ -122,9 +125,9 @@ namespace DiceCraft
             if(doomed.Length>0)warning+="开始后祭坛将摧毁："+string.Join("、",doomed)+"（可先在上方拖动调序）";
             if(disabled.Length>0)warning+=(doomed.Length>0?"\n":"")+"首领减益会让这些卡本关失效："+string.Join("、",disabled)+"（可先在上方拖动调序）";
             if(entry!=null&&entry.scapegoat)warning+=(doomed.Length>0?"\n":"")+"替罪羊会在入关时自毁，解除首领减益。";
-            var note=UiKit.Text(main,"ControllerOrderWarning",warning,416,870,1380,62,doomed.Length>0||disabled.Length>0?18:20,doomed.Length>0||disabled.Length>0?UiKit.Danger:UiKit.Gold);
+            var note=UiKit.Text(main,"ControllerOrderWarning",warning,416+shift,870,1380,62,doomed.Length>0||disabled.Length>0?18:20,doomed.Length>0||disabled.Length>0?UiKit.Danger:UiKit.Gold);
             note.lineSpacing=-6;
-            UiKit.ActionButton(main,"StartStage","开始挑战 →",816,936,720,76,StartPreviewStage07,UiKit.Blue);
+            UiKit.ActionButton(main,"StartStage","开始挑战 →",600,936,720,76,StartPreviewStage07,UiKit.Primary);
             BindStageCardsEntrance07();
         }
 

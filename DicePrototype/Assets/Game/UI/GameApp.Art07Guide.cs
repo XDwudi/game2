@@ -53,15 +53,16 @@ namespace DiceCraft
             if(Session.PendingIds.Length>0&&guideStep07<2)guideStep07=2;
             if(ViewState.hand!=null&&ViewState.hand.orderedLockedIds.Count>0&&guideStep07<3)guideStep07=3;
             if(shop)guideStep07=4;else if(guideStep07==4)return;
-            string[] title={"1 / 5  投掷","2 / 5  待选","3 / 5  确认锁定","4 / 5  提交","5 / 5  关末构筑"};
-            string[] body={"每手总投掷包含首掷。点击掷骰开始。","点选骰子进入待选；再点一次可取消。","确认后，本手不能随时解除锁定。","牌型、颜色、红组分别计算，再相乘。","买骰只增加骰池，提交栏需要独立扩容。"};
+            // V1.1 (W11): the steps use the play screen's button words (掷骰 / 锁定 / 提交) and the glossary (选中, not 待选).
+            string[] title={"1 / 5  投掷","2 / 5  选中","3 / 5  锁定","4 / 5  提交","5 / 5  关末构筑"};
+            string[] body={"每手总投掷包含首掷。点击掷骰开始。","点选要留下的骰子；再点一次可以取消。","锁定后，本手不能移回骰池。","牌型、颜色、红组分别计算，再相乘。","买骰只增加骰池，提交栏需要另外扩容。"};
             RectTransform target=GuideElement07(shop?"DiceCounter":guideStep07==0?"Roll":guideStep07==1?
                 "Die_"+visibleDice.FirstOrDefault():guideStep07==2?"Confirm":"Submit");
             if(target==null)return;
             var obstacles=GuideObstacles07();Rect targetBounds=GuideBounds07(target);
             const float w=400,h=144;
             Rect paperBounds;
-            if(!TryGuidePaper07(w,h,targetBounds,obstacles,out paperBounds))
+            if(!TryGuidePaper07(w,h,targetBounds,obstacles,out paperBounds,shop))
             {DrawGuideFallback07(targetBounds,obstacles,title[guideStep07],body[guideStep07],shop);return;}
             // One short arrow is anchored at the actual target, not at a guessed
             // paper-card coordinate. It does not draw a connector across HUD/dice.
@@ -158,13 +159,13 @@ namespace DiceCraft
             foreach(var blocked in obstacles)if(rect.Overlaps(blocked))return false;
             return true;
         }
-        private static bool TryGuidePaper07(float width,float height,Rect target,List<Rect> obstacles,out Rect result)
+        private static bool TryGuidePaper07(float width,float height,Rect target,List<Rect> obstacles,out Rect result,bool shop=false)
         {
             result=default;float best=float.PositiveInfinity;
-            // Search only the main table; sidebar numbers and navigation are
-            // never sacrificed. Empty decorative controller slots are legal.
-            for(float y=24;y+height<=1056;y+=16)
-                for(float x=368;x+width<=1896;x+=16)
+            // Search only the table; numbers and navigation are never sacrificed (they are obstacles). The shop keeps its
+            // status column on the left; V1.1 (W11): the play screen has none, its top bar is excluded instead.
+            for(float y=shop?24:96;y+height<=1056;y+=16)
+                for(float x=shop?368:24;x+width<=1896;x+=16)
                 {
                     var candidate=new Rect(x,y,width,height);if(!GuideClear07(candidate,obstacles,8))continue;
                     float distance=(candidate.center-target.center).sqrMagnitude;
@@ -218,15 +219,15 @@ namespace DiceCraft
             }
             if(string.IsNullOrEmpty(boundaryTip07))return false;
             // v1.1 (W09): the card is named, not shown by its id C53.
-            string body=boundaryTip07==ZeroRollHintKey07?"投掷用尽后，仍可选骰、确认锁定、排序和提交。":boundaryTip07==RandomHintKey07?NameOf("C53")+"的倍率在提交后揭示；预览与取消不会重新抽取。":"目标已达成：可以继续提交，也可点击「结束本轮」。";
-            // Reuse the reason row. No paper card covers dice, score, or the action buttons.
+            string body=boundaryTip07==ZeroRollHintKey07?"投掷用尽后，仍可选骰、锁定、排序和提交。":boundaryTip07==RandomHintKey07?NameOf("C53")+"的倍率在提交后揭示；预览与取消不会重新抽取。":"目标已达成：可以继续提交，也可以按“结束本关”结算。";
+            // Reuse the hint line. No paper card covers dice, score, or the action buttons.
             var reason=main.Find("ActionReason")?.GetComponent<TextMeshProUGUI>();
             if(reason==null)return false;
-            reason.text="首次提示 · "+body;reason.color=UiKit.Gold;reason.textWrappingMode=TextWrappingModes.NoWrap;
-            reason.rectTransform.sizeDelta=new Vector2(Compact07?1432:1480,42);
-            // Normal HUD has room below sidebar navigation; compact HUD has room after its raised action row.
-            float x=Compact07?1838:286;
-            UiKit.ActionButton(main,"DismissBoundaryHint07","×",x,1012,60,60,DismissBoundaryTip07,UiKit.Paper);
+            // V1.1 (W11): the hint tab sits left of the action buttons; the close button takes its right end.
+            var hint=L11.hint;
+            reason.text="首次提示 · "+body;reason.color=UiKit.Gold;
+            reason.rectTransform.sizeDelta=new Vector2(hint.width-32-68,hint.height-12);
+            UiKit.ActionButton(main,"DismissBoundaryHint07","×",hint.xMax-70,hint.y+(hint.height-60)*.5f,60,60,DismissBoundaryTip07,UiKit.Paper);
             return true;
         }
         private void DismissBoundaryTip07()

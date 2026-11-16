@@ -61,7 +61,7 @@ namespace DiceCraft
         }
         private void ResetReceiptEffects07()
         {
-            ReturnLibraryEffects07(true);punchedEmitters07.Clear();revealedOwners07.Clear();offscreenLinks07=0;
+            ReturnLibraryEffects07(true);punchedEmitters07.Clear();revealedOwners07.Clear();offscreenLinks07=0;ClearScore11();
         }
         private void EffectLayerOrder07()
         {
@@ -114,8 +114,9 @@ namespace DiceCraft
             {
                 if(!TryCardBounds07(id,out var r))continue;
                 int n=sourceMarkCount07++;
+                // V1.1 (W11): the gold outline marks the source; its value is the card's badge (CardBadge11), so the
+                // former tick over the card's lower corner (which now holds the short text) is gone.
                 UiKit.Outline(sourceMarks07,"Hit"+n,r.xMin-2,r.yMin-2,r.width+4,r.height+4,UiKit.Gold,2);
-                UiKit.Text(sourceMarks07,"Check"+n,"✓",r.xMin+4,r.yMax-28,26,24,17,UiKit.Ink);
             }
             // Fast/aggregate uses static marks. A Normal card receives one complete 220 ms punch per receipt.
             string focus=beat.FocusEmitterId??(beat.Phase==PresentationPhase.DiceContributions||beat.Phase==PresentationPhase.BaseAndStructure?ids.FirstOrDefault():null);
@@ -130,21 +131,12 @@ namespace DiceCraft
             if(beat.FocusEmitterId!=null&&TryCardBounds07(beat.FocusEmitterId,out var source))
             {
                 Effect07("fx_source_hit",beat.FocusEmitterId,source.position,source.size);
+                // V1.1 (W11, B1): the card's value is its own badge (CardBadge11), no longer a ticket below the card row.
                 var e=beat.Events.FirstOrDefault(x=>x.Operand!=null&&x.IsScoring);
-                if(e!=null&&EffectReserve07("main",EffectPoolKind.NumberLabel,1)>0)
-                    Effect07("fx_value_ticket",e.EventId,new Vector2(source.center.x-90,Compact07?260:258),new Vector2(180,48),OperationText07(e.Operation,e.Operand));
                 if(e!=null&&e.StateOwnerId!=null&&e.StateOwnerId!=e.EmitterId&&EffectGroup07("links"))Link07(e.StateOwnerId,e.EmitterId,e.EventId);
             }
-            if(beat.Phase==PresentationPhase.DiceContributions)
-            {
-                foreach(var group in beat.Events.SelectMany(e=>e.TargetDieIds.Select(id=>new{Id=id,Event=e})).GroupBy(x=>x.Id).Take(8))
-                {
-                    if(!dieCenters.TryGetValue(group.Key,out var center)||EffectReserve07("main",EffectPoolKind.NumberLabel,1)==0)continue;
-                    var e=group.Last().Event;float size=Compact07?78:110;
-                    Effect07("fx_target_bracket",group.Key,center-Vector2.one*(size+8)*.5f,Vector2.one*(size+8));
-                    Effect07("fx_value_ticket",e.EventId,new Vector2(center.x-62,center.y-size*.5f-50),new Vector2(124,42),DisplayFraction07(e.AfterValue??e.Operand));
-                }
-            }
+            // V1.1 (W11, B1): "+N" over each submitted die is DieTicket11, placed in the slot's top band above the die. The
+            // former bracket and ticket were drawn over and around the die itself (AX-01: nothing covers a submitted die).
             var reveals=beat.Events.Where(e=>e.EffectFamily=="random_reveal").GroupBy(e=>e.StateOwnerId).Select(g=>g.First()).ToArray();
             foreach(var e in reveals)if(!revealedOwners07.Contains(e.StateOwnerId))revealedOwners07.Add(e.StateOwnerId);
             if(reveals.Length==1)
@@ -275,12 +267,12 @@ namespace DiceCraft
             =>operation=="×"?PlayerNumberFormat.Times(operand):(operation??"")+DisplayFraction07(operand);
         private void ShowEffectSummary07(string text,bool multiline=false,Action details=null)
         {
-            // Reserved score area: never cover the pool or the action buttons.
-            float x=Compact07?376:384,y=Compact07?340:366,w=Compact07?1510:1496,h=Compact07?52:72;
+            // Reserved score area: never cover the pool or the action buttons. V1.1 (W11): the formula row of the dice tray.
+            var row=L11.chips;float x=row.x,y=row.y,w=row.width,h=row.height;
             var p=UiKit.Frame(effectLabels07,"Summary",x,y,w,h,UiKit.Background,UiKit.PanelLight);
-            var label=UiKit.Text(p,"Text",text,8,4,w-(multiline?270:16),h-8,Compact07?16:21,UiKit.Paper);
+            var label=UiKit.Text(p,"Text",text,14,4,w-(multiline?280:28),h-8,Compact07?16:21,UiKit.Paper,TextAlignmentOptions.MidlineLeft);
             label.textWrappingMode=TextWrappingModes.Normal;label.overflowMode=TextOverflowModes.Ellipsis;
-            if(multiline)UiKit.Button(p,"AllResults07","完整记录",w-250,4,238,h-8,details??ShowCommittedPresentationDetails07);
+            if(multiline)UiKit.Button(p,"AllResults07","完整记录",w-250,0,238,h,details??ShowCommittedPresentationDetails07);
         }
         private Dictionary<string,DiePose07> CaptureBrokenPoses07(CommandReceipt receipt)
         {

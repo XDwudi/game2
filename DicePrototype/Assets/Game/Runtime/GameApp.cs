@@ -60,6 +60,8 @@ namespace DiceCraft
             main=UiKit.Rect(canvas.transform,"Screen",0,0,1920,1080); overlay=UiKit.Rect(canvas.transform,"ModalLayer",0,0,1920,1080);
             InitializeDisplay();
             InitializeUiDice073();
+            table.RestVariety11=true; // V1.1 (W11, B4): unthrown dice rest on varied faces
+
             InitializeTheme11();
             ApplyArtPreferences07();
             BeginStartupLoad07();
@@ -82,7 +84,7 @@ namespace DiceCraft
             { ViewState=Session?.State;displayedSession=Session;controllerSourceCache=null; }
             SyncSettlementBackdropView07();
             UiKit.Clear(main); table.Hide(); visibleDice.Clear(); dieCenters.Clear(); controllerRects.Clear();lockedSlotRects07.Clear();
-            if(inMenu || ViewState==null) { inMenu=true; HideHighScore073(); Menu(); if(Session.HasPendingSave)SaveFailure(); return; }
+            if(inMenu || ViewState==null) { inMenu=true; HideHighScore073(); ApplyTableMood11(); ClearScore11(); Menu(); if(Session.HasPendingSave)SaveFailure(); return; }
             Header();
             switch(ViewState.phase)
             {
@@ -93,6 +95,8 @@ namespace DiceCraft
                 default: Gameplay();break;
             }
             DrawNavigation07();
+            ApplyTableMood11();
+            if(!PlayPhase11&&!IsPresenting07)ClearScore11();
             AlignQualifiedStamp07();
             DrawGuide07();
             DrawNotice07();

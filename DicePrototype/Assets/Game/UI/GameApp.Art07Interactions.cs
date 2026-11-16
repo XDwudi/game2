@@ -61,14 +61,16 @@ namespace DiceCraft
             var button=main.Find("EndStage")?.GetComponent<Button>();if(button==null)return;
             var r=Session.PreviewStageSettlement();if(r==null)return;
             int pigs=ViewSources.Count(x=>x.abilityId=="C01");
-            string text="基础奖励 +"+r.baseReward+"\n余次奖励 +"+r.unusedSubmissionReward+"\n利息 +"+r.interest+"（本金 "+r.interestPrincipal+"）"+(r.controllerIncome>0?"\n铁饭碗 +"+r.controllerIncome:"");
-            if(pigs>0)text+="\n继续提交：每次合法提交收入 +"+(pigs*Config.Controller("C01").parameters.goldPerValidSubmission)+"，不计入现在结束的奖励。";
-            text+="\n本手未提交骰不计分；已用道具与投掷不退。";
+            // v1.1 glossary (text proposal 2.2): 过关奖励, 剩余提交奖励, 利息 written as its rule.
+            string text="过关奖励 +"+r.baseReward+"\n剩余提交奖励 +"+r.unusedSubmissionReward+"\n利息 +"+r.interest+"（每 "+Config.interestDivisor+" 金币 +1）"+(r.controllerIncome>0?"\n铁饭碗 +"+r.controllerIncome:"");
+            if(pigs>0)text+="\n继续提交：每次提交收入 +"+(pigs*Config.Controller("C01").parameters.goldPerValidSubmission)+"，不计入现在结束的奖励。";
+            text+="\n本手没提交的骰子不计分；已用的道具与投掷不退。";
             var hover=UiKit.Component<Art07HoverTip>(button.gameObject);
             hover.show=()=>
             {
                 if(modal||IsBusy)return;
-                var p=UiKit.Frame(overlay,"EndStagePreview07",1192,548,688,376,UiKit.Paper,UiKit.Ink);
+                // V1.1 (W11): above the end-stage button at the bottom right, clear of the action row.
+                var p=UiKit.Frame(overlay,"EndStagePreview07",1200,568,688,376,UiKit.Paper,UiKit.Ink);
                 UiKit.Text(p,"Title",QualifiedSummary07(),20,14,648,52,27,UiKit.Ink);
                 var body=UiKit.Text(p,"Body",text,20,78,648,280,UiKit.FontScale>1?18:23,UiKit.Ink);body.overflowMode=TextOverflowModes.Ellipsis;
             };

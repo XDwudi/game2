@@ -177,6 +177,19 @@ namespace DiceCraft
                 yield return new Vector2(392,1048-height);yield return new Vector2(888,1048-height);
                 yield return new Vector2(600,24);yield return new Vector2(1096,24);yield break;
             }
+            if(FramePhase11)
+            {
+                // V1.1 (W11): first the hint line (a notice stands in for the next-step hint while it shows), then the
+                // empty submission rail, the free end of the card row, and the corners of the dice tray.
+                var l=L11;
+                if(height<=l.hint.height)yield return new Vector2(l.hint.x+(l.hint.width-480)*.5f,l.hint.y+(l.hint.height-height)*.5f);
+                yield return new Vector2(l.rail.x+24,l.rail.y+Mathf.Max(8,(l.rail.height-height)*.5f));
+                yield return new Vector2(l.cards.xMax-488,l.cards.y+12);yield return new Vector2(l.cards.xMax-488,l.cards.yMax-height-12);
+                yield return new Vector2(l.dice.x+8,l.dice.yMax-height-4);yield return new Vector2(l.dice.xMax-488,l.dice.yMax-height-4);
+                yield return new Vector2(l.dice.x+8,l.dice.y+4);yield return new Vector2(l.dice.xMax-488,l.dice.y+4);
+                if(ViewState?.hand==null)for(float y=936-height;y>=480;y-=80)for(float x=40;x<=1408;x+=496)yield return new Vector2(x,y);
+                yield break;
+            }
             if(Compact07)
             {
                 bool lowerRowEmpty=(ViewState?.hand?.orderedLockedIds.Count??0)<=4;
@@ -202,7 +215,9 @@ namespace DiceCraft
             var root=((RectTransform)canvas.transform).rect;
             return Rect.MinMaxRect(points.Min(p=>p.x)-root.xMin,root.yMax-points.Max(p=>p.y),points.Max(p=>p.x)-root.xMin,root.yMax-points.Min(p=>p.y));
         }
-        private static bool ToastSecondaryLabel07(string name)=>name.StartsWith("EmptySlot",StringComparison.Ordinal)||name=="LockRule"||name=="ShopHint"||name=="DebugStatus"||name=="OwnedLabel"||name=="OwnedItemsTitle"||name=="OwnedDiceMore";
+        // V1.1 (W11): the next-step hint and the slot numbers of the submission rail may yield to a notice while it shows.
+        private static bool ToastSecondaryLabel07(string name)=>name.StartsWith("EmptySlot",StringComparison.Ordinal)||name=="LockRule"||name=="ShopHint"||name=="DebugStatus"||name=="OwnedLabel"||name=="OwnedItemsTitle"||name=="OwnedDiceMore"||
+            name=="ActionReason"||name.StartsWith("SlotIndex",StringComparison.Ordinal);
         private Rect ToastClip07(Rect rect,Transform target)
         {
             Rect Intersect(Rect a,Rect b)

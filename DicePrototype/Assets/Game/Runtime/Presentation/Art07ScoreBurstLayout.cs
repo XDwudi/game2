@@ -69,13 +69,16 @@ namespace DiceCraft.Presentation
             // Authored circular glows are replaced by narrow stepped perimeter strokes.
             // This keeps the authored gold palette without painting behind gold numerals.
             for(int i=0;i<owner.burstLayers.Length;i++)if(owner.burstLayers[i]!=null)owner.burstLayers[i].SetActive(i==0||i==2&&tier==3||i==5&&tier==5&&!owner.ReducedMotion);
-            if(owner.burstLayers.Length>0)Place((RectTransform)owner.burstLayers[0].transform,w-620,h-7,Mathf.Min(360,w-40),2);
-            if(owner.burstLayers.Length>2)Place((RectTransform)owner.burstLayers[2].transform,20,h-10,(w-40)*(owner.ReducedMotion?1:1-Mathf.Pow(1-time,3)),4);
+            // V1.1 (W11): the host can be the small total chip of the formula row instead of the wide v0.73 score rail.
+            // A narrow host keeps every stroke inside its own width, and the short flame sits just under it.
+            bool narrow=w<600;
+            if(owner.burstLayers.Length>0)Place((RectTransform)owner.burstLayers[0].transform,narrow?12:w-620,h-7,narrow?w-24:Mathf.Min(360,w-40),2);
+            if(owner.burstLayers.Length>2)Place((RectTransform)owner.burstLayers[2].transform,narrow?8:20,h-10,(w-(narrow?16:40))*(owner.ReducedMotion?1:1-Mathf.Pow(1-time,3)),4);
             if(owner.burstLayers.Length>5)
             {
                 var flame=owner.burstLayers[5].GetComponent<Image>();var padding=UnityEngine.Sprites.DataUtility.GetPadding(flame.sprite);
                 float drawnHeight=(flame.sprite.rect.height-padding.y-padding.w)/flame.sprite.rect.height;
-                Place((RectTransform)flame.transform,h<110?368:w*.35f,h-46,238,26/Mathf.Max(.01f,drawnHeight));
+                Place((RectTransform)flame.transform,narrow?(w-238)*.5f:h<110?368:w*.35f,narrow?h+2:h-46,238,26/Mathf.Max(.01f,drawnHeight));
             }
             for(int layer=0;layer<2;layer++)
             {

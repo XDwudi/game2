@@ -147,8 +147,11 @@ namespace DiceCraft
                     var previousStats=main.Find("Stats07");int sibling=previousStats!=null?previousStats.GetSiblingIndex():0;
                     Header();main.Find("Stats07")?.SetSiblingIndex(sibling);
                 }
+                // V1.1 (W11): the new hand's budgets (enchantment grants) live in the resources panel.
+                if(PlayPhase11)DrawResources11();
             }
             BeginBeatEffects07(beat);
+            PresentScoreBeat11(beat);
             if(beat.Phase==PresentationPhase.FinalScore)BeginHighScore073();
             if(!string.IsNullOrEmpty(beat.FocusEmitterId)&&controllerRects.TryGetValue(beat.FocusEmitterId,out var card))
             {
@@ -161,8 +164,10 @@ namespace DiceCraft
             if(beat.Phase==PresentationPhase.FinalScore)
             {
                 var options=presentationPlayer07.Sequence.Options;particleCount07=art07Prefabs!=null&&art07Prefabs.Length>0?0:ScorePresentationTier.ParticleCount(receipt07.ComboTier,options);
-                for(int i=0;i<particleCount07;i++){float a=i*Mathf.PI*2/Math.Max(1,particleCount07);var origin=new Vector2(1560+Mathf.Cos(a)*160,i%2==0?(Compact07?270:276):(Compact07?402:454));particleOrigins07[i]=origin;particles07[i]=UiKit.Box(effects07,"Spark"+i,origin.x,origin.y,6+i%3*2,6+i%3*2,i%3==0?UiKit.Red:i%3==1?UiKit.Blue:UiKit.Gold);}
-                if(receipt07.ComboTier>0&&(art07Prefabs==null||art07Prefabs.Length==0))UiKit.Outline(effects07,"ComboRing",Compact07?354:362,Compact07?276:282,Compact07?1554:1540,Compact07?126:172,UiKit.Gold,2+receipt07.ComboTier);
+                // Fallback sparks (no prefab library) leave upward from the formula total, never toward the submitted dice.
+                var l=L11;var total=new Vector2(l.chips.xMax-160,l.chips.y);
+                for(int i=0;i<particleCount07;i++){float a=Mathf.PI*(.1f+.8f*i/Math.Max(1,particleCount07-1));var origin=new Vector2(total.x+Mathf.Cos(a)*120,total.y-8-Mathf.Sin(a)*30);particleOrigins07[i]=origin;particles07[i]=UiKit.Box(effects07,"Spark"+i,origin.x,origin.y,6+i%3*2,6+i%3*2,i%3==0?UiKit.Red:i%3==1?UiKit.Blue:UiKit.Gold);}
+                if(receipt07.ComboTier>0&&(art07Prefabs==null||art07Prefabs.Length==0))UiKit.Outline(effects07,"ComboRing",l.chips.x-6,l.chips.y-6,l.chips.width+12,l.chips.height+12,UiKit.Gold,2+receipt07.ComboTier);
             }
         }
         private static long ParseLong09(string value)=>long.TryParse(value,System.Globalization.NumberStyles.Integer,System.Globalization.CultureInfo.InvariantCulture,out long parsed)?parsed:0;
@@ -229,14 +234,8 @@ namespace DiceCraft
             {
                 if(!dieCenters.TryGetValue(group.Key,out var center))continue;
                 float width=Compact07?78:110;
+                // Fallback without the prefab library: an outline clear of the die body; its "+N" is DieTicket11.
                 UiKit.Outline(effects07,"Target"+n,center.x-width/2-4,center.y-width/2-4,width+8,width+8,UiKit.Gold,3);
-                var e=group.Last().Event;
-                if(beat.Phase==PresentationPhase.DiceContributions)
-                {
-                    var ticket=UiKit.Frame(effects07,"Value"+n,center.x-62,center.y-width/2-54,124,46,UiKit.Paper,UiKit.Ink);
-                    string value=DisplayFraction07(e.AfterValue??e.Operand??"");
-                    UiKit.Text(ticket,"Number",value,6,4,112,38,20,UiKit.Ink,TextAlignmentOptions.Center);
-                }
                 n++;
             }
         }
@@ -270,6 +269,7 @@ namespace DiceCraft
             bool ticking=IsPresenting07||TransactionVisualPlaying07||LockVisualPlaying07;
             float visualDelta=ticking?DiceCraft.Verification.Art07VisualRecorder.PresentationDeltaTime(this,Time.unscaledDeltaTime):(QualifiedStampPlaying07||SettlementRevealPlaying07)?DiceCraft.Verification.Art07VisualRecorder.NonblockingDeltaTime(this,Time.unscaledDeltaTime):Time.unscaledDeltaTime;
             if(IsPresenting07){presentationPlayer07.Clock.Paused=modal;presentationPlayer07.Tick(visualDelta);}
+            TickScore11();
             TickHighScore073(Time.unscaledDeltaTime);
             TickLibraryEffects07(visualDelta);TickQualifiedStamp07(visualDelta);TickSettlementReveal07(visualDelta);TickDiceInteraction07(visualDelta);
             if(!IsPresenting07||modal)return;
@@ -278,12 +278,12 @@ namespace DiceCraft
             {
                 var options=presentationPlayer07.Sequence.Options;float t=Mathf.Clamp01(elapsed/Math.Max(.01f,beat07.DurationMs/1000f));
                 if(receiptNumber07!=null){float peak=ScorePresentationTier.ScalePeak(receipt07.ComboTier,options);receiptNumber07.rectTransform.localScale=Vector3.one*(1+(peak-1)*Mathf.Sin(t*Mathf.PI));receiptNumber07.rectTransform.anchoredPosition=receiptNumberOrigin07+Vector2.right*(shake07&&!options.ReducedMotion&&options.Speed==PresentationSpeed.Normal?Mathf.Sin(t*Mathf.PI*2)*Math.Min(3,receipt07.ComboTier):0);}
-                for(int i=0;i<particleCount07;i++){var p=particles07[i];if(p==null)continue;float a=i*Mathf.PI*2/particleCount07;p.anchoredPosition=new Vector2(particleOrigins07[i].x+Mathf.Cos(a)*36*t,-particleOrigins07[i].y+(i%2==0?1:-1)*20*t);p.localScale=Vector3.one*(1-t);}
+                for(int i=0;i<particleCount07;i++){var p=particles07[i];if(p==null)continue;float a=Mathf.PI*(.1f+.8f*i/Math.Max(1,particleCount07-1));p.anchoredPosition=new Vector2(particleOrigins07[i].x+Mathf.Cos(a)*36*t,-particleOrigins07[i].y+Mathf.Sin(a)*26*t);p.localScale=Vector3.one*(1-t);}
             }
         }
         private void ClearPresentationEffects07()
         {
-            ReturnLibraryEffects07();
+            ReturnLibraryEffects07();ClearScore11();
             if(effects07!=null)UiKit.Clear(effects07);particleCount07=0;if(receiptNumber07!=null){receiptNumber07.rectTransform.localScale=Vector3.one;receiptNumber07.rectTransform.anchoredPosition=receiptNumberOrigin07;}
         }
     }

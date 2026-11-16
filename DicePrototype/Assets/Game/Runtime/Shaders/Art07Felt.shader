@@ -1,6 +1,6 @@
 Shader "DiceCraft/Art07/Felt"
 {
-    Properties { _BaseMap("Felt",2D)="white"{} _TableMap("Table composition",2D)="white"{} _UseTableMap("Use table composition",Float)=0 _BaseColor("Color",Color)=(.09,.243,.25,1) _Grain("Grain",Float)=1 _Scanlines("Scanlines",Float)=0 _MenuDriftPixels("Menu drift pixels",Float)=0 _MenuBreath("Menu light breath",Float)=0 _Sweep072("Slow light sweep (v0.72)",Float)=0 }
+    Properties { _BaseMap("Felt",2D)="white"{} _TableMap("Table composition",2D)="white"{} _UseTableMap("Use table composition",Float)=0 _BaseColor("Color",Color)=(.09,.243,.25,1) _Grain("Grain",Float)=1 _Scanlines("Scanlines",Float)=0 _MenuDriftPixels("Menu drift pixels",Float)=0 _MenuBreath("Menu light breath",Float)=0 _Sweep072("Slow light sweep (v0.72)",Float)=0 _Dim11("Boss stage dim (v1.1)",Float)=0 _Vignette11("Boss stage vignette (v1.1)",Float)=0 }
     SubShader
     {
         Tags { "RenderType"="Opaque" "RenderPipeline"="UniversalPipeline" }
@@ -17,7 +17,7 @@ Shader "DiceCraft/Art07/Felt"
             TEXTURE2D(_BaseMap);SAMPLER(sampler_BaseMap);
             TEXTURE2D(_TableMap);SAMPLER(sampler_TableMap);
             CBUFFER_START(UnityPerMaterial)
-            float4 _BaseMap_ST;float4 _TableMap_TexelSize;half4 _BaseColor;half _UseTableMap;half _Grain;half _Scanlines;half _MenuDriftPixels;half _MenuBreath;half _Sweep072;
+            float4 _BaseMap_ST;float4 _TableMap_TexelSize;half4 _BaseColor;half _UseTableMap;half _Grain;half _Scanlines;half _MenuDriftPixels;half _MenuBreath;half _Sweep072;half _Dim11;half _Vignette11;
             CBUFFER_END
             struct V{float4 pos:SV_POSITION;float2 uv:TEXCOORD0;float3 world:TEXCOORD1;};
             V vert(float4 p:POSITION,float2 uv:TEXCOORD0){V v;v.world=TransformObjectToWorld(p.xyz);v.pos=TransformWorldToHClip(v.world);v.uv=TRANSFORM_TEX(uv,_BaseMap);return v;}
@@ -51,6 +51,10 @@ Shader "DiceCraft/Art07/Felt"
                     float sweep=frac((tableUV.x*.8+tableUV.y*.35)-_Time.y*.042);
                     color*=1+_Sweep072*onFelt*.045*smoothstep(0,.5,sweep)*smoothstep(1,.5,sweep);
                 }
+                // V1.1 (W11, B2): a boss stage darkens the table and closes a vignette in. Felt only: dice and the interface
+                // keep their own light. Both are 0 outside a boss stage, which leaves the table exactly as authored.
+                half vignette11=smoothstep(.22,.8,length((screen-float2(.5,.47))*float2(1.18,1)));
+                color*=(1-_Dim11)*(1-_Vignette11*vignette11);
                 Light key=GetMainLight(TransformWorldToShadowCoord(v.world));color*=lerp(.7,1,key.shadowAttenuation);
                 color*=1-_Scanlines*.025*(.5+.5*sin(v.pos.y*1.57));color*=1+_MenuBreath;return half4(color,1);
             }

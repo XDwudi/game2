@@ -34,6 +34,16 @@ namespace DiceCraft
         private void DrawNavigation07()
         {
             float x=Compact07?C07(24):40,w=Compact07?C07(192):288;
+            if(FramePhase11)
+            {
+                // V1.1 (W11): handbook and pause sit at the right end of the top bar; the previous-hand button is on the
+                // submission tray (DrawSubmit11); the debug workspace button joins the top bar only in that workspace.
+                var l=L11;float right=l.top.xMax-8,pauseX=right-108,handX=pauseX-12-108,y=l.top.y+6;
+                UiKit.Button(main,"Handbook","手册",handX,y,108,60,ShowHandbook,!IsBusy&&!Session.HasPendingSave);
+                UiKit.Button(main,"Pause","暂停",pauseX,y,108,60,Pause);
+                if(DebugUnlocked&&IsDebugWorkspace&&!CleanCapture11)UiKit.Button(main,"DebugWorkspace","组合试验",handX-12-148,y,148,60,ShowDebugPanel,!IsBusy);
+                return;
+            }
             if(ViewState.phase=="Shop")
             {
                 // v0.73: settings and handbook sit at the bottom of the left column, each with its icon.
@@ -55,6 +65,8 @@ namespace DiceCraft
         private void Header()
         {
             bool c=Compact07;float x=c?18:24,y=c?18:24,w=c?324:320,h=c?1044:1032;
+            // V1.1 (W11): the play screen and the stage select use the top bar; settlement and results keep the column.
+            if(FramePhase11){TopBar11();return;}
             if(ViewState.phase=="Shop"){DrawShopWallet07();return;}
             if(QualifiedStampPlayingForCurrentStage07||ViewState.stage.qualified&&ViewState.hand!=null&&(ViewState.phase=="HandReady"||ViewState.phase=="Selecting")){DrawQualifiedHeader07(x,y,w,h);return;}
             var p=UiKit.Frame(main,"Stats07",x,y,w,h,UiKit.Background,UiKit.PanelLight);UiKit.Surface(p,"ui_panel_hud");
@@ -232,7 +244,10 @@ namespace DiceCraft
             // v0.73: the grid shows at most five item slots; its sixth cell opens the dice library.
             DrawViewDiceButton073(x+2*(size+gap),y+36+(size+12),size);
         }
-        private void Gameplay()
+        // V1.1 (W11): the play screen is GameApp.Play11.cs (docs/specs/v11/PLAY_LAYOUT.md). The v0.73 layout below is kept
+        // unreferenced for comparison until the new look reaches every screen (W14-W16).
+        private void Gameplay()=>Gameplay11();
+        private void Gameplay07Legacy()
         {
             DrawControllers07();DrawItems07();ScorePanel();
             var s=ViewState;var h=s.hand;bool c=Compact07,pending=Session.PendingIds.Length>0,busy=IsBusy;
@@ -421,7 +436,7 @@ namespace DiceCraft
             else{UiKit.Outline(mark,"Shackle",5,0,12,12,UiKit.Gold,2);UiKit.Box(mark,"Body",1,9,20,14,UiKit.Gold);UiKit.Box(mark,"Keyhole",10,13,2,6,UiKit.Ink);}
             BindLockArrival07(mark,dieId);
         }
-        private void ScorePanel()
+        private void ScorePanel07Legacy()
         {
             // Reserve the gap for 1.03x triggered cards as well as rotating Combo chips.
             bool c=Compact07,thin=Spacious071;float x=c?360:368,y=c?282:thin?350:308,w=c?1542:1528,h=c?122:thin?104:156;
