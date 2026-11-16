@@ -136,7 +136,7 @@ namespace DiceCraft.Core
         {
             RequirePhase(s, "Shop", "StagePreview");
             Check(order != null && order.Length == s.controllers.Count && order.Distinct(StringComparer.Ordinal).Count() == order.Length
-                && order.All(id => s.controllers.Any(c => c.instanceId == id)), "控制器调序必须保留同一组实例。");
+                && order.All(id => s.controllers.Any(c => c.instanceId == id)), "卡牌调序必须保留同一组实例。");
             if (order.SequenceEqual(s.controllers.Select(c => c.instanceId))) return false;
             s.controllers = order.Select(id => s.controllers.First(c => c.instanceId == id)).ToList();
             if (s.phase == "StagePreview") RefreshPreviewBudgets(s);

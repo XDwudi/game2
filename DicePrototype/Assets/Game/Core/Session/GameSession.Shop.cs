@@ -281,7 +281,7 @@ namespace DiceCraft.Core
         private void RefreshControllers(RunState s)
         {
             RequirePhase(s, "Shop"); RequireLootResolved(s); int price = RefreshPrice(s);
-            Check(s.gold >= price, "金币不足。"); Check(ControllerCandidates(s).Length > 0, "没有合法控制器候选。");
+            Check(s.gold >= price, "金币不足。"); Check(ControllerCandidates(s).Length > 0, "没有合法的卡牌候选。");
             s.gold = checked(s.gold - price); s.shop.controllerRefreshCount = checked(s.shop.controllerRefreshCount + 1); s.shop.controllerGeneration = checked(s.shop.controllerGeneration + 1);
             s.shop.offers.RemoveAll(o => o.category == "controller" && Shelf(o)); var rng = new GameRng(s.shopRngState);
             AppendControllers(s, rng, ControllerOfferCount(s), true); s.shopRngState = rng.State;
@@ -412,12 +412,12 @@ namespace DiceCraft.Core
                 case "controller":
                     // v1.1: a same-name copy is simply one more card; nothing is replaced or traded in, so the limits are
                     // checked on the current equipment plus the new card.
-                    Check(offer.controller != null && offer.controller.definitionId == offer.contentId, "控制器报价实例无效。");
+                    Check(offer.controller != null && offer.controller.definitionId == offer.contentId, "卡牌报价实例无效。");
                     var equipment = s.controllers.Concat(new[] { offer.controller }).ToArray();
-                    Check(equipment.Length <= cfg.maxControllerInstances && ControllerRules.OrdinaryUsed(equipment) <= s.controllerSlots, "普通控制器槽或总件数已满，可先出售控制器。");
-                    Check(ControllerRules.IsEnchantmentLegal(offer.contentId, offer.controller.enchantmentId, cfg), "控制器附魔不合法。");
+                    Check(equipment.Length <= cfg.maxControllerInstances && ControllerRules.OrdinaryUsed(equipment) <= s.controllerSlots, "普通卡牌栏位或总张数已满，可先出售卡牌。");
+                    Check(ControllerRules.IsEnchantmentLegal(offer.contentId, offer.controller.enchantmentId, cfg), "卡牌附魔不合法。");
                     break;
-                case "consumable": Check(s.inventory.Count < s.consumableSlots, "道具槽位已满，可先出售道具。"); break;
+                case "consumable": Check(s.inventory.Count < s.consumableSlots, "道具栏位已满，可先出售道具。"); break;
                 case "hand_upgrade": Check(IsHandLegal(s, offer.contentId), "牌型已满级，或当前容量/永久骰数量不足。"); break;
                 case "die_upgrade":
                     var d = s.dice.FirstOrDefault(x => x.dieId == dieId);
@@ -490,7 +490,7 @@ namespace DiceCraft.Core
                     else if (offer.contentId == "O10") { s.interestCapPurchases++; s.lastEffects.Add(new EffectRecord { kind = "InterestCapRaised", sourceId = "O10", newValue = checked(cfg.maxInterestPrincipal + (long)cfg.interestPrincipalStep * s.interestCapPurchases) }); }
                     else if (offer.contentId == "O11")
                     {
-                        var effect = new GameRng(s.effectRngState); Check(EnchantRandomController(s, effect, "O11", null), "没有可以附魔的控制器。");
+                        var effect = new GameRng(s.effectRngState); Check(EnchantRandomController(s, effect, "O11", null), "没有可以附魔的卡牌。");
                         s.effectRngState = effect.State; s.enchantTablePurchases++;
                     }
                     else throw new RuleViolation("服务不能以此方式购买。");

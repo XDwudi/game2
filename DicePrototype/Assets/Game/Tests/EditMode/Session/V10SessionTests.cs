@@ -976,11 +976,11 @@ namespace DiceCraft.Tests
         {
             var cards = LootShop("L1", null, "C13", "C10", "C19", "C20", "C27"); var card = Loot(cards).First(o => o.category == "controller");
             var claim = Command(cards, CommandKind.Buy); claim.offerId = card.offerId; var full = cards.Execute(claim);
-            Assert.That(full.accepted, Is.False); Assert.That(full.error, Does.Contain("已满")); Assert.That(cards.IsLootPending, Is.True);
+            Assert.That(full.accepted, Is.False); Assert.That(full.error, Is.EqualTo("普通卡牌栏位或总张数已满，可先出售卡牌。")); Assert.That(cards.IsLootPending, Is.True);
             Do(cards, CommandKind.Sell, c => c.itemInstanceId = cards.State.controllers[0].instanceId);
             Do(cards, CommandKind.Buy, c => c.offerId = card.offerId); Assert.That(cards.IsLootPending, Is.False);
             var items = LootShop("L6", x => { AddItem(x, "I01"); AddItem(x, "I02"); }); var supply = Loot(items).Where(o => o.category == "consumable").ToArray();
-            claim = Command(items, CommandKind.Buy); claim.offerId = supply[0].offerId; Assert.That(items.Execute(claim).accepted, Is.False, "two of two item slots are taken");
+            claim = Command(items, CommandKind.Buy); claim.offerId = supply[0].offerId; Assert.That(items.Execute(claim).error, Is.EqualTo("道具栏位已满，可先出售道具。"), "two of two item slots are taken");
             Do(items, CommandKind.Sell, c => c.itemInstanceId = items.State.inventory[0].instanceId); Do(items, CommandKind.Buy, c => c.offerId = supply[0].offerId);
             Assert.That(items.State.inventory.Select(i => i.contentId), Does.Contain(supply[0].contentId));
         }

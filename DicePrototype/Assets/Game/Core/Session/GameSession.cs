@@ -227,7 +227,7 @@ namespace DiceCraft.Core
             lock (gate)
             {
                 if (state == null) return cfg.initialSubmitCapacity;
-                var copy = state.Clone(); Check(orderedInstanceIds != null && orderedInstanceIds.Count == copy.controllers.Count && orderedInstanceIds.All(id => copy.controllers.Any(c => c.instanceId == id)), "控制器顺序无效。");
+                var copy = state.Clone(); Check(orderedInstanceIds != null && orderedInstanceIds.Count == copy.controllers.Count && orderedInstanceIds.All(id => copy.controllers.Any(c => c.instanceId == id)), "卡牌顺序无效。");
                 copy.controllers = orderedInstanceIds.Select(id => copy.controllers.First(c => c.instanceId == id)).ToList();
                 return BeforeStage(copy) ? PreviewCapacity(copy) : InStage(copy) ? copy.stage.capacity : ShopCapacity(copy);
             }
