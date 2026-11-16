@@ -184,7 +184,7 @@
 | W07 | 模拟器支持重复获得与战利品先领；前后各 300 局测量并写报告 | 子 agent S | `tools/balance_sim/`、`evidence/v11/balance/` | W04、W05 | 1 |
 | W08 | 主题系统骨架（G7 的代码部分）：色板改为随主题、贴图按主题查找并回落、设置页“画面风格”、持久化、即时切换；写 `THEME_SPEC.md`（每套风格必须提供的资源清单） | 主 agent | `UI/UiKit.cs`、`UI/GameApp.Art07Settings.cs`、新增 `UI/Theme*.cs`、Editor 安装脚本 | – | 1 |
 | W09 | 文字 P0：倍率改小数与统一数字格式、去内部编号和版本号、英文选项改中文、方案 §5 的七处错误、两处误导状态 | 主 agent（与 W08 同一批文件，不并行） | `UI/`、测试 | W08；用词等 D2–D4 | 1 |
-| W10 | 配置文字字段：每张卡增加短文与细则两个字段（配置、校验、生成器），按内容附录填入；用语检查脚本（TX-04）与单元测试 | 子 agent T 或 Codex（独立 worktree） | `tools/v11_config.py`、`tools/v11_glossary_check.py`、`tests/`、`Config/P0Config.json`、`Core/Rules/GameConfig.cs` 与配置校验 | W01；内容等 D2–D4 | 1 |
+| W10 | 配置文字字段：每张卡增加短文与细则两个字段（配置、校验、生成器），按内容附录填入；用语检查脚本（TX-04）与单元测试 | 子 agent T 或 Codex（独立 worktree） | `tools/v11_config.py`、`tools/v11_glossary_check.py`、`tests/`、`Data/P0Config.json`、`Core/Rules/GameConfig.cs` 与配置校验 | W01；内容等 D2–D4 | 1 |
 | W11 | 对局画面改版：A1 布局、B1 计分演出、B4 掷骰前、B2 首领与高压桌面、对局内文字 P1 | 主 agent | `UI/GameApp.Art07*.cs` 中对局部分、PlayMode 测试 | W08、W09 | 2 |
 | W12 | 瑞士现代主义的对局画面资源：界面件生成器、桌面、卡框 | 子 agent A1 出件，主 agent 接入 | `tools/art_v11/swiss/`、`Assets/Art/Art11/swiss/` | W08 的 THEME_SPEC | 2 |
 | W13 | 卡面模板 A2：三种尺寸、稀有度边框与宝石、短文、价格即按钮、附魔角标；紧凑图标版插画（184 张，脚本裁切，裁不好的走 artgen 编辑） | 主 agent；裁切脚本由子 agent | `UI/`、`tools/art_v11/crops/` | 检查点 ②、W10 | 3 |

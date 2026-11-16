@@ -10,11 +10,38 @@ namespace DiceCraft
 {
     public static class UiKit
     {
-        public static readonly Color Ink = Hex("162629"), Panel = Hex("203F43"), PanelLight = Hex("315358"),
-            Paper = Hex("F4E8CB"), Muted = Hex("B8C9C5"), Gold = Hex("F3BA58"), Teal = Hex("79C99C"), Red = Hex("EC655D"), Blue = Hex("55B6D9"),
-            Background=Hex("102A2D"), Felt=Hex("173E40"), TextColor=Hex("F7EED9"), Violet=Hex("AD92DB"), Danger=Hex("9E3440"), Shadow=Hex("07191C");
+        // V1.1: every colour token reads the active theme's palette (UI/Theme). The default palette holds the
+        // v0.73 values, so the default theme draws exactly as before. Read these at draw time, never cache them
+        // in static fields, or a theme switch will not reach that element.
+        private static ThemePalette palette=new ThemePalette();
+        public static ThemePalette Palette{get=>palette;set=>palette=value??new ThemePalette();}
+        public static Color Ink=>palette.ink;
+        public static Color Panel=>palette.panel;
+        public static Color PanelLight=>palette.panelLight;
+        public static Color Paper=>palette.paper;
+        public static Color Muted=>palette.muted;
+        public static Color Gold=>palette.gold;
+        public static Color Teal=>palette.teal;
+        public static Color Red=>palette.red;
+        public static Color Blue=>palette.blue;
+        public static Color Background=>palette.background;
+        public static Color Felt=>palette.felt;
+        public static Color TextColor=>palette.textColor;
+        public static Color Violet=>palette.violet;
+        public static Color Danger=>palette.danger;
+        public static Color Shadow=>palette.shadow;
         /// <summary>v0.72 rc.2 tint of the quiet secondary-button outline; readable on felt and on paper.</summary>
-        public static readonly Color Ghost=Hex("6A9296");
+        public static Color Ghost=>palette.ghost;
+        // V1.1 semantic tokens (art proposal §3): the one primary action, rewards, boss and pressure stages, rarity frames.
+        public static Color Primary=>palette.primary;
+        public static Color Reward=>palette.reward;
+        public static Color Boss=>palette.boss;
+        public static Color Pressure=>palette.pressure;
+        public static Color RarityCommon=>palette.rarityCommon;
+        public static Color RarityAdvanced=>palette.rarityAdvanced;
+        public static Color RarityRare=>palette.rarityRare;
+        /// <summary>V1.1: the active theme's sprite override by template name, or null (then the default sprite is used).</summary>
+        public static Func<string,Sprite> ThemeTemplate;
         /// <summary>v0.72 frame edge weight in reference units (matches the 2x-density ink line of the HD surfaces).</summary>
         public const float EdgeUnit=2f;
         public static float FontScale=1f;
@@ -34,7 +61,10 @@ namespace DiceCraft
         /// </summary>
         public static Sprite Template(string name)
         {
-            if(templates==null||name==null)return null;
+            if(name==null)return null;
+            var themed=ThemeTemplate?.Invoke(name);
+            if(themed!=null)return themed;
+            if(templates==null)return null;
             if(templateIndex==null)
             {
                 templateIndex=new Dictionary<string,Sprite>(templates.Length,StringComparer.Ordinal);

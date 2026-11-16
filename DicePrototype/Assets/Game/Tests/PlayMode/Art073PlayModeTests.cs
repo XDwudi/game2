@@ -331,5 +331,56 @@ namespace DiceCraft.Tests
             Assert.That(app.HighScoreTierShown073,Is.EqualTo(HighScore073.Burst),"Read-only replay shows the same celebration.");
             app.SkipVisual();Assert.That(app.HighScoreTierShown073,Is.Zero);
         }
+
+        // V1.1 F-HOV-01 (docs/specs/v11/DEV_PLAN.md): the shop's refresh, settings and handbook buttons move
+        // their label beside an icon after UiKit.Button has built them. The hover lift used to write
+        // absolute positions remembered before that move, so the label jumped back on hover.
+        [UnityTest]
+        public IEnumerator PLAY_V11_ShopIconButtonsKeepTheirLabelsThroughHoverPressAndExit()
+        {
+            var fixture=ShopBoundaryFixture();yield return LoadBoundaryFixture(fixture);ResumeBoundaryFixture();
+            yield return Art073Settle();
+            Assert.That(app.Session.State.phase,Is.EqualTo("Shop"));
+            Assert.That(UiKit.ReducedMotion,Is.False);
+            string state=StateJson();byte[] disk=File.ReadAllBytes(app.SaveLocation);long sequence=app.Session.ActionSequence;
+            foreach(string name in new[]{"RefreshControllers","Pause","Handbook"})
+            {
+                var button=Button(name);var root=(RectTransform)button.transform;
+                var label=(RectTransform)root.Find("Label");
+                Assert.That(label.anchoredPosition.sqrMagnitude,Is.GreaterThan(1f),name+": the label must have been moved after creation, or this case does not exercise the defect.");
+                var painted=root.Cast<Transform>().OfType<RectTransform>().Where(t=>t.gameObject.activeSelf&&t.name!="Focus").ToArray();
+                var rest=painted.ToDictionary(t=>t,t=>t.anchoredPosition);
+                bool live=button.IsInteractable();
+                void Expect(string phase,float faceLift)
+                {
+                    foreach(var child in painted)
+                    {
+                        // The base step never moves; everything painted on the face moves together.
+                        float lift=child.name=="Step"?0:faceLift;
+                        Assert.That(Vector2.Distance(child.anchoredPosition,rest[child]+Vector2.up*lift),Is.LessThan(.01f),name+" "+phase+": "+child.name);
+                    }
+                }
+                var pointer=new PointerEventData(EventSystem.current){button=PointerEventData.InputButton.Left};
+                ExecuteEvents.Execute(button.gameObject,pointer,ExecuteEvents.pointerEnterHandler);yield return null;
+                Expect("hover",live?1:0);
+                ExecuteEvents.Execute(button.gameObject,pointer,ExecuteEvents.pointerDownHandler);yield return null;
+                Expect("press",live?-3:0);
+                ExecuteEvents.Execute(button.gameObject,pointer,ExecuteEvents.pointerUpHandler);yield return null;
+                Expect("release",live?1:0);
+                ExecuteEvents.Execute(button.gameObject,pointer,ExecuteEvents.pointerExitHandler);yield return null;
+                Expect("exit",0);
+                // Hover again and redraw the page while lifted: the pooled redraw restores the authored layout.
+                ExecuteEvents.Execute(button.gameObject,pointer,ExecuteEvents.pointerEnterHandler);yield return null;
+                app.Refresh();yield return null;
+                var again=(RectTransform)Button(name).transform;
+                foreach(var child in painted)
+                {
+                    var now=(RectTransform)again.Find(child.name);
+                    Assert.That(now,Is.Not.Null,name+" redraw lost "+child.name);
+                    Assert.That(Vector2.Distance(now.anchoredPosition,rest[child]),Is.LessThan(.01f),name+" redraw: "+child.name);
+                }
+            }
+            Assert.That(StateJson(),Is.EqualTo(state));Assert.That(app.Session.ActionSequence,Is.EqualTo(sequence));CollectionAssert.AreEqual(disk,File.ReadAllBytes(app.SaveLocation));
+        }
     }
 }

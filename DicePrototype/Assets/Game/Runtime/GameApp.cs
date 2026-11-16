@@ -60,6 +60,7 @@ namespace DiceCraft
             main=UiKit.Rect(canvas.transform,"Screen",0,0,1920,1080); overlay=UiKit.Rect(canvas.transform,"ModalLayer",0,0,1920,1080);
             InitializeDisplay();
             InitializeUiDice073();
+            InitializeTheme11();
             ApplyArtPreferences07();
             BeginStartupLoad07();
         }

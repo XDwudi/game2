@@ -94,7 +94,7 @@ namespace DiceCraft
             var p=Art07Modal("设置",320,96,1280,888);
             string[] tabs={"声音","画面","操作与辅助"};
             for(int i=0;i<3;i++){int tab=i;UiKit.FlatButton(p,"SettingsTab"+i,tabs[i],24+i*416,80,400,64,()=>{rebindingAction07=null;settingsNotice07="";settingsTab07=tab;ShowSettings07();},true,tab==settingsTab07);}
-            float contentHeight=settingsTab07==2?Compact07?2120:1460:Compact07?1000:660;
+            float contentHeight=settingsTab07==2?Compact07?2120:1460:Compact07?1168:772;
             var list=UiKit.Scroll(p,"SettingsPage"+settingsTab07,24,160,1232,616,contentHeight);
             if(settingsTab07==0)
             {
@@ -109,10 +109,13 @@ namespace DiceCraft
             else if(settingsTab07==1)
             {
                 UiKit.Button(list,"DisplaySettings","自动尺寸 / 分辨率 / 显示器 / 显示模式",12,8,1172,80,ShowDisplaySettings);
-                SettingsChoice07(list,"Quality","画面质量",new[]{"低","标准","高"}[quality07],124,()=>{quality07=(quality07+1)%3;PlayerPrefs.SetInt("art07.quality",quality07);ApplyArtPreferences07();ShowSettings07();});
-                SettingsChoice07(list,"Grain","背景颗粒",grain07?"开":"关",Compact07?292:236,()=>{grain07=!grain07;PlayerPrefs.SetInt("art07.grain",grain07?1:0);ApplyArtPreferences07();ShowSettings07();});
-                SettingsChoice07(list,"Scanlines","桌布扫描线",scanlines07?"开":"关",Compact07?460:348,()=>{scanlines07=!scanlines07;PlayerPrefs.SetInt("art07.scanlines",scanlines07?1:0);ApplyArtPreferences07();ShowSettings07();});
-                UiKit.Text(list,"QualityHint","画质只影响表现，保留骰点、锁定与倍率来源。\n低画质或减少动态时不显示扫描线。\n显示设置使用独立的 15 秒确认与回退。",12,Compact07?640:476,1172,160,24,UiKit.Muted);
+                // V1.1: the theme choice sits first among the appearance settings; the rows below moved down one stride.
+                float row=Compact07?168:112;
+                ThemeSettingsChoice11(list,124);
+                SettingsChoice07(list,"Quality","画面质量",new[]{"低","标准","高"}[quality07],124+row,()=>{quality07=(quality07+1)%3;PlayerPrefs.SetInt("art07.quality",quality07);ApplyArtPreferences07();ShowSettings07();});
+                SettingsChoice07(list,"Grain","背景颗粒",grain07?"开":"关",(Compact07?292:236)+row,()=>{grain07=!grain07;PlayerPrefs.SetInt("art07.grain",grain07?1:0);ApplyArtPreferences07();ShowSettings07();});
+                SettingsChoice07(list,"Scanlines","桌布扫描线",scanlines07?"开":"关",(Compact07?460:348)+row,()=>{scanlines07=!scanlines07;PlayerPrefs.SetInt("art07.scanlines",scanlines07?1:0);ApplyArtPreferences07();ShowSettings07();});
+                UiKit.Text(list,"QualityHint","画质只影响表现，保留骰点、锁定与倍率来源。\n低画质或减少动态时不显示扫描线。\n显示设置使用独立的 15 秒确认与回退。",12,(Compact07?640:476)+row,1172,160,24,UiKit.Muted);
             }
             else
             {

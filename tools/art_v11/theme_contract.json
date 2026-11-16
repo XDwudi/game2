@@ -1,0 +1,1382 @@
+{
+  "scene": "DicePrototype/Assets/Game/Scenes/Bootstrap.unity",
+  "count": 86,
+  "sprites": [
+    {
+      "name": "badge_enchant_base10",
+      "default": "DicePrototype/Assets/Art/Art071/Full/Symbols/badge_enchant_base10.png",
+      "size": [
+        256,
+        256
+      ],
+      "border": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "pixelsPerUnit": 100.0,
+      "referenced": true
+    },
+    {
+      "name": "badge_enchant_mult2",
+      "default": "DicePrototype/Assets/Art/Art071/Full/Symbols/badge_enchant_mult2.png",
+      "size": [
+        256,
+        256
+      ],
+      "border": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "pixelsPerUnit": 100.0,
+      "referenced": true
+    },
+    {
+      "name": "badge_enchant_roll1",
+      "default": "DicePrototype/Assets/Art/Art071/Full/Symbols/badge_enchant_roll1.png",
+      "size": [
+        256,
+        256
+      ],
+      "border": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "pixelsPerUnit": 100.0,
+      "referenced": true
+    },
+    {
+      "name": "badge_enchant_slotless",
+      "default": "DicePrototype/Assets/Art/Art071/Full/Symbols/badge_enchant_slotless.png",
+      "size": [
+        256,
+        256
+      ],
+      "border": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "pixelsPerUnit": 100.0,
+      "referenced": true
+    },
+    {
+      "name": "badge_enchant_submit1",
+      "default": "DicePrototype/Assets/Art/Art071/Full/Symbols/badge_enchant_submit1.png",
+      "size": [
+        256,
+        256
+      ],
+      "border": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "pixelsPerUnit": 100.0,
+      "referenced": true
+    },
+    {
+      "name": "fx_arc_short",
+      "default": "DicePrototype/Assets/Art/Art071/Full/FX/fx_arc_short.png",
+      "size": [
+        256,
+        256
+      ],
+      "border": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "pixelsPerUnit": 100.0,
+      "referenced": true
+    },
+    {
+      "name": "fx_crack_card",
+      "default": "DicePrototype/Assets/Art/Art071/Full/FX/fx_crack_card.png",
+      "size": [
+        256,
+        256
+      ],
+      "border": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "pixelsPerUnit": 100.0,
+      "referenced": false
+    },
+    {
+      "name": "fx_formula_chip",
+      "default": "DicePrototype/Assets/Art/Art073/Surfaces/fx_formula_chip.png",
+      "size": [
+        512,
+        128
+      ],
+      "border": [
+        48.0,
+        0.0,
+        48.0,
+        0.0
+      ],
+      "pixelsPerUnit": 200.0,
+      "referenced": true
+    },
+    {
+      "name": "fx_halo_soft",
+      "default": "DicePrototype/Assets/Art/Art071/Full/FX/fx_halo_soft.png",
+      "size": [
+        256,
+        256
+      ],
+      "border": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "pixelsPerUnit": 100.0,
+      "referenced": false
+    },
+    {
+      "name": "fx_line_soft",
+      "default": "DicePrototype/Assets/Art/Art071/Full/FX/fx_line_soft.png",
+      "size": [
+        256,
+        256
+      ],
+      "border": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "pixelsPerUnit": 100.0,
+      "referenced": false
+    },
+    {
+      "name": "fx_ring_soft",
+      "default": "DicePrototype/Assets/Art/Art071/Full/FX/fx_ring_soft.png",
+      "size": [
+        256,
+        256
+      ],
+      "border": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "pixelsPerUnit": 100.0,
+      "referenced": false
+    },
+    {
+      "name": "fx_score_crown",
+      "default": "DicePrototype/Assets/Art/Art073/FX/fx_score_crown.png",
+      "size": [
+        192,
+        128
+      ],
+      "border": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "pixelsPerUnit": 100.0,
+      "referenced": true
+    },
+    {
+      "name": "fx_score_plate",
+      "default": "DicePrototype/Assets/Art/Art073/Surfaces/fx_score_plate.png",
+      "size": [
+        768,
+        384
+      ],
+      "border": [
+        104.0,
+        104.0,
+        104.0,
+        104.0
+      ],
+      "pixelsPerUnit": 200.0,
+      "referenced": true
+    },
+    {
+      "name": "fx_score_ray",
+      "default": "DicePrototype/Assets/Art/Art073/FX/fx_score_ray.png",
+      "size": [
+        384,
+        96
+      ],
+      "border": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "pixelsPerUnit": 100.0,
+      "referenced": true
+    },
+    {
+      "name": "fx_score_spark",
+      "default": "DicePrototype/Assets/Art/Art073/FX/fx_score_spark.png",
+      "size": [
+        64,
+        64
+      ],
+      "border": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "pixelsPerUnit": 100.0,
+      "referenced": true
+    },
+    {
+      "name": "fx_short_flame",
+      "default": "DicePrototype/Assets/Art/Art071/Full/FX/fx_short_flame.png",
+      "size": [
+        256,
+        256
+      ],
+      "border": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "pixelsPerUnit": 100.0,
+      "referenced": false
+    },
+    {
+      "name": "fx_square_chip",
+      "default": "DicePrototype/Assets/Art/Art071/Full/FX/fx_square_chip.png",
+      "size": [
+        256,
+        256
+      ],
+      "border": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "pixelsPerUnit": 100.0,
+      "referenced": true
+    },
+    {
+      "name": "fx_star_spark",
+      "default": "DicePrototype/Assets/Art/Art071/Full/FX/fx_star_spark.png",
+      "size": [
+        256,
+        256
+      ],
+      "border": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "pixelsPerUnit": 100.0,
+      "referenced": false
+    },
+    {
+      "name": "ui_badge_check",
+      "default": "DicePrototype/Assets/Art/Art073/UI/ui_badge_check.png",
+      "size": [
+        96,
+        96
+      ],
+      "border": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "pixelsPerUnit": 100.0,
+      "referenced": true
+    },
+    {
+      "name": "ui_button_bevel",
+      "default": "DicePrototype/Assets/Art/Art073/Surfaces/ui_button_bevel.png",
+      "size": [
+        512,
+        512
+      ],
+      "border": [
+        40.0,
+        40.0,
+        40.0,
+        40.0
+      ],
+      "pixelsPerUnit": 200.0,
+      "referenced": true
+    },
+    {
+      "name": "ui_button_ghost",
+      "default": "DicePrototype/Assets/Art/Art073/Surfaces/ui_button_ghost.png",
+      "size": [
+        512,
+        512
+      ],
+      "border": [
+        40.0,
+        40.0,
+        40.0,
+        40.0
+      ],
+      "pixelsPerUnit": 200.0,
+      "referenced": true
+    },
+    {
+      "name": "ui_card_back",
+      "default": "DicePrototype/Assets/Art/Art072/UI/ui_card_back.png",
+      "size": [
+        768,
+        1024
+      ],
+      "border": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "pixelsPerUnit": 100.0,
+      "referenced": true
+    },
+    {
+      "name": "ui_card_controller",
+      "default": "DicePrototype/Assets/Art/Art073/Surfaces/ui_card_controller.png",
+      "size": [
+        512,
+        512
+      ],
+      "border": [
+        40.0,
+        40.0,
+        40.0,
+        40.0
+      ],
+      "pixelsPerUnit": 200.0,
+      "referenced": true
+    },
+    {
+      "name": "ui_card_controller_compact",
+      "default": "DicePrototype/Assets/Art/Art073/Surfaces/ui_card_controller_compact.png",
+      "size": [
+        512,
+        512
+      ],
+      "border": [
+        40.0,
+        40.0,
+        40.0,
+        40.0
+      ],
+      "pixelsPerUnit": 200.0,
+      "referenced": true
+    },
+    {
+      "name": "ui_card_item",
+      "default": "DicePrototype/Assets/Art/Art073/Surfaces/ui_card_item.png",
+      "size": [
+        512,
+        512
+      ],
+      "border": [
+        40.0,
+        40.0,
+        40.0,
+        40.0
+      ],
+      "pixelsPerUnit": 200.0,
+      "referenced": true
+    },
+    {
+      "name": "ui_card_shop",
+      "default": "DicePrototype/Assets/Art/Art073/Surfaces/ui_card_shop.png",
+      "size": [
+        512,
+        512
+      ],
+      "border": [
+        40.0,
+        40.0,
+        40.0,
+        40.0
+      ],
+      "pixelsPerUnit": 200.0,
+      "referenced": true
+    },
+    {
+      "name": "ui_card_upgrade",
+      "default": "DicePrototype/Assets/Art/Art073/Surfaces/ui_card_upgrade.png",
+      "size": [
+        512,
+        512
+      ],
+      "border": [
+        40.0,
+        40.0,
+        40.0,
+        40.0
+      ],
+      "pixelsPerUnit": 200.0,
+      "referenced": false
+    },
+    {
+      "name": "ui_chip_label",
+      "default": "DicePrototype/Assets/Art/Art073/Surfaces/ui_chip_label.png",
+      "size": [
+        512,
+        512
+      ],
+      "border": [
+        40.0,
+        40.0,
+        40.0,
+        40.0
+      ],
+      "pixelsPerUnit": 200.0,
+      "referenced": true
+    },
+    {
+      "name": "ui_die_shadow",
+      "default": "DicePrototype/Assets/Art/Art073/UI/ui_die_shadow.png",
+      "size": [
+        256,
+        128
+      ],
+      "border": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "pixelsPerUnit": 100.0,
+      "referenced": true
+    },
+    {
+      "name": "ui_focus_frame",
+      "default": "DicePrototype/Assets/Art/Art073/Surfaces/ui_focus_frame.png",
+      "size": [
+        512,
+        512
+      ],
+      "border": [
+        40.0,
+        40.0,
+        40.0,
+        40.0
+      ],
+      "pixelsPerUnit": 200.0,
+      "referenced": false
+    },
+    {
+      "name": "ui_frame_block",
+      "default": "DicePrototype/Assets/Art/Art073/Surfaces/ui_frame_block.png",
+      "size": [
+        512,
+        512
+      ],
+      "border": [
+        40.0,
+        40.0,
+        40.0,
+        40.0
+      ],
+      "pixelsPerUnit": 200.0,
+      "referenced": true
+    },
+    {
+      "name": "ui_frame_enchant",
+      "default": "DicePrototype/Assets/Art/Art073/Surfaces/ui_frame_enchant.png",
+      "size": [
+        512,
+        512
+      ],
+      "border": [
+        40.0,
+        40.0,
+        40.0,
+        40.0
+      ],
+      "pixelsPerUnit": 200.0,
+      "referenced": true
+    },
+    {
+      "name": "ui_icon_arrow",
+      "default": "DicePrototype/Assets/Art/Art073/UI/ui_icon_arrow.png",
+      "size": [
+        96,
+        96
+      ],
+      "border": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "pixelsPerUnit": 100.0,
+      "referenced": true
+    },
+    {
+      "name": "ui_icon_arrow_right",
+      "default": "DicePrototype/Assets/Art/Art071/Full/Symbols/ui_icon_arrow_right.png",
+      "size": [
+        256,
+        256
+      ],
+      "border": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "pixelsPerUnit": 100.0,
+      "referenced": false
+    },
+    {
+      "name": "ui_icon_back",
+      "default": "DicePrototype/Assets/Art/Art071/Full/Symbols/ui_icon_back.png",
+      "size": [
+        256,
+        256
+      ],
+      "border": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "pixelsPerUnit": 100.0,
+      "referenced": false
+    },
+    {
+      "name": "ui_icon_book",
+      "default": "DicePrototype/Assets/Art/Art073/UI/ui_icon_book.png",
+      "size": [
+        96,
+        96
+      ],
+      "border": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "pixelsPerUnit": 100.0,
+      "referenced": true
+    },
+    {
+      "name": "ui_icon_broken",
+      "default": "DicePrototype/Assets/Art/Art071/Full/Symbols/ui_icon_broken.png",
+      "size": [
+        256,
+        256
+      ],
+      "border": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "pixelsPerUnit": 100.0,
+      "referenced": false
+    },
+    {
+      "name": "ui_icon_broken_link",
+      "default": "DicePrototype/Assets/Art/Art071/Full/Symbols/ui_icon_broken_link.png",
+      "size": [
+        256,
+        256
+      ],
+      "border": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "pixelsPerUnit": 100.0,
+      "referenced": false
+    },
+    {
+      "name": "ui_icon_check",
+      "default": "DicePrototype/Assets/Art/Art071/Full/Symbols/ui_icon_check.png",
+      "size": [
+        256,
+        256
+      ],
+      "border": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "pixelsPerUnit": 100.0,
+      "referenced": false
+    },
+    {
+      "name": "ui_icon_close",
+      "default": "DicePrototype/Assets/Art/Art071/Full/Symbols/ui_icon_close.png",
+      "size": [
+        256,
+        256
+      ],
+      "border": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "pixelsPerUnit": 100.0,
+      "referenced": false
+    },
+    {
+      "name": "ui_icon_coin",
+      "default": "DicePrototype/Assets/Art/Art073/UI/ui_icon_coin.png",
+      "size": [
+        96,
+        96
+      ],
+      "border": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "pixelsPerUnit": 100.0,
+      "referenced": true
+    },
+    {
+      "name": "ui_icon_color_blue",
+      "default": "DicePrototype/Assets/Art/Art071/Full/Symbols/ui_icon_color_blue.png",
+      "size": [
+        256,
+        256
+      ],
+      "border": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "pixelsPerUnit": 100.0,
+      "referenced": false
+    },
+    {
+      "name": "ui_icon_color_red",
+      "default": "DicePrototype/Assets/Art/Art071/Full/Symbols/ui_icon_color_red.png",
+      "size": [
+        256,
+        256
+      ],
+      "border": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "pixelsPerUnit": 100.0,
+      "referenced": false
+    },
+    {
+      "name": "ui_icon_dice_view",
+      "default": "DicePrototype/Assets/Art/Art073/UI/ui_icon_dice_view.png",
+      "size": [
+        128,
+        128
+      ],
+      "border": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "pixelsPerUnit": 100.0,
+      "referenced": true
+    },
+    {
+      "name": "ui_icon_eye",
+      "default": "DicePrototype/Assets/Art/Art071/Full/Symbols/ui_icon_eye.png",
+      "size": [
+        256,
+        256
+      ],
+      "border": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "pixelsPerUnit": 100.0,
+      "referenced": false
+    },
+    {
+      "name": "ui_icon_gear",
+      "default": "DicePrototype/Assets/Art/Art073/UI/ui_icon_gear.png",
+      "size": [
+        96,
+        96
+      ],
+      "border": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "pixelsPerUnit": 100.0,
+      "referenced": true
+    },
+    {
+      "name": "ui_icon_glass",
+      "default": "DicePrototype/Assets/Art/Art071/Full/Symbols/ui_icon_glass.png",
+      "size": [
+        256,
+        256
+      ],
+      "border": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "pixelsPerUnit": 100.0,
+      "referenced": false
+    },
+    {
+      "name": "ui_icon_gold",
+      "default": "DicePrototype/Assets/Art/Art071/Full/Symbols/ui_icon_gold.png",
+      "size": [
+        256,
+        256
+      ],
+      "border": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "pixelsPerUnit": 100.0,
+      "referenced": false
+    },
+    {
+      "name": "ui_icon_info",
+      "default": "DicePrototype/Assets/Art/Art071/Full/Symbols/ui_icon_info.png",
+      "size": [
+        256,
+        256
+      ],
+      "border": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "pixelsPerUnit": 100.0,
+      "referenced": false
+    },
+    {
+      "name": "ui_icon_lock",
+      "default": "DicePrototype/Assets/Art/Art071/Full/Symbols/ui_icon_lock.png",
+      "size": [
+        256,
+        256
+      ],
+      "border": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "pixelsPerUnit": 100.0,
+      "referenced": true
+    },
+    {
+      "name": "ui_icon_multiply",
+      "default": "DicePrototype/Assets/Art/Art071/Full/Symbols/ui_icon_multiply.png",
+      "size": [
+        256,
+        256
+      ],
+      "border": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "pixelsPerUnit": 100.0,
+      "referenced": false
+    },
+    {
+      "name": "ui_icon_muted",
+      "default": "DicePrototype/Assets/Art/Art071/Full/Symbols/ui_icon_muted.png",
+      "size": [
+        256,
+        256
+      ],
+      "border": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "pixelsPerUnit": 100.0,
+      "referenced": false
+    },
+    {
+      "name": "ui_icon_pending",
+      "default": "DicePrototype/Assets/Art/Art071/Full/Symbols/ui_icon_pending.png",
+      "size": [
+        256,
+        256
+      ],
+      "border": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "pixelsPerUnit": 100.0,
+      "referenced": false
+    },
+    {
+      "name": "ui_icon_plus",
+      "default": "DicePrototype/Assets/Art/Art071/Full/Symbols/ui_icon_plus.png",
+      "size": [
+        256,
+        256
+      ],
+      "border": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "pixelsPerUnit": 100.0,
+      "referenced": false
+    },
+    {
+      "name": "ui_icon_refresh",
+      "default": "DicePrototype/Assets/Art/Art071/Full/Symbols/ui_icon_refresh.png",
+      "size": [
+        256,
+        256
+      ],
+      "border": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "pixelsPerUnit": 100.0,
+      "referenced": true
+    },
+    {
+      "name": "ui_icon_roll",
+      "default": "DicePrototype/Assets/Art/Art071/Full/Symbols/ui_icon_roll.png",
+      "size": [
+        256,
+        256
+      ],
+      "border": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "pixelsPerUnit": 100.0,
+      "referenced": true
+    },
+    {
+      "name": "ui_icon_rough",
+      "default": "DicePrototype/Assets/Art/Art071/Full/Symbols/ui_icon_rough.png",
+      "size": [
+        256,
+        256
+      ],
+      "border": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "pixelsPerUnit": 100.0,
+      "referenced": false
+    },
+    {
+      "name": "ui_icon_settings",
+      "default": "DicePrototype/Assets/Art/Art071/Full/Symbols/ui_icon_settings.png",
+      "size": [
+        256,
+        256
+      ],
+      "border": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "pixelsPerUnit": 100.0,
+      "referenced": false
+    },
+    {
+      "name": "ui_icon_smooth",
+      "default": "DicePrototype/Assets/Art/Art071/Full/Symbols/ui_icon_smooth.png",
+      "size": [
+        256,
+        256
+      ],
+      "border": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "pixelsPerUnit": 100.0,
+      "referenced": false
+    },
+    {
+      "name": "ui_icon_sound",
+      "default": "DicePrototype/Assets/Art/Art071/Full/Symbols/ui_icon_sound.png",
+      "size": [
+        256,
+        256
+      ],
+      "border": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "pixelsPerUnit": 100.0,
+      "referenced": false
+    },
+    {
+      "name": "ui_icon_submit",
+      "default": "DicePrototype/Assets/Art/Art071/Full/Symbols/ui_icon_submit.png",
+      "size": [
+        256,
+        256
+      ],
+      "border": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "pixelsPerUnit": 100.0,
+      "referenced": false
+    },
+    {
+      "name": "ui_icon_temporary",
+      "default": "DicePrototype/Assets/Art/Art071/Full/Symbols/ui_icon_temporary.png",
+      "size": [
+        256,
+        256
+      ],
+      "border": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "pixelsPerUnit": 100.0,
+      "referenced": false
+    },
+    {
+      "name": "ui_icon_unavailable",
+      "default": "DicePrototype/Assets/Art/Art071/Full/Symbols/ui_icon_unavailable.png",
+      "size": [
+        256,
+        256
+      ],
+      "border": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "pixelsPerUnit": 100.0,
+      "referenced": false
+    },
+    {
+      "name": "ui_icon_warning",
+      "default": "DicePrototype/Assets/Art/Art071/Full/Symbols/ui_icon_warning.png",
+      "size": [
+        256,
+        256
+      ],
+      "border": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "pixelsPerUnit": 100.0,
+      "referenced": false
+    },
+    {
+      "name": "ui_info_inset",
+      "default": "DicePrototype/Assets/Art/Art073/Surfaces/ui_info_inset.png",
+      "size": [
+        512,
+        512
+      ],
+      "border": [
+        40.0,
+        40.0,
+        40.0,
+        40.0
+      ],
+      "pixelsPerUnit": 200.0,
+      "referenced": true
+    },
+    {
+      "name": "ui_panel_hud",
+      "default": "DicePrototype/Assets/Art/Art073/Surfaces/ui_panel_hud.png",
+      "size": [
+        512,
+        512
+      ],
+      "border": [
+        40.0,
+        40.0,
+        40.0,
+        40.0
+      ],
+      "pixelsPerUnit": 200.0,
+      "referenced": true
+    },
+    {
+      "name": "ui_panel_modal",
+      "default": "DicePrototype/Assets/Art/Art073/Surfaces/ui_panel_modal.png",
+      "size": [
+        512,
+        512
+      ],
+      "border": [
+        40.0,
+        40.0,
+        40.0,
+        40.0
+      ],
+      "pixelsPerUnit": 200.0,
+      "referenced": false
+    },
+    {
+      "name": "ui_panel_plain",
+      "default": "DicePrototype/Assets/Art/Art073/Surfaces/ui_panel_plain.png",
+      "size": [
+        512,
+        512
+      ],
+      "border": [
+        40.0,
+        40.0,
+        40.0,
+        40.0
+      ],
+      "pixelsPerUnit": 200.0,
+      "referenced": false
+    },
+    {
+      "name": "ui_paper_panel",
+      "default": "DicePrototype/Assets/Art/Art073/Surfaces/ui_paper_panel.png",
+      "size": [
+        512,
+        512
+      ],
+      "border": [
+        40.0,
+        40.0,
+        40.0,
+        40.0
+      ],
+      "pixelsPerUnit": 200.0,
+      "referenced": true
+    },
+    {
+      "name": "ui_pedestal",
+      "default": "DicePrototype/Assets/Art/Art073/UI/ui_pedestal.png",
+      "size": [
+        384,
+        192
+      ],
+      "border": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "pixelsPerUnit": 100.0,
+      "referenced": true
+    },
+    {
+      "name": "ui_pip_dot",
+      "default": "DicePrototype/Assets/Art/Art072/UI/ui_pip_dot.png",
+      "size": [
+        64,
+        64
+      ],
+      "border": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "pixelsPerUnit": 100.0,
+      "referenced": true
+    },
+    {
+      "name": "ui_price_chip",
+      "default": "DicePrototype/Assets/Art/Art073/Surfaces/ui_price_chip.png",
+      "size": [
+        512,
+        512
+      ],
+      "border": [
+        40.0,
+        40.0,
+        40.0,
+        40.0
+      ],
+      "pixelsPerUnit": 200.0,
+      "referenced": true
+    },
+    {
+      "name": "ui_progress_fill",
+      "default": "DicePrototype/Assets/Art/Art072/Surfaces/ui_progress_fill.png",
+      "size": [
+        768,
+        96
+      ],
+      "border": [
+        48.0,
+        0.0,
+        48.0,
+        0.0
+      ],
+      "pixelsPerUnit": 200.0,
+      "referenced": true
+    },
+    {
+      "name": "ui_progress_track",
+      "default": "DicePrototype/Assets/Art/Art072/Surfaces/ui_progress_track.png",
+      "size": [
+        768,
+        96
+      ],
+      "border": [
+        48.0,
+        0.0,
+        48.0,
+        0.0
+      ],
+      "pixelsPerUnit": 200.0,
+      "referenced": true
+    },
+    {
+      "name": "ui_ring",
+      "default": "DicePrototype/Assets/Art/Art073/Surfaces/ui_ring.png",
+      "size": [
+        512,
+        512
+      ],
+      "border": [
+        40.0,
+        40.0,
+        40.0,
+        40.0
+      ],
+      "pixelsPerUnit": 200.0,
+      "referenced": true
+    },
+    {
+      "name": "ui_scroll_handle",
+      "default": "DicePrototype/Assets/Art/Art073/Surfaces/ui_scroll_handle.png",
+      "size": [
+        512,
+        512
+      ],
+      "border": [
+        40.0,
+        40.0,
+        40.0,
+        40.0
+      ],
+      "pixelsPerUnit": 200.0,
+      "referenced": false
+    },
+    {
+      "name": "ui_section_header",
+      "default": "DicePrototype/Assets/Art/Art073/Surfaces/ui_section_header.png",
+      "size": [
+        512,
+        128
+      ],
+      "border": [
+        40.0,
+        0.0,
+        72.0,
+        0.0
+      ],
+      "pixelsPerUnit": 200.0,
+      "referenced": true
+    },
+    {
+      "name": "ui_section_panel",
+      "default": "DicePrototype/Assets/Art/Art073/Surfaces/ui_section_panel.png",
+      "size": [
+        512,
+        512
+      ],
+      "border": [
+        40.0,
+        40.0,
+        40.0,
+        40.0
+      ],
+      "pixelsPerUnit": 200.0,
+      "referenced": true
+    },
+    {
+      "name": "ui_slot_dice",
+      "default": "DicePrototype/Assets/Art/Art073/Surfaces/ui_slot_dice.png",
+      "size": [
+        512,
+        512
+      ],
+      "border": [
+        40.0,
+        40.0,
+        40.0,
+        40.0
+      ],
+      "pixelsPerUnit": 200.0,
+      "referenced": false
+    },
+    {
+      "name": "ui_slot_inventory",
+      "default": "DicePrototype/Assets/Art/Art073/Surfaces/ui_slot_inventory.png",
+      "size": [
+        512,
+        512
+      ],
+      "border": [
+        40.0,
+        40.0,
+        40.0,
+        40.0
+      ],
+      "pixelsPerUnit": 200.0,
+      "referenced": true
+    },
+    {
+      "name": "ui_tab_bottom",
+      "default": "DicePrototype/Assets/Art/Art073/Surfaces/ui_tab_bottom.png",
+      "size": [
+        512,
+        512
+      ],
+      "border": [
+        40.0,
+        40.0,
+        40.0,
+        40.0
+      ],
+      "pixelsPerUnit": 200.0,
+      "referenced": true
+    },
+    {
+      "name": "ui_tag_clock",
+      "default": "DicePrototype/Assets/Art/Art073/UI/ui_tag_clock.png",
+      "size": [
+        128,
+        128
+      ],
+      "border": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "pixelsPerUnit": 100.0,
+      "referenced": true
+    },
+    {
+      "name": "ui_tag_lock",
+      "default": "DicePrototype/Assets/Art/Art073/UI/ui_tag_lock.png",
+      "size": [
+        128,
+        128
+      ],
+      "border": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "pixelsPerUnit": 100.0,
+      "referenced": true
+    },
+    {
+      "name": "ui_tooltip_frame",
+      "default": "DicePrototype/Assets/Art/Art073/Surfaces/ui_tooltip_frame.png",
+      "size": [
+        512,
+        512
+      ],
+      "border": [
+        40.0,
+        40.0,
+        40.0,
+        40.0
+      ],
+      "pixelsPerUnit": 200.0,
+      "referenced": false
+    },
+    {
+      "name": "ui_tray_front",
+      "default": "DicePrototype/Assets/Art/Art073/Surfaces/ui_tray_front.png",
+      "size": [
+        512,
+        160
+      ],
+      "border": [
+        40.0,
+        0.0,
+        40.0,
+        0.0
+      ],
+      "pixelsPerUnit": 200.0,
+      "referenced": true
+    },
+    {
+      "name": "ui_wordmark_dicecraft",
+      "default": "DicePrototype/Assets/Art/Art072/UI/ui_wordmark_dicecraft.png",
+      "size": [
+        1440,
+        400
+      ],
+      "border": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "pixelsPerUnit": 100.0,
+      "referenced": true
+    }
+  ]
+}

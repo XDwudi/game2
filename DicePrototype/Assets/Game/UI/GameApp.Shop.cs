@@ -40,6 +40,9 @@ namespace DiceCraft
         private Sprite ContentSprite071(string id)
         {
             if(string.IsNullOrEmpty(id)||contentIcons==null)return null;
+            // V1.1: the active theme's own illustration wins; a theme without one keeps the default art.
+            var themed=ThemeRegistry.Current?.ContentArt("illustration_"+id);
+            if(themed!=null)return themed;
             if(contentIndex073==null||!ReferenceEquals(contentIndexSource073,contentIcons))
             {
                 contentIndexSource073=contentIcons;contentIndex073=new System.Collections.Generic.Dictionary<string,Sprite>(contentIcons.Length,StringComparer.OrdinalIgnoreCase);

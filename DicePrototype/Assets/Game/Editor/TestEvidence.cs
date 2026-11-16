@@ -39,7 +39,7 @@ namespace DiceCraft.Editor
                 Api.RetrieveTestList(mode,tree=>{
                     var names=new List<string>();Collect(tree,names);names.Sort(StringComparer.Ordinal);
                     if(names.Count==0||names.Distinct().Count()!=names.Count)throw new InvalidOperationException("Invalid complete test discovery.");
-                    string dir=Path.GetFullPath("../evidence/v10/unity");Directory.CreateDirectory(dir);
+                    string dir=Path.GetFullPath("../evidence/v11/unity");Directory.CreateDirectory(dir);
                     File.WriteAllText(Path.Combine(dir,"discovery-"+mode+".json"),JsonUtility.ToJson(new Discovery{mode=mode.ToString(),unity=Application.unityVersion,names=names.ToArray()},true));
                 });
         }
@@ -68,7 +68,7 @@ namespace DiceCraft.Editor
             public void TestFinished(ITestResultAdaptor result){}
             public void RunFinished(ITestResultAdaptor result)
             {
-                string dir=Path.GetFullPath("../evidence/v10/unity");Directory.CreateDirectory(dir);
+                string dir=Path.GetFullPath("../evidence/v11/unity");Directory.CreateDirectory(dir);
                 string stamp=DateTime.UtcNow.ToString("yyyyMMdd-HHmmss");
                 string report=Path.Combine(dir,"nunit-"+stamp+".xml");
                 TestRunnerApi.SaveResultToFile(result,report);

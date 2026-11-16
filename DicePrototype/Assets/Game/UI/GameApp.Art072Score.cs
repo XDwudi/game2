@@ -7,7 +7,8 @@ namespace DiceCraft
     // existing element is changed here; the well and chip faces sit behind the existing text.
     public sealed partial class GameApp
     {
-        private static readonly Color[] FactorTints072={UiKit.Blue,UiKit.Red,UiKit.Red,UiKit.Red,UiKit.Gold,UiKit.Violet};
+        // V1.1: read at draw time so the chips follow the active theme's palette.
+        private static Color[] FactorTints072=>new[]{UiKit.Blue,UiKit.Red,UiKit.Red,UiKit.Red,UiKit.Gold,UiKit.Violet};
 
         /// <summary>Rent the display window before the number so it is painted underneath it.</summary>
         private RectTransform ScoreWell072(Transform panel)=>UiKit.Inset(panel,"ScoreWell072",0,0,10,10);

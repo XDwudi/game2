@@ -1,0 +1,85 @@
+# V1.1 画面风格规格（THEME_SPEC）
+
+状态：**骨架已实现**（W08，2026-11-16）。依据 [开发方案](DEV_PLAN.md) §4.6 与 G7。各风格的具体资源在 W12、W19–W23 中按本规格交付。
+
+## 1 运行机制
+
+- 默认风格内置在代码与场景里，就是 v0.73 以来的现有外观。其他风格放在 `DicePrototype/Assets/Resources/Themes/<风格 id>/`，启动时读取各自的 `theme.json`。
+- 风格只改外观：色板、界面贴图、卡牌插画、桌面贴图、设置页预览图。布局、动效、规则、存档六套共用。
+- 查找顺序：先找当前风格的同名文件，没有就用默认风格的同名件。贴图在第一次切到该风格时才加载。
+- 设置项：
+  - 设置 → 画面 → 画面风格，点一次换到下一套，立即重绘当前画面，不写存档；
+  - 选择记在系统设置 `v11.theme`；
+  - `theme.json` 里 `preview: true` 的风格还没做完，只在开发开关 `v11.themePreview = 1` 时出现，玩家看不到。
+- 代码约定：
+  - 颜色一律在绘制时读 `UiKit` 的属性（`UiKit.Panel` 等），不要存进静态字段，否则切换风格时这个元素不变；
+  - 新界面元素用语义色：`Primary`（本阶段唯一的主动作）、`Reward`、`Boss`、`Pressure`、`RarityCommon / RarityAdvanced / RarityRare`。
+- 代码位置：`UI/Theme/ThemePalette.cs`、`UI/Theme/GameTheme.cs`（含 `ThemeRegistry`）、`UI/GameApp.Theme11.cs`、导入规则 `Editor/V11ThemeImport.cs`。
+
+## 2 theme.json
+
+```json
+{
+  "id": "swiss",
+  "displayName": "瑞士现代主义",
+  "description": "一句话说明与依据",
+  "order": 1,
+  "preview": true,
+  "palette": { "panel": "151515", "...": "..." }
+}
+```
+
+`order` 决定设置里的顺序。按用户指令的顺序：瑞士现代主义 1、唐三彩陶坊 2、爆彩连环漫画 3、黑金装饰艺术 4、彩绘玻璃 5。
+
+色板写 6 位或 8 位十六进制，省略的项沿用默认值：
+
+| 键 | 用在哪里 | 默认 |
+| --- | --- | --- |
+| background | 页面底色 | 102A2D |
+| felt | 桌布着色（桌面贴图会乘上它） | 173E40 |
+| panel | 深色面板、按钮禁用底 | 203F43 |
+| panelLight | 面板上的分隔与次级块 | 315358 |
+| paper | 卡面、纸面按钮 | F4E8CB |
+| ink | 纸面上的字 | 162629 |
+| textColor | 面板上的字 | F7EED9 |
+| muted | 面板上的次要字 | B8C9C5 |
+| gold | 价格、高亮、现有的主按钮色 | F3BA58 |
+| teal | 完成、正面状态 | 79C99C |
+| red | 红骰、负面数值 | EC655D |
+| blue | 蓝骰 | 55B6D9 |
+| violet | 附魔与特殊 | AD92DB |
+| danger | 错误、首领警示 | 9E3440 |
+| shadow | 投影 | 07191C |
+| ghost | 次要按钮描边 | 6A9296 |
+| primary | 本阶段唯一的主动作按钮（W11 起使用） | F3BA58 |
+| reward | 奖励时刻 | F3BA58 |
+| boss / pressure | 首领关、高压关的标识 | C8463F / E0703A |
+| rarityCommon / rarityAdvanced / rarityRare | 卡面稀有度边框（W13 起使用） | B8C9C5 / 55B6D9 / AD92DB |
+
+对比度要求（AX-08，按色板自动测量）：`textColor` 对 `panel`、`ink` 对 `paper` 至少 4.5:1；`muted` 对 `panel` 至少 3:1。
+
+## 3 文件与尺寸
+
+| 路径 | 内容 | 要求 |
+| --- | --- | --- |
+| `UI/<名称>.png` | 界面贴图，名称与默认件相同 | 与默认件**像素尺寸相同**，RGBA；九宫格边距、每单位像素沿用默认件（导入规则自动复制），所以边框必须画在默认件的边距带里 |
+| `Art/illustration_<内容 id>.png` | 卡牌插画（按 D1 每套重画） | 1254² RGBA，经 `artgen` 生成并有记录；导入上限 1024 |
+| `Table/felt_tile.png` | 桌布平铺纹理 | 1024²，可无缝平铺 |
+| `Table/table_scene.png` | 整张桌面构图 | 1920×1080 |
+| `preview.png` | 设置页预览 | 480×270 |
+
+默认件清单由脚本生成：`python tools/art_v11/theme_contract.py contract` 读取 Bootstrap 场景里 `art07Templates` 的实际内容，写出 `tools/art_v11/theme_contract.json`（2026-11-16：86 张，其中 49 张被代码按名称或名称前缀引用）。另外 37 张目前没有代码直接引用，风格可以不提供。
+
+## 4 源文件与检查
+
+- 界面件生成器：`tools/art_v11/<风格 id>/`，沿用美术流程“界面表面件与九宫格用脚本矢量”的路线。GPT 生成的纹理与插画的原图、记录放在 `ArtSource/Art11/<风格 id>/`。
+- 检查：
+  - `python tools/art_v11/theme_contract.py audit <风格 id>`：多余件、尺寸不符、缺透明通道判为失败；被引用却没有提供的件列为 FALLBACK；
+  - 发行前用 `--strict`：FALLBACK 也算失败，除非在该风格的说明里写明理由；
+  - 实机截图（F-THEME-02）与色板对比度（AX-08）。
+
+## 5 已知局限（骨架阶段）
+
+- 一些界面把字直接画在桌布上，用的是浅色的 `textColor` / `muted`。浅色桌面的风格（瑞士现代主义）会看不清；W11 改版时让这些字都落在面板上，或者增加“桌面上的字”色。
+- 商店分区标题色（`Art073Shop` 的三个固定色）、两处特效固定色（`Art071EnchantCue`、`Art071ComboEdgeAccents`）还不随风格变，W11、W14 改。
+- 字体还不随风格变（W21）。

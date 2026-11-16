@@ -9,10 +9,12 @@ namespace DiceCraft
     {
         private Button button;
         private GameObject focus;
-        private RectTransform face,lip,label;
-        private Vector2 faceOrigin,lipOrigin,labelOrigin;
         private bool hovered,pressed,selected;
         private int surface;
+        // v1.1: the face lift (surface 0) is applied as a relative shift. Callers such as the shop's
+        // refresh button and the icon navigation buttons move the label after UiKit.Button created
+        // it; remembering absolute origins at Configure time snapped those labels back on hover.
+        private float appliedLift;
         private float displacement,cardScale=1,tilt,settledAt;
         private struct CardVisual{public RectTransform rect;public Vector2 position;public Vector3 scale;public Quaternion rotation;}
         private readonly System.Collections.Generic.List<CardVisual> cardVisuals=new System.Collections.Generic.List<CardVisual>();
@@ -20,14 +22,13 @@ namespace DiceCraft
         public const float IdleSwayDegrees072=.6f,IdleSwayPeriod072=3.2f,IdleSettleSeconds072=.6f,HoverTiltDegrees072=3.5f;
         public static bool IdleSway072=true;
         public float CardTilt072=>tilt;
-        public void SetSurface(int value){RestoreCard();surface=value;Apply();}
+        public void SetSurface(int value){RestoreCard();if(surface==0)ShiftFace(-appliedLift);appliedLift=0;surface=value;Apply();}
         public void Configure(Button value,GameObject ring)
         {
             // UiKit has just re-rented every painted child at its authored transform, so the
             // previous baselines are obsolete: forget them instead of writing them back.
-            cardVisuals.Clear();displacement=0;cardScale=1;tilt=0;surface=0;
-            button=value;focus=ring;face=transform.Find("Face") as RectTransform;lip=transform.Find("Lip") as RectTransform;label=transform.Find("Label") as RectTransform;
-            faceOrigin=face.anchoredPosition;lipOrigin=lip.anchoredPosition;labelOrigin=label.anchoredPosition;
+            cardVisuals.Clear();displacement=0;cardScale=1;tilt=0;surface=0;appliedLift=0;
+            button=value;focus=ring;
             hovered=pressed=selected=false;Apply();
         }
         private void Apply()
@@ -36,9 +37,20 @@ namespace DiceCraft
             if(focus!=null)focus.SetActive(enabled&&selected);
             if(surface!=0)return;
             float dy=enabled&&pressed?-3:enabled&&hovered&&!UiKit.ReducedMotion?1:0;
-            if(face!=null)face.anchoredPosition=faceOrigin+Vector2.up*dy;
-            if(lip!=null)lip.anchoredPosition=lipOrigin+Vector2.up*dy;
-            if(label!=null)label.anchoredPosition=labelOrigin+Vector2.up*dy;
+            ShiftFace(dy-appliedLift);appliedLift=dy;
+        }
+        /// <summary>
+        /// Moves everything painted on the button face (face, lip, label, and any icon or price chip a
+        /// caller added) by a delta. The base step and the focus ring stay, so the face presses into them.
+        /// </summary>
+        private void ShiftFace(float delta)
+        {
+            if(delta==0)return;
+            foreach(Transform child in transform)
+            {
+                if(!child.gameObject.activeSelf||child.gameObject==focus||child.name=="Step")continue;
+                ((RectTransform)child).anchoredPosition+=Vector2.up*delta;
+            }
         }
         private void LateUpdate()
         {
