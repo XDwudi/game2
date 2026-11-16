@@ -1,0 +1,77 @@
+{
+  "kitVersion": "theme-swiss-0.1",
+  "status": "PROPOSED (2026-11-16): anchors are crops of the four card illustrations on the user-chosen Swiss concept page (ArtSource/StyleKit/themes/swiss/concepts/card.png); awaiting the user's review at checkpoint 2/3 with the first representative redraws.",
+  "updated": "2026-11-16",
+  "changelog": [
+    "theme-swiss-0.1: first kit for the V1.1 Swiss modernism theme (DEV_PLAN D1, W19); anchors C108, C117, I10, U10 cropped from the concept card page without frames."
+  ],
+  "authority": "docs/specs/v11/THEME_SPEC.md; docs/art/AI_ART_PIPELINE.md",
+  "changeRule": "Anchors, plate and prompt blocks change only with a new kitVersion and a recorded user decision; copy the old kit bytes to history/ before a bump. Never edit a pinned value to make a check pass.",
+  "palette": {
+    "ivory": "F9EADB",
+    "petrol": "151618",
+    "ink": "000000",
+    "red": "E80E16",
+    "cobalt": "1D4FD8",
+    "gold": "E8B33A",
+    "grey": "96948E"
+  },
+  "categories": {
+    "illustration": {
+      "appliesTo": "V1.1 Swiss theme redraws of the card illustrations: controllers C*, consumables I*, services O*, dice upgrades U* (P0Config ids). Each redraw keeps the subject of the default illustration of the same id.",
+      "route": "Image generation through tools/art_gen/artgen.py with --kit ArtSource/StyleKit/themes/swiss/style_kit.json",
+      "output": {
+        "transparent": true,
+        "canvas": "square",
+        "observedSize": [
+          1254,
+          1254
+        ],
+        "instruction": "True transparent alpha background with no backdrop of any colour and no background shapes. A single finished illustration, not a sheet of variants."
+      },
+      "displaySizes": [
+        170,
+        128,
+        85,
+        64
+      ],
+      "displaySizesNote": "Same on-screen sizes as the default illustrations (shop card at 1440p / 1080p / 720p, and a compact slot).",
+      "anchors": [
+        {
+          "id": "C108",
+          "path": "ArtSource/StyleKit/themes/swiss/anchors/C108.png",
+          "sha256": "f8a01e8cd68c0c687f61e4b2556e600847958d575d274d23ad71aac45d05bcfa"
+        },
+        {
+          "id": "C117",
+          "path": "ArtSource/StyleKit/themes/swiss/anchors/C117.png",
+          "sha256": "3a09193b4c5bb955fb32abef958950ff1299e44006d9bac6b2595ea3fe667716"
+        },
+        {
+          "id": "I10",
+          "path": "ArtSource/StyleKit/themes/swiss/anchors/I10.png",
+          "sha256": "4fd4f390de3e151a2d80cd2070adf39596b5d1bb228d305f5e040ee18c1c06aa"
+        },
+        {
+          "id": "U10",
+          "path": "ArtSource/StyleKit/themes/swiss/anchors/U10.png",
+          "sha256": "e53099ad1a495145a906bd761758f1e303ed7f01f3109f8599b953ab6982b20a"
+        }
+      ],
+      "plate": {
+        "path": "ArtSource/StyleKit/themes/swiss/plates/illustration_plate_theme-swiss-0.1.png",
+        "sha256": "caeeec53f0c6b51f217366913ea21cb4f6b0d8e66caaf0fdf61273b19c2f05c8",
+        "columns": 4,
+        "cell": 384,
+        "padding": 16,
+        "background": "F9EADB",
+        "builtWith": "artgen-1.1; Pillow 9.4.0"
+      },
+      "plateRole": "STYLE PLATE: four card illustrations in the Swiss modernism style of this game, cropped from concept art and still standing on their card backdrop (cream with a red diagonal field). Copy their rendering exactly (uniform bold black outline, flat fills, hard black cast shadow, geometric cubes, cream bodies, red and cobalt accents). Do not copy their subjects, their layout, or the red diagonal backdrop field.",
+      "styleBlock": "Match the STYLE PLATE (reference image 1) exactly: Swiss International Typographic Style poster illustration. Uniform bold black outlines; completely flat colour fills with no gradient, no texture, no halftone and no shading except one hard-edged black cast shadow polygon falling to the lower right of each object; clean geometric construction with straight edges and precise ellipses; cubes and objects in a crisp three-quarter view from slightly above; cream bodies with black or cobalt pips; small, sharp white highlights at most. Calm, graphic and bold, like a modernist poster.",
+      "colorRoles": "Cream #F9EADB for lit surfaces and dice bodies; black #000000 for outlines, pips and the cast shadow; signal red #E80E16 for the single main accent object or area; cobalt blue #1D4FD8 only for blue pips, water or other blue elements of the subject; warm gold #E8B33A only for gold, coins or gilded parts; warm grey #96948E for metal. No other hues, no gradients, no glow.",
+      "composition": "One cohesive subject group of at most three objects, centred on a square canvas; the subject spans roughly 70 to 95 percent of the canvas width without touching the edges, with even transparent margin on every side; the silhouette must stay readable at 64 pixels. Two or three short straight action strokes are allowed when they express the effect. The card frame of the game draws its own backdrop, so the illustration has no background field at all.",
+      "avoid": "text, letters, numbers, labels, prices, card frames, UI elements, a background field or diagonal backdrop shape, paper or coloured backdrop, ground scenery, checkerboard, photorealism, 3D-render look, soft gradients, halftone dots, texture, pixel art, neon glow, grunge, human characters, expressive faces."
+    }
+  }
+}
