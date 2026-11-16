@@ -91,6 +91,8 @@ def require(condition, message):
 def normalized_config(cfg):
     cfg = copy.deepcopy(cfg)
     cfg.pop("configVersion")
+    # The save structure version (6 -> 7 in p1.1.0) describes saves, not scoring.
+    cfg.pop("saveSchemaVersion")
     # Explicitly allow only the documented v11 presentation fields/removals.
     for key in ("controllers", "consumables", "services", "diceUpgrades", "bossModifiers", "lootKinds"):
         for entry in cfg[key]:

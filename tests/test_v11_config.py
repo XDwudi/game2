@@ -53,8 +53,10 @@ class V11ConfigTests(unittest.TestCase):
 
     def test_only_authorized_delta_and_key_order(self):
         output = v11_config.build()
+        self.assertEqual(output["saveSchemaVersion"], 7)
         restored = copy.deepcopy(output)
         restored["configVersion"] = "p1.0.0"
+        restored["saveSchemaVersion"] = 6
         changed_names = []
         for category in extract.CATEGORIES:
             for old, new in zip(self.base[category], restored[category]):

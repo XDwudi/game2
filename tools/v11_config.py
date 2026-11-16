@@ -13,6 +13,9 @@ TARGET = ROOT / "DicePrototype/Assets/Game/Data/P0Config.json"
 REMOVED_CONTROLLER_FIELDS = ("maxOwnedNormal",)
 REMOVED_SHOP_FIELDS = ("controllersUniqueOwned", "allowDifferentEnchantReplacement", "replacementCredit",
                        "replacementCountsAsOneControllerSale", "firstControllerGuaranteeUnownedOnly")
+# p1.1.0 saves carry new run-state fields (the shop's paid-price records for the C98 decision D), so the save
+# structure version moves from 6 to 7 (RULES_DELTA section 9).
+SAVE_SCHEMA_VERSION = 7
 
 
 def build(base=None, content=None):
@@ -25,6 +28,9 @@ def build(base=None, content=None):
     if set(content) != set(extract.CATEGORIES):
         raise ValueError("Text categories must exactly match the six definition categories")
     cfg["configVersion"] = "p1.1.0"
+    if cfg["saveSchemaVersion"] != 6:
+        raise ValueError("Expected save schema 6 in the frozen p1.0.0 base")
+    cfg["saveSchemaVersion"] = SAVE_SCHEMA_VERSION
     for category in extract.CATEGORIES:
         entries = content[category]
         by_id = {entry["id"]: entry for entry in entries}

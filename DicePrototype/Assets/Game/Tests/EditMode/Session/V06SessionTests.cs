@@ -29,7 +29,8 @@ namespace DiceCraft.Tests
 
         [Test] public void V06_InitialZeroWalletAndSchema4SeparateColorLevels()
         {
-            var s = New().State; Assert.That(s.gold, Is.Zero); Assert.That(s.saveSchemaVersion, Is.EqualTo(6));
+            // v1.1: save structure 7 (the shop records paid prices for the C98 decision); was 6 in p1.0.0.
+            var s = New().State; Assert.That(s.gold, Is.Zero); Assert.That(s.saveSchemaVersion, Is.EqualTo(7));
             Assert.That(s.handLevels.Count, Is.EqualTo(13)); Assert.That(s.colorLevels.Select(x => x.handId), Is.EquivalentTo(new[]{"all_red","all_blue"}));
             Assert.That(s.stage.target, Is.EqualTo("300")); Assert.That(s.stage.score, Is.EqualTo("0"));
         }

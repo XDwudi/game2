@@ -32,7 +32,7 @@ namespace DiceCraft.Core
         }
         public void Validate()
         {
-            Check(configVersion == "p1.1.0" && saveSchemaVersion == 6, "Unsupported config/save version.");
+            Check(configVersion == "p1.1.0" && saveSchemaVersion == 7, "Unsupported config/save version.");
             Check(unityMajorMinor == "6000.6" && blenderMajorMinor == "5.2", "Toolchain.");
             Check(initialDiceCount == 5 && initialGold == 0 && maxPermanentDice == 8 && maxTemporaryDice == 3 && maxActiveDice == 10, "Initial/dice limits.");
             Check(initialSubmitCapacity == 5 && maxSubmitCapacity == 8 && !purchasedDiceChangeCapacity, "Independent submit capacity.");
