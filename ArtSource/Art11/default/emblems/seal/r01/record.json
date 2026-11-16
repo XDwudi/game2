@@ -1,0 +1,119 @@
+{
+  "schema": "artgen-record-1",
+  "toolVersion": "artgen-1.1",
+  "jobId": "V11-EMBLEM-SEAL",
+  "jobPath": "ArtSource/Art11/default/emblems/seal/job.json",
+  "jobSha256": "c9eeec1b5903d5ffa2dfbcad10a2ea074742dbeaa41624226bcc7d77f31bd3e5",
+  "category": "illustration",
+  "revision": "r01",
+  "mode": "new",
+  "transparentRequired": true,
+  "content": null,
+  "styleKit": {
+    "path": "ArtSource/StyleKit/style_kit.json",
+    "sha256": "bc9631749bab5efa30d93b47f8c0d9c49ed2dd70204b5994ee5450871af31e6a",
+    "kitVersion": "style-kit-1.1",
+    "status": "PROPOSED: anchors picked by AI from the shipped v0.71 illustration set; awaiting user confirmation (docs/art/STYLE_GUIDE.md section 7)"
+  },
+  "references": [
+    {
+      "index": 1,
+      "path": "ArtSource/StyleKit/plates/illustration_plate_style-kit-1.png",
+      "sha256": "a653982f60b065b968c92551074e45e8666952b9a5fe38a4a91e661a55a5581c",
+      "role": "STYLE PLATE: eight finished illustrations from this game on a plain ivory backdrop. Copy their rendering exactly (outline weight, flat planes, halftone, colour roles, viewpoint, lighting). Do not copy their subjects, their layout or the backdrop."
+    }
+  ],
+  "prompt": {
+    "imagePromptPath": "ArtSource/Art11/default/emblems/seal/r01/prompt.txt",
+    "imagePromptFileSha256": "9809b87562fbb5db39c02bfe3d4149919722861239fda7c338c5683912f003df",
+    "agentRequestPath": "ArtSource/Art11/default/emblems/seal/r01/codex-request.txt",
+    "agentRequestFileSha256": "83879b560a46141a532a6ecdbdb847c3aae7cabebdbf273d386f6f17054de046"
+  },
+  "codex": {
+    "command": [
+      "C:\\Users\\f\\AppData\\Local\\OpenAI\\Codex\\bin\\c38161ad8494f88c\\codex.exe"
+    ],
+    "version": "codex-cli 0.169.0-alpha.11.1",
+    "exitCode": 0,
+    "threadId": "01a1e60f-7a1a-74d0-b574-4882a2391508",
+    "sessionLog": "C:\\Users\\f\\.codex\\sessions\\2026\\11\\16\\rollout-2026-11-16T15-32-16-01a1e60f-7a1a-74d0-b574-4882a2391508.jsonl",
+    "agentModel": "gpt-6-astra",
+    "usage": {
+      "input_tokens": 57621,
+      "cached_input_tokens": 46208,
+      "cache_write_input_tokens": 0,
+      "output_tokens": 709,
+      "reasoning_output_tokens": 0
+    },
+    "durationSeconds": 74.4,
+    "quotaUsedPercentFirst": 17.0,
+    "quotaUsedPercentLast": 17.0
+  },
+  "imageTool": {
+    "name": "image_gen.imagegen (Codex built-in)",
+    "modelSnapshot": "not exposed by the tool; OpenAI documents the built-in tool as gpt-image-2",
+    "generations": [
+      {
+        "id": "exec-e33798d2-8571-406a-8c64-68b3775f12f6",
+        "kind": "image_gen.generation",
+        "status": "completed",
+        "failure": null,
+        "revisedPrompt": "Create ONE standalone card-theme illustration. Subject: a boss emblem for dice that get sealed: one die bound tightly by two crossing iron chains, the chains locked together in front of the die by a large round wax seal bearing a plain six-pointed star; the die sits upright and fills the middle of the composition\nStyle: Match the STYLE PLATE (reference image 1) exactly. High-resolution limited-colour screen-print illustration: bold, even dark petrol-ink outlines; broad flat colour planes; one hard-edged shadow plane per form; fine halftone dots only inside shaded planes; small crisp ivory highlights; light from the upper left. Objects are chunky, simplified and slightly toy-like, seen in three-quarter view from slightly above. Ceramic dice are rounded warm-ivory cubes with dark ink pips unless the subject asks for red or blue pips.\nColour roles: Warm ivory #F4E8CB for lit surfaces and dark petrol #173E40 for shadow planes, bases and dark parts carry most of the picture; ink #162629 for outlines and pips. Accents only, each on a few small areas: coral red #EC655D, cyan blue #55B6D9, amber gold #F3BA58 (amber only for coins, brass, rewards or a single highlight). No other hues, no gradients, no glow.\nComposition: One cohesive subject group of at most three objects, centred on a square canvas; the subject spans roughly 70 to 95 percent of the canvas width without touching the edges, with even transparent margin on every side; the silhouette must stay readable at 64 pixels. Two or three short action strokes or a small spark near the upper left of the subject are allowed when they express the effect (usually cyan; coral or ink when the subject is red or dark).\nOutput: True transparent alpha background with no backdrop of any colour. A single finished illustration, not a sheet of variants.\nAvoid: text, letters, numbers, labels, prices, card frames, UI elements, paper or coloured backdrop, ground scenery, checkerboard, a drop-shadow slab under the object, photorealism, 3D-render look, soft airbrush gradients, pixel art, neon glow, grunge, torn or burnt paper, human characters, expressive faces.",
+        "transparentBackground": true,
+        "inputImages": [
+          {
+            "path": "E:\\agent_workspace\\gpt\\game2\\ArtSource\\StyleKit\\plates\\illustration_plate_style-kit-1.png",
+            "sha256": "a653982f60b065b968c92551074e45e8666952b9a5fe38a4a91e661a55a5581c"
+          }
+        ],
+        "savedPath": "C:\\Users\\f\\.codex\\generated_images\\01a1e60f-7a1a-74d0-b574-4882a2391508\\exec-e33798d2-8571-406a-8c64-68b3775f12f6.png",
+        "generationId": "889820cf-e16e-4557-b993-1b9e30fd9813"
+      }
+    ],
+    "runChecks": {
+      "imageCallCount": 1,
+      "generationCount": 1,
+      "callReferencedImagePaths": [
+        "E:/agent_workspace/gpt/game2/ArtSource/StyleKit/plates/illustration_plate_style-kit-1.png"
+      ],
+      "modelInputImages": [
+        {
+          "path": "E:\\agent_workspace\\gpt\\game2\\ArtSource\\StyleKit\\plates\\illustration_plate_style-kit-1.png",
+          "sha256": "a653982f60b065b968c92551074e45e8666952b9a5fe38a4a91e661a55a5581c"
+        }
+      ],
+      "transparentRequested": true,
+      "callPromptExact": true,
+      "revisedPromptExact": true
+    }
+  },
+  "output": {
+    "sourcePath": "C:\\Users\\f\\.codex\\generated_images\\01a1e60f-7a1a-74d0-b574-4882a2391508\\exec-e33798d2-8571-406a-8c64-68b3775f12f6.png",
+    "archivedPath": "ArtSource/Art11/default/emblems/seal/r01/original.png",
+    "sha256": "fb69b003a0984e6af873a56aab8717bf229c09bb07902277bd6f759b5fc499ed",
+    "copiedByteIdentical": true,
+    "dimensions": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alphaExtrema": [
+      0,
+      255
+    ],
+    "transparentShare": 0.4399,
+    "alphaBounds": [
+      109,
+      68,
+      1095,
+      1210
+    ],
+    "subjectWidthShare": 0.7863,
+    "subjectHeightShare": 0.9107,
+    "subjectAreaShare": 0.5538
+  },
+  "runValid": true,
+  "runProblems": [],
+  "status": "CANDIDATE: review pending",
+  "recordedUtc": "2026-11-16T20:33:30.761111+00:00"
+}
