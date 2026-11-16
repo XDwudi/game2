@@ -115,8 +115,9 @@ namespace DiceCraft.Core
         public int selfStudyUsed, controllerRefreshCount, controllerGeneration, turnoverGrowthCount;
         public List<ShopOffer> offers = new List<ShopOffer>();
         public List<ShopGroup> groups = new List<ShopGroup>();
-        // v1.0: controllers acquired in this shop (bought, claimed as loot or taken as a replacement). C140 pays the
-        // full list price only for controllers that are not in this list, so buying and reselling in one shop never profits.
+        // v1.0: controllers acquired in this shop (bought, or claimed as loot or a gift). C140 pays the full list price
+        // only for controllers that are not in this list, so C140 adds no buy-and-resell profit within one shop.
+        // v1.1: several C98 copies can still make such a resale profitable (bounded; docs/specs/v11/RULES_DELTA.md 5).
         public List<string> acquiredControllerIds = new List<string>();
         public ShopState Clone() { var c = (ShopState)MemberwiseClone(); c.offers = offers.Select(x => x.Clone()).ToList(); c.groups = groups.Select(x => x.Clone()).ToList(); c.acquiredControllerIds = new List<string>(acquiredControllerIds); return c; }
     }

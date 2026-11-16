@@ -56,16 +56,11 @@ namespace DiceCraft.Core
         /// <summary>v0.9 C98: a negative price change on controllers and die upgrades, per source.</summary>
         private int BargainDelta(RunState s) => checked(Sources(s).Count(x => x.abilityId == "C98") * cfg.Controller("C98").parameters.priceDelta);
         private int Discount(RunState s, int price) { return Math.Max(cfg.minDiscountedItemPrice, price - s.itemDiscount); }
-        private long OfferTradeIn(RunState s, ShopOffer offer)
-        {
-            var old = offer != null && offer.category == "controller" ? s.controllers.FirstOrDefault(c => c.definitionId == offer.contentId) : null;
-            return old == null ? 0 : SalePrice(s, old);
-        }
 
         /// <summary>
         /// v1.0 C140: while any source of it is held, controllers resell at their full list price — except the ones
-        /// acquired in the shop that is open right now, which still resell at half (no buy-and-resell profit with C98,
-        /// no profit from selling loot that was just claimed).
+        /// acquired in the shop that is open right now, which still resell at half, like an ordinary sale (C140 adds no
+        /// buy-and-resell profit; v1.1: several C98 copies can, see docs/specs/v11/RULES_DELTA.md 5).
         /// </summary>
         private long SalePrice(RunState s, ControllerInstance c)
         {
@@ -82,12 +77,15 @@ namespace DiceCraft.Core
         private static bool Shelf(ShopOffer o) => string.IsNullOrEmpty(o.groupId);
         private int ControllerOfferCount(RunState s) => cfg.shop.initialControllerOffers + s.controllerOfferPurchases;
         private int ConsumableOfferCount(RunState s) => cfg.shop.initialConsumableOffers + s.consumableOfferPurchases;
+        /// <summary>
+        /// v1.1: every definition can be offered whether or not a copy is owned. The only exclusion is the one that
+        /// keeps a shop free of two same-name controller offers (sampling without replacement across the shelf and
+        /// the gift groups).
+        /// </summary>
         private ControllerDefinition[] ControllerCandidates(RunState s, IEnumerable<string> excluded = null)
         {
             var omit = new HashSet<string>(excluded ?? Array.Empty<string>(), StringComparer.Ordinal);
-            return cfg.controllers.Where(x => !omit.Contains(x.id) && (!Has(s, x.id) || cfg.enchantments.Any(e => e.id != "none"
-                && e.id != s.controllers.First(c => c.definitionId == x.id).enchantmentId && ControllerRules.IsEnchantmentLegal(x.id, e.id, cfg))))
-                .OrderBy(x => x.id, StringComparer.Ordinal).ToArray();
+            return cfg.controllers.Where(x => !omit.Contains(x.id)).OrderBy(x => x.id, StringComparer.Ordinal).ToArray();
         }
 
         private string DrawControllerEnchantment(RunState s, string id, string current, GameRng rng, string stream = "shop")
@@ -107,14 +105,14 @@ namespace DiceCraft.Core
             var choices = ControllerCandidates(s, s.shop.offers.Where(o => o.category == "controller").Select(o => o.contentId)).ToList();
             for (int i = 0; i < count && choices.Count > 0; i++)
             {
-                var pool = firstGuarantee && i == 0 ? choices.Where(x => !Has(s, x.id) && x.buyPrice <= cfg.shop.firstControllerGuaranteeMaxBasePrice).ToList() : choices;
+                var pool = firstGuarantee && i == 0 ? choices.Where(x => x.buyPrice <= cfg.shop.firstControllerGuaranteeMaxBasePrice).ToList() : choices;
                 if (pool.Count == 0) pool = choices;
                 var trace = DrawRaw(s, rng, "shop", "ControllerId", BatchId(s.shop, "controller"), pool.Sum(x => x.offerWeight));
                 int draw = trace.rawTicket; var picked = pool[0];
                 foreach (var option in pool) { draw -= option.offerWeight; if (draw < 0) { picked = option; break; } }
                 trace.rawValue = trace.appliedValue = picked.id;
-                var owned = s.controllers.FirstOrDefault(c => c.definitionId == picked.id);
-                string enchant = DrawControllerEnchantment(s, picked.id, owned == null ? null : owned.enchantmentId, rng);
+                // v1.1: an owned definition draws its enchantment exactly as an unowned one does (no replacement pool).
+                string enchant = DrawControllerEnchantment(s, picked.id, null, rng);
                 var offer = MakeOffer(s, "controller", picked.id, picked.buyPrice); int serial = s.nextItemSerial++;
                 offer.controller = new ControllerInstance { instanceId = "ITEM_" + serial.ToString("D5"), acquiredSerial = serial, definitionId = picked.id, enchantmentId = enchant };
                 s.shop.offers.Add(offer); choices.Remove(picked);
@@ -176,16 +174,17 @@ namespace DiceCraft.Core
         private void AddLoot(RunState s, GameRng rng, string kind)
         {
             var def = cfg.Loot(kind); var group = NewGroup(s, "LOOT", kind, def.picks); const int choices = 3;
+            // v1.1: controller loot may repeat an owned definition; it still never repeats a controller on the shelf.
             var shelf = new HashSet<string>(s.shop.offers.Where(o => o.category == "controller").Select(o => o.contentId), StringComparer.Ordinal);
             switch (kind)
             {
                 case "L1":
-                    foreach (string id in PickUniform(s, rng, cfg.controllers.Where(c => c.rarity == "rare" && !Has(s, c.id) && !shelf.Contains(c.id)).Select(c => c.id), choices, "LootController"))
+                    foreach (string id in PickUniform(s, rng, cfg.controllers.Where(c => c.rarity == "rare" && !shelf.Contains(c.id)).Select(c => c.id), choices, "LootController"))
                         AddLootController(s, group, id, "none");
                     break;
                 case "L2":
                     {
-                        var pool = cfg.controllers.Where(c => !Has(s, c.id) && !shelf.Contains(c.id)).OrderBy(c => c.id, StringComparer.Ordinal).ToList();
+                        var pool = cfg.controllers.Where(c => !shelf.Contains(c.id)).OrderBy(c => c.id, StringComparer.Ordinal).ToList();
                         for (int i = 0; i < choices && pool.Count > 0; i++)
                         {
                             var trace = DrawRaw(s, rng, "shop", "LootController", s.shop.generationId, pool.Sum(c => c.offerWeight)); int draw = trace.rawTicket; var picked = pool[0];
@@ -257,10 +256,42 @@ namespace DiceCraft.Core
 
         public int GetRefreshPrice() { lock (gate) { Check(state != null && state.shop != null, "当前没有商店。"); return RefreshPrice(state); } }
         public long GetControllerSalePrice(string instanceId) { lock (gate) { Check(state != null, "没有活动挑战。"); return SalePrice(state, state.controllers.FirstOrDefault(c => c.instanceId == instanceId)); } }
+
+        // ---- v1.1 boss loot first (DEV_PLAN 4.4) ----
+        /// <summary>
+        /// v1.1: the boss loot of this shop has not been resolved yet: the LOOT group is open, picks remain and it was not
+        /// cashed out (cashing out closes the group). While it is pending, the shop only accepts claims from the LOOT group
+        /// (the cash-out included), sales and controller reordering. A group whose remaining offers can no longer be
+        /// claimed at all (after at least one pick) does not hold the player, so the shop can never lock up.
+        /// </summary>
+        private bool LootPending(RunState s)
+        {
+            if (s == null || s.phase != "Shop" || s.shop == null || s.shop.groups == null) return false;
+            var group = s.shop.groups.FirstOrDefault(g => g.groupId == "LOOT");
+            if (group == null || group.closed || group.picked >= group.picks) return false;
+            return group.picked == 0 || s.shop.offers.Any(o => o.groupId == group.groupId && !o.sold && o.category != "gold" && LootOfferClaimable(s, o));
+        }
+        /// <summary>Whether a loot offer could still be taken, after selling to make room if needed.</summary>
+        private bool LootOfferClaimable(RunState s, ShopOffer offer)
+        {
+            switch (offer.category)
+            {
+                case "die_upgrade": return HasUpgradeTarget(s, offer.contentId);
+                case "hand_upgrade": return IsHandLegal(s, offer.contentId);
+                case "new_die": return ServiceLegal(s, "O03");
+                default: return true; // controllers and items: selling frees the room
+            }
+        }
+        private void RequireLootResolved(RunState s) { Check(!LootPending(s), "先领取首领战利品。"); }
+        /// <summary>v1.1: true while the boss loot must be claimed or cashed out before anything else in the shop.</summary>
+        public bool IsLootPending { get { lock (gate) return LootPending(state); } }
+        /// <summary>The same query for a detached view of the state.</summary>
+        public bool IsLootPendingIn(RunState view) { lock (gate) return LootPending(view); }
+
         private int RefreshPrice(RunState s) => s.freeFirstRefreshOwned && s.shop.controllerRefreshCount == 0 ? 0 : checked(cfg.shop.firstRefreshPrice + cfg.shop.refreshPriceStep * s.shop.controllerRefreshCount);
         private void RefreshControllers(RunState s)
         {
-            RequirePhase(s, "Shop"); int price = RefreshPrice(s);
+            RequirePhase(s, "Shop"); RequireLootResolved(s); int price = RefreshPrice(s);
             Check(s.gold >= price, "金币不足。"); Check(ControllerCandidates(s).Length > 0, "没有合法控制器候选。");
             s.gold = checked(s.gold - price); s.shop.controllerRefreshCount = checked(s.shop.controllerRefreshCount + 1); s.shop.controllerGeneration = checked(s.shop.controllerGeneration + 1);
             s.shop.offers.RemoveAll(o => o.category == "controller" && Shelf(o)); var rng = new GameRng(s.shopRngState);
@@ -380,21 +411,21 @@ namespace DiceCraft.Core
             var offer = s.shop.offers.FirstOrDefault(x => x.offerId == offerId);
             Check(offer != null && !offer.sold, "商品不存在或已售罄。");
             var group = GroupOf(s, offer);
+            if (offer.groupId != "LOOT") RequireLootResolved(s); // v1.1: boss loot first
             if (!string.IsNullOrEmpty(offer.groupId))
             {
                 Check(group != null && !group.closed && group.picked < group.picks, "这一组已经领完。");
                 Check(offer.category != "gold" || group.picked == 0, "已经领取过战利品，不能再折现。");
             }
-            Check(s.gold >= checked(OfferPrice(s, offer) - OfferTradeIn(s, offer)), "金币不足。");
+            Check(s.gold >= OfferPrice(s, offer), "金币不足。");
             switch (offer.category)
             {
                 case "controller":
+                    // v1.1: a same-name copy is simply one more card; nothing is replaced or traded in, so the limits are
+                    // checked on the current equipment plus the new card.
                     Check(offer.controller != null && offer.controller.definitionId == offer.contentId, "控制器报价实例无效。");
-                    var old = s.controllers.FirstOrDefault(c => c.definitionId == offer.contentId);
-                    Check(old == null || (offer.controller.enchantmentId != "none" && offer.controller.enchantmentId != old.enchantmentId), "同名控制器只能替换为不同的非空附魔。");
-                    var equipment = s.controllers.Where(c => c != old).Concat(new[] { offer.controller }).ToArray();
+                    var equipment = s.controllers.Concat(new[] { offer.controller }).ToArray();
                     Check(equipment.Length <= cfg.maxControllerInstances && ControllerRules.OrdinaryUsed(equipment) <= s.controllerSlots, "普通控制器槽或总件数已满，可先出售控制器。");
-                    Check(equipment.Select(c => c.definitionId).Distinct(StringComparer.Ordinal).Count() == equipment.Length, "控制器定义重复。");
                     Check(ControllerRules.IsEnchantmentLegal(offer.contentId, offer.controller.enchantmentId, cfg), "控制器附魔不合法。");
                     break;
                 case "consumable": Check(s.inventory.Count < s.consumableSlots, "道具槽位已满，可先出售道具。"); break;
@@ -418,15 +449,12 @@ namespace DiceCraft.Core
         private void Buy(RunState s, SessionCommand command)
         {
             var offer = ValidatePurchase(s, command.offerId, command.targetDieId, command.targetFaceId);
-            long price = checked(OfferPrice(s, offer) - OfferTradeIn(s, offer)); // Freeze before discount or replacement changes.
+            long price = OfferPrice(s, offer); // Freeze before a discount purchase changes it.
             s.gold = checked(s.gold - price);
             switch (offer.category)
             {
                 case "controller":
-                    var old = s.controllers.FirstOrDefault(c => c.definitionId == offer.contentId);
-                    var retainedTurnover = s.controllers.Where(c => c.definitionId == "C51").Select(c => c.instanceId).ToArray();
-                    int location = old == null ? s.controllers.Count : s.controllers.IndexOf(old);
-                    if (old != null) { long credit = SalePrice(s, old); s.controllers.Remove(old); s.shop.acquiredControllerIds.Remove(old.instanceId); s.lastEffects.Add(new EffectRecord { kind = "ControllerReplaced", sourceId = old.definitionId, detail = old.instanceId, newValue = credit }); }
+                    // v1.1: the new card is appended as its own instance; an owned same-name card stays where it is.
                     var acquired = offer.controller.Clone(); acquired.state = new ControllerDynamicState(); acquired.alive = true;
                     if (acquired.definitionId == "C45")
                     {
@@ -434,8 +462,7 @@ namespace DiceCraft.Core
                         acquired.state.activeColor = trace.rawValue = trace.appliedValue = trace.rawTicket == 0 ? "red" : "blue";
                         s.effectRngState = effect.State;
                     }
-                    s.controllers.Insert(location, acquired); s.shop.acquiredControllerIds.Add(acquired.instanceId);
-                    if (old != null) GrowTurnover(s, retainedTurnover);
+                    s.controllers.Add(acquired); s.shop.acquiredControllerIds.Add(acquired.instanceId);
                     break;
                 case "consumable": s.inventory.Add(NewOwnedItem(s, offer.contentId)); break;
                 case "hand_upgrade":
@@ -530,7 +557,7 @@ namespace DiceCraft.Core
 
         private void Study(RunState s, string handId)
         {
-            RequirePhase(s, "Shop");
+            RequirePhase(s, "Shop"); RequireLootResolved(s);
             Check(s.shop.selfStudyUsed < cfg.shop.selfStudyLimit, "本店自选研习机会已使用。");
             Check(IsHandLegal(s, handId), "牌型已满级，或当前容量/永久骰数量不足。");
             int price = HandPrice(s, handId, true); Check(s.gold >= price, "金币不足。");

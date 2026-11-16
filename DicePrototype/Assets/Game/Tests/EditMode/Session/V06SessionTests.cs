@@ -126,22 +126,31 @@ namespace DiceCraft.Tests
             Assert.That(s.GetControllerSalePrice(s.State.controllers[0].instanceId),Is.EqualTo(7));
         }
 
-        [Test] public void V06_MatureFundReplacementCreditsNegativeNetKeepsPositionAndNewState()
+        // v1.1 rewrite (docs/specs/v11/RULES_DELTA.md): a mature fund is no longer traded in. The second C52 costs its full
+        // price, is appended with its own empty fund, and the old one keeps its place and its 30; only a real sale pays it.
+        [Test] public void V06_MatureFundIsNotTradedInAndASecondFundKeepsItsOwnState()
         {
             var s=Edit(Shop(),x=>{x.gold=0;Equip(x,"C51","C52","C41");x.controllers[1].state.fundAccrual=30;x.controllers[2].state.fundAccrual=6;});
             string old=s.State.controllers[1].instanceId;string offer=Offer(s,"C52","slotless",out s);var quote=s.State.shop.offers.Single(o=>o.offerId==offer);
-            Assert.That(s.GetOfferNetPrice(quote),Is.EqualTo(-23));Do(s,CommandKind.Buy,c=>c.offerId=offer);
-            Assert.That(s.State.gold,Is.EqualTo(23));Assert.That(s.State.controllers[1].definitionId,Is.EqualTo("C52"));Assert.That(s.State.controllers[1].instanceId,Is.Not.EqualTo(old));
-            Assert.That(s.State.controllers[1].state.fundAccrual,Is.Zero);Assert.That(s.State.controllers[2].state.fundAccrual,Is.EqualTo(6));Assert.That(s.State.controllers[0].state.turnoverUnits2,Is.EqualTo(4));
+            Assert.That(s.GetOfferNetPrice(quote),Is.EqualTo(9),"4 + slotless 5; nothing is credited");var denied=Command(s,CommandKind.Buy);denied.offerId=offer;var before=s.State;
+            Assert.That(s.Execute(denied).accepted,Is.False);AssertUnchanged(before,s.State);
+            s=Edit(s,x=>x.gold=20);Do(s,CommandKind.Buy,c=>c.offerId=offer);
+            Assert.That(s.State.gold,Is.EqualTo(11));Assert.That(s.State.controllers.Select(c=>c.definitionId),Is.EqualTo(new[]{"C51","C52","C41","C52"}));
+            Assert.That(s.State.controllers[1].instanceId,Is.EqualTo(old));Assert.That(s.State.controllers[1].state.fundAccrual,Is.EqualTo(30));Assert.That(s.State.controllers[3].state.fundAccrual,Is.Zero);
+            Assert.That(s.State.controllers[2].state.fundAccrual,Is.EqualTo(6));Assert.That(s.State.controllers[0].state.turnoverUnits2,Is.EqualTo(3),"a purchase is not a sale");
+            long gold=s.State.gold;Do(s,CommandKind.Sell,c=>c.itemInstanceId=old);
+            Assert.That(s.State.gold,Is.EqualTo(gold+32),"half of 4 plus the fund of 30");Assert.That(s.State.controllers[0].state.turnoverUnits2,Is.EqualTo(4));
         }
 
-        [Test] public void V06_C51SelfReplacementDoesNotGrowNewInstanceAndItemSaleDoesNotGrow()
+        // v1.1 rewrite: buying a second C51 is not a sale, so nothing grows; the new copy starts at 1.5 and the old one keeps
+        // its value. The first real controller sale of the shop then grows both copies (each instance grows on its own).
+        [Test] public void V06_C51CopyPurchaseGrowsNothingAndItemSaleDoesNotGrow()
         {
             var s=Edit(Shop(),x=>{x.gold=100;Equip(x,"C51","C41");x.controllers[0].state.turnoverUnits2=20;AddItem(x,"I01");});
             string offer=Offer(s,"C51","mult2",out s);Do(s,CommandKind.Buy,c=>c.offerId=offer);
-            Assert.That(s.State.controllers[0].state.turnoverUnits2,Is.EqualTo(3));Do(s,CommandKind.Sell,c=>c.itemInstanceId=s.State.inventory[0].instanceId);
-            Assert.That(s.State.controllers[0].state.turnoverUnits2,Is.EqualTo(3));Do(s,CommandKind.Sell,c=>c.itemInstanceId=s.State.controllers[1].instanceId);
-            Assert.That(s.State.controllers[0].state.turnoverUnits2,Is.EqualTo(4));
+            Assert.That(s.State.controllers.Select(c=>c.state.turnoverUnits2),Is.EqualTo(new[]{20,3,3}));Do(s,CommandKind.Sell,c=>c.itemInstanceId=s.State.inventory[0].instanceId);
+            Assert.That(s.State.controllers.Select(c=>c.state.turnoverUnits2),Is.EqualTo(new[]{20,3,3}));Do(s,CommandKind.Sell,c=>c.itemInstanceId=s.State.controllers[1].instanceId);
+            Assert.That(s.State.controllers.Select(c=>c.definitionId+":"+c.state.turnoverUnits2),Is.EqualTo(new[]{"C51:21","C51:4"}));
         }
 
         [Test] public void V06_C45AcquisitionDrawOccursOnlyAfterSuccessfulValidation()

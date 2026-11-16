@@ -297,8 +297,10 @@ namespace DiceCraft.Core
             }
         }
         public int GetOfferPrice(ShopOffer offer) { lock (gate) { Check(state != null, "没有活动挑战。"); return OfferPrice(state, offer); } }
-        public long GetOfferTradeIn(ShopOffer offer) { lock (gate) { Check(state != null, "没有活动挑战。"); return OfferTradeIn(state, offer); } }
-        public long GetOfferNetPrice(ShopOffer offer) { lock (gate) { Check(state != null, "没有活动挑战。"); return checked(OfferPrice(state, offer) - OfferTradeIn(state, offer)); } }
+        /// <summary>v1.1: buying never trades an owned card in, so this is always 0. Kept for the interface.</summary>
+        public long GetOfferTradeIn(ShopOffer offer) { lock (gate) { Check(state != null, "没有活动挑战。"); return 0; } }
+        /// <summary>v1.1: equal to <see cref="GetOfferPrice"/> (no trade-in).</summary>
+        public long GetOfferNetPrice(ShopOffer offer) { lock (gate) { Check(state != null, "没有活动挑战。"); return OfferPrice(state, offer); } }
         public int OrdinaryControllerSlotsUsed { get { lock (gate) return state == null ? 0 : state.controllers.Count(x => x.enchantmentId != "slotless"); } }
         public bool CanEndStage { get { lock (gate) return state != null && state.stage.qualified && !state.stage.settled && (state.phase == "HandReady" || state.phase == "Selecting") && !busy && pendingSaveState == null && pending.Count == 0; } }
         public string[] LegalStudyHands() { lock (gate) return state == null ? Array.Empty<string>() : StudyIds(state).ToArray(); }

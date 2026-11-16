@@ -173,29 +173,38 @@ namespace DiceCraft.Tests
             command = Command(s, CommandKind.UseItem); command.itemInstanceId = item; Assert.That(s.Execute(command).accepted, Is.False);
         }
 
-        [Test] public void V05_SlotlessFitsBeyondFourAndReplaceUsesFinalEquipment()
+        // v1.1 rewrite (docs/specs/v11/RULES_DELTA.md): a same-name card is an extra card that needs its own ordinary slot;
+        // it no longer replaces the owned one, so selling something else first is what makes room.
+        [Test] public void V05_SlotlessFitsBeyondFourAndASameNameCopyNeedsItsOwnSlot()
         {
             string offer = null;
             var s = Edit(Shop(), x => { x.gold = 100; Equip(x, "C01", "C02", "C03", "C05", "C08"); x.isDebug = false; offer = EnchantedOffer(x, "C06", "slotless"); }); // p0.9.0: five ordinary slots
             Do(s, CommandKind.Buy, c => c.offerId = offer); Assert.That(s.State.controllers.Count, Is.EqualTo(6)); Assert.That(s.OrdinaryControllerSlotsUsed, Is.EqualTo(5));
             s = Edit(s, x => { x.isDebug = false; offer = EnchantedOffer(x, "C06", "base10"); });
             var before = s.State; var bad = Command(s, CommandKind.Buy); bad.offerId = offer;
-            Assert.That(s.Execute(bad).accepted, Is.False); AssertUnchanged(before, s.State);
+            Assert.That(s.Execute(bad).accepted, Is.False, "the second C06 is ordinary and the five ordinary slots are full"); AssertUnchanged(before, s.State);
             Assert.That(s.State.controllers.Single(c => c.definitionId == "C06").enchantmentId, Is.EqualTo("slotless"));
             Do(s, CommandKind.Sell, c => c.itemInstanceId = s.State.controllers.Single(v => v.definitionId == "C01").instanceId);
-            var quoted = s.State.shop.offers.Single(o => o.offerId == offer); Assert.That(s.GetOfferPrice(quoted), Is.EqualTo(6)); Assert.That(s.GetOfferNetPrice(quoted), Is.EqualTo(2));
+            var quoted = s.State.shop.offers.Single(o => o.offerId == offer); Assert.That(s.GetOfferPrice(quoted), Is.EqualTo(6)); Assert.That(s.GetOfferTradeIn(quoted), Is.Zero); Assert.That(s.GetOfferNetPrice(quoted), Is.EqualTo(6));
             long gold = s.State.gold; Do(s, CommandKind.Buy, c => c.offerId = offer);
-            Assert.That(s.State.gold, Is.EqualTo(gold - 2)); Assert.That(s.State.controllers.Count, Is.EqualTo(5));
+            Assert.That(s.State.gold, Is.EqualTo(gold - 6)); Assert.That(s.State.controllers.Count, Is.EqualTo(6));
+            Assert.That(s.State.controllers.Where(c => c.definitionId == "C06").Select(c => c.enchantmentId), Is.EqualTo(new[] { "slotless", "base10" }), "both copies are kept, the new one last");
+            Assert.That(s.OrdinaryControllerSlotsUsed, Is.EqualTo(5));
         }
 
-        [Test] public void V05_ReplacingAtTenDoesNotCreateEleventhInstanceAndNewEleventhRejects()
+        // v1.1 rewrite: at ten instances a same-name card is an eleventh card like any other and is rejected.
+        [Test] public void V05_AtTenInstancesASameNameCardIsAnEleventhAndRejectsLikeAnyNewCard()
         {
             string offer = null;
             var s = Edit(Shop(), x => { x.gold = 100; Equip(x, "C01", "C02", "C03", "C05", "C06", "C07", "C08", "C09", "C10", "C11"); x.controllerSlots = cfg.initialControllerSlots; x.isDebug = false; foreach (var c in x.controllers.Skip(cfg.initialControllerSlots)) c.enchantmentId = "slotless"; offer = EnchantedOffer(x, "C02", "base10"); });
-            Do(s, CommandKind.Buy, c => c.offerId = offer); Assert.That(s.State.controllers.Count, Is.EqualTo(10));
+            var before = s.State; var same = Command(s, CommandKind.Buy); same.offerId = offer;
+            Assert.That(s.Execute(same).accepted, Is.False, "no replacement keeps the count at ten any more"); AssertUnchanged(before, s.State);
+            Assert.That(s.PurchaseError(offer), Does.Contain("已满"));
             s = Edit(s, x => { x.isDebug = false; offer = EnchantedOffer(x, "C12", "slotless"); });
-            var before = s.State; var bad = Command(s, CommandKind.Buy); bad.offerId = offer;
+            before = s.State; var bad = Command(s, CommandKind.Buy); bad.offerId = offer;
             Assert.That(s.Execute(bad).accepted, Is.False); AssertUnchanged(before, s.State);
+            Do(s, CommandKind.Sell, c => c.itemInstanceId = s.State.controllers.Single(v => v.definitionId == "C11").instanceId);
+            Do(s, CommandKind.Buy, c => c.offerId = offer); Assert.That(s.State.controllers.Count, Is.EqualTo(10));
         }
 
         [Test] public void V05_SellingOldCardBeforeReplacementPaysFullNewPrice()
@@ -206,15 +215,19 @@ namespace DiceCraft.Tests
             Do(s, CommandKind.Buy, c => c.offerId = offer); Assert.That(s.State.gold, Is.EqualTo(90));
         }
 
-        [Test] public void V05_ReplacementInsufficientMoneyAndWriteFailureAreAtomic()
+        // v1.1 rewrite: buying a same-name copy pays the full price (no trade-in of the owned C02) and appends a second
+        // instance; insufficient money and a failed write still leave the state untouched.
+        [Test] public void V05_SameNameCopyInsufficientMoneyAndWriteFailureAreAtomic()
         {
-            string offer = null; var s = Edit(Shop(), x => { x.gold = 5; Equip(x, "C02"); offer = EnchantedOffer(x, "C02", "mult2"); });
+            string offer = null; var s = Edit(Shop(), x => { x.gold = 12; Equip(x, "C02"); offer = EnchantedOffer(x, "C02", "mult2"); });
             var before = s.State; var command = Command(s, CommandKind.Buy); command.offerId = offer;
-            Assert.That(s.Execute(command).accepted, Is.False); AssertUnchanged(before, s.State);
+            Assert.That(s.Execute(command).accepted, Is.False, "13 is needed; the owned C02 is not traded in"); AssertUnchanged(before, s.State);
             var store = new FaultStore(); s = Edit(s, x => x.gold = 100, store); before = s.State;
             command = Command(s, CommandKind.Buy); command.offerId = offer; Assert.That(s.Execute(command).pendingSave, Is.True); AssertUnchanged(before, s.State);
             var expected = store.attempted; store.fail = false; Assert.That(s.RetrySave().accepted, Is.True);
-            Assert.That(s.State.controllers.Single().instanceId, Is.EqualTo(expected.controllers.Single().instanceId)); Assert.That(s.State.gold, Is.EqualTo(90));
+            Assert.That(s.State.controllers.Select(c => c.instanceId), Is.EqualTo(expected.controllers.Select(c => c.instanceId))); Assert.That(s.State.gold, Is.EqualTo(87));
+            Assert.That(s.State.controllers.Select(c => c.definitionId + ":" + c.enchantmentId), Is.EqualTo(new[] { "C02:none", "C02:mult2" }));
+            Assert.That(s.State.controllers[0].instanceId, Is.EqualTo(before.controllers.Single().instanceId), "the owned copy is kept in place");
             Assert.That(s.State.shopRngState, Is.EqualTo(before.shopRngState)); Assert.That(s.Execute(command).duplicate, Is.True);
         }
 
@@ -278,21 +291,26 @@ namespace DiceCraft.Tests
             Assert.That(string.Join(",", s.State.shop.offers.Where(o => o.category == "controller").Select(o => o.contentId + ":" + o.controller.enchantmentId)), Is.EqualTo(expected));
         }
 
-        [Test] public void V05_ShopExcludesSlotlessNonSubmitOwnedButCanOfferDifferentScoringEnchant()
+        // v1.1 rewrite: an owned card is offered like any other card. Its enchantment is drawn from the ordinary pool of
+        // that card (so "none" and the owned enchantment are possible again), and a non-scoring card still never gets a
+        // scoring enchantment.
+        [Test] public void V05_ShopOffersOwnedCardsWithTheOrdinaryEnchantmentDraw()
         {
-            int replacementOffers = 0;
+            int ownedOffers = 0, formerlyExcluded = 0;
             for (uint seed = 1; seed <= 400; seed++) // p1.0.0: 150 controllers, so a rare repeats far less often per shop; 80 seeds no longer contained one
             {
                 var s = Qualified(); Do(s, CommandKind.EndStage);
                 s = Edit(s, x => { Equip(x, "C05", "C02"); foreach (var c in x.controllers) c.enchantmentId = "slotless"; x.shopRngState = new GameRng(seed ^ 0xC8013EA4u).State; });
                 Do(s, CommandKind.Continue);
-                Assert.That(s.State.shop.offers.Where(o => o.category == "controller" && o.contentId == "C05").All(o => o.controller.enchantmentId == "submit1" || o.controller.enchantmentId == "roll1"), Is.True);
-                foreach (var offer in s.State.shop.offers.Where(o => o.category == "controller" && o.contentId == "C02"))
+                Assert.That(s.State.shop.offers.Where(o => o.category == "controller" && o.contentId == "C05").All(o => new[] { "none", "slotless", "submit1", "roll1" }.Contains(o.controller.enchantmentId)), Is.True, "C05 keeps its non-scoring pool");
+                foreach (var offer in s.State.shop.offers.Where(o => o.category == "controller" && (o.contentId == "C02" || o.contentId == "C05")))
                 {
-                    replacementOffers++; Assert.That(offer.controller.enchantmentId, Is.EqualTo("base10").Or.EqualTo("mult2").Or.EqualTo("submit1").Or.EqualTo("roll1"));
+                    ownedOffers++; if (offer.controller.enchantmentId == "none" || offer.controller.enchantmentId == "slotless") formerlyExcluded++;
+                    Assert.That(ControllerRules.IsEnchantmentLegal(offer.contentId, offer.controller.enchantmentId, cfg), Is.True);
                 }
             }
-            Assert.That(replacementOffers, Is.GreaterThan(0), "This fixture must exercise a same-ID replacement, not only exclusion.");
+            Assert.That(ownedOffers, Is.GreaterThan(0), "This fixture must offer an owned card.");
+            Assert.That(formerlyExcluded, Is.GreaterThan(0), "No replacement pool: the owned enchantment and \"none\" can be drawn again.");
         }
     }
 }
