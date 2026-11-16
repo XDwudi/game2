@@ -286,6 +286,17 @@
 
 另：`ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell` 不需要改写。它名字里的“Duplicate”指重复的命令回执，第二次购买针对的是同一个已售出的报价，新规则下照样通过。
 
+### 6.1 界面与 PlayMode（协调者，2026-11-16）
+
+第一次 Unity PlayMode 全量运行（1920×1080，`nunit-20261116-201308`）209/213，4 项失败都来自界面仍按旧的“替换”流程工作。界面改为：已持有的卡的报价走普通购买（不再打开替换对话框，`Art07Replacement` 删除）；货架可买性按“现有装备 + 新卡”判断（不再有“替换旧实例”）；购入说明写“栏位 a → b · 总张数 c → d”，已持有时加“已有 N 张同名卡牌；买下后共 N+1 张，每张各自生效。”；购买按钮不再出现“替换”；手册“成长值”词条去掉“替换”，加“同名的几张卡牌各自成长”。
+
+| 测试 | 原期望 | 新期望 | 原因 |
+| --- | --- | --- | --- |
+| `PLAY_ART07_ExtraCapture_S11PurchaseReplacementAndFundSale` → `PLAY_ART07_ExtraCapture_S11PurchaseSameNameCopyAndFundSale` | 同名 C52 报价净价为负，打开替换对话框，取消后再确认；只剩新 C52，基金 0 | 净价等于标价且为正，点“购买”直接成交、不弹对话框；两张 C52 并存，旧卡基金 18 保留，新卡 0 且附魔为不占栏位；其余截图与出售步骤不变 | 不替换、不抵扣 |
+| `PLAY_V05_EnchantedReplacementDisplaysNetPriceAndPersistsInstance` → `PLAY_V05_EnchantedSameNameCopyShowsTheCountAndPersistsBothInstances` | 对话框写“旧卡回收 1”，新卡附魔 +10；买后只剩 1 张；标题“普通占槽 1” | 没有交易区；购入说明含“已有 1 张同名卡牌”“共 2 张”；按标价扣款；两张 C39（其中一张基础分附魔）；读档后标题“普通占槽 2” | 同上 |
+| `PLAY_ShopPurchaseFooterShowsSlotAndDuplicateFailuresBeforeConfirm` → `PLAY_ShopPurchaseFooterShowsFullSlotFailuresBeforeConfirm` | 持有一张同名卡时购买被拒，提示在替换对话框的“不可替换”区 | 用与报价同名的卡占满全部普通栏位（p1.1.0 合法），购买因栏位已满被拒，提示含“卡牌”，显示在普通报价对话框的价格区；道具部分不变 | 同名不再是拒绝理由；保留“栏位已满”的拒绝覆盖 |
+| `PLAY_ART07_ShopRedrawSettlesWithoutReplayingAndRefreshKeepsItsOwnTransaction`（同名） | 首领关后的商店直接刷新货架，动作序号 +1 | 先通过战利品对话框折现，再刷新；序号从折现之后起算；入场动画与重绘断言不变 | 战利品先领（第 2 节） |
+
 ## 7 新增的测试
 
 | 验收条件 | 测试 |

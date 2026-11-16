@@ -61,7 +61,7 @@ namespace DiceCraft
             long cost=Session.GetOfferNetPrice(offer);
             // v1.0: a gift-group offer is taken, not bought; once its group is closed the rest are void.
             bool gift=!string.IsNullOrEmpty(offer.groupId),closed=gift&&ViewState.shop.groups.Any(g=>g.groupId==offer.groupId&&g.closed);
-            string label=gift?(offer.sold?"已领取":closed?"已作废":"领取"):offer.sold?"已购买":cost<0?"替换":"购买";
+            string label=gift?(offer.sold?"已领取":closed?"已作废":"领取"):offer.sold?"已购买":"购买";
             return UiKit.ActionButton(parent,"Buy_"+offer.offerId,label,x,y,w,h,()=>{if(gift)CloseModal();Art07BuyOffer(offer);},UiKit.Paper,!offer.sold&&!closed&&!IsBusy&&!Session.HasPendingSave);
         }
         private UnityEngine.UI.Button HitArea073(Transform parent,string name,float x,float y,float w,float h,Action click)

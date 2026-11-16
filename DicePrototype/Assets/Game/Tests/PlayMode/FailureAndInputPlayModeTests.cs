@@ -77,8 +77,11 @@ namespace DiceCraft.Tests
             finally { File.SetAttributes(log, original); }
         }
 
+        // v1.1 rewrite (G3): a card you already hold is no longer a purchase failure, so the card case now fills every
+        // ordinary slot with copies of the offered card (legal in p1.1.0) and expects the full-slot refusal instead.
+        // Formerly PLAY_ShopPurchaseFooterShowsSlotAndDuplicateFailuresBeforeConfirm (one owned copy was refused).
         [UnityTest]
-        public IEnumerator PLAY_ShopPurchaseFooterShowsSlotAndDuplicateFailuresBeforeConfirm()
+        public IEnumerator PLAY_ShopPurchaseFooterShowsFullSlotFailuresBeforeConfirm()
         {
             // Build the shop by legal practice actions, then save an explicit debug boundary
             // fixture with enough money and full slots. The UI must consult core eligibility.
@@ -92,8 +95,10 @@ namespace DiceCraft.Tests
             Assert.That(fixture.isDebug, Is.True);
             fixture.gold = 1000;
             fixture.controllers.Clear();
-            var controller = fixture.shop.offers.First(o => o.category == "controller");
-            fixture.controllers.Add(BoundaryController(fixture, controller.contentId, controller.controller.enchantmentId));
+            var controller = fixture.shop.offers.First(o => o.category == "controller" && string.IsNullOrEmpty(o.groupId));
+            for (int i = 0; i < fixture.controllerSlots; i++)
+                fixture.controllers.Add(BoundaryController(fixture, controller.contentId, "none"));
+            if (controller.controller.enchantmentId == "slotless") controller.controller.enchantmentId = "none"; // a slotless copy would still fit
             fixture.inventory.Clear();
             for (int i = 0; i < fixture.consumableSlots; i++)
                 BoundaryItem(fixture, "I01");
@@ -106,7 +111,8 @@ namespace DiceCraft.Tests
             Assert.That(app.Session.PurchaseError(controller.offerId), Is.Not.Null);
             Assert.That(Button("ConfirmPurchase").interactable, Is.False);
             // v1.1: Core rejections now use D2 and the glossary ("卡牌", "栏位"; RULES_DELTA section 10).
-            Assert.That(FindActive<TextMeshProUGUI>("UnavailableBody").text, Is.EqualTo(app.Session.PurchaseError(controller.offerId)).And.Contains("卡牌"));
+            // The ordinary offer dialog shows the refusal in its price section (the replacement dialog had its own section).
+            Assert.That(FindActive<TextMeshProUGUI>("PriceBody").text, Does.Contain(app.Session.PurchaseError(controller.offerId)).And.Contain("卡牌"));
             Assert.That(StateJson(), Is.EqualTo(before));
             Click("CloseDialog");
             yield return InspectOfferCard(consumable.offerId);

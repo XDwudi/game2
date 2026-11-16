@@ -156,27 +156,31 @@ namespace DiceCraft.Tests
             File.WriteAllText(Path.Combine(extra07.output,id+"-fixture.json"),JsonUtility.ToJson(fixture,true));yield return LoadBoundaryFixture(fixture);ResumeBoundaryFixture();yield return ExtraIdle07();
         }
 
-        [UnityTest] public IEnumerator PLAY_ART07_ExtraCapture_S11PurchaseReplacementAndFundSale()
+        // v1.1 rewrite (G3, RULES_DELTA 1.1 item 5): buying a card you already hold no longer opens a replacement dialog
+        // with a trade-in; the copy is bought like any other card and both instances stay. Formerly
+        // PLAY_ART07_ExtraCapture_S11PurchaseReplacementAndFundSale (negative net price, cancel, confirm, one C52 left).
+        [UnityTest] public IEnumerator PLAY_ART07_ExtraCapture_S11PurchaseSameNameCopyAndFundSale()
         {
             yield return ExtraBegin07();var fixture=ShopBoundaryFixture();fixture.shop.offers.Clear();
             var old=BoundaryController(fixture,"C52");old.state.fundAccrual=18;fixture.controllers.Add(old);
             var seller=BoundaryController(fixture,"C41");seller.state.fundAccrual=6;fixture.controllers.Add(seller);
-            AddBoundaryOffer(fixture,"extra-buy","controller","C01");AddBoundaryOffer(fixture,"extra-replace","controller","C52");
-            fixture.shop.offers.Single(o=>o.offerId=="extra-replace").controller.enchantmentId="slotless";
+            AddBoundaryOffer(fixture,"extra-buy","controller","C01");AddBoundaryOffer(fixture,"extra-copy","controller","C52");
+            fixture.shop.offers.Single(o=>o.offerId=="extra-copy").controller.enchantmentId="slotless";
             yield return ExtraLoadFixture07(fixture,"transactions");yield return ExtraCapture07("purchase-before","S11","Explicit valid debug shop before immediate ordinary purchase.");
             long seq=app.Session.ActionSequence,gold=app.Session.State.gold,price=app.Session.GetOfferNetPrice(app.Session.State.shop.offers.Single(o=>o.offerId=="extra-buy"));
             yield return ExtraPress07("Buy_extra-buy",true);Assert.That(app.Session.ActionSequence,Is.EqualTo(seq+1));Assert.That(app.Session.State.gold,Is.EqualTo(gold-price));Assert.That(HasActive("Dialog"),Is.False);
             yield return ExtraCapture07("purchase-after","S11","Immediate purchase committed once; sold stamp and actual equipment.");
-            string before=StateJson();byte[] disk=File.ReadAllBytes(app.SaveLocation);var offer=app.Session.State.shop.offers.Single(o=>o.offerId=="extra-replace");long net=app.Session.GetOfferNetPrice(offer);Assert.That(net,Is.LessThan(0));
-            yield return ExtraPress07("Buy_extra-replace");Assert.That(Button("ConfirmPurchase").GetComponentInChildren<TextMeshProUGUI>().text,Does.StartWith("替换并获得"));
-            yield return ExtraCapture07("replacement-net-income","S11","Real old fund sale price and negative net cost; no charge yet.");
-            yield return ExtraPress07("CancelReplacement");Assert.That(StateJson(),Is.EqualTo(before));CollectionAssert.AreEqual(disk,File.ReadAllBytes(app.SaveLocation));
-            yield return ExtraPress07("Buy_extra-replace");gold=app.Session.State.gold;seq=app.Session.ActionSequence;yield return ExtraPress07("ConfirmPurchase",true);
+            var offer=app.Session.State.shop.offers.Single(o=>o.offerId=="extra-copy");long net=app.Session.GetOfferNetPrice(offer);
+            Assert.That(net,Is.EqualTo(app.Session.GetOfferPrice(offer)).And.GreaterThan(0),"No trade-in: a copy costs its list price.");
+            gold=app.Session.State.gold;seq=app.Session.ActionSequence;
+            yield return ExtraPress07("Buy_extra-copy",true);Assert.That(HasActive("Dialog"),Is.False,"An owned card's copy is an ordinary purchase, not a replacement dialog.");
             Assert.That(app.Session.ActionSequence,Is.EqualTo(seq+1));Assert.That(app.Session.State.gold,Is.EqualTo(gold-net));
-            var replacement=app.Session.State.controllers.Single(c=>c.definitionId=="C52");Assert.That(replacement.instanceId,Is.EqualTo(offer.controller.instanceId));Assert.That(replacement.state.fundAccrual,Is.Zero);Assert.That(replacement.enchantmentId,Is.EqualTo("slotless"));
-            yield return ExtraCapture07("replacement-after","S11","Committed replacement; new identity/enchantment and zero new fund, real wallet credit.");
-            yield return ExtraPress07("Controller_"+replacement.instanceId);yield return ExtraCapture07("replacement-new-instance","S15","Read-only details of initialized replacement.");yield return ExtraPress07("CloseDialog");
-            yield return ExtraPress07("Controller_"+seller.instanceId);yield return ExtraPress07("SellController");before=StateJson();disk=File.ReadAllBytes(app.SaveLocation);
+            var copies=app.Session.State.controllers.Where(c=>c.definitionId=="C52").ToArray();Assert.That(copies.Length,Is.EqualTo(2));
+            Assert.That(copies.Single(c=>c.instanceId==old.instanceId).state.fundAccrual,Is.EqualTo(18),"The card you already held keeps its fund.");
+            var copy=copies.Single(c=>c.instanceId==offer.controller.instanceId);Assert.That(copy.state.fundAccrual,Is.Zero);Assert.That(copy.enchantmentId,Is.EqualTo("slotless"));
+            yield return ExtraCapture07("copy-after","S11","Committed copy; both C52 held, the old fund kept, the new copy at zero.");
+            yield return ExtraPress07("Controller_"+copy.instanceId);yield return ExtraCapture07("copy-new-instance","S15","Read-only details of the new copy.");yield return ExtraPress07("CloseDialog");
+            yield return ExtraPress07("Controller_"+seller.instanceId);yield return ExtraPress07("SellController");string before=StateJson();byte[] disk=File.ReadAllBytes(app.SaveLocation);
             yield return ExtraCapture07("fund-sale-confirmation","S11","Sale confirmation shows actual C41 fund and lost enchantment.");
             yield return ExtraPress07("CancelSale");Assert.That(StateJson(),Is.EqualTo(before));CollectionAssert.AreEqual(disk,File.ReadAllBytes(app.SaveLocation));
             yield return ExtraPress07("SellController");long sale=app.Session.GetControllerSalePrice(seller.instanceId);gold=app.Session.State.gold;seq=app.Session.ActionSequence;

@@ -109,6 +109,14 @@ namespace DiceCraft.Tests
             yield return app.StartCoroutine(ShopEntranceFrame07());app.Refresh();
             Assert.That(motion.EnterSequence,Is.EqualTo(enters));Assert.That(motion.IsPlaying,Is.False);AssertInteractionCheckpoint07(state,disk,seq);
             Assert.That(ShopEntranceRoot07("ShopProducts").anchoredPosition,Is.EqualTo(new Vector2(368,-512)));
+            // v1.1 rewrite (G5, RULES_DELTA 2.1): this shop follows a boss stage, and refreshing is refused until the boss
+            // loot is claimed or cashed out. Cash it out through the loot dialog first, then exercise the refresh as before.
+            var cash=app.Session.State.shop.offers.Single(o=>o.groupId=="LOOT"&&o.category=="gold");
+            Click("ViewGifts");Click("Buy_"+cash.offerId);
+            {double until=Time.realtimeSinceStartupAsDouble+3;while(app.TransactionVisualPlaying07&&Time.realtimeSinceStartupAsDouble<until)yield return null;}
+            if(HasActive("CloseDialog"))Click("CloseDialog");
+            Assert.That(app.Session.IsLootPending,Is.False);
+            seq=app.Session.ActionSequence;identity=app.Session.State.shop.generationId;
             yield return app.StartCoroutine(ShopEntranceFrame07());ShopEntrancePointer07("RefreshControllers");
             Assert.That(app.Session.ActionSequence,Is.EqualTo(seq+1));Assert.That(app.Session.State.processedReceipts.Last().command.kind,Is.EqualTo(CommandKind.RefreshControllers));
             Assert.That(app.Session.State.shop.generationId,Is.EqualTo(identity));Assert.That(motion.EnterSequence,Is.EqualTo(enters));Assert.That(motion.IsPlaying,Is.False);

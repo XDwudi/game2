@@ -15,7 +15,7 @@ namespace DiceCraft
         {
             // v1.1 (text proposal 5 #6): the order ScoreCalculator applies, including the item and boss factors after the enchantments.
             new[]{"计分顺序","点数合计（含再计一次）＋各种加值 ＝ 基础分；再依次乘以牌型倍率、颜色倍率、红组倍率、各卡牌倍率和倍率附魔；用了道具“灵光一闪”时再 ×2，首领减益让得分减半时再 ×0.5；最后向下取整一次。"},
-            new[]{"成长值","卡面写着“当前 ×n”或“当前 +n”的控制器会随对局变强。成长发生在触发它的那次计分之后，所以触发成长的那一手用的还是成长前的数值。卖出、替换或损毁就失去成长值；百变模仿使用被模仿那张卡的成长值，但自己不成长。"},
+            new[]{"成长值","卡面写着“当前 ×n”或“当前 +n”的控制器会随对局变强。成长发生在触发它的那次计分之后，所以触发成长的那一手用的还是成长前的数值。卖出或损毁就失去成长值；同名的几张卡牌各自成长；百变模仿使用被模仿那张卡的成长值，但自己不成长。"},
             new[]{"再计一次","指定的提交骰把自己的点数贡献再加进基础分一次，逐骰加值、玻璃和黄金都一并翻倍。多个来源可以叠加成再计多次。不改变牌型、红组和骰子数量。"},
             new[]{"留池骰","本手投出后没有锁进提交栏的骰子。它们不计分，但板凳深度、厚积薄发、幕后推手、空城计和场外红人会读取它们的数量、点数和颜色。骰子比提交栏多时，留什么在池里也是一种选择。"},
             new[]{"牌型倍率加值","成双成对、三足鼎立把数值直接加在牌型倍率上，例如一对从 ×2 变成 ×3.5，之后仍会被颜色、红组和控制器倍率继续放大。"},
@@ -128,11 +128,13 @@ namespace DiceCraft
         }
         private string ControllerPurchaseText(ShopOffer offer)
         {
-            var old=ViewState.controllers.FirstOrDefault(c=>c.definitionId==offer.contentId);
-            var final=ViewState.controllers.Where(c=>c.definitionId!=offer.contentId).Select(c=>c.Clone()).ToList();
+            // v1.1 (G3): the new copy is added to what you hold; nothing is replaced or traded in.
+            int owned=ViewState.controllers.Count(c=>c.definitionId==offer.contentId);
+            var final=ViewState.controllers.Select(c=>c.Clone()).ToList();
             final.Add(offer.controller);
-            return $"普通槽 {ControllerRules.OrdinaryUsed(ViewState.controllers)} → {ControllerRules.OrdinaryUsed(final)} / {ViewState.controllerSlots}   ·   总持有 {ViewState.controllers.Count} → {final.Count} / {Config.maxControllerInstances}\n"+
-                (old==null?$"基础价 {Config.Controller(offer.contentId).buyPrice} + 附魔溢价 = {Session.GetOfferPrice(offer)}":"替换：新卡标价 "+Session.GetOfferPrice(offer)+" − 旧卡回收 "+Session.GetOfferTradeIn(offer)+(Session.GetOfferNetPrice(offer)<0?" = 净收入 "+(-Session.GetOfferNetPrice(offer)):" = 净支出 "+Session.GetOfferNetPrice(offer)));
+            return $"栏位 {ControllerRules.OrdinaryUsed(ViewState.controllers)} → {ControllerRules.OrdinaryUsed(final)} / {ViewState.controllerSlots}   ·   总张数 {ViewState.controllers.Count} → {final.Count} / {Config.maxControllerInstances}\n"+
+                $"基础价 {Config.Controller(offer.contentId).buyPrice} + 附魔加价 = {Session.GetOfferPrice(offer)}"+
+                (owned>0?$"\n已有 {owned} 张同名卡牌；买下后共 {owned+1} 张，每张各自生效。":"");
         }
         private void ShowController(ControllerInstance item,bool selling)
         {

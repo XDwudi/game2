@@ -84,21 +84,26 @@ namespace DiceCraft.Tests
             Assert.That(StateJson(),Is.EqualTo(before));Assert.That(FindActive<Transform>("HandbookRow_pair").GetComponentsInChildren<TextMeshProUGUI>().Single(t=>t.name=="Level").text,Does.Contain("Lv.1 / 100"));
         }
 
+        // v1.1 rewrite (G3, RULES_DELTA 1.1 item 5): an enchanted offer of a card you already hold is a second copy, not a
+        // replacement. Formerly PLAY_V05_EnchantedReplacementDisplaysNetPriceAndPersistsInstance ("旧卡回收 1", one C39 left).
         [UnityTest]
-        public IEnumerator PLAY_V05_EnchantedReplacementDisplaysNetPriceAndPersistsInstance()
+        public IEnumerator PLAY_V05_EnchantedSameNameCopyShowsTheCountAndPersistsBothInstances()
         {
             var fixture=ShopBoundaryFixture();fixture.shop.offers.Clear();
             fixture.controllers.Add(BoundaryController(fixture, "C39"));
-            AddBoundaryOffer(fixture,"replace-c39","controller","C39");
+            AddBoundaryOffer(fixture,"copy-c39","controller","C39");
             fixture.shop.offers[0].controller.enchantmentId="base10";
-            yield return LoadBoundaryFixture(fixture);ResumeBoundaryFixture();yield return OpenBoundaryOffer("replace-c39");
-            Assert.That(DialogLabel("TradeBody"),Does.Contain("旧卡回收 1"));Assert.That(FindActive<Transform>("NewCard").GetComponentsInChildren<TextMeshProUGUI>().Single(t=>t.name=="Enchant").text,Does.Contain("+10"));
-            long gold = app.Session.State.gold;long net=app.Session.GetOfferNetPrice(app.Session.State.shop.offers[0]);Click("ConfirmPurchase");
-            Assert.That(app.Session.State.gold,Is.EqualTo(gold-net));Assert.That(app.Session.State.controllers.Count,Is.EqualTo(1));
-            Assert.That(app.Session.State.controllers.Single().enchantmentId,Is.EqualTo("base10"));
+            yield return LoadBoundaryFixture(fixture);ResumeBoundaryFixture();yield return OpenBoundaryOffer("copy-c39");
+            Assert.That(HasActive("TradeBody"),Is.False,"No trade-in section any more.");
+            Assert.That(DialogLabel("CapacityBody"),Does.Contain("已有 1 张同名卡牌").And.Contain("共 2 张"));
+            long gold = app.Session.State.gold;long price=app.Session.GetOfferPrice(app.Session.State.shop.offers[0]);
+            Assert.That(app.Session.GetOfferNetPrice(app.Session.State.shop.offers[0]),Is.EqualTo(price));Click("ConfirmPurchase");
+            Assert.That(app.Session.State.gold,Is.EqualTo(gold-price));Assert.That(app.Session.State.controllers.Count,Is.EqualTo(2));
+            Assert.That(app.Session.State.controllers.Select(c=>c.definitionId),Is.All.EqualTo("C39"));
+            Assert.That(app.Session.State.controllers.Count(c=>c.enchantmentId=="base10"),Is.EqualTo(1));
             string before=StateJson();yield return LoadBootstrap();ResumeBoundaryFixture();
             Assert.That(StateJson(),Is.EqualTo(before));string controllerTitle=FindActive<TextMeshProUGUI>("ControllerCapacity07").text;
-            Assert.That(controllerTitle,Does.Contain("调试配置"));Assert.That(controllerTitle,Does.Contain("普通占槽 1"));Assert.That(controllerTitle,Does.Not.Contain("/"));
+            Assert.That(controllerTitle,Does.Contain("调试配置"));Assert.That(controllerTitle,Does.Contain("普通占槽 2"));Assert.That(controllerTitle,Does.Not.Contain("/"));
         }
     }
 }

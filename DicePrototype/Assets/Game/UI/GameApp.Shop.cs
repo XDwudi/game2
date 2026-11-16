@@ -119,8 +119,7 @@ namespace DiceCraft
         private void InspectOffer(ShopOffer offer)
         {
             if(offer.category=="die_upgrade"||offer.contentId=="O04"){TargetDie(offer,null);return;}
-            var old=offer.category=="controller"?ViewState.controllers.FirstOrDefault(c=>c.definitionId==offer.contentId):null;
-            if(old!=null){Art07Replacement(offer,old);return;}
+            // v1.1 (G3): a card you already own is bought like any other; the copy is added, nothing is replaced.
             if(offer.category=="new_die")
             {
                 ShowNewDieOffer07(offer);return;

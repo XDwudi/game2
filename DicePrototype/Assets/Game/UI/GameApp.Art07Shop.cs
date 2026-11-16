@@ -124,11 +124,10 @@ namespace DiceCraft
             if(cost>ViewState.gold)return "还差 "+(cost-ViewState.gold);
             if(offer.category=="controller")
             {
-                var old=ViewState.controllers.FirstOrDefault(c=>c.definitionId==offer.contentId);
-                var final=ViewState.controllers.Where(c=>c!=old).Concat(new[]{offer.controller}).ToArray();
-                if(final.Length>Config.maxControllerInstances)return "总持有已满";
-                if(ControllerRules.OrdinaryUsed(final)>ViewState.controllerSlots)return "普通槽已满";
-                if(old!=null)return "替换旧实例";
+                // v1.1 (G3): the copy is added to what you hold; nothing is replaced (RULES_DELTA 1.1 item 5).
+                var final=ViewState.controllers.Concat(new[]{offer.controller}).ToArray();
+                if(final.Length>Config.maxControllerInstances)return "总张数已满";
+                if(ControllerRules.OrdinaryUsed(final)>ViewState.controllerSlots)return "栏位已满";
             }
             if(offer.category=="consumable"&&ViewState.inventory.Count>=ViewState.consumableSlots)return "道具库存满";
             if(offer.category=="die_upgrade"||offer.contentId=="O04")return "需选择目标";
@@ -138,8 +137,7 @@ namespace DiceCraft
         private void Art07BuyOffer(ShopOffer offer)
         {
             if(IsBusy||Session.HasPendingSave||offer.sold)return;
-            bool replacement=offer.category=="controller"&&ViewState.controllers.Any(c=>c.definitionId==offer.contentId);
-            if(replacement||offer.category=="die_upgrade"||offer.contentId=="O04"||Session.PurchaseError(offer.offerId)!=null)
+            if(offer.category=="die_upgrade"||offer.contentId=="O04"||Session.PurchaseError(offer.offerId)!=null)
             {InspectOffer(offer);return;}
             Send(new SessionCommand{kind=CommandKind.Buy,offerId=offer.offerId});
         }
@@ -152,29 +150,8 @@ namespace DiceCraft
             UiKit.Button(p,"CloseDialog","×",width-88,12,64,64,CloseModal);
             return p;
         }
-        private void Art07Replacement(ShopOffer offer,ControllerInstance old)
-        {
-            var p=Art07Modal("替换控制器 · "+NameOf(offer.contentId),440,220,1040,640);
-            var oldCard=UiKit.Frame(p,"OldCard",24,110,176,264,UiKit.Paper,UiKit.Ink);
-            var newCard=UiKit.Frame(p,"NewCard",840,110,176,264,UiKit.Paper,UiKit.Ink);
-            Icon(oldCard,old.definitionId,16,60,144);Icon(newCard,offer.contentId,16,60,144);
-            UiKit.Text(oldCard,"Kind","当前实例",8,12,160,48,23,UiKit.Ink,TextAlignmentOptions.Center);
-            UiKit.Text(newCard,"Kind","新报价",8,12,160,48,23,UiKit.Ink,TextAlignmentOptions.Center);
-            EnchantBadge(oldCard,old.enchantmentId,132,50,32);EnchantBadge(newCard,offer.controller.enchantmentId,132,50,32);
-            UiKit.Text(oldCard,"Enchant",EnchantShort(old.enchantmentId),8,212,160,44,20,UiKit.Ink,TextAlignmentOptions.Center);
-            UiKit.Text(newCard,"Enchant",EnchantShort(offer.controller.enchantmentId),8,212,160,44,20,UiKit.Ink,TextAlignmentOptions.Center);
-            var list=PaperDetailScroll071(p,"ReplacementDetails",224,104,592,430);float y=0;
-            long cost=Session.GetOfferNetPrice(offer),trade=Session.GetOfferTradeIn(offer);
-            Art07DetailSection(list,"Trade","本次交易","新卡标价 "+Session.GetOfferPrice(offer)+"\n旧卡回收 "+trade+"\n"+(cost>=0?"净支出 "+cost:"净收入 "+(-cost))+"\n余额 "+ViewState.gold+" → "+((System.Numerics.BigInteger)ViewState.gold-cost),ref y,560,true);
-            Art07DetailSection(list,"State","新实例重新初始化","旧实例的成长及附魔不会迁移。\n旧基金累计 "+old.state.fundAccrual+"；新基金累计 "+offer.controller.state.fundAccrual+"。\n"+Art07OfferState(offer.controller),ref y,560,true);
-            Art07DetailSection(list,"Capacity","装备占槽",ControllerPurchaseText(offer),ref y,560,true);
-            string error=Session.PurchaseError(offer.offerId);
-            if(error!=null)Art07DetailSection(list,"Unavailable","当前不可替换",error,ref y,560,true);
-            list.sizeDelta=new Vector2(list.sizeDelta.x,y+16);
-            UiKit.Button(p,"CancelReplacement","取消",24,552,312,64,CloseModal);
-            UiKit.ActionButton(p,"ConfirmPurchase",cost>=0?"支付 "+cost+" 并替换":"替换并获得 "+(-cost),360,552,656,64,
-                ()=>{CloseModal();Send(new SessionCommand{kind=CommandKind.Buy,offerId=offer.offerId});},UiKit.Gold,error==null&&!IsBusy);
-        }
+        // v1.1 (G3): the replacement dialog (Art07Replacement) was removed with the replacement rule; an owned card's
+        // offer opens the ordinary offer details, which say how many copies you will hold.
         private void Art07AttachTooltip(UnityEngine.UI.Button button,string owner,string title,string description,string state,Action detail)
         {
             var hover=UiKit.Component<Art07HoverTip>(button.gameObject);
