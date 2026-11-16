@@ -426,7 +426,7 @@ namespace DiceCraft.Core
                     Check(s.hand.rollsRemaining > 0 && s.dice.Any(x => !s.hand.orderedLockedIds.Contains(x.dieId) && x.faces.Any(f => f.permanentPip == cfg.maxPipValue)), "没有可投掷且含永久6点面的未锁骰。"); s.hand.largeBuff = true;
                     break;
                 case "I05":
-                    Check(!s.hand.smallBuff, "本手缩小射线已经生效。");
+                    Check(!s.hand.smallBuff, "本手小数多来已经生效。"); // v1.1: named the card C37 by mistake (text proposal §5 error 1)
                     Check(s.hand.rollsRemaining > 0 && s.dice.Any(x => !s.hand.orderedLockedIds.Contains(x.dieId) && x.faces.Any(f => f.permanentPip == cfg.minPipValue)), "没有可投掷且含永久1点面的未锁骰。"); s.hand.smallBuff = true;
                     break;
                 case "I06": s.stage.remainingSubmissions = checked(s.stage.remainingSubmissions + 1); break;
