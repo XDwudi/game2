@@ -9,6 +9,8 @@ Every number in the report's tables comes from one of these files, so the report
     python tools/balance_sim/v10_report_tables.py usage   evidence/v10/balance/run_p100_final.json
     python tools/balance_sim/v10_report_tables.py scen    evidence/v10/balance/scen_p100_final.json
     python tools/balance_sim/v10_report_tables.py compare evidence/v10/balance/run_a.json evidence/v10/balance/run_b.json ...
+    python tools/balance_sim/v10_report_tables.py paired_v11 evidence/v10/balance/run_p100_final.json evidence/v11/balance/run_p110_300.json --out evidence/v11/balance/paired_p100_p110.md
+    python tools/balance_sim/v10_report_tables.py v11 evidence/v11/balance/run_p110_300.json
     python tools/balance_sim/v10_report_tables.py fill docs/specs/v10/BALANCE_REPORT.md     # regenerate the tables in place
     python tools/balance_sim/v10_report_tables.py fill docs/specs/v10/BALANCE_REPORT.md --check
 
@@ -301,6 +303,84 @@ def lab(paths: list) -> None:
         print("沉默（附魔失效）的损失随进度变化很大，中位数按关：" + " / ".join(f"第 {k} 关 {100 * median(by[k]):.0f}%" for k in sorted(by)) + "。")
 
 
+def checked_seed_pair(base: dict, current: dict) -> tuple:
+    """Reject incomplete or mismatched runs instead of silently pairing only their intersection."""
+    indexed = []
+    for data in (base, current):
+        logs = data["logs"]
+        by_seed = {row["seed"]: row for row in logs}
+        expected = set(range(data["firstSeed"], data["firstSeed"] + data["seeds"]))
+        if data["errors"] or data["runs"] != data["seeds"] or len(logs) != len(by_seed) or set(by_seed) != expected:
+            raise ValueError("Paired comparison requires complete, unique, error-free seed logs.")
+        if any((row.get("fail") or "").startswith("ERROR") for row in logs):
+            raise ValueError("Paired comparison contains failed simulator runs.")
+        if data.get("rejectedShopCommands", 0) or data.get("rejectedOptionalCommands", 0) or data.get("quoteMismatches", 0) or data.get("plannerSelfCheck", {}).get("mispredicted", 0):
+            raise ValueError("Paired comparison contains failed simulator diagnostics.")
+        indexed.append(by_seed)
+    if not indexed[0] or set(indexed[0]) != set(indexed[1]):
+        raise ValueError("Paired comparison requires exactly the same nonempty seed set.")
+    return indexed[0], indexed[1], sorted(indexed[0])
+
+
+def paired_v11(paths: list) -> None:
+    if len(paths) != 2:
+        raise ValueError("paired_v11 requires baseline and current run JSON paths.")
+    base, current = map(load, paths)
+    b, c, seeds = checked_seed_pair(base, current)
+    n = len(seeds)
+    print(f"按 seed 严格配对 {n} 局（{seeds[0]}–{seeds[-1]}）；输入：{paths[0]}；{paths[1]}。")
+    print("规则与机器人适配一起改变；相同种子不保证后续商店、首领和随机事件一一相同，不能把差异全部归因于重复卡。")
+    print()
+    print(f"| 指标 | {base['config']} | {current['config']} |")
+    print("| --- | --- | --- |")
+    for title, metric in (
+        ("通关", lambda logs: f"{sum(logs[s]['won'] for s in seeds)}/{n}（{100 * sum(logs[s]['won'] for s in seeds) / n:.2f}%）"),
+        ("到达关数均值", lambda logs: f"{sum(logs[s]['reached'] for s in seeds) / n:.3f}"),
+        ("首领关通过", lambda logs: (lambda at: f"{sum(x['cleared'] for x in at)}/{len(at)}")([x for s in seeds for x in logs[s]['stages'] if x['kind'] == 'boss'])),
+        ("高压挑战接受", lambda logs: (lambda at: f"{sum(x['risk'] for x in at)}/{len(at)}")([x for s in seeds for x in logs[s]['stages'] if x.get('riskOffered')])),
+    ):
+        print(f"| {title} | {metric(b)} | {metric(c)} |")
+    only_base = sum(b[s]["won"] and not c[s]["won"] for s in seeds)
+    only_current = sum(c[s]["won"] and not b[s]["won"] for s in seeds)
+    both = sum(b[s]["won"] and c[s]["won"] for s in seeds)
+    diff = (only_current - only_base) / n
+    half = 1.96 * ((only_current + only_base - (only_current - only_base) ** 2 / n) ** 0.5) / n
+    print()
+    print(f"双方通关 {both}；仅基线通关 {only_base}；仅新版通关 {only_current}；双方失败 {n - both - only_base - only_current}。")
+    print(f"新版 − 基线通关率：{100 * diff:+.2f} 个百分点；配对正态近似 95% 区间 {100 * (diff - half):+.2f} 至 {100 * (diff + half):+.2f}（小样本或少量不一致配对时仅供描述）。")
+    print(f"同 seed 到达关数差均值：{sum(c[s]['reached'] - b[s]['reached'] for s in seeds) / n:+.3f}。")
+
+
+def v11(path: str) -> None:
+    data = load(path)
+    dup = data["duplicates"]
+    print(f"{data['config']}：{data['runs']} 局，胜 {data['wins']}；错误 {data['errors']}，商店拒绝 {data['rejectedShopCommands']}。")
+    print()
+    print("| 获得来源 | 重复副本 | 全部卡牌获得 | 重复占比 % |")
+    print("| --- | --- | --- | --- |")
+    for key, name in (("shelf", "货架"), ("loot", "首领战利品")):
+        row = dup[key]
+        print(f"| {name} | {row['duplicateCopies']} | {row['acquiredCopies']} | {row['pct']:.2f} |")
+    print()
+    print("| 结局 | 局数 | 实际持有卡牌张数 | 其中额外副本 | 持有重复卡的局数 |")
+    print("| --- | --- | --- | --- | --- |")
+    for key, name in (("atDeath", "死亡"), ("atWin", "通关")):
+        row = dup[key]
+        print(f"| {name} | {row['runs']} | {row['totalCopies']} | {row['extraCopies']} | {row['runsWithDuplicates']} |")
+    print()
+    print("| 卡牌 | 货架重复获得 | 战利品重复获得 | 终局额外副本 | 终局同名最多张数 |")
+    print("| --- | --- | --- | --- | --- |")
+    for row in dup["cards"]:
+        if row['shelf'] + row['loot'] + row['terminalExtraCopies']:
+            print(f"| {row['id']} {row['name']} | {row['shelf']} | {row['loot']} | {row['terminalExtraCopies']} | {row['maxTerminalCopies']} |")
+    print()
+    print("| 战利品 | 出现 | 选物品 | 折现 | 未选 | 领取件数 / 总额度 | 每店领取件数分布 |")
+    print("| --- | --- | --- | --- | --- | --- | --- |")
+    for row in data['loot']:
+        hist = '，'.join(f"{k} 件：{v} 店" for k, v in row['pickCountHistogram'].items())
+        print(f"| {row['id']} {row['name']} | {row['offered']} | {row['tookOffers']} | {row['tookGold']} | {row['tookNothing']} | {row['picksTaken']} / {row['picksAvailable']} | {hist} |")
+
+
 def paired(paths: list) -> None:
     base, prep = load(paths[0]), load(paths[1])
     b = {l["seed"]: l for l in base["logs"]}
@@ -453,7 +533,11 @@ SINGLE = {"cards": cards, "stages": stages, "bosses": bosses, "loot": loot, "usa
 def render(mode: str, paths: list) -> str:
     out = io.StringIO()
     with contextlib.redirect_stdout(out):
-        if mode == "compare":
+        if mode == "paired_v11":
+            paired_v11(paths)
+        elif mode == "v11":
+            v11(paths[0])
+        elif mode == "compare":
             compare(paths)
         elif mode in MULTI:
             MULTI[mode](paths)
@@ -491,7 +575,16 @@ def main() -> int:
     mode = sys.argv[1]
     if mode == "fill":
         return fill(sys.argv[2], "--check" in sys.argv[3:])
-    print(render(mode, sys.argv[2:]))
+    paths = sys.argv[2:]
+    out = None
+    if "--out" in paths:
+        index = paths.index("--out")
+        out = Path(paths[index + 1])
+        paths = paths[:index] + paths[index + 2:]
+    result = render(mode, paths)
+    if out is not None:
+        out.write_text(result + "\n", encoding="utf-8")
+    print(result)
     return 0
 
 

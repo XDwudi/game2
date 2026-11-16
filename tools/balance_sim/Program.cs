@@ -1,4 +1,4 @@
-// Balance simulator for the dice-building prototype (rules p1.0.0).
+// Balance simulator for the dice-building prototype (rules p1.1.0).
 //   verify  : compare the fast planning scorer with the real ScoreCalculator on random submissions
 //   cards   : marginal strength of every controller in reference builds
 //   scen    : hand-built scenarios (accumulation end states, starter odds)
@@ -83,10 +83,53 @@ public static class Program
     static string Generation(int a) => a < 54 ? "p0.6" : a < 104 ? "p0.9" : "p1.0";
 
     // ------------------------------------------------------------------ verify
+    /// <summary>Enumerate all independent C53 draws, retaining repeated entries in the configured distribution.
+    /// This also verifies that the planning expectation preserves the correlation of one owner's mimics.</summary>
+    static (int builds, int outcomes, int mismatches) VerifyC53Expectations()
+    {
+        string[][] builds = { new[] { "C53", "C53" }, new[] { "C41", "C53", "C53" }, new[] { "C41", "C41", "C53", "C53", "C53" } };
+        int outcomes = 0, mismatches = 0;
+        foreach (var definitions in builds)
+        {
+            var st = Fresh(); st.controllers = definitions.Select((id, i) => Ctl(id, i + 1)).ToList();
+            var b = Build.From(st, P, false); var h = new Sub { n = 1, rolls = 1 }; h.Put(0, b.dice[0], 0);
+            double expected = b.Score(h, out _), sum = 0; int count = 0;
+            var die = st.dice[0]; var face = die.faces.First(f => f.faceId == "F01");
+            var snap = new SubmissionSnapshot
+            {
+                runId = "c53-expectation", stageId = "STAGE_01", handId = "H", configVersion = cfg.configVersion,
+                capacity = b.capacity, rollsRemaining = h.rolls, wallet = st.gold, equippedControllers = st.controllers.ToArray(),
+                handLevels = st.handLevels.ToArray(), colorLevels = st.colorLevels.ToArray(), rollsUsed = 1,
+                submissionsRemainingBefore = b.subsLeft, permanentDiceCount = b.permDice, ordinaryControllerSlots = st.controllerSlots,
+                dice = new[] { new SubmissionDie { dieId = die.dieId, faceId = face.faceId, currentPip = face.permanentPip, currentColor = face.baseColor,
+                    permanentSixFaceSum = die.faces.Sum(f => f.permanentPip), lifetime = die.lifetime, permanentFacesCopy = die.faces } }
+            };
+            var choices = st.controllers.Where(c => c.definitionId == "C53").Select(c => new RandomMultiplierChoice { ownerInstanceId = c.instanceId }).ToArray();
+            void Visit(int owner)
+            {
+                if (owner < choices.Length)
+                {
+                    foreach (int units in P.c53units) { choices[owner].units2 = units; Visit(owner + 1); }
+                    return;
+                }
+                snap.resolvedRandomChoices = choices;
+                var real = ScoreCalculator.Evaluate(snap, cfg);
+                double exact = (double)BigInteger.Parse(real.scoreNumerator) / (double)BigInteger.Parse(real.scoreDenominator);
+                b.SetRandomChoices(choices); double actual = b.Score(h, out _);
+                if (Math.Abs(actual - exact) > 1e-9 * Math.Max(1, exact)) mismatches++;
+                sum += exact; count++; outcomes++;
+            }
+            Visit(0);
+            double mean = sum / count;
+            if (Math.Abs(expected - mean) > 1e-9 * Math.Max(1, mean)) mismatches++;
+        }
+        return (builds.Length, outcomes, mismatches);
+    }
+
     /// <summary>Random frozen submissions scored by both the real ScoreCalculator.Evaluate and the fast scorer.
     /// A case passes when (1) the fast value equals the exact rational score (scoreNumerator / scoreDenominator)
     /// within 1e-9 relative, (2) its floor equals the real floored score, (3) the primary hand is the same and
-    /// (4) the set of triggered abilities is the same. p1.0.0 cases also draw a boss modifier, disabled controllers,
+    /// (4) the triggered ability set and ordered source instance IDs are the same. p1.0.0 cases also draw a boss modifier, disabled controllers,
     /// temporary dice, face weights and the eight new snapshot fields. Coverage is printed per controller, per boss
     /// modifier and per scoring effect; a scoring controller or effect that never took effect fails the run.</summary>
     static int Verify(int n, string outPath)
@@ -95,6 +138,8 @@ public static class Program
         var ids = cfg.controllers.Select(c => c.id).Where(id => id != "C41").ToArray(); string[] ench = { "none", "slotless", "base10", "mult2", "submit1", "roll1" };
         string[] textures = { "none", "none", "none", "smooth", "rough" }; string[] kinds = { null, "normal", "pressure", "boss", "boss" };
         var present = new int[Params.N]; var trig = new int[Params.N];
+        var duplicatePresent = new int[Params.N]; var duplicateTriggered = new int[Params.N];
+        int duplicateBuilds = 0, twoCopyBuilds = 0, threeCopyBuilds = 0, duplicateMimicBuilds = 0, duplicateCopiedByMimicBuilds = 0;
         var feature = new SortedDictionary<string, int>(StringComparer.Ordinal);
         Action<string, bool> mark = (name, on) => { feature[name] = feature.GetValueOrDefault(name) + (on ? 1 : 0); };
         var modSeen = cfg.bossModifiers.ToDictionary(m => m.id, m => 0); var modChanged = cfg.bossModifiers.ToDictionary(m => m.id, m => 0);
@@ -103,9 +148,36 @@ public static class Program
         for (int it = 0; it < n; it++)
         {
             var st = baseState.Clone(); st.controllers.Clear(); st.dice.Clear();
-            int k = rnd.Next(0, 10), serial = 1;
-            var pick = ids.OrderBy(_ => rnd.Next()).Take(k).ToList();
-            if (rnd.Next(4) == 0) pick.Insert(rnd.Next(pick.Count + 1), "C41");   // mimic at a random position (last = no target)
+            int serial = 1, shapeClass = it % 6;
+            // Keep no-copy controls, force two/three real copies, mix them with mimics, and also sample with replacement.
+            // The controlled classes remain randomized in definition, state, enchantment, position and context.
+            var pick = new List<string>();
+            if (shapeClass == 0)
+            {
+                pick.AddRange(ids.OrderBy(_ => rnd.Next()).Take(rnd.Next(0, 10)));
+                if (rnd.Next(4) == 0) pick.Insert(rnd.Next(pick.Count + 1), "C41");
+            }
+            else if (shapeClass == 5)
+            {
+                for (int k = rnd.Next(2, 11); k > 0; k--) pick.Add(rnd.Next(8) == 0 ? "C41" : ids[rnd.Next(ids.Length)]);
+            }
+            else
+            {
+                string duplicate = ids[rnd.Next(ids.Length)]; int copies = shapeClass == 1 || shapeClass == 3 ? 2 : 3;
+                int mimics = shapeClass == 3 ? 1 : shapeClass == 4 ? 2 : 0;
+                pick.AddRange(Enumerable.Repeat(duplicate, copies));
+                pick.AddRange(ids.Where(id => id != duplicate).OrderBy(_ => rnd.Next()).Take(rnd.Next(11 - copies - mimics)));
+                pick = pick.OrderBy(_ => rnd.Next()).ToList();
+                // Adjacent mimics resolve to one chosen real duplicate; its state may differ from the other copies.
+                int target = pick.IndexOf(duplicate);
+                for (int k = 0; k < mimics; k++) pick.Insert(target, "C41");
+            }
+            var multiplicities = pick.GroupBy(id => id, StringComparer.Ordinal).ToDictionary(g => g.Key, g => g.Count(), StringComparer.Ordinal);
+            bool hasDuplicate = multiplicities.Values.Any(count => count >= 2);
+            if (hasDuplicate) duplicateBuilds++;
+            if (multiplicities.Values.Any(count => count == 2)) twoCopyBuilds++;
+            if (multiplicities.Values.Any(count => count >= 3)) threeCopyBuilds++;
+            if (hasDuplicate && pick.Contains("C41")) duplicateMimicBuilds++;
             foreach (string id in pick)
             {
                 string e; do e = ench[rnd.Next(ench.Length)]; while (!ControllerRules.IsEnchantmentLegal(id, e, cfg));
@@ -183,13 +255,15 @@ public static class Program
                 else { pool[i - cnt] = new PoolDie { dieId = d.dieId, faceId = f.faceId, currentPip = f.permanentPip, currentColor = f.baseColor }; poolMask |= 1 << di; }
             }
             h.SetPool(b.dice, face, poolMask, P.p71pip);
-            int units = P.c53units[rnd.Next(P.c53units.Length)]; b.c53 = units;
+            var choices = st.controllers.Where(c => c.definitionId == "C53")
+                .Select(c => new RandomMultiplierChoice { ownerInstanceId = c.instanceId, units2 = P.c53units[rnd.Next(P.c53units.Length)] }).ToArray();
+            b.SetRandomChoices(choices);
             var snap = new SubmissionSnapshot
             {
                 runId = "v", stageId = "STAGE_01", handId = "H", configVersion = cfg.configVersion, capacity = b.capacity, rollsRemaining = rolls, submissionOrdinalBefore = b.ordinal,
                 redWave = b.redWave, wallet = st.gold, previousPrimaryHandId = prevSel == -2 ? null : prevSel == -1 ? "scatter" : P.hId[prevSel], equippedControllers = st.controllers.Select(c => c.Clone()).ToArray(),
                 handLevels = st.handLevels.Select(x => x.Clone()).ToArray(), colorLevels = st.colorLevels.Select(x => x.Clone()).ToArray(), mimicBindings = null, dice = sub,
-                resolvedRandomChoices = st.controllers.Where(c => c.definitionId == "C53").Select(c => new RandomMultiplierChoice { ownerInstanceId = c.instanceId, units2 = units }).ToArray(),
+                resolvedRandomChoices = choices,
                 rollsUsed = h.rollsUsed, submissionsRemainingBefore = b.subsLeft, permanentDiceCount = b.permDice, poolDice = pool,
                 stageKind = stageKind, modifierId = modifierId ?? "", disabledControllerIds = disabled.ToArray(), stageHandsUsed = usedHands.ToArray(),
                 inventoryCount = st.inventory.Count, ordinaryControllerSlots = st.controllerSlots, blueWave = b.blueWave, scoreItemMultiplier = b.itemMult == 2 ? 2 : 0
@@ -199,12 +273,23 @@ public static class Program
             double fast = b.Score(h, out int prim);
             string realPrim = real.primaryHandId == "scatter" ? null : real.primaryHandId; string fastPrim = prim < 0 ? null : P.hId[prim];
             var fastTrig = new HashSet<string>(Enumerable.Range(1, Params.N - 1).Where(a => b.lastHits.Has(a)).Select(Params.Cid), StringComparer.Ordinal);
+            var fastSources = b.TriggeredSourceIds().ToArray();
             double rel = Math.Abs(fast - exact) / Math.Max(1.0, exact); if (rel > maxRel) maxRel = rel;
-            bool ok = rel <= 1e-9 && Math.Abs(Math.Floor(fast + 1e-6) - truth) <= 1e-9 * truth + 0.5 && realPrim == fastPrim && fastTrig.SetEquals(real.triggeredControllerIds);
+            bool ok = rel <= 1e-9 && Math.Abs(Math.Floor(fast + 1e-6) - truth) <= 1e-9 * truth + 0.5 && realPrim == fastPrim && fastTrig.SetEquals(real.triggeredControllerIds)
+                && fastSources.SequenceEqual(real.triggeredSourceIds);
             if (!ok && ++bad <= 8)
                 Console.WriteLine($"MISMATCH it={it} real={real.score} exact={exact:R} fast={fast:R} prim {realPrim}/{fastPrim} trig real=[{string.Join(",", real.triggeredControllerIds)}] fast=[{string.Join(",", fastTrig.OrderBy(x => x, StringComparer.Ordinal))}] ctl=[{string.Join(",", st.controllers.Select(c => c.definitionId + ":" + c.enchantmentId + (c.state.growth > 0 ? "+g" + c.state.growth : "") + (disabled.Contains(c.instanceId) ? "!off" : "")))}] pips=[{string.Join(",", sub.Select(d => d.currentPip + d.currentColor.Substring(0, 1) + (d.lifetime == "permanent" ? "" : "t")))}] pool=[{string.Join(",", pool.Select(d => d.currentPip + d.currentColor.Substring(0, 1)))}] cap={b.capacity} rolls={rolls} used={h.rollsUsed} subsLeft={b.subsLeft} perm={b.permDice} mod={modifierId} kind={stageKind} ordinal={b.ordinal} wallet={st.gold} inv={st.inventory.Count} slots={st.controllerSlots} waves={b.redWave}/{b.blueWave} item={b.itemMult} usedHands=[{string.Join(",", usedHands)}]");
             // Coverage.
             var sources = ControllerRules.ResolveSources(snap.equippedControllers, null, snap.disabledControllerIds);
+            foreach (var group in sources.Where(s => s.abilityId != null && s.emitterDefinitionId != "C41").GroupBy(s => s.abilityId))
+            {
+                if (group.Count() < 2) continue;
+                duplicatePresent[Num(group.Key)]++;
+                if (group.Count(s => real.triggeredSourceIds.Contains(s.emitterId)) >= 2) duplicateTriggered[Num(group.Key)]++;
+            }
+            if (sources.Any(s => s.emitterDefinitionId == "C41" && s.abilityId != null && multiplicities.GetValueOrDefault(s.abilityId) >= 2)) duplicateCopiedByMimicBuilds++;
+            mark("two C53 owners with different frozen draws", choices.Select(c => c.units2).Distinct().Count() >= 2);
+            mark("C53 owner copied by a mimic", sources.Any(s => s.emitterDefinitionId == "C41" && s.abilityId == "C53"));
             foreach (string id in sources.Where(s => s.abilityId != null).Select(s => s.abilityId).Distinct()) present[Num(id)]++;
             foreach (string id in real.triggeredControllerIds) trig[Num(id)]++;
             mark("pool dice > 0", poolN > 0); mark("pool red merged into red group (C73)", real.redPoolCount > 0); mark("retriggers > 0", real.pipRetriggers.Any(x => x > 0));
@@ -256,6 +341,9 @@ public static class Program
             }
         }
         Console.WriteLine($"verify: {n} random submissions, mismatches={bad}, max relative error vs exact rational={maxRel:E2}");
+        Console.WriteLine($"duplicate builds checked: {duplicateBuilds}; with a two-copy definition={twoCopyBuilds}; with three-or-more={threeCopyBuilds}; mixed with C41={duplicateMimicBuilds}; active C41 copying a duplicated definition={duplicateCopiedByMimicBuilds}");
+        var c53Expectation = VerifyC53Expectations();
+        Console.WriteLine($"C53 expectations: {c53Expectation.builds} builds, {c53Expectation.outcomes} frozen outcomes, mismatches={c53Expectation.mismatches}");
         Console.WriteLine("\ncoverage: cases where each input was exercised");
         foreach (var kv in feature) Console.WriteLine($"  {kv.Key,-46} {kv.Value}");
         Console.WriteLine("\ncoverage per controller: present = cases where the ability was a source (owned or mimicked, not disabled), triggered = cases where the real calculator listed it as triggered");
@@ -267,8 +355,9 @@ public static class Program
             int a = Num(c.id); bool scoring = !nonScoring.Contains(c.id);
             line.Append($"{c.id,-5}{present[a],7}/{trig[a],-7}{(scoring ? " " : "*")} ");
             if (++col % 6 == 0) { Console.WriteLine("  " + line); line.Clear(); }
-            rows.Add(new { id = c.id, name = c.displayName, scoring, generation = Generation(a), present = present[a], triggered = trig[a] });
+            rows.Add(new { id = c.id, name = c.displayName, scoring, generation = Generation(a), present = present[a], triggered = trig[a], duplicatePresent = duplicatePresent[a], duplicateTriggered = duplicateTriggered[a] });
             if (scoring && (present[a] == 0 || trig[a] == 0)) gaps.Add(c.id);
+            if (scoring && (duplicatePresent[a] == 0 || duplicateTriggered[a] == 0)) gaps.Add(c.id + " duplicate");
         }
         if (line.Length > 0) Console.WriteLine("  " + line);
         Console.WriteLine("  (* = non-scoring by rule: never a triggered source. C41 is counted under the ability it copies.)");
@@ -298,9 +387,14 @@ public static class Program
             if (fxSeen[e] == 0 || fxActive[e] == 0) gaps.Add(e);
         }
         if (feature["disabled controller changed the result"] == 0) gaps.Add("disabled controllers");
+        if (duplicateBuilds == 0 || twoCopyBuilds == 0 || threeCopyBuilds == 0 || duplicateCopiedByMimicBuilds == 0) gaps.Add("duplicate build classes");
+        if (feature.GetValueOrDefault("two C53 owners with different frozen draws") == 0 || feature.GetValueOrDefault("C53 owner copied by a mimic") == 0) gaps.Add("independent and mimicked C53 draws");
         Console.WriteLine(gaps.Count == 0 ? "\ncoverage: OK, every scoring controller, scoring boss modifier and scoring effect was present and took effect at least once" : "\ncoverage: GAPS " + string.Join(",", gaps));
-        if (outPath != null) File.WriteAllText(outPath, JsonSerializer.Serialize(new { config = cfg.configVersion, cases = n, mismatches = bad, maxRelativeError = maxRel, features = feature, controllers = rows, modifiers = modRows, effects = fxRows, coverageGaps = gaps }, Pretty));
-        return bad == 0 && gaps.Count == 0 ? 0 : 1;
+        if (outPath != null) File.WriteAllText(outPath, JsonSerializer.Serialize(new { config = cfg.configVersion, cases = n, mismatches = bad, maxRelativeError = maxRel,
+            duplicateBuilds, twoCopyBuilds, threeCopyBuilds, duplicateMimicBuilds, duplicateCopiedByMimicBuilds,
+            c53ExpectationBuilds = c53Expectation.builds, c53ExpectationOutcomes = c53Expectation.outcomes, c53ExpectationMismatches = c53Expectation.mismatches,
+            features = feature, controllers = rows, modifiers = modRows, effects = fxRows, coverageGaps = gaps }, Pretty));
+        return bad == 0 && c53Expectation.mismatches == 0 && gaps.Count == 0 ? 0 : 1;
     }
 
     // ------------------------------------------------------------------ measurement helpers
@@ -614,9 +708,29 @@ public static class Program
     {
         var runner = new Runner(cfg, P, new BotOptions()) { recorded = new List<Dictionary<string, object>>() };
         var log = runner.Play(seed);
+        if ((log.fail ?? "").StartsWith("ERROR") || log.shopRejected != 0 || log.rejected != 0 || log.mispredicted != 0 || log.quoteMismatch != 0)
+        {
+            Console.WriteLine($"seed {seed}: trace run failed diagnostics: {log.fail}; shopRejected={log.shopRejected}; optionalRejected={log.rejected}; scoreMismatches={log.mispredicted}; quoteMismatches={log.quoteMismatch}");
+            return 1;
+        }
         var all = runner.recorded; var head = all.Take(steps + 1).ToList();
         if (head.Count <= steps) { Console.WriteLine($"seed {seed}: run ended after {all.Count - 1} commands, fewer than {steps}"); return 3; }
         if (head.Any(s => (string)s["kind"] == "ReorderControllers")) { Console.WriteLine($"seed {seed}: opening uses ReorderControllers, pick another seed"); return 4; }
+        var replay = new GameSession(cfg, new MemorySaveStore()); int lootDecisions = 0, extraLootPicks = 0;
+        var replayOptions = new JsonSerializerOptions { IncludeFields = true, Converters = { new System.Text.Json.Serialization.JsonStringEnumConverter() } };
+        for (int i = 0; i < head.Count; i++)
+        {
+            var command = JsonSerializer.Deserialize<SessionCommand>(JsonSerializer.Serialize(head[i]), replayOptions);
+            command.commandId = "trace-" + i; command.expectedActionSequence = replay.ActionSequence;
+            var state = replay.State;
+            var offer = command.kind == CommandKind.Buy ? state.shop?.offers.FirstOrDefault(o => o.offerId == command.offerId) : null;
+            if (offer?.groupId == "LOOT") { if (replay.IsLootPending) lootDecisions++; else extraLootPicks++; }
+            if (command.kind == CommandKind.ConfirmLocks)
+                foreach (string id in command.dieIds) if (!replay.TogglePending(id)) throw new InvalidOperationException("Trace replay has an illegal pending die: " + id);
+            var result = replay.Execute(command);
+            if (!result.accepted) throw new InvalidOperationException($"Trace replay rejected step {i} {command.kind}: {result.error}");
+        }
+        Console.WriteLine($"trace replay: accepted={head.Count}, rejected=0, initialLootDecisions={lootDecisions}, extraLootPicks={extraLootPicks}; full-run shopRejected={log.shopRejected}, scoreMismatches={log.mispredicted}");
         File.WriteAllText(outPath, JsonSerializer.Serialize(new Dictionary<string, object> { ["seed"] = seed, ["configVersion"] = cfg.configVersion, ["policy"] = "balance_sim bot, legal commands only", ["steps"] = head },
             new JsonSerializerOptions { WriteIndented = true, Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping }));
         Console.WriteLine($"seed {seed}: wrote {head.Count} steps ({string.Join(",", head.GroupBy(s => (string)s["kind"]).Select(g => g.Key + "=" + g.Count()))}); run reached stage {log.reached}, won={log.won}");
@@ -638,10 +752,12 @@ public static class Program
         var ok = logs.Where(l => l.fail == null || !l.fail.StartsWith("ERROR")).ToArray();
         double winRate = 100.0 * ok.Count(l => l.won) / Math.Max(1, ok.Length);
         Console.WriteLine($"\nruns={ok.Length} errors={seeds - ok.Length} wins={ok.Count(l => l.won)} ({winRate:F1}%) bot={(weak ? "weak" : Runner.Prepared ? "planner+prepared" : "planner")} seeds={first}..{first + (uint)seeds - 1} time={sw.Elapsed.TotalSeconds:F0}s");
-        int predicted = ok.Sum(l => l.predicted), mispredicted = ok.Sum(l => l.mispredicted), rejected = ok.Sum(l => l.rejected), quoteMismatch = ok.Sum(l => l.quoteMismatch);
-        Console.WriteLine($"planner self-check: {predicted} real submissions predicted (builds without C53), {mispredicted} scored differently by the session" + (mispredicted > 0 ? "; first: " + ok.First(l => l.mispredicted > 0).firstMisprediction : ""));
-        Console.WriteLine($"optional commands refused by the session: {rejected}" + (rejected > 0 ? "; first: " + ok.First(l => l.rejected > 0).firstRejection : ""));
-        Console.WriteLine($"stage previews whose quoted budgets differ from the rules: {quoteMismatch}" + (quoteMismatch > 0 ? "; first: " + ok.First(l => l.quoteMismatch > 0).firstQuoteMismatch : ""));
+        int predicted = logs.Sum(l => l.predicted), mispredicted = logs.Sum(l => l.mispredicted), rejected = logs.Sum(l => l.rejected), quoteMismatch = logs.Sum(l => l.quoteMismatch);
+        int shopRejected = logs.Sum(l => l.shopRejected);
+        Console.WriteLine($"planner self-check: {predicted} real submissions predicted (builds without C53), {mispredicted} scored differently by the session" + (mispredicted > 0 ? "; first: " + logs.First(l => l.mispredicted > 0).firstMisprediction : ""));
+        Console.WriteLine($"optional commands refused by the session: {rejected}" + (rejected > 0 ? "; first: " + logs.First(l => l.rejected > 0).firstRejection : ""));
+        Console.WriteLine($"shop commands refused by the session: {shopRejected}" + (shopRejected > 0 ? "; first: " + logs.First(l => l.shopRejected > 0).firstShopRejection : ""));
+        Console.WriteLine($"stage previews whose quoted budgets differ from the rules: {quoteMismatch}" + (quoteMismatch > 0 ? "; first: " + logs.First(l => l.quoteMismatch > 0).firstQuoteMismatch : ""));
         Console.WriteLine("slowest runs: " + string.Join(" ", ok.OrderByDescending(l => l.seconds).Take(5).Select(l => $"{l.seed}:{l.seconds:F0}s")) + $"  sum of run times={ok.Sum(l => l.seconds):F0}s (shop {ok.Sum(l => l.secShop):F0}s, stage select {ok.Sum(l => l.secPreview):F0}s, hands {ok.Sum(l => l.secHands):F0}s; {ok.Sum(l => (long)l.powerCalls)} power estimates took {ok.Sum(l => l.secPower):F0}s)");
         Console.WriteLine("power estimates by purpose: " + string.Join("  ", ok.SelectMany(l => l.powerSecondsBy.Keys).Distinct().OrderBy(k => k).Select(k => $"{k}: {ok.Sum(l => l.powerCallsBy.GetValueOrDefault(k))} calls {ok.Sum(l => l.powerSecondsBy.GetValueOrDefault(k)):F0}s")));
         Console.WriteLine("stage\tkind\ttarget\treach%\tclear%\tsubs\tscore/target(med,cleared)\tpower/target(med)\tgoldStart\tincome(reward+unused+interest+inStage+ctl)\tspent\tgoldLeave\tctrl\tslots\tdice\trisk%");
@@ -720,7 +836,11 @@ public static class Program
             var at = all.Where(s => s.lootKind == kind.id).ToArray(); int gold = at.Count(s => s.lootTaken.Contains("GOLD")), none = at.Count(s => s.lootTaken.Count == 0);
             var picks = at.SelectMany(s => s.lootTaken).Where(x => x != "GOLD").Select(x => x.Split('(')[0]).GroupBy(x => x).OrderByDescending(g => g.Count()).ToArray();
             Console.WriteLine($"  {kind.id} {kind.displayName}\toffered {at.Length}\ttook offers in {at.Length - gold - none} ({Pct(at.Length - gold - none, at.Length):F0}%)\tgold {gold} ({Pct(gold, at.Length):F0}%)\tnone {none}\tpicks: " + string.Join(" ", picks.Take(12).Select(g => g.Key + "x" + g.Count())));
-            lootRows.Add(new { id = kind.id, name = kind.displayName, offered = at.Length, tookOffers = at.Length - gold - none, tookGold = gold, tookNothing = none, picks = picks.ToDictionary(g => g.Key, g => g.Count()) });
+            int picksTaken = at.Sum(s => s.lootPicks), picksAvailable = at.Sum(s => s.lootPicksAvailable);
+            var pickCountHistogram = at.GroupBy(s => s.lootPicks).OrderBy(g => g.Key).ToDictionary(g => g.Key.ToString(), g => g.Count());
+            Console.WriteLine($"    picks taken {picksTaken}/{picksAvailable}; per-shop counts: " + string.Join(" ", pickCountHistogram.Select(kv => kv.Key + ":" + kv.Value)));
+            lootRows.Add(new { id = kind.id, name = kind.displayName, offered = at.Length, tookOffers = at.Length - gold - none, tookGold = gold, tookNothing = none, picks = picks.ToDictionary(g => g.Key, g => g.Count()),
+                picksTaken, picksAvailable, pickCountHistogram, decisions = at.GroupBy(s => s.lootDecision ?? "none").ToDictionary(g => g.Key, g => g.Count()) });
         }
         var giftPicks = all.SelectMany(s => s.gifts).GroupBy(x => x).OrderByDescending(g => g.Count()).ToArray();
         Console.WriteLine("controller gifts taken (C111 items, C113 die upgrades): " + (giftPicks.Length == 0 ? "none" : string.Join(" ", giftPicks.Select(g => g.Key + "x" + g.Count()))));
@@ -742,6 +862,35 @@ public static class Program
             var last = l.stages.LastOrDefault(); if (last == null) continue;
             foreach (string c in last.controllers.Select(x => x.Split(':')[0]).Distinct()) { endAll[c] = endAll.GetValueOrDefault(c) + 1; if (l.won) endWin[c] = endWin.GetValueOrDefault(c) + 1; }
         }
+        // Acquisition events count only copies added while another instance is still held. Final copies use the
+        // actual terminal state, since cards may be destroyed after the last stage's entry snapshot.
+        var duplicateShelf = all.SelectMany(s => s.duplicateBought).GroupBy(id => id).ToDictionary(g => g.Key, g => g.Count());
+        var duplicateLoot = all.SelectMany(s => s.duplicateLoot).GroupBy(id => id).ToDictionary(g => g.Key, g => g.Count());
+        int shelfCopies = duplicateShelf.Values.Sum(), lootCopies = duplicateLoot.Values.Sum();
+        int shelfAcquired = bought.Where(kv => cfg.controllers.Any(c => c.id == kv.Key)).Sum(kv => kv.Value.Count), lootAcquired = looted.Values.Sum();
+        object TerminalCopies(string outcome, RunLog[] at)
+        {
+            int total = at.Sum(l => l.finalCopies.Values.Sum()), extra = at.Sum(l => l.finalCopies.Values.Sum(n => Math.Max(0, n - 1)));
+            int withDuplicates = at.Count(l => l.finalCopies.Values.Any(n => n > 1));
+            Console.WriteLine($"  terminal {outcome}: runs={at.Length} total copies={total} extra copies={extra} runs with duplicates={withDuplicates}");
+            return new { runs = at.Length, totalCopies = total, extraCopies = extra, runsWithDuplicates = withDuplicates,
+                copiesPerRun = at.Length == 0 ? 0 : total / (double)at.Length, extraCopiesPerRun = at.Length == 0 ? 0 : extra / (double)at.Length,
+                extraCopiesHistogram = at.GroupBy(l => l.finalCopies.Values.Sum(n => Math.Max(0, n - 1))).OrderBy(g => g.Key).ToDictionary(g => g.Key.ToString(), g => g.Count()),
+                maxSameNameCopiesHistogram = at.GroupBy(l => l.finalCopies.Values.DefaultIfEmpty(0).Max()).OrderBy(g => g.Key).ToDictionary(g => g.Key.ToString(), g => g.Count()) };
+        }
+        Console.WriteLine($"\nduplicate acquisitions: shelf={shelfCopies}/{shelfAcquired} ({Pct(shelfCopies, shelfAcquired):F2}%), loot={lootCopies}/{lootAcquired} ({Pct(lootCopies, lootAcquired):F2}%)");
+        var terminalDeath = TerminalCopies("death", ok.Where(l => !l.won).ToArray()); var terminalWin = TerminalCopies("win", ok.Where(l => l.won).ToArray());
+        var duplicateCards = cfg.controllers.Select(c => new {
+            id = c.id, name = c.displayName, shelf = duplicateShelf.GetValueOrDefault(c.id), loot = duplicateLoot.GetValueOrDefault(c.id),
+            terminalCopiesAtDeath = ok.Where(l => !l.won).Sum(l => l.finalCopies.GetValueOrDefault(c.id)),
+            terminalCopiesAtWin = ok.Where(l => l.won).Sum(l => l.finalCopies.GetValueOrDefault(c.id)),
+            terminalExtraCopies = ok.Sum(l => Math.Max(0, l.finalCopies.GetValueOrDefault(c.id) - 1)),
+            terminalRunsWithDuplicates = ok.Count(l => l.finalCopies.GetValueOrDefault(c.id) > 1),
+            maxTerminalCopies = ok.Select(l => l.finalCopies.GetValueOrDefault(c.id)).DefaultIfEmpty(0).Max()
+        }).OrderByDescending(c => c.shelf + c.loot).ThenByDescending(c => c.terminalExtraCopies).ThenBy(c => c.id).ToArray();
+        Console.WriteLine("most duplicated cards (shelf+loot acquisitions): " + string.Join(" ", duplicateCards.Where(c => c.shelf + c.loot > 0).Take(15).Select(c => $"{c.id}:{c.shelf}+{c.loot}")));
+        var duplicates = new { shelf = new { duplicateCopies = shelfCopies, acquiredCopies = shelfAcquired, pct = Pct(shelfCopies, shelfAcquired) },
+            loot = new { duplicateCopies = lootCopies, acquiredCopies = lootAcquired, pct = Pct(lootCopies, lootAcquired) }, atDeath = terminalDeath, atWin = terminalWin, cards = duplicateCards };
         int wins = Math.Max(1, ok.Count(l => l.won));
         Console.WriteLine("\nother purchases\tperRun\tavgStage");
         var itemRows = new List<object>();
@@ -786,9 +935,10 @@ public static class Program
                 lastStagePowerOverTargetMedian = lastRaw, lastStagePowerOverTargetWithModifierMedian = lastMod, clearPctByStage = clearByStage.Skip(1).ToArray(),
                 targets = cfg.stages.Select(s => s.normalTarget).ToArray(), stageKinds = cfg.stages.Select(s => s.stageKind).ToArray(), riskTargetFactor = 1.5 };
             File.WriteAllText(outPath, JsonSerializer.Serialize(new { config = cfg.configVersion, configPath, bot = weak ? "weak" : Runner.Prepared ? "planner+prepared" : "planner", firstSeed = first, seeds, runs = ok.Length, errors = seeds - ok.Length, wins = ok.Count(l => l.won),
-                plannerSelfCheck = new { predicted, mispredicted }, rejectedOptionalCommands = rejected, quoteMismatches = quoteMismatch, summary, stages = stageRows, stageKinds = kindRows, pressure, bossModifiers = bossRows, bossLab = labRows, loot = lootRows,
-                gifts = giftPicks.ToDictionary(g => g.Key, g => g.Count()), itemsUsedPerRun = itemUse.ToDictionary(g => g.Key, g => g.Count() / (double)ok.Length), items = itemRows, cards = cardRows, winningBuilds = winRows, neverBought, logs = ok }, Pretty));
+                plannerSelfCheck = new { predicted, mispredicted }, rejectedOptionalCommands = rejected, rejectedShopCommands = shopRejected,
+                shopRejections = logs.SelectMany(l => l.shopRejections.Select(reason => new { l.seed, reason })).ToArray(), quoteMismatches = quoteMismatch, summary, stages = stageRows, stageKinds = kindRows, pressure, bossModifiers = bossRows, bossLab = labRows, loot = lootRows, duplicates,
+                gifts = giftPicks.ToDictionary(g => g.Key, g => g.Count()), itemsUsedPerRun = itemUse.ToDictionary(g => g.Key, g => g.Count() / (double)ok.Length), items = itemRows, cards = cardRows, winningBuilds = winRows, neverBought, logs }, Pretty));
         }
-        return seeds - ok.Length == 0 ? 0 : 1;
+        return seeds == ok.Length && mispredicted == 0 && rejected == 0 && shopRejected == 0 && quoteMismatch == 0 ? 0 : 1;
     }
 }

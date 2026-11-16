@@ -4,6 +4,8 @@
 // (face texture, mono-colour, mono-pip, opposite pip), retriggers, hand multiplier adds, growth and the C73 red merge.
 // p1.0.0: all 150 controllers, the scoring effects of boss modifiers (ModFx), controllers disabled for the stage,
 // blue wave, the item multiplier, stage kind, inventory size, empty ordinary slots, hands already used in the stage.
+// p1.1.0: independent same-name instances, source-identity trigger coverage, and independent C53 owner draws
+// with correlated mimics (both frozen outcomes and their planning expectation).
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +21,8 @@ public struct Rng
     public int NextInt(int n) => (int)(NextDouble() * n);
 }
 
-/// <summary>Set of triggered ability numbers (C01..C153). Replaces the UInt128 mask of p0.9.0, which stopped at 127.</summary>
+/// <summary>Set of abilities with at least one triggered source (C01..C153). This is a coverage summary,
+/// never a source count: same-name copies and mimics are counted separately by Build.</summary>
 public struct HitSet
 {
     ulong a, b, c;
@@ -185,7 +188,14 @@ public sealed class Build
     public long wallet; public bool redWave, pos;
     public int[] handLv = new int[13]; public int blueLv, redLv;
     public FDie[] dice = Array.Empty<FDie>();
-    public int c45Red, c45Blue; public double c51 = 1, c53 = -1;
+    public int c45Red, c45Blue; public double c51 = 1;
+    /// <summary>C53 product: expectation when planning, or exact product after SetRandomChoices.
+    /// Independent real cards draw separately; mimics share their state owner's draw.</summary>
+    public double c53Factor = 1;
+    string[] c53Owners = Array.Empty<string>(); int[] c53OwnerCopies = Array.Empty<int>();
+    string[] sourceIds = Array.Empty<string>(); int[] sourceAbilities = Array.Empty<int>();
+    /// <summary>Triggered source positions, preserving distinct instance IDs even for the same ability.</summary>
+    public ulong lastSourceHits;
     public HitSet lastHits; public int lastRedN, lastRedCount;
     /// <summary>Per-die value of the last Score call, in submission order. contrib = contribution before retriggers
     /// and before the positional seals (SealFirst / SealAlternate); full = contrib x (1 + retriggers that follow the
@@ -222,6 +232,14 @@ public sealed class Build
         var rules = StageRules.For(cfg, modifierId, disabled);
         b.fx = P.Fx(modifierId);
         var sources = ControllerRules.ResolveSources(all, bindings, disabled);
+        var activeSources = sources.Where(s => s.abilityId != null).ToArray();
+        if (activeSources.Length > 64) throw new NotSupportedException("Fast scorer supports at most 64 active controller sources.");
+        b.sourceIds = activeSources.Select(s => s.emitterId).ToArray();
+        b.sourceAbilities = activeSources.Select(s => int.Parse(s.abilityId.Substring(1))).ToArray();
+        var randomOwners = activeSources.Where(s => s.abilityId == "C53").GroupBy(s => s.stateOwnerId, StringComparer.Ordinal).ToArray();
+        b.c53Owners = randomOwners.Select(g => g.Key).ToArray(); b.c53OwnerCopies = randomOwners.Select(g => g.Count()).ToArray();
+        // E[X^k] for one owner copied k times; multiply across independent owners.
+        foreach (int copies in b.c53OwnerCopies) b.c53Factor *= P.c53units.Average(u => PowI(u / 2.0, copies));
         for (int i = 0; i < Params.N; i++) b.gMul[i] = 1;
         var gold138 = new List<byte>(); bool film = false;
         foreach (var src in sources)
@@ -294,6 +312,24 @@ public sealed class Build
     }
 
     static double PowI(double x, int e) { double r = 1; for (int k = 0; k < e; k++) r *= x; return r; }
+
+    /// <summary>Freeze independently drawn C53 outcomes by state owner, matching ScoreCalculator.Evaluate.</summary>
+    public void SetRandomChoices(IEnumerable<RandomMultiplierChoice> choices)
+    {
+        var byOwner = choices.ToDictionary(c => c.ownerInstanceId, c => c.units2, StringComparer.Ordinal);
+        double product = 1;
+        for (int i = 0; i < c53Owners.Length; i++)
+        {
+            if (!byOwner.TryGetValue(c53Owners[i], out int units)) throw new ArgumentException("Missing C53 outcome for " + c53Owners[i]);
+            product *= PowI(units / 2.0, c53OwnerCopies[i]);
+        }
+        c53Factor = product;
+    }
+
+    public IEnumerable<string> TriggeredSourceIds()
+    {
+        for (int i = 0; i < sourceIds.Length; i++) if ((lastSourceHits & (1UL << i)) != 0) yield return sourceIds[i];
+    }
 
     /// <summary>Unfloored score of one submission; equals ScoreCalculator.Evaluate's scoreNumerator / scoreDenominator.</summary>
     public double Score(Sub h, out int primary)
@@ -456,6 +492,13 @@ public sealed class Build
             if (hit) { hits.Set(a); on[a] = true; }
         }
         lastHits = hits;
+        lastSourceHits = 0; int served138 = 0;
+        for (int i = 0; i < sourceAbilities.Length; i++)
+        {
+            int a = sourceAbilities[i];
+            bool hit = a == 138 ? served138++ < hits138 : on[a];
+            if (hit) lastSourceHits |= 1UL << i;
+        }
         // 8. Hand multiplier: adds, floor of x1, then NoRepeatHand and HandHalf.
         int handAdd = (on[84] ? cnt[84] * P.p84add : 0) + (on[85] ? cnt[85] * P.p85add : 0) + (on[142] ? cnt[142] * P.p142add : 0);
         int hand = Math.Max(100, group + straight + handAdd);
@@ -526,7 +569,7 @@ public sealed class Build
         if (on[47]) for (int k = 0; k < cnt[47]; k++) X *= Math.Max(2, alive * P.p47units) / 2.0;
         if (on[49]) for (int k = 0; k < cnt[49]; k++) X *= c[5];
         if (on[51]) X *= c51;
-        if (on[53]) for (int k = 0; k < cnt[53]; k++) X *= c53 < 0 ? P.c53mean : c53 / 2.0;
+        if (on[53]) X *= c53Factor;
         if (!fx.growthZero) foreach (int a in Params.GrowthMul) if (cnt[a] > 0) X *= gMul[a];
         if (cnt[63] > 0) X *= PowI(Math.Max(10, permDice * P.p63units) / 10.0, cnt[63]);
         if (on[71]) X *= PowI(P.p71step, h.poolHot * cnt[71]);

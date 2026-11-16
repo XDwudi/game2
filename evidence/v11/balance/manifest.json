@@ -1,0 +1,115 @@
+{
+  "task": "W07",
+  "date": "2026-11-16",
+  "baseCommit": "7f618a95654e9889b10b181635682f4e4c7b1103",
+  "branch": "codex/v1.1-sim",
+  "workingDirectory": "E:\\agent_workspace\\gpt\\wt-v11-sim",
+  "platform": "Windows-10-10.0.19045-SP0",
+  "machine": "AMD64",
+  "dotnetSdk": "10.0.403",
+  "python": "3.11.4",
+  "configVersion": "p1.1.0",
+  "compiledInputsSha256": {
+    "DicePrototype/Assets/Game/Core/Rules/ConfigJsonContract.cs": "fd148926a75217d886ff5227a2405b58d45bbd7d265756faa8c8145307d68db9",
+    "DicePrototype/Assets/Game/Core/Rules/ControllerRules.cs": "47fb8fee598fa2cf2a94e4dce726c31b4f9a9bd77e872976f206a4665d3ef96e",
+    "DicePrototype/Assets/Game/Core/Rules/ExactScoreMath.cs": "8a1e024cf8a84ae3ab6e985374003fd14d47b613798204ce97c37b60fdbdc57c",
+    "DicePrototype/Assets/Game/Core/Rules/GameConfig.cs": "f1ad3f367385b5ddb481d385606f8dc2a621d1e095286ce210e3524d0d1ebf78",
+    "DicePrototype/Assets/Game/Core/Rules/GameRng.cs": "41614b1946d1c4d7b31b4a20957ef285b1bafa5a6ef7e250d05f8c79ae38e042",
+    "DicePrototype/Assets/Game/Core/Rules/HandbookRules.cs": "beb970f50ad684d925b71f60a867e567efcde8a96c4bb05ee85a14d18be04ef8",
+    "DicePrototype/Assets/Game/Core/Rules/Models.cs": "4f587d4f9d1e72314736c26d101e4e6f4738359dbf4adf46978259a3e707e40b",
+    "DicePrototype/Assets/Game/Core/Rules/ProbabilityCalculator.cs": "0f25d9a47ee0951bb87458d4d10f63c78ee867e749ba411d005fae225a312fb5",
+    "DicePrototype/Assets/Game/Core/Rules/ScoreCalculator.cs": "b5755af724e4cc9ec24bd0f9cd80364e7d6f442d97e166cde7ee8174b8128228",
+    "DicePrototype/Assets/Game/Core/Rules/ScoreExplanation.cs": "0516db3e45d1d491b8304066610d0e3581f2bdb8825d1d832dd2c2e8f3931f88",
+    "DicePrototype/Assets/Game/Core/Session/DebugScene.cs": "3b99230927be9722d1886ec4482de077c0efdf908916c5d9a3707412925bf8f6",
+    "DicePrototype/Assets/Game/Core/Session/GameSession.cs": "81e8aefbc202902f6609dce5d21a6019de3a2fb03732ef88fe870e9c3da20f66",
+    "DicePrototype/Assets/Game/Core/Session/GameSession.Debug.cs": "51aa04deaabeee5da11b60fe7c0f0585eb8c37656e02ef25ff38c2b5e59bda44",
+    "DicePrototype/Assets/Game/Core/Session/GameSession.Shop.cs": "50e2121d3be19033d0554dd4acd8cd802e1901f03d5c699b1e55cdc393e9864e",
+    "DicePrototype/Assets/Game/Core/Session/GameSession.Submission.cs": "fbd9029cd690e3c687c7987064916325de9a6736d1c330c42e7636f94dbdfe03",
+    "DicePrototype/Assets/Game/Core/Session/GameSession.Validation.cs": "5aa28e89f3016a6a14f8e99c98d338471ccc28f13fa797d7c136444b646e0a1c",
+    "DicePrototype/Assets/Game/Core/Session/SessionModels.cs": "3804344f37e930ec9df7a5855bfb84b64700b29ae01c6e06d390b5eeef187d90",
+    "DicePrototype/Assets/Game/Data/P0Config.json": "7c332d8c79165be8c7a321f0b12b24c417f176977a3d9fc1670e580afecc2c59",
+    "tools/balance_sim/BalanceSim.csproj": "ca02ab056241fb66a14652e6e1bbb2ed0502b97ea80eb8558da04b6db4ba8f86",
+    "tools/balance_sim/ConfigValidationRelaxed.cs": "2052adf06d293defb01f46c98bb9c16d0dc4368fca8ecfbfcd3d72c1c70596a1",
+    "tools/balance_sim/Fast.cs": "996482293e990d4f8821d61047b81cbe0b0847131ee9623aa75b1a73b57692dc",
+    "tools/balance_sim/Program.cs": "19317cce1594a162d9abba83a3833667ed3cc341d38de025c856a403351c841b",
+    "tools/balance_sim/Runner.cs": "55072e02f686ff1f66daea69592276bdc08347fa0ca6cc2fafeb474781d1a159"
+  },
+  "binarySha256": {
+    "tools/balance_sim/bin/Release/net10.0/BalanceSim.deps.json": "7ed5f5bdc3afe2dfaf95c4b4e6d7008a064c885140ceac26d003ef3b240993df",
+    "tools/balance_sim/bin/Release/net10.0/BalanceSim.dll": "2b90a694e2b3f172391aceaca0caf34e9ed1e7b4667c2c58811afe1439cbf7a8",
+    "tools/balance_sim/bin/Release/net10.0/BalanceSim.exe": "0e5bf4da2517a69acdef721a1695874f69a494764d50f64a93fcccce9bb41c84",
+    "tools/balance_sim/bin/Release/net10.0/BalanceSim.pdb": "d0453b49c32cf297b7fa9339f7514a046d2517db245264607b3331a3b8001845",
+    "tools/balance_sim/bin/Release/net10.0/BalanceSim.runtimeconfig.json": "c230a317a54dd960bcbeb5f347f52e18dc665a26f7efda2159fced9a5ac7e097"
+  },
+  "baselineReadOnlySha256": {
+    "evidence/v10/balance/run_p100_final.json": "9870ab7fe9e7b098e84e2da1e09cbeabc523b403e2cd9769f33b4862ebfa8973"
+  },
+  "checks": [
+    {
+      "command": "dotnet build tools/balance_sim/BalanceSim.csproj -c Release",
+      "exitCode": 0,
+      "warnings": 0,
+      "errors": 0,
+      "log": "build_p110.log"
+    },
+    {
+      "command": "dotnet tools/balance_sim/bin/Release/net10.0/BalanceSim.dll verify --n 300000 --threads 4 --out evidence/v11/balance/verify_p110.json --log evidence/v11/balance/verify_p110.log",
+      "exitCode": 0
+    },
+    {
+      "command": "dotnet tools/balance_sim/bin/Release/net10.0/BalanceSim.dll run --first 5000 --seeds 20 --threads 4 --out evidence/v11/balance/run_p110_smoke.json --log evidence/v11/balance/run_p110_smoke.log",
+      "exitCode": 0
+    },
+    {
+      "command": "dotnet tools/balance_sim/bin/Release/net10.0/BalanceSim.dll trace --seed 5000 --steps 80 --out evidence/v11/balance/trace_p110_5000.json --log evidence/v11/balance/trace_p110_5000.log",
+      "exitCode": 0
+    },
+    {
+      "command": "python -m unittest discover -s tests -v",
+      "exitCode": 0,
+      "tests": 222,
+      "log": "python_unittest.log"
+    },
+    {
+      "command": "python -m unittest discover -s tools/balance_sim -p test_v11_report_tables.py -v",
+      "exitCode": 0,
+      "tests": 4,
+      "log": "report_tests.log"
+    },
+    {
+      "command": "dotnet run --project tools/balance_sim/review_cache/CacheProbe.csproj -c Release -- evidence/v11/balance/cache_probe.json evidence/v11/balance/cache_probe.log",
+      "exitCode": 0,
+      "cases": 2
+    }
+  ],
+  "limitations": [
+    "No 300-seed measurement or --lab was run.",
+    "C98 game-side resale cap remains unmerged; simulator estimates are capped at paid price.",
+    "The first smoke attempt was interrupted after a cache-key fix and is not counted as evidence.",
+    "No Unity validation was performed."
+  ],
+  "auxiliarySourcesSha256": {
+    "docs/specs/v11/W07_REPORT.md": "fb38500c4853b186f83fccd6005064139611918b8dffd4920f8f78fd2527565d",
+    "tools/balance_sim/README.md": "721b9855ae1142c7ab447acae3c4ff4d1a157785fde31a293e8e984a7d9b7e0c",
+    "tools/balance_sim/review_cache/CacheProbe.cs": "53be3d7613aac2b361cbef2e7711416ff39df8e28688c93e2a97a447922c7aea",
+    "tools/balance_sim/review_cache/CacheProbe.csproj": "bc7f779ba70d07fd0aaddeca179d15cd669c3888a46f80efedf56520b5eab5ba",
+    "tools/balance_sim/test_v11_report_tables.py": "2a7377abb25bdb0cbfa85bfb1e86aa853788318573d1c057206cc5b2a4ac96aa",
+    "tools/balance_sim/v10_report_tables.py": "1b644503f4706c83283bd84cec809ef45c83c773f84652fc917e3dbe2ca5210e"
+  },
+  "evidenceSha256": {
+    "build_p110.log": "8c317c9f8a10833be224753458eafca1cd091bdf8d995c06b5c417afefb1a33c",
+    "cache_probe.json": "8e124a190cd936a6ec7d6ad5ea16d5d39370b48116d496551c7ee78690a27db1",
+    "cache_probe.log": "aeb69e1f8f6d14637d3d0b130646e5515a626d0987a3122ef8d58bc5d0181a3f",
+    "python_unittest.log": "df930c548e2f58b25cf5bccc31dca69f9ddc05556432588a3d3fda60fcac9dc0",
+    "report_tests.log": "45c27d5cc76439725e0bc2fc580c6b87f81682f4f91b60f2f2aa6d44b3bcd9a3",
+    "review.md": "f6ec14e64c189e455e0448a858022a798347b0945d344d8f1ee6aa7821d74537",
+    "run_p110_smoke.json": "31866bcf05a8da6da37b54aad3cae9ae12f6a43e205a6c7d22b7426c7772e4af",
+    "run_p110_smoke.log": "1fc308294a80a908978c960dca0117c14f34b5ec8fbb63e584fffde44bb74454",
+    "run_p110_smoke_interrupted_before_cache_fix.log": "e4a364604f3fc6a06931215addd42b35a636f5e1210953099056492085a59f5d",
+    "smoke_duplicates_loot.md": "cf0cb79f7eeb37f57f55c1275a40242d04488ff22e8afe0b4cce27c39d46f90a",
+    "trace_p110_5000.json": "ce0632781d331def27d4cd1b6e66e1212fe0d75ff995b4f36a029e4a61d30e99",
+    "trace_p110_5000.log": "e8fab395a33a174cbdef41f5d0643e98cf96dde7687c32155a4d3e45d312b5d0",
+    "verify_p110.json": "b4c34f40a74c453354c404dabea63022b94c7737a1ba115620527a4b3bd7f0dd",
+    "verify_p110.log": "0461baac844a8f30bdc6a08a062aaa94f7fa9d3d0cf94a960cdc02955ac0183e"
+  }
+}
