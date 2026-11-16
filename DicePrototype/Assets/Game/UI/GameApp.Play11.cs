@@ -115,7 +115,7 @@ namespace DiceCraft
             }
             string kindWord=StageKindLabel10(s.stage.stageIndex,StageRisk11);
             string kindColored=BossActive11||PressureActive11?"<color="+Hex11(Color.Lerp(StageTint11,UiKit.TextColor,.25f))+">"+kindWord+"</color>":kindWord;
-            var caption=NoWrap11(UiKit.Text(bar,"Chapter",$"第 {chapter+1} 章 · "+kindColored,dotsX,36,chapters*24+40,32,c?17:20,UiKit.Muted));
+            var caption=NoWrap11(UiKit.Text(bar,"Chapter",$"第 {chapter+1} 章 · "+kindColored,dotsX,36,chapters*24+40,32,Body11(c?17:20),UiKit.Muted));
             caption.richText=true;
             // Practice and the debug workspace keep their own label; an ordinary run leaves it empty.
             string edition=IsPracticeRun11?"练习模式":IsDebugWorkspace&&!CleanCapture11?"调试对局":"";
@@ -132,7 +132,7 @@ namespace DiceCraft
             var coin=UiKit.Box(bar,"MoneyIcon11",goldX-l.top.x+6,18,36,36,Color.white).GetComponent<Image>();coin.sprite=UiKit.Template("ui_icon_coin");coin.preserveAspect=true;coin.gameObject.SetActive(coin.sprite!=null);
             var money=NoWrap11(UiKit.Text(bar,"Money",PlayerNumberFormat.Gold(s.gold),goldX-l.top.x+48,6,goldW-48-(c?52:44),60,c?30:34,UiKit.Gold,TextAlignmentOptions.MidlineRight));
             money.fontStyle=FontStyles.Bold;
-            NoWrap11(UiKit.Text(bar,"MoneyLabel11","金币",goldX-l.top.x+goldW-(c?50:42),6,c?50:42,60,c?17:20,UiKit.Muted,TextAlignmentOptions.MidlineLeft));
+            NoWrap11(UiKit.Text(bar,"MoneyLabel11","金币",goldX-l.top.x+goldW-(c?50:42),6,c?50:42,60,Body11(c?17:20),UiKit.Muted,TextAlignmentOptions.MidlineLeft));
             if(IsDebugWorkspace&&!CleanCapture11)UiKit.Box(main,"DebugMark",0,0,1920,6,UiKit.Violet);
         }
         /// <summary>Score frame of the top bar: stage score / target and the progress bar. The stamp slot sits to its right.</summary>
@@ -147,7 +147,7 @@ namespace DiceCraft
             string widest=IsPresenting07&&receipt07!=null&&lastPresentationAfter07?.stage?.stageId==s.stage.stageId?CompactScore(receipt07.StageScoreAfter):topScore11.text;
             float scoreW=Mathf.Min(w*.55f,Mathf.Max(topScore11.GetPreferredValues(topScore11.text).x,topScore11.GetPreferredValues(widest).x)+4);topScore11.rectTransform.sizeDelta=new Vector2(scoreW,48);
             UiKit.Component<Art072ValuePop>(topScore11.gameObject).Configure(s.runId+"|"+s.stage.stageId+"|StageScore",shown);
-            NoWrap11(UiKit.Text(frame,"Target","/ "+CompactScore(s.stage.target),14+scoreW+6,4,w-scoreW-40,44,c?24:28,PressureActive11?UiKit.Pressure:UiKit.Muted,TextAlignmentOptions.MidlineLeft));
+            NoWrap11(UiKit.Text(frame,"Target","/ "+CompactScore(s.stage.target),14+scoreW+6,4,w-scoreW-40,44,c?26:32,PressureActive11?UiKit.Pressure:UiKit.Muted,TextAlignmentOptions.MidlineLeft));
             BigIntegerRatio11(shown,s.stage.target,out float ratio);
             UiKit.Progress(frame,"StageProgress072",14,48,w-28,7,ratio,s.stage.qualified?UiKit.Gold:PressureActive11?UiKit.Pressure:UiKit.Blue,s.runId+"|"+s.stage.stageId);
             UiKit.Rect(bar,"QualifiedStampSlot07",x+w+12,10,272,52);
@@ -216,23 +216,24 @@ namespace DiceCraft
             var t=b.transform;int ordinal=ViewState.controllers.IndexOf(item)+1;string state=CardTableState11(item);
             const float pad=10;float fs=Mathf.Max(1,UiKit.FontScale);
             bool mini=mode==CardMode11.Mini;
-            // Meta row: ordinal disc, rarity ticks and word, enchantment badge in the top-right corner.
-            float metaY=mini?h-34:6,metaX=mini?8:pad;
-            var disc=UiKit.Box(t,"OrdinalDisc11",metaX,metaY,24,24,UiKit.Ink).GetComponent<Image>();disc.sprite=UiKit.Template("ui_pip_dot");
-            NoWrap11(UiKit.Text(t,"Ordinal",ordinal.ToString(),metaX,metaY,24,24,14,UiKit.Paper,TextAlignmentOptions.Center));
-            Rarity11(t,item.definitionId,metaX+30,metaY,mini?Mathf.Min(64,w*.3f):Mathf.Max(48,w-pad-30-metaX-44));
+            // Meta row: ordinal disc, rarity ticks and word (on a mini card under its picture), enchantment badge top right.
+            // Every label here is as tall as its line: an Ellipsis label shorter than its line renders nothing (v1.0 lesson).
+            float metaY=mini?h-8-Line11(14):6,metaX=mini?8:pad,disc=Mathf.Min(24,Line11(14));
+            var ordinalDisc=UiKit.Box(t,"OrdinalDisc11",metaX,metaY+(Line11(14)-disc)*.5f,disc,disc,UiKit.Ink).GetComponent<Image>();ordinalDisc.sprite=UiKit.Template("ui_pip_dot");
+            NoWrap11(UiKit.Text(t,"Ordinal",ordinal.ToString(),metaX,metaY,disc,Line11(14),14,UiKit.Paper,TextAlignmentOptions.Center));
+            Rarity11(t,item.definitionId,metaX+disc+6,metaY,mini?Mathf.Min(96,w*.36f):Mathf.Max(48,w-pad-30-metaX-44));
             float badge=mini?28:32;EnchantBadge(t,item.enchantmentId,w-pad-badge+2,mini?6:4,badge);
             string text=ShortText11(item.definitionId);
             if(mode==CardMode11.Full)
             {
-                var name=NoWrap11(UiKit.Text(t,"Name",NameOf(item.definitionId),pad,32,w-pad*2,32,22,UiKit.Ink,TextAlignmentOptions.Center));
-                name.fontStyle=FontStyles.Bold;name.overflowMode=TextOverflowModes.Ellipsis;
+                var name=NoWrap11(UiKit.Text(t,"Name",NameOf(item.definitionId),pad,32,w-pad*2,Line11(22),22,UiKit.Ink,TextAlignmentOptions.Center));
+                name.fontStyle=FontStyles.Bold;
                 var body=UiKit.Text(t,"ShortText11",text,pad,0,w-pad*2,200,20,UiKit.Ink,TextAlignmentOptions.Top);
                 body.lineSpacing=-14;
                 // The short text is complete at 20 units (13 px at 720p, AX-03); a long text steps down only as far as the
-                // illustration needs to stay recognisable (about 80 units).
+                // illustration needs to stay recognisable (about 80 units), never below the 19.5-unit body size.
                 float stateH=state.Length>0?30*fs:0,textH=0,top=68;
-                foreach(float size in new[]{20f,19f,18f})
+                foreach(float size in new[]{20f,19.5f})
                 {
                     body.fontSize=size*UiKit.FontScale;textH=Mathf.Ceil(body.GetPreferredValues(text,w-pad*2,0).y)+2;
                     if(h-12-textH-4-(stateH>0?stateH+6:0)-top>=80)break;
@@ -252,37 +253,37 @@ namespace DiceCraft
             }
             else if(mode==CardMode11.Text)
             {
-                float icon=48;Icon(t,item.definitionId,pad,36,icon);
-                var name=NoWrap11(UiKit.Text(t,"Name",NameOf(item.definitionId),pad+icon+8,36,w-pad*2-icon-8,icon,22,UiKit.Ink,TextAlignmentOptions.MidlineLeft));
-                name.fontStyle=FontStyles.Bold;name.overflowMode=TextOverflowModes.Ellipsis;
-                float textTop=36+icon+6;
+                float icon=48,top=Mathf.Max(36,6+Line11(14)+2),nameH=Mathf.Max(icon,Line11(22));Icon(t,item.definitionId,pad,top+(nameH-icon)*.5f,icon);
+                var name=NoWrap11(UiKit.Text(t,"Name",NameOf(item.definitionId),pad+icon+8,top,w-pad*2-icon-8,nameH,22,UiKit.Ink,TextAlignmentOptions.MidlineLeft));
+                name.fontStyle=FontStyles.Bold;
+                float textTop=top+nameH+4;
                 if(state.Length>0)
                 {
-                    float stateH=24*fs;
-                    NoWrap11(UiKit.Text(t,"State",state,pad,textTop,w-pad*2,stateH,16,DisabledNow10(item.instanceId)||DisabledNext10(item.instanceId)?UiKit.Danger:UiKit.Ink,TextAlignmentOptions.MidlineLeft)).overflowMode=TextOverflowModes.Ellipsis;
-                    textTop+=stateH+4;
+                    float stateH=Line11(16);
+                    NoWrap11(UiKit.Text(t,"State",state,pad,textTop,w-pad*2,stateH,16,DisabledNow10(item.instanceId)||DisabledNext10(item.instanceId)?UiKit.Danger:UiKit.Ink,TextAlignmentOptions.MidlineLeft));
+                    textTop+=stateH+2;
                 }
                 var body=UiKit.Text(t,"ShortText11",text,pad,textTop,w-pad*2,h-12-textTop,20,UiKit.Ink,TextAlignmentOptions.TopLeft);
-                body.lineSpacing=-14;body.enableAutoSizing=true;body.fontSizeMax=20*UiKit.FontScale;body.fontSizeMin=16*UiKit.FontScale;
+                body.lineSpacing=-14;body.enableAutoSizing=true;body.fontSizeMax=20*UiKit.FontScale;body.fontSizeMin=Body11(16)*UiKit.FontScale;
             }
             else
             {
-                float icon=Mathf.Min(64,h-44);Icon(t,item.definitionId,8,6,icon);
+                float icon=Mathf.Min(56,metaY-12);Icon(t,item.definitionId,8,6,icon);
                 float tx=8+icon+10,tw=w-tx-pad-badge-4;
-                var name=NoWrap11(UiKit.Text(t,"Name",NameOf(item.definitionId),tx,4,tw,30,20,UiKit.Ink,TextAlignmentOptions.MidlineLeft));
-                name.fontStyle=FontStyles.Bold;name.overflowMode=TextOverflowModes.Ellipsis;
-                float textTop=36;
+                var name=NoWrap11(UiKit.Text(t,"Name",NameOf(item.definitionId),tx,4,tw,Line11(20),20,UiKit.Ink,TextAlignmentOptions.MidlineLeft));
+                name.fontStyle=FontStyles.Bold;
+                float textTop=4+Line11(20);
                 if(state.Length>0)
                 {
-                    NoWrap11(UiKit.Text(t,"State",state,tx,textTop,w-tx-pad,24,15,DisabledNow10(item.instanceId)||DisabledNext10(item.instanceId)?UiKit.Danger:UiKit.Ink,TextAlignmentOptions.MidlineLeft)).overflowMode=TextOverflowModes.Ellipsis;
-                    textTop+=26;
+                    NoWrap11(UiKit.Text(t,"State",state,tx,textTop,w-tx-pad,Line11(15),15,DisabledNow10(item.instanceId)||DisabledNext10(item.instanceId)?UiKit.Danger:UiKit.Ink,TextAlignmentOptions.MidlineLeft));
+                    textTop+=Line11(15);
                 }
-                // Two rows of five: the short text fits at the normal text size; enlarged text keeps the name and state only.
-                if(!Large11)
-                {
-                    var body=UiKit.Text(t,"ShortText11",text,tx,textTop,w-tx-pad,h-10-textTop,18,UiKit.Ink,TextAlignmentOptions.TopLeft);
-                    body.lineSpacing=-16;body.enableAutoSizing=true;body.fontSizeMax=18;body.fontSizeMin=14;
-                }
+                // Two rows of five: the short text is shown when it fits whole at the body size (AX-03: 13 px at 720p);
+                // otherwise the card keeps its name and state and the text is in its hover and details (PLAY_LAYOUT 8).
+                float room=h-10-textTop,textW=w-tx-pad;
+                var body=UiKit.Text(t,"ShortText11",text,tx,textTop,textW,room,Body11(18),UiKit.Ink,TextAlignmentOptions.TopLeft);
+                body.lineSpacing=-16;
+                if(body.GetPreferredValues(text,textW,0).y>room+.5f)body.gameObject.SetActive(false);
             }
             AttachControllerDrag(b,item);
             Art07AttachTooltip(b,item.instanceId,NameOf(item.definitionId),text+"\n"+Details11(item.definitionId),EnchantShort(item.enchantmentId)+(state.Length>0?" · "+state:""),()=>ShowController(item,false));
@@ -294,9 +295,13 @@ namespace DiceCraft
             var strip=UiKit.Rect(parent,"RarityTicks",x,y+10,30,5);
             for(int i=0;i<count;i++)UiKit.Box(strip,"Tick"+i,i*11,0,8,5,tint);
             for(int i=count;i<3;i++){var stale=strip.Find("Tick"+i);if(stale!=null)stale.gameObject.SetActive(false);}
-            var label=NoWrap11(UiKit.Text(parent,"RarityLabel",Art07Rarity(id),x+34,y-2,Mathf.Max(30,labelWidth-34),28,14,UiKit.Ink,TextAlignmentOptions.MidlineLeft));
-            label.overflowMode=TextOverflowModes.Ellipsis;
+            strip.anchoredPosition=new Vector2(x,-(y+Line11(14)*.5f-2.5f));
+            NoWrap11(UiKit.Text(parent,"RarityLabel",Art07Rarity(id),x+34,y,Mathf.Max(30,labelWidth-34),Line11(14),14,UiKit.Ink,TextAlignmentOptions.MidlineLeft));
         }
+        /// <summary>Height of one line of TMP text at this size and the current text scale (Noto Sans SC line height ~1.45 em).</summary>
+        private static float Line11(float size)=>Mathf.Ceil(size*UiKit.FontScale*1.46f)+2;
+        /// <summary>A body-text size that ends at no less than 19.5 design units after the text scale: 13 px at 1280x720 (AX-03).</summary>
+        private static float Body11(float size)=>Mathf.Max(size,19.5f/Mathf.Max(.01f,UiKit.FontScale));
 
         // ---------------------------------------------------------------- stage card (StageCard11)
         private void DrawStageCard11()
@@ -323,7 +328,7 @@ namespace DiceCraft
                 title=(lifted?"减益已解除 · ":"首领减益 · ")+tier;
             }
             else title=StageKindLabel10(s.stage.stageIndex,StageRisk11);
-            NoWrap11(UiKit.Text(header,"StageCardTitle11",title,12,0,inner-24,40,c?18:22,UiKit.TextColor,TextAlignmentOptions.MidlineLeft));
+            NoWrap11(UiKit.Text(header,"StageCardTitle11",title,12,0,inner-24,40,Body11(c?18:22),UiKit.TextColor,TextAlignmentOptions.MidlineLeft));
             if(boss)
             {
                 var box=UiKit.Rect(card,"BossModifier10",14,58,inner,h-58-14);
@@ -335,10 +340,10 @@ namespace DiceCraft
                 var name=NoWrap11(UiKit.Text(box,"BossModifierName",NameOf(s.stage.modifierId),84,0,inner-84,40,c?24:28,lifted?PaperMuted071:UiKit.Ink));
                 name.fontStyle=FontStyles.Bold;
                 var body=UiKit.Text(box,"BossModifierText",ShortText11(s.stage.modifierId),84,40,inner-84,68,20,lifted?PaperMuted071:UiKit.Ink);
-                body.lineSpacing=-14;body.enableAutoSizing=true;body.fontSizeMax=20*UiKit.FontScale;body.fontSizeMin=15*UiKit.FontScale;
+                body.lineSpacing=-14;body.enableAutoSizing=true;body.fontSizeMax=20*UiKit.FontScale;body.fontSizeMin=Body11(15)*UiKit.FontScale;
                 string loot=s.stage.stageIndex/3<s.cycles.Count?s.cycles[s.stage.stageIndex/3].lootKind:null;
                 var lootText=UiKit.Text(box,"BossLoot11",string.IsNullOrEmpty(loot)?"终局首领 · 通关即胜利":"通关奖励："+ShortText11(loot),0,h-58-14-56,inner,52,18,lifted?PaperMuted071:Color.Lerp(UiKit.Ink,UiKit.Boss,.55f));
-                lootText.lineSpacing=-14;lootText.enableAutoSizing=true;lootText.fontSizeMax=18*UiKit.FontScale;lootText.fontSizeMin=14*UiKit.FontScale;
+                lootText.lineSpacing=-14;lootText.enableAutoSizing=true;lootText.fontSizeMax=Body11(18)*UiKit.FontScale;lootText.fontSizeMin=Body11(14)*UiKit.FontScale;
                 var open=HitArea073(card,"BossModifierOpen",0,0,w-8,h-10,()=>{if(!IsBusy)ShowCycle10();});
                 Art07AttachTooltip(open,"boss-modifier",NameOf(s.stage.modifierId),Details11(s.stage.modifierId),lifted?"已解除":"本关生效",()=>{if(!IsBusy)ShowCycle10();});
                 return;
@@ -348,8 +353,8 @@ namespace DiceCraft
             goal.fontStyle=FontStyles.Bold;
             int reward=s.stage.reward>0?s.stage.reward:StageRisk11?Config.stages[s.stage.stageIndex].riskReward:Config.stages[s.stage.stageIndex].normalReward;
             NoWrap11(UiKit.Text(card,"StageReward11","过关奖励 +"+reward+" 金币",14,148,inner,32,20,UiKit.Ink));
-            string note=kind=="pressure"?(StageRisk11?"高压挑战：目标 ×1.5，过关金币 +5":"普通挑战：目标与金币不变"):"提交栏 "+s.stage.capacity+" 格 · 每手掷 "+Session.InitialRolls+" 次";
-            var hint=UiKit.Text(card,"StageNote11",note,14,182,inner,40,17,PaperMuted071);hint.enableAutoSizing=true;hint.fontSizeMax=17*UiKit.FontScale;hint.fontSizeMin=13*UiKit.FontScale;
+            string note=kind=="pressure"?(StageRisk11?"目标 ×1.5，过关金币 +5":"普通挑战，目标不变"):"提交栏 "+s.stage.capacity+" 格 · 每手掷 "+Session.InitialRolls+" 次";
+            NoWrap11(UiKit.Text(card,"StageNote11",note,14,182,inner,Line11(Body11(17)),Body11(17),PaperMuted071));
             HitArea073(card,"StageCardOpen11",0,0,w-8,h-10,()=>{if(!IsBusy)ShowCycle10();});
         }
 
@@ -368,7 +373,7 @@ namespace DiceCraft
             else UiKit.Ring(main,"TrayAccent11",l.tray.x+7,l.tray.y+7,l.tray.width-14,l.tray.height-14,new Color(UiKit.Ghost.r,UiKit.Ghost.g,UiKit.Ghost.b,.75f)).GetComponent<Image>().pixelsPerUnitMultiplier=1.6f;
             // Title tab on the rim.
             var tab=Surface11(main,"PoolTab11",l.tray.x+24,l.tray.y-14,c?120:100,34,"ui_chip_formula",UiKit.Panel);
-            NoWrap11(UiKit.Text(tab,"PoolTitle","骰池",0,0,c?120:100,34,c?18:20,UiKit.Muted,TextAlignmentOptions.Center));
+            NoWrap11(UiKit.Text(tab,"PoolTitle","骰池",0,0,c?120:100,34,Body11(c?18:20),UiKit.Muted,TextAlignmentOptions.Center));
             var dice=s.dice.Where(d=>!h.orderedLockedIds.Contains(d.dieId)).OrderBy(d=>d.createdSerial).ToList();poolPage=Math.Min(poolPage,Math.Max(0,(dice.Count-1)/10));
             // Before the first throw of a hand the dice rest unlit (B4): a shade over the tray floor, no words.
             if(!h.hasRolled&&dice.Count>0){var veil=UiKit.Box(main,"PreRollVeil11",l.dice.x-4,l.dice.y-6,l.dice.width+8,l.dice.height+8,new Color(UiKit.Shadow.r,UiKit.Shadow.g,UiKit.Shadow.b,.32f));veil.GetComponent<Image>().raycastTarget=false;}
@@ -377,7 +382,7 @@ namespace DiceCraft
                 var rest=h.currentResults.Where(r=>r.hasRolled&&!r.isLocked).ToArray();
                 string summaryText="留池 "+rest.Length+" 颗 · 点数和 "+rest.Sum(r=>r.currentPip)+" · 红 "+rest.Count(r=>r.currentColor=="red")+" · 6点 "+rest.Count(r=>r.currentPip==6);
                 float sw=c?620:500;var chip=Surface11(main,"PoolSummaryTab11",l.tray.xMax-24-sw,l.tray.y-14,sw,34,"ui_chip_formula",UiKit.Panel);
-                var summary=NoWrap11(UiKit.Text(chip,"PoolSummary09",summaryText,10,0,sw-20,34,c?16:19,UiKit.Teal,TextAlignmentOptions.Center));summary.overflowMode=TextOverflowModes.Ellipsis;
+                NoWrap11(UiKit.Text(chip,"PoolSummary09",summaryText,10,0,sw-20,34,Body11(c?16:19),UiKit.Teal,TextAlignmentOptions.Center));
             }
             // One row of up to ten dice (a page). Five or fewer stand at about 1.5x the v1.0 size; more share the row's width
             // and still come out larger than the former second row (PLAY_LAYOUT 8: one row instead of two).
@@ -425,7 +430,7 @@ namespace DiceCraft
                 float tagW=Mathf.Min(cellW-8,c?120:96),tagH=c?36:30;
                 Vector2 at=new Vector2(center.x-tagW*.5f,center.y+halfH+10);
                 var tag=Surface11(main,"PendingTag11_"+id,at.x,at.y,tagW,tagH,"ui_chip_formula",UiKit.Gold);
-                NoWrap11(UiKit.Text(main,"Pending"+id,"已选 "+(order+1),at.x,at.y,tagW,tagH,c?14:17,UiKit.Ink,TextAlignmentOptions.Center));
+                NoWrap11(UiKit.Text(main,"Pending"+id,"已选 "+(order+1),at.x,at.y,tagW,tagH,Body11(c?14:17),UiKit.Ink,TextAlignmentOptions.Center));
             }
             DieBadges11(die,result,center,halfW,halfH,true,false);
         }
@@ -523,7 +528,7 @@ namespace DiceCraft
             y+=38;
             if(h.orderedLockedIds.Count>0)
             {
-                var rule=UiKit.Text(main,"LockRule","已锁定 · 本手不可移回骰池",ix,y,iw,30,c?15:18,UiKit.Gold);
+                var rule=UiKit.Text(main,"LockRule","已锁定 · 本手不可移回骰池",ix,y,iw,30,Body11(c?15:18),UiKit.Gold);
                 rule.ForceMeshUpdate();float rh=Mathf.Ceil(rule.GetPreferredValues(rule.text,iw,0).y)+2;rule.rectTransform.sizeDelta=new Vector2(iw,rh);y+=rh+4;
             }
             submitHandTop11=y;
@@ -600,7 +605,7 @@ namespace DiceCraft
         private void SealedMark11(float x,float y,float w,float h,int index)
         {
             UiKit.Outline(main,"SealedSlot10_"+index,x+3,y+3,w-6,h-6,UiKit.Danger,2);
-            var tag=NoWrap11(UiKit.Text(main,"SealedTag10_"+index,"封印",x+8,y+6,56,26,16,UiKit.Danger));tag.fontStyle=FontStyles.Bold;
+            var tag=NoWrap11(UiKit.Text(main,"SealedTag10_"+index,"封印",x+8,y+6,56,Line11(Body11(16)),Body11(16),UiKit.Danger));tag.fontStyle=FontStyles.Bold;
         }
 
         // ---------------------------------------------------------------- settle panel (above EndStage)
@@ -618,19 +623,19 @@ namespace DiceCraft
                 {
                     // v1.1 glossary (text proposal 2.2): 过关奖励, 剩余提交奖励, 利息.
                     string[] lines={"过关奖励  +"+PlayerNumberFormat.Gold(r.baseReward),"剩余提交奖励  +"+PlayerNumberFormat.Gold(r.unusedSubmissionReward),"利息  +"+PlayerNumberFormat.Gold(r.interest)+(r.controllerIncome>0?"  ·  铁饭碗 +"+PlayerNumberFormat.Gold(r.controllerIncome):"")};
-                    for(int i=0;i<lines.Length;i++)NoWrap11(UiKit.Text(main,"QualifiedReward"+i,lines[i],x,y+i*(c?30:28),w,c?30:28,c?15:19,UiKit.TextColor));
-                    y+=lines.Length*(c?30:28)+2;
+                    for(int i=0;i<lines.Length;i++)NoWrap11(UiKit.Text(main,"QualifiedReward"+i,lines[i],x,y+i*Line11(Body11(c?15:19)),w,Line11(Body11(c?15:19)),Body11(c?15:19),UiKit.TextColor));
+                    y+=lines.Length*Line11(Body11(c?15:19))+2;
                 }
                 int income=ViewSources.Count(v=>v.abilityId=="C01")*Config.Controller("C01").parameters.goldPerValidSubmission;
-                if(income>0)NoWrap11(UiKit.Text(main,"QualifiedContinueIncome","续交 "+NameOf("C01")+"  +"+income+" / 次",x,y,w,28,c?15:19,UiKit.Gold));
+                if(income>0)NoWrap11(UiKit.Text(main,"QualifiedContinueIncome","续交 "+NameOf("C01")+"  +"+income+" / 次",x,y,w,Line11(Body11(c?15:19)),Body11(c?15:19),UiKit.Gold));
                 return;
             }
             var gap=ExactScoreMath.Parse(s.stage.target)-ExactScoreMath.Parse(DisplayedStageScore11());if(gap.Sign<0)gap=0;
-            NoWrap11(UiKit.Text(main,"GoalGapLabel11","离目标还差",x,y,w,30,c?18:22,UiKit.Muted));
+            NoWrap11(UiKit.Text(main,"GoalGapLabel11","离目标还差",x,y,w,30,Body11(c?18:22),UiKit.Muted));
             var value=NoWrap11(UiKit.Text(main,"GoalGap11",CompactScore(gap.ToString()),x,y+30,w,60,c?36:44,PressureActive11?UiKit.Pressure:UiKit.TextColor));
             value.fontStyle=FontStyles.Bold;
             int reward=s.stage.reward>0?s.stage.reward:s.stage.risk?Config.stages[s.stage.stageIndex].riskReward:Config.stages[s.stage.stageIndex].normalReward;
-            var note=UiKit.Text(main,"GoalReward11","达标后结束：过关奖励 +"+reward+" 金币，剩下的每次提交 +"+Config.goldPerUnusedSubmission,x,y+96,w,72,c?15:18,UiKit.Muted);
+            var note=UiKit.Text(main,"GoalReward11","达标后结束：过关奖励 +"+reward+" 金币，剩下的每次提交 +"+Config.goldPerUnusedSubmission,x,y+96,w,72,Body11(c?15:18),UiKit.Muted);
             note.lineSpacing=-10;
         }
 
@@ -678,8 +683,8 @@ namespace DiceCraft
             if(!busy&&!pending&&!string.IsNullOrEmpty(LastTransactionSummary07))reason=LastTransactionSummary07;
             // Hint tab: a surface for the text (never written straight on the table).
             var tab=Surface11(main,"ActionReasonUnderlay",l.hint.x,l.hint.y,l.hint.width,l.hint.height,"ui_panel_hud",Color.white);
-            var hint=UiKit.Text(main,"ActionReason",reason,l.hint.x+16,l.hint.y+6,l.hint.width-32,l.hint.height-12,c?16:21,UiKit.TextColor,TextAlignmentOptions.MidlineLeft);
-            hint.lineSpacing=-8;hint.enableAutoSizing=true;hint.fontSizeMax=(c?16:21)*UiKit.FontScale;hint.fontSizeMin=(c?13:17)*UiKit.FontScale;
+            var hint=UiKit.Text(main,"ActionReason",reason,l.hint.x+16,l.hint.y+6,l.hint.width-32,l.hint.height-12,Body11(c?16:21),UiKit.TextColor,TextAlignmentOptions.MidlineLeft);
+            hint.lineSpacing=-8;hint.enableAutoSizing=true;hint.fontSizeMax=Body11(c?16:21)*UiKit.FontScale;hint.fontSizeMin=Body11(c?13:17)*UiKit.FontScale;
             // End the stage: always bottom right; disabled with its reason until the target is reached.
             if(busy)
             {

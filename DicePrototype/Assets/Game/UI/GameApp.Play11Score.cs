@@ -80,9 +80,9 @@ namespace DiceCraft
                 else{mode=Formula11Mode.Empty;caption=s.stage.score=="0"?"本关还没有得分":"本关累计 "+CompactScore(s.stage.score);}
             }
             // Caption chip.
-            float capW=mode==Formula11Mode.Empty?l.chips.width:Mathf.Clamp(PreferredWidth11(caption,c?17:20)+32,c?120:96,c?420:330);
+            float capW=mode==Formula11Mode.Empty?l.chips.width:Mathf.Clamp(PreferredWidth11(caption,Body11(c?17:20))+32,c?120:96,c?420:330);
             var capChip=Surface11(row,"FormulaCaption11",0,0,capW,l.chips.height,"ui_chip_formula",Color.Lerp(UiKit.Background,UiKit.Panel,.5f));
-            NoWrap11(UiKit.Text(capChip,"FormulaCaptionText11",caption,10,0,capW-20,l.chips.height,c?17:20,mode==Formula11Mode.Presenting?UiKit.Gold:UiKit.Muted,TextAlignmentOptions.Center));
+            NoWrap11(UiKit.Text(capChip,"FormulaCaptionText11",caption,10,0,capW-20,l.chips.height,Body11(c?17:20),mode==Formula11Mode.Presenting?UiKit.Gold:UiKit.Muted,TextAlignmentOptions.Center));
             DrawHand11(mode,b,preview);
             if(mode==Formula11Mode.Empty){receiptNumber07=null;return;}
             // Right end: the record / random / receipt button; the total follows the last factor.
@@ -92,32 +92,32 @@ namespace DiceCraft
             bool final=mode!=Formula11Mode.Presenting||beat07!=null&&beat07.Phase>=PresentationPhase.FinalScore;
             string totalText=mode==Formula11Mode.Presenting?(final?CompactScore(beat07.Phase==PresentationPhase.FinalScore?CountedScore11():receipt07.ScoreDecimal):"?"):total;
             string tier=mode==Formula11Mode.Presenting&&final||mode==Formula11Mode.Stable?TierWord11():"";
-            float totalTextW=PreferredWidth11(totalText,c?24:30)+(tier.Length>0?PreferredWidth11(tier,c?16:19)+12:0);
+            float totalTextW=PreferredWidth11(totalText,c?26:32)+(tier.Length>0?PreferredWidth11(tier,Body11(c?16:19))+12:0);
             float totalW=Mathf.Clamp(totalTextW+36,c?140:130,c?520:460);
             float right=l.chips.width-(detailW>0?detailW+8:0);
             // Factor chips between the caption and the total, separated by "x" and closed by "=", then the total.
             float x0=capW+12;
-            float font=c?22:26,nameFont=c?14:17,sep=c?26:30;
+            float font=c?22:26,nameFont=Body11(c?14:17),sep=c?26:30;
             var factors=Factors11(b);
             float[] widths=factors.Select(f=>PreferredWidth11(f.value,font)+PreferredWidth11(f.name,nameFont)+30).ToArray();
             float available=right-totalW-x0-6,need=widths.Sum()+sep*factors.Count;
             if(need>available)
             {
-                float squeeze=Mathf.Max(.62f,available/need);font*=Mathf.Max(.75f,squeeze);nameFont*=Mathf.Max(.8f,squeeze);sep*=Mathf.Max(.7f,squeeze);
+                float squeeze=Mathf.Max(.62f,available/need);font*=Mathf.Max(.75f,squeeze);nameFont=Mathf.Max(Body11(1),nameFont*Mathf.Max(.8f,squeeze));sep*=Mathf.Max(.7f,squeeze);
                 widths=factors.Select(f=>PreferredWidth11(f.value,font)+PreferredWidth11(f.name,nameFont)+24).ToArray();
             }
             float totalX=Mathf.Min(right-totalW,x0+widths.Sum()+sep*factors.Count);
             var totalChip=Surface11(row,"FinalScoreChip11",totalX,0,totalW,l.chips.height,"ui_chip_formula",final?UiKit.Reward:Color.Lerp(UiKit.Background,UiKit.Panel,.5f));
-            var number=NoWrap11(UiKit.Text(totalChip,totalName,totalText,14,0,totalW-28-(tier.Length>0?PreferredWidth11(tier,c?16:19)+12:0),l.chips.height,c?24:30,final?UiKit.Ink:UiKit.Muted,TextAlignmentOptions.MidlineRight));
+            var number=NoWrap11(UiKit.Text(totalChip,totalName,totalText,14,0,totalW-28-(tier.Length>0?PreferredWidth11(tier,Body11(c?16:19))+12:0),l.chips.height,c?26:32,final?UiKit.Ink:UiKit.Muted,TextAlignmentOptions.MidlineRight));
             if(final&&art07NumberFont!=null&&mode!=Formula11Mode.Preview&&totalText.IndexOf(',')<0)number.font=art07NumberFont;
-            if(tier.Length>0)NoWrap11(UiKit.Text(totalChip,"TierWord11",tier,totalW-14-PreferredWidth11(tier,c?16:19),0,PreferredWidth11(tier,c?16:19)+2,l.chips.height,c?16:19,UiKit.Ink,TextAlignmentOptions.MidlineLeft));
+            if(tier.Length>0)NoWrap11(UiKit.Text(totalChip,"TierWord11",tier,totalW-14-PreferredWidth11(tier,Body11(c?16:19)),0,PreferredWidth11(tier,Body11(c?16:19))+2,l.chips.height,Body11(c?16:19),UiKit.Ink,TextAlignmentOptions.MidlineLeft));
             receiptNumber07=mode==Formula11Mode.Presenting?number:null;
-            if(receiptNumber07!=null){number.rectTransform.pivot=new Vector2(1,.5f);number.rectTransform.anchoredPosition=new Vector2(totalW-14-(tier.Length>0?PreferredWidth11(tier,c?16:19)+12:0),-l.chips.height*.5f);receiptNumberOrigin07=number.rectTransform.anchoredPosition;}
+            if(receiptNumber07!=null){number.rectTransform.pivot=new Vector2(1,.5f);number.rectTransform.anchoredPosition=new Vector2(totalW-14-(tier.Length>0?PreferredWidth11(tier,Body11(c?16:19))+12:0),-l.chips.height*.5f);receiptNumberOrigin07=number.rectTransform.anchoredPosition;}
             if(detailName!=null)
             {
                 string label=detailName=="RecoveredDetails07"?"只读收据":detailName=="RandomPreview"?(b.multiplierFactors.Where(f=>f.abilityId=="C53").Select(f=>f.stateOwnerId).Distinct().Count()>1?"随机来源":preview.isRandom?"9 种结果":"覆盖来源"):"完整记录";
                 Action click=detailName=="RecoveredDetails07"?(Action)(()=>ShowBreakdown(s.lastSubmission.snapshot,s.lastSubmission.breakdown)):detailName=="RandomPreview"?ShowRandomPreview07:ShowCommittedPresentationDetails07;
-                var detail=SolidButton11(row,detailName,label,l.chips.width-detailW,0,detailW,l.chips.height,click,detailName!="RandomPreview"||!LockVisualPlaying07,c?15:18);
+                var detail=SolidButton11(row,detailName,label,l.chips.width-detailW,0,detailW,l.chips.height,click,detailName!="RandomPreview"||!LockVisualPlaying07,Body11(c?15:18));
                 var t=detail.GetComponentInChildren<TextMeshProUGUI>();t.textWrappingMode=TextWrappingModes.Normal;t.lineSpacing=-12;
             }
             float x=x0;int litCount=0;
@@ -172,10 +172,10 @@ namespace DiceCraft
         {
             var l=L11;bool c=Large11;float ix=l.info.x+16,iw=l.info.width-32,top=submitHandTop11;
             float bottom=ViewState.lastSubmission!=null?l.info.yMax-76:l.info.yMax-12;float h=Mathf.Max(30,bottom-top);
-            string text;Color color=UiKit.TextColor;float size=c?17:21;
+            string text;Color color=UiKit.TextColor;float size=Body11(c?17:21);
             if(b==null)
             {
-                text=ViewState.hand.hasRolled?"锁定骰子后显示预计牌型":"";color=UiKit.Muted;size=c?15:18;
+                text=ViewState.hand.hasRolled?"锁定骰子后显示预计牌型":"";color=UiKit.Muted;size=Body11(c?15:18);
             }
             else
             {
@@ -192,7 +192,7 @@ namespace DiceCraft
                 else text=structure+"\n"+colorName;
             }
             var hand=UiKit.Text(main,"Hand",text,ix,top,iw,h,size,color,TextAlignmentOptions.TopLeft);
-            hand.lineSpacing=-10;hand.enableAutoSizing=true;hand.fontSizeMax=size*UiKit.FontScale;hand.fontSizeMin=Mathf.Min(size,14)*UiKit.FontScale;
+            hand.lineSpacing=-10;hand.enableAutoSizing=true;hand.fontSizeMax=size*UiKit.FontScale;hand.fontSizeMin=Body11(14)*UiKit.FontScale;
             if(mode==Formula11Mode.Presenting&&text.Length>0&&beat07?.Phase==PresentationPhase.BaseAndStructure)UiKit.Component<Play11Pop>(hand.gameObject).Play(0);
         }
         private string TierWord11()
