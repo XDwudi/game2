@@ -13,7 +13,8 @@ namespace DiceCraft
         private bool handbookColors,handbookRules09;
         private static readonly string[][] HandbookRules09=
         {
-            new[]{"计分顺序","点数合计（含再计一次）＋各种加值 ＝ 基础分；再依次乘以牌型倍率、颜色倍率、红组倍率、各控制器倍率和倍率附魔，最后向下取整一次。"},
+            // v1.1 (text proposal 5 #6): the order ScoreCalculator applies, including the item and boss factors after the enchantments.
+            new[]{"计分顺序","点数合计（含再计一次）＋各种加值 ＝ 基础分；再依次乘以牌型倍率、颜色倍率、红组倍率、各卡牌倍率和倍率附魔；用了道具“灵光一闪”时再 ×2，首领减益让得分减半时再 ×0.5；最后向下取整一次。"},
             new[]{"成长值","卡面写着“当前 ×n”或“当前 +n”的控制器会随对局变强。成长发生在触发它的那次计分之后，所以触发成长的那一手用的还是成长前的数值。卖出、替换或损毁就失去成长值；百变模仿使用被模仿那张卡的成长值，但自己不成长。"},
             new[]{"再计一次","指定的提交骰把自己的点数贡献再加进基础分一次，逐骰加值、玻璃和黄金都一并翻倍。多个来源可以叠加成再计多次。不改变牌型、红组和骰子数量。"},
             new[]{"留池骰","本手投出后没有锁进提交栏的骰子。它们不计分，但板凳深度、厚积薄发、幕后推手、空城计和场外红人会读取它们的数量、点数和颜色。骰子比提交栏多时，留什么在池里也是一种选择。"},
@@ -51,7 +52,7 @@ namespace DiceCraft
             // p0.9.0: a third page explains growth, retriggers, pool dice, hand multiplier adds and slots.
             UiKit.FlatButton(p,"HandbookHands","牌型",24,76,476,60,()=>{handbookColors=false;handbookRules09=false;ShowHandbook();},true,!handbookColors&&!handbookRules09);
             UiKit.FlatButton(p,"HandbookColors","颜色与红组",514,76,476,60,()=>{handbookColors=true;handbookRules09=false;ShowHandbook();},true,handbookColors&&!handbookRules09);
-            UiKit.FlatButton(p,"HandbookRules09","成长与新机制",1004,76,476,60,()=>{handbookRules09=true;ShowHandbook();},true,handbookRules09);
+            UiKit.FlatButton(p,"HandbookRules09","进阶规则",1004,76,476,60,()=>{handbookRules09=true;ShowHandbook();},true,handbookRules09);
             UiKit.PaperFrame(p,"HandbookPaper",16,140,1472,732,UiKit.Paper);
             if(handbookRules09){DrawHandbookRules09(p);Canvas.ForceUpdateCanvases();return;}
             var preview=Session?.PreviewScoreRange()?.minimum;
@@ -77,7 +78,7 @@ namespace DiceCraft
                 }
                 var selected=rows.FirstOrDefault(r=>r.handId==art07HandSelection)??rows[0];
                 art07HandSelection=selected.handId;
-                string requirement=selected.handId=="scatter"?"不可强化":$"最低 K {selected.minimumDice} · 永久骰门槛 {Config.Hand(selected.handId).requirePermanentDice} · {selected.upgradeReason}";
+                string requirement=selected.handId=="scatter"?"不可强化":$"至少提交 {selected.minimumDice} 颗 · 永久骰门槛 {Config.Hand(selected.handId).requirePermanentDice} · {selected.upgradeReason}";
                 var explanation=UiKit.Scroll(p,"HandbookSelectionScroll",24,772,1456,100,100);
                 var selection=UiKit.Text(explanation,"HandbookSelection",selected.displayName+"："+selected.condition+"\n"+requirement+"\n"+selected.formReason,0,0,1424,100,20,UiKit.Ink);
                 explanation.sizeDelta=new Vector2(explanation.sizeDelta.x,FitHeight(selection,100));
@@ -97,7 +98,7 @@ namespace DiceCraft
                 }
                 float redTop=sectionHeight*2+16;
                 UiKit.Text(list,"RedTitle","同点红组 · 独立相乘",12,redTop,1380,64,30,UiKit.Ink);
-                UiKit.Text(list,"RedRule","默认取同点且为红色的最大一组。全红／全蓝不属于牌型 H。",12,redTop+72,1380,64,24,PaperMuted071);
+                UiKit.Text(list,"RedRule","默认取同点且为红色的最大一组。全红／全蓝不属于牌型倍率，另外计算。",12,redTop+72,1380,64,24,PaperMuted071);
                 for(int i=0;i<Config.redRewards.Length;i++)
                 {
                     var reward=Config.redRewards[i];int col=i%4,row=i/4;
@@ -140,32 +141,43 @@ namespace DiceCraft
             var card=UiKit.Frame(p,"DetailCard",24,104,184,272,UiKit.Paper,UiKit.Ink);
             DrawControllerRarity07(card,item.definitionId,false,184,272);
             Icon(card,item.definitionId,20,70,144);
-            UiKit.Text(card,"Identity",item.instanceId,8,222,168,40,18,UiKit.Ink,TextAlignmentOptions.Center);
+            // v1.1 (W09): the position printed on the card ("第 2 张"), never its instance id.
+            UiKit.Text(card,"Identity",CardPosition11(ViewState.controllers,item.instanceId)??"",8,222,168,40,18,UiKit.Ink,TextAlignmentOptions.Center);
             EnchantBadge(card,item.enchantmentId,132,10,40);
             var source=ViewSources.FirstOrDefault(x=>x.emitterId==item.instanceId);
             var list=PaperDetailScroll071(p,"ControllerDetail",232,104,704,500);float y=0;
             Art07DetailSection(list,"Skill","基础技能",Description(item.definitionId),ref y,672,true);
             Art07DetailSection(list,"Enchantment","自身附魔",EnchantLabel(item.enchantmentId),ref y,672,true);
             if((item.enchantmentId=="base10"||item.enchantmentId=="mult2")&&(source?.abilityId==null||!Config.Controller(source.abilityId).scoreEnchantEligible))
-                Art07DetailSection(list,"NoScoreTrigger","实验组合 · 无提交触发","保留附魔外观，但本实例当前技能不会产生计分附魔加成。",ref y,672,true);
+                Art07DetailSection(list,"NoScoreTrigger","附魔不会触发","这张卡不参与计分，所以计分附魔不会触发。",ref y,672,true);
             string current=ControllerStateLabel(item);
             if(item.definitionId=="C41")
             {
                 var target=(ViewBindings??ControllerRules.FreezeBindings(ViewState.controllers)).FirstOrDefault(b=>b.sourceInstanceId==item.instanceId)?.targetInstanceId;
                 var neighbor=ViewState.controllers.FirstOrDefault(c=>c.instanceId==target);
-                string binding=string.IsNullOrEmpty(target)?"没有右邻":neighbor==null?target+" · 目标已失效":target+" · "+NameOf(neighbor.definitionId);
-                current="绑定右邻："+binding+"\n实际模拟："+(source?.abilityId==null?"无能力":NameOf(source.abilityId))+"\n动态状态所有者："+(source?.stateOwnerId??"无")+"\n"+current;
+                // v1.1 (W09): the copied card is named by its position and name, never by instance id.
+                string binding=string.IsNullOrEmpty(target)?"没有右邻":neighbor==null?"目标已失效":CardPosition11(ViewState.controllers,target)+" "+NameOf(neighbor.definitionId);
+                string owner=source?.stateOwnerId==null?"无":CardPosition11(ViewState.controllers,source.stateOwnerId)??"无";
+                current="绑定右邻："+binding+"\n实际模拟："+(source?.abilityId==null?"无能力":NameOf(source.abilityId))+"\n成长与状态来自："+owner+"\n"+current;
             }
             if(source?.abilityId=="C53")
             {
-                current+="\n可能倍率："+string.Join("、",Config.Controller("C53").parameters.factorUnits2.Select(q=>(q/2m).ToString("0.#")));
+                current+="\n可能倍率："+string.Join("、",Config.Controller("C53").parameters.factorUnits2.Select(q=>PlayerNumberFormat.Ratio(q,2)));
                 var last=ViewState.lastSubmission;
                 var draw=last?.snapshot.resolvedRandomChoices.FirstOrDefault(q=>q.ownerInstanceId==source.stateOwnerId);
-                if(draw!=null)current+="\n上一提交记录：×"+(draw.units2/2m).ToString("0.#")+"（非下次预告）";
+                if(draw!=null)current+="\n上一提交记录："+PlayerNumberFormat.Times(draw.units2,2)+"（非下次预告）";
             }
-            Art07DetailSection(list,"Current","当前实例与目标",string.IsNullOrEmpty(current)?"当前 Run 生效；按技能条件判定。":current,ref y,672,true);
+            Art07DetailSection(list,"Current","当前状态",string.IsNullOrEmpty(current)?"本局生效；按技能条件判定。":current,ref y,672,true);
             if(item.definitionId=="C41"||item.definitionId=="C52")
-                Art07DetailSection(list,"Fund","本实例基金","基础卖价 "+(Session.GetControllerSalePrice(item.instanceId)-item.state.fundAccrual-item.state.saleBonus)+(Session.GetControllerSalePrice(item.instanceId)>ControllerRules.SalePrice(item,Config)?"（回收大王：标价全额）":"（标价的一半）")+" + 基金累计 "+item.state.fundAccrual+(item.state.saleBonus>0?" + 聚宝盆 "+item.state.saleBonus:"")+" = 当前卖价 "+Session.GetControllerSalePrice(item.instanceId)+"。未出售时不进入钱包。",ref y,672,true);
+            {
+                // v1.1 (W09, user decision D5): a card bought from this shop's shelf resells for at most the price paid until
+                // the player leaves; when that cap is below the ordinary price, the basis names the cap instead of half the
+                // list price (RULES_DELTA 1.1 item 9 and 8.3). Such a card has no fund or bonus yet: both grow at stage end.
+                long sale=Session.GetControllerSalePrice(item.instanceId),ordinary=ControllerRules.SalePrice(item,Config);
+                var paid=ViewState.phase=="Shop"?ViewState.shop?.paidControllerPrices?.FirstOrDefault(p=>p!=null&&p.instanceId==item.instanceId):null;
+                string basis=paid!=null&&paid.paid<ordinary?"（本店买入，离店前不超过买价）":sale>ordinary?"（回收大王：标价全额）":"（标价的一半）";
+                Art07DetailSection(list,"Fund","本实例基金","基础卖价 "+(sale-item.state.fundAccrual-item.state.saleBonus)+basis+" + 基金累计 "+item.state.fundAccrual+(item.state.saleBonus>0?" + 聚宝盆 "+item.state.saleBonus:"")+" = 当前卖价 "+sale+"。未出售时不进入钱包。",ref y,672,true);
+            }
             var preview=Session.PreviewScoreRange();
             string trigger=preview==null?"锁定骰子后可查看当前提交条件。":preview.isRandom?"存在尚未抽取的随机结果；这里不预告下次结果。":preview.minimum.triggeredSourceIds.Contains(item.instanceId)?"当前提交：条件命中。实际增益以分项为准。":"当前提交：条件未满足。卡片仍然有效。";
             Art07DetailSection(list,"Trigger","当前触发",trigger,ref y,672,true);

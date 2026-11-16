@@ -95,7 +95,8 @@ namespace DiceCraft
             if(IsPending||IsTransitioning||!Available(candidate))return false;
             var old=saved;
             saved=new Saved{confirmed=ReadActual(),candidate=candidate.Clone(),pending=true};
-            try{Persist();}catch(Exception e) when(e is IOException||e is UnauthorizedAccessException){saved=old;Notice="显示设置未应用："+e.Message;Changed?.Invoke();return false;}
+            // v1.1 (W09): players read what happened; the system message (often English) goes to the log only.
+            try{Persist();}catch(Exception e) when(e is IOException||e is UnauthorizedAccessException){saved=old;Notice="显示设置未应用：无法写入设置文件。";Debug.LogWarning("Display preferences not written: "+e.Message);Changed?.Invoke();return false;}
             deadline=double.PositiveInfinity;transitionDeadline=Time.realtimeSinceStartupAsDouble+10;restoring=false;CanConfirm=false;
             transition=StartCoroutine(ApplyNative(candidate,true));Changed?.Invoke();return true;
         }
@@ -133,14 +134,14 @@ namespace DiceCraft
             transition=null;
             if(confirmation&&!success){Notice="系统未能应用请求，已恢复原设置。";Revert();yield break;}
             if(confirmation){deadline=Time.realtimeSinceStartupAsDouble+15;CanConfirm=true;Notice="实际："+actual.width+" × "+actual.height+" · "+ModeName(actual.mode);}
-            else {restoring=false;saved=new Saved{confirmed=actual};try{Persist();}catch(Exception e) when(e is IOException||e is UnauthorizedAccessException){Notice="显示已恢复，偏好写入失败："+e.Message;}}
+            else {restoring=false;saved=new Saved{confirmed=actual};try{Persist();}catch(Exception e) when(e is IOException||e is UnauthorizedAccessException){Notice="显示已恢复，但设置没能保存（无法写入设置文件）。";Debug.LogWarning("Display preferences not written: "+e.Message);}}
             Changed?.Invoke();
         }
         public bool Confirm()
         {
             if(!IsPending||!CanConfirm||Time.realtimeSinceStartupAsDouble>=deadline)return false;
             var old=saved;saved=new Saved{confirmed=ReadActual()};
-            try{Persist();}catch(Exception e) when(e is IOException||e is UnauthorizedAccessException){saved=old;Notice="确认保存失败："+e.Message;Changed?.Invoke();return false;}
+            try{Persist();}catch(Exception e) when(e is IOException||e is UnauthorizedAccessException){saved=old;Notice="确认没能保存（无法写入设置文件）。";Debug.LogWarning("Display preferences not written: "+e.Message);Changed?.Invoke();return false;}
             CanConfirm=false;Notice="已保存显示设置。";Changed?.Invoke();return true;
         }
         public void Revert()

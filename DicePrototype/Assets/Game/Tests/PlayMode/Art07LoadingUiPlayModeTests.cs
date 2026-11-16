@@ -117,18 +117,23 @@ namespace DiceCraft.Tests
                 Assert.That(InformationText07("RecoveryStateBody"),Does.Contain("备份检查点"));
                 CollectionAssert.AreEqual(corrupt,File.ReadAllBytes(file));CollectionAssert.AreEqual(valid,File.ReadAllBytes(file+".backup"));
                 yield return app.StartCoroutine(LoadingScreen07("backup-ready-notice"));
+                // v1.1 (DEV_PLAN 4.5, W03 + W09): an incompatible active save and backup are deleted at startup, with no
+                // reminder; the menu shows the no-save state. (Previously: an old-version explanation and archived copies.)
                 byte[] legacy=System.Text.Encoding.UTF8.GetBytes("{\"schema\":3,\"config\":\"p0.5.0\",\"payload\":\"{}\",\"sha256\":\"legacy-fixture\"}");
                 File.WriteAllBytes(file,legacy);File.WriteAllBytes(file+".backup",legacy);
                 yield return LoadBootstrap();Assert.That(app.Session.State,Is.Null);
-                Assert.That(InformationText07("LegacyVersions07Body"),Does.Contain("p0.5.0").And.Contain("schema 3"));
-                var archives=Directory.GetFiles(saveDirectory,"active-run.json*.legacy-schema3-*");Assert.That(archives.Length,Is.EqualTo(2));
-                foreach(string archive in archives)CollectionAssert.AreEqual(legacy,File.ReadAllBytes(archive));
-                CollectionAssert.AreEqual(legacy,File.ReadAllBytes(file));CollectionAssert.AreEqual(legacy,File.ReadAllBytes(file+".backup"));
-                yield return app.StartCoroutine(LoadingScreen07("legacy-ready-notice"));
+                Assert.That(HasActive("LoadIssueDetails07"),Is.False,"An incompatible save leaves no reminder.");
+                Assert.That(File.Exists(file)||File.Exists(file+".backup"),Is.False,"The incompatible active save and backup are deleted.");
+                Assert.That(Directory.GetFiles(saveDirectory,"active-run.json*.legacy-schema*"),Is.Empty,"No archived copy is kept.");
+                Assert.That(InformationText07("SavedSeed"),Is.EqualTo("暂无存档 · 开始你的第一局"));
+                yield return app.StartCoroutine(LoadingScreen07("legacy-removed-no-save"));
+                // A worker read failure still keeps the storage policy: a current-version save and its backup stay untouched
+                // and the current-version explanation shows the failure (this part is unchanged from v1.0).
+                File.WriteAllBytes(file,valid);File.WriteAllBytes(file+".backup",valid);
                 GameApp.StartupReadBarrierForTests07=path=>throw new IOException("isolated-worker-read-failure");
                 yield return LoadBootstrap();Assert.That(app.Session.State,Is.Null);Assert.That(HasActive("LoadIssueDetails07"),Is.True);
                 Assert.That(InformationText07("RecoveryDetailBody"),Does.Contain("isolated-worker-read-failure"));
-                CollectionAssert.AreEqual(legacy,File.ReadAllBytes(file));CollectionAssert.AreEqual(legacy,File.ReadAllBytes(file+".backup"));
+                CollectionAssert.AreEqual(valid,File.ReadAllBytes(file));CollectionAssert.AreEqual(valid,File.ReadAllBytes(file+".backup"));
                 yield return app.StartCoroutine(LoadingScreen07("worker-error-ready-notice"));
             }
             finally{GameApp.StartupReadBarrierForTests07=null;}

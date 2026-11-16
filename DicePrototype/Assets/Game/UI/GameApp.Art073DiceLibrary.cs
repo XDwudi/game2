@@ -64,7 +64,8 @@ namespace DiceCraft
             if(sheetFacing073==null||sheetDie073==null)return;
             int facing=FacingOf073(sheetRotation073);if(facing==sheetFacingShown073)return;sheetFacingShown073=facing;
             var face=sheetDie073.faces.First(f=>DiceTable.FaceIndex(f.faceId)==facing);int at=Array.IndexOf(sheetDie073.faces,face);
-            string chance=sheetUnits073!=null&&at>=0&&at<sheetUnits073.Length?"\n本面概率 "+(sheetUnits073[at]/10000m).ToString("0.##")+"%":"";
+            // v1.1 (W09, text proposal 3): one decimal, the precision of the probability table.
+            string chance=sheetUnits073!=null&&at>=0&&at<sheetUnits073.Length?"\n本面概率 "+PlayerNumberFormat.Percent(sheetUnits073[at],10000):"";
             sheetFacing073.text="正对你的面 · 面 "+(facing+1)+"\n"+FaceSummary07(face)+(sheetDie073.isGlass?" · 玻璃骰":"")+chance;
         }
         /// <summary>

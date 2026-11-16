@@ -106,7 +106,8 @@ namespace DiceCraft.Tests
                 Assert.That(Button("ConfirmPurchase").interactable, Is.False, "Choosing an offer must not choose its target implicitly.");
                 SelectUpgradeTarget(id);
                 Assert.That(Button("ConfirmPurchase").interactable, Is.True);
-                if (id == "U01") Assert.That(FindActive<TextMeshProUGUI>("PurchasePreviewBody").text, Does.Contain("购买后：2点 · 蓝 B · 光滑"));
+                // v1.1 (W09, TX-02): colours without the English initials R/B.
+                if (id == "U01") Assert.That(FindActive<TextMeshProUGUI>("PurchasePreviewBody").text, Does.Contain("购买后：2点 · 蓝 · 光滑"));
                 if (id == "U07") Assert.That(FindActive<TextMeshProUGUI>("PurchasePreviewBody").text, Does.Contain("等概率取一个").And.Contain("颜色、纹理、镀金保持"));
                 Click("CloseDialog");
                 Assert.That(StateJson(), Is.EqualTo(before), "Selecting and cancelling " + id + " must not charge, modify or draw RNG.");

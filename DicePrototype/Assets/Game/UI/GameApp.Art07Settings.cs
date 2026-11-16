@@ -65,6 +65,8 @@ namespace DiceCraft
                 }
                 return true;
             }
+            // v1.1 (W09): Ctrl+Shift+D on the settings page reveals the developer's debug password row.
+            if(DebugRevealChord11(keyboard))return true;
             // The project disables automatic navigation events; provide precise keyboard slider steps here.
             var selected=EventSystem.current?.currentSelectedGameObject;
             var slider=selected==null?null:selected.GetComponent<UnityEngine.UI.Slider>();
@@ -76,7 +78,8 @@ namespace DiceCraft
             }
             return false;
         }
-        private string Art07BindingLabel(string action){EnsureBindings07();return bindings07[action].ToString();}
+        // v1.1 (W09): the key as printed for the player (回车, 退格, 空格 ...), never the Input System enum name.
+        private string Art07BindingLabel(string action){EnsureBindings07();return KeyLabel11(bindings07[action]);}
         private void Pause()
         {
             displayPanel=false;debugPanel=false;controllerOrderPanel=false;rebindingAction07=null;
@@ -120,7 +123,7 @@ namespace DiceCraft
             else
             {
                 float stride=Compact07?156:100,y=0;
-                SettingsChoice07(list,"Speed","演出速度",instant07?"Instant":fast?"Fast":"Normal",y,()=>{if(instant07){instant07=false;fast=false;}else if(fast){instant07=true;fast=false;}else fast=true;PlayerPrefs.SetInt("fast",fast?1:0);PlayerPrefs.SetInt("art07.instant",instant07?1:0);ApplyArtPreferences07();ShowSettings07();});y+=stride;
+                SettingsChoice07(list,"Speed","演出速度",SpeedLabel11(instant07?"Instant":fast?"Fast":"Normal"),y,()=>{if(instant07){instant07=false;fast=false;}else if(fast){instant07=true;fast=false;}else fast=true;PlayerPrefs.SetInt("fast",fast?1:0);PlayerPrefs.SetInt("art07.instant",instant07?1:0);ApplyArtPreferences07();ShowSettings07();});y+=stride;
                 SettingsChoice07(list,"Reduced","减少动态",reduced?"开":"关",y,()=>{reduced=!reduced;UiKit.ReducedMotion=reduced;PlayerPrefs.SetInt("reduced",reduced?1:0);ApplyArtPreferences07();ShowSettings07();});y+=stride;
                 SettingsChoice07(list,"TextScale","文字缩放",textScale07+"%",y,()=>{textScale07=textScale07==100?125:textScale07==125?150:100;UiKit.FontScale=textScale07/100f;PlayerPrefs.SetInt("art07.textScale",textScale07);CancelDieDrag07();CancelControllerDrag();Refresh();ShowSettings07();});y+=stride;
                 SettingsChoice07(list,"ColorAssist","红圆 / 蓝菱辅助",colorAssist07?"开":"关",y,()=>{colorAssist07=!colorAssist07;PlayerPrefs.SetInt("art07.colorAssist",colorAssist07?1:0);ApplyArtPreferences07();Refresh();ShowSettings07();});y+=stride;
@@ -134,7 +137,8 @@ namespace DiceCraft
                 }
                 UiKit.Text(list,"ReservedKeys","Esc 关闭最上层；数字键保留骰子选择。输入框与模态层拦截下层快捷键。",12,y,1172,84,22,UiKit.Muted);y+=104;
                 UiKit.Button(list,"ResetKeys","恢复默认快捷键",460,y,724,64,()=>{for(int i=0;i<BindingActions07.Length;i++)PlayerPrefs.DeleteKey("art07.key."+BindingActions07[i]);bindings07.Clear();EnsureBindings07();settingsNotice07="已恢复默认快捷键。";ShowSettings07();});y+=96;
-                DrawDebugAccess07(list,y);y+=260;
+                // v1.1 (text proposal 5 #2): players never see the debug password row; Ctrl+Shift+D reveals it.
+                if(DebugAccessVisible11){DrawDebugAccess07(list,y);y+=260;}
                 list.sizeDelta=new Vector2(list.sizeDelta.x,y);
             }
             UiKit.Text(p,"SettingsNotice",settingsNotice07,24,790,812,72,22,UiKit.Gold);

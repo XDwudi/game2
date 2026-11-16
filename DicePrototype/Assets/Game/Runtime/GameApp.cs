@@ -380,10 +380,13 @@ namespace DiceCraft
             string cue=name=="reject"?"SFX_UI_DENIED":name=="roll"?"SFX_DICE_ROLL":name=="lock"?"SFX_LOCK":name=="purchase"?"SFX_COIN":name=="refresh"?"SFX_REFRESH":name=="break"||name=="cannon"?"SFX_BREAK":name=="copy"||name=="dye"?"SFX_DYE_COPY":name.StartsWith("enchant",StringComparison.Ordinal)?"SFX_CARD_TRIGGER":"SFX_UI_PRESS";
             presentationAudio07?.PlayCue(cue,semanticVariant:name=="cannon"?"card":name);
         }
-        private string Factor(int n)=>(n/100m).ToString("0.##");
-        private static string Big(string value)=>System.Numerics.BigInteger.Parse(value??"0",System.Globalization.CultureInfo.InvariantCulture).ToString("N0",System.Globalization.CultureInfo.InvariantCulture);
-        private static string CompactScore(string value)=>value!=null&&value.Length>15?value.Substring(0,6)+"…（"+value.Length+"位）":Big(value);
+        // v1.1 (W09): every player-facing number goes through PlayerNumberFormat (text proposal section 3).
+        private static string Factor(int n)=>PlayerNumberFormat.Ratio(n,100);
+        // Exact views keep every digit (thousands separators, no abbreviation and no markup).
+        private static string Big(string value)=>PlayerNumberFormat.Exact(value??"0",PlayerNumberFormat.Unlimited);
+        // Compact views: up to 15 digits in full, longer as "约 1.23×10^19".
+        private static string CompactScore(string value)=>PlayerNumberFormat.Exact(value??"0");
         private string NameOf(string id){if(string.IsNullOrEmpty(id)||id=="none"||id=="scatter")return "散点";if(id=="all_blue"||id=="all_red")return Config.Color(id).displayName;if(id.StartsWith("B"))return Config.Modifier(id).displayName;if(id.StartsWith("L"))return Config.Loot(id).displayName;if(id=="GOLD")return "折现";if(id.StartsWith("C"))return Config.Controller(id).displayName;if(id.StartsWith("I"))return Config.Consumable(id).displayName;if(id.StartsWith("O"))return Config.Service(id).displayName;if(id.StartsWith("U"))return Config.Upgrade(id).displayName;return Config.Hand(id).displayName;}
-        private string Description(string id){if(id=="all_blue"||id=="all_red"){var c=Config.Color(id);return "全部提交骰为有效"+(id=="all_red"?"红":"蓝")+"色即成立，无最少数量。独立乘区，每级 +"+Factor(c.incrementPerLevel100)+"。";}if(id.StartsWith("B"))return Config.Modifier(id).description;if(id.StartsWith("L"))return Config.Loot(id).description;if(id=="GOLD")return "放弃这一组战利品，换成 "+Config.lootGoldValue+" 金币。";if(id.StartsWith("C"))return Config.Controller(id).description;if(id.StartsWith("I"))return Config.Consumable(id).description;if(id.StartsWith("O"))return Config.Service(id).description;if(id.StartsWith("U"))return Config.Upgrade(id).description;var h=Config.Hand(id);return "本Run持续生效；每级倍率 +"+Factor(h.incrementPerLevel100)+"，最高"+h.maxLevel+"级。";}
+        private string Description(string id){if(id=="all_blue"||id=="all_red"){var c=Config.Color(id);return "全部提交骰为有效"+(id=="all_red"?"红":"蓝")+"色即成立，无最少数量。独立乘区，每级 +"+Factor(c.incrementPerLevel100)+"。";}if(id.StartsWith("B"))return Config.Modifier(id).description;if(id.StartsWith("L"))return Config.Loot(id).description;if(id=="GOLD")return "放弃这一组战利品，换成 "+Config.lootGoldValue+" 金币。";if(id.StartsWith("C"))return Config.Controller(id).description;if(id.StartsWith("I"))return Config.Consumable(id).description;if(id.StartsWith("O"))return Config.Service(id).description;if(id.StartsWith("U"))return Config.Upgrade(id).description;var h=Config.Hand(id);return "本局一直有效；每级倍率 +"+Factor(h.incrementPerLevel100)+"，最高"+h.maxLevel+"级。";}
     }
 }

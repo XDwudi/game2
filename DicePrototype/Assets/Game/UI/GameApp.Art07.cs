@@ -60,7 +60,8 @@ namespace DiceCraft
             var p=UiKit.Frame(main,"Stats07",x,y,w,h,UiKit.Background,UiKit.PanelLight);UiKit.Surface(p,"ui_panel_hud");
             var brand=UiKit.PaperFrame(p,"BrandPaper",12,14,w-24,124,UiKit.Paper);
             var brandText=UiKit.Text(brand,"Brand","骰子构筑",12,10,w-48,64,c?30:36,UiKit.Ink);brandText.fontStyle=FontStyles.Bold;
-            UiKit.Text(p,"Edition",ViewState.debugWorkspace?"调试对局":"复古印刷骰桌",26,90,w-52,36,18,UiKit.Ink);
+            // v1.1 (W09): no art-set name on the table; practice has its own label, the debug workspace keeps its marker.
+            UiKit.Text(p,"Edition",IsPracticeRun11?"练习模式":IsDebugWorkspace?"调试对局":"",26,90,w-52,36,18,UiKit.Ink);
             int n=ViewState.stage.stageIndex+1;
             var ribbon=UiKit.Box(p,"StageRibbon",18,156,w-36,64,UiKit.Danger).GetComponent<UnityEngine.UI.Image>();
             ribbon.sprite=UiKit.Template("ui_button_bevel");ribbon.type=ribbon.sprite!=null?UnityEngine.UI.Image.Type.Sliced:UnityEngine.UI.Image.Type.Simple;
@@ -69,7 +70,7 @@ namespace DiceCraft
             DrawModifierChip10(p,w);
             Stat07(p,"Target","目标分数",CompactScore(ViewState.stage.target),286,w,UiKit.Red);
             Stat07(p,"StageScore","本关累计",CompactScore(ViewState.stage.score),410,w,UiKit.Blue);
-            Stat07(p,"Money","金币",ViewState.gold.ToString(),534,w,UiKit.Gold);
+            Stat07(p,"Money","金币",PlayerNumberFormat.Gold(ViewState.gold),534,w,UiKit.Gold);
             if(ViewState.phase=="Shop")
             {
                 UiKit.Text(p,"ShopBudget",$"普通槽 {ControllerRules.OrdinaryUsed(ViewState.controllers)} / {ViewState.controllerSlots}\n总持有 {ViewState.controllers.Count} / {Config.maxControllerInstances}\n永久骰 {ViewState.dice.Count(d=>d.lifetime=="permanent")} / 8",18,672,w-36,134,20,UiKit.Muted);
@@ -79,7 +80,7 @@ namespace DiceCraft
                 DrawBudgetCounters07(p);
                 if(ViewState.stage.qualified)UiKit.Text(p,"Qualified",QualifiedSummary07(),18,744,w-36,42,c?17:20,UiKit.Gold);
             }
-            if(ViewState.debugWorkspace)UiKit.Box(main,"DebugMark",0,0,1920,6,UiKit.Violet);
+            if(IsDebugWorkspace)UiKit.Box(main,"DebugMark",0,0,1920,6,UiKit.Violet);
         }
         private void Stat07(Transform parent,string id,string label,string value,float y,float width,Color color)
         {
@@ -199,7 +200,7 @@ namespace DiceCraft
             if(DisabledNext10(item.instanceId))return "首领关将失效";
             if(item.definitionId=="C41")return source?.abilityId==null?"右邻失效":"→ "+NameOf(source.abilityId);
             if(source?.abilityId=="C45")return source.state.activeColor=="red"?"当前红":"当前蓝";
-            if(source?.abilityId=="C51")return "当前 ×"+(source.state.turnoverUnits2/2m).ToString("0.#");
+            if(source?.abilityId=="C51")return "当前 ×"+PlayerNumberFormat.Ratio(source.state.turnoverUnits2,2);
             if(source?.abilityId=="C53")return "随机倍率";
             string growth=GrowthText09(source?.abilityId,source?.state);
             if(growth!=null)return "当前 "+growth;
@@ -448,8 +449,9 @@ namespace DiceCraft
                 UiKit.Button(p,"RandomPreview",label,564,0,300,60,ShowRandomPreview07,!LockVisualPlaying07);
             }
             bool zeroFive=b.multiplierFactors.Any(f=>f.abilityId=="C49"&&f.numerator=="0");
-            string control=zeroFive?"控制器 ×0\n没有有效 5 点":"控制器 ×"+ScoreFactorShort07(b.controllerMultiplierNumerator,b.controllerMultiplierDenominator);
-            string[] labels={"基础 "+(b.baseTotal.Length>9?ScoreFactorShort07(b.baseTotal):CompactScore(b.baseTotal)),"牌型 ×"+Factor(b.totalHandMult100),"颜色 ×"+Factor(b.colorMult100),"红组 ×"+Factor(b.redMult100),control,"附魔 ×2^"+b.enchantMultiplierCount};
+            // v1.1 (W09): decimals instead of fractions, the enchantment as its actual factor, "卡牌" for controllers (D2).
+            string control=zeroFive?"卡牌 ×0\n没有有效 5 点":"卡牌 "+PlayerNumberFormat.Times(ExactScoreMath.Parse(b.controllerMultiplierNumerator),ExactScoreMath.Parse(b.controllerMultiplierDenominator),ChipDigits07);
+            string[] labels={"基础 "+PlayerNumberFormat.Integer(ExactScoreMath.Parse(b.baseTotal),9),"牌型 ×"+Factor(b.totalHandMult100),"颜色 ×"+Factor(b.colorMult100),"红组 ×"+Factor(b.redMult100),control,"附魔 "+PlayerNumberFormat.Times(EnchantFactor07(b.enchantMultiplierCount),1,ChipDigits07)};
             float bw=(w-(thin?440:48))/6;for(int i=0;i<6;i++)
             {
                 // rc.2: the shallow rail's factor hit area is 60 units (was 52) so it stays 40 physical
@@ -472,21 +474,13 @@ namespace DiceCraft
             }
         }
         // HUD-only approximation. The button retains the original exact breakdown.
+        // v1.1 (W09): decimals through PlayerNumberFormat; more than nine integer digits read "约 1.23×10^n".
         private static string ScoreFactorShort07(string numerator,string denominator="1")
-        {
-            string exact=denominator=="1"?numerator:numerator+"/"+denominator;
-            if(exact.Length<=9)return exact;
-            BigInteger n=ExactScoreMath.Parse(numerator),d=ExactScoreMath.Parse(denominator);if(n.IsZero)return "0";
-            int exponent=n.ToString().Length-d.ToString().Length;
-            if(exponent>=0){if(n<d*BigInteger.Pow(10,exponent))exponent--;}
-            else if(n*BigInteger.Pow(10,-exponent)<d)exponent--;
-            int shift=2-exponent;BigInteger scaledN=n,scaledD=d;
-            if(shift>=0)scaledN*=BigInteger.Pow(10,shift);else scaledD*=BigInteger.Pow(10,-shift);
-            BigInteger units=(scaledN*2+scaledD)/(scaledD*2);
-            if(units>=1000){units/=10;exponent++;}
-            int mantissa=(int)units;string decimals=(mantissa%100).ToString("00").TrimEnd('0');
-            return "≈"+(mantissa/100)+(decimals.Length==0?"":"."+decimals)+"e"+exponent;
-        }
+            =>PlayerNumberFormat.Ratio(ExactScoreMath.Parse(numerator),ExactScoreMath.Parse(denominator),9);
+        // A multiplier chip has room for "×" plus about ten digit widths at 150% text: six integer digits and two decimals.
+        private const int ChipDigits07=6;
+        /// <summary>The actual factor of n score-multiplier enchantments (2^n with the shipped configuration).</summary>
+        private BigInteger EnchantFactor07(int count)=>BigInteger.Pow(Config.enchantRules.scoreMultiplier,Math.Max(0,count));
         private void ShowRandomPreview07()
         {
             var preview=Session.PreviewScoreRange();var snapshot=Session.PreviewSnapshot();
@@ -495,14 +489,17 @@ namespace DiceCraft
             string[] owners=factors.Select(f=>f.stateOwnerId).Distinct(StringComparer.Ordinal).ToArray();
             var p=Art07Modal("随机结果 · 只读分支",496,400,1280,520);
             var list=UiKit.Scroll(p,"RandomBranches",24,96,1232,336,336);float y=0;
-            string range=preview.isRandom?"随机结果范围 "+Big(preview.minimum.score)+" — "+Big(preview.maximum.score):"仅下一次调试覆盖 · 预计 "+Big(preview.minimum.score);
+            string range=preview.isRandom?"随机结果范围 "+CompactScore(preview.minimum.score)+" — "+CompactScore(preview.maximum.score):"仅下一次调试覆盖 · 预计 "+CompactScore(preview.minimum.score);
             Art07DetailSection(list,"RandomRange","总分范围",range,ref y,1200);
+            // v1.1 (W09): cards are named by their printed position and name, never by instance id.
+            var cards=snapshot.equippedControllers;
+            Func<string,string> card=id=>{string at=CardPosition11(cards,id);var item=cards?.FirstOrDefault(c=>c.instanceId==id);return (at==null?"":at+" ")+(item==null?NameOf("C53"):NameOf(item.definitionId));};
             foreach(string owner in owners)
             {
                 var emitters=factors.Where(f=>f.stateOwnerId==owner).Select(f=>f.emitterId).ToArray();
                 string sharing=emitters.Length>1?"共用 q · ":"独立 q · ";
                 var forced=ViewState.isDebug&&ViewState.debugWorkspace?ViewState.randomOverrides.FirstOrDefault(o=>o.kind=="C53"&&o.sourceId==owner):null;
-                Art07DetailSection(list,"RandomOwner"+owner,sharing+owner,"使用此 q："+string.Join("、",emitters)+(forced==null?"\n正式提交后才确定结果。":"\n仅下一次覆盖：×"+(int.Parse(forced.value)/2m).ToString("0.#")),ref y,1200);
+                Art07DetailSection(list,"RandomOwner"+owner,sharing+card(owner),"使用此 q："+string.Join("、",emitters.Select(card))+(forced==null?"\n正式提交后才确定结果。":"\n仅下一次覆盖："+PlayerNumberFormat.Times(int.Parse(forced.value),2)),ref y,1200);
             }
             if(owners.Length==1&&preview.isRandom)
             {
@@ -512,13 +509,13 @@ namespace DiceCraft
                     var branch=snapshot.Clone();branch.resolvedRandomChoices=new[]{new RandomMultiplierChoice{ownerInstanceId=owner,units2=q}};
                     var evaluated=ScoreCalculator.Preview(branch,Config);var exact=evaluated.minimum;
                     float rowHeight=Math.Max(80,80*UiKit.FontScale);
-                    UiKit.Text(list,"RandomFactor"+index,"q ×"+(q/2m).ToString("0.#"),0,y,240,rowHeight-8,26,UiKit.Paper);
-                    var score=UiKit.Text(list,"RandomScore"+index,exact.score,256,y,656,rowHeight-8,26,UiKit.Gold);score.overflowMode=TextOverflowModes.Ellipsis;
+                    UiKit.Text(list,"RandomFactor"+index,"q "+PlayerNumberFormat.Times(q,2),0,y,240,rowHeight-8,26,UiKit.Paper);
+                    var score=UiKit.Text(list,"RandomScore"+index,CompactScore(exact.score),256,y,656,rowHeight-8,26,UiKit.Gold);score.overflowMode=TextOverflowModes.Ellipsis;
                     UiKit.Button(list,"RandomBranch"+index,"查看分项",944,y,240,64,()=>ShowBreakdown(branch,exact));
                     y+=rowHeight;index++;
                 }
             }
-            else if(owners.Length>1)Art07DetailSection(list,"RandomMultiple","多个真实 C53","仅列各来源与总范围，不展开组合列表。每个真实 C53 独立确定 q，模仿者与目标共用 q。",ref y,1200);
+            else if(owners.Length>1)Art07DetailSection(list,"RandomMultiple","多张"+NameOf("C53"),"仅列各来源与总范围，不展开组合列表。每张"+NameOf("C53")+"独立确定 q，模仿者与目标共用 q。",ref y,1200);
             list.sizeDelta=new Vector2(list.sizeDelta.x,y+16);
             UiKit.Text(p,"RandomReadOnly","浏览不会抽样、消耗覆盖或改变当前提交。",24,448,1232,60,24,UiKit.Muted);
         }

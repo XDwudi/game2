@@ -92,9 +92,11 @@ namespace DiceCraft.Tests
                 string[] originalPanel = ReadHistoryPanel(count);
                 Assert.That(originalPanel[0], Does.EndWith("= " + System.Numerics.BigInteger.Parse(expectedScore.score).ToString("N0",System.Globalization.CultureInfo.InvariantCulture)));
                 Assert.That(originalPanel[1], Does.Contain(app.Config.Controller(controllerId).displayName));
-                Assert.That(originalPanel[1], Does.Contain(ids[1]));
-                if (controllerId == "C07") Assert.That(originalPanel[1], Does.Contain(ids[0] + " 的六面复制到 " + ids[1]));
-                else Assert.That(originalPanel[1], Does.Contain(frozenSnapshot.dice[1].faceId + " 永久染红"));
+                // v1.1 (W09, TX-02): the affected die and face are named ("骰子 2 的第 3 面"), never shown as D002 / F03.
+                Assert.That(originalPanel[1], Does.Contain(GameApp.DieName11(ids[1])));
+                Assert.That(originalPanel[1], Does.Not.Contain(ids[1]));
+                if (controllerId == "C07") Assert.That(originalPanel[1], Does.Contain(GameApp.DieName11(ids[0]) + " 的六面复制到" + GameApp.DieName11(ids[1])));
+                else Assert.That(originalPanel[1], Does.Contain(GameApp.DieFaceName11(ids[1], frozenSnapshot.dice[1].faceId) + "永久染红"));
                 Assert.That(originalPanel[3], Does.Contain("永久 2 → 当前 2"), "Historical detail must display pre-effect data.");
                 Assert.That(StateJson(), Is.EqualTo(beforeHistory));
                 Click("CloseDialog");

@@ -61,8 +61,10 @@ namespace DiceCraft.Tests
                 Art07Fixtures.Apply(app, Art07FixtureKind.G147); Art07Fixtures.Submit(app, Art07FixtureKind.G147); app.SkipVisual();
                 Click("Pause"); Click("Settings"); Click("SettingsTab2");
                 int changes = 0;
-                while (!Button("Speed").GetComponentInChildren<TextMeshProUGUI>().text.StartsWith("Fast", System.StringComparison.Ordinal) && changes++ < 3) Click("Speed");
-                Assert.That(Button("Speed").GetComponentInChildren<TextMeshProUGUI>().text, Does.StartWith("Fast")); Click("SettingsDone");
+                // v1.1 (W09, TX-02): the "Fast" option reads 快速.
+                string fastLabel = GameApp.SpeedLabel11("Fast");
+                while (!Button("Speed").GetComponentInChildren<TextMeshProUGUI>().text.StartsWith(fastLabel, System.StringComparison.Ordinal) && changes++ < 3) Click("Speed");
+                Assert.That(Button("Speed").GetComponentInChildren<TextMeshProUGUI>().text, Does.StartWith(fastLabel)); Click("SettingsDone");
                 string committed = GameSession.StateHash(app.Session.State); byte[] disk = File.ReadAllBytes(app.SaveLocation);
                 IEnumerator Replay()
                 {

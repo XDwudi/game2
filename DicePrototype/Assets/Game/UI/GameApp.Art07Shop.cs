@@ -99,7 +99,7 @@ namespace DiceCraft
             switch(item.definitionId)
             {
                 case "C45":return string.IsNullOrEmpty(item.state?.activeColor)?"购入定色":item.state.activeColor=="red"?"当前 红 ●":"当前 蓝 ◆";
-                case "C51":return "当前 ×"+((item.state?.turnoverUnits2??3)/2m).ToString("0.#");
+                case "C51":return "当前 ×"+PlayerNumberFormat.Ratio(item.state?.turnoverUnits2??3,2);
                 case "C52":return "卖价 "+ControllerRules.SalePrice(item,Config);
                 case "C41":return "模拟右邻";
                 case "C53":return "随机倍率";
@@ -109,6 +109,13 @@ namespace DiceCraft
                     return "技能详情";
             }
         }
+        /// <summary>
+        /// v1.1 (W09, user decision D5): the state line of a card that was just bought. A 成长基金 (C52) shows what the
+        /// session pays for it now, read from the committed state: bought from this shop's shelf, it resells for at most the
+        /// price paid until the player leaves. (Offer cards keep the ordinary resale price above, the price after the shop.)
+        /// </summary>
+        private string AcquiredCardState11(ControllerInstance item,RunState after)
+            =>item?.definitionId=="C52"&&after!=null?"卖价 "+Session.ControllerSalePriceIn(after,item):Art07OfferState(item);
         private string Art07Availability07(ShopOffer offer)
         {
             if(offer.sold)return "已购买";

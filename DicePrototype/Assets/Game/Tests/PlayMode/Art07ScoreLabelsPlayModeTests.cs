@@ -50,11 +50,15 @@ namespace DiceCraft.Tests
                     {
                         var exact=app.Session.PreviewScoreRange().minimum;
                         Assert.That(exact.controllerMultiplierNumerator,Is.EqualTo("4294967296"));
-                        Assert.That(Button("Factor4").GetComponentInChildren<TextMeshProUGUI>().text,Is.EqualTo("控制器 ×≈4.29e9"));
+                        // v1.1 (W09, TX-01): no fraction or "e" notation. Ten integer digits exceed the chip's six, so the
+                        // chip reads "约 ×4.29×10⁹" (superscript markup); "控制器" is "卡牌" (D2).
+                        Assert.That(Button("Factor4").GetComponentInChildren<TextMeshProUGUI>().text,Is.EqualTo("卡牌 约 ×4.29×10<sup>9</sup>"));
                         Click("Factor4");yield return new WaitForSecondsRealtime(.2f);
                         Click("FullScoreDetails");yield return new WaitForSecondsRealtime(.2f);
                         var formula=FindActive<TextMeshProUGUI>("Formula");
-                        Assert.That(formula.text,Does.Contain("控制器 "+exact.controllerMultiplierNumerator+"/"+exact.controllerMultiplierDenominator));
+                        // The complete breakdown keeps every digit, as a decimal (here exactly 4,294,967,296).
+                        Assert.That(formula.text,Does.Contain("卡牌 "+PlayerNumberFormat.Ratio(System.Numerics.BigInteger.Parse(exact.controllerMultiplierNumerator),System.Numerics.BigInteger.Parse(exact.controllerMultiplierDenominator),PlayerNumberFormat.Unlimited)));
+                        Assert.That(formula.text,Does.Not.Contain("/"),"The complete formula shows no fraction.");
                         var scroll=formula.GetComponentInParent<UnityEngine.UI.ScrollRect>();Assert.That(scroll,Is.Not.Null);
                         Rect viewport=V06ScreenRect(scroll.viewport);foreach(var glyph in ScoreGlyphRects07(formula))Assert.That(ScoreContains07(viewport,glyph),Is.True,"Exact formula must remain fully readable in its viewport");
                         yield return ScoreLabelGpuCapture07(new[]{formula});yield return CaptureEdge07("score-exact-controller-factor-font"+font);

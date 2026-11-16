@@ -24,10 +24,11 @@ namespace DiceCraft
         private string GrowthText09(string abilityId,ControllerDynamicState state)
         {
             if(abilityId==null||state==null)return null;
-            if(ControllerRules.IsGrowthMultiplier(abilityId))return "×"+((20+state.growth)/20m).ToString("0.##");
+            // v1.1 (W09): one number format for every multiplier (PlayerNumberFormat).
+            if(ControllerRules.IsGrowthMultiplier(abilityId))return PlayerNumberFormat.Times(20+state.growth,20);
             if(ControllerRules.IsGrowthBase(abilityId))return "+"+state.growth;
-            if(abilityId=="C141")return "×"+((Config.Controller("C141").parameters.initialMultiplierUnits2-state.growth)/2m).ToString("0.#");
-            if(abilityId=="C63")return "×"+(Math.Max(10,ViewState.dice.Count(d=>d.lifetime=="permanent")*Config.Controller("C63").parameters.perDieUnits10)/10m).ToString("0.#");
+            if(abilityId=="C141")return PlayerNumberFormat.Times(Config.Controller("C141").parameters.initialMultiplierUnits2-state.growth,2);
+            if(abilityId=="C63")return PlayerNumberFormat.Times(Math.Max(10,ViewState.dice.Count(d=>d.lifetime=="permanent")*Config.Controller("C63").parameters.perDieUnits10),10);
             return null;
         }
         /// <summary>v0.9 C100: before a stage starts, the controllers the altars will destroy when it does.</summary>
@@ -45,12 +46,14 @@ namespace DiceCraft
             if(c.definitionId=="C41")
             {
                 var target=(ViewBindings??ControllerRules.FreezeBindings(ViewState.controllers)).FirstOrDefault(b=>b.sourceInstanceId==c.instanceId)?.targetInstanceId;
-                text=source?.abilityId!=null?"→ "+NameOf(source.abilityId)+" / "+source.stateOwnerId:
-                    !string.IsNullOrEmpty(target)&&ViewState.stage.destroyedControllerIds.Contains(target)?"目标已损坏 "+target+" · 复制失效":
-                    !string.IsNullOrEmpty(target)?"右邻 "+target+" · 无可解析能力":"无右邻 · 复制失效";
+                // v1.1 (W09): the copied card is named (by its position when needed), never shown by instance id.
+                var neighbor=ViewState.controllers.FirstOrDefault(x=>x.instanceId==target);
+                text=source?.abilityId!=null?"→ "+NameOf(source.abilityId):
+                    !string.IsNullOrEmpty(target)&&ViewState.stage.destroyedControllerIds.Contains(target)?"目标已损坏 · 复制失效":
+                    !string.IsNullOrEmpty(target)?"右邻"+(neighbor==null?"":" "+CardLabel11(target))+" · 无可解析能力":"无右邻 · 复制失效";
             }
             if(source?.abilityId=="C45")text+=(text.Length>0?" · ":"")+(source.state.activeColor=="red"?"当前红":"当前蓝");
-            if(source?.abilityId=="C51")text+=(text.Length>0?" · ":"")+"×"+(source.state.turnoverUnits2/2m).ToString("0.#");
+            if(source?.abilityId=="C51")text+=(text.Length>0?" · ":"")+PlayerNumberFormat.Times(source.state.turnoverUnits2,2);
             string growth=GrowthText09(source?.abilityId,source?.state);
             if(growth!=null)text+=(text.Length>0?" · ":"")+"当前 "+growth;
             if(c.state!=null&&c.state.saleBonus>0&&c.definitionId!="C52"&&c.definitionId!="C41")text+=(text.Length>0?" · ":"")+"售价 "+OwnedSalePrice10(c);
@@ -108,10 +111,11 @@ namespace DiceCraft
                 var candidate=ViewState.controllers.Select(c=>c.Clone()).ToList();int from=candidate.FindIndex(c=>c.instanceId==draggedController);var moved=candidate[from];candidate.RemoveAt(from);
                 int to=controllerInsertion>from?controllerInsertion-1:controllerInsertion;candidate.Insert(Math.Max(0,Math.Min(candidate.Count,to)),moved);
                 var sources=ControllerRules.ResolveSources(candidate);
-                var mimics=sources.Where(s=>s.emitterDefinitionId=="C41").Take(4).Select(s=>s.emitterId+" → "+(s.abilityId==null?"无能力":NameOf(s.abilityId)+" / "+s.stateOwnerId));
+                // v1.1 (W09): cards by their position in the new order, never by instance id; "提交栏 N 格" instead of "容量 K".
+                var mimics=sources.Where(s=>s.emitterDefinitionId=="C41").Take(4).Select(s=>CardPosition11(candidate,s.emitterId)+" "+NameOf("C41")+" → "+(s.abilityId==null?"无能力":NameOf(s.abilityId)+"（"+(CardPosition11(candidate,s.stateOwnerId)??"—")+"）"));
                 // p1.0.0: outside the debug workspace the core quotes the capacity for the new order (boss modifier, disabled cards and altars included).
                 int k=ViewState.debugCapacityOverride>0?ViewState.debugCapacityOverride:ViewState.debugWorkspace?ControllerRules.Capacity(candidate,Config,ViewState.isDebug):Session.CapacityForOrder(candidate.Select(c=>c.instanceId).ToList());
-                preview="允许插入 · 普通占槽 "+ControllerRules.OrdinaryUsed(candidate)+(ViewState.debugWorkspace?"（调试）":" / "+ViewState.controllerSlots)+" · 容量 K "+Session.EffectiveCapacity+" → "+k+"\n"+string.Join("\n",mimics);
+                preview="允许插入 · 栏位 "+ControllerRules.OrdinaryUsed(candidate)+(IsDebugWorkspace?"（调试）":IsPracticeRun11?"":" / "+ViewState.controllerSlots)+" · 提交栏 "+Session.EffectiveCapacity+" → "+k+" 格\n"+string.Join("\n",mimics);
             }
             UiKit.Text(dragGhost,"Candidate",preview,12,52,596,150,20,UiKit.Teal);
         }

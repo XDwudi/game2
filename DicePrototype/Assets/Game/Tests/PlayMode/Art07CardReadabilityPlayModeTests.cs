@@ -84,7 +84,9 @@ namespace DiceCraft.Tests
             var config=app.Config.Controller(item.definitionId);float bottom=CardPaperBottom07(card);
             var row=new CardRead07{kind=kind,instance=item.instanceId,definition=item.definitionId,rarity=config.rarity,enchantment=item.enchantmentId,card=new Rect(0,0,card.rect.width,card.rect.height)};
             string category=config.rarity=="rare"?"稀有":config.rarity=="uncommon"?"进阶":"常见";
-            foreach(var pair in new[]{new[]{"RarityLabel",category},new[]{"Name",config.displayName},new[]{"State",footer},new[]{"Identity",item.instanceId}})
+            // v1.1 (W09, TX-02): the detail card prints the card's position ("第 N 张"), never its instance id.
+            int position=app.Session.State.controllers.FindIndex(c=>c.instanceId==item.instanceId)+1;
+            foreach(var pair in new[]{new[]{"RarityLabel",category},new[]{"Name",config.displayName},new[]{"State",footer},new[]{"Identity","第 "+position+" 张"}})
             {
                 var child=card.Find(pair[0]);if(child==null){if(pair[0]=="RarityLabel"||(pair[0]=="Name"&&kind!="detail")||(pair[0]=="State"&&footer!=null)||(pair[0]=="Identity"&&kind=="detail"))row.errors.Add("Missing required "+pair[0]);continue;}
                 if(pair[1]!=null)row.labels.Add(CardGlyphCheck07(card,child.GetComponent<TextMeshProUGUI>(),pair[1],bottom));
@@ -140,7 +142,7 @@ namespace DiceCraft.Tests
             if(source?.abilityId=="C05")return app.Session.State.hand.c05UsedEmitterIds.Contains(item.instanceId)?"本手已用":"本手可用";
             return "查看条件";
         }
-        private IEnumerator CardCapture07(string id,bool shop=false,bool detail=false)
+        private IEnumerator CardCapture07(string id,bool shop=false,bool detail=false,string detailInstance=null)
         {
             yield return ExtraCapture07(id,detail?"S15":shop?"S10":"S05","Actual card glyph quads at current real viewport/font; valid isolated debug fixture.");
             var row=new CardScreen07{id=id,scope="Representative full HUD, compact HUD, shop full, detail, and owned mini cards; no claim of all catalog entries.",runtimeMvid=extra07.runtimeMvid,coreMvid=extra07.coreMvid,testMvid=extra07.testMvid,sourceSnapshotSha=extra07.sourceManifestSha256,
@@ -148,7 +150,9 @@ namespace DiceCraft.Tests
             var state=app.Session.State;
             if(detail)
             {
-                var card=FindActive<RectTransform>("DetailCard");string instance=card.Find("Identity").GetComponent<TextMeshProUGUI>().text;
+                // v1.1 (W09): the card no longer prints its instance id, so the caller names the opened instance; the
+                // "第 N 张" label is checked against that instance's position in CardCheck07.
+                var card=FindActive<RectTransform>("DetailCard");string instance=detailInstance;Assert.That(instance,Is.Not.Null);
                 row.cards.Add(CardCheck07(card,state.controllers.Single(c=>c.instanceId==instance),"detail"));
                 var title=FindActive<TextMeshProUGUI>("DialogTitle");var titleRow=CardGlyphCheck07((RectTransform)title.transform.parent,title,app.Config.Controller(state.controllers.Single(c=>c.instanceId==instance).definitionId).displayName,720);
                 row.cards[0].labels.Add(titleRow);row.cards[0].errors.AddRange(titleRow.errors.Select(e=>"DialogTitle: "+e));
@@ -185,7 +189,8 @@ namespace DiceCraft.Tests
                 scene=InformationScene07(Art07FixtureKind.GoldenSample);ids=new[]{"C41","C45","C51","C52"};
                 for(int i=0;i<4;i++){scene.controllers[i].definitionId=ids[i];scene.controllers[i].enchantmentId="slotless";scene.controllers[i].state=new ControllerDynamicState{activeColor=ids[i]=="C45"?"blue":null,fundAccrual=ids[i]=="C52"?6:0};}
                 ApplyInformationScene07(scene);yield return CardCapture07("font"+font+"-hud-current-states");
-                yield return ExtraPress07("Controller_"+app.Session.State.controllers[0].instanceId);yield return CardCapture07("font"+font+"-detail",detail:true);yield return ExtraPress07("CloseDialog");
+                string opened=app.Session.State.controllers[0].instanceId;
+                yield return ExtraPress07("Controller_"+opened);yield return CardCapture07("font"+font+"-detail",detail:true,detailInstance:opened);yield return ExtraPress07("CloseDialog");
                 scene=InformationScene07(Art07FixtureKind.MaximumPool);ApplyInformationScene07(scene);yield return CardCapture07("font"+font+"-ten-compact-cards");
                 var shop=ShopBoundaryFixture();shop.controllers.Clear();shop.shop.offers.Clear();shop.controllerOfferPurchases=2; /* p0.9.0: the shelf starts at 4, so two expansions reach the maximum of 6 */
                 foreach(string id in ids){var item=BoundaryController(shop,id,"slotless");if(id=="C45")item.state.activeColor="blue";if(id=="C52")item.state.fundAccrual=6;shop.controllers.Add(item);}

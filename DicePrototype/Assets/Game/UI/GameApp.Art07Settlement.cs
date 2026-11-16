@@ -68,13 +68,15 @@ namespace DiceCraft
                 y+=FitHeight(label,44)+12;
                 ReceiptRule071(list,id+"Rule",12,y,776);y+=16;return label.rectTransform;
             };
-            var cashList=new System.Collections.Generic.List<RectTransform>{line("SettlementBaseReward","基础奖励  +"+r.baseReward+(r.rewardVoided?"（首领减益：本关没有过关金币与剩余提交奖励）":"")),line("SettlementUnusedReward","剩余提交奖励  +"+r.unusedSubmissionReward),line("SettlementInterest","利息  +"+r.interest+InterestCapNote10(r))};
+            // v1.1 (W09): every gold amount with thousands separators (text proposal 3.3).
+            var cashList=new System.Collections.Generic.List<RectTransform>{line("SettlementBaseReward","基础奖励  +"+PlayerNumberFormat.Gold(r.baseReward)+(r.rewardVoided?"（首领减益：本关没有过关金币与剩余提交奖励）":"")),line("SettlementUnusedReward","剩余提交奖励  +"+PlayerNumberFormat.Gold(r.unusedSubmissionReward)),line("SettlementInterest","利息  +"+PlayerNumberFormat.Gold(r.interest)+InterestCapNote10(r))};
             // p0.9.0: C95 pays at stage clear; the row exists only when it paid.
-            if(r.controllerIncome-r.bountyIncome>0)cashList.Add(line("SettlementControllerIncome","铁饭碗  +"+(r.controllerIncome-r.bountyIncome)));
+            if(r.controllerIncome-r.bountyIncome>0)cashList.Add(line("SettlementControllerIncome","铁饭碗  +"+PlayerNumberFormat.Gold(r.controllerIncome-r.bountyIncome)));
             // p1.0.0: C133 pays a bounty on boss and pressure stages.
-            if(r.bountyIncome>0)cashList.Add(line("SettlementBounty10","赏金猎人  +"+r.bountyIncome));
+            if(r.bountyIncome>0)cashList.Add(line("SettlementBounty10","赏金猎人  +"+PlayerNumberFormat.Gold(r.bountyIncome)));
             var cashRows=cashList.ToArray();
-            line("SettlementNetCash",$"本次现金净增  +{r.goldAfter-r.goldBefore}\n奖励前余额 {r.goldBefore} → 结算后余额 {r.goldAfter}");
+            // v1.1 (W09): gold with thousands separators, and "金币" instead of 现金 / 净增 / 余额 (text proposal 2.2).
+            line("SettlementNetCash",$"共获得  +{PlayerNumberFormat.Gold(r.goldAfter-r.goldBefore)} 金币\n金币 {PlayerNumberFormat.Gold(r.goldBefore)} → {PlayerNumberFormat.Gold(r.goldAfter)}");
             if(!string.IsNullOrEmpty(r.lootKind))line("SettlementLoot10","首领战利品 · "+LootText10(r.lootKind)+"\n进入商店后，在右上角的“首领战利品”里领取。");
             var receipt=ViewState.processedReceipts.LastOrDefault(q=>q.settlement?.settlementId==r.settlementId);
             var through=ViewState.processedReceipts.Where(q=>receipt!=null&&q.actionSequence<=receipt.actionSequence).ToArray();
@@ -82,18 +84,19 @@ namespace DiceCraft
             var current=through.Where(q=>q.actionSequence>(boundary?.actionSequence??0)).ToArray();
             var submissions=current.Where(q=>q.submission?.snapshot.stageId==r.stageId&&q.submission.snapshot.runId==ViewState.runId).ToArray();
             var income=submissions.SelectMany(q=>q.effects).Where(e=>e.kind=="SubmissionIncome").Aggregate(System.Numerics.BigInteger.Zero,(sum,e)=>sum+e.newValue);
-            line("SubmissionIncome","提交收入（本关已入账）  +"+income+" 金币\n已包含在奖励前余额中，不再次加入现金净增。");
+            line("SubmissionIncome","提交收入（本关已入账）  +"+PlayerNumberFormat.Integer(income)+" 金币\n已包含在奖励前余额中，不再次加入现金净增。");
             var funds=receipt?.effects.Where(e=>e.kind=="FundAccrued").ToArray()??Array.Empty<EffectRecord>();
             var fundLines=funds.Select(e=>
             {
                 var prior=submissions.Reverse().Select(q=>q.submission.snapshot.equippedControllers.FirstOrDefault(c=>c.instanceId==e.detail)).FirstOrDefault(c=>c!=null)
                     ??boundary?.command?.debugScene?.controllers.FirstOrDefault(c=>c.instanceId==e.detail);
                 string gain=prior==null?"卖价已增长":"卖价＋"+(e.newValue-prior.state.fundAccrual);
-                return e.detail+" · "+gain+" · 基金累计 "+e.newValue;
+                // v1.1 (W09): the card is named, never shown by its instance id.
+                return CardLabel11(e.detail)+" · "+gain+" · 基金累计 "+e.newValue;
             }).ToArray();
             line("FundGrowth",fundLines.Length==0?"本关无基金卖价增长。":string.Join("\n",fundLines)+"\n仅改变卖价；未出售时不进入钱包。");
             string[] expired=receipt?.effects.Where(e=>e.kind=="TemporaryDieExpired").Select(e=>e.dieId).ToArray()??Array.Empty<string>();
-            line("TemporaryCleanup",expired.Length==0?"临时骰清理：本关无到期临时骰。":"临时骰清理：已移除 "+expired.Length+" 颗\n"+string.Join("、",expired));
+            line("TemporaryCleanup",expired.Length==0?"临时骰清理：本关无到期临时骰。":"临时骰清理：已移除 "+expired.Length+" 颗\n"+string.Join("、",expired.Select(DieName11)));
             list.sizeDelta=new Vector2(list.sizeDelta.x,y+12);
             bool exhausted=ViewState.failureReason=="NoPermanentDice"&&ViewState.stage.settlementContinuation=="RunFailed";
             UiKit.Text(p,"SettlementStatus",exhausted?"本关成功 · 永久骰已耗尽，整局结束。":"本关奖励已处理。",24,574,832,62,24,UiKit.Ink);

@@ -279,6 +279,8 @@ namespace DiceCraft.Verification
         private void SetOptions(string speed, bool reduced)
         {
             Press("Pause"); Press("Settings"); Press("SettingsTab2");
+            // v1.1 (W09): the option labels are Chinese (即时 / 快速 / 标准); callers keep the English mode keys.
+            speed = GameApp.SpeedLabel11(speed);
             int guard = 0;
             while (!ButtonText("Speed").StartsWith(speed, StringComparison.Ordinal) && guard++ < 3) Press("Speed");
             if (!ButtonText("Speed").StartsWith(speed, StringComparison.Ordinal)) throw new InvalidOperationException("Could not select requested presentation speed through settings.");

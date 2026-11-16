@@ -76,16 +76,22 @@ namespace DiceCraft.Tests
                 }
                 else
                 {
-                    Assert.That(result.canonicalState,Is.Null);Assert.That(result.incompatibleSchema,Is.EqualTo(3));
-                    Assert.That(result.incompatibleVersion,Is.EqualTo("p0.5.0"));Assert.That(result.legacyPreserved,Is.True);
-                    Assert.That(result.legacyFiles.Length,Is.EqualTo(2),"Existing Atomic policy preserves both legacy active and legacy backup.");
-                    foreach(var archived in result.legacyFiles)CollectionAssert.AreEqual(originalBytes[4],File.ReadAllBytes(archived));
+                    // v1.1 (DEV_PLAN 4.5, W03 + W09): the worker-owned Atomic load deletes an incompatible active save and
+                    // its backup, keeps no archive copy, reports no old-save metadata and leaves no notice for the menu.
+                    // (Previously: both were archived as *.legacy-schema* copies and described by LastIncompatibleSave.)
+                    Assert.That(result.canonicalState,Is.Null);Assert.That(result.incompatibleSchema,Is.Zero);
+                    Assert.That(result.incompatibleVersion,Is.Null.Or.Empty);Assert.That(result.legacyPreserved,Is.False);
+                    Assert.That(result.notice,Is.Null.Or.Empty,"No reminder text reaches the menu.");
+                    Assert.That(result.legacyFiles,Is.Empty,"No archived copy of an incompatible save is kept.");
+                    Assert.That(File.Exists(legacy)||File.Exists(legacy+".backup"),Is.False,"The incompatible active save and backup are deleted.");
                 }
                 Assert.That(Thread.CurrentThread.ManagedThreadId,Is.EqualTo(report.mainThreadId),"Assertions and Unity state stay on the main thread.");
                 Assert.That(StateJson(),Is.EqualTo(ordinaryState));Assert.That(app.Session.ActionSequence,Is.EqualTo(sequence));
                 CollectionAssert.AreEqual(ordinarySave,File.ReadAllBytes(app.SaveLocation));
             }
-            for(int i=0;i<originals.Length;i++)CollectionAssert.AreEqual(originalBytes[i],File.ReadAllBytes(originals[i]),originals[i]);
+            // Every current-version file is byte-identical; only the incompatible pair (indices 4 and 5) is gone.
+            for(int i=0;i<4;i++)CollectionAssert.AreEqual(originalBytes[i],File.ReadAllBytes(originals[i]),originals[i]);
+            for(int i=4;i<originals.Length;i++)Assert.That(File.Exists(originals[i]),Is.False,originals[i]);
             report.allOriginalBytesPreserved=true;
             File.WriteAllText(reportPath,JsonUtility.ToJson(report,true));
         }

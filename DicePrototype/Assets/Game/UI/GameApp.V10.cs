@@ -70,7 +70,8 @@ namespace DiceCraft
         private string GlobalFactorText10(ScoreBreakdown b)
         {
             if(b.globalFactors==null||b.globalFactors.Length==0)return "";
-            return string.Concat(b.globalFactors.Select(f=>" × "+NameOf(f.abilityId)+" "+f.numerator+(f.denominator=="1"?"":"/"+f.denominator)));
+            // v1.1 (W09): the boss half reads "0.5", never "1/2".
+            return string.Concat(b.globalFactors.Select(f=>" × "+NameOf(f.abilityId)+" "+PlayerNumberFormat.Ratio(ExactScoreMath.Parse(f.numerator),ExactScoreMath.Parse(f.denominator),PlayerNumberFormat.Unlimited)));
         }
 
         // ---------------------------------------------------------------- in-stage boss readout
@@ -113,7 +114,7 @@ namespace DiceCraft
                 }
             }
             DrawCycleCards10(main,380,432,true);
-            UiKit.Text(main,"PreviewBudgets",$"投掷 {Session.InitialRolls} 次 / 手     提交 {Session.InitialSubmissions} 次 / 关     容量 K {Session.EffectiveCapacity}",416,822,1380,48,26,UiKit.Muted);
+            UiKit.Text(main,"PreviewBudgets",$"投掷 {Session.InitialRolls} 次 / 手     提交 {Session.InitialSubmissions} 次 / 关     提交栏 {Session.EffectiveCapacity} 格",416,822,1380,48,26,UiKit.Muted);
             var doomed=ControllerRules.AltarPlan(ViewState.controllers).Select(p=>NameOf(ViewState.controllers.First(c=>c.instanceId==p.Value).definitionId)).ToArray();
             var entry=Session.EntryView();
             var disabled=(entry?.disabledControllerIds??Array.Empty<string>()).Select(id=>ViewState.controllers.FirstOrDefault(c=>c.instanceId==id)).Where(c=>c!=null).Select(c=>NameOf(c.definitionId)).ToArray();
@@ -155,7 +156,7 @@ namespace DiceCraft
             else if(v.stageKind=="boss")
             {
                 bool lifted=v.modifierNullified||(own&&entry!=null&&entry.scapegoat);
-                string target=lifted?v.normalTarget:v.bossTarget;
+                string target=BossTarget10(v,lifted);
                 UiKit.Text(p,"GoalLabel",target!=v.normalTarget?"目标分数（已含首领减益）":"目标分数",24,96,inner,28,16,PaperMuted071);
                 string compact=CompactScore(target);
                 var goal=UiKit.Text(p,"Goal",compact,24,120,inner,54,compact.Length>10?26:UiKit.FontScale>1?28:36,UiKit.Ink);goal.fontStyle=FontStyles.Bold;goal.textWrappingMode=TextWrappingModes.NoWrap;
@@ -318,31 +319,30 @@ namespace DiceCraft
                 case "GoldTaxed":return NameOf(e.sourceId)+"：金币 "+e.oldValue+" → "+e.newValue;
                 case "GoldSpent":return "一掷千金：花费 "+(e.oldValue-e.newValue)+" 金币";
                 case "HandDowngraded":return NameOf(e.sourceId)+"："+NameOf(e.detail)+" "+e.oldValue+" → "+e.newValue+"级";
+                // v1.1 (W09): dice and faces by name ("骰子 1 的第 2 面"), never by D001 / F02.
                 case "FaceChanged":
                     {
-                        string what=(e.detail??"").Split(':')[0],where=e.dieId+" / "+e.faceId;
+                        string what=(e.detail??"").Split(':')[0],where=DieFaceName11(e.dieId,e.faceId);
                         string change=what=="pipDelta"||what=="pipSet"?"点数 "+e.oldValue+" → "+e.newValue:what=="color"?(e.newValue==1?"染红":"染蓝")+(e.oldValue==e.newValue?"（已是该色）":""):what=="gold"?(e.newValue==1?"镀金":"去掉黄金")+(e.oldValue==e.newValue?"（无变化）":""):what=="texture"?"纹理变为"+((e.detail??"").EndsWith("smooth")?"光滑":(e.detail??"").EndsWith("rough")?"粗糙":"无")+(e.oldValue==e.newValue?"（无变化）":""):"权重 "+e.oldValue+" → "+e.newValue;
                         return NameOf(e.sourceId)+"："+where+" "+change;
                     }
-                case "FaceMirrored":return "镜像："+e.dieId+" / "+e.faceId+" 变为 "+e.newValue+" 点"+(e.detail=="red"?"红":"蓝");
-                case "DieGlassed":return "吹玻璃："+e.dieId+" 变为玻璃骰";
-                case "DieAdded":return (string.IsNullOrEmpty(e.sourceId)?"":NameOf(e.sourceId)+"：")+"获得骰子 "+e.dieId;
+                case "FaceMirrored":return "镜像："+DieFaceName11(e.dieId,e.faceId)+" 变为 "+e.newValue+" 点"+(e.detail=="red"?"红":"蓝");
+                case "DieGlassed":return "吹玻璃："+DieName11(e.dieId)+" 变为玻璃骰";
+                case "DieAdded":return (string.IsNullOrEmpty(e.sourceId)?"":NameOf(e.sourceId)+"：")+"获得"+DieName11(e.dieId);
                 case "ItemGranted":return "百宝袋：获得 "+NameOf((e.detail??"").Split(':').LastOrDefault());
                 case "ControllerGranted":return "滥竽充数：获得 "+NameOf((e.detail??"").Split(':').LastOrDefault());
                 case "ControllerEnchanted":return NameOf(e.sourceId)+"："+NameOfInstance10((e.detail??"").Split(':')[0])+" 获得附魔 "+EnchantShort((e.detail??"").Split(':').LastOrDefault());
                 case "ControllerExpired":return "昙花一现：倍率耗尽，已消失";
-                case "RandomUpgrade":return "无心插柳："+e.dieId+" / "+e.faceId+" 获得 "+NameOf(e.detail);
-                case "RandomUpgradeMissed":return "无心插柳："+e.dieId+" / "+e.faceId+" 的 "+NameOf(e.detail)+" 落空";
+                case "RandomUpgrade":return "无心插柳："+DieFaceName11(e.dieId,e.faceId)+" 获得 "+NameOf(e.detail);
+                case "RandomUpgradeMissed":return "无心插柳："+DieFaceName11(e.dieId,e.faceId)+" 的 "+NameOf(e.detail)+" 落空";
                 case "LootGold":return "战利品折现：+"+e.newValue+" 金币";
                 case "BossRerolled":return "贿赂首领：第 "+e.newValue+" 章的减益改为 "+NameOf((e.detail??"").Split(':').LastOrDefault());
                 case "InterestCapRaised":return "理财顾问：计息本金上限 "+e.newValue;
                 default:return null;
             }
         }
-        private string NameOfInstance10(string instanceId)
-        {
-            var c=ViewState?.controllers.FirstOrDefault(x=>x.instanceId==instanceId);return c==null?instanceId:NameOf(c.definitionId);
-        }
+        // v1.1 (W09): a card that is no longer owned is described, never shown by its instance id.
+        private string NameOfInstance10(string instanceId)=>CardLabel11(instanceId);
         /// <summary>Handbook rows for the p1.0.0 mechanics, shown under the growth page.</summary>
         private string[][] HandbookRules10()
         {

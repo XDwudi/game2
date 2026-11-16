@@ -23,7 +23,6 @@ namespace DiceCraft
         private void ContinueRun07()
         {
             if(!StartupReady07)return;
-            if(HasIncompatibleSave07){OpenIncompatibleSave07();return;}
             tutorial=false;inMenu=false;
             notice=RecoveredPresentationResultVisible07?"已恢复上一手结果。":"已恢复最近一次成功操作。";
             Refresh();
@@ -72,7 +71,7 @@ namespace DiceCraft
                 var badge=UiKit.Frame(p,"QualifiedSavedBadge07",width-44,256,28,28,UiKit.Gold,UiKit.Ink);
                 UiKit.Text(badge,"Check","✓",0,0,28,28,16,UiKit.Ink,TextAlignmentOptions.Center);
             }
-            QualifiedStat07(p,"Money","金币",ViewState.gold.ToString(),342,width,UiKit.Gold);
+            QualifiedStat07(p,"Money","金币",PlayerNumberFormat.Gold(ViewState.gold),342,width,UiKit.Gold);
             // A final submission may enter S09 during the nonblocking stamp tail.
             // Keep the score frame stable, but never show an old hand's action budgets there.
             bool activeHand=ViewState.hand!=null&&(ViewState.phase=="HandReady"||ViewState.phase=="Selecting");
@@ -83,14 +82,16 @@ namespace DiceCraft
                 UiKit.Text(p,"Qualified","现在结束的奖励",18,508,width-36,40,18,UiKit.Gold);
                 if(r!=null)
                 {
-                    string[] lines={"基础奖励  +"+r.baseReward,"剩次奖励  +"+r.unusedSubmissionReward,"预计利息  +"+r.interest+(r.controllerIncome>0?"  ·  铁饭碗 +"+r.controllerIncome:"")};
+                    // v1.1 (W09): gold amounts with thousands separators (text proposal 3.3).
+                    string[] lines={"基础奖励  +"+PlayerNumberFormat.Gold(r.baseReward),"剩次奖励  +"+PlayerNumberFormat.Gold(r.unusedSubmissionReward),"预计利息  +"+PlayerNumberFormat.Gold(r.interest)+(r.controllerIncome>0?"  ·  铁饭碗 +"+PlayerNumberFormat.Gold(r.controllerIncome):"")};
                     for(int i=0;i<lines.Length;i++)UiKit.Text(p,"QualifiedReward"+i,lines[i],18,548+i*40,width-36,40,18,UiKit.Paper);
                 }
+                // v1.1 (text proposal 5 #4): only with a 存钱罐 (own or copied), named instead of its id.
                 int income=ViewSources.Count(s=>s.abilityId=="C01")*Config.Controller("C01").parameters.goldPerValidSubmission;
-                UiKit.Text(p,"QualifiedContinueIncome","续交 C01  +"+income+" / 次",18,660,width-36,40,18,UiKit.Gold);
+                if(income>0)UiKit.Text(p,"QualifiedContinueIncome","续交 "+NameOf("C01")+"  +"+income+" / 次",18,660,width-36,40,18,UiKit.Gold);
             }
             DrawModifierChip10(p,width); // p1.0.0: the boss readout stays visible after the stage is qualified
-            if(ViewState.debugWorkspace)UiKit.Box(main,"DebugMark",0,0,1920,6,UiKit.Violet);
+            if(IsDebugWorkspace)UiKit.Box(main,"DebugMark",0,0,1920,6,UiKit.Violet);
         }
         private void QualifiedStat07(Transform parent,string id,string label,string value,float y,float width,Color color,string rawScore=null)
         {

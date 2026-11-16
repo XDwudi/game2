@@ -106,32 +106,37 @@ namespace DiceCraft.Tests
             }
             finally{app.enabled=enabled;UiKit.ReducedMotion=false;}
         }
-        [UnityTest] public IEnumerator PLAY_ART07_LEGACY_ExactVersionReadOnlyDetailsAndNewRunCancellationKeepOldBytes()
+        // v1.1 (DEV_PLAN 4.5, tasks W03 + W09): replaces PLAY_ART07_LEGACY_ExactVersionReadOnlyDetailsAndNewRunCancellationKeepOldBytes.
+        // The old-version explanation, its "旧版本存档" menu state and "保留备份并开始新局" no longer exist by the user's decision
+        // (2026-11-16 item 5): an incompatible save is deleted at startup without a reminder. What the old test protected and
+        // still applies is kept here: nothing is loaded from the old file, the run starts only after the seed dialog is
+        // confirmed, cancelling that dialog writes nothing, and the menu text renders completely at every text scale.
+        // The deletion itself is implemented by AtomicSaveStore (W03); this test checks it end to end.
+        [UnityTest] public IEnumerator PLAY_V11_OLDSAVE_IncompatibleSaveIsRemovedWithoutReminderAndMenuShowsNoSave()
         {
             string file=app.SaveLocation;byte[] old=System.Text.Encoding.UTF8.GetBytes("{\"schema\":3,\"config\":\"p0.5.0\",\"payload\":\"{}\",\"sha256\":\"legacy-fixture\"}");
-            File.WriteAllBytes(file,old);yield return LoadBootstrap();
-            Assert.That(app.Session.State,Is.Null);Assert.That(InformationText07("LegacyVersions07Body"),Does.Contain("p0.5.0").And.Contain("schema 3").And.Contain("p1.0.0").And.Contain("schema 6"));
-            var archives=Directory.GetFiles(saveDirectory,"*.legacy-schema3-*");Assert.That(archives.Length,Is.EqualTo(1));CollectionAssert.AreEqual(old,File.ReadAllBytes(archives[0]));
+            string archive=file+".legacy-schema3-0123456789abcdef";
+            File.WriteAllBytes(file,old);File.WriteAllBytes(file+".backup",old);File.WriteAllBytes(archive,old);
+            yield return LoadBootstrap();
+            Assert.That(app.Session.State,Is.Null,"Nothing is restored from an incompatible save.");
+            Assert.That(HasActive("Dialog")||HasActive("LoadIssueDetails07")||HasActive("LegacyNewRun07"),Is.False,"No old-save reminder or explanation.");
+            string notice=(string)typeof(GameApp).GetProperty("notice",BindingFlags.Instance|BindingFlags.NonPublic).GetValue(app);
+            Assert.That(notice,Is.Null.Or.Empty,"No old-save notice on the menu.");
+            Assert.That(File.Exists(file)||File.Exists(file+".backup")||File.Exists(archive),Is.False,"The incompatible active save, its backup and the earlier archive copy are deleted at startup.");
+            Assert.That(Directory.GetFiles(saveDirectory,"*.legacy-schema*"),Is.Empty);
+            Assert.That(Button("ContinueRun").interactable,Is.False);Assert.That(InformationButton07("ContinueRun"),Is.EqualTo("继续对局"));
+            Assert.That(InformationText07("SavedSeed"),Is.EqualTo("暂无存档 · 开始你的第一局"));
             foreach(int font in new[]{100,125,150})
             {
-                SettlementField07("textScale07",font);UiKit.FontScale=font/100f;
-                typeof(GameApp).GetMethod("OpenIncompatibleSave07",BindingFlags.NonPublic|BindingFlags.Instance).Invoke(app,null);Canvas.ForceUpdateCanvases();
-                var version=FindActive<TextMeshProUGUI>("LegacyVersions07Body");var content=(RectTransform)version.transform.parent;
-                var scroll=content.GetComponentInParent<UnityEngine.UI.ScrollRect>();
-                content.anchoredPosition=new Vector2(0,Mathf.Clamp(-version.rectTransform.anchoredPosition.y-48,0,Mathf.Max(0,content.rect.height-scroll.viewport.rect.height)));
-                Canvas.ForceUpdateCanvases();AssertSettlementInk07(version,V06ScreenRect(scroll.viewport));
-                AssertSettlementInk07(Button("LegacyNewRun07").GetComponentInChildren<TextMeshProUGUI>(),V06ScreenRect((RectTransform)Button("LegacyNewRun07").transform));
-                yield return app.StartCoroutine(CaptureEdge07("legacy-specific-versions-font"+font));
-                CollectionAssert.AreEqual(old,File.ReadAllBytes(file));Assert.That(app.Session.State,Is.Null);
+                SettlementField07("textScale07",font);UiKit.FontScale=font/100f;app.Refresh();Canvas.ForceUpdateCanvases();
+                AssertSettlementInk07(FindActive<TextMeshProUGUI>("SavedSeed"),V06ScreenRect(FindActive<RectTransform>("MenuPanel")));
+                AssertSettlementInk07(Button("NewRun").GetComponentInChildren<TextMeshProUGUI>(),V06ScreenRect((RectTransform)Button("NewRun").transform));
+                yield return app.StartCoroutine(CaptureEdge07("old-save-removed-menu-font"+font));
             }
-            string clipboard=GUIUtility.systemCopyBuffer;
-            try{Click("CopyLoadIssue07");Assert.That(GUIUtility.systemCopyBuffer,Does.Contain("p0.5.0").And.Contain("schema 3"));}
-            finally{GUIUtility.systemCopyBuffer=clipboard;}
-            Click("LegacyNewRun07");Assert.That(app.Session.State,Is.Null);CollectionAssert.AreEqual(old,File.ReadAllBytes(file));
-            FindActive<TMP_InputField>("SeedInput").text="123";Click("CloseDialog");Assert.That(app.Session.State,Is.Null);CollectionAssert.AreEqual(old,File.ReadAllBytes(file));
-            Assert.That(Button("ContinueRun").interactable,Is.True);Assert.That(InformationButton07("ContinueRun"),Is.EqualTo("旧版本存档"));Click("ContinueRun");
-            Assert.That(HasActive("LegacyNewRun07"),Is.True);Assert.That(Directory.GetFiles(saveDirectory,"*.legacy-schema3-*").Length,Is.EqualTo(1));
-            CollectionAssert.AreEqual(old,File.ReadAllBytes(file));CollectionAssert.AreEqual(old,File.ReadAllBytes(archives[0]));
+            Click("NewRun");FindActive<TMP_InputField>("SeedInput").text="123";Click("CloseDialog");
+            Assert.That(app.Session.State,Is.Null);Assert.That(File.Exists(file),Is.False,"Cancelling the seed dialog writes nothing.");
+            Click("NewRun");FindActive<TMP_InputField>("SeedInput").text="123";Click("StartNew");
+            Assert.That(app.Session.State,Is.Not.Null);Assert.That(app.Session.State.seed,Is.EqualTo(123u));Assert.That(File.Exists(file),Is.True);
         }
     }
 }

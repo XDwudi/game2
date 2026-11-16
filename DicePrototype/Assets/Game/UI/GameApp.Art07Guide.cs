@@ -46,7 +46,8 @@ namespace DiceCraft
             guideInline07=false;guideDocked07=false;
             if(guideDockTailHold07&&!guide07&&!inMenu&&!modal&&ViewState!=null){ApplyGuideDock07(ViewState.phase=="Shop");guideInline07=true;}
             if(DrawBoundaryTip07())return;
-            if(!guide07||inMenu||modal||ViewState==null||ViewState.debugWorkspace||IsBusy)return;
+            // v1.1 (text proposal 5 #5): practice from the handbook shows the guide like an ordinary run; the debug workspace does not.
+            if(!guide07||inMenu||modal||ViewState==null||IsDebugWorkspace||IsBusy)return;
             bool shop=ViewState.phase=="Shop";
             if(!shop&&ViewState.phase!="HandReady"&&ViewState.phase!="Selecting")return;
             if(Session.PendingIds.Length>0&&guideStep07<2)guideStep07=2;
@@ -203,7 +204,7 @@ namespace DiceCraft
         }
         private bool DrawBoundaryTip07()
         {
-            if(inMenu||modal||ViewState==null||ViewState.debugWorkspace||IsBusy||Session.HasPendingSave)return false;
+            if(inMenu||modal||ViewState==null||IsDebugWorkspace||IsBusy||Session.HasPendingSave)return false;
             if(ViewState.phase!="HandReady"&&ViewState.phase!="Selecting"){boundaryTip07=null;return false;}
             bool zero=ViewState.hand!=null&&ViewState.hand.hasRolled&&ViewState.hand.rollsRemaining==0;
             bool random=ViewSources.Any(source=>source.abilityId=="C53");
@@ -216,7 +217,8 @@ namespace DiceCraft
                 else if(qualified&&PlayerPrefs.GetInt(QualifiedHintKey07,0)==0)boundaryTip07=QualifiedHintKey07;
             }
             if(string.IsNullOrEmpty(boundaryTip07))return false;
-            string body=boundaryTip07==ZeroRollHintKey07?"投掷用尽后，仍可选骰、确认锁定、排序和提交。":boundaryTip07==RandomHintKey07?"C53 的倍率在提交后揭示；预览与取消不会重新抽取。":"目标已达成：可以继续提交，也可点击「结束本轮」。";
+            // v1.1 (W09): the card is named, not shown by its id C53.
+            string body=boundaryTip07==ZeroRollHintKey07?"投掷用尽后，仍可选骰、确认锁定、排序和提交。":boundaryTip07==RandomHintKey07?NameOf("C53")+"的倍率在提交后揭示；预览与取消不会重新抽取。":"目标已达成：可以继续提交，也可点击「结束本轮」。";
             // Reuse the reason row. No paper card covers dice, score, or the action buttons.
             var reason=main.Find("ActionReason")?.GetComponent<TextMeshProUGUI>();
             if(reason==null)return false;

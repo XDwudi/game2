@@ -17,6 +17,8 @@ namespace DiceCraft.Tests
         private void FinalOptions07(string speed,bool reducedMotion)
         {
             Click("Pause");Click("Settings");Click("SettingsTab2");
+            // v1.1 (W09, TX-02): the option labels are Chinese (即时 / 快速 / 标准); callers keep the English mode keys.
+            speed=GameApp.SpeedLabel11(speed);
             for(int i=0;i<3&&!Button("Speed").GetComponentInChildren<TextMeshProUGUI>().text.StartsWith(speed,StringComparison.Ordinal);i++)Click("Speed");
             Assert.That(Button("Speed").GetComponentInChildren<TextMeshProUGUI>().text,Does.StartWith(speed));
             if(Button("Reduced").GetComponentInChildren<TextMeshProUGUI>().text.StartsWith("开",StringComparison.Ordinal)!=reducedMotion)Click("Reduced");
@@ -38,7 +40,8 @@ namespace DiceCraft.Tests
                 while(app.PresentationPlaying07&&Time.realtimeSinceStartupAsDouble<limit)yield return null;
                 Assert.That(app.PresentationPlaying07||app.IsBusy,Is.False);Assert.That(app.StablePresentationResultVisible07,Is.True,mode);
                 Assert.That(VisibleFinalText07("StableResultScore07").text.Replace(",",""),Is.EqualTo("181440"));
-                Assert.That(VisibleFinalText07("StableResultFactors07").text,Does.Contain("5040").And.Contain("连锁 4"));
+                // v1.1 (W09): thousands separators on the multiplier and "生效 N 张" instead of "连锁 N" (DEV_PLAN 4.1 item 4).
+                Assert.That(VisibleFinalText07("StableResultFactors07").text,Does.Contain("×5,040").And.Contain("生效 4 张"));
                 Assert.That(app.StablePresentationSourceMarks07,Is.EqualTo(4));
                 app.Refresh();yield return null;
                 Assert.That(app.StablePresentationResultVisible07,Is.True);Assert.That(GameSession.StateHash(app.Session.State),Is.EqualTo(state));CollectionAssert.AreEqual(save,File.ReadAllBytes(app.SaveLocation));

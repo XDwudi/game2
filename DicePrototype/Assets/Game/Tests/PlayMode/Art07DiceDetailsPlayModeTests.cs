@@ -36,7 +36,8 @@ namespace DiceCraft.Tests
             }
             Assert.That(app.canvas.GetComponentsInChildren<RectTransform>(false).Any(r=>r.name=="ExampleFace"),Is.False,"The dice sheet must not draw flat face tiles.");
             string layers=FindActive<TextMeshProUGUI>("LayersBody").text;
-            Assert.That(layers,Does.Contain("1 → 3 / 蓝 B（遥控） → 4 / 蓝 B"));
+            // v1.1 (W09, TX-02): colours without the English initials R/B.
+            Assert.That(layers,Does.Contain("1 → 3 / 蓝（遥控） → 4 / 蓝"));
             var current=app.Session.State.hand.currentResults.Single(r=>r.dieId=="D001");
             Assert.That(FindActive<Transform>("Face_"+current.currentFaceId).Find("CurrentFace").gameObject.activeSelf,Is.True);
             Assert.That(FindActive<RectTransform>("ProbabilityBar2").rect.width,Is.Zero,"A truly impossible permanent number has an empty bar.");

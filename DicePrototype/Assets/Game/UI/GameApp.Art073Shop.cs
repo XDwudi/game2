@@ -223,7 +223,8 @@ namespace DiceCraft
             var study=Section073(root,"ResearchSection","研究强化","ResearchTitle",464,0,452,h,SectionTeal073);
             // p0.8.0: the number of self-studies per shop comes from the configuration (2), not a fixed single use.
             int studyLeft=Config.shop.selfStudyLimit-ViewState.shop.selfStudyUsed;
-            var selfStudy=UiKit.ActionButton(study,"Study",studyLeft<=0?"本店已研习":ViewState.shop.selfStudyUsed==0?"自选研习 · 正常价 +1":"自选研习 · 还可 "+studyLeft+" 次",12,52,428,60,ShowStudy,UiKit.Gold,studyLeft>0&&!IsBusy);
+            // v1.1 (W09): named like the dialog it opens ("指定升级", text proposal 1 #11); the surcharge comes from the configuration.
+            var selfStudy=UiKit.ActionButton(study,"Study",studyLeft<=0?"本店指定升级已用完":ViewState.shop.selfStudyUsed==0?"指定升级 · 加价 "+Config.shop.selfStudyPremium:"指定升级 · 还剩 "+studyLeft+" 次",12,52,428,60,ShowStudy,UiKit.Gold,studyLeft>0&&!IsBusy);
             selfStudy.transform.Find("Label").GetComponent<TextMeshProUGUI>().fontSize=20*UiKit.FontScale;
             ProductShelf073(study,"ResearchShelf",research,12,120,428,288,2);
             if(research.Length==0)UiKit.Text(study,"NoResearch","本店没有可升级的牌型",12,220,428,60,20,UiKit.Muted,TextAlignmentOptions.Center);
@@ -320,7 +321,8 @@ namespace DiceCraft
         private void ShopOwnedControllers073()
         {
             controllerRects.Clear();
-            string capacity=ViewState.debugWorkspace?"调试配置 · 持有 "+ViewState.controllers.Count+"\n普通占槽 "+ControllerRules.OrdinaryUsed(ViewState.controllers):"普通槽 "+ControllerRules.OrdinaryUsed(ViewState.controllers)+"/"+ViewState.controllerSlots+" · 总数 "+ViewState.controllers.Count+"/"+Config.maxControllerInstances;
+            // v1.1 (text proposal 5 #5): practice from the handbook has its own label, not the debug configuration one.
+            string capacity=IsPracticeRun11?"练习模式 · 持有 "+ViewState.controllers.Count+" 张\n占用栏位 "+ControllerRules.OrdinaryUsed(ViewState.controllers):ViewState.debugWorkspace?"调试配置 · 持有 "+ViewState.controllers.Count+"\n普通占槽 "+ControllerRules.OrdinaryUsed(ViewState.controllers):"普通槽 "+ControllerRules.OrdinaryUsed(ViewState.controllers)+"/"+ViewState.controllerSlots+" · 总数 "+ViewState.controllers.Count+"/"+Config.maxControllerInstances;
             UiKit.Text(main,"ControllerCapacity07",capacity,40,540,288,48,17,UiKit.Paper);
             // p0.9.0 C100: the card to the right of an altar is destroyed when the next stage starts; say so before it happens.
             var doomed=AltarVictims09();
@@ -384,7 +386,8 @@ namespace DiceCraft
         private void ShopStatus073(Transform panel)
         {
             int next=ViewState.stage.stageIndex+1;bool last=next>=Config.stages.Length;
-            string target=last?"—":CompactScore(Config.stages[next].normalTarget);
+            // v1.1 (text proposal 5 #7): the same target as "查看关卡", including the boss modifier (e.g. 天堑 doubles it).
+            string target=last?"—":CompactScore(ShopNextTarget11(next));
             ShopStatusRow073(panel,"NextStage",last?"最后一关已完成":"第 "+(next+1)+" 关目标",last?"":target,298,UiKit.Red);
             ShopStatusRow073(panel,"PermanentDice","永久骰",ViewState.dice.Count(d=>d.lifetime=="permanent")+(ViewState.debugWorkspace?"":" / "+Config.maxPermanentDice),364,UiKit.Blue);
             ShopStatusRow073(panel,"SubmitCapacity","提交容量",Session.EffectiveCapacity.ToString(),430,UiKit.Teal);

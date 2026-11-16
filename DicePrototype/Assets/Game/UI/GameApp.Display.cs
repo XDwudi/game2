@@ -71,7 +71,8 @@ namespace DiceCraft
             if(index<0){displayDraft=DisplayPreferences.ReadActual();index=Math.Max(0,displays.FindIndex(d=>d.name==displayDraft.displayName));}
             var selected=displays[index];
             UiKit.Text(p,"DisplayActual","实际 "+Screen.width+" × "+Screen.height+" · "+DisplaySettings.ModeName(Screen.fullScreenMode)+"\n"+DisplayPreferences.Notice,40,96,1500,85,25,UiKit.Muted);
-            UiKit.Button(p,"Monitor","显示器："+selected.name+" · "+selected.width+" × "+selected.height+"  >",40,196,1500,60,()=>{var d=displays[(index+1)%displays.Count];displayDraft=DisplayPreferences.Choice(d,displayDraft.mode,d.width,d.height);ShowDisplaySettings();},displays.Count>1);
+            // v1.1 (W09): the display by its number, not the system device name (e.g. \\.\DISPLAY1).
+            UiKit.Button(p,"Monitor","显示器 "+(index+1)+" · "+selected.width+" × "+selected.height+"  >",40,196,1500,60,()=>{var d=displays[(index+1)%displays.Count];displayDraft=DisplayPreferences.Choice(d,displayDraft.mode,d.width,d.height);ShowDisplaySettings();},displays.Count>1);
             var modes=new[]{DisplaySettings.PlatformFullscreen,FullScreenMode.FullScreenWindow,FullScreenMode.Windowed};
             for(int i=0;i<3;i++){var mode=modes[i];UiKit.Button(p,"Mode"+i,DisplaySettings.ModeName(mode),40+i*510,280,480,60,()=>{var sizes=DisplayPreferences.Resolutions(selected,mode);var size=mode==FullScreenMode.Windowed?DisplaySettings.AutomaticWindow(selected.workArea):new Vector2Int(selected.width,selected.height);if(sizes.Length>0&&!sizes.Contains(size))size=sizes.Last();displayDraft=DisplayPreferences.Choice(selected,mode,size.x,size.y);ShowDisplaySettings();},true,displayDraft.mode==mode);}
             var resolutions=DisplayPreferences.Resolutions(selected,displayDraft.mode);

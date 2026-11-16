@@ -46,7 +46,7 @@ namespace DiceCraft
             }
             UiKit.Text(p,"DialogTitle",title,40,24,1390,62,37);
             UiKit.Button(p,"CloseDialog","×",1490,24,70,60,CloseModal);
-            bool error=title=="本次结果尚未保存"||title=="存档读取说明"||title=="存档恢复说明"||title=="旧版本存档",manual=title.Contains("手册"),newRun=title=="新建挑战";
+            bool error=title=="本次结果尚未保存"||title=="存档读取说明"||title=="存档恢复说明",manual=title.Contains("手册"),newRun=title=="新建挑战";
             FadeModal07(p,fresh,error?.12f:manual?.14f:newRun?.18f:.16f,error||manual||newRun||title=="暂停"?.10f:.12f);
             return p;
         }
@@ -160,11 +160,12 @@ namespace DiceCraft
                 var button=UiKit.Button(targets,"Target_"+id,"",0,i*104,296,96,()=>DrawDiceSheet07(id,offer,null,scroll.verticalNormalizedPosition),true,id==selectedDie);
                 // v0.73: the list shows the real die (drag turns it, a click picks it), not one flat face.
                 DieView073(button.transform,"DieThumbnail","sheet-"+id,d,6,4,84,82,.56f,true,false,()=>DrawDiceSheet07(id,offer,null,scroll.verticalNormalizedPosition),null,scroll.viewport);
-                UiKit.Text(button.transform,"Identity",id,98,6,186,40,21,UiKit.Ink);
+                UiKit.Text(button.transform,"Identity",DieName11(id),98,6,186,40,21,UiKit.Ink);
                 UiKit.Text(button.transform,"Lifetime",(d.lifetime=="permanent"?"永久":"本关")+(d.isGlass?" · 玻璃":""),98,48,186,40,18,id==selectedDie?UiKit.Ink:PaperMuted071);
             }
             scroll.verticalNormalizedPosition=scrollPosition;
-            UiKit.Text(p,"DieCount","活动骰 "+ViewState.dice.Count+" · 永久骰 "+ViewState.dice.Count(d=>d.lifetime=="permanent")+"\n物理对面 F01/F06 · F02/F05 · F03/F04",24,772,320,96,18,UiKit.Muted);
+            // v1.1 (W09): no face ids; the opposite faces are already listed under the face buttons.
+            UiKit.Text(p,"DieCount","骰子 "+ViewState.dice.Count+" 颗（永久 "+ViewState.dice.Count(d=>d.lifetime=="permanent")+"）",24,772,320,96,18,UiKit.Muted);
             if(die==null)
             {
                 UiKit.Text(p,"TargetHelp","先从左侧选择永久骰。\n选择或取消均不扣款。",400,192,400,160,27,UiKit.Paper);
@@ -211,11 +212,11 @@ namespace DiceCraft
             {
                 string change=offer.contentId=="U07"&&chosen!=null?"购买后：在 "+string.Join("、",Enumerable.Range(1,6).Where(n=>n!=chosen.permanentPip))+" 中等概率取一个。颜色、纹理、镀金保持；不预抽结果。":
                     whole?offer.contentId=="O04"?"购买后：移除此骰及全部强化；提交容量保持。至少保留 1 颗永久骰。":"购买后：整骰玻璃。每次实际参与投掷有 "+Session.GlassBreakPercentIn(ViewState)+"% 永久损坏风险；锁定时不判定。":
-                    afterFace==null?"请选择右侧的物理面。":offer.contentId=="U11"?"对面 "+Config.Opposite(chosen.faceId)+" 当前："+FaceSummary07(die.faces.First(f=>f.faceId==Config.Opposite(chosen.faceId)))+"\n购买后："+FaceSummary07(afterDie.faces.First(f=>f.faceId==Config.Opposite(chosen.faceId))):"当前："+FaceSummary07(chosen)+"\n购买后："+FaceSummary07(afterFace);
+                    afterFace==null?"请选择右侧的物理面。":offer.contentId=="U11"?"对面（"+FaceName11(Config.Opposite(chosen.faceId))+"）当前："+FaceSummary07(die.faces.First(f=>f.faceId==Config.Opposite(chosen.faceId)))+"\n购买后："+FaceSummary07(afterDie.faces.First(f=>f.faceId==Config.Opposite(chosen.faceId))):"当前："+FaceSummary07(chosen)+"\n购买后："+FaceSummary07(afterFace);
                 Art07DetailSection(layers,"PurchasePreview","改造预览",change,ref ly,424);
             }
             Art07DetailSection(layers,"Layers","永久 → 当前 → 有效",permanent+" → "+actual+" → "+effective,ref ly,424);
-            if(chosen!=null)Art07DetailSection(layers,"SelectedFace",chosen.faceId+" · 永久属性",FaceSummary07(chosen)+(die.isGlass?" · 玻璃":""),ref ly,424);
+            if(chosen!=null)Art07DetailSection(layers,"SelectedFace",FaceName11(chosen.faceId)+" · 永久属性",FaceSummary07(chosen)+(die.isGlass?" · 玻璃":""),ref ly,424);
             if(offer==null)
             {
                 string sources="永久纹理、"+(ViewState.hand?.largeBuff==true?"大数多多、":"")+(ViewState.hand?.smallBuff==true?"小数多多、":"")+string.Join("、",ViewSources.Where(c=>c.abilityId=="C34"||c.abilityId=="C35").Select(c=>NameOf(c.abilityId)));
@@ -232,7 +233,7 @@ namespace DiceCraft
                     }
                     if(valueSources.Count>0)Art07DetailSection(layers,"ValueSources","本次值转换",string.Join("\n",valueSources),ref ly,424);
                     var trace=ScoreExplanation.Build(snapshot,score,Config);
-                    Art07DetailSection(layers,"EffectiveSources","计分来源",string.Join("\n",trace.dice[at].steps.Select(ScoreStepText)),ref ly,424);
+                    Art07DetailSection(layers,"EffectiveSources","计分来源",string.Join("\n",trace.dice[at].steps.Select(step=>ScoreStepText(step,snapshot))),ref ly,424);
                 }
             }
             layers.sizeDelta=new Vector2(layers.sizeDelta.x,ly+12);
@@ -246,7 +247,7 @@ namespace DiceCraft
                 bool same=targetReady&&offer.category=="die_upgrade"&&!Session.IsUpgradeTargetLegal(offer.contentId,die.dieId,whole?null:selectedFace);
                 string label=same?"这个目标不能再改造":!targetReady?"请选择目标面":offer.contentId=="O04"?"支付 "+Session.GetOfferPrice(offer)+" 并移除":!string.IsNullOrEmpty(offer.groupId)?"免费改造":"支付 "+Session.GetOfferPrice(offer)+" 并强化";
                 var reason=UiKit.Scroll(p,"TargetPurchaseReason",368,792,456,72,72);
-                var reasonText=UiKit.Text(reason,"PurchaseUnavailable",error??"余额 "+ViewState.gold+" → "+((System.Numerics.BigInteger)ViewState.gold-Session.GetOfferPrice(offer)),0,0,420,64,19,error==null?UiKit.Muted:UiKit.Gold);reason.sizeDelta=new Vector2(reason.sizeDelta.x,FitHeight(reasonText,64));
+                var reasonText=UiKit.Text(reason,"PurchaseUnavailable",error??"金币 "+PlayerNumberFormat.Gold(ViewState.gold)+" → "+PlayerNumberFormat.Integer((System.Numerics.BigInteger)ViewState.gold-Session.GetOfferPrice(offer)),0,0,420,64,19,error==null?UiKit.Muted:UiKit.Gold);reason.sizeDelta=new Vector2(reason.sizeDelta.x,FitHeight(reasonText,64));
                 UiKit.ActionButton(p,"ConfirmPurchase",label,848,800,600,64,()=>{CloseModal();Send(new SessionCommand{kind=CommandKind.Buy,offerId=offer.offerId,targetDieId=die.dieId,targetFaceId=whole?null:selectedFace});},UiKit.Gold,error==null&&!IsBusy);
                 if(offer.contentId=="O04")UiKit.Outline(p,"RemoveDieWarning",848,800,600,64,UiKit.Red,3);
             }
@@ -254,9 +255,9 @@ namespace DiceCraft
         private void ShowNewDieOffer07(ShopOffer offer)
         {
             var die=offer.die;var p=OpenDiceSheet07("加入骰子 · 已生成的固定候选");
-            UiKit.Text(p,"Source","商店 · 永久骰 "+ViewState.dice.Count(d=>d.lifetime=="permanent")+" → "+(ViewState.dice.Count(d=>d.lifetime=="permanent")+1)+" · 提交容量保持 K="+Session.EffectiveCapacity,24,76,1424,34,19,UiKit.Muted);
+            UiKit.Text(p,"Source","商店 · 永久骰 "+ViewState.dice.Count(d=>d.lifetime=="permanent")+" → "+(ViewState.dice.Count(d=>d.lifetime=="permanent")+1)+" · 提交栏仍是 "+Session.EffectiveCapacity+" 格",24,76,1424,34,19,UiKit.Muted);
             var attributes=UiKit.Scroll(p,"CandidateFaces",24,120,320,640,640);float y=0;
-            foreach(var face in die.faces)Art07DetailSection(attributes,face.faceId,face.faceId,FaceSummary07(face),ref y,288);
+            foreach(var face in die.faces)Art07DetailSection(attributes,face.faceId,FaceName11(face.faceId),FaceSummary07(face),ref y,288);
             if(offer.priceReasons!=null&&offer.priceReasons.Length>0)Art07DetailSection(attributes,"PriceReasons","价格来源",string.Join(" · ",offer.priceReasons),ref y,288);
             attributes.sizeDelta=new Vector2(attributes.sizeDelta.x,y+16);
             BeginSheetDie073(die,"candidate|"+offer.offerId,new Vector2(804,408),FaceProbability(die));
@@ -268,10 +269,11 @@ namespace DiceCraft
             UiKit.Text(p,"CandidateNotice","拖动旋转 · 候选永久六面\n当前值：未生成\n查看和取消不会重新生成候选。",368,528,456,208,23,UiKit.Muted);
             string error=Session.PurchaseError(offer.offerId);int price=Session.GetOfferPrice(offer);
             var reason=UiKit.Scroll(p,"CandidatePurchaseReason",368,760,456,104,104);
-            var reasonText=UiKit.Text(reason,"PurchaseUnavailable",error??"价格 "+price+" 金币\n余额 "+ViewState.gold+" → "+((System.Numerics.BigInteger)ViewState.gold-price),0,0,424,100,21,error==null?UiKit.Gold:UiKit.Muted);reason.sizeDelta=new Vector2(reason.sizeDelta.x,FitHeight(reasonText,100));
+            var reasonText=UiKit.Text(reason,"PurchaseUnavailable",error??"价格 "+price+" 金币\n金币 "+PlayerNumberFormat.Gold(ViewState.gold)+" → "+PlayerNumberFormat.Integer((System.Numerics.BigInteger)ViewState.gold-price),0,0,424,100,21,error==null?UiKit.Gold:UiKit.Muted);reason.sizeDelta=new Vector2(reason.sizeDelta.x,FitHeight(reasonText,100));
             UiKit.ActionButton(p,"ConfirmPurchase","支付 "+price+" 并加入",848,800,600,64,()=>{CloseModal();Send(new SessionCommand{kind=CommandKind.Buy,offerId=offer.offerId});},UiKit.Gold,error==null&&!IsBusy);
         }
-        private static string ColorName07(string color)=>color=="red"?"红 R":"蓝 B";
+        // v1.1 (W09): the colour name only; the English initials R/B are gone (colour-assist symbols stay on the dice).
+        private static string ColorName07(string color)=>color=="red"?"红":"蓝";
         private static string FaceSummary07(FaceState f)=>f.permanentPip+"点 · "+ColorName07(f.baseColor)+" · "+(f.texture=="smooth"?"光滑":f.texture=="rough"?"粗糙":"无纹理")+(f.isGold?" · 黄金":"")+(f.baseWeight>1?" · 权重 "+f.baseWeight:"");
         private void DrawProbability07(Transform parent,DieInstance die,DieInstance afterDie,int[] before,int[] after,bool comparison)
         {
@@ -280,12 +282,13 @@ namespace DiceCraft
             {
                 float y=row++*64;
                 UiKit.Text(list,"ProbabilityLabel"+row,label,0,y,120,36,19,UiKit.Paper);
-                string value=(oldUnits/10000m).ToString("0.####")+"%"+(comparison?" → "+(newUnits/10000m).ToString("0.####")+"%":"");
+                // v1.1 (W09, text proposal 3): probabilities with one decimal, the same precision everywhere.
+                string value=PlayerNumberFormat.Percent(oldUnits,10000)+(comparison?" → "+PlayerNumberFormat.Percent(newUnits,10000):"");
                 UiKit.Text(list,"ProbabilityValue"+row,value,124,y,444,36,19,UiKit.Paper,TextAlignmentOptions.TopRight);
                 UiKit.Box(list,"EmptyBar"+row,0,y+42,568,8,UiKit.Ink);
                 UiKit.Box(list,"ProbabilityBar"+row,0,y+42,568f*newUnits/Config.probabilityUnits,8,UiKit.Teal);
             };
-            if(faceProbabilityExpanded07)for(int i=0;i<die.faces.Length;i++)entry(die.faces[i].faceId,before[i],after[i]);
+            if(faceProbabilityExpanded07)for(int i=0;i<die.faces.Length;i++)entry(FaceName11(die.faces[i].faceId),before[i],after[i]);
             else for(int n=1;n<=6;n++)entry(n+" 点",die.faces.Select((f,i)=>f.permanentPip==n?before[i]:0).Sum(),afterDie.faces.Select((f,i)=>f.permanentPip==n?after[i]:0).Sum());
             list.sizeDelta=new Vector2(list.sizeDelta.x,row*64);
         }
@@ -307,25 +310,27 @@ namespace DiceCraft
             for(int i=0;i<snapshot.dice.Length;i++)
             {
                 var d=snapshot.dice[i];var f=d.permanentFacesCopy.First(x=>x.faceId==d.faceId);
-                var dieLine=UiKit.Text(list,"DieLine"+i,$"{i+1}. {d.dieId}/{d.faceId}  永久 {f.permanentPip} → 当前 {d.currentPip} → 有效 {b.effectivePips[i]}  /  {(b.effectiveColors[i]=="red"?"红 R":"蓝 B")}\n永久六面和 {d.permanentSixFaceSum}  ·  本骰点数贡献 {b.pipContributions[i]}",12,cursor,1440,70,25);
+                // v1.1 (W09): "骰子 1 的第 3 面" instead of D001/F03; colours without the R/B letters.
+                var dieLine=UiKit.Text(list,"DieLine"+i,$"{i+1}. {DieFaceName11(d.dieId,d.faceId)}  永久 {f.permanentPip} → 当前 {d.currentPip} → 有效 {b.effectivePips[i]}  /  {ColorName07(b.effectiveColors[i])}\n永久六面和 {d.permanentSixFaceSum}  ·  本骰点数贡献 {b.pipContributions[i]}",12,cursor,1440,70,25);
                 // Both source lines use the current font's real preferred height, including accessibility scaling.
                 cursor+=FitHeight(dieLine,70)+2;
                 for(int j=0;j<trace.dice[i].steps.Length;j++)
                 {
-                    var line=UiKit.Text(list,"DieStep"+i+"_"+j,ScoreStepText(trace.dice[i].steps[j]),40,cursor,1410,33,23,UiKit.Muted);cursor+=FitHeight(line,33)+4;
+                    var line=UiKit.Text(list,"DieStep"+i+"_"+j,ScoreStepText(trace.dice[i].steps[j],snapshot),40,cursor,1410,33,23,UiKit.Muted);cursor+=FitHeight(line,33)+4;
                 }
                 cursor+=14;
             }
             var globalTitle=UiKit.Text(list,"GlobalTitle","全局结算 · 中间不取整",12,cursor,1440,48,28,UiKit.Gold);cursor+=FitHeight(globalTitle,48)+10;
-            for(int i=0;i<trace.global.Length;i++){var line=UiKit.Text(list,"GlobalStep"+i,ScoreStepText(trace.global[i]),12,cursor,1440,43,25);cursor+=FitHeight(line,43)+5;}
+            for(int i=0;i<trace.global.Length;i++){var line=UiKit.Text(list,"GlobalStep"+i,ScoreStepText(trace.global[i],snapshot),12,cursor,1440,43,25);cursor+=FitHeight(line,43)+5;}
             string triggered=b.triggeredControllerIds.Length==0?"本次无控制器触发":string.Join(" · ",b.triggeredControllerIds.Select(NameOf));
             var footer=UiKit.Text(list,"Triggered",triggered+"\n永久复制/扩散只在提交后执行，不回溯更改本次分数。"+(effects.Length>0?(historical?"\n\n实际提交后效果：\n":"\n\n确认提交将执行：\n")+effects:""),12,cursor+12,1440,260,25,UiKit.Teal);
             list.sizeDelta=new Vector2(list.sizeDelta.x,Math.Max(620,cursor+FitHeight(footer,260)+36));
-            UiKit.Button(p,"ScoreDrawerBack","返回三列抽屉",40,700,500,60,()=>ShowBreakdown(snapshot,b));
-            UiKit.Button(p,"CopyExactScore","复制精确分数与公式",1040,700,500,60,()=>
+            UiKit.Button(p,"ScoreDrawerBack","返回得分明细",40,700,500,60,()=>ShowBreakdown(snapshot,b));
+            // v1.1 (W09): the copied formula is the decimal readout ("≈" where rounded), so the label no longer says "精确".
+            UiKit.Button(p,"CopyExactScore","复制公式",1040,700,500,60,()=>
             {
                 GUIUtility.systemCopyBuffer=formula.text;
-                var label=p.Find("CopyExactScore")?.GetComponentInChildren<TextMeshProUGUI>();if(label!=null)label.text="已复制精确分数与公式";
+                var label=p.Find("CopyExactScore")?.GetComponentInChildren<TextMeshProUGUI>();if(label!=null)label.text="已复制";
             });
         }
         private static float FitHeight(TextMeshProUGUI label,float minimum)
@@ -333,7 +338,7 @@ namespace DiceCraft
             float height=Math.Max(minimum,label.GetPreferredValues(label.text,label.rectTransform.rect.width,float.PositiveInfinity).y+4);
             label.rectTransform.sizeDelta=new Vector2(label.rectTransform.sizeDelta.x,height);return height;
         }
-        private string ScoreStepSource07(ScoreStep step)
+        private string ScoreStepSource07(ScoreStep step,SubmissionSnapshot snapshot=null)
         {
             string label=step.sourceId!=null?NameOf(step.sourceId):step.kind=="glass"?"玻璃":step.kind=="gold"?"本面镀金":step.kind=="unused_rolls"?"剩余投掷奖励":step.kind=="hand"?"牌型总倍率":step.kind=="color"?"独立颜色乘区":step.kind=="red_group"?"同点红组":step.kind=="floor"?"最后向下取整":"最终加分";
             if(step.kind=="enchantment_base"||step.kind=="enchantment_multiplier")label+=" · 附魔";
@@ -344,34 +349,43 @@ namespace DiceCraft
             if(step.kind=="boss")label+=" · 得分减半";
             // p0.9.0: name the cards that changed a shared step ("C84:150" = +1.5 on the hand multiplier, "C73:2" = two pool dice).
             if(!string.IsNullOrEmpty(step.note))
-                label+="（含 "+string.Join("、",step.note.Split(',').Select(part=>{var kv=part.Split(':');return NameOf(kv[0])+(step.kind=="hand"?" +"+(int.Parse(kv[1])/100m).ToString("0.##"):" +"+kv[1]+" 颗");}))+"）";
-            if(!string.IsNullOrEmpty(step.emitterId))label+=" ["+step.emitterId+(step.stateOwnerId!=step.emitterId&&!string.IsNullOrEmpty(step.stateOwnerId)?" → "+step.stateOwnerId:"")+"]";
+                label+="（含 "+string.Join("、",step.note.Split(',').Select(part=>{var kv=part.Split(':');return NameOf(kv[0])+(step.kind=="hand"?" +"+Factor(int.Parse(kv[1])):" +"+kv[1]+" 颗");}))+"）";
+            // v1.1 (W09): the card is located by the position printed on it, never by its instance id;
+            // a copied state names the card it comes from ("第 3 张，复制第 4 张").
+            if(!string.IsNullOrEmpty(step.emitterId))
+            {
+                IList<ControllerInstance> cards=snapshot?.equippedControllers??(IList<ControllerInstance>)ViewState?.controllers;
+                string at=CardPosition11(cards,step.emitterId);
+                string owner=step.stateOwnerId!=step.emitterId&&!string.IsNullOrEmpty(step.stateOwnerId)?CardPosition11(cards,step.stateOwnerId):null;
+                if(at!=null)label+="（"+at+(owner==null?"":"，复制"+owner)+"）";
+            }
             return label;
         }
-        private string ScoreStepText(ScoreStep step)
+        private string ScoreStepText(ScoreStep step,SubmissionSnapshot snapshot=null)
         {
-            string label=ScoreStepSource07(step),before=step.before,after=step.after;
-            return step.operation=="floor"?$"{label}：{before} → {after}":$"{label}：{before} {step.operation} {step.operand} → {after}";
+            string label=ScoreStepSource07(step,snapshot),before=ScoreValue07(step.before),after=ScoreValue07(step.after);
+            return step.operation=="floor"?$"{label}：{before} → {after}":$"{label}：{before} {step.operation} {ScoreValue07(step.operand)} → {after}";
         }
         /// <summary>v0.9: a growth counter shown the way the card uses it ("×1.35" or "+24").</summary>
         private static string GrowthValue09(string abilityId,long growth)
-            => ControllerRules.IsGrowthMultiplier(abilityId)?"×"+((20+growth)/20m).ToString("0.##"):"+"+growth;
+            => ControllerRules.IsGrowthMultiplier(abilityId)?PlayerNumberFormat.Times(20+growth,20):"+"+growth;
         private string EffectText(EffectRecord e)
         {
             string added=EffectText10(e);if(added!=null)return added;
+            // v1.1 (W09): dice and faces by name ("骰子 1 的第 2 面"), never by D001 / F02 or instance ids.
             switch(e.kind)
             {
-                case "DieCopied":return NameOf(e.sourceId)+"："+e.otherDieId+" 的六面复制到 "+e.dieId;
-                case "FaceDyed":return NameOf(e.sourceId)+"："+e.dieId+" / "+e.faceId+(e.sourceId=="C38"?" 永久染蓝":" 永久染红");
-                case "FaceValueChanged":return "永久点数："+e.dieId+" / "+e.faceId+" "+e.oldValue+" → "+e.newValue;
-                case "DieDyed":return "永久染色："+e.dieId+" 六面全部染红";
-                case "DieBroken":return e.dieId+" 玻璃损坏，已移出骰组";
-                case "TemporaryDieExpired":return e.dieId+" 临时骰已在关卡结束时移除";
+                case "DieCopied":return NameOf(e.sourceId)+"："+DieName11(e.otherDieId)+" 的六面复制到"+DieName11(e.dieId);
+                case "FaceDyed":return NameOf(e.sourceId)+"："+DieFaceName11(e.dieId,e.faceId)+(e.sourceId=="C38"?"永久染蓝":"永久染红");
+                case "FaceValueChanged":return "永久点数："+DieFaceName11(e.dieId,e.faceId)+" "+e.oldValue+" → "+e.newValue;
+                case "DieDyed":return "永久染色："+DieName11(e.dieId)+" 六面全部染红";
+                case "DieBroken":return DieName11(e.dieId)+" 玻璃损坏，已移出骰组";
+                case "TemporaryDieExpired":return DieName11(e.dieId)+" 临时骰已在关卡结束时移除";
                 case "ExtraRolls":return NameOf(e.sourceId)+"：增加 "+e.newValue+" 次投掷";
                 case "SubmissionIncome":return "存钱罐：本次提交收入 +"+e.newValue+" 金币";
                 case "HandGrown":return "牌型提升："+NameOf(e.detail)+" "+e.oldValue+" → "+e.newValue+"级";
-                case "ActiveColorChanged":return "飘忽不定：下一颜色 "+e.detail;
-                case "ControllerDestroyed":return "玻璃大炮："+e.detail+" 本次计分后自毁";
+                case "ActiveColorChanged":{string color=(e.detail??"").Split(':').LastOrDefault();return "飘忽不定：下一颜色 "+(color=="red"?"红":color=="blue"?"蓝":"未定");}
+                case "ControllerDestroyed":return "玻璃大炮：本次计分后自毁";
                 case "FundAccrued":return "成长基金：本实例累积增值 "+e.newValue;
                 // v0.9
                 case "ControllerGrown":return e.sourceId=="C141"?"昙花一现：已过 "+e.newValue+" 关，倍率 −0.5":NameOf(e.sourceId)+"：成长 "+GrowthValue09(e.sourceId,e.oldValue)+" → "+GrowthValue09(e.sourceId,e.newValue);
@@ -380,7 +394,8 @@ namespace DiceCraft
                 case "WarIncome":return "以战养战：+"+e.newValue+" 金币（本关第 "+e.oldValue+" 次）";
                 case "SaleBonusGrown":return "聚宝盆："+e.oldValue+" 件控制器卖价各 +"+e.newValue;
                 case "ControllerSlotAdded":return "扩充栏位：普通栏位 "+e.oldValue+" → "+e.newValue;
-                default:return (string.IsNullOrEmpty(e.sourceId)?"":NameOf(e.sourceId)+" · ")+e.kind;
+                // v1.1 (W09): an unknown effect never shows its English kind name.
+                default:return (string.IsNullOrEmpty(e.sourceId)?"":NameOf(e.sourceId)+"：")+"状态已更新";
             }
         }
         private void RemoteTargets(OwnedItem item)
@@ -420,13 +435,13 @@ namespace DiceCraft
                 for(int i=0;i<unlocked.Length;i++)
                 {
                     string id=unlocked[i].dieId;
-                    UiKit.Button(targets,"RemoteDie"+id,id,(i%8)*150,(i/8)*targetPitch,144,targetHeight,()=>{targetScrollPosition=scroll.verticalNormalizedPosition;choose(id);},true,chosen.Contains(id));
+                    UiKit.Button(targets,"RemoteDie"+id,DieName11(id),(i%8)*150,(i/8)*targetPitch,144,targetHeight,()=>{targetScrollPosition=scroll.verticalNormalizedPosition;choose(id);},true,chosen.Contains(id));
                 }
                 scroll.verticalNormalizedPosition=targetScrollPosition;
                 for(int slot=0;slot<2;slot++)
                 {
                     float x=24+slot*624;string id=slot<chosen.Count?chosen[slot]:null;
-                    UiKit.Text(p,id==null?"EmptyRemoteSlot"+slot:"Chosen"+id,"目标 "+(slot+1)+" · "+(id??"请选择未锁骰"),x,208,600,36,20,id==null?UiKit.Muted:UiKit.Gold);
+                    UiKit.Text(p,id==null?"EmptyRemoteSlot"+slot:"Chosen"+id,"目标 "+(slot+1)+" · "+(id==null?"请选择未锁骰":DieName11(id)),x,208,600,36,20,id==null?UiKit.Muted:UiKit.Gold);
                     for(int n=1;n<=6;n++)
                     {
                         int pip=n;bool odd=ViewSources.Any(source=>source.abilityId=="C12")&&pip%2==1;
@@ -450,6 +465,8 @@ namespace DiceCraft
             int[] values={4,4,2,3,6};
             for(int i=0;i<state.dice.Count;i++)foreach(var face in state.dice[i].faces){face.permanentPip=values[i];face.baseColor=i<2?"red":"blue";}
             Session=new GameSession(practiceConfig,memory,state);tutorial=true;tutorialStep=0;inMenu=false;
+            // v1.1 (text proposal 5 #5): practice starts the first-run guide where an ordinary new run starts it.
+            AdvanceGuide07(CommandKind.NewRun);guideIdentity07=null;boundaryTip07=null;
             notice="独立练习：目标50分，固定4红、4红、2蓝、3蓝、6蓝。不会改变正式挑战存档。";
             Refresh();
         }

@@ -59,7 +59,8 @@ namespace DiceCraft.Tests
             yield return ExtraPress07("RandomPreview");yield return ExtraPress07("RandomBranch8");
             yield return DrawerWalk07("C53-shared-q-last-branch",branch,exact.minimum);
             yield return ExtraPress07("FullScoreDetails");
-            Assert.That(FindActive<TextMeshProUGUI>("Formula").text,Does.Contain("控制器 "+exact.minimum.controllerMultiplierNumerator+"/"+exact.minimum.controllerMultiplierDenominator));
+            // v1.1 (W09, TX-01): the complete formula shows the controller factor as a decimal with every digit, labelled "卡牌" (D2).
+            Assert.That(FindActive<TextMeshProUGUI>("Formula").text,Does.Contain("卡牌 "+DrawerRatio11(exact.minimum.controllerMultiplierNumerator,exact.minimum.controllerMultiplierDenominator)));
             yield return ExtraPress07("ScoreDrawerBack");yield return ExtraPress07("CloseDialog");
             Assert.That(StateJson(),Is.EqualTo(before));CollectionAssert.AreEqual(disk,File.ReadAllBytes(app.SaveLocation));
             scene=InformationScene07(Art07FixtureKind.PermanentPost);ApplyInformationScene07(scene);yield return ExtraIdle07();
@@ -71,6 +72,10 @@ namespace DiceCraft.Tests
             yield return ExtraPress07("CloseDialog");ExtraFinish07();
         }
 
+        // v1.1 (W09): the breakdown's display format (decimals, every digit kept, no markup).
+        private static string DrawerExact11(string exact)=>PlayerNumberFormat.Exact(exact,PlayerNumberFormat.Unlimited);
+        private static string DrawerRatio11(string numerator,string denominator)
+            =>PlayerNumberFormat.Ratio(System.Numerics.BigInteger.Parse(numerator),System.Numerics.BigInteger.Parse(denominator),PlayerNumberFormat.Unlimited);
         private IEnumerator DrawerWalk07(string id,SubmissionSnapshot snapshot,ScoreBreakdown score)
         {
             var dialog=FindActive<RectTransform>("Dialog");bool responsive=Screen.safeArea.width<=1366&&UiKit.FontScale>=1.25f;
@@ -83,27 +88,37 @@ namespace DiceCraft.Tests
             Assert.That(dialog.GetComponent<Art07ScoreDrawerMotion>().IsPlaying,Is.False);
             var formula=FindActive<TextMeshProUGUI>("Formula");var scroll=formula.GetComponentInParent<UnityEngine.UI.ScrollRect>();Assert.That(scroll,Is.Not.Null);
             Assert.That(scroll.horizontal,Is.False);Assert.That(scroll.vertical,Is.True);
-            Assert.That(formula.text,Does.Contain("控制器 "+score.controllerMultiplierNumerator+"/"+score.controllerMultiplierDenominator));
+            // v1.1 (W09, TX-01): decimals instead of fractions, every digit kept; "卡牌" for controllers (D2).
+            Assert.That(formula.text,Does.Contain("卡牌 "+DrawerRatio11(score.controllerMultiplierNumerator,score.controllerMultiplierDenominator)));
             Assert.That(formula.text,Does.EndWith("= "+System.Numerics.BigInteger.Parse(score.score).ToString("N0",System.Globalization.CultureInfo.InvariantCulture)));
             var trace=ScoreExplanation.Build(snapshot,score,app.Config);var expected=new List<string>();
+            var cards=snapshot.equippedControllers??Array.Empty<ControllerInstance>();
             void CheckStep(string key,ScoreStep step)
             {
                 expected.Add("ScoreRow_"+key);var row=FindActive<RectTransform>("ScoreRow_"+key);
                 string source=row.Find("Source").GetComponent<TextMeshProUGUI>().text;
                 string calculation=row.Find("Calculation").GetComponent<TextMeshProUGUI>().text;
                 string result=row.Find("Result").GetComponent<TextMeshProUGUI>().text;
-                Assert.That(calculation,Is.EqualTo(step.operation=="floor"?step.before+" → 向下取整一次":step.before+" "+step.operation+" "+step.operand));
-                Assert.That(result,Is.EqualTo(step.after),key+" must show exact reduced-rational result, never HUD approximation");
+                // v1.1 (W09, TX-01): each step reads as a decimal with every digit ("≈" only when it does not terminate
+                // within two places); the exact fractions stay in the frozen trace, never as a compacted HUD value.
+                string before=DrawerExact11(step.before),operand=DrawerExact11(step.operand),after=DrawerExact11(step.after);
+                Assert.That(calculation,Is.EqualTo(step.operation=="floor"?before+" → 向下取整一次":before+" "+step.operation+" "+operand));
+                Assert.That(result,Is.EqualTo(after),key+" must show the full-precision result, never the HUD approximation");
+                Assert.That(calculation+result,Does.Not.Contain("/"),key+" shows no fraction");
                 if(step.sourceId!=null)Assert.That(source,Does.Contain(app.Config.Controller(step.sourceId).displayName));
-                if(!string.IsNullOrEmpty(step.emitterId))Assert.That(source,Does.Contain(step.emitterId));
-                if(!string.IsNullOrEmpty(step.stateOwnerId)&&step.stateOwnerId!=step.emitterId)Assert.That(source,Does.Contain("→ "+step.stateOwnerId));
+                // v1.1 (W09, TX-02): the emitting card is located by the position printed on it, never by its instance id.
+                int at=Array.FindIndex(cards,c=>c.instanceId==step.emitterId),owner=Array.FindIndex(cards,c=>c.instanceId==step.stateOwnerId);
+                if(!string.IsNullOrEmpty(step.emitterId)&&at>=0)Assert.That(source,Does.Contain("第 "+(at+1)+" 张"));
+                if(!string.IsNullOrEmpty(step.stateOwnerId)&&step.stateOwnerId!=step.emitterId&&at>=0&&owner>=0)Assert.That(source,Does.Contain("复制第 "+(owner+1)+" 张"));
+                Assert.That(source,Does.Not.Contain("ITEM_"));
                 Assert.That(source,Is.Not.Empty);
             }
             for(int i=0;i<snapshot.dice.Length;i++)
             {
                 string key="Die"+i;expected.Add("ScoreRow_"+key);var row=FindActive<RectTransform>("ScoreRow_"+key);var die=snapshot.dice[i];var face=die.permanentFacesCopy.Single(f=>f.faceId==die.faceId);
-                Assert.That(row.Find("Source").GetComponent<TextMeshProUGUI>().text,Is.EqualTo((i+1)+". "+die.dieId+" / "+die.faceId));
-                Assert.That(row.Find("Calculation").GetComponent<TextMeshProUGUI>().text,Is.EqualTo($"永久 {face.permanentPip} → 当前 {die.currentPip} → 有效 {score.effectivePips[i]}\n有效颜色 {(score.effectiveColors[i]=="red"?"红 R":"蓝 B")}\n永久六面和 {die.permanentSixFaceSum}"));
+                // v1.1 (W09, TX-02): "骰子 1 的第 3 面" instead of D001 / F03; colours without the R/B letters.
+                Assert.That(row.Find("Source").GetComponent<TextMeshProUGUI>().text,Is.EqualTo((i+1)+". "+GameApp.DieFaceName11(die.dieId,die.faceId)));
+                Assert.That(row.Find("Calculation").GetComponent<TextMeshProUGUI>().text,Is.EqualTo($"永久 {face.permanentPip} → 当前 {die.currentPip} → 有效 {score.effectivePips[i]}\n有效颜色 {(score.effectiveColors[i]=="red"?"红":"蓝")}\n永久六面和 {die.permanentSixFaceSum}"));
                 Assert.That(row.Find("Result").GetComponent<TextMeshProUGUI>().text,Is.EqualTo("本骰点数贡献\n"+score.pipContributions[i]));
                 for(int j=0;j<trace.dice[i].steps.Length;j++)CheckStep("Die"+i+"Step"+j,trace.dice[i].steps[j]);
             }

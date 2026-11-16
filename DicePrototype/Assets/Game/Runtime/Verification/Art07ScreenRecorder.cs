@@ -158,6 +158,8 @@ namespace DiceCraft.Verification
                 if(i==2)
                 {
                     yield return SettingsBottom();yield return Capture("settings-assist-bottom","S17","Bottom of real auxiliary settings form.");
+                    // v1.1 (W09): the debug row is hidden from players; the developer chord (Ctrl+Shift+D) reveals it.
+                    app.RevealDebugAccess11();yield return null;yield return SettingsBottom();
                     var password=Find<TMP_InputField>("DebugPassword");password.text="XD is god";password.DeactivateInputField();EventSystem.current.SetSelectedGameObject(null);
                     yield return Capture("debug-password","S20","Actual password field before unlocking; ordinary run unchanged.");
                     yield return Press("UnlockDebug");

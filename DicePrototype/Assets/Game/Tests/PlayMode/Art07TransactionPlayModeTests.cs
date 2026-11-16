@@ -137,7 +137,10 @@ namespace DiceCraft.Tests
             var acquired=app.Session.State.controllers.Single(c=>!before.controllers.Any(b=>b.instanceId==c.instanceId));
             Assert.That(app.TransactionVisualKind07,Is.EqualTo("purchase"));Assert.That(app.TransactionVisualDuration07,Is.EqualTo(reduced?.12f:.34f).Within(.0001f));
             AssertTransactionTicketClear07(oldGlyphs,reduced);
-            Assert.That(app.LastTransactionSummary07,Does.Contain(acquired.instanceId));Assert.That(app.TransactionAnimatedTargets07,Does.Contain("Controller_"+acquired.instanceId));
+            // v1.1 (W09, TX-02): the summary names the committed card and no longer prints its instance id; the animated
+            // target below still proves it is the newly committed instance.
+            Assert.That(app.LastTransactionSummary07,Does.Contain(app.Config.Controller(acquired.definitionId).displayName).And.Not.Contain(acquired.instanceId));
+            Assert.That(app.TransactionAnimatedTargets07,Does.Contain("Controller_"+acquired.instanceId));
             Assert.That(TransactionRect07("Controller_"+acquired.instanceId).GetComponent<CanvasGroup>().alpha,Is.Zero);
             string hash=GameSession.StateHash(app.Session.State);byte[] save=File.ReadAllBytes(app.SaveLocation);
             app.SkipVisual();Assert.That(app.TransactionVisualPlaying07,Is.False);Assert.That(app.Session.Busy,Is.False);Assert.That(app.TransactionSnapshotGraphicCount07,Is.Zero);

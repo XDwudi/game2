@@ -111,7 +111,8 @@ namespace DiceCraft
         public PresentationPhase? CurrentPresentationPhase07=>beat07?.Phase;
         public PresentationQuality CurrentPresentationQuality07=>presentationPlayer07.Sequence?.Options.Quality??CreatePresentationOptions07().Quality;
         public bool HasCommittedPresentationDetails07(string handId)=>receipt07!=null&&receipt07.HandId==handId;
-        public string[] CommittedPresentationDetails07=>receipt07==null?Array.Empty<string>():receipt07.Events.Select(e=>EventText07(e)+PermanentFaceDetails07(e)+(e.SourceEmitterIds.Count>0?" · 来源 "+string.Join("、",e.SourceEmitterIds.Select(SourceName07)):"")+(e.TargetDieIds.Count>0?" · 目标 "+string.Join("、",e.TargetDieIds):"")).Concat(new[]{BudgetGrantSummary07(lastPresentationBefore07,lastPresentationAfter07)}.Where(x=>!string.IsNullOrEmpty(x))).ToArray();
+        // v1.1 (W09): target dice are named ("骰子 3"), never shown by their ids.
+        public string[] CommittedPresentationDetails07=>receipt07==null?Array.Empty<string>():receipt07.Events.Select(e=>EventText07(e)+PermanentFaceDetails07(e)+(e.SourceEmitterIds.Count>0?" · 来源 "+string.Join("、",e.SourceEmitterIds.Select(SourceName07)):"")+(e.TargetDieIds.Count>0?" · 目标 "+string.Join("、",e.TargetDieIds.Select(DieName11)):"")).Concat(new[]{BudgetGrantSummary07(lastPresentationBefore07,lastPresentationAfter07)}.Where(x=>!string.IsNullOrEmpty(x))).ToArray();
         private static string PermanentFaceDetails07(PresentationEvent e)
         {
             if(e.EffectFamily!="DieCopied"&&e.EffectFamily!="DieDyed")return "";
@@ -165,6 +166,9 @@ namespace DiceCraft
             }
         }
         private static long ParseLong09(string value)=>long.TryParse(value,System.Globalization.NumberStyles.Integer,System.Globalization.CultureInfo.InvariantCulture,out long parsed)?parsed:0;
+        /// <summary>v1.1 (W09): the committed total multiplier as a decimal with its sign ("×140.4").</summary>
+        private string ReceiptMultiplier07(int fullDigits=PlayerNumberFormat.FullDigits)
+            =>PlayerNumberFormat.Times(ExactScoreMath.Parse(receipt07.MultiplierNumeratorDecimal),ExactScoreMath.Parse(receipt07.MultiplierDenominatorDecimal),fullDigits);
         private string EventText07(PresentationEvent e)
         {
             string name;
@@ -193,7 +197,7 @@ namespace DiceCraft
                 case "enchantment_base":name="附魔基础";break;case "enchantment_multiplier":name="附魔倍率";break;
                 case "effective_pip":name="本次有效点数";break;case "effective_color":name="本次有效颜色";break;
                 case "red_group_key":return "红色1点按红色4点分组";case "red_group_merge":return "所有有效红骰合为一组";case "short_straight":return "简化顺子成立";
-                case "random_reveal":return "已提交随机结果 ×"+DisplayFraction07(e.AfterValue);
+                case "random_reveal":return "已提交随机结果 "+PlayerNumberFormat.Times(e.AfterValue);
                 case "final_score":return "本手得分 "+CompactScore(e.AfterValue);
                 case "SubmissionIncome":return "提交收入 +"+e.AfterValue+" 金币";
                 case "stage_income":return "关末收入 +"+e.Operand+" 金币";
@@ -212,8 +216,10 @@ namespace DiceCraft
                 default:return "状态已更新";
             }
             string value=e.Operand??e.AfterValue??"";
-            if(value=="red")value="红";else if(value=="blue")value="蓝";
-            return name+" "+(e.Operation??"")+value;
+            if(value=="red")return name+" "+(e.Operation??"")+"红";
+            if(value=="blue")return name+" "+(e.Operation??"")+"蓝";
+            // v1.1 (W09): exact operands read as decimals ("×3.9", "≈×0.33"), never as fractions.
+            return name+" "+OperationText07(e.Operation,value);
         }
         private void DrawTargets07(PresentationBeat beat)
         {
@@ -228,7 +234,7 @@ namespace DiceCraft
                 if(beat.Phase==PresentationPhase.DiceContributions)
                 {
                     var ticket=UiKit.Frame(effects07,"Value"+n,center.x-62,center.y-width/2-54,124,46,UiKit.Paper,UiKit.Ink);
-                    string value=e.AfterValue??e.Operand??"";
+                    string value=DisplayFraction07(e.AfterValue??e.Operand??"");
                     UiKit.Text(ticket,"Number",value,6,4,112,38,20,UiKit.Ink,TextAlignmentOptions.Center);
                 }
                 n++;
@@ -248,8 +254,9 @@ namespace DiceCraft
             receiptNumber07.rectTransform.pivot=new Vector2(1,.5f);
             receiptNumber07.rectTransform.anchoredPosition=new Vector2(w-30,Compact07?-34:-44);
             receiptNumberOrigin07=receiptNumber07.rectTransform.anchoredPosition;
-            string multiplier="总倍率 ×"+receipt07.MultiplierNumeratorDecimal+(receipt07.MultiplierDenominatorDecimal=="1"?"":"/"+receipt07.MultiplierDenominatorDecimal);
-            string chain=receipt07.ChainCount==0?"":"  ·  连锁 "+receipt07.ChainCount;
+            // v1.1 (W09): a decimal total multiplier; "连锁 N" is now "生效 N 张" (DEV_PLAN 4.1 item 4).
+            string multiplier="总倍率 "+ReceiptMultiplier07();
+            string chain=receipt07.ChainCount==0?"":"  ·  生效 "+receipt07.ChainCount+" 张";
             string details=beat07==null?"结果已保存":beat07.Phase==PresentationPhase.PostScore?PostSummary07(beat07):string.Join("  ·  ",beat07.Events.Take(3).Select(EventText07));
             if(beat07!=null&&!final){var sources=beat07.Events.Where(e=>e.IsScoring).SelectMany(e=>e.SourceEmitterIds).Distinct().ToArray();if(sources.Length>0)details+=" · 来源 "+string.Join("、",sources.Select(SourceName07));}
             if(beat07?.Phase==PresentationPhase.TargetState)details=BudgetGrantSummary07(lastPresentationBefore07,lastPresentationAfter07);

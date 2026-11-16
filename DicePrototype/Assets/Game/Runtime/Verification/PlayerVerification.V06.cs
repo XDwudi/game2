@@ -265,11 +265,14 @@ namespace DiceCraft.Verification
                 foreach(string speed in new[]{"Fast","Instant","Normal"})
                 {
                     yield return PressTargetReady("Speed");
-                    Require(ActiveControl<Button>("Speed").GetComponentInChildren<TextMeshProUGUI>().text==speed+"  >","The real speed control did not cycle to "+speed);
+                    // v1.1 (W09): the option labels are Chinese (即时 / 快速 / 标准); the stored keys stay English.
+                    Require(ActiveControl<Button>("Speed").GetComponentInChildren<TextMeshProUGUI>().text==GameApp.SpeedLabel11(speed)+"  >","The real speed control did not cycle to "+speed);
                 }
                 yield return PressTargetReady("TextScale");yield return PressTargetReady("TextScale");
                 Require((int)GetPrivate(app,"textScale07")==150&&Mathf.Abs(UiKit.FontScale-1.5f)<.001f,"150% text size was not applied through settings.");
                 yield return SetActualResolution(1280,720);app.Refresh();yield return PressTargetReady("SettingsTab2");
+                // v1.1 (W09): the debug row is hidden from players; the developer chord (Ctrl+Shift+D) reveals it.
+                app.RevealDebugAccess11();yield return null;
                 RequirePanelRect07(320,96,1280,888);RequireReadableButton07("SettingsDone");
                 foreach(string id in new[]{"SettingsTab0","SettingsTab1","SettingsTab2","Speed","Reduced","TextScale","BindRoll","ResetKeys","UnlockDebug"})RequireReadableButton07(id);
                 yield return Capture("v07-settings-720p-text150-bottom");
@@ -335,7 +338,8 @@ namespace DiceCraft.Verification
             int[] probability=app.Session.ProbabilityUnits(dieId);
             for(int i=0;i<die.faces.Length;i++)
             {
-                Require(ActiveControl<TextMeshProUGUI>("ProbabilityValue"+(i+1)).text==(probability[i]/10000m).ToString("0.####")+"%","Physical face probability differs from the real calculator.");
+                // v1.1 (W09, text proposal 3): one decimal through the shared number format.
+                Require(ActiveControl<TextMeshProUGUI>("ProbabilityValue"+(i+1)).text==PlayerNumberFormat.Percent(probability[i],10000),"Physical face probability differs from the real calculator.");
                 if(probability[i]==0)Require(ActiveControl<RectTransform>("ProbabilityBar"+(i+1)).rect.width==0,"Zero probability was rendered with a positive-width bar.");
             }
             var rotate=ActiveControl<DiePointer>("RotatePreview");ExecuteEvents.Execute(rotate.gameObject,new PointerEventData(EventSystem.current){delta=new Vector2(80,40)},ExecuteEvents.dragHandler);
@@ -349,6 +353,8 @@ namespace DiceCraft.Verification
             string normal = JsonUtility.ToJson(app.Session.State), disk = FileHash(normalSave);
             yield return PressTargetReady("Pause");
             yield return PressTargetReady("Settings"); yield return PressTargetReady("SettingsTab2"); yield return null;
+            // v1.1 (W09): the debug row is hidden from players; the developer chord (Ctrl+Shift+D) reveals it.
+            app.RevealDebugAccess11(); yield return null;
             Input("DebugPassword", "xd is god", true); yield return null;
             Require(!app.DebugUnlocked && JsonUtility.ToJson(app.Session.State) == normal, "Invalid password changed/unlocked ordinary challenge.");
             Input("DebugPassword", "XD is god ", true); yield return null;

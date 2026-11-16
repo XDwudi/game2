@@ -115,7 +115,10 @@ namespace DiceCraft.Tests
                 runtimeMvid = typeof(GameApp).Module.ModuleVersionId.ToString(), stateHash = ExtraStateHash07(), saveSha = ExtraFileHash07(app.SaveLocation),
                 width = Screen.width, height = Screen.height, fontPercent = Mathf.RoundToInt(UiKit.FontScale * 100) };
             var labels = new List<TextMeshProUGUI>();
-            foreach (string id in new[] { "Subtitle", "MenuRules", "LockHint", "MenuLabel", "SavedSeed", "Version" }) labels.Add(FindActive<TextMeshProUGUI>(id));
+            // v1.1 (W09, text proposal 1 #14): the menu no longer prints the version and build; they stay on the
+            // "版本与构建" page. The label must not come back; every remaining label keeps the original glyph checks.
+            Assert.That(HasActive("Version"), Is.False, "Version and build numbers belong only to the version page.");
+            foreach (string id in new[] { "Subtitle", "MenuRules", "LockHint", "MenuLabel", "SavedSeed" }) labels.Add(FindActive<TextMeshProUGUI>(id));
             foreach (string id in MenuTableButtons071)
             {
                 var button = Button(id); Rect bounds = ExtraBounds07((RectTransform)button.transform);

@@ -196,6 +196,8 @@ namespace DiceCraft.Tests
         {
             StartRun("70782");Click("StartStage");string before=StateJson();byte[] disk=File.ReadAllBytes(app.SaveLocation);
             Click("Pause");Click("Settings");Click("SettingsTab2");
+            // v1.1 (W09, text proposal 5 #2): the password row is hidden until the developer reveals it (Ctrl+Shift+D).
+            Assert.That(HasActive("DebugPassword"),Is.False);app.RevealDebugAccess11();
             var field=FindActive<TMP_InputField>("DebugPassword");field.text="xd is god";Click("UnlockDebug");
             Assert.That(app.DebugUnlocked,Is.False);Assert.That(FindActive<TextMeshProUGUI>("DebugPasswordError").text,Does.Contain("口令不匹配"));
             yield return null;field.text="XD is god";Click("UnlockDebug");

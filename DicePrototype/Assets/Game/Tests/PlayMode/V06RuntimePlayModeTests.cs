@@ -19,6 +19,8 @@ namespace DiceCraft.Tests
             StartRun("606");var normal=StateJson();byte[] normalDisk=File.ReadAllBytes(app.SaveLocation);
             Assert.That(app.UnlockDebug("XD is god "),Is.False);Assert.That(app.UnlockDebug("xd is god"),Is.False);Assert.That(app.UnlockDebug(" XD is god"),Is.False);
             Assert.That(StateJson(),Is.EqualTo(normal));Click("Pause");Click("Settings");Click("SettingsTab2");
+            // v1.1 (W09, text proposal 5 #2): the password row is hidden until the developer reveals it (Ctrl+Shift+D).
+            Assert.That(HasActive("DebugPassword"),Is.False);app.RevealDebugAccess11();
             var password=FindActive<TMP_InputField>("DebugPassword");password.text="XD is god";Click("UnlockDebug");
             Assert.That(app.DebugUnlocked,Is.True);Assert.That(StateJson(),Is.EqualTo(normal));Click("CopyCurrentToDebug");
             Assert.That(app.IsDebugWorkspace,Is.True);Assert.That(app.Session.State.isDebug,Is.False);
@@ -113,7 +115,8 @@ namespace DiceCraft.Tests
         public IEnumerator PLAY_V06_SettingsPasswordFocusBlocksSubmitAndDisplaySettingsStayOutsideRun()
         {
             StartRun("609");Click("StartStage");Click("Roll");Click("Skip");ClickDie("D001");Click("Confirm");yield return WaitForIdle();string original=StateJson();
-            Click("Pause");Click("Settings");Click("SettingsTab2");var password=FindActive<TMP_InputField>("DebugPassword");password.text="XD is god";password.ActivateInputField();
+            // v1.1 (W09, text proposal 5 #2): the password row is hidden until the developer reveals it (Ctrl+Shift+D).
+            Click("Pause");Click("Settings");Click("SettingsTab2");app.RevealDebugAccess11();var password=FindActive<TMP_InputField>("DebugPassword");password.text="XD is god";password.ActivateInputField();
             yield return null;Assert.That(password.isFocused,Is.True,"Password editor must own focus before keyboard input.");
             using(var keyboard=new RoutedKeyboard()){yield return keyboard.Press(UnityEngine.InputSystem.Key.Enter);}
             Assert.That(StateJson(),Is.EqualTo(original));Assert.That(app.DebugUnlocked,Is.True);

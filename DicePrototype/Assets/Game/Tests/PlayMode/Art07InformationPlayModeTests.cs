@@ -78,7 +78,8 @@ namespace DiceCraft.Tests
             {
                 var branch=frozen.Clone();branch.resolvedRandomChoices=new[]{new RandomMultiplierChoice{ownerInstanceId=owner,units2=choices[i]}};
                 var exact=ScoreCalculator.Preview(branch,app.Config);Assert.That(exact.isRandom,Is.False);
-                Assert.That(InformationText07("RandomScore"+i),Is.EqualTo(exact.minimum.score));
+                // v1.1 (W09, text proposal 3): the branch score has thousands separators (same digits, PlayerNumberFormat).
+                Assert.That(InformationText07("RandomScore"+i),Is.EqualTo(PlayerNumberFormat.Exact(exact.minimum.score)));
                 Assert.That(InformationText07("RandomFactor"+i),Is.EqualTo("q ×"+(choices[i]/2m).ToString("0.#")));
             }
             Assert.That(choices.Length,Is.EqualTo(9));Click("RandomBranch8");Click("CloseDialog");
@@ -105,9 +106,12 @@ namespace DiceCraft.Tests
             var settlement=s.lastStageSettlement;var receipt=s.processedReceipts.Last(q=>q.settlement?.settlementId==settlement.settlementId);
             long earned=s.processedReceipts.Where(q=>q.submission!=null).SelectMany(q=>q.effects).Where(e=>e.kind=="SubmissionIncome").Sum(e=>e.newValue);
             Assert.That(earned,Is.GreaterThan(0));Assert.That(InformationText07("SubmissionIncome"),Does.Contain("本关已入账").And.Contain("+"+earned+" 金币"));
-            Assert.That(InformationText07("FundGrowth"),Does.Contain(mimic.instanceId+" · 卖价＋3 · 基金累计 6").And.Contain(fund.instanceId+" · 卖价＋3 · 基金累计 9").And.Contain("不进入钱包"));
+            // v1.1 (W09, TX-02): each fund line names its card (both names are unique here), never its instance id.
+            string fundText=InformationText07("FundGrowth");
+            Assert.That(fundText,Does.Contain(app.Config.Controller("C41").displayName+" · 卖价＋3 · 基金累计 6").And.Contain(app.Config.Controller("C52").displayName+" · 卖价＋3 · 基金累计 9").And.Contain("不进入钱包"));
+            Assert.That(fundText,Does.Not.Contain(mimic.instanceId).And.Not.Contain(fund.instanceId));
             var expired=receipt.effects.Where(e=>e.kind=="TemporaryDieExpired").ToArray();Assert.That(expired.Length,Is.EqualTo(1));
-            Assert.That(InformationText07("TemporaryCleanup"),Does.Contain(expired[0].dieId));
+            Assert.That(InformationText07("TemporaryCleanup"),Does.Contain(GameApp.DieName11(expired[0].dieId)).And.Not.Contain(expired[0].dieId));
             Assert.That(InformationText07("SettlementNetCash"),Does.Contain("+"+(settlement.goldAfter-settlement.goldBefore)));
             string before=StateJson();byte[] disk=File.ReadAllBytes(app.SaveLocation);yield return null;
             Assert.That(StateJson(),Is.EqualTo(before));CollectionAssert.AreEqual(disk,File.ReadAllBytes(app.SaveLocation));

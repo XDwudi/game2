@@ -370,8 +370,10 @@ namespace DiceCraft.Tests
                 ExecuteEvents.Execute(targetAfter, pointer, ExecuteEvents.pointerClickHandler);
             Canvas.ForceUpdateCanvases();
             Assert.That(clicks, Is.EqualTo(1));
+            // v1.1 (W09, TX-02): the detail card prints this card's position instead of its instance id; positions are unique,
+            // so the label still proves that the details of exactly this instance opened.
             Assert.That(FindActive<RectTransform>("DetailCard").Find("Identity").GetComponent<TextMeshProUGUI>().text,
-                Is.EqualTo(item.instanceId));
+                Is.EqualTo("第 " + (app.Session.State.controllers.FindIndex(c => c.instanceId == item.instanceId) + 1) + " 张"));
             AssertInteractionCheckpoint07(before, disk, sequence);
             ExecuteEvents.Execute(targetBefore, pointer, ExecuteEvents.pointerExitHandler);
             yield return new WaitForSecondsRealtime(.45f);

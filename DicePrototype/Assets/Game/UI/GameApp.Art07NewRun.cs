@@ -74,7 +74,7 @@ namespace DiceCraft
             UiKit.Clear(content);float y=0;const float width=526;
             AddNewRunText07(content,"SeedError",error,ref y,width,UiKit.Danger);
             string summary=ViewState==null?"24 关 · 8 章\n每次有效操作后自动保存。":
-                $"将替换：第 {ViewState.stage.stageIndex+1} 关 · {ViewState.gold} 金币\n种子 {ViewState.seed} · {(ViewState.debugWorkspace?"调试":"普通")}对局\n开始后替换存档；取消保留原进度。";
+                $"将替换：第 {ViewState.stage.stageIndex+1} 关 · {PlayerNumberFormat.Gold(ViewState.gold)} 金币\n种子 {ViewState.seed} · {(ViewState.debugWorkspace?"调试":"普通")}对局\n开始后替换存档；取消保留原进度。";
             AddNewRunText07(content,"Overwrite",summary,ref y,width,UiKit.Ink);
             if(ViewState!=null)AddNewRunText07(content,"RulesSummary","24 关 · 8 章\n每次有效操作后自动保存。",ref y,width,UiKit.Ink);
             content.sizeDelta=new Vector2(content.sizeDelta.x,Mathf.Max(288,y));

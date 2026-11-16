@@ -88,8 +88,9 @@ namespace DiceCraft.Tests
             {
                 expected.Add("DieLine"+i);for(int j=0;j<trace.dice[i].steps.Length;j++)expected.Add("DieStep"+i+"_"+j);
                 var die=snapshot.dice[i];var face=die.permanentFacesCopy.Single(f=>f.faceId==die.faceId);
+                // v1.1 (W09, TX-02): "骰子 1 的第 3 面" instead of D001/F03; colours without the R/B letters.
                 Assert.That(FindActive<TextMeshProUGUI>("DieLine"+i).text,Is.EqualTo(
-                    $"{i+1}. {die.dieId}/{die.faceId}  永久 {face.permanentPip} → 当前 {die.currentPip} → 有效 {score.effectivePips[i]}  /  {(score.effectiveColors[i]=="red"?"红 R":"蓝 B")}\n永久六面和 {die.permanentSixFaceSum}  ·  本骰点数贡献 {score.pipContributions[i]}"));
+                    $"{i+1}. {GameApp.DieFaceName11(die.dieId,die.faceId)}  永久 {face.permanentPip} → 当前 {die.currentPip} → 有效 {score.effectivePips[i]}  /  {(score.effectiveColors[i]=="red"?"红":"蓝")}\n永久六面和 {die.permanentSixFaceSum}  ·  本骰点数贡献 {score.pipContributions[i]}"));
             }
             expected.Add("GlobalTitle");for(int i=0;i<trace.global.Length;i++)expected.Add("GlobalStep"+i);expected.Add("Triggered");
             var labels=scroll.content.GetComponentsInChildren<TextMeshProUGUI>(false).OrderBy(t=>-t.rectTransform.anchoredPosition.y).ToArray();

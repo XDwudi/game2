@@ -215,8 +215,9 @@ namespace DiceCraft.Tests
             StartRun("71234"); Click("StartStage");
             string beforeSettings=StateJson();byte[] beforeSettingsSave=File.ReadAllBytes(app.SaveLocation);
             yield return LegacyClick07("Pause");yield return LegacyClick07("Settings");yield return LegacyClick07("SettingsTab2");
-            Assert.That(Button("Speed").GetComponentInChildren<TextMeshProUGUI>().text,Does.StartWith("Normal"));
-            yield return LegacyClick07("Speed");Assert.That(Button("Speed").GetComponentInChildren<TextMeshProUGUI>().text,Does.StartWith("Fast"));
+            // v1.1 (W09, TX-02): the speed options read 标准 / 快速 / 即时 instead of Normal / Fast / Instant.
+            Assert.That(Button("Speed").GetComponentInChildren<TextMeshProUGUI>().text,Does.StartWith("标准"));
+            yield return LegacyClick07("Speed");Assert.That(Button("Speed").GetComponentInChildren<TextMeshProUGUI>().text,Does.StartWith("快速"));
             yield return LegacyClick07("SettingsDone");
             Assert.That(StateJson(),Is.EqualTo(beforeSettings));CollectionAssert.AreEqual(beforeSettingsSave,File.ReadAllBytes(app.SaveLocation));
             Assert.That(PlayerPrefs.GetInt("fast"), Is.EqualTo(1));

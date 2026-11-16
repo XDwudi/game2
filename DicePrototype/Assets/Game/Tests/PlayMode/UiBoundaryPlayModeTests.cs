@@ -246,7 +246,8 @@ namespace DiceCraft.Tests
                 else
                 {
                     yield return LegacyClick07("PreviousSubmission");
-                    Assert.That(FindActive<TextMeshProUGUI>("Triggered").text,Does.Contain("D001 的六面复制到 D002"));
+                    // v1.1 (W09, TX-02): dice by name, never by D001 / D002.
+                    Assert.That(FindActive<TextMeshProUGUI>("Triggered").text,Does.Contain("骰子 1 的六面复制到骰子 2").And.Not.Contain("D00"));
                     yield return LegacyClick07("CloseDialog");
                 }
                 Assert.That(StateJson(),Is.EqualTo(committed));Assert.That(File.ReadAllLines(log).Length,Is.EqualTo(loggedBefore+1));
@@ -319,6 +320,16 @@ namespace DiceCraft.Tests
                 InputSystem.QueueStateEvent(keyboard, new KeyboardState());
                 yield return null;
                 Assert.That(DynamicUpdatesWithPressedKeys, Is.GreaterThan(before), key + " must reach actual Dynamic input updates.");
+            }
+            // v1.1 (W09): several keys held in one state, e.g. the developer chord Ctrl+Shift+D.
+            public IEnumerator PressChord(params Key[] keys)
+            {
+                int before = DynamicUpdatesWithPressedKeys;
+                InputSystem.QueueStateEvent(keyboard, new KeyboardState(keys));
+                yield return null; yield return null;
+                InputSystem.QueueStateEvent(keyboard, new KeyboardState());
+                yield return null;
+                Assert.That(DynamicUpdatesWithPressedKeys, Is.GreaterThan(before), string.Join("+", keys) + " must reach actual Dynamic input updates.");
             }
             public void Dispose()
             {

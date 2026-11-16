@@ -16,19 +16,21 @@ namespace DiceCraft
             // The currency is a separate caption: it cannot wrap below the amount into interest.
             var unit=UiKit.Text(panel,"MoneyUnit","金币",230,34,72,48,21,UiKit.Gold);
             unit.textWrappingMode=TextWrappingModes.NoWrap;
-            string amount=ViewState.gold.ToString(System.Globalization.CultureInfo.InvariantCulture);
+            // v1.1 (W09, text proposal 3): thousands separators from four digits.
+            string amount=PlayerNumberFormat.Gold(ViewState.gold);
             var money=UiKit.Text(panel,"Money",amount,18,90,284,84,38,UiKit.Gold);
             // Regular cut on purpose: a ten-digit wallet at 150% only fits with the regular metrics.
             money.enableAutoSizing=false;money.characterSpacing=0;
             UiKit.Component<Art072ValuePop>(money.gameObject).Configure(ViewState.runId+"|wallet",amount);
             money.textWrappingMode=TextWrappingModes.NoWrap;money.overflowMode=TextOverflowModes.Overflow;
-            // At 150%, a ten-digit wallet needs slightly more width than the ordinary inner column.
-            // Preserve size and every digit; use the wider number rail and only necessary tracking.
+            // At 150%, a ten-digit wallet needs more width than the ordinary inner column, and its three separators
+            // more still. Preserve size and every digit; use the full inner width of the panel and only the tracking
+            // needed (at most -8: digit ink stays visibly separate).
             if(money.GetPreferredValues(amount).x>284)
             {
-                money.rectTransform.anchoredPosition=new Vector2(8,-90);
-                money.rectTransform.sizeDelta=new Vector2(304,84);
-                while(money.GetPreferredValues(amount).x>304&&money.characterSpacing>-4)
+                money.rectTransform.anchoredPosition=new Vector2(4,-90);
+                money.rectTransform.sizeDelta=new Vector2(312,84);
+                while(money.GetPreferredValues(amount).x>312&&money.characterSpacing>-8)
                     money.characterSpacing-=.25f;
             }
             UiKit.Text(panel,"Interest",ShopInterestText07(),18,182,284,104,21,UiKit.Muted);        }

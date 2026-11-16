@@ -266,7 +266,8 @@ namespace DiceCraft.Tests
             var layer=FindActive<RectTransform>("HighScore073");var group=layer.GetComponent<CanvasGroup>();
             Assert.That(group.blocksRaycasts,Is.False);Assert.That(group.interactable,Is.False);
             Assert.That(layer.GetComponentsInChildren<UnityEngine.UI.Graphic>(false).Where(g=>g.name!="Number"&&g.name!="Caption"&&g.name!="Chain"&&g.name!="Formula").All(g=>!g.raycastTarget||!group.blocksRaycasts),Is.True);
-            Assert.That(FindActive<TextMeshProUGUI>("Chain").text,Does.Contain("连锁").And.Contain("16,560"));
+            // v1.1 (W09): "生效 N 张" instead of "连锁 N" (DEV_PLAN 4.1 item 4); the multiplier keeps its separators.
+            Assert.That(FindActive<TextMeshProUGUI>("Chain").text,Does.Contain("生效").And.Contain("16,560"));
             Assert.That(FindActive<TextMeshProUGUI>("Formula").text.Count(c=>c=='×'),Is.GreaterThanOrEqualTo(2));
             int ticks=layer.GetComponentsInChildren<RectTransform>(false).Count(r=>r.name.StartsWith("Scored",StringComparison.Ordinal));
             Assert.That(ticks,Is.EqualTo(4),"One gold tick per scoring controller.");

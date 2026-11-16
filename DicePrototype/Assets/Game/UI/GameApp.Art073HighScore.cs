@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using DiceCraft.Core;
 using DiceCraft.Presentation;
 using TMPro;
 using UnityEngine;
@@ -72,11 +73,12 @@ namespace DiceCraft
             // replay would create and release that fallback material each time (the 200-replay stability rule).
             highScoreNumber073.textWrappingMode=TextWrappingModes.NoWrap;highScoreNumber073.enableAutoSizing=true;
             highScoreNumber073.fontSizeMin=36;highScoreNumber073.fontSizeMax=highScoreNumber073.fontSize;
-            string multiplier=receipt07.MultiplierDenominatorDecimal=="1"&&receipt07.MultiplierNumeratorDecimal.Length<=12?Big(receipt07.MultiplierNumeratorDecimal):ScoreFactorShort07(receipt07.MultiplierNumeratorDecimal,receipt07.MultiplierDenominatorDecimal);
+            // v1.1 (W09): a decimal multiplier (up to twelve digits in full) and "生效 N 张" instead of "连锁 N".
+            string multiplier=ReceiptMultiplier07(12);
             string gold="<color=#"+ColorUtility.ToHtmlStringRGB(UiKit.Gold)+">";
-            var chain=UiKit.Text(highScorePlate073,"Chain","连锁 "+gold+receipt07.ChainCount+"</color>     |     倍率 "+gold+"×"+multiplier+"</color>",30,ph-(c?60:70),pw-60,36,c?22:26,UiKit.TextColor,TextAlignmentOptions.Center);
+            var chain=UiKit.Text(highScorePlate073,"Chain","生效 "+gold+receipt07.ChainCount+"</color> 张     |     倍率 "+gold+multiplier+"</color>",30,ph-(c?60:70),pw-60,36,c?22:26,UiKit.TextColor,TextAlignmentOptions.Center);
             chain.richText=true;chain.textWrappingMode=TextWrappingModes.NoWrap;
-            string formula=HighScore073.Formula(lastPresentationAfter07?.lastSubmission?.breakdown,n=>Factor(n),(n,d)=>ScoreFactorShort07(n,d),n=>n!=null&&n.Length>9?ScoreFactorShort07(n):CompactScore(n));
+            string formula=ScoreFormulaShort07(lastPresentationAfter07?.lastSubmission?.breakdown);
             if(!string.IsNullOrEmpty(formula))
             {
                 float fw=Mathf.Clamp(120+formula.Length*15f,280,pw-80);
@@ -109,6 +111,16 @@ namespace DiceCraft
             }
             EvaluateHighScore073();
         }
+        /// <summary>
+        /// v1.1 (W09, text proposal 1 #1): the celebration formula with a name before each factor, the enchantment as its
+        /// actual factor instead of "2^n", and the item and boss factors the score also applies. Decimals, never fractions.
+        /// </summary>
+        private string ScoreFormulaShort07(ScoreBreakdown b)
+            =>HighScore073.Formula(b,n=>Factor(n),(n,d)=>ScoreFactorShort07(n,d),n=>ScoreFactorShort07(n),
+                count=>PlayerNumberFormat.Integer(EnchantFactor07(count),9),
+                (key,value)=>FormulaLabel07(key)+" "+value,
+                f=>NameOf(f.abilityId)+" "+PlayerNumberFormat.Ratio(ExactScoreMath.Parse(f.numerator),ExactScoreMath.Parse(f.denominator),9));
+        private static string FormulaLabel07(string key)=>key=="base"?"基础":key=="hand"?"牌型":key=="color"?"颜色":key=="red"?"红组":key=="controller"?"卡牌":key=="enchant"?"附魔":key;
         private void EndHighScore073(bool immediately)
         {
             if(highScore073==null||!highScore073.gameObject.activeSelf)return;

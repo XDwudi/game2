@@ -94,7 +94,9 @@ namespace DiceCraft
         private string SourceName07(string id)
         {
             var list=lastPresentationBefore07?.controllers;int i=list==null?-1:list.FindIndex(c=>c.instanceId==id);
-            return i<0?id??"来源未记录":"#"+(i+1)+" "+NameOf(list[i].definitionId);
+            // v1.1 (W09): an unlisted source is described, never shown by its instance id.
+            if(i<0){var owned=lastPresentationAfter07?.controllers.FirstOrDefault(c=>c.instanceId==id);return owned==null?"来源未记录":NameOf(owned.definitionId);}
+            return "#"+(i+1)+" "+NameOf(list[i].definitionId);
         }
         private bool EffectGroup07(string group,bool mainGroup=false)=>effectBudget07.TryBeginGroup(effectReceipt07,group,mainGroup);
         private int EffectReserve07(string group,EffectPoolKind kind,int count)
@@ -130,7 +132,7 @@ namespace DiceCraft
                 Effect07("fx_source_hit",beat.FocusEmitterId,source.position,source.size);
                 var e=beat.Events.FirstOrDefault(x=>x.Operand!=null&&x.IsScoring);
                 if(e!=null&&EffectReserve07("main",EffectPoolKind.NumberLabel,1)>0)
-                    Effect07("fx_value_ticket",e.EventId,new Vector2(source.center.x-90,Compact07?260:258),new Vector2(180,48),(e.Operation??"")+DisplayFraction07(e.Operand));
+                    Effect07("fx_value_ticket",e.EventId,new Vector2(source.center.x-90,Compact07?260:258),new Vector2(180,48),OperationText07(e.Operation,e.Operand));
                 if(e!=null&&e.StateOwnerId!=null&&e.StateOwnerId!=e.EmitterId&&EffectGroup07("links"))Link07(e.StateOwnerId,e.EmitterId,e.EventId);
             }
             if(beat.Phase==PresentationPhase.DiceContributions)
@@ -140,14 +142,14 @@ namespace DiceCraft
                     if(!dieCenters.TryGetValue(group.Key,out var center)||EffectReserve07("main",EffectPoolKind.NumberLabel,1)==0)continue;
                     var e=group.Last().Event;float size=Compact07?78:110;
                     Effect07("fx_target_bracket",group.Key,center-Vector2.one*(size+8)*.5f,Vector2.one*(size+8));
-                    Effect07("fx_value_ticket",e.EventId,new Vector2(center.x-62,center.y-size*.5f-50),new Vector2(124,42),e.AfterValue??e.Operand);
+                    Effect07("fx_value_ticket",e.EventId,new Vector2(center.x-62,center.y-size*.5f-50),new Vector2(124,42),DisplayFraction07(e.AfterValue??e.Operand));
                 }
             }
             var reveals=beat.Events.Where(e=>e.EffectFamily=="random_reveal").GroupBy(e=>e.StateOwnerId).Select(g=>g.First()).ToArray();
             foreach(var e in reveals)if(!revealedOwners07.Contains(e.StateOwnerId))revealedOwners07.Add(e.StateOwnerId);
             if(reveals.Length==1)
             {
-                var e=reveals[0];var v=Effect07("fx_random_reveal",e.StateOwnerId,new Vector2(Compact07?680:700,Compact07?285:290),new Vector2(130,110),"×"+DisplayFraction07(e.AfterValue));
+                var e=reveals[0];var v=Effect07("fx_random_reveal",e.StateOwnerId,new Vector2(Compact07?680:700,Compact07?285:290),new Vector2(130,110),PlayerNumberFormat.Times(e.AfterValue));
                 string[] values={"1/2","1","2","3","4","5","6","7","8"};int slice=Array.IndexOf(values,e.AfterValue);
                 if(v!=null){if(slice>=0)v.SetRevealSlice(slice);v.ConfigureCommittedReveal(effectOptions07.Speed==PresentationSpeed.Fast||effectOptions07.ReducedMotion,effectDuration07);}
                 if(e.SourceEmitterIds.Count>1)ShowEffectSummary07("共享抽中 q="+DisplayFraction07(e.AfterValue)+" · "+e.SourceEmitterIds.Count+" 来源合计 q"+(e.SourceEmitterIds.Count==2?"²":"^"+e.SourceEmitterIds.Count)+" · 各来源见完整记录",true);
@@ -156,7 +158,7 @@ namespace DiceCraft
             else if(reveals.Length>1)
             {
                 // Multiple real owners are one static list, never multiple competing wheels.
-                ShowEffectSummary07("已提交随机结果："+string.Join(" · ",reveals.Select(e=>SourceName07(e.StateOwnerId)+" ×"+DisplayFraction07(e.AfterValue))),true);
+                ShowEffectSummary07("已提交随机结果："+string.Join(" · ",reveals.Select(e=>SourceName07(e.StateOwnerId)+" "+PlayerNumberFormat.Times(e.AfterValue))),true);
                 if(EffectGroup07("links"))foreach(var e in reveals)foreach(string id in e.SourceEmitterIds.Where(id=>id!=e.StateOwnerId))Link07(e.StateOwnerId,id,e.EventId);
             }
             if(beat.Phase==PresentationPhase.PostScore)PresentPostEffects07(beat);
@@ -244,7 +246,7 @@ namespace DiceCraft
                 }
                 var cash=beat.Events.FirstOrDefault(e=>e.EffectFamily=="SubmissionIncome"||e.EffectFamily=="stage_income");
                 if(cash!=null&&EffectReserve07("states",EffectPoolKind.NumberLabel,1)>0)
-                    Effect07("fx_cash_ticket",cash.EventId,new Vector2(960,Compact07?284:320),new Vector2(220,58),"+"+(cash.Operand??cash.AfterValue));
+                    Effect07("fx_cash_ticket",cash.EventId,new Vector2(960,Compact07?284:320),new Vector2(220,58),"+"+DisplayFraction07(cash.Operand??cash.AfterValue));
             }
         }
         private string PostSummary07(PresentationBeat beat)
@@ -265,12 +267,12 @@ namespace DiceCraft
             }
             return string.Join(" · ",parts);
         }
-        // Halves (C47, C51, C53) read better as decimals: "3/2" -> "1.5". Other fractions stay exact.
-        private static string DisplayFraction07(string exact)
-        {
-            if(exact==null||!exact.EndsWith("/2",StringComparison.Ordinal))return exact;
-            return System.Numerics.BigInteger.TryParse(exact.Substring(0,exact.Length-2),out var numerator)?(numerator/2)+".5":exact;
-        }
+        // v1.1 (W09, text proposal section 3): every exact rule value reads as a decimal ("39/10" -> "3.9", "1/3" -> "≈0.33").
+        // Values that are not numbers (colours, lists) pass through unchanged.
+        private static string DisplayFraction07(string exact)=>PlayerNumberFormat.Exact(exact);
+        /// <summary>An event operand with its operation: "×3.9", "≈×0.33", "+10".</summary>
+        private static string OperationText07(string operation,string operand)
+            =>operation=="×"?PlayerNumberFormat.Times(operand):(operation??"")+DisplayFraction07(operand);
         private void ShowEffectSummary07(string text,bool multiline=false,Action details=null)
         {
             // Reserved score area: never cover the pool or the action buttons.
@@ -365,7 +367,7 @@ namespace DiceCraft
                     EffectLayerOrder07();effectReceipt07=result.receipt.commandId;effectOnClock07=false;effectElapsed07=0;effectDuration07=TransactionVisualDuration07;
                     effectOptions07=CreatePresentationOptions07();EffectGroup07("main",true);
                     // Keep the cash ticket in the header gap between its title and shelf capacity.
-                    if(EffectReserve07("main",EffectPoolKind.NumberLabel,1)>0)Effect07("fx_cash_ticket",result.receipt.commandId,new Vector2(744,32),new Vector2(220,58),(cashDelta>0?"+":"")+cashDelta);
+                    if(EffectReserve07("main",EffectPoolKind.NumberLabel,1)>0)Effect07("fx_cash_ticket",result.receipt.commandId,new Vector2(744,32),new Vector2(220,58),(cashDelta>0?"+":"")+PlayerNumberFormat.Gold(cashDelta));
                 }
                 return;
             }
@@ -388,7 +390,7 @@ namespace DiceCraft
             }
             if(!string.IsNullOrEmpty(LastTransactionSummary07))ShowEffectSummary07(LastTransactionSummary07,true,ShowLastTransactionDetails07);
             long delta=after.gold-before.gold;
-            if(delta!=0&&EffectReserve07("main",EffectPoolKind.NumberLabel,1)>0)Effect07("fx_cash_ticket",result.receipt.commandId,new Vector2(52,690),new Vector2(220,58),(delta>0?"+":"")+delta);
+            if(delta!=0&&EffectReserve07("main",EffectPoolKind.NumberLabel,1)>0)Effect07("fx_cash_ticket",result.receipt.commandId,new Vector2(52,690),new Vector2(220,58),(delta>0?"+":"")+PlayerNumberFormat.Gold(delta));
         }
         private Art07TransactionMotion transactionMotion07;
         private RectTransform transactionReadout07;
@@ -478,18 +480,20 @@ namespace DiceCraft
             {
                 acquiredTransactionInstance07=controller.instanceId;FocusTransactionAcquisition07();
                 var target=FindTransactionRect07("Controller_"+controller.instanceId);transactionMotion07.TrackReveal(target,.16f,.18f,false,true);
-                LastTransactionSummary07="已装备 "+NameOf(controller.definitionId)+" · "+controller.instanceId+" · "+Art07OfferState(controller)+" · "+EnchantShort(controller.enchantmentId);
+                // v1.1 (W09): the summary names the card; its instance id is never shown. The sale price is the capped
+                // one of the committed state (decision D5), not the ordinary price of the offer.
+                LastTransactionSummary07="已装备 "+NameOf(controller.definitionId)+" · "+AcquiredCardState11(controller,after)+" · "+EnchantShort(controller.enchantmentId);
             }
             else if(item!=null)
             {
                 acquiredTransactionInstance07=item.instanceId;var target=FindTransactionRect07("ShopItem_"+item.instanceId);
                 if(target==null)target=TransactionAcquisitionCard07(bought,item.instanceId,null);
-                transactionMotion07.TrackReveal(target,.16f,.18f,false,true);LastTransactionSummary07="已获得 "+NameOf(item.contentId)+" · "+item.instanceId;
+                transactionMotion07.TrackReveal(target,.16f,.18f,false,true);LastTransactionSummary07="已获得 "+NameOf(item.contentId);
             }
             else if(die!=null)
             {
                 var target=TransactionAcquisitionCard07(bought,die.dieId,die);transactionMotion07.TrackReveal(target,.16f,.18f,false,true);
-                LastTransactionSummary07="已加入永久骰 "+die.dieId+" · 永久骰 "+before.dice.Count(d=>d.lifetime=="permanent")+"→"+after.dice.Count(d=>d.lifetime=="permanent")+" · 提交容量保持";
+                LastTransactionSummary07="已加入"+DieName11(die.dieId)+" · 永久骰 "+before.dice.Count(d=>d.lifetime=="permanent")+"→"+after.dice.Count(d=>d.lifetime=="permanent")+" · 提交栏格数不变";
             }
             else if(string.IsNullOrEmpty(LastTransactionSummary07))LastTransactionSummary07="已购买 "+NameOf(bought.contentId)+" · 实际净支出 "+(before.gold-after.gold);
             return true;
@@ -507,9 +511,9 @@ namespace DiceCraft
                 return (c?"控制器":"道具")+"货架 "+oldCount+"→"+newCount+" · 容量升级已生效"+(added?"":" · 本店暂无合法商品");
             }
             var controller=after.controllers.FirstOrDefault(c=>!before.controllers.Any(b=>b.instanceId==c.instanceId));
-            if(controller!=null)return "已装备 "+NameOf(controller.definitionId)+" · "+controller.instanceId+" · "+Art07OfferState(controller)+" · "+EnchantShort(controller.enchantmentId);
-            var item=after.inventory.FirstOrDefault(c=>!before.inventory.Any(b=>b.instanceId==c.instanceId));if(item!=null)return "已获得 "+NameOf(item.contentId)+" · "+item.instanceId;
-            var die=after.dice.FirstOrDefault(c=>!before.dice.Any(b=>b.dieId==c.dieId));if(die!=null)return "已加入永久骰 "+die.dieId+" · 提交容量保持";
+            if(controller!=null)return "已装备 "+NameOf(controller.definitionId)+" · "+AcquiredCardState11(controller,after)+" · "+EnchantShort(controller.enchantmentId);
+            var item=after.inventory.FirstOrDefault(c=>!before.inventory.Any(b=>b.instanceId==c.instanceId));if(item!=null)return "已获得 "+NameOf(item.contentId);
+            var die=after.dice.FirstOrDefault(c=>!before.dice.Any(b=>b.dieId==c.dieId));if(die!=null)return "已加入"+DieName11(die.dieId)+" · 提交栏格数不变";
             return "已购买 "+NameOf(offer.contentId)+" · "+(after.gold>before.gold?"净收入 "+(after.gold-before.gold):"净支出 "+(before.gold-after.gold));
         }
         private RectTransform TransactionAcquisitionCard07(ShopOffer offer,string identity,DieInstance die)
@@ -524,7 +528,8 @@ namespace DiceCraft
                 var emblem=UiKit.Box(p,"NewDieEmblem",146,90,128,128,Color.white).GetComponent<UnityEngine.UI.Image>();emblem.sprite=UiKit.Template("ui_icon_dice_view");emblem.raycastTarget=false;
                 var summary=UiKit.Text(p,"NewDieSummary",DieSummary073(die),16,224,388,52,18,PaperMuted071,TextAlignmentOptions.Center);summary.lineSpacing=-8;
             }
-            UiKit.Text(p,"Identity",identity,16,280,388,48,21,UiKit.Ink,TextAlignmentOptions.Center);return p;
+            // v1.1 (W09): a new die is named by its number; an item needs no line (its id is never shown).
+            UiKit.Text(p,"Identity",die==null?"":DieName11(die.dieId),16,280,388,48,21,UiKit.Ink,TextAlignmentOptions.Center);return p;
         }
         private void FocusTransactionAcquisition07()
         {
@@ -589,13 +594,13 @@ namespace DiceCraft
             UiKit.Outline(p,"Frame",0,0,1496,416,UiKit.Gold,3);
             UiKit.Box(p,"LeftPaper",4,4,450,408,UiKit.Panel);UiKit.Box(p,"RightPaper",1014,4,478,408,UiKit.Panel);
             UiKit.Text(p,"Title",NameOf(bought.contentId)+" · 已保存",20,16,418,60,29,UiKit.Paper);
-            UiKit.Text(p,"Identity",cmd.targetDieId+"\n"+(whole?"整骰属性":"物理目标 "+faceId),20,90,418,92,25,UiKit.Gold);
+            UiKit.Text(p,"Identity",DieName11(cmd.targetDieId)+"\n"+(whole?"整骰属性":FaceName11(faceId)),20,90,418,92,25,UiKit.Gold);
             UiKit.Text(p,"Before",(whole?"购买前 · ":"购买前\n")+UpgradeFaceDescription07(oldDie,oldFace,whole),20,194,418,206,23,UiKit.Muted);
             var result=UiKit.Rect(p,"Result",1030,18,446,378);
             UiKit.Text(result,"After",(whole?"购买后 · ":"购买后\n")+UpgradeFaceDescription07(newDie,newFace,whole),0,0,442,218,25,UiKit.Paper);
             var current=after.hand?.currentResults.FirstOrDefault(d=>d.dieId==cmd.targetDieId);
             UiKit.Text(result,"Current",current?.hasRolled==true?"当前投出另计："+current.currentPip+"点 "+ColorText07(current.currentColor):"当前投出：未生成\n未修改其他物理面",0,242,442,118,22,UiKit.Muted);
-            UiKit.Text(p,"TargetFace",whole?"整骰玻璃材质":faceId+" · 永久面",504,354,450,48,23,UiKit.Gold,TextAlignmentOptions.Center);
+            UiKit.Text(p,"TargetFace",whole?"整骰玻璃材质":FaceName11(faceId)+" · 永久面",504,354,450,48,23,UiKit.Gold,TextAlignmentOptions.Center);
             var focus=UiKit.Rect(p,"TargetOutline",566,70,304,260);UiKit.Outline(focus,"Line",0,0,304,260,UiKit.Gold,3);var focusGroup=UiKit.Component<CanvasGroup>(focus.gameObject);
             var wipe=UiKit.Box(p,"MaterialWipe",568,72,300,3,UiKit.Gold);
             Vector2 center=new Vector2(392+718,512+202);Quaternion rotation=Quaternion.AngleAxis(18,-table.viewCamera.transform.forward)*Quaternion.FromToRotation(DiceTable.Normals[DiceTable.FaceIndex(faceId)],-table.viewCamera.transform.forward);
@@ -624,7 +629,7 @@ namespace DiceCraft
             transactionMotion07.HideUntilFinished(FindTransactionRect07("ShopProducts"));transactionMotion07.TrackReveal(result,.18f,.18f);
         }
         private static string UpgradeFaceDescription07(DieInstance die,FaceState face,bool whole)
-        {return (whole?"骰体："+(die.isGlass?"玻璃":"陶瓷")+"\n":"")+face.faceId+"  "+face.permanentPip+"点 · "+ColorText07(face.baseColor)+"\n"+TextureText07(face.texture)+" · "+(face.isGold?"黄金边":"普通边")+"\n物理权重 "+face.baseWeight;}
+        {return (whole?"骰体："+(die.isGlass?"玻璃":"陶瓷")+"\n":"")+FaceName11(face.faceId)+"  "+face.permanentPip+"点 · "+ColorText07(face.baseColor)+"\n"+TextureText07(face.texture)+" · "+(face.isGold?"黄金边":"普通边")+"\n物理权重 "+face.baseWeight;}
         private void CompleteTransactionVisual07()
         {
             cleanupTransactionView07?.Invoke();cleanupTransactionView07=null;if(transactionReadout07!=null)UiKit.Clear(transactionReadout07);
@@ -641,11 +646,12 @@ namespace DiceCraft
         private string BudgetGrantSummary07(RunState before,RunState after)
         {
             if(after==null)return "";var parts=new List<string>();
-            Func<string,string> source=id=>{var c=after.controllers.FirstOrDefault(x=>x.instanceId==id);return c==null?id:NameOf(c.definitionId)+"（"+id+"）";};
+            // v1.1 (W09): the enchanted card is named (with its position only when names repeat), never by instance id.
+            Func<string,string> source=id=>CardLabel11(id,after.controllers);
             if(after.stage?.started==true&&(before?.stage?.started!=true||before.stage.stageIndex!=after.stage.stageIndex))
-                foreach(var id in after.stage.submissionBonusSourceIds)parts.Add(source(id)+" 提交 +"+Config.enchantRules.submissionBonus);
+                foreach(var id in after.stage.submissionBonusSourceIds)parts.Add(source(id)+"：本关提交 +"+Config.enchantRules.submissionBonus);
             if(after.hand!=null&&after.hand.handId!=before?.hand?.handId)
-                foreach(var id in after.hand.rollBonusSourceIds)parts.Add(source(id)+" 剩掷 +"+Config.enchantRules.rollBonus);
+                foreach(var id in after.hand.rollBonusSourceIds)parts.Add(source(id)+"：本手可掷 +"+Config.enchantRules.rollBonus);
             return string.Join(" · ",parts);
         }
         private string PurchasedDieSummary07(SessionCommand cmd,RunState before,RunState after)
@@ -662,11 +668,11 @@ namespace DiceCraft
                 if(old.baseWeight!=face.baseWeight)fields.Add("权重 "+old.baseWeight+"→"+face.baseWeight);
                 if(old.texture!=face.texture)fields.Add("纹理 "+TextureText07(old.texture)+"→"+TextureText07(face.texture));
                 if(old.isGold!=face.isGold)fields.Add("黄金 "+(face.isGold?"开启":"关闭"));
-                if(fields.Count>0)changes.Add(face.faceId+" 永久："+string.Join("，",fields));
+                if(fields.Count>0)changes.Add(FaceName11(face.faceId)+"永久："+string.Join("，",fields));
             }
             var current=after.hand?.currentResults.FirstOrDefault(d=>d.dieId==cmd.targetDieId);
             if(changes.Count>0&&current?.hasRolled==true)changes.Add("当前投出："+current.currentPip+"点 "+ColorText07(current.currentColor));
-            return changes.Count==0?"":cmd.targetDieId+" · "+string.Join(" · ",changes);
+            return changes.Count==0?"":DieName11(cmd.targetDieId)+" · "+string.Join(" · ",changes);
         }
         private static string ColorText07(string color)=>color=="red"?"红":color=="blue"?"蓝":color;
         private static string TextureText07(string texture)=>texture=="rough"?"粗糙":texture=="smooth"?"光滑":"普通";

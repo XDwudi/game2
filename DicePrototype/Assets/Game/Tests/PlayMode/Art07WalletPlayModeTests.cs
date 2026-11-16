@@ -37,7 +37,8 @@ namespace DiceCraft.Tests
                     string id="wallet-"+font+"-"+gold;
                     yield return ExtraLoadFixture07(fixture,id);
                     string state=StateJson();byte[] saved=File.ReadAllBytes(app.SaveLocation);long sequence=app.Session.ActionSequence;
-                    string amount=gold.ToString(System.Globalization.CultureInfo.InvariantCulture);
+                    // v1.1 (W09, text proposal 3): every digit, with thousands separators from four digits.
+                    string amount=gold.ToString("N0",System.Globalization.CultureInfo.InvariantCulture);
                     var panel=FindActive<RectTransform>("Stats07");var money=FindActive<TextMeshProUGUI>("Money");
                     long sources=ControllerRules.ResolveSources(app.Session.State.controllers).Count(s=>s.abilityId=="C01");
                     Assert.That(sources,Is.EqualTo(2),"This wallet fixture retains real C01 and C41 interest contributions.");

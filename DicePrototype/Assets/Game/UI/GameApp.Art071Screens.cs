@@ -48,21 +48,19 @@ namespace DiceCraft
             var heading=UiKit.Text(p,"MenuLabel","一桌新的可能",32,24,552,68,30,UiKit.Ink,TextAlignmentOptions.Center);
             heading.fontStyle=FontStyles.Bold;
             UiKit.Box(p,"MenuRule",40,108,536,2,Color.Lerp(UiKit.Paper,UiKit.Ink,.6f));
-            bool hasSave=ViewState!=null||HasIncompatibleSave07;
-            UiKit.ActionButton(p,"ContinueRun",HasIncompatibleSave07?"旧版本存档":"继续对局",36,148,544,88,ContinueRun07,UiKit.Gold,hasSave);
-            string saved=ViewState==null?(HasIncompatibleSave07?IncompatibleVersionSummary07():"暂无存档 · 开始你的第一局"):
-                $"第 {ViewState.stage.stageIndex+1} 关 · {ViewState.gold} 金币\n{(ViewState.debugWorkspace?"调试":"普通")}对局 · 种子 {ViewState.seed}";
+            // v1.1 (DEV_PLAN 4.5): no old-save state. An incompatible save is removed at startup, so without a current
+            // save the menu shows the ordinary no-save state.
+            bool hasSave=ViewState!=null;
+            UiKit.ActionButton(p,"ContinueRun","继续对局",36,148,544,88,ContinueRun07,UiKit.Gold,hasSave);
+            string saved=ViewState==null?"暂无存档 · 开始你的第一局":
+                $"第 {ViewState.stage.stageIndex+1} 关 · {PlayerNumberFormat.Gold(ViewState.gold)} 金币\n{(ViewState.debugWorkspace?"调试":"普通")}对局 · 种子 {ViewState.seed}";
             UiKit.Text(p,"SavedSeed",saved,48,236,520,106,20,PaperMuted071,TextAlignmentOptions.Center);
             if(hasSave)UiKit.Button(p,"NewRun","新建挑战",36,342,544,80,ShowNewRun07);
             else UiKit.ActionButton(p,"NewRun","新建挑战",36,342,544,80,ShowNewRun07,UiKit.Blue);
             UiKit.Button(p,"MenuHandbook","牌型手册",36,442,544,80,ShowMenuHandbook07);
             UiKit.Button(p,"MenuSettings","设置",36,542,544,80,ShowSettings07);
             UiKit.Button(p,"Quit","退出游戏",36,642,544,80,ConfirmQuit07);
-            var identityAsset=Resources.Load<TextAsset>("BuildIdentity");
-            var identity=identityAsset==null?null:JsonUtility.FromJson<BuildIdentity>(identityAsset.text);
-            string build=Application.isEditor?null:identity?.sourceCommit;
-            build=string.IsNullOrEmpty(build)?"开发中":build.Substring(0,Math.Min(8,build.Length));
-            UiKit.Text(main,"Version",Config.configVersion+" / "+ArtVersion+"\n构建 "+build,1264,804,520,96,16,PaperMuted071,TextAlignmentOptions.Center);
+            // v1.1 (W09, text proposal 1 #14): version and build numbers appear only on the "版本与构建" page.
             var version=UiKit.FlatButton(main,"BuildVersion","版本与构建",1264,908,520,64,ShowBuildVersion);
             version.GetComponentInChildren<TextMeshProUGUI>().color=UiKit.Ink;
             version.targetGraphic.color=PaperMuted071;

@@ -102,7 +102,8 @@ namespace DiceCraft
                 if(i>=shown){UiKit.Outline(stage,"SavedControllerEmpty"+i,x,y,cw,ch,UiKit.PanelLight);continue;}
                 var c=controllers[i];var card=UiKit.Button(stage,"SavedController"+i,"",x,y,cw,ch,()=>{},true);
                 card.targetGraphic.color=UiKit.Paper;UiKit.CardSurface(card,small);
-                if(!small)DrawControllerFullBody07(card.transform,c.definitionId,"记录",c.enchantmentId,i+1);
+                // v1.1 (W09): the restored backdrop is only a picture of the table; its developer captions are gone.
+                if(!small)DrawControllerFullBody07(card.transform,c.definitionId,"",c.enchantmentId,i+1);
                 else
                 {
                     bool tall=ch>=112;float icon=tall?64:48,tx=tall?84:68;
@@ -111,12 +112,12 @@ namespace DiceCraft
                     Icon(card.transform,c.definitionId,12,38,icon);
                     var name=UiKit.Text(card.transform,"Name",NameOf(c.definitionId),tx,28,cw-tx-12,tall?42:36,tall?18:16,UiKit.Ink,TextAlignmentOptions.Center);
                     name.textWrappingMode=TextWrappingModes.NoWrap;name.overflowMode=TextOverflowModes.Ellipsis;
-                    UiKit.Text(card.transform,"State","记录",tx,tall?68:58,cw-tx-12,tall?34:32,14,UiKit.Ink,TextAlignmentOptions.Center);
+                    UiKit.Text(card.transform,"State","",tx,tall?68:58,cw-tx-12,tall?34:32,14,UiKit.Ink,TextAlignmentOptions.Center);
                 }
             }
-            if(count>10)UiKit.Text(stage,"SavedControllerOverflow","记录共 "+count+" 件",x0+4*(cw+gap),y0+ch+(compact?18:16),cw,ch,20,UiKit.Paper,TextAlignmentOptions.Center);
+            if(count>10)UiKit.Text(stage,"SavedControllerOverflow","共 "+count+" 张",x0+4*(cw+gap),y0+ch+(compact?18:16),cw,ch,20,UiKit.Paper,TextAlignmentOptions.Center);
             float poolX=compact?360:368,poolY=compact?408:472,poolW=compact?1542:1528;
-            UiKit.Text(stage,"SavedBoardCaption",snapshot==null?"已保存关末 · 静态桌面":"已提交记录 · 本关最后一手",poolX+8,poolY,1000,36,compact?18:22,UiKit.Muted);
+            UiKit.Text(stage,"SavedBoardCaption","骰池",poolX+8,poolY,1000,36,compact?18:22,UiKit.Muted);
             var submitted=snapshot?.dice??Array.Empty<SubmissionDie>();
             var submittedIds=new HashSet<string>(submitted.Select(d=>d.dieId),StringComparer.Ordinal);
             var remaining=ViewState.dice.Where(d=>!submittedIds.Contains(d.dieId)).Take(10).ToArray();
@@ -129,12 +130,12 @@ namespace DiceCraft
                 string id="settlement-pool-"+i;
                 table.ShowStaticPreview07(id,remaining[i].Clone(),center,Quaternion.Euler(0,18,0),compact?.72f:remaining.Length>5?1.04f:1.18f);
                 poses.Add(table.GetFaceOrientation("$static-preview:"+id));
-                UiKit.Text(stage,"SavedPoolState"+i,"静置",center.x+(compact?52:72),center.y-16,100,40,compact?14:17,UiKit.Muted);
+                UiKit.Text(stage,"SavedPoolState"+i,"",center.x+(compact?52:72),center.y-16,100,40,compact?14:17,UiKit.Muted);
             }
             int capacity=snapshot?.capacity??ViewState.stage.capacity,slots=Math.Min(8,capacity),columns=compact?4:Math.Max(1,slots);
             float sy=compact?657:756,sw=compact?228:152,sh=compact?102:124,sg=compact?18:24;
             float sx=poolX+(poolW-columns*(sw+sg)+sg)/2;
-            UiKit.Text(stage,"SavedSlotsTitle",snapshot==null?"关末静态槽位":"记录提交 "+submitted.Length+" / "+capacity+(capacity>8?" · 显示前8槽":""),poolX+16,sy,1000,36,compact?18:22,UiKit.Paper);
+            UiKit.Text(stage,"SavedSlotsTitle","提交栏 "+submitted.Length+" / "+capacity,poolX+16,sy,1000,36,compact?18:22,UiKit.Paper);
             for(int i=0;i<slots;i++)
             {
                 float x=sx+i%columns*(sw+sg),y=sy+36+i/columns*(sh+18);bool used=i<submitted.Length;

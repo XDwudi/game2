@@ -46,14 +46,25 @@ namespace DiceCraft.Presentation
 
         /// <summary>Factors that actually changed the score, in the order the score rail shows them.</summary>
         public static string Formula(ScoreBreakdown b, Func<int, string> factor, Func<string, string, string> ratio, Func<string, string> number)
+            => Formula(b, factor, ratio, number, n => "2^" + n, null, null);
+
+        /// <summary>
+        /// v1.1 (task W09): the same factors and order. label puts a name before each value (keys "base", "hand", "color",
+        /// "red", "controller", "enchant"); enchant writes the enchantment factor; global, when given, appends the item and
+        /// boss factors that ScoreCalculator applies after the enchantment.
+        /// </summary>
+        public static string Formula(ScoreBreakdown b, Func<int, string> factor, Func<string, string, string> ratio, Func<string, string> number,
+            Func<int, string> enchant, Func<string, string, string> label, Func<MultiplierFactor, string> global)
         {
             if (b == null) return "";
-            var parts = new List<string> { number(b.baseTotal) };
-            if (b.totalHandMult100 != 100) parts.Add(factor(b.totalHandMult100));
-            if (b.colorMult100 != 100) parts.Add(factor(b.colorMult100));
-            if (b.redMult100 != 100) parts.Add(factor(b.redMult100));
-            if (b.controllerMultiplierNumerator != b.controllerMultiplierDenominator) parts.Add(ratio(b.controllerMultiplierNumerator, b.controllerMultiplierDenominator));
-            if (b.enchantMultiplierCount > 0) parts.Add("2^" + b.enchantMultiplierCount);
+            Func<string, string, string> term = label ?? ((key, value) => value);
+            var parts = new List<string> { term("base", number(b.baseTotal)) };
+            if (b.totalHandMult100 != 100) parts.Add(term("hand", factor(b.totalHandMult100)));
+            if (b.colorMult100 != 100) parts.Add(term("color", factor(b.colorMult100)));
+            if (b.redMult100 != 100) parts.Add(term("red", factor(b.redMult100)));
+            if (b.controllerMultiplierNumerator != b.controllerMultiplierDenominator) parts.Add(term("controller", ratio(b.controllerMultiplierNumerator, b.controllerMultiplierDenominator)));
+            if (b.enchantMultiplierCount > 0) parts.Add(term("enchant", enchant(b.enchantMultiplierCount)));
+            if (global != null) foreach (var f in b.globalFactors ?? Array.Empty<MultiplierFactor>()) parts.Add(global(f));
             return string.Join("  ×  ", parts);
         }
     }

@@ -48,8 +48,10 @@ namespace DiceCraft
                 if(n*multD>multN*d){multN=n;multD=d;}
             }
             if(multN>0){var gcd=BigInteger.GreatestCommonDivisor(multN,multD);multN/=gcd;multD/=gcd;}
-            string time=runClockKnown07&&runClockId07==ViewState.runId?TimeSpan.FromSeconds(runSeconds07).ToString(@"hh\:mm\:ss"):ViewState.debugWorkspace?"调试时长未记录":"旧存档未记录";
-            return new[]{"总得分  "+CompactScore(total.ToString()),"用时  "+time,"最大单手  "+CompactScore(max.ToString()),"最高倍率  ×"+CompactScore(multN.ToString())+(multD==1?"":"/"+multD),"种子  "+ViewState.seed+"   ·   "+(ViewState.isDebug?"调试对局 · 不计普通成绩":"普通对局")};
+            // v1.1 (W09): a decimal multiplier; practice (from the handbook) has its own labels instead of the debug ones.
+            string time=runClockKnown07&&runClockId07==ViewState.runId?TimeSpan.FromSeconds(runSeconds07).ToString(@"hh\:mm\:ss"):IsPracticeRun11?"练习不计时":ViewState.debugWorkspace?"调试时长未记录":"旧存档未记录";
+            string kind=IsPracticeRun11?"练习模式 · 不计成绩":ViewState.isDebug?"调试对局 · 不计普通成绩":"普通对局";
+            return new[]{"总得分  "+CompactScore(total.ToString()),"用时  "+time,"最大单手  "+CompactScore(max.ToString()),"最高倍率  "+PlayerNumberFormat.Times(multN,multD),"种子  "+ViewState.seed+"   ·   "+kind};
         }
         private void DrawRunResult07()
         {

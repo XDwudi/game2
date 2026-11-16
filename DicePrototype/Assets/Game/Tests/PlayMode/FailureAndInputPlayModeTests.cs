@@ -105,13 +105,14 @@ namespace DiceCraft.Tests
             yield return InspectOfferCard(controller.offerId);
             Assert.That(app.Session.PurchaseError(controller.offerId), Is.Not.Null);
             Assert.That(Button("ConfirmPurchase").interactable, Is.False);
-            Assert.That(FindActive<TextMeshProUGUI>("UnavailableBody").text, Is.EqualTo(app.Session.PurchaseError(controller.offerId)).And.Contains("控制器"));
+            // v1.1: Core rejections now use D2 and the glossary ("卡牌", "栏位"; RULES_DELTA section 10).
+            Assert.That(FindActive<TextMeshProUGUI>("UnavailableBody").text, Is.EqualTo(app.Session.PurchaseError(controller.offerId)).And.Contains("卡牌"));
             Assert.That(StateJson(), Is.EqualTo(before));
             Click("CloseDialog");
             yield return InspectOfferCard(consumable.offerId);
             Assert.That(app.Session.PurchaseError(consumable.offerId), Is.Not.Null);
             Assert.That(Button("ConfirmPurchase").interactable, Is.False);
-            Assert.That(FindActive<TextMeshProUGUI>("PriceBody").text, Does.Contain(app.Session.PurchaseError(consumable.offerId)).And.Contain("槽位"));
+            Assert.That(FindActive<TextMeshProUGUI>("PriceBody").text, Does.Contain(app.Session.PurchaseError(consumable.offerId)).And.Contain("栏位"));
             Assert.That(StateJson(), Is.EqualTo(before), "Inspecting an ineligible offer must not charge, sell or consume it.");
             Click("CloseDialog");
             yield return null;

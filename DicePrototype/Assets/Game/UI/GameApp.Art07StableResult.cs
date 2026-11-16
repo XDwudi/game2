@@ -48,8 +48,9 @@ namespace DiceCraft
             if(art07NumberFont!=null)score.font=art07NumberFont;
             FitScoreWell072(well,score,width,compact?34:44,compact?24:36);
             score.rectTransform.pivot=new Vector2(1,.5f);score.rectTransform.anchoredPosition=new Vector2(width-30,compact?-34:-44);
-            string multiplier="总倍率 ×"+DisplayFraction07(receipt07.MultiplierNumeratorDecimal+(receipt07.MultiplierDenominatorDecimal=="1"?"":"/"+receipt07.MultiplierDenominatorDecimal));
-            string chain=receipt07.ChainCount==0?"":" · 连锁 "+receipt07.ChainCount;
+            // v1.1 (W09): decimal total multiplier; "连锁 N" is now "生效 N 张" (DEV_PLAN 4.1 item 4).
+            string multiplier="总倍率 "+ReceiptMultiplier07();
+            string chain=receipt07.ChainCount==0?"":" · 生效 "+receipt07.ChainCount+" 张";
             string zeroReason=receipt07.Events.Any(e=>e.AbilityId=="C49"&&e.IsScoring&&e.Operand=="0")?" · 千年老二 ×0，没有有效5点":"";
             var post=receipt07.Events.Where(e=>e.Phase==PresentationPhase.PostScore).ToArray();
             string changes=post.Length==0?"":"\n后置："+PostSummary07(new PresentationBeat(PresentationPhase.PostScore,0,0,null,true,post));
