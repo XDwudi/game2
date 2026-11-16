@@ -36,7 +36,8 @@ namespace DiceCraft.Tests
                     yield return ExtraIdle07();
                     var snapshot=app.Session.PreviewSnapshot();var score=app.Session.PreviewScoreRange().minimum;
                     string state=StateJson();byte[] disk=File.ReadAllBytes(app.SaveLocation);var selections=app.Session.PendingIds.ToArray();var locked=app.Session.State.hand.orderedLockedIds.ToArray();
-                    yield return ExtraPress07("Factor4");
+                    // V1.1 (W11, PLAY_LAYOUT 8 row 9): no chip for a x1 factor; the base chip opens the same breakdown.
+                    yield return ExtraPress07("Factor0");
                     yield return DrawerWalk07(kind+"-font"+font,snapshot,score);
                     yield return ExtraPress07("CloseDialog");
                     Assert.That(StateJson(),Is.EqualTo(state));CollectionAssert.AreEqual(disk,File.ReadAllBytes(app.SaveLocation));

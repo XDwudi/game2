@@ -93,6 +93,14 @@ namespace DiceCraft
                     float x=center.x+44,y=slot.y+36;
                     label.rectTransform.anchoredPosition=new Vector2(x,-y);
                     label.rectTransform.sizeDelta=new Vector2(slot.xMax-x,slot.yMax-y-2);
+                    // V1.1 (W11): the slot's right column holds the padlock and the shape badges. The permanent change takes
+                    // the column over while it is shown (the dice are all locked while they score; its colour line replaces
+                    // the colour badge), so nothing lies under its text.
+                    if(PlayPhase11)
+                    {
+                        int index=lastPresentationBefore07?.hand?.orderedLockedIds?.IndexOf(id)??-1;
+                        foreach(string name in new[]{"ColorBadge11_"+id,"GlassBadge11_"+id,"TempBadge11_"+id,"LockMark"+index}){var mark=main.Find(name);if(mark!=null)mark.gameObject.SetActive(false);}
+                    }
                 }
                 label.ForceMeshUpdate();
                 DrawTemporaryClock071(label,after,true,Compact07);

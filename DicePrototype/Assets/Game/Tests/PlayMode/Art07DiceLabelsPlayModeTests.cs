@@ -91,58 +91,57 @@ namespace DiceCraft.Tests
         }
         private void DiceLabelCheck07()
         {
+            // V1.1 (W11, PLAY_LAYOUT 4 and 8, docs/specs/v11/W11_TEST_CHANGES.md): the pool is one row of up to ten dice that
+            // share the tray width, and a die no longer has a text label beside it. Its colour (with colour assist), glass
+            // and stage-temporary marks are shape badges at its top-right corner (in the slot's right column once locked);
+            // a chosen die has an "已选 N" tag under it; nothing says "待投掷". The v0.7 intent stays: every die and every
+            // mark is complete, on screen and clear of other dice, slot numbers, lock marks and actions, and a body is never
+            // shrunk to hide a collision.
             Canvas.ForceUpdateCanvases();string before=StateJson();byte[] disk=File.ReadAllBytes(app.SaveLocation);
-            bool compact=Screen.safeArea.width<=1366&&UiKit.FontScale>=1.25f;
+            var state=app.Session.State;var lockedIds=state.hand.orderedLockedIds;
             var pointers=app.canvas.GetComponentsInChildren<DiePointer>(false).Where(p=>p.name.StartsWith("Die_")).ToArray();
             var bodies=new Dictionary<string,List<Rect>>();
+            bool paged=state.dice.Count(d=>!lockedIds.Contains(d.dieId))>10;
+            int shown=pointers.Count(p=>!lockedIds.Contains(p.name.Substring(4)));
+            float cellW=Mathf.Min(272,(1408-(paged?72:0))/(float)Mathf.Max(1,shown)),scale=Mathf.Min(1.75f,(cellW-30)/101f);
             foreach(var pointer in pointers)
             {
                 string id=pointer.name.Substring(4);var orientation=app.table.GetFaceOrientation(id);Assert.That(orientation,Is.Not.Null);
                 bodies[id]=orientation.GetComponentsInChildren<Renderer>(false).Where(r=>r.enabled).Select(DiceLabelRendererRect07).ToList();
                 Assert.That(bodies[id].Count,Is.GreaterThan(0));
-                bool locked=app.Session.State.hand.orderedLockedIds.Contains(id);Rect hit=V06ScreenRect((RectTransform)pointer.transform);
+                bool locked=lockedIds.Contains(id);Rect hit=V06ScreenRect((RectTransform)pointer.transform);
                 Assert.That(hit.width,Is.GreaterThanOrEqualTo(39.9f));Assert.That(hit.height,Is.GreaterThanOrEqualTo(39.9f));
                 if(locked)
                 {
-                    int slot=app.Session.State.hand.orderedLockedIds.IndexOf(id);Rect frame=V06ScreenRect(FindActive<RectTransform>("Slot"+slot));
+                    int slot=lockedIds.IndexOf(id);Rect frame=V06ScreenRect(FindActive<RectTransform>("Slot"+slot));
                     foreach(var body in bodies[id])
                     {
                         Assert.That(body.xMin,Is.GreaterThanOrEqualTo(frame.xMin-.5f));Assert.That(body.xMax,Is.LessThanOrEqualTo(frame.xMax+.5f));
                         Assert.That(body.yMin,Is.GreaterThanOrEqualTo(frame.yMin-.5f));Assert.That(body.yMax,Is.LessThanOrEqualTo(frame.yMax+.5f));
                     }
                 }
-                if(!locked)
+                else
                 {
-                    int shown=pointers.Count(p=>!app.Session.State.hand.orderedLockedIds.Contains(p.name.Substring(4)));
-                    if(app.Session.State.dice.Count==5&&!compact&&Mathf.Approximately(UiKit.FontScale,1))
-                    {
-                        // Explicit v0.71 five-die composition. A last page of a larger
-                        // debug pool must continue through the unchanged branch below.
-                        Assert.That(hit.width,Is.EqualTo((shown<=3?220:148)*app.canvas.scaleFactor).Within(.5));
-                        Assert.That(hit.height,Is.EqualTo((shown<=3?240:200)*app.canvas.scaleFactor).Within(.5));
-                        Assert.That(orientation.lossyScale.x,Is.EqualTo(shown<=3?1.6f:1.35f).Within(.001),"Five-die composition must retain its authored body size.");
-                    }
-                    else
-                    {
-                        Assert.That(hit.width,Is.EqualTo((compact?180:126)*app.canvas.scaleFactor).Within(.5));
-                        Assert.That(hit.height,Is.EqualTo((compact?90:112)*app.canvas.scaleFactor).Within(.5));
-                        float expected=compact?.72f:shown>5?1.04f:1.18f;
-                        Assert.That(orientation.lossyScale.x,Is.EqualTo(expected).Within(.001),"Do not shrink bodies to conceal a label collision.");
-                    }
+                    // One row (a page of up to ten): the cell is the tray width shared out, the body scale follows the cell.
+                    Assert.That(hit.width,Is.EqualTo(Mathf.Min(cellW-6,scale*139+8)*app.canvas.scaleFactor).Within(.5));
+                    Assert.That(hit.height,Is.EqualTo((scale*136+14)*app.canvas.scaleFactor).Within(.5));
+                    Assert.That(orientation.lossyScale.x,Is.EqualTo(scale).Within(.001),"Do not shrink bodies to conceal a label collision.");
                 }
             }
+            var actions=new[]{"Roll","Confirm","Clear","Submit","EndStage"}.Where(HasActive).ToArray();
+            Assert.That(actions,Does.Contain("EndStage"),"The end-stage button is always on the play screen.");
+            Assert.That(app.canvas.GetComponentsInChildren<TextMeshProUGUI>(false).Any(t=>t.text.Contains("待投掷")),Is.False,"No die says 待投掷 (B4).");
             foreach(var pointer in pointers)
             {
-                string id=pointer.name.Substring(4);var die=app.Session.State.dice.Single(d=>d.dieId==id);bool locked=app.Session.State.hand.orderedLockedIds.Contains(id);
-                var state=FindActive<TextMeshProUGUI>("DieState"+id);state.ForceMeshUpdate();
-                Assert.That(state.fontSize,Is.EqualTo((locked?14:compact?14:17)*UiKit.FontScale).Within(.01));
-                var result=app.Session.State.hand.currentResults.FirstOrDefault(r=>r.dieId==id);
-                Assert.That(state.text,Does.Contain(result?.hasRolled==true?(result.currentColor=="red"?"● 红":"◇ 蓝"):"待投掷"));
-                if(die.isGlass)Assert.That(state.text,Does.Contain("玻璃"));if(die.lifetime=="stage_temporary")Assert.That(state.text,Does.Contain("临时"));
-                var labels=new List<TextMeshProUGUI>{state};
-                if(app.Session.PendingIds.Contains(id))labels.Add(FindActive<TextMeshProUGUI>("Pending"+id));
-                foreach(var label in labels)
+                string id=pointer.name.Substring(4);bool locked=lockedIds.Contains(id);
+                CollectionAssert.AreEqual(W11ExpectedBadges(id),W11Badges(id).Select(b=>b.GetComponent<Play11Badge>().Kind).ToArray(),id+": colour, glass and temporary marks as shapes");
+                W11AssertBadgesClear(id,"dice-labels");
+                var marks=W11Badges(id).Select(V06ScreenRect).ToList();
+                if(app.Session.PendingIds.Contains(id))
                 {
+                    var label=FindActive<TextMeshProUGUI>("Pending"+id);
+                    Assert.That(label.text,Is.EqualTo("已选 "+(System.Array.IndexOf(app.Session.PendingIds,id)+1)));
+                    Assert.That(label.fontSize,Is.GreaterThanOrEqualTo(19.49f),"AX-03 body size");
                     var glyphs=DiceLabelVisibleGlyphRects07(label);Assert.That(glyphs.Count,Is.GreaterThan(0),label.name+" must render glyphs, not only own a rect");
                     Assert.That(label.isTextOverflowing,Is.False,label.name);Assert.That(label.isTextTruncated,Is.False,label.name);
                     Rect textRect=V06ScreenRect(label.rectTransform);
@@ -151,29 +150,32 @@ namespace DiceCraft.Tests
                         Assert.That(glyph.xMin,Is.GreaterThanOrEqualTo(textRect.xMin-.75f),label.name);Assert.That(glyph.xMax,Is.LessThanOrEqualTo(textRect.xMax+.75f),label.name);
                         Assert.That(glyph.yMin,Is.GreaterThanOrEqualTo(textRect.yMin-.75f),label.name);Assert.That(glyph.yMax,Is.LessThanOrEqualTo(textRect.yMax+.75f),label.name);
                     }
+                    foreach(var body in bodies)foreach(var face in body.Value)Assert.That(textRect.Overlaps(face),Is.False,label.name+" covers projected physical face of "+body.Key);
+                    marks.Add(textRect);
+                }
+                foreach(var mark in marks)
+                {
+                    foreach(var other in pointers)if(other!=pointer)Assert.That(mark.Overlaps(V06ScreenRect((RectTransform)other.transform)),Is.False,id+" mark covers another die's click target "+other.name);
+                    foreach(string action in actions)Assert.That(mark.Overlaps(V06ScreenRect((RectTransform)Button(action).transform)),Is.False,id+" mark covers "+action);
+                    Assert.That(ScoreContains07(Screen.safeArea,mark),Is.True,id+" mark leaves the safe area");
                     if(locked)
                     {
-                        int slot=app.Session.State.hand.orderedLockedIds.IndexOf(id);
-                        var number=DiceLabelVisibleGlyphRects07(FindActive<TextMeshProUGUI>("SlotIndex"+slot));
-                        foreach(var glyph in glyphs)foreach(var ordinal in number)Assert.That(glyph.Overlaps(ordinal),Is.False,label.name+" covers its slot ordinal");
-                        Rect mark=V06ScreenRect(FindActive<RectTransform>("LockMark"+slot));
-                        foreach(var glyph in glyphs)Assert.That(glyph.Overlaps(mark),Is.False,label.name+" covers its lock mark");
+                        int slot=lockedIds.IndexOf(id);
+                        foreach(var ordinal in DiceLabelVisibleGlyphRects07(FindActive<TextMeshProUGUI>("SlotIndex"+slot)))Assert.That(mark.Overlaps(ordinal),Is.False,id+" mark covers its slot ordinal");
+                        Assert.That(mark.Overlaps(V06ScreenRect(FindActive<RectTransform>("LockMark"+slot))),Is.False,id+" mark covers its lock mark");
+                        Assert.That(ScoreContains07(V06ScreenRect(FindActive<RectTransform>("Slot"+slot)),mark),Is.True,id+" mark leaves its slot");
                     }
-                    foreach(var body in bodies)foreach(var face in body.Value)Assert.That(textRect.Overlaps(face),Is.False,label.name+" covers projected physical face of "+body.Key);
-                    foreach(var other in pointers)if(other!=pointer)Assert.That(textRect.Overlaps(V06ScreenRect((RectTransform)other.transform)),Is.False,label.name+" covers another die's click target");
-                    foreach(string action in new[]{"Roll","Confirm","Clear","Submit","EndStage"})if(HasActive(action))Assert.That(textRect.Overlaps(V06ScreenRect((RectTransform)Button(action).transform)),Is.False,label.name+" covers "+action);
-                    Assert.That(textRect.xMin,Is.GreaterThanOrEqualTo(Screen.safeArea.xMin));Assert.That(textRect.xMax,Is.LessThanOrEqualTo(Screen.safeArea.xMax));
-                    Assert.That(textRect.yMin,Is.GreaterThanOrEqualTo(Screen.safeArea.yMin));Assert.That(textRect.yMax,Is.LessThanOrEqualTo(Screen.safeArea.yMax));
                 }
             }
             foreach(var title in app.canvas.GetComponentsInChildren<TextMeshProUGUI>(false).Where(t=>t.name=="PoolTitle"||t.name.StartsWith("SlotIndex")))
                 foreach(var glyph in DiceLabelVisibleGlyphRects07(title))foreach(var body in bodies)foreach(var face in body.Value)
                     Assert.That(glyph.Overlaps(face),Is.False,title.name+" glyph covers projected physical face of "+body.Key);
-            var pool=pointers.Where(p=>!app.Session.State.hand.orderedLockedIds.Contains(p.name.Substring(4))).OrderBy(p=>app.Session.State.dice.Single(d=>d.dieId==p.name.Substring(4)).createdSerial).ToArray();
-            if(pool.Length>5)
+            // The v0.7 two-row pool had a gap between its rows; the one-row pool shares a centre line and no two hits overlap.
+            var pool=pointers.Where(p=>!lockedIds.Contains(p.name.Substring(4))).Select(p=>V06ScreenRect((RectTransform)p.transform)).ToArray();
+            for(int i=0;i<pool.Length;i++)for(int j=i+1;j<pool.Length;j++)
             {
-                Rect first=V06ScreenRect((RectTransform)pool[0].transform),second=V06ScreenRect((RectTransform)pool[5].transform);
-                Assert.That(first.yMin-second.yMax,Is.GreaterThanOrEqualTo((compact?6:8)*app.canvas.scaleFactor-.2f));
+                Assert.That(pool[i].center.y,Is.EqualTo(pool[j].center.y).Within(.5f),"One row of dice");
+                Assert.That(pool[i].Overlaps(pool[j]),Is.False,"Two dice share a click target");
             }
             Assert.That(StateJson(),Is.EqualTo(before));CollectionAssert.AreEqual(disk,File.ReadAllBytes(app.SaveLocation));
         }

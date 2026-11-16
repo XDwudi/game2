@@ -37,7 +37,9 @@ namespace DiceCraft.Tests
             foreach (string name in new[] { "PreviousSubmission", "Handbook", "Pause" })
                 if (HasActive(name)) Assert.That(chip.Overlaps(ScreenRect10(FindActive<RectTransform>(name))), Is.False, "The boss readout must not sit under the " + name + " button.");
             var body = FindActive<TextMeshProUGUI>("BossModifierText"); body.ForceMeshUpdate();
-            Assert.That(body.text, Is.EqualTo(app.Config.Modifier(modifierId).description)); Assert.That(body.isTextOverflowing, Is.False, "The description of " + modifierId + " must fit its box.");
+            // V1.1 (W11, PLAY_LAYOUT 1): the stage card prints the modifier's short text (config shortText, as on the cards);
+            // the full description is in its hover and in the cycle panel.
+            Assert.That(body.text, Is.EqualTo(app.Config.Modifier(modifierId).shortText)); Assert.That(body.isTextOverflowing, Is.False, "The short text of " + modifierId + " must fit its box.");
             // Both lines must really be drawn: every non-blank character has a visible glyph that lies inside the readout.
             foreach (var text in new[] { FindActive<TextMeshProUGUI>("BossModifierName"), body })
             {
@@ -132,7 +134,7 @@ namespace DiceCraft.Tests
             Click("StartStage"); yield return WaitForIdle();
             var state = app.Session.State;
             Assert.That(state.stage.disabledControllerIds.Length, Is.EqualTo(2));
-            Assert.That(Text10("BossModifierName"), Does.Contain(app.Config.Modifier("B25").displayName)); Assert.That(Text10("BossModifierText"), Is.EqualTo(app.Config.Modifier("B25").description));
+            Assert.That(Text10("BossModifierName"), Does.Contain(app.Config.Modifier("B25").displayName)); Assert.That(Text10("BossModifierText"), Is.EqualTo(app.Config.Modifier("B25").shortText));
             Assert.That(CardState09("C50"), Is.EqualTo("本关失效")); Assert.That(CardState09("C46"), Is.EqualTo("本关失效"));
             Assert.That(Text10("Chapter"), Does.Contain("首领关"));
             AssertBossReadoutVisible10("B25");

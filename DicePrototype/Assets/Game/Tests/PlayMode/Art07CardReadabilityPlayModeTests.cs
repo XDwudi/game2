@@ -91,6 +91,15 @@ namespace DiceCraft.Tests
                 var child=card.Find(pair[0]);if(child==null){if(pair[0]=="RarityLabel"||(pair[0]=="Name"&&kind!="detail")||(pair[0]=="State"&&footer!=null)||(pair[0]=="Identity"&&kind=="detail"))row.errors.Add("Missing required "+pair[0]);continue;}
                 if(pair[1]!=null)row.labels.Add(CardGlyphCheck07(card,child.GetComponent<TextMeshProUGUI>(),pair[1],bottom));
             }
+            if(kind.StartsWith("hud",StringComparison.Ordinal))
+            {
+                // V1.1 (W11, PLAY_LAYOUT 1): the table card prints its short effect in full instead of a "查看条件" footer.
+                // A full card always shows it; a two-row mini card shows it only when it fits whole at the body size
+                // (PLAY_LAYOUT 8 row 14), otherwise it is in the card's hover and details.
+                var shortText=card.Find("ShortText11");
+                if(shortText!=null&&shortText.gameObject.activeSelf)row.labels.Add(CardGlyphCheck07(card,shortText.GetComponent<TextMeshProUGUI>(),config.shortText,bottom));
+                else if(kind=="hud-full")row.errors.Add("Missing required ShortText11");
+            }
             var ordinal=card.Find("Ordinal");if(ordinal!=null)
             {
                 int index=app.Session.State.controllers.FindIndex(c=>c.instanceId==item.instanceId)+1;
@@ -121,6 +130,9 @@ namespace DiceCraft.Tests
             for(int a=0;a<row.labels.Count;a++)for(int b=a+1;b<row.labels.Count;b++)if(CardOverlap07(row.labels[a].ink,row.labels[b].ink))row.errors.Add(row.labels[a].name+" painted ink overlaps "+row.labels[b].name);
             return row;
         }
+        /// <summary>V1.1 (W11): the state line of a card on the play table. A card with nothing to report ("查看条件") has no
+        /// state line there: its short effect text is printed in full instead (checked in CardCheck07).</summary>
+        private string TableCardFooter11(ControllerInstance item){string footer=CardExpectedFooter07(item,false);return footer=="查看条件"?null:footer;}
         private string CardExpectedFooter07(ControllerInstance item,bool offer)
         {
             var sources=ControllerRules.ResolveSources(app.Session.State.controllers,app.Session.State.stage.started&&app.Session.State.phase!="Shop"?app.Session.State.stage.mimicBindings:null);
@@ -162,7 +174,7 @@ namespace DiceCraft.Tests
                 foreach(var item in state.controllers.Take(shop?4:10))
                 {
                     var card=(RectTransform)Button("Controller_"+item.instanceId).transform;
-                    row.cards.Add(CardCheck07(card,item,shop?"owned-mini":card.rect.height>200?"hud-full":"hud-compact",shop?null:CardExpectedFooter07(item,false)));
+                    row.cards.Add(CardCheck07(card,item,shop?"owned-mini":card.rect.height>200?"hud-full":"hud-compact",shop?null:TableCardFooter11(item)));
                 }
                 if(shop)foreach(var offer in state.shop.offers.Where(o=>o.category=="controller"))row.cards.Add(CardCheck07((RectTransform)Button("Offer_"+offer.offerId).transform,offer.controller,"shop-full",CardExpectedFooter07(offer.controller,true)));
             }

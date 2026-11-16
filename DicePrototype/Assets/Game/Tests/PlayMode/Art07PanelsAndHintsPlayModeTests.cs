@@ -117,7 +117,9 @@ namespace DiceCraft.Tests
                 Assert.That(PlayerPrefs.GetInt(BoundaryHintKeys07[kind],0),Is.Zero,"Read status is persisted only when dismissed.");
                 var dismiss=Button("DismissBoundaryHint07");Assert.That(((RectTransform)dismiss.transform).sizeDelta,Is.EqualTo(new Vector2(60,60)));
                 var closeBounds=RectTransformUtility.CalculateRelativeRectTransformBounds(app.canvas.transform,dismiss.transform);
-                foreach(string id in new[]{"Roll","Confirm","Clear","Submit","EndStage"})
+                // V1.1 (W11, PLAY_LAYOUT 2): only the actions the row shows exist; the end-stage button always does.
+                var shown=W11ShownActions("Roll","Confirm","Clear","Submit","EndStage");Assert.That(shown,Does.Contain("EndStage"));
+                foreach(string id in shown)
                 {
                     var actionBounds=RectTransformUtility.CalculateRelativeRectTransformBounds(app.canvas.transform,Button(id).transform);
                     bool overlap=closeBounds.min.x<actionBounds.max.x&&closeBounds.max.x>actionBounds.min.x&&closeBounds.min.y<actionBounds.max.y&&closeBounds.max.y>actionBounds.min.y;

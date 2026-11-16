@@ -134,16 +134,20 @@ namespace DiceCraft.Tests
                 yield return DiceLabelBegin07(font);DiceLabelApply07(10,true);yield return new WaitForSecondsRealtime(.25f);
                 string[] ids=app.Session.State.dice.Select(d=>d.dieId).ToArray();
                 foreach(string id in ids.Take(8))ClickDie(id);yield return new WaitForSecondsRealtime(.25f);Canvas.ForceUpdateCanvases();
-                Assert.That(app.canvas.GetComponentsInChildren<Art07HollowCheck>(false).Length,Is.EqualTo(8));
-                foreach(var check in app.canvas.GetComponentsInChildren<Art07HollowCheck>(false))
+                // V1.1 (W11, PLAY_LAYOUT 4): a chosen die is marked by a gold contour around it and an "已选 N" tag under it
+                // (the v0.7 hollow check mark beside it is gone). Same intent: contour only, no input, never over a pip.
+                Assert.That(PendingRings11().Length,Is.EqualTo(8));
+                foreach(var ring in PendingRings11())
                 {
-                    Assert.That(check.raycastTarget,Is.False);Assert.That(check.canvasRenderer.cull,Is.False);Assert.That(check.canvasRenderer.GetInheritedAlpha(),Is.GreaterThan(.99f));
-                    var mesh=check.canvasRenderer.GetMesh();Assert.That(mesh.vertexCount,Is.EqualTo(12));Assert.That(mesh.triangles.Length,Is.EqualTo(36),"Only the contour is filled; the inside stays transparent.");
-                    CheckAffordanceAgainstPips07(check.rectTransform);
+                    Assert.That(ring.raycastTarget,Is.False);Assert.That(ring.canvasRenderer.cull,Is.False);Assert.That(ring.canvasRenderer.GetInheritedAlpha(),Is.GreaterThan(.3f));
+                    Assert.That(ring.fillCenter,Is.False,"Only the contour is filled; the inside stays transparent.");
+                    CheckAffordanceAgainstPips07(FindActive<RectTransform>("PendingTag11_"+ring.name.Substring("PendingRing".Length)));
                 }
+                // The contour's actual pixels (rings drawn vs not drawn) never touch a pip.
+                yield return CheckRingsAgainstPipsGpu11(PendingRings11());
                 Assert.That(AffordanceGrips07().Length,Is.Zero);DiceLabelCheck07();yield return CaptureAffordance07("pending-eight-font"+font);
                 Click("Confirm");yield return WaitForIdle();yield return new WaitForSecondsRealtime(.25f);Canvas.ForceUpdateCanvases();
-                Assert.That(app.canvas.GetComponentsInChildren<Art07HollowCheck>(false),Is.Empty);
+                Assert.That(PendingRings11(),Is.Empty);
                 var grips=AffordanceGrips07();Assert.That(grips.Length,Is.EqualTo(8));
                 string state=StateJson();byte[] disk=File.ReadAllBytes(app.SaveLocation);
                 foreach(var grip in grips)
@@ -163,7 +167,7 @@ namespace DiceCraft.Tests
                 Assert.That(StateJson(),Is.EqualTo(state));CollectionAssert.AreEqual(disk,File.ReadAllBytes(app.SaveLocation));
                 // Pending selections forbid moving already locked dice even when capacity is full.
                 ClickDie(ids[8]);app.Refresh();yield return null;Assert.That(app.Session.PendingIds,Does.Contain(ids[8]));
-                Assert.That(AffordanceGrips07(),Is.Empty);Assert.That(app.canvas.GetComponentsInChildren<Art07HollowCheck>(false).Length,Is.EqualTo(1));
+                Assert.That(AffordanceGrips07(),Is.Empty);Assert.That(PendingRings11().Length,Is.EqualTo(1));
                 Click("Clear");Assert.That(AffordanceGrips07().Length,Is.EqualTo(8));
                 try{app.Session.Busy=true;app.Refresh();Assert.That(AffordanceGrips07(),Is.Empty);}
                 finally{app.Session.Busy=false;app.Refresh();}
@@ -172,9 +176,50 @@ namespace DiceCraft.Tests
             }
         }
         private RectTransform[] AffordanceGrips07()=>app.canvas.GetComponentsInChildren<RectTransform>(false).Where(r=>r.name.StartsWith("LockedGrip_",StringComparison.Ordinal)).ToArray();
-        private void CheckAffordanceAgainstPips07(RectTransform mark)
+        private Image[] PendingRings11()=>app.canvas.GetComponentsInChildren<Image>(false).Where(i=>i.name.StartsWith("PendingRing",StringComparison.Ordinal)).ToArray();
+        /// <summary>V1.1 (W11): the pending contours' own pixels: the frame with and without the rings differs nowhere inside
+        /// a pip area of any visible face (at most 2 noise pixels per pip area).</summary>
+        private IEnumerator CheckRingsAgainstPipsGpu11(Image[] rings)
         {
-            Rect area=GuideCheckScreenRect07(mark);
+            Assert.That(rings,Is.Not.Empty);
+            yield return new WaitForEndOfFrame();var with=ScreenCapture.CaptureScreenshotAsTexture();
+            foreach(var ring in rings)ring.enabled=false;
+            yield return new WaitForEndOfFrame();var without=ScreenCapture.CaptureScreenshotAsTexture();
+            foreach(var ring in rings)ring.enabled=true;
+            try
+            {
+                var a=with.GetPixels32();var b=without.GetPixels32();int w=with.width,h=with.height;
+                foreach(var pair in PipAreas11())
+                {
+                    var pips=pair.Value;int changed=0;
+                    for(int y=Mathf.Max(0,Mathf.FloorToInt(pips.yMin));y<Mathf.Min(h,Mathf.CeilToInt(pips.yMax));y++)
+                        for(int x=Mathf.Max(0,Mathf.FloorToInt(pips.xMin));x<Mathf.Min(w,Mathf.CeilToInt(pips.xMax));x++)
+                        {var p=a[y*w+x];var q=b[y*w+x];if(Math.Abs(p.r-q.r)+Math.Abs(p.g-q.g)+Math.Abs(p.b-q.b)>12)changed++;}
+                    Assert.That(changed,Is.LessThanOrEqualTo(2),"A pending contour paints over the pips of "+pair.Key);
+                }
+            }
+            finally{UnityEngine.Object.Destroy(with);UnityEngine.Object.Destroy(without);}
+        }
+        private List<KeyValuePair<string,Rect>> PipAreas11()
+        {
+            var result=new List<KeyValuePair<string,Rect>>();
+            foreach(var die in app.Session.State.dice)
+            {
+                var root=app.table.GetFaceOrientation(die.dieId);if(root==null||!root.gameObject.activeInHierarchy)continue;
+                foreach(var renderer in root.GetComponentsInChildren<MeshRenderer>(false))
+                {
+                    if(!renderer.enabled||!renderer.name.StartsWith("Face_",StringComparison.Ordinal))continue;
+                    var mesh=renderer.GetComponent<MeshFilter>().sharedMesh;
+                    var points=mesh.vertices.Where(p=>Mathf.Abs(p.x)<.31f&&Mathf.Abs(p.y)<.31f).Select(p=>app.table.viewCamera.WorldToScreenPoint(renderer.transform.TransformPoint(p))).ToArray();
+                    if(points.Length==0)continue;
+                    result.Add(new KeyValuePair<string,Rect>(die.dieId+"/"+renderer.name,Rect.MinMaxRect(points.Min(p=>p.x),points.Min(p=>p.y),points.Max(p=>p.x),points.Max(p=>p.y))));
+                }
+            }
+            return result;
+        }
+        private void CheckAffordanceAgainstPips07(RectTransform mark)=>CheckAreaAgainstPips07(GuideCheckScreenRect07(mark),mark.name);
+        private void CheckAreaAgainstPips07(Rect area,string name)
+        {
             foreach(var die in app.Session.State.dice)
             {
                 var root=app.table.GetFaceOrientation(die.dieId);if(root==null||!root.gameObject.activeInHierarchy)continue;
@@ -185,7 +230,7 @@ namespace DiceCraft.Tests
                     var points=mesh.vertices.Where(p=>Mathf.Abs(p.x)<.31f&&Mathf.Abs(p.y)<.31f).Select(p=>app.table.viewCamera.WorldToScreenPoint(renderer.transform.TransformPoint(p))).ToArray();
                     if(points.Length==0)continue;
                     var pips=Rect.MinMaxRect(points.Min(p=>p.x),points.Min(p=>p.y),points.Max(p=>p.x),points.Max(p=>p.y));
-                    Assert.That(area.Overlaps(pips),Is.False,mark.name+" covers actual visible pips on "+die.dieId+"/"+renderer.name);
+                    Assert.That(area.Overlaps(pips),Is.False,name+" covers actual visible pips on "+die.dieId+"/"+renderer.name);
                 }
             }
         }

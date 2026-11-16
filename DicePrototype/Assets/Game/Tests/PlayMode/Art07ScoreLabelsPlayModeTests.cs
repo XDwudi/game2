@@ -31,17 +31,23 @@ namespace DiceCraft.Tests
                         var hand=FindActive<TextMeshProUGUI>("Hand");
                         if(kind==Art07FixtureKind.MaximumTable){Assert.That(hand.text,Does.Contain("＋顺子"));Assert.That(hand.text,Does.Contain("混色"));}
                         if(kind==Art07FixtureKind.SharedHalf)Assert.That(hand.text,Does.Contain("随机结果范围"));
-                        var labels=new List<TextMeshProUGUI>{hand,FindActive<TextMeshProUGUI>("FinalScore")};
-                        for(int i=0;i<6;i++)labels.Add(Button("Factor"+i).GetComponentInChildren<TextMeshProUGUI>());
+                        // V1.1 (W11, PLAY_LAYOUT 3 and 8): the expected hand is on the submission tray's info panel, the factors
+                        // are chips (name and value) in the formula row, a x1 factor has no chip, and the total closes the row.
+                        var final=FindActive<TextMeshProUGUI>("FinalScore");
+                        var labels=new List<TextMeshProUGUI>{hand,final};
+                        var chips=W11ShownActions(Enumerable.Range(0,8).Select(i=>"Factor"+i).ToArray());Assert.That(chips,Does.Contain("Factor0"));
+                        foreach(string chip in chips){var t=Button(chip).transform;labels.Add(t.Find("Label").GetComponent<TextMeshProUGUI>());labels.Add(t.Find("Name").GetComponent<TextMeshProUGUI>());}
                         yield return ScoreLabelGpuCapture07(labels);
-                        Rect panel=V06ScreenRect((RectTransform)hand.transform.parent),factor=V06ScreenRect((RectTransform)Button("Factor0").transform);
+                        Rect info=V06ScreenRect(FindActive<RectTransform>("SubmitInfo11")),total=V06ScreenRect((RectTransform)final.transform.parent);
+                        var chipRects=chips.Select(n=>V06ScreenRect((RectTransform)Button(n).transform)).ToArray();
                         foreach(var label in labels)
                         {
                             foreach(var glyph in ScoreGlyphRects07(label))
                             {
-                                Assert.That(ScoreContains07(panel,glyph),Is.True,label.name+" leaves the scoring panel");
-                                if(label==hand||label.name=="FinalScore")Assert.That(glyph.yMin,Is.GreaterThanOrEqualTo(factor.yMax-1),label.name+" covers multiplier buttons");
-                                else Assert.That(ScoreContains07(V06ScreenRect((RectTransform)label.transform.parent),glyph),Is.True,label.transform.parent.name+" glyph exceeds its own button");
+                                if(label==hand)Assert.That(ScoreContains07(info,glyph),Is.True,"Hand leaves the submission info panel");
+                                else if(label==final)Assert.That(ScoreContains07(total,glyph),Is.True,"FinalScore leaves its total chip");
+                                else Assert.That(ScoreContains07(V06ScreenRect((RectTransform)label.transform.parent),glyph),Is.True,label.transform.parent.name+" glyph exceeds its own chip");
+                                if(label==hand||label==final)foreach(var chip in chipRects)Assert.That(glyph.Overlaps(chip),Is.False,label.name+" covers a factor chip");
                             }
                         }
                     }
@@ -52,7 +58,9 @@ namespace DiceCraft.Tests
                         Assert.That(exact.controllerMultiplierNumerator,Is.EqualTo("4294967296"));
                         // v1.1 (W09, TX-01): no fraction or "e" notation. Ten integer digits exceed the chip's six, so the
                         // chip reads "约 ×4.29×10⁹" (superscript markup); "控制器" is "卡牌" (D2).
-                        Assert.That(Button("Factor4").GetComponentInChildren<TextMeshProUGUI>().text,Is.EqualTo("卡牌 约 ×4.29×10<sup>9</sup>"));
+                        // V1.1 (W11): the chip's name ("卡牌") and value are two labels of the chip.
+                        Assert.That(Button("Factor4").transform.Find("Name").GetComponent<TextMeshProUGUI>().text,Is.EqualTo("卡牌"));
+                        Assert.That(Button("Factor4").transform.Find("Label").GetComponent<TextMeshProUGUI>().text,Is.EqualTo("约 ×4.29×10<sup>9</sup>"));
                         Click("Factor4");yield return new WaitForSecondsRealtime(.2f);
                         Click("FullScoreDetails");yield return new WaitForSecondsRealtime(.2f);
                         var formula=FindActive<TextMeshProUGUI>("Formula");

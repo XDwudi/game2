@@ -40,8 +40,15 @@ namespace DiceCraft.Tests
                 while(app.PresentationPlaying07&&Time.realtimeSinceStartupAsDouble<limit)yield return null;
                 Assert.That(app.PresentationPlaying07||app.IsBusy,Is.False);Assert.That(app.StablePresentationResultVisible07,Is.True,mode);
                 Assert.That(VisibleFinalText07("StableResultScore07").text.Replace(",",""),Is.EqualTo("181440"));
-                // v1.1 (W09): thousands separators on the multiplier and "生效 N 张" instead of "连锁 N" (DEV_PLAN 4.1 item 4).
-                Assert.That(VisibleFinalText07("StableResultFactors07").text,Does.Contain("×5,040").And.Contain("生效 4 张"));
+                // v1.1 (W09): "生效 N 张" instead of "连锁 N" (DEV_PLAN 4.1 item 4). V1.1 (W11, PLAY_LAYOUT 3): the kept
+                // result is the formula row, so the multiplier is its chips (base x each factor = total), not one "x5,040".
+                Assert.That(VisibleFinalText07("FormulaCaptionText11").text,Is.EqualTo("上一手 · 生效 4 张"));
+                var kept=app.Session.State.lastSubmission.breakdown;
+                Assert.That(Button("Factor0").transform.Find("Label").GetComponent<TextMeshProUGUI>().text,Is.EqualTo(PlayerNumberFormat.Integer(ExactScoreMath.Parse(kept.baseTotal),9)));
+                int chips=app.canvas.GetComponentsInChildren<UnityEngine.UI.Button>(false).Count(x=>x.name.StartsWith("Factor",StringComparison.Ordinal));
+                var seps=app.canvas.GetComponentsInChildren<TextMeshProUGUI>(false).Where(t=>t.name.StartsWith("FormulaSep11_",StringComparison.Ordinal)).Select(t=>t.text).ToArray();
+                Assert.That(chips,Is.GreaterThanOrEqualTo(3),"G147 multiplies its base by at least two factors.");
+                Assert.That(seps.Count(t=>t=="×"),Is.EqualTo(chips-1));Assert.That(seps.Count(t=>t=="="),Is.EqualTo(1));
                 Assert.That(app.StablePresentationSourceMarks07,Is.EqualTo(4));
                 app.Refresh();yield return null;
                 Assert.That(app.StablePresentationResultVisible07,Is.True);Assert.That(GameSession.StateHash(app.Session.State),Is.EqualTo(state));CollectionAssert.AreEqual(save,File.ReadAllBytes(app.SaveLocation));
@@ -52,7 +59,9 @@ namespace DiceCraft.Tests
             Art07Fixtures.Apply(app,Art07FixtureKind.ZeroMultiplier);Art07Fixtures.Submit(app,Art07FixtureKind.ZeroMultiplier);
             string state=GameSession.StateHash(app.Session.State);byte[] save=File.ReadAllBytes(app.SaveLocation);app.SkipVisual();
             Assert.That(app.StablePresentationResultVisible07,Is.True);Assert.That(VisibleFinalText07("StableResultScore07").text,Is.EqualTo("0"));
-            Assert.That(VisibleFinalText07("StableResultFactors07").text,Does.Contain("后置").And.Contain("提交收入").And.Contain("没有有效5点"));
+            // V1.1 (W11): the post-score changes stay beside the record button; the zero reason is the card chip's own value.
+            Assert.That(VisibleFinalText07("StableResultFactors07").text,Does.Contain("后置").And.Contain("提交收入"));
+            Assert.That(Button("Factor4").transform.Find("Label").GetComponent<TextMeshProUGUI>().text,Does.Contain("没有有效 5 点"));
             Click("StablePresentationDetails07");yield return null;Click("CloseDialog");
             Assert.That(app.StablePresentationResultVisible07,Is.True);Assert.That(GameSession.StateHash(app.Session.State),Is.EqualTo(state));CollectionAssert.AreEqual(save,File.ReadAllBytes(app.SaveLocation));
         }

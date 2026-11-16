@@ -141,7 +141,8 @@ namespace DiceCraft.Tests
             Click("StartStage");
             Assert.That(app.Session.State.phase, Is.EqualTo("HandReady"));
             Assert.That(app.Session.State.hand.hasRolled, Is.False);
-            Assert.That(Button("Submit").interactable, Is.False);
+            // V1.1 (W11, PLAY_LAYOUT 2): an action that is not available is not shown (it used to be a disabled button).
+            Assert.That(HasActive("Submit"), Is.False);
             Click("Roll");
             Assert.That(app.IsBusy, Is.True);
             Assert.That(app.Session.State.hand.rollsRemaining, Is.EqualTo(2));
@@ -151,8 +152,9 @@ namespace DiceCraft.Tests
             ClickDie("D002"); ClickDie("D001");
             CollectionAssert.AreEqual(new[] {"D002", "D001"}, app.Session.PendingIds);
             Assert.That(app.Session.State.actionSequence, Is.EqualTo(beforePending));
-            Assert.That(Button("Roll").interactable, Is.False);
-            Assert.That(Button("Submit").interactable, Is.False);
+            // V1.1 (W11): with dice chosen the row offers Confirm and Clear only; Roll and Submit are not shown.
+            Assert.That(HasActive("Roll"), Is.False);
+            Assert.That(HasActive("Submit"), Is.False);
             Click("Clear");
             Assert.That(app.Session.PendingIds, Is.Empty);
             Assert.That(app.Session.State.hand.orderedLockedIds, Is.Empty);

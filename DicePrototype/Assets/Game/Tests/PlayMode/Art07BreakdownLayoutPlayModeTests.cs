@@ -44,7 +44,9 @@ namespace DiceCraft.Tests
                     var scene=InformationScene07(kind);scene.randomOverrides.Clear();ApplyInformationScene07(scene);yield return ExtraIdle07();
                     var snapshot=app.Session.PreviewSnapshot();var score=app.Session.PreviewScoreRange().minimum;
                     string state=StateJson();byte[] disk=File.ReadAllBytes(app.SaveLocation);long sequence=app.Session.ActionSequence;
-                    yield return LegacyClick07("Factor4");yield return ExtraIdle07();
+                    // V1.1 (W11, PLAY_LAYOUT 8 row 9): a x1 factor has no chip, so the card chip is not always there; every
+                    // chip opens the same breakdown and the base chip always is.
+                    yield return LegacyClick07("Factor0");yield return ExtraIdle07();
                     yield return LegacyClick07("FullScoreDetails");yield return ExtraIdle07();
                     yield return BreakdownWalk07(kind+"-font"+font,snapshot,score);
                     yield return LegacyClick07("CloseDialog");yield return ExtraIdle07();

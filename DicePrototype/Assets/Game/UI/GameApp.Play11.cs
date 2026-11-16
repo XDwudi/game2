@@ -45,7 +45,11 @@ namespace DiceCraft
         /// </summary>
         private bool Large11=>UiKit.FontScale>1.01f;
         private bool PlayPhase11=>ViewState!=null&&(ViewState.phase=="HandReady"||ViewState.phase=="Selecting");
-        private bool FramePhase11=>PlayPhase11||ViewState?.phase=="StagePreview";
+        // The top bar frames the stage select, the play screen and the stage settlement: when the last hand of a stage hands
+        // over to the settlement, the score frame stays where the player was reading it.
+        private bool FramePhase11=>PlayPhase11||ViewState?.phase=="StagePreview"||ViewState?.phase=="StageSettlement";
+        /// <summary>Text drawn straight on the table felt (the trays are open frames): ink on a light felt, light text on a dark one.</summary>
+        private static Color OnFelt11{get{var f=UiKit.Felt;return .2126f*f.r+.7152f*f.g+.0722f*f.b>.5f?UiKit.Ink:UiKit.TextColor;}}
         private string StageKind11=>ViewState==null?"normal":Config.stages[Mathf.Clamp(ViewState.stage.stageIndex,0,Config.stages.Length-1)].stageKind;
         private bool StageRisk11=>ViewState!=null&&(ViewState.phase=="StagePreview"?PreviewRisk07:ViewState.stage.risk);
         /// <summary>Boss cues apply while its modifier is in force; a scapegoat that lifted it returns the table to normal.</summary>
@@ -91,7 +95,7 @@ namespace DiceCraft
         private RectTransform topScoreFrame11;
         private void TopBar11()
         {
-            var s=ViewState;var l=L11;bool c=Large11,play=PlayPhase11;
+            var s=ViewState;var l=L11;bool c=Large11,play=PlayPhase11||s.phase=="StageSettlement";
             // "Stats07" keeps the name of the old status column it replaces: the qualified stamp, the cold-load badge and
             // the settlement backdrop already address the run status HUD by this name.
             var bar=Surface11(main,"Stats07",l.top.x,l.top.y,l.top.width,l.top.height,"ui_topbar",UiKit.Panel);
@@ -141,13 +145,17 @@ namespace DiceCraft
             var s=ViewState;
             var frame=UiKit.Inset(bar,"StageScoreFrame",x,6,w,60);topScoreFrame11=frame;
             string shown=DisplayedStageScore11();
-            topScore11=NoWrap11(UiKit.Text(frame,"StageScore",CompactScore(shown),14,0,w*.5f,48,c?28:34,s.stage.qualified?UiKit.Gold:UiKit.TextColor,TextAlignmentOptions.MidlineLeft));
+            // Right-aligned in its reserved width: while a total rolls in, the digits grow toward the left and stay next to "/".
+            topScore11=NoWrap11(UiKit.Text(frame,"StageScore",CompactScore(shown),14,0,w*.5f,48,c?28:34,s.stage.qualified?UiKit.Gold:UiKit.TextColor,TextAlignmentOptions.MidlineRight));
             topScore11.fontStyle=FontStyles.Bold;
             // While a total rolls in, reserve the width of the final stage score so the target never moves under it.
             string widest=IsPresenting07&&receipt07!=null&&lastPresentationAfter07?.stage?.stageId==s.stage.stageId?CompactScore(receipt07.StageScoreAfter):topScore11.text;
             float scoreW=Mathf.Min(w*.55f,Mathf.Max(topScore11.GetPreferredValues(topScore11.text).x,topScore11.GetPreferredValues(widest).x)+4);topScore11.rectTransform.sizeDelta=new Vector2(scoreW,48);
             UiKit.Component<Art072ValuePop>(topScore11.gameObject).Configure(s.runId+"|"+s.stage.stageId+"|StageScore",shown);
-            NoWrap11(UiKit.Text(frame,"Target","/ "+CompactScore(s.stage.target),14+scoreW+6,4,w-scoreW-40,44,c?26:32,PressureActive11?UiKit.Pressure:UiKit.Muted,TextAlignmentOptions.MidlineLeft));
+            // The score pops (scale up to Art072ValuePop.Peak from its left edge) when it changes: the target starts after the
+            // popped width, so the two numbers never touch.
+            float targetX=14+scoreW*Art072ValuePop.Peak+8;
+            NoWrap11(UiKit.Text(frame,"Target","/ "+CompactScore(s.stage.target),targetX,4,Mathf.Max(40,w-targetX-26),44,c?26:32,PressureActive11?UiKit.Pressure:UiKit.Muted,TextAlignmentOptions.MidlineLeft));
             BigIntegerRatio11(shown,s.stage.target,out float ratio);
             UiKit.Progress(frame,"StageProgress072",14,48,w-28,7,ratio,s.stage.qualified?UiKit.Gold:PressureActive11?UiKit.Pressure:UiKit.Blue,s.runId+"|"+s.stage.stageId);
             UiKit.Rect(bar,"QualifiedStampSlot07",x+w+12,10,272,52);
@@ -156,6 +164,16 @@ namespace DiceCraft
                 var badge=UiKit.Frame(frame,"QualifiedSavedBadge07",w-36,6,28,28,UiKit.Gold,UiKit.Ink);
                 UiKit.Text(badge,"Check","✓",0,0,28,28,16,UiKit.Ink,TextAlignmentOptions.Center);
             }
+        }
+        /// <summary>Where a gold change pops on the play screen: in the top bar, in the slot right of the score frame (the
+        /// qualified-stamp slot), just left of the gold readout. Clear of every button and text of the bar.</summary>
+        private Vector2 TopCashPoint11()
+        {
+            var l=L11;
+            if(topScoreFrame11==null||!topScoreFrame11.gameObject.activeInHierarchy)return new Vector2(l.top.center.x-110,l.top.y+7);
+            var corners=new Vector3[4];topScoreFrame11.GetWorldCorners(corners);
+            var right=ScreenToDesign(RectTransformUtility.WorldToScreenPoint(null,corners[3]));
+            return new Vector2(right.x+12,l.top.y+7);
         }
         private static void BigIntegerRatio11(string shown,string target,out float ratio)
         {
@@ -214,7 +232,7 @@ namespace DiceCraft
             var b=UiKit.Button(main,"Controller_"+item.instanceId,"",x,y,w,h,()=>ShowController(item,false),!IsBusy);
             b.targetGraphic.color=UiKit.Paper;UiKit.CardSurface(b,mode==CardMode11.Mini);
             var t=b.transform;int ordinal=ViewState.controllers.IndexOf(item)+1;string state=CardTableState11(item);
-            const float pad=10;float fs=Mathf.Max(1,UiKit.FontScale);
+            const float pad=10;
             bool mini=mode==CardMode11.Mini;
             // Meta row: ordinal disc, rarity ticks and word (on a mini card under its picture), enchantment badge top right.
             // Every label here is as tall as its line: an Ellipsis label shorter than its line renders nothing (v1.0 lesson).
@@ -232,7 +250,7 @@ namespace DiceCraft
                 body.lineSpacing=-14;
                 // The short text is complete at 20 units (13 px at 720p, AX-03); a long text steps down only as far as the
                 // illustration needs to stay recognisable (about 80 units), never below the 19.5-unit body size.
-                float stateH=state.Length>0?30*fs:0,textH=0,top=68;
+                float stateH=state.Length>0?Line11(Body11(16)):0,textH=0,top=68;
                 foreach(float size in new[]{20f,19.5f})
                 {
                     body.fontSize=size*UiKit.FontScale;textH=Mathf.Ceil(body.GetPreferredValues(text,w-pad*2,0).y)+2;
@@ -245,7 +263,7 @@ namespace DiceCraft
                     bottom-=stateH+2;
                     UiKit.Box(t,"StateChip11",pad,bottom,w-pad*2,stateH,new Color(UiKit.Ink.r,UiKit.Ink.g,UiKit.Ink.b,.08f));
                     // A full line of height: an Ellipsis label shorter than its line renders nothing at all.
-                    NoWrap11(UiKit.Text(t,"State",state,pad,bottom,w-pad*2,stateH,16,DisabledNow10(item.instanceId)||DisabledNext10(item.instanceId)?UiKit.Danger:UiKit.Ink,TextAlignmentOptions.Center));
+                    NoWrap11(UiKit.Text(t,"State",state,pad,bottom,w-pad*2,stateH,Body11(16),DisabledNow10(item.instanceId)||DisabledNext10(item.instanceId)?UiKit.Danger:UiKit.Ink,TextAlignmentOptions.Center));
                     bottom-=4;
                 }
                 float imageSize=Mathf.Max(24,Mathf.Min(w-pad*2-8,bottom-top));
@@ -259,8 +277,8 @@ namespace DiceCraft
                 float textTop=top+nameH+4;
                 if(state.Length>0)
                 {
-                    float stateH=Line11(16);
-                    NoWrap11(UiKit.Text(t,"State",state,pad,textTop,w-pad*2,stateH,16,DisabledNow10(item.instanceId)||DisabledNext10(item.instanceId)?UiKit.Danger:UiKit.Ink,TextAlignmentOptions.MidlineLeft));
+                    float stateH=Line11(Body11(16));
+                    NoWrap11(UiKit.Text(t,"State",state,pad,textTop,w-pad*2,stateH,Body11(16),DisabledNow10(item.instanceId)||DisabledNext10(item.instanceId)?UiKit.Danger:UiKit.Ink,TextAlignmentOptions.MidlineLeft));
                     textTop+=stateH+2;
                 }
                 var body=UiKit.Text(t,"ShortText11",text,pad,textTop,w-pad*2,h-12-textTop,20,UiKit.Ink,TextAlignmentOptions.TopLeft);
@@ -275,12 +293,13 @@ namespace DiceCraft
                 float textTop=4+Line11(20);
                 if(state.Length>0)
                 {
-                    NoWrap11(UiKit.Text(t,"State",state,tx,textTop,w-tx-pad,Line11(15),15,DisabledNow10(item.instanceId)||DisabledNext10(item.instanceId)?UiKit.Danger:UiKit.Ink,TextAlignmentOptions.MidlineLeft));
-                    textTop+=Line11(15);
+                    NoWrap11(UiKit.Text(t,"State",state,tx,textTop,w-tx-pad,Line11(Body11(15)),Body11(15),DisabledNow10(item.instanceId)||DisabledNext10(item.instanceId)?UiKit.Danger:UiKit.Ink,TextAlignmentOptions.MidlineLeft));
+                    textTop+=Line11(Body11(15));
                 }
                 // Two rows of five: the short text is shown when it fits whole at the body size (AX-03: 13 px at 720p);
                 // otherwise the card keeps its name and state and the text is in its hover and details (PLAY_LAYOUT 8).
-                float room=h-10-textTop,textW=w-tx-pad;
+                // The text ends above the meta row (ordinal and rarity) at the card's foot.
+                float room=metaY-4-textTop,textW=w-tx-pad;
                 var body=UiKit.Text(t,"ShortText11",text,tx,textTop,textW,room,Body11(18),UiKit.Ink,TextAlignmentOptions.TopLeft);
                 body.lineSpacing=-16;
                 if(body.GetPreferredValues(text,textW,0).y>room+.5f)body.gameObject.SetActive(false);
@@ -319,7 +338,8 @@ namespace DiceCraft
                 UiKit.Ring(card,"StageCardEdgeInner11",9,9,w-26,h-28,new Color(UiKit.Boss.r,UiKit.Boss.g,UiKit.Boss.b,.55f));
             }
             else if(PressureActive11)UiKit.Ring(card,"StageCardEdge11",5,5,w-18,h-20,UiKit.Pressure);
-            var header=Surface11(card,"StageCardHeader11",14,12,inner,40,"ui_chip_formula",tint);
+            float headerH=Mathf.Max(40,Line11(Body11(c?18:22)));
+            var header=Surface11(card,"StageCardHeader11",14,12,inner,headerH,"ui_chip_formula",tint);
             string title;
             if(boss)
             {
@@ -328,33 +348,37 @@ namespace DiceCraft
                 title=(lifted?"减益已解除 · ":"首领减益 · ")+tier;
             }
             else title=StageKindLabel10(s.stage.stageIndex,StageRisk11);
-            NoWrap11(UiKit.Text(header,"StageCardTitle11",title,12,0,inner-24,40,Body11(c?18:22),UiKit.TextColor,TextAlignmentOptions.MidlineLeft));
+            NoWrap11(UiKit.Text(header,"StageCardTitle11",title,12,0,inner-24,headerH,Body11(c?18:22),UiKit.TextColor,TextAlignmentOptions.MidlineLeft));
             if(boss)
             {
-                var box=UiKit.Rect(card,"BossModifier10",14,58,inner,h-58-14);
+                float top=headerH+18;
+                var box=UiKit.Rect(card,"BossModifier10",14,top,inner,h-top-14);
                 // Emblem placeholder until the W17 boss emblems exist: a block in the tier colour with tier bars.
                 var def=Config.Modifier(s.stage.modifierId);int bars=Mathf.Clamp(def.tier,1,4);
                 Color emblem=lifted?UiKit.PanelLight:def.tier>=4?UiKit.Boss:def.tier==3?UiKit.RarityRare:def.tier==2?UiKit.RarityAdvanced:UiKit.RarityCommon;
                 var mark=Surface11(box,"BossEmblem11",0,6,72,72,"ui_chip_formula",emblem);
                 for(int i=0;i<bars;i++)UiKit.Box(mark,"TierBar"+i,16,16+i*12,40,6,UiKit.Ink);
-                var name=NoWrap11(UiKit.Text(box,"BossModifierName",NameOf(s.stage.modifierId),84,0,inner-84,40,c?24:28,lifted?PaperMuted071:UiKit.Ink));
+                float nameSize=c?20:28,nameH=Line11(nameSize),boxH=h-top-14,lootH=52;
+                var name=NoWrap11(UiKit.Text(box,"BossModifierName",NameOf(s.stage.modifierId),84,0,inner-84,nameH,nameSize,lifted?PaperMuted071:UiKit.Ink));
                 name.fontStyle=FontStyles.Bold;
-                var body=UiKit.Text(box,"BossModifierText",ShortText11(s.stage.modifierId),84,40,inner-84,68,20,lifted?PaperMuted071:UiKit.Ink);
+                var body=UiKit.Text(box,"BossModifierText",ShortText11(s.stage.modifierId),84,nameH,inner-84,Mathf.Max(40,boxH-lootH-4-nameH),20,lifted?PaperMuted071:UiKit.Ink);
                 body.lineSpacing=-14;body.enableAutoSizing=true;body.fontSizeMax=20*UiKit.FontScale;body.fontSizeMin=Body11(15)*UiKit.FontScale;
                 string loot=s.stage.stageIndex/3<s.cycles.Count?s.cycles[s.stage.stageIndex/3].lootKind:null;
-                var lootText=UiKit.Text(box,"BossLoot11",string.IsNullOrEmpty(loot)?"终局首领 · 通关即胜利":"通关奖励："+ShortText11(loot),0,h-58-14-56,inner,52,18,lifted?PaperMuted071:Color.Lerp(UiKit.Ink,UiKit.Boss,.55f));
+                var lootText=UiKit.Text(box,"BossLoot11",string.IsNullOrEmpty(loot)?"终局首领 · 通关即胜利":"通关奖励："+ShortText11(loot),0,boxH-lootH,inner,lootH,18,lifted?PaperMuted071:Color.Lerp(UiKit.Ink,UiKit.Boss,.55f));
                 lootText.lineSpacing=-14;lootText.enableAutoSizing=true;lootText.fontSizeMax=Body11(18)*UiKit.FontScale;lootText.fontSizeMin=Body11(14)*UiKit.FontScale;
                 var open=HitArea073(card,"BossModifierOpen",0,0,w-8,h-10,()=>{if(!IsBusy)ShowCycle10();});
                 Art07AttachTooltip(open,"boss-modifier",NameOf(s.stage.modifierId),Details11(s.stage.modifierId),lifted?"已解除":"本关生效",()=>{if(!IsBusy)ShowCycle10();});
                 return;
             }
-            NoWrap11(UiKit.Text(card,"StageGoalLabel11","目标分数",14,62,inner,28,20,PaperMuted071));
-            var goal=NoWrap11(UiKit.Text(card,"StageGoal11",CompactScore(s.stage.target),14,88,inner,56,c?34:42,PressureActive11?UiKit.Pressure:UiKit.Ink));
-            goal.fontStyle=FontStyles.Bold;
+            // Four lines, each as tall as its line at the current text size, so 150 % still fits the card (AX-03).
+            float lineSize=Body11(c?14:20),goalSize=c?30:42,ty=headerH+18;
+            NoWrap11(UiKit.Text(card,"StageGoalLabel11","目标分数",14,ty,inner,Line11(lineSize),lineSize,PaperMuted071));ty+=Line11(lineSize);
+            var goal=NoWrap11(UiKit.Text(card,"StageGoal11",CompactScore(s.stage.target),14,ty,inner,Line11(goalSize),goalSize,PressureActive11?UiKit.Pressure:UiKit.Ink));
+            goal.fontStyle=FontStyles.Bold;ty+=Line11(goalSize);
             int reward=s.stage.reward>0?s.stage.reward:StageRisk11?Config.stages[s.stage.stageIndex].riskReward:Config.stages[s.stage.stageIndex].normalReward;
-            NoWrap11(UiKit.Text(card,"StageReward11","过关奖励 +"+reward+" 金币",14,148,inner,32,20,UiKit.Ink));
+            NoWrap11(UiKit.Text(card,"StageReward11","过关奖励 +"+reward+" 金币",14,ty,inner,Line11(lineSize),lineSize,UiKit.Ink));ty+=Line11(lineSize);
             string note=kind=="pressure"?(StageRisk11?"目标 ×1.5，过关金币 +5":"普通挑战，目标不变"):"提交栏 "+s.stage.capacity+" 格 · 每手掷 "+Session.InitialRolls+" 次";
-            NoWrap11(UiKit.Text(card,"StageNote11",note,14,182,inner,Line11(Body11(17)),Body11(17),PaperMuted071));
+            NoWrap11(UiKit.Text(card,"StageNote11",note,14,ty,inner,Line11(Body11(c?14:17)),Body11(c?14:17),PaperMuted071));
             HitArea073(card,"StageCardOpen11",0,0,w-8,h-10,()=>{if(!IsBusy)ShowCycle10();});
         }
 
@@ -432,7 +456,8 @@ namespace DiceCraft
                 var tag=Surface11(main,"PendingTag11_"+id,at.x,at.y,tagW,tagH,"ui_chip_formula",UiKit.Gold);
                 NoWrap11(UiKit.Text(main,"Pending"+id,"已选 "+(order+1),at.x,at.y,tagW,tagH,Body11(c?14:17),UiKit.Ink,TextAlignmentOptions.Center));
             }
-            DieBadges11(die,result,center,halfW,halfH,true,false);
+            // While locked dice fly to the tray the pool re-flows under the badges' final places: they return when it settles.
+            if(!LockVisualPlaying07)DieBadges11(die,result,center,halfW,halfH,true,false);
         }
         /// <summary>Shape badges around a die: colour (when thrown and colour assist is on), glass, stage-temporary (PLAY_LAYOUT 4).</summary>
         private void DieBadges11(DieInstance die,DieHandState result,Vector2 center,float halfW,float halfH,bool corner,bool locked,Rect? column=null)
@@ -448,9 +473,14 @@ namespace DiceCraft
             {
                 string name=(shapes[i]==Play11Badge.Shape.Circle||shapes[i]==Play11Badge.Shape.Diamond?names[0]:shapes[i]==Play11Badge.Shape.Glass?names[1]:names[2])+id;used.Add(name);
                 Vector2 p;
-                // On a pool die the badges sit on its top-right corner and run down its right side ("骰子右上的小形状角标").
+                // On a pool die each badge takes a corner of the die's box that its body leaves empty: top right ("骰子右上的
+                //小形状角标"), then top left, then bottom right; never over the faces. In a slot they stack in the right column.
                 if(column.HasValue)p=new Vector2(column.Value.x+(column.Value.width-size)*.5f,column.Value.y+i*(size+6));
-                else p=new Vector2(center.x+halfW*.72f-size*.5f,center.y-halfH*.9f-size*.5f+i*(size+5));
+                else
+                {
+                    float sx=i==1?-1:1,sy=i==2?1:-1;
+                    p=new Vector2(center.x+sx*halfW*.72f-size*.5f,center.y+sy*halfH*.9f-size*.5f);
+                }
                 var r=UiKit.Rect(main,name,p.x,p.y,size,size);
                 UiKit.Component<Play11Badge>(r.gameObject).Configure(shapes[i],fills[i],UiKit.Ink,UiKit.Paper);
             }
@@ -537,8 +567,10 @@ namespace DiceCraft
             // The rail: an open tray frame; the dice show through its centre.
             var rail=Surface11(main,"LockedTray071",l.rail.x,l.rail.y,l.rail.width,l.rail.height,"ui_dice_tray",Color.Lerp(UiKit.Panel,UiKit.PanelLight,.55f));
             slotPage=Math.Min(slotPage,Math.Max(0,(s.stage.capacity-1)/8));int slots=Math.Min(8,s.stage.capacity-slotPage*8);
-            float inner=l.rail.width-48,gap=slots>6?8:12,slotW=Mathf.Min(152,(inner-gap*(slots-1))/Math.Max(1,slots)),slotH=166;
-            float sx=l.rail.x+24+(inner-(slots*slotW+(slots-1)*gap))*.5f,sy=l.rail.y+16;
+            // More than eight slots page; the page button then owns the rail's left end and the slots start after it.
+            float pagerRoom=s.stage.capacity>8?72:0;
+            float inner=l.rail.width-48-pagerRoom,gap=slots>6?8:12,slotW=Mathf.Min(152,(inner-gap*(slots-1))/Math.Max(1,slots)),slotH=166;
+            float sx=l.rail.x+24+pagerRoom+(inner-(slots*slotW+(slots-1)*gap))*.5f,sy=l.rail.y+16;
             var sealed10=SealedPreview10();
             for(int j=0;j<slots;j++)
             {
@@ -548,7 +580,9 @@ namespace DiceCraft
                 if(locked)
                 {
                     var id=h.orderedLockedIds[i];var die=s.dice.First(d=>d.dieId==id);var result=h.currentResults.First(r=>r.dieId==id);
-                    float scale=slotW>=148?.82f:.76f;Vector2 center=new Vector2(x+44*(slotW/152f)+2,sy+slotH-12-52);
+                    // A locked die (18-degree turn) projects about 101 units wide per unit of scale: it stands 4 units in from
+                    // the slot's left edge and clear of the right column (slot number, padlock, badges).
+                    float scale=slotW>=148?.82f:slotW>=128?.76f:.70f,half=50.5f*scale+2;Vector2 center=new Vector2(x+4+half,sy+slotH-12-52);
                     lockedSlotRects07[id]=new Rect(x,sy,slotW,slotH);
                     var lip=UiKit.Box(main,"SlotTray073_"+i,x+4,sy+slotH-6,slotW-8,20,Color.white).GetComponent<Image>();
                     lip.sprite=UiKit.Template("ui_tray_front");lip.type=lip.sprite!=null?Image.Type.Sliced:Image.Type.Simple;lip.raycastTarget=false;lip.gameObject.SetActive(lip.sprite!=null);
@@ -568,10 +602,11 @@ namespace DiceCraft
         private float submitHandTop11=788;
         private void DrawSlotDie11(DieInstance die,DieHandState result,Vector2 center,int index,float scale,Rect slot)
         {
-            bool c=Large11;string id=die.dieId;
+            string id=die.dieId;
             table.Display(die,result,center,scale,false);dieCenters[id]=center;
-            float w=Mathf.Min(slot.width-8,96),height=118;
-            var hit=UiKit.Box(main,"Die_"+id,center.x-w/2,center.y-height/2,w,height,Color.clear,true);
+            // The die's own part of the slot: everything left of the right column.
+            float hitX=slot.x+2,w=slot.width-36,height=118;
+            var hit=UiKit.Box(main,"Die_"+id,hitX,center.y-height/2,w,height,Color.clear,true);
             var pointer=UiKit.Component<DiePointer>(hit.gameObject);pointer.clicked=null;pointer.dragStart=null;pointer.dragged=null;pointer.dragEnd=null;
             UiKit.Component<Art07DieHover>(hit.gameObject).Bind(table,id,false);
             pointer.clicked=e=>{if(modal||IsBusy||draggedDie07!=null)return;ShowDie(id);};
@@ -580,7 +615,7 @@ namespace DiceCraft
             {
                 if(draggedDie07!=id)return;var pos=ScreenToDesign(e.position);
                 table.DisplayDragged(die,result,pos,scale*1.06f);
-                UiKit.Outline(main,"DragDieOrigin07",center.x-w/2,center.y-height/2,w,height,UiKit.Muted,2);
+                UiKit.Outline(main,"DragDieOrigin07",hitX,center.y-height/2,w,height,UiKit.Muted,2);
                 if(TryDieInsertion07(pos,out _,out var edge))dieInsertion07=UiKit.Box(overlay,"DieInsertion",edge.x,edge.y,edge.width,edge.height,UiKit.Gold);
                 else if(dieInsertion07!=null)dieInsertion07.gameObject.SetActive(false);
             };
@@ -593,27 +628,36 @@ namespace DiceCraft
                 float duration=table.LayoutDuration;table.LayoutDuration=.14f;
                 try{Send(new SessionCommand{kind=CommandKind.Reorder,dieIds=ids.ToArray()});}finally{table.LayoutDuration=duration;}
             };
-            DrawLockedGrip07(hit,id,c);
+            // The narrow grip at the hit's left edge: the wide v0.7 compact grip would reach the pips of a die this close.
+            DrawLockedGrip07(hit,id,false);
             // Right column of the slot: padlock, then the shape badges; the permanent-change label uses the same column.
             Rect column=new Rect(slot.x+slot.width-32,slot.y+40,28,slot.height-48);
             DrawLockMark07(column.x+3,slot.y+36,index,id);
             DieBadges11(die,result,center,0,0,false,true,new Rect(column.x,column.y+30,column.width,column.height-30));
             // The permanent-change label (PostScore beat) writes into this label; it is empty otherwise.
-            var label=UiKit.Text(main,"DieState"+id,"",slot.x+90*(slot.width/152f),slot.y+40,slot.xMax-4-(slot.x+90*(slot.width/152f)),slot.height-48,14,result?.currentColor=="red"?UiKit.Red:UiKit.Blue);
+            var label=UiKit.Text(main,"DieState"+id,"",center.x+44,slot.y+40,slot.xMax-4-(center.x+44),slot.height-48,14,result?.currentColor=="red"?UiKit.Red:UiKit.Blue);
             label.textWrappingMode=TextWrappingModes.NoWrap;
         }
         private void SealedMark11(float x,float y,float w,float h,int index)
         {
             UiKit.Outline(main,"SealedSlot10_"+index,x+3,y+3,w-6,h-6,UiKit.Danger,2);
+            // While the hand scores, the die's ticket in the same band says "封印"; one word, not two on top of each other.
+            if(IsPresenting07)return;
             var tag=NoWrap11(UiKit.Text(main,"SealedTag10_"+index,"封印",x+8,y+6,56,Line11(Body11(16)),Body11(16),UiKit.Danger));tag.fontStyle=FontStyles.Bold;
         }
 
         // ---------------------------------------------------------------- settle panel (above EndStage)
         private void DrawSettle11()
         {
-            var s=ViewState;var l=L11;bool c=Large11;
+            // While a hand scores the panel follows the receipt: the gap counts down as the total rolls in (TickScore11) and
+            // from the post-score beats on it shows the committed stage, which may just have reached its target.
+            var s=IsPresenting07&&beat07!=null&&beat07.Phase>=DiceCraft.Presentation.PresentationPhase.PostScore&&lastPresentationAfter07?.stage?.stageId==ViewState.stage.stageId?lastPresentationAfter07:ViewState;
+            var l=L11;bool c=Large11;
             var panel=Surface11(main,"Settle11",l.settle.x,l.settle.y,l.settle.width,l.settle.height,"ui_panel_hud",Color.white);
             float x=l.settle.x+16,w=l.settle.width-32,y=l.settle.y+12;
+            // Redrawn between beats without a full rebuild: the other variant's labels must go.
+            foreach(string other in s.stage.qualified?new[]{"GoalGapLabel11","GoalGap11","GoalReward11"}:new[]{"Qualified","QualifiedReward0","QualifiedReward1","QualifiedReward2","QualifiedContinueIncome"})
+            {var stale=main.Find(other);if(stale!=null)stale.gameObject.SetActive(false);}
             if(s.stage.qualified)
             {
                 var r=Session.PreviewStageSettlement();
@@ -630,7 +674,7 @@ namespace DiceCraft
                 if(income>0)NoWrap11(UiKit.Text(main,"QualifiedContinueIncome","续交 "+NameOf("C01")+"  +"+income+" / 次",x,y,w,Line11(Body11(c?15:19)),Body11(c?15:19),UiKit.Gold));
                 return;
             }
-            var gap=ExactScoreMath.Parse(s.stage.target)-ExactScoreMath.Parse(DisplayedStageScore11());if(gap.Sign<0)gap=0;
+            var gap=ExactScoreMath.Parse(s.stage.target)-ExactScoreMath.Parse(ReferenceEquals(s,ViewState)?DisplayedStageScore11():s.stage.score);if(gap.Sign<0)gap=0;
             NoWrap11(UiKit.Text(main,"GoalGapLabel11","离目标还差",x,y,w,30,Body11(c?18:22),UiKit.Muted));
             var value=NoWrap11(UiKit.Text(main,"GoalGap11",CompactScore(gap.ToString()),x,y+30,w,60,c?36:44,PressureActive11?UiKit.Pressure:UiKit.TextColor));
             value.fontStyle=FontStyles.Bold;
@@ -653,7 +697,10 @@ namespace DiceCraft
             {
                 reason=IsPresenting07?"计分中…":LockVisualPlaying07?"锁定中…":TransactionVisualPlaying07?"":"掷骰中…";
                 if(!string.IsNullOrEmpty(LastTransactionSummary07)&&!IsPresenting07)reason=LastTransactionSummary07;
-                SecondaryButton11(null,null,null,l);
+                // While the dice are in the air the pressed button stays where it was, disabled, with its short progress dots
+                // (v0.72 feedback); the row changes to the next step when they land.
+                if(!IsPresenting07&&!LockVisualPlaying07&&!TransactionVisualPlaying07&&h.rollsRemaining>=0)
+                    BindRollButtonFeedback07(PrimaryButton11("Roll",h.hasRolled?"重掷 · 还能掷 "+h.rollsRemaining+" ["+key+"]":"掷骰 ["+key+"]",()=>Send(new SessionCommand{kind=CommandKind.Roll}),false,l));
             }
             else if(!h.hasRolled)
             {
@@ -678,8 +725,9 @@ namespace DiceCraft
                     canRoll?"点选要留下的骰子，再按“锁定”；也可以重掷。":"投掷已用完：点选要留下的骰子，再按“锁定”。";
                 if(canRoll)BindRollButtonFeedback07(PrimaryButton11("Roll","重掷 · 还能掷 "+h.rollsRemaining+" ["+key+"]",()=>Send(new SessionCommand{kind=CommandKind.Roll}),true,l));
             }
-            if(!busy&&!pending&&s.stage.qualified&&s.stage.remainingSubmissions>0&&reason.StartsWith("按“掷骰”",StringComparison.Ordinal)==false&&string.IsNullOrEmpty(LastTransactionSummary07))
-                reason="已达标：可以继续提交，也可以结束本关。"+(canSubmit?"":"");
+            // Once the target is reached the next step is a choice: keep playing or end the stage.
+            if(!busy&&!pending&&s.stage.qualified&&s.stage.remainingSubmissions>0&&string.IsNullOrEmpty(LastTransactionSummary07))
+                reason=!h.hasRolled&&canRoll?"已达标：按“掷骰”继续，或者按“结束本关”结算。":"已达标：可以继续提交，也可以结束本关。";
             if(!busy&&!pending&&!string.IsNullOrEmpty(LastTransactionSummary07))reason=LastTransactionSummary07;
             // Hint tab: a surface for the text (never written straight on the table).
             var tab=Surface11(main,"ActionReasonUnderlay",l.hint.x,l.hint.y,l.hint.width,l.hint.height,"ui_panel_hud",Color.white);
@@ -729,7 +777,7 @@ namespace DiceCraft
         /// <summary>Boss stage: the felt darkens and a vignette closes in (felt shader properties, so dice and interface are untouched).</summary>
         private void ApplyTableMood11()
         {
-            float mood=FramePhase11&&BossActive11?1:0;
+            float mood=FramePhase11&&ViewState.phase!="StageSettlement"&&BossActive11?1:0;
             if(Mathf.Approximately(mood,tableMoodShown11))return;
             var felt=GameObject.Find("Art07Felt");if(felt==null)return;var r=felt.GetComponent<Renderer>();if(r==null)return;
             var props=new MaterialPropertyBlock();r.GetPropertyBlock(props);

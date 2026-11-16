@@ -16,8 +16,11 @@ namespace DiceCraft.Tests
     {
         private string CardState09(string definitionId)
         {
+            // V1.1 (W11): a table card with nothing to report has no state line (its short text is printed instead); read
+            // that as an empty state. Only the drawn (active) state line counts.
             string instance = app.Session.State.controllers.Single(c => c.definitionId == definitionId).instanceId;
-            return FindActive<Transform>("Controller_" + instance).GetComponentsInChildren<TextMeshProUGUI>(true).First(t => t.name == "State").text;
+            var state = FindActive<Transform>("Controller_" + instance).GetComponentsInChildren<TextMeshProUGUI>(false).FirstOrDefault(t => t.name == "State");
+            return state == null ? "" : state.text;
         }
         private static void Equip09(RunState fixture, params string[] definitions)
         {

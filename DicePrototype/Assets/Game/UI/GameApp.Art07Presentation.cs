@@ -137,6 +137,8 @@ namespace DiceCraft
             if(effects07==null){effects07=UiKit.Rect(canvas.transform,"PresentationEffects",0,0,1920,1080);effects07.SetSiblingIndex(0);}
             effects07.anchoredPosition=main.anchoredPosition;UiKit.Clear(effects07);particleCount07=0;
             ScorePanel();
+            // V1.1 (W11): the settle panel follows the receipt beat by beat (gap, then the end-now rewards).
+            if(PlayPhase11)DrawSettle11();
             // Build the actual target HUD before binding its icon anchors. The first
             // qualified stamp changes the header layout from the ordinary variant.
             if(beat.Phase==PresentationPhase.TargetState)

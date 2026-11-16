@@ -37,7 +37,10 @@ namespace DiceCraft.Tests
                     yield return CaptureEdge07(scope);
                     Canvas.ForceUpdateCanvases();
 
-                    var headers=new[]{FindActive<TextMeshProUGUI>("SlotsTitle"),FindActive<TextMeshProUGUI>("LockRule")};
+                    // V1.1 (W11, PLAY_LAYOUT 5): the lock note is shown only while something is locked; the captions sit in the
+                    // info panel beside the tray instead of above it.
+                    bool anyLocked=state.hand.orderedLockedIds.Count>0;Assert.That(HasActive("LockRule"),Is.EqualTo(anyLocked));
+                    var headers=anyLocked?new[]{FindActive<TextMeshProUGUI>("SlotsTitle"),FindActive<TextMeshProUGUI>("LockRule")}:new[]{FindActive<TextMeshProUGUI>("SlotsTitle")};
                     var glyphs=headers.ToDictionary(t=>t,t=>DiceLabelVisibleGlyphRects07(t));
                     var frames=new Dictionary<string,Rect>{{"LockedTray071",V06ScreenRect(FindActive<RectTransform>("LockedTray071"))}};
                     for(int slot=0;slot<8;slot++)frames.Add("Slot"+slot,V06ScreenRect(FindActive<RectTransform>("Slot"+slot)));
@@ -55,7 +58,8 @@ namespace DiceCraft.Tests
                         .Where(t=>t.name.StartsWith("DieState")||t.name.StartsWith("SlotIndex")||t.name.StartsWith("EmptySlot")||t.name=="PoolTitle")
                         .ToDictionary(t=>t,t=>DiceLabelVisibleGlyphRects07(t));
                     Assert.That(neighbours.Keys.Count(t=>t.name.StartsWith("SlotIndex")),Is.EqualTo(8));
-                    Assert.That(neighbours.Keys.Count(t=>t.name.StartsWith("DieState")),Is.EqualTo(10));
+                    // V1.1 (W11, B4): only a locked die keeps a (normally empty) state label, for the post-score change text.
+                    Assert.That(neighbours.Keys.Count(t=>t.name.StartsWith("DieState")),Is.EqualTo(state.hand.orderedLockedIds.Count));
                     float minimumClearance=float.MaxValue;
                     foreach(var header in headers)
                     {
@@ -66,9 +70,10 @@ namespace DiceCraft.Tests
                             Assert.That(ScoreContains07(Screen.safeArea,glyph),Is.True,scope+" "+header.name+" leaves the actual safe area");
                             foreach(var frame in frames)
                             {
-                                // Screen pixels, not the production heading offset or
-                                // a guessed font line height: captions sit above all slots.
-                                float clearance=glyph.yMin-frame.Value.yMax;
+                                // Screen pixels, not the production heading offset or a guessed font line height. V1.1 (W11):
+                                // the captions sit beside the tray, so the clearance is the gap to the nearest frame edge.
+                                float dx=Mathf.Max(frame.Value.xMin-glyph.xMax,glyph.xMin-frame.Value.xMax),dy=Mathf.Max(frame.Value.yMin-glyph.yMax,glyph.yMin-frame.Value.yMax);
+                                float clearance=Mathf.Max(dx,dy);
                                 minimumClearance=Mathf.Min(minimumClearance,clearance);
                                 Assert.That(clearance,Is.GreaterThanOrEqualTo(3f),scope+" "+header.name+" glyph touches "+frame.Key+"; actual clearance="+clearance);
                             }
@@ -78,7 +83,7 @@ namespace DiceCraft.Tests
                                 Assert.That(glyph.Overlaps(other),Is.False,scope+" "+header.name+" overlaps "+neighbour.Key.name+" glyph");
                         }
                     }
-                    foreach(var left in glyphs[headers[0]])foreach(var right in glyphs[headers[1]])
+                    if(headers.Length>1)foreach(var left in glyphs[headers[0]])foreach(var right in glyphs[headers[1]])
                         Assert.That(left.Overlaps(right),Is.False,scope+" the two header captions overlap");
                     AssertInteractionCheckpoint07(before,disk,sequence);
                     TestContext.WriteLine(scope+" minimum actual header-to-tray/slot clearance="+minimumClearance+" px; font="+UiKit.FontScale+"; runtime="+typeof(GameApp).Module.ModuleVersionId+"; tests="+typeof(GameplayPlayModeTests).Module.ModuleVersionId);

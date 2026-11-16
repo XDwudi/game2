@@ -141,7 +141,10 @@ namespace DiceCraft
             foreach(var e in reveals)if(!revealedOwners07.Contains(e.StateOwnerId))revealedOwners07.Add(e.StateOwnerId);
             if(reveals.Length==1)
             {
-                var e=reveals[0];var v=Effect07("fx_random_reveal",e.StateOwnerId,new Vector2(Compact07?680:700,Compact07?285:290),new Vector2(130,110),PlayerNumberFormat.Times(e.AfterValue));
+                var e=reveals[0];
+                // V1.1 (W11, B1): the wheel turns on the card that owns the draw; the old fixed point is now inside the card row.
+                Vector2 wheel=PlayPhase11?(TryCardBounds07(e.StateOwnerId,out var owner)?new Vector2(owner.center.x-65,owner.center.y-55):new Vector2(L11.cards.xMax-140,L11.cards.yMax-120)):new Vector2(Compact07?680:700,Compact07?285:290);
+                var v=Effect07("fx_random_reveal",e.StateOwnerId,wheel,new Vector2(130,110),PlayerNumberFormat.Times(e.AfterValue));
                 string[] values={"1/2","1","2","3","4","5","6","7","8"};int slice=Array.IndexOf(values,e.AfterValue);
                 if(v!=null){if(slice>=0)v.SetRevealSlice(slice);v.ConfigureCommittedReveal(effectOptions07.Speed==PresentationSpeed.Fast||effectOptions07.ReducedMotion,effectDuration07);}
                 if(e.SourceEmitterIds.Count>1)ShowEffectSummary07("共享抽中 q="+DisplayFraction07(e.AfterValue)+" · "+e.SourceEmitterIds.Count+" 来源合计 q"+(e.SourceEmitterIds.Count==2?"²":"^"+e.SourceEmitterIds.Count)+" · 各来源见完整记录",true);
@@ -238,7 +241,7 @@ namespace DiceCraft
                 }
                 var cash=beat.Events.FirstOrDefault(e=>e.EffectFamily=="SubmissionIncome"||e.EffectFamily=="stage_income");
                 if(cash!=null&&EffectReserve07("states",EffectPoolKind.NumberLabel,1)>0)
-                    Effect07("fx_cash_ticket",cash.EventId,new Vector2(960,Compact07?284:320),new Vector2(220,58),"+"+DisplayFraction07(cash.Operand??cash.AfterValue));
+                    Effect07("fx_cash_ticket",cash.EventId,PlayPhase11?TopCashPoint11():new Vector2(960,Compact07?284:320),new Vector2(220,58),"+"+DisplayFraction07(cash.Operand??cash.AfterValue));
             }
         }
         private string PostSummary07(PresentationBeat beat)
@@ -377,12 +380,14 @@ namespace DiceCraft
             if(cmd.kind==CommandKind.UseItem)
             {
                 string id=before.inventory.FirstOrDefault(i=>i.instanceId==cmd.itemInstanceId)?.contentId;
-                if(id=="I04"||id=="I05")Effect07("fx_probability_change",result.receipt.commandId,new Vector2(1668,288),new Vector2(180,92),id=="I04"?"6 点偏置":"1 点偏置");
-                else if(id=="I01")Effect07("fx_face_change",result.receipt.commandId,new Vector2(1752,284),new Vector2(96,96));
+                // V1.1 (W11): an item that acts on the dice shows its mark at the top of the dice tray; the old points are inside the stage card.
+                var l=L11;bool play=PlayPhase11;
+                if(id=="I04"||id=="I05")Effect07("fx_probability_change",result.receipt.commandId,play?new Vector2(l.dice.center.x-90,l.dice.y+4):new Vector2(1668,288),new Vector2(180,92),id=="I04"?"6 点偏置":"1 点偏置");
+                else if(id=="I01")Effect07("fx_face_change",result.receipt.commandId,play?new Vector2(l.dice.center.x-48,l.dice.y+2):new Vector2(1752,284),new Vector2(96,96));
             }
             if(!string.IsNullOrEmpty(LastTransactionSummary07))ShowEffectSummary07(LastTransactionSummary07,true,ShowLastTransactionDetails07);
             long delta=after.gold-before.gold;
-            if(delta!=0&&EffectReserve07("main",EffectPoolKind.NumberLabel,1)>0)Effect07("fx_cash_ticket",result.receipt.commandId,new Vector2(52,690),new Vector2(220,58),(delta>0?"+":"")+PlayerNumberFormat.Gold(delta));
+            if(delta!=0&&EffectReserve07("main",EffectPoolKind.NumberLabel,1)>0)Effect07("fx_cash_ticket",result.receipt.commandId,PlayPhase11?TopCashPoint11():new Vector2(52,690),new Vector2(220,58),(delta>0?"+":"")+PlayerNumberFormat.Gold(delta));
         }
         private Art07TransactionMotion transactionMotion07;
         private RectTransform transactionReadout07;

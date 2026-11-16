@@ -262,15 +262,18 @@ namespace DiceCraft.Tests
             Assert.That(app.HighScoreTierShown073,Is.Zero,"Nothing before the committed final-score beat.");
             yield return WaitFxPhase07(PresentationPhase.FinalScore);
             Assert.That(app.HighScoreTierShown073,Is.EqualTo(HighScore073.Burst),"596,160 is more than twice the 250,000 target: the top tier (p0.9.0 celebrates by share of the target only).");
-            Assert.That(HasActive("Crown"),Is.True);Assert.That(HasActive("Ray0"),Is.True);Assert.That(HasActive("Spark0"),Is.True);
+            // V1.1 (W11, PLAY_LAYOUT 3, AX-01): no plate over the dice. The tier lights the top bar (two rings from "一手达标"
+            // up) and the rims of both trays, a crown sits on the gain chip and sparks rise from it.
+            Assert.That(HasActive("Crown"),Is.True);Assert.That(HasActive("Spark0"),Is.True);
+            Assert.That(new[]{"TopGlow","TopGlowOuter","TrayGlow","RailGlow"}.All(HasActive),Is.True,"The top tier lights the top bar and both tray rims.");
             var layer=FindActive<RectTransform>("HighScore073");var group=layer.GetComponent<CanvasGroup>();
             Assert.That(group.blocksRaycasts,Is.False);Assert.That(group.interactable,Is.False);
-            Assert.That(layer.GetComponentsInChildren<UnityEngine.UI.Graphic>(false).Where(g=>g.name!="Number"&&g.name!="Caption"&&g.name!="Chain"&&g.name!="Formula").All(g=>!g.raycastTarget||!group.blocksRaycasts),Is.True);
-            // v1.1 (W09): "生效 N 张" instead of "连锁 N" (DEV_PLAN 4.1 item 4); the multiplier keeps its separators.
-            Assert.That(FindActive<TextMeshProUGUI>("Chain").text,Does.Contain("生效").And.Contain("16,560"));
-            Assert.That(FindActive<TextMeshProUGUI>("Formula").text.Count(c=>c=='×'),Is.GreaterThanOrEqualTo(2));
-            int ticks=layer.GetComponentsInChildren<RectTransform>(false).Count(r=>r.name.StartsWith("Scored",StringComparison.Ordinal));
-            Assert.That(ticks,Is.EqualTo(4),"One gold tick per scoring controller.");
+            Assert.That(layer.GetComponentsInChildren<UnityEngine.UI.Graphic>(false).All(g=>!g.raycastTarget||!group.blocksRaycasts),Is.True);
+            // The formula row explains the score in place of the plate's chain line: lit chips joined by at least two "x",
+            // the tier named beside the total, one badge on each card that took part (the plate's gold ticks).
+            Assert.That(app.canvas.GetComponentsInChildren<TextMeshProUGUI>(false).Count(t=>t.name.StartsWith("FormulaSep11_",StringComparison.Ordinal)&&t.text=="×"),Is.GreaterThanOrEqualTo(2));
+            Assert.That(FindActive<TextMeshProUGUI>("TierWord11").text,Is.EqualTo("两倍目标！"));
+            Assert.That(app.ScoreCardBadges11,Is.EqualTo(4),"One badge per scoring card.");
             // The number counts up to the committed score and never passes it.
             System.Numerics.BigInteger last=-1,final=System.Numerics.BigInteger.Parse("596160");bool counted=false;
             double limit=Time.realtimeSinceStartupAsDouble+6;
@@ -287,8 +290,10 @@ namespace DiceCraft.Tests
             // After the presentation it only fades: input is free and the final number is exact.
             Assert.That(app.HighScoreTierShown073,Is.EqualTo(HighScore073.Burst));Assert.That(app.HighScoreFading073,Is.True);
             Assert.That(app.HighScoreText073,Is.EqualTo("596,160"));
+            // v1.1 (W09): "生效 N 张" instead of "连锁 N" (DEV_PLAN 4.1 item 4): after the hand it heads the result row.
+            Assert.That(FindActive<TextMeshProUGUI>("FormulaCaptionText11").text,Does.StartWith("上一手 · 生效 "));
             limit=Time.realtimeSinceStartupAsDouble+2;while(app.HighScoreTierShown073>0&&Time.realtimeSinceStartupAsDouble<limit){Assert.That(app.IsBusy,Is.False);yield return null;}
-            Assert.That(app.HighScoreTierShown073,Is.Zero);Assert.That(HasActive("Plate"),Is.False);
+            Assert.That(app.HighScoreTierShown073,Is.Zero);Assert.That(HasActive("TopGlow"),Is.False);
             Assert.That(GameSession.StateHash(app.Session.State),Is.EqualTo(state));CollectionAssert.AreEqual(save,File.ReadAllBytes(app.SaveLocation));
         }
 
@@ -309,15 +314,17 @@ namespace DiceCraft.Tests
                 if(mode=="Fast"||mode=="Reduced")Assert.That(app.HighScoreText073,Is.EqualTo("596,160"),mode+" shows the final value at once.");
                 if(mode=="Reduced")
                 {
-                    Assert.That(HasActive("Ray0"),Is.False);Assert.That(HasActive("Spark0"),Is.False);Assert.That(HasActive("Crown"),Is.True);
+                    // V1.1 (W11): the lights stay, steady; no sparks; the crown appears without its drop-in scale.
+                    Assert.That(HasActive("Spark0"),Is.False);Assert.That(HasActive("Crown"),Is.True);Assert.That(HasActive("TopGlow"),Is.True);
                     yield return null;
-                    Assert.That(FindActive<RectTransform>("Plate").localScale,Is.EqualTo(Vector3.one),"Reduced motion: no scale.");
+                    Assert.That(FindActive<RectTransform>("Crown").localScale,Is.EqualTo(Vector3.one),"Reduced motion: no scale.");
+                    Assert.That(FindActive<UnityEngine.UI.Image>("TopGlow").canvasRenderer.GetAlpha(),Is.EqualTo(1).Within(.001f),"Reduced motion: no breathing light.");
                     Assert.That(FindActive<RectTransform>("HighScore073").GetComponent<CanvasGroup>().alpha,Is.EqualTo(1));
                 }
                 if(mode=="Skip")
                 {
                     app.SkipVisual();
-                    Assert.That(app.HighScoreTierShown073,Is.Zero,"Skipping drops the celebration in the same call.");Assert.That(HasActive("Plate"),Is.False);
+                    Assert.That(app.HighScoreTierShown073,Is.Zero,"Skipping drops the celebration in the same call.");Assert.That(HasActive("TopGlow"),Is.False);
                 }
                 double limit=Time.realtimeSinceStartupAsDouble+6;
                 while((app.PresentationPlaying07||app.HighScoreTierShown073>0)&&Time.realtimeSinceStartupAsDouble<limit)yield return null;

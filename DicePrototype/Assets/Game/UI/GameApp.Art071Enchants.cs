@@ -53,7 +53,9 @@ namespace DiceCraft
                 if(e.EffectFamily=="enchantment_base")EnchantCue071("base10",e.EmitterId,area,Vector2.zero,Vector2.zero);
                 else
                 {
-                    var factors=FindTransactionRect07("ReceiptFactors");if(factors==null)continue;
+                    // V1.1 (W11): the arc lands on the enchantment chip of the formula row ("附魔", Factor5); the v0.73
+                    // receipt banner it used to reach no longer exists.
+                    var factors=FindTransactionRect07("Factor5")??FindTransactionRect07("ScorePanel")??FindTransactionRect07("ReceiptFactors");if(factors==null)continue;
                     var destination=EnchantBounds071(factors);var full=new Rect(0,0,1920,1080);
                     Vector2 from=new Vector2(card.center.x-full.center.x,full.center.y-card.yMax);
                     Vector2 to=new Vector2(destination.xMin+24-full.center.x,full.center.y-destination.yMin+5);

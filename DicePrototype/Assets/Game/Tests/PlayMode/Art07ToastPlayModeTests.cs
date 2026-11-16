@@ -139,8 +139,11 @@ namespace DiceCraft.Tests
             Assert.That(panel.rect.width,Is.EqualTo(480));Assert.That(label.textInfo.lineCount,Is.InRange(1,2));Assert.That(label.isTextOverflowing||label.isTextTruncated,Is.False);
             foreach(var glyph in ScoreGlyphRects07(label))Assert.That(ScoreContains07(paper,glyph),Is.True,label.text);
             Assert.That(ScoreContains07(new Rect(0,0,Screen.width,Screen.height),paper),Is.True);
-            string[] actions=app.Session.State.phase=="Shop"?new[]{"LeaveShop","RefreshControllers","Pause","Handbook","Study"}:new[]{"Roll","Confirm","Clear","Submit","EndStage","Pause","Handbook"};
-            if(app.Session.State.phase!="Shop"&&HasActive("Factor0"))actions=actions.Concat(Enumerable.Range(0,6).Select(i=>"Factor"+i)).ToArray();
+            // V1.1 (W11, PLAY_LAYOUT 2 and 8): the play screen shows only the available actions and only the formula chips
+            // that change the score (no x1 chip), so the toast is checked against the ones on screen; EndStage, Pause and
+            // Handbook are always there.
+            string[] actions=app.Session.State.phase=="Shop"?new[]{"LeaveShop","RefreshControllers","Pause","Handbook","Study"}:W11ShownActions("Roll","Confirm","Clear","Submit","EndStage","Pause","Handbook");
+            if(app.Session.State.phase!="Shop"){Assert.That(actions,Is.SupersetOf(new[]{"EndStage","Pause","Handbook"}));if(HasActive("Factor0"))actions=actions.Concat(W11ShownActions(Enumerable.Range(0,8).Select(i=>"Factor"+i).ToArray())).ToArray();}
             foreach(string name in actions)
             {
                 var button=Button(name);Rect action=V06ScreenRect((RectTransform)button.transform);

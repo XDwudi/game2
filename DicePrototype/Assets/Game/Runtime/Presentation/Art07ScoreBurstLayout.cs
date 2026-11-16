@@ -18,6 +18,8 @@ namespace DiceCraft.Presentation
         private Sprite squareChip;
         private float squareGeometryFraction;
         public bool IsConfigured=>configured;
+        /// <summary>V1.1 (W11): a host smaller than the v0.73 score rail, such as the total chip of the formula row.</summary>
+        public static bool NarrowHost(Vector2 size)=>size.x<600||size.y<100;
         public void Initialize(Art07PrefabView view)
         {
             if(owner!=null)return;owner=view;
@@ -71,7 +73,7 @@ namespace DiceCraft.Presentation
             for(int i=0;i<owner.burstLayers.Length;i++)if(owner.burstLayers[i]!=null)owner.burstLayers[i].SetActive(i==0||i==2&&tier==3||i==5&&tier==5&&!owner.ReducedMotion);
             // V1.1 (W11): the host can be the small total chip of the formula row instead of the wide v0.73 score rail.
             // A narrow host keeps every stroke inside its own width, and the short flame sits just under it.
-            bool narrow=w<600;
+            bool narrow=NarrowHost(extent);
             if(owner.burstLayers.Length>0)Place((RectTransform)owner.burstLayers[0].transform,narrow?12:w-620,h-7,narrow?w-24:Mathf.Min(360,w-40),2);
             if(owner.burstLayers.Length>2)Place((RectTransform)owner.burstLayers[2].transform,narrow?8:20,h-10,(w-(narrow?16:40))*(owner.ReducedMotion?1:1-Mathf.Pow(1-time,3)),4);
             if(owner.burstLayers.Length>5)

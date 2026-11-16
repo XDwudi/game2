@@ -24,7 +24,8 @@ namespace DiceCraft.Tests
                 Assert.That(app.RecoveredPresentationResultVisible07,Is.True);
                 Assert.That(app.PresentationPlaying07||app.IsBusy,Is.False,"Reload must show the saved result without replaying a receipt.");
                 Assert.That(InformationText07("RecoveredScore07").Replace(",",""),Is.EqualTo(score));
-                Assert.That(InformationText07("RecoveredCaption07"),Is.EqualTo("已恢复上一手结果"));
+                // V1.1 (W11, PLAY_LAYOUT 3): the result row's caption chip carries the recovered state.
+                Assert.That(InformationText07("FormulaCaptionText11"),Is.EqualTo("已恢复上一手结果"));
                 yield return CaptureEdge07("S02-recovered-font"+font);
                 Click("RecoveredDetails07");yield return null;Click("CloseDialog");app.Refresh();
                 Assert.That(StateJson(),Is.EqualTo(before));CollectionAssert.AreEqual(saved,File.ReadAllBytes(app.SaveLocation));
@@ -41,7 +42,8 @@ namespace DiceCraft.Tests
             yield return CardSetFont07(150);
             var ids=app.Session.State.dice.Take(3).Select(d=>d.dieId).ToArray();string before=StateJson();byte[] disk=File.ReadAllBytes(app.SaveLocation);
             foreach(var id in ids)ClickDie(id);
-            Assert.That(InformationButton07("Confirm"),Is.EqualTo("可再锁 2 颗"));Assert.That(Button("Confirm").interactable,Is.False);
+            // V1.1 (W11, PLAY_LAYOUT 2): "最多锁 N 颗" on the disabled primary button.
+            Assert.That(InformationButton07("Confirm"),Is.EqualTo("最多锁 2 颗"));Assert.That(Button("Confirm").interactable,Is.False);
             Assert.That(HasActive("ExcessPending"+ids[0])||HasActive("ExcessPending"+ids[1]),Is.False);Assert.That(HasActive("ExcessPending"+ids[2]),Is.True);
             yield return CaptureEdge07("S05-excess-pending-150");
             var rejected=app.Send(new SessionCommand{kind=CommandKind.ConfirmLocks});Assert.That(rejected.accepted,Is.False);
@@ -58,9 +60,12 @@ namespace DiceCraft.Tests
             foreach(int font in new[]{100,125,150})
             {
                 yield return CardSetFont07(font);
-                Assert.That(InformationText07("QualifiedReward0"),Is.EqualTo("基础奖励  +"+reward.baseReward));
-                Assert.That(InformationText07("QualifiedReward1"),Is.EqualTo("剩次奖励  +"+reward.unusedSubmissionReward));
-                Assert.That(InformationText07("QualifiedReward2"),Is.EqualTo("预计利息  +"+reward.interest));
+                // V1.1 (W11): the settle panel above "结束本关" uses the glossary names (过关奖励, 剩余提交奖励; text proposal
+                // 2.2) under its "现在结束 +N 金币" heading, so the interest line no longer says 预计.
+                Assert.That(InformationText07("QualifiedReward0"),Is.EqualTo("过关奖励  +"+reward.baseReward));
+                Assert.That(InformationText07("QualifiedReward1"),Is.EqualTo("剩余提交奖励  +"+reward.unusedSubmissionReward));
+                Assert.That(InformationText07("QualifiedReward2"),Is.EqualTo("利息  +"+reward.interest));
+                Assert.That(InformationText07("Qualified"),Is.EqualTo("现在结束 +"+PlayerNumberFormat.Gold(reward.goldAfter-reward.goldBefore)+" 金币"));
                 Assert.That(HasActive("QualifiedGoldBorder"),Is.True);
                 var badge=FindActive<RectTransform>("QualifiedSavedBadge07");
                 var scoreFrame=V06ScreenRect(FindActive<RectTransform>("StageScoreFrame"));

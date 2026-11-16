@@ -97,7 +97,8 @@ namespace DiceCraft.Tests
                 var liveCards=app.Session.State.controllers.Select(item=>(RectTransform)Button("Controller_"+item.instanceId).transform).ToArray();
                 for(int i=0;i<liveCards.Length;i++)
                 {
-                    var item=app.Session.State.controllers[i];var cardRead=CardCheck07(liveCards[i],item,"hud-compact",CardExpectedFooter07(item,false));
+                    // V1.1 (W11): a table card without a state shows no state line (TableCardFooter11).
+                    var item=app.Session.State.controllers[i];var cardRead=CardCheck07(liveCards[i],item,"hud-compact",TableCardFooter11(item));
                     Assert.That(cardRead.errors,Is.Empty,"The yielded card keeps all actual glyphs, badges and icon clear: "+item.instanceId+" / "+string.Join("; ",cardRead.errors));
                     for(int j=i+1;j<liveCards.Length;j++)Assert.That(GuideCheckScreenRect07(liveCards[i]).Overlaps(GuideCheckScreenRect07(liveCards[j])),Is.False,"Yielded card hit areas overlap.");
                 }
@@ -113,7 +114,9 @@ namespace DiceCraft.Tests
                     var restored=app.canvas.GetComponentsInChildren<RectTransform>(false).Single(r=>r.name==original.Key);
                     Assert.That(restored.anchoredPosition,Is.EqualTo(original.Value),"Closing restores the original card/item layout: "+original.Key);
                 }
-                Assert.That(FindActive<RectTransform>("Stats07").Find("BrandPaper/Brand").gameObject.activeInHierarchy,Is.True);
+                // V1.1 (W11): the guide paper docks over the stage card (the v0.7 brand paper of the status column is not on
+                // the play screen any more); closing the guide brings the stage card back.
+                Assert.That(FindActive<RectTransform>("StageCard11").gameObject.activeInHierarchy,Is.True);
                 Assert.That(FindActive<RectTransform>("Stats07").Find("Edition").gameObject.activeSelf,Is.True);
                 Assert.That(StateJson(),Is.EqualTo(before));CollectionAssert.AreEqual(disk,File.ReadAllBytes(app.SaveLocation));
             }

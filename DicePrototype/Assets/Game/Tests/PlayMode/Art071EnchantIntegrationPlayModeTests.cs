@@ -78,8 +78,10 @@ namespace DiceCraft.Tests
                     if(firstQualified)
                     {
                         Assert.That(app.QualifiedStampPlaying07,Is.True);
+                        // V1.1 (W11): the v0.7 left column was replaced by the qualified rewards, moving the budget icon. Now
+                        // the budgets keep their panel and the rewards appear in the settle panel above "结束本关".
                         var actualIcon=V06ScreenRect(FindActive<RectTransform>("RollBudgetIcon"));
-                        Assert.That(Vector2.Distance(oldIcon.center,actualIcon.center),Is.GreaterThan(20),"Fixture did not exercise actual header replacement.");
+                        Assert.That(Vector2.Distance(oldIcon.center,actualIcon.center),Is.LessThanOrEqualTo(.5f),"The budget panel keeps its place when the stage qualifies.");
                     }
                     yield return CaptureEdge07("v071-enchant-budget-"+(firstQualified?"first-qualified":"not-qualified"));
                     EnchantCheckpoint071(state,saved,sequence);
@@ -149,12 +151,14 @@ namespace DiceCraft.Tests
                 var cue=EnchantLive071("mult2").Single();Assert.That(cue.BoundInstanceId,Is.EqualTo(e.EmitterId));
                 var arc=(RectTransform)cue.transform.Find("MultiplierArc");var initial=V06ScreenRect(arc).center;
                 player.Tick(beat.DurationMs*.9/1000d);EnchantEffectsTick071(0);Canvas.ForceUpdateCanvases();
-                var target=V06ScreenRect(FindActive<TextMeshProUGUI>("ReceiptFactors").rectTransform);
+                // V1.1 (W11, PLAY_LAYOUT 3): the arc lands on the formula row's enchantment chip (Factor5, "附魔"), which
+                // replaced the v0.73 receipt line "附魔倍率".
+                var chip=(RectTransform)Button("Factor5").transform;var target=V06ScreenRect(chip);
                 var actual=V06ScreenRect(arc);var near=target;near.xMin-=actual.width;near.xMax+=actual.width;near.yMin-=actual.height;near.yMax+=actual.height;
-                Assert.That(near.Contains(actual.center),Is.True,"Arc endpoint must reach the actual visible receipt factors, not remain at a card badge.");
+                Assert.That(near.Contains(actual.center),Is.True,"Arc endpoint must reach the actual visible enchantment chip, not remain at a card badge.");
                 Assert.That(Vector2.Distance(initial,actual.center),Is.GreaterThan(20),"The fixture must exercise a real route.");
                 Assert.That(cue.GetComponent<CanvasGroup>().alpha,Is.GreaterThan(0));
-                Assert.That(FindActive<TextMeshProUGUI>("ReceiptFactors").text,Does.Contain("附魔倍率"));
+                Assert.That(chip.Find("Name").GetComponent<TextMeshProUGUI>().text,Is.EqualTo("附魔"));
                 yield return CaptureEdge07("v071-enchant-multiplier-at-receipt");EnchantCheckpoint071(state,saved,sequence);
                 app.SkipVisual();Assert.That(app.ActiveEnchantmentSources071,Is.Empty);EnchantCheckpoint071(state,saved,sequence);
             }

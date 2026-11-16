@@ -72,9 +72,10 @@ namespace DiceCraft.Tests
                 Assert.That(app.Session.State.hand.orderedLockedIds.Count, Is.EqualTo(8));
                 if (colorAssist) DiceLabelCheck07();
                 yield return Temp071ClockFrame("temporary-eight-locked-" + suffix);
-                int clocks = app.canvas.GetComponentsInChildren<Art071TemporaryClock>(true).Length;
+                // V1.1 (W11): the clocks are badge nodes (Play11Badge); a refresh reuses them as it reused the v0.71 clocks.
+                int clocks = app.canvas.GetComponentsInChildren<Play11Badge>(true).Length;Assert.That(clocks, Is.GreaterThan(0));
                 for (int i = 0; i < 3; i++) { app.Refresh(); yield return null; }
-                Assert.That(app.canvas.GetComponentsInChildren<Art071TemporaryClock>(true).Length, Is.EqualTo(clocks), "Refresh must reuse clock nodes.");
+                Assert.That(app.canvas.GetComponentsInChildren<Play11Badge>(true).Length, Is.EqualTo(clocks), "Refresh must reuse clock nodes.");
             }
             ExtraFinish07();
         }
@@ -85,11 +86,39 @@ namespace DiceCraft.Tests
             var ids = app.canvas.GetComponentsInChildren<DiePointer>(false).Where(p => p.name.StartsWith("Die_")).Select(p => p.name.Substring(4)).ToArray();
             var temporary = ids.Where(id => app.Session.State.dice.Single(d => d.dieId == id).lifetime == "stage_temporary").ToArray();
             Assert.That(temporary, Is.Not.Empty, "A zero-temporary fixture cannot verify clock visibility.");
-            var clocks = temporary.Select(id => FindActive<TextMeshProUGUI>("DieState" + id).GetComponentInChildren<Art071TemporaryClock>(true)).ToArray();
-            Temp071CheckClocks(clocks, scope);
+            // V1.1 (W11, B4): the stage-temporary mark is a clock badge at the die's corner (in its slot's right column once
+            // locked), not a clock glyph inside the die's text label, which no longer exists.
+            var clocks = temporary.Select(id => FindActive<Play11Badge>("TempBadge11_" + id)).ToArray();
+            foreach (var clock in clocks) Assert.That(clock.Kind, Is.EqualTo(Play11Badge.Shape.Clock), scope);
+            foreach (string id in ids) W11AssertBadgesClear(id, scope);
+            Temp071CheckBadges(clocks, scope);
             foreach (string id in ids.Except(temporary))
-                Assert.That(FindActive<TextMeshProUGUI>("DieState" + id).GetComponentsInChildren<Art071TemporaryClock>(false), Is.Empty, "Ordinary die must not retain a pooled clock.");
+                Assert.That(HasActive("TempBadge11_" + id), Is.False, "Ordinary die must not retain a pooled clock.");
             yield return Temp071ClockGpu(scope, clocks);
+        }
+
+        /// <summary>V1.1 (W11): the v0.71 clock clearances for the clock badge: 3 design pixels from every die-related glyph,
+        /// no lock mark, no slot border.</summary>
+        private void Temp071CheckBadges(Play11Badge[] clocks, string scope)
+        {
+            Canvas.ForceUpdateCanvases();
+            var glyphs = app.canvas.GetComponentsInChildren<TextMeshProUGUI>(false)
+                .Where(t => t.name.StartsWith("DieState") || t.name.StartsWith("SlotIndex") || t.name.StartsWith("PendingD")).SelectMany(DiceLabelVisibleGlyphRects07).ToArray();
+            foreach (var clock in clocks)
+            {
+                Assert.That(clock.isActiveAndEnabled, Is.True, scope); Assert.That(clock.raycastTarget, Is.False);
+                Rect bounds = V06ScreenRect(clock.rectTransform);
+                foreach (Rect glyph in glyphs)
+                {
+                    float gap = 3 * app.canvas.scaleFactor;
+                    Assert.That(bounds.Overlaps(Rect.MinMaxRect(glyph.xMin - gap, glyph.yMin - gap, glyph.xMax + gap, glyph.yMax + gap)), Is.False, scope + " clock lacks its 3-design-pixel glyph clearance");
+                }
+                foreach (var mark in app.canvas.GetComponentsInChildren<RectTransform>(false).Where(r => r.name.StartsWith("LockMark")))
+                    Assert.That(bounds.Overlaps(V06ScreenRect(mark)), Is.False, scope + " clock covers lock mark");
+                foreach (var edge in app.canvas.GetComponentsInChildren<UnityEngine.UI.Image>(false))
+                    if (edge.transform.parent != null && edge.transform.parent.name.StartsWith("Slot") && int.TryParse(edge.transform.parent.name.Substring(4), out _))
+                        Assert.That(bounds.Overlaps(V06ScreenRect(edge.rectTransform)), Is.False, scope + " clock covers slot border");
+            }
         }
 
         private void Temp071CheckClocks(Art071TemporaryClock[] clocks, string scope)
@@ -125,7 +154,7 @@ namespace DiceCraft.Tests
             }
         }
 
-        private IEnumerator Temp071ClockGpu(string scope, Art071TemporaryClock[] clocks)
+        private IEnumerator Temp071ClockGpu(string scope, UnityEngine.UI.Graphic[] clocks)
         {
             Texture2D hidden = null, visible = null;
             try

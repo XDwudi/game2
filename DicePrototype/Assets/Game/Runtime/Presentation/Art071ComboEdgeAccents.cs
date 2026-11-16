@@ -56,9 +56,12 @@ namespace DiceCraft.Presentation
                 forbidden.Add(Pad(InVisual(button.transform,((RectTransform)button.transform).rect),3));
             // The legacy L5 flame remains at its tested position and 24–28px ink height.
             // Conservatively reserve its full 238px design width, not just the narrow alpha.
-            if(owner.BurstLevel==5)forbidden.Add(new Rect(area.y<110?368:area.x*.35f,area.y-49,238,38));
-            float diameter=area.y<110?28:42;
-            sizes[0]=Vector2.one*diameter;sizes[1]=sizes[2]=Vector2.one*(area.y<110?32:46);
+            // V1.1 (W11): on a narrow host (the total chip) the flame sits just below the host (Art07ScoreBurstLayout).
+            bool narrow=Art07ScoreBurstLayout.NarrowHost(area);
+            if(owner.BurstLevel==5)forbidden.Add(narrow?new Rect((area.x-238)*.5f,area.y+2,238,38):new Rect(area.y<110?368:area.x*.35f,area.y-49,238,38));
+            // A 60-unit chip has two lanes, above and below its digits: marks that fit one lane each (20 and 22 units).
+            float diameter=narrow?20:area.y<110?28:42;
+            sizes[0]=Vector2.one*diameter;sizes[1]=sizes[2]=Vector2.one*(narrow?22:area.y<110?32:46);
             for(int i=3;i<sizes.Length;i++)sizes[i]=Vector2.one*14;
             marks[0].sprite=owner.scoreRing071;marks[1].sprite=marks[2].sprite=owner.scoreArc071;
             for(int i=0;i<placed.Length;i++)

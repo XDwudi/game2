@@ -91,7 +91,8 @@ namespace DiceCraft.Tests
                 var frozen=typeof(GameApp).GetMethod("DisplayScoreSnapshot07",BindingFlags.NonPublic|BindingFlags.Instance).Invoke(app,null);
                 Assert.That(JsonUtility.ToJson(frozen),Is.EqualTo(oldSnapshot),"Freeze actual current/color/permanent snapshot, not recomputed physical faces.");
                 Assert.That(FindActive<TextMeshProUGUI>("FinalScore").text,Is.EqualTo(oldScore));
-                Assert.That(Button("Confirm").interactable,Is.False);Assert.That(Button("Submit").interactable,Is.False);Assert.That(Button("Roll").interactable,Is.False);
+                // V1.1 (W11, PLAY_LAYOUT 2): while the lock plays no action is offered at all (unavailable actions are not shown).
+                Assert.That(W11ShownActions("Confirm","Submit","Roll","Clear"),Is.Empty);
                 var duplicateAction=app.Send(new SessionCommand{kind=CommandKind.Submit});Assert.That(duplicateAction.accepted,Is.False);
                 DiceInteractionBothClocks07(.01f);Assert.That(Vector3.Distance(DiceInteractionPosition07(ordered[0]),positions[0]),Is.GreaterThan(0));
                 Assert.That(DiceInteractionPosition07(ordered[1]),Is.EqualTo(positions[1]));Assert.That(DiceInteractionPosition07(ordered[2]),Is.EqualTo(positions[2]));
@@ -115,12 +116,21 @@ namespace DiceCraft.Tests
 
         private void AssertPoolMotionLabels07()
         {
+            // V1.1 (W11, B4): a pool die's marks are shape badges at its corner, not a text label under it. While the locked
+            // dice fly and the pool re-flows the badges are not drawn (their final places would hang over a sliding
+            // neighbour); once the dice settle every badge is back and clear of every other die and of its own die's body.
             var state=app.Session.State;
-            var faces=state.dice.Select(d=>app.table.GetFaceOrientation(d.dieId)).Where(p=>p!=null&&p.gameObject.activeInHierarchy)
-                .SelectMany(p=>p.GetComponentsInChildren<MeshRenderer>(false)).Where(r=>r.enabled&&r.name.StartsWith("Face_")).ToArray();
-            foreach(var die in state.dice.Where(d=>!state.hand.orderedLockedIds.Contains(d.dieId)))
-                foreach(var glyph in DiceLabelVisibleGlyphRects07(FindActive<TextMeshProUGUI>("DieState"+die.dieId)))
-                    foreach(var face in faces)Assert.That(glyph.Overlaps(DiceLabelRendererRect07(face)),Is.False,"Moving pool label must not cross another physical face: "+die.dieId);
+            var pool=state.dice.Where(d=>!state.hand.orderedLockedIds.Contains(d.dieId)).Select(d=>d.dieId).ToArray();
+            if(app.LockVisualPlaying07)
+            {
+                foreach(string id in pool)Assert.That(W11Badges(id),Is.Empty,"Moving pool die "+id+" must not leave a mark over the sliding row.");
+                return;
+            }
+            foreach(string id in pool)
+            {
+                CollectionAssert.AreEqual(W11ExpectedBadges(id),W11Badges(id).Select(b=>b.GetComponent<Play11Badge>().Kind).ToArray(),"Settled pool die "+id+" shows its marks again.");
+                W11AssertBadgesClear(id,"settled pool");
+            }
         }
 
         [UnityTest] public IEnumerator PLAY_ART07_DICEINTERACT_FirstRollDotsNeverLoopAndFastReducedSkipFocusDoNotCommitAgain()
@@ -129,10 +139,17 @@ namespace DiceCraft.Tests
             app.enabled=false;
             try
             {
+                // V1.1 (W11, PLAY_LAYOUT 2): the first throw reads "掷骰 [R]"; the real remaining count is the resources panel's
+                // "还能掷" value beside the tray. Both keep every glyph.
                 var ready=Button("Roll").transform.Find("Label").GetComponent<TextMeshProUGUI>();
-                Assert.That(ready.text,Is.EqualTo("掷骰 "+app.Session.State.hand.rollsRemaining+" [R]"));ready.ForceMeshUpdate();
-                foreach(var glyph in ready.textInfo.characterInfo.Take(ready.textInfo.characterCount).Where(c=>!char.IsWhiteSpace(c.character)))
-                    Assert.That(glyph.isVisible,Is.True,"Ready roll label must retain every glyph, including the real remaining count.");
+                Assert.That(ready.text,Is.EqualTo("掷骰 [R]"));
+                var budget=FindActive<TextMeshProUGUI>("RollBudgetValue");Assert.That(budget.text,Is.EqualTo(app.Session.State.hand.rollsRemaining.ToString()));
+                foreach(var label in new[]{ready,budget})
+                {
+                    label.ForceMeshUpdate();
+                    foreach(var glyph in label.textInfo.characterInfo.Take(label.textInfo.characterCount).Where(c=>!char.IsWhiteSpace(c.character)))
+                        Assert.That(glyph.isVisible,Is.True,"Ready roll label and the remaining count must retain every glyph.");
+                }
                 yield return CaptureEdge07("dice-interact-ready-real-roll-budget");
                 Click("Roll");Assert.That(app.IsBusy,Is.True);var dots=FindActive<Art07RollButtonDots>("Roll");Assert.That(dots.IsShowing,Is.True);Assert.That(dots.VisibleStep,Is.Zero);
                 string state=StateJson();byte[] bytes=File.ReadAllBytes(app.SaveLocation);

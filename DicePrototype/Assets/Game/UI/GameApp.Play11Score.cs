@@ -92,27 +92,43 @@ namespace DiceCraft
             bool final=mode!=Formula11Mode.Presenting||beat07!=null&&beat07.Phase>=PresentationPhase.FinalScore;
             string totalText=mode==Formula11Mode.Presenting?(final?CompactScore(beat07.Phase==PresentationPhase.FinalScore?CountedScore11():receipt07.ScoreDecimal):"?"):total;
             string tier=mode==Formula11Mode.Presenting&&final||mode==Formula11Mode.Stable?TierWord11():"";
-            float totalTextW=PreferredWidth11(totalText,c?26:32)+(tier.Length>0?PreferredWidth11(tier,Body11(c?16:19))+12:0);
+            float tierW=tier.Length>0?PreferredWidth11(tier,Body11(c?16:19))+12:0;
+            float totalTextW=PreferredWidth11(totalText,c?26:32)+tierW;
             float totalW=Mathf.Clamp(totalTextW+36,c?140:130,c?520:460);
+            // A high combo (ComboTier 3..5) bursts on the total chip at FinalScore (fx_combo_burst with its ring, arcs and
+            // stars, Art071ComboEdgeAccents). The chip then widens to the left of its number so those marks have room
+            // beside the digits; the room is reserved for the whole presentation, so the factor chips never re-flow.
+            int combo=mode==Formula11Mode.Presenting&&receipt07!=null?receipt07.ComboTier:0;
+            float comboRoom=combo>=5?200:combo==4?100:combo==3?40:0;
             float right=l.chips.width-(detailW>0?detailW+8:0);
+            // After the hand (also when its presentation was skipped) the changes made after scoring stay readable beside
+            // the record button: "后置：提交收入 +1 · 永久改点 2 面" (v0.73 kept them in its result rail).
+            string post=mode==Formula11Mode.Stable?StablePostSummary11():"";
+            if(post.Length>0)
+            {
+                float postFont=Body11(c?15:18),postW=Mathf.Min(c?420:360,PreferredWidth11(post,postFont)+12);right-=postW+8;
+                var line=UiKit.Text(row,"StableResultFactors07",post,right+8,0,postW,l.chips.height,postFont,Color.Lerp(OnFelt11,UiKit.Felt,.2f),TextAlignmentOptions.MidlineRight);
+                line.textWrappingMode=TextWrappingModes.NoWrap;line.overflowMode=TextOverflowModes.Ellipsis;
+            }
             // Factor chips between the caption and the total, separated by "x" and closed by "=", then the total.
             float x0=capW+12;
             float font=c?22:26,nameFont=Body11(c?14:17),sep=c?26:30;
             var factors=Factors11(b);
             float[] widths=factors.Select(f=>PreferredWidth11(f.value,font)+PreferredWidth11(f.name,nameFont)+30).ToArray();
-            float available=right-totalW-x0-6,need=widths.Sum()+sep*factors.Count;
+            float available=right-totalW-comboRoom-x0-6,need=widths.Sum()+sep*factors.Count;
             if(need>available)
             {
                 float squeeze=Mathf.Max(.62f,available/need);font*=Mathf.Max(.75f,squeeze);nameFont=Mathf.Max(Body11(1),nameFont*Mathf.Max(.8f,squeeze));sep*=Mathf.Max(.7f,squeeze);
                 widths=factors.Select(f=>PreferredWidth11(f.value,font)+PreferredWidth11(f.name,nameFont)+24).ToArray();
             }
-            float totalX=Mathf.Min(right-totalW,x0+widths.Sum()+sep*factors.Count);
-            var totalChip=Surface11(row,"FinalScoreChip11",totalX,0,totalW,l.chips.height,"ui_chip_formula",final?UiKit.Reward:Color.Lerp(UiKit.Background,UiKit.Panel,.5f));
-            var number=NoWrap11(UiKit.Text(totalChip,totalName,totalText,14,0,totalW-28-(tier.Length>0?PreferredWidth11(tier,Body11(c?16:19))+12:0),l.chips.height,c?26:32,final?UiKit.Ink:UiKit.Muted,TextAlignmentOptions.MidlineRight));
+            float totalX=Mathf.Min(right-totalW-comboRoom,x0+widths.Sum()+sep*factors.Count);
+            float chipW=totalW+(final?comboRoom:0);
+            var totalChip=Surface11(row,"FinalScoreChip11",totalX,0,chipW,l.chips.height,"ui_chip_formula",final?UiKit.Reward:Color.Lerp(UiKit.Background,UiKit.Panel,.5f));
+            var number=NoWrap11(UiKit.Text(totalChip,totalName,totalText,chipW-totalW+14,0,totalW-28-tierW,l.chips.height,c?26:32,final?UiKit.Ink:UiKit.Muted,TextAlignmentOptions.MidlineRight));
             if(final&&art07NumberFont!=null&&mode!=Formula11Mode.Preview&&totalText.IndexOf(',')<0)number.font=art07NumberFont;
-            if(tier.Length>0)NoWrap11(UiKit.Text(totalChip,"TierWord11",tier,totalW-14-PreferredWidth11(tier,Body11(c?16:19)),0,PreferredWidth11(tier,Body11(c?16:19))+2,l.chips.height,Body11(c?16:19),UiKit.Ink,TextAlignmentOptions.MidlineLeft));
+            if(tier.Length>0)NoWrap11(UiKit.Text(totalChip,"TierWord11",tier,chipW-14-PreferredWidth11(tier,Body11(c?16:19)),0,PreferredWidth11(tier,Body11(c?16:19))+2,l.chips.height,Body11(c?16:19),UiKit.Ink,TextAlignmentOptions.MidlineLeft));
             receiptNumber07=mode==Formula11Mode.Presenting?number:null;
-            if(receiptNumber07!=null){number.rectTransform.pivot=new Vector2(1,.5f);number.rectTransform.anchoredPosition=new Vector2(totalW-14-(tier.Length>0?PreferredWidth11(tier,Body11(c?16:19))+12:0),-l.chips.height*.5f);receiptNumberOrigin07=number.rectTransform.anchoredPosition;}
+            if(receiptNumber07!=null){number.rectTransform.pivot=new Vector2(1,.5f);number.rectTransform.anchoredPosition=new Vector2(chipW-14-tierW,-l.chips.height*.5f);receiptNumberOrigin07=number.rectTransform.anchoredPosition;}
             if(detailName!=null)
             {
                 string label=detailName=="RecoveredDetails07"?"只读收据":detailName=="RandomPreview"?(b.multiplierFactors.Where(f=>f.abilityId=="C53").Select(f=>f.stateOwnerId).Distinct().Count()>1?"随机来源":preview.isRandom?"9 种结果":"覆盖来源"):"完整记录";
@@ -129,11 +145,17 @@ namespace DiceCraft
                 var bd=b;var chip=FormulaChip11(row,f,x,widths[i],l.chips.height,lit,font,nameFont,clickable&&!LockVisualPlaying07,()=>ShowBreakdown(snapshot,bd));
                 if(lit&&mode==Formula11Mode.Presenting&&litCount>litChips11&&litChips11>=0)UiKit.Component<Play11Pop>(chip.gameObject).Play((litCount-litChips11-1)*.06f);
                 x+=widths[i];
-                NoWrap11(UiKit.Text(row,"FormulaSep11_"+i,i<factors.Count-1?"×":"=",x,0,sep,l.chips.height,c?20:24,lit?UiKit.TextColor:UiKit.Muted,TextAlignmentOptions.Center));
+                // The signs sit straight on the felt (the tray is an open frame): they take the felt's contrast colour.
+                NoWrap11(UiKit.Text(row,"FormulaSep11_"+i,i<factors.Count-1?"×":"=",x,0,sep,l.chips.height,c?20:24,lit?OnFelt11:Color.Lerp(OnFelt11,UiKit.Felt,.45f),TextAlignmentOptions.Center));
                 x+=sep;
             }
             litChips11=mode==Formula11Mode.Presenting?litCount:-1;
             if(mode==Formula11Mode.Stable)StableCardBadges11();
+        }
+        private string StablePostSummary11()
+        {
+            var post=receipt07?.Events.Where(e=>e.Phase==PresentationPhase.PostScore).ToArray();
+            return post==null||post.Length==0?"":"后置："+PostSummary07(new PresentationBeat(PresentationPhase.PostScore,0,0,null,true,post));
         }
         private bool ChipLit11(Formula11Mode mode,int role)
         {
@@ -264,8 +286,11 @@ namespace DiceCraft
                     if(!lockedSlotRects07.TryGetValue(group.Key,out var slot)||!dieCenters.TryGetValue(group.Key,out var center))continue;
                     int index=order==null?-1:order.IndexOf(group.Key);bool isSealed=sealedDice!=null&&index>=0&&index<sealedDice.Length&&sealedDice[index];
                     var last=group.Last().Event;string value=isSealed?"封印":"+"+DisplayFraction07(last.AfterValue??last.Operand??"0");
-                    float w=Mathf.Clamp(PreferredWidth11(value,c?18:22)+24,64,Mathf.Max(64,slot.width-6));
-                    var ticket=Surface11(layer,"DieTicket11_"+group.Key,Mathf.Clamp(center.x-w*.5f,slot.x+2,slot.xMax-w-2),slot.y+4,w,32,"ui_chip_formula",isSealed?UiKit.Danger:UiKit.Gold);
+                    // The ticket pops from its centre (up to Play11Pop's 1.12): it stays inside its slot at the peak too.
+                    float w=Mathf.Clamp(PreferredWidth11(value,c?18:22)+24,64,Mathf.Max(64,(slot.width-6)/1.12f));
+                    float tx=Mathf.Clamp(center.x-w*.5f,slot.x+2+w*.06f,slot.xMax-2-w*1.06f);
+                    var ticket=Surface11(layer,"DieTicket11_"+group.Key,tx,slot.y+4,w,32,"ui_chip_formula",isSealed?UiKit.Danger:UiKit.Gold);
+                    ticket.pivot=new Vector2(.5f,.5f);ticket.anchoredPosition=new Vector2(tx+w*.5f,-(slot.y+4+16));
                     NoWrap11(UiKit.Text(ticket,"Value",value,0,0,w,32,c?18:22,isSealed?UiKit.TextColor:UiKit.Ink,TextAlignmentOptions.Center));
                     UiKit.Component<Play11Pop>(ticket.gameObject).Play(n++*.04f);
                 }
@@ -273,7 +298,8 @@ namespace DiceCraft
             foreach(string id in beat.Events.Where(e=>e.IsScoring&&e.CountsForChain).SelectMany(e=>e.SourceEmitterIds).Distinct(StringComparer.Ordinal))
                 CardBadge11(layer,id,true);
             if(beat.Phase==PresentationPhase.FinalScore)TopGain11(layer);
-            if(beat.Phase==PresentationPhase.TargetState){var gain=layer.Find("TopGain11");if(gain!=null)gain.gameObject.SetActive(false);}
+            // The gain chip has been read by the time the post-score changes start; its slot then carries a gold change.
+            if(beat.Phase>=PresentationPhase.PostScore){var gain=layer.Find("TopGain11");if(gain!=null)gain.gameObject.SetActive(false);}
         }
         /// <summary>The badge of a card that took part in this score: "+6×4", "×1.3"; the card lifts once as it appears.</summary>
         private void CardBadge11(Transform layer,string emitterId,bool animate)
@@ -283,6 +309,8 @@ namespace DiceCraft
             string text=CardContribution11(emitterId);if(string.IsNullOrEmpty(text))return;
             bool c=Large11;float w=Mathf.Clamp(PreferredWidth11(text,c?16:20)+22,58,Mathf.Max(58,bounds.width-8)),h=c?30:32;
             var badge=Surface11(layer,"CardBadge11_"+emitterId,bounds.xMax-w-4,bounds.yMin+2,w,h,"ui_chip_formula",UiKit.Reward);
+            // Pinned at its top-right corner: the pop grows it into the card, never past the card's edge.
+            badge.pivot=new Vector2(1,1);badge.anchoredPosition=new Vector2(bounds.xMax-4,-(bounds.yMin+2));
             NoWrap11(UiKit.Text(badge,"Value",text,0,0,w,h,c?16:20,UiKit.Ink,TextAlignmentOptions.Center));
             cardBadges11[emitterId]=badge;
             if(animate)
@@ -351,6 +379,9 @@ namespace DiceCraft
                     if(topScore11.text!=shown)
                     {
                         topScore11.text=shown;
+                        // The settle panel's gap counts down with the rolling total.
+                        var gapText=main.Find("GoalGap11");
+                        if(gapText!=null&&gapText.gameObject.activeSelf){var g=ExactScoreMath.Parse(ViewState.stage.target)-ExactScoreMath.Parse(rolled);if(g.Sign<0)g=0;gapText.GetComponent<TextMeshProUGUI>().text=CompactScore(g.ToString());}
                         var fill=topScoreFrame11?.Find("StageProgress072/Fill");var ease=fill!=null?fill.GetComponent<Art072ProgressEase>():null;
                         if(ease!=null){BigIntegerRatio11(rolled,ViewState.stage.target,out float ratio);var track=(RectTransform)fill.parent;float width=ratio<=0?0:Mathf.Max(7,track.rect.width*Mathf.Clamp01(ratio));ease.Configure(ViewState.runId+"|"+ViewState.stage.stageId,width,7);}
                     }
