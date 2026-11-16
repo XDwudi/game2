@@ -1,0 +1,1930 @@
+{
+  "generator": "tools/v11_golden.py",
+  "schema": "v11-golden-1",
+  "configVersion": "p1.1.0",
+  "derived_from_production_code": false,
+  "reference_scorer": "tools/v10_golden.py",
+  "input_sha256": {
+    "tools/v11_golden.py": "95005a8594ea337d0a92a1b3589a8ded40b954d2569e4fc64a8e94ddffe5c4a9",
+    "tools/v10_golden.py": "8357807122c3da042dfdb356bdabf9e9556715ec3da042a3fd9faac411e0afc9",
+    "DicePrototype/Assets/Game/Data/P0Config.json": "3043203a2aac915d4138b16de57da57e38a86474ee1ee0639fc122da67aad92a",
+    "tools/balance_sim/baseline/P0Config.p1.0.0.json": "8962c85c1950b6a714da7cfc350bbe572dc230f3fe27d516287e96dd79bf1049",
+    "docs/specs/v11/RULES_DELTA.md": "d9402e34a7df72f14e3d95e8a4fc5922a4996407d2225413cebdbb259c0721c9",
+    "docs/specs/v10/RULES_SPEC.md": "4c0e386432b120fafda7c1fd3742cf2bd411facd0a2256697d6eda164d76bd07",
+    "docs/specs/v09/RULES_SPEC.md": "a3d6b6219956efc9f4eac3fe2b40af759dad774296bcb90d8b609b928704f217",
+    "docs/specs/v08/RULES_DELTA.md": "e2628fb3b944cb830c590957b4feda62a314e1452aafdef5b7bfd6ffc5cc281e",
+    "docs/specs/P0_v0.6.md": "36118847044185925057ea33b342756c97498f044bb558a684c82902084245c8",
+    "DicePrototype/Assets/Game/Data/GoldenScores.json": "f9ffc7640d31d3a1eded22084e963ef1029d2c74745fb9fdd421d0295e33fd60",
+    "DicePrototype/Assets/Game/Data/GoldenScoresV09.json": "2aff977888f4b6e2a33560ff5ad9d3b91e2486acc1ebe61d1e93a46cea82de56",
+    "DicePrototype/Assets/Game/Data/GoldenScoresV10.json": "e9b6d1f41dbf83c34b51767c48b6d84943f2cb049d8adf2dc5bff3936b7f1ef1",
+    "tools/balance_sim/baseline/GoldenScores.p0.8.0.json": "f9ffc7640d31d3a1eded22084e963ef1029d2c74745fb9fdd421d0295e33fd60",
+    "tools/balance_sim/baseline/GoldenScoresV09.p0.9.0.json": "2aff977888f4b6e2a33560ff5ad9d3b91e2486acc1ebe61d1e93a46cea82de56"
+  },
+  "golden": "DicePrototype/Assets/Game/Data/GoldenScoresV11.json",
+  "golden_sha256": "13262d1bdfe548849f6040ecb6d0a8b265e4abe20ebcd2f22bf50261c5f85396",
+  "cases": 459,
+  "scoring_cards": 122,
+  "conditional_cards": 83,
+  "cases_per_family": {
+    "two_hit": 122,
+    "mimic_hit": 122,
+    "two_miss": 83,
+    "three_hit": 84,
+    "hand_multiplier": 1,
+    "hand_triple": 2,
+    "hand_addition": 1,
+    "hand_retrigger": 1,
+    "hand_base": 1,
+    "hand_hand_add": 1,
+    "hand_count": 1,
+    "separate_colors": 1,
+    "no_benefiting_die": 1,
+    "zero_factor_still_triggers": 1,
+    "separate_turnover": 1,
+    "separate_random_and_mimic": 1,
+    "separate_state_and_mimic": 15,
+    "growth_condition_miss": 3,
+    "budget_0": 1,
+    "budget_2": 1,
+    "budget_3": 1,
+    "budget_5": 1,
+    "budget_6": 1,
+    "budget_8": 1,
+    "budget_9": 1,
+    "switch_independent_enchants": 7,
+    "income_plan": 1,
+    "net_growth_plan": 1,
+    "upgrade_cap": 1
+  },
+  "hand_checked_cases": [
+    "C46-hand_multiplier",
+    "C46-hand_triple",
+    "C10-hand_addition",
+    "C10-hand_triple",
+    "C64-hand_retrigger",
+    "C50-hand_base",
+    "C84-hand_hand_add",
+    "C47-hand_count",
+    "C45-separate_colors",
+    "C45-no_benefiting_die",
+    "C49-zero_factor_still_triggers",
+    "C51-separate_turnover",
+    "C53-separate_random_and_mimic",
+    "C138-budget_0",
+    "C138-budget_2",
+    "C138-budget_3",
+    "C138-budget_5",
+    "C138-budget_6",
+    "C138-budget_8",
+    "C138-budget_9",
+    "C01-income_plan",
+    "C36-net_growth_plan",
+    "C43-upgrade_cap"
+  ],
+  "legacy_checks": [
+    {
+      "vectors": "DicePrototype/Assets/Game/Data/GoldenScoresV10.json",
+      "config": "tools/balance_sim/baseline/P0Config.p1.0.0.json",
+      "cases": 446,
+      "exact": 446,
+      "all_fields_exact": true
+    },
+    {
+      "vectors": "DicePrototype/Assets/Game/Data/GoldenScoresV10.json",
+      "config": "DicePrototype/Assets/Game/Data/P0Config.json",
+      "cases": 446,
+      "exact": 446,
+      "all_fields_exact": true
+    },
+    {
+      "check": "A",
+      "config": "tools/balance_sim/baseline/P0Config.p1.0.0.json",
+      "configVersion": "p1.0.0",
+      "vectors": "tools/balance_sim/baseline/GoldenScores.p0.8.0.json",
+      "cases": 160,
+      "exact": 160,
+      "fieldMismatches": 0,
+      "all_fields_exact": true
+    },
+    {
+      "check": "B",
+      "config": "tools/balance_sim/baseline/P0Config.p1.0.0.json",
+      "configVersion": "p1.0.0",
+      "vectors": "tools/balance_sim/baseline/GoldenScoresV09.p0.9.0.json",
+      "cases": 260,
+      "exact": 260,
+      "fieldMismatches": 0,
+      "all_fields_exact": true
+    },
+    {
+      "check": "A",
+      "config": "DicePrototype/Assets/Game/Data/P0Config.json",
+      "configVersion": "p1.1.0",
+      "vectors": "tools/balance_sim/baseline/GoldenScores.p0.8.0.json",
+      "cases": 160,
+      "exact": 160,
+      "fieldMismatches": 0,
+      "all_fields_exact": true
+    },
+    {
+      "check": "B",
+      "config": "DicePrototype/Assets/Game/Data/P0Config.json",
+      "configVersion": "p1.1.0",
+      "vectors": "tools/balance_sim/baseline/GoldenScoresV09.p0.9.0.json",
+      "cases": 260,
+      "exact": 260,
+      "fieldMismatches": 0,
+      "all_fields_exact": true
+    }
+  ],
+  "historical_inventory": {
+    "DicePrototype/Assets/Game/Data/GoldenScores.json": [
+      "C01",
+      "C02",
+      "C03",
+      "C06",
+      "C07",
+      "C08",
+      "C09",
+      "C10",
+      "C11",
+      "C12",
+      "C13",
+      "C14",
+      "C15",
+      "C17",
+      "C18",
+      "C19",
+      "C20",
+      "C24",
+      "C25",
+      "C26",
+      "C27",
+      "C28",
+      "C29",
+      "C30",
+      "C31",
+      "C32",
+      "C33",
+      "C36",
+      "C37",
+      "C38",
+      "C39",
+      "C40",
+      "C41",
+      "C42",
+      "C43",
+      "C44",
+      "C45",
+      "C46",
+      "C47",
+      "C48",
+      "C49",
+      "C50",
+      "C51",
+      "C53"
+    ],
+    "DicePrototype/Assets/Game/Data/GoldenScoresV09.json": [
+      "C02",
+      "C03",
+      "C06",
+      "C08",
+      "C09",
+      "C10",
+      "C11",
+      "C12",
+      "C13",
+      "C17",
+      "C20",
+      "C24",
+      "C25",
+      "C27",
+      "C28",
+      "C29",
+      "C31",
+      "C32",
+      "C39",
+      "C40",
+      "C41",
+      "C45",
+      "C46",
+      "C47",
+      "C48",
+      "C50",
+      "C51",
+      "C53",
+      "C54",
+      "C55",
+      "C56",
+      "C57",
+      "C58",
+      "C59",
+      "C60",
+      "C61",
+      "C62",
+      "C63",
+      "C64",
+      "C65",
+      "C66",
+      "C67",
+      "C68",
+      "C69",
+      "C70",
+      "C71",
+      "C72",
+      "C73",
+      "C74",
+      "C75",
+      "C76",
+      "C77",
+      "C80",
+      "C81",
+      "C82",
+      "C83",
+      "C84",
+      "C85",
+      "C86",
+      "C87",
+      "C88",
+      "C89",
+      "C90",
+      "C91",
+      "C92",
+      "C93",
+      "C94",
+      "C100",
+      "C101",
+      "C102",
+      "C103"
+    ],
+    "DicePrototype/Assets/Game/Data/GoldenScoresV10.json": [
+      "C01",
+      "C02",
+      "C03",
+      "C10",
+      "C12",
+      "C13",
+      "C17",
+      "C20",
+      "C25",
+      "C27",
+      "C28",
+      "C29",
+      "C30",
+      "C31",
+      "C39",
+      "C41",
+      "C44",
+      "C45",
+      "C46",
+      "C47",
+      "C48",
+      "C49",
+      "C50",
+      "C51",
+      "C53",
+      "C54",
+      "C55",
+      "C56",
+      "C57",
+      "C58",
+      "C59",
+      "C60",
+      "C61",
+      "C62",
+      "C64",
+      "C65",
+      "C67",
+      "C68",
+      "C69",
+      "C70",
+      "C72",
+      "C73",
+      "C74",
+      "C75",
+      "C76",
+      "C77",
+      "C80",
+      "C81",
+      "C84",
+      "C85",
+      "C87",
+      "C88",
+      "C90",
+      "C91",
+      "C92",
+      "C93",
+      "C94",
+      "C100",
+      "C102",
+      "C104",
+      "C105",
+      "C106",
+      "C107",
+      "C108",
+      "C109",
+      "C117",
+      "C118",
+      "C119",
+      "C122",
+      "C123",
+      "C124",
+      "C125",
+      "C126",
+      "C127",
+      "C129",
+      "C130",
+      "C132",
+      "C134",
+      "C135",
+      "C137",
+      "C138",
+      "C139",
+      "C141",
+      "C142",
+      "C143",
+      "C144",
+      "C146",
+      "C147",
+      "C148",
+      "C149",
+      "C150",
+      "C151",
+      "C152",
+      "C153"
+    ]
+  },
+  "duplicate_coverage": {
+    "C01": {
+      "two_hit": [
+        "C01-two_hit"
+      ],
+      "two_miss": [],
+      "three_hit": [],
+      "mimic_hit": [
+        "C01-mimic_hit"
+      ]
+    },
+    "C02": {
+      "two_hit": [
+        "C02-two_hit"
+      ],
+      "two_miss": [
+        "C02-two_miss"
+      ],
+      "three_hit": [
+        "C02-three_hit"
+      ],
+      "mimic_hit": [
+        "C02-mimic_hit"
+      ]
+    },
+    "C03": {
+      "two_hit": [
+        "C03-two_hit"
+      ],
+      "two_miss": [],
+      "three_hit": [],
+      "mimic_hit": [
+        "C03-mimic_hit"
+      ]
+    },
+    "C06": {
+      "two_hit": [
+        "C06-two_hit"
+      ],
+      "two_miss": [
+        "C06-two_miss"
+      ],
+      "three_hit": [
+        "C06-three_hit"
+      ],
+      "mimic_hit": [
+        "C06-mimic_hit"
+      ]
+    },
+    "C07": {
+      "two_hit": [
+        "C07-two_hit"
+      ],
+      "two_miss": [
+        "C07-two_miss"
+      ],
+      "three_hit": [],
+      "mimic_hit": [
+        "C07-mimic_hit"
+      ]
+    },
+    "C08": {
+      "two_hit": [
+        "C08-two_hit"
+      ],
+      "two_miss": [
+        "C08-two_miss"
+      ],
+      "three_hit": [
+        "C08-three_hit"
+      ],
+      "mimic_hit": [
+        "C08-mimic_hit"
+      ]
+    },
+    "C09": {
+      "two_hit": [
+        "C09-two_hit"
+      ],
+      "two_miss": [],
+      "three_hit": [
+        "C09-three_hit"
+      ],
+      "mimic_hit": [
+        "C09-mimic_hit"
+      ]
+    },
+    "C10": {
+      "two_hit": [
+        "C10-two_hit"
+      ],
+      "two_miss": [
+        "C10-two_miss"
+      ],
+      "three_hit": [
+        "C10-three_hit"
+      ],
+      "mimic_hit": [
+        "C10-mimic_hit"
+      ]
+    },
+    "C11": {
+      "two_hit": [
+        "C11-two_hit"
+      ],
+      "two_miss": [
+        "C11-two_miss"
+      ],
+      "three_hit": [
+        "C11-three_hit"
+      ],
+      "mimic_hit": [
+        "C11-mimic_hit"
+      ]
+    },
+    "C12": {
+      "two_hit": [
+        "C12-two_hit"
+      ],
+      "two_miss": [
+        "C12-two_miss"
+      ],
+      "three_hit": [],
+      "mimic_hit": [
+        "C12-mimic_hit"
+      ]
+    },
+    "C13": {
+      "two_hit": [
+        "C13-two_hit"
+      ],
+      "two_miss": [
+        "C13-two_miss"
+      ],
+      "three_hit": [
+        "C13-three_hit"
+      ],
+      "mimic_hit": [
+        "C13-mimic_hit"
+      ]
+    },
+    "C14": {
+      "two_hit": [
+        "C14-two_hit"
+      ],
+      "two_miss": [
+        "C14-two_miss"
+      ],
+      "three_hit": [
+        "C14-three_hit"
+      ],
+      "mimic_hit": [
+        "C14-mimic_hit"
+      ]
+    },
+    "C15": {
+      "two_hit": [
+        "C15-two_hit"
+      ],
+      "two_miss": [
+        "C15-two_miss"
+      ],
+      "three_hit": [],
+      "mimic_hit": [
+        "C15-mimic_hit"
+      ]
+    },
+    "C17": {
+      "two_hit": [
+        "C17-two_hit"
+      ],
+      "two_miss": [
+        "C17-two_miss"
+      ],
+      "three_hit": [
+        "C17-three_hit"
+      ],
+      "mimic_hit": [
+        "C17-mimic_hit"
+      ]
+    },
+    "C18": {
+      "two_hit": [
+        "C18-two_hit"
+      ],
+      "two_miss": [
+        "C18-two_miss"
+      ],
+      "three_hit": [
+        "C18-three_hit"
+      ],
+      "mimic_hit": [
+        "C18-mimic_hit"
+      ]
+    },
+    "C19": {
+      "two_hit": [
+        "C19-two_hit"
+      ],
+      "two_miss": [
+        "C19-two_miss"
+      ],
+      "three_hit": [
+        "C19-three_hit"
+      ],
+      "mimic_hit": [
+        "C19-mimic_hit"
+      ]
+    },
+    "C20": {
+      "two_hit": [
+        "C20-two_hit"
+      ],
+      "two_miss": [
+        "C20-two_miss"
+      ],
+      "three_hit": [
+        "C20-three_hit"
+      ],
+      "mimic_hit": [
+        "C20-mimic_hit"
+      ]
+    },
+    "C24": {
+      "two_hit": [
+        "C24-two_hit"
+      ],
+      "two_miss": [
+        "C24-two_miss"
+      ],
+      "three_hit": [],
+      "mimic_hit": [
+        "C24-mimic_hit"
+      ]
+    },
+    "C25": {
+      "two_hit": [
+        "C25-two_hit"
+      ],
+      "two_miss": [
+        "C25-two_miss"
+      ],
+      "three_hit": [],
+      "mimic_hit": [
+        "C25-mimic_hit"
+      ]
+    },
+    "C26": {
+      "two_hit": [
+        "C26-two_hit"
+      ],
+      "two_miss": [
+        "C26-two_miss"
+      ],
+      "three_hit": [],
+      "mimic_hit": [
+        "C26-mimic_hit"
+      ]
+    },
+    "C27": {
+      "two_hit": [
+        "C27-two_hit"
+      ],
+      "two_miss": [
+        "C27-two_miss"
+      ],
+      "three_hit": [],
+      "mimic_hit": [
+        "C27-mimic_hit"
+      ]
+    },
+    "C28": {
+      "two_hit": [
+        "C28-two_hit"
+      ],
+      "two_miss": [
+        "C28-two_miss"
+      ],
+      "three_hit": [
+        "C28-three_hit"
+      ],
+      "mimic_hit": [
+        "C28-mimic_hit"
+      ]
+    },
+    "C29": {
+      "two_hit": [
+        "C29-two_hit"
+      ],
+      "two_miss": [
+        "C29-two_miss"
+      ],
+      "three_hit": [],
+      "mimic_hit": [
+        "C29-mimic_hit"
+      ]
+    },
+    "C30": {
+      "two_hit": [
+        "C30-two_hit"
+      ],
+      "two_miss": [
+        "C30-two_miss"
+      ],
+      "three_hit": [
+        "C30-three_hit"
+      ],
+      "mimic_hit": [
+        "C30-mimic_hit"
+      ]
+    },
+    "C31": {
+      "two_hit": [
+        "C31-two_hit"
+      ],
+      "two_miss": [
+        "C31-two_miss"
+      ],
+      "three_hit": [
+        "C31-three_hit"
+      ],
+      "mimic_hit": [
+        "C31-mimic_hit"
+      ]
+    },
+    "C32": {
+      "two_hit": [
+        "C32-two_hit"
+      ],
+      "two_miss": [
+        "C32-two_miss"
+      ],
+      "three_hit": [
+        "C32-three_hit"
+      ],
+      "mimic_hit": [
+        "C32-mimic_hit"
+      ]
+    },
+    "C33": {
+      "two_hit": [
+        "C33-two_hit"
+      ],
+      "two_miss": [
+        "C33-two_miss"
+      ],
+      "three_hit": [
+        "C33-three_hit"
+      ],
+      "mimic_hit": [
+        "C33-mimic_hit"
+      ]
+    },
+    "C36": {
+      "two_hit": [
+        "C36-two_hit"
+      ],
+      "two_miss": [
+        "C36-two_miss"
+      ],
+      "three_hit": [],
+      "mimic_hit": [
+        "C36-mimic_hit"
+      ]
+    },
+    "C37": {
+      "two_hit": [
+        "C37-two_hit"
+      ],
+      "two_miss": [
+        "C37-two_miss"
+      ],
+      "three_hit": [],
+      "mimic_hit": [
+        "C37-mimic_hit"
+      ]
+    },
+    "C38": {
+      "two_hit": [
+        "C38-two_hit"
+      ],
+      "two_miss": [],
+      "three_hit": [],
+      "mimic_hit": [
+        "C38-mimic_hit"
+      ]
+    },
+    "C39": {
+      "two_hit": [
+        "C39-two_hit"
+      ],
+      "two_miss": [
+        "C39-two_miss"
+      ],
+      "three_hit": [
+        "C39-three_hit"
+      ],
+      "mimic_hit": [
+        "C39-mimic_hit"
+      ]
+    },
+    "C40": {
+      "two_hit": [
+        "C40-two_hit"
+      ],
+      "two_miss": [
+        "C40-two_miss"
+      ],
+      "three_hit": [
+        "C40-three_hit"
+      ],
+      "mimic_hit": [
+        "C40-mimic_hit"
+      ]
+    },
+    "C41": {
+      "two_hit": [
+        "C41-two_hit"
+      ],
+      "two_miss": [
+        "C41-two_miss"
+      ],
+      "three_hit": [],
+      "mimic_hit": [
+        "C41-mimic_hit"
+      ]
+    },
+    "C42": {
+      "two_hit": [
+        "C42-two_hit"
+      ],
+      "two_miss": [],
+      "three_hit": [
+        "C42-three_hit"
+      ],
+      "mimic_hit": [
+        "C42-mimic_hit"
+      ]
+    },
+    "C43": {
+      "two_hit": [
+        "C43-two_hit"
+      ],
+      "two_miss": [
+        "C43-two_miss"
+      ],
+      "three_hit": [],
+      "mimic_hit": [
+        "C43-mimic_hit"
+      ]
+    },
+    "C44": {
+      "two_hit": [
+        "C44-two_hit"
+      ],
+      "two_miss": [
+        "C44-two_miss"
+      ],
+      "three_hit": [],
+      "mimic_hit": [
+        "C44-mimic_hit"
+      ]
+    },
+    "C45": {
+      "two_hit": [
+        "C45-two_hit"
+      ],
+      "two_miss": [],
+      "three_hit": [
+        "C45-three_hit"
+      ],
+      "mimic_hit": [
+        "C45-mimic_hit"
+      ]
+    },
+    "C46": {
+      "two_hit": [
+        "C46-two_hit"
+      ],
+      "two_miss": [],
+      "three_hit": [
+        "C46-three_hit"
+      ],
+      "mimic_hit": [
+        "C46-mimic_hit"
+      ]
+    },
+    "C47": {
+      "two_hit": [
+        "C47-two_hit"
+      ],
+      "two_miss": [],
+      "three_hit": [
+        "C47-three_hit"
+      ],
+      "mimic_hit": [
+        "C47-mimic_hit"
+      ]
+    },
+    "C48": {
+      "two_hit": [
+        "C48-two_hit"
+      ],
+      "two_miss": [
+        "C48-two_miss"
+      ],
+      "three_hit": [],
+      "mimic_hit": [
+        "C48-mimic_hit"
+      ]
+    },
+    "C49": {
+      "two_hit": [
+        "C49-two_hit"
+      ],
+      "two_miss": [],
+      "three_hit": [
+        "C49-three_hit"
+      ],
+      "mimic_hit": [
+        "C49-mimic_hit"
+      ]
+    },
+    "C50": {
+      "two_hit": [
+        "C50-two_hit"
+      ],
+      "two_miss": [],
+      "three_hit": [],
+      "mimic_hit": [
+        "C50-mimic_hit"
+      ]
+    },
+    "C51": {
+      "two_hit": [
+        "C51-two_hit"
+      ],
+      "two_miss": [],
+      "three_hit": [
+        "C51-three_hit"
+      ],
+      "mimic_hit": [
+        "C51-mimic_hit"
+      ]
+    },
+    "C53": {
+      "two_hit": [
+        "C53-two_hit"
+      ],
+      "two_miss": [],
+      "three_hit": [
+        "C53-three_hit"
+      ],
+      "mimic_hit": [
+        "C53-mimic_hit"
+      ]
+    },
+    "C54": {
+      "two_hit": [
+        "C54-two_hit"
+      ],
+      "two_miss": [],
+      "three_hit": [
+        "C54-three_hit"
+      ],
+      "mimic_hit": [
+        "C54-mimic_hit"
+      ]
+    },
+    "C55": {
+      "two_hit": [
+        "C55-two_hit"
+      ],
+      "two_miss": [],
+      "three_hit": [],
+      "mimic_hit": [
+        "C55-mimic_hit"
+      ]
+    },
+    "C56": {
+      "two_hit": [
+        "C56-two_hit"
+      ],
+      "two_miss": [],
+      "three_hit": [
+        "C56-three_hit"
+      ],
+      "mimic_hit": [
+        "C56-mimic_hit"
+      ]
+    },
+    "C57": {
+      "two_hit": [
+        "C57-two_hit"
+      ],
+      "two_miss": [],
+      "three_hit": [
+        "C57-three_hit"
+      ],
+      "mimic_hit": [
+        "C57-mimic_hit"
+      ]
+    },
+    "C58": {
+      "two_hit": [
+        "C58-two_hit"
+      ],
+      "two_miss": [],
+      "three_hit": [
+        "C58-three_hit"
+      ],
+      "mimic_hit": [
+        "C58-mimic_hit"
+      ]
+    },
+    "C59": {
+      "two_hit": [
+        "C59-two_hit"
+      ],
+      "two_miss": [],
+      "three_hit": [],
+      "mimic_hit": [
+        "C59-mimic_hit"
+      ]
+    },
+    "C60": {
+      "two_hit": [
+        "C60-two_hit"
+      ],
+      "two_miss": [],
+      "three_hit": [
+        "C60-three_hit"
+      ],
+      "mimic_hit": [
+        "C60-mimic_hit"
+      ]
+    },
+    "C61": {
+      "two_hit": [
+        "C61-two_hit"
+      ],
+      "two_miss": [],
+      "three_hit": [
+        "C61-three_hit"
+      ],
+      "mimic_hit": [
+        "C61-mimic_hit"
+      ]
+    },
+    "C62": {
+      "two_hit": [
+        "C62-two_hit"
+      ],
+      "two_miss": [],
+      "three_hit": [],
+      "mimic_hit": [
+        "C62-mimic_hit"
+      ]
+    },
+    "C63": {
+      "two_hit": [
+        "C63-two_hit"
+      ],
+      "two_miss": [],
+      "three_hit": [
+        "C63-three_hit"
+      ],
+      "mimic_hit": [
+        "C63-mimic_hit"
+      ]
+    },
+    "C64": {
+      "two_hit": [
+        "C64-two_hit"
+      ],
+      "two_miss": [],
+      "three_hit": [
+        "C64-three_hit"
+      ],
+      "mimic_hit": [
+        "C64-mimic_hit"
+      ]
+    },
+    "C65": {
+      "two_hit": [
+        "C65-two_hit"
+      ],
+      "two_miss": [
+        "C65-two_miss"
+      ],
+      "three_hit": [
+        "C65-three_hit"
+      ],
+      "mimic_hit": [
+        "C65-mimic_hit"
+      ]
+    },
+    "C66": {
+      "two_hit": [
+        "C66-two_hit"
+      ],
+      "two_miss": [
+        "C66-two_miss"
+      ],
+      "three_hit": [
+        "C66-three_hit"
+      ],
+      "mimic_hit": [
+        "C66-mimic_hit"
+      ]
+    },
+    "C67": {
+      "two_hit": [
+        "C67-two_hit"
+      ],
+      "two_miss": [
+        "C67-two_miss"
+      ],
+      "three_hit": [
+        "C67-three_hit"
+      ],
+      "mimic_hit": [
+        "C67-mimic_hit"
+      ]
+    },
+    "C68": {
+      "two_hit": [
+        "C68-two_hit"
+      ],
+      "two_miss": [
+        "C68-two_miss"
+      ],
+      "three_hit": [
+        "C68-three_hit"
+      ],
+      "mimic_hit": [
+        "C68-mimic_hit"
+      ]
+    },
+    "C69": {
+      "two_hit": [
+        "C69-two_hit"
+      ],
+      "two_miss": [
+        "C69-two_miss"
+      ],
+      "three_hit": [
+        "C69-three_hit"
+      ],
+      "mimic_hit": [
+        "C69-mimic_hit"
+      ]
+    },
+    "C70": {
+      "two_hit": [
+        "C70-two_hit"
+      ],
+      "two_miss": [
+        "C70-two_miss"
+      ],
+      "three_hit": [],
+      "mimic_hit": [
+        "C70-mimic_hit"
+      ]
+    },
+    "C71": {
+      "two_hit": [
+        "C71-two_hit"
+      ],
+      "two_miss": [
+        "C71-two_miss"
+      ],
+      "three_hit": [
+        "C71-three_hit"
+      ],
+      "mimic_hit": [
+        "C71-mimic_hit"
+      ]
+    },
+    "C72": {
+      "two_hit": [
+        "C72-two_hit"
+      ],
+      "two_miss": [
+        "C72-two_miss"
+      ],
+      "three_hit": [],
+      "mimic_hit": [
+        "C72-mimic_hit"
+      ]
+    },
+    "C73": {
+      "two_hit": [
+        "C73-two_hit"
+      ],
+      "two_miss": [
+        "C73-two_miss"
+      ],
+      "three_hit": [],
+      "mimic_hit": [
+        "C73-mimic_hit"
+      ]
+    },
+    "C74": {
+      "two_hit": [
+        "C74-two_hit"
+      ],
+      "two_miss": [
+        "C74-two_miss"
+      ],
+      "three_hit": [
+        "C74-three_hit"
+      ],
+      "mimic_hit": [
+        "C74-mimic_hit"
+      ]
+    },
+    "C75": {
+      "two_hit": [
+        "C75-two_hit"
+      ],
+      "two_miss": [
+        "C75-two_miss"
+      ],
+      "three_hit": [
+        "C75-three_hit"
+      ],
+      "mimic_hit": [
+        "C75-mimic_hit"
+      ]
+    },
+    "C76": {
+      "two_hit": [
+        "C76-two_hit"
+      ],
+      "two_miss": [
+        "C76-two_miss"
+      ],
+      "three_hit": [],
+      "mimic_hit": [
+        "C76-mimic_hit"
+      ]
+    },
+    "C77": {
+      "two_hit": [
+        "C77-two_hit"
+      ],
+      "two_miss": [
+        "C77-two_miss"
+      ],
+      "three_hit": [
+        "C77-three_hit"
+      ],
+      "mimic_hit": [
+        "C77-mimic_hit"
+      ]
+    },
+    "C80": {
+      "two_hit": [
+        "C80-two_hit"
+      ],
+      "two_miss": [
+        "C80-two_miss"
+      ],
+      "three_hit": [],
+      "mimic_hit": [
+        "C80-mimic_hit"
+      ]
+    },
+    "C81": {
+      "two_hit": [
+        "C81-two_hit"
+      ],
+      "two_miss": [
+        "C81-two_miss"
+      ],
+      "three_hit": [
+        "C81-three_hit"
+      ],
+      "mimic_hit": [
+        "C81-mimic_hit"
+      ]
+    },
+    "C82": {
+      "two_hit": [
+        "C82-two_hit"
+      ],
+      "two_miss": [
+        "C82-two_miss"
+      ],
+      "three_hit": [
+        "C82-three_hit"
+      ],
+      "mimic_hit": [
+        "C82-mimic_hit"
+      ]
+    },
+    "C83": {
+      "two_hit": [
+        "C83-two_hit"
+      ],
+      "two_miss": [
+        "C83-two_miss"
+      ],
+      "three_hit": [
+        "C83-three_hit"
+      ],
+      "mimic_hit": [
+        "C83-mimic_hit"
+      ]
+    },
+    "C84": {
+      "two_hit": [
+        "C84-two_hit"
+      ],
+      "two_miss": [
+        "C84-two_miss"
+      ],
+      "three_hit": [
+        "C84-three_hit"
+      ],
+      "mimic_hit": [
+        "C84-mimic_hit"
+      ]
+    },
+    "C85": {
+      "two_hit": [
+        "C85-two_hit"
+      ],
+      "two_miss": [
+        "C85-two_miss"
+      ],
+      "three_hit": [
+        "C85-three_hit"
+      ],
+      "mimic_hit": [
+        "C85-mimic_hit"
+      ]
+    },
+    "C86": {
+      "two_hit": [
+        "C86-two_hit"
+      ],
+      "two_miss": [
+        "C86-two_miss"
+      ],
+      "three_hit": [
+        "C86-three_hit"
+      ],
+      "mimic_hit": [
+        "C86-mimic_hit"
+      ]
+    },
+    "C87": {
+      "two_hit": [
+        "C87-two_hit"
+      ],
+      "two_miss": [
+        "C87-two_miss"
+      ],
+      "three_hit": [
+        "C87-three_hit"
+      ],
+      "mimic_hit": [
+        "C87-mimic_hit"
+      ]
+    },
+    "C88": {
+      "two_hit": [
+        "C88-two_hit"
+      ],
+      "two_miss": [
+        "C88-two_miss"
+      ],
+      "three_hit": [
+        "C88-three_hit"
+      ],
+      "mimic_hit": [
+        "C88-mimic_hit"
+      ]
+    },
+    "C89": {
+      "two_hit": [
+        "C89-two_hit"
+      ],
+      "two_miss": [
+        "C89-two_miss"
+      ],
+      "three_hit": [
+        "C89-three_hit"
+      ],
+      "mimic_hit": [
+        "C89-mimic_hit"
+      ]
+    },
+    "C90": {
+      "two_hit": [
+        "C90-two_hit"
+      ],
+      "two_miss": [],
+      "three_hit": [
+        "C90-three_hit"
+      ],
+      "mimic_hit": [
+        "C90-mimic_hit"
+      ]
+    },
+    "C91": {
+      "two_hit": [
+        "C91-two_hit"
+      ],
+      "two_miss": [
+        "C91-two_miss"
+      ],
+      "three_hit": [
+        "C91-three_hit"
+      ],
+      "mimic_hit": [
+        "C91-mimic_hit"
+      ]
+    },
+    "C92": {
+      "two_hit": [
+        "C92-two_hit"
+      ],
+      "two_miss": [
+        "C92-two_miss"
+      ],
+      "three_hit": [
+        "C92-three_hit"
+      ],
+      "mimic_hit": [
+        "C92-mimic_hit"
+      ]
+    },
+    "C93": {
+      "two_hit": [
+        "C93-two_hit"
+      ],
+      "two_miss": [
+        "C93-two_miss"
+      ],
+      "three_hit": [
+        "C93-three_hit"
+      ],
+      "mimic_hit": [
+        "C93-mimic_hit"
+      ]
+    },
+    "C94": {
+      "two_hit": [
+        "C94-two_hit"
+      ],
+      "two_miss": [],
+      "three_hit": [
+        "C94-three_hit"
+      ],
+      "mimic_hit": [
+        "C94-mimic_hit"
+      ]
+    },
+    "C100": {
+      "two_hit": [
+        "C100-two_hit"
+      ],
+      "two_miss": [],
+      "three_hit": [
+        "C100-three_hit"
+      ],
+      "mimic_hit": [
+        "C100-mimic_hit"
+      ]
+    },
+    "C101": {
+      "two_hit": [
+        "C101-two_hit"
+      ],
+      "two_miss": [],
+      "three_hit": [
+        "C101-three_hit"
+      ],
+      "mimic_hit": [
+        "C101-mimic_hit"
+      ]
+    },
+    "C102": {
+      "two_hit": [
+        "C102-two_hit"
+      ],
+      "two_miss": [
+        "C102-two_miss"
+      ],
+      "three_hit": [
+        "C102-three_hit"
+      ],
+      "mimic_hit": [
+        "C102-mimic_hit"
+      ]
+    },
+    "C103": {
+      "two_hit": [
+        "C103-two_hit"
+      ],
+      "two_miss": [
+        "C103-two_miss"
+      ],
+      "three_hit": [
+        "C103-three_hit"
+      ],
+      "mimic_hit": [
+        "C103-mimic_hit"
+      ]
+    },
+    "C104": {
+      "two_hit": [
+        "C104-two_hit"
+      ],
+      "two_miss": [
+        "C104-two_miss"
+      ],
+      "three_hit": [
+        "C104-three_hit"
+      ],
+      "mimic_hit": [
+        "C104-mimic_hit"
+      ]
+    },
+    "C105": {
+      "two_hit": [
+        "C105-two_hit"
+      ],
+      "two_miss": [
+        "C105-two_miss"
+      ],
+      "three_hit": [
+        "C105-three_hit"
+      ],
+      "mimic_hit": [
+        "C105-mimic_hit"
+      ]
+    },
+    "C106": {
+      "two_hit": [
+        "C106-two_hit"
+      ],
+      "two_miss": [
+        "C106-two_miss"
+      ],
+      "three_hit": [
+        "C106-three_hit"
+      ],
+      "mimic_hit": [
+        "C106-mimic_hit"
+      ]
+    },
+    "C107": {
+      "two_hit": [
+        "C107-two_hit"
+      ],
+      "two_miss": [
+        "C107-two_miss"
+      ],
+      "three_hit": [
+        "C107-three_hit"
+      ],
+      "mimic_hit": [
+        "C107-mimic_hit"
+      ]
+    },
+    "C108": {
+      "two_hit": [
+        "C108-two_hit"
+      ],
+      "two_miss": [],
+      "three_hit": [],
+      "mimic_hit": [
+        "C108-mimic_hit"
+      ]
+    },
+    "C109": {
+      "two_hit": [
+        "C109-two_hit"
+      ],
+      "two_miss": [
+        "C109-two_miss"
+      ],
+      "three_hit": [
+        "C109-three_hit"
+      ],
+      "mimic_hit": [
+        "C109-mimic_hit"
+      ]
+    },
+    "C117": {
+      "two_hit": [
+        "C117-two_hit"
+      ],
+      "two_miss": [],
+      "three_hit": [],
+      "mimic_hit": [
+        "C117-mimic_hit"
+      ]
+    },
+    "C118": {
+      "two_hit": [
+        "C118-two_hit"
+      ],
+      "two_miss": [],
+      "three_hit": [],
+      "mimic_hit": [
+        "C118-mimic_hit"
+      ]
+    },
+    "C119": {
+      "two_hit": [
+        "C119-two_hit"
+      ],
+      "two_miss": [],
+      "three_hit": [],
+      "mimic_hit": [
+        "C119-mimic_hit"
+      ]
+    },
+    "C122": {
+      "two_hit": [
+        "C122-two_hit"
+      ],
+      "two_miss": [],
+      "three_hit": [],
+      "mimic_hit": [
+        "C122-mimic_hit"
+      ]
+    },
+    "C123": {
+      "two_hit": [
+        "C123-two_hit"
+      ],
+      "two_miss": [],
+      "three_hit": [],
+      "mimic_hit": [
+        "C123-mimic_hit"
+      ]
+    },
+    "C124": {
+      "two_hit": [
+        "C124-two_hit"
+      ],
+      "two_miss": [],
+      "three_hit": [],
+      "mimic_hit": [
+        "C124-mimic_hit"
+      ]
+    },
+    "C125": {
+      "two_hit": [
+        "C125-two_hit"
+      ],
+      "two_miss": [],
+      "three_hit": [],
+      "mimic_hit": [
+        "C125-mimic_hit"
+      ]
+    },
+    "C126": {
+      "two_hit": [
+        "C126-two_hit"
+      ],
+      "two_miss": [
+        "C126-two_miss"
+      ],
+      "three_hit": [],
+      "mimic_hit": [
+        "C126-mimic_hit"
+      ]
+    },
+    "C127": {
+      "two_hit": [
+        "C127-two_hit"
+      ],
+      "two_miss": [
+        "C127-two_miss"
+      ],
+      "three_hit": [],
+      "mimic_hit": [
+        "C127-mimic_hit"
+      ]
+    },
+    "C129": {
+      "two_hit": [
+        "C129-two_hit"
+      ],
+      "two_miss": [],
+      "three_hit": [
+        "C129-three_hit"
+      ],
+      "mimic_hit": [
+        "C129-mimic_hit"
+      ]
+    },
+    "C130": {
+      "two_hit": [
+        "C130-two_hit"
+      ],
+      "two_miss": [
+        "C130-two_miss"
+      ],
+      "three_hit": [
+        "C130-three_hit"
+      ],
+      "mimic_hit": [
+        "C130-mimic_hit"
+      ]
+    },
+    "C132": {
+      "two_hit": [
+        "C132-two_hit"
+      ],
+      "two_miss": [],
+      "three_hit": [
+        "C132-three_hit"
+      ],
+      "mimic_hit": [
+        "C132-mimic_hit"
+      ]
+    },
+    "C134": {
+      "two_hit": [
+        "C134-two_hit"
+      ],
+      "two_miss": [],
+      "three_hit": [
+        "C134-three_hit"
+      ],
+      "mimic_hit": [
+        "C134-mimic_hit"
+      ]
+    },
+    "C135": {
+      "two_hit": [
+        "C135-two_hit"
+      ],
+      "two_miss": [
+        "C135-two_miss"
+      ],
+      "three_hit": [],
+      "mimic_hit": [
+        "C135-mimic_hit"
+      ]
+    },
+    "C137": {
+      "two_hit": [
+        "C137-two_hit"
+      ],
+      "two_miss": [
+        "C137-two_miss"
+      ],
+      "three_hit": [
+        "C137-three_hit"
+      ],
+      "mimic_hit": [
+        "C137-mimic_hit"
+      ]
+    },
+    "C138": {
+      "two_hit": [
+        "C138-two_hit"
+      ],
+      "two_miss": [
+        "C138-two_miss"
+      ],
+      "three_hit": [
+        "C138-three_hit"
+      ],
+      "mimic_hit": [
+        "C138-mimic_hit"
+      ]
+    },
+    "C139": {
+      "two_hit": [
+        "C139-two_hit"
+      ],
+      "two_miss": [
+        "C139-two_miss"
+      ],
+      "three_hit": [
+        "C139-three_hit"
+      ],
+      "mimic_hit": [
+        "C139-mimic_hit"
+      ]
+    },
+    "C141": {
+      "two_hit": [
+        "C141-two_hit"
+      ],
+      "two_miss": [],
+      "three_hit": [
+        "C141-three_hit"
+      ],
+      "mimic_hit": [
+        "C141-mimic_hit"
+      ]
+    },
+    "C142": {
+      "two_hit": [
+        "C142-two_hit"
+      ],
+      "two_miss": [
+        "C142-two_miss"
+      ],
+      "three_hit": [
+        "C142-three_hit"
+      ],
+      "mimic_hit": [
+        "C142-mimic_hit"
+      ]
+    },
+    "C143": {
+      "two_hit": [
+        "C143-two_hit"
+      ],
+      "two_miss": [
+        "C143-two_miss"
+      ],
+      "three_hit": [
+        "C143-three_hit"
+      ],
+      "mimic_hit": [
+        "C143-mimic_hit"
+      ]
+    },
+    "C144": {
+      "two_hit": [
+        "C144-two_hit"
+      ],
+      "two_miss": [
+        "C144-two_miss"
+      ],
+      "three_hit": [
+        "C144-three_hit"
+      ],
+      "mimic_hit": [
+        "C144-mimic_hit"
+      ]
+    },
+    "C146": {
+      "two_hit": [
+        "C146-two_hit"
+      ],
+      "two_miss": [
+        "C146-two_miss"
+      ],
+      "three_hit": [],
+      "mimic_hit": [
+        "C146-mimic_hit"
+      ]
+    },
+    "C147": {
+      "two_hit": [
+        "C147-two_hit"
+      ],
+      "two_miss": [
+        "C147-two_miss"
+      ],
+      "three_hit": [
+        "C147-three_hit"
+      ],
+      "mimic_hit": [
+        "C147-mimic_hit"
+      ]
+    },
+    "C148": {
+      "two_hit": [
+        "C148-two_hit"
+      ],
+      "two_miss": [
+        "C148-two_miss"
+      ],
+      "three_hit": [
+        "C148-three_hit"
+      ],
+      "mimic_hit": [
+        "C148-mimic_hit"
+      ]
+    },
+    "C149": {
+      "two_hit": [
+        "C149-two_hit"
+      ],
+      "two_miss": [
+        "C149-two_miss"
+      ],
+      "three_hit": [
+        "C149-three_hit"
+      ],
+      "mimic_hit": [
+        "C149-mimic_hit"
+      ]
+    },
+    "C150": {
+      "two_hit": [
+        "C150-two_hit"
+      ],
+      "two_miss": [
+        "C150-two_miss"
+      ],
+      "three_hit": [
+        "C150-three_hit"
+      ],
+      "mimic_hit": [
+        "C150-mimic_hit"
+      ]
+    },
+    "C151": {
+      "two_hit": [
+        "C151-two_hit"
+      ],
+      "two_miss": [
+        "C151-two_miss"
+      ],
+      "three_hit": [
+        "C151-three_hit"
+      ],
+      "mimic_hit": [
+        "C151-mimic_hit"
+      ]
+    },
+    "C152": {
+      "two_hit": [
+        "C152-two_hit"
+      ],
+      "two_miss": [
+        "C152-two_miss"
+      ],
+      "three_hit": [
+        "C152-three_hit"
+      ],
+      "mimic_hit": [
+        "C152-mimic_hit"
+      ]
+    },
+    "C153": {
+      "two_hit": [
+        "C153-two_hit"
+      ],
+      "two_miss": [
+        "C153-two_miss"
+      ],
+      "three_hit": [
+        "C153-three_hit"
+      ],
+      "mimic_hit": [
+        "C153-mimic_hit"
+      ]
+    }
+  },
+  "spec_readings": {
+    "D01": "范围由旧三份黄金文件实际触发来源的实体定义及模仿目标并集核对，共122张；包括只产生提交后计划的卡与C41。28张非Submit卡不在F-DUP-03范围。",
+    "D02": "v11 §1.1.7：每个真实副本是来源；整手倍率逐来源相乘，加值与再计次数相加；最后只向下取整一次。三张覆盖全部整手乘法卡、逐骰加法卡，另覆盖逐骰乘法与再计。",
+    "D03": "P0 v0.6触发表及v09/v10触发表：总是触发不等于有收益。C45无匹配颜色、C49无5点、零成长与已满足目标的养成卡仍触发，不能伪造未触发样例。",
+    "D04": "C03/C12/C24/C25/C29/C73/C146只改变一次有效值/分组/阈值；每个来源仍独立触发自身附魔。C12仍只奇数+1，C73留池红骰只并一次，C146只+1。",
+    "D05": "v0.6模仿条款、v09 §2.2：C41链追到真实目标，复用目标颜色、成长、周转与随机结果；自身附魔独立。真实重复卡各有状态，成长计划只列真实实例一次。",
+    "D06": "v10 §6.9 C138：按来源从左到右预留冻结钱包，每次3金币；2/3个来源全触发分别需6/9。当前提交收入不纳入预算，C44/C139仍读冻结钱包。",
+    "D07": "v10 §5.3、6.9：骰面计划基于同一冻结六面数据，按每来源列出。C117/118/119/125/127最终赋值可幂等，但列表不能去重；C119不会让后一个副本另找新面。§4逐卡表不是期望值来源。",
+    "D08": "v08 §1.2、v10 §6.9：C47按所有真实装备件数计算每份倍率；C151按占用普通栏位数；C152按常见实体数。副本和C41各占一件，模仿不额外创造实体。",
+    "D09": "C09容量减值与C101提交预算按来源累加后夹下限；不是沿用v10仅唯一实体的生成器校验。扩容后的容量5至8与骰子购买/移除状态可达。",
+    "D10": "C100在关卡开始依次摧毁右邻；测试提交快照里的两张祭坛可由C100/祭品/C100排列产生，三张可由C100/祭品/C100/祭品/C100产生；存活相邻并不表示开关时原来就相邻。",
+    "D11": "旧数值经v08与v09/v10覆盖：如C46×2、C42×5、C13+4、C19+8、C20+15、C44每金币+1。p1.1.0仅允许文字/重复持有字段变化；规范化配置逐字段等于冻结p1.0.0。",
+    "D12": "条件卡的two_miss使用自然条件失败，不用禁用卡替代。成长触发与计分触发分开：C54/56/57没有成长时仍是计分来源；养成目标无变化时仍可总是触发。",
+    "D13": "afterScorePlan额外保留旧参考输出，验证提交收入、染色、净点数变更、牌型升级、真实状态所有者与玻璃大炮风险来源；不把计划验证声称为会话执行或随机概率验证。"
+  },
+  "changed_existing_expectations": [],
+  "production_comparison": "See nunit-managed-report.json and W06_REPORT.md; generation never reads production results."
+}

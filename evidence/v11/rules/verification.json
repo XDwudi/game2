@@ -1,0 +1,114 @@
+{
+  "task": "W06",
+  "acceptance": "F-DUP-03",
+  "status": "REVIEW",
+  "utc": "2026-11-16T19:10:03.843594+00:00",
+  "branch": "codex/v1.1-golden",
+  "head": "ef4283d83b90538979f2be629c0a729e71f945a2",
+  "uncommitted": true,
+  "environment": {
+    "os": "Windows-10-10.0.19045-SP0",
+    "python": "3.11.4 | packaged by Anaconda, Inc. | (main, Jul  5 2023, 13:38:37) [MSC v.1916 64 bit (AMD64)]",
+    "python_executable": "E:\\anaconda3\\python.exe",
+    "dotnet_sdk": "10.0.403",
+    "nunit_assembly_version": "3.5.0.0",
+    "nunit_dll_sha256": "a607364879b5f5c337b979e9de23654459df45ba1a7324d54aa9df93540dc7a2",
+    "managed_host_assembly_sha256": "40cf3a62e9a7f3a75c2f5564a793ded4f0110c4be98ec74bec940bb7f3e4c616"
+  },
+  "commands": {
+    "verify": [
+      "E:\\anaconda3\\python.exe",
+      "tools/v11_golden.py",
+      "verify"
+    ],
+    "check": [
+      "E:\\anaconda3\\python.exe",
+      "tools/v11_golden.py",
+      "check"
+    ],
+    "unittest": [
+      "E:\\anaconda3\\python.exe",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tests",
+      "-v"
+    ],
+    "nunit": [
+      "dotnet",
+      "run",
+      "--project",
+      "DicePrototype/Assets/Game/Core/Rules/Validation~/RulesNUnitValidation.csproj",
+      "-c",
+      "Release",
+      "-p:BaseOutputPath=E:\\agent_workspace\\gpt\\wt-v11-golden\\evidence\\v11\\rules\\build-bin/",
+      "-p:BaseIntermediateOutputPath=E:\\agent_workspace\\gpt\\wt-v11-golden\\evidence\\v11\\rules\\build-obj/",
+      "-p:NuGetAudit=false"
+    ]
+  },
+  "python_unittest": {
+    "passed": 222,
+    "failed": 0,
+    "new_tests": 7
+  },
+  "nunit_host": {
+    "passed": 1682,
+    "failed": 0,
+    "total": 1682,
+    "v11_passed": 463,
+    "v11_vector_cases": 459,
+    "v11_coverage_tests": 4,
+    "existing_tests_passed": 1219
+  },
+  "disagreements": [],
+  "changed_existing_expectations": [],
+  "draft_expectation_corrections": "draft-expectation-changes.json",
+  "independent_review": {
+    "agent": "/root/spec_audit",
+    "spec_compliance": "PASS",
+    "production_quality": "PASS",
+    "scope": "Rules, reference generator, JSON fixtures, JSON-only independent arithmetic audit. No production C# read.",
+    "resolved_findings": [
+      "Draft growth states replaced with multiples of each card growth step."
+    ]
+  },
+  "not_run": [
+    "Unity EditMode",
+    "Unity PlayMode"
+  ],
+  "old_nunit_report_restored_sha256": "a16ca4a5ae872bc1a4cfaa9f437c29effa0d0ee0a2a8fce806da272de7c40bf4",
+  "initial_compile_failure": {
+    "reason": "NUnit 3.5 custom DLL lacks Assert.Multiple",
+    "resolution": "Removed unsupported wrapper; retained every assertion, rerun 1682/1682."
+  },
+  "artifact_sha256": {
+    "tools/v11_golden.py": "95005a8594ea337d0a92a1b3589a8ded40b954d2569e4fc64a8e94ddffe5c4a9",
+    "tests/test_v11_golden.py": "993080981f04cdd5c8a20f97b4d7c04254e121c510e4ec4550c4c59ff411a63e",
+    "DicePrototype/Assets/Game/Data/GoldenScoresV11.json": "13262d1bdfe548849f6040ecb6d0a8b265e4abe20ebcd2f22bf50261c5f85396",
+    "DicePrototype/Assets/Game/Tests/EditMode/Rules/V11GoldenTests.cs": "c384b8ad54c9c7d1fb789963c1777047540deed9e46ecfb462484b0e988ca551",
+    "docs/specs/v11/W06_REPORT.md": "4d827426f054760d3580e45d02818175044e783fda1919d1fa006ef719e68b8b",
+    "evidence/v11/rules/draft-expectation-changes.json": "9e87c86fb47b0254bcb47c514e778b33b99dd69d06742b3186190464288f20bf",
+    "evidence/v11/rules/golden-provenance.json": "b3c45ecbce4f772b600d82f921035ca8453f37f7174fff49508e4397c8cdce6f",
+    "evidence/v11/rules/independent-audit-result.json": "4a99b4e651c484d9de532a82c9ec7d2e497663b3beb4736a2ffae535fdb84a10",
+    "evidence/v11/rules/independent-audit.py": "f132bc104806cf76e547d9c4b74cc39e924c893241efd9638ebfe0e968279810",
+    "evidence/v11/rules/nunit-host-initial-compile-failure.log": "e779d1c9e8338e11197ff68baaa8af9a1fac51f27d6bb285c6e9421bb611ca02",
+    "evidence/v11/rules/nunit-host.log": "8d21953f6b78d1f287ce1744f8dbeccd554477768f9b715ffa7d888667521dac",
+    "evidence/v11/rules/nunit-managed-report.json": "566aed2564d33f93816031b4e62c8f362186177a7b553fcffc931ae8ce3d2a4b",
+    "evidence/v11/rules/python-unittest.log": "801764fe35b4613b68082a177ec16a8848e31c58ee108e142741a1c08c0aa875",
+    "evidence/v11/rules/reference-check.log": "98afffece17eb8c6efcbec0395c6d9f168cc8a32a766dc2cdc8cd378c157796f",
+    "evidence/v11/rules/reference-verify.log": "5f9516cb3568030aa34ee940f2774f31568b6c577f257b79ad154ed5db42af3c",
+    "evidence/v11/rules/.gitignore": "d00bbf9d4b598e4faabbe143def3167dc701c29709de62bf0bfa53f161d09516"
+  },
+  "build_cache_cleanup": {
+    "result": "not_permitted",
+    "automatic_approval_rejections": 2,
+    "reason": "blocked by policy",
+    "remaining_directories": [
+      "evidence/v11/rules/build-bin",
+      "evidence/v11/rules/build-obj",
+      "evidence/v11/rules/build-home"
+    ],
+    "mitigation": "Local .gitignore excludes generated binaries and CLI caches; no files staged."
+  }
+}
