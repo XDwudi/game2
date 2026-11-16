@@ -2,6 +2,7 @@
 // v0.8 added by hand: controllerSellDivisor, perControllerUnits2 (C47), maxGrowthPerShop (C51); see docs/specs/v08/RULES_DELTA.md.
 // v0.9 added by hand: maxOrdinaryControllerSlots, controllerSlotPriceStep and the C54-C103 parameters; see docs/specs/v09/RULES_SPEC.md.
 // v1.0 added by hand: boss modifiers, loot kinds, stageKind, face weights and the C104-C153 parameters; see docs/specs/v10/RULES_SPEC.md.
+// v1.1 added by hand: player-facing shortText/details on the six content categories; see docs/specs/v11/DEV_PLAN.md W10.
 using System;
 
 namespace DiceCraft.Core
@@ -213,6 +214,8 @@ namespace DiceCraft.Core
         public bool scoreEnchantEligible;
         public ControllerParameters parameters;
         public string description;
+        public string shortText;
+        public string details;
     }
 
     [Serializable]
@@ -373,6 +376,8 @@ namespace DiceCraft.Core
         public string window;
         public string lifetime;
         public string description;
+        public string shortText;
+        public string details;
     }
 
     [Serializable]
@@ -383,6 +388,8 @@ namespace DiceCraft.Core
         public int baseBuyPrice;
         public string priceRule;
         public string description;
+        public string shortText;
+        public string details;
     }
 
     [Serializable]
@@ -393,6 +400,8 @@ namespace DiceCraft.Core
         public int buyPrice;
         public string target;
         public string description;
+        public string shortText;
+        public string details;
     }
 
     [Serializable]
@@ -422,6 +431,8 @@ namespace DiceCraft.Core
         public int amount;
         public string filter;
         public string description;
+        public string shortText;
+        public string details;
     }
 
     /// <summary>v1.0: a kind of boss loot offered as a free group in the shop after a boss stage.</summary>
@@ -433,6 +444,8 @@ namespace DiceCraft.Core
         public int weight;
         public int picks;
         public string description;
+        public string shortText;
+        public string details;
     }
 
     [Serializable]

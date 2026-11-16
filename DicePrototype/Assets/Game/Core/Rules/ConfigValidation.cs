@@ -32,7 +32,7 @@ namespace DiceCraft.Core
         }
         public void Validate()
         {
-            Check(configVersion == "p1.0.0" && saveSchemaVersion == 6, "Unsupported config/save version.");
+            Check(configVersion == "p1.1.0" && saveSchemaVersion == 6, "Unsupported config/save version.");
             Check(unityMajorMinor == "6000.6" && blenderMajorMinor == "5.2", "Toolchain.");
             Check(initialDiceCount == 5 && initialGold == 0 && maxPermanentDice == 8 && maxTemporaryDice == 3 && maxActiveDice == 10, "Initial/dice limits.");
             Check(initialSubmitCapacity == 5 && maxSubmitCapacity == 8 && !purchasedDiceChangeCapacity, "Independent submit capacity.");
@@ -64,13 +64,26 @@ namespace DiceCraft.Core
             Check(shop != null && shop.controllerWeights != null, "Shop missing.");
             foreach (var c in controllers)
             {
+                ValidatePlayerText(c.id, c.shortText, c.details);
                 Check(!string.IsNullOrWhiteSpace(c.displayName) && !string.IsNullOrWhiteSpace(c.description) && !string.IsNullOrWhiteSpace(c.trigger) && c.parameters != null && c.buyPrice >= 2 && c.baseSellPrice == 1 && c.maxOwnedNormal == 1, "Controller: " + c.id);
                 int w = c.rarity == "common" ? shop.controllerWeights.common : c.rarity == "uncommon" ? shop.controllerWeights.uncommon : c.rarity == "rare" ? shop.controllerWeights.rare : 0;
                 Check(w > 0 && c.offerWeight == w, "Controller rarity.");
             }
-            foreach (var c in consumables) Check(c.baseBuyPrice >= 1 && c.sellPrice == 1 && (c.window == "Selecting" || c.window == "HandReady" || c.window == "HandReadyOrSelecting"), "Consumable.");
-            foreach (var s in services) Check(s.baseBuyPrice >= 1 && !string.IsNullOrWhiteSpace(s.priceRule), "Service.");
-            foreach (var u in diceUpgrades) Check(u.buyPrice >= 1 && u.target == (u.id == "U05" ? "Die" : "Face"), "Die upgrade.");
+            foreach (var c in consumables)
+            {
+                ValidatePlayerText(c.id, c.shortText, c.details);
+                Check(c.baseBuyPrice >= 1 && c.sellPrice == 1 && (c.window == "Selecting" || c.window == "HandReady" || c.window == "HandReadyOrSelecting"), "Consumable.");
+            }
+            foreach (var s in services)
+            {
+                ValidatePlayerText(s.id, s.shortText, s.details);
+                Check(s.baseBuyPrice >= 1 && !string.IsNullOrWhiteSpace(s.priceRule), "Service.");
+            }
+            foreach (var u in diceUpgrades)
+            {
+                ValidatePlayerText(u.id, u.shortText, u.details);
+                Check(u.buyPrice >= 1 && u.target == (u.id == "U05" ? "Die" : "Face"), "Die upgrade.");
+            }
             ValidateEnchantments(); ValidateParameters(); ValidateBosses();
             ValidateIds(stages, s => s.stageId, Enumerable.Range(1, 24).Select(i => "STAGE_" + i.ToString("D2")).ToArray());
             foreach (var s in stages) Check(s.indexInChapter >= 1 && s.indexInChapter <= 3 && s.stageKind == new[] { "normal", "pressure", "boss" }[s.indexInChapter - 1] && s.riskEnabled == (s.stageKind == "pressure") && ExactScoreMath.Parse(s.normalTarget) > 0 && s.normalReward > 0 && s.shopAfterClear == (s.stageId != "STAGE_24") && (s.riskEnabled ? (ExactScoreMath.Parse(s.riskTarget) > ExactScoreMath.Parse(s.normalTarget) && s.riskReward > s.normalReward) : (string.IsNullOrEmpty(s.riskTarget) && s.riskReward == 0)), "Stage.");
@@ -137,6 +150,7 @@ namespace DiceCraft.Core
             ValidateIds(bossModifiers, m => m.id, Ids("B", 39));
             foreach (var m in bossModifiers)
             {
+                ValidatePlayerText(m.id, m.shortText, m.details);
                 Check(!string.IsNullOrWhiteSpace(m.displayName) && !string.IsNullOrWhiteSpace(m.description) && m.tier >= 1 && m.tier <= 4 && m.filter != null, "Boss modifier: " + m.id);
                 Check(m.minCycle == (m.tier == 1 ? 1 : m.tier == 2 ? 2 : m.tier == 3 ? 4 : 8), "Boss modifier cycle: " + m.id);
                 Check(m.effects != null && m.effects.Length > 0 && m.effects.Distinct(StringComparer.Ordinal).Count() == m.effects.Length && m.effects.All(e => ModifierEffects.Contains(e)), "Boss modifier effects: " + m.id);
@@ -150,9 +164,28 @@ namespace DiceCraft.Core
             }
             Check(bossModifiers.Count(m => m.tier < 4) >= 8 && bossModifiers.Count(m => m.tier == 1) >= 2 && bossModifiers.Count(m => m.tier == 4) >= 2, "Boss pools.");
             ValidateIds(lootKinds, k => k.id, Enumerable.Range(1, 6).Select(i => "L" + i).ToArray());
-            foreach (var k in lootKinds) Check(!string.IsNullOrWhiteSpace(k.displayName) && !string.IsNullOrWhiteSpace(k.description) && k.weight > 0 && k.picks >= 1 && k.picks <= 3, "Loot kind: " + k.id);
+            foreach (var k in lootKinds)
+            {
+                ValidatePlayerText(k.id, k.shortText, k.details);
+                Check(!string.IsNullOrWhiteSpace(k.displayName) && !string.IsNullOrWhiteSpace(k.description) && k.weight > 0 && k.picks >= 1 && k.picks <= 3, "Loot kind: " + k.id);
+            }
             Check(lootGoldValue > 0 && lootHandLevels >= 1 && rng.stageSeedXor != rng.diceSeedXor && rng.stageSeedXor != rng.shopSeedXor && rng.stageSeedXor != rng.effectSeedXor && rng.stageSeedXor != 0, "Loot/stage stream.");
             Check(stages.Length % 3 == 0, "Stages must form complete cycles.");
+        }
+        private static void ValidatePlayerText(string id, string shortText, string details)
+        {
+            Check(!string.IsNullOrWhiteSpace(shortText), "Missing shortText: " + id);
+            // Details may be empty when the short text already states the whole rule; never null or blank-only.
+            Check(details != null, "Missing details: " + id);
+            Check(details.Length == 0 || !string.IsNullOrWhiteSpace(details), "Blank details: " + id);
+            // Count Unicode code points, matching Python len() in the content extractor.
+            int characters = 0;
+            for (int i = 0; i < shortText.Length; i++)
+            {
+                characters++;
+                if (char.IsSurrogatePair(shortText, i)) i++;
+            }
+            Check(characters <= 28, "shortText exceeds 28 characters: " + id);
         }
         private void ValidateRange(int[] r) => Check(r != null && r.Length == 2 && r[0] >= minPipValue && r[1] <= maxPipValue && r[0] <= r[1], "Pip range.");
         public string Opposite(string id)

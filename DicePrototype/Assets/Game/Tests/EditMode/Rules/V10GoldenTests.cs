@@ -149,7 +149,9 @@ namespace DiceCraft.Core.Tests
         public void GoldenV10_FileCoversEveryNewScoringControllerAndEveryScoringModifierEffect()
         {
             var file = ReadFile();
-            Assert.That(file.schema, Is.EqualTo("v10-golden-1")); Assert.That(file.configVersion, Is.EqualTo(config.configVersion));
+            // v1.1: the vectors stay frozen at the version they were generated for (same rule as the v0.9 file);
+            // p1.1.0 changes no scoring parameter, so every case below must still reproduce field for field.
+            Assert.That(file.schema, Is.EqualTo("v10-golden-1")); Assert.That(file.configVersion, Is.EqualTo("p1.0.0"), "the v1.0 vectors stay frozen; p1.1.0 must still reproduce them");
             Assert.That(file.cases.Length, Is.GreaterThanOrEqualTo(300)); Assert.That(file.cases.Select(c => c.id).Distinct().Count(), Is.EqualTo(file.cases.Length));
             var present = new Dictionary<string, int>(); var triggered = new Dictionary<string, int>(); var missed = new Dictionary<string, int>(); var modifiers = new HashSet<string>();
             foreach (var example in file.cases)

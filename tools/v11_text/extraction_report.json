@@ -1,0 +1,605 @@
+{
+  "source": "docs/proposals/2026-11-16-text/CONTENT_REWRITES.md",
+  "sourceSha256": "3cb7b706b7afa3f296a045d0f5c93e5c77cca81c3f4238dced2d0eb2140552b1",
+  "counts": {
+    "controllers": {
+      "fields": 300,
+      "coveredFields": 300,
+      "rows": 150,
+      "problemRows": 135,
+      "noProblemRows": 15
+    },
+    "consumables": {
+      "fields": 24,
+      "coveredFields": 24,
+      "rows": 12,
+      "problemRows": 11,
+      "noProblemRows": 1
+    },
+    "services": {
+      "fields": 33,
+      "coveredFields": 33,
+      "rows": 22,
+      "problemRows": 21,
+      "noProblemRows": 1
+    },
+    "diceUpgrades": {
+      "fields": 22,
+      "coveredFields": 22,
+      "rows": 11,
+      "problemRows": 7,
+      "noProblemRows": 4
+    },
+    "bossModifiers": {
+      "fields": 78,
+      "coveredFields": 78,
+      "rows": 39,
+      "problemRows": 11,
+      "noProblemRows": 28
+    },
+    "lootKinds": {
+      "fields": 12,
+      "coveredFields": 12,
+      "rows": 6,
+      "problemRows": 0,
+      "noProblemRows": 6
+    },
+    "redRewards": {
+      "fields": 9,
+      "coveredFields": 9,
+      "rows": 9,
+      "problemRows": 2,
+      "noProblemRows": 7
+    },
+    "enchantments": {
+      "fields": 6,
+      "coveredFields": 6,
+      "rows": 6,
+      "problemRows": 4,
+      "noProblemRows": 2
+    },
+    "handDefinitions": {
+      "fields": 13,
+      "coveredFields": 13,
+      "rows": 13,
+      "problemRows": 3,
+      "noProblemRows": 10
+    },
+    "colorDefinitions": {
+      "fields": 2,
+      "coveredFields": 2,
+      "rows": 2,
+      "problemRows": 0,
+      "noProblemRows": 2
+    }
+  },
+  "substitutions": [
+    {
+      "id": "C41",
+      "field": "shortText",
+      "decision": "D2",
+      "before": "复制右边相邻那张控制器的技能。",
+      "after": "复制右边相邻那张卡牌的技能。",
+      "source": "DEV_PLAN §3 D2"
+    },
+    {
+      "id": "C47",
+      "field": "shortText",
+      "decision": "D2",
+      "before": "得分×（控制器件数÷2）：4件×2，8件×4。",
+      "after": "得分×（卡牌件数÷2）：4件×2，8件×4。",
+      "source": "DEV_PLAN §3 D2"
+    },
+    {
+      "id": "C51",
+      "field": "shortText",
+      "decision": "D2",
+      "before": "得分倍率从×1.5起，每家店首次卖出控制器后+0.5。",
+      "after": "得分倍率从×1.5起，每家店首次卖出卡牌后+0.5。",
+      "source": "DEV_PLAN §3 D2"
+    },
+    {
+      "id": "C52",
+      "field": "details",
+      "decision": "D2",
+      "before": "初始卖价是买价的一半（和其他控制器一样）；每关只加一次，不按提交次数加。",
+      "after": "初始卖价是买价的一半（和其他卡牌一样）；每关只加一次，不按提交次数加。",
+      "source": "DEV_PLAN §3 D2"
+    },
+    {
+      "id": "C98",
+      "field": "shortText",
+      "decision": "D2",
+      "before": "商店里控制器与骰面改造的价格−1，最低1。",
+      "after": "商店里卡牌与骰面改造的价格−1，最低1。",
+      "source": "DEV_PLAN §3 D2"
+    },
+    {
+      "id": "C99",
+      "field": "shortText",
+      "decision": "D2",
+      "before": "每关结算时，持有的每件控制器卖价+1。",
+      "after": "每关结算时，持有的每件卡牌卖价+1。",
+      "source": "DEV_PLAN §3 D2"
+    },
+    {
+      "id": "C100",
+      "field": "shortText",
+      "decision": "D2",
+      "before": "每关开始时摧毁右边相邻的控制器，倍率+其价格×0.1。",
+      "after": "每关开始时摧毁右边相邻的卡牌，倍率+其价格×0.1。",
+      "source": "DEV_PLAN §3 D2"
+    },
+    {
+      "id": "C112",
+      "field": "shortText",
+      "decision": "D2",
+      "before": "每关结算时，有空栏位就获得1张随机常见控制器。",
+      "after": "每关结算时，有空栏位就获得1张随机常见卡牌。",
+      "source": "DEV_PLAN §3 D2"
+    },
+    {
+      "id": "C112",
+      "field": "details",
+      "decision": "D2",
+      "before": "只给还没有的常见卡，不带附魔；需要空的控制器栏位且总数未满10件；新卡排在最右。",
+      "after": "只给还没有的常见卡，不带附魔；需要空的卡牌栏位且总数未满10件；新卡排在最右。",
+      "source": "DEV_PLAN §3 D2"
+    },
+    {
+      "id": "C114",
+      "field": "shortText",
+      "decision": "D2",
+      "before": "每通过一个首领关，随机1件无附魔的控制器获得附魔。",
+      "after": "每通过一个首领关，随机1件无附魔的卡牌获得附魔。",
+      "source": "DEV_PLAN §3 D2"
+    },
+    {
+      "id": "C140",
+      "field": "shortText",
+      "decision": "D2",
+      "before": "卖出控制器时按全价回收（含附魔加价）。",
+      "after": "卖出卡牌时按全价回收（含附魔加价）。",
+      "source": "DEV_PLAN §3 D2"
+    },
+    {
+      "id": "C140",
+      "field": "details",
+      "decision": "D2",
+      "before": "在当前这家商店里买到或领到的控制器，离店前仍按半价；聚宝盆、成长基金的卖价加成照常另加。",
+      "after": "在当前这家商店里买到或领到的卡牌，离店前仍按半价；聚宝盆、成长基金的卖价加成照常另加。",
+      "source": "DEV_PLAN §3 D2"
+    },
+    {
+      "id": "C151",
+      "field": "shortText",
+      "decision": "D2",
+      "before": "每个空着的控制器栏位，得分倍率+0.5（从×1起）。",
+      "after": "每个空着的卡牌栏位，得分倍率+0.5（从×1起）。",
+      "source": "DEV_PLAN §3 D2"
+    },
+    {
+      "id": "C152",
+      "field": "shortText",
+      "decision": "D2",
+      "before": "每有1张常见控制器，得分倍率+0.25（从×1起）。",
+      "after": "每有1张常见卡牌，得分倍率+0.25（从×1起）。",
+      "source": "DEV_PLAN §3 D2"
+    },
+    {
+      "id": "O02",
+      "field": "details",
+      "decision": "D2",
+      "before": "最多叠3层，最低1金币；加入骰子也打折；不影响控制器（含附魔加价）、刷新、骰面改造和牌型升级。",
+      "after": "最多叠3层，最低1金币；加入骰子也打折；不影响卡牌（含附魔加价）、刷新、骰面改造和牌型升级。",
+      "source": "DEV_PLAN §3 D2"
+    },
+    {
+      "id": "O05",
+      "field": "shortText",
+      "decision": "D2",
+      "before": "控制器货架永久+1格（最多6格）。",
+      "after": "卡牌货架永久+1格（最多6格）。",
+      "source": "DEV_PLAN §3 D2"
+    },
+    {
+      "id": "O07",
+      "field": "shortText",
+      "decision": "D2",
+      "before": "以后每家店第一次刷新控制器免费。",
+      "after": "以后每家店第一次刷新卡牌免费。",
+      "source": "DEV_PLAN §3 D2"
+    },
+    {
+      "id": "O08",
+      "field": "shortText",
+      "decision": "D2",
+      "before": "控制器栏位永久+1（最多7个）。",
+      "after": "卡牌栏位永久+1（最多7个）。",
+      "source": "DEV_PLAN §3 D2"
+    },
+    {
+      "id": "O08",
+      "field": "details",
+      "decision": "D2",
+      "before": "开局5个；道具打折有效，最低1金币；带“不占栏位”附魔的卡本来就不占；控制器总数上限仍是10件。",
+      "after": "开局5个；道具打折有效，最低1金币；带“不占栏位”附魔的卡本来就不占；卡牌总数上限仍是10件。",
+      "source": "DEV_PLAN §3 D2"
+    },
+    {
+      "id": "O11",
+      "field": "shortText",
+      "decision": "D2",
+      "before": "随机1件无附魔的控制器获得随机附魔。",
+      "after": "随机1件无附魔的卡牌获得随机附魔。",
+      "source": "DEV_PLAN §3 D2"
+    },
+    {
+      "id": "B04",
+      "field": "details",
+      "decision": "D2",
+      "before": "利息和控制器收益照常。",
+      "after": "利息和卡牌收益照常。",
+      "source": "DEV_PLAN §3 D2"
+    },
+    {
+      "id": "B06",
+      "field": "shortText",
+      "decision": "D2",
+      "before": "控制器的附魔本关失效（不占栏位除外）。",
+      "after": "卡牌的附魔本关失效（不占栏位除外）。",
+      "source": "DEV_PLAN §3 D2"
+    },
+    {
+      "id": "B07",
+      "field": "shortText",
+      "decision": "D2",
+      "before": "本关内控制器的成长值不变。",
+      "after": "本关内卡牌的成长值不变。",
+      "source": "DEV_PLAN §3 D2"
+    },
+    {
+      "id": "B25",
+      "field": "shortText",
+      "decision": "D2",
+      "before": "最左侧的2件控制器本关失效。",
+      "after": "最左侧的2件卡牌本关失效。",
+      "source": "DEV_PLAN §3 D2"
+    },
+    {
+      "id": "B29",
+      "field": "shortText",
+      "decision": "D2",
+      "before": "稀有控制器本关失效。",
+      "after": "稀有卡牌本关失效。",
+      "source": "DEV_PLAN §3 D2"
+    },
+    {
+      "id": "B37",
+      "field": "shortText",
+      "decision": "D2",
+      "before": "最左侧3件控制器失效，附魔全部失效。",
+      "after": "最左侧3件卡牌失效，附魔全部失效。",
+      "source": "DEV_PLAN §3 D2"
+    },
+    {
+      "id": "B39",
+      "field": "details",
+      "decision": "D2",
+      "before": "不算的有：每颗骰子的加分和倍数（玻璃、黄金、飘忽不定、始终如一）、控制器给基础分的加成、基础分附魔；“再计”仍然有效。",
+      "after": "不算的有：每颗骰子的加分和倍数（玻璃、黄金、飘忽不定、始终如一）、卡牌给基础分的加成、基础分附魔；“再计”仍然有效。",
+      "source": "DEV_PLAN §3 D2"
+    },
+    {
+      "id": "L1",
+      "field": "shortText",
+      "decision": "D2",
+      "before": "3张稀有控制器，免费选1张。",
+      "after": "3张稀有卡牌，免费选1张。",
+      "source": "DEV_PLAN §3 D2"
+    },
+    {
+      "id": "L2",
+      "field": "shortText",
+      "decision": "D2",
+      "before": "3张带附魔的控制器，免费选1张。",
+      "after": "3张带附魔的卡牌，免费选1张。",
+      "source": "DEV_PLAN §3 D2"
+    }
+  ],
+  "normalizations": [
+    {
+      "id": "U08",
+      "field": "shortText",
+      "before": "目标面点数+1，上限6。",
+      "after": "这一面点数+1，上限6。",
+      "source": "用语规范 0.2 §2.1；内容附录 §4.2",
+      "reason": "无问题行仍用了规范禁用的目标面；仅统一指代，不改规则。"
+    },
+    {
+      "id": "U09",
+      "field": "shortText",
+      "before": "目标面点数−1，下限1。",
+      "after": "这一面点数−1，下限1。",
+      "source": "用语规范 0.2 §2.1；内容附录 §4.2",
+      "reason": "无问题行仍用了规范禁用的目标面；仅统一指代，不改规则。"
+    },
+    {
+      "id": "U10",
+      "field": "shortText",
+      "before": "目标面权重+1（上限5），更容易掷出这一面。",
+      "after": "这一面权重+1（上限5），更容易掷出这一面。",
+      "source": "用语规范 0.2 §2.1；内容附录 §4.2",
+      "reason": "无问题行仍用了规范禁用的目标面；仅统一指代，不改规则。"
+    },
+    {
+      "id": "U11",
+      "field": "shortText",
+      "before": "把目标面的点数与颜色复制到它的对面。",
+      "after": "把这一面的点数与颜色复制到它的对面。",
+      "source": "用语规范 0.2 §2.1；内容附录 §4.2",
+      "reason": "无问题行仍用了规范禁用的目标面；仅统一指代，不改规则。"
+    }
+  ],
+  "noProblemIds": [
+    "C78",
+    "C79",
+    "C95",
+    "C98",
+    "C99",
+    "C110",
+    "C111",
+    "C113",
+    "C116",
+    "C120",
+    "C121",
+    "C131",
+    "C142",
+    "C145",
+    "C146",
+    "I11",
+    "U08",
+    "U09",
+    "U10",
+    "U11",
+    "B01",
+    "B02",
+    "B03",
+    "B04",
+    "B06",
+    "B07",
+    "B08",
+    "B09",
+    "B11",
+    "B12",
+    "B19",
+    "B20",
+    "B21",
+    "B22",
+    "B23",
+    "B24",
+    "B25",
+    "B26",
+    "B27",
+    "B28",
+    "B29",
+    "B30",
+    "B31",
+    "B32",
+    "B33",
+    "B35",
+    "B36",
+    "B37",
+    "L1",
+    "L2",
+    "L3",
+    "L4",
+    "L5",
+    "L6"
+  ],
+  "reusedCurrentTextIds": [
+    "C78",
+    "C79",
+    "C95",
+    "C98",
+    "C99",
+    "C110",
+    "C111",
+    "C113",
+    "C116",
+    "C120",
+    "C121",
+    "C131",
+    "C142",
+    "C145",
+    "C146",
+    "I11",
+    "B01",
+    "B02",
+    "B03",
+    "B04",
+    "B06",
+    "B07",
+    "B08",
+    "B09",
+    "B11",
+    "B12",
+    "B19",
+    "B20",
+    "B21",
+    "B22",
+    "B23",
+    "B24",
+    "B25",
+    "B26",
+    "B27",
+    "B28",
+    "B29",
+    "B30",
+    "B31",
+    "B32",
+    "B33",
+    "B35",
+    "B36",
+    "B37",
+    "L1",
+    "L2",
+    "L3",
+    "L4",
+    "L5",
+    "L6"
+  ],
+  "emptyDetailsIds": [
+    "C02",
+    "C06",
+    "C08",
+    "C14",
+    "C17",
+    "C18",
+    "C26",
+    "C30",
+    "C39",
+    "C46",
+    "C50",
+    "C55",
+    "C56",
+    "C58",
+    "C59",
+    "C64",
+    "C65",
+    "C66",
+    "C67",
+    "C69",
+    "C72",
+    "C74",
+    "C75",
+    "C77",
+    "C78",
+    "C79",
+    "C81",
+    "C82",
+    "C86",
+    "C88",
+    "C90",
+    "C91",
+    "C92",
+    "C93",
+    "C95",
+    "C101",
+    "C107",
+    "C109",
+    "C111",
+    "C113",
+    "C117",
+    "C129",
+    "C132",
+    "C134",
+    "C135",
+    "C137",
+    "C142",
+    "C144",
+    "C145",
+    "C147",
+    "C148",
+    "C149",
+    "C153",
+    "U08",
+    "U09",
+    "B01",
+    "B05",
+    "B11",
+    "B13",
+    "B14",
+    "B15",
+    "B16",
+    "B17",
+    "B18",
+    "B19",
+    "B22",
+    "B23",
+    "B26",
+    "B28",
+    "B30",
+    "B31",
+    "B33",
+    "B36",
+    "L2",
+    "L4"
+  ],
+  "servicePriceRows": [
+    {
+      "id": "O01",
+      "shortText": "2 → 4 → 6（最多买3次）",
+      "details": ""
+    },
+    {
+      "id": "O02",
+      "shortText": "3 → 2 → 1（最多买3次）",
+      "details": ""
+    },
+    {
+      "id": "O03",
+      "shortText": "3~6（看骰子），打折后最低1",
+      "details": "基础3；六面和≥24、六面和≤13、同点≥3个、同色≥5面各+1，最高6。"
+    },
+    {
+      "id": "O04",
+      "shortText": "1",
+      "details": ""
+    },
+    {
+      "id": "O05",
+      "shortText": "3 → 5（最多买2次）",
+      "details": ""
+    },
+    {
+      "id": "O06",
+      "shortText": "2 → 4 → 6（最多买3次）",
+      "details": ""
+    },
+    {
+      "id": "O07",
+      "shortText": "6（整局限买1次）",
+      "details": ""
+    },
+    {
+      "id": "O08",
+      "shortText": "8 → 14（最多买2次）",
+      "details": ""
+    },
+    {
+      "id": "O09",
+      "shortText": "4起，本局每买1次+2",
+      "details": ""
+    },
+    {
+      "id": "O10",
+      "shortText": "6 → 10（最多买2次）",
+      "details": ""
+    },
+    {
+      "id": "O11",
+      "shortText": "6起，本局每买1次+3",
+      "details": ""
+    }
+  ],
+  "displayNameChanges": [
+    {
+      "id": "L1",
+      "field": "displayName",
+      "decision": "D2",
+      "before": "稀有控制器",
+      "after": "稀有卡牌"
+    },
+    {
+      "id": "L2",
+      "field": "displayName",
+      "decision": "D2",
+      "before": "附魔控制器",
+      "after": "附魔卡牌"
+    }
+  ],
+  "entryCount": 229,
+  "textFieldCount": 458,
+  "maxShortTextLength": 28
+}
