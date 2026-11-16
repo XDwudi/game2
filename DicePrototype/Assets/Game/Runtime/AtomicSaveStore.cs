@@ -137,7 +137,8 @@ namespace DiceCraft
             // The exact prefix check guards against wildcard matches on short (8.3) file names.
             foreach (string file in legacy.Where(f => Path.GetFileName(f).StartsWith(prefix, StringComparison.Ordinal)).OrderBy(f => f, StringComparer.Ordinal))
                 if (TryDelete(file)) deleted.Add(file);
-            LastDeletedSaveFiles = deleted.ToArray();
+            // Report normalised absolute paths: SavePath may mix '/' and '\' while the folder listing uses '\'.
+            LastDeletedSaveFiles = deleted.Select(Path.GetFullPath).ToArray();
         }
         private static bool TryDelete(string file)
         {

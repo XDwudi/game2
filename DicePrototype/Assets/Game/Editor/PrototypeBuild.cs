@@ -74,8 +74,9 @@ namespace DiceCraft.Editor
                     throw new InvalidOperationException("Verification source/evidence changed: "+file.path);
             }
             var identity=JsonUtility.FromJson<Identity>(File.ReadAllText("Assets/Resources/BuildIdentity.json"));
-            if(identity.releaseVersion!="p1.0.0"||identity.artVersion!="art0.7.3"||identity.contentConfigVersion!="p1.0.0"||identity.saveSchemaVersion!=6)
-                throw new InvalidOperationException("Release identity must be p1.0.0 rules on save schema 6 with the art0.7.3 presentation.");
+            // v1.1: rules p1.1.0 on save schema 7; the art version follows GameApp.ArtVersion (tools/v11_delivery.py ART_VERSION).
+            if(identity.releaseVersion!="p1.1.0"||identity.artVersion!=GameApp.ArtVersion||identity.contentConfigVersion!="p1.1.0"||identity.saveSchemaVersion!=7)
+                throw new InvalidOperationException("Release identity must be p1.1.0 rules on save schema 7 with the "+GameApp.ArtVersion+" presentation.");
             if(identity.sourceCommit!=gate.sourceCommit||identity.contentConfigSha256!=Hash("Assets/Game/Data/P0Config.json")||identity.goldenCaseSetSha256!=Hash("Assets/Game/Data/GoldenScores.json"))
                 throw new InvalidOperationException("Build identity does not match frozen source/config/cases.");
         }

@@ -48,7 +48,7 @@ namespace DiceCraft.Tests
             foreach(var file in new[]{path,path+".backup"}) SetVersion(file,2,"p0.4.0");
             Assert.That(store.Load(),Is.Null);Assert.That(store.LastLoadNotice,Is.Null);Assert.That(store.LastIncompatibleSave,Is.Null);
             Assert.That(File.Exists(path),Is.False);Assert.That(File.Exists(path+".backup"),Is.False);
-            Assert.That(store.LastDeletedSaveFiles,Is.EquivalentTo(new[]{path,path+".backup"}));
+            Assert.That(store.LastDeletedSaveFiles,Is.EquivalentTo(Full(path,path+".backup")));
             Assert.That(Directory.GetFiles(directory,"*.legacy-schema*"),Is.Empty);Assert.That(Directory.GetFiles(directory,"*.rejected-*"),Is.Empty);
             Assert.That(store.Load(),Is.Null);Assert.That(store.LastLoadNotice,Is.Null);Assert.That(store.LastDeletedSaveFiles,Is.Empty);
             store.Save(first);store.Save(second);store.Save(third);
@@ -66,7 +66,7 @@ namespace DiceCraft.Tests
             foreach(var file in new[]{quarantine,other,settings}) File.WriteAllText(file,"keep");
             Assert.That(store.Load(),Is.Null);Assert.That(store.LastLoadNotice,Is.Null);Assert.That(store.LastIncompatibleSave,Is.Null);
             foreach(var file in new[]{path,path+".backup"}.Concat(legacy)) Assert.That(File.Exists(file),Is.False,file);
-            Assert.That(store.LastDeletedSaveFiles,Is.EquivalentTo(new[]{path,path+".backup"}.Concat(legacy)));
+            Assert.That(store.LastDeletedSaveFiles,Is.EquivalentTo(Full(new[]{path,path+".backup"}.Concat(legacy).ToArray())));
             foreach(var file in new[]{quarantine,other,settings}) Assert.That(File.ReadAllText(file),Is.EqualTo("keep"),"not a save of this slot written by another version: "+file);
         }
 
@@ -75,8 +75,10 @@ namespace DiceCraft.Tests
             Directory.CreateDirectory(directory);string legacy=path+".legacy-schema3-0123456789abcdef";File.WriteAllText(legacy,"{}");
             var store=new AtomicSaveStore(path,config);
             Assert.That(store.Load(),Is.Null);Assert.That(store.LastLoadNotice,Is.Null);Assert.That(File.Exists(legacy),Is.False);
-            Assert.That(store.LastDeletedSaveFiles,Is.EqualTo(new[]{legacy}));
+            Assert.That(store.LastDeletedSaveFiles,Is.EqualTo(Full(legacy)));
         }
+        // The store reports normalised absolute paths (Unity's data paths mix '/' with the '\' of folder listings).
+        private static string[] Full(params string[] files)=>files.Select(Path.GetFullPath).ToArray();
 
         [Test] public void SAVE_V11_AnOldActiveIsDeletedAndTheCurrentBackupIsStillRestored()
         {
@@ -214,7 +216,7 @@ namespace DiceCraft.Tests
             Assert.That(store.LastLoadNotice, Does.Contain("备份"));
             store.Save(third);
             // v1.1 rewrite (RULES_DELTA): another version's active file is deleted by Load instead of being quarantined.
-            if (kind == "schema") { Assert.That(store.LastDeletedSaveFiles, Is.EqualTo(new[] { path })); AssertOverwrittenWithoutQuarantine(store, backup); }
+            if (kind == "schema") { Assert.That(store.LastDeletedSaveFiles, Is.EqualTo(Full(path))); AssertOverwrittenWithoutQuarantine(store, backup); }
             else AssertRecoveredWrite(store, backup, rejected);
         }
 
