@@ -1,0 +1,1065 @@
+{
+  "task": "W12",
+  "status": "REVIEW",
+  "requestedBranch": "codex/v1.1-swiss",
+  "date": "2026-11-16",
+  "sourceBinding": "Current working-tree content hashes; no commit or push in this revision",
+  "environment": {
+    "python": "3.11.4",
+    "Pillow": "9.4.0",
+    "numpy": "1.24.3",
+    "platform": "Windows"
+  },
+  "validation": {
+    "tests": 213,
+    "newSwissTests": 16,
+    "errors": 0,
+    "failures": 0,
+    "strictAudit": "AUDIT_OK",
+    "referencedSprites": 49,
+    "missingSprites": 0,
+    "pngOutputs": 53,
+    "neutralSpecified": 17,
+    "neutralMeanSaturationMax": 0.0,
+    "fullNineSlices": 18,
+    "horizontalNineSlices": 5,
+    "deterministicRuns": 2,
+    "unity": "NOT_RUN",
+    "independentReviewer": "/root/visual_review",
+    "sourceCompliance": "PASS_OFFLINE",
+    "visualQuality": "PASS_OFFLINE_AGAINST_FIVE_CONCEPTS",
+    "contrast": {
+      "textColor/panel": 16.207049679979203,
+      "ink/paper": 17.8199694512376,
+      "muted/panel": 9.905246634742184,
+      "ink/gold": 4.505561677183671,
+      "textColor/danger": 4.7914619770699645
+    },
+    "newTestsThisRevision": 5,
+    "durationSeconds": 26.322,
+    "referencesVerified": 5,
+    "changedPngOutputs": 38,
+    "paperRulePx": 10,
+    "panelChamferPx": 16,
+    "shadowCoreAlpha": 77,
+    "lockPreviewSize": [
+      22,
+      24
+    ]
+  },
+  "missingReferences": [],
+  "inputsAndSources": [
+    {
+      "path": "ArtSource/StyleKit/themes/README.md",
+      "sha256": "a31ed97ea8b9d191a6cd06228473ebe08f4361ba342c008cf73effa0dea5c22f",
+      "bytes": 5693
+    },
+    {
+      "path": "ArtSource/StyleKit/themes/swiss/concepts/card.png",
+      "sha256": "12dd7cf1dd28cdbc12337d49fad3cc8592fcfa652c514cc9015a62ab9fb201c7",
+      "bytes": 2051700
+    },
+    {
+      "path": "ArtSource/StyleKit/themes/swiss/concepts/roll.png",
+      "sha256": "654d1c1044be820641bf06d8ea928a0c6bacc4265f806e209284034d389c8456",
+      "bytes": 2011388
+    },
+    {
+      "path": "ArtSource/StyleKit/themes/swiss/concepts/select.png",
+      "sha256": "b57fdf88eb35bee9a07269fab6d9810478c1ddb0bcb0cb97be785cf44f6555af",
+      "bytes": 2044495
+    },
+    {
+      "path": "ArtSource/StyleKit/themes/swiss/concepts/shop.png",
+      "sha256": "8a44a2205fa065a462fd029e0c9115368a1a049c31a592d6a2a7eb3c5ac930ee",
+      "bytes": 1930945
+    },
+    {
+      "path": "ArtSource/StyleKit/themes/swiss/concepts/triptych.png",
+      "sha256": "629449a82af54fb4043532132e165d0023a57506e38316439e153346d3c91222",
+      "bytes": 1908509
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art071/Full/FX/fx_arc_short.png",
+      "sha256": "0064ee5a5956c6942cb6e7c2f6aefc8261e4e1c1e8281aa9b533fdd27ca6e7b8",
+      "bytes": 9704
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art071/Full/FX/fx_square_chip.png",
+      "sha256": "87e7093414cc056630b816feaf97d14a620832f3d467b40b09a5f66e7025705f",
+      "bytes": 2884
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art071/Full/Symbols/badge_enchant_base10.png",
+      "sha256": "95b42442b72add929e572af778623e30302e2d323e398b1f3671cd24705e7a2a",
+      "bytes": 8374
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art071/Full/Symbols/badge_enchant_mult2.png",
+      "sha256": "b72088dccfe8d8f595f5a1dba9e44c0339ce29cd7954bf1346f65860abc1b58e",
+      "bytes": 6950
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art071/Full/Symbols/badge_enchant_roll1.png",
+      "sha256": "80230f8c2977563df65c431cb9463c71d59f8a321562ace235238224428d02ad",
+      "bytes": 15699
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art071/Full/Symbols/badge_enchant_slotless.png",
+      "sha256": "e22321803fa6f51dcb63735fe6d2713f5adb8d15df5c8bc743786d68a6306850",
+      "bytes": 8652
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art071/Full/Symbols/badge_enchant_submit1.png",
+      "sha256": "63b5df2672b8b22704d8639dbdc99cb9e32dcfb519ed8dd9bb7f30f9343aea70",
+      "bytes": 8820
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art071/Full/Symbols/ui_icon_lock.png",
+      "sha256": "aba7e9240bfa73a0fa27a446cb59f7f057a6d161f41182d56857815ef391caa3",
+      "bytes": 14484
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art071/Full/Symbols/ui_icon_refresh.png",
+      "sha256": "666926ad76542caaf1ded8b4d5e671e64a97b047b76ebafe987cb64f8636654f",
+      "bytes": 21746
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art071/Full/Symbols/ui_icon_roll.png",
+      "sha256": "b43530290167dd162490e6dc2b6681770df31fd1785cfe755bd80953cc9e6f55",
+      "bytes": 11140
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art072/Surfaces/ui_progress_fill.png",
+      "sha256": "2dfaca986a7dec887489915e4a3d98039550268a547559c1ad1719200123d501",
+      "bytes": 2330
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art072/Surfaces/ui_progress_track.png",
+      "sha256": "6aa37c1b5cf66623074674f5cbefc3c1590881e12f74ff330b7fabbe4ccf0378",
+      "bytes": 2942
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art072/UI/ui_card_back.png",
+      "sha256": "b5468cb1df0501d9c8b99214a189cd63144acd30f8671518b07da4ab74d252c2",
+      "bytes": 98870
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art072/UI/ui_pip_dot.png",
+      "sha256": "aa36c49d48b79fcb72344501f154c6b5fcdd96379987a544835aea8f62e91d26",
+      "bytes": 1494
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art072/UI/ui_wordmark_dicecraft.png",
+      "sha256": "265aba1786f4d7c8a683b33b21354afb871a052e75d2984770cb20033b125167",
+      "bytes": 126890
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art073/FX/fx_score_crown.png",
+      "sha256": "248a7408b59a8e8eefa19cadc53043751728c193c2dc22cf672bfafef082fcc2",
+      "bytes": 11508
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art073/FX/fx_score_ray.png",
+      "sha256": "cd68996d1d9551dee0c593f98cc813ef7e3c52f8eba3be26c58f9a748f9f69b9",
+      "bytes": 1579
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art073/FX/fx_score_spark.png",
+      "sha256": "4f69495453a97af0c3d92607e39ed3753cb82531d5e0fe332f5190e66062fe7f",
+      "bytes": 1141
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art073/Surfaces/fx_formula_chip.png",
+      "sha256": "fce8ce157ba453950beed5a9b0ad6dd96fbef7e524ca84cd2c982a0bd96fac3e",
+      "bytes": 3001
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art073/Surfaces/fx_score_plate.png",
+      "sha256": "4e537bcb820485823e4fa402f2a1f7dc111c738c8330141374274b712bffc4b3",
+      "bytes": 12766
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art073/Surfaces/ui_button_bevel.png",
+      "sha256": "5a7c0f11fcbaf751e318139fc35054ac1d6ac9a264ef9074365a42823bf6faf3",
+      "bytes": 3867
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art073/Surfaces/ui_button_ghost.png",
+      "sha256": "dc8edea1ae714734d50e1ede5b1cac9adb8c4837c256f17244915e1649f271c1",
+      "bytes": 2846
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art073/Surfaces/ui_card_controller.png",
+      "sha256": "2a68050d48afe87aba288344dcd46b92f7a1961efee9ea29922334731761cc60",
+      "bytes": 6072
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art073/Surfaces/ui_card_controller_compact.png",
+      "sha256": "2a68050d48afe87aba288344dcd46b92f7a1961efee9ea29922334731761cc60",
+      "bytes": 6072
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art073/Surfaces/ui_card_item.png",
+      "sha256": "fab5b21bbbd97e1d813a4c12fb309f5aa386d831b3948c6b73b73b311e306e1b",
+      "bytes": 6501
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art073/Surfaces/ui_card_shop.png",
+      "sha256": "821ed4dd426d7d189d849356df7a3b5ca69f0c35ce4d3f2731a42c829c0d0ac4",
+      "bytes": 6937
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art073/Surfaces/ui_chip_label.png",
+      "sha256": "329e3df072f2b737e73d1d6830d49acd48cdf0c1d9f8c47e67bcdb1fdb3a60d7",
+      "bytes": 3806
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art073/Surfaces/ui_frame_block.png",
+      "sha256": "120a90852eb3dde51531b62aa249c9ed4f61e24a3857c6b4fc09728aba493e44",
+      "bytes": 2283
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art073/Surfaces/ui_frame_enchant.png",
+      "sha256": "e81235d7ea461e56e8f8183bd1caa08e5df1569c4ba3b640319b4427855df6c9",
+      "bytes": 3355
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art073/Surfaces/ui_info_inset.png",
+      "sha256": "db5777817003113b1617a159062983cce9ae279af37736df95c72538f99a0042",
+      "bytes": 3870
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art073/Surfaces/ui_panel_hud.png",
+      "sha256": "939086eb70825828e1737ab1e82b611b14af5c2132ef73a2b7f171558f2062c7",
+      "bytes": 4159
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art073/Surfaces/ui_paper_panel.png",
+      "sha256": "2236fcd21066b5a1e6c8d6684d1728707c8d5f5e06971eb7002ec2c5a00e266c",
+      "bytes": 4592
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art073/Surfaces/ui_price_chip.png",
+      "sha256": "e84c03e610e19a649a9fd59893296a67477020e86840fc5398f89ad1b1137042",
+      "bytes": 3602
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art073/Surfaces/ui_ring.png",
+      "sha256": "0f2333b2d955fe8a3c6e969752a29035c8624e970545f702f77c02b18558e347",
+      "bytes": 2895
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art073/Surfaces/ui_section_header.png",
+      "sha256": "f762eaeb7d91d6eba580b909f8c343de01aedfa9eb6c3f695a76d93fc77312ed",
+      "bytes": 2277
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art073/Surfaces/ui_section_panel.png",
+      "sha256": "000a1303452f4738036a466bd97007d0fb7ae6f9d56f465caa71dbaab6a5f727",
+      "bytes": 4297
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art073/Surfaces/ui_slot_inventory.png",
+      "sha256": "e41e259f342e201f4f8139509c497ac17e6f91de9102a7368a4be52bd940cf6f",
+      "bytes": 4105
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art073/Surfaces/ui_tab_bottom.png",
+      "sha256": "eed27ded2ffa1420338cac79181e98884f3ac4794d36c009364abb0001c8edc3",
+      "bytes": 2608
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art073/Surfaces/ui_tray_front.png",
+      "sha256": "75f1f0c6d41b045eaa34e565302bf9bcef8464bd184381b192b8ef64c9bb5602",
+      "bytes": 1335
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art073/UI/ui_badge_check.png",
+      "sha256": "14d79f60a7340f3fae7305f15a42f153253294863bcce14afaa21b4e497cc555",
+      "bytes": 9713
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art073/UI/ui_die_shadow.png",
+      "sha256": "773e6c83181f2d3a8121fe42ef90acf05a1775eea24823b6c1df1b17fd355f27",
+      "bytes": 6750
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art073/UI/ui_icon_arrow.png",
+      "sha256": "c8b52a827b50cde8d85f0d305e0031b8b9734b3dd1afc1c516d7fe1210c6963f",
+      "bytes": 869
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art073/UI/ui_icon_book.png",
+      "sha256": "4bd44a5011bb9dd315324293a84c72da26dadcbb9d711d23e0e9f4b06de4609d",
+      "bytes": 1853
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art073/UI/ui_icon_coin.png",
+      "sha256": "5232325dca832da57c42656cc91635169bce439b4377e2ef9ce09ed07c985397",
+      "bytes": 10217
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art073/UI/ui_icon_dice_view.png",
+      "sha256": "fdc492431f93981ebca364b2a64a9091690ef29be22c038efef40ed93efc3a86",
+      "bytes": 14155
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art073/UI/ui_icon_gear.png",
+      "sha256": "994d36682fed02f7c70d622383306d294f27ec33d849600e605e426204321b69",
+      "bytes": 3003
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art073/UI/ui_pedestal.png",
+      "sha256": "04a9409b945da61181ec99b8735e4cd736ca8aa3fcd0435dc2ebac558e83cee0",
+      "bytes": 15661
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art073/UI/ui_tag_clock.png",
+      "sha256": "5c14d6b8302c91b4a3f33e88f87ba112789b2b63764e934fa159fb91bc794090",
+      "bytes": 11925
+    },
+    {
+      "path": "DicePrototype/Assets/Art/Art073/UI/ui_tag_lock.png",
+      "sha256": "458e70e335f78017a3dc0ff64d570bb10d010780d4426116d7d2e589d08b91ce",
+      "bytes": 6429
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Fonts/NotoSansSC-Bold.otf",
+      "sha256": "d1961be1161ea1be08496c920862d06ea5c23a757628f4fd69368de1d9f51bed",
+      "bytes": 8716392
+    },
+    {
+      "path": "DicePrototype/Assets/Game/Runtime/DiceTable.cs",
+      "sha256": "e228df744cf44a3742bdee59798f8489e444f642f12fde11824698d9e6d2ba8d",
+      "bytes": 29145
+    },
+    {
+      "path": "DicePrototype/Assets/Game/UI/GameApp.Art07.cs",
+      "sha256": "a79b1a3c5214ede081f642faa242163bcf96d9609efd9342c791df726a9ad49c",
+      "bytes": 44972
+    },
+    {
+      "path": "DicePrototype/Assets/Game/UI/GameApp.Art073HighScore.cs",
+      "sha256": "06d240fceac08b6a7b5e986b35e1f03f32e54eca2430217b60b2c0a422fbdcf9",
+      "bytes": 12884
+    },
+    {
+      "path": "DicePrototype/Assets/Game/UI/GameApp.Art073Shop.cs",
+      "sha256": "9ab1dbc7c1c371e406245fdcbf22397b1631e15254463517b7b994a140100d63",
+      "bytes": 34841
+    },
+    {
+      "path": "DicePrototype/Assets/Game/UI/GameApp.V05.cs",
+      "sha256": "7d18c5d91443dc91a8d6ebad2fc59f42e1640b87b5be5aee3f322bf4d3eeb817",
+      "bytes": 20531
+    },
+    {
+      "path": "DicePrototype/Assets/Game/UI/UiKit.cs",
+      "sha256": "83225a86cb1e2565717e63ea7e64266be4ac4fd8396b1323268bec0e79fbb86c",
+      "bytes": 19377
+    },
+    {
+      "path": "DicePrototype/Assets/TextMesh Pro/Fonts/LiberationSans.ttf",
+      "sha256": "e5b0af421ea2bfbc1ac8d251d647268087ae82786234c57f757d1f0b90fa8b49",
+      "bytes": 350200
+    },
+    {
+      "path": "docs/art/AI_ART_PIPELINE.md",
+      "sha256": "7d73a91a6bae5b3049f6552c76e7931b214f03bc92e192cf8c8faba9ef985dff",
+      "bytes": 15798
+    },
+    {
+      "path": "docs/art/STYLE_GUIDE.md",
+      "sha256": "6fa0decb59a16262a8a21b9c3361d2edf5f1dedf81b0aaf22a9356974491142c",
+      "bytes": 12173
+    },
+    {
+      "path": "docs/specs/v11/DEV_PLAN.md",
+      "sha256": "15af3974551239965a82b1bce53bb7630da301696a32ef54a87a28dcb9989bd5",
+      "bytes": 30349
+    },
+    {
+      "path": "docs/specs/v11/THEME_SPEC.md",
+      "sha256": "13e803690faa317a01a598e9e68fe2490fa7bb3bb3c3db297aaaf494a58102f3",
+      "bytes": 5223
+    },
+    {
+      "path": "tests/test_art_v11_swiss.py",
+      "sha256": "9894656c807ef9ef5574d564fac39af174c4492c77403046be1a56a0d09c6a26",
+      "bytes": 14124
+    },
+    {
+      "path": "tools/art_v11/swiss/PREFLIGHT.md",
+      "sha256": "88555683d795074c20f2d22df6e9763deb8427bea7c7e7b94b09ca2fcc730f20",
+      "bytes": 4460
+    },
+    {
+      "path": "tools/art_v11/swiss/README.md",
+      "sha256": "544323585a5c2f02717498bcfdaa5f21faf6d5bd6bf0314224b4e84ffd364f4d",
+      "bytes": 24116
+    },
+    {
+      "path": "tools/art_v11/swiss/build_swiss.py",
+      "sha256": "6721b25daf6962354b8f4b00d4b408832686c3031ed4122186b7f81e1b5e4a7f",
+      "bytes": 22870
+    },
+    {
+      "path": "tools/art_v11/swiss/run_tests.py",
+      "sha256": "59b4b07bda2b8a38d2b892e15fc76c01eb0cec9ad4a12fe1d233f6249d9dc56b",
+      "bytes": 1106
+    },
+    {
+      "path": "tools/art_v11/theme_contract.json",
+      "sha256": "a2a0e4ad3a66612b40cb5b215b3246808a04d0cdaf21ead7a962e5985d08efcc",
+      "bytes": 26822
+    },
+    {
+      "path": "tools/art_v11/theme_contract.py",
+      "sha256": "b1c14f6e35565cf019a943f7b36502535fe8ef50a662302eaf48405078803ffd",
+      "bytes": 6671
+    }
+  ],
+  "outputs": [
+    {
+      "path": "ArtSource/Art11/swiss/contact_sheet.png",
+      "sha256": "56da5fed62fc0ad010ff4d524dab33f0bffcf2b728ff98c412d0a3e07dd6a84e",
+      "bytes": 1123219,
+      "size": [
+        1800,
+        6166
+      ],
+      "mode": "RGB"
+    },
+    {
+      "path": "DicePrototype/Assets/Resources/Themes/swiss/Table/felt_tile.png",
+      "sha256": "dce58cae36c95751709903e4951dbcd432d1b636af57362cb6582ad55300960a",
+      "bytes": 623375,
+      "size": [
+        1024,
+        1024
+      ],
+      "mode": "RGB"
+    },
+    {
+      "path": "DicePrototype/Assets/Resources/Themes/swiss/Table/table_scene.png",
+      "sha256": "093705755b789e524836594974e344d546ed0051cc2b2e0d7d065f9ec53e24b7",
+      "bytes": 27421,
+      "size": [
+        1920,
+        1080
+      ],
+      "mode": "RGB"
+    },
+    {
+      "path": "DicePrototype/Assets/Resources/Themes/swiss/UI/badge_enchant_base10.png",
+      "sha256": "1300e8a6a068d6ebe3cd5d898dd4b200db65f115d8392e2d5f86488df8f0c9e2",
+      "bytes": 2755,
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "DicePrototype/Assets/Resources/Themes/swiss/UI/badge_enchant_mult2.png",
+      "sha256": "fce67cfd083c6af838a92aa86343eccc4e7c341ba612f99c25224c507d1e13f1",
+      "bytes": 3890,
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "DicePrototype/Assets/Resources/Themes/swiss/UI/badge_enchant_roll1.png",
+      "sha256": "1e7fbe783fa2cd0b82e7c93c62cd6c7c3cb080a4b1569cef37dfe85143d75b4e",
+      "bytes": 4999,
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "DicePrototype/Assets/Resources/Themes/swiss/UI/badge_enchant_slotless.png",
+      "sha256": "691e02f3a6669071d59a0eeb7ec4253d58ad7f758d90ae53b72d80f80443580c",
+      "bytes": 3038,
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "DicePrototype/Assets/Resources/Themes/swiss/UI/badge_enchant_submit1.png",
+      "sha256": "2825bf2e2d050bb333e82e0739491178037263aec1551a1c171c15fdd3cc96ac",
+      "bytes": 5055,
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "DicePrototype/Assets/Resources/Themes/swiss/UI/fx_arc_short.png",
+      "sha256": "f718d19d87405134a2664dfe76d2977463f83154d71a31f98d567af59f48fbaf",
+      "bytes": 979,
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "DicePrototype/Assets/Resources/Themes/swiss/UI/fx_formula_chip.png",
+      "sha256": "0da8a952687a4f813a83d0f9c26c2ae5b6abc1010754510802339d31d70c6528",
+      "bytes": 1346,
+      "size": [
+        512,
+        128
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "DicePrototype/Assets/Resources/Themes/swiss/UI/fx_score_crown.png",
+      "sha256": "a09145ec3a25171d3f6894e2410b54bff3e2b2ddea87e17b97680b04cf73d2d7",
+      "bytes": 3934,
+      "size": [
+        192,
+        128
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "DicePrototype/Assets/Resources/Themes/swiss/UI/fx_score_plate.png",
+      "sha256": "fefeb74d90d4f17f3f1112d2a72cced5e14d096cbb7b82ff502d521fa014f5bc",
+      "bytes": 3015,
+      "size": [
+        768,
+        384
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "DicePrototype/Assets/Resources/Themes/swiss/UI/fx_score_ray.png",
+      "sha256": "b73b33bf48199aae5e6e4c766202b5119bbc7b2e157be28195e1ff5219f423b8",
+      "bytes": 1940,
+      "size": [
+        384,
+        96
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "DicePrototype/Assets/Resources/Themes/swiss/UI/fx_score_spark.png",
+      "sha256": "cf563e31f7e96e977308a9701732c24bb469e3d8c857512fa8d24791f3dc5745",
+      "bytes": 511,
+      "size": [
+        64,
+        64
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "DicePrototype/Assets/Resources/Themes/swiss/UI/fx_square_chip.png",
+      "sha256": "c46c1901f5f6e5c843e497a9cf1b957b23c74c60038373521f5d121216148a45",
+      "bytes": 658,
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "DicePrototype/Assets/Resources/Themes/swiss/UI/ui_badge_check.png",
+      "sha256": "162de53576296ded4ab9a5558d15831f6d24d1cf4dcc7e5d8a8e37df43ec5ca4",
+      "bytes": 3157,
+      "size": [
+        96,
+        96
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "DicePrototype/Assets/Resources/Themes/swiss/UI/ui_button_bevel.png",
+      "sha256": "cdd815e747503c50629203402894a1156caef32cfbfd3fbcb72699283b0baab3",
+      "bytes": 2827,
+      "size": [
+        512,
+        512
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "DicePrototype/Assets/Resources/Themes/swiss/UI/ui_button_ghost.png",
+      "sha256": "d7af07ac54eb0467565e8d12367c9cbb90d29284d898a52a67c6e2bdcd7ec3c5",
+      "bytes": 2685,
+      "size": [
+        512,
+        512
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "DicePrototype/Assets/Resources/Themes/swiss/UI/ui_card_back.png",
+      "sha256": "3f616845a4a44664f218867d5d975badcf3db6e9936884150acb3ae397a33176",
+      "bytes": 14328,
+      "size": [
+        768,
+        1024
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "DicePrototype/Assets/Resources/Themes/swiss/UI/ui_card_controller.png",
+      "sha256": "b94a4226703a3af22943bf92f3bb818fc7b89301261592913b2ff6492a41ab59",
+      "bytes": 3367,
+      "size": [
+        512,
+        512
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "DicePrototype/Assets/Resources/Themes/swiss/UI/ui_card_controller_compact.png",
+      "sha256": "b94a4226703a3af22943bf92f3bb818fc7b89301261592913b2ff6492a41ab59",
+      "bytes": 3367,
+      "size": [
+        512,
+        512
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "DicePrototype/Assets/Resources/Themes/swiss/UI/ui_card_item.png",
+      "sha256": "b94a4226703a3af22943bf92f3bb818fc7b89301261592913b2ff6492a41ab59",
+      "bytes": 3367,
+      "size": [
+        512,
+        512
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "DicePrototype/Assets/Resources/Themes/swiss/UI/ui_card_shop.png",
+      "sha256": "b94a4226703a3af22943bf92f3bb818fc7b89301261592913b2ff6492a41ab59",
+      "bytes": 3367,
+      "size": [
+        512,
+        512
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "DicePrototype/Assets/Resources/Themes/swiss/UI/ui_chip_label.png",
+      "sha256": "1cbf625eaff26c603f5666a10661c724656252792c802988fce34ec75214e2c5",
+      "bytes": 2980,
+      "size": [
+        512,
+        512
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "DicePrototype/Assets/Resources/Themes/swiss/UI/ui_die_shadow.png",
+      "sha256": "83a699e20373d528bd7c267f6d6ec6ec4382027c169c1a410cd505213a610f08",
+      "bytes": 1503,
+      "size": [
+        256,
+        128
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "DicePrototype/Assets/Resources/Themes/swiss/UI/ui_frame_block.png",
+      "sha256": "d38cde54c53550fbc07aa7512b541fa6adbdb3f0dc971b69ca18e82021d564f0",
+      "bytes": 2282,
+      "size": [
+        512,
+        512
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "DicePrototype/Assets/Resources/Themes/swiss/UI/ui_frame_enchant.png",
+      "sha256": "820df7f80770a17071bab1285e828e207d17dcef169d19da927cdd57cc8a8fd2",
+      "bytes": 2566,
+      "size": [
+        512,
+        512
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "DicePrototype/Assets/Resources/Themes/swiss/UI/ui_icon_arrow.png",
+      "sha256": "72ba7471bc1a6b8ef3498c449f03d61677aa6e28bf79dbcfea980c8f6b71471d",
+      "bytes": 1149,
+      "size": [
+        96,
+        96
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "DicePrototype/Assets/Resources/Themes/swiss/UI/ui_icon_book.png",
+      "sha256": "09edd1ae454dab9e42177b76d2198e29ecebfca169c0583be8273b34d2914e24",
+      "bytes": 1330,
+      "size": [
+        96,
+        96
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "DicePrototype/Assets/Resources/Themes/swiss/UI/ui_icon_coin.png",
+      "sha256": "781218cea3477c9453831d3c2ee9c65b13b7d86b6880385f7c8a077b2670c6af",
+      "bytes": 5553,
+      "size": [
+        96,
+        96
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "DicePrototype/Assets/Resources/Themes/swiss/UI/ui_icon_dice_view.png",
+      "sha256": "263b878eb41704c0324ae8829ef8dc23cee9ecd3bd8792ad166308228bf5e18e",
+      "bytes": 5526,
+      "size": [
+        128,
+        128
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "DicePrototype/Assets/Resources/Themes/swiss/UI/ui_icon_gear.png",
+      "sha256": "7805dd0e2b02d558c9794ec80156e5e70980a6cd7d1e6677cf0c86a6075658be",
+      "bytes": 2721,
+      "size": [
+        96,
+        96
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "DicePrototype/Assets/Resources/Themes/swiss/UI/ui_icon_lock.png",
+      "sha256": "0d4827f740ee9ac9727785ea304bb82cadef8e2775b3b751ab97d1aa508f7216",
+      "bytes": 2872,
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "DicePrototype/Assets/Resources/Themes/swiss/UI/ui_icon_refresh.png",
+      "sha256": "4fefc442bae583b981ba91e883a513bf7b06875e1b6427954e73328b0b99c7f8",
+      "bytes": 7369,
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "DicePrototype/Assets/Resources/Themes/swiss/UI/ui_icon_roll.png",
+      "sha256": "4d79aed036dd20fc6ddad0c1658bb212be5f04e1291921ceb15d8c62e48b36a6",
+      "bytes": 5201,
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "DicePrototype/Assets/Resources/Themes/swiss/UI/ui_info_inset.png",
+      "sha256": "11482c35ef6dd5cbdd5ecc6c4515e640cf0f1cecd57e855f9c52cda7b2ab848d",
+      "bytes": 2507,
+      "size": [
+        512,
+        512
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "DicePrototype/Assets/Resources/Themes/swiss/UI/ui_panel_hud.png",
+      "sha256": "a78e8caeac897edda06b0e02140bba852537c96bd57956b5ed4dd2bd02d15480",
+      "bytes": 2799,
+      "size": [
+        512,
+        512
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "DicePrototype/Assets/Resources/Themes/swiss/UI/ui_paper_panel.png",
+      "sha256": "cfeceef18001d8d4a85c6478fadd5428ed2243f051357d0a2ce82553bb59615a",
+      "bytes": 2970,
+      "size": [
+        512,
+        512
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "DicePrototype/Assets/Resources/Themes/swiss/UI/ui_pedestal.png",
+      "sha256": "8e52cab51f6bae06d379b29eb5dfb797553532c0221278b2b54552826323f789",
+      "bytes": 2947,
+      "size": [
+        384,
+        192
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "DicePrototype/Assets/Resources/Themes/swiss/UI/ui_pip_dot.png",
+      "sha256": "26a46b6f5f9c10113d3694a5e4c051487f2331e944ba3216ce60a82b3d6ab689",
+      "bytes": 1388,
+      "size": [
+        64,
+        64
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "DicePrototype/Assets/Resources/Themes/swiss/UI/ui_price_chip.png",
+      "sha256": "cdd815e747503c50629203402894a1156caef32cfbfd3fbcb72699283b0baab3",
+      "bytes": 2827,
+      "size": [
+        512,
+        512
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "DicePrototype/Assets/Resources/Themes/swiss/UI/ui_progress_fill.png",
+      "sha256": "5fb39688d383c1cbc42ea0ab534c8abd0960dc44ac09f7fe87328a1ce3d9561f",
+      "bytes": 504,
+      "size": [
+        768,
+        96
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "DicePrototype/Assets/Resources/Themes/swiss/UI/ui_progress_track.png",
+      "sha256": "5fb39688d383c1cbc42ea0ab534c8abd0960dc44ac09f7fe87328a1ce3d9561f",
+      "bytes": 504,
+      "size": [
+        768,
+        96
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "DicePrototype/Assets/Resources/Themes/swiss/UI/ui_ring.png",
+      "sha256": "d7af07ac54eb0467565e8d12367c9cbb90d29284d898a52a67c6e2bdcd7ec3c5",
+      "bytes": 2685,
+      "size": [
+        512,
+        512
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "DicePrototype/Assets/Resources/Themes/swiss/UI/ui_section_header.png",
+      "sha256": "c1d0161f074e25661f057219d58649edcfb4be1858dbf1814ddc596793bbe3fb",
+      "bytes": 517,
+      "size": [
+        512,
+        128
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "DicePrototype/Assets/Resources/Themes/swiss/UI/ui_section_panel.png",
+      "sha256": "11482c35ef6dd5cbdd5ecc6c4515e640cf0f1cecd57e855f9c52cda7b2ab848d",
+      "bytes": 2507,
+      "size": [
+        512,
+        512
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "DicePrototype/Assets/Resources/Themes/swiss/UI/ui_slot_inventory.png",
+      "sha256": "11482c35ef6dd5cbdd5ecc6c4515e640cf0f1cecd57e855f9c52cda7b2ab848d",
+      "bytes": 2507,
+      "size": [
+        512,
+        512
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "DicePrototype/Assets/Resources/Themes/swiss/UI/ui_tab_bottom.png",
+      "sha256": "11482c35ef6dd5cbdd5ecc6c4515e640cf0f1cecd57e855f9c52cda7b2ab848d",
+      "bytes": 2507,
+      "size": [
+        512,
+        512
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "DicePrototype/Assets/Resources/Themes/swiss/UI/ui_tag_clock.png",
+      "sha256": "7d243f628bb0bd039fd59f00e52aee54fcf681a8654721948f8c02e7dc65730a",
+      "bytes": 1874,
+      "size": [
+        128,
+        128
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "DicePrototype/Assets/Resources/Themes/swiss/UI/ui_tag_lock.png",
+      "sha256": "a74239a339da5d9bdf8ee34bfccbe84d75c30177fc80329fd08fd64ae7391e4e",
+      "bytes": 2237,
+      "size": [
+        128,
+        128
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "DicePrototype/Assets/Resources/Themes/swiss/UI/ui_tray_front.png",
+      "sha256": "8f3316e0256540fa61892f3e1732ec8c9f80ad727b1b50ddbca8bfcf0c055a32",
+      "bytes": 1179,
+      "size": [
+        512,
+        160
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "DicePrototype/Assets/Resources/Themes/swiss/UI/ui_wordmark_dicecraft.png",
+      "sha256": "3fa2e06367b819b856a8ad7060aa10993408a5cfc2e4100fb024f58af4c93331",
+      "bytes": 75223,
+      "size": [
+        1440,
+        400
+      ],
+      "mode": "RGBA"
+    },
+    {
+      "path": "DicePrototype/Assets/Resources/Themes/swiss/preview.png",
+      "sha256": "ba2dfe00c5a2751ce6c8dda17693afd061b47b3d10585b768d4112c584a86511",
+      "bytes": 7321,
+      "size": [
+        480,
+        270
+      ],
+      "mode": "RGB"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "ArtSource/Art11/swiss/audit-r2.log",
+      "sha256": "781e120f6b6401d31cfe434c4192975de4326bfd6df9efe08aa25567694f9192",
+      "bytes": 79
+    },
+    {
+      "path": "ArtSource/Art11/swiss/unittest-r2.log",
+      "sha256": "c3efff3d9eb001edface29b36ef1794885ed6159be4b29552b21c19bf2ac4923",
+      "bytes": 27523
+    },
+    {
+      "path": "ArtSource/Art11/swiss/unittest-r2-before-lock.log",
+      "sha256": "c0660abc0cabd6db776ca524b880b9d6e315a63862df57e1c7cee55b0f2c7427",
+      "bytes": 27370
+    },
+    {
+      "path": "ArtSource/Art11/swiss/review-r2.md",
+      "sha256": "3dd4a457f8c5dba64d715d8aefdd97f155b6c9eac1d82b33d066fa11aa196d0e",
+      "bytes": 3678
+    },
+    {
+      "path": "ArtSource/Art11/swiss/REVIEW.md",
+      "sha256": "89b330ba3645267a4020a555b67530d579f720c45df6ebed39347db59a518355",
+      "bytes": 489
+    },
+    {
+      "path": "ArtSource/Art11/swiss/history/r1/manifest.json",
+      "sha256": "e0d12407b86c764f24399f4e13d1e6fbc3565a918ab77c6bc65e1a91dbc60d24",
+      "bytes": 29362
+    }
+  ],
+  "revision": "R2",
+  "references": [
+    {
+      "path": "ArtSource/StyleKit/themes/swiss/concepts/roll.png",
+      "sha256": "654d1c1044be820641bf06d8ea928a0c6bacc4265f806e209284034d389c8456",
+      "bytes": 2011388,
+      "expectedSha256": "654d1c1044be820641bf06d8ea928a0c6bacc4265f806e209284034d389c8456",
+      "verified": true
+    },
+    {
+      "path": "ArtSource/StyleKit/themes/swiss/concepts/shop.png",
+      "sha256": "8a44a2205fa065a462fd029e0c9115368a1a049c31a592d6a2a7eb3c5ac930ee",
+      "bytes": 1930945,
+      "expectedSha256": "8a44a2205fa065a462fd029e0c9115368a1a049c31a592d6a2a7eb3c5ac930ee",
+      "verified": true
+    },
+    {
+      "path": "ArtSource/StyleKit/themes/swiss/concepts/select.png",
+      "sha256": "b57fdf88eb35bee9a07269fab6d9810478c1ddb0bcb0cb97be785cf44f6555af",
+      "bytes": 2044495,
+      "expectedSha256": "b57fdf88eb35bee9a07269fab6d9810478c1ddb0bcb0cb97be785cf44f6555af",
+      "verified": true
+    },
+    {
+      "path": "ArtSource/StyleKit/themes/swiss/concepts/card.png",
+      "sha256": "12dd7cf1dd28cdbc12337d49fad3cc8592fcfa652c514cc9015a62ab9fb201c7",
+      "bytes": 2051700,
+      "expectedSha256": "12dd7cf1dd28cdbc12337d49fad3cc8592fcfa652c514cc9015a62ab9fb201c7",
+      "verified": true
+    },
+    {
+      "path": "ArtSource/StyleKit/themes/swiss/concepts/triptych.png",
+      "sha256": "629449a82af54fb4043532132e165d0023a57506e38316439e153346d3c91222",
+      "bytes": 1908509,
+      "expectedSha256": "629449a82af54fb4043532132e165d0023a57506e38316439e153346d3c91222",
+      "verified": true
+    }
+  ],
+  "changedOutputsSinceR1": [
+    "ArtSource/Art11/swiss/contact_sheet.png",
+    "DicePrototype/Assets/Resources/Themes/swiss/preview.png",
+    "DicePrototype/Assets/Resources/Themes/swiss/Table/table_scene.png",
+    "DicePrototype/Assets/Resources/Themes/swiss/UI/badge_enchant_base10.png",
+    "DicePrototype/Assets/Resources/Themes/swiss/UI/badge_enchant_mult2.png",
+    "DicePrototype/Assets/Resources/Themes/swiss/UI/badge_enchant_roll1.png",
+    "DicePrototype/Assets/Resources/Themes/swiss/UI/badge_enchant_slotless.png",
+    "DicePrototype/Assets/Resources/Themes/swiss/UI/badge_enchant_submit1.png",
+    "DicePrototype/Assets/Resources/Themes/swiss/UI/fx_formula_chip.png",
+    "DicePrototype/Assets/Resources/Themes/swiss/UI/fx_score_crown.png",
+    "DicePrototype/Assets/Resources/Themes/swiss/UI/fx_score_plate.png",
+    "DicePrototype/Assets/Resources/Themes/swiss/UI/ui_badge_check.png",
+    "DicePrototype/Assets/Resources/Themes/swiss/UI/ui_button_bevel.png",
+    "DicePrototype/Assets/Resources/Themes/swiss/UI/ui_button_ghost.png",
+    "DicePrototype/Assets/Resources/Themes/swiss/UI/ui_card_back.png",
+    "DicePrototype/Assets/Resources/Themes/swiss/UI/ui_card_controller.png",
+    "DicePrototype/Assets/Resources/Themes/swiss/UI/ui_card_controller_compact.png",
+    "DicePrototype/Assets/Resources/Themes/swiss/UI/ui_card_item.png",
+    "DicePrototype/Assets/Resources/Themes/swiss/UI/ui_card_shop.png",
+    "DicePrototype/Assets/Resources/Themes/swiss/UI/ui_chip_label.png",
+    "DicePrototype/Assets/Resources/Themes/swiss/UI/ui_die_shadow.png",
+    "DicePrototype/Assets/Resources/Themes/swiss/UI/ui_frame_block.png",
+    "DicePrototype/Assets/Resources/Themes/swiss/UI/ui_frame_enchant.png",
+    "DicePrototype/Assets/Resources/Themes/swiss/UI/ui_icon_book.png",
+    "DicePrototype/Assets/Resources/Themes/swiss/UI/ui_icon_lock.png",
+    "DicePrototype/Assets/Resources/Themes/swiss/UI/ui_icon_refresh.png",
+    "DicePrototype/Assets/Resources/Themes/swiss/UI/ui_info_inset.png",
+    "DicePrototype/Assets/Resources/Themes/swiss/UI/ui_panel_hud.png",
+    "DicePrototype/Assets/Resources/Themes/swiss/UI/ui_paper_panel.png",
+    "DicePrototype/Assets/Resources/Themes/swiss/UI/ui_price_chip.png",
+    "DicePrototype/Assets/Resources/Themes/swiss/UI/ui_ring.png",
+    "DicePrototype/Assets/Resources/Themes/swiss/UI/ui_section_panel.png",
+    "DicePrototype/Assets/Resources/Themes/swiss/UI/ui_slot_inventory.png",
+    "DicePrototype/Assets/Resources/Themes/swiss/UI/ui_tab_bottom.png",
+    "DicePrototype/Assets/Resources/Themes/swiss/UI/ui_tag_clock.png",
+    "DicePrototype/Assets/Resources/Themes/swiss/UI/ui_tag_lock.png",
+    "DicePrototype/Assets/Resources/Themes/swiss/UI/ui_tray_front.png",
+    "DicePrototype/Assets/Resources/Themes/swiss/UI/ui_wordmark_dicecraft.png"
+  ]
+}
