@@ -1,0 +1,6737 @@
+{
+  "runner": ".NET 10 reflection invoking NUnit assertions; System.Text.Json preflight adapter; not Unity EditMode",
+  "utc": "2026-11-16T19:06:35.395585Z",
+  "passed": 1682,
+  "failed": 0,
+  "total": 1682,
+  "results": [
+    {
+      "name": "ControllerScoreTests.CopiesKeepTheirOwnGrowthColourRandomOutcomeAndGoldBudget",
+      "result": "Passed"
+    },
+    {
+      "name": "ControllerScoreTests.CONTENT-C02-hit",
+      "result": "Passed"
+    },
+    {
+      "name": "ControllerScoreTests.CONTENT-C02-miss-red",
+      "result": "Passed"
+    },
+    {
+      "name": "ControllerScoreTests.CONTENT-C02-boundary-single",
+      "result": "Passed"
+    },
+    {
+      "name": "ControllerScoreTests.CONTENT-C03-hit",
+      "result": "Passed"
+    },
+    {
+      "name": "ControllerScoreTests.CONTENT-C03-not-equipped",
+      "result": "Passed"
+    },
+    {
+      "name": "ControllerScoreTests.CONTENT-C03-boundary-single",
+      "result": "Passed"
+    },
+    {
+      "name": "ControllerScoreTests.CONTENT-C06-hit",
+      "result": "Passed"
+    },
+    {
+      "name": "ControllerScoreTests.CONTENT-C06-miss-two-distinct",
+      "result": "Passed"
+    },
+    {
+      "name": "ControllerScoreTests.CONTENT-C06-boundary-duplicate-with-four-distinct",
+      "result": "Passed"
+    },
+    {
+      "name": "ControllerScoreTests.CONTENT-C08-hit",
+      "result": "Passed"
+    },
+    {
+      "name": "ControllerScoreTests.CONTENT-C08-miss-full",
+      "result": "Passed"
+    },
+    {
+      "name": "ControllerScoreTests.CONTENT-C08-boundary-one-empty-slot",
+      "result": "Passed"
+    },
+    {
+      "name": "ControllerScoreTests.CONTENT-C09-hit",
+      "result": "Passed"
+    },
+    {
+      "name": "ControllerScoreTests.CONTENT-C09-not-equipped",
+      "result": "Passed"
+    },
+    {
+      "name": "ControllerScoreTests.CONTENT-C09-boundary-full-reduced-capacity",
+      "result": "Passed"
+    },
+    {
+      "name": "ControllerScoreTests.CONTENT-C10-hit",
+      "result": "Passed"
+    },
+    {
+      "name": "ControllerScoreTests.CONTENT-C10-miss-pip-two",
+      "result": "Passed"
+    },
+    {
+      "name": "ControllerScoreTests.CONTENT-C10-boundary-contribution-does-not-change-pair",
+      "result": "Passed"
+    },
+    {
+      "name": "ControllerScoreTests.CONTENT-C11-hit",
+      "result": "Passed"
+    },
+    {
+      "name": "ControllerScoreTests.CONTENT-C11-miss-one-three",
+      "result": "Passed"
+    },
+    {
+      "name": "ControllerScoreTests.CONTENT-C11-boundary-extra-die-allowed",
+      "result": "Passed"
+    },
+    {
+      "name": "ControllerScoreTests.CONTENT-C12-hit",
+      "result": "Passed"
+    },
+    {
+      "name": "ControllerScoreTests.CONTENT-C12-miss-even-unchanged",
+      "result": "Passed"
+    },
+    {
+      "name": "ControllerScoreTests.CONTENT-C12-boundary-five-to-six",
+      "result": "Passed"
+    },
+    {
+      "name": "ControllerScoreTests.CONTENT-C13-hit",
+      "result": "Passed"
+    },
+    {
+      "name": "ControllerScoreTests.CONTENT-C13-miss-even",
+      "result": "Passed"
+    },
+    {
+      "name": "ControllerScoreTests.CONTENT-C13-boundary-red-group-uses-original-one",
+      "result": "Passed"
+    },
+    {
+      "name": "ControllerScoreTests.CONTENT-C14-hit",
+      "result": "Passed"
+    },
+    {
+      "name": "ControllerScoreTests.CONTENT-C14-miss-mixed-parity",
+      "result": "Passed"
+    },
+    {
+      "name": "ControllerScoreTests.CONTENT-C14-boundary-single-one",
+      "result": "Passed"
+    },
+    {
+      "name": "ControllerScoreTests.CONTENT-C17-hit",
+      "result": "Passed"
+    },
+    {
+      "name": "ControllerScoreTests.CONTENT-C17-miss-four",
+      "result": "Passed"
+    },
+    {
+      "name": "ControllerScoreTests.CONTENT-C17-boundary-all-three-small-values",
+      "result": "Passed"
+    },
+    {
+      "name": "ControllerScoreTests.CONTENT-C18-hit",
+      "result": "Passed"
+    },
+    {
+      "name": "ControllerScoreTests.CONTENT-C18-miss-unequal",
+      "result": "Passed"
+    },
+    {
+      "name": "ControllerScoreTests.CONTENT-C18-boundary-two-different-pips",
+      "result": "Passed"
+    },
+    {
+      "name": "ControllerScoreTests.CONTENT-C19-hit-threshold",
+      "result": "Passed"
+    },
+    {
+      "name": "ControllerScoreTests.CONTENT-C19-miss-above-threshold",
+      "result": "Passed"
+    },
+    {
+      "name": "ControllerScoreTests.CONTENT-C19-boundary-remote-current-six-permanent-ones",
+      "result": "Passed"
+    },
+    {
+      "name": "ControllerScoreTests.CONTENT-C20-hit",
+      "result": "Passed"
+    },
+    {
+      "name": "ControllerScoreTests.CONTENT-C20-miss-last-five",
+      "result": "Passed"
+    },
+    {
+      "name": "ControllerScoreTests.CONTENT-C20-boundary-last-occupied-not-capacity-slot",
+      "result": "Passed"
+    },
+    {
+      "name": "ControllerScoreTests.CONTENT-DUP-C02x2-multiplier-per-copy",
+      "result": "Passed"
+    },
+    {
+      "name": "ControllerScoreTests.CONTENT-DUP-C10x2-die-add-per-copy",
+      "result": "Passed"
+    },
+    {
+      "name": "ControllerScoreTests.CONTENT-DUP-C27x2-base-add-per-copy",
+      "result": "Passed"
+    },
+    {
+      "name": "ControllerScoreTests.CONTENT-DUP-C64x2-retrigger-per-copy",
+      "result": "Passed"
+    },
+    {
+      "name": "ControllerScoreTests.CONTENT-DUP-C109x2-middle-retrigger-per-copy",
+      "result": "Passed"
+    },
+    {
+      "name": "ControllerScoreTests.CONTENT-DUP-C84x2-hand-add-per-copy",
+      "result": "Passed"
+    },
+    {
+      "name": "ControllerScoreTests.CONTENT-DUP-C20x2-slot-add-per-copy",
+      "result": "Passed"
+    },
+    {
+      "name": "ControllerScoreTests.CONTENT-DUP-C47x4-count-multiplier-per-copy",
+      "result": "Passed"
+    },
+    {
+      "name": "ControllerScoreTests.CONTENT-DUP-C12x2-switch-applies-once",
+      "result": "Passed"
+    },
+    {
+      "name": "ControllerScoreTests.CONTENT-DUP-C03x2-switch-applies-once",
+      "result": "Passed"
+    },
+    {
+      "name": "ControllerScoreTests.CONTENT-DUP-C146x2-red-bonus-applies-once",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.Configuration_ContainsExactly71SupportedItemsAnd13Hands2Colors",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.Configuration_RejectsInvalidWeightsAndFaces",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.Configuration_RejectsMalformedOrIncompleteJson({})",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.Configuration_RejectsMalformedOrIncompleteJson({\u0022configVersion\u0022:null})",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.Configuration_RejectsMalformedOrIncompleteJson({\u0022a\u0022:1,\u0022a\u0022:2})",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.Configuration_RejectsMalformedOrIncompleteJson({\u0022a\u0022:1,})",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.Configuration_RejectsMalformedOrIncompleteJson([])",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.Configuration_RejectsMissingZeroOrFalseFields",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.Configuration_RejectsUnknownMissingDuplicateIds",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.FactoryAndClone_HaveNoSharedMutableFaces",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G001",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G002",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G003",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G004",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G005",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G006",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G007",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G008",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G009",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G010",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G011",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G012",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G013",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G014",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G015",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G016",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G017",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G018",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G019",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G020",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G021",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G022",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G023",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G024",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G025",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G026",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G027",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G028",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G029",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G030",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G031",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G032",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G033",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G034",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G035",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G036",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G037",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G038",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G039",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G040",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G041",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G042",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G043",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G044",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G045",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G046",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G047",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G048",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G049",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G050",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G051",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G052",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G053",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G054",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G055",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G056",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G057",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G058",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G059",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G060",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G061",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G062",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G063",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G064",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G065",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G066",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G067",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G068",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G069",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G070",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G071",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G072",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G073",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G074",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G075",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G076",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G077",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G078",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G079",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G080",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G081",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G082",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G083",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G084",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G085",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G086",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G087",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G088",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G089",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G090",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G091",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G092",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G093",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G094",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G095",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G096",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G097",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G098",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G099",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G100",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G101",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G102",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G103",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G104",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G105",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G106",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G107",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G108",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G109",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G110",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G111",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G112",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G113",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G114",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G115",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G116",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G117",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G118",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G119",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G120",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G121",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G122",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G123",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G124",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G125",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G126",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G127",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G128",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G129",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G130",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G131",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G132",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G133",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G134",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G135",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G136",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G137",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G138",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G139",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G140",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G141",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G142",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G143",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G144",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G145",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G146",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G147",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G148",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G149",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G150",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G151",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G152",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G153",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G154",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G155",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G156",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G157",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G158",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G159",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GOLD-G160",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GoldenFile_HasExactly160UniqueCases",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GoldenJson_AllOriginalNullTokensAreAccountedFor",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.GoldenJson_PreservesNullEmptyAndNonemptyGroupIdsExactly",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.Probability_All2916TextureAndBuffCombinations",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.Probability_FiveContractVectors(none,False,False,System.Int32[])",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.Probability_FiveContractVectors(smooth,False,False,System.Int32[])",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.Probability_FiveContractVectors(rough,False,False,System.Int32[])",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.Probability_FiveContractVectors(none,True,False,System.Int32[])",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.Probability_FiveContractVectors(none,True,True,System.Int32[])",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.Probability_RejectsIllegalPhysicalData",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.Probability_RepeatedPreviewDoesNotCompoundOrMutate",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.Probability_TieBreakUsesPhysicalFaceId_NotArrayOrder",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.Probability_UsesPermanentPips",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.Rng_ExactFirstFiveOutputs",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.Rng_RejectionSamplingContractAndClone",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.Rng_SeedOnlyAcceptsUintDecimal",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.Score_EqualUpgradedMultipliersPreferHigherStructuralRank",
+      "result": "Passed"
+    },
+    {
+      "name": "RulesTests.Score_RejectsEmptyDuplicateOverCapacityAndInvalidLevels",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G001",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G002",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G003",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G004",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G005",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G006",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G007",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G008",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G009",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G010",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G011",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G012",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G013",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G014",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G015",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G016",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G017",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G018",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G019",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G020",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G021",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G022",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G023",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G024",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G025",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G026",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G027",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G028",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G029",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G030",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G031",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G032",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G033",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G034",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G035",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G036",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G037",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G038",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G039",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G040",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G041",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G042",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G043",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G044",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G045",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G046",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G047",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G048",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G049",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G050",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G051",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G052",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G053",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G054",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G055",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G056",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G057",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G058",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G059",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G060",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G061",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G062",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G063",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G064",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G065",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G066",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G067",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G068",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G069",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G070",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G071",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G072",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G073",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G074",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G075",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G076",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G077",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G078",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G079",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G080",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G081",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G082",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G083",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G084",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G085",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G086",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G087",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G088",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G089",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G090",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G091",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G092",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G093",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G094",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G095",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G096",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G097",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G098",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G099",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G100",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G101",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G102",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G103",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G104",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G105",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G106",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G107",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G108",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G109",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G110",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G111",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G112",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G113",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G114",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G115",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G116",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G117",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G118",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G119",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G120",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G121",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G122",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G123",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G124",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G125",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G126",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G127",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G128",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G129",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G130",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G131",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G132",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G133",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G134",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G135",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G136",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G137",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G138",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G139",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G140",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G141",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G142",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G143",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G144",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G145",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G146",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G147",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G148",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G149",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G150",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G151",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G152",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G153",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G154",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G155",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G156",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G157",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G158",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G159",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.TRACE-G160",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.Trace_C12EffectivePipsSuppressOldOddAndOnePointAdditions",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.Trace_GlobalFractionsSurviveEveryControllerAndC20AddsBeforeMultipliers",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.Trace_RejectsInconsistentFrozenBreakdown(contribution)",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.Trace_RejectsInconsistentFrozenBreakdown(total)",
+      "result": "Passed"
+    },
+    {
+      "name": "ScoreExplanationTests.Trace_StackedContributionsAddBeforeGlassThenGold",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.V06-TRIGGER-C02-hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.V06-TRIGGER-C02-miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.V06-TRIGGER-C03-hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.V06-TRIGGER-C06-hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.V06-TRIGGER-C06-miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.V06-TRIGGER-C07-hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.V06-TRIGGER-C07-miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.V06-TRIGGER-C08-hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.V06-TRIGGER-C08-miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.V06-TRIGGER-C09-hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.V06-TRIGGER-C10-hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.V06-TRIGGER-C10-miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.V06-TRIGGER-C11-hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.V06-TRIGGER-C11-miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.V06-TRIGGER-C12-hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.V06-TRIGGER-C12-miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.V06-TRIGGER-C13-hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.V06-TRIGGER-C13-miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.V06-TRIGGER-C14-hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.V06-TRIGGER-C14-miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.V06-TRIGGER-C15-hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.V06-TRIGGER-C15-miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.V06-TRIGGER-C17-hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.V06-TRIGGER-C17-miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.V06-TRIGGER-C18-hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.V06-TRIGGER-C18-miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.V06-TRIGGER-C19-hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.V06-TRIGGER-C20-hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.V06-TRIGGER-C20-miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.V06-TRIGGER-C24-hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.V06-TRIGGER-C24-miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.V06-TRIGGER-C25-hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.V06-TRIGGER-C25-miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.V06-TRIGGER-C26-hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.V06-TRIGGER-C26-miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.V06-TRIGGER-C27-hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.V06-TRIGGER-C27-miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.V06-TRIGGER-C28-hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.V06-TRIGGER-C28-miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.V06-TRIGGER-C29-hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.V06-TRIGGER-C29-miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.V06-TRIGGER-C30-hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.V06-TRIGGER-C30-miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.V06-TRIGGER-C31-hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.V06-TRIGGER-C31-miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.V06-TRIGGER-C32-hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.V06-TRIGGER-C32-miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.V06-TRIGGER-C33-hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.V06-TRIGGER-C33-miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.V06-TRIGGER-C36-hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.V06-TRIGGER-C36-miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.V06-TRIGGER-C37-hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.V06-TRIGGER-C37-miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.V06-TRIGGER-C38-hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.V06-TRIGGER-C39-hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.V06-TRIGGER-C39-miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.V06-TRIGGER-C40-hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.V06-TRIGGER-C40-miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.BaseEnchantIsOncePerCardAndPairAddIsNotPerDieOrMultipliedByGold",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.BoundaryTriggersReadFrozenOriginalAndEffectiveLayers",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.BudgetsAndCapacityAreIndependentOfDiceAndCombineAdditively",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.EnchantmentBoundariesAndDedicatedPoolConsumeExactlyOneDraw(49,none)",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.EnchantmentBoundariesAndDedicatedPoolConsumeExactlyOneDraw(50,slotless)",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.EnchantmentBoundariesAndDedicatedPoolConsumeExactlyOneDraw(67,slotless)",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.EnchantmentBoundariesAndDedicatedPoolConsumeExactlyOneDraw(68,base10)",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.EnchantmentBoundariesAndDedicatedPoolConsumeExactlyOneDraw(77,base10)",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.EnchantmentBoundariesAndDedicatedPoolConsumeExactlyOneDraw(78,mult2)",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.EnchantmentBoundariesAndDedicatedPoolConsumeExactlyOneDraw(81,mult2)",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.EnchantmentBoundariesAndDedicatedPoolConsumeExactlyOneDraw(82,submit1)",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.EnchantmentBoundariesAndDedicatedPoolConsumeExactlyOneDraw(90,submit1)",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.EnchantmentBoundariesAndDedicatedPoolConsumeExactlyOneDraw(91,roll1)",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.EnchantmentBoundariesAndDedicatedPoolConsumeExactlyOneDraw(99,roll1)",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.EquipmentSeparatesFourOrdinarySlotsTenInstancesAndDuplicateIds",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.GroupTransferFixedVectors(False,False,True,False,System.Int32[])",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.GroupTransferFixedVectors(False,False,False,True,System.Int32[])",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.GroupTransferFixedVectors(False,False,True,True,System.Int32[])",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.GroupTransferFixedVectors(True,False,True,False,System.Int32[])",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.GroupTransferFixedVectors(True,False,False,True,System.Int32[])",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.GroupTransferIsExactStableUnderFacePermutationAndDoesNotMutate",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.HandbookAlwaysContainsFourteenHandAndTwoColorRowsAndSeparatesTemporaryFormationFromUpgradeEligibility",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.HandbookC29ChangesOnlyStraightThresholdAndNextReadRefreshes",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.MissingRepeatedAndExhaustedDonorDigitsMatchReferenceVectors",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.MultipleMultiplierEnchantmentsUseOneFinalFloor",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.ReplacementPoolsExcludeNoneAndCurrentAndAdvanceRng",
+      "result": "Passed"
+    },
+    {
+      "name": "V06RulesTests.UnequippedControllersNeverTriggerAndNonSubmitCardsCannotScoreEnchant",
+      "result": "Passed"
+    },
+    {
+      "name": "V06SourceBoundaryTests.AllNewAndReplacementEnchantTicketsMatchIndependentPoolTables",
+      "result": "Passed"
+    },
+    {
+      "name": "V06SourceBoundaryTests.BigIntegerParserRejectsFloatingSignedWhitespaceAndEmptyData",
+      "result": "Passed"
+    },
+    {
+      "name": "V06SourceBoundaryTests.C43StructuralPrimaryDiffersFromUpgradedWinnerAndClampsAfterScore",
+      "result": "Passed"
+    },
+    {
+      "name": "V06SourceBoundaryTests.C44ConvertsWalletBeforeMultiplicationAndExactScoreExceedsInt64",
+      "result": "Passed"
+    },
+    {
+      "name": "V06SourceBoundaryTests.C53PreviewUsesSharedUnknownOwnerRangeAndPreservesExplicitBranch",
+      "result": "Passed"
+    },
+    {
+      "name": "V06SourceBoundaryTests.ColorSingleDieIndependentAndExcludedFromPrimary",
+      "result": "Passed"
+    },
+    {
+      "name": "V06SourceBoundaryTests.CopiedC45SharesColorButAppliesEachSourceAndPlansOwnerOnce",
+      "result": "Passed"
+    },
+    {
+      "name": "V06SourceBoundaryTests.CyclesDuplicateBindingsAndDuplicateInstanceIdsReject",
+      "result": "Passed"
+    },
+    {
+      "name": "V06SourceBoundaryTests.FrozenMimicChainReadsFinalOwnerAndNeverRetargetsLostTarget",
+      "result": "Passed"
+    },
+    {
+      "name": "V06SourceBoundaryTests.HandbookUsesMimicAbilitiesAndSeparatesColorFromFourteenHandRows",
+      "result": "Passed"
+    },
+    {
+      "name": "V06SourceBoundaryTests.MultiPairShapesNeverSplitSamePointAndDebugCapsDefinedRedReward",
+      "result": "Passed"
+    },
+    {
+      "name": "V06SourceBoundaryTests.NetProbabilitySourcesStackAndSaturate(2,System.Int32[])",
+      "result": "Passed"
+    },
+    {
+      "name": "V06SourceBoundaryTests.NetProbabilitySourcesStackAndSaturate(3,System.Int32[])",
+      "result": "Passed"
+    },
+    {
+      "name": "V06SourceBoundaryTests.NetProbabilitySourcesStackAndSaturate(4,System.Int32[])",
+      "result": "Passed"
+    },
+    {
+      "name": "V06SourceBoundaryTests.NumericConfigKeysPreserveValuesAndRejectMissingUnknownOrWrongTypes",
+      "result": "Passed"
+    },
+    {
+      "name": "V06SourceBoundaryTests.OwnFundSaleDoesNotReadBoundTargetsAndOverflowIsRejected",
+      "result": "Passed"
+    },
+    {
+      "name": "V06SourceBoundaryTests.StateLegalityDebugDuplicatesAndRetiredIdsAreDistinctBoundaries",
+      "result": "Passed"
+    },
+    {
+      "name": "V06SourceBoundaryTests.ZeroFactorStillTriggersEnchantIncomeAndFrozenPostPlan",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N001",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N002",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N003",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N004",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N005",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N006",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N007",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N008",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N009",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N010",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N011",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N012",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N013",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N014",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N015",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N016",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N017",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N018",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N019",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N020",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N021",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N022",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N023",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N024",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N025",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N026",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N027",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N028",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N029",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N030",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N031",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N032",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N033",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N034",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N035",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N036",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N037",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N038",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N039",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N040",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N041",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N042",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N043",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N044",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N045",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N046",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N047",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N048",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N049",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N050",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N051",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N052",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N053",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N054",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N055",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N056",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N057",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N058",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N059",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N060",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N061",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N062",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N063",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N064",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N065",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N066",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N067",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N068",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N069",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N070",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N071",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N072",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N073",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N074",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N075",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N076",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N077",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N078",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N079",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N080",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N081",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N082",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N083",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N084",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N085",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N086",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N087",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N088",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N089",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N090",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N091",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N092",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N093",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N094",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N095",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N096",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N097",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N098",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N099",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N100",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N101",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N102",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N103",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N104",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N105",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N106",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N107",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N108",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N109",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N110",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N111",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N112",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N113",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N114",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N115",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N116",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N117",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N118",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N119",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N120",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N121",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N122",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N123",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N124",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N125",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N126",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N127",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N128",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N129",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N130",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N131",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N132",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N133",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N134",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N135",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N136",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N137",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N138",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N139",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N140",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N141",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N142",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N143",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N144",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N145",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N146",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N147",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N148",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N149",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N150",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N151",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N152",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N153",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N154",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N155",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N156",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N157",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N158",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N159",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N160",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N161",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N162",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N163",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N164",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N165",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N166",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N167",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N168",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N169",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N170",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N171",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N172",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N173",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N174",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N175",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N176",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N177",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N178",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N179",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N180",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N181",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N182",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N183",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N184",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N185",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N186",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N187",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N188",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N189",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N190",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N191",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N192",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N193",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N194",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N195",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N196",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N197",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N198",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N199",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N200",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N201",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N202",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N203",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N204",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N205",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N206",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N207",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N208",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N209",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N210",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N211",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N212",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N213",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N214",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N215",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N216",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N217",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N218",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N219",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N220",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N221",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N222",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N223",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N224",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N225",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N226",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N227",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N228",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N229",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N230",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N231",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N232",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N233",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N234",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N235",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N236",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N237",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N238",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N239",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N240",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N241",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N242",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N243",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N244",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N245",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N246",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N247",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N248",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N249",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N250",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N251",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N252",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N253",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N254",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N255",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N256",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N257",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N258",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N259",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GOLD09-N260",
+      "result": "Passed"
+    },
+    {
+      "name": "V09GoldenTests.GoldenV09_FileCoversEveryScoringNewControllerBothTriggeredAndPresent",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P001",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P002",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P003",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P004",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P005",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P006",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P007",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P008",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P009",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P010",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P011",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P012",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P013",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P014",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P015",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P016",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P017",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P018",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P019",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P020",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P021",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P022",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P023",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P024",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P025",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P026",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P027",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P028",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P029",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P030",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P031",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P032",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P033",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P034",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P035",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P036",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P037",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P038",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P039",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P040",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P041",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P042",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P043",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P044",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P045",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P046",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P047",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P048",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P049",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P050",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P051",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P052",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P053",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P054",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P055",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P056",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P057",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P058",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P059",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P060",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P061",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P062",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P063",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P064",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P065",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P066",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P067",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P068",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P069",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P070",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P071",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P072",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P073",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P074",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P075",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P076",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P077",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P078",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P079",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P080",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P081",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P082",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P083",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P084",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P085",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P086",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P087",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P088",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P089",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P090",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P091",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P092",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P093",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P094",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P095",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P096",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P097",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P098",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P099",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P100",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P101",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P102",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P103",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P104",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P105",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P106",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P107",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P108",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P109",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P110",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P111",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P112",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P113",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P114",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P115",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P116",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P117",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P118",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P119",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P120",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P121",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P122",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P123",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P124",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P125",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P126",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P127",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P128",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P129",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P130",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P131",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P132",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P133",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P134",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P135",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P136",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P137",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P138",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P139",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P140",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P141",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P142",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P143",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P144",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P145",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P146",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P147",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P148",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P149",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P150",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P151",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P152",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P153",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P154",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P155",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P156",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P157",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P158",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P159",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P160",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P161",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P162",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P163",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P164",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P165",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P166",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P167",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P168",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P169",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P170",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P171",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P172",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P173",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P174",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P175",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P176",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P177",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P178",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P179",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P180",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P181",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P182",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P183",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P184",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P185",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P186",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P187",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P188",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P189",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P190",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P191",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P192",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P193",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P194",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P195",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P196",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P197",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P198",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P199",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P200",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P201",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P202",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P203",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P204",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P205",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P206",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P207",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P208",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P209",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P210",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P211",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P212",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P213",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P214",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P215",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P216",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P217",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P218",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P219",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P220",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P221",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P222",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P223",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P224",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P225",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P226",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P227",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P228",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P229",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P230",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P231",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P232",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P233",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P234",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P235",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P236",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P237",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P238",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P239",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P240",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P241",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P242",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P243",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P244",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P245",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P246",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P247",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P248",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P249",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P250",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P251",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P252",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P253",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P254",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P255",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P256",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P257",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P258",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P259",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P260",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P261",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P262",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P263",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P264",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P265",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P266",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P267",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P268",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P269",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P270",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P271",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P272",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P273",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P274",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P275",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P276",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P277",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P278",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P279",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P280",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P281",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P282",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P283",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P284",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P285",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P286",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P287",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P288",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P289",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P290",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P291",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P292",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P293",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P294",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P295",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P296",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P297",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P298",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P299",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P300",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P301",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P302",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P303",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P304",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P305",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P306",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P307",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P308",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P309",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P310",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P311",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P312",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P313",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P314",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P315",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P316",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P317",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P318",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P319",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P320",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P321",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P322",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P323",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P324",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P325",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P326",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P327",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P328",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P329",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P330",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P331",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P332",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P333",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P334",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P335",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P336",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P337",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P338",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P339",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P340",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P341",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P342",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P343",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P344",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P345",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P346",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P347",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P348",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P349",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P350",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P351",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P352",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P353",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P354",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P355",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P356",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P357",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P358",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P359",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P360",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P361",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P362",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P363",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P364",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P365",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P366",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P367",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P368",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P369",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P370",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P371",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P372",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P373",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P374",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P375",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P376",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P377",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P378",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P379",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P380",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P381",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P382",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P383",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P384",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P385",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P386",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P387",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P388",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P389",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P390",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P391",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P392",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P393",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P394",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P395",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P396",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P397",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P398",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P399",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P400",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P401",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P402",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P403",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P404",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P405",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P406",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P407",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P408",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P409",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P410",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P411",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P412",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P413",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P414",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P415",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P416",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P417",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P418",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P419",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P420",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P421",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P422",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P423",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P424",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P425",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P426",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P427",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P428",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P429",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P430",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P431",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P432",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P433",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P434",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P435",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P436",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P437",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P438",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P439",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P440",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P441",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P442",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P443",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P444",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P445",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GOLD10-P446",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.GoldenV10_FileCoversEveryNewScoringControllerAndEveryScoringModifierEffect",
+      "result": "Passed"
+    },
+    {
+      "name": "V10GoldenTests.V10_DisabledControllersPlanNoGrowthNoColourRotationAndNoRandomRedraw",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GoldenV11_ConditionalCardsAlsoHaveTwoUntriggeredCopies",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GoldenV11_CoversEveryHistoricalScoringCardWithTwoTriggeringCopies",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C01-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C01-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C02-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C02-two_miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C02-three_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C02-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C03-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C03-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C06-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C06-two_miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C06-three_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C06-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C07-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C07-two_miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C07-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C08-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C08-two_miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C08-three_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C08-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C09-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C09-three_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C09-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C10-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C10-two_miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C10-three_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C10-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C11-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C11-two_miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C11-three_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C11-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C12-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C12-two_miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C12-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C13-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C13-two_miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C13-three_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C13-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C14-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C14-two_miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C14-three_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C14-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C15-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C15-two_miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C15-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C17-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C17-two_miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C17-three_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C17-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C18-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C18-two_miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C18-three_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C18-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C19-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C19-two_miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C19-three_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C19-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C20-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C20-two_miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C20-three_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C20-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C24-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C24-two_miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C24-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C25-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C25-two_miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C25-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C26-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C26-two_miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C26-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C27-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C27-two_miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C27-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C28-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C28-two_miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C28-three_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C28-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C29-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C29-two_miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C29-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C30-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C30-two_miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C30-three_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C30-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C31-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C31-two_miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C31-three_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C31-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C32-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C32-two_miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C32-three_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C32-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C33-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C33-two_miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C33-three_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C33-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C36-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C36-two_miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C36-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C37-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C37-two_miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C37-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C38-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C38-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C39-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C39-two_miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C39-three_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C39-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C40-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C40-two_miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C40-three_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C40-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C41-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C41-two_miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C41-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C42-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C42-three_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C42-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C43-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C43-two_miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C43-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C44-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C44-two_miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C44-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C45-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C45-three_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C45-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C46-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C46-three_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C46-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C47-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C47-three_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C47-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C48-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C48-two_miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C48-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C49-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C49-three_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C49-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C50-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C50-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C51-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C51-three_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C51-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C53-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C53-three_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C53-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C54-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C54-three_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C54-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C55-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C55-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C56-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C56-three_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C56-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C57-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C57-three_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C57-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C58-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C58-three_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C58-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C59-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C59-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C60-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C60-three_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C60-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C61-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C61-three_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C61-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C62-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C62-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C63-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C63-three_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C63-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C64-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C64-three_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C64-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C65-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C65-two_miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C65-three_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C65-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C66-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C66-two_miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C66-three_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C66-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C67-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C67-two_miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C67-three_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C67-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C68-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C68-two_miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C68-three_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C68-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C69-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C69-two_miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C69-three_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C69-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C70-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C70-two_miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C70-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C71-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C71-two_miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C71-three_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C71-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C72-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C72-two_miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C72-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C73-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C73-two_miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C73-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C74-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C74-two_miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C74-three_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C74-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C75-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C75-two_miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C75-three_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C75-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C76-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C76-two_miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C76-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C77-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C77-two_miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C77-three_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C77-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C80-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C80-two_miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C80-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C81-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C81-two_miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C81-three_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C81-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C82-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C82-two_miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C82-three_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C82-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C83-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C83-two_miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C83-three_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C83-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C84-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C84-two_miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C84-three_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C84-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C85-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C85-two_miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C85-three_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C85-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C86-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C86-two_miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C86-three_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C86-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C87-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C87-two_miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C87-three_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C87-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C88-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C88-two_miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C88-three_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C88-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C89-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C89-two_miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C89-three_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C89-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C90-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C90-three_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C90-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C91-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C91-two_miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C91-three_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C91-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C92-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C92-two_miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C92-three_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C92-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C93-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C93-two_miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C93-three_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C93-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C94-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C94-three_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C94-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C100-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C100-three_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C100-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C101-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C101-three_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C101-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C102-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C102-two_miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C102-three_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C102-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C103-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C103-two_miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C103-three_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C103-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C104-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C104-two_miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C104-three_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C104-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C105-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C105-two_miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C105-three_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C105-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C106-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C106-two_miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C106-three_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C106-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C107-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C107-two_miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C107-three_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C107-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C108-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C108-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C109-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C109-two_miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C109-three_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C109-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C117-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C117-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C118-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C118-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C119-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C119-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C122-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C122-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C123-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C123-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C124-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C124-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C125-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C125-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C126-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C126-two_miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C126-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C127-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C127-two_miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C127-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C129-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C129-three_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C129-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C130-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C130-two_miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C130-three_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C130-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C132-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C132-three_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C132-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C134-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C134-three_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C134-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C135-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C135-two_miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C135-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C137-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C137-two_miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C137-three_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C137-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C138-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C138-two_miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C138-three_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C138-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C139-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C139-two_miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C139-three_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C139-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C141-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C141-three_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C141-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C142-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C142-two_miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C142-three_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C142-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C143-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C143-two_miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C143-three_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C143-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C144-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C144-two_miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C144-three_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C144-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C146-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C146-two_miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C146-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C147-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C147-two_miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C147-three_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C147-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C148-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C148-two_miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C148-three_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C148-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C149-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C149-two_miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C149-three_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C149-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C150-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C150-two_miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C150-three_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C150-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C151-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C151-two_miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C151-three_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C151-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C152-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C152-two_miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C152-three_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C152-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C153-two_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C153-two_miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C153-three_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C153-mimic_hit",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C46-hand_multiplier",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C46-hand_triple",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C10-hand_addition",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C10-hand_triple",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C64-hand_retrigger",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C50-hand_base",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C84-hand_hand_add",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C47-hand_count",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C45-separate_colors",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C45-no_benefiting_die",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C49-zero_factor_still_triggers",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C51-separate_turnover",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C53-separate_random_and_mimic",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C54-separate_state_and_mimic",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C55-separate_state_and_mimic",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C56-separate_state_and_mimic",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C57-separate_state_and_mimic",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C58-separate_state_and_mimic",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C59-separate_state_and_mimic",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C60-separate_state_and_mimic",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C61-separate_state_and_mimic",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C62-separate_state_and_mimic",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C90-separate_state_and_mimic",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C100-separate_state_and_mimic",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C129-separate_state_and_mimic",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C132-separate_state_and_mimic",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C134-separate_state_and_mimic",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C141-separate_state_and_mimic",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C54-growth_condition_miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C56-growth_condition_miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C57-growth_condition_miss",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C138-budget_0",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C138-budget_2",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C138-budget_3",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C138-budget_5",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C138-budget_6",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C138-budget_8",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C138-budget_9",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C03-switch_independent_enchants",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C12-switch_independent_enchants",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C24-switch_independent_enchants",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C25-switch_independent_enchants",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C29-switch_independent_enchants",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C73-switch_independent_enchants",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C146-switch_independent_enchants",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C01-income_plan",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C36-net_growth_plan",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GOLD11-C43-upgrade_cap",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GoldenV11_MixesRealCopiesWithMimicsOfTheSameAbility",
+      "result": "Passed"
+    },
+    {
+      "name": "V11GoldenTests.GoldenV11_MultiplierAndPerDieAdditionCardsHaveThreeTriggeringCopies",
+      "result": "Passed"
+    }
+  ]
+}

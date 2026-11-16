@@ -1,0 +1,17 @@
+{
+  "result": "PASS",
+  "source": "independent rules formulas; JSON only, no scorer imports",
+  "cases_in_file": 459,
+  "scoring_cards": 122,
+  "assertion_groups": {
+    "fixed_global_multiplier_assertions": 128,
+    "dynamic_global_multiplier_assertions": 91,
+    "per_die_addition_assertions": 43,
+    "growth_fixture_assertions": 56
+  },
+  "distinct_cases_audited": 285,
+  "input_sha256": {
+    "DicePrototype/Assets/Game/Data/GoldenScoresV11.json": "13262d1bdfe548849f6040ecb6d0a8b265e4abe20ebcd2f22bf50261c5f85396",
+    "DicePrototype/Assets/Game/Data/P0Config.json": "3043203a2aac915d4138b16de57da57e38a86474ee1ee0639fc122da67aad92a"
+  }
+}

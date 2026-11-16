@@ -1,0 +1,1671 @@
+{
+  "reason": "??????growth=20?????10/20???????????4????3?/4??????????????C#?????????????????C#?",
+  "method": "????????????????????????????????",
+  "cases_changed": 56,
+  "changes": [
+    {
+      "id": "C54-two_hit",
+      "old_growth": {
+        "ctl_01": 20,
+        "ctl_02": 20
+      },
+      "new_growth": {
+        "ctl_01": 12,
+        "ctl_02": 12
+      },
+      "expected_field_changes": {
+        "score": {
+          "draft": "136",
+          "final": "87"
+        },
+        "controllerMultiplierNumerator": {
+          "draft": "4",
+          "final": "64"
+        },
+        "controllerMultiplierDenominator": {
+          "draft": "1",
+          "final": "25"
+        }
+      }
+    },
+    {
+      "id": "C54-three_hit",
+      "old_growth": {
+        "ctl_01": 20,
+        "ctl_02": 20,
+        "ctl_03": 20
+      },
+      "new_growth": {
+        "ctl_01": 12,
+        "ctl_02": 12,
+        "ctl_03": 12
+      },
+      "expected_field_changes": {
+        "score": {
+          "draft": "272",
+          "final": "139"
+        },
+        "controllerMultiplierNumerator": {
+          "draft": "8",
+          "final": "512"
+        },
+        "controllerMultiplierDenominator": {
+          "draft": "1",
+          "final": "125"
+        }
+      }
+    },
+    {
+      "id": "C54-mimic_hit",
+      "old_growth": {
+        "ctl_01": 20,
+        "ctl_03": 20
+      },
+      "new_growth": {
+        "ctl_01": 12,
+        "ctl_03": 12
+      },
+      "expected_field_changes": {
+        "score": {
+          "draft": "272",
+          "final": "139"
+        },
+        "controllerMultiplierNumerator": {
+          "draft": "8",
+          "final": "512"
+        },
+        "controllerMultiplierDenominator": {
+          "draft": "1",
+          "final": "125"
+        }
+      }
+    },
+    {
+      "id": "C55-two_hit",
+      "old_growth": {
+        "ctl_01": 20,
+        "ctl_02": 20
+      },
+      "new_growth": {
+        "ctl_01": 8,
+        "ctl_02": 8
+      },
+      "expected_field_changes": {
+        "score": {
+          "draft": "114",
+          "final": "66"
+        },
+        "baseTotal": {
+          "draft": "57",
+          "final": "33"
+        },
+        "controllerBaseAdds": {
+          "draft": [
+            {
+              "emitterId": "ctl_01",
+              "abilityId": "C55",
+              "amount": "20"
+            },
+            {
+              "emitterId": "ctl_02",
+              "abilityId": "C55",
+              "amount": "20"
+            }
+          ],
+          "final": [
+            {
+              "emitterId": "ctl_01",
+              "abilityId": "C55",
+              "amount": "8"
+            },
+            {
+              "emitterId": "ctl_02",
+              "abilityId": "C55",
+              "amount": "8"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "C55-mimic_hit",
+      "old_growth": {
+        "ctl_01": 20,
+        "ctl_03": 20
+      },
+      "new_growth": {
+        "ctl_01": 8,
+        "ctl_03": 8
+      },
+      "expected_field_changes": {
+        "score": {
+          "draft": "154",
+          "final": "82"
+        },
+        "baseTotal": {
+          "draft": "77",
+          "final": "41"
+        },
+        "controllerBaseAdds": {
+          "draft": [
+            {
+              "emitterId": "ctl_01",
+              "abilityId": "C55",
+              "amount": "20"
+            },
+            {
+              "emitterId": "ctl_02",
+              "abilityId": "C55",
+              "amount": "20"
+            },
+            {
+              "emitterId": "ctl_03",
+              "abilityId": "C55",
+              "amount": "20"
+            }
+          ],
+          "final": [
+            {
+              "emitterId": "ctl_01",
+              "abilityId": "C55",
+              "amount": "8"
+            },
+            {
+              "emitterId": "ctl_02",
+              "abilityId": "C55",
+              "amount": "8"
+            },
+            {
+              "emitterId": "ctl_03",
+              "abilityId": "C55",
+              "amount": "8"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "C56-two_hit",
+      "old_growth": {
+        "ctl_01": 20,
+        "ctl_02": 20
+      },
+      "new_growth": {
+        "ctl_01": 8,
+        "ctl_02": 8
+      },
+      "expected_field_changes": {
+        "score": {
+          "draft": "456",
+          "final": "223"
+        },
+        "controllerMultiplierNumerator": {
+          "draft": "4",
+          "final": "49"
+        },
+        "controllerMultiplierDenominator": {
+          "draft": "1",
+          "final": "25"
+        }
+      }
+    },
+    {
+      "id": "C56-three_hit",
+      "old_growth": {
+        "ctl_01": 20,
+        "ctl_02": 20,
+        "ctl_03": 20
+      },
+      "new_growth": {
+        "ctl_01": 8,
+        "ctl_02": 8,
+        "ctl_03": 8
+      },
+      "expected_field_changes": {
+        "score": {
+          "draft": "912",
+          "final": "312"
+        },
+        "controllerMultiplierNumerator": {
+          "draft": "8",
+          "final": "343"
+        },
+        "controllerMultiplierDenominator": {
+          "draft": "1",
+          "final": "125"
+        }
+      }
+    },
+    {
+      "id": "C56-mimic_hit",
+      "old_growth": {
+        "ctl_01": 20,
+        "ctl_03": 20
+      },
+      "new_growth": {
+        "ctl_01": 8,
+        "ctl_03": 8
+      },
+      "expected_field_changes": {
+        "score": {
+          "draft": "912",
+          "final": "312"
+        },
+        "controllerMultiplierNumerator": {
+          "draft": "8",
+          "final": "343"
+        },
+        "controllerMultiplierDenominator": {
+          "draft": "1",
+          "final": "125"
+        }
+      }
+    },
+    {
+      "id": "C57-two_hit",
+      "old_growth": {
+        "ctl_01": 20,
+        "ctl_02": 20
+      },
+      "new_growth": {
+        "ctl_01": 12,
+        "ctl_02": 12
+      },
+      "expected_field_changes": {
+        "score": {
+          "draft": "560",
+          "final": "358"
+        },
+        "controllerMultiplierNumerator": {
+          "draft": "4",
+          "final": "64"
+        },
+        "controllerMultiplierDenominator": {
+          "draft": "1",
+          "final": "25"
+        }
+      }
+    },
+    {
+      "id": "C57-three_hit",
+      "old_growth": {
+        "ctl_01": 20,
+        "ctl_02": 20,
+        "ctl_03": 20
+      },
+      "new_growth": {
+        "ctl_01": 12,
+        "ctl_02": 12,
+        "ctl_03": 12
+      },
+      "expected_field_changes": {
+        "score": {
+          "draft": "1120",
+          "final": "573"
+        },
+        "controllerMultiplierNumerator": {
+          "draft": "8",
+          "final": "512"
+        },
+        "controllerMultiplierDenominator": {
+          "draft": "1",
+          "final": "125"
+        }
+      }
+    },
+    {
+      "id": "C57-mimic_hit",
+      "old_growth": {
+        "ctl_01": 20,
+        "ctl_03": 20
+      },
+      "new_growth": {
+        "ctl_01": 12,
+        "ctl_03": 12
+      },
+      "expected_field_changes": {
+        "score": {
+          "draft": "1120",
+          "final": "573"
+        },
+        "controllerMultiplierNumerator": {
+          "draft": "8",
+          "final": "512"
+        },
+        "controllerMultiplierDenominator": {
+          "draft": "1",
+          "final": "125"
+        }
+      }
+    },
+    {
+      "id": "C58-two_hit",
+      "old_growth": {
+        "ctl_01": 20,
+        "ctl_02": 20
+      },
+      "new_growth": {
+        "ctl_01": 16,
+        "ctl_02": 16
+      },
+      "expected_field_changes": {
+        "score": {
+          "draft": "136",
+          "final": "110"
+        },
+        "controllerMultiplierNumerator": {
+          "draft": "4",
+          "final": "81"
+        },
+        "controllerMultiplierDenominator": {
+          "draft": "1",
+          "final": "25"
+        }
+      }
+    },
+    {
+      "id": "C58-three_hit",
+      "old_growth": {
+        "ctl_01": 20,
+        "ctl_02": 20,
+        "ctl_03": 20
+      },
+      "new_growth": {
+        "ctl_01": 16,
+        "ctl_02": 16,
+        "ctl_03": 16
+      },
+      "expected_field_changes": {
+        "score": {
+          "draft": "272",
+          "final": "198"
+        },
+        "controllerMultiplierNumerator": {
+          "draft": "8",
+          "final": "729"
+        },
+        "controllerMultiplierDenominator": {
+          "draft": "1",
+          "final": "125"
+        }
+      }
+    },
+    {
+      "id": "C58-mimic_hit",
+      "old_growth": {
+        "ctl_01": 20,
+        "ctl_03": 20
+      },
+      "new_growth": {
+        "ctl_01": 16,
+        "ctl_03": 16
+      },
+      "expected_field_changes": {
+        "score": {
+          "draft": "272",
+          "final": "198"
+        },
+        "controllerMultiplierNumerator": {
+          "draft": "8",
+          "final": "729"
+        },
+        "controllerMultiplierDenominator": {
+          "draft": "1",
+          "final": "125"
+        }
+      }
+    },
+    {
+      "id": "C59-two_hit",
+      "old_growth": {
+        "ctl_01": 20,
+        "ctl_02": 20
+      },
+      "new_growth": {
+        "ctl_01": 16,
+        "ctl_02": 16
+      },
+      "expected_field_changes": {
+        "score": {
+          "draft": "114",
+          "final": "98"
+        },
+        "baseTotal": {
+          "draft": "57",
+          "final": "49"
+        },
+        "controllerBaseAdds": {
+          "draft": [
+            {
+              "emitterId": "ctl_01",
+              "abilityId": "C59",
+              "amount": "20"
+            },
+            {
+              "emitterId": "ctl_02",
+              "abilityId": "C59",
+              "amount": "20"
+            }
+          ],
+          "final": [
+            {
+              "emitterId": "ctl_01",
+              "abilityId": "C59",
+              "amount": "16"
+            },
+            {
+              "emitterId": "ctl_02",
+              "abilityId": "C59",
+              "amount": "16"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "C59-mimic_hit",
+      "old_growth": {
+        "ctl_01": 20,
+        "ctl_03": 20
+      },
+      "new_growth": {
+        "ctl_01": 16,
+        "ctl_03": 16
+      },
+      "expected_field_changes": {
+        "score": {
+          "draft": "154",
+          "final": "130"
+        },
+        "baseTotal": {
+          "draft": "77",
+          "final": "65"
+        },
+        "controllerBaseAdds": {
+          "draft": [
+            {
+              "emitterId": "ctl_01",
+              "abilityId": "C59",
+              "amount": "20"
+            },
+            {
+              "emitterId": "ctl_02",
+              "abilityId": "C59",
+              "amount": "20"
+            },
+            {
+              "emitterId": "ctl_03",
+              "abilityId": "C59",
+              "amount": "20"
+            }
+          ],
+          "final": [
+            {
+              "emitterId": "ctl_01",
+              "abilityId": "C59",
+              "amount": "16"
+            },
+            {
+              "emitterId": "ctl_02",
+              "abilityId": "C59",
+              "amount": "16"
+            },
+            {
+              "emitterId": "ctl_03",
+              "abilityId": "C59",
+              "amount": "16"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "C60-two_hit",
+      "old_growth": {
+        "ctl_01": 20,
+        "ctl_02": 20
+      },
+      "new_growth": {
+        "ctl_01": 8,
+        "ctl_02": 8
+      },
+      "expected_field_changes": {
+        "score": {
+          "draft": "136",
+          "final": "66"
+        },
+        "controllerMultiplierNumerator": {
+          "draft": "4",
+          "final": "49"
+        },
+        "controllerMultiplierDenominator": {
+          "draft": "1",
+          "final": "25"
+        }
+      }
+    },
+    {
+      "id": "C60-three_hit",
+      "old_growth": {
+        "ctl_01": 20,
+        "ctl_02": 20,
+        "ctl_03": 20
+      },
+      "new_growth": {
+        "ctl_01": 8,
+        "ctl_02": 8,
+        "ctl_03": 8
+      },
+      "expected_field_changes": {
+        "score": {
+          "draft": "272",
+          "final": "93"
+        },
+        "controllerMultiplierNumerator": {
+          "draft": "8",
+          "final": "343"
+        },
+        "controllerMultiplierDenominator": {
+          "draft": "1",
+          "final": "125"
+        }
+      }
+    },
+    {
+      "id": "C60-mimic_hit",
+      "old_growth": {
+        "ctl_01": 20,
+        "ctl_03": 20
+      },
+      "new_growth": {
+        "ctl_01": 8,
+        "ctl_03": 8
+      },
+      "expected_field_changes": {
+        "score": {
+          "draft": "272",
+          "final": "93"
+        },
+        "controllerMultiplierNumerator": {
+          "draft": "8",
+          "final": "343"
+        },
+        "controllerMultiplierDenominator": {
+          "draft": "1",
+          "final": "125"
+        }
+      }
+    },
+    {
+      "id": "C61-two_hit",
+      "old_growth": {
+        "ctl_01": 20,
+        "ctl_02": 20
+      },
+      "new_growth": {
+        "ctl_01": 8,
+        "ctl_02": 8
+      },
+      "expected_field_changes": {
+        "score": {
+          "draft": "136",
+          "final": "66"
+        },
+        "controllerMultiplierNumerator": {
+          "draft": "4",
+          "final": "49"
+        },
+        "controllerMultiplierDenominator": {
+          "draft": "1",
+          "final": "25"
+        }
+      }
+    },
+    {
+      "id": "C61-three_hit",
+      "old_growth": {
+        "ctl_01": 20,
+        "ctl_02": 20,
+        "ctl_03": 20
+      },
+      "new_growth": {
+        "ctl_01": 8,
+        "ctl_02": 8,
+        "ctl_03": 8
+      },
+      "expected_field_changes": {
+        "score": {
+          "draft": "272",
+          "final": "93"
+        },
+        "controllerMultiplierNumerator": {
+          "draft": "8",
+          "final": "343"
+        },
+        "controllerMultiplierDenominator": {
+          "draft": "1",
+          "final": "125"
+        }
+      }
+    },
+    {
+      "id": "C61-mimic_hit",
+      "old_growth": {
+        "ctl_01": 20,
+        "ctl_03": 20
+      },
+      "new_growth": {
+        "ctl_01": 8,
+        "ctl_03": 8
+      },
+      "expected_field_changes": {
+        "score": {
+          "draft": "272",
+          "final": "93"
+        },
+        "controllerMultiplierNumerator": {
+          "draft": "8",
+          "final": "343"
+        },
+        "controllerMultiplierDenominator": {
+          "draft": "1",
+          "final": "125"
+        }
+      }
+    },
+    {
+      "id": "C62-two_hit",
+      "old_growth": {
+        "ctl_01": 20,
+        "ctl_02": 20
+      },
+      "new_growth": {
+        "ctl_01": 4,
+        "ctl_02": 4
+      },
+      "expected_field_changes": {
+        "score": {
+          "draft": "114",
+          "final": "50"
+        },
+        "baseTotal": {
+          "draft": "57",
+          "final": "25"
+        },
+        "controllerBaseAdds": {
+          "draft": [
+            {
+              "emitterId": "ctl_01",
+              "abilityId": "C62",
+              "amount": "20"
+            },
+            {
+              "emitterId": "ctl_02",
+              "abilityId": "C62",
+              "amount": "20"
+            }
+          ],
+          "final": [
+            {
+              "emitterId": "ctl_01",
+              "abilityId": "C62",
+              "amount": "4"
+            },
+            {
+              "emitterId": "ctl_02",
+              "abilityId": "C62",
+              "amount": "4"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "C62-mimic_hit",
+      "old_growth": {
+        "ctl_01": 20,
+        "ctl_03": 20
+      },
+      "new_growth": {
+        "ctl_01": 4,
+        "ctl_03": 4
+      },
+      "expected_field_changes": {
+        "score": {
+          "draft": "154",
+          "final": "58"
+        },
+        "baseTotal": {
+          "draft": "77",
+          "final": "29"
+        },
+        "controllerBaseAdds": {
+          "draft": [
+            {
+              "emitterId": "ctl_01",
+              "abilityId": "C62",
+              "amount": "20"
+            },
+            {
+              "emitterId": "ctl_02",
+              "abilityId": "C62",
+              "amount": "20"
+            },
+            {
+              "emitterId": "ctl_03",
+              "abilityId": "C62",
+              "amount": "20"
+            }
+          ],
+          "final": [
+            {
+              "emitterId": "ctl_01",
+              "abilityId": "C62",
+              "amount": "4"
+            },
+            {
+              "emitterId": "ctl_02",
+              "abilityId": "C62",
+              "amount": "4"
+            },
+            {
+              "emitterId": "ctl_03",
+              "abilityId": "C62",
+              "amount": "4"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "C90-two_hit",
+      "old_growth": {
+        "ctl_01": 20,
+        "ctl_02": 20
+      },
+      "new_growth": {
+        "ctl_01": 60,
+        "ctl_02": 60
+      },
+      "expected_field_changes": {
+        "score": {
+          "draft": "136",
+          "final": "544"
+        },
+        "controllerMultiplierNumerator": {
+          "draft": "4",
+          "final": "16"
+        }
+      }
+    },
+    {
+      "id": "C90-three_hit",
+      "old_growth": {
+        "ctl_01": 20,
+        "ctl_02": 20,
+        "ctl_03": 20
+      },
+      "new_growth": {
+        "ctl_01": 60,
+        "ctl_02": 60,
+        "ctl_03": 60
+      },
+      "expected_field_changes": {
+        "score": {
+          "draft": "272",
+          "final": "2176"
+        },
+        "controllerMultiplierNumerator": {
+          "draft": "8",
+          "final": "64"
+        }
+      }
+    },
+    {
+      "id": "C90-mimic_hit",
+      "old_growth": {
+        "ctl_01": 20,
+        "ctl_03": 20
+      },
+      "new_growth": {
+        "ctl_01": 60,
+        "ctl_03": 60
+      },
+      "expected_field_changes": {
+        "score": {
+          "draft": "272",
+          "final": "2176"
+        },
+        "controllerMultiplierNumerator": {
+          "draft": "8",
+          "final": "64"
+        }
+      }
+    },
+    {
+      "id": "C100-two_hit",
+      "old_growth": {
+        "ctl_01": 20,
+        "ctl_02": 20
+      },
+      "new_growth": {
+        "ctl_01": 8,
+        "ctl_02": 8
+      },
+      "expected_field_changes": {
+        "score": {
+          "draft": "136",
+          "final": "66"
+        },
+        "controllerMultiplierNumerator": {
+          "draft": "4",
+          "final": "49"
+        },
+        "controllerMultiplierDenominator": {
+          "draft": "1",
+          "final": "25"
+        }
+      }
+    },
+    {
+      "id": "C100-three_hit",
+      "old_growth": {
+        "ctl_01": 20,
+        "ctl_02": 20,
+        "ctl_03": 20
+      },
+      "new_growth": {
+        "ctl_01": 8,
+        "ctl_02": 8,
+        "ctl_03": 8
+      },
+      "expected_field_changes": {
+        "score": {
+          "draft": "272",
+          "final": "93"
+        },
+        "controllerMultiplierNumerator": {
+          "draft": "8",
+          "final": "343"
+        },
+        "controllerMultiplierDenominator": {
+          "draft": "1",
+          "final": "125"
+        }
+      }
+    },
+    {
+      "id": "C100-mimic_hit",
+      "old_growth": {
+        "ctl_01": 20,
+        "ctl_03": 20
+      },
+      "new_growth": {
+        "ctl_01": 8,
+        "ctl_03": 8
+      },
+      "expected_field_changes": {
+        "score": {
+          "draft": "272",
+          "final": "93"
+        },
+        "controllerMultiplierNumerator": {
+          "draft": "8",
+          "final": "343"
+        },
+        "controllerMultiplierDenominator": {
+          "draft": "1",
+          "final": "125"
+        }
+      }
+    },
+    {
+      "id": "C129-two_hit",
+      "old_growth": {
+        "ctl_01": 20,
+        "ctl_02": 20
+      },
+      "new_growth": {
+        "ctl_01": 32,
+        "ctl_02": 32
+      },
+      "expected_field_changes": {
+        "score": {
+          "draft": "136",
+          "final": "229"
+        },
+        "controllerMultiplierNumerator": {
+          "draft": "4",
+          "final": "169"
+        },
+        "controllerMultiplierDenominator": {
+          "draft": "1",
+          "final": "25"
+        }
+      }
+    },
+    {
+      "id": "C129-three_hit",
+      "old_growth": {
+        "ctl_01": 20,
+        "ctl_02": 20,
+        "ctl_03": 20
+      },
+      "new_growth": {
+        "ctl_01": 32,
+        "ctl_02": 32,
+        "ctl_03": 32
+      },
+      "expected_field_changes": {
+        "score": {
+          "draft": "272",
+          "final": "597"
+        },
+        "controllerMultiplierNumerator": {
+          "draft": "8",
+          "final": "2197"
+        },
+        "controllerMultiplierDenominator": {
+          "draft": "1",
+          "final": "125"
+        }
+      }
+    },
+    {
+      "id": "C129-mimic_hit",
+      "old_growth": {
+        "ctl_01": 20,
+        "ctl_03": 20
+      },
+      "new_growth": {
+        "ctl_01": 32,
+        "ctl_03": 32
+      },
+      "expected_field_changes": {
+        "score": {
+          "draft": "272",
+          "final": "597"
+        },
+        "controllerMultiplierNumerator": {
+          "draft": "8",
+          "final": "2197"
+        },
+        "controllerMultiplierDenominator": {
+          "draft": "1",
+          "final": "125"
+        }
+      }
+    },
+    {
+      "id": "C132-two_hit",
+      "old_growth": {
+        "ctl_01": 20,
+        "ctl_02": 20
+      },
+      "new_growth": {
+        "ctl_01": 32,
+        "ctl_02": 32
+      },
+      "expected_field_changes": {
+        "score": {
+          "draft": "136",
+          "final": "229"
+        },
+        "controllerMultiplierNumerator": {
+          "draft": "4",
+          "final": "169"
+        },
+        "controllerMultiplierDenominator": {
+          "draft": "1",
+          "final": "25"
+        }
+      }
+    },
+    {
+      "id": "C132-three_hit",
+      "old_growth": {
+        "ctl_01": 20,
+        "ctl_02": 20,
+        "ctl_03": 20
+      },
+      "new_growth": {
+        "ctl_01": 32,
+        "ctl_02": 32,
+        "ctl_03": 32
+      },
+      "expected_field_changes": {
+        "score": {
+          "draft": "272",
+          "final": "597"
+        },
+        "controllerMultiplierNumerator": {
+          "draft": "8",
+          "final": "2197"
+        },
+        "controllerMultiplierDenominator": {
+          "draft": "1",
+          "final": "125"
+        }
+      }
+    },
+    {
+      "id": "C132-mimic_hit",
+      "old_growth": {
+        "ctl_01": 20,
+        "ctl_03": 20
+      },
+      "new_growth": {
+        "ctl_01": 32,
+        "ctl_03": 32
+      },
+      "expected_field_changes": {
+        "score": {
+          "draft": "272",
+          "final": "597"
+        },
+        "controllerMultiplierNumerator": {
+          "draft": "8",
+          "final": "2197"
+        },
+        "controllerMultiplierDenominator": {
+          "draft": "1",
+          "final": "125"
+        }
+      }
+    },
+    {
+      "id": "C134-two_hit",
+      "old_growth": {
+        "ctl_01": 20,
+        "ctl_02": 20
+      },
+      "new_growth": {
+        "ctl_01": 8,
+        "ctl_02": 8
+      },
+      "expected_field_changes": {
+        "score": {
+          "draft": "136",
+          "final": "66"
+        },
+        "controllerMultiplierNumerator": {
+          "draft": "4",
+          "final": "49"
+        },
+        "controllerMultiplierDenominator": {
+          "draft": "1",
+          "final": "25"
+        }
+      }
+    },
+    {
+      "id": "C134-three_hit",
+      "old_growth": {
+        "ctl_01": 20,
+        "ctl_02": 20,
+        "ctl_03": 20
+      },
+      "new_growth": {
+        "ctl_01": 8,
+        "ctl_02": 8,
+        "ctl_03": 8
+      },
+      "expected_field_changes": {
+        "score": {
+          "draft": "272",
+          "final": "93"
+        },
+        "controllerMultiplierNumerator": {
+          "draft": "8",
+          "final": "343"
+        },
+        "controllerMultiplierDenominator": {
+          "draft": "1",
+          "final": "125"
+        }
+      }
+    },
+    {
+      "id": "C134-mimic_hit",
+      "old_growth": {
+        "ctl_01": 20,
+        "ctl_03": 20
+      },
+      "new_growth": {
+        "ctl_01": 8,
+        "ctl_03": 8
+      },
+      "expected_field_changes": {
+        "score": {
+          "draft": "272",
+          "final": "93"
+        },
+        "controllerMultiplierNumerator": {
+          "draft": "8",
+          "final": "343"
+        },
+        "controllerMultiplierDenominator": {
+          "draft": "1",
+          "final": "125"
+        }
+      }
+    },
+    {
+      "id": "C54-separate_state_and_mimic",
+      "old_growth": {
+        "ctl_01": 10,
+        "ctl_03": 20
+      },
+      "new_growth": {
+        "ctl_01": 9,
+        "ctl_03": 12
+      },
+      "expected_field_changes": {
+        "score": {
+          "draft": "30",
+          "final": "18"
+        },
+        "controllerMultiplierNumerator": {
+          "draft": "6",
+          "final": "464"
+        },
+        "controllerMultiplierDenominator": {
+          "draft": "1",
+          "final": "125"
+        }
+      }
+    },
+    {
+      "id": "C55-separate_state_and_mimic",
+      "old_growth": {
+        "ctl_01": 10,
+        "ctl_03": 20
+      },
+      "new_growth": {
+        "ctl_01": 6,
+        "ctl_03": 8
+      },
+      "expected_field_changes": {
+        "score": {
+          "draft": "55",
+          "final": "27"
+        },
+        "baseTotal": {
+          "draft": "55",
+          "final": "27"
+        },
+        "controllerBaseAdds": {
+          "draft": [
+            {
+              "emitterId": "ctl_01",
+              "abilityId": "C55",
+              "amount": "10"
+            },
+            {
+              "emitterId": "ctl_02",
+              "abilityId": "C55",
+              "amount": "20"
+            },
+            {
+              "emitterId": "ctl_03",
+              "abilityId": "C55",
+              "amount": "20"
+            }
+          ],
+          "final": [
+            {
+              "emitterId": "ctl_01",
+              "abilityId": "C55",
+              "amount": "6"
+            },
+            {
+              "emitterId": "ctl_02",
+              "abilityId": "C55",
+              "amount": "8"
+            },
+            {
+              "emitterId": "ctl_03",
+              "abilityId": "C55",
+              "amount": "8"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "C56-separate_state_and_mimic",
+      "old_growth": {
+        "ctl_01": 10,
+        "ctl_03": 20
+      },
+      "new_growth": {
+        "ctl_01": 6,
+        "ctl_03": 8
+      },
+      "expected_field_changes": {
+        "score": {
+          "draft": "30",
+          "final": "12"
+        },
+        "controllerMultiplierNumerator": {
+          "draft": "6",
+          "final": "637"
+        },
+        "controllerMultiplierDenominator": {
+          "draft": "1",
+          "final": "250"
+        }
+      }
+    },
+    {
+      "id": "C57-separate_state_and_mimic",
+      "old_growth": {
+        "ctl_01": 10,
+        "ctl_03": 20
+      },
+      "new_growth": {
+        "ctl_01": 9,
+        "ctl_03": 12
+      },
+      "expected_field_changes": {
+        "score": {
+          "draft": "30",
+          "final": "18"
+        },
+        "controllerMultiplierNumerator": {
+          "draft": "6",
+          "final": "464"
+        },
+        "controllerMultiplierDenominator": {
+          "draft": "1",
+          "final": "125"
+        }
+      }
+    },
+    {
+      "id": "C58-separate_state_and_mimic",
+      "old_growth": {
+        "ctl_01": 10,
+        "ctl_03": 20
+      },
+      "new_growth": {
+        "ctl_01": 12,
+        "ctl_03": 16
+      },
+      "expected_field_changes": {
+        "score": {
+          "draft": "30",
+          "final": "25"
+        },
+        "controllerMultiplierNumerator": {
+          "draft": "6",
+          "final": "648"
+        },
+        "controllerMultiplierDenominator": {
+          "draft": "1",
+          "final": "125"
+        }
+      }
+    },
+    {
+      "id": "C59-separate_state_and_mimic",
+      "old_growth": {
+        "ctl_01": 10,
+        "ctl_03": 20
+      },
+      "new_growth": {
+        "ctl_01": 12,
+        "ctl_03": 16
+      },
+      "expected_field_changes": {
+        "score": {
+          "draft": "55",
+          "final": "49"
+        },
+        "baseTotal": {
+          "draft": "55",
+          "final": "49"
+        },
+        "controllerBaseAdds": {
+          "draft": [
+            {
+              "emitterId": "ctl_01",
+              "abilityId": "C59",
+              "amount": "10"
+            },
+            {
+              "emitterId": "ctl_02",
+              "abilityId": "C59",
+              "amount": "20"
+            },
+            {
+              "emitterId": "ctl_03",
+              "abilityId": "C59",
+              "amount": "20"
+            }
+          ],
+          "final": [
+            {
+              "emitterId": "ctl_01",
+              "abilityId": "C59",
+              "amount": "12"
+            },
+            {
+              "emitterId": "ctl_02",
+              "abilityId": "C59",
+              "amount": "16"
+            },
+            {
+              "emitterId": "ctl_03",
+              "abilityId": "C59",
+              "amount": "16"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "C60-separate_state_and_mimic",
+      "old_growth": {
+        "ctl_01": 10,
+        "ctl_03": 20
+      },
+      "new_growth": {
+        "ctl_01": 6,
+        "ctl_03": 8
+      },
+      "expected_field_changes": {
+        "score": {
+          "draft": "30",
+          "final": "12"
+        },
+        "controllerMultiplierNumerator": {
+          "draft": "6",
+          "final": "637"
+        },
+        "controllerMultiplierDenominator": {
+          "draft": "1",
+          "final": "250"
+        }
+      }
+    },
+    {
+      "id": "C61-separate_state_and_mimic",
+      "old_growth": {
+        "ctl_01": 10,
+        "ctl_03": 20
+      },
+      "new_growth": {
+        "ctl_01": 6,
+        "ctl_03": 8
+      },
+      "expected_field_changes": {
+        "score": {
+          "draft": "30",
+          "final": "12"
+        },
+        "controllerMultiplierNumerator": {
+          "draft": "6",
+          "final": "637"
+        },
+        "controllerMultiplierDenominator": {
+          "draft": "1",
+          "final": "250"
+        }
+      }
+    },
+    {
+      "id": "C62-separate_state_and_mimic",
+      "old_growth": {
+        "ctl_01": 10,
+        "ctl_03": 20
+      },
+      "new_growth": {
+        "ctl_01": 3,
+        "ctl_03": 4
+      },
+      "expected_field_changes": {
+        "score": {
+          "draft": "55",
+          "final": "16"
+        },
+        "baseTotal": {
+          "draft": "55",
+          "final": "16"
+        },
+        "controllerBaseAdds": {
+          "draft": [
+            {
+              "emitterId": "ctl_01",
+              "abilityId": "C62",
+              "amount": "10"
+            },
+            {
+              "emitterId": "ctl_02",
+              "abilityId": "C62",
+              "amount": "20"
+            },
+            {
+              "emitterId": "ctl_03",
+              "abilityId": "C62",
+              "amount": "20"
+            }
+          ],
+          "final": [
+            {
+              "emitterId": "ctl_01",
+              "abilityId": "C62",
+              "amount": "3"
+            },
+            {
+              "emitterId": "ctl_02",
+              "abilityId": "C62",
+              "amount": "4"
+            },
+            {
+              "emitterId": "ctl_03",
+              "abilityId": "C62",
+              "amount": "4"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "C90-separate_state_and_mimic",
+      "old_growth": {
+        "ctl_01": 10,
+        "ctl_03": 20
+      },
+      "new_growth": {
+        "ctl_01": 45,
+        "ctl_03": 60
+      },
+      "expected_field_changes": {
+        "score": {
+          "draft": "30",
+          "final": "260"
+        },
+        "controllerMultiplierNumerator": {
+          "draft": "6",
+          "final": "52"
+        }
+      }
+    },
+    {
+      "id": "C100-separate_state_and_mimic",
+      "old_growth": {
+        "ctl_01": 10,
+        "ctl_03": 20
+      },
+      "new_growth": {
+        "ctl_01": 6,
+        "ctl_03": 8
+      },
+      "expected_field_changes": {
+        "score": {
+          "draft": "30",
+          "final": "12"
+        },
+        "controllerMultiplierNumerator": {
+          "draft": "6",
+          "final": "637"
+        },
+        "controllerMultiplierDenominator": {
+          "draft": "1",
+          "final": "250"
+        }
+      }
+    },
+    {
+      "id": "C129-separate_state_and_mimic",
+      "old_growth": {
+        "ctl_01": 10,
+        "ctl_03": 20
+      },
+      "new_growth": {
+        "ctl_01": 24,
+        "ctl_03": 32
+      },
+      "expected_field_changes": {
+        "score": {
+          "draft": "30",
+          "final": "74"
+        },
+        "controllerMultiplierNumerator": {
+          "draft": "6",
+          "final": "1859"
+        },
+        "controllerMultiplierDenominator": {
+          "draft": "1",
+          "final": "125"
+        }
+      }
+    },
+    {
+      "id": "C132-separate_state_and_mimic",
+      "old_growth": {
+        "ctl_01": 10,
+        "ctl_03": 20
+      },
+      "new_growth": {
+        "ctl_01": 24,
+        "ctl_03": 32
+      },
+      "expected_field_changes": {
+        "score": {
+          "draft": "30",
+          "final": "74"
+        },
+        "controllerMultiplierNumerator": {
+          "draft": "6",
+          "final": "1859"
+        },
+        "controllerMultiplierDenominator": {
+          "draft": "1",
+          "final": "125"
+        }
+      }
+    },
+    {
+      "id": "C134-separate_state_and_mimic",
+      "old_growth": {
+        "ctl_01": 10,
+        "ctl_03": 20
+      },
+      "new_growth": {
+        "ctl_01": 6,
+        "ctl_03": 8
+      },
+      "expected_field_changes": {
+        "score": {
+          "draft": "30",
+          "final": "12"
+        },
+        "controllerMultiplierNumerator": {
+          "draft": "6",
+          "final": "637"
+        },
+        "controllerMultiplierDenominator": {
+          "draft": "1",
+          "final": "250"
+        }
+      }
+    },
+    {
+      "id": "C54-growth_condition_miss",
+      "old_growth": {
+        "ctl_01": 20,
+        "ctl_02": 20
+      },
+      "new_growth": {
+        "ctl_01": 12,
+        "ctl_02": 12
+      },
+      "expected_field_changes": {
+        "score": {
+          "draft": "20",
+          "final": "12"
+        },
+        "controllerMultiplierNumerator": {
+          "draft": "4",
+          "final": "64"
+        },
+        "controllerMultiplierDenominator": {
+          "draft": "1",
+          "final": "25"
+        }
+      }
+    },
+    {
+      "id": "C56-growth_condition_miss",
+      "old_growth": {
+        "ctl_01": 20,
+        "ctl_02": 20
+      },
+      "new_growth": {
+        "ctl_01": 8,
+        "ctl_02": 8
+      },
+      "expected_field_changes": {
+        "score": {
+          "draft": "20",
+          "final": "9"
+        },
+        "controllerMultiplierNumerator": {
+          "draft": "4",
+          "final": "49"
+        },
+        "controllerMultiplierDenominator": {
+          "draft": "1",
+          "final": "25"
+        }
+      }
+    },
+    {
+      "id": "C57-growth_condition_miss",
+      "old_growth": {
+        "ctl_01": 20,
+        "ctl_02": 20
+      },
+      "new_growth": {
+        "ctl_01": 12,
+        "ctl_02": 12
+      },
+      "expected_field_changes": {
+        "score": {
+          "draft": "20",
+          "final": "12"
+        },
+        "controllerMultiplierNumerator": {
+          "draft": "4",
+          "final": "64"
+        },
+        "controllerMultiplierDenominator": {
+          "draft": "1",
+          "final": "25"
+        }
+      }
+    }
+  ]
+}

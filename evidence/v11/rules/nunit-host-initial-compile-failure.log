@@ -1,0 +1,27 @@
+未能将“E:\agent_workspace\gpt\wt-v11-golden\evidence\v11\rules\build-home\.dotnet\tools”添加到 PATH 环境变量。请将此目录添加到 PATH，以使用通过 "dotnet tool install" 安装的工具。
+dotnet : 
+所在位置 行:2 字符: 276
++ ... ISABLE='1'; dotnet run --project DicePrototype/Assets/Game/Core/Rules ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+欢迎使用 .NET 10.0!
+---------------------
+SDK 版本: 10.0.403
+
+----------------
+已安装 ASP.NET Core HTTPS 开发证书。
+若要信任该证书，请运行 "dotnet dev-certs https --trust"
+了解 HTTPS: https://aka.ms/dotnet-https
+
+----------------
+编写第一个应用: https://aka.ms/dotnet-hello-world
+了解新增功能: https://aka.ms/dotnet-whats-new
+浏览文档: https://aka.ms/dotnet-docs
+报告问题并在 GitHub 上查找来源: https://github.com/dotnet/core
+使用 "dotnet --help" 查看可用命令或访问: https://aka.ms/dotnet-cli
+--------------------------------------------------------------------------------------
+E:\agent_workspace\gpt\wt-v11-golden\DicePrototype\Assets\Game\Tests\EditMode\Rules\V11GoldenTests.cs(96,20): error CS0117: “Assert”未包含“Multiple”的定义 [E:\agent_workspace\gpt\wt-v11-golden\DicePrototype\Assets\Game\Core\Rules\Validation~\RulesNUnitValidation.csproj]
+
+生成失败。请修复生成错误并重新运行。
