@@ -22,7 +22,7 @@ namespace DiceCraft.Core
         public static HandbookRow[] Build(GameConfig cfg, IEnumerable<HandLevel> levels, IEnumerable<HandLevel> colorLevels, IEnumerable<ControllerInstance> controllers, int capacity, int permanentDiceCount, int activeDiceCount, MimicBinding[] bindings = null, bool debug = false)
         {
             var owned = controllers.ToArray(); var sources = ControllerRules.ResolveSources(owned, bindings); var upgrades = levels.ToDictionary(h => h.handId, h => h.level, StringComparer.Ordinal); var colors = colorLevels.ToDictionary(h => h.handId, h => h.level, StringComparer.Ordinal);
-            var rows = new List<HandbookRow> { new HandbookRow { handId = "scatter", category = "hand", displayName = "散点", condition = "没有成立的同点或顺子时牌型乘区保底×1", example = "蓝2、红5", stackingRule = "不与其他牌型相加；独立颜色、红组和控制器仍可生效", baseMult100 = 100, currentMult100 = 100, minimumDice = 1, canForm = activeDiceCount > 0 && capacity > 0, formReason = "以实际提交结果为准", upgradeEligible = false, upgradeReason = "散点不可强化" } };
+            var rows = new List<HandbookRow> { new HandbookRow { handId = "scatter", category = "hand", displayName = "散点", condition = "没有成立的同点或顺子时牌型乘区保底×1", example = "蓝2、红5", stackingRule = "不与其他牌型相加；独立颜色、红组和卡牌仍可生效", baseMult100 = 100, currentMult100 = 100, minimumDice = 1, canForm = activeDiceCount > 0 && capacity > 0, formReason = "以实际提交结果为准", upgradeEligible = false, upgradeReason = "散点不可强化" } };
             foreach (var h in cfg.handDefinitions.OrderBy(h => h.structuralPriority))
             {
                 int level = upgrades.TryGetValue(h.id, out int saved) ? saved : 0, min = MinimumDice(h.id, owned, cfg, bindings), max = debug ? cfg.debug.maxHandLevel : h.maxLevel;

@@ -44,6 +44,17 @@ namespace DiceCraft.Tests
             Do(s,CommandKind.UseItem,c=>c.itemInstanceId=first);var before=s.State;var c2=Command(s,CommandKind.UseItem);c2.itemInstanceId=second;
             Assert.That(s.Execute(c2).accepted,Is.False);AssertUnchanged(before,s.State);Assert.That(s.State.inventory.Single().instanceId,Is.EqualTo(second));
         }
+        // v1.1 (text proposal §5 error 1, TX-08): the second use in one hand names the item that is already active; I05
+        // used to name the card C37 ("缩小射线") instead of the item 小数多来.
+        [TestCase("I01","本手红色浪潮已经生效。")] [TestCase("I04","本手大数多来已经生效。")] [TestCase("I05","本手小数多来已经生效。")]
+        [TestCase("I09","本手灵光一闪已经生效。")] [TestCase("I10","本手蓝色浪潮已经生效。")]
+        public void TX08_ASecondUseInOneHandNamesTheItemAlreadyActive(string id, string expected)
+        {
+            var s=Selecting(new[]{1,2,3,4,5},lockedCount:1);string first=null,second=null;
+            s=Edit(s,x=>{x.hand.rollsRemaining=1;first=AddItem(x,id);second=AddItem(x,id);});
+            Do(s,CommandKind.UseItem,c=>c.itemInstanceId=first);var c2=Command(s,CommandKind.UseItem);c2.itemInstanceId=second;
+            Assert.That(s.Execute(c2).error,Is.EqualTo(expected));
+        }
         [Test] public void ItemWindowsAndAbsentPermanentPipRejected()
         {
             foreach(string id in new[]{"I01","I04","I05"}){

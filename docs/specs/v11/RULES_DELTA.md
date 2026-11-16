@@ -1,11 +1,11 @@
 # 骰子构筑 V1.1 规则改动（p1.1.0 相对 p1.0.0）
 
-状态：**REVIEW**（2026-11-16，实施者子 agent R 提交；独立复核与 Unity 测试未完成）。
+状态：**REVIEW**（2026-11-16，实施者子 agent R 提交；同日按协调者意见修订第 2 节与第 5 节第 3 条，新增第 10 节；独立复核与 Unity 测试未完成）。
 
-- 依据：用户 2026-11-16 指令第 2、4、5 条；[开发方案](DEV_PLAN.md) §4.3（W04）、§4.4（W05）、§4.5（W03 的规则与存档部分）。
+- 依据：用户 2026-11-16 指令第 2、4、5 条；[开发方案](DEV_PLAN.md) §4.3（W04）、§4.4（W05）、§4.5（W03 的规则与存档部分）；协调者 2026-11-16 对第 5 节第 3 条的决定。
 - 基线：[p1.0.0 规则规格](../v10/RULES_SPEC.md)。本文件只写改动；没写到的规则沿用 p1.0.0。
 - 范围：`Core/`（规则与会话）、`Runtime/AtomicSaveStore.cs`、EditMode 测试。界面、配置文字、PlayMode 测试不在本次改动内，需要跟进的位置见第 8 节。
-- 用词：玩家可见的新文字用“卡牌”（决定 D2）；代码标识符与已有的规则提示原样保留（见第 8.3 节）。
+- 用词：玩家可见的文字用“卡牌”（决定 D2）。`Core/` 里会显示给玩家的提示已全部改用“卡牌”和“栏位”（第 10 节）；代码标识符不改名。
 
 ## 1 同名卡牌可以重复持有（G3）
 
@@ -15,7 +15,7 @@
 2. **货架**：不再排除已持有的卡；每次生成或刷新货架时第一张报价的保底池（标价 ≤ 4）也不排除。已持有的卡的附魔与未持有的卡一样，从该卡的常规附魔池抽取（不再是“不同于已有附魔的非空附魔”）。
 3. **同一家商店不出现两张同名报价**：货架抽样不放回；刷新、扩容（O05）时也排除店里已有的同名报价（含战利品组与赠礼组里的）。这一条与是否持有无关，沿用 p1.0.0。
 4. **首领战利品**：L1“稀有控制器”、L2“附魔控制器”不再排除已持有的卡；仍排除货架上已有的卡。其余四种战利品不变。
-5. **购买**：不再替换旧卡，也不再用旧卡卖价抵扣；新卡追加在最右侧。栏位与总件数按“现有装备 + 新卡”检查，不够时拒绝（提示沿用“普通控制器槽或总件数已满，可先出售控制器。”）。取消“同名控制器只能替换为不同的非空附魔”和“控制器定义重复”两条拒绝。
+5. **购买**：不再替换旧卡，也不再用旧卡卖价抵扣；新卡追加在最右侧。栏位与总张数按“现有装备 + 新卡”检查，不够时拒绝（提示“普通卡牌栏位或总张数已满，可先出售卡牌。”，见第 10 节）。取消“同名控制器只能替换为不同的非空附魔”和“控制器定义重复”两条拒绝。
 6. **存档校验**：普通对局允许同名多张；实例编号仍必须唯一。调试对局本来就允许，不变。
 7. **效果怎么叠加**：每张都是一个来源，计数方式与百变模仿复制出来的来源完全相同——倍率相乘、加值相加、次数相加；写明“持有时”的开关类效果与同样只看“有没有”的效果只生效一次；带状态的卡每张各自记状态。150 张逐张结论见第 4 节。
 8. **不变的地方**：滥竽充数（C112）仍只给“未持有”的普通卡（卡面文字如此，本版没改，见第 5 节第 2 条）；替罪羊（C131）每个首领关只用最左侧一张；祭坛、吹玻璃、昙花一现这类“只由真实实例执行”的效果，每张同名卡都是真实实例，各自执行。
@@ -45,14 +45,14 @@
 ### 2.1 规则
 
 1. 商店仍在“继续”时生成，随机抽取顺序不变（战利品组在其余内容之后、赠礼组之前）。
-2. **未领完**：商店里有战利品组（`LOOT`），它没有关闭、还有可拿件数、也没有折现（折现会关闭整组）。
-3. 未领完时，商店阶段**只接受**：领取战利品组的报价（含折现）、出售卡牌或道具、调整卡牌顺序。其余一律拒绝，状态不变，提示 **“先领取首领战利品。”**：
+2. **未领取**：商店里有战利品组（`LOOT`），它没有关闭（折现会关闭整组），并且一件都还没领。
+3. 未领取时，商店阶段**只接受**：领取战利品组的报价（含折现）、出售卡牌或道具、调整卡牌顺序。其余一律拒绝，状态不变，提示 **“先领取首领战利品。”**：
    - 购买货架上的任何商品（卡牌、道具、牌型升级、骰面改造、服务、新骰）；
    - 领取赠礼组（杂货郎、铁匠铺）的报价；
    - 刷新货架、自选研习、离开商店。
-4. 可拿多件的战利品（L4 骰面工坊、L6 道具补给，各 3 件）要拿满或在第一次领取前折现，才算领完（按协调者给出的定义：没关闭且还有可拿件数即为未领完）。道具或卡牌放不下时，可以先出售腾位置。
-5. **防卡死**（实施者补充）：已经领过至少一件后，如果剩下的报价都已经无法领取（目前只可能出现在 L4：剩下的骰面改造在任何永久骰上都没有合法目标），这一组不再阻挡商店。领取前折现总是可选，所以第一次领取前不需要这一条。
-6. **读档**：未领完的状态完全由存档里的商店数据推出，读档后照样拦截。存档校验不需要新字段。
+4. **协调者决定：领取第一件后即解锁商店，其余件数离店前仍可领取。** 可拿多件的战利品（L4 骰面工坊、L6 道具补给，各 3 件）领了第一件或折现后，商店立即恢复正常；剩下的件数在这家商店里仍可领取（领过之后不能再折现，沿用 p1.0.0），离开商店时作废（与以前没领的战利品一样）。道具或卡牌放不下时，可以先出售腾位置，但不必为了拿满而出售。
+5. （已取消）初版的“防卡死”补充规则：领过一件后、剩下的报价都无法领取时不再阻挡商店。改为第 4 条后，第一次领取前总能折现，领取后商店即解锁，这条规则不再需要，代码与对应测试已一并去掉。
+6. **读档**：未领取的状态完全由存档里的商店数据推出，读档后照样拦截。存档校验不需要新字段。
 7. 调试工作区的“应用调试场景”不受拦截（它会整体替换状态）。
 
 ### 2.2 给界面的接口
@@ -61,7 +61,7 @@
 | --- | --- |
 | `bool IsLootPending` | 当前状态是否必须先处理战利品 |
 | `bool IsLootPendingIn(RunState view)` | 同上，对界面手里的状态副本求值 |
-| `PurchaseError(offerId)` | 未领完时对非战利品报价返回“先领取首领战利品。” |
+| `PurchaseError(offerId)` | 未领取时对非战利品报价返回“先领取首领战利品。” |
 
 ## 3 旧存档（G6 的规则与存档部分）
 
@@ -76,7 +76,7 @@
 5. **写档（`Save`）**：活动存档是其他版本时直接覆盖，不做 `.rejected-*` 隔离副本，也不让它成为备份；不再生成 `.legacy-schema*` 副本。当前版本损坏文件的隔离照旧。
 6. 删除是尽力而为：某个文件删不掉时留在原处，读档时忽略它（不读取、不提示），下次读档再删。
 7. 调试存档位（`debug-run.json`）同样处理；每个存档位只删自己的文件。`.rejected-*` 隔离副本、设置与其他文件都不动。
-8. 前提：版本号要变。配置改为 p1.1.0（或存档结构版本改变）后，p1.0.0 的存档才会被当作其他版本删除；在那之前它们仍是“当前版本”。
+8. 前提：版本号要变。配置改为 p1.1.0（或存档结构版本改变）后，p1.0.0 的存档才会被当作其他版本删除；在那之前它们仍是“当前版本”。codex/v1.1 的配置已是 p1.1.0。
 
 ## 4 150 张卡牌在多张时的效果
 
@@ -125,13 +125,13 @@
 | C42 | 玻璃大炮 | 按张叠加 | 每张 ×5，提交后每张各自 15% 损坏 | ScoreCalculator.cs:11、312；GameSession.Submission.cs:128–136 |
 | C43 | 牌型提升 | 按张叠加 | 每张 +1 级（上限 8 级），学无止境按实际升的级数成长 | ScoreCalculator.cs:296、306–308；GameSession.Submission.cs:105–111 |
 | C44 | 有钱真好 | 按张叠加 | 每张按冻结钱包各加一次基础分 | ScoreCalculator.cs:212 |
-| C45 | 飘忽不定 | 按张叠加 | 每张有自己的加成颜色（获得时与每次有效提交后各自重抽），各自让该色骰 ×3；两张同色时该色 ×9 | ScoreExplanation.cs:50；GameSession.Submission.cs:121–127；GameSession.Shop.cs:459–464 |
+| C45 | 飘忽不定 | 按张叠加 | 每张有自己的加成颜色（获得时与每次有效提交后各自重抽），各自让该色骰 ×3；两张同色时该色 ×9 | ScoreExplanation.cs:50；GameSession.Submission.cs:121–127；GameSession.Shop.cs:448–453 |
 | C46 | 稳稳乘数 | 按张叠加 | 每张 ×2，多张相乘 | ScoreCalculator.cs:11、224 |
 | C47 | 控制欲 | 按张叠加 | 每张 ×(件数÷2)，件数含全部同名卡 | ScoreCalculator.cs:227 |
 | C48 | 有也不交 | 按张叠加 | 每张每个空提交栏 +10 基础分 | ScoreCalculator.cs:213 |
 | C49 | 千年老二 | 按张叠加 | 每张 ×(有效 5 点颗数)，没有 5 点时每张都是 ×0 | ScoreCalculator.cs:228 |
 | C50 | 稳稳分数 | 按张叠加 | 每张 +20 基础分 | ScoreCalculator.cs:214 |
-| C51 | 人员流动 | 按张叠加 | 每张有自己的 n；每家商店第一次真实卖出控制器后，买卖前后都在的每张各 +0.5；买入同名卡不算卖出 | ScoreCalculator.cs:229；GameSession.Shop.cs:568–581 |
+| C51 | 人员流动 | 按张叠加 | 每张有自己的 n；每家商店第一次真实卖出控制器后，买卖前后都在的每张各 +0.5；买入同名卡不算卖出 | ScoreCalculator.cs:229；GameSession.Shop.cs:557–570 |
 | C52 | 成长基金 | 按张叠加 | 每张每关各自卖价 +3 | GameSession.Submission.cs:219–226 |
 | C53 | 错乱乘积 | 按张叠加 | 每张真实卡各自抽一次倍率（模仿复用被模仿那张的结果） | GameSession.Submission.cs:44–49；ScoreCalculator.cs:245 |
 | C54 | 连庄 | 按张叠加 | 每张各自记成长值（主牌型重复时每张各自成长），倍率按各自的值相乘 | ScoreCalculator.cs:231；ControllerRules.cs:50 |
@@ -241,7 +241,7 @@
 
 1. **多张砍价高手（C98）可以同店买进再卖出赚钱。** p1.0.0 的说法是“买进再卖出不会赚钱（含砍价高手）”，当时最多只有 2 个来源（本体加一张模仿）。现在每张 C98 都 −1：买价 = max(1, 标价 − 来源数)，同店卖价 = ⌊标价 ÷ 2⌋。来源数超过 ⌈标价 ÷ 2⌉ 就有赚头，例如 3 个来源时标价 4 的卡 1 金币买、2 金币卖。每个货架报价只能买一次，刷新价 3、5、7…… 递增，所以每家店的收益有上限，越刷越少。可选：A 保持（由 W07 测量）；B 砍价高手改为“持有时”开关，多张只算一次；C 折扣总额封顶（例如 −2）；D 同店取得的卡回收价不超过实际买价。
 2. **滥竽充数（C112）仍只给未持有的普通卡。** 卡面写着“未持有”，本版没改。可选：A 保持；B 也可以给已持有的普通卡（那样它也会产生同名卡）。
-3. **L4、L6 要拿满 3 件才算领完。** 这是按协调者给的定义实现的。L6 在道具栏只有 2 格时，第 3 件必须先卖掉一个道具才能拿。可选：A 保持（拿满或第一次领取前折现）；B 领过至少 1 件就算领完，剩下的作废。另有实施者补的防卡死规则（第 2.1 节第 5 条）。
+3. ~~L4、L6 要拿满 3 件才算领完。~~ **协调者决定：领取第一件后即解锁商店，其余件数离店前仍可领取。**（2026-11-16，按选项 B 调整：剩下的件数不在第一件时作废，而是在离开商店时作废。理由：用户要的是首领关后马上做出战利品选择，不是强迫拿满；道具栏只有 2 格时拿满 L6 还得先卖道具。）初版的防卡死规则随之取消，见第 2.1 节第 4、5 条。
 4. **见五成群（C122）、二三其德（C123）多张时会越过目标。** 每张都按冻结的面各算 ±1，两张见五成群会把 4 点变成 6 点。这与 v1.0 百变模仿复制它们时的结果相同，本版保持。可选：A 保持；B 多张合计后再夹到目标（5 点、2–3 点）。
 5. **旧存档的混合情况**（第 3.1 节第 4 条）：其他版本的活动存档被删后恢复当前版本的备份时，沿用原来的备份提示。可选：A 保持；B 这种情况也不提示。
 
@@ -272,6 +272,8 @@
 | `AtomicSaveStoreTests.SAVE_DirectWriteWithoutLoadStillPreservesBackupWhenActiveIsCorrupt("schema")` | 不读档直接保存：结构版本 +1 的活动存档被隔离 | 直接覆盖，不隔离；备份不变（另两行不变） | 同上 |
 | `AtomicSaveMetadata07Tests.SAVE_ART07_MetadataReportsFirstRealVersionAndPreservesBothLegacyFiles` → `SAVE_V11_OldVersionFilesAreDeletedAndNeitherMetadataNorNoticeIsReported` | `LastIncompatibleSave` 报告 schema 2 / p0.4.0 且已保留；两个文件不变；两个旧版副本 | `LastIncompatibleSave` 为空、无提示；两个文件被删，没有旧版副本；之后的保存照常 | 旧档直接删除，不再提醒 |
 | `AtomicSaveMetadata07Tests.SAVE_ART07_ValidActiveIgnoresIncompatibleBackupAndSaveProbeDoesNotSetLoadMetadata` → `SAVE_ART07_ValidActiveLoadsAnOldBackupIsDeletedAndSaveProbeDoesNotSetLoadMetadata` | 有效的活动存档读取成功，旧版本备份原样保留 | 有效的活动存档读取成功且不变，旧版本备份被删；在旧版本活动存档上保存不设元数据、不隔离、不生成备份 | 旧档直接删除 |
+| `V10SessionTests.V11_AMultiPickLootHoldsTheShopUntilEveryPickIsTakenOrNothingClaimableIsLeft` → `V11_AMultiPickLootUnlocksTheShopAtTheFirstPickAndKeepsTheRestClaimableUntilLeaving`（本版新增后又改写） | L4 领一件后仍拦截离店，领满 3 件才解锁；剩下的骰面改造都没有合法目标时不再拦截（防卡死） | L4 领第一件后立即解锁：货架可买、可刷新，不能再折现，第二件仍可领，离店后第三件作废；L6 在 2 格道具栏时领两件即可离店，不必卖道具 | 协调者决定（第 5 节第 3 条），防卡死规则取消 |
+| `V10SessionTests.V11_TheLootPageCanSellCardsOrItemsToMakeRoomForTheLoot`（本版新增，同名） | 栏位满时领取被拒，只断言提示含“已满” | 断言完整的新提示“普通卡牌栏位或总张数已满，可先出售卡牌。”与“道具栏位已满，可先出售道具。” | 用词改为卡牌、栏位（第 10 节），断言更严 |
 
 另：`ShopTests.CONTENT_ControllerPurchaseDuplicateAndSell` 不需要改写。它名字里的“Duplicate”指重复的命令回执，第二次购买针对的是同一个已售出的报价，新规则下照样通过。
 
@@ -283,28 +285,29 @@
 | F-DUP-02 | `V11_TwoCopiesTakeTwoSlotsGrowApartAndSellApartWithoutReplacementOrTradeIn`；`V11_SessionEffectsStackPerCopyOrApplyOnceAsTheDeltaTableSays`（C78、C79、C21、C95、C111 按张；C140、C145 一次；C131 只用最左侧一张；两张 C141 各自倒数与到期） |
 | F-DUP-04 | `V11_SameNameCopiesInANormalRunSurviveRestoresWithTheirScoreHistory`（普通对局，读档时按冻结快照重算计分）；`V10PersistenceTests.SAVE_V11_SameNameCopiesAndAPendingLootShopSurviveARealJsonRoundTrip`（Unity JsonUtility 实际存读） |
 | 计分 | `ControllerScoreTests`：11 条 `CONTENT-DUP-*`（倍率、逐骰加值、末栏加值、基础分、再计、牌型倍率加值、控制欲按件数、三个开关类各一次）与 `CopiesKeepTheirOwnGrowthColourRandomOutcomeAndGoldBudget`（成长、C45 颜色、C53 结果、C138 预算、成长计划）。期望值按规则文字手算 |
-| F-LOOT-01 | `V11_PendingBossLootRefusesEveryOtherShopActionButSellingAndReordering`；`V11_AMultiPickLootHoldsTheShopUntilEveryPickIsTakenOrNothingClaimableIsLeft` |
+| F-LOOT-01 | `V11_PendingBossLootRefusesEveryOtherShopActionButSellingAndReordering`；`V11_AMultiPickLootUnlocksTheShopAtTheFirstPickAndKeepsTheRestClaimableUntilLeaving` |
 | F-LOOT-02 | `V11_AnOrdinaryRunRestoredInItsLootShopKeepsTheGateUntilTheLootIsCashed`；`V11_TheLootPageCanSellCardsOrItemsToMakeRoomForTheLoot`；上面的持久化测试 |
 | F-SAVE-01 | `AtomicSaveStoreTests.SAVE_V11_AConfigVersionChangeAloneDeletesActiveBackupAndEveryLegacyCopyButNothingElse`、`SAVE_V11_LegacyCopiesWithoutAnyActiveFileArePurgedSilently`、`SAVE_V11_TheDebugSlotDeletesItsOwnOldFilesAndLeavesTheNormalSlotAlone`，以及第 6 节改写的存档测试 |
 | F-SAVE-02 | `SAVE_V11_AnOldActiveIsDeletedAndTheCurrentBackupIsStillRestored`、`SAVE_V11_ADamagedActiveOfThisVersionIsKeptAndQuarantinedWhileAnOldBackupIsDeleted`，以及原有的当前版本存档测试（未改动） |
 | F-RULE-REG | 原有的 `RulesTests`（160 条）、`V09GoldenTests`（260 条）、`V10GoldenTests`（446 条），计分代码未改动 |
+| TX-08（文字方案 §5 第 1 处） | `ItemAndSaveTests.TX08_ASecondUseInOneHandNamesTheItemAlreadyActive`：红色浪潮、大数多来、小数多来、灵光一闪、蓝色浪潮同一手第二次使用时，提示说出的是这件道具本身 |
 
 ## 8 验证与交接
 
 ### 8.1 已运行（本分支，不含 Unity）
 
-| 项目 | 基线 0110308 | 本分支 |
-| --- | --- | --- |
-| `Session/Validation~/SessionValidation`（`Tests/EditMode/Session`） | 433 / 433 通过 | 443 / 443 通过 |
-| `Rules/Validation~/RulesNUnitValidation`（`Tests/EditMode/Rules`） | 1207 / 1207 通过 | 1219 / 1219 通过（含 `V09GoldenTests` 261、`V10GoldenTests` 448 条记录） |
-| `Rules/Validation~/CoreRulesValidation` | 失败：`C11 required counts did not deserialize.` | 同样失败，原因未变（该宿主没有调用 `PrepareJsonForUnity`，与本次改动无关） |
-| `DebugRunTrace` | 失败：序号 22（第 23 关，高压）未达标 | `DEBUG_24_PASSED`：24 关、23 家商店、8 次高压、7 次战利品折现、182 条命令逐条读档与重复命令检查 |
-| `NormalRunSearch`（种子 20261028 起 8 局） | 种子 20261029 因“满员”减益被拒而中止 | 8 局都正常结束（最好一局到第 11 关，经过 3 家战利品商店） |
-| `NormalRunReplay`（重放上一项生成的轨迹） | 新生成的轨迹可以重放；仓库里旧的轨迹文件已过期（“Target differs”） | `NORMAL_REPLAY_PASSED`：161 步逐条读档与重复命令检查 |
-| 持久化测试冒烟（临时 .NET 宿主，用 System.Text.Json 代替 JsonUtility，不是 Unity 结果） | — | 33 / 33；同一批测试换成基线的 `AtomicSaveStore` 时，11 条 v1.1 存档用例失败、其余 22 条通过 |
-| 对 Unity 6000.6.7f1 程序集的编译检查（Core、Runtime、UI、EditMode、PlayMode） | — | 0 错误 |
+| 项目 | 基线 0110308 | 初版（8a71dde） | 修订（基于 codex/v1.1 的 ab3abbe4，配置 p1.1.0） |
+| --- | --- | --- | --- |
+| `Session/Validation~/SessionValidation`（`Tests/EditMode/Session`） | 433 / 433 通过 | 443 / 443 通过 | 448 / 448 通过（新增 5 条 TX-08 用例） |
+| `Rules/Validation~/RulesNUnitValidation`（`Tests/EditMode/Rules`） | 1207 / 1207 通过 | 1219 / 1219 通过（含 `V09GoldenTests` 261、`V10GoldenTests` 448 条记录） | 1219 / 1219 通过 |
+| `Rules/Validation~/CoreRulesValidation` | 失败：`C11 required counts did not deserialize.` | 同样失败，原因未变（该宿主没有调用 `PrepareJsonForUnity`，与本次改动无关） | 同样失败，原因未变 |
+| `DebugRunTrace` | 失败：序号 22（第 23 关，高压）未达标 | `DEBUG_24_PASSED`：24 关、23 家商店、8 次高压、7 次战利品折现、182 条命令逐条读档与重复命令检查 | 相同 |
+| `NormalRunSearch`（种子 20261028 起 8 局） | 种子 20261029 因“满员”减益被拒而中止 | 8 局都正常结束（最好一局到第 11 关，经过 3 家战利品商店） | 相同 |
+| `NormalRunReplay`（重放上一项生成的轨迹） | 新生成的轨迹可以重放；仓库里旧的轨迹文件已过期（“Target differs”） | `NORMAL_REPLAY_PASSED`：161 步逐条读档与重复命令检查 | 相同 |
+| 持久化测试冒烟（临时 .NET 宿主，用 System.Text.Json 代替 JsonUtility，不是 Unity 结果） | — | 33 / 33；同一批测试换成基线的 `AtomicSaveStore` 时，11 条 v1.1 存档用例失败、其余 22 条通过 | 33 / 33 |
+| 对 Unity 6000.6.7f1 程序集的编译检查（Core、Runtime、UI、EditMode、PlayMode） | — | 0 错误 | 0 错误 |
 
-**未运行**：Unity EditMode 与 PlayMode（由主 agent 运行）。机器人运行时的输出写在临时目录，没有改动 `evidence/` 下的旧证据。
+**未运行**：Unity EditMode 与 PlayMode（由主 agent 运行）。机器人运行时的输出写在临时目录，没有改动 `evidence/` 下的旧证据。机器人只折现战利品，不依赖拿满，所以第 2.1 节第 4 条的修改不需要改它们。
 
 ### 8.2 机器人的修改
 
@@ -317,15 +320,46 @@
 ### 8.3 需要主 agent 跟进
 
 - 配置（另一位实施者负责的文件）：见第 9 节。
-- 已有的规则提示仍写“控制器”（例如“普通控制器槽或总件数已满，可先出售控制器。”），本次只改了一处不再成立的“请保留旧存档”。按 D2 统一改为“卡牌”时请连同 `Core/` 里的提示一起处理。
+- `Core/` 里的提示已按 D2 改为“卡牌”“栏位”（第 10 节）。PlayMode 里有两处断言旧写法，需要主 agent 改：`FailureAndInputPlayModeTests.cs` 第 108 行断言提示含“控制器”（应改为“卡牌”），第 114 行断言含“槽位”（应改为“栏位”）。
 - 界面里按卡名找第一张、替换文案与战利品入口的具体位置，见交接报告。
 
 ## 9 配置建议（未改动，`P0Config.json` 与配置校验不归本任务）
 
 | 字段 | 现状 | 建议 |
 | --- | --- | --- |
-| `configVersion`（或 `saveSchemaVersion`） | p1.0.0 / 6 | 改为 p1.1.0；旧档删除依赖版本号变化 |
-| `controllers[].maxOwnedNormal` | 全部为 1，配置校验要求必须为 1，规则代码不读取 | 与新规则矛盾。可删除该字段，或改为 0 表示不限，同时改 `ConfigValidation.cs` 第 67 行 |
-| `shop.controllersUniqueOwned`、`allowDifferentEnchantReplacement`、`replacementCredit`、`replacementCountsAsOneControllerSale`、`firstControllerGuaranteeUnownedOnly` | 描述旧规则（唯一持有、替换、抵扣）；`replacementCredit` 与 `replacementCountsAsOneControllerSale` 被配置校验第 79 行固定，规则代码不读取 | 改为 false / "none" 或删除，同时改配置校验 |
+| `configVersion`（或 `saveSchemaVersion`） | codex/v1.1 已改为 p1.1.0（存档结构版本仍为 6） | 已满足：p1.0.0 的存档会被当作其他版本删除 |
+| `controllers[].maxOwnedNormal` | 全部为 1，配置校验要求必须为 1，规则代码不读取 | 与新规则矛盾。可删除该字段，或改为 0 表示不限，同时改 `ConfigValidation.cs`（codex/v1.1 第 68 行） |
+| `shop.controllersUniqueOwned`、`allowDifferentEnchantReplacement`、`replacementCredit`、`replacementCountsAsOneControllerSale`、`firstControllerGuaranteeUnownedOnly` | 描述旧规则（唯一持有、替换、抵扣）；`replacementCredit` 与 `replacementCountsAsOneControllerSale` 被配置校验固定（codex/v1.1 第 92 行），规则代码不读取 | 改为 false / "none" 或删除，同时改配置校验 |
 | `debug.allowDuplicateControllerIds` | true，被配置校验固定 | 可保留；普通对局现在也允许 |
-| C112 描述“获得1张随机的未持有普通控制器” | 与保留的规则一致 | 若第 5 节第 2 条选 B，再改文字 |
+| C112 的描述与细则（“未持有”“只给还没有的常见卡”） | 与保留的规则一致 | 若第 5 节第 2 条选 B，再改文字 |
+
+## 10 Core 提示的用词（D2）与道具提示修正
+
+`Core/` 里会显示给玩家的提示（操作被拒的原因、商店的购买限制、读档失败时“读取详情”里的校验原因、手册行）按决定 D2 与[文字方案](../../proposals/2026-11-16-text-readability.md) §2 的用语改写：“控制器”改为“卡牌”，“槽”改为“栏位”，卡牌的数量用“张”。只改文字，代码标识符不改名。
+
+| 位置 | 原文 | 新文 |
+| --- | --- | --- |
+| `GameSession.Shop.cs` 刷新货架 | 没有合法控制器候选。 | 没有合法的卡牌候选。 |
+| `GameSession.Shop.cs` 购买卡牌 | 控制器报价实例无效。 | 卡牌报价实例无效。 |
+| `GameSession.Shop.cs` 购买卡牌 | 普通控制器槽或总件数已满，可先出售控制器。 | 普通卡牌栏位或总张数已满，可先出售卡牌。 |
+| `GameSession.Shop.cs` 购买卡牌 | 控制器附魔不合法。 | 卡牌附魔不合法。 |
+| `GameSession.Shop.cs` 购买道具 | 道具槽位已满，可先出售道具。 | 道具栏位已满，可先出售道具。 |
+| `GameSession.Shop.cs` 附魔台 | 没有可以附魔的控制器。 | 没有可以附魔的卡牌。 |
+| `GameSession.cs` 调序预览 | 控制器顺序无效。 | 卡牌顺序无效。 |
+| `GameSession.Debug.cs` 卡牌调序 | 控制器调序必须保留同一组实例。 | 卡牌调序必须保留同一组实例。 |
+| `GameSession.Validation.cs` 存档校验 | 控制器槽位无效。 | 卡牌栏位无效。 |
+| 同上 | 控制器实例身份无效。 | 卡牌实例身份无效。 |
+| 同上 | 失效控制器名单无效。 | 失效卡牌名单无效。 |
+| 同上 | 失效控制器不在装备中。 | 失效卡牌不在装备中。 |
+| 同上 | 结算控制器收益无效。 | 结算卡牌收益无效。 |
+| 同上 | 控制器动态状态无效。 | 卡牌动态状态无效。 |
+| 同上 | 控制器成长值无效。 | 卡牌成长值无效。 |
+| 同上 | 控制器颜色状态无效。 | 卡牌颜色状态无效。 |
+| 同上 | 非控制器报价携带了控制器数据。 | 非卡牌报价携带了卡牌数据。 |
+| 同上 | 控制器商品实例无效。 | 卡牌商品实例无效。 |
+| `HandbookRules.cs` 手册“散点”行 | 不与其他牌型相加；独立颜色、红组和控制器仍可生效 | 不与其他牌型相加；独立颜色、红组和卡牌仍可生效 |
+| `GameSession.Submission.cs` 道具“小数多来”同一手第二次使用 | 本手缩小射线已经生效。 | 本手小数多来已经生效。 |
+
+- 最后一行是[文字方案](../../proposals/2026-11-16-text-readability.md) §5 第 1 处错误：缩小射线是卡牌 C37，不是道具。相邻的道具提示（红色浪潮、大数多来、灵光一闪、蓝色浪潮、临时骰子、遥控骰子、破咒符、点金笔）都核对过，名字正确，没有同样的错误；扩容符的提示不提道具名。
+- 测试：EditMode 里断言这些提示的只有两处，都只断言“已满”，新文字仍然包含；`V11_TheLootPageCanSell…` 改为断言两条完整的新提示（第 6 节）；新增 `TX08_ASecondUseInOneHandNamesTheItemAlreadyActive`（第 7 节）。PlayMode 里断言旧写法的两处见第 8.3 节。
+- 没有改的：手册颜色行的“不计入牌型或C43结构主牌型”仍带内部编号 C43（文字方案 §2.3 不允许内部编号出现在玩家画面上）；英文的内部校验信息（例如 “Invalid controller identities or limits.”）理论上也可能出现在读档失败的“读取详情”里。这两类不属于“控制器→卡牌”的改名，留给文字整理一并处理。
