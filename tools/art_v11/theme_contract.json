@@ -1,6 +1,6 @@
 {
   "scene": "DicePrototype/Assets/Game/Scenes/Bootstrap.unity",
-  "count": 86,
+  "count": 90,
   "sprites": [
     {
       "name": "badge_enchant_base10",
@@ -128,7 +128,7 @@
         0.0
       ],
       "pixelsPerUnit": 200.0,
-      "referenced": true
+      "referenced": false
     },
     {
       "name": "fx_halo_soft",
@@ -208,7 +208,7 @@
         104.0
       ],
       "pixelsPerUnit": 200.0,
-      "referenced": true
+      "referenced": false
     },
     {
       "name": "fx_score_ray",
@@ -224,7 +224,7 @@
         0.0
       ],
       "pixelsPerUnit": 100.0,
-      "referenced": true
+      "referenced": false
     },
     {
       "name": "fx_score_spark",
@@ -304,7 +304,7 @@
         0.0
       ],
       "pixelsPerUnit": 100.0,
-      "referenced": true
+      "referenced": false
     },
     {
       "name": "ui_button_bevel",
@@ -435,6 +435,22 @@
       "referenced": false
     },
     {
+      "name": "ui_chip_formula",
+      "default": "DicePrototype/Assets/Art/Art11/Surfaces/ui_chip_formula.png",
+      "size": [
+        512,
+        512
+      ],
+      "border": [
+        40.0,
+        40.0,
+        40.0,
+        40.0
+      ],
+      "pixelsPerUnit": 200.0,
+      "referenced": true
+    },
+    {
       "name": "ui_chip_label",
       "default": "DicePrototype/Assets/Art/Art073/Surfaces/ui_chip_label.png",
       "size": [
@@ -446,6 +462,22 @@
         40.0,
         40.0,
         40.0
+      ],
+      "pixelsPerUnit": 200.0,
+      "referenced": true
+    },
+    {
+      "name": "ui_dice_tray",
+      "default": "DicePrototype/Assets/Art/Art11/Surfaces/ui_dice_tray.png",
+      "size": [
+        512,
+        512
+      ],
+      "border": [
+        72.0,
+        72.0,
+        72.0,
+        72.0
       ],
       "pixelsPerUnit": 200.0,
       "referenced": true
@@ -1283,6 +1315,22 @@
       "referenced": true
     },
     {
+      "name": "ui_stage_card",
+      "default": "DicePrototype/Assets/Art/Art11/Surfaces/ui_stage_card.png",
+      "size": [
+        512,
+        512
+      ],
+      "border": [
+        48.0,
+        48.0,
+        48.0,
+        48.0
+      ],
+      "pixelsPerUnit": 200.0,
+      "referenced": true
+    },
+    {
       "name": "ui_tab_bottom",
       "default": "DicePrototype/Assets/Art/Art073/Surfaces/ui_tab_bottom.png",
       "size": [
@@ -1345,6 +1393,22 @@
       ],
       "pixelsPerUnit": 200.0,
       "referenced": false
+    },
+    {
+      "name": "ui_topbar",
+      "default": "DicePrototype/Assets/Art/Art11/Surfaces/ui_topbar.png",
+      "size": [
+        512,
+        512
+      ],
+      "border": [
+        40.0,
+        40.0,
+        40.0,
+        40.0
+      ],
+      "pixelsPerUnit": 200.0,
+      "referenced": true
     },
     {
       "name": "ui_tray_front",

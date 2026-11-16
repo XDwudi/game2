@@ -16,7 +16,8 @@ namespace DiceCraft.Editor
     {
         public const string Root="Assets/Resources/Themes/";
         // Newest art set first: the scene's template array lets the newest set win for each name.
-        private static readonly string[] DefaultFolders={"Assets/Art/Art073","Assets/Art/Art072","Assets/Art/Art071","Assets/Art/Art07","Assets/Game/Art"};
+        // Art11 holds the V1.1 play-screen surfaces (task W11: ui_dice_tray, ui_topbar, ui_chip_formula, ui_stage_card).
+        private static readonly string[] DefaultFolders={"Assets/Art/Art11","Assets/Art/Art073","Assets/Art/Art072","Assets/Art/Art071","Assets/Art/Art07","Assets/Game/Art"};
 
         private void OnPreprocessTexture()
         {
