@@ -23,18 +23,17 @@ namespace DiceCraft.Tests
         {var e=JsonUtility.FromJson<Envelope>(File.ReadAllText(file));e.schema=schema;e.config=version;File.WriteAllText(file,JsonUtility.ToJson(e));}
         [TearDown] public void Evidence()=>TestContext.WriteLine("Legacy metadata evidence (isolated): "+folder);
 
-        [Test] public void SAVE_ART07_MetadataReportsFirstRealVersionAndPreservesBothLegacyFiles()
+        // v1.1 rewrite (docs/specs/v11/RULES_DELTA.md): no old-version metadata is reported any more and nothing is
+        // preserved; both old files are deleted and later saves of this version work as usual.
+        [Test] public void SAVE_V11_OldVersionFilesAreDeletedAndNeitherMetadataNorNoticeIsReported()
         {
             var store=new AtomicSaveStore(path,config);store.Save(state);store.Save(state);
-            Version(path,2,"p0.4.0");Version(path+".backup",3,"p0.5.0");var a=File.ReadAllBytes(path);var b=File.ReadAllBytes(path+".backup");
-            Assert.That(store.Load(),Is.Null);var info=store.LastIncompatibleSave;Assert.That(info,Is.Not.Null);
-            Assert.That(info.Schema,Is.EqualTo(2));Assert.That(info.ConfigVersion,Is.EqualTo("p0.4.0"));Assert.That(info.IsLegacyPreserved,Is.True);
-            CollectionAssert.AreEqual(a,File.ReadAllBytes(path));CollectionAssert.AreEqual(b,File.ReadAllBytes(path+".backup"));
-            var archived=Directory.GetFiles(folder,"*.legacy-schema*-*");Assert.That(archived.Length,Is.EqualTo(2));
-            Assert.That(archived.Any(p=>File.ReadAllBytes(p).SequenceEqual(a)),Is.True);Assert.That(archived.Any(p=>File.ReadAllBytes(p).SequenceEqual(b)),Is.True);
-            store.Load();Assert.That(Directory.GetFiles(folder,"*.legacy-schema*-*").Length,Is.EqualTo(2));
-            store.Save(state);store.Save(state);Assert.That(store.Load(),Is.Not.Null);Assert.That(store.LastIncompatibleSave,Is.Null);
-            Assert.That(archived.Any(p=>File.ReadAllBytes(p).SequenceEqual(a)),Is.True);Assert.That(archived.Any(p=>File.ReadAllBytes(p).SequenceEqual(b)),Is.True);
+            Version(path,2,"p0.4.0");Version(path+".backup",3,"p0.5.0");
+            Assert.That(store.Load(),Is.Null);Assert.That(store.LastIncompatibleSave,Is.Null);Assert.That(store.LastLoadNotice,Is.Null);
+            Assert.That(File.Exists(path),Is.False);Assert.That(File.Exists(path+".backup"),Is.False);Assert.That(store.LastDeletedSaveFiles.Length,Is.EqualTo(2));
+            Assert.That(Directory.GetFiles(folder,"*.legacy-schema*-*"),Is.Empty);
+            store.Load();Assert.That(store.LastIncompatibleSave,Is.Null);Assert.That(store.LastDeletedSaveFiles,Is.Empty);
+            store.Save(state);store.Save(state);Assert.That(store.Load(),Is.Not.Null);Assert.That(store.LastIncompatibleSave,Is.Null);Assert.That(store.LastLoadNotice,Is.Null);
         }
         [Test] public void SAVE_ART07_SuccessfulBackupNeverCarriesRejectedActiveVersionIntoUi()
         {
@@ -42,11 +41,16 @@ namespace DiceCraft.Tests
             Assert.That(store.Load(),Is.Not.Null);Assert.That(store.LastLoadNotice,Does.Contain("有效备份"));Assert.That(store.LastIncompatibleSave,Is.Null);
             CollectionAssert.AreEqual(backup,File.ReadAllBytes(path+".backup"));
         }
-        [Test] public void SAVE_ART07_ValidActiveIgnoresIncompatibleBackupAndSaveProbeDoesNotSetLoadMetadata()
+        // v1.1 rewrite (RULES_DELTA): the valid active file still loads, but the old-version backup next to it is deleted
+        // instead of being left alone; a save over an old-version active file sets no metadata and quarantines nothing.
+        [Test] public void SAVE_ART07_ValidActiveLoadsAnOldBackupIsDeletedAndSaveProbeDoesNotSetLoadMetadata()
         {
-            var store=new AtomicSaveStore(path,config);store.Save(state);store.Save(state);Version(path+".backup",2,"p0.4.0");var backup=File.ReadAllBytes(path+".backup");
-            Assert.That(store.Load(),Is.Not.Null);Assert.That(store.LastIncompatibleSave,Is.Null);CollectionAssert.AreEqual(backup,File.ReadAllBytes(path+".backup"));
+            var store=new AtomicSaveStore(path,config);store.Save(state);store.Save(state);Version(path+".backup",2,"p0.4.0");var active=File.ReadAllBytes(path);
+            Assert.That(store.Load(),Is.Not.Null);Assert.That(store.LastIncompatibleSave,Is.Null);Assert.That(store.LastLoadNotice,Is.Null);
+            Assert.That(File.Exists(path+".backup"),Is.False,"the old-version backup is deleted");CollectionAssert.AreEqual(active,File.ReadAllBytes(path),"the valid active file is untouched");
             Version(path,3,"p0.5.0");store.Save(state);Assert.That(store.LastIncompatibleSave,Is.Null,"Write validation must not masquerade as a failed Load.");
+            Assert.That(Directory.GetFiles(folder,"*.rejected-*"),Is.Empty);Assert.That(File.Exists(path+".backup"),Is.False,"an old-version file never becomes the backup");
+            Assert.That(store.Load(),Is.Not.Null);
         }
     }
 }
