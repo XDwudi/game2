@@ -236,8 +236,10 @@ namespace DiceCraft.Tests
             Func<string, ShopOffer> offer = id => s.State.shop.offers.Single(o => o.offerId == id);
             Assert.That(s.GetOfferPrice(offer(cheap)), Is.EqualTo(1)); Assert.That(s.GetOfferPrice(offer(dear)), Is.EqualTo(5));
             Assert.That(s.GetOfferPrice(offer(smooth)), Is.EqualTo(1), "1 - 1 stays at the floor of 1."); Assert.That(s.GetOfferPrice(offer(gold)), Is.EqualTo(2));
-            // Replacement: list 7 + mult2 premium 6 - 1 = 12; the old C02 still trades in at half of 7.
-            Assert.That(s.GetOfferPrice(offer(swap)), Is.EqualTo(12)); Assert.That(s.GetOfferTradeIn(offer(swap)), Is.EqualTo(3)); Assert.That(s.GetOfferNetPrice(offer(swap)), Is.EqualTo(9));
+            // v1.1 rewrite (RULES_DELTA): a same-name copy: list 7 + mult2 premium 6 - 1 = 12, and the owned C02 is not traded in.
+            Assert.That(s.GetOfferPrice(offer(swap)), Is.EqualTo(12)); Assert.That(s.GetOfferTradeIn(offer(swap)), Is.Zero); Assert.That(s.GetOfferNetPrice(offer(swap)), Is.EqualTo(12));
+            long held = s.State.gold; Do(s, CommandKind.Buy, c => c.offerId = swap);
+            Assert.That(s.State.gold, Is.EqualTo(held - 12)); Assert.That(s.State.controllers.Count(c => c.definitionId == "C02"), Is.EqualTo(2));
 
             var twice = Edit(Shop(), x => { x.gold = 100; Equip(x, "C41", "C98"); cheap = PutOffer(x, "controller", "C13"); dear = PutOffer(x, "controller", "C42"); });
             Assert.That(twice.GetOfferPrice(twice.State.shop.offers.Single(o => o.offerId == cheap)), Is.EqualTo(1));
@@ -343,16 +345,23 @@ namespace DiceCraft.Tests
             Assert.That(s.State.lastSubmission.breakdown.score, Is.EqualTo("14400"));
         }
 
-        [Test] public void V09_ReplacingAGrownCardTradesInItsBonusAndStartsFromZero()
+        // v1.1 rewrite (RULES_DELTA): buying a second copy of a grown card neither trades the old one in nor touches it. The
+        // new copy starts from zero; the old one keeps its growth and sale bonus and still sells for them on its own.
+        [Test] public void V09_ASecondCopyOfAGrownCardStartsFromZeroAndTheFirstKeepsItsGrowthAndBonus()
         {
             string offer = null;
             var s = Edit(Shop(), x => { x.gold = 100; Equip(x, "C55"); x.controllers[0].state.growth = 40; x.controllers[0].state.saleBonus = 3; offer = Enchanted(x, "C55", "base10"); });
-            var quoted = s.State.shop.offers.Single(o => o.offerId == offer);
-            // List 4 + base10 premium 2 = 6; the old card trades in at half of 4 plus its sale bonus of 3.
-            Assert.That(s.GetOfferPrice(quoted), Is.EqualTo(6)); Assert.That(s.GetOfferTradeIn(quoted), Is.EqualTo(5)); Assert.That(s.GetOfferNetPrice(quoted), Is.EqualTo(1));
+            var quoted = s.State.shop.offers.Single(o => o.offerId == offer); string first = s.State.controllers[0].instanceId;
+            // List 4 + base10 premium 2 = 6, paid in full.
+            Assert.That(s.GetOfferPrice(quoted), Is.EqualTo(6)); Assert.That(s.GetOfferTradeIn(quoted), Is.Zero); Assert.That(s.GetOfferNetPrice(quoted), Is.EqualTo(6));
             Do(s, CommandKind.Buy, c => c.offerId = offer);
-            var card = s.State.controllers.Single();
-            Assert.That(card.enchantmentId, Is.EqualTo("base10")); Assert.That(card.state.growth, Is.Zero); Assert.That(card.state.saleBonus, Is.Zero); Assert.That(s.State.gold, Is.EqualTo(99));
+            Assert.That(s.State.gold, Is.EqualTo(94)); Assert.That(s.State.controllers.Count, Is.EqualTo(2));
+            var old = s.State.controllers[0]; var card = s.State.controllers[1];
+            Assert.That(old.instanceId, Is.EqualTo(first)); Assert.That(old.state.growth, Is.EqualTo(40)); Assert.That(old.state.saleBonus, Is.EqualTo(3));
+            Assert.That(card.enchantmentId, Is.EqualTo("base10")); Assert.That(card.state.growth, Is.Zero); Assert.That(card.state.saleBonus, Is.Zero);
+            Assert.That(s.GetControllerSalePrice(first), Is.EqualTo(5), "half of 4 plus the bonus of 3");
+            Do(s, CommandKind.Sell, c => c.itemInstanceId = first); Assert.That(s.State.gold, Is.EqualTo(99));
+            Assert.That(s.State.controllers.Single().instanceId, Is.EqualTo(card.instanceId));
         }
 
         [Test] public void V09_SlotServiceTakesTheItemDiscountAndIsNeverOfferedAtSevenSlots()
@@ -379,7 +388,8 @@ namespace DiceCraft.Tests
             Assert.That(offeredAtFive, Is.GreaterThan(0), "The slot service does appear while slots can still be bought.");
         }
 
-        [Test] public void V09_ANormalSaveEnforcesItsOwnSlotCountAndUniqueControllers()
+        // v1.1 rewrite (RULES_DELTA): same-name copies are legal in a normal save; the slot count is still enforced, for copies too.
+        [Test] public void V09_ANormalSaveEnforcesItsOwnSlotCountAndAcceptsSameNameCopies()
         {
             Func<Action<RunState>, RunState> normal = edit => { var state = New().State; edit(state); return state; };
             Assert.That(new GameSession(cfg, new MemorySaveStore(), normal(x => Equip(x, "C01", "C02", "C03", "C06", "C08"))).State.controllers.Count, Is.EqualTo(5));
@@ -387,7 +397,9 @@ namespace DiceCraft.Tests
             Assert.That(() => new GameSession(cfg, new MemorySaveStore(), normal(x => Equip(x, "C01", "C02", "C03", "C06", "C08", "C13"))), Throws.Exception);
             Assert.That(new GameSession(cfg, new MemorySaveStore(), normal(x => { Equip(x, "C01", "C02", "C03", "C06", "C08", "C13"); x.controllerSlotPurchases = 1; })).State.controllerSlots, Is.EqualTo(6));
             Assert.That(() => new GameSession(cfg, new MemorySaveStore(), normal(x => { Equip(x, "C01", "C02", "C03", "C06", "C08", "C13"); x.controllerSlots = 5; })), Throws.Exception, "Six ordinary cards do not fit five slots.");
-            Assert.That(() => new GameSession(cfg, new MemorySaveStore(), normal(x => Equip(x, "C55", "C55"))), Throws.Exception, "Duplicates are a debug-only construction.");
+            var copies = new GameSession(cfg, new MemorySaveStore(), normal(x => { Equip(x, "C55", "C55"); x.controllerSlots = cfg.initialControllerSlots; })).State;
+            Assert.That(copies.isDebug, Is.False); Assert.That(copies.controllers.Select(c => c.definitionId), Is.EqualTo(new[] { "C55", "C55" }), "Copies are a normal construction since v1.1.");
+            Assert.That(() => new GameSession(cfg, new MemorySaveStore(), normal(x => { Equip(x, "C55", "C55", "C55", "C55", "C55", "C55"); x.controllerSlots = 5; })), Throws.Exception, "Six ordinary copies do not fit five slots either.");
             var full = normal(x => { Equip(x, "C01", "C02", "C03", "C06", "C08", "C13", "C14"); x.controllerSlotPurchases = 2; foreach (string id in new[] { "C17", "C19", "C20" }) { int serial = x.nextItemSerial++; x.controllers.Add(new ControllerInstance { definitionId = id, enchantmentId = "slotless", acquiredSerial = serial, instanceId = "ITEM_" + serial.ToString("D5") }); } });
             Assert.That(new GameSession(cfg, new MemorySaveStore(), full).State.controllers.Count, Is.EqualTo(10), "Seven slots plus three slotless cards is the legal maximum.");
         }

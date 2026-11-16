@@ -86,7 +86,10 @@ namespace DiceCraft.Core.Tests
         [Test]
         public void StateLegalityDebugDuplicatesAndRetiredIdsAreDistinctBoundaries()
         {
-            var duplicate = new[] { Card("C46", 1), Card("C46", 2) }; Assert.Throws<ArgumentException>(() => ControllerRules.ValidateEquipment(duplicate, cfg)); Assert.DoesNotThrow(() => ControllerRules.ValidateEquipment(duplicate, cfg, true));
+            // v1.1 rewrite (docs/specs/v11/RULES_DELTA.md): two copies of one definition are legal in a normal run too;
+            // two cards sharing one instance id stay illegal in both.
+            var duplicate = new[] { Card("C46", 1), Card("C46", 2) }; Assert.DoesNotThrow(() => ControllerRules.ValidateEquipment(duplicate, cfg)); Assert.DoesNotThrow(() => ControllerRules.ValidateEquipment(duplicate, cfg, true));
+            var sameInstance = new[] { Card("C46", 1), Card("C46", 1) }; Assert.Throws<ArgumentException>(() => ControllerRules.ValidateEquipment(sameInstance, cfg)); Assert.Throws<ArgumentException>(() => ControllerRules.ValidateEquipment(sameInstance, cfg, true));
             foreach (string id in new[] { "C04", "C16", "C23" }) Assert.Throws<ArgumentException>(() => ControllerRules.ValidateEquipment(new[] { Card(id, 1) }, cfg, true));
             foreach (int bad in new[] { 0, 1, 2 }) { var c = Card("C51", 1); c.state.turnoverUnits2 = bad; Assert.Throws<ArgumentException>(() => ScoreCalculator.Evaluate(Snap(new[] { 1 }, c), cfg)); }
             var passive = Card("C05", 1, "base10"); Assert.Throws<ArgumentException>(() => ScoreCalculator.Evaluate(Snap(new[] { 1 }, passive), cfg)); var debug = Snap(new[] { 1 }, passive); debug.debug = true; Assert.That(ScoreCalculator.Evaluate(debug, cfg).enchantBaseAdd, Is.Zero);

@@ -9,7 +9,7 @@ namespace DiceCraft.Core
         /// <summary>Validates a detached stable snapshot. Loading never draws or replays an event.</summary>
         public void ValidateState(RunState s)
         {
-            Check(s != null && s.saveSchemaVersion == cfg.saveSchemaVersion && s.configVersion == cfg.configVersion, "存档版本不兼容，请保留旧存档并开始新挑战。");
+            Check(s != null && s.saveSchemaVersion == cfg.saveSchemaVersion && s.configVersion == cfg.configVersion, "存档版本不兼容，请开始新挑战。"); // v1.1: old-version saves are deleted, not kept
             Check(!string.IsNullOrEmpty(s.runId), "存档缺少挑战ID。");
             Check(new[] { "StagePreview", "HandReady", "Selecting", "StageSettlement", "Shop", "RunWon", "RunFailed" }.Contains(s.phase), "存档阶段无效。");
             Check(s.gold >= 0 && s.actionSequence >= 0 && s.submissionOrdinalGlobal >= 0, "存档金币或操作序号无效。");
@@ -139,7 +139,7 @@ namespace DiceCraft.Core
                 && s.stage.destroyedControllerIds.Distinct().Count() == s.stage.destroyedControllerIds.Count, "关卡来源身份重复。");
             Check(s.stage.mimicBindings.All(b => b != null && !string.IsNullOrEmpty(b.sourceInstanceId))
                 && s.stage.mimicBindings.Select(b => b.sourceInstanceId).Distinct().Count() == s.stage.mimicBindings.Length, "复制绑定身份无效。");
-            // Settled stages retain historical bindings even after ordinary shop sales and replacements.
+            // Settled stages retain historical bindings even after ordinary shop sales.
             if (!s.stage.settled)
                 foreach (var b in s.stage.mimicBindings)
                 {

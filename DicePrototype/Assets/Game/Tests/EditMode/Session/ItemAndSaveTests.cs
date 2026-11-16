@@ -141,7 +141,13 @@ namespace DiceCraft.Tests
                 if(cfg.stages[stage].riskEnabled)Do(s,CommandKind.ChooseChallenge,c=>c.risk=true);
                 Do(s,CommandKind.StartStage);Do(s,CommandKind.Roll);Lock(s,s.State.dice.Select(x=>x.dieId).ToArray());Do(s,CommandKind.Submit);
                 Do(s,CommandKind.EndStage);Assert.That(s.State.phase,Is.EqualTo("StageSettlement"),"stage "+stage);Do(s,CommandKind.Continue);
-                if(stage<23){Assert.That(s.State.phase,Is.EqualTo("Shop"));Do(s,CommandKind.LeaveShop);}
+                if(stage<23){
+                    Assert.That(s.State.phase,Is.EqualTo("Shop"));
+                    // v1.1 rewrite (RULES_DELTA): after each of the seven boss stages the loot must be claimed or cashed out first.
+                    bool boss=cfg.stages[stage].stageKind=="boss";Assert.That(s.IsLootPending,Is.EqualTo(boss),"stage "+stage);
+                    if(boss){var early=s.Execute(Command(s,CommandKind.LeaveShop));Assert.That(early.accepted,Is.False);Assert.That(early.error,Is.EqualTo("先领取首领战利品。"));
+                        Do(s,CommandKind.Buy,c=>c.offerId=s.State.shop.offers.Single(o=>o.groupId=="LOOT"&&o.category=="gold").offerId);}
+                    Do(s,CommandKind.LeaveShop);}
             }
             Assert.That(s.State.phase,Is.EqualTo("RunWon"));Assert.That(s.State.shop,Is.Null);
             Do(s,CommandKind.NewRun,c=>c.seed=99);Assert.That(s.State.gold,Is.EqualTo(0));Assert.That(s.State.controllers,Is.Empty);Assert.That(s.State.baseSubmitCapacity,Is.EqualTo(5));

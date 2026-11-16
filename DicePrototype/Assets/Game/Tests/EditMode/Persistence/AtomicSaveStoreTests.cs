@@ -40,22 +40,74 @@ namespace DiceCraft.Tests
         [TearDown] public void PreserveEvidence()
             => TestContext.WriteLine("Isolated persistence evidence retained: " + directory);
 
-        [Test] public void SAVE_V05_IsolatesBothLegacySchema2FilesAcrossNewRunBackupRotation()
+        // v1.1 rewrite (docs/specs/v11/RULES_DELTA.md): old-version files are deleted on Load, without a notice and without
+        // legacy copies; the next run then saves and rotates its backup as usual.
+        [Test] public void SAVE_V11_BothSchema2FilesAreDeletedWithoutNoticeAndNewSavesRotateNormally()
         {
             var store=PrepareTwoVersions();
-            foreach(var file in new[]{path,path+".backup"})
-            {
-                var old=JsonUtility.FromJson<Envelope>(File.ReadAllText(file));old.schema=2;old.config="p0.4.0";
-                File.WriteAllText(file,JsonUtility.ToJson(old));
-            }
-            var active=File.ReadAllBytes(path);var backup=File.ReadAllBytes(path+".backup");
-            Assert.That(store.Load(),Is.Null);Assert.That(store.LastLoadNotice,Does.Contain("开始新挑战"));
-            var archived=Directory.GetFiles(directory,"*.legacy-schema2-*");Assert.That(archived.Length,Is.EqualTo(2));
-            store.Load();Assert.That(Directory.GetFiles(directory,"*.legacy-schema2-*").Length,Is.EqualTo(2));
+            foreach(var file in new[]{path,path+".backup"}) SetVersion(file,2,"p0.4.0");
+            Assert.That(store.Load(),Is.Null);Assert.That(store.LastLoadNotice,Is.Null);Assert.That(store.LastIncompatibleSave,Is.Null);
+            Assert.That(File.Exists(path),Is.False);Assert.That(File.Exists(path+".backup"),Is.False);
+            Assert.That(store.LastDeletedSaveFiles,Is.EquivalentTo(new[]{path,path+".backup"}));
+            Assert.That(Directory.GetFiles(directory,"*.legacy-schema*"),Is.Empty);Assert.That(Directory.GetFiles(directory,"*.rejected-*"),Is.Empty);
+            Assert.That(store.Load(),Is.Null);Assert.That(store.LastLoadNotice,Is.Null);Assert.That(store.LastDeletedSaveFiles,Is.Empty);
             store.Save(first);store.Save(second);store.Save(third);
-            Assert.That(archived.Any(f=>File.ReadAllBytes(f).SequenceEqual(active)),Is.True);
-            Assert.That(archived.Any(f=>File.ReadAllBytes(f).SequenceEqual(backup)),Is.True);
-            Assert.That(JsonUtility.ToJson(store.Load()),Is.EqualTo(JsonUtility.ToJson(third)));
+            Assert.That(File.Exists(path+".backup"),Is.True);
+            Assert.That(JsonUtility.ToJson(store.Load()),Is.EqualTo(JsonUtility.ToJson(third)));Assert.That(store.LastLoadNotice,Is.Null);
+        }
+
+        [Test] public void SAVE_V11_AConfigVersionChangeAloneDeletesActiveBackupAndEveryLegacyCopyButNothingElse()
+        {
+            var store=PrepareTwoVersions();
+            foreach(var file in new[]{path,path+".backup"}) SetVersion(file,config.saveSchemaVersion,"p0.9.0");
+            string[] legacy={path+".legacy-schema5-0123456789abcdef",path+".legacy-schema2-fedcba9876543210"};
+            foreach(var file in legacy) File.WriteAllText(file,"{\"schema\":5,\"config\":\"p0.9.0\"}");
+            string quarantine=path+".rejected-"+Guid.NewGuid().ToString("N"),other=Path.Combine(directory,"debug-run.json.legacy-schema5-0000000000000000"),settings=Path.Combine(directory,"settings.json");
+            foreach(var file in new[]{quarantine,other,settings}) File.WriteAllText(file,"keep");
+            Assert.That(store.Load(),Is.Null);Assert.That(store.LastLoadNotice,Is.Null);Assert.That(store.LastIncompatibleSave,Is.Null);
+            foreach(var file in new[]{path,path+".backup"}.Concat(legacy)) Assert.That(File.Exists(file),Is.False,file);
+            Assert.That(store.LastDeletedSaveFiles,Is.EquivalentTo(new[]{path,path+".backup"}.Concat(legacy)));
+            foreach(var file in new[]{quarantine,other,settings}) Assert.That(File.ReadAllText(file),Is.EqualTo("keep"),"not a save of this slot written by another version: "+file);
+        }
+
+        [Test] public void SAVE_V11_LegacyCopiesWithoutAnyActiveFileArePurgedSilently()
+        {
+            Directory.CreateDirectory(directory);string legacy=path+".legacy-schema3-0123456789abcdef";File.WriteAllText(legacy,"{}");
+            var store=new AtomicSaveStore(path,config);
+            Assert.That(store.Load(),Is.Null);Assert.That(store.LastLoadNotice,Is.Null);Assert.That(File.Exists(legacy),Is.False);
+            Assert.That(store.LastDeletedSaveFiles,Is.EqualTo(new[]{legacy}));
+        }
+
+        [Test] public void SAVE_V11_AnOldActiveIsDeletedAndTheCurrentBackupIsStillRestored()
+        {
+            var store=PrepareTwoVersions();byte[] backup=File.ReadAllBytes(path+".backup");SetVersion(path,config.saveSchemaVersion,"p0.9.0");
+            var restored=store.Load();Assert.That(restored,Is.Not.Null,store.LastLoadNotice);Assert.That(restored.actionSequence,Is.EqualTo(first.actionSequence));
+            Assert.That(store.LastLoadNotice,Does.Contain("有效备份"),"restoring the backup of this version is reported as before");Assert.That(store.LastIncompatibleSave,Is.Null);
+            Assert.That(File.Exists(path),Is.False);CollectionAssert.AreEqual(backup,File.ReadAllBytes(path+".backup"),"a file of this version is never deleted");
+        }
+
+        [Test] public void SAVE_V11_ADamagedActiveOfThisVersionIsKeptAndQuarantinedWhileAnOldBackupIsDeleted()
+        {
+            var store=PrepareTwoVersions();Corrupt(path,"hash");SetVersion(path+".backup",2,"p0.4.0");byte[] damaged=File.ReadAllBytes(path);
+            Assert.That(store.Load(),Is.Null);Assert.That(store.LastLoadNotice,Is.Not.Null.And.Not.Empty,"damage of this version keeps its notice");
+            CollectionAssert.AreEqual(damaged,File.ReadAllBytes(path),"a damaged file of this version is never deleted");Assert.That(File.Exists(path+".backup"),Is.False);
+            store.Save(third);
+            var quarantine=Directory.GetFiles(directory,"active-run.json.rejected-*");Assert.That(quarantine,Has.Length.EqualTo(1));CollectionAssert.AreEqual(damaged,File.ReadAllBytes(quarantine[0]));
+            Assert.That(File.Exists(path+".backup"),Is.False,"a damaged active never becomes the backup");Assert.That(JsonUtility.ToJson(store.Load()),Is.EqualTo(JsonUtility.ToJson(third)));
+        }
+
+        [Test] public void SAVE_V11_TheDebugSlotDeletesItsOwnOldFilesAndLeavesTheNormalSlotAlone()
+        {
+            var debugState=GameSession.CreateDebugWorkspace(config,new MemorySaveStore()).State;string debugPath=Path.Combine(directory,"debug-run.json");
+            var debugStore=new AtomicSaveStore(debugPath,config,SaveSlotPolicy.Debug);debugStore.Save(debugState);debugStore.Save(debugState);
+            PrepareTwoVersions();
+            foreach(var file in new[]{path,path+".backup",debugPath,debugPath+".backup"}) SetVersion(file,2,"p0.4.0");
+            File.WriteAllText(debugPath+".legacy-schema2-0123456789abcdef","{}");File.WriteAllText(path+".legacy-schema2-0123456789abcdef","{}");
+            Assert.That(new AtomicSaveStore(debugPath,config,SaveSlotPolicy.Debug).Load(),Is.Null);
+            Assert.That(File.Exists(debugPath),Is.False);Assert.That(File.Exists(debugPath+".backup"),Is.False);Assert.That(File.Exists(debugPath+".legacy-schema2-0123456789abcdef"),Is.False);
+            Assert.That(File.Exists(path),Is.True);Assert.That(File.Exists(path+".backup"),Is.True);Assert.That(File.Exists(path+".legacy-schema2-0123456789abcdef"),Is.True,"another slot's files are not this store's");
+            var reader=new AtomicSaveStore(path,config,SaveSlotPolicy.Normal);Assert.That(reader.Load(),Is.Null);Assert.That(reader.LastLoadNotice,Is.Null);
+            Assert.That(Directory.GetFiles(directory,"active-run.json*"),Is.Empty);
         }
 
         [Test] public void SAVE_RealJsonUtilityRoundTripPreservesDiceRngReceiptsAndPhysicalResults()
@@ -133,6 +185,15 @@ namespace DiceCraft.Tests
             Corrupt(path, kind); Corrupt(path + ".backup", kind);
             byte[] active = File.ReadAllBytes(path), backup = File.ReadAllBytes(path + ".backup");
             Assert.That(store.Load(), Is.Null);
+            if (kind == "schema")
+            {
+                // v1.1 rewrite (docs/specs/v11/RULES_DELTA.md): a declared schema other than the current one is another
+                // version's save, not damage of this version: both files are deleted and nothing is reported.
+                Assert.That(store.LastLoadNotice, Is.Null); Assert.That(store.LastIncompatibleSave, Is.Null);
+                Assert.That(File.Exists(path), Is.False); Assert.That(File.Exists(path + ".backup"), Is.False);
+                Assert.That(Directory.GetFiles(directory, "*.legacy-schema*"), Is.Empty);
+                return;
+            }
             Assert.That(store.LastLoadNotice, Is.Not.Null.And.Not.Empty);
             CollectionAssert.AreEqual(active, File.ReadAllBytes(path));
             CollectionAssert.AreEqual(backup, File.ReadAllBytes(path + ".backup"));
@@ -152,7 +213,9 @@ namespace DiceCraft.Tests
             Assert.That(fallback.actionSequence, Is.EqualTo(first.actionSequence));
             Assert.That(store.LastLoadNotice, Does.Contain("备份"));
             store.Save(third);
-            AssertRecoveredWrite(store, backup, rejected);
+            // v1.1 rewrite (RULES_DELTA): another version's active file is deleted by Load instead of being quarantined.
+            if (kind == "schema") { Assert.That(store.LastDeletedSaveFiles, Is.EqualTo(new[] { path })); AssertOverwrittenWithoutQuarantine(store, backup); }
+            else AssertRecoveredWrite(store, backup, rejected);
         }
 
         [TestCase("schema")]
@@ -166,7 +229,9 @@ namespace DiceCraft.Tests
             byte[] rejected = File.ReadAllBytes(path);
             var freshAdapter = new AtomicSaveStore(path, config);
             freshAdapter.Save(third); // Intentionally no Load on this adapter.
-            AssertRecoveredWrite(freshAdapter, backup, rejected);
+            // v1.1 rewrite (RULES_DELTA): another version's active file is overwritten, never quarantined or kept as backup.
+            if (kind == "schema") AssertOverwrittenWithoutQuarantine(freshAdapter, backup);
+            else AssertRecoveredWrite(freshAdapter, backup, rejected);
         }
 
         [Test] public void SAVE_NullGroupHistoryRemainsNoGroupAndCannotChangeNextHandOrScore()
@@ -214,6 +279,21 @@ namespace DiceCraft.Tests
             string[] quarantine = Directory.GetFiles(directory, "active-run.json.rejected-*");
             Assert.That(quarantine, Has.Length.EqualTo(1));
             CollectionAssert.AreEqual(rejected, File.ReadAllBytes(quarantine[0]));
+        }
+        /// <summary>v1.1: the valid backup is untouched, the new state is active, and no copy of the old-version file exists.</summary>
+        private void AssertOverwrittenWithoutQuarantine(AtomicSaveStore store, byte[] backup)
+        {
+            CollectionAssert.AreEqual(backup, File.ReadAllBytes(path + ".backup"), "Another version's active file must never replace the valid backup.");
+            var accepted = store.Load();
+            Assert.That(accepted, Is.Not.Null, store.LastLoadNotice);
+            Assert.That(JsonUtility.ToJson(accepted), Is.EqualTo(JsonUtility.ToJson(third)));
+            Assert.That(Directory.GetFiles(directory, "active-run.json.rejected-*"), Is.Empty);
+            Assert.That(Directory.GetFiles(directory, "*.legacy-schema*"), Is.Empty);
+        }
+        private static void SetVersion(string file, int schema, string version)
+        {
+            var e = JsonUtility.FromJson<Envelope>(File.ReadAllText(file)); e.schema = schema; e.config = version;
+            File.WriteAllText(file, JsonUtility.ToJson(e));
         }
         private void Corrupt(string file, string kind)
         {

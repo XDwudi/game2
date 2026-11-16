@@ -64,6 +64,47 @@ namespace DiceCraft.Tests
             TestContext.WriteLine("Real JsonUtility v1.0 evidence retained: " + folder);
         }
 
+        /// <summary>
+        /// p1.1.0 (docs/specs/v11/RULES_DELTA.md): same-name copies keep their own instance, growth and score history through
+        /// the real JsonUtility path (F-DUP-04), and a boss shop restored while its loot waits keeps the gate (F-LOOT-02).
+        /// </summary>
+        [Test]
+        public void SAVE_V11_SameNameCopiesAndAPendingLootShopSurviveARealJsonRoundTrip()
+        {
+            string folder = Path.Combine(Application.temporaryCachePath, "V11RoundTrip_" + Guid.NewGuid().ToString("N"));
+            string path = Path.Combine(folder, "debug-run.json");
+            var store = new AtomicSaveStore(path, cfg, SaveSlotPolicy.Debug);
+            var session = GameSession.CreateDebugWorkspace(cfg, store);
+            var scene = session.ExportDebugScene(); scene.gold = 12; scene.target = "1"; scene.capacityOverride = 5; scene.stageIndex = 2; scene.modifierId = "B05";
+            scene.controllers = new[] { "C55", "C46", "C55", "C46" }.Select((id, i) => Card(id, i + 1)).ToList(); scene.controllers[0].state.growth = 10;
+            Do(session, CommandKind.ApplyDebugScene, c => c.debugScene = scene);
+            session = Reopen(session, path);
+            Assert.That(session.State.controllers.Select(c => c.definitionId), Is.EqualTo(new[] { "C55", "C46", "C55", "C46" }));
+            Do(session, CommandKind.Roll); Lock(session, "D001", "D002");
+            session = Reopen(session, path);
+            Do(session, CommandKind.Submit);
+            var live = session.State.lastSubmission;
+            Assert.That(live.breakdown.multiplierFactors.Count(f => f.abilityId == "C46"), Is.EqualTo(2), "both copies of C46 multiply");
+            Assert.That(live.breakdown.controllerBaseAdds.Select(a => a.amount), Is.EqualTo(new[] { "10" }), "the grown copy adds 10, the new one 0 (not listed)");
+            session = Reopen(session, path);
+            Assert.That(JsonUtility.ToJson(session.State.lastSubmission), Is.EqualTo(JsonUtility.ToJson(live)), "the recorded submission with both copies is preserved");
+            Assert.That(session.State.controllers.Where(c => c.definitionId == "C55").Select(c => c.state.growth), Is.EqualTo(new long[] { 12, 2 }), "each copy grows on its own");
+
+            Do(session, CommandKind.EndStage); Do(session, CommandKind.Continue);
+            Assert.That(session.IsLootPending, Is.True);
+            session = Reopen(session, path);
+            Assert.That(session.IsLootPending, Is.True, "a restored loot shop keeps the gate");
+            var leave = session.Execute(Command(session, CommandKind.LeaveShop)); Assert.That(leave.accepted, Is.False); Assert.That(leave.error, Is.EqualTo("先领取首领战利品。"));
+            Do(session, CommandKind.Sell, c => c.itemInstanceId = session.State.controllers.Last().instanceId);
+            session = Reopen(session, path); Assert.That(session.IsLootPending, Is.True, "selling does not resolve the loot");
+            Do(session, CommandKind.Buy, c => c.offerId = session.State.shop.offers.Single(o => o.groupId == "LOOT" && o.category == "gold").offerId);
+            session = Reopen(session, path); Assert.That(session.IsLootPending, Is.False);
+            Do(session, CommandKind.LeaveShop);
+            session = Reopen(session, path);
+            Assert.That(session.State.stage.stageIndex, Is.EqualTo(3)); Assert.That(session.State.controllers.Count(c => c.definitionId == "C55"), Is.EqualTo(2));
+            TestContext.WriteLine("Real JsonUtility v1.1 evidence retained: " + folder);
+        }
+
         /// <summary>Loads the file a fresh store reads, checks it hashes like the live state, and continues from it.</summary>
         private GameSession Reopen(GameSession live, string path)
         {

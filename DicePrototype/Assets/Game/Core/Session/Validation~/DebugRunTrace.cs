@@ -22,7 +22,9 @@ public static class DebugRunTrace
         var initialWorkspace = session.State;
         var scene = session.ExportDebugScene();
         foreach (var d in scene.dice) foreach (var f in d.faces) { f.permanentPip = 4; f.baseColor = "red"; f.isGold = true; }
-        string[] cards = { "C25", "C30", "C31", "C32" };
+        // C46 is the fifth card the EditMode twin (ItemAndSaveTests.TwentyFourStageFlow...) received in p0.9.0: without it
+        // this one-submission fixture no longer reaches the p1.0.0 targets (it stopped at stage index 22 before v1.1).
+        string[] cards = { "C25", "C30", "C31", "C32", "C46" };
         for (int i = 0; i < cards.Length; i++) scene.controllers.Add(new ControllerInstance {
             definitionId = cards[i], enchantmentId = "mult2", acquiredSerial = i + 1, instanceId = "ITEM_" + (i + 1).ToString("D5")
         });
@@ -30,7 +32,7 @@ public static class DebugRunTrace
         foreach (var h in scene.colorLevels) h.level = 8;
         scene.remainingSubmissions = -1; scene.rollsRemaining = -1;
         Act(CommandKind.ApplyDebugScene, c => c.debugScene = scene);
-        int shops = 0, risks = 0;
+        int shops = 0, risks = 0, loots = 0;
         for (int stage = 0; stage < cfg.stages.Length; stage++)
         {
             if (stage != 0)
@@ -46,17 +48,21 @@ public static class DebugRunTrace
             if (stage < cfg.stages.Length - 1)
             {
                 if (session.State.phase != "Shop") throw new Exception("Missing shop"); shops++;
+                // v1.1: after a boss the loot is claimed or cashed out before anything else; this fixture takes the gold.
+                bool boss = cfg.stages[stage].stageKind == "boss";
+                if (session.IsLootPending != boss) throw new Exception("Loot gate mismatch at stage " + stage);
+                if (boss) { Act(CommandKind.Buy, c => c.offerId = session.State.shop.offers.Single(o => o.groupId == "LOOT" && o.category == "gold").offerId); loots++; }
                 Act(CommandKind.LeaveShop);
             }
         }
-        if (session.State.phase != "RunWon" || !session.State.isDebug || shops != 23 || risks != 8) throw new Exception("Debug trajectory incomplete");
+        if (session.State.phase != "RunWon" || !session.State.isDebug || shops != 23 || risks != 8 || loots != 7) throw new Exception("Debug trajectory incomplete");
         Directory.CreateDirectory("evidence/v06/session");
         File.WriteAllText("evidence/v06/session/debug-24-trace.json", JsonSerializer.Serialize(new {
             configVersion = cfg.configVersion, debug = true, purpose = "24 stage / 23 shop transition integration, not balance evidence", initialWorkspace,
-            expectedFinalPhase = session.State.phase, stages = 24, shops, risks, steps
+            expectedFinalPhase = session.State.phase, stages = 24, shops, risks, loots, steps
         }, Json));
         File.WriteAllText("evidence/v06/session/debug-24-final-state.json", JsonSerializer.Serialize(session.State, Json));
-        Console.WriteLine("DEBUG_24_PASSED stages=24 shops=" + shops + " risks=" + risks + " commands=" + steps.Count + " restores=" + steps.Count + " duplicateChecks=" + steps.Count);
+        Console.WriteLine("DEBUG_24_PASSED stages=24 shops=" + shops + " risks=" + risks + " loots=" + loots + " commands=" + steps.Count + " restores=" + steps.Count + " duplicateChecks=" + steps.Count);
         return 0;
     }
 

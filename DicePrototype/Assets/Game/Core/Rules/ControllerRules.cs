@@ -136,7 +136,8 @@ namespace DiceCraft.Core
         {
             if (instances == null) throw new ArgumentNullException(nameof(instances)); var all = instances.ToArray();
             if (all.Any(c => c == null) || all.Count(c => c.alive) > (debug ? cfg.debug.maxControllerInstances : cfg.maxControllerInstances) || all.Any(c => string.IsNullOrEmpty(c.instanceId)) || all.Select(c => c.instanceId).Distinct(StringComparer.Ordinal).Count() != all.Length) throw new ArgumentException("Invalid controller identities or limits.");
-            if (enforceSlots && !debug && (all.Where(c => c.alive).Select(c => c.definitionId).Distinct(StringComparer.Ordinal).Count() != all.Count(c => c.alive) || OrdinaryUsed(all) > (ordinarySlots < 0 ? cfg.initialControllerSlots : ordinarySlots))) throw new ArgumentException("Normal equipment limits.");
+            // v1.1: same-name copies are legal in a normal run; only the slot and instance limits apply.
+            if (enforceSlots && !debug && OrdinaryUsed(all) > (ordinarySlots < 0 ? cfg.initialControllerSlots : ordinarySlots)) throw new ArgumentException("Normal equipment limits.");
             foreach (var c in all)
             {
                 cfg.Controller(c.definitionId);
@@ -152,6 +153,8 @@ namespace DiceCraft.Core
             var w = cfg.enchantRules.nonSubmitDrawWeights;
             switch (enchant) { case "none": return w.none; case "slotless": return w.slotless; case "submit1": return w.submit1; case "roll1": return w.roll1; default: return 0; }
         }
+        /// <summary>The non-empty enchantments other than <paramref name="current"/>. v1.1: shop offers of an owned card no
+        /// longer use this pool (they draw like any other offer); it remains a pure helper.</summary>
         public static string[] ReplacementEnchantments(string id, string current, GameConfig cfg)
         {
             cfg.Controller(id); if (!IsEnchantmentLegal(id, current, cfg)) throw new ArgumentException("Invalid current enchantment.");

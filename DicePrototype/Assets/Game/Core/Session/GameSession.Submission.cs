@@ -365,7 +365,7 @@ namespace DiceCraft.Core
 
         private void LeaveShop(RunState s)
         {
-            RequirePhase(s, "Shop");
+            RequirePhase(s, "Shop"); RequireLootResolved(s); // v1.1: boss loot first
             Check(s.dice.Count > 0, "骰组耗尽，不能开始下一关。");
             PrepareStagePreview(s, s.stage.stageIndex + 1);
         }

@@ -94,9 +94,12 @@ public static class NormalRunSearch
     }
 
     private static bool Has(RunState state, string id) => state.controllers.Any(x => x.contentId == id);
+    // v1.0 boss modifiers the legal-action policy has to respect (it predates them).
+    private static bool Modifier(string effect) => ControllerRules.ModifierHas(cfg, session.CurrentModifierId, effect);
 
     private static void UsePreparationItems()
     {
+        if (Modifier("NoItems")) return;
         foreach (string id in new[] { "I07", "I06", "I04", "I05" })
         {
             var state = session.State;
@@ -164,10 +167,11 @@ public static class NormalRunSearch
     {
         var free=s.dice.Where(d=>!locked.Contains(d.dieId)).Select(d=>d.dieId).ToArray();
         var best=new Choice{order=locked,score=-1};
+        int mustFill=Modifier("MustFill")?Math.Min(s.stage.capacity,s.dice.Count):0; // v1.0 B01: only a full row can be submitted
         for(int mask=0;mask<(1<<free.Length);mask++)
         {
             var ids=locked.Concat(free.Where((id,i)=>(mask&(1<<i))!=0)).ToArray();
-            if(ids.Length==0||ids.Length>s.stage.capacity)continue;
+            if(ids.Length==0||ids.Length>s.stage.capacity||(mustFill>0&&ids.Length!=mustFill))continue;
             // Only positional score modifiers require extra ordering candidates.
             var orders=new List<string[]>{ids};
             if(Has(s,"C03"))for(int i=1;i<ids.Length;i++){var ordered=(string[])ids.Clone();var a=ordered[0];ordered[0]=ordered[i];ordered[i]=a;orders.Add(ordered);}
@@ -197,8 +201,8 @@ public static class NormalRunSearch
         if(additional.Length>0)Act(CommandKind.ConfirmLocks,c=>c.dieIds=additional);
         if(!session.State.hand.orderedLockedIds.SequenceEqual(choice.order))Act(CommandKind.Reorder,c=>c.dieIds=choice.order);
         var state=session.State;
-        var red=state.inventory.FirstOrDefault(x=>x.contentId=="I01");
-        if(red!=null&&!state.hand.redWave&&state.hand.orderedLockedIds.Count>0)
+        var red=Modifier("NoItems")?null:state.inventory.FirstOrDefault(x=>x.contentId=="I01");
+        if(red!=null&&!state.hand.redWave&&!state.hand.blueWave&&state.hand.orderedLockedIds.Count>0)
         {
             var snap=session.PreviewSnapshot();snap.redWave=true;
             if(ExactScoreMath.Parse(ScoreCalculator.Preview(snap,cfg).minimum.score)*10>ExactScoreMath.Parse(session.PreviewScore().score)*13)Act(CommandKind.UseItem,c=>c.itemInstanceId=red.instanceId);
@@ -215,11 +219,14 @@ public static class NormalRunSearch
         if(id=="C25"&&Has(s,"C02"))return 0;
         if(id=="C01"&&s.stage.stageIndex>10)return 15;
         if(id=="C03"&&Has(s,"C02"))return 0;
+        if(id=="C128")return 0; // it turns dice to glass, which this policy cannot simulate (see PlaySelection)
         return values.TryGetValue(id,out int result)?result:40;
     }
 
     private static void Shop()
     {
+        // v1.1: the boss loot is resolved before anything else in the shop; this policy always takes the gold.
+        if(session.IsLootPending)Act(CommandKind.Buy,c=>c.offerId=session.State.shop.offers.Single(o=>o.groupId=="LOOT"&&o.category=="gold").offerId);
         for(int round=0;round<8;round++)
         {
             var s=session.State;

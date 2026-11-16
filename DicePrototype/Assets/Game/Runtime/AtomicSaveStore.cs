@@ -28,8 +28,16 @@ namespace DiceCraft
             internal IncompatibleSaveInfo(int schema,string version,bool preserved)
             { Schema=schema;ConfigVersion=version;IsLegacyPreserved=preserved; }
         }
-        // Diagnostic metadata only. Load selection, archive paths and save rotation are unchanged.
+        /// <summary>
+        /// v1.1 (docs/specs/v11/DEV_PLAN.md 4.5): always null. A save written by another version is deleted on Load
+        /// instead of being reported; the property is kept only so that existing callers still compile.
+        /// </summary>
         public IncompatibleSaveInfo LastIncompatibleSave { get; private set; }
+        /// <summary>
+        /// v1.1 diagnostic only: the files the last Load deleted because another version wrote them (active, backup,
+        /// earlier legacy copies). Empty when nothing was deleted. Never shown to the player.
+        /// </summary>
+        public string[] LastDeletedSaveFiles { get; private set; } = Array.Empty<string>();
         private readonly GameConfig config;
         private readonly GameSession validator;
         private readonly SaveSlotPolicy policy;
@@ -67,7 +75,9 @@ namespace DiceCraft
                 // External changes and a fresh adapter retain the full original check.
                 bool valid = lastValidatedWrite != null && BytesEqual(File.ReadAllBytes(SavePath),lastValidatedWrite);
                 if(!valid)valid=TryRead(SavePath, out _, out _);
-                if (!valid)
+                // A corrupt file of this version is quarantined as before. v1.1: a file written by another version
+                // is simply overwritten; it is neither quarantined nor rotated into the backup.
+                if (!valid && !IsOtherVersion(SavePath))
                 {
                     string rejected = SavePath + ".rejected-" + Guid.NewGuid().ToString("N");
                     File.Copy(SavePath, rejected, false);
@@ -90,42 +100,70 @@ namespace DiceCraft
         public RunState Load()
         {
             LastLoadNotice = null;LastIncompatibleSave=null;
-            if (!File.Exists(SavePath) && !File.Exists(SavePath + ".backup")) return null;
-            Exception first = null;
+            DeleteOtherVersionSaves();
+            Exception first = null; bool current = false;
             foreach (string candidate in new[] { SavePath, SavePath + ".backup" })
             {
-                if (!File.Exists(candidate)) continue;
-                if (TryRead(candidate, out RunState state, out Exception error,true))
+                // A file of another version that could not be deleted is ignored: never read and never reported.
+                if (!File.Exists(candidate) || IsOtherVersion(candidate)) continue;
+                current = true;
+                if (TryRead(candidate, out RunState state, out Exception error))
                 {
-                    LastIncompatibleSave=null;
                     if (candidate != SavePath) LastLoadNotice = "活动存档不可读，已恢复上一份有效备份。";
                     return state;
                 }
                 if (first == null) first = error;
             }
+            if (!current) return null; // no save of this version: nothing to restore and nothing to report
             LastLoadNotice = first == null ? "没有可恢复的存档" : first.Message;
             return null;
         }
-        private bool TryRead(string path, out RunState state, out Exception error,bool captureLoadMetadata=false)
+        /// <summary>
+        /// v1.1 (DEV_PLAN 4.5): the active save and the backup are deleted when another version wrote them (the envelope
+        /// declares a different save schema or configuration version), together with every legacy copy that earlier
+        /// versions left next to this slot. Nothing of this version is ever deleted here: a damaged file of this version
+        /// keeps the existing backup fallback, notice and quarantine. No notice is raised for a deleted old save.
+        /// Deleting is best effort; a file that cannot be deleted now is retried by the next Load.
+        /// </summary>
+        private void DeleteOtherVersionSaves()
+        {
+            var deleted = new System.Collections.Generic.List<string>();
+            foreach (string candidate in new[] { SavePath, SavePath + ".backup" })
+                if (File.Exists(candidate) && IsOtherVersion(candidate) && TryDelete(candidate)) deleted.Add(candidate);
+            string folder = Path.GetDirectoryName(SavePath), prefix = Path.GetFileName(SavePath) + ".legacy-schema";
+            string[] legacy = Array.Empty<string>();
+            try { if (!string.IsNullOrEmpty(folder) && Directory.Exists(folder)) legacy = Directory.GetFiles(folder, prefix + "*"); }
+            catch (IOException) { } catch (UnauthorizedAccessException) { }
+            // The exact prefix check guards against wildcard matches on short (8.3) file names.
+            foreach (string file in legacy.Where(f => Path.GetFileName(f).StartsWith(prefix, StringComparison.Ordinal)).OrderBy(f => f, StringComparer.Ordinal))
+                if (TryDelete(file)) deleted.Add(file);
+            LastDeletedSaveFiles = deleted.ToArray();
+        }
+        private static bool TryDelete(string file)
+        {
+            try { File.Delete(file); return !File.Exists(file); }
+            catch (IOException) { return false; } catch (UnauthorizedAccessException) { return false; }
+        }
+        /// <summary>
+        /// Whether a file's envelope declares a version other than the current one. An envelope that cannot be read or
+        /// declares no version at all is damage, not another version, and is never deleted.
+        /// </summary>
+        private bool IsOtherVersion(string path)
+        {
+            try { return DeclaresOtherVersion(JsonUtility.FromJson<Envelope>(File.ReadAllText(path, Encoding.UTF8))); }
+            catch (Exception) { return false; }
+        }
+        private bool DeclaresOtherVersion(Envelope e)
+            => e != null && e.schema > 0 && !string.IsNullOrEmpty(e.config) && (e.schema != config.saveSchemaVersion || e.config != config.configVersion);
+        private bool TryRead(string path, out RunState state, out Exception error)
         {
             state=null;error=null;
             try
             {
                 var e=JsonUtility.FromJson<Envelope>(File.ReadAllText(path,Encoding.UTF8));
-                if(e==null||e.schema!=config.saveSchemaVersion||e.config!=config.configVersion)
-                {
-                    // Version isolation preserves both an old active Run and its previous
-                    // backup before future schema-3 saves rotate the normal backup path.
-                    bool legacyPreserved=false;
-                    if(e!=null && e.schema>0 && e.schema<config.saveSchemaVersion)
-                    {
-                        string legacy=path+".legacy-schema"+e.schema+"-"+Hash(File.ReadAllText(path,Encoding.UTF8)).Substring(0,16);
-                        if(!File.Exists(legacy))File.Copy(path,legacy,false);
-                        legacyPreserved=File.Exists(legacy);
-                    }
-                    if(captureLoadMetadata&&e!=null&&LastIncompatibleSave==null)LastIncompatibleSave=new IncompatibleSaveInfo(e.schema,e.config,legacyPreserved);
-                    throw new InvalidDataException("存档版本不兼容，旧档已保留，请开始新挑战。");
-                }
+                // v1.1: another version's file is never read; Load deletes it first and Save overwrites it.
+                if(DeclaresOtherVersion(e))throw new InvalidDataException("存档来自其他版本。");
+                if(e==null||e.schema!=config.saveSchemaVersion||e.config!=config.configVersion)throw new InvalidDataException("存档内容不完整");
                 if(string.IsNullOrEmpty(e.payload)||Hash(e.payload)!=e.sha256)throw new InvalidDataException("存档校验失败");
                 state=JsonUtility.FromJson<RunState>(e.payload);
                 if(state==null||state.configVersion!=config.configVersion||state.saveSchemaVersion!=config.saveSchemaVersion||

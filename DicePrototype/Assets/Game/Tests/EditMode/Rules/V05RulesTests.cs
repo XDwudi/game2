@@ -174,7 +174,9 @@ namespace DiceCraft.Core.Tests
             all[5].enchantmentId = "none"; Assert.Throws<ArgumentException>(() => ControllerRules.ValidateEquipment(all, cfg));
             Assert.DoesNotThrow(() => ControllerRules.ValidateEquipment(all, cfg, false, 6)); Assert.Throws<ArgumentException>(() => ControllerRules.ValidateEquipment(all, cfg, false, 5)); all[5].enchantmentId = "slotless";
             Assert.Throws<ArgumentException>(() => ControllerRules.ValidateEquipment(all.Concat(new[] { Card("C11", "slotless", 11) }), cfg));
-            all[9].definitionId = "C01"; Assert.Throws<ArgumentException>(() => ControllerRules.ValidateEquipment(all, cfg));
+            // v1.1 rewrite (docs/specs/v11/RULES_DELTA.md): a repeated definition id is a legal copy; a repeated instance id is not.
+            all[9].definitionId = "C01"; Assert.DoesNotThrow(() => ControllerRules.ValidateEquipment(all, cfg));
+            all[9].instanceId = all[0].instanceId; Assert.Throws<ArgumentException>(() => ControllerRules.ValidateEquipment(all, cfg));
         }
         [Test]
         public void BudgetsAndCapacityAreIndependentOfDiceAndCombineAdditively()

@@ -462,6 +462,8 @@ namespace DiceCraft.Tests
             s = Force(s, Fours, "red"); Submit(s); Do(s, CommandKind.EndStage); Do(s, CommandKind.Continue); return s;
         }
         private static ShopOffer[] Loot(GameSession s) => s.State.shop.offers.Where(o => o.groupId == "LOOT").ToArray();
+        /// <summary>v1.1: takes the cash-out of the pending boss loot, which is always allowed before a first pick.</summary>
+        private void CashLoot(GameSession s) => Do(s, CommandKind.Buy, c => c.offerId = Loot(s).Single(o => o.category == "gold").offerId);
 
         [Test] public void V10_RareControllerLootIsFreeTakesOnePickAndThenCloses()
         {
@@ -475,12 +477,16 @@ namespace DiceCraft.Tests
             foreach (var rest in Loot(s).Where(o => !o.sold)) { var again = Command(s, CommandKind.Buy); again.offerId = rest.offerId; Assert.That(s.Execute(again).accepted, Is.False, rest.category); }
         }
 
-        [Test] public void V10_LootCanBeCashedForFiveGoldInsteadAndSurvivesARefresh()
+        // v1.1 rewrite (RULES_DELTA): a refresh is refused while the loot waits (boss loot first); once the loot is cashed
+        // out, a refresh still replaces only the shelf and leaves the loot group as it is.
+        [Test] public void V10_LootCanBeCashedForFiveGoldInsteadAndSurvivesALaterRefresh()
         {
             var s = LootShop("L1", x => x.gold = 20); string[] before = Loot(s).Select(o => o.offerId).ToArray();
-            Do(s, CommandKind.RefreshControllers); Assert.That(Loot(s).Select(o => o.offerId), Is.EqualTo(before), "refreshing only replaces the shelf");
+            var early = Command(s, CommandKind.RefreshControllers); var untouched = s.State;
+            var refused = s.Execute(early); Assert.That(refused.accepted, Is.False); Assert.That(refused.error, Is.EqualTo("先领取首领战利品。")); AssertUnchanged(untouched, s.State);
             long gold = s.State.gold; Do(s, CommandKind.Buy, c => c.offerId = Loot(s).Single(o => o.category == "gold").offerId);
-            Assert.That(s.State.gold, Is.EqualTo(gold + 5)); Assert.That(s.ShopGroups().Single().closed, Is.True);
+            Assert.That(s.State.gold, Is.EqualTo(gold + 5)); Assert.That(s.ShopGroups().Single().closed, Is.True); Assert.That(s.IsLootPending, Is.False);
+            Do(s, CommandKind.RefreshControllers); Assert.That(Loot(s).Select(o => o.offerId), Is.EqualTo(before), "refreshing only replaces the shelf");
             var card = Command(s, CommandKind.Buy); card.offerId = Loot(s).First(o => o.category == "controller").offerId; Assert.That(s.Execute(card).accepted, Is.False);
         }
 
@@ -668,7 +674,8 @@ namespace DiceCraft.Tests
         {
             // Ordinary run, second boss (stage 6) with the thick wall: the target comes back from the configuration, not from a division.
             var s = New(5);
-            for (int stage = 0; stage < 5; stage++) { s = ClearStage(s); Do(s, CommandKind.Continue); if (stage < 4) Do(s, CommandKind.LeaveShop); }
+            // v1.1 rewrite (RULES_DELTA): the boss loot after stage 3 is cashed out before the shop can be left.
+            for (int stage = 0; stage < 5; stage++) { s = ClearStage(s); Do(s, CommandKind.Continue); if (s.IsLootPending) CashLoot(s); if (stage < 4) Do(s, CommandKind.LeaveShop); }
             s = Reload(s, x => { var clash = x.cycles.FirstOrDefault(c => c.modifierId == "B11"); if (clash != null) clash.modifierId = x.cycles[1].modifierId; x.cycles[1].modifierId = "B11"; });
             Do(s, CommandKind.LeaveShop); Do(s, CommandKind.StartStage);
             Assert.That(s.State.stage.target, Is.EqualTo((System.Numerics.BigInteger.Parse(cfg.stages[5].normalTarget) * 3 / 2).ToString()));
@@ -776,18 +783,230 @@ namespace DiceCraft.Tests
             Do(s, CommandKind.Continue);
             var kept = s.State.controllers.Single(c => c.definitionId == "C72");
             Assert.That(s.GetControllerSalePrice(kept.instanceId), Is.EqualTo(cfg.Controller("C72").buyPrice));
-            // A same-id replacement credits the old instance at full price, and the replacement itself counts as acquired here.
+            // v1.1 rewrite (RULES_DELTA): a same-name copy is paid in full, nothing is traded in. The C46 held from before this
+            // shop still sells at its full list price; the new copy, acquired here, sells at half.
             s = Edit(s, x => { offer = PutOffer(x, "controller", "C46"); x.shop.offers.Single(o => o.offerId == offer).controller.enchantmentId = "base10"; x.gold = 30; });
-            long goldBefore = s.State.gold; long net = s.GetOfferPrice(s.State.shop.offers.Single(o => o.offerId == offer)) - cfg.Controller("C46").buyPrice;
+            long goldBefore = s.State.gold; long full = s.GetOfferPrice(s.State.shop.offers.Single(o => o.offerId == offer));
             Do(s, CommandKind.Buy, c => c.offerId = offer);
-            Assert.That(s.State.gold, Is.EqualTo(goldBefore - net), "trade-in credit = full list price of the old card");
-            var replacement = s.State.controllers.Single(c => c.definitionId == "C46");
-            Assert.That(s.GetControllerSalePrice(replacement.instanceId), Is.EqualTo((cfg.Controller("C46").buyPrice + ControllerRules.EnchantPrice("base10", cfg)) / cfg.controllerSellDivisor));
+            Assert.That(s.State.gold, Is.EqualTo(goldBefore - full), "no trade-in credit");
+            var copies = s.State.controllers.Where(c => c.definitionId == "C46").ToArray(); Assert.That(copies.Length, Is.EqualTo(2));
+            Assert.That(s.GetControllerSalePrice(copies[0].instanceId), Is.EqualTo(cfg.Controller("C46").buyPrice), "the copy held from before this shop");
+            Assert.That(s.GetControllerSalePrice(copies[1].instanceId), Is.EqualTo((cfg.Controller("C46").buyPrice + ControllerRules.EnchantPrice("base10", cfg)) / cfg.controllerSellDivisor), "the copy acquired here");
             // A loot controller claimed in this shop sells at half as well, never above the gold option.
             var loot = LootShop("L1", null, "C140"); var card = Loot(loot).First(o => o.category == "controller");
             Do(loot, CommandKind.Buy, c => c.offerId = card.offerId); var claimed = loot.State.controllers.Single(c => c.definitionId == card.contentId);
             Assert.That(loot.GetControllerSalePrice(claimed.instanceId), Is.EqualTo(cfg.Controller(card.contentId).buyPrice / cfg.controllerSellDivisor));
             Assert.That(loot.GetControllerSalePrice(claimed.instanceId), Is.LessThanOrEqualTo(cfg.lootGoldValue));
+        }
+
+        // ---- p1.1.0 (docs/specs/v11/RULES_DELTA.md): same-name copies (F-DUP-01/02/04) and boss loot first (F-LOOT-01/02) ----
+        // Expected numbers are worked out from the rule text, never read back from the code under test.
+
+        private static readonly string[] TenCommons = { "C01", "C03", "C10", "C13", "C19", "C20", "C27", "C38", "C39", "C48" };
+        private static readonly string[] TenRares = { "C02", "C05", "C12", "C25", "C31", "C33", "C43", "C44", "C54", "C58" };
+        private static ShopOffer[] Shelf(RunState s) => s.shop.offers.Where(o => o.category == "controller" && string.IsNullOrEmpty(o.groupId)).ToArray();
+        /// <summary>A settled first stage, ready for Continue to generate its shop.</summary>
+        private GameSession Settled() { var s = Force(Ready(), Fours, "red"); Submit(s); Do(s, CommandKind.EndStage); return s; }
+
+        [Test] public void V11_AnOwnedCardCanBeTheFirstShelfOfferBecauseNothingOwnedIsExcluded()
+        {
+            // The first shelf offer is drawn by weight from the guarantee pool (list price at most 4), in id order. C01 opens
+            // that pool, so a first ticket below its weight offers C01 -- now even while a C01 is owned.
+            var pool = cfg.controllers.Where(c => c.buyPrice <= cfg.shop.firstControllerGuaranteeMaxBasePrice).OrderBy(c => c.id, StringComparer.Ordinal).ToArray();
+            Assert.That(pool[0].id, Is.EqualTo("C01"));
+            uint state = 1; while (new GameRng(state).NextIndex(pool.Sum(c => c.offerWeight)) >= pool[0].offerWeight) state++;
+            string owned = null; var s = Edit(Settled(), x => { Equip(x, "C01"); owned = x.controllers[0].instanceId; x.shopRngState = state; });
+            Do(s, CommandKind.Continue);
+            var first = Shelf(s.State).First();
+            Assert.That(first.contentId, Is.EqualTo("C01"), "an owned card is not excluded from the shelf");
+            Assert.That(first.controller.instanceId, Is.Not.EqualTo(owned));
+            Assert.That(ControllerRules.IsEnchantmentLegal("C01", first.controller.enchantmentId, cfg), Is.True);
+        }
+
+        [Test] public void V11_OwnedCardsKeepAppearingOnShelvesByWeightAndNoShelfEverHoldsTwoSameNameOffers()
+        {
+            // Ten owned commons. Expected owned offers per shelf of four: the first draw from the guarantee pool, three
+            // more from the whole pool (approximately, ignoring the cards already drawn).
+            var guarantee = cfg.controllers.Where(c => c.buyPrice <= cfg.shop.firstControllerGuaranteeMaxBasePrice).ToArray();
+            double perShelf = (double)guarantee.Where(c => TenCommons.Contains(c.id)).Sum(c => c.offerWeight) / guarantee.Sum(c => c.offerWeight)
+                + (cfg.shop.initialControllerOffers - 1) * (double)cfg.controllers.Where(c => TenCommons.Contains(c.id)).Sum(c => c.offerWeight) / cfg.controllers.Sum(c => c.offerWeight);
+            var settled = Settled(); int shelves = 0, owned = 0;
+            for (uint seed = 1; seed <= 200; seed++)
+            {
+                string expand = null;
+                var s = Edit(settled, x => { Equip(x, TenCommons); x.gold = 100; x.shopRngState = new GameRng(seed ^ 0x5EED11u).State; });
+                Do(s, CommandKind.Continue); shelves++;
+                var shelf = Shelf(s.State); owned += shelf.Count(o => TenCommons.Contains(o.contentId));
+                Assert.That(shelf.Length, Is.EqualTo(cfg.shop.initialControllerOffers)); Assert.That(shelf.Select(o => o.contentId).Distinct().Count(), Is.EqualTo(shelf.Length), "seed " + seed);
+                if (seed % 20 != 0) continue;
+                // A refresh and an extra controller offer (O05) keep the shelf free of repeats as well.
+                Do(s, CommandKind.RefreshControllers); shelf = Shelf(s.State); Assert.That(shelf.Select(o => o.contentId).Distinct().Count(), Is.EqualTo(shelf.Length), "refresh, seed " + seed);
+                s = Edit(s, x => expand = PutOffer(x, "service", "O05")); Do(s, CommandKind.Buy, c => c.offerId = expand);
+                shelf = Shelf(s.State); Assert.That(shelf.Length, Is.EqualTo(cfg.shop.initialControllerOffers + 1)); Assert.That(shelf.Select(o => o.contentId).Distinct().Count(), Is.EqualTo(shelf.Length), "O05, seed " + seed);
+            }
+            double expected = shelves * perShelf;
+            Assert.That(owned, Is.InRange(expected * 0.5, expected * 1.5), "owned cards appear about as often as their weight says (expected about " + expected.ToString("F0") + ")");
+        }
+
+        [Test] public void V11_RareAndEnchantedLootOfferOwnedCardsButNeverACardOnTheShelf()
+        {
+            int ownedRare = 0, ownedEnchanted = 0;
+            for (uint seed = 1; seed <= 20; seed++)
+            {
+                var rare = LootShop("L1", x => x.shopRngState = new GameRng(seed ^ 0x10070u).State, TenRares);
+                var shelf = Shelf(rare.State).Select(o => o.contentId).ToArray(); var cards = Loot(rare).Where(o => o.category == "controller").ToArray();
+                Assert.That(cards.Length, Is.EqualTo(3)); Assert.That(cards.Select(o => o.contentId).Distinct().Count(), Is.EqualTo(3));
+                Assert.That(cards.All(o => cfg.Controller(o.contentId).rarity == "rare" && o.controller.enchantmentId == "none"), Is.True);
+                Assert.That(cards.Select(o => o.contentId).Intersect(shelf), Is.Empty, "loot never repeats a shelf card, seed " + seed);
+                ownedRare += cards.Count(o => TenRares.Contains(o.contentId));
+            }
+            for (uint seed = 1; seed <= 30; seed++)
+            {
+                var enchanted = LootShop("L2", x => x.shopRngState = new GameRng(seed ^ 0x20070u).State, TenCommons);
+                var shelf = Shelf(enchanted.State).Select(o => o.contentId).ToArray(); var cards = Loot(enchanted).Where(o => o.category == "controller").ToArray();
+                Assert.That(cards.Length, Is.EqualTo(3)); Assert.That(cards.Select(o => o.contentId).Distinct().Count(), Is.EqualTo(3));
+                Assert.That(cards.All(o => o.controller.enchantmentId != "none"), Is.True);
+                Assert.That(cards.Select(o => o.contentId).Intersect(shelf), Is.Empty, "loot never repeats a shelf card, seed " + seed);
+                ownedEnchanted += cards.Count(o => TenCommons.Contains(o.contentId));
+            }
+            Assert.That(ownedRare, Is.GreaterThan(0), "rare loot offers owned rares"); Assert.That(ownedEnchanted, Is.GreaterThan(0), "enchanted loot offers owned cards");
+        }
+
+        [Test] public void V11_TwoCopiesTakeTwoSlotsGrowApartAndSellApartWithoutReplacementOrTradeIn()
+        {
+            string offer = null;
+            var s = Edit(Shop(), x => { x.gold = 100; Equip(x, "C55"); x.controllers[0].state.growth = 10; offer = PutOffer(x, "controller", "C55"); });
+            string first = s.State.controllers.Single().instanceId; var quoted = s.State.shop.offers.Single(o => o.offerId == offer);
+            Assert.That(s.GetOfferTradeIn(quoted), Is.Zero); Assert.That(s.GetOfferNetPrice(quoted), Is.EqualTo(cfg.Controller("C55").buyPrice));
+            var bought = Do(s, CommandKind.Buy, c => c.offerId = offer).receipt;
+            Assert.That(bought.effects.Select(e => e.kind), Has.None.EqualTo("ControllerReplaced")); Assert.That(s.State.gold, Is.EqualTo(100 - cfg.Controller("C55").buyPrice));
+            Assert.That(s.State.controllers.Select(c => c.definitionId), Is.EqualTo(new[] { "C55", "C55" })); Assert.That(s.State.controllers[0].instanceId, Is.EqualTo(first));
+            Assert.That(s.State.controllers.Select(c => c.state.growth), Is.EqualTo(new long[] { 10, 0 })); Assert.That(s.OrdinaryControllerSlotsUsed, Is.EqualTo(2));
+            // Stage 2: each copy adds its own growth to the base (20 + 10 + 0) x 12 x 2 x 5 = 3600, then each grows by 2.
+            Do(s, CommandKind.LeaveShop); Do(s, CommandKind.StartStage); s = Force(s, Fours, "red");
+            Assert.That(Submit(s), Is.EqualTo("3600"));
+            Assert.That(s.State.lastSubmission.breakdown.controllerBaseAdds.Select(a => a.emitterId + ":" + a.amount), Is.EqualTo(new[] { first + ":10" }), "a zero add is not listed");
+            Assert.That(s.State.controllers.Select(c => c.state.growth), Is.EqualTo(new long[] { 12, 2 }));
+            Do(s, CommandKind.EndStage); Do(s, CommandKind.Continue);
+            long gold = s.State.gold; Do(s, CommandKind.Sell, c => c.itemInstanceId = first);
+            Assert.That(s.State.gold, Is.EqualTo(gold + cfg.Controller("C55").buyPrice / cfg.controllerSellDivisor), "the sold copy is paid on its own");
+            Assert.That(s.State.controllers.Single().state.growth, Is.EqualTo(2), "the other copy keeps its own growth");
+        }
+
+        [Test] public void V11_SameNameCopiesInANormalRunSurviveRestoresWithTheirScoreHistory()
+        {
+            var state = New(7).State; Equip(state, "C55", "C46", "C55", "C46");
+            var s = new GameSession(cfg, new MemorySaveStore(), state); Assert.That(s.State.isDebug, Is.False);
+            Do(s, CommandKind.StartStage); s = Reload(s); Do(s, CommandKind.Roll);
+            Lock(s, s.State.hand.currentResults.Select(r => r.dieId).Take(s.State.stage.capacity).ToArray()); Do(s, CommandKind.Submit);
+            var live = s.State; s = Reload(s); // restoring re-evaluates the frozen submission with both copies of each card
+            Assert.That(s.State.lastSubmission.breakdown.score, Is.EqualTo(live.lastSubmission.breakdown.score));
+            Assert.That(s.State.lastSubmission.breakdown.multiplierFactors.Count(f => f.abilityId == "C46"), Is.EqualTo(2), "each copy of C46 multiplies");
+            Assert.That(s.State.controllers.Where(c => c.definitionId == "C55").Select(c => c.state.growth), Is.EqualTo(new long[] { 2, 2 }));
+            Assert.That(s.State.controllers.Select(c => c.instanceId).Distinct().Count(), Is.EqualTo(4));
+        }
+
+        [Test] public void V11_SessionEffectsStackPerCopyOrApplyOnceAsTheDeltaTableSays()
+        {
+            // Budgets and capacity: one step per copy, exactly like a mimicked source.
+            Assert.That(Ready("C78", "C78").State.hand.rollsRemaining, Is.EqualTo(cfg.totalRollsPerHand + 2));
+            Assert.That(Ready("C79", "C79").State.stage.remainingSubmissions, Is.EqualTo(cfg.submissionsPerStage + 2));
+            Assert.That(Ready("C21", "C21").State.stage.capacity, Is.EqualTo(cfg.initialSubmitCapacity + 2));
+            // Settlement income per copy: two iron rice bowls pay 3 + 3.
+            var pay = Force(Ready("C95", "C95"), Fours, "red"); Submit(pay); Assert.That(Do(pay, CommandKind.EndStage).receipt.settlement.controllerIncome, Is.EqualTo(6));
+            // Gift picks per copy (three choices, two picks).
+            var gifts = Force(Ready("C111", "C111"), Fours, "red"); Submit(gifts); Do(gifts, CommandKind.EndStage); Do(gifts, CommandKind.Continue);
+            Assert.That(gifts.ShopGroups().Single().picks, Is.EqualTo(2));
+            // While-held switches apply once: the recycler and the protective film.
+            var recycle = Edit(ShopAfterStage(0), x => Equip(x, "C02", "C140", "C140"));
+            Assert.That(recycle.GetControllerSalePrice(recycle.State.controllers[0].instanceId), Is.EqualTo(cfg.Controller("C02").buyPrice));
+            var film = Ready("C145", "C145"); Assert.That(film.GlassBreakPercentIn(film.State), Is.EqualTo(cfg.Controller("C145").parameters.glassBreakPercent));
+            // Self-destroying cards act one instance at a time: only the leftmost scapegoat is spent on a boss.
+            var goats = Boss("B05", "C131", "C131");
+            Assert.That(goats.State.controllers.Select(c => c.definitionId), Is.EqualTo(new[] { "C131" })); Assert.That(goats.State.stage.modifierNullified, Is.True);
+            // Fading cards count down apart: (5 - 2) / 2 and 5 / 2 on the reference hand, 2400 x 1.5 x 2.5 = 9000; the older one expires.
+            var fade = Edit(Ready("C141", "C141"), x => x.controllers[0].state.growth = 2); string young = fade.State.controllers[1].instanceId;
+            fade = Force(fade, Fours, "red"); Assert.That(Submit(fade), Is.EqualTo("9000")); Do(fade, CommandKind.EndStage);
+            Assert.That(fade.State.controllers.Select(c => c.instanceId + ":" + c.state.growth), Is.EqualTo(new[] { young + ":1" }));
+        }
+
+        [Test] public void V11_PendingBossLootRefusesEveryOtherShopActionButSellingAndReordering()
+        {
+            string item = null;
+            var s = LootShop("L1", x => { x.gold = 50; item = AddItem(x, "I01"); }, "C13", "C111");
+            Assert.That(s.State.phase, Is.EqualTo("Shop")); Assert.That(s.IsLootPending, Is.True); Assert.That(s.IsLootPendingIn(s.State), Is.True);
+            Assert.That(s.ShopGroups().Select(g => g.groupId), Is.EqualTo(new[] { "LOOT", "GIFT_C111" }));
+            var shelf = Shelf(s.State).First(); var gift = s.State.shop.offers.First(o => o.groupId == "GIFT_C111");
+            var other = s.State.shop.offers.First(o => string.IsNullOrEmpty(o.groupId) && o.category == "consumable");
+            var before = s.State;
+            var refused = new[] {
+                Command(s, CommandKind.Buy), Command(s, CommandKind.Buy), Command(s, CommandKind.Buy),
+                Command(s, CommandKind.RefreshControllers), Command(s, CommandKind.Study), Command(s, CommandKind.LeaveShop) };
+            refused[0].offerId = shelf.offerId; refused[1].offerId = gift.offerId; refused[2].offerId = other.offerId; refused[4].handId = s.LegalStudyHands().First();
+            foreach (var command in refused)
+            {
+                var result = s.Execute(command);
+                Assert.That(result.accepted, Is.False, command.kind.ToString()); Assert.That(result.error, Is.EqualTo("先领取首领战利品。"), command.kind.ToString()); AssertUnchanged(before, s.State);
+            }
+            Assert.That(s.PurchaseError(shelf.offerId), Is.EqualTo("先领取首领战利品。")); Assert.That(s.PurchaseError(gift.offerId), Is.EqualTo("先领取首领战利品。"));
+            Assert.That(s.PurchaseError(Loot(s).First(o => o.category == "controller").offerId), Is.Null, "the loot itself can be claimed");
+            // Allowed while the loot waits: reordering and selling cards or items.
+            Do(s, CommandKind.ReorderControllers, c => c.controllerIds = s.State.controllers.Select(x => x.instanceId).Reverse().ToArray());
+            Do(s, CommandKind.Sell, c => c.itemInstanceId = item); Do(s, CommandKind.Sell, c => c.itemInstanceId = s.State.controllers.Single(x => x.definitionId == "C13").instanceId);
+            Assert.That(s.IsLootPending, Is.True);
+            Do(s, CommandKind.Buy, c => c.offerId = Loot(s).First(o => o.category == "controller").offerId);
+            Assert.That(s.IsLootPending, Is.False); Assert.That(s.PurchaseError(gift.offerId), Is.Null);
+            Do(s, CommandKind.Buy, c => c.offerId = gift.offerId); Do(s, CommandKind.LeaveShop); Assert.That(s.State.phase, Is.EqualTo("StagePreview"));
+        }
+
+        [Test] public void V11_AnOrdinaryRunRestoredInItsLootShopKeepsTheGateUntilTheLootIsCashed()
+        {
+            var s = New(11);
+            s = ClearStage(s); Do(s, CommandKind.Continue); Do(s, CommandKind.LeaveShop);
+            s = ClearStage(s); Do(s, CommandKind.Continue); Do(s, CommandKind.LeaveShop);
+            s = ClearStage(s); Assert.That(s.State.stage.stageKind, Is.EqualTo("boss"));
+            Do(s, CommandKind.Continue); Assert.That(s.IsLootPending, Is.True, "the shop opens on the boss loot");
+            s = Reload(s); Assert.That(s.IsLootPending, Is.True, "a restored loot shop keeps the gate");
+            var leave = s.Execute(Command(s, CommandKind.LeaveShop)); Assert.That(leave.accepted, Is.False); Assert.That(leave.error, Is.EqualTo("先领取首领战利品。"));
+            s = Reload(s); CashLoot(s); s = Reload(s); Assert.That(s.IsLootPending, Is.False);
+            Do(s, CommandKind.LeaveShop); Assert.That(s.State.stage.stageIndex, Is.EqualTo(3));
+        }
+
+        [Test] public void V11_TheLootPageCanSellCardsOrItemsToMakeRoomForTheLoot()
+        {
+            var cards = LootShop("L1", null, "C13", "C10", "C19", "C20", "C27"); var card = Loot(cards).First(o => o.category == "controller");
+            var claim = Command(cards, CommandKind.Buy); claim.offerId = card.offerId; var full = cards.Execute(claim);
+            Assert.That(full.accepted, Is.False); Assert.That(full.error, Does.Contain("已满")); Assert.That(cards.IsLootPending, Is.True);
+            Do(cards, CommandKind.Sell, c => c.itemInstanceId = cards.State.controllers[0].instanceId);
+            Do(cards, CommandKind.Buy, c => c.offerId = card.offerId); Assert.That(cards.IsLootPending, Is.False);
+            var items = LootShop("L6", x => { AddItem(x, "I01"); AddItem(x, "I02"); }); var supply = Loot(items).Where(o => o.category == "consumable").ToArray();
+            claim = Command(items, CommandKind.Buy); claim.offerId = supply[0].offerId; Assert.That(items.Execute(claim).accepted, Is.False, "two of two item slots are taken");
+            Do(items, CommandKind.Sell, c => c.itemInstanceId = items.State.inventory[0].instanceId); Do(items, CommandKind.Buy, c => c.offerId = supply[0].offerId);
+            Assert.That(items.State.inventory.Select(i => i.contentId), Does.Contain(supply[0].contentId));
+        }
+
+        [Test] public void V11_AMultiPickLootHoldsTheShopUntilEveryPickIsTakenOrNothingClaimableIsLeft()
+        {
+            Func<GameSession, ShopOffer, GameSession> claim = (s, upgrade) =>
+            {
+                var target = s.State.dice.SelectMany(d => d.faces.Select(f => new { d.dieId, f.faceId })).First(t => s.IsUpgradeTargetLegal(upgrade.contentId, t.dieId, t.faceId));
+                Do(s, CommandKind.Buy, c => { c.offerId = upgrade.offerId; c.targetDieId = target.dieId; c.targetFaceId = target.faceId; }); return s;
+            };
+            var all = LootShop("L4"); var upgrades = Loot(all).Where(o => o.category == "die_upgrade").ToArray(); Assert.That(all.ShopGroups().Single().picks, Is.EqualTo(3));
+            claim(all, upgrades[0]); Assert.That(all.IsLootPending, Is.True, "two picks are left");
+            var leave = all.Execute(Command(all, CommandKind.LeaveShop)); Assert.That(leave.error, Is.EqualTo("先领取首领战利品。"));
+            claim(all, upgrades[1]); claim(all, upgrades[2]); Assert.That(all.IsLootPending, Is.False); Do(all, CommandKind.LeaveShop);
+            // After a pick, offers that can no longer be claimed at all do not hold the player: here every die is glass and
+            // every face is gold, smooth and red, so glass, gold, polish and red dye have no target left anywhere.
+            var stuck = LootShop("L4"); var first = Loot(stuck).First(o => o.category == "die_upgrade"); claim(stuck, first);
+            string[] dead = new[] { "U05", "U06", "U01", "U03" }.Where(id => id != first.contentId).Take(2).ToArray();
+            stuck = Edit(stuck, x =>
+            {
+                var rest = x.shop.offers.Where(o => o.groupId == "LOOT" && o.category == "die_upgrade" && !o.sold).ToArray();
+                for (int i = 0; i < rest.Length; i++) rest[i].contentId = dead[i];
+                foreach (var d in x.dice) { d.isGlass = true; foreach (var f in d.faces) { f.isGold = true; f.texture = "smooth"; f.baseColor = "red"; } }
+            });
+            Assert.That(stuck.IsLootPending, Is.False); Do(stuck, CommandKind.LeaveShop);
         }
     }
 }
