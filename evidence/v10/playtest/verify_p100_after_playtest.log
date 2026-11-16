@@ -1,0 +1,101 @@
+config=DicePrototype/Assets/Game/Data/P0Config.json version=p1.0.0 threads=8 args=verify --n 300000 --out evidence/v10/playtest/verify_p100_after_playtest.json --log evidence/v10/playtest/verify_p100_after_playtest.log
+verify: 300000 random submissions, mismatches=0, max relative error vs exact rational=5.17E-016
+
+coverage: cases where each input was exercised
+  C138: fewer sources triggered than held        1107
+  blue wave                                      22902
+  controller base add > 0                        45858
+  disabled controller changed the result         31262
+  disabled controllers > 0                       55905
+  empty ordinary slots > 0                       176030
+  enchant base10 or mult2 counted                133874
+  exactly one roll used                          49913
+  face changes planned                           54236
+  gold spent (C138)                              7259
+  growth > 0 on a growth card                    83993
+  hand multiplier add > 0                        3807
+  inventory > 0                                  149845
+  item multiplier x2 (I09)                       29855
+  last submission of the stage                   75195
+  mimic (C41) copying a growth card              4453
+  mimic (C41) copying an ability                 47186
+  no rolls left                                  74794
+  pool dice > 0                                  171928
+  pool red merged into red group (C73)           2411
+  red group bonus (C146)                         5992
+  red wave                                       24972
+  retriggers > 0                                 30414
+  sealed die                                     28922
+  stage hands used: primary repeated             8051
+  stage kind boss                                119387
+  submitted die: glass                           119565
+  submitted die: gold face up                    119703
+  submitted die: mono-colour                     130490
+  submitted die: mono-pip                        96471
+  submitted die: temporary                       103830
+  submitted die: textured face up                193440
+
+coverage per controller: present = cases where the ability was a source (owned or mimicked, not disabled), triggered = cases where the real calculator listed it as triggered
+  C01     8573/8573     C02     8390/2299     C03     8484/8484     C05     8344/0      * C06     8577/2531     C07     8523/491      
+  C08     8482/6497     C09     8576/8576     C10     8612/3432     C11     8389/40       C12     8448/5952     C13     8448/5715     
+  C14     8537/2113     C15     8596/816      C17     8547/6833     C18     8577/1123     C19     8599/4077     C20     8624/437      
+  C21     8652/0      * C22     8503/0      * C24     8588/1955     C25     8324/6017     C26     8493/3108     C27     8707/2963     
+  C28     8644/486      C29     8511/550      C30     8504/598      C31     8438/103      C32     8601/3714     C33     8376/771      
+  C34     8633/0      * C35     8490/0      * C36     8729/3948     C37     8704/4006     C38     8651/8651     C39     8757/5860     
+  C40     8515/536      C41        0/0      * C42     8240/8240     C43     8464/188      C44     8507/8162     C45     8679/8679     
+  C46     8486/8486     C47     8397/8397     C48     8591/6563     C49     8491/8491     C50     8609/8609     C51     8651/8651     
+  C52     8564/0      * C53     8430/8430     C54     8480/8480     C55     8574/8574     C56     8475/8475     C57     8480/8480     
+  C58     8383/8383     C59     8640/8640     C60     8448/8448     C61     8470/8470     C62     8566/8566     C63     8717/8717     
+  C64     8475/8475     C65     8536/2022     C66     8585/6002     C67     8479/2523     C68     8561/2128     C69     8396/6103     
+  C70     8529/4876     C71     8426/1360     C72     8677/4947     C73     8373/2411     C74     8614/2859     C75     8602/1456     
+  C76     8539/7094     C77     8624/2162     C78     8561/0      * C79     8316/0      * C80     8577/2307     C81     8628/5458     
+  C82     8686/127      C83     8600/333      C84     8443/2873     C85     8553/587      C86     8500/37       C87     8397/87       
+  C88     8491/538      C89     8268/3266     C90     8623/8623     C91     8584/5526     C92     8553/3731     C93     8408/2632     
+  C94     8468/8468     C95     8546/0      * C96     8474/0      * C97     8621/0      * C98     8627/0      * C99     8570/0      * 
+  C100    8535/8535     C101    8381/8381     C102    8482/2127     C103    8548/4797     C104    8634/494      C105    8524/1046     
+  C106    8610/384      C107    8484/1813     C108    8561/8561     C109    8532/2532     C110    8642/0      * C111    8495/0      * 
+  C112    8517/0      * C113    8481/0      * C114    8365/0      * C115    8564/0      * C116    8566/0      * C117    8370/8370     
+  C118    8572/8572     C119    8254/8254     C120    8443/0      * C121    8495/0      * C122    8566/8566     C123    8549/8549     
+  C124    8400/8400     C125    8436/8436     C126    8493/4904     C127    8623/1860     C128    8580/0      * C129    8558/8558     
+  C130    8422/3310     C131    8508/0      * C132    8646/8646     C133    8415/0      * C134    8529/8529     C135    8643/4352     
+  C136    8600/0      * C137    8602/3078     C138    8334/7259     C139    8714/6112     C140    8552/0      * C141    8638/8638     
+  C142    8529/366      C143    8523/2408     C144    8546/2708     C145    8723/0      * C146    8465/5992     C147    8425/4754     
+  C148    8427/6340     C149    8532/2974     C150    8484/5608     C151    8440/3453     C152    8619/5794     C153    8537/2772     
+  (* = non-scoring by rule: never a triggered source. C41 is counted under the ability it copies.)
+scoring controllers p0.6: 43; with present>0 and triggered>0: 43; min present=8240, min triggered=40
+scoring controllers p0.9: 43; with present>0 and triggered>0: 43; min present=8268, min triggered=37
+scoring controllers p1.0: 35; with present>0 and triggered>0: 35; min present=8254, min triggered=366
+
+coverage per boss modifier: cases / cases where removing the modifier changes the exact score (session-only modifiers never do)
+  B01   4623/0     * B02   4677/0     * B03   4527/0     * B04   4616/0     * B05   4591/4480    B06   4638/2080    
+  B07   4546/0     * B08   4620/187     B09   4489/0     * B10   4529/0     * B11   4672/0     * B12   4633/0     * 
+  B13   4644/3162    B14   4554/3441    B15   4629/3631    B16   4642/2879    B17   4616/3251    B18   4573/2944    
+  B19   4686/1676    B20   4690/92      B21   4673/140     B22   4609/1954    B23   4609/1256    B24   4655/0     * 
+  B25   4639/0     * B26   4603/1507    B27   4526/0     * B28   4614/3593    B29   4764/0     * B30   4660/3113    
+  B31   4597/0     * B32   4704/0     * B33   4524/0     * B34   4571/0     * B35   4708/3884    B36   4685/3176    
+  B37   4525/1177    B38   4644/4542    B39   4693/3637    
+  (* = no scoring effect)
+
+coverage per scoring effect: cases with the effect / cases where it took effect
+  SealOdd             4644 / 3226
+  SealEven            4554 / 3506
+  SealLow             4629 / 3705
+  SealHigh            4642 / 2930
+  SealRed             4616 / 3326
+  SealBlue            4573 / 2994
+  SealFirst           4591 / 4591
+  SealAlternate       4644 / 4644
+  NoStraight          4620 / 187
+  SmallHandsOnly      4690 / 115
+  NoRepeatHand        4673 / 140
+  HandHalf            9330 / 3387
+  ZeroLevels          9322 / 7389
+  NoRed               9294 / 3954
+  NoBlue              9294 / 2564
+  FirstHalf           4603 / 1507
+  LaterHalf           4660 / 3113
+  PipsOnly            4693 / 3728
+  GrowthZero          4708 / 1188
+  EnchantSilence      9163 / 3356
+
+coverage: OK, every scoring controller, scoring boss modifier and scoring effect was present and took effect at least once

@@ -29,6 +29,10 @@ public sealed class StageLog
     /// stage end (C112); items = items used during the stage.</summary>
     public List<string> offered = new List<string>(), granted = new List<string>(), items = new List<string>();
     public string[] controllers = Array.Empty<string>();
+    /// <summary>--lab, boss stages only: for every modifier that could have been drawn for this cycle, the share of this
+    /// build's power it takes away (0..1) with the controllers as they stand, and - for the modifiers that disable the
+    /// leftmost controllers - the same after the best reordering the bot can find.</summary>
+    public Dictionary<string, double> lab, labOrdered;
 }
 public sealed class RunLog
 {
@@ -78,6 +82,9 @@ public sealed class Runner
     /// <summary>When set, every accepted command is recorded in the format the in-game capture tour replays.</summary>
     public List<Dictionary<string, object>> recorded;
 
+    /// <summary>--prepared: before a boss whose modifier disables the leftmost controllers, move the controllers the build
+    /// misses least to the left (a player who reads the stage intel). --lab: record the controlled modifier comparison.</summary>
+    public static bool Prepared, Lab;
     public Runner(GameConfig cfg, Params P, BotOptions opt) { this.cfg = cfg; this.P = P; this.opt = opt; if (opt.weak) { strong.depthMax = 1; strong.s0 = 8; } }
 
     CommandResult Send(CommandKind kind, Action<SessionCommand> configure)
@@ -262,7 +269,7 @@ public sealed class Runner
     // ---------- stage ----------
     void Preview(RunState s)
     {
-        KeepAltarRight();
+        KeepAltarRight(); if (Prepared) PrepareForBoss();
         s = session.State;
         int index = s.stage.stageIndex; var def = cfg.stages[index]; bool boss = def.stageKind == "boss";
         cur = new StageLog { stage = index + 1, kind = def.stageKind, goldStart = s.gold, dice = s.dice.Count, ctrl = s.controllers.Count, slots = s.controllerSlots, targetBase = D(def.normalTarget),
@@ -281,6 +288,7 @@ public sealed class Runner
             var quoted = new StageCtx { modifierId = string.IsNullOrEmpty(entry.modifierId) ? null : entry.modifierId, disabled = entry.disabledControllerIds, boss = true,
                 capacity = session.EffectiveCapacity, rolls = session.InitialRolls, submissions = session.InitialSubmissions };
             CheckQuotes(s, entry, quoted);
+            if (Lab) RecordLab(s, index);
             var st = s;
             if (entry.scapegoat) { cur.nullifiedBy = "C131"; st = s.Clone(); st.controllers.Remove(st.controllers.First(c => c.definitionId == "C131")); }
             pw = PowerOfState(st, quoted);
@@ -742,20 +750,63 @@ public sealed class Runner
         if (!order.SequenceEqual(s.controllers.Select(c => c.instanceId))) Act(CommandKind.ReorderControllers, c => c.controllerIds = order);
     }
 
+    /// <summary>The order that loses least to a DisableLeftmost modifier: the controllers whose single loss costs least go
+    /// left (their relative order kept), accepted only if the estimate under the modifier really improves. Null = keep.</summary>
+    string[] BestOrderAgainst(RunState s, string modifierId)
+    {
+        var def = cfg.bossModifiers.FirstOrDefault(m => m.id == modifierId);
+        if (def == null || !def.effects.Contains("DisableLeftmost") || s.controllers.Count <= def.amount || s.controllers.Any(c => c.definitionId == "C131" || c.definitionId == "C100")) return null;
+        var ctx = new StageCtx { modifierId = modifierId, boss = true, disabled = null };   // null: resolved per build by Effective
+        double current = PowerOfState(s, ctx).V;
+        var left = s.controllers.Select(c => new { c.instanceId, v = PowerOfState(s, new StageCtx { modifierId = modifierId, boss = true, disabled = new[] { c.instanceId } }).V })
+            .OrderByDescending(x => x.v).Take(def.amount).Select(x => x.instanceId).ToList();
+        var order = s.controllers.Where(c => left.Contains(c.instanceId)).Concat(s.controllers.Where(c => !left.Contains(c.instanceId))).Select(c => c.instanceId).ToArray();
+        if (order.SequenceEqual(s.controllers.Select(c => c.instanceId))) return null;
+        var copy = s.Clone(); copy.controllers = order.Select(id => copy.controllers.First(c => c.instanceId == id)).ToList();
+        return PowerOfState(copy, ctx).V > current * 1.001 ? order : null;
+    }
+    void PrepareForBoss()
+    {
+        var s = session.State; if (s.phase != "Shop" && s.phase != "StagePreview") return;
+        int index = s.phase == "Shop" ? s.stage.stageIndex + 1 : s.stage.stageIndex;
+        if (index >= cfg.stages.Length || cfg.stages[index].stageKind != "boss") return;
+        string mod = session.CycleView().Where(v => v.stageKind == "boss").Select(v => v.modifierId).FirstOrDefault(); if (string.IsNullOrEmpty(mod)) return;
+        string tag = powerTag; powerTag = "boss-order"; var order = BestOrderAgainst(s, mod); powerTag = tag;
+        if (order != null) Act(CommandKind.ReorderControllers, c => c.controllerIds = order);
+    }
+    /// <summary>--lab: the same build under every modifier this cycle could have drawn.</summary>
+    void RecordLab(RunState s, int stageIndex)
+    {
+        int cycle = stageIndex / 3 + 1; bool final = cycle == cfg.stages.Length / 3; string tag = powerTag; powerTag = "lab";
+        cur.lab = new Dictionary<string, double>(); cur.labOrdered = new Dictionary<string, double>();
+        foreach (var m in cfg.bossModifiers.Where(m => final ? m.tier == 4 : m.tier < 4 && m.minCycle <= cycle))
+        {
+            cur.lab[m.id] = BossLoss(s, m.id, true);
+            var order = BestOrderAgainst(s, m.id);
+            if (order != null) { var copy = s.Clone(); copy.controllers = order.Select(id => copy.controllers.First(c => c.instanceId == id)).ToList(); cur.labOrdered[m.id] = BossLoss(copy, m.id, true); }
+            else if (m.effects.Contains("DisableLeftmost")) cur.labOrdered[m.id] = cur.lab[m.id];
+        }
+        powerTag = tag;
+    }
+
     /// <summary>Share of the build's power that the boss modifier of the coming boss stage takes away (0..1), from
     /// two estimates of the same build with the same simulated dice: 1 - V(with) / V(without), a TargetPercent
     /// modifier counted as power divided by the same factor. Purely economic modifiers come out as 0.</summary>
-    double BossLoss(RunState s, string modifierId)
+    /// <para><paramref name="exact"/> also takes away the controllers the modifier disables (by position or rarity).
+    /// The published bot (p1.0.0 evidence) valued the modifier without them: a StageCtx starts with an empty disabled
+    /// list, so <see cref="Effective"/> never resolved it. That stays as it was so the published runs reproduce;
+    /// the modifier lab always measures exactly and the prepared bot (--prepared) decides on the exact figure.</para>
+    double BossLoss(RunState s, string modifierId, bool exact = false)
     {
         if (string.IsNullOrEmpty(modifierId)) return 0;
         double without = PowerOfState(s, new StageCtx { boss = true, disabled = Array.Empty<string>() }).V;
-        double with = PowerOfState(s, new StageCtx { modifierId = modifierId, boss = true }).V * 100.0 / P.Fx(modifierId).targetPercent;
+        double with = PowerOfState(s, new StageCtx { modifierId = modifierId, boss = true, disabled = exact ? ControllerRules.DisabledBy(s.controllers, cfg, modifierId) : Array.Empty<string>() }).V * 100.0 / P.Fx(modifierId).targetPercent;
         return Math.Max(0, 1 - with / Math.Max(1e-9, without));
     }
     /// <summary>BossLoss for the build and boss of the current shop iteration, computed only when something asks for it
     /// (a scapegoat, a charm or a bribe on offer).</summary>
     RunState lossState; string lossModifier; double? lossValue;
-    double bossLoss { get { if (lossValue == null) { string tag = powerTag; powerTag = "boss-loss"; lossValue = BossLoss(lossState, lossModifier); powerTag = tag; } return lossValue.Value; } }
+    double bossLoss { get { if (lossValue == null) { string tag = powerTag; powerTag = "boss-loss"; lossValue = BossLoss(lossState, lossModifier, Prepared); powerTag = tag; } return lossValue.Value; } }
 
     void Shop()
     {
@@ -775,7 +826,7 @@ public sealed class Runner
             foreach (var o in s.shop.offers.Where(o => o.category == "controller" && string.IsNullOrEmpty(o.groupId))) if (seenOffers.Add(o.offerId)) cur.offered.Add(o.contentId);
             // The stage the purchases are for. The cycle panel shows the boss of the cycle that contains the next stage.
             string bossMod = session.CycleView().Where(v => v.stageKind == "boss").Select(v => v.modifierId).FirstOrDefault();
-            var normalCtx = new StageCtx { boss = nextBoss, disabled = Array.Empty<string>() }; var bossCtx = new StageCtx { modifierId = bossMod, boss = true };
+            var normalCtx = new StageCtx { boss = nextBoss, disabled = Array.Empty<string>() }; var bossCtx = new StageCtx { modifierId = bossMod, boss = true, disabled = Prepared ? null : Array.Empty<string>() };
             evalCtx = normalCtx;
             var stats = new HandStats();
             PowerOfState(s, null, stats, halfScore); var bp = BestMimicPower(s);
@@ -844,7 +895,7 @@ public sealed class Runner
                     Act(CommandKind.Buy, c => c.offerId = offer.offerId); cur.bought.Add(id);
                 }
         }
-        powerTag = "mimic"; OptimizeMimic(); KeepAltarRight(); powerTag = "preview";
+        powerTag = "mimic"; OptimizeMimic(); KeepAltarRight(); if (Prepared) PrepareForBoss(); powerTag = "preview";
         var end = session.State; cur.goldAfterShop = end.gold; cur.spent = goldIn - end.gold;
     }
 

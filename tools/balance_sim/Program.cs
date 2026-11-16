@@ -56,7 +56,7 @@ public static class Program
                 case "scen": return Scenarios(int.Parse(Arg(args, "--hands", "3000")), Arg(args, "--out", null));
                 case "probe": return Probe();
                 case "trace": return Trace(uint.Parse(Arg(args, "--seed", "5000")), int.Parse(Arg(args, "--steps", "80")), Arg(args, "--out", "trace.json"));
-                case "run": return Runs(uint.Parse(Arg(args, "--first", "1000")), int.Parse(Arg(args, "--seeds", "200")), Arg(args, "--out", null), args.Contains("--weak"), path);
+                case "run": Runner.Prepared = args.Contains("--prepared"); Runner.Lab = args.Contains("--lab"); return Runs(uint.Parse(Arg(args, "--first", "1000")), int.Parse(Arg(args, "--seeds", "200")), Arg(args, "--out", null), args.Contains("--weak"), path);
                 default: Console.WriteLine("unknown mode"); return 2;
             }
         }
@@ -637,7 +637,7 @@ public static class Program
         });
         var ok = logs.Where(l => l.fail == null || !l.fail.StartsWith("ERROR")).ToArray();
         double winRate = 100.0 * ok.Count(l => l.won) / Math.Max(1, ok.Length);
-        Console.WriteLine($"\nruns={ok.Length} errors={seeds - ok.Length} wins={ok.Count(l => l.won)} ({winRate:F1}%) bot={(weak ? "weak" : "planner")} seeds={first}..{first + (uint)seeds - 1} time={sw.Elapsed.TotalSeconds:F0}s");
+        Console.WriteLine($"\nruns={ok.Length} errors={seeds - ok.Length} wins={ok.Count(l => l.won)} ({winRate:F1}%) bot={(weak ? "weak" : Runner.Prepared ? "planner+prepared" : "planner")} seeds={first}..{first + (uint)seeds - 1} time={sw.Elapsed.TotalSeconds:F0}s");
         int predicted = ok.Sum(l => l.predicted), mispredicted = ok.Sum(l => l.mispredicted), rejected = ok.Sum(l => l.rejected), quoteMismatch = ok.Sum(l => l.quoteMismatch);
         Console.WriteLine($"planner self-check: {predicted} real submissions predicted (builds without C53), {mispredicted} scored differently by the session" + (mispredicted > 0 ? "; first: " + ok.First(l => l.mispredicted > 0).firstMisprediction : ""));
         Console.WriteLine($"optional commands refused by the session: {rejected}" + (rejected > 0 ? "; first: " + ok.First(l => l.rejected > 0).firstRejection : ""));
@@ -691,6 +691,22 @@ public static class Program
             double pm = Median(at.Select(s => s.powerMod / s.targetMod)), pr = Median(at.Select(s => s.powerRaw / s.targetBase)), loss = Median(at.Select(s => 100 * (1 - s.powerMod / s.targetMod / (s.powerRaw / s.targetBase))));
             Console.WriteLine($"{mdef.id}\t{mdef.displayName}\t{mdef.tier}\t{at.Length}\t{lifted}\t{Pct(cl, at.Length):F0}\t{pm:F2}\t{pr:F2}\t{loss:F0}");
             bossRows.Add(new { id = mdef.id, name = mdef.displayName, tier = mdef.tier, effects = mdef.effects, faced = at.Length, lifted, cleared = cl, clearPct = Pct(cl, at.Length), powerOverTarget = pm, rawPowerOverTarget = pr, lossPct = loss });
+        }
+        // ---- --lab: every modifier of the cycle's pool on the same builds ----
+        var labRows = new List<object>();
+        if (all.Any(s => s.lab != null))
+        {
+            Console.WriteLine("\nmodifier lab (the build that reached each boss stage, valued under every modifier its cycle could have drawn; loss = share of power taken away; ordered = after moving the least-missed controllers left):");
+            Console.WriteLine("id\tname\ttier\tbuilds\tloss% median\tp25\tp75\tshare of builds losing >=50%\tordered loss% median");
+            double Q(IEnumerable<double> v, double q) { var a = v.OrderBy(x => x).ToArray(); return a.Length == 0 ? double.NaN : a[(int)Math.Min(a.Length - 1, Math.Floor(q * a.Length))]; }
+            foreach (var mdef in cfg.bossModifiers)
+            {
+                var v = all.Where(s => s.lab != null && s.lab.ContainsKey(mdef.id)).Select(s => 100 * s.lab[mdef.id]).ToArray(); if (v.Length == 0) continue;
+                var o = all.Where(s => s.labOrdered != null && s.labOrdered.ContainsKey(mdef.id)).Select(s => 100 * s.labOrdered[mdef.id]).ToArray();
+                double med = Median(v), p25 = Q(v, 0.25), p75 = Q(v, 0.75), heavy = Pct(v.Count(x => x >= 50), v.Length), ordered = o.Length == 0 ? double.NaN : Median(o);
+                Console.WriteLine($"{mdef.id}\t{mdef.displayName}\t{mdef.tier}\t{v.Length}\t{med:F0}\t{p25:F0}\t{p75:F0}\t{heavy:F0}\t{(o.Length == 0 ? "-" : ordered.ToString("F0"))}");
+                labRows.Add(new { id = mdef.id, name = mdef.displayName, tier = mdef.tier, builds = v.Length, lossMedianPct = med, lossP25Pct = p25, lossP75Pct = p75, heavyPct = heavy, orderedLossMedianPct = ordered });
+            }
         }
         var never = cfg.bossModifiers.Where(mdef => !all.Any(s => s.modifier == mdef.id)).Select(mdef => mdef.id).ToArray();
         if (never.Length > 0) Console.WriteLine("never faced: " + string.Join(" ", never));
@@ -769,8 +785,8 @@ public static class Program
             var summary = new { winRatePct = winRate, deathsByStage = deathList.ToDictionary(g => g.Key.ToString(), g => g.Value), deathShareByBlockPct = blockShare, deathsByStageKind = deathsByKind,
                 lastStagePowerOverTargetMedian = lastRaw, lastStagePowerOverTargetWithModifierMedian = lastMod, clearPctByStage = clearByStage.Skip(1).ToArray(),
                 targets = cfg.stages.Select(s => s.normalTarget).ToArray(), stageKinds = cfg.stages.Select(s => s.stageKind).ToArray(), riskTargetFactor = 1.5 };
-            File.WriteAllText(outPath, JsonSerializer.Serialize(new { config = cfg.configVersion, configPath, bot = weak ? "weak" : "planner", firstSeed = first, seeds, runs = ok.Length, errors = seeds - ok.Length, wins = ok.Count(l => l.won),
-                plannerSelfCheck = new { predicted, mispredicted }, rejectedOptionalCommands = rejected, quoteMismatches = quoteMismatch, summary, stages = stageRows, stageKinds = kindRows, pressure, bossModifiers = bossRows, loot = lootRows,
+            File.WriteAllText(outPath, JsonSerializer.Serialize(new { config = cfg.configVersion, configPath, bot = weak ? "weak" : Runner.Prepared ? "planner+prepared" : "planner", firstSeed = first, seeds, runs = ok.Length, errors = seeds - ok.Length, wins = ok.Count(l => l.won),
+                plannerSelfCheck = new { predicted, mispredicted }, rejectedOptionalCommands = rejected, quoteMismatches = quoteMismatch, summary, stages = stageRows, stageKinds = kindRows, pressure, bossModifiers = bossRows, bossLab = labRows, loot = lootRows,
                 gifts = giftPicks.ToDictionary(g => g.Key, g => g.Count()), itemsUsedPerRun = itemUse.ToDictionary(g => g.Key, g => g.Count() / (double)ok.Length), items = itemRows, cards = cardRows, winningBuilds = winRows, neverBought, logs = ok }, Pretty));
         }
         return seeds - ok.Length == 0 ? 0 : 1;

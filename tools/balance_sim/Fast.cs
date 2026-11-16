@@ -101,7 +101,7 @@ public sealed class StageCtx
 {
     public string modifierId; public string[] disabled = Array.Empty<string>(); public bool boss;
     public int capacity = -1, rolls = -1, submissions = -1;
-    public string Key => (modifierId ?? "-") + (boss ? "B" : "n") + string.Join(",", disabled) + "/" + capacity + "/" + rolls + "/" + submissions;
+    public string Key => (modifierId ?? "-") + (boss ? "B" : "n") + (disabled == null ? "?" : string.Join(",", disabled)) + "/" + capacity + "/" + rolls + "/" + submissions;
 }
 
 public sealed class Params

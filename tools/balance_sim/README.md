@@ -31,6 +31,23 @@ dotnet $sim run --first 5000 --seeds 300 --threads 8 --out evidence/v10/balance/
 - 一次 300 局的 `run` 在 8 线程下约 20–40 分钟；结果与线程数无关（每个种子自成一局）。
 - 结果里的 `NaN`（例如空集合的中位数）在 JSON 里写成 `null`。
 
+### 实测用的两个开关（p1.0.0 实测报告加的）
+
+```powershell
+# 减益对照实验：每个首领关开打前，拿这一局此刻的构筑，把本周期池子里的每个减益都套一遍，记下“实力掉了百分之几”
+dotnet $sim run --first 5000 --seeds 300 --threads 10 --lab --out evidence/v10/playtest/run_lab_5000.json --log evidence/v10/playtest/run_lab_5000.log
+# 会准备的玩家：进首领关之前，按即将遇到的减益重排控制器顺序（只影响“最左失效”这一类）
+dotnet $sim run --first 5000 --seeds 300 --threads 10 --prepared --out evidence/v10/playtest/run_prepared_5000.json --log evidence/v10/playtest/run_prepared_5000.log
+```
+
+- `--lab` 不改变机器人的任何决定（同一批种子的通关结果与不带它时相同），只在 JSON 里多出 `bossLab`，日志里多一张“modifier lab”表。
+  这是**同一批构筑对全部减益**的比较，没有“强构筑才走得到后面、才遇到重减益”的选择偏差。
+- `--prepared` 会改变对局（调序是真实命令），所以与普通机器人按种子成对比较，见 `v10_report_tables.py paired`。
+- 实测报告的表由 `v10_report_tables.py` 的 `pool / tension / gold / bosspool / pressure / lab / paired / cardwin / diversity` 模式生成，
+  除 `lab`、`paired` 外都可以一次给多份 `run` 的 JSON，按局合并。
+- `trace` 录不了重排控制器（打包版的回放驱动不支持这条命令）。要录**整局**，先用很大的 `--steps` 让它报出这一局的命令数 N，
+  再用 `--steps N`；提示 `opening uses ReorderControllers` 就换一个通关种子。
+
 ### 关卡目标候选与校准
 
 ```powershell
