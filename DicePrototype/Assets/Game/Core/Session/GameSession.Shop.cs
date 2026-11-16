@@ -59,13 +59,17 @@ namespace DiceCraft.Core
 
         /// <summary>
         /// v1.0 C140: while any source of it is held, controllers resell at their full list price — except the ones
-        /// acquired in the shop that is open right now, which still resell at half, like an ordinary sale (C140 adds no
-        /// buy-and-resell profit; v1.1: several C98 copies can, see docs/specs/v11/RULES_DELTA.md 5).
+        /// acquired in the shop that is open right now, which still resell at half, like an ordinary sale.
+        /// v1.1 (user decision D on stacked C98 discounts): a controller bought from the shelf of the open shop resells
+        /// for at most the price actually paid for it until the player leaves that shop, so no number of C98 copies makes
+        /// a buy-then-sell profit. Free loot keeps its ordinary price. Every sale price the session reports goes through here.
         /// </summary>
         private long SalePrice(RunState s, ControllerInstance c)
         {
             bool fresh = c != null && s.phase == "Shop" && s.shop != null && s.shop.acquiredControllerIds.Contains(c.instanceId);
-            return ControllerRules.SalePrice(c, cfg, !fresh && Sources(s).Any(x => x.abilityId == "C140"));
+            long price = ControllerRules.SalePrice(c, cfg, !fresh && Sources(s).Any(x => x.abilityId == "C140"));
+            var paid = fresh && s.shop.paidControllerPrices != null ? s.shop.paidControllerPrices.FirstOrDefault(p => p != null && p.instanceId == c.instanceId) : null;
+            return paid == null ? price : Math.Min(price, paid.paid);
         }
 
         private ShopOffer MakeOffer(RunState s, string category, string contentId, int basePrice)
@@ -452,6 +456,8 @@ namespace DiceCraft.Core
                         s.effectRngState = effect.State;
                     }
                     s.controllers.Add(acquired); s.shop.acquiredControllerIds.Add(acquired.instanceId);
+                    // v1.1: remember what was paid; a free loot claim is not a purchase and keeps its ordinary resale.
+                    if (Shelf(offer)) s.shop.paidControllerPrices.Add(new ShopPaidPrice { instanceId = acquired.instanceId, paid = price });
                     break;
                 case "consumable": s.inventory.Add(NewOwnedItem(s, offer.contentId)); break;
                 case "hand_upgrade":
@@ -579,7 +585,8 @@ namespace DiceCraft.Core
             string contentId;
             if (c != null) {
                 var oldTurnover = s.controllers.Where(x => x.definitionId == "C51").Select(x => x.instanceId).ToArray();
-                sellPrice = SalePrice(s, c); contentId = c.contentId; s.controllers.Remove(c); s.shop.acquiredControllerIds.Remove(c.instanceId); GrowTurnover(s, oldTurnover);
+                sellPrice = SalePrice(s, c); contentId = c.contentId; s.controllers.Remove(c); s.shop.acquiredControllerIds.Remove(c.instanceId);
+                s.shop.paidControllerPrices.RemoveAll(p => p.instanceId == c.instanceId); GrowTurnover(s, oldTurnover);
             }
             else { s.inventory.Remove(item); sellPrice = cfg.consumableSellPrice; contentId = item.contentId; }
             s.gold = checked(s.gold + sellPrice);
