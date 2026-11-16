@@ -1,0 +1,56 @@
+﻿生成启动时间为 2026/11/16 14:21:21。
+日志记录详细程度设置为: Normal。     1>项目“E:\agent_workspace\gpt\wt-v11-sim\tools\balance_sim\BalanceSim.csproj”在节点 1 上(Restore 个目标)。
+     1>_GetAllRestoreProjectPathItems:
+         正在确定要还原的项目…
+     1>项目“E:\agent_workspace\gpt\wt-v11-sim\tools\balance_sim\BalanceSim.csproj”(1)正在节点 1 上生成“E:\agent_workspace\gpt\wt-v11-sim\tools\balance_sim\BalanceSim.csproj”(1:6) (_GenerateProjectRestoreGraph 个目标)。
+     1>AddPrunePackageReferences:
+         Loading prune package data from PrunePackageData folder
+         Failed to load prune package data from PrunePackageData folder, loading from targeting packs instead
+         Looking for targeting packs in C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref
+         Pack directories found: C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\10.0.14
+         Found package overrides file C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\10.0.14\data\PackageOverrides.txt
+     1>已完成生成项目“E:\agent_workspace\gpt\wt-v11-sim\tools\balance_sim\BalanceSim.csproj”(_GenerateProjectRestoreGraph 个目标)的操作。
+     1>Restore:
+         X.509 证书链验证将使用 .NET 选择的默认信任存储进行代码签名。
+         X.509 证书链验证将使用 .NET 选择的默认信任存储进行时间戳。
+         资产文件未改变。跳过资产文件写入。路径: E:\agent_workspace\gpt\wt-v11-sim\tools\balance_sim\obj\project.assets.json
+         已还原 E:\agent_workspace\gpt\wt-v11-sim\tools\balance_sim\BalanceSim.csproj (用时 36 毫秒)。
+         
+         使用的 NuGet 配置文件:
+             C:\Users\f\AppData\Roaming\NuGet\NuGet.Config
+             C:\Program Files (x86)\NuGet\Config\Microsoft.VisualStudio.FallbackLocation.config
+             C:\Program Files (x86)\NuGet\Config\Microsoft.VisualStudio.Offline.config
+         
+         使用的源:
+             https://api.nuget.org/v3/index.json
+             C:\Program Files (x86)\Microsoft SDKs\NuGetPackages\
+         所有项目均是最新的，无法还原。
+     1>已完成生成项目“E:\agent_workspace\gpt\wt-v11-sim\tools\balance_sim\BalanceSim.csproj”(Restore 个目标)的操作。
+   1:7>节点 1 上的项目“E:\agent_workspace\gpt\wt-v11-sim\tools\balance_sim\BalanceSim.csproj”(默认目标)。
+     1>GenerateTargetFrameworkMonikerAttribute:
+       正在跳过目标“GenerateTargetFrameworkMonikerAttribute”，因为所有输出文件相对于输入文件而言都是最新的。
+       CoreGenerateAssemblyInfo:
+       正在跳过目标“CoreGenerateAssemblyInfo”，因为所有输出文件相对于输入文件而言都是最新的。
+       _GenerateSourceLinkFile:
+         Source Link 文件 "obj\Release\net10.0\BalanceSim.sourcelink.json" 是最新的。
+       CoreCompile:
+       正在跳过目标“CoreCompile”，因为所有输出文件相对于输入文件而言都是最新的。
+       _CreateAppHost:
+       正在跳过目标“_CreateAppHost”，因为所有输出文件相对于输入文件而言都是最新的。
+       _CopyOutOfDateSourceItemsToOutputDirectory:
+       正在跳过目标“_CopyOutOfDateSourceItemsToOutputDirectory”，因为所有输出文件相对于输入文件而言都是最新的。
+       GenerateBuildDependencyFile:
+       正在跳过目标“GenerateBuildDependencyFile”，因为所有输出文件相对于输入文件而言都是最新的。
+       GenerateBuildRuntimeConfigurationFiles:
+       正在跳过目标“GenerateBuildRuntimeConfigurationFiles”，因为所有输出文件相对于输入文件而言都是最新的。
+       CopyFilesToOutputDirectory:
+         BalanceSim -> E:\agent_workspace\gpt\wt-v11-sim\tools\balance_sim\bin\Release\net10.0\BalanceSim.dll
+     1>已完成生成项目“E:\agent_workspace\gpt\wt-v11-sim\tools\balance_sim\BalanceSim.csproj”(默认目标)的操作。
+
+已成功生成。
+    0 个警告
+    0 个错误
+
+E:\agent_workspace\gpt\wt-v11-sim\evidence\v11\balance\build_p110.log 已写入: FileLogger
+
+已用时间 00:00:01.01

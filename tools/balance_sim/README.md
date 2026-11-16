@@ -1,6 +1,6 @@
 # 平衡模拟器（balance_sim）
 
-为平衡性方案提供数据的离线工具（v0.8 起用，现已升级到规则 p1.0.0）。它直接编译游戏的规则核心
+为平衡性方案提供数据的离线工具（v0.8 起用，现已升级到规则 p1.1.0）。它直接编译游戏的规则核心
 （`DicePrototype/Assets/Game/Core/Rules` 与 `Core/Session`），不修改游戏工程里的任何文件，也不被游戏加载。
 
 ## 它做什么
@@ -15,15 +15,25 @@
 
 ## 运行
 
-需要 .NET SDK 10。从仓库根目录执行（`--threads` 限制并行度，默认最多 8）：
+需要 .NET SDK 10。`BalanceSim.csproj` 显式编译真实 Core/Rules 与 Core/Session（仅用 ConfigValidationRelaxed 替代钉死发布数值的校验）；关闭共享编译服务，避免其他 worktree 的编译服务权限干扰。从仓库根目录执行（`--threads` 限制并行度，默认最多 8）：
 
 ```powershell
+# 若要求所有缓存也留在本 worktree，先设置：
+$env:DOTNET_CLI_HOME = "$PWD/tools/balance_sim/.dotnet"
+$env:NUGET_PACKAGES = "$PWD/tools/balance_sim/.nuget/packages"
+$env:DOTNET_CLI_TELEMETRY_OPTOUT = "1"
+$env:DOTNET_GENERATE_ASPNET_CERTIFICATE = "false"
+$env:DOTNET_ADD_GLOBAL_TOOLS_TO_PATH = "false"
+New-Item -ItemType Directory -Force evidence/v11/balance | Out-Null
 dotnet build tools/balance_sim/BalanceSim.csproj -c Release
 $sim = "tools/balance_sim/bin/Release/net10.0/BalanceSim.dll"
-dotnet $sim verify --n 300000 --out evidence/v10/balance/verify_p100.json --log evidence/v10/balance/verify_p100.log
-dotnet $sim cards --hands 3000 --threads 8 --out evidence/v10/balance/cards_p100.json --log evidence/v10/balance/cards_p100.log
-dotnet $sim scen --hands 2000 --threads 8 --out evidence/v10/balance/scen_p100.json --log evidence/v10/balance/scen_p100.log
-dotnet $sim run --first 5000 --seeds 300 --threads 8 --out evidence/v10/balance/run_p100_current.json --log evidence/v10/balance/run_p100_current.log
+dotnet $sim verify --n 300000 --out evidence/v11/balance/verify_p110.json --log evidence/v11/balance/verify_p110.log
+# cards / scen 是独立分析命令，本轮 W07 不运行。
+dotnet $sim cards --hands 3000 --threads 8 --out evidence/v11/balance/cards_p110.json --log evidence/v11/balance/cards_p110.log
+dotnet $sim scen --hands 2000 --threads 8 --out evidence/v11/balance/scen_p110.json --log evidence/v11/balance/scen_p110.log
+# 日常 smoke：本轮只跑这 20 局；300 局由协调者另行排期。
+dotnet $sim run --first 5000 --seeds 20 --threads 4 --out evidence/v11/balance/run_p110_smoke.json --log evidence/v11/balance/run_p110_smoke.log
+dotnet $sim trace --seed 5000 --steps 80 --out evidence/v11/balance/trace_p110_5000.json --log evidence/v11/balance/trace_p110_5000.log
 ```
 
 - 所有模式都接受 `--config <路径>`（模拟候选数值）和 `--log <文件>`（把屏幕输出同时写成 UTF-8 文件）。
@@ -31,13 +41,13 @@ dotnet $sim run --first 5000 --seeds 300 --threads 8 --out evidence/v10/balance/
 - 一次 300 局的 `run` 在 8 线程下约 20–40 分钟；结果与线程数无关（每个种子自成一局）。
 - 结果里的 `NaN`（例如空集合的中位数）在 JSON 里写成 `null`。
 
-### 实测用的两个开关（p1.0.0 实测报告加的）
+### 实测用的两个开关（p1.0.0 实测报告加的；本轮 W07 不运行）
 
 ```powershell
 # 减益对照实验：每个首领关开打前，拿这一局此刻的构筑，把本周期池子里的每个减益都套一遍，记下“实力掉了百分之几”
-dotnet $sim run --first 5000 --seeds 300 --threads 10 --lab --out evidence/v10/playtest/run_lab_5000.json --log evidence/v10/playtest/run_lab_5000.log
+dotnet $sim run --first 5000 --seeds 300 --threads 10 --lab --out evidence/v11/balance/run_lab_5000.json --log evidence/v11/balance/run_lab_5000.log
 # 会准备的玩家：进首领关之前，按即将遇到的减益重排控制器顺序（只影响“最左失效”这一类）
-dotnet $sim run --first 5000 --seeds 300 --threads 10 --prepared --out evidence/v10/playtest/run_prepared_5000.json --log evidence/v10/playtest/run_prepared_5000.log
+dotnet $sim run --first 5000 --seeds 300 --threads 10 --prepared --out evidence/v11/balance/run_prepared_5000.json --log evidence/v11/balance/run_prepared_5000.log
 ```
 
 - `--lab` 不改变机器人的任何决定（同一批种子的通关结果与不带它时相同），只在 JSON 里多出 `bossLab`，日志里多一张“modifier lab”表。
@@ -55,10 +65,10 @@ dotnet $sim run --first 5000 --seeds 300 --threads 10 --prepared --out evidence/
 python tools/balance_sim/make_targets.py --name v10_t1 --targets 300,600,...
 # 只改后段：--from 12 加 13 个数
 python tools/balance_sim/make_targets.py --name v10_t1 --from 12 --targets 46000,...
-dotnet $sim run --config tools/balance_sim/candidates/v10_t1.json --first 5000 --seeds 300 --threads 8 --out evidence/v10/balance/run_v10_t1.json --log evidence/v10/balance/run_v10_t1.log
-python tools/balance_sim/calibrate.py summary evidence/v10/balance/run_p100_current.json evidence/v10/balance/run_v10_t1.json
-python tools/balance_sim/calibrate.py predict --fit evidence/v10/balance/run_p100_current.json --base evidence/v10/balance/run_p100_current.json --targets 300,600,...
-python tools/balance_sim/calibrate.py solve   --fit evidence/v10/balance/run_p100_current.json --base evidence/v10/balance/run_p100_current.json --win 0.25 --boss-gap 0.03 --round
+dotnet $sim run --config tools/balance_sim/candidates/v10_t1.json --first 5000 --seeds 300 --threads 8 --out evidence/v11/balance/run_v10_t1.json --log evidence/v11/balance/run_v10_t1.log
+python tools/balance_sim/calibrate.py summary evidence/v11/balance/run_p110_300.json evidence/v11/balance/run_v10_t1.json
+python tools/balance_sim/calibrate.py predict --fit evidence/v11/balance/run_p110_300.json --base evidence/v11/balance/run_p110_300.json --targets 300,600,...
+python tools/balance_sim/calibrate.py solve   --fit evidence/v11/balance/run_p110_300.json --base evidence/v11/balance/run_p110_300.json --win 0.25 --boss-gap 0.03 --round
 ```
 
 - `make_targets.py` 只改 `normalTarget` 与高压关的 `riskTarget`（× 3/2），其余原样复制，写到 `tools/balance_sim/candidates/`。
@@ -79,11 +89,14 @@ python tools/balance_sim/calibrate.py solve   --fit evidence/v10/balance/run_p10
   一掷千金按冻结钱包从左到右占用预算（只有前 ⌊钱包 ÷ 3⌋ 个来源触发，附魔也只算这些来源的）。
 - 首领减益的全部计分效果（`ModFx`）：八种封印、禁顺、小打小闹、不重样、半吊子、打回原形、褪红、褪蓝、慢热、强弩之末、釜底抽薪、成长归零、附魔沉默。
 - 本关失效的控制器（不是来源，但仍计入控制欲、草根逆袭的件数与留白的占用栏位）、蓝色浪潮、灵光一闪、关卡类型、背包道具数、普通栏位数、本关已用过的主牌型。
-- 命中集合 `HitSet` 是 192 位（p0.9.0 的 `UInt128` 只到 C127）。
+- 能力覆盖集合 `HitSet` 是 192 位，只表示该能力至少一个来源触发；`lastSourceHits` 按来源索引保留每个实例的触发，不能用能力集合计副本数。
 
 `verify` 的判定：快速值与真实计分的**精确有理数**（`scoreNumerator / scoreDenominator`）相对误差 ≤ 1e-9，向下取整后的分数一致，
-主牌型一致，并且**触发的控制器集合**与真实计分完全一致。随机样本：0–9 张随机控制器加附魔（四分之一的样本在随机位置放一张百变模仿，
-成长卡带 0–200 的成长值，昙花一现 0–3）；1–10 颗骰子，随机点数 / 颜色 / 纹理 / 黄金 / 玻璃 / 骰面权重 / 临时骰，含整骰同色与整骰同点；
+主牌型一致，并且**触发能力集合、按顺序排列的来源实例 ID**与真实计分完全一致。
+p1.1.0 随机构筑按六类轮换：无重复对照、双持、三持、双持加 C41、三持加两张相邻 C41、放回抽样。定义、附魔、状态与位置仍随机，总张数最多 10。
+`duplicateBuilds` 是至少一个定义出现两张的构筑数，`twoCopyBuilds` 是存在恰好两张的定义，`threeCopyBuilds` 是存在至少三张的定义；后两项可重叠，不能相加。
+`duplicateMimicBuilds` 为含重复且含 C41，`duplicateCopiedByMimicBuilds` 要求有效 C41 正在复制一个重复定义。
+每张计分类卡还必须在至少两个真实副本存在的样本中出现并触发；覆盖缺项则失败。成长卡带 0–200 的独立成长值，昙花一现 0–3；1–10 颗骰子，随机点数 / 颜色 / 纹理 / 黄金 / 玻璃 / 骰面权重 / 临时骰，含整骰同色与整骰同点；
 留池骰 0–5 颗；已投 1–6 次；剩余提交 1–4；永久骰数量 0–8；钱包 0–129；提交栏容量一半取自控制器、一半随机 1–8；
 五分之三的样本带一个随机首领减益（39 个等概率）及它造成的失效控制器，另有六分之一的样本再随机失效一两张；
 随机的关卡类型、背包道具数、普通栏位数、本关已用牌型、红 / 蓝浪潮、灵光一闪；
@@ -91,6 +104,28 @@ python tools/balance_sim/calibrate.py solve   --fit evidence/v10/balance/run_p10
 
 输出末尾三张覆盖表，任何一项为 0 则判失败：每张控制器“出现 / 触发”；每个首领减益“出现 / 去掉它之后精确分数不同”；
 每种计分效果“出现 / 真的起了作用”（例如禁顺要求去掉减益后确实有顺子）。另有“失效控制器改变了结果”的计数。
+
+## p1.1.0 的改动与测量
+
+- 同名卡照常估值和获得：候选构筑追加一个新实例，与当前构筑计算同样的实力对数增益；不跳过已持有卡、不替换、不抵扣。满栏时仍只考虑卖掉最弱两张之一，按实例出售。
+- 经济加成改为整套构筑“添加 / 移除前后之差”；C140、C145 持有开关算一次，赠礼件数、空栏与永久骰数等上限参与估值。每张成长卡、颜色状态各自保留；多个 C41 按实例做最多两轮局部调序搜索。
+- C53 每个真实实例独立抽倍率，模仿复用目标实例的同一次抽取。冻结对拍传入每个 owner 的结果；规划期望按独立 owner 相乘，同 owner 的 k 个来源使用 E[X^k]。另有 3 个构筑枚举 891 个冻结结果，核对期望值。
+- 首领商店先处理 `LOOT`，首件或折现后才买其他商品、领赠礼、刷新、研习和离店；L4/L6 余件继续按增益领取，可不足 3 件。腾卡牌栏可先卖后领，不要求卖道具拿满。
+- 出售后的候选价格通过克隆的真实会话重新报价，涵盖卖掉 C98 后折扣减少及 C51 成长。当前店购买的卡在机器人估值中最多按实付价回收；实际结算仍完全由游戏会话决定，C98 的正式回收上限补丁需由协调者合并后重跑正式测量。
+- 实力缓存键含按顺序排列的实例 ID，避免两张状态相同的同名卡交换后，失效名单或模仿目标不同却命中旧缓存。
+- 旧版策略说明仍适用，除上述适配。C41+C53 期望、经济边际值和重复养成投影也有修正，因此 v1.0 基线对比反映规则与机器人适配的合计影响，不能称为纯重复卡因果效应。
+
+正式 300 局由协调者排期，不与 Unity 时序敏感测试并行。现成基线仅只读：`evidence/v10/balance/run_p100_final.json`（p1.0.0、planner、5000–5299、300 局）；不重新生成或覆盖 v10 文件。
+
+```powershell
+$sim = "tools/balance_sim/bin/Release/net10.0/BalanceSim.dll"
+dotnet $sim run --first 5000 --seeds 300 --threads 4 --out evidence/v11/balance/run_p110_300.json --log evidence/v11/balance/run_p110_300.log
+python tools/balance_sim/v10_report_tables.py paired_v11 evidence/v10/balance/run_p100_final.json evidence/v11/balance/run_p110_300.json --out evidence/v11/balance/paired_p100_p110.md
+python tools/balance_sim/v10_report_tables.py v11 evidence/v11/balance/run_p110_300.json --out evidence/v11/balance/duplicates_loot_p110.md
+```
+
+`paired_v11` 严格按 seed 配对，要求两份记录种子集合相同、非空、完整、无重复、无运行错误或计分/命令诊断失败；缺 seed 时不会悄悄取交集。输出双方通关 / 仅一方通关、胜率差的配对近似区间、到达关数差。
+`v11` 输出重复获得、终局副本与 L4/L6 领取分布。原 `paired` 模式保留给 p1.0.0 prepared 对照。
 
 ## 机器人怎么玩
 
@@ -246,7 +281,7 @@ python tools/balance_sim/calibrate.py solve   --fit evidence/v10/balance/run_p10
 ## `run` 的输出（JSON）
 
 顶层：`config`、`configPath`、`bot`、`firstSeed`、`seeds`、`runs`、`errors`、`wins`、`plannerSelfCheck {predicted, mispredicted}`、
-`rejectedOptionalCommands`（会话拒绝的可选命令数，应为 0）、`quoteMismatches`（会话预告的预算与规则不一致的次数，应为 0）、`summary`、下列各表，以及 `logs`（逐局逐关的原始记录）。
+`rejectedOptionalCommands`（会话拒绝的可选命令数，应为 0）、`rejectedShopCommands` 与 `shopRejections`（全部商店拒绝，含强制命令和失败局，应为 0）、`quoteMismatches`（会话预告的预算与规则不一致的次数，应为 0）、`summary`、下列各表，以及 `logs`（逐局逐关的原始记录）。
 
 | 字段 | 内容 |
 | --- | --- |
@@ -255,14 +290,20 @@ python tools/balance_sim/calibrate.py solve   --fit evidence/v10/balance/run_p10
 | `stageKinds[]` | 普通 / 高压 / 首领：到达数、通过数、通过率 |
 | `pressure` | `offered`、`accepted`、`acceptedPct`、`clearedWhenAcceptedPct`、`clearedWhenDeclinedPct`、`byStage[]` |
 | `bossModifiers[]` | 每个减益：`id`、`name`、`tier`、`effects`、`faced`（遇到次数）、`lifted`（被替罪羊 / 破咒符解除）、`cleared`、`clearPct`、`powerOverTarget`（带减益的估算 ÷ 目标，中位）、`rawPowerOverTarget`、`lossPct`（减益夺走的实力占比，中位） |
-| `loot[]` | 每种战利品：`offered`、`tookOffers`、`tookGold`、`tookNothing`、`picks {内容: 次数}` |
+| `loot[]` | 每种战利品：`offered`、`tookOffers`、`tookGold`、`tookNothing`、`picks {内容: 次数}`，另有 `decisions`、`picksTaken` / `picksAvailable`、`pickCountHistogram`（每店领取 0/1/2/3 件，0 含折现） |
+| `duplicates` | `shelf` / `loot`：重复获得次数、全部卡牌获得次数、比例；`atDeath` / `atWin`：局数、终局总张数、额外副本数、含重复的局数及直方图；`cards[]` 按重复获得次数排序，含各卡来源次数、胜/负终局张数及同名最多张数 |
 | `gifts` | 杂货郎 / 铁匠铺赠礼里拿走的内容与次数 |
 | `itemsUsedPerRun` | 每局使用各道具的次数 |
 | `cards[]` | 全部 150 张控制器：`shownPerRun`（货架出现）、`perRun`（购买）、`buyPctOfShown`、`lootPerRun`（战利品领取）、`grantedPerRun`（滥竽充数给的）、`avgStage`、`finalPct`、`winPct` |
 | `items[]` | 兼容旧版的购买表（控制器之外的商品，以及买过的控制器） |
 
 `logs[].stages[]` 的新字段：`kind`、`riskOffered`、`targetBase`、`powerRaw` / `safeRaw`、`powerMod` / `safeMod` / `targetMod`、`modifier`、`nullifiedBy`、
-`lootKind`、`lootOffered`、`lootTaken`、`gifts`、`offered`、`granted`、`items`、`itemsUsed`。`pig` 现在是“本关内金币的净变化”（含过路费、苛税、一掷千金的支出）。
+`lootKind`、`lootOffered`、`lootTaken`、`lootDecision`、`lootPicks`、`lootPicksAvailable`、`duplicateBought`、`duplicateLoot`、`gifts`、`offered`、`granted`、`items`、`itemsUsed`。`pig` 现在是“本关内金币的净变化”（含过路费、苛税、一掷千金的支出）。
+
+重复获得按 Buy 接受前的实际持有判断（若先卖掉唯一同名卡再买，不算重复）；额外副本 = 各定义 max(持有张数 − 1, 0) 的总和，C41 自身算自己的定义。
+`logs[].finalCopies` 取死亡 / 通关时仍存活的实际实例，涵盖关内摧毁；旧 `cards.finalPct` / `winPct` 为末关入场快照，保留历史口径，勿混用。
+模拟异常局仍保留在 `logs` 中供诊断；正常结束的局（死亡或通关）参与常规平衡汇总。`errors` 或计分/预告/命令诊断非 0 时 run 返回非零。
+trace 还将导出的命令头部送回真实会话重放一次，报告接受数与战利品首选 / 后续领取数；这是离线重放，未代替打包游戏截图检查。
 
 ## 已知局限（解读数据时必须考虑）
 

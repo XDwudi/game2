@@ -1,7 +1,7 @@
 // Full-run bot. Drives the real GameSession with legal commands only; it sees what a player sees
 // (current faces, shop offers, prices, the cycle panel) and never reads RNG state. Planning uses its own random stream.
-// p1.0.0: three-stage cycles (pressure choice with the x1.5 target, boss modifiers), gift groups (boss loot,
-// C111 / C113), the new items, die upgrades and services. Heuristics are documented in README.md.
+// p1.1.0: each same-name card is an independent instance; boss loot is decided before other shop actions.
+// Three-stage cycles, gift groups and heuristics are documented in README.md.
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -23,11 +23,15 @@ public sealed class StageLog
     public string modifier, nullifiedBy;
     /// <summary>Loot kind offered in the shop after this (boss) stage, its offers, and what the bot took ("GOLD" = the gold option).</summary>
     public string lootKind;
+    public string lootDecision;
+    public int lootPicks, lootPicksAvailable;
     public long goldStart, reward, unused, interest, pig, ctlIncome, goldAfterSettle, spent, goldAfterShop;
     public List<string> bought = new List<string>(), gifts = new List<string>(), lootOffered = new List<string>(), lootTaken = new List<string>();
     /// <summary>offered = controllers seen on the shelf of the shop after this stage; granted = controllers received at
     /// stage end (C112); items = items used during the stage.</summary>
     public List<string> offered = new List<string>(), granted = new List<string>(), items = new List<string>();
+    /// <summary>Accepted acquisitions with another copy held immediately before the purchase (after any sale).</summary>
+    public List<string> duplicateBought = new List<string>(), duplicateLoot = new List<string>();
     public string[] controllers = Array.Empty<string>();
     /// <summary>--lab, boss stages only: for every modifier that could have been drawn for this cycle, the share of this
     /// build's power it takes away (0..1) with the controllers as they stand, and - for the modifiers that disable the
@@ -44,6 +48,11 @@ public sealed class RunLog
     public int predicted, mispredicted; public string firstMisprediction;
     /// <summary>Optional commands (items, gifts) the session refused; the bot carries on. Expected to stay 0.</summary>
     public int rejected; public string firstRejection;
+    /// <summary>Every rejected command issued in Shop, including mandatory commands. Expected 0.</summary>
+    public int shopRejected; public string firstShopRejection;
+    public List<string> shopRejections = new List<string>();
+    /// <summary>Actual surviving copies at the terminal state, rather than the entering-stage snapshot.</summary>
+    public Dictionary<string, int> finalCopies = new Dictionary<string, int>();
     /// <summary>Stage previews where the session's quoted budgets differ from the rules the bot plans with. Expected 0.</summary>
     public int quoteMismatch; public string firstQuoteMismatch;
     public List<StageLog> stages = new List<StageLog>();
@@ -78,6 +87,8 @@ public sealed class Runner
     readonly GameConfig cfg; readonly Params P; readonly BotOptions opt;
     GameSession session; int seq; RunLog log; StageLog cur;
     readonly Planner strong = new Planner(), cheap = new Planner { depthMax = 1, s0 = 6, fullEnum = 0 };
+    readonly Dictionary<string, long> paidThisShop = new Dictionary<string, long>();
+    HashSet<string> enteringControllerIds = new HashSet<string>();
     ulong powerSeed; string powerTag = "preview";
     /// <summary>When set, every accepted command is recorded in the format the in-game capture tour replays.</summary>
     public List<Dictionary<string, object>> recorded;
@@ -92,7 +103,24 @@ public sealed class Runner
         var command = new SessionCommand { kind = kind, commandId = "b" + (++seq), expectedActionSequence = session.ActionSequence };
         configure?.Invoke(command);
         if (kind == CommandKind.ConfirmLocks) foreach (string id in command.dieIds) if (!session.TogglePending(id)) throw new Exception("Illegal pending " + id);
+        var before = session.State;
+        var offer = kind == CommandKind.Buy ? before.shop?.offers.FirstOrDefault(o => o.offerId == command.offerId) : null;
+        long paid = offer == null ? 0 : session.GetOfferPrice(offer);
+        bool duplicate = offer?.category == "controller" && before.controllers.Any(c => c.alive && c.definitionId == offer.contentId);
         var result = session.Execute(command);
+        if (!result.accepted && before?.phase == "Shop")
+        {
+            string rejection = $"stage {before.stage.stageIndex + 1} {kind} {command.offerId ?? command.itemInstanceId ?? command.handId}: {result.error}";
+            if (log.shopRejected++ == 0) log.firstShopRejection = rejection;
+            log.shopRejections.Add(rejection);
+        }
+        if (result.accepted && duplicate) (offer.groupId == "LOOT" ? cur.duplicateLoot : cur.duplicateBought).Add(offer.contentId);
+        if (result.accepted && offer?.category == "controller" && string.IsNullOrEmpty(offer.groupId)) paidThisShop[offer.controller.instanceId] = paid;
+        if (result.accepted && offer?.groupId == "LOOT")
+        {
+            if (cur.lootDecision == null) cur.lootDecision = offer.category == "gold" ? "cash-out" : "pick";
+            if (offer.category != "gold") cur.lootPicks++;
+        }
         if (result.accepted)
             recorded?.Add(new Dictionary<string, object> {
                 ["kind"] = kind.ToString(), ["seed"] = command.seed, ["risk"] = command.risk, ["offerId"] = command.offerId, ["itemInstanceId"] = command.itemInstanceId,
@@ -124,7 +152,23 @@ public sealed class Runner
     public RunLog Play(uint seed)
     {
         var clock = System.Diagnostics.Stopwatch.StartNew();
-        try { return PlayRun(seed); } finally { if (log != null) log.seconds = clock.Elapsed.TotalSeconds; }
+        try { return PlayRun(seed); }
+        catch (Exception e)
+        {
+            log ??= new RunLog { seed = seed };
+            log.fail = "ERROR " + e;
+            log.reached = session?.State?.stage == null ? 0 : session.State.stage.stageIndex + 1;
+            return log;
+        }
+        finally
+        {
+            if (log != null)
+            {
+                log.seconds = clock.Elapsed.TotalSeconds;
+                var terminal = session?.State;
+                if (terminal != null) log.finalCopies = terminal.controllers.Where(c => c.alive).GroupBy(c => c.definitionId).ToDictionary(g => g.Key, g => g.Count());
+            }
+        }
     }
     RunLog PlayRun(uint seed)
     {
@@ -195,7 +239,7 @@ public sealed class Runner
     string Key(RunState st, StageCtx ctx)
     {
         var k = keyBuf; k.Clear();
-        foreach (var c in st.controllers) k.Append(c.definitionId).Append(':').Append(c.enchantmentId).Append(c.alive ? '+' : '-').Append(c.state.growth).Append(',').Append(c.state.turnoverUnits2).Append(c.state.activeColor).Append(';');
+        foreach (var c in st.controllers) k.Append(c.instanceId).Append('=').Append(c.definitionId).Append(':').Append(c.enchantmentId).Append(c.alive ? '+' : '-').Append(c.state.growth).Append(',').Append(c.state.turnoverUnits2).Append(c.state.activeColor).Append(';');
         k.Append('|');
         foreach (var d in st.dice.OrderBy(d => d.createdSerial))
         {
@@ -274,6 +318,7 @@ public sealed class Runner
         int index = s.stage.stageIndex; var def = cfg.stages[index]; bool boss = def.stageKind == "boss";
         cur = new StageLog { stage = index + 1, kind = def.stageKind, goldStart = s.gold, dice = s.dice.Count, ctrl = s.controllers.Count, slots = s.controllerSlots, targetBase = D(def.normalTarget),
             controllers = s.controllers.Select(c => c.definitionId + (c.enchantmentId == "none" ? "" : ":" + c.enchantmentId)).ToArray() };
+        enteringControllerIds = s.controllers.Select(c => c.instanceId).ToHashSet();
         log.stages.Add(cur);
         evalCtx = new StageCtx { boss = boss, disabled = Array.Empty<string>() };
         var raw = PowerOfState(s); cur.powerRaw = raw.mean; cur.safeRaw = raw.safe; var pw = raw;
@@ -459,8 +504,7 @@ public sealed class Runner
         cur.reward = r.baseReward; cur.unused = r.unusedSubmissionReward; cur.interest = r.interest; cur.ctlIncome = r.controllerIncome; cur.pig = r.goldBefore - cur.goldStart; cur.goldAfterSettle = r.goldAfter;
         cur.goldAfterShop = r.goldAfter;
         // Controllers that appeared during the stage can only come from C112.
-        var before = new HashSet<string>(cur.controllers.Select(c => c.Split(':')[0]));
-        foreach (var c in s.controllers) if (!before.Contains(c.definitionId)) cur.granted.Add(c.definitionId);
+        foreach (var c in s.controllers) if (!enteringControllerIds.Contains(c.instanceId)) cur.granted.Add(c.definitionId);
     }
 
     // ---------- shop ----------
@@ -470,6 +514,22 @@ public sealed class Runner
     {
         var st = s.Clone(); if (removeInstanceId != null) st.controllers.RemoveAll(c => c.instanceId == removeInstanceId);
         var c2 = offer.Clone(); c2.state = new ControllerDynamicState(); c2.alive = true; st.controllers.Add(c2); return st;
+    }
+    /// <summary>Use the session quote, capped by what this bot actually paid in the open shop. The cap also keeps
+    /// estimates conservative before the separately implemented C98 resale rule is integrated.</summary>
+    long SaleEstimate(string instanceId)
+    {
+        long quoted = session.GetControllerSalePrice(instanceId);
+        return paidThisShop.TryGetValue(instanceId, out long paid) ? Math.Min(quoted, paid) : quoted;
+    }
+    GameSession AfterSale(RunState s, string instanceId)
+    {
+        var quote = new GameSession(cfg, new MemorySaveStore(), s);
+        var result = quote.Execute(new SessionCommand { kind = CommandKind.Sell, itemInstanceId = instanceId,
+            commandId = "sim-sale-" + instanceId, expectedActionSequence = quote.ActionSequence });
+        if (!result.accepted) throw new InvalidOperationException("Sale estimate rejected: " + result.error);
+        var after = quote.State; after.gold = s.gold + SaleEstimate(instanceId);
+        return new GameSession(cfg, new MemorySaveStore(), after);
     }
 
     // ---------- habits: simple observable quantities the growth and economy estimates are built from ----------
@@ -576,7 +636,8 @@ public sealed class Runner
     ///   C125  1.6 N faces turn smooth, highest pips first
     ///   C126  0.8 N x pool dice per submission steps of +1 on the lowest faces
     ///   C127  0.7 x horizon copies of the best face onto the worst face of another die
-    /// A mimic of one of these cards counts as a second source.</summary>
+    /// Duplicates and mimics add sources; idempotent changes are applied only once per event. C122 / C123 use
+    /// a frozen face for each event, so two or more sources can overshoot their target.</summary>
     void ProjectFaces(RunState st, double horizon)
     {
         if (!st.controllers.Any(c => FaceGrowers.Contains(c.definitionId))) return;
@@ -593,11 +654,11 @@ public sealed class Runner
             for (int k = 0; k < k121; k++) foreach (var d in dice) { var f = ordered(d).OrderByDescending(x => x.permanentPip).First(); if (f.permanentPip > cfg.minPipValue) f.permanentPip--; }
         }
         Func<double, int> steps = x => (int)Math.Round(Math.Max(0, x));
-        for (int t = 0, n = steps(subs * 0.8) * count("C117"); t < n; t++)
+        for (int t = 0, n = steps(subs * 0.8) * Math.Min(1, count("C117")); t < n; t++)
         { var f = ordered(dice[t % dice.Count]).Where(x => !x.isGold).OrderByDescending(x => x.permanentPip).FirstOrDefault(); if (f != null) f.isGold = true; }
         if (count("C118") > 0 && (hab.redShare >= 0.6 || hab.redShare <= 0.4))
         {
-            string colour = hab.redShare >= 0.6 ? "red" : "blue"; int left = steps(subs * hab.dice * 0.5) * count("C118");
+            string colour = hab.redShare >= 0.6 ? "red" : "blue"; int left = steps(subs * hab.dice * 0.5);
             foreach (var d in dice)
                 foreach (var f in ordered(d))
                 {
@@ -605,24 +666,25 @@ public sealed class Runner
                     if (left > 0 && f.baseColor != o.baseColor) { f.baseColor = colour; o.baseColor = colour; left--; }
                 }
         }
-        for (int left = steps(subs * 0.5) * count("C119"), di = 0; left > 0 && di < dice.Count; di++)
+        for (int left = steps(subs * 0.5) * Math.Min(1, count("C119")), di = 0; left > 0 && di < dice.Count; di++)
         {
             var faces = ordered(dice[di]); int want = low ? faces.Min(x => x.permanentPip) : faces.Max(x => x.permanentPip);
             foreach (var f in faces) if (left > 0 && f.permanentPip != want) { f.permanentPip = want; left--; }
         }
         int target = cfg.Controller("C122").parameters.pip;
-        for (int t = 0, n = steps(subs * hab.dice * 0.8) * count("C122"); t < n; t++)
-        { var f = ordered(dice[t % dice.Count]).Where(x => x.permanentPip != target).OrderByDescending(x => Math.Abs(x.permanentPip - target)).FirstOrDefault(); if (f != null) f.permanentPip += f.permanentPip < target ? 1 : -1; }
+        int k122 = count("C122"), k123 = count("C123");
+        for (int t = 0, n = k122 == 0 ? 0 : steps(subs * hab.dice * 0.8); t < n; t++)
+        { var f = ordered(dice[t % dice.Count]).Where(x => x.permanentPip != target).OrderByDescending(x => Math.Abs(x.permanentPip - target)).FirstOrDefault(); if (f != null) f.permanentPip = Math.Clamp(f.permanentPip + (f.permanentPip < target ? k122 : -k122), cfg.minPipValue, cfg.maxPipValue); }
         int[] band = cfg.Controller("C123").parameters.pips;
-        for (int t = 0, n = steps(subs * hab.dice * 0.8) * count("C123"); t < n; t++)
-        { var f = ordered(dice[t % dice.Count]).Where(x => x.permanentPip < band[0] || x.permanentPip > band[1]).OrderByDescending(x => x.permanentPip < band[0] ? band[0] - x.permanentPip : x.permanentPip - band[1]).FirstOrDefault(); if (f != null) f.permanentPip += f.permanentPip < band[0] ? 1 : -1; }
+        for (int t = 0, n = k123 == 0 ? 0 : steps(subs * hab.dice * 0.8); t < n; t++)
+        { var f = ordered(dice[t % dice.Count]).Where(x => x.permanentPip < band[0] || x.permanentPip > band[1]).OrderByDescending(x => x.permanentPip < band[0] ? band[0] - x.permanentPip : x.permanentPip - band[1]).FirstOrDefault(); if (f != null) f.permanentPip = Math.Clamp(f.permanentPip + (f.permanentPip < band[0] ? k123 : -k123), cfg.minPipValue, cfg.maxPipValue); }
         for (int t = 0, n = steps(subs * hab.dice * 0.8) * count("C124"); t < n; t++)
         { var f = ordered(dice[t % dice.Count]).Where(x => x.baseWeight < cfg.maxFaceWeight).OrderByDescending(x => (low ? 7 - x.permanentPip : x.permanentPip) * (x.isGold ? 2 : 1)).FirstOrDefault(); if (f != null) f.baseWeight++; }
-        for (int t = 0, n = steps(subs * 1.6) * count("C125"); t < n; t++)
+        for (int t = 0, n = steps(subs * 1.6) * Math.Min(1, count("C125")); t < n; t++)
         { var f = ordered(dice[t % dice.Count]).Where(x => x.texture == "none").OrderByDescending(x => x.permanentPip).FirstOrDefault(); if (f != null) f.texture = cfg.Controller("C125").parameters.textures[0]; }
         for (int t = 0, n = steps(subs * hab.pool * 0.8) * count("C126"); t < n; t++)
         { var f = ordered(dice[t % dice.Count]).Where(x => x.permanentPip < cfg.maxPipValue).OrderBy(x => x.permanentPip).FirstOrDefault(); if (f != null) f.permanentPip += cfg.Controller("C126").parameters.delta > 0 ? 1 : 0; }
-        for (int t = 0, n = steps(stages * 0.7) * count("C127"); t < n && dice.Count > 1; t++)
+        for (int t = 0, n = steps(stages * 0.7) * Math.Min(1, count("C127")); t < n && dice.Count > 1; t++)
         {
             var all = dice.SelectMany(d => d.faces.Select(f => (d, f))).ToArray();
             var best = all.OrderByDescending(x => (low ? 7 - x.f.permanentPip : x.f.permanentPip) * (x.f.isGold ? 2 : 1)).First();
@@ -700,45 +762,81 @@ public sealed class Runner
             default: return 0;
         }
     }
+    /// <summary>Economy heuristics for the whole build. Marginal values subtract this total before and after a
+    /// change, so extra copies, mimics, capped rewards and while-held switches use the same path as first copies.</summary>
+    double EconomyValue(RunState s, int nextIndex)
+    {
+        double total = 0; int remaining = cfg.stages.Length - nextIndex, shops = Math.Max(0, remaining - 1), bosses = BossesAhead(nextIndex);
+        foreach (var group in ControllerRules.ResolveSources(s.controllers).Where(x => x.abilityId != null).GroupBy(x => x.abilityId))
+        {
+            string id = group.Key; int count = group.Count();
+            switch (id)
+            {
+                case "C140": case "C145": count = 1; break;
+                case "C111": case "C113": count = Math.Min(3, count); break;
+                case "C110": count = Math.Min(s.consumableSlots, count); break;
+                case "C131": count = Math.Min(bosses, s.controllers.Count(c => c.alive && c.definitionId == "C131")); break;
+                case "C96":
+                    double top = count * cfg.Controller(id).parameters.interestPrincipalAdd / (double)cfg.interestDivisor;
+                    long baseCap = cfg.maxInterestPrincipal + (long)cfg.interestPrincipalStep * s.interestCapPurchases;
+                    double extra = Math.Max(0, Math.Min(top, (hab.gold - baseCap) / (double)cfg.interestDivisor));
+                    if (hab.comfy) extra = Math.Max(extra, top / 2);
+                    total += 0.04 * Math.Min(10, remaining) * extra * 0.6; continue;
+                case "C112":
+                    int free = Math.Max(0, s.controllerSlots - ControllerRules.OrdinaryUsed(s.controllers));
+                    total += 0.04 * 2 * Math.Min(free, count * shops); continue;
+                case "C116":
+                    total += 0.04 * 4 * Math.Min(count * bosses, Math.Max(0, cfg.maxPermanentDice - s.dice.Count(d => d.lifetime == "permanent"))) * 0.6; continue;
+            }
+            total += count * Bonus(id, nextIndex, s);
+        }
+        return total;
+    }
     /// <summary>Principal that still earns interest: base cap, +25 per C96 source, +10 per O10 bought.</summary>
     long InterestCap(RunState s) => cfg.maxInterestPrincipal + (long)ControllerRules.ResolveSources(s.controllers).Count(x => x.abilityId == "C96") * cfg.Controller("C96").parameters.interestPrincipalAdd + (long)cfg.interestPrincipalStep * s.interestCapPurchases;
 
-    /// <summary>Power with the mimic (C41) placed where it helps most. mode 0 = every position (the owned build, a mimic on offer);
-    /// mode 1 = only where the mimic stands now (its order is re-optimised after every controller purchase);
-    /// mode 2 = where it stands now, or directly left of the newest controller (controller offers).</summary>
+    /// <summary>Power with each mimic (C41) placed by coordinate search. mode 0 = every position (the owned build,
+    /// a mimic on offer); mode 1 = current order; mode 2 = current order or left of the newest card. Every mimic
+    /// is identified by instance ID, including adjacent chains and copies of the same target definition.</summary>
     Pw BestMimicPower(RunState st, int mode = 0)
     {
-        var mimic = st.controllers.FirstOrDefault(c => c.definitionId == "C41");
-        if (mimic == null) return PowerOfState(st);
-        var best = new Pw(); bool any = false; var others = st.controllers.Where(c => c != mimic).ToList();
-        if (mode != 0 && others.Count > 0)
+        BestMimicBuild(st, mode, out var best); return best;
+    }
+    RunState BestMimicBuild(RunState st, int mode, out Pw best)
+    {
+        best = PowerOfState(st);
+        var ids = st.controllers.Where(c => c.definitionId == "C41").Select(c => c.instanceId).ToArray();
+        if (mode == 1 || ids.Length == 0 || st.controllers.Count < 2) return st;
+        var current = st; string newest = st.controllers.Last().instanceId;
+        for (int pass = 0; pass < (ids.Length > 1 ? 2 : 1); pass++)
         {
-            best = PowerOfState(st);
-            if (mode == 2 && st.controllers[st.controllers.Count - 1] != mimic && st.controllers.IndexOf(mimic) != st.controllers.Count - 2)
+            bool changed = false;
+            foreach (string id in ids)
             {
-                var copy = st.Clone(); var m2 = copy.controllers.First(c => c.definitionId == "C41"); copy.controllers.Remove(m2); copy.controllers.Insert(copy.controllers.Count - 1, m2);
-                var p = PowerOfState(copy); if (p.V > best.V) best = p;
+                var others = current.controllers.Where(c => c.instanceId != id).Select(c => c.instanceId).ToList();
+                var positions = mode == 2 ? new[] { others.IndexOf(newest) } : Enumerable.Range(0, others.Count + 1);
+                RunState better = current;
+                foreach (int at in positions)
+                {
+                    if (at < 0) continue;
+                    var order = others.ToList(); order.Insert(at, id);
+                    if (order.SequenceEqual(current.controllers.Select(c => c.instanceId))) continue;
+                    var copy = current.Clone(); copy.controllers = order.Select(cid => copy.controllers.First(c => c.instanceId == cid)).ToList();
+                    var p = PowerOfState(copy);
+                    if (p.V > best.V * (1 + 1e-12)) { best = p; better = copy; }
+                }
+                if (better != current) { current = better; changed = true; }
             }
-            return best;
+            if (!changed) break;
         }
-        for (int at = 0; at < others.Count; at++)
-        {
-            var copy = st.Clone(); var m2 = copy.controllers.First(c => c.definitionId == "C41"); copy.controllers.Remove(m2); copy.controllers.Insert(at, m2);
-            var p = PowerOfState(copy); if (!any || p.V > best.V) { best = p; any = true; }
-        }
-        return any ? best : PowerOfState(st);
+        return current;
     }
     void OptimizeMimic()
     {
-        var s = session.State; var mimic = s.controllers.FirstOrDefault(c => c.definitionId == "C41"); if (mimic == null || s.controllers.Count < 2) return;
-        double best = -1; string[] bestOrder = null; var others = s.controllers.Where(c => c.instanceId != mimic.instanceId).Select(c => c.instanceId).ToList();
-        for (int at = 0; at < others.Count; at++)
-        {
-            var order = others.ToList(); order.Insert(at, mimic.instanceId);
-            var copy = s.Clone(); copy.controllers = order.Select(id => copy.controllers.First(c => c.instanceId == id)).ToList();
-            double p = PowerOfState(copy).V; if (p > best) { best = p; bestOrder = order.ToArray(); }
-        }
-        if (bestOrder != null && !bestOrder.SequenceEqual(s.controllers.Select(c => c.instanceId))) Act(CommandKind.ReorderControllers, c => c.controllerIds = bestOrder);
+        var s = session.State;
+        if (!s.controllers.Any(c => c.definitionId == "C41") || s.controllers.Count < 2) return;
+        var best = BestMimicBuild(s, 0, out _); var order = best.controllers.Select(c => c.instanceId).ToArray();
+        if (!order.SequenceEqual(s.controllers.Select(c => c.instanceId))) Act(CommandKind.ReorderControllers, c => c.controllerIds = order);
     }
     /// <summary>C100 destroys its right neighbour at stage start. The bot never buys it; if it ever holds one it keeps
     /// it rightmost so that nothing is destroyed.</summary>
@@ -810,7 +908,7 @@ public sealed class Runner
 
     void Shop()
     {
-        powerCache.Clear(); statsCache.Clear();
+        powerCache.Clear(); statsCache.Clear(); paidThisShop.Clear();
         long goldIn = session.State.gold; int refreshes = 0; bool evaluated = false, countered = false; var cands = new List<Cand>();
         double basePow = 0, ratio = 0, theta = 0; long reserve = 0; bool danger = false; int nextIndex = session.State.stage.stageIndex + 1;
         var nextDef = cfg.stages[nextIndex]; bool nextBoss = nextDef.stageKind == "boss";
@@ -818,7 +916,7 @@ public sealed class Runner
         var seenOffers = new HashSet<string>(); var doneGroups = new HashSet<string>();
         {
             var s0 = session.State; var loot = s0.shop.groups.FirstOrDefault(g => g.groupId == "LOOT");
-            if (loot != null) { cur.lootKind = loot.kind; cur.lootOffered.AddRange(s0.shop.offers.Where(o => o.groupId == "LOOT").Select(OfferLabel)); }
+            if (loot != null) { cur.lootKind = loot.kind; cur.lootPicksAvailable = loot.picks; cur.lootOffered.AddRange(s0.shop.offers.Where(o => o.groupId == "LOOT").Select(OfferLabel)); }
         }
         for (int iter = 0; iter < 60; iter++)
         {
@@ -847,6 +945,7 @@ public sealed class Runner
             // Free things first: boss loot and controller gifts change what is worth buying.
             powerTag = "gifts";
             if (TakeGift(s, basePow, stats, nextIndex, danger, doneGroups)) { evaluated = false; continue; }
+            if (session.IsLootPending) throw new InvalidOperationException("Boss loot remains unresolved after the loot decision.");
             powerTag = "offers";
             // Boss countermeasures, once per shop: I08 when the boss is next, otherwise a bribe (O09).
             if (!countered && CounterBoss(s, nextBoss, ratio)) { countered = true; evaluated = false; continue; }
@@ -919,10 +1018,12 @@ public sealed class Runner
     /// Controller gifts (C111 / C113) have no gold option: the best offer with a positive value is taken.</summary>
     bool TakeGift(RunState s, double basePow, HandStats stats, int nextIndex, bool danger, HashSet<string> done)
     {
-        foreach (var group in s.shop.groups)
+        // Only LOOT is legal until its first pick or cash-out. Afterwards its remaining picks are still offered.
+        foreach (var group in s.shop.groups.OrderBy(g => g.groupId == "LOOT" ? 0 : 1))
         {
             if (group.closed || group.picked >= group.picks || done.Contains(group.groupId)) continue;
             bool isLoot = group.groupId == "LOOT";
+            if (session.IsLootPending && !isLoot) continue;
             var options = Evaluate(s, basePow, stats, nextIndex, null, group.groupId).Where(c => c.gain > 0.005).OrderByDescending(c => c.gain).ToList();
             var gold = s.shop.offers.FirstOrDefault(o => o.groupId == group.groupId && o.category == "gold" && !o.sold);
             double goldGain = gold != null && group.picked == 0 ? gold.basePrice * (danger ? 0.012 : 0.04) : -1;
@@ -1004,17 +1105,20 @@ public sealed class Runner
     }
 
     /// <summary>Values the offers of the shelf (group == null) or of one gift group. Gift offers cost nothing; a
-    /// controller gift that needs a slot is valued with the same replacement logic as a purchase.</summary>
+    /// controller gift that needs a slot is valued with the same sell-then-buy logic as a purchase.</summary>
     List<Cand> Evaluate(RunState s, double basePow, HandStats stats, int nextIndex, string onlyKey = null, string group = null, long spendable = long.MaxValue)
     {
         var list = new List<Cand>();
         // Offers the purchase rule could not accept whatever they turn out to be worth (they would leave less gold
-        // than the reserve) are not valued at all. A controller may be paid for partly by the card it replaces.
-        long tradeIn = s.controllers.Count == 0 ? 0 : s.controllers.Max(c => session.GetControllerSalePrice(c.instanceId));
+        // than the reserve) are not valued at all. A real sale may finance a purchase when a slot must be freed;
+        // buying a same-name copy itself never replaces a card or grants a trade-in credit.
+        long maxSale = s.controllers.Count == 0 ? 0 : s.controllers.Max(c => SaleEstimate(c.instanceId));
+        double baseEconomy = EconomyValue(s, nextIndex);
+        Func<RunState, double> economyGain = st => EconomyValue(st, nextIndex) - baseEconomy;
         Func<RunState, int, double> gainOf = (st, mode) => { Project(st, nextIndex); return Math.Log(Math.Max(1e-9, BestMimicPower(st, mode).V) / Math.Max(1e-9, basePow)); };
         Func<RunState, double> gain = st => gainOf(st, 1);
         int ordinary = s.controllers.Count(c => c.enchantmentId != "slotless"); bool film = s.controllers.Any(c => c.definitionId == "C145");
-        // With every slot used a new controller must replace one. Trying every owned card for every offer is too slow
+        // With every slot used a new controller needs one to be sold. Trying every owned card for every offer is too slow
         // with 5-7 slots, so only the two cards the build misses least (power without the card, plus its gold value)
         // are tried as the one to sell.
         // p1.0.0: with the total at the instance cap (slotless cards from O11 / C114 / loot make that common) any
@@ -1026,21 +1130,22 @@ public sealed class Runner
             if (weakest != null) return weakest;
             string before = powerTag; powerTag = "victims";
             weakest = s.controllers.Where(c => capped || c.enchantmentId != "slotless")
-                .Select(w => { var st = s.Clone(); st.controllers.RemoveAll(c => c.instanceId == w.instanceId); return (w, loss: -gain(st) + Bonus(w.definitionId, nextIndex, s)); })
+                .Select(w => { var st = s.Clone(); st.controllers.RemoveAll(c => c.instanceId == w.instanceId); double bonus = economyGain(st); return (w, loss: -gain(st) - bonus); })
                 .OrderBy(x => x.loss).Take(2).Select(x => x.w).ToArray();
             powerTag = before; return weakest;
         };
+        var saleQuotes = new Dictionary<string, GameSession>();
         foreach (var offer in s.shop.offers.Where(o => !o.sold && (o.groupId ?? "") == (group ?? "")))
         {
             string key = offer.offerId; if (onlyKey != null && key != onlyKey) continue;
             long price = session.GetOfferPrice(offer);
-            if (price - (offer.category == "controller" ? tradeIn : 0) > spendable) continue;
+            if (price - (offer.category == "controller" ? maxSale : 0) > spendable) continue;
             Action plainBuy = () => Act(CommandKind.Buy, c => c.offerId = offer.offerId);
             switch (offer.category)
             {
                 case "controller":
                     {
-                        string id = offer.contentId; if (s.controllers.Any(c => c.definitionId == id)) break;
+                        string id = offer.contentId;
                         if (id == "C100") break;   // limitation: the bot never plays the sacrifice card
                         bool slotless = offer.controller.enchantmentId == "slotless";
                         string label = OfferLabel(offer);
@@ -1048,22 +1153,28 @@ public sealed class Runner
                         double scale = id == "C128" ? (film ? 0.8 : 0.15) : 1;
                         if (!capped && (slotless || ordinary < s.controllerSlots))
                         {
-                            double g = gainOf(WithController(s, offer.controller, null), id == "C41" ? 0 : 2) * scale + Bonus(id, nextIndex, s);
+                            if (price > spendable) break;
+                            var candidate = WithController(s, offer.controller, null); double bonus = economyGain(candidate);
+                            double g = gainOf(candidate, id == "C41" ? 0 : 2) * scale + bonus;
                             list.Add(new Cand { key = key, label = label, gain = g, price = price, buy = plainBuy });
                         }
                         else
                         {
-                            double bestG = double.NegativeInfinity; ControllerInstance victim = null;
+                            double bestG = double.NegativeInfinity; ControllerInstance victim = null; long net = 0;
                             foreach (var w in victims())
                             {
                                 // Selling a slotless card frees no ordinary slot, so it cannot make room for an ordinary one when the slots are full.
                                 if (!slotless && w.enchantmentId == "slotless" && ordinary >= s.controllerSlots) continue;
-                                double g = gainOf(WithController(s, offer.controller, w.instanceId), id == "C41" ? 0 : 2) * scale + Bonus(id, nextIndex, s) - Bonus(w.definitionId, nextIndex, s);
-                                if (g > bestG) { bestG = g; victim = w; }
+                                if (!saleQuotes.TryGetValue(w.instanceId, out var quote)) saleQuotes[w.instanceId] = quote = AfterSale(s, w.instanceId);
+                                long cost = quote.GetOfferPrice(offer) - SaleEstimate(w.instanceId);
+                                if (cost > spendable || cost > s.gold) continue;
+                                var candidate = WithController(quote.State, offer.controller, null); double bonus = economyGain(candidate);
+                                double g = gainOf(candidate, id == "C41" ? 0 : 2) * scale + bonus;
+                                if (g > bestG) { bestG = g; victim = w; net = cost; }
                             }
                             if (victim == null) break;
-                            long sell = session.GetControllerSalePrice(victim.instanceId); string vid = victim.instanceId, vdef = victim.definitionId;
-                            list.Add(new Cand { key = key, label = label + "(replaces " + vdef + ")", gain = bestG, price = price - sell,
+                            string vid = victim.instanceId, vdef = victim.definitionId;
+                            list.Add(new Cand { key = key, label = label + "(replaces " + vdef + ")", gain = bestG, price = net,
                                 buy = () => { Act(CommandKind.Sell, c => c.itemInstanceId = vid); Act(CommandKind.Buy, c => c.offerId = offer.offerId); } });
                         }
                         break;

@@ -1,0 +1,38 @@
+{
+  "config": "p1.1.0",
+  "cases": 2,
+  "firstOrder": [
+    "X1:C41",
+    "X2:C53",
+    "X3:C53"
+  ],
+  "secondOrder": [
+    "X1:C41",
+    "X3:C53",
+    "X2:C53"
+  ],
+  "disabled": [
+    "X2"
+  ],
+  "keysDistinct": true,
+  "powersDistinct": true,
+  "firstMatches": true,
+  "secondMatches": true,
+  "cachedFirst": {
+    "mean": 1743.75,
+    "safe": 840
+  },
+  "cachedSecond": {
+    "mean": 5449.21875,
+    "safe": 2625
+  },
+  "uncachedFirst": {
+    "mean": 1743.75,
+    "safe": 840
+  },
+  "uncachedSecond": {
+    "mean": 5449.21875,
+    "safe": 2625
+  },
+  "passed": true
+}
