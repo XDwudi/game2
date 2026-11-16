@@ -1,0 +1,309 @@
+config=DicePrototype/Assets/Game/Data/P0Config.json version=p1.1.0 threads=8 args=run --first 5000 --seeds 300 --threads 8 --out evidence/v11/balance/run_p110_300.json --log evidence/v11/balance/run_p110_300.log
+  20/300 runs, 58s
+  40/300 runs, 106s
+  60/300 runs, 168s
+  80/300 runs, 236s
+  100/300 runs, 304s
+  120/300 runs, 375s
+  140/300 runs, 454s
+  160/300 runs, 517s
+  180/300 runs, 570s
+  200/300 runs, 660s
+  220/300 runs, 706s
+  240/300 runs, 772s
+  260/300 runs, 827s
+  280/300 runs, 884s
+  300/300 runs, 996s
+
+runs=300 errors=0 wins=99 (33.0%) bot=planner seeds=5000..5299 time=996s
+planner self-check: 7104 real submissions predicted (builds without C53), 0 scored differently by the session
+optional commands refused by the session: 0
+shop commands refused by the session: 0
+stage previews whose quoted budgets differ from the rules: 0
+slowest runs: 5158:208s 5120:145s 5226:135s 5139:122s 5106:113s  sum of run times=7367s (shop 7014s, stage select 70s, hands 226s; 206076 power estimates took 6899s)
+power estimates by purpose: boss-loss: 2894 calls 90s  gifts: 5739 calls 176s  mimic: 53 calls 2s  offers: 104960 calls 3424s  preview: 2310 calls 65s  shop-base: 50310 calls 1729s  victims: 39810 calls 1413s
+stage	kind	target	reach%	clear%	subs	score/target(med,cleared)	power/target(med)	goldStart	income(reward+unused+interest+inStage+ctl)	spent	goldLeave	ctrl	slots	dice	risk%
+1	normal	300	100	98	1.69	1.31	2.90	0.0	5.0+1.3+0.0+0.0+0.0	4.6	1.7	0.0	5.0	5.0	0
+2	pressure	600	98	97	1.93	1.24	2.36	1.7	5.8+1.1+0.0+0.0+0.0	5.7	2.9	0.7	5.0	5.3	15
+3	boss	1000	95	93	1.84	1.23	2.61	2.9	4.4+1.0+0.3+-0.2+0.2	3.0	5.8	1.4	5.0	5.6	0
+4	normal	1700	89	97	1.73	1.27	3.15	5.8	5.0+1.4+0.8+0.1+0.1	5.4	7.9	2.5	5.0	5.9	0
+5	pressure	2600	86	95	1.93	1.28	2.73	7.9	7.2+1.2+1.3+0.2+0.2	8.0	10.1	3.2	5.0	6.0	43
+6	boss	4000	81	94	1.80	1.32	3.26	10.1	4.8+1.4+1.7+-0.2+0.6	3.8	14.9	4.0	5.0	6.3	0
+7	normal	6200	77	100	1.68	1.29	4.07	14.9	5.0+1.6+2.7+0.4+0.3	7.8	17.1	4.7	5.0	6.6	0
+8	pressure	9000	77	96	1.73	1.31	3.21	17.1	8.5+1.6+3.2+0.4+0.5	11.9	19.6	5.1	5.1	6.8	68
+9	boss	13500	73	96	1.63	1.37	4.23	19.6	4.9+1.8+3.5+-0.2+1.1	7.5	23.7	5.5	5.2	7.1	0
+10	normal	20000	70	100	1.52	1.49	6.16	23.7	5.0+2.0+4.3+0.5+0.5	11.3	24.7	6.0	5.3	7.3	0
+11	pressure	30000	70	99	1.67	1.46	4.33	24.7	8.8+1.9+4.6+0.8+0.9	15.8	25.8	6.3	5.5	7.4	75
+12	boss	52000	69	93	1.54	1.73	5.66	25.8	4.8+1.9+4.7+-0.0+1.2	10.0	29.0	6.8	5.6	7.6	0
+13	normal	96000	65	98	1.40	1.62	8.69	29.0	5.0+2.2+5.4+1.0+0.7	13.4	30.2	7.3	5.8	7.7	0
+14	pressure	170000	64	96	1.62	1.40	5.33	30.2	9.0+2.1+5.7+1.0+0.9	18.5	31.1	7.7	5.9	7.8	77
+15	boss	300000	61	91	1.52	1.63	5.50	31.1	4.9+2.1+5.8+0.6+1.2	11.5	35.2	8.3	6.0	7.8	0
+16	normal	540000	56	100	1.49	1.83	9.55	35.2	5.0+2.2+6.5+1.1+0.8	14.6	36.2	8.7	6.1	7.9	0
+17	pressure	940000	56	98	1.61	1.47	5.79	36.2	9.0+2.1+6.7+1.1+0.8	18.2	37.8	9.0	6.2	7.9	78
+18	boss	1500000	55	90	1.55	1.69	6.81	37.8	4.9+2.1+6.6+-0.9+0.8	12.3	39.8	9.3	6.3	7.9	0
+19	normal	2600000	49	97	1.49	2.01	10.71	39.8	5.0+2.3+7.2+0.7+0.6	14.5	41.3	9.5	6.3	8.0	0
+20	pressure	4200000	48	94	1.51	1.82	9.48	41.3	9.4+2.3+7.6+0.7+0.6	18.5	44.3	9.7	6.4	8.0	84
+21	boss	6400000	45	92	1.45	1.74	9.63	44.3	4.8+2.2+7.7+-0.2+0.6	14.2	46.0	9.8	6.4	8.0	0
+22	normal	10000000	42	100	1.42	2.13	22.61	46.0	5.0+2.3+7.9+0.4+0.3	16.1	45.9	9.8	6.5	8.0	0
+23	pressure	15000000	42	98	1.61	1.89	13.05	45.9	9.6+2.2+7.9+0.2+0.2	20.3	46.2	9.9	6.5	8.0	92
+24	boss	20000000	41	81	1.63	1.62	5.98	46.2	5.0+1.9+7.8+0.0+0.2	0.0	62.2	9.9	6.5	8.0	0
+
+clear rate by stage kind (stages reached / cleared):
+  normal    reached  1643  cleared  1622  98.7%
+  pressure  reached  1622  cleared  1564  96.4%
+  boss      reached  1564  cleared  1442  92.2%
+pressure challenge (x1.5 target, reward 10): offered 1622, accepted 983 (60.6%), cleared when accepted 98.8%, cleared when declined 92.8%
+  accepted % by stage: 2:15 5:43 8:68 11:75 14:77 17:78 20:84 23:92
+
+boss modifiers (faced = boss stages entered with it; lifted = by C131 or I08; clear% counts every stage faced; power = median estimate / target with the modifier in force; raw = without it):
+id	name	tier	faced	lifted	clear%	power/target	raw power/target	loss%
+B01	满员	1	61	0	89	2.59	2.82	5
+B02	徒手	1	70	1	94	4.06	4.06	0
+B03	苛税	1	57	0	93	3.25	3.25	0
+B04	白干	1	67	0	94	3.64	3.64	0
+B05	出头鸟	1	60	0	97	2.80	3.24	13
+B06	沉默	1	55	3	98	2.49	2.85	0
+B07	停滞	1	65	0	91	3.41	3.41	0
+B08	禁顺	1	61	0	97	3.10	3.11	0
+B09	急行军	2	54	4	100	4.64	5.99	23
+B10	窄门	2	40	4	90	3.39	4.74	32
+B11	厚墙	2	39	3	92	3.92	5.88	33
+B12	过路费	2	52	0	100	6.97	6.97	0
+B13	封奇	2	42	4	95	4.14	4.36	9
+B14	封偶	2	42	2	100	4.71	5.32	18
+B15	封小	2	40	0	98	9.32	9.53	5
+B16	封大	2	44	2	98	3.66	5.97	23
+B17	封红	2	51	2	94	4.58	5.16	6
+B18	封蓝	2	51	3	94	5.08	6.53	9
+B19	半吊子	2	28	6	93	4.35	8.69	50
+B20	小打小闹	2	41	3	98	2.91	4.77	41
+B21	不重样	2	42	1	100	9.45	11.58	27
+B22	褪红	2	30	3	97	3.76	5.19	10
+B23	褪蓝	2	35	0	100	3.95	5.26	1
+B24	削级	2	55	8	98	5.00	5.00	0
+B25	缴械	2	54	2	65	1.58	6.79	81
+B26	慢热	2	50	3	98	4.22	5.07	14
+B27	惜字如金	3	44	2	95	5.50	9.87	25
+B28	打回原形	3	30	2	83	4.19	8.49	52
+B29	凡人	3	46	6	59	1.40	8.88	87
+B30	强弩之末	3	36	7	97	5.10	8.27	35
+B31	天堑	4	16	1	100	7.57	15.14	50
+B32	孤掷	4	17	1	82	8.11	34.54	73
+B33	破釜沉舟	4	9	0	100	11.48	20.28	50
+B34	独木桥	4	14	2	86	9.27	80.78	75
+B35	返璞归真	4	11	1	73	5.22	21.98	88
+B36	色盲	4	16	2	81	3.60	32.05	83
+B37	万籁俱寂	4	16	7	44	0.16	17.78	99
+B38	隔行封印	4	13	1	85	3.79	11.23	59
+B39	釜底抽薪	4	10	1	90	5.39	34.92	70
+by tier: tier 1: faced 496, clear 94.0%  tier 2: faced 790, clear 94.7%  tier 3: faced 156, clear 82.7%  tier 4: faced 122, clear 81.1%
+
+boss loot (offered = shops with that loot kind; picks = offers taken; gold = took the gold option; none = took nothing):
+  L1 稀有卡牌	offered 346	took offers in 238 (69%)	gold 108 (31%)	none 0	picks: C101x36 C42x33 C47x24 C41x20 C33x18 C58x13 C130x11 C02x11 C09x10 C138x8 C44x7 C12x6
+    picks taken 238/346; per-shop counts: 0:108 1:238
+  L2 附魔卡牌	offered 277	took offers in 213 (77%)	gold 64 (23%)	none 0	picks: C95:slotlessx6 C87:slotlessx3 C150:mult2x3 C08:slotlessx3 C94:roll1x3 C46:mult2x3 C01:mult2x2 C39:slotlessx2 C62:slotlessx2 C150:slotlessx2 C106:roll1x2 C50:slotlessx2
+    picks taken 213/277; per-shop counts: 0:64 1:213
+  L3 牌型精研	offered 274	took offers in 141 (51%)	gold 133 (49%)	none 0	picks: up:all_bluex33 up:all_redx25 up:tripsx23 up:quadsx19 up:full_housex15 up:five_kindx11 up:two_pairx10 up:pairx3 up:straightx2
+    picks taken 141/274; per-shop counts: 0:133 1:141
+  L4 骰面工坊	offered 138	took offers in 26 (19%)	gold 112 (81%)	none 0	picks: U06x9 U09x8 U11x7 U10x7 U05x6 U03x4 U08x4 U04x2
+    picks taken 47/414; per-shop counts: 0:112 1:9 2:13 3:4
+  L5 特制骰子	offered 155	took offers in 52 (34%)	gold 103 (66%)	none 0	picks: diex52
+    picks taken 52/155; per-shop counts: 0:103 1:52
+  L6 道具补给	offered 153	took offers in 98 (64%)	gold 55 (36%)	none 0	picks: I09x41 I06x25 I11x22 I12x19 I02x19 I08x16 I07x16 I10x9 I01x7
+    picks taken 174/459; per-shop counts: 0:55 1:22 2:76
+controller gifts taken (C111 items, C113 die upgrades): I09x62 I06x54 I11x39 I07x39 I08x37 U06x20 I02x17 I12x16 U05x14 U10x11 U03x9 U11x8 I01x8 U08x7 U04x4 I10x3 U09x1
+items used per run: I01:0.03 I02:0.17 I06:0.34 I07:0.27 I08:0.26 I09:0.38 I10:0.02 I11:0.22 I12:0.12
+
+duplicate acquisitions: shelf=373/3817 (9.77%), loot=30/451 (6.65%)
+  terminal death: runs=201 total copies=1161 extra copies=78 runs with duplicates=59
+  terminal win: runs=99 total copies=983 extra copies=167 runs with duplicates=90
+most duplicated cards (shelf+loot acquisitions): C144:23+0 C01:19+1 C53:19+0 C49:17+1 C63:17+1 C95:13+1 C101:7+6 C28:13+0 C51:12+0 C46:12+0 C32:11+0 C30:10+1 C14:10+0 C147:10+0 C139:9+0
+
+other purchases	perRun	avgStage
+study	5.52	13.4
+refresh	3.09	17.9
+up	2.64	11.8
+die	2.28	6.1
+O11	1.23	15.5
+O08	0.87	11.8
+O05	0.84	8.3
+O10	0.80	13.4
+O09	0.69	14.2
+U11	0.30	11.5
+U09	0.26	10.6
+I08	0.19	10.1
+U03	0.18	13.3
+U05	0.18	10.3
+U04	0.17	9.4
+U06	0.14	14.2
+U10	0.14	14.1
+U08	0.13	11.3
+I06	0.11	12.1
+I07	0.09	11.6
+I09	0.08	9.2
+I02	0.06	9.1
+I12	0.06	14.0
+
+controller	rarity	price	shownPerRun	boughtPerRun	buy%ofShown	lootPerRun	grantedPerRun	avgStage	inFinalBuild%	inWinningBuild%
+C141 昙花一现	common	3	0.94	0.46	49	0.02	0.00	11.1	6	7
+C01 存钱罐	common	4	0.97	0.37	38	0.03	0.00	9.9	16	10
+C53 错乱乘积	uncommon	4	0.62	0.36	59	0.01	0.00	12.0	26	30
+C95 铁饭碗	common	5	0.66	0.34	52	0.03	0.00	10.8	15	4
+C46 稳稳乘数	uncommon	5	0.53	0.29	54	0.03	0.00	11.6	20	30
+C30 三条开泰	uncommon	4	0.67	0.28	42	0.01	0.00	11.3	14	18
+C76 越挫越勇	common	3	0.88	0.27	30	0.02	0.00	8.5	9	12
+C97 以战养战	uncommon	4	0.62	0.27	44	0.01	0.00	10.3	5	2
+C144 偶数为王	uncommon	4	0.62	0.28	45	0.00	0.00	10.8	18	30
+C133 赏金猎人	common	4	0.96	0.26	28	0.00	0.00	7.7	7	1
+C42 玻璃大炮	rare	6	0.21	0.14	67	0.12	0.00	14.6	10	16
+C63 收藏家	uncommon	5	0.44	0.22	51	0.03	0.00	14.2	16	29
+C101 双刃剑	rare	6	0.21	0.12	60	0.13	0.00	12.2	20	29
+C62 熟能生巧	common	3	0.90	0.23	26	0.01	0.00	9.6	11	16
+C94 表里如一	common	3	1.02	0.22	22	0.02	0.00	9.5	6	8
+C147 观众席	uncommon	4	0.56	0.22	40	0.01	0.00	13.7	13	26
+C77 孤注一掷	uncommon	5	0.52	0.21	41	0.01	0.00	12.8	14	16
+C14 只要奇数	uncommon	4	0.61	0.21	35	0.01	0.00	11.8	16	22
+C39 蓝色价值	common	3	1.06	0.21	20	0.01	0.00	6.5	5	3
+C59 余勇可贾	common	4	1.03	0.21	21	0.01	0.00	11.4	15	25
+C111 杂货郎	uncommon	4	0.59	0.22	37	0.01	0.00	9.2	7	2
+C50 稳稳分数	common	4	0.99	0.20	20	0.02	0.00	8.1	5	4
+C108 排头兵	common	3	0.98	0.21	22	0.00	0.00	7.7	6	4
+C139 富甲一方	uncommon	5	0.50	0.20	40	0.01	0.00	14.2	11	23
+C47 控制欲	rare	8	0.24	0.12	52	0.08	0.00	14.6	18	39
+C32 天地大同	uncommon	4	0.65	0.20	31	0.00	0.00	12.1	12	20
+C55 积少成多	common	4	0.97	0.20	20	0.01	0.00	9.5	9	10
+C41 百变模仿	rare	8	0.24	0.12	51	0.07	0.00	14.7	16	28
+C51 人员流动	uncommon	4	0.65	0.19	30	0.00	0.00	12.3	14	22
+C08 少数派	uncommon	4	0.63	0.18	29	0.01	0.00	9.9	8	9
+C45 飘忽不定	uncommon	4	0.64	0.17	27	0.01	0.00	9.1	5	4
+C106 对称美学	uncommon	5	0.48	0.17	35	0.01	0.00	13.4	12	19
+C27 对穿肠	common	3	0.88	0.17	19	0.01	0.00	7.7	5	1
+C49 千年老二	uncommon	3	0.58	0.18	30	0.00	0.00	10.8	10	17
+C28 对对穿肠	uncommon	4	0.72	0.16	22	0.01	0.00	10.6	9	14
+C13 就要奇数	common	2	0.91	0.16	18	0.00	0.00	7.6	3	2
+C150 渐入佳境	uncommon	5	0.41	0.14	35	0.02	0.00	11.8	9	16
+C70 板凳深度	common	3	0.89	0.15	17	0.00	0.00	10.7	6	11
+C52 成长基金	uncommon	4	0.67	0.14	22	0.00	0.00	9.2	6	0
+C130 逆流而上	rare	6	0.26	0.10	40	0.04	0.00	12.8	6	8
+C74 空城计	uncommon	5	0.45	0.12	28	0.02	0.00	13.6	11	24
+C84 成双成对	common	3	0.89	0.13	15	0.01	0.00	7.1	3	2
+C33 大数开路	rare	7	0.21	0.06	30	0.07	0.00	11.9	8	16
+C58 老当益壮	rare	8	0.25	0.08	32	0.05	0.00	14.2	11	20
+C85 三足鼎立	common	4	0.91	0.13	14	0.00	0.00	8.5	2	2
+C10 少就是多	common	3	0.92	0.11	12	0.01	0.00	6.9	4	3
+C148 见好就收	uncommon	4	0.63	0.11	17	0.01	0.00	12.1	6	7
+C72 厚积薄发	uncommon	4	0.60	0.11	18	0.00	0.00	9.3	3	4
+C153 开门红	uncommon	4	0.58	0.11	18	0.01	0.00	12.4	3	2
+C02 蓝色疯狂	rare	7	0.26	0.07	27	0.04	0.00	11.8	9	12
+C09 简化提交	rare	7	0.24	0.07	30	0.04	0.00	13.3	8	12
+C06 数字多多	uncommon	4	0.64	0.10	15	0.00	0.00	9.2	5	6
+C17 小鬼当家	uncommon	3	0.63	0.10	15	0.00	0.00	8.2	3	3
+C48 有也不交	common	3	0.91	0.09	10	0.00	0.00	7.4	3	1
+C56 深蓝	uncommon	5	0.50	0.09	18	0.01	0.00	10.3	6	9
+C44 有钱真好	rare	6	0.28	0.07	24	0.02	0.00	13.7	5	6
+C107 顺藤摸瓜	common	3	1.06	0.08	8	0.01	0.00	7.4	3	1
+C129 屠龙者	uncommon	5	0.42	0.08	20	0.01	0.00	10.9	6	10
+C152 草根逆袭	uncommon	5	0.45	0.08	19	0.01	0.00	14.6	3	4
+C113 铁匠铺	uncommon	5	0.48	0.08	16	0.01	0.00	10.0	3	0
+C102 背水一战	uncommon	5	0.49	0.07	14	0.01	0.00	12.2	3	3
+C138 一掷千金	rare	6	0.18	0.04	24	0.04	0.00	13.8	4	7
+C31 四平八稳	rare	6	0.20	0.06	31	0.02	0.00	15.0	6	5
+C43 牌型提升	rare	6	0.28	0.05	18	0.02	0.00	8.1	1	0
+C75 一锤定音	uncommon	5	0.47	0.07	15	0.00	0.00	9.5	2	3
+C110 百宝袋	uncommon	5	0.41	0.07	16	0.00	0.00	11.5	2	1
+C03 首当其冲	common	2	0.97	0.06	7	0.00	0.00	9.4	2	2
+C20 66大顺	common	2	0.91	0.06	7	0.01	0.00	9.3	1	0
+C104 红蓝相间	uncommon	4	0.69	0.06	9	0.00	0.00	8.2	2	4
+C109 中流砥柱	uncommon	4	0.68	0.07	10	0.00	0.00	6.8	3	1
+C40 不断增加	uncommon	4	0.54	0.06	12	0.00	0.00	7.0	4	3
+C57 红火	uncommon	5	0.47	0.06	13	0.00	0.00	13.2	3	5
+C96 利滚利	uncommon	5	0.38	0.06	17	0.00	0.00	13.6	2	0
+C122 见五成群	uncommon	4	0.65	0.06	10	0.00	0.00	9.1	2	1
+C132 高压锅	uncommon	5	0.42	0.05	12	0.01	0.00	14.6	4	5
+C64 一马当先	common	4	1.00	0.06	6	0.00	0.00	9.9	2	2
+C34 大数致胜	uncommon	3	0.70	0.05	7	0.00	0.00	11.1	2	3
+C124 灌铅	rare	6	0.23	0.03	14	0.02	0.00	7.5	2	1
+C38 蓝色扩散	common	2	1.02	0.05	5	0.00	0.00	11.8	2	1
+C131 替罪羊	uncommon	4	0.59	0.04	7	0.01	0.00	11.2	1	0
+C12 不要奇数	rare	5	0.27	0.02	9	0.02	0.00	11.9	3	3
+C79 多交一手	rare	7	0.21	0.02	11	0.02	0.00	18.9	1	2
+C118 表里同色	uncommon	4	0.60	0.04	7	0.00	0.00	13.5	1	0
+C18 红蓝相当	uncommon	3	0.59	0.04	7	0.00	0.00	7.2	3	1
+C116 招兵买马	uncommon	4	0.69	0.04	6	0.00	0.00	8.8	1	0
+C151 留白	rare	6	0.23	0.02	9	0.02	0.00	3.8	1	0
+C19 小头大用	common	2	0.85	0.04	4	0.00	0.00	13.8	1	2
+C22 大量提交	rare	6	0.26	0.03	10	0.01	0.00	15.6	2	0
+C82 满堂彩	uncommon	5	0.47	0.03	7	0.00	0.00	9.2	2	3
+C114 点化	rare	6	0.22	0.02	11	0.01	0.00	9.4	2	0
+C123 二三其德	uncommon	4	0.59	0.04	6	0.00	0.00	8.1	1	0
+C126 养精蓄锐	uncommon	4	0.66	0.04	6	0.00	0.00	10.7	1	0
+C78 再给一次	uncommon	5	0.55	0.03	5	0.01	0.00	14.5	1	2
+C87 得寸进尺	rare	8	0.23	0.02	7	0.02	0.00	12.8	2	2
+C65 压轴好戏	uncommon	5	0.50	0.03	6	0.00	0.00	12.8	2	2
+C135 囤积居奇	common	3	0.82	0.03	4	0.00	0.00	13.8	1	0
+C136 雇佣兵	uncommon	5	0.45	0.03	6	0.00	0.00	11.5	2	1
+C11 2233	uncommon	4	0.58	0.03	5	0.00	0.00	10.4	1	0
+C21 增加提交	uncommon	4	0.64	0.03	4	0.00	0.00	15.6	1	1
+C54 连庄	rare	6	0.25	0.02	9	0.00	0.00	15.3	2	3
+C61 学无止境	uncommon	5	0.46	0.02	5	0.00	0.00	14.9	2	2
+C68 谢幕	uncommon	4	0.65	0.02	3	0.01	0.00	12.8	0	0
+C88 杂牌军	uncommon	4	0.63	0.03	4	0.00	0.00	12.6	1	3
+C98 砍价高手	uncommon	5	0.42	0.02	6	0.00	0.00	9.6	1	0
+C143 好事成双	uncommon	4	0.63	0.03	4	0.00	0.00	8.0	1	2
+C112 滥竽充数	uncommon	4	0.62	0.02	4	0.00	0.00	8.0	0	0
+C140 回收大王	uncommon	4	0.59	0.02	4	0.00	0.00	13.0	0	0
+C29 简单顺子	uncommon	4	0.68	0.02	3	0.00	0.00	11.5	1	2
+C35 小数出奇	uncommon	3	0.55	0.02	4	0.00	0.00	13.5	1	0
+C73 场外红人	rare	7	0.21	0.01	6	0.01	0.00	16.8	1	2
+C80 天生一对	uncommon	4	0.65	0.02	3	0.00	0.00	7.4	1	0
+C90 玻璃心	uncommon	4	0.66	0.02	3	0.00	0.00	14.4	1	0
+C105 泾渭分明	uncommon	4	0.63	0.02	3	0.00	0.00	5.8	0	0
+C120 拔苗助长	rare	7	0.24	0.01	4	0.01	0.00	11.3	0	0
+C125 抛光匠	common	3	0.89	0.02	2	0.00	0.00	11.4	1	1
+C24 我是状元	uncommon	3	0.61	0.02	3	0.00	0.00	14.0	0	0
+C83 顺水推舟	uncommon	5	0.46	0.02	4	0.00	0.00	10.8	2	2
+C86 三三得九	uncommon	5	0.46	0.02	4	0.00	0.00	18.0	1	0
+C99 聚宝盆	uncommon	5	0.41	0.01	3	0.00	0.00	15.0	0	0
+C134 物尽其用	uncommon	4	0.57	0.01	2	0.00	0.00	10.0	1	0
+C146 锦上添红	uncommon	5	0.50	0.02	3	0.00	0.00	14.2	0	1
+C15 红色扩散	uncommon	2	0.55	0.01	2	0.00	0.00	7.2	0	0
+C67 掷地有声	uncommon	5	0.45	0.01	1	0.01	0.00	13.0	1	2
+C91 纹理大师	common	3	0.91	0.01	1	0.01	0.00	9.0	0	0
+C115 无心插柳	common	3	0.92	0.01	1	0.00	0.00	6.5	0	0
+C121 大事化小	uncommon	4	0.64	0.01	2	0.00	0.00	13.5	0	0
+C36 不断成长	uncommon	3	0.67	0.01	1	0.00	0.00	8.3	0	0
+C37 缩小射线	uncommon	3	0.67	0.01	1	0.00	0.00	6.5	0	0
+C66 小小回声	uncommon	5	0.41	0.01	2	0.00	0.00	15.0	0	0
+C71 幕后推手	rare	7	0.21	0.00	2	0.00	0.00	15.0	0	1
+C127 移花接木	uncommon	5	0.41	0.01	2	0.00	0.00	15.5	0	0
+C137 客串明星	common	3	0.88	0.00	0	0.00	0.00	23.0	0	0
+C149 单刀赴会	uncommon	4	0.69	0.01	1	0.00	0.00	17.5	0	0
+C05 再来三次	rare	6	0.24	0.00	1	0.00	0.00	14.0	0	0
+C26 红色主义	uncommon	3	0.63	0.00	1	0.00	0.00	14.0	0	0
+C60 千锤百炼	uncommon	5	0.46	0.00	1	0.00	0.00	5.0	0	0
+C69 红色共鸣	rare	7	0.24	0.00	0	0.00	0.00	NaN	0	0
+C92 纯色主义	uncommon	4	0.64	0.00	1	0.00	0.00	15.0	0	0
+C103 精兵简政	uncommon	5	0.45	0.00	1	0.00	0.00	15.0	0	1
+C117 点金手	rare	6	0.24	0.00	1	0.00	0.00	17.0	0	0
+C142 一条龙	uncommon	4	0.60	0.00	1	0.00	0.00	14.0	0	1
+C145 防碎膜	uncommon	4	0.60	0.00	1	0.00	0.00	8.0	0	0
+C07 骰子复制	uncommon	3	0.76	0.00	0	0.00	0.00	NaN	0	0
+C25 红运当头	rare	6	0.25	0.00	0	0.00	0.00	NaN	0	0
+C81 散兵游勇	uncommon	4	0.64	0.00	0	0.00	0.00	NaN	0	0
+C89 金玉满堂	rare	7	0.24	0.00	0	0.00	0.00	NaN	0	0
+C93 始终如一	uncommon	5	0.47	0.00	0	0.00	0.00	NaN	0	0
+C100 祭坛	rare	6	0.21	0.00	0	0.00	0.00	NaN	0	0
+C119 潜移默化	rare	7	0.21	0.00	0	0.00	0.00	NaN	0	0
+C128 吹玻璃	uncommon	4	0.65	0.00	0	0.00	0.00	NaN	0	0
+
+controllers never bought: C07 C25 C69 C81 C89 C93 C100 C119 C128
+
+most present in winning builds (share of winning runs holding it at the last stage):
+  C47 控制欲 39%  C53 错乱乘积 30%  C46 稳稳乘数 30%  C144 偶数为王 30%  C63 收藏家 29%  C101 双刃剑 29%  C41 百变模仿 28%  C147 观众席 26%  C59 余勇可贾 25%  C74 空城计 24%  C139 富甲一方 23%  C51 人员流动 22%  C14 只要奇数 22%  C58 老当益壮 20%  C32 天地大同 20%  C106 对称美学 19%  C30 三条开泰 18%  C49 千年老二 17%  C42 玻璃大炮 16%  C33 大数开路 16%
+
+deaths by stage: 1:5 2:9 3:19 4:9 5:14 6:14 8:10 9:9 11:3 12:14 13:3 14:7 15:16 17:4 18:16 19:4 20:8 21:11 23:3 24:23
+death share by four-stage block (% of all deaths): 1-4: 21%  5-8: 19%  9-12: 13%  13-16: 13%  17-20: 16%  21-24: 18%
+death share by four-stage block (% of all runs):   1-4: 14%  5-8: 13%  9-12: 9%  13-16: 9%  17-20: 11%  21-24: 12%
+deaths by stage kind: boss:122 pressure:58 normal:21
+stage 24: median power/target before the final-boss modifier 23.32, with it 4.94   clear% stages 1-24: 98 97 93 97 95 94 100 96 96 100 99 93 98 96 91 100 98 90 97 94 92 100 98 81
+fail reasons: SubmissionsExhausted:201
