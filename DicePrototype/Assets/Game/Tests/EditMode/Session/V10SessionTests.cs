@@ -985,28 +985,35 @@ namespace DiceCraft.Tests
             Assert.That(items.State.inventory.Select(i => i.contentId), Does.Contain(supply[0].contentId));
         }
 
-        [Test] public void V11_AMultiPickLootHoldsTheShopUntilEveryPickIsTakenOrNothingClaimableIsLeft()
+        // Rewritten after the coordinator's decision of 2026-11-16 (RULES_DELTA 2.1 and 5.3; was
+        // V11_AMultiPickLootHoldsTheShopUntilEveryPickIsTakenOrNothingClaimableIsLeft): the first pick unlocks the shop,
+        // the remaining picks stay claimable in this shop and are forfeited when the player leaves it.
+        [Test] public void V11_AMultiPickLootUnlocksTheShopAtTheFirstPickAndKeepsTheRestClaimableUntilLeaving()
         {
             Func<GameSession, ShopOffer, GameSession> claim = (s, upgrade) =>
             {
                 var target = s.State.dice.SelectMany(d => d.faces.Select(f => new { d.dieId, f.faceId })).First(t => s.IsUpgradeTargetLegal(upgrade.contentId, t.dieId, t.faceId));
                 Do(s, CommandKind.Buy, c => { c.offerId = upgrade.offerId; c.targetDieId = target.dieId; c.targetFaceId = target.faceId; }); return s;
             };
-            var all = LootShop("L4"); var upgrades = Loot(all).Where(o => o.category == "die_upgrade").ToArray(); Assert.That(all.ShopGroups().Single().picks, Is.EqualTo(3));
-            claim(all, upgrades[0]); Assert.That(all.IsLootPending, Is.True, "two picks are left");
-            var leave = all.Execute(Command(all, CommandKind.LeaveShop)); Assert.That(leave.error, Is.EqualTo("先领取首领战利品。"));
-            claim(all, upgrades[1]); claim(all, upgrades[2]); Assert.That(all.IsLootPending, Is.False); Do(all, CommandKind.LeaveShop);
-            // After a pick, offers that can no longer be claimed at all do not hold the player: here every die is glass and
-            // every face is gold, smooth and red, so glass, gold, polish and red dye have no target left anywhere.
-            var stuck = LootShop("L4"); var first = Loot(stuck).First(o => o.category == "die_upgrade"); claim(stuck, first);
-            string[] dead = new[] { "U05", "U06", "U01", "U03" }.Where(id => id != first.contentId).Take(2).ToArray();
-            stuck = Edit(stuck, x =>
-            {
-                var rest = x.shop.offers.Where(o => o.groupId == "LOOT" && o.category == "die_upgrade" && !o.sold).ToArray();
-                for (int i = 0; i < rest.Length; i++) rest[i].contentId = dead[i];
-                foreach (var d in x.dice) { d.isGlass = true; foreach (var f in d.faces) { f.isGold = true; f.texture = "smooth"; f.baseColor = "red"; } }
-            });
-            Assert.That(stuck.IsLootPending, Is.False); Do(stuck, CommandKind.LeaveShop);
+            var shop = LootShop("L4", x => x.gold = 50); var upgrades = Loot(shop).Where(o => o.category == "die_upgrade").ToArray();
+            Assert.That(shop.ShopGroups().Single().picks, Is.EqualTo(3)); Assert.That(shop.IsLootPending, Is.True);
+            claim(shop, upgrades[0]);
+            Assert.That(shop.IsLootPending, Is.False, "the first pick unlocks the shop");
+            Assert.That(shop.ShopGroups().Single().picked, Is.EqualTo(1)); Assert.That(shop.ShopGroups().Single().closed, Is.False);
+            Assert.That(shop.PurchaseError(Shelf(shop.State).First().offerId), Is.Not.EqualTo("先领取首领战利品。"));
+            Do(shop, CommandKind.RefreshControllers);
+            // The other picks can still be taken in this shop; the gold cannot, since something was already picked.
+            var cash = Command(shop, CommandKind.Buy); cash.offerId = Loot(shop).Single(o => o.category == "gold").offerId;
+            Assert.That(shop.Execute(cash).error, Is.EqualTo("已经领取过战利品，不能再折现。"));
+            claim(shop, upgrades[1]); Assert.That(shop.ShopGroups().Single().picked, Is.EqualTo(2));
+            Do(shop, CommandKind.LeaveShop); Assert.That(shop.State.phase, Is.EqualTo("StagePreview")); Assert.That(shop.State.shop, Is.Null, "the third pick is forfeited");
+            // Item loot with two item slots: two picks fill the slots and the third does not hold the player, so nothing has
+            // to be sold before leaving.
+            var items = LootShop("L6"); var supply = Loot(items).Where(o => o.category == "consumable").ToArray();
+            Do(items, CommandKind.Buy, c => c.offerId = supply[0].offerId); Do(items, CommandKind.Buy, c => c.offerId = supply[1].offerId);
+            Assert.That(items.IsLootPending, Is.False); Assert.That(items.ShopGroups().Single().closed, Is.False);
+            var third = Command(items, CommandKind.Buy); third.offerId = supply[2].offerId; Assert.That(items.Execute(third).accepted, Is.False, "two of two item slots are taken");
+            Do(items, CommandKind.LeaveShop); Assert.That(items.State.inventory.Count, Is.EqualTo(2));
         }
     }
 }

@@ -259,28 +259,17 @@ namespace DiceCraft.Core
 
         // ---- v1.1 boss loot first (DEV_PLAN 4.4) ----
         /// <summary>
-        /// v1.1: the boss loot of this shop has not been resolved yet: the LOOT group is open, picks remain and it was not
-        /// cashed out (cashing out closes the group). While it is pending, the shop only accepts claims from the LOOT group
-        /// (the cash-out included), sales and controller reordering. A group whose remaining offers can no longer be
-        /// claimed at all (after at least one pick) does not hold the player, so the shop can never lock up.
+        /// v1.1: the player has not engaged with the boss loot of this shop yet: the LOOT group is open (cashing out
+        /// closes it) and nothing has been picked. While it is pending, the shop only accepts claims from the LOOT group
+        /// (the cash-out included), sales and controller reordering. The first pick unlocks the shop; the remaining picks
+        /// of a multi-pick group stay claimable in this shop and are forfeited when the player leaves it. The cash-out is
+        /// always available before the first pick, so the gate can never lock the shop up.
         /// </summary>
         private bool LootPending(RunState s)
         {
             if (s == null || s.phase != "Shop" || s.shop == null || s.shop.groups == null) return false;
             var group = s.shop.groups.FirstOrDefault(g => g.groupId == "LOOT");
-            if (group == null || group.closed || group.picked >= group.picks) return false;
-            return group.picked == 0 || s.shop.offers.Any(o => o.groupId == group.groupId && !o.sold && o.category != "gold" && LootOfferClaimable(s, o));
-        }
-        /// <summary>Whether a loot offer could still be taken, after selling to make room if needed.</summary>
-        private bool LootOfferClaimable(RunState s, ShopOffer offer)
-        {
-            switch (offer.category)
-            {
-                case "die_upgrade": return HasUpgradeTarget(s, offer.contentId);
-                case "hand_upgrade": return IsHandLegal(s, offer.contentId);
-                case "new_die": return ServiceLegal(s, "O03");
-                default: return true; // controllers and items: selling frees the room
-            }
+            return group != null && !group.closed && group.picked == 0;
         }
         private void RequireLootResolved(RunState s) { Check(!LootPending(s), "先领取首领战利品。"); }
         /// <summary>v1.1: true while the boss loot must be claimed or cashed out before anything else in the shop.</summary>
