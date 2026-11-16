@@ -8,6 +8,11 @@ from v11_text import extract
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE = ROOT / "tools/balance_sim/baseline/P0Config.p1.0.0.json"
 TARGET = ROOT / "DicePrototype/Assets/Game/Data/P0Config.json"
+# p1.1.0 removes fields that only described the p1.0.0 "one copy per card, buying replaces" rule; no rule code read them
+# (docs/specs/v11/RULES_DELTA.md section 9). Their removal is the only non-text change besides configVersion.
+REMOVED_CONTROLLER_FIELDS = ("maxOwnedNormal",)
+REMOVED_SHOP_FIELDS = ("controllersUniqueOwned", "allowDifferentEnchantReplacement", "replacementCredit",
+                       "replacementCountsAsOneControllerSale", "firstControllerGuaranteeUnownedOnly")
 
 
 def build(base=None, content=None):
@@ -49,6 +54,11 @@ def build(base=None, content=None):
                     output["shortText"] = text["shortText"]
                     output["details"] = text["details"]
             cfg[category][index] = output
+    for entry in cfg["controllers"]:
+        for key in REMOVED_CONTROLLER_FIELDS:
+            del entry[key]
+    for key in REMOVED_SHOP_FIELDS:
+        del cfg["shop"][key]
     return cfg
 
 

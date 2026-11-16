@@ -40,8 +40,11 @@ class V11ConfigTests(unittest.TestCase):
         self.assertEqual(len(self.audit["reusedCurrentTextIds"]), 50)
         # v1.1 coordinator decision: an empty appendix detail stays empty instead of repeating the short text.
         self.assertEqual(len(self.audit["emptyDetailsIds"]), 75)
+        overridden = {(o["id"], o["field"]) for o in self.audit["overrides"]}
         for category in self.content.values():
             for row in category:
+                if (row["id"], "details") in overridden:
+                    continue  # coordinator overrides (tools/v11_text/overrides.json) are checked separately
                 if row["id"] in self.audit["emptyDetailsIds"]:
                     self.assertEqual(row["details"], "")
                 else:
@@ -68,7 +71,39 @@ class V11ConfigTests(unittest.TestCase):
                     self.assertEqual(new["displayName"], old["displayName"].replace("控制器", "卡牌"))
                     new["displayName"] = old["displayName"]
         self.assertEqual(changed_names, ["L1", "L2"])
-        self.assertEqual(restored, self.base)
+        # p1.1.0 also removes the fields that only described the old replacement rule (RULES_DELTA section 9).
+        expected = copy.deepcopy(self.base)
+        for entry in expected["controllers"]:
+            for key in v11_config.REMOVED_CONTROLLER_FIELDS:
+                self.assertIn(key, entry)
+                del entry[key]
+        for key in v11_config.REMOVED_SHOP_FIELDS:
+            self.assertIn(key, expected["shop"])
+            del expected["shop"][key]
+        for entry in output["controllers"]:
+            self.assertFalse(set(v11_config.REMOVED_CONTROLLER_FIELDS) & set(entry))
+        self.assertFalse(set(v11_config.REMOVED_SHOP_FIELDS) & set(output["shop"]))
+        self.assertEqual(restored, expected)
+
+    def test_overrides_apply_exactly_and_are_audited(self):
+        applied = {(o["id"], o["field"]): o for o in self.audit["overrides"]}
+        self.assertEqual(set(applied), {("C51", "details"), ("C98", "details"), ("L1", "details"), ("L2", "details")})
+        rows = {row["id"]: row for group in self.content.values() for row in group}
+        for (item_id, field), record in applied.items():
+            self.assertEqual(rows[item_id][field], record["after"])
+            self.assertTrue(record["reason"].strip())
+        self.assertNotIn("以旧换新", rows["C51"]["details"] + rows["C98"]["details"])
+
+    def test_stale_or_unexplained_overrides_are_rejected(self):
+        good = {"id": "C98", "field": "details", "from": "不影响卖价和以旧换新的抵扣。", "to": "不影响卖价。", "reason": "test"}
+        for bad in (dict(good, **{"from": "不是原文"}), dict(good, reason=" "), dict(good, id="C999"),
+                    dict(good, field="displayName"), dict(good, to=" "), dict(good, field="shortText", to="")):
+            with self.subTest(bad=bad), self.assertRaises(ValueError):
+                extract.extract(overrides=[bad])
+        with self.assertRaises(ValueError):
+            extract.extract(overrides=[good, good])
+        content, audit = extract.extract(overrides=[good])
+        self.assertEqual([o["id"] for o in audit["overrides"]], ["C98"])
 
     def test_generated_files_are_reproducible_utf8_lf(self):
         for path, value in ((extract.CONTENT, self.content), (extract.AUDIT, self.audit),

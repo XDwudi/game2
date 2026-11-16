@@ -210,7 +210,7 @@ namespace DiceCraft.Core
         public string rarity;
         public int offerWeight;
         public string trigger;
-        public int maxOwnedNormal;
+        // v1.1: maxOwnedNormal removed (same-name cards may be held more than once; RULES_DELTA section 9).
         public bool scoreEnchantEligible;
         public ControllerParameters parameters;
         public string description;
@@ -488,12 +488,9 @@ namespace DiceCraft.Core
         public int selfStudyLimit;
         public int selfStudyPremium;
         public int upgradePricePerExistingLevel;
-        public bool controllersUniqueOwned;
-        public bool allowDifferentEnchantReplacement;
-        public string replacementCredit;
-        public bool replacementCountsAsOneControllerSale;
+        // v1.1: controllersUniqueOwned, allowDifferentEnchantReplacement, replacementCredit,
+        // replacementCountsAsOneControllerSale and firstControllerGuaranteeUnownedOnly removed with the replacement rule.
         public int firstControllerGuaranteeMaxBasePrice;
-        public bool firstControllerGuaranteeUnownedOnly;
         public ControllerWeights controllerWeights;
         public string sellingWindow;
         public string[] discountCategories;

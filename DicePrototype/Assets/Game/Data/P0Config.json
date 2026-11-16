@@ -448,7 +448,6 @@
       "rarity": "common",
       "offerWeight": 6,
       "trigger": "SubmitAndStageSettlement",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "goldPerValidSubmission": 1,
@@ -467,7 +466,6 @@
       "rarity": "rare",
       "offerWeight": 2,
       "trigger": "ScoreMultiply",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "scoreMultiplier": 3
@@ -485,7 +483,6 @@
       "rarity": "common",
       "offerWeight": 6,
       "trigger": "EffectiveColor",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "index": 0
@@ -503,7 +500,6 @@
       "rarity": "rare",
       "offerWeight": 2,
       "trigger": "AfterRoll",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": false,
       "parameters": {
         "rollGrant": 3,
@@ -525,7 +521,6 @@
       "rarity": "uncommon",
       "offerWeight": 4,
       "trigger": "ScoreMultiply",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "minDistinct": 3,
@@ -544,7 +539,6 @@
       "rarity": "uncommon",
       "offerWeight": 4,
       "trigger": "AfterScore",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "submissionOrdinal": 0,
@@ -565,7 +559,6 @@
       "rarity": "uncommon",
       "offerWeight": 4,
       "trigger": "ScoreMultiply",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "scoreMultiplier": 2
@@ -583,7 +576,6 @@
       "rarity": "rare",
       "offerWeight": 2,
       "trigger": "CapacityAndScore",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "capacityDelta": -1,
@@ -602,7 +594,6 @@
       "rarity": "common",
       "offerWeight": 6,
       "trigger": "PipContribution",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "pip": 1,
@@ -621,7 +612,6 @@
       "rarity": "uncommon",
       "offerWeight": 4,
       "trigger": "ScoreMultiply",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "requiredCounts": {
@@ -643,7 +633,6 @@
       "rarity": "rare",
       "offerWeight": 2,
       "trigger": "EffectivePip",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "oddToEvenAdd": 1,
@@ -662,7 +651,6 @@
       "rarity": "common",
       "offerWeight": 6,
       "trigger": "PipContribution",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "oddPerDieAdd": 4
@@ -680,7 +668,6 @@
       "rarity": "uncommon",
       "offerWeight": 4,
       "trigger": "ScoreMultiply",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "scoreMultiplier": 3
@@ -698,7 +685,6 @@
       "rarity": "uncommon",
       "offerWeight": 4,
       "trigger": "AfterScore",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "scanAllInteriorIndices": true,
@@ -722,7 +708,6 @@
       "rarity": "uncommon",
       "offerWeight": 4,
       "trigger": "PipContribution",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "pips": [
@@ -745,7 +730,6 @@
       "rarity": "uncommon",
       "offerWeight": 4,
       "trigger": "ScoreMultiply",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "scoreMultiplier": 4
@@ -763,7 +747,6 @@
       "rarity": "common",
       "offerWeight": 6,
       "trigger": "PipContribution",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "maxPermanentSixFaceSum": 13,
@@ -782,7 +765,6 @@
       "rarity": "common",
       "offerWeight": 6,
       "trigger": "PipContribution",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "lastActualCapacitySlotPip": 6,
@@ -802,7 +784,6 @@
       "rarity": "uncommon",
       "offerWeight": 4,
       "trigger": "Capacity",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": false,
       "parameters": {
         "capacityDelta": 1
@@ -820,7 +801,6 @@
       "rarity": "rare",
       "offerWeight": 2,
       "trigger": "Capacity",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": false,
       "parameters": {
         "capacityDelta": 2
@@ -838,7 +818,6 @@
       "rarity": "uncommon",
       "offerWeight": 4,
       "trigger": "RedGrouping",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "redGroupKeyFrom": 1,
@@ -858,7 +837,6 @@
       "rarity": "rare",
       "offerWeight": 2,
       "trigger": "RedGrouping",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "mergeAllEffectiveRed": true,
@@ -877,7 +855,6 @@
       "rarity": "uncommon",
       "offerWeight": 4,
       "trigger": "AfterScore",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "requiredDice": 1,
@@ -896,7 +873,6 @@
       "rarity": "common",
       "offerWeight": 6,
       "trigger": "BaseAdd",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "baseAddPerDistinctPairedPip": 10,
@@ -915,7 +891,6 @@
       "rarity": "uncommon",
       "offerWeight": 4,
       "trigger": "ScoreMultiply",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "minDistinctPairs": 2,
@@ -934,7 +909,6 @@
       "rarity": "uncommon",
       "offerWeight": 4,
       "trigger": "HandRule",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "minimumStraightLength": 4,
@@ -953,7 +927,6 @@
       "rarity": "uncommon",
       "offerWeight": 4,
       "trigger": "ScoreMultiply",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "minSamePip": 3,
@@ -972,7 +945,6 @@
       "rarity": "rare",
       "offerWeight": 2,
       "trigger": "ScoreMultiply",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "minSamePip": 4,
@@ -991,7 +963,6 @@
       "rarity": "uncommon",
       "offerWeight": 4,
       "trigger": "ScoreMultiply",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "distinctPips": 1,
@@ -1010,7 +981,6 @@
       "rarity": "rare",
       "offerWeight": 2,
       "trigger": "ScoreMultiply",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "minDice": 2,
@@ -1030,7 +1000,6 @@
       "rarity": "uncommon",
       "offerWeight": 4,
       "trigger": "RollProbability",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": false,
       "parameters": {
         "targetPips": [
@@ -1053,7 +1022,6 @@
       "rarity": "uncommon",
       "offerWeight": 4,
       "trigger": "RollProbability",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": false,
       "parameters": {
         "targetPips": [
@@ -1076,7 +1044,6 @@
       "rarity": "uncommon",
       "offerWeight": 4,
       "trigger": "AfterScore",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "minDice": 2,
@@ -1100,7 +1067,6 @@
       "rarity": "uncommon",
       "offerWeight": 4,
       "trigger": "AfterScore",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "minDice": 2,
@@ -1124,7 +1090,6 @@
       "rarity": "common",
       "offerWeight": 6,
       "trigger": "AfterScore",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "targetIndices": "first_and_last_distinct",
@@ -1143,7 +1108,6 @@
       "rarity": "common",
       "offerWeight": 6,
       "trigger": "PipContribution",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "effectiveColor": "blue",
@@ -1162,7 +1126,6 @@
       "rarity": "uncommon",
       "offerWeight": 4,
       "trigger": "ScoreMultiply",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "indices": [
@@ -1186,7 +1149,6 @@
       "rarity": "rare",
       "offerWeight": 2,
       "trigger": "Proxy",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "target": "immediate_right_at_stage_start",
@@ -1209,7 +1171,6 @@
       "rarity": "rare",
       "offerWeight": 2,
       "trigger": "ScoreAndAfterSubmit",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "scoreMultiplier": 5,
@@ -1229,7 +1190,6 @@
       "rarity": "rare",
       "offerWeight": 2,
       "trigger": "AfterScore",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "samePrimaryHandAsPreviousValidSubmit": true,
@@ -1250,7 +1210,6 @@
       "rarity": "rare",
       "offerWeight": 2,
       "trigger": "BaseAdd",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "baseAddPerFrozenGold": 1
@@ -1268,7 +1227,6 @@
       "rarity": "uncommon",
       "offerWeight": 4,
       "trigger": "PipMultiplyAndAfterSubmit",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "matchingDieContributionMultiplier": 3,
@@ -1293,7 +1251,6 @@
       "rarity": "uncommon",
       "offerWeight": 4,
       "trigger": "ScoreMultiply",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "scoreMultiplier": 2
@@ -1311,7 +1268,6 @@
       "rarity": "rare",
       "offerWeight": 2,
       "trigger": "ScoreMultiply",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "factor": "actual_alive_controller_instances_in_snapshot",
@@ -1330,7 +1286,6 @@
       "rarity": "common",
       "offerWeight": 6,
       "trigger": "BaseAdd",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "baseAddPerEmptySubmitSlot": 10
@@ -1348,7 +1303,6 @@
       "rarity": "uncommon",
       "offerWeight": 4,
       "trigger": "ScoreMultiply",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "factor": "effective_pip_5_count",
@@ -1367,7 +1321,6 @@
       "rarity": "common",
       "offerWeight": 6,
       "trigger": "BaseAdd",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "baseAdd": 20
@@ -1385,7 +1338,6 @@
       "rarity": "uncommon",
       "offerWeight": 4,
       "trigger": "ScoreAndAfterSale",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "initialMultiplierUnits2": 3,
@@ -1396,7 +1348,7 @@
       },
       "description": "整手得分×n；真实实例n初始1.5，每家商店第一次真实卖出一件控制器后，仍持有的真实C51各增加0.5，同一家商店之后的卖出不再成长；自毁不是卖出。",
       "shortText": "得分倍率从×1.5起，每家店首次卖出卡牌后+0.5。",
-      "details": "同一家店再卖不再增加；以旧换新也算卖出；卡牌自毁、被祭坛摧毁不算；被百变模仿复制时共用同一个倍率。"
+      "details": "同一家店再卖不再增加；卡牌自毁、被祭坛摧毁不算；被百变模仿复制时共用同一个倍率。"
     },
     {
       "id": "C52",
@@ -1407,7 +1359,6 @@
       "rarity": "uncommon",
       "offerWeight": 4,
       "trigger": "StageFinalize",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": false,
       "parameters": {
         "baseBuyPrice": 4,
@@ -1427,7 +1378,6 @@
       "rarity": "uncommon",
       "offerWeight": 4,
       "trigger": "RandomScoreMultiply",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "factorUnits2": [
@@ -1458,7 +1408,6 @@
       "rarity": "rare",
       "offerWeight": 2,
       "trigger": "GrowthMultiply",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "growthPerEvent": 3
@@ -1476,7 +1425,6 @@
       "rarity": "common",
       "offerWeight": 6,
       "trigger": "GrowthBase",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "growthPerEvent": 2
@@ -1494,7 +1442,6 @@
       "rarity": "uncommon",
       "offerWeight": 4,
       "trigger": "GrowthMultiply",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "growthPerEvent": 2
@@ -1512,7 +1459,6 @@
       "rarity": "uncommon",
       "offerWeight": 4,
       "trigger": "GrowthMultiply",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "growthPerEvent": 3,
@@ -1531,7 +1477,6 @@
       "rarity": "rare",
       "offerWeight": 2,
       "trigger": "GrowthMultiply",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "growthPerEvent": 4
@@ -1549,7 +1494,6 @@
       "rarity": "common",
       "offerWeight": 6,
       "trigger": "GrowthBase",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "growthPerEvent": 4
@@ -1567,7 +1511,6 @@
       "rarity": "uncommon",
       "offerWeight": 4,
       "trigger": "GrowthMultiply",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "growthPerEvent": 2
@@ -1585,7 +1528,6 @@
       "rarity": "uncommon",
       "offerWeight": 4,
       "trigger": "GrowthMultiply",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "growthPerEvent": 2
@@ -1603,7 +1545,6 @@
       "rarity": "common",
       "offerWeight": 6,
       "trigger": "GrowthBase",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "growthPerEvent": 1
@@ -1621,7 +1562,6 @@
       "rarity": "uncommon",
       "offerWeight": 4,
       "trigger": "ScoreMultiply",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "perDieUnits10": 3
@@ -1639,7 +1579,6 @@
       "rarity": "common",
       "offerWeight": 6,
       "trigger": "Retrigger",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "retriggers": 1,
@@ -1658,7 +1597,6 @@
       "rarity": "uncommon",
       "offerWeight": 4,
       "trigger": "Retrigger",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "retriggers": 2,
@@ -1677,7 +1615,6 @@
       "rarity": "uncommon",
       "offerWeight": 4,
       "trigger": "Retrigger",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "retriggers": 1,
@@ -1699,7 +1636,6 @@
       "rarity": "uncommon",
       "offerWeight": 4,
       "trigger": "Retrigger",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "retriggers": 1,
@@ -1720,7 +1656,6 @@
       "rarity": "uncommon",
       "offerWeight": 4,
       "trigger": "Retrigger",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "retriggers": 1
@@ -1738,7 +1673,6 @@
       "rarity": "rare",
       "offerWeight": 2,
       "trigger": "Retrigger",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "retriggers": 1
@@ -1756,7 +1690,6 @@
       "rarity": "common",
       "offerWeight": 6,
       "trigger": "PoolBaseAdd",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "baseAddPerPoolDie": 6
@@ -1774,7 +1707,6 @@
       "rarity": "rare",
       "offerWeight": 2,
       "trigger": "PoolMultiply",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "pip": 6,
@@ -1794,7 +1726,6 @@
       "rarity": "uncommon",
       "offerWeight": 4,
       "trigger": "PoolBaseAdd",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "poolPipSumMultiplier": 2
@@ -1812,7 +1743,6 @@
       "rarity": "rare",
       "offerWeight": 2,
       "trigger": "RedGrouping",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "idempotent": true
@@ -1830,7 +1760,6 @@
       "rarity": "uncommon",
       "offerWeight": 4,
       "trigger": "ScoreMultiply",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "scoreMultiplier": 3
@@ -1848,7 +1777,6 @@
       "rarity": "uncommon",
       "offerWeight": 4,
       "trigger": "ScoreMultiply",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "scoreMultiplier": 3,
@@ -1867,7 +1795,6 @@
       "rarity": "common",
       "offerWeight": 6,
       "trigger": "BaseAdd",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "baseAddPerExtraRoll": 10
@@ -1885,7 +1812,6 @@
       "rarity": "uncommon",
       "offerWeight": 4,
       "trigger": "ScoreMultiply",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "scoreMultiplier": 2
@@ -1903,7 +1829,6 @@
       "rarity": "uncommon",
       "offerWeight": 4,
       "trigger": "RollBudget",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": false,
       "parameters": {
         "rollsPerHandDelta": 1
@@ -1921,7 +1846,6 @@
       "rarity": "rare",
       "offerWeight": 2,
       "trigger": "SubmissionBudget",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": false,
       "parameters": {
         "submissionsDelta": 1
@@ -1939,7 +1863,6 @@
       "rarity": "uncommon",
       "offerWeight": 4,
       "trigger": "BaseAdd",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "pairSum": 7,
@@ -1958,7 +1881,6 @@
       "rarity": "uncommon",
       "offerWeight": 4,
       "trigger": "ScoreMultiply",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "scoreMultiplier": 3
@@ -1976,7 +1898,6 @@
       "rarity": "uncommon",
       "offerWeight": 4,
       "trigger": "ScoreMultiply",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "scoreMultiplier": 3,
@@ -1997,7 +1918,6 @@
       "rarity": "uncommon",
       "offerWeight": 4,
       "trigger": "ScoreMultiply",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "scoreMultiplier": 3
@@ -2015,7 +1935,6 @@
       "rarity": "common",
       "offerWeight": 6,
       "trigger": "HandMultiplierAdd",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "handMultAdd100": 150,
@@ -2034,7 +1953,6 @@
       "rarity": "common",
       "offerWeight": 6,
       "trigger": "HandMultiplierAdd",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "handMultAdd100": 300,
@@ -2053,7 +1971,6 @@
       "rarity": "uncommon",
       "offerWeight": 4,
       "trigger": "ScoreMultiply",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "scoreMultiplier": 4,
@@ -2076,7 +1993,6 @@
       "rarity": "rare",
       "offerWeight": 2,
       "trigger": "ScoreMultiply",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "minSamePip": 4,
@@ -2096,7 +2012,6 @@
       "rarity": "uncommon",
       "offerWeight": 4,
       "trigger": "ScoreMultiply",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "scoreMultiplier": 3,
@@ -2115,7 +2030,6 @@
       "rarity": "rare",
       "offerWeight": 2,
       "trigger": "ScoreMultiply",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "stepNumerator": 3,
@@ -2134,7 +2048,6 @@
       "rarity": "uncommon",
       "offerWeight": 4,
       "trigger": "GrowthMultiply",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "growthPerEvent": 15
@@ -2152,7 +2065,6 @@
       "rarity": "common",
       "offerWeight": 6,
       "trigger": "PipContribution",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "perDieAdd": 8,
@@ -2174,7 +2086,6 @@
       "rarity": "uncommon",
       "offerWeight": 4,
       "trigger": "PipContribution",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "perDieAdd": 10
@@ -2192,7 +2103,6 @@
       "rarity": "uncommon",
       "offerWeight": 4,
       "trigger": "PipMultiply",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "dieContributionMultiplier": 2
@@ -2210,7 +2120,6 @@
       "rarity": "common",
       "offerWeight": 6,
       "trigger": "PipContribution",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {},
       "description": "每颗提交骰对面的永久点数也加入它的点数贡献。",
@@ -2226,7 +2135,6 @@
       "rarity": "common",
       "offerWeight": 6,
       "trigger": "StageFinalize",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": false,
       "parameters": {
         "goldPerStage": 3
@@ -2244,7 +2152,6 @@
       "rarity": "uncommon",
       "offerWeight": 4,
       "trigger": "StageFinalize",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": false,
       "parameters": {
         "interestPrincipalAdd": 25
@@ -2262,7 +2169,6 @@
       "rarity": "uncommon",
       "offerWeight": 4,
       "trigger": "AfterScore",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": false,
       "parameters": {
         "goldPerTrigger": 3,
@@ -2282,14 +2188,13 @@
       "rarity": "uncommon",
       "offerWeight": 4,
       "trigger": "ShopPrice",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": false,
       "parameters": {
         "priceDelta": -1
       },
       "description": "商店里控制器与骰面改造的价格−1，最低1。",
       "shortText": "商店里卡牌与骰面改造的价格−1，最低1。",
-      "details": "不影响卖价和以旧换新的抵扣。"
+      "details": "不影响卖价。"
     },
     {
       "id": "C99",
@@ -2300,7 +2205,6 @@
       "rarity": "uncommon",
       "offerWeight": 4,
       "trigger": "StageFinalize",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": false,
       "parameters": {
         "saleBonusPerStage": 1
@@ -2318,7 +2222,6 @@
       "rarity": "rare",
       "offerWeight": 2,
       "trigger": "GrowthMultiply",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "growthPerBuyPrice": 2
@@ -2336,7 +2239,6 @@
       "rarity": "rare",
       "offerWeight": 2,
       "trigger": "ScoreMultiply",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "scoreMultiplier": 4,
@@ -2355,7 +2257,6 @@
       "rarity": "uncommon",
       "offerWeight": 4,
       "trigger": "ScoreMultiply",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "scoreMultiplier": 3
@@ -2373,7 +2274,6 @@
       "rarity": "uncommon",
       "offerWeight": 4,
       "trigger": "ScoreMultiply",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "scoreMultiplier": 2,
@@ -2394,7 +2294,6 @@
       "rarity": "uncommon",
       "offerWeight": 4,
       "trigger": "ScoreMultiply",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "scoreMultiplier": 3,
@@ -2413,7 +2312,6 @@
       "rarity": "uncommon",
       "offerWeight": 4,
       "trigger": "ScoreMultiply",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "scoreMultiplier": 2
@@ -2431,7 +2329,6 @@
       "rarity": "uncommon",
       "offerWeight": 4,
       "trigger": "ScoreMultiply",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "scoreMultiplier": 2,
@@ -2450,7 +2347,6 @@
       "rarity": "common",
       "offerWeight": 6,
       "trigger": "PipContribution",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "perDieAdd": 10
@@ -2468,7 +2364,6 @@
       "rarity": "common",
       "offerWeight": 6,
       "trigger": "BaseAdd",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "baseAddPerPip": 4,
@@ -2487,7 +2382,6 @@
       "rarity": "uncommon",
       "offerWeight": 4,
       "trigger": "Retrigger",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "retriggers": 2,
@@ -2506,7 +2400,6 @@
       "rarity": "uncommon",
       "offerWeight": 4,
       "trigger": "StageStart",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": false,
       "parameters": {
         "itemsPerStage": 1
@@ -2524,7 +2417,6 @@
       "rarity": "uncommon",
       "offerWeight": 4,
       "trigger": "ShopGift",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": false,
       "parameters": {
         "giftChoices": 3,
@@ -2543,7 +2435,6 @@
       "rarity": "uncommon",
       "offerWeight": 4,
       "trigger": "StageFinalize",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": false,
       "parameters": {
         "rarity": "common"
@@ -2561,7 +2452,6 @@
       "rarity": "uncommon",
       "offerWeight": 4,
       "trigger": "ShopGift",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": false,
       "parameters": {
         "giftChoices": 3,
@@ -2580,7 +2470,6 @@
       "rarity": "rare",
       "offerWeight": 2,
       "trigger": "BossClear",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": false,
       "parameters": {
         "enchantsPerBoss": 1
@@ -2598,7 +2487,6 @@
       "rarity": "common",
       "offerWeight": 6,
       "trigger": "StageFinalize",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": false,
       "parameters": {
         "facesPerStage": 2,
@@ -2624,7 +2512,6 @@
       "rarity": "uncommon",
       "offerWeight": 4,
       "trigger": "BossClear",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": false,
       "parameters": {
         "dicePerBoss": 1
@@ -2642,7 +2529,6 @@
       "rarity": "rare",
       "offerWeight": 2,
       "trigger": "AfterScore",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "targetIndices": "last"
@@ -2660,7 +2546,6 @@
       "rarity": "uncommon",
       "offerWeight": 4,
       "trigger": "AfterScore",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "targetIndices": "all_opposite"
@@ -2678,7 +2563,6 @@
       "rarity": "rare",
       "offerWeight": 2,
       "trigger": "AfterScore",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "index": 0
@@ -2696,7 +2580,6 @@
       "rarity": "rare",
       "offerWeight": 2,
       "trigger": "StageFinalize",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": false,
       "parameters": {
         "delta": 1
@@ -2714,7 +2597,6 @@
       "rarity": "uncommon",
       "offerWeight": 4,
       "trigger": "StageFinalize",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": false,
       "parameters": {
         "delta": -1
@@ -2732,7 +2614,6 @@
       "rarity": "uncommon",
       "offerWeight": 4,
       "trigger": "AfterScore",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "pip": 5
@@ -2750,7 +2631,6 @@
       "rarity": "uncommon",
       "offerWeight": 4,
       "trigger": "AfterScore",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "pips": [
@@ -2771,7 +2651,6 @@
       "rarity": "rare",
       "offerWeight": 2,
       "trigger": "AfterScore",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "delta": 1
@@ -2789,7 +2668,6 @@
       "rarity": "common",
       "offerWeight": 6,
       "trigger": "AfterScore",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "targetIndices": "first_and_last_distinct",
@@ -2810,7 +2688,6 @@
       "rarity": "uncommon",
       "offerWeight": 4,
       "trigger": "AfterScore",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "delta": 1
@@ -2828,7 +2705,6 @@
       "rarity": "uncommon",
       "offerWeight": 4,
       "trigger": "AfterScore",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "submissionOrdinal": 0,
@@ -2848,7 +2724,6 @@
       "rarity": "uncommon",
       "offerWeight": 4,
       "trigger": "StageStart",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": false,
       "parameters": {
         "dicePerStage": 1
@@ -2866,7 +2741,6 @@
       "rarity": "uncommon",
       "offerWeight": 4,
       "trigger": "GrowthMultiply",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "growthPerEvent": 8
@@ -2884,7 +2758,6 @@
       "rarity": "rare",
       "offerWeight": 2,
       "trigger": "ScoreMultiply",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "scoreMultiplier": 3
@@ -2902,7 +2775,6 @@
       "rarity": "uncommon",
       "offerWeight": 4,
       "trigger": "StageStart",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": false,
       "parameters": {},
       "description": "首领关开始时自毁，本关的首领减益解除。",
@@ -2918,7 +2790,6 @@
       "rarity": "uncommon",
       "offerWeight": 4,
       "trigger": "GrowthMultiply",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "growthPerEvent": 8
@@ -2936,7 +2807,6 @@
       "rarity": "common",
       "offerWeight": 6,
       "trigger": "StageFinalize",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": false,
       "parameters": {
         "goldPerBoss": 4,
@@ -2955,7 +2825,6 @@
       "rarity": "uncommon",
       "offerWeight": 4,
       "trigger": "GrowthMultiply",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "growthPerEvent": 2
@@ -2973,7 +2842,6 @@
       "rarity": "common",
       "offerWeight": 6,
       "trigger": "BaseAdd",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "baseAddPerItem": 10
@@ -2991,7 +2859,6 @@
       "rarity": "uncommon",
       "offerWeight": 4,
       "trigger": "StageStart",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": false,
       "parameters": {
         "dicePerStage": 1
@@ -3009,7 +2876,6 @@
       "rarity": "common",
       "offerWeight": 6,
       "trigger": "PipContribution",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "perDieAdd": 15
@@ -3027,7 +2893,6 @@
       "rarity": "rare",
       "offerWeight": 2,
       "trigger": "ScoreMultiply",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "scoreMultiplier": 3,
@@ -3046,7 +2911,6 @@
       "rarity": "uncommon",
       "offerWeight": 4,
       "trigger": "ScoreMultiply",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "goldPerStep": 10,
@@ -3066,7 +2930,6 @@
       "rarity": "uncommon",
       "offerWeight": 4,
       "trigger": "ShopPrice",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": false,
       "parameters": {},
       "description": "控制器按标价（买入价加附魔加价）全额回收；在本家商店刚取得的仍按半价。",
@@ -3082,7 +2945,6 @@
       "rarity": "common",
       "offerWeight": 6,
       "trigger": "ScoreMultiply",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "initialMultiplierUnits2": 5,
@@ -3101,7 +2963,6 @@
       "rarity": "uncommon",
       "offerWeight": 4,
       "trigger": "HandMultiplierAdd",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "handMultAdd100": 1000
@@ -3119,7 +2980,6 @@
       "rarity": "uncommon",
       "offerWeight": 4,
       "trigger": "Retrigger",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "retriggers": 1,
@@ -3138,7 +2998,6 @@
       "rarity": "uncommon",
       "offerWeight": 4,
       "trigger": "ScoreMultiply",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "scoreMultiplier": 3
@@ -3156,7 +3015,6 @@
       "rarity": "uncommon",
       "offerWeight": 4,
       "trigger": "RollRisk",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": false,
       "parameters": {
         "glassBreakPercent": 2
@@ -3174,7 +3032,6 @@
       "rarity": "uncommon",
       "offerWeight": 4,
       "trigger": "RedGrouping",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "idempotent": true
@@ -3192,7 +3049,6 @@
       "rarity": "uncommon",
       "offerWeight": 4,
       "trigger": "ScoreMultiply",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "stepUnits4": 1
@@ -3210,7 +3066,6 @@
       "rarity": "uncommon",
       "offerWeight": 4,
       "trigger": "ScoreMultiply",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "perRollUnits2": 1
@@ -3228,7 +3083,6 @@
       "rarity": "uncommon",
       "offerWeight": 4,
       "trigger": "ScoreMultiply",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "scoreMultiplier": 4,
@@ -3247,7 +3101,6 @@
       "rarity": "uncommon",
       "offerWeight": 4,
       "trigger": "ScoreMultiply",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {},
       "description": "本关第n次提交，整手得分×n。",
@@ -3263,7 +3116,6 @@
       "rarity": "rare",
       "offerWeight": 2,
       "trigger": "ScoreMultiply",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "perSlotUnits2": 1
@@ -3281,7 +3133,6 @@
       "rarity": "uncommon",
       "offerWeight": 4,
       "trigger": "ScoreMultiply",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "rarity": "common",
@@ -3300,7 +3151,6 @@
       "rarity": "uncommon",
       "offerWeight": 4,
       "trigger": "ScoreMultiply",
-      "maxOwnedNormal": 1,
       "scoreEnchantEligible": true,
       "parameters": {
         "scoreMultiplier": 3,
@@ -4497,7 +4347,7 @@
       "picks": 1,
       "description": "3张稀有控制器，免费选1张。",
       "shortText": "3张稀有卡牌，免费选1张。",
-      "details": "都是还没有的卡，不带附魔；需要空栏位。"
+      "details": "可能是已经有的卡，但不会与货架上的卡相同；不带附魔；需要空栏位。"
     },
     {
       "id": "L2",
@@ -4506,7 +4356,7 @@
       "picks": 1,
       "description": "3张带附魔的控制器，免费选1张。",
       "shortText": "3张带附魔的卡牌，免费选1张。",
-      "details": ""
+      "details": "可能是已经有的卡，但不会与货架上的卡相同；需要空栏位。"
     },
     {
       "id": "L3",
@@ -4585,12 +4435,7 @@
     "selfStudyLimit": 2,
     "selfStudyPremium": 1,
     "upgradePricePerExistingLevel": 2,
-    "controllersUniqueOwned": true,
-    "allowDifferentEnchantReplacement": true,
-    "replacementCredit": "actual_old_instance_sale_price",
-    "replacementCountsAsOneControllerSale": true,
     "firstControllerGuaranteeMaxBasePrice": 4,
-    "firstControllerGuaranteeUnownedOnly": true,
     "controllerWeights": {
       "common": 6,
       "uncommon": 4,

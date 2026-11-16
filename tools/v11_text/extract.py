@@ -10,6 +10,9 @@ MARKDOWN = ROOT / "docs/proposals/2026-11-16-text/CONTENT_REWRITES.md"
 BASE = ROOT / "tools/balance_sim/baseline/P0Config.p1.0.0.json"
 CONTENT = Path(__file__).with_name("content_text.json")
 AUDIT = Path(__file__).with_name("extraction_report.json")
+# v1.1 coordinator overrides: rule changes made after the appendix was written (for example RULES_DELTA's removal of
+# trade-ins). Each entry must match the extracted text exactly, so an override can never silently go stale.
+OVERRIDES = Path(__file__).with_name("overrides.json")
 CATEGORIES = ("controllers", "consumables", "services", "diceUpgrades", "bossModifiers", "lootKinds")
 # Appendix section 5 counts are (fields, covered, rows, problem rows, unchanged rows).
 EXPECTED = {
@@ -71,7 +74,7 @@ def normalize(item_id, field, text, substitutions, normalizations):
     return text
 
 
-def extract(markdown=None, base=None):
+def extract(markdown=None, base=None, overrides=None):
     markdown = MARKDOWN.read_text(encoding="utf-8") if markdown is None else markdown
     base = json.loads(BASE.read_text(encoding="utf-8")) if base is None else base
     if base["configVersion"] != "p1.0.0":
@@ -175,10 +178,42 @@ def extract(markdown=None, base=None):
             if "控制器" in before:
                 audit["displayNameChanges"].append({"id": entry["id"], "field": "displayName", "decision": "D2",
                                                      "before": before, "after": before.replace("控制器", "卡牌")})
+    audit["overrides"] = apply_overrides(content, load_overrides() if overrides is None else overrides)
     audit["entryCount"] = sum(map(len, content.values()))
     audit["textFieldCount"] = audit["entryCount"] * 2
     audit["maxShortTextLength"] = max(len(row["shortText"]) for group in content.values() for row in group)
     return content, audit
+
+
+def load_overrides():
+    if not OVERRIDES.exists():
+        return []
+    data = json.loads(OVERRIDES.read_text(encoding="utf-8"))
+    return data["overrides"]
+
+
+def apply_overrides(content, overrides):
+    """Replace one extracted field per override; the old text must match exactly and a reason is required."""
+    rows = {row["id"]: row for group in content.values() for row in group}
+    applied, seen = [], set()
+    for item in overrides:
+        key = (item.get("id"), item.get("field"))
+        if key in seen:
+            raise ValueError(f"Duplicate override: {key}")
+        seen.add(key)
+        if item.get("field") not in ("shortText", "details") or item.get("id") not in rows:
+            raise ValueError(f"Override target does not exist: {key}")
+        if not str(item.get("reason", "")).strip():
+            raise ValueError(f"Override without a reason: {key}")
+        row = rows[item["id"]]
+        if row[item["field"]] != item["from"]:
+            raise ValueError(f"Stale override {key}: the extracted text is no longer the text it replaces")
+        to = item["to"]
+        if not isinstance(to, str) or (item["field"] == "shortText" and not 1 <= len(to.strip()) <= 28) or (to and not to.strip()):
+            raise ValueError(f"Invalid override text: {key}")
+        row[item["field"]] = to
+        applied.append({"id": item["id"], "field": item["field"], "before": item["from"], "after": to, "reason": item["reason"]})
+    return applied
 
 
 def main():
