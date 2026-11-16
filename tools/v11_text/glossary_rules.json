@@ -1,0 +1,413 @@
+{
+  "version": "0.2+D2+D4",
+  "sources": [
+    "docs/proposals/2026-11-16-text-readability.md §2.1–§2.3",
+    "docs/specs/v11/DEV_PLAN.md §3 D2/D4、§4.1、§6 TX-02/TX-04"
+  ],
+  "configFields": {
+    "controllers": [
+      "displayName",
+      "shortText",
+      "details"
+    ],
+    "consumables": [
+      "displayName",
+      "shortText",
+      "details"
+    ],
+    "services": [
+      "displayName",
+      "shortText",
+      "details",
+      "priceRule"
+    ],
+    "diceUpgrades": [
+      "displayName",
+      "shortText",
+      "details"
+    ],
+    "bossModifiers": [
+      "displayName",
+      "shortText",
+      "details"
+    ],
+    "lootKinds": [
+      "displayName",
+      "shortText",
+      "details"
+    ],
+    "redRewards": [
+      "title"
+    ],
+    "enchantments": [
+      "displayName"
+    ],
+    "handDefinitions": [
+      "displayName"
+    ],
+    "colorDefinitions": [
+      "displayName"
+    ],
+    "stages": [
+      "normalTarget",
+      "riskTarget"
+    ]
+  },
+  "configFieldsRationale": "显式玩家展示字段；排除 description、ID、内部枚举和开发配置。服务 priceRule 与关卡目标分字符串也纳入。configVersion 仅允许在版本与构建页。",
+  "scopeNotes": [
+    "只检查含 CJK 的 C# 字面量，跳过注释、字符、插值代码；不评估动态文本。",
+    "规则只做词义上下文近似，TX-02 仍需实际界面复核。"
+  ],
+  "rules": [
+    {
+      "id": "core-submit",
+      "category": "核心概念",
+      "regex": "有效提交",
+      "replacement": "提交",
+      "source": "docs/proposals/2026-11-16-text-readability.md §2.1",
+      "rationale": "完整旧术语；不禁用“有效期”。",
+      "positive": "每次有效提交。",
+      "negative": "本次提交有效；有效期。"
+    },
+    {
+      "id": "core-turn",
+      "category": "核心概念",
+      "regex": "结束本轮|本轮",
+      "replacement": "结束本关／本手",
+      "source": "docs/proposals/2026-11-16-text-readability.md §2.1",
+      "rationale": "最长术语优先，结束本轮表示结束关卡。",
+      "positive": "结束本轮。",
+      "negative": "本手结束；结束本关。"
+    },
+    {
+      "id": "core-chapter",
+      "category": "核心概念",
+      "regex": "(?<!生命)周期(?!性|函数|表|律)",
+      "replacement": "章",
+      "source": "docs/proposals/2026-11-16-text-readability.md §2.1",
+      "rationale": "三关一组称章；排除无关生命周期、周期性等词。",
+      "positive": "本周期有三关。",
+      "negative": "生命周期与周期性动画。"
+    },
+    {
+      "id": "core-roll",
+      "category": "核心概念",
+      "regex": "首掷|剩掷|空投",
+      "replacement": "首次投掷／还能掷 N 次／掷骰",
+      "source": "docs/proposals/2026-11-16-text-readability.md §2.1",
+      "rationale": "只匹配规范列出的三个旧词。",
+      "positive": "首掷后剩掷为0，空投一次。",
+      "negative": "首次投掷，还能掷2次。"
+    },
+    {
+      "id": "core-selection",
+      "category": "核心概念",
+      "regex": "清除待选|待选|待锁",
+      "replacement": "取消选择／选中／已选",
+      "source": "docs/proposals/2026-11-16-text-readability.md §2.1",
+      "rationale": "最长别名优先，普通等待与选择不命中。",
+      "positive": "清除待选后没有待锁骰子。",
+      "negative": "取消选择，已选2颗。"
+    },
+    {
+      "id": "core-capacity",
+      "category": "核心概念",
+      "regex": "提交容量|有序提交",
+      "replacement": "提交栏 N 格／提交顺序",
+      "source": "docs/proposals/2026-11-16-text-readability.md §2.1",
+      "rationale": "K 另由 dev-variable 规则检测。",
+      "positive": "有序提交的提交容量是5。",
+      "negative": "提交栏5格，按提交顺序计算。"
+    },
+    {
+      "id": "core-slots",
+      "category": "核心概念",
+      "regex": "普通(?:占)?槽|(?:卡牌|控制器|道具|背包)槽(?:位)?|免槽|背包(?!旅行)|槽位|空槽|占槽|(?<![\\u3400-\\u9fff])槽(?![\\u3400-\\u9fff])",
+      "replacement": "栏位／道具栏位／不占栏位",
+      "source": "docs/proposals/2026-11-16-text-readability.md §2.1",
+      "rationale": "只列游戏格子用法，裸槽有汉字边界；凹槽、水槽、吐槽不命中。",
+      "positive": "普通槽已满，免槽卡不占槽。",
+      "negative": "普通栏位；凹槽、水槽与吐槽。"
+    },
+    {
+      "id": "core-items",
+      "category": "核心概念",
+      "regex": "消耗品|局内道具",
+      "replacement": "道具",
+      "source": "docs/proposals/2026-11-16-text-readability.md §2.1",
+      "rationale": "完整旧物品名，不禁止消耗这个动作。",
+      "positive": "购买消耗品与局内道具。",
+      "negative": "购买道具，消耗1金币。"
+    },
+    {
+      "id": "core-upgrade",
+      "category": "核心概念",
+      "regex": "研究强化|研习|强化(?!学习)",
+      "replacement": "升级（牌型／颜色）或改造（骰面）",
+      "source": "docs/proposals/2026-11-16-text-readability.md §2.1",
+      "rationale": "按对象人工选择替换；排除无关的强化学习。",
+      "positive": "研习牌型，强化骰面。",
+      "negative": "升级牌型，改造骰面；强化学习。"
+    },
+    {
+      "id": "core-face",
+      "category": "核心概念",
+      "regex": "物理面|原值|目标面",
+      "replacement": "朝上的面／这一面／对面那一面",
+      "source": "docs/proposals/2026-11-16-text-readability.md §2.1",
+      "rationale": "骰面描述使用玩家视角；技术字段不参与配置扫描。",
+      "positive": "目标面的物理面原值+1。",
+      "negative": "这一面点数+1。"
+    },
+    {
+      "id": "core-active-dice",
+      "category": "核心概念",
+      "regex": "活动骰",
+      "replacement": "骰子 N 颗（永久 N）",
+      "source": "docs/proposals/2026-11-16-text-readability.md §2.1",
+      "rationale": "完整概念匹配，不禁止一般活动。",
+      "positive": "活动骰数量已满。",
+      "negative": "骰子8颗（永久6）；活动奖励。"
+    },
+    {
+      "id": "term-controller",
+      "category": "用户决定",
+      "regex": "控制器",
+      "replacement": "卡牌",
+      "source": "docs/specs/v11/DEV_PLAN.md §3 D2",
+      "rationale": "只检查玩家文本；不改代码标识符，不匹配控制欲。",
+      "positive": "控制器货架。",
+      "negative": "卡牌货架；控制欲。"
+    },
+    {
+      "id": "term-rarity",
+      "category": "用户决定",
+      "regex": "普通(?=\\s*(?:稀有度|(?:卡牌|控制器)(?!槽|栏位)|[/／、]\\s*(?:罕见|进阶|稀有)))|(?<=稀有度)普通|(?<=稀有度：)普通|罕见",
+      "replacement": "常见／进阶",
+      "source": "docs/specs/v11/DEV_PLAN.md §3 D4",
+      "rationale": "普通须有稀有度或卡牌上下文；普通关、栏位、挑战保留。",
+      "positive": "普通控制器、普通稀有度；普通 / 罕见 / 稀有。",
+      "negative": "普通关、普通栏位、普通挑战；常见卡牌。普通控制器槽、普通卡牌栏位。"
+    },
+    {
+      "id": "score-die",
+      "category": "计分用语",
+      "regex": "点数贡献\\s*(?:[+＋]|为\\s*0)",
+      "replacement": "每颗计分+N／不计分，仍算牌型",
+      "source": "docs/proposals/2026-11-16-text-readability.md §2.2",
+      "rationale": "检测禁用列的加分与封印措辞，不禁止贡献这个普通词。",
+      "positive": "点数贡献 +10；点数贡献为 0。",
+      "negative": "每颗计分+10；不计分，仍算牌型。"
+    },
+    {
+      "id": "score-base",
+      "category": "计分用语",
+      "regex": "整手基础分\\s*[+＋]",
+      "replacement": "基础分+N",
+      "source": "docs/proposals/2026-11-16-text-readability.md §2.2",
+      "rationale": "检测旧加分前缀，不泛禁整手。",
+      "positive": "整手基础分 +10。",
+      "negative": "基础分+10。"
+    },
+    {
+      "id": "score-total",
+      "category": "计分用语",
+      "regex": "整手得分\\s*×",
+      "replacement": "得分×N／得分倍率从×1起",
+      "source": "docs/proposals/2026-11-16-text-readability.md §2.2",
+      "rationale": "涵盖固定倍率和成长公式的旧前缀。",
+      "positive": "整手得分×n，n从1起。",
+      "negative": "得分倍率从×1起；得分×3。"
+    },
+    {
+      "id": "score-growth",
+      "category": "计分用语",
+      "regex": "整手得分的倍率\\s*[+＋]",
+      "replacement": "得分倍率+N（从×1起）",
+      "source": "docs/proposals/2026-11-16-text-readability.md §2.2",
+      "rationale": "检测旧的倍率加值概念。",
+      "positive": "整手得分的倍率+0.25。",
+      "negative": "得分倍率+0.25（从×1起）。"
+    },
+    {
+      "id": "score-weight",
+      "category": "计分用语",
+      "regex": "相对权重|归一化",
+      "replacement": "权重（更容易掷出）",
+      "source": "docs/proposals/2026-11-16-text-readability.md §2.2",
+      "rationale": "保留权重本身，只拦工程用语。",
+      "positive": "相对权重增加后归一化。",
+      "negative": "权重+1（更容易掷出）。"
+    },
+    {
+      "id": "score-chain",
+      "category": "计分用语",
+      "regex": "(?<!不)连锁(?=\\s*(?:\\d|[：:·{]|$))",
+      "replacement": "生效 N 张",
+      "source": "docs/proposals/2026-11-16-text-readability.md §2.2",
+      "rationale": "仅计分标签或数量；染色“不连锁”和一般连锁反应不命中。",
+      "positive": "连锁 3；连锁：2。",
+      "negative": "所有目标同时染色，不连锁（不产生连锁反应）。"
+    },
+    {
+      "id": "score-unused-reward",
+      "category": "计分用语",
+      "regex": "剩次奖励|余次奖励|未用投掷奖励",
+      "replacement": "剩余提交奖励／剩余投掷奖励",
+      "source": "docs/proposals/2026-11-16-text-readability.md §2.2",
+      "rationale": "只列三种旧奖励名。",
+      "positive": "剩次奖励和未用投掷奖励。",
+      "negative": "剩余提交奖励、剩余投掷奖励。"
+    },
+    {
+      "id": "score-stage-reward",
+      "category": "计分用语",
+      "regex": "基础奖励",
+      "replacement": "过关奖励",
+      "source": "docs/proposals/2026-11-16-text-readability.md §2.2",
+      "rationale": "整词匹配，与基础分区分。",
+      "positive": "基础奖励+5。",
+      "negative": "过关奖励+5，基础分+10。"
+    },
+    {
+      "id": "score-interest",
+      "category": "计分用语",
+      "regex": "计息本金(?:上限)?",
+      "replacement": "利息每关最多+N",
+      "source": "docs/proposals/2026-11-16-text-readability.md §2.2",
+      "rationale": "最长旧术语一次计数，以玩家结果表达。",
+      "positive": "计息本金上限25。",
+      "negative": "利息每关最多+5。"
+    },
+    {
+      "id": "score-money",
+      "category": "计分用语",
+      "regex": "现金|余额|净增|入账|钱包",
+      "replacement": "金币",
+      "source": "docs/proposals/2026-11-16-text-readability.md §2.2",
+      "rationale": "游戏钱包和会计措辞统一为金币。",
+      "positive": "钱包余额的现金净增已入账。",
+      "negative": "获得5金币。"
+    },
+    {
+      "id": "score-run",
+      "category": "计分用语",
+      "regex": "新建挑战|新挑战|本次挑战|正式挑战|已保存的挑战|一场挑战|挑战结果|挑战结束|结束挑战|不带入挑战",
+      "replacement": "一局／对局",
+      "source": "docs/proposals/2026-11-16-text-readability.md §2.2",
+      "rationale": "只列整局游戏语境；普通挑战、高压挑战、选择挑战等保留。",
+      "positive": "新建挑战后查看挑战结果。",
+      "negative": "普通挑战、高压挑战；选择一种挑战。"
+    },
+    {
+      "id": "style-subject",
+      "category": "写法",
+      "regex": "该骰|其(?=点数|颜色|价格|朝上|对面|权重|六个面|计分)",
+      "replacement": "这颗骰子／明确写出对象",
+      "source": "docs/proposals/2026-11-16-text-readability.md §2.3",
+      "rationale": "其仅在后接属性时作代词处理；其他、其余、其中、尤其、二三其德不命中。",
+      "positive": "该骰计分增加，倍率+其价格×0.1。",
+      "negative": "其他骰子、其中一个、其余卡牌、尤其是二三其德。"
+    },
+    {
+      "id": "dev-item-id",
+      "category": "开发信息",
+      "regex": "(?<![A-Za-z0-9_])ITEM_\\d+(?![A-Za-z0-9_])",
+      "replacement": "道具名称",
+      "source": "docs/proposals/2026-11-16-text-readability.md §2.3；docs/specs/v11/DEV_PLAN.md §6 TX-02",
+      "rationale": "ASCII 边界允许中文紧贴编号，排除长标识符中的片段。",
+      "positive": "道具ITEM_00012:red。",
+      "negative": "红色浪潮；MY_ITEM_00012_TEST。"
+    },
+    {
+      "id": "dev-die-id",
+      "category": "开发信息",
+      "regex": "(?<![A-Za-z0-9_])D\\d{3}(?![A-Za-z0-9_])",
+      "replacement": "骰子 N",
+      "source": "docs/proposals/2026-11-16-text-readability.md §2.3；docs/specs/v11/DEV_PLAN.md §6 TX-02",
+      "rationale": "完整骰子编号，不命中更长标识符。",
+      "positive": "骰子D001。",
+      "negative": "骰子1；D0010、AD001。"
+    },
+    {
+      "id": "dev-face-id",
+      "category": "开发信息",
+      "regex": "(?<![A-Za-z0-9_])F0\\d(?![A-Za-z0-9_])",
+      "replacement": "第 N 面",
+      "source": "docs/proposals/2026-11-16-text-readability.md §2.3；docs/specs/v11/DEV_PLAN.md §6 TX-02",
+      "rationale": "完整面编号。",
+      "positive": "对面 F01/F06。",
+      "negative": "第1面；F010、AF01。"
+    },
+    {
+      "id": "dev-card-id",
+      "category": "开发信息",
+      "regex": "(?<![A-Za-z0-9_])C\\d{2,3}(?![A-Za-z0-9_])",
+      "replacement": "卡牌名称",
+      "source": "docs/proposals/2026-11-16-text-readability.md §2.3；docs/specs/v11/DEV_PLAN.md §6 TX-02",
+      "rationale": "两位与三位卡号；插值表达式中的 Config.Controller(\\\"C01\\\") 不是玩家文本。",
+      "positive": "续交C01，提示C153。",
+      "negative": "存钱罐；C1000、ABC01。"
+    },
+    {
+      "id": "dev-variable",
+      "category": "开发信息",
+      "regex": "容量\\s*K(?![A-Za-z0-9_])|(?<![A-Za-z0-9_])K(?![A-Za-z0-9_])|(?<![A-Za-z0-9_])S\\.Count(?![A-Za-z0-9_])",
+      "replacement": "提交栏 N 格／骰子数量",
+      "source": "docs/proposals/2026-11-16-text-readability.md §2.3；docs/specs/v11/DEV_PLAN.md §6 TX-02",
+      "rationale": "完整变量匹配，不禁用 Key、OK 等单词。",
+      "positive": "容量 K 5；S.Count<K。",
+      "negative": "提交栏5格；OK、Key。"
+    },
+    {
+      "id": "dev-enum",
+      "category": "开发信息",
+      "regex": "(?<![A-Za-z0-9_])(?:Instant|Fast|Normal)(?![A-Za-z0-9_])",
+      "replacement": "即时／快速／标准",
+      "source": "docs/proposals/2026-11-16-text-readability.md §2.3；docs/specs/v11/DEV_PLAN.md §6 TX-02",
+      "rationale": "大小写敏感完整枚举，不匹配 Faster 等单词。",
+      "positive": "速度 Instant / Fast / Normal。",
+      "negative": "速度即时／快速／标准；Faster、Normalize。"
+    },
+    {
+      "id": "dev-version",
+      "category": "开发信息",
+      "regex": "(?<![A-Za-z0-9_])(?:[pv]\\d+\\.\\d+(?:\\.\\d+)?(?:[-+][A-Za-z0-9.-]+)?|\\d+\\.\\d+\\.\\d+(?:[abfp]\\d+)?)(?![A-Za-z0-9_])",
+      "replacement": "仅在“版本与构建”页显示",
+      "source": "docs/proposals/2026-11-16-text-readability.md §2.3；docs/specs/v11/DEV_PLAN.md §6 TX-02",
+      "rationale": "识别 p/v 与三段版本（含 Unity 补丁）；×1.5、Lv.1 不命中。",
+      "positive": "当前 p1.0.0-rc.1，Unity 6000.6.7f1。",
+      "negative": "得分×1.5；Lv.1。"
+    },
+    {
+      "id": "dev-art-label",
+      "category": "开发信息",
+      "regex": "复古印刷骰桌",
+      "replacement": "章节信息",
+      "source": "docs/proposals/2026-11-16-text-readability.md §2.3",
+      "rationale": "仅检测已知泄漏的美术方案名；主题名保留。",
+      "positive": "复古印刷骰桌。",
+      "negative": "默认风格；瑞士现代主义。"
+    },
+    {
+      "id": "dev-engine-label",
+      "category": "开发信息",
+      "regex": "(?<![A-Za-z0-9_])(?:DEBUG|Finalize|schema|Run)(?![A-Za-z0-9_])|调试口令|调试对局",
+      "replacement": "Run 改为“一局”；其他开发标签移至开发界面，练习模式使用玩家标签",
+      "source": "docs/proposals/2026-11-16-text-readability.md §2.3；docs/proposals/2026-11-16-text/CONTENT_REWRITES.md §3.3 O07 价格规则",
+      "rationale": "列出已知开发标签与实现词；Run 是整局游戏的内部称呼，使用 ASCII 标识符边界，不命中 Runtime、Runner、MyRun、Run_1。不泛禁版本、保存等玩家概念。",
+      "positive": "调试对局 DEBUG；Finalize；schema 6；本Run局内。",
+      "negative": "练习模式；存档读取说明；版本与构建；Runtime、Runner、MyRun、Run_1。"
+    },
+    {
+      "id": "dev-exception",
+      "category": "开发信息",
+      "regex": "(?<![A-Za-z0-9_])(?:[A-Za-z_][A-Za-z0-9_]*Exception|StackTrace)(?![A-Za-z0-9_])",
+      "replacement": "玩家可操作的失败说明",
+      "source": "docs/proposals/2026-11-16-text-readability.md §2.3",
+      "rationale": "检测异常类型与堆栈标签；动态 exception.Message 须实际界面验证。",
+      "positive": "读取失败：IOException；StackTrace。",
+      "negative": "读取失败，请重试。"
+    }
+  ]
+}

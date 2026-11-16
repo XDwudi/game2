@@ -1,0 +1,12 @@
+{
+  "entries": [
+    {
+      "rule": "dev-engine-label",
+      "file": "DicePrototype/Assets/Game/UI/GameApp.V05.cs",
+      "location": "212:42",
+      "text": "美术 {…} / 发行 {…}\n玩法 {…} / 存档 schema {…}\nUnity {…} / {…}\n源码 {…}\n配置 SHA-256\n{…}\n黄金样例 SHA-256\n{…}",
+      "reason": "ShowBuildVersion 的“版本与构建”页，DEV_PLAN §6 TX-02 明确允许开发版本信息；只豁免这条完整文字中的 schema 标签。"
+    }
+  ],
+  "policy": "每项必须包含 rule、file、location、text、reason，逐项精确匹配。只允许可解释的上下文例外（如版本与构建页），不得全文件豁免或隐藏待改写界面。"
+}

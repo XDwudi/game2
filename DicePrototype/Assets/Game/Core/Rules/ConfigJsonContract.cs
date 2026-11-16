@@ -199,6 +199,7 @@ namespace DiceCraft.Core
                 return;
             }
             Require(node.kind == 'o', path + " requires object.");
+            // DTO fields include the required v1.1 shortText/details keys on all six content categories.
             FieldInfo[] fields = type.GetFields(BindingFlags.Instance | BindingFlags.Public);
             if (type == typeof(ControllerParameters))
             {
