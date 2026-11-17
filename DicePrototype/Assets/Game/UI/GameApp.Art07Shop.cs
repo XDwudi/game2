@@ -26,13 +26,7 @@ namespace DiceCraft
                 default:return -1;
             }
         }
-        private string ShopInterestText07()
-        {
-            // Match settlement's resolved ability sources, including current C41 copies.
-            long rate=1L+ViewSources.Count(s=>s.abilityId=="C01")*Config.Controller("C01").parameters.extraInterestPerTen;
-            long cap=Session.InterestPrincipalCapIn(ViewState); // p1.0.0: C96 and the O10 purchases, as the settlement will use it
-            return "每"+Config.interestDivisor+"金币利息 +"+rate+"\n计息本金上限 "+cap;
-        }
+        // V1.1 W14: ShopInterestText07 moved to GameApp.Shop14.cs (the gold hover of the shop's top bar).
         private string Art07Rarity(string id)
         {
             var rarity=Config.Controller(id).rarity;
@@ -116,28 +110,14 @@ namespace DiceCraft
         /// </summary>
         private string AcquiredCardState11(ControllerInstance item,RunState after)
             =>item?.definitionId=="C52"&&after!=null?"卖价 "+Session.ControllerSalePriceIn(after,item):Art07OfferState(item);
-        private string Art07Availability07(ShopOffer offer)
-        {
-            if(offer.sold)return "已购买";
-            if(!string.IsNullOrEmpty(offer.groupId)&&ViewState.shop.groups.Any(g=>g.groupId==offer.groupId&&g.closed))return "已作废";
-            long cost=Session.GetOfferNetPrice(offer);
-            if(cost>ViewState.gold)return "还差 "+(cost-ViewState.gold);
-            if(offer.category=="controller")
-            {
-                // v1.1 (G3): the copy is added to what you hold; nothing is replaced (RULES_DELTA 1.1 item 5).
-                var final=ViewState.controllers.Concat(new[]{offer.controller}).ToArray();
-                // UI_REWRITES row Art07Shop.cs:122-126 with D2 (控制器 → 卡牌); availability row holds 8 characters at most.
-                if(final.Length>Config.maxControllerInstances)return "卡牌已满 "+Config.maxControllerInstances+" 张";
-                if(ControllerRules.OrdinaryUsed(final)>ViewState.controllerSlots)return "卡牌栏位已满";
-            }
-            if(offer.category=="consumable"&&ViewState.inventory.Count>=ViewState.consumableSlots)return "道具栏已满";
-            if(offer.category=="die_upgrade"||offer.contentId=="O04")return "需选择目标";
-            string error=Session.PurchaseError(offer.offerId);
-            return error==null?"":offer.category=="new_die"?"永久骰已满":"查看限制";
-        }
+        /// <summary>V1.1 W14: one source for the price buttons' reasons, the shop's and the gift dialog's (SHOP_LAYOUT 6).</summary>
+        private string Art07Availability07(ShopOffer offer)=>ShopAvailability14(offer);
         private void Art07BuyOffer(ShopOffer offer)
         {
             if(IsBusy||Session.HasPendingSave||offer.sold)return;
+            // V1.1 W14 (SHOP_LAYOUT 7): a face upgrade or 删除骰子 of the shelf is chosen on the table; a gift group's face
+            // upgrade keeps the dice sheet until W15.
+            if(string.IsNullOrEmpty(offer.groupId)&&(offer.category=="die_upgrade"||offer.contentId=="O04")){BeginFacePick14(offer);return;}
             if(offer.category=="die_upgrade"||offer.contentId=="O04"||Session.PurchaseError(offer.offerId)!=null)
             {InspectOffer(offer);return;}
             Send(new SessionCommand{kind=CommandKind.Buy,offerId=offer.offerId});
@@ -153,7 +133,7 @@ namespace DiceCraft
         }
         // v1.1 (G3): the replacement dialog (Art07Replacement) was removed with the replacement rule; an owned card's
         // offer opens the ordinary offer details, which say how many copies you will hold.
-        private void Art07AttachTooltip(UnityEngine.UI.Button button,string owner,string title,string description,string state,Action detail)
+        private void Art07AttachTooltip(UnityEngine.UI.Button button,string owner,string title,string description,string state,Action detail,string more="点击卡片查看完整说明")
         {
             var hover=UiKit.Component<Art07HoverTip>(button.gameObject);
             hover.show=()=>
@@ -168,7 +148,7 @@ namespace DiceCraft
                 UiKit.Text(art07Tooltip,"Name",title,16,12,388,52,25,UiKit.Ink);
                 var text=UiKit.Text(art07Tooltip,"Description",description,16,besidePool?64:76,388,besidePool?108:150,20,UiKit.Ink);text.overflowMode=TextOverflowModes.Ellipsis;
                 var stateText=UiKit.Text(art07Tooltip,"State",state,16,besidePool?178:234,388,besidePool?54:88,19,UiKit.Ink);stateText.overflowMode=TextOverflowModes.Ellipsis;
-                UiKit.Text(art07Tooltip,"More","点击卡片查看完整说明",16,besidePool?238:334,388,44,18,UiKit.Ink,TextAlignmentOptions.Center);
+                if(!string.IsNullOrEmpty(more))UiKit.Text(art07Tooltip,"More",more,16,besidePool?238:334,388,44,18,UiKit.Ink,TextAlignmentOptions.Center);
                 UiKit.Component<Art07PanelMotion>(art07Tooltip.gameObject).Enter(.08f,.06f,true,reduced);
             };
             hover.hide=()=>{if(art07TooltipOwner==owner&&art07Tooltip!=null){art07Tooltip.gameObject.SetActive(false);art07TooltipOwner=null;}};

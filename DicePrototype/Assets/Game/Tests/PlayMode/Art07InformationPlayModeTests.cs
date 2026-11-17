@@ -158,21 +158,24 @@ namespace DiceCraft.Tests
                 long cost=app.Session.GetOfferNetPrice(offer);
                 // v1.1 (RULES_DELTA 1.1 item 5): no replacement credit, so no offer has a negative price or a 替换 button.
                 Assert.That(cost,Is.GreaterThanOrEqualTo(0),offer.offerId);
-                // v0.73: a full shelf still never hides the transaction price: it stays on the price chip of the card.
-                Assert.That(InformationButton07("Buy_"+offer.offerId),Is.EqualTo("购买"));
-                Assert.That(FindActive<Transform>("Offer_"+offer.offerId).Find("PriceChip/Price").GetComponent<TextMeshProUGUI>().text,Is.EqualTo(cost.ToString()));
+                // V1.1 (W14, CARD_TEMPLATE §5): a full shelf still never hides the transaction price; the price button shows
+                // it with the reason instead of "购买" (v0.73: a separate price chip, a reason line and a "购买" button).
+                var buy=FindActive<Transform>("Offer_"+offer.offerId).Find("Buy_"+offer.offerId);
+                Assert.That(buy.Find("Price").GetComponent<TextMeshProUGUI>().text,Is.EqualTo(cost.ToString()));
                 // v1.1: an owned card's offer is an ordinary purchase as well, so every card offer reports the full count
                 // (UI_REWRITES Art07Shop.cs:122-126 with D2).
-                Assert.That(InformationText07("OfferAvailability_"+offer.offerId),Is.EqualTo("卡牌已满 10 张"));
+                Assert.That(buy.Find("PriceWord13").GetComponent<TextMeshProUGUI>().text,Is.EqualTo("卡牌已满 10 张"));
+                Assert.That(buy.GetComponent<UnityEngine.UI.Button>().interactable,Is.False,"A full shelf cannot be bought from the price button.");
             }
             foreach(var offer in app.Session.State.shop.offers.Where(o=>o.category=="consumable"))
             {
                 var product=FindActive<Transform>("Product_"+offer.offerId);
-                // v0.73: the reason sits on its own line above the price chip; the card body is the inspect target.
-                Assert.That(product.Find("Availability").GetComponent<TextMeshProUGUI>().text,Is.EqualTo("道具栏已满"));
+                // V1.1 (W14): the reason is on the price button; the row's body (Inspect) is still the inspect target.
+                var buy=product.Find("Buy_"+offer.offerId);
+                Assert.That(buy.Find("PriceWord13").GetComponent<TextMeshProUGUI>().text,Is.EqualTo("道具栏已满"));
                 Assert.That(product.GetComponentsInChildren<UnityEngine.UI.Button>().Count(b=>b.name=="Inspect"),Is.EqualTo(1));
-                Assert.That(InformationButton07("Buy_"+offer.offerId),Is.EqualTo("购买"));
-                Assert.That(product.Find("PriceChip/Price").GetComponent<TextMeshProUGUI>().text,Is.EqualTo(app.Session.GetOfferNetPrice(offer).ToString()));
+                Assert.That(buy.GetComponent<UnityEngine.UI.Button>().interactable,Is.False);
+                Assert.That(buy.Find("Price").GetComponent<TextMeshProUGUI>().text,Is.EqualTo(app.Session.GetOfferNetPrice(offer).ToString()));
             }
             yield return null;
         }

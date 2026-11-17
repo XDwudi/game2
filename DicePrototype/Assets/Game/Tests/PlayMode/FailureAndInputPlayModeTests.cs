@@ -185,6 +185,8 @@ namespace DiceCraft.Tests
         {
             yield return WaitForIdle();
             var offer=app.Session.State.shop.offers.Single(o=>o.offerId==offerId);
+            // V1.1 (W14, Q3 A): a good on another page of its section is reached with the real page buttons first.
+            yield return PageToOffer14(offerId);
             var card = FindActive<Transform>((offer.category=="controller"?"Offer_":"Product_") + offerId);
             var inspect = offer.category=="controller"?card.GetComponent<UnityEngine.UI.Button>():card.GetComponentsInChildren<UnityEngine.UI.Button>().Single(b => b.name == "Inspect");
             yield return LegacyVisibleClick07(inspect);

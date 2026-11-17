@@ -40,7 +40,8 @@ namespace DiceCraft.Tests
             finally{UObj.Destroy(texture);}
         }
         private static readonly string[] W13RarityKeys={"common","advanced","rare"};
-        private static readonly string[] W13GoodsCategories={"道具","服务","骰面改造","新骰子"};
+        // V1.1 (W14, CARD_TEMPLATE E2): a hand upgrade is a good of the shop's 升级与服务 rows too.
+        private static readonly string[] W13GoodsCategories={"道具","服务","骰面改造","新骰子","牌型升级"};
         private static bool W13Overlap(Rect a,Rect b)=>Math.Min(a.xMax,b.xMax)-Math.Max(a.xMin,b.xMin)>1&&Math.Min(a.yMax,b.yMax)-Math.Max(a.yMin,b.yMin)>1;
         private static Color W13Palette(int rarity)=>rarity==2?UiKit.RarityRare:rarity==1?UiKit.RarityAdvanced:UiKit.RarityCommon;
         private static bool W13SameColour(Color a,Color b)=>Mathf.Abs(a.r-b.r)<.004f&&Mathf.Abs(a.g-b.g)<.004f&&Mathf.Abs(a.b-b.b)<.004f;
@@ -128,7 +129,12 @@ namespace DiceCraft.Tests
                 if(goods)
                 {
                     if(gem!=null&&gem.gameObject.activeSelf)failures.Add(at+": a good has a gem");
-                    if(ring!=null&&!W13SameColour(ring.color,UiKit.Ghost))failures.Add(at+": a good's frame is not Ghost");
+                    // V1.1 (W14): a sold good is dimmed like a disabled card, its Ghost frame with it (62 %). The face itself may
+                    // then be lightened in 5 % steps by LabelOn11 until a label colour reads on it (W11; the default style's
+                    // dimmed goods row reads 0.639): a face below 0.75 is a dimmed one (white deepened four steps is 0.81).
+                    var goodFace=(Image)card.GetComponent<Button>().targetGraphic;bool dimmed=goodFace.color.r<.75f;
+                    Color ghost=dimmed?new Color(UiKit.Ghost.r*.62f,UiKit.Ghost.g*.62f,UiKit.Ghost.b*.62f,UiKit.Ghost.a):UiKit.Ghost;
+                    if(ring!=null&&!W13SameColour(ring.color,ghost))failures.Add(at+": a good's frame is not Ghost"+(dimmed?" (dimmed)":"")+": frame #"+ColorUtility.ToHtmlStringRGBA(ring.color)+", face #"+ColorUtility.ToHtmlStringRGBA(goodFace.color)+", Ghost #"+ColorUtility.ToHtmlStringRGBA(UiKit.Ghost));
                     var category=card.Find("Category13")?.GetComponent<TextMeshProUGUI>();
                     if(category==null||!category.gameObject.activeSelf||!W13GoodsCategories.Contains(category.text))failures.Add(at+": no goods category");
                 }

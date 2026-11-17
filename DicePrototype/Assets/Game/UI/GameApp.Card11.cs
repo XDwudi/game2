@@ -30,9 +30,13 @@ namespace DiceCraft
         /// belong to the theme that drew them.</summary>
         private static void ClearCardCaches13(){compactIconCache13.Clear();ringInset13.Clear();}
 
-        public enum CardSize13{Shop,Table,Compact}
+        /// <summary>Shop, Table and Compact (W13); Tile (W14 E3): the icon block and the name, for the shop's 我的构筑 row.</summary>
+        public enum CardSize13{Shop,Table,Compact,Tile}
         /// <summary>What one card shows. Goods without a rarity (items, services, face upgrades, new dice) set their
-        /// category; a new die names itself, brings its own picture and its own short text (its faces).</summary>
+        /// category; a new die names itself, brings its own picture and its own short text (its faces).
+        /// W14: a priced Compact card is a goods row (E2) with its price button on the right, <see cref="priceWidth"/> wide;
+        /// <see cref="categoryText"/> adds to the category line; <see cref="picture"/> draws the block's content instead of
+        /// the icon (a real die, a hand pattern); <see cref="buttonName"/> names the price button (the shop's "Buy_" ids).</summary>
         private sealed class CardFace13
         {
             public string contentId,category="controller",enchantment="none",value,label,text;
@@ -42,6 +46,9 @@ namespace DiceCraft
             public string availability;
             public Action buy;
             public Sprite art;
+            public string buttonName,categoryText;
+            public float priceWidth;
+            public Action<Transform,Rect> picture;
         }
 
         /// <summary>The compact icon of a content id: the current theme's baked icon, then the default theme's, then the
@@ -69,7 +76,8 @@ namespace DiceCraft
         }
         private static Color RarityTint13(string key)=>key=="rare"?UiKit.RarityRare:key=="advanced"?UiKit.RarityAdvanced:key=="common"?UiKit.RarityCommon:UiKit.Ghost;
         private static string GoodsCategory13(string category)
-            =>category=="consumable"?"道具":category=="service"?"服务":category=="die_upgrade"?"骰面改造":category=="new_die"?"新骰子":"";
+            =>category=="consumable"?"道具":category=="service"?"服务":category=="die_upgrade"?"骰面改造":category=="new_die"?"新骰子":
+              category=="hand_upgrade"||category=="color_upgrade"?"牌型升级":"";
         /// <summary>A disabled card is drawn dimmed: face, frame and picture darken; its labels take the dimmed fill's colour.</summary>
         private static readonly Color DimFace13=new Color(.62f,.62f,.62f,1);
         private static Color Dim13(Color c)=>new Color(c.r*.62f,c.g*.62f,c.b*.62f,c.a);
@@ -218,11 +226,14 @@ namespace DiceCraft
         /// </summary>
         private UnityEngine.UI.Button DrawCard13(Transform parent,string name,float x,float y,float w,float h,CardFace13 card,CardSize13 size,Action click,bool interactable)
         {
-            bool compact=size==CardSize13.Compact,goods=card.category!="controller";
+            bool tile=size==CardSize13.Tile,compact=size==CardSize13.Compact||tile,goods=card.category!="controller";
             var b=UiKit.Button(parent,name,"",x,y,w,h,click,interactable);
             UiKit.CardSurface(b,compact&&h<200);
             var face=(Image)b.targetGraphic;
             if(size==CardSize13.Shop){var shop=UiKit.Template("ui_card_shop");if(shop!=null){face.sprite=shop;face.type=Image.Type.Sliced;}}
+            // W14 E3: a tile is about 100 units square; the compact face's frame (11–14 units in the default style) is drawn
+            // at half its thickness there, so a four-character name at the 19.5-unit floor fits inside it.
+            face.pixelsPerUnitMultiplier=tile?2:1;
             face.color=card.disabled?DimFace13:Color.white;
             var t=b.transform;
             string rarity=goods?null:RarityKey13(card.contentId);
@@ -231,7 +242,8 @@ namespace DiceCraft
             var inner=new Rect(edge.x,edge.w,Mathf.Max(1,w-edge.x-edge.z),Mathf.Max(1,h-edge.w-edge.y));
             string title=goods&&!string.IsNullOrEmpty(card.label)?card.label:NameOf(card.contentId);
             string text=card.text??ShortText11(card.contentId);
-            if(compact)DrawCompactCard13(t,card,inner,w,h,rarity,tint,title,text,goods);
+            if(tile)DrawTile13(t,card,inner,rarity,tint,title);
+            else if(compact)DrawCompactCard13(t,card,inner,w,h,rarity,tint,title,text,goods);
             else DrawTallCard13(t,card,inner,w,h,size,rarity,tint,title,text,goods);
             return b;
         }
@@ -309,31 +321,50 @@ namespace DiceCraft
         {
             var face=(Image)t.GetComponent<UnityEngine.UI.Button>().targetGraphic;
             bool tall=h>=200;var content=new Rect(inner.x+4,inner.y+4,inner.width-8,inner.height-8);
+            // W14 E2: a priced compact card is a goods row; its price button takes the right end of the content, so the name
+            // and the short text end 8 units before it.
+            bool priced=card.price>=0;float priceW=priced?Mathf.Max(card.priceWidth,100):0,priceH=priced?PriceButtonHeight13(card,priceW):0;
+            float limit=content.xMax-(priced?priceW+8:0);
             // The icon block: a framed square (CARD_TEMPLATE §2) with the rarity gem across its foot, so the shape cue of the
             // rarity stays on a compact card too while the value badge takes the block's top-left corner.
             float block=tall?Mathf.Min(84,content.width*.34f):Mathf.Min(content.height-8,76),gem=tall?22:18;
             var blockArea=new Rect(content.x,content.y+(tall?6:Mathf.Max(0,(content.height-block-gem*.5f)*.5f)),block,block);
             var picture=RarityRing13(t,"RarityFrame13",blockArea,tint);
-            CardArt13(t,card,picture.x+1,picture.y+1,Mathf.Min(picture.width,picture.height)-2,true);
+            var pictureRect=new Rect(picture.x+1,picture.y+1,Mathf.Min(picture.width,picture.height)-2,Mathf.Min(picture.width,picture.height)-2);
+            if(card.picture!=null)card.picture(t,pictureRect);else CardArt13(t,card,pictureRect.x,pictureRect.y,pictureRect.width,true);
             if(!goods)RarityGem13(t,rarity,tint,blockArea.center.x,blockArea.yMax,gem);
             // The enchantment badge keeps the card's top-right corner (the W11 compact place; §2 names no place for it in the
             // compact size); the value badge starts at the block's top-left and may reach right up to it.
             float badge=tall?32:28;bool enchanted=Enchanted13(card);
             if(enchanted)CardEnchant13(t,card,content.xMax-badge,content.y,badge);
-            var value=ValueBadge13(t,card,blockArea.x,blockArea.y,content.x,content.xMax-(enchanted?badge+4:0),16);
+            var value=ValueBadge13(t,card,blockArea.x,blockArea.y,content.x,limit-(enchanted&&!priced?badge+4:0),16);
             // Name beside the block, below the value badge where the badge reaches over; the ordinal disc leads it, clear of
-            // the icon. Goods name their category above it.
+            // the icon. Goods name their category above it. A goods row caps the lines at 19.5 (category) and 22 units
+            // (name) so a short text can still follow them at 150 % text.
             float tx=blockArea.xMax+10,ty=content.y+(tall?4:2);
             if(value.width>0&&value.xMax>tx-4)ty=Mathf.Max(ty,value.yMax+2);
-            float right=content.xMax-(enchanted&&ty<content.y+badge+2?badge+4:0),tw=Mathf.Max(20,right-tx);
-            if(goods){var category=FitLine13(t,"Category13",GoodsCategory13(card.category),tx,ty,tw,15,LabelOn11(face,PaperMuted071),TextAlignmentOptions.MidlineLeft,false);ty+=category.rectTransform.rect.height;}
+            float right=limit-(enchanted&&ty<content.y+badge+2?badge+4:0),tw=Mathf.Max(20,right-tx);
+            if(goods)
+            {
+                string category=GoodsCategory13(card.category)+(string.IsNullOrEmpty(card.categoryText)?"":" · "+card.categoryText);
+                var label=FitLine13(t,"Category13",category,tx,ty,tw,15,LabelOn11(face,PaperMuted071),TextAlignmentOptions.MidlineLeft,false,priced?19.5f:0);
+                ty+=label.rectTransform.rect.height;
+            }
             float disc=card.ordinal>0?Mathf.Ceil(Mathf.Max(20,14*UiKit.FontScale*1.4f)):0,nameX=tx+(disc>0?disc+6:0);
-            var nameLabel=FitLine13(t,"Name",title,nameX,ty,Mathf.Max(20,right-nameX),20,LabelOn11(face,UiKit.Ink),TextAlignmentOptions.MidlineLeft,true);
-            if(!FitsLine13(nameLabel)&&right<content.xMax)
+            var nameLabel=FitLine13(t,"Name",title,nameX,ty,Mathf.Max(20,right-nameX),20,LabelOn11(face,UiKit.Ink),TextAlignmentOptions.MidlineLeft,true,priced?22:0);
+            if(!FitsLine13(nameLabel)&&right<limit)
             {
                 // Too long beside the enchantment badge even at the body size: the name row moves under the badge.
-                ty=Mathf.Max(ty,content.y+badge+2);right=content.xMax;
-                nameLabel=FitLine13(t,"Name",title,nameX,ty,Mathf.Max(20,right-nameX),20,LabelOn11(face,UiKit.Ink),TextAlignmentOptions.MidlineLeft,true);
+                ty=Mathf.Max(ty,content.y+badge+2);right=limit;
+                nameLabel=FitLine13(t,"Name",title,nameX,ty,Mathf.Max(20,right-nameX),20,LabelOn11(face,UiKit.Ink),TextAlignmentOptions.MidlineLeft,true,priced?22:0);
+            }
+            if(priced&&!FitsLine13(nameLabel))
+            {
+                // A goods row's long name (a new die's three-word title at 150 %) wraps to two balanced lines at the body size.
+                float width=Mathf.Max(20,right-nameX);
+                nameLabel.textWrappingMode=TextWrappingModes.Normal;nameLabel.fontSize=19.5f;
+                nameLabel.text=BalancedLines11(nameLabel,title,width);nameLabel.ForceMeshUpdate();
+                nameLabel.rectTransform.sizeDelta=new Vector2(width,Mathf.Ceil(nameLabel.GetPreferredValues(nameLabel.text,width,0).y)+2);
             }
             float nameH=nameLabel.rectTransform.rect.height;
             if(disc>0)OrdinalDisc13(t,card.ordinal,tx,ty+(nameH-disc)*.5f,disc);
@@ -352,12 +383,41 @@ namespace DiceCraft
             else
             {
                 // A mini card shows its short text only when it fits whole at the body size (PLAY_LAYOUT 8 row 14); below
-                // the name row it has the column's whole width (the enchantment badge is above it).
-                float room=content.yMax-textTop,textW=Mathf.Max(20,content.xMax-tx);
+                // the name row it has the column's whole width (the enchantment badge is above it), up to a goods row's
+                // price button.
+                float room=content.yMax-textTop,textW=Mathf.Max(20,limit-tx);
                 var body=UiKit.Text(t,"ShortText11",text,tx,textTop,textW,Mathf.Max(1,room),Body11(18),LabelOn11(face,UiKit.Ink),TextAlignmentOptions.TopLeft);
                 body.lineSpacing=-16;
                 if(body.GetPreferredValues(text,textW,0).y>room+.5f)body.gameObject.SetActive(false);
             }
+            // W14 E2: the price button, centred on the content's height (CARD_TEMPLATE §5: the price is the button).
+            if(priced)PriceButton13(t,card,content.xMax-priceW,content.y+Mathf.Max(0,(content.height-priceH)*.5f),priceW,priceH);
+        }
+
+        /// <summary>
+        /// W14 E3 (SHOP_LAYOUT 8): a tile of the 我的构筑 row, about 100 units square: the framed icon block with the rarity
+        /// gem inside its foot, and the name under it; the ordinal disc in the top-left corner and the enchantment badge in
+        /// the top-right corner over the block. No short text and no value badge (the hover and the details have them).
+        /// </summary>
+        private void DrawTile13(Transform t,CardFace13 card,Rect inner,string rarity,Color tint,string title)
+        {
+            var face=(Image)t.GetComponent<UnityEngine.UI.Button>().targetGraphic;
+            var content=new Rect(inner.x+2,inner.y+2,Mathf.Max(1,inner.width-4),Mathf.Max(1,inner.height-4));
+            Color ink=LabelOn11(face,UiKit.Ink);
+            // The name is measured first (it may step down to the 19.5-unit floor), then drawn again last, over nothing.
+            float nameH=FitLine13(t,"Name",title,content.x,content.y,content.width,20,ink,TextAlignmentOptions.Center,true).rectTransform.rect.height;
+            // The ordinal disc keeps the top-left corner clear of the picture: the block starts right of it.
+            const float disc=20;float lead=card.ordinal>0?disc+2:0;
+            float block=Mathf.Max(24,Mathf.Min(content.width-lead,content.height-nameH-2));
+            var blockArea=new Rect(lead>0?content.x+lead:content.x+(content.width-block)*.5f,content.y,block,block);
+            var picture=RarityRing13(t,"RarityFrame13",blockArea,tint);
+            float art=Mathf.Min(picture.width,picture.height)-2;
+            CardArt13(t,card,picture.x+1,picture.y+1,art,true);
+            float gem=Mathf.Min(16,block*.3f);
+            if(rarity!=null)RarityGem13(t,rarity,tint,blockArea.center.x,blockArea.yMax-gem*.5f-1,gem);
+            if(card.ordinal>0)OrdinalDisc13(t,card.ordinal,content.x,content.y,disc);
+            if(Enchanted13(card))CardEnchant13(t,card,content.xMax-24,content.y,24);
+            FitLine13(t,"Name",title,content.x,content.yMax-nameH,content.width,20,ink,TextAlignmentOptions.Center,true);
         }
 
         // Price row metrics: coin, gap, price (bold, 22), gap, word. The row uses the button's width less 16 units (its frame
@@ -369,10 +429,20 @@ namespace DiceCraft
         /// coin and price, then the word.</summary>
         private bool PriceTwoRows13(CardFace13 card,float width)=>PriceRowWidth13(card,19.5f/UiKit.FontScale)>width-16;
         private float PriceRowHeight13=>Mathf.Max(Coin13,Mathf.Ceil(22*UiKit.FontScale*1.3f))+4;
+        /// <summary>V1.1 W14 (SHOP_LAYOUT 12.4, E1): a price button is at least 60 units high, drawn and hit alike, the play
+        /// screen's rule (40 px at 720p).</summary>
+        public const float PriceButtonMin14=60;
         private float PriceButtonHeight13(CardFace13 card,float width)
         {
-            if(!PriceTwoRows13(card,width))return Mathf.Ceil(20*UiKit.FontScale*1.46f)+12;
-            return PriceRowHeight13+Mathf.Ceil(FitWord13(PriceWord13(card),width-16)*UiKit.FontScale*1.4f)+2+PriceFrame13;
+            if(!PriceTwoRows13(card,width))return Mathf.Max(PriceButtonMin14,Mathf.Ceil(20*UiKit.FontScale*1.46f)+12);
+            return Mathf.Max(PriceButtonMin14,PriceRowHeight13+Mathf.Ceil(PriceReasonFont13(card,width)*UiKit.FontScale*1.4f)+2+PriceFrame13);
+        }
+        /// <summary>The reason row of a two-row price button; in a goods row (W14 E2, a set <c>priceWidth</c>) it is set at the
+        /// 19.5-unit body size, so the button is never taller than its row allows (93 units at 150 % text).</summary>
+        private float PriceReasonFont13(CardFace13 card,float width)
+        {
+            float font=FitWord13(PriceWord13(card),width-16);
+            return card.priceWidth>0?Mathf.Min(font,19.5f/UiKit.FontScale):font;
         }
         /// <summary>
         /// The price is the button (CARD_TEMPLATE §5): coin and price in Gold, then "购买"; when the good cannot be bought
@@ -381,13 +451,13 @@ namespace DiceCraft
         private void PriceButton13(Transform parent,CardFace13 card,float x,float y,float w,float h)
         {
             bool can=!card.sold&&string.IsNullOrEmpty(card.availability);
-            var button=SolidButton11(parent,"PriceButton13","",x,y,w,h,()=>{if(!IsBusy&&!modal)card.buy?.Invoke();},can,20);
+            var button=SolidButton11(parent,card.buttonName??"PriceButton13","",x,y,w,h,()=>{if(!IsBusy&&!modal)card.buy?.Invoke();},can,20);
             var face=(Image)button.targetGraphic;var root=button.transform;
             root.Find("Label")?.gameObject.SetActive(false);
             string word=PriceWord13(card),price=PriceText073(card.price);
             bool twoRows=PriceTwoRows13(card,w);
             float wordFont=20;
-            if(twoRows)wordFont=FitWord13(word,w-16);
+            if(twoRows)wordFont=PriceReasonFont13(card,w);
             else while(wordFont*UiKit.FontScale>19.5f&&PriceRowWidth13(card,wordFont)>w-16)wordFont=Mathf.Max(19.5f/UiKit.FontScale,wordFont-.5f);
             float priceW=PreferredWidth11(price,22)+4,wordW=PreferredWidth11(word,wordFont);
             // A button that cannot be used keeps its reason readable (Muted where it reaches 4.5:1 on the face, else the

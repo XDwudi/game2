@@ -66,7 +66,8 @@ namespace DiceCraft.Tests
                     long gold = app.Session.State.gold; Click("StudyBuypair");
                     Assert.That(app.Session.State.gold, Is.EqualTo(gold - basePrice - premium));
                     yield return OpenBoundaryOffer("pair");
-                    Assert.That(DialogLabel("PriceBody"), Does.StartWith("价格 " + (basePrice + increment) + " 金币"));
+                    // V1.1 (W14, UI_REWRITES Shop.cs:136): 价格：5 金币（你有 7）.
+                    Assert.That(DialogLabel("PriceBody"), Does.StartWith("价格：" + (basePrice + increment) + " 金币"));
                     gold = app.Session.State.gold; Click("ConfirmPurchase");
                     Assert.That(app.Session.State.gold, Is.EqualTo(gold - basePrice - increment));
                 }
@@ -103,13 +104,26 @@ namespace DiceCraft.Tests
             {
                 string before = StateJson(); var priorDie = app.Session.State.dice.Single(d => d.dieId == "D001");
                 yield return OpenBoundaryOffer(id);
-                Assert.That(Button("ConfirmPurchase").interactable, Is.False, "Choosing an offer must not choose its target implicitly.");
+                // V1.1 (W14, SHOP_LAYOUT 7): the offer opens the face pick on the table (S1); there is nothing to confirm before a
+                // die (and a face) is chosen (v0.73: the dice sheet with a disabled confirmation).
+                Assert.That(app.FacePickStep14, Is.EqualTo("S1")); Assert.That(HasActive("ConfirmPurchase"), Is.False, "Choosing an offer must not choose its target implicitly.");
                 SelectUpgradeTarget(id);
                 Assert.That(Button("ConfirmPurchase").interactable, Is.True);
                 // v1.1 (W09, TX-02): colours without the English initials R/B.
-                if (id == "U01") Assert.That(FindActive<TextMeshProUGUI>("PurchasePreviewBody").text, Does.Contain("购买后：2点 · 蓝 · 光滑"));
-                if (id == "U07") Assert.That(FindActive<TextMeshProUGUI>("PurchasePreviewBody").text, Does.Contain("等概率取一个").And.Contain("颜色、纹理、镀金保持"));
-                Click("CloseDialog");
+                // V1.1 (W14, SHOP_LAYOUT 7.2): the change before and after, in the face-pick panel; cancelling is its 取消.
+                if (id == "U01") Assert.That(FindActive<TextMeshProUGUI>("PurchasePreviewBody").text, Is.EqualTo("2 点蓝面 → 2 点蓝面（光滑）"));
+                if (id == "U07")
+                {
+                    // The face as it is now (the earlier upgrades of this loop gave it a texture and gold): 2 点蓝面（粗糙、黄金）.
+                    var f2 = priorDie.faces.Single(f => f.faceId == "F02"); var traits = new System.Collections.Generic.List<string>();
+                    if (f2.texture == "smooth") traits.Add("光滑"); else if (f2.texture == "rough") traits.Add("粗糙");
+                    if (f2.isGold) traits.Add("黄金"); if (f2.baseWeight > 1) traits.Add("权重 " + f2.baseWeight);
+                    string faceText = f2.permanentPip + " 点" + (f2.baseColor == "red" ? "红" : "蓝") + "面" + (traits.Count > 0 ? "（" + string.Join("、", traits) + "）" : "");
+                    string others = string.Join("、", Enumerable.Range(app.Config.minPipValue, app.Config.maxPipValue - app.Config.minPipValue + 1).Where(n => n != f2.permanentPip));
+                    Assert.That(FindActive<TextMeshProUGUI>("PurchasePreviewBody").text, Is.EqualTo(faceText + " → 随机变成 " + others + " 之一"));
+                    Assert.That(FindActive<TextMeshProUGUI>("FacePickNote14").text, Is.EqualTo("颜色、纹理、黄金不变；买下时才抽"));
+                }
+                Click("CancelFacePick14");
                 Assert.That(StateJson(), Is.EqualTo(before), "Selecting and cancelling " + id + " must not charge, modify or draw RNG.");
                 yield return OpenBoundaryOffer(id); SelectUpgradeTarget(id);
                 long gold = app.Session.State.gold; Click("ConfirmPurchase");
@@ -132,8 +146,8 @@ namespace DiceCraft.Tests
                     string accepted = StateJson();
                     yield return OpenBoundaryOffer("duplicate-smooth"); SelectUpgradeTarget("U01");
                     Assert.That(Button("ConfirmPurchase").interactable, Is.False);
-                    Assert.That(FindActive<TextMeshProUGUI>("PurchaseUnavailable").text, Does.Contain("相同属性"));
-                    Click("CloseDialog"); Assert.That(StateJson(), Is.EqualTo(accepted));
+                    Assert.That(FindActive<TextMeshProUGUI>("PurchaseUnavailable").text, Is.EqualTo("这一面已经是光滑的，换一个面"));
+                    Click("CancelFacePick14"); Assert.That(StateJson(), Is.EqualTo(accepted));
                 }
                 if (id == "U07")
                 {
@@ -162,7 +176,7 @@ namespace DiceCraft.Tests
             Assert.That(Button("ConfirmPurchase").interactable, Is.False);
             Assert.That(FindActive<TextMeshProUGUI>("PurchaseUnavailable").text, Does.Contain("已满"));
             Click("CloseDialog"); Assert.That(StateJson(), Is.EqualTo(full));
-            yield return OpenBoundaryOffer("remove"); Click("Target_D001"); Click("CloseDialog");
+            yield return OpenBoundaryOffer("remove"); Click("Target_D001"); Click("CancelFacePick14");
             Assert.That(StateJson(), Is.EqualTo(full), "Cancelling deletion must retain the entire die and its upgrades.");
             yield return OpenBoundaryOffer("remove"); Click("Target_D001"); Click("ConfirmPurchase");
             Assert.That(app.Session.State.dice.Count, Is.EqualTo(7));
@@ -189,8 +203,8 @@ namespace DiceCraft.Tests
             string lastDieState = StateJson();
             yield return OpenBoundaryOffer("last-remove"); Click("Target_" + fixture.dice[0].dieId);
             Assert.That(Button("ConfirmPurchase").interactable, Is.False);
-            Assert.That(FindActive<TextMeshProUGUI>("PurchaseUnavailable").text, Does.Contain("没有合法目标"));
-            Click("CloseDialog"); Assert.That(StateJson(), Is.EqualTo(lastDieState));
+            Assert.That(FindActive<TextMeshProUGUI>("PurchaseUnavailable").text, Is.EqualTo("至少要留 1 颗骰子"));
+            Click("CancelFacePick14"); Assert.That(StateJson(), Is.EqualTo(lastDieState));
         }
 
         private RunState ShopBoundaryFixture()
@@ -246,11 +260,15 @@ namespace DiceCraft.Tests
         private void AssertBoundaryCardPrice(string id, int price)
         {
             ShopTabFor(id);
-            // v0.73: the transaction price is on the gold price chip; the button below it only says what it does.
+            // V1.1 (W14, CARD_TEMPLATE §5): the transaction price is on the card's price button (v0.73: a gold price chip).
             var priced = app.Session.State.shop.offers.Single(o => o.offerId == id);
             var priceCard = FindActive<Transform>((priced.category=="controller"?"Offer_":"Product_")+id);
-            Assert.That(priceCard.Find("PriceChip/Price").GetComponent<TextMeshProUGUI>().text, Is.EqualTo(price.ToString()));
-            Assert.That(Button("Buy_"+id).GetComponentInChildren<TextMeshProUGUI>().text, Is.EqualTo("购买"));
+            Assert.That(priceCard.Find("Buy_" + id + "/Price").GetComponent<TextMeshProUGUI>().text, Is.EqualTo(price.ToString()));
+            // The button's word (its PriceWord13 label; the first label is now the price) says what it does: 购买 exactly when
+            // it can be pressed, otherwise why not (v0.73: the button always said 购买 and a separate line gave the reason).
+            string word = PriceWord14(id); bool can = Button("Buy_" + id).interactable;
+            Assert.That(word, Is.Not.Empty, id);
+            Assert.That(word == "购买", Is.EqualTo(can), id + " reads '" + word + "' with interactable " + can);
         }
         private string DialogLabel(string name) => FindActive<Transform>("Dialog").GetComponentsInChildren<TextMeshProUGUI>().Single(t => t.name == name).text;
         private string FaceLabel(string faceId, string name) => FindActive<Transform>("Face_" + faceId).GetComponentsInChildren<TextMeshProUGUI>().Single(t => t.name == name).text;

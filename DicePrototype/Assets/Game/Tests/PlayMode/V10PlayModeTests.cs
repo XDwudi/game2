@@ -152,7 +152,8 @@ namespace DiceCraft.Tests
             var loot = app.Session.State.shop.offers.Where(o => o.groupId == "LOOT").ToArray();
             Assert.That(loot.Count(o => o.category == "controller"), Is.EqualTo(3)); Assert.That(loot.Count(o => o.category == "gold"), Is.EqualTo(1));
             Assert.That(FindActive<Transform>("ControllerShelf").GetComponentsInChildren<Transform>(true).Any(t => loot.Any(o => t.name == "Offer_" + o.offerId)), Is.False, "Loot never mixes into the shelf.");
-            Assert.That(Button("ViewGifts").GetComponentInChildren<TextMeshProUGUI>().text, Is.EqualTo("首领战利品")); Assert.That(HasActive("GiftsPending10"), Is.True);
+            // V1.1 (W14, SHOP_LAYOUT 3, DEV_PLAN 4.4 item 5): the entrance says how many items are left to take.
+            Assert.That(Button("ViewGifts").GetComponentInChildren<TextMeshProUGUI>().text, Is.EqualTo("首领战利品（还可领 1 件）")); Assert.That(HasActive("GiftsPending10"), Is.True);
             Click("ViewGifts");
             Assert.That(Text10("GiftTitle_LOOT"), Does.Contain(app.Config.Loot("L1").displayName).And.Contain("还可以领 1 件"));
             foreach (var offer in loot) Assert.That(HasActive("Product_" + offer.offerId), Is.True, offer.category);
@@ -162,7 +163,10 @@ namespace DiceCraft.Tests
             Assert.That(app.Session.State.controllers.Count, Is.EqualTo(owned + 1)); Assert.That(app.Session.State.controllers.Last().definitionId, Is.EqualTo(pick.contentId));
             Assert.That(app.Session.State.gold, Is.EqualTo(gold), "Loot is free.");
             Assert.That(HasActive("GiftsPending10"), Is.False);
-            Click("ViewGifts");
+            // V1.1 (W14, DEV_PLAN 4.4 item 5): once the loot is taken the entrance leaves the top bar; the dialog itself still
+            // shows the closed group, opened here directly.
+            Assert.That(HasActive("ViewGifts"), Is.False, "No loot entrance after the loot is taken (and no shop gifts here).");
+            typeof(GameApp).GetMethod("ShowGifts10", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance).Invoke(app, null);
             Assert.That(Text10("GiftTitle_LOOT"), Does.Contain("已领完"));
             foreach (var rest in loot.Where(o => o.offerId != pick.offerId)) Assert.That(Button("Buy_" + rest.offerId).interactable, Is.False, "The rest of the group is void.");
             Click("CloseDialog");

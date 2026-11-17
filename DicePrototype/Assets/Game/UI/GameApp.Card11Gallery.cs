@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using DiceCraft.Core;
 using TMPro;
 using UnityEngine;
 
@@ -13,16 +14,17 @@ namespace DiceCraft
     // the compact icons the W13a review asked to see (icons flagged for an edit, the closest look-alike pairs).
     public sealed partial class GameApp
     {
-        public const int CardGalleryPages13=6;
-        public static readonly string[] CardGalleryTitles13={"商店尺寸 · 常见与进阶","商店尺寸 · 稀有与商品","桌面尺寸","紧凑尺寸 · 两行卡","紧凑尺寸 · 文字卡","紧凑图标审查"};
+        public const int CardGalleryPages13=7;
+        public static readonly string[] CardGalleryTitles13={"商店尺寸 · 常见与进阶","商店尺寸 · 稀有与商品","桌面尺寸","紧凑尺寸 · 两行卡","紧凑尺寸 · 文字卡","紧凑图标审查","货品行与图块"};
         private static readonly string[] CardGalleryLegends13=
         {
-            "220×330（下限；放大文字 220×360）· 行：常见、进阶 · 列：无角标、附魔、数值、附魔+数值、失效、失效+附魔、警示、警示+附魔",
-            "220×330（放大文字 220×360）· 上行：稀有，列同前页 · 下行：道具、服务、骰面改造、新骰子，各两种价格状态",
+            "220×348（放大文字 220×364）· 行：常见、进阶 · 列：无角标、附魔、数值、附魔+数值、失效、失效+附魔、警示、警示+附魔",
+            "220×348（放大文字 220×364）· 上行：稀有，列同前页 · 下行：道具、服务、骰面改造、新骰子，各两种价格状态",
             "100% 时为对局卡排七张的宽度；放大文字时对局改用紧凑尺寸，此处为满宽 216 · 行：常见、进阶、稀有 · 列同商店页",
             "280×117（对局两行卡）· 每种稀有度两行：前四种、后四种角标组合 · 末行：四类商品",
             "280×244（放大文字、五张以内）· 行：常见、进阶、稀有 · 列：前六种角标组合",
             "280×117 两行卡 · (a) 待修图与临界 · (b) 最相近的图标对",
+            "W14 · E2 货品行（商店“升级与服务”与“骰子与骰面”的行高）各种价格状态 · E3 我的构筑图块（三种稀有度，序号、附魔）",
         };
         /// <summary>The W13a review rows (coordinator, 2026-11-17): ids still flagged for an edited icon, then the borderline ones.</summary>
         public static readonly string[] IconReviewFlagged13={"C33","C34","C107","C110","C111","C88","C103","C113","C126","C127","C130","C131"};
@@ -55,7 +57,8 @@ namespace DiceCraft
                 case 2:GalleryTable13(root,top);break;
                 case 3:GalleryCompactMini13(root,top);break;
                 case 4:GalleryCompactTall13(root,top);break;
-                default:GalleryIconReview13(root,backdrop,top);break;
+                case 5:GalleryIconReview13(root,backdrop,top);break;
+                default:GalleryRowsAndTiles14(root,backdrop,top);break;
             }
             return root;
         }
@@ -116,11 +119,34 @@ namespace DiceCraft
             return new List<CardFace13>{goods[0],goods[4],goods[1],goods[5],goods[2],goods[6],goods[3],goods[7]};
         }
 
-        /// <summary>Shop size at the template's minimum: 220 × 330 units; with enlarged text 220 × 360, the room a long short
-        /// text needs beside a two-row price button (卡牌已满 10 张, 卡牌栏位已满) at 150 %.</summary>
+        /// <summary>V1.1 W14 (SHOP_LAYOUT 2, E1): the Shop-size card of the shop shelf and of this gallery, 220 wide. With the
+        /// 60-unit price button it is 18 units taller at 100 % (330 → 348) and 4 at 150 % (360 → 364), the price button's own
+        /// growth, so every card keeps the picture, name and complete short text it had in W13; measured by
+        /// <see cref="MeasureShopCard14"/> over every card (PLAY_V14_E1).</summary>
+        public float ShopCardHeight14=>Large11?364:348;
+        public const float ShopCardWidth14=220;
+        /// <summary>What the template made of one Shop-size card: the picture's size, the name's size, and where the short
+        /// text's last glyph ends against the top of the price button (card units, downward).</summary>
+        public struct ShopCardFit14{public float art,namePx,textBottom,priceTop;public bool complete;}
+        /// <summary>W14 E1 measurement: one Shop-size card (220 wide, at the given height, price 3 with the given reason or
+        /// 购买) on the gallery layer; the short text is complete when its last glyph ends above the price button.</summary>
+        public ShopCardFit14 MeasureShopCard14(string id,string availability,float height)
+        {
+            if(cardGallery13==null)cardGallery13=UiKit.Rect(canvas.transform,"CardGallery13",0,0,1920,1080);
+            cardGallery13.anchoredPosition=main.anchoredPosition;cardGallery13.gameObject.SetActive(true);cardGallery13.SetAsLastSibling();
+            var card=new CardFace13{contentId=id,price=3,availability=availability};
+            var t=DrawCard13(cardGallery13,"MeasureShopCard14",40,40,ShopCardWidth14,height,card,CardSize13.Shop,null,true).transform;
+            var body=t.Find("ShortText11").GetComponent<TextMeshProUGUI>();body.ForceMeshUpdate();
+            var price=(RectTransform)t.Find("PriceButton13");var art=t.Find("Icon_"+id) as RectTransform;
+            float bottom=-body.rectTransform.anchoredPosition.y-body.textBounds.min.y,top=-price.anchoredPosition.y;
+            return new ShopCardFit14{art=art!=null?art.rect.height:0,namePx=t.Find("Name").GetComponent<TextMeshProUGUI>().fontSize,textBottom=bottom,priceTop=top,complete=bottom<=top-1};
+        }
+
+        /// <summary>Shop size (<see cref="ShopCardHeight14"/>): 220 × 348 units; with enlarged text 220 × 364, the room a long
+        /// short text needs beside a two-row price button (卡牌已满 10 张, 卡牌栏位已满) at 150 %.</summary>
         private void GalleryShop13(Transform root,float top,int[] rarities,bool goodsRow)
         {
-            var ids=GalleryCards13();const float w=220,gap=14,rowGap=16;float h=Large11?360:330,x0=(1920-(8*w+7*gap))*.5f;
+            var ids=GalleryCards13();const float w=220,gap=14,rowGap=16;float h=ShopCardHeight14,x0=(1920-(8*w+7*gap))*.5f;
             int row=0;
             foreach(int r in rarities)
             {
@@ -158,6 +184,45 @@ namespace DiceCraft
             var ids=GalleryCards13();float w=280,h=L11.cards.height,gapX=24,gapY=12;float x0=(1920-(6*w+5*gapX))*.5f;
             for(int r=0;r<3;r++)for(int v=0;v<6;v++)
                 DrawCard13(root,"GalleryCompactTall13_"+r+"_"+v,x0+v*(w+gapX),top+r*(h+gapY),w,h,GalleryVariant13(ids[r][(16+v)%ids[r].Length],r,v,v+1),CardSize13.Compact,null,true);
+        }
+        /// <summary>
+        /// W14 (CARD_TEMPLATE E2, E3): goods rows with their price button at the shop's row sizes (升级与服务: 452 wide, three
+        /// rows at 100 %, two with enlarged text; 骰子与骰面: 448 wide) in every price state, and the tiles of 我的构筑 (100 wide)
+        /// in the three rarities with ordinal and enchantment.
+        /// </summary>
+        private void GalleryRowsAndTiles14(Transform root,RectTransform backdrop,float top)
+        {
+            var l=S14;var items=Config.consumables.Select(c=>c.id).ToArray();var services=Config.services.Select(s=>s.id).ToArray();
+            GoodsGrid14(l,9,out _,out _,out float rowH,out float colW);if(Large11)GoodsGrid14(l,6,out _,out _,out rowH,out colW);
+            float diceH=DiceRowHeight14(l),x0=(1920-(2*colW+448+2*24))*.5f;
+            var level=ViewState.handLevels.First(h=>h.handId=="pair").level;var pair=Config.Hand("pair");
+            var rows=new List<CardFace13>
+            {
+                new CardFace13{contentId=LongestGood13(items),category="consumable",price=3},
+                new CardFace13{contentId=items.First(id=>id!=LongestGood13(items)),category="consumable",price=4,availability="道具栏已满"},
+                new CardFace13{contentId=LongestGood13(services),category="service",price=5,availability="还差 3"},
+                new CardFace13{contentId="O04",category="service",price=1,availability="至少留 1 颗骰子"},
+                new CardFace13{contentId="pair",category="hand_upgrade",price=3,text="Lv."+level+" → Lv."+(level+1)+" · ×"+Factor(pair.baseMult100+pair.incrementPerLevel100*level)+" → ×"+Factor(pair.baseMult100+pair.incrementPerLevel100*(level+1)),picture=(t,r)=>HandPattern14(t,"pair",false,r)},
+                new CardFace13{contentId=services.First(id=>id!=LongestGood13(services)&&id!="O04"),category="service",price=6,sold=true,disabled=true},
+            };
+            for(int i=0;i<rows.Count;i++){rows[i].priceWidth=GoodsPriceW14;DrawCard13(root,"GalleryGoodsRow14_"+i,x0+(i%2)*(colW+24),top+(i/2)*(rowH+8),colW,rowH,rows[i],CardSize13.Compact,null,true);}
+            var dieArt=UiKit.Template("ui_icon_roll");var sample=DiceFactory.CreateStandard(Config,1);
+            var dice=new List<CardFace13>
+            {
+                new CardFace13{contentId="new_die",category="new_die",label=DieTitle14(sample,Config.generation).title,text="",art=dieArt,price=4},
+                new CardFace13{contentId="new_die",category="new_die",label="红蓝各半 · 小点 · 三个 1",text="",art=dieArt,price=5,availability="骰子已满 "+Config.maxPermanentDice+" 颗"},
+                new CardFace13{contentId=LongestGood13(Config.diceUpgrades.Select(u=>u.id)),category="die_upgrade",price=2},
+                new CardFace13{contentId="U05",category="die_upgrade",price=2,availability="没有可改的骰子"},
+            };
+            float dx=x0+2*(colW+24);
+            for(int i=0;i<dice.Count;i++){dice[i].priceWidth=DicePriceWidth14;DrawCard13(root,"GalleryGoodsDie14_"+i,dx,top+i*(diceH+8),448,diceH,dice[i],CardSize13.Compact,null,true);}
+            float tilesTop=top+Mathf.Max(3*(rowH+8),4*(diceH+8))+8,tileH=l.tileH;
+            var ids=GalleryCards13();int n=0;
+            for(int r=0;r<3;r++)foreach(int v in new[]{0,1,3})
+            {
+                var card=GalleryVariant13(ids[r][v%ids[r].Length],r,v,n+1);
+                DrawCard13(root,"GalleryTile14_"+r+"_"+v,40+n*(BuildTileWidth14+8),tilesTop,BuildTileWidth14,tileH,card,CardSize13.Tile,null,true);n++;
+            }
         }
         /// <summary>The W13a review: each icon in a two-row card of the play row, its id above it; no badges or ordinal cover it.</summary>
         private void GalleryIconReview13(Transform root,RectTransform backdrop,float top)

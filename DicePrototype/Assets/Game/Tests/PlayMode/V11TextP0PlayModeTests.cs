@@ -190,7 +190,8 @@ namespace DiceCraft.Tests
             yield return LoadBoundaryFixture(shop);ResumeBoundaryFixture();
             string scaled=PlayerNumberFormat.Exact(ExactScoreMath.SaveDecimal(ExactScoreMath.Parse(app.Config.stages[2].normalTarget)*app.Config.Modifier(modifier).amount/100));
             Assert.That(scaled,Is.Not.EqualTo(PlayerNumberFormat.Exact(app.Config.stages[2].normalTarget)));
-            Assert.That(InformationText07("NextStageValue"),Is.EqualTo(scaled),"The left column includes the boss modifier.");
+            // V1.1 (W14, SHOP_LAYOUT 3): the next stage is in the top bar's middle (v0.73: the left column's NextStageValue).
+            Assert.That(InformationText07("NextStage14").Replace("\n"," "),Does.EndWith("目标 "+scaled),"The top bar includes the boss modifier.");
             Click("ViewCycle");
             Assert.That(FindActive<RectTransform>("CycleCard2").Find("Goal").GetComponent<TextMeshProUGUI>().text,Is.EqualTo(scaled),"Stage intel shows the same number.");
             Click("CloseCycle");
@@ -213,7 +214,8 @@ namespace DiceCraft.Tests
             Assert.That(app.LastTransactionSummary07,Does.Contain("卖价 1").And.Not.Contain("卖价 2"),"The summary uses the capped session price.");
             Click("Controller_"+bought.instanceId);
             Assert.That(InformationText07("FundBody"),Does.Contain("基础卖价 1（本店买入，离店前不超过买价）").And.Contain("= 当前卖价 1。"));
-            Assert.That(InformationText07("PriceBody"),Does.StartWith("当前卖价 1。"));
+            // V1.1 (W14, SHOP_LAYOUT 8, UI_REWRITES V05.cs:172): the cap is said where the price is (v1.1 W09: "当前卖价 1。").
+            Assert.That(InformationText07("PriceBody"),Does.StartWith("卖价 1（本店买入，不超过买价 1，离店后恢复）。"));
             Click("CloseDialog");
             Click("LeaveShop");yield return WaitForIdle();
             Assert.That(app.Session.State.phase,Is.EqualTo("StagePreview"));

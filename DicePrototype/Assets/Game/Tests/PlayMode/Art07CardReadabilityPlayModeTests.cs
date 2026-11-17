@@ -86,7 +86,9 @@ namespace DiceCraft.Tests
             string category=config.rarity=="rare"?"稀有":config.rarity=="uncommon"?"进阶":"常见";
             // V1.1 (W13, CARD_TEMPLATE §3): a card on the play table shows its rarity by its frame colour and gem shape; the
             // rarity word left its face (the hover and the details keep it). Its "State" is the value badge (§4).
-            bool hud=kind.StartsWith("hud",StringComparison.Ordinal);
+            // V1.1 (W14): the shop's cards (Shop size) and the tiles of 我的构筑 are drawn by the same template, so they follow
+            // the table cards' rules (no rarity word, gem and frame); only the detail card keeps the word and the ticks.
+            bool hud=kind.StartsWith("hud",StringComparison.Ordinal)||kind=="shop-full"||kind=="owned-mini";
             // v1.1 (W09, TX-02): the detail card prints the card's position ("第 N 张"), never its instance id.
             int position=app.Session.State.controllers.FindIndex(c=>c.instanceId==item.instanceId)+1;
             foreach(var pair in new[]{new[]{"RarityLabel",category},new[]{"Name",config.displayName},new[]{"State",footer},new[]{"Identity","第 "+position+" 张"}})
@@ -96,14 +98,14 @@ namespace DiceCraft.Tests
                 if(child==null){if(pair[0]=="RarityLabel"||(pair[0]=="Name"&&kind!="detail")||(pair[0]=="State"&&footer!=null)||(pair[0]=="Identity"&&kind=="detail"))row.errors.Add("Missing required "+pair[0]);continue;}
                 if(pair[1]!=null)row.labels.Add(CardGlyphCheck07(card,child.GetComponent<TextMeshProUGUI>(),pair[1],bottom));
             }
-            if(kind.StartsWith("hud",StringComparison.Ordinal))
+            if(kind.StartsWith("hud",StringComparison.Ordinal)||kind=="shop-full")
             {
                 // V1.1 (W11, PLAY_LAYOUT 1): the table card prints its short effect in full instead of a "查看条件" footer.
                 // A full card always shows it; a two-row mini card shows it only when it fits whole at the body size
                 // (PLAY_LAYOUT 8 row 14), otherwise it is in the card's hover and details.
                 var shortText=card.Find("ShortText11");
                 if(shortText!=null&&shortText.gameObject.activeSelf)row.labels.Add(CardGlyphCheck07(card,shortText.GetComponent<TextMeshProUGUI>(),config.shortText,bottom));
-                else if(kind=="hud-full")row.errors.Add("Missing required ShortText11");
+                else if(kind=="hud-full"||kind=="shop-full")row.errors.Add("Missing required ShortText11");
             }
             var ordinal=card.Find("Ordinal");if(ordinal!=null)
             {
@@ -141,7 +143,8 @@ namespace DiceCraft.Tests
             {
                 if(badge==null)row.errors.Add("Missing enchantment badge.");else
                 {
-                    row.badge=CardLocalRect07(card,badge);var face=(RectTransform)badge.Find("Badge");float size=kind=="detail"?40:card.rect.height>200?32:28;
+                    // V1.1 (W14, CARD_TEMPLATE E3): a tile's enchantment badge is 24 units.
+                    row.badge=CardLocalRect07(card,badge);var face=(RectTransform)badge.Find("Badge");float size=kind=="detail"?40:kind=="owned-mini"?24:card.rect.height>200?32:28;
                     if(face==null||Math.Abs(face.rect.width-size)>.01f||Math.Abs(face.rect.height-size)>.01f)row.errors.Add("Wrong enchantment badge size/resource.");
                 }
             }
@@ -166,6 +169,16 @@ namespace DiceCraft.Tests
             if(footer=="查看条件"||footer=="随机倍率")return null;
             if(footer.StartsWith("当前 ×",StringComparison.Ordinal)||footer.StartsWith("当前 +",StringComparison.Ordinal))return footer.Substring(3);
             if(footer=="当前红"||footer=="当前蓝")return "当前 "+footer.Substring(2);
+            return footer;
+        }
+        /// <summary>V1.1 (W14, CARD_TEMPLATE §4): the value badge of a card on the shop shelf: the number of its offer state
+        /// ("当前 ×1.5" → "×1.5", "卖价 2", "当前 蓝" without the assist symbol); a trait or a placeholder ("技能详情", "模拟右邻",
+        /// "购入定色", "随机倍率") has none.</summary>
+        private string ShopCardFooter14(ControllerInstance item)
+        {
+            string footer=CardExpectedFooter07(item,true).Replace(" ●","").Replace(" ◆","");
+            if(footer=="技能详情"||footer=="模拟右邻"||footer=="购入定色"||footer=="随机倍率")return null;
+            if(footer.StartsWith("当前 ×",StringComparison.Ordinal)||footer.StartsWith("当前 +",StringComparison.Ordinal))return footer.Substring(3);
             return footer;
         }
         private string CardExpectedFooter07(ControllerInstance item,bool offer)
@@ -211,7 +224,7 @@ namespace DiceCraft.Tests
                     var card=(RectTransform)Button("Controller_"+item.instanceId).transform;
                     row.cards.Add(CardCheck07(card,item,shop?"owned-mini":card.rect.height>200?"hud-full":"hud-compact",shop?null:TableCardFooter11(item)));
                 }
-                if(shop)foreach(var offer in state.shop.offers.Where(o=>o.category=="controller"))row.cards.Add(CardCheck07((RectTransform)Button("Offer_"+offer.offerId).transform,offer.controller,"shop-full",CardExpectedFooter07(offer.controller,true)));
+                if(shop)foreach(var offer in state.shop.offers.Where(o=>o.category=="controller"))row.cards.Add(CardCheck07((RectTransform)Button("Offer_"+offer.offerId).transform,offer.controller,"shop-full",ShopCardFooter14(offer.controller)));
             }
             File.WriteAllText(Path.Combine(extra07.output,id+"-glyphs.json"),JsonUtility.ToJson(row,true));
             Assert.That(row.cards,Is.Not.Empty);Assert.That(row.cards.SelectMany(c=>c.errors.Select(e=>c.kind+"/"+c.definition+": "+e)).ToArray(),Is.Empty,"See screenshot and -glyphs.json for actual missing/overlapping ink.");

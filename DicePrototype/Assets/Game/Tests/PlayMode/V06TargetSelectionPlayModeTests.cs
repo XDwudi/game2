@@ -67,11 +67,14 @@ namespace DiceCraft.Tests
             yield return LoadBoundaryFixture(fixture);ResumeBoundaryFixture();
             string original=StateJson();byte[] originalDisk=File.ReadAllBytes(app.SaveLocation);
             var before=app.Session.State;
+            // V1.1 (W14, SHOP_LAYOUT 7.3): the dice are chosen on the table, 我的骰子, eight a page in the debug workspace (v0.73:
+            // a scrolled list in the dice sheet). The last dice are not shown until the player turns the pages; choosing one
+            // keeps its page.
             yield return OpenBoundaryOffer("target32-gold");
-            Assert.That(TargetFullyInsideViewport(Button("Target_D031")),Is.False);
-            yield return WheelTargetIntoView("ShopTargetList","Target_D031");
+            Assert.That(app.FacePickStep14,Is.EqualTo("S1"));Assert.That(HasActive("Target_D031"),Is.False,"Last targets are on a later page.");
+            yield return PageToTarget14("Target_D031");
             yield return VisibleTargetClick("Target_D031");
-            Assert.That(TargetFullyInsideViewport(Button("Target_D031")),Is.True,"Selecting a die must preserve that target in the single-column list viewport.");
+            Assert.That(HasActive("Target_D031"),Is.True,"Selecting a die must keep that die's page.");Assert.That(app.FacePickDie14,Is.EqualTo("D031"));
             yield return VisibleTargetClick("Face_F01");
             Assert.That(StateJson(),Is.EqualTo(original));
             CollectionAssert.AreEqual(originalDisk,File.ReadAllBytes(app.SaveLocation));
@@ -83,11 +86,11 @@ namespace DiceCraft.Tests
             Assert.That(upgraded.gold,Is.EqualTo(before.gold-app.Config.Upgrade("U06").buyPrice));
             Assert.That(upgraded.actionSequence,Is.EqualTo(before.actionSequence+1));
             yield return OpenBoundaryOffer("target32-remove");
-            yield return WheelTargetIntoView("ShopTargetList","Target_D032");
-            yield return VisibleTargetClick("Target_D032");yield return VisibleTargetClick("CloseDialog");
+            yield return PageToTarget14("Target_D032");
+            yield return VisibleTargetClick("Target_D032");yield return VisibleTargetClick("CancelFacePick14");
             Assert.That(StateJson(),Is.EqualTo(JsonUtility.ToJson(upgraded)),"Cancelling deletion must not mutate the target or wallet.");
             yield return OpenBoundaryOffer("target32-remove");
-            yield return WheelTargetIntoView("ShopTargetList","Target_D032");
+            yield return PageToTarget14("Target_D032");
             yield return VisibleTargetClick("Target_D032");yield return VisibleTargetClick("ConfirmPurchase");
             var removed=app.Session.State;
             Assert.That(removed.dice.Count,Is.EqualTo(31));
@@ -101,6 +104,18 @@ namespace DiceCraft.Tests
             yield return null;
         }
 
+        /// <summary>V1.1 (W14): turns 我的骰子's pages with real clicks until a die's target is shown.</summary>
+        private IEnumerator PageToTarget14(string buttonName)
+        {
+            int clicks=0;
+            while(!HasActive(buttonName)&&clicks++<8)
+            {
+                Assert.That(HasActive("DicePageNext14"),Is.True,"No page control for "+buttonName);
+                yield return VisibleTargetClick("DicePageNext14");yield return null;
+            }
+            Assert.That(HasActive(buttonName),Is.True,"Target is still on another page: "+buttonName);
+            TestContext.WriteLine("Paged "+clicks+" time(s) to "+buttonName);
+        }
         private IEnumerator WheelTargetIntoView(string listName,string buttonName)
         {
             var scroll=FindActive<UnityEngine.UI.ScrollRect>(listName);
