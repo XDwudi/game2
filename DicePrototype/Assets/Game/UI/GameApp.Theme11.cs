@@ -22,6 +22,8 @@ namespace DiceCraft
         public void ApplyTheme11(string id,bool redraw=true)
         {
             var theme=ThemeRegistry.Activate(id);
+            // V1.1 (W11c): the measured sprite fills and frames belong to the sprites of the theme that drew them.
+            ClearSurfaceCaches11();
             ApplyThemeToTable11(theme);
             if(redraw&&StartupReady07)Refresh();
         }

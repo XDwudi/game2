@@ -18,6 +18,10 @@ namespace DiceCraft
         public const float PickContrast11=4.95f;
         private static readonly Dictionary<Sprite,Color> spriteFill11=new Dictionary<Sprite,Color>();
         private static readonly Dictionary<Sprite,Vector4> spriteFrame11=new Dictionary<Sprite,Vector4>();
+        /// <summary>Sprites whose fill or frame has been measured (W11c: emptied on every theme switch, so the caches never
+        /// hold another theme's sprites).</summary>
+        public static int SurfaceCacheCount11=>spriteFill11.Count+spriteFrame11.Count;
+        private static void ClearSurfaceCaches11(){spriteFill11.Clear();spriteFrame11.Clear();}
 
         private static float Channel11(float c)=>c<=.04045f?c/12.92f:Mathf.Pow((c+.055f)/1.055f,2.4f);
         /// <summary>WCAG relative luminance of an sRGB colour (alpha ignored).</summary>
@@ -150,5 +154,23 @@ namespace DiceCraft
             return down?light:dark;
         }
         private static Color LabelOn11(RectTransform surface,Color? preferred=null)=>LabelOn11(surface!=null?surface.GetComponent<Image>():null,preferred);
+
+        /// <summary>
+        /// V1.1 (W11c, THEME_SPEC §2): a stage-state cue written as a number (the pressure target in the top bar and the
+        /// settle panel's gap) keeps its hue. The cue colour stays when it reaches AA (4.5:1) on the drawn fill; otherwise
+        /// it steps 5 % at a time toward white or black, whichever raises the contrast on that fill, at most 8 steps, and
+        /// the first step that reaches 4.5:1 is used. Only when none does, the label takes the LabelOn11 pick.
+        /// </summary>
+        private static Color CueOn11(Image surface,Color cue)
+        {
+            if(surface==null)return cue;
+            Color fill=RenderedFill11(surface);
+            if(Contrast11(cue,fill)>=MinContrast11)return cue;
+            Color Step(Color toward,int n){var c=Color.Lerp(cue,toward,.05f*n);c.a=cue.a;return c;}
+            Color away=Contrast11(Step(Color.white,1),fill)>=Contrast11(Step(Color.black,1),fill)?Color.white:Color.black;
+            for(int n=1;n<=8;n++){var c=Step(away,n);if(Contrast11(c,fill)>=MinContrast11)return c;}
+            return LabelOn11(surface);
+        }
+        private static Color CueOn11(RectTransform surface,Color cue)=>CueOn11(surface!=null?surface.GetComponent<Image>():null,cue);
     }
 }

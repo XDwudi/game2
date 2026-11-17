@@ -177,7 +177,8 @@ namespace DiceCraft
             // The score pops (scale up to Art072ValuePop.Peak from its left edge) when it changes: the target starts after the
             // popped width, so the two numbers never touch.
             float targetX=14+scoreW*Art072ValuePop.Peak+8;
-            NoWrap11(UiKit.Text(frame,"Target","/ "+CompactScore(s.stage.target),targetX,4,Mathf.Max(40,w-targetX-26),44,c?26:32,LabelOn11(frame,PressureActive11?UiKit.Pressure:UiKit.Muted),TextAlignmentOptions.MidlineLeft));
+            // W11c: under pressure the target keeps the pressure hue (CueOn11), lightened or darkened only as far as AA needs.
+            NoWrap11(UiKit.Text(frame,"Target","/ "+CompactScore(s.stage.target),targetX,4,Mathf.Max(40,w-targetX-26),44,c?26:32,PressureActive11?CueOn11(frame,UiKit.Pressure):LabelOn11(frame,UiKit.Muted),TextAlignmentOptions.MidlineLeft));
             BigIntegerRatio11(shown,s.stage.target,out float ratio);
             UiKit.Progress(frame,"StageProgress072",14,48,w-28,7,ratio,s.stage.qualified?UiKit.Gold:PressureActive11?UiKit.Pressure:UiKit.Blue,s.runId+"|"+s.stage.stageId);
             UiKit.Rect(bar,"QualifiedStampSlot07",x+w+12,10,272,52);
@@ -764,7 +765,7 @@ namespace DiceCraft
             var gap=ExactScoreMath.Parse(s.stage.target)-ExactScoreMath.Parse(ReferenceEquals(s,ViewState)?DisplayedStageScore11():s.stage.score);if(gap.Sign<0)gap=0;
             float labelSize=Body11(c?18:22),gapSize=c?30:44,labelH=Line11(labelSize),gapH=Line11(gapSize);
             NoWrap11(UiKit.Text(main,"GoalGapLabel11","离目标还差",x,y,w,labelH,labelSize,LabelOn11(panel,UiKit.Muted)));
-            var value=NoWrap11(UiKit.Text(main,"GoalGap11",CompactScore(gap.ToString()),x,y+labelH,w,gapH,gapSize,LabelOn11(panel,PressureActive11?UiKit.Pressure:UiKit.TextColor)));
+            var value=NoWrap11(UiKit.Text(main,"GoalGap11",CompactScore(gap.ToString()),x,y+labelH,w,gapH,gapSize,PressureActive11?CueOn11(panel,UiKit.Pressure):LabelOn11(panel,UiKit.TextColor)));
             value.fontStyle=FontStyles.Bold;
             int reward=s.stage.reward>0?s.stage.reward:s.stage.risk?Config.stages[s.stage.stageIndex].riskReward:Config.stages[s.stage.stageIndex].normalReward;
             float noteY=y+labelH+gapH+2;
