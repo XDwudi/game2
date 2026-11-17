@@ -59,3 +59,15 @@
 | `PLAY_V09_ShopSellsASlotShowsTheDiscountAndUnblocksTheSixthController`（V09PlayModeTests.cs 第 44、53 行） | 期望“普通槽已满”，实际“栏位已满” | 同上，`GameApp.Art07Shop.cs` 第 130 行（`3bc30f0`） |
 
 这两项的新文字与 RULES_DELTA §10 的用词一致，改测试即可；但改动属于商店任务，留给它的负责人确认。
+
+## 4 运行结果（`b4fbdd69`）
+
+| 套件 | 结果 | 报告 |
+| --- | --- | --- |
+| EditMode（batch） | 2421 / 2421 | `evidence/v11/unity/nunit-20261117-005721.xml` |
+| PlayMode 1920×1080（全量） | 216 / 218，失败的 2 项见第 3 节 | `evidence/v11/unity/nunit-20261117-012224.xml` |
+| PlayMode 1280×720（全量） | 216 / 218，失败的同为第 3 节的 2 项 | `evidence/v11/unity/nunit-20261117-014936.xml` |
+
+720p 的这 2 项失败在改版前就会出现（失败的是商店报价文字，来自 `3bc30f0`，与分辨率和对局画面无关）；V1.1 上此前没有跑过 720p 全量，所以没有更早的 720p 基线可比。
+
+改版后第一次全量（`ebc6b26a`）为 1080p 175 / 214；中间各轮（筛选运行）的报告也在 `evidence/v11/unity/`。
