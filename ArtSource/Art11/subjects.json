@@ -1,0 +1,2102 @@
+{
+  "coordinatorDecisions": [
+    "C95, C96, C97: gold coins, since the cards pay or raise gold; the default's red coins are not copied (2026-11-17).",
+    "C100: the offered die stays (2026-11-17).",
+    "C02: blue pips, as for C56 (CP3-1) (2026-11-17).",
+    "C46: 'a round steering wheel with a thick rim' (no handles, as the default); the deco trial r01 added handles and is redrawn (2026-11-17).",
+    "The eight weak pip mismatches stay as drawn; no subject asks for specific pips (2026-11-17).",
+    "Pip runs in C40, C83, C107, C142 stay optional (2026-11-17)."
+  ],
+  "decision": "CP3-1 (docs/specs/v11/DEV_PLAN.md section 3)",
+  "schema": "subjects-1",
+  "source": "shipped default illustrations, DicePrototype/Assets/Art/Art071/Illustrations",
+  "subjects": {
+    "C01": {
+      "conflicts": [],
+      "cues": [
+        "coins are gold",
+        "one coin dropping into the slot"
+      ],
+      "mainObject": "piggy bank with falling coin",
+      "notes": "Snout, ear and eye belong to the ceramic object; keep it an object, not a cartoon pig. Money look-alikes: C44 (open wallet with coin stacks), C95 (bowl with coins and chopsticks), C99 (bowl heaped with coins and a sprout); the piggy-bank silhouette keeps C01 apart.",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c01.png",
+      "pictureSha256": "6e7292161ef233ecf2024a614689cf1096ce3a461b4f42ae270c83d506cf393c",
+      "subject": "a round piggy bank with one gold coin dropping into the slot on its back, two gold coins stacked at its foot, short strokes bursting around the falling coin"
+    },
+    "C02": {
+      "conflicts": [],
+      "cues": [
+        "whirlwind is blue",
+        "no red on the dice or the wind"
+      ],
+      "mainObject": "blue whirlwind with two dice",
+      "notes": "Default is 1312x1199, not square. Default dice have dark pips. Every style block colours pips red or blue by default and the reference role ignores colours, so the subject asks for blue pips: a red pip would contradict the card (no red dice). Same treatment as C56 under CP3-1. The two outside strokes are amber in the default (decorative).",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c02.png",
+      "pictureSha256": "2577ca9ed702eca412845d004d0efb6c981cd96f959b6ca184cd93ec907ef98d",
+      "subject": "a swirling blue whirlwind carrying two dice with blue pips inside its open eye, thick spiral bands wrapping around them, two short curved strokes outside the wind"
+    },
+    "C03": {
+      "conflicts": [],
+      "cues": [
+        "flag is red",
+        "flag stands at the front (first) die of the row"
+      ],
+      "mainObject": "flag beside the front die",
+      "notes": "Style anchor of the default kit. Pips are dark in the default; the red flag carries the colour, pip colour is free. Lead-die look-alikes: C54 (dice hooked into a chain, small flag on the last die), C108 (big lead die wearing a plumed hat), C64 (knight carrying the front die); C03 keeps the tall red flag on a pole at the nearest, largest die.",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c03.png",
+      "pictureSha256": "c6f1c1b826391246547fe142bce4b132699f8dfa98a381b98861984ba4219717",
+      "subject": "three dice in a diagonal row with the largest die at the front, a red pennant flag on a short pole planted beside that front die, three short strokes near the flag"
+    },
+    "C05": {
+      "conflicts": [],
+      "cues": [
+        "a single die on the spring",
+        "winding key on the side"
+      ],
+      "mainObject": "wind-up toy lifting a die",
+      "notes": "Look-alike: C72 (die on a tightly compressed tall spring over a heavy base); C05 keeps the box body and the big winding key.",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c05.png",
+      "pictureSha256": "925416958caa8194378752ea5f99f2c4cc7f1670adff4d99d871b97e60d65259",
+      "subject": "a chunky wind-up box toy with a large winding key on its side and a coiled spring on top lifting a single die, a small panel on the box front, three short curved strokes above the die"
+    },
+    "C06": {
+      "conflicts": [],
+      "cues": [
+        "three dice, each showing a different number of pips"
+      ],
+      "mainObject": "fan tray with three dice",
+      "notes": "Default is 1536x1024, not square. Default tops read one, four and three pips. Compartment panels alternate blue, red, blue in the default: decorative, not dice colour.",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c06.png",
+      "pictureSha256": "648fcd75b4c5c4e189a0693f815a5863a2c25ccf3bcd54c49eb9f236ed7a4032",
+      "subject": "an open hand fan shaped like a tray with three compartments, one die in each, the three dice showing different pip counts on top, a round pivot at the base of the ribs"
+    },
+    "C07": {
+      "conflicts": [],
+      "cues": [
+        "two identical dice, one going in and one coming out"
+      ],
+      "mainObject": "press copying a die",
+      "notes": "Default is 1312x1199, not square. Both dice show the same faces in the default (five on top, three in front). Keep it a press, not a mirror or photocopier.",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c07.png",
+      "pictureSha256": "ed514250ea2837c21d63e125e98f33351905e355fdd33094d5cbfcbb3cedb981",
+      "subject": "a small hand-cranked press with a die waiting in the hopper on top and an identical die lying on the output tray in front, a roller across its middle and a crank handle on its side"
+    },
+    "C08": {
+      "conflicts": [],
+      "cues": [
+        "exactly one die",
+        "rest of the boat is empty"
+      ],
+      "mainObject": "rowboat with one die",
+      "notes": "Default is 1774x887, not square. House sentence from the CP3 trials, kept verbatim. Very wide default; compact icons use a padded crop. Look-alikes at icon size: C22 (empty pleated tray) and C79 (straight row of compartments); also C83 (boat carrying four stepped dice and a pole). C08 keeps one die, an oar, an empty curved hull and water ripples.",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c08.png",
+      "pictureSha256": "b03cc52e48cada7b85fe3fe0be899b4e8a4cde156d1eb7eaa7890e0837ac149e",
+      "subject": "a small rowboat with one single die sitting in it and one oar resting on the side"
+    },
+    "C09": {
+      "conflicts": [],
+      "cues": [
+        "strip cut shorter, the cut-off piece falling away"
+      ],
+      "mainObject": "scissors cutting a strip",
+      "notes": "Default is 1312x1199, not square. Strip is red in the default (decorative). Cutting look-alikes: C98 (scissors snipping a blank price tag's string, with a die) and O02 (clipper notching a tag corner, with a coin); C09 has no die, no tag and no coin.",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c09.png",
+      "pictureSha256": "b5e184b7cb885dd038afe351b7a0483ca9190b79d8c2bffd79f59f5480d90079",
+      "subject": "a large pair of scissors cutting a folded paper strip shorter, the cut-off end curling away as a separate piece, three short strokes beside the blades"
+    },
+    "C10": {
+      "conflicts": [],
+      "cues": [
+        "die front shows exactly one pip"
+      ],
+      "mainObject": "one-pip die on a pedestal",
+      "notes": "Pedestal look-alikes: C50 (plinth block with an inset die), C137 (star trophy), C49 (two-step podium).",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c10.png",
+      "pictureSha256": "bab57b697b646a3a6e47f9637c08415ac32b622f5d412b42c0d4469a0b7640d5",
+      "subject": "a single die showing one large pip on its front, standing on a stepped trophy pedestal with a band around it, a small sparkle on the pedestal, three short strokes above the die"
+    },
+    "C100": {
+      "conflicts": [
+        "The offering on the altar is a die, but the card destroys the neighbouring card, not a die."
+      ],
+      "cues": [
+        "offering on a stepped altar with a fire on top"
+      ],
+      "mainObject": "stepped altar with brazier",
+      "notes": "Flame is cyan in the default (decorative). Stepped look-alike C58 (old die on a three-tier pedestal). Kept: the offered die stays, the altar and offering carry the card's idea (coordinator, 2026-11-17).",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c100.png",
+      "pictureSha256": "b1c19f10503d3d01cea18876befce4cc6cec9cba4bdb582c11cf8bab9a3c2b0f",
+      "subject": "a three-tier stepped stone altar with a flaming brazier on top, a die offered on a cloth draped over the middle tier, short strokes beside the flame"
+    },
+    "C101": {
+      "conflicts": [],
+      "cues": [
+        "one die whole, the other chipped"
+      ],
+      "mainObject": "sword between two dice",
+      "notes": "Blade look-alikes: C149 (sabre with a die on its tip), C129 (sword through a dragon tail).",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c101.png",
+      "pictureSha256": "c8a47d8659fc0dfe26a280c673f566c6487fe9530d3efb132e9c20ecd70777ca",
+      "subject": "an upright double-edged sword with its point down between two dice, a whole die on its left and a die with a broken corner on its right"
+    },
+    "C102": {
+      "conflicts": [],
+      "cues": [
+        "huge wave right behind the die (no retreat)"
+      ],
+      "mainObject": "die on ledge before wave",
+      "notes": "Flag is red in the default (decorative). Flag look-alikes: C03, C116.",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c102.png",
+      "pictureSha256": "96bc0f49a84248c8b33bc50921315e0e58a992a9c2ebdf358bc8dae9a0348eff",
+      "subject": "a die standing on a narrow rock ledge with a huge wave curling up behind it, a small torn flag planted beside it"
+    },
+    "C103": {
+      "conflicts": [],
+      "cues": [
+        "three dice outweigh a heap of many dice"
+      ],
+      "mainObject": "tilted balance, few vs many",
+      "notes": "Look-alike C18 (level balance, one red die and one blue die). Many tiny dice in the raised pan.",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c103.png",
+      "pictureSha256": "c49a197b5d6612d25e9bd702b926d46fea9f179914cc7e362dae8bf0e1153563",
+      "subject": "a tilted balance scale, the lower pan holding just three neat dice and the raised pan holding a heap of many small dice"
+    },
+    "C104": {
+      "conflicts": [],
+      "cues": [
+        "pips alternate red, blue, red along the row"
+      ],
+      "mainObject": "three dice on a cord",
+      "notes": "The front die's cord-hole face has no pips in the default. Colour order must be exact.",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c104.png",
+      "pictureSha256": "d85a6072b5e5e5f503209c57de4d44c6674103e12c69a1b4b857082aacbd6c7b",
+      "subject": "three large dice threaded on a short cord like beads in a tight diagonal row, the two outer dice with red pips and the middle die with blue pips, the cord knotted at both ends"
+    },
+    "C105": {
+      "conflicts": [],
+      "cues": [
+        "red-pip dice only on the left",
+        "blue-pip dice only on the right"
+      ],
+      "mainObject": "divided red-blue dice tray",
+      "notes": "Four dice in each half in the default, on red- and blue-tinted floors. Eight small dice: every pip colour must follow its side, check.",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c105.png",
+      "pictureSha256": "2a60e28dd4f5a57a8d8778e2b120657bc3c141a5feb0b9ad4ab53fdb726c88d9",
+      "subject": "a shallow tray with a raised divider down the middle, dice with red pips gathered in the left half and dice with blue pips in the right half"
+    },
+    "C106": {
+      "conflicts": [],
+      "cues": [
+        "one die on each wing in mirrored positions",
+        "both dice show the same faces"
+      ],
+      "mainObject": "paper butterfly with two dice",
+      "notes": "Two-dice look-alikes: C84, C143, C144.",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c106.png",
+      "pictureSha256": "9d20ac04b6e3b6ba57cfe2f2a1ed86ccfd0117bb77c993ddc43a29b726b88685",
+      "subject": "a folded paper butterfly opened out with a crease down its middle, one die on each wing in mirrored positions, both dice showing the same faces, a small star at each wingtip"
+    },
+    "C107": {
+      "conflicts": [],
+      "cues": [
+        "dice grow larger from left to right along the vine"
+      ],
+      "mainObject": "vine with growing dice",
+      "notes": "Default front pips read three, four, five (each one more than the die to its left, as the card asks); keep if the style can, never as digits. The vine is blue in the default (decorative).",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c107.png",
+      "pictureSha256": "7aa0818d7d70255e8a9c37e8425363e32250db58170707db319ff40dcbf94314",
+      "subject": "a curling vine with three dice hanging from it like melons, each die larger than the one before from left to right, a few leaves and one small flower"
+    },
+    "C108": {
+      "conflicts": [],
+      "cues": [
+        "the first die in line is the largest and wears the hat"
+      ],
+      "mainObject": "lead die in plumed hat",
+      "notes": "No face or limbs on the die; the baton just leans against it. Lead-die look-alikes: C03 (red flag), C54 (chain with small flag), C64 (knight).",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c108.png",
+      "pictureSha256": "93b705827231c3f7198bc2b593c7e4b04e1335fd2bb8e4f52cc47832805e6f8a",
+      "subject": "one large die wearing a tall plumed marching hat with a baton standing beside it, leading two smaller dice that follow in a line behind it"
+    },
+    "C109": {
+      "conflicts": [],
+      "cues": [
+        "die on a pillar in the middle of the stream"
+      ],
+      "mainObject": "die-topped pillar in a stream",
+      "notes": "",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c109.png",
+      "pictureSha256": "244b134ba251f154d05dd1280a9e19b3de81258768e443e7b26ea79db9d5fe13",
+      "subject": "a sturdy stone pillar standing in a rushing stream with a die resting on its top, the water splitting around its base among a few rocks"
+    },
+    "C11": {
+      "conflicts": [],
+      "cues": [
+        "two dice show two pips on top",
+        "two dice show three pips on top"
+      ],
+      "mainObject": "four linked dice",
+      "notes": "Exact top pips carry the card (two 2s and two 3s): check every redraw. Side faces are tinted red or blue in the default (decorative). Look-alike: C28 (two large oval rings knotted together, a die on each outer bend, tops two 3s and two 4s); C11 keeps the tight two-by-two square with short links.",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c11.png",
+      "pictureSha256": "e2e7f27caf827367a6966f357b5bf229b3eded641613f11e5fb4d1488a20c016",
+      "subject": "four dice set in a square and joined by two crossing ring links, two of the dice showing two pips on top and the other two showing three pips on top"
+    },
+    "C110": {
+      "conflicts": [],
+      "cues": [
+        "potion bottle and scroll spill out of the pouch"
+      ],
+      "mainObject": "pouch spilling items",
+      "notes": "The die among the items is decorative; the card gives items, not dice. Item look-alikes: C111 (peddler rack), C135 (crate), O01 (waist bag).",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c110.png",
+      "pictureSha256": "a69258ee18f95b3be8eac4f17bb6009e88f4d8982f6e203afa87dd9903e09771",
+      "subject": "an open drawstring pouch lying on its side spilling out a corked potion bottle, a rolled scroll with a seal and a die"
+    },
+    "C111": {
+      "conflicts": [],
+      "cues": [
+        "rack loaded with potion bottles and scrolls"
+      ],
+      "mainObject": "peddler's backpack rack",
+      "notes": "Very busy: unreadable at 720p already (v1.0 review). Potion colours red and blue are decorative. The drum carries a swirl emblem.",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c111.png",
+      "pictureSha256": "9426353f0b59cfbd68a7c957ef93da6d92825c7869407e3a7c7c4d42eb7c4248",
+      "subject": "a peddler's tall wooden backpack frame with shelves of small corked potion bottles and rolled scrolls on the bottom, a small rattle drum hanging from its side"
+    },
+    "C112": {
+      "conflicts": [],
+      "cues": [
+        "one blank card among the pipes"
+      ],
+      "mainObject": "pan flute with a card",
+      "notes": "Card blank. Blank-card look-alikes: C114 (wand), O11 (floating card), C140 (bin).",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c112.png",
+      "pictureSha256": "c5db673229e6063bcb204f572d9f613337a1b2b8e6a1d5bb2a967ba03a327d9d",
+      "subject": "a pan flute of pipes bound by a band, with one blank playing card slipped in between the pipes like an extra pipe, short strokes above"
+    },
+    "C113": {
+      "conflicts": [],
+      "cues": [
+        "die heated in the forge"
+      ],
+      "mainObject": "bellows and forge",
+      "notes": "Look-alikes: C60 (hammer and anvil), C124 (molten metal into a die).",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c113.png",
+      "pictureSha256": "c57ddc0e9e6cf9236b8534f0d4d7554024793f074fc3b11a33529c51af174bd8",
+      "subject": "a hand bellows blowing air into a small brick forge with a chimney, a die sitting on the hot coals inside the forge"
+    },
+    "C114": {
+      "conflicts": [],
+      "cues": [
+        "wand touches a blank card"
+      ],
+      "mainObject": "wand touching a card",
+      "notes": "Look-alike O11 (blank card floating above a pedestal with stars); C114 keeps the wand and the card lying down.",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c114.png",
+      "pictureSha256": "1bf6f206fd2376b7205ae2a4d403903d04d024a1646c42efc45b21b5191f35b0",
+      "subject": "the tip of a wand touching a blank card lying face up, a small burst at the touched spot and small stars rising from it"
+    },
+    "C115": {
+      "conflicts": [],
+      "cues": [],
+      "mainObject": "sprouting twig and die",
+      "notes": "Plant look-alikes: C36, C120, C152.",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c115.png",
+      "pictureSha256": "69cd7aa0b6e0a584645fe467638730b1d9291b44320801716f4de979d4255de6",
+      "subject": "a willow twig stuck into a small mound of earth and sprouting fresh leaves, a die lying beside the mound, short strokes above"
+    },
+    "C116": {
+      "conflicts": [],
+      "cues": [
+        "dice lined up at the recruiting tent"
+      ],
+      "mainObject": "recruiting tent with dice",
+      "notes": "Flag look-alikes: C03, C102.",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c116.png",
+      "pictureSha256": "88d5abdc455796a698d3a4dd8e5e32340b9214bf28e857583d21803dfabddf03",
+      "subject": "a pennant flag on a pole planted beside a small tent with a star on its flap, two dice lined up in front of the tent"
+    },
+    "C117": {
+      "conflicts": [],
+      "cues": [
+        "only the touched top face is gold"
+      ],
+      "mainObject": "gold-touch finger on a die",
+      "notes": "Plain hand only, no person. Gold-face look-alikes: I11 (brush stroke), U06 (clamp).",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c117.png",
+      "pictureSha256": "aca19cc631956e068635c5f4101fda532e78eae2a7d66519e9b108478d23bd6c",
+      "subject": "a gloved hand pointing its index finger down onto a die, the touched top face of the die turned gold, short strokes beside"
+    },
+    "C118": {
+      "conflicts": [],
+      "cues": [
+        "paint is red",
+        "paint on the top face and dripping from the bottom face"
+      ],
+      "mainObject": "tongs lifting a red-painted die",
+      "notes": "Accepted in v1.0 as the red counterpart of C92 (blue die over a bucket); C118 keeps the tongs, the small pot and paint on only top and bottom. Also near C26 (die sitting in a tin of red dye).",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c118.png",
+      "pictureSha256": "e0b8cde068d17308198d6e2eb10c6b52b8c6142e044767a183c8462bb256abfb",
+      "subject": "a die being lifted out of a small pot of red paint by a pair of tongs, red paint coating its top face and dripping from underneath it"
+    },
+    "C119": {
+      "conflicts": [],
+      "cues": [
+        "ink spreads from one face onto the next"
+      ],
+      "mainObject": "dropper staining a die",
+      "notes": "Flagged 'tool from the upper right onto a die' family (U08, U09, U10, I11, C134). C119 keeps the dropper and the stain running over the edge.",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c119.png",
+      "pictureSha256": "734f38aa08e7be3bb0ba849c2c60f15382707e1905640e4dcec6fa9b48f6e327",
+      "subject": "an ink dropper releasing a drop onto the top of a die, the ink soaking from the top face over the edge onto the neighbouring face"
+    },
+    "C12": {
+      "conflicts": [],
+      "cues": [
+        "exactly two holes and two punched-out discs (an even pair)"
+      ],
+      "mainObject": "two-hole paper punch",
+      "notes": "Default is 1536x1024, not square. The even pair is the idea; keep exactly two holes and two discs. Series with C13 and C14.",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c12.png",
+      "pictureSha256": "2d5620f6ae3c3eb621c6070f637517a7f05f3dbb9ec8391db6f4de79ac421bb5",
+      "subject": "a two-hole paper punch pressing down on a paper strip that already has a pair of round holes punched in it, two punched-out paper discs lying beside it"
+    },
+    "C120": {
+      "conflicts": [],
+      "cues": [
+        "seedling pulled upward (forced growth)"
+      ],
+      "mainObject": "tweezers pulling a seedling",
+      "notes": "Plant look-alikes: C36, C115.",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c120.png",
+      "pictureSha256": "b069f15d0f53ab98e432c07eace0bd115ef00593cf5e01121827fb798dc360e5",
+      "subject": "a seedling in a flower pot being pulled upward by a pair of tweezers with its roots showing, a die half buried in the soil beside it"
+    },
+    "C121": {
+      "conflicts": [],
+      "cues": [
+        "large die planed down",
+        "smaller die beside it"
+      ],
+      "mainObject": "plane shaving a die",
+      "notes": "Look-alike U09 (file rasping a die top).",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c121.png",
+      "pictureSha256": "c4eb9aa4fd016b00aa5e6acd6c077d159f50463baf3c62752e5fc2ad852be163",
+      "subject": "a hand plane shaving long curls off the top of a large die, a much smaller die sitting beside it, short strokes at the upper left"
+    },
+    "C122": {
+      "conflicts": [],
+      "cues": [
+        "five dice huddled in a flock",
+        "one more die joining"
+      ],
+      "mainObject": "flock of five dice",
+      "notes": "Five is the pun in the name; pips are free.",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c122.png",
+      "pictureSha256": "1c24cc2bc35214b72741557f4044a402501bfdcaf382a95c0b80ccf18b1fa6c6",
+      "subject": "five dice huddled tightly together in a cluster like a flock, one more die rolling toward the group with a curved motion stroke"
+    },
+    "C123": {
+      "conflicts": [],
+      "cues": [
+        "two dice on the lower step",
+        "three dice on the upper step"
+      ],
+      "mainObject": "dice on two steps",
+      "notes": "Two and three is the pun in the name; counts must be exact. Rising look-alike C29 (staircase, one die per step).",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c123.png",
+      "pictureSha256": "1bdf5205e77e94c17d957795aa2bab7337b260112ca1dc7722b76c8e45b31d24",
+      "subject": "two low steps, a pair of dice sitting on the lower step and a row of three dice sitting on the upper step"
+    },
+    "C124": {
+      "conflicts": [],
+      "cues": [
+        "molten metal poured into the die (a loaded die)"
+      ],
+      "mainObject": "ladle pouring into a die",
+      "notes": "Molten metal is red-orange in the default and must not read as red paint (C26, C118, U03). Weight look-alike U10 (screwdriver driving a plug).",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c124.png",
+      "pictureSha256": "df034af18094b0a92f9a064622548e84db2432575dda00e37f939483f003fd01",
+      "subject": "a ladle pouring molten metal through a hole in the top of a hollow die, the open front of the die showing the pips inside"
+    },
+    "C125": {
+      "conflicts": [],
+      "cues": [
+        "one face polished to a shine"
+      ],
+      "mainObject": "polishing cloth and tin",
+      "notes": "Look-alikes: U01 (cloth only, no tin), C91 (cloth and sanding block). C125 keeps the open tin of polish.",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c125.png",
+      "pictureSha256": "175a1214a744c29dcfe961e58448638f60d34ad287b461ff0b900d062f267109",
+      "subject": "a cloth draped over a die rubbing its top face to a shine with a small sparkle, an open round tin of polish beside it"
+    },
+    "C126": {
+      "conflicts": [],
+      "cues": [
+        "die resting under a blanket"
+      ],
+      "mainObject": "die resting under a blanket",
+      "notes": "The blanket has a star and a dashed border in the default (decorative).",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c126.png",
+      "pictureSha256": "f7562764d4b3726b1bc515cf0aecbc5da855890b38f3c1000818e2774824210d",
+      "subject": "a die resting on a plump tasselled cushion under a folded blanket, a steaming cup beside it"
+    },
+    "C127": {
+      "conflicts": [],
+      "cues": [
+        "flowering twig grafted onto a bare branch",
+        "die hangs from the grafted twig"
+      ],
+      "mainObject": "grafted branch with a die",
+      "notes": "",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c127.png",
+      "pictureSha256": "bf971b2d5a64c848acb8c8a8afdb6d095635e5d520a019e889dfbe07e6935089",
+      "subject": "a branch where a flowering twig is bound onto a bare stem with twine, a die hanging on a string from the grafted twig"
+    },
+    "C128": {
+      "conflicts": [],
+      "cues": [
+        "die is transparent glass"
+      ],
+      "mainObject": "glassblower's pipe with glass die",
+      "notes": "Glass look-alikes: U05, C145, C90, C42.",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c128.png",
+      "pictureSha256": "3fdfaeb0bc7a0af8f996ec6f189d18dcba4d2ecebfc730fa94f56d2d7d3b233a",
+      "subject": "a glassblower's pipe with a transparent glass die forming at its end, short strokes at the upper left"
+    },
+    "C129": {
+      "conflicts": [],
+      "cues": [
+        "sword pierces a coiled dragon tail"
+      ],
+      "mainObject": "sword through a dragon tail",
+      "notes": "Tail only, no dragon head or face.",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c129.png",
+      "pictureSha256": "5cf08a630b39cbc09805990666ddfdf3f74a4fd16a9587e45de1998d052eeae7",
+      "subject": "a short sword planted upright through a coiled scaly dragon tail, a die balanced on the sword's pommel"
+    },
+    "C13": {
+      "conflicts": [],
+      "cues": [
+        "top face shows three pips (odd)"
+      ],
+      "mainObject": "key in a die lock",
+      "notes": "Default is 1536x1024, not square. Weak mismatch (not a conflict): the lock's red side face shows two pips (even) on an odd-number card; the subject does not ask for it. Series with C12 and C14.",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c13.png",
+      "pictureSha256": "acf934d4a87a409d18898bfaacb8214dfe6e7a3c3096349f59c175d1ec5ce9d7",
+      "subject": "a key pushed into a keyhole on the front of a die-shaped lock whose top face shows three pips, three short strokes above the key"
+    },
+    "C130": {
+      "conflicts": [],
+      "cues": [
+        "fish leaps up against the falling water"
+      ],
+      "mainObject": "carp leaping a waterfall",
+      "notes": "The carp has an eye and open mouth in the default: keep it a plain fish, no expression.",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c130.png",
+      "pictureSha256": "51a496f48ed7f07a241f137bcb41252bdf0c805eb4b0500ba4fbdbfea9900ca0",
+      "subject": "a carp leaping up a small waterfall over rocks with a die strapped to its back, water splashing around it"
+    },
+    "C131": {
+      "conflicts": [],
+      "cues": [
+        "broken chain at the goat's feet"
+      ],
+      "mainObject": "toy goat with broken chain",
+      "notes": "Toy goat, no expression. Broken-chain look-alike I08 (torn talisman); both remove a boss debuff.",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c131.png",
+      "pictureSha256": "5fa16cb3080dcca3ef14a1fc0d2f5d290c4ca074cbc96454e41635b0c2291a19",
+      "subject": "a carved wooden toy goat carrying a bundle tied with rope on its back, a broken chain link lying at its feet"
+    },
+    "C132": {
+      "conflicts": [],
+      "cues": [
+        "steam jetting from the valve (high pressure)"
+      ],
+      "mainObject": "pressure cooker with steam",
+      "notes": "",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c132.png",
+      "pictureSha256": "7deaa003590f021b4b586b112f54d4cc1f1aa9a0ee49f28c0d0bd5d4fea885b3",
+      "subject": "a pressure cooker with its lid valve jetting a puff of steam, a die rattling on top of the lid"
+    },
+    "C133": {
+      "conflicts": [],
+      "cues": [
+        "poster pinned by a dagger",
+        "coins are gold"
+      ],
+      "mainObject": "pinned poster and coin pouch",
+      "notes": "Poster stays blank: no WANTED text, face or numbers.",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c133.png",
+      "pictureSha256": "18418dfee53f44ca3e3122dbe1073cc089641837f0b3608248fa957881096cf2",
+      "subject": "a rolled blank poster pinned to a wooden post by a dagger, a pouch of gold coins hanging below it"
+    },
+    "C134": {
+      "conflicts": [],
+      "cues": [
+        "bottle empty, upside down, last drop falling"
+      ],
+      "mainObject": "empty bottle dripping on die",
+      "notes": "Flagged 'tool from the upper right onto a die' family (U08, U09, U10, I11, C119). C134 keeps the round upside-down bottle and a single drop.",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c134.png",
+      "pictureSha256": "3067897eac377fce5897444099d05b405ae8231c01156735636d46d60ceb3764",
+      "subject": "an empty potion bottle held upside down with its last drop falling onto a die below"
+    },
+    "C135": {
+      "conflicts": [],
+      "cues": [
+        "crate packed with potion bottles and scrolls",
+        "locked with a padlock"
+      ],
+      "mainObject": "padlocked crate of items",
+      "notes": "Look-alikes: C89 (chest of gold dice), C111 (peddler rack), C148 (padlocked cup).",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c135.png",
+      "pictureSha256": "817ef9591c0e457de9d93a08edcf50f48ec4c287d00309353fca28a6114e427b",
+      "subject": "a wooden storage crate packed full of corked potion bottles and rolled scrolls, its lid held half shut by a padlock"
+    },
+    "C136": {
+      "conflicts": [],
+      "cues": [
+        "one die strapped to the shield"
+      ],
+      "mainObject": "shield with a strapped die",
+      "notes": "Shield look-alike C97 (shield with sword and money bag, no die).",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c136.png",
+      "pictureSha256": "a8ad239c6fc232ea072ca074c8aeef10d16a1ca1d2a8f2c41cf5dd8c4fddf210",
+      "subject": "a round studded shield with a die strapped to its centre by crossed straps, a spear leaning behind it"
+    },
+    "C137": {
+      "conflicts": [],
+      "cues": [],
+      "mainObject": "star trophy with a die",
+      "notes": "Pedestal look-alikes: C10, C49, C50.",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c137.png",
+      "pictureSha256": "e9a55addc5af2d45dff4f1e3acd382fc47fb4e32f155a4c1d8811df75919d78e",
+      "subject": "a star-shaped trophy on a small pedestal with a die mounted at the centre of the star"
+    },
+    "C138": {
+      "conflicts": [],
+      "cues": [
+        "three gold coins in all, one loaded and two flying"
+      ],
+      "mainObject": "slingshot firing gold coins",
+      "notes": "Three coins echo the three gold the card spends.",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c138.png",
+      "pictureSha256": "bc974f38b3a3e907c85aa25bf1d8690d55f7fc2ce5dec669f5bebbf649a4525c",
+      "subject": "a slingshot stretched back with a gold coin loaded in its pouch, two more gold coins already flying off"
+    },
+    "C139": {
+      "conflicts": [],
+      "cues": [
+        "coins are gold",
+        "die wears a crown"
+      ],
+      "mainObject": "throne with crowned die",
+      "notes": "House sentence from the CP3 trials, kept verbatim (three coins per stack verified). Crown look-alikes: C17, C144.",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c139.png",
+      "pictureSha256": "fd25668033bc5baa9dccf0a0e8c771c6be454b5155ceeefe868ff9ea4fe892e4",
+      "subject": "a tall upholstered throne with a die seated on it wearing a small crown, each armrest a short stack of three gold coins"
+    },
+    "C14": {
+      "conflicts": [],
+      "cues": [
+        "three dice",
+        "every visible face shows a single pip (odd)"
+      ],
+      "mainObject": "three-armed stand with dice",
+      "notes": "Front pips are red, blue and gold in the default; colour is not functional and gold is not a game pip colour, so colour is left to the style. Generators tend to add pips on side faces: check. Series with C12 and C13.",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c14.png",
+      "pictureSha256": "9006f834ebf4ef56b4d9341840614669cd10a1f91cd5ec90e1865ae4ed73915f",
+      "subject": "a three-armed stand like a small candelabra holding three dice, one raised on the centre stem and one on each lower arm, every visible face of each die showing a single pip"
+    },
+    "C140": {
+      "conflicts": [],
+      "cues": [
+        "blank cards go in at the top",
+        "gold coin comes out at the bottom"
+      ],
+      "mainObject": "card bin paying a coin",
+      "notes": "",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c140.png",
+      "pictureSha256": "4d071abb8b9fb4a19d169d087f7997f9356ba8880859cb06d52912f4dc1ec1fb",
+      "subject": "a small bin with two blank cards dropping into its open top and a gold coin popping out of a slot at the bottom"
+    },
+    "C141": {
+      "conflicts": [],
+      "cues": [
+        "one petal already falling (the bloom fades)"
+      ],
+      "mainObject": "blooming flower dropping a petal",
+      "notes": "",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c141.png",
+      "pictureSha256": "4182c45d47c4ac4320dbe63778fa37085a4f8bb03ecc40183afd5f0fb58ccb95",
+      "subject": "a large flower in full bloom in a small pot, one petal already falling, a die at the foot of the pot"
+    },
+    "C142": {
+      "conflicts": [],
+      "cues": [
+        "tail is one row of five dice"
+      ],
+      "mainObject": "kite with a dice tail",
+      "notes": "Default tops read one to five in order, a literal straight (v1.0 review C2); reproduce only if the style manages it naturally, never as digits. Thin string and tassel break at 64 px.",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c142.png",
+      "pictureSha256": "6b7386f8fe303f9d9f05f46ff2e5589805564098fb8bd57a96c8ed7e0ef71f19",
+      "subject": "a diamond kite with ribbon streamers whose tail is a single wavy row of five dice, the kite string trailing below with a tassel at its end"
+    },
+    "C143": {
+      "conflicts": [],
+      "cues": [
+        "exactly two dice",
+        "both dice show the same faces"
+      ],
+      "mainObject": "two dice on a swing",
+      "notes": "Thin swing frame breaks at small sizes. Two-dice look-alikes: C84, C144, C106.",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c143.png",
+      "pictureSha256": "41654a5633075409b0b71296cd521b37b406b29511c46bf16fa5414ff796bd2d",
+      "subject": "two identical dice sitting side by side on the seat of a small swing hanging from one bar of a frame"
+    },
+    "C144": {
+      "conflicts": [],
+      "cues": [
+        "two dice under one crown",
+        "front faces show four pips (even)"
+      ],
+      "mainObject": "crown on two dice",
+      "notes": "Weak mismatch (not a conflict): the dark side faces show one pip (odd); tops show two. Two-dice look-alikes: C84, C143, C106.",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c144.png",
+      "pictureSha256": "7e5eec207656a8ea3bc78c7277441588d59189df8a056f490b4d5fd71b708d5a",
+      "subject": "a crown resting across two identical dice standing side by side, each die showing four pips on its front"
+    },
+    "C145": {
+      "conflicts": [],
+      "cues": [
+        "die is transparent glass",
+        "wrapped in bubble wrap"
+      ],
+      "mainObject": "glass die in bubble wrap",
+      "notes": "Bubble texture is fine detail. Glass look-alikes: U05, C128.",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c145.png",
+      "pictureSha256": "6dbd6b4dbd8146efea4a90a4155b21eec5e899eba0adb8e0451af490b91a0b96",
+      "subject": "a transparent glass die wrapped in a layer of bubble wrap, short strokes above"
+    },
+    "C146": {
+      "conflicts": [],
+      "cues": [
+        "die is red",
+        "a red flower is being added"
+      ],
+      "mainObject": "red flower stitched on cloth",
+      "notes": "Cloth pattern is cloud swirls in the default (decorative).",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c146.png",
+      "pictureSha256": "63ed58b85b53ec6c22fa45042d0d7064a3ecc4cdef5eb26ced3dc7e01db8b291",
+      "subject": "a folded piece of patterned cloth with a needle and red thread stitching a red flower onto it, a red die lying beside it"
+    },
+    "C147": {
+      "conflicts": [],
+      "cues": [
+        "dice seated as an audience"
+      ],
+      "mainObject": "dice audience in tiered seats",
+      "notes": "Dense: reads as texture at 720p (v1.0 review). Look-alike C86 (nine dice in a flat tray); C147 keeps the tiered seats. Seats are red in the default (decorative).",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c147.png",
+      "pictureSha256": "e77dcc81369129786e452a9fb87ec5bbb13eb84c3c414ade878fe82f7fde4fc6",
+      "subject": "a small block of tiered theatre seats with dice sitting in the seats like an audience, three rows of three"
+    },
+    "C148": {
+      "conflicts": [],
+      "cues": [
+        "dice cup upside down and padlocked"
+      ],
+      "mainObject": "padlocked upside-down dice cup",
+      "notes": "Dice-cup look-alikes: C62, I07.",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c148.png",
+      "pictureSha256": "ca15eeddddd0db51ee7bbdee9ded2cd32e027ea52b20d6332ef9debfd99b7abc",
+      "subject": "a dice cup turned upside down and locked shut by a padlock on a band, two dice resting beside it"
+    },
+    "C149": {
+      "conflicts": [],
+      "cues": [
+        "exactly one die",
+        "a single sabre"
+      ],
+      "mainObject": "die on a sabre tip",
+      "notes": "Thin blade breaks at 64 px.",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c149.png",
+      "pictureSha256": "942ae940f4e7d5bfbc91804ff2c68e68af537c92fb565329190b58a93260c18c",
+      "subject": "a single curved sabre lying diagonally from lower left to upper right, one die balanced on its tip"
+    },
+    "C15": {
+      "conflicts": [],
+      "cues": [
+        "middle face is blue",
+        "red closes in from both sides (two red rollers)"
+      ],
+      "mainObject": "rollers on a blue tile",
+      "notes": "Default is 1536x1024, not square. The tile is a low hexagonal slab, not a cube. Look-alikes: U04 (one roller turning a die's top face blue), U03 (brush painting a top face red); C15 keeps two red rollers converging on one blue face.",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c15.png",
+      "pictureSha256": "416d2f971078f66acb65ef988f6ebe39c0830e07bc042c87cea22ce5f12aa31c",
+      "subject": "two red paint rollers pressing in from both sides onto a low hexagonal die tile whose blue top face with pips has red creeping in from its left and right edges"
+    },
+    "C150": {
+      "conflicts": [],
+      "cues": [
+        "bells grow from small to large",
+        "die is the clapper of the largest bell"
+      ],
+      "mainObject": "three bells, die as clapper",
+      "notes": "",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c150.png",
+      "pictureSha256": "113a870ffa48a51a91cec17714db4320e9b8604917ae9d5e026e216045c3eba3",
+      "subject": "three bells hanging in a row from a bar, small to large, with a die hanging as the clapper of the largest bell"
+    },
+    "C151": {
+      "conflicts": [],
+      "cues": [
+        "picture frame is empty"
+      ],
+      "mainObject": "empty frame on an easel",
+      "notes": "",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c151.png",
+      "pictureSha256": "45012d854fa6739eac3f02ba47b7f92ea3dc9ad3b604b792dc6acd18fc2a2f4b",
+      "subject": "an empty picture frame standing on an easel, a die at the foot of the easel"
+    },
+    "C152": {
+      "conflicts": [],
+      "cues": [
+        "grass tuft lifts the die up"
+      ],
+      "mainObject": "grass lifting a die",
+      "notes": "Plant look-alikes: C36, C115.",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c152.png",
+      "pictureSha256": "15a01627e0b7a76720c6c6dd4ad637418a200958ba7591e757dbffefe4b62a1f",
+      "subject": "a tuft of grass pushing up through a cracked paving stone and lifting a die on its blades"
+    },
+    "C153": {
+      "conflicts": [],
+      "cues": [
+        "doors swinging open with the ribbon cut",
+        "ribbon is red",
+        "die rolling out"
+      ],
+      "mainObject": "opening doors with cut ribbon",
+      "notes": "Red is kept because the card name 开门红 means 'red at the opening'; it is not a dice colour.",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c153.png",
+      "pictureSha256": "f2655f9e734d25fd1f5c86e9f2bed59b22a3203f92a8c9a67054d968be1128a3",
+      "subject": "a double door swinging open with a cut red ribbon falling away from its handles and a die rolling out of the doorway"
+    },
+    "C17": {
+      "conflicts": [],
+      "cues": [
+        "die shows three pips (a low number)"
+      ],
+      "mainObject": "die with paper crown",
+      "notes": "Default is 1312x1199, not square. An earlier version had mitten hands that were removed: no hands, limbs or face. Crown look-alikes: C139 (crowned die on a throne), C144 (crown across two dice), C24 (scholar's hat).",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c17.png",
+      "pictureSha256": "5e03b7fa8e19388c99837703b59da6e4eb6438b227ce423e3a50adbad9372b4e",
+      "subject": "a die showing three pips wearing an oversized folded paper crown, a toy spoon leaning against its side, short strokes on both sides"
+    },
+    "C18": {
+      "conflicts": [],
+      "cues": [
+        "one red die and one blue die",
+        "beam is level"
+      ],
+      "mainObject": "level balance scale",
+      "notes": "Default is 1536x1024, not square. Default die bodies are red and blue with light pips; red and blue pips on light dice carry the same cue. Look-alike: C103 (tilted balance, three dice against a heap).",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c18.png",
+      "pictureSha256": "6f377e9ab3e0f7e4a50f6ea146a9fee14b85ec4f8cc380785874a0566b0a64d4",
+      "subject": "a balance scale with its beam perfectly level, one red die in the left pan and one blue die in the right pan"
+    },
+    "C19": {
+      "conflicts": [],
+      "cues": [
+        "a small die is the fulcrum"
+      ],
+      "mainObject": "wrench lever on small die",
+      "notes": "Default is 1536x1024, not square. Three objects only; no person.",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c19.png",
+      "pictureSha256": "57eea0cdf1758438d41469df9116d7c0f14a54901a0217a9c8f8958e8fa9a73e",
+      "subject": "a long adjustable wrench balanced across a small die that serves as its fulcrum, the far end of the wrench lifting a heavy block"
+    },
+    "C20": {
+      "conflicts": [],
+      "cues": [
+        "die front shows six pips"
+      ],
+      "mainObject": "six-pip die in a ribbon",
+      "notes": "No flag or trophy (C03 owns the flag). Ribbon is red in the default (decorative). Six-pip look-alikes: C67 (die slamming into cracked ground), C71 (hand pushing a die from behind a curtain), I04 (magnet).",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c20.png",
+      "pictureSha256": "20617108baf1aff1ae22c448247137109354c5667dd8088f78da035fdc6f7058",
+      "subject": "a large die showing six pips on its front standing inside a curved finishing ribbon whose ends curl up on both sides, a fan of short rays above it"
+    },
+    "C21": {
+      "conflicts": [],
+      "cues": [
+        "one extra drawer pulled out",
+        "drawer is empty"
+      ],
+      "mainObject": "case with one drawer out",
+      "notes": "Capacity look-alikes: C22 (pleated tray with two wings), I12 (sliding tray with dice and one extra empty compartment), C79 (row of compartments), O08 (card-slot rack with wrench). C21 keeps the handled case and no dice. I06 shares the name 增加提交 but is drawn as a ticket roll.",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c21.png",
+      "pictureSha256": "216371f3f00025bbf999cb92f482959859cb655efb5cd16ba40515aba173b2c9",
+      "subject": "a carry case with a top handle and a front latch, one empty drawer pulled out from its lower side, short strokes at its upper left"
+    },
+    "C22": {
+      "conflicts": [],
+      "cues": [
+        "tray opened out on both sides (two wings)",
+        "tray is empty"
+      ],
+      "mainObject": "pleated tray with two wings",
+      "notes": "Flagged look-alike at icon size with C08 (bowl-like silhouette); C22 has no die, no oar and no water, and its zigzag folds must stay readable. Wider than C21 (one drawer).",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c22.png",
+      "pictureSha256": "c0a9c5059e11a90f4ea054469ca5ab8fabd76d24199b487270ffc73446536b6a",
+      "subject": "a wide empty tray opened out like an accordion, its folded walls zigzagging up into two broad wings that spread out to both sides, short strokes above it"
+    },
+    "C24": {
+      "conflicts": [],
+      "cues": [
+        "hat is red"
+      ],
+      "mainObject": "winged scholar's hat on die",
+      "notes": "The die shows four pips in front and one on its side (the card turns a red one into a red four); keep if the style can, not required. Hat and scroll must carry no characters or writing; hat swirls are decorative.",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c24.png",
+      "pictureSha256": "cf64db14f1b82cb72d1ed0fbf5a9540672d46215b46b54bc4134de8f762949f2",
+      "subject": "a red scholar's hat with two broad wing flaps and a round knob on top sitting over a die, a blank unrolled scroll with a rod at each end spread behind them, short strokes above"
+    },
+    "C25": {
+      "conflicts": [],
+      "cues": [
+        "every die has red pips",
+        "one ribbon binds all the dice together"
+      ],
+      "mainObject": "red-pip dice in a bow",
+      "notes": "Red-dice look-alikes: C57 (three red dice with a flame), C69 (three red dice with a tuning fork); bow look-alike C80 (two dice, one and six pips). C25 keeps the big bow wrapped through three red-pip dice.",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c25.png",
+      "pictureSha256": "0392b082d07c6e94b09b046ab3e25d82d25b3a4c65903ca1233d4912d3d0a039",
+      "subject": "three dice with red pips bound together by one large ribbon tied in a bow at their centre, short strokes above"
+    },
+    "C26": {
+      "conflicts": [],
+      "cues": [
+        "exactly one die",
+        "red pips on every visible face",
+        "dye in the tin is red"
+      ],
+      "mainObject": "die in red dye tin",
+      "notes": "Paint look-alikes: C118 (tongs lifting a die from a small pot of red paint), U03 (brush reddening only the top face), C92 (blue die dripping over a bucket). C26 keeps one die sitting in a wide shallow tin.",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c26.png",
+      "pictureSha256": "c9bf934dcbd3139a08041ca379bc9d548972dd558009cba930b3ed2fd2bbc470",
+      "subject": "a single die with red pips on every visible face sitting in a round shallow tin filled with red dye, three short strokes above"
+    },
+    "C27": {
+      "conflicts": [],
+      "cues": [
+        "exactly two dice joined as a pair"
+      ],
+      "mainObject": "two stitched die sleeves",
+      "notes": "Weak mismatch (not a conflict): the two tops show different pips (four and three), so they are not a pair of equal values; only the inner faces beside the stitches match (one pip each). The subject leaves faces free. Two-dice look-alikes: C80, C84, C143, C144, C106.",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c27.png",
+      "pictureSha256": "56b4904033149b7d0001beea253a4e8606c4c976033cb049d5052baf95b6d243",
+      "subject": "two hollow die-shaped sleeves joined side by side by thick laced stitches between them, together forming one bow-tie shape, short strokes above and below"
+    },
+    "C28": {
+      "conflicts": [],
+      "cues": [
+        "four dice in two pairs on two linked rings"
+      ],
+      "mainObject": "knotted rings with four dice",
+      "notes": "Default tops read two 3s and two 4s (two pairs); keep if the style can. Rings are blue and red in the default (decorative, not dice colour). Look-alike: C11 (four dice in a tight square joined by short links); C28 keeps the big open knot of two rings.",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c28.png",
+      "pictureSha256": "f8278b14f03550adf1560f92cb7ee7336f5246f5a7b8e621eb5994867b7c7d7a",
+      "subject": "two large oval rings looped through each other into a knot, a die riding on each of the four outer bends, short strokes above and below"
+    },
+    "C29": {
+      "conflicts": [],
+      "cues": [
+        "dice climb a staircase, one per step"
+      ],
+      "mainObject": "dice on a staircase",
+      "notes": "Style anchor of the default kit. Rising look-alikes: C123 (two dice on a low step, three on a high step), C40 (hinged rule), C87 (unfolding ruler), C83 (boat). C29 keeps a solid staircase with one die per step.",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c29.png",
+      "pictureSha256": "d90d1d1934d710640faf7df1dc2fbd08d47a2f7f5b6f214618dc61894beb7cd9",
+      "subject": "three dice climbing a short staircase, one die on each step from the low front step to the high back step, short strokes at the upper left"
+    },
+    "C30": {
+      "conflicts": [],
+      "cues": [
+        "three dice",
+        "all three show the same faces"
+      ],
+      "mainObject": "pyramid of three dice",
+      "notes": "All three show four pips in front and one on the side in the default. Support look-alikes: C31 (table on four dice legs), C85 (cauldron on three dice).",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c30.png",
+      "pictureSha256": "e6c938493020ca0f5d00a412b1c7b9a2c66661cebc99b340ddabebbf7962454d",
+      "subject": "three identical dice stacked into a pyramid, two side by side below and one on top, small pads wedged between them, short strokes on both sides"
+    },
+    "C31": {
+      "conflicts": [],
+      "cues": [
+        "four dice as the four legs"
+      ],
+      "mainObject": "table on four dice legs",
+      "notes": "Weak mismatch (not a conflict): the leg dice show different faces (four, five, three), so four-of-a-kind is not literal; the subject leaves faces free. The fourth leg is mostly hidden behind. Look-alikes: C30 (dice pyramid), C85 (cauldron).",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c31.png",
+      "pictureSha256": "9ef0a4131dee69cc26cc21396000b8259dd4366b994e2cc0c14db8811ff8c088",
+      "subject": "a broad low table top resting on four dice that serve as its legs, short strokes above it"
+    },
+    "C32": {
+      "conflicts": [],
+      "cues": [
+        "all dice identical, showing the same faces"
+      ],
+      "mainObject": "ring of identical dice",
+      "notes": "Every die shows four on top, three in front, one on the side in the default; any matching faces keep the cue.",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c32.png",
+      "pictureSha256": "ea27e6121b37eca6a704169bcb1beb614e445d9a6cbd8f83a19030eac160c303",
+      "subject": "six identical dice arranged in a ring around an open round hole, every die showing the same faces"
+    },
+    "C33": {
+      "conflicts": [],
+      "cues": [
+        "large die in front, small die behind"
+      ],
+      "mainObject": "bulldozer die and small die",
+      "notes": "Weak mismatch (not a conflict): front pips are five and four, which do not meet the card's gap of three; size carries the idea and the subject leaves pips free.",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c33.png",
+      "pictureSha256": "f21e486c692262b49f782d6b94540ec996f0cb98429a9857e80b17d21d69485d",
+      "subject": "a large die riding a small bulldozer whose front blade pushes a heap of rubble, a much smaller die following behind its tracks"
+    },
+    "C34": {
+      "conflicts": [],
+      "cues": [],
+      "mainObject": "funnel and dice pile",
+      "notes": "House sentence from the CP3 trials, kept verbatim. Pair card C35 (small numbers) is a die-shaped box with a trapdoor. Many small dice: the pile reads as texture at small sizes.",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c34.png",
+      "pictureSha256": "8c4dfb4872a79c6f65ad3a02271330f735feae36da3c76f4666b09313185c0eb",
+      "subject": "a tilted funnel hopper on a stand pouring dice down into a neat pile of many dice below it"
+    },
+    "C35": {
+      "conflicts": [],
+      "cues": [
+        "small die shows one pip on top",
+        "visible faces show low numbers (one to three pips)"
+      ],
+      "mainObject": "trapdoor die box",
+      "notes": "The single pip is red in the default (matches the game's red one-face); colour optional. Pair card C34 (funnel and big pile).",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c35.png",
+      "pictureSha256": "172559e16eec169253384d0bf96d62e3a2c5710e43f3eaf5d4b7f99ad0888f89",
+      "subject": "a large die-shaped box with a small door open low on its front, a small die popping out through the door showing one pip on top, short strokes beside it"
+    },
+    "C36": {
+      "conflicts": [],
+      "cues": [
+        "sprout grows up out of the die"
+      ],
+      "mainObject": "sprout from a die pot",
+      "notes": "Pair card C37 (shrinking lens). Plant look-alikes: C120 (seedling pulled by tweezers), C99 (sprout in coins), C152 (grass lifting a die); C36 keeps the die itself as the pot.",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c36.png",
+      "pictureSha256": "d019d0bdd446f7670d4c9c88c4cf43535be2fb7194427bcfbca9a0038e5a06de",
+      "subject": "a die-shaped flower pot with a sturdy sprout of two large leaves growing out of its top, short strokes on both sides"
+    },
+    "C37": {
+      "conflicts": [],
+      "cues": [
+        "large die becomes a small die through the lens"
+      ],
+      "mainObject": "shrinking magnifying glass",
+      "notes": "Style anchor of the default kit. Pair card C36 (growing sprout). Not a ray gun.",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c37.png",
+      "pictureSha256": "bf8ef718fbf7c3b518bbbf273372d3da0ecede867a39c44e55d9094ea9c4435c",
+      "subject": "a magnifying glass with a large die on one side of the lens and a cone of light passing through it shrinking the die into a small die inside the lens"
+    },
+    "C38": {
+      "conflicts": [],
+      "cues": [
+        "bookends are blue",
+        "blue only at the two ends of the row"
+      ],
+      "mainObject": "blue bookends with dice",
+      "notes": "Bookend dice have dark pips in the default; the blue bookends carry the cue. Tickets stay blank. Ticket look-alikes: I06 (ticket roll), C48 (ticket tent).",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c38.png",
+      "pictureSha256": "793e89325378ab841991f5eacec642b16345a063ee067975a35b9aff67f9e5a8",
+      "subject": "a short row of blank tickets held between two blue bookends, each bookend carrying one die, short strokes above"
+    },
+    "C39": {
+      "conflicts": [],
+      "cues": [
+        "die pips blue",
+        "one die"
+      ],
+      "mainObject": "ring pedestal with a die",
+      "notes": "House sentence from the CP3 trials, kept verbatim (all six trial styles kept blue pips).",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c39.png",
+      "pictureSha256": "3404c77ad7ccd32595ce97011df4b26b8f278e1ca3d37b7e7f7f424662b1cbf8",
+      "subject": "a single die with blue pips seated in a round ring-shaped pedestal that carries a diamond emblem on its front, two short sparkle strokes above"
+    },
+    "C40": {
+      "conflicts": [],
+      "cues": [
+        "three dice rising in equal steps"
+      ],
+      "mainObject": "dice on a hinged rule",
+      "notes": "Default tops read three, four, five (equal steps, as the card asks); keep if the style can, never as digits. Flagged look-alike C87 (four dice growing from tiny to large along a long ruler with tick marks); C40 keeps three same-size dice on a short three-segment rule with round hinges and no tick marks.",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c40.png",
+      "pictureSha256": "cd966a806f8e6e456883273bbf7bbf6d7e044adab2b5be0999313abdca6bdc6e",
+      "subject": "a hinged folding rule of three segments rising in equal steps to the upper right, one die sitting on each segment, short strokes at the upper left"
+    },
+    "C41": {
+      "conflicts": [],
+      "cues": [
+        "mirror reflects the same mask (a copy)"
+      ],
+      "mainObject": "mask and hand mirror",
+      "notes": "Mask has eye holes only, no expression. Mirror look-alikes: C93 (die before a stand mirror), U11 (die on a mirror).",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c41.png",
+      "pictureSha256": "f648494b5fb324ba437464696f4935e129e1d63433e4623ca16ab5bc5209b1f8",
+      "subject": "a plain theatre mask leaning against a hand mirror whose glass reflects the same mask, short strokes at the upper left"
+    },
+    "C42": {
+      "conflicts": [],
+      "cues": [
+        "barrel is glass",
+        "crack in the barrel"
+      ],
+      "mainObject": "cracked glass cannon",
+      "notes": "Style anchor of the default kit. Glass look-alikes: C90 (cracked glass heart), U05 (cracked glass die), C128, C145.",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c42.png",
+      "pictureSha256": "ec2dc4e93ea964e37285d8fda197476c6ca6dfadadcd1b97ad5c57846c0582c5",
+      "subject": "a short stubby cannon with a glass barrel on a two-wheeled carriage, a visible crack across the barrel, a small spark at the muzzle"
+    },
+    "C43": {
+      "conflicts": [],
+      "cues": [
+        "bookmark lifts a die up out of the book (level up)"
+      ],
+      "mainObject": "book with rising bookmark",
+      "notes": "Pages blank. Look-alike C61 (stack of three books, die standing on the open top book); C43 keeps one open book and the die raised on the bookmark.",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c43.png",
+      "pictureSha256": "e17edfe1add2c2f27dabbf03b1a6d6b8e3921a700443e0264b04ac31d219e554",
+      "subject": "an open book whose pages rise in steps, a bookmark ribbon standing up out of it with a die on its top, two small sparkles beside the die"
+    },
+    "C44": {
+      "conflicts": [],
+      "cues": [
+        "coins are gold"
+      ],
+      "mainObject": "open wallet holding a die",
+      "notes": "Money look-alikes: C01 (piggy bank), C99 (bowl of coins), C139 (throne with coin stacks).",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c44.png",
+      "pictureSha256": "741d29e43b2e28525ee88fa5affee35fe5415a89d9d02f4f7d7c6763d414e628",
+      "subject": "an open wallet curved up like a stage holding a die on a cushion, stacks of gold coins showing on both sides, a round clasp on its front, short strokes above"
+    },
+    "C45": {
+      "conflicts": [],
+      "cues": [
+        "one red fin and one blue fin"
+      ],
+      "mainObject": "red-blue weather vane",
+      "notes": "Die pips are dark in the default; the fins carry the colour cue.",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c45.png",
+      "pictureSha256": "f3f98d20374f7ac0de6b869c54d386019d4fae130faa26bd93756575ab7e02e4",
+      "subject": "a weather vane mounted on top of a die, its arm carrying one red fin and one blue fin, small curved wind strokes in red and blue around it"
+    },
+    "C46": {
+      "conflicts": [],
+      "cues": [],
+      "mainObject": "three-spoke wheel with die",
+      "notes": "House sentence said 'a ship steering wheel'; the default has no handle pegs and the deco trial added pegs, so it now says 'a round steering wheel with a thick rim'. Otherwise unchanged.",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c46.png",
+      "pictureSha256": "171d7bfca9a6abf5931b092b54f8c2b34caf25335e46da42aeb3d1da9e68e6a1",
+      "subject": "a round steering wheel with a thick rim and three broad spokes and a die mounted at its hub, two short motion strokes along the rim"
+    },
+    "C47": {
+      "conflicts": [],
+      "cues": [
+        "three tiles hang on strings from one control cross"
+      ],
+      "mainObject": "puppet cross with hanging tiles",
+      "notes": "The hanging tiles stand for held cards; their faces read one, three and five pips in the default (decorative). No puppet figure.",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c47.png",
+      "pictureSha256": "c03e95c8440a1a52c8ce271c1ea4f36b229a959b3e0be48369122a98a3ce86f1",
+      "subject": "a puppet control cross with a round knob at its centre and three small square tiles bearing die faces hanging from it on strings, short strokes on both sides"
+    },
+    "C48": {
+      "conflicts": [],
+      "cues": [
+        "die held back under the ticket"
+      ],
+      "mainObject": "die under a ticket tent",
+      "notes": "Style anchor of the default kit; the ticket is red in the default (anchor for large red areas). Ticket stays free of text. Look-alike I08 (torn talisman with a star).",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c48.png",
+      "pictureSha256": "2a980127906cc58d0c6e5c9d0a6fd7bb92d4a01f14917da3a26957361599e6b5",
+      "subject": "a single die sheltering under a folded ticket that forms a small tent over it, the ticket bearing a large star and a striped border, short strokes at the upper left"
+    },
+    "C49": {
+      "conflicts": [],
+      "cues": [
+        "die on the lower step shows five pips on top",
+        "higher step is empty"
+      ],
+      "mainObject": "die on the second step",
+      "notes": "No place numbers on the podium. Pedestal look-alikes: C10, C50, C137.",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c49.png",
+      "pictureSha256": "5b95e8f1c2a2264f619dedc98ffa5c2f3f6fa90aafe3e769d3d9a6247ce2d7ea",
+      "subject": "a two-step winner's podium with the higher step empty and a die showing five pips on top sitting on the lower step, two ribbons hanging from its front, short strokes above"
+    },
+    "C50": {
+      "conflicts": [],
+      "cues": [],
+      "mainObject": "plinth block with inset die",
+      "notes": "House sentence from the CP3 trials, kept verbatim ('flat-topped' is shape, not a style word). Pedestal look-alikes: C10 (one-pip die on a stepped pedestal), C137 (star trophy).",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c50.png",
+      "pictureSha256": "e67c8fb854e819479ae7726506b1010aec6f8461dbfa90d9579763815b7b14ea",
+      "subject": "a heavy flat-topped plinth block with a die set into its front face, short strokes radiating from the die"
+    },
+    "C51": {
+      "conflicts": [],
+      "cues": [
+        "one card swinging out of the door"
+      ],
+      "mainObject": "revolving door with cards",
+      "notes": "Cards blank; no people. Glass panels are tinted in the default (decorative).",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c51.png",
+      "pictureSha256": "82ad24137e3ac61dba1dc69a21cf36f6c8058afb2d6f5e82a71f78cc236ad624",
+      "subject": "a round revolving door with a blank card held in each wing, one card swinging out of the doorway and one still inside, curved motion strokes around its base"
+    },
+    "C52": {
+      "conflicts": [],
+      "cues": [
+        "coins are gold",
+        "coins grow on the sprout"
+      ],
+      "mainObject": "coin sprout from an envelope",
+      "notes": "Coins carry a small star each in the default; no numbers. Look-alikes: O09 (envelope of coins under a door), C99 (sprout in a coin bowl).",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c52.png",
+      "pictureSha256": "d229fd3f943b49ce66a499d5d9000152f7600ede5d1a31213210f31276d33569",
+      "subject": "an open envelope closed with a wax seal, a sprout growing out of it with three gold coins as its blossoms and two leaves, short strokes above"
+    },
+    "C53": {
+      "conflicts": [],
+      "cues": [
+        "dice of different sizes on a spinning wheel"
+      ],
+      "mainObject": "wheel of uneven dice",
+      "notes": "Wheel panels are violet and blue in the default (decorative). Five small dice; keep them countable but the count is not functional.",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c53.png",
+      "pictureSha256": "ede8c2931c371540f3015ce9daa0adfe52987c83272e1997c19915bf4dc147d5",
+      "subject": "a spinning wheel on an A-frame stand with dice of different sizes clipped around it at uneven spacing, a round hub at the centre, curved motion strokes around the wheel"
+    },
+    "C54": {
+      "conflicts": [],
+      "cues": [
+        "three dice linked in one chain",
+        "flag on the last die of the chain"
+      ],
+      "mainObject": "chain of three dice",
+      "notes": "Lead-die look-alikes: C03 (tall red flag beside the front die), C108 (lead die in a plumed hat). C54 keeps the dice interlocked like chain links and the small flag on top of the far die.",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c54.png",
+      "pictureSha256": "112c5ae226b9fb76ce51cbe037d29ec2e8320bbcfd9d2e24ea8f9443f14d1423",
+      "subject": "three dice hooked together end to end into a diagonal chain rising to the upper right, a small pennant flag standing on the last die of the chain"
+    },
+    "C55": {
+      "conflicts": [],
+      "cues": [
+        "jug filling up with beads, one more dropping in"
+      ],
+      "mainObject": "jug filling with beads",
+      "notes": "Tick marks only, never numbers. Beads are mixed colours in the default (decorative). Many small beads: texture risk at small sizes.",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c55.png",
+      "pictureSha256": "2c435c1650cadbd9ce986f3b5a4a323363dc12e81ac9d919a5ca0dd5e91856be",
+      "subject": "a measuring jug with plain tick marks, more than half full of small round beads, one more bead dropping in from above, a die leaning against its foot"
+    },
+    "C56": {
+      "conflicts": [],
+      "cues": [
+        "die pips blue",
+        "water is deep blue",
+        "no red anywhere"
+      ],
+      "mainObject": "die sinking in blue water",
+      "notes": "House sentence from the CP3 trials, kept verbatim. The default die has dark pips; blue pips follow CP3-1 ('C56 must have blue pips'). The swiss trial still drew black pips, which keeps the no-red cue. Wave look-alikes: I10 (blue wave carrying three dice), I01 (red wave).",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c56.png",
+      "pictureSha256": "27b8bc4c0770ad2f5b2974be4280d71cd0a0322813ff1fc16695ebea6224fcd6",
+      "subject": "a single die with blue pips half sunk in a pool of deep blue water, two small water drops jumping up beside it"
+    },
+    "C57": {
+      "conflicts": [],
+      "cues": [
+        "three dice, all red"
+      ],
+      "mainObject": "three red dice and flame",
+      "notes": "Count matters (red group of three or more). Red-dice look-alikes: C69 (tuning fork), C25 (ribbon bow), C73 (railing). C57 keeps the flame.",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c57.png",
+      "pictureSha256": "e6a8838195da933f0d7b8a37c41314dadb9dec4f3199040777f75e149cb54496",
+      "subject": "three red dice heaped together, two below and one on top, with a large flame rising behind them, short strokes on both sides"
+    },
+    "C58": {
+      "conflicts": [],
+      "cues": [
+        "die looks old: cracks and stitched patches"
+      ],
+      "mainObject": "old crowned die on steps",
+      "notes": "Pedestal look-alikes: C10, C49, C100 (stepped altar). C58 keeps the patched die and the wreath.",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c58.png",
+      "pictureSha256": "35f267907e2f41e328c913e8277cc8e5b65723bccfb931e28dd683b86d066ae1",
+      "subject": "an old die with cracks and two stitched-on patches, wearing a laurel wreath, standing on top of a three-tier stepped pedestal, short strokes on both sides"
+    },
+    "C59": {
+      "conflicts": [],
+      "cues": [
+        "three arrows left in the quiver, unused"
+      ],
+      "mainObject": "quiver of unused arrows",
+      "notes": "Three arrows echo the three submissions per stage.",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c59.png",
+      "pictureSha256": "53895ca72de90fd42c7455ec53c754087e86d26b40cbe73952644a9e178479cb",
+      "subject": "a quiver holding three unused arrows with a shoulder strap, a die leaning against its side, short strokes at the upper left"
+    },
+    "C60": {
+      "conflicts": [],
+      "cues": [
+        "die being forged on the anvil"
+      ],
+      "mainObject": "hammer, anvil and die",
+      "notes": "Look-alikes: C75 (gavel on a sound block, die beside it), C113 (die in a forge with bellows).",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c60.png",
+      "pictureSha256": "8ab901a5ebc60978f30f7878efb67170a4bc3a78774ec272ba0d9b58d5634103",
+      "subject": "a heavy hammer striking a die that sits on an anvil, small sparks flying from the impact, short strokes at the left"
+    },
+    "C61": {
+      "conflicts": [],
+      "cues": [],
+      "mainObject": "die on stacked books",
+      "notes": "Books and spines blank. Look-alike C43 (one open book, die raised on the bookmark).",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c61.png",
+      "pictureSha256": "1395337d13954996e616567528632a50cdc19bf69ad39b6e54271093b26c1a99",
+      "subject": "a stack of three thick books with the top one lying open, a die standing on its pages and a bookmark ribbon hanging out between them"
+    },
+    "C62": {
+      "conflicts": [],
+      "cues": [
+        "dice cup throwing dice (a roll)"
+      ],
+      "mainObject": "dice cup throwing two dice",
+      "notes": "Dice-cup look-alikes: I07 (cup tipping out one die with a single swoosh), C148 (cup upside down and padlocked). C62 keeps two dice and the big sweeping arcs.",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c62.png",
+      "pictureSha256": "633b452efa93c26dd1c0f88f1a4a6a1595f62f1a692e6ef162feb2ebed4bf9b2",
+      "subject": "a tilted leather dice cup with a strap, two dice tumbling out of its mouth, three long curved motion strokes sweeping around them"
+    },
+    "C63": {
+      "conflicts": [],
+      "cues": [
+        "a case full of dice, one per compartment"
+      ],
+      "mainObject": "display case of dice",
+      "notes": "Six small dice; one shows a single red pip in the default (decorative).",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c63.png",
+      "pictureSha256": "8a469674a75eb8328c51ebb453b8c65abe18ecf37c62e749344e1b8cc3630850",
+      "subject": "an open display case with its lid raised and six compartments, one die sitting in each compartment, short strokes at the upper left"
+    },
+    "C64": {
+      "conflicts": [],
+      "cues": [
+        "die carried at the front",
+        "smaller dice left behind"
+      ],
+      "mainObject": "knight carrying a die",
+      "notes": "The knight head has a stern eye in the default: keep it a chess piece with no expression. Lead-die look-alikes: C03, C108.",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c64.png",
+      "pictureSha256": "87d6d0dd81c258747e32610a0789f0c593329d0f5bcb2fe9152f677622ecc659",
+      "subject": "a chess knight piece charging forward with a die riding on its back, two smaller dice tumbling behind it, short speed strokes"
+    },
+    "C65": {
+      "conflicts": [],
+      "cues": [
+        "single die alone in the spotlight (the finale)"
+      ],
+      "mainObject": "die alone in the spotlight",
+      "notes": "Curtain look-alikes: C68 (top hat under a valance), C71 (hand from behind a curtain). C65 keeps the round stage and the spotlight.",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c65.png",
+      "pictureSha256": "93ced4707a060cf331ebbdaee359cf85468b644f73f17034253f640be2e72413",
+      "subject": "a small round stage between two curtains drawn back with tasselled ties, a cone of spotlight falling on a single die standing alone on the stage"
+    },
+    "C66": {
+      "conflicts": [],
+      "cues": [
+        "front die shows one pip",
+        "two echo copies repeat the die"
+      ],
+      "mainObject": "die with echo copies",
+      "notes": "The single pip is red in the default (game red one-face; colour optional). The echoes are pale and see-through; their blue tint is not dice colour. Faint copies may be lost in opaque styles.",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c66.png",
+      "pictureSha256": "574b4e0c28f6c45cd8ef29d466759d8178dac5ed71543ea50b0ca8432fd13531",
+      "subject": "a small die showing one pip on its front, followed by two fading see-through copies of itself in a row behind it, curved strokes sweeping around them"
+    },
+    "C67": {
+      "conflicts": [],
+      "cues": [
+        "die front shows six pips"
+      ],
+      "mainObject": "die cracking the ground",
+      "notes": "Only a cracked patch under the die, not a landscape. Six-pip look-alikes: C20, C71, I04.",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c67.png",
+      "pictureSha256": "67de4fb2424f13414eabd1d0927ab9374169a1afa4fe4338e1b1401f32f1905c",
+      "subject": "a large die showing six pips slamming into the ground, the ground cracking open beneath it with a few chunks flying up, short strokes above"
+    },
+    "C68": {
+      "conflicts": [],
+      "cues": [
+        "curtain valance above (the final bow)"
+      ],
+      "mainObject": "top hat under a valance",
+      "notes": "Curtain look-alikes: C65 (spotlit stage), C71 (hand behind a curtain). C68 keeps the hat and rose.",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c68.png",
+      "pictureSha256": "de7cf52b3898e1bb1ffb52c3a351a53c9f7d3c1b2ef7d99b7f38a819d2858845",
+      "subject": "a top hat with a rose and a die lying at its brim, a curtain valance with tassels hanging above it"
+    },
+    "C69": {
+      "conflicts": [],
+      "cues": [
+        "all three dice are red",
+        "tuning fork vibrating"
+      ],
+      "mainObject": "tuning fork and red dice",
+      "notes": "Red-dice look-alikes: C57 (flame), C25 (bow). C69 keeps the fork and arcs.",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c69.png",
+      "pictureSha256": "d5abf0dc5e2ec91329924a9569a3d846273011b3af80ab9a5212bf713da3abbe",
+      "subject": "three red dice side by side with a tuning fork standing up behind the middle one, curved vibration arcs spreading out on both sides"
+    },
+    "C70": {
+      "conflicts": [],
+      "cues": [
+        "dice sit waiting on a bench (not played)"
+      ],
+      "mainObject": "dice on a bench",
+      "notes": "Pool-dice look-alikes: C147 (tiered audience seats), C126 (die under a blanket).",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c70.png",
+      "pictureSha256": "f1870ae75b47837d3dac51e0aa988078d1caaf83c34bc98a04633a3d5fd2a00e",
+      "subject": "a short sturdy bench with three dice sitting on it side by side, short strokes at the upper left"
+    },
+    "C71": {
+      "conflicts": [],
+      "cues": [
+        "die shows six pips",
+        "hand comes from behind the curtain"
+      ],
+      "mainObject": "hand pushing a six-pip die",
+      "notes": "A plain gloved hand only, no person. Curtain look-alikes: C65, C68.",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c71.png",
+      "pictureSha256": "23153e2d8c5218c915e933ba0b860a4e516cf4f0b2324361d6a581b5a6f85f03",
+      "subject": "a gloved hand reaching out from behind a draped curtain and pushing a die that shows six pips, short strokes beside the die"
+    },
+    "C72": {
+      "conflicts": [],
+      "cues": [
+        "spring compressed under the die (stored power)"
+      ],
+      "mainObject": "die on a compressed spring",
+      "notes": "Look-alike C05 (wind-up box with a key lifting a die).",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c72.png",
+      "pictureSha256": "ec279fe697046206e085a6f49c00961ead3b2e055afa386ddf7fa9dd58242eb7",
+      "subject": "a die resting on a tightly compressed coil spring that stands on a heavy base, short strokes on both sides"
+    },
+    "C73": {
+      "conflicts": [],
+      "cues": [
+        "die is red",
+        "die stands outside the railing"
+      ],
+      "mainObject": "red die by a railing",
+      "notes": "Megaphone is red in the default (decorative).",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c73.png",
+      "pictureSha256": "f9dc49cf84c56e761e2e1ef0d1d612102868c865d399d124975219a33157b235",
+      "subject": "a red die standing outside a short railing, a megaphone on a post beside it pointing over the railing, short strokes from the megaphone"
+    },
+    "C74": {
+      "conflicts": [],
+      "cues": [
+        "gate open and gateway empty",
+        "only one die on the wall"
+      ],
+      "mainObject": "open empty city gate",
+      "notes": "No plaques or characters on the gate. Door studs sit in two rows of three like dice pips: keep them plain studs. Zither strings are fine detail.",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c74.png",
+      "pictureSha256": "ae7b51215117638dea9db887ec5fd752e88b41f39001a1483cd360e0a4db17a9",
+      "subject": "a small city gate tower with its two doors swung wide open onto an empty archway, a die and a long zither lying on top of the wall under a tiled roof"
+    },
+    "C75": {
+      "conflicts": [],
+      "cues": [
+        "one gavel strike"
+      ],
+      "mainObject": "gavel on a sound block",
+      "notes": "The gavel head carries a small laurel and star emblem in the default (decorative, no text). Look-alike C60 (hammer on an anvil).",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c75.png",
+      "pictureSha256": "7dab8ab9be3bd992ad0f53d93965ef95b39dbf73b5ef3ee43be0c5735970fbf9",
+      "subject": "a judge's gavel striking down on a round sound block, a die sitting beside the block, short strokes around the strike"
+    },
+    "C76": {
+      "conflicts": [],
+      "cues": [
+        "die is bandaged and chipped yet leaps up a step"
+      ],
+      "mainObject": "bandaged die leaping up",
+      "notes": "Rising look-alikes: C29 (staircase), C123 (two steps).",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c76.png",
+      "pictureSha256": "893f8f98e6d66ca49bb0840e85df706eba8c91635fd55db6d3fdb1af54fcd0b7",
+      "subject": "a die with a crossed bandage and a chipped corner leaping from a lower step up onto a higher one, a small impact burst where it took off"
+    },
+    "C77": {
+      "conflicts": [],
+      "cues": [
+        "everything pushed in at once (all in)"
+      ],
+      "mainObject": "hand pushing die and chips",
+      "notes": "Chips are red with stars in the default; they are gambling chips, not gold. Plain hand only, no person.",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c77.png",
+      "pictureSha256": "e1fbf6b2db6008e6bd19f38c01f752b2b458f4669ecb5e9dd8e94ca9d69440e3",
+      "subject": "a hand pushing a single die and a small stack of poker chips forward together, short speed strokes behind them"
+    },
+    "C78": {
+      "conflicts": [],
+      "cues": [
+        "boomerang returns along a full loop (once more)"
+      ],
+      "mainObject": "boomerang looping a die",
+      "notes": "",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c78.png",
+      "pictureSha256": "0955b9b563f045a1bc46a6e4d83bade714874ebd0ce24b00c009e360f9ddc2a8",
+      "subject": "a boomerang flying a full circle around a die along a dashed path that ends in an arrowhead back at its start, short strokes near the die"
+    },
+    "C79": {
+      "conflicts": [],
+      "cues": [
+        "one compartment newly added at the end"
+      ],
+      "mainObject": "tray with one new compartment",
+      "notes": "Readability risk: the extra compartment reads like extra slot capacity (C21, I12) although the card adds one submission per stage. The new compartment is blue in the default (marks 'new', not dice colour). Flagged icon look-alike C08 (curved boat with oar); C79 keeps the straight flat-bottomed row with rivets.",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c79.png",
+      "pictureSha256": "9472df05f8339fe6d8fe731e082698f1c24b128078ce90cd8afd93d09ad2b836",
+      "subject": "a long shallow tray of four compartments in a row, the last compartment newly joined on with two rivets and holding a die, the other three empty"
+    },
+    "C80": {
+      "conflicts": [],
+      "cues": [
+        "exactly two dice",
+        "one shows one pip, the other six pips (they add up to seven)"
+      ],
+      "mainObject": "two dice tied with bow",
+      "notes": "Exact front pips carry the card. Two-dice look-alikes: C84 (two identical dice under a rope knot), C143 (swing), C144 (crown), C106 (butterfly), C27 (stitched sleeves); C80 is the only one with one and six. Bow look-alike C25 (three red-pip dice).",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c80.png",
+      "pictureSha256": "7e6b48db43fd0183e992f43b9719d2c540bf7fcd4a304d233c8f49da57a39ae9",
+      "subject": "two dice tied together with a ribbon bow on top, the left die showing one pip on its front and the right die showing six pips on its front"
+    },
+    "C81": {
+      "conflicts": [],
+      "cues": [
+        "no two dice show the same face",
+        "dice scattered, no formation"
+      ],
+      "mainObject": "straw hat and scattered dice",
+      "notes": "Default tops read one, five, three, six, four: no pair and no five-long run. Redraws with random faces easily create a pair or a straight, which would contradict the card (no hand type): check every redraw.",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c81.png",
+      "pictureSha256": "d96499653e19e643be594ec60f50505c2afcf8a01ca920b2f64c1d0eecf89eb7",
+      "subject": "a tilted conical straw hat with a tie ribbon, five small dice scattered loosely around it with no two showing the same face"
+    },
+    "C82": {
+      "conflicts": [],
+      "cues": [
+        "three large lanterns",
+        "two small lanterns"
+      ],
+      "mainObject": "eave with five lanterns",
+      "notes": "Three plus two is the full-house cue: the count must be exact. Lanterns and eave carry no characters (lanterns invite them). Streamers are mixed colours in the default (decorative).",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c82.png",
+      "pictureSha256": "c4c2e90d81afe8524eb34ef9309916a693724f06a7846e97cb67de7c9ded2904",
+      "subject": "the eave of a small stage roof with three large round lanterns and two small lanterns hanging beneath it, a few ribbon streamers falling from the eave"
+    },
+    "C83": {
+      "conflicts": [],
+      "cues": [
+        "four dice rising like steps"
+      ],
+      "mainObject": "boat with stepped dice",
+      "notes": "Default tops read one, two, three, four; keep if the style can, never as digits. Weak mismatch (not a conflict): a straight needs five dice unless C29 is held. Boat look-alike C08 (one die, an oar, empty hull).",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c83.png",
+      "pictureSha256": "8991003046e88d5476c32f507fd560d1795ac17463ab4f31a3d987744534a2d4",
+      "subject": "a small boat carrying four dice that rise like steps from the front to the back, a bamboo pole planted at the stern, water ripples and a splash around it"
+    },
+    "C84": {
+      "conflicts": [],
+      "cues": [
+        "exactly two dice",
+        "both dice show the same faces"
+      ],
+      "mainObject": "twin dice under rope knot",
+      "notes": "Two-dice look-alikes: C143 (swing), C144 (crown), C106 (butterfly), C80 (one and six). C84 keeps the hanging rope knot.",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c84.png",
+      "pictureSha256": "ce27fbf9c20639b512fc3acd373bcf23c23b6bf09b8db5a5008e7ba2815fd7d1",
+      "subject": "two identical dice side by side showing the same faces, a rope knot of two interlinked loops hanging above them from a cord"
+    },
+    "C85": {
+      "conflicts": [],
+      "cues": [
+        "three dice, one under each leg"
+      ],
+      "mainObject": "cauldron on three dice",
+      "notes": "Weak mismatch (not a conflict): the three dice show different faces (three, five, four), so three-of-a-kind is not literal; the subject leaves faces free. The key-pattern band must not turn into letters. Support look-alikes: C30, C31.",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c85.png",
+      "pictureSha256": "dbcd3ec88a328e3529feae3f15fc651b6d14cd0fe56b2a8cddc7fc74e1b6f5cc",
+      "subject": "a heavy three-legged cauldron with two upright handles and a key-pattern band, each of its three legs standing on a die"
+    },
+    "C86": {
+      "conflicts": [],
+      "cues": [
+        "nine dice in a three by three grid"
+      ],
+      "mainObject": "tray of nine dice",
+      "notes": "Exact count of nine. Look-alike C147 (nine dice in tiered theatre seats); C86 keeps a flat-bottomed square tray seen from above.",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c86.png",
+      "pictureSha256": "d969cfd6eca281f19ea2bcc2c7e0f43f9845b5603ffdd39fc510db830117400e",
+      "subject": "a square shallow tray seen from above at an angle with nine dice packed into it in a three by three grid"
+    },
+    "C87": {
+      "conflicts": [],
+      "cues": [
+        "dice grow larger along the ruler"
+      ],
+      "mainObject": "dice growing on a ruler",
+      "notes": "Ruler tick marks only, never numbers. Four dice in the default. Weak mismatch (not a conflict): the dice show different faces, while the card counts dice of one value. Flagged look-alike C40 (three same-size dice on a short hinged rule with equal steps); C87 keeps the long tick-marked ruler and the strong size growth.",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c87.png",
+      "pictureSha256": "fafc84e3e761927926c9c35b0d7e2cc56c2297ac721306c43b90f8700055df55",
+      "subject": "a folding ruler unfolding segment by segment toward the upper right, one die on each segment, the dice growing larger along it from a tiny die to a large one"
+    },
+    "C88": {
+      "conflicts": [],
+      "cues": [
+        "four dice, each with a different pip count on top",
+        "every die and patch has a different pattern"
+      ],
+      "mainObject": "patchwork flag and odd dice",
+      "notes": "Default tops read three, four, one and five or six. Fine patterns (diamonds, stripes, dots, zigzag, checks) blur at small sizes.",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c88.png",
+      "pictureSha256": "0387f495706f344e3444eef6269b0cdfac52f82e076d8add43c7b3634d15dc7b",
+      "subject": "a patchwork flag on a pole, each patch with a different pattern, above a row of four dice that each have a different pattern on their sides and a different pip count on top"
+    },
+    "C89": {
+      "conflicts": [],
+      "cues": [
+        "the dice are gold"
+      ],
+      "mainObject": "chest of gold dice",
+      "notes": "The chest keyhole is a plain shape. Chest look-alike C135 (crate of potions with a padlock).",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c89.png",
+      "pictureSha256": "17ad0ef182e5b37ec53b9ba5e335730ecd8e4c4b9e5cf50f11640ff9f8353927",
+      "subject": "an open treasure chest heaped with gold dice, one more gold die tumbling out beside it, short strokes on both sides"
+    },
+    "C90": {
+      "conflicts": [],
+      "cues": [
+        "heart is glass, cracked, with flying shards",
+        "die visible inside the heart"
+      ],
+      "mainObject": "cracked glass heart",
+      "notes": "The inner die is faint and is easily lost in opaque styles: check. Glass look-alikes: C42, U05, C128, C145.",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c90.png",
+      "pictureSha256": "ceff9b7565664f7dd75d8d3ea95484f585746257ea8a769efc79fc4674b58b2f",
+      "subject": "a glass heart with a jagged crack down its middle and three shards flying off its top, a die faintly visible inside the glass"
+    },
+    "C91": {
+      "conflicts": [],
+      "cues": [
+        "one face polished shiny, the next face roughened"
+      ],
+      "mainObject": "die, cloth and sanding block",
+      "notes": "Look-alikes: U01 (cloth only), U02 (sanding block only), C125 (cloth and a tin of polish). C91 is the only one with both tools.",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c91.png",
+      "pictureSha256": "e2cf267f6d27bccb94f4f34da9530506e7619d1a746417fb64b198521cd1644e",
+      "subject": "a die with one face being polished to a shine by a cloth draped over its side and the next face roughened by a sanding block beside it, two small sparkles above"
+    },
+    "C92": {
+      "conflicts": [],
+      "cues": [
+        "whole die is one colour (blue) on every face"
+      ],
+      "mainObject": "blue die over paint bucket",
+      "notes": "Paint look-alikes: C118 (red paint, tongs, small pot), C26 (die in a tin of red dye), U04 (only the top face blue). C92 keeps the whole die blue and the bucket.",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c92.png",
+      "pictureSha256": "c81d00fc4ff6127b6d2a67d60aeb93c238585678425969453e2954ba02630548",
+      "subject": "a die coated all over in blue paint lifted out of a paint bucket, blue paint dripping from it back into the bucket and running down the rim"
+    },
+    "C93": {
+      "conflicts": [],
+      "cues": [
+        "every visible face shows three pips",
+        "reflection shows the same faces"
+      ],
+      "mainObject": "three-pip die and stand mirror",
+      "notes": "Exact pips on every face of the die and its reflection: generators often vary them, check. Mirror look-alikes: U11 (die standing on a flat mirror), C41 (mask), C94.",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c93.png",
+      "pictureSha256": "6f317f98fd6c8abc367cbd2174481766fdf884330053ad87b6e5c69ab66fee8b",
+      "subject": "a die whose visible faces all show three pips standing in front of a small round stand mirror that reflects the same three-pip faces"
+    },
+    "C94": {
+      "conflicts": [],
+      "cues": [
+        "die split in two",
+        "cut faces carry the same pips as the outside"
+      ],
+      "mainObject": "die sliced in two",
+      "notes": "Look-alikes: U11 and C93 (mirrors).",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c94.png",
+      "pictureSha256": "ec783536d54c507076d9a7e456667f6f4c1c1239fa310c46fb36d782a85bb475",
+      "subject": "a die sliced cleanly in two with the top half lifted and shifted aside, the cut faces showing the same pip pattern as the outside"
+    },
+    "C95": {
+      "conflicts": [],
+      "cues": [
+        "gold coins in the bowl"
+      ],
+      "mainObject": "bowl with die and coins",
+      "notes": "Money look-alikes: C99 (bowl heaped with gold coins and a sprout), C01, C44. Default draws the coins red; the redraws use gold because the card pays gold (coordinator, 2026-11-17). Was: The coins are drawn red like chips, not gold, although the card pays gold; red otherwise signals red dice. The subject leaves the coin colour unsaid, so the styles will probably paint them gold: decide before generation.",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c95.png",
+      "pictureSha256": "890e2017bc7571f0b8fd76b78679460fecbde0c3aa707ba6bacc284eadd0c4d3",
+      "subject": "a thick rice bowl holding a die and a few stacked gold coins, a pair of chopsticks resting across its rim"
+    },
+    "C96": {
+      "conflicts": [],
+      "cues": [
+        "gold coins grow larger as they roll down"
+      ],
+      "mainObject": "coins growing down a slope",
+      "notes": "Default draws the coins red; the redraws use gold because the card pays gold (coordinator, 2026-11-17). Was: The coins are ivory with red rims, not gold, although the card raises the gold interest cap. The subject leaves the coin colour unsaid: decide before generation.",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c96.png",
+      "pictureSha256": "45daa317796c106b6cf291080416f1bf76a51caa30198da4229a5138d5858a7d",
+      "subject": "a row of gold coins rolling down a slope, growing from a small coin at the top to a large coin at the bottom, short strokes above"
+    },
+    "C97": {
+      "conflicts": [],
+      "cues": [
+        "money bag with gold coins in front of sword and shield"
+      ],
+      "mainObject": "shield, sword and money bag",
+      "notes": "Shield look-alike C136 (die strapped to a shield, spear behind). Default draws the coins red; the redraws use gold because the card pays gold (coordinator, 2026-11-17). Was: Minor: the coin stack marked on the money bag is red, not gold, although the card pays gold. The subject leaves its colour unsaid.",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c97.png",
+      "pictureSha256": "0b4e80c6b0b88184292b58ab03f20d9fff1d35a302b6e252ee8f5523a6bd53f6",
+      "subject": "a round shield with a star emblem behind a short sword lying across it, a tied money bag marked with a stack of gold coins in front, short strokes on both sides"
+    },
+    "C98": {
+      "conflicts": [],
+      "cues": [
+        "price tag string being cut"
+      ],
+      "mainObject": "scissors cutting a price tag",
+      "notes": "Tag stays blank: no price, digits or percent. Cutting look-alikes: C09 (strip cut shorter, no die), O02 (clipper notching a tag corner, gold coin).",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c98.png",
+      "pictureSha256": "f3d80611f4b67c8cb26e28692a602b622bf5aa674e3634a8a5d644d75cf3e6bb",
+      "subject": "a pair of scissors snipping the string of a blank price tag, a die lying beside the tag, short strokes at the upper left"
+    },
+    "C99": {
+      "conflicts": [],
+      "cues": [
+        "coins are gold",
+        "sprout growing from the coin heap"
+      ],
+      "mainObject": "coin bowl with a sprout",
+      "notes": "Look-alikes: C95 (bowl with a die and chopsticks), C52 (coins growing from an envelope).",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c99.png",
+      "pictureSha256": "24c412f2fb3996cc4b8f76db5e8c78b2b32a2ae3dc8d28133d818f74004ce162",
+      "subject": "a wide bowl heaped with gold coins, a small sprout with two leaves growing out of the middle of the pile, short strokes on both sides"
+    },
+    "I01": {
+      "conflicts": [],
+      "cues": [
+        "wave is red",
+        "liquid pours from a potion bottle"
+      ],
+      "mainObject": "red wave from a bottle",
+      "notes": "The die keeps dark pips in the default: the effect only counts dice as red. Look-alike I10 (blue wave carrying three dice); I01 keeps the bottle and one die wrapped by the wave.",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_i01.png",
+      "pictureSha256": "b21feaf6b0003487ca276658f8f55f91f231483c9c7f98fb0bc92bb71bdca9ce",
+      "subject": "a potion bottle tipped over pouring out a broad red wave that curls around a die, small splashes flying"
+    },
+    "I02": {
+      "conflicts": [],
+      "cues": [
+        "die pops out of a paper box"
+      ],
+      "mainObject": "die popping from paper box",
+      "notes": "",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_i02.png",
+      "pictureSha256": "1610e55c169c613e64af354695d5799fea27efad1464454caec5280e2009be93",
+      "subject": "an open folded paper box with a die popping up out of it, short strokes at the upper left"
+    },
+    "I03": {
+      "conflicts": [],
+      "cues": [
+        "two knobs, each linked to its own die",
+        "exactly two dice"
+      ],
+      "mainObject": "remote with two linked dice",
+      "notes": "Knobs and lines are blue and red in the default; the item sets pips, not colours, so colour is left to the style. One die shows a single red pip (game red one-face).",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_i03.png",
+      "pictureSha256": "1a0a83727693494da23bb782718c950dfff902e15712963167bf3beda0c96fff",
+      "subject": "a small remote control with two knobs and a button, a curved control line running from each knob to its own die floating above"
+    },
+    "I04": {
+      "conflicts": [],
+      "cues": [
+        "die shows six pips",
+        "magnet pulls the die"
+      ],
+      "mainObject": "magnet pulling a six",
+      "notes": "Pair card I05 (bell luring a one).",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_i04.png",
+      "pictureSha256": "df80fd68748a80d2ca34da4840a1df13d6d3dfe0e112fa8e09d9baa19884f1da",
+      "subject": "a horseshoe magnet pulling up a die that shows six pips on its front, curved field strokes between them"
+    },
+    "I05": {
+      "conflicts": [],
+      "cues": [
+        "die shows one pip on top",
+        "bell lures the die"
+      ],
+      "mainObject": "bell luring a one",
+      "notes": "The single pip is red in the default (game red one-face; colour optional). Pair card I04 (magnet pulling a six).",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_i05.png",
+      "pictureSha256": "65669455fe74756eee7660f81372e60a7b510af8be332b802c35a732610ac661",
+      "subject": "a small jingle bell with a bow hanging from a curved stand, luring a die that shows one pip on its top, a curved motion stroke behind the die"
+    },
+    "I06": {
+      "conflicts": [],
+      "cues": [
+        "one more ticket comes out"
+      ],
+      "mainObject": "ticket roll dispenser",
+      "notes": "Tickets stay blank. Shares the name 增加提交 with C21 (carry case with a drawer), which does something else.",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_i06.png",
+      "pictureSha256": "006162f05f113a172bd78b2514d55b91756544c2c97cb465ff178297a47943a0",
+      "subject": "a roll of tickets feeding through a dispenser, one blank ticket sticking out of the front slot, short strokes at the upper left"
+    },
+    "I07": {
+      "conflicts": [],
+      "cues": [
+        "cup tips out one die (one more roll)"
+      ],
+      "mainObject": "tipped dice cup, one die",
+      "notes": "Style anchor of the default kit. Dice-cup look-alikes: C62 (two dice, big sweeping arcs), C148 (padlocked cup).",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_i07.png",
+      "pictureSha256": "e9861c407b4f90338748d9a44db0b0c6fd9b43e43486cedc2b21af251e8e91a3",
+      "subject": "a dice cup tipped on its side with one die tumbling out of its mouth, a short curved swoosh beneath the die"
+    },
+    "I08": {
+      "conflicts": [],
+      "cues": [
+        "talisman torn in two",
+        "broken chain link"
+      ],
+      "mainObject": "torn talisman and broken chain",
+      "notes": "Talisman carries only a star and a border: no characters (talismans invite them). Look-alikes: C131 (goat with broken chain), C48 (ticket with a star).",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_i08.png",
+      "pictureSha256": "6f3217a605a08871d050dc21431106eb7e7f9309d429e220419e07a8998ebf3a",
+      "subject": "a paper talisman strip torn in half, the two halves drifting apart with a broken chain link between them, each half bearing a star"
+    },
+    "I09": {
+      "conflicts": [],
+      "cues": [
+        "lightning-bolt filament",
+        "die inside the bulb"
+      ],
+      "mainObject": "bulb with lightning filament",
+      "notes": "The die inside is small: check it survives.",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_i09.png",
+      "pictureSha256": "6a2763da0314eae36dd1da2c68d9a561ba8f73e568ae22111a3c2611d80bc1c2",
+      "subject": "a light bulb whose filament is shaped like a lightning bolt, a die visible inside its glass"
+    },
+    "I10": {
+      "conflicts": [],
+      "cues": [
+        "wave is blue"
+      ],
+      "mainObject": "blue wave carrying dice",
+      "notes": "Dice keep dark pips in the default (the effect only counts dice as blue). Look-alikes: I01 (red wave from a bottle), C56 (die sinking in blue water).",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_i10.png",
+      "pictureSha256": "52391102ca96cdf7a9144e7f2787cb072d07664b27a6df0432fba1e2164c66a2",
+      "subject": "a curling blue wave lifting three dice on its crest, short strokes above"
+    },
+    "I11": {
+      "conflicts": [],
+      "cues": [
+        "gold stroke on the die's top face"
+      ],
+      "mainObject": "brush gilding a die face",
+      "notes": "Flagged look-alike U08 (chisel and mallet carving a pip) and the 'tool from the upper right' family (U09, U10, C119, C134). I11 keeps the tasselled brush and the gold stroke. Gold-face look-alikes: C117, U06.",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_i11.png",
+      "pictureSha256": "591e01dc55337801853b50af9e17a4641f08d8a40f4bb4a35eb0f6f89cc944d4",
+      "subject": "a calligraphy brush loaded with gold paint drawing a gold stroke across the top face of a die"
+    },
+    "I12": {
+      "conflicts": [],
+      "cues": [
+        "one extra empty compartment slides out",
+        "the other compartments hold dice"
+      ],
+      "mainObject": "sliding tray, new slot",
+      "notes": "Capacity look-alikes: C21 (case with one empty drawer, no dice), C79 (die only in the new compartment), C22, O08.",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_i12.png",
+      "pictureSha256": "bb38c308eeca325472fd0d9a839ed1f74951dd75745ec586e12f85c5c4bbf580",
+      "subject": "a sliding tray pulled out of its sleeve, its first two compartments holding a die each and the newly extended last compartment empty, a pull handle at its end and a curved arrow showing the pull"
+    },
+    "O01": {
+      "conflicts": [],
+      "cues": [
+        "potion bottle in an extra side pocket"
+      ],
+      "mainObject": "waist bag with side pocket",
+      "notes": "Look-alike O06 (shop basket with a pulled-out tray); O01 is worn gear, not a shop basket.",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_o01.png",
+      "pictureSha256": "58e8b6d6988122729ca4704a2759091f21649d0438f76e52493edf6e0564a374",
+      "subject": "an open waist bag with a strap and buckle, a corked potion bottle standing in an extra side pocket that sticks out from the bag"
+    },
+    "O02": {
+      "conflicts": [],
+      "cues": [
+        "corner clipped off a blank price tag",
+        "coin is gold"
+      ],
+      "mainObject": "clipper notching a price tag",
+      "notes": "Tag stays blank: no price, digits or percent. Cutting look-alikes: C98 (scissors cutting a tag string, with a die), C09.",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_o02.png",
+      "pictureSha256": "1ad54d17b6f4c8d57324164428042914fbe47bcdfe7e5f416bbae4a58e4646b1",
+      "subject": "a large ticket clipper notching a corner off a blank hanging price tag, the clipped piece flying, one gold coin below"
+    },
+    "O03": {
+      "conflicts": [],
+      "cues": [
+        "a die being wheeled in through the doorway"
+      ],
+      "mainObject": "hand truck bringing a die",
+      "notes": "Style anchor of the default kit.",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_o03.png",
+      "pictureSha256": "3d9d8478fe4eb65aacc9214c5c6aab860ba58b8feb37db5ab5ee1d2ca02392d7",
+      "subject": "a hand truck wheeling a die through a sturdy doorway frame, short strokes above"
+    },
+    "O04": {
+      "conflicts": [],
+      "cues": [
+        "one die lifted out, leaving an empty slot",
+        "other dice remain"
+      ],
+      "mainObject": "claw removing a die",
+      "notes": "",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_o04.png",
+      "pictureSha256": "d32ae6ac8918f2b4050696001005e8e2b14d53e66d7839df2ab81eb127644115",
+      "subject": "a claw grabber lifting one die out of a tray of three slots, the middle slot left empty and a die still sitting on each side"
+    },
+    "O05": {
+      "conflicts": [],
+      "cues": [
+        "one more card slot added at the end"
+      ],
+      "mainObject": "card stand with an extension",
+      "notes": "Cards blank. Look-alike O08 (rack with a new slot bolted on by a wrench).",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_o05.png",
+      "pictureSha256": "3fda040b236d6694ae9115c7981009f81590040b096308d251adcb7711909f04",
+      "subject": "a card display stand with blank cards standing in a row of clips, one more clip and card on a newly added extension at its end"
+    },
+    "O06": {
+      "conflicts": [],
+      "cues": [
+        "potion bottle and ticket in the pulled-out tray"
+      ],
+      "mainObject": "basket with pulled-out tray",
+      "notes": "Ticket carries only a star. Look-alike O01 (waist bag).",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_o06.png",
+      "pictureSha256": "0c5cb3c4ed8aaecfa9b2f8686aeb6329e09f88aba364543fd704b467cc95e73b",
+      "subject": "a shop basket with an outer tray pulled out, holding a corked potion bottle and a ticket with a star"
+    },
+    "O07": {
+      "conflicts": [],
+      "cues": [
+        "blank card flipping over",
+        "coupon in front"
+      ],
+      "mainObject": "flip-card stand and coupon",
+      "notes": "Coupon stays blank: no price or FREE text.",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_o07.png",
+      "pictureSha256": "313a69d9798683b7be720943e105218e06efde10bd1278e13b0ffd491438bb94",
+      "subject": "a hand-cranked flip-card stand with a blank card flipping over on its rings, a blank punched coupon lying in front of it"
+    },
+    "O08": {
+      "conflicts": [],
+      "cues": [
+        "new slot bolted on at the end",
+        "slots are empty"
+      ],
+      "mainObject": "rack with a new slot",
+      "notes": "The new slot is blue in the default (marks 'new'). Capacity look-alikes: O05 (card stand extension), C79, C21.",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_o08.png",
+      "pictureSha256": "36a68623bfb8212d4c4e68dfa629e22528b4662cfb617cdced8bb37b36575981",
+      "subject": "a rack of upright card slots with one new slot at the end being bolted on by a wrench, all slots empty"
+    },
+    "O09": {
+      "conflicts": [],
+      "cues": [
+        "envelope of gold coins slid under the door"
+      ],
+      "mainObject": "coin envelope under a door",
+      "notes": "The wax seal carries a star in the default. Look-alike C52 (coin sprout from an envelope).",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_o09.png",
+      "pictureSha256": "8453194beecccd8446ac882da738ef549dd72f0fb5c6d538674bcd0aa5a1454c",
+      "subject": "a sealed envelope stuffed with gold coins sliding under a heavy studded door with a ring knocker"
+    },
+    "O10": {
+      "conflicts": [],
+      "cues": [
+        "coins are gold"
+      ],
+      "mainObject": "abacus with gold coins",
+      "notes": "Abacus beads are red and ivory in the default (decorative).",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_o10.png",
+      "pictureSha256": "b33018db4b41006f363daeee39abd66a6b1ac66bda8c32b5e8279b10dea444e1",
+      "subject": "an abacus with a stack of gold coins beside it and a quill pen resting across its top"
+    },
+    "O11": {
+      "conflicts": [],
+      "cues": [
+        "a blank card floats above the pedestal among stars"
+      ],
+      "mainObject": "card floating over a pedestal",
+      "notes": "Look-alike C114 (wand touching a card lying down).",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_o11.png",
+      "pictureSha256": "058345f840607f28b7dca8671b15eca861b7e524bb00dccf24908d7eba9dacd7",
+      "subject": "a small round pedestal table with a blank card floating above it, three small stars around the card"
+    },
+    "U01": {
+      "conflicts": [],
+      "cues": [
+        "only one face polished"
+      ],
+      "mainObject": "cloth polishing a die face",
+      "notes": "Look-alikes: C125 (cloth plus an open tin of polish), C91 (cloth plus sanding block). U01 has the cloth only.",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_u01.png",
+      "pictureSha256": "e611b9f74bb32fc743f7815814ea5de4e31d2208423a8b0e15c7a18603e96c2f",
+      "subject": "a cloth draped over a die, polishing one face to a shine, two sparkles above it"
+    },
+    "U02": {
+      "conflicts": [],
+      "cues": [
+        "only one face roughened"
+      ],
+      "mainObject": "sanding block on a die",
+      "notes": "Part of the 'tool on the die's top face' family (U03, U04, U08, U09, U10, I11). U02 keeps the toothed block and grit.",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_u02.png",
+      "pictureSha256": "92b648b0f215962f63ca3ac86ee664a2daeb99d3cb7b406716b2ce3141b1f151",
+      "subject": "a sanding block with a coarse toothed underside pressed onto the top face of a die, grit specks on that face only"
+    },
+    "U03": {
+      "conflicts": [],
+      "cues": [
+        "only the top face is red"
+      ],
+      "mainObject": "brush painting a face red",
+      "notes": "Look-alikes: U04 (roller, blue), C26 (whole die in a tin of red dye), C118 (red paint pot and tongs).",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_u03.png",
+      "pictureSha256": "f834757e017e1ca5b5a352d8343affdb20637cb68182a46126ad1eaccf61b519",
+      "subject": "a wide paintbrush with red bristles painting only the top face of a die red, the other faces untouched"
+    },
+    "U04": {
+      "conflicts": [],
+      "cues": [
+        "only the top face is blue"
+      ],
+      "mainObject": "roller painting a face blue",
+      "notes": "Look-alikes: U03 (brush, red), C15 (two red rollers on a blue tile), C92 (whole die blue).",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_u04.png",
+      "pictureSha256": "88ace1a5af3a3321b8fadaefab3fa2ce9fa19b0446ea44366eca27ce0846ff01",
+      "subject": "a short paint roller rolling across the top face of a die and turning only that face blue, the other faces untouched"
+    },
+    "U05": {
+      "conflicts": [],
+      "cues": [
+        "whole die is transparent glass",
+        "small crack"
+      ],
+      "mainObject": "cracked glass die in tray",
+      "notes": "Glass look-alikes: C145 (bubble wrap), C128 (glassblower's pipe), C90, C42.",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_u05.png",
+      "pictureSha256": "161cd7c99a81a429540f94dc13ba887c4c9a27ca5a8345d3fc3628531c01a73d",
+      "subject": "a transparent glass die with a short crack in it, sitting in a paper cup tray"
+    },
+    "U06": {
+      "conflicts": [],
+      "cues": [
+        "gold plate on one face",
+        "pips keep their red and blue colours"
+      ],
+      "mainObject": "clamp gilding a die face",
+      "notes": "Red top pips and blue front pips show that the face keeps its colour. Gold-face look-alikes: C117, I11.",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_u06.png",
+      "pictureSha256": "85297a6f2c54887e46f0c3d99a2a8d307eaba4e3e6dd0563acd97db491c6bf64",
+      "subject": "a C-clamp pressing gold plates onto a die, the top face gilded at its rim while its red pips and the blue pips on the front stay visible"
+    },
+    "U07": {
+      "conflicts": [],
+      "cues": [
+        "face plate flips over to a different pip count"
+      ],
+      "mainObject": "mould flipping a face plate",
+      "notes": "Default plate sides show four and two pips.",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_u07.png",
+      "pictureSha256": "26f16ad58d5651d6b04fe3e1d629e59ddc1980ad7c9824a8e83853e916e1a204",
+      "subject": "a small flipping mould turning a die face plate over, the two sides of the plate showing different pip counts, a curved arrow over it"
+    },
+    "U08": {
+      "conflicts": [],
+      "cues": [
+        "chisel carving one new pip into the top face"
+      ],
+      "mainObject": "chisel carving a new pip",
+      "notes": "Flagged look-alikes I11 (brush with gold stroke) and U10 (screwdriver and plug); same family as U09, C119, C134, U02. U08 keeps the mallet blow, the new pip hole and flying chips.",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_u08.png",
+      "pictureSha256": "802e72d3b85f3e2582fb4110d7c94f60f409db351d8cdcb5cd393eddf517a18d",
+      "subject": "a carving chisel struck by a small mallet cutting a new pip into the top face of a die, chips flying"
+    },
+    "U09": {
+      "conflicts": [],
+      "cues": [
+        "file scraping the top face, filings falling"
+      ],
+      "mainObject": "file rasping a die",
+      "notes": "Flagged 'tool from the upper right' family (U08, U10, I11, C119, C134). U09 keeps the long file lying across the top and the falling filings. Cross-hatched file texture is fine detail.",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_u09.png",
+      "pictureSha256": "048b4b121679aaa645b5cbf60b8f68a4467a2fb607fadac7b47abc4558012434",
+      "subject": "a hand file rasping across the top face of a die, filings falling off"
+    },
+    "U10": {
+      "conflicts": [],
+      "cues": [
+        "weight plug driven into one face"
+      ],
+      "mainObject": "screwdriver driving a plug",
+      "notes": "Flagged look-alike U08 (chisel and mallet); same family as U09, I11, C119, C134. U10 keeps the screwdriver and the small round plug sunk into the face. Weight look-alike C124 (molten metal).",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_u10.png",
+      "pictureSha256": "e85aa6f42d5c7156d1571104ebfd125c7c02ae07bd464136b8a15736ba751cde",
+      "subject": "a screwdriver driving a small weight plug into the top face of a die"
+    },
+    "U11": {
+      "conflicts": [],
+      "cues": [
+        "die stands on a mirror",
+        "reflection shows the faces underneath"
+      ],
+      "mainObject": "die standing on a mirror",
+      "notes": "Mirror look-alikes: C93 (upright stand mirror), C94 (sliced die). U11 keeps the mirror flat under the die.",
+      "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_u11.png",
+      "pictureSha256": "3d07b9d3208b776a13ccda683d5d65524bf82f134150f24ab6283ddfbc41f217",
+      "subject": "a die standing on a small round mirror laid face up, the mirror showing the die's reflection beneath it"
+    }
+  },
+  "updated": "2026-11-17"
+}
