@@ -18,6 +18,9 @@ namespace DiceCraft
         // v1.1 semantic tokens for the layout and feedback work (art proposal §3 principles 2 and 4, A2 rarity frames).
         public Color primary=Hex("F3BA58"),reward=Hex("F3BA58"),boss=Hex("C8463F"),pressure=Hex("E0703A"),
             rarityCommon=Hex("B8C9C5"),rarityAdvanced=Hex("55B6D9"),rarityRare=Hex("AD92DB");
+        /// <summary>V1.1 (W11b): marks drawn straight on the table felt (slot numbers, empty-slot dots, the locked-die grip).
+        /// Unset (alpha 0) by default: each mark then keeps its v0.73 colour; a theme with a light felt sets one dark value.</summary>
+        public Color onFelt=new Color(0,0,0,0);
 
         public ThemePalette Clone()=>(ThemePalette)MemberwiseClone();
 
@@ -26,7 +29,7 @@ namespace DiceCraft
         public sealed class Hexes
         {
             public string ink,panel,panelLight,paper,muted,gold,teal,red,blue,background,felt,textColor,violet,danger,shadow,ghost,
-                primary,reward,boss,pressure,rarityCommon,rarityAdvanced,rarityRare;
+                primary,reward,boss,pressure,rarityCommon,rarityAdvanced,rarityRare,onFelt;
         }
 
         public static ThemePalette From(Hexes source)
@@ -39,6 +42,7 @@ namespace DiceCraft
             Set(ref p.danger,source.danger);Set(ref p.shadow,source.shadow);Set(ref p.ghost,source.ghost);
             Set(ref p.primary,source.primary);Set(ref p.reward,source.reward);Set(ref p.boss,source.boss);Set(ref p.pressure,source.pressure);
             Set(ref p.rarityCommon,source.rarityCommon);Set(ref p.rarityAdvanced,source.rarityAdvanced);Set(ref p.rarityRare,source.rarityRare);
+            Set(ref p.onFelt,source.onFelt);
             return p;
         }
 

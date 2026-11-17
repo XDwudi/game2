@@ -40,6 +40,8 @@ namespace DiceCraft
         public static Color RarityCommon=>palette.rarityCommon;
         public static Color RarityAdvanced=>palette.rarityAdvanced;
         public static Color RarityRare=>palette.rarityRare;
+        /// <summary>V1.1 (W11b): colour of a mark drawn straight on the felt; the mark's own v0.73 colour when the theme sets none.</summary>
+        public static Color OnFelt(Color fallback)=>palette.onFelt.a>0?palette.onFelt:fallback;
         /// <summary>V1.1: the active theme's sprite override by template name, or null (then the default sprite is used).</summary>
         public static Func<string,Sprite> ThemeTemplate;
         /// <summary>v0.72 frame edge weight in reference units (matches the 2x-density ink line of the HD surfaces).</summary>
