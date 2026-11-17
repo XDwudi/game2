@@ -49,6 +49,8 @@ namespace DiceCraft
             public string buttonName,categoryText;
             public float priceWidth;
             public Action<Transform,Rect> picture;
+            // W14 E3: the drawn size of a tile's name when a row of tiles shares one (0: the tile's own fit).
+            public float namePx;
         }
 
         /// <summary>The compact icon of a content id: the current theme's baked icon, then the default theme's, then the
@@ -388,7 +390,14 @@ namespace DiceCraft
                 float room=content.yMax-textTop,textW=Mathf.Max(20,limit-tx);
                 var body=UiKit.Text(t,"ShortText11",text,tx,textTop,textW,Mathf.Max(1,room),Body11(18),LabelOn11(face,UiKit.Ink),TextAlignmentOptions.TopLeft);
                 body.lineSpacing=-16;
-                if(body.GetPreferredValues(text,textW,0).y>room+.5f)body.gameObject.SetActive(false);
+                // W14 E2: a goods row's text that wraps breaks at its punctuation or a " · " ("Lv.0 → Lv.1 / ×2 → ×2.75")
+                // when that break still fits the row.
+                if(priced)
+                {
+                    string balanced=BalancedLines11(body,text,textW);
+                    if(balanced!=text&&body.GetPreferredValues(balanced,textW,0).y<=room+.5f)body.text=balanced;
+                }
+                if(body.GetPreferredValues(body.text,textW,0).y>room+.5f)body.gameObject.SetActive(false);
             }
             // W14 E2: the price button, centred on the content's height (CARD_TEMPLATE §5: the price is the button).
             if(priced)PriceButton13(t,card,content.xMax-priceW,content.y+Mathf.Max(0,(content.height-priceH)*.5f),priceW,priceH);
@@ -404,8 +413,9 @@ namespace DiceCraft
             var face=(Image)t.GetComponent<UnityEngine.UI.Button>().targetGraphic;
             var content=new Rect(inner.x+2,inner.y+2,Mathf.Max(1,inner.width-4),Mathf.Max(1,inner.height-4));
             Color ink=LabelOn11(face,UiKit.Ink);
-            // The name is measured first (it may step down to the 19.5-unit floor), then drawn again last, over nothing.
-            float nameH=FitLine13(t,"Name",title,content.x,content.y,content.width,20,ink,TextAlignmentOptions.Center,true).rectTransform.rect.height;
+            // The name is measured first (it may step down to the 19.5-unit floor, or start at the size its row shares), then
+            // drawn again last, over nothing.
+            float nameH=FitLine13(t,"Name",title,content.x,content.y,content.width,20,ink,TextAlignmentOptions.Center,true,card.namePx).rectTransform.rect.height;
             // The ordinal disc keeps the top-left corner clear of the picture: the block starts right of it.
             const float disc=20;float lead=card.ordinal>0?disc+2:0;
             float block=Mathf.Max(24,Mathf.Min(content.width-lead,content.height-nameH-2));
@@ -417,7 +427,21 @@ namespace DiceCraft
             if(rarity!=null)RarityGem13(t,rarity,tint,blockArea.center.x,blockArea.yMax-gem*.5f-1,gem);
             if(card.ordinal>0)OrdinalDisc13(t,card.ordinal,content.x,content.y,disc);
             if(Enchanted13(card))CardEnchant13(t,card,content.xMax-24,content.y,24);
-            FitLine13(t,"Name",title,content.x,content.yMax-nameH,content.width,20,ink,TextAlignmentOptions.Center,true);
+            FitLine13(t,"Name",title,content.x,content.yMax-nameH,content.width,20,ink,TextAlignmentOptions.Center,true,card.namePx);
+        }
+        /// <summary>W14 E3: draws a row of tiles so that their names share one size, the size the longest name fits at (a
+        /// three-character name is not drawn larger than its neighbours, and every picture is the same size). A second
+        /// pass redraws the row only when the first gave different sizes. Returns the tiles as finally drawn.</summary>
+        private UnityEngine.UI.Button[] TileRow13(int count,Func<int,float,UnityEngine.UI.Button> draw)
+        {
+            var tiles=new UnityEngine.UI.Button[count];
+            for(int i=0;i<count;i++)tiles[i]=draw(i,0);
+            if(count<2)return tiles;
+            float[] sizes=tiles.Select(tile=>tile.transform.Find("Name")?.GetComponent<TextMeshProUGUI>()?.fontSize??0).ToArray();
+            float smallest=sizes.Where(s=>s>0).DefaultIfEmpty(0).Min();
+            if(smallest<=0||sizes.All(s=>Mathf.Approximately(s,smallest)))return tiles;
+            for(int i=0;i<count;i++)tiles[i]=draw(i,smallest);
+            return tiles;
         }
 
         // Price row metrics: coin, gap, price (bold, 22), gap, word. The row uses the button's width less 16 units (its frame

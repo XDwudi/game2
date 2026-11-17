@@ -62,7 +62,11 @@ namespace DiceCraft
             var obstacles=GuideObstacles07();Rect targetBounds=GuideBounds07(target);
             const float w=400,h=144;
             Rect paperBounds;
-            if(!TryGuidePaper07(w,h,targetBounds,obstacles,out paperBounds,shop))
+            // V1.1 W14: the shop page is dense; its arrow takes the first free spot at the section's edge first, and the paper
+            // then keeps clear of it (otherwise the paper could take the only free approach and leave no arrow).
+            var paperObstacles=obstacles;
+            if(shop){var spot=DrawGuideArrow07(targetBounds,obstacles,null,false,false);if(spot.HasValue)paperObstacles=new List<Rect>(obstacles){spot.Value};}
+            if(!TryGuidePaper07(w,h,targetBounds,paperObstacles,out paperBounds,shop))
             {DrawGuideFallback07(targetBounds,obstacles,title[guideStep07],body[guideStep07],shop);return;}
             // One short arrow is anchored at the actual target, not at a guessed
             // paper-card coordinate. It does not draw a connector across HUD/dice.
@@ -173,7 +177,9 @@ namespace DiceCraft
                 }
             return !float.IsPositiveInfinity(best);
         }
-        private void DrawGuideArrow07(Rect target,List<Rect> obstacles,Rect paper,bool die)
+        /// <summary>Draws one short arrow at the first free approach to the target (or, with <paramref name="draw"/> false,
+        /// only finds it); returns its bounds, or null when every approach is blocked.</summary>
+        private Rect? DrawGuideArrow07(Rect target,List<Rect> obstacles,Rect? paper,bool die,bool draw=true)
         {
             Vector2[] directions=die?new[]{Vector2.right,Vector2.left,Vector2.down,Vector2.up}:
                 new[]{Vector2.down,Vector2.up,Vector2.right,Vector2.left};
@@ -188,14 +194,16 @@ namespace DiceCraft
                 Vector2 a=tip-travel*Mathf.Min(10,length*.6f)+normal*6,b=tip-travel*Mathf.Min(10,length*.6f)-normal*6;
                 Vector2 min=Vector2.Min(Vector2.Min(start,tip),Vector2.Min(a,b))-Vector2.one*2,max=Vector2.Max(Vector2.Max(start,tip),Vector2.Max(a,b))+Vector2.one*2;
                 var bounds=Rect.MinMaxRect(min.x,min.y,max.x,max.y);
-                if(bounds.xMin<8||bounds.xMax>1912||bounds.yMin<8||bounds.yMax>1072||bounds.Overlaps(paper)||!GuideClear07(bounds,obstacles,0))continue;
+                if(bounds.xMin<8||bounds.xMax>1912||bounds.yMin<8||bounds.yMax>1072||paper.HasValue&&bounds.Overlaps(paper.Value)||!GuideClear07(bounds,obstacles,0))continue;
+                if(!draw)return bounds;
                 var arrow=UiKit.Rect(main,"GuideArrow",bounds.x,bounds.y,bounds.width,bounds.height);
                 Vector2 origin=bounds.position;GuideArrowLine07(arrow,"Stem",start-origin,tip-origin);GuideArrowLine07(arrow,"HeadA",a-origin,tip-origin);GuideArrowLine07(arrow,"HeadB",b-origin,tip-origin);
                 // A geometry marker, not a hit target: regression tests check
                 // that the actual tip terminates outside the live target edge.
                 UiKit.Rect(arrow,"GuideArrowTip",tip.x-origin.x,tip.y-origin.y,0,0);
-                return;
+                return bounds;
             }
+            return null;
         }
         private static void GuideArrowLine07(Transform parent,string name,Vector2 from,Vector2 to)
         {

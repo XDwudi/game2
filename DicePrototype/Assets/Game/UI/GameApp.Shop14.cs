@@ -538,11 +538,16 @@ namespace DiceCraft
             FitLine13(panel,"OwnedControllersTitle",doomed.Count>0?"红框的卡会被祭坛摧毁，拖动可避开":"拖动调整顺序",x,captionY,Mathf.Max(40,itemsX-x-16),18,
                 doomed.Count>0?CueOn11(panel,UiKit.Danger):LabelOn11(panel,UiKit.Muted),TextAlignmentOptions.MidlineLeft,false);
             float tileY=4+l.captionH+2;int shown=cards.Count>10?9:cards.Count;
+            // One name size along the row (E3): the longest name decides.
+            var tiles=TileRow13(shown,(i,px)=>
+            {
+                var owned=cards[i];
+                var face=new CardFace13{contentId=owned.definitionId,enchantment=owned.enchantmentId,ordinal=i+1,namePx=px};
+                return DrawCard13(panel,"Controller_"+owned.instanceId,ShopPad14+i*(BuildTileWidth14+4),tileY,BuildTileWidth14,l.tileH,face,CardSize13.Tile,()=>ShowController(owned,true),!IsBusy);
+            });
             for(int i=0;i<shown;i++)
             {
-                var item=cards[i];bool altar=doomed.Contains(item.instanceId);
-                var face=new CardFace13{contentId=item.definitionId,enchantment=item.enchantmentId,ordinal=i+1};
-                var tile=DrawCard13(panel,"Controller_"+item.instanceId,ShopPad14+i*(BuildTileWidth14+4),tileY,BuildTileWidth14,l.tileH,face,CardSize13.Tile,()=>ShowController(item,true),!IsBusy);
+                var item=cards[i];bool altar=doomed.Contains(item.instanceId);var tile=tiles[i];
                 if(altar)
                 {
                     UiKit.Outline(tile.transform,"AltarVictim09",1,1,BuildTileWidth14-2,l.tileH-2,UiKit.Danger,3);

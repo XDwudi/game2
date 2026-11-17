@@ -217,12 +217,11 @@ namespace DiceCraft
             float dx=x0+2*(colW+24);
             for(int i=0;i<dice.Count;i++){dice[i].priceWidth=DicePriceWidth14;DrawCard13(root,"GalleryGoodsDie14_"+i,dx,top+i*(diceH+8),448,diceH,dice[i],CardSize13.Compact,null,true);}
             float tilesTop=top+Mathf.Max(3*(rowH+8),4*(diceH+8))+8,tileH=l.tileH;
-            var ids=GalleryCards13();int n=0;
+            var ids=GalleryCards13();var tiles=new List<KeyValuePair<string,CardFace13>>();
             for(int r=0;r<3;r++)foreach(int v in new[]{0,1,3})
-            {
-                var card=GalleryVariant13(ids[r][v%ids[r].Length],r,v,n+1);
-                DrawCard13(root,"GalleryTile14_"+r+"_"+v,40+n*(BuildTileWidth14+8),tilesTop,BuildTileWidth14,tileH,card,CardSize13.Tile,null,true);n++;
-            }
+                tiles.Add(new KeyValuePair<string,CardFace13>("GalleryTile14_"+r+"_"+v,GalleryVariant13(ids[r][v%ids[r].Length],r,v,tiles.Count+1)));
+            // As in 我的构筑: the names of the row share one size.
+            TileRow13(tiles.Count,(i,px)=>{tiles[i].Value.namePx=px;return DrawCard13(root,tiles[i].Key,40+i*(BuildTileWidth14+8),tilesTop,BuildTileWidth14,tileH,tiles[i].Value,CardSize13.Tile,null,true);});
         }
         /// <summary>The W13a review: each icon in a two-row card of the play row, its id above it; no badges or ordinal cover it.</summary>
         private void GalleryIconReview13(Transform root,RectTransform backdrop,float top)

@@ -47,5 +47,6 @@
 | `PLAY_V14_SH04_NextStageWithLootLeftAndWithAPendingSave` | 同上 | SH-04 与首领战利品：一件未领（规则拦截的防御状态）时“下一关”停用、写“先领取首领战利品”、不是主色；领了一件后可用，第二行“还有 2 件战利品未领，离开后作废”且量了对比度；存档挂起时停用、不写原因 |
 | `PLAY_V14_SH08_FacePickOnTheTableStepByStep` | 同上 | SH-08：S1–S3 每一步与每一种取消（两套风格，S1–S3 在 100%/150% 截图并查文字）；取消不扣钱、不存档、不抽随机数；确认只发一条命令；U06（面）、U05（整颗）、O04（删除）三类的文字 |
 | `PLAY_V14_SH08_IllegalTargetIsNamedAndBlocksTheConfirmation` | 同上 | SH-08：已镀金的面写“这一面已经镀金，换一个面”，确认不可点；`CancelFacePick14`（Esc）回到 S0、状态不变 |
+| `PLAY_V14_SH08_LongestChangeTextsFitWithEnlargedText` | 同上 | SH-08 的最长文字：带纹理、黄金与权重的面，U01 的改动与对面补充行、U11 的不合法原因；两套风格 × 100%/150%：文字完整、不被按钮盖住，按钮都在面板内（`W14ButtonsInside`，`PLAY_V14_SH08_FacePickOnTheTableStepByStep` 的 S1–S3 也加了这项） |
 | `PLAY_V14_SH10_SameShopSaleCapIsShownOnTheTileAndInTheDetails` | 同上 | SH-10（C98）：三张砍价高手把 4 金币的卡压到 1；本店买入后卖价 1，图块悬停与详情都写明原因；卖出 +1 |
 | `PLAY_V14_SH12_TopBarTargetIncludesTheBossModifier` | 同上 | SH-12（R5）：顶栏标题“商店 · 第 3 关前”，下一关的目标含首领减益，与“查看本章”同一个数 |

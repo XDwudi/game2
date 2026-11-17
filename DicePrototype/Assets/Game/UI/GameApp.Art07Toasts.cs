@@ -177,12 +177,12 @@ namespace DiceCraft
             if(ViewState?.phase=="Shop")
             {
                 // V1.1 W14 (SHOP_LAYOUT 2): the free middle of the 卡牌 and 升级与服务 header strips. The notice's foot keeps the
-                // blocker gap (4) above the cards and goods under the strip; with enlarged text it reaches up over the gap
-                // above the section, clear of the top bar's buttons and of the cards above. The strip middles come first,
-                // then every 40 units along both strips, so two notices still find room when a long label fills a middle.
+                // blocker gap (4) above the cards and goods under the strip, plus one unit for the 720p canvas scale's rounding;
+                // with enlarged text it reaches up over the gap above the section, clear of the cards above. The strip middles
+                // come first, then every 40 units along both strips, so two notices still find room when a label fills a middle.
                 var l=S14;var strips=new[]{l.cards,l.goods};
-                foreach(var r in strips)foreach(float dx in new[]{300f,620f})yield return new Vector2(r.x+dx,r.y+ShopHead14-4-height);
-                foreach(var r in strips)for(float x=r.x+160;x+480<=r.xMax-120;x+=40)yield return new Vector2(x,r.y+ShopHead14-4-height);
+                foreach(var r in strips)foreach(float dx in new[]{300f,620f})yield return new Vector2(r.x+dx,r.y+ShopHead14-5-height);
+                foreach(var r in strips)for(float x=r.x+160;x+480<=r.xMax-120;x+=40)yield return new Vector2(x,r.y+ShopHead14-5-height);
                 yield break;
             }
             if(FramePhase11)
