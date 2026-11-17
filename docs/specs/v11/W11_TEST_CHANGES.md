@@ -71,3 +71,40 @@
 720p 的这 2 项失败在改版前就会出现（失败的是商店报价文字，来自 `3bc30f0`，与分辨率和对局画面无关）；V1.1 上此前没有跑过 720p 全量，所以没有更早的 720p 基线可比。
 
 改版后第一次全量（`ebc6b26a`）为 1080p 175 / 214；中间各轮（筛选运行）的报告也在 `evidence/v11/unity/`。
+
+## 5 W11b 复查返工（2026-11-16）
+
+基线：`6ab20715`（含主 agent 的商店修正 `8f0433a9` 与瑞士 W12b 合并）。布局与颜色的改动见 [PLAY_LAYOUT](PLAY_LAYOUT.md) §8 第 30–36 行。
+
+### 5.1 改写或加强的断言
+
+| 测试（文件） | 旧期望 | 新期望 | 理由 |
+| --- | --- | --- | --- |
+| `W11GlyphCheck` / `W11TextPass`（V11PlayScreenAxPlayModeTests.cs；用于 `PLAY_V11_W11_NewTextsAreDrawnCompleteAndReadableAtThreeTextSizes`） | 每个字形在文字自己的框内 | 另外必须在它所在面的“可见框”内：文字下面最上层的实底面（含字形中心与一半以上字形面积、贴图中心不透明），按贴图沿中线实际画出的边框（透明边，以及在九宫格边界内与填充色不同的像素：框线、斜面、底沿、内框线）向内收，再与画在其上、文字之前的空心框（`ui_ring`）内沿取交。一轮里的越框全部列出后再判失败 | 复查第 2 项：首领本关牌的奖励行画在底框线上，旧检查只看文字框所以通过。改后还查出顶栏章节说明压在默认顶栏的内框线上、“已选 1”与“骰池”标签的字压到标签底沿、7 张卡时卡面短文压到卡面右框（PLAY_LAYOUT §8 第 31a、31b 行与卡面边距） |
+| 同上 | — | 算式筹码的名称字号 ≥ 19.5 × 文字大小；`ActionReason` 两行时每行 ≥ 3 个字 | 复查第 5、4 项 |
+| `PLAY_ART07_ScoreLabelsPreviewMixedZeroAndRandomKeepEveryGlyphAfterRedraw`（Art07ScoreLabelsPlayModeTests.cs） | 每个显示中的筹码的名称与数值都做 GPU 字形检查 | 数值都检查；名称只检查显示中的（行宽不够时最右边的筹码只写数值），基础分筹码必须有名称 | PLAY_LAYOUT §8 第 34 行：名称不再缩小，放不下时让位 |
+| `AssertBossReadoutVisible10`（V10PlayModeTests.cs；用于 `PLAY_V10_EveryBossModifierReadoutIsUncoveredAndFitsItsBoxDuringAStage`） | `BossModifierText` 等于减益的 shortText | 去掉换行符后等于 shortText | 两行的效果短文在最接近中间的标点处换行（PLAY_LAYOUT §8 第 33 行）；“完整画出、在框内”的检查不变 |
+| `GripPaperPixels07`（Art07DiceAffordancePlayModeTests.cs；用于两项拖动把手测试） | 把手的点是 Paper 色 | 是 `UiKit.OnFelt(UiKit.Paper)`（默认风格没有 onFelt，仍是 Paper） | 复查第 6 项：桌布上的标记用色板的 onFelt |
+
+拖动把手的两项测试（`PLAY_ART07_DICE_VisibleGrip…`、`PLAY_ART07_DICE_DebugAppliedTable…`）没有改：把手移到槽位右列底部后，“在同一点击区内、不压点数、点到把手就是这颗骰子”仍按原样检查。
+
+### 5.2 新增测试 `Tests/PlayMode/V11PlayScreenW11bPlayModeTests.cs`
+
+| 测试 | 检查 |
+| --- | --- |
+| `PLAY_V11_W11b_LabelsOnFilledSurfacesReachContrastInDefaultAndSwiss` | 默认与瑞士两套风格的四种画面（选骰、首领关开局、计分中停在总分、达标后）：每个画在实底面上的字（判定方法同可见框检查），把字隐藏后截图，取字形下像素的中位色作为面的实际颜色，字色对它的 WCAG 对比度 ≥ 4.5:1（禁用按钮的字除外）；瑞士风格设了 onFelt，桌布上的槽位序号 ≥ 4.5:1、空格的点 ≥ 3:1；默认风格没有 onFelt。逐项写入 `artifacts/cache/v11/w11/<分辨率>/w11b-contrast.txt`（含字形实际画出的像素的对比度，供参考） |
+| `PLAY_V11_W11b_SettlePanelTurnsToReachedTheMomentTheTotalReachesTheTarget` | 标准与快速速度，计分演出每个节拍取 8 帧：结算预览面板恰好显示一种状态；显示差距时差距不是“0”且顶栏显示的总分低于目标；显示的总分一到目标就是“现在结束 +N 金币”，之后不再回到差距；标准速度下切换发生在 FinalScore 节拍之内 |
+| `PLAY_V11_W11b_HintsBreakAtBalancedPunctuationWithoutOrphans` | 100/125/150% 文字下，提示行可能出现的 19 种文字放进真实的 `ActionReason`：不截断、最多两行、每行 ≥ 3 个字；两行时短的一行至少是长的一行的三分之一，文字中段有标点时在标点处断开。写入 `w11b-hints.txt` |
+| `PLAY_V11_W11b_FormulaChipRowFitsWithTheLongestNamesAt150` | 100% 与 150% 文字下四种算式行：最长的一行（十张卡、附魔、全红、灵光一闪与强弩之末两个四字名称）、零倍率（数值最长）、计分后带后置说明、两倍目标的总分（总分筹码加宽）：筹码、乘号与文字都在算式行内且互不重叠，显示的名称 ≥ 19.5 × 文字大小，基础分有名称，名称与数值的字形在筹码的可见框内。写入 `w11b-chip-row.txt` |
+
+### 5.3 运行结果（`23b8dd61`）
+
+| 套件 | 结果 | 报告 |
+| --- | --- | --- |
+| EditMode（batch） | 2421 / 2421 | `evidence/v11/unity/nunit-20261117-040533.xml` |
+| PlayMode 1920×1080（全量） | 222 / 222 | `evidence/v11/unity/nunit-20261117-043523.xml` |
+| PlayMode 1280×720（全量） | 222 / 222 | `evidence/v11/unity/nunit-20261117-050557.xml` |
+
+`349af992` 上的第一次 1080p 全量（`nunit-20261117-035332`）为 221 / 222：`PLAY_ART07_POST_PermanentPipTransitionChangesActualGpuPixelsAndRestoresOpaqueFace` 失败。原因是锁定骰子变大后，计分后的永久改点要把骰子退回 0.82 倍，这一步变成了布局移动，移动结束时重新显示了骰面、打断了面的过渡；`23b8dd61` 让这一步立即完成（PLAY_LAYOUT §8 第 36 行），测试没有改。筛选运行的报告也在 `evidence/v11/unity/`。
+
+返工前后的对比图（左为返工前，右为返工后，取自检查点截图）：`artifacts/cache/v11/w11/w11b-evidence/`。
