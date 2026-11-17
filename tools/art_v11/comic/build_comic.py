@@ -1232,12 +1232,15 @@ def play_mock(sprites, specs, table) -> Image.Image:
     m.text(580, 44, "/ 4,000", 32, P["muted"], "lm")
     m.put("ui_progress_track", 466, 66, 532, 7, col("07191C"), mult=48 / 7)
     m.put("ui_progress_fill", 466, 66, 330, 7, col(P["blue"]), mult=48 / 7)
-    m.icon("ui_icon_coin", 1446, 30, 36, 36)
-    m.text(1540, 48, "28", 34, P["gold"], "rm")
-    m.text(1548, 48, "金币", 20, P["muted"], "lm")
-    for x, label in ((1572, "手册"), (1692, "暂停")):
-        m.put("ui_chip_formula", x, 20, 108, 56, sec)
-        m.text(x + 54, 48, label, 21, P["textColor"], "mm")
+    # Gold and the two buttons where the game puts them (GameApp.Play11 TopBar11: gold group 1476-1652; GameApp.Art07
+    # DrawNavigation07: handbook 1668 and pause 1788, 108 x 60 UiKit.Button = paper face on the code's 8F453A step).
+    m.icon("ui_icon_coin", 1482, 30, 36, 36)
+    m.text(1608, 48, "28", 34, P["gold"], "rm")
+    m.text(1610, 48, "金币", 20, P["muted"], "lm")
+    for x, label in ((1668, "手册"), (1788, "暂停")):
+        m.put("ui_button_bevel", x + 2, 26, 104, 54, col("8F453A"))
+        m.put("ui_button_bevel", x, 18, 108, 53, col(P["paper"]))
+        m.text(x + 54, 44, label, 23, P["ink"], "mm")
     # Cards.
     arts = ["C108", "C117", "U10"]
     for i, art in enumerate(arts):
