@@ -297,5 +297,48 @@ class GenerateTests(ArtGenTestBase):
             self.run_fake("ok")
 
 
+class ThemeKitSheetTests(ArtGenTestBase):
+    """V1.1 W19: theme kits name their palettes freely; the review sheet must not need ivory, petrol and ink."""
+
+    def theme_kit(self, palette, plate_background):
+        kit = json.loads(json.dumps({k: v for k, v in self.kit.items() if k != "_path"}))
+        kit["palette"] = palette
+        kit["categories"]["illustration"]["plate"]["background"] = plate_background
+        return kit
+
+    def build(self, kit):
+        cand = self.root / "cand.png"
+        make_anchor(cand, (0xB5, 0x48, 0x1E), size=128)
+        out_png, out_json = self.root / "sheet.png", self.root / "sheet.json"
+        report = artgen.build_sheet(kit, "illustration", cand, out_png, out_json, self.root, "t", "VALID")
+        self.assertTrue(out_png.is_file() and out_json.is_file())
+        return report
+
+    def test_default_names_keep_their_colours(self):
+        paper, second, ink, labels = artgen.sheet_colours(self.kit, self.kit["categories"]["illustration"])
+        self.assertEqual((paper, second, ink), (artgen.hex_rgb("F4E8CB"), artgen.hex_rgb("173E40"), artgen.hex_rgb("162629")))
+        self.assertIn("felt", labels[1])
+
+    def test_light_theme_kit_uses_plate_backdrop_and_a_dark_second_tile(self):
+        kit = self.theme_kit({"cream": "F0D7AA", "umber": "5A3614", "amber": "D98E2B"}, "F1E2C6")
+        paper, second, ink, _ = artgen.sheet_colours(kit, kit["categories"]["illustration"])
+        self.assertEqual(paper, artgen.hex_rgb("F1E2C6"))
+        self.assertEqual(second, artgen.hex_rgb("5A3614"))
+        self.assertEqual(ink, artgen.hex_rgb("5A3614"))
+        self.build(kit)
+
+    def test_dark_theme_kit_gets_a_light_second_tile_and_readable_text(self):
+        kit = self.theme_kit({"ivory": "F8E5C6", "gold": "D9A44E", "lacquer": "15110D"}, "15110D")
+        paper, second, ink, labels = artgen.sheet_colours(kit, kit["categories"]["illustration"])
+        self.assertEqual(paper, artgen.hex_rgb("F8E5C6"), "an ivory name is still honoured")
+        kit["palette"] = {"gold": "D9A44E", "lacquer": "15110D"}
+        paper, second, ink, labels = artgen.sheet_colours(kit, kit["categories"]["illustration"])
+        self.assertEqual(paper, artgen.hex_rgb("15110D"))
+        self.assertEqual(second, artgen.hex_rgb("F4E8CB"))
+        self.assertLess(artgen._luma(ink), 0.45)
+        self.assertIn("light backdrop", labels[1])
+        self.build(kit)
+
+
 if __name__ == "__main__":
     unittest.main()

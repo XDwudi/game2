@@ -33,7 +33,8 @@ from pathlib import Path
 import numpy as np
 from PIL import Image, ImageDraw, ImageFont
 
-TOOL_VERSION = "artgen-1.1"
+# artgen-1.2 (V1.1 W19): review sheets also work for theme kits whose palettes do not name ivory, petrol and ink.
+TOOL_VERSION = "artgen-1.2"
 ROOT = Path(__file__).resolve().parents[2]
 KIT_DEFAULT = Path("ArtSource/StyleKit/style_kit.json")
 CONFIG_DEFAULT = Path("DicePrototype/Assets/Game/Data/P0Config.json")
@@ -605,11 +606,41 @@ def _on(bg: tuple, art: Image.Image, size: int, box: int) -> Image.Image:
     return tile
 
 
+def _luma(c: tuple) -> float:
+    return (0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2]) / 255
+
+
+def sheet_colours(kit: dict, cat: dict) -> tuple:
+    """Backdrops and text colour of the review sheet: (paper, second backdrop, ink, labels).
+
+    The default-style kits name these colours ivory, petrol and ink. Theme kits (V1.1 W19) name their palettes freely,
+    so a missing name falls back to: the category plate's backdrop (the theme's card backdrop) for the first tile; for
+    the second tile a contrasting backdrop, dark under a light card and light under a dark one, so fringes and halos
+    show either way; the darkest palette colour for text. Kits that have the three names draw exactly as before."""
+    pal = kit.get("palette", {})
+    colours = [hex_rgb(v) for v in pal.values() if isinstance(v, str) and len(v) == 6]
+    darkest = min(colours, key=_luma) if colours else hex_rgb("162629")
+    if "ivory" in pal and "petrol" in pal:
+        paper, second = hex_rgb(pal["ivory"]), hex_rgb(pal["petrol"])
+        labels = ("original on paper (edges, halftone, lines)", "original on felt (white fringe / halo shows here)",
+                  "(row 1 paper card, row 2 felt)")
+    else:
+        paper = hex_rgb(pal.get("ivory") or cat.get("plate", {}).get("background") or "F4E8CB")
+        light = _luma(paper) >= 0.4
+        second = hex_rgb(pal["petrol"]) if "petrol" in pal else (darkest if light else hex_rgb("F4E8CB"))
+        labels = ("original on the theme's card backdrop",
+                  "original on a " + ("dark" if light else "light") + " backdrop (fringes and halos show here)",
+                  "(row 1 card backdrop, row 2 contrasting backdrop)")
+    ink = hex_rgb(pal["ink"]) if "ink" in pal else darkest
+    if _luma(ink) > 0.45:   # text sits on the sheet's light background
+        ink = hex_rgb("162629")
+    return paper, second, ink, labels
+
+
 def build_sheet(kit: dict, cname: str, candidate_path: Path, out_png: Path, out_json: Path, root: Path,
                 title: str, validity: str) -> dict:
     cat = kit_category(kit, cname)
-    paper, felt = hex_rgb(kit["palette"]["ivory"]), hex_rgb(kit["palette"]["petrol"])
-    ink = hex_rgb(kit["palette"]["ink"])
+    paper, felt, ink, labels = sheet_colours(kit, cat)
     cand = Image.open(candidate_path).convert("RGBA")
     anchor_imgs = [(a["id"], Image.open(root / a["path"]).convert("RGBA")) for a in cat["anchors"]]
     stored = cat.get("indicatorRanges")
@@ -634,8 +665,8 @@ def build_sheet(kit: dict, cname: str, candidate_path: Path, out_png: Path, out_
     y = 60
     sheet.paste(_on(paper, cand, 500, 520), (20, y))
     sheet.paste(_on(felt, cand, 500, 520), (560, y))
-    draw.text((20, y + 522), "original on paper (edges, halftone, lines)", fill=ink, font=f_small)
-    draw.text((560, y + 522), "original on felt (white fringe / halo shows here)", fill=ink, font=f_small)
+    draw.text((20, y + 522), labels[0], fill=ink, font=f_small)
+    draw.text((560, y + 522), labels[1], fill=ink, font=f_small)
     tx = 1100
     draw.text((tx, y), "Drift indicators (not a gate)", fill=ink, font=f_mid)
     ty = y + 30
@@ -650,7 +681,7 @@ def build_sheet(kit: dict, cname: str, candidate_path: Path, out_png: Path, out_
 
     y += 560
     draw.text((20, y), "approximate display sizes: " + " / ".join(f"{s}px" for s in sizes)
-              + "   (row 1 paper card, row 2 felt)", fill=ink, font=f_mid)
+              + "   " + labels[2], fill=ink, font=f_mid)
     y += 28
     for row_i, bg in enumerate((paper, felt)):
         x = 20
@@ -807,8 +838,9 @@ def generate(root: Path, kit_rel: Path, job_path: Path, codex_cmd: list, timeout
         try:
             build_sheet(kit, job["category"], rev_dir / "original.png", rev_dir / "review_sheet.png",
                         rev_dir / "review_metrics.json", root, title, "VALID" if valid else "INVALID_RUN")
-        except OSError as exc:
-            record["runProblems"].append(f"review sheet could not be built: {exc}")
+        except (OSError, KeyError, ValueError) as exc:
+            # The sheet is a review aid: the run's own verdict above stands. The problem is still recorded.
+            record["runProblems"].append(f"review sheet could not be built: {exc!r}")
             write_json(rev_dir / "record.json", record)
     return record
 
