@@ -35,7 +35,7 @@ namespace DiceCraft
             toastDirty07=true;
         }
         private string NoticeContext07()=>string.Join("/",inMenu,modal,debugPanel,IsBusy,Session?.HasPendingSave??false,
-            guideInline07,!string.IsNullOrEmpty(boundaryTip07),draggedDie07!=null,IsControllerDragging,Screen.width,Screen.height,textScale07,
+            guideInline07,main!=null&&main.Find("FirstRunGuide") is Transform guide&&guide.gameObject.activeSelf,!string.IsNullOrEmpty(boundaryTip07),draggedDie07!=null,IsControllerDragging,Screen.width,Screen.height,textScale07,
             ViewState?.phase??"menu",ViewState?.actionSequence??0,toastApplicationPaused07);
         private void PauseNotices07(bool paused){toastApplicationPaused07=paused;toastDirty07=true;}
         private void HideNotices07()
@@ -51,7 +51,10 @@ namespace DiceCraft
             HideNotices07();toastContext07=NoticeContext07();toastDirty07=false;toastLastDrawFrame07=Time.frameCount;
             if(toasts07.Count==0||Session?.HasPendingSave==true||toastApplicationPaused07)return;
             bool paused=modal||draggedDie07!=null||IsControllerDragging;
-            var available=toasts07.Where(t=>t.error||!paused&&!IsBusy&&!guideInline07&&string.IsNullOrEmpty(boundaryTip07)).OrderByDescending(t=>t.error).ToArray();
+            // V1.1 (W11): the play screen leaves room beside an open guide paper; an ordinary notice still waits until the
+            // guidance is closed (guidance first, as when the guide was docked inline).
+            bool guidePaper=main!=null&&main.Find("FirstRunGuide") is Transform guide&&guide.gameObject.activeSelf;
+            var available=toasts07.Where(t=>t.error||!paused&&!IsBusy&&!guideInline07&&!guidePaper&&string.IsNullOrEmpty(boundaryTip07)).OrderByDescending(t=>t.error).ToArray();
             if(available.Length==0)return;
             // Existing modal error pages own persistence failures. Ordinary pause/settings
             // suspend an already visible notice; rejected debug actions use their existing status band.

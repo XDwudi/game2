@@ -198,9 +198,10 @@ namespace DiceCraft.Tests
             yield return WaitInteractionLayout07();
             CollectionAssert.AreEqual(new[]{propertyDie},app.Session.PendingIds);
             AssertInteractionCheckpoint07(before,disk,sequence);
-            var propertyLabel=FindActive<TextMeshProUGUI>("DieState"+propertyDie);
-            Assert.That(propertyLabel.text,Does.Contain("玻璃").And.Contain("临时"));
-            Assert.That(FindActive<TextMeshProUGUI>("Pending"+propertyDie).text,Is.EqualTo("01 待锁"));
+            // V1.1 (W11, B4): glass and stage-temporary are shape badges on the die, and the chosen tag reads "已选 1".
+            var propertyMarks=W11Badges(propertyDie).Select(b=>b.GetComponent<Play11Badge>().Kind).ToArray();
+            Assert.That(propertyMarks,Has.Member(Play11Badge.Shape.Glass).And.Member(Play11Badge.Shape.Clock));
+            Assert.That(FindActive<TextMeshProUGUI>("Pending"+propertyDie).text,Is.EqualTo("已选 1"));
             DiceLabelCheck07();Art071AssertPoolFacesAreHittable();
             yield return CaptureEdge07("v071-three-pool-glass-temporary-pending");
 

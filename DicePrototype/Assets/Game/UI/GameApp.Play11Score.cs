@@ -180,14 +180,29 @@ namespace DiceCraft
             name.fontSize=nameFont*UiKit.FontScale;
             var label=root.Find("Label").GetComponent<TextMeshProUGUI>();
             label.text=f.value;label.color=ink;label.fontSize=font*UiKit.FontScale;label.alignment=TextAlignmentOptions.MidlineRight;label.textWrappingMode=TextWrappingModes.NoWrap;
-            label.rectTransform.anchoredPosition=new Vector2(10+nameW+4,0);label.rectTransform.sizeDelta=new Vector2(w-nameW-24,h);
+            // The value takes everything right of the name up to the chip's inner edge (8 units).
+            label.rectTransform.anchoredPosition=new Vector2(10+nameW+2,0);label.rectTransform.sizeDelta=new Vector2(w-nameW-20,h);
             return root;
         }
+        /// <summary>Width of a one-line text at a design size: the font's own glyph advances (main font, then its fallbacks),
+        /// an em-based estimate only for a glyph no font has loaded yet. Rich-text tags count as text (a safe overestimate).</summary>
         private static float PreferredWidth11(string text,float size)
         {
-            if(string.IsNullOrEmpty(text))return 0;float w=0;
-            foreach(char ch in text)w+=ch<0x2E80?(ch==' '?.3f:.58f):1f;
-            return w*size*UiKit.FontScale;
+            if(string.IsNullOrEmpty(text))return 0;float w=0,px=size*UiKit.FontScale;
+            foreach(char ch in text)
+            {
+                float advance=GlyphAdvance11(UiKit.Font,ch,px,0);
+                w+=advance>=0?advance:(ch<0x2E80?(ch==' '?.3f:.62f):1f)*px;
+            }
+            return Mathf.Ceil(w)+1;
+        }
+        private static float GlyphAdvance11(TMP_FontAsset font,uint ch,float px,int depth)
+        {
+            if(font==null||depth>3)return -1;
+            if(font.characterLookupTable!=null&&font.characterLookupTable.TryGetValue(ch,out var c)&&c.glyph!=null)
+                return c.glyph.metrics.horizontalAdvance*px/Mathf.Max(1,font.faceInfo.pointSize)*(font.faceInfo.scale>0?font.faceInfo.scale:1);
+            if(font.fallbackFontAssetTable!=null)foreach(var fallback in font.fallbackFontAssetTable){float a=GlyphAdvance11(fallback,ch,px,depth+1);if(a>=0)return a;}
+            return -1;
         }
         /// <summary>The expected (or scored) hand on the submission tray: it "lands" when the hand beat starts.</summary>
         private void DrawHand11(Formula11Mode mode,ScoreBreakdown b,ScorePreview preview)

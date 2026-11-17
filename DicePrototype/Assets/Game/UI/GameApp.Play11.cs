@@ -125,7 +125,9 @@ namespace DiceCraft
             string edition=IsPracticeRun11?"练习模式":IsDebugWorkspace&&!CleanCapture11?"调试对局":"";
             float captionW=caption.GetPreferredValues(caption.text).x;
             NoWrap11(UiKit.Text(bar,"Edition",edition,dotsX+captionW+12,36,140,32,c?17:20,IsDebugWorkspace?UiKit.Violet:UiKit.Gold));
-            float frameX=dotsX+chapters*24+56,frameRight=goldX-l.top.x-16-(play?284:0);
+            // The score frame starts after the caption line (and its practice / debug label), so the two never touch.
+            float editionW=edition.Length>0?PreferredWidth11(edition,c?17:20)+12:0;
+            float frameX=Mathf.Max(dotsX+chapters*24+56,dotsX+captionW+editionW+20),frameRight=goldX-l.top.x-16-(play?284:0);
             if(play)DrawTopScore11(bar,frameX,Mathf.Min(c?640:560,frameRight-frameX),c);
             else
             {
@@ -282,7 +284,9 @@ namespace DiceCraft
                     textTop+=stateH+2;
                 }
                 var body=UiKit.Text(t,"ShortText11",text,pad,textTop,w-pad*2,h-12-textTop,20,UiKit.Ink,TextAlignmentOptions.TopLeft);
-                body.lineSpacing=-14;body.enableAutoSizing=true;body.fontSizeMax=20*UiKit.FontScale;body.fontSizeMin=Body11(16)*UiKit.FontScale;
+                // At 150 % a card with a state line has three lines' room: the text shrinks as far as the 19.5-unit body size
+                // (13 px at 720p, AX-03) before it would overflow.
+                body.lineSpacing=-14;body.enableAutoSizing=true;body.fontSizeMax=20*UiKit.FontScale;body.fontSizeMin=19.5f;
             }
             else
             {
@@ -580,9 +584,9 @@ namespace DiceCraft
                 if(locked)
                 {
                     var id=h.orderedLockedIds[i];var die=s.dice.First(d=>d.dieId==id);var result=h.currentResults.First(r=>r.dieId==id);
-                    // A locked die (18-degree turn) projects about 101 units wide per unit of scale: it stands 4 units in from
-                    // the slot's left edge and clear of the right column (slot number, padlock, badges).
-                    float scale=slotW>=148?.82f:slotW>=128?.76f:.70f,half=50.5f*scale+2;Vector2 center=new Vector2(x+4+half,sy+slotH-12-52);
+                    // A locked die (18-degree turn) projects about 101 units wide per unit of scale: it stands 2 units in from
+                    // the slot's left edge, which leaves the post-score change text (DieState) its full width on the right.
+                    float scale=slotW>=148?.82f:slotW>=128?.76f:.70f,half=50.5f*scale;Vector2 center=new Vector2(x+2+half,sy+slotH-12-52);
                     lockedSlotRects07[id]=new Rect(x,sy,slotW,slotH);
                     var lip=UiKit.Box(main,"SlotTray073_"+i,x+4,sy+slotH-6,slotW-8,20,Color.white).GetComponent<Image>();
                     lip.sprite=UiKit.Template("ui_tray_front");lip.type=lip.sprite!=null?Image.Type.Sliced:Image.Type.Simple;lip.raycastTarget=false;lip.gameObject.SetActive(lip.sprite!=null);
@@ -628,8 +632,10 @@ namespace DiceCraft
                 float duration=table.LayoutDuration;table.LayoutDuration=.14f;
                 try{Send(new SessionCommand{kind=CommandKind.Reorder,dieIds=ids.ToArray()});}finally{table.LayoutDuration=duration;}
             };
-            // The narrow grip at the hit's left edge: the wide v0.7 compact grip would reach the pips of a die this close.
+            // The narrow grip stands in the gap right of the die (its left edge is the slot's edge), inside the same hit.
             DrawLockedGrip07(hit,id,false);
+            if(hit.Find("LockedGrip_"+id) is RectTransform grip)
+                grip.anchoredPosition=new Vector2(Mathf.Min(w-12,center.x+50.5f*scale+4-hitX),grip.anchoredPosition.y);
             // Right column of the slot: padlock, then the shape badges; the permanent-change label uses the same column.
             Rect column=new Rect(slot.x+slot.width-32,slot.y+40,28,slot.height-48);
             DrawLockMark07(column.x+3,slot.y+36,index,id);
@@ -661,25 +667,29 @@ namespace DiceCraft
             if(s.stage.qualified)
             {
                 var r=Session.PreviewStageSettlement();
-                NoWrap11(UiKit.Text(main,"Qualified",r==null?"已达标":"现在结束 +"+PlayerNumberFormat.Gold(r.goldAfter-r.goldBefore)+" 金币",x,y,w,36,c?20:24,UiKit.Gold));
-                y+=40;
+                // Every line as tall as its line at the current text size: four or five lines fit 150 % (AX-03).
+                float head=c?18:24,line=Body11(c?13:19);
+                NoWrap11(UiKit.Text(main,"Qualified",r==null?"已达标":"现在结束 +"+PlayerNumberFormat.Gold(r.goldAfter-r.goldBefore)+" 金币",x,y,w,Line11(head),head,UiKit.Gold));
+                y+=Line11(head)+2;
                 if(r!=null)
                 {
                     // v1.1 glossary (text proposal 2.2): 过关奖励, 剩余提交奖励, 利息.
                     string[] lines={"过关奖励  +"+PlayerNumberFormat.Gold(r.baseReward),"剩余提交奖励  +"+PlayerNumberFormat.Gold(r.unusedSubmissionReward),"利息  +"+PlayerNumberFormat.Gold(r.interest)+(r.controllerIncome>0?"  ·  铁饭碗 +"+PlayerNumberFormat.Gold(r.controllerIncome):"")};
-                    for(int i=0;i<lines.Length;i++)NoWrap11(UiKit.Text(main,"QualifiedReward"+i,lines[i],x,y+i*Line11(Body11(c?15:19)),w,Line11(Body11(c?15:19)),Body11(c?15:19),UiKit.TextColor));
-                    y+=lines.Length*Line11(Body11(c?15:19))+2;
+                    for(int i=0;i<lines.Length;i++)NoWrap11(UiKit.Text(main,"QualifiedReward"+i,lines[i],x,y+i*Line11(line),w,Line11(line),line,UiKit.TextColor));
+                    y+=lines.Length*Line11(line)+2;
                 }
                 int income=ViewSources.Count(v=>v.abilityId=="C01")*Config.Controller("C01").parameters.goldPerValidSubmission;
-                if(income>0)NoWrap11(UiKit.Text(main,"QualifiedContinueIncome","续交 "+NameOf("C01")+"  +"+income+" / 次",x,y,w,Line11(Body11(c?15:19)),Body11(c?15:19),UiKit.Gold));
+                if(income>0)NoWrap11(UiKit.Text(main,"QualifiedContinueIncome","续交 "+NameOf("C01")+"  +"+income+" / 次",x,y,w,Line11(line),line,UiKit.Gold));
                 return;
             }
             var gap=ExactScoreMath.Parse(s.stage.target)-ExactScoreMath.Parse(ReferenceEquals(s,ViewState)?DisplayedStageScore11():s.stage.score);if(gap.Sign<0)gap=0;
-            NoWrap11(UiKit.Text(main,"GoalGapLabel11","离目标还差",x,y,w,30,Body11(c?18:22),UiKit.Muted));
-            var value=NoWrap11(UiKit.Text(main,"GoalGap11",CompactScore(gap.ToString()),x,y+30,w,60,c?36:44,PressureActive11?UiKit.Pressure:UiKit.TextColor));
+            float labelSize=Body11(c?18:22),gapSize=c?30:44,labelH=Line11(labelSize),gapH=Line11(gapSize);
+            NoWrap11(UiKit.Text(main,"GoalGapLabel11","离目标还差",x,y,w,labelH,labelSize,UiKit.Muted));
+            var value=NoWrap11(UiKit.Text(main,"GoalGap11",CompactScore(gap.ToString()),x,y+labelH,w,gapH,gapSize,PressureActive11?UiKit.Pressure:UiKit.TextColor));
             value.fontStyle=FontStyles.Bold;
             int reward=s.stage.reward>0?s.stage.reward:s.stage.risk?Config.stages[s.stage.stageIndex].riskReward:Config.stages[s.stage.stageIndex].normalReward;
-            var note=UiKit.Text(main,"GoalReward11","达标后结束：过关奖励 +"+reward+" 金币，剩下的每次提交 +"+Config.goldPerUnusedSubmission,x,y+96,w,72,Body11(c?15:18),UiKit.Muted);
+            float noteY=y+labelH+gapH+2;
+            var note=UiKit.Text(main,"GoalReward11","达标后结束：过关奖励 +"+reward+" 金币，剩下的每次提交 +"+Config.goldPerUnusedSubmission,x,noteY,w,l.settle.yMax-8-noteY,Body11(c?15:18),UiKit.Muted);
             note.lineSpacing=-10;
         }
 

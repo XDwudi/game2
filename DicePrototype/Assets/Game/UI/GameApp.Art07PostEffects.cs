@@ -99,11 +99,16 @@ namespace DiceCraft
                     if(PlayPhase11)
                     {
                         int index=lastPresentationBefore07?.hand?.orderedLockedIds?.IndexOf(id)??-1;
-                        foreach(string name in new[]{"ColorBadge11_"+id,"GlassBadge11_"+id,"TempBadge11_"+id,"LockMark"+index}){var mark=main.Find(name);if(mark!=null)mark.gameObject.SetActive(false);}
+                        foreach(string name in new[]{"ColorBadge11_"+id,"GlassBadge11_"+id,"LockMark"+index}){var mark=main.Find(name);if(mark!=null)mark.gameObject.SetActive(false);}
+                        // A stage-temporary die keeps its clock badge, at the foot of the column under the text.
+                        if(main.Find("TempBadge11_"+id) is RectTransform clock&&clock.gameObject.activeSelf)
+                        {float size=clock.rect.width;clock.anchoredPosition=new Vector2(slot.xMax-32+(28-size)*.5f,-(slot.yMax-8-size));}
                     }
                 }
                 label.ForceMeshUpdate();
-                DrawTemporaryClock071(label,after,true,Compact07);
+                // V1.1 (W11): the temporary mark is the clock badge; the v0.71 clock inside the text is not drawn.
+                if(PlayPhase11){var old=label.transform.Find("TemporaryClock071");if(old!=null)old.gameObject.SetActive(false);}
+                else DrawTemporaryClock071(label,after,true,Compact07);
             }
             if(!changed)
             {

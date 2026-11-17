@@ -103,10 +103,21 @@ namespace DiceCraft.Tests
         {
             Canvas.ForceUpdateCanvases();
             var glyphs = app.canvas.GetComponentsInChildren<TextMeshProUGUI>(false)
-                .Where(t => t.name.StartsWith("DieState") || t.name.StartsWith("SlotIndex") || t.name.StartsWith("PendingD")).SelectMany(DiceLabelVisibleGlyphRects07).ToArray();
+                .Where(t => t.name.StartsWith("DieState") || t.name.StartsWith("SlotIndex") || t.name.StartsWith("PendingD") || ((t.name.StartsWith("PermanentStamp_") || t.name.StartsWith("PermanentPrefix_")) && t.alpha > .01f)).SelectMany(DiceLabelVisibleGlyphRects07).ToArray();
             foreach (var clock in clocks)
             {
+                // Other dice's projected bodies (its own die's body core is checked by W11AssertBadgesClear: a pool badge
+                // sits on the empty corner of its own die's box).
+                string own = clock.name.Substring("TempBadge11_".Length);
+                var bodies = app.canvas.GetComponentsInChildren<DiePointer>(false).Where(p => p.name.StartsWith("Die_") && p.name.Substring(4) != own)
+                    .SelectMany(p => app.table.GetFaceOrientation(p.name.Substring(4)).GetComponentsInChildren<Renderer>(false))
+                    .Where(r => r.enabled).Select(DiceLabelRendererRect07).ToArray();
                 Assert.That(clock.isActiveAndEnabled, Is.True, scope); Assert.That(clock.raycastTarget, Is.False);
+                Assert.That(clock.canvasRenderer.cull, Is.False); Assert.That(clock.canvasRenderer.GetInheritedAlpha(), Is.GreaterThan(0));
+                Assert.That(clock.canvasRenderer.GetMesh(), Is.Not.Null); Assert.That(clock.canvasRenderer.GetMesh().vertexCount, Is.GreaterThan(0));
+                Assert.That(V06ScreenRect(clock.rectTransform).width, Is.GreaterThanOrEqualTo(12 * app.canvas.scaleFactor - .01f));
+                foreach (Rect body in bodies) Assert.That(V06ScreenRect(clock.rectTransform).Overlaps(body), Is.False, scope + " clock covers projected physical die face");
+                W11AssertBadgesClear(own, scope);
                 Rect bounds = V06ScreenRect(clock.rectTransform);
                 foreach (Rect glyph in glyphs)
                 {
@@ -267,7 +278,12 @@ namespace DiceCraft.Tests
                 string copiedColor = scene.dice[0].faces.Single(f => f.faceId == current.currentFaceId).baseColor == "red" ? "红" : "蓝";
                 string flat = new string(label.text.Where(c => !char.IsWhiteSpace(c)).ToArray());
                 Assert.That(flat, Is.EqualTo(oldPip + "→" + committedGrowth.newValue + copiedColor), "Validate committed before/copy/growth data and the separate permanent prefix together.");
-                var clock = label.GetComponentInChildren<Art071TemporaryClock>(true); Temp071CheckClocks(new[] { clock }, "permanent-rewrite");
+                // V1.1 (W11, B4): the temporary mark is the die's clock badge, which moves to the foot of the slot's right
+                // column while the permanent text takes the column; no clock is drawn inside the text any more.
+                Assert.That(label.GetComponentsInChildren<Art071TemporaryClock>(false), Is.Empty);
+                var clock = FindActive<Play11Badge>("TempBadge11_" + id); Assert.That(clock.Kind, Is.EqualTo(Play11Badge.Shape.Clock));
+                Temp071CheckBadges(new[] { clock }, "permanent-rewrite");
+                Assert.That(ScoreContains07(V06ScreenRect(FindActive<RectTransform>("Slot" + app.Session.State.lastSubmission.snapshot.dice.ToList().FindIndex(d => d.dieId == id))), V06ScreenRect(clock.rectTransform)), Is.True, "The clock stays inside its slot.");
                 yield return Temp071ClockGpu("temporary-permanent-rewrite", new[] { clock });
             }
             finally { app.enabled = enabled; app.SkipVisual(); }

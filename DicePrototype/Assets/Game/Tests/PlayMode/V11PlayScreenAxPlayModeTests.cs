@@ -117,13 +117,17 @@ namespace DiceCraft.Tests
         private UnityEngine.UI.Button[] W11PrimaryButtons()
             =>app.canvas.GetComponentsInChildren<UnityEngine.UI.Button>(false).Where(b=>b.gameObject.activeInHierarchy&&b.targetGraphic!=null
                 &&b.transform.parent!=null&&b.transform.parent.name=="Screen"&&Vector4.Distance(b.targetGraphic.color,UiKit.Primary)<.01f).ToArray();
-        private void W11AssertOnePrimary(string state,string expected)
+        /// <summary>One primary action in its fixed place. Enabled, it is the one primary-coloured button; a primary action that
+        /// cannot be taken yet ("最多锁 N 颗") keeps the place, disabled, and then no button is primary-coloured.</summary>
+        private void W11AssertOnePrimary(string state,string expected,bool enabled=true)
         {
             Canvas.ForceUpdateCanvases();var primary=W11PrimaryButtons();
             if(expected==null){Assert.That(primary,Is.Empty,state+": no action is available, so no primary-coloured button.");return;}
-            Assert.That(primary.Select(b=>b.name).ToArray(),Is.EqualTo(new[]{expected}),state+": exactly one primary-coloured button.");
-            var rect=(RectTransform)primary[0].transform;var expectedRect=new[]{"Roll","Confirm","Submit"};
-            Assert.That(expectedRect,Does.Contain(primary[0].name));
+            Assert.That(new[]{"Roll","Confirm","Submit"},Does.Contain(expected));
+            if(enabled)Assert.That(primary.Select(b=>b.name).ToArray(),Is.EqualTo(new[]{expected}),state+": exactly one primary-coloured button.");
+            else Assert.That(primary,Is.Empty,state+": a disabled primary action is not drawn in the primary colour.");
+            var button=Button(expected);Assert.That(button.interactable,Is.EqualTo(enabled),state);
+            var rect=(RectTransform)button.transform;
             // The primary action always sits in the same place.
             Assert.That(rect.anchoredPosition,Is.EqualTo(W11PrimaryPosition??rect.anchoredPosition),state+": the primary button moved.");
             W11PrimaryPosition=rect.anchoredPosition;
@@ -147,7 +151,7 @@ namespace DiceCraft.Tests
                 W11Apply(W11Scene(W11Cards3,new[]{4,4,6,2,4},"bbbrb",3,true,capacity:4));
                 foreach(var die in app.Session.State.dice.Where(d=>!app.Session.State.hand.orderedLockedIds.Contains(d.dieId)))app.Session.TogglePending(die.dieId);
                 app.Refresh();yield return null;
-                W11AssertOnePrimary("too many chosen","Confirm");Assert.That(Button("Confirm").interactable,Is.False);
+                W11AssertOnePrimary("too many chosen","Confirm",enabled:false);
                 Assert.That(Button("Confirm").GetComponentInChildren<TextMeshProUGUI>().text,Does.Contain("最多锁 1 颗"));
                 // Thrown, out of throws, nothing locked: no action to emphasise.
                 var scene=W11Scene(W11Cards3,new[]{4,4,6,2,4},"bbbrb",0,true);scene.rollsRemaining=0;W11Apply(scene);yield return W11Settle();
