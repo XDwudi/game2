@@ -234,10 +234,11 @@ class ComicArtTests(unittest.TestCase):
         self.assertEqual({path.stem for path in (ROOT / THEME / "UI").glob("*.png")}, expected)
         expected_paths = {(THEME / "UI" / (name + ".png")).as_posix() for name in expected}
         expected_paths.update({(THEME / "Table/table_scene.png").as_posix(),
+                               (THEME / "Table/page_scene.png").as_posix(),   # THEME_SPEC 3, W20X (optional)
                                (THEME / "Table/felt_tile.png").as_posix(),
                                (THEME / "preview.png").as_posix(), REVIEW.as_posix()})
         self.assertEqual(set(self.first_hashes), expected_paths)
-        self.assertEqual(len(self.first_hashes), 57)
+        self.assertEqual(len(self.first_hashes), 58)
         self.assertTrue((self.first / THEME / "theme.json").is_file())
 
     def test_all_sprite_sizes_and_rgba_match_defaults(self):
@@ -726,15 +727,93 @@ class ComicArtTests(unittest.TestCase):
 
     def test_page_dots_are_at_least_3_px(self):
         # Halftone only where a dot is at least about 3 px at 1080p: the page's whole dots (those clear of the window's
-        # edges) cover at least 7 px each.
+        # edges) cover at least 7 px each, on the play table and on page_scene.
+        from scipy import ndimage
+        for name in ("table_scene", "page_scene"):
+            with self.subTest(table=name):
+                with Image.open(ROOT / THEME / "Table" / (name + ".png")) as image:
+                    window = np.asarray(image).astype(int)[300:700, 2:20]
+                labels, n = ndimage.label(window.max(axis=2) <= 100)
+                areas = [int((labels[box] == k).sum()) for k, box in enumerate(ndimage.find_objects(labels), start=1)
+                         if box[0].start > 0 and box[1].start > 0 and box[0].stop < window.shape[0]
+                         and box[1].stop < window.shape[1]]
+                self.assertGreater(len(areas), 20)
+                self.assertGreaterEqual(min(areas), 7)
+
+    # THEME_SPEC 3.1 (coordinator 2026-11-17). Bounding rectangles (x, y, w, h) of the play screen's buttons and panels in
+    # any state and at 100 % or 150 % text (GameApp.Play11 L11, UiKit.Button's step, the qualified ring), written from
+    # the code independently of the generator.
+    PLAY_RECTS = {
+        "top bar": (16, 12, 1888, 72), "card row": (32, 96, 1448, 244), "stage card": (1496, 96, 392, 244),
+        "tray": (32, 352, 1448, 376), "resources": (1496, 352, 392, 376), "submit row": (32, 740, 1448, 202),
+        "settle": (1496, 740, 392, 202), "hint": (32, 958, 600, 88), "secondary": (560, 966, 324, 72),
+        "primary": (840, 962, 436, 82), "end": (1492, 958, 400, 88),
+    }
+
+    @staticmethod
+    def _yellowish(px):
+        return (px[..., 0] > 200) & (px[..., 1] > 150) & (px[..., 2] < 120)
+
+    def test_no_decoration_inside_any_button_or_panel(self):
+        # Decoration inside a bounding rectangle would show through the cut corners, and the card row changes with the
+        # card count: no yellow (rays, bursts) inside any of them.
+        with Image.open(ROOT / THEME / "Table/table_scene.png") as image:
+            px = np.asarray(image).astype(int)
+        for name, (x, y, w, h) in self.PLAY_RECTS.items():
+            with self.subTest(rect=name):
+                self.assertEqual(int(self._yellowish(px[y:y + h, x:x + w]).sum()), 0)
+
+    def test_the_action_row_burst_is_whole(self):
+        # The one decoration: a burst in the rectangle free in every action-row state (right of the main button, which
+        # ends at 1276 with enlarged text; left of the end slot and its qualified ring at 1492; below the submit mat's
+        # shadow at 956). It is never cut by a straight line: its yellow lies in that rectangle with room to spare, and
+        # the ink line closes all the way round it.
         from scipy import ndimage
         with Image.open(ROOT / THEME / "Table/table_scene.png") as image:
-            window = np.asarray(image).astype(int)[300:700, 2:20]
-        labels, n = ndimage.label(window.max(axis=2) <= 100)
-        areas = [int((labels[box] == k).sum()) for k, box in enumerate(ndimage.find_objects(labels), start=1)
-                 if box[0].start > 0 and box[1].start > 0 and box[0].stop < window.shape[0] and box[1].stop < window.shape[1]]
-        self.assertGreater(len(areas), 20)
-        self.assertGreaterEqual(min(areas), 7)
+            px = np.asarray(image).astype(int)
+        yellow = self._yellowish(px)
+        ys, xs = np.nonzero(yellow)
+        self.assertGreater(len(xs), 2000, "a readable burst")
+        self.assertGreaterEqual(int(xs.min()), 1276 + 4)
+        self.assertLessEqual(int(xs.max()), 1492 - 4)
+        self.assertGreaterEqual(int(ys.min()), 956 + 4)
+        self.assertLessEqual(int(ys.max()), 1080 - 4)
+        labels, n = ndimage.label(yellow, structure=np.ones((3, 3)))
+        self.assertEqual(n, 1, "one burst")
+        # Two pixels out from the yellow (past its antialiased edge) the ink line runs all the way round.
+        band = ndimage.binary_dilation(yellow, iterations=2) & ~ndimage.binary_dilation(yellow, iterations=1)
+        self.assertGreaterEqual(float((px[band].max(axis=1) <= 90).mean()), .85, "an ink line all round")
+
+    def test_page_scene_is_the_plain_page(self):
+        # THEME_SPEC 3 / 3.1: the non-play screens' backdrop, the red Ben-Day page with no layout shapes and no large
+        # decoration: every pixel is the page red, a near-black dot or a mix of the two (within 8 levels of the line from
+        # the page red to black). The 4.8 px dots come out of the Lanczos filter a little darker than their 260306 fill,
+        # about (21, 0, 3), inside the concept's measured dots (20-37, 1-3, 1-3).
+        with Image.open(ROOT / THEME / "Table/page_scene.png") as image:
+            self.assertEqual((image.size, image.mode), ((1920, 1080), "RGB"))
+            px = np.asarray(image).astype(np.float64).reshape(-1, 3)
+        page = np.array(PAGE_RED, np.float64)
+        t = np.clip((px @ page) / float(page @ page), 0, 1)
+        off = np.abs(px - t[:, None] * page).max(axis=1)
+        self.assertLessEqual(float(off.max()), 8.0)
+        self.assertGreaterEqual(float((t > .9).mean()), .6, "mostly page red")
+        self.assertLessEqual(float(px[int(np.argmin(t))].max()), 40.0, "with near-black dots")
+        self.assertEqual(int(self._yellowish(px).sum()), 0)
+
+    def test_w20x_tokens(self):
+        # THEME_SPEC 2 (W20X): optional keys GameTheme ignores until W20X lands (JsonUtility skips unknown fields). Comic:
+        # ink steps; the section panel stays authored, so section is FFFFFF; yellow captions whose label LabelOn11 picks
+        # at 4.95:1 or better; the dice style page's Muted notes keep 4.5:1 on the section cell's centre.
+        p = self.palette
+        self.assertEqual((p["buttonStep"], p["buttonStepPrimary"]), (p["ink"], p["ink"]))
+        self.assertEqual(p["section"], "FFFFFF")
+        cell = tinted(load("ui_section_panel")[256, 256, :3], np.array(hex_rgb(p["section"]), dtype=np.float64))
+        self.assertGreaterEqual(float(contrast(cell, hex_rgb(p["muted"]))), 4.5)
+        self.assertGreaterEqual(float(contrast(cell, hex_rgb(p["textColor"]))), 4.5)
+        caption = tinted(load("ui_section_header")[64, 256, :3], np.array(hex_rgb(p["caption"]), dtype=np.float64))
+        self.assertGreaterEqual(max(float(contrast(hex_rgb(p[k]), caption)) for k in ("ink", "paper", "textColor")), 4.95)
+        tab = tinted(load("ui_chip_formula")[256, 256, :3], np.array(hex_rgb(p["caption"]), dtype=np.float64))
+        self.assertGreaterEqual(max(float(contrast(hex_rgb(p[k]), tab)) for k in ("ink", "paper", "textColor")), 4.95)
 
     def test_felt_tile_is_seamless_and_even(self):
         with Image.open(ROOT / THEME / "Table/felt_tile.png") as image:
@@ -807,7 +886,11 @@ class ComicArtTests(unittest.TestCase):
         # valueBadge (W13) may be left out: unset, the value badge takes gold (THEME_SPEC 2).
         optional = {"valueBadge"}
         self.assertEqual(len(keys - optional), 24)
-        self.assertEqual(set(self.palette) | (keys & optional), keys)
+        # THEME_SPEC 2's W20X keys are not in ThemePalette.Hexes until W20X lands; JsonUtility skips them meanwhile.
+        w20x = {"buttonStep", "buttonStepPrimary", "section", "caption"}
+        self.assertTrue(w20x.isdisjoint(keys))
+        self.assertEqual(set(self.palette) - w20x | (keys & optional), keys)
+        self.assertTrue(w20x <= set(self.palette))
         for key, value in self.palette.items():
             with self.subTest(token=key):
                 self.assertRegex(value, r"^[0-9A-F]{6}([0-9A-F]{2})?$")

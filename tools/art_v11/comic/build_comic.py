@@ -14,7 +14,9 @@ The shape language (rework round 2, coordinator 2026-11-17, after comparing the 
 - comic-panel frames on the dark panels: ink line, a cream gutter band, an ink line, then the fill;
 - the shop's section header is a parallelogram caption with full-height slanted ends (it only slices horizontally);
 - the table is the concept's red Ben-Day page; the calm zones and the trays' floors are flat blue felt, so the gaps
-  between them read as red comic gutters; yellow speed rays and a starburst fill empty screen areas.
+  between them read as red comic gutters; one whole starburst sits in the action row's always-free rectangle (round 3,
+  THEME_SPEC 3.1: no decoration under the changing card row, none cut straight, none inside a button's or panel's
+  bounding rectangle); Table/page_scene.png is the plain page for the non-play screens (W20X).
 Halftone appears only where its dots are at least about 3 px at 1080p (the page and large decoration); fills under
 text are flat.
 
@@ -85,14 +87,22 @@ PALETTE = {
     "rarityRare": "9D4EDD",   # pop purple
     "onFelt": "F9F1D9",       # cream marks drawn straight on the blue felt
 }
+# THEME_SPEC 2 W20X keys (coordinator 2026-11-17; code task W20X, after W14). Until W20X lands the game ignores them:
+# GameTheme reads theme.json with JsonUtility into ThemePalette.Hexes, which skips unknown fields.
+W20X_TOKENS = {
+    "buttonStep": "0A080A",         # the slab under UiKit.Button is ink, as on the concept's buttons
+    "buttonStepPrimary": "0A080A",
+    "section": "FFFFFF",            # ui_section_panel stays authored (the concept's blue section with its cream gutter)
+    "caption": "FBDC0F",            # the concept's yellow captions: shop section headers and the dice-pool tab
+}
 # The table's red Ben-Day page (art, not a palette token), measured on concepts/roll.png's clean gutters.
 PAGE_HEX, PAGE_DOT_HEX = "FC2830", "260306"
 THEME_META = {
     "id": "comic",
     "displayName": "爆彩连环漫画",
-    "description": ("红色网点漫画页上的蓝色骰池：粗黑墨线、大切角的面板与按钮带右下硬投影，主按钮前倾，平行四边形标题条，"
-                    "空白处黄色速度线与爆炸星，字下面一律平涂。依据：ArtSource/StyleKit/themes/comic/concepts 与 style_kit.json；"
-                    "界面件与色板由 tools/art_v11/comic/build_comic.py 生成（说明见同目录 README.md）"),
+    "description": ("红色网点漫画页上的蓝色骰池：粗黑墨线、大切角的面板与按钮带右下硬投影与墨色厚底，主按钮前倾，"
+                    "黄色平行四边形标题条，主按钮旁一个爆炸星，字下面一律平涂。依据：ArtSource/StyleKit/themes/comic/concepts 与 "
+                    "style_kit.json；界面件与色板由 tools/art_v11/comic/build_comic.py 生成（说明见同目录 README.md）"),
     "order": 3,
     "preview": True,
 }
@@ -222,6 +232,14 @@ def palette_report(palette: dict | None = None) -> dict[str, float]:
     for key in ("textColor", "onFelt", "ink", "gold"):
         out[f"{key}/page red"] = contrast(p[key], PAGE_HEX)
         out[f"{key}/page dots"] = contrast(p[key], PAGE_DOT_HEX)
+    # W20X tokens: the shop section and the dice style page's cells (panel centre x section), the yellow captions (white
+    # strip or tab x caption, label picked by LabelOn11).
+    w = dict(W20X_TOKENS, **{k: v for k, v in p.items() if k in W20X_TOKENS})
+    cell = drawn(SECTION_HEX, w["section"])
+    out["muted/section cell"] = contrast(p["muted"], cell)
+    out["textColor/section cell"] = contrast(p["textColor"], cell)
+    caption = drawn("FFFFFF", w["caption"])
+    out[f"{best_label(caption, p)[0]}/caption (label pick)"] = best_label(caption, p)[1]
     return out
 
 
@@ -576,7 +594,11 @@ INK_C = 8.0           # chips, tags and labels
 SHADOW = 10.0         # the hard ink shadow, down and right (5 units)
 SHADOW_C = 8.0        # under chips and the button face (4 units)
 PANEL_FILL = NAVY
-SECTION_FILL = col("03276A")
+# The concept's blue shop sections (shop.png: section bodies about (3, 46-78, 101-170), median about (3, 55, 115)). The
+# panel stays authored and the W20X `section` token is FFFFFF; the dice style page shows the same cell, where Muted notes
+# need 4.5:1 on its centre (palette_report: muted/section).
+SECTION_HEX = "043A80"
+SECTION_FILL = col(SECTION_HEX)
 INSET_FILL = NAVY_DK
 SLOT_FILL = col("021638")
 LABEL_FILL = CREAM
@@ -1083,32 +1105,40 @@ TRAY_RECT = (32.0, 352.0, 1448.0, 376.0)
 SUBMIT_RECT = (32.0, 740.0, 1448.0, 202.0)
 FELT_BLEED = 3.5          # px: the felt runs this far past every calm zone, beyond the Lanczos footprint (3 px)
 MAT_INK, MAT_SHADOW = 5.0, 5.0
-# Yellow speed rays where the play screen is empty, and one readable starburst beside the main button.
-CARD_ROW = (900.0, 98.0, 1478.0, 338.0)           # the right part of L11.cards (32, 96, 1448, 244), right of 3-4 cards
-CARD_RAY_FOCUS = (1720.0, 218.0)                  # behind the stage card; rays fan out to the left
-CARD_RAYS = ((-8.4, .7), (-5.0, .5), (-1.8, .8), (1.6, .55), (4.8, .75), (8.2, .5))   # (degrees, half-width)
-ACTION_RAY_FOCUS = (1040.0, 1002.0)               # the main button's centre (L11.primary 840, 962, 400, 80)
-ACTION_RAYS = ((-15.0, 2.2), (-4.0, 1.6), (7.0, 2.4), (19.0, 1.8), (31.0, 2.0))
-ACTION_GAP = (1244.0, 958.0, 1492.0, 1080.0)      # right of the main button, left of the end button (1496)
-BURST = (1368.0, 1017.0, 104.0, 54.0)             # centre and radii: wholly inside ACTION_GAP with its ink line
-RAY_INK = 2.5
+# THEME_SPEC 3.1 (coordinator 2026-11-17): large decoration only where no play state puts interface, never cut by a
+# straight line, and never inside a button's or panel's bounding rectangle (it would show through the cut corners).
+# The card row changes with the card count (strips, up to seven full cards, two compact rows from eight): no decoration.
+# The action row (GameApp.Play11 DrawActions11, L11 at 100 % and 150 % text): the main button's rect ends at x 1240
+# (1276 at 150 %), the end-stage slot (EndStage or Skip) starts at 1496 and its qualified ring at 1492; above it the
+# submit mat's shadow ends at y 956. So the one rectangle free in every state is 1276-1492 x 956-1080; the burst keeps
+# 4 units inside it.
+ACTION_FREE = (1276.0, 956.0, 1492.0, 1080.0)
+BURST = (1384.0, 1019.0, 96.0, 52.0)             # centre and radii
+BURST_INK = 3.0
+# Bounding rectangles (x, y, w, h) of the play screen's buttons and panels in any state or text size (L11 at 100 % and
+# 150 %, UiKit.Button's step, the qualified ring), which decoration must stay out of.
+PLAY_RECTS = {
+    "top bar": (16, 12, 1888, 72), "card row": (32, 96, 1448, 244), "stage card": (1496, 96, 392, 244),
+    "tray": (32, 352, 1448, 376), "resources": (1496, 352, 392, 376), "submit row": (32, 740, 1448, 202),
+    "settle": (1496, 740, 392, 202), "hint": (32, 958, 600, 88), "secondary": (560, 966, 324, 72),
+    "primary": (840, 962, 436, 82), "end": (1492, 958, 400, 88),
+}
 
 
-def ray_polygons(focus, rays, direction: float, length: float = 2600.0):
-    """Thin triangles from a focus point: (angle in degrees from `direction`, half-width in degrees)."""
-    fx, fy = focus
-    out = []
-    for a, half in rays:
-        a0, a1 = math.radians(direction + a - half), math.radians(direction + a + half)
-        out.append([(fx, fy), (fx + length * math.cos(a0), fy + length * math.sin(a0)),
-                    (fx + length * math.cos(a1), fy + length * math.sin(a1))])
-    return out
+def burst_polygon():
+    bx, by, rx, ry = BURST
+    return [(px, by + (py - by) * ry / rx) for px, py in burst_pts(bx, by, rx, rx * .62, 12, SEED + 11, .14)]
 
 
-def draw_rays(r: Raster, polys, clip):
-    d = np.minimum.reduce([sd_poly(r.X, r.Y, p) for p in polys])
-    r.over(INK, coverage(d - RAY_INK) * clip)
-    r.over(YELLOW, coverage(d) * clip)
+def _check_burst():
+    xs, ys = zip(*burst_polygon())
+    x0, y0, x1, y1 = ACTION_FREE
+    if (min(xs) - BURST_INK < x0 + 4 or max(xs) + BURST_INK > x1 - 4 or min(ys) - BURST_INK < y0 + 4
+            or max(ys) + BURST_INK > y1 - 4):
+        raise ValueError("The burst must sit wholly inside the action row's free rectangle")
+
+
+_check_burst()
 
 
 def tray_face_units():
@@ -1128,27 +1158,21 @@ def felt_mask(X, Y) -> np.ndarray:
     return np.maximum.reduce([tray, mat] + zones)
 
 
+def page_layer(r: Raster):
+    """The concept's red Ben-Day page: flat red with near-black dots on a square grid."""
+    r.over(PAGE, np.ones_like(r.X))
+    r.over(PAGE_DOT, halftone(r.X, r.Y, PAGE_PITCH, PAGE_DOT_R, 0.0))
+
+
 def table_layer(r: Raster):
     X, Y = r.X, r.Y
-    # The red page and its dots.
-    r.over(PAGE, np.ones_like(X))
-    r.over(PAGE_DOT, halftone(X, Y, PAGE_PITCH, PAGE_DOT_R, 0.0))
-    # Speed rays right of the card row, from behind the stage card; yellow wedges with an ink edge (cards cover them
-    # where the row is full).
-    row = coverage(sd_box(X, Y, CARD_ROW))
-    if row.any():
-        draw_rays(r, ray_polygons(CARD_RAY_FOCUS, CARD_RAYS, 180.0), row)
-    # Speed rays from the main button into the empty gap on its right.
-    gap = coverage(sd_box(X, Y, ACTION_GAP))
-    if gap.any():
-        draw_rays(r, ray_polygons(ACTION_RAY_FOCUS, ACTION_RAYS, 0.0), gap)
-    # A readable starburst beside the main button, wholly inside the gap.
-    if gap.any():
-        bx, by, rx, ry = BURST
-        pts = [(px, by + (py - by) * ry / rx) for px, py in burst_pts(bx, by, rx, rx * .62, 12, SEED + 11, .14)]
-        d = sd_poly(X, Y, pts)
-        r.over(INK, coverage(d - 3.0) * gap)
-        r.over(YELLOW, coverage(d) * gap)
+    page_layer(r)
+    # One readable starburst in the action row's free rectangle: a closed shape with its whole ink line, never clipped.
+    x0, y0, x1, y1 = ACTION_FREE
+    if float(X.max()) > x0 and float(X.min()) < x1 and float(Y.max()) > y0:
+        d = sd_poly(X, Y, burst_polygon())
+        r.over(INK, coverage(d - BURST_INK))
+        r.over(YELLOW, coverage(d))
     # The submit mat's ink line and hard shadow, outside the felt bleed.
     x, y, w, h = SUBMIT_RECT
     mat = (x - FELT_BLEED - MAT_INK, y - FELT_BLEED - MAT_INK, x + w + FELT_BLEED + MAT_INK, y + h + FELT_BLEED + MAT_INK)
@@ -1161,18 +1185,29 @@ def table_layer(r: Raster):
 TABLE_TILE = 240
 
 
-def table_scene() -> Image.Image:
-    """The whole table, rendered in tiles with an 8 px margin (beyond the Lanczos footprint) and stitched."""
+def render_tiles(layer) -> Image.Image:
+    """A full 1920 x 1080 image rendered in tiles with an 8 px margin (beyond the Lanczos footprint) and stitched."""
     canvas = np.zeros((TABLE_H, TABLE_W, 3), np.float32)
     margin = 8
     for y in range(0, TABLE_H, TABLE_TILE):
         for x in range(0, TABLE_W, TABLE_TILE):
             w, h = min(TABLE_TILE, TABLE_W - x), min(TABLE_TILE, TABLE_H - y)
             r = Raster(w + 2 * margin, h + 2 * margin, float(x - margin), float(y - margin))
-            table_layer(r)
+            layer(r)
             im = np.asarray(r.export()).astype(np.float32)
             canvas[y:y + h, x:x + w] = im[margin:margin + h, margin:margin + w, :3]
     return Image.fromarray(np.clip(np.rint(canvas), 0, 255).astype(np.uint8), "RGB")
+
+
+def table_scene() -> Image.Image:
+    """The play screen's table (THEME_SPEC 3.1): the page, the felt and the submit mat, and one burst."""
+    return render_tiles(table_layer)
+
+
+def page_scene() -> Image.Image:
+    """THEME_SPEC 3 Table/page_scene.png (W20X): the backdrop of the non-play screens, the plain red Ben-Day page with no
+    layout shapes and no large decoration."""
+    return render_tiles(page_layer)
 
 
 def check_felt_zones(table: Image.Image) -> dict[str, int]:
@@ -1330,16 +1365,178 @@ def _mock_die(m: Mock, cx, cy, size, pips):
     m._paste(im, round(cx - size * .7), round(cy - size * .66), label="die")
 
 
-# The code draws a step under every UiKit.Button face (UiKit.cs: B56B29 under the primary, 8F453A otherwise). A theme token
-# for the step colours is coming in a separate code task, ink for comic (coordinator, 2026-11-17): the mock draws it so.
-STEP_ASSUMED = "0A080A"
+# The offline composites draw the W20X tokens (THEME_SPEC 2, coordinator 2026-11-17) as comic sets them: the step under
+# every UiKit.Button (code today: B56B29 / 8F453A) is buttonStep, ink; the dice-pool tab (code today: panel) is caption,
+# yellow. Until W20X lands the game draws today's colours.
+STEP_ASSUMED = W20X_TOKENS["buttonStep"]
+CAPTION = W20X_TOKENS["caption"]
 
 
-def mock_button(m: Mock, x, y, w, h, face, label, size, label_colour):
-    """UiKit.Button as drawn: the step (the face sprite) at (2, 8, w - 4, h - 6), the face at (0, 0, w, h - 7)."""
-    m.put("ui_button_bevel", x + 2, y + 8, w - 4, h - 6, col(STEP_ASSUMED))
+def mock_button(m: Mock, x, y, w, h, face, label, size, label_colour, enabled=True, step=None):
+    """UiKit.Button as drawn: the step (the face sprite) at (2, 8, w - 4, h - 6), the face at (0, 0, w, h - 7); a disabled
+    button's step is Shadow."""
+    m.put("ui_button_bevel", x + 2, y + 8, w - 4, h - 6, col(step or (STEP_ASSUMED if enabled else PALETTE["shadow"])))
     m.put("ui_button_bevel", x, y, w, h - 7, face)
     m.text(x + w / 2, y + (h - 7) / 2, label, size, label_colour, "mm")
+
+
+def mock_compact13(m: Mock, x, y, w, h, rarity, title, text, art, ordinal=0):
+    """A Compact card (DrawCompactCard13: the play row's mini cards from eight cards on): the framed icon block with the
+    gem across its foot, the ordinal disc and the name beside it, the short text only when it fits whole."""
+    P = PALETTE
+    border = m.specs["ui_card_controller_compact"]["border"]
+    m.put("ui_card_controller_compact", x, y, w, h)
+    fl, fb, fr, ft = (v / 2 for v in frame_insets_px(np.asarray(m.sprites["ui_card_controller_compact"]), border))
+    content = (x + fl + 4, y + ft + 4, w - fl - fr - 8, h - ft - fb - 8)
+    ring_border = m.specs["ui_card_frame_rarity"]["border"]
+    rl, rb, rr, rt = (v / 2 for v in ring_insets_px(np.asarray(m.sprites["ui_card_frame_rarity"]), ring_border))
+    key = {"common": "rarityCommon", "advanced": "rarityAdvanced", "rare": "rarityRare", None: "ghost"}[rarity]
+    tint_c = col(P[key])
+    block, gem = min(content[3] - 8, 76), 18
+    bx, by = content[0], content[1] + max(0, (content[3] - block - gem * .5) * .5)
+    m.put("ui_card_frame_rarity", bx, by, block, block, tint_c)
+    m.art(ROOT / "ArtSource/StyleKit/themes/comic/anchors" / f"{art}.png", bx + rl + 1, by + rt + 1,
+          min(block - rl - rr, block - rt - rb) - 2)
+    if rarity:
+        m.put("ui_gem_" + rarity, bx + block / 2 - gem / 2, by + block - gem / 2, gem, gem, tint_c)
+    tx, ty = bx + block + 10, content[1] + 2
+    if ordinal:
+        m.put("ui_pip_dot", tx, ty + 4, 20, 20, col(P["ink"]))
+        m.text(tx + 10, ty + 14, str(ordinal), 12, P["paper"], "mm")
+    m.text(tx + (26 if ordinal else 0), ty + 14, title, 20, P["ink"], "lm")
+    lines = _wrap(text, BODY_FONT, 18, content[0] + content[2] - tx)
+    if len(lines) * 24 <= content[1] + content[3] - (ty + 32):
+        for i, line in enumerate(lines):
+            m.text(tx, ty + 32 + i * 24, line, 18, P["ink"], "la", str(BODY_FONT))
+
+
+# Stand-in cards for the card-row coverage mocks (the four comic StyleKit anchors, cycled).
+MOCK_CARDS = (
+    ("common", "排头兵", "第一颗提交的骰子点数×4，加到基础分。", "C108"),
+    ("advanced", "蓝色浪潮", "本手提交时，提交的骰子全部按蓝色计算。", "I10"),
+    ("rare", "点金手", "每次提交后，最后一颗骰子朝上的面永久镀金。", "C117"),
+    ("common", "配重", "这一面权重+1（上限5），更容易掷出这一面。", "U10"),
+)
+
+
+def mock_card_row(m: Mock, count: int, slots: int = 5, large: bool = False):
+    """GameApp.Play11 DrawCards11 (L11.cards 32, 96, 1448, 244): Full cards (Table size, width capped at 216, 280 with
+    enlarged text) followed by 56-wide "+" strips for the empty slots; Mini from eight cards (or six with enlarged text):
+    two rows of 280 x 117 Compact cards, nine and an "all" button when there are more than ten."""
+    P = PALETTE
+    x0, y0, W, H = 32, 96, 1448, 244
+    if count > 7 or (large and count > 5):
+        shown = 9 if count > 10 else count
+        cw, ch = (W - 4 * 12) / 5, (H - 10) / 2
+        for i in range(shown):
+            rarity, title, text, art = MOCK_CARDS[i % len(MOCK_CARDS)]
+            mock_compact13(m, x0 + i % 5 * (cw + 12), y0 + i // 5 * (ch + 10), cw, ch, rarity, title, text, art, ordinal=i + 1)
+        return
+    empty = max(0, slots - count)
+    card_w = 0 if count == 0 else min(280 if large else 216, (W - empty * 68 - 12 * (count - 1)) / count)
+    x = x0
+    for i in range(count):
+        rarity, title, text, art = MOCK_CARDS[i % len(MOCK_CARDS)]
+        mock_card13(m, x, y0, card_w, H, rarity, title, text, art, ordinal=i + 1)
+        x += card_w + 12
+    for _ in range(empty):
+        if x + 56 > x0 + W + .5:
+            break
+        m.put("ui_slot_inventory", x, y0 + 8, 56, H - 16)
+        m.text(x + 28, y0 + H / 2, "+", 30, P["muted"], "mm")
+        x += 68
+
+
+# Action-row states (GameApp.Play11 DrawActions11): primary button, secondary button and the end slot. W11's capture
+# states: (a) dice selected, (b3) scoring, (c) boss stage start, (f) ten dice and seven cards, plus rolling, target
+# reached and a pressure stage.
+ACTION_STATES = {
+    "a": dict(primary=("锁定 2 颗", True), secondary="取消选择", end="end", reason="按“锁定”留下选中的骰子；再点一次骰子可以取消。"),
+    "b3": dict(primary=None, secondary=None, end="skip", reason="计分中…"),
+    "c": dict(primary=("掷骰 [R]", True), secondary=None, end="end", reason="按“掷骰”开始这一手。"),
+    "f": dict(primary=("提交 2 颗", True), secondary="重掷 · 还能掷 2 [R]", end="end", reason="按“提交”计分，或者重掷其余的骰子。"),
+    "rolling": dict(primary=("重掷 · 还能掷 1 [R]", False), secondary=None, end="skip", reason="掷骰中…"),
+    "qualified": dict(primary=("提交 2 颗", True), secondary="重掷 · 还能掷 2 [R]", end="qualified",
+                      reason="已达标：可以继续提交，也可以结束本关。"),
+    "boss": dict(primary=("掷骰 [R]", True), secondary=None, end="end", reason="首领减益“满员”：要放满提交栏（5 颗）才能提交。"),
+    "pressure": dict(primary=("提交 2 颗", True), secondary="重掷 · 还能掷 2 [R]", end="end", reason="按“提交”计分，或者重掷其余的骰子。"),
+}
+
+
+def action_rects(large: bool = False) -> dict:
+    """L11's action row: hint, secondary, primary and the end slot (x, y, w, h)."""
+    return {"hint": (32, 958, 600 if large else 512, 88), "secondary": (644, 966, 240, 72) if large else (560, 966, 264, 72),
+            "primary": (896, 962, 380, 80) if large else (840, 962, 400, 80), "end": (1496, 962, 392, 80)}
+
+
+def balanced_lines(text: str, font, size: float, width: float) -> list[str]:
+    """GameApp.BalancedLines11: a text wider than the box breaks once where the halves are most even, preferring a break
+    after punctuation (or in place of " · "), at least three characters a line."""
+    f = ImageFont.truetype(str(font), int(round(size)))
+    if "\n" in text or len(text) < 6 or f.getlength(text) <= width:
+        return [text]
+    prefix = [0.0]
+    for ch in text:
+        prefix.append(prefix[-1] + f.getlength(ch))
+    total, after, before = prefix[-1], "，。；：、！？）”", "（“"
+    best, best_skip, best_score = -1, 0, float("inf")
+    for i in range(3, len(text) - 2):
+        skip = 3 if text[i:i + 3] == " · " else 0
+        if skip == 0 and (text[i] == " " or text[i - 1] == " "):
+            continue
+        if len(text) - (i + skip) < 3:
+            continue
+        punctuation = skip > 0 or text[i - 1] in after or text[i] in before
+        a, b = prefix[i], total - prefix[i + skip]
+        score = max(a, b) + (0 if punctuation else width * .6) + (width * 4 if a > width or b > width else 0)
+        if score < best_score:
+            best, best_skip, best_score = i, skip, score
+    return [text] if best < 0 else [text[:best], text[best + best_skip:]]
+
+
+def mock_actions(m: Mock, state: str = "f", large: bool = False):
+    P = PALETTE
+    s = ACTION_STATES[state]
+    r = action_rects(large)
+    k = 1.5 if large else 1.0
+    sec = col(P["background"]) * .45 + col(P["panel"]) * .55
+    m.put("ui_panel_hud", *r["hint"])
+    # The hint as DrawActions11 sets it: balanced lines at the largest size (21, or 16 x 1.5 with enlarged text), TMP
+    # auto-size down to 19.5 drawn units while the block is too tall or a line too wide, line spacing -8.
+    hx, hy, hw, hh = r["hint"]
+    size = 24.0 if large else 21.0
+    lines = balanced_lines(s["reason"], m.font, size, hw - 32)
+    while size > 19.5:
+        f = ImageFont.truetype(m.font, round(size))
+        if len(lines) * size * 1.38 <= hh - 12 and max(f.getlength(line) for line in lines) <= hw - 32:
+            break
+        size -= .5
+    lh = size * 1.38
+    for i, line in enumerate(lines):
+        m.text(hx + 16, hy + hh / 2 + (i - (len(lines) - 1) / 2) * lh, line, size, P["textColor"], "lm")
+    if s["secondary"]:
+        x, y, w, h = r["secondary"]
+        m.put("ui_chip_formula", x, y, w, h, sec)
+        m.text(x + w / 2, y + h / 2, s["secondary"], min(21 * k, 25), P["textColor"], "mm")
+    if s["primary"]:
+        label, enabled = s["primary"]
+        x, y, w, h = r["primary"]
+        face = col(P["primary"]) if enabled else col(P["panel"])
+        mock_button(m, x, y, w, h, face, label, (22 if large else 28) * (1.0 if not large else 1.2),
+                    label_on(face) if enabled else P["textColor"], enabled=enabled)
+    x, y, w, h = r["end"]
+    if s["end"] == "skip":
+        m.put("ui_chip_formula", x, y, w, h, sec)
+        m.text(x + w / 2, y + h / 2, "跳过演出", 24, P["textColor"], "mm")
+    else:
+        qualified = s["end"] == "qualified"
+        if qualified:
+            mock_button(m, x, y, w, h, col(P["paper"]), "结束本关 · 结算", 24, P["ink"])
+            m.put("ui_ring", x - 4, y - 4, w + 8, h + 4, col(P["reward"]))
+        else:   # disabled until the target is reached: PanelLight face, Shadow step, Muted label with its reason
+            mock_button(m, x, y, w, h, col(P["panelLight"]), "", 24, P["muted"], enabled=False)
+            m.text(x + w / 2, y + 26, "结束本关 · 结算", 24, P["muted"], "mm")
+            m.text(x + w / 2, y + 52, "达标后可结束", 17, P["muted"], "mm")
 
 
 def mock_card13(m: Mock, x, y, w, h, rarity, title, text, art, ordinal=0):
@@ -1379,9 +1576,11 @@ def label_on(fill) -> str:
     return max((PALETTE["ink"], PALETTE["paper"], PALETTE["textColor"]), key=lambda c: contrast(c, fill_hex))
 
 
-def play_mock(sprites, specs, table, on_page: list | None = None) -> Image.Image:
-    """The play screen at W11 design sizes over table_scene.png. on_page, when given, receives every word or mark the
-    composite draws straight on the red page (outside the felt and over no surface)."""
+def play_mock(sprites, specs, table, on_page: list | None = None, cards: int = 3, state: str = "f",
+              large_actions: bool = False) -> Image.Image:
+    """The play screen at W11 design sizes over table_scene.png, with `cards` controllers (DrawCards11) and the action
+    row in `state` (DrawActions11). on_page, when given, receives every word or mark the composite draws straight on
+    the red page (outside the felt and over no surface)."""
     P = PALETTE
     m = Mock(sprites, specs, table)
     lerp = lambda a, b, t: (col(a) * (1 - t) + col(b) * t)
@@ -1410,12 +1609,8 @@ def play_mock(sprites, specs, table, on_page: list | None = None) -> Image.Image
     m.text(1610, 48, "金币", 20, P["muted"], "lm")
     for x, label in ((1668, "手册"), (1788, "暂停")):
         mock_button(m, x, 18, 108, 60, col(P["paper"]), label, 23, P["ink"])
-    # Cards: three Table-size cards (W13 template) and two empty slots narrowed to strips.
-    for i, (rarity, title, text, art) in enumerate(CARD_REVIEW_CARDS[:3]):
-        mock_card13(m, 32 + i * 228, 96, 216, 244, rarity, title, text, art, ordinal=i + 1)
-    for i in range(2):
-        m.put("ui_slot_inventory", 716 + i * 68, 104, 56, 228)
-        m.text(744 + i * 68, 218, "+", 30, P["muted"], "mm")
+    # Cards (W13 template), laid out as DrawCards11 does: five slots to start with, seven at most for ordinary cards.
+    mock_card_row(m, cards, slots=5 if cards <= 5 else 7)
     # Stage card.
     m.put("ui_stage_card", 1496, 96, 392, 244, col(P["paper"]))
     m.put("ui_chip_formula", 1510, 110, 356, 42, col(P["panelLight"]))
@@ -1428,8 +1623,8 @@ def play_mock(sprites, specs, table, on_page: list | None = None) -> Image.Image
     rim = lerp(P["panel"], P["panelLight"], .55)
     m.put("ui_dice_tray", 32, 352, 1448, 376, rim)
     m.put("ui_ring", 39, 359, 1434, 362, col(P["ghost"]), alpha=.75, mult=1.6)
-    m.put("ui_chip_formula", 56, 338, 100, 34, col(P["panel"]))
-    m.text(104, 355, "骰池", 20, P["muted"], "mm")
+    m.put("ui_chip_formula", 56, 338, 100, 34, col(CAPTION))   # the dice-pool tab takes W20X's caption
+    m.text(104, 355, "骰池", 20, label_on(col(CAPTION)), "mm")
     for i, pips in enumerate(((1, 2, 3), (4, 5, 6), (2, 3, 1), (6, 2, 4), (3, 1, 5))):
         _mock_die(m, 250 + i * 250, 500, 104, pips)
     m.put("ui_chip_formula", 668, 410, 104, 32, col(P["gold"]))
@@ -1483,12 +1678,7 @@ def play_mock(sprites, specs, table, on_page: list | None = None) -> Image.Image
     m.text(1514, 822, "1,520", 44, P["textColor"], "lm")
     m.text(1514, 878, "达标后结束：过关奖励 +5 金币", 18, P["muted"], "lm")
     # Actions.
-    m.put("ui_panel_hud", 32, 958, 512, 88)
-    m.text(50, 1000, "按“提交”计分，或者重掷其余的骰子。", 21, P["textColor"], "lm")
-    m.put("ui_chip_formula", 560, 966, 264, 72, sec)
-    m.text(692, 1002, "重掷 · 还能掷 2", 21, P["textColor"], "mm")
-    mock_button(m, 840, 962, 400, 80, col(P["primary"]), "提交 2 颗", 28, label_on(col(P["primary"])))  # LabelOn11's pick
-    mock_button(m, 1496, 962, 392, 80, col(P["paper"]), "结束本关 · 结算", 24, P["ink"])
+    mock_actions(m, state, large_actions)
     if on_page is not None:
         on_page.extend(m.on_page)
     return m.im.convert("RGB")
@@ -1691,7 +1881,7 @@ def _checker(sheet: Image.Image, box):
             d.rectangle((xx, yy, min(xx + 11, x1 - 1), min(yy + 11, y1 - 1)), fill=shade)
 
 
-def review_sheet(sprites, specs, table, mock, on_page=()) -> Image.Image:
+def review_sheet(sprites, specs, table, mock, on_page=(), page=None) -> Image.Image:
     """Default and comic pieces side by side, slice proofs at PPU 200, the in-situ composite, the table, the preview,
     the palette with its contrast numbers and the five concept pages. Offline review, not Unity."""
     cw, ch, columns = 600, 262, 3
@@ -1700,7 +1890,7 @@ def review_sheet(sprites, specs, table, mock, on_page=()) -> Image.Image:
     ink = (246, 240, 222)
     sub = (176, 190, 220)
     grid_h = 170 + rows * ch
-    sheet = Image.new("RGB", (columns * cw, grid_h + 5600), bg)   # generous; cropped to the content at the end
+    sheet = Image.new("RGB", (columns * cw, grid_h + 6400), bg)   # generous; cropped to the content at the end
     d = ImageDraw.Draw(sheet)
     font = ImageFont.truetype(str(LATIN), 19)
     small = ImageFont.truetype(str(LATIN), 15)
@@ -1740,7 +1930,8 @@ def review_sheet(sprites, specs, table, mock, on_page=()) -> Image.Image:
             label = ("DEFAULT", "COMIC", "x " + TINT_PROOF.get(name, "panel"))[col_i]
             d.text((box[0], y + 236), label, fill=sub, font=small)
     y = grid_h + 20
-    d.text((24, y), "IN-SITU OFFLINE COMPOSITE / play screen at W11 design sizes (PLAY_LAYOUT 1, 8) on table_scene.png", fill=ink, font=font)
+    d.text((24, y), "IN-SITU OFFLINE COMPOSITE / play screen at W11 design sizes (PLAY_LAYOUT 1, 8) on table_scene.png; "
+                    "W20X tokens drawn as comic sets them (ink steps, yellow pool tab)", fill=ink, font=font)
     sheet.paste(mock.resize((1752, 986), Image.Resampling.LANCZOS), (24, y + 36))
     y += 1040
     d.text((24, y), "SMALL SIZES / icons and marks at their display size on their real host colour; lower row 2x nearest",
@@ -1773,16 +1964,23 @@ def review_sheet(sprites, specs, table, mock, on_page=()) -> Image.Image:
     sheet.paste(preview(mock), (1200, y + 36))
     sy = y + 330
     rep = palette_report()
-    for i, key in enumerate(PALETTE):
+    tokens = dict(PALETTE, **W20X_TOKENS)
+    for i, key in enumerate(tokens):
         xx, yy = 1200 + (i % 4) * 140, sy + (i // 4) * 54
-        d.rectangle((xx, yy, xx + 34, yy + 34), fill=rgb8(PALETTE[key]), outline=(0, 0, 0))
+        d.rectangle((xx, yy, xx + 34, yy + 34), fill=rgb8(tokens[key]), outline=(0, 0, 0))
         d.text((xx + 40, yy), key, fill=ink, font=small)
-        d.text((xx + 40, yy + 17), PALETTE[key], fill=sub, font=small)
-    y += 36 + 648 + 24
+        d.text((xx + 40, yy + 17), tokens[key], fill=sub, font=small)
+    y = max(y + 36 + 648 + 24, sy + 54 * math.ceil(len(tokens) / 4) + 12)
     lines = [f"{k} {v:.2f}" for k, v in rep.items()]
     for i in range(0, len(lines), 3):
         d.text((24, y + (i // 3) * 22), "     ".join(lines[i:i + 3]), fill=sub, font=small)
     y += 22 * math.ceil(len(lines) / 3) + 30
+    if page is not None:
+        d.text((24, y), "PAGE SCENE / Table/page_scene.png for the non-play screens (THEME_SPEC 3, W20X): the plain page; "
+                        "right: 1:1 crop", fill=ink, font=font)
+        sheet.paste(page.resize((768, 432), Image.Resampling.LANCZOS), (24, y + 36))
+        sheet.paste(page.crop((0, 0, 432, 432)), (816, y + 36))
+        y += 36 + 432 + 30
     d.text((24, y), "CONCEPT PAGES / the style authority (style only; texts, numbers and layouts are not a contract)", fill=ink, font=font)
     for i, name in enumerate(CONCEPT_PAGES):
         with Image.open(ROOT / CONCEPTS / (name + ".png")) as source:
@@ -2056,9 +2254,10 @@ CARD_REVIEW_GOODS = (  # W14 E2 goods rows: (category, name, short text, anchor,
 
 
 def _section_fill(kit: dict, palette: dict) -> str:
-    """The W14 shop section as drawn (GameApp.Shop14 Section14: ui_section_panel times Panel), its centre colour."""
+    """The shop section's centre as drawn: ui_section_panel times the theme's W20X `section` colour, or times Panel where a
+    theme sets none (GameApp.Shop14 Section14 today)."""
     px = np.asarray(kit["ui_section_panel"])
-    return drawn(hexc(px[px.shape[0] // 2, px.shape[1] // 2, :3] / 255.0), palette["panel"])
+    return drawn(hexc(px[px.shape[0] // 2, px.shape[1] // 2, :3] / 255.0), palette.get("section", palette["panel"]))
 
 
 def card_template_review() -> Image.Image:
@@ -2091,7 +2290,8 @@ def card_template_review() -> Image.Image:
                      "(as the theme UI sprites are imported), tinted and blended in linear light. Not a Unity capture.",
            fill=sub, font=small)
     d.text((24, 80), "Names, short texts, pictures (StyleKit anchors) and price buttons are stand-ins. Goods (no rarity): Ghost "
-                     "ring, no gem. Table cards on the table colour, shop sizes on the drawn shop section (panel x Panel).",
+                     "ring, no gem. Table cards on the table colour, shop sizes on the drawn shop section: panel x section "
+                     "(W20X; comic) or x Panel where a theme sets none (swiss, the W14 code today).",
            fill=sub, font=small)
     keys = {"common": "rarityCommon", "advanced": "rarityAdvanced", "rare": "rarityRare", None: "ghost"}
     hosts = {theme: {"table": TABLE_COLOUR[theme], "shop": _section_fill(themes[theme][0], themes[theme][1])}
@@ -2173,7 +2373,7 @@ def write_card_template_review(output_root: Path = ROOT) -> Path:
 # ---------------------------------------------------------------------------------------------- build
 def theme_json() -> str:
     data = dict(THEME_META)
-    data["palette"] = dict(PALETTE)
+    data["palette"] = dict(PALETTE, **W20X_TOKENS)
     return json.dumps(data, ensure_ascii=False, indent=2) + "\n"
 
 
@@ -2205,6 +2405,8 @@ def build(output_root: Path = ROOT) -> list[Path]:
         sprites[spec["name"]] = im
         save(THEME / "UI" / (spec["name"] + ".png"), im)
     save(THEME / "Table/table_scene.png", table)
+    page = page_scene()
+    save(THEME / "Table/page_scene.png", page)
     save(THEME / "Table/felt_tile.png", felt_tile())
     on_page: list[dict] = []
     mock = play_mock(sprites, specs, table, on_page)
@@ -2214,7 +2416,7 @@ def build(output_root: Path = ROOT) -> list[Path]:
     if not on_page:
         print("COMIC_ON_PAGE none: the composite draws no word or mark straight on the red page")
     save(THEME / "preview.png", preview(mock))
-    save(REVIEW / "contact_sheet.png", review_sheet(sprites, specs, table, mock, on_page))
+    save(REVIEW / "contact_sheet.png", review_sheet(sprites, specs, table, mock, on_page, page))
     theme_path = output_root / THEME / "theme.json"
     theme_path.write_text(theme_json(), encoding="utf-8", newline="\n")
     written.append(theme_path)
