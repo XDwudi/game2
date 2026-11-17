@@ -240,6 +240,12 @@ namespace DiceCraft.Tests
                             Assert.That(read.errors,Is.Empty,tag+" "+item.definitionId+": "+string.Join("; ",read.errors));
                         }
                         Assert.That(Button("Controller_"+state.controllers[7].instanceId).transform.Find("State")?.GetComponent<TextMeshProUGUI>()?.text,Is.EqualTo("+24"),"The growth card's value badge.");
+                        // For the record: what a redraw of the play screen with ten template cards costs on this machine (the
+                        // first full run found a per-card GPU read-back here; the ring band is now measured once per sprite).
+                        var clock=System.Diagnostics.Stopwatch.StartNew();var times=new List<double>();
+                        for(int i=0;i<6;i++){clock.Restart();app.Refresh();Canvas.ForceUpdateCanvases();times.Add(clock.Elapsed.TotalMilliseconds);}
+                        report.Add(tag+" redraw with ten cards: "+string.Join(", ",times.Select(t=>t.ToString("0.0",CultureInfo.InvariantCulture)))+" ms");
+                        yield return W11Settle();
                         yield return W13Capture(tag+"-ct04-ten-card-row");
                         // (a) selecting: five dice, three cards; two locked, one selected.
                         W11Apply(W11Scene(W11Cards3,new[]{4,4,6,2,4},"bbbrb",2,true));

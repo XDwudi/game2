@@ -22,9 +22,13 @@ namespace DiceCraft
     {
         public CompactIconSet13[] compactIcons13=new CompactIconSet13[0];
         private static readonly Dictionary<string,Sprite> compactIconCache13=new Dictionary<string,Sprite>(StringComparer.Ordinal);
+        /// <summary>The drawn band of each rarity ring sprite, in sprite pixels: measured once (a GPU read-back), not per card.</summary>
+        private static readonly Dictionary<Sprite,Vector4> ringInset13=new Dictionary<Sprite,Vector4>();
         /// <summary>(theme, id) pairs resolved since the last theme switch.</summary>
         public static int CompactIconCacheCount13=>compactIconCache13.Count;
-        private static void ClearCompactIcons13()=>compactIconCache13.Clear();
+        /// <summary>Emptied on every theme switch (ApplyTheme11), like the W11c surface caches: the icons and ring sprites
+        /// belong to the theme that drew them.</summary>
+        private static void ClearCardCaches13(){compactIconCache13.Clear();ringInset13.Clear();}
 
         public enum CardSize13{Shop,Table,Compact}
         /// <summary>What one card shows. Goods without a rarity (items, services, face upgrades, new dice) set their
@@ -91,15 +95,22 @@ namespace DiceCraft
         private static Vector4 RingInsets13(Image ring)
         {
             if(ring==null||ring.sprite==null||ring.type!=Image.Type.Sliced)return Vector4.zero;
-            var p=SpritePixels11(ring.sprite,out int w,out int h);if(p==null)return Vector4.zero;
-            var border=ring.sprite.border;
-            int Inset(Func<int,Color32> at,int count,float limit)
+            if(!ringInset13.TryGetValue(ring.sprite,out var px))
             {
-                int n=Mathf.Min(count/2,Mathf.RoundToInt(limit)),inset=0;
-                for(int i=0;i<n;i++)if(at(i).a>=128)inset=i+1;
-                return inset;
+                px=Vector4.zero;var p=SpritePixels11(ring.sprite,out int w,out int h);
+                if(p!=null)
+                {
+                    var border=ring.sprite.border;
+                    int Inset(Func<int,Color32> at,int count,float limit)
+                    {
+                        int n=Mathf.Min(count/2,Mathf.RoundToInt(limit)),inset=0;
+                        for(int i=0;i<n;i++)if(at(i).a>=128)inset=i+1;
+                        return inset;
+                    }
+                    px=new Vector4(Inset(i=>p[(h/2)*w+i],w,border.x),Inset(i=>p[i*w+w/2],h,border.y),Inset(i=>p[(h/2)*w+w-1-i],w,border.z),Inset(i=>p[(h-1-i)*w+w/2],h,border.w));
+                }
+                ringInset13[ring.sprite]=px;
             }
-            var px=new Vector4(Inset(i=>p[(h/2)*w+i],w,border.x),Inset(i=>p[i*w+w/2],h,border.y),Inset(i=>p[(h/2)*w+w-1-i],w,border.z),Inset(i=>p[(h-1-i)*w+w/2],h,border.w));
             return px/Mathf.Max(.0001f,ring.pixelsPerUnit*ring.pixelsPerUnitMultiplier);
         }
 
