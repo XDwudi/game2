@@ -10,6 +10,9 @@ Usage:
   python tools/art_v11/theme_contract.py contract            # write tools/art_v11/theme_contract.json and print a table
   python tools/art_v11/theme_contract.py audit <theme-id>    # check a theme folder against the contract
   python tools/art_v11/theme_contract.py audit <theme-id> --strict   # also fail on missing referenced sprites
+
+The audit also checks the optional Table/page_scene.png (THEME_SPEC 3, W20X: the non-play screens' backdrop) when a
+theme ships it: exactly 1920x1080, RGB(A). Themes without it audit exactly as before.
 """
 from __future__ import annotations
 
@@ -121,10 +124,14 @@ def cmd_contract() -> int:
     return 0
 
 
-def cmd_audit(theme: str, strict: bool) -> int:
+# THEME_SPEC 3: optional table files the audit checks when a theme ships them (W20X: the non-play screens' backdrop).
+OPTIONAL_TABLE = {"page_scene": (1920, 1080)}
+
+
+def cmd_audit(theme: str, strict: bool, themes_root: Path = THEMES) -> int:
     data = json.loads(CONTRACT.read_text(encoding="utf-8")) if CONTRACT.exists() else build_contract()
     sprites = {s["name"]: s for s in data["sprites"]}
-    folder = THEMES / theme / "UI"
+    folder = Path(themes_root) / theme / "UI"
     shipped = {p.stem: p for p in folder.glob("*.png")} if folder.exists() else {}
     problems: list[str] = []
     for name, path in sorted(shipped.items()):
@@ -136,8 +143,22 @@ def cmd_audit(theme: str, strict: bool) -> int:
                 problems.append(f"SIZE {name}: {im.size[0]}x{im.size[1]}, default is {sprites[name]['size'][0]}x{sprites[name]['size'][1]}")
             if im.mode not in ("RGBA", "LA"):
                 problems.append(f"ALPHA {name}: mode {im.mode}, expected RGBA")
+    optional: list[str] = []
+    for name, size in OPTIONAL_TABLE.items():
+        path = Path(themes_root) / theme / "Table" / (name + ".png")
+        if not path.exists():
+            continue
+        with Image.open(path) as im:
+            if im.size != size:
+                problems.append(f"SIZE Table/{name}: {im.size[0]}x{im.size[1]}, expected {size[0]}x{size[1]}")
+            elif im.mode not in ("RGB", "RGBA"):
+                problems.append(f"MODE Table/{name}: mode {im.mode}, expected RGB")
+            else:
+                optional.append(f"Table/{name} {size[0]}x{size[1]}")
     missing = [n for n, s in sprites.items() if s["referenced"] and n not in shipped]
     print(f"theme {theme}: {len(shipped)} sprites shipped, {len(missing)} referenced defaults not overridden")
+    for item in optional:
+        print("  OPTIONAL " + item)
     for p in problems:
         print("  " + p)
     for n in missing:

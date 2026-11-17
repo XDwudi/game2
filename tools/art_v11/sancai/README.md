@@ -132,6 +132,12 @@ W13 卡面模板补件（2026-11-17，合并 `codex/v1.1` 后的 `d38d01bb` 起�
 | W20-15 | 只有 `theme.json`、接触表、离线合成（`preview.png` 是它缩小 4 倍）与复核图变化，其余逐字节不变 | 已跟踪输出的原始字节 `git hash-object --no-filters` 与 `57279a50` 的 blob 比对 | 通过：55 个相同（53 张界面件、table_scene、felt_tile）；变化的正是这 4 个 |
 | W20-16 | 三彩单测、全量单测、strict 审计 | 本机日志 | 通过：三彩 29/29；全量 271/271，329 秒，低优先级运行；`53 sprites shipped, 0 referenced defaults not overridden`，`AUDIT_OK` |
 
+离线合成修正（协调者 2026-11-17 授权，从漫画 kit 移植；在合并了 `codex/v1.1` `10045050` 的 `codex/v1.1-comic` 上做）：
+
+| ID | 方法与期望 | 证据 | 结果 |
+| --- | --- | --- | --- |
+| W20-17 | 离线合成的顶栏右端按游戏的坐标与画法：金币组 1476–1652（`GameApp.Play11` TopBar11），手册 1668、暂停 1788，108×60 的 `UiKit.Button`（米白面放在代码的 8F453A 台阶上，`GameApp.Art07` DrawNavigation07）；原来“金币”二字被手册按钮压住、两个按钮画成了深色筹码。只有 `preview.png`（合成缩小 4 倍）与接触表应变化 | 重建三彩全部输出与 `--card-review` 复核图后的 `git status` | 通过：只有 `preview.png` 与 `contact_sheet.png` 变化；其余 57 个输出（53 张界面件、table_scene、felt_tile、`theme.json`、`card_template_review.png`）逐字节不变 |
+
 ## 没能检查的
 
 - 引擎里的样子：Unity 导入（Table 为 CompressedHQ + mipmap）、桌面 shader 的光池、颗粒、首领压暗与暗角叠在泥条上的效果、真实 TMP 字在面板上的观感、按钮悬停 / 按下的乘色、720p 与超宽屏。接触表里的合成图是 Python 模拟（线性空间乘色、九宫格按 PPU 200 展开），不是截图。
