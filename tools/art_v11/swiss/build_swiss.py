@@ -1,4 +1,4 @@
-"""W12: deterministic Swiss UI vectors; 4x rasterization, one Lanczos downsample.
+"""W12/W12b: deterministic Swiss UI vectors; 4x rasterization, one Lanczos downsample.
 
 The contract owns dimensions, slice borders and PPU. No Unity files or palette
 configuration are written. All fonts are repository assets; no OS font fallback.
@@ -42,10 +42,28 @@ NEUTRAL_NAMES = frozenset({
     "ui_button_bevel", "ui_button_ghost", "ui_frame_block", "ui_frame_enchant",
     "ui_ring", "ui_price_chip", "ui_progress_fill", "ui_progress_track",
     "ui_section_header", "ui_pip_dot", "ui_icon_arrow", "ui_icon_book",
-    "ui_icon_gear", "fx_arc_short", "fx_score_ray", "fx_score_spark", "fx_square_chip",
+    "ui_icon_gear", "fx_arc_short", "fx_score_spark", "fx_square_chip",
+    "ui_dice_tray", "ui_topbar", "ui_chip_formula", "ui_stage_card",
 })
-# The brief's explicit list has 17 names (not 18). Refresh is also neutral in
-# practice because its caller multiplies it by Ink, but is not part of that list.
+# The original brief lists 17 masks; W11 adds four directly tinted surfaces and
+# no longer uses fx_score_ray (see LEGACY_NAMES).
+# Refresh is also neutral because its caller multiplies it by Ink.
+
+# Top-left design coordinates match the shader's contained 1920x1080 table.
+# Include the wider info panel at 125/150% text; the smaller rail is a subset.
+FELT_ZONES = {
+    "dice_area": (52, 374, 1408, 276),
+    "formula_row": (52, 660, 1408, 60),
+    "submission_rail": (344, 740, 1136, 202),
+    "submit_info_text150": (32, 740, 360, 202),
+}
+MAX_FELT_RGB_DEVIATION = 0
+# W11 stopped referencing fx_formula_chip, fx_score_plate, fx_score_ray and
+# ui_badge_check by name. Coordinator decision (W12b review, 2026-11-16): the kit
+# ships exactly the referenced set (tests/test_art_v11_swiss.py), so these are no
+# longer built. Their drawing branches stay below: if the contract marks one as
+# referenced again, a rebuild ships it without further changes.
+LEGACY_NAMES = frozenset()
 
 
 class Canvas:
@@ -102,7 +120,8 @@ class Canvas:
 
 
 def contract_sprites() -> list[dict]:
-    return [s for s in json.loads(CONTRACT.read_text(encoding="utf-8"))["sprites"] if s["referenced"]]
+    return [s for s in json.loads(CONTRACT.read_text(encoding="utf-8"))["sprites"]
+            if s["referenced"] or s["name"] in LEGACY_NAMES]
 
 
 def surface(spec: dict) -> Image.Image:
@@ -111,7 +130,16 @@ def surface(spec: dict) -> Image.Image:
     w, h = spec["size"]
     p = Canvas(w, h)
     box = (0, 0, w, h)
-    if name == "ui_frame_block":
+    if name == "ui_dice_tray":
+        # A 10 px black rule plus a 10 px tintable rim, both within border 72.
+        # The open center reveals the table and the 3D dice below the Canvas.
+        p.chamfer_frame(box, RULE, CHAMFER, WHITE)
+        p.chamfer((20, 20, w - 20, h - 20), 8, CLEAR)
+    elif name in {"ui_topbar", "ui_chip_formula", "ui_stage_card"}:
+        # Surface11 multiplies Panel, semantic chip colors, or Paper respectively.
+        # Pure white preserves those colors; content and headers remain in code.
+        p.chamfer_frame(box, RULE, CHAMFER, WHITE)
+    elif name == "ui_frame_block":
         p.chamfer(box, CHAMFER, WHITE)
     elif name in {"ui_progress_fill", "ui_progress_track", "ui_section_header"}:
         p.rect(box, WHITE)
@@ -232,7 +260,10 @@ def icon(spec: dict) -> Image.Image:
         p.rect((39, 26, 57, 70), RED)
     elif name == "ui_icon_dice_view":
         die(p, 10, 10, 80)
+        # W11 puts the 40 px glyph on a dark button: outline the dark lens/handle.
+        p.line([(89, 89), (118, 118)], LIGHT, 21)
         p.line([(89, 89), (118, 118)], INK, 13)
+        p.ellipse((58, 58, 116, 116), LIGHT)
         p.ellipse((62, 62, 112, 112), INK)
         p.ellipse((70, 70, 104, 104), LIGHT)
     elif name == "ui_icon_lock":
@@ -272,6 +303,10 @@ def icon(spec: dict) -> Image.Image:
         p.poly([(20, 92), (364, 92), (364, 143), (20, 143)], INK)
         p.rect((20, 92, 364, 100), RED)
     elif name == "fx_score_crown":
+        # W11 moves this 48x32 mark onto the near-black top bar. A light contour
+        # separates its black silhouette from both dark HUD and pale table.
+        p.poly([(3, 14), (54, 43), (96, 0), (138, 43), (189, 14),
+                (169, 108), (23, 108)], LIGHT)
         p.poly([(14, 30), (57, 56), (96, 10), (135, 56), (178, 30),
                 (160, 100), (32, 100)], INK)
         p.rect((32, 108, 160, 119), RED)
@@ -333,16 +368,34 @@ def render_sprite(spec: dict) -> Image.Image:
 
 def table_scene() -> Image.Image:
     p = Canvas(1920, 1080, PAPER)
-    # The references sweep red upward toward the right. Move the large lower
-    # diagonal outside the active rect: y=960.31 at x=1500 (10 px AA clearance).
-    p.poly([(0, 1140), (1920, 910), (1920, 1080), (0, 1080)], RED)
-    p.poly([(1180, 0), (1920, 0), (1920, 280)], RED)
-    p.rect((0, 0, 1920, 8), BLACK)
-    p.rect((0, 1072, 1920, 1080), BLACK)
-    p.rect((328, 32, 334, 1048), BLACK)
-    p.rect((360, 306, 1880, 312), BLACK)
-    p.rect((40, 1008, 280, 1014), BLACK)
+    # W11 has transparent trays and a variable card count. Keep their entire
+    # lanes plain; Swiss diagonals now occupy the perimeter and opaque panels.
+    p.poly([(1260, 8), (1892, 8), (1892, 70)], RED)  # Under the top bar.
+    p.poly([(1520, 112), (1872, 112), (1872, 324)], RED)  # Under the stage card.
+    p.poly([(1896, 96), (1920, 72), (1920, 1080), (1896, 1056)], RED)
+    p.poly([(520, 1074), (1920, 1048), (1920, 1074)], RED)
+    p.rect((0, 0, 1920, 6), BLACK)
+    p.rect((0, 1074, 1920, 1080), BLACK)
+    p.rect((12, 352, 18, 942), BLACK)  # Outer margin, never inside an open tray.
     return p.export().convert("RGB")
+
+
+def check_felt_zones(table: Image.Image) -> dict[str, int]:
+    """Fail on any RGB-channel deviation in the four protected design zones."""
+    if table.mode != "RGB" or table.size != (1920, 1080):
+        raise ValueError("Table must be RGB 1920x1080 before checking zones")
+    pixels = np.asarray(table).astype(np.int16)
+    expected = np.array(PAPER[:3], dtype=np.int16)
+    results = {}
+    for name, (x, y, w, h) in FELT_ZONES.items():
+        delta = int(np.abs(pixels[y:y + h, x:x + w] - expected).max())
+        results[name] = delta
+        passed = delta <= MAX_FELT_RGB_DEVIATION
+        print(f"SWISS_ZONE {name} rect={x},{y},{w},{h} max_rgb_delta={delta} "
+              f"limit={MAX_FELT_RGB_DEVIATION} {'PASS' if passed else 'FAIL'}")
+        if not passed:
+            raise ValueError(f"Table decoration entered protected zone {name}: {delta}")
+    return results
 
 
 def felt_tile() -> Image.Image:
@@ -361,17 +414,29 @@ def felt_tile() -> Image.Image:
 
 def preview() -> Image.Image:
     p = Canvas(480, 270, PAPER)
-    p.poly([(120, 270), (480, 194), (480, 270)], RED)
-    p.poly([(320, 0), (480, 0), (480, 56)], RED)
-    p.rect((24, 24, 280, 35), INK)
-    p.chamfer((24, 57, 242, 173), 5, INK)
-    p.rect((38, 74, 185, 81), PAPER)
-    p.rect((38, 93, 124, 99), TAN)
-    p.rect((38, 121, 222, 151), PAPER)
-    p.chamfer((24, 194, 170, 240), 5, INK)
-    p.chamfer_frame((24, 188, 170, 234), 3, 5, RED)
-    arrow(p, 82, 198, 26, BLACK)
-    die(p, 280, 145, 76)
+    p.poly([(474, 30), (480, 22), (480, 270), (474, 262)], RED)
+    p.poly([(130, 268), (480, 258), (480, 270), (130, 270)], RED)
+    p.rect((0, 0, 480, 2), BLACK)
+    p.rect((0, 268, 480, 270), BLACK)
+    p.chamfer_frame((8, 8, 472, 34), 2.5, 4, INK)
+    p.rect((20, 18, 92, 23), LIGHT)
+    p.rect((340, 18, 358, 23), RED)
+    p.chamfer_frame((374, 44, 468, 100), 2.5, 4, PAPER)
+    p.chamfer_frame((384, 52, 458, 66), 2.5, 4, INK)
+    p.chamfer_frame((8, 112, 364, 236), 2.5, 4, PAPER)
+    p.chamfer_frame((374, 112, 468, 236), 2.5, 4, INK)
+    for x in (8, 98, 188):
+        p.chamfer_frame((x, 44, x + 80, 100), 2.5, 4, PAPER)
+        p.rect((x + 12, 57, x + 64, 61), INK)
+        p.rect((x + 12, 74, x + 50, 78), GREY)
+    for x, color in ((20, INK), (82, RED), (144, INK)):
+        p.chamfer_frame((x, 208, x + 54, 226), 2.5, 4, color)
+    p.chamfer_frame((178, 245, 302, 264), 2.5, 4, RED)
+    arrow(p, 230, 248, 12, BLACK)
+    die(p, 100, 136, 50)
+    die(p, 218, 136, 50)
+    p.rect((386, 128, 451, 133), LIGHT)
+    p.rect((386, 148, 427, 153), TAN)
     return p.export().convert("RGB")
 
 
@@ -404,7 +469,7 @@ def review_sheet(sprites: dict[str, Image.Image], specs: list[dict], table: Imag
     small = ImageFont.truetype(str(LATIN), 15)
     title = ImageFont.truetype(str(LATIN), 44)
     d.text((24, 22), "SWISS / UI SYSTEM", fill=INK[:3], font=title)
-    d.text((25, 80), "49 contract sprites   /   Default > Swiss   /   Raw textures, neutral masks remain untinted", fill=INK[:3], font=font)
+    d.text((25, 80), f"{len(specs)} contract sprites   /   Default > Swiss   /   Raw textures, neutral masks remain untinted", fill=INK[:3], font=font)
     d.text((25, 111), "Offline source review. Stretch and palette previews below are not Unity screenshots.", fill=INK[:3], font=small)
     for n, spec in enumerate(specs):
         x, y = (n % columns) * cw, 152 + (n // columns) * ch
@@ -476,7 +541,7 @@ def review_sheet(sprites: dict[str, Image.Image], specs: list[dict], table: Imag
 
 
 def build(output_root: Path = ROOT) -> list[Path]:
-    """Write the complete 53-PNG delivery; tests supply a root inside this worktree."""
+    """Write the current contract plus table, tile, picker, and contact sheet."""
     output_root = Path(output_root).resolve()
     if not output_root.is_relative_to(ROOT):
         raise ValueError("Output root must stay inside the Swiss worktree")
@@ -489,6 +554,8 @@ def build(output_root: Path = ROOT) -> list[Path]:
         im.save(path, format="PNG", optimize=False, compress_level=9)
         written.append(path)
 
+    table = table_scene()
+    check_felt_zones(table)  # Fail before writing any exported art.
     specs = contract_sprites()
     sprites = {}
     for spec in specs:
@@ -497,7 +564,6 @@ def build(output_root: Path = ROOT) -> list[Path]:
             raise ValueError("Contract mismatch: " + spec["name"])
         sprites[spec["name"]] = im
         save(THEME / "UI" / (spec["name"] + ".png"), im)
-    table = table_scene()
     save(THEME / "Table/table_scene.png", table)
     save(THEME / "Table/felt_tile.png", felt_tile())
     save(THEME / "preview.png", preview())
@@ -507,4 +573,6 @@ def build(output_root: Path = ROOT) -> list[Path]:
 
 if __name__ == "__main__":
     paths = build()
-    print(f"SWISS_BUILT {len(contract_sprites())} UI sprites / {len(paths)} PNGs total / supersampling {SS}x")
+    specs = contract_sprites()
+    print(f"SWISS_BUILT {len(specs)} UI sprites ({sum(s['referenced'] for s in specs)} referenced, "
+          f"{sum(not s['referenced'] for s in specs)} legacy) / {len(paths)} PNGs total / supersampling {SS}x")

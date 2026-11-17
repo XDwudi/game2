@@ -25,8 +25,11 @@ NEUTRAL_NAMES = frozenset({
     "ui_button_bevel", "ui_button_ghost", "ui_frame_block", "ui_frame_enchant",
     "ui_ring", "ui_price_chip", "ui_progress_fill", "ui_progress_track",
     "ui_section_header", "ui_pip_dot", "ui_icon_arrow", "ui_icon_book",
-    "ui_icon_gear", "fx_arc_short", "fx_score_ray", "fx_score_spark", "fx_square_chip",
+    "ui_icon_gear", "fx_arc_short", "fx_score_spark", "fx_square_chip",
+    # V1.1 W11 surfaces: tinted by palette colours at runtime (GameApp.Play11.cs Surface11).
+    "ui_dice_tray", "ui_topbar", "ui_chip_formula", "ui_stage_card",
 })
+# fx_score_ray left this list when W11 stopped using it; the kit no longer ships it.
 PAPER_SURFACES = (
     "ui_paper_panel", "ui_card_controller", "ui_card_controller_compact",
     "ui_card_item", "ui_card_shop", "ui_chip_label",
