@@ -62,19 +62,22 @@ PALETTE = {
     "danger": "A0301E",       # deep iron red: errors, boss warnings
     "shadow": "140B05",
     "ghost": "D2AC74",        # pale amber: outline buttons, empty slot rings
-    "primary": "3060B8",      # cobalt, the rare fourth glaze: the one primary action per phase
+    # Coordinator decision 2026-11-17: cobalt, the rarest glaze, marks rare cards; the one primary action per phase takes
+    # the amber-gold glaze, as the default style's main button is gold. primary == gold, as in the default palette.
+    "primary": "EBA53F",      # amber-gold glaze: the one primary action per phase (label: ink)
     "reward": "F2B64E",       # bright amber: reward moments
     "boss": "A93F1C",         # iron red
     "pressure": "F07436",     # persimmon orange: pressure stages (a warning hue, never grey)
     "rarityCommon": "D3C7AA", # plain ivory glaze
     "rarityAdvanced": "4F7D2B",  # copper-green glaze
-    "rarityRare": "D98E2B",   # amber-gold glaze
+    "rarityRare": "2C4E9A",   # cobalt glaze (COBALT below): the concept card page's "稀有" seal
     "onFelt": "EBD3A4",       # light cream marks drawn straight on the felt
 }
 THEME_META = {
     "id": "sancai",
     "displayName": "唐三彩陶坊",
-    "description": ("琥珀、铜绿、乳白三色铅釉：圆润软棱的釉面陶板、海棠委角、祥云卷角、细密开片与流釉，深褐陶胎桌面，深钴蓝只用于主按钮。"
+    "description": ("琥珀、铜绿、乳白三色铅釉：圆润软棱的釉面陶板、海棠委角、祥云卷角、细密开片与流釉，深褐陶胎桌面；"
+                    "主按钮用琥珀金釉，深钴蓝只留给稀有。"
                     "依据：ArtSource/StyleKit/themes/sancai/concepts 与 style_kit.json；界面件与色板由 "
                     "tools/art_v11/sancai/build_sancai.py 生成（说明见同目录 README.md）"),
     "order": 2,
@@ -118,15 +121,65 @@ def delta_e(a: str, b: str) -> float:
     return math.dist(lab(a), lab(b))
 
 
+def ciede2000(lab1, lab2) -> float:
+    """CIEDE2000 colour difference (Sharma, Wu and Dalal 2005; kL = kC = kH = 1)."""
+    L1, a1, b1 = lab1
+    L2, a2, b2 = lab2
+    c7 = ((math.hypot(a1, b1) + math.hypot(a2, b2)) / 2) ** 7
+    g = .5 * (1 - math.sqrt(c7 / (c7 + 25 ** 7)))
+    a1, a2 = a1 * (1 + g), a2 * (1 + g)
+    C1, C2 = math.hypot(a1, b1), math.hypot(a2, b2)
+    h1 = math.degrees(math.atan2(b1, a1)) % 360 if C1 else 0.0
+    h2 = math.degrees(math.atan2(b2, a2)) % 360 if C2 else 0.0
+    dh = 0.0 if C1 * C2 == 0 else (h2 - h1 + 180) % 360 - 180
+    dL, dC, dH = L2 - L1, C2 - C1, 2 * math.sqrt(C1 * C2) * math.sin(math.radians(dh / 2))
+    L, C = (L1 + L2) / 2, (C1 + C2) / 2
+    if C1 * C2 == 0:
+        h = h1 + h2
+    elif abs(h1 - h2) <= 180:
+        h = (h1 + h2) / 2
+    else:
+        h = (h1 + h2 + 360) / 2 if h1 + h2 < 360 else (h1 + h2 - 360) / 2
+    t = (1 - .17 * math.cos(math.radians(h - 30)) + .24 * math.cos(math.radians(2 * h))
+         + .32 * math.cos(math.radians(3 * h + 6)) - .2 * math.cos(math.radians(4 * h - 63)))
+    sl = 1 + .015 * (L - 50) ** 2 / math.sqrt(20 + (L - 50) ** 2)
+    sc, sh = 1 + .045 * C, 1 + .015 * C * t
+    rt = -math.sin(math.radians(60 * math.exp(-((h - 275) / 25) ** 2))) * 2 * math.sqrt(C ** 7 / (C ** 7 + 25 ** 7))
+    return math.sqrt((dL / sl) ** 2 + (dC / sc) ** 2 + (dH / sh) ** 2 + rt * (dC / sc) * (dH / sh))
+
+
+def _gam(c: float) -> float:
+    c = max(c, 0.0)
+    return c * 12.92 if c <= .0031308 else 1.055 * c ** (1 / 2.4) - .055
+
+
+def drawn(fill: str, tint: str) -> str:
+    """A sprite pixel tinted as Unity UI draws it in this linear-colour-space project (GameApp.RenderedFill11)."""
+    return "".join(f"{int(round(_gam(_lin(f) * _lin(t)) * 255)):02X}" for f, t in zip(rgb8(fill), rgb8(tint)))
+
+
+def best_label(fill: str, palette: dict) -> tuple[str, float]:
+    """GameApp.BestLabel11: of ink, paper and textColor, the label with the highest contrast on a drawn fill."""
+    key = max(("ink", "paper", "textColor"), key=lambda k: contrast(palette[k], fill))
+    return key, contrast(palette[key], fill)
+
+
 def palette_report(palette: dict | None = None) -> dict[str, float]:
     """Contrast numbers quoted in the README and asserted by the tests (WCAG 2 sRGB relative luminance)."""
     p = palette or PALETTE
+    # THEME_SPEC section 2 valueBadge (unset: gold) and danger, drawn on the ui_chip_label face (ValueBadge13).
+    chip = "".join(f"{int(round(float(v) * 255)):02X}" for v in LABEL_FILL)
+    value_fill, warning_fill = drawn(chip, p.get("valueBadge", p["gold"])), drawn(chip, p["danger"])
     out = {
         "textColor/panel": contrast(p["textColor"], p["panel"]),
         "ink/paper": contrast(p["ink"], p["paper"]),
         "muted/panel": contrast(p["muted"], p["panel"]),
         "onFelt/felt": contrast(p["onFelt"], p["felt"]),
-        "textColor/primary": contrast(p["textColor"], p["primary"]),
+        f"{best_label(p['primary'], p)[0]}/primary (label pick)": best_label(p["primary"], p)[1],
+        "valueBadge/danger badge dE00 (drawn)": ciede2000(lab(value_fill), lab(warning_fill)),
+        "valueBadge/danger badge contrast (drawn)": contrast(value_fill, warning_fill),
+        f"{best_label(value_fill, p)[0]}/valueBadge (drawn)": best_label(value_fill, p)[1],
+        f"{best_label(warning_fill, p)[0]}/danger badge (drawn)": best_label(warning_fill, p)[1],
         "textColor/boss": contrast(p["textColor"], p["boss"]),
         "ink/pressure": contrast(p["ink"], p["pressure"]),
         "textColor/panelLight": contrast(p["textColor"], p["panelLight"]),
@@ -1953,7 +2006,7 @@ def play_mock(sprites, specs, table) -> Image.Image:
     m.text(692, 1002, "重掷 · 还能掷 2", 21, P["textColor"], "mm")
     m.put("ui_button_bevel", 842, 970, 396, 74, col("B56B29"))
     m.put("ui_button_bevel", 840, 962, 400, 73, col(P["primary"]))
-    m.text(1040, 998, "提交 2 颗", 28, P["textColor"], "mm")
+    m.text(1040, 998, "提交 2 颗", 28, label_on(col(P["primary"])), "mm")   # the label LabelOn11 picks
     m.put("ui_button_bevel", 1498, 970, 388, 74, col("8F453A"))
     m.put("ui_button_bevel", 1496, 962, 392, 73, col(P["paper"]))
     m.text(1692, 998, "结束本关 · 结算", 24, P["ink"], "mm")

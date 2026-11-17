@@ -91,6 +91,55 @@ def lab(rgb):
     return np.array((116 * f(y) - 16, 500 * (f(x) - f(y)), 200 * (f(y) - f(z))))
 
 
+def ciede2000(lab1, lab2):
+    """CIEDE2000 (Sharma, Wu and Dalal 2005), written out step by step from the paper's equations."""
+    (l1, a1, b1), (l2, a2, b2) = (tuple(float(x) for x in v) for v in (lab1, lab2))
+    c_mean = (math.hypot(a1, b1) + math.hypot(a2, b2)) / 2
+    g = 0.5 * (1 - math.sqrt(c_mean ** 7 / (c_mean ** 7 + 25.0 ** 7)))
+    a1p, a2p = (1 + g) * a1, (1 + g) * a2
+    c1p, c2p = math.hypot(a1p, b1), math.hypot(a2p, b2)
+    h1p = 0.0 if a1p == 0 and b1 == 0 else math.degrees(math.atan2(b1, a1p)) % 360
+    h2p = 0.0 if a2p == 0 and b2 == 0 else math.degrees(math.atan2(b2, a2p)) % 360
+    delta_l = l2 - l1
+    delta_c = c2p - c1p
+    if c1p * c2p == 0:
+        delta_h = 0.0
+    elif abs(h2p - h1p) <= 180:
+        delta_h = h2p - h1p
+    elif h2p - h1p > 180:
+        delta_h = h2p - h1p - 360
+    else:
+        delta_h = h2p - h1p + 360
+    delta_hh = 2 * math.sqrt(c1p * c2p) * math.sin(math.radians(delta_h) / 2)
+    l_mean = (l1 + l2) / 2
+    cp_mean = (c1p + c2p) / 2
+    if c1p * c2p == 0:
+        hp_mean = h1p + h2p
+    elif abs(h1p - h2p) <= 180:
+        hp_mean = (h1p + h2p) / 2
+    elif h1p + h2p < 360:
+        hp_mean = (h1p + h2p + 360) / 2
+    else:
+        hp_mean = (h1p + h2p - 360) / 2
+    t = (1 - 0.17 * math.cos(math.radians(hp_mean - 30)) + 0.24 * math.cos(math.radians(2 * hp_mean))
+         + 0.32 * math.cos(math.radians(3 * hp_mean + 6)) - 0.20 * math.cos(math.radians(4 * hp_mean - 63)))
+    delta_theta = 30 * math.exp(-((hp_mean - 275) / 25) ** 2)
+    r_c = 2 * math.sqrt(cp_mean ** 7 / (cp_mean ** 7 + 25.0 ** 7))
+    s_l = 1 + 0.015 * (l_mean - 50) ** 2 / math.sqrt(20 + (l_mean - 50) ** 2)
+    s_c = 1 + 0.045 * cp_mean
+    s_h = 1 + 0.015 * cp_mean * t
+    r_t = -math.sin(math.radians(2 * delta_theta)) * r_c
+    return math.sqrt((delta_l / s_l) ** 2 + (delta_c / s_c) ** 2 + (delta_hh / s_h) ** 2
+                     + r_t * (delta_c / s_c) * (delta_hh / s_h))
+
+
+def tinted(face, tint):
+    """A face pixel times a tint, in linear light (the project's colour space), back to 8-bit sRGB."""
+    linear = channel(face) * channel(tint)
+    srgb = np.where(linear <= .0031308, linear * 12.92, 1.055 * np.power(linear, 1 / 2.4) - .055)
+    return np.rint(srgb * 255)
+
+
 def png_hashes(folder):
     return {path.relative_to(folder).as_posix(): hashlib.sha256(path.read_bytes()).hexdigest()
             for path in folder.rglob("*.png")}
@@ -517,6 +566,24 @@ class SancaiArtTests(unittest.TestCase):
             with self.subTest(rarity=i):
                 self.assertGreaterEqual(float(np.linalg.norm(lab(p["primary"]) - lab(colour))), 40.0,
                                         "The primary action must not share a rarity colour.")
+        # The primary button's face is white tinted by primary; LabelOn11 picks the best of ink, paper and textColor and
+        # must reach 4.95:1 without darkening the face (THEME_SPEC 2).
+        self.assertGreaterEqual(max(float(contrast(p[k], p["primary"])) for k in ("ink", "paper", "textColor")), 4.95)
+
+    def test_value_and_warning_badges_stay_apart(self):
+        # THEME_SPEC 2 valueBadge (W13 review on codex/v1.1): a card's value badge (valueBadge, unset means gold) and its
+        # warning badge (danger) are told apart at a glance. Drawn as ValueBadge13 draws them, on the ui_chip_label face:
+        # CIEDE2000 at least 20 and luminance contrast at least 1.5:1; each takes a label that reaches 4.95:1 as drawn.
+        self.assertAlmostEqual(ciede2000((50, 2.6772, -79.7751), (50, 0, -82.7485)), 2.0425, places=4)
+        self.assertAlmostEqual(ciede2000((50, -1.3802, -84.2814), (50, 0, -82.7485)), 1.0, places=4)
+        p = {k: np.array(hex_rgb(v), dtype=np.float64) for k, v in self.palette.items()}
+        face = load("ui_chip_label")[256, 256, :3]
+        value, warning = tinted(face, p.get("valueBadge", p["gold"])), tinted(face, p["danger"])
+        for name, fill in (("value", value), ("warning", warning)):
+            with self.subTest(badge=name):
+                self.assertGreaterEqual(max(float(contrast(p[k], fill)) for k in ("ink", "paper", "textColor")), 4.95)
+        self.assertGreaterEqual(ciede2000(lab(value), lab(warning)), 20.0)
+        self.assertGreaterEqual(float(contrast(value, warning)), 1.5)
 
     def test_theme_json_schema(self):
         self.assertEqual(set(self.theme), {"id", "displayName", "description", "order", "preview", "palette"})
@@ -528,8 +595,11 @@ class SancaiArtTests(unittest.TestCase):
         source = (ROOT / "DicePrototype/Assets/Game/UI/Theme/ThemePalette.cs").read_text(encoding="utf-8")
         declared = re.search(r"class Hexes\s*\{\s*public string ([^;]+);", source).group(1)
         keys = {key.strip() for key in declared.replace("\n", " ").split(",")}
-        self.assertEqual(len(keys), 24)
-        self.assertEqual(set(self.palette), keys)
+        # 24 tokens, all set. codex/v1.1 (W13) adds valueBadge, which a style may leave out: unset, the value badge takes
+        # gold (THEME_SPEC 2); test_value_and_warning_badges_stay_apart checks that case.
+        optional = {"valueBadge"}
+        self.assertEqual(len(keys - optional), 24)
+        self.assertEqual(set(self.palette) | (keys & optional), keys)
         for key, value in self.palette.items():
             with self.subTest(token=key):
                 self.assertRegex(value, r"^[0-9A-F]{6}([0-9A-F]{2})?$")
