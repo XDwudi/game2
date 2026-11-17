@@ -247,18 +247,20 @@ namespace DiceCraft
             FitLine13(panel,"FacePickCategory14",category,stripRight-catW-4,(ShopHead14-Line11(18))*.5f,catW+4,18,LabelOn11(strip,UiKit.Muted),TextAlignmentOptions.MidlineRight,false);
             Color ink=LabelOn11(panel,UiKit.TextColor),muted=LabelOn11(panel,UiKit.Muted);
             float x=ShopPad14+4,w=l.dice.width-2*(ShopPad14+4),y=ShopHead14+10;
-            TextMeshProUGUI Line(string name,string text,float size,Color color,bool bold)
+            TextMeshProUGUI Line(string name,string text,float size,Color color,bool bold,bool balanced=false)
             {
                 var label=UiKit.Text(panel,name,text,x,y,w,10,Mathf.Max(size,19.5f/Mathf.Max(.01f,UiKit.FontScale)),color,TextAlignmentOptions.TopLeft);
                 if(bold)label.fontStyle=FontStyles.Bold;label.textWrappingMode=TextWrappingModes.Normal;label.enableAutoSizing=false;
-                float h=Mathf.Ceil(label.GetPreferredValues(text,w,0).y)+2;label.rectTransform.sizeDelta=new Vector2(w,h);y+=h+6;return label;
+                // A prompt that wraps breaks at its punctuation (before the bracket, after a comma), not mid-phrase.
+                if(balanced)label.text=BalancedLines11(label,text,w);
+                float h=Mathf.Ceil(label.GetPreferredValues(label.text,w,0).y)+2;label.rectTransform.sizeDelta=new Vector2(w,h);y+=h+6;return label;
             }
             string step=FacePickStep14;
             if(step=="S1")
             {
                 Line("FacePickShort14",ShortText11(offer.contentId),20,ink,false);
                 string prompt=offer.contentId=="U05"?"选一颗骰子，整颗变成玻璃骰":offer.contentId=="O04"?"选一颗要删除的骰子":"选一颗骰子，再选要改的面";
-                Line("FacePickPrompt14",prompt+"（在下面的“我的骰子”里）",20,ink,true);
+                Line("FacePickPrompt14",prompt+"（在下面的“我的骰子”里）",20,ink,true,true);
             }
             else
             {
@@ -272,6 +274,8 @@ namespace DiceCraft
                 float rowTop=y,textX=x+big+12,textW=w-big-12;
                 var dieLabel=UiKit.Text(panel,"FacePickDieLabel14",OwnedDieLabel14(die.dieId),textX,rowTop,textW,10,20,ink,TextAlignmentOptions.TopLeft);
                 dieLabel.fontStyle=FontStyles.Bold;dieLabel.enableAutoSizing=false;dieLabel.textWrappingMode=TextWrappingModes.Normal;
+                // A long name breaks at a " · " between its words, not inside a word (第 1 颗 · 金面 6 / 蓝面多).
+                dieLabel.text=BalancedLines11(dieLabel,dieLabel.text,textW);
                 float labelH=Mathf.Ceil(dieLabel.GetPreferredValues(dieLabel.text,textW,0).y)+2;dieLabel.rectTransform.sizeDelta=new Vector2(textW,labelH);
                 // The row is as tall as the die or the text beside it, whichever is taller (with enlarged text the S2 prompt
                 // takes two or three lines and must end above the face buttons).
@@ -284,9 +288,11 @@ namespace DiceCraft
                     prompt.rectTransform.sizeDelta=new Vector2(textW,promptH);rowH=Mathf.Max(rowH,labelH+6+promptH);
                 }
                 y+=rowH+10;
-                if(!pick.whole)
+                if(!pick.whole&&step=="S2")
                 {
-                    // Six face buttons, 60 units each (40 px at 720p, the touch rule), texture under the tile.
+                    // Six face buttons, 60 units each (40 px at 720p, the touch rule), texture under the tile. S2 only: in S3 the
+                    // big die is turned to the chosen face (a click on another of its faces, or 换一面, changes it), which leaves
+                    // the change, its note and the price room with enlarged text.
                     const float tile=60;float gap=Mathf.Min(10,(w-6*tile)/5f);
                     FaceStrip14(panel,die,x+(w-(6*tile+5*gap))*.5f,y,tile,muted,FacePickChooseFace14,pick.faceId,"Face_",gap);
                     y+=tile+Line11(16)+8;
@@ -302,24 +308,31 @@ namespace DiceCraft
                     Line("FacePickPrice14","价格 "+cost+"（你有 "+PlayerNumberFormat.Gold(ViewState.gold)+"）",20,muted,false);
                 }
             }
-            // Buttons along the foot of the panel: 取消, 换一颗 / 换一面, 确认购买 ⦿N (second-level: the screen's one primary
-            // colour stays on 下一关).
+            // Buttons along the foot of the panel, right to left: 确认购买 ⦿N, 换一面 / 换一颗, 取消 (second-level: the screen's one
+            // primary colour stays on 下一关). At their usual padding (16, gaps 10) the three buttons of S3 do not fit the
+            // panel's row with enlarged text; the padding then steps down to 12 and the gaps to 6, so all stay inside it.
             float by=l.dice.height-ShopFoot14-4-60,bx=l.dice.width-ShopPad14;
-            if(step=="S3")
+            bool confirmShown=step=="S3";
+            string swap=step=="S3"&&!pick.whole?"换一面":step=="S2"||step=="S3"&&pick.whole?"换一颗":null;
+            long confirmCost=Session.GetOfferNetPrice(offer);string confirmWord=offer.contentId=="O04"?"确认删除":"确认购买";
+            float wordW=ShopLabelWidth14(confirmWord,20),priceW=26+4+ShopLabelWidth14(confirmCost.ToString(CultureInfo.InvariantCulture),22);
+            float swapW=swap==null?0:ShopLabelWidth14(swap,20),cancelLabelW=ShopLabelWidth14("取消",20);
+            float RowWidth(float p,float g)=>(confirmShown?p+wordW+10+priceW+p+g:0)+(swap!=null?swapW+2*p+g:0)+cancelLabelW+2*p+8;
+            float pad=16,gapB=10;if(RowWidth(pad,gapB)>l.dice.width-2*ShopPad14){pad=12;gapB=6;}
+            if(confirmShown)
             {
-                long cost=Session.GetOfferNetPrice(offer);string word=offer.contentId=="O04"?"确认删除":"确认购买";
                 bool can=FacePickReason14(offer,pick)==null&&!IsBusy&&!Session.HasPendingSave;
-                float wordW=ShopLabelWidth14(word,20),priceW=26+4+ShopLabelWidth14(cost.ToString(CultureInfo.InvariantCulture),22),cw=16+wordW+10+priceW+16;
-                var confirm=ShopButton14(panel,"ConfirmPurchase",word,bx-cw,by,cw,60,FacePickConfirm14,can);
+                float cw=pad+wordW+10+priceW+pad;
+                var confirm=ShopButton14(panel,"ConfirmPurchase",confirmWord,bx-cw,by,cw,60,FacePickConfirm14,can);
                 var label=confirm.transform.Find("Label").GetComponent<TextMeshProUGUI>();var face=(Image)confirm.targetGraphic;
-                label.alignment=TextAlignmentOptions.MidlineLeft;label.rectTransform.anchoredPosition=new Vector2(16,0);label.rectTransform.sizeDelta=new Vector2(wordW,60);
-                var coin=UiKit.Box(confirm.transform,"Coin",16+wordW+10,17,26,26,can?Color.white:Alpha14(Color.white,.6f)).GetComponent<Image>();coin.sprite=UiKit.Template("ui_icon_coin");coin.preserveAspect=true;coin.raycastTarget=false;
-                NoWrap11(UiKit.Text(confirm.transform,"Price",cost.ToString(CultureInfo.InvariantCulture),16+wordW+10+30,0,priceW-30,60,22,LabelOn11(face,can?UiKit.Gold:UiKit.Muted),TextAlignmentOptions.MidlineLeft)).fontStyle=FontStyles.Bold;
-                bx-=cw+10;
+                label.alignment=TextAlignmentOptions.MidlineLeft;label.rectTransform.anchoredPosition=new Vector2(pad,0);label.rectTransform.sizeDelta=new Vector2(wordW,60);
+                var coin=UiKit.Box(confirm.transform,"Coin",pad+wordW+10,17,26,26,can?Color.white:Alpha14(Color.white,.6f)).GetComponent<Image>();coin.sprite=UiKit.Template("ui_icon_coin");coin.preserveAspect=true;coin.raycastTarget=false;
+                NoWrap11(UiKit.Text(confirm.transform,"Price",confirmCost.ToString(CultureInfo.InvariantCulture),pad+wordW+10+30,0,priceW-30,60,22,LabelOn11(face,can?UiKit.Gold:UiKit.Muted),TextAlignmentOptions.MidlineLeft)).fontStyle=FontStyles.Bold;
+                bx-=cw+gapB;
             }
-            if(step=="S3"&&!pick.whole){float ww=ShopLabelWidth14("换一面",20)+32;ShopButton14(panel,"ChangeFace14","换一面",bx-ww,by,ww,60,()=>{if(facePick14!=null){facePick14.faceId=null;Refresh();}},!IsBusy);bx-=ww+10;}
-            if(step=="S2"||step=="S3"&&pick.whole){float ww=ShopLabelWidth14("换一颗",20)+32;ShopButton14(panel,"ChangeDie14","换一颗",bx-ww,by,ww,60,()=>{if(facePick14!=null){facePick14.dieId=null;facePick14.faceId=null;Refresh();}},!IsBusy);bx-=ww+10;}
-            float cancelW=ShopLabelWidth14("取消",20)+40;ShopButton14(panel,"CancelFacePick14","取消",bx-cancelW,by,cancelW,60,CancelFacePick14,true);
+            if(swap=="换一面"){float ww=swapW+2*pad;ShopButton14(panel,"ChangeFace14",swap,bx-ww,by,ww,60,()=>{if(facePick14!=null){facePick14.faceId=null;Refresh();}},!IsBusy);bx-=ww+gapB;}
+            if(swap=="换一颗"){float ww=swapW+2*pad;ShopButton14(panel,"ChangeDie14",swap,bx-ww,by,ww,60,()=>{if(facePick14!=null){facePick14.dieId=null;facePick14.faceId=null;Refresh();}},!IsBusy);bx-=ww+gapB;}
+            float cancelW=cancelLabelW+2*pad+8;ShopButton14(panel,"CancelFacePick14","取消",bx-cancelW,by,cancelW,60,CancelFacePick14,true);
         }
         /// <summary>A die of 我的骰子 that can be chosen (S1–S3): a hit area named Target_&lt;die&gt; over its cell, ringed in
         /// gold while every die can be chosen and around the chosen one afterwards.</summary>

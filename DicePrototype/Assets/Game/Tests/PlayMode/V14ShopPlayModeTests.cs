@@ -375,7 +375,7 @@ namespace DiceCraft.Tests
                     foreach(var d in dice)Assert.That(Button("Target_"+d.dieId).interactable,Is.True,d.dieId);
                     Assert.That(FindActive<TextMeshProUGUI>("FacePickPrompt14").text,Does.StartWith("选一颗骰子，再选要改的面"));
                     W14AssertNoIds(theme+" S1");Unchanged("S1");
-                    foreach(int percent in new[]{100,150}){W11TextScale(percent);yield return null;yield return W14Shot("pick-S1-"+theme+"-text"+percent);W14CheckTexts(theme+"-S1-"+percent,failures,"FacePick14","OwnedStrip");}
+                    foreach(int percent in new[]{100,150}){W11TextScale(percent);yield return null;yield return W14Shot("pick-S1-"+theme+"-text"+percent);W14CheckTexts(theme+"-S1-"+percent,failures,"FacePick14","OwnedStrip");W14ButtonsInside("FacePick14",theme+"-S1-"+percent,failures);}
                     W11TextScale(100);
                     Click("CancelFacePick14");yield return null;Assert.That(app.FacePickStep14,Is.EqualTo("S0"));Assert.That(HasActive("FacePickVeil14"),Is.False);Unchanged("cancel at S1");
                     // S1 from the card itself, then S2; change the die; cancel.
@@ -386,7 +386,7 @@ namespace DiceCraft.Tests
                     for(int f=1;f<=6;f++)Assert.That(Button("Face_F0"+f).interactable,Is.True,"face "+f);
                     Assert.That(FindActive<TextMeshProUGUI>("FacePickDieLabel14").text,Does.StartWith("第 1 颗 · "));
                     W14AssertNoIds(theme+" S2");Unchanged("S2");
-                    foreach(int percent in new[]{100,150}){W11TextScale(percent);yield return null;yield return W14Shot("pick-S2-"+theme+"-text"+percent);W14CheckTexts(theme+"-S2-"+percent,failures,"FacePick14","OwnedStrip");}
+                    foreach(int percent in new[]{100,150}){W11TextScale(percent);yield return null;yield return W14Shot("pick-S2-"+theme+"-text"+percent);W14CheckTexts(theme+"-S2-"+percent,failures,"FacePick14","OwnedStrip");W14ButtonsInside("FacePick14",theme+"-S2-"+percent,failures);}
                     W11TextScale(100);
                     Click("ChangeDie14");yield return null;Assert.That(app.FacePickStep14,Is.EqualTo("S1"));
                     Click("Target_"+dice[1].dieId);yield return null;Assert.That(app.FacePickDie14,Is.EqualTo(dice[1].dieId));
@@ -401,7 +401,7 @@ namespace DiceCraft.Tests
                     Assert.That(FindActive<TextMeshProUGUI>("FacePickPrice14").text,Is.EqualTo("价格 "+app.Config.Upgrade("U06").buyPrice+"（你有 "+PlayerNumberFormat.Gold(gold)+"）"));
                     Assert.That(Button("ConfirmPurchase").interactable,Is.True);Assert.That(W11PrimaryColoured(Button("ConfirmPurchase").targetGraphic.color),Is.False,"Second-level style.");
                     W14AssertNoIds(theme+" S3");Unchanged("S3");
-                    foreach(int percent in new[]{100,150}){W11TextScale(percent);yield return null;yield return W14Shot("pick-S3-"+theme+"-text"+percent);W14CheckTexts(theme+"-S3-"+percent,failures,"FacePick14","OwnedStrip");}
+                    foreach(int percent in new[]{100,150}){W11TextScale(percent);yield return null;yield return W14Shot("pick-S3-"+theme+"-text"+percent);W14CheckTexts(theme+"-S3-"+percent,failures,"FacePick14","OwnedStrip");W14ButtonsInside("FacePick14",theme+"-S3-"+percent,failures);}
                     W11TextScale(100);
                     Click("ChangeFace14");yield return null;Assert.That(app.FacePickStep14,Is.EqualTo("S2"));
                     Click("Face_F02");yield return null;Assert.That(app.FacePickStep14,Is.EqualTo("S3"));
@@ -458,6 +458,59 @@ namespace DiceCraft.Tests
             Assert.That(FindActive<TextMeshProUGUI>("PurchaseUnavailable").text,Is.EqualTo("这一面已经镀金，换一个面"));
             Assert.That(Button("ConfirmPurchase").interactable,Is.False);
             app.CancelFacePick14();yield return null;Assert.That(app.FacePickStep14,Is.EqualTo("S0"));Assert.That(StateJson(),Is.EqualTo(state));
+        }
+
+        /// <summary>SH-08: every button of a panel lies inside it (the face-pick panel's row of buttons with enlarged text).</summary>
+        private void W14ButtonsInside(string root,string scope,List<string> failures)
+        {
+            var panel=FindActive<RectTransform>(root);Rect area=V06ScreenRect(panel);
+            foreach(var b in panel.GetComponentsInChildren<UnityEngine.UI.Button>(false).Where(b=>b.gameObject.activeInHierarchy))
+            {
+                Rect r=V06ScreenRect((RectTransform)b.transform);
+                if(r.xMin<area.xMin-.5f||r.xMax>area.xMax+.5f||r.yMin<area.yMin-.5f||r.yMax>area.yMax+.5f)failures.Add(scope+": "+b.name+" "+r+" leaves "+root+" "+area);
+            }
+        }
+
+        /// <summary>SH-08 with the longest S3 texts: a face with a texture, gold and a weight, so that U01's change and its
+        /// note on the opposite face, and U11's reason, are written out in full; both styles at 100 % and 150 %. Every text is
+        /// whole and clear of what is drawn after it (the buttons), and every button stays inside the panel.</summary>
+        [UnityTest] public IEnumerator PLAY_V14_SH08_LongestChangeTextsFitWithEnlargedText()
+        {
+            bool hadPreview=PlayerPrefs.HasKey(ThemeRegistry.PreviewKey);int previewValue=PlayerPrefs.GetInt(ThemeRegistry.PreviewKey,0);
+            string savedTheme=PlayerPrefs.GetString(ThemeRegistry.PreferenceKey,GameTheme.DefaultId);
+            var failures=new List<string>();
+            try
+            {
+                PlayerPrefs.SetInt(ThemeRegistry.PreviewKey,1);GameApp.CleanCapture11=true;
+                var fixture=ShopBoundaryFixture();fixture.shop.offers.Clear();
+                AddBoundaryOffer(fixture,"long-smooth","die_upgrade","U01");AddBoundaryOffer(fixture,"long-mirror","die_upgrade","U11");
+                var die=fixture.dice.OrderBy(d=>d.createdSerial).First();
+                foreach(var f in die.faces){f.texture="rough";f.isGold=true;f.baseWeight=2;}
+                yield return W14Load(fixture);string state=StateJson();
+                foreach(string theme in new[]{"default","swiss"})
+                {
+                    app.ApplyTheme11(theme);
+                    foreach(string offer in new[]{"long-smooth","long-mirror"})
+                        foreach(int percent in new[]{100,150})
+                        {
+                            W11TextScale(percent);yield return null;
+                            Click("Buy_"+offer);Click("Target_"+die.dieId);Click("Face_F02");yield return null;
+                            Assert.That(app.FacePickStep14,Is.EqualTo("S3"),offer);
+                            string scope=theme+"-"+offer+"-text"+percent;
+                            W14CheckTexts(scope,failures,"FacePick14","OwnedStrip");W14ButtonsInside("FacePick14",scope,failures);
+                            yield return W14Shot("pick-S3-long-"+scope);
+                            Click("CancelFacePick14");yield return null;Assert.That(StateJson(),Is.EqualTo(state));
+                        }
+                    W11TextScale(100);
+                }
+            }
+            finally
+            {
+                W11TextScale(100);GameApp.CleanCapture11=false;app.ApplyTheme11(GameTheme.DefaultId);
+                if(hadPreview)PlayerPrefs.SetInt(ThemeRegistry.PreviewKey,previewValue);else PlayerPrefs.DeleteKey(ThemeRegistry.PreviewKey);
+                PlayerPrefs.SetString(ThemeRegistry.PreferenceKey,savedTheme);PlayerPrefs.Save();
+            }
+            Assert.That(failures,Is.Empty,string.Join("\n",failures.Take(20)));
         }
 
         /// <summary>SH-10 (D5, C98): three 砍价高手 bring a card of list price 4 to 1; bought here, it sells for 1 and says
