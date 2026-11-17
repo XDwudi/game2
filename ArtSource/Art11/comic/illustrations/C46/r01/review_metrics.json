@@ -1,0 +1,96 @@
+{
+  "tool": "artgen-1.2",
+  "candidate": "ArtSource/Art11/comic/illustrations/C46/r01/original.png",
+  "candidateSha256": "fc51e76f664fd518e88fbb561392997e2476fc89351e1a37d926e02e6bffc933",
+  "kitVersion": "theme-comic-0.1",
+  "category": "illustration",
+  "rangeSource": "the pinned anchors",
+  "lookTolerance": 0.03,
+  "anchors": [
+    {
+      "id": "C108",
+      "sha256": "12f4e7e4bc6894a70e1fba05b5f6ed1a5b74f95ea933fbe2091aa420bf28e0b2"
+    },
+    {
+      "id": "C117",
+      "sha256": "7ef0ad08e32b54125d7d627f3932fcc0046694667c567269a28912727ff0e0c7"
+    },
+    {
+      "id": "I10",
+      "sha256": "227b27869362fc324cd260094932a3da675cbbaa5bfc222e5467a79bfb9bbb8f"
+    },
+    {
+      "id": "U10",
+      "sha256": "c85265f8bb15de0916f99ce17c3a1c6174459d330b96a268e70d4d29ec36b8c1"
+    }
+  ],
+  "indicators": {
+    "role.dark": {
+      "value": 0.3828,
+      "refMin": 0.1765,
+      "refMax": 0.2247,
+      "look": true
+    },
+    "role.ivory": {
+      "value": 0.2555,
+      "refMin": 0.2112,
+      "refMax": 0.3342,
+      "look": false
+    },
+    "role.coral": {
+      "value": 0.0058,
+      "refMin": 0.0031,
+      "refMax": 0.2258,
+      "look": false
+    },
+    "role.cyan": {
+      "value": 0.0017,
+      "refMin": 0.0,
+      "refMax": 0.0939,
+      "look": false
+    },
+    "role.amber": {
+      "value": 0.0259,
+      "refMin": 0.0151,
+      "refMax": 0.0926,
+      "look": false
+    },
+    "role.other": {
+      "value": 0.3282,
+      "refMin": 0.2234,
+      "refMax": 0.4976,
+      "look": false
+    },
+    "transparentShare": {
+      "value": 0.4823,
+      "refMin": 0.0,
+      "refMax": 0.0,
+      "look": true
+    },
+    "subjectWidthShare": {
+      "value": 0.8589,
+      "refMin": 1.0,
+      "refMax": 1.0,
+      "look": true
+    },
+    "subjectHeightShare": {
+      "value": 0.9115,
+      "refMin": 1.0,
+      "refMax": 1.0,
+      "look": true
+    },
+    "lightFringeShare": {
+      "value": 0.0,
+      "refMin": 0.0,
+      "refMax": 0.0,
+      "look": false
+    }
+  },
+  "lookFlags": [
+    "role.dark",
+    "transparentShare",
+    "subjectWidthShare",
+    "subjectHeightShare"
+  ],
+  "note": "Indicators locate drift for a human or independent reviewer. They are not pass/fail criteria."
+}

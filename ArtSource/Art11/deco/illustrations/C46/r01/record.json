@@ -1,0 +1,141 @@
+{
+  "schema": "artgen-record-1",
+  "toolVersion": "artgen-1.2",
+  "jobId": "V11-DECO-C46",
+  "jobPath": "ArtSource/Art11/deco/illustrations/C46/job.json",
+  "jobSha256": "0daaff21157a86638be1aa6228a6b9c309b6faaef86affd465dfe27188865ac5",
+  "category": "illustration",
+  "revision": "r01",
+  "mode": "new",
+  "transparentRequired": true,
+  "content": {
+    "contentId": "C46",
+    "list": "controllers",
+    "displayName": "稳稳乘数",
+    "configDescription": "每次有效提交整手得分×2。",
+    "configPath": "DicePrototype/Assets/Game/Data/P0Config.json",
+    "configSha256": "be01f53fafb0cd441acbf5341a813d5409931eb8bea6463c644af30698846151"
+  },
+  "styleKit": {
+    "path": "ArtSource/StyleKit/themes/deco/style_kit.json",
+    "sha256": "d3a8ad69c1eccdc63269265c2a78133fb841617d512e717643ba43ab70df14ba",
+    "kitVersion": "theme-deco-0.1",
+    "status": "PROPOSED (2026-11-17): anchors are crops of the four card illustrations on the user-chosen 黑金装饰艺术 concept page (ArtSource/StyleKit/themes/deco/concepts/card.png); awaiting the user's review at checkpoint 3 with the first representative redraws."
+  },
+  "references": [
+    {
+      "index": 1,
+      "path": "ArtSource/StyleKit/themes/deco/plates/illustration_plate_theme-deco-0.1.png",
+      "sha256": "5e2b3a906a7364dd69389bdfeecd187c2772cd7958274920f9af9f2dbd8078af",
+      "role": "STYLE PLATE: four card illustrations in the black-and-gold Art Deco style of this game, cropped from concept art and still standing on their black lacquer card backdrop with small crimson corner triangles. Copy their rendering exactly (polished gold with crisp specular bands, ivory enamel, glossy lacquer, deep crimson and teal enamel, elegant streamlined geometry, fanned gold rays). Do not copy their subjects, their layout, the black backdrop or the corner triangles."
+    },
+    {
+      "index": 2,
+      "path": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c46.png",
+      "sha256": "171d7bfca9a6abf5931b092b54f8c2b34caf25335e46da42aeb3d1da9e68e6a1",
+      "role": "SUBJECT REFERENCE: the same card drawn in the game's default style. Keep its objects, their arrangement and the idea; ignore its rendering, colours, outlines and halftone completely and draw it in the style of reference image 1."
+    }
+  ],
+  "prompt": {
+    "imagePromptPath": "ArtSource/Art11/deco/illustrations/C46/r01/prompt.txt",
+    "imagePromptFileSha256": "4014a908e5df4771b6e1ac01559dac096283f1b6f97c4c8a22ae759f05e30801",
+    "agentRequestPath": "ArtSource/Art11/deco/illustrations/C46/r01/codex-request.txt",
+    "agentRequestFileSha256": "11eb93d0a4f0077e1761a94e91e5fa69047f0026453187cbc55c271c364f7759"
+  },
+  "codex": {
+    "command": [
+      "C:\\Users\\f\\AppData\\Local\\OpenAI\\Codex\\bin\\c38161ad8494f88c\\codex.exe"
+    ],
+    "version": "codex-cli 0.169.0-alpha.11.1",
+    "exitCode": 0,
+    "threadId": "01a1e8b8-4b3b-7612-9a4b-26febfca0207",
+    "sessionLog": "C:\\Users\\f\\.codex\\sessions\\2026\\11\\17\\rollout-2026-11-17T03-55-54-01a1e8b8-4b3b-7612-9a4b-26febfca0207.jsonl",
+    "agentModel": "gpt-6-astra",
+    "usage": {
+      "input_tokens": 72103,
+      "cached_input_tokens": 59136,
+      "cache_write_input_tokens": 0,
+      "output_tokens": 803,
+      "reasoning_output_tokens": 0
+    },
+    "durationSeconds": 101.7,
+    "quotaUsedPercentFirst": 20.0,
+    "quotaUsedPercentLast": 20.0
+  },
+  "imageTool": {
+    "name": "image_gen.imagegen (Codex built-in)",
+    "modelSnapshot": "not exposed by the tool; OpenAI documents the built-in tool as gpt-image-2",
+    "generations": [
+      {
+        "id": "exec-25c6ace1-d06c-41e5-98cf-ae9b21671258",
+        "kind": "image_gen.generation",
+        "status": "completed",
+        "failure": null,
+        "revisedPrompt": "Create ONE standalone card-theme illustration. Subject: a ship steering wheel with three spokes and a die mounted at its hub, two short motion strokes along the rim\nStyle: Match the STYLE PLATE (reference image 1) exactly: 1920s Art Deco luxury object illustration. Polished gold and brass with crisp specular bands, glossy ivory enamel, black lacquer, and deep crimson and teal enamel inlays; elegant streamlined geometric forms with stepped and fanned motifs; precise thin gold edge lines; rich but restrained, like a jeweller's poster. Dice are ivory-enamel cubes with softly rounded edges and lacquered crimson or teal pips. Three-quarter view from slightly above; soft studio light from the upper left with warm gold reflections.\nColour roles: Ivory #F8E5C6 for dice bodies and lit enamel; gold #D9A44E shaded with old gold #B7916B and bronze #785C3E for metal, rims, handles, coins and rays; crimson #7A120C for red pips and red enamel; deep teal #0E4A66 for blue pips, water and blue enamel; black lacquer #15110D only for dark lacquer parts and the deepest shadows. No other hues, no neon, no glow.\nComposition: One cohesive subject group of at most three objects, centred on a square canvas; the subject spans roughly 70 to 95 percent of the canvas width without touching the edges, with even transparent margin on every side; the silhouette must stay readable at 64 pixels. Two or three short fanned gold ray strokes are allowed when they express the effect. The card frame of the game draws its own backdrop, so the illustration has no background field at all.\nOutput: True transparent alpha background with no backdrop of any colour and no background shapes. A single finished illustration, not a sheet of variants.\nAvoid: text, letters, numbers, labels, prices, card frames, UI elements, a background field, a black backdrop panel, a sunburst backdrop, corner triangles, ground scenery, reflections of a floor, checkerboard, photorealism, plastic 3D-render look, chrome, pixel art, neon glow, grunge, human characters, expressive faces.",
+        "transparentBackground": true,
+        "inputImages": [
+          {
+            "path": "E:\\agent_workspace\\gpt\\game2\\ArtSource\\StyleKit\\themes\\deco\\plates\\illustration_plate_theme-deco-0.1.png",
+            "sha256": "5e2b3a906a7364dd69389bdfeecd187c2772cd7958274920f9af9f2dbd8078af"
+          },
+          {
+            "path": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Art\\Art071\\Illustrations\\illustration_c46.png",
+            "sha256": "171d7bfca9a6abf5931b092b54f8c2b34caf25335e46da42aeb3d1da9e68e6a1"
+          }
+        ],
+        "savedPath": "C:\\Users\\f\\.codex\\generated_images\\01a1e8b8-4b3b-7612-9a4b-26febfca0207\\exec-25c6ace1-d06c-41e5-98cf-ae9b21671258.png",
+        "generationId": "99bcc3dc-9064-444c-9c70-2ccc057582cf"
+      }
+    ],
+    "runChecks": {
+      "imageCallCount": 1,
+      "generationCount": 1,
+      "callReferencedImagePaths": [
+        "E:/agent_workspace/gpt/game2/ArtSource/StyleKit/themes/deco/plates/illustration_plate_theme-deco-0.1.png",
+        "E:/agent_workspace/gpt/game2/DicePrototype/Assets/Art/Art071/Illustrations/illustration_c46.png"
+      ],
+      "modelInputImages": [
+        {
+          "path": "E:\\agent_workspace\\gpt\\game2\\ArtSource\\StyleKit\\themes\\deco\\plates\\illustration_plate_theme-deco-0.1.png",
+          "sha256": "5e2b3a906a7364dd69389bdfeecd187c2772cd7958274920f9af9f2dbd8078af"
+        },
+        {
+          "path": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Art\\Art071\\Illustrations\\illustration_c46.png",
+          "sha256": "171d7bfca9a6abf5931b092b54f8c2b34caf25335e46da42aeb3d1da9e68e6a1"
+        }
+      ],
+      "transparentRequested": true,
+      "callPromptExact": true,
+      "revisedPromptExact": true
+    }
+  },
+  "output": {
+    "sourcePath": "C:\\Users\\f\\.codex\\generated_images\\01a1e8b8-4b3b-7612-9a4b-26febfca0207\\exec-25c6ace1-d06c-41e5-98cf-ae9b21671258.png",
+    "archivedPath": "ArtSource/Art11/deco/illustrations/C46/r01/original.png",
+    "sha256": "104f2d8caa9124ee65c02efeb4d458b2812e5206b173767e1584868e6d9b0693",
+    "copiedByteIdentical": true,
+    "dimensions": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alphaExtrema": [
+      0,
+      255
+    ],
+    "transparentShare": 0.5861,
+    "alphaBounds": [
+      42,
+      46,
+      1151,
+      1182
+    ],
+    "subjectWidthShare": 0.8844,
+    "subjectHeightShare": 0.9059,
+    "subjectAreaShare": 0.3699
+  },
+  "runValid": true,
+  "runProblems": [],
+  "status": "CANDIDATE: review pending",
+  "recordedUtc": "2026-11-17T08:57:36.081560+00:00"
+}
