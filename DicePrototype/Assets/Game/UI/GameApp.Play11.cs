@@ -521,7 +521,9 @@ namespace DiceCraft
             var s=ViewState;bool c=Large11;float x=l.resources.x+14,w=l.resources.width-28,y=l.resources.y+210;
             int slots=Math.Min(5,s.consumableSlots);
             bool noItems=ControllerRules.ModifierHas(Config,Session.CurrentModifierId,"NoItems")&&InStageView10;
-            NoWrap11(UiKit.Text(main,"ItemsTitle","道具 "+s.inventory.Count+" / "+s.consumableSlots+(noItems?" · 本关禁用":""),x,y,w,30,c?17:20,noItems?Color.Lerp(UiKit.Muted,UiKit.Boss,.6f):UiKit.Muted));
+            // One line tall at the current size (the body size at 125/150 %), above the item row at y + 34.
+            float titleSize=Body11(c?13:20);
+            NoWrap11(UiKit.Text(main,"ItemsTitle","道具 "+s.inventory.Count+" / "+s.consumableSlots+(noItems?" · 本关禁用":""),x,y,w,Line11(titleSize),titleSize,noItems?Color.Lerp(UiKit.Muted,UiKit.Boss,.6f):UiKit.Muted));
             float size=64,gap=Mathf.Min(12,(w-5*size)/4);
             for(int i=0;i<slots;i++)
             {
@@ -604,6 +606,8 @@ namespace DiceCraft
             }
         }
         private float submitHandTop11=788;
+        /// <summary>Hit-local x of each locked die's grip (right of the die), set when the slot is drawn.</summary>
+        private readonly Dictionary<string,float> GripX11=new Dictionary<string,float>(StringComparer.Ordinal);
         private void DrawSlotDie11(DieInstance die,DieHandState result,Vector2 center,int index,float scale,Rect slot)
         {
             string id=die.dieId;
@@ -633,9 +637,8 @@ namespace DiceCraft
                 try{Send(new SessionCommand{kind=CommandKind.Reorder,dieIds=ids.ToArray()});}finally{table.LayoutDuration=duration;}
             };
             // The narrow grip stands in the gap right of the die (its left edge is the slot's edge), inside the same hit.
+            GripX11[id]=Mathf.Min(w-12,center.x+50.5f*scale+4-hitX);
             DrawLockedGrip07(hit,id,false);
-            if(hit.Find("LockedGrip_"+id) is RectTransform grip)
-                grip.anchoredPosition=new Vector2(Mathf.Min(w-12,center.x+50.5f*scale+4-hitX),grip.anchoredPosition.y);
             // Right column of the slot: padlock, then the shape badges; the permanent-change label uses the same column.
             Rect column=new Rect(slot.x+slot.width-32,slot.y+40,28,slot.height-48);
             DrawLockMark07(column.x+3,slot.y+36,index,id);
