@@ -56,6 +56,7 @@
 | boss / pressure | 首领关、高压关的标识 | C8463F / E0703A |
 | rarityCommon / rarityAdvanced / rarityRare | 卡面稀有度边框（W13 起使用） | B8C9C5 / 55B6D9 / AD92DB |
 | onFelt | 直接画在桌布上的标记：骰子握把的点、提交格序号、空提交格的点（W11b 起使用）。桌布浅的风格必须填深色 | 不填：各处沿用原色（握把 paper、序号 muted、空格点 panelLight） |
+| valueBadge | 卡面数值角标（×1.5、+12、本手可用）的底色（W13 起使用） | 不填：沿用 gold |
 
 对比度要求（AX-08，按色板自动测量）：`textColor` 对 `panel`、`ink` 对 `paper` 至少 4.5:1；`muted` 对 `panel` 至少 3:1。
 

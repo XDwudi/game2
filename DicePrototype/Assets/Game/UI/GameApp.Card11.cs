@@ -180,7 +180,7 @@ namespace DiceCraft
         private Rect ValueBadge13(Transform parent,CardFace13 card,float preferredX,float y,float minX,float maxX,float size)
         {
             if(string.IsNullOrEmpty(card.value))return Rect.zero;
-            var chip=Surface11(parent,"ValueBadge13",preferredX,y,40,30,"ui_chip_label",card.valueWarning?UiKit.Danger:UiKit.Gold);
+            var chip=Surface11(parent,"ValueBadge13",preferredX,y,40,30,"ui_chip_label",card.valueWarning?UiKit.Danger:UiKit.ValueBadge);
             var image=chip.GetComponent<Image>();var frame=FrameInsets11(image);
             var text=NoWrap11(UiKit.Text(parent,"State",card.value,preferredX,y,40,30,size,Color.white,TextAlignmentOptions.Center));
             text.fontStyle=FontStyles.Bold;

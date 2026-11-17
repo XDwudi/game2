@@ -217,6 +217,111 @@ namespace DiceCraft.Tests
             return scene;
         }
 
+        /// <summary>CIE L*a*b* (D65) of an sRGB colour.</summary>
+        private static void W13Lab(Color c,out double l,out double a,out double b)
+        {
+            double Linear(double u)=>u<=.04045?u/12.92:Math.Pow((u+.055)/1.055,2.4);
+            double r=Linear(c.r),g=Linear(c.g),bl=Linear(c.b);
+            double x=(.4124564*r+.3575761*g+.1804375*bl)/.95047,y=.2126729*r+.7151522*g+.0721750*bl,z=(.0193339*r+.1191920*g+.9503041*bl)/1.08883;
+            double F(double t)=>t>216.0/24389?Math.Pow(t,1.0/3):(24389.0/27*t+16)/116;
+            double fx=F(x),fy=F(y),fz=F(z);l=116*fy-16;a=500*(fx-fy);b=200*(fy-fz);
+        }
+        /// <summary>CIEDE2000 colour difference of two L*a*b* colours (Sharma, Wu and Dalal 2005).</summary>
+        private static double W13DeltaE00(double l1,double a1,double b1,double l2,double a2,double b2)
+        {
+            double Rad(double d)=>d*Math.PI/180;
+            double c1=Math.Sqrt(a1*a1+b1*b1),c2=Math.Sqrt(a2*a2+b2*b2),cm=(c1+c2)/2,cm7=Math.Pow(cm,7);
+            double g=.5*(1-Math.Sqrt(cm7/(cm7+Math.Pow(25,7))));
+            double a1p=(1+g)*a1,a2p=(1+g)*a2,c1p=Math.Sqrt(a1p*a1p+b1*b1),c2p=Math.Sqrt(a2p*a2p+b2*b2);
+            double Hue(double bb,double ap){if(bb==0&&ap==0)return 0;double v=Math.Atan2(bb,ap)*180/Math.PI;return v<0?v+360:v;}
+            double h1=Hue(b1,a1p),h2=Hue(b2,a2p);
+            double dl=l2-l1,dc=c2p-c1p,dh=0;
+            if(c1p*c2p!=0){dh=h2-h1;if(dh>180)dh-=360;else if(dh<-180)dh+=360;}
+            double dH=2*Math.Sqrt(c1p*c2p)*Math.Sin(Rad(dh/2));
+            double lm=(l1+l2)/2,cpm=(c1p+c2p)/2,hm=h1+h2;
+            if(c1p*c2p!=0)hm=Math.Abs(h1-h2)<=180?(h1+h2)/2:(h1+h2<360?(h1+h2+360)/2:(h1+h2-360)/2);
+            double t=1-.17*Math.Cos(Rad(hm-30))+.24*Math.Cos(Rad(2*hm))+.32*Math.Cos(Rad(3*hm+6))-.20*Math.Cos(Rad(4*hm-63));
+            double theta=30*Math.Exp(-Math.Pow((hm-275)/25,2)),cpm7=Math.Pow(cpm,7),rc=2*Math.Sqrt(cpm7/(cpm7+Math.Pow(25,7)));
+            double sl=1+.015*Math.Pow(lm-50,2)/Math.Sqrt(20+Math.Pow(lm-50,2)),sc=1+.045*cpm,sh=1+.015*cpm*t,rt=-Math.Sin(Rad(2*theta))*rc;
+            return Math.Sqrt(Math.Pow(dl/sl,2)+Math.Pow(dc/sc,2)+Math.Pow(dH/sh,2)+rt*(dc/sc)*(dH/sh));
+        }
+        private static double W13DeltaE00(Color x,Color y){W13Lab(x,out var l1,out var a1,out var b1);W13Lab(y,out var l2,out var a2,out var b2);return W13DeltaE00(l1,a1,b1,l2,a2,b2);}
+        private static readonly string[] W13Warnings={"本关失效","首领关将失效","将被祭坛摧毁","右邻失效"};
+
+        /// <summary>
+        /// THEME_SPEC §2 valueBadge (W13 review): in every style a value badge (×1.5, +12, 本手可用) and a warning badge
+        /// (本关失效, 首领关将失效) are told apart at a glance. Measured as drawn on the gallery's Table page: the chip fill under
+        /// each badge label on a capture with the labels hidden (so after any LabelOn11 deepening). Between the value fill
+        /// and the warning fill: CIEDE2000 at least 20 and luminance contrast at least 1.5:1; each label on its own chip at
+        /// least 4.5:1.
+        /// </summary>
+        [UnityTest] public IEnumerator PLAY_V13_ValueAndWarningBadgesAreDistinctInEveryTheme()
+        {
+            // The CIEDE2000 implementation against the first pair of Sharma, Wu and Dalal's test data.
+            Assert.That(W13DeltaE00(50,2.6772,-79.7751,50,0,-82.7485),Is.EqualTo(2.0425).Within(.0001));
+            Assert.That(W13DeltaE00(50,-1.3802,-84.2814,50,0,-82.7485),Is.EqualTo(1.0000).Within(.0001));
+            bool hadPreview=PlayerPrefs.HasKey(ThemeRegistry.PreviewKey);int previewValue=PlayerPrefs.GetInt(ThemeRegistry.PreviewKey,0);
+            string savedTheme=PlayerPrefs.GetString(ThemeRegistry.PreferenceKey,GameTheme.DefaultId);
+            var report=new List<string>();var failures=new List<string>();
+            try
+            {
+                PlayerPrefs.SetInt(ThemeRegistry.PreviewKey,1);StartRun("71304");W11TextScale(100);
+                foreach(var theme in ThemeRegistry.All)
+                {
+                    app.ApplyTheme11(theme.Id);Assert.That(app.ThemeId11,Is.EqualTo(theme.Id));
+                    var root=app.ShowCardGallery13(2);yield return null;Canvas.ForceUpdateCanvases();
+                    var labels=root.GetComponentsInChildren<TextMeshProUGUI>(false).Where(t=>t.name=="State"&&t.gameObject.activeInHierarchy&&!string.IsNullOrWhiteSpace(t.text)).ToList();
+                    foreach(var t in labels)t.ForceMeshUpdate();
+                    var glyphs=labels.ToDictionary(t=>t,W11bGlyphRects);
+                    foreach(var t in labels)t.enabled=false;
+                    yield return new WaitForEndOfFrame();var shot=ScreenCapture.CaptureScreenshotAsTexture();
+                    foreach(var t in labels)t.enabled=true;Canvas.ForceUpdateCanvases();
+                    var values=new List<Color>();var warnings=new List<Color>();
+                    try
+                    {
+                        var px=shot.GetPixels32();int w=shot.width,h=shot.height;
+                        foreach(var t in labels)
+                        {
+                            var under=new List<Color>();
+                            foreach(var r in glyphs[t])
+                                for(int y=Mathf.Max(0,Mathf.FloorToInt(r.yMin));y<Mathf.Min(h,Mathf.CeilToInt(r.yMax));y++)
+                                    for(int x=Mathf.Max(0,Mathf.FloorToInt(r.xMin));x<Mathf.Min(w,Mathf.CeilToInt(r.xMax));x++)under.Add(px[y*w+x]);
+                            if(under.Count<6){failures.Add(theme.Id+" "+W11bPath(t.transform)+": no pixels under the label");continue;}
+                            under.Sort((a,b)=>GameApp.Luminance11(a).CompareTo(GameApp.Luminance11(b)));
+                            Color fill=under[under.Count/2];var label=t.color;label.a=1;
+                            float ratio=GameApp.Contrast11(label,fill);
+                            if(ratio<GameApp.MinContrast11)failures.Add(theme.Id+" '"+t.text+"' label #"+ColorUtility.ToHtmlStringRGB(label)+" on #"+ColorUtility.ToHtmlStringRGB(fill)+" "+ratio.ToString("0.00",CultureInfo.InvariantCulture)+":1");
+                            (W13Warnings.Contains(t.text)?warnings:values).Add(fill);
+                        }
+                    }
+                    finally{UObj.Destroy(shot);}
+                    Assert.That(values,Is.Not.Empty,theme.Id+": the gallery's Table page must show value badges.");
+                    Assert.That(warnings,Is.Not.Empty,theme.Id+": the gallery's Table page must show warning badges.");
+                    Color Median(List<Color> list){var sorted=list.OrderBy(c=>GameApp.Luminance11(c)).ToList();return sorted[sorted.Count/2];}
+                    Color value=Median(values),warning=Median(warnings);
+                    double delta=W13DeltaE00(value,warning);float contrast=GameApp.Contrast11(value,warning);
+                    // Every badge of a kind is drawn alike; the closest pair across the kinds is held to the same bounds.
+                    double closest=values.SelectMany(v=>warnings.Select(x=>W13DeltaE00(v,x))).Min();
+                    float lowest=values.SelectMany(v=>warnings.Select(x=>GameApp.Contrast11(v,x))).Min();
+                    string line=theme.Id+": value fill #"+ColorUtility.ToHtmlStringRGB(value)+" ("+values.Count+" badges), warning fill #"+ColorUtility.ToHtmlStringRGB(warning)+" ("+warnings.Count+" badges): CIEDE2000 "+
+                        delta.ToString("0.0",CultureInfo.InvariantCulture)+" (closest pair "+closest.ToString("0.0",CultureInfo.InvariantCulture)+"), luminance contrast "+contrast.ToString("0.00",CultureInfo.InvariantCulture)+":1 (lowest pair "+lowest.ToString("0.00",CultureInfo.InvariantCulture)+":1)";
+                    report.Add(line);
+                    if(closest<20||lowest<1.5f)failures.Add(line);
+                    yield return W13Capture("badges-"+theme.Id);
+                    app.HideCardGallery13();
+                }
+            }
+            finally
+            {
+                app.HideCardGallery13();W11TextScale(100);app.ApplyTheme11(GameTheme.DefaultId);
+                if(hadPreview)PlayerPrefs.SetInt(ThemeRegistry.PreviewKey,previewValue);else PlayerPrefs.DeleteKey(ThemeRegistry.PreviewKey);
+                PlayerPrefs.SetString(ThemeRegistry.PreferenceKey,savedTheme);PlayerPrefs.Save();
+                File.WriteAllLines(Path.Combine(W13Output,"value-warning-badges.txt"),report.Concat(failures.Select(f=>"FAIL "+f)));
+            }
+            Assert.That(report.Count,Is.EqualTo(ThemeRegistry.All.Count),"Every theme measured.");
+            Assert.That(failures,Is.Empty,"Value and warning badges must be told apart, labels readable:\n"+string.Join("\n",failures));
+        }
+
         /// <summary>CT-04 and the W13 play-screen record: the ten-card mini row and the states a, b3, c and f in both themes,
         /// each card of the row read by the card check (glyphs, badges and picture clear of each other).</summary>
         [UnityTest] public IEnumerator PLAY_V13_CT04_TenCardRowAndPlayScreenStatesInBothThemes()
