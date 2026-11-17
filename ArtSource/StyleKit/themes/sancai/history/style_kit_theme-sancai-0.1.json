@@ -1,0 +1,108 @@
+{
+  "kitVersion": "theme-sancai-0.1",
+  "status": "PROPOSED (2026-11-17): anchors are crops of the four card illustrations on the user-chosen 唐三彩陶坊 concept page (ArtSource/StyleKit/themes/sancai/concepts/card.png); awaiting the user's review at checkpoint 3 with the first representative redraws.",
+  "updated": "2026-11-17",
+  "changelog": [
+    "theme-sancai-0.1: first kit for the V1.1 唐三彩陶坊 theme (DEV_PLAN D1, W19); anchors C108, C117, I10, U10 cropped from the concept card page without frames or titles by tools/art_v11/crop_anchors.py (boxes in anchorSource)."
+  ],
+  "authority": "docs/specs/v11/THEME_SPEC.md; docs/art/AI_ART_PIPELINE.md",
+  "changeRule": "Anchors, plate and prompt blocks change only with a new kitVersion and a recorded user decision; copy the old kit bytes to history/ before a bump. Never edit a pinned value to make a check pass.",
+  "palette": {
+    "cream": "F0D7AA",
+    "amber": "D98E2B",
+    "green": "557A2C",
+    "cobalt": "2C4E9A",
+    "ironRed": "B5481E",
+    "umber": "5A3614",
+    "highlight": "FBF0DC"
+  },
+  "categories": {
+    "illustration": {
+      "appliesTo": "V1.1 唐三彩陶坊 theme redraws of the card illustrations: controllers C*, consumables I*, services O*, dice upgrades U* (P0Config ids), and boss emblems and loot art. Each redraw keeps the subject of the default illustration of the same id.",
+      "route": "Image generation through tools/art_gen/artgen.py with --kit ArtSource/StyleKit/themes/sancai/style_kit.json",
+      "output": {
+        "transparent": true,
+        "canvas": "square",
+        "observedSize": [
+          1254,
+          1254
+        ],
+        "instruction": "True transparent alpha background with no backdrop of any colour and no background shapes. A single finished illustration, not a sheet of variants."
+      },
+      "displaySizes": [
+        170,
+        128,
+        85,
+        64
+      ],
+      "displaySizesNote": "Same on-screen sizes as the default illustrations (shop card at 1440p / 1080p / 720p, and a compact slot).",
+      "anchorSource": {
+        "page": "ArtSource/StyleKit/themes/sancai/concepts/card.png",
+        "pageSha256": "b229fbafc02eac617c8f103068769319bc3be8fc15af07689c3fdf1a61d176fb",
+        "boxes": {
+          "C108": [
+            100,
+            302,
+            425,
+            608
+          ],
+          "C117": [
+            488,
+            302,
+            822,
+            604
+          ],
+          "I10": [
+            866,
+            302,
+            1206,
+            612
+          ],
+          "U10": [
+            1276,
+            302,
+            1610,
+            606
+          ]
+        },
+        "tool": "tools/art_v11/crop_anchors.py"
+      },
+      "anchors": [
+        {
+          "id": "C108",
+          "path": "ArtSource/StyleKit/themes/sancai/anchors/C108.png",
+          "sha256": "4bbbbf33c234dc49a8517b130e33f07ab29340be484744f70b0577514cd5b2f4"
+        },
+        {
+          "id": "C117",
+          "path": "ArtSource/StyleKit/themes/sancai/anchors/C117.png",
+          "sha256": "336b07be131f5ae98d11b5054ac81dc7e56247c9d200ebe185ec7f91709ec78d"
+        },
+        {
+          "id": "I10",
+          "path": "ArtSource/StyleKit/themes/sancai/anchors/I10.png",
+          "sha256": "adc408429f3dfe17fafed5497e6903b07a949c171ffd32a0774c21165a64a6f6"
+        },
+        {
+          "id": "U10",
+          "path": "ArtSource/StyleKit/themes/sancai/anchors/U10.png",
+          "sha256": "20bdf99b23b36618678cdc7793c53123890150fb32701ae2c2d6ee8b26de18c8"
+        }
+      ],
+      "plate": {
+        "path": "ArtSource/StyleKit/themes/sancai/plates/illustration_plate_theme-sancai-0.1.png",
+        "sha256": "ec2beddf08039e823a15f011bc62f147c80b668c2944577ff286a0e061184e43",
+        "columns": 4,
+        "cell": 384,
+        "padding": 16,
+        "background": "F1E2C6",
+        "builtWith": "artgen-1.1; Pillow 9.4.0"
+      },
+      "plateRole": "STYLE PLATE: four card illustrations in the Tang sancai glazed-pottery style of this game, cropped from concept art and still standing on their cream crackle-glaze card backdrop. Copy their rendering exactly (sculpted glazed ceramic forms, glossy lead glaze with fine crackle, glaze pooling and runs, amber, green and cream glazes with cobalt and iron red, warm umber shadows). Do not copy their subjects, their layout, the crackle-glaze backdrop or the frame ornaments.",
+      "styleBlock": "Match the STYLE PLATE (reference image 1) exactly: Tang-dynasty sancai glazed pottery. Every object is a sculpted, slightly chunky glazed ceramic piece in soft relief: thick glossy lead glaze with fine crackle (crazing) lines, softly rounded edges, glaze that pools in hollows and runs in a few drips, small bright specular highlights on the glaze, warm unglazed umber clay in the deepest shadows. Colour comes from the three sancai glazes (amber ochre, copper green and cream) with cobalt blue as the rare fourth glaze. Dice are cream-glazed cubes with crackle and deep, glossy cobalt or iron-red pips. Three-quarter view from slightly above; light from the upper left.",
+      "colorRoles": "Cream glaze #F0D7AA for lit surfaces and dice bodies, with #FBF0DC only for the brightest glaze highlights; amber ochre #D98E2B for gold, brass, coins, flames and warm accents; copper green #557A2C for leaves, rims and secondary areas; cobalt blue #2C4E9A for blue pips, water and blue objects; iron red #B5481E for red pips and red objects; umber #5A3614 for thin outlines and the deepest shadows. No other hues, no neon, no glow.",
+      "composition": "One cohesive subject group of at most three objects, centred on a square canvas; the subject spans roughly 70 to 95 percent of the canvas width without touching the edges, with even transparent margin on every side; the silhouette must stay readable at 64 pixels. Two or three short glazed relief strokes are allowed when they express the effect. The card frame of the game draws its own backdrop, so the illustration has no background field at all.",
+      "avoid": "text, letters, numbers, labels, prices, card frames, UI elements, a background tile, plaque or field, cloud-scroll frame ornaments, paper or coloured backdrop, ground scenery, checkerboard, photorealism, plastic 3D-render look, chrome, flat vector shapes without glaze, pixel art, neon glow, grunge, human characters, expressive faces."
+    }
+  }
+}

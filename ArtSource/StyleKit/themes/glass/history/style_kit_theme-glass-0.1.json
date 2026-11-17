@@ -1,0 +1,109 @@
+{
+  "kitVersion": "theme-glass-0.1",
+  "status": "PROPOSED (2026-11-17): anchors are crops of the four card illustrations on the user-chosen 彩绘玻璃 concept page (ArtSource/StyleKit/themes/glass/concepts/card.png); awaiting the user's review at checkpoint 3 with the first representative redraws.",
+  "updated": "2026-11-17",
+  "changelog": [
+    "theme-glass-0.1: first kit for the V1.1 彩绘玻璃 theme (DEV_PLAN D1, W19); anchors C108, C117, I10, U10 cropped from the concept card page without frames or titles by tools/art_v11/crop_anchors.py (boxes in anchorSource)."
+  ],
+  "authority": "docs/specs/v11/THEME_SPEC.md; docs/art/AI_ART_PIPELINE.md",
+  "changeRule": "Anchors, plate and prompt blocks change only with a new kitVersion and a recorded user decision; copy the old kit bytes to history/ before a bump. Never edit a pinned value to make a check pass.",
+  "palette": {
+    "marble": "F1EBE1",
+    "lead": "0F0E12",
+    "ruby": "BB210D",
+    "cobalt": "0643A0",
+    "sky": "31A6EF",
+    "amber": "F8C761",
+    "deepAmber": "E89D1B",
+    "violet": "7A55A8"
+  },
+  "categories": {
+    "illustration": {
+      "appliesTo": "V1.1 彩绘玻璃 theme redraws of the card illustrations: controllers C*, consumables I*, services O*, dice upgrades U* (P0Config ids), and boss emblems and loot art. Each redraw keeps the subject of the default illustration of the same id.",
+      "route": "Image generation through tools/art_gen/artgen.py with --kit ArtSource/StyleKit/themes/glass/style_kit.json",
+      "output": {
+        "transparent": true,
+        "canvas": "square",
+        "observedSize": [
+          1254,
+          1254
+        ],
+        "instruction": "True transparent alpha background with no backdrop of any colour and no background shapes. A single finished illustration, not a sheet of variants."
+      },
+      "displaySizes": [
+        170,
+        128,
+        85,
+        64
+      ],
+      "displaySizesNote": "Same on-screen sizes as the default illustrations (shop card at 1440p / 1080p / 720p, and a compact slot).",
+      "anchorSource": {
+        "page": "ArtSource/StyleKit/themes/glass/concepts/card.png",
+        "pageSha256": "bcf4cfb5521907d50f96359628b74b88c9685b2a78a3b13267047ae615da624c",
+        "boxes": {
+          "C108": [
+            152,
+            360,
+            462,
+            670
+          ],
+          "C117": [
+            510,
+            345,
+            820,
+            655
+          ],
+          "I10": [
+            864,
+            355,
+            1174,
+            665
+          ],
+          "U10": [
+            1218,
+            360,
+            1528,
+            670
+          ]
+        },
+        "tool": "tools/art_v11/crop_anchors.py"
+      },
+      "anchors": [
+        {
+          "id": "C108",
+          "path": "ArtSource/StyleKit/themes/glass/anchors/C108.png",
+          "sha256": "3a78e909b990ccb49da1661b32d5da10ae5d74df86d37f6a59e208af6ddb35d1"
+        },
+        {
+          "id": "C117",
+          "path": "ArtSource/StyleKit/themes/glass/anchors/C117.png",
+          "sha256": "7bc473114ea08fcb7d6d7bebe784c5ab5994659d2680a3b812645b2f43dafa8c"
+        },
+        {
+          "id": "I10",
+          "path": "ArtSource/StyleKit/themes/glass/anchors/I10.png",
+          "sha256": "90970238b4603acc6282203b7baf40fd3b0138dec6032f4322a5c9a19ba44f8d"
+        },
+        {
+          "id": "U10",
+          "path": "ArtSource/StyleKit/themes/glass/anchors/U10.png",
+          "sha256": "a754c7dd1915cb633e26ddbb3adb4bf6aaf87f104898c34534daf0c44b81adda"
+        }
+      ],
+      "plate": {
+        "path": "ArtSource/StyleKit/themes/glass/plates/illustration_plate_theme-glass-0.1.png",
+        "sha256": "a72dce3225eefbb5c807544adfb22c9b1af615265fea9de1dcb83a85fec1b1bf",
+        "columns": 4,
+        "cell": 384,
+        "padding": 16,
+        "background": "2B2A33",
+        "builtWith": "artgen-1.1; Pillow 9.4.0"
+      },
+      "plateRole": "STYLE PLATE: four card illustrations in the stained-glass style of this game, cropped from concept art and still standing on their radiating amber and violet glass-pane backdrop. Copy their rendering exactly (objects built from coloured glass pieces held by even dark lead lines, backlit glow inside each piece, grisaille shading, jewel tones, marble-white dice with ruby or cobalt pips). Do not copy their subjects, their layout or the radiating pane backdrop.",
+      "styleBlock": "Match the STYLE PLATE (reference image 1) exactly: Gothic stained-glass window illustration. Every object is built from pieces of coloured glass held together by dark lead came lines of even weight; each glass piece glows softly as if lit from behind, with subtle hand-painted grisaille shading near its edges; jewel tones; clear, bold shapes. Dice are pale marble-white glass cubes with ruby-red or cobalt-blue jewel pips, outlined in lead. Three-quarter view from slightly above.",
+      "colorRoles": "Marble white #F1EBE1 for dice bodies and pale glass; ruby #BB210D for red pips and red glass; cobalt #0643A0 with sky blue #31A6EF for blue pips, water and blue glass; amber #F8C761 with deep amber #E89D1B for gold, brass and warm light; violet #7A55A8 sparingly for a secondary accent; lead #0F0E12 for every outline. No other hues, no neon.",
+      "composition": "One cohesive subject group of at most three objects, centred on a square canvas; the subject spans roughly 70 to 95 percent of the canvas width without touching the edges, with even transparent margin on every side; the silhouette must stay readable at 64 pixels. Two or three short glass-shard strokes are allowed when they express the effect. The card frame of the game draws its own backdrop, so the illustration has no background field at all.",
+      "avoid": "text, letters, numbers, labels, prices, card frames, UI elements, a background window, radiating backdrop panes, arch frames, ground scenery, checkerboard, photorealism, 3D-render look, pixel art, neon glow, grunge, human characters, saints or religious figures, expressive faces."
+    }
+  }
+}

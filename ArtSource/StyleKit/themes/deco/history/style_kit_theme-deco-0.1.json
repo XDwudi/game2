@@ -1,0 +1,108 @@
+{
+  "kitVersion": "theme-deco-0.1",
+  "status": "PROPOSED (2026-11-17): anchors are crops of the four card illustrations on the user-chosen 黑金装饰艺术 concept page (ArtSource/StyleKit/themes/deco/concepts/card.png); awaiting the user's review at checkpoint 3 with the first representative redraws.",
+  "updated": "2026-11-17",
+  "changelog": [
+    "theme-deco-0.1: first kit for the V1.1 黑金装饰艺术 theme (DEV_PLAN D1, W19); anchors C108, C117, I10, U10 cropped from the concept card page without frames or titles by tools/art_v11/crop_anchors.py (boxes in anchorSource)."
+  ],
+  "authority": "docs/specs/v11/THEME_SPEC.md; docs/art/AI_ART_PIPELINE.md",
+  "changeRule": "Anchors, plate and prompt blocks change only with a new kitVersion and a recorded user decision; copy the old kit bytes to history/ before a bump. Never edit a pinned value to make a check pass.",
+  "palette": {
+    "ivory": "F8E5C6",
+    "gold": "D9A44E",
+    "oldGold": "B7916B",
+    "lacquer": "15110D",
+    "crimson": "7A120C",
+    "teal": "0E4A66",
+    "bronze": "785C3E"
+  },
+  "categories": {
+    "illustration": {
+      "appliesTo": "V1.1 黑金装饰艺术 theme redraws of the card illustrations: controllers C*, consumables I*, services O*, dice upgrades U* (P0Config ids), and boss emblems and loot art. Each redraw keeps the subject of the default illustration of the same id.",
+      "route": "Image generation through tools/art_gen/artgen.py with --kit ArtSource/StyleKit/themes/deco/style_kit.json",
+      "output": {
+        "transparent": true,
+        "canvas": "square",
+        "observedSize": [
+          1254,
+          1254
+        ],
+        "instruction": "True transparent alpha background with no backdrop of any colour and no background shapes. A single finished illustration, not a sheet of variants."
+      },
+      "displaySizes": [
+        170,
+        128,
+        85,
+        64
+      ],
+      "displaySizesNote": "Same on-screen sizes as the default illustrations (shop card at 1440p / 1080p / 720p, and a compact slot).",
+      "anchorSource": {
+        "page": "ArtSource/StyleKit/themes/deco/concepts/card.png",
+        "pageSha256": "34baff3962b5e8dc4b22cebaf41e482141dbe8e196a275ad58abaa4f978e452c",
+        "boxes": {
+          "C108": [
+            70,
+            360,
+            395,
+            668
+          ],
+          "C117": [
+            475,
+            360,
+            805,
+            668
+          ],
+          "I10": [
+            872,
+            360,
+            1205,
+            668
+          ],
+          "U10": [
+            1278,
+            360,
+            1608,
+            668
+          ]
+        },
+        "tool": "tools/art_v11/crop_anchors.py"
+      },
+      "anchors": [
+        {
+          "id": "C108",
+          "path": "ArtSource/StyleKit/themes/deco/anchors/C108.png",
+          "sha256": "dfc613b06fed7f7bea75fc7e3d757a42c9f316c68a3d5bd4818b5605ade1de53"
+        },
+        {
+          "id": "C117",
+          "path": "ArtSource/StyleKit/themes/deco/anchors/C117.png",
+          "sha256": "9b23dac1e30fff22fc11277f533a11a600cdc4a04e2b67c1a0afe53767da33b3"
+        },
+        {
+          "id": "I10",
+          "path": "ArtSource/StyleKit/themes/deco/anchors/I10.png",
+          "sha256": "baa43b9b87cddf90b6bc10d53a69c10ca4a58b08fb2e3ddc913f72828b6445a6"
+        },
+        {
+          "id": "U10",
+          "path": "ArtSource/StyleKit/themes/deco/anchors/U10.png",
+          "sha256": "f1e6a768f0f25f1a39154bbd5b62019358d4233b58dafb5ba5778e8c22632318"
+        }
+      ],
+      "plate": {
+        "path": "ArtSource/StyleKit/themes/deco/plates/illustration_plate_theme-deco-0.1.png",
+        "sha256": "5e2b3a906a7364dd69389bdfeecd187c2772cd7958274920f9af9f2dbd8078af",
+        "columns": 4,
+        "cell": 384,
+        "padding": 16,
+        "background": "15110D",
+        "builtWith": "artgen-1.1; Pillow 9.4.0"
+      },
+      "plateRole": "STYLE PLATE: four card illustrations in the black-and-gold Art Deco style of this game, cropped from concept art and still standing on their black lacquer card backdrop with small crimson corner triangles. Copy their rendering exactly (polished gold with crisp specular bands, ivory enamel, glossy lacquer, deep crimson and teal enamel, elegant streamlined geometry, fanned gold rays). Do not copy their subjects, their layout, the black backdrop or the corner triangles.",
+      "styleBlock": "Match the STYLE PLATE (reference image 1) exactly: 1920s Art Deco luxury object illustration. Polished gold and brass with crisp specular bands, glossy ivory enamel, black lacquer, and deep crimson and teal enamel inlays; elegant streamlined geometric forms with stepped and fanned motifs; precise thin gold edge lines; rich but restrained, like a jeweller's poster. Dice are ivory-enamel cubes with softly rounded edges and lacquered crimson or teal pips. Three-quarter view from slightly above; soft studio light from the upper left with warm gold reflections.",
+      "colorRoles": "Ivory #F8E5C6 for dice bodies and lit enamel; gold #D9A44E shaded with old gold #B7916B and bronze #785C3E for metal, rims, handles, coins and rays; crimson #7A120C for red pips and red enamel; deep teal #0E4A66 for blue pips, water and blue enamel; black lacquer #15110D only for dark lacquer parts and the deepest shadows. No other hues, no neon, no glow.",
+      "composition": "One cohesive subject group of at most three objects, centred on a square canvas; the subject spans roughly 70 to 95 percent of the canvas width without touching the edges, with even transparent margin on every side; the silhouette must stay readable at 64 pixels. Two or three short fanned gold ray strokes are allowed when they express the effect. The card frame of the game draws its own backdrop, so the illustration has no background field at all.",
+      "avoid": "text, letters, numbers, labels, prices, card frames, UI elements, a background field, a black backdrop panel, a sunburst backdrop, corner triangles, ground scenery, reflections of a floor, checkerboard, photorealism, plastic 3D-render look, chrome, pixel art, neon glow, grunge, human characters, expressive faces."
+    }
+  }
+}
