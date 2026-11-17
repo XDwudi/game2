@@ -10,7 +10,12 @@ Rules the art keeps (checked by tests/test_art_v11_sancai.py):
 - surfaces that the game stretches far keep their edge bands invariant along the edge; glaze runs, crackle and
   ornaments live in the corner squares, which are never stretched;
 - sprites the code multiplies by a palette colour (NEUTRAL_NAMES) stay achromatic;
-- the protected table zones are exactly the felt colour.
+- the protected table zones are exactly the felt colour;
+- the W13 card template (CARD_TEMPLATE_NAMES): a rarity ring no wider than the default's, and three gems whose shapes
+  (round, diamond, six-point star) tell the rarity apart without colour.
+
+`build_sancai.py --card-review` writes ArtSource/Art11/sancai/card_template_review.png from the shipped sancai and Swiss
+sprites (an offline review, not part of the build).
 """
 from __future__ import annotations
 
@@ -169,12 +174,15 @@ NEUTRAL_NAMES = frozenset({
     "ui_section_header", "ui_pip_dot", "ui_icon_arrow", "ui_icon_book",
     "ui_icon_gear", "fx_arc_short", "fx_score_spark", "fx_square_chip",
     "ui_dice_tray", "ui_topbar", "ui_chip_formula", "ui_stage_card", "ui_icon_refresh",
+    # W13 card template (CARD_TEMPLATE 6): tinted by the rarity colours, or Ghost for goods (GameApp.Card11 TintedSprite13).
+    "ui_card_frame_rarity", "ui_gem_common", "ui_gem_advanced", "ui_gem_rare",
 })
+CARD_TEMPLATE_NAMES = ("ui_card_frame_rarity", "ui_gem_common", "ui_gem_advanced", "ui_gem_rare")
 # Sliced surfaces the game stretches far beyond their source size: edge bands invariant along the edge.
 STRETCH_NAMES = frozenset({
     "ui_topbar", "ui_dice_tray", "ui_chip_formula", "ui_stage_card", "ui_button_bevel", "ui_button_ghost",
     "ui_ring", "ui_frame_block", "ui_frame_enchant", "ui_price_chip", "ui_paper_panel", "ui_panel_hud",
-    "ui_section_panel", "ui_tab_bottom", "ui_info_inset", "ui_slot_inventory", "ui_chip_label",
+    "ui_section_panel", "ui_tab_bottom", "ui_info_inset", "ui_slot_inventory", "ui_chip_label", "ui_card_frame_rarity",
 })
 # Calm zones of the play screen (PLAY_LAYOUT 1 and 8, W12b): one flat felt colour, no texture.
 FELT_ZONES = {
@@ -977,6 +985,8 @@ def surface(spec: dict) -> Image.Image:
         return progress_bar(w, h, fill=False)
     if name == "ui_section_header":
         return section_header(w, h)
+    if name == "ui_card_frame_rarity":
+        return card_frame_rarity(w, h)
     raise ValueError("Unimplemented sliced sprite: " + name)
 
 
@@ -1377,6 +1387,118 @@ def badge(name: str) -> Image.Image:
     return r.export()
 
 
+# ---------------------------------------------------------------------------------------------- card template (W13)
+# docs/specs/v11/CARD_TEMPLATE.md sections 3 and 6. All four are neutral grey (NEUTRAL_NAMES): GameApp.Card11
+# TintedSprite13 multiplies them by rarityCommon / rarityAdvanced / rarityRare, or by Ghost for goods. White is the tint
+# itself, so the lightest glaze shows the rarity colour exactly and every shade below it is the same hue, darker.
+# No crackle on these four: the theme's UI sprites have no mipmaps, and fine lines in a 128 px gem drawn 18-34 units
+# wide, or across a 5.5-unit band, would sample as sparkle; the card face around them carries the crackle.
+RING_EDGE = .6         # px: outer silhouette inset; the first pixel stays under half cover, the second is the groove
+RING_BAND = 10.4       # px: the band ends 11 px in (RingInsets13: 5.5 units, the default ring 6), so on the sancai card
+#                        face DrawCard13's content box stays at least as wide as the default style's
+RING_RADIUS = 18.0     # px: a round corner that stays inside the card face's own inner corner (radius 9.5 px) and
+#                        clears the compact icon's corner
+RING_GROOVE = (2.4, 2.0)   # px: dark glaze grooves along the outer and inner edge of the bead
+GEM_SIZE = 128
+GEM_INK = 8.5          # px: ink line of the gems (about 1.2 px at 18 units, 2.3 px at 34)
+
+
+def card_frame_rarity(w: int, h: int) -> Image.Image:
+    """Rarity ring (border 40; transparent centre, since TintedSprite13 draws it with fillCenter off). A raised, glossy
+    glaze bead between two dark glaze grooves, with round corners. DrawCard13 lays it just inside the card face's frame
+    (where the cream lip ends) and around the compact icon block. Its section is the same all along every edge, so
+    slicing it over a 330-unit shop card or a 74-unit icon block changes only its length."""
+    r = Raster(w, h)
+    band = RING_BAND
+    groove_out, groove_in = RING_GROOVE
+
+    def draw(win: Raster):
+        d = sd_round_box(win.X, win.Y, (RING_EDGE, RING_EDGE, w - RING_EDGE, h - RING_EDGE), RING_RADIUS)
+        t = -d
+        s = np.clip(t / band, 0, 1)
+        crest = .45
+        up = np.sin(np.clip(s / crest, 0, 1) * np.pi / 2)
+        down = np.sin(np.clip((1 - s) / (1 - crest), 0, 1) * np.pi / 2)
+        H = (np.minimum(up, down) ** .8).astype(np.float32)
+        diffuse, _ = lighting(H, 2.2, ambient=.5)
+        # Light glaze (most of the band shows the tint itself), the far slope a little darker, dark grooves at both edges.
+        grey = .95 + .05 * np.clip((diffuse - 1) / .3, 0, 1) - .24 * np.clip((1 - diffuse) / .5, 0, 1)
+        outer = 1 - smoothstep(groove_out * .45, groove_out, t)
+        inner = smoothstep(band - groove_in, band - groove_in * .45, t)
+        grey = grey * (1 - outer) + .30 * outer
+        grey = grey * (1 - inner) + .36 * inner
+        alpha = coverage(d) * (1 - coverage(d + band))
+        win.over(np.repeat(np.clip(grey, 0, 1)[..., None], 3, axis=2), alpha)
+
+    _band_render(r, w, h, 40, draw, None)
+    return r.export()
+
+
+def _polygon_sdf(X, Y, pts) -> np.ndarray:
+    """Exact signed distance to a closed polygon (negative inside; even-odd inside test)."""
+    Xd, Yd = X.astype(np.float64), Y.astype(np.float64)
+    best = np.full(X.shape, np.inf)
+    inside = np.zeros(X.shape, bool)
+    for (ax, ay), (bx, by) in zip(pts, pts[1:] + pts[:1]):
+        ex, ey = bx - ax, by - ay
+        wx, wy = Xd - ax, Yd - ay
+        t = np.clip((wx * ex + wy * ey) / (ex * ex + ey * ey), 0, 1)
+        best = np.minimum(best, (wx - ex * t) ** 2 + (wy - ey * t) ** 2)
+        if ay != by:
+            inside ^= ((ay > Yd) != (by > Yd)) & (Xd < ax + ex * (Yd - ay) / ey)
+    d = np.sqrt(best)
+    return np.where(inside, -d, d).astype(np.float32)
+
+
+def gem_sdf(name: str, X, Y, size: int = GEM_SIZE) -> np.ndarray:
+    """Silhouettes that differ without colour (CARD_TEMPLATE 3): round, diamond and six-point star, all soft-tipped."""
+    c = size / 2
+    if name == "ui_gem_common":
+        return sd_circle(X, Y, c, c, 57.0)
+    if name == "ui_gem_advanced":
+        # A square on its point: tips 61 px from the centre, rounded with radius 7.
+        tip, rr = 61.0, 7.0
+        s = (tip - rr) / math.sqrt(2) + rr
+        u = (X - c + (Y - c)) / np.float32(math.sqrt(2))
+        v = (Y - c - (X - c)) / np.float32(math.sqrt(2))
+        return sd_round_box(u, v, (-s, -s, s, s), rr)
+    if name == "ui_gem_rare":
+        # A hexagram: six points reaching 62 px, notches near 58 % of that (the regular six-point star) once the outline
+        # is rounded by 4 px; the blur softens the notches a little more.
+        outer, ratio, rr = 62.0, .54, 4.0
+        reach = outer - rr
+        pts = [(c + math.cos(-math.pi / 2 + math.pi * i / 6) * (reach if i % 2 == 0 else reach * ratio),
+                c + math.sin(-math.pi / 2 + math.pi * i / 6) * (reach if i % 2 == 0 else reach * ratio)) for i in range(12)]
+        d = _polygon_sdf(X, Y, pts) - np.float32(rr)
+        return ndimage.gaussian_filter(d, 1.6 * SS).astype(np.float32)
+    raise ValueError(name)
+
+
+def gem(name: str, size: int = GEM_SIZE) -> Image.Image:
+    """Rarity gem (128 px, not sliced): a glossy glaze drop inside an ink line. The face is pillowed (a rounded bevel off
+    the ink line and a low dome, softened so the diamond and the star do not read as cut facets), lit from the upper left
+    like the rest of the kit. A tinted sprite cannot be lighter than its tint, so the gloss is a crisp-edged highlight at
+    full tint on a face a little below it; the far side of the bevel is shaded, with a little reflected light at its foot
+    so the drop reads as glaze rather than metal."""
+    r = Raster(size, size)
+    d = gem_sdf(name, r.X, r.Y, size)
+    inside = inside_distance((d < 0).astype(np.float32))
+    body = np.clip(inside - GEM_INK, 0, None)
+    top = max(float(body.max()), 1e-3)
+    H = (5.0 * np.sin(np.clip(body / 12.0, 0, 1) * np.pi / 2) +
+         .25 * top * np.sin(np.clip(body / top, 0, 1) * np.pi / 2)).astype(np.float32)
+    H = ndimage.gaussian_filter(H, 2.5 * SS).astype(np.float32)
+    diffuse, spec = lighting(H, 1.0, ambient=.45, gloss=1.0, power=14.0)
+    shade = np.clip((1 - diffuse) / .5, 0, 1)
+    grey = .9 + .06 * np.clip((diffuse - 1) / .3, 0, 1) - .22 * shade + .14 * shade * np.exp(-(body / 4.0) ** 2)
+    glint = smoothstep(.38, .5, spec)
+    grey = np.clip(grey * (1 - glint) + glint, 0, 1)
+    ink = 1 - smoothstep(GEM_INK - 1.2, GEM_INK + .4, inside)
+    grey = grey * (1 - ink) + .2 * ink
+    r.over(np.repeat(grey[..., None], 3, axis=2), coverage(d))
+    return r.export()
+
+
 # ---------------------------------------------------------------------------------------------- large art
 def render_tiled(w: int, h: int, draw_fn, tile: int = 192, margin: int = 28) -> Image.Image:
     """Render a large sprite in full-width strips with overlap; every drawing call works in absolute coordinates,
@@ -1486,6 +1608,8 @@ def render_sprite(spec: dict) -> Image.Image:
         return surface(spec)
     if name.startswith("badge_enchant_"):
         return badge(name)
+    if name.startswith("ui_gem_"):
+        return gem(name, spec["size"][0])
     if name == "ui_wordmark_dicecraft":
         return wordmark()
     if name == "ui_card_back":
@@ -2046,7 +2170,8 @@ TINT_PROOF = {
     "ui_frame_block": "panelLight", "ui_price_chip": "gold", "ui_progress_fill": "blue", "ui_progress_track": "07191C",
     "ui_section_header": "B8433F", "ui_pip_dot": "gold", "ui_icon_arrow": "ink", "ui_icon_book": "ink",
     "ui_icon_gear": "ink", "ui_icon_refresh": "ink", "fx_arc_short": "violet", "fx_score_spark": "gold",
-    "fx_square_chip": "red",
+    "fx_square_chip": "red", "ui_card_frame_rarity": "rarityAdvanced", "ui_gem_common": "rarityCommon",
+    "ui_gem_advanced": "rarityAdvanced", "ui_gem_rare": "rarityRare",
 }
 
 
@@ -2057,6 +2182,304 @@ def _checker(sheet: Image.Image, box):
         for xx in range(x0, x1, 12):
             shade = (118, 104, 92) if ((xx - x0) // 12 + (yy - y0) // 12) % 2 else (96, 84, 74)
             d.rectangle((xx, yy, min(xx + 11, x1 - 1), min(yy + 11, y1 - 1)), fill=shade)
+
+
+# ---------------------------------------------------------------------------------------------- card template review
+# Offline review of the W13 card template (not a Unity capture and not part of build()): the shipped ring and gems of
+# sancai and of Swiss, tinted with each theme's rarity colours (Ghost for goods), composited as GameApp.Card11 DrawCard13
+# lays them out in the shop (220 x 330), table (216 x 244) and compact (280 x 117) sizes, at 1080p and 720p. Sprites are
+# sampled like the game's UI sprites (bilinear, no mipmaps) and blended in linear light; text and pictures are stand-ins.
+CARD_REVIEW = REVIEW / "card_template_review.png"
+CARD_REVIEW_CARDS = (  # (rarity or None for goods, name, short text, StyleKit anchor picture)
+    ("common", "排头兵", "第一颗提交的骰子点数×4，加到基础分。", "C108"),
+    ("advanced", "蓝色浪潮", "本手提交时，提交的骰子全部按蓝色计算。", "I10"),
+    ("rare", "点金手", "每次提交后，最后一颗骰子朝上的面永久镀金。", "C117"),
+    (None, "配重", "这一面权重+1（上限5），更容易掷出这一面。", "U10"),
+)
+CARD_REVIEW_THEMES = ("sancai", "swiss")
+BODY_FONT = ROOT / "DicePrototype/Assets/Game/Fonts/NotoSansCJKsc-Regular.otf"
+
+
+def _lin_texture(im: Image.Image) -> np.ndarray:
+    """Premultiplied linear-light RGBA, which is what bilinear filtering of an sRGB sprite imported with
+    alphaIsTransparency blends (closely enough for a review)."""
+    a = np.asarray(im.convert("RGBA")).astype(np.float32) / 255.0
+    out = np.empty_like(a)
+    out[..., 3] = a[..., 3]
+    out[..., :3] = _lin_arr(a[..., :3]) * a[..., 3:]
+    return out
+
+
+def _slice_axis(n_dst: int, n_src: int, lo: float, hi: float, lo_dst: float, hi_dst: float) -> np.ndarray:
+    """Texel coordinate seen by each destination pixel centre along one axis of a sliced sprite (lo/hi: border texels at
+    the start and end of the axis, lo_dst/hi_dst: their size on screen). Unity shrinks borders that do not fit."""
+    x = np.arange(n_dst, dtype=np.float64) + .5
+    if lo_dst + hi_dst > n_dst:
+        k = n_dst / (lo_dst + hi_dst)
+        lo_dst, hi_dst = lo_dst * k, hi_dst * k
+    u = lo + (x - lo_dst) / max(n_dst - lo_dst - hi_dst, 1e-6) * (n_src - lo - hi)
+    head, tail = x < lo_dst, x > n_dst - hi_dst
+    u[head] = x[head] / max(lo_dst, 1e-6) * lo
+    u[tail] = n_src - (n_dst - x[tail]) / max(hi_dst, 1e-6) * hi
+    return u
+
+
+def _bilinear(tex: np.ndarray, us: np.ndarray, vs: np.ndarray) -> np.ndarray:
+    h, w = tex.shape[:2]
+    x, y = us - .5, vs - .5
+    x0, y0 = np.floor(x).astype(int), np.floor(y).astype(int)
+    fx, fy = (x - x0).astype(np.float32), (y - y0).astype(np.float32)
+    rows = tex[:, np.clip(x0, 0, w - 1)] * (1 - fx)[None, :, None] + tex[:, np.clip(x0 + 1, 0, w - 1)] * fx[None, :, None]
+    return rows[np.clip(y0, 0, h - 1)] * (1 - fy)[:, None, None] + rows[np.clip(y0 + 1, 0, h - 1)] * fy[:, None, None]
+
+
+class UnityCanvas:
+    """Linear-light premultiplied canvas in screen pixels; `scale` is screen px per design unit (1080p 1, 720p 2/3)."""
+
+    def __init__(self, w: int, h: int, background: str, scale: float = 1.0):
+        self.scale = scale
+        self.buf = np.zeros((h, w, 4), np.float32)
+        self.buf[..., :3] = _lin_arr(col(background))
+        self.buf[..., 3] = 1.0
+
+    def _over(self, layer: np.ndarray, x0: int, y0: int):
+        H, W = self.buf.shape[:2]
+        xs, ys = max(0, x0), max(0, y0)
+        xe, ye = min(W, x0 + layer.shape[1]), min(H, y0 + layer.shape[0])
+        if xe > xs and ye > ys:
+            src = layer[ys - y0:ye - y0, xs - x0:xe - x0]
+            self.buf[ys:ye, xs:xe] = src + self.buf[ys:ye, xs:xe] * (1 - src[..., 3:4])
+
+    def _rect(self, x, y, w, h):
+        s = self.scale
+        x0, y0 = int(round(x * s)), int(round(y * s))
+        return x0, y0, max(1, int(round((x + w) * s)) - x0), max(1, int(round((y + h) * s)) - y0)
+
+    def sprite(self, im: Image.Image, x, y, w, h, tint=None, border=None, ppu: float = 200.0):
+        """An Image at a design-unit rect: sliced when it has a border (l, b, r, t in sprite px), else simple."""
+        x0, y0, W, H = self._rect(x, y, w, h)
+        tex = _lin_texture(im)
+        th, tw = tex.shape[:2]
+        if border is not None and any(border):
+            l, b, r, t = border
+            k = 100.0 / ppu * self.scale
+            us, vs = _slice_axis(W, tw, l, r, l * k, r * k), _slice_axis(H, th, t, b, t * k, b * k)
+        else:
+            us, vs = (np.arange(W) + .5) / W * tw, (np.arange(H) + .5) / H * th
+        layer = _bilinear(tex, us, vs)
+        if tint is not None:
+            layer[..., :3] *= _lin_arr(np.asarray(tint, np.float32))
+        self._over(layer, x0, y0)
+
+    def picture(self, im: Image.Image, x, y, size):
+        """A stand-in illustration fitted into a design-unit square (Lanczos)."""
+        x0, y0, S, _ = self._rect(x, y, size, size)
+        pic = im.convert("RGBA")
+        pic.thumbnail((S, S), Image.Resampling.LANCZOS)
+        self._over(_lin_texture(pic), x0 + (S - pic.width) // 2, y0 + (S - pic.height) // 2)
+
+    def text(self, x, y, value: str, size: float, colour: str, font, anchor: str = "la"):
+        f = ImageFont.truetype(str(font), max(6, int(round(size * self.scale))))
+        box = ImageDraw.Draw(Image.new("L", (1, 1))).textbbox((0, 0), value, font=f, anchor=anchor)
+        layer = Image.new("RGBA", (box[2] - box[0] + 4, box[3] - box[1] + 4), (0, 0, 0, 0))
+        ImageDraw.Draw(layer).text((2 - box[0], 2 - box[1]), value, font=f, fill=rgb8(colour) + (255,), anchor=anchor)
+        self._over(_lin_texture(layer), int(round(x * self.scale)) + box[0] - 2, int(round(y * self.scale)) + box[1] - 2)
+
+    def image(self) -> Image.Image:
+        rgb = _gam_arr(self.buf[..., :3] / np.maximum(self.buf[..., 3:4], 1e-6))
+        return Image.fromarray(np.clip(np.rint(rgb * 255), 0, 255).astype(np.uint8), "RGB")
+
+
+def frame_insets_px(pixels: np.ndarray, border) -> tuple[int, int, int, int]:
+    """GameApp.FrameInsets11 (left, bottom, right, top) in sprite px: along the middle row and column, within the slice
+    border, the last pixel that is transparent or differs from the centre fill by more than 48. Unity rows run up."""
+    up = pixels[::-1].astype(np.int32)
+    h, w = up.shape[:2]
+    fill = up[h // 2, w // 2]
+
+    def inset(get, count, limit):
+        last = 0
+        for i in range(min(count // 2, int(round(limit)))):
+            c = get(i)
+            if c[3] < 128 or int(np.abs(c[:3] - fill[:3]).sum()) > 48:
+                last = i + 1
+        return last
+    l, b, r, t = border
+    return (inset(lambda i: up[h // 2, i], w, l), inset(lambda i: up[i, w // 2], h, b),
+            inset(lambda i: up[h // 2, w - 1 - i], w, r), inset(lambda i: up[h - 1 - i, w // 2], h, t))
+
+
+def ring_insets_px(pixels: np.ndarray, border) -> tuple[int, int, int, int]:
+    """GameApp.Card11 RingInsets13 (left, bottom, right, top) in sprite px: the last pixel with alpha >= 128 along the
+    middle row and column, within the slice border."""
+    up = pixels[::-1]
+    h, w = up.shape[:2]
+
+    def inset(get, count, limit):
+        last = 0
+        for i in range(min(count // 2, int(round(limit)))):
+            if get(i)[3] >= 128:
+                last = i + 1
+        return last
+    l, b, r, t = border
+    return (inset(lambda i: up[h // 2, i], w, l), inset(lambda i: up[i, w // 2], h, b),
+            inset(lambda i: up[h // 2, w - 1 - i], w, r), inset(lambda i: up[h - 1 - i, w // 2], h, t))
+
+
+def _wrap(text: str, font, size: float, width: float) -> list[str]:
+    f = ImageFont.truetype(str(font), int(round(size)))
+    lines, line = [], ""
+    for ch in text:
+        if line and f.getlength(line + ch) > width:
+            lines.append(line)
+            line = ch
+        else:
+            line += ch
+    return lines + [line] if line else lines
+
+
+def draw_card13(c: UnityCanvas, kit: dict, borders: dict, palette: dict, x, y, w, h, size: str, rarity, title, text, art):
+    """The ring and gem as DrawTallCard13 / DrawCompactCard13 place them (CARD_TEMPLATE 2, section 9 rows 1 and 10), with
+    stand-in name, picture, short text and price button. All lengths in 1080p design units."""
+    goods = rarity is None
+    face_name = "ui_card_shop" if size == "shop" else "ui_card_controller_compact" if size == "compact" else "ui_card_controller"
+    face = kit[face_name]
+    c.sprite(face, x, y, w, h, border=borders[face_name])
+    fl, fb, fr, ft = (v / 2 for v in frame_insets_px(np.asarray(face), borders[face_name]))
+    inner = (x + fl, y + ft, w - fl - fr, h - ft - fb)
+    ring = kit["ui_card_frame_rarity"]
+    rl, rb, rr, rt = (v / 2 for v in ring_insets_px(np.asarray(ring), borders["ui_card_frame_rarity"]))
+    key = {"common": "rarityCommon", "advanced": "rarityAdvanced", "rare": "rarityRare", None: "ghost"}[rarity]
+    tint = col(palette[key])
+    ink = palette["ink"]
+    if size == "compact":
+        content = (inner[0] + 4, inner[1] + 4, inner[2] - 8, inner[3] - 8)
+        block, gem_size = min(content[3] - 8, 76), 18
+        bx, by = content[0], content[1] + max(0, (content[3] - block - gem_size * .5) * .5)
+        c.sprite(ring, bx, by, block, block, tint=tint, border=borders["ui_card_frame_rarity"])
+        pic = (bx + rl, by + rt, block - rl - rr, block - rt - rb)
+        c.picture(art, pic[0] + 1, pic[1] + 1, min(pic[2], pic[3]) - 2)
+        if not goods:
+            c.sprite(kit["ui_gem_" + rarity], bx + block * .5 - gem_size * .5, by + block - gem_size * .5, gem_size,
+                     gem_size, tint=tint)
+        tx = bx + block + 10
+        c.text(tx, content[1] + 2, title, 20, ink, FONT)
+        for i, line in enumerate(_wrap(text, BODY_FONT, 18, content[0] + content[2] - tx)[:2]):
+            c.text(tx, content[1] + 34 + i * 24, line, 18, ink, BODY_FONT)
+        return
+    c.sprite(ring, *inner, tint=tint, border=borders["ui_card_frame_rarity"])
+    content = (inner[0] + rl + 4, inner[1] + rt + 3, inner[2] - rl - rr - 8, inner[3] - rt - rb - 6)
+    gem_size = 34 if size == "shop" else 30
+    gem_y = inner[1] + (content[1] - 3 - inner[1]) * .5
+    top = content[1] if goods else max(content[1], gem_y + gem_size * .5 + 2)
+    price = 42 if size == "shop" else 0
+    bottom = content[1] + content[3] - (price + 6 if price else 0)
+    if goods:
+        c.text(x + w / 2, top + 13, "骰面改造", 16, palette["ink"], BODY_FONT, "mm")
+        top += 26
+    name_h = math.ceil(22 * 1.46) + 2
+    art_top = top + name_h + 2
+    lines = _wrap(text, BODY_FONT, 20, content[2])
+    art_size = max(40, min(content[2] - 8, bottom - art_top - 4 - (len(lines) * 26 + 2)))
+    c.picture(art, x + (w - art_size) * .5, art_top, art_size)
+    c.text(x + w / 2, top + name_h / 2, title, 22, ink, FONT, "mm")
+    for i, line in enumerate(lines):
+        c.text(x + w / 2, art_top + art_size + 4 + i * 26, line, 20, ink, BODY_FONT, "ma")
+    if price:
+        px, py, pw = content[0], content[1] + content[3] - price, content[2]
+        c.sprite(kit["ui_chip_formula"], px, py, pw, price, tint=col(palette["background"]) * .45 + col(palette["panel"]) * .55,
+                 border=borders["ui_chip_formula"])
+        c.text(px + pw / 2, py + price / 2, "8  购买", 20, palette["textColor"], FONT, "mm")
+    if not goods:
+        c.sprite(kit["ui_gem_" + rarity], x + w * .5 - gem_size * .5, gem_y - gem_size * .5, gem_size, gem_size, tint=tint)
+
+
+def card_template_review() -> Image.Image:
+    """Sancai beside Swiss: shop, table and compact cards (common, advanced, rare, goods) at 1080p and 720p, then the
+    three gems at 12-34 px on the card's own top rim with a 4x nearest enlargement."""
+    specs = {s["name"]: s for s in json.loads(CONTRACT.read_text(encoding="utf-8"))["sprites"]}
+    names = ("ui_card_shop", "ui_card_controller", "ui_card_controller_compact", "ui_chip_formula") + CARD_TEMPLATE_NAMES
+    borders = {n: specs[n]["border"] for n in names}
+    themes = {}
+    for theme in CARD_REVIEW_THEMES:
+        folder = ROOT / "DicePrototype/Assets/Resources/Themes" / theme
+        palette = json.loads((folder / "theme.json").read_text(encoding="utf-8"))["palette"]
+        kit = {}
+        for n in names:
+            with Image.open(folder / "UI" / (n + ".png")) as source:
+                kit[n] = source.convert("RGBA")
+        arts = {}
+        for _, _, _, art in CARD_REVIEW_CARDS:
+            with Image.open(ROOT / "ArtSource/StyleKit/themes" / theme / "anchors" / (art + ".png")) as source:
+                arts[art] = source.convert("RGBA")
+        themes[theme] = (kit, palette, arts)
+    panel_w, gap, ink, sub = 960, 40, (243, 228, 200), (205, 183, 143)
+    sheet = Image.new("RGB", (2 * panel_w + gap + 48, 3000), (36, 30, 26))   # cropped to the content at the end
+    d = ImageDraw.Draw(sheet)
+    font, small, title = (ImageFont.truetype(str(LATIN), s) for s in (19, 15, 34))
+    d.text((24, 16), "CARD TEMPLATE / W13 rarity ring and gems   -   SANCAI (left)   |   SWISS (right)", fill=ink, font=title)
+    d.text((24, 60), "Offline emulation of GameApp.Card11 DrawCard13 geometry: sprites sampled bilinear without mipmaps (as the "
+                     "theme UI sprites are imported), tinted and blended in linear light. Not a Unity capture.", fill=sub, font=small)
+    d.text((24, 80), "Names, short texts, pictures (StyleKit anchors) and the price button are stand-ins. Goods (no rarity): "
+                     "Ghost ring, no gem.", fill=sub, font=small)
+    keys = {"common": "rarityCommon", "advanced": "rarityAdvanced", "rare": "rarityRare", None: "ghost"}
+    y = 112
+    for scale, res in ((1.0, "1080p"), (2 / 3, "720p")):
+        for label, size, cw, chh in (("SHOP 220 x 330", "shop", 220, 330), ("TABLE 216 x 244", "table", 216, 244),
+                                     ("COMPACT 280 x 117", "compact", 280, 117)):
+            sw, sh = round(cw * scale), round(chh * scale)
+            per_row = max(1, min(4, (panel_w - 8) // (sw + 16)))
+            lines = math.ceil(len(CARD_REVIEW_CARDS) / per_row)
+            ph = 8 + lines * (sh + 30)
+            for p, theme in enumerate(CARD_REVIEW_THEMES):
+                kit, palette, arts = themes[theme]
+                px = 24 + p * (panel_w + gap)
+                d.text((px, y), f"{theme.upper()}   {label}   {res}", fill=ink, font=font)
+                canvas = UnityCanvas(panel_w, ph, palette["felt"] if theme == "sancai" else "F9EADB", scale)
+                for i, (rarity, name, text, art) in enumerate(CARD_REVIEW_CARDS):
+                    sx, sy = 8 + (i % per_row) * (sw + 16), 8 + (i // per_row) * (sh + 30)
+                    draw_card13(canvas, kit, borders, palette, sx / scale, sy / scale, cw, chh, size, rarity, name, text,
+                                arts[art])
+                sheet.paste(canvas.image(), (px, y + 26))
+                note = sub if luminance(palette["felt"] if theme == "sancai" else "F9EADB") < .2 else (70, 64, 58)
+                for i, (rarity, *_rest) in enumerate(CARD_REVIEW_CARDS):
+                    sx, sy = 8 + (i % per_row) * (sw + 16), 8 + (i // per_row) * (sh + 30)
+                    d.text((px + sx, y + 26 + sy + sh + 5), f"{rarity or 'goods'}  {palette[keys[rarity]]}", fill=note, font=small)
+            y += 26 + ph + 18
+    # The three gems at their display sizes on the card's own top rim and ring: 12 (compact, 720p), 18 (compact), 20/23
+    # (table/shop, 720p), 22 (tall compact), 30/34 (table/shop). Right: the same pixels 2x nearest.
+    sizes = (12, 18, 20, 22, 23, 30, 34)
+    for p, theme in enumerate(CARD_REVIEW_THEMES):
+        kit, palette, _ = themes[theme]
+        px = 24 + p * (panel_w + gap)
+        d.text((px, y), f"{theme.upper()}   GEMS at {' / '.join(map(str, sizes))} px on the card's top rim and ring; right: 2x nearest",
+               fill=ink, font=font)
+        face = kit["ui_card_controller"]
+        fl, fb, fr, ft = (v / 2 for v in frame_insets_px(np.asarray(face), borders["ui_card_controller"]))
+        ring = kit["ui_card_frame_rarity"]
+        rl, rb, rr, rt = (v / 2 for v in ring_insets_px(np.asarray(ring), borders["ui_card_frame_rarity"]))
+        strip = UnityCanvas(len(sizes) * 42 + 16, 3 * 60 + 8, palette["felt"] if theme == "sancai" else "F9EADB", 1.0)
+        for k, rarity in enumerate(("common", "advanced", "rare")):
+            gy = 8 + k * 60 + 24
+            top = gy - (ft + rt / 2)
+            strip.sprite(face, -20, top, len(sizes) * 42 + 56, 120, border=borders["ui_card_controller"])
+            strip.sprite(ring, -20 + fl, top + ft, len(sizes) * 42 + 56 - fl - fr, 120 - ft - fb, tint=col(palette[keys[rarity]]),
+                         border=borders["ui_card_frame_rarity"])
+            for j, s in enumerate(sizes):
+                strip.sprite(kit["ui_gem_" + rarity], 8 + j * 42 + 21 - s / 2, gy - s / 2, s, s, tint=col(palette[keys[rarity]]))
+        im = strip.image()
+        sheet.paste(im, (px, y + 26))
+        big = im.resize((im.width * 2, im.height * 2), Image.Resampling.NEAREST)
+        sheet.paste(big.crop((0, 0, min(big.width, panel_w - im.width - 16), big.height)), (px + im.width + 16, y + 26))
+    y += 26 + 2 * (3 * 60 + 8) + 20
+    return sheet.crop((0, 0, sheet.width, y))
+
+
+def write_card_template_review(output_root: Path = ROOT) -> Path:
+    path = Path(output_root).resolve() / CARD_REVIEW
+    path.parent.mkdir(parents=True, exist_ok=True)
+    card_template_review().save(path, format="PNG", optimize=False, compress_level=9)
+    return path
 
 
 # ---------------------------------------------------------------------------------------------- build
@@ -2105,7 +2528,12 @@ def build(output_root: Path = ROOT) -> list[Path]:
 
 
 if __name__ == "__main__":
+    import sys
     import time
+    if "--card-review" in sys.argv:
+        # Reads the shipped sancai and Swiss sprites; run it after a build.
+        print("SANCAI_CARD_REVIEW", write_card_template_review().relative_to(ROOT).as_posix())
+        raise SystemExit(0)
     started = time.time()
     paths = build()
     specs = contract_sprites()

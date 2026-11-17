@@ -31,14 +31,20 @@ NEUTRAL_NAMES = frozenset({
     "ui_section_header", "ui_pip_dot", "ui_icon_arrow", "ui_icon_book",
     "ui_icon_gear", "fx_arc_short", "fx_score_spark", "fx_square_chip",
     "ui_dice_tray", "ui_topbar", "ui_chip_formula", "ui_stage_card", "ui_icon_refresh",
+    # V1.1 W13 card template: tinted by the rarity colours or Ghost (GameApp.Card11.cs TintedSprite13).
+    "ui_card_frame_rarity", "ui_gem_common", "ui_gem_advanced", "ui_gem_rare",
 })
+GEMS = ("ui_gem_common", "ui_gem_advanced", "ui_gem_rare")
 # Tinted surfaces with an opaque face: the label pick reads centre pixel x tint, so the face must be pure white.
 WHITE_FACES = ("ui_topbar", "ui_chip_formula", "ui_stage_card", "ui_button_bevel", "ui_price_chip", "ui_frame_block")
-# Open frames: the game sets fillCenter=false or shows dice and cards through them.
-HOLLOW = ("ui_ring", "ui_button_ghost", "ui_dice_tray", "ui_frame_enchant")
-# Surfaces drawn far beyond their source size (top bar 1888 units, trays 1448, dialogs, shop sections).
+# Open frames: the game sets fillCenter=false or shows dice and cards through them (the rarity ring: TintedSprite13).
+HOLLOW = ("ui_ring", "ui_button_ghost", "ui_dice_tray", "ui_frame_enchant", "ui_card_frame_rarity")
+# Surfaces drawn far beyond their source size (top bar 1888 units, trays 1448, dialogs, shop sections). The rarity ring
+# is sliced over every card's inner rectangle and over the compact icon block (74 units: its edge middles shrink to a
+# sixth of their source length).
 STRETCHED_TINT = ("ui_topbar", "ui_dice_tray", "ui_chip_formula", "ui_stage_card", "ui_button_bevel",
-                  "ui_button_ghost", "ui_ring", "ui_frame_block", "ui_frame_enchant", "ui_price_chip")
+                  "ui_button_ghost", "ui_ring", "ui_frame_block", "ui_frame_enchant", "ui_price_chip",
+                  "ui_card_frame_rarity")
 STRETCHED_AUTHORED = ("ui_paper_panel", "ui_panel_hud", "ui_section_panel", "ui_tab_bottom", "ui_info_inset",
                       "ui_slot_inventory", "ui_chip_label")
 DARK_TEXT_SURFACES = ("ui_panel_hud", "ui_section_panel", "ui_tab_bottom", "ui_info_inset", "ui_slot_inventory",
@@ -46,7 +52,8 @@ DARK_TEXT_SURFACES = ("ui_panel_hud", "ui_section_panel", "ui_tab_bottom", "ui_i
 PAPER_TEXT_SURFACES = ("ui_paper_panel", "ui_card_controller", "ui_card_controller_compact", "ui_card_item",
                        "ui_card_shop", "ui_chip_label")
 SOFT_CORNERS = ("ui_paper_panel", "ui_panel_hud", "ui_card_controller", "ui_card_shop", "ui_chip_formula",
-                "ui_button_bevel", "ui_topbar", "ui_stage_card", "ui_ring", "ui_slot_inventory", "ui_dice_tray")
+                "ui_button_bevel", "ui_topbar", "ui_stage_card", "ui_ring", "ui_slot_inventory", "ui_dice_tray",
+                "ui_card_frame_rarity")
 FELT_ZONES = {
     "dice_area": (52, 374, 1408, 276),
     "formula_row": (52, 660, 1408, 60),
@@ -135,7 +142,8 @@ class SancaiArtTests(unittest.TestCase):
 
     # ------------------------------------------------------------------ inventory and format
     def test_exact_referenced_inventory(self):
-        self.assertEqual(len(SPRITES), 49, "Review W20 scope if the input contract changes.")
+        # W13 (CARD_TEMPLATE section 6) added the rarity ring and three gems to the contract: 49 -> 53 sprites, 53 -> 57 files.
+        self.assertEqual(len(SPRITES), 53, "Review W20 scope if the input contract changes.")
         expected = {sprite["name"] for sprite in SPRITES}
         self.assertEqual({path.stem for path in (ROOT / THEME / "UI").glob("*.png")}, expected)
         expected_paths = {(THEME / "UI" / (name + ".png")).as_posix() for name in expected}
@@ -143,7 +151,7 @@ class SancaiArtTests(unittest.TestCase):
                                (THEME / "Table/felt_tile.png").as_posix(),
                                (THEME / "preview.png").as_posix(), REVIEW.as_posix()})
         self.assertEqual(set(self.first_hashes), expected_paths)
-        self.assertEqual(len(self.first_hashes), 53)
+        self.assertEqual(len(self.first_hashes), 57)
         self.assertTrue((self.first / THEME / "theme.json").is_file())
 
     def test_all_sprite_sizes_and_rgba_match_defaults(self):
@@ -199,7 +207,7 @@ class SancaiArtTests(unittest.TestCase):
                 centre = pixels[top:pixels.shape[0] - bottom, left:pixels.shape[1] - right]
                 self.assertGreater(centre.size, 0)
                 np.testing.assert_array_equal(centre, np.broadcast_to(centre[0, 0], centre.shape))
-        self.assertEqual(checked, 21)
+        self.assertEqual(checked, 22)   # 21 W20 surfaces + the W13 rarity ring
 
     def test_horizontal_slices_keep_central_columns_identical(self):
         checked = 0
@@ -350,6 +358,108 @@ class SancaiArtTests(unittest.TestCase):
             with self.subTest(sprite=name, size=size):
                 ratio = contrast(self._composite(name, size, host), host)
                 self.assertGreaterEqual(float((ratio >= 3.0).mean()), .15)
+
+    # ------------------------------------------------------------------ card template (W13, CARD_TEMPLATE 3 and 6)
+    @staticmethod
+    def _ring_insets(pixels, border):
+        """Mirror of GameApp.Card11 RingInsets13: along the middle row and column, within the slice border, the last pixel
+        whose alpha is at least 128. Unity rows run up."""
+        up = pixels[::-1]
+        h, w = up.shape[:2]
+        left, bottom, right, top = border
+
+        def inset(get, count, limit):
+            last = 0
+            for i in range(min(count // 2, int(round(limit)))):
+                if get(i)[3] >= 128:
+                    last = i + 1
+            return last
+        return (inset(lambda i: up[h // 2, i], w, left), inset(lambda i: up[i, w // 2], h, bottom),
+                inset(lambda i: up[h // 2, w - 1 - i], w, right), inset(lambda i: up[h - 1 - i, w // 2], h, top))
+
+    @staticmethod
+    def _erode(mask, n):
+        out = mask.copy()
+        for _ in range(n):
+            p = np.pad(out, 1, constant_values=False)
+            out = out & p[:-2, 1:-1] & p[2:, 1:-1] & p[1:-1, :-2] & p[1:-1, 2:]
+        return out
+
+    def test_rarity_ring_is_a_slim_band_with_an_ink_edge(self):
+        # DrawCard13 lays the name, picture and short text inside the ring's band (RingInsets13): a band no wider than the
+        # default ring keeps the card's content box (TX-03) as the default style has it.
+        border = BY_NAME["ui_card_frame_rarity"]["border"]
+        ours = self._ring_insets(load("ui_card_frame_rarity"), border)
+        with Image.open(ROOT / BY_NAME["ui_card_frame_rarity"]["default"]) as image:
+            theirs = self._ring_insets(np.asarray(image.convert("RGBA")), border)
+        for side, (a, b) in enumerate(zip(ours, theirs)):
+            with self.subTest(side=side):
+                self.assertGreaterEqual(a, 8, "The ring must stay visible.")
+                self.assertLessEqual(a, b)
+        # Across the band (middle of the top edge): an ink-dark edge, and a light glaze that shows the tint itself.
+        across = load("ui_card_frame_rarity")[:ours[3] + 3, 256].astype(int)
+        solid = across[across[:, 3] >= 250, 0]
+        self.assertLessEqual(int(solid.min()), 110)
+        self.assertGreaterEqual(int(solid.max()), 240)
+
+    @staticmethod
+    def _silhouette_radii(alpha):
+        """Outermost radius of the alpha >= 128 silhouette along 720 rays from the image centre."""
+        h, w = alpha.shape
+        cy, cx = (h - 1) / 2, (w - 1) / 2
+        steps = np.arange(0, min(h, w) / 2, .25)
+        radii = []
+        for k in range(720):
+            a = math.pi * k / 360
+            xs = np.clip(np.rint(cx + steps * math.cos(a)).astype(int), 0, w - 1)
+            ys = np.clip(np.rint(cy + steps * math.sin(a)).astype(int), 0, h - 1)
+            hit = np.flatnonzero(alpha[ys, xs] >= 128)
+            radii.append(steps[hit[-1]] if hit.size else 0.0)
+        return np.array(radii)
+
+    def test_rarity_gems_are_round_diamond_and_six_point_star(self):
+        # CARD_TEMPLATE 3: the shape tells the rarity apart without colour. The points of a silhouette are the runs of its
+        # radius (seen from the centre) above the middle of the radius range.
+        for name, points, depth in (("ui_gem_common", 0, 0.0), ("ui_gem_advanced", 4, .2), ("ui_gem_rare", 6, .3)):
+            with self.subTest(sprite=name):
+                radii = self._silhouette_radii(load(name)[..., 3])
+                spread = float((radii.max() - radii.min()) / radii.max())
+                if points == 0:
+                    self.assertLess(spread, .06, "The common gem is round.")
+                    continue
+                self.assertGreaterEqual(spread, depth, "The points must stand well clear of the notches.")
+                above = radii > (radii.max() + radii.min()) / 2
+                self.assertEqual(int(np.sum(above & ~np.roll(above, 1))), points)
+
+    def test_rarity_gems_stay_apart_at_their_smallest_sizes(self):
+        # A compact card draws the gem 18 units wide (12 px at 720p). The theme's UI sprites have no mipmaps, so sample
+        # each silhouette at the pixel centres; any two of the three masks must still differ clearly.
+        for size in (18, 12):
+            masks = {}
+            for name in GEMS:
+                alpha = load(name)[..., 3]
+                index = ((np.arange(size) + .5) * alpha.shape[0] / size).astype(int)
+                masks[name] = alpha[np.ix_(index, index)] >= 128
+            for i, a in enumerate(GEMS):
+                for b in GEMS[i + 1:]:
+                    with self.subTest(size=size, pair=(a, b)):
+                        union = int((masks[a] | masks[b]).sum())
+                        self.assertGreaterEqual(int((masks[a] ^ masks[b]).sum()) / union, .2)
+
+    def test_rarity_gems_have_an_ink_line_round_a_light_glaze(self):
+        # CARD_TEMPLATE 6: light, shaded gems with an ink outline. Most of the face stays light so the rarity tint reads as
+        # its own colour; the lightest glaze is the tint itself.
+        for name in GEMS:
+            with self.subTest(sprite=name):
+                pixels = load(name)
+                grey = pixels[..., 0].astype(int)
+                solid = pixels[..., 3] >= 250
+                rim = solid & ~self._erode(solid, 3)
+                core = self._erode(solid, 12)
+                self.assertTrue(core.any())
+                self.assertLessEqual(float(grey[rim].mean()), 100)
+                self.assertGreaterEqual(int(grey[solid].max()), 245)
+                self.assertGreaterEqual(float(grey[core].mean()), 170)
 
     # ------------------------------------------------------------------ table, tile, preview
     def test_table_scene_and_preview_sizes(self):
