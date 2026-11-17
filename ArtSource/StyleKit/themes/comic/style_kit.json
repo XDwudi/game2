@@ -1,0 +1,109 @@
+{
+  "kitVersion": "theme-comic-0.1",
+  "status": "PROPOSED (2026-11-17): anchors are crops of the four card illustrations on the user-chosen 爆彩连环漫画 concept page (ArtSource/StyleKit/themes/comic/concepts/card.png); awaiting the user's review at checkpoint 3 with the first representative redraws.",
+  "updated": "2026-11-17",
+  "changelog": [
+    "theme-comic-0.1: first kit for the V1.1 爆彩连环漫画 theme (DEV_PLAN D1, W19); anchors C108, C117, I10, U10 cropped from the concept card page without frames or titles by tools/art_v11/crop_anchors.py (boxes in anchorSource)."
+  ],
+  "authority": "docs/specs/v11/THEME_SPEC.md; docs/art/AI_ART_PIPELINE.md",
+  "changeRule": "Anchors, plate and prompt blocks change only with a new kitVersion and a recorded user decision; copy the old kit bytes to history/ before a bump. Never edit a pinned value to make a check pass.",
+  "palette": {
+    "cream": "F9F1D9",
+    "ink": "0A080A",
+    "red": "F12022",
+    "yellow": "FBDC0F",
+    "blue": "0250C6",
+    "navy": "032F7A",
+    "cyan": "28B1F1",
+    "amber": "E39F0C"
+  },
+  "categories": {
+    "illustration": {
+      "appliesTo": "V1.1 爆彩连环漫画 theme redraws of the card illustrations: controllers C*, consumables I*, services O*, dice upgrades U* (P0Config ids), and boss emblems and loot art. Each redraw keeps the subject of the default illustration of the same id.",
+      "route": "Image generation through tools/art_gen/artgen.py with --kit ArtSource/StyleKit/themes/comic/style_kit.json",
+      "output": {
+        "transparent": true,
+        "canvas": "square",
+        "observedSize": [
+          1254,
+          1254
+        ],
+        "instruction": "True transparent alpha background with no backdrop of any colour and no background shapes. A single finished illustration, not a sheet of variants."
+      },
+      "displaySizes": [
+        170,
+        128,
+        85,
+        64
+      ],
+      "displaySizesNote": "Same on-screen sizes as the default illustrations (shop card at 1440p / 1080p / 720p, and a compact slot).",
+      "anchorSource": {
+        "page": "ArtSource/StyleKit/themes/comic/concepts/card.png",
+        "pageSha256": "58fa87f14d28827a144f4a6b1c4e57a461e5515668dae45bdbb398f2d28a39a3",
+        "boxes": {
+          "C108": [
+            63,
+            330,
+            408,
+            655
+          ],
+          "C117": [
+            470,
+            328,
+            815,
+            655
+          ],
+          "I10": [
+            862,
+            325,
+            1212,
+            655
+          ],
+          "U10": [
+            1272,
+            325,
+            1622,
+            655
+          ]
+        },
+        "tool": "tools/art_v11/crop_anchors.py"
+      },
+      "anchors": [
+        {
+          "id": "C108",
+          "path": "ArtSource/StyleKit/themes/comic/anchors/C108.png",
+          "sha256": "12f4e7e4bc6894a70e1fba05b5f6ed1a5b74f95ea933fbe2091aa420bf28e0b2"
+        },
+        {
+          "id": "C117",
+          "path": "ArtSource/StyleKit/themes/comic/anchors/C117.png",
+          "sha256": "7ef0ad08e32b54125d7d627f3932fcc0046694667c567269a28912727ff0e0c7"
+        },
+        {
+          "id": "I10",
+          "path": "ArtSource/StyleKit/themes/comic/anchors/I10.png",
+          "sha256": "227b27869362fc324cd260094932a3da675cbbaa5bfc222e5467a79bfb9bbb8f"
+        },
+        {
+          "id": "U10",
+          "path": "ArtSource/StyleKit/themes/comic/anchors/U10.png",
+          "sha256": "c85265f8bb15de0916f99ce17c3a1c6174459d330b96a268e70d4d29ec36b8c1"
+        }
+      ],
+      "plate": {
+        "path": "ArtSource/StyleKit/themes/comic/plates/illustration_plate_theme-comic-0.1.png",
+        "sha256": "3545188ce80f808f5547bc4c93fc4302af6e9b5d65c06fdffe144df809577a6e",
+        "columns": 4,
+        "cell": 384,
+        "padding": 16,
+        "background": "F9F1D9",
+        "builtWith": "artgen-1.1; Pillow 9.4.0"
+      },
+      "plateRole": "STYLE PLATE: four card illustrations in the pop-art comic style of this game, cropped from concept art and still standing on their halftone comic-panel backdrop with burst rays. Copy their rendering exactly (thick black brush-ink outlines, flat primary colours, Ben-Day halftone dots and hatching in the shadows, cream dice with halftone-shaded sides, speed lines). Do not copy their subjects, their layout, the halftone panel backdrop or the burst rays behind them.",
+      "styleBlock": "Match the STYLE PLATE (reference image 1) exactly: bold pop-art comic-book illustration with a vintage print look. Thick, confident black brush-ink outlines with tapered ends; flat primary colours; Ben-Day halftone dots and fine cross-hatching only inside shadow areas; crisp cream highlights; dynamic three-quarter view from slightly above with a little foreshortening. Dice are cream cubes with halftone-shaded sides and red or blue pips.",
+      "colorRoles": "Cream #F9F1D9 for lit surfaces and dice bodies; black #0A080A for outlines, hatching, pips and cast shadows; primary red #F12022, process yellow #FBDC0F and comic blue #0250C6 for the main subject colours, with navy #032F7A for deep blue shadow; cyan #28B1F1 for water and light blue; amber #E39F0C for gold and coins. No other hues, no soft gradients.",
+      "composition": "One cohesive subject group of at most three objects, centred on a square canvas; the subject spans roughly 70 to 95 percent of the canvas width without touching the edges, with even transparent margin on every side; the silhouette must stay readable at 64 pixels. Two or three short black speed lines or one small jagged impact star touching the subject are allowed when they express the effect. The card frame of the game draws its own backdrop, so the illustration has no background field at all.",
+      "avoid": "text, letters, numbers, onomatopoeia, speech balloons, labels, prices, card frames, comic panel borders, UI elements, a background field, a halftone backdrop panel, a sunburst backdrop, paper texture, ground scenery, checkerboard, photorealism, 3D-render look, soft airbrush gradients, pixel art, neon glow, grunge, human characters, expressive faces."
+    }
+  }
+}
