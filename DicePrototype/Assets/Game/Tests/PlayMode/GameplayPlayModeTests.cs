@@ -81,7 +81,15 @@ namespace DiceCraft.Tests
             if (originalVolume.HasValue) PlayerPrefs.SetFloat("volume", originalVolume.Value);
             else PlayerPrefs.DeleteKey("volume");
             PlayerPrefs.Save();
-            TestContext.WriteLine("Isolated save/log evidence: " + saveDirectory);
+            // V1.1 (W13): a passed case removes its own isolated folder (the folders used to pile up, about 226 per full
+            // run); a case that did not pass keeps it, and its output names it.
+            bool passed = TestContext.CurrentContext.Result.Outcome.Status == NUnit.Framework.Interfaces.TestStatus.Passed;
+            if (passed && !string.IsNullOrEmpty(saveDirectory) && Directory.Exists(saveDirectory))
+            {
+                try { Directory.Delete(saveDirectory, true); }
+                catch (Exception e) when (e is IOException || e is UnauthorizedAccessException) { TestContext.WriteLine("Isolated folder kept, could not remove it: " + saveDirectory + " (" + e.Message + ")"); }
+            }
+            else TestContext.WriteLine("Isolated save/log evidence: " + saveDirectory);
             app = null;
         }
 
