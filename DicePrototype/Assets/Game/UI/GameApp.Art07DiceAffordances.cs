@@ -10,15 +10,16 @@ namespace DiceCraft
             if(!CanMoveLockedDice07)return;
             // Decoration inside the existing die hit rectangle. There is no extra
             // raycast target, so the same real DiePointer remains the drag owner.
-            float left=compact?14:1;
-            // V1.1 (W11): a locked die stands at its slot's left edge; the narrow grip goes in the gap on its right, inside
-            // the same hit (GripX11), on every path that draws it (rebuild or the reconcile after a dialog closes).
-            if(PlayPhase11&&GripX11.TryGetValue(id,out float right)){compact=false;left=right;}
+            float left=compact?14:1;float? top=null;
+            // V1.1 (W11b): a locked die stands at its slot's left edge; the narrow grip stands at the foot of the slot's
+            // right column, inside the same hit (GripAt11), on every path that draws it (rebuild or the reconcile after a
+            // dialog closes).
+            if(PlayPhase11&&GripAt11.TryGetValue(id,out var at)){compact=false;left=at.x;top=at.y;}
             float width=compact?20:10,height=compact?32:24;
-            var grip=UiKit.Rect(hit,"LockedGrip_"+id,left,(hit.rect.height-height)*.5f,width,height);
+            var grip=UiKit.Rect(hit,"LockedGrip_"+id,left,top??(hit.rect.height-height)*.5f,width,height);
             float dot=compact?4:3;
             for(int y=0;y<3;y++)for(int x=0;x<2;x++)
-                UiKit.Box(grip,"Dot"+x+y,x*(width-dot),y*(height-dot)/2,dot,dot,UiKit.Paper,false);
+                UiKit.Box(grip,"Dot"+x+y,x*(width-dot),y*(height-dot)/2,dot,dot,UiKit.OnFelt(UiKit.Paper),false);
         }
         private void SyncLockedGripsAfterModal07()
         {

@@ -183,6 +183,9 @@ namespace DiceCraft
             foreach(var group in targets)
             {
                 if(!dieCenters.TryGetValue(group.Key,out var center))continue;
+                // V1.1 (W11b): a locked die fills most of its slot; while its permanent change is written beside it, it
+                // steps back to the v0.7 size at the slot's left edge (BeginPermanentTarget07 redisplays it there).
+                if(permanent&&PlayPhase11&&lockedSlotRects07.TryGetValue(group.Key,out var postSlot)){center=PostScoreCenter11(postSlot);dieCenters[group.Key]=center;}
                 bool changed=permanent&&BeginPermanentTarget07(group.Key,group.Select(x=>x.Event),center);
                 if(changed&&visible++<3)
                 {

@@ -225,8 +225,8 @@ namespace DiceCraft
             if(reason==null)return false;
             // V1.1 (W11): the hint tab sits left of the action buttons; the close button takes its right end.
             var hint=L11.hint;
-            reason.text="首次提示 · "+body;reason.color=UiKit.Gold;
             reason.rectTransform.sizeDelta=new Vector2(hint.width-32-68,hint.height-12);
+            reason.text=BalancedLines11(reason,"首次提示 · "+body,hint.width-32-68);reason.color=LabelOn11(main.Find("ActionReasonUnderlay") as RectTransform,UiKit.Gold);
             UiKit.ActionButton(main,"DismissBoundaryHint07","×",hint.xMax-70,hint.y+(hint.height-60)*.5f,60,60,DismissBoundaryTip07,UiKit.Paper);
             return true;
         }
