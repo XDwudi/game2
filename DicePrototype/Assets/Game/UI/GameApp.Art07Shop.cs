@@ -126,10 +126,11 @@ namespace DiceCraft
             {
                 // v1.1 (G3): the copy is added to what you hold; nothing is replaced (RULES_DELTA 1.1 item 5).
                 var final=ViewState.controllers.Concat(new[]{offer.controller}).ToArray();
-                if(final.Length>Config.maxControllerInstances)return "总张数已满";
-                if(ControllerRules.OrdinaryUsed(final)>ViewState.controllerSlots)return "栏位已满";
+                // UI_REWRITES row Art07Shop.cs:122-126 with D2 (控制器 → 卡牌); availability row holds 8 characters at most.
+                if(final.Length>Config.maxControllerInstances)return "卡牌已满 "+Config.maxControllerInstances+" 张";
+                if(ControllerRules.OrdinaryUsed(final)>ViewState.controllerSlots)return "卡牌栏位已满";
             }
-            if(offer.category=="consumable"&&ViewState.inventory.Count>=ViewState.consumableSlots)return "道具库存满";
+            if(offer.category=="consumable"&&ViewState.inventory.Count>=ViewState.consumableSlots)return "道具栏已满";
             if(offer.category=="die_upgrade"||offer.contentId=="O04")return "需选择目标";
             string error=Session.PurchaseError(offer.offerId);
             return error==null?"":offer.category=="new_die"?"永久骰已满":"查看限制";

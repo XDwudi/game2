@@ -44,7 +44,7 @@ namespace DiceCraft.Tests
             // C98: controllers and die upgrades cost one less, never below one.
             AssertBoundaryCardPrice("C13", 1); AssertBoundaryCardPrice("C42", 5); AssertBoundaryCardPrice("U06", 2);
             AssertBoundaryCardPrice("O08", 8); AssertBoundaryCardPrice("O01", 2);
-            Assert.That(FindActive<TextMeshProUGUI>("OfferAvailability_C13").text, Is.EqualTo("普通槽已满"));
+            Assert.That(FindActive<TextMeshProUGUI>("OfferAvailability_C13").text, Is.EqualTo("卡牌栏位已满"));
             long gold = app.Session.State.gold;
             yield return BuyBoundaryOffer("O08");
             Assert.That(app.Session.State.controllerSlots, Is.EqualTo(6)); Assert.That(app.Session.State.controllerSlotPurchases, Is.EqualTo(1));
@@ -53,7 +53,7 @@ namespace DiceCraft.Tests
             yield return BuyBoundaryOffer("C13");
             Assert.That(app.Session.State.controllers.Count, Is.EqualTo(6)); Assert.That(app.Session.OrdinaryControllerSlotsUsed, Is.EqualTo(6));
             Assert.That(app.Session.State.gold, Is.EqualTo(gold - 8 - 1));
-            Assert.That(FindActive<TextMeshProUGUI>("OfferAvailability_C42").text, Is.EqualTo("普通槽已满"), "Six ordinary cards fill six slots.");
+            Assert.That(FindActive<TextMeshProUGUI>("OfferAvailability_C42").text, Is.EqualTo("卡牌栏位已满"), "Six ordinary cards fill six slots.");
         }
 
         [UnityTest]

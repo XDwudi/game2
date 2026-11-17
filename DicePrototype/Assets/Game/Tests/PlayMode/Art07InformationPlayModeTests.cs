@@ -153,16 +153,20 @@ namespace DiceCraft.Tests
             foreach(var offer in app.Session.State.shop.offers.Where(o=>o.category=="controller"))
             {
                 long cost=app.Session.GetOfferNetPrice(offer);
+                // v1.1 (RULES_DELTA 1.1 item 5): no replacement credit, so no offer has a negative price or a 替换 button.
+                Assert.That(cost,Is.GreaterThanOrEqualTo(0),offer.offerId);
                 // v0.73: a full shelf still never hides the transaction price: it stays on the price chip of the card.
-                Assert.That(InformationButton07("Buy_"+offer.offerId),Is.EqualTo(cost<0?"替换":"购买"));
-                Assert.That(FindActive<Transform>("Offer_"+offer.offerId).Find("PriceChip/Price").GetComponent<TextMeshProUGUI>().text,Is.EqualTo(cost<0?"+"+(-cost):cost.ToString()));
-                if(!app.Session.State.controllers.Any(c=>c.definitionId==offer.contentId))Assert.That(InformationText07("OfferAvailability_"+offer.offerId),Is.EqualTo("总持有已满"));
+                Assert.That(InformationButton07("Buy_"+offer.offerId),Is.EqualTo("购买"));
+                Assert.That(FindActive<Transform>("Offer_"+offer.offerId).Find("PriceChip/Price").GetComponent<TextMeshProUGUI>().text,Is.EqualTo(cost.ToString()));
+                // v1.1: an owned card's offer is an ordinary purchase as well, so every card offer reports the full count
+                // (UI_REWRITES Art07Shop.cs:122-126 with D2).
+                Assert.That(InformationText07("OfferAvailability_"+offer.offerId),Is.EqualTo("卡牌已满 10 张"));
             }
             foreach(var offer in app.Session.State.shop.offers.Where(o=>o.category=="consumable"))
             {
                 var product=FindActive<Transform>("Product_"+offer.offerId);
                 // v0.73: the reason sits on its own line above the price chip; the card body is the inspect target.
-                Assert.That(product.Find("Availability").GetComponent<TextMeshProUGUI>().text,Is.EqualTo("道具库存满"));
+                Assert.That(product.Find("Availability").GetComponent<TextMeshProUGUI>().text,Is.EqualTo("道具栏已满"));
                 Assert.That(product.GetComponentsInChildren<UnityEngine.UI.Button>().Count(b=>b.name=="Inspect"),Is.EqualTo(1));
                 Assert.That(InformationButton07("Buy_"+offer.offerId),Is.EqualTo("购买"));
                 Assert.That(product.Find("PriceChip/Price").GetComponent<TextMeshProUGUI>().text,Is.EqualTo(app.Session.GetOfferNetPrice(offer).ToString()));
