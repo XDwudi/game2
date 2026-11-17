@@ -1,0 +1,134 @@
+{
+  "schema": "artgen-record-1",
+  "toolVersion": "artgen-1.2",
+  "jobId": "V11-SANCAI-EMBLEM-CARDS",
+  "jobPath": "ArtSource/Art11/sancai/emblems/cards/job.json",
+  "jobSha256": "c2c717032bdcb94eca14a37dada15f74a19f5f22a79842c833c7c6aa338f15f9",
+  "category": "illustration",
+  "revision": "r01",
+  "mode": "new",
+  "transparentRequired": true,
+  "content": null,
+  "styleKit": {
+    "path": "ArtSource/StyleKit/themes/sancai/style_kit.json",
+    "sha256": "6fc5b3aa09387a5c75ae38d7af89eb2f2350bca2e6cc2a960d23984e0a26d2b4",
+    "kitVersion": "theme-sancai-0.1",
+    "status": "PROPOSED (2026-11-17): anchors are crops of the four card illustrations on the user-chosen 唐三彩陶坊 concept page (ArtSource/StyleKit/themes/sancai/concepts/card.png); awaiting the user's review at checkpoint 3 with the first representative redraws."
+  },
+  "references": [
+    {
+      "index": 1,
+      "path": "ArtSource/StyleKit/themes/sancai/plates/illustration_plate_theme-sancai-0.1.png",
+      "sha256": "ec2beddf08039e823a15f011bc62f147c80b668c2944577ff286a0e061184e43",
+      "role": "STYLE PLATE: four card illustrations in the Tang sancai glazed-pottery style of this game, cropped from concept art and still standing on their cream crackle-glaze card backdrop. Copy their rendering exactly (sculpted glazed ceramic forms, glossy lead glaze with fine crackle, glaze pooling and runs, amber, green and cream glazes with cobalt and iron red, warm umber shadows). Do not copy their subjects, their layout, the crackle-glaze backdrop or the frame ornaments."
+    },
+    {
+      "index": 2,
+      "path": "ArtSource/Art11/default/emblems/cards/r01/original.png",
+      "sha256": "dc1cfc0183e55a2b241bf1c5f949f48f3cc9dee791a25a3ebfcf946e84ff4ee8",
+      "role": "SUBJECT REFERENCE: the same boss emblem drawn in the game's default style. Keep its objects, their arrangement and the idea; ignore its rendering, colours, outlines and halftone completely and draw it in the style of reference image 1."
+    }
+  ],
+  "prompt": {
+    "imagePromptPath": "ArtSource/Art11/sancai/emblems/cards/r01/prompt.txt",
+    "imagePromptFileSha256": "5b876a4a737c8063a354dd832b3966b26ce7d0a75f36a1c8f43716ec20041b39",
+    "agentRequestPath": "ArtSource/Art11/sancai/emblems/cards/r01/codex-request.txt",
+    "agentRequestFileSha256": "b31c43785d24292a35db2bbd43bdb001ba67dbfc6f0b2cbf9aa5c8f0d857c91b"
+  },
+  "codex": {
+    "command": [
+      "C:\\Users\\f\\AppData\\Local\\OpenAI\\Codex\\bin\\c38161ad8494f88c\\codex.exe"
+    ],
+    "version": "codex-cli 0.169.0-alpha.11.1",
+    "exitCode": 0,
+    "threadId": "01a1e90e-9e74-7983-826a-ada212c7aeb0",
+    "sessionLog": "C:\\Users\\f\\.codex\\sessions\\2026\\11\\17\\rollout-2026-11-17T05-30-11-01a1e90e-9e74-7983-826a-ada212c7aeb0.jsonl",
+    "agentModel": "gpt-6-astra",
+    "usage": {
+      "input_tokens": 72527,
+      "cached_input_tokens": 59392,
+      "cache_write_input_tokens": 0,
+      "output_tokens": 894,
+      "reasoning_output_tokens": 0
+    },
+    "durationSeconds": 89.3,
+    "quotaUsedPercentFirst": 21.0,
+    "quotaUsedPercentLast": 21.0
+  },
+  "imageTool": {
+    "name": "image_gen.imagegen (Codex built-in)",
+    "modelSnapshot": "not exposed by the tool; OpenAI documents the built-in tool as gpt-image-2",
+    "generations": [
+      {
+        "id": "exec-486c1eeb-757a-4302-ac93-ed537b81a8ed",
+        "kind": "image_gen.generation",
+        "status": "completed",
+        "failure": null,
+        "revisedPrompt": "Create ONE standalone card-theme illustration. Subject: a boss emblem for silenced cards: one upright blank game card frozen inside a solid block of clear cyan ice, with a few ice shards and frost cracks around it; the card face is plain except for one simple die face and has no writing; the ice block fills the middle of the composition\nStyle: Match the STYLE PLATE (reference image 1) exactly: Tang-dynasty sancai glazed pottery. Every object is a sculpted, slightly chunky glazed ceramic piece in soft relief: thick glossy lead glaze with fine crackle (crazing) lines, softly rounded edges, glaze that pools in hollows and runs in a few drips, small bright specular highlights on the glaze, warm unglazed umber clay in the deepest shadows. Colour comes from the three sancai glazes (amber ochre, copper green and cream) with cobalt blue as the rare fourth glaze. Dice are cream-glazed cubes with crackle and deep, glossy cobalt or iron-red pips. Three-quarter view from slightly above; light from the upper left.\nColour roles: Cream glaze #F0D7AA for lit surfaces and dice bodies, with #FBF0DC only for the brightest glaze highlights; amber ochre #D98E2B for gold, brass, coins, flames and warm accents; copper green #557A2C for leaves, rims and secondary areas; cobalt blue #2C4E9A for blue pips, water and blue objects; iron red #B5481E for red pips and red objects; umber #5A3614 for thin outlines and the deepest shadows. No other hues, no neon, no glow.\nComposition: One cohesive subject group of at most three objects, centred on a square canvas; the subject spans roughly 70 to 95 percent of the canvas width without touching the edges, with even transparent margin on every side; the silhouette must stay readable at 64 pixels. Two or three short glazed relief strokes are allowed when they express the effect. The card frame of the game draws its own backdrop, so the illustration has no background field at all.\nOutput: True transparent alpha background with no backdrop of any colour and no background shapes. A single finished illustration, not a sheet of variants.\nAvoid: text, letters, numbers, labels, prices, card frames, UI elements, a background tile, plaque or field, cloud-scroll frame ornaments, paper or coloured backdrop, ground scenery, checkerboard, photorealism, plastic 3D-render look, chrome, flat vector shapes without glaze, pixel art, neon glow, grunge, human characters, expressive faces.",
+        "transparentBackground": true,
+        "inputImages": [
+          {
+            "path": "E:\\agent_workspace\\gpt\\game2\\ArtSource\\StyleKit\\themes\\sancai\\plates\\illustration_plate_theme-sancai-0.1.png",
+            "sha256": "ec2beddf08039e823a15f011bc62f147c80b668c2944577ff286a0e061184e43"
+          },
+          {
+            "path": "E:\\agent_workspace\\gpt\\game2\\ArtSource\\Art11\\default\\emblems\\cards\\r01\\original.png",
+            "sha256": "dc1cfc0183e55a2b241bf1c5f949f48f3cc9dee791a25a3ebfcf946e84ff4ee8"
+          }
+        ],
+        "savedPath": "C:\\Users\\f\\.codex\\generated_images\\01a1e90e-9e74-7983-826a-ada212c7aeb0\\exec-486c1eeb-757a-4302-ac93-ed537b81a8ed.png",
+        "generationId": "0dabac52-8699-42c4-ac09-8bb31682d27c"
+      }
+    ],
+    "runChecks": {
+      "imageCallCount": 1,
+      "generationCount": 1,
+      "callReferencedImagePaths": [
+        "E:/agent_workspace/gpt/game2/ArtSource/StyleKit/themes/sancai/plates/illustration_plate_theme-sancai-0.1.png",
+        "E:/agent_workspace/gpt/game2/ArtSource/Art11/default/emblems/cards/r01/original.png"
+      ],
+      "modelInputImages": [
+        {
+          "path": "E:\\agent_workspace\\gpt\\game2\\ArtSource\\StyleKit\\themes\\sancai\\plates\\illustration_plate_theme-sancai-0.1.png",
+          "sha256": "ec2beddf08039e823a15f011bc62f147c80b668c2944577ff286a0e061184e43"
+        },
+        {
+          "path": "E:\\agent_workspace\\gpt\\game2\\ArtSource\\Art11\\default\\emblems\\cards\\r01\\original.png",
+          "sha256": "dc1cfc0183e55a2b241bf1c5f949f48f3cc9dee791a25a3ebfcf946e84ff4ee8"
+        }
+      ],
+      "transparentRequested": true,
+      "callPromptExact": true,
+      "revisedPromptExact": true
+    }
+  },
+  "output": {
+    "sourcePath": "C:\\Users\\f\\.codex\\generated_images\\01a1e90e-9e74-7983-826a-ada212c7aeb0\\exec-486c1eeb-757a-4302-ac93-ed537b81a8ed.png",
+    "archivedPath": "ArtSource/Art11/sancai/emblems/cards/r01/original.png",
+    "sha256": "66edd153b4a56b08de92558b23fb62c20053ae5c7f29d3df211feb1d0bca79c1",
+    "copiedByteIdentical": true,
+    "dimensions": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alphaExtrema": [
+      0,
+      255
+    ],
+    "transparentShare": 0.4327,
+    "alphaBounds": [
+      121,
+      68,
+      1083,
+      1176
+    ],
+    "subjectWidthShare": 0.7671,
+    "subjectHeightShare": 0.8836,
+    "subjectAreaShare": 0.5567
+  },
+  "runValid": true,
+  "runProblems": [],
+  "status": "CANDIDATE: review pending",
+  "recordedUtc": "2026-11-17T10:31:41.113126+00:00"
+}
