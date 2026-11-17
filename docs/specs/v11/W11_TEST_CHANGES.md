@@ -108,3 +108,29 @@
 `349af992` 上的第一次 1080p 全量（`nunit-20261117-035332`）为 221 / 222：`PLAY_ART07_POST_PermanentPipTransitionChangesActualGpuPixelsAndRestoresOpaqueFace` 失败。原因是锁定骰子变大后，计分后的永久改点要把骰子退回 0.82 倍，这一步变成了布局移动，移动结束时重新显示了骰面、打断了面的过渡；`23b8dd61` 让这一步立即完成（PLAY_LAYOUT §8 第 36 行），测试没有改。筛选运行的报告也在 `evidence/v11/unity/`。
 
 返工前后的对比图（左为返工前，右为返工后，取自检查点截图）：`artifacts/cache/v11/w11/w11b-evidence/`。
+
+## 6 W11c：瑞士高压关改红（2026-11-17）
+
+基线：`5717b7f9`。做法见 [PLAY_LAYOUT](PLAY_LAYOUT.md) §8 第 37–39 行。
+
+| 测试（文件） | 旧期望 | 新期望 | 理由 |
+| --- | --- | --- | --- |
+| `W11PrimaryButtons`（V11PlayScreenAxPlayModeTests.cs；用于 `PLAY_V11_AX02_OnePrimaryActionButtonInEveryState`） | 屏幕上的按钮面色与 `UiKit.Primary` 完全相同才算主色按钮；只在默认风格下跑 | 面色与主色同一色族才算：色相差 ≤ 10°、饱和度差 ≤ 0.2、明度在主色的 60% 到 +0.1 之间；同一套状态在默认与瑞士两套风格各跑一遍 | 第 30 行的选色会把主按钮面加深（瑞士 E80E16 画成 D10D16），完全相等只在默认风格成立；“恰好一个主色按钮、禁用时没有、位置不变”的检查不变 |
+
+新增测试 `Tests/PlayMode/V11PlayScreenW11cPlayModeTests.cs`：
+
+| 测试 | 检查 |
+| --- | --- |
+| `PLAY_V11_W11c_PressureCuesAreRedInSwissAndUnchangedInDefault` | 默认与瑞士、100% 与 150% 文字下的高压关（检查点场景 d）：切换风格后按贴图测得的缓存为空；顶栏目标与结算差额在默认风格下等于 `UiKit.Pressure`，在瑞士风格下与压力色的色相差 ≤ 12°、饱和度 ≥ 0.5、对字下实际画出的底色 ≥ 4.5:1；本关牌红框、托盘细线、进度条正好是压力色；关卡牌签与本关牌标题条与压力色色相差 ≤ 12°、饱和度 ≥ 0.5，标题字 ≥ 4.5:1。逐项写入 `artifacts/cache/v11/w11/<分辨率>/w11c-pressure.txt` |
+
+运行结果（`b36ed975`，其后只有本文档与 PLAY_LAYOUT 的提交）：
+
+| 套件 | 结果 | 报告 |
+| --- | --- | --- |
+| EditMode（batch） | 2421 / 2421 | `evidence/v11/unity/nunit-20261117-080725.xml` |
+| PlayMode 1920×1080（全量） | 223 / 223 | `evidence/v11/unity/nunit-20261117-083643.xml` |
+| PlayMode 1280×720（全量） | 223 / 223 | `evidence/v11/unity/nunit-20261117-094343.xml` |
+
+720p 的第一次全量（`nunit-20261117-090850`）为 222 / 223：`PLAY_ART07_FX_FastSourceMarksLowQualityReplayAndSkipReset` 的计时帧长 356 ms（该测试超过约 340 ms 就会越过它要等的节拍，是机器连续负载下的已知计时问题，与本次改动无关；同一代码的 1080p 全量通过）。间隔 5 分钟后重跑全量，全部通过；测试没有改。
+
+返工前后的对比图（瑞士高压关的顶栏、本关牌、结算面板、托盘，两种分辨率）：`artifacts/cache/v11/w11/w11c-evidence/`，返工前的截图在 `artifacts/cache/v11/w11c-before/`。
