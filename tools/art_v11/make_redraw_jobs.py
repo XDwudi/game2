@@ -27,14 +27,16 @@ ROLE = ("SUBJECT REFERENCE: the same card drawn in the game's default style. Kee
         "in the style of reference image 1.")
 PIP_CUE = "dice pips coloured exactly as in the subject reference (dark pips stay dark, never recoloured red or blue)"
 DICE_WORDS = re.compile(r"\b(die|dice|pips?)\b", re.IGNORECASE)  # whole words: "pipe" and "diet" must not match
+PIP_COLOUR = re.compile(r"\b(red|blue)(\s+\w+)?\s+pips?\b|\bpips?\s+(are\s+|in\s+)?(red|blue)\b", re.IGNORECASE)
 
 
 def subject_text(entry: dict) -> str:
     text = entry["subject"].rstrip(". ")
     cues = [c.strip().rstrip(".") for c in entry.get("cues", []) if c.strip()]
     mentions_dice = bool(DICE_WORDS.search(text + " " + " ".join(cues)))
-    names_pip_colour = any(re.search(r"\bpips?\b", c, re.IGNORECASE) and re.search(r"\b(red|blue)\b", c, re.IGNORECASE)
-                           for c in cues)
+    # A subject or cue that names a pip colour (C02, C39, C56: blue pips) already decides it; the generic cue would
+    # contradict it.
+    names_pip_colour = any(PIP_COLOUR.search(clause) for clause in re.split(r"[.;,]", text) + cues)
     if mentions_dice and not names_pip_colour:
         cues.append(PIP_CUE)
     return text + (". Must keep: " + "; ".join(cues) + "." if cues else "")
