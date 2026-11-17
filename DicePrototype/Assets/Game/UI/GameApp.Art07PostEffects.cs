@@ -84,7 +84,9 @@ namespace DiceCraft
                 // Keep the full point/color transition in the target's own slot,
                 // using deliberate lines and the unchanged accessible font size.
                 // Other permanent faces and source order remain in the receipt.
-                bool compact=Compact07;label.text=changed?(compact?"永久 "+pip+"\n"+color:"永久\n"+pip+"\n"+color):(compact?"永久 "+pip+"\n净变化0":"永久\n"+pip+"\n未变");
+                // V1.1 (W11): the play screen's slot is tall and narrow at every resolution, so the text always takes
+                // three short lines (the v0.7 compact two-line form needs the wider compact side label).
+                bool compact=Compact07&&!PlayPhase11;label.text=changed?(compact?"永久 "+pip+"\n"+color:"永久\n"+pip+"\n"+color):(compact?"永久 "+pip+"\n净变化0":"永久\n"+pip+"\n未变");
                 label.color=b.baseColor=="red"?UiKit.Red:UiKit.Blue;
                 label.alignment=TextAlignmentOptions.TopLeft;label.lineSpacing=compact?0:-20;
                 label.textWrappingMode=TextWrappingModes.NoWrap;label.overflowMode=TextOverflowModes.Ellipsis;
