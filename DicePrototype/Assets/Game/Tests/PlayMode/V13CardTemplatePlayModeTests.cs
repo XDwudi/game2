@@ -28,10 +28,12 @@ namespace DiceCraft.Tests
         {
             get
             {
-                string dir=Path.GetFullPath(Path.Combine(Application.dataPath,"..","..","artifacts","cache","v11","w13",Screen.width+"x"+Screen.height));
+                // V1.1 (W20X item 0): the stray-cursor regression run of the gallery writes its own folder, not W13's.
+                string dir=w13Output20X??Path.GetFullPath(Path.Combine(Application.dataPath,"..","..","artifacts","cache","v11","w13",Screen.width+"x"+Screen.height));
                 Directory.CreateDirectory(dir);return dir;
             }
         }
+        private string w13Output20X;
         private IEnumerator W13Capture(string name)
         {
             yield return new WaitForEndOfFrame();
@@ -168,7 +170,10 @@ namespace DiceCraft.Tests
             report.Add(scope+": "+cards.Length+" cards, "+texts+" texts, "+shortTexts+" short texts, "+badges+" value badges, "+(failures.Count-before)+" problems");
         }
 
-        [UnityTest] public IEnumerator PLAY_V13_CT01_CT02_CardGalleryInBothThemesAtTwoTextSizes()
+        [UnityTest] public IEnumerator PLAY_V13_CT01_CT02_CardGalleryInBothThemesAtTwoTextSizes()=>W13GalleryRun(null);
+        /// <summary>The body of the CT-01/CT-02 gallery test. V1.1 (W20X item 0): shared with the stray-cursor regression test,
+        /// whose <paramref name="afterStart"/> leaves a resting real cursor over a gallery card before the pages are walked.</summary>
+        private IEnumerator W13GalleryRun(Func<IEnumerator> afterStart)
         {
             Assert.That(Screen.width==1920&&Screen.height==1080||Screen.width==1280&&Screen.height==720,Is.True,"Run at actual 1920x1080 or 1280x720.");
             bool hadPreview=PlayerPrefs.HasKey(ThemeRegistry.PreviewKey);int previewValue=PlayerPrefs.GetInt(ThemeRegistry.PreviewKey,0);
@@ -178,6 +183,7 @@ namespace DiceCraft.Tests
             {
                 PlayerPrefs.SetInt(ThemeRegistry.PreviewKey,1);GameApp.CleanCapture11=true;
                 StartRun("71301");
+                if(afterStart!=null)yield return afterStart();
                 foreach(string theme in new[]{"default","swiss"})
                 {
                     app.ApplyTheme11(theme);Assert.That(app.ThemeId11,Is.EqualTo(theme));

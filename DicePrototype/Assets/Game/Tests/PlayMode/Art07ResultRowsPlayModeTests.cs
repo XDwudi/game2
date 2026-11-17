@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.IO;
 using System.Linq;
@@ -61,9 +62,17 @@ namespace DiceCraft.Tests
 
         [UnityTest] public IEnumerator PLAY_ART07_RESULTROWS_GameplayItemHoverUsesDelayAndKeepsInventoryUnchanged()
         {
-            StartRun("70912");ApplyInformationScene07(InformationScene07(Art07FixtureKind.MaximumTable));
+            StartRun("70912");
+            yield return GameplayItemHover07(null);
+        }
+        /// <summary>The body of the item hover test. V1.1 (W20X item 0): shared with the stray-cursor regression test, whose
+        /// <paramref name="beforeHover"/> puts a resting real cursor somewhere on the screen once the item button exists.</summary>
+        private IEnumerator GameplayItemHover07(Func<UnityEngine.UI.Button,IEnumerator> beforeHover)
+        {
+            ApplyInformationScene07(InformationScene07(Art07FixtureKind.MaximumTable));
             var item=app.Session.State.inventory.First();var button=Button("Item_"+item.instanceId);
             var hover=button.GetComponent<Art07HoverTip>();Assert.That(hover,Is.Not.Null);
+            if(beforeHover!=null)yield return beforeHover(button);
             string state=StateJson();var disk=File.ReadAllBytes(app.SaveLocation);
             float shownAt=-1,delta=0;var original=hover.show;
             hover.show=()=>{shownAt=Time.unscaledTime;delta=Time.unscaledDeltaTime;original();};

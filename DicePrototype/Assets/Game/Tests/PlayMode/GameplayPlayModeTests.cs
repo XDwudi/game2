@@ -55,6 +55,8 @@ namespace DiceCraft.Tests
             PlayerPrefs.SetInt("art07.guideSeen",1);
             originalVolume = PlayerPrefs.HasKey("volume") ? (float?)PlayerPrefs.GetFloat("volume") : null;
             PlayerPrefs.SetFloat("volume", 0);
+            // V1.1 (W20X item 0): the real mouse, pen or touch screen never reaches these tests, wherever the OS cursor rests.
+            IsolateRealPointers20X();
             yield return LoadBootstrap();
             Assert.That(app.SaveLocation, Is.EqualTo(Path.Combine(saveDirectory, "active-run.json")), "Test isolation hook was not applied before Awake.");
             Assert.That(app.Session.State, Is.Null, "A unique temporary save directory must start empty.");
@@ -71,6 +73,9 @@ namespace DiceCraft.Tests
                 SceneManager.SetActiveScene(empty);
                 yield return SceneManager.UnloadSceneAsync(bootstrap);
             }
+            // V1.1 (W20X item 0): after the scene (and its UI input module) is gone, the real pointers are handed back.
+            StopStrayCursor20X();
+            RestoreRealPointers20X();
             GameApp.SaveDirectoryOverride = null; GameApp.SuppressStartupDisplay=false;
             foreach (var preference in intPreferences)
                 if (preference.Value.HasValue) PlayerPrefs.SetInt(preference.Key, preference.Value.Value);
