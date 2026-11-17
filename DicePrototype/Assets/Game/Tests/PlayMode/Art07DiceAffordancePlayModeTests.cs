@@ -90,7 +90,8 @@ namespace DiceCraft.Tests
         }
         private static int GripPaperPixels07(Texture2D shot,Rect rect)
         {
-            Color32 expected=(Color32)UiKit.Paper;int count=0;
+            // V1.1 (W11b): the grip is a mark on the felt and takes the palette's onFelt token (Paper while a theme sets none).
+            Color32 expected=(Color32)UiKit.OnFelt(UiKit.Paper);int count=0;
             for(int y=Mathf.Max(0,Mathf.CeilToInt(rect.yMin));y<Mathf.Min(shot.height,Mathf.FloorToInt(rect.yMax));y++)
             for(int x=Mathf.Max(0,Mathf.CeilToInt(rect.xMin));x<Mathf.Min(shot.width,Mathf.FloorToInt(rect.xMax));x++)
             {

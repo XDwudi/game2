@@ -36,7 +36,14 @@ namespace DiceCraft.Tests
                         var final=FindActive<TextMeshProUGUI>("FinalScore");
                         var labels=new List<TextMeshProUGUI>{hand,final};
                         var chips=W11ShownActions(Enumerable.Range(0,8).Select(i=>"Factor"+i).ToArray());Assert.That(chips,Does.Contain("Factor0"));
-                        foreach(string chip in chips){var t=Button(chip).transform;labels.Add(t.Find("Label").GetComponent<TextMeshProUGUI>());labels.Add(t.Find("Name").GetComponent<TextMeshProUGUI>());}
+                        // V1.1 (W11b, PLAY_LAYOUT 8 row 34): names keep the body size; when the row is short of room the
+                        // rightmost chips show their value only. Every shown name is checked; the base chip always has one.
+                        Assert.That(Button("Factor0").transform.Find("Name").gameObject.activeInHierarchy,Is.True,"The base chip keeps its name.");
+                        foreach(string chip in chips)
+                        {
+                            var t=Button(chip).transform;labels.Add(t.Find("Label").GetComponent<TextMeshProUGUI>());
+                            if(t.Find("Name").gameObject.activeInHierarchy)labels.Add(t.Find("Name").GetComponent<TextMeshProUGUI>());
+                        }
                         yield return ScoreLabelGpuCapture07(labels);
                         Rect info=V06ScreenRect(FindActive<RectTransform>("SubmitInfo11")),total=V06ScreenRect((RectTransform)final.transform.parent);
                         var chipRects=chips.Select(n=>V06ScreenRect((RectTransform)Button(n).transform)).ToArray();

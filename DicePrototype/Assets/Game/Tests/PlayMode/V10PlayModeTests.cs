@@ -39,7 +39,9 @@ namespace DiceCraft.Tests
             var body = FindActive<TextMeshProUGUI>("BossModifierText"); body.ForceMeshUpdate();
             // V1.1 (W11, PLAY_LAYOUT 1): the stage card prints the modifier's short text (config shortText, as on the cards);
             // the full description is in its hover and in the cycle panel.
-            Assert.That(body.text, Is.EqualTo(app.Config.Modifier(modifierId).shortText)); Assert.That(body.isTextOverflowing, Is.False, "The short text of " + modifierId + " must fit its box.");
+            // V1.1 (W11b, PLAY_LAYOUT 8 row 33): a two-line effect breaks at the punctuation nearest its middle; that line
+            // break is the only difference from the short text.
+            Assert.That(body.text.Replace("\n", ""), Is.EqualTo(app.Config.Modifier(modifierId).shortText)); Assert.That(body.isTextOverflowing, Is.False, "The short text of " + modifierId + " must fit its box.");
             // Both lines must really be drawn: every non-blank character has a visible glyph that lies inside the readout.
             foreach (var text in new[] { FindActive<TextMeshProUGUI>("BossModifierName"), body })
             {

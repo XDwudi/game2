@@ -214,19 +214,27 @@ namespace DiceCraft.Tests
         private static readonly string[] W11BodyTexts={"Chapter","MoneyLabel11","StageCardTitle11","BossModifierText","BossLoot11","StageGoalLabel11","StageReward11","StageNote11",
             "RollBudgetLabel","SubmitBudgetLabel","ItemsTitle","SlotsTitle","LockRule","Hand","FormulaCaptionText11","ActionReason","GoalGapLabel11","GoalReward11","QualifiedReward0","QualifiedReward1","QualifiedReward2","PoolTitle"};
         private static readonly string[] W11KeyNumbers={"StageScore","Target","Money","RollBudgetValue","SubmitBudgetValue","FinalScore","StableResultScore07","GoalGap11","StageGoal11","StageLabel11","BossModifierName"};
-        private List<Rect> W11GlyphCheck(TextMeshProUGUI text,string scope)
+        private List<Rect> W11GlyphCheck(TextMeshProUGUI text,string scope,UnityEngine.UI.Graphic[] order=null,List<string> frameFailures=null)
         {
-            text.ForceMeshUpdate();var rects=new List<Rect>();int expected=text.GetParsedText().Count(c=>!char.IsWhiteSpace(c));
+            text.ForceMeshUpdate();int expected=text.GetParsedText().Count(c=>!char.IsWhiteSpace(c));
             Assert.That(text.isTextTruncated,Is.False,scope+" "+text.name+" truncated");
-            for(int i=0;i<text.textInfo.characterCount;i++)
-            {
-                var info=text.textInfo.characterInfo[i];if(!info.isVisible||char.IsWhiteSpace(info.character))continue;
-                var a=text.transform.TransformPoint(info.bottomLeft);var b=text.transform.TransformPoint(info.topRight);
-                rects.Add(Rect.MinMaxRect(Mathf.Min(a.x,b.x),Mathf.Min(a.y,b.y),Mathf.Max(a.x,b.x),Mathf.Max(a.y,b.y)));
-            }
+            var rects=W11bGlyphRects(text);
             Assert.That(rects.Count,Is.EqualTo(expected),scope+" "+text.name+" draws "+rects.Count+" of "+expected+" characters: '"+text.text+"'");
             var own=V06ScreenRect(text.rectTransform);float slack=1.5f;
             foreach(var r in rects)Assert.That(r.xMin>=own.xMin-slack&&r.xMax<=own.xMax+slack&&r.yMin>=own.yMin-slack&&r.yMax<=own.yMax+slack,Is.True,scope+" "+text.name+" glyph "+r+" outside its box "+own);
+            // W11b: and inside the visible frame of the surface it is drawn on (the frame line, bevel or ring is not room
+            // for text), which is what the player sees, not the text's own box.
+            if(order!=null)
+            {
+                var frame=W11bVisibleFrame(text,rects,order,out string surface);
+                if(frame.HasValue)foreach(var r in rects)
+                {
+                    bool inside=r.xMin>=frame.Value.xMin-slack&&r.xMax<=frame.Value.xMax+slack&&r.yMin>=frame.Value.yMin-slack&&r.yMax<=frame.Value.yMax+slack;
+                    string message=scope+" "+text.name+" glyph "+r+" outside the visible frame "+frame.Value+" of "+surface+": '"+text.text+"'";
+                    if(frameFailures!=null){if(!inside){frameFailures.Add(message);break;}}
+                    else Assert.That(inside,Is.True,message);
+                }
+            }
             return rects;
         }
         private IEnumerator W11TextPass(string scope)
@@ -236,15 +244,22 @@ namespace DiceCraft.Tests
                 (W11BodyTexts.Contains(t.name)||W11KeyNumbers.Contains(t.name)||t.name=="ShortText11"||t.name=="Name"&&t.transform.parent.name.StartsWith("Controller_",StringComparison.Ordinal)||t.name.StartsWith("Pending")||t.transform.parent.name.StartsWith("Factor",StringComparison.Ordinal))).ToArray();
             Assert.That(texts.Length,Is.GreaterThan(15),scope+": too few texts found.");
             var all=new List<KeyValuePair<TextMeshProUGUI,List<Rect>>>();
+            var order=app.canvas.GetComponentsInChildren<UnityEngine.UI.Graphic>(false);var frameFailures=new List<string>();
             foreach(var t in texts)
             {
-                var rects=W11GlyphCheck(t,scope);all.Add(new KeyValuePair<TextMeshProUGUI,List<Rect>>(t,rects));
+                var rects=W11GlyphCheck(t,scope,order,frameFailures);all.Add(new KeyValuePair<TextMeshProUGUI,List<Rect>>(t,rects));
                 // AX-03: body text at least 13 px and key numbers at least 21 px at 1280x720 (19.5 and 31.5 design units).
                 float px=t.fontSize*app.canvas.scaleFactor,design=t.fontSize;
                 if(W11BodyTexts.Contains(t.name)||t.name=="ShortText11")Assert.That(design,Is.GreaterThanOrEqualTo(19.49f),scope+" "+t.name+" body text "+design+" units");
                 if(W11KeyNumbers.Contains(t.name)&&t.name!="StageLabel11"&&t.name!="BossModifierName")Assert.That(design,Is.GreaterThanOrEqualTo(31.49f),scope+" "+t.name+" key number "+design+" units");
                 if(Screen.height==720&&(W11BodyTexts.Contains(t.name)||t.name=="ShortText11"))Assert.That(px,Is.GreaterThanOrEqualTo(12.99f),scope+" "+t.name);
+                // W11b: a formula chip's name is body text scaled by the text size like the rest (19.5 units times the scale).
+                if(t.name=="Name"&&t.transform.parent.name.StartsWith("Factor",StringComparison.Ordinal))
+                    Assert.That(design,Is.GreaterThanOrEqualTo(19.5f*UiKit.FontScale-.01f),scope+" chip name "+t.transform.parent.name+" "+design+" units");
+                // W11b: a hint on two lines has no one- or two-character line.
+                if(t.name=="ActionReason")W11bAssertNoOrphan(t,scope);
             }
+            Assert.That(frameFailures,Is.Empty,scope+": glyphs on the drawn frame of their surface:\n"+string.Join("\n",frameFailures));
             // No two of these texts paint over each other.
             for(int i=0;i<all.Count;i++)for(int j=i+1;j<all.Count;j++)
                 foreach(var a in all[i].Value)foreach(var b in all[j].Value)
