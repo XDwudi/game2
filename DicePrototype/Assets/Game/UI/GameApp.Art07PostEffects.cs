@@ -58,6 +58,10 @@ namespace DiceCraft
             var display=prior.Clone();display.remoteOverride=false;int current=DiceTable.FaceIndex(display.currentFaceId);
             display.currentPip=before.faces[current].permanentPip;display.currentColor=before.faces[current].baseColor;
             table.Display(before,display,center,Compact07?.65f:.82f);
+            // V1.1 (W11b): on the play screen a locked die is larger than 0.82 and steps back here; the step is taken at
+            // once, so the face transition starts on the die where it stands (a layout move ending during the transition
+            // would show the physical face again under it).
+            if(PlayPhase11)table.FinishLayoutTransitions();
             var oldImages=Art07FaceTransition.Capture(table.GetFaceOrientation(id),id,FaceColors07(before));
             display.currentPip=after.faces[current].permanentPip;display.currentColor=after.faces[current].baseColor;
             table.Display(after,display,center,Compact07?.65f:.82f);

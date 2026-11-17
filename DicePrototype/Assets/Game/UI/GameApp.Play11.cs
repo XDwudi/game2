@@ -645,6 +645,10 @@ namespace DiceCraft
                     // (PostScoreCenter11) so the change text keeps its room.
                     float scale=Mathf.Min(1.1f,Mathf.Min((slotW-38)/101f,(slotH-38)/127f)),half=50.5f*scale;
                     Vector2 center=new Vector2(x+2+half,sy+38+63.5f*scale);
+                    // A redraw during the post-score beats keeps a die that is showing its permanent change stepped back.
+                    var post=PostScoreCenter11(new Rect(x,sy,slotW,slotH));
+                    if(IsPresenting07&&beat07!=null&&beat07.Phase>=DiceCraft.Presentation.PresentationPhase.PostScore&&dieCenters.TryGetValue(id,out var shownAt)&&(shownAt-post).sqrMagnitude<.01f)
+                    {scale=Compact07?.65f:.82f;center=post;}
                     lockedSlotRects07[id]=new Rect(x,sy,slotW,slotH);
                     var lip=UiKit.Box(main,"SlotTray073_"+i,x+4,sy+slotH-6,slotW-8,20,Color.white).GetComponent<Image>();
                     lip.sprite=UiKit.Template("ui_tray_front");lip.type=lip.sprite!=null?Image.Type.Sliced:Image.Type.Simple;lip.raycastTarget=false;lip.gameObject.SetActive(lip.sprite!=null);
