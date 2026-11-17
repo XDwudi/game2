@@ -228,32 +228,58 @@ namespace DiceCraft.Tests
             foreach(string id in new[]{"U01","U07","U05"})AddBoundaryOffer(fixture,"extra-"+id,"die_upgrade",id);
             yield return ExtraLoadFixture07(fixture,"upgrades");
             string before=StateJson();byte[] disk=File.ReadAllBytes(app.SaveLocation);
-            yield return ExtraPress07("Buy_extra-U01");Assert.That(Button("ConfirmPurchase").interactable,Is.False);
-            yield return ExtraCapture07("upgrade-no-target","S13","No implicit die/face target; confirm disabled.");
+            // V1.1 (W14, SHOP_LAYOUT 7): the face pick on the table replaces the dice sheet: S1 has nothing to confirm yet, the
+            // panel's 取消 cancels (v0.73: a disabled confirmation in the sheet, closed with its ×).
+            yield return ExtraPress07("Buy_extra-U01");Assert.That(app.FacePickStep14,Is.EqualTo("S1"));Assert.That(HasActive("ConfirmPurchase"),Is.False);
+            yield return ExtraCapture07("upgrade-no-target","S13","No implicit die/face target; nothing to confirm.");
             yield return ExtraPress07("Target_D001");yield return ExtraPress07("Face_F02");Assert.That(Button("ConfirmPurchase").interactable,Is.True);
-            yield return ExtraCapture07("upgrade-selected-face","S13","Real permanent/current/effective data and deterministic smooth-face preview.");
-            yield return ExtraPress07("CloseDialog");Assert.That(StateJson(),Is.EqualTo(before));CollectionAssert.AreEqual(disk,File.ReadAllBytes(app.SaveLocation));
+            yield return ExtraCapture07("upgrade-selected-face","S13","The chosen face before and after, the price and the gold.");
+            yield return ExtraPress07("CancelFacePick14");Assert.That(StateJson(),Is.EqualTo(before));CollectionAssert.AreEqual(disk,File.ReadAllBytes(app.SaveLocation));
             yield return ExtraPress07("Buy_extra-U01");yield return ExtraPress07("Target_D001");yield return ExtraPress07("Face_F02");long seq=app.Session.ActionSequence;
             yield return ExtraPress07("ConfirmPurchase",true);Assert.That(app.Session.ActionSequence,Is.EqualTo(seq+1));Assert.That(app.Session.State.dice.Single(d=>d.dieId=="D001").faces.Single(f=>f.faceId=="F02").texture,Is.EqualTo("smooth"));
             yield return ExtraCapture07("upgrade-after","S13","Actual purchased smooth face; sold quote retained.");
             before=StateJson();disk=File.ReadAllBytes(app.SaveLocation);yield return ExtraPress07("Buy_extra-U07");yield return ExtraPress07("Target_D001");yield return ExtraPress07("Face_F02");
-            Assert.That(FindActive<TextMeshProUGUI>("PurchasePreviewBody").text,Does.Contain("等概率取一个").And.Contain("颜色、纹理、镀金保持"));
-            yield return ExtraCapture07("random-upgrade-range","S13","U07 shows only legal range; newly smooth permanent face visible; no RNG draw.");yield return ExtraPurchaseText07("random-upgrade-readable");yield return ExtraPress07("CloseDialog");
+            Assert.That(FindActive<TextMeshProUGUI>("PurchasePreviewBody").text,Does.Contain("随机变成").And.EndWith("之一"));
+            Assert.That(FindActive<TextMeshProUGUI>("FacePickNote14").text,Is.EqualTo("颜色、纹理、黄金不变；买下时才抽"));
+            yield return ExtraCapture07("random-upgrade-range","S13","U07 shows only legal range; newly smooth permanent face visible; no RNG draw.");yield return ExtraPurchaseText07("random-upgrade-readable");yield return ExtraPress07("CancelFacePick14");
             Assert.That(StateJson(),Is.EqualTo(before));CollectionAssert.AreEqual(disk,File.ReadAllBytes(app.SaveLocation));
             yield return ExtraPress07("Buy_extra-U05");yield return ExtraPress07("Target_D001");yield return ExtraCapture07("whole-die-upgrade-preview","S13","Whole-die target has no chosen physical face.");yield return ExtraPurchaseText07("glass-risk-readable");
             yield return ExtraPress07("ConfirmPurchase",true);Assert.That(app.Session.State.dice.Single(d=>d.dieId=="D001").isGlass,Is.True);Assert.That(string.IsNullOrEmpty(app.Session.State.processedReceipts.Last().command.targetFaceId),Is.True);
-            yield return ExtraPress07("Buy_extra-U07");yield return ExtraPress07("Target_D001");yield return ExtraPress07("Face_F02");yield return ExtraCapture07("glass-with-smooth-face","S13","Actual committed glass body with the prior permanent smooth face.");yield return ExtraPress07("CloseDialog");
+            yield return ExtraPress07("Buy_extra-U07");yield return ExtraPress07("Target_D001");yield return ExtraPress07("Face_F02");yield return ExtraCapture07("glass-with-smooth-face","S13","Actual committed glass body with the prior permanent smooth face.");yield return ExtraPress07("CancelFacePick14");
             fixture=app.Session.State;fixture.shop.offers.RemoveAll(o=>o.contentId=="U01");AddBoundaryOffer(fixture,"extra-duplicate","die_upgrade","U01");yield return ExtraLoadFixture07(fixture,"duplicate-upgrade");
             yield return ExtraPress07("Buy_extra-duplicate");yield return ExtraPress07("Target_D001");yield return ExtraPress07("Face_F02");
-            Assert.That(Button("ConfirmPurchase").interactable,Is.False);yield return ExtraCapture07("upgrade-already-owned","S13","Core rejects duplicate attribute; price/target retained and no transaction.");yield return ExtraPress07("CloseDialog");ExtraFinish07();
+            Assert.That(Button("ConfirmPurchase").interactable,Is.False);Assert.That(FindActive<TextMeshProUGUI>("PurchaseUnavailable").text,Is.EqualTo("这一面已经是光滑的，换一个面"));
+            yield return ExtraCapture07("upgrade-already-owned","S13","Core rejects duplicate attribute; price/target retained and no transaction.");yield return ExtraPress07("CancelFacePick14");ExtraFinish07();
         }
 
         private IEnumerator ExtraPurchaseText07(string label)
         {
             var text=FindActive<TextMeshProUGUI>("PurchasePreviewBody");var scroll=text.GetComponentInParent<ScrollRect>();
-            Assert.That(scroll,Is.Not.Null);text.ForceMeshUpdate();
+            text.ForceMeshUpdate();
             int expected=text.text.Count(c=>!char.IsWhiteSpace(c));var seen=new HashSet<int>();
             Assert.That(text.textInfo.characterCount,Is.EqualTo(text.text.Length),"All preview characters must exist in TMP layout.");
+            if(scroll==null)
+            {
+                // V1.1 (W14, SHOP_LAYOUT 7): the face-pick panel does not scroll; every glyph of the change line (and of its note)
+                // must be drawn inside the panel, and the confirmation stays usable.
+                var panel=ExtraBounds07(FindActive<RectTransform>("FacePick14"));string at=ExtraStateHash07(),file=ExtraFileHash07(app.SaveLocation);
+                foreach(var line in new[]{text,HasActive("FacePickNote14")?FindActive<TextMeshProUGUI>("FacePickNote14"):null}.Where(t=>t!=null))
+                {
+                    line.ForceMeshUpdate();int shown=0,wanted=line.text.Count(c=>!char.IsWhiteSpace(c));
+                    for(int i=0;i<line.textInfo.characterCount;i++)
+                    {
+                        var ch=line.textInfo.characterInfo[i];if(char.IsWhiteSpace(ch.character)||!ch.isVisible)continue;
+                        var lower=RectTransformUtility.WorldToScreenPoint(null,line.transform.TransformPoint(ch.bottomLeft));
+                        var upper=RectTransformUtility.WorldToScreenPoint(null,line.transform.TransformPoint(ch.topRight));
+                        if(lower.x>=panel.xMin-.1f&&upper.x<=panel.xMax+.1f&&lower.y>=panel.yMin-.1f&&upper.y<=panel.yMax+.1f)shown++;
+                    }
+                    Assert.That(shown,Is.EqualTo(wanted),line.name+": some range/risk characters are not drawn inside the panel");
+                }
+                var confirm=Button("ConfirmPurchase");Assert.That(confirm.IsInteractable(),Is.True);Assert.That(ExtraHit07(confirm.gameObject,ExtraBounds07((RectTransform)confirm.transform).center),Is.True);
+                yield return ExtraCapture07(label+"-page0","S13","Actual face-pick panel; every glyph of the change and its note drawn, payment usable.");
+                Assert.That(ExtraStateHash07(),Is.EqualTo(at));Assert.That(ExtraFileHash07(app.SaveLocation),Is.EqualTo(file));
+                yield break;
+            }
             float overflow=Math.Max(0,scroll.content.rect.height-scroll.viewport.rect.height);
             int pages=Math.Max(1,Mathf.CeilToInt(overflow/Math.Max(1,scroll.viewport.rect.height*.75f))+1);
             string state=ExtraStateHash07(),save=ExtraFileHash07(app.SaveLocation);

@@ -42,20 +42,30 @@ namespace DiceCraft.Tests
                     var panel=FindActive<RectTransform>("Stats07");var money=FindActive<TextMeshProUGUI>("Money");
                     long sources=ControllerRules.ResolveSources(app.Session.State.controllers).Count(s=>s.abilityId=="C01");
                     Assert.That(sources,Is.EqualTo(2),"This wallet fixture retains real C01 and C41 interest contributions.");
-                    string interest="每"+app.Config.interestDivisor+"金币利息 +"+(1+sources*app.Config.Controller("C01").parameters.extraInterestPerTen)+"\n计息本金上限 "+app.Config.maxInterestPrincipal;
-                    string[] names={"Brand","MoneyUnit","Money","Interest"};string[] expected={"骰子构筑","金币",amount,interest};
+                    // V1.1 (W14, SHOP_LAYOUT 3): the wallet is the gold readout of the top bar (coin, amount, 金币); the 骰子构筑
+                    // wordmark is gone and the interest is the readout's hover, in the player's words (UI_REWRITES Art07Shop.cs:34).
+                    long rate=1+sources*app.Config.Controller("C01").parameters.extraInterestPerTen;
+                    string interest="利息：每 "+app.Config.interestDivisor+" 金币 +"+rate+"，每关最多 +"+app.Config.maxInterestPrincipal/app.Config.interestDivisor*rate;
+                    Assert.That(HasActive("Brand"),Is.False,"The wordmark left the shop (SHOP_LAYOUT 3).");
+                    string[] names={"MoneyLabel11","Money"};string[] expected={"金币",amount};
                     var labels=names.Select(FindActive<TextMeshProUGUI>).ToArray();
                     var report=new WalletRead07{amount=amount,stateHash=ExtraStateHash07(),saveSha=ExtraFileHash07(app.SaveLocation),
                         sourceSha=extra07.sourceManifestSha256,runtimeMvid=typeof(GameApp).Module.ModuleVersionId.ToString(),
                         width=Screen.width,height=Screen.height,fontPercent=font,amountFontSize=money.fontSize,tracking=money.characterSpacing,
                         minimumDigitInkGapPixels=float.MaxValue};
-                    for(int i=0;i<labels.Length;i++)report.labels.Add(CardGlyphCheck07(panel,labels[i],expected[i],292));
-                    Assert.That(money.fontSize,Is.EqualTo(38*font/100f).Within(.001f),"Do not shrink the wallet to conceal overflow.");
+                    for(int i=0;i<labels.Length;i++)report.labels.Add(CardGlyphCheck07(panel,labels[i],expected[i],panel.rect.height));
+                    // The amount keeps its key-number size at every text size (34; 31.5 with enlarged text) and every digit.
+                    Assert.That(money.fontSize,Is.EqualTo(font>100?31.5f:34f).Within(.001f),"Do not shrink the wallet to conceal overflow.");
                     Assert.That(money.enableAutoSizing,Is.False);Assert.That(money.textInfo.lineCount,Is.EqualTo(1));
-                    Assert.That(labels[3].textInfo.lineCount,Is.EqualTo(2),"Keep the complete interest rate and principal cap.");
+                    var hover=Button("MoneyHover14").GetComponent<Art07HoverTip>();hover.show();
+                    // The hover fades in over 80 ms (Art07PanelMotion); read it once it is fully shown.
+                    yield return new WaitForSecondsRealtime(.2f);
+                    var tip=FindActive<RectTransform>("ContentTooltip");var interestText=tip.Find("Description").GetComponent<TextMeshProUGUI>();
+                    var interestRow=CardGlyphCheck07(tip,interestText,interest,tip.rect.height);hover.hide();
+                    Assert.That(interestRow.errors,Is.Empty,"Keep the complete interest rate and stage cap: "+string.Join("; ",interestRow.errors));
                     for(int a=0;a<report.labels.Count;a++)for(int b=a+1;b<report.labels.Count;b++)
                         Assert.That(CardOverlap07(report.labels[a].ink,report.labels[b].ink),Is.False,names[a]+" ink intersects "+names[b]);
-                    foreach(string button in new[]{"Pause","Handbook"})
+                    foreach(string button in new[]{"Pause","Handbook","ViewCycle"})
                     {
                         Rect bounds=CardLocalRect07(panel,(RectTransform)Button(button).transform);
                         foreach(var label in report.labels)Assert.That(CardOverlap07(label.ink,bounds),Is.False,label.name+" covers "+button);

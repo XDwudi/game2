@@ -100,27 +100,35 @@ namespace DiceCraft.Tests
             yield return OpenBoundaryOffer("new-controller"); var controllerConfirm=Button("ConfirmPurchase"); Click("CloseDialog");
             UnityEngine.UI.Button confirm = null;
             int staleFaceCalls = 0;
+            // V1.1 (W14, SHOP_LAYOUT 7): the face is chosen on the table (S1 die, S2 face, S3 confirm) instead of in the dice
+            // sheet. The same three guarantees are checked on the pooled face buttons and the pooled confirmation: a whole-die
+            // upgrade offers no face to choose, and the hidden pooled face it leaves behind cannot choose one; a face drawn
+            // again has lost the listener of the earlier flow; the reused confirmation executes one latest purchase.
             for (int repeat = 0; repeat < 6; repeat++)
             {
                 yield return OpenBoundaryOffer("old-smooth"); Click("Target_D001");
                 var oldFace = Button("Face_F02");
                 oldFace.onClick.AddListener(() => staleFaceCalls++);
-                Click("Face_F01"); Click("CloseDialog");
-                yield return OpenBoundaryOffer("whole-glass"); Click("Target_D001"); // Whole-die targeting must remove former per-face handlers.
-                var readonlyFace = FindActive<Transform>("Face_F02").GetComponent<UnityEngine.UI.Button>();
-                Assert.That(readonlyFace, Is.SameAs(oldFace));
-                Assert.That(readonlyFace.enabled, Is.False); Assert.That(readonlyFace.interactable, Is.False);
-                string title = FindActive<TextMeshProUGUI>("DialogTitle").text;
-                readonlyFace.onClick.Invoke(); // Deliberately bypass disabled UI to prove stale listeners were removed.
-                Assert.That(staleFaceCalls, Is.Zero);
-                Assert.That(FindActive<TextMeshProUGUI>("DialogTitle").text, Is.EqualTo(title), "A read-only face must not reopen the former target preview.");
+                Click("Face_F01"); Assert.That(app.FacePickFace14, Is.EqualTo("F01")); Click("CancelFacePick14");
+                yield return OpenBoundaryOffer("whole-glass"); Click("Target_D001"); // Whole-die targeting must not use per-face handlers.
+                Assert.That(app.FacePickStep14, Is.EqualTo("S3")); Assert.That(HasActive("Face_F02"), Is.False, "A whole-die upgrade shows no face to choose.");
+                string die = app.FacePickDie14;
+                oldFace.onClick.Invoke(); // Deliberately call the hidden pooled face of the earlier flow (with the probe listener).
+                Assert.That(app.FacePickStep14, Is.EqualTo("S3")); Assert.That(app.FacePickFace14, Is.Null, "A read-only face must not choose a face for a whole die.");
+                Assert.That(app.FacePickDie14, Is.EqualTo(die)); Assert.That(StateJson(), Is.EqualTo(original));
+                staleFaceCalls = 0; // the probe ran because that face has not been drawn again yet; count from here
                 if (confirm == null) confirm = Button("ConfirmPurchase");
                 else Assert.That(Button("ConfirmPurchase"), Is.SameAs(confirm));
-                Click("CloseDialog");
-                yield return OpenBoundaryOffer("new-gold"); Click("Target_D001"); Click("Target_D002"); Click("Face_F03");
+                Click("CancelFacePick14");
+                yield return OpenBoundaryOffer("new-gold"); Click("Target_D001"); Click("Target_D002");
+                var reused = Button("Face_F02"); Assert.That(reused, Is.SameAs(oldFace), "The face buttons are pooled.");
+                reused.onClick.Invoke(); // drawn again: the listener added in the earlier flow is gone
+                Assert.That(staleFaceCalls, Is.Zero, "A pooled face drawn again must not keep a former listener.");
+                Assert.That(app.FacePickFace14, Is.EqualTo("F02")); Click("ChangeFace14"); Click("Face_F03");
+                Assert.That(app.FacePickDie14, Is.EqualTo("D002")); Assert.That(app.FacePickFace14, Is.EqualTo("F03"));
                 Assert.That(Button("ConfirmPurchase"), Is.SameAs(confirm));
                 Assert.That(StateJson(), Is.EqualTo(original));
-                if (repeat < 5) Click("CloseDialog");
+                if (repeat < 5) Click("CancelFacePick14");
             }
             long sequence = app.Session.State.actionSequence;
             long gold = app.Session.State.gold;

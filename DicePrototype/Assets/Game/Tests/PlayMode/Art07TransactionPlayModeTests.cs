@@ -65,7 +65,9 @@ namespace DiceCraft.Tests
         private void AssertTransactionTicketClear07(System.Collections.Generic.List<Tuple<string,Rect>> oldGlyphs,bool reduced)
         {
             var ticket=LiveFx07("fx_cash_ticket").Single();Assert.That(ticket.ReducedMotion,Is.EqualTo(reduced));
-            foreach(string required in new[]{"Money","Interest","ControllerShelfTitle"})
+            // V1.1 (W14, SHOP_LAYOUT 3): the interest moved from the left column into the gold's hover; the top bar's next-stage
+            // line takes its place among the texts the ticket must leave readable.
+            foreach(string required in new[]{"Money","NextStage14","ControllerShelfTitle"})
                 Assert.That(app.canvas.GetComponentsInChildren<TMP_Text>(false).Any(t=>t.name==required&&!string.IsNullOrWhiteSpace(t.text)),Is.True,required);
             Assert.That(Button("RefreshControllers").GetComponentInChildren<TMP_Text>().text,Is.Not.Empty);
             var glyphs=TransactionReadableGlyphs07().Concat(oldGlyphs).ToArray();Assert.That(glyphs.Length,Is.GreaterThan(10));

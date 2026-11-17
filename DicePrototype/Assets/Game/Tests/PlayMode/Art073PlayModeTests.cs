@@ -107,35 +107,36 @@ namespace DiceCraft.Tests
         private void Art073CheckShopPage(string scope)
         {
             foreach(string gone in new[]{"Tab0","Tab1","Tab2","Tab3","Tab4","ActiveShopTab","ShopOwnedItems"})Assert.That(HasActive(gone),Is.False,scope+": "+gone);
-            Rect screen=Screen.safeArea;var offers=app.Session.State.shop.offers;
-            var sections=new Dictionary<string,string>{{"controller","ControllerShelf"},{"new_die","DiceCounter"},{"consumable","ConsumableSection"},
-                {"hand_upgrade","ResearchSection"},{"color_upgrade","ResearchSection"},{"die_upgrade","UpgradeSection"},{"service","ServiceSection"}};
-            foreach(string section in sections.Values.Distinct().Concat(new[]{"OwnedStrip","ShopProducts","Stats07"}))
+            Rect screen=Screen.safeArea;var offers=app.Session.State.shop.offers.Where(o=>string.IsNullOrEmpty(o.groupId)).ToArray();
+            // V1.1 (W14, SHOP_LAYOUT 2): four sections instead of six. Hand upgrades, items and services share 升级与服务
+            // (ShopProducts); new dice and face upgrades share 骰子与骰面 (DiceCounter); 我的构筑 (Build14) holds the cards and
+            // items owned, 我的骰子 (OwnedStrip) the dice.
+            var sections=new Dictionary<string,string>{{"controller","ControllerShelf"},{"new_die","DiceCounter"},{"consumable","ShopProducts"},
+                {"hand_upgrade","ShopProducts"},{"color_upgrade","ShopProducts"},{"die_upgrade","DiceCounter"},{"service","ShopProducts"}};
+            foreach(string section in sections.Values.Distinct().Concat(new[]{"OwnedStrip","Build14","Stats07"}))
                 Assert.That(Art073Inside(V06ScreenRect(FindActive<RectTransform>(section)),screen),Is.True,scope+": "+section+" leaves the screen");
-            var cards=new List<KeyValuePair<string,Rect>>();
+            Assert.That(app.canvas.GetComponentsInChildren<UnityEngine.UI.ScrollRect>(false).Any(s=>s.gameObject.activeInHierarchy),Is.False,scope+": no section scrolls (W14 pages 升级与服务 with enlarged text instead).");
+            var cards=new List<KeyValuePair<string,Rect>>();int hidden=0;
             foreach(var offer in offers)
             {
-                string name=(offer.category=="controller"?"Offer_":"Product_")+offer.offerId;var card=FindActive<RectTransform>(name);
-                Rect bounds=V06ScreenRect(card);
+                string name=(offer.category=="controller"?"Offer_":"Product_")+offer.offerId;
+                // With enlarged text 升级与服务 shows six goods a page (Q3 A); a good on another page is not drawn now.
+                if(!HasActive(name)){Assert.That(sections[offer.category],Is.EqualTo("ShopProducts"),scope+": "+name+" is missing");hidden++;continue;}
+                var card=FindActive<RectTransform>(name);Rect bounds=V06ScreenRect(card);
                 long cost=app.Session.GetOfferNetPrice(offer);
-                Assert.That(card.Find("PriceChip/Price").GetComponent<TextMeshProUGUI>().text,Is.EqualTo(cost<0?"+"+(-cost):cost.ToString()),scope+": price of "+name);
-                var buy=Button("Buy_"+offer.offerId);Rect buyBounds=ExtraBounds07((RectTransform)buy.transform);
+                // V1.1 (W14, CARD_TEMPLATE §5): the price is on the price button (Buy_), no longer on a separate price chip.
+                var buy=Button("Buy_"+offer.offerId);
+                Assert.That(buy.transform.Find("Price").GetComponent<TextMeshProUGUI>().text,Is.EqualTo(cost<0?"+"+(-cost):cost.ToString()),scope+": price of "+name);
+                Rect buyBounds=ExtraBounds07((RectTransform)buy.transform);
                 Assert.That(buyBounds.height,Is.GreaterThanOrEqualTo(39.9f),scope+": buy target of "+name);
-                // More goods than one row scroll inside their own section: such a card is judged by the part its viewport shows.
-                var scroll=card.GetComponentInParent<UnityEngine.UI.ScrollRect>();
-                if(scroll!=null)
-                {
-                    Rect view=V06ScreenRect(scroll.viewport);
-                    Assert.That(Art073Inside(view,V06ScreenRect(FindActive<RectTransform>(sections[offer.category]))),Is.True,scope+": scroll viewport of "+name+" leaves its section");
-                    bounds=Rect.MinMaxRect(Mathf.Max(bounds.xMin,view.xMin),Mathf.Max(bounds.yMin,view.yMin),Mathf.Min(bounds.xMax,view.xMax),Mathf.Min(bounds.yMax,view.yMax));
-                    if(bounds.width<=0||bounds.height<=0)continue;
-                }
-                else Assert.That(Art073Inside(bounds,V06ScreenRect(FindActive<RectTransform>(sections[offer.category]))),Is.True,scope+": "+name+" leaves its section");
+                Assert.That(Art073Inside(bounds,V06ScreenRect(FindActive<RectTransform>(sections[offer.category]))),Is.True,scope+": "+name+" leaves its section");
                 cards.Add(new KeyValuePair<string,Rect>(name,bounds));
             }
+            if(hidden>0)Assert.That(app.GoodsPageCount14,Is.GreaterThan(1),scope+": goods that are not drawn must be on another page");
             cards.Add(new KeyValuePair<string,Rect>("RefreshControllers",V06ScreenRect((RectTransform)Button("RefreshControllers").transform)));
             cards.Add(new KeyValuePair<string,Rect>("LeaveShop",V06ScreenRect((RectTransform)Button("LeaveShop").transform)));
             cards.Add(new KeyValuePair<string,Rect>("OwnedStrip",V06ScreenRect(FindActive<RectTransform>("OwnedStrip"))));
+            cards.Add(new KeyValuePair<string,Rect>("Build14",V06ScreenRect(FindActive<RectTransform>("Build14"))));
             cards.Add(new KeyValuePair<string,Rect>("Study",V06ScreenRect((RectTransform)FindActive<RectTransform>("Study"))));
             for(int a=0;a<cards.Count;a++)for(int b=a+1;b<cards.Count;b++)
                 Assert.That(Art073Overlap(cards[a].Value,cards[b].Value),Is.False,scope+": "+cards[a].Key+" overlaps "+cards[b].Key);
@@ -152,7 +153,8 @@ namespace DiceCraft.Tests
             Art073CheckShopPage("base");
             var offers=app.Session.State.shop.offers;
             foreach(string category in new[]{"controller","consumable","die_upgrade","service","new_die"})Assert.That(offers.Any(o=>o.category==category),Is.True,category);
-            Assert.That(FindActive<TextMeshProUGUI>("ShopTitle").text,Is.EqualTo("商店"));
+            // V1.1 (W14, SHOP_LAYOUT 3, Q5 B): the title names the stage the shop is before.
+            Assert.That(FindActive<TextMeshProUGUI>("ShopTitle").text,Is.EqualTo("商店 · 第 "+(app.Session.State.stage.stageIndex+2)+" 关前"));
             Assert.That(Button("LeaveShop").GetComponentInChildren<TextMeshProUGUI>().text,Is.EqualTo("下一关"));
             // Dice for sale and owned dice are real dice; nothing in either place is a flat face tile.
             int forSale=offers.Count(o=>o.category=="new_die"),owned=Math.Min(8,app.Session.State.dice.Count);
@@ -205,13 +207,24 @@ namespace DiceCraft.Tests
                 Assert.That(fixture.shop.offers.Count(o=>o.category=="consumable"),Is.EqualTo(app.Config.shop.maxConsumableOffers));
                 yield return LoadBoundaryFixture(fixture);ResumeBoundaryFixture();yield return Art073Settle(.8f);
                 Art073CheckShopPage("maximum font "+font);
-                // Six controller cards: two rows of three, all inside the shelf, none under the refresh button.
+                // V1.1 (W14, SHOP_LAYOUT 2): six controller cards in one row of Shop-size cards, all inside the shelf, none
+                // under the refresh button (v0.73: two rows of three small cards).
                 // Rows are told apart by a whole card gap: a card under the real mouse pointer or mid-press rests a few units off its row.
                 var tops=app.Session.State.shop.offers.Where(o=>o.category=="controller").Select(o=>-FindActive<RectTransform>("Offer_"+o.offerId).anchoredPosition.y).OrderBy(v=>v).ToArray();
                 int rows=1;for(int i=1;i<tops.Length;i++)if(tops[i]-tops[i-1]>60)rows++;
-                Assert.That(tops.Length,Is.EqualTo(6));Assert.That(rows,Is.EqualTo(2),"controller card tops: "+string.Join(", ",tops));
+                Assert.That(tops.Length,Is.EqualTo(6));Assert.That(rows,Is.EqualTo(1),"controller card tops: "+string.Join(", ",tops));
                 TestContext.WriteLine("controller card tops at font "+font+": "+string.Join(", ",tops));
-                Assert.That(HasActive("ConsumableShelf"),Is.True,"More than three consumables scroll inside their own section.");
+                // V1.1 (W14, Q3 A): five consumables no longer scroll: at 100 % every good of 升级与服务 is on the page, with
+                // enlarged text six a page and the rest one page on (v0.73: "more than three consumables scroll").
+                var goods=app.Session.State.shop.offers.Where(o=>o.category=="consumable"||o.category=="service"||o.category=="hand_upgrade"||o.category=="color_upgrade").ToArray();
+                int drawn=goods.Count(o=>HasActive("Product_"+o.offerId));
+                Assert.That(drawn,Is.EqualTo(font>100?Math.Min(6,goods.Length):goods.Length),"goods of 升级与服务 on the first page");
+                if(font>100&&goods.Length>6)
+                {
+                    Click("ProductsNext14");yield return null;
+                    Assert.That(goods.Count(o=>HasActive("Product_"+o.offerId)),Is.EqualTo(goods.Length-6),"the rest on the second page");
+                    Art073CheckShopPage("maximum font "+font+" page 2");Click("ProductsPrev14");yield return null;
+                }
                 foreach(var text in FindActive<RectTransform>("Stats07").GetComponentsInChildren<TextMeshProUGUI>(false))
                     Assert.That(Art073Inside(V06ScreenRect(text.rectTransform),V06ScreenRect(FindActive<RectTransform>("Stats07")),3),Is.True,"font "+font+": "+text.name+" leaves the status panel");
             }
@@ -354,7 +367,8 @@ namespace DiceCraft.Tests
             Assert.That(app.Session.State.phase,Is.EqualTo("Shop"));
             Assert.That(UiKit.ReducedMotion,Is.False);
             string state=StateJson();byte[] disk=File.ReadAllBytes(app.SaveLocation);long sequence=app.Session.ActionSequence;
-            foreach(string name in new[]{"RefreshControllers","Pause","Handbook"})
+            // V1.1 (W14, SH-11): the new top bar's icon buttons and 查看本章 (chapter dots before its label) join the case.
+            foreach(string name in new[]{"RefreshControllers","Pause","Handbook","ViewCycle"})
             {
                 var button=Button(name);var root=(RectTransform)button.transform;
                 var label=(RectTransform)root.Find("Label");

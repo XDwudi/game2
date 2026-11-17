@@ -15,14 +15,17 @@ namespace DiceCraft.Tests
         {
             long rate=1L+sources*app.Config.Controller("C01").parameters.extraInterestPerTen;
             Assert.That(ControllerRules.ResolveSources(app.Session.State.controllers).Count(s=>s.abilityId=="C01"),Is.EqualTo(sources));
-            string expected="每"+app.Config.interestDivisor+"金币利息 +"+rate+"\n计息本金上限 "+app.Config.maxInterestPrincipal;
-            yield return ExtraCapture07(id,"S10","Actual interest label uses current resolved C01 sources, including C41, without mutating state or save.");
-            var text=FindActive<TextMeshProUGUI>("Interest");var panel=FindActive<RectTransform>("Stats07");
-            var glyph=CardGlyphCheck07(panel,text,expected,292);
+            // V1.1 (W14, SHOP_LAYOUT 3, UI_REWRITES Art07Shop.cs:34): the interest is the gold's hover in the top bar, in the
+            // player's words: the rate and the most a stage pays (the principal cap / 5 x the rate).
+            string expected="利息：每 "+app.Config.interestDivisor+" 金币 +"+rate+"，每关最多 +"+app.Config.maxInterestPrincipal/app.Config.interestDivisor*rate;
+            string state=StateJson();var hover=Button("MoneyHover14").GetComponent<Art07HoverTip>();Assert.That(hover,Is.Not.Null);
+            hover.show();var panel=FindActive<RectTransform>("ContentTooltip");var text=panel.Find("Description").GetComponent<TextMeshProUGUI>();
+            yield return ExtraCapture07(id,"S10","Actual interest hover uses current resolved C01 sources, including C41, without mutating state or save.");
+            var glyph=CardGlyphCheck07(panel,text,expected,panel.rect.height);
             File.WriteAllText(Path.Combine(extra07.output,id+"-interest-glyphs.json"),JsonUtility.ToJson(glyph,true));
-            Assert.That(glyph.errors,Is.Empty);Assert.That(text.textInfo.lineCount,Is.EqualTo(2),"Interest must remain two complete lines at 150%.");
-            Rect inkScreen=ExtraBounds07(text.rectTransform),pause=ExtraBounds07((RectTransform)Button("Pause").transform);
-            Assert.That(inkScreen.yMin,Is.GreaterThan(pause.yMax),"Interest text rectangle must finish above the fixed navigation buttons.");
+            Assert.That(glyph.errors,Is.Empty);Assert.That(text.textInfo.lineCount,Is.InRange(1,2),"The interest stays complete in one or two lines at 150%.");
+            Rect tip=ExtraBounds07(panel);Assert.That(tip.xMin>=0&&tip.yMin>=0&&tip.xMax<=Screen.width&&tip.yMax<=Screen.height,Is.True,"The hover stays on the screen: "+tip);
+            hover.hide();Assert.That(StateJson(),Is.EqualTo(state));
         }
         [UnityTest] public IEnumerator PLAY_ART07_ShopInterestUsesLiveC01CopiesAndMatchesRealSettlement()
         {

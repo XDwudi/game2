@@ -176,9 +176,14 @@ namespace DiceCraft
             if(inMenu){yield return new Vector2(120,1000-height);yield return new Vector2(616,1000-height);yield break;}
             if(ViewState?.phase=="Shop")
             {
-                // v0.73: first the owned strip (its captions yield), then the title row above the shelves.
-                yield return new Vector2(392,1048-height);yield return new Vector2(888,1048-height);
-                yield return new Vector2(600,24);yield return new Vector2(1096,24);yield break;
+                // V1.1 W14 (SHOP_LAYOUT 2): the free middle of the 卡牌 and 升级与服务 header strips. The notice's foot keeps the
+                // blocker gap (4) above the cards and goods under the strip; with enlarged text it reaches up over the gap
+                // above the section, clear of the top bar's buttons and of the cards above. The strip middles come first,
+                // then every 40 units along both strips, so two notices still find room when a long label fills a middle.
+                var l=S14;var strips=new[]{l.cards,l.goods};
+                foreach(var r in strips)foreach(float dx in new[]{300f,620f})yield return new Vector2(r.x+dx,r.y+ShopHead14-4-height);
+                foreach(var r in strips)for(float x=r.x+160;x+480<=r.xMax-120;x+=40)yield return new Vector2(x,r.y+ShopHead14-4-height);
+                yield break;
             }
             if(FramePhase11)
             {

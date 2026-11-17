@@ -8,8 +8,8 @@ namespace DiceCraft
 {
     public sealed partial class GameApp
     {
-        // v0.73: one page with every section visible (reference image 2); the tabbed v0.7 shop is gone.
-        private void Shop()=>Shop073();
+        // V1.1 W14: the A3 shop page (SHOP_LAYOUT.md); v0.73's single page and v0.7's tabs are gone.
+        private void Shop()=>Shop14();
         private void InventoryStrip(bool selling)
         {
             float y=878;controllerRects.Clear();
@@ -118,6 +118,9 @@ namespace DiceCraft
         }
         private void InspectOffer(ShopOffer offer)
         {
+            // V1.1 W14 (SHOP_LAYOUT 7): the shelf's face upgrades and 删除骰子 are chosen on the table; a gift group's face
+            // upgrade (铁匠铺, the loot's 骰面工坊) keeps the dice sheet until W15.
+            if(string.IsNullOrEmpty(offer.groupId)&&(offer.category=="die_upgrade"||offer.contentId=="O04")&&ViewState.phase=="Shop"){BeginFacePick14(offer);return;}
             if(offer.category=="die_upgrade"||offer.contentId=="O04"){TargetDie(offer,null);return;}
             // v1.1 (G3): a card you already own is bought like any other; the copy is added, nothing is replaced.
             if(offer.category=="new_die")
@@ -134,10 +137,11 @@ namespace DiceCraft
                 Art07DetailSection(list,"Enchant","附魔",EnchantLabel(offer.controller.enchantmentId),ref y,672,true);
                 Art07DetailSection(list,"Capacity","购入后",ControllerPurchaseText(offer)+"\n"+Art07OfferState(offer.controller),ref y,672,true);
             }
-            else Art07DetailSection(list,"Category","作用范围",offer.category=="consumable"?$"买入库存，使用时消耗。库存 {ViewState.inventory.Count} / {ViewState.consumableSlots}。":"购买后在本局立即生效。",ref y,672,true);
+            // V1.1 W14 (UI_REWRITES Shop.cs:134): what the purchase does, in the player's words.
+            else Art07DetailSection(list,"Category","作用范围",offer.category=="consumable"?$"买下放进道具栏（{ViewState.inventory.Count}/{ViewState.consumableSlots}），用一次就消失。":"买下立即生效，持续到本局结束。",ref y,672,true);
             string error=Session.PurchaseError(offer.offerId);
-            // v1.1 (W09): gold with thousands separators, "金币" instead of 余额 (text proposal 2.2).
-            Art07DetailSection(list,"Price","价格","价格 "+Session.GetOfferPrice(offer)+" 金币 · 现有 "+PlayerNumberFormat.Gold(ViewState.gold)+" 金币"+(error==null?"":"\n"+error),ref y,672,true);
+            // v1.1 (W09): gold with thousands separators, "金币" instead of 余额 (text proposal 2.2); W14: 价格：5 金币（你有 7）.
+            Art07DetailSection(list,"Price","价格","价格："+Session.GetOfferPrice(offer)+" 金币（你有 "+PlayerNumberFormat.Gold(ViewState.gold)+"）"+(error==null?"":"\n"+error),ref y,672,true);
             list.sizeDelta=new Vector2(list.sizeDelta.x,y+16);
             UiKit.ActionButton(p,"ConfirmPurchase",offer.sold?"已购买":!string.IsNullOrEmpty(offer.groupId)?"免费领取":"支付 "+Session.GetOfferPrice(offer)+" 并购买",24,628,912,64,()=>{CloseModal();Send(new SessionCommand{kind=CommandKind.Buy,offerId=offer.offerId});},UiKit.Gold,error==null&&!IsBusy);
         }

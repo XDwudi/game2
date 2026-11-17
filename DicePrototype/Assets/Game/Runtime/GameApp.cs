@@ -349,7 +349,8 @@ namespace DiceCraft
             var k=Keyboard.current;if(k==null)return;
             if(IsControllerDragging){if(k.escapeKey.wasPressedThisFrame)CancelControllerDrag();return;}
             if(DisplayPreferences!=null&&DisplayPreferences.IsPending){if(k.escapeKey.wasPressedThisFrame)DisplayPreferences.Revert();return;}
-            if(k.escapeKey.wasPressedThisFrame){if(modal)CloseModal();else if(!inMenu)Pause();return;}
+            // V1.1 W14 (SHOP_LAYOUT 7): Esc leaves the shop's face pick before it opens the pause page.
+            if(k.escapeKey.wasPressedThisFrame){if(modal)CloseModal();else if(FacePickActive14)CancelFacePick14();else if(!inMenu)Pause();return;}
             var selected=EventSystem.current!=null?EventSystem.current.currentSelectedGameObject:null;
             var input=selected!=null?selected.GetComponentInParent<TMP_InputField>():null;
             if(input!=null)
@@ -369,8 +370,8 @@ namespace DiceCraft
             else if(Art07KeyPressed("Clear")){Session.ClearPending();Refresh();}
             else if(Art07KeyPressed("Submit"))Send(new SessionCommand{kind=CommandKind.Submit});
         }
-        private void ReturnMenu(){if(!StartupReady07)return;CompleteSettlementReveal07();if(IsBusy)SkipVisual();if(Session.HasPendingSave){SaveFailure();return;}CloseModal();inMenu=true; if(tutorial||IsDebugWorkspace){tutorial=false;Session=new GameSession(Config,saves,saves.Load());debugDraft=null;}Refresh();}
-        private void OnApplicationPause(bool paused){PauseNotices07(paused);if(paused){CancelControllerDrag();CancelDieDrag07();if(IsBusy)SkipVisual();}}
+        private void ReturnMenu(){if(!StartupReady07)return;CompleteSettlementReveal07();if(IsBusy)SkipVisual();if(Session.HasPendingSave){SaveFailure();return;}CloseModal();facePick14=null;inMenu=true; if(tutorial||IsDebugWorkspace){tutorial=false;Session=new GameSession(Config,saves,saves.Load());debugDraft=null;}Refresh();}
+        private void OnApplicationPause(bool paused){PauseNotices07(paused);if(paused){CancelControllerDrag();CancelDieDrag07();if(IsBusy)SkipVisual();CancelFacePick14();}}
         private void OnDestroy(){ReleaseUiFontMaterials071();AbandonStartupLoad07();SaveRunClock07();FramePacer.Stop();UiKit.Font=null;}
         private void LogCommand(SessionCommand command,CommandResult result)
         {

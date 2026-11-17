@@ -212,14 +212,7 @@ namespace DiceCraft
         }
 
         // ---------------------------------------------------------------- shop: stage intel and gifts
-        private void ShopCycleAndGifts10()
-        {
-            UiKit.ActionButton(main,"ViewCycle","查看关卡",1396,8,236,56,ShowCycle10,UiKit.Paper,!IsBusy);
-            var groups=ViewState.shop.groups;if(groups==null||groups.Count==0)return;
-            bool open=groups.Any(g=>!g.closed),loot=groups.Any(g=>g.groupId=="LOOT");
-            UiKit.ActionButton(main,"ViewGifts",loot?"首领战利品":"商店赠礼",1650,8,246,56,ShowGifts10,open?UiKit.Gold:UiKit.Paper,!IsBusy);
-            if(open)UiKit.Box(main,"GiftsPending10",1880,4,14,14,UiKit.Danger);
-        }
+        // V1.1 W14: the shop's 查看本章 and loot / gift buttons are drawn in its top bar (ShopTopButtons14).
         private void ShowCycle10()
         {
             if(IsBusy)return;var view=Session.CycleView();if(view.Length==0)return;

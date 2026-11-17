@@ -69,11 +69,13 @@ namespace DiceCraft.Tests
                 Assert.That(app.Session.State.phase,Is.EqualTo("Shop"));Assert.That(app.Session.ActionSequence,Is.EqualTo(before+1));
                 Assert.That(app.Session.State.processedReceipts.Last().command.kind,Is.EqualTo(CommandKind.Continue));
                 var motion=ShopEntranceMotion07();Assert.That(motion,Is.Not.Null);Assert.That(motion.IsPlaying,Is.True);
-                Assert.That(motion.CardGroupCount,Is.EqualTo(11));Assert.That(motion.Duration,Is.EqualTo(reduce?.12f:.48f).Within(.0001));Assert.That(motion.Duration,Is.LessThanOrEqualTo(.52f));
+                // V1.1 (W14): one group per card (6) and one per goods section (升级与服务, 骰子与骰面): 8 groups, so the stagger
+                // ends at 7 x 30 ms + 180 ms = 0.39 s (v0.73: 6 + 5 sections = 11 groups, 0.48 s); the 0.52 s budget is unchanged.
+                Assert.That(motion.CardGroupCount,Is.EqualTo(8));Assert.That(motion.Duration,Is.EqualTo(reduce?.12f:.39f).Within(.0001));Assert.That(motion.Duration,Is.LessThanOrEqualTo(.52f));
                 var offers=app.Session.State.shop.offers.Where(o=>o.category=="controller").ToArray();Assert.That(offers.Length,Is.EqualTo(6));
                 var first=ShopEntranceRoot07("Offer_"+offers[0].offerId);var second=ShopEntranceRoot07("Offer_"+offers[1].offerId);
-                // v0.73 single-page shop: six controller offers sit in two rows; the first row rests at y 124.
-                Assert.That(first.anchoredPosition.y,Is.EqualTo(reduce?-124:-136).Within(.01));
+                // V1.1 (W14, SHOP_LAYOUT 2): six controller offers sit in one row at y 160 (92 + the 68-unit header).
+                Assert.That(first.anchoredPosition.y,Is.EqualTo(reduce?-160:-172).Within(.01));
                 Assert.That(first.GetComponent<CanvasGroup>().alpha,Is.Zero);Assert.That(second.GetComponent<CanvasGroup>().alpha,Is.Zero);
                 Assert.That(app.IsBusy||app.Session.Busy,Is.False,"The shelf entrance must not create a gameplay input lock.");
                 string state=StateJson();byte[] disk=File.ReadAllBytes(app.SaveLocation);long seq=app.Session.ActionSequence;
@@ -83,14 +85,14 @@ namespace DiceCraft.Tests
                     AssertInteractionCheckpoint07(state,disk,seq);samples.Add(ShopEntranceSample07(motion,"frame"));
                     float p=Mathf.Clamp01(motion.Elapsed/(reduce?.12f:.18f)),ease=1-(1-p)*(1-p);
                     Assert.That(first.GetComponent<CanvasGroup>().alpha,Is.EqualTo(ease).Within(.001));
-                    Assert.That(first.anchoredPosition.y,Is.EqualTo(-124-(reduce?0:12*(1-ease))).Within(.01));
+                    Assert.That(first.anchoredPosition.y,Is.EqualTo(-160-(reduce?0:12*(1-ease))).Within(.01));
                     float p2=Mathf.Clamp01((motion.Elapsed-(reduce?0:.03f))/(reduce?.12f:.18f));
                     Assert.That(second.GetComponent<CanvasGroup>().alpha,Is.EqualTo(1-(1-p2)*(1-p2)).Within(.001));
                     if(!captured&&motion.Elapsed>0){captured=true;yield return app.StartCoroutine(ShopEntrancePng07("shop-entrance-"+(reduce?"reduced":"normal")+"-moving"));}
                     else yield return null;
                 }
                 Assert.That(motion.IsPlaying,Is.False);Assert.That(captured,Is.True,"At least one real in-progress rendered frame must be recorded.");
-                Assert.That(first.anchoredPosition.y,Is.EqualTo(-124).Within(.01));Assert.That(first.GetComponent<CanvasGroup>().alpha,Is.EqualTo(1));
+                Assert.That(first.anchoredPosition.y,Is.EqualTo(-160).Within(.01));Assert.That(first.GetComponent<CanvasGroup>().alpha,Is.EqualTo(1));
                 AssertInteractionCheckpoint07(state,disk,seq);samples.Add(ShopEntranceSample07(motion,"settled"));
                 File.WriteAllLines(Path.Combine(saveDirectory,"shop-entrance-"+(reduce?"reduced":"normal")+"-frames.txt"),samples);
                 yield return app.StartCoroutine(ShopEntrancePng07("shop-entrance-"+(reduce?"reduced":"normal")+"-settled"));
@@ -105,10 +107,11 @@ namespace DiceCraft.Tests
             // first-visit entrance without replaying it and must leave reused roots at their laid-out positions.
             yield return app.StartCoroutine(ShopEntranceFrame07());app.Refresh();
             Assert.That(motion.EnterSequence,Is.EqualTo(enters));Assert.That(motion.IsPlaying,Is.False);AssertInteractionCheckpoint07(state,disk,seq);
-            Assert.That(ShopEntranceRoot07("LeaveShop").anchoredPosition.x,Is.EqualTo(1512).Within(.01),"Old animated roots must not overwrite a reused root's layout.");
+            // V1.1 (W14, SHOP_LAYOUT 2): 下一关 at x 1432, 升级与服务 (ShopProducts) at (16, 523).
+            Assert.That(ShopEntranceRoot07("LeaveShop").anchoredPosition.x,Is.EqualTo(1432).Within(.01),"Old animated roots must not overwrite a reused root's layout.");
             yield return app.StartCoroutine(ShopEntranceFrame07());app.Refresh();
             Assert.That(motion.EnterSequence,Is.EqualTo(enters));Assert.That(motion.IsPlaying,Is.False);AssertInteractionCheckpoint07(state,disk,seq);
-            Assert.That(ShopEntranceRoot07("ShopProducts").anchoredPosition,Is.EqualTo(new Vector2(368,-512)));
+            Assert.That(ShopEntranceRoot07("ShopProducts").anchoredPosition,Is.EqualTo(new Vector2(16,-523)));
             // v1.1 rewrite (G5, RULES_DELTA 2.1): this shop follows a boss stage, and refreshing is refused until the boss
             // loot is claimed or cashed out. Cash it out through the loot dialog first, then exercise the refresh as before.
             var cash=app.Session.State.shop.offers.Single(o=>o.groupId=="LOOT"&&o.category=="gold");
@@ -129,7 +132,7 @@ namespace DiceCraft.Tests
             // "controller". Those live in the gift panel, not on the shelf; the shelf is the offers without a group.
             var shelf=app.Session.State.shop.offers.Where(o=>o.category=="controller"&&string.IsNullOrEmpty(o.groupId)).ToArray();Assert.That(shelf.Length,Is.EqualTo(6));
             foreach(var offer in shelf)
-            {var root=ShopEntranceRoot07("Offer_"+offer.offerId);Assert.That(root.anchoredPosition.y,Is.EqualTo(-124).Within(.01).Or.EqualTo(-316).Within(.01));Assert.That(root.GetComponent<CanvasGroup>().alpha,Is.EqualTo(1));}
+            {var root=ShopEntranceRoot07("Offer_"+offer.offerId);Assert.That(root.anchoredPosition.y,Is.EqualTo(-160).Within(.01));Assert.That(root.GetComponent<CanvasGroup>().alpha,Is.EqualTo(1));}
             yield return app.StartCoroutine(ShopEntrancePng07("shop-entrance-refresh-final"));
         }
     }

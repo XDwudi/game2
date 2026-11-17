@@ -138,8 +138,11 @@ namespace DiceCraft
             int owned=ViewState.controllers.Count(c=>c.definitionId==offer.contentId);
             var final=ViewState.controllers.Select(c=>c.Clone()).ToList();
             final.Add(offer.controller);
-            return $"栏位 {ControllerRules.OrdinaryUsed(ViewState.controllers)} → {ControllerRules.OrdinaryUsed(final)} / {ViewState.controllerSlots}   ·   总张数 {ViewState.controllers.Count} → {final.Count} / {Config.maxControllerInstances}\n"+
-                $"基础价 {Config.Controller(offer.contentId).buyPrice} + 附魔加价 = {Session.GetOfferPrice(offer)}"+
+            // V1.1 W14 (UI_REWRITES Shop.cs:132, D2): "买下后：卡牌栏位 0 → 1 / 5 · 共 1/10 张" and the price as a sum.
+            int basis=Config.Controller(offer.contentId).buyPrice,price=Session.GetOfferPrice(offer);
+            long enchant=offer.controller==null||offer.controller.enchantmentId=="none"?0:ControllerRules.EnchantPrice(offer.controller.enchantmentId,Config),cut=basis+enchant-price;
+            return $"买下后：卡牌栏位 {ControllerRules.OrdinaryUsed(ViewState.controllers)} → {ControllerRules.OrdinaryUsed(final)} / {ViewState.controllerSlots} · 共 {final.Count}/{Config.maxControllerInstances} 张\n"+
+                (enchant>0||cut>0?$"价格 {price} = {basis}"+(enchant>0?$" + 附魔 {enchant}":"")+(cut>0?$" − 砍价 {cut}":""):$"价格 {price}")+
                 (owned>0?$"\n已有 {owned} 张同名卡牌；买下后共 {owned+1} 张，每张各自生效。":"");
         }
         private void ShowController(ControllerInstance item,bool selling)
@@ -189,11 +192,12 @@ namespace DiceCraft
             var preview=Session.PreviewScoreRange();
             string trigger=preview==null?"锁定骰子后可查看当前提交条件。":preview.isRandom?"存在尚未抽取的随机结果；这里不预告下次结果。":preview.minimum.triggeredSourceIds.Contains(item.instanceId)?"当前提交：条件命中。实际增益以分项为准。":"当前提交：条件未满足。卡片仍然有效。";
             Art07DetailSection(list,"Trigger","当前触发",trigger,ref y,672,true);
-            Art07DetailSection(list,"Price","交易与规则","当前卖价 "+Session.GetControllerSalePrice(item.instanceId)+"。出售会失去本实例及附魔，已完成的永久骰面改造保留。",ref y,672,true);
+            // V1.1 W14 (UI_REWRITES V05.cs:172, 176; D5): the sale price in words, with the same-shop cap shown when it applies.
+            Art07DetailSection(list,"Price","交易与规则",SaleText14(item)+"。卖掉后这张卡和附魔一起消失，它改造过的骰面保留。",ref y,672,true);
             list.sizeDelta=new Vector2(list.sizeDelta.x,y+16);
             if(selling)
             {
-                UiKit.Button(p,"SellController","出售  +"+Session.GetControllerSalePrice(item.instanceId),24,628,912,64,()=>Art07ConfirmControllerSale(item));
+                UiKit.Button(p,"SellController","卖出 +"+Session.GetControllerSalePrice(item.instanceId)+" 金币",24,628,912,64,()=>Art07ConfirmControllerSale(item));
                 UiKit.Outline(p,"SellOutline",24,628,912,64,UiKit.Red,2);
             }
             else UiKit.Text(p,"HeldRule","关内顺序已固定；在商店出售或调整。",24,628,912,64,24,UiKit.Muted);

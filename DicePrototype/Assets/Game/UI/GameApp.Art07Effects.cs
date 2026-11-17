@@ -364,8 +364,9 @@ namespace DiceCraft
                 {
                     EffectLayerOrder07();effectReceipt07=result.receipt.commandId;effectOnClock07=false;effectElapsed07=0;effectDuration07=TransactionVisualDuration07;
                     effectOptions07=CreatePresentationOptions07();EffectGroup07("main",true);
-                    // Keep the cash ticket in the header gap between its title and shelf capacity.
-                    if(EffectReserve07("main",EffectPoolKind.NumberLabel,1)>0)Effect07("fx_cash_ticket",result.receipt.commandId,new Vector2(744,32),new Vector2(220,58),(cashDelta>0?"+":"")+PlayerNumberFormat.Gold(cashDelta));
+                    // V1.1 W14 (SHOP_LAYOUT 3): in the shop the cash ticket pops in the top bar's free slot left of the gold, clear
+                    // of the next-stage line (v0.73: the header gap of the controller shelf at 744,32).
+                    if(EffectReserve07("main",EffectPoolKind.NumberLabel,1)>0)Effect07("fx_cash_ticket",result.receipt.commandId,after.phase=="Shop"?ShopCashPoint14():new Vector2(744,32),new Vector2(220,58),(cashDelta>0?"+":"")+PlayerNumberFormat.Gold(cashDelta));
                 }
                 return;
             }
@@ -379,7 +380,8 @@ namespace DiceCraft
                 var v=Effect07("fx_acquire_remove",cmd.offerId,new Vector2(1450,640),new Vector2(120,160),"","已获得");
                 if(v!=null){if(icon!=null)v.Bind(cmd.offerId,"","","已获得",icon);else if(v.icon!=null)v.icon.enabled=false;}
             }
-            if(cmd.kind==CommandKind.RefreshControllers)Effect07("fx_source_hit",result.receipt.commandId,new Vector2(385,155),new Vector2(1500,322));
+            // V1.1 W14: over the card shelf of the new shop page (SHOP_LAYOUT 2).
+            if(cmd.kind==CommandKind.RefreshControllers){var shelf=S14.cards;Effect07("fx_source_hit",result.receipt.commandId,new Vector2(shelf.x+ShopPad14,shelf.y+ShopHead14),new Vector2(shelf.width-2*ShopPad14,S14.cardH));}
             if(cmd.kind==CommandKind.UseItem)
             {
                 string id=before.inventory.FirstOrDefault(i=>i.instanceId==cmd.itemInstanceId)?.contentId;
@@ -390,7 +392,8 @@ namespace DiceCraft
             }
             if(!string.IsNullOrEmpty(LastTransactionSummary07))ShowEffectSummary07(LastTransactionSummary07,true,ShowLastTransactionDetails07);
             long delta=after.gold-before.gold;
-            if(delta!=0&&EffectReserve07("main",EffectPoolKind.NumberLabel,1)>0)Effect07("fx_cash_ticket",result.receipt.commandId,PlayPhase11?TopCashPoint11():new Vector2(52,690),new Vector2(220,58),(delta>0?"+":"")+PlayerNumberFormat.Gold(delta));
+            // V1.1 W14: in the shop the gold change pops in the top bar's free slot left of the gold (SHOP_LAYOUT 3).
+            if(delta!=0&&EffectReserve07("main",EffectPoolKind.NumberLabel,1)>0)Effect07("fx_cash_ticket",result.receipt.commandId,PlayPhase11?TopCashPoint11():after.phase=="Shop"?ShopCashPoint14():new Vector2(52,690),new Vector2(220,58),(delta>0?"+":"")+PlayerNumberFormat.Gold(delta));
         }
         private Art07TransactionMotion transactionMotion07;
         private RectTransform transactionReadout07;
@@ -442,7 +445,8 @@ namespace DiceCraft
             if(offer==null)return Array.Empty<RectTransform>();
             var card=FindTransactionRect07((offer.category=="controller"?"Offer_":"Product_")+offer.offerId);
             if(offer.category!="controller")return card==null?Array.Empty<RectTransform>():new[]{card};
-            return new[]{card,FindTransactionRect07("Buy_"+offer.offerId),FindTransactionRect07("OfferRarity_"+offer.offerId)}.Where(r=>r!=null).ToArray();
+            // V1.1 W14: the price button is part of the card (CARD_TEMPLATE §5); a part of a tracked root is not tracked again.
+            return new[]{card,FindTransactionRect07("Buy_"+offer.offerId),FindTransactionRect07("OfferRarity_"+offer.offerId)}.Where(r=>r!=null&&(r==card||card==null||!r.IsChildOf(card))).ToArray();
         }
         private bool BeginCommittedTransactionVisual07(SessionCommand cmd,CommandResult result,RunState before,RunState after)
         {

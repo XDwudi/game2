@@ -44,30 +44,20 @@ namespace DiceCraft
                 if(DebugUnlocked&&IsDebugWorkspace&&!CleanCapture11)UiKit.Button(main,"DebugWorkspace","组合试验",handX-12-148,y,148,60,ShowDebugPanel,!IsBusy);
                 return;
             }
-            if(ViewState.phase=="Shop")
-            {
-                // v0.73: settings and handbook sit at the bottom of the left column, each with its icon.
-                NavIcon073(UiKit.Button(main,"Pause","设置",24,976,154,72,Pause),"ui_icon_gear");
-                NavIcon073(UiKit.Button(main,"Handbook","手册",190,976,154,72,ShowHandbook),"ui_icon_book");return;
-            }
+            // V1.1 W14 (SHOP_LAYOUT 3): the shop draws settings and handbook in its own top bar (Shop14), before the
+            // face-pick veil.
+            if(ViewState.phase=="Shop")return;
             UiKit.Button(main,"Pause","设置 / 暂停",x,Compact07?C07(650):944,w,60,Pause);
             UiKit.Button(main,"Handbook","牌型手册 [H]",x,Compact07?C07(600):870,w,60,ShowHandbook,!IsBusy&&!Session.HasPendingSave);
             if(ViewState.lastSubmission!=null)UiKit.Button(main,"PreviousSubmission","上一手得分明细",x,Compact07?C07(550):802,w,60,()=>ShowBreakdown(ViewState.lastSubmission.snapshot,ViewState.lastSubmission.breakdown),!IsBusy);
             if(DebugUnlocked&&IsDebugWorkspace)UiKit.Button(main,"DebugWorkspace","组合试验",x,Compact07?C07(500):730,w,60,ShowDebugPanel,!IsBusy);
-        }
-        private static void NavIcon073(UnityEngine.UI.Button button,string sprite)
-        {
-            var art=UiKit.Template(sprite);if(art==null)return;
-            var icon=UiKit.Box(button.transform,"NavIcon",14,16,34,34,UiKit.Ink).GetComponent<UnityEngine.UI.Image>();icon.sprite=art;icon.raycastTarget=false;
-            var label=button.transform.Find("Label").GetComponent<TextMeshProUGUI>();
-            label.rectTransform.anchoredPosition=new Vector2(48,0);label.rectTransform.sizeDelta=new Vector2(((RectTransform)button.transform).sizeDelta.x-58,label.rectTransform.sizeDelta.y);
         }
         private void Header()
         {
             bool c=Compact07;float x=c?18:24,y=c?18:24,w=c?324:320,h=c?1044:1032;
             // V1.1 (W11): the play screen and the stage select use the top bar; settlement and results keep the column.
             if(FramePhase11){TopBar11();return;}
-            if(ViewState.phase=="Shop"){DrawShopWallet07();return;}
+            if(ViewState.phase=="Shop"){ShopTopBar14();return;}
             if(QualifiedStampPlayingForCurrentStage07||ViewState.stage.qualified&&ViewState.hand!=null&&(ViewState.phase=="HandReady"||ViewState.phase=="Selecting")){DrawQualifiedHeader07(x,y,w,h);return;}
             var p=UiKit.Frame(main,"Stats07",x,y,w,h,UiKit.Background,UiKit.PanelLight);UiKit.Surface(p,"ui_panel_hud");
             var brand=UiKit.PaperFrame(p,"BrandPaper",12,14,w-24,124,UiKit.Paper);
