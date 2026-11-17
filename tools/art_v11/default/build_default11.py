@@ -13,9 +13,19 @@ Editor/V11Setup.cs):
   ui_topbar        the run status bar across the top of the play screen
   ui_chip_formula  one named factor of the score formula ("四条 ×8"); tinted per factor, dark when not yet lit
   ui_stage_card    the current stage's card in the top right (normal, pressure or boss); the boss frame is a tinted ring
+
+Card template (task W13, docs/specs/v11/CARD_TEMPLATE.md section 6), white and grey so the game tints them with the
+rarity colours (or Ghost for goods without a rarity):
+  ui_card_frame_rarity  nine-slice ring drawn just inside the card face's own frame; the centre is transparent
+  ui_gem_common         round gem (128x128, not sliced), light with a shaded far side and an ink outline
+  ui_gem_advanced       diamond gem, four facets
+  ui_gem_rare           six-point star gem, lit and shaded points
+The three gem shapes differ on purpose: the advanced blue and the rare violet are close in lightness, so a player who
+does not tell those colours apart still reads the rarity from the shape (CARD_TEMPLATE section 3).
 """
 from pathlib import Path
 import importlib.util
+import math
 
 import numpy as np
 from PIL import Image
@@ -30,8 +40,10 @@ INK, INK_DEEP, WHITE = art.INK, art.INK_DEEP, art.WHITE
 ROOT = Path(__file__).resolve().parents[3]
 OUT = ROOT / "DicePrototype" / "Assets" / "Art" / "Art11" / "Surfaces"
 N = 512
-# Nine-slice borders in pixels (left, bottom, right, top). Mirrored by Editor/V11Setup.cs.
-BORDERS = {"ui_dice_tray": (72, 72, 72, 72), "ui_topbar": (40, 40, 40, 40), "ui_chip_formula": (40, 40, 40, 40), "ui_stage_card": (48, 48, 48, 48)}
+# Nine-slice borders in pixels (left, bottom, right, top). Mirrored by Editor/V11Setup.cs. The gems are not sliced.
+BORDERS = {"ui_dice_tray": (72, 72, 72, 72), "ui_topbar": (40, 40, 40, 40), "ui_chip_formula": (40, 40, 40, 40), "ui_stage_card": (48, 48, 48, 48),
+           "ui_card_frame_rarity": (40, 40, 40, 40), "ui_gem_common": (0, 0, 0, 0), "ui_gem_advanced": (0, 0, 0, 0), "ui_gem_rare": (0, 0, 0, 0)}
+GEM = 128
 LIGHT = (255, 255, 255, 255)      # lit bevel: stays the tint itself
 SHADE = (176, 176, 176, 255)      # far bevel: about two thirds of the tint
 DEEP = (120, 120, 120, 255)       # inner lip: about half of the tint
@@ -108,9 +120,72 @@ def stage_card():
     return p
 
 
+def card_frame_rarity():
+    """Rarity ring: a 12 px stepped band (6 reference units at PPU 200) with a print line along its inner edge. Drawn
+    over the card face just inside the face's own ink frame, so the band reads as the card's coloured border."""
+    p = Plate(N, N)
+    s = 12
+    outer = (0, 0, N, N)
+    paint(p, band(p, outer, 12, s), WHITE)
+    ssplit(p, inset(outer, 2), 3, LIGHT, SHADE, s)
+    sline(p, inset(outer, 10), 2, DEEP[:3] + (200,), s)
+    return p
+
+
+def _gem_outline(p, points, width=7):
+    p.polygon(points, outline=INK_DEEP, width=width)
+
+
+def gem_common():
+    """Round gem: shaded body, lit disc toward the top left, ink outline."""
+    p = Plate(GEM, GEM)
+    c, r = GEM / 2, GEM / 2 - 9
+    p.ellipse(c, c, r, r, SHADE)
+    p.ellipse(c - 6, c - 6, r - 12, r - 12, LIGHT)
+    # A tinted highlight cannot be lighter than the tint itself, so the lit disc stays flat; the shade makes the volume.
+    p.ellipse(c, c, r, r, None, INK_DEEP, 7)
+    return p
+
+
+def gem_advanced():
+    """Diamond gem: four facets around a lit table, ink outline."""
+    p = Plate(GEM, GEM)
+    c, r = GEM / 2, GEM / 2 - 8
+    top, right, bottom, left = (c, c - r), (c + r, c), (c, c + r), (c - r, c)
+    p.polygon([top, right, (c, c)], fill=LIGHT)
+    p.polygon([top, left, (c, c)], fill=LIGHT)
+    p.polygon([left, bottom, (c, c)], fill=SHADE)
+    p.polygon([right, bottom, (c, c)], fill=DEEP)
+    t = r * .42
+    p.polygon([(c, c - t), (c + t, c), (c, c + t), (c - t, c)], fill=LIGHT)
+    p.polygon([(c, c - t), (c + t, c), (c, c + t), (c - t, c)], outline=SHADE[:3] + (255,), width=3)
+    _gem_outline(p, [top, right, bottom, left])
+    return p
+
+
+def gem_rare():
+    """Six-point star gem: lit points toward the top left, shaded toward the bottom right, ink outline."""
+    p = Plate(GEM, GEM)
+    c, outer, inner = GEM / 2, GEM / 2 - 7, (GEM / 2 - 7) * .52
+    points = []
+    for i in range(12):
+        angle = math.pi * 2 * i / 12 - math.pi / 2
+        radius = outer if i % 2 == 0 else inner
+        points.append((c + math.cos(angle) * radius, c + math.sin(angle) * radius))
+    p.polygon(points, fill=SHADE)
+    for i in range(0, 12, 2):
+        tip, before, after = points[i], points[i - 1], points[(i + 1) % 12]
+        lit = tip[0] + tip[1] < 2 * c or (abs(tip[0] - c) < 1 and tip[1] < c)
+        p.polygon([tip, after, (c, c)], fill=LIGHT if lit else SHADE)
+        p.polygon([tip, before, (c, c)], fill=LIGHT if lit else DEEP)
+    _gem_outline(p, points, 6)
+    return p
+
+
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
-    plates = {"ui_dice_tray": dice_tray(), "ui_topbar": topbar(), "ui_chip_formula": chip_formula(), "ui_stage_card": stage_card()}
+    plates = {"ui_dice_tray": dice_tray(), "ui_topbar": topbar(), "ui_chip_formula": chip_formula(), "ui_stage_card": stage_card(),
+              "ui_card_frame_rarity": card_frame_rarity(), "ui_gem_common": gem_common(), "ui_gem_advanced": gem_advanced(), "ui_gem_rare": gem_rare()}
     for name, plate in plates.items():
         plate.export().save(OUT / (name + ".png"), optimize=True)
     print("ART11_DEFAULT_BUILT", len(plates))

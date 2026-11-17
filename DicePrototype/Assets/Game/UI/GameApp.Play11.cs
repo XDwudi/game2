@@ -249,102 +249,21 @@ namespace DiceCraft
                 x+=strip+gap;
             }
         }
-        private string CardTableState11(ControllerInstance item){string state=CardState07(item);return state=="点击查看条件"?"":state.Replace("→ ","→");}
+        /// <summary>
+        /// V1.1 (W13, CARD_TEMPLATE §2): a card of the play row is drawn by the card template: the full row's cards in the
+        /// Table size, the text and mini cards (enlarged text, more than seven cards) in the Compact size. The state line
+        /// became the value badge on the picture; the rarity word and ticks left the card face for its frame colour and
+        /// gem (the rarity name stays in the hover and the details).
+        /// </summary>
         private void DrawTableCard11(ControllerInstance item,float x,float y,float w,float h,CardMode11 mode)
         {
-            var b=UiKit.Button(main,"Controller_"+item.instanceId,"",x,y,w,h,()=>ShowController(item,false),!IsBusy);
-            b.targetGraphic.color=UiKit.Paper;UiKit.CardSurface(b,mode==CardMode11.Mini);
-            var t=b.transform;int ordinal=ViewState.controllers.IndexOf(item)+1;string state=CardTableState11(item);
-            const float pad=10;
-            bool mini=mode==CardMode11.Mini;
-            // Meta row: ordinal disc, rarity ticks and word (on a mini card under its picture), enchantment badge top right.
-            // Every label here is as tall as its line: an Ellipsis label shorter than its line renders nothing (v1.0 lesson).
-            float metaY=mini?h-8-Line11(14):6,metaX=mini?8:pad,disc=Mathf.Min(24,Line11(14));
-            var ordinalDisc=UiKit.Box(t,"OrdinalDisc11",metaX,metaY+(Line11(14)-disc)*.5f,disc,disc,UiKit.Ink).GetComponent<Image>();ordinalDisc.sprite=UiKit.Template("ui_pip_dot");
-            NoWrap11(UiKit.Text(t,"Ordinal",ordinal.ToString(),metaX,metaY,disc,Line11(14),14,UiKit.Paper,TextAlignmentOptions.Center));
-            Rarity11(t,item.definitionId,metaX+disc+6,metaY,mini?Mathf.Min(96,w*.36f):Mathf.Max(48,w-pad-30-metaX-44));
-            float badge=mini?28:32;EnchantBadge(t,item.enchantmentId,w-pad-badge+2,mini?6:4,badge);
-            string text=ShortText11(item.definitionId);
-            // W11b: the card's texts stay inside the face's drawn frame, whose thickness is read from the card art (the
-            // default face draws 11-13.5 units of frame at its sides and 14.5 at its foot; at least the old 10-unit pad).
-            var edge=FrameInsets11(b.targetGraphic as Image);
-            float padL=Mathf.Max(pad,edge.x+2),padR=Mathf.Max(pad,edge.z+2),foot=Mathf.Max(12,edge.y+2),textW=w-padL-padR;
-            if(mode==CardMode11.Full)
-            {
-                var name=NoWrap11(UiKit.Text(t,"Name",NameOf(item.definitionId),padL,32,textW,Line11(22),22,UiKit.Ink,TextAlignmentOptions.Center));
-                name.fontStyle=FontStyles.Bold;
-                var body=UiKit.Text(t,"ShortText11",text,padL,0,textW,200,20,UiKit.Ink,TextAlignmentOptions.Top);
-                body.lineSpacing=-14;
-                // The short text is complete at 20 units (13 px at 720p, AX-03); a long text steps down only as far as the
-                // illustration needs to stay recognisable (about 80 units), never below the 19.5-unit body size.
-                float stateH=state.Length>0?Line11(Body11(16)):0,textH=0,top=68;
-                foreach(float size in new[]{20f,19.5f})
-                {
-                    body.fontSize=size*UiKit.FontScale;textH=Mathf.Ceil(body.GetPreferredValues(text,textW,0).y)+2;
-                    if(h-foot-textH-4-(stateH>0?stateH+6:0)-top>=80)break;
-                }
-                float textY=h-foot-textH;body.rectTransform.anchoredPosition=new Vector2(padL,-textY);body.rectTransform.sizeDelta=new Vector2(textW,textH);
-                float bottom=textY-4;
-                if(state.Length>0)
-                {
-                    bottom-=stateH+2;
-                    UiKit.Box(t,"StateChip11",padL,bottom,textW,stateH,new Color(UiKit.Ink.r,UiKit.Ink.g,UiKit.Ink.b,.08f));
-                    // A full line of height: an Ellipsis label shorter than its line renders nothing at all.
-                    NoWrap11(UiKit.Text(t,"State",state,padL,bottom,textW,stateH,Body11(16),DisabledNow10(item.instanceId)||DisabledNext10(item.instanceId)?UiKit.Danger:UiKit.Ink,TextAlignmentOptions.Center));
-                    bottom-=4;
-                }
-                float imageSize=Mathf.Max(24,Mathf.Min(textW-8,bottom-top));
-                Icon(t,item.definitionId,(w-imageSize)*.5f,top+Mathf.Max(0,(bottom-top-imageSize)*.5f),imageSize);
-            }
-            else if(mode==CardMode11.Text)
-            {
-                float icon=48,top=Mathf.Max(36,6+Line11(14)+2),nameH=Mathf.Max(icon,Line11(22));Icon(t,item.definitionId,padL,top+(nameH-icon)*.5f,icon);
-                var name=NoWrap11(UiKit.Text(t,"Name",NameOf(item.definitionId),padL+icon+8,top,textW-icon-8,nameH,22,UiKit.Ink,TextAlignmentOptions.MidlineLeft));
-                name.fontStyle=FontStyles.Bold;
-                float textTop=top+nameH+4;
-                if(state.Length>0)
-                {
-                    float stateH=Line11(Body11(16));
-                    NoWrap11(UiKit.Text(t,"State",state,padL,textTop,textW,stateH,Body11(16),DisabledNow10(item.instanceId)||DisabledNext10(item.instanceId)?UiKit.Danger:UiKit.Ink,TextAlignmentOptions.MidlineLeft));
-                    textTop+=stateH+2;
-                }
-                var body=UiKit.Text(t,"ShortText11",text,padL,textTop,textW,h-foot-textTop,20,UiKit.Ink,TextAlignmentOptions.TopLeft);
-                // At 150 % a card with a state line has three lines' room: the text shrinks as far as the 19.5-unit body size
-                // (13 px at 720p, AX-03) before it would overflow.
-                body.lineSpacing=-14;body.enableAutoSizing=true;body.fontSizeMax=20*UiKit.FontScale;body.fontSizeMin=19.5f;
-            }
-            else
-            {
-                float icon=Mathf.Min(56,metaY-12);Icon(t,item.definitionId,8,6,icon);
-                float tx=Mathf.Max(8,edge.x+2)+icon+10,tw=w-tx-padR-badge-4;
-                var name=NoWrap11(UiKit.Text(t,"Name",NameOf(item.definitionId),tx,4,tw,Line11(20),20,UiKit.Ink,TextAlignmentOptions.MidlineLeft));
-                name.fontStyle=FontStyles.Bold;
-                float textTop=4+Line11(20);
-                if(state.Length>0)
-                {
-                    NoWrap11(UiKit.Text(t,"State",state,tx,textTop,w-tx-padR,Line11(Body11(15)),Body11(15),DisabledNow10(item.instanceId)||DisabledNext10(item.instanceId)?UiKit.Danger:UiKit.Ink,TextAlignmentOptions.MidlineLeft));
-                    textTop+=Line11(Body11(15));
-                }
-                // Two rows of five: the short text is shown when it fits whole at the body size (AX-03: 13 px at 720p);
-                // otherwise the card keeps its name and state and the text is in its hover and details (PLAY_LAYOUT 8).
-                // The text ends above the meta row (ordinal and rarity) at the card's foot.
-                float room=metaY-4-textTop,miniW=w-tx-padR;
-                var body=UiKit.Text(t,"ShortText11",text,tx,textTop,miniW,room,Body11(18),UiKit.Ink,TextAlignmentOptions.TopLeft);
-                body.lineSpacing=-16;
-                if(body.GetPreferredValues(text,miniW,0).y>room+.5f)body.gameObject.SetActive(false);
-            }
+            string state=CardState07(item);
+            var face=new CardFace13{contentId=item.definitionId,enchantment=item.enchantmentId,ordinal=ViewState.controllers.IndexOf(item)+1,disabled=DisabledNow10(item.instanceId)};
+            CardValue13(state,out face.value,out face.valueWarning);
+            var b=DrawCard13(main,"Controller_"+item.instanceId,x,y,w,h,face,mode==CardMode11.Full?CardSize13.Table:CardSize13.Compact,()=>ShowController(item,false),!IsBusy);
             AttachControllerDrag(b,item);
-            Art07AttachTooltip(b,item.instanceId,NameOf(item.definitionId),text+"\n"+Details11(item.definitionId),EnchantShort(item.enchantmentId)+(state.Length>0?" · "+state:""),()=>ShowController(item,false));
-        }
-        private void Rarity11(Transform parent,string id,float x,float y,float labelWidth)
-        {
-            string rarity=Config.Controller(id).rarity;int count=rarity=="rare"?3:rarity=="uncommon"?2:1;
-            Color tint=rarity=="rare"?UiKit.RarityRare:rarity=="uncommon"?UiKit.RarityAdvanced:UiKit.RarityCommon;
-            var strip=UiKit.Rect(parent,"RarityTicks",x,y+10,30,5);
-            for(int i=0;i<count;i++)UiKit.Box(strip,"Tick"+i,i*11,0,8,5,tint);
-            for(int i=count;i<3;i++){var stale=strip.Find("Tick"+i);if(stale!=null)stale.gameObject.SetActive(false);}
-            strip.anchoredPosition=new Vector2(x,-(y+Line11(14)*.5f-2.5f));
-            NoWrap11(UiKit.Text(parent,"RarityLabel",Art07Rarity(id),x+34,y,Mathf.Max(30,labelWidth-34),Line11(14),14,UiKit.Ink,TextAlignmentOptions.MidlineLeft));
+            string info=Art07Rarity(item.definitionId)+" · "+EnchantShort(item.enchantmentId)+(string.IsNullOrEmpty(face.value)?"":" · "+state.Replace("→ ","→"));
+            Art07AttachTooltip(b,item.instanceId,NameOf(item.definitionId),ShortText11(item.definitionId)+"\n"+Details11(item.definitionId),info,()=>ShowController(item,false));
         }
         /// <summary>Height of one line of TMP text at this size and the current text scale (Noto Sans SC line height ~1.45 em).</summary>
         private static float Line11(float size)=>Mathf.Ceil(size*UiKit.FontScale*1.46f)+2;

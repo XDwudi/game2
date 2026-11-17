@@ -28,6 +28,8 @@ NEUTRAL_NAMES = frozenset({
     "ui_icon_gear", "fx_arc_short", "fx_score_spark", "fx_square_chip",
     # V1.1 W11 surfaces: tinted by palette colours at runtime (GameApp.Play11.cs Surface11).
     "ui_dice_tray", "ui_topbar", "ui_chip_formula", "ui_stage_card",
+    # V1.1 W13 card template: tinted by the rarity colours or Ghost (GameApp.Card11.cs TintedSprite13).
+    "ui_card_frame_rarity", "ui_gem_common", "ui_gem_advanced", "ui_gem_rare",
 })
 # fx_score_ray left this list when W11 stopped using it; the kit no longer ships it.
 PAPER_SURFACES = (
@@ -64,7 +66,8 @@ class SwissArtTests(unittest.TestCase):
         cls.second_hashes = png_hashes(cls.second)
 
     def test_exact_referenced_inventory(self):
-        self.assertEqual(len(SPRITES), 49, "Review W12 scope if the input contract changes.")
+        # W13 (CARD_TEMPLATE section 6) added the rarity ring and three gems to the contract: 49 -> 53 sprites, 53 -> 57 files.
+        self.assertEqual(len(SPRITES), 53, "Review W12 scope if the input contract changes.")
         expected = {sprite["name"] for sprite in SPRITES}
         self.assertEqual({path.stem for path in (ROOT / THEME / "UI").glob("*.png")}, expected)
         expected_paths = {(THEME / "UI" / (name + ".png")).as_posix() for name in expected}
@@ -72,7 +75,7 @@ class SwissArtTests(unittest.TestCase):
                                (THEME / "Table/felt_tile.png").as_posix(),
                                (THEME / "preview.png").as_posix(), REVIEW.as_posix()})
         self.assertEqual(set(self.first_hashes), expected_paths)
-        self.assertEqual(len(self.first_hashes), 53)
+        self.assertEqual(len(self.first_hashes), 57)
 
     def test_all_sprite_sizes_and_rgba_match_defaults(self):
         for sprite in SPRITES:

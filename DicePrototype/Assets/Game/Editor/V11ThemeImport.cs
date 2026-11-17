@@ -1,5 +1,6 @@
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using UnityEditor;
 using UnityEngine;
 
@@ -41,9 +42,9 @@ namespace DiceCraft.Editor
             {
                 // Surfaces stay uncompressed: thin ink lines and stepped corners band under block compression.
                 importer.textureCompression=TextureImporterCompression.Uncompressed;
-                var reference=DefaultImporter(name);
-                importer.spritePixelsPerUnit=reference!=null?reference.spritePixelsPerUnit:200;
-                importer.spriteBorder=reference!=null?reference.spriteBorder:Vector4.zero;
+                bool found=DefaultSpriteSettings(name,out float ppu,out Vector4 border);
+                importer.spritePixelsPerUnit=found?ppu:200;
+                importer.spriteBorder=found?border:Vector4.zero;
             }
             else if(kind=="Art")
             {
@@ -58,20 +59,42 @@ namespace DiceCraft.Editor
             }
         }
 
-        /// <summary>The importer of the default sprite with this file name, newest art set first.</summary>
-        public static TextureImporter DefaultImporter(string name)
+        /// <summary>The path of the default sprite with this file name, newest art set first; null when there is none.
+        /// V1.1 (W13): a file-system search. AssetDatabase.FindAssets(" t:Texture2D") cannot answer while every texture
+        /// is being reimported (a new texture postprocessor, a fresh Library), and the theme copies then lost their
+        /// border and pixels-per-unit.</summary>
+        public static string DefaultSpritePath(string name)
         {
             foreach(string folder in DefaultFolders)
             {
-                if(!AssetDatabase.IsValidFolder(folder))continue;
-                foreach(string guid in AssetDatabase.FindAssets(name+" t:Texture2D",new[]{folder}))
+                if(!Directory.Exists(folder))continue;
+                foreach(string file in Directory.GetFiles(folder,name+".png",SearchOption.AllDirectories).OrderBy(p=>p,System.StringComparer.Ordinal))
                 {
-                    string path=AssetDatabase.GUIDToAssetPath(guid);
-                    if(Path.GetFileNameWithoutExtension(path)!=name)continue;
-                    if(AssetImporter.GetAtPath(path) is TextureImporter importer)return importer;
+                    string path=file.Replace('\\','/');
+                    if(Path.GetFileNameWithoutExtension(path)==name)return path;
                 }
             }
             return null;
+        }
+        private static readonly Regex PpuLine=new Regex(@"^\s*spritePixelsToUnits:\s*([-\d.eE]+)\s*$",RegexOptions.Multiline);
+        private static readonly Regex BorderLine=new Regex(@"^\s*spriteBorder:\s*\{x:\s*([-\d.eE]+),\s*y:\s*([-\d.eE]+),\s*z:\s*([-\d.eE]+),\s*w:\s*([-\d.eE]+)\}\s*$",RegexOptions.Multiline);
+        /// <summary>The pixels-per-unit and nine-slice border of the default sprite with this name, read from its .meta file
+        /// (the importer settings as committed), so the answer does not depend on the state of the asset database.</summary>
+        public static bool DefaultSpriteSettings(string name,out float pixelsPerUnit,out Vector4 border)
+        {
+            pixelsPerUnit=0;border=Vector4.zero;
+            string path=DefaultSpritePath(name);if(path==null||!File.Exists(path+".meta"))return false;
+            string meta=File.ReadAllText(path+".meta");
+            var ppu=PpuLine.Match(meta);var b=BorderLine.Match(meta);if(!ppu.Success||!b.Success)return false;
+            float F(Group g)=>float.Parse(g.Value,System.Globalization.CultureInfo.InvariantCulture);
+            pixelsPerUnit=F(ppu.Groups[1]);border=new Vector4(F(b.Groups[1]),F(b.Groups[2]),F(b.Groups[3]),F(b.Groups[4]));
+            return true;
+        }
+        /// <summary>The importer of the default sprite with this file name, newest art set first.</summary>
+        public static TextureImporter DefaultImporter(string name)
+        {
+            string path=DefaultSpritePath(name);
+            return path!=null?AssetImporter.GetAtPath(path) as TextureImporter:null;
         }
 
         /// <summary>Batch entry point: reimports every theme file with the rules above.</summary>

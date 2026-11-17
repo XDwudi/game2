@@ -129,7 +129,10 @@ namespace DiceCraft.Tests
             StartRun("70795");var scene=InformationScene07(Art07FixtureKind.MaximumTable);scene.target="1";scene.controllerOfferPurchases=2;scene.gold=100; /* p0.9.0: shelf 4 + 2 = 6 */
             ApplyInformationScene07(scene);string instance=app.Session.State.controllers.First(c=>c.enchantmentId!="none").instanceId;
             var card=Button("Controller_"+instance);Assert.That(card.GetComponent<Art07HoverTip>(),Is.Not.Null);
-            Assert.That(card.transform.Find("RarityTicks").childCount,Is.InRange(1,3));
+            // V1.1 (W13, CARD_TEMPLATE §3): on the table the geometric rarity is the gem's shape (round, diamond, six-point
+            // star); the ticks stay on the detail card below.
+            string rarity=app.Config.Controller(app.Session.State.controllers.Single(c=>c.instanceId==instance).definitionId).rarity;
+            Assert.That(card.transform.Find("RarityGem13").GetComponent<UnityEngine.UI.Image>().sprite.name,Is.EqualTo("ui_gem_"+(rarity=="rare"?"rare":rarity=="uncommon"?"advanced":"common")));
             var hover=card.GetComponent<Art07HoverTip>();var originalShow=hover.show;var originalHide=hover.hide;
             float shownAt=-1,hiddenAt=-1,showFrame=0,hideFrame=0;
             hover.show=()=>{shownAt=Time.unscaledTime;showFrame=Time.unscaledDeltaTime;originalShow();};

@@ -1,6 +1,6 @@
 {
   "scene": "DicePrototype/Assets/Game/Scenes/Bootstrap.unity",
-  "count": 90,
+  "count": 94,
   "sprites": [
     {
       "name": "badge_enchant_base10",
@@ -387,6 +387,22 @@
       "referenced": true
     },
     {
+      "name": "ui_card_frame_rarity",
+      "default": "DicePrototype/Assets/Art/Art11/Surfaces/ui_card_frame_rarity.png",
+      "size": [
+        512,
+        512
+      ],
+      "border": [
+        40.0,
+        40.0,
+        40.0,
+        40.0
+      ],
+      "pixelsPerUnit": 200.0,
+      "referenced": true
+    },
+    {
       "name": "ui_card_item",
       "default": "DicePrototype/Assets/Art/Art073/Surfaces/ui_card_item.png",
       "size": [
@@ -542,6 +558,54 @@
         40.0,
         40.0,
         40.0
+      ],
+      "pixelsPerUnit": 200.0,
+      "referenced": true
+    },
+    {
+      "name": "ui_gem_advanced",
+      "default": "DicePrototype/Assets/Art/Art11/Surfaces/ui_gem_advanced.png",
+      "size": [
+        128,
+        128
+      ],
+      "border": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "pixelsPerUnit": 200.0,
+      "referenced": true
+    },
+    {
+      "name": "ui_gem_common",
+      "default": "DicePrototype/Assets/Art/Art11/Surfaces/ui_gem_common.png",
+      "size": [
+        128,
+        128
+      ],
+      "border": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "pixelsPerUnit": 200.0,
+      "referenced": true
+    },
+    {
+      "name": "ui_gem_rare",
+      "default": "DicePrototype/Assets/Art/Art11/Surfaces/ui_gem_rare.png",
+      "size": [
+        128,
+        128
+      ],
+      "border": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
       ],
       "pixelsPerUnit": 200.0,
       "referenced": true

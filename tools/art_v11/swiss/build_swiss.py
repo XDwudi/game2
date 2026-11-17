@@ -44,9 +44,12 @@ NEUTRAL_NAMES = frozenset({
     "ui_section_header", "ui_pip_dot", "ui_icon_arrow", "ui_icon_book",
     "ui_icon_gear", "fx_arc_short", "fx_score_spark", "fx_square_chip",
     "ui_dice_tray", "ui_topbar", "ui_chip_formula", "ui_stage_card",
+    "ui_card_frame_rarity", "ui_gem_common", "ui_gem_advanced", "ui_gem_rare",
 })
 # The original brief lists 17 masks; W11 adds four directly tinted surfaces and
-# no longer uses fx_score_ray (see LEGACY_NAMES).
+# no longer uses fx_score_ray (see LEGACY_NAMES). W13 adds the card template's
+# rarity ring and three gems, tinted by the rarity colours (or Ghost).
+CARD_TEMPLATE_NAMES = ("ui_card_frame_rarity", "ui_gem_common", "ui_gem_advanced", "ui_gem_rare")
 # Refresh is also neutral because its caller multiplies it by Ink.
 
 # Top-left design coordinates match the shader's contained 1920x1080 table.
@@ -169,8 +172,40 @@ def surface(spec: dict) -> Image.Image:
         p.chamfer(box, CHAMFER, INK)
         if name == "fx_formula_chip":
             p.poly([(14, 14), (34, 14), (14, 34)], RED)
+    elif name == "ui_card_frame_rarity":
+        # W13: a flat 14 px band (tinted by rarity) closed by a 4 px black rule, laid
+        # just inside the card's own black rule: rule, colour, rule. Open centre.
+        p.chamfer(box, CHAMFER, WHITE)
+        p.chamfer((14, 14, w - 14, h - 14), CHAMFER - 8, BLACK)
+        p.chamfer((18, 18, w - 18, h - 18), CHAMFER - 10, CLEAR)
     else:
         raise ValueError("Unimplemented sliced sprite: " + name)
+    return p.export()
+
+
+def gem(name: str, size: tuple[int, int]) -> Image.Image:
+    """W13 rarity gems: one flat white shape (tinted at runtime) inside a bold black
+    outline; round, diamond and six-point star stay distinct without colour."""
+    w, h = size
+    p = Canvas(w, h)
+    c = w / 2
+    if name == "ui_gem_common":
+        p.ellipse((6, 6, w - 6, h - 6), BLACK)
+        p.ellipse((17, 17, w - 17, h - 17), WHITE)
+    elif name == "ui_gem_advanced":
+        r = c - 4
+        p.poly([(c, c - r), (c + r, c), (c, c + r), (c - r, c)], BLACK)
+        inner = r - 11 * math.sqrt(2)
+        p.poly([(c, c - inner), (c + inner, c), (c, c + inner), (c - inner, c)], WHITE)
+    elif name == "ui_gem_rare":
+        def star(outer: float, inner: float):
+            return [(c + math.cos(math.pi * 2 * i / 12 - math.pi / 2) * (outer if i % 2 == 0 else inner),
+                     c + math.sin(math.pi * 2 * i / 12 - math.pi / 2) * (outer if i % 2 == 0 else inner))
+                    for i in range(12)]
+        p.poly(star(c - 3, (c - 3) * .55), BLACK)
+        p.poly(star(c - 19, (c - 19) * .48), WHITE)
+    else:
+        raise ValueError(name)
     return p.export()
 
 
@@ -359,6 +394,8 @@ def render_sprite(spec: dict) -> Image.Image:
         return surface(spec)
     if name.startswith("badge_enchant_"):
         return badge(name, tuple(spec["size"]))
+    if name.startswith("ui_gem_"):
+        return gem(name, tuple(spec["size"]))
     if name == "ui_wordmark_dicecraft":
         return wordmark()
     if name == "ui_card_back":
@@ -571,7 +608,34 @@ def build(output_root: Path = ROOT) -> list[Path]:
     return written
 
 
+def build_card_template(output_root: Path = ROOT) -> list[Path]:
+    """W13: write only the card template's four sprites into the theme's UI folder.
+
+    The rest of the kit and the review sheet (ArtSource/Art11/swiss) are left as
+    they are; a full build() regenerates everything, these four included."""
+    output_root = Path(output_root).resolve()
+    specs = [s for s in contract_sprites() if s["name"] in CARD_TEMPLATE_NAMES]
+    if sorted(s["name"] for s in specs) != sorted(CARD_TEMPLATE_NAMES):
+        raise ValueError("The contract lacks the card template sprites: integrate them in Unity "
+                         "(V11Setup.Integrate) and run theme_contract.py contract first")
+    written = []
+    for spec in specs:
+        im = render_sprite(spec)
+        if im.mode != "RGBA" or list(im.size) != spec["size"]:
+            raise ValueError("Contract mismatch: " + spec["name"])
+        path = output_root / THEME / "UI" / (spec["name"] + ".png")
+        path.parent.mkdir(parents=True, exist_ok=True)
+        im.save(path, format="PNG", optimize=False, compress_level=9)
+        written.append(path)
+    return written
+
+
 if __name__ == "__main__":
+    import sys
+    if "--card-template" in sys.argv:
+        for path in build_card_template():
+            print("SWISS_CARD_TEMPLATE", path.relative_to(ROOT).as_posix())
+        raise SystemExit(0)
     paths = build()
     specs = contract_sprites()
     print(f"SWISS_BUILT {len(specs)} UI sprites ({sum(s['referenced'] for s in specs)} referenced, "
