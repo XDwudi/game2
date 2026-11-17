@@ -18,6 +18,7 @@ namespace DiceCraft.Tests
         {
             // V1.1 (W11): a table card with nothing to report has no state line (its short text is printed instead); read
             // that as an empty state. Only the drawn (active) state line counts.
+            // V1.1 (W13, CARD_TEMPLATE §4): the state is the value badge on the card's picture, the number without "当前 ".
             string instance = app.Session.State.controllers.Single(c => c.definitionId == definitionId).instanceId;
             var state = FindActive<Transform>("Controller_" + instance).GetComponentsInChildren<TextMeshProUGUI>(false).FirstOrDefault(t => t.name == "State");
             return state == null ? "" : state.text;
@@ -74,7 +75,7 @@ namespace DiceCraft.Tests
             Assert.That(app.Session.State.stage.started, Is.True);
             Assert.That(app.Session.State.controllers.Select(c => c.definitionId), Is.EqualTo(new[] { "C13", "C100" }));
             // C50 costs 4: the altar grows by 0.4.
-            Assert.That(CardState09("C100"), Is.EqualTo("当前 ×1.4"));
+            Assert.That(CardState09("C100"), Is.EqualTo("×1.4"));
         }
 
         [UnityTest]
@@ -91,7 +92,7 @@ namespace DiceCraft.Tests
             yield return LoadBoundaryFixture(session.State); ResumeBoundaryFixture(); yield return WaitForIdle();
             var state = app.Session.State;
             Assert.That(state.dice.Count, Is.EqualTo(7)); Assert.That(state.hand.orderedLockedIds.Count, Is.EqualTo(2));
-            Assert.That(CardState09("C55"), Is.EqualTo("当前 +24")); Assert.That(CardState09("C58"), Is.EqualTo("当前 ×1.4"));
+            Assert.That(CardState09("C55"), Is.EqualTo("+24")); Assert.That(CardState09("C58"), Is.EqualTo("×1.4"));
             var left = state.hand.currentResults.Where(r => r.hasRolled && !r.isLocked).ToArray();
             string summary = FindActive<TextMeshProUGUI>("PoolSummary09").text;
             Assert.That(summary, Does.StartWith("留池 5 颗 · 点数和 " + left.Sum(r => r.currentPip) + " · 红 " + left.Count(r => r.currentColor == "red") + " · 6点 " + left.Count(r => r.currentPip == 6)));
@@ -112,7 +113,7 @@ namespace DiceCraft.Tests
             Assert.That(result.receipt.submission.breakdown.controllerBaseAdds.Single(a => a.abilityId == "C55").amount, Is.EqualTo("24"));
             yield return WaitForIdle();
             Assert.That(app.Session.State.controllers.Single(c => c.definitionId == "C55").state.growth, Is.EqualTo(26));
-            Assert.That(CardState09("C55"), Is.EqualTo("当前 +26"));
+            Assert.That(CardState09("C55"), Is.EqualTo("+26"));
         }
 
         [UnityTest]

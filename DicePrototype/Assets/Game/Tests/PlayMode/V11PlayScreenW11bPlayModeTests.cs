@@ -148,7 +148,7 @@ namespace DiceCraft.Tests
         /// (WCAG: inactive components). Marks on the felt (slot numbers, empty-slot dots) are measured too: with a theme's
         /// onFelt token they must read (4.5:1 for the numbers, 3:1 for the dots); without one they keep today's colours.
         /// </summary>
-        private IEnumerator W11bContrastPass(string scope,List<string> report,List<string> failures)
+        private IEnumerator W11bContrastPass(string scope,List<string> report,List<string> failures,Transform root=null)
         {
             Canvas.ForceUpdateCanvases();
             var overlay=(Transform)typeof(GameApp).GetField("overlay",BindingFlags.NonPublic|BindingFlags.Instance).GetValue(app);
@@ -159,6 +159,8 @@ namespace DiceCraft.Tests
             {
                 if(!t.enabled||!t.gameObject.activeInHierarchy||string.IsNullOrWhiteSpace(t.text)||t.color.a<.9f||t.canvasRenderer.GetInheritedAlpha()<.9f)continue;
                 if(overlay!=null&&t.transform.IsChildOf(overlay))continue;
+                // V1.1 (W13): a pass over one view only (the card gallery drawn above the play screen).
+                if(root!=null&&!t.transform.IsChildOf(root))continue;
                 // A disabled control is exempt; a formula chip is a readout that only stops taking clicks while the hand scores.
                 var control=t.GetComponentInParent<Selectable>();
                 if(control!=null&&!control.interactable&&(control.transform.parent==null||control.transform.parent.name!="ScorePanel"))continue;

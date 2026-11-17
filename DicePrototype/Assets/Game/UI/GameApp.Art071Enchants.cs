@@ -21,7 +21,7 @@ namespace DiceCraft
                 var root=UiKit.Rect(libraryEffects07,"EnchantCue071_"+i,0,0,160,224);
                 root.pivot=new Vector2(.5f,.5f);
                 var cue=root.gameObject.AddComponent<Art071EnchantCue>();
-                cue.Configure(new Vector2(160,224),enchantIcons.First(s=>s.name=="badge_enchant_submit1"),UiKit.Template("ui_icon_roll"),UiKit.Template("fx_arc_short"));
+                cue.Configure(new Vector2(160,224),EnchantSprite("submit1"),UiKit.Template("ui_icon_roll"),UiKit.Template("fx_arc_short"));
                 enchantCues071.Add(cue);
             }
         }
@@ -37,7 +37,7 @@ namespace DiceCraft
             if(instant07||enchantCues071.Any(c=>c.IsBound&&c.BoundInstanceId==instance&&c.BoundEnchantmentId==kind))return;
             var cue=enchantCues071.FirstOrDefault(c=>!c.IsBound);if(cue==null)return;
             var rect=(RectTransform)cue.transform;rect.anchoredPosition=new Vector2(area.center.x,-area.center.y);
-            cue.Configure(area.size,enchantIcons.First(s=>s.name=="badge_enchant_submit1"),UiKit.Template("ui_icon_roll"),UiKit.Template("fx_arc_short"));
+            cue.Configure(area.size,EnchantSprite("submit1"),UiKit.Template("ui_icon_roll"),UiKit.Template("fx_arc_short"));
             bool quiet=reduced||effectOptions07?.ReducedMotion==true||effectOptions07?.Quality==PresentationQuality.Low;
             int papers=kind=="base10"&&!quiet?EffectReserve07("main",EffectPoolKind.Particle,4):0;
             cue.Bind(kind,instance,quiet,from,to,papers);rect.SetAsLastSibling();

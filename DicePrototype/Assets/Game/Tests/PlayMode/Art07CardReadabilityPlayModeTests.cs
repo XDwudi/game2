@@ -84,11 +84,16 @@ namespace DiceCraft.Tests
             var config=app.Config.Controller(item.definitionId);float bottom=CardPaperBottom07(card);
             var row=new CardRead07{kind=kind,instance=item.instanceId,definition=item.definitionId,rarity=config.rarity,enchantment=item.enchantmentId,card=new Rect(0,0,card.rect.width,card.rect.height)};
             string category=config.rarity=="rare"?"稀有":config.rarity=="uncommon"?"进阶":"常见";
+            // V1.1 (W13, CARD_TEMPLATE §3): a card on the play table shows its rarity by its frame colour and gem shape; the
+            // rarity word left its face (the hover and the details keep it). Its "State" is the value badge (§4).
+            bool hud=kind.StartsWith("hud",StringComparison.Ordinal);
             // v1.1 (W09, TX-02): the detail card prints the card's position ("第 N 张"), never its instance id.
             int position=app.Session.State.controllers.FindIndex(c=>c.instanceId==item.instanceId)+1;
             foreach(var pair in new[]{new[]{"RarityLabel",category},new[]{"Name",config.displayName},new[]{"State",footer},new[]{"Identity","第 "+position+" 张"}})
             {
-                var child=card.Find(pair[0]);if(child==null){if(pair[0]=="RarityLabel"||(pair[0]=="Name"&&kind!="detail")||(pair[0]=="State"&&footer!=null)||(pair[0]=="Identity"&&kind=="detail"))row.errors.Add("Missing required "+pair[0]);continue;}
+                var child=card.Find(pair[0]);
+                if(hud&&pair[0]=="RarityLabel"){if(child!=null&&child.gameObject.activeSelf)row.errors.Add("The rarity word is on a table card (W13: frame colour and gem only).");continue;}
+                if(child==null){if(pair[0]=="RarityLabel"||(pair[0]=="Name"&&kind!="detail")||(pair[0]=="State"&&footer!=null)||(pair[0]=="Identity"&&kind=="detail"))row.errors.Add("Missing required "+pair[0]);continue;}
                 if(pair[1]!=null)row.labels.Add(CardGlyphCheck07(card,child.GetComponent<TextMeshProUGUI>(),pair[1],bottom));
             }
             if(kind.StartsWith("hud",StringComparison.Ordinal))
@@ -105,11 +110,31 @@ namespace DiceCraft.Tests
                 int index=app.Session.State.controllers.FindIndex(c=>c.instanceId==item.instanceId)+1;
                 row.labels.Add(CardGlyphCheck07(card,ordinal.GetComponent<TextMeshProUGUI>(),index.ToString(),bottom));
             }
-            var ticks=(RectTransform)card.Find("RarityTicks");if(ticks==null)row.errors.Add("Missing geometric rarity ticks.");else
+            if(hud)
             {
-                row.ticks=CardLocalRect07(card,ticks);int expected=config.rarity=="rare"?3:config.rarity=="uncommon"?2:1;
-                if(ticks.childCount!=expected)row.errors.Add("Wrong rarity tick count.");
-                foreach(RectTransform tick in ticks)if(tick.rect.width<=0||tick.rect.height<=0)row.errors.Add("Invisible tick.");
+                // V1.1 (W13): the geometric rarity cue of a table card is its gem (round, diamond, six-point star) on a frame
+                // in the rarity colour; it takes the place of the ticks in the overlap checks below.
+                string key=config.rarity=="rare"?"rare":config.rarity=="uncommon"?"advanced":"common";
+                var gem=card.Find("RarityGem13")?.GetComponent<UnityEngine.UI.Image>();
+                if(gem==null||!gem.gameObject.activeSelf)row.errors.Add("Missing rarity gem.");
+                else
+                {
+                    row.ticks=CardLocalRect07(card,gem.rectTransform);
+                    if(gem.sprite==null||!string.Equals(gem.sprite.name,"ui_gem_"+key,StringComparison.OrdinalIgnoreCase))row.errors.Add("Wrong gem shape "+(gem.sprite!=null?gem.sprite.name:"none")+" for "+key+".");
+                    if(gem.rectTransform.rect.width<=0||gem.rectTransform.rect.height<=0)row.errors.Add("Invisible gem.");
+                }
+                var frame=card.Find("RarityFrame13")?.GetComponent<UnityEngine.UI.Image>();
+                if(frame==null||!frame.gameObject.activeSelf)row.errors.Add("Missing rarity frame.");
+                else if(gem!=null&&frame.color!=gem.color)row.errors.Add("The rarity frame and gem differ in colour.");
+            }
+            else
+            {
+                var ticks=(RectTransform)card.Find("RarityTicks");if(ticks==null)row.errors.Add("Missing geometric rarity ticks.");else
+                {
+                    row.ticks=CardLocalRect07(card,ticks);int expected=config.rarity=="rare"?3:config.rarity=="uncommon"?2:1;
+                    if(ticks.childCount!=expected)row.errors.Add("Wrong rarity tick count.");
+                    foreach(RectTransform tick in ticks)if(tick.rect.width<=0||tick.rect.height<=0)row.errors.Add("Invisible tick.");
+                }
             }
             var icon=(RectTransform)card.Find("Icon_"+item.definitionId);if(icon==null)row.errors.Add("Missing illustration.");else row.icon=CardLocalRect07(card,icon);
             var badge=(RectTransform)card.Find("EnchantFrame");if(item.enchantmentId!="none")
@@ -124,15 +149,25 @@ namespace DiceCraft.Tests
             {
                 if(label.errors.Count>0)row.errors.AddRange(label.errors.Select(e=>label.name+": "+e));
                 if(badge!=null&&CardOverlap07(label.ink,row.badge))row.errors.Add(label.name+" painted ink overlaps enchantment.");
-                if(label.name!="Identity"&&CardOverlap07(label.ink,row.icon))row.errors.Add(label.name+" painted ink overlaps illustration.");
+                // V1.1 (W13, CARD_TEMPLATE §4): the value badge of a table card sits on its picture's top-left corner.
+                if(label.name!="Identity"&&!(hud&&label.name=="State")&&CardOverlap07(label.ink,row.icon))row.errors.Add(label.name+" painted ink overlaps illustration.");
                 if(label.name!="RarityLabel"&&label.name!="Ordinal"&&CardOverlap07(label.ink,row.ticks))row.errors.Add(label.name+" painted ink overlaps rarity ticks.");
             }
             for(int a=0;a<row.labels.Count;a++)for(int b=a+1;b<row.labels.Count;b++)if(CardOverlap07(row.labels[a].ink,row.labels[b].ink))row.errors.Add(row.labels[a].name+" painted ink overlaps "+row.labels[b].name);
             return row;
         }
         /// <summary>V1.1 (W11): the state line of a card on the play table. A card with nothing to report ("查看条件") has no
-        /// state line there: its short effect text is printed in full instead (checked in CardCheck07).</summary>
-        private string TableCardFooter11(ControllerInstance item){string footer=CardExpectedFooter07(item,false);return footer=="查看条件"?null:footer;}
+        /// state line there: its short effect text is printed in full instead (checked in CardCheck07).
+        /// V1.1 (W13, CARD_TEMPLATE §4): the state became the value badge on the picture: the number without "当前 "
+        /// ("×1.4", "+24"), the colour as "当前 红"; a fixed trait ("随机倍率") has no badge.</summary>
+        private string TableCardFooter11(ControllerInstance item)
+        {
+            string footer=CardExpectedFooter07(item,false);
+            if(footer=="查看条件"||footer=="随机倍率")return null;
+            if(footer.StartsWith("当前 ×",StringComparison.Ordinal)||footer.StartsWith("当前 +",StringComparison.Ordinal))return footer.Substring(3);
+            if(footer=="当前红"||footer=="当前蓝")return "当前 "+footer.Substring(2);
+            return footer;
+        }
         private string CardExpectedFooter07(ControllerInstance item,bool offer)
         {
             var sources=ControllerRules.ResolveSources(app.Session.State.controllers,app.Session.State.stage.started&&app.Session.State.phase!="Shop"?app.Session.State.stage.mimicBindings:null);
