@@ -1,0 +1,17 @@
+{
+  "schema": "icon-crops-1",
+  "theme": "swiss",
+  "source": "DicePrototype/Assets/Resources/Themes/swiss/Art",
+  "generatedBy": "tools/art_v11/crops/make_crops.py",
+  "imageSize": [1254, 1254],
+  "units": "x=left/W, y=top/H (from the top), size=side/min(W,H); W,H = source pixel size; pixel square = (x*W, y*H, side, side) with side = size*min(W,H); pad=true: the square overhangs the picture's short side, transparent there",
+  "crops": {
+    "C08": {"confidence": 0.7026, "imageSize": [1536, 1024], "method": "alpha-core-1", "note": "subject wider than the largest square; crop cuts 16% of the subject mass", "size": 1.0000, "x": 0.1159, "y": 0.0000},
+    "C139": {"confidence": 0.7431, "method": "alpha-core-1", "note": "subject spans the whole canvas, crop ~ full image (0.98)", "size": 0.9785, "x": 0.0191, "y": 0.0215},
+    "C34": {"confidence": 0.7332, "method": "alpha-core-1", "note": "subject spans most of the canvas, crop 0.96 of the image; busy at small size, 90 fine dark marks", "size": 0.9641, "x": 0.0359, "y": 0.0255},
+    "C39": {"confidence": 1.0000, "method": "alpha-core-1", "size": 0.7815, "x": 0.1212, "y": 0.1364},
+    "C46": {"confidence": 0.9998, "method": "alpha-core-1", "note": "subject spans most of the canvas, crop 0.85 of the image", "size": 0.8501, "x": 0.0662, "y": 0.0566},
+    "C50": {"confidence": 0.9887, "method": "alpha-core-1", "note": "subject spans most of the canvas, crop 0.86 of the image", "size": 0.8557, "x": 0.0702, "y": 0.0973},
+    "C56": {"confidence": 1.0000, "method": "alpha-core-1", "size": 0.8246, "x": 0.0789, "y": 0.1356}
+  }
+}

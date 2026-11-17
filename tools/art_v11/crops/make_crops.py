@@ -1,21 +1,25 @@
 """V1.1 W13a: square icon crops for the compact card size (report: docs/specs/v11/W13A_CROPS.md).
 
 The compact card shows a theme's card illustration as a square icon of about 40-56 px at 1080p and 27-37 px at
-720p. The approved art plan wants a cropped icon version there, not the whole illustration shrunk. The game cuts
-that square out of the existing texture at run time (Sprite.Create). This script only finds the square: it writes a
-crop table and, on request, review sheets. It never writes images into the game.
+720p. The approved art plan wants a cropped icon version there, not the whole illustration shrunk. This script
+finds that square for every illustration of a theme and writes it to a crop table, the provenance record. With
+--icons-dir it also bakes each square, in one premultiplied Lanczos step, into an ICON_SIZE x ICON_SIZE RGBA PNG
+(icon_<ID>.png, no metadata, byte-deterministic); the game loads those baked icons, not the table.
 
     python tools/art_v11/crops/make_crops.py --theme default \
         --source DicePrototype/Assets/Art/Art071/Illustrations \
-        --out DicePrototype/Assets/Resources/IconCrops/default.json --sheet-dir artifacts/cache/v11/crops
+        --out DicePrototype/Assets/Resources/IconCrops/default.json \
+        --icons-dir DicePrototype/Assets/Art/Art11/Icons --sheet-dir artifacts/cache/v11/crops
 
-Sources are illustration_<id>.png files with either lower- or upper-case ids; table keys are upper case.
+Icons go to <icons-dir>/<theme>/; icon PNGs there that the table no longer lists are removed. Sources are
+illustration_<id>.png files with either lower- or upper-case ids; table keys and icon names are upper case.
 
 Units (repeated in the table as "units"). W x H is the source texture's pixel size:
     x = left / W, y = top / H (measured from the top), size = side / min(W, H).
-    Unity rect, origin bottom-left: side = size * min(W, H); new Rect(x * W, H - y * H - side, side, side).
-For a square source this is just x, y and size times the side. A crop whose source size differs from the table's
-"imageSize" carries its own "imageSize" (some default-theme sources are 1536x1024, 1312x1199 or 1774x887).
+    Pixel square: left = x * W, top = y * H, side = size * min(W, H).
+A crop whose source size differs from the table's "imageSize" carries its own "imageSize" (some default-theme sources
+are 1536x1024, 1312x1199 or 1774x887). A crop with "pad": true is wider than the picture on its short side: there y
+is negative and size above 1, and the baked icon is transparent outside the picture.
 
 Method "alpha-core-1". All lengths are fractions of the source's short side S, so any resolution works.
  1. Analyse alpha at a 512 px short side; opaque = alpha >= 0.5.
@@ -38,7 +42,9 @@ Method "alpha-core-1". All lengths are fractions of the source's short side S, s
     least MIN_SIZE.
  7. A subject wider (or taller) than the largest square that fits is cut. A mirror-symmetric subject (silhouette
     IoU with its mirror >= MIRROR_SYMMETRIC: fan, balance, two rollers) gets a centred square; otherwise the square
-    goes where the islands it holds whole (die faces) are largest, then where it holds the most core.
+    goes where the islands it holds whole (die faces) are largest, then where it holds the most core. When that
+    cut would still lose PAD_IF_LOSS or more of the kept core, the crop is instead the full-subject square plus
+    margin on a padded canvas ("pad": the whole subject, letterboxed in the icon).
  8. OVERRIDES, a short per-theme table of manual squares with written reasons, replaces steps 4-7 for its ids.
 
 Confidence: the method's estimate that the square works as the card's compact icon without a person adjusting it.
@@ -46,7 +52,7 @@ It cannot see meaning; it measures the risks below. It is the product of these f
 writes its reason into the crop's "note":
     zoom    1.0 while the crop side is <= ZOOM_OK of the image's long side, 0.7 at 1.0 (crop ~ full image).
     cut     1.0 while <= CUT_OK of the kept core is outside the crop, 0.4 at 30%; x WIDE_FACTOR when the subject is
-            wider than the largest square (a forced cut, not one chosen from the subject's layout).
+            wider than the largest square (a forced cut, or a padded icon that shows the subject small).
     fill    1.0 when the kept silhouette covers >= 30% of the crop, 0.6 at <= 12% (a thin subject reads as lines).
     split   0.85 for two, 0.75 for three or more subject groups (parts SPLIT_GAP apart, each >= 15% of the core).
     detail  1.0 up to DETAIL_OK fine dark marks (halftone dots, pips, small marks) in a 96 px rendering, 0.75 at
@@ -75,8 +81,10 @@ ROOT = Path(__file__).resolve().parents[3]
 SCHEMA = "icon-crops-1"
 METHOD = "alpha-core-1"
 GENERATED_BY = "tools/art_v11/crops/make_crops.py"
-UNITS = ("x=left/W, y=top/H (from the top), size=side/min(W,H); W,H = source pixel size; "
-         "Unity rect = (x*W, H-y*H-side, side, side) with side = size*min(W,H)")
+UNITS = ("x=left/W, y=top/H (from the top), size=side/min(W,H); W,H = source pixel size; pixel square = "
+         "(x*W, y*H, side, side) with side = size*min(W,H); pad=true: the square overhangs the picture's short side, "
+         "transparent there")
+ICON_SIZE = 160           # baked icon side in pixels
 ID_RE = re.compile(r"^illustration_([a-z]+\d+)\.png$", re.IGNORECASE)
 PAPER = (0xF4, 0xE8, 0xCB)
 GREY = (128, 128, 128)
@@ -105,7 +113,8 @@ ISLAND_KEEP = 950         # per mille of each island's protected region inside t
 ISLAND_HALO = 0.04        # protected region = core inside the island's bounding box grown by this (x S)
 WIDE_ISLAND_WEIGHT = 4    # wide sources: whole-island pixels count this many times core pixels when placing
 MIRROR_SYMMETRIC = 0.85   # wide sources: silhouette IoU with its mirror image at or above this -> centred square
-MARGIN = 0.06             # border on each side, as a share of the crop side
+PAD_IF_LOSS = 0.25        # wide sources: a cut losing this share of the kept core or more pads the canvas instead
+MARGIN = 0.03             # border on each side, as a share of the crop side (the card template adds its own)
 MIN_SIZE = 0.40           # smallest crop side (x S)
 ZOOM_OK = 0.85            # crops up to this size get no zoom penalty
 CUT_OK = 0.12             # share of the kept core mass a crop may leave out without penalty
@@ -118,9 +127,15 @@ REVIEW_BELOW = 0.80       # crops below this confidence go to the side-by-side r
 EIGHT = np.ones((3, 3), dtype=bool)
 
 # Per-theme manual squares, in table units (x, y, size), each with the reason the automatic square was replaced.
-# Keep this short (about 10 ids at most); a crop that no square can save needs an art edit instead.
+# "pad": true lets the square overhang the picture's short side (transparent there). Keep this short (about 10 ids at
+# most); a crop that no square can save needs an art edit instead.
 OVERRIDES = {
-    "default": {},
+    "default": {
+        "C08": {"x": 0.0620, "y": -0.2097, "size": 1.4656, "pad": True,
+                "reason": "1774x887 boat: the automatic padded square shows the whole boat small, and at 32 px it "
+                          "reads like the long tray of C79; this square keeps the bow, the die, most of the hull "
+                          "and the oar, letterboxed"},
+    },
 }
 
 
@@ -259,9 +274,10 @@ class Analysis:
         return int(xs[best]), int(ys[best])
 
     def squares(self):
-        """Returns (full, focus, cut); squares are (x0, y0, side) in working pixels. full: steps 4 and 7 of the
-        module notes; focus: step 5, or None when no smaller square keeps every protected region; cut: the subject
-        does not fit the largest square (step 7), in which case full is that placed largest square."""
+        """Returns (full, focus, wide); squares are (x0, y0, side) in working pixels. full: steps 4 and 7 of the
+        module notes; focus: step 5, or None when no smaller square keeps every protected region; wide: None when
+        the subject fits the largest square, else "cut" (full is the placed largest square) or "pad" (full is the
+        full-subject square on a canvas padded along the short side, so x0 or y0 may be negative)."""
         sat_c, sat_s = self._integral(self.core), self._integral(self.sil)
         total_c, total_s = int(sat_c[-1, -1]), int(sat_s[-1, -1])
         # Protected regions of the focus square: every separate kept part, and the subject's upper region (flags,
@@ -299,10 +315,13 @@ class Analysis:
                     lo = mid + 1
             return lo
 
-        def full_test(s):
-            bc, bs = self._boxsums(sat_c, s), self._boxsums(sat_s, s)
-            return (bc * 1000 >= CORE_COVER * total_c) & (bs * 1000 >= SIL_COVER * total_s), bc + bs
+        def make_full_test(sat_core, sat_sil):
+            def test(s):
+                bc, bs = self._boxsums(sat_core, s), self._boxsums(sat_sil, s)
+                return (bc * 1000 >= CORE_COVER * total_c) & (bs * 1000 >= SIL_COVER * total_s), bc + bs
+            return test
 
+        full_test = make_full_test(sat_c, sat_s)
         ok, score = full_test(smax)
         if not ok.any():
             # Wider (or taller) than the largest square. A mirror-symmetric subject (fan, balance, two rollers)
@@ -317,13 +336,30 @@ class Analysis:
             if symmetry >= MIRROR_SYMMETRIC:
                 offset = int(round((lo + hi) / 2.0 - smax / 2.0))
                 offset = min(max(0, offset), (self.w if wide_axis == 1 else self.h) - smax)
-                return ((offset, 0, smax) if wide_axis == 1 else (0, offset, smax)), None, True
-            score = self._boxsums(sat_c, smax)
-            for island, _ in self.islands:
-                total = int(island.sum())
-                whole = self._boxsums(self._integral(island), smax) * 1000 >= ISLAND_KEEP * total
-                score = score + whole * (WIDE_ISLAND_WEIGHT * total)
-            return self._pick(np.ones_like(score, dtype=bool), score, smax, centroid) + (smax,), None, True
+                cut = (offset, 0, smax) if wide_axis == 1 else (0, offset, smax)
+            else:
+                score = self._boxsums(sat_c, smax)
+                for island, _ in self.islands:
+                    total = int(island.sum())
+                    whole = self._boxsums(self._integral(island), smax) * 1000 >= ISLAND_KEEP * total
+                    score = score + whole * (WIDE_ISLAND_WEIGHT * total)
+                cut = self._pick(np.ones_like(score, dtype=bool), score, smax, centroid) + (smax,)
+            lost = 1.0 - int(self._boxsums(sat_c, smax)[cut[1], cut[0]]) / max(1, total_c)
+            if lost < PAD_IF_LOSS:
+                return cut, None, "cut"
+            # Too much of the subject would be lost: the full-subject square on a canvas padded along the short
+            # side, so the whole subject shows, letterboxed.
+            size = max(self.w, self.h)
+            ox, oy = (size - self.w) // 2, (size - self.h) // 2
+            padded_core = np.zeros((size, size), dtype=bool)
+            padded_sil = np.zeros((size, size), dtype=bool)
+            padded_core[oy:oy + self.h, ox:ox + self.w] = self.core
+            padded_sil[oy:oy + self.h, ox:ox + self.w] = self.sil
+            pad_test = make_full_test(self._integral(padded_core), self._integral(padded_sil))
+            s_pad = smallest(1, size, pad_test)
+            ok, score = pad_test(s_pad)
+            x0, y0 = self._pick(ok, score, s_pad, (centroid[0] + ox, centroid[1] + oy))
+            return (x0 - ox, y0 - oy, s_pad), None, "pad"
         s_full = smallest(1, smax, full_test)
         ok, score = full_test(s_full)
         full = self._pick(ok, score, s_full, centroid) + (s_full,)
@@ -342,20 +378,22 @@ class Analysis:
         s_focus = smallest(s_lo, s_full, focus_test)
         ok, score = focus_test(s_focus)
         if not ok.any():
-            return full, None, False
+            return full, None, None
         focus = self._pick(ok, score, s_focus, centroid) + (s_focus,)
-        return full, focus, False
+        return full, focus, None
 
-    # --- metrics of a final square, given in source pixels ---------------------------------------------------------
+    # --- metrics of a final square, given in source pixels (it may overhang the picture when padded) -------------
 
     def metrics(self, left, top, side):
-        ix0, iy0 = int(math.floor(left / self.k + 0.5)), int(math.floor(top / self.k + 0.5))
-        ix1, iy1 = int(math.floor((left + side) / self.k + 0.5)), int(math.floor((top + side) / self.k + 0.5))
+        ix0 = min(max(0, int(math.floor(left / self.k + 0.5))), self.w)
+        iy0 = min(max(0, int(math.floor(top / self.k + 0.5))), self.h)
+        ix1 = min(max(0, int(math.floor((left + side) / self.k + 0.5))), self.w)
+        iy1 = min(max(0, int(math.floor((top + side) / self.k + 0.5))), self.h)
         inside = np.zeros_like(self.sil)
         inside[iy0:iy1, ix0:ix1] = True
         total_c = int(self.core.sum())
         core_out = 1.0 - (int((self.core & inside).sum()) / total_c if total_c else 1.0)
-        fill = int((self.sil & inside).sum()) / max(1, (iy1 - iy0) * (ix1 - ix0))
+        fill = int((self.sil & inside).sum()) / max(1.0, (side / self.k) ** 2)
         groups = 1
         if self.transparent:
             near = ndi.distance_transform_edt(~self.sil) <= SPLIT_GAP * WORK
@@ -396,9 +434,12 @@ def confidence_of(scale, m, wide):
                      else f"subject spans most of the canvas, crop {scale:.2f} of the image")
     factors.append(zoom)
     cut = ramp(m["core_out"], CUT_OK, 0.30, 0.4)
-    if wide:
+    if wide == "cut":
         # The cut is forced by the picture's shape, not chosen by the subject's layout.
         notes.append("subject wider than the largest square")
+        cut *= WIDE_FACTOR
+    elif wide == "pad":
+        notes.append("subject wider than the largest square; padded to a square, shown small")
         cut *= WIDE_FACTOR
     if m["core_out"] > CUT_OK:
         notes.append(f"crop cuts {100 * m['core_out']:.0f}% of the subject mass")
@@ -421,21 +462,40 @@ def confidence_of(scale, m, wide):
     return conf, notes
 
 
-def to_units(left, top, side, W, H):
-    """Integer 1e-4 units, nudged so the rounded square stays inside the image."""
+def to_units(left, top, side, W, H, pad=False):
+    """Integer 1e-4 units, nudged so the rounded square stays inside the image. A padded square only has to stay
+    inside along the long side; it overhangs the short side on purpose."""
     S = min(W, H)
     xi = int(round(left * 10000 / W))
     yi = int(round(top * 10000 / H))
     si = int(round(side * 10000 / S))
-    while xi * W + si * S > 10000 * W:
-        xi -= 1
-    while yi * H + si * S > 10000 * H:
-        yi -= 1
-    return max(0, xi), max(0, yi), si
+    if not pad or W >= H:
+        while xi * W + si * S > 10000 * W:
+            xi -= 1
+        xi = max(0, xi)
+    if not pad or H > W:
+        while yi * H + si * S > 10000 * H:
+            yi -= 1
+        yi = max(0, yi)
+    return xi, yi, si
 
 
 def fmt4(units):
-    return f"{units // 10000}.{units % 10000:04d}"
+    sign = "-" if units < 0 else ""
+    units = abs(units)
+    return f"{sign}{units // 10000}.{units % 10000:04d}"
+
+
+def units_to_pixels(xi, yi, si, W, H, pad=False):
+    """The pixel square a table entry stands for: what the icon is baked from, so the table alone reproduces it."""
+    side = int(round(si * min(W, H) / 10000))
+    left = int(round(xi * W / 10000))
+    top = int(round(yi * H / 10000))
+    if not pad or W >= H:
+        left = min(max(0, left), W - side)
+    if not pad or H > W:
+        top = min(max(0, top), H - side)
+    return left, top, side
 
 
 def crop_one(path, theme, content_id):
@@ -445,14 +505,32 @@ def crop_one(path, theme, content_id):
     notes = list(a.notes)
     full, focus, wide = a.squares()
     if override:
-        # Written exactly as given (4 decimals); a square that leaves the image is an error, not a clamp.
+        # Written exactly as given (4 decimals); a square that leaves the image is an error, not a clamp. With
+        # "pad": true it may overhang the picture's short side only (transparent there in the icon).
         xi, yi, si = (int(round(override[key] * 10000)) for key in ("x", "y", "size"))
-        if min(xi, yi) < 0 or xi * a.W + si * a.S > 10000 * a.W or yi * a.H + si * a.S > 10000 * a.H:
+        inside_x = xi >= 0 and xi * a.W + si * a.S <= 10000 * a.W
+        inside_y = yi >= 0 and yi * a.H + si * a.S <= 10000 * a.H
+        if override.get("pad"):
+            ok = inside_x if a.W >= a.H else inside_y
+        else:
+            ok = inside_x and inside_y
+        if not ok:
             raise SystemExit(f"override {theme}/{content_id} leaves the {a.W}x{a.H} image")
-        side = int(round(si * a.S / 10000))
-        left = min(int(round(xi * a.W / 10000)), a.W - side)
-        top = min(int(round(yi * a.H / 10000)), a.H - side)
         method = "override"
+    elif wide == "pad":
+        # Whole subject plus margin; along the long side the square stays inside, the short side overhangs.
+        x0, y0, s = full
+        crop = s / (1.0 - 2.0 * MARGIN)
+        cx, cy = x0 + s / 2.0, y0 + s / 2.0
+        side = min(int(round(crop * a.k)), max(a.W, a.H))
+        left = int(round((cx - crop / 2.0) * a.k))
+        top = int(round((cy - crop / 2.0) * a.k))
+        if a.W >= a.H:
+            left = min(max(0, left), a.W - side)
+        else:
+            top = min(max(0, top), a.H - side)
+        xi, yi, si = to_units(left, top, side, a.W, a.H, pad=True)
+        method = METHOD
     else:
         x0, y0, s = focus or full
         crop = s / (1.0 - 2.0 * MARGIN) if not wide else float(s)
@@ -463,15 +541,17 @@ def crop_one(path, theme, content_id):
         top = min(max(0, int(round((cy - crop / 2.0) * a.k))), a.H - side)
         xi, yi, si = to_units(left, top, side, a.W, a.H)
         method = METHOD
+    pad = bool(override.get("pad")) if override else wide == "pad"
+    left, top, side = units_to_pixels(xi, yi, si, a.W, a.H, pad)
     m = a.metrics(left, top, side)
     m["marks"] = fine_marks(image, left, top, side)
-    conf, reasons = confidence_of(side / max(a.W, a.H), m, wide and not override)
+    conf, reasons = confidence_of(side / max(a.W, a.H), m, None if override else wide)
     notes.extend(reasons)
     if override:
         notes.insert(0, "override: " + override["reason"])
     entry = {"x": xi, "y": yi, "size": si, "confidence": int(round(conf * 10000)), "method": method,
              "note": "; ".join(notes), "imageSize": [a.W, a.H], "metrics": m, "pixels": (left, top, side),
-             "full": full, "focus": focus, "k": a.k}
+             "full": full, "focus": focus, "k": a.k, "pad": pad}
     return entry, image
 
 
@@ -495,22 +575,55 @@ def table_text(theme, source, crops, image_size):
             fields["note"] = json.dumps(c["note"], ensure_ascii=False)
         if tuple(c["imageSize"]) != tuple(image_size):
             fields["imageSize"] = f'[{c["imageSize"][0]}, {c["imageSize"][1]}]'
+        if c["pad"]:
+            fields["pad"] = "true"
         body = ", ".join(f'"{k}": {fields[k]}' for k in sorted(fields))
         lines.append(f'    {json.dumps(key)}: {{{body}}}' + ("," if n < len(keys) - 1 else ""))
     lines += ["  }", "}", ""]
     return "\n".join(lines)
 
 
-def build(theme, source, out, sheet_dir=None, log=print):
+def bake_icon(image, pixels):
+    """The crop square cut from the full-resolution source (transparent where it overhangs the picture) and
+    reduced to ICON_SIZE in one Lanczos step on premultiplied alpha, so edges get no dark fringe. Returned as a fresh
+    image, so no metadata of the source can reach the PNG."""
+    left, top, side = pixels
+    piece = image.crop((left, top, left + side, top + side))
+    small = piece.convert("RGBa").resize((ICON_SIZE, ICON_SIZE), Image.LANCZOS).convert("RGBA")
+    return Image.frombytes("RGBA", small.size, small.tobytes())
+
+
+def write_icons(folder, icons, log):
+    """icon_<ID>.png for every crop; icon PNGs (and their Unity .meta) the table no longer lists are removed."""
+    folder.mkdir(parents=True, exist_ok=True)
+    wanted = {f"icon_{cid}.png" for cid in icons}
+    for old in sorted(folder.glob("icon_*.png")):
+        if old.name not in wanted:
+            old.unlink()
+            meta = old.with_name(old.name + ".meta")
+            if meta.exists():
+                meta.unlink()
+    total = 0
+    for cid in sorted(icons):
+        path = folder / f"icon_{cid}.png"
+        icons[cid].save(path, format="PNG", optimize=True)
+        total += path.stat().st_size
+    log(f"ICONS_WRITTEN dir={repo_relative(folder)} count={len(icons)} bytes={total}")
+    return total
+
+
+def build(theme, source, out, sheet_dir=None, icons_dir=None, log=print):
     files = discover(source)
-    crops, renders = {}, {}
+    crops, icons, fulls = {}, {}, {}
     sizes = Counter()
     for content_id, path in files.items():
         entry, image = crop_one(path, theme, content_id)
         crops[content_id] = entry
         sizes[tuple(entry["imageSize"])] += 1
+        if icons_dir is not None or sheet_dir is not None:
+            icons[content_id] = bake_icon(image, entry["pixels"])
         if sheet_dir is not None:
-            renders[content_id] = small_renders(image, entry["pixels"])
+            fulls[content_id] = {n: render_full(image, n) for n in FULL_SIZES}
         image.close()
     unknown = sorted(set(OVERRIDES.get(theme, {})) - set(crops))
     if unknown:
@@ -522,7 +635,13 @@ def build(theme, source, out, sheet_dir=None, log=print):
     out.write_bytes(text.encode("utf-8"))
     low = [cid for cid in crops if crops[cid]["confidence"] < REVIEW_BELOW * 10000]
     log(f"CROPS_WRITTEN theme={theme} count={len(crops)} low={len(low)} out={repo_relative(out)}")
+    if icons_dir is not None:
+        folder = Path(icons_dir) / theme
+        write_icons(folder, icons, log)
+        # The review sheets show the baked files themselves.
+        icons = {cid: load_rgba(folder / f"icon_{cid}.png") for cid in crops}
     if sheet_dir is not None:
+        renders = {cid: icon_renders(icons[cid], fulls[cid]) for cid in crops}
         write_sheets(Path(sheet_dir), crops, renders, log)
     return crops
 
@@ -549,9 +668,9 @@ def render_full(image, n):
 
 
 def no_mip_sample(image, pixels, n):
-    """The crop as a GPU draws it from a texture without mipmaps: one bilinear sample of the full-resolution
-    texture per output pixel centre (premultiplied). The illustrations are imported with enableMipMap 0, so this
-    is closer to a run-time Sprite.Create crop shown at n px than the area-filtered review tiles are."""
+    """A square of `image` as a GPU draws it at n px from a texture without mipmaps: one bilinear sample per output
+    pixel centre (premultiplied). Used on the baked icons to show what is left of aliasing if they are imported
+    without mipmaps."""
     left, top, side = pixels
     rgba = np.asarray(image)
     centres = (np.arange(n) + 0.5) * side / n - 0.5
@@ -571,15 +690,14 @@ def no_mip_sample(image, pixels, n):
     return Image.fromarray(np.clip(np.floor(tile + 0.5), 0, 255).astype(np.uint8), "RGBA")
 
 
-def small_renders(image, pixels):
-    """The crop at the review sizes (area-filtered, premultiplied), the no-mipmap GPU sample at 32 px, and the
-    whole picture, so sheets need no full-resolution image in memory."""
-    left, top, side = pixels
-    piece = image.crop((left, top, left + side, top + side)).convert("RGBa")
-    out = {n: piece.resize((n, n), Image.LANCZOS).convert("RGBA") for n in TILE_SIZES}
-    out["no-mip", 32] = no_mip_sample(image, pixels, 32)
-    for n in FULL_SIZES:
-        out["full", n] = render_full(image, n)
+def icon_renders(icon, fulls):
+    """Review tiles from the baked icon: 96/48/32 px (premultiplied Lanczos), the no-mipmap GPU sample at 32 px,
+    and the whole-picture thumbnails made while the source was open."""
+    premultiplied = icon.convert("RGBa")
+    out = {n: premultiplied.resize((n, n), Image.LANCZOS).convert("RGBA") for n in TILE_SIZES}
+    out["no-mip", 32] = no_mip_sample(icon, (0, 0, ICON_SIZE), 32)
+    for n, tile in fulls.items():
+        out["full", n] = tile
     return out
 
 
@@ -621,7 +739,7 @@ def write_sheets(folder, crops, renders, log):
                 # The same 32 px pixels, enlarged without filtering, for reviewers' eyes.
                 sheet.resize((sheet.width * 2, sheet.height * 2), Image.NEAREST).save(
                     folder / f"sheet_{n}_{name}_x2.png")
-    # Advisory: what the same crops look like when a GPU samples the mip-0 texture at 32 px (no mipmaps).
+    # Advisory: the baked icons drawn at 32 px by a GPU from a texture without mipmaps (5x minification).
     sheet = grid_sheet(ids, renders, 32, PAPER, key=("no-mip", 32))
     sheet.resize((sheet.width * 2, sheet.height * 2), Image.NEAREST).save(folder / "sheet_32_paper_nomip_x2.png")
     write_overlay(folder, ids, crops, renders)
@@ -838,9 +956,11 @@ def main(argv=None):
     parser.add_argument("--theme", required=True, help="theme id written into the table; selects OVERRIDES")
     parser.add_argument("--source", required=True, help="folder with illustration_<id>.png files")
     parser.add_argument("--out", required=True, help="crop table JSON to write")
+    parser.add_argument("--icons-dir", help="also bake icon_<ID>.png files into <icons-dir>/<theme>/")
     parser.add_argument("--sheet-dir", help="also write review sheets and the AX-07 similarity report here")
     args = parser.parse_args(argv)
-    build(args.theme, Path(args.source), Path(args.out), Path(args.sheet_dir) if args.sheet_dir else None)
+    build(args.theme, Path(args.source), Path(args.out), Path(args.sheet_dir) if args.sheet_dir else None,
+          Path(args.icons_dir) if args.icons_dir else None)
     return 0
 
 
