@@ -104,6 +104,13 @@ namespace DiceCraft.Tests
                     if(inks[i].Value.Any(a=>inks[j].Value.Any(b=>W13Overlap(a,b))))failures.Add(at+": "+inks[i].Key.name+" and "+inks[j].Key.name+" overlap");
                 var enchant=card.Find("EnchantFrame/Badge") as RectTransform;
                 Rect? enchantRect=enchant!=null&&enchant.gameObject.activeInHierarchy?V06ScreenRect(enchant):(Rect?)null;
+                // The enchantment badge follows the active style: with Swiss active it is Swiss's own badge_enchant_*.
+                if(enchantRect.HasValue)
+                {
+                    var badgeSprite=enchant.GetComponent<Image>()?.sprite;
+                    if(badgeSprite==null||!badgeSprite.name.StartsWith("badge_enchant_",StringComparison.Ordinal))failures.Add(at+": the enchantment badge has no badge_enchant_* sprite");
+                    else if(app.ThemeId11=="swiss"&&!ReferenceEquals(badgeSprite,Resources.Load<Sprite>("Themes/swiss/UI/"+badgeSprite.name)))failures.Add(at+": the enchantment badge is not Swiss's own "+badgeSprite.name);
+                }
                 var picture=card.Cast<Transform>().FirstOrDefault(x=>x.gameObject.activeSelf&&x.name.StartsWith("Icon_",StringComparison.Ordinal)) as RectTransform;
                 if(picture==null)failures.Add(at+": no picture");
                 foreach(var pair in inks)
@@ -238,6 +245,17 @@ namespace DiceCraft.Tests
                             var read=CardCheck07(card,item,"hud-compact",TableCardFooter11(item));
                             report.Add(tag+" "+item.definitionId+" '"+string.Join(" | ",read.labels.Select(l=>l.name+"="+l.text))+"'"+(read.errors.Count>0?" ERRORS "+string.Join("; ",read.errors):""));
                             Assert.That(read.errors,Is.Empty,tag+" "+item.definitionId+": "+string.Join("; ",read.errors));
+                            // The enchantment badge follows the active style (the style's own badge_enchant_*, else the default).
+                            if(item.enchantmentId!="none")
+                            {
+                                var badge=card.Find("EnchantFrame/Badge")?.GetComponent<UnityEngine.UI.Image>();
+                                Assert.That(badge,Is.Not.Null,tag+" "+item.definitionId+": no enchantment badge.");
+                                var swissBadge=Resources.Load<Sprite>("Themes/swiss/UI/badge_enchant_"+item.enchantmentId);
+                                Assert.That(swissBadge,Is.Not.Null,"Swiss ships badge_enchant_"+item.enchantmentId+".");
+                                if(theme=="swiss")Assert.That(badge.sprite,Is.SameAs(swissBadge),tag+" "+item.definitionId+": the enchantment badge must be Swiss's own.");
+                                else Assert.That(badge.sprite,Is.SameAs(app.enchantIcons.First(s=>s!=null&&s.name=="badge_enchant_"+item.enchantmentId)),tag+" "+item.definitionId+": the default badge.");
+                                report.Add(tag+" "+item.definitionId+" enchantment badge "+badge.sprite.name+(theme=="swiss"?" (Swiss)":" (default)"));
+                            }
                         }
                         Assert.That(Button("Controller_"+state.controllers[7].instanceId).transform.Find("State")?.GetComponent<TextMeshProUGUI>()?.text,Is.EqualTo("+24"),"The growth card's value badge.");
                         // For the record: what a redraw of the play screen with ten template cards costs on this machine (the

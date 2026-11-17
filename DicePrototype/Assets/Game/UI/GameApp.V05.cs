@@ -117,11 +117,17 @@ namespace DiceCraft
             ViewState==null?0:ViewSources.Count(c=>c.abilityId=="C34"),ViewState==null?0:ViewSources.Count(c=>c.abilityId=="C35"));
         private static string EnchantShort(string id) => id=="slotless"?"免槽":id=="base10"?"触发 +10":id=="mult2"?"触发 ×2":id=="submit1"?"提交 +1":id=="roll1"?"投掷 +1":"无附魔";
         private static string EnchantLabel(string id) => id=="slotless"?"免槽 · 不占普通控制器槽，仍计入持有上限":id=="base10"?"基础分 +10 · 本次提交触发本实例时加一次":id=="mult2"?"整手 ×2 · 本次提交触发本实例时乘一次":id=="submit1"?"每关提交 +1 · 开始关卡时发放":id=="roll1"?"每手投掷 +1 · 新手开始时发放":"无附魔 · 占用1个普通控制器槽";
+        /// <summary>V1.1 (W13): an enchantment's badge by name through the theme lookup (UiKit.Template: the active style's own
+        /// badge_enchant_*, else the default template); the serialized list is only the last fallback, so a style's badges
+        /// show wherever a badge is drawn.</summary>
+        private Sprite EnchantSprite(string id)
+            =>UiKit.Template("badge_enchant_"+id)
+              ??enchantIcons?.FirstOrDefault(s=>s!=null&&s.name=="badge_enchant_"+id)
+              ??enchantIcons?.FirstOrDefault(s=>s!=null&&s.name=="Enchant_"+id);
         private void EnchantBadge(Transform parent,string id,float x,float y,float size)
         {
             if(string.IsNullOrEmpty(id)||id=="none")return;
-            var sprite=enchantIcons?.FirstOrDefault(s=>s!=null&&s.name=="badge_enchant_"+id)
-                ??enchantIcons?.FirstOrDefault(s=>s!=null&&s.name=="Enchant_"+id);
+            var sprite=EnchantSprite(id);
             var box=UiKit.Rect(parent,"EnchantFrame",x-2,y-2,size+4,size+4);
             if(sprite!=null){var image=UiKit.Component<UnityEngine.UI.Image>(UiKit.Rect(box,"Badge",2,2,size,size).gameObject);image.sprite=sprite;image.raycastTarget=false;image.preserveAspect=true;}
             else UiKit.Text(box,"Symbol",id=="slotless"?"−":id=="base10"?"+10":id=="mult2"?"×2":"+1",0,0,size+4,size+4,16,UiKit.Ink,TextAlignmentOptions.Center);
