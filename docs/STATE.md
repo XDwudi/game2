@@ -39,9 +39,13 @@
   - W17 首领徽记：按“印章”样板生成其余六张，全部有效，`9711ab2`。
   - W19：四套风格套件 theme-*-0.1（`8bdf7c8`）与 29 张试画（`20868f6`、`ce599ab`）；artgen 1.2 让审查单适用于风格套件。实测 35 张图使 Codex 周额度约增加 2 个百分点。
   - W21 标题字体：用户批准后下载四款（大小与清单一致），放在 `DicePrototype/Assets/Game/Fonts/Themes/<风格>/`，各附 OFL.txt 与 SOURCE.json（来源、大小、SHA-256）。TMP 字体资源在 W21 建。
+  - W13a 紧凑图标：裁切表与 160 px 图标（默认 184、瑞士 7）已合并（`da22f5a`）；协调者在 32 px 下看过全部 184 张。C33、C34、C107、C110、C111 仍需 GPT 编辑出图标，另 7 张待实机判断。
+  - 首领徽记五套风格重画 35 张，全部有效（`b551ecb`）；唐三彩、爆彩漫画、黑金的终局徽记把深色骰子画成了浅色，按“功能提示不变”重画。
+  - W22a 主体表：184 张卡逐张对照默认成图写出主体句、主体物与功能提示（`ArtSource/Art11/subjects.json`，`35d6a8d`）；协调者对六个待决项作了决定（C95–C97 硬币画金色等，见 [W22A_SUBJECTS §7](specs/v11/W22A_SUBJECTS.md)）。
 - 进行中：
-  - W13a（子 agent，`wt-v11-crops`）：裁切表已交（`25d1f99`，232 项 Python 测试通过）；协调者决定边距改为每边 3%，并离线烘焙 160 px 图标（默认与瑞士），见 [CARD_TEMPLATE §7](specs/v11/CARD_TEMPLATE.md)。
-  - W13 卡面模板：规格 [CARD_TEMPLATE](specs/v11/CARD_TEMPLATE.md)，交给 W11 子 agent 实施。
+  - W22 成批重画（`4c0f57a`，885 个任务）：五套风格按瑞士、唐三彩、爆彩漫画、黑金、彩绘玻璃的顺序后台串行生成；Unity 测试运行时自动暂停，Codex 周额度到 85% 自动停止（开始时 22%）。每套完成后协调者逐张审查，第 4 节风险 id 重点核对。
+  - W13 卡面模板：规格 [CARD_TEMPLATE](specs/v11/CARD_TEMPLATE.md)，W11 子 agent 实施中（紧凑图标已到位）。
+  - W20 唐三彩界面件（子 agent，`wt-v11-sancai`）：程序化生成 49 张界面件、桌面、预览与色板，形状取自唐三彩概念图（“各风格有自己的造型”）。其余三套在它之后依次开始（同时最多两个重型子 agent）。
 - 运行规则（W11c 教训）：Unity PlayMode 全量运行期间不跑 artgen 批量与其他吃 CPU 的任务；成批生成的脚本在检测到 PlayMode 测试进程时暂停。
 - 文件锁：Unity 编辑器与 `codex/v1.1` 的界面、测试文件由 W11 子 agent 独占（W13）；`wt-v11-crops` 由 W13a 子 agent 写；`ArtSource/Art11/` 的生成由主 agent 经 artgen 串行进行；`docs/STATE.md`、`THEME_SPEC.md`、`DEV_PLAN.md`、`CARD_TEMPLATE.md` 由主 agent 写。
 
