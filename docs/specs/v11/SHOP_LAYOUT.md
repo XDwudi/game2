@@ -1,6 +1,6 @@
 # 商店布局（W14，美术方案 A3）
 
-状态：READY（协调者 2026-11-17 批准；决定见第 12.4 节）。草案由子 agent 于同日写成，实施中按批准的决定改写了第 4、7、9 节。W14 实现在 `21ef10a5`（测试改写见 [W14_TEST_CHANGES](W14_TEST_CHANGES.md)），待复核；第 2 节是实测后的最终矩形。
+状态：READY（协调者 2026-11-17 批准；决定见第 12.4 节）。草案由子 agent 于同日写成，实施中按批准的决定改写了第 4、7、9 节。W14 实现在 `21ef10a5`，修正在 `d268ab2f`、`3dfbac5d`（测试改写见 [W14_TEST_CHANGES](W14_TEST_CHANGES.md)），待复核；第 2 节是实测后的最终矩形。
 
 依据：
 - [美术方案](../../proposals/2026-11-16-art-experience.md) §A3 与示意图 `docs/proposals/img/2026-11-16-art/W3-shop-layout.png`；现状截图 `A4-146-phase-shop.jpg`（问题 1–8）。
@@ -296,6 +296,7 @@ E1 实测（`PLAY_V14_E1`，`artifacts/cache/v11/w14/<分辨率>/e1-shop-card-he
 | `UI/GameApp.Art07Wallet.cs` | 删除（金币进顶栏） |
 | `UI/GameApp.Art07Effects.cs` | 现金票在顶栏的空位、刷新特效在货架上 |
 | `UI/GameApp.Art07Toasts.cs` | 商店里提示的位置（卡牌与升级与服务的标题行） |
+| `UI/GameApp.Art07Guide.cs`、`Art07GuideDock.cs` | 新手引导第 5 步（指向“骰子与骰面”）：商店里先定箭头的位置，纸条再避开它；没有空位时纸条落在“我的骰子”的骰子上（骰子在纸下让开） |
 | `Runtime/GameApp.cs` | Esc、应用暂停、回主菜单时取消选面 |
 | `UI/GameApp.Modals.cs` | 未改：商店货架不再调用改造选目标，窗口留给赠礼组 |
 
