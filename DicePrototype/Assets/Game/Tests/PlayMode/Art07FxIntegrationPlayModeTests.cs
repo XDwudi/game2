@@ -82,6 +82,10 @@ namespace DiceCraft.Tests
                 Art07Fixtures.Apply(app,Art07FixtureKind.G147);Click("Pause");Click("Settings");Click("SettingsTab1");
                 for(int n=0;n<3&&!Button("Quality").GetComponentInChildren<TextMeshProUGUI>().text.Contains("低");n++)Click("Quality");
                 Click("SettingsTab2");Click("Speed");Click("SettingsDone");
+                // V1.1 (W13, coordinator decision): the fixture and the settings dialog finish in earlier frames; the
+                // presentation starts in a frame that holds only the Submit, as a player's submit does. The beat window,
+                // the clock and every assertion are unchanged, so an overrunning submit frame still fails.
+                yield return null;yield return null;
                 Art07Fixtures.Submit(app,Art07FixtureKind.G147);yield return WaitFxPhase07(PresentationPhase.ControllerAndEnchant);
                 Assert.That(app.ActiveSourceMarks07,Is.EqualTo(4));Assert.That(app.ActiveCardPunches07,Is.Zero);
                 yield return WaitFxPhase07(PresentationPhase.FinalScore);

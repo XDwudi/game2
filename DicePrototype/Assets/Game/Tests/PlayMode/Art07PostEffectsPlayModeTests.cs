@@ -85,7 +85,11 @@ namespace DiceCraft.Tests
         }
         [UnityTest] public IEnumerator PLAY_ART07_POST_FastSharedHalfRevealsOnceWithoutWheelRotation()
         {
-            Art07Fixtures.Apply(app,Art07FixtureKind.SharedHalf);FinalOptions07("Fast",false);var receipt=Art07Fixtures.Submit(app,Art07FixtureKind.SharedHalf);
+            Art07Fixtures.Apply(app,Art07FixtureKind.SharedHalf);FinalOptions07("Fast",false);
+            // V1.1 (W13, coordinator decision): setup in earlier frames, then a frame that holds only the Submit (beat window,
+            // clock and assertions unchanged).
+            yield return null;yield return null;
+            var receipt=Art07Fixtures.Submit(app,Art07FixtureKind.SharedHalf);
             string state=GameSession.StateHash(app.Session.State);byte[] save=File.ReadAllBytes(app.SaveLocation);yield return WaitFxPhase07(PresentationPhase.ControllerAndEnchant);
             var wheel=LiveFx07("fx_random_reveal").Single();Assert.That(wheel.CommittedRevealFadeOnly,Is.True);Assert.That(app.RevealedOwnerIds07,Has.Length.EqualTo(1));Assert.That(wheel.value.text,Is.EqualTo("×0.5"));
             Quaternion rotation=wheel.icon.rectTransform.localRotation;float previous=wheel.group.alpha;

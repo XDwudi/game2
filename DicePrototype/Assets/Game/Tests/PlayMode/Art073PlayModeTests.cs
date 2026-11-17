@@ -303,6 +303,9 @@ namespace DiceCraft.Tests
             foreach(string mode in new[]{"Fast","Reduced","Instant","Skip"})
             {
                 Art07Fixtures.Apply(app,Art07FixtureKind.Burst09);FinalOptions07(mode=="Fast"||mode=="Instant"?mode:"Normal",mode=="Reduced");
+                // V1.1 (W13, coordinator decision): setup in earlier frames, then a frame that holds only the Submit (the
+                // Fast final-score beat is sampled against the real clock; window, clock and assertions unchanged).
+                yield return null;yield return null;
                 Art07Fixtures.Submit(app,Art07FixtureKind.Burst09);string state=GameSession.StateHash(app.Session.State);
                 if(mode=="Instant")
                 {
