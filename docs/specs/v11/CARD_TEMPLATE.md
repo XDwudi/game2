@@ -50,8 +50,8 @@
 
 ## 7 紧凑图标
 
-- W13a 的裁切表 `DicePrototype/Assets/Resources/IconCrops/<风格>.json`（schema `icon-crops-1`：每个内容 id 一个正方形，x、y、size 为 0–1 的归一化值，y 从上往下量）。
-- 运行时 `Sprite.Create(插画贴图, 裁切矩形)`，按（风格，id）缓存；换风格时清空（与 W11c 清空对比度缓存同一处）。没有裁切表或缺 id 时回落到整张插画。
+- W13a 的裁切表 `DicePrototype/Assets/Resources/IconCrops/<风格>.json`（schema `icon-crops-1`）是来源记录；游戏读的是**离线烘焙的图标**：`DicePrototype/Assets/Art/Art11/Icons/<风格>/icon_<ID>.png`，160×160 RGBA，由 `tools/art_v11/crops/make_crops.py` 从原图高质量缩小，逐字节可复现（协调者 2026-11-17 决定：插画导入没有 mipmap，运行时裁切后画到 32 px 会出噪点，也省去运行时解析 JSON）。
+- 查找顺序：当前风格的图标 → 默认风格的图标 → 整张插画。按（风格，id）缓存，换风格时清空（与 W11c 清空对比度缓存同一处）。
 - 裁切不好的 id 由 W13a 列出，走 artgen 编辑另出图标图（不在本包内生成）。
 
 ## 8 验收

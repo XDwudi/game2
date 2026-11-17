@@ -33,13 +33,17 @@
 - 检查点 ②（2026-11-17）：用户看了默认与瑞士两版的 1080p、720p、150% 文字截图（`artifacts/cache/v11/checkpoint2/`），四项都通过：布局；瑞士方向（高压关改红色）；默认稀有度三色；“印章”徽记样板。见 [DEV_PLAN §3](specs/v11/DEV_PLAN.md)。
 - 协调者对 W11b 的决定：画在色块上的字自动选色，三种色板色都达不到 4.95:1 时加深色块（瑞士红 E80E16 画成 D10D16，默认首领红 C8463F 画成 AB3D35），规则写入 [THEME_SPEC §2](specs/v11/THEME_SPEC.md)，`onFelt` 也已补入色板表。
 - 已知遗留：`CoreRulesValidation` 旧宿主在基线上就失败（v0.5 参考数据过时），不在交付链；结算中间的结算纸、商店、整局结果仍是 v0.73 布局（W14、W15）；首领徽记在 W17 前是档位色块占位；默认风格空提交格的点对桌布约 1.4:1（装饰，格框清楚，保持原样）；算式筹码名的笔画细，按实际像素量只有 3.2–3.6:1（名义色对比 5.2–6.6:1）。
-- 进行中（2026-11-17）：
-  - W11c（同一子 agent）：瑞士高压改红色并让高压目标数字在深色底上保持红色色相；AX-02 不再按主按钮颜色找按钮；对比度缓存在换风格时清空；全量重跑与截图。
-  - W17 首领徽记：按“印章”样板经 artgen 生成其余六张（提交约束与资源、压制倍率、压制卡牌、经济、目标与得分、终局），待协调者审查。
-  - W19：唐三彩、爆彩漫画、黑金、彩绘玻璃四套风格套件 theme-*-0.1 已建（锚点取自概念卡样页，`tools/art_v11/crop_anchors.py` 可逐字节复现，`verify-kit` 通过，`8bdf7c8`）；每套与瑞士同样的七张试画任务已写好，先各出两张看方向再补齐。
-  - W13a（子 agent，`wt-v11-crops`）：紧凑尺寸图标裁切表与相似度报告（AX-07）。
-  - W13 卡面模板规格已定稿：[CARD_TEMPLATE](specs/v11/CARD_TEMPLATE.md)（宝石形状随稀有度变化、价格按钮用次级样式，两处与示意图的偏离写明理由）；W11c 结束后实施。
-- 文件锁：Unity 编辑器与 `codex/v1.1` 的对局界面、测试文件由 W11 子 agent 独占（W11c）；`wt-v11-crops` 由 W13a 子 agent 写；`ArtSource/Art11/` 的生成由主 agent 经 artgen 串行进行；`docs/STATE.md`、`THEME_SPEC.md`、`DEV_PLAN.md`、`CARD_TEMPLATE.md` 由主 agent 写。
+- 检查点 ③（2026-11-17）：用户看了七张卡在六套风格里的试画。结论见 [DEV_PLAN §3](specs/v11/DEV_PLAN.md) 的 CP3-1 至 CP3-3：各风格只换画法、不换内容（玩家要认得出是同一张卡、功能提示不变），四套方向通过；批准下载四款标题字体；成批重画用 Codex 额度。
+- 已完成（2026-11-17）：
+  - W11c 已合并（`11830a0`–`2269610`，子 agent）：瑞士高压改红色，高压目标数字在深色底上保持红色色相（ED3E45，4.63:1），默认风格不变；AX-02 按颜色家族找主按钮，两套风格都跑；换风格时清空对比度缓存。在 `b36ed97` 上 EditMode 2421/2421、PlayMode 1080p 223/223、720p 223/223（`evidence/v11/unity/nunit-20261117-080725/083643/094343`，协调者核对过文件绑定）。第一次 720p 全量 222/223 是已知的帧时间测试（单帧 356 ms），当时协调者的 artgen 批量在后台跑，空闲后重跑通过。
+  - W17 首领徽记：按“印章”样板生成其余六张，全部有效，`9711ab2`。
+  - W19：四套风格套件 theme-*-0.1（`8bdf7c8`）与 29 张试画（`20868f6`、`ce599ab`）；artgen 1.2 让审查单适用于风格套件。实测 35 张图使 Codex 周额度约增加 2 个百分点。
+  - W21 标题字体：用户批准后下载四款（大小与清单一致），放在 `DicePrototype/Assets/Game/Fonts/Themes/<风格>/`，各附 OFL.txt 与 SOURCE.json（来源、大小、SHA-256）。TMP 字体资源在 W21 建。
+- 进行中：
+  - W13a（子 agent，`wt-v11-crops`）：裁切表已交（`25d1f99`，232 项 Python 测试通过）；协调者决定边距改为每边 3%，并离线烘焙 160 px 图标（默认与瑞士），见 [CARD_TEMPLATE §7](specs/v11/CARD_TEMPLATE.md)。
+  - W13 卡面模板：规格 [CARD_TEMPLATE](specs/v11/CARD_TEMPLATE.md)，交给 W11 子 agent 实施。
+- 运行规则（W11c 教训）：Unity PlayMode 全量运行期间不跑 artgen 批量与其他吃 CPU 的任务；成批生成的脚本在检测到 PlayMode 测试进程时暂停。
+- 文件锁：Unity 编辑器与 `codex/v1.1` 的界面、测试文件由 W11 子 agent 独占（W13）；`wt-v11-crops` 由 W13a 子 agent 写；`ArtSource/Art11/` 的生成由主 agent 经 artgen 串行进行；`docs/STATE.md`、`THEME_SPEC.md`、`DEV_PLAN.md`、`CARD_TEMPLATE.md` 由主 agent 写。
 
 ## 玩家文字与美术体验审查（提案，2026-11-16）
 
