@@ -49,8 +49,10 @@ PALETTE = {
     "muted": "CDB78F",        # pale clay: secondary text on dark glaze
     "gold": "EBA53F",         # amber glaze: prices, coins, highlights
     "teal": "9BC766",         # light copper green: done, positive
-    "red": "E66A44",          # iron-red glaze, light enough for text on the felt
-    "blue": "84AEEE",         # thin cobalt glaze, light enough for text on the felt
+    # red and blue also colour the 3D dice pips (DiceTable reads UiKit.Red / UiKit.Blue). Pip colour is the game's main
+    # functional cue, so every style keeps the default pair (coordinator, 2026-11-17, CP3-1; THEME_SPEC section 2).
+    "red": "EC655D",
+    "blue": "55B6D9",
     "violet": "B58BC9",       # manganese aubergine glaze, thinned: enchantments
     "danger": "A0301E",       # deep iron red: errors, boss warnings
     "shadow": "140B05",
