@@ -116,12 +116,24 @@ namespace DiceCraft.Tests
         /// in the default palette the card chip shares the gold of the primary colour.</summary>
         private UnityEngine.UI.Button[] W11PrimaryButtons()
             =>app.canvas.GetComponentsInChildren<UnityEngine.UI.Button>(false).Where(b=>b.gameObject.activeInHierarchy&&b.targetGraphic!=null
-                &&b.transform.parent!=null&&b.transform.parent.name=="Screen"&&Vector4.Distance(b.targetGraphic.color,UiKit.Primary)<.01f).ToArray();
+                &&b.transform.parent!=null&&b.transform.parent.name=="Screen"&&W11PrimaryColoured(b.targetGraphic.color)).ToArray();
+        /// <summary>
+        /// V1.1 (W11c): a face drawn in the primary colour. The label rule (W11b) may deepen or lighten a face in 5 % steps
+        /// so its label reads (the Swiss primary E80E16 draws as D10D16), so this compares the colour family, not the exact
+        /// palette value: hue within 10 degrees, saturation within 0.2, value from 60 % of the primary's to 0.1 above it.
+        /// </summary>
+        private static bool W11PrimaryColoured(Color face)
+        {
+            Color.RGBToHSV(face,out float h,out float s,out float v);Color.RGBToHSV(UiKit.Primary,out float ph,out float ps,out float pv);
+            float dh=Mathf.Abs(h-ph);dh=Mathf.Min(dh,1-dh);
+            return dh<=10f/360f&&Mathf.Abs(s-ps)<=.2f&&v>=pv*.6f&&v<=pv+.1f;
+        }
         /// <summary>One primary action in its fixed place. Enabled, it is the one primary-coloured button; a primary action that
         /// cannot be taken yet ("最多锁 N 颗") keeps the place, disabled, and then no button is primary-coloured.</summary>
         private void W11AssertOnePrimary(string state,string expected,bool enabled=true)
         {
             Canvas.ForceUpdateCanvases();var primary=W11PrimaryButtons();
+            state=app.ThemeId11+" "+Mathf.RoundToInt(UiKit.FontScale*100)+"% "+state;
             if(expected==null){Assert.That(primary,Is.Empty,state+": no action is available, so no primary-coloured button.");return;}
             Assert.That(new[]{"Roll","Confirm","Submit"},Does.Contain(expected));
             if(enabled)Assert.That(primary.Select(b=>b.name).ToArray(),Is.EqualTo(new[]{expected}),state+": exactly one primary-coloured button.");
@@ -135,7 +147,28 @@ namespace DiceCraft.Tests
         private Vector2? W11PrimaryPosition;
         [UnityTest] public IEnumerator PLAY_V11_AX02_OnePrimaryActionButtonInEveryState()
         {
-            StartRun("71102");
+            // V1.1 (W11c): in the default and the Swiss theme (the Swiss primary face is drawn deeper for its label).
+            bool hadPreview=PlayerPrefs.HasKey(ThemeRegistry.PreviewKey);int previewValue=PlayerPrefs.GetInt(ThemeRegistry.PreviewKey,0);
+            string savedTheme=PlayerPrefs.GetString(ThemeRegistry.PreferenceKey,GameTheme.DefaultId);
+            PlayerPrefs.SetInt(ThemeRegistry.PreviewKey,1);
+            try
+            {
+                StartRun("71102");
+                foreach(string theme in new[]{"default","swiss"})
+                {
+                    app.ApplyTheme11(theme);Assert.That(app.ThemeId11,Is.EqualTo(theme));
+                    yield return W11Ax02Pass(theme);
+                }
+            }
+            finally
+            {
+                app.ApplyTheme11(GameTheme.DefaultId);
+                if(hadPreview)PlayerPrefs.SetInt(ThemeRegistry.PreviewKey,previewValue);else PlayerPrefs.DeleteKey(ThemeRegistry.PreviewKey);
+                PlayerPrefs.SetString(ThemeRegistry.PreferenceKey,savedTheme);PlayerPrefs.Save();
+            }
+        }
+        private IEnumerator W11Ax02Pass(string theme)
+        {
             foreach(int font in new[]{100,150})
             {
                 W11TextScale(font);W11PrimaryPosition=null;
