@@ -50,16 +50,26 @@ DARK_TEXT_SURFACES = ("ui_panel_hud", "ui_section_panel", "ui_tab_bottom", "ui_i
                       "ui_tray_front")
 PAPER_TEXT_SURFACES = ("ui_paper_panel", "ui_card_controller", "ui_card_controller_compact", "ui_card_item",
                        "ui_card_shop", "ui_chip_label")
-# The concept pages' shape language: a hard drop shadow down and to the right under panels, cards, buttons and chips;
-# buttons and chips lean (sheared: the top-left and bottom-right corners cut on one slant); panels and frames keep
-# square corners like comic panels. Not the default's steps, Swiss's four cuts or sancai's round corners.
+# The concept pages' shape language (rework round 2, coordinator 2026-11-17, after comparing the composite with
+# concepts/roll.png): heavy ink outlines, a hard ink shadow down and to the right, and big 45-degree corner cuts that
+# use the whole 40 px corner square; the button face leans forward (big top-left and bottom-right cuts), chips and
+# secondary buttons have octagonal ends, panels, cards, slots and frames have cut corners.
 SHADOWED = ("ui_topbar", "ui_stage_card", "ui_button_bevel", "ui_chip_formula", "ui_price_chip", "ui_chip_label",
-            "ui_paper_panel", "ui_panel_hud", "ui_section_panel", "ui_tab_bottom", "ui_card_controller", "ui_card_shop",
-            "ui_card_item", "ui_dice_tray")
-SHEARED = ("ui_chip_formula", "ui_button_bevel", "ui_button_ghost", "ui_price_chip", "ui_chip_label")
-SQUARE = ("ui_paper_panel", "ui_panel_hud", "ui_section_panel", "ui_tab_bottom", "ui_info_inset", "ui_slot_inventory",
-          "ui_topbar", "ui_stage_card", "ui_card_controller", "ui_card_shop", "ui_card_item", "ui_ring", "ui_dice_tray",
-          "ui_frame_block", "ui_card_frame_rarity")
+            "ui_paper_panel", "ui_panel_hud", "ui_section_panel", "ui_tab_bottom", "ui_card_controller",
+            "ui_card_controller_compact", "ui_card_shop", "ui_card_item", "ui_dice_tray", "ui_slot_inventory")
+HEAVY_INK = ("ui_topbar", "ui_stage_card", "ui_button_bevel", "ui_paper_panel", "ui_panel_hud", "ui_section_panel",
+             "ui_tab_bottom", "ui_card_controller", "ui_card_controller_compact", "ui_card_item", "ui_card_shop",
+             "ui_dice_tray")
+CHIP_INK = ("ui_chip_formula", "ui_price_chip", "ui_chip_label", "ui_slot_inventory", "ui_info_inset")
+ANGLED_ENDS = ("ui_chip_formula", "ui_price_chip", "ui_chip_label", "ui_button_bevel", "ui_button_ghost")
+LEANING = ("ui_button_bevel", "ui_chip_label")
+CUT_CORNERS = ("ui_paper_panel", "ui_panel_hud", "ui_section_panel", "ui_tab_bottom", "ui_info_inset",
+               "ui_slot_inventory", "ui_topbar", "ui_stage_card", "ui_card_controller", "ui_card_controller_compact",
+               "ui_card_shop", "ui_card_item", "ui_ring", "ui_dice_tray", "ui_frame_block", "ui_card_frame_rarity",
+               "ui_frame_enchant")
+SLICED_SURFACES = tuple(s["name"] for s in SPRITES if any(s["border"]))
+# The page outside the felt (measured on concepts/roll.png: page about (252, 40, 48), dots near black).
+PAGE_RED = (252, 40, 48)
 FELT_ZONES = {
     "dice_area": (52, 374, 1408, 276),
     "formula_row": (52, 660, 1408, 60),
@@ -173,6 +183,28 @@ def frame_insets(pixels, border):
         return last
     return (inset(lambda i: up[h // 2, i], w, left), inset(lambda i: up[i, w // 2], h, bottom),
             inset(lambda i: up[h // 2, w - 1 - i], w, right), inset(lambda i: up[h - 1 - i, w // 2], h, top))
+
+
+def slice_axis(n_src, lo, hi, n_dst, scale=1.0):
+    """Source index of each destination pixel along a sliced axis (nearest), as Unity draws a sliced Image: the borders
+    at `scale` destination px per source px, shrunk together when the destination is shorter than both."""
+    lo_d, hi_d = lo * scale, hi * scale
+    if lo_d + hi_d > n_dst:
+        k = n_dst / (lo_d + hi_d)
+        lo_d, hi_d = lo_d * k, hi_d * k
+    x = np.arange(n_dst) + .5
+    u = lo + (x - lo_d) / max(n_dst - lo_d - hi_d, 1e-6) * (n_src - lo - hi)
+    head, tail = x < lo_d, x > n_dst - hi_d
+    u[head] = x[head] / max(lo_d, 1e-6) * lo
+    u[tail] = n_src - (n_dst - x[tail]) / max(hi_d, 1e-6) * hi
+    return np.clip(u.astype(int), 0, n_src - 1)
+
+
+def sliced(pixels, border, width, height, scale=1.0):
+    """A sliced sprite drawn width x height destination px; border L, B, R, T in source px."""
+    left, bottom, right, top = border
+    h, w = pixels.shape[:2]
+    return pixels[np.ix_(slice_axis(h, top, bottom, height, scale), slice_axis(w, left, right, width, scale))]
 
 
 class ComicArtTests(unittest.TestCase):
@@ -290,11 +322,15 @@ class ComicArtTests(unittest.TestCase):
                     np.testing.assert_array_equal(band, np.broadcast_to(band[:, :1], band.shape))
 
     def test_frames_stay_in_their_bands_and_leave_text_room(self):
-        limits = {  # max inset per side in source px (PPU 200: 2 px = 1 unit) where text sits inside the frame
-            "ui_chip_formula": 14, "ui_price_chip": 16, "ui_chip_label": 14, "ui_topbar": 20,
+        # Max inset per side in source px (PPU 200: 2 px = 1 unit) where the game sets text inside the frame (FrameInsets11,
+        # ChipText11, TabLabel11). Round 2 doubles the ink (coordinator 2026-11-17), so each limit is the room its text
+        # needs: the 30-unit value badge keeps 18 units for its 16-18 label, the 34-unit tray tab 20 units (below), the
+        # 60-unit score well 45 units for its 34 numbers, the 88-unit hint panel 60 units for one line of 21.
+        limits = {
+            "ui_chip_formula": 18, "ui_price_chip": 16, "ui_chip_label": 16, "ui_topbar": 22,
             "ui_card_controller": 30, "ui_card_controller_compact": 30, "ui_card_item": 30, "ui_card_shop": 30,
-            "ui_panel_hud": 24, "ui_tab_bottom": 24, "ui_paper_panel": 24, "ui_stage_card": 28, "ui_info_inset": 12,
-            "ui_slot_inventory": 12, "ui_button_bevel": 20,
+            "ui_panel_hud": 28, "ui_tab_bottom": 28, "ui_paper_panel": 24, "ui_stage_card": 28, "ui_info_inset": 15,
+            "ui_slot_inventory": 22, "ui_button_bevel": 20,
         }
         for sprite in SPRITES:
             name = sprite["name"]
@@ -307,11 +343,16 @@ class ComicArtTests(unittest.TestCase):
                 if name in limits:
                     self.assertLessEqual(max(insets), limits[name])
                     self.assertGreaterEqual(min(insets), 1, "The surface needs a visible frame.")
-        # Shop sections draw their header strip 5 units (10 px) inside the panel's top edge.
-        self.assertLessEqual(frame_insets(load("ui_section_panel"), BY_NAME["ui_section_panel"]["border"])[3], 10)
+        # W14 (GameApp.Shop14 Section14): the header strip starts at the section panel's frame insets and is
+        # ShopHead14 (68) - top inset - 2 units tall; it keeps 50 units for its 22-unit title.
+        section = frame_insets(load("ui_section_panel"), BY_NAME["ui_section_panel"]["border"])
+        self.assertGreaterEqual(68 - section[3] / 2 - 2, 50)
         # A 34-unit tab keeps at least 20 units of height for its one-line label.
         chip = frame_insets(load("ui_chip_formula"), BY_NAME["ui_chip_formula"]["border"])
         self.assertLessEqual((chip[1] + chip[3]) / 2, 14)
+        # The 30-unit value badge (ui_chip_label) keeps 18 units for its label.
+        badge = frame_insets(load("ui_chip_label"), BY_NAME["ui_chip_label"]["border"])
+        self.assertGreaterEqual(30 - (badge[1] + badge[3]) / 2, 18)
 
     # ------------------------------------------------------------------ the comic shapes
     def test_panels_cards_and_buttons_cast_a_hard_shadow_down_and_right(self):
@@ -333,33 +374,156 @@ class ComicArtTests(unittest.TestCase):
                     self.assertGreaterEqual(int(alpha[y, x]), 250)
                     self.assertLessEqual(int(grey[y, x]), 40)
 
-    def test_buttons_and_chips_lean_like_comic_captions(self):
-        # Sheared: the top-left and bottom-right corners are cut on one straight slant; the other two stay square.
-        for name in SHEARED:
-            with self.subTest(sprite=name):
-                alpha = load(name)[..., 3]
-                h, w = alpha.shape
-                first = [int(np.flatnonzero(alpha[y] >= 128)[0]) for y in range(2, 22)]
-                self.assertGreaterEqual(first[0], 8, "The top-left corner is cut.")
-                slope, offset = np.polyfit(np.arange(2, 22), first, 1)
-                self.assertLess(slope, -.2, "The cut leans like '/'.")
-                self.assertLessEqual(float(np.abs(np.polyval([slope, offset], np.arange(2, 22)) - first).max()), 1.0,
-                                     "The cut is one straight slant.")
-                self.assertLessEqual(int(np.flatnonzero(alpha[h // 2] >= 128)[0]), 2)
-                # Top-right and bottom-left stay square: the silhouette reaches into those corners.
-                columns = np.flatnonzero(alpha.max(axis=0) >= 128)
-                rows = np.flatnonzero(alpha.max(axis=1) >= 128)
-                self.assertGreaterEqual(int(alpha[2, w // 2:].nonzero()[0].max()) + w // 2, int(columns.max()) - 10)
-                self.assertGreaterEqual(int(alpha[h // 2:, 2].nonzero()[0].max()) + h // 2, int(rows.max()) - 10)
-                # The bottom-right corner is cut too: near the right edge the silhouette ends higher than in the middle.
-                bottom_row = [int(np.flatnonzero(alpha[:, x] >= 128)[-1]) for x in (w // 2, w - 8)]
-                self.assertLess(bottom_row[1], bottom_row[0] - 4)
+    def test_outlines_are_heavy(self):
+        # About twice round 1's ink and close to the concept's 5 px at 1080p: at least 9 px of solid ink from the left
+        # edge on the middle row of panels, cards, buttons and trays (10 px drawn), 7 px on chips, labels, slots and
+        # wells (8 px drawn).
+        for names, least in ((HEAVY_INK, 9), (CHIP_INK, 7)):
+            for name in names:
+                with self.subTest(sprite=name):
+                    row = load(name)[256]
+                    start = int(np.flatnonzero(row[:, 3] >= 250)[0])
+                    dark = (row[start:, 3] >= 250) & (row[start:, :3].max(axis=1) <= 40)
+                    run = len(dark) if dark.all() else int(np.argmin(dark))
+                    self.assertGreaterEqual(run, least)
 
-    def test_panels_and_frames_keep_square_corners(self):
-        for name in SQUARE:
+    @staticmethod
+    def _cut(alpha, corner):
+        """A corner's cut, px: how far from the corner the silhouette starts on the row and on the column 2 px inside
+        the edges."""
+        h, w = alpha.shape
+        if corner == "tl":
+            return int(np.flatnonzero(alpha[2] >= 128)[0]), int(np.flatnonzero(alpha[:, 2] >= 128)[0])
+        if corner == "tr":
+            return w - 1 - int(np.flatnonzero(alpha[2] >= 128)[-1]), int(np.flatnonzero(alpha[:, w - 3] >= 128)[0])
+        if corner == "br":
+            return (w - 1 - int(np.flatnonzero(alpha[h - 3] >= 128)[-1]),
+                    h - 1 - int(np.flatnonzero(alpha[:, w - 3] >= 128)[-1]))
+        return int(np.flatnonzero(alpha[h - 3] >= 128)[0]), h - 1 - int(np.flatnonzero(alpha[:, 2] >= 128)[-1])
+
+    def test_buttons_and_chips_have_big_angled_ends(self):
+        # The concept's buttons and captions end in big 45-degree cuts: the top-left cut takes most of the 40 px corner
+        # square; the other corners are cut too (the hard shadow moves the top-right and bottom-left cuts out).
+        for name in ANGLED_ENDS:
             with self.subTest(sprite=name):
                 alpha = load(name)[..., 3]
-                self.assertEqual(int(alpha[2, 2]), 255, "A comic panel corner is square, not cut, stepped or round.")
+                along, down = self._cut(alpha, "tl")
+                self.assertGreaterEqual(min(along, down), 24, "The top-left cut uses the corner square.")
+                self.assertLessEqual(abs(along - down), 2, "The cut runs at 45 degrees.")
+                for corner in ("tr", "br", "bl"):
+                    self.assertGreaterEqual(min(self._cut(alpha, corner)), 4)
+
+    def test_the_button_face_and_captions_lean_forward(self):
+        # The forward lean comes from asymmetric cuts: big top-left and bottom-right, small top-right and bottom-left.
+        for name in LEANING:
+            with self.subTest(sprite=name):
+                alpha = load(name)[..., 3]
+                tl, tr, br, bl = (min(self._cut(alpha, c)) for c in ("tl", "tr", "br", "bl"))
+                self.assertGreaterEqual(tl, 26)
+                self.assertGreaterEqual(br, 18)
+                self.assertGreaterEqual(tl, 2 * tr)
+                self.assertGreaterEqual(br, 1.4 * bl)
+
+    def test_buttons_keep_their_ends_at_60_72_and_80_units(self):
+        # The coordinator's check: UiKit.Button draws its face h - 7 units tall at PPU 200 (2 px a unit), 53, 65 and 73
+        # units for the 60, 72 and 80-unit buttons; SolidButton (the chip) uses the whole height. The corners are never
+        # shrunk at these heights, so the top-left cut stays at least 13 units and the face keeps its lean.
+        for height in (60, 72, 80):
+            for name, units in (("ui_button_bevel", height - 7), ("ui_chip_formula", height)):
+                with self.subTest(sprite=name, height=height):
+                    alpha = sliced(load(name), BY_NAME[name]["border"], 600, units * 2)[..., 3]
+                    tl = min(self._cut(alpha, "tl"))
+                    self.assertGreaterEqual(tl / 2, 13)
+                    self.assertGreaterEqual(tl / (units * 2), .18)
+                    if name == "ui_button_bevel":
+                        self.assertGreaterEqual(tl, 2 * min(self._cut(alpha, "tr")))
+
+    def test_panels_cards_slots_and_frames_have_cut_corners(self):
+        for name in CUT_CORNERS:
+            with self.subTest(sprite=name):
+                alpha = load(name)[..., 3]
+                if name == "ui_frame_enchant":   # an inner frame, 14 px in: measure from its own corner
+                    alpha = alpha[14:-24, 14:-24]
+                self.assertEqual(int(alpha[2, 2]), 0, "The corner is cut, not square.")
+                self.assertGreaterEqual(min(self._cut(alpha, "tl")), 12)
+
+    def test_surfaces_carry_no_halftone_specks(self):
+        # Halftone only where its dots are at least about 3 px at 1080p (the page and large decoration): the sliced
+        # surfaces are flat ink and colour. Pixels that match none of a surface's main colours (each at least 2 % of it)
+        # are antialiasing along contours, which forms chains one pixel thin; a compact blob of them, at least 2 px each
+        # way, would be a dot (round 1's corner dots fail this).
+        from scipy import ndimage
+        for name in SLICED_SURFACES:
+            with self.subTest(sprite=name):
+                pixels = load(name).astype(int)
+                opaque = pixels[..., 3] >= 250
+                colours, counts = np.unique(pixels[opaque][:, :3], axis=0, return_counts=True)
+                main = colours[counts >= .02 * opaque.sum()]
+                distance = np.min(np.abs(pixels[..., None, :3] - main[None, None]).sum(axis=3), axis=2)
+                odd = opaque & (distance > 30)
+                labels, _ = ndimage.label(odd, structure=np.ones((3, 3)))
+                for k, box in enumerate(ndimage.find_objects(labels), start=1):
+                    area = int((labels[box] == k).sum())
+                    bh, bw = box[0].stop - box[0].start, box[1].stop - box[1].start
+                    self.assertFalse(area >= 3 and min(bh, bw) >= 2 and max(bh, bw) <= 9 and area >= .45 * bh * bw,
+                                     f"a {bw}x{bh} px blob at {box[1].start},{box[0].start} reads as a halftone speck")
+
+    def test_inner_pieces_stay_inside_their_hosts(self):
+        # Where the game lays one sprite inside another, the inner one must not stick out of the host's cut corners, at
+        # 2 px a unit: the W13 rarity ring on the card face's inner rect (FrameInsets11), its coloured band on the face's
+        # cream; the enchantment frame on the card; the stage card's boss and pressure rings (DrawStageCard11); the tray's
+        # accent rings (1.6x and 1x, DrawTray11); the W14 section caption on its panel (Shop14 Section14).
+        from scipy import ndimage
+
+        def draw(name, w_units, h_units, mult=1.0):
+            return sliced(load(name), BY_NAME[name]["border"], int(round(w_units * 2)), int(round(h_units * 2)),
+                          1.0 / mult)
+
+        def outside(host, inner, at, filled=False):
+            x, y = (int(round(v * 2)) for v in at)
+            mask = inner[..., 3] >= 128
+            ok = ndimage.binary_fill_holes(host[..., 3] >= 128) if filled else host[..., 3] >= 250
+            region = ok[y:y + mask.shape[0], x:x + mask.shape[1]]
+            self.assertEqual(region.shape, mask.shape)
+            return int((mask & ~region).sum())
+
+        for card, w, h in (("ui_card_controller", 216, 244), ("ui_card_shop", 220, 348)):
+            face = draw(card, w, h)
+            left, bottom, right, top = (v / 2 for v in frame_insets(load(card), BY_NAME[card]["border"]))
+            ring = draw("ui_card_frame_rarity", w - left - right, h - top - bottom)
+            with self.subTest(host=card, inner="rarity ring"):
+                self.assertEqual(outside(face, ring, (left, top)), 0)
+                x, y = int(round(left * 2)), int(round(top * 2))
+                band = (ring[..., 3] >= 250) & (ring[..., 0] >= 200)
+                cream = face[y:y + ring.shape[0], x:x + ring.shape[1], :3].min(axis=2) >= 180
+                self.assertEqual(int((band & ~cream).sum()), 0, "The ring's colour band lies on the face's cream.")
+            with self.subTest(host=card, inner="enchantment frame"):
+                self.assertEqual(outside(face, draw("ui_frame_enchant", w, h), (0, 0)), 0)
+        stage = draw("ui_stage_card", 392, 244)
+        for at, size in (((4, 4), (376, 226)), ((9, 9), (366, 216)), ((5, 5), (374, 224))):
+            with self.subTest(host="ui_stage_card", ring=at):
+                self.assertEqual(outside(stage, draw("ui_ring", *size), at), 0)
+        tray = draw("ui_dice_tray", 400, 300)
+        for at, size, mult in (((7, 7), (386, 286), 1.6), ((6, 6), (388, 288), 1.0), ((10, 10), (380, 280), 1.0)):
+            with self.subTest(host="ui_dice_tray", ring=at):
+                self.assertEqual(outside(tray, draw("ui_ring", *size, mult=mult), at, filled=True), 0)
+        panel = draw("ui_section_panel", 900, 200)
+        left, bottom, right, top = (v / 2 for v in frame_insets(load("ui_section_panel"), BY_NAME["ui_section_panel"]["border"]))
+        strip = draw("ui_section_header", 900 - left - right, 68 - top - 2)
+        with self.subTest(host="ui_section_panel", inner="W14 caption strip"):
+            self.assertEqual(outside(panel, strip, (left, top)), 0)
+
+    def test_section_header_is_a_parallelogram_caption(self):
+        # It slices only horizontally, so its ends can slant the whole height: both ends lean "/" (the top edge is
+        # shifted right of the bottom edge), with a hard shadow under the right and bottom edges.
+        alpha = load("ui_section_header")[..., 3]
+        h, w = alpha.shape
+        top_row, bottom_row = alpha[8], alpha[h - 18]
+        first = lambda row: int(np.flatnonzero(row >= 128)[0])
+        last = lambda row: int(np.flatnonzero(row >= 128)[-1])
+        self.assertGreaterEqual(first(top_row) - first(bottom_row), 12)
+        self.assertGreaterEqual(last(top_row) - last(bottom_row), 12)
+        self.assertGreater(int(np.flatnonzero(alpha[:, w // 2] >= 128)[-1]), h - 12, "the shadow fills the foot")
 
     # ------------------------------------------------------------------ text on surfaces
     def test_surfaces_that_carry_text_meet_the_contrast_floor(self):
@@ -543,9 +707,34 @@ class ComicArtTests(unittest.TestCase):
             with self.subTest(zone=name):
                 zone = pixels[y:y + h, x:x + w]
                 np.testing.assert_array_equal(zone, np.broadcast_to(felt, zone.shape))
-        # The comic page border lives in the outer margin: the edges are decorated, the field is plain felt.
-        edge = np.concatenate([pixels[:, :12].reshape(-1, 3), pixels[:, -12:].reshape(-1, 3)])
-        self.assertGreater(float((np.abs(edge.astype(int) - felt).sum(axis=1) > 30).mean()), .5)
+
+    def test_table_is_a_red_ben_day_page_round_the_blue_felt(self):
+        # Coordinator 2026-11-17: everything outside the calm zones (and the trays' floors) is the concept's red Ben-Day
+        # page, so the gaps between the zones read as red comic gutters.
+        with Image.open(ROOT / THEME / "Table/table_scene.png") as image:
+            px = np.asarray(image).astype(int)
+        page, felt = np.array(PAGE_RED), np.array(hex_rgb(self.palette["felt"]))
+        margin = px[200:900, 2:20].reshape(-1, 3)
+        self.assertGreaterEqual(float((np.abs(margin - page).sum(axis=1) <= 60).mean()), .6, "the margin is page red")
+        self.assertGreaterEqual(float((margin.max(axis=1) <= 80).mean()), .06, "with dark dots")
+        for name, region in (("tray | right column", px[380:700, 1484:1492]), ("top bar | cards", px[86:94, 40:1470]),
+                             ("below the actions", px[1050:1078, 40:820])):
+            with self.subTest(gutter=name):
+                flat = region.reshape(-1, 3)
+                self.assertLess(float((np.abs(flat - felt).sum(axis=1) <= 12).mean()), .02)
+                self.assertGreaterEqual(float((np.abs(flat - page).sum(axis=1) <= 60).mean()), .5)
+
+    def test_page_dots_are_at_least_3_px(self):
+        # Halftone only where a dot is at least about 3 px at 1080p: the page's whole dots (those clear of the window's
+        # edges) cover at least 7 px each.
+        from scipy import ndimage
+        with Image.open(ROOT / THEME / "Table/table_scene.png") as image:
+            window = np.asarray(image).astype(int)[300:700, 2:20]
+        labels, n = ndimage.label(window.max(axis=2) <= 100)
+        areas = [int((labels[box] == k).sum()) for k, box in enumerate(ndimage.find_objects(labels), start=1)
+                 if box[0].start > 0 and box[1].start > 0 and box[0].stop < window.shape[0] and box[1].stop < window.shape[1]]
+        self.assertGreater(len(areas), 20)
+        self.assertGreaterEqual(min(areas), 7)
 
     def test_felt_tile_is_seamless_and_even(self):
         with Image.open(ROOT / THEME / "Table/felt_tile.png") as image:

@@ -5,22 +5,27 @@ of ArtSource/StyleKit/themes/comic/style_kit.json. Their texts, numbers and layo
 is (docs/specs/v11/PLAY_LAYOUT.md). The contract (tools/art_v11/theme_contract.json) owns pixel sizes, nine-slice
 borders and PPU. Repository fonts only; no image generation, no Unity files.
 
-The shape language (not the default's steps, Swiss's four cut corners or sancai's round glaze):
-- thick ink outlines and flat colour fills, cel shading in flat steps;
-- a hard offset drop shadow down and to the right under panels, cards, buttons and chips;
-- comic-panel frames: ink line, a cream gutter band, an ink line, then the fill;
-- buttons, chips and tags are sheared (a "/" lean: the top-left and bottom-right corners cut on a steep slant);
-- Ben-Day halftone dots, starbursts and yellow speed rays as accents in corners, on the table's edges, the card back
-  and the larger icons.
+The shape language (rework round 2, coordinator 2026-11-17, after comparing the composite with concepts/roll.png):
+- heavy ink outlines (10 px = 5 units on panels, cards, buttons, slots and trays; 8 px on chips) and flat fills;
+- a hard ink shadow down and to the right under panels, cards, buttons and chips;
+- big 45-degree corner cuts that use the whole 40 px corner square: octagonal panels, cards, slots and secondary
+  buttons; the button face (the primary) leans forward with big top-left and bottom-right cuts; the code's step under
+  UiKit.Button is the slab (a theme token for its colour is coming; ink for comic);
+- comic-panel frames on the dark panels: ink line, a cream gutter band, an ink line, then the fill;
+- the shop's section header is a parallelogram caption with full-height slanted ends (it only slices horizontally);
+- the table is the concept's red Ben-Day page; the calm zones and the trays' floors are flat blue felt, so the gaps
+  between them read as red comic gutters; yellow speed rays and a starburst fill empty screen areas.
+Halftone appears only where its dots are at least about 3 px at 1080p (the page and large decoration); fills under
+text are flat.
 
 Rules the art keeps (checked by tests/test_art_v11_comic.py):
 - every nine-slice centre is one flat colour (or transparent) from the border line inward;
-- surfaces the game stretches keep their edge bands invariant along the edge; halftone and other detail live in the
-  corner squares, which are never stretched;
+- surfaces the game stretches keep their edge bands invariant along the edge: every cut, band and shadow corner ends
+  inside the corner squares (the budget: cut + shadow + 0.414 x frame thickness <= 37 px of the 40 px square);
 - sprites the code multiplies by a palette colour (NEUTRAL_NAMES) stay achromatic: white faces, black ink and shadows;
 - the protected table zones are exactly the felt colour;
-- the W13 card template: a rarity ring no wider than the default's, and three gems whose shapes (round, diamond,
-  six-point star) tell the rarity apart without colour.
+- the W13 card template: a rarity ring no wider than the default's, cut to sit inside the card face's cream, and three
+  gems whose shapes (round, diamond, six-point star) tell the rarity apart without colour.
 
 `build_comic.py --card-review` writes ArtSource/Art11/comic/card_template_review.png from the shipped comic and Swiss
 sprites (an offline review, not part of the build).
@@ -80,12 +85,14 @@ PALETTE = {
     "rarityRare": "9D4EDD",   # pop purple
     "onFelt": "F9F1D9",       # cream marks drawn straight on the blue felt
 }
+# The table's red Ben-Day page (art, not a palette token), measured on concepts/roll.png's clean gutters.
+PAGE_HEX, PAGE_DOT_HEX = "FC2830", "260306"
 THEME_META = {
     "id": "comic",
     "displayName": "爆彩连环漫画",
-    "description": ("粗黑墨线、平涂的红黄蓝与米白报纸色：斜切的标签与按钮带右下硬投影，漫画分格框、网点、爆炸星与速度线只放在边角与装饰；"
-                    "蓝色桌面，黄色主按钮。依据：ArtSource/StyleKit/themes/comic/concepts 与 style_kit.json；界面件与色板由 "
-                    "tools/art_v11/comic/build_comic.py 生成（说明见同目录 README.md）"),
+    "description": ("红色网点漫画页上的蓝色骰池：粗黑墨线、大切角的面板与按钮带右下硬投影，主按钮前倾，平行四边形标题条，"
+                    "空白处黄色速度线与爆炸星，字下面一律平涂。依据：ArtSource/StyleKit/themes/comic/concepts 与 style_kit.json；"
+                    "界面件与色板由 tools/art_v11/comic/build_comic.py 生成（说明见同目录 README.md）"),
     "order": 3,
     "preview": True,
 }
@@ -211,6 +218,10 @@ def palette_report(palette: dict | None = None) -> dict[str, float]:
         out[f"primary/{a} dE"] = delta_e(p["primary"], p[a])
         out[f"primary/{a} dE00"] = de00(p["primary"], p[a])
     out["pressure saturation"] = colorsys.rgb_to_hsv(*(v / 255 for v in rgb8(p["pressure"])))[1]
+    # The red Ben-Day page (table art, not a token): what a word drawn straight on it would get, dots included.
+    for key in ("textColor", "onFelt", "ink", "gold"):
+        out[f"{key}/page red"] = contrast(p[key], PAGE_HEX)
+        out[f"{key}/page dots"] = contrast(p[key], PAGE_DOT_HEX)
     return out
 
 
@@ -386,9 +397,38 @@ def sd_poly(X, Y, pts) -> np.ndarray:
 
 
 def sheared(box, cut_w: float, cut_h: float):
-    """The kit's sheared box: a "/" lean made by cutting the top-left and bottom-right corners on a steep slant."""
+    """A "/" lean made by cutting the top-left and bottom-right corners on a steep slant (unsliced art only)."""
     x0, y0, x1, y1 = box
     return [(x0 + cut_w, y0), (x1, y0), (x1, y1 - cut_h), (x1 - cut_w, y1), (x0, y1), (x0, y0 + cut_h)]
+
+
+def octagon(box, cuts):
+    """A box with 45-degree corner cuts (top-left, top-right, bottom-right, bottom-left), in px; 0 keeps a corner."""
+    x0, y0, x1, y1 = box
+    tl, tr, br, bl = cuts
+    pts = [(x0, y0 + tl), (x0 + tl, y0)] if tl else [(x0, y0)]
+    pts += [(x1 - tr, y0), (x1, y0 + tr)] if tr else [(x1, y0)]
+    pts += [(x1, y1 - br), (x1 - br, y1)] if br else [(x1, y1)]
+    pts += [(x0 + bl, y1), (x0, y1 - bl)] if bl else [(x0, y1)]
+    return pts
+
+
+def corner_reach(w: float, h: float, box, cuts, shadow: float, frame: float, hollow: bool) -> float:
+    """How far into its corner square (px) the furthest corner feature of a comic tile reaches, measured from the sprite
+    edges: a cut's inner contour meets the inner edge line 0.414 x frame beyond the cut; the shadow is the face moved
+    (shadow, shadow), and an open frame's shadow shows its inner contour too."""
+    x0, y0, x1, y1 = box
+    tl, tr, br, bl = cuts
+    lean = (math.sqrt(2) - 1) * frame
+    left, top, right, bottom = x0, y0, w - x1, h - y1
+    reach = [left + tl + lean, top + tl + lean,                        # top-left
+             right + tr + lean, top + tr + lean, top + shadow + tr,    # top-right (face, shadow silhouette)
+             right + br + lean, bottom + br + lean,                    # bottom-right
+             left + bl + lean, bottom + bl + lean, left + shadow + bl,  # bottom-left
+             right + frame, bottom + frame, left + frame, top + frame]
+    if hollow and shadow:
+        reach += [left + shadow + tl + lean, top + shadow + tl + lean, top + shadow + tr + lean, left + shadow + bl + lean]
+    return max(reach)
 
 
 def star_pts(cx, cy, ro, ri, n, rot=-math.pi / 2):
@@ -414,6 +454,18 @@ def halftone(X, Y, spacing: float, radius, angle: float = 45.0):
     v = (-X * np.float32(math.sin(a)) + Y * np.float32(math.cos(a))) / np.float32(spacing)
     dist = np.hypot(u - np.round(u), v - np.round(v)) * np.float32(spacing)
     return coverage(dist - np.asarray(radius, np.float32))
+
+
+def halftone_whole(r: "Raster", mask: np.ndarray, spacing: float, radius: float) -> np.ndarray:
+    """Ben-Day dots on a square lattice, only those whose whole disc lies inside `mask` (no slivers at its edges)."""
+    X, Y = r.X, r.Y
+    cx = np.round(X / np.float32(spacing)) * np.float32(spacing)
+    cy = np.round(Y / np.float32(spacing)) * np.float32(spacing)
+    inside = inside_distance(mask) >= radius + .5
+    ox, oy = r.origin
+    ix = np.clip(np.floor((cx - ox) * SS).astype(int), 0, X.shape[1] - 1)
+    iy = np.clip(np.floor((cy - oy) * SS).astype(int), 0, X.shape[0] - 1)
+    return coverage(np.hypot(X - cx, Y - cy) - np.float32(radius)) * inside[iy, ix]
 
 
 def iso_cube(cx, cy, size):
@@ -496,129 +548,105 @@ def _band_render(r: Raster, w: int, h: int, depth: int, draw, fill):
         draw(r.window(x, y, ww, hh))
 
 
-def comic_tile(w: int, h: int, *, shape: str = "rect", cut=(0.0, 0.0), ink: float = 5.0, bands=(), fill=WHITE,
-               shadow: float = 8.0, hollow: bool = False, inset: float = 1.0, depth: int = 48, tinted: bool = True,
-               shadow_alpha: float = 1.0, accent=None) -> Image.Image:
-    """A nine-sliced comic surface. tinted: black ink and shadow (the sprite stays achromatic); otherwise ink colour."""
+def comic_tile(w: int, h: int, *, cuts=(0.0, 0.0, 0.0, 0.0), ink: float = 10.0, bands=(), fill=WHITE,
+               shadow: float = 10.0, hollow: bool = False, inset: float = 1.0, depth: int = 48, tinted: bool = True,
+               shadow_alpha: float = 1.0, accent=None, box=None, border: float = 40.0) -> Image.Image:
+    """A nine-sliced comic surface: an octagon (cuts TL, TR, BR, BL) with its hard ink shadow, ink line, inward bands
+    and fill. tinted: black ink and shadow (the sprite stays achromatic); otherwise the ink colour."""
+    frame = ink + sum(width for width, _ in bands)
+    box = box or (inset, inset, w - inset - shadow, h - inset - shadow)
+    reach = corner_reach(w, h, box, cuts, shadow, frame, hollow)
+    if reach > border - 3.0 + 1e-6:
+        raise ValueError(f"Corner features reach {reach:.1f} px into a {border:g} px corner square")
     r = Raster(w, h)
     k = K if tinted else INK
-    box = (inset, inset, w - inset - shadow, h - inset - shadow)
-    pts = sheared(box, *cut) if shape == "sheared" else None
-    sdf = (lambda X, Y: sd_poly(X, Y, pts)) if pts else (lambda X, Y: sd_box(X, Y, box))
+    pts = octagon(box, cuts)
     _band_render(r, w, h, depth, lambda win: comic_layers(
-        win, sdf, ink=ink, bands=bands, fill=fill, shadow=shadow, ink_rgb=k, shadow_rgb=k, shadow_alpha=shadow_alpha,
-        hollow=hollow, extra=accent), None if hollow else fill)
+        win, lambda X, Y: sd_poly(X, Y, pts), ink=ink, bands=bands, fill=fill, shadow=shadow, ink_rgb=k, shadow_rgb=k,
+        shadow_alpha=shadow_alpha, hollow=hollow, extra=accent), None if hollow else fill)
     return r.export()
 
 
-CORNER_REACH = 34.0   # px: accents stay this close to a sprite corner, so the 40 px corner square holds them whole
-
-
-def in_corner(X, Y, cx: float, cy: float) -> np.ndarray:
-    """1 inside the corner square at (cx, cy) (a sprite corner), less the Lanczos footprint; 0 elsewhere."""
-    return ((np.abs(X - np.float32(cx)) < CORNER_REACH) & (np.abs(Y - np.float32(cy)) < CORNER_REACH)).astype(np.float32)
-
-
-def corner_dots(colour, corner: str, reach: float = 48.0, spacing: float = 7.0, rmax: float = 3.0, angle: float = 45.0,
-                w: int = 512, h: int = 512):
-    """Accent: a Ben-Day dot fade on the fill in one corner (dots shrink away from it), kept inside the corner square."""
-    def extra(win: Raster, d, total):
-        X, Y = win.X, win.Y
-        cx = float(w) if corner[1] == "r" else 0.0
-        cy = float(h) if corner[0] == "b" else 0.0
-        t = 1 - np.clip((np.abs(X - np.float32(cx)) + np.abs(Y - np.float32(cy))) / np.float32(reach), 0, 1)
-        dots = halftone(X, Y, spacing, rmax * smoothstep(.0, .6, t), angle)
-        win.over(colour, dots * coverage(d + total + 1.0) * in_corner(X, Y, cx, cy))
-    return extra
-
-
 # ---------------------------------------------------------------------------------------------- sliced surfaces
+# Frame weights and corner cuts in sprite px (PPU 200: 2 px = 1 unit at 1080p). The ink is about twice round 1's and
+# close to the concept's 5 px at 1080p; every cut uses its corner square up to the budget (comic_tile refuses a corner
+# that would reach past 37 px of a 40 px square: the stretched edge bands must stay the same along their length).
+INK_W = 10.0          # panels, cards, buttons, slots, trays, the top bar and the stage card
+INK_C = 8.0           # chips, tags and labels
+SHADOW = 10.0         # the hard ink shadow, down and right (5 units)
+SHADOW_C = 8.0        # under chips and the button face (4 units)
 PANEL_FILL = NAVY
 SECTION_FILL = col("03276A")
 INSET_FILL = NAVY_DK
 SLOT_FILL = col("021638")
 LABEL_FILL = CREAM
-SHADOW = 8.0
-
-
-def card(frame, dots, band: float = 9.0) -> Image.Image:
-    """Card face: ink, a coloured frame band with Ben-Day corners, a thin ink line, flat cream; hard shadow."""
-    def accent(win, d, total):
-        # Dots on the frame band only, fading out of the top-left and bottom-right corners.
-        X, Y = win.X, win.Y
-        on_band = coverage(d + 5.0) * (1 - coverage(d + 5.0 + band))
-        for cx, cy in ((0.0, 0.0), (512.0, 512.0)):
-            t = 1 - np.clip((np.abs(X - cx) + np.abs(Y - cy)) / 60.0, 0, 1)
-            win.over(dots, halftone(X, Y, 6.0, 2.7 * smoothstep(0, .55, t), 45.0) * on_band * in_corner(X, Y, cx, cy))
-    return comic_tile(512, 512, ink=5.0, bands=((band, frame), (2.0, INK)), fill=CREAM, tinted=False, accent=accent)
-
-
-DOT_ON_NAVY = col("3A7DEB")
-
-
-def dark_panel(fill, top_band: float = 6.0, corner: str = "tr") -> Image.Image:
-    return comic_tile(512, 512, ink=5.0, bands=((top_band, CREAM), (2.0, INK)), fill=fill, tinted=False,
-                      accent=corner_dots(DOT_ON_NAVY, corner))
+GUTTER = ((5.0, CREAM), (2.0, INK))   # the dark panels' comic-panel gutter: a cream band and a thin ink line
+CARD_CUT = 21.0       # cards and paper panels: 10.5 units; the card's cream then starts 15.1 px in from the inner rect
+PANEL_CUT = 18.0      # dark panels with the gutter band (frame 17 px)
+TRAY_CUT = 32.0       # the open trays (border 72): 16 units, so the accent ring (7 units in, 1.6x) stays inside it
+RING_CUT = 30.0       # rings: inside the trays' and the stage card's cuts at their callers' offsets (1.6x at the tray)
+RARITY_RING_CUT = 16.0   # the W13 ring inside a card face: just inside the face's cream cut (15.1 px from the inner rect)
+TRAY_FRAME = ((8.0, WHITE), (3.0, K))
+CHIP_CUTS = (32.0, 24.0, 24.0, 24.0)       # secondary buttons, formula chips, tabs: octagonal ends
+BUTTON_CUTS = (31.0, 6.0, 23.0, 6.0)       # the button face: big top-left and bottom-right cuts, a forward lean
+LABEL_CUTS = (32.0, 6.0, 26.0, 6.0)        # captions and badges lean the same way
 
 
 def surface(spec: dict) -> Image.Image:
     """Nine-sliced and horizontally sliced surfaces. Frames stay in the border bands, centres stay flat."""
     name = spec["name"]
     w, h = spec["size"]
-    if name == "ui_paper_panel":
-        return comic_tile(w, h, ink=5.0, fill=CREAM, tinted=False, accent=corner_dots(col("F2B6B0"), "tr"))
-    if name in ("ui_card_controller", "ui_card_controller_compact"):
-        return card(YELLOW, RED)
+    card_face = dict(cuts=(CARD_CUT,) * 4, ink=INK_W, fill=CREAM, shadow=SHADOW, tinted=False)
+    if name in ("ui_paper_panel", "ui_card_controller", "ui_card_controller_compact", "ui_card_shop"):
+        # Cream face in a heavy ink line (roll and shop pages); the W13 rarity ring inside gives a card its colour.
+        return comic_tile(w, h, **card_face)
     if name == "ui_card_item":
-        return card(RED, RED_SH)
-    if name == "ui_card_shop":
-        return card(YELLOW, BLUE, band=7.0)
+        return comic_tile(w, h, cuts=(PANEL_CUT,) * 4, ink=INK_W, bands=((6.0, RED), (2.0, INK)), fill=CREAM,
+                          shadow=SHADOW, tinted=False)
     if name == "ui_chip_label":
-        return comic_tile(w, h, shape="sheared", cut=(12.0, 24.0), ink=4.0, fill=LABEL_FILL, shadow=5.0, tinted=False)
-    if name == "ui_panel_hud":
-        return dark_panel(PANEL_FILL)
-    if name == "ui_section_panel":
-        # Shop sections draw a header strip from 5 units in: the frame stays inside 10 px at the top.
-        return comic_tile(w, h, ink=4.0, bands=((3.0, CREAM), (2.0, INK)), fill=SECTION_FILL, tinted=False,
-                          accent=corner_dots(DOT_ON_NAVY, "tr"))
-    if name == "ui_tab_bottom":
-        return dark_panel(PANEL_FILL, corner="tl")
+        return comic_tile(w, h, cuts=LABEL_CUTS, ink=INK_C, fill=LABEL_FILL, shadow=6.0, tinted=False)
+    if name in ("ui_panel_hud", "ui_tab_bottom", "ui_section_panel"):
+        return comic_tile(w, h, cuts=(PANEL_CUT,) * 4, ink=INK_W, bands=GUTTER,
+                          fill=SECTION_FILL if name == "ui_section_panel" else PANEL_FILL, shadow=SHADOW, tinted=False)
     if name == "ui_info_inset":
         # A well: ink line, the fill, and a hard inner shadow along the top and left (light from the upper left).
         def well(win, d, total):
             X, Y = win.X, win.Y
             edge = np.minimum(Y - np.float32(1.0 + total), X - np.float32(1.0 + total))
             win.over(INK, coverage(d + total) * coverage(edge - 5.0) * .55)
-        return comic_tile(w, h, ink=4.0, fill=INSET_FILL, shadow=0.0, tinted=False, accent=well)
+        return comic_tile(w, h, cuts=(14.0,) * 4, ink=INK_C, fill=INSET_FILL, shadow=0.0, tinted=False, accent=well)
     if name == "ui_slot_inventory":
-        return comic_tile(w, h, ink=4.0, bands=((2.0, CREAM), (2.0, INK)), fill=SLOT_FILL, shadow=0.0, tinted=False)
+        return comic_tile(w, h, cuts=(22.0,) * 4, ink=INK_C, bands=((3.0, CREAM), (2.0, INK)), fill=SLOT_FILL,
+                          shadow=SHADOW_C, tinted=False)
     if name == "ui_tray_front":
         return tray_front(w, h)
     # Achromatic, tinted by the game.
     if name == "ui_topbar":
-        return comic_tile(w, h, ink=5.0, fill=WHITE, shadow=SHADOW)
+        return comic_tile(w, h, cuts=(CARD_CUT,) * 4, ink=INK_W, fill=WHITE, shadow=SHADOW)
     if name == "ui_chip_formula":
-        return comic_tile(w, h, shape="sheared", cut=(16.0, 28.0), ink=4.0, fill=WHITE, shadow=6.0)
+        return comic_tile(w, h, cuts=CHIP_CUTS, ink=INK_C, fill=WHITE, shadow=SHADOW_C)
     if name == "ui_stage_card":
-        return comic_tile(w, h, ink=5.0, fill=WHITE, shadow=SHADOW, depth=56,
-                          accent=corner_dots(np.full(3, .8, np.float32), "tr", reach=34))
+        return comic_tile(w, h, cuts=(29.0,) * 4, ink=INK_W, fill=WHITE, shadow=SHADOW, depth=56, border=48.0)
     if name == "ui_dice_tray":
-        return comic_tile(w, h, ink=4.0, bands=((14.0, WHITE), (3.0, K)), fill=None, shadow=SHADOW, hollow=True, depth=72)
+        return comic_tile(w, h, cuts=(TRAY_CUT,) * 4, ink=INK_W, bands=TRAY_FRAME, fill=None, shadow=SHADOW, hollow=True,
+                          depth=72, border=72.0)
     if name == "ui_button_bevel":
-        # The cut stays clear of the 40 px corner line together with the inner edge of its ink line.
-        return comic_tile(w, h, shape="sheared", cut=(18.0, 25.0), ink=5.0, fill=WHITE, shadow=SHADOW)
+        return comic_tile(w, h, cuts=BUTTON_CUTS, ink=INK_W, fill=WHITE, shadow=SHADOW_C)
     if name == "ui_button_ghost":
-        return comic_tile(w, h, shape="sheared", cut=(18.0, 25.0), ink=3.0, bands=((5.0, WHITE), (2.0, K)), fill=None,
-                          shadow=0.0, hollow=True)
+        return comic_tile(w, h, cuts=(26.0,) * 4, ink=6.0, bands=((6.0, WHITE), (2.0, K)), fill=None, shadow=0.0,
+                          hollow=True)
     if name == "ui_ring":
-        return comic_tile(w, h, ink=3.0, bands=((6.0, WHITE), (2.0, K)), fill=None, shadow=0.0, hollow=True)
+        return comic_tile(w, h, cuts=(RING_CUT,) * 4, ink=6.0, bands=((6.0, WHITE), (2.0, K)), fill=None, shadow=0.0,
+                          hollow=True)
     if name == "ui_frame_enchant":
-        # Sits on the cream card face just inside the card's frame, so every enchantment hue reads on cream.
-        return comic_tile(w, h, ink=2.0, bands=((4.0, WHITE), (2.0, K)), fill=None, shadow=0.0, hollow=True, inset=19.0)
+        # On the cream card face just inside the card's ink: 7 units in from the left and top, 12 from the right and
+        # bottom (the card's ink and shadow), its cuts inside the face's cream cuts.
+        return comic_tile(w, h, cuts=(16.0, 8.0, 8.0, 8.0), ink=3.0, bands=((6.0, WHITE), (3.0, K)), fill=None,
+                          shadow=0.0, hollow=True, box=(14.0, 14.0, w - 24.0, h - 24.0))
     if name == "ui_frame_block":
-        return comic_tile(w, h, ink=3.0, fill=WHITE, shadow=0.0)
+        return comic_tile(w, h, cuts=(16.0,) * 4, ink=6.0, fill=WHITE, shadow=0.0)
     if name == "ui_price_chip":
-        return comic_tile(w, h, shape="sheared", cut=(14.0, 26.0), ink=4.0, fill=WHITE, shadow=5.0)
+        return comic_tile(w, h, cuts=(32.0, 26.0, 26.0, 26.0), ink=INK_C, fill=WHITE, shadow=6.0)
     if name == "ui_progress_fill":
         return progress_bar(w, h, fill=True)
     if name == "ui_progress_track":
@@ -637,21 +665,30 @@ def _aniso_coverage(d):
     return coverage(d / g)
 
 
+# W14 shop (GameApp.Shop14 Section14): the header strip spans the section's inside, (f.x, f.w) to the inner right edge,
+# ShopHead14 (68) - f.w - 2 units tall; f.w is the section panel's top frame inset (18 px = 9 units) -> 57 units.
+SECTION_HEADER_UNITS = 57.0
+CAPTION_SLANT = 10.0   # units: the title starts 14 units into the strip, clear of the slanted end at its height
+
+
 def section_header(w: int, h: int) -> Image.Image:
-    """Shop section title band (border 40/0/72/0, drawn 40 units tall): a caption banner whose right end leans "/",
-    with a hard shadow. Designed in display units (0.5 x, 0.3125 y units per px) because only the height is scaled."""
+    """Shop section caption (border 40/0/72/0, only sliced horizontally): a parallelogram with full-height "/" ends, an
+    ink line and a hard shadow, white so the code's tint colours it. Designed in display units for its W14 height
+    (0.5 units per px across, 57/128 down) because Unity scales only the height uniformly."""
     r = Raster(w, h)
-    sx, sy = .5, 40.0 / h
+    sx, sy = .5, SECTION_HEADER_UNITS / h
     Xu, Yu = r.X * sx, r.Y * sy
-    W = w * sx
-    # The slanted end lies wholly beyond 222 units (444 px), clear of the 440 px border line.
-    body = [(.5, .5), (W - 4.0, .5), (W - 13.0, 36.5), (.5, 36.5)]
-    sh = 3.0
+    W, H = w * sx, SECTION_HEADER_UNITS
+    sh, ink, top = 3.0, 4.0, .6
+    bottom = H - sh - .6
+    # The left end stays inside the 20-unit left cap and the right end inside the 36-unit right cap, both 2 units clear of
+    # the cap line; the top-right corner sits 8 units in, inside the section panel's own corner cut.
+    body = [(1.0 + CAPTION_SLANT, top), (W - 8.0, top), (W - 8.0 - CAPTION_SLANT, bottom), (1.0, bottom)]
     ds = sd_poly(Xu - sh, Yu - sh, body)
     r.over(K, _aniso_coverage(ds))
     d = sd_poly(Xu, Yu, body)
     r.over(K, _aniso_coverage(d))
-    r.over(WHITE, _aniso_coverage(d + 2.0))
+    r.over(WHITE, _aniso_coverage(d + ink))
     return r.export()
 
 
@@ -681,9 +718,9 @@ def tray_front(w: int, h: int) -> Image.Image:
     body = [(6.0, .4), (W - .4, .4), (W - 6.0, 19.6), (.4, 19.6)]
     d = sd_poly(Xu, Yu, body)
     r.over(INK, _aniso_coverage(d))
-    inner = _aniso_coverage(d + 1.2)
+    inner = _aniso_coverage(d + 2.0)
     r.over(NAVY_DK, inner)
-    r.over(YELLOW, inner * (Yu < 4.6))
+    r.over(YELLOW, inner * (Yu < 5.4))
     return r.export()
 
 
@@ -697,9 +734,10 @@ GEM_INK = 9.0
 
 def card_frame_rarity(w: int, h: int) -> Image.Image:
     """Rarity ring (border 40; transparent centre, TintedSprite13 draws it with fillCenter off): an ink line, a flat
-    band that takes the rarity colour and an ink line, square-cornered like a comic panel's inner frame."""
+    band that takes the rarity colour and an ink line, its corners cut like the card face's cream so it sits inside it."""
     ink, band, inner = RING
-    return comic_tile(w, h, ink=ink, bands=((band, WHITE), (inner, K)), fill=None, shadow=0.0, hollow=True, inset=0.0)
+    return comic_tile(w, h, cuts=(RARITY_RING_CUT,) * 4, ink=ink, bands=((band, WHITE), (inner, K)), fill=None,
+                      shadow=0.0, hollow=True, inset=0.0)
 
 
 def gem_sdf(name: str, X, Y, size: int = GEM_SIZE) -> np.ndarray:
@@ -904,9 +942,9 @@ def icon(spec: dict) -> Image.Image:
         lm, rm = poly_mask(r, left), poly_mask(r, right)
         r.over(BLUE, lm)
         r.over(NAVY, rm)
-        dots = halftone(r.X, r.Y, 9.0, 2.6, 30.0)
-        r.over(NAVY, dots * lm)
-        r.over(NAVY_DK, dots * rm)
+        # Whole dots 8 px across: about 3.3 px when the block is drawn 160 units wide (0.42 x).
+        r.over(NAVY, halftone_whole(r, lm, 16.0, 4.0))
+        r.over(NAVY_DK, halftone_whole(r, rm, 16.0, 4.0))
         r.over(INK, np.maximum(line_mask(r, [top[0], top[3], top[2]], 4.0), line_mask(r, [top[3], left[2]], 4.0)) * whole)
         return r.export()
     if name == "ui_die_shadow":
@@ -971,11 +1009,11 @@ def card_back() -> Image.Image:
     rad = np.hypot(X - cx, Y - cy)
     rays = ((np.cos(ang * 12) > .55) & (rad > 140)).astype(np.float32)
     r.over(YELLOW, field * rays)
-    edge_t = np.clip(1 - (-di - 6) / 160.0, 0, 1)
-    r.over(RED_SH, field * (1 - rays) * halftone(X, Y, 14.0, 5.2 * edge_t, 45.0))
+    # Whole dots 12 px across: about 3.2 px on the menu, where the back is drawn about 204 units wide (0.27 x).
+    r.over(RED_SH, halftone_whole(r, field * (1 - rays), 18.0, 6.0))
     burst = poly_mask(r, burst_pts(cx, cy, 250.0, 175.0, 14, SEED + 7, .12))
     ink_fill(r, burst, BLUE, 9.0)
-    r.over(BLUE_DOT, burst * halftone(X, Y, 12.0, 3.4 * smoothstep(120, 220, rad), 15.0))
+    r.over(BLUE_DOT, halftone_whole(r, burst * (rad > 150), 18.0, 6.0))
     ink_fill(r, ell_mask(r, cx, cy, 128), CREAM, 7.0)
     die_faces(r, cx, cy - 12, 170, pips=(1, 4, 6), ink=8.0)
     for sx, sy in ((92, 92), (W - 92, 92), (92, H - 92), (W - 92, H - 92)):
@@ -991,7 +1029,8 @@ def wordmark() -> Image.Image:
     banner = sheared((300, 70, 1400, 330), 70, 150)
     m = poly_mask(r, banner)
     ink_fill(r, m, YELLOW, 10.0, shadow=(16, 16))
-    r.over(YELLOW_SH, m * halftone(r.X, r.Y, 14.0, 4.2 * smoothstep(1100, 1400, r.X), 45.0))
+    # Whole dots 8.4 px across in the banner's tail: about 3.7 px on the menu (drawn about 0.43 x).
+    r.over(YELLOW_SH, halftone_whole(r, m * (r.X > 1150), 14.0, 4.2))
     text = "骰子构筑"
     probe = ImageFont.truetype(str(HEADING), 100)
     bx = probe.getbbox(text)
@@ -1031,55 +1070,108 @@ def contract_sprites() -> list[dict]:
 
 # ---------------------------------------------------------------------------------------------- table
 TABLE_W, TABLE_H = 1920, 1080
-EDGE = {"left": 14.0, "right": 14.0, "top": 10.0, "bottom": 24.0}   # red Ben-Day page border, outside every play area
-RAY_FOCUS = (1040.0, 1004.0)    # behind the primary action (PLAY_LAYOUT 1: 840..1240 x 962..1035)
-BURST_AT = (1876.0, 98.0)       # behind the stage card's top-right corner (the target score)
+# The concept's red Ben-Day page, measured on roll.png's clean gutters (1672 px wide): page (252, 40, 48), dots near
+# black (20-37, 1-3, 1-3), a square grid of 9-10 px with dots 3.9-4.2 px across. At 1920 px: an 11 px grid of 4.8 px
+# dots (at least 3 px at 1080p, as the coordinator asked for any halftone).
+PAGE = col(PAGE_HEX)
+PAGE_DOT = col(PAGE_DOT_HEX)
+PAGE_PITCH = 11.0
+PAGE_DOT_R = 2.4
+# Blue felt (GameApp.Play11 L11; the same rects at every text size): the dice tray's floor, and the submit row, whose
+# whole rect is calm (the info and rail zones meet), drawn as a square blue mat with its own ink line and shadow.
+TRAY_RECT = (32.0, 352.0, 1448.0, 376.0)
+SUBMIT_RECT = (32.0, 740.0, 1448.0, 202.0)
+FELT_BLEED = 3.5          # px: the felt runs this far past every calm zone, beyond the Lanczos footprint (3 px)
+MAT_INK, MAT_SHADOW = 5.0, 5.0
+# Yellow speed rays where the play screen is empty, and one readable starburst beside the main button.
+CARD_ROW = (900.0, 98.0, 1478.0, 338.0)           # the right part of L11.cards (32, 96, 1448, 244), right of 3-4 cards
+CARD_RAY_FOCUS = (1720.0, 218.0)                  # behind the stage card; rays fan out to the left
+CARD_RAYS = ((-8.4, .7), (-5.0, .5), (-1.8, .8), (1.6, .55), (4.8, .75), (8.2, .5))   # (degrees, half-width)
+ACTION_RAY_FOCUS = (1040.0, 1002.0)               # the main button's centre (L11.primary 840, 962, 400, 80)
+ACTION_RAYS = ((-15.0, 2.2), (-4.0, 1.6), (7.0, 2.4), (19.0, 1.8), (31.0, 2.0))
+ACTION_GAP = (1244.0, 958.0, 1492.0, 1080.0)      # right of the main button, left of the end button (1496)
+BURST = (1368.0, 1017.0, 104.0, 54.0)             # centre and radii: wholly inside ACTION_GAP with its ink line
+RAY_INK = 2.5
+
+
+def ray_polygons(focus, rays, direction: float, length: float = 2600.0):
+    """Thin triangles from a focus point: (angle in degrees from `direction`, half-width in degrees)."""
+    fx, fy = focus
+    out = []
+    for a, half in rays:
+        a0, a1 = math.radians(direction + a - half), math.radians(direction + a + half)
+        out.append([(fx, fy), (fx + length * math.cos(a0), fy + length * math.sin(a0)),
+                    (fx + length * math.cos(a1), fy + length * math.sin(a1))])
+    return out
+
+
+def draw_rays(r: Raster, polys, clip):
+    d = np.minimum.reduce([sd_poly(r.X, r.Y, p) for p in polys])
+    r.over(INK, coverage(d - RAY_INK) * clip)
+    r.over(YELLOW, coverage(d) * clip)
+
+
+def tray_face_units():
+    """The dice tray sprite's face octagon in screen units at L11.tray (its shadow, ink and cut halved to units)."""
+    x, y, w, h = TRAY_RECT
+    return octagon((x + .5, y + .5, x + w - .5 - SHADOW / 2, y + h - .5 - SHADOW / 2), (TRAY_CUT / 2,) * 4)
+
+
+def felt_mask(X, Y) -> np.ndarray:
+    """Coverage of the flat blue felt: the dice tray's floor (its face less 3 units, under the tray's own ink), the submit
+    mat, and every calm zone with FELT_BLEED around it."""
+    tray = coverage(sd_poly(X, Y, tray_face_units()) + 3.0)
+    x, y, w, h = SUBMIT_RECT
+    mat = coverage(sd_box(X, Y, (x - FELT_BLEED, y - FELT_BLEED, x + w + FELT_BLEED, y + h + FELT_BLEED)))
+    zones = [coverage(sd_box(X, Y, (zx - FELT_BLEED, zy - FELT_BLEED, zx + zw + FELT_BLEED, zy + zh + FELT_BLEED)))
+             for zx, zy, zw, zh in FELT_ZONES.values()]
+    return np.maximum.reduce([tray, mat] + zones)
 
 
 def table_layer(r: Raster):
     X, Y = r.X, r.Y
-    felt = col(PALETTE["felt"])
-    # Right column (behind the stage card and the resource panels; seen in the gaps): darker Ben-Day dots on the felt.
-    right = smoothstep(1484.0, 1700.0, X) * (X >= 1484.0) * (Y >= 84.0) * (Y < 944.0)
-    r.over(BLUE_DOT, halftone(X, Y, 11.0, 3.6 * right, 45.0) * right)
-    # Speed rays from behind the main button, seen in the action row's gap and the bottom margin.
-    fx, fy = RAY_FOCUS
-    ang = np.arctan2(Y - fy, X - fx)
-    rays = smoothstep(.48, .56, np.cos((ang - .35) * 22.0)) * (ang > -.55) * (ang < .9)
-    zone = (X >= 1240.0) * (Y >= 944.0) * smoothstep(1244.0, 1290.0, X)
-    r.over(YELLOW, rays * zone)
-    # A burst behind the stage card's corner.
-    bx, by = BURST_AT
-    d = sd_poly(X, Y, burst_pts(bx, by, 94.0, 58.0, 11, SEED + 11, .2))
-    r.over(INK, coverage(d))
-    r.over(YELLOW, coverage(d + 4.0))
-    # The red page border with dots and an ink line on its inner edge.
-    inner = sd_box(X, Y, (EDGE["left"], EDGE["top"], TABLE_W - EDGE["right"], TABLE_H - EDGE["bottom"]))
-    band = coverage(-inner)
-    r.over(RED, band)
-    r.over(RED_SH, band * halftone(X, Y, 8.0, 2.4, 45.0))
-    r.over(INK, coverage(np.abs(inner) - 1.6))
-    return felt
+    # The red page and its dots.
+    r.over(PAGE, np.ones_like(X))
+    r.over(PAGE_DOT, halftone(X, Y, PAGE_PITCH, PAGE_DOT_R, 0.0))
+    # Speed rays right of the card row, from behind the stage card; yellow wedges with an ink edge (cards cover them
+    # where the row is full).
+    row = coverage(sd_box(X, Y, CARD_ROW))
+    if row.any():
+        draw_rays(r, ray_polygons(CARD_RAY_FOCUS, CARD_RAYS, 180.0), row)
+    # Speed rays from the main button into the empty gap on its right.
+    gap = coverage(sd_box(X, Y, ACTION_GAP))
+    if gap.any():
+        draw_rays(r, ray_polygons(ACTION_RAY_FOCUS, ACTION_RAYS, 0.0), gap)
+    # A readable starburst beside the main button, wholly inside the gap.
+    if gap.any():
+        bx, by, rx, ry = BURST
+        pts = [(px, by + (py - by) * ry / rx) for px, py in burst_pts(bx, by, rx, rx * .62, 12, SEED + 11, .14)]
+        d = sd_poly(X, Y, pts)
+        r.over(INK, coverage(d - 3.0) * gap)
+        r.over(YELLOW, coverage(d) * gap)
+    # The submit mat's ink line and hard shadow, outside the felt bleed.
+    x, y, w, h = SUBMIT_RECT
+    mat = (x - FELT_BLEED - MAT_INK, y - FELT_BLEED - MAT_INK, x + w + FELT_BLEED + MAT_INK, y + h + FELT_BLEED + MAT_INK)
+    r.over(INK, coverage(sd_box(X - MAT_SHADOW, Y - MAT_SHADOW, mat)))
+    r.over(INK, coverage(sd_box(X, Y, mat)))
+    # The flat blue felt last, so nothing above crosses it.
+    r.over(col(PALETTE["felt"]), felt_mask(X, Y))
 
 
-TABLE_REGIONS = (  # non-overlapping cores rendered with a margin; everything else is the flat felt
-    (0, 0, TABLE_W, 96), (0, TABLE_H - 44, TABLE_W, 44), (0, 96, 28, TABLE_H - 140), (TABLE_W - 28, 96, 28, TABLE_H - 140),
-    (1484, 96, TABLE_W - 28 - 1484, 848), (1240, 944, TABLE_W - 28 - 1240, TABLE_H - 44 - 944),
-)
+TABLE_TILE = 240
 
 
 def table_scene() -> Image.Image:
-    felt = np.array(rgb8(PALETTE["felt"]), np.float32)
-    canvas = np.broadcast_to(felt, (TABLE_H, TABLE_W, 3)).copy()
+    """The whole table, rendered in tiles with an 8 px margin (beyond the Lanczos footprint) and stitched."""
+    canvas = np.zeros((TABLE_H, TABLE_W, 3), np.float32)
     margin = 8
-    for x, y, w, h in TABLE_REGIONS:
-        r = Raster(w + 2 * margin, h + 2 * margin, float(x - margin), float(y - margin))
-        r.rgb[...] = col(PALETTE["felt"])
-        r.a[...] = 1.0
-        table_layer(r)
-        im = np.asarray(r.export()).astype(np.float32)
-        core = im[margin:margin + h, margin:margin + w, :3]
-        canvas[y:y + h, x:x + w] = core
+    for y in range(0, TABLE_H, TABLE_TILE):
+        for x in range(0, TABLE_W, TABLE_TILE):
+            w, h = min(TABLE_TILE, TABLE_W - x), min(TABLE_TILE, TABLE_H - y)
+            r = Raster(w + 2 * margin, h + 2 * margin, float(x - margin), float(y - margin))
+            table_layer(r)
+            im = np.asarray(r.export()).astype(np.float32)
+            canvas[y:y + h, x:x + w] = im[margin:margin + h, margin:margin + w, :3]
     return Image.fromarray(np.clip(np.rint(canvas), 0, 255).astype(np.uint8), "RGB")
 
 
@@ -1154,12 +1246,44 @@ def nine_slice(im: Image.Image, border, size) -> Image.Image:
 
 
 class Mock:
-    """A 1920x1080 offline composite of the play screen at W11 design sizes (not a Unity capture)."""
+    """A 1920x1080 offline composite of the play screen at W11 design sizes (not a Unity capture). It keeps a coverage
+    map of everything drawn over the table, so marks and words that land straight on the red page can be listed."""
 
     def __init__(self, sprites, specs, table):
         self.sprites, self.specs = sprites, {s["name"]: s for s in specs}
+        self.table = np.asarray(table.convert("RGB")).astype(np.int16)
         self.im = table.convert("RGBA")
+        self.cover = np.zeros(self.table.shape[:2], np.float32)
         self.font = str(FONT)
+        self.on_page = []
+
+    def _paste(self, im: Image.Image, x: int, y: int, label: str | None = None):
+        if label is not None:
+            self._check(np.asarray(im)[..., 3] >= 128, x, y, label, im)
+        self.im.alpha_composite(im, (x, y))
+        H, W = self.cover.shape
+        a = np.asarray(im)[..., 3].astype(np.float32) / 255.0
+        x0, y0, x1, y1 = max(0, x), max(0, y), min(W, x + im.width), min(H, y + im.height)
+        if x1 > x0 and y1 > y0:
+            sub = a[y0 - y:y1 - y, x0 - x:x1 - x]
+            self.cover[y0:y1, x0:x1] = 1 - (1 - self.cover[y0:y1, x0:x1]) * (1 - sub)
+
+    def _check(self, mask: np.ndarray, x: int, y: int, label: str, im: Image.Image | None = None, colour=None):
+        """Record a word or mark whose opaque pixels fall on uncovered table outside the felt (the red page)."""
+        H, W = self.cover.shape
+        x0, y0, x1, y1 = max(0, x), max(0, y), min(W, x + mask.shape[1]), min(H, y + mask.shape[0])
+        if x1 <= x0 or y1 <= y0:
+            return
+        sub = mask[y0 - y:y1 - y, x0 - x:x1 - x]
+        felt = np.array(rgb8(PALETTE["felt"]), np.int16)
+        off_felt = np.abs(self.table[y0:y1, x0:x1] - felt).sum(axis=2) > 6
+        hits = sub & (self.cover[y0:y1, x0:x1] < .5) & off_felt
+        if hits.any():
+            if colour is None and im is not None:
+                px = np.asarray(im)[y0 - y:y1 - y, x0 - x:x1 - x][hits][:, :3]
+                colour = hexc(px.mean(axis=0) / 255.0)
+            self.on_page.append({"what": label, "pixels": int(hits.sum()), "colour": colour,
+                                 "vs page": contrast(colour, hexc(PAGE)), "vs dots": contrast(colour, hexc(PAGE_DOT))})
 
     def put(self, name, x, y, w, h, colour=None, alpha=1.0, mult=1.0):
         spec = self.specs[name]
@@ -1173,25 +1297,27 @@ class Mock:
         im = im.resize((max(1, round(w)), max(1, round(h))), Image.Resampling.LANCZOS)
         if colour is not None or alpha < 1:
             im = tint(im, colour if colour is not None else WHITE, alpha)
-        self.im.alpha_composite(im, (round(x), round(y)))
+        self._paste(im, round(x), round(y))
 
     def icon(self, name, x, y, w, h, colour=None, alpha=1.0):
         im = self.sprites[name].copy()
         im.thumbnail((round(w), round(h)), Image.Resampling.LANCZOS)
         if colour is not None or alpha < 1:
             im = tint(im, colour if colour is not None else WHITE, alpha)
-        self.im.alpha_composite(im, (round(x + (w - im.width) / 2), round(y + (h - im.height) / 2)))
+        self._paste(im, round(x + (w - im.width) / 2), round(y + (h - im.height) / 2), label=name)
 
     def text(self, x, y, value, size, colour, anchor="lm", font=None):
-        d = ImageDraw.Draw(self.im)
-        d.text((x, y), value, font=ImageFont.truetype(font or self.font, round(size)), fill=tuple(rgb8(colour)) + (255,),
-               anchor=anchor)
+        f = ImageFont.truetype(font or self.font, round(size))
+        mask = Image.new("L", self.im.size, 0)
+        ImageDraw.Draw(mask).text((x, y), value, font=f, fill=255, anchor=anchor)
+        self._check(np.asarray(mask) >= 128, 0, 0, "text " + value, colour=colour)
+        ImageDraw.Draw(self.im).text((x, y), value, font=f, fill=tuple(rgb8(colour)) + (255,), anchor=anchor)
 
     def art(self, path, x, y, size):
         with Image.open(path) as src:
             im = src.convert("RGBA")
         im.thumbnail((size, size), Image.Resampling.LANCZOS)
-        self.im.alpha_composite(im, (round(x + (size - im.width) / 2), round(y + (size - im.height) / 2)))
+        self._paste(im, round(x + (size - im.width) / 2), round(y + (size - im.height) / 2), label="art " + Path(path).stem)
 
 
 def _mock_die(m: Mock, cx, cy, size, pips):
@@ -1200,8 +1326,51 @@ def _mock_die(m: Mock, cx, cy, size, pips):
               ink=size * .045)
     im = r.export()
     shadow = m.sprites["ui_die_shadow"].resize((round(size * 1.3), round(size * .5)), Image.Resampling.LANCZOS)
-    m.im.alpha_composite(shadow, (round(cx - size * .55), round(cy + size * .4)))
-    m.im.alpha_composite(im, (round(cx - size * .7), round(cy - size * .66)))
+    m._paste(shadow, round(cx - size * .55), round(cy + size * .4), label="die shadow")
+    m._paste(im, round(cx - size * .7), round(cy - size * .66), label="die")
+
+
+# The code draws a step under every UiKit.Button face (UiKit.cs: B56B29 under the primary, 8F453A otherwise). A theme token
+# for the step colours is coming in a separate code task, ink for comic (coordinator, 2026-11-17): the mock draws it so.
+STEP_ASSUMED = "0A080A"
+
+
+def mock_button(m: Mock, x, y, w, h, face, label, size, label_colour):
+    """UiKit.Button as drawn: the step (the face sprite) at (2, 8, w - 4, h - 6), the face at (0, 0, w, h - 7)."""
+    m.put("ui_button_bevel", x + 2, y + 8, w - 4, h - 6, col(STEP_ASSUMED))
+    m.put("ui_button_bevel", x, y, w, h - 7, face)
+    m.text(x + w / 2, y + (h - 7) / 2, label, size, label_colour, "mm")
+
+
+def mock_card13(m: Mock, x, y, w, h, rarity, title, text, art, ordinal=0):
+    """A Table-size card as GameApp.Card11 DrawTallCard13 lays it out: the face, the rarity ring on the face's inner
+    rect (FrameInsets11), the gem across the ring's top, the name, the picture and the short text."""
+    P = PALETTE
+    face_border = m.specs["ui_card_controller"]["border"]
+    m.put("ui_card_controller", x, y, w, h)
+    fl, fb, fr, ft = (v / 2 for v in frame_insets_px(np.asarray(m.sprites["ui_card_controller"]), face_border))
+    inner = (x + fl, y + ft, w - fl - fr, h - ft - fb)
+    ring_border = m.specs["ui_card_frame_rarity"]["border"]
+    rl, rb, rr, rt = (v / 2 for v in ring_insets_px(np.asarray(m.sprites["ui_card_frame_rarity"]), ring_border))
+    key = {"common": "rarityCommon", "advanced": "rarityAdvanced", "rare": "rarityRare", None: "ghost"}[rarity]
+    tint_c = col(P[key])
+    m.put("ui_card_frame_rarity", *inner, tint_c)
+    content = (inner[0] + rl + 4, inner[1] + rt + 3, inner[2] - rl - rr - 8, inner[3] - rt - rb - 6)
+    gem_size, gem_y = 30, inner[1] + (content[1] - 3 - inner[1]) * .5
+    top = max(content[1], gem_y + gem_size * .5 + 2) if rarity else content[1]
+    name_h = math.ceil(22 * 1.46) + 2
+    art_top = top + name_h + 2
+    lines = _wrap(text, BODY_FONT, 20, content[2])
+    art_size = max(40, min(content[2] - 8, content[1] + content[3] - art_top - 4 - (len(lines) * 26 + 2)))
+    m.art(ROOT / "ArtSource/StyleKit/themes/comic/anchors" / f"{art}.png", x + (w - art_size) / 2, art_top, art_size)
+    m.text(x + w / 2, top + name_h / 2, title, 22, P["ink"], "mm")
+    for i, line in enumerate(lines):
+        m.text(x + w / 2, art_top + art_size + 4 + i * 26, line, 20, P["ink"], "ma", str(BODY_FONT))
+    if rarity:
+        m.put("ui_gem_" + rarity, x + w / 2 - gem_size / 2, gem_y - gem_size / 2, gem_size, gem_size, tint_c)
+    if ordinal:
+        m.put("ui_pip_dot", content[0], content[1], 22, 22, col(P["ink"]))
+        m.text(content[0] + 11, content[1] + 11, str(ordinal), 14, P["paper"], "mm")
 
 
 def label_on(fill) -> str:
@@ -1210,7 +1379,9 @@ def label_on(fill) -> str:
     return max((PALETTE["ink"], PALETTE["paper"], PALETTE["textColor"]), key=lambda c: contrast(c, fill_hex))
 
 
-def play_mock(sprites, specs, table) -> Image.Image:
+def play_mock(sprites, specs, table, on_page: list | None = None) -> Image.Image:
+    """The play screen at W11 design sizes over table_scene.png. on_page, when given, receives every word or mark the
+    composite draws straight on the red page (outside the felt and over no surface)."""
     P = PALETTE
     m = Mock(sprites, specs, table)
     lerp = lambda a, b, t: (col(a) * (1 - t) + col(b) * t)
@@ -1233,28 +1404,15 @@ def play_mock(sprites, specs, table) -> Image.Image:
     m.put("ui_progress_track", 466, 66, 532, 7, col("07191C"), mult=48 / 7)
     m.put("ui_progress_fill", 466, 66, 330, 7, col(P["blue"]), mult=48 / 7)
     # Gold and the two buttons where the game puts them (GameApp.Play11 TopBar11: gold group 1476-1652; GameApp.Art07
-    # DrawNavigation07: handbook 1668 and pause 1788, 108 x 60 UiKit.Button = paper face on the code's 8F453A step).
+    # DrawNavigation07: handbook 1668 and pause 1788, 108 x 60 UiKit.Button, a paper face on the step).
     m.icon("ui_icon_coin", 1482, 30, 36, 36)
     m.text(1608, 48, "28", 34, P["gold"], "rm")
     m.text(1610, 48, "金币", 20, P["muted"], "lm")
     for x, label in ((1668, "手册"), (1788, "暂停")):
-        m.put("ui_button_bevel", x + 2, 26, 104, 54, col("8F453A"))
-        m.put("ui_button_bevel", x, 18, 108, 53, col(P["paper"]))
-        m.text(x + 54, 44, label, 23, P["ink"], "mm")
-    # Cards.
-    arts = ["C108", "C117", "U10"]
-    for i, art in enumerate(arts):
-        x = 32 + i * 228
-        m.put("ui_card_controller", x, 96, 216, 244)
-        m.put("ui_pip_dot", x + 22, 106, 22, 22, col(P["ink"]))
-        m.text(x + 33, 117, str(i + 1), 14, P["paper"], "mm")
-        for k in range(i + 1):
-            m.im.alpha_composite(Image.new("RGBA", (8, 5), tuple(rgb8([P["rarityCommon"], P["rarityAdvanced"], P["rarityRare"]][i])) + (255,)),
-                                 (x + 52 + k * 11, 115))
-        m.text(x + 108, 148, ["排头兵", "点金手", "配重"][i], 22, P["ink"], "mm")
-        m.art(ROOT / "ArtSource/StyleKit/themes/comic/anchors" / f"{art}.png", x + 42, 164, 132)
-        m.text(x + 108, 310, ["首颗点数 ×4", "末颗镀金", "目标面权重 +1"][i], 20, P["ink"], "mm")
-    m.put("ui_frame_enchant", 32 + 228, 96, 216, 244, col(P["gold"]))
+        mock_button(m, x, 18, 108, 60, col(P["paper"]), label, 23, P["ink"])
+    # Cards: three Table-size cards (W13 template) and two empty slots narrowed to strips.
+    for i, (rarity, title, text, art) in enumerate(CARD_REVIEW_CARDS[:3]):
+        mock_card13(m, 32 + i * 228, 96, 216, 244, rarity, title, text, art, ordinal=i + 1)
     for i in range(2):
         m.put("ui_slot_inventory", 716 + i * 68, 104, 56, 228)
         m.text(744 + i * 68, 218, "+", 30, P["muted"], "mm")
@@ -1328,13 +1486,11 @@ def play_mock(sprites, specs, table) -> Image.Image:
     m.put("ui_panel_hud", 32, 958, 512, 88)
     m.text(50, 1000, "按“提交”计分，或者重掷其余的骰子。", 21, P["textColor"], "lm")
     m.put("ui_chip_formula", 560, 966, 264, 72, sec)
-    m.text(690, 1000, "重掷 · 还能掷 2", 21, P["textColor"], "mm")
-    m.put("ui_button_bevel", 842, 970, 396, 74, col("B56B29"))
-    m.put("ui_button_bevel", 840, 962, 400, 73, col(P["primary"]))
-    m.text(1036, 996, "提交 2 颗", 28, label_on(col(P["primary"])), "mm")   # the label LabelOn11 picks
-    m.put("ui_button_bevel", 1498, 970, 388, 74, col("8F453A"))
-    m.put("ui_button_bevel", 1496, 962, 392, 73, col(P["paper"]))
-    m.text(1688, 996, "结束本关 · 结算", 24, P["ink"], "mm")
+    m.text(692, 1002, "重掷 · 还能掷 2", 21, P["textColor"], "mm")
+    mock_button(m, 840, 962, 400, 80, col(P["primary"]), "提交 2 颗", 28, label_on(col(P["primary"])))  # LabelOn11's pick
+    mock_button(m, 1496, 962, 392, 80, col(P["paper"]), "结束本关 · 结算", 24, P["ink"])
+    if on_page is not None:
+        on_page.extend(m.on_page)
     return m.im.convert("RGB")
 
 
@@ -1385,13 +1541,15 @@ def state_variants(sprites, specs, table) -> Image.Image:
     """Normal, pressure and boss cues as GameApp.Play11 draws them: stage tag, stage card (header chip and rings)
     and the tray's accent ring, on the felt. Offline composite."""
     P = PALETTE
-    m = Mock(sprites, specs, Image.new("RGB", (1752, 330), rgb8(P["felt"])))
+    m = Mock(sprites, specs, page_patch(1752, 330))
     rim = col(P["panel"]) * .45 + col(P["panelLight"]) * .55
     for i, (kind, tint_key) in enumerate((("普通关", "panelLight"), ("高压关", "pressure"), ("首领关", "boss"))):
         x0 = 16 + i * 584
         tag = col(P[tint_key])
+        m.put("ui_topbar", x0 - 10, 2, 200, 76, col(P["panel"]))
         m.put("ui_chip_formula", x0, 12, 160, 56, tag)
         m.text(x0 + 78, 39, f"第 {4 + i} 关", 28, label_on(tag), "mm")
+        m._paste(felt_floor(160, 304), x0 + 404, 12)
         m.put("ui_stage_card", x0, 80, 392, 236, col(P["paper"]))
         if kind == "首领关":
             m.put("ui_ring", x0 + 4, 84, 376, 218, col(P["boss"]))
@@ -1415,6 +1573,99 @@ def state_variants(sprites, specs, table) -> Image.Image:
     return m.im.convert("RGB")
 
 
+def size_proofs(sprites, specs) -> Image.Image:
+    """Buttons at 60, 72 and 80 units (the coordinator's check), chips and tabs at their game heights, panels and the
+    W14 section caption, composited on the red page at 1080p density with the labels the game would pick."""
+    P = PALETTE
+    W, H = 1752, 900
+    m = Mock(sprites, specs, page_patch(W, H))
+    sec = col(P["background"]) * .45 + col(P["panel"]) * .55
+    small = ImageFont.truetype(str(LATIN), 15)
+    notes = []
+    x = 16
+    for k, h in enumerate((60, 72, 80)):
+        y = 14 + k * 104
+        mock_button(m, x, y, 300, h, col(P["primary"]), f"主按钮 {h}", 24, label_on(col(P["primary"])))
+        mock_button(m, x + 320, y, 260, h, col(P["paper"]), f"按钮 {h}", 22, P["ink"])
+        m.put("ui_chip_formula", x + 600, y, 260, h, sec)
+        m.text(x + 730, y + h / 2, f"次要按钮 {h}", 21, label_on(sec), "mm")
+        m.put("ui_button_ghost", x + 880, y, 220, h, col(P["ghost"]))
+        m.text(x + 990, y + h / 2, f"描边 {h}", 21, P["textColor"], "mm")   # FlatButton's label: see-through face
+        notes.append((x + 1110, y + h / 2 - 8, f"UiKit.Button h={h}: face {h - 7}, step at +8 / SolidButton / FlatButton ghost"))
+    y = 330
+    chips = [(32, 104, "gold", "已选 1", 17), (34, 100, "panel", "骰池", 20), (48, 150, "blue", "基础分 26", 20),
+             (48, 150, "red", "一对 ×2", 20), (48, 170, "gold", "卡牌 ×1.5", 20), (56, 160, "panelLight", "第 4 关", 28)]
+    cx = 16
+    for h, w, key, label, size in chips:
+        m.put("ui_chip_formula", cx, y, w, h, col(P[key]))
+        m.text(cx + w / 2, y + h / 2, label, size, label_on(col(P[key])), "mm")
+        cx += w + 24
+    m.put("ui_price_chip", cx, y, 124, 36, col(P["gold"]))
+    m.text(cx + 62, y + 18, "8", 22, label_on(col(P["gold"])), "mm")
+    cx += 148
+    m.put("ui_chip_label", cx, y, 40, 30, col(P["gold"]))
+    m.text(cx + 20, y + 15, "×4", 16, P["ink"], "mm")
+    m.put("ui_chip_label", cx + 64, y, 130, 40)
+    m.text(cx + 129, y + 20, "排头兵", 20, P["ink"], "mm")
+    notes.append((cx + 214, y + 6, "chip_formula at 32 / 34 / 48 / 56, price chip 36, chip_label 30 and 40"))
+    y = 410
+    m.put("ui_topbar", 16, y, 860, 72, col(P["panel"]))
+    m.put("ui_info_inset", 40, y + 6, 420, 60)
+    m.text(56, y + 34, "2,480 / 4,000", 30, P["textColor"], "lm")
+    m.put("ui_stage_card", 900, y, 392, 244, col(P["paper"]))
+    m.put("ui_chip_formula", 914, y + 14, 356, 40, col(P["panelLight"]))
+    m.text(928, y + 34, "普通关", 22, label_on(col(P["panelLight"])), "lm")
+    m.text(914, y + 90, "目标分数  4,000", 26, P["ink"], "lm")
+    m.put("ui_panel_hud", 1316, y, 392, 202)
+    m.put("ui_info_inset", 1330, y + 14, 364, 86)
+    m.text(1346, y + 57, "还能掷", 24, P["muted"], "lm")
+    m.text(1680, y + 57, "2", 52, P["teal"], "rm")
+    m.put("ui_paper_panel", 16, y + 96, 300, 150)
+    m.put("ui_slot_inventory", 336, y + 96, 60, 60)
+    m.put("ui_card_item", 412, y + 96, 60, 60)
+    m.put("ui_slot_inventory", 488, y + 96, 56, 150)
+    m.put("ui_frame_block", 564, y + 96, 120, 60, col(P["panelLight"]))
+    m.put("ui_ring", 700, y + 96, 180, 150, col(P["ghost"]))
+    # W14 shop section: the panel, and its header strip on the frame's inside, 68 - f.w - 2 units tall.
+    y = 690
+    sp = sprites["ui_section_panel"]
+    fl, fb, fr, ft = (v / 2 for v in frame_insets_px(np.asarray(sp), {s["name"]: s for s in specs}["ui_section_panel"]["border"]))
+    # W14 tints the section panel with Panel (SHOP_LAYOUT 10); the dice style page still draws it untinted.
+    m.put("ui_section_panel", 16, y, 900, 200, col(P["panel"]))
+    m.put("ui_section_header", 16 + fl, y + ft, 900 - fl - fr, 68 - ft - 2, col(P["panelLight"]))
+    m.text(16 + fl + 14, y + ft + (68 - ft - 2) / 2, "升级与服务", 22, label_on(col(P["panelLight"])), "lm")
+    m.put("ui_section_panel", 940, y, 472, 200)
+    m.put("ui_section_header", 940 + fl, y + ft, 472 - fl - fr, 68 - ft - 2, col(P["panelLight"]))
+    m.text(940 + fl + 14, y + ft + (68 - ft - 2) / 2, "骰子与骰面", 22, label_on(col(P["panelLight"])), "lm")
+    notes.append((16, y - 24, "W14 section, panel x Panel as Shop14 draws it, caption strip x PanelLight (code tint)"))
+    notes.append((940, y - 24, "the same panel untinted, as the dice style page draws it"))
+    m.put("ui_tray_front", 1436, y + 20, 192, 20)
+    m.put("ui_progress_track", 1436, y + 60, 300, 7, col("07191C"), mult=48 / 7)
+    m.put("ui_progress_fill", 1436, y + 60, 180, 7, col(P["blue"]), mult=48 / 7)
+    im = m.im.convert("RGB")
+    d = ImageDraw.Draw(im)
+    for nx, ny, note in notes:
+        d.rectangle((nx - 4, ny - 2, nx + d.textlength(note, font=small) + 4, ny + 18), fill=(20, 24, 44))
+        d.text((nx, ny), note, fill=(246, 240, 222), font=small)
+    return im
+
+
+def felt_floor(w: int, h: int) -> Image.Image:
+    """The blue felt a tray of this size shows inside its frame (the table draws it so), as an RGBA patch."""
+    r = Raster(w, h)
+    pts = octagon((.5 + 3, .5 + 3, w - .5 - SHADOW / 2 - 3, h - .5 - SHADOW / 2 - 3), (TRAY_CUT / 2,) * 4)
+    r.over(col(PALETTE["felt"]), coverage(sd_poly(r.X, r.Y, pts)))
+    return r.export()
+
+
+def page_patch(w: int, h: int) -> Image.Image:
+    """A plain piece of the red Ben-Day page (no rays), for the offline proofs."""
+    r = Raster(w, h)
+    r.over(PAGE, np.ones_like(r.X))
+    r.over(PAGE_DOT, halftone(r.X, r.Y, PAGE_PITCH, PAGE_DOT_R, 0.0))
+    return r.export().convert("RGB")
+
+
 def preview(mock: Image.Image) -> Image.Image:
     """Settings preview: the offline play-screen composite reduced 4x with Lanczos (480 x 270)."""
     return mock.resize((480, 270), Image.Resampling.LANCZOS)
@@ -1424,7 +1675,7 @@ TINT_PROOF = {
     "ui_topbar": "panel", "ui_chip_formula": "panelLight", "ui_stage_card": "paper", "ui_dice_tray": "panelLight",
     "ui_button_bevel": "primary", "ui_button_ghost": "ghost", "ui_ring": "ghost", "ui_frame_enchant": "violet",
     "ui_frame_block": "panelLight", "ui_price_chip": "gold", "ui_progress_fill": "blue", "ui_progress_track": "07191C",
-    "ui_section_header": "B8433F", "ui_pip_dot": "gold", "ui_icon_arrow": "ink", "ui_icon_book": "ink",
+    "ui_section_header": "panelLight", "ui_pip_dot": "gold", "ui_icon_arrow": "ink", "ui_icon_book": "ink",
     "ui_icon_gear": "ink", "ui_icon_refresh": "ink", "fx_arc_short": "violet", "fx_score_spark": "gold",
     "fx_square_chip": "red", "ui_card_frame_rarity": "rarityAdvanced", "ui_gem_common": "rarityCommon",
     "ui_gem_advanced": "rarityAdvanced", "ui_gem_rare": "rarityRare",
@@ -1440,7 +1691,7 @@ def _checker(sheet: Image.Image, box):
             d.rectangle((xx, yy, min(xx + 11, x1 - 1), min(yy + 11, y1 - 1)), fill=shade)
 
 
-def review_sheet(sprites, specs, table, mock) -> Image.Image:
+def review_sheet(sprites, specs, table, mock, on_page=()) -> Image.Image:
     """Default and comic pieces side by side, slice proofs at PPU 200, the in-situ composite, the table, the preview,
     the palette with its contrast numbers and the five concept pages. Offline review, not Unity."""
     cw, ch, columns = 600, 262, 3
@@ -1449,7 +1700,7 @@ def review_sheet(sprites, specs, table, mock) -> Image.Image:
     ink = (246, 240, 222)
     sub = (176, 190, 220)
     grid_h = 170 + rows * ch
-    sheet = Image.new("RGB", (columns * cw, grid_h + 4600), bg)   # generous; cropped to the content at the end
+    sheet = Image.new("RGB", (columns * cw, grid_h + 5600), bg)   # generous; cropped to the content at the end
     d = ImageDraw.Draw(sheet)
     font = ImageFont.truetype(str(LATIN), 19)
     small = ImageFont.truetype(str(LATIN), 15)
@@ -1502,30 +1753,17 @@ def review_sheet(sprites, specs, table, mock) -> Image.Image:
     variants = state_variants(sprites, specs, table)
     sheet.paste(variants, (24, y + 34))
     y += 34 + variants.height + 30
-    d.text((24, y), "SLICE PROOFS / at PPU 200 and real W11 sizes (units), same density as the game", fill=ink, font=font)
-    proofs = [("ui_topbar", 860, 72, PALETTE["panel"]), ("ui_panel_hud", 392, 202, None), ("ui_paper_panel", 400, 300, None),
-              ("ui_chip_formula", 160, 56, PALETTE["panelLight"]), ("ui_chip_formula", 120, 34, PALETTE["panel"]),
-              ("ui_button_bevel", 400, 80, PALETTE["primary"]), ("ui_price_chip", 124, 36, PALETTE["gold"]),
-              ("ui_card_shop", 232, 368, None), ("ui_section_panel", 452, 160, None), ("ui_stage_card", 392, 244, PALETTE["paper"]),
-              ("ui_slot_inventory", 66, 72, None), ("ui_chip_label", 130, 40, None)]
-    lookup = {s["name"]: s for s in specs}
-    px, py, row_h = 24, y + 40, 0
-    for name, w, h, colour in proofs:
-        label = f"{name} {w}x{h}"
-        step = max(w, int(d.textlength(label, font=small))) + 24
-        if px + step > 1800:
-            px, py, row_h = 24, py + row_h + 34, 0
-        spec = lookup[name]
-        im = nine_slice(sprites[name], spec["border"], (w * 2, h * 2)).resize((w, h), Image.Resampling.LANCZOS)
-        if colour is not None:
-            im = tint(im, col(colour))
-        tile = Image.new("RGBA", im.size, rgb8(PALETTE["felt"]) + (255,))
-        tile.alpha_composite(im)
-        sheet.paste(tile.convert("RGB"), (px, py))
-        d.text((px, py + h + 4), label, fill=sub, font=small)
-        px += step
-        row_h = max(row_h, h)
-    y = py + row_h + 60
+    d.text((24, y), "SIZE PROOFS / on the red page at PPU 200 and real sizes (units = 1080p px): UiKit.Button at 60, 72 "
+           "and 80 units (face h - 7 on the step, drawn ink as the coming token), SolidButton (chip), ghost, chips, panels",
+           fill=ink, font=font)
+    proofs = size_proofs(sprites, specs)
+    sheet.paste(proofs, (24, y + 34))
+    y += 34 + proofs.height + 40
+    page_note = ("ON THE PAGE: " + "; ".join(f"{i['what']} {i['pixels']} px, {i['vs page']:.2f}:1 / {i['vs dots']:.2f}:1"
+                                             for i in on_page)) if on_page else \
+        "ON THE PAGE: the composite draws no word or mark straight on the red page (all sit on surfaces or the felt)"
+    d.text((24, y), page_note, fill=sub, font=small)
+    y += 30
     d.text((24, y), "TABLE / 1920 x 1080 (calm zones outlined) and PREVIEW / 480 x 270", fill=ink, font=font)
     proof = table.copy()
     pd = ImageDraw.Draw(proof)
@@ -1558,10 +1796,11 @@ def review_sheet(sprites, specs, table, mock) -> Image.Image:
 
 
 # ---------------------------------------------------------------------------------------------- card template review
-# Offline review of the W13 card template (not a Unity capture and not part of build()): the shipped ring and gems of
-# comic and of Swiss, tinted with each theme's rarity colours (Ghost for goods), composited as GameApp.Card11 DrawCard13
-# lays them out in the shop (220 x 330), table (216 x 244) and compact (280 x 117) sizes, at 1080p and 720p. Sprites are
-# sampled like the game's UI sprites (bilinear, no mipmaps) and blended in linear light; text and pictures are stand-ins.
+# Offline review of the card template (not a Unity capture and not part of build()): the shipped ring and gems of comic
+# and of Swiss, tinted with each theme's rarity colours (Ghost for goods), composited as GameApp.Card11 DrawCard13 lays
+# them out on the W14 code: shop (220 x 348), table (216 x 244), compact (280 x 117), goods rows with their price button
+# (452 x 103, 448 x 121) and tiles (100 x 104), at 1080p and 720p. Sprites are sampled like the game's UI sprites
+# (bilinear, no mipmaps) and blended in linear light; text and pictures are stand-ins.
 CARD_REVIEW = REVIEW / "card_template_review.png"
 CARD_REVIEW_CARDS = (  # (rarity or None for goods, name, short text, StyleKit anchor picture)
     ("common", "排头兵", "第一颗提交的骰子点数×4，加到基础分。", "C108"),
@@ -1570,7 +1809,7 @@ CARD_REVIEW_CARDS = (  # (rarity or None for goods, name, short text, StyleKit a
     (None, "配重", "这一面权重+1（上限5），更容易掷出这一面。", "U10"),
 )
 CARD_REVIEW_THEMES = ("comic", "swiss")
-TABLE_COLOUR = {"comic": PALETTE["felt"], "swiss": "F9EADB"}
+TABLE_COLOUR = {"comic": "FC2830", "swiss": "F9EADB"}   # what the play row's cards sit on: comic's red page
 
 
 def _lin_texture(im: Image.Image) -> np.ndarray:
@@ -1692,33 +1931,78 @@ def ring_insets_px(pixels: np.ndarray, border) -> tuple[int, int, int, int]:
 
 
 def _wrap(text: str, font, size: float, width: float) -> list[str]:
+    """Greedy CJK wrap; closing punctuation never starts a line: it takes the previous character down with it."""
     f = ImageFont.truetype(str(font), int(round(size)))
     lines, line = [], ""
     for ch in text:
         if line and f.getlength(line + ch) > width:
-            lines.append(line)
-            line = ch
+            if ch in "。，、；：！？）》”" and len(line) > 1:
+                lines.append(line[:-1])
+                line = line[-1] + ch
+            else:
+                lines.append(line)
+                line = ch
         else:
             line += ch
     return lines + [line] if line else lines
 
 
-def draw_card13(c: UnityCanvas, kit: dict, borders: dict, palette: dict, x, y, w, h, size: str, rarity, title, text, art):
-    """The ring and gem as DrawTallCard13 / DrawCompactCard13 place them (CARD_TEMPLATE 2, section 9 rows 1 and 10), with
+PRICE_H = 60.0   # W14 E1 (PriceButtonMin14): every price button is at least 60 units high
+
+
+def _price_button(c: UnityCanvas, kit, borders, palette, x, y, w, h, price: int = 8):
+    """PriceButton13 on one row: SolidButton11 (ui_chip_formula times the code's blend of Background and Panel) with
+    the coin, the price in gold and the word, centred."""
+    sec = col(palette["background"]) * .45 + col(palette["panel"]) * .55
+    c.sprite(kit["ui_chip_formula"], x, y, w, h, tint=sec, border=borders["ui_chip_formula"])
+    coin, word = 24, "购买"
+    total = coin + 4 + 16 + 8 + 40
+    sx = x + (w - total) / 2
+    c.sprite(kit["ui_icon_coin"], sx, y + (h - coin) / 2, coin, coin)
+    c.text(sx + coin + 4, y + h / 2, str(price), 22, palette["gold"], FONT, "lm")
+    c.text(sx + coin + 28, y + h / 2, word, 20, palette["textColor"], FONT, "lm")
+
+
+def draw_card13(c: UnityCanvas, kit: dict, borders: dict, palette: dict, x, y, w, h, size: str, rarity, title, text, art,
+                category: str = "骰面改造", price_w: float = 0.0, ordinal: int = 0):
+    """The ring and gem as GameApp.Card11 places them on the W14 code (CARD_TEMPLATE 2, rows 15-17): DrawTallCard13 for
+    shop and table, DrawCompactCard13 for compact and for a priced goods row (E2), DrawTile13 for a tile (E3), with
     stand-in name, picture, short text and price button. All lengths in 1080p design units."""
     goods = rarity is None
-    face_name = "ui_card_shop" if size == "shop" else "ui_card_controller_compact" if size == "compact" else "ui_card_controller"
+    face_name = "ui_card_shop" if size == "shop" else "ui_card_controller_compact" if size in ("compact", "goods", "tile") \
+        else "ui_card_controller"
     face = kit[face_name]
-    c.sprite(face, x, y, w, h, border=borders[face_name])
-    fl, fb, fr, ft = (v / 2 for v in frame_insets_px(np.asarray(face), borders[face_name]))
+    mult = 2.0 if size == "tile" else 1.0   # W14 E3: the tile draws its face at half the frame thickness
+    c.sprite(face, x, y, w, h, border=borders[face_name], ppu=200.0 * mult)
+    fl, fb, fr, ft = (v / (2 * mult) for v in frame_insets_px(np.asarray(face), borders[face_name]))
     inner = (x + fl, y + ft, w - fl - fr, h - ft - fb)
     ring = kit["ui_card_frame_rarity"]
     rl, rb, rr, rt = (v / 2 for v in ring_insets_px(np.asarray(ring), borders["ui_card_frame_rarity"]))
     key = {"common": "rarityCommon", "advanced": "rarityAdvanced", "rare": "rarityRare", None: "ghost"}[rarity]
     tint_c = col(palette[key])
     ink = palette["ink"]
-    if size == "compact":
+    if size == "tile":
+        content = (inner[0] + 2, inner[1] + 2, inner[2] - 4, inner[3] - 4)
+        name_h = math.ceil(19.5 * 1.46) + 2
+        lead = 22 if ordinal else 0
+        block = max(24, min(content[2] - lead, content[3] - name_h - 2))
+        bx = content[0] + lead if ordinal else content[0] + (content[2] - block) / 2
+        by = content[1]
+        c.sprite(ring, bx, by, block, block, tint=tint_c, border=borders["ui_card_frame_rarity"])
+        c.picture(art, bx + rl + 1, by + rt + 1, min(block - rl - rr, block - rt - rb) - 2)
+        if not goods:
+            gem = min(16, block * .3)
+            c.sprite(kit["ui_gem_" + rarity], bx + block / 2 - gem / 2, by + block - gem - 1, gem, gem, tint=tint_c)
+        if ordinal:
+            c.sprite(kit["ui_pip_dot"], content[0], content[1], 20, 20, tint=col(palette["ink"]))
+            c.text(content[0] + 10, content[1] + 10, str(ordinal), 12, palette["paper"], FONT, "mm")
+        c.text(content[0] + content[2] / 2, content[1] + content[3] - name_h / 2, title, 19.5, ink, FONT, "mm")
+        return
+    if size in ("compact", "goods"):
         content = (inner[0] + 4, inner[1] + 4, inner[2] - 8, inner[3] - 8)
+        priced = size == "goods"
+        pw = max(price_w, 100) if priced else 0
+        limit = content[0] + content[2] - (pw + 8 if priced else 0)
         block, gem_size = min(content[3] - 8, 76), 18
         bx, by = content[0], content[1] + max(0, (content[3] - block - gem_size * .5) * .5)
         c.sprite(ring, bx, by, block, block, tint=tint_c, border=borders["ui_card_frame_rarity"])
@@ -1727,20 +2011,29 @@ def draw_card13(c: UnityCanvas, kit: dict, borders: dict, palette: dict, x, y, w
         if not goods:
             c.sprite(kit["ui_gem_" + rarity], bx + block * .5 - gem_size * .5, by + block - gem_size * .5, gem_size,
                      gem_size, tint=tint_c)
-        tx = bx + block + 10
-        c.text(tx, content[1] + 2, title, 20, ink, FONT)
-        for i, line in enumerate(_wrap(text, BODY_FONT, 18, content[0] + content[2] - tx)[:2]):
-            c.text(tx, content[1] + 34 + i * 24, line, 18, ink, BODY_FONT)
+        tx, ty = bx + block + 10, content[1] + 2
+        if goods:
+            c.text(tx, ty, category, 19.5 if priced else 15, palette["ink"], BODY_FONT)
+            ty += 26
+        c.text(tx, ty, title, 20, ink, FONT)
+        # The short text shows only when it fits whole (PLAY_LAYOUT 8 row 14; W14 E2 keeps the rule for goods rows).
+        lines = _wrap(text, BODY_FONT, 19.5 if priced else 18, limit - tx)
+        if len(lines) * 24 <= content[1] + content[3] - (ty + 32):
+            for i, line in enumerate(lines):
+                c.text(tx, ty + 32 + i * 24, line, 19.5 if priced else 18, ink, BODY_FONT)
+        if priced:
+            _price_button(c, kit, borders, palette, content[0] + content[2] - pw, content[1] + max(0, (content[3] - PRICE_H) / 2),
+                          pw, PRICE_H)
         return
     c.sprite(ring, *inner, tint=tint_c, border=borders["ui_card_frame_rarity"])
     content = (inner[0] + rl + 4, inner[1] + rt + 3, inner[2] - rl - rr - 8, inner[3] - rt - rb - 6)
     gem_size = 34 if size == "shop" else 30
     gem_y = inner[1] + (content[1] - 3 - inner[1]) * .5
     top = content[1] if goods else max(content[1], gem_y + gem_size * .5 + 2)
-    price = 42 if size == "shop" else 0
+    price = PRICE_H if size == "shop" else 0
     bottom = content[1] + content[3] - (price + 6 if price else 0)
     if goods:
-        c.text(x + w / 2, top + 13, "骰面改造", 16, palette["ink"], BODY_FONT, "mm")
+        c.text(x + w / 2, top + 13, category, 16, palette["ink"], BODY_FONT, "mm")
         top += 26
     name_h = math.ceil(22 * 1.46) + 2
     art_top = top + name_h + 2
@@ -1751,19 +2044,30 @@ def draw_card13(c: UnityCanvas, kit: dict, borders: dict, palette: dict, x, y, w
     for i, line in enumerate(lines):
         c.text(x + w / 2, art_top + art_size + 4 + i * 26, line, 20, ink, BODY_FONT, "ma")
     if price:
-        px, py, pw = content[0], content[1] + content[3] - price, content[2]
-        c.sprite(kit["ui_chip_formula"], px, py, pw, price, tint=col(palette["background"]) * .45 + col(palette["panel"]) * .55,
-                 border=borders["ui_chip_formula"])
-        c.text(px + pw / 2, py + price / 2, "8  购买", 20, palette["textColor"], FONT, "mm")
+        _price_button(c, kit, borders, palette, content[0], content[1] + content[3] - price, content[2], price)
     if not goods:
         c.sprite(kit["ui_gem_" + rarity], x + w * .5 - gem_size * .5, gem_y - gem_size * .5, gem_size, gem_size, tint=tint_c)
 
 
+CARD_REVIEW_GOODS = (  # W14 E2 goods rows: (category, name, short text, anchor, row width, price width, row height)
+    ("道具", "蓝色浪潮", "下一次有效提交全部骰子临时视为蓝色。", "I10", 452, 180, 103),
+    ("骰面改造", "配重", "这一面权重+1（上限5），更容易掷出这一面。", "U10", 448, 150, 121),
+)
+
+
+def _section_fill(kit: dict, palette: dict) -> str:
+    """The W14 shop section as drawn (GameApp.Shop14 Section14: ui_section_panel times Panel), its centre colour."""
+    px = np.asarray(kit["ui_section_panel"])
+    return drawn(hexc(px[px.shape[0] // 2, px.shape[1] // 2, :3] / 255.0), palette["panel"])
+
+
 def card_template_review() -> Image.Image:
-    """Comic beside Swiss: shop, table and compact cards (common, advanced, rare, goods) at 1080p and 720p, then the
-    three gems at 12-34 px on the card's own top frame with a 2x nearest enlargement."""
+    """Comic beside Swiss on the W14 code: shop cards (220 x 348 with the 60-unit price button), table and compact cards
+    (common, advanced, rare, goods), the shop's goods rows with their price buttons (452 x 103, 448 x 121) and the tiles of
+    我的构筑 (100 x 104), at 1080p and 720p; then the three gems at 12-34 px on the card's own top frame."""
     specs = {s["name"]: s for s in json.loads(CONTRACT.read_text(encoding="utf-8"))["sprites"]}
-    names = ("ui_card_shop", "ui_card_controller", "ui_card_controller_compact", "ui_chip_formula") + CARD_TEMPLATE_NAMES
+    names = ("ui_card_shop", "ui_card_controller", "ui_card_controller_compact", "ui_chip_formula", "ui_section_panel",
+             "ui_icon_coin", "ui_pip_dot") + CARD_TEMPLATE_NAMES
     borders = {n: specs[n]["border"] for n in names}
     themes = {}
     for theme in CARD_REVIEW_THEMES:
@@ -1774,42 +2078,63 @@ def card_template_review() -> Image.Image:
             with Image.open(folder / "UI" / (n + ".png")) as source:
                 kit[n] = source.convert("RGBA")
         arts = {}
-        for _, _, _, art in CARD_REVIEW_CARDS:
+        for art in {a for *_r, a in CARD_REVIEW_CARDS} | {g[3] for g in CARD_REVIEW_GOODS}:
             with Image.open(ROOT / "ArtSource/StyleKit/themes" / theme / "anchors" / (art + ".png")) as source:
                 arts[art] = source.convert("RGBA")
         themes[theme] = (kit, palette, arts)
     panel_w, gap, ink, sub = 960, 40, (246, 240, 222), (176, 190, 220)
-    sheet = Image.new("RGB", (2 * panel_w + gap + 48, 3000), (20, 24, 44))   # cropped to the content at the end
+    sheet = Image.new("RGB", (2 * panel_w + gap + 48, 4600), (20, 24, 44))   # cropped to the content at the end
     d = ImageDraw.Draw(sheet)
     font, small, title = (ImageFont.truetype(str(LATIN), s) for s in (19, 15, 34))
-    d.text((24, 16), "CARD TEMPLATE / W13 rarity ring and gems   -   COMIC (left)   |   SWISS (right)", fill=ink, font=title)
-    d.text((24, 60), "Offline emulation of GameApp.Card11 DrawCard13 geometry: sprites sampled bilinear without mipmaps (as the "
-                     "theme UI sprites are imported), tinted and blended in linear light. Not a Unity capture.", fill=sub, font=small)
-    d.text((24, 80), "Names, short texts, pictures (StyleKit anchors) and the price button are stand-ins. Goods (no rarity): "
-                     "Ghost ring, no gem.", fill=sub, font=small)
+    d.text((24, 16), "CARD TEMPLATE / W13 + W14 (E1-E3)   -   COMIC (left)   |   SWISS (right)", fill=ink, font=title)
+    d.text((24, 60), "Offline emulation of GameApp.Card11 DrawCard13 on the W14 code: sprites sampled bilinear without mipmaps "
+                     "(as the theme UI sprites are imported), tinted and blended in linear light. Not a Unity capture.",
+           fill=sub, font=small)
+    d.text((24, 80), "Names, short texts, pictures (StyleKit anchors) and price buttons are stand-ins. Goods (no rarity): Ghost "
+                     "ring, no gem. Table cards on the table colour, shop sizes on the drawn shop section (panel x Panel).",
+           fill=sub, font=small)
     keys = {"common": "rarityCommon", "advanced": "rarityAdvanced", "rare": "rarityRare", None: "ghost"}
+    hosts = {theme: {"table": TABLE_COLOUR[theme], "shop": _section_fill(themes[theme][0], themes[theme][1])}
+             for theme in CARD_REVIEW_THEMES}
     y = 112
     for scale, res in ((1.0, "1080p"), (2 / 3, "720p")):
-        for label, size, cw, chh in (("SHOP 220 x 330", "shop", 220, 330), ("TABLE 216 x 244", "table", 216, 244),
-                                     ("COMPACT 280 x 117", "compact", 280, 117)):
-            sw, sh = round(cw * scale), round(chh * scale)
-            per_row = max(1, min(4, (panel_w - 8) // (sw + 16)))
-            lines = math.ceil(len(CARD_REVIEW_CARDS) / per_row)
-            ph = 8 + lines * (sh + 30)
+        sections = (("SHOP 220 x 348 (E1: 60-unit price button)", "shop", 220, 348, "shop"),
+                    ("TABLE 216 x 244", "table", 216, 244, "table"), ("COMPACT 280 x 117", "compact", 280, 117, "table"),
+                    ("GOODS ROWS 452 x 103 (price 180) and 448 x 121 (price 150), E2", "goods", 0, 0, "shop"),
+                    ("TILES 100 x 104 (E3: face at half its frame)", "tile", 100, 104, "shop"))
+        for label, size, cw, chh, host in sections:
+            if size == "goods":
+                items = [(None, name, text, art, cat, rw, pw, rh) for cat, name, text, art, rw, pw, rh in CARD_REVIEW_GOODS]
+                ph = 8 + sum(round(rh * scale) + 30 for *_r, rh in items)
+            else:
+                items = [(r, n, t, a, "骰面改造", cw, 0, chh) for r, n, t, a in CARD_REVIEW_CARDS]
+                if size == "tile":
+                    items = items[:3]
+                sw, sh = round(cw * scale), round(chh * scale)
+                per_row = max(1, min(4, (panel_w - 8) // (sw + 16)))
+                ph = 8 + math.ceil(len(items) / per_row) * (sh + 30)
             for p, theme in enumerate(CARD_REVIEW_THEMES):
                 kit, palette, arts = themes[theme]
                 px = 24 + p * (panel_w + gap)
                 d.text((px, y), f"{theme.upper()}   {label}   {res}", fill=ink, font=font)
-                canvas = UnityCanvas(panel_w, ph, TABLE_COLOUR[theme], scale)
-                for i, (rarity, name, text, art) in enumerate(CARD_REVIEW_CARDS):
-                    sx, sy = 8 + (i % per_row) * (sw + 16), 8 + (i // per_row) * (sh + 30)
-                    draw_card13(canvas, kit, borders, palette, sx / scale, sy / scale, cw, chh, size, rarity, name, text,
-                                arts[art])
+                background = hosts[theme][host]
+                canvas = UnityCanvas(panel_w, ph, background, scale)
+                note = (246, 240, 222) if luminance(background) < .3 else (70, 64, 58)
+                labels = []
+                oy = 8
+                for i, (rarity, name, text, art, cat, iw, pw, ih) in enumerate(items):
+                    if size == "goods":
+                        sx, sy = 8, oy
+                        oy += round(ih * scale) + 30
+                    else:
+                        sx, sy = 8 + (i % per_row) * (sw + 16), 8 + (i // per_row) * (sh + 30)
+                    draw_card13(canvas, kit, borders, palette, sx / scale, sy / scale, iw, ih, size, rarity, name, text,
+                                arts[art], category=cat, price_w=pw, ordinal=i + 1 if size == "tile" else 0)
+                    note_text = (rarity or "goods") if size == "tile" else f"{rarity or 'goods'}  {palette[keys[rarity]]}"
+                    labels.append((sx, sy + round(ih * scale) + 5, note_text))
                 sheet.paste(canvas.image(), (px, y + 26))
-                note = (246, 240, 222) if luminance(TABLE_COLOUR[theme]) < .3 else (70, 64, 58)
-                for i, (rarity, *_rest) in enumerate(CARD_REVIEW_CARDS):
-                    sx, sy = 8 + (i % per_row) * (sw + 16), 8 + (i // per_row) * (sh + 30)
-                    d.text((px + sx, y + 26 + sy + sh + 5), f"{rarity or 'goods'}  {palette[keys[rarity]]}", fill=note, font=small)
+                for sx, sy, text_ in labels:
+                    d.text((px + sx, y + 26 + sy), text_, fill=note, font=small)
             y += 26 + ph + 18
     sizes = (12, 18, 20, 22, 23, 30, 34)
     for p, theme in enumerate(CARD_REVIEW_THEMES):
@@ -1881,9 +2206,15 @@ def build(output_root: Path = ROOT) -> list[Path]:
         save(THEME / "UI" / (spec["name"] + ".png"), im)
     save(THEME / "Table/table_scene.png", table)
     save(THEME / "Table/felt_tile.png", felt_tile())
-    mock = play_mock(sprites, specs, table)
+    on_page: list[dict] = []
+    mock = play_mock(sprites, specs, table, on_page)
+    for item in on_page:
+        print(f"COMIC_ON_PAGE {item['what']}: {item['pixels']} px of {item['colour']} on the page, "
+              f"{item['vs page']:.2f}:1 to the page red, {item['vs dots']:.2f}:1 to its dots")
+    if not on_page:
+        print("COMIC_ON_PAGE none: the composite draws no word or mark straight on the red page")
     save(THEME / "preview.png", preview(mock))
-    save(REVIEW / "contact_sheet.png", review_sheet(sprites, specs, table, mock))
+    save(REVIEW / "contact_sheet.png", review_sheet(sprites, specs, table, mock, on_page))
     theme_path = output_root / THEME / "theme.json"
     theme_path.write_text(theme_json(), encoding="utf-8", newline="\n")
     written.append(theme_path)
