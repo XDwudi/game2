@@ -135,12 +135,25 @@
     6. 选关页“入关后，控制器顺序固定。”与界面里其余的“控制器”归 W16；
     7. THEME_SPEC §2 的措辞已改为骰子样式页；
     8. 1080p 全量前只隔了约 1 分钟（规则是 3–5 分钟），结果通过，接受，不重跑。
-- W20Xb W20X 的补充（子 agent，W20X 续，2026-11-18 开始，Unity 串行）：
-  - 风格桌面图按原尺寸导入，在实机里核对静区与界面对齐、上下没有暗带；
-  - 附魔提示、连锁边饰、计分爆点在绘制时读色板；托盘三个标签都用 `caption`；
-  - 默认风格逐像素不变；瑞士、唐三彩、漫画的画面按设计改变，给出改前改后对比；
-  - 唐三彩与漫画的实机截图（对局、商店、选关、卡牌详情、卡面画廊，1080p 与 720p，100% 与 150% 文字），协调者审查后才开始黑金与彩绘玻璃；
-  - 全量测试。
+- W20Xb W20X 的补充（子 agent，W20X 续，2026-11-18，**VERIFYING，已交付，等协调者复核**；[报告 §10](specs/v11/W20X_REPORT.md)、[测试改动表 §4](specs/v11/W20X_TEST_CHANGES.md)）：
+  - 提交：`6904b9c`（A：导入规则与 7 个 .meta）、`5dc0381`（B、C）、`f2c399f`（E 的截图测试）、文档提交。
+  - A：`Table/*.png` 按原尺寸导入，桌面图与默认桌面一样不生成 mipmap。
+    - 实机读出毡面（关掉界面与骰子）：瑞士、唐三彩、漫画的 table_scene 与漫画商店的 page_scene 都按 1920×1080 铺满，上下没有暗带；四个静区与静区颜色差 0（瑞士 1）。
+    - 新 PlayMode 测试覆盖每个带 table_scene 的风格；在旧导入上它失败。
+    - 发现（未改）：毡面采样点的子纹素精度让黑白相邻处个别像素差到 34 级；桌面图的压缩让漫画网点边上个别像素差到 72 级。
+  - B：附魔提示、连锁边饰、计分爆点在绘制时读色板，不再有静态颜色字段；默认的 8 位颜色不变。
+  - C：托盘三个标签都乘 `caption`；默认、瑞士、唐三彩仍是 Panel。
+  - D：默认风格在 1080p 与 720p 都没有噪声参照以外的变化（剩下的 1 级差都是 3D 骰子的逐次噪声）。瑞士、唐三彩、漫画各 19 张按设计改变，对照图在 `artifacts/cache/v11/w20xb/contact-sheets/`。
+  - E：两种分辨率各 98 张截图，在 `artifacts/cache/v11/w20xb/<分辨率>/review/review/`。三项检查：
+    1. 漫画 150% 的两行提示在内框之内，第二行离内框底 1.6–1.8 单位（唐三彩 5.1–5.3）；
+    2. 漫画按钮的字相对填色偏右 1–2.5、偏下 3–5.5 单位，相对整个外形基本居中；
+    3. 默认里显示、漫画与唐三彩里不显示短文的紧凑卡：C21、C22、C78、C79，只在 100% 文字的两行迷你卡上。
+  - F（源码冻结在 `f2c399f`）：
+    - EditMode 2433/2433（`nunit-20261118-042149`）；
+    - PlayMode 1080p 243/243（`-034120`）、720p 243/243（`-041540`）；
+    - Python 334/334；
+    - 四份报告 `quality_check.py nunit` 都是 CHECKS_PASSED，绑定的 3250 个文件与 HEAD 相同。
+  - 待协调者决定：毡面是否改为精确采样；桌面图是否不压缩；漫画提示框底部只剩 1.6 单位；漫画按钮的字按填色还是按外形对中；迷你卡在漫画与唐三彩里不显示短文。
 - 排序（协调者，依据“先把一个代表性交付做完整”）：
   1. W14 复核合并（已完成）；
   2. W20X（已完成）与 W20Xb；
@@ -154,7 +167,7 @@
   - 还剩一个 672 MB 的半截临时文件 `.git/objects/pack/tmp_pack_nbT18p`，是被停掉的打包留下的，不属于任何包；两周后 git 会自动清理，或经用户同意后删除。
   - 提交时继续加这两个参数，避免在 Unity 测试期间触发自动整理。
 - 文件锁：
-  - W20Xb 子 agent：Unity 编辑器；`Editor/V11ThemeImport.cs`；`Resources/Themes/{swiss,sancai,comic}/Table/*.png.meta`；`UI/`；`Runtime/Presentation/` 中的 `Art071EnchantCue.cs`、`Art071ComboEdgeAccents.cs`、`Art07ScoreBurstLayout.cs`；`Tests/`；W20X 报告与测试改动表；THEME_SPEC 的状态行与 §5。W20X 的证据在 `evidence/v11/unity/`（未纳入版本库）与 `artifacts/cache/v11/w20x/`。
+  - W20Xb 子 agent：已释放（2026-11-18 交付）。没有运行中的 Unity 进程；`DiceChineseFallback.asset` 已还原；证据在 `evidence/v11/unity/`（未纳入版本库）与 `artifacts/cache/v11/w20xb/`。
   - 主 agent：`ArtSource/Art11/` 的生成（经 artgen 串行进行），以及 `docs/STATE.md`、`THEME_SPEC.md`（W20X 可改状态行与 §5，须列出）、`DEV_PLAN.md`、`CARD_TEMPLATE.md`、`SHOP_LAYOUT.md`。
 
 ## 玩家文字与美术体验审查（提案，2026-11-16）

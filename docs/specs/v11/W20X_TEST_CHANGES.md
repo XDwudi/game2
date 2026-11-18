@@ -5,6 +5,7 @@
 | 任务 | DEV_PLAN W20X：风格接口补充（[THEME_SPEC](THEME_SPEC.md) §2、§3、§3.1，`8bb0e075`） |
 | 基线 | `codex/v1.1` 的 `43d90547`；爆彩漫画由 `e23a6209` 合入，其 Unity .meta 在 `a6c04b00` |
 | 原则 | 不删除测试、不降低阈值、不缩小范围。下面列出每一处改动的断言或结构与理由 |
+| W20Xb | 第 4 节（协调者 2026-11-18 的补充任务；输入 `df932b21`） |
 
 ## 1 第 0 项：窗口测试不受真实鼠标位置影响
 
@@ -77,3 +78,30 @@ W20X 按 THEME_SPEC §2 把四个新键写进 `ThemePalette.Hexes` 后，两条�
 | `test_theme_json_schema`（`tests/test_art_v11_comic.py`） | 同上，另断言四个新键不在 `Hexes` 里（“W20X 落地之前”） | 可选键同上；改为断言四个新键在 `Hexes` 里；漫画仍须四个都填 | 同上；原断言自己写明只适用于 W20X 之前 |
 
 没有删除断言、没有放宽阈值。
+
+## 4 W20Xb（W20X 复核后的补充，协调者 2026-11-18）
+
+输入 `codex/v1.1` 的 `df932b21`（基线截图在 `944dd6ca` 上拍，`DicePrototype/` 与 `df932b21` 相同）。没有删除测试、没有降低阈值、没有改写已有断言；只在 W20X-02 里加了断言。
+
+### 4.1 新增测试
+
+| 测试 | 文件 | 内容 |
+| --- | --- | --- |
+| `W20XbA_TablePicturesImportAtNativeSizeLikeTheDefaultTable` | `Tests/EditMode/Presentation/ThemeTableImportW20XbTests.cs` | 每套风格的每个 `Table/*.png`：`npotScale` 为 None，载入后的尺寸等于 PNG 自己的尺寸（读 IHDR）；类型、sRGB、过滤与默认桌面 `bg_table_scene.png` 相同；桌面图（table_scene、page_scene）的 mipmap 与环绕和默认桌面相同（无 mipmap、Clamp），载入后 1 级；felt_tile 保持 Repeat 与 mipmap |
+| `PLAY_W20XB_A_ThemeTablePicturesDrawnAtNativeSizeWithoutBands` | `Tests/PlayMode/W20XbTablePicturePlayModeTests.cs` | 每个带 `table_scene.png` 的风格（按 `Resources/Themes/*/Table/` 扫描，新风格自动纳入），对局画面；带 `page_scene.png` 的风格另测商店。减少动态开启（毡面不加颗粒与光带），关掉所有画布与毡面以外的渲染器（骰子与其阴影）一帧，截屏读出毡面。断言：导入尺寸等于 PNG、无 mipmap；每个像素落在其采样点周围导入纹素的取值范围内（双线性足迹外扩 1 纹素，容差 3 级），与 GPU 重采样的平均差 ≤ 1.5 级；与 PNG 在 CPU 上按同样采样点重采样的平均差 ≤ 2 级（含压缩）；§3.1 的四个静区（720p 按比例缩放）只采到静区的像素与静区颜色差 ≤ 2 级；上下各 70 行（720p 为 47 行）没有整行画成 `_BaseColor`×0.24。报告与毡面截图 `artifacts/cache/v11/w20xb/<分辨率>/w20xb-a/` |
+| `PLAY_W20XB_B_EffectColoursFollowThePaletteAtDrawTime` | `Tests/PlayMode/W20XbEffectColoursPlayModeTests.cs` | 附魔提示（底分纸片、倍率弧线的线段与贴图、开放栏位边框）、连锁边饰（圈、弧、星）、计分爆点（台阶边框、方块：1 档金色，以上红蓝）在默认、瑞士、唐三彩、漫画与一个六色都不同的内存风格里画出；每个图形的 8 位顶点色等于当前色板的对应色；默认等于 W20Xb 之前的常量；先在默认里画、切换风格后只 Tick / Evaluate，颜色变成新风格的（绘制时读取）。报告 `w20xb-b/w20xb-b.txt` |
+| `PLAY_W20XB_E_ReviewCapturesOfSancaiAndComic` | `Tests/PlayMode/W20XbReviewCapturePlayModeTests.cs` | 第 E 项的审查截图（唐三彩与漫画，100% 与 150% 文字，98 张）与三项测量（提示行与内框、行动行按钮的字与面的中心、紧凑卡短文是否显示）。只断言截图与测量都做了，测量结果供审查，不在测试里判定。输出 `w20xb/<分辨率>/review/<标签>/`，标签取环境变量 `DICECRAFT_W20XB_REVIEW_LABEL`（缺省 `suite-<UTC 时间>`） |
+
+### 4.2 加在已有测试里的断言
+
+| 测试 | 改动 | 理由 |
+| --- | --- | --- |
+| `PLAY_W20X_02_PageSceneOnNonPlayScreensAndTintsAsDrawn`（`W20XThemeInterfacePlayModeTests.cs`） | 在骰池标签之后加一个十二颗骰子、带留池卡（C70）的对局局面：`PoolSummaryTab11`、`PoolPageTab11` 在测试风格与漫画两组里按“画出的颜色 = 贴图 × 乘色”核对 `caption`；默认、瑞士、唐三彩里三个标签都乘 Panel | 第 C 项：`caption` 用于托盘上全部三个标签；不填 `caption` 的风格不变 |
+
+### 4.3 证据中的反向对照
+
+`PLAY_W20XB_A` 第一版在旧导入（2048×1024、带 mipmap）上运行失败（`evidence/v11/unity/nunit-20261118-022011`，1920×1080）：四张图的导入尺寸与 mip 数、摆放（最大差 248–254）、上下 120 行暗带都报错，漫画的四个静区差 250 级。之后为了容纳 GPU 子纹素精度，把摆放检查从“逐像素差 ≤ 3”改为“落在采样点周围纹素的取值范围内”（W20X_REPORT §10.3）；导入尺寸、mip 数、暗带与静区的断言没有变，旧导入在这几项上仍然失败。
+
+### 4.4 W20X-05 截图测试的复用
+
+第 D 项用 W20X 的 `PLAY_W20X_05_IdentityCapturesOfEveryScreenInFourStyles`（未改动）。环境变量 `DICECRAFT_W20X_CAPTURE_LABEL` 给绝对路径时截图写到该路径，于是基线与改动后的截图都放在 `artifacts/cache/v11/w20xb/<分辨率>/identity/{before-a,before-b,after-a,after-b}/`。

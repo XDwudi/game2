@@ -1,6 +1,6 @@
 # V1.1 画面风格规格（THEME_SPEC）
 
-状态：**骨架已实现**（W08，2026-11-16）；**风格接口补充已实现**（W20X，2026-11-17，`33d6d926`、`9d82b110`：`buttonStep` / `buttonStepPrimary`、`section`、`caption`、`Table/page_scene.png`，见 [W20X 报告](W20X_REPORT.md)）。依据 [开发方案](DEV_PLAN.md) §4.6 与 G7。各风格的具体资源在 W12、W19–W23 中按本规格交付。
+状态：**骨架已实现**（W08，2026-11-16）；**风格接口补充已实现**（W20X，2026-11-17，`33d6d926`、`9d82b110`：`buttonStep` / `buttonStepPrimary`、`section`、`caption`、`Table/page_scene.png`，见 [W20X 报告](W20X_REPORT.md)）；**W20Xb 已实现**（2026-11-18，`6904b9c5`、`5dc03815`：桌面图按原尺寸导入，特效颜色在绘制时读色板，托盘三个标签都用 `caption`，见 [W20X 报告](W20X_REPORT.md) §10）。依据 [开发方案](DEV_PLAN.md) §4.6 与 G7。各风格的具体资源在 W12、W19–W23 中按本规格交付。
 
 ## 1 运行机制
 
@@ -106,6 +106,6 @@
 
 - 一些界面把字直接画在桌布上，用的是浅色的 `textColor` / `muted`。浅色桌面的风格（瑞士现代主义）会看不清；W11 改版时让这些字都落在面板上，或者增加“桌面上的字”色。W20X 在运行的游戏里列出了非对局画面上的这些字（`tools/art_v11/table_text.json`，19 处：主菜单 2、选关 15、整局结束 2），检查器 `tools/art_v11/table_text_contrast.py`；低于 4.5:1 的，按 §3.1 放到面板或标题条上（W15、W16）。
 - 商店分区：W14 起底板乘 `panel`、标题条乘 `panelLight`，只有一种样式；W20X 已增加 `section`、`caption`（`33d6d926`）。
-- 按钮台阶色已改为 `buttonStep` / `buttonStepPrimary`（W20X，`33d6d926`）。W20X 排查了全部写死的颜色（18 个文件 50 处，口径见 [W20X 报告](W20X_REPORT.md) §5）：两处特效固定色（`Art071EnchantCue`、`Art071ComboEdgeAccents`）与计分爆点是默认风格的颜色存在静态字段里，没有随风格变。协调者 2026-11-18 决定改为绘制时读色板（W20Xb），这也是 §1 的代码约定：附魔提示读 `teal` / `violet` / `paper`，连锁边饰读 `gold`，计分爆点读 `gold` / `red` / `blue`。默认风格的值相同，画面不变。其余写死的颜色（进度槽、遮罩、失败印章、手册行底色、副标题色等）保持，暂不加色板项；黑金或彩绘玻璃需要时再加。
+- 按钮台阶色已改为 `buttonStep` / `buttonStepPrimary`（W20X，`33d6d926`）。W20X 排查了全部写死的颜色（18 个文件 50 处，口径见 [W20X 报告](W20X_REPORT.md) §5）：两处特效固定色（`Art071EnchantCue`、`Art071ComboEdgeAccents`）与计分爆点是默认风格的颜色存在静态字段里，没有随风格变。协调者 2026-11-18 决定改为绘制时读色板（W20Xb），这也是 §1 的代码约定：附魔提示读 `teal` / `violet` / `paper`，连锁边饰读 `gold`，计分爆点读 `gold` / `red` / `blue`。默认风格的值相同，画面不变。W20Xb 已实现（`5dc03815`，不再有静态颜色字段；PlayMode `PLAY_W20XB_B` 核对）。其余写死的颜色（进度槽、遮罩、失败印章、手册行底色、副标题色等）保持，暂不加色板项；黑金或彩绘玻璃需要时再加。
 - 所有画面共用对局桌面，`table_scene` 里按对局版面画的东西会出现在商店等画面的缝隙里（爆彩漫画的蓝色桌布块与射线最明显）。W20X 已加 `page_scene`（`33d6d926`）。
 - 字体还不随风格变（W21）。
