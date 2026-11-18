@@ -5,17 +5,19 @@ palette samples of ArtSource/StyleKit/themes/glass/style_kit.json. Their texts, 
 game layout is (docs/specs/v11/PLAY_LAYOUT.md, SHOP_LAYOUT.md). The contract (tools/art_v11/theme_contract.json) owns pixel
 sizes, nine-slice borders and pixels per unit. Repository fonts only; no image generation, no Unity files.
 
-The shape language, taken from the concept pages (README.md, "Shapes and materials"):
-- surfaces the game draws as they are (panels, cards, labels, wells, slots) are framed in gilt: a thin lead edge, a
-  gold moulding lit from the upper left, a lead line, a gold hairline and a lead line, so every frame is the concept's
-  double gilt fillet; the corners are cut at 45 degrees as on the concept's slots, buttons and panels;
-- surfaces the game tints (buttons, chips, the top bar, the stage card, the trays, the rings) are pieces of glass in
-  lead came: a black came, a bevel one shade darker than the glass, a flat white face that takes the palette colour;
+The shape language, taken from the concept pages (README.md, "Shapes and materials"; phase 1b after the coordinator's
+review of phase 1):
+- panels and cards (drawn as they are) wear the concept's gilt frame with a jewel-glass strip: a lead edge, a gold
+  moulding lit from the upper left, lead, a strip of backlit cobalt or ruby glass, lead, a gold hairline, lead; the
+  corners are cut at 45 degrees and carry gilt four-point star finials (corner squares only);
+- surfaces the game tints are pieces of glass in lead came (black came, a bevel one shade darker than the glass, a flat
+  white face that takes the palette colour); the buttons and chips (UiKit.Button, SolidButton11, formula chips, tags)
+  have the concept 重掷's pointed ends; the top bar and the stage card keep cut corners with leaded corner lights;
 - strips that slice only across (the shop's section caption, the progress bar, the locked-die ledge) end in chevron
-  points, as the concept's banners, stage tag and start button do;
-- the table is the concept's dark slate floor; the stained glass lives where no play state puts interface: two narrow
-  lancet windows in the side margins and one rose window in the action row's always-free rectangle (THEME_SPEC 3.1).
-  Table/page_scene.png, behind the non-play screens, is the plain slate.
+  points, as the concept's banners do;
+- the play table is an all-over leaded stained-glass mosaic (a uniform texture, no layout shapes); the calm zones are
+  flat slate framed by a gilt double line just outside them, and one rose window sits in the action row's always-free
+  rectangle (THEME_SPEC 3.1). Table/page_scene.png, behind the non-play screens, is the mosaic everywhere.
 
 Rules the art keeps (checked by tests/test_art_v11_glass.py):
 - every nine-slice centre is one flat colour (or transparent) from the border line inward;
@@ -91,11 +93,21 @@ W20X_TOKENS = {
     "section": "FFFFFF",             # ui_section_panel is authored (gilt frame, night-glass face): drawn as it is
     "caption": "EBD6B0",             # parchment captions: the shop's section strips and the dice-pool tabs
 }
+# Pending palette keys (coordinator 2026-11-18): code task W20Y adds `buttonSecondary`, the face tint of every
+# SolidButton11 (secondary action, Skip, 查看骰子, 上一手明细, score-detail chips, shop buttons, price buttons). This
+# worktree's ThemePalette.cs does not declare it yet, so theme.json must not carry it (the schema test would fail); the
+# coordinator adds it at merge time. The offline mocks draw it, labelled "simulated buttonSecondary".
+# AC8442 (amber glass): label ink 5.15 (LabelOn11, >= 4.95), on felt 4.24, on panel 4.66; on paper 2.62 - under 3:1, the
+# chip's black lead outline gives the boundary on parchment (16:1). With this palette no face reaches 3:1 on felt and on
+# paper and also takes a 4.95 label (README, "buttonSecondary").
+PENDING_TOKENS = {
+    "buttonSecondary": "AC8442",
+}
 THEME_META = {
     "id": "glass",
     "displayName": "彩绘玻璃",
-    "description": ("石板桌面上的哥特彩绘玻璃：面板与卡牌是带双道金边的切角金框，被代码着色的按钮与筹码是铅条里的玻璃块，"
-                    "分区标题与进度条两端是尖角，彩窗只在两侧窄边与行动行常空处的一扇玫瑰窗。依据："
+    "description": ("铅条拼成的彩绘玻璃铺满桌面，静区是金线框起的石板；面板与卡牌是嵌一道宝石玻璃条的切角金框、四角金星，"
+                    "被代码着色的按钮与筹码是铅条里的玻璃块、两端尖角，行动行常空处一扇玫瑰窗。依据："
                     "ArtSource/StyleKit/themes/glass/concepts 与 style_kit.json；界面件与色板由 "
                     "tools/art_v11/glass/build_glass.py 生成（说明见同目录 README.md）"),
     "order": 5,
@@ -302,6 +314,8 @@ def _resize_f(channel: np.ndarray, w: int, h: int) -> np.ndarray:
 
 def downsample(prgb: np.ndarray, alpha: np.ndarray, w: int, h: int) -> Image.Image:
     """One Lanczos pass on premultiplied float channels, then unpremultiply and quantise."""
+    if not (np.isfinite(prgb).all() and np.isfinite(alpha).all()):
+        raise ValueError("A sprite raster holds NaN or infinite values")
     a = np.clip(_resize_f(alpha, w, h), 0, 1)
     a8 = np.rint(a * 255)
     out = np.zeros((h, w, 4), np.uint8)
@@ -457,18 +471,72 @@ def corner_reach(cut: float, frame: float) -> float:
     return max(cut + frame * (math.sqrt(2) - 1), frame)
 
 
+def glass_strip(colour):
+    """A strip of backlit jewel glass between lead lines (phase 1b, the concept's gilt frames with a glass band): darker
+    at both lead edges, glowing along its middle, the lit edges a little brighter. Only changes across the strip."""
+    base = np.asarray(colour, np.float32)
+
+    def paint(t, lit):
+        t = np.asarray(t, np.float32)
+        lit = np.zeros_like(t) if lit is None else lit
+        glow = .58 + .42 * np.clip(np.sin(np.pi * t), 0, 1) ** .8   # float32 sin(pi) dips below 0
+        rgb = base[None, None, :] * (glow * (.94 + .1 * lit))[..., None]
+        hot = np.clip(np.exp(-((t - .42) / .16) ** 2) * (.25 + .2 * np.clip(lit, 0, 1)), 0, 1)
+        return mix(np.minimum(rgb, 1.0), np.minimum(base * 1.45 + .1, 1.0), hot)
+    return paint
+
+
+def jewel_bands(glass, strip: float = 5.0):
+    """The concept's gilt frame with a jewel-glass strip: lead edge, gold moulding, lead, the glass strip, lead, a gold
+    hairline, lead (12 px plus the strip)."""
+    return ((1.5, LEAD), (5.0, gilt_moulding), (1.5, LEAD), (strip, glass_strip(glass)), (1.5, LEAD),
+            (1.5, gilt_hairline), (1.0, LEAD))
+
+
+def star_layer(win: Raster, cx: float, cy: float, r: float, waist: float = .24, outline: float = 1.2):
+    """A gilt four-point star finial: lead outline, eight facets lit from the upper left (alternately bright and deep)."""
+    pts = star4(cx, cy, r, waist)
+    d = sd_poly(win.X, win.Y, pts)
+    if float(d.min()) > outline + 1:
+        return
+    win.over(LEAD, coverage(d - outline))
+    ang = (np.arctan2(win.Y - cy, win.X - cx) + 2 * math.pi) % (2 * math.pi)
+    facet = np.floor(ang / (math.pi / 4)).astype(int)
+    # Facets whose outward side faces the upper left are lit.
+    mid = (facet + .5) * (math.pi / 4)
+    lit = np.cos(mid) * LIGHT[0] + np.sin(mid) * LIGHT[1]
+    shade = np.where(facet % 2 == 0, .35, -.35) + .5 * lit
+    rgb = mix(np.broadcast_to(GOLD, d.shape + (3,)), GOLD_HI, np.clip(shade, 0, 1))
+    rgb = mix(rgb, GOLD_SH, np.clip(-shade, 0, 1))
+    win.over(rgb, coverage(d))
+
+
+def corner_stars(win: Raster, w: int, h: int, offset: float, r: float, top_only: bool = False):
+    """Gilt four-point stars on the cut corners (corner squares only): centred `offset` px in from both edges."""
+    corners = [(offset, offset), (w - offset, offset)]
+    if not top_only:
+        corners += [(w - offset, h - offset), (offset, h - offset)]
+    for cx, cy in corners:
+        star_layer(win, cx, cy, r)
+
+
 def gilt_tile(w: int, h: int, face, *, cut: float = GILT_CUT, bands=GILT, depth: int = 48, border: float = 40.0,
-              open_bottom: bool = False) -> Image.Image:
-    """A nine-sliced gilt surface: lead edge, gold moulding, lead, gold hairline, lead, then the flat face."""
+              open_bottom: bool = False, stars: tuple | None = None) -> Image.Image:
+    """A nine-sliced gilt surface: the bands from the silhouette inward, then the flat face; optionally gilt four-point
+    stars (offset, radius) on the corners."""
     frame = sum(wd for wd, _ in bands)
     if corner_reach(cut, frame) > border - 3:
         raise ValueError("gilt corner reaches past its corner square")
+    if stars and stars[0] + stars[1] > border - 3:
+        raise ValueError("corner star reaches past its corner square")
     pts = octagon((.5, .5, w - .5, (h + 64.0) if open_bottom else h - .5), (cut, cut, 0 if open_bottom else cut,
                                                                           0 if open_bottom else cut))
 
     def draw(win):
         d = sd_poly(win.X, win.Y, pts)
         paint_bands(win, d, bands, face, lit_of(d))
+        if stars:
+            corner_stars(win, w, h, stars[0], stars[1], top_only=open_bottom)
     return band_render(w, h, depth, draw, face)
 
 
@@ -511,6 +579,37 @@ def came_tile(w: int, h: int, *, cut: float, came: float, bevel: float, lo: floa
     return band_render(w, h, depth, draw, WHITE)
 
 
+def pointed(w: float, h: float, P: float, Q: float, inset: float = .5):
+    """The concept 重掷 outline: straight top and bottom, each end a point made of two slopes that fill the corner
+    squares (P px across, Q px down), joined by the straight middle of the side that the slice stretches."""
+    a, b, c, e = inset, w - inset, h - inset, inset
+    return [(P, e), (w - P, e), (b, Q), (b, h - Q), (w - P, c), (P, c), (a, h - Q), (a, Q)]
+
+
+def point_reach(P: float, Q: float, frame: float) -> float:
+    """How far into its corner square the inner contour of a pointed end reaches (frame px inside the outline)."""
+    alpha = math.atan2(P, Q)                       # the slope's angle from the vertical side
+    down = Q + frame * math.tan(alpha / 2)         # where the inner contour leaves the slope on the side
+    along = P + frame / math.tan((math.pi - (math.pi / 2 - alpha)) / 2)   # ... and on the top edge
+    return max(down, along)
+
+
+def came_point(w: int, h: int, *, P: float, Q: float, came: float, bevel: float, lo: float, hi: float,
+               depth: int = 48, border: float = 40.0) -> Image.Image:
+    """A tinted glass piece in lead came with pointed ends (the concept's cobalt 重掷 and its stage tag): black came, the
+    bevel a shade below the glass, the white face. The side's middle stays straight (it is the stretched slice), so the
+    text room measured on the middle row and column (FrameInsets11) is the came and bevel alone."""
+    if point_reach(P, Q, came + bevel) > border - 2:
+        raise ValueError("pointed end reaches past its corner square")
+    bands = ((came, K), (bevel, came_bevel(lo, hi)))
+    pts = pointed(w, h, P, Q)
+
+    def draw(win):
+        d = sd_poly(win.X, win.Y, pts)
+        paint_bands(win, d, bands, WHITE, lit_of(d))
+    return band_render(w, h, depth, draw, WHITE)
+
+
 def came_hollow(w: int, h: int, *, cut: float, bands, depth: int = 48, border: float = 40.0, inset: float = .5) -> Image.Image:
     """An open tinted frame: [(width, grey or paint, alpha)] from the silhouette inward, the centre transparent."""
     total = sum(b[0] for b in bands)
@@ -527,6 +626,12 @@ def came_hollow(w: int, h: int, *, cut: float, bands, depth: int = 48, border: f
 
 # ---------------------------------------------------------------------------------------------- sliced surfaces
 CHIP_CUT, BUTTON_CUT, BAR_CUT, STAGE_CUT, TRAY_CUT, RING_CUT = 8.0, 10.0, 12.0, 14.0, 22.0, 16.0
+CARD_CUT, PANEL_CUT = 12.0, 14.0
+# Gilt star finials (offset from both edges, radius) in px: on the cut corners, inside the 40 px corner squares.
+CARD_STARS, PANEL_STARS = (12.0, 12.0), (14.0, 14.0)
+COBALT_GLASS, RUBY_GLASS = col("2A5BC8"), col("B8302A")
+# Pointed ends (the concept's 重掷 and stage tag): P px across, Q px down per slope, inside the 40 px corner squares.
+BUTTON_POINT, CHIP_POINT = (28.0, 34.0), (22.0, 30.0)
 # ui_ring: a double line (the concept's double gilt slot frames once tinted gold): a black-edged line, a gap, a thin line.
 RING_BANDS = ((1.5, 0.0, 1.0), (5.0, came_bevel(.86, 1.0), 1.0), (1.5, 0.0, 1.0), (2.5, 0.0, 0.0), (1.0, 0.0, 1.0),
               (2.5, 1.0, 1.0), (1.0, 0.0, 1.0))
@@ -540,16 +645,19 @@ def surface(spec: dict) -> Image.Image:
     """Nine-sliced and horizontally sliced surfaces. Frames stay in the border bands, centres stay flat."""
     name = spec["name"]
     w, h = spec["size"]
-    if name in ("ui_paper_panel", "ui_card_controller", "ui_card_controller_compact", "ui_card_shop"):
-        return gilt_tile(w, h, PAPER)
+    # Phase 1b: the concept's gilt frame with a jewel-glass strip and gilt star finials on the corners (17 px: cards stay
+    # thinner than the default's 22-34 px; the hint panel keeps 7.2 units under a two-line hint at 150 %).
+    if name in ("ui_card_controller", "ui_card_controller_compact", "ui_card_shop"):
+        return gilt_tile(w, h, PAPER, cut=CARD_CUT, bands=jewel_bands(COBALT_GLASS), stars=CARD_STARS)
+    if name == "ui_paper_panel":
+        return gilt_tile(w, h, PAPER, cut=PANEL_CUT, bands=jewel_bands(RUBY_GLASS), stars=PANEL_STARS)
     if name == "ui_card_item":
-        # Consumables: the gilt moulding with a cobalt glass fillet inside instead of the gold hairline.
-        bands = ((2.0, LEAD), (7.0, gilt_moulding), (2.0, LEAD), (2.0, COBALT), (2.0, LEAD))
-        return gilt_tile(w, h, PAPER, bands=bands)
+        # Consumables: a ruby strip instead of cobalt.
+        return gilt_tile(w, h, PAPER, cut=CARD_CUT, bands=jewel_bands(RUBY_GLASS), stars=CARD_STARS)
     if name in ("ui_panel_hud", "ui_section_panel"):
-        return gilt_tile(w, h, PANEL)
+        return gilt_tile(w, h, PANEL, cut=PANEL_CUT, bands=jewel_bands(COBALT_GLASS), stars=PANEL_STARS)
     if name == "ui_tab_bottom":
-        return gilt_tile(w, h, PANEL, open_bottom=True)
+        return gilt_tile(w, h, PANEL, cut=PANEL_CUT, bands=jewel_bands(COBALT_GLASS), open_bottom=True, stars=PANEL_STARS)
     if name == "ui_info_inset":
         return well(w, h)
     if name == "ui_slot_inventory":
@@ -563,11 +671,11 @@ def surface(spec: dict) -> Image.Image:
     if name == "ui_topbar":
         return came_tile(w, h, cut=BAR_CUT, came=5.0, bevel=5.0, lo=.58, hi=.84, lights=8.0)
     if name == "ui_chip_formula":
-        return came_tile(w, h, cut=CHIP_CUT, came=4.0, bevel=3.0, lo=.6, hi=.86, lights=6.0)
+        return came_point(w, h, P=CHIP_POINT[0], Q=CHIP_POINT[1], came=4.0, bevel=3.0, lo=.6, hi=.86)
     if name == "ui_stage_card":
         return came_tile(w, h, cut=STAGE_CUT, came=5.0, bevel=6.0, lo=.62, hi=.86, depth=56, border=48.0, lights=9.0)
     if name == "ui_button_bevel":
-        return came_tile(w, h, cut=BUTTON_CUT, came=5.0, bevel=4.0, lo=.56, hi=.86, lights=7.0)
+        return came_point(w, h, P=BUTTON_POINT[0], Q=BUTTON_POINT[1], came=5.0, bevel=4.0, lo=.56, hi=.86)
     if name == "ui_dice_tray":
         return came_hollow(w, h, cut=TRAY_CUT, bands=TRAY_BANDS, depth=72, border=72.0)
     if name == "ui_ring":
@@ -820,20 +928,31 @@ def implemented(spec: dict) -> bool:
 # ---------------------------------------------------------------------------------------------- table
 TABLE_W, TABLE_H = 1920, 1080
 FELT = col(PALETTE["felt"])
-# THEME_SPEC 3.1 (coordinator 2026-11-17): large decoration only where no play state puts interface, never cut by a
-# straight line, never inside a button's or panel's bounding rectangle. The play screen leaves the side margins (left of
-# x 32 below the top bar, right of x 1888) and, in the action row, the rectangle right of the main button (its focus
-# outline ends at x 1279 with 150 % text) and left of the end-stage slot (its qualified ring starts at 1492): x 1280-1488,
-# y 942-1080 in every DrawActions11 state (README, action-row table).
+# Phase 1b (coordinator 2026-11-18): outside the calm zones the play table is an all-over leaded stained-glass mosaic, a
+# uniform texture with no layout shapes and no large motif, so panels and cards covering parts of it still leave a
+# coherent texture (as comic's Ben-Day page did). The calm zones stay flat slate. Where two zones touch or nearly touch
+# they form one slate area - the dice area and the formula row with the 10-unit gap between them; the info and rail zones
+# of the submit row, which overlap - and each area is framed by a gilt double line drawn just outside it, never inside.
+# Table/page_scene.png is the same mosaic everywhere.
+SLATE_AREAS = ((52.0, 374.0, 1460.0, 720.0), (32.0, 740.0, 1480.0, 942.0))   # x0, y0, x1, y1
+CALM_FRAME = 7.5            # px outward: lead 1, gilt 3, lead 1, gilt hairline 1.5, lead 1
+MOSAIC_CELL = 40.0          # px: the jittered grid of the mosaic's seeds (panes about 25-55 px across)
+MOSAIC_LEAD = 2.6           # px: lead lines (2-3 px at 1080p)
+MOSAIC_DIM = .6             # the mosaic's light: below the gilt frames and the parchment, so they lead the eye
+# (share, colour): led by cobalt and ruby like the concept's windows, gold accents, a little green and violet.
+MOSAIC_GLASS = ((.44, col("1F4BA8")), (.31, col("A3261E")), (.15, col("C8902C")), (.05, col("23784A")),
+                (.05, col("6A479F")))
+MOSAIC_LEAD_RGB = col("0F0E12")    # the style kit's lead
+# THEME_SPEC 3.1: large decoration only where no play state puts interface, never cut by a straight line, never inside a
+# button's or panel's bounding rectangle. The rose window sits in the action row's rectangle free in every state: right
+# of the main button (with its focus outline it ends at x 1279 at 150 % text), left of the end-stage slot (its qualified
+# ring starts at 1492), below the submit row (942): x 1280-1488, y 942-1080 (README, action-row table).
 ACTION_FREE = (1280.0, 942.0, 1488.0, 1080.0)
 ROSE = (1384.0, 1012.0, 54.0)          # centre and radius: x 1330-1438, y 958-1066
-# The two lancet windows (x0, y0 = apex, x1, y1 = sill): the left one clears the first card's focus outline (x 29), the
-# right one the end-stage slot's qualified ring (x 1892); both start below the top bar (y 84).
-WINDOWS = ((3.0, 94.0, 25.0, 1066.0), (1895.0, 94.0, 1917.0, 1066.0))
-BLEED = 3.0   # px: antialiasing and the Lanczos footprint around every drawn edge
+BLEED = 3.0   # px kept clear around the rose window
 # Bounding rectangles (x, y, w, h) of the play screen's buttons and panels in any state or text size (GameApp.Play11 L11
-# at 100 % and 150 %; UiKit.Button's step and its focus outline 3 units out, the qualified ring), which decoration must
-# stay out of.
+# at 100 % and 150 %; UiKit.Button's step and its focus outline 3 units out, the qualified ring), which the rose window
+# must stay out of. The mosaic is a texture under all of them (coordinator, phase 1b).
 PLAY_RECTS = {
     "top bar": (16, 12, 1888, 72), "card row": (29, 93, 1454, 250), "stage card": (1496, 96, 392, 244),
     "tray": (32, 338, 1448, 390), "resources": (1496, 352, 392, 376), "submit row": (32, 740, 1448, 202),
@@ -842,62 +961,85 @@ PLAY_RECTS = {
 }
 
 
-def lancet(x0: float, y0: float, x1: float, y1: float, steps: int = 24):
-    """A lancet window outline: an equilateral pointed arch (each arc centred on the opposite springing point) with its
-    apex at y0, then straight jambs down to a flat sill at y1."""
-    w = x1 - x0
-    spring = y0 + w * math.sqrt(3) / 2
-    pts = [(x1 + w * math.cos(math.radians(180 + 60 * i / steps)), spring + w * math.sin(math.radians(180 + 60 * i / steps)))
-           for i in range(steps + 1)]
-    pts += [(x0 + w * math.cos(math.radians(300 + 60 * i / steps)), spring + w * math.sin(math.radians(300 + 60 * i / steps)))
-            for i in range(1, steps + 1)]
-    return pts + [(x1, y1), (x0, y1)]
+def _hash2(ix: np.ndarray, iy: np.ndarray, salt: int) -> np.ndarray:
+    """A deterministic 32-bit hash of integer grid coordinates."""
+    h = (ix.astype(np.int64) * 374761393 + iy.astype(np.int64) * 668265263 + salt * 2246822519 + SEED) & 0xFFFFFFFF
+    h = ((h ^ (h >> 13)) * 1274126177) & 0xFFFFFFFF
+    return (h ^ (h >> 16)) & 0xFFFFFFFF
 
 
-WINDOW_DIAMONDS = (col("84221C"), col("21489E"))     # alternating ruby and cobalt quarries
-WINDOW_FIELD = col("141C40")                          # the deep blue glass between them
+def _unit(h: np.ndarray, shift: int) -> np.ndarray:
+    return ((h >> shift) & 0xFFFF).astype(np.float64) / 65536.0
 
 
-def window_layer(r: Raster, box):
-    """One narrow lancet window: a gilt edge in lead, then a column of tall diamond quarries, alternately ruby and cobalt,
-    on deep blue glass; each piece lit from behind (analytic shading), lead between them. Dim jewel tones, so the windows
-    frame the table without pulling the eye from the play."""
-    x0, y0, x1, y1 = box
-    d = sd_poly(r.X, r.Y, lancet(x0, y0, x1, y1))
-    if float(d.min()) > 2.0:
-        return
-    frame = paint_bands(r, d, ((1.2, LEAD), (2.6, gilt_moulding), (1.2, LEAD)), None, lit_of(d))
-    glass = coverage(d + frame)
-    cx = (x0 + x1) / 2
-    half = (x1 - x0) / 2 - frame + .6
-    pitch = 2.0 * half * 2.4
-    rel = r.Y - (y0 + 10.0)
-    row = np.floor(rel / pitch).astype(int)
-    v = rel - (row + .5) * pitch
-    dia = np.abs(r.X - cx) / half + np.abs(v) / (pitch / 2)            # < 1 inside the row's diamond
-    norm = half * (pitch / 2) / math.hypot(half, pitch / 2)              # dia units -> px from a diamond edge
-    inside = (dia <= 1.0).astype(np.float32) * glass
-    t_in = (1 - dia) * norm / (half * .5)
-    for k, colour in enumerate(WINDOW_DIAMONDS):
-        m = inside * (np.mod(row, 2) == k)
-        if m.any():
-            glass_pane(r, m, colour, t_in, glow=.35, edge=.55)
-    field = (dia > 1.0).astype(np.float32) * glass
-    glass_pane(r, field, WINDOW_FIELD, np.minimum((dia - 1) * norm, half - np.abs(r.X - cx)) / (half * .35), glow=.2, edge=.4)
-    r.over(LEAD, coverage(np.abs(dia - 1.0) * norm - .65) * glass)
+def mosaic_layer(r: Raster):
+    """The leaded mosaic: a Voronoi tiling of a jittered seed grid (analytic, so render tiles agree), each pane a piece of
+    backlit glass (a little grisaille at the lead, a slight streak across it), black lead between the panes."""
+    X, Y = r.X.astype(np.float64), r.Y.astype(np.float64)
+    G = MOSAIC_CELL
+    gx, gy = np.floor(X / G).astype(np.int64), np.floor(Y / G).astype(np.int64)
+    d1 = np.full(X.shape, np.inf)
+    d2 = np.full(X.shape, np.inf)
+    s1x, s1y, s2x, s2y = (np.zeros(X.shape) for _ in range(4))
+    i1x, i1y = np.zeros(X.shape, np.int64), np.zeros(X.shape, np.int64)
+    for dy in (-1, 0, 1):
+        for dx in (-1, 0, 1):
+            cx, cy = gx + dx, gy + dy
+            h = _hash2(cx, cy, 1)
+            sx, sy = (cx + .06 + .88 * _unit(h, 0)) * G, (cy + .06 + .88 * _unit(h, 16)) * G
+            d = (X - sx) ** 2 + (Y - sy) ** 2
+            nearer = d < d1
+            second = ~nearer & (d < d2)
+            d2 = np.where(nearer, d1, np.where(second, d, d2))
+            s2x = np.where(nearer, s1x, np.where(second, sx, s2x))
+            s2y = np.where(nearer, s1y, np.where(second, sy, s2y))
+            d1 = np.where(nearer, d, d1)
+            s1x, s1y = np.where(nearer, sx, s1x), np.where(nearer, sy, s1y)
+            i1x, i1y = np.where(nearer, cx, i1x), np.where(nearer, cy, i1y)
+    edge = (d2 - d1) / (2 * np.maximum(np.hypot(s2x - s1x, s2y - s1y), 1e-6))   # px to the lead line
+    h = _hash2(i1x, i1y, 7)
+    u, v, w = _unit(h, 0), _unit(h, 16), _unit(_hash2(i1x, i1y, 11), 0)
+    base = np.zeros(X.shape + (3,), np.float32)
+    lo = 0.0
+    for share, colour in MOSAIC_GLASS:
+        pick = (u >= lo) & (u < lo + share + (1e-9 if share == MOSAIC_GLASS[-1][0] else 0))
+        base[pick] = colour
+        lo += share
+    base[u >= lo] = MOSAIC_GLASS[-1][1]
+    bright = (.8 + .28 * v).astype(np.float32)
+    t = np.clip(edge / (G * .3), 0, 1).astype(np.float32)
+    glow = (.6 + .4 * smoothstep(0, 1, t)).astype(np.float32)
+    ang = w * 2 * math.pi
+    streak = 1 + .07 * ((X - s1x) * np.cos(ang) + (Y - s1y) * np.sin(ang)) / G
+    rgb = base * (bright * glow * streak.astype(np.float32) * MOSAIC_DIM)[..., None]
+    r.over(np.clip(rgb, 0, 1), np.ones(X.shape, np.float32))
+    r.over(MOSAIC_LEAD_RGB, coverage(edge - MOSAIC_LEAD / 2))
+
+
+def calm_layer(r: Raster):
+    """The slate areas, exactly the felt colour, each with a gilt double line just outside it (square-cornered)."""
+    X, Y = r.X, r.Y
+    for x0, y0, x1, y1 in SLATE_AREAS:
+        u = np.maximum(np.maximum(np.float32(x0) - X, X - np.float32(x1)), np.maximum(np.float32(y0) - Y, Y - np.float32(y1)))
+        if float(u.min()) > CALM_FRAME + 1:
+            continue
+        gy, gx = np.gradient(u, np.float32(1.0 / SS))
+        lit = ((gx * LIGHT[0] + gy * LIGHT[1]) / np.maximum(np.hypot(gx, gy), 1e-6)).astype(np.float32)
+        ring = lambda a, b: np.clip(coverage(u - b) - coverage(u - a), 0, 1)
+        r.over(LEAD, ring(0.0, CALM_FRAME))
+        r.over(gilt_moulding(np.clip((u - 1.0) / 3.0, 0, 1), lit), ring(1.0, 4.0))
+        r.over(gilt_hairline(np.clip((u - 5.0) / 1.5, 0, 1), lit), ring(5.0, 6.5))
+        r.over(FELT, coverage(u))
 
 
 def table_layer(r: Raster, play: bool):
-    """Slate everywhere; on the play table the two lancet windows and the rose window."""
-    r.over(FELT, np.ones_like(r.X))
+    """The mosaic everywhere; on the play table the slate areas with their gilt lines and the rose window."""
+    mosaic_layer(r)
     if not play:
         return
-    for box in WINDOWS:
-        x0, y0, x1, y1 = box
-        if float(r.X.max()) > x0 - 4 and float(r.X.min()) < x1 + 4 and float(r.Y.max()) > y0 - 4:
-            window_layer(r, box)
+    calm_layer(r)
     cx, cy, R = ROSE
-    if float(r.X.max()) > cx - R - 4 and float(r.X.min()) < cx + R + 4 and float(r.Y.max()) > cy - R - 4:
+    if float(r.X.max()) > cx - R - 6 and float(r.X.min()) < cx + R + 6 and float(r.Y.max()) > cy - R - 6:
         rose_window(r, cx, cy, R)
 
 
@@ -907,44 +1049,52 @@ def _check_decoration_geometry():
     if cx - R < x0 + 4 or cx + R > x1 - 4 or cy - R < y0 + 4 or cy + R > y1 - 4:
         raise ValueError("The rose window must sit wholly inside the action row's free rectangle")
     for name, (x, y, w, h) in PLAY_RECTS.items():
-        for bx0, by0, bx1, by1 in WINDOWS + ((cx - R, cy - R, cx + R, cy + R),):
-            if bx0 - BLEED < x + w and bx1 + BLEED > x and by0 - BLEED < y + h and by1 + BLEED > y:
-                raise ValueError(f"Table decoration inside the bounding rectangle of {name}")
+        if cx - R - BLEED < x + w and cx + R + BLEED > x and cy - R - BLEED < y + h and cy + R + BLEED > y:
+            raise ValueError(f"The rose window is inside the bounding rectangle of {name}")
+    for x0a, y0a, x1a, y1a in SLATE_AREAS:
+        for name, (x, y, w, h) in FELT_ZONES.items():
+            inside = x0a <= x and y0a <= y and x + w <= x1a and y + h <= y1a
+            apart = x + w <= x0a - CALM_FRAME or x >= x1a + CALM_FRAME or y + h <= y0a - CALM_FRAME or y >= y1a + CALM_FRAME
+            if not (inside or apart):
+                raise ValueError(f"A gilt calm-zone line would cross the calm zone {name}")
     for name, (x, y, w, h) in FELT_ZONES.items():
-        for bx0, by0, bx1, by1 in WINDOWS + ((cx - R, cy - R, cx + R, cy + R),):
-            if bx0 - BLEED < x + w and bx1 + BLEED > x and by0 - BLEED < y + h and by1 + BLEED > y:
-                raise ValueError(f"Table decoration inside the calm zone {name}")
+        if not any(x0a <= x and y0a <= y and x + w <= x1a and y + h <= y1a for x0a, y0a, x1a, y1a in SLATE_AREAS):
+            raise ValueError(f"Calm zone {name} lies outside every slate area")
 
 
 _check_decoration_geometry()
 TABLE_TILE = 240
 
 
+def downsample_box(prgb: np.ndarray, alpha: np.ndarray, w: int, h: int) -> np.ndarray:
+    """The table's filter: the mean of each SS x SS block (no ringing, so an edge drawn on a zone's boundary leaves every
+    pixel of the zone exact)."""
+    if not (np.isfinite(prgb).all() and np.isfinite(alpha).all()):
+        raise ValueError("A table raster holds NaN or infinite values")
+    a = alpha.reshape(h, SS, w, SS).mean(axis=(1, 3))
+    rgb = prgb.reshape(h, SS, w, SS, 3).mean(axis=(1, 3))
+    return np.where(a[..., None] > 0, rgb / np.maximum(a[..., None], 1e-6), 0) * 255.0
+
+
 def render_tiles(layer) -> Image.Image:
-    """A full 1920 x 1080 image rendered in tiles with an 8 px margin (beyond the Lanczos footprint) and stitched; tiles
-    with nothing but slate are filled directly."""
+    """A full 1920 x 1080 image rendered in 240 px tiles (the box filter needs no margin) and stitched."""
     canvas = np.zeros((TABLE_H, TABLE_W, 3), np.float32)
-    canvas[...] = np.array(rgb8(PALETTE["felt"]), np.float32)
-    margin = 8
     for y in range(0, TABLE_H, TABLE_TILE):
         for x in range(0, TABLE_W, TABLE_TILE):
             w, h = min(TABLE_TILE, TABLE_W - x), min(TABLE_TILE, TABLE_H - y)
-            r = Raster(w + 2 * margin, h + 2 * margin, float(x - margin), float(y - margin))
+            r = Raster(w, h, float(x), float(y))
             layer(r)
-            if np.all(r.a >= 1.0) and np.all(np.abs(r.rgb - FELT) < 1e-7):
-                continue
-            im = np.asarray(r.export()).astype(np.float32)
-            canvas[y:y + h, x:x + w] = im[margin:margin + h, margin:margin + w, :3]
+            canvas[y:y + h, x:x + w] = downsample_box(r.rgb, r.a, w, h)
     return Image.fromarray(np.clip(np.rint(canvas), 0, 255).astype(np.uint8), "RGB")
 
 
 def table_scene() -> Image.Image:
-    """The play screen's table (THEME_SPEC 3.1): slate, the two lancet windows and the rose window."""
+    """The play screen's table (THEME_SPEC 3.1): the mosaic, the slate calm areas in gilt lines, the rose window."""
     return render_tiles(lambda r: table_layer(r, True))
 
 
 def page_scene() -> Image.Image:
-    """THEME_SPEC 3 Table/page_scene.png (W20X): the non-play screens' backdrop, the plain slate (no layout shapes)."""
+    """THEME_SPEC 3 Table/page_scene.png (W20X): the non-play screens' backdrop, the mosaic everywhere."""
     return render_tiles(lambda r: table_layer(r, False))
 
 
@@ -1321,9 +1471,10 @@ def button(c: Canvas, kit: Kit, P: dict, x, y, w, h, face: str, label: str, size
 
 def solid_button(c: Canvas, kit: Kit, P: dict, x, y, w, h, label: str, size: float, enabled: bool = True,
                  notes: list | None = None, name: str = "solid button", icon: str | None = None, spacing: float = 0):
-    """GameApp.SolidButton11: ui_chip_formula times lerp(Background, Panel, .55) (a disabled one a quarter toward
-    PanelLight), the label LabelOn11 picks (Muted when disabled), centred on the whole chip (FlatButton's label)."""
-    tint = lerp_hex(P["background"], P["panel"], .55)
+    """GameApp.SolidButton11: ui_chip_formula times the face tint - W20Y's pending buttonSecondary when the palette carries
+    it (simulated in these mocks), else lerp(Background, Panel, .55); a disabled one a quarter toward PanelLight - the label
+    LabelOn11 picks (Muted when disabled), centred on the whole chip (FlatButton's label)."""
+    tint = secondary_face(P)
     if not enabled:
         tint = lerp_hex(tint, P["panelLight"], .25)
     c.sprite(kit, "ui_chip_formula", x, y, w, h, tint=tint)
@@ -1427,7 +1578,7 @@ def badge(c: Canvas, kit: Kit, P: dict, x, y, value: str, size: float, fs: float
 
 def price_button(c: Canvas, kit: Kit, P: dict, x, y, w, h, price: int):
     """GameApp.Card11 PriceButton13 on one row: SolidButton11 with the coin, the price in gold and 购买."""
-    tint = lerp_hex(P["background"], P["panel"], .55)
+    tint = secondary_face(P)
     c.sprite(kit, "ui_chip_formula", x, y, w, h, tint=tint)
     fill = drawn(kit.centre("ui_chip_formula"), tint)
     word = "购买"
@@ -1542,8 +1693,112 @@ ACTION_STATES = {
 }
 
 
-def full_palette() -> dict:
-    return dict(PALETTE, **W20X_TOKENS)
+def full_palette(pending: bool = True) -> dict:
+    """The palette the composites draw with: theme.json's tokens, plus the pending keys (W20Y's buttonSecondary) unless
+    pending is False. theme.json never carries the pending keys."""
+    return dict(PALETTE, **W20X_TOKENS, **(PENDING_TOKENS if pending else {}))
+
+
+def secondary_face(P: dict) -> str:
+    """SolidButton11's face tint: the theme's buttonSecondary (W20Y, pending) or the code's lerp(Background, Panel, .55)."""
+    return P.get("buttonSecondary") or lerp_hex(P["background"], P["panel"], .55)
+
+
+def draw_top_bar(c: Canvas, kit: Kit, P: dict, large: bool, stage_tint: str, stage_label: str, caption: str,
+                 notes: list, score: bool = True, pressure: bool = False) -> dict:
+    """GameApp.Play11 TopBar11: the bar (ui_topbar x Panel), the stage tag (ui_chip_formula x the stage tint), the chapter
+    points and caption, the score frame (play and settlement only), the gold and the two navigation buttons."""
+    fs = 1.5 if large else 1.0
+    meas = {}
+    tx_, ty_, tw_, th_ = 16, 12, 1888, 72
+    c.sprite(kit, "ui_topbar", tx_, ty_, tw_, th_, tint=P["panel"])
+    bar_fill = drawn(kit.centre("ui_topbar"), P["panel"])
+    fl, fb, fr, ft = kit.insets("ui_topbar")
+    tag_w = 176 if large else 160
+    c.sprite(kit, "ui_chip_formula", tx_ + 8, ty_ + 8, tag_w, 56, tint=stage_tint)
+    tag_fill = drawn(kit.centre("ui_chip_formula"), stage_tint)
+    colour, ratio, _ = label_on(tag_fill, P)
+    notes.append(f"stage tag {tag_fill}: label {colour} {ratio:.2f}:1")
+    c.text(tx_ + 8, ty_ + 10, tag_w, 48, stage_label, (24 if large else 28) * fs, colour, "mm", bold=True)
+    dots_x = 8 + tag_w + 20
+    cap_size = body11(17 if large else 20, fs) * fs
+    glyph_top, glyph_bottom = .28 * cap_size, 1.28 * cap_size
+    cap_top = min(36, 72 - fb - 2 - glyph_bottom)
+    dots_limit = cap_top + glyph_top - 6
+    dots_top = max(ft + 3, min(12, dots_limit - 20))
+    dot = min(20, max(14, dots_limit - dots_top))
+    for i in range(8):
+        cur = i == 1
+        size = dot if cur else dot * .7
+        colour_d = stage_tint if cur else P["gold"] if i < 1 else P["panelLight"]
+        c.sprite(kit, "ui_pip_dot", tx_ + dots_x + i * 24 + (20 - size) / 2, ty_ + dots_top + (dot - size) / 2, size, size,
+                 tint=colour_d, preserve=True)
+        if cur:
+            c.sprite(kit, "ui_ring", tx_ + dots_x + i * 24 + (20 - dot) / 2 - 3, ty_ + dots_top - 3, dot + 6, dot + 6,
+                     tint=P["paper"], mult=6)
+    muted_on_bar = label_on(bar_fill, P, P["muted"])[0]
+    meas["chapter caption"] = c.text(tx_ + dots_x, ty_ + cap_top, 400, 32, caption, cap_size, muted_on_bar, "lt")
+    cap_w = text_width(caption, cap_size, False)
+    gold_w = 232 if large else 176
+    gold_x = 1668 - 16 - gold_w
+    if score:
+        frame_x = max(dots_x + 8 * 24 + 56, dots_x + cap_w + 20)
+        frame_right = gold_x - tx_ - 16 - 284
+        fw = min(640 if large else 560, frame_right - frame_x)
+        fx_, fy_ = tx_ + frame_x, ty_ + 6
+        c.sprite(kit, "ui_info_inset", fx_, fy_, fw, 60)
+        well_fill = kit.centre("ui_info_inset")
+        score_size = (28 if large else 34) * fs
+        score_w = min(fw * .55, text_width("2,480", score_size) + 4)
+        c.text(fx_ + 14, fy_, score_w, 48, "2,480", score_size, label_on(well_fill, P, P["textColor"])[0], "rm", bold=True)
+        target_x = 14 + score_w * 1.14 + 8
+        target_colour = P["pressure"] if pressure and contrast(P["pressure"], well_fill) >= 4.5 else \
+            label_on(well_fill, P, P["muted"])[0]
+        c.text(fx_ + target_x, fy_ + 4, fw - target_x - 26, 44, "/ 4,000", (26 if large else 32) * fs, target_colour, "lm")
+        c.sprite(kit, "ui_progress_track", fx_ + 14, fy_ + 48, fw - 28, 7, tint="07191C", mult=48 / 7)
+        c.sprite(kit, "ui_progress_fill", fx_ + 14, fy_ + 48, max(7, (fw - 28) * .62), 7,
+                 tint=P["pressure"] if pressure else P["blue"], mult=48 / 7)
+    c.sprite(kit, "ui_icon_coin", gold_x + 6, ty_ + 18, 36, 36, preserve=True)
+    c.text(gold_x + 48, ty_ + 6, gold_w - 48 - (52 if large else 44), 60, "28", (30 if large else 34) * fs,
+           label_on(bar_fill, P, P["gold"])[0], "rm", bold=True)
+    c.text(gold_x + gold_w - (50 if large else 42), ty_ + 6, 60, 60, "金币", body11(17 if large else 20, fs) * fs, muted_on_bar,
+           "lm")
+    for x, label in ((1668, "手册"), (1788, "暂停")):
+        button(c, kit, P, x, 18, 108, 60, P["paper"], label, 23 * fs, notes=notes if x == 1668 else None, name="top-bar button")
+    return meas
+
+
+def draw_card_row(c: Canvas, kit: Kit, P: dict, n_cards: int, large: bool, notes: list):
+    """GameApp.Play11 DrawCards11: full cards (Table size; Text cards with enlarged text) and 56-wide "+" strips for the
+    empty slots; two rows of compact mini cards from eight cards (six with enlarged text)."""
+    fs = 1.5 if large else 1.0
+    cx0, cy0, cw0, ch0 = 32, 96, 1448, 244
+    mini = n_cards > 7 or (large and n_cards > 5)
+    if mini:
+        cw, chh = (cw0 - 4 * 12) / 5, (ch0 - 10) / 2
+        for i in range(min(n_cards, 9 if n_cards > 10 else 10)):
+            rarity, title, text, art = MOCK_CARDS[i % len(MOCK_CARDS)]
+            compact_card(c, kit, P, cx0 + i % 5 * (cw + 12), cy0 + i // 5 * (chh + 10), cw, chh, rarity, title, text, art, fs,
+                         ordinal=i + 1, notes=notes)
+        return
+    slots = 5 if n_cards <= 5 else 7
+    empty = max(0, slots - n_cards)
+    card_w = 0 if n_cards == 0 else min(280 if large else 216, (cw0 - empty * 68 - 12 * (n_cards - 1)) / n_cards)
+    x = cx0
+    for i in range(n_cards):
+        rarity, title, text, art = MOCK_CARDS[i % len(MOCK_CARDS)]
+        if large:
+            compact_card(c, kit, P, x, cy0, card_w, ch0, rarity, title, text, art, fs, ordinal=i + 1, notes=notes)
+        else:
+            tall_card(c, kit, P, x, cy0, card_w, ch0, rarity, title, text, art, fs, ordinal=i + 1,
+                      value="×1.5" if i == 1 else None)
+        x += card_w + 12
+    for _ in range(empty):
+        if x + 56 > cx0 + cw0 + .5:
+            break
+        c.sprite(kit, "ui_slot_inventory", x, cy0 + 8, 56, ch0 - 16)
+        c.text(x, cy0 + 8, 56, ch0 - 16, "+", 30 * fs, P["muted"], "mm", font=BODY_FONT)
+        x += 68
 
 
 def play_mock(kit: Kit, table: Image.Image, state: str = "f", large: bool = False, notes: list | None = None,
@@ -1564,88 +1819,12 @@ def play_mock(kit: Kit, table: Image.Image, state: str = "f", large: bool = Fals
     c.backdrop(table)
     notes = notes if notes is not None else []
     meas: dict = {}
-    # ---------------------------------------------------------------- top bar
-    tx_, ty_, tw_, th_ = L["top"]
-    c.sprite(kit, "ui_topbar", tx_, ty_, tw_, th_, tint=P["panel"])
-    bar_fill = drawn(kit.centre("ui_topbar"), P["panel"])
-    fl, fb, fr, ft = kit.insets("ui_topbar")
-    tag_w = 176 if large else 160
-    c.sprite(kit, "ui_chip_formula", tx_ + 8, ty_ + 8, tag_w, 56, tint=stage_tint)
-    tag_fill = drawn(kit.centre("ui_chip_formula"), stage_tint)
-    colour, ratio, _ = label_on(tag_fill, P)
-    notes.append(f"stage tag {tag_fill}: label {colour} {ratio:.2f}:1")
-    c.text(tx_ + 8, ty_ + 10, tag_w, 48, "第 4 关", (24 if large else 28) * fs, colour, "mm", bold=True)
-    dots_x = 8 + tag_w + 20
-    cap_size = body11(17 if large else 20, fs) * fs
-    glyph_top, glyph_bottom = .28 * cap_size, 1.28 * cap_size
-    cap_top = min(36, 72 - fb - 2 - glyph_bottom)
-    dots_limit = cap_top + glyph_top - 6
-    dots_top = max(ft + 3, min(12, dots_limit - 20))
-    dot = min(20, max(14, dots_limit - dots_top))
-    for i in range(8):
-        cur = i == 1
-        size = dot if cur else dot * .7
-        colour_d = stage_tint if cur else P["gold"] if i < 1 else P["panelLight"]
-        c.sprite(kit, "ui_pip_dot", tx_ + dots_x + i * 24 + (20 - size) / 2, ty_ + dots_top + (dot - size) / 2, size, size,
-                 tint=colour_d, preserve=True)
-        if cur:
-            c.sprite(kit, "ui_ring", tx_ + dots_x + i * 24 + (20 - dot) / 2 - 3, ty_ + dots_top - 3, dot + 6, dot + 6,
-                     tint=P["paper"], mult=6)
+    # ---------------------------------------------------------------- top bar and cards
     kind = "首领关" if boss else "高压关" if pressure else "普通关"
-    cap_text = "第 2 章 · " + kind
-    muted_on_bar = label_on(bar_fill, P, P["muted"])[0]
-    box = c.text(tx_ + dots_x, ty_ + cap_top, 400, 32, cap_text, cap_size, muted_on_bar, "lt")
-    meas["chapter caption"] = box
-    cap_w = text_width(cap_text, cap_size, False)
-    gold_w = 232 if large else 176
-    gold_x = 1668 - 16 - gold_w
-    frame_x = max(dots_x + 8 * 24 + 56, dots_x + cap_w + 20)
-    frame_right = gold_x - tx_ - 16 - 284
-    fw = min(640 if large else 560, frame_right - frame_x)
-    fx_, fy_ = tx_ + frame_x, ty_ + 6
-    c.sprite(kit, "ui_info_inset", fx_, fy_, fw, 60)
+    meas.update(draw_top_bar(c, kit, P, large, stage_tint, "第 4 关", "第 2 章 · " + kind, notes, score=True,
+                             pressure=pressure))
     well_fill = kit.centre("ui_info_inset")
-    score_size = (28 if large else 34) * fs
-    score_w = min(fw * .55, text_width("2,480", score_size) + 4)
-    c.text(fx_ + 14, fy_, score_w, 48, "2,480", score_size, label_on(well_fill, P, P["textColor"])[0], "rm", bold=True)
-    target_x = 14 + score_w * 1.14 + 8
-    target_colour = P["pressure"] if pressure and contrast(P["pressure"], well_fill) >= 4.5 else label_on(well_fill, P, P["muted"])[0]
-    c.text(fx_ + target_x, fy_ + 4, fw - target_x - 26, 44, "/ 4,000", (26 if large else 32) * fs, target_colour, "lm")
-    c.sprite(kit, "ui_progress_track", fx_ + 14, fy_ + 48, fw - 28, 7, tint="07191C", mult=48 / 7)
-    c.sprite(kit, "ui_progress_fill", fx_ + 14, fy_ + 48, max(7, (fw - 28) * .62), 7,
-             tint=P["pressure"] if pressure else P["blue"], mult=48 / 7)
-    c.sprite(kit, "ui_icon_coin", gold_x + 6, ty_ + 18, 36, 36, preserve=True)
-    c.text(gold_x + 48, ty_ + 6, gold_w - 48 - (52 if large else 44), 60, "28", (30 if large else 34) * fs,
-           label_on(bar_fill, P, P["gold"])[0], "rm", bold=True)
-    c.text(gold_x + gold_w - (50 if large else 42), ty_ + 6, 60, 60, "金币", body11(17 if large else 20, fs) * fs, muted_on_bar, "lm")
-    for x, label in ((1668, "手册"), (1788, "暂停")):
-        button(c, kit, P, x, 18, 108, 60, P["paper"], label, 23 * fs, notes=notes if x == 1668 else None, name="top-bar button")
-    # ---------------------------------------------------------------- cards
-    cx0, cy0, cw0, ch0 = L["cards"]
-    mini = n_cards > 7 or (large and n_cards > 5)
-    if mini:
-        cw, chh = (cw0 - 4 * 12) / 5, (ch0 - 10) / 2
-        for i in range(n_cards):
-            rarity, title, text, art = MOCK_CARDS[i % len(MOCK_CARDS)]
-            compact_card(c, kit, P, cx0 + i % 5 * (cw + 12), cy0 + i // 5 * (chh + 10), cw, chh, rarity, title, text, art, fs,
-                         ordinal=i + 1, notes=notes)
-    else:
-        slots = 5 if n_cards <= 5 else 7
-        empty = max(0, slots - n_cards)
-        card_w = min(280 if large else 216, (cw0 - empty * 68 - 12 * (n_cards - 1)) / n_cards)
-        x = cx0
-        for i in range(n_cards):
-            rarity, title, text, art = MOCK_CARDS[i % len(MOCK_CARDS)]
-            if large:
-                compact_card(c, kit, P, x, cy0, card_w, ch0, rarity, title, text, art, fs, ordinal=i + 1, notes=notes)
-            else:
-                tall_card(c, kit, P, x, cy0, card_w, ch0, rarity, title, text, art, fs, ordinal=i + 1,
-                          value="×1.5" if i == 1 else None)
-            x += card_w + 12
-        for _ in range(empty):
-            c.sprite(kit, "ui_slot_inventory", x, cy0 + 8, 56, ch0 - 16)
-            c.text(x, cy0 + 8, 56, ch0 - 16, "+", 30 * fs, P["muted"], "mm", font=BODY_FONT)
-            x += 68
+    draw_card_row(c, kit, P, n_cards, large, notes)
     # ---------------------------------------------------------------- stage card
     sx, sy, sw, sh = L["stage"]
     c.sprite(kit, "ui_stage_card", sx, sy, sw, sh, tint=P["paper"])
@@ -1917,7 +2096,17 @@ def palette_report(palette: dict | None = None, label_face: str | None = None, s
     out["textColor/section cell"] = contrast(p["textColor"], cell)
     caption = drawn("FFFFFF", w["caption"])
     out[f"{best_label(caption, p)[0]}/caption (label pick)"] = best_label(caption, p)[1]
-    out[f"{best_label(drawn('FFFFFF', w['buttonStepPrimary']), p)[0]}/primary step"] = 0.0
+    # W20Y's pending buttonSecondary (not in theme.json): the SolidButton11 face on the table, the dark panels and the
+    # parchment, its label, and the disabled face (a quarter toward panelLight).
+    sec = p.get("buttonSecondary") or PENDING_TOKENS.get("buttonSecondary")
+    if sec:
+        out[f"buttonSecondary {sec}/felt (pending)"] = contrast(sec, p["felt"])
+        out[f"buttonSecondary {sec}/panel (pending)"] = contrast(sec, p["panel"])
+        out[f"buttonSecondary {sec}/paper (pending)"] = contrast(sec, p["paper"])
+        out[f"{best_label(sec, p)[0]}/buttonSecondary (label pick)"] = best_label(sec, p)[1]
+        off = lerp_hex(sec, p["panelLight"], .25)
+        out[f"muted/disabled buttonSecondary {off}"] = contrast(p["muted"], off)
+        out[f"{best_label(off, p)[0]}/disabled buttonSecondary (label pick)"] = best_label(off, p)[1]
     return out
 
 
