@@ -30,9 +30,12 @@ DICE_WORDS = re.compile(r"\b(die|dice|pips?)\b", re.IGNORECASE)  # whole words: 
 PIP_COLOUR = re.compile(r"\b(red|blue)(\s+\w+)?\s+pips?\b|\bpips?\s+(are\s+|in\s+)?(red|blue)\b", re.IGNORECASE)
 
 
-def subject_text(entry: dict) -> str:
+def subject_text(entry: dict, theme: str = "") -> str:
     text = entry["subject"].rstrip(". ")
     cues = [c.strip().rstrip(".") for c in entry.get("cues", []) if c.strip()]
+    # 2026-11-18: styleCues.<theme> holds a cue only one style needs, e.g. a colour its palette does not have (green
+    # leaves in Swiss). Other styles never see it, and an entry without styleCues writes exactly the old text.
+    cues += [c.strip().rstrip(".") for c in entry.get("styleCues", {}).get(theme, []) if c.strip()]
     mentions_dice = bool(DICE_WORDS.search(text + " " + " ".join(cues)))
     # A subject or cue that names a pip colour (C02, C39, C56: blue pips) already decides it; the generic cue would
     # contradict it.
@@ -70,7 +73,7 @@ def main() -> int:
                 kept += 1
             else:
                 job = {"jobId": f"V11-{theme.upper()}-{cid}", "category": "illustration", "contentId": cid,
-                       "subject": subject_text(entry),
+                       "subject": subject_text(entry, theme),
                        "extraReferences": [{"path": entry["picture"], "role": ROLE}]}
                 job_path.parent.mkdir(parents=True, exist_ok=True)
                 job_path.write_text(json.dumps(job, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
