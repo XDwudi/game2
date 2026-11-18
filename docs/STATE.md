@@ -216,7 +216,13 @@
     - 计分行筹码不变，等黑金实机截图再看；
     - THEME_SPEC 那句已改为“已实现”；
     - 已通知两个风格 agent 在 schema 测试的可选键里加 `buttonSecondary`。
-- W20Y2（子 agent，2026-11-18 开始，Unity 串行）：禁用的 `SolidButton11` 的字改用 `LabelOn11(面色, Muted)`；四套已有风格逐像素不变；扩充 W20Y 的探针测试。
+- W20Y2 禁用的二级按钮的字（子 agent，2026-11-18，**VERIFYING，交协调者复核**；[W20Y 报告 §10](specs/v11/W20Y_REPORT.md)）：`SolidButton11` 禁用时的字色由固定的 Muted 改为 `LabelOn11(面色, Muted)`；面色、禁用的 25% 混合、贴图不变。
+  - 提交：`1361b9e5`（那一行与注释；新 PlayMode 测试 `PLAY_W20Y2_01` + .meta，`PLAY_W20Y_04` 未改）、文档提交。
+  - 实际变的字：忙碌时（与没有骰子时）的查看骰子、忙碌时的上一手明细、锁定演出中计分行的随机结果按钮。禁用价格按钮上的原因（“卡牌已满 10 张”“道具栏已满”）由 `PriceButton13` 按同一规则上色，W20Y2 之前就可读，这次不变。
+  - `PLAY_W20Y2_01`：探针风格 D8B26A 下，忙碌时的查看骰子、上一手明细与满货商店两个禁用价格按钮的字都是 ink 5.67:1（muted 只有 1.60:1）；四套发布风格的禁用字都是 muted（6.81 / 8.67 / 5.92 / 6.88:1）。1080p、720p 通过，问题 0；那一行临时改回旧写法时这条测试失败（8 个问题）。
+  - 逐像素：四套风格两种分辨率各 84 张，改动前两次（`c24929ef`）、改动后两次（`1361b9e5`）：噪声参照之外的变化像素 0；非零差都在 3D 骰子上（≤ 2 级）。
+  - 全量（源码冻结在 `1361b9e5`）：EditMode 2437/2437（`nunit-20261118-100306`）、PlayMode 1080p 245/245（`-103857`）、720p 245/245（`-111320`）、Python 334/334；三份报告 `quality_check.py nunit` 都是 CHECKS_PASSED，绑定的 3256 个文件与 HEAD 相同。
+  - 待协调者定（未改）：muted 在禁用面上达不到 4.5:1 时，禁用与启用的字同色（探针风格都是 ink），禁用只靠面色混合区分，与黑金 2b 第 3 条有关；W20Y 报告开头的状态一行没改。
 - 2026-11-18 约 03:30 用量达到 5 小时上限，W20Y2、黑金第二阶段、彩绘玻璃第二阶段三个子 agent 同时中断。04:10 恢复后的处理：
   - W20Y2：上下文小，原 agent 接着做；它当时还没有提交或改动文件；
   - 黑金：第二阶段几乎做完但没提交（50 张件、测试、示意都在工作树里），原 agent 的上下文已超过 70 万 token。改派一个新 agent“收尾并核对”（重建一致性、README 数字、严格审计、全量测试、提交）；
@@ -253,7 +259,7 @@
   - W20 彩绘玻璃子 agent：工作树 `wt-v11-glass`（分支 `codex/v1.1-glass`）里对应的 glass 路径。
   - 瑞士插画复核子 agent：已交付（2026-11-18）。
   - W20Y 子 agent：已释放（2026-11-18 交付）。没有运行中的 Unity 进程；`DiceChineseFallback.asset` 已还原；证据在 `evidence/v11/unity/`（未纳入版本库）与 `artifacts/cache/v11/w20y/`。
-  - W20Y2 子 agent：Unity 编辑器；`UI/GameApp.Play11.cs` 的 `SolidButton11`、`Tests/`、`docs/specs/v11/W20Y_REPORT.md`（新增一节）、THEME_SPEC 状态行。
+  - W20Y2 子 agent：已释放（2026-11-18 交付）。没有运行中的 Unity 进程；`DiceChineseFallback.asset` 已还原；证据在 `evidence/v11/unity/`（未纳入版本库）与 `artifacts/cache/v11/w20y2/`。
   - 主 agent：`ArtSource/Art11/` 的生成（经 artgen 串行进行），以及 `docs/STATE.md`、`THEME_SPEC.md`（W20X 可改状态行与 §5，须列出）、`DEV_PLAN.md`、`CARD_TEMPLATE.md`、`SHOP_LAYOUT.md`。
 
 ## 玩家文字与美术体验审查（提案，2026-11-16）
