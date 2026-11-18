@@ -168,7 +168,10 @@
   1. W14 复核合并（已完成）；
   2. W20X 与 W20Xb（已完成）；
   3. 唐三彩与爆彩漫画的 Unity 实机截图与协调者审查（已完成）；
-  4. 黑金与彩绘玻璃两套界面件（2026-11-18 开始，两个子 agent 各用一个工作树）。
+  4. 黑金与彩绘玻璃两套界面件（2026-11-18 开始，两个子 agent 各用一个工作树）：
+     - 先交第一阶段：色板、桌面、约十张代表件、对局与商店示意。协调者审查（必要时给用户看）后，再做其余件、测试与说明；
+     - 任务说明汇总了唐三彩与漫画的教训：卡框不厚于默认，以免迷你卡丢短文；150% 两行提示下方至少 5 单位；卡牌栏和行动行不放装饰；只做有引用的 50 张。
+- W22 进度（2026-11-17 23:42）：瑞士 184/184（新图 169 张，加保留的 15 张）；唐三彩 90/184；额度 27%。瑞士整套由只读子 agent 逐张复核，协调者看过标记项后提交。
 
   这样两套新件从一开始就按新接口和实机结果做，避免返工。
 - 运行规则（W11c 教训）：Unity PlayMode 全量运行期间不跑 artgen 批量与其他吃 CPU 的任务；成批生成的脚本在检测到 PlayMode 测试进程时暂停。
@@ -178,6 +181,9 @@
   - 提交时继续加这两个参数，避免在 Unity 测试期间触发自动整理。
 - 文件锁：
   - W20Xb 子 agent：已释放（2026-11-18 交付）。没有运行中的 Unity 进程；`DiceChineseFallback.asset` 已还原；证据在 `evidence/v11/unity/`（未纳入版本库）与 `artifacts/cache/v11/w20xb/`。
+  - W20 黑金子 agent：工作树 `wt-v11-deco`（分支 `codex/v1.1-deco`，起点 `cd2fedb`）里的 `tools/art_v11/deco/`、`Resources/Themes/deco/`、`ArtSource/Art11/deco/`（`illustrations/` 除外）、`tests/test_art_v11_deco.py`。
+  - W20 彩绘玻璃子 agent：工作树 `wt-v11-glass`（分支 `codex/v1.1-glass`）里对应的 glass 路径。
+  - 瑞士插画复核子 agent：只读，只写 `artifacts/cache/v11/w22/swiss-review/`。
   - 主 agent：`ArtSource/Art11/` 的生成（经 artgen 串行进行），以及 `docs/STATE.md`、`THEME_SPEC.md`（W20X 可改状态行与 §5，须列出）、`DEV_PLAN.md`、`CARD_TEMPLATE.md`、`SHOP_LAYOUT.md`。
 
 ## 玩家文字与美术体验审查（提案，2026-11-16）
