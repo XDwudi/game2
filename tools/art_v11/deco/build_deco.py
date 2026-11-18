@@ -64,7 +64,11 @@ PALETTE = {
     "background": "0D0A08",   # deepest lacquer: fades and veils; mixed into the secondary chips until buttonSecondary
     "felt": "15110D",         # black lacquer (concept tray floor 15110E): the table, flat in every calm zone
     "panel": "332A20",        # smoked lacquer plate: top bar, dialogs (light text on it)
-    "panelLight": "6E5434",   # antique bronze: the normal stage tag and header, dividers, unreached points, disabled faces
+    # Dark bronze: the normal stage tag and header, dividers, unreached points, disabled faces. Round 2b (coordinator,
+    # 2026-11-18): deep enough that a disabled SolidButton11 face, lerp(buttonSecondary, panelLight, .25), takes the ivory
+    # label under LabelOn11 (3 deepening steps, a margin of 0.07 or more on both deciding steps) and lands 14 CIEDE2000
+    # from the enabled gold face (phase 2: 6E5434, 1.09). README "次要按钮".
+    "panelLight": "573A1A",
     "paper": "F4E3C3",        # ivory enamel: cards, paper panels, button faces
     "ink": "18130E",          # lacquer ink: text on ivory
     "textColor": "F7E9CC",    # ivory: text on lacquer
@@ -81,9 +85,10 @@ PALETTE = {
     "ghost": "B8955A",        # old gold: outline buttons, empty slot rings, the tray's inner line, the goods' card ring
     "primary": "9E1D22",      # crimson (concept: 重掷, 下一关 and 开始挑战 are crimson plaques): the one main action
     "reward": "EDC46A",       # bright gold: reward moments
-    # Coordinator 2026-11-18: at least 15 CIEDE2000 from the crimson primary, clearly apart from pressure. A brighter
-    # vermilion red (README "色板"): 16.9 from primary, 20.0 for the plate LabelOn11 draws, 16.7 from pressure.
-    "boss": "EB2921",
+    # Coordinator 2026-11-18, round 2b: at least 15 CIEDE2000 from the crimson primary, the red pips and pressure, also as
+    # the plate LabelOn11 draws (the formula row puts the boss factor next to the red hand chip). A rhodolite raspberry
+    # (README "首领色"): rings 4.02:1 on the felt; plates deepen 3 steps to B42971 under the ivory label.
+    "boss": "D23084",
     "pressure": "E8742E",     # vermilion orange: pressure stages (a warning hue)
     "rarityCommon": "BDB6A8", # pewter
     "rarityAdvanced": "3D9FB5",  # teal enamel (style kit teal 0E4A66, lifted to read on ivory and lacquer)
@@ -99,11 +104,13 @@ W20X_TOKENS = {
 }
 # Keys the game does not read yet. buttonSecondary (code task W20Y, coordinator 2026-11-18): the face tint of every
 # SolidButton11 (secondary actions, Skip, 查看骰子, the shop's buttons and the price buttons on cards and goods rows);
-# unset, the code keeps lerp(background, panel, .55). A bronze plaque that reads on the black felt and on ivory
-# (3.04:1 and 4.89:1) with an ivory label at 5.14:1. Not written to theme.json until W20Y is merged (the coordinator adds
-# it then); the mocks and the preview draw it, labelled "simulated buttonSecondary".
+# unset, the code keeps lerp(background, panel, .55). Round 2b: an antique gold plaque with the ink label (4.95:1, no
+# steps), the concept's light plaques with dark lettering: 5.04:1 on the felt, 3.78:1 on the top bar, 2.95:1 on ivory.
+# Felt, top bar and ivory cannot all reach 3:1 with a 4.95:1 label (README "次要按钮"). Not written to theme.json until
+# W20Y is merged in this worktree (the coordinator adds it then); the mocks and the preview draw it, labelled
+# "simulated buttonSecondary".
 PENDING_TOKENS = {
-    "buttonSecondary": "7A5C30",
+    "buttonSecondary": "A47E41",
 }
 THEME_META = {
     "id": "deco",
@@ -210,29 +217,65 @@ def best_label(fill: str, palette: dict) -> tuple[str, float]:
     return key, contrast(palette[key], fill)
 
 
-def label_on(fill: str, palette: dict) -> tuple[str, int, str]:
-    """GameApp.LabelOn11 on a white-faced plaque tinted `fill`: the best of ink / paper / textColor at 4.95:1, else the
-    tint steps 5 % toward black (or white) until the lightest (or darkest) label reaches it, fewer steps winning (a tie
-    deepens). Returns (label key, steps, the plate as drawn)."""
-    key, ratio = best_label(fill, palette)
-    if ratio >= 4.95:
-        return key, 0, fill
+def luminance_rgb(c) -> float:
+    """WCAG relative luminance of an unquantised sRGB colour (floats 0..1, as a C# Color holds it)."""
+    f = lambda x: x / 12.92 if x <= .04045 else ((x + .055) / 1.055) ** 2.4
+    r, g, b = (float(v) for v in c)
+    return .2126 * f(r) + .7152 * f(g) + .0722 * f(b)
+
+
+def contrast_rgb(label: str, c) -> float:
+    x, y = luminance(label), luminance_rgb(c)
+    return (max(x, y) + .05) / (min(x, y) + .05)
+
+
+def label_on(fill, palette: dict, preferred: str | None = None) -> tuple[str, int, str]:
+    """GameApp.LabelOn11 on a white-faced plaque tinted `fill` (a hex value, or unquantised floats such as a Color.Lerp
+    result): a `preferred` palette key stays at 4.5:1; else the best of ink / paper / textColor at 4.95:1; else the tint
+    steps 5 % toward black (or white) until the lightest (or darkest) label reaches it, fewer steps winning (a tie
+    deepens). The steps run on the unquantised tint, as the C# Color does (round 2b: the phase 2 emulation rounded every
+    step to 8 bits and counted 3 lightening steps for EB2921 where the float loop ties at 4 and deepens). Returns (label
+    key, steps, the plate as drawn)."""
+    start = col(fill) if isinstance(fill, str) else np.asarray(fill, np.float32)
+    if preferred is not None and contrast_rgb(palette[preferred], start) >= 4.5:
+        return preferred, 0, hexc(start)
     keys = ("ink", "paper", "textColor")
+    key = max(keys, key=lambda k: contrast_rgb(palette[k], start))
+    if contrast_rgb(palette[key], start) >= 4.95:
+        return key, 0, hexc(start)
     light = max(keys, key=lambda k: luminance(palette[k]))
     dark = min(keys, key=lambda k: luminance(palette[k]))
 
     def steps(toward, label):
-        t = col(fill)
+        t = start.copy()
         for i in range(25):
-            if contrast(palette[label], hexc(t)) >= 4.95:
+            if contrast_rgb(palette[label], t) >= 4.95:
                 return i, hexc(t)
-            t = t + (col(toward) - t) * .05
+            t = t + (col(toward) - t) * np.float32(.05)
         return -1, None
     d, dt = steps("000000", light)
     li, lt = steps("FFFFFF", dark)
     if d < 0 and li < 0:
-        return key, 0, fill
+        return key, 0, hexc(start)
     return (light, d, dt) if (li < 0 or 0 <= d <= li) else (dark, li, lt)
+
+
+def lerp_rgb(a: str, b: str, t: float) -> np.ndarray:
+    """Color.Lerp on two palette colours, unquantised (the disabled SolidButton11 face before LabelOn11)."""
+    return col(a) * np.float32(1 - t) + col(b) * np.float32(t)
+
+
+def secondary_faces(palette: dict) -> dict:
+    """GameApp.SolidButton11 with buttonSecondary set (W20Y, W20Y2): the enabled face and its LabelOn11(face, textColor)
+    label; the disabled face lerp(face, panelLight, .25) and its LabelOn11(face, muted) label. LabelOn11 writes any
+    deepening or lightening back into the face, so 'drawn' is what the player sees."""
+    bs = palette["buttonSecondary"]
+    on_key, on_steps, on_drawn = label_on(bs, palette, "textColor")
+    off_start = lerp_rgb(bs, palette["panelLight"], .25)
+    off_key, off_steps, off_drawn = label_on(off_start, palette, "muted")
+    return {"face": bs, "label": on_key, "steps": on_steps, "drawn": on_drawn,
+            "off_face": hexc(off_start), "off_label": off_key, "off_steps": off_steps, "off_drawn": off_drawn,
+            "dE00": de00(on_drawn, off_drawn)}
 
 
 # ---------------------------------------------------------------------------------------------- deco materials
@@ -613,12 +656,23 @@ def plain_frame(w: int, h: int, *, cut: float, gold: float, gap: float, gap_rgb,
     return r.export()
 
 
+def corner_rule(X, Y, d, w: int, h: int, at: float, width: float, arms=(24.0, 34.0)):
+    """The engraved line of a plaque kept to its corner blocks (round 2b): the line `width` px wide at depth `at` runs
+    along the chamfer and a short arm along each edge, the arms tapering to a point between arms[0] and arms[1] px from
+    the corner (so it ends inside the 40 px corner square and the stretched bands carry the rim alone)."""
+    s = np.maximum(np.minimum(X, np.float32(w) - X), np.minimum(Y, np.float32(h) - Y))
+    s0, s1 = arms
+    half = np.clip((s1 - s) / (s1 - s0), -2.0, 1.0).astype(np.float32) * np.float32(width / 2)
+    return coverage(np.abs(d + np.float32(at + width / 2)) - half)
+
+
 def plaque(w: int, h: int, *, cut: float, rim: float, line_at: float = 0.0, line_w: float = 0.0, inlay_at: float = 0.0,
            inlay_w: float = 0.0, hollow: bool = False, inner_w: float = 0.0, border: float = 40.0, inset: float = 1.0,
-           depth: int | None = None, lo: float = .58) -> Image.Image:
+           depth: int | None = None, lo: float = .58, corner_line: bool = False) -> Image.Image:
     """A tinted (achromatic) octagon plaque: a bevelled grey rim `rim` px wide, then white; optionally an engraved grey
-    line (line_at, line_w), a transparent inlay gap (inlay_at, inlay_w) that shows the host, or an open centre
-    (hollow: the plaque is only the rim and an optional inner hairline `inner_w` after the inlay)."""
+    line (line_at, line_w) all round or, with `corner_line`, only in the corner blocks (corner_rule), a transparent inlay
+    gap (inlay_at, inlay_w) that shows the host, or an open centre (hollow: the plaque is only the rim and an optional
+    inner hairline `inner_w` after the inlay)."""
     box = (inset, inset, w - inset, h - inset)
     pts = octagon(box, cut)
     depth = depth or int(math.ceil(border + 8))
@@ -635,7 +689,8 @@ def plaque(w: int, h: int, *, cut: float, rim: float, line_at: float = 0.0, line
         win.over(WHITE, coverage(d))
         win.over(np.repeat(g[..., None], 3, axis=2), band(d, 0.0, rim))
         if line_w > 0:
-            win.over(np.full(3, .52, np.float32), band(d, line_at, line_at + line_w))
+            line = corner_rule(win.X, win.Y, d, w, h, line_at, line_w) if corner_line else band(d, line_at, line_at + line_w)
+            win.over(np.full(3, .52, np.float32), line)
         if inlay_w > 0:
             win.cut(band(d, inlay_at, inlay_at + inlay_w))
 
@@ -758,11 +813,14 @@ def surface(spec: dict) -> Image.Image:
         # Value badges (x gold or danger), the shop's 同款 tag (x panelLight), the dice style page's name chips: an ivory
         # enamel chip with a lacquer hairline (it is tinted whole, so the hairline stays darker than any face).
         return flat_tile(w, h, cut=12.0, face=IVORY, edge=3.0, edge_rgb=INK_LINE)
-    # Achromatic, tinted by the game.
+    # Achromatic, tinted by the game. The chip and the button hold labels in tight boxes: their stretched bands carry
+    # only the bevelled rim (FrameInsets11 6 and 7 px, the default's left and top), and the engraved line of the
+    # concept's plaques stays in the corner blocks (round 2b, coordinator 2026-11-18; phase 2 ran it all round, 10 and
+    # 12 px).
     if name == "ui_chip_formula":
-        return plaque(w, h, cut=CHIP_CUT, rim=CHIP_RIM, line_at=7.5, line_w=1.6)
+        return plaque(w, h, cut=CHIP_CUT, rim=CHIP_RIM, line_at=7.5, line_w=1.6, corner_line=True)
     if name == "ui_button_bevel":
-        return plaque(w, h, cut=BUTTON_CUT, rim=BUTTON_RIM, line_at=9.0, line_w=1.8)
+        return plaque(w, h, cut=BUTTON_CUT, rim=BUTTON_RIM, line_at=9.0, line_w=1.8, corner_line=True)
     if name == "ui_button_ghost":
         # FlatButton's face (x Ghost): the double rule as an outline, the centre open.
         return plaque(w, h, cut=BUTTON_CUT, rim=5.0, inlay_at=5.0, inlay_w=2.5, hollow=True, inner_w=2.0)
@@ -1026,12 +1084,14 @@ def badge(name: str) -> Image.Image:
 
 
 def coin(size: int = 96) -> Image.Image:
-    """ui_icon_coin: a gold coin, lacquer rim line, a sunburst on its face and a crimson lozenge at the centre."""
+    """ui_icon_coin: a gold coin, lacquer rim line, a sunburst on its face and a crimson lozenge at the centre. Round 2b:
+    the coin sits on the gold secondary plaque (price and refresh buttons), so its lacquer rim is wider (6.5 % of the size,
+    phase 2 3.5 %) round a slightly smaller disc: a gold coin on a gold plaque keeps a dark edge at 26 units."""
     r = Raster(size, size)
     X, Y = r.X, r.Y
     c = size / 2
-    d = sd_circle(X, Y, c, c, size * .45)
-    r.over(INK_LINE, coverage(d - size * .035))
+    d = sd_circle(X, Y, c, c, size * .43)
+    r.over(INK_LINE, coverage(d - size * .065))
     nx, ny = normals(d)
     r.over(gold_fill(d, nx, ny, size * .10), coverage(d))
     inner = sd_circle(X, Y, c, c, size * .31)
@@ -1119,16 +1179,21 @@ def roll_cup(size: int = 256) -> Image.Image:
 
 
 def dice_view(size: int = 128) -> Image.Image:
-    """ui_icon_dice_view (查看骰子): an ivory die with lacquer pips and a gold magnifier over its corner."""
+    """ui_icon_dice_view (查看骰子): an ivory die with lacquer pips and a gold magnifier over its corner. Round 2b: on the
+    gold secondary plaque the die and the magnifier take a wider lacquer outline (die 6 px, magnifier 7 px at 128)."""
     r = Raster(size, size)
     X, Y = r.X, r.Y
     s = size / 128
-    _die_layer(r, 52 * s, 50 * s, 72 * s, pips=(5, 2, 3),
+    cx, cy, a = 52 * s, 50 * s, 36 * s
+    silhouette = [(cx, cy - a), (cx + a, cy - a * .5), (cx + a, cy + a * .6), (cx, cy + a * 1.1), (cx - a, cy + a * .6),
+                  (cx - a, cy - a * .5)]
+    r.over(INK_LINE, coverage(sd_poly(X, Y, silhouette) - 6 * s))
+    _die_layer(r, cx, cy, 72 * s, pips=(5, 2, 3),
                pip_rgb=(col("15110D"), col(PALETTE["red"]), col(PALETTE["blue"])))
     ring = sd_circle(X, Y, 82 * s, 80 * s, 24 * s)
     handle = sd_segment(X, Y, 99 * s, 97 * s, 118 * s, 116 * s) - 8 * s
     shape = np.minimum(ring, handle)
-    r.over(INK_LINE, coverage(shape - 5 * s))
+    r.over(INK_LINE, coverage(shape - 7 * s))
     r.over(col("CFE6EE"), coverage(ring) * .85)
     lens_ring = np.abs(ring + 4 * s) - 4.5 * s
     hd = np.minimum(lens_ring, handle)
@@ -1609,8 +1674,10 @@ def palette_report(palette: dict | None = None) -> dict[str, float]:
     sec = lerp_hex(p["background"], p["panel"], .55)
     rim = lerp_hex(p["panel"], p["panelLight"], .55)
     boss_key, boss_steps, boss_plate = label_on(p["boss"], p)
+    red_plate = label_on(p["red"], p)[2]           # the formula row's hand chip (UiKit.Red) as LabelOn11 draws it
+    pressure_plate = label_on(p["pressure"], p)[2]
     bs = pending["buttonSecondary"]
-    bs_key, bs_steps, bs_plate = label_on(bs, p)
+    s = secondary_faces(dict(p, buttonSecondary=bs))
     out = {
         "textColor/panel": contrast(p["textColor"], p["panel"]),
         "ink/paper": contrast(p["ink"], p["paper"]),
@@ -1618,14 +1685,17 @@ def palette_report(palette: dict | None = None) -> dict[str, float]:
         "onFelt/felt": contrast(p["onFelt"], p["felt"]),
         "textColor/felt": contrast(p["textColor"], p["felt"]),
         f"{best_label(p['primary'], p)[0]}/primary (label pick)": best_label(p["primary"], p)[1],
-        f"{best_label(p['panelLight'], p)[0]}/panelLight (label pick)": best_label(p["panelLight"], p)[1],
+        f"{best_label(p['panelLight'], p)[0]}/panelLight (label pick: normal stage tag)": best_label(p["panelLight"], p)[1],
         f"{best_label(p['pressure'], p)[0]}/pressure (label pick)": best_label(p["pressure"], p)[1],
         f"{best_label(p['gold'], p)[0]}/gold (label pick)": best_label(p["gold"], p)[1],
         f"{boss_key}/boss plate {boss_plate} (LabelOn11, {boss_steps} steps)": contrast(p[boss_key], boss_plate),
         "boss/felt (tray rings)": contrast(p["boss"], p["felt"]),
         "boss/paper (stage card rings)": contrast(p["boss"], p["paper"]),
         "ink/boss (tier bars on the emblem)": contrast(p["ink"], p["boss"]),
-        "muted/panelLight (disabled button)": contrast(p["muted"], p["panelLight"]),
+        "boss/panel (chapter point, shop boss mark)": contrast(p["boss"], p["panel"]),
+        "muted/panelLight (disabled UiKit.Button label)": contrast(p["muted"], p["panelLight"]),
+        "panelLight/panel (normal stage tag, points on the top bar)": contrast(p["panelLight"], p["panel"]),
+        "panelLight/lacquer 100D0A (empty item rings)": contrast(p["panelLight"], LACQUER_HEX),
         "gold/panel": contrast(p["gold"], p["panel"]),
         "teal/panel": contrast(p["teal"], p["panel"]),
         "danger/paper": contrast(p["danger"], p["paper"]),
@@ -1634,7 +1704,12 @@ def palette_report(palette: dict | None = None) -> dict[str, float]:
         f"secondary chip today {sec}/felt": contrast(sec, p["felt"]),
         f"buttonSecondary {bs}/felt (pending, W20Y)": contrast(bs, p["felt"]),
         f"buttonSecondary {bs}/paper (pending, W20Y)": contrast(bs, p["paper"]),
-        f"{bs_key}/buttonSecondary (LabelOn11, {bs_steps} steps)": contrast(p[bs_key], bs_plate),
+        f"buttonSecondary {bs}/panel (top bar, pending)": contrast(bs, p["panel"]),
+        f"buttonSecondary {bs}/lacquer 100D0A (sections, HUD)": contrast(bs, LACQUER_HEX),
+        f"{s['label']}/buttonSecondary (LabelOn11 textColor, {s['steps']} steps)": contrast(p[s["label"]], s["drawn"]),
+        f"disabled {s['off_face']} -> {s['off_drawn']}: {s['off_label']} (LabelOn11 muted, {s['off_steps']} steps)":
+            contrast(p[s["off_label"]], s["off_drawn"]),
+        "buttonSecondary enabled/disabled face dE00 (drawn)": s["dE00"],
         f"tray rim {rim}/felt": contrast(rim, p["felt"]),
         "gold/panelLight (done vs unreached points)": contrast(p["gold"], p["panelLight"]),
         "valueBadge/danger badge dE00 (drawn)": ciede2000(lab(value_fill), lab(warning_fill)),
@@ -1644,8 +1719,12 @@ def palette_report(palette: dict | None = None) -> dict[str, float]:
         "primary/boss dE00": de00(p["primary"], p["boss"]),
         "primary/boss plate as drawn dE00": de00(p["primary"], boss_plate),
         "pressure/boss dE00": de00(p["pressure"], p["boss"]),
+        "pressure plate/boss plate dE00": de00(pressure_plate, boss_plate),
         "primary/pressure dE00": de00(p["primary"], p["pressure"]),
         "red pip/boss dE00": de00(p["red"], p["boss"]),
+        f"red chip {red_plate}/boss plate dE00 (formula row)": de00(red_plate, boss_plate),
+        "violet chip/boss plate dE00 (formula row)": de00(label_on(p["violet"], p)[2], boss_plate),
+        "rarityRare/boss dE00 (tier 3 / tier 4 emblem)": de00(p["rarityRare"], p["boss"]),
         "danger/boss dE00": de00(p["danger"], p["boss"]),
     }
     rar = ("rarityCommon", "rarityAdvanced", "rarityRare")

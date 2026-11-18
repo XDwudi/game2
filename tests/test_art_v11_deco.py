@@ -72,8 +72,9 @@ FELT_ZONES = {
 }
 APPROVED_TITLE_FONT = Path("DicePrototype/Assets/Game/Fonts/Themes/deco/ZCOOLXiaoWei-Regular.ttf")
 # Coordinator, phase 1 review (2026-11-18), decision 2: the W20Y key buttonSecondary sets every SolidButton11 face. It
-# stays out of theme.json until W20Y declares it in ThemePalette.Hexes; the generator keeps it as a pending key.
-BUTTON_SECONDARY = "7A5C30"
+# stays out of theme.json until W20Y declares it in ThemePalette.Hexes; the generator keeps it as a pending key. Round 2b
+# (coordinator, 2026-11-18): an antique gold plaque with the ink label, readable on the top bar too (phase 2: 7A5C30).
+BUTTON_SECONDARY = "A47E41"
 
 
 def hex_rgb(value):
@@ -151,20 +152,22 @@ def de00(a, b):
     return ciede2000(lab(np.asarray(a, dtype=np.float64)), lab(np.asarray(b, dtype=np.float64)))
 
 
-def tinted(face, tint):
-    """A face pixel times a tint, in linear light (the project's colour space), back to 8-bit sRGB."""
+def tinted(face, tint, exact=False):
+    """A face pixel times a tint, in linear light (the project's colour space), back to sRGB: 8-bit as drawn, or
+    unquantised (`exact`) as the C# Color holds the product."""
     linear = channel(face) * channel(tint)
     srgb = np.where(linear <= .0031308, linear * 12.92, 1.055 * np.power(linear, 1 / 2.4) - .055)
-    return np.rint(srgb * 255)
+    return srgb * 255 if exact else np.rint(srgb * 255)
 
 
 def label_on(face, tint, palette, preferred=None):
     """GameApp.LabelOn11 (Play11Contrast.cs), written out: on the fill face x tint a preferred colour stays at 4.5:1;
     else the best of ink, paper and textColor at 4.95:1; else the tint steps 5 % (in sRGB) toward black under the
-    lightest candidate or toward white under the darkest, the fewer steps winning and a tie deepening. Returns the label,
-    the tint as drawn and the number of steps."""
+    lightest candidate or toward white under the darkest, the fewer steps winning and a tie deepening. The fill and the
+    steps stay unquantised, as the C# Color is (Contrast11 on RenderedFill11). Returns the label, the tint as drawn and the
+    number of steps."""
     tint = np.asarray(tint, dtype=np.float64)
-    fill = tinted(face, tint)
+    fill = tinted(face, tint, exact=True)
     if preferred is not None and float(contrast(preferred, fill)) >= 4.5:
         return np.asarray(preferred, dtype=np.float64), tint, 0
     candidates = [np.array(hex_rgb(palette[k]), dtype=np.float64) for k in ("ink", "paper", "textColor")]
@@ -182,7 +185,7 @@ def label_on(face, tint, palette, preferred=None):
     def steps(toward, label):
         t = tint / 255.0
         for i in range(25):
-            if float(contrast(label, tinted(face, t * 255.0))) >= 4.95:
+            if float(contrast(label, tinted(face, t * 255.0, exact=True))) >= 4.95:
                 return i, t * 255.0
             t = t + (np.asarray(toward, dtype=np.float64) - t) * .05
         return -1, None
@@ -404,9 +407,10 @@ class DecoArtTests(unittest.TestCase):
 
     def test_frames_stay_in_their_bands_and_leave_text_room(self):
         # Brief rule 3: FrameInsets11 mirrored. The card faces, the stage card, the top bar and the value badge keep a
-        # frame no deeper than the default style's on every side (their text boxes are as the default's or larger).
+        # frame no deeper than the default style's on every side (their text boxes are as the default's or larger); since
+        # round 2b (coordinator, 2026-11-18) also the button and the formula chip, which hold labels in tight boxes.
         no_deeper_than_default = ("ui_card_controller", "ui_card_controller_compact", "ui_card_shop", "ui_card_item",
-                                  "ui_stage_card", "ui_topbar", "ui_chip_label")
+                                  "ui_stage_card", "ui_topbar", "ui_chip_label", "ui_chip_formula", "ui_button_bevel")
         for name in no_deeper_than_default:
             border = BY_NAME[name]["border"]
             ours, theirs = frame_insets(load(name), border), frame_insets(load_default(name), border)
@@ -415,7 +419,7 @@ class DecoArtTests(unittest.TestCase):
                     self.assertGreaterEqual(a, 1, "The surface needs a visible frame.")
                     self.assertLessEqual(a, b)
         # Max inset per side in source px (PPU 200: 2 px = 1 unit) where text sits inside the other frames.
-        limits = {"ui_chip_formula": 14, "ui_button_bevel": 20, "ui_info_inset": 15, "ui_slot_inventory": 22,
+        limits = {"ui_info_inset": 15, "ui_slot_inventory": 22,
                   "ui_paper_panel": 24, "ui_panel_hud": 24, "ui_tab_bottom": 24, "ui_section_panel": 24}
         for sprite in SPRITES:
             name = sprite["name"]
@@ -499,6 +503,34 @@ class DecoArtTests(unittest.TestCase):
             with self.subTest(sprite=name, part="stretched middle"):
                 red[:40, :40] = red[:40, w - 40:] = red[h - 40:, :40] = red[h - 40:, w - 40:] = False
                 self.assertEqual(int(red.sum()), 0)
+
+    def test_button_and_chip_keep_their_engraved_rule_in_the_corner_blocks(self):
+        # Round 2b (coordinator, 2026-11-18): the button and the formula chip hold labels in tight boxes, so their
+        # stretched bands carry only the bevelled rim (FrameInsets11 no deeper than the default's, checked above); the
+        # engraved inner rule of the concept's plaques stays in the four 40 px corner blocks. On each corner's diagonal:
+        # the rim, a white gap, the engraved rule, then the white face. The rule's arms end inside the block: near the
+        # block's inner edge (px 38) the band is the same as in the stretched middle.
+        for name in ("ui_button_bevel", "ui_chip_formula"):
+            pixels = load(name).astype(int)
+            h, w = pixels.shape[:2]
+            for corner, (fy, fx) in {"tl": (1, 1), "tr": (1, -1), "bl": (-1, 1), "br": (-1, -1)}.items():
+                with self.subTest(sprite=name, corner=corner):
+                    ys = [i if fy > 0 else h - 1 - i for i in range(40)]
+                    xs = [i if fx > 0 else w - 1 - i for i in range(40)]
+                    grey = [int(pixels[y, x, 0]) for y, x in zip(ys, xs) if pixels[y, x, 3] >= 250]
+                    # The white face from `face` on; the rule is the darkest of the four pixels before it; between the
+                    # rim (some pixel under 245, a lit rim may start with a white crest) and the rule, a white gap.
+                    face = next(k for k in range(len(grey)) if min(grey[k:]) >= 250)
+                    rule = min(range(max(0, face - 4), face), key=lambda k: grey[k])
+                    self.assertLessEqual(grey[rule], 180, "an engraved rule inside the rim on the chamfer")
+                    self.assertTrue(any(grey[j] >= 245 and min(grey[:j]) < 245 for j in range(1, rule)),
+                                    "a white gap between the rim and the rule")
+            for side, band, middle in (("top", pixels[:40, 38], pixels[:40, w // 2]),
+                                       ("bottom", pixels[h - 40:, w - 39], pixels[h - 40:, w // 2]),
+                                       ("left", pixels[h - 39, :40], pixels[h // 2, :40]),
+                                       ("right", pixels[38, w - 40:], pixels[h // 2, w - 40:])):
+                with self.subTest(sprite=name, arm=side):
+                    np.testing.assert_array_equal(band, middle)
 
     def test_section_caption_and_meters_end_in_points(self):
         # shop.png's crimson section tabs end in a chevron; the meters (ui_progress_*) are pointed at both ends. The
@@ -603,16 +635,23 @@ class DecoArtTests(unittest.TestCase):
                     self.assertGreaterEqual(float((part >= 4.5).mean()), .10)
 
     def test_small_marks_stand_out_on_their_hosts(self):
-        # Brief rule 6, at real size on the real hosts: SolidButton11's face today (lerp(Background, Panel, .55)) and
-        # with the pending buttonSecondary (W20Y), the top bar, the score and resource wells, the felt, the paper.
+        # Brief rule 6, at real size on the real hosts: SolidButton11's face today (lerp(Background, Panel, .55)), with
+        # the pending buttonSecondary (W20Y) and disabled (W20Y2, round 2b), the top bar, the score and resource wells, the
+        # felt, the paper.
         p = self.palette
         lerp = lambda a, b, t: tuple(round(x + (y - x) * t) for x, y in zip(hex_rgb(a), hex_rgb(b)))
         solid_today, solid_w20y = lerp(p["background"], p["panel"], .55), hex_rgb(BUTTON_SECONDARY)
+        # The disabled face as LabelOn11(face, muted) draws it (round 2b: it deepens under the ivory label).
+        white = np.array((255, 255, 255), dtype=np.float64)
+        off_start = np.array(hex_rgb(BUTTON_SECONDARY), dtype=np.float64) * .75 + np.array(hex_rgb(p["panelLight"])) * .25
+        solid_off = tuple(int(v) for v in tinted(white, label_on(white, off_start, p,
+                                                                 np.array(hex_rgb(p["muted"]), dtype=np.float64))[1]))
         cases = (  # sprite, display size, host colour as the game draws it
             ("ui_icon_coin", (26, 26), solid_today), ("ui_icon_coin", (26, 26), solid_w20y),
-            ("ui_icon_coin", (36, 36), hex_rgb(p["panel"])),
+            ("ui_icon_coin", (26, 26), solid_off), ("ui_icon_coin", (36, 36), hex_rgb(p["panel"])),
             ("ui_icon_roll", (36, 36), tuple(load("ui_info_inset")[256, 256, :3])),
             ("ui_icon_dice_view", (40, 40), solid_today), ("ui_icon_dice_view", (40, 40), solid_w20y),
+            ("ui_icon_dice_view", (40, 40), solid_off),
             ("ui_tag_lock", (28, 30), hex_rgb(p["felt"])), ("ui_tag_lock", (22, 24), hex_rgb(p["felt"])),
             ("fx_score_crown", (48, 32), hex_rgb(p["panel"])),
             ("badge_enchant_base10", (28, 28), hex_rgb(p["paper"])), ("badge_enchant_mult2", (28, 28), hex_rgb(p["paper"])),
@@ -873,39 +912,94 @@ class DecoArtTests(unittest.TestCase):
 
     def test_boss_stands_apart_from_primary_and_pressure(self):
         # Coordinator decision 1 (phase 1 review): primary stays crimson; boss moves at least 15 CIEDE2000 from it, also as
-        # the plate is drawn (LabelOn11 may lighten or deepen the tint), and stays clearly apart from pressure. Its labels
+        # the plate is drawn (LabelOn11 may lighten or deepen the tint), and stays clearly apart from pressure. Round 2b
+        # (2026-11-18): also at least 15 from the red pips, and as drawn in the formula row, where the boss factor sits
+        # beside the hand chip (UiKit.Red, its own LabelOn11 plate) and the pressure plate is drawn the same way. Its labels
         # reach 4.95:1 through LabelOn11; its rings on the felt and on the stage card, and the ink tier bars on the
         # emblem, keep 3:1 (non-text contrast).
         p = self.palette
-        boss, primary, pressure = (np.array(hex_rgb(p[k]), dtype=np.float64) for k in ("boss", "primary", "pressure"))
+        boss, primary, pressure, red = (np.array(hex_rgb(p[k]), dtype=np.float64) for k in ("boss", "primary", "pressure", "red"))
         white = np.array((255, 255, 255), dtype=np.float64)
         self.assertEqual(tuple(int(v) for v in load("ui_chip_formula")[256, 256, :3]), (255, 255, 255))
         label, plate_tint, steps = label_on(white, boss, p)
         plate = tinted(white, plate_tint)
         self.assertGreaterEqual(float(contrast(label, plate)), 4.95)
         self.assertLessEqual(steps, 8, "the plate keeps the boss colour")
-        self.assertGreaterEqual(de00(primary, boss), 15.0)
-        self.assertGreaterEqual(de00(primary, plate), 15.0)
-        self.assertGreaterEqual(de00(pressure, boss), 15.0)
+        red_plate = tinted(white, label_on(white, red, p)[1])
+        pressure_plate = tinted(white, label_on(white, pressure, p)[1])
+        for name, other in (("primary", primary), ("red pip", red), ("pressure", pressure)):
+            with self.subTest(against=name):
+                self.assertGreaterEqual(de00(other, boss), 15.0)
+                self.assertGreaterEqual(de00(other, plate), 15.0)
+        self.assertGreaterEqual(de00(red_plate, plate), 15.0, "the formula row's red chip and boss chip")
+        self.assertGreaterEqual(de00(pressure_plate, plate), 15.0)
         self.assertGreaterEqual(float(contrast(boss, hex_rgb(p["felt"]))), 3.0)
         self.assertGreaterEqual(float(contrast(boss, hex_rgb(p["paper"]))), 3.0)
         self.assertGreaterEqual(float(contrast(hex_rgb(p["ink"]), boss)), 3.0)
 
     def test_button_secondary(self):
-        # Coordinator decision 2 (phase 1 review): a mid-tone bronze plaque for every SolidButton11 face, at least 3:1
-        # against the felt and the paper, its label 4.95:1 through LabelOn11. Until the coordinator adds it to theme.json
-        # at the W20Y merge, the generator keeps it as a pending key; either way the value is the decided one.
+        # Coordinator decision 2 (phase 1 review) and round 2b: one face for every SolidButton11 that reads on the felt,
+        # on the top bar (panel: the shop's 查看本章, 手册, 设置) and on the ivory cards (price buttons), its label at 4.95:1
+        # through LabelOn11. The three cannot all reach 3:1 with such a label: ink needs the face at a relative luminance
+        # of 0.2318 or more, where ivory stays under 2.95:1; textColor, the lightest label, needs 0.1266 or less, where the
+        # top bar stays under 2.37:1. Round 2b takes the ink label (the concept's light plaques with dark lettering): the
+        # felt and the top bar at 3:1 or more, ivory at 2.94:1 or more, 0.06 short of 3:1 (README "次要按钮"). Until the
+        # coordinator adds it to theme.json at the W20Y merge, the generator keeps it as a pending key.
         p = self.palette
         value = p.get("buttonSecondary") or self.builder.PENDING_TOKENS.get("buttonSecondary")
         self.assertEqual(value, BUTTON_SECONDARY)
+        lum = lambda k: float(luminance(np.array(hex_rgb(p[k]), dtype=np.float64)))
+        ink_floor = 4.95 * (lum("ink") + .05) - .05
+        text_ceiling = (lum("textColor") + .05) / 4.95 - .05
+        self.assertLess((lum("paper") + .05) / (ink_floor + .05), 3.0, "an ink-labelled face cannot reach 3:1 on ivory")
+        self.assertLess((text_ceiling + .05) / (lum("panel") + .05), 3.0, "an ivory-labelled face cannot on the top bar")
         face = load("ui_chip_formula")[256, 256, :3].astype(np.float64)
         tint = np.array(hex_rgb(BUTTON_SECONDARY), dtype=np.float64)
         fill = tinted(face, tint)
         self.assertGreaterEqual(float(contrast(fill, hex_rgb(p["felt"]))), 3.0)
-        self.assertGreaterEqual(float(contrast(fill, hex_rgb(p["paper"]))), 3.0)
+        self.assertGreaterEqual(float(contrast(fill, hex_rgb(p["panel"]))), 3.0)
+        self.assertGreaterEqual(float(contrast(fill, hex_rgb(p["paper"]))), 2.94)
         label, drawn_tint, steps = label_on(face, tint, p, preferred=np.array(hex_rgb(p["textColor"]), dtype=np.float64))
         self.assertEqual(steps, 0)
         self.assertGreaterEqual(float(contrast(label, fill)), 4.95)
+
+    def test_disabled_secondary_button_looks_disabled(self):
+        # Round 2b (coordinator, 2026-11-18; W20Y2): a disabled SolidButton11 is Color.Lerp(face, panelLight, .25) with the
+        # label LabelOn11(face, muted), which writes its steps into the face. As drawn, the disabled face is at least 5
+        # CIEDE2000 from the enabled one, and here it also takes the other label (ivory instead of ink). The branch is
+        # nowhere near flipping: the deciding contrasts stay 0.05 or more from 4.95, and lightening needs as many steps or
+        # more (C# deepens on a tie).
+        # panelLight's other uses keep their rules: the normal stage tag's label at 4.95:1 with no steps, the disabled
+        # UiKit.Button's Muted label at 3:1, the done (gold) and unreached chapter points 3:1 apart.
+        p = self.palette
+        rgb = lambda k: np.array(hex_rgb(p[k]), dtype=np.float64)
+        white = np.array((255, 255, 255), dtype=np.float64)
+        bs, pl = np.array(hex_rgb(BUTTON_SECONDARY), dtype=np.float64), rgb("panelLight")
+        on_label, on_tint, _ = label_on(white, bs, p, preferred=rgb("textColor"))
+        off_start = bs * .75 + pl * .25
+        off_label, off_tint, off_steps = label_on(white, off_start, p, preferred=rgb("muted"))
+        on_face, off_face = tinted(white, on_tint), tinted(white, off_tint)
+        self.assertGreaterEqual(de00(on_face, off_face), 5.0)
+        self.assertGreaterEqual(float(contrast(off_label, off_face)), 4.95)
+        self.assertFalse(np.array_equal(on_label, off_label), "the disabled button takes the other label")
+
+        def trace(toward, label):
+            t, out = off_start / 255.0, []
+            for _ in range(12):
+                out.append(float(contrast(label, tinted(white, t * 255.0, exact=True))))
+                t = t + (np.asarray(toward, dtype=np.float64) - t) * .05
+            return out
+        self.assertTrue(np.array_equal(off_label, rgb("textColor")), "deepened under the ivory label")
+        deepen, lighten = trace((0, 0, 0), rgb("textColor")), trace((1, 1, 1), rgb("ink"))
+        self.assertGreater(off_steps, 0)
+        self.assertGreaterEqual(deepen[off_steps], 4.95 + .05)
+        self.assertLessEqual(deepen[off_steps - 1], 4.95 - .05)
+        self.assertLessEqual(lighten[off_steps - 1], 4.95 - .05, "lightening needs as many steps or more (a tie deepens)")
+        tag_label, _, tag_steps = label_on(white, pl, p)
+        self.assertEqual(tag_steps, 0)
+        self.assertGreaterEqual(float(contrast(tag_label, pl)), 4.95)
+        self.assertGreaterEqual(float(contrast(rgb("muted"), pl)), 3.0)
+        self.assertGreaterEqual(float(contrast(rgb("gold"), pl)), 3.0)
 
     def test_value_and_warning_badges_stay_apart(self):
         # THEME_SPEC 2 valueBadge: a card's value badge (valueBadge, unset means gold) and its warning badge (danger) are

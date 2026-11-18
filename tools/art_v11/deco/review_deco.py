@@ -6,8 +6,10 @@
 
 The review images go to ArtSource/Art11/deco/review/: play_<state>_<100|150>.png and play_states.png (GameApp.Play11 L11
 rectangles, DrawActions11 states), card_rows.png (0, 3, 5, 7 and 10 cards, DrawCards11), action_row.png and
-action_row.txt (every state at both text sizes with the rectangle free in all of them), boss_stage.png, shop_w14.png
-(GameApp.Shop14 S14 with the theme's section, caption and step tints), palette.png, concept_sources.png.
+action_row.txt (every state at both text sizes with the rectangle free in all of them), boss_stage.png (with the formula
+row's boss and red chips side by side), secondary_buttons.png (round 2b: every SolidButton11 the code can disable,
+enabled beside disabled, at 100 % and 150 % text), shop_w14.png (GameApp.Shop14 S14 with the theme's section, caption
+and step tints), palette.png, concept_sources.png.
 
 buttonSecondary (W20Y, not in theme.json yet) is drawn as the coordinator asked: every SolidButton11 face takes it, and
 each image that shows it says "simulated buttonSecondary". Sprites are sampled as the game's UI sprites are (bilinear,
@@ -317,38 +319,49 @@ class Game:
         return bd.drawn(self.centre(name), tint_hex)
 
     def label_on(self, name: str, tint, preferred: str | None = None):
-        """GameApp.LabelOn11 on this sprite's centre x tint. Returns (label hex, tint hex as drawn)."""
+        """GameApp.LabelOn11 on this sprite's centre x tint (a hex value or unquantised floats). Returns (label hex, tint
+        hex as drawn): LabelOn11 writes its deepening or lightening steps back into the image's colour. The steps run on
+        the unquantised tint and fill, as the C# Color does (round 2b)."""
         P = self.P
-        tint_hex = tint if isinstance(tint, str) else bd.hexc(tint)
-        fill = bd.drawn(self.centre(name), tint_hex)
-        if preferred is not None and bd.contrast(preferred, fill) >= 4.5:
-            return preferred, tint_hex
+        t0 = bd.col(tint) if isinstance(tint, str) else np.asarray(tint, np.float32)
+        centre = bd.col(self.centre(name)).astype(np.float64)
+
+        def fill_of(t):
+            return _gam(_lin(centre) * _lin(np.asarray(t, np.float64)))
+        fill = fill_of(t0)
+        if preferred is not None and bd.contrast_rgb(preferred, fill) >= 4.5:
+            return preferred, bd.hexc(t0)
         cands = [P["ink"], P["paper"], P["textColor"]]
-        best = max(cands, key=lambda c: bd.contrast(c, fill))
-        if bd.contrast(best, fill) >= 4.95:
-            return best, tint_hex
+        best = max(cands, key=lambda c: bd.contrast_rgb(c, fill))
+        if bd.contrast_rgb(best, fill) >= 4.95:
+            return best, bd.hexc(t0)
         light = max(cands, key=bd.luminance)
         dark = min(cands, key=bd.luminance)
 
         def steps(toward: str, label: str):
-            t = bd.col(tint_hex)
+            t = t0.copy()
             for i in range(25):
-                if bd.contrast(label, bd.drawn(self.centre(name), bd.hexc(t))) >= 4.95:
+                if bd.contrast_rgb(label, fill_of(t)) >= 4.95:
                     return i, bd.hexc(t)
-                t = t + (bd.col(toward) - t) * .05
+                t = t + (bd.col(toward) - t) * np.float32(.05)
             return -1, None
         deepen, dt = steps("000000", light)
         lighten, lt = steps("FFFFFF", dark)
         if deepen < 0 and lighten < 0:
-            return best, tint_hex
+            return best, bd.hexc(t0)
         down = lighten < 0 or (0 <= deepen <= lighten)
         return (light, dt) if down else (dark, lt)
 
-    def sec(self, enabled: bool = True) -> str:
-        """SolidButton11's face: buttonSecondary when set (W20Y), else lerp(Background, Panel, .55); disabled mixes in a
-        quarter of PanelLight (the code's rule today)."""
+    def sec_tint(self, enabled: bool = True):
+        """SolidButton11's face before its label is picked: buttonSecondary when set (W20Y), else lerp(Background, Panel,
+        .55); disabled, Color.Lerp(face, PanelLight, .25), unquantised."""
         t = self.P.get("buttonSecondary") or bd.lerp_hex(self.P["background"], self.P["panel"], .55)
-        return t if enabled else bd.lerp_hex(t, self.P["panelLight"], .25)
+        return t if enabled else bd.lerp_rgb(t, self.P["panelLight"], .25)
+
+    def sec(self, enabled: bool = True) -> str:
+        """SolidButton11's face as drawn: the tint after its own LabelOn11(face, enabled ? TextColor : Muted), which may
+        step it (W20Y2)."""
+        return self.label_on("ui_chip_formula", self.sec_tint(enabled), self.P["textColor"] if enabled else self.P["muted"])[1]
 
     def body(self, size: float) -> float:
         """Body11: a size that ends at no less than 19.5 units after the text scale (returned already scaled)."""
@@ -381,12 +394,19 @@ class Game:
             c.text(x + w / 2, y + (h - 7) / 2, label, size, colour, font or bd.FONT, "mm")
         return face_drawn
 
+    def solid_face(self, c: Canvas, x, y, w, h, enabled: bool = True):
+        """GameApp.SolidButton11's face: ui_chip_formula x the secondary face, its label LabelOn11(face, enabled ?
+        TextColor : Muted) (W20Y2), which writes any steps back into the face. Returns (label hex, face hex as drawn)."""
+        label_hex, face = self.label_on("ui_chip_formula", self.sec_tint(enabled),
+                                        self.P["textColor"] if enabled else self.P["muted"])
+        self.put(c, "ui_chip_formula", x, y, w, h, face)
+        return label_hex, face
+
     def solid(self, c: Canvas, x, y, w, h, label: str, size: float, enabled: bool = True, icon: str | None = None,
               wrap_width: float | None = None):
-        """GameApp.SolidButton11 / ShopButton14: ui_chip_formula x the secondary face; label LabelOn11(face, TextColor)."""
-        tint = self.sec(enabled)
-        self.put(c, "ui_chip_formula", x, y, w, h, tint)
-        label_hex, _ = self.label_on("ui_chip_formula", tint, self.P["textColor"] if enabled else self.P["muted"])
+        """GameApp.SolidButton11 / ShopButton14: ui_chip_formula x the secondary face; label LabelOn11(face, TextColor),
+        disabled LabelOn11(face, Muted). A tinted icon takes the label colour (ShopButton14's NavIcon)."""
+        label_hex, _ = self.solid_face(c, x, y, w, h, enabled)
         if icon:
             s = min(34, h - 24) if icon != "ui_icon_dice_view" else 40
             tw = width_of(label, size)
@@ -462,18 +482,24 @@ SHORT_CARDS = (("advanced", "增加提交", "提交栏+1格。", "C21"), ("rare"
 RARITY_KEY = {"common": "rarityCommon", "advanced": "rarityAdvanced", "rare": "rarityRare", None: "ghost"}
 
 
-def price_button(g: Game, c: Canvas, x, y, w, h, price: int = 8, word: str = "购买"):
-    """PriceButton13: the solid secondary face with the coin, the price (gold when it reads) and the word."""
-    tint = g.sec()
-    g.put(c, "ui_chip_formula", x, y, w, h, tint)
-    label_hex, _ = g.label_on("ui_chip_formula", tint, g.P["textColor"])
-    gold_hex, _ = g.label_on("ui_chip_formula", tint, g.P["gold"])
-    coin, size = 24, 20 * g.fs
-    total = coin + 4 + width_of(str(price), 22 * g.fs) + 8 + width_of(word, size)
+def price_button(g: Game, c: Canvas, x, y, w, h, price: int = 8, word: str = "购买", enabled: bool = True):
+    """PriceButton13: the solid secondary face (SolidButton11, its own LabelOn11 may step the face) with the coin, the
+    price (LabelOn11(face, can ? Gold : Muted)) and the word (LabelOn11(face, can ? TextColor : Muted)); a disabled
+    button shows its coin at .6 alpha and says why instead of 购买."""
+    _, face = g.solid_face(c, x, y, w, h, enabled)
+    label_hex, _ = g.label_on("ui_chip_formula", face, g.P["textColor"] if enabled else g.P["muted"])
+    gold_hex, _ = g.label_on("ui_chip_formula", face, g.P["gold"] if enabled else g.P["muted"])
+    # Coin13 26, CoinGap13 4, the price at 22 (+4), WordGap13 8; the word starts at 20 and steps down by .5 toward the
+    # 19.5-unit body size while the row is wider than the button less 16 (one row; the two-row form is not drawn here).
+    coin, price_w, size = 26, width_of(str(price), 22 * g.fs) + 4, 20 * g.fs
+    while size > 19.5 and coin + 4 + price_w + 8 + width_of(word, size) > w - 16:
+        size = max(19.5, size - .5 * g.fs)
+    total = coin + 4 + price_w + 8 + width_of(word, size)
     sx = x + (w - total) / 2
-    c.fit(g.kit["ui_icon_coin"], sx, y + (h - coin) / 2, coin, coin)
+    c.fit(g.kit["ui_icon_coin"], sx, y + (h - coin) / 2, coin, coin, alpha=1.0 if enabled else .6)
     c.text(sx + coin + 4, y + h / 2, str(price), 22 * g.fs, gold_hex, bd.FONT, "lm")
-    c.text(sx + coin + 4 + width_of(str(price), 22 * g.fs) + 8, y + h / 2, word, size, label_hex, bd.FONT, "lm")
+    c.text(sx + coin + 4 + price_w + 8, y + h / 2, word, size, label_hex, bd.FONT, "lm")
+    return label_hex, face
 
 
 def draw_card(g: Game, c: Canvas, x, y, w, h, size: str, rarity, title: str, text: str, pic: Image.Image,
@@ -867,7 +893,9 @@ def formula_row(g: Game, c: Canvas, L: dict, s: dict):
     c.text(x + cap_w / 2, y + h / 2, caption, cap_font, col_, bd.FONT, "mm")
     factors = [("基础分", "26", P["blue"]), ("一对", "×2", P["red"]), ("全蓝", "×3", P["blue"]), ("卡牌", "×1.5", P["gold"])]
     if s.get("boss_factor"):
-        factors.append(("满员", "×0.8", P["boss"]))
+        # Round 2b: the boss factor right after red chips (GameApp.Factors11 order: hand, colour (全红 is UiKit.Red), red
+        # group, card, enchant, then the global factors with the boss's), the case the coordinator compared.
+        factors = [("基础分", "26", P["blue"]), ("一对", "×2", P["red"]), ("全红", "×3", P["red"]), ("满员", "×0.8", P["boss"])]
     vf, sep, pad, nf = (22 if large else 26) * fs, (26 if large else 30), 30, 19.5 * fs
     cx = x + cap_w + 12
     for i, (name, value, tint) in enumerate(factors):
@@ -879,7 +907,7 @@ def formula_row(g: Game, c: Canvas, L: dict, s: dict):
         cx += cw
         c.text(cx + sep / 2, y + h / 2, "×" if i < len(factors) - 1 else "=", (20 if large else 24) * fs, on_felt, bd.FONT, "mm")
         cx += sep
-    total = "187" if s.get("boss_factor") else "234"
+    total = "124" if s.get("boss_factor") else "234"
     tw = min(max(width_of(total, (26 if large else 32) * fs) + 36, 140 if large else 130), 520 if large else 460)
     label, tint_drawn = g.label_on("ui_chip_formula", P["reward"])
     g.put(c, "ui_chip_formula", cx, y, tw, h, tint_drawn)
@@ -932,7 +960,8 @@ def submit_row(g: Game, c: Canvas, L: dict, s: dict):
         for i, ln in enumerate(lines):
             c.text(x + 16, hy + i * rs * 1.4, ln, rs, gold, bd.FONT, "la")
         hy += len(lines) * rs * 1.4 + 6
-        c.text(x + 16, hy, "预计：一对\n全蓝", g.body(17 if large else 21), tc, bd.FONT, "la", spacing=2)
+        c.text(x + 16, hy, "预计：一对\n全红" if s.get("boss_factor") else "预计：一对\n全蓝", g.body(17 if large else 21), tc,
+               bd.FONT, "la", spacing=2)
     else:
         muted, _ = g.label_on("ui_panel_hud", "FFFFFF", P["muted"])
         c.text(x + 16, hy, "锁定骰子后显示预计牌型", g.body(15 if large else 18), muted, bd.FONT, "la")
@@ -1231,12 +1260,138 @@ def shop_screen(kit, borders, ppu, palette, page, notes: list) -> Image.Image:
     sec = g.sec()
     sec_label = g.label_on("ui_chip_formula", sec, P["textColor"])[0]
     notes.append(f"{SIMULATED}: price and shop buttons {sec}, label {sec_label} {bd.contrast(sec_label, sec):.2f}:1; "
-                 f"face vs paper {bd.contrast(sec, P['paper']):.2f}:1, vs felt {bd.contrast(sec, P['felt']):.2f}:1")
+                 f"face vs top bar {bd.contrast(sec, P['panel']):.2f}:1, vs section lacquer "
+                 f"{bd.contrast(sec, g.fill('ui_section_panel', section)):.2f}:1, vs ivory card {bd.contrast(sec, P['paper']):.2f}:1, "
+                 f"vs felt {bd.contrast(sec, P['felt']):.2f}:1")
     label_w, arrow = width_of("下一关", 34), 42
     sx = x + (w - (label_w + 10 + arrow)) / 2
     c.text(sx, y + (h - 7) / 2, "下一关", 34, key, bd.FONT, "lm")
     c.fit(kit["ui_icon_arrow"], sx + label_w + 10, y + (h - 7 - arrow) / 2, arrow, arrow, tint=bd.col(key))
     return c.image()
+
+
+# ---------------------------------------------------------------------------------------------- secondary button states
+def secondary_states(kit, borders, ppu, palette, large: bool) -> tuple[Image.Image, list]:
+    """Round 2b: every SolidButton11 the code can disable, enabled beside disabled, on its real host (GameApp.Play11
+    ViewDice / PreviousSubmission / the score row's RandomPreview chip; Shop14 ViewCycle / Handbook / RefreshControllers /
+    Study; Card11 PriceButton13 on a shop card and a goods row), plus the disabled UiKit.Button (EndStage, face
+    panelLight, label Muted) whose face is panelLight. 1920 x 860 units at 1080p."""
+    g = Game(kit, borders, ppu, palette, 1.5 if large else 1.0)
+    P, fs = g.P, g.fs
+    c = Canvas(1920, 860, P["felt"])
+    notes = []
+    head = ImageFont.truetype(str(bd.BODY_FONT), 18)
+    labels = []
+    # Row 1 (felt, play screen): the score row's detail chip, and the end button (UiKit.Button) for panelLight.
+    y = 40
+    w_chip = 150 if large else 132
+    for i, enabled in enumerate((True, False)):
+        x = 40 + i * (w_chip + 24)
+        g.solid(c, x, y, w_chip, 60, "9 种结果", g.body(15 if large else 18), enabled, wrap_width=w_chip - 16)
+    labels.append((40, y - 32, "score row chip: on | off"))
+    for i, enabled in enumerate((True, False)):
+        x = 420 + i * (392 + 24)
+        if enabled:
+            g.button(c, x, y - 10, 392, 80, "结束本关 · 结算", (20 if large else 24) * fs)
+        else:
+            g.button(c, x, y - 10, 392, 80, "结束本关 · 结算", (20 if large else 24) * fs, enabled=False, label_colour=P["muted"],
+                     two_line="达标后可结束")
+    labels.append((420, y - 32, f"EndStage (UiKit.Button): on | off (face panelLight {P['panelLight']}, label muted "
+                                f"{bd.contrast(P['muted'], g.fill('ui_button_bevel', P['panelLight'])):.2f}:1)"))
+    sx, sw = 1300, 240 if large else 264
+    g.solid(c, sx, y - 6, sw, 72, "重掷 · 还能掷 2 [R]", (17 if large else 21) * fs, True, wrap_width=sw - 16)
+    labels.append((sx, y - 32, "action row secondary (always on), for reference"))
+    # Row 2 (HUD lacquer, play screen): 查看骰子 in the resources panel, 上一手明细 in the submit info panel.
+    y = 170
+    for i, enabled in enumerate((True, False)):
+        x = 40 + i * (392 + 24)
+        g.put(c, "ui_panel_hud", x, y, 392, 100)
+        g.solid(c, x + 14, y + 20, 364, 60, "查看骰子", 22 * fs, enabled, icon="ui_icon_dice_view")
+    labels.append((40, y - 30, "查看骰子 (ViewDice) on the resources panel: on | off (busy, no dice)"))
+    info = 360 if large else 300
+    for i, enabled in enumerate((True, False)):
+        x = 900 + i * (info + 24)
+        g.put(c, "ui_panel_hud", x, y, info, 100)
+        g.solid(c, x + 16, y + 20, info - 32, 60, "上一手明细", (17 if large else 21) * fs, enabled)
+    labels.append((900, y - 30, "上一手明细 (PreviousSubmission) on the submit panel: on | off (busy)"))
+    # Row 3 (shop): the top bar and a section. ShopLabelWidth14 measures at the drawn size, so the buttons widen with the
+    # text size.
+    y = 330
+    label_w = lambda text, size=20: width_of(text, max(19.5, size * fs)) + 4
+    g.put(c, "ui_topbar", 40, y, 900, 72, P["panel"])
+    bx = 56
+    for enabled in (True, False):
+        cw = 44 + 8 + label_w("查看本章") + 28
+        k = g.solid(c, bx, y + 6, cw, 60, "", 20, enabled)
+        for j in range(3):
+            done = j < 1
+            size = 12 if done else 10
+            c.fit(kit["ui_pip_dot"], bx + 16 + j * 16 + (12 - size) / 2, y + 6 + (60 - size) / 2, size, size, tint=bd.col(k),
+                  alpha=1.0 if done else .45)
+        c.text(bx + 16 + 44 + 8, y + 36, "查看本章", max(19.5, 20 * fs), k, bd.FONT, "lm")
+        bx += cw + 10
+    for enabled in (True, False):
+        hw = 34 + 8 + label_w("手册") + 28
+        g.solid(c, bx, y + 6, hw, 60, "手册", max(19.5, 20 * fs), enabled, icon="ui_icon_book")
+        bx += hw + 10
+    labels.append((40, y - 30, "shop top bar (panel): 查看本章 on | off, 手册 on | off"))
+    y = 470
+    sec_x = 40
+    rx = sec_x + 16
+    pieces = []
+    for enabled, word, price in ((True, "刷新", 3), (False, "还差 2", 5)):
+        word_w, price_w = label_w(word), 26 + 4 + label_w(str(price), 22) + 4
+        pieces.append(("refresh", enabled, word, price, 16 + 34 + 8 + word_w + 10 + price_w + 16, word_w))
+    for enabled in (True, False):
+        study = "指定升级 · 加价 2"
+        pieces.append(("study", enabled, study, 0, label_w(study) + 32, 0))
+    sec_w = 32 + sum(p[4] for p in pieces) + 12 * (len(pieces) - 1)
+    g.put(c, "ui_section_panel", sec_x, y - 4, sec_w, 92, P.get("section", P["panel"]))
+    for kind, enabled, word, price, pw, word_w in pieces:
+        if kind == "refresh":
+            k = g.solid(c, rx, y + 4, pw, 60, "", 20, enabled)
+            c.fit(kit["ui_icon_refresh"], rx + 16, y + 4 + 13, 34, 34, tint=bd.col(k))
+            c.text(rx + 58, y + 34, word, max(19.5, 20 * fs), k, bd.FONT, "lm")
+            c.fit(kit["ui_icon_coin"], rx + 58 + word_w + 10, y + 4 + 17, 26, 26, alpha=1.0 if enabled else .6)
+            price_hex = g.label_on("ui_chip_formula", g.sec(enabled), P["gold"] if enabled else P["muted"])[0]
+            c.text(rx + 58 + word_w + 40, y + 34, str(price), 22 * fs, price_hex, bd.FONT, "lm")
+        else:
+            g.solid(c, rx, y + 4, pw, 60, word, max(19.5, 20 * fs), enabled)
+        rx += pw + 12
+    labels.append((sec_x, y - 30, "shop section (lacquer): 刷新 on | off (还差 2), 指定升级 on | off"))
+    # Row 4 (ivory): price buttons on shop cards and goods rows.
+    y = 620
+    for i, (enabled, word) in enumerate(((True, "购买"), (False, "卡牌已满"))):
+        x = 40 + i * (220 + 24)
+        g.put(c, "ui_card_shop", x, y, 220, 200)
+        fl, fb, fr, ft = (v / 2 for v in frame_insets_px(np.asarray(kit["ui_card_shop"]), borders["ui_card_shop"]))
+        rl, rb, rr, rt = (v / 2 for v in ring_insets_px(np.asarray(kit["ui_card_frame_rarity"]), borders["ui_card_frame_rarity"]))
+        inner = (x + fl, y + ft, 220 - fl - fr, 200 - ft - fb)
+        g.put(c, "ui_card_frame_rarity", *inner, P["rarityCommon"])
+        cx, cw2 = inner[0] + rl + 4, inner[2] - rl - rr - 8
+        price_button(g, c, cx, y + 200 - fb - rb - 3 - 60, cw2, 60, 8, word, enabled)
+    labels.append((40, y - 30, "price on a shop card: on | off (卡牌已满)"))
+    for i, (enabled, word) in enumerate(((True, "购买"), (False, "道具栏已满"))):
+        x = 600 + i * (452 + 24)
+        face = "ui_card_controller_compact"
+        g.put(c, face, x, y, 452, 103)
+        fl, fb, fr, ft = (v / 2 for v in frame_insets_px(np.asarray(kit[face]), borders[face]))
+        content = (x + fl + 4, y + ft + 4, 452 - fl - fr - 8, 103 - ft - fb - 8)
+        pw = 180
+        c.text(content[0] + 8, content[1] + 14, "蓝色浪潮", 20, g.label_on(face, "FFFFFF", P["ink"])[0], bd.FONT, "lm")
+        price_button(g, c, content[0] + content[2] - pw, content[1] + max(0, (content[3] - 60) / 2), pw, 60, 2, word, enabled)
+    labels.append((600, y - 30, "PriceButton13 on a goods row (ivory): on | off (道具栏已满)"))
+    im = c.image()
+    d = ImageDraw.Draw(im)
+    for x, yy, text in labels:
+        d.text((x, yy), text, fill=LABEL, font=head)
+    on_label, on_face = g.label_on("ui_chip_formula", g.sec_tint(True), P["textColor"])
+    off_label, off_face = g.label_on("ui_chip_formula", g.sec_tint(False), P["muted"])
+    notes.append(f"{SIMULATED}, panelLight {P['panelLight']}: enabled face {on_face}, label {on_label} "
+                 f"{bd.contrast(on_label, on_face):.2f}:1 | disabled lerp(face, panelLight, .25) {bd.hexc(g.sec_tint(False))} -> "
+                 f"LabelOn11(face, muted) draws {off_face}, label {off_label} {bd.contrast(off_label, off_face):.2f}:1 | "
+                 f"faces CIEDE2000 {bd.de00(on_face, off_face):.2f}")
+    return im, notes
 
 
 # ---------------------------------------------------------------------------------------------- sheets
@@ -1293,15 +1448,17 @@ def palette_sheet(palette: dict) -> Image.Image:
 
 # Icons and marks at their real display sizes on their real hosts (1080p, 1 unit = 1 px).
 SMALL_PROOFS = (  # (sprite, w, h, host palette key or hex, tint key or None)
-    ("ui_icon_coin", 26, 26, "buttonSecondary", None), ("ui_icon_coin", 36, 36, "panel", None),
+    ("ui_icon_coin", 26, 26, "buttonSecondary", None), ("ui_icon_coin", 26, 26, "buttonSecondaryOff", None),
+    ("ui_icon_coin", 36, 36, "panel", None),
     ("ui_icon_roll", 36, 36, "0A0806", None), ("ui_icon_lock", 20, 22, "background", None),
-    ("ui_icon_dice_view", 40, 40, "buttonSecondary", None), ("ui_icon_dice_view", 40, 40, "221C15", None),
+    ("ui_icon_dice_view", 40, 40, "buttonSecondary", None), ("ui_icon_dice_view", 40, 40, "buttonSecondaryOff", None),
+    ("ui_icon_dice_view", 40, 40, "221C15", None),
     ("ui_tag_lock", 28, 30, "felt", None), ("ui_tag_lock", 22, 24, "felt", None), ("ui_tag_clock", 24, 24, "felt", None),
     ("ui_tag_clock", 64, 64, "100D0A", None), ("fx_score_crown", 48, 32, "panel", None),
     ("badge_enchant_base10", 28, 28, "paper", None), ("badge_enchant_mult2", 28, 28, "paper", None),
     ("badge_enchant_roll1", 28, 28, "paper", None), ("badge_enchant_slotless", 28, 28, "paper", None),
-    ("badge_enchant_submit1", 28, 28, "paper", None), ("ui_icon_book", 34, 34, "buttonSecondary", "textColor"),
-    ("ui_icon_gear", 34, 34, "buttonSecondary", "textColor"), ("ui_icon_refresh", 34, 34, "buttonSecondary", "textColor"),
+    ("badge_enchant_submit1", 28, 28, "paper", None), ("ui_icon_book", 34, 34, "buttonSecondary", "ink"),
+    ("ui_icon_gear", 34, 34, "buttonSecondary", "ink"), ("ui_icon_refresh", 34, 34, "buttonSecondary", "ink"),
     ("ui_icon_arrow", 42, 42, "primary", "textColor"), ("ui_pip_dot", 22, 22, "paper", "ink"),
     ("fx_score_spark", 20, 20, "panel", "gold"),
 )
@@ -1312,8 +1469,9 @@ def small_size_proof(kit, palette) -> Image.Image:
     im = Image.new("RGB", (len(SMALL_PROOFS) * cell, 2 * cell + 44), (24, 20, 16))
     d = ImageDraw.Draw(im)
     small = ImageFont.truetype(str(bd.LATIN), 11)
+    off = bd.secondary_faces(palette)["off_drawn"] if "buttonSecondary" in palette else None
     for i, (name, w, h, host, tint_key) in enumerate(SMALL_PROOFS):
-        host_hex = palette.get(host, host)
+        host_hex = off if host == "buttonSecondaryOff" else palette.get(host, host)
         c = Canvas(cell, cell, host_hex)
         c.fit(kit[name], (cell - w) / 2, (cell - h) / 2, w, h, tint=bd.col(palette[tint_key]) if tint_key else None)
         tile = c.image()
@@ -1651,6 +1809,38 @@ def action_row(kit, borders, ppu, palette, table):
     return stack(strips, 6), lines
 
 
+PHASE2_BOSS = "EB2921"     # the phase 2 value, for the formula-row comparison in boss_stage.png
+
+
+def boss_figures(kit, borders, ppu, palette, table, boss):
+    """boss_stage.png's numbers and its formula-row strips: the row at 100 % and 150 % (1.3x), and the phase 2 boss
+    value in the same row, both drawn as the C# float LabelOn11 draws the plates."""
+    p = bd.palette_report(palette)
+    plate = bd.label_on(palette["boss"], palette)
+    red_plate = bd.label_on(palette["red"], palette)[2]
+    old = bd.label_on(PHASE2_BOSS, palette)
+    note = (f"BOSS STAGE (tier 4 emblem; formula: 基础分 x 一对 x 全红 x 满员, the boss factor beside the red chips): boss "
+            f"{palette['boss']}, plate {plate[2]} ({plate[0]} {bd.contrast(palette[plate[0]], plate[2]):.2f}:1, LabelOn11 "
+            f"{plate[1]} steps); CIEDE2000 to primary {p['primary/boss dE00']:.1f} (plate {p['primary/boss plate as drawn dE00']:.1f}), "
+            f"red pip {p['red pip/boss dE00']:.1f}, red chip {red_plate} {bd.de00(red_plate, plate[2]):.1f}, pressure "
+            f"{p['pressure/boss dE00']:.1f}\nrings on the felt {p['boss/felt (tray rings)']:.2f}:1, on paper "
+            f"{p['boss/paper (stage card rings)']:.2f}:1; ink tier bars {p['ink/boss (tier bars on the emblem)']:.2f}:1; on the "
+            f"top bar {p['boss/panel (chapter point, shop boss mark)']:.2f}:1. Phase 2 {PHASE2_BOSS} drew {old[2]} under the C# "
+            f"float loop ({old[1]} steps; the phase 2 mock rounded each step and drew EE4841): {bd.de00(red_plate, old[2]):.1f} "
+            f"from the red chip, {bd.de00(palette['primary'], old[2]):.1f} from primary")
+    box = (32, 650, 1480, 730)
+    rows = []
+    for im, label in ((boss[0], f"formula row, 100 % text (1.3x): boss {palette['boss']}"),
+                      (boss[1], f"formula row, 150 % text (1.3x): boss {palette['boss']}")):
+        crop = im.crop(box)
+        rows.append(caption_bar(crop.resize((round(crop.width * 1.3), round(crop.height * 1.3)), Image.Resampling.LANCZOS),
+                                label, 16))
+    old_im = play_screen(kit, borders, ppu, dict(palette, boss=PHASE2_BOSS), table, "boss_play", False)[0].crop(box)
+    rows.append(caption_bar(old_im.resize((round(old_im.width * 1.3), round(old_im.height * 1.3)), Image.Resampling.LANCZOS),
+                            f"the same row with the phase 2 boss {PHASE2_BOSS} (plate {old[2]}), for comparison", 16))
+    return note, rows
+
+
 def main(argv=()):
     kit, borders, ppu, palette, table, page, fallback = load_kit()
     if fallback:
@@ -1678,13 +1868,14 @@ def main(argv=()):
                 16).save(OUT / "action_row.png", optimize=False, compress_level=9)
     (OUT / "action_row.txt").write_text("\n".join(act_lines) + "\n", encoding="utf-8", newline="\n")
     boss = [play_screen(kit, borders, ppu, palette, table, "boss_play", large)[0] for large in (False, True)]
-    p = bd.palette_report(palette)
-    boss_note = (f"BOSS STAGE (tier 4 emblem, boss factor in the formula): boss {palette['boss']}, primary {palette['primary']}; "
-                 f"dE00 {p['primary/boss dE00']:.1f} (plate as drawn {p['primary/boss plate as drawn dE00']:.1f}), pressure "
-                 f"{p['pressure/boss dE00']:.1f}, red pip {p['red pip/boss dE00']:.1f}; rings on the felt "
-                 f"{p['boss/felt (tray rings)']:.2f}:1")
-    caption_bar(stack([caption_bar(boss[0], "100 %", 16), caption_bar(boss[1], "150 %", 16)], 8), boss_note + "\n" + MOCK_NOTE,
-                18).save(OUT / "boss_stage.png", optimize=False, compress_level=9)
+    boss_note, boss_rows = boss_figures(kit, borders, ppu, palette, table, boss)
+    caption_bar(stack([caption_bar(boss[0], "100 %", 16), caption_bar(boss[1], "150 %", 16)] + boss_rows, 8),
+                boss_note + "\n" + MOCK_NOTE, 18).save(OUT / "boss_stage.png", optimize=False, compress_level=9)
+    states = [secondary_states(kit, borders, ppu, palette, large) for large in (False, True)]
+    caption_bar(stack([caption_bar(states[0][0], "100 % text", 16), caption_bar(states[1][0], "150 % text", 16)], 8),
+                "SECONDARY BUTTONS ENABLED | DISABLED (round 2b; SolidButton11, PriceButton13, ShopButton14 and the disabled "
+                "UiKit.Button on their hosts)\n" + "\n".join(states[0][1]) + "\n" + MOCK_NOTE, 18).save(
+        OUT / "secondary_buttons.png", optimize=False, compress_level=9)
     notes = []
     shop = shop_screen(kit, borders, ppu, palette, page, notes)
     caption_bar(shop, "W14 SHOP (GameApp.Shop14 S14, 100 % text) over Table/page_scene.png with section, caption and step tints\n"
@@ -1697,6 +1888,8 @@ def main(argv=()):
         print("DECO_ACTION_ROW", line)
     for n in notes:
         print("DECO_SHOP", n)
+    for n in states[0][1]:
+        print("DECO_SECONDARY", n)
     print("DECO_BOSS", boss_note)
     print("DECO_REVIEW", OUT.relative_to(ROOT).as_posix(), sorted(p_.name for p_ in OUT.iterdir()))
 
