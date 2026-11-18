@@ -28,23 +28,54 @@ namespace DiceCraft
             if(redraw&&StartupReady07)Refresh();
         }
 
-        private Texture feltBaseMap11,feltTableMap11;
+        private Texture feltBaseMap11,feltTableMap11,feltPicture11;
         private Color? feltColor11;
+        private Renderer feltRenderer11;
+        private bool galleryBackdrop11;
+        private Renderer FeltRenderer11
+        {
+            get{if(feltRenderer11==null){var felt=GameObject.Find("Art07Felt");feltRenderer11=felt!=null?felt.GetComponent<Renderer>():null;}return feltRenderer11;}
+        }
+        /// <summary>
+        /// V1.1 (W20X, THEME_SPEC §3): the play screen and the screen that draws the play layout (the stage settlement) show
+        /// the table composition, table_scene; every other screen (the menu, stage select, the shop, the run end, the card
+        /// gallery, the loading screen) shows the theme's page_scene when it ships one. A modal follows the screen under it,
+        /// so card details or the handbook over the play screen keep the play table.
+        /// </summary>
+        public bool PlayBackdrop11=>!inMenu&&ViewState!=null&&!galleryBackdrop11&&(PlayPhase11||ViewState.phase=="StageSettlement");
+        private Texture TablePicture11(GameTheme theme)
+        {
+            var table=theme.TableScene!=null?theme.TableScene:feltTableMap11;
+            return !PlayBackdrop11&&theme.PageScene!=null?theme.PageScene:table;
+        }
         private void ApplyThemeToTable11(GameTheme theme)
         {
-            var felt=GameObject.Find("Art07Felt");if(felt==null)return;
-            var r=felt.GetComponent<Renderer>();if(r==null||r.sharedMaterial==null)return;
+            var r=FeltRenderer11;if(r==null||r.sharedMaterial==null)return;
             var shared=r.sharedMaterial;
             // Remember the authored default textures once; a property block always carries an explicit value.
             if(feltColor11==null){feltBaseMap11=shared.GetTexture("_BaseMap");feltTableMap11=shared.GetTexture("_TableMap");feltColor11=shared.GetColor("_BaseColor");}
             var props=new MaterialPropertyBlock();r.GetPropertyBlock(props);
             var baseMap=theme.FeltTile!=null?theme.FeltTile:feltBaseMap11;
-            var tableMap=theme.TableScene!=null?theme.TableScene:feltTableMap11;
+            var tableMap=TablePicture11(theme);
             if(baseMap!=null)props.SetTexture("_BaseMap",baseMap);
             if(tableMap!=null)props.SetTexture("_TableMap",tableMap);
+            feltPicture11=tableMap;
             props.SetColor("_BaseColor",theme.IsDefault?feltColor11.Value:theme.Palette.felt);
             r.SetPropertyBlock(props);
         }
+        /// <summary>V1.1 (W20X): runs with every redraw (ApplyTableMood11) and when the card gallery opens or closes. It swaps
+        /// the felt's table picture when the screen moves between the play layout and the other screens, in the frame that
+        /// draws the new screen. A theme without page_scene never changes the picture here.</summary>
+        private void ApplyTablePicture11()
+        {
+            var theme=ThemeRegistry.Current;if(theme==null||feltColor11==null)return;
+            var picture=TablePicture11(theme);if(picture==null||ReferenceEquals(picture,feltPicture11))return;
+            var r=FeltRenderer11;if(r==null)return;
+            var props=new MaterialPropertyBlock();r.GetPropertyBlock(props);props.SetTexture("_TableMap",picture);r.SetPropertyBlock(props);
+            feltPicture11=picture;
+        }
+        /// <summary>The card gallery (a debug page drawn over the whole screen) is not the play layout.</summary>
+        private void SetGalleryBackdrop11(bool shown){galleryBackdrop11=shown;ApplyTablePicture11();}
 
         private void ThemeSettingsChoice11(Transform list,float y)
         {

@@ -77,17 +77,18 @@ namespace DiceCraft
         }
 
         // ---------------------------------------------------------------- sections
-        /// <summary>One section style (SHOP_LAYOUT 10): the section panel times Panel, a header strip times PanelLight,
-        /// the title in the readable text colour on that strip. Returns the panel; <paramref name="titleRight"/> is where the
-        /// title ends (section units).</summary>
+        /// <summary>One section style (SHOP_LAYOUT 10): the section panel times the theme's section tint (Panel when it sets
+        /// none), a header strip times its caption tint (PanelLight when it sets none; W20X, THEME_SPEC §2), the title in the
+        /// readable text colour on that strip. Returns the panel; <paramref name="titleRight"/> is where the title ends
+        /// (section units).</summary>
         private RectTransform Section14(Transform parent,string name,string titleName,string title,Rect r,out float titleRight,bool strip=true,float titleMax=320)
         {
-            var panel=Surface11(parent,name,r.x,r.y,r.width,r.height,"ui_section_panel",UiKit.Panel);
+            var panel=Surface11(parent,name,r.x,r.y,r.width,r.height,"ui_section_panel",UiKit.Section(UiKit.Panel));
             var f=FrameInsets11(panel.GetComponent<Image>());
             var on=panel;
             if(strip)
             {
-                on=Surface11(panel,"HeaderStrip",f.x,f.w,r.width-f.x-f.z,ShopHead14-f.w-2,"ui_section_header",UiKit.PanelLight);
+                on=Surface11(panel,"HeaderStrip",f.x,f.w,r.width-f.x-f.z,ShopHead14-f.w-2,"ui_section_header",UiKit.Caption(UiKit.PanelLight));
             }
             float lineH=Line11(22),top=strip?f.w+(ShopHead14-f.w-2-lineH)*.5f:f.w+4;
             var label=FitLine13(panel,titleName,title,f.x+14,top,Mathf.Min(titleMax,r.width-f.x-f.z-28),22,LabelOn11(on,UiKit.TextColor),TextAlignmentOptions.MidlineLeft,true);
@@ -524,7 +525,7 @@ namespace DiceCraft
         private void ShopBuild14(ShopLayout14 l)
         {
             controllerRects.Clear();
-            var panel=Surface11(main,"Build14",l.build.x,l.build.y,l.build.width,l.build.height,"ui_section_panel",UiKit.Panel);
+            var panel=Surface11(main,"Build14",l.build.x,l.build.y,l.build.width,l.build.height,"ui_section_panel",UiKit.Section(UiKit.Panel));
             var doomed=AltarVictims09();var cards=ViewState.controllers;
             // v1.1 (text proposal 5 #5): practice and the debug workspace keep their own prefix.
             string capacity=IsPracticeRun11?"练习模式 · 持有 "+cards.Count+" 张 · 占用栏位 "+ControllerRules.OrdinaryUsed(cards):

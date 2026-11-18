@@ -44,6 +44,16 @@ namespace DiceCraft
         public static Color OnFelt(Color fallback)=>palette.onFelt.a>0?palette.onFelt:fallback;
         /// <summary>V1.1 (W13): the fill of a card's value badge; the theme's gold when it sets none (a warning badge uses Danger).</summary>
         public static Color ValueBadge=>palette.valueBadge.a>0?palette.valueBadge:palette.gold;
+        /// <summary>V1.1 (W20X): the step under a UiKit.Button, secondary and primary (THEME_SPEC §2 buttonStep /
+        /// buttonStepPrimary; v0.73's 8F453A / B56B29 when a theme sets none).</summary>
+        public static Color ButtonStep=>palette.buttonStep;
+        public static Color ButtonStepPrimary=>palette.buttonStepPrimary;
+        /// <summary>V1.1 (W20X): tint of a section surface: the theme's section colour, or <paramref name="fallback"/> (what the
+        /// surface was tinted with before) when it sets none.</summary>
+        public static Color Section(Color fallback)=>palette.section.a>0?palette.section:fallback;
+        /// <summary>V1.1 (W20X): tint of a caption strip or tab: the theme's caption colour, or <paramref name="fallback"/> when
+        /// it sets none.</summary>
+        public static Color Caption(Color fallback)=>palette.caption.a>0?palette.caption:fallback;
         /// <summary>V1.1: the active theme's sprite override by template name, or null (then the default sprite is used).</summary>
         public static Func<string,Sprite> ThemeTemplate;
         /// <summary>v0.72 frame edge weight in reference units (matches the 2x-density ink line of the HD surfaces).</summary>
@@ -116,7 +126,7 @@ namespace DiceCraft
         public static UnityEngine.UI.Button Button(Transform p, string name, string value, float x, float y, float w, float h, Action click, bool enabled = true, bool primary = false)
         {
             var r = Rent(p,name,"Button",x,y,w,h);var image=Component<UnityEngine.UI.Image>(r.gameObject);image.color=Color.clear;image.raycastTarget=true;
-            var step=Box(r,"Step",2,8,w-4,h-6,enabled?(primary?Hex("B56B29"):Hex("8F453A")):Shadow);
+            var step=Box(r,"Step",2,8,w-4,h-6,enabled?(primary?ButtonStepPrimary:ButtonStep):Shadow);
             step.GetComponent<UnityEngine.UI.Image>().sprite=Template("ui_button_bevel");step.GetComponent<UnityEngine.UI.Image>().type=UnityEngine.UI.Image.Type.Sliced;
             var face=Box(r,"Face",0,0,w,h-7,enabled?(primary?Gold:Paper):PanelLight);
             var faceImage=face.GetComponent<UnityEngine.UI.Image>();faceImage.sprite=Template("ui_button_bevel");faceImage.type=UnityEngine.UI.Image.Type.Sliced;

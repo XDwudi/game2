@@ -369,8 +369,8 @@ namespace DiceCraft
             }
             else if(PressureActive11)UiKit.Ring(main,"TrayAccent11",l.tray.x+7,l.tray.y+7,l.tray.width-14,l.tray.height-14,UiKit.Pressure).GetComponent<Image>().pixelsPerUnitMultiplier=1.6f;
             else UiKit.Ring(main,"TrayAccent11",l.tray.x+7,l.tray.y+7,l.tray.width-14,l.tray.height-14,new Color(UiKit.Ghost.r,UiKit.Ghost.g,UiKit.Ghost.b,.75f)).GetComponent<Image>().pixelsPerUnitMultiplier=1.6f;
-            // Title tab on the rim.
-            var tab=Surface11(main,"PoolTab11",l.tray.x+24,l.tray.y-14,c?120:100,34,"ui_chip_formula",UiKit.Panel);
+            // Title tab on the rim: a caption strip (W20X, THEME_SPEC §2 caption; Panel when the theme sets none).
+            var tab=Surface11(main,"PoolTab11",l.tray.x+24,l.tray.y-14,c?120:100,34,"ui_chip_formula",UiKit.Caption(UiKit.Panel));
             TabLabel11(tab,"PoolTitle","骰池",Body11(c?18:20),LabelOn11(tab,UiKit.Muted));
             var dice=s.dice.Where(d=>!h.orderedLockedIds.Contains(d.dieId)).OrderBy(d=>d.createdSerial).ToList();poolPage=Math.Min(poolPage,Math.Max(0,(dice.Count-1)/10));
             // Before the first throw of a hand the dice rest unlit (B4): a shade over the tray floor, no words.
@@ -825,6 +825,8 @@ namespace DiceCraft
         /// <summary>Boss stage: the felt darkens and a vignette closes in (felt shader properties, so dice and interface are untouched).</summary>
         private void ApplyTableMood11()
         {
+            // V1.1 (W20X): the table picture follows the screen drawn in this same redraw (page_scene off the play layout).
+            ApplyTablePicture11();
             float mood=FramePhase11&&ViewState.phase!="StageSettlement"&&BossActive11?1:0;
             if(Mathf.Approximately(mood,tableMoodShown11))return;
             var felt=GameObject.Find("Art07Felt");if(felt==null)return;var r=felt.GetComponent<Renderer>();if(r==null)return;

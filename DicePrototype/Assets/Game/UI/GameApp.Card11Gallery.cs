@@ -40,6 +40,7 @@ namespace DiceCraft
             if(cardGallery13==null)cardGallery13=UiKit.Rect(canvas.transform,"CardGallery13",0,0,1920,1080);
             cardGallery13.anchoredPosition=main.anchoredPosition;
             cardGallery13.gameObject.SetActive(true);cardGallery13.SetAsLastSibling();UiKit.Clear(cardGallery13);
+            SetGalleryBackdrop11(true);// V1.1 (W20X): not the play layout
             var root=cardGallery13;
             var backdrop=UiKit.Box(root,"GalleryBackdrop13",0,0,1920,1080,UiKit.Background,true);
             float barH=Mathf.Max(64,Mathf.Ceil(22*UiKit.FontScale*1.46f)+28);
@@ -62,7 +63,7 @@ namespace DiceCraft
             }
             return root;
         }
-        public void HideCardGallery13(){if(cardGallery13!=null){UiKit.Clear(cardGallery13);cardGallery13.gameObject.SetActive(false);}}
+        public void HideCardGallery13(){if(cardGallery13!=null){UiKit.Clear(cardGallery13);cardGallery13.gameObject.SetActive(false);}SetGalleryBackdrop11(false);}
 
         /// <summary>Cards per rarity (common, advanced, rare), longest short text first (the hardest fit).</summary>
         private string[][] GalleryCards13()

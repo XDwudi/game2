@@ -24,6 +24,17 @@ namespace DiceCraft
         /// <summary>V1.1 (W13): the fill of a card's value badge (×1.5, +12, 本手可用). Unset (alpha 0) by default: the badge
         /// then takes the theme's gold, so a theme sets it only when its gold is too close to its danger colour.</summary>
         public Color valueBadge=new Color(0,0,0,0);
+        /// <summary>V1.1 (W20X): the step under a UiKit.Button, secondary and primary. The defaults are the two constants
+        /// UiKit drew before the step became a palette colour.</summary>
+        public Color buttonStep=Hex("8F453A"),buttonStepPrimary=Hex("B56B29");
+        /// <summary>V1.1 (W20X): tint of the shop's section panels (ui_section_panel); when a theme sets it, the dice-style
+        /// page's eight sample cells take it too. Unset (alpha 0) by default: the shop tints its panels with panel and the
+        /// cells keep their sprite's own colour (W14).</summary>
+        public Color section=new Color(0,0,0,0);
+        /// <summary>V1.1 (W20X): tint of the caption strips: the shop's section header (ui_section_header) and the dice pool's
+        /// tab. Unset (alpha 0) by default: the header takes panelLight, the pool tab panel. The labels on them still take
+        /// their colour from the fill as drawn (LabelOn11).</summary>
+        public Color caption=new Color(0,0,0,0);
 
         public ThemePalette Clone()=>(ThemePalette)MemberwiseClone();
 
@@ -32,7 +43,8 @@ namespace DiceCraft
         public sealed class Hexes
         {
             public string ink,panel,panelLight,paper,muted,gold,teal,red,blue,background,felt,textColor,violet,danger,shadow,ghost,
-                primary,reward,boss,pressure,rarityCommon,rarityAdvanced,rarityRare,onFelt,valueBadge;
+                primary,reward,boss,pressure,rarityCommon,rarityAdvanced,rarityRare,onFelt,valueBadge,
+                buttonStep,buttonStepPrimary,section,caption;
         }
 
         public static ThemePalette From(Hexes source)
@@ -46,6 +58,8 @@ namespace DiceCraft
             Set(ref p.primary,source.primary);Set(ref p.reward,source.reward);Set(ref p.boss,source.boss);Set(ref p.pressure,source.pressure);
             Set(ref p.rarityCommon,source.rarityCommon);Set(ref p.rarityAdvanced,source.rarityAdvanced);Set(ref p.rarityRare,source.rarityRare);
             Set(ref p.onFelt,source.onFelt);Set(ref p.valueBadge,source.valueBadge);
+            Set(ref p.buttonStep,source.buttonStep);Set(ref p.buttonStepPrimary,source.buttonStepPrimary);
+            Set(ref p.section,source.section);Set(ref p.caption,source.caption);
             return p;
         }
 

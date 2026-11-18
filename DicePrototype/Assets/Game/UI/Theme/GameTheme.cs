@@ -16,6 +16,8 @@ namespace DiceCraft
     ///   UI/*.png              sprites named like the default UiKit templates (ui_paper_panel, ...)
     ///   Art/*.png             illustrations named illustration_&lt;contentId&gt;
     ///   Table/felt_tile.png   felt tile (_BaseMap); Table/table_scene.png table composition (_TableMap)
+    ///   Table/page_scene.png  V1.1 (W20X): the table picture of the screens without the play layout (shop, stage select,
+    ///                         menu, run end and what opens over them); without it they draw table_scene
     ///   preview.png           settings preview
     /// </summary>
     public sealed class GameTheme
@@ -42,10 +44,21 @@ namespace DiceCraft
 
         private bool loaded;
         private Dictionary<string,Sprite> templates,contentArt;
-        private Texture2D feltTile,tableScene;
+        private Texture2D feltTile,tableScene,pageScene;
         private Sprite previewImage;
 
         public static GameTheme CreateDefault()=>new GameTheme{Id=DefaultId,DisplayName="默认",Description="复古印刷骰桌",Order=0,Palette=new ThemePalette(),loaded=true};
+
+        /// <summary>Tests only (W20X-02): a theme built in memory, never from a file, so no test picture ships under
+        /// Resources. It is a preview theme with the given palette and table pictures; <paramref name="spritesFrom"/> lends it
+        /// another theme's sprites (a copy of a real theme with other tints).</summary>
+        public static GameTheme CreateForTests(string id,ThemePalette palette,Texture2D table=null,Texture2D page=null,GameTheme spritesFrom=null)
+        {
+            if(string.IsNullOrEmpty(id)||id==DefaultId)throw new ArgumentException("A test theme needs its own id.",nameof(id));
+            spritesFrom?.EnsureLoaded();
+            return new GameTheme{Id=id,DisplayName=id,Description="",Order=1000,Preview=true,Palette=palette??new ThemePalette(),loaded=true,
+                templates=spritesFrom?.templates,contentArt=spritesFrom?.contentArt,feltTile=spritesFrom?.feltTile,tableScene=table,pageScene=page};
+        }
 
         internal static GameTheme FromFile(TextAsset file)
         {
@@ -67,6 +80,7 @@ namespace DiceCraft
             contentArt=Index(Resources.LoadAll<Sprite>(root+"Art"));
             feltTile=Resources.Load<Texture2D>(root+"Table/felt_tile");
             tableScene=Resources.Load<Texture2D>(root+"Table/table_scene");
+            pageScene=Resources.Load<Texture2D>(root+"Table/page_scene");
             previewImage=Resources.Load<Sprite>(root+"preview");
         }
 
@@ -83,6 +97,8 @@ namespace DiceCraft
         public Sprite ContentArt(string name)=>name!=null&&contentArt!=null&&contentArt.TryGetValue(name,out var s)?s:null;
         public Texture2D FeltTile=>feltTile;
         public Texture2D TableScene=>tableScene;
+        /// <summary>V1.1 (W20X): the optional table picture of the non-play screens, or null (they then draw TableScene).</summary>
+        public Texture2D PageScene=>pageScene;
         public Sprite PreviewImage=>previewImage;
         public int TemplateCount=>templates?.Count??0;
         public int ContentArtCount=>contentArt?.Count??0;
@@ -131,6 +147,24 @@ namespace DiceCraft
         }
 
         /// <summary>Tests only: forget discovered themes and return UiKit to the default palette and sprites.</summary>
-        public static void ResetForTests(){themes=null;Current=null;UiKit.Palette=null;UiKit.ThemeTemplate=null;}
+        public static void ResetForTests(){themes=null;testThemes.Clear();Current=null;UiKit.Palette=null;UiKit.ThemeTemplate=null;}
+
+        private static readonly HashSet<string> testThemes=new HashSet<string>(StringComparer.Ordinal);
+        /// <summary>Tests only (W20X-02): offers a theme built in memory (GameTheme.CreateForTests) until it is unregistered.
+        /// It cannot replace the default or a theme read from Resources.</summary>
+        public static void RegisterForTests(GameTheme theme)
+        {
+            if(theme==null||theme.IsDefault)throw new ArgumentException("Register a test theme with its own id.",nameof(theme));
+            Ensure();
+            if(themes.Any(t=>t.Id==theme.Id&&!testThemes.Contains(t.Id)))throw new ArgumentException("A theme read from Resources has the id "+theme.Id+".",nameof(theme));
+            themes.RemoveAll(t=>t.Id==theme.Id);themes.Add(theme);testThemes.Add(theme.Id);
+        }
+        /// <summary>Tests only (W20X-02): removes a theme registered by RegisterForTests. Activate another theme afterwards
+        /// when it was the current one.</summary>
+        public static void UnregisterForTests(string id)
+        {
+            if(themes==null||!testThemes.Remove(id))return;
+            themes.RemoveAll(t=>t.Id==id);
+        }
     }
 }

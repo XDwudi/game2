@@ -31,7 +31,8 @@ namespace DiceCraft
                 if(i==6)die.lifetime="stage_temporary";
                 float x=24+i%4*366,y=136+i/4*370;
                 var cell=UiKit.Box(p,"StyleCell"+i,x,y,354,358,Color.white);var back=cell.GetComponent<Image>();
-                back.sprite=UiKit.Template("ui_section_panel");back.type=back.sprite!=null?Image.Type.Sliced:Image.Type.Simple;if(back.sprite==null)back.color=UiKit.Background;
+                // V1.1 (W20X): a theme's section tint, as on the shop's sections; untinted when it sets none.
+                back.sprite=UiKit.Template("ui_section_panel");back.type=back.sprite!=null?Image.Type.Sliced:Image.Type.Simple;back.color=back.sprite!=null?UiKit.Section(Color.white):UiKit.Background;
                 DieShadow073(cell,"Shadow",177,204,170);
                 if(i==7)
                 {
