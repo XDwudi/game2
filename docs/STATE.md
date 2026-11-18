@@ -108,6 +108,7 @@
 
   这样两套新件从一开始就按新接口和实机结果做，避免返工。
 - 运行规则（W11c 教训）：Unity PlayMode 全量运行期间不跑 artgen 批量与其他吃 CPU 的任务；成批生成的脚本在检测到 PlayMode 测试进程时暂停。
+- git 自动维护（2026-11-18 发现）：仓库已达到自动整理的门槛，普通 `git commit` 会接着运行 `git maintenance run --auto`，重新打包约 2 GB，占约 3 个核心好几分钟。协调者的一次提交触发了它，与 W20X 的 PlayMode 全量重叠约 1 分钟，随即停掉。停掉后留下约 2 GB 的临时包 `.git/objects/pack/.tmp-66284-pack-*`。在此之前，所有提交都加 `-c maintenance.auto=false -c gc.auto=0`。Unity 空闲时由协调者跑一次 `git gc`，并确认临时包已被清掉。
 - 文件锁：
   - W20X 子 agent：Unity 编辑器；`DicePrototype/Assets/Game/UI/`（含 `Theme/`）、`Editor/V11ThemeImport.cs`、`Tests/`、`tools/unity_windowed_tests.ps1`；新增的 `tools/art_v11/table_text*` 及其测试；THEME_SPEC 的状态行与 §5；`docs/specs/v11/W20X_*.md`。
   - 主 agent：`ArtSource/Art11/` 的生成（经 artgen 串行进行），以及 `docs/STATE.md`、`THEME_SPEC.md`（W20X 可改状态行与 §5，须列出）、`DEV_PLAN.md`、`CARD_TEMPLATE.md`、`SHOP_LAYOUT.md`。
