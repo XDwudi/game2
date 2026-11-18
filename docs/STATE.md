@@ -180,6 +180,13 @@
          - 按钮做成概念页“重掷”的尖头金边形；
          - 桌面上的字由 W16 放到面板上，不为它牺牲画面。
        - 第一阶段的概念页与示意已发给用户。
+     - 黑金第一阶段（`f11165e`，`codex/v1.1-deco`）：方向对，黑漆、抛光金双线、切角八边形、绯红楔角与牌子、扇形都与概念页一致，各项检查都过。协调者让它直接进入第二阶段，并作了这些决定：
+       - 主按钮保持绯红（概念页）。首领色离主按钮只有 dE00 9.8，要拉开到至少 15，同时与高压色分开，并补首领关示意；
+       - 二级按钮在黑桌面上几乎看不见（1.11:1）。为此新增可选色板键 `buttonSecondary`（W20Y）。黑金要取在桌面与象牙纸面上都看得清的中间色金或铜色牌子；这个值先写在说明里，合并时再写进 theme.json；
+       - `caption` 绯红，同时用于商店标题条与托盘标签：接受；
+       - 金色要更接近概念页那种厚而亮的抛光金双线，边距仍不超过默认。
+     - 两套都会用到 `buttonSecondary`：彩绘玻璃的概念页也是羊皮纸色次要按钮，已通知它在 1b 里选值。
+- W20Y 色板键 `buttonSecondary`（子 agent，2026-11-18 开始，Unity 串行）：`SolidButton11` 的面色可由风格指定，不填时与现在相同。同时把这个键加进唐三彩与漫画测试的可选键集合（W20X 加键时出过一次这个问题）。
 - W22 进度（2026-11-17 23:42）：瑞士 184/184（新图 169 张，加保留的 15 张）；唐三彩 90/184；额度 27%。瑞士整套由只读子 agent 逐张复核，协调者看过标记项后提交。
 - 瑞士整套复核（2026-11-18，只读子 agent，报告 `artifacts/cache/v11/w22/swiss-review/report.md`）：171 通过、11 标记、2 不通过。复核者对每张都看了约 370 px 的默认 | 瑞士对照，风险 id 放大到 600–1100 px；184 张所选原图的 SHA-256 与记录一致；没有文字、水印、白边或不透明底。协调者逐张看了 13 张标记图，都同意重画：
   - 玻璃不像玻璃：C145（画成透明空洞，在浅色卡上像普通米色骰）、U05（整颗不透明的中蓝，像蓝骰）、C42（钴蓝炮管）、C90（钴蓝心，里面的骰子不透明）。五张玻璃卡原来画法各不相同，只有 C128 r03 读得出玻璃；现在这四张的功能提示都改为与 C128 相同的写法：淡蓝、透出远边与里面的东西、白色高光，不画成不透明米色，也不画成饱和蓝（蓝色表示蓝骰）；
@@ -205,7 +212,8 @@
   - W20Xb 子 agent：已释放（2026-11-18 交付）。没有运行中的 Unity 进程；`DiceChineseFallback.asset` 已还原；证据在 `evidence/v11/unity/`（未纳入版本库）与 `artifacts/cache/v11/w20xb/`。
   - W20 黑金子 agent：工作树 `wt-v11-deco`（分支 `codex/v1.1-deco`，起点 `cd2fedb`）里的 `tools/art_v11/deco/`、`Resources/Themes/deco/`、`ArtSource/Art11/deco/`（`illustrations/` 除外）、`tests/test_art_v11_deco.py`。
   - W20 彩绘玻璃子 agent：工作树 `wt-v11-glass`（分支 `codex/v1.1-glass`）里对应的 glass 路径。
-  - 瑞士插画复核子 agent：只读，只写 `artifacts/cache/v11/w22/swiss-review/`。
+  - 瑞士插画复核子 agent：已交付（2026-11-18）。
+  - W20Y 子 agent：Unity 编辑器；`UI/Theme/ThemePalette.cs`、`UI/UiKit.cs`、`UI/GameApp.Play11.cs` 的 `SolidButton11`、`Tests/`、`tests/test_art_v11_sancai.py` 与 `tests/test_art_v11_comic.py` 的可选键集合、THEME_SPEC 的状态行与 `buttonSecondary` 一行、`docs/specs/v11/W20Y_REPORT.md`。
   - 主 agent：`ArtSource/Art11/` 的生成（经 artgen 串行进行），以及 `docs/STATE.md`、`THEME_SPEC.md`（W20X 可改状态行与 §5，须列出）、`DEV_PLAN.md`、`CARD_TEMPLATE.md`、`SHOP_LAYOUT.md`。
 
 ## 玩家文字与美术体验审查（提案，2026-11-16）
