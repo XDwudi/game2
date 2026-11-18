@@ -216,7 +216,7 @@
 | W20 | 四套界面件生成器，输出与默认同名的贴图集 | 每套一个子 agent，最多两个同时 | `tools/art_v11/<风格>/`、`Assets/Art/Art11/<风格>/` | W08 的 THEME_SPEC | 4 |
 | W20X | 风格接口补充（协调者 2026-11-17，爆彩漫画复核时加）：先让窗口测试不受真实鼠标位置影响（W14 复核时加）；按钮台阶色、商店分区与标题条的乘色、非对局画面的 `page_scene`；列出非对局画面里画在桌面上的字；排查界面代码里写死的颜色。不填新项的风格画面逐像素不变 | 子 agent，Unity 串行 | `UI/`、`UI/Theme/`、`Tests/`、THEME_SPEC 的状态 | W14；THEME_SPEC §2、§3、§3.1 | 4 |
 | W20Xb | W20X 复核后的补充（协调者 2026-11-18）：风格桌面图按原尺寸导入（此前被缩放到 2048×1024，静区与界面错开）；特效颜色在绘制时读色板；骰子托盘的三个标签都用 `caption`；唐三彩与爆彩漫画的实机截图（1080p、720p，含 150% 文字）供协调者审查 | 子 agent（W20X 续），Unity 串行 | `Editor/V11ThemeImport.cs`、三套风格 `Table/*.png.meta`、`UI/`、`Runtime/` 的三个特效文件、`Tests/` | W20X | 4 |
-| W20Y | 色板新增可选的 `buttonSecondary`（`SolidButton11` 的面色，THEME_SPEC §2，协调者 2026-11-18，黑金复核时加）；不填的风格画面逐像素不变 | 子 agent，Unity 串行 | `UI/Theme/ThemePalette.cs`、`UI/UiKit.cs`、`UI/GameApp.Play11.cs` 的 `SolidButton11`、`Tests/`、三套风格测试的可选键集合、THEME_SPEC 状态 | W20X | 4 |
+| W20Y | 色板新增可选的 `buttonSecondary`（`SolidButton11` 的面色，THEME_SPEC §2，协调者 2026-11-18，黑金复核时加）；不填的风格画面逐像素不变。W20Y2：禁用的二级按钮的字按画出的面色用 LabelOn11 选色（首选 muted） | 子 agent，Unity 串行 | `UI/Theme/ThemePalette.cs`、`UI/UiKit.cs`、`UI/GameApp.Play11.cs` 的 `SolidButton11`、`Tests/`、三套风格测试的可选键集合、THEME_SPEC 状态 | W20X | 4 |
 | W21 | 四套桌面、背景、卡框、图标、标题字 | 同上 | 同上 | W20 | 4 |
 | W22 | 插画：按 D1 重画（每套 184 + 徽记 7 + 战利品 6，先代表件再分批）或程序处理（每套一个处理器加抽检） | artgen（Codex 或 API）；子 agent 自检 | `ArtSource/Art11/<风格>/` | 检查点 ③ | 4 |
 | W23 | 各风格主菜单主视觉 | artgen | 同上 | W19 | 4 |
