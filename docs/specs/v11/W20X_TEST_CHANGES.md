@@ -47,3 +47,33 @@ W14 最终全量（`nunit-20261117-204408`、`-211002`）里鼠标停在 Game �
 | 隔离开启 `nunit-20261117-232630` | 14/14 | 两条回归测试、两条原失败测试，以及自己驱动指针的测试（紧凑卡悬停、骰子悬停、商店图标按钮悬停、卡片信息）、注入键盘的四条测试、20 秒空闲资源诊断、Bootstrap 引用检查 |
 
 两次反向对照的正向对照都通过（模块命中目标元素，元素有反应），说明模拟事件与真实光标的作用相同。
+
+## 2 第 1–5 项：新增测试
+
+没有改写任何已有断言；W14 的 SH-09 源码检查（商店五个文件只用色板）照旧通过。
+
+| 测试 | 文件 | 内容 |
+| --- | --- | --- |
+| `ThemeInterfaceW20XTests`（5 项，W20X-01 / W20X-02） | `Tests/EditMode/Presentation/ThemeInterfaceW20XTests.cs` | 四个新键像其他键一样从 theme.json 读出（6 位、8 位、带 #）；不填时 `UiKit` 给出的颜色与改动前完全相同（台阶 8F453A / B56B29 用当时的 `UiKit.Hex` 比较，分区、标题条、骰池标签、样例格的回退色）；未知键与无效值被忽略；瑞士、唐三彩的 theme.json 不含这四个键；每个带 `Table/page_scene.png` 的风格，其 .meta 除 guid 外与 table_scene 的逐行相同，载入后尺寸、格式、mip 数、环绕、过滤相同 |
+| `PLAY_W20X_02_PageSceneOnNonPlayScreensAndTintsAsDrawn` | `Tests/PlayMode/W20XThemeInterfacePlayModeTests.cs` | 运行时注入的测试风格（`ThemeRegistry.RegisterForTests`，不在 Resources 下放文件）：红色 table_scene、蓝色 page_scene。逐个画面核对毡面贴图与 (6, 540) 处的毡面像素：主菜单、主菜单上的设置、选关、商店、商店上的卡牌详情 / 手册 / 骰子样式、整局结束、卡面画廊用 page_scene；对局、对局上的卡牌详情 / 手册、关卡结算用 table_scene。台阶、分区、标题条、骰子样式页样例格：测试风格对同一风格的全白、全黑乘色版本，在指定点验证“画出的颜色 = 贴图 × 乘色”（线性光下的直线插值，允许 3 级舍入）；爆彩漫画用它自己的贴图与取值做同样的核对。默认、瑞士、唐三彩的回退色在绘制时读取。商店↔对局四次切换逐帧核对毡面与画面同帧切换（无闪烁）。报告 `artifacts/cache/v11/w20x/<分辨率>/w20x-02/w20x-02.txt` |
+| `PLAY_W20X_03_TableTextOnNonPlayScreens` | `Tests/PlayMode/W20XTableTextPlayModeTests.cs` | 在运行的游戏里走 16 个非对局画面（四套风格），按 W11b 的“底面”规则找出背后没有不透明界面件的字，写出清单 `artifacts/cache/v11/w20x/<分辨率>/table-text/table_text.json`；提交的 `tools/art_v11/table_text.json` 就是 1920×1080 那份。之后桌面上的字多了或少了，这条测试失败并给出差异（矩形与颜色的变化只记录） |
+| `PLAY_W20X_05_IdentityCapturesOfEveryScreenInFourStyles` | `Tests/PlayMode/W20XIdentityCapturePlayModeTests.cs` | 第 5 项的逐像素对比截图：21 个画面 × 默认、瑞士、唐三彩、爆彩漫画，减少动态开启，结束页的用时固定。只截图不比较（比较脚本 `artifacts/cache/v11/w20x/pixel_diff.py`），断言 84 张都截到 |
+| `tests/test_table_text_contrast.py`（15 项） | Python | 对比度公式（WCAG 参考值）、颜色解析、取 page_scene 或 table_scene、默认风格的桌面、风格色板覆盖、记录的颜色优先于色板键、矩形内最差像素、透明字与蒙版按线性光混合、某风格里字落在底面上时不计、两种映射（设计稿 / 现在毡面着色器实际的画法）、`--strict` 的退出码、提交的清单能读并对每套风格跑通 |
+
+### 2.1 测试用的产品代码入口（仅测试使用）
+
+| 入口 | 位置 | 说明 |
+| --- | --- | --- |
+| `GameTheme.CreateForTests(id, palette, table, page, spritesFrom)` | `UI/Theme/GameTheme.cs` | 在内存里建一个预览风格，可借用另一风格的界面贴图（爆彩漫画的全白、全黑乘色副本） |
+| `ThemeRegistry.RegisterForTests` / `UnregisterForTests` | 同上 | 只能加入、移除这样建的风格，不能替换默认或 Resources 里的风格；`ResetForTests` 一并清除 |
+
+## 3 协调者改的两条测试（coordinator, df94b0b6）
+
+W20X 按 THEME_SPEC §2 把四个新键写进 `ThemePalette.Hexes` 后，两条风格清单测试按设计失败（Python 全量在 `9d82b110` 上 332/334，`AssertionError: 28 != 24`）。它们读 `Hexes` 的声明并钉住 24 个必填键；漫画那条还断言“W20X 之前新键不在 Hexes 里”。W20X 子 agent 提出改法，协调者在 `df94b0b6` 里改了（这两个文件不在 W20X 的可写路径内）：
+
+| 测试（文件） | 旧期望 | 新期望 | 理由 |
+| --- | --- | --- | --- |
+| `test_theme_json_schema`（`tests/test_art_v11_sancai.py`） | 可选键只有 `valueBadge`；除可选键外 24 个 | 可选键加上 `buttonStep`、`buttonStepPrimary`、`section`、`caption`；必填仍是 24 个，其余断言不变 | 四个新键可不填，不填时画法与以前相同（THEME_SPEC §2） |
+| `test_theme_json_schema`（`tests/test_art_v11_comic.py`） | 同上，另断言四个新键不在 `Hexes` 里（“W20X 落地之前”） | 可选键同上；改为断言四个新键在 `Hexes` 里；漫画仍须四个都填 | 同上；原断言自己写明只适用于 W20X 之前 |
+
+没有删除断言、没有放宽阈值。

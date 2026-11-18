@@ -1,6 +1,6 @@
 # V1.1 画面风格规格（THEME_SPEC）
 
-状态：**骨架已实现**（W08，2026-11-16）。依据 [开发方案](DEV_PLAN.md) §4.6 与 G7。各风格的具体资源在 W12、W19–W23 中按本规格交付。
+状态：**骨架已实现**（W08，2026-11-16）；**风格接口补充已实现**（W20X，2026-11-17，`33d6d926`、`9d82b110`：`buttonStep` / `buttonStepPrimary`、`section`、`caption`、`Table/page_scene.png`，见 [W20X 报告](W20X_REPORT.md)）。依据 [开发方案](DEV_PLAN.md) §4.6 与 G7。各风格的具体资源在 W12、W19–W23 中按本规格交付。
 
 ## 1 运行机制
 
@@ -57,11 +57,11 @@
 | rarityCommon / rarityAdvanced / rarityRare | 卡面稀有度边框（W13 起使用） | B8C9C5 / 55B6D9 / AD92DB |
 | onFelt | 直接画在桌布上的标记：骰子握把的点、提交格序号、空提交格的点（W11b 起使用）。桌布浅的风格必须填深色 | 不填：各处沿用原色（握把 paper、序号 muted、空格点 panelLight） |
 | valueBadge | 卡面数值角标（×1.5、+12、本手可用）的底色（W13 起使用） | 不填：沿用 gold |
-| buttonStep / buttonStepPrimary | 按钮下方的台阶（`UiKit.Button`，次要 / 主按钮）（W20X 起使用） | 不填：沿用 8F453A / B56B29 |
-| section | 商店分区底板 `ui_section_panel` 的乘色。填了以后，画面风格页的八个样例格也乘这个色，两处看起来一样（W20X 起使用） | 不填：商店乘 `panel`，样例格不乘色（W14 现状） |
-| caption | 标题条的乘色：商店分区标题条 `ui_section_header` 与骰池标签。条上的字仍按实际底色自动选（下文 W11b 规则）（W20X 起使用） | 不填：分区标题条乘 `panelLight`，骰池标签乘 `panel`（现状） |
+| buttonStep / buttonStepPrimary | 按钮下方的台阶（`UiKit.Button`，次要 / 主按钮）（W20X 起使用，`33d6d926` 实现） | 不填：沿用 8F453A / B56B29 |
+| section | 商店分区底板 `ui_section_panel` 的乘色。填了以后，画面风格页的八个样例格也乘这个色，两处看起来一样（W20X 起使用，`33d6d926` 实现；八个样例格实际在骰子样式页，见 W20X 报告 §9.2） | 不填：商店乘 `panel`，样例格不乘色（W14 现状） |
+| caption | 标题条的乘色：商店分区标题条 `ui_section_header` 与骰池标签。条上的字仍按实际底色自动选（下文 W11b 规则）（W20X 起使用，`33d6d926` 实现） | 不填：分区标题条乘 `panelLight`，骰池标签乘 `panel`（现状） |
 
-乘色只会把贴图调暗：画出来的颜色 = 贴图颜色 × 乘色。贴图本身带颜色、要原样显示的风格，把对应的乘色填 FFFFFF。`buttonStep`、`section`、`caption` 三组是协调者 2026-11-17 为爆彩漫画审查定下的接口（漫画概念页的黄色标题条、蓝色分区），由代码任务 W20X 实现；实现前写进 `theme.json` 的这几项不起作用。
+乘色只会把贴图调暗：画出来的颜色 = 贴图颜色 × 乘色。贴图本身带颜色、要原样显示的风格，把对应的乘色填 FFFFFF。`buttonStep`、`section`、`caption` 三组是协调者 2026-11-17 为爆彩漫画审查定下的接口（漫画概念页的黄色标题条、蓝色分区），由代码任务 W20X 实现（`33d6d926`，2026-11-17 起生效）。
 
 对比度要求（AX-08，按色板自动测量）：`textColor` 对 `panel`、`ink` 对 `paper` 至少 4.5:1；`muted` 对 `panel` 至少 3:1。
 
@@ -79,7 +79,7 @@
 | `Art/illustration_<内容 id>.png` | 卡牌插画（按 D1 每套重画） | 1254² RGBA，经 `artgen` 生成并有记录；导入上限 1024 |
 | `Table/felt_tile.png` | 桌布平铺纹理 | 1024²，可无缝平铺 |
 | `Table/table_scene.png` | 整张桌面构图 | 1920×1080 |
-| `Table/page_scene.png` | 非对局画面的桌面（可选，W20X 起使用） | 1920×1080。不提供时所有画面都用 `table_scene`（现状）。对局画面和画着对局版面的画面（如结算背景）始终用 `table_scene` |
+| `Table/page_scene.png` | 非对局画面的桌面（可选，W20X 起使用，`33d6d926` 实现；模态框跟随其下的画面，各画面用哪张见 [W20X 报告](W20X_REPORT.md) §3） | 1920×1080。不提供时所有画面都用 `table_scene`（现状）。对局画面和画着对局版面的画面（如结算背景）始终用 `table_scene` |
 | `preview.png` | 设置页预览 | 480×270 |
 
 默认件清单由脚本生成：`python tools/art_v11/theme_contract.py contract` 读取 Bootstrap 场景里 `art07Templates` 的实际内容，写出 `tools/art_v11/theme_contract.json`（2026-11-16：86 张，其中 49 张被代码按名称或名称前缀引用）。另外 37 张目前没有代码直接引用，风格可以不提供。
@@ -103,8 +103,8 @@
 
 ## 5 已知局限（骨架阶段）
 
-- 一些界面把字直接画在桌布上，用的是浅色的 `textColor` / `muted`。浅色桌面的风格（瑞士现代主义）会看不清；W11 改版时让这些字都落在面板上，或者增加“桌面上的字”色。
-- 商店分区：W14 起底板乘 `panel`、标题条乘 `panelLight`，只有一种样式；W20X 增加 `section`、`caption`。
-- 按钮台阶色写死在 `UiKit.Button`（W20X 改为 `buttonStep`）；两处特效固定色（`Art071EnchantCue`、`Art071ComboEdgeAccents`）是否已随风格变，由 W20X 排查界面代码里全部写死的颜色时一并核对（2026-11-17 计数：13 个文件 33 处）。
-- 所有画面共用对局桌面，`table_scene` 里按对局版面画的东西会出现在商店等画面的缝隙里（爆彩漫画的蓝色桌布块与射线最明显）。W20X 加 `page_scene`。
+- 一些界面把字直接画在桌布上，用的是浅色的 `textColor` / `muted`。浅色桌面的风格（瑞士现代主义）会看不清；W11 改版时让这些字都落在面板上，或者增加“桌面上的字”色。W20X 在运行的游戏里列出了非对局画面上的这些字（`tools/art_v11/table_text.json`，19 处：主菜单 2、选关 15、整局结束 2），检查器 `tools/art_v11/table_text_contrast.py`；低于 4.5:1 的处理办法待定（[W20X 报告](W20X_REPORT.md) §4）。
+- 商店分区：W14 起底板乘 `panel`、标题条乘 `panelLight`，只有一种样式；W20X 已增加 `section`、`caption`（`33d6d926`）。
+- 按钮台阶色已改为 `buttonStep` / `buttonStepPrimary`（W20X，`33d6d926`）。W20X 排查了全部写死的颜色（18 个文件 50 处，口径见 [W20X 报告](W20X_REPORT.md) §5）：两处特效固定色（`Art071EnchantCue`、`Art071ComboEdgeAccents`）与计分爆点是默认风格的颜色存在静态字段里，没有随风格变；改为读色板会改变瑞士、唐三彩、爆彩漫画的特效，待定。
+- 所有画面共用对局桌面，`table_scene` 里按对局版面画的东西会出现在商店等画面的缝隙里（爆彩漫画的蓝色桌布块与射线最明显）。W20X 已加 `page_scene`（`33d6d926`）。
 - 字体还不随风格变（W21）。
