@@ -216,7 +216,7 @@
     - 计分行筹码不变，等黑金实机截图再看；
     - THEME_SPEC 那句已改为“已实现”；
     - 已通知两个风格 agent 在 schema 测试的可选键里加 `buttonSecondary`。
-- W20Y2 禁用的二级按钮的字（子 agent，2026-11-18，**VERIFYING，交协调者复核**；[W20Y 报告 §10](specs/v11/W20Y_REPORT.md)）：`SolidButton11` 禁用时的字色由固定的 Muted 改为 `LabelOn11(面色, Muted)`；面色、禁用的 25% 混合、贴图不变。
+- W20Y2 禁用的二级按钮的字（子 agent，2026-11-18，**协调者复核通过**：绑定 3256 个文件与当前一致，`quality_check.py nunit` 通过，EditMode 2437、PlayMode 245 × 2、Python 334；四套已有风格在噪声以外没有变化。协调者决定：启用与禁用的字在浅色面上可能同色，禁用由面色的混合区分，这由各风格的取值负责，代码不另加禁用提示；黑金 2b 与彩绘玻璃第二阶段都要求禁用面色至少差 5 dE00；[W20Y 报告 §10](specs/v11/W20Y_REPORT.md)）：`SolidButton11` 禁用时的字色由固定的 Muted 改为 `LabelOn11(面色, Muted)`；面色、禁用的 25% 混合、贴图不变。
   - 提交：`1361b9e5`（那一行与注释；新 PlayMode 测试 `PLAY_W20Y2_01` + .meta，`PLAY_W20Y_04` 未改）、文档提交。
   - 实际变的字：忙碌时（与没有骰子时）的查看骰子、忙碌时的上一手明细、锁定演出中计分行的随机结果按钮。禁用价格按钮上的原因（“卡牌已满 10 张”“道具栏已满”）由 `PriceButton13` 按同一规则上色，W20Y2 之前就可读，这次不变。
   - `PLAY_W20Y2_01`：探针风格 D8B26A 下，忙碌时的查看骰子、上一手明细与满货商店两个禁用价格按钮的字都是 ink 5.67:1（muted 只有 1.60:1）；四套发布风格的禁用字都是 muted（6.81 / 8.67 / 5.92 / 6.88:1）。1080p、720p 通过，问题 0；那一行临时改回旧写法时这条测试失败（8 个问题）。
@@ -259,6 +259,7 @@
   - W20 彩绘玻璃子 agent：工作树 `wt-v11-glass`（分支 `codex/v1.1-glass`）里对应的 glass 路径。
   - 瑞士插画复核子 agent：已交付（2026-11-18）。
   - W20Y 子 agent：已释放（2026-11-18 交付）。没有运行中的 Unity 进程；`DiceChineseFallback.asset` 已还原；证据在 `evidence/v11/unity/`（未纳入版本库）与 `artifacts/cache/v11/w20y/`。
+  - 黑金 2b 子 agent（2026-11-18 开始）：工作树 `wt-v11-deco` 里的黑金路径。四项：首领色、`buttonSecondary` 在顶栏上的对比、禁用面色、按钮与筹码的边距。
   - W20Y2 子 agent：已释放（2026-11-18 交付）。没有运行中的 Unity 进程；`DiceChineseFallback.asset` 已还原；证据在 `evidence/v11/unity/`（未纳入版本库）与 `artifacts/cache/v11/w20y2/`。
   - 主 agent：`ArtSource/Art11/` 的生成（经 artgen 串行进行），以及 `docs/STATE.md`、`THEME_SPEC.md`（W20X 可改状态行与 §5，须列出）、`DEV_PLAN.md`、`CARD_TEMPLATE.md`、`SHOP_LAYOUT.md`。
 
