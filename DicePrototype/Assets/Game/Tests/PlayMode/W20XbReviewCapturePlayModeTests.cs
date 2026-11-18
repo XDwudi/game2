@@ -32,7 +32,9 @@ namespace DiceCraft.Tests
     ///       button, the button without its label, the button without its face.
     ///   (3) Every controller card drawn by the template as a compact card (the play row's two-row mini card at 100 % and
     ///       150 %, the five-card text card at 150 %) in the gallery's eight badge combinations: whether its short text is
-    ///       shown, in default and the four styles.
+    ///       shown, in default and the four styles. W20Z: each pass on fresh card objects (W20Xb's single probe carried the
+    ///       text card's auto-sizing into the later mini passes), and per style C21's mini card drawn fresh against one drawn
+    ///       on a card object that was a text card before.
     ///   (4) W20Z: second-level buttons (GameApp.SolidButton11, the buttonSecondary face): the face as drawn (its centre
     ///       pixel with what is drawn over it off, the W20Y-04 read), its tint, each label's colour and contrast on that
     ///       pixel, and what it sits on (the frame with the button's graphics off: the pixels inside its face, their median
@@ -185,6 +187,8 @@ namespace DiceCraft.Tests
         private static readonly MethodInfo DrawCard20Xb=typeof(GameApp).GetMethod("DrawCard13",BindingFlags.NonPublic|BindingFlags.Instance);
         private static readonly MethodInfo GalleryVariant20Xb=typeof(GameApp).GetMethod("GalleryVariant13",BindingFlags.NonPublic|BindingFlags.Instance);
         [Serializable] private sealed class CompactCards20Xb{public string theme,size;public int textPercent,cards,drawn;public List<string> hidden=new List<string>();}
+        /// <summary>W20Z: per style, C21's mini card drawn fresh and on a card object that was a text card before.</summary>
+        private readonly List<string> compactCarry20Z=new List<string>();
 
         // ---------------------------------------------------------------- (4) second-level buttons as drawn (W20Z)
         [Serializable] private sealed class Label20Z{public string name,text,colour;public float alpha,contrast;}
@@ -362,7 +366,7 @@ namespace DiceCraft.Tests
             string label=Environment.GetEnvironmentVariable("DICECRAFT_W20XB_REVIEW_LABEL");
             if(string.IsNullOrWhiteSpace(label))label="suite-"+DateTime.UtcNow.ToString("yyyyMMdd-HHmmss");
             reviewDir20Xb=W20ZOutput(Path.Combine("review",label));reviewFiles20Xb.Clear();buttonCentres20Xb.Clear();reviewFailures20Xb.Clear();
-            secondaries20Z.Clear();bosses20Z.Clear();fallbacks20Z.Clear();textIssues20Z.Clear();textCounts20Z.Clear();contrastReport20Z.Clear();contrastFailures20Z.Clear();
+            secondaries20Z.Clear();bosses20Z.Clear();fallbacks20Z.Clear();textIssues20Z.Clear();textCounts20Z.Clear();contrastReport20Z.Clear();contrastFailures20Z.Clear();compactCarry20Z.Clear();
             foreach(string old in Directory.GetFiles(reviewDir20Xb,"*.png"))File.Delete(old);
             bool hadPreview=PlayerPrefs.HasKey(ThemeRegistry.PreviewKey);int previewValue=PlayerPrefs.GetInt(ThemeRegistry.PreviewKey,0);
             string savedTheme=PlayerPrefs.GetString(ThemeRegistry.PreferenceKey,GameTheme.DefaultId);
@@ -522,32 +526,53 @@ namespace DiceCraft.Tests
                     {var galleryRoot=app.ShowCardGallery13(page);yield return Art073Settle(.3f);yield return ReviewShot20Xb(theme,text,"30-gallery-p"+page,galleryRoot);expectedShots++;}
                     app.HideCardGallery13();
                 }
-                // (3) Compact cards: every controller card in the eight badge combinations of the gallery.
-                var probe=UiKit.Rect(app.canvas.transform,"W20XbCompactProbe",0,0,1920,1080);
-                try
+                // (3) Compact cards: every controller card in the eight badge combinations of the gallery. W20Z: every pass (style,
+                // card size, text size) draws on a probe of its own. The template keeps a card's labels in a pool by name, and its
+                // mini path does not reset enableAutoSizing, which the tall text card turns on (DrawCompactCard13). W20Xb drew every
+                // pass on one probe, so every mini pass after the first text-card pass measured with auto-sizing still on (at the
+                // text card's largest size) and counted almost every short text as hidden: every style but default.
+                var compactSize=Enum.Parse(typeof(GameApp.CardSize13),"Compact");
+                var cards=app.Config.controllers.Select(c=>(id:c.id,rarity:c.rarity=="rare"?2:c.rarity=="uncommon"?1:0)).ToList();
+                var sizes=new[]{("mini 280x117",100,280f,117f),("mini 280x117",150,280f,117f),("text card 280x244",150,280f,244f)};
+                int passes=0;
+                bool Shown20Z(UnityEngine.UI.Button drawnCard){var body=drawnCard.transform.Find("ShortText11");return body!=null&&body.gameObject.activeSelf;}
+                foreach(string theme in new[]{"default"}.Concat(ReviewThemes20Xb))
                 {
-                    var compactSize=Enum.Parse(typeof(GameApp.CardSize13),"Compact");
-                    var cards=app.Config.controllers.Select(c=>(id:c.id,rarity:c.rarity=="rare"?2:c.rarity=="uncommon"?1:0)).ToList();
-                    var sizes=new[]{("mini 280x117",100,280f,117f),("mini 280x117",150,280f,117f),("text card 280x244",150,280f,244f)};
-                    foreach(string theme in new[]{"default"}.Concat(ReviewThemes20Xb))
+                    app.ApplyTheme11(theme);WatchTemplates20Z(theme);
+                    foreach(var (size,text,w,h) in sizes)
                     {
-                        app.ApplyTheme11(theme);WatchTemplates20Z(theme);
-                        foreach(var (size,text,w,h) in sizes)
+                        W11TextScale(text);yield return null;
+                        var record=new CompactCards20Xb{theme=theme,size=size,textPercent=text,cards=cards.Count};
+                        var probe=UiKit.Rect(app.canvas.transform,"W20XbCompactProbe"+passes++,0,0,1920,1080);
+                        try
                         {
-                            W11TextScale(text);yield return null;
-                            var record=new CompactCards20Xb{theme=theme,size=size,textPercent=text,cards=cards.Count};
                             foreach(var card in cards)for(int v=0;v<8;v++)
                             {
                                 object face=GalleryVariant20Xb.Invoke(app,new object[]{card.id,card.rarity,v,v+1});
                                 var drawn=(UnityEngine.UI.Button)DrawCard20Xb.Invoke(app,new object[]{probe,"W20XbProbe",40f,40f,w,h,face,compactSize,null,true});
-                                var body=drawn.transform.Find("ShortText11");record.drawn++;
-                                if(body==null||!body.gameObject.activeSelf)record.hidden.Add(card.id+"/"+v);
+                                record.drawn++;
+                                if(!Shown20Z(drawn))record.hidden.Add(card.id+"/"+v);
                             }
-                            compact.Add(record);
                         }
+                        finally{UObj.Destroy(probe.gameObject);}
+                        compact.Add(record);
                     }
+                    // The same carry-over in the template itself: C21 (no badge, the shortest short text) as a mini card at 100 %
+                    // drawn fresh, and drawn on the card object that showed the same card as a 280x244 text card at 150 % before
+                    // (the play row's cards are pooled by instance: 150 % with five cards or fewer, then eight cards at 100 %).
+                    var carry=UiKit.Rect(app.canvas.transform,"W20XbCarryProbe"+passes++,0,0,1920,1080);
+                    try
+                    {
+                        int rarity=cards.First(c=>c.id=="C21").rarity;object c21=GalleryVariant20Xb.Invoke(app,new object[]{"C21",rarity,0,1});
+                        W11TextScale(100);bool fresh=Shown20Z((UnityEngine.UI.Button)DrawCard20Xb.Invoke(app,new object[]{carry,"Fresh",40f,40f,280f,117f,c21,compactSize,null,true}));
+                        W11TextScale(150);DrawCard20Xb.Invoke(app,new object[]{carry,"Reused",40f,400f,280f,244f,c21,compactSize,null,true});
+                        W11TextScale(100);var reused=(UnityEngine.UI.Button)DrawCard20Xb.Invoke(app,new object[]{carry,"Reused",40f,400f,280f,117f,c21,compactSize,null,true});
+                        var shortLabel=reused.transform.Find("ShortText11")?.GetComponent<TextMeshProUGUI>();
+                        compactCarry20Z.Add(theme+": C21 as a mini card at 100 %: "+(fresh?"shown":"hidden")+" when drawn fresh, "+(Shown20Z(reused)?"shown":"hidden")+
+                            " on the card object drawn as a 150 % text card before (its label's auto-sizing "+(shortLabel!=null&&shortLabel.enableAutoSizing?"still on, "+F20Xb(shortLabel.fontSizeMin)+" to "+F20Xb(shortLabel.fontSizeMax):"off")+")");
+                    }
+                    finally{UObj.Destroy(carry.gameObject);}
                 }
-                finally{UObj.Destroy(probe.gameObject);}
             }
             finally
             {
@@ -572,6 +597,8 @@ namespace DiceCraft.Tests
                     var lost=c.hidden.Except(reference.hidden).ToList();var gained=reference.hidden.Except(c.hidden).ToList();
                     checks.Add("  "+c.theme+" "+c.size+" "+c.textPercent+"%: hidden "+c.hidden.Count+" of "+c.drawn+" (default "+reference.hidden.Count+"); default shows, "+c.theme+" hides: "+lost.Count+(lost.Count>0?" — "+string.Join(" ",lost):"")+(gained.Count>0?"; "+c.theme+" shows, default hides: "+string.Join(" ",gained):""));
                 }
+                checks.Add("  The template's pooled label (W20Z): "+(compactCarry20Z.Count==0?"not measured":""));
+                foreach(string line in compactCarry20Z)checks.Add("    "+line);
                 checks.Add("");checks.Add("(4) Second-level buttons (SolidButton11) as drawn: face (centre pixel) and tint; labels with contrast on the face; what the button sits on (median of the pixels under its face with the button off) and the contrast of the face against it (median pixel; 10th-90th percentile of all):");
                 foreach(var s in secondaries20Z)
                     checks.Add("  "+s.theme+" "+s.textPercent+"% "+s.screen+" "+s.role+" ["+s.button+"] "+(s.enabled?"enabled":"DISABLED")+", buttonSecondary "+s.key+": face #"+s.drawn+" (tint #"+s.tint+", "+s.sprite+"); "+
@@ -619,6 +646,7 @@ namespace DiceCraft.Tests
             Assert.That(reviewFiles20Xb.Count,Is.EqualTo(expectedShots),"Every capture was made.");
             Assert.That(hints.Count,Is.EqualTo(W11bHints.Length*ReviewThemes20Xb.Length*ReviewText20Xb.Length),"Every hint was measured.");
             Assert.That(compact.Count,Is.EqualTo(3*(1+ReviewThemes20Xb.Length)),"Every compact size in default and the styles.");
+            Assert.That(compactCarry20Z.Count,Is.EqualTo(1+ReviewThemes20Xb.Length),"The pooled-label check in default and the styles.");
             Assert.That(buttonCentres20Xb.Count,Is.GreaterThan(0));
             foreach(string theme in ReviewThemes20Xb)foreach(int text in ReviewText20Xb)foreach(string role in new[]{"ViewDice","PreviousSubmission","card price"})
             {
