@@ -1,6 +1,6 @@
 # V1.1 画面风格规格（THEME_SPEC）
 
-状态：**骨架已实现**（W08，2026-11-16）；**风格接口补充已实现**（W20X，2026-11-17，`33d6d926`、`9d82b110`：`buttonStep` / `buttonStepPrimary`、`section`、`caption`、`Table/page_scene.png`，见 [W20X 报告](W20X_REPORT.md)）；**W20Xb 已实现**（2026-11-18，`6904b9c5`、`5dc03815`：桌面图按原尺寸导入，特效颜色在绘制时读色板，托盘三个标签都用 `caption`，见 [W20X 报告](W20X_REPORT.md) §10）。依据 [开发方案](DEV_PLAN.md) §4.6 与 G7。各风格的具体资源在 W12、W19–W23 中按本规格交付。
+状态：**骨架已实现**（W08，2026-11-16）；**风格接口补充已实现**（W20X，2026-11-17，`33d6d926`、`9d82b110`：`buttonStep` / `buttonStepPrimary`、`section`、`caption`、`Table/page_scene.png`，见 [W20X 报告](W20X_REPORT.md)）；**W20Xb 已实现**（2026-11-18，`6904b9c5`、`5dc03815`：桌面图按原尺寸导入，特效颜色在绘制时读色板，托盘三个标签都用 `caption`，见 [W20X 报告](W20X_REPORT.md) §10）；**W20Y 已实现**（2026-11-18，`05044756`：色板键 `buttonSecondary`，二级按钮 `SolidButton11` 的面色，见 [W20Y 报告](W20Y_REPORT.md)）。依据 [开发方案](DEV_PLAN.md) §4.6 与 G7。各风格的具体资源在 W12、W19–W23 中按本规格交付。
 
 ## 1 运行机制
 
@@ -58,7 +58,7 @@
 | onFelt | 直接画在桌布上的标记：骰子握把的点、提交格序号、空提交格的点（W11b 起使用）。桌布浅的风格必须填深色 | 不填：各处沿用原色（握把 paper、序号 muted、空格点 panelLight） |
 | valueBadge | 卡面数值角标（×1.5、+12、本手可用）的底色（W13 起使用） | 不填：沿用 gold |
 | buttonStep / buttonStepPrimary | 按钮下方的台阶（`UiKit.Button`，次要 / 主按钮）（W20X 起使用，`33d6d926` 实现） | 不填：沿用 8F453A / B56B29 |
-| buttonSecondary | 二级按钮的面色。二级按钮指 `GameApp.SolidButton11` 画的按钮：行动行的次要按钮、跳过演出、查看骰子、上一手明细、计分明细、商店里的按钮，以及卡面与商品行上的价格按钮。同一个值既落在桌面与深色面板上，也落在纸面上，所以要取两边都看得清的中间色（W20Y 起使用） | 不填：沿用 `lerp(background, panel, .55)`，禁用时再向 `panelLight` 混 25%（现状） |
+| buttonSecondary | 二级按钮的面色。二级按钮指 `GameApp.SolidButton11` 画的按钮：行动行的次要按钮、跳过演出、查看骰子、上一手明细、计分明细、商店里的按钮，以及卡面与商品行上的价格按钮。同一个值既落在桌面与深色面板上，也落在纸面上，所以要取两边都看得清的中间色（W20Y 起使用，`05044756` 实现） | 不填：沿用 `lerp(background, panel, .55)`，禁用时再向 `panelLight` 混 25%（现状） |
 | section | 商店分区底板 `ui_section_panel` 的乘色。填了以后，骰子样式页的八个样例格也乘这个色，两处看起来一样（W20X 起使用，`33d6d926` 实现） | 不填：商店乘 `panel`，样例格不乘色（W14 现状） |
 | caption | 标题条的乘色：商店分区标题条 `ui_section_header` 与骰子托盘上的标签（`PoolTab11` 由 W20X 实现，`33d6d926`；`PoolSummaryTab11`、`PoolPageTab11` 由 W20Xb 补上，三个标签看起来一样）。条上的字仍按实际底色自动选（下文 W11b 规则） | 不填：分区标题条乘 `panelLight`，托盘标签乘 `panel`（现状） |
 

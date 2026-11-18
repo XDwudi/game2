@@ -193,7 +193,14 @@
        - 桌面上的字有 9/19 低于 4.5:1，由 W15/W16 按已定的办法处理；150% 两行提示下方 6.7 单位（离线估计 5.0），合并后在实机截图里核对。
      - 彩绘玻璃发现的代码问题（归 W16）：选关页“开始挑战”的字固定用 ink，不按 LabelOn11 选色，在钴蓝主按钮上只有 2.58:1。W16 要让它和其他主按钮一样用 LabelOn11。
      - 1b 的对照图已发给用户。
-- W20Y 色板键 `buttonSecondary`（子 agent，2026-11-18 开始，Unity 串行）：`SolidButton11` 的面色可由风格指定，不填时与现在相同。同时把这个键加进唐三彩与漫画测试的可选键集合（W20X 加键时出过一次这个问题）。
+- W20Y 色板键 `buttonSecondary`（子 agent，2026-11-18，**VERIFYING，交协调者复核**；[报告](specs/v11/W20Y_REPORT.md)）：`SolidButton11` 的面色可由风格指定，不填时与现在相同。
+  - 提交：`05044756`（色板键、`UiKit.ButtonSecondary`、`SolidButton11` 一行、EditMode 4 条、PlayMode `PLAY_W20Y_04`、唐三彩与漫画清单测试的可选键）、文档提交。
+  - 填了只换基色：禁用的 25% 混合从新基色算起，贴图与 `LabelOn11` 的字色规则不变；颜色在绘制时读。
+  - `PLAY_W20Y_04`：运行时注入的测试风格（D8B26A，另有全白、全黑两份），1080p 与 720p 下 10 个按钮的面心“画出 = 贴图 × 乘色”（差 0–1 级），字色都是 `LabelOn11` 对画出颜色的选择；默认、瑞士、唐三彩、漫画仍是原插值。
+  - 逐像素：四套风格两种分辨率各 84 张，改动前后各两次；噪声参照之外的变化像素 0，非零差都在 3D 骰子上（≤ 2 级）。
+  - 全量（源码冻结在 `05044756`）：EditMode 2437/2437（`nunit-20261118-064728`）、PlayMode 1080p 244/244（`-072301`）、720p 244/244（`-075716`）、Python 334/334；三份报告 `quality_check.py nunit` 都是 CHECKS_PASSED，绑定的 3254 个文件与 HEAD 相同。
+  - 待协调者定（未改）：禁用的普通二级按钮（忙碌时的查看骰子、上一手明细等）字色固定为 Muted，浅色面上只有 1.60:1，建议改用 `LabelOn11(face, Muted)`（四套发布风格不变）；计分行的说明、因子、总分筹码不是 `SolidButton11`，不随这个键变；THEME_SPEC 表后“由代码任务 W20Y 实现”一句未改。
+  - 发现：深色界面颜色画出来比乘色暗几级（读数符合 8 位线性缓冲，改动前就是如此）；黑金、彩绘玻璃的清单测试合并时可能要把这个键列为可选。
 - W22 进度（2026-11-17 23:42）：瑞士 184/184（新图 169 张，加保留的 15 张）；唐三彩 90/184；额度 27%。瑞士整套由只读子 agent 逐张复核，协调者看过标记项后提交。
 - 瑞士整套复核（2026-11-18，只读子 agent，报告 `artifacts/cache/v11/w22/swiss-review/report.md`）：171 通过、11 标记、2 不通过。复核者对每张都看了约 370 px 的默认 | 瑞士对照，风险 id 放大到 600–1100 px；184 张所选原图的 SHA-256 与记录一致；没有文字、水印、白边或不透明底。协调者逐张看了 13 张标记图，都同意重画：
   - 玻璃不像玻璃：C145（画成透明空洞，在浅色卡上像普通米色骰）、U05（整颗不透明的中蓝，像蓝骰）、C42（钴蓝炮管）、C90（钴蓝心，里面的骰子不透明）。五张玻璃卡原来画法各不相同，只有 C128 r03 读得出玻璃；现在这四张的功能提示都改为与 C128 相同的写法：淡蓝、透出远边与里面的东西、白色高光，不画成不透明米色，也不画成饱和蓝（蓝色表示蓝骰）；
@@ -223,7 +230,7 @@
   - W20 黑金子 agent：工作树 `wt-v11-deco`（分支 `codex/v1.1-deco`，起点 `cd2fedb`）里的 `tools/art_v11/deco/`、`Resources/Themes/deco/`、`ArtSource/Art11/deco/`（`illustrations/` 除外）、`tests/test_art_v11_deco.py`。
   - W20 彩绘玻璃子 agent：工作树 `wt-v11-glass`（分支 `codex/v1.1-glass`）里对应的 glass 路径。
   - 瑞士插画复核子 agent：已交付（2026-11-18）。
-  - W20Y 子 agent：Unity 编辑器；`UI/Theme/ThemePalette.cs`、`UI/UiKit.cs`、`UI/GameApp.Play11.cs` 的 `SolidButton11`、`Tests/`、`tests/test_art_v11_sancai.py` 与 `tests/test_art_v11_comic.py` 的可选键集合、THEME_SPEC 的状态行与 `buttonSecondary` 一行、`docs/specs/v11/W20Y_REPORT.md`。
+  - W20Y 子 agent：已释放（2026-11-18 交付）。没有运行中的 Unity 进程；`DiceChineseFallback.asset` 已还原；证据在 `evidence/v11/unity/`（未纳入版本库）与 `artifacts/cache/v11/w20y/`。
   - 主 agent：`ArtSource/Art11/` 的生成（经 artgen 串行进行），以及 `docs/STATE.md`、`THEME_SPEC.md`（W20X 可改状态行与 §5，须列出）、`DEV_PLAN.md`、`CARD_TEMPLATE.md`、`SHOP_LAYOUT.md`。
 
 ## 玩家文字与美术体验审查（提案，2026-11-16）
