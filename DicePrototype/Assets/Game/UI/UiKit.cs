@@ -54,6 +54,9 @@ namespace DiceCraft
         /// <summary>V1.1 (W20X): tint of a caption strip or tab: the theme's caption colour, or <paramref name="fallback"/> when
         /// it sets none.</summary>
         public static Color Caption(Color fallback)=>palette.caption.a>0?palette.caption:fallback;
+        /// <summary>V1.1 (W20Y): the face of a second-level button (GameApp.SolidButton11; THEME_SPEC §2 buttonSecondary): the
+        /// theme's colour, or <paramref name="fallback"/> (the face drawn before W20Y) when it sets none.</summary>
+        public static Color ButtonSecondary(Color fallback)=>palette.buttonSecondary.a>0?palette.buttonSecondary:fallback;
         /// <summary>V1.1: the active theme's sprite override by template name, or null (then the default sprite is used).</summary>
         public static Func<string,Sprite> ThemeTemplate;
         /// <summary>v0.72 frame edge weight in reference units (matches the 2x-density ink line of the HD surfaces).</summary>

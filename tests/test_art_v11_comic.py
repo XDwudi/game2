@@ -886,9 +886,10 @@ class ComicArtTests(unittest.TestCase):
         source = (ROOT / "DicePrototype/Assets/Game/UI/Theme/ThemePalette.cs").read_text(encoding="utf-8")
         declared = re.search(r"class Hexes\s*\{\s*public string ([^;]+);", source).group(1)
         keys = {key.strip() for key in declared.replace("\n", " ").split(",")}
-        # valueBadge (W13) and the W20X keys may be left out: unset, they fall back to today's drawing (THEME_SPEC 2).
+        # valueBadge (W13), the W20X keys and buttonSecondary (W20Y) may be left out: unset, they fall back to today's
+        # drawing (THEME_SPEC 2).
         w20x = {"buttonStep", "buttonStepPrimary", "section", "caption"}
-        optional = {"valueBadge"} | w20x
+        optional = {"valueBadge", "buttonSecondary"} | w20x
         self.assertEqual(len(keys - optional), 24)
         # W20X declared its keys in ThemePalette.Hexes (until then JsonUtility skipped them); comic sets all four.
         self.assertTrue(w20x <= keys)

@@ -342,10 +342,11 @@
     "C119": {
       "conflicts": [],
       "cues": [
-        "ink spreads from one face onto the next"
+        "ink spreads from one face onto the next",
+        "the ink is near-black, never blue or red (a coloured stain reads as a blue or red die face)"
       ],
       "mainObject": "dropper staining a die",
-      "notes": "Flagged 'tool from the upper right onto a die' family (U08, U09, U10, I11, C134). C119 keeps the dropper and the stain running over the edge.",
+      "notes": "Flagged 'tool from the upper right onto a die' family (U08, U09, U10, I11, C134). C119 keeps the dropper and the stain running over the edge. 2026-11-18 (coordinator, Swiss W22 review): the Swiss r02 ink was cobalt and the stained face read as a blue die face; the card copies a face number, not a colour.",
       "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c119.png",
       "pictureSha256": "734f38aa08e7be3bb0ba849c2c60f15382707e1905640e4dcec6fa9b48f6e327",
       "subject": "an ink dropper releasing a drop onto the top of a die, the ink soaking from the top face over the edge onto the neighbouring face"
@@ -411,13 +412,19 @@
     "C124": {
       "conflicts": [],
       "cues": [
-        "molten metal poured into the die (a loaded die)"
+        "molten metal poured into the die (a loaded die)",
+        "the molten metal is bright silvery lead with heat strokes, never gold or yellow (gold means gilded faces and coins) and never flat red (red reads as paint)"
       ],
       "mainObject": "ladle pouring into a die",
-      "notes": "Molten metal is red-orange in the default and must not read as red paint (C26, C118, U03). Weight look-alike U10 (screwdriver driving a plug).",
+      "notes": "Molten metal is red-orange in the default and must not read as red paint (C26, C118, U03). Weight look-alike U10 (screwdriver driving a plug). 2026-11-18 (coordinator, Swiss W22 review): the Swiss r02 metal was gold, which reads as gilding. 2026-11-18 (coordinator, sancai W22 review): the sancai r01 metal was amber-gold; styleCues.sancai gives the lead a colour the palette has.",
       "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c124.png",
       "pictureSha256": "df034af18094b0a92f9a064622548e84db2432575dda00e37f939483f003fd01",
-      "subject": "a ladle pouring molten metal through a hole in the top of a hollow die, the open front of the die showing the pips inside"
+      "subject": "a ladle pouring molten metal through a hole in the top of a hollow die, the open front of the die showing the pips inside",
+      "styleCues": {
+        "sancai": [
+          "in this style the molten lead is a pale cream-white glaze with heat strokes (the sancai palette has no silver), never amber or gold"
+        ]
+      }
     },
     "C125": {
       "conflicts": [],
@@ -670,11 +677,11 @@
     "C145": {
       "conflicts": [],
       "cues": [
-        "die is transparent glass",
+        "die is transparent glass: a pale blue tint with the far edges and whatever is behind or inside showing through, white glints, never an opaque cream body and never solid saturated blue (blue means a blue die)",
         "wrapped in bubble wrap"
       ],
       "mainObject": "glass die in bubble wrap",
-      "notes": "Bubble texture is fine detail. Glass look-alikes: U05, C128.",
+      "notes": "Bubble texture is fine detail. Glass look-alikes: U05, C128. 2026-11-18 (coordinator, Swiss W22 review): the Swiss r01 die was drawn as see-through holes and read as an ordinary cream die on the light card.",
       "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c145.png",
       "pictureSha256": "6dbd6b4dbd8146efea4a90a4155b21eec5e899eba0adb8e0451af490b91a0b96",
       "subject": "a transparent glass die wrapped in a layer of bubble wrap, short strokes above"
@@ -766,10 +773,15 @@
         "grass tuft lifts the die up"
       ],
       "mainObject": "grass lifting a die",
-      "notes": "Plant look-alikes: C36, C115.",
+      "notes": "Plant look-alikes: C36, C115. 2026-11-18 (coordinator, Swiss W22 review): the Swiss r01 used a colour outside the Swiss palette; styleCues.swiss fixes it for Swiss only.",
       "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c152.png",
       "pictureSha256": "15a01627e0b7a76720c6c6dd4ad637418a200958ba7591e757dbffefe4b62a1f",
-      "subject": "a tuft of grass pushing up through a cracked paving stone and lifting a die on its blades"
+      "subject": "a tuft of grass pushing up through a cracked paving stone and lifting a die on its blades",
+      "styleCues": {
+        "swiss": [
+          "in this style the grass blades are ivory with black outlines (the Swiss palette has no green)"
+        ]
+      }
     },
     "C153": {
       "conflicts": [],
@@ -798,14 +810,19 @@
     "C18": {
       "conflicts": [],
       "cues": [
-        "one red die and one blue die",
+        "one die with a red body in the left pan and one die with a blue body in the right pan (whole dice coloured, as in the default), big enough to read at card size",
         "beam is level"
       ],
       "mainObject": "level balance scale",
-      "notes": "Default is 1536x1024, not square. Default die bodies are red and blue with light pips; red and blue pips on light dice carry the same cue. Look-alike: C103 (tilted balance, three dice against a heap).",
+      "notes": "Default is 1536x1024, not square. Default die bodies are red and blue with light pips; red and blue pips on light dice carry the same cue. Look-alike: C103 (tilted balance, three dice against a heap). 2026-11-18 (coordinator, sancai W22 review): the sancai r01 drew two cream dice with small red and blue pips, unreadable at 85 and 64 px; the card is about red against blue, so the whole die bodies carry the colour now. 2026-11-18 (coordinator, sancai r02 check): the sancai r02 still drew cream dice with red and blue pips; styleCues.sancai asks for coloured bodies.",
       "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c18.png",
       "pictureSha256": "6f377e9ab3e0f7e4a50f6ea146a9fee14b85ec4f8cc380785874a0566b0a64d4",
-      "subject": "a balance scale with its beam perfectly level, one red die in the left pan and one blue die in the right pan"
+      "subject": "a balance scale with its beam perfectly level, one red die in the left pan and one blue die in the right pan",
+      "styleCues": {
+        "sancai": [
+          "in this style the left die is glazed iron-red all over and the right die cobalt-blue all over, with cream pips; never cream dice with coloured pips"
+        ]
+      }
     },
     "C19": {
       "conflicts": [],
@@ -994,10 +1011,15 @@
         "sprout grows up out of the die"
       ],
       "mainObject": "sprout from a die pot",
-      "notes": "Pair card C37 (shrinking lens). Plant look-alikes: C120 (seedling pulled by tweezers), C99 (sprout in coins), C152 (grass lifting a die); C36 keeps the die itself as the pot.",
+      "notes": "Pair card C37 (shrinking lens). Plant look-alikes: C120 (seedling pulled by tweezers), C99 (sprout in coins), C152 (grass lifting a die); C36 keeps the die itself as the pot. 2026-11-18 (coordinator, Swiss W22 review): the Swiss r01 used a colour outside the Swiss palette; styleCues.swiss fixes it for Swiss only.",
       "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c36.png",
       "pictureSha256": "d019d0bdd446f7670d4c9c88c4cf43535be2fb7194427bcfbca9a0038e5a06de",
-      "subject": "a die-shaped flower pot with a sturdy sprout of two large leaves growing out of its top, short strokes on both sides"
+      "subject": "a die-shaped flower pot with a sturdy sprout of two large leaves growing out of its top, short strokes on both sides",
+      "styleCues": {
+        "swiss": [
+          "in this style the leaves are ivory with black outlines (the Swiss palette has no green)"
+        ]
+      }
     },
     "C37": {
       "conflicts": [],
@@ -1037,10 +1059,11 @@
     "C40": {
       "conflicts": [],
       "cues": [
-        "three dice rising in equal steps"
+        "three dice rising in equal steps",
+        "the folding rule is plain, with no tick marks or numbers (C87 is the ruler with ticks)"
       ],
       "mainObject": "dice on a hinged rule",
-      "notes": "Default tops read three, four, five (equal steps, as the card asks); keep if the style can, never as digits. Flagged look-alike C87 (four dice growing from tiny to large along a long ruler with tick marks); C40 keeps three same-size dice on a short three-segment rule with round hinges and no tick marks.",
+      "notes": "Default tops read three, four, five (equal steps, as the card asks); keep if the style can, never as digits. Flagged look-alike C87 (four dice growing from tiny to large along a long ruler with tick marks); C40 keeps three same-size dice on a short three-segment rule with round hinges and no tick marks. 2026-11-18 (coordinator, Swiss W22 review): the Swiss r01 rule gained tick marks, so C40 and C87 differed only by dice count.",
       "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c40.png",
       "pictureSha256": "cd966a806f8e6e456883273bbf7bbf6d7e044adab2b5be0999313abdca6bdc6e",
       "subject": "a hinged folding rule of three segments rising in equal steps to the upper right, one die sitting on each segment, short strokes at the upper left"
@@ -1059,11 +1082,11 @@
     "C42": {
       "conflicts": [],
       "cues": [
-        "barrel is glass",
+        "barrel is transparent glass: a pale blue tint with the far edges and whatever is behind or inside showing through, white glints, never an opaque cream body and never solid saturated blue (blue means a blue die)",
         "crack in the barrel"
       ],
       "mainObject": "cracked glass cannon",
-      "notes": "Style anchor of the default kit. Glass look-alikes: C90 (cracked glass heart), U05 (cracked glass die), C128, C145.",
+      "notes": "Style anchor of the default kit. Glass look-alikes: C90 (cracked glass heart), U05 (cracked glass die), C128, C145. 2026-11-18 (coordinator, Swiss W22 review): the Swiss r01 barrel was solid cobalt and read as a blue cannon, not glass; all five glass cards now say how glass shows (as C128).",
       "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c42.png",
       "pictureSha256": "ec2dc4e93ea964e37285d8fda197476c6ca6dfadadcd1b97ad5c57846c0582c5",
       "subject": "a short stubby cannon with a glass barrel on a two-wheeled carriage, a visible crack across the barrel, a small spark at the muzzle"
@@ -1545,10 +1568,15 @@
         "three dice, one under each leg"
       ],
       "mainObject": "cauldron on three dice",
-      "notes": "Weak mismatch (not a conflict): the three dice show different faces (three, five, four), so three-of-a-kind is not literal; the subject leaves faces free. The key-pattern band must not turn into letters. Support look-alikes: C30, C31.",
+      "notes": "Weak mismatch (not a conflict): the three dice show different faces (three, five, four), so three-of-a-kind is not literal; the subject leaves faces free. The key-pattern band must not turn into letters. Support look-alikes: C30, C31. 2026-11-18 (coordinator, Swiss W22 review): the Swiss r01 used a colour outside the Swiss palette; styleCues.swiss fixes it for Swiss only.",
       "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c85.png",
       "pictureSha256": "dbcd3ec88a328e3529feae3f15fc651b6d14cd0fe56b2a8cddc7fc74e1b6f5cc",
-      "subject": "a heavy three-legged cauldron with two upright handles and a key-pattern band, each of its three legs standing on a die"
+      "subject": "a heavy three-legged cauldron with two upright handles and a key-pattern band, each of its three legs standing on a die",
+      "styleCues": {
+        "swiss": [
+          "in this style the cauldron is black or warm grey (the Swiss palette has no teal)"
+        ]
+      }
     },
     "C86": {
       "conflicts": [],
@@ -1587,22 +1615,27 @@
     "C89": {
       "conflicts": [],
       "cues": [
-        "the dice are gold"
+        "the dice are gold: gold bodies on every die in the chest and on the one tumbling out, clearly different from ordinary cream dice"
       ],
       "mainObject": "chest of gold dice",
-      "notes": "The chest keyhole is a plain shape. Chest look-alike C135 (crate of potions with a padlock).",
+      "notes": "The chest keyhole is a plain shape. Chest look-alike C135 (crate of potions with a padlock). 2026-11-18 (coordinator, sancai W22 review): the sancai r01 drew ordinary cream dice, so the gold cue (gilded faces are a mechanic) was lost. 2026-11-18 (coordinator, sancai r02 check): the sancai r02 dice were still the ordinary cream-tan glaze; styleCues.sancai names the gold glaze.",
       "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c89.png",
       "pictureSha256": "17ad0ef182e5b37ec53b9ba5e335730ecd8e4c4b9e5cf50f11640ff9f8353927",
-      "subject": "an open treasure chest heaped with gold dice, one more gold die tumbling out beside it, short strokes on both sides"
+      "subject": "an open treasure chest heaped with gold dice, one more gold die tumbling out beside it, short strokes on both sides",
+      "styleCues": {
+        "sancai": [
+          "in this style every die in and beside the chest is glazed bright amber-gold all over, the glaze of the coins, clearly deeper and more saturated than the ordinary cream dice"
+        ]
+      }
     },
     "C90": {
       "conflicts": [],
       "cues": [
-        "heart is glass, cracked, with flying shards",
-        "die visible inside the heart"
+        "heart is transparent glass, cracked, with flying shards: a pale blue tint with the far edges and whatever is behind or inside showing through, white glints, never an opaque cream body and never solid saturated blue (blue means a blue die)",
+        "die faintly visible inside the heart, seen through the glass (paler and softer than a die in the open)"
       ],
       "mainObject": "cracked glass heart",
-      "notes": "The inner die is faint and is easily lost in opaque styles: check. Glass look-alikes: C42, U05, C128, C145.",
+      "notes": "The inner die is faint and is easily lost in opaque styles: check. Glass look-alikes: C42, U05, C128, C145. 2026-11-18 (coordinator, Swiss W22 review): the Swiss r01 heart was solid cobalt with an opaque die set in it; the glass and the faint die now say how they show.",
       "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c90.png",
       "pictureSha256": "ceff9b7565664f7dd75d8d3ea95484f585746257ea8a769efc79fc4674b58b2f",
       "subject": "a glass heart with a jagged crack down its middle and three shards flying off its top, a die faintly visible inside the glass"
@@ -1610,10 +1643,10 @@
     "C91": {
       "conflicts": [],
       "cues": [
-        "one face polished shiny, the next face roughened"
+        "one face polished shiny, the next face visibly roughened with a stippled, grainy texture; the sanding block shows grit"
       ],
       "mainObject": "die, cloth and sanding block",
-      "notes": "Look-alikes: U01 (cloth only), U02 (sanding block only), C125 (cloth and a tin of polish). C91 is the only one with both tools.",
+      "notes": "Look-alikes: U01 (cloth only), U02 (sanding block only), C125 (cloth and a tin of polish). C91 is the only one with both tools. 2026-11-18 (coordinator, Swiss W22 review): the Swiss r01 die had no roughened face and the block was a plain red bar.",
       "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c91.png",
       "pictureSha256": "e2cf267f6d27bccb94f4f34da9530506e7619d1a746417fb64b198521cd1644e",
       "subject": "a die with one face being polished to a shine by a cloth draped over its side and the next face roughened by a sanding block beside it, two small sparkles above"
@@ -1897,10 +1930,10 @@
     "O05": {
       "conflicts": [],
       "cues": [
-        "one more card slot added at the end"
+        "one more card slot added at the end: four cards on the original stand and a fifth on a separate extension block bolted on at the right end, visibly offset from the stand"
       ],
       "mainObject": "card stand with an extension",
-      "notes": "Cards blank. Look-alike O08 (rack with a new slot bolted on by a wrench).",
+      "notes": "Cards blank. Look-alike O08 (rack with a new slot bolted on by a wrench). 2026-11-18 (coordinator, Swiss W22 review): the Swiss r01 extension was only a seam and five equal cards stood level, so the added slot no longer read.",
       "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_o05.png",
       "pictureSha256": "3fda040b236d6694ae9115c7981009f81590040b096308d251adcb7711909f04",
       "subject": "a card display stand with blank cards standing in a row of clips, one more clip and card on a newly added extension at its end"
@@ -2020,11 +2053,11 @@
     "U05": {
       "conflicts": [],
       "cues": [
-        "whole die is transparent glass",
+        "whole die is transparent glass: a pale blue tint with the far edges and whatever is behind or inside showing through, white glints, never an opaque cream body and never solid saturated blue (blue means a blue die)",
         "small crack"
       ],
       "mainObject": "cracked glass die in tray",
-      "notes": "Glass look-alikes: C145 (bubble wrap), C128 (glassblower's pipe), C90, C42.",
+      "notes": "Glass look-alikes: C145 (bubble wrap), C128 (glassblower's pipe), C90, C42. 2026-11-18 (coordinator, Swiss W22 review): the Swiss r01 die was opaque mid blue and read as a blue die (look-alikes C92, U04).",
       "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_u05.png",
       "pictureSha256": "161cd7c99a81a429540f94dc13ba887c4c9a27ca5a8345d3fc3628531c01a73d",
       "subject": "a transparent glass die with a short crack in it, sitting in a paper cup tray"
