@@ -416,10 +416,15 @@
         "the molten metal is bright silvery lead with heat strokes, never gold or yellow (gold means gilded faces and coins) and never flat red (red reads as paint)"
       ],
       "mainObject": "ladle pouring into a die",
-      "notes": "Molten metal is red-orange in the default and must not read as red paint (C26, C118, U03). Weight look-alike U10 (screwdriver driving a plug). 2026-11-18 (coordinator, Swiss W22 review): the Swiss r02 metal was gold, which reads as gilding.",
+      "notes": "Molten metal is red-orange in the default and must not read as red paint (C26, C118, U03). Weight look-alike U10 (screwdriver driving a plug). 2026-11-18 (coordinator, Swiss W22 review): the Swiss r02 metal was gold, which reads as gilding. 2026-11-18 (coordinator, sancai W22 review): the sancai r01 metal was amber-gold; styleCues.sancai gives the lead a colour the palette has.",
       "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c124.png",
       "pictureSha256": "df034af18094b0a92f9a064622548e84db2432575dda00e37f939483f003fd01",
-      "subject": "a ladle pouring molten metal through a hole in the top of a hollow die, the open front of the die showing the pips inside"
+      "subject": "a ladle pouring molten metal through a hole in the top of a hollow die, the open front of the die showing the pips inside",
+      "styleCues": {
+        "sancai": [
+          "in this style the molten lead is a pale cream-white glaze with heat strokes (the sancai palette has no silver), never amber or gold"
+        ]
+      }
     },
     "C125": {
       "conflicts": [],
@@ -805,11 +810,11 @@
     "C18": {
       "conflicts": [],
       "cues": [
-        "one red die and one blue die",
+        "one die with a red body in the left pan and one die with a blue body in the right pan (whole dice coloured, as in the default), big enough to read at card size",
         "beam is level"
       ],
       "mainObject": "level balance scale",
-      "notes": "Default is 1536x1024, not square. Default die bodies are red and blue with light pips; red and blue pips on light dice carry the same cue. Look-alike: C103 (tilted balance, three dice against a heap).",
+      "notes": "Default is 1536x1024, not square. Default die bodies are red and blue with light pips; red and blue pips on light dice carry the same cue. Look-alike: C103 (tilted balance, three dice against a heap). 2026-11-18 (coordinator, sancai W22 review): the sancai r01 drew two cream dice with small red and blue pips, unreadable at 85 and 64 px; the card is about red against blue, so the whole die bodies carry the colour now.",
       "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c18.png",
       "pictureSha256": "6f377e9ab3e0f7e4a50f6ea146a9fee14b85ec4f8cc380785874a0566b0a64d4",
       "subject": "a balance scale with its beam perfectly level, one red die in the left pan and one blue die in the right pan"
@@ -1605,10 +1610,10 @@
     "C89": {
       "conflicts": [],
       "cues": [
-        "the dice are gold"
+        "the dice are gold: gold bodies on every die in the chest and on the one tumbling out, clearly different from ordinary cream dice"
       ],
       "mainObject": "chest of gold dice",
-      "notes": "The chest keyhole is a plain shape. Chest look-alike C135 (crate of potions with a padlock).",
+      "notes": "The chest keyhole is a plain shape. Chest look-alike C135 (crate of potions with a padlock). 2026-11-18 (coordinator, sancai W22 review): the sancai r01 drew ordinary cream dice, so the gold cue (gilded faces are a mechanic) was lost.",
       "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c89.png",
       "pictureSha256": "17ad0ef182e5b37ec53b9ba5e335730ecd8e4c4b9e5cf50f11640ff9f8353927",
       "subject": "an open treasure chest heaped with gold dice, one more gold die tumbling out beside it, short strokes on both sides"
