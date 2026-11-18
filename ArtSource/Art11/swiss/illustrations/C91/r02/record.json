@@ -1,0 +1,141 @@
+{
+  "schema": "artgen-record-1",
+  "toolVersion": "artgen-1.2",
+  "jobId": "V11-SWISS-C91",
+  "jobPath": "ArtSource/Art11/swiss/illustrations/C91/job.json",
+  "jobSha256": "b63e07a0ae1ac811b19a1d0b0b68d9619203300cf3b597b571102498d1f96103",
+  "category": "illustration",
+  "revision": "r02",
+  "mode": "new",
+  "transparentRequired": true,
+  "content": {
+    "contentId": "C91",
+    "list": "controllers",
+    "displayName": "纹理大师",
+    "configDescription": "每颗光滑或粗糙面朝上的提交骰，点数贡献+8。",
+    "configPath": "DicePrototype/Assets/Game/Data/P0Config.json",
+    "configSha256": "be01f53fafb0cd441acbf5341a813d5409931eb8bea6463c644af30698846151"
+  },
+  "styleKit": {
+    "path": "ArtSource/StyleKit/themes/swiss/style_kit.json",
+    "sha256": "472a8633ec97e0de505cfa32f2b50fccf22f21c144d5311bf79dc05d9e994acb",
+    "kitVersion": "theme-swiss-0.2",
+    "status": "PROPOSED (2026-11-16): anchors are crops of the four card illustrations on the user-chosen Swiss concept page (ArtSource/StyleKit/themes/swiss/concepts/card.png); awaiting the user's review at checkpoint 2/3 with the first representative redraws."
+  },
+  "references": [
+    {
+      "index": 1,
+      "path": "ArtSource/StyleKit/themes/swiss/plates/illustration_plate_theme-swiss-0.1.png",
+      "sha256": "caeeec53f0c6b51f217366913ea21cb4f6b0d8e66caaf0fdf61273b19c2f05c8",
+      "role": "STYLE PLATE: four card illustrations in the Swiss modernism style of this game, cropped from concept art and still standing on their card backdrop (cream with a red diagonal field). Copy their rendering exactly (uniform bold black outline, flat fills, hard black cast shadow, geometric cubes, cream bodies, red and cobalt accents). Do not copy their subjects, their layout, or the red diagonal backdrop field. The pip colours of the dice on the plate are not a style rule: pips follow the subject."
+    },
+    {
+      "index": 2,
+      "path": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c91.png",
+      "sha256": "e2cf267f6d27bccb94f4f34da9530506e7619d1a746417fb64b198521cd1644e",
+      "role": "SUBJECT REFERENCE: the same card drawn in the game's default style. Keep its objects, their arrangement, the idea, and every colour that carries game information: dice pips keep the reference's colours (dark pips stay dark, in the darkest ink of reference image 1; red pips stay red; blue pips stay blue), coloured die faces keep their colour, gold stays gold, and glass or transparent parts stay transparent. Never colour neutral dark pips red or blue. Ignore everything else about its rendering (outlines, shading, halftone, exact shades) and draw it in the style of reference image 1."
+    }
+  ],
+  "prompt": {
+    "imagePromptPath": "ArtSource/Art11/swiss/illustrations/C91/r02/prompt.txt",
+    "imagePromptFileSha256": "c694ed5413ec4fcff0d095bff76a02849d1cbbd02e78cc4f65183aa57a90a394",
+    "agentRequestPath": "ArtSource/Art11/swiss/illustrations/C91/r02/codex-request.txt",
+    "agentRequestFileSha256": "49fcaaaa93fa43b602af7b5f026b4b53e036d4260ab048fdaaf3e1ba2aa62068"
+  },
+  "codex": {
+    "command": [
+      "C:\\Users\\f\\AppData\\Local\\OpenAI\\Codex\\bin\\c38161ad8494f88c\\codex.exe"
+    ],
+    "version": "codex-cli 0.169.0-alpha.11.1",
+    "exitCode": 0,
+    "threadId": "01a1ed2c-f48e-78f0-aa3f-48d72683e7bf",
+    "sessionLog": "C:\\Users\\f\\.codex\\sessions\\2026\\11\\18\\rollout-2026-11-18T00-41-48-01a1ed2c-f48e-78f0-aa3f-48d72683e7bf.jsonl",
+    "agentModel": "gpt-6.2-sol",
+    "usage": {
+      "input_tokens": 41230,
+      "cached_input_tokens": 34560,
+      "cache_write_input_tokens": 0,
+      "output_tokens": 1019,
+      "reasoning_output_tokens": 266
+    },
+    "durationSeconds": 94.2,
+    "quotaUsedPercentFirst": 28.0,
+    "quotaUsedPercentLast": 28.0
+  },
+  "imageTool": {
+    "name": "image_gen.imagegen (Codex built-in)",
+    "modelSnapshot": "not exposed by the tool; OpenAI documents the built-in tool as gpt-image-2",
+    "generations": [
+      {
+        "id": "exec-4e231b0c-adee-4d1d-85e5-5d52ed09d226",
+        "kind": "image_gen.generation",
+        "status": "completed",
+        "failure": null,
+        "revisedPrompt": "Create ONE standalone card-theme illustration. Subject: a die with one face being polished to a shine by a cloth draped over its side and the next face roughened by a sanding block beside it, two small sparkles above. Must keep: one face polished shiny, the next face visibly roughened with a stippled, grainy texture; the sanding block shows grit; dice pips coloured exactly as in the subject reference (dark pips stay dark, never recoloured red or blue).\nStyle: Match the STYLE PLATE (reference image 1) exactly: Swiss International Typographic Style poster illustration. Uniform bold black outlines; completely flat colour fills with no gradient, no texture, no halftone and no shading except one hard-edged black cast shadow polygon falling to the lower right of each object; clean geometric construction with straight edges and precise ellipses; cubes and objects in a crisp three-quarter view from slightly above; cream bodies with black pips (cobalt or signal red only when the subject names blue or red pips); small, sharp white highlights at most. Calm, graphic and bold, like a modernist poster.\nColour roles: Cream #F9EADB for lit surfaces and dice bodies; black #000000 for outlines, pips and the cast shadow; signal red #E80E16 for the single main accent object or area; cobalt blue #1D4FD8 only for blue pips, water or other blue elements of the subject; warm gold #E8B33A only for gold, coins or gilded parts; warm grey #96948E for metal. No other hues, no gradients, no glow.\nComposition: One cohesive subject group of at most three objects, centred on a square canvas; the subject spans roughly 70 to 95 percent of the canvas width without touching the edges, with even transparent margin on every side; the silhouette must stay readable at 64 pixels. Two or three short straight action strokes are allowed when they express the effect. The card frame of the game draws its own backdrop, so the illustration has no background field at all.\nOutput: True transparent alpha background with no backdrop of any colour and no background shapes. A single finished illustration, not a sheet of variants.\nAvoid: text, letters, numbers, labels, prices, card frames, UI elements, a background field or diagonal backdrop shape, paper or coloured backdrop, ground scenery, checkerboard, photorealism, 3D-render look, soft gradients, halftone dots, texture, pixel art, neon glow, grunge, human characters, expressive faces.",
+        "transparentBackground": true,
+        "inputImages": [
+          {
+            "path": "E:\\agent_workspace\\gpt\\game2\\ArtSource\\StyleKit\\themes\\swiss\\plates\\illustration_plate_theme-swiss-0.1.png",
+            "sha256": "caeeec53f0c6b51f217366913ea21cb4f6b0d8e66caaf0fdf61273b19c2f05c8"
+          },
+          {
+            "path": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Art\\Art071\\Illustrations\\illustration_c91.png",
+            "sha256": "e2cf267f6d27bccb94f4f34da9530506e7619d1a746417fb64b198521cd1644e"
+          }
+        ],
+        "savedPath": "C:\\Users\\f\\.codex\\generated_images\\01a1ed2c-f48e-78f0-aa3f-48d72683e7bf\\exec-4e231b0c-adee-4d1d-85e5-5d52ed09d226.png",
+        "generationId": "1f1fe4d9-e22a-414a-9959-a77c5619d966"
+      }
+    ],
+    "runChecks": {
+      "imageCallCount": 1,
+      "generationCount": 1,
+      "callReferencedImagePaths": [
+        "E:/agent_workspace/gpt/game2/ArtSource/StyleKit/themes/swiss/plates/illustration_plate_theme-swiss-0.1.png",
+        "E:/agent_workspace/gpt/game2/DicePrototype/Assets/Art/Art071/Illustrations/illustration_c91.png"
+      ],
+      "modelInputImages": [
+        {
+          "path": "E:\\agent_workspace\\gpt\\game2\\ArtSource\\StyleKit\\themes\\swiss\\plates\\illustration_plate_theme-swiss-0.1.png",
+          "sha256": "caeeec53f0c6b51f217366913ea21cb4f6b0d8e66caaf0fdf61273b19c2f05c8"
+        },
+        {
+          "path": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Art\\Art071\\Illustrations\\illustration_c91.png",
+          "sha256": "e2cf267f6d27bccb94f4f34da9530506e7619d1a746417fb64b198521cd1644e"
+        }
+      ],
+      "transparentRequested": true,
+      "callPromptExact": true,
+      "revisedPromptExact": true
+    }
+  },
+  "output": {
+    "sourcePath": "C:\\Users\\f\\.codex\\generated_images\\01a1ed2c-f48e-78f0-aa3f-48d72683e7bf\\exec-4e231b0c-adee-4d1d-85e5-5d52ed09d226.png",
+    "archivedPath": "ArtSource/Art11/swiss/illustrations/C91/r02/original.png",
+    "sha256": "4cfdfb433253b05a7222e23ba5389ca724045f83ebba7eab4497efac63d9d14c",
+    "copiedByteIdentical": true,
+    "dimensions": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alphaExtrema": [
+      0,
+      255
+    ],
+    "transparentShare": 0.5558,
+    "alphaBounds": [
+      34,
+      105,
+      1209,
+      1163
+    ],
+    "subjectWidthShare": 0.937,
+    "subjectHeightShare": 0.8437,
+    "subjectAreaShare": 0.4334
+  },
+  "runValid": true,
+  "runProblems": [],
+  "status": "CANDIDATE: review pending",
+  "recordedUtc": "2026-11-18T05:43:22.950431+00:00"
+}
