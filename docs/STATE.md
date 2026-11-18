@@ -207,6 +207,12 @@
     - THEME_SPEC 那句已改为“已实现”；
     - 已通知两个风格 agent 在 schema 测试的可选键里加 `buttonSecondary`。
 - W20Y2（子 agent，2026-11-18 开始，Unity 串行）：禁用的 `SolidButton11` 的字改用 `LabelOn11(面色, Muted)`；四套已有风格逐像素不变；扩充 W20Y 的探针测试。
+- 2026-11-18 约 03:30 用量达到 5 小时上限，W20Y2、黑金第二阶段、彩绘玻璃第二阶段三个子 agent 同时中断。04:10 恢复后的处理：
+  - W20Y2：上下文小，原 agent 接着做；它当时还没有提交或改动文件；
+  - 黑金：第二阶段几乎做完但没提交（50 张件、测试、示意都在工作树里），原 agent 的上下文已超过 70 万 token。改派一个新 agent“收尾并核对”（重建一致性、README 数字、严格审计、全量测试、提交）；
+  - 彩绘玻璃：第二阶段还没开始改文件，等前两个完成后再派新 agent；
+  - 教训：同时最多跑两个重的 agent。
+- W22 进度（04:12）：瑞士 184/184 已提交；唐三彩画完（177 有效、6 旧提示图、1 张最后一次无效，待查）；漫画 12/184；额度 28%。唐三彩整套复核排在彩绘玻璃之后。
 - W22 进度（2026-11-17 23:42）：瑞士 184/184（新图 169 张，加保留的 15 张）；唐三彩 90/184；额度 27%。瑞士整套由只读子 agent 逐张复核，协调者看过标记项后提交。
 - 瑞士整套复核（2026-11-18，只读子 agent，报告 `artifacts/cache/v11/w22/swiss-review/report.md`）：171 通过、11 标记、2 不通过。复核者对每张都看了约 370 px 的默认 | 瑞士对照，风险 id 放大到 600–1100 px；184 张所选原图的 SHA-256 与记录一致；没有文字、水印、白边或不透明底。协调者逐张看了 13 张标记图，都同意重画：
   - 玻璃不像玻璃：C145（画成透明空洞，在浅色卡上像普通米色骰）、U05（整颗不透明的中蓝，像蓝骰）、C42（钴蓝炮管）、C90（钴蓝心，里面的骰子不透明）。五张玻璃卡原来画法各不相同，只有 C128 r03 读得出玻璃；现在这四张的功能提示都改为与 C128 相同的写法：淡蓝、透出远边与里面的东西、白色高光，不画成不透明米色，也不画成饱和蓝（蓝色表示蓝骰）；
@@ -233,7 +239,7 @@
   - 提交时继续加这两个参数，避免在 Unity 测试期间触发自动整理。
 - 文件锁：
   - W20Xb 子 agent：已释放（2026-11-18 交付）。没有运行中的 Unity 进程；`DiceChineseFallback.asset` 已还原；证据在 `evidence/v11/unity/`（未纳入版本库）与 `artifacts/cache/v11/w20xb/`。
-  - W20 黑金子 agent：工作树 `wt-v11-deco`（分支 `codex/v1.1-deco`，起点 `cd2fedb`）里的 `tools/art_v11/deco/`、`Resources/Themes/deco/`、`ArtSource/Art11/deco/`（`illustrations/` 除外）、`tests/test_art_v11_deco.py`。
+  - W20 黑金收尾子 agent（新派，接替中断的那个）：工作树 `wt-v11-deco`（分支 `codex/v1.1-deco`，起点 `cd2fedb`）里的 `tools/art_v11/deco/`、`Resources/Themes/deco/`、`ArtSource/Art11/deco/`（`illustrations/` 除外）、`tests/test_art_v11_deco.py`。
   - W20 彩绘玻璃子 agent：工作树 `wt-v11-glass`（分支 `codex/v1.1-glass`）里对应的 glass 路径。
   - 瑞士插画复核子 agent：已交付（2026-11-18）。
   - W20Y 子 agent：已释放（2026-11-18 交付）。没有运行中的 Unity 进程；`DiceChineseFallback.asset` 已还原；证据在 `evidence/v11/unity/`（未纳入版本库）与 `artifacts/cache/v11/w20y/`。
