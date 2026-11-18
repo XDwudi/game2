@@ -35,6 +35,11 @@ namespace DiceCraft
         /// tab. Unset (alpha 0) by default: the header takes panelLight, the pool tab panel. The labels on them still take
         /// their colour from the fill as drawn (LabelOn11).</summary>
         public Color caption=new Color(0,0,0,0);
+        /// <summary>V1.1 (W20Y): the face of a second-level button (GameApp.SolidButton11: the action row's secondary action,
+        /// 跳过演出, 查看骰子, 上一手明细, the score row's detail chips, the shop's buttons and the price buttons on cards and goods
+        /// rows). Unset (alpha 0) by default: the face is lerp(background, panel, .55) as before. A disabled button is the face
+        /// a further 25 % toward panelLight either way, and its labels still take their colour from the face as drawn.</summary>
+        public Color buttonSecondary=new Color(0,0,0,0);
 
         public ThemePalette Clone()=>(ThemePalette)MemberwiseClone();
 
@@ -44,7 +49,7 @@ namespace DiceCraft
         {
             public string ink,panel,panelLight,paper,muted,gold,teal,red,blue,background,felt,textColor,violet,danger,shadow,ghost,
                 primary,reward,boss,pressure,rarityCommon,rarityAdvanced,rarityRare,onFelt,valueBadge,
-                buttonStep,buttonStepPrimary,section,caption;
+                buttonStep,buttonStepPrimary,section,caption,buttonSecondary;
         }
 
         public static ThemePalette From(Hexes source)
@@ -59,7 +64,7 @@ namespace DiceCraft
             Set(ref p.rarityCommon,source.rarityCommon);Set(ref p.rarityAdvanced,source.rarityAdvanced);Set(ref p.rarityRare,source.rarityRare);
             Set(ref p.onFelt,source.onFelt);Set(ref p.valueBadge,source.valueBadge);
             Set(ref p.buttonStep,source.buttonStep);Set(ref p.buttonStepPrimary,source.buttonStepPrimary);
-            Set(ref p.section,source.section);Set(ref p.caption,source.caption);
+            Set(ref p.section,source.section);Set(ref p.caption,source.caption);Set(ref p.buttonSecondary,source.buttonSecondary);
             return p;
         }
 

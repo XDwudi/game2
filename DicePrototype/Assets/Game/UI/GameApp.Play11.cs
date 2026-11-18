@@ -810,14 +810,16 @@ namespace DiceCraft
             return b;
         }
         /// <summary>
-        /// A second-level button with its own dark surface. The v0.72 ghost button is an outline with light text: on a light
-        /// table theme its text would stand on the table itself (THEME_SPEC 5), so play-screen buttons always carry a face.
+        /// A second-level button with its own surface (dark unless the theme sets buttonSecondary). The v0.72 ghost button is
+        /// an outline with light text: on a light table theme its text would stand on the table itself (THEME_SPEC 5), so
+        /// play-screen buttons always carry a face. V1.1 (W20Y): the face is the theme's buttonSecondary, read at draw time;
+        /// unset, it is lerp(background, panel, .55) as before.
         /// </summary>
         private UnityEngine.UI.Button SolidButton11(Transform parent,string name,string label,float x,float y,float w,float h,Action click,bool enabled,float font)
         {
             var b=UiKit.FlatButton(parent,name,label,x,y,w,h,click,enabled);
             var face=(Image)b.targetGraphic;face.sprite=UiKit.Template("ui_chip_formula");face.type=face.sprite!=null?Image.Type.Sliced:Image.Type.Simple;
-            var tint=Color.Lerp(UiKit.Background,UiKit.Panel,.55f);if(!enabled)tint=Color.Lerp(tint,UiKit.PanelLight,.25f);face.color=tint;
+            var tint=UiKit.ButtonSecondary(Color.Lerp(UiKit.Background,UiKit.Panel,.55f));if(!enabled)tint=Color.Lerp(tint,UiKit.PanelLight,.25f);face.color=tint;
             var text=b.GetComponentInChildren<TextMeshProUGUI>();text.fontSize=font*UiKit.FontScale;text.color=enabled?LabelOn11(face,UiKit.TextColor):UiKit.Muted;
             return b;
         }
