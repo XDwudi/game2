@@ -72,8 +72,9 @@ FELT_ZONES = {
 }
 APPROVED_TITLE_FONT = Path("DicePrototype/Assets/Game/Fonts/Themes/deco/ZCOOLXiaoWei-Regular.ttf")
 # Coordinator, phase 1 review (2026-11-18), decision 2: the W20Y key buttonSecondary sets every SolidButton11 face. It
-# stays out of theme.json until W20Y declares it in ThemePalette.Hexes; the generator keeps it as a pending key. Round 2b
-# (coordinator, 2026-11-18): an antique gold plaque with the ink label, readable on the top bar too (phase 2: 7A5C30).
+# was a pending key until W20Y declared it in ThemePalette.Hexes; since W20Y landed (merged into this branch for the kit
+# merge, 2026-11-18) the generator writes it to theme.json. Round 2b (coordinator, 2026-11-18): an antique gold plaque
+# with the ink label, readable on the top bar too (phase 2: 7A5C30).
 BUTTON_SECONDARY = "A47E41"
 
 
@@ -635,9 +636,9 @@ class DecoArtTests(unittest.TestCase):
                     self.assertGreaterEqual(float((part >= 4.5).mean()), .10)
 
     def test_small_marks_stand_out_on_their_hosts(self):
-        # Brief rule 6, at real size on the real hosts: SolidButton11's face today (lerp(Background, Panel, .55)), with
-        # the pending buttonSecondary (W20Y) and disabled (W20Y2, round 2b), the top bar, the score and resource wells, the
-        # felt, the paper.
+        # Brief rule 6, at real size on the real hosts: SolidButton11's face without buttonSecondary (lerp(Background,
+        # Panel, .55)), with buttonSecondary (W20Y, set in theme.json) and disabled (W20Y2, round 2b), the top bar, the
+        # score and resource wells, the felt, the paper.
         p = self.palette
         lerp = lambda a, b, t: tuple(round(x + (y - x) * t) for x, y in zip(hex_rgb(a), hex_rgb(b)))
         solid_today, solid_w20y = lerp(p["background"], p["panel"], .55), hex_rgb(BUTTON_SECONDARY)
@@ -943,11 +944,10 @@ class DecoArtTests(unittest.TestCase):
         # through LabelOn11. The three cannot all reach 3:1 with such a label: ink needs the face at a relative luminance
         # of 0.2318 or more, where ivory stays under 2.95:1; textColor, the lightest label, needs 0.1266 or less, where the
         # top bar stays under 2.37:1. Round 2b takes the ink label (the concept's light plaques with dark lettering): the
-        # felt and the top bar at 3:1 or more, ivory at 2.94:1 or more, 0.06 short of 3:1 (README "次要按钮"). Until the
-        # coordinator adds it to theme.json at the W20Y merge, the generator keeps it as a pending key.
+        # felt and the top bar at 3:1 or more, ivory at 2.94:1 or more, 0.06 short of 3:1 (README "次要按钮"). Set in
+        # theme.json since W20Y landed (it was a pending key in the generator until the W20Y merge).
         p = self.palette
-        value = p.get("buttonSecondary") or self.builder.PENDING_TOKENS.get("buttonSecondary")
-        self.assertEqual(value, BUTTON_SECONDARY)
+        self.assertEqual(p["buttonSecondary"], BUTTON_SECONDARY)
         lum = lambda k: float(luminance(np.array(hex_rgb(p[k]), dtype=np.float64)))
         ink_floor = 4.95 * (lum("ink") + .05) - .05
         text_ceiling = (lum("textColor") + .05) / 4.95 - .05
@@ -1047,16 +1047,19 @@ class DecoArtTests(unittest.TestCase):
         declared = re.search(r"class Hexes\s*\{\s*public string ([^;]+);", source).group(1)
         keys = {key.strip() for key in declared.replace("\n", " ").split(",")}
         # valueBadge (W13), the W20X keys and W20Y's buttonSecondary may be left out: unset, they fall back to today's
-        # drawing (THEME_SPEC 2). The 24 required keys are the same before W20Y declares buttonSecondary (29 keys) and
-        # after (30; coordinator, 2026-11-18).
+        # drawing (THEME_SPEC 2). The 24 required keys stayed the same when W20Y declared buttonSecondary (29 keys before,
+        # 30 since the W20Y merge; coordinator, 2026-11-18); this kit sets it, so the declaration is required here.
         w20x = {"buttonStep", "buttonStepPrimary", "section", "caption"}
-        optional = {"valueBadge", "buttonSecondary"} | w20x
+        w20y = {"buttonSecondary"}
+        optional = {"valueBadge"} | w20x | w20y
         self.assertEqual(len(keys - optional), 24)
         self.assertTrue(w20x <= keys)
-        # Every palette key is one ThemePalette.Hexes declares (JsonUtility skips any other), so buttonSecondary stays out
-        # until W20Y declares it; the 24 required keys and the four W20X keys are set; valueBadge falls back to gold.
+        self.assertTrue(w20y <= keys, "W20Y declares buttonSecondary in ThemePalette.Hexes")
+        # Every palette key is one ThemePalette.Hexes declares (JsonUtility skips any other); the 24 required keys, the
+        # four W20X keys and W20Y's buttonSecondary (set in theme.json since W20Y landed) are set; valueBadge falls back
+        # to gold.
         self.assertLessEqual(set(self.palette), keys)
-        self.assertLessEqual((keys - optional) | w20x, set(self.palette))
+        self.assertLessEqual((keys - optional) | w20x | w20y, set(self.palette))
         self.assertNotIn("valueBadge", self.palette)
         for key, value in self.palette.items():
             with self.subTest(token=key):

@@ -1,8 +1,8 @@
 # W20 黑金装饰艺术 UI kit
 
-状态：**第二阶段 2b 完成，提交复核**（2026-11-18，分支 `codex/v1.1-deco`，起点 `codex/v1.1` `cd2fedb3`；第一阶段 `f11165e2`，第二阶段 `0e4135e5`）。不是实机或美术 ACCEPTED：结论只覆盖“验收条件与结果”写明的方法，独立复核与实机由协调者安排。没有启动 Unity，没有用 GPT/Codex 生图，没有下载；没有改 C#、`.meta`、默认件、其他风格的件、字体或 `docs/STATE.md`。
+状态：**第二阶段 2b 完成，提交复核**（2026-11-18，分支 `codex/v1.1-deco`，起点 `codex/v1.1` `cd2fedb3`；第一阶段 `f11165e2`，第二阶段 `0e4135e5`）。**合并准备**（2026-11-18）：本分支合并了 `codex/v1.1` `173b2be7`（含 W20Y `05044756`、W20Y2 `1361b9e5`），`buttonSecondary` 已写入 `theme.json`（W20Y 已合入），见“决定记录”末条。不是实机或美术 ACCEPTED：结论只覆盖“验收条件与结果”写明的方法，独立复核与实机由协调者安排。没有启动 Unity，没有用 GPT/Codex 生图，没有下载；没有改 C#、`.meta`、默认件、其他风格的件、字体或 `docs/STATE.md`。
 
-输入：`docs/specs/v11/THEME_SPEC.md` §2（含 `onFelt`、`valueBadge`、W20X 的 `buttonStep` / `buttonStepPrimary` / `section` / `caption` 与“乘色只会调暗”）、§3（可选的 `Table/page_scene.png`）、§3.1（桌面构图）；`PLAY_LAYOUT.md` §1、`SHOP_LAYOUT.md` §2、`CARD_TEMPLATE.md` §3、§6；`tools/art_v11/theme_contract.json`（2026-11-18，94 张中有引用的 50 张）；`ArtSource/StyleKit/themes/deco/` 的五张概念图与 `style_kit.json`；STATE 里唐三彩、爆彩漫画、W20X、W20Xb 的记录；代码 `GameApp.Play11`、`Play11Score`、`Play11Contrast`（`FrameInsets11`、`LabelOn11`、`CueOn11`）、`Card11`、`Shop14`、`Art071Screens`、`UiKit`；协调者对第一阶段的审查决定（2026-11-18）与对第二阶段的 2b 决定（2026-11-18：首领色、`buttonSecondary` 在顶栏上、禁用的次要按钮、按钮与筹码的边距；见末节）；`codex/v1.1` 上 W20Y / W20Y2 的 `SolidButton11`（`1361b9e5`，只读，本工作树的代码仍是 `cd2fedb3`）。
+输入：`docs/specs/v11/THEME_SPEC.md` §2（含 `onFelt`、`valueBadge`、W20X 的 `buttonStep` / `buttonStepPrimary` / `section` / `caption` 与“乘色只会调暗”）、§3（可选的 `Table/page_scene.png`）、§3.1（桌面构图）；`PLAY_LAYOUT.md` §1、`SHOP_LAYOUT.md` §2、`CARD_TEMPLATE.md` §3、§6；`tools/art_v11/theme_contract.json`（2026-11-18，94 张中有引用的 50 张）；`ArtSource/StyleKit/themes/deco/` 的五张概念图与 `style_kit.json`；STATE 里唐三彩、爆彩漫画、W20X、W20Xb 的记录；代码 `GameApp.Play11`、`Play11Score`、`Play11Contrast`（`FrameInsets11`、`LabelOn11`、`CueOn11`）、`Card11`、`Shop14`、`Art071Screens`、`UiKit`；协调者对第一阶段的审查决定（2026-11-18）与对第二阶段的 2b 决定（2026-11-18：首领色、`buttonSecondary` 在顶栏上、禁用的次要按钮、按钮与筹码的边距；见末节）；W20Y / W20Y2 的 `SolidButton11`（`1361b9e5`；2b 时在 `codex/v1.1` 上只读，合并准备时随 `173b2be7` 并入本分支）。
 
 ## 范围与产物
 
@@ -15,7 +15,7 @@
 | `…/deco/Table/page_scene.png` | 1920×1080 RGB：同一块黑漆与屏幕金框，没有版面形状和大装饰（非对局画面的底） |
 | `…/deco/Table/felt_tile.png` | 1024² RGB，周期漆面细纹，均值即 felt 色，无渐变 |
 | `…/deco/preview.png` | 480×270：离线对局合成（状态 f，100 % 文字）缩小 4 倍 |
-| `…/deco/theme.json` | id `deco`、displayName 黑金装饰艺术、order 4、preview true；24 个色板项加 4 个 W20X 项（生成器的 `PALETTE` 与 `W20X_TOKENS` 是唯一来源）。待定键 `buttonSecondary` 不写入（见下） |
+| `…/deco/theme.json` | id `deco`、displayName 黑金装饰艺术、order 4、preview true；24 个色板项、4 个 W20X 项加 W20Y 的 `buttonSecondary`（生成器的 `PALETTE`、`W20X_TOKENS` 与 `W20Y_TOKENS` 是唯一来源）。`buttonSecondary` 已写入 `theme.json`（W20Y 已合入，见下） |
 | `ArtSource/Art11/deco/contact_sheet.png` | build 的一部分：50 组默认 / 黑金 / 黑金在桌面上（着色件乘典型色）；四张整屏合成（f 100 %、首领 100 %、高压 100 %、f 150 %）；小图标在真实尺寸与底色上（1 倍与 2 倍）与主菜单字标；桌面（静区、外接矩形、动作行空处标出）与 page_scene；色板与对比度；五张概念图 |
 | `ArtSource/Art11/deco/card_template_review.png` | W13 + W14 卡面模板复核图（`--card-review`，不属于 build）：商店 220×348、桌面 216×244、紧凑 280×117 × 常见 / 进阶 / 稀有 / 商品，紧凑卡的四条最短短文（C21、C22、C78、C79），商品行 452×103 / 448×121，构筑小格 100×104，1080p 与 720p，黑金在左、默认在右；三种宝石在卡顶边框上 12–34 px |
 | `ArtSource/Art11/deco/review/` | 离线示意（`--review`，不属于 build），见“离线示意” |
@@ -27,7 +27,7 @@
 - **对称切角八角形**，45° 切角、不前倾：roll、shop、select、card 四页的卡、面板、按钮都是这种轮廓。面板与卡切角 16 px，道具卡、空格与角标小牌 12 px，顶栏 14 px，本关牌与按钮 18 px、筹码 20 px、托盘 23 px、环 24 px。与瑞士的小切角单线、漫画的墨线大切角加前倾和硬投影、三彩的圆弧角都不同：测试对 20 个件拟合角上的轮廓，必须是一条 45° 直线。
 - **金色双线**（card、roll 的卡框与左栏信息板）：外圈是抛光金的斜面带（面板 13 px、卡 14 px、道具卡 10 px）：外缘一道亮边、斜面受光一侧的高光线、平面、内缘暗成古铜；然后黑漆间隔（道具卡是深红间隔），面板再有一道细金线。光从左上，但金带沿边一致（拉伸时不变形），明暗只在法线方向。卡上的细金线由 W13 的稀有度环代替。
 - **深红楔角**（card 页插画窗四角与 roll 页屏幕四角的深红三角）：暗色面板与纸面板的细金线在四角各封着一个深红直角三角形，斜边是一道金色斜撑。三角只在 40 px 角块里。
-- **漆牌**（shop 页的价签与购买钮、roll 页的按钮）：被代码着色的件（按钮、筹码、顶栏、本关牌、标题条、托盘、环、描边钮、进度条）只用灰度画出斜面边和一道刻线，乘上任何色板色都读作一块漆牌或金属牌：乘深红是主按钮，乘金是算式筹码与“已选”签，乘古金（待定的 `buttonSecondary`）是次要按钮与价格钮。顶栏与本关牌的刻线是透空的，透出底下的黑漆，成为一道黑色嵌线。按钮与筹码（2b）的刻线只在四个角块里：沿切角一道，两端沿边各伸出一小段、收成尖，止于离边 36 px 以内（角块 40 px）；拉伸的边带只有斜面边，所以字的空间与默认相同（“文字空间”）。金色的厚重感由角上的刻线与按钮下的金色台阶（`buttonStepPrimary`）承担。
+- **漆牌**（shop 页的价签与购买钮、roll 页的按钮）：被代码着色的件（按钮、筹码、顶栏、本关牌、标题条、托盘、环、描边钮、进度条）只用灰度画出斜面边和一道刻线，乘上任何色板色都读作一块漆牌或金属牌：乘深红是主按钮，乘金是算式筹码与“已选”签，乘古金（`buttonSecondary`）是次要按钮与价格钮。顶栏与本关牌的刻线是透空的，透出底下的黑漆，成为一道黑色嵌线。按钮与筹码（2b）的刻线只在四个角块里：沿切角一道，两端沿边各伸出一小段、收成尖，止于离边 36 px 以内（角块 40 px）；拉伸的边带只有斜面边，所以字的空间与默认相同（“文字空间”）。金色的厚重感由角上的刻线与按钮下的金色台阶（`buttonStepPrimary`）承担。
 - **箭头**（shop 页“控制器卡牌”的深红标签右端尖；进度条两端）：`ui_section_header` 右端是一个对称的尖（中线上），乘 `caption` 深红；`ui_progress_*` 两端都是尖。
 - **扇形与阶梯座**（roll 页底部正中、select 页、card 页顶上的金色扇形）：只出现在桌面、卡背和字标上，从不放在会被拉伸的边带里。
 - **徽章**（card 页角上的八角金章）：五个附魔章是金边八角章，珐琅底保留默认徽章的含义色（玉绿 +10、紫晶 ×2、宝蓝 +1 掷、黑漆无格、象牙 +1 提交），象牙符号加漆墨描边。
@@ -90,7 +90,7 @@ WCAG 2 相对亮度；ΔE 为 CIE76，CIEDE2000 另注。`python tools/art_v11/d
 | buttonStep / buttonStepPrimary（W20X） | 7A5C34 / B68A44 | 按钮下的台阶当金属托座：象牙钮下古铜，深红主按钮下金（概念图的深红按钮镶在金框里）。不填时代码用 8F453A / B56B29，红褐与橙在黑金里不对 | 对桌面 3.05 / 6.00 |
 | section（W20X） | FFFFFF | 商店分区保持烘焙：黑漆面与金色双线（不填时代码会给分区乘色，金框会被压暗） | 分区中心 100D0A：muted 8.78，textColor 16.13 |
 | caption（W20X） | 8E1B20 | 深红标题条：商店分区标题与托盘的三个标签（决定 3 接受两处共用） | 字取 textColor 7.51（标签首选的 muted 只有 4.09，代码改用 textColor） |
-| buttonSecondary（W20Y，**待定，未写入 theme.json**） | A47E41 | 古金漆牌、漆墨字（2b；第二阶段 7A5C30 古铜、象牙字）：每个 SolidButton11 的面（次要按钮、价格钮、查看骰子、商店的刷新 / 手册 / 设置）。概念图 shop 页的次要钮就是浅色牌子配深色字 | 对桌面 5.04、顶栏 3.78、分区黑漆 5.20、象牙 2.95（未到 3，折中）；字 ink 4.95（LabelOn11 0 步）；禁用时画成 7C5D2F、象牙字 5.05，与可用面差 CIEDE2000 13.78 |
+| buttonSecondary（W20Y，已写入 theme.json：W20Y 已合入） | A47E41 | 古金漆牌、漆墨字（2b；第二阶段 7A5C30 古铜、象牙字）：每个 SolidButton11 的面（次要按钮、价格钮、查看骰子、商店的刷新 / 手册 / 设置）。概念图 shop 页的次要钮就是浅色牌子配深色字 | 对桌面 5.04、顶栏 3.78、分区黑漆 5.20、象牙 2.95（未到 3，折中）；字 ink 4.95（LabelOn11 0 步）；禁用时画成 7C5D2F、象牙字 5.05，与可用面差 CIEDE2000 13.78 |
 
 ### 首领色（决定 1，2b）
 
@@ -113,7 +113,7 @@ WCAG 2 相对亮度；ΔE 为 CIE76，CIEDE2000 另注。`python tools/art_v11/d
 
 第二阶段数字的更正：第二阶段的模拟逐步取整到 8 位，把 EB2921 的牌面算成“向白 3 步、EE4841、ink 字”，由此写出“牌面与 primary 19.98、与红筹码 5.8”。按 C# 的浮点循环，EB2921 加深与调浅都要 4 步，平手时加深，画出来是 BF211B、象牙字：与红筹码 18.9，但与 primary 只有 7.8，第二阶段的值其实没满足决定 1。2b 把 `build_deco.label_on`、`review_deco.Game.label_on` 与测试的 `label_on` 都改成浮点逐步（与 C# 一致），D23084 在浮点、float32 与 8 位取整下都是加深 3 步。
 
-### 次要按钮（决定 2，2b；W20Y 待定键）
+### 次要按钮（决定 2，2b；W20Y 键，已写入 theme.json）
 
 `buttonSecondary` = A47E41（古金漆牌、漆墨字；第二阶段 7A5C30 古铜、象牙字）。协调者 2b：在桌面与象牙纸面保持 ≥3:1、字经 LabelOn11 ≥4.95 的前提下，尽量让它对顶栏（panel 332A20，商店的查看本章、手册、设置）也 ≥3:1；三者做不到时给出最好的折中与数字。
 
@@ -125,13 +125,13 @@ WCAG 2 相对亮度；ΔE 为 CIE76，CIEDE2000 另注。`python tools/art_v11/d
 | A：古铜、象牙字 | 如 7C5E30 | 3.13 | ≤2.37 | 3.23 | 4.75 | textColor ≥4.95 | 同色相变暗要 panelLight 亮度 L* ≤19（≈ 顶栏色）；或把 panelLight 换成芥黄 / 铁锈色，禁用面反而更鲜 |
 | **B（采用）：古金、漆墨字** | **A47E41** | **5.04** | **3.78** | **5.20** | **2.95** | **ink 4.95** | **13.78，字转象牙（panelLight 573A1A，L* 27）** |
 
-取 B：三处里最低的一处 2.95，比 A 的 2.37 高得多；象牙上差 0.05，牌子的斜面边在象牙上更暗（外缘 ×0.78，背光侧更深），边界仍清楚；概念图 shop 页的查看关卡、设置、手册、购买都是浅色牌子配深色字。彩绘玻璃的 `buttonSecondary`（AC8442，对纸面 2.62）由协调者按“有清楚外框”接受过，是同一类折中。代价与风险见“已知风险”；不采用时把 `PENDING_TOKENS` 改回古铜一类、`panelLight` 另议（“需要的决定”）。
+取 B：三处里最低的一处 2.95，比 A 的 2.37 高得多；象牙上差 0.05，牌子的斜面边在象牙上更暗（外缘 ×0.78，背光侧更深），边界仍清楚；概念图 shop 页的查看关卡、设置、手册、购买都是浅色牌子配深色字。彩绘玻璃的 `buttonSecondary`（AC8442，对纸面 2.62）由协调者按“有清楚外框”接受过，是同一类折中。代价与风险见“已知风险”；不采用时把 `W20Y_TOKENS` 改回古铜一类、`panelLight` 另议（“需要的决定”）。
 
 禁用（W20Y2，`codex/v1.1` `1361b9e5`）：代码把面混入 25 % panelLight（`Color.Lerp`，浮点），字取 `LabelOn11(face, Muted)`，它把加深或调浅的步数写回面色。A47E41 混入 573A1A 得 916D37；Muted 在上面只有 2.1:1，ink 与 textColor 都不到 4.95，LabelOn11 加深 3 步成 7C5D2F，字 textColor 5.05:1。加深的第 3 步 5.02:1（比 4.95 高 0.07），第 2 步 4.64；调浅也要 3 步（第 2 步 4.70，比 4.95 低 0.25），平手时规则加深：要翻到调浅，得让调浅第 2 步或加深第 3 步越过 4.95，两边都差得远。可用与禁用的面差 CIEDE2000 13.78，字由漆墨变成象牙：亮的金牌是可用，暗的古铜牌是不可用。示意：`review/secondary_buttons.png`（代码里会禁用的每一种 SolidButton11：算式行的随机结果钮、查看骰子、上一手明细、商店顶栏的查看本章与手册、刷新与指定升级、卡与商品行的价格钮，可用与禁用并排，100 % 与 150 % 文字；另附禁用的 `UiKit.Button` 结束本关，它的面就是 panelLight）。
 
 为了这一点 panelLight 由 6E5434 加深到 573A1A（L* 37.7 → 27.1，CIEDE2000 8.7）。再亮一档（L* 28.7，544028）时加深与调浅都是 3 步、第 3 步只比 4.95 高 0.01，按平手加深仍成立，但离翻转太近，不取。panelLight 的其他用处：普通关关卡签与本关牌标题条的字 textColor 8.63（0 步，原 5.87）；禁用 `UiKit.Button`（结束本关）的 Muted 字 4.70（原 3.19）；已过（gold）与未到的章节点 5.23（原 3.55）；AX-08 的三项不涉及 panelLight，不变（11.71 / 14.60 / 6.38）。变弱的：关卡签与未到章节点对顶栏 1.36（原 2.00），托盘边 `lerp(panel, panelLight, .55)` = 47331D 对桌面 1.57（原 1.93），播放页空道具环对黑漆 1.87（原 2.75），商店空格的旧金边乘 panelLight 后 3C1D05，对分区黑漆 1.26（同一算法下原 1.55）。
 
-按协调者的要求，值放在生成器的 `PENDING_TOKENS` 与本文，不写入 `theme.json`（本工作树的 `ThemePalette.cs` 还没有这个键：JsonUtility 会跳过它，结构测试也要求每个色板键都已声明）；W20Y 合并后由协调者加入。加入时请改生成器再重建 `theme.json`（例如 `theme_json()` 把 `PENDING_TOKENS` 一并写入；`PENDING_TOKENS` 本身要留着，`review_deco.py` 与 `palette_report()` 读它）：手改 `theme.json` 会让 `test_shipped_theme_json_matches_regeneration` 失败；交付的 PNG 不受影响（示意本来就按这个值画）。结构测试的可选键集合已含 `buttonSecondary`，必需键在合并前（29 个声明键）与合并后（30 个）都是 24 个。所有画到它的示意说明里写着“simulated buttonSecondary A47E41”（`palette.png` 里标为 pending）。
+已写入 `theme.json`（W20Y 已合入）。2b 时按协调者的要求，值只放在生成器的待定色板 `PENDING_TOKENS` 与本文，不写入 `theme.json`（当时本工作树的 `ThemePalette.cs` 还没有这个键：JsonUtility 会跳过它，结构测试也要求每个色板键都已声明）。合并准备（2026-11-18）把 `codex/v1.1` `173b2be7` 并入本分支（`ThemePalette.Hexes` 声明 30 个键），待定色板改名为生成器的 `W20Y_TOKENS`，由 `theme_json()` 写入 `theme.json`（排在 W20X 四个键之后）；`review_deco.py` 直接用 `theme.json` 里的值（不再另外合入），`palette_report()` 用色板里的值（色板缺这个键时取 `W20Y_TOKENS`）。`theme.json` 由生成器重建，没有手改（`test_shipped_theme_json_matches_regeneration`）；交付的 PNG 不变（示意本来就按这个值画）。示意说明里的“simulated buttonSecondary A47E41”改为“buttonSecondary A47E41”，`palette.png` 不再标 pending。结构测试的可选键集合仍含 `buttonSecondary`，必需键仍是 24 个；`test_theme_json_schema` 现在还要求它已在 `ThemePalette.Hexes` 声明、已写入 `theme.json`。
 
 古金面上的小图标：金币与查看骰子原来在古金上只有 13.3 % 与 9.8 % 的像素对牌面 ≥3:1（规则 6 的测试要 ≥15 %），2b 把两者的漆墨描边加宽（金币圆面 0.45 → 0.43、描边 3.5 % → 6.5 %；查看骰子的骰子加 6 px、放大镜 5 → 7 px 描边，128 px 画布）：古金上 21.0 % 与 18.3 %，禁用面 7C5D2F 上 39.5 % 与 30.3 %，旧的 221C15 面上 50.4 % 与 31.1 %，顶栏上的 36 px 金币 48.6 %。商店的书、齿轮、刷新图标跟字色，在古金上是漆墨色。
 
@@ -194,7 +194,7 @@ WCAG 2 相对亮度；ΔE 为 CIE76，CIEDE2000 另注。`python tools/art_v11/d
 
 ## 离线示意（`ArtSource/Art11/deco/review/`）
 
-全部是 Python 按游戏代码的排版模拟，不是 Unity 截图；卡名、短文、插画（默认风格的插画，W22 黑金重画不在本工作树）与价格是替身，3D 骰子是平面替身（骰子下的影子是一块硬边的暗矩形，替身画法，不是 `ui_die_shadow`）；画到 buttonSecondary 的图，说明里都写着 “simulated buttonSecondary A47E41”（`palette.png` 标为 pending）。2b 起示意按 C# 的浮点 LabelOn11 选字，并把它写回的步数画进面色（`Game.label_on`、`Game.solid_face`；第二阶段的示意没画回写的面色，也不画禁用的价格钮）。
+全部是 Python 按游戏代码的排版模拟，不是 Unity 截图；卡名、短文、插画（默认风格的插画，W22 黑金重画不在本工作树）与价格是替身，3D 骰子是平面替身（骰子下的影子是一块硬边的暗矩形，替身画法，不是 `ui_die_shadow`）；画到 buttonSecondary 的图，说明里都写着 “buttonSecondary A47E41”（`theme.json` 里的值；W20Y 合并前写作 “simulated buttonSecondary A47E41”，`palette.png` 标为 pending）。2b 起示意按 C# 的浮点 LabelOn11 选字，并把它写回的步数画进面色（`Game.label_on`、`Game.solid_face`；第二阶段的示意没画回写的面色，也不画禁用的价格钮）。
 
 | 文件 | 内容 |
 | --- | --- |
@@ -225,7 +225,7 @@ WCAG 2 相对亮度；ΔE 为 CIE76，CIEDE2000 另注。`python tools/art_v11/d
 
 ## 测试（`tests/test_art_v11_deco.py`，46 项）
 
-清单（50 件、55 张 PNG）与尺寸、RGBA、不全透明；着色件 R=G=B、白色实面、开口件中心全透明；九宫格中心从边距线起纯色（20 件）、横向切片中段逐列相同（4 件）；拉伸边带（9 个着色件沿边不变，11 个烘焙件沿边逐像素 ≤6 级）；C# 框厚镜像与文字空间（卡、本关牌、顶栏、角标、2b 起的筹码与按钮不比默认厚，其余件的上限），150 % 两行提示的余量 ≥5 单位；20 个件的角是 45° 直切角；金框是有高光与暗边的金属（亮度 ≥0.70 与 <0.12 同在）；面板四角有深红楔角而拉伸段没有；按钮与筹码的刻线只在角块（2b：每个角的对角线依次是斜面、白缝、刻线、白面，离边 38 px 处与拉伸段逐像素相同）；标题条与进度条的尖在中线上；内层件不出宿主轮廓（稀有度环、本关牌双环、托盘环、商店标题条）；带字面板的对比度；锁与小图标在真实尺寸与底色上（含待定的 buttonSecondary 面与它禁用时画出的面）；稀有度环带宽不超过默认、两侧漆线；宝石轮廓点数、小尺寸可分、墨线与浅色刻面；桌面尺寸、静区、外接矩形内全是 felt、装饰只有屏幕框、扇角与一把扇形、装饰有闭合暗轮廓、屏幕框是闭合金色双线；page_scene 只有黑漆与同一屏幕框；felt_tile 无缝均匀；色板规则（AX-08、onFelt、pressure 警示色、稀有度、主按钮）；首领色（决定 1、2b：原值与牌面离 primary、红骰点、pressure 都 ≥15，算式行红筹码对首领筹码 ≥15，环、档位条 ≥3）；待定的 buttonSecondary 不在 `theme.json`、桌面与顶栏 ≥3、象牙 ≥2.94，并算出三者不能同时 ≥3（2b）；禁用的次要按钮（2b：画出的面差 ≥5 CIEDE2000、字转为象牙、决定步数的对比离 4.95 至少 0.05；panelLight 的关卡签字、禁用按钮的 Muted 字、章节点）；数值与警示角标；W20X 四个键；`theme.json` 结构（键名从 `ThemePalette.cs` 读取）与生成一致；概念图 SHA 与来源表一致；字标用批准的标题字；两次完整重建逐字节一致且与交付件一致。测试里的 `label_on` 与 C# 一样按浮点逐步（2b）。
+清单（50 件、55 张 PNG）与尺寸、RGBA、不全透明；着色件 R=G=B、白色实面、开口件中心全透明；九宫格中心从边距线起纯色（20 件）、横向切片中段逐列相同（4 件）；拉伸边带（9 个着色件沿边不变，11 个烘焙件沿边逐像素 ≤6 级）；C# 框厚镜像与文字空间（卡、本关牌、顶栏、角标、2b 起的筹码与按钮不比默认厚，其余件的上限），150 % 两行提示的余量 ≥5 单位；20 个件的角是 45° 直切角；金框是有高光与暗边的金属（亮度 ≥0.70 与 <0.12 同在）；面板四角有深红楔角而拉伸段没有；按钮与筹码的刻线只在角块（2b：每个角的对角线依次是斜面、白缝、刻线、白面，离边 38 px 处与拉伸段逐像素相同）；标题条与进度条的尖在中线上；内层件不出宿主轮廓（稀有度环、本关牌双环、托盘环、商店标题条）；带字面板的对比度；锁与小图标在真实尺寸与底色上（含 buttonSecondary 面与它禁用时画出的面）；稀有度环带宽不超过默认、两侧漆线；宝石轮廓点数、小尺寸可分、墨线与浅色刻面；桌面尺寸、静区、外接矩形内全是 felt、装饰只有屏幕框、扇角与一把扇形、装饰有闭合暗轮廓、屏幕框是闭合金色双线；page_scene 只有黑漆与同一屏幕框；felt_tile 无缝均匀；色板规则（AX-08、onFelt、pressure 警示色、稀有度、主按钮）；首领色（决定 1、2b：原值与牌面离 primary、红骰点、pressure 都 ≥15，算式行红筹码对首领筹码 ≥15，环、档位条 ≥3）；buttonSecondary 已写入 `theme.json`（W20Y 已合入）、桌面与顶栏 ≥3、象牙 ≥2.94，并算出三者不能同时 ≥3（2b）；禁用的次要按钮（2b：画出的面差 ≥5 CIEDE2000、字转为象牙、决定步数的对比离 4.95 至少 0.05；panelLight 的关卡签字、禁用按钮的 Muted 字、章节点）；数值与警示角标；W20X 四个键；`theme.json` 结构（键名从 `ThemePalette.cs` 读取；W20Y 的 buttonSecondary 须已声明、已写入）与生成一致；概念图 SHA 与来源表一致；字标用批准的标题字；两次完整重建逐字节一致且与交付件一致。测试里的 `label_on` 与 C# 一样按浮点逐步（2b）。
 
 ## 验收条件与结果
 
@@ -239,7 +239,7 @@ WCAG 2 相对亮度；ΔE 为 CIE76，CIEDE2000 另注。`python tools/art_v11/d
 | W20-04 | 四个静区偏差 0；外接矩形内无装饰；动作行装饰只在全状态空处、闭合；卡牌栏下无装饰；page_scene 平 | 生成器检查、单测、`action_row.txt`、`card_rows.png` | 通过：4/4 偏差 0；11 个矩形 0 像素；扇形在 x 1291–1477（空处 1276–1492），18 个状态 × 字号都在空处；卡牌栏 0 / 3 / 5 / 7 / 10 张下 0 像素 |
 | W20-05 | 色板：红蓝原值、AX-08、onFelt、pressure 警示色、稀有度亮度与离 primary 的距离、主按钮字 ≥4.95、角标、W20X 键；`theme.json` 结构 | 单测、`palette_report()` | 通过，数字见色板表 |
 | W20-06 | 首领（2b）：原值与 LabelOn11 牌面都离 primary、红骰点、pressure ≥15 CIEDE2000，算式行红筹码对首领筹码 ≥15；字经 LabelOn11 ≥4.95；环对桌面与 paper、徽记档位条 ≥3 | 单测、`palette_report()`、`boss_stage.png` | 通过：D23084，牌面 B42971；primary 24.36 / 21.03，红骰点 22.75，红筹码对首领筹码 26.46，pressure 38.35 / 40.34；字 5.00；环 4.02 / 3.70，档位条 3.95，顶栏上 3.01 |
-| W20-07 | buttonSecondary（2b）：对桌面、对 paper 各 ≥3:1，对顶栏尽量 ≥3:1，字经 LabelOn11 ≥4.95；做不到三者同时 ≥3 时给出折中；不写入 `theme.json`；示意里注明模拟；结构测试合并前后都通过 | 单测（含不可行的证明）、`palette_report()`、`shop_w14.png` | 部分（折中，待协调者定）：A47E41 对桌面 5.04、顶栏 3.78、分区黑漆 5.20，字 ink 4.95（0 步）；象牙 2.95，比 3:1 差 0.05。字 ≥4.95 时三者不能同时 ≥3（ink 字时象牙最多 2.95，textColor 字时顶栏最多 2.37）。`theme.json` 无此键；可选键集合含它 |
+| W20-07 | buttonSecondary（2b）：对桌面、对 paper 各 ≥3:1，对顶栏尽量 ≥3:1，字经 LabelOn11 ≥4.95；做不到三者同时 ≥3 时给出折中；不写入 `theme.json`；示意里注明模拟；结构测试合并前后都通过 | 单测（含不可行的证明）、`palette_report()`、`shop_w14.png` | 部分（折中，待协调者定）：A47E41 对桌面 5.04、顶栏 3.78、分区黑漆 5.20，字 ink 4.95（0 步）；象牙 2.95，比 3:1 差 0.05。字 ≥4.95 时三者不能同时 ≥3（ink 字时象牙最多 2.95，textColor 字时顶栏最多 2.37）。2b 时 `theme.json` 无此键，可选键集合含它。合并准备（2026-11-18）：W20Y 已合入，按协调者的合并步骤写入 `theme.json`，示意改标 “buttonSecondary A47E41”，结构测试在 30 个声明键下通过（“决定记录”末条） |
 | W20-08 | 两行提示 150 % 时字底余量 ≥5 单位 | 单测（离线估算）、`action_row.txt` | 通过：7.0 单位（100 % 10.3） |
 | W20-09 | 小图标在真实尺寸与宿主上可辨；锁 20×22 在 background 上 | 单测、接触表小图 | 通过（离线合成）；2b 的古金面上金币 21.0 %、查看骰子 18.3 % 的像素 ≥3:1（要求 15 %，描边加宽前 13.3 % 与 9.8 %） |
 | W20-10 | 字标用站酷小薇体 | 单测、接触表 | 通过 |
@@ -256,7 +256,7 @@ WCAG 2 相对亮度；ΔE 为 CIE76，CIEDE2000 另注。`python tools/art_v11/d
 - 引擎里的样子：Unity 导入（Table 为 CompressedHQ + mipmap）、桌面 shader 的光池、颗粒、首领压暗与暗角叠在黑漆与金框上的效果、真实 TMP 字在面板上的观感（字形、行高、自动缩字）、按钮悬停 / 按下的乘色、720p 与超宽屏。所有示意都是 Python 模拟（线性光乘色、九宫格按 PPU 展开、TMP 排版按 1.45 em 行高估算），不是截图。
 - 紧凑卡的四条短文：离线估算显示，实机未验（见“文字空间”）。
 - 结算、主菜单整屏、骰子样式页、对话框没有合成；主菜单只看了字标所在的纸面板。
-- `buttonSecondary` 只在示意里模拟；W20Y / W20Y2 的代码（含禁用态的字色）未在本工作树，示意按 `codex/v1.1` `1361b9e5` 的 `SolidButton11` 读出的规则画。禁用面的 LabelOn11 加深 3 步、首领牌面加深 3 步都只用 Python 按 C# 的浮点循环算过（float32、float64 与 8 位取整一致），没有实机读数。
+- `buttonSecondary` 已写入 `theme.json`（W20Y 已合入），W20Y / W20Y2 的代码（含禁用态的字色）随合并进入本分支；示意仍是 Python 按 `1361b9e5` 的 `SolidButton11` 规则画的，这个键在 Unity 里的样子没有看过。禁用面的 LabelOn11 加深 3 步、首领牌面加深 3 步都只用 Python 按 C# 的浮点循环算过（float32、float64 与 8 位取整一致），没有实机读数。
 - 2b 的新颜色在引擎里的样子：玫红首领环叠在压暗桌面与暗角上、古金次要按钮在象牙卡上（2.95:1）、加深的 panelLight 在顶栏上的关卡签与章节点（1.36:1）。
 - 附魔徽章：瑞士 README 记录过 `enchantIcons` 可能直接取默认图、绕过主题，这五张在当前代码里可能不生效（未改代码）。
 - 代码里的固定色不随风格：进度槽 07191C；首领徽记是占位（稀有度色方块上画 Ink 档位条）。
@@ -299,3 +299,9 @@ WCAG 2 相对亮度；ΔE 为 CIE76，CIEDE2000 另注。`python tools/art_v11/d
 2. `buttonSecondary`（待定键，仍不写入 `theme.json`）：对顶栏（panel 332A20）尽量 ≥3:1，同时对桌面与象牙保持 ≥3:1、字经 LabelOn11 ≥4.95；三者做不到时给出最好的折中与数字。→ 三者做不到（证明在“次要按钮”与测试里）；取 A47E41 古金漆牌、漆墨字：桌面 5.04、顶栏 3.78、象牙 2.95，字 4.95；古铜方案的数字并列在“次要按钮”的表里，待定（“需要的决定”第 1 条）。
 3. 禁用的次要按钮：禁用面与可用面至少差 5 CIEDE2000，靠调 `panelLight` 与 / 或 `buttonSecondary`；panelLight 的其他用处守住规则（关卡签的字、AX-08）并报告；禁用字按 W20Y2 的 `LabelOn11(face, Muted)` 模拟；加一张可用与禁用并排的示意（100 % 与 150 %）。→ panelLight 6E5434 → 573A1A；禁用面画成 7C5D2F、象牙字 5.05，面差 13.78；关卡签的字 8.63、禁用按钮的 Muted 4.70、章节点 5.23，AX-08 不变；`review/secondary_buttons.png`。
 4. 边距：`ui_button_bevel`（12 px，默认 7）与 `ui_chip_formula`（10 px，默认 6）回到每边不超过默认，金色留在角块与台阶上；四件面板、分区标题条、进度条填充、信息井、托盘前沿与 frame_block 的厚框接受。→ 按钮 7、筹码 6 px；刻线收进角块（“形状与材质”、“文字空间”）。
+
+合并准备（协调者，2026-11-18；协调者告知 2b `43bfb839` 已接受，合并步骤见 `codex/v1.1` 的 `docs/STATE.md`）：
+
+1. 在本工作树合并 `codex/v1.1`（W20Y `05044756`、W20Y2 `1361b9e5`、测试与文档）；本包路径之外有冲突就停下报告。→ 合并 `codex/v1.1` `173b2be7`，合并提交 `154ab2de`，无冲突；合并没有改动本包的路径（`ArtSource/Art11/deco/` 下只改了 `illustrations/` 的 job.json，不属于本包）；`tools/art_v11/theme_contract.json` 没有变（仍是起点 `cd2fedb3` 重建的那份）。
+2. 把 `buttonSecondary` 从待定移入生成器的色板，由 build 写进 `theme.json`（不手改）；示意与报告照样能画，标注从 “simulated” 改为 “buttonSecondary”；README 里待定的说法改为已写入 theme.json（W20Y 已合入）。→ `PENDING_TOKENS` 改名 `W20Y_TOKENS`，`theme_json()` 把它写在 W20X 四个键之后；`review_deco.load_kit()` 去掉 `simulate`，直接用 `theme.json` 的色板；`palette_report()` 的键去掉 pending，“secondary chip today” 改为 “secondary chip if unset”（W20Y 之后这个 lerp 只在不设键时出现）；`test_button_secondary` 直接读 `theme.json`，`test_theme_json_schema` 另要求 W20Y 已声明这个键、`theme.json` 已写入（仍是 46 项）。
+3. 重建并验证。→ `build_deco.py`、`--review`、`--card-review`（BelowNormal；开跑前没有 `V072BatchTests.Run` 的 Unity）。交付件里只有 `theme.json` 变了（多一个键）；50 张件、`table_scene`、`page_scene`、`felt_tile` 与 `preview.png` 逐字节不变。重画的只有说明文字变了的图：接触表、卡面复核图与 25 张示意（逐像素对比 HEAD：差异全在说明与标签的文字行里）；`concept_sources.png` 与 `action_row.txt` 不变（前者的说明比图宽，改动的尾部本来就画在图外）。`theme_contract.py audit deco --strict`：`50 sprites shipped, 0 referenced defaults not overridden`，`AUDIT_OK`；黑金单测 `Ran 46 tests in 299.411s`，`OK`；全量 `Ran 380 tests in 883.363s`，`OK`（0 失败、0 错误、0 跳过；开跑前与跑完时都没有 `V072BatchTests.Run` 的 Unity）。

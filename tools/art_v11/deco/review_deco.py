@@ -11,10 +11,10 @@ row's boss and red chips side by side), secondary_buttons.png (round 2b: every S
 enabled beside disabled, at 100 % and 150 % text), shop_w14.png (GameApp.Shop14 S14 with the theme's section, caption
 and step tints), palette.png, concept_sources.png.
 
-buttonSecondary (W20Y, not in theme.json yet) is drawn as the coordinator asked: every SolidButton11 face takes it, and
-each image that shows it says "simulated buttonSecondary". Sprites are sampled as the game's UI sprites are (bilinear,
-no mipmaps), tinted and blended in linear light. Card names, texts and pictures are stand-ins (default illustrations;
-the W22 deco redraws are not in this worktree); the 3D dice are flat stand-ins.
+buttonSecondary (W20Y) is set in theme.json since W20Y landed: every SolidButton11 face takes it, and each image that
+shows it names it ("buttonSecondary A47E41"; "simulated" while it was pending). Sprites are sampled as the game's UI
+sprites are (bilinear, no mipmaps), tinted and blended in linear light. Card names, texts and pictures are stand-ins
+(default illustrations; the W22 deco redraws are not in this worktree); the 3D dice are flat stand-ins.
 """
 from __future__ import annotations
 
@@ -39,9 +39,9 @@ OUT = ROOT / bd.REVIEW / "review"
 ART = ROOT / "DicePrototype/Assets/Art/Art071/Illustrations"
 LABEL = (246, 236, 214)
 NOTE = (190, 176, 150)
-SIMULATED = "simulated buttonSecondary " + bd.PENDING_TOKENS["buttonSecondary"]
+SECONDARY = "buttonSecondary " + bd.W20Y_TOKENS["buttonSecondary"]
 MOCK_NOTE = ("OFFLINE MOCK (Python emulation of GameApp.Play11 / Card11 / Shop14 / UiKit; not a Unity capture); "
-             f"{SIMULATED} on every SolidButton11 (W20Y); stand-in card art (default illustrations), flat stand-in dice")
+             f"{SECONDARY} on every SolidButton11 (W20Y); stand-in card art (default illustrations), flat stand-in dice")
 # ThemePalette.cs defaults (the default theme), with the W20X defaults the code draws when a theme sets none.
 DEFAULT_PALETTE = {
     "ink": "162629", "panel": "203F43", "panelLight": "315358", "paper": "F4E8CB", "muted": "B8C9C5", "gold": "F3BA58",
@@ -53,10 +53,10 @@ DEFAULT_PALETTE = {
 
 
 # ---------------------------------------------------------------------------------------------- kit
-def load_kit(root: Path = ROOT, simulate: bool = True):
+def load_kit(root: Path = ROOT):
     """The deco kit as written under `root` (a build folder), every referenced sprite of the contract; a missing one is
-    the default sprite (the game's fallback) and is listed. The palette is theme.json's, plus the pending keys when
-    `simulate` (buttonSecondary, labelled on every image)."""
+    the default sprite (the game's fallback) and is listed. The palette is theme.json's, buttonSecondary included (W20Y,
+    named on every image that draws it)."""
     theme = Path(root) / bd.THEME
     specs = {s["name"]: s for s in json.loads(bd.CONTRACT.read_text(encoding="utf-8"))["sprites"]}
     kit, fallback = {}, []
@@ -70,8 +70,6 @@ def load_kit(root: Path = ROOT, simulate: bool = True):
     borders = {n: s["border"] for n, s in specs.items()}
     ppu = {n: s["pixelsPerUnit"] for n, s in specs.items()}
     palette = json.loads((theme / "theme.json").read_text(encoding="utf-8"))["palette"]
-    if simulate:
-        palette = dict(palette, **bd.PENDING_TOKENS)
     with Image.open(theme / "Table/table_scene.png") as im:
         table = im.convert("RGB")
     with Image.open(theme / "Table/page_scene.png") as im:
@@ -1259,7 +1257,7 @@ def shop_screen(kit, borders, ppu, palette, page, notes: list) -> Image.Image:
                  f"{bd.contrast(key, g.fill('ui_button_bevel', face)):.2f}:1, plinth {P['buttonStepPrimary']}")
     sec = g.sec()
     sec_label = g.label_on("ui_chip_formula", sec, P["textColor"])[0]
-    notes.append(f"{SIMULATED}: price and shop buttons {sec}, label {sec_label} {bd.contrast(sec_label, sec):.2f}:1; "
+    notes.append(f"{SECONDARY}: price and shop buttons {sec}, label {sec_label} {bd.contrast(sec_label, sec):.2f}:1; "
                  f"face vs top bar {bd.contrast(sec, P['panel']):.2f}:1, vs section lacquer "
                  f"{bd.contrast(sec, g.fill('ui_section_panel', section)):.2f}:1, vs ivory card {bd.contrast(sec, P['paper']):.2f}:1, "
                  f"vs felt {bd.contrast(sec, P['felt']):.2f}:1")
@@ -1387,7 +1385,7 @@ def secondary_states(kit, borders, ppu, palette, large: bool) -> tuple[Image.Ima
         d.text((x, yy), text, fill=LABEL, font=head)
     on_label, on_face = g.label_on("ui_chip_formula", g.sec_tint(True), P["textColor"])
     off_label, off_face = g.label_on("ui_chip_formula", g.sec_tint(False), P["muted"])
-    notes.append(f"{SIMULATED}, panelLight {P['panelLight']}: enabled face {on_face}, label {on_label} "
+    notes.append(f"{SECONDARY}, panelLight {P['panelLight']}: enabled face {on_face}, label {on_label} "
                  f"{bd.contrast(on_label, on_face):.2f}:1 | disabled lerp(face, panelLight, .25) {bd.hexc(g.sec_tint(False))} -> "
                  f"LabelOn11(face, muted) draws {off_face}, label {off_label} {bd.contrast(off_label, off_face):.2f}:1 | "
                  f"faces CIEDE2000 {bd.de00(on_face, off_face):.2f}")
@@ -1432,11 +1430,11 @@ def palette_sheet(palette: dict) -> Image.Image:
     im = Image.new("RGB", (4 * sw + 40 + 860, max(rows * 64 + 60, 50 + len(report) * 21)), (24, 20, 16))
     d = ImageDraw.Draw(im)
     f, small = ImageFont.truetype(str(bd.LATIN), 18), ImageFont.truetype(str(bd.LATIN), 15)
-    d.text((20, 12), "DECO PALETTE (theme.json, written by build_deco.py; buttonSecondary pending, W20Y)", fill=LABEL, font=f)
+    d.text((20, 12), "DECO PALETTE (theme.json, written by build_deco.py; buttonSecondary set, W20Y)", fill=LABEL, font=f)
     for i, k in enumerate(keys):
         x, y = 20 + (i % 4) * sw, 44 + (i // 4) * 64
         d.rectangle((x, y, x + 52, y + 52), fill=bd.rgb8(palette[k]), outline=(90, 80, 60))
-        d.text((x + 62, y + 6), k + (" (pending)" if k in bd.PENDING_TOKENS else ""), fill=LABEL, font=f)
+        d.text((x + 62, y + 6), k, fill=LABEL, font=f)
         d.text((x + 62, y + 30), palette[k], fill=NOTE, font=small)
     x0 = 4 * sw + 40
     d.text((x0, 12), "CONTRAST AND DISTANCE (palette_report)", fill=LABEL, font=f)
@@ -1531,7 +1529,7 @@ def concept_sheet(kit, borders, ppu, palette, table) -> Image.Image:
         row.paste(mine, (src.width + 30, 26))
         rows.append(row)
     return caption_bar(stack(rows, 6), "CONCEPT CROPS (left, ArtSource/StyleKit/themes/deco/concepts) and the deco pieces drawn "
-                                       f"from them (right, offline, tinted as the game tints them; {SIMULATED})", 16)
+                                       f"from them (right, offline, tinted as the game tints them; {SECONDARY})", 16)
 
 
 def zones_view(table: Image.Image) -> Image.Image:
@@ -1633,8 +1631,8 @@ def contact_sheet(kit, borders, ppu, palette, table, page, mock) -> Image.Image:
 
 
 def build_outputs(root: Path):
-    """For build(): the play composite (state f, 100 % text, simulated buttonSecondary) and the contact sheet, drawn from
-    the kit just written under `root`."""
+    """For build(): the play composite (state f, 100 % text, buttonSecondary from theme.json) and the contact sheet,
+    drawn from the kit just written under `root`."""
     _TEX.clear()
     _DIE_CACHE.clear()
     kit, borders, ppu, palette, table, page, fallback = load_kit(root)
@@ -1662,7 +1660,7 @@ def card_template_review():
     tiny, cjk = ImageFont.truetype(str(bd.LATIN), 13), ImageFont.truetype(str(bd.BODY_FONT), 15)
     d.text((24, 14), "CARD TEMPLATE (W13 + W14 E1-E3): DECO (left) | DEFAULT (right)", fill=LABEL, font=title)
     d.text((24, 54), "Offline emulation of GameApp.Card11 DrawCard13 on the W14 code: sprites sampled bilinear without mipmaps, "
-                     f"tinted and blended in linear light; not a Unity capture. Deco price buttons: {SIMULATED}.",
+                     f"tinted and blended in linear light; not a Unity capture. Deco price buttons: {SECONDARY}.",
            fill=NOTE, font=small)
     d.text((24, 74), "Names, short texts, pictures (default illustrations) and prices are stand-ins. Goods (no rarity): Ghost "
                      "ring, no gem. Table cards on each style's felt, shop sizes on the drawn shop section.", fill=NOTE, font=small)

@@ -61,7 +61,7 @@ SEED = 20261118
 # table felt is exactly PALETTE["felt"], and the baked sprites take their lacquer, ivory and crimson from the constants
 # below. Reasons and contrast numbers: tools/art_v11/deco/README.md (palette_report() prints them).
 PALETTE = {
-    "background": "0D0A08",   # deepest lacquer: fades and veils; mixed into the secondary chips until buttonSecondary
+    "background": "0D0A08",   # deepest lacquer: fades and veils; the chips' mix only if buttonSecondary is unset
     "felt": "15110D",         # black lacquer (concept tray floor 15110E): the table, flat in every calm zone
     "panel": "332A20",        # smoked lacquer plate: top bar, dialogs (light text on it)
     # Dark bronze: the normal stage tag and header, dividers, unreached points, disabled faces. Round 2b (coordinator,
@@ -102,14 +102,14 @@ W20X_TOKENS = {
     "section": "FFFFFF",            # ui_section_panel stays authored: black lacquer with its gold double rule
     "caption": "8E1B20",            # crimson caption strips: the shop's section headers and the tray's tabs (accepted)
 }
-# Keys the game does not read yet. buttonSecondary (code task W20Y, coordinator 2026-11-18): the face tint of every
-# SolidButton11 (secondary actions, Skip, 查看骰子, the shop's buttons and the price buttons on cards and goods rows);
-# unset, the code keeps lerp(background, panel, .55). Round 2b: an antique gold plaque with the ink label (4.95:1, no
-# steps), the concept's light plaques with dark lettering: 5.04:1 on the felt, 3.78:1 on the top bar, 2.95:1 on ivory.
-# Felt, top bar and ivory cannot all reach 3:1 with a 4.95:1 label (README "次要按钮"). Not written to theme.json until
-# W20Y is merged in this worktree (the coordinator adds it then); the mocks and the preview draw it, labelled
-# "simulated buttonSecondary".
-PENDING_TOKENS = {
+# THEME_SPEC 2 W20Y key. buttonSecondary (code task W20Y, coordinator 2026-11-18): the face tint of every SolidButton11
+# (secondary actions, Skip, 查看骰子, the shop's buttons and the price buttons on cards and goods rows); unset, the code
+# keeps lerp(background, panel, .55). Round 2b: an antique gold plaque with the ink label (4.95:1, no steps), the
+# concept's light plaques with dark lettering: 5.04:1 on the felt, 3.78:1 on the top bar, 2.95:1 on ivory. Felt, top bar
+# and ivory cannot all reach 3:1 with a 4.95:1 label (README "次要按钮"). Set in theme.json since W20Y landed (W20Y
+# 05044756 declares it in ThemePalette.Hexes; merged into this branch for the kit merge, 2026-11-18); until then it was
+# a pending key, drawn in the mocks as "simulated buttonSecondary".
+W20Y_TOKENS = {
     "buttonSecondary": "A47E41",
 }
 THEME_META = {
@@ -1668,15 +1668,14 @@ LABEL_FILL_HEX = IVORY_HEX    # ui_chip_label's face: the value and warning badg
 
 def palette_report(palette: dict | None = None) -> dict[str, float]:
     """Contrast numbers quoted in the README and asserted by the tests (WCAG 2 sRGB relative luminance)."""
-    p = dict(PALETTE, **W20X_TOKENS) if palette is None else dict(palette)
-    pending = dict(PENDING_TOKENS, **{k: v for k, v in p.items() if k in PENDING_TOKENS})
+    p = dict(PALETTE, **W20X_TOKENS, **W20Y_TOKENS) if palette is None else dict(palette)
     value_fill, warning_fill = drawn(LABEL_FILL_HEX, p.get("valueBadge", p["gold"])), drawn(LABEL_FILL_HEX, p["danger"])
     sec = lerp_hex(p["background"], p["panel"], .55)
     rim = lerp_hex(p["panel"], p["panelLight"], .55)
     boss_key, boss_steps, boss_plate = label_on(p["boss"], p)
     red_plate = label_on(p["red"], p)[2]           # the formula row's hand chip (UiKit.Red) as LabelOn11 draws it
     pressure_plate = label_on(p["pressure"], p)[2]
-    bs = pending["buttonSecondary"]
+    bs = p.get("buttonSecondary", W20Y_TOKENS["buttonSecondary"])   # theme.json's (the generator's if absent)
     s = secondary_faces(dict(p, buttonSecondary=bs))
     out = {
         "textColor/panel": contrast(p["textColor"], p["panel"]),
@@ -1701,10 +1700,10 @@ def palette_report(palette: dict | None = None) -> dict[str, float]:
         "danger/paper": contrast(p["danger"], p["paper"]),
         "ghost/felt": contrast(p["ghost"], p["felt"]),
         "panel/felt (top bar edge)": contrast(p["panel"], p["felt"]),
-        f"secondary chip today {sec}/felt": contrast(sec, p["felt"]),
-        f"buttonSecondary {bs}/felt (pending, W20Y)": contrast(bs, p["felt"]),
-        f"buttonSecondary {bs}/paper (pending, W20Y)": contrast(bs, p["paper"]),
-        f"buttonSecondary {bs}/panel (top bar, pending)": contrast(bs, p["panel"]),
+        f"secondary chip if unset {sec}/felt": contrast(sec, p["felt"]),
+        f"buttonSecondary {bs}/felt (W20Y)": contrast(bs, p["felt"]),
+        f"buttonSecondary {bs}/paper (W20Y)": contrast(bs, p["paper"]),
+        f"buttonSecondary {bs}/panel (top bar)": contrast(bs, p["panel"]),
         f"buttonSecondary {bs}/lacquer 100D0A (sections, HUD)": contrast(bs, LACQUER_HEX),
         f"{s['label']}/buttonSecondary (LabelOn11 textColor, {s['steps']} steps)": contrast(p[s["label"]], s["drawn"]),
         f"disabled {s['off_face']} -> {s['off_drawn']}: {s['off_label']} (LabelOn11 muted, {s['off_steps']} steps)":
@@ -1747,7 +1746,7 @@ def palette_report(palette: dict | None = None) -> dict[str, float]:
 # ---------------------------------------------------------------------------------------------- build
 def theme_json() -> str:
     data = dict(THEME_META)
-    data["palette"] = dict(PALETTE, **W20X_TOKENS)
+    data["palette"] = dict(PALETTE, **W20X_TOKENS, **W20Y_TOKENS)
     return json.dumps(data, ensure_ascii=False, indent=2) + "\n"
 
 
