@@ -596,8 +596,9 @@ class SancaiArtTests(unittest.TestCase):
         declared = re.search(r"class Hexes\s*\{\s*public string ([^;]+);", source).group(1)
         keys = {key.strip() for key in declared.replace("\n", " ").split(",")}
         # 24 tokens, all set. codex/v1.1 (W13) adds valueBadge, which a style may leave out: unset, the value badge takes
-        # gold (THEME_SPEC 2); test_value_and_warning_badges_stay_apart checks that case.
-        optional = {"valueBadge"}
+        # gold (THEME_SPEC 2); test_value_and_warning_badges_stay_apart checks that case. W20X adds buttonStep,
+        # buttonStepPrimary, section and caption, also optional: unset, they fall back to today's drawing (THEME_SPEC 2).
+        optional = {"valueBadge", "buttonStep", "buttonStepPrimary", "section", "caption"}
         self.assertEqual(len(keys - optional), 24)
         self.assertEqual(set(self.palette) | (keys & optional), keys)
         for key, value in self.palette.items():

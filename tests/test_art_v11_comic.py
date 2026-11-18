@@ -883,12 +883,12 @@ class ComicArtTests(unittest.TestCase):
         source = (ROOT / "DicePrototype/Assets/Game/UI/Theme/ThemePalette.cs").read_text(encoding="utf-8")
         declared = re.search(r"class Hexes\s*\{\s*public string ([^;]+);", source).group(1)
         keys = {key.strip() for key in declared.replace("\n", " ").split(",")}
-        # valueBadge (W13) may be left out: unset, the value badge takes gold (THEME_SPEC 2).
-        optional = {"valueBadge"}
-        self.assertEqual(len(keys - optional), 24)
-        # THEME_SPEC 2's W20X keys are not in ThemePalette.Hexes until W20X lands; JsonUtility skips them meanwhile.
+        # valueBadge (W13) and the W20X keys may be left out: unset, they fall back to today's drawing (THEME_SPEC 2).
         w20x = {"buttonStep", "buttonStepPrimary", "section", "caption"}
-        self.assertTrue(w20x.isdisjoint(keys))
+        optional = {"valueBadge"} | w20x
+        self.assertEqual(len(keys - optional), 24)
+        # W20X declared its keys in ThemePalette.Hexes (until then JsonUtility skipped them); comic sets all four.
+        self.assertTrue(w20x <= keys)
         self.assertEqual(set(self.palette) - w20x | (keys & optional), keys)
         self.assertTrue(w20x <= set(self.palette))
         for key, value in self.palette.items():
