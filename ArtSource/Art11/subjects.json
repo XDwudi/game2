@@ -814,10 +814,15 @@
         "beam is level"
       ],
       "mainObject": "level balance scale",
-      "notes": "Default is 1536x1024, not square. Default die bodies are red and blue with light pips; red and blue pips on light dice carry the same cue. Look-alike: C103 (tilted balance, three dice against a heap). 2026-11-18 (coordinator, sancai W22 review): the sancai r01 drew two cream dice with small red and blue pips, unreadable at 85 and 64 px; the card is about red against blue, so the whole die bodies carry the colour now.",
+      "notes": "Default is 1536x1024, not square. Default die bodies are red and blue with light pips; red and blue pips on light dice carry the same cue. Look-alike: C103 (tilted balance, three dice against a heap). 2026-11-18 (coordinator, sancai W22 review): the sancai r01 drew two cream dice with small red and blue pips, unreadable at 85 and 64 px; the card is about red against blue, so the whole die bodies carry the colour now. 2026-11-18 (coordinator, sancai r02 check): the sancai r02 still drew cream dice with red and blue pips; styleCues.sancai asks for coloured bodies.",
       "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c18.png",
       "pictureSha256": "6f377e9ab3e0f7e4a50f6ea146a9fee14b85ec4f8cc380785874a0566b0a64d4",
-      "subject": "a balance scale with its beam perfectly level, one red die in the left pan and one blue die in the right pan"
+      "subject": "a balance scale with its beam perfectly level, one red die in the left pan and one blue die in the right pan",
+      "styleCues": {
+        "sancai": [
+          "in this style the left die is glazed iron-red all over and the right die cobalt-blue all over, with cream pips; never cream dice with coloured pips"
+        ]
+      }
     },
     "C19": {
       "conflicts": [],
@@ -1613,10 +1618,15 @@
         "the dice are gold: gold bodies on every die in the chest and on the one tumbling out, clearly different from ordinary cream dice"
       ],
       "mainObject": "chest of gold dice",
-      "notes": "The chest keyhole is a plain shape. Chest look-alike C135 (crate of potions with a padlock). 2026-11-18 (coordinator, sancai W22 review): the sancai r01 drew ordinary cream dice, so the gold cue (gilded faces are a mechanic) was lost.",
+      "notes": "The chest keyhole is a plain shape. Chest look-alike C135 (crate of potions with a padlock). 2026-11-18 (coordinator, sancai W22 review): the sancai r01 drew ordinary cream dice, so the gold cue (gilded faces are a mechanic) was lost. 2026-11-18 (coordinator, sancai r02 check): the sancai r02 dice were still the ordinary cream-tan glaze; styleCues.sancai names the gold glaze.",
       "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c89.png",
       "pictureSha256": "17ad0ef182e5b37ec53b9ba5e335730ecd8e4c4b9e5cf50f11640ff9f8353927",
-      "subject": "an open treasure chest heaped with gold dice, one more gold die tumbling out beside it, short strokes on both sides"
+      "subject": "an open treasure chest heaped with gold dice, one more gold die tumbling out beside it, short strokes on both sides",
+      "styleCues": {
+        "sancai": [
+          "in this style every die in and beside the chest is glazed bright amber-gold all over, the glaze of the coins, clearly deeper and more saturated than the ordinary cream dice"
+        ]
+      }
     },
     "C90": {
       "conflicts": [],
