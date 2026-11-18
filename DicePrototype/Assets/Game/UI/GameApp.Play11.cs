@@ -813,14 +813,16 @@ namespace DiceCraft
         /// A second-level button with its own surface (dark unless the theme sets buttonSecondary). The v0.72 ghost button is
         /// an outline with light text: on a light table theme its text would stand on the table itself (THEME_SPEC 5), so
         /// play-screen buttons always carry a face. V1.1 (W20Y): the face is the theme's buttonSecondary, read at draw time;
-        /// unset, it is lerp(background, panel, .55) as before.
+        /// unset, it is lerp(background, panel, .55) as before. V1.1 (W20Y2): a disabled label takes the enabled labels' rule
+        /// with muted as its own colour, LabelOn11(face, muted): muted where it reaches 4.5:1 on the face as drawn, else the
+        /// readable pick (a light buttonSecondary's disabled face put plain muted at about 1.6:1).
         /// </summary>
         private UnityEngine.UI.Button SolidButton11(Transform parent,string name,string label,float x,float y,float w,float h,Action click,bool enabled,float font)
         {
             var b=UiKit.FlatButton(parent,name,label,x,y,w,h,click,enabled);
             var face=(Image)b.targetGraphic;face.sprite=UiKit.Template("ui_chip_formula");face.type=face.sprite!=null?Image.Type.Sliced:Image.Type.Simple;
             var tint=UiKit.ButtonSecondary(Color.Lerp(UiKit.Background,UiKit.Panel,.55f));if(!enabled)tint=Color.Lerp(tint,UiKit.PanelLight,.25f);face.color=tint;
-            var text=b.GetComponentInChildren<TextMeshProUGUI>();text.fontSize=font*UiKit.FontScale;text.color=enabled?LabelOn11(face,UiKit.TextColor):UiKit.Muted;
+            var text=b.GetComponentInChildren<TextMeshProUGUI>();text.fontSize=font*UiKit.FontScale;text.color=enabled?LabelOn11(face,UiKit.TextColor):LabelOn11(face,UiKit.Muted);
             return b;
         }
 
