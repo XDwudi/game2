@@ -29,13 +29,7 @@ namespace DiceCraft.Editor
             string kind=parts.Length>=3?parts[1]:"";
             string name=Path.GetFileNameWithoutExtension(assetPath);
             importer.sRGBTexture=true;importer.alphaIsTransparency=true;importer.filterMode=FilterMode.Bilinear;
-            if(kind=="Table")
-            {
-                importer.textureType=TextureImporterType.Default;importer.mipmapEnabled=true;
-                importer.wrapMode=name=="felt_tile"?TextureWrapMode.Repeat:TextureWrapMode.Clamp;
-                importer.maxTextureSize=4096;importer.textureCompression=TextureImporterCompression.CompressedHQ;
-                return;
-            }
+            if(kind=="Table"){TableRules(importer,name);return;}
             importer.textureType=TextureImporterType.Sprite;importer.spriteImportMode=SpriteImportMode.Single;
             importer.mipmapEnabled=false;importer.wrapMode=TextureWrapMode.Clamp;
             if(kind=="UI")
@@ -57,6 +51,22 @@ namespace DiceCraft.Editor
                 importer.spritePixelsPerUnit=100;importer.maxTextureSize=1024;
                 importer.textureCompression=TextureImporterCompression.CompressedHQ;
             }
+        }
+
+        /// <summary>
+        /// Table/*.png. V1.1 (W20Xb, THEME_SPEC §3.1): native size, never scaled to a power of two, like the default table
+        /// (Assets/Art/Art071/Backgrounds/bg_table_scene.png). The felt shader fits _TableMap by the imported aspect ratio,
+        /// so a 1920 x 1080 picture scaled to 2048 x 1024 was drawn squeezed into 960 rows between bands of the dim room.
+        /// The table pictures (table_scene, page_scene) are sampled with screen-space derivatives: like the default table
+        /// they have no mipmaps (with them a 720p view drew the half-size level). felt_tile is the tiled cloth (_BaseMap)
+        /// and keeps its mipmaps and repeat.
+        /// </summary>
+        private static void TableRules(TextureImporter importer,string name)
+        {
+            bool tile=name=="felt_tile";
+            importer.textureType=TextureImporterType.Default;importer.npotScale=TextureImporterNPOTScale.None;importer.mipmapEnabled=tile;
+            importer.wrapMode=tile?TextureWrapMode.Repeat:TextureWrapMode.Clamp;
+            importer.maxTextureSize=4096;importer.textureCompression=TextureImporterCompression.CompressedHQ;
         }
 
         /// <summary>The path of the default sprite with this file name, newest art set first; null when there is none.
@@ -103,6 +113,20 @@ namespace DiceCraft.Editor
             var paths=AssetDatabase.FindAssets("t:Texture2D",new[]{Root.TrimEnd('/')}).Select(AssetDatabase.GUIDToAssetPath).ToArray();
             foreach(string path in paths)AssetDatabase.ImportAsset(path,ImportAssetOptions.ForceUpdate);
             Debug.Log("V11_THEME_REIMPORT textures="+paths.Length);
+        }
+
+        /// <summary>Batch entry point (W20Xb): applies the table rules to every theme's Table/*.png, saves them to the .meta
+        /// files and reimports only those textures (run with -quit).</summary>
+        public static void ReimportTables()
+        {
+            var paths=AssetDatabase.FindAssets("t:Texture2D",new[]{Root.TrimEnd('/')}).Select(AssetDatabase.GUIDToAssetPath)
+                .Where(p=>p.Substring(Root.Length).Split('/').Length==3&&p.Substring(Root.Length).Split('/')[1]=="Table").OrderBy(p=>p,System.StringComparer.Ordinal).ToArray();
+            foreach(string path in paths)
+            {
+                var importer=(TextureImporter)AssetImporter.GetAtPath(path);
+                TableRules(importer,Path.GetFileNameWithoutExtension(path));importer.SaveAndReimport();
+            }
+            Debug.Log("V11_THEME_REIMPORT_TABLES textures="+paths.Length+": "+string.Join(", ",paths));
         }
     }
 }
