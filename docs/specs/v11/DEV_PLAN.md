@@ -208,13 +208,14 @@
 | W12 | 瑞士现代主义的对局画面资源：界面件生成器、桌面、卡框 | 子 agent A1 出件，主 agent 接入 | `tools/art_v11/swiss/`、`Assets/Art/Art11/swiss/` | W08 的 THEME_SPEC | 2 |
 | W13 | 卡面模板 A2：三种尺寸、稀有度边框与宝石、短文、价格即按钮、附魔角标；紧凑图标版插画（184 张，脚本裁切，裁不好的走 artgen 编辑） | 主 agent；裁切脚本由子 agent | `UI/`、`tools/art_v11/crops/` | 检查点 ②、W10 | 3 |
 | W14 | 商店 A3：四个分区、顶栏、骰子柜台命名、桌上选面；商店文字 | 主 agent | `UI/GameApp.Art073Shop.cs` 等 | W13 | 3 |
-| W15 | 结算、战利品页、首领通关与奖励演出（A4、B3、G5 的界面） | 主 agent | `UI/GameApp.Art07Settlement*.cs`、`UI/GameApp.V10.cs` 等 | W05、W13 | 3 |
-| W16 | 主菜单、新局、选关、手册、设置、暂停、弹窗、提示与引导的版式与文字 P1 | 子 agent T 写，主 agent 实机核对 | 按文件逐个分配 | W09 | 3 |
+| W15 | 结算、战利品页、首领通关与奖励演出（A4、B3、G5 的界面）；整局结束页的字不直接画在桌面上（THEME_SPEC §3.1，协调者 2026-11-18） | 主 agent | `UI/GameApp.Art07Settlement*.cs`、`UI/GameApp.V10.cs` 等 | W05、W13 | 3 |
+| W16 | 主菜单、新局、选关、手册、设置、暂停、弹窗、提示与引导的版式与文字 P1；非对局画面的字不直接画在桌面上（THEME_SPEC §3.1，用 `table_text_contrast.py` 验收，每套风格每处达到 4.5:1）；界面里剩下的“控制器”按 D2 改为“卡牌”（如选关页“入关后，控制器顺序固定。”） | 子 agent T 写，主 agent 实机核对 | 按文件逐个分配 | W09 | 3 |
 | W17 | 默认风格的新美术件：首领徽记 7、档位边框 4、资源图标约 12、战利品图 6、主菜单主视觉 | 徽记与战利品图经 artgen（Codex）；矢量件由子 agent | `ArtSource/Art11/`、`tools/art_v11/default/` | W11 的布局 | 3 |
 | W18 | 章节色调；普通、高压、首领三档桌面变体 | 主 agent | `UI/`、`Runtime/` | W11 | 3 |
 | W19 | 四套风格的风格套件与锚点：每套先做 4–6 个代表件 | 主 agent 经 artgen；子 agent 自检 | `ArtSource/StyleKit/themes/`、`ArtSource/Art11/` | D1、检查点 ② | 4 |
 | W20 | 四套界面件生成器，输出与默认同名的贴图集 | 每套一个子 agent，最多两个同时 | `tools/art_v11/<风格>/`、`Assets/Art/Art11/<风格>/` | W08 的 THEME_SPEC | 4 |
 | W20X | 风格接口补充（协调者 2026-11-17，爆彩漫画复核时加）：先让窗口测试不受真实鼠标位置影响（W14 复核时加）；按钮台阶色、商店分区与标题条的乘色、非对局画面的 `page_scene`；列出非对局画面里画在桌面上的字；排查界面代码里写死的颜色。不填新项的风格画面逐像素不变 | 子 agent，Unity 串行 | `UI/`、`UI/Theme/`、`Tests/`、THEME_SPEC 的状态 | W14；THEME_SPEC §2、§3、§3.1 | 4 |
+| W20Xb | W20X 复核后的补充（协调者 2026-11-18）：风格桌面图按原尺寸导入（此前被缩放到 2048×1024，静区与界面错开）；特效颜色在绘制时读色板；骰子托盘的三个标签都用 `caption`；唐三彩与爆彩漫画的实机截图（1080p、720p，含 150% 文字）供协调者审查 | 子 agent（W20X 续），Unity 串行 | `Editor/V11ThemeImport.cs`、三套风格 `Table/*.png.meta`、`UI/`、`Runtime/` 的三个特效文件、`Tests/` | W20X | 4 |
 | W21 | 四套桌面、背景、卡框、图标、标题字 | 同上 | 同上 | W20 | 4 |
 | W22 | 插画：按 D1 重画（每套 184 + 徽记 7 + 战利品 6，先代表件再分批）或程序处理（每套一个处理器加抽检） | artgen（Codex 或 API）；子 agent 自检 | `ArtSource/Art11/<风格>/` | 检查点 ③ | 4 |
 | W23 | 各风格主菜单主视觉 | artgen | 同上 | W19 | 4 |
