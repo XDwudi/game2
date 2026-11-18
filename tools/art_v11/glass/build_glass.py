@@ -1,4 +1,5 @@
-"""W20: deterministic 彩绘玻璃 (glass) UI kit: gilt frames and leaded glass, 4x raster, one Lanczos downsample.
+"""W20: deterministic 彩绘玻璃 (glass) UI kit: gilt frames and leaded glass, 4x raster, one Lanczos downsample (the table and
+the card back: a box filter).
 
 Style authority: the five concept pages the user chose at checkpoint 3 (ArtSource/StyleKit/themes/glass/concepts) and the
 palette samples of ArtSource/StyleKit/themes/glass/style_kit.json. Their texts, numbers and layouts are not a contract; the
@@ -6,15 +7,21 @@ game layout is (docs/specs/v11/PLAY_LAYOUT.md, SHOP_LAYOUT.md). The contract (to
 sizes, nine-slice borders and pixels per unit. Repository fonts only; no image generation, no Unity files.
 
 The shape language, taken from the concept pages (README.md, "Shapes and materials"; phase 1b after the coordinator's
-review of phase 1):
-- panels and cards (drawn as they are) wear the concept's gilt frame with a jewel-glass strip: a lead edge, a gold
-  moulding lit from the upper left, lead, a strip of backlit cobalt or ruby glass, lead, a gold hairline, lead; the
-  corners are cut at 45 degrees and carry gilt four-point star finials (corner squares only);
+review of phase 1, phase 2 after the review of 1b):
+- the cards wear the concept's gilt frame with a jewel-glass strip: a lead edge, a gold moulding lit from the upper left,
+  lead, a strip of backlit cobalt or ruby glass, lead, a gold hairline, lead; the corners are cut at 45 degrees and carry
+  gilt four-point star finials (corner squares only);
+- the panels (phase 2: every surface that holds text keeps FrameInsets11 within the default's on every side) wear a slim
+  gilt frame, the jewel glass moved into a pane in each corner square under a gilt star;
 - surfaces the game tints are pieces of glass in lead came (black came, a bevel one shade darker than the glass, a flat
-  white face that takes the palette colour); the buttons and chips (UiKit.Button, SolidButton11, formula chips, tags)
-  have the concept 重掷's pointed ends; the top bar and the stage card keep cut corners with leaded corner lights;
-- strips that slice only across (the shop's section caption, the progress bar, the locked-die ledge) end in chevron
-  points, as the concept's banners do;
+  white face that takes the palette colour), the came thinner on the lit top and left edges; the buttons and chips
+  (UiKit.Button, SolidButton11, formula chips, tags) have the concept 重掷's pointed ends; the top bar and the stage card
+  keep cut corners with leaded corner lights;
+- strips that slice only across end in chevron points (the progress bar, the locked-die ledge, the right end of the shop's
+  section caption, whose left end comes out of the section panel's frame);
+- the marks (badges, tags, coin, lock, cup, dice view, crown, gems, card back) are leaded glass and gilt: octagonal
+  medallions in a gilt rim with faceted backlit glass, marble-white signs edged in lead; the marks the code tints are white
+  shapes with a grey bevel at most;
 - the play table is an all-over leaded stained-glass mosaic (a uniform texture, no layout shapes); the calm zones are
   flat slate framed by a gilt double line just outside them, and one rose window sits in the action row's always-free
   rectangle (THEME_SPEC 3.1). Table/page_scene.png, behind the non-play screens, is the mosaic everywhere.
@@ -26,8 +33,10 @@ Rules the art keeps (checked by tests/test_art_v11_glass.py):
 - sprites the code multiplies by a palette colour (NEUTRAL_NAMES) stay achromatic, with a pure white face;
 - the protected table zones are exactly the felt colour.
 
-`build_glass.py --card-review` writes ArtSource/Art11/glass/card_template_review.png from the shipped sprites (an offline
-review, not part of the build).
+    python tools/art_v11/glass/build_glass.py                  # the kit, preview.png and contact_sheet.png
+    python tools/art_v11/glass/build_glass.py --report         # the palette's contrast numbers
+    python tools/art_v11/glass/build_glass.py --review         # ArtSource/Art11/glass/review/ (review_glass.py)
+    python tools/art_v11/glass/build_glass.py --card-review    # ArtSource/Art11/glass/card_template_review.png
 """
 from __future__ import annotations
 
@@ -62,7 +71,10 @@ PALETTE = {
     "background": "121118",   # the darkest slate: page background
     "felt": "292833",         # the concept's slate floor (roll.png dice area median 292831; the plate's 2B2A33)
     "panel": "1E2036",        # night glass: dark panels, the top bar, secondary chips (light text on it)
-    "panelLight": "6B5632",   # antique bronze: normal-stage tag, frame edges, empty item rings, disabled faces
+    # Antique bronze: normal-stage tag, frame edges, empty item rings, disabled faces. Phase 2 deepened it a little (from
+    # 6B5632, CIEDE2000 2.3) so a disabled SolidButton11, lerp(buttonSecondary, panelLight, .25), differs from the enabled
+    # face by at least 5 CIEDE2000 (coordinator, lesson from the deco kit; README, "buttonSecondary").
+    "panelLight": "64502F",
     "paper": "F1DFC2",        # parchment (concept 2.1 roll/select parchment F2D4B2, lifted for ink contrast)
     "ink": "1B1720",          # lead black: text on parchment
     "textColor": "F7EFDF",    # marble white: text on the dark panels
@@ -97,9 +109,11 @@ W20X_TOKENS = {
 # SolidButton11 (secondary action, Skip, 查看骰子, 上一手明细, score-detail chips, shop buttons, price buttons). This
 # worktree's ThemePalette.cs does not declare it yet, so theme.json must not carry it (the schema test would fail); the
 # coordinator adds it at merge time. The offline mocks draw it, labelled "simulated buttonSecondary".
-# AC8442 (amber glass): label ink 5.15 (LabelOn11, >= 4.95), on felt 4.24, on panel 4.66; on paper 2.62 - under 3:1, the
-# chip's black lead outline gives the boundary on parchment (16:1). With this palette no face reaches 3:1 on felt and on
-# paper and also takes a 4.95 label (README, "buttonSecondary").
+# AC8442 (amber glass): label ink 5.15 (LabelOn11, >= 4.95), on felt 4.24, on panel (dark panels, top bar) 4.66, on the
+# background 5.48; on paper 2.62 - under 3:1, the chip's black lead outline gives the boundary on parchment (16:1). With
+# this palette no face reaches 3:1 on felt and on paper and also takes a 4.95 label. Disabled (a quarter toward
+# panelLight): 9A773D, 5.38 CIEDE2000 from the enabled face; LabelOn11(face, Muted) lightens it 2 steps to A48450 (3.33)
+# and picks ink like the enabled label (README, "buttonSecondary").
 PENDING_TOKENS = {
     "buttonSecondary": "AC8442",
 }
@@ -520,21 +534,48 @@ def corner_stars(win: Raster, w: int, h: int, offset: float, r: float, top_only:
         star_layer(win, cx, cy, r)
 
 
+def jewel_corners(win: Raster, d, w: int, h: int, cut: float, inset: float, depth: float, colour, lead: float = 2.0,
+                  top_only: bool = False):
+    """Phase 2: the panels' jewel glass, moved off the stretched edges into the corner squares. In each corner a pane of
+    backlit glass lies along the face's cut, closed by a lead line parallel to the cut `depth` px further in; it glows
+    along its middle and darkens at its lead (the concept's frame corners: a glass light under a gilt star)."""
+    base = np.asarray(colour, np.float32)
+    face = coverage(d + inset)
+    c_face = cut + inset * math.sqrt(2)              # the face's cut, in x + y from the corner
+    c_line = c_face + depth * math.sqrt(2)
+    X, Y = win.X, win.Y
+    corners = [(X - .5) + (Y - .5), (w - .5 - X) + (Y - .5)]
+    if not top_only:
+        corners += [(w - .5 - X) + (h - .5 - Y), (X - .5) + (h - .5 - Y)]
+    for u in corners:
+        t = np.clip((c_line - u) / (depth * math.sqrt(2)), 0, 1)   # 0 at the lead line, 1 at the face's cut
+        glow = .62 + .5 * np.clip(np.sin(np.pi * t), 0, 1) ** .7
+        rgb = np.minimum(base[None, None, :] * glow[..., None], 1.0)
+        rgb = mix(rgb, np.minimum(base * 1.5 + .12, 1.0), np.clip(np.exp(-((t - .55) / .18) ** 2) * .35, 0, 1))
+        win.over(rgb, coverage((u - c_line) / math.sqrt(2)) * face)
+        win.over(LEAD, coverage(np.abs(u - c_line) / math.sqrt(2) - lead / 2) * face)
+
+
 def gilt_tile(w: int, h: int, face, *, cut: float = GILT_CUT, bands=GILT, depth: int = 48, border: float = 40.0,
-              open_bottom: bool = False, stars: tuple | None = None) -> Image.Image:
-    """A nine-sliced gilt surface: the bands from the silhouette inward, then the flat face; optionally gilt four-point
-    stars (offset, radius) on the corners."""
+              open_bottom: bool = False, stars: tuple | None = None, jewel: tuple | None = None) -> Image.Image:
+    """A nine-sliced gilt surface: the bands from the silhouette inward, then the flat face; optionally jewel-glass panes
+    (colour, depth px) in the corners and gilt four-point stars (offset, radius) on them."""
     frame = sum(wd for wd, _ in bands)
     if corner_reach(cut, frame) > border - 3:
         raise ValueError("gilt corner reaches past its corner square")
     if stars and stars[0] + stars[1] > border - 3:
         raise ValueError("corner star reaches past its corner square")
+    # The pane and its lead end, along each side, cut + (frame + depth) * sqrt 2 + lead - frame px from the corner.
+    if jewel and cut + (frame + jewel[1]) * math.sqrt(2) + 2.0 - frame > border - 3:
+        raise ValueError("jewel pane reaches past its corner square")
     pts = octagon((.5, .5, w - .5, (h + 64.0) if open_bottom else h - .5), (cut, cut, 0 if open_bottom else cut,
                                                                           0 if open_bottom else cut))
 
     def draw(win):
         d = sd_poly(win.X, win.Y, pts)
         paint_bands(win, d, bands, face, lit_of(d))
+        if jewel:
+            jewel_corners(win, d, w, h, cut, frame, jewel[1], jewel[0], top_only=open_bottom)
         if stars:
             corner_stars(win, w, h, stars[0], stars[1], top_only=open_bottom)
     return band_render(w, h, depth, draw, face)
@@ -594,20 +635,62 @@ def point_reach(P: float, Q: float, frame: float) -> float:
     return max(down, along)
 
 
-def came_point(w: int, h: int, *, P: float, Q: float, came: float, bevel: float, lo: float, hi: float,
-               depth: int = 48, border: float = 40.0) -> Image.Image:
-    """A tinted glass piece in lead came with pointed ends (the concept's cobalt 重掷 and its stage tag): black came, the
-    bevel a shade below the glass, the white face. The side's middle stays straight (it is the stretched slice), so the
-    text room measured on the middle row and column (FrameInsets11) is the came and bevel alone."""
-    if point_reach(P, Q, came + bevel) > border - 2:
-        raise ValueError("pointed end reaches past its corner square")
-    bands = ((came, K), (bevel, came_bevel(lo, hi)))
-    pts = pointed(w, h, P, Q)
+def convex_planes(pts):
+    """Outward unit normals n and offsets c of a convex polygon's edges (screen coordinates, the vertices listed clockwise
+    on screen): n . p - c is the signed distance to each edge's line, negative inside."""
+    planes = []
+    for (ax, ay), (bx, by) in zip(pts, pts[1:] + pts[:1]):
+        dx, dy = bx - ax, by - ay
+        length = math.hypot(dx, dy)
+        nx, ny = dy / length, -dx / length
+        planes.append((nx, ny, nx * ax + ny * ay))
+    return planes
+
+
+def inset_field(X, Y, planes, offsets) -> tuple[np.ndarray, np.ndarray]:
+    """The convex polygon moved in by a different depth on each edge (offsets, px): its signed distance inside (max of the
+    moved half-planes, mitred corners) and the index of the nearest edge (for that edge's light)."""
+    fields = np.stack([(np.float32(nx) * X + np.float32(ny) * Y - np.float32(c) + np.float32(o))
+                       for (nx, ny, c), o in zip(planes, offsets)])
+    return fields.max(axis=0), fields.argmax(axis=0)
+
+
+def came_convex(w: int, h: int, pts, came, bevel, *, lo: float, hi: float, depth: int = 48, border: float = 40.0,
+                lights: float = 0.0, cut_edges=()) -> Image.Image:
+    """A tinted glass piece in lead came whose came and bevel are thinner on the edges that face the light (top and left)
+    than on the shaded ones (phase 2: every text-holding surface keeps FrameInsets11 within the default's on every side).
+    came / bevel: px per edge, in the polygon's edge order. Black came, the bevel a shade below the glass (lighter on the
+    lit edges, constant along each edge), the white face; optionally leaded corner lights `lights` px inside the face's
+    cut on the edges listed in cut_edges."""
+    planes = convex_planes(pts)
+    came_o = list(came)
+    face_o = [a + b for a, b in zip(came, bevel)]
+    lit = [nx * float(LIGHT[0]) + ny * float(LIGHT[1]) for nx, ny, _ in planes]
 
     def draw(win):
         d = sd_poly(win.X, win.Y, pts)
-        paint_bands(win, d, bands, WHITE, lit_of(d))
+        win.over(K, coverage(d))
+        d_bev, k = inset_field(win.X, win.Y, planes, came_o)
+        grey = lo + (hi - lo) * (.5 + .5 * np.asarray(lit, np.float32)[k])
+        win.over(np.repeat(grey[..., None], 3, axis=-1), coverage(d_bev))
+        d_face, _ = inset_field(win.X, win.Y, planes, face_o)
+        win.over(WHITE, coverage(d_face))
+        for e in cut_edges:
+            nx, ny, c = planes[e]
+            u = np.float32(nx) * win.X + np.float32(ny) * win.Y - np.float32(c) + np.float32(face_o[e])   # 0 on the face's cut
+            inside = coverage(d_face)
+            win.over(np.full(3, .9, np.float32), coverage(-(u + lights)) * inside)
+            win.over(K, coverage(np.abs(u + lights) - 1.25) * inside)
+    if max(face_o) + (lights + 3.0 if lights else 0.0) > border - 3:
+        raise ValueError("came reaches past its border band")
     return band_render(w, h, depth, draw, WHITE)
+
+
+def came_pointed(w: int, h: int, point: tuple, came, bevel, *, lo: float, hi: float) -> Image.Image:
+    """The concept 重掷's pointed glass piece (two slopes per end, inside the corner squares) with lit-side-thin came."""
+    if point_reach(point[0], point[1], max(a + b for a, b in zip(came, bevel))) > 40.0 - 2:
+        raise ValueError("pointed end reaches past its corner square")
+    return came_convex(w, h, pointed(w, h, *point), came, bevel, lo=lo, hi=hi)
 
 
 def came_hollow(w: int, h: int, *, cut: float, bands, depth: int = 48, border: float = 40.0, inset: float = .5) -> Image.Image:
@@ -632,6 +715,29 @@ CARD_STARS, PANEL_STARS = (12.0, 12.0), (14.0, 14.0)
 COBALT_GLASS, RUBY_GLASS = col("2A5BC8"), col("B8302A")
 # Pointed ends (the concept's 重掷 and stage tag): P px across, Q px down per slope, inside the 40 px corner squares.
 BUTTON_POINT, CHIP_POINT = (28.0, 34.0), (22.0, 30.0)
+# Phase 2 (coordinator, lesson from the deco kit): every surface that holds text keeps its FrameInsets11 depth at or under
+# the default sprite's on every side (README, "Text room"). The cards keep the phase 1b jewel frame (18 px against the
+# default's 22-34). The panels have a slim gilt frame: lead, the gold moulding, and an inner came of night lead that
+# lies within FrameInsets11's 48 of the night-glass face (so it is face, not frame, for the text); their jewel glass moves
+# into the corner squares (a pane of cobalt or ruby glass under each gilt star). Lit-side-thin came on the tinted pieces:
+# the came and bevel are thinner on the top and left edges (which face the light) than on the bottom and right.
+NIGHT_LEAD = col("151526")      # inner came of the night-glass panels: 36 from the 1E2036 face (FrameInsets11 threshold 48)
+SLIM_DARK = ((.75, LEAD), (3.75, gilt_moulding), (1.5, NIGHT_LEAD))         # 6 px; FrameInsets11 counts 5-6 (default 6-10)
+SLIM_PAPER = ((1.0, LEAD), (4.5, gilt_moulding), (1.5, LEAD))               # 7 px on parchment (default 9, 18, 16, 9)
+LABEL_BANDS = ((1.25, LEAD), (1.75, GOLD_MID), (1.0, LEAD))                 # 4 px: the value badge (default 5)
+PANEL_JEWEL_DEPTH = 12.0        # px: the corner pane of jewel glass, measured in from the face's cut
+PANEL_CORNER_STARS = (11.0, 11.0)   # offset, radius: a smaller gilt star on the outer corner, the pane showing beside it
+# Per-edge came and bevel (px) in the pointed outline's edge order: top, upper-right slope, right, lower-right slope,
+# bottom, lower-left slope, left, upper-left slope.
+BUTTON_CAME = (3.0, 3.75, 4.5, 4.5, 4.5, 3.75, 3.0, 3.0)
+BUTTON_BEVEL = (3.0, 4.25, 5.5, 5.5, 5.5, 4.25, 3.0, 3.0)                   # FrameInsets11 7, 11, 11, 7 (default 7, 12, 12, 7)
+CHIP_CAME = (2.5, 3.0, 3.5, 3.5, 3.5, 3.0, 2.5, 2.5)
+CHIP_BEVEL = (2.5, 3.25, 4.0, 4.25, 4.5, 3.5, 2.5, 2.5)                     # 6, 9, 8, 6 (default 6, 16, 10, 6)
+# The top bar's octagon (octagon()'s edge order: top-left cut, top, top-right cut, right, bottom-right cut, bottom,
+# bottom-left cut, left) with leaded corner lights on its four cuts (edges 0, 2, 4, 6).
+BAR_CAME = (3.5, 3.5, 3.75, 4.0, 4.25, 4.5, 4.0, 3.5)
+BAR_BEVEL = (3.5, 3.5, 4.25, 5.0, 5.25, 5.5, 4.5, 3.5)                      # 8, 11, 10, 8 (default 8, 30, 11, 8)
+BAR_CUTS = (0, 2, 4, 6)
 # ui_ring: a double line (the concept's double gilt slot frames once tinted gold): a black-edged line, a gap, a thin line.
 RING_BANDS = ((1.5, 0.0, 1.0), (5.0, came_bevel(.86, 1.0), 1.0), (1.5, 0.0, 1.0), (2.5, 0.0, 0.0), (1.0, 0.0, 1.0),
               (2.5, 1.0, 1.0), (1.0, 0.0, 1.0))
@@ -645,37 +751,41 @@ def surface(spec: dict) -> Image.Image:
     """Nine-sliced and horizontally sliced surfaces. Frames stay in the border bands, centres stay flat."""
     name = spec["name"]
     w, h = spec["size"]
-    # Phase 1b: the concept's gilt frame with a jewel-glass strip and gilt star finials on the corners (17 px: cards stay
-    # thinner than the default's 22-34 px; the hint panel keeps 7.2 units under a two-line hint at 150 %).
+    # Phase 1b: the concept's gilt frame with a jewel-glass strip and gilt star finials on the corners. The cards keep it
+    # (17 px, FrameInsets11 18 against the default's 22-34).
     if name in ("ui_card_controller", "ui_card_controller_compact", "ui_card_shop"):
         return gilt_tile(w, h, PAPER, cut=CARD_CUT, bands=jewel_bands(COBALT_GLASS), stars=CARD_STARS)
-    if name == "ui_paper_panel":
-        return gilt_tile(w, h, PAPER, cut=PANEL_CUT, bands=jewel_bands(RUBY_GLASS), stars=PANEL_STARS)
     if name == "ui_card_item":
         # Consumables: a ruby strip instead of cobalt.
         return gilt_tile(w, h, PAPER, cut=CARD_CUT, bands=jewel_bands(RUBY_GLASS), stars=CARD_STARS)
+    # Phase 2: the panels' slim gilt frame, the jewel glass in the corner squares (README, "Text room").
+    if name == "ui_paper_panel":
+        return gilt_tile(w, h, PAPER, cut=PANEL_CUT, bands=SLIM_PAPER, stars=PANEL_CORNER_STARS,
+                         jewel=(RUBY_GLASS, PANEL_JEWEL_DEPTH))
     if name in ("ui_panel_hud", "ui_section_panel"):
-        return gilt_tile(w, h, PANEL, cut=PANEL_CUT, bands=jewel_bands(COBALT_GLASS), stars=PANEL_STARS)
+        return gilt_tile(w, h, PANEL, cut=PANEL_CUT, bands=SLIM_DARK, stars=PANEL_CORNER_STARS,
+                         jewel=(COBALT_GLASS, PANEL_JEWEL_DEPTH))
     if name == "ui_tab_bottom":
-        return gilt_tile(w, h, PANEL, cut=PANEL_CUT, bands=jewel_bands(COBALT_GLASS), open_bottom=True, stars=PANEL_STARS)
+        return gilt_tile(w, h, PANEL, cut=PANEL_CUT, bands=SLIM_DARK, open_bottom=True, stars=PANEL_CORNER_STARS,
+                         jewel=(COBALT_GLASS, PANEL_JEWEL_DEPTH))
     if name == "ui_info_inset":
         return well(w, h)
     if name == "ui_slot_inventory":
         return niche(w, h)
     if name == "ui_chip_label":
-        bands = ((3.0, LEAD), (2.0, GOLD_MID), (1.5, LEAD))
-        return gilt_tile(w, h, PAPER, cut=7.0, bands=bands)
+        return gilt_tile(w, h, PAPER, cut=7.0, bands=LABEL_BANDS)
     if name == "ui_tray_front":
         return tray_front(w, h)
     # Achromatic, tinted by the game.
     if name == "ui_topbar":
-        return came_tile(w, h, cut=BAR_CUT, came=5.0, bevel=5.0, lo=.58, hi=.84, lights=8.0)
+        return came_convex(w, h, octagon((.5, .5, w - .5, h - .5), (BAR_CUT,) * 4), BAR_CAME, BAR_BEVEL, lo=.58, hi=.84,
+                           lights=8.0, cut_edges=BAR_CUTS)
     if name == "ui_chip_formula":
-        return came_point(w, h, P=CHIP_POINT[0], Q=CHIP_POINT[1], came=4.0, bevel=3.0, lo=.6, hi=.86)
+        return came_pointed(w, h, CHIP_POINT, CHIP_CAME, CHIP_BEVEL, lo=.6, hi=.86)
     if name == "ui_stage_card":
         return came_tile(w, h, cut=STAGE_CUT, came=5.0, bevel=6.0, lo=.62, hi=.86, depth=56, border=48.0, lights=9.0)
     if name == "ui_button_bevel":
-        return came_point(w, h, P=BUTTON_POINT[0], Q=BUTTON_POINT[1], came=5.0, bevel=4.0, lo=.56, hi=.86)
+        return came_pointed(w, h, BUTTON_POINT, BUTTON_CAME, BUTTON_BEVEL, lo=.56, hi=.86)
     if name == "ui_dice_tray":
         return came_hollow(w, h, cut=TRAY_CUT, bands=TRAY_BANDS, depth=72, border=72.0)
     if name == "ui_ring":
@@ -695,8 +805,9 @@ def surface(spec: dict) -> Image.Image:
 
 
 def well(w: int, h: int) -> Image.Image:
-    """A sunken well (UiKit.Inset: the score frame, the budget wells): a lead rim with a gold lower lip catching the light,
-    a darker inner shadow along the top."""
+    """A sunken well (UiKit.Inset: the score frame, the budget wells): a lead rim with a gold lower lip catching the light.
+    The lead lies within FrameInsets11's 48 of the well's face, so only the lip on the bottom and right counts as frame
+    (3 px, the default's 0, 3, 3, 0)."""
     pts = octagon((.5, .5, w - .5, h - .5), (8.0,) * 4)
 
     def lip(t, lit):
@@ -705,7 +816,7 @@ def well(w: int, h: int) -> Image.Image:
 
     def draw(win):
         d = sd_poly(win.X, win.Y, pts)
-        paint_bands(win, d, ((2.0, LEAD), (2.0, lip), (1.0, LEAD)), WELL, lit_of(d))
+        paint_bands(win, d, ((.75, LEAD), (1.5, lip), (1.25, LEAD)), WELL, lit_of(d))
     return band_render(w, h, 48, draw, WELL)
 
 
@@ -723,22 +834,28 @@ def _aniso_coverage(d):
 
 
 # W14 shop (GameApp.Shop14 Section14): the header strip spans the section panel's inside, ShopHead14 (68) - f.w - 2 units
-# tall, f.w the section panel's top frame inset. GILT is 15 px (7.5 units) plus antialiasing: 8 units -> 58 units.
-SECTION_HEADER_UNITS = 58.0
-CHEVRON = 11.0         # units: the depth of the banner's pointed ends (the title starts 14 units in)
+# tall, f.w the section panel's top frame inset. Phase 2's slim frame measures 5 px (2.5 units): 63.5 units.
+SECTION_PANEL_INSET_UNITS = 2.5
+SECTION_HEADER_UNITS = 68.0 - SECTION_PANEL_INSET_UNITS - 2.0
+CHEVRON = 11.0         # units: the depth of the banner's pointed end (the title starts 14 units in)
+# The strip's top-left corner follows the section panel's cut corner: the panel's face is cut at x + y = (14 + 1 + 6 x
+# sqrt 2) px = 11.7 units from the panel's corner, the strip starts 2.5 units in on both axes: 6.7 units; cut at 6.
+SECTION_HEADER_CUT = 6.0
 
 
 def section_header(w: int, h: int) -> Image.Image:
-    """Shop section caption (border 40/0/72/0, sliced only across): a banner with chevron ends, lead came and a bevel,
-    white so `caption` colours it. Drawn in display units (0.5 per px across, 58/128 down) because Unity scales only the
-    height of a horizontally sliced strip."""
+    """Shop section caption (border 40/0/72/0, sliced only across): a banner that comes out of the section panel's frame on
+    the left (its face runs to the sprite's left edge, FrameInsets11 0 like the default's) and ends in a chevron point on
+    the right; lead came and a bevel along the top and bottom, white so `caption` colours it. Drawn in display units (0.5
+    per px across, SECTION_HEADER_UNITS / 128 down) because Unity scales only the height of a horizontally sliced strip."""
     r = Raster(w, h)
     sx, sy = .5, SECTION_HEADER_UNITS / h
     Xu, Yu = r.X * sx, r.Y * sy
     W, H = w * sx, SECTION_HEADER_UNITS
     top, bottom, mid = .5, H - .5, H / 2
-    body = [(1.0, mid), (1.0 + CHEVRON, top), (W - 8.0 - CHEVRON, top), (W - 8.0, mid), (W - 8.0 - CHEVRON, bottom),
-            (1.0 + CHEVRON, bottom)]
+    C = SECTION_HEADER_CUT
+    body = [(C, top), (W - 8.0 - CHEVRON, top), (W - 8.0, mid), (W - 8.0 - CHEVRON, bottom), (-40.0, bottom),
+            (-40.0, top + C + 40.0)]
     d = sd_poly(Xu, Yu, body)
     gy, gx = np.gradient(d, np.float32(1.0 / SS))
     lit = ((gx * LIGHT[0] * sx + gy * LIGHT[1] * sy) / np.maximum(np.hypot(gx * sx, gy * sy), 1e-6)).astype(np.float32)
@@ -905,6 +1022,544 @@ def wordmark() -> Image.Image:
     return r.export()
 
 
+# ---------------------------------------------------------------------------------------------- icons, badges, effects
+# Phase 2. Authored (untinted) marks are leaded glass and gilt: a lead outline, a gilt bevelled rim lit from the upper
+# left, backlit glass panes in lead, and marble-white symbols edged in lead (triptych.png's octagonal medallions, the
+# lock cartouches, card.png's medallion over each card, roll.png's 查看骰子). Marks the code tints (NEUTRAL_NAMES) are white
+# shapes with at most a grey bevel, so the tint they take is the colour drawn.
+MARBLE_HI, MARBLE, MARBLE_SH = col("FCF7EE"), col("EEE5D4"), col("CDBFA9")
+EMERALD_GLASS = col("2A8C5A")     # +10 base (the default badge's green)
+AMETHYST_GLASS = col("7C50B4")    # x2 (the default's violet)
+SKY_GLASS = col("2F7DCB")         # +1 roll (the default's sky blue, as cobalt-sky glass)
+SLATE_GLASS = col("514C60")       # slotless (the default's dark badge, as lead-grey glass)
+AMBER_GLASS = col("D39A33")       # +1 submit (triptych.png's gold octagon with a tick)
+
+
+def regular_octagon(cx: float, cy: float, half: float):
+    """A regular octagon with flat top, bottom and sides, `half` px from its centre to each flat (clockwise on screen)."""
+    a = half * math.tan(math.pi / 8)
+    return [(cx - a, cy - half), (cx + a, cy - half), (cx + half, cy - a), (cx + half, cy + a),
+            (cx + a, cy + half), (cx - a, cy + half), (cx - half, cy + a), (cx - half, cy - a)]
+
+
+def sd_segment(X, Y, ax, ay, bx, by) -> np.ndarray:
+    """Distance to a line segment."""
+    Xd, Yd = X.astype(np.float64), Y.astype(np.float64)
+    ex, ey = bx - ax, by - ay
+    t = np.clip(((Xd - ax) * ex + (Yd - ay) * ey) / max(ex * ex + ey * ey, 1e-9), 0, 1)
+    return np.hypot(Xd - ax - ex * t, Yd - ay - ey * t).astype(np.float32)
+
+
+def sd_polyline(X, Y, pts) -> np.ndarray:
+    return np.minimum.reduce([sd_segment(X, Y, *a, *b) for a, b in zip(pts, pts[1:])])
+
+
+def marble_fill(r: Raster, d, ink: float, lit_rgb=MARBLE_HI, mid_rgb=MARBLE, shade_rgb=MARBLE_SH, bevel: float = 0.0):
+    """A marble-white shape (signed distance d) edged in lead `ink` px wide: lit from the upper left across the shape, a
+    shaded bevel along its inner edge on the lower right."""
+    r.over(LEAD, coverage(d - ink))
+    span = max(float(r.X.max() - r.X.min()) + float(r.Y.max() - r.Y.min()), 1.0)
+    u = np.clip(((r.X - r.X.min()) + (r.Y - r.Y.min())) / span, 0, 1)
+    rgb = mix(np.broadcast_to(lit_rgb, d.shape + (3,)), mid_rgb, smoothstep(.2, .9, u))
+    if bevel:
+        lit = lit_of(d)
+        rgb = mix(rgb, shade_rgb, (smoothstep(-bevel, 0, d) * np.clip(-lit, 0, 1)).astype(np.float32))
+    r.over(rgb, coverage(d))
+
+
+def faceted_field(r: Raster, cx: float, cy: float, base, mask, rmax: float, n: int = 8, lead_w: float = 3.0,
+                  rot: float = 0.0, ring: float = 0.0):
+    """Backlit glass cut into n wedge panes radiating from the centre (the triptych medallions' faceted field), in lead
+    lines; alternate panes a shade deeper, each glowing towards its middle; an optional inner ring of lead at `ring` x
+    rmax splits each wedge once more."""
+    base = np.asarray(base, np.float32)
+    X, Y = r.X, r.Y
+    rad = np.hypot(X - cx, Y - cy)
+    ang = (np.arctan2(Y - cy, X - cx) - rot) % (2 * math.pi)
+    step = 2 * math.pi / n
+    sector = np.floor(ang / step).astype(int)
+    off = (ang - (sector + .5) * step) * rad                      # px from the pane's middle line, along the arc
+    half = step * .5 * np.maximum(rad, 1e-3)
+    t_arc = np.clip((half - np.abs(off)) / np.maximum(half, 1e-3), 0, 1)
+    t_rad = np.clip(1 - rad / rmax, 0, 1)
+    shade = np.where(sector % 2 == 0, 1.0, .8).astype(np.float32)
+    lo_rgb = base[None, None, :] * (.55 * shade)[..., None]
+    hi_rgb = np.minimum(base * 1.25 + .06, 1.0)[None, None, :] * shade[..., None]
+    rgb = mix(lo_rgb, hi_rgb, smoothstep(0, 1, np.minimum(t_arc * 1.6, 1) * (.35 + .65 * t_rad)))
+    r.over(np.clip(rgb, 0, 1), mask)
+    lead = coverage((half - np.abs(off)) - lead_w / 2)
+    if ring:
+        lead = np.maximum(lead, coverage(np.abs(rad - ring * rmax) - lead_w / 2))
+    r.over(LEAD, lead * mask)
+
+
+def gilt_rim(r: Raster, pts, outer: float, rim: float, inner: float):
+    """A polygon medallion's frame from its silhouette inward: lead `outer`, a gilt moulding `rim` wide whose facets are
+    lit by their own edge's light (upper left bright, lower right deep), lead `inner`. Returns the silhouette's signed
+    distance and the depth at which the field starts."""
+    d = sd_poly(r.X, r.Y, pts)
+    planes = convex_planes(pts)
+    _, k = inset_field(r.X, r.Y, planes, [0.0] * len(planes))
+    lit = np.asarray([nx * float(LIGHT[0]) + ny * float(LIGHT[1]) for nx, ny, _ in planes], np.float32)[k]
+    r.over(LEAD, coverage(d))
+    t = np.clip((-d - outer) / rim, 0, 1)
+    r.over(gilt_moulding(t, lit), coverage(d + outer))
+    r.over(LEAD, coverage(d + outer + rim))
+    return d, outer + rim + inner
+
+
+def octagon_medallion(r: Raster, cx: float, cy: float, half: float, field, outer: float, rim: float, inner: float,
+                      lead_w: float, ring: float = 0.0):
+    """triptych.png's medallion: an octagon in a gilt bevelled rim, its field faceted glass in lead."""
+    pts = regular_octagon(cx, cy, half)
+    d, depth = gilt_rim(r, pts, outer, rim, inner)
+    mask = coverage(d + depth)
+    faceted_field(r, cx, cy, field, mask, half - depth, n=8, lead_w=lead_w, rot=math.pi / 8, ring=ring)
+    return d
+
+
+def enchant_badge(name: str) -> Image.Image:
+    """The five enchantment badges (256 px; drawn about 28-40 units on a card's picture): octagonal leaded-glass
+    medallions in a gilt rim, the field in the default badges' meaning colour, the sign in marble white edged in lead."""
+    S = 256
+    r = Raster(S, S)
+    c = S / 2
+    field = {"base10": EMERALD_GLASS, "mult2": AMETHYST_GLASS, "roll1": SKY_GLASS, "slotless": SLATE_GLASS,
+             "submit1": AMBER_GLASS}[name]
+    octagon_medallion(r, c, c, 123.0, field, outer=7.0, rim=19.0, inner=5.0, lead_w=4.0, ring=.0)
+    X, Y = r.X, r.Y
+    ink = 10.0
+    if name in ("base10", "mult2"):
+        if name == "mult2":
+            u, v = ((X - c) + (Y - c)) / math.sqrt(2), ((X - c) - (Y - c)) / math.sqrt(2)
+        else:
+            u, v = X - c, Y - c
+        arm, half_w = 54.0, 17.0
+        d = np.minimum(sd_box(u, v, (-arm, -half_w, arm, half_w)), sd_box(u, v, (-half_w, -arm, half_w, arm)))
+        marble_fill(r, d, ink, bevel=6.0)
+    elif name == "roll1":
+        cup = [(c - 52, c - 34), (c + 52, c - 34), (c + 38, c + 58), (c - 38, c + 58)]
+        rim_box = (c - 60, c - 52, c + 60, c - 30)
+        d = np.minimum(sd_poly(X, Y, cup), sd_box(X, Y, rim_box))
+        marble_fill(r, d, ink, bevel=6.0)
+        r.over(LEAD, coverage(np.abs(Y - (c - 30)) - 2.5) * coverage(d + 1))
+        pip = sd_circle(X, Y, c, c + 14, 15.0)
+        r.over(LEAD, coverage(pip - 3.0))
+        r.over(col(PALETTE["blue"]), coverage(pip))
+    elif name == "slotless":
+        L, t, a = 50.0, 15.0, 36.0          # bracket reach from the centre, thickness, arm length
+        parts = []
+        for sx in (-1, 1):
+            for sy in (-1, 1):
+                x0, y0 = c + sx * L, c + sy * L
+                parts.append(sd_box(X, Y, (min(x0, x0 - sx * a), min(y0, y0 - sy * t), max(x0, x0 - sx * a),
+                                           max(y0, y0 - sy * t))))
+                parts.append(sd_box(X, Y, (min(x0, x0 - sx * t), min(y0, y0 - sy * a), max(x0, x0 - sx * t),
+                                           max(y0, y0 - sy * a))))
+        marble_fill(r, np.minimum.reduce(parts), ink, bevel=5.0)
+    elif name == "submit1":
+        d = sd_polyline(X, Y, [(c - 50, c + 2), (c - 16, c + 38), (c + 52, c - 40)]) - 17.0
+        marble_fill(r, d, ink, bevel=6.0)
+    return r.export()
+
+
+def padlock_parts(X, Y, cx: float, top: float, w: float, h: float):
+    """Signed distances of a padlock: the shackle (a U of thickness w * .15) and the body (a box with rounded corners)."""
+    body_top = top + h * .42
+    bw, bh = w, h - (body_top - top)
+    th = w * .16
+    rr = w * .5 - th * .5 - w * .1                       # the shackle's centre-line radius
+    arc_cy = top + th * .5 + rr
+    rad = np.hypot(X - cx, Y - arc_cy)
+    upper = np.where(Y <= arc_cy, np.abs(rad - rr) - th * .5, np.inf)
+    legs = np.minimum(sd_box(X, Y, (cx - rr - th * .5, arc_cy, cx - rr + th * .5, body_top + 4)),
+                      sd_box(X, Y, (cx + rr - th * .5, arc_cy, cx + rr + th * .5, body_top + 4)))
+    shackle = np.minimum(upper, legs).astype(np.float32)
+    corner = w * .1
+    body = sd_box(X, Y, (cx - bw * .5 + corner, body_top + corner, cx + bw * .5 - corner, body_top + bh - corner)) - corner
+    return shackle, body.astype(np.float32), body_top, bh
+
+
+def padlock(r: Raster, cx: float, top: float, w: float, h: float, ink: float, body_rgb=None):
+    """A gilt padlock edged in lead with a lead keyhole."""
+    shackle, body, body_top, bh = padlock_parts(r.X, r.Y, cx, top, w, h)
+    r.over(LEAD, coverage(np.minimum(shackle, body) - ink))
+    lit = lit_of(shackle)
+    r.over(mix(np.broadcast_to(GOLD, shackle.shape + (3,)), GOLD_HI, np.clip(lit, 0, 1) * .6), coverage(shackle))
+    r.over(LEAD, coverage(body - ink))
+    t = np.clip((r.Y - body_top) / max(bh, 1), 0, 1)
+    rgb = mix(np.broadcast_to(GOLD_HI if body_rgb is None else body_rgb, body.shape + (3,)), GOLD, smoothstep(.1, .7, t))
+    rgb = mix(rgb, GOLD_SH, smoothstep(.65, 1.0, t) * .8)
+    r.over(rgb, coverage(body))
+    ky = body_top + bh * .42
+    hole = np.minimum(sd_circle(r.X, r.Y, cx, ky, w * .1), sd_poly(r.X, r.Y, [(cx - w * .05, ky), (cx + w * .05, ky),
+                                                                               (cx + w * .08, ky + bh * .34),
+                                                                               (cx - w * .08, ky + bh * .34)]))
+    r.over(LEAD, coverage(hole))
+
+
+def lock_icon(size: int = 256) -> Image.Image:
+    """ui_icon_lock (drawn 20 x 22 over a Background-filled frame when an item cannot be used): a gilt padlock in lead."""
+    r = Raster(size, size)
+    padlock(r, size / 2, size * .07, size * .7, size * .86, ink=size * .035)
+    return r.export()
+
+
+def lock_tag(size: int = 128) -> Image.Image:
+    """ui_tag_lock (a locked die's tag, 26 x 28 on the slate): triptych.png's lock cartouche as an amber-glass octagon in
+    a gilt rim, a lead-black padlock in it."""
+    r = Raster(size, size)
+    c = size / 2
+    octagon_medallion(r, c, c, size * .48, AMBER_GLASS, outer=size * .035, rim=size * .085, inner=size * .025,
+                      lead_w=size * .018)
+    shackle, body, _, _ = padlock_parts(r.X, r.Y, c, size * .2, size * .42, size * .58)
+    r.over(MARBLE_HI, coverage(np.minimum(shackle, body) - size * .03))      # a pale halo keeps the lock off the glass
+    r.over(LEAD, coverage(np.minimum(shackle, body)))
+    ky = size * .2 + size * .58 * .42 + (size * .58 * .58) * .4
+    r.over(AMBER_GLASS, coverage(sd_circle(r.X, r.Y, c, ky, size * .045)))
+    return r.export()
+
+
+def clock_tag(size: int = 128) -> Image.Image:
+    """ui_tag_clock (a timed die's tag): a cobalt-glass octagon in a gilt rim, a marble clock face with lead hands."""
+    r = Raster(size, size)
+    c = size / 2
+    octagon_medallion(r, c, c, size * .48, COBALT_GLASS, outer=size * .035, rim=size * .085, inner=size * .025,
+                      lead_w=size * .018)
+    face = sd_circle(r.X, r.Y, c, c, size * .27)
+    marble_fill(r, face, size * .035, bevel=size * .03)
+    for a in range(12):
+        ang = a * math.pi / 6
+        x0, y0 = c + math.cos(ang) * size * .21, c + math.sin(ang) * size * .21
+        r.over(LEAD, coverage(sd_circle(r.X, r.Y, x0, y0, size * (.016 if a % 3 else .024))))
+    hands = np.minimum(sd_segment(r.X, r.Y, c, c, c, c - size * .18) - size * .022,
+                       sd_segment(r.X, r.Y, c, c, c + size * .13, c + size * .06) - size * .022)
+    r.over(LEAD, coverage(hands))
+    r.over(col(PALETTE["red"]), coverage(sd_circle(r.X, r.Y, c, c, size * .03)))
+    return r.export()
+
+
+def coin(size: int = 96) -> Image.Image:
+    """ui_icon_coin: a gilt coin edged in lead, a lead ring inside its rim and a deep-gold four-point star struck in the
+    middle (shop.png's coins; the dark star and outline keep it apart from the amber buttonSecondary it sits on)."""
+    r = Raster(size, size)
+    c = size / 2
+    R = size * .46
+    rad = sd_circle(r.X, r.Y, c, c, R)
+    r.over(LEAD, coverage(rad))
+    disc = rad + size * .065
+    lit = lit_of(rad)
+    u = np.clip(((r.X - c) + (r.Y - c)) / (2 * R) + .5, 0, 1)
+    rgb = mix(np.broadcast_to(GOLD_HI, rad.shape + (3,)), GOLD, smoothstep(.15, .6, u))
+    rgb = mix(rgb, GOLD_SH, smoothstep(.55, 1.0, u) * .85)
+    r.over(rgb, coverage(disc))
+    r.over(LEAD, coverage(np.abs(rad + size * .2) - size * .025))
+    inner = rad + size * .225
+    r.over(mix(np.broadcast_to(GOLD, rad.shape + (3,)), GOLD_HI, np.clip(-lit, 0, 1) * .5), coverage(inner))
+    star = sd_poly(r.X, r.Y, star4(c, c, size * .2, .3))
+    r.over(GOLD_DEEP, coverage(star))
+    return r.export()
+
+
+def roll_cup(size: int = 256) -> Image.Image:
+    """ui_icon_roll (36 units in the roll well, 28 elsewhere): a dice cup of cobalt glass in lead with gilt bands at its
+    rim and foot, a marble die tumbling out over the rim."""
+    r = Raster(size, size)
+    s = size / 256
+    X, Y = r.X, r.Y
+    body = [(52 * s, 104 * s), (204 * s, 104 * s), (184 * s, 236 * s), (72 * s, 236 * s)]
+    d = sd_poly(X, Y, body)
+    r.over(LEAD, coverage(d - 9 * s))
+    # Three leaded panes of cobalt glass, lit from the left (the pane follows the tapering body).
+    down = np.clip((Y - 104 * s) / (132 * s), 0, 1)
+    x0, x1 = 52 * s + 20 * s * down, 204 * s - 20 * s * down
+    rel = np.clip((X - x0) / np.maximum(x1 - x0, 1e-3), 0, 1)
+    pane = np.floor(rel * 3).clip(0, 2)
+    tone = np.where(pane == 0, 1.15, np.where(pane == 1, .95, .72)).astype(np.float32)
+    glass = np.clip(COBALT_GLASS[None, None, :] * tone[..., None] * (.8 + .35 * smoothstep(236 * s, 110 * s, Y))[..., None],
+                    0, 1)
+    r.over(glass, coverage(d))
+    for k in (1, 2):
+        xk0, xk1 = 52 * s + 152 * s * k / 3, 72 * s + 112 * s * k / 3
+        r.over(LEAD, coverage(sd_segment(X, Y, xk0, 104 * s, xk1, 236 * s) - 3 * s) * coverage(d))
+    for y0, y1 in ((104 * s, 126 * s), (214 * s, 236 * s)):
+        band = np.maximum(d, np.maximum(y0 - Y, Y - y1)).astype(np.float32)
+        r.over(LEAD, coverage(band - 1 * s))
+        r.over(gilt_moulding(np.clip((Y - y0) / (y1 - y0), 0, 1), np.zeros_like(X)), coverage(band + 3 * s))
+    rim = sd_box(X, Y, (40 * s, 88 * s, 216 * s, 108 * s)) - 6 * s
+    r.over(LEAD, coverage(rim - 8 * s))
+    r.over(gilt_moulding(np.clip((Y - 82 * s) / (32 * s), 0, 1), np.zeros_like(X)), coverage(rim))
+    die_faces(r, 128 * s, 38 * s, 64 * s, pips=(1, 3, 2), pip_rgb=(col(PALETTE["red"]), LEAD, col(PALETTE["blue"])),
+              ink=7 * s)
+    return r.export()
+
+
+def magnifier(r: Raster, cx: float, cy: float, R: float, ink: float):
+    """A gilt magnifying glass: a pale glass lens in a gilt ring, a gilt handle, all edged in lead."""
+    X, Y = r.X, r.Y
+    ring = np.abs(sd_circle(X, Y, cx, cy, R)) - R * .16
+    handle = sd_segment(X, Y, cx + R * .78, cy + R * .78, cx + R * 1.85, cy + R * 1.85) - R * .2
+    outline = np.minimum(np.minimum(ring, handle), sd_circle(X, Y, cx, cy, R))
+    r.over(LEAD, coverage(outline - ink))
+    lens = sd_circle(X, Y, cx, cy, R - R * .14)
+    u = np.clip(((X - cx) + (Y - cy)) / (2 * R) + .5, 0, 1)
+    r.over(mix(np.broadcast_to(col("D8ECF6"), X.shape + (3,)), col("7FB3D9"), u), coverage(lens))
+    r.over(col("FFFFFF"), coverage(sd_segment(X, Y, cx - R * .45, cy - R * .2, cx - R * .2, cy - R * .45) - R * .07))
+    r.over(gilt_moulding(np.clip(.5 + .5 * np.sin(np.arctan2(Y - cy, X - cx)), 0, 1), lit_of(ring)), coverage(ring))
+    r.over(mix(np.broadcast_to(GOLD, X.shape + (3,)), GOLD_SH, smoothstep(cx + R, cx + R * 1.9, X)), coverage(handle))
+
+
+def dice_view(size: int = 128) -> Image.Image:
+    """ui_icon_dice_view (40 units, drawn white on the secondary button; 128 as the new-die emblem): roll.png's 查看骰子, a
+    marble die and a gilt magnifying glass."""
+    r = Raster(size, size)
+    s = size / 128
+    die_faces(r, 54 * s, 52 * s, 76 * s, pips=(1, 2, 3), pip_rgb=(col(PALETTE["red"]), col(PALETTE["blue"]), LEAD), ink=5 * s)
+    magnifier(r, 82 * s, 76 * s, 21 * s, 4.5 * s)
+    return r.export()
+
+
+def crown(w: int = 192, h: int = 128) -> Image.Image:
+    """fx_score_crown (the high-score crown, 48 x 32 on the panels): a gilt crown edged in lead, five points tipped with
+    gilt four-point stars, a band set with ruby and cobalt glass in lead."""
+    r = Raster(w, h)
+    X, Y = r.X, r.Y
+    tips = ((18, 46), (56, 34), (96, 26), (136, 34), (174, 46))
+    body = [(24, 108), tips[0], (38, 74), tips[1], (76, 68), tips[2], (116, 68), tips[3], (154, 74), tips[4], (168, 108)]
+    d = sd_poly(X, Y, body)
+    r.over(LEAD, coverage(d - 6))
+    t = np.clip((Y - 30) / 78, 0, 1)
+    rgb = mix(np.broadcast_to(GOLD_HI, X.shape + (3,)), GOLD, smoothstep(.0, .55, t))
+    rgb = mix(rgb, GOLD_SH, smoothstep(.55, 1.0, t) * .7)
+    r.over(rgb, coverage(d))
+    band = sd_box(X, Y, (22, 84, 170, 112)) - 2
+    r.over(LEAD, coverage(band - 4))
+    r.over(mix(np.broadcast_to(GOLD, X.shape + (3,)), GOLD_SH, smoothstep(84, 112, Y)), coverage(band))
+    for gx, glass in ((56, RUBY_GLASS), (96, COBALT_GLASS), (136, RUBY_GLASS)):
+        jewel = sd_poly(X, Y, [(gx, 88), (gx + 11, 98), (gx, 108), (gx - 11, 98)])
+        r.over(LEAD, coverage(jewel - 3))
+        u = np.clip((Y - 88) / 20, 0, 1)
+        r.over(mix(np.broadcast_to(np.minimum(np.asarray(glass) * 1.5 + .1, 1), X.shape + (3,)), glass, u),
+               coverage(jewel))
+    for i, (tx, ty) in enumerate(tips):
+        st = sd_poly(X, Y, star4(tx, ty - 4, 16 if i == 2 else 13, .3))
+        r.over(LEAD, coverage(st - 3))
+        r.over(GOLD_HI, coverage(st))
+    return r.export()
+
+
+GEM_GREY = (.97, .82, .62)     # facet greys of the tinted gems (lit, mid, shaded); the table is pure white
+
+
+def gem(name: str, size: int = 128) -> Image.Image:
+    """ui_gem_common / advanced / rare (CARD_TEMPLATE 3 and 6: round, four-point diamond, six-point star; light faceted
+    glass with an ink outline, tinted by the rarity colour). Cut-glass jewels: a lead outline, facets lit from the upper
+    left in greys, a white table in the middle so the tint reads as its own colour."""
+    r = Raster(size, size)
+    c = size / 2
+    X, Y = r.X, r.Y
+    if name == "ui_gem_common":
+        R = size * .44
+        d = sd_circle(X, Y, c, c, R)
+        n = 8
+        table_d = sd_poly(X, Y, regular_octagon(c, c, R * .5))
+    elif name == "ui_gem_advanced":
+        R = size * .47
+        pts = [(c, c - R), (c + R * .9, c), (c, c + R), (c - R * .9, c)]
+        d = sd_poly(X, Y, pts)
+        n = 4
+        table_d = sd_poly(X, Y, [(c, c - R * .42), (c + R * .38, c), (c, c + R * .42), (c - R * .38, c)])
+    else:
+        R = size * .48
+        pts = []
+        for i in range(12):
+            a = -math.pi / 2 + i * math.pi / 6
+            rr = R if i % 2 == 0 else R * .56
+            pts.append((c + math.cos(a) * rr, c + math.sin(a) * rr))
+        d = sd_poly(X, Y, pts)
+        n = 6
+        table_d = sd_poly(X, Y, regular_hexagon(c, c, R * .3))
+    r.over(K, coverage(d))
+    ink = size * .05
+    ang = (np.arctan2(Y - c, X - c) + 2 * math.pi) % (2 * math.pi)
+    step = 2 * math.pi / n
+    rot = -math.pi / 2 if n != 8 else -math.pi / 2 + math.pi / 8
+    sector = np.floor(((ang - rot) % (2 * math.pi)) / step).astype(int)
+    mid = rot + (sector + .5) * step
+    lit = np.cos(mid) * float(LIGHT[0]) + np.sin(mid) * float(LIGHT[1])
+    grey = np.where(lit > .35, GEM_GREY[0], np.where(lit > -.35, GEM_GREY[1], GEM_GREY[2])).astype(np.float32)
+    grey = np.where(sector % 2 == 0, grey, grey * .96).astype(np.float32)
+    r.over(np.repeat(grey[..., None], 3, axis=-1), coverage(d + ink))
+    # Facet edges: thin grey lines along the sector boundaries, from the table out to the ink line.
+    rad = np.hypot(X - c, Y - c)
+    off = ((ang - rot) % step)
+    seam = np.minimum(off, step - off) * rad
+    facet_line = coverage(seam - size * .008) * coverage(d + ink) * (1 - coverage(table_d))
+    r.over(np.full(3, GEM_GREY[2] * .85, np.float32), facet_line)
+    r.over(np.full(3, GEM_GREY[2] * .85, np.float32), coverage(np.abs(table_d) - size * .012) * coverage(d + ink))
+    r.over(WHITE, coverage(table_d + size * .012))
+    return r.export()
+
+
+def regular_hexagon(cx: float, cy: float, R: float):
+    return [(cx + math.cos(-math.pi / 2 + i * math.pi / 3) * R, cy + math.sin(-math.pi / 2 + i * math.pi / 3) * R)
+            for i in range(6)]
+
+
+def neutral_icon(name: str, w: int, h: int) -> Image.Image:
+    """Marks the code tints (the shop's nav icons, the next-stage arrow, dots, sparks, chips, arcs): white shapes, the
+    leaded-glass details only as a grey bevel on the shaded side, so the tint is the colour drawn."""
+    r = Raster(w, h)
+    X, Y = r.X, r.Y
+    c = w / 2
+    bevel = 0.0
+    if name == "ui_icon_arrow":
+        s = w / 96
+        d = sd_poly(X, Y, [(14 * s, 38 * s), (52 * s, 38 * s), (52 * s, 18 * s), (86 * s, 48 * s), (52 * s, 78 * s),
+                           (52 * s, 58 * s), (14 * s, 58 * s)])
+        bevel = 4 * s
+    elif name == "ui_icon_book":
+        s = w / 96
+        left = [(8 * s, 22 * s), (44 * s, 28 * s), (44 * s, 80 * s), (8 * s, 74 * s)]
+        right = [(52 * s, 28 * s), (88 * s, 22 * s), (88 * s, 74 * s), (52 * s, 80 * s)]
+        d = np.minimum(sd_poly(X, Y, left), sd_poly(X, Y, right))
+        r.over(WHITE, coverage(d))
+        for k in range(3):
+            y0 = (38 + k * 11) * s
+            r.over(np.full(3, .62, np.float32), coverage(sd_segment(X, Y, 15 * s, y0, 37 * s, y0 + 3 * s) - 1.6 * s))
+            r.over(np.full(3, .62, np.float32), coverage(sd_segment(X, Y, 59 * s, y0 + 3 * s, 81 * s, y0) - 1.6 * s))
+        return r.export()
+    elif name == "ui_icon_gear":
+        s = w / 96
+        rad = np.hypot(X - c, Y - c)
+        ang = np.arctan2(Y - c, X - c)
+        outer = 24 * s + 12 * s * smoothstep(.0, .5, np.cos(ang * 8))     # eight teeth
+        d = np.maximum(rad - outer, 12 * s - rad).astype(np.float32)
+        bevel = 3 * s
+    elif name == "ui_icon_refresh":
+        # A clockwise arrow round a gap at the upper right: a round tail at -10 degrees, the head at -60 degrees pointing
+        # on into the gap (screen angles, y down).
+        s = w / 256
+        rad = np.hypot(X - c, Y - c)
+        ang = np.arctan2(Y - c, X - c)
+        R, t = 80 * s, 16 * s
+        a_head, a_tail = math.radians(-62), math.radians(-12)
+        gap = (ang > a_head) & (ang < a_tail)
+        arc = np.where(gap, np.inf, np.abs(rad - R) - t)
+        tail = sd_circle(X, Y, c + R * math.cos(a_tail), c + R * math.sin(a_tail), t)
+        hx, hy = c + R * math.cos(a_head), c + R * math.sin(a_head)
+        tx, ty = -math.sin(a_head), math.cos(a_head)                 # the direction of travel (clockwise on screen)
+        nx, ny = math.cos(a_head), math.sin(a_head)
+        head = [(hx + nx * (t + 30 * s), hy + ny * (t + 30 * s)), (hx + tx * 52 * s, hy + ty * 52 * s),
+                (hx - nx * (t + 30 * s), hy - ny * (t + 30 * s))]
+        d = np.minimum(np.minimum(arc, tail), sd_poly(X, Y, head)).astype(np.float32)
+        bevel = 8 * s
+    elif name == "ui_pip_dot":
+        r.over(WHITE, coverage(sd_circle(X, Y, c, h / 2, w * .44)))
+        return r.export()
+    elif name == "fx_score_spark":
+        d = sd_poly(X, Y, star4(c, h / 2, w * .46, .2))
+        r.over(WHITE, coverage(d))
+        ang = (np.arctan2(Y - h / 2, X - c) + 2 * math.pi) % (2 * math.pi)
+        facet = np.floor(ang / (math.pi / 4)).astype(int)
+        mid = (facet + .5) * (math.pi / 4)
+        lit = np.cos(mid) * float(LIGHT[0]) + np.sin(mid) * float(LIGHT[1])
+        grey = np.where(lit > 0, 1.0, .8).astype(np.float32)
+        r.over(np.repeat(grey[..., None], 3, axis=-1), coverage(d + w * .02))
+        return r.export()
+    elif name == "fx_square_chip":
+        s = w / 256
+        pts = [(40 * s, 52 * s), (206 * s, 36 * s), (220 * s, 200 * s), (56 * s, 218 * s)]
+        d = sd_poly(X, Y, pts)
+        r.over(np.full(3, .72, np.float32), coverage(d))
+        r.over(WHITE, coverage(d + 10 * s))
+        r.over(np.full(3, .9, np.float32), coverage(sd_segment(X, Y, 70 * s, 180 * s, 180 * s, 70 * s) - 9 * s) * coverage(d + 10 * s))
+        return r.export()
+    elif name == "fx_arc_short":
+        s = w / 256
+        rad = np.hypot(X - 150 * s, Y - 190 * s)
+        ang = np.arctan2(Y - 190 * s, X - 150 * s)
+        a0, a1 = math.radians(-170), math.radians(-40)
+        frac = np.clip((ang - a0) / (a1 - a0), 0, 1)
+        width = 2.5 * s + 9 * s * frac
+        arc = np.where((ang >= a0) & (ang <= a1), np.abs(rad - 118 * s) - width, np.inf).astype(np.float32)
+        tip = (150 * s + 118 * s * math.cos(a1), 190 * s + 118 * s * math.sin(a1))
+        d = np.minimum(arc, sd_poly(X, Y, star4(tip[0], tip[1], 30 * s, .26)))
+        r.over(WHITE, coverage(d))
+        return r.export()
+    else:
+        raise ValueError(name)
+    lit = lit_of(d)
+    r.over(WHITE, coverage(d))
+    if bevel:
+        shade = smoothstep(-bevel, -bevel * .35, d) * np.clip(-lit, 0, 1) * .25
+        r.over(np.full(3, .7, np.float32), (coverage(d) * shade).astype(np.float32))
+    return r.export()
+
+
+def die_shadow(w: int = 256, h: int = 128) -> Image.Image:
+    """ui_die_shadow: a soft lead-dark ellipse under a die."""
+    r = Raster(w, h)
+    q = np.hypot((r.X - w / 2) / (w * .42), (r.Y - h / 2) / (h * .3))
+    a = np.clip(1 - smoothstep(.45, 1.0, q), 0, 1) * .72
+    r.over(np.broadcast_to(col("0E0C14"), a.shape + (3,)), a.astype(np.float32))
+    return r.export()
+
+
+CARD_BACK_W, CARD_BACK_H = 768, 1024
+
+
+def card_back_layer(r: Raster):
+    """ui_card_back: the card's jewel frame at back-of-card scale (lead, gilt moulding, lead, cobalt strip, lead, gilt
+    hairline, lead; 45-degree cuts and gilt corner stars), the field a dim leaded mosaic of cobalt and ruby, a rose window
+    in the middle with a marble die (pips red and blue) and gilt stars above and below it. Tile-independent (analytic)."""
+    w, h = CARD_BACK_W, CARD_BACK_H
+    pts = octagon((2.0, 2.0, w - 2.0, h - 2.0), (40.0,) * 4)
+    d = sd_poly(r.X, r.Y, pts)
+    frame = sum(b[0] for b in CARD_BACK_BANDS)
+    paint_bands(r, d, CARD_BACK_BANDS, None, lit_of(d))
+    inside = coverage(d + frame)
+    if inside.any():
+        sub = Raster(r.w, r.h, _views=(r.X, r.Y, np.zeros_like(r.rgb), np.zeros_like(r.a)))
+        mosaic_layer(sub)
+        sub.rgb[...] *= np.float32(.85)
+        r.over_premult(sub.rgb * inside[..., None], sub.a * inside)
+    for cx, cy in ((40.0, 40.0), (w - 40.0, 40.0), (w - 40.0, h - 40.0), (40.0, h - 40.0)):
+        star_layer(r, cx, cy, 34.0)
+    cx, cy = w / 2, h / 2
+    if float(r.Y.min()) < cy - 240 and float(r.Y.max()) > cy + 240:      # only the middle strip holds the window whole
+        rose_window(r, cx, cy, 230.0, petals=12)
+        die_faces(r, cx, cy - 8, 196.0, pips=(5, 2, 3), pip_rgb=(col(PALETTE["red"]), col(PALETTE["blue"]),
+                                                                 col(PALETTE["red"])), ink=8.0)
+    for sy in (cy - 330, cy + 330):
+        if float(r.Y.max()) > sy - 70 and float(r.Y.min()) < sy + 70:
+            star_layer(r, cx, sy, 56.0, waist=.24, outline=3.0)
+
+
+CARD_BACK_BANDS = ((6.0, LEAD), (18.0, gilt_moulding), (5.0, LEAD), (16.0, glass_strip(COBALT_GLASS)), (5.0, LEAD),
+                   (5.0, gilt_hairline), (4.0, LEAD))
+
+
+def card_back() -> Image.Image:
+    """Rendered in three strips and box-filtered (no ringing, no seams), alpha from the cut silhouette. The strip seams
+    (y 232 and 792) pass only through analytic shapes (the frame, the mosaic, the stars); the rose window and the die,
+    whose outlines use a distance transform, lie wholly in the middle strip."""
+    w, h = CARD_BACK_W, CARD_BACK_H
+    out = np.zeros((h, w, 4), np.float32)
+    for y, y_end in ((0, 232), (232, 792), (792, h)):
+        hh = y_end - y
+        r = Raster(w, hh, 0.0, float(y))
+        card_back_layer(r)
+        a = r.a.reshape(hh, SS, w, SS).mean(axis=(1, 3))
+        rgb = r.rgb.reshape(hh, SS, w, SS, 3).mean(axis=(1, 3))
+        out[y:y + hh, :, :3] = np.where(a[..., None] > 0, rgb / np.maximum(a[..., None], 1e-6), 0)
+        out[y:y + hh, :, 3] = a
+    px = np.zeros((h, w, 4), np.uint8)
+    px[..., 3] = np.rint(np.clip(out[..., 3], 0, 1) * 255)
+    px[..., :3] = np.where(px[..., 3:] > 0, np.clip(np.rint(out[..., :3] * 255), 0, 255), 0)
+    return Image.fromarray(px, "RGBA")
+
+
 # ---------------------------------------------------------------------------------------------- sprite list
 # W14's shop stopped drawing ui_price_chip, ui_pedestal and ui_frame_enchant; the contract regenerated on 2026-11-18 lists
 # them as unreferenced, and this kit does not draw them (STATE, W14 decision 4: "黑金与彩绘玻璃按 50 张做").
@@ -912,17 +1567,34 @@ def contract_sprites() -> list[dict]:
     return [s for s in json.loads(CONTRACT.read_text(encoding="utf-8"))["sprites"] if s["referenced"]]
 
 
+NEUTRAL_ICONS = ("ui_icon_arrow", "ui_icon_book", "ui_icon_gear", "ui_icon_refresh", "ui_pip_dot", "fx_score_spark",
+                 "fx_square_chip", "fx_arc_short")
+
+
 def render_sprite(spec: dict) -> Image.Image:
     name = spec["name"]
+    w, h = spec["size"]
     if any(spec["border"]):
         return surface(spec)
     if name == "ui_wordmark_dicecraft":
         return wordmark()
+    if name.startswith("badge_enchant_"):
+        return enchant_badge(name[len("badge_enchant_"):])
+    if name in ("ui_gem_common", "ui_gem_advanced", "ui_gem_rare"):
+        return gem(name, w)
+    if name in NEUTRAL_ICONS:
+        return neutral_icon(name, w, h)
+    renderers = {"ui_icon_coin": coin, "ui_icon_lock": lock_icon, "ui_tag_lock": lock_tag, "ui_tag_clock": clock_tag,
+                 "ui_icon_roll": roll_cup, "ui_icon_dice_view": dice_view}
+    if name in renderers:
+        return renderers[name](w)
+    if name == "fx_score_crown":
+        return crown(w, h)
+    if name == "ui_die_shadow":
+        return die_shadow(w, h)
+    if name == "ui_card_back":
+        return card_back()
     raise NotImplementedError(name)
-
-
-def implemented(spec: dict) -> bool:
-    return any(spec["border"]) or spec["name"] == "ui_wordmark_dicecraft"
 
 
 # ---------------------------------------------------------------------------------------------- table
@@ -1470,26 +2142,35 @@ def button(c: Canvas, kit: Kit, P: dict, x, y, w, h, face: str, label: str, size
 
 
 def solid_button(c: Canvas, kit: Kit, P: dict, x, y, w, h, label: str, size: float, enabled: bool = True,
-                 notes: list | None = None, name: str = "solid button", icon: str | None = None, spacing: float = 0):
+                 notes: list | None = None, name: str = "solid button", icon: str | None = None, spacing: float = 0,
+                 icon_tinted: bool = True):
     """GameApp.SolidButton11: ui_chip_formula times the face tint - W20Y's pending buttonSecondary when the palette carries
     it (simulated in these mocks), else lerp(Background, Panel, .55); a disabled one a quarter toward PanelLight - the label
-    LabelOn11 picks (Muted when disabled), centred on the whole chip (FlatButton's label)."""
+    LabelOn11 picks (preferring textColor; W20Y2: LabelOn11(face, Muted) when disabled, which may move the face a few 5 %
+    steps), centred on the whole chip (FlatButton's label). ShopButton14's nav icon takes the label's colour; the play
+    screen's 查看骰子 icon is drawn white (icon_tinted False)."""
     tint = secondary_face(P)
     if not enabled:
         tint = lerp_hex(tint, P["panelLight"], .25)
+    face = kit.centre("ui_chip_formula")
+    colour, tint, steps = label_on11(face, tint, P, P["textColor"] if enabled else P["muted"])
     c.sprite(kit, "ui_chip_formula", x, y, w, h, tint=tint)
-    fill = drawn(kit.centre("ui_chip_formula"), tint)
-    colour, ratio, _ = label_on(fill, P, P["textColor"]) if enabled else (P["muted"], contrast(P["muted"], fill), 0)
+    fill = drawn(face, tint)
+    ratio = contrast(colour, fill)
     if notes is not None:
-        notes.append(f"{name}: face {fill}, label {colour} {ratio:.2f}:1")
+        notes.append(f"{name}{'' if enabled else ' (disabled)'}: face {fill}, label {colour} {ratio:.2f}:1"
+                     + (f" (LabelOn11 moved the face {steps} step(s))" if steps else ""))
     if icon:
-        s = min(34, h - 24)
+        s = min(34, h - 24) if icon_tinted else min(40, h - 16)
         tw = text_width(label, size, False)
-        start = (w - (s + 8 + tw)) / 2
-        c.sprite(kit, icon, x + start, y + (h - s) / 2, s, s, tint=colour, preserve=True)
-        c.text(x + start + s + 8, y, w, h, label, size, colour, "lm")
+        if icon_tinted:
+            start = (w - (s + 8 + tw)) / 2
+            c.sprite(kit, icon, x + start, y + (h - s) / 2, s, s, tint=colour, preserve=True)
+            c.text(x + start + s + 8, y, w, h, label, size, colour, "lm")
+        else:
+            c.sprite(kit, icon, x + 16, y + (h - s) / 2, s, s, preserve=True, alpha=1.0 if enabled else .5)
+            c.text(x + 8, y, w - 16, h, label, size, colour, "mm")
     else:
-        lines = label.split("\n")
         c.text(x + 8, y, w - 16, h, label, size, colour, "mm", spacing=spacing)
     return fill
 
@@ -1690,7 +2371,26 @@ ACTION_STATES = {
                       reason="已达标：可以继续提交，也可以结束本关。"),
     "boss": dict(primary=("掷骰 [R]", True), secondary=None, end="end", reason="首领减益“满员”：要放满提交栏（5 颗）才能提交。"),
     "pressure": dict(primary=("提交 2 颗", True), secondary="重掷 · 还能掷 2 [R]", end="end", reason="按“提交”计分，或者重掷其余的骰子。"),
+    # A boss stage in play (the final-tier boss): the formula row puts the boss factor chip right after the red hand chip.
+    "boss_play": dict(primary=("提交 2 颗", True), secondary="重掷 · 还能掷 2 [R]", end="end",
+                      reason="按“提交”计分，或者重掷其余的骰子。"),
 }
+BOSS_STATES = ("c", "boss", "boss_play")
+# The felt shader's boss mood (Art07Felt.shader, GameApp.Play11 ApplyTableMood11): the table times (1 - .26) and a
+# vignette (1 - .5 x smoothstep(.22, .8, |(screen - (.5, .47)) x (1.18, 1)|)), in linear light, the table only.
+BOSS_DIM, BOSS_VIGNETTE = .26, .5
+
+
+def boss_table(table: Image.Image) -> Image.Image:
+    """The table as a boss stage shows it (offline approximation of the felt shader's dim and vignette)."""
+    a = np.asarray(table.convert("RGB")).astype(np.float32) / 255.0
+    h, w = a.shape[:2]
+    ys, xs = (np.arange(h, dtype=np.float32) + .5) / h, (np.arange(w, dtype=np.float32) + .5) / w
+    X, Y = np.meshgrid(xs, ys)
+    v = smoothstep(.22, .8, np.hypot((X - .5) * 1.18, Y - .47))
+    k = (1 - BOSS_DIM) * (1 - BOSS_VIGNETTE * v)
+    lin = _lin_arr(a) * k[..., None]
+    return Image.fromarray(np.clip(np.rint(_gam_arr(lin) * 255), 0, 255).astype(np.uint8), "RGB")
 
 
 def full_palette(pending: bool = True) -> dict:
@@ -1715,10 +2415,11 @@ def draw_top_bar(c: Canvas, kit: Kit, P: dict, large: bool, stage_tint: str, sta
     bar_fill = drawn(kit.centre("ui_topbar"), P["panel"])
     fl, fb, fr, ft = kit.insets("ui_topbar")
     tag_w = 176 if large else 160
-    c.sprite(kit, "ui_chip_formula", tx_ + 8, ty_ + 8, tag_w, 56, tint=stage_tint)
-    tag_fill = drawn(kit.centre("ui_chip_formula"), stage_tint)
-    colour, ratio, _ = label_on(tag_fill, P)
-    notes.append(f"stage tag {tag_fill}: label {colour} {ratio:.2f}:1")
+    colour, tag_tint, steps = label_on11(kit.centre("ui_chip_formula"), stage_tint, P)
+    c.sprite(kit, "ui_chip_formula", tx_ + 8, ty_ + 8, tag_w, 56, tint=tag_tint)
+    tag_fill = drawn(kit.centre("ui_chip_formula"), tag_tint)
+    ratio = contrast(colour, tag_fill)
+    notes.append(f"stage tag {tag_fill}: label {colour} {ratio:.2f}:1" + (f" (LabelOn11 {steps} step(s))" if steps else ""))
     c.text(tx_ + 8, ty_ + 10, tag_w, 48, stage_label, (24 if large else 28) * fs, colour, "mm", bold=True)
     dots_x = 8 + tag_w + 20
     cap_size = body11(17 if large else 20, fs) * fs
@@ -1802,21 +2503,21 @@ def draw_card_row(c: Canvas, kit: Kit, P: dict, n_cards: int, large: bool, notes
 
 
 def play_mock(kit: Kit, table: Image.Image, state: str = "f", large: bool = False, notes: list | None = None,
-              palette: dict | None = None) -> tuple[Image.Image, dict]:
+              palette: dict | None = None, n_cards: int | None = None) -> tuple[Image.Image, dict]:
     """The play screen as GameApp.Play11 lays it out at 100 % or 150 % text, over table_scene. State a: three cards, five
-    dice with two selected; f: seven cards, ten dice with two locked (W11's capture states). Returns the composite and
-    measurements (hint glyph box, rectangles)."""
+    dice with two selected; f: seven cards, eight dice with two locked (W11's capture states); the boss states dim the
+    table as the felt shader does. Returns the composite and measurements (hint glyph box, rectangles)."""
     P = dict(palette or full_palette())
     fs = 1.5 if large else 1.0
     L = play_layout(large)
     s = ACTION_STATES[state]
-    boss, pressure = state == "boss", state == "pressure"
+    boss, pressure = state in BOSS_STATES, state == "pressure"
     stage_tint = P["boss"] if boss else P["pressure"] if pressure else P["panelLight"]
-    n_cards = 7 if state == "f" else 3
+    n_cards = (7 if state == "f" else 3) if n_cards is None else n_cards
     pool = (8 if state == "f" else 5)
-    locked = 2 if state in ("f", "qualified", "pressure") else 0
+    locked = 2 if state in ("f", "qualified", "pressure", "boss_play") else 0
     c = Canvas(1920, 1080)
-    c.backdrop(table)
+    c.backdrop(boss_table(table) if boss else table)
     notes = notes if notes is not None else []
     meas: dict = {}
     # ---------------------------------------------------------------- top bar and cards
@@ -1836,10 +2537,10 @@ def play_mock(kit: Kit, table: Image.Image, state: str = "f", large: bool = Fals
         c.sprite(kit, "ui_ring", sx + 5, sy + 5, sw - 18, sh - 20, tint=P["pressure"])
     inner = sw - 36
     head_h = max(40, line11(body11(18 if large else 22, fs), fs))
-    c.sprite(kit, "ui_chip_formula", sx + 14, sy + 14, inner, head_h, tint=stage_tint)
-    head_fill = drawn(kit.centre("ui_chip_formula"), stage_tint)
-    c.text(sx + 26, sy + 14, inner - 24, head_h, "首领减益 · 二档" if boss else kind, body11(18 if large else 22, fs) * fs,
-           label_on(head_fill, P)[0], "lm")
+    head_label, head_tint, _ = label_on11(kit.centre("ui_chip_formula"), stage_tint, P)
+    c.sprite(kit, "ui_chip_formula", sx + 14, sy + 14, inner, head_h, tint=head_tint)
+    c.text(sx + 26, sy + 14, inner - 24, head_h, ("首领减益 · 终局" if state == "boss_play" else "首领减益 · 二档") if boss else kind,
+           body11(18 if large else 22, fs) * fs, head_label, "lm")
     line_size = body11(14 if large else 20, fs)
     goal_size = 28 if large else 42
     ty = sy + 14 + head_h + 1
@@ -1900,7 +2601,7 @@ def play_mock(kit: Kit, table: Image.Image, state: str = "f", large: bool = Fals
     kx, ky, kw, kh = L["chips"]
     cap_tint = lerp_hex(P["background"], P["panel"], .5)
     cap_fill = drawn(kit.centre("ui_chip_formula"), cap_tint)
-    if state == "a":
+    if state in ("a", "c"):          # nothing scored and no preview yet (the hand's first roll is still to come in c)
         c.sprite(kit, "ui_chip_formula", kx, ky, kw, kh, tint=cap_tint)
         c.text(kx + 10, ky, kw - 20, kh, "本关还没有得分", body11(17 if large else 20, fs) * fs, label_on(cap_fill, P, P["muted"])[0], "mm")
     else:
@@ -1908,19 +2609,24 @@ def play_mock(kit: Kit, table: Image.Image, state: str = "f", large: bool = Fals
         cap_w = min(420 if large else 330, max(120 if large else 96, text_width(caption_text, body11(17 if large else 20, fs) * fs, False) + 32))
         c.sprite(kit, "ui_chip_formula", kx, ky, cap_w, kh, tint=cap_tint)
         c.text(kx + 10, ky, cap_w - 20, kh, caption_text, body11(17 if large else 20, fs) * fs, label_on(cap_fill, P, P["muted"])[0], "mm")
-        factors = (("基础分", "26", "blue"), ("一对", "×2", "red"), ("全蓝", "×3", "blue"), ("卡牌", "×1.5", "gold"))
+        if state == "boss_play":
+            # GameApp.Play11Score Factors11: base, hand (UiKit.Red), then the global factors; a boss factor is UiKit.Boss.
+            factors = (("基础分", "26", "blue"), ("一对", "×2", "red"), ("满员", "×0.8", "boss"))
+        else:
+            factors = (("基础分", "26", "blue"), ("一对", "×2", "red"), ("全蓝", "×3", "blue"), ("卡牌", "×1.5", "gold"))
         font, sep, pad = (22 if large else 26) * fs, (26 if large else 30), 30
         x = kx + cap_w + 12
-        for name, value, key in factors:
+        for i, (name, value, key) in enumerate(factors):
             wv = text_width(value, font) + text_width(name, 19.5 * fs, False) + pad
-            c.sprite(kit, "ui_chip_formula", x, ky, wv, kh, tint=P[key])
-            ffill = drawn(kit.centre("ui_chip_formula"), P[key])
-            ink = label_on(ffill, P)[0]
+            ink, chip_tint, steps = label_on11(kit.centre("ui_chip_formula"), P[key], P)
+            c.sprite(kit, "ui_chip_formula", x, ky, wv, kh, tint=chip_tint)
+            ffill = drawn(kit.centre("ui_chip_formula"), chip_tint)
+            meas.setdefault("factor chips", []).append((name, key, ffill, ink, steps))
             nw = text_width(name, 19.5 * fs, False) + 2
             c.text(x + 10, ky, nw, kh, name, 19.5 * fs, ink, "lm")
             c.text(x + 10 + nw + 2, ky, wv - nw - 20, kh, value, font, ink, "rm", bold=True)
             x += wv
-            c.text(x, ky, sep, kh, "×" if name != "卡牌" else "=", (20 if large else 24) * fs, P["onFelt"], "mm")
+            c.text(x, ky, sep, kh, "×" if i < len(factors) - 1 else "=", (20 if large else 24) * fs, P["onFelt"], "mm")
             x += sep
         total_w = min(520 if large else 460, max(140 if large else 130, text_width("234", (26 if large else 32) * fs) + 36))
         c.sprite(kit, "ui_chip_formula", x, ky, total_w, kh, tint=P["reward"])
@@ -1951,8 +2657,8 @@ def play_mock(kit: Kit, table: Image.Image, state: str = "f", large: bool = Fals
             c.picture(anchor_art("I10"), ix + 6, iy + 39, 52)
         else:
             c.sprite(kit, "ui_ring", ix, iy + 34, 64, 64, tint=P["panelLight"])
-    solid_button(c, kit, P, px_ + 14, iy + 34 + 64 + 12, pw_ - 28, 60, "查看骰子", 22 * fs, notes=None,
-                 icon="ui_icon_dice_view")
+    solid_button(c, kit, P, px_ + 14, iy + 34 + 64 + 12, pw_ - 28, 60, "查看骰子", 22 * fs, notes=notes, name="查看骰子",
+                 icon="ui_icon_dice_view", icon_tinted=False)
     # ---------------------------------------------------------------- submit info, rail, slots
     ix_, iy_, iw_, ih_ = L["info"]
     c.sprite(kit, "ui_panel_hud", ix_, iy_, iw_, ih_)
@@ -2096,18 +2802,70 @@ def palette_report(palette: dict | None = None, label_face: str | None = None, s
     out["textColor/section cell"] = contrast(p["textColor"], cell)
     caption = drawn("FFFFFF", w["caption"])
     out[f"{best_label(caption, p)[0]}/caption (label pick)"] = best_label(caption, p)[1]
-    # W20Y's pending buttonSecondary (not in theme.json): the SolidButton11 face on the table, the dark panels and the
-    # parchment, its label, and the disabled face (a quarter toward panelLight).
+    # Boss (coordinator, lesson from the deco kit): at least 15 CIEDE2000 from primary, from the red pip colour (the formula
+    # row puts the boss factor chip beside the red hand chip) and from pressure, as the chips are drawn (LabelOn11 may
+    # move a tint).
+    chip_white = "FFFFFF"
+    boss_label, boss_plate, boss_steps = label_on11(chip_white, p["boss"], p)
+    red_label, red_plate, red_steps = label_on11(chip_white, p["red"], p)
+    out["boss/primary dE00"] = de00(p["boss"], p["primary"])
+    out["boss/red dE00"] = de00(p["boss"], p["red"])
+    out["boss/pressure dE00"] = de00(p["boss"], p["pressure"])
+    out[f"boss chip {boss_plate} / red chip {red_plate} dE00 (drawn, steps {boss_steps}/{red_steps})"] = \
+        de00(boss_plate, red_plate)
+    out[f"boss chip {boss_plate} / primary dE00 (drawn)"] = de00(boss_plate, p["primary"])
+    out[f"boss chip label {boss_label} (drawn)"] = contrast(boss_label, boss_plate)
+    out["boss/danger dE00"] = de00(p["boss"], p["danger"])
+    # W20Y's pending buttonSecondary (not in theme.json): the SolidButton11 face on the table (felt and mosaic), the dark
+    # panels and the top bar (panel), the page background, the parchment; its label (LabelOn11 preferring textColor);
+    # the disabled face, a quarter toward panelLight, with W20Y2's LabelOn11(face, Muted) label.
     sec = p.get("buttonSecondary") or PENDING_TOKENS.get("buttonSecondary")
     if sec:
         out[f"buttonSecondary {sec}/felt (pending)"] = contrast(sec, p["felt"])
-        out[f"buttonSecondary {sec}/panel (pending)"] = contrast(sec, p["panel"])
+        out[f"buttonSecondary {sec}/panel = top bar, dark panels (pending)"] = contrast(sec, p["panel"])
+        out[f"buttonSecondary {sec}/background (pending)"] = contrast(sec, p["background"])
         out[f"buttonSecondary {sec}/paper (pending)"] = contrast(sec, p["paper"])
-        out[f"{best_label(sec, p)[0]}/buttonSecondary (label pick)"] = best_label(sec, p)[1]
+        on_label, on_tint, on_steps = label_on11(chip_white, sec, p, p["textColor"])
+        out[f"buttonSecondary label {on_label} (LabelOn11, steps {on_steps})"] = contrast(on_label, drawn(chip_white, on_tint))
         off = lerp_hex(sec, p["panelLight"], .25)
-        out[f"muted/disabled buttonSecondary {off}"] = contrast(p["muted"], off)
-        out[f"{best_label(off, p)[0]}/disabled buttonSecondary (label pick)"] = best_label(off, p)[1]
+        off_label, off_tint, off_steps = label_on11(chip_white, off, p, p["muted"])
+        out[f"disabled buttonSecondary {off}: dE00 to the enabled face"] = de00(sec, off)
+        out[f"disabled buttonSecondary drawn {off_tint} (LabelOn11 steps {off_steps}): dE00 to the enabled face"] = \
+            de00(sec, off_tint)
+        out[f"disabled buttonSecondary label {off_label} (LabelOn11 Muted)"] = contrast(off_label, drawn(chip_white, off_tint))
+        out["disabled buttonSecondary: label differs from the enabled label"] = float(off_label != on_label)
+        out[f"muted/disabled buttonSecondary {off} (today's label)"] = contrast(p["muted"], off)
     return out
+
+
+def label_on11(face: str, tint: str, palette: dict, preferred: str | None = None) -> tuple[str, str, int]:
+    """GameApp.LabelOn11 on a surface whose centre pixel is `face`, tinted `tint`: a preferred colour stays at 4.5:1; else
+    the best of ink, paper and textColor at 4.95:1; else the tint steps 5 % (sRGB) toward black under the lightest of
+    them or toward white under the darkest, the fewer steps winning, a tie deepening. Returns (label, drawn tint, steps)."""
+    fill = drawn(face, tint)
+    if preferred is not None and contrast(preferred, fill) >= 4.5:
+        return preferred, tint, 0
+    cands = [palette[k] for k in ("ink", "paper", "textColor")]
+    best = max(cands, key=lambda c: contrast(c, fill))
+    if contrast(best, fill) >= 4.95:
+        return best, tint, 0
+    light = max(cands, key=luminance)
+    dark = min(cands, key=luminance)
+
+    def steps(toward, label):
+        t = col(tint).astype(np.float64)
+        for i in range(25):
+            hx = hexc(t)
+            if contrast(label, drawn(face, hx)) >= 4.95:
+                return i, hx
+            t = t + (np.asarray(toward, np.float64) - t) * .05
+        return -1, None
+    deepen, deep_tint = steps((0, 0, 0), light)
+    lighten, light_tint = steps((1, 1, 1), dark)
+    if deepen < 0 and lighten < 0:
+        return best, tint, 0
+    down = lighten < 0 or 0 <= deepen <= lighten
+    return (light, deep_tint, deepen) if down else (dark, light_tint, lighten)
 
 
 # ---------------------------------------------------------------------------------------------- build
@@ -2123,8 +2881,40 @@ def save_png(path: Path, im: Image.Image):
     im.save(path, format="PNG", optimize=False, compress_level=9)
 
 
-def build(output_root: Path = ROOT, only_implemented: bool = True) -> list[Path]:
-    """Write the contract sprites drawn so far, the table, the page, the felt tile and theme.json."""
+def check_slices(name: str, im: Image.Image, border):
+    """Fail before writing: a nine-slice centre is one flat colour from the border lines inward; a horizontally sliced
+    strip keeps its middle columns identical; stretched edge bands only change across the edge (tinted pieces exactly,
+    authored ones by at most 6 levels a pixel along the edge, brief rule 2)."""
+    px = np.asarray(im).astype(np.int16)
+    h, w = px.shape[:2]
+    l, b, r, t = (int(v) for v in border)
+    if l and r and b and t:
+        centre = px[t:h - b, l:w - r]
+        if (centre != centre[0, 0]).any():
+            raise ValueError(f"{name}: the nine-slice centre is not one flat colour")
+        bands = (px[:t, l:w - r], px[h - b:, l:w - r], px[t:h - b, :l].transpose(1, 0, 2),
+                 px[t:h - b, w - r:].transpose(1, 0, 2))
+        limit = 0 if name in NEUTRAL_NAMES else 6
+        for band in bands:
+            if int(np.abs(np.diff(band, axis=1)).max()) > limit:
+                raise ValueError(f"{name}: a stretched edge band changes along the edge")
+    elif l and r:
+        middle = px[:, l:w - r]
+        if (middle != middle[:, :1]).any():
+            raise ValueError(f"{name}: the middle columns of a horizontal slice differ")
+
+
+def _review_module():
+    import importlib.util
+    spec = importlib.util.spec_from_file_location("glass_review", Path(__file__).with_name("review_glass.py"))
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    return mod
+
+
+def build(output_root: Path = ROOT) -> list[Path]:
+    """Write the 50 referenced contract sprites, the table and page scenes, the felt tile, theme.json, and the preview and
+    contact sheet (drawn from the sprites just written)."""
     output_root = Path(output_root).resolve()
     if not output_root.is_relative_to(ROOT):
         raise ValueError("Output root must stay inside the glass worktree")
@@ -2140,32 +2930,44 @@ def build(output_root: Path = ROOT, only_implemented: bool = True) -> list[Path]
     specs = contract_sprites()
     sprites: dict[str, Image.Image] = {}
     for spec in specs:
-        if only_implemented and not implemented(spec):
-            continue
         if spec["name"] in ("ui_card_controller_compact", "ui_card_shop") and "ui_card_controller" in sprites:
-            im = sprites["ui_card_controller"].copy()
+            im = sprites["ui_card_controller"].copy()       # the same frame (W13 reads each face's own insets)
         else:
             im = render_sprite(spec)
         if im.mode != "RGBA" or list(im.size) != spec["size"]:
             raise ValueError("Contract mismatch: " + spec["name"])
+        check_slices(spec["name"], im, spec["border"])
         sprites[spec["name"]] = im
         save(THEME / "UI" / (spec["name"] + ".png"), im)
     save(THEME / "Table/table_scene.png", table)
-    save(THEME / "Table/page_scene.png", page_scene())
+    page = page_scene()
+    save(THEME / "Table/page_scene.png", page)
     save(THEME / "Table/felt_tile.png", felt_tile())
     theme_path = output_root / THEME / "theme.json"
     theme_path.parent.mkdir(parents=True, exist_ok=True)
     theme_path.write_text(theme_json(), encoding="utf-8", newline="\n")
     written.append(theme_path)
+    review = _review_module()
+    mock, sheet = review.build_outputs(sprites, table, page)
+    save(THEME / "preview.png", mock.resize((480, 270), Image.Resampling.LANCZOS))
+    save(REVIEW / "contact_sheet.png", sheet)
     return written
 
 
 if __name__ == "__main__":
     import sys
     import time
-    started = time.time()
-    paths = build()
-    pngs = [p for p in paths if p.suffix == ".png"]
-    print(f"GLASS_BUILT {len(pngs)} PNGs + theme.json / supersampling {SS}x / {time.time() - started:.1f}s")
-    for key, value in palette_report().items():
-        print(f"GLASS_PALETTE {key} {value:.2f}")
+    if "--report" in sys.argv:
+        for key, value in palette_report(full_palette()).items():
+            print(f"GLASS_PALETTE {key} {value:.2f}")
+    elif "--review" in sys.argv:
+        _review_module().main([a for a in sys.argv[1:] if a != "--review"])
+    elif "--card-review" in sys.argv:
+        _review_module().write_card_template_review()
+    else:
+        started = time.time()
+        paths = build()
+        pngs = [p for p in paths if p.suffix == ".png"]
+        print(f"GLASS_BUILT {len(pngs)} PNGs + theme.json / supersampling {SS}x / {time.time() - started:.1f}s")
+        for key, value in palette_report(full_palette()).items():
+            print(f"GLASS_PALETTE {key} {value:.2f}")
