@@ -74,7 +74,8 @@ FELT_ZONES = {
 }
 APPROVED_TITLE_FONT = Path("DicePrototype/Assets/Game/Fonts/Themes/glass/NotoSerifSC-Black.otf")
 # Coordinator, phase 1b review (2026-11-18): the W20Y key buttonSecondary (every SolidButton11 face) is amber glass
-# AC8442; it stays out of theme.json until W20Y declares it in ThemePalette.Hexes (the coordinator adds it at merge).
+# AC8442. It was a pending key until W20Y declared it in ThemePalette.Hexes; since W20Y landed (merged into this branch
+# for the kit merge, 2026-11-18) the generator writes it to theme.json.
 BUTTON_SECONDARY = "AC8442"
 
 
@@ -668,9 +669,9 @@ class GlassArtTests(unittest.TestCase):
                     self.assertGreaterEqual(float((part >= 4.5).mean()), .10)
 
     def test_small_marks_stand_out_on_their_hosts(self):
-        # Brief rule 6, at real size on the real hosts: SolidButton11's face today (lerp(Background, Panel, .55)) and
-        # with the pending buttonSecondary (W20Y), the top bar, the roll well, the slate, the paper. Icons the code tints
-        # (the shop's nav icons) are drawn in the label colour LabelOn11 picks on the amber face.
+        # Brief rule 6, at real size on the real hosts: SolidButton11's face without buttonSecondary (lerp(Background,
+        # Panel, .55)) and with it (W20Y, set in theme.json), the top bar, the roll well, the slate, the paper. Icons the
+        # code tints (the shop's nav icons) are drawn in the label colour LabelOn11 picks on the amber face.
         p = self.palette
         solid_today = tuple(np.rint(lerp(hex_rgb(p["background"]), hex_rgb(p["panel"]), .55)).astype(int))
         solid_w20y = hex_rgb(BUTTON_SECONDARY)
@@ -1006,13 +1007,13 @@ class GlassArtTests(unittest.TestCase):
         self.assertGreaterEqual(float(contrast(hex_rgb(p["boss"]), hex_rgb(p["felt"]))), 2.0)
 
     def test_button_secondary(self):
-        # Coordinator (phase 1b review): amber glass AC8442 for every SolidButton11 face, pending in the generator until
-        # the W20Y merge. Its label reaches 4.95:1 through LabelOn11 without moving the face; the face keeps 3:1 against
-        # the slate and the mosaic, the dark panels and the top bar (both panel), and the page background. On the
-        # parchment it is 2.6:1 (known, reported); there the chip's black came gives the boundary.
+        # Coordinator (phase 1b review): amber glass AC8442 for every SolidButton11 face, set in theme.json since W20Y
+        # landed (it was a pending key in the generator until the W20Y merge). Its label reaches 4.95:1 through LabelOn11
+        # without moving the face; the face keeps 3:1 against the slate and the mosaic, the dark panels and the top bar
+        # (both panel), and the page background. On the parchment it is 2.6:1 (known, reported); there the chip's black
+        # came gives the boundary.
         p = self.palette
-        value = p.get("buttonSecondary") or self.builder.PENDING_TOKENS.get("buttonSecondary")
-        self.assertEqual(value, BUTTON_SECONDARY)
+        self.assertEqual(p["buttonSecondary"], BUTTON_SECONDARY)
         face = load("ui_chip_formula")[256, 256, :3].astype(np.float64)
         tint = np.array(hex_rgb(BUTTON_SECONDARY), dtype=np.float64)
         fill = tinted(face, tint)
@@ -1084,16 +1085,19 @@ class GlassArtTests(unittest.TestCase):
         declared = re.search(r"class Hexes\s*\{\s*public string ([^;]+);", source).group(1)
         keys = {key.strip() for key in declared.replace("\n", " ").split(",")}
         # valueBadge (W13), the W20X keys and W20Y's buttonSecondary may be left out: unset, they fall back to today's
-        # drawing (THEME_SPEC 2). The 24 required keys are the same before W20Y declares buttonSecondary (29 keys) and
-        # after (30; coordinator, 2026-11-18).
+        # drawing (THEME_SPEC 2). The 24 required keys stayed the same when W20Y declared buttonSecondary (29 keys before,
+        # 30 since the W20Y merge; coordinator, 2026-11-18); this kit sets it, so the declaration is required here.
         w20x = {"buttonStep", "buttonStepPrimary", "section", "caption"}
-        optional = {"valueBadge", "buttonSecondary"} | w20x
+        w20y = {"buttonSecondary"}
+        optional = {"valueBadge"} | w20x | w20y
         self.assertEqual(len(keys - optional), 24)
         self.assertTrue(w20x <= keys)
-        # Every palette key is one ThemePalette.Hexes declares (JsonUtility skips any other), so buttonSecondary stays out
-        # until W20Y declares it; the 24 required keys and the four W20X keys are set; valueBadge falls back to gold.
+        self.assertTrue(w20y <= keys, "W20Y declares buttonSecondary in ThemePalette.Hexes")
+        # Every palette key is one ThemePalette.Hexes declares (JsonUtility skips any other); the 24 required keys, the
+        # four W20X keys and W20Y's buttonSecondary (set in theme.json since W20Y landed) are set; valueBadge falls back
+        # to gold.
         self.assertLessEqual(set(self.palette), keys)
-        self.assertLessEqual((keys - optional) | w20x, set(self.palette))
+        self.assertLessEqual((keys - optional) | w20x | w20y, set(self.palette))
         self.assertNotIn("valueBadge", self.palette)
         for key, value in self.palette.items():
             with self.subTest(token=key):

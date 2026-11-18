@@ -1,6 +1,6 @@
 # W20 彩绘玻璃 UI kit
 
-状态：**第二阶段完成，提交复核**（2026-11-18，分支 `codex/v1.1-glass`，起点 `codex/v1.1` `cd2fedb3`；第一阶段 `20d995da`，1b `67f1bfee`、`25d9e180`，协调者已接受 1b）。不是实机或美术 ACCEPTED：结论只覆盖“验收条件与结果”写明的方法，独立复核与实机由协调者安排。没有启动 Unity，没有用 GPT/Codex 生图，没有下载；没有改 C#、`.meta`、默认件、其他风格的件、字体或 `docs/STATE.md`。
+状态：**第二阶段完成，提交复核**（2026-11-18，分支 `codex/v1.1-glass`，起点 `codex/v1.1` `cd2fedb3`；第一阶段 `20d995da`，1b `67f1bfee`、`25d9e180`，协调者已接受 1b）。**合并准备**（2026-11-18）：本分支合并了 `codex/v1.1` `173b2be7`（含 W20Y `05044756`、W20Y2 `1361b9e5`），`buttonSecondary` 已写入 `theme.json`（W20Y 已合入），见“决定记录”末条。不是实机或美术 ACCEPTED：结论只覆盖“验收条件与结果”写明的方法，独立复核与实机由协调者安排。没有启动 Unity，没有用 GPT/Codex 生图，没有下载；没有改 C#、`.meta`、默认件、其他风格的件、字体或 `docs/STATE.md`。
 
 输入：`docs/specs/v11/THEME_SPEC.md` §2（含 `onFelt`、`valueBadge`、W20X 的 `buttonStep` / `buttonStepPrimary` / `section` / `caption` 与“乘色只会调暗”）、§3（可选的 `Table/page_scene.png`）、§3.1、§5；`PLAY_LAYOUT.md` §1/§8、`SHOP_LAYOUT.md` §2、`CARD_TEMPLATE.md` §3/§6；`tools/art_v11/theme_contract.json`（2026-11-18，94 张中有引用的 50 张）；`ArtSource/StyleKit/themes/glass/` 的五张概念页与 `style_kit.json`；唐三彩、爆彩漫画两套 kit 与黑金 kit（只读）的做法与检查；协调者对第一阶段与 1b 的复核、第二阶段的决定与“黑金的教训”（2026-11-18，见末节“决定记录”）。代码依据：`GameApp.Play11.cs`（`L11`、`TopBar11`、`DrawTray11`、`DrawActions11`、`SolidButton11`、`ApplyTableMood11`）、`GameApp.Play11Score.cs`（`Factors11`、`FormulaChip11`）、`GameApp.Play11Contrast.cs`（`FrameInsets11`、`LabelOn11`）、`GameApp.Card11.cs`、`GameApp.Shop14.cs`（`ShopButton14`）、`GameApp.V10.cs`、`UiKit.cs`、`Art07Felt.shader`（首领关压暗）。
 
@@ -14,8 +14,8 @@
 | `…/glass/Table/table_scene.png` | 1920×1080 RGB：铅条彩窗铺满，两块 felt 色石板（骰区加算式行、提交说明加提交栏）外一圈金色双线，行动行常空处一扇玫瑰窗（第一阶段 1b，未改） |
 | `…/glass/Table/page_scene.png` | 1920×1080 RGB：同一种彩窗铺满，没有石板、金线和玫瑰窗（1b，未改） |
 | `…/glass/Table/felt_tile.png` | 1024² RGB，周期石板细纹，均值即 felt 色（1b，未改） |
-| `…/glass/preview.png` | 480×270：离线对局合成（状态 f，100 % 文字，模拟 buttonSecondary）缩小 4 倍 |
-| `…/glass/theme.json` | id `glass`、displayName 彩绘玻璃、order 5、preview true；24 个色板项加 4 个 W20X 项（生成器的 `PALETTE` 与 `W20X_TOKENS` 是唯一来源）。待定键 `buttonSecondary` 不写入（见下） |
+| `…/glass/preview.png` | 480×270：离线对局合成（状态 f，100 % 文字，buttonSecondary 取 `theme.json` 的值）缩小 4 倍 |
+| `…/glass/theme.json` | id `glass`、displayName 彩绘玻璃、order 5、preview true；24 个色板项、4 个 W20X 项加 W20Y 的 `buttonSecondary`（生成器的 `PALETTE`、`W20X_TOKENS` 与 `W20Y_TOKENS` 是唯一来源）。`buttonSecondary` 已写入 `theme.json`（W20Y 已合入，见下） |
 | `ArtSource/Art11/glass/contact_sheet.png` | build 的一部分：50 组 默认 / 彩绘玻璃 / 彩绘玻璃在桌面上（着色件乘典型色）；四张整屏合成（f 100 %、首领进行中 100 %、高压 100 %、f 150 %）；小图标在真实尺寸与宿主上（1 倍与 2 倍）；字标在纸面板上；桌面（静区、外接矩形、行动行空处标出）与 page_scene；色板与对比度；五张概念页 |
 | `ArtSource/Art11/glass/card_template_review.png` | W13 + W14 卡面模板复核图（`--card-review`，不属于 build）：商店 220×348、桌面 216×244、紧凑 280×117 × 常见 / 进阶 / 稀有 / 商品，紧凑卡的四条最短短文（C21、C22、C78、C79），商品行 452×103 / 448×121，1080p 与 720p，彩绘玻璃在左、默认在右；三种宝石 12–34 单位 |
 | `ArtSource/Art11/glass/review/` | 离线示意（`--review`，不属于 build），见“离线示意” |
@@ -103,7 +103,7 @@ WCAG 2 相对亮度；ΔE 为 CIE76，CIEDE2000 另注。`python tools/art_v11/g
 | buttonStep / buttonStepPrimary（W20X） | 8C6B33 / B08A3E | 按钮下的台阶是金色底座：玻璃块坐在金上 | 与面 CIEDE2000 ≥20，对桌面 ≥2.5 |
 | section（W20X） | FFFFFF | 商店分区保持烘焙（夜色面与细金框） | 分区中心 1E2036：muted 7.81，textColor 13.97 |
 | caption（W20X） | EBD6B0 | 羊皮纸标题条：商店分区标题与托盘的三个标签（决定 2） | 字取 ink 12.42 |
-| buttonSecondary（W20Y，**待定，未写入 theme.json**） | AC8442 | 琥珀金玻璃：每个 SolidButton11 的面（次要按钮、跳过演出、查看骰子、上一手明细、计分明细、商店按钮、价格按钮） | 见“次要按钮” |
+| buttonSecondary（W20Y，已写入 theme.json：W20Y 已合入） | AC8442 | 琥珀金玻璃：每个 SolidButton11 的面（次要按钮、跳过演出、查看骰子、上一手明细、计分明细、商店按钮、价格按钮） | 见“次要按钮” |
 
 ### 首领色（黑金的教训：离 primary、红骰点、pressure 各 ≥15 CIEDE2000）
 
@@ -120,9 +120,9 @@ WCAG 2 相对亮度；ΔE 为 CIE76，CIEDE2000 另注。`python tools/art_v11/g
 
 `palette_report()` 的 `boss chip … / red chip … (drawn)` 用与游戏相同的 LabelOn11 步进计算；测试另写一遍（`test_boss_stands_apart_from_primary_the_red_pips_and_pressure`）。示意：`review/boss_stage.png`（首领进行中，算式行“基础分 × 一对 × 满员”里首领因子紧挨着红色手型因子，100 % 与 150 %）、`play_c_*`、`play_boss_*`、`play_boss_play_*`；首领关按 `Art07Felt.shader` 压暗桌面（× 0.74 与暗角，近似）。
 
-### 次要按钮（buttonSecondary，W20Y 待定键）
+### 次要按钮（buttonSecondary，W20Y 键，已写入 theme.json）
 
-AC8442 照协调者的决定保留，只放在生成器的 `PENDING_TOKENS` 与本文，不写入 `theme.json`（本工作树的 `ThemePalette.cs` 还没有这个键：JsonUtility 会跳过它，结构测试也要求每个色板键都已声明）；合并时由协调者经生成器加入（例如让 `theme_json()` 把 `PENDING_TOKENS` 一并写入；`PENDING_TOKENS` 本身要留着，`review_glass.py`、`palette_report()` 与测试读它）。手改 `theme.json` 会让 `test_shipped_theme_json_matches_regeneration` 失败；交付的 PNG 不受影响。结构测试的可选键集合已含 `buttonSecondary`（与 `valueBadge`、`buttonStep`、`buttonStepPrimary`、`section`、`caption` 同列），必需键在 29 个声明键（合并前）与 30 个（合并后）时都是 24 个。所有画到它的示意都写着“simulated buttonSecondary AC8442”，停用的 SolidButton11 字按 W20Y2 的 `LabelOn11(face, Muted)` 画。
+AC8442 照协调者的决定保留，已写入 `theme.json`（W20Y 已合入）。第二阶段时它只放在生成器的待定色板 `PENDING_TOKENS` 与本文，不写入 `theme.json`（当时本工作树的 `ThemePalette.cs` 还没有这个键：JsonUtility 会跳过它，结构测试也要求每个色板键都已声明）。合并准备（2026-11-18）把 `codex/v1.1` `173b2be7` 并入本分支（`ThemePalette.Hexes` 声明 30 个键），待定色板改名为生成器的 `W20Y_TOKENS`，由 `theme_json()` 写入 `theme.json`（排在 W20X 四个键之后）；`full_palette()` 去掉 `pending` 开关，`review_glass.palette_of()` 直接用 `theme.json` 的色板，`palette_report()` 用色板里的值（色板缺这个键时取 `W20Y_TOKENS`）。`theme.json` 由生成器重建，没有手改（`test_shipped_theme_json_matches_regeneration`）；交付的 PNG 不变（示意本来就按这个值画）。示意说明里的 “simulated buttonSecondary AC8442 (pending W20Y key, not in theme.json)” 改为 “buttonSecondary AC8442 (W20Y key, set in theme.json)”，接触表的色板不再标 pending。结构测试的可选键集合仍含 `buttonSecondary`（与 `valueBadge`、`buttonStep`、`buttonStepPrimary`、`section`、`caption` 同列），必需键仍是 24 个；`test_theme_json_schema` 现在还要求它已在 `ThemePalette.Hexes` 声明、已写入 `theme.json`。停用的 SolidButton11 字按 W20Y2 的 `LabelOn11(face, Muted)` 画。
 
 | 量 | 值 | 目标 |
 | --- | --- | --- |
@@ -135,7 +135,7 @@ AC8442 照协调者的决定保留，只放在生成器的 `PENDING_TOKENS` 与�
 | 停用的字 LabelOn11(9A773D, Muted) | Muted 只有 2.02，不到 4.5；改取 ink（4.27），仍不到 4.95，LabelOn11 把面往白调 2 步成 A48450，ink 5.04 | 字与可用的一样是 ink（**不同字色这一条不满足**） |
 | 实际画出的停用面 A48450 与可用的面 | CIEDE2000 **3.33** | 按画出来的面算 **不到 5** |
 
-所以按协调者写的条件（lerp 的面差 ≥5，或字色不同）通过的是第一条：5.38。但 LabelOn11 会把停用面调亮 2 步，玩家看到的停用面与可用面只差 3.33，字都是 ink：停用态仍然不够明显（`review/secondary_states.png` 并排画了可用与停用，以及今天的 191929 作对照：那里停用字是 Muted、可用字是 textColor，一眼可分）。要在画出来的面上也 ≥5，只靠色板做不到：停用面里 75 % 是 AC8442，ink 要 4.95 就必须把面调回 AC8442 的亮度；要让 LabelOn11 改选浅色字（字色不同），停用面的亮度要降到约 0.15，panelLight 得接近黑色，那就不是古铜了，空道具环、普通关牌签、托盘边都会变。办法见“需要的决定”第 2 条。
+所以按协调者写的条件（lerp 的面差 ≥5，或字色不同）通过的是第一条：5.38。但 LabelOn11 会把停用面调亮 2 步，玩家看到的停用面与可用面只差 3.33，字都是 ink：停用态仍然不够明显（`review/secondary_states.png` 并排画了可用与停用，以及不设这个键时代码用的 191929 作对照：那里停用字是 Muted、可用字是 textColor，一眼可分）。要在画出来的面上也 ≥5，只靠色板做不到：停用面里 75 % 是 AC8442，ink 要 4.95 就必须把面调回 AC8442 的亮度；要让 LabelOn11 改选浅色字（字色不同），停用面的亮度要降到约 0.15，panelLight 得接近黑色，那就不是古铜了，空道具环、普通关牌签、托盘边都会变。办法见“需要的决定”第 2 条。
 
 ## 桌面（THEME_SPEC §3.1，第一阶段 1b，第二阶段未改）
 
@@ -187,13 +187,13 @@ AC8442 照协调者的决定保留，只放在生成器的 `PENDING_TOKENS` 与�
 
 ## 离线示意（`ArtSource/Art11/glass/review/`）
 
-全部是 Python 按游戏代码的排版模拟，不是 Unity 截图；卡名、短文、插画（彩绘玻璃风格包的锚点裁片）与价格是替身，3D 骰子是平面替身；画到 buttonSecondary 的图，说明里都写着 “simulated buttonSecondary AC8442”。
+全部是 Python 按游戏代码的排版模拟，不是 Unity 截图；卡名、短文、插画（彩绘玻璃风格包的锚点裁片）与价格是替身，3D 骰子是平面替身；画到 buttonSecondary 的图，说明里都写着 “buttonSecondary AC8442”（`theme.json` 里的值；W20Y 合并前写作 “simulated buttonSecondary AC8442”）。
 
 | 文件 | 内容 |
 | --- | --- |
 | `play_<状态>_<100|150>.png`、`play_states.png` | 9 个状态 × 两种文字大小：a（已选骰子）、b3（计分中）、c（首领关开始）、f（7 张卡、锁定 2 颗）、rolling（掷骰中）、qualified（已达标）、boss（满员提示，两行）、pressure（高压关）、boss_play（首领进行中，首领因子在算式行）；首领关按代码压暗桌面 |
 | `boss_stage.png` | 首领进行中 100 % 与 150 %，附首领色的距离与算式行两块筹码画出来的颜色 |
-| `secondary_states.png` | SolidButton11 可用与停用：模拟的 AC8442 与今天的 191929，各画在石板、彩窗、深色面板、顶栏与卡面羊皮纸上（停用字按 W20Y2；对局示意里没有停用的次要按钮，这里单独画） |
+| `secondary_states.png` | SolidButton11 可用与停用（行标 on / off）：buttonSecondary AC8442 与不设这个键时的 191929，各画在石板、彩窗、深色面板、顶栏与卡面羊皮纸上（停用字按 W20Y2；对局示意里没有停用的次要按钮，这里单独画） |
 | `card_rows.png` | 卡牌栏 0、3、5、7、10 张，100 % 与 150 %（多于 7 张或 150 % 多于 5 张时两排紧凑卡） |
 | `action_row.txt` | 每个状态与字号下，玫瑰窗左右两侧元素的边与是否空着 |
 | `shop_100.png` | W14 商店（`Shop14` S14，100 % 文字）画在 page_scene 上，W20X 乘色 |
@@ -223,7 +223,7 @@ AC8442 照协调者的决定保留，只放在生成器的 `PENDING_TOKENS` 与�
 
 ## 测试（`tests/test_art_v11_glass.py`，47 项）
 
-清单（50 件、55 张 PNG）与尺寸、RGBA、不全透明；着色件 R=G=B、白色实面、开口件中心全透明；九宫格中心从边距线起纯色（20 件）、横向切片中段逐列相同（4 件）；拉伸边带（9 个着色件沿边不变，11 个烘焙件沿边逐像素 ≤6 级）；**装字的 16 件每一边不厚于默认**（协调者的规则）、框在边距内、分区标题条 / 托盘标签 / 数值角标的字高；150 % 两行提示余量 ≥5 单位；7 件的角是 45° 直切角、8 件框角有金星；按钮与筹码两端是两道斜边的尖头（60 / 72 / 80 单位高时不缩）；卡保留宝石玻璃条、面板的宝石玻璃只在四个角块；金框有高光且受光边更亮；标题条左端开口、右端尖头在中线上，进度条两端尖；内层件不出宿主轮廓（稀有度环、本关牌双环、托盘环、商店标题条）；带字面板的对比度；锁与小图标在真实尺寸与宿主上（含待定的 buttonSecondary 面与乘字色的导航图标）；附魔章保留含义色与浅色符号；稀有度环带宽不超过默认、两侧铅线、对铅线 ≥3；宝石轮廓尖数、小尺寸可分、墨线与浅色切面；桌面尺寸、静区、石板整块 felt 色且外圈是金线、静区外是红蓝为主的彩窗、玫瑰窗是唯一的图形且在空处与外接矩形之外、外圈铅闭合；page_scene 是没有版面形状的同一种彩窗；felt_tile 无缝均匀；色板规则（AX-08、onFelt、pressure 警示色、稀有度、主按钮）；首领色（离 primary、红骰点、pressure ≥15，画出来的筹码也是）；待定的 buttonSecondary（值、对 felt / panel / background ≥3、字 ≥4.95、铅条对羊皮纸 ≥10）；停用的次要按钮可区分（面差 ≥5 或字色不同）；数值与警示角标；W20X 四个键；`theme.json` 结构（键名从 `ThemePalette.cs` 读取，可选键含 buttonSecondary）与生成一致；概念页 SHA 与来源表一致；字标用批准的标题字；两次完整重建逐字节一致且与交付件一致。
+清单（50 件、55 张 PNG）与尺寸、RGBA、不全透明；着色件 R=G=B、白色实面、开口件中心全透明；九宫格中心从边距线起纯色（20 件）、横向切片中段逐列相同（4 件）；拉伸边带（9 个着色件沿边不变，11 个烘焙件沿边逐像素 ≤6 级）；**装字的 16 件每一边不厚于默认**（协调者的规则）、框在边距内、分区标题条 / 托盘标签 / 数值角标的字高；150 % 两行提示余量 ≥5 单位；7 件的角是 45° 直切角、8 件框角有金星；按钮与筹码两端是两道斜边的尖头（60 / 72 / 80 单位高时不缩）；卡保留宝石玻璃条、面板的宝石玻璃只在四个角块；金框有高光且受光边更亮；标题条左端开口、右端尖头在中线上，进度条两端尖；内层件不出宿主轮廓（稀有度环、本关牌双环、托盘环、商店标题条）；带字面板的对比度；锁与小图标在真实尺寸与宿主上（含 buttonSecondary 面与乘字色的导航图标）；附魔章保留含义色与浅色符号；稀有度环带宽不超过默认、两侧铅线、对铅线 ≥3；宝石轮廓尖数、小尺寸可分、墨线与浅色切面；桌面尺寸、静区、石板整块 felt 色且外圈是金线、静区外是红蓝为主的彩窗、玫瑰窗是唯一的图形且在空处与外接矩形之外、外圈铅闭合；page_scene 是没有版面形状的同一种彩窗；felt_tile 无缝均匀；色板规则（AX-08、onFelt、pressure 警示色、稀有度、主按钮）；首领色（离 primary、红骰点、pressure ≥15，画出来的筹码也是）；buttonSecondary（已写入 `theme.json`，W20Y 已合入；值、对 felt / panel / background ≥3、字 ≥4.95、铅条对羊皮纸 ≥10）；停用的次要按钮可区分（面差 ≥5 或字色不同）；数值与警示角标；W20X 四个键；`theme.json` 结构（键名从 `ThemePalette.cs` 读取，可选键含 buttonSecondary；W20Y 的 buttonSecondary 须已声明、已写入）与生成一致；概念页 SHA 与来源表一致；字标用批准的标题字；两次完整重建逐字节一致且与交付件一致。
 
 ## 验收条件与结果
 
@@ -252,7 +252,7 @@ AC8442 照协调者的决定保留，只放在生成器的 `PENDING_TOKENS` 与�
 
 - 引擎里的样子：Unity 导入、毡面着色器的首领压暗与暗角叠在彩窗上（示意是近似）、真实 TMP 字形与行高、按钮悬停与按下的乘色、720p 与超宽屏。示意里的骰子是 2D 替身，卡面插画是风格包锚点裁片。
 - 紧凑卡的四条最短短文：只有离线估算（`card_template_review.png` 末尾的行），W20Xb 记录过漫画与唐三彩按镜像算也会在实机隐藏 C21、C22、C78、C79。
-- `buttonSecondary` 与停用字色（W20Y、W20Y2）只在示意里模拟，代码不在本工作树。
+- `buttonSecondary` 已写入 `theme.json`（W20Y 已合入），W20Y / W20Y2 的代码（含停用字色）随合并进入本分支；示意仍是 Python 模拟，这个键在 Unity 里的样子没有看过。
 - 附魔章：在当前代码里 `EnchantSprite` 先查 `UiKit.Template`，风格的章会生效；但整局结算、附魔提示等处的尺寸与底色没有逐一合成，只在卡面上（28 单位，羊皮纸）和接触表里看过。
 - 卡背、骰影、计分碎片（`fx_square_chip`）、弧（`fx_arc_short`）在示意里没有出现的场景（选卡、骰子样式页、连击爆点）没有合成；只在接触表里看过。
 - 彩窗在 720p 下铅线约 1.7 px、面板细金线约 1.3 px，没有实机看过是否发糊。
@@ -290,3 +290,9 @@ AC8442 照协调者的决定保留，只放在生成器的 `PENDING_TOKENS` 与�
 - 结构测试的可选键集合含 `buttonSecondary`。→ 照做（29 / 30 个声明键都通过）。
 - 桌面上的字低于 4.5:1 由 W15 / W16 处理，只报告数字；选关页“开始挑战”的字归 W16。→ 照做。
 - 黑金的教训：文字空间每边 ≤ 默认（超出先问）→ 10 件改薄，0 件超出，面板的宝石条是否要例外见“需要的决定”第 1 条；首领离 primary、红骰点、pressure ≥15 → 43.07 / 22.86 / 25.20；buttonSecondary 的对比与停用态 → 见“次要按钮”，panelLight 6B5632 → 64502F 使 lerp 面差 4.64 → 5.38。
+
+合并准备（协调者，2026-11-18；协调者告知第二阶段 `e8864baf` 已接受，合并步骤见 `codex/v1.1` 的 `docs/STATE.md`）：
+
+- 在本工作树合并 `codex/v1.1`（W20Y `05044756`、W20Y2 `1361b9e5`、测试与文档）；本包路径之外有冲突就停下报告。→ 合并 `codex/v1.1` `173b2be7`（与黑金同一个点），合并提交 `66846f5c`，无冲突；合并没有改动本包的路径（`ArtSource/Art11/glass/` 下只改了 `illustrations/` 的 job.json，不属于本包）；`tools/art_v11/theme_contract.json` 没有变（仍是起点 `cd2fedb3` 重建的那份）。
+- 把 `buttonSecondary` 从待定移入生成器的色板，由 build 写进 `theme.json`（不手改）；示意与报告照样能画，标注从 “simulated” 改为 “buttonSecondary”；README 里待定的说法改为已写入 theme.json（W20Y 已合入）。→ `PENDING_TOKENS` 改名 `W20Y_TOKENS`，`theme_json()` 把它写在 W20X 四个键之后；`full_palette()` 去掉 `pending` 开关；`review_glass.palette_of()` 直接用 `theme.json` 的色板；`palette_report()` 的键去掉 “(pending)”，“(today's label)” 改为 “(the label before W20Y2)”（W20Y2 已合入）；`secondary_states.png` 的行标从 “simulated AC8442 / today's 191929, enabled / disabled” 改为 “buttonSecondary AC8442 / unset 191929, on / off”（写成 enabled 会比 260 px 的行标栏宽），`notes.txt` 里对应的 “sim / today” 改为 “buttonSecondary / unset”；`test_button_secondary` 直接读 `theme.json`，`test_theme_json_schema` 另要求 W20Y 已声明这个键、`theme.json` 已写入（仍是 47 项）。
+- 重建并验证。→ `build_glass.py`、`--review`、`--card-review`（BelowNormal；开跑前没有 `V072BatchTests.Run` 的 Unity）。交付件里只有 `theme.json` 变了（多一个键）；50 张件、`table_scene`、`page_scene`、`felt_tile` 与 `preview.png` 逐字节不变。重画的只有说明或标签文字变了的图：接触表、卡面复核图、25 张示意与 `notes.txt`（逐像素对比 HEAD：差异在文字行里；只有接触表的小图标排因为金币那格的标签变短而左移，“gear 34 x label” 移到上一排，图标与底色本身不变）；四张 `beside_*.png` 与 `action_row.txt` 不变。`theme_contract.py audit glass --strict`：`50 sprites shipped, 0 referenced defaults not overridden`，`AUDIT_OK`；玻璃单测 `Ran 47 tests in 606.214s`，`OK`；全量 `Ran 381 tests in 1185.235s`，`OK`（0 失败、0 错误、0 跳过；开跑前与跑完时都没有 `V072BatchTests.Run` 的 Unity）。

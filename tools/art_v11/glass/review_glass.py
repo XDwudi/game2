@@ -3,10 +3,10 @@
     python tools/art_v11/glass/build_glass.py --review         # ArtSource/Art11/glass/review/ (reads the shipped kit)
     python tools/art_v11/glass/build_glass.py --card-review    # ArtSource/Art11/glass/card_template_review.png
 
-build_glass.py also calls build_outputs() during a build for preview.png and contact_sheet.png. The pending palette key
-buttonSecondary (code task W20Y, not in theme.json) is simulated and every caption that draws it says so; a disabled
-SolidButton11 takes its label from LabelOn11(face, Muted) (code task W20Y2), as the coordinator allowed. Names, texts,
-pictures (the glass StyleKit anchors) and dice (2D stand-ins for the 3D dice) are stand-ins.
+build_glass.py also calls build_outputs() during a build for preview.png and contact_sheet.png. The palette key
+buttonSecondary (code task W20Y) is set in theme.json since W20Y landed, and every caption that draws it names it
+("simulated" while it was pending); a disabled SolidButton11 takes its label from LabelOn11(face, Muted) (code task
+W20Y2). Names, texts, pictures (the glass StyleKit anchors) and dice (2D stand-ins for the 3D dice) are stand-ins.
 """
 from __future__ import annotations
 
@@ -28,9 +28,8 @@ ROOT = bg.ROOT
 OUT = ROOT / bg.REVIEW / "review"
 THEME = ROOT / bg.THEME
 LABEL, NOTE, DARK_BG = (246, 240, 222), (200, 192, 176), (20, 20, 28)
-SIMULATED = ("simulated buttonSecondary " + bg.PENDING_TOKENS["buttonSecondary"] +
-             " (pending W20Y key, not in theme.json): every SolidButton11 face; disabled labels by LabelOn11(face, Muted)"
-             " (W20Y2)")
+SECONDARY = ("buttonSecondary " + bg.W20Y_TOKENS["buttonSecondary"] +
+             " (W20Y key, set in theme.json): every SolidButton11 face; disabled labels by LabelOn11(face, Muted) (W20Y2)")
 PLAY_STATES = ("a", "b3", "c", "f", "rolling", "qualified", "boss", "pressure", "boss_play")
 STATE_NAMES = {"a": "a: dice selected", "b3": "b3: scoring", "c": "c: boss stage, first roll", "f": "f: 7 cards, 2 locked",
                "rolling": "rolling", "qualified": "target reached", "boss": "boss (full-tray rule, two-line hint)",
@@ -38,11 +37,9 @@ STATE_NAMES = {"a": "a: dice selected", "b3": "b3: scoring", "c": "c: boss stage
 
 
 def palette_of(theme_json: Path | None = None) -> dict:
-    """theme.json's palette plus the pending keys (simulated)."""
+    """theme.json's palette (buttonSecondary included since W20Y landed)."""
     path = theme_json or THEME / "theme.json"
-    palette = json.loads(path.read_text(encoding="utf-8"))["palette"]
-    palette.update(bg.PENDING_TOKENS)
-    return palette
+    return json.loads(path.read_text(encoding="utf-8"))["palette"]
 
 
 def load():
@@ -521,11 +518,11 @@ def text_room_frames(kit: bg.Kit, table: Image.Image, page: Image.Image, palette
 
 
 def secondary_states(kit: bg.Kit, table: Image.Image, palette: dict) -> tuple[Image.Image, list[str]]:
-    """SolidButton11 enabled and disabled (a quarter toward panelLight; W20Y2's LabelOn11(face, Muted) label), with the
-    simulated buttonSecondary and with today's lerp(Background, Panel, .55), on the hosts it sits on: the slate, the
-    mosaic, a dark panel, the top bar, the parchment of a card."""
+    """SolidButton11 enabled and disabled (a quarter toward panelLight; W20Y2's LabelOn11(face, Muted) label), with
+    buttonSecondary and, for comparison, unset (the code's lerp(Background, Panel, .55)), on the hosts it sits on: the
+    slate, the mosaic, a dark panel, the top bar, the parchment of a card."""
     P = dict(palette)
-    today = {k: v for k, v in P.items() if k != "buttonSecondary"}
+    unset = {k: v for k, v in P.items() if k != "buttonSecondary"}
     hosts = (("slate (felt)", P["felt"]), ("mosaic (action row)", None), ("dark panel", bg.drawn(kit.centre("ui_panel_hud"), "FFFFFF")),
              ("top bar", bg.drawn(kit.centre("ui_topbar"), P["panel"])), ("parchment (card)", P["paper"]))
     cell_w, cell_h = 300, 96
@@ -536,8 +533,8 @@ def secondary_states(kit: bg.Kit, table: Image.Image, palette: dict) -> tuple[Im
         x = i * cell_w
         if host is not None:
             c.fill(x, 0, cell_w, 4 * cell_h, host)
-        for j, (pal, enabled, tag) in enumerate(((P, True, "sim"), (P, False, "sim"), (today, True, "today"),
-                                                 (today, False, "today"))):
+        for j, (pal, enabled, tag) in enumerate(((P, True, "buttonSecondary"), (P, False, "buttonSecondary"),
+                                                 (unset, True, "unset"), (unset, False, "unset"))):
             notes: list = []
             bg.solid_button(c, kit, pal, x + 18, j * cell_h + 14, cell_w - 36, 68, "重掷 · 还能掷 2", 21, enabled=enabled,
                             notes=notes, name=f"{tag} {'enabled' if enabled else 'disabled'}")
@@ -549,8 +546,9 @@ def secondary_states(kit: bg.Kit, table: Image.Image, palette: dict) -> tuple[Im
     d = ImageDraw.Draw(out)
     for i, (name, _) in enumerate(hosts):
         d.text((260 + i * cell_w + 8, 6), name, fill=LABEL, font=f)
-    for j, label in enumerate(("simulated AC8442, enabled", "simulated AC8442, disabled", "today's 191929, enabled",
-                               "today's 191929, disabled")):
+    sec, fallback = bg.secondary_face(P), bg.secondary_face(unset)
+    for j, label in enumerate((f"buttonSecondary {sec}, on", f"buttonSecondary {sec}, off", f"unset {fallback}, on",
+                               f"unset {fallback}, off")):
         d.text((8, 30 + j * cell_h + 36), label, fill=LABEL, font=f)
     out.paste(im, (260, 30))
     return out, lines
@@ -579,7 +577,7 @@ def contact_sheet(kit: bg.Kit, table: Image.Image, page: Image.Image, palette: d
     d = ImageDraw.Draw(sheet)
     title, f, small = font(30, cjk=True), font(16), font(13, cjk=True)
     d.text((24, 14), "W20 GLASS (彩绘玻璃) CONTACT SHEET - offline emulation, not Unity captures", fill=LABEL, font=title)
-    d.text((24, 54), SIMULATED, fill=NOTE, font=small)
+    d.text((24, 54), SECONDARY, fill=NOTE, font=small)
     y = 84
     cell, per_row = 140, 5
     group_w = 3 * cell + 24
@@ -635,7 +633,7 @@ def contact_sheet(kit: bg.Kit, table: Image.Image, page: Image.Image, palette: d
     sec = bg.secondary_face(P)
     well = kit.centre("ui_info_inset")
     cases = (("ui_icon_lock", (20, 22), P["background"], None, "lock 20x22 on Background (unusable item)"),
-             ("ui_icon_coin", (26, 26), sec, None, "coin 26 on the price button (sim. buttonSecondary)"),
+             ("ui_icon_coin", (26, 26), sec, None, "coin 26 on the price button (buttonSecondary)"),
              ("ui_icon_coin", (36, 36), P["panel"], None, "coin 36 on the top bar"),
              ("ui_icon_roll", (36, 36), well, None, "roll cup 36 in the roll well"),
              ("ui_icon_dice_view", (40, 40), sec, None, "查看骰子 40 on the secondary face"),
@@ -696,14 +694,14 @@ def contact_sheet(kit: bg.Kit, table: Image.Image, page: Image.Image, palette: d
     d.text((24 + 780 + 812, y + 456), "page_scene (the non-play screens)", fill=NOTE, font=small)
     y += 480
     # Palette.
-    d.text((24, y), "PALETTE (theme.json, W20X keys; buttonSecondary pending, simulated)", fill=LABEL, font=f)
+    d.text((24, y), "PALETTE (theme.json, W20X keys; buttonSecondary set, W20Y)", fill=LABEL, font=f)
     y += 26
-    keys = list(bg.PALETTE) + list(bg.W20X_TOKENS) + list(bg.PENDING_TOKENS)
+    keys = list(bg.PALETTE) + list(bg.W20X_TOKENS) + list(bg.W20Y_TOKENS)
     for i, key in enumerate(keys):
         sx, sy = 24 + (i % 10) * 236, y + (i // 10) * 64
         value = P[key]
         d.rectangle((sx, sy, sx + 52, sy + 48), fill=bg.rgb8(value), outline=(90, 90, 100))
-        d.text((sx + 60, sy + 4), key + (" (pending)" if key in bg.PENDING_TOKENS else ""), fill=LABEL, font=small)
+        d.text((sx + 60, sy + 4), key, fill=LABEL, font=small)
         d.text((sx + 60, sy + 24), value, fill=NOTE, font=small)
     y += math.ceil(len(keys) / 10) * 64 + 10
     report = bg.palette_report(P)
@@ -726,7 +724,7 @@ def contact_sheet(kit: bg.Kit, table: Image.Image, page: Image.Image, palette: d
 
 def build_outputs(sprites: dict, table: Image.Image, page: Image.Image) -> tuple[Image.Image, Image.Image]:
     """For build_glass.build(): the preview's source (play f at 100 %) and the contact sheet, drawn from the sprites the build
-    just rendered (theme.json's palette from the generator, plus the simulated pending key)."""
+    just rendered (theme.json's palette from the generator, buttonSecondary included)."""
     kit = bg.Kit(sprites=sprites)
     palette = bg.full_palette()
     mocks = {}
@@ -772,7 +770,7 @@ def card_template_review() -> tuple[Image.Image, list[str]]:
     f, small, title, tiny = font(19), font(15), font(30), font(13)
     d.text((24, 14), "CARD TEMPLATE (W13 + W14 E1-E3): GLASS (left) | DEFAULT (right)", fill=LABEL, font=title)
     d.text((24, 54), "Offline emulation of GameApp.Card11 DrawCard13: sprites sampled bilinear without mipmaps, tinted and "
-                     "blended in linear light; not a Unity capture. Glass price buttons: " + SIMULATED, fill=NOTE, font=small)
+                     "blended in linear light; not a Unity capture. Glass price buttons: " + SECONDARY, fill=NOTE, font=small)
     d.text((24, 74), "Names, short texts, pictures (glass StyleKit anchor crops for both styles) and prices are stand-ins. "
                      "Goods (no rarity): Ghost ring, no gem.", fill=NOTE, font=small)
     d.text((24, 94), "Compact short texts: shown only when the whole text fits at the body size; the four shortest "
@@ -885,7 +883,7 @@ def main(argv: list[str], out: Path = OUT):
             lines = [f"OFFLINE MOCK (Python emulation of GameApp.Play11, not a Unity capture): state {STATE_NAMES[state]}, "
                      f"{150 if large else 100} % text, over Table/table_scene.png"
                      + (" dimmed as the felt shader does on a boss stage" if state in bg.BOSS_STATES else ""),
-                     SIMULATED, hint_room(meas, kit), fallback_note(kit)]
+                     SECONDARY, hint_room(meas, kit), fallback_note(kit)]
             save(caption_bar(im, lines), out / (tag + ".png"))
             report.append(f"[{tag}] " + hint_room(meas, kit))
             report.extend(f"[{tag}] {n}" for n in dict.fromkeys(notes))
@@ -898,19 +896,19 @@ def main(argv: list[str], out: Path = OUT):
             im = plays[f"play_{state}_{150 if large else 100}"].resize((640, 360), Image.Resampling.LANCZOS)
             sheet.paste(im, (j * 652, i * 386 + 26))
             sd.text((j * 652 + 6, i * 386 + 4), f"{STATE_NAMES[state]}, {150 if large else 100} %", fill=LABEL, font=f)
-    save(caption_bar(sheet, ["OFFLINE MOCKS: every play state at 100 % (left) and 150 % (right) text", SIMULATED]),
+    save(caption_bar(sheet, ["OFFLINE MOCKS: every play state at 100 % (left) and 150 % (right) text", SECONDARY]),
          out / "play_states.png")
     rows = card_rows(kit, table, palette)
     save(caption_bar(rows, ["OFFLINE MOCK: the card row with 0, 3, 5, 7 and 10 cards (GameApp.Play11 DrawCards11), y 76-352 of "
                             "the play screen; under the card row the table is the mosaic texture only (no large decoration)",
-                            SIMULATED]), out / "card_rows.png")
+                            SECONDARY]), out / "card_rows.png")
     boss, boss_lines = boss_stage(kit, table, palette)
     save(caption_bar(boss, ["OFFLINE MOCK: the boss stage in play (final tier), 100 % | 150 % text; the table dimmed as the felt "
-                            "shader does (x .74 and the vignette, approximated)", SIMULATED] + boss_lines), out / "boss_stage.png")
+                            "shader does (x .74 and the vignette, approximated)", SECONDARY] + boss_lines), out / "boss_stage.png")
     report.extend("[boss_stage] " + line for line in boss_lines)
     states, state_lines = secondary_states(kit, table, palette)
     save(caption_bar(states, ["OFFLINE MOCK: SolidButton11 enabled and disabled (a quarter toward panelLight; the disabled label "
-                              "by LabelOn11(face, Muted), W20Y2, which may lighten the face)", SIMULATED] + state_lines),
+                              "by LabelOn11(face, Muted), W20Y2, which may lighten the face)", SECONDARY] + state_lines),
          out / "secondary_states.png")
     report.extend("[secondary_states] " + line for line in state_lines)
     action = action_row_table()
@@ -918,14 +916,14 @@ def main(argv: list[str], out: Path = OUT):
     notes = []
     shop = shop_mock(kit, page, palette, notes)
     save(caption_bar(shop, ["OFFLINE MOCK (Python emulation of GameApp.Shop14 W14, 100 % text, not a Unity capture) over "
-                            "Table/page_scene.png, with the W20X tints: section, caption, buttonStepPrimary", SIMULATED,
+                            "Table/page_scene.png, with the W20X tints: section, caption, buttonStepPrimary", SECONDARY,
                             fallback_note(kit)]), out / "shop_100.png")
     report.extend(f"[shop_100] {n}" for n in dict.fromkeys(notes))
     notes = []
     select = select_mock(kit, page, palette, notes)
     save(caption_bar(select, ["OFFLINE MOCK (Python emulation of GameApp.V10 StagePreview10, 100 % text, not a Unity capture) "
                               "over Table/page_scene.png; the chapter, budget and order texts are drawn on the table as the "
-                              "code does (W16 moves them onto panels); 开始挑战 keeps ActionButton's Ink label (W16)", SIMULATED,
+                              "code does (W16 moves them onto panels); 开始挑战 keeps ActionButton's Ink label (W16)", SECONDARY,
                               fallback_note(kit)]), out / "select_100.png")
     report.extend(f"[select_100] {n}" for n in dict.fromkeys(notes))
     save(beside_concept("roll", [("MOCK play state a, 100 % text", plays["play_a_100"]),
@@ -936,7 +934,7 @@ def main(argv: list[str], out: Path = OUT):
                                      ("MOCK pressure stage, 150 % text", plays["play_pressure_150"])]), out / "beside_triptych.png")
     save(caption_bar(text_room_frames(kit, table, page, palette),
                      ["FOR A DECISION: panel frames within the default's FrameInsets11 (shipped) or phase 1b's jewel-strip "
-                      "frames (over the default; the coordinator's rule asks before going over)", SIMULATED]),
+                      "frames (over the default; the coordinator's rule asks before going over)", SECONDARY]),
          out / "text_room_frames.png")
     (out / "notes.txt").write_text("\n".join(report + [""] + action) + "\n", encoding="utf-8", newline="\n")
     for line in report + action:

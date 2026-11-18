@@ -105,16 +105,16 @@ W20X_TOKENS = {
     "section": "FFFFFF",             # ui_section_panel is authored (gilt frame, night-glass face): drawn as it is
     "caption": "EBD6B0",             # parchment captions: the shop's section strips and the dice-pool tabs
 }
-# Pending palette keys (coordinator 2026-11-18): code task W20Y adds `buttonSecondary`, the face tint of every
-# SolidButton11 (secondary action, Skip, 查看骰子, 上一手明细, score-detail chips, shop buttons, price buttons). This
-# worktree's ThemePalette.cs does not declare it yet, so theme.json must not carry it (the schema test would fail); the
-# coordinator adds it at merge time. The offline mocks draw it, labelled "simulated buttonSecondary".
+# THEME_SPEC 2 W20Y key (coordinator 2026-11-18): code task W20Y adds `buttonSecondary`, the face tint of every
+# SolidButton11 (secondary action, Skip, 查看骰子, 上一手明细, score-detail chips, shop buttons, price buttons). Set in
+# theme.json since W20Y landed (W20Y 05044756 declares it in ThemePalette.Hexes; merged into this branch for the kit
+# merge, 2026-11-18); until then it was a pending key, drawn in the offline mocks as "simulated buttonSecondary".
 # AC8442 (amber glass): label ink 5.15 (LabelOn11, >= 4.95), on felt 4.24, on panel (dark panels, top bar) 4.66, on the
 # background 5.48; on paper 2.62 - under 3:1, the chip's black lead outline gives the boundary on parchment (16:1). With
 # this palette no face reaches 3:1 on felt and on paper and also takes a 4.95 label. Disabled (a quarter toward
 # panelLight): 9A773D, 5.38 CIEDE2000 from the enabled face; LabelOn11(face, Muted) lightens it 2 steps to A48450 (3.33)
 # and picks ink like the enabled label (README, "buttonSecondary").
-PENDING_TOKENS = {
+W20Y_TOKENS = {
     "buttonSecondary": "AC8442",
 }
 THEME_META = {
@@ -2144,8 +2144,8 @@ def button(c: Canvas, kit: Kit, P: dict, x, y, w, h, face: str, label: str, size
 def solid_button(c: Canvas, kit: Kit, P: dict, x, y, w, h, label: str, size: float, enabled: bool = True,
                  notes: list | None = None, name: str = "solid button", icon: str | None = None, spacing: float = 0,
                  icon_tinted: bool = True):
-    """GameApp.SolidButton11: ui_chip_formula times the face tint - W20Y's pending buttonSecondary when the palette carries
-    it (simulated in these mocks), else lerp(Background, Panel, .55); a disabled one a quarter toward PanelLight - the label
+    """GameApp.SolidButton11: ui_chip_formula times the face tint - W20Y's buttonSecondary when the palette carries it
+    (theme.json sets it), else lerp(Background, Panel, .55); a disabled one a quarter toward PanelLight - the label
     LabelOn11 picks (preferring textColor; W20Y2: LabelOn11(face, Muted) when disabled, which may move the face a few 5 %
     steps), centred on the whole chip (FlatButton's label). ShopButton14's nav icon takes the label's colour; the play
     screen's 查看骰子 icon is drawn white (icon_tinted False)."""
@@ -2393,14 +2393,13 @@ def boss_table(table: Image.Image) -> Image.Image:
     return Image.fromarray(np.clip(np.rint(_gam_arr(lin) * 255), 0, 255).astype(np.uint8), "RGB")
 
 
-def full_palette(pending: bool = True) -> dict:
-    """The palette the composites draw with: theme.json's tokens, plus the pending keys (W20Y's buttonSecondary) unless
-    pending is False. theme.json never carries the pending keys."""
-    return dict(PALETTE, **W20X_TOKENS, **(PENDING_TOKENS if pending else {}))
+def full_palette() -> dict:
+    """The palette the composites draw with: theme.json's tokens (PALETTE, the W20X keys and W20Y's buttonSecondary)."""
+    return dict(PALETTE, **W20X_TOKENS, **W20Y_TOKENS)
 
 
 def secondary_face(P: dict) -> str:
-    """SolidButton11's face tint: the theme's buttonSecondary (W20Y, pending) or the code's lerp(Background, Panel, .55)."""
+    """SolidButton11's face tint: the theme's buttonSecondary (W20Y) or, unset, the code's lerp(Background, Panel, .55)."""
     return P.get("buttonSecondary") or lerp_hex(P["background"], P["panel"], .55)
 
 
@@ -2816,15 +2815,16 @@ def palette_report(palette: dict | None = None, label_face: str | None = None, s
     out[f"boss chip {boss_plate} / primary dE00 (drawn)"] = de00(boss_plate, p["primary"])
     out[f"boss chip label {boss_label} (drawn)"] = contrast(boss_label, boss_plate)
     out["boss/danger dE00"] = de00(p["boss"], p["danger"])
-    # W20Y's pending buttonSecondary (not in theme.json): the SolidButton11 face on the table (felt and mosaic), the dark
-    # panels and the top bar (panel), the page background, the parchment; its label (LabelOn11 preferring textColor);
-    # the disabled face, a quarter toward panelLight, with W20Y2's LabelOn11(face, Muted) label.
-    sec = p.get("buttonSecondary") or PENDING_TOKENS.get("buttonSecondary")
+    # W20Y's buttonSecondary (set in theme.json since W20Y landed; the generator's value if a palette lacks it): the
+    # SolidButton11 face on the table (felt and mosaic), the dark panels and the top bar (panel), the page background,
+    # the parchment; its label (LabelOn11 preferring textColor); the disabled face, a quarter toward panelLight, with
+    # W20Y2's LabelOn11(face, Muted) label.
+    sec = p.get("buttonSecondary") or W20Y_TOKENS.get("buttonSecondary")
     if sec:
-        out[f"buttonSecondary {sec}/felt (pending)"] = contrast(sec, p["felt"])
-        out[f"buttonSecondary {sec}/panel = top bar, dark panels (pending)"] = contrast(sec, p["panel"])
-        out[f"buttonSecondary {sec}/background (pending)"] = contrast(sec, p["background"])
-        out[f"buttonSecondary {sec}/paper (pending)"] = contrast(sec, p["paper"])
+        out[f"buttonSecondary {sec}/felt"] = contrast(sec, p["felt"])
+        out[f"buttonSecondary {sec}/panel = top bar, dark panels"] = contrast(sec, p["panel"])
+        out[f"buttonSecondary {sec}/background"] = contrast(sec, p["background"])
+        out[f"buttonSecondary {sec}/paper"] = contrast(sec, p["paper"])
         on_label, on_tint, on_steps = label_on11(chip_white, sec, p, p["textColor"])
         out[f"buttonSecondary label {on_label} (LabelOn11, steps {on_steps})"] = contrast(on_label, drawn(chip_white, on_tint))
         off = lerp_hex(sec, p["panelLight"], .25)
@@ -2834,7 +2834,7 @@ def palette_report(palette: dict | None = None, label_face: str | None = None, s
             de00(sec, off_tint)
         out[f"disabled buttonSecondary label {off_label} (LabelOn11 Muted)"] = contrast(off_label, drawn(chip_white, off_tint))
         out["disabled buttonSecondary: label differs from the enabled label"] = float(off_label != on_label)
-        out[f"muted/disabled buttonSecondary {off} (today's label)"] = contrast(p["muted"], off)
+        out[f"muted/disabled buttonSecondary {off} (the label before W20Y2)"] = contrast(p["muted"], off)
     return out
 
 
@@ -2871,7 +2871,7 @@ def label_on11(face: str, tint: str, palette: dict, preferred: str | None = None
 # ---------------------------------------------------------------------------------------------- build
 def theme_json() -> str:
     data = dict(THEME_META)
-    data["palette"] = dict(PALETTE, **W20X_TOKENS)
+    data["palette"] = dict(PALETTE, **W20X_TOKENS, **W20Y_TOKENS)
     return json.dumps(data, ensure_ascii=False, indent=2) + "\n"
 
 
