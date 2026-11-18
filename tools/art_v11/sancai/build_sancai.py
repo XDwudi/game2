@@ -1670,8 +1670,14 @@ def render_sprite(spec: dict) -> Image.Image:
     return icon(spec)
 
 
+# W14's shop stopped drawing these three; the contract regenerated on 2026-11-18 lists them as unreferenced.
+# Coordinator decision (2026-11-18): this finished kit keeps them, so its outputs stay byte-identical.
+KEPT_UNREFERENCED = frozenset({"ui_price_chip", "ui_pedestal", "ui_frame_enchant"})
+
+
 def contract_sprites() -> list[dict]:
-    return [s for s in json.loads(CONTRACT.read_text(encoding="utf-8"))["sprites"] if s["referenced"]]
+    return [s for s in json.loads(CONTRACT.read_text(encoding="utf-8"))["sprites"]
+            if s["referenced"] or s["name"] in KEPT_UNREFERENCED]
 
 
 # ---------------------------------------------------------------------------------------------- table

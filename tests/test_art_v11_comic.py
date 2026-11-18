@@ -20,7 +20,10 @@ ROOT = Path(__file__).resolve().parents[1]
 THEME = Path("DicePrototype/Assets/Resources/Themes/comic")
 REVIEW = Path("ArtSource/Art11/comic/contact_sheet.png")
 CONTRACT = json.loads((ROOT / "tools/art_v11/theme_contract.json").read_text(encoding="utf-8"))
-SPRITES = [sprite for sprite in CONTRACT["sprites"] if sprite["referenced"]]
+# W14's shop stopped drawing these three; the contract regenerated on 2026-11-18 lists them as unreferenced (53 -> 50).
+# This kit was built before that and still ships them, so its checks keep covering them (STATE, W14 decision 4).
+KEPT_UNREFERENCED = {"ui_price_chip", "ui_pedestal", "ui_frame_enchant"}
+SPRITES = [sprite for sprite in CONTRACT["sprites"] if sprite["referenced"] or sprite["name"] in KEPT_UNREFERENCED]
 BY_NAME = {sprite["name"]: sprite for sprite in SPRITES}
 
 # Written from the game's callers, independently of the generator: pieces the code multiplies by palette colours

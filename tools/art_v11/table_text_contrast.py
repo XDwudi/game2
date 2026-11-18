@@ -13,9 +13,11 @@ pixel of the text's rectangle.
 Two mappings of the picture onto the screen:
   authored  (default) the picture laid over the 1920x1080 design, pixel for pixel (a picture of another size is scaled
             to it), which is how THEME_SPEC 3 defines it;
-  drawn     what the felt shader (Art07Felt) draws today: it fits the picture by the aspect of the imported texture, and
-            the theme importer scales a 1920x1080 picture to 2048x1024 (nPOTScale ToNearest), so the picture is squeezed
-            to 960 rows with a band of felt x 0.24 above and below.
+  drawn     what the felt shader (Art07Felt) drew before W20Xb: it fits the picture by the aspect of the imported
+            texture, and the theme importer then scaled a 1920x1080 picture to 2048x1024 (nPOTScale ToNearest), so the
+            picture was squeezed to 960 rows with a band of felt x 0.24 above and below. Since W20Xb (6904b9c5) theme
+            pictures import at their native size and the game draws the authored mapping; drawn is kept only to compare
+            with captures taken before that fix.
 The felt shader also adds a 0.6 % grain and, without reduced motion, a slow light sweep of at most +4.5 %; neither is
 modelled.
 

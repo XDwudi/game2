@@ -82,7 +82,7 @@
 | `Table/page_scene.png` | 非对局画面的桌面（可选，W20X 起使用，`33d6d926` 实现；模态框跟随其下的画面，各画面用哪张见 [W20X 报告](W20X_REPORT.md) §3） | 1920×1080。不提供时所有画面都用 `table_scene`（现状）。对局画面和画着对局版面的画面（如结算背景）始终用 `table_scene` |
 | `preview.png` | 设置页预览 | 480×270 |
 
-默认件清单由脚本生成：`python tools/art_v11/theme_contract.py contract` 读取 Bootstrap 场景里 `art07Templates` 的实际内容，写出 `tools/art_v11/theme_contract.json`（2026-11-16：86 张，其中 49 张被代码按名称或名称前缀引用）。另外 37 张目前没有代码直接引用，风格可以不提供。
+默认件清单由脚本生成：`python tools/art_v11/theme_contract.py contract` 读取 Bootstrap 场景里 `art07Templates` 的实际内容，写出 `tools/art_v11/theme_contract.json`。2026-11-18 重新生成：94 张，其中 50 张被代码按名称或名称前缀引用，另外 44 张没有代码直接引用，风格可以不提供。W14 的商店不再使用 `ui_price_chip`、`ui_pedestal`、`ui_frame_enchant`，所以这三张已转为没有引用。瑞士、唐三彩、爆彩漫画是在这之前做的，仍带着这三张，无害；黑金与彩绘玻璃不必画。
 
 ### 3.1 桌面构图（协调者 2026-11-17）
 
