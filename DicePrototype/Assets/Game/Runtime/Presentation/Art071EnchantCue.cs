@@ -16,9 +16,9 @@ namespace DiceCraft.Presentation
     {
         private enum Kind { None, Base, Multiplier, Slotless, Submission, Roll }
         private const int PaperCount = 4, ArcSegments = 8;
-        private static readonly Color Mint = new Color32(0x79, 0xC9, 0x9C, 0xFF);
-        private static readonly Color Violet = new Color32(0xAD, 0x92, 0xDB, 0xFF);
-        private static readonly Color Paper = new Color32(0xF4, 0xE8, 0xCB, 0xFF);
+        // V1.1 (W20Xb, THEME_SPEC §1, §5): the colours are read from the active palette when the cue is drawn (Tick):
+        // the base papers teal, the multiplier arc violet, the open-slot edges paper. The default palette has the values
+        // these effects were drawn with before (79C99C, AD92DB, F4E8CB).
         private readonly UnityEngine.UI.Image[] papers = new UnityEngine.UI.Image[PaperCount];
         private readonly UnityEngine.UI.Image[] arcLines = new UnityEngine.UI.Image[ArcSegments];
         private readonly UnityEngine.UI.Image[] edges = new UnityEngine.UI.Image[4];
@@ -114,6 +114,7 @@ namespace DiceCraft.Presentation
         public void Tick(float normalized01)
         {
             if (!IsBound) return;
+            ApplyPalette();
             float t = float.IsNaN(normalized01) ? 0 : Mathf.Clamp01(normalized01);
             NormalizedTime = t;
             group.alpha = t < .7f ? 1 : Mathf.Clamp01((1 - t) / .3f);
@@ -175,14 +176,25 @@ namespace DiceCraft.Presentation
             if (built) return;
             group = GetComponent<CanvasGroup>();
             group.interactable = group.blocksRaycasts = false;
-            for (int i = 0; i < PaperCount; i++) papers[i] = Graphic("MintPaper" + i, Mint);
-            for (int i = 0; i < ArcSegments; i++) arcLines[i] = Graphic("VioletArcSegment" + i, Violet);
-            for (int i = 0; i < 4; i++) edges[i] = Graphic("OpenSlotEdge" + i, Paper);
+            for (int i = 0; i < PaperCount; i++) papers[i] = Graphic("MintPaper" + i, UiKit.Teal);
+            for (int i = 0; i < ArcSegments; i++) arcLines[i] = Graphic("VioletArcSegment" + i, UiKit.Violet);
+            for (int i = 0; i < 4; i++) edges[i] = Graphic("OpenSlotEdge" + i, UiKit.Paper);
             ticket = Graphic("SubmissionTicket", Color.white);
             cup = Graphic("RollCup", Color.white);
-            arc = Graphic("MultiplierArc", Violet);
+            arc = Graphic("MultiplierArc", UiKit.Violet);
             ticket.preserveAspect = cup.preserveAspect = arc.preserveAspect = true;
             built = true;
+        }
+
+        /// <summary>The palette colours at draw time (a theme switch reaches a pooled or running cue on its next tick).
+        /// Setting an unchanged colour does not rebuild the mesh.</summary>
+        private void ApplyPalette()
+        {
+            Color teal = UiKit.Teal, violet = UiKit.Violet, paper = UiKit.Paper;
+            foreach (var image in papers) image.color = teal;
+            foreach (var image in arcLines) image.color = violet;
+            foreach (var image in edges) image.color = paper;
+            arc.color = violet;
         }
 
         private UnityEngine.UI.Image Graphic(string objectName, Color tint)

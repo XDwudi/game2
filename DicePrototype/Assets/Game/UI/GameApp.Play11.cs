@@ -379,7 +379,8 @@ namespace DiceCraft
             {
                 var rest=h.currentResults.Where(r=>r.hasRolled&&!r.isLocked).ToArray();
                 string summaryText="留池 "+rest.Length+" 颗 · 点数和 "+rest.Sum(r=>r.currentPip)+" · 红 "+rest.Count(r=>r.currentColor=="red")+" · 6点 "+rest.Count(r=>r.currentPip==6);
-                float sw=c?620:500;var chip=Surface11(main,"PoolSummaryTab11",l.tray.xMax-24-sw,l.tray.y-14,sw,34,"ui_chip_formula",UiKit.Panel);
+                // The pool summary is a tab on the rim like the title tab (W20Xb: caption, Panel when the theme sets none).
+                float sw=c?620:500;var chip=Surface11(main,"PoolSummaryTab11",l.tray.xMax-24-sw,l.tray.y-14,sw,34,"ui_chip_formula",UiKit.Caption(UiKit.Panel));
                 TabLabel11(chip,"PoolSummary09",summaryText,Body11(c?16:19),LabelOn11(chip,UiKit.Teal),6);
             }
             // One row of up to ten dice (a page). Five or fewer stand at about 1.5x the v1.0 size; more share the row's width
@@ -397,7 +398,8 @@ namespace DiceCraft
             {
                 float pageSize=Mathf.Max(60,40/Mathf.Max(.1f,canvas.scaleFactor));
                 UiKit.Button(main,"PoolPage",">",l.dice.x,l.dice.y+8,pageSize,pageSize,()=>{poolPage=(poolPage+1)%((dice.Count+9)/10);Refresh();});
-                var tag=Surface11(main,"PoolPageTab11",l.dice.x,l.dice.y+12+pageSize,pageSize,36,"ui_chip_formula",UiKit.Panel);
+                // W20Xb: the page tab looks like the tray's other two tabs (caption, Panel when the theme sets none).
+                var tag=Surface11(main,"PoolPageTab11",l.dice.x,l.dice.y+12+pageSize,pageSize,36,"ui_chip_formula",UiKit.Caption(UiKit.Panel));
                 TabLabel11(tag,"PoolPageIndex",(poolPage+1)+" / "+((dice.Count+9)/10),16,LabelOn11(tag,UiKit.Muted));
             }
         }

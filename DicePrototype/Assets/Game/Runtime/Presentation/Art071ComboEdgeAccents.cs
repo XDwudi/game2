@@ -16,7 +16,8 @@ namespace DiceCraft.Presentation
         private readonly List<Rect> forbidden=new List<Rect>(20),reserved=new List<Rect>(8);
         private Vector2 extent;
         private bool configured,suppressed;
-        private static readonly Color Gold=new Color(.953f,.729f,.345f,1);
+        // V1.1 (W20Xb, THEME_SPEC §1, §5): the ring, arcs and stars take the palette's gold when they are drawn (Evaluate).
+        // The default palette's gold F3BA58 is the colour they were drawn with before (.953, .729, .345 as 8-bit colour).
         public void Initialize(Art07PrefabView view)
         {
             if(owner!=null)return;owner=view;
@@ -25,7 +26,7 @@ namespace DiceCraft.Presentation
                 var go=new GameObject(i==0?"ComboLocalRing071":"ComboGoldArc071_"+i,typeof(RectTransform),typeof(CanvasRenderer),typeof(UnityEngine.UI.Image));
                 var rect=(RectTransform)go.transform;rect.SetParent(view.visualRoot,false);
                 rect.anchorMin=rect.anchorMax=new Vector2(0,1);rect.pivot=Vector2.one*.5f;
-                var image=go.GetComponent<UnityEngine.UI.Image>();image.raycastTarget=false;image.preserveAspect=true;image.color=Gold;
+                var image=go.GetComponent<UnityEngine.UI.Image>();image.raycastTarget=false;image.preserveAspect=true;image.color=UiKit.Gold;
                 marks[i]=image;go.SetActive(false);
             }
         }
@@ -95,7 +96,7 @@ namespace DiceCraft.Presentation
         public void Evaluate(float normalized)
         {
             if(!configured)return;float time=Mathf.Clamp01(normalized);
-            bool animate=!owner.ReducedMotion&&!suppressed;
+            bool animate=!owner.ReducedMotion&&!suppressed;var gold=UiKit.Gold;
             // One burst, fully quiet by 65% of the existing final-score beat.
             float opacity=time<.08f?time/.08f:1-Mathf.Clamp01((time-.08f)/.57f);
             for(int i=0;i<marks.Length;i++)
@@ -104,7 +105,7 @@ namespace DiceCraft.Presentation
                 marks[i].gameObject.SetActive(visible);if(!visible)continue;
                 float growth=i==0?Mathf.Lerp(.62f,1,1-Mathf.Pow(1-Mathf.Min(1,time/.65f),3)):Mathf.Lerp(.82f,1,Mathf.Min(1,time/.4f));
                 var r=marks[i].rectTransform;r.anchoredPosition=new Vector2(centres[i].x,-centres[i].y);r.sizeDelta=sizes[i];r.localScale=Vector3.one*growth;r.localRotation=Quaternion.identity;
-                marks[i].color=new Color(Gold.r,Gold.g,Gold.b,opacity*(i==0?.8f:.95f));
+                marks[i].color=new Color(gold.r,gold.g,gold.b,opacity*(i==0?.8f:.95f));
             }
             if(owner.ReducedMotion)return; // Existing static tier markers remain untouched.
             for(int i=0;i<owner.burstStaticStars.Length;i++)
@@ -114,13 +115,13 @@ namespace DiceCraft.Presentation
                 star.SetActive(visible);if(!visible)continue;
                 var r=(RectTransform)star.transform;r.pivot=Vector2.one*.5f;r.anchoredPosition=new Vector2(centres[slot].x,-centres[slot].y);
                 r.sizeDelta=sizes[slot];r.localScale=Vector3.one*Mathf.Lerp(.55f,1,Mathf.Min(1,time/.25f));r.localRotation=Quaternion.identity;
-                var image=star.GetComponent<UnityEngine.UI.Image>();if(image!=null){image.preserveAspect=true;image.raycastTarget=false;image.color=new Color(Gold.r,Gold.g,Gold.b,opacity);}
+                var image=star.GetComponent<UnityEngine.UI.Image>();if(image!=null){image.preserveAspect=true;image.raycastTarget=false;image.color=new Color(gold.r,gold.g,gold.b,opacity);}
             }
         }
         public void ResetForPool()
         {
             configured=false;forbidden.Clear();reserved.Clear();System.Array.Clear(placed,0,placed.Length);
-            foreach(var mark in marks)if(mark!=null){mark.gameObject.SetActive(false);mark.rectTransform.localScale=Vector3.one;mark.color=Gold;}
+            foreach(var mark in marks)if(mark!=null){mark.gameObject.SetActive(false);mark.rectTransform.localScale=Vector3.one;mark.color=UiKit.Gold;}
         }
         private Rect InVisual(Transform source,Rect rect)
         {

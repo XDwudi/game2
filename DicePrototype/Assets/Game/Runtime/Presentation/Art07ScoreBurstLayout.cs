@@ -11,6 +11,10 @@ namespace DiceCraft.Presentation
         private struct Original { public RectTransform rect; public Vector2 position,size,pivot; public Vector3 scale; public Quaternion rotation; public Image image; public bool preserveAspect; public Sprite sprite;public Color color; }
         private readonly List<Original> originals=new List<Original>();
         private readonly RectTransform[] borders=new RectTransform[32];
+        // V1.1 (W20Xb, THEME_SPEC §1, §5): the stepped borders take the palette's gold, the square chips gold (tier 1) or the
+        // dice red and blue, read when the burst is drawn (Evaluate). The default palette has the values used before
+        // (F3BA58, EC655D, 55B6D9: .953/.729/.345, .925/.396/.365 and .333/.714/.851 as 8-bit colour).
+        private readonly Image[] borderImages=new Image[32];
         private Art07PrefabView owner;
         private Art071ComboEdgeAccents edgeAccents071;
         private bool configured;
@@ -46,8 +50,8 @@ namespace DiceCraft.Presentation
             {
                 var go=new GameObject("ScoreStepBorder"+i,typeof(RectTransform),typeof(CanvasRenderer),typeof(Image));
                 var rect=(RectTransform)go.transform;rect.SetParent(view.visualRoot,false);rect.anchorMin=rect.anchorMax=rect.pivot=new Vector2(0,1);
-                var graphic=go.GetComponent<Image>();graphic.raycastTarget=false;graphic.color=new Color(.953f,.729f,.345f,i<16?.8f:.42f);
-                borders[i]=rect;go.SetActive(false);
+                var graphic=go.GetComponent<Image>();graphic.raycastTarget=false;graphic.color=BorderColour(i,UiKit.Gold);
+                borders[i]=rect;borderImages[i]=graphic;go.SetActive(false);
             }
         }
         private void Remember(RectTransform rect)
@@ -55,6 +59,8 @@ namespace DiceCraft.Presentation
             if(rect==null||originals.Exists(x=>x.rect==rect))return;
             var image=rect.GetComponent<Image>();originals.Add(new Original{rect=rect,position=rect.anchoredPosition,size=rect.sizeDelta,pivot=rect.pivot,scale=rect.localScale,rotation=rect.localRotation,image=image,preserveAspect=image!=null&&image.preserveAspect,sprite=image==null?null:image.sprite,color=image==null?Color.white:image.color});
         }
+        /// <summary>The first 16 border strokes (the outer step) at .8 opacity, the inner 16 at .42.</summary>
+        private static Color BorderColour(int index,Color gold)=>new Color(gold.r,gold.g,gold.b,index<16?.8f:.42f);
         private static void Place(RectTransform rect,float x,float y,float width,float height)
         {
             rect.pivot=new Vector2(0,1);rect.anchoredPosition=new Vector2(x,-y);rect.sizeDelta=new Vector2(width,height);rect.localScale=Vector3.one;rect.localRotation=Quaternion.identity;
@@ -68,6 +74,8 @@ namespace DiceCraft.Presentation
         public void Evaluate(float time)
         {
             if(!configured)return;int tier=owner.BurstLevel;float w=extent.x,h=extent.y;
+            Color gold=UiKit.Gold,red=UiKit.Red,blue=UiKit.Blue;
+            for(int i=0;i<borderImages.Length;i++)if(borderImages[i]!=null)borderImages[i].color=BorderColour(i,gold);
             // Authored circular glows are replaced by narrow stepped perimeter strokes.
             // This keeps the authored gold palette without painting behind gold numerals.
             for(int i=0;i<owner.burstLayers.Length;i++)if(owner.burstLayers[i]!=null)owner.burstLayers[i].SetActive(i==0||i==2&&tier==3||i==5&&tier==5&&!owner.ReducedMotion);
@@ -99,7 +107,7 @@ namespace DiceCraft.Presentation
             {
                 if(!(owner.particles[i] is RectTransform chip))continue;
                 var graphic=chip.GetComponent<Image>();graphic.sprite=squareChip;
-                Color tint=tier==1?new Color(.953f,.729f,.345f):i%2==0?new Color(.925f,.396f,.365f):new Color(.333f,.714f,.851f);
+                Color tint=tier==1?gold:i%2==0?red:blue;
                 tint.a=graphic.color.a;graphic.color=tint;
                 // Size against the real imported drawing quad including padding.
                 // GPU alpha measurements independently require 5–7 visible pixels;

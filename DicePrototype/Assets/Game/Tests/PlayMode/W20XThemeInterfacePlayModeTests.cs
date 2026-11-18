@@ -220,6 +220,26 @@ namespace DiceCraft.Tests
                 W11Apply(W11Scene(W11Cards3,new[]{4,4,6,2,4},"bbbrb",2,true));yield return W11Settle();
                 foreach(var set in new[]{probe,comicSet})
                     yield return TintPass20X("play",set,new[]{new TintPoint20X{name="PoolTab11 (caption)",target=()=>FindActive<Image>("PoolTab11"),key=()=>UiKit.Caption(UiKit.Panel),local=()=>new Vector2(50,10)}},report,failures);
+                // W20Xb item C: the tray's other two tabs take caption as well, the pool summary (a pool card in the build, the
+                // hand rolled) and the page tab (more than ten dice in the pool); the styles without caption keep Panel on all three.
+                W11Apply(W11Scene(new[]{"C70","C39","C139"},new[]{4,4,6,2,4,5,1,3,6,2,4,5},"bbbrbbrbbbrb",0,true));yield return W11Settle();
+                Assert.That(HasActive("PoolSummaryTab11"),Is.True,"The pool card draws the summary tab.");Assert.That(HasActive("PoolPageTab11"),Is.True,"Twelve dice page the pool.");
+                foreach(var set in new[]{probe,comicSet})
+                    yield return TintPass20X("play, twelve dice and a pool card",set,new[]
+                    {
+                        new TintPoint20X{name="PoolSummaryTab11 (caption)",target=()=>FindActive<Image>("PoolSummaryTab11"),key=()=>UiKit.Caption(UiKit.Panel),local=()=>new Vector2(FindActive<Image>("PoolSummaryTab11").rectTransform.rect.width*.5f,10)},
+                        new TintPoint20X{name="PoolPageTab11 (caption)",target=()=>FindActive<Image>("PoolPageTab11"),key=()=>UiKit.Caption(UiKit.Panel),local=()=>new Vector2(FindActive<Image>("PoolPageTab11").rectTransform.rect.width*.5f,10)},
+                    },report,failures);
+                foreach(string theme in new[]{"default","swiss","sancai"})
+                {
+                    app.ApplyTheme11(theme);yield return Art073Settle(.3f);
+                    foreach(string tab in new[]{"PoolTab11","PoolSummaryTab11","PoolPageTab11"})
+                    {
+                        var seen=FindActive<Image>(tab).color;
+                        if(!SameTint20X(seen,UiKit.Panel))failures.Add(theme+" "+tab+": #"+ColorUtility.ToHtmlStringRGBA(seen)+", expected Panel #"+ColorUtility.ToHtmlStringRGBA(UiKit.Panel));
+                        else report.Add(theme+" "+tab+": Panel #"+ColorUtility.ToHtmlStringRGB(seen)+" (no caption)");
+                    }
+                }
                 // The shop's sections (section) and their header strips (caption).
                 yield return W14Load(W14ShopFixture(false));
                 foreach(var set in new[]{probe,comicSet})
