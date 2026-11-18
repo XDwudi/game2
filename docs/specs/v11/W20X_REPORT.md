@@ -233,7 +233,7 @@
 
 ## 7 全量测试（W20X-06）
 
-源码冻结在 `9d82b110`：此后 `DicePrototype/` 没有再变。之后的提交只动 `DicePrototype/` 之外：协调者的 `df94b0b6`（两条风格清单测试，W20X_TEST_CHANGES §3）、`2cf4fde2`（STATE），以及本任务的文档提交。三份 NUnit 报告的绑定（开始与结束两次快照，各 3242 个文件）与 HEAD `2cf4fde2` 的文件逐个 SHA-256 相同，`DicePrototype/` 相对 HEAD 没有改动（核对脚本 `artifacts/cache/v11/w20x/verify_binding.py`，输出 BINDING_MATCHES_HEAD）。
+源码冻结在 `9d82b110`：此后 `DicePrototype/` 没有再变。之后的提交只动 `DicePrototype/` 之外：协调者的 `df94b0b6`（两条风格清单测试，W20X_TEST_CHANGES §3）、`2cf4fde2`（STATE），以及本任务的文档提交。三份 NUnit 报告的绑定（开始与结束两次快照，各 3242 个文件）与 HEAD `2cf4fde2` 的文件逐个 SHA-256 相同，`DicePrototype/` 相对 HEAD 没有改动（核对脚本 `artifacts/cache/v11/w20x/verify_binding.py`，输出 BINDING_MATCHES_HEAD）。交付前在文档提交 `64024eb3` 上重新核对，结果相同；三份报告的 `quality_check.py nunit` 也重跑，仍是 CHECKS_PASSED。
 
 | 套件 | 结果 | 报告 | `quality_check.py nunit` |
 | --- | --- | --- | --- |
@@ -245,6 +245,8 @@
 与 W14 交付时相比：EditMode 2427 → 2432（+5，`ThemeInterfaceW20XTests`）；PlayMode 235 → 240（+5：两条 W20X-00、W20X-02、W20X-03、W20X-05）；Python 319 → 334（+15，`test_table_text_contrast.py`）。没有删除测试、没有降低阈值。
 
 1080p 全量开始时（约 19:22）协调者的 git 自动整理与 `git fsck` 占了约 3 个核心约 1–3 分钟；帧时间相关的测试（如 `PLAY_ART07_FX_FastSourceMarksLowQualityReplayAndSkipReset`）照样通过，未重跑。720p 的 W20X-02 数字与 1080p 相同（`artifacts/cache/v11/w20x/1280x720/w20x-02/w20x-02.txt`）；720p 写出的桌面文字清单与提交的 1080p 清单条目相同、矩形（设计单位）与颜色完全相同。
+
+运行间隔（偏差）：任务说明要求两次全量之间空闲 3–5 分钟。EditMode 全量（19:18:51–19:20:47）结束约 1 分钟后就开始了 1080p 全量（19:21:52–19:50:53），间隔不足；1080p 与 720p（19:57:13–20:24:52）之间约 6 分钟。时间取自三份绑定的开始与结束快照（本机时间 UTC−5；NUnit 文件名用 UTC）。间隔不足与上面的 git 整理一样，只会让与时间相关的测试更容易失败，不会让应当失败的测试通过；1080p 全量 240/240，未重跑。协调者需要时可按规定的间隔重跑。
 
 ## 8 THEME_SPEC 的改动
 
