@@ -1,22 +1,25 @@
-"""Offline review mocks for the deco kit (Python emulation of the game's drawing; not Unity captures).
+"""Offline review renders for the deco kit (Python emulation of the game's drawing; not Unity captures).
 
-    python tools/art_v11/deco/build_deco.py --review            # after build_deco.py has written the kit
+    python tools/art_v11/deco/build_deco.py                  # the build calls build_outputs(): preview.png, contact sheet
+    python tools/art_v11/deco/build_deco.py --review         # every play state, card rows, action row, shop, sheets
+    python tools/art_v11/deco/build_deco.py --card-review    # ArtSource/Art11/deco/card_template_review.png
 
-Writes ArtSource/Art11/deco/review/:
-- play_states.png and play_<state>_<100|150>.png: the play screen (GameApp.Play11 L11 rectangles, DrawActions11 states)
-  over Table/table_scene.png;
-- shop_w14.png: the W14 shop (GameApp.Shop14 S14 at 100 % text) over Table/page_scene.png with the tints the game
-  applies (section, caption and the button steps from theme.json, W20X);
-- palette.png: the palette with its contrast table; sprites.png: the drawn sprites on their tints.
-Sprites the kit does not ship yet are drawn with the default theme's sprite (the game's fallback) and listed on each
-image. Sprites are sampled as the game's UI sprites are (bilinear, no mipmaps), tinted and blended in linear light.
-Card names, texts and pictures are stand-ins (default illustrations; the W22 deco redraws are not in this worktree).
+The review images go to ArtSource/Art11/deco/review/: play_<state>_<100|150>.png and play_states.png (GameApp.Play11 L11
+rectangles, DrawActions11 states), card_rows.png (0, 3, 5, 7 and 10 cards, DrawCards11), action_row.png and
+action_row.txt (every state at both text sizes with the rectangle free in all of them), boss_stage.png, shop_w14.png
+(GameApp.Shop14 S14 with the theme's section, caption and step tints), palette.png, concept_sources.png.
+
+buttonSecondary (W20Y, not in theme.json yet) is drawn as the coordinator asked: every SolidButton11 face takes it, and
+each image that shows it says "simulated buttonSecondary". Sprites are sampled as the game's UI sprites are (bilinear,
+no mipmaps), tinted and blended in linear light. Card names, texts and pictures are stand-ins (default illustrations;
+the W22 deco redraws are not in this worktree); the 3D dice are flat stand-ins.
 """
 from __future__ import annotations
 
 import importlib.util
 import json
 import math
+import re
 import sys
 from pathlib import Path
 
@@ -25,25 +28,38 @@ from PIL import Image, ImageDraw, ImageFont
 
 sys.dont_write_bytecode = True
 HERE = Path(__file__).resolve()
-_SPEC = importlib.util.spec_from_file_location("deco_build", HERE.parent / "build_deco.py")
+_SPEC = importlib.util.spec_from_file_location("deco_build_for_review", HERE.parent / "build_deco.py")
 bd = importlib.util.module_from_spec(_SPEC)
 _SPEC.loader.exec_module(bd)
 
 ROOT = bd.ROOT
 OUT = ROOT / bd.REVIEW / "review"
-THEME = ROOT / bd.THEME
 ART = ROOT / "DicePrototype/Assets/Art/Art071/Illustrations"
 LABEL = (246, 236, 214)
 NOTE = (190, 176, 150)
+SIMULATED = "simulated buttonSecondary " + bd.PENDING_TOKENS["buttonSecondary"]
+MOCK_NOTE = ("OFFLINE MOCK (Python emulation of GameApp.Play11 / Card11 / Shop14 / UiKit; not a Unity capture); "
+             f"{SIMULATED} on every SolidButton11 (W20Y); stand-in card art (default illustrations), flat stand-in dice")
+# ThemePalette.cs defaults (the default theme), with the W20X defaults the code draws when a theme sets none.
+DEFAULT_PALETTE = {
+    "ink": "162629", "panel": "203F43", "panelLight": "315358", "paper": "F4E8CB", "muted": "B8C9C5", "gold": "F3BA58",
+    "teal": "79C99C", "red": "EC655D", "blue": "55B6D9", "background": "102A2D", "felt": "173E40", "textColor": "F7EED9",
+    "violet": "AD92DB", "danger": "9E3440", "shadow": "07191C", "ghost": "6A9296", "primary": "F3BA58",
+    "reward": "F3BA58", "boss": "C8463F", "pressure": "E0703A", "rarityCommon": "B8C9C5", "rarityAdvanced": "55B6D9",
+    "rarityRare": "AD92DB", "buttonStep": "8F453A", "buttonStepPrimary": "B56B29",
+}
 
 
 # ---------------------------------------------------------------------------------------------- kit
-def load_kit():
-    """Shipped deco sprites; any referenced sprite the kit lacks is the default one (the game's fallback)."""
+def load_kit(root: Path = ROOT, simulate: bool = True):
+    """The deco kit as written under `root` (a build folder), every referenced sprite of the contract; a missing one is
+    the default sprite (the game's fallback) and is listed. The palette is theme.json's, plus the pending keys when
+    `simulate` (buttonSecondary, labelled on every image)."""
+    theme = Path(root) / bd.THEME
     specs = {s["name"]: s for s in json.loads(bd.CONTRACT.read_text(encoding="utf-8"))["sprites"]}
     kit, fallback = {}, []
     for name, s in specs.items():
-        own = THEME / "UI" / (name + ".png")
+        own = theme / "UI" / (name + ".png")
         path = own if own.is_file() else ROOT / s["default"]
         if not own.is_file() and s["referenced"]:
             fallback.append(name)
@@ -51,12 +67,23 @@ def load_kit():
             kit[name] = im.convert("RGBA")
     borders = {n: s["border"] for n, s in specs.items()}
     ppu = {n: s["pixelsPerUnit"] for n, s in specs.items()}
-    palette = json.loads((THEME / "theme.json").read_text(encoding="utf-8"))["palette"]
-    with Image.open(THEME / "Table/table_scene.png") as im:
+    palette = json.loads((theme / "theme.json").read_text(encoding="utf-8"))["palette"]
+    if simulate:
+        palette = dict(palette, **bd.PENDING_TOKENS)
+    with Image.open(theme / "Table/table_scene.png") as im:
         table = im.convert("RGB")
-    with Image.open(THEME / "Table/page_scene.png") as im:
+    with Image.open(theme / "Table/page_scene.png") as im:
         page = im.convert("RGB")
     return kit, borders, ppu, palette, table, page, sorted(fallback)
+
+
+def default_kit():
+    specs = json.loads(bd.CONTRACT.read_text(encoding="utf-8"))["sprites"]
+    kit = {}
+    for s in specs:
+        with Image.open(ROOT / s["default"]) as im:
+            kit[s["name"]] = im.convert("RGBA")
+    return kit, {s["name"]: s["border"] for s in specs}, {s["name"]: s["pixelsPerUnit"] for s in specs}, dict(DEFAULT_PALETTE)
 
 
 def art(name: str) -> Image.Image:
@@ -121,7 +148,10 @@ class Canvas:
         self.scale = scale
         self.buf = np.zeros((h, w, 4), np.float32)
         if isinstance(background, Image.Image):
-            self.buf[...] = _lin_texture(background.convert("RGBA").resize((w, h), Image.Resampling.LANCZOS))
+            bg = background.convert("RGBA")
+            if bg.size != (w, h):
+                bg = bg.resize((w, h), Image.Resampling.LANCZOS)
+            self.buf[...] = _lin_texture(bg)
         else:
             self.buf[..., :3] = _lin(bd.col(background))
             self.buf[..., 3] = 1.0
@@ -176,19 +206,20 @@ class Canvas:
         layer[..., 3] = alpha
         self._over(layer, x0, y0)
 
-    def text(self, x, y, value: str, size: float, colour: str, font, anchor: str = "la", spacing: float = 4.0):
+    def text(self, x, y, value: str, size: float, colour: str, font, anchor: str = "la", spacing: float = 4.0,
+             align: str = "left"):
         if not value:
             return
         f = ImageFont.truetype(str(font), max(6, int(round(size * self.scale))))
         dr = ImageDraw.Draw(Image.new("L", (1, 1)))
-        box = dr.multiline_textbbox((0, 0), value, font=f, anchor=anchor, spacing=spacing) if "\n" in value else \
-            dr.textbbox((0, 0), value, font=f, anchor=anchor)
+        box = dr.multiline_textbbox((0, 0), value, font=f, anchor=anchor, spacing=spacing, align=align) if "\n" in value \
+            else dr.textbbox((0, 0), value, font=f, anchor=anchor)
         box = (math.floor(box[0]), math.floor(box[1]), math.ceil(box[2]), math.ceil(box[3]))
         layer = Image.new("RGBA", (box[2] - box[0] + 4, box[3] - box[1] + 4), (0, 0, 0, 0))
         d = ImageDraw.Draw(layer)
         if "\n" in value:
             d.multiline_text((2 - box[0], 2 - box[1]), value, font=f, fill=bd.rgb8(colour) + (255,), anchor=anchor,
-                             spacing=spacing)
+                             spacing=spacing, align=align)
         else:
             d.text((2 - box[0], 2 - box[1]), value, font=f, fill=bd.rgb8(colour) + (255,), anchor=anchor)
         self._over(_lin_texture(layer), int(round(x * self.scale)) + box[0] - 2, int(round(y * self.scale)) + box[1] - 2)
@@ -202,38 +233,8 @@ def width_of(text: str, size: float, font=None) -> float:
     return ImageFont.truetype(str(font or bd.FONT), max(6, int(round(size)))).getlength(text)
 
 
-def frame_insets_px(pixels: np.ndarray, border) -> tuple[int, int, int, int]:
-    """GameApp.FrameInsets11 (left, bottom, right, top) in sprite px. Unity rows run up."""
-    up = pixels[::-1].astype(np.int32)
-    h, w = up.shape[:2]
-    fill = up[h // 2, w // 2]
-
-    def inset(get, count, limit):
-        last = 0
-        for i in range(min(count // 2, int(round(limit)))):
-            c = get(i)
-            if c[3] < 128 or int(np.abs(c[:3] - fill[:3]).sum()) > 48:
-                last = i + 1
-        return last
-    l, b, r, t = border
-    return (inset(lambda i: up[h // 2, i], w, l), inset(lambda i: up[i, w // 2], h, b),
-            inset(lambda i: up[h // 2, w - 1 - i], w, r), inset(lambda i: up[h - 1 - i, w // 2], h, t))
-
-
-def ring_insets_px(pixels: np.ndarray, border) -> tuple[int, int, int, int]:
-    """GameApp.Card11 RingInsets13 (left, bottom, right, top) in sprite px."""
-    up = pixels[::-1]
-    h, w = up.shape[:2]
-
-    def inset(get, count, limit):
-        last = 0
-        for i in range(min(count // 2, int(round(limit)))):
-            if get(i)[3] >= 128:
-                last = i + 1
-        return last
-    l, b, r, t = border
-    return (inset(lambda i: up[h // 2, i], w, l), inset(lambda i: up[i, w // 2], h, b),
-            inset(lambda i: up[h // 2, w - 1 - i], w, r), inset(lambda i: up[h - 1 - i, w // 2], h, t))
+frame_insets_px = bd.frame_insets_px
+ring_insets_px = bd.ring_insets_px
 
 
 def wrap(text: str, font, size: float, width: float) -> list[str]:
@@ -251,6 +252,24 @@ def wrap(text: str, font, size: float, width: float) -> list[str]:
         else:
             line += ch
     return lines + [line] if line else lines
+
+
+_CJK = "⺀-鿿　-〿＀-￯"
+_TOKENS = re.compile(rf"[{_CJK}]|[^\s{_CJK}]+|\s+")
+
+
+def tmp_wrap(text: str, font, size: float, width: float) -> list[str]:
+    """TextMeshPro's Normal wrapping, roughly: greedy, breaking at a space or between CJK characters (SecondaryButton11
+    and the other SolidButton11 labels wrap this way, not balanced)."""
+    f = ImageFont.truetype(str(font), max(6, int(round(size))))
+    lines, line = [], ""
+    for tok in _TOKENS.findall(text):
+        if line and not tok.isspace() and f.getlength((line + tok).rstrip()) > width:
+            lines.append(line.rstrip())
+            line = tok
+        elif line or not tok.isspace():
+            line += tok
+    return lines + [line.rstrip()] if line.strip() else lines
 
 
 def balanced_lines(text: str, font, size: float, width: float) -> list[str]:
@@ -286,7 +305,6 @@ class Game:
         self.fs = scale_text
         self.large = scale_text > 1.01
 
-    # colours
     def c(self, key: str) -> np.ndarray:
         return bd.col(self.P[key])
 
@@ -299,9 +317,7 @@ class Game:
         return bd.drawn(self.centre(name), tint_hex)
 
     def label_on(self, name: str, tint, preferred: str | None = None):
-        """GameApp.LabelOn11: a meaning colour stays at 4.5:1; else the best of ink / paper / textColor at 4.95:1; else
-        the surface's tint steps 5 % toward black (or white) until the lightest (or darkest) label reaches 4.95:1.
-        Returns (label hex, tint hex as drawn)."""
+        """GameApp.LabelOn11 on this sprite's centre x tint. Returns (label hex, tint hex as drawn)."""
         P = self.P
         tint_hex = tint if isinstance(tint, str) else bd.hexc(tint)
         fill = bd.drawn(self.centre(name), tint_hex)
@@ -329,7 +345,9 @@ class Game:
         return (light, dt) if down else (dark, lt)
 
     def sec(self, enabled: bool = True) -> str:
-        t = bd.lerp_hex(self.P["background"], self.P["panel"], .55)
+        """SolidButton11's face: buttonSecondary when set (W20Y), else lerp(Background, Panel, .55); disabled mixes in a
+        quarter of PanelLight (the code's rule today)."""
+        t = self.P.get("buttonSecondary") or bd.lerp_hex(self.P["background"], self.P["panel"], .55)
         return t if enabled else bd.lerp_hex(t, self.P["panelLight"], .25)
 
     def body(self, size: float) -> float:
@@ -339,7 +357,6 @@ class Game:
     def line(self, size: float) -> float:
         return math.ceil(size * self.fs * 1.46) + 2
 
-    # surfaces
     def put(self, c: Canvas, name: str, x, y, w, h, tint=None, alpha: float = 1.0, mult: float = 1.0):
         t = None if tint is None else (bd.col(tint) if isinstance(tint, str) else tint)
         c.sprite(self.kit[name], x, y, w, h, tint=t, border=self.borders[name], ppu=self.ppu[name] * mult, alpha=alpha)
@@ -349,7 +366,8 @@ class Game:
         """UiKit.Button: the step (2, 8, w - 4, h - 6), the face (0, 0, w, h - 7), the lip; the label LabelOn11."""
         P = self.P
         step = (P["buttonStepPrimary"] if primary else P["buttonStep"]) if enabled else P["shadow"]
-        face = face or (P["primary"] if primary else P["paper"]) if enabled else (face or (P["panel"] if primary else P["panelLight"]))
+        if face is None:
+            face = (P["primary"] if primary else P["paper"]) if enabled else (P["panel"] if primary else P["panelLight"])
         self.put(c, "ui_button_bevel", x + 2, y + 8, w - 4, h - 6, step)
         label_hex, face_drawn = self.label_on("ui_button_bevel", face) if enabled else (label_colour or P["muted"], face)
         self.put(c, "ui_button_bevel", x, y, w, h - 7, face_drawn)
@@ -359,13 +377,13 @@ class Game:
         if two_line:
             c.text(x + w / 2, y + (h - 7) / 2 - size * .38, label, size, colour, font or bd.FONT, "mm")
             c.text(x + w / 2, y + (h - 7) / 2 + size * .52, two_line, size * .72, colour, font or bd.FONT, "mm")
-        else:
+        elif label:
             c.text(x + w / 2, y + (h - 7) / 2, label, size, colour, font or bd.FONT, "mm")
         return face_drawn
 
     def solid(self, c: Canvas, x, y, w, h, label: str, size: float, enabled: bool = True, icon: str | None = None,
               wrap_width: float | None = None):
-        """GameApp.SolidButton11: ui_chip_formula x lerp(Background, Panel, .55); label LabelOn11(face, TextColor)."""
+        """GameApp.SolidButton11 / ShopButton14: ui_chip_formula x the secondary face; label LabelOn11(face, TextColor)."""
         tint = self.sec(enabled)
         self.put(c, "ui_chip_formula", x, y, w, h, tint)
         label_hex, _ = self.label_on("ui_chip_formula", tint, self.P["textColor"] if enabled else self.P["muted"])
@@ -380,9 +398,9 @@ class Game:
             else:
                 c.text(sx + s + 8, y + h / 2, label, size, label_hex, bd.FONT, "lm")
         elif wrap_width and width_of(label, size) > wrap_width:
-            lines = balanced_lines(label, bd.FONT, size, wrap_width)
-            c.text(x + w / 2, y + h / 2, "\n".join(lines), size, label_hex, bd.FONT, "mm", spacing=-2)
-        else:
+            lines = tmp_wrap(label, bd.FONT, size, wrap_width)
+            c.text(x + w / 2, y + h / 2, "\n".join(lines), size, label_hex, bd.FONT, "mm", spacing=-2, align="center")
+        elif label:
             c.text(x + w / 2, y + h / 2, label, size, label_hex, bd.FONT, "mm")
         return label_hex
 
@@ -402,27 +420,50 @@ def die_image(px: int, faces=((5, "red"), (3, "blue"), (2, "red")), P=None) -> I
     return r.export()
 
 
+_DIE_CACHE: dict[tuple, Image.Image] = {}
+
+
 def draw_die(g: Game, c: Canvas, cx, cy, scale, faces):
     """A thrown die standing at (cx, cy): body about 101 x 127 units per unit of scale (GameApp.Play11)."""
     size = 101 * scale
-    im = die_image(int(round(size * 1.6)), faces, g.P)
+    key = (int(round(size * 1.6)), faces, g.P["red"], g.P["blue"])
+    if key not in _DIE_CACHE:
+        _DIE_CACHE[key] = die_image(key[0], faces, g.P)
     w = size * 1.25
     c.box(cx - size * .42, cy + size * .52, size * .84, size * .1, "000000", .25)
-    c.fit(im, cx - w / 2, cy - size * .7, w, size * 1.3)
+    c.fit(_DIE_CACHE[key], cx - w / 2, cy - size * .7, w, size * 1.3)
+
+
+def badge(g: Game, c: Canvas, x, y, size, shape: str, colour: str):
+    """Play11Badge (code-drawn): a red circle or a blue diamond with an ink edge and a paper rim."""
+    r = bd.Raster(int(size * 2), int(size * 2))
+    cx = cy = size
+    if shape == "circle":
+        d = bd.sd_circle(r.X, r.Y, cx, cy, size * .42)
+    else:
+        d = bd.sd_poly(r.X, r.Y, [(cx, cy - size * .5), (cx + size * .5, cy), (cx, cy + size * .5), (cx - size * .5, cy)])
+    r.over(bd.col(g.P["paper"]), bd.coverage(d - size * .14))
+    r.over(bd.col(g.P["ink"]), bd.coverage(d - size * .07))
+    r.over(bd.col(colour), bd.coverage(d))
+    c.fit(r.export(), x - size / 2, y - size / 2, size * 2, size * 2)
 
 
 # ---------------------------------------------------------------------------------------------- cards (W13 template)
-CARDS = (  # (rarity, name, short text, stand-in illustration, enchant)
+CARDS = (  # (rarity, name, short text, stand-in illustration)
     ("common", "排头兵", "第一颗提交的骰子点数×4，加到基础分。", "C108"),
     ("advanced", "蓝色浪潮", "本手提交时，提交的骰子全部按蓝色计算。", "I10"),
     ("rare", "点金手", "每次提交后，最后一颗骰子朝上的面永久镀金。", "C117"),
     ("common", "配重", "这一面权重+1（上限5），更容易掷出这一面。", "U10"),
 )
+# The four shortest short texts (STATE W20Xb item E3): the default style shows them on 280 x 117 mini cards at 100 %
+# text, comic and 唐三彩 did not. The deco frame is no thicker than the default's, so they should show here too.
+SHORT_CARDS = (("advanced", "增加提交", "提交栏+1格。", "C21"), ("rare", "大量提交", "提交栏+2格。", "C22"),
+               ("advanced", "再给一次", "每手投掷次数+1。", "C78"), ("rare", "多交一手", "每关提交次数+1。", "C79"))
 RARITY_KEY = {"common": "rarityCommon", "advanced": "rarityAdvanced", "rare": "rarityRare", None: "ghost"}
 
 
 def price_button(g: Game, c: Canvas, x, y, w, h, price: int = 8, word: str = "购买"):
-    """PriceButton13: SolidButton11 with the coin, the price (gold when it reads) and the word."""
+    """PriceButton13: the solid secondary face with the coin, the price (gold when it reads) and the word."""
     tint = g.sec()
     g.put(c, "ui_chip_formula", x, y, w, h, tint)
     label_hex, _ = g.label_on("ui_chip_formula", tint, g.P["textColor"])
@@ -436,9 +477,9 @@ def price_button(g: Game, c: Canvas, x, y, w, h, price: int = 8, word: str = "�
 
 
 def draw_card(g: Game, c: Canvas, x, y, w, h, size: str, rarity, title: str, text: str, pic: Image.Image,
-              category: str = "骰面改造", price_w: float = 0.0, ordinal: int = 0, price: int = 8):
+              category: str = "骰面改造", price_w: float = 0.0, ordinal: int = 0, price: int = 8) -> dict:
     """GameApp.Card11 DrawCard13: DrawTallCard13 (shop, table), DrawCompactCard13 (compact incl. tall, goods rows),
-    DrawTile13 (tile); stand-in name, picture, text and price."""
+    DrawTile13 (tile); stand-in name, picture, text and price. Returns what it laid out (the short text shown or not)."""
     P = g.P
     goods = rarity is None
     tall_compact = size == "compact" and h >= 200
@@ -451,6 +492,7 @@ def draw_card(g: Game, c: Canvas, x, y, w, h, size: str, rarity, title: str, tex
     rl, rb, rr, rt = (v / 2 for v in ring_insets_px(np.asarray(g.kit["ui_card_frame_rarity"]), g.borders["ui_card_frame_rarity"]))
     tint = P[RARITY_KEY[rarity]]
     ink, _ = g.label_on(face_name, "FFFFFF", P["ink"])
+    muted_paper = bd.lerp_hex(P["ink"], P["paper"], .35)
     if size == "tile":
         content = (inner[0] + 2, inner[1] + 2, inner[2] - 4, inner[3] - 4)
         name_h = math.ceil(19.5 * 1.46) + 2
@@ -459,7 +501,8 @@ def draw_card(g: Game, c: Canvas, x, y, w, h, size: str, rarity, title: str, tex
         bx = content[0] + lead if ordinal else content[0] + (content[2] - block) / 2
         by = content[1]
         g.put(c, "ui_card_frame_rarity", bx, by, block, block, tint)
-        c.fit(pic, bx + rl + 1, by + rt + 1, min(block - rl - rr, block - rt - rb) - 2, min(block - rl - rr, block - rt - rb) - 2)
+        side = min(block - rl - rr, block - rt - rb) - 2
+        c.fit(pic, bx + rl + 1, by + rt + 1, side, side)
         if not goods:
             gem = min(16, block * .3)
             c.fit(g.kit["ui_gem_" + rarity], bx + block / 2 - gem / 2, by + block - gem - 1, gem, gem, tint=bd.col(tint))
@@ -467,7 +510,7 @@ def draw_card(g: Game, c: Canvas, x, y, w, h, size: str, rarity, title: str, tex
             c.fit(g.kit["ui_pip_dot"], content[0], content[1], 20, 20, tint=g.c("ink"))
             c.text(content[0] + 10, content[1] + 10, str(ordinal), 12, P["paper"], bd.FONT, "mm")
         c.text(content[0] + content[2] / 2, content[1] + content[3] - name_h / 2, title, 19.5, ink, bd.FONT, "mm")
-        return
+        return {"text": False}
     if size in ("compact", "goods"):
         content = (inner[0] + 4, inner[1] + 4, inner[2] - 8, inner[3] - 8)
         priced = size == "goods"
@@ -487,7 +530,7 @@ def draw_card(g: Game, c: Canvas, x, y, w, h, size: str, rarity, title: str, tex
                   tint=bd.col(tint))
         tx, ty = bx + block + 10, content[1] + (4 if tall_compact else 2)
         if goods:
-            c.text(tx, ty, category, 19.5 if priced else 15 * g.fs, g.label_on(face_name, "FFFFFF", "6E6050")[0], bd.BODY_FONT)
+            c.text(tx, ty, category, 19.5 if priced else 15 * g.fs, muted_paper, bd.BODY_FONT)
             ty += 26 * (g.fs if not priced else 1)
         disc = math.ceil(max(20, 14 * g.fs * 1.4)) if ordinal else 0
         name_x = tx + (disc + 6 if disc else 0)
@@ -500,25 +543,30 @@ def draw_card(g: Game, c: Canvas, x, y, w, h, size: str, rarity, title: str, tex
             c.text(tx + disc / 2, ty + name_h / 2, str(ordinal), min(14, disc * .6 / g.fs) * g.fs, P["paper"], bd.FONT, "mm")
         c.text(name_x, ty + name_h / 2, title, name_size, ink, bd.FONT, "lm")
         top = ty + name_h
+        shown = False
         if tall_compact:
             below = max(top, by + block + gem_size * .5 + 4)
             room = content[1] + content[3] - below
             lines = wrap(text, bd.BODY_FONT, 19.5, content[2])
             lh = 19.5 * 1.45 - 2.8
             if len(lines) * lh <= room + .5:
+                shown = True
                 for i, ln in enumerate(lines):
                     c.text(content[0], below + i * lh, ln, 19.5, ink, bd.BODY_FONT)
         else:
             room = content[1] + content[3] - top
             body = 19.5 if priced else g.body(18)
-            lines = wrap(text, bd.BODY_FONT, body, limit - tx)
+            lines = balanced_lines(text, bd.BODY_FONT, body, limit - tx) if priced else wrap(text, bd.BODY_FONT, body, limit - tx)
+            if max(width_of(ln, body, bd.BODY_FONT) for ln in lines) > limit - tx:
+                lines = wrap(text, bd.BODY_FONT, body, limit - tx)
             lh = body * 1.45 - body * .16
             if len(lines) * lh + body * .16 <= room + .5:
+                shown = True
                 for i, ln in enumerate(lines):
                     c.text(tx, top + i * lh, ln, body, ink, bd.BODY_FONT)
         if priced:
             price_button(g, c, content[0] + content[2] - pw, content[1] + max(0, (content[3] - 60) / 2), pw, 60, price)
-        return
+        return {"text": shown, "room": content[1] + content[3] - top, "width": limit - tx}
     # Tall card (shop, table).
     g.put(c, "ui_card_frame_rarity", *inner, tint)
     content = (inner[0] + rl + 4, inner[1] + rt + 3, inner[2] - rl - rr - 8, inner[3] - rt - rb - 6)
@@ -529,7 +577,7 @@ def draw_card(g: Game, c: Canvas, x, y, w, h, size: str, rarity, title: str, tex
     price_h = 60 if size == "shop" else 0
     bottom = content[1] + content[3] - (price_h + 6 if price_h else 0)
     if goods:
-        c.text(x + w / 2, top + 13, category, 16, "6E6050", bd.BODY_FONT, "mm")
+        c.text(x + w / 2, top + 13, category, 16, muted_paper, bd.BODY_FONT, "mm")
         top += 26
     name_h = math.ceil(22 * g.fs * 1.46) + 2
     art_top = top + name_h + 2
@@ -553,11 +601,13 @@ def draw_card(g: Game, c: Canvas, x, y, w, h, size: str, rarity, title: str, tex
         c.fit(g.kit["ui_pip_dot"], content[0], content[1], disc, disc, tint=g.c("ink"))
         c.text(content[0] + disc / 2, content[1] + disc / 2, str(ordinal), min(14, disc * .6 / g.fs) * g.fs, P["paper"],
                bd.FONT, "mm")
+    return {"text": True, "art": art_size}
 
 
 # ---------------------------------------------------------------------------------------------- the play screen
 STATES = {
-    # W11 capture states plus rolling, target reached, boss and pressure (comic README action-row table).
+    # W11 capture states plus rolling, target reached, boss and pressure (the comic README's action-row table), and
+    # boss_play: a boss stage mid-hand with a boss factor in the formula (the coordinator's boss-stage mock, phase 2).
     "a": dict(primary=("锁定 2 颗", True), secondary="取消选择", end="end", hint="按“锁定”留下选中的骰子；再点一次骰子可以取消。",
               locked=0, selected=2, rolled=True),
     "b3": dict(primary=None, secondary=None, end="skip", hint="计分中…", locked=2, selected=0, rolled=True),
@@ -573,7 +623,11 @@ STATES = {
                  locked=0, selected=0, rolled=False, kind="boss"),
     "pressure": dict(primary=("提交 2 颗", True), secondary="重掷 · 还能掷 2 [R]", end="end",
                      hint="按“提交”计分，或者重掷其余的骰子。", locked=2, selected=0, rolled=True, kind="pressure"),
+    "boss_play": dict(primary=("提交 2 颗", True), secondary="重掷 · 还能掷 1 [R]", end="end",
+                      hint="按“提交”计分，或者重掷其余的骰子。", locked=2, selected=0, rolled=True, kind="boss", tier=4,
+                      boss_factor=True),
 }
+STATE_ORDER = ("a", "b3", "c", "f", "rolling", "qualified", "boss", "pressure", "boss_play")
 
 
 def layout(large: bool) -> dict:
@@ -592,64 +646,6 @@ def stage_tint(g: Game, kind: str) -> str:
     return g.P["boss"] if kind == "boss" else g.P["pressure"] if kind == "pressure" else g.P["panelLight"]
 
 
-def top_bar(g: Game, c: Canvas, kind: str, qualified: bool):
-    P, fs, large = g.P, g.fs, g.large
-    x0, y0, W, H = 16, 12, 1888, 72
-    g.put(c, "ui_topbar", x0, y0, W, H, P["panel"])
-    tag_w = 176 if large else 160
-    tint = stage_tint(g, kind)
-    label, tint_drawn = g.label_on("ui_chip_formula", tint)
-    g.put(c, "ui_chip_formula", x0 + 8, y0 + 8, tag_w, 56, tint_drawn)
-    c.text(x0 + 8 + tag_w / 2, y0 + 8 + 24 + 1, "第 9 关" if kind == "boss" else "第 4 关", (24 if large else 28) * fs, label,
-           bd.FONT, "mm")
-    dots_x = x0 + 8 + tag_w + 20
-    kind_word = {"boss": "首领关", "pressure": "高压关"}.get(kind, "普通关")
-    cap_size = g.body(17 if large else 20)
-    muted, _ = g.label_on("ui_topbar", P["panel"], P["muted"])
-    c.text(dots_x, y0 + 36 + 2, f"第 {3 if kind == 'boss' else 2} 章 · " + kind_word, cap_size, muted, bd.FONT, "la")
-    dot = 14 if large else 20
-    top = y0 + (8 if large else 12)
-    chapter = 2 if kind == "boss" else 1
-    for i in range(8):
-        cur = i == chapter
-        size = dot if cur else dot * .7
-        colour = tint if cur else P["gold"] if i < chapter else P["panelLight"]
-        dx = dots_x + i * 24 + (20 - size) * .5
-        c.fit(g.kit["ui_pip_dot"], dx, top + (dot - size) * .5, size, size, tint=bd.col(colour))
-        if cur:
-            g.put(c, "ui_ring", dots_x + i * 24 + (20 - dot) * .5 - 3, top - 3, dot + 6, dot + 6, P["paper"], mult=6)
-    cap_w = width_of(f"第 2 章 · {kind_word}", cap_size)
-    fx = max(dots_x - x0 + 8 * 24 + 56, dots_x - x0 + cap_w + 20)
-    gold_w = 232 if large else 176
-    gold_x = 1668 - 16 - gold_w
-    fw = min(640 if large else 560, gold_x - x0 - 16 - 284 - fx)
-    fxa = x0 + fx
-    g.put(c, "ui_info_inset", fxa, y0 + 6, fw, 60)
-    score_size = (28 if large else 34) * fs
-    score_hex, _ = g.label_on("ui_info_inset", "FFFFFF", P["gold"] if qualified else P["textColor"])
-    score = "4,120" if qualified else "2,480"
-    sw = min(fw * .55, width_of(score, score_size) + 4)
-    c.text(fxa + 14 + sw, y0 + 6 + 24, score, score_size, score_hex, bd.FONT, "rm")
-    target_hex = g.label_on("ui_info_inset", "FFFFFF", P["muted"])[0]
-    if kind == "pressure":
-        target_hex = cue_on(g, "ui_info_inset", "FFFFFF", P["pressure"])
-    tx = fxa + 14 + sw * 1.12 + 8
-    c.text(tx, y0 + 6 + 4 + 22, "/ 6,000" if kind == "pressure" else "/ 4,000", (26 if large else 32) * fs, target_hex,
-           bd.FONT, "lm")
-    ratio = 1.0 if qualified else .62
-    track_w = fw - 28
-    g.put(c, "ui_progress_track", fxa + 14, y0 + 6 + 48, track_w, 7, "07191C", mult=48 / 7)
-    fill = P["gold"] if qualified else P["pressure"] if kind == "pressure" else P["blue"]
-    g.put(c, "ui_progress_fill", fxa + 14, y0 + 6 + 48, max(7, track_w * ratio), 7, fill, mult=48 / 7)
-    # Gold: icon, amount (gold when it reads), 金币; then 手册 and 暂停 (UiKit.Button, paper faces on the bronze plinth).
-    c.fit(g.kit["ui_icon_coin"], gold_x + 6, y0 + 18, 36, 36)
-    money_hex, _ = g.label_on("ui_topbar", P["panel"], P["gold"])
-    c.text(gold_x + gold_w - (52 if large else 44), y0 + 36, "28", (30 if large else 34) * fs, money_hex, bd.FONT, "rm")
-    c.text(gold_x + gold_w - (50 if large else 42), y0 + 36, "金币", g.body(17 if large else 20), muted, bd.FONT, "lm")
-    for x, label in ((1668, "手册"), (1788, "暂停")):
-        g.button(c, x, 18, 108, 60, label, 23 * fs)
-
-
 def cue_on(g: Game, name: str, tint, cue: str) -> str:
     """GameApp.CueOn11: the stage cue keeps its hue, stepping 5 % toward white or black (at most 8) to reach 4.5:1."""
     fill = g.fill(name, tint)
@@ -665,7 +661,68 @@ def cue_on(g: Game, name: str, tint, cue: str) -> str:
     return g.label_on(name, tint)[0]
 
 
-def stage_card(g: Game, c: Canvas, kind: str):
+def top_bar(g: Game, c: Canvas, kind: str, qualified: bool):
+    P, fs, large = g.P, g.fs, g.large
+    x0, y0 = 16, 12
+    g.put(c, "ui_topbar", x0, y0, 1888, 72, P["panel"])
+    tag_w = 176 if large else 160
+    tint = stage_tint(g, kind)
+    label, tint_drawn = g.label_on("ui_chip_formula", tint)
+    g.put(c, "ui_chip_formula", x0 + 8, y0 + 8, tag_w, 56, tint_drawn)
+    c.text(x0 + 8 + tag_w / 2, y0 + 8 + 25, "第 9 关" if kind == "boss" else "第 4 关", (24 if large else 28) * fs, label,
+           bd.FONT, "mm")
+    dots_x = x0 + 8 + tag_w + 20
+    kind_word = {"boss": "首领关", "pressure": "高压关"}.get(kind, "普通关")
+    cap_size = g.body(17 if large else 20)
+    muted, _ = g.label_on("ui_topbar", P["panel"], P["muted"])
+    chapter_text = f"第 {3 if kind == 'boss' else 2} 章 · "
+    c.text(dots_x, y0 + 38, chapter_text, cap_size, muted, bd.FONT, "la")
+    word_colour = bd.lerp_hex(tint, P["textColor"], .25) if kind in ("boss", "pressure") else muted
+    c.text(dots_x + width_of(chapter_text, cap_size), y0 + 38, kind_word, cap_size, word_colour, bd.FONT, "la")
+    dot = 14 if large else 20
+    top = y0 + (8 if large else 12)
+    chapter = 2 if kind == "boss" else 1
+    for i in range(8):
+        cur = i == chapter
+        size = dot if cur else dot * .7
+        colour = tint if cur else P["gold"] if i < chapter else P["panelLight"]
+        dx = dots_x + i * 24 + (20 - size) * .5
+        c.fit(g.kit["ui_pip_dot"], dx, top + (dot - size) * .5, size, size, tint=bd.col(colour))
+        if cur:
+            g.put(c, "ui_ring", dots_x + i * 24 + (20 - dot) * .5 - 3, top - 3, dot + 6, dot + 6, P["paper"], mult=6)
+    cap_w = width_of(chapter_text + kind_word, cap_size)
+    fx = max(dots_x - x0 + 8 * 24 + 56, dots_x - x0 + cap_w + 20)
+    gold_w = 232 if large else 176
+    gold_x = 1668 - 16 - gold_w
+    fw = min(640 if large else 560, gold_x - x0 - 16 - 284 - fx)
+    fxa = x0 + fx
+    g.put(c, "ui_info_inset", fxa, y0 + 6, fw, 60)
+    score_size = (28 if large else 34) * fs
+    score_hex, _ = g.label_on("ui_info_inset", "FFFFFF", P["gold"] if qualified else P["textColor"])
+    score = "4,120" if qualified else "2,480"
+    sw = min(fw * .55, width_of(score, score_size) + 4)
+    c.text(fxa + 14 + sw, y0 + 30, score, score_size, score_hex, bd.FONT, "rm")
+    target_hex = g.label_on("ui_info_inset", "FFFFFF", P["muted"])[0]
+    if kind == "pressure":
+        target_hex = cue_on(g, "ui_info_inset", "FFFFFF", P["pressure"])
+    c.text(fxa + 14 + sw * 1.12 + 8, y0 + 32, "/ 6,000" if kind == "pressure" else "/ 4,000", (26 if large else 32) * fs,
+           target_hex, bd.FONT, "lm")
+    ratio = 1.0 if qualified else .62
+    track_w = fw - 28
+    g.put(c, "ui_progress_track", fxa + 14, y0 + 54, track_w, 7, "07191C", mult=48 / 7)
+    fill = P["gold"] if qualified else P["pressure"] if kind == "pressure" else P["blue"]
+    g.put(c, "ui_progress_fill", fxa + 14, y0 + 54, max(7, track_w * ratio), 7, fill, mult=48 / 7)
+    if qualified:
+        c.fit(g.kit["fx_score_crown"], fxa + fw + 18, y0 + 18, 48, 32)
+    c.fit(g.kit["ui_icon_coin"], gold_x + 6, y0 + 18, 36, 36)
+    money_hex, _ = g.label_on("ui_topbar", P["panel"], P["gold"])
+    c.text(gold_x + gold_w - (52 if large else 44), y0 + 36, "28", (30 if large else 34) * fs, money_hex, bd.FONT, "rm")
+    c.text(gold_x + gold_w - (50 if large else 42), y0 + 36, "金币", g.body(17 if large else 20), muted, bd.FONT, "lm")
+    for x, label in ((1668, "手册"), (1788, "暂停")):
+        g.button(c, x, 18, 108, 60, label, 23 * fs)
+
+
+def stage_card(g: Game, c: Canvas, kind: str, tier: int = 2):
     P, fs, large = g.P, g.fs, g.large
     x, y, w, h = 1496, 96, 392, 244
     g.put(c, "ui_stage_card", x, y, w, h, P["paper"])
@@ -679,29 +736,57 @@ def stage_card(g: Game, c: Canvas, kind: str):
     head_h = max(40, g.line(g.body(18 if large else 22) / fs))
     label, tint_drawn = g.label_on("ui_chip_formula", tint)
     g.put(c, "ui_chip_formula", x + 14, y + 14, inner, head_h, tint_drawn)
-    title = "首领减益 · 二档" if kind == "boss" else "高压关" if kind == "pressure" else "普通关"
+    tier_word = {4: "终局", 3: "三档", 2: "二档"}.get(tier, "一档")
+    title = f"首领减益 · {tier_word}" if kind == "boss" else "高压关" if kind == "pressure" else "普通关"
     c.text(x + 14 + 12, y + 14 + head_h / 2, title, g.body(18 if large else 22), label, bd.FONT, "lm")
     ink = g.label_on("ui_stage_card", P["paper"], P["ink"])[0]
-    muted = g.label_on("ui_stage_card", P["paper"], "6E6050")[0]
+    muted = bd.lerp_hex(P["ink"], P["paper"], .35)
     if kind == "boss":
-        top = y + 14 + head_h + 6
+        # DrawStageCard11's boss box (14, top, inner, h - 26 - top): the emblem, the name and effect beside it, the reward
+        # line under them; when they do not fit, the reward line, then the effect, then the name step down toward 19.5.
+        top = 14 + head_h + 6
+        box_h = h - 26 - top
+        bx, by = x + 14, y + top
         emb = 60 if large else 72
-        g.put(c, "ui_chip_formula", x + 14, top + 4, emb, emb, P["rarityAdvanced"])
-        for i in range(2):
-            c.box(x + 14 + emb * .22, top + 4 + emb * .22 + i * emb * .17, emb * .56, emb * .08, P["ink"])
-        c.text(x + 14 + emb + 12, top + 4, "满员", (20 if large else 28) * fs, ink, bd.FONT, "la")
-        c.text(x + 14 + emb + 12, top + 46 * (fs if large else 1), "提交栏放满才能提交。", 20 * fs, ink, bd.BODY_FONT, "la")
-        c.text(x + 14, top + max(4 + emb, 80) + 8, "通关奖励：首领战利品 3 选 1", g.body(18), bd.lerp_hex(P["ink"], P["boss"], .55),
-               bd.BODY_FONT, "la")
+        emblem = P["boss"] if tier >= 4 else {3: P["rarityRare"], 2: P["rarityAdvanced"]}.get(tier, P["rarityCommon"])
+        g.put(c, "ui_chip_formula", bx, by + 4, emb, emb, emblem)
+        for i in range(min(4, tier)):
+            c.box(bx + emb * .22, by + 4 + emb * .22 + i * emb * .17, emb * .56, emb * .08, P["ink"])
+        col_x, col_w = emb + 12, inner - emb - 12
+        name_size, body_size, loot_size = (20 if large else 28) * fs, 20 * fs, g.body(18)
+        body_text = "提交栏放满才能提交。"
+        loot_text = "终局首领 · 通关即胜利" if tier >= 4 else "通关奖励：首领战利品 3 选 1"
+
+        def tmp_h(n: int, size: float) -> float:      # GetPreferredValues: n lines at lineSpacing -14, plus 2
+            return math.ceil(size * (1.45 * n - .14 * (n - 1))) + 2
+        for _ in range(40):
+            body_lines = balanced_lines(body_text, bd.BODY_FONT, body_size, col_w)
+            loot_lines = balanced_lines(loot_text, bd.BODY_FONT, loot_size, inner)
+            name_h, body_h = tmp_h(1, name_size), tmp_h(len(body_lines), body_size)
+            loot_top = max(4 + emb, name_h + body_h) + 6
+            if loot_top + tmp_h(len(loot_lines), loot_size) <= box_h:
+                break
+            if loot_size > 19.5:
+                loot_size = max(19.5, loot_size - 1)
+            elif body_size > 19.5:
+                body_size = max(19.5, body_size - 1)
+            elif name_size > 19.5:
+                name_size = max(19.5, name_size - 1)
+            else:
+                break
+        c.text(bx + col_x, by, "满员", name_size, ink, bd.FONT, "la")
+        for i, ln in enumerate(body_lines):
+            c.text(bx + col_x, by + name_h + i * body_size * 1.31, ln, body_size, ink, bd.BODY_FONT, "la")
+        loot = g.label_on("ui_stage_card", P["paper"], bd.lerp_hex(P["ink"], P["boss"], .55))[0]
+        for i, ln in enumerate(loot_lines):
+            c.text(bx, by + loot_top + i * loot_size * 1.31, ln, loot_size, loot, bd.BODY_FONT, "la")
         return
     ls = g.body(14 if large else 20)
     ty = y + 14 + head_h + 1
     c.text(x + 14, ty + g.line(ls / fs) / 2, "目标分数", ls, muted, bd.FONT, "lm")
     ty += g.line(ls / fs)
     goal = (28 if large else 42) * fs
-    goal_hex = cue_on(g, "ui_stage_card", P["paper"], P["pressure"]) if kind == "pressure" else ink
-    if kind == "pressure" and bd.contrast(P["pressure"], g.fill("ui_stage_card", P["paper"])) < 4.5:
-        goal_hex = g.label_on("ui_stage_card", P["paper"], P["pressure"])[0]
+    goal_hex = g.label_on("ui_stage_card", P["paper"], P["pressure"] if kind == "pressure" else P["ink"])[0]
     c.text(x + 14, ty + g.line(goal / fs) / 2, "6,000" if kind == "pressure" else "4,000", goal, goal_hex, bd.FONT, "lm")
     ty += g.line(goal / fs)
     c.text(x + 14, ty + g.line(ls / fs) / 2, "过关奖励 +10 金币" if kind == "pressure" else "过关奖励 +5 金币", ls, ink, bd.FONT, "lm")
@@ -714,20 +799,6 @@ def stage_card(g: Game, c: Canvas, kind: str):
 POOL_FACES = (((4, "blue"), (2, "red"), (6, "blue")), ((3, "red"), (5, "red"), (1, "blue")),
               ((6, "blue"), (3, "blue"), (2, "red")), ((2, "red"), (6, "red"), (4, "blue")),
               ((5, "blue"), (1, "red"), (3, "blue")))
-
-
-def badge(g: Game, c: Canvas, x, y, size, shape: str, colour: str):
-    """Play11Badge (code-drawn): a red circle or a blue diamond with an ink edge and a paper rim."""
-    r = bd.Raster(int(size * 2), int(size * 2))
-    cx = cy = size
-    if shape == "circle":
-        d = bd.sd_circle(r.X, r.Y, cx, cy, size * .42)
-    else:
-        d = bd.sd_poly(r.X, r.Y, [(cx, cy - size * .5), (cx + size * .5, cy), (cx, cy + size * .5), (cx - size * .5, cy)])
-    r.over(bd.col(g.P["paper"]), bd.coverage(d - size * .14))
-    r.over(bd.col(g.P["ink"]), bd.coverage(d - size * .07))
-    r.over(bd.col(colour), bd.coverage(d))
-    c.fit(r.export(), x - size / 2, y - size / 2, size * 2, size * 2)
 
 
 def tray(g: Game, c: Canvas, L: dict, s: dict, kind: str):
@@ -785,17 +856,18 @@ def formula_row(g: Game, c: Canvas, L: dict, s: dict):
     cap_font = g.body(17 if large else 20)
     on_felt = P.get("onFelt", P["textColor"])
     if s["locked"] == 0:
-        caption = "本关还没有得分"
         g.put(c, "ui_chip_formula", x, y, w, h, unlit)
-        col, _ = g.label_on("ui_chip_formula", unlit, P["muted"])
-        c.text(x + w / 2, y + h / 2, caption, cap_font, col, bd.FONT, "mm")
+        col_, _ = g.label_on("ui_chip_formula", unlit, P["muted"])
+        c.text(x + w / 2, y + h / 2, "本关还没有得分", cap_font, col_, bd.FONT, "mm")
         return
     caption = "计分中…" if s["end"] == "skip" and s["primary"] is None else "预计"
     cap_w = min(max(width_of(caption, cap_font) + 32, 120 if large else 96), 420 if large else 330)
     g.put(c, "ui_chip_formula", x, y, cap_w, h, unlit)
-    col, _ = g.label_on("ui_chip_formula", unlit, P["gold"] if caption == "计分中…" else P["muted"])
-    c.text(x + cap_w / 2, y + h / 2, caption, cap_font, col, bd.FONT, "mm")
-    factors = (("基础分", "26", P["blue"]), ("一对", "×2", P["red"]), ("全蓝", "×3", P["blue"]), ("卡牌", "×1.5", P["gold"]))
+    col_, _ = g.label_on("ui_chip_formula", unlit, P["gold"] if caption == "计分中…" else P["muted"])
+    c.text(x + cap_w / 2, y + h / 2, caption, cap_font, col_, bd.FONT, "mm")
+    factors = [("基础分", "26", P["blue"]), ("一对", "×2", P["red"]), ("全蓝", "×3", P["blue"]), ("卡牌", "×1.5", P["gold"])]
+    if s.get("boss_factor"):
+        factors.append(("满员", "×0.8", P["boss"]))
     vf, sep, pad, nf = (22 if large else 26) * fs, (26 if large else 30), 30, 19.5 * fs
     cx = x + cap_w + 12
     for i, (name, value, tint) in enumerate(factors):
@@ -807,7 +879,7 @@ def formula_row(g: Game, c: Canvas, L: dict, s: dict):
         cx += cw
         c.text(cx + sep / 2, y + h / 2, "×" if i < len(factors) - 1 else "=", (20 if large else 24) * fs, on_felt, bd.FONT, "mm")
         cx += sep
-    total = "234"
+    total = "187" if s.get("boss_factor") else "234"
     tw = min(max(width_of(total, (26 if large else 32) * fs) + 36, 140 if large else 130), 520 if large else 460)
     label, tint_drawn = g.label_on("ui_chip_formula", P["reward"])
     g.put(c, "ui_chip_formula", cx, y, tw, h, tint_drawn)
@@ -851,7 +923,7 @@ def submit_row(g: Game, c: Canvas, L: dict, s: dict):
     x, y, w, h = L["info"]
     g.put(c, "ui_panel_hud", x, y, w, h)
     tc, _ = g.label_on("ui_panel_hud", "FFFFFF", P["textColor"])
-    c.text(x + 16, y + 10 + 18, f"提交栏 {s['locked']} / 5", (20 if large else 24) * fs, tc, bd.FONT, "lm")
+    c.text(x + 16, y + 28, f"提交栏 {s['locked']} / 5", (20 if large else 24) * fs, tc, bd.FONT, "lm")
     hy = y + 48
     if s["locked"]:
         gold, _ = g.label_on("ui_panel_hud", "FFFFFF", P["gold"])
@@ -860,14 +932,12 @@ def submit_row(g: Game, c: Canvas, L: dict, s: dict):
         for i, ln in enumerate(lines):
             c.text(x + 16, hy + i * rs * 1.4, ln, rs, gold, bd.FONT, "la")
         hy += len(lines) * rs * 1.4 + 6
-        hs = g.body(17 if large else 21)
-        c.text(x + 16, hy, "预计：一对\n全蓝", hs, tc, bd.FONT, "la", spacing=2)
+        c.text(x + 16, hy, "预计：一对\n全蓝", g.body(17 if large else 21), tc, bd.FONT, "la", spacing=2)
     else:
         muted, _ = g.label_on("ui_panel_hud", "FFFFFF", P["muted"])
         c.text(x + 16, hy, "锁定骰子后显示预计牌型", g.body(15 if large else 18), muted, bd.FONT, "la")
     rx, ry, rw, rh = L["rail"]
-    rim = bd.lerp_hex(P["panel"], P["panelLight"], .55)
-    g.put(c, "ui_dice_tray", rx, ry, rw, rh, rim)
+    g.put(c, "ui_dice_tray", rx, ry, rw, rh, bd.lerp_hex(P["panel"], P["panelLight"], .55))
     slots, gap = 5, 12
     inner = rw - 48
     slot_w = min(152, (inner - gap * (slots - 1)) / slots)
@@ -879,14 +949,14 @@ def submit_row(g: Game, c: Canvas, L: dict, s: dict):
         locked = i < s["locked"]
         ring = bd.lerp_hex(P["gold"], P["paper"], .15) if locked else P["ghost"]
         g.put(c, "ui_ring", xx, sy, slot_w, 170, ring, alpha=1.0 if locked else .75)
-        c.text(xx + slot_w - 18, sy + 6 + 13, str(i + 1), (14 if large else 16) * fs, on_felt, bd.FONT, "mm")
+        c.text(xx + slot_w - 18, sy + 19, str(i + 1), (14 if large else 16) * fs, on_felt, bd.FONT, "mm")
         if locked:
             scale = min(1.1, min((slot_w - 38) / 101, (170 - 38) / 127))
             draw_die(g, c, xx + 2 + 50.5 * scale, sy + 38 + 63.5 * scale, scale, POOL_FACES[i + 2])
             g.put(c, "ui_tray_front", xx + 4, sy + 170 - 6, slot_w - 8, 20)
             c.fit(g.kit["ui_tag_lock"], xx + slot_w - 32 + 3, sy + 36, 22, 24)
         else:
-            c.text(xx + slot_w / 2, sy + 60 + 24, "·  ·  ·", 20 * fs, on_felt, bd.FONT, "mm")
+            c.text(xx + slot_w / 2, sy + 84, "·  ·  ·", 20 * fs, on_felt, bd.FONT, "mm")
 
 
 def settle(g: Game, c: Canvas, L: dict, s: dict, kind: str):
@@ -914,8 +984,7 @@ def settle(g: Game, c: Canvas, L: dict, s: dict, kind: str):
     c.text(ix, ty + g.line(gs / fs) / 2, "3,520" if kind == "pressure" else "1,520", gs, gap_hex, bd.FONT, "lm")
     ty += g.line(gs / fs) + 2
     ns = g.body(15 if large else 18)
-    lines = wrap("达标后结束：过关奖励 +5 金币，剩下的每次提交 +1", bd.BODY_FONT, ns, iw)
-    for i, ln in enumerate(lines):
+    for i, ln in enumerate(wrap("达标后结束：过关奖励 +5 金币，剩下的每次提交 +1", bd.BODY_FONT, ns, iw)):
         c.text(ix, ty + i * (ns * 1.45 - ns * .1), ln, ns, muted, bd.BODY_FONT, "la")
 
 
@@ -933,8 +1002,7 @@ def actions(g: Game, c: Canvas, L: dict, s: dict) -> dict:
             break
         size -= .5
     lh = size * 1.45 - size * .08
-    block = len(lines) * lh
-    top = hy + 6 + (hh - 12 - block) / 2
+    top = hy + 6 + (hh - 12 - len(lines) * lh) / 2
     tc, _ = g.label_on("ui_panel_hud", "FFFFFF", P["textColor"])
     for i, ln in enumerate(lines):
         c.text(hx + 16, top + i * lh + lh / 2, ln, size, tc, bd.FONT, "lm")
@@ -950,8 +1018,7 @@ def actions(g: Game, c: Canvas, L: dict, s: dict) -> dict:
     if s["primary"]:
         label, enabled = s["primary"]
         x, y, w, h = L["primary"]
-        g.button(c, x, y, w, h, label, (22 if large else 28) * fs, enabled=enabled, primary=True,
-                 label_colour=P["textColor"])
+        g.button(c, x, y, w, h, label, (22 if large else 28) * fs, enabled=enabled, primary=True, label_colour=P["textColor"])
         used["primary+step"] = (x, y, w, h + 2)
     x, y, w, h = L["end"]
     if s["end"] == "skip":
@@ -1008,8 +1075,8 @@ def play_screen(kit, borders, ppu, palette, table, state: str = "f", large: bool
         c.buf[..., :3] *= .74
     L = layout(large)
     top_bar(g, c, kind, s["end"] == "qualified")
-    cards_row(g, c, cards)
-    stage_card(g, c, kind)
+    cards_row(g, c, cards, slots=5 if cards <= 5 else 7)
+    stage_card(g, c, kind, s.get("tier", 2))
     tray(g, c, L, s, kind)
     resources(g, c, L, s)
     submit_row(g, c, L, s)
@@ -1043,7 +1110,6 @@ def shop_screen(kit, borders, ppu, palette, page, notes: list) -> Image.Image:
     L = shop_layout()
     section = P.get("section", P["panel"])
     caption = P.get("caption", P["panelLight"])
-    # Top bar (ShopTopBar14, ShopTopRight14).
     g.put(c, "ui_topbar", 16, 12, 1888, 72, P["panel"])
     tl, tb, tr, tt = (v / 2 for v in frame_insets_px(np.asarray(kit["ui_topbar"]), borders["ui_topbar"]))
     mid = 12 + tt + (72 - tt - tb) / 2
@@ -1073,7 +1139,6 @@ def shop_screen(kit, borders, ppu, palette, page, notes: list) -> Image.Image:
         size = 12 if i < 1 else 10
         c.fit(kit["ui_pip_dot"], cycle[0] + 16 + i * 16 + (12 - size) / 2, cycle[1] + (60 - size) / 2, size, size, tint=bd.col(k))
     c.text(cycle[0] + 16 + 44 + 8, cycle[1] + 30, "查看本章", 20, k, bd.FONT, "lm")
-    # Sections (Section14) and 我的构筑 (ShopBuild14: the section panel without a strip).
     fl, fb, fr, ft = (v / 2 for v in frame_insets_px(np.asarray(kit["ui_section_panel"]), borders["ui_section_panel"]))
     panel_fill = g.fill("ui_section_panel", section)
     strip_fill = g.fill("ui_section_header", caption)
@@ -1092,7 +1157,6 @@ def shop_screen(kit, borders, ppu, palette, page, notes: list) -> Image.Image:
             g.put(c, "ui_section_header", x + fl, y + ft, w - fl - fr, SHOP_HEAD - ft - 2, title_tint)
             c.text(x + fl + 14, y + ft + (SHOP_HEAD - ft - 2) / 2, titles[name], 22, title_key, bd.FONT, "lm")
             title_right[name] = x + fl + 14 + width_of(titles[name], 22) + 2
-    # 卡牌: 在售 and the refresh button in the strip, four offers (220 x 348, stride 232).
     x, y, w, h = L["cards"]
     word_w, price_w = width_of("刷新", 20) + 4, 26 + 4 + width_of("3", 22) + 4 + 4
     refresh_w = 16 + 34 + 8 + word_w + 10 + price_w + 16
@@ -1106,7 +1170,6 @@ def shop_screen(kit, borders, ppu, palette, page, notes: list) -> Image.Image:
     for i in range(4):
         r, n, t, a = CARDS[i]
         draw_card(g, c, x + SHOP_PAD + i * 232, y + SHOP_HEAD, 220, 348, "shop", r, n, t, art(a), price=(8, 9, 11, 8)[i])
-    # 升级与服务: 指定升级 in the strip, nine goods rows (452 x 103, price 180).
     x, y, w, h = L["goods"]
     study = "指定升级 · 加价 2"
     study_w = width_of(study, 20) + 4 + 32
@@ -1122,15 +1185,14 @@ def shop_screen(kit, borders, ppu, palette, page, notes: list) -> Image.Image:
     for i, (cat, title, text, a) in enumerate(goods):
         draw_card(g, c, x + SHOP_PAD + (i % 3) * (col_w + 12), y + SHOP_HEAD + (i // 3) * (row_h + 6), col_w, row_h, "goods",
                   None, title, text, art(a), category=cat, price_w=180, price=(2, 2, 3, 2, 1, 2, 3, 4, 2)[i])
-    # 我的构筑: caption line, six tiles (100 x 104), the items.
     x, y, w, h = L["build"]
     bk = g.label_on("ui_section_panel", section, P["textColor"])[0]
     bm = g.label_on("ui_section_panel", section, P["muted"])[0]
     notes.append(f"我的构筑 on the section fill {panel_fill}: caption {bk} {bd.contrast(bk, panel_fill):.2f}:1, "
                  f"notes {bm} {bd.contrast(bm, panel_fill):.2f}:1")
-    cy = y + 4 + 14
-    c.text(x + SHOP_PAD + 2, cy, "我的构筑", 18, bk, bd.FONT, "lm")
-    tx = x + SHOP_PAD + width_of("我的构筑", 18) + 18
+    cy = y + 4 + 14 + ft / 2
+    c.text(x + fl + 6, cy, "我的构筑", 18, bk, bd.FONT, "lm")
+    tx = x + fl + 6 + width_of("我的构筑", 18) + 16
     capacity = "卡牌栏位 5/5 · 共 6/10 张"
     c.text(tx, cy, capacity, 18, bm, bd.FONT, "lm")
     c.text(tx + width_of(capacity, 18) + 14, cy, "拖动调整顺序", 18, bm, bd.FONT, "lm")
@@ -1146,7 +1208,6 @@ def shop_screen(kit, borders, ppu, palette, page, notes: list) -> Image.Image:
             c.fit(art("I10"), ix + 8, iy + 6, 44, 44)
         else:
             g.put(c, "ui_slot_inventory", ix, iy, 60, 60, P["panelLight"])
-    # 骰子与骰面: two new dice and two face upgrades (448 x 121, price 150).
     x, y, w, h = L["dice"]
     row_h = int((h - SHOP_HEAD - 7 - 3 * 6) / 4)
     rows = (("新骰子 · 点数和 21", "红蓝各半", "", die_image(120, ((5, "red"), (2, "blue"), (3, "red")), P)),
@@ -1156,19 +1217,21 @@ def shop_screen(kit, borders, ppu, palette, page, notes: list) -> Image.Image:
     for i, (cat, title, text, pic) in enumerate(rows):
         draw_card(g, c, x + SHOP_PAD, y + SHOP_HEAD + i * (row_h + 6), w - 2 * SHOP_PAD, row_h, "goods", None, title, text, pic,
                   category=cat, price_w=150, price=(5, 5, 2, 1)[i])
-    # 我的骰子: eight cells.
     x, y, w, h = L["owned"]
     gap = (w - 2 * SHOP_PAD - 4 * 104) / 3
     for i in range(8):
         cx, cy2 = x + SHOP_PAD + (i % 4) * (104 + gap), y + SHOP_HEAD + (i // 4) * 110
         g.put(c, "ui_slot_inventory", cx, cy2, 104, 104, P["panelLight"])
         c.fit(die_image(96, POOL_FACES[i % 5], P), cx + 8, cy2 + 6, 88, 88)
-    # 下一关 (ShopLeave14): UiKit.ActionButton, primary, label LabelOn11 on the face, 34 bold, the arrow after it.
     x, y, w, h = L["leave"]
     face = g.button(c, x, y, w, h, "", 34, primary=True)
     key, _ = g.label_on("ui_button_bevel", face)
     notes.append(f"下一关: face {g.fill('ui_button_bevel', face)}, label {key} "
                  f"{bd.contrast(key, g.fill('ui_button_bevel', face)):.2f}:1, plinth {P['buttonStepPrimary']}")
+    sec = g.sec()
+    sec_label = g.label_on("ui_chip_formula", sec, P["textColor"])[0]
+    notes.append(f"{SIMULATED}: price and shop buttons {sec}, label {sec_label} {bd.contrast(sec_label, sec):.2f}:1; "
+                 f"face vs paper {bd.contrast(sec, P['paper']):.2f}:1, vs felt {bd.contrast(sec, P['felt']):.2f}:1")
     label_w, arrow = width_of("下一关", 34), 42
     sx = x + (w - (label_w + 10 + arrow)) / 2
     c.text(sx, y + (h - 7) / 2, "下一关", 34, key, bd.FONT, "lm")
@@ -1177,14 +1240,14 @@ def shop_screen(kit, borders, ppu, palette, page, notes: list) -> Image.Image:
 
 
 # ---------------------------------------------------------------------------------------------- sheets
-def caption_bar(im: Image.Image, text: str, size: int = 20, colour=LABEL) -> Image.Image:
+def caption_bar(im: Image.Image, text: str, size: int = 18, colour=LABEL) -> Image.Image:
     font = ImageFont.truetype(str(bd.BODY_FONT), size)
     lines = text.split("\n")
-    bar_h = 10 + len(lines) * (size + 6)
+    bar_h = 10 + len(lines) * (size + 7)
     out = Image.new("RGB", (im.width, im.height + bar_h), (24, 20, 16))
     d = ImageDraw.Draw(out)
     for i, ln in enumerate(lines):
-        d.text((12, 6 + i * (size + 6)), ln, fill=colour, font=font)
+        d.text((12, 5 + i * (size + 7)), ln, fill=colour, font=font)
     out.paste(im, (0, bar_h))
     return out
 
@@ -1198,97 +1261,95 @@ def stack(images, gap: int = 8, bg=(24, 20, 16)) -> Image.Image:
     return out
 
 
+def side_by_side(images, gap: int = 8, bg=(24, 20, 16)) -> Image.Image:
+    out = Image.new("RGB", (sum(i.width for i in images) + gap * (len(images) - 1), max(i.height for i in images)), bg)
+    x = 0
+    for im in images:
+        out.paste(im, (x, 0))
+        x += im.width + gap
+    return out
+
+
 def palette_sheet(palette: dict) -> Image.Image:
     report = bd.palette_report(palette)
     keys = list(palette)
     sw, rows = 300, (len(keys) + 3) // 4
-    im = Image.new("RGB", (4 * sw + 40 + 760, max(rows * 64 + 60, 40 + len(report) * 22)), (24, 20, 16))
+    im = Image.new("RGB", (4 * sw + 40 + 860, max(rows * 64 + 60, 50 + len(report) * 21)), (24, 20, 16))
     d = ImageDraw.Draw(im)
     f, small = ImageFont.truetype(str(bd.LATIN), 18), ImageFont.truetype(str(bd.LATIN), 15)
-    d.text((20, 12), "DECO PALETTE (theme.json, written by build_deco.py)", fill=LABEL, font=f)
+    d.text((20, 12), "DECO PALETTE (theme.json, written by build_deco.py; buttonSecondary pending, W20Y)", fill=LABEL, font=f)
     for i, k in enumerate(keys):
         x, y = 20 + (i % 4) * sw, 44 + (i // 4) * 64
         d.rectangle((x, y, x + 52, y + 52), fill=bd.rgb8(palette[k]), outline=(90, 80, 60))
-        d.text((x + 62, y + 6), k, fill=LABEL, font=f)
+        d.text((x + 62, y + 6), k + (" (pending)" if k in bd.PENDING_TOKENS else ""), fill=LABEL, font=f)
         d.text((x + 62, y + 30), palette[k], fill=NOTE, font=small)
     x0 = 4 * sw + 40
     d.text((x0, 12), "CONTRAST AND DISTANCE (palette_report)", fill=LABEL, font=f)
     for i, (k, v) in enumerate(report.items()):
-        d.text((x0, 44 + i * 22), f"{k}", fill=NOTE, font=small)
-        d.text((x0 + 640, 44 + i * 22), f"{v:6.2f}", fill=LABEL, font=small)
+        d.text((x0, 44 + i * 21), k, fill=NOTE, font=small)
+        d.text((x0 + 760, 44 + i * 21), f"{v:6.2f}", fill=LABEL, font=small)
     return im
 
 
-def sprite_sheet(kit, borders, ppu, palette, names) -> Image.Image:
-    """The drawn sprites: each at 1:1 sprite pixels on a mid grey, and (tinted ones) at a typical size and tint in game
-    units on the felt."""
-    g = Game(kit, borders, ppu, palette)
-    P = palette
-    tints = {"ui_button_bevel": [("primary", P["primary"]), ("paper", P["paper"]), ("buttonStep", P["buttonStep"])],
-             "ui_chip_formula": [("sec", g.sec()), ("gold", P["gold"]), ("red", P["red"]), ("caption", P["caption"])],
-             "ui_topbar": [("panel", P["panel"])], "ui_stage_card": [("paper", P["paper"])],
-             "ui_ring": [("ghost", P["ghost"]), ("gold", P["gold"]), ("boss", P["boss"])],
-             "ui_dice_tray": [("tray rim", bd.lerp_hex(P["panel"], P["panelLight"], .55))],
-             "ui_section_header": [("caption", P["caption"])]}
-    cells = []
-    font = ImageFont.truetype(str(bd.LATIN), 15)
-    for name in names:
-        im = kit[name]
-        thumb = im.copy()
-        thumb.thumbnail((256, 256), Image.Resampling.LANCZOS)
-        cell = Image.new("RGB", (560, 300), (24, 20, 16))
-        bg = Image.new("RGBA", thumb.size, (96, 96, 100, 255))
-        bg.alpha_composite(thumb)
-        cell.paste(bg.convert("RGB"), (8, 30))
-        d = ImageDraw.Draw(cell)
-        ins = frame_insets_px(np.asarray(im), borders[name]) if any(borders[name]) else "-"
-        d.text((8, 6), f"{name}  {im.width}x{im.height}  insets(px L,B,R,T)={ins}", fill=LABEL, font=font)
-        if name in tints:
-            c = Canvas(280, 250, P["felt"])
-            for i, (label, t) in enumerate(tints[name]):
-                if name == "ui_dice_tray":
-                    g.put(c, name, 10, 20, 250, 200, t)
-                elif name == "ui_section_header":
-                    g.put(c, name, 6, 20 + i * 70, 268, 59, t)
-                else:
-                    g.put(c, name, 12 + (i % 2) * 134, 16 + (i // 2) * 110, 124, 64 if name != "ui_ring" else 90, t)
-            cell.paste(c.image(), (272, 30))
-        cells.append(cell)
-    cols = 3
-    sheet = Image.new("RGB", (cols * 568, ((len(cells) + cols - 1) // cols) * 308), (24, 20, 16))
-    for i, cell in enumerate(cells):
-        sheet.paste(cell, ((i % cols) * 568, (i // cols) * 308))
-    return sheet
-
-
-# Concept crops (page, box) beside the deco pieces they gave their shape to (README "Concept features").
-CONCEPT_SOURCES = (
-    ("card frame: gold band, black gap, chamfer (roll.png)", "roll", (350, 40, 450, 120), "ui_card_controller", None, (0, 0, 120, 96)),
-    ("HUD plates: gold double rule on lacquer (roll.png)", "roll", (40, 268, 310, 360), "ui_panel_hud", None, (0, 0, 220, 96)),
-    ("crimson corner triangles (card.png)", "card", (40, 270, 160, 420), "ui_panel_hud", None, (0, 0, 96, 96)),
-    ("ivory plaque buttons (roll.png)", "roll", (620, 800, 860, 868), "ui_button_bevel", "paper", (0, 0, 200, 72)),
-    ("crimson main button (shop.png)", "shop", (1300, 830, 1650, 910), "ui_button_bevel", "primary", (0, 0, 200, 72)),
-    ("crimson section tab with a pointed end (shop.png)", "shop", (300, 84, 700, 120), "ui_section_header", "caption", None),
-    ("chamfered tray (triptych.png)", "triptych", (215, 195, 640, 420), "ui_dice_tray", "rim", (0, 0, 200, 140)),
-    ("bottom fan on a stepped plinth (roll.png)", "roll", (730, 860, 960, 941), None, None, None),
+# Icons and marks at their real display sizes on their real hosts (1080p, 1 unit = 1 px).
+SMALL_PROOFS = (  # (sprite, w, h, host palette key or hex, tint key or None)
+    ("ui_icon_coin", 26, 26, "buttonSecondary", None), ("ui_icon_coin", 36, 36, "panel", None),
+    ("ui_icon_roll", 36, 36, "0A0806", None), ("ui_icon_lock", 20, 22, "background", None),
+    ("ui_icon_dice_view", 40, 40, "buttonSecondary", None), ("ui_icon_dice_view", 40, 40, "221C15", None),
+    ("ui_tag_lock", 28, 30, "felt", None), ("ui_tag_lock", 22, 24, "felt", None), ("ui_tag_clock", 24, 24, "felt", None),
+    ("ui_tag_clock", 64, 64, "100D0A", None), ("fx_score_crown", 48, 32, "panel", None),
+    ("badge_enchant_base10", 28, 28, "paper", None), ("badge_enchant_mult2", 28, 28, "paper", None),
+    ("badge_enchant_roll1", 28, 28, "paper", None), ("badge_enchant_slotless", 28, 28, "paper", None),
+    ("badge_enchant_submit1", 28, 28, "paper", None), ("ui_icon_book", 34, 34, "buttonSecondary", "textColor"),
+    ("ui_icon_gear", 34, 34, "buttonSecondary", "textColor"), ("ui_icon_refresh", 34, 34, "buttonSecondary", "textColor"),
+    ("ui_icon_arrow", 42, 42, "primary", "textColor"), ("ui_pip_dot", 22, 22, "paper", "ink"),
+    ("fx_score_spark", 20, 20, "panel", "gold"),
 )
+
+
+def small_size_proof(kit, palette) -> Image.Image:
+    cell = 84
+    im = Image.new("RGB", (len(SMALL_PROOFS) * cell, 2 * cell + 44), (24, 20, 16))
+    d = ImageDraw.Draw(im)
+    small = ImageFont.truetype(str(bd.LATIN), 11)
+    for i, (name, w, h, host, tint_key) in enumerate(SMALL_PROOFS):
+        host_hex = palette.get(host, host)
+        c = Canvas(cell, cell, host_hex)
+        c.fit(kit[name], (cell - w) / 2, (cell - h) / 2, w, h, tint=bd.col(palette[tint_key]) if tint_key else None)
+        tile = c.image()
+        im.paste(tile, (i * cell, 0))
+        big = tile.crop(((cell - 40) // 2, (cell - 40) // 2, (cell + 40) // 2, (cell + 40) // 2)).resize((80, 80), Image.Resampling.NEAREST)
+        im.paste(big, (i * cell + 2, cell + 2))
+        d.text((i * cell + 2, 2 * cell + 6), name.replace("badge_enchant_", "b_").replace("ui_", "")[:13], fill=LABEL, font=small)
+        d.text((i * cell + 2, 2 * cell + 22), f"{w}x{h} {host}"[:14], fill=NOTE, font=small)
+    return im
 
 
 def concept_sheet(kit, borders, ppu, palette, table) -> Image.Image:
     g = Game(kit, borders, ppu, palette)
     P = palette
     font = ImageFont.truetype(str(bd.LATIN), 16)
+    sources = (
+        ("card frame: gold band, black gap, chamfer (roll.png)", "roll", (350, 40, 450, 120), "ui_card_controller", None, (120, 96)),
+        ("HUD plates: gold double rule on lacquer (roll.png)", "roll", (40, 268, 310, 360), "ui_panel_hud", None, (220, 96)),
+        ("crimson corner triangles (card.png)", "card", (40, 270, 160, 420), "ui_panel_hud", None, (96, 96)),
+        ("ivory plaque buttons (roll.png)", "roll", (620, 800, 860, 868), "ui_button_bevel", "paper", (200, 72)),
+        ("crimson main button (shop.png)", "shop", (1300, 830, 1650, 910), "ui_button_bevel", "primary", (200, 72)),
+        ("crimson section tab with a pointed end (shop.png)", "shop", (300, 84, 700, 120), "ui_section_header", "caption", None),
+        ("chamfered tray (triptych.png)", "triptych", (215, 195, 640, 420), "ui_dice_tray", "rim", (200, 140)),
+        ("price chips, coin (shop.png)", "shop", (350, 360, 480, 395), "price", None, None),
+        ("bottom fan on a stepped plinth (roll.png)", "roll", (730, 860, 960, 941), None, None, None),
+    )
     rows = []
-    for label, page, box, name, tint, crop in CONCEPT_SOURCES:
+    for label, page, box, name, tint, size in sources:
         with Image.open(ROOT / bd.CONCEPTS / f"{page}.png") as im:
             src = im.convert("RGB").crop(box)
         s = 260 / max(src.width, src.height) * 1.6
         src = src.resize((round(src.width * s), round(src.height * s)), Image.Resampling.LANCZOS)
+        c = Canvas(460, 260, P["felt"])
         if name is None:
-            fan = table.crop((1270, 940, 1500, 1080))
-            mine = fan.resize((fan.width * 2, fan.height * 2), Image.Resampling.LANCZOS)
+            mine = table.crop((1270, 940, 1500, 1080)).resize((460, 280), Image.Resampling.LANCZOS)
         else:
-            c = Canvas(460, 260, P["felt"])
             t = {"paper": P["paper"], "primary": P["primary"], "caption": P["caption"],
                  "rim": bd.lerp_hex(P["panel"], P["panelLight"], .55)}.get(tint)
             if name == "ui_section_header":
@@ -1298,8 +1359,13 @@ def concept_sheet(kit, borders, ppu, palette, table) -> Image.Image:
             elif name == "ui_dice_tray":
                 g.put(c, name, 10, 10, 440, 240, t)
                 g.put(c, "ui_ring", 17, 17, 426, 226, P["ghost"], alpha=.75, mult=1.6)
+            elif name == "price":
+                g.put(c, "ui_card_shop", 10, 10, 220, 240)
+                price_button(g, c, 30, 160, 180, 60, 8)
+            elif t is not None and name == "ui_button_bevel":
+                g.button(c, 10, 10, 400, 88, "", 28, primary=(tint == "primary"))
             else:
-                g.put(c, name, 10, 10, 440 if crop is None else crop[2] * 2, 240 if crop is None else crop[3] * 2, t)
+                g.put(c, name, 10, 10, size[0] * 2, size[1] * 2, t)
             mine = c.image()
         row = Image.new("RGB", (src.width + mine.width + 40, max(src.height, mine.height) + 30), (24, 20, 16))
         ImageDraw.Draw(row).text((10, 4), label, fill=LABEL, font=font)
@@ -1307,63 +1373,332 @@ def concept_sheet(kit, borders, ppu, palette, table) -> Image.Image:
         row.paste(mine, (src.width + 30, 26))
         rows.append(row)
     return caption_bar(stack(rows, 6), "CONCEPT CROPS (left, ArtSource/StyleKit/themes/deco/concepts) and the deco pieces drawn "
-                                       "from them (right, offline, on the felt, tinted as the game tints them)", 16)
+                                       f"from them (right, offline, tinted as the game tints them; {SIMULATED})", 16)
+
+
+def zones_view(table: Image.Image) -> Image.Image:
+    """The table with the calm zones (green) and the decoration-free rectangles (orange) outlined, lifted, half size."""
+    im = table.convert("RGB").copy()
+    d = ImageDraw.Draw(im)
+    for x, y, w, h in bd.PLAY_RECTS.values():
+        d.rectangle((x, y, x + w - 1, y + h - 1), outline=(255, 150, 40), width=2)
+    for x, y, w, h in bd.FELT_ZONES.values():
+        d.rectangle((x, y, x + w - 1, y + h - 1), outline=(60, 220, 120), width=3)
+    x0, y0, x1, y1 = bd.ACTION_FREE
+    d.rectangle((x0, y0, x1 - 1, y1 - 1), outline=(80, 200, 255), width=2)
+    lift = np.asarray(im).astype(np.float32) / 255
+    lift = Image.fromarray((np.clip(lift, 0, 1) ** .6 * 255).astype(np.uint8))
+    return lift.resize((960, 540), Image.Resampling.LANCZOS)
+
+
+def menu_mock(kit, borders, ppu, palette, page) -> Image.Image:
+    """GameApp.Menu071's title block over the page scene: ui_paper_panel (128, 86, 1000, 296) with its Ink rule, the
+    wordmark fitted into (166, 120, 924, 174), the subtitle in Ink and the rules line in Paper below the panel. Cropped."""
+    g = Game(kit, borders, ppu, palette)
+    P = palette
+    c = Canvas(1920, 1080, page)
+    g.put(c, "ui_paper_panel", 128, 86, 1000, 296)
+    c.box(128 + 34, 86 + 24, 932, 2, P["ink"])
+    c.fit(kit["ui_wordmark_dicecraft"], 166, 120, 924, 174)
+    c.text(166 + 462, 298 + 37, "把一次投掷，变成你的构筑。", 25, P["ink"], bd.FONT, "mm")
+    c.text(166 + 462, 382 + 24, "投掷  →  选择  →  锁定  →  提交", 21, P["paper"], bd.FONT, "mm")
+    return c.image().crop((96, 60, 1160, 440))
+
+
+def contact_sheet(kit, borders, ppu, palette, table, page, mock) -> Image.Image:
+    """Every shipped sprite (default | deco | on the felt, tinted ones with a typical colour), the play composite and the
+    stage states, small marks at real size, the table with its zones, the page, the palette and the concept pages."""
+    dkit, _, _, _ = default_kit()
+    font = ImageFont.truetype(str(bd.LATIN), 14)
+    tints = {"ui_button_bevel": "primary", "ui_chip_formula": "gold", "ui_topbar": "panel", "ui_stage_card": "paper",
+             "ui_ring": "ghost", "ui_dice_tray": "panelLight", "ui_section_header": "caption", "ui_frame_block": "ghost",
+             "ui_button_ghost": "ghost", "ui_progress_fill": "gold", "ui_progress_track": "panelLight",
+             "ui_card_frame_rarity": "rarityRare", "ui_gem_common": "rarityCommon", "ui_gem_advanced": "rarityAdvanced",
+             "ui_gem_rare": "rarityRare", "ui_pip_dot": "gold", "ui_icon_arrow": "textColor", "ui_icon_book": "textColor",
+             "ui_icon_gear": "textColor", "ui_icon_refresh": "textColor", "fx_arc_short": "gold", "fx_score_spark": "gold",
+             "fx_square_chip": "red"}
+    cells = []
+    for name in [s["name"] for s in bd.contract_sprites()]:
+        cell = Image.new("RGB", (300, 150), (32, 28, 24))
+        for k, im in enumerate((dkit[name], kit[name])):
+            t = im.copy()
+            t.thumbnail((90, 104), Image.Resampling.LANCZOS)
+            b = Image.new("RGBA", t.size, (100, 96, 92, 255))
+            b.alpha_composite(t)
+            cell.paste(b.convert("RGB"), (4 + k * 98, 40))
+        c = Canvas(96, 106, palette["felt"])
+        key = tints.get(name)
+        c.fit(kit[name], 3, 3, 90, 100, tint=bd.col(palette[key]) if key else None)
+        cell.paste(c.image(), (200, 40))
+        d = ImageDraw.Draw(cell)
+        d.text((4, 4), name, fill=LABEL, font=font)
+        d.text((4, 20), "default | deco | " + (f"x {key}" if key else "on felt"), fill=NOTE, font=font)
+        cells.append(cell)
+    cols = 8
+    grid = Image.new("RGB", (cols * 304, ((len(cells) + cols - 1) // cols) * 154), (24, 20, 16))
+    for i, cell in enumerate(cells):
+        grid.paste(cell, ((i % cols) * 304, (i // cols) * 154))
+    W = grid.width
+    parts = [caption_bar(grid, "THE 50 REFERENCED SPRITES: default | deco | deco on the felt (tinted ones with a typical palette "
+                               "colour); sizes, borders and PPU from tools/art_v11/theme_contract.json", 18)]
+    half = (W - 8) // 2
+    shots = [(mock, "state f, 100 % text (preview.png is this picture at 480 x 270)")]
+    for state, large, label in (("boss_play", False, "boss stage (tier 4 emblem, boss factor), 100 % text"),
+                                ("pressure", False, "pressure stage, 100 % text"), ("f", True, "state f, 150 % text")):
+        shots.append((play_screen(kit, borders, ppu, palette, table, state, large)[0], label))
+    tiles = [caption_bar(im.resize((half, round(half * 1080 / 1920)), Image.Resampling.LANCZOS), label, 16)
+             for im, label in shots]
+    parts.append(caption_bar(stack([side_by_side(tiles[:2], 8), side_by_side(tiles[2:], 8)], 8),
+                             MOCK_NOTE + "\nPLAY SCREENS (full screens at 1920 x 1080, shown at half size)", 18))
+    parts.append(caption_bar(side_by_side([small_size_proof(kit, palette), menu_mock(kit, borders, ppu, palette, page)], 16),
+                             "SMALL MARKS AT THEIR REAL SIZE ON THEIR HOSTS (top 1x at 1080p, bottom 2x nearest); right: the "
+                             "wordmark on its host (GameApp.Menu071: ui_paper_panel 1000 x 296, title box 924 x 174, preserveAspect)",
+                             18))
+    parts.append(caption_bar(side_by_side([zones_view(table), page.resize((960, 540), Image.Resampling.LANCZOS)], 8),
+                             "TABLE (left, lifted for viewing: calm zones green, decoration-free rectangles orange, the action "
+                             "row's free rectangle blue) and PAGE_SCENE (right)", 18))
+    parts.append(palette_sheet(palette))
+    thumbs = []
+    for pg in bd.CONCEPT_PAGES:
+        with Image.open(ROOT / bd.CONCEPTS / f"{pg}.png") as im:
+            t = im.convert("RGB")
+        t.thumbnail((W // 5 - 8, 400), Image.Resampling.LANCZOS)
+        thumbs.append(t)
+    parts.append(caption_bar(side_by_side(thumbs, 8), "CONCEPT PAGES (ArtSource/StyleKit/themes/deco/concepts: roll, shop, select, "
+                                                      "card, triptych)", 18))
+    sheet = stack(parts, 12)
+    out = Image.new("RGB", (sheet.width, sheet.height + 60), (24, 20, 16))
+    ImageDraw.Draw(out).text((14, 10), "DECO (黑金装饰艺术) UI KIT: CONTACT SHEET (offline; build_deco.py)", fill=LABEL,
+                             font=ImageFont.truetype(str(bd.BODY_FONT), 28))
+    out.paste(sheet, (0, 60))
+    return out
+
+
+def build_outputs(root: Path):
+    """For build(): the play composite (state f, 100 % text, simulated buttonSecondary) and the contact sheet, drawn from
+    the kit just written under `root`."""
+    _TEX.clear()
+    _DIE_CACHE.clear()
+    kit, borders, ppu, palette, table, page, fallback = load_kit(root)
+    if fallback:
+        raise ValueError("The build left referenced sprites to the default theme: " + ", ".join(fallback))
+    mock, _ = play_screen(kit, borders, ppu, palette, table, "f", False)
+    sheet = contact_sheet(kit, borders, ppu, palette, table, page, mock)
+    _TEX.clear()
+    _DIE_CACHE.clear()
+    return mock, sheet
+
+
+# ---------------------------------------------------------------------------------------------- card template review
+def card_template_review():
+    """W13 + W14 card template, deco (left) beside the default style (right): shop 220 x 348, table 216 x 244, compact
+    280 x 117 x common / advanced / rare / goods; the four shortest short texts on compact cards; the goods rows
+    (452 x 103, 448 x 121) and tiles (100 x 104); at 1080p and 720p; the gems at their sizes on the card's top frame."""
+    kit, borders, ppu, palette, table, page, _ = load_kit()
+    dkit, dborders, dppu, dpal = default_kit()
+    themes = (("DECO", kit, borders, ppu, palette), ("DEFAULT", dkit, dborders, dppu, dpal))
+    panel_w, gap = 980, 40
+    sheet = Image.new("RGB", (2 * panel_w + gap + 48, 6400), (24, 20, 16))
+    d = ImageDraw.Draw(sheet)
+    font, small, title = (ImageFont.truetype(str(bd.LATIN), s) for s in (19, 15, 30))
+    tiny, cjk = ImageFont.truetype(str(bd.LATIN), 13), ImageFont.truetype(str(bd.BODY_FONT), 15)
+    d.text((24, 14), "CARD TEMPLATE (W13 + W14 E1-E3): DECO (left) | DEFAULT (right)", fill=LABEL, font=title)
+    d.text((24, 54), "Offline emulation of GameApp.Card11 DrawCard13 on the W14 code: sprites sampled bilinear without mipmaps, "
+                     f"tinted and blended in linear light; not a Unity capture. Deco price buttons: {SIMULATED}.",
+           fill=NOTE, font=small)
+    d.text((24, 74), "Names, short texts, pictures (default illustrations) and prices are stand-ins. Goods (no rarity): Ghost "
+                     "ring, no gem. Table cards on each style's felt, shop sizes on the drawn shop section.", fill=NOTE, font=small)
+    d.text((24, 94), "Compact short texts: shown only when the whole text fits at the body size (PLAY_LAYOUT 8 row 14); "
+                     "the four shortest (C21, C22, C78, C79) are the W20Xb comparison (offline estimate of TMP's layout).",
+           fill=NOTE, font=small)
+    goods_rows = (("道具", "蓝色浪潮", "下一次有效提交全部骰子临时视为蓝色。", "I10", 452, 180, 103),
+                  ("骰面改造", "配重", "这一面权重+1（上限5），更容易掷出这一面。", "U10", 448, 150, 121))
+    y = 124
+    summary = []
+    for scale, res in ((1.0, "1080p"), (2 / 3, "720p")):
+        sections = (("SHOP 220 x 348 (E1: 60-unit price button)", "shop", 220, 348, "shop", CARDS),
+                    ("TABLE 216 x 244", "table", 216, 244, "table", CARDS),
+                    ("COMPACT 280 x 117", "compact", 280, 117, "table", CARDS),
+                    ("COMPACT 280 x 117: C21 C22 C78 C79", "compact", 280, 117, "table", SHORT_CARDS),
+                    ("GOODS ROWS 452 x 103 (price 180), 448 x 121 (price 150)", "goods", 0, 0, "shop", None),
+                    ("TILES 100 x 104 (face at half its frame)", "tile", 100, 104, "shop", CARDS[:3]))
+        for label, size, cw, chh, host, cards in sections:
+            if size == "goods":
+                items = [(None, n, t, a, cat, rw, pw, rh) for cat, n, t, a, rw, pw, rh in goods_rows]
+                ph = 8 + sum(round(rh * scale) + 30 for *_r, rh in items)
+                per_row = 1
+            else:
+                items = [(r, n, t, a, "骰面改造", cw, 0, chh) for r, n, t, a in cards]
+                sw, sh = round(cw * scale), round(chh * scale)
+                per_row = max(1, min(4, (panel_w - 8) // (sw + 16)))
+                ph = 8 + math.ceil(len(items) / per_row) * (sh + 30)
+            for p, (theme, tkit, tb, tp, pal) in enumerate(themes):
+                g = Game(tkit, tb, tp, pal)
+                px = 24 + p * (panel_w + gap)
+                d.text((px, y), f"{theme}   {label}   {res}", fill=LABEL, font=font)
+                host_colour = pal["felt"] if host == "table" else g.fill("ui_section_panel", pal.get("section", pal["panel"]))
+                canvas = Canvas(panel_w, ph, host_colour, scale)
+                labels = []
+                oy = 8
+                for i, (rarity, name, text, a, cat, iw, pw, ih) in enumerate(items):
+                    if size == "goods":
+                        sx, sy = 8, oy
+                        oy += round(ih * scale) + 30
+                    else:
+                        sx, sy = 8 + (i % per_row) * (sw + 16), 8 + (i // per_row) * (sh + 30)
+                    res_ = draw_card(g, canvas, sx / scale, sy / scale, iw, ih, size, rarity, name, text, art(a), category=cat,
+                                     price_w=pw, ordinal=i + 1 if size == "tile" else 0)
+                    note = (rarity or "goods") if size == "tile" else f"{rarity or 'goods'} {pal[RARITY_KEY[rarity]]}"
+                    if size == "compact":
+                        note += "  text " + ("shown" if res_.get("text") else "hidden")
+                        if cards is SHORT_CARDS:
+                            summary.append(f"{theme} {res} {a} {text}: {'shown' if res_.get('text') else 'hidden'} "
+                                           f"(room {res_.get('room', 0):.1f} x {res_.get('width', 0):.1f} units)")
+                    labels.append((sx, sy + round(ih * scale) + 5, note))
+                sheet.paste(canvas.image(), (px, y + 26))
+                light = bd.luminance(host_colour) < .3
+                for sx, sy, text_ in labels:
+                    d.text((px + sx, y + 26 + sy), text_, fill=(246, 240, 222) if light else (70, 64, 58), font=tiny)
+            y += 26 + ph + 18
+    sizes = (12, 18, 20, 22, 23, 30, 34)
+    for p, (theme, tkit, tb, tp, pal) in enumerate(themes):
+        px = 24 + p * (panel_w + gap)
+        d.text((px, y), f"{theme}   GEMS at {' / '.join(map(str, sizes))} px on the card's top frame and ring; right: 2x nearest",
+               fill=LABEL, font=font)
+        face = tkit["ui_card_controller"]
+        fl, fb, fr, ft = (v / 2 for v in frame_insets_px(np.asarray(face), tb["ui_card_controller"]))
+        ring = tkit["ui_card_frame_rarity"]
+        rl, rb, rr, rt = (v / 2 for v in ring_insets_px(np.asarray(ring), tb["ui_card_frame_rarity"]))
+        strip = Canvas(len(sizes) * 42 + 16, 3 * 60 + 8, pal["felt"], 1.0)
+        for k, rarity in enumerate(("common", "advanced", "rare")):
+            gy = 8 + k * 60 + 24
+            top = gy - (ft + rt / 2)
+            strip.sprite(face, -20, top, len(sizes) * 42 + 56, 120, border=tb["ui_card_controller"])
+            strip.sprite(ring, -20 + fl, top + ft, len(sizes) * 42 + 56 - fl - fr, 120 - ft - fb,
+                         tint=bd.col(pal[RARITY_KEY[rarity]]), border=tb["ui_card_frame_rarity"])
+            for j, s_ in enumerate(sizes):
+                strip.sprite(tkit["ui_gem_" + rarity], 8 + j * 42 + 21 - s_ / 2, gy - s_ / 2, s_, s_,
+                             tint=bd.col(pal[RARITY_KEY[rarity]]))
+        im = strip.image()
+        sheet.paste(im, (px, y + 26))
+        big = im.resize((im.width * 2, im.height * 2), Image.Resampling.NEAREST)
+        sheet.paste(big.crop((0, 0, min(big.width, panel_w - im.width - 16), big.height)), (px + im.width + 16, y + 26))
+    y += 26 + 2 * (3 * 60 + 8) + 20
+    for i, line in enumerate(summary):
+        d.text((24, y + i * 22), line, fill=LABEL, font=cjk)
+    y += len(summary) * 22 + 16
+    return sheet.crop((0, 0, sheet.width, y)), summary
+
+
+def write_card_template_review(output_root: Path = ROOT) -> Path:
+    im, summary = card_template_review()
+    path = Path(output_root) / bd.REVIEW / "card_template_review.png"
+    path.parent.mkdir(parents=True, exist_ok=True)
+    im.save(path, format="PNG", optimize=False, compress_level=9)
+    for line in summary:
+        print("DECO_COMPACT_TEXT", line)
+    print("DECO_CARD_REVIEW", path.relative_to(ROOT).as_posix())
+    return path
+
+
+# ---------------------------------------------------------------------------------------------- evidence
+CARD_COUNTS = (0, 3, 5, 7, 10)
+
+
+def card_rows(kit, borders, ppu, palette, table):
+    """DrawCards11 with 0, 3, 5, 7 and 10 cards: the card row at full size (y 84-352) and what the table shows there."""
+    x, y, w, h = bd.PLAY_RECTS["card row"]
+    px = np.asarray(table).astype(int)
+    felt = np.array(bd.rgb8(palette["felt"]))
+    under = int((np.abs(px[y:y + h, x:x + w] - felt).sum(axis=2) > 0).sum())
+    rows, lines = [], []
+    for n in CARD_COUNTS:
+        im, _ = play_screen(kit, borders, ppu, palette, table, "f", False, cards=n)
+        mode = "two rows of compact cards" if n > 7 else "no card, five + strips" if n == 0 else \
+            f"{n} full cards" + (f" and {5 - n} + strips" if n < 5 else "")
+        text = f"{n} cards ({mode}); table pixels under the card row unlike the felt: {under}"
+        lines.append(text)
+        rows.append(caption_bar(im.crop((0, 84, 1920, 352)), text, 18))
+    return stack(rows, 8), lines
+
+
+def action_row(kit, borders, ppu, palette, table):
+    """Every action-row state at 100 % and 150 % text with its rectangles; the rectangle free in all of them (blue) and
+    the fan's box; the hint's room under its last line."""
+    small = ImageFont.truetype(str(bd.BODY_FONT), 15)
+    x0, y0, x1, y1 = bd.ACTION_FREE
+    plinth, (hx, hy), rays = bd.fan_polygons()
+    fan_box = (bd.FAN_CX - bd.FAN_R - 6, hy - bd.FAN_R - 6, bd.FAN_CX + bd.FAN_R + 6, bd.FAN_BASE)
+    lines, strips = [], []
+    for large in (False, True):
+        for state in STATE_ORDER:
+            im, info = play_screen(kit, borders, ppu, palette, table, state, large)
+            crop = im.crop((0, 940, 1920, 1080))
+            d = ImageDraw.Draw(crop)
+            d.rectangle((x0, y0 - 940, x1 - 1, y1 - 940 - 1), outline=(80, 200, 255), width=2)
+            used = info["used"]
+            left_edge = max(x + w for x, y, w, h in used.values() if x < x0)
+            right_edge = min(x for x, y, w, h in used.values() if x >= x0)
+            inside = fan_box[0] >= left_edge and fan_box[2] <= right_edge and fan_box[1] >= y0
+            text = (f"{state:>9} {'150%' if large else '100%'}: " + ", ".join(f"{k} {x},{y},{w},{h}" for k, (x, y, w, h) in used.items())
+                    + f" | free x {left_edge:g}-{right_edge:g} | fan box x {fan_box[0]:.0f}-{fan_box[2]:.0f} y "
+                    f"{fan_box[1]:.0f}-{fan_box[3]:.0f} {'inside' if inside else 'OUTSIDE'} | hint {info['hint_lines']} line(s) "
+                    f"{info['hint_size']:.1f} u, {info['hint_room']:.1f} u under it")
+            lines.append(text)
+            bar = Image.new("RGB", (1920, 24), (24, 20, 16))
+            ImageDraw.Draw(bar).text((8, 3), text, fill=LABEL if inside else (255, 120, 120), font=small)
+            strips.append(stack([bar, crop], 0))
+    return stack(strips, 6), lines
 
 
 def main(argv=()):
     kit, borders, ppu, palette, table, page, fallback = load_kit()
+    if fallback:
+        print("DECO_REVIEW fallbacks:", ", ".join(fallback))
     OUT.mkdir(parents=True, exist_ok=True)
-    chunks = [", ".join(fallback[i:i + 11]) for i in range(0, len(fallback), 11)]
-    fb = ",\n    ".join(chunks)
-    note = ("OFFLINE MOCK (Python emulation of GameApp.Play11 / Card11 / Shop14 / UiKit; not a Unity capture). Stand-in "
-            "card art: default illustrations; 3D dice: flat stand-ins.\nDefault-theme fallbacks (deco sprite not drawn "
-            f"yet, {len(fallback)}): " + (fb if fb else "none"))
-    states = [s for s in argv if s in STATES] or ["a", "f"]
+    states = [s for s in argv if s in STATES] or list(STATE_ORDER)
     strips = []
     for state in states:
         for large in (False, True):
             im, info = play_screen(kit, borders, ppu, palette, table, state, large)
             tag = f"{state}_{150 if large else 100}"
             text = (f"STATE {state}  TEXT {150 if large else 100} %   hint: {info['hint_lines']} line(s) at "
-                    f"{info['hint_size']:.1f} units, {info['hint_room']:.1f} units under the last line to the frame\n" + note)
+                    f"{info['hint_size']:.1f} units, {info['hint_room']:.1f} units under the last line to the frame\n" + MOCK_NOTE)
             caption_bar(im, text, 18).save(OUT / f"play_{tag}.png", optimize=False, compress_level=9)
             strips.append(caption_bar(im.resize((960, 540), Image.Resampling.LANCZOS), f"{state} {150 if large else 100} %", 18))
             print(f"DECO_PLAY {tag}: hint {info['hint_lines']} line(s) {info['hint_size']:.1f} units, room "
-                  f"{info['hint_room']:.1f} units; " + "; ".join(f"{k} {v}" for k, v in info["used"].items()))
-    pairs = [stack([strips[i], strips[i + 1]], 0) for i in range(0, len(strips), 2)]
-    sheet = Image.new("RGB", (pairs[0].width * 2 + 8, max(p.height for p in pairs) * ((len(pairs) + 1) // 2)), (24, 20, 16))
-    for i, p in enumerate(pairs):
-        sheet.paste(p, ((i % 2) * (p.width + 8), (i // 2) * p.height))
-    caption_bar(sheet, note, 16).save(OUT / "play_states.png", optimize=False, compress_level=9)
+                  f"{info['hint_room']:.1f} units")
+    pairs = [side_by_side([strips[i], strips[i + 1]], 8) for i in range(0, len(strips), 2)]
+    caption_bar(stack(pairs, 8), MOCK_NOTE, 16).save(OUT / "play_states.png", optimize=False, compress_level=9)
+    rows, row_lines = card_rows(kit, borders, ppu, palette, table)
+    caption_bar(rows, "CARD ROW (GameApp.Play11 DrawCards11, 32, 96, 1448, 244) with 0, 3, 5, 7 and 10 cards\n" + MOCK_NOTE,
+                16).save(OUT / "card_rows.png", optimize=False, compress_level=9)
+    act, act_lines = action_row(kit, borders, ppu, palette, table)
+    caption_bar(act, "ACTION ROW in every state at 100 % and 150 % text (blue: x 1276-1492, y 942-1080, free in all)\n" + MOCK_NOTE,
+                16).save(OUT / "action_row.png", optimize=False, compress_level=9)
+    (OUT / "action_row.txt").write_text("\n".join(act_lines) + "\n", encoding="utf-8", newline="\n")
+    boss = [play_screen(kit, borders, ppu, palette, table, "boss_play", large)[0] for large in (False, True)]
+    p = bd.palette_report(palette)
+    boss_note = (f"BOSS STAGE (tier 4 emblem, boss factor in the formula): boss {palette['boss']}, primary {palette['primary']}; "
+                 f"dE00 {p['primary/boss dE00']:.1f} (plate as drawn {p['primary/boss plate as drawn dE00']:.1f}), pressure "
+                 f"{p['pressure/boss dE00']:.1f}, red pip {p['red pip/boss dE00']:.1f}; rings on the felt "
+                 f"{p['boss/felt (tray rings)']:.2f}:1")
+    caption_bar(stack([caption_bar(boss[0], "100 %", 16), caption_bar(boss[1], "150 %", 16)], 8), boss_note + "\n" + MOCK_NOTE,
+                18).save(OUT / "boss_stage.png", optimize=False, compress_level=9)
     notes = []
     shop = shop_screen(kit, borders, ppu, palette, page, notes)
-    caption_bar(shop, "W14 SHOP (GameApp.Shop14 S14, 100 % text) over Table/page_scene.png with the theme's section, caption "
-                      "and button-step tints (W20X)\n" + note + "\n" + "\n".join(notes), 16).save(
-        OUT / "shop_w14.png", optimize=False, compress_level=9)
+    caption_bar(shop, "W14 SHOP (GameApp.Shop14 S14, 100 % text) over Table/page_scene.png with section, caption and step tints\n"
+                + MOCK_NOTE + "\n" + "\n".join(notes), 16).save(OUT / "shop_w14.png", optimize=False, compress_level=9)
+    palette_sheet(palette).save(OUT / "palette.png", optimize=False, compress_level=9)
+    concept_sheet(kit, borders, ppu, palette, table).save(OUT / "concept_sources.png", optimize=False, compress_level=9)
+    for line in row_lines:
+        print("DECO_CARD_ROW", line)
+    for line in act_lines:
+        print("DECO_ACTION_ROW", line)
     for n in notes:
         print("DECO_SHOP", n)
-    palette_sheet(palette).save(OUT / "palette.png", optimize=False, compress_level=9)
-    drawn_names = [n for n in bd.PHASE1_NAMES if (THEME / "UI" / (n + ".png")).is_file()]
-    sprite_sheet(kit, borders, ppu, palette, drawn_names).save(OUT / "sprites.png", optimize=False, compress_level=9)
-    concept_sheet(kit, borders, ppu, palette, table).save(OUT / "concept_sources.png", optimize=False, compress_level=9)
-    # The two palette questions of README "需要决定" side by side: the current palette, a gold main button (the other
-    # kits' convention), a dark-bronze background (the secondary buttons' mix gets lighter than the felt).
-    variants = (("CURRENT: primary 9E1D22 crimson, background 0D0A08", {}),
-                ("ALTERNATIVE 1: primary = gold E2B05A (plinth stays gold)", {"primary": palette["gold"]}),
-                ("ALTERNATIVE 2: background 3A2E22 (dark bronze): secondary chip = lerp(background, panel, .55)",
-                 {"background": "3A2E22"}))
-    rows = []
-    for title, change in variants:
-        p = dict(palette, **change)
-        im, _ = play_screen(kit, borders, ppu, p, table, "f", False)
-        top = im.crop((0, 0, 1920, 96))
-        bottom = im.crop((0, 640, 1920, 1080))
-        sec = bd.lerp_hex(p["background"], p["panel"], .55)
-        rows.append(caption_bar(stack([top, bottom], 4), f"{title}   (secondary chip {sec}: "
-                                                         f"{bd.contrast(sec, p['felt']):.2f}:1 to the felt)", 18))
-    caption_bar(stack(rows, 10), "PALETTE ALTERNATIVES (offline mock, state f, 100 % text): top bar and the lower half of the "
-                                 "play screen", 18).save(OUT / "alternatives.png", optimize=False, compress_level=9)
-    print("DECO_REVIEW", OUT.relative_to(ROOT).as_posix(), sorted(p.name for p in OUT.iterdir()))
+    print("DECO_BOSS", boss_note)
+    print("DECO_REVIEW", OUT.relative_to(ROOT).as_posix(), sorted(p_.name for p_ in OUT.iterdir()))
 
 
 if __name__ == "__main__":

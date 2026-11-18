@@ -6,31 +6,34 @@ are not a contract; the game layout is (docs/specs/v11/PLAY_LAYOUT.md, SHOP_LAYO
 (tools/art_v11/theme_contract.json) owns pixel sizes, nine-slice borders and PPU. Repository fonts only; no image
 generation, no Unity files.
 
-The shape language, each taken from the deco concept pages (README "Shapes and materials"):
+The shape language, each taken from the deco concept pages (README "形状与材质"):
 - symmetric chamfered octagons, 45-degree corner cuts and no lean (every card, panel and button on roll.png, shop.png,
   select.png, card.png);
-- the double rule: a polished gold band bevelled and lit from the upper left, a black lacquer gap, a thin gold rule
-  (card.png and roll.png card and panel frames);
+- the double rule: a polished gold moulding lit from the upper left (an outer bevel with an edge light, a flat top, an
+  inner bevel), a black lacquer gap, a thin gold rule (card.png and roll.png card and panel frames);
 - crimson keystones: in each corner of a dark or paper panel the thin rule closes a small crimson right triangle with
   a gold diagonal brace (the crimson corner triangles of card.png's art windows and roll.png's corners);
 - tinted plaques (chips, buttons, the stage card, the top bar) keep the same octagon with a bevelled rim and an
   engraved line, so any palette colour reads as an enamel or metal plaque (shop.png price chips and buttons);
 - a chevron-ended caption strip (shop.png section tabs) for the shop's section header;
-- the sunburst fan on a stepped plinth (the fans of roll.png, select.png and card.png) only on the table and the
-  wordmark, never on a band the game stretches.
+- the sunburst fan on a stepped plinth (the fans of roll.png, select.png and card.png) only on the table, the wordmark
+  and the card back, never on a band the game stretches;
+- octagonal medallions in a gold rim for the enchantment badges, faceted jewels for the rarity gems.
 
-Rules the art keeps (checked by tests/test_art_v11_deco.py in phase 2, and by checks in this generator):
+Rules the art keeps (checked by tests/test_art_v11_deco.py, and by checks in this generator):
 - every nine-slice centre is one flat colour (or transparent) from the border line inward;
 - stretched edge bands are the same along the edge: corner features end inside the 40 px corner squares (checked
-  after rendering: `_check_slices`);
+  after rendering: `_check_slices`, exactly for tinted pieces, at most 6 levels a pixel for baked ones);
 - sprites the code multiplies by a palette colour (NEUTRAL_NAMES) are achromatic with a pure white face;
 - the four calm zones of the table are exactly the felt colour; decoration only where no play state puts interface.
 
-`build_deco.py --review` writes the offline review mocks to ArtSource/Art11/deco/review/ (not part of the build).
+`build_deco.py --review [states]` writes the offline review mocks to ArtSource/Art11/deco/review/ and
+`build_deco.py --card-review` the card template review; neither is part of the build.
 """
 from __future__ import annotations
 
 import colorsys
+import importlib.util
 import json
 import math
 import sys
@@ -58,9 +61,9 @@ SEED = 20261118
 # table felt is exactly PALETTE["felt"], and the baked sprites take their lacquer, ivory and crimson from the constants
 # below. Reasons and contrast numbers: tools/art_v11/deco/README.md (palette_report() prints them).
 PALETTE = {
-    "background": "0D0A08",   # deepest lacquer: fades and veils; mixed into the secondary chips
+    "background": "0D0A08",   # deepest lacquer: fades and veils; mixed into the secondary chips until buttonSecondary
     "felt": "15110D",         # black lacquer (concept tray floor 15110E): the table, flat in every calm zone
-    "panel": "332A20",        # smoked lacquer plate: top bar, dialogs, secondary chips (light text on it)
+    "panel": "332A20",        # smoked lacquer plate: top bar, dialogs (light text on it)
     "panelLight": "6E5434",   # antique bronze: the normal stage tag and header, dividers, unreached points, disabled faces
     "paper": "F4E3C3",        # ivory enamel: cards, paper panels, button faces
     "ink": "18130E",          # lacquer ink: text on ivory
@@ -78,8 +81,10 @@ PALETTE = {
     "ghost": "B8955A",        # old gold: outline buttons, empty slot rings, the tray's inner line, the goods' card ring
     "primary": "9E1D22",      # crimson (concept: 重掷, 下一关 and 开始挑战 are crimson plaques): the one main action
     "reward": "EDC46A",       # bright gold: reward moments
-    "boss": "C4372D",         # scarlet: boss stages
-    "pressure": "E8742E",     # vermilion: pressure stages (a warning hue, apart from the crimson and the scarlet)
+    # Coordinator 2026-11-18: at least 15 CIEDE2000 from the crimson primary, clearly apart from pressure. A brighter
+    # vermilion red (README "色板"): 16.9 from primary, 20.0 for the plate LabelOn11 draws, 16.7 from pressure.
+    "boss": "EB2921",
+    "pressure": "E8742E",     # vermilion orange: pressure stages (a warning hue)
     "rarityCommon": "BDB6A8", # pewter
     "rarityAdvanced": "3D9FB5",  # teal enamel (style kit teal 0E4A66, lifted to read on ivory and lacquer)
     "rarityRare": "8D57CB",   # amethyst
@@ -90,7 +95,15 @@ W20X_TOKENS = {
     "buttonStep": "7A5C34",         # the plinth under a UiKit.Button: bronze (the concept's buttons sit in gold mounts)
     "buttonStepPrimary": "B68A44",  # gold plinth under the crimson main button
     "section": "FFFFFF",            # ui_section_panel stays authored: black lacquer with its gold double rule
-    "caption": "8E1B20",            # crimson caption strips: the shop's section headers and the tray's tabs
+    "caption": "8E1B20",            # crimson caption strips: the shop's section headers and the tray's tabs (accepted)
+}
+# Keys the game does not read yet. buttonSecondary (code task W20Y, coordinator 2026-11-18): the face tint of every
+# SolidButton11 (secondary actions, Skip, 查看骰子, the shop's buttons and the price buttons on cards and goods rows);
+# unset, the code keeps lerp(background, panel, .55). A bronze plaque that reads on the black felt and on ivory
+# (3.04:1 and 4.89:1) with an ivory label at 5.14:1. Not written to theme.json until W20Y is merged (the coordinator adds
+# it then); the mocks and the preview draw it, labelled "simulated buttonSecondary".
+PENDING_TOKENS = {
+    "buttonSecondary": "7A5C30",
 }
 THEME_META = {
     "id": "deco",
@@ -182,6 +195,10 @@ def drawn(fill: str, tint: str) -> str:
     return "".join(f"{int(round(_gam(_lin(f) * _lin(t)) * 255)):02X}" for f, t in zip(rgb8(fill), rgb8(tint)))
 
 
+def hexc(c) -> str:
+    return "".join(f"{int(round(float(np.clip(v, 0, 1)) * 255)):02X}" for v in c)
+
+
 def lerp_hex(a: str, b: str, t: float) -> str:
     """Color.Lerp on two palette colours (sRGB values, as the game's code mixes them)."""
     return hexc(col(a) * (1 - t) + col(b) * t)
@@ -193,26 +210,53 @@ def best_label(fill: str, palette: dict) -> tuple[str, float]:
     return key, contrast(palette[key], fill)
 
 
-def hexc(c) -> str:
-    return "".join(f"{int(round(float(np.clip(v, 0, 1)) * 255)):02X}" for v in c)
+def label_on(fill: str, palette: dict) -> tuple[str, int, str]:
+    """GameApp.LabelOn11 on a white-faced plaque tinted `fill`: the best of ink / paper / textColor at 4.95:1, else the
+    tint steps 5 % toward black (or white) until the lightest (or darkest) label reaches it, fewer steps winning (a tie
+    deepens). Returns (label key, steps, the plate as drawn)."""
+    key, ratio = best_label(fill, palette)
+    if ratio >= 4.95:
+        return key, 0, fill
+    keys = ("ink", "paper", "textColor")
+    light = max(keys, key=lambda k: luminance(palette[k]))
+    dark = min(keys, key=lambda k: luminance(palette[k]))
+
+    def steps(toward, label):
+        t = col(fill)
+        for i in range(25):
+            if contrast(palette[label], hexc(t)) >= 4.95:
+                return i, hexc(t)
+            t = t + (col(toward) - t) * .05
+        return -1, None
+    d, dt = steps("000000", light)
+    li, lt = steps("FFFFFF", dark)
+    if d < 0 and li < 0:
+        return key, 0, fill
+    return (light, d, dt) if (li < 0 or 0 <= d <= li) else (dark, li, lt)
 
 
 # ---------------------------------------------------------------------------------------------- deco materials
-# Concept samples (scratch measurements on the concept pages, README "Palette"): lacquer 110E0A-15110E, crimson plates
-# 5F0B11-661315, ivory buttons F1D29F, gold plaques F9C366, price chips 2A1C0E. Style kit: ivory F8E5C6, gold D9A44E,
-# old gold B7916B, lacquer 15110D, crimson 7A120C, teal 0E4A66, bronze 785C3E.
+# Concept samples (README "色板"): lacquer 110E0A-15110E, crimson plates 5F0B11-661315, ivory buttons F1D29F, gold
+# plaques F9C366, price chips 2A1C0E. Style kit: ivory F8E5C6, gold D9A44E, old gold B7916B, lacquer 15110D, crimson
+# 7A120C, teal 0E4A66, bronze 785C3E.
 LACQUER_HEX = "100D0A"            # panel interiors (concept HUD interior 120F0C)
 LACQUER = col(LACQUER_HEX)
 LACQUER_DEEP = col("0A0806")
+INK_LINE = col("120D09")          # the lacquer outline of baked icons and badges
 IVORY_HEX = PALETTE["paper"]
 IVORY = col(IVORY_HEX)
 CRIMSON = col("8E1B20")
 CRIMSON_DEEP = col("5C0E12")
 BRONZE = col("785C3E")
-# The polished gold ramp from shadow to specular (style kit gold D9A44E, old gold B7916B, bronze 785C3E).
-GOLD_RAMP = ((0.00, col("3A2810")), (0.22, col("6E4F22")), (0.45, col("A97D35")), (0.66, col("D9A44E")),
-             (0.84, col("F0C978")), (1.00, col("FFF0C8")))
-GOLD_FLAT = col("D2A353")         # the thin inner rules
+JADE = col("2E8C68")              # the enamel fields of the badges keep the default badges' meaning colours
+SAPPHIRE = col("1F5C99")
+AMETHYST = col("6B3FA3")
+TEAL_ENAMEL = col("0E4A66")
+# The polished gold ramp from shadow to specular (style kit gold D9A44E, old gold B7916B, bronze 785C3E), pushed toward
+# the concept's bright frames (coordinator 2026-11-18, phase 2: thicker, brighter, an edge light).
+GOLD_RAMP = ((0.00, col("3E2A10")), (0.20, col("7A5420")), (0.42, col("B5843A")), (0.62, col("DDAA52")),
+             (0.80, col("F2CC79")), (0.92, col("FCE6A8")), (1.00, col("FFF6DC")))
+GOLD_FLAT = col("E0B060")         # the thin inner rules and braces: polished, lighter than the band's flat
 OLD_GOLD = col("B7916B")
 WHITE = np.ones(3, np.float32)
 K = np.zeros(3, np.float32)
@@ -284,15 +328,6 @@ class Raster:
         self.rgb[...] *= keep[..., None]
         self.a[...] *= keep
 
-    def mask(self, draw_fn) -> np.ndarray:
-        """Binary SS mask in this raster's frame; draw_fn(d, s) gets an ImageDraw and a point scaler."""
-        ox = float(self.X[0, 0]) - .5 / SS
-        oy = float(self.Y[0, 0]) - .5 / SS
-        im = Image.new("L", (self.w * SS, self.h * SS), 0)
-        d = ImageDraw.Draw(im)
-        draw_fn(d, lambda pts: [((x - ox) * SS, (y - oy) * SS) for x, y in pts])
-        return np.asarray(im, np.float32) / 255.0
-
     def export(self) -> Image.Image:
         return downsample(self.rgb, self.a, self.w, self.h)
 
@@ -319,11 +354,6 @@ def mix(a, b, t):
     return np.asarray(a, np.float32) + (np.asarray(b, np.float32) - np.asarray(a, np.float32)) * t[..., None]
 
 
-def smoothstep(a: float, b: float, x):
-    t = np.clip((x - a) / (b - a), 0.0, 1.0)
-    return t * t * (3.0 - 2.0 * t)
-
-
 # ---------------------------------------------------------------------------------------------- geometry
 def sd_box(X, Y, box):
     """Exact signed distance to an axis-aligned rectangle (negative inside)."""
@@ -335,6 +365,24 @@ def sd_box(X, Y, box):
 
 def sd_circle(X, Y, cx, cy, r):
     return (np.hypot(X - np.float32(cx), Y - np.float32(cy)) - np.float32(r)).astype(np.float32)
+
+
+def sd_segment(X, Y, ax, ay, bx, by):
+    ex, ey = bx - ax, by - ay
+    t = np.clip(((X - ax) * ex + (Y - ay) * ey) / (ex * ex + ey * ey), 0, 1)
+    return np.hypot(X - (ax + ex * t), Y - (ay + ey * t)).astype(np.float32)
+
+
+def sd_arc(X, Y, cx, cy, radius, a0, a1, width):
+    """A stroke `width` wide along the arc of `radius` from angle a0 to a1 (radians, screen axes), round ends."""
+    ang = np.arctan2(Y - cy, X - cx)
+    mid, half = (a0 + a1) / 2, (a1 - a0) / 2
+    rel = (ang - mid + np.pi) % (2 * np.pi) - np.pi
+    on = np.abs(rel) <= half
+    ring = np.abs(np.hypot(X - cx, Y - cy) - radius)
+    ends = np.minimum(np.hypot(X - (cx + radius * math.cos(a0)), Y - (cy + radius * math.sin(a0))),
+                      np.hypot(X - (cx + radius * math.cos(a1)), Y - (cy + radius * math.sin(a1))))
+    return (np.where(on, ring, ends) - width / 2).astype(np.float32)
 
 
 def sd_poly(X, Y, pts) -> np.ndarray:
@@ -371,6 +419,13 @@ def sd_poly_n(X, Y, pts):
     return np.where(inside, -d, d).astype(np.float32), nx.astype(np.float32), ny.astype(np.float32)
 
 
+def normals(d) -> tuple[np.ndarray, np.ndarray]:
+    """Outward unit normals of any distance field (its gradient), for shading shapes that are not polygons."""
+    gy, gx = np.gradient(d.astype(np.float64))
+    n = np.maximum(np.hypot(gx, gy), 1e-9)
+    return (gx / n).astype(np.float32), (gy / n).astype(np.float32)
+
+
 def octagon(box, cuts):
     """A box with 45-degree corner cuts (top-left, top-right, bottom-right, bottom-left) in px; 0 keeps a corner."""
     x0, y0, x1, y1 = box
@@ -382,13 +437,14 @@ def octagon(box, cuts):
     return pts
 
 
+def star_pts(cx, cy, ro, ri, n, rot=-math.pi / 2):
+    return [(cx + math.cos(rot + math.pi * i / n) * (ro if i % 2 == 0 else ri),
+             cy + math.sin(rot + math.pi * i / n) * (ro if i % 2 == 0 else ri)) for i in range(2 * n)]
+
+
 def band(d, lo: float, hi: float):
     """Coverage of the ring between depth lo and hi inside a shape (d negative inside): 0 <= lo < hi."""
     return np.clip(coverage(d + lo) - coverage(d + hi), 0.0, 1.0)
-
-
-def poly_mask(r: Raster, pts) -> np.ndarray:
-    return r.mask(lambda d, s: d.polygon(s(pts), fill=255))
 
 
 def fan_wedges(cx, cy, r_out, r_in, n, a0, a1, gap):
@@ -403,6 +459,14 @@ def fan_wedges(cx, cy, r_out, r_in, n, a0, a1, gap):
     return out
 
 
+def around(r: Raster, pts, margin: float = 4.0) -> Raster:
+    """The window of a raster (origin 0) that holds a shape and its antialiasing: the same samples, fewer of them."""
+    xs, ys = [p[0] for p in pts], [p[1] for p in pts]
+    x0, y0 = max(0, int(math.floor(min(xs) - margin))), max(0, int(math.floor(min(ys) - margin)))
+    x1, y1 = min(r.w, int(math.ceil(max(xs) + margin))), min(r.h, int(math.ceil(max(ys) + margin)))
+    return r.window(x0, y0, max(1, x1 - x0), max(1, y1 - y0))
+
+
 # ---------------------------------------------------------------------------------------------- deco shading
 def _ramp(v, ramp=GOLD_RAMP) -> np.ndarray:
     v = np.clip(np.asarray(v, np.float32), 0, 1)
@@ -414,37 +478,62 @@ def _ramp(v, ramp=GOLD_RAMP) -> np.ndarray:
     return out
 
 
-def bevel_light(t, nx, ny, height: float = 1.0):
-    """Lambert + a tight Blinn highlight on a ridge across a band: t = 0 at the band's outer edge, 1 at its inner edge;
-    (nx, ny) the outward normal. The outer half faces outward, the inner half inward (a raised moulding)."""
-    slope = np.cos(np.pi * np.clip(t, 0, 1)) * np.float32(height)
-    Nx, Ny, Nz = nx * slope, ny * slope, np.ones_like(slope)
+def _shade(slope, nx, ny, steep: float):
+    """Lambert and a tight Blinn highlight for a surface whose in-plane tilt is slope x the outward normal."""
+    s = np.asarray(slope, np.float32) * np.float32(steep)
+    Nx, Ny, Nz = nx * s, ny * s, np.ones_like(s)
     inv = 1.0 / np.sqrt(Nx * Nx + Ny * Ny + Nz * Nz)
     Nx, Ny, Nz = Nx * inv, Ny * inv, Nz * inv
     diff = np.clip(Nx * LIGHT[0] + Ny * LIGHT[1] + Nz * LIGHT[2], 0, 1)
     hx, hy, hz = LIGHT[0], LIGHT[1], LIGHT[2] + 1.0
     hn = math.sqrt(hx * hx + hy * hy + hz * hz)
-    spec = np.clip((Nx * hx + Ny * hy + Nz * hz) / hn, 0, 1) ** 48
+    spec = np.clip((Nx * hx + Ny * hy + Nz * hz) / hn, 0, 1) ** 56
     return diff.astype(np.float32), spec.astype(np.float32)
 
 
+def moulding_slope(t):
+    """The deco moulding across a band (t = 0 outer edge, 1 inner edge): an outer bevel facing out, a flat top, an inner
+    bevel facing in, joined smoothly so the highlights stay crisp but not stepped."""
+    t = np.clip(t, 0, 1)
+    out = 1.0 - np.clip((t - .20) / .10, 0, 1)
+    inn = np.clip((t - .70) / .10, 0, 1)
+    return out - .85 * inn
+
+
 def gold_band_rgb(t, nx, ny):
-    """Polished gold across a bevelled band: a crisp specular line on the lit (upper-left) faces, warm mid gold on the
-    flat, bronze in the shade, a fine dark line at both edges of the band."""
-    diff, spec = bevel_light(t, nx, ny, 1.35)
-    v = .30 + .62 * diff ** 1.6
-    rgb = _ramp(v)
-    rgb = rgb + (col("FFF7DC") - rgb) * np.clip(spec * 1.6, 0, 1)[..., None]
-    edge = np.minimum(np.clip(t * 12, 0, 1), np.clip((1 - t) * 12, 0, 1))
-    return rgb * (.62 + .38 * edge)[..., None]
+    """Polished gold across a moulding (concept card and panel frames): the outer bevel bright on the lit (upper-left)
+    sides and bronze in the shade, a crisp specular line, an edge light along the crest on every side, a warm flat
+    top, an inner bevel lit opposite, and a fine dark line at both edges."""
+    t = np.asarray(t, np.float32)
+    diff, spec = _shade(moulding_slope(t), nx, ny, 1.7)
+    v = .20 + .74 * diff ** 1.25
+    crest = np.exp(-((t - .25) / .045) ** 2) * .22             # the edge light: the crest catches light everywhere
+    rgb = _ramp(np.clip(v + crest, 0, 1))
+    rgb = rgb + (col("FFF7E0") - rgb) * np.clip(spec * 1.8, 0, 1)[..., None]
+    edge = np.minimum(np.clip(t * 14, 0, 1), np.clip((1 - t) * 14, 0, 1))
+    return rgb * (.58 + .42 * edge)[..., None]
+
+
+def gold_fill(d, nx=None, ny=None, bevel: float = 8.0):
+    """A solid gold shape: the outer bevel, the crest light and the flat top (no inner bevel)."""
+    if nx is None:
+        nx, ny = normals(d)
+    return gold_band_rgb(np.clip(-d / bevel, 0, 1) * .55, nx, ny)
 
 
 def grey_band(t, nx, ny, lo: float = .58):
     """The achromatic bevel of a tinted sprite: never brighter than its white face (drawn colour <= the tint)."""
-    diff, spec = bevel_light(t, nx, ny, 1.0)
+    diff, spec = _shade(np.cos(np.pi * np.clip(t, 0, 1)), nx, ny, 1.0)
     v = lo + (1 - lo) * np.clip(diff * 1.05 + spec * .3, 0, 1)
     edge = np.minimum(np.clip(t * 7, 0, 1), np.clip((1 - t) * 7, 0, 1))
     return np.clip(v * (.78 + .22 * edge), 0, 1)
+
+
+def inked(r: Raster, d, fill, ink: float, ink_rgb=None):
+    """A flat shape with a lacquer outline `ink` px wide outside it."""
+    if ink:
+        r.over(INK_LINE if ink_rgb is None else ink_rgb, coverage(d - ink))
+    r.over(fill, coverage(d))
 
 
 # ---------------------------------------------------------------------------------------------- nine-slice tiles
@@ -465,9 +554,9 @@ def keystone_parts(X, Y, w, h, a: float, leg: float, brace: float):
     br = np.zeros(X.shape, np.float32)
     corners = ((a, a, 1, 1), (w - a, a, -1, 1), (w - a, h - a, -1, -1), (a, h - a, 1, -1))
     for cx, cy, sx, sy in corners:
-        u = (X - np.float32(cx)) * sx          # distance into the panel along x from the corner
+        u = (X - np.float32(cx)) * sx
         v = (Y - np.float32(cy)) * sy
-        diag = (u + v - np.float32(leg)) / np.float32(math.sqrt(2))   # signed distance to the hypotenuse
+        diag = (u + v - np.float32(leg)) / np.float32(math.sqrt(2))
         inside = np.minimum(np.minimum(coverage(-u), coverage(-v)), coverage(diag))
         tri = np.maximum(tri, inside)
         near = np.minimum(coverage(np.abs(diag) - brace / 2), np.minimum(coverage(-u + .5), coverage(-v + .5)))
@@ -477,8 +566,8 @@ def keystone_parts(X, Y, w, h, a: float, leg: float, brace: float):
 
 def keystone_frame(w: int, h: int, *, cut: float, gold: float, gap: float, gap_rgb, rule: float, face, leg: float,
                    leg_rgb, border: float = 40.0, inset: float = 1.0) -> Image.Image:
-    """deco_frame with the crimson keystones drawn in the right order: gap, face inside the rule, crimson triangles in
-    the rule's corners, the rule rectangle and the braces, then the bevelled band on top."""
+    """Dark and paper panels: the gold moulding, a lacquer gap, a thin gold rule (a rectangle whose corners nest in the
+    band's chamfer) closing a crimson keystone triangle in each corner with a gold diagonal brace, and the flat face."""
     box = (inset, inset, w - inset, h - inset)
     pts = octagon(box, cut)
     a = inset + gold + gap
@@ -506,8 +595,8 @@ def keystone_frame(w: int, h: int, *, cut: float, gold: float, gap: float, gap_r
 
 def plain_frame(w: int, h: int, *, cut: float, gold: float, gap: float, gap_rgb, face, border: float = 40.0,
                 inset: float = 1.0) -> Image.Image:
-    """Cards: the bevelled gold band, a lacquer (or coloured) gap and the flat face; the W13 rarity ring takes the place
-    of the concept's thin inner rule right inside the gap."""
+    """Cards: the gold moulding, a lacquer (or coloured) gap and the flat face; the W13 rarity ring takes the place of
+    the concept's thin inner rule right inside the gap."""
     box = (inset, inset, w - inset, h - inset)
     pts = octagon(box, cut)
     depth = int(math.ceil(border + 8))
@@ -555,6 +644,22 @@ def plaque(w: int, h: int, *, cut: float, rim: float, line_at: float = 0.0, line
     return r.export()
 
 
+def flat_tile(w: int, h: int, *, cut: float, face, edge: float = 0.0, edge_rgb=None, border: float = 40.0,
+              inset: float = 1.0) -> Image.Image:
+    """A flat octagon (an optional hairline edge `edge` px in edge_rgb), for the label chip and the frame block."""
+    pts = octagon((inset, inset, w - inset, h - inset), cut)
+
+    def draw(win: Raster):
+        d, _, _ = sd_poly_n(win.X, win.Y, pts)
+        win.over(edge_rgb if edge else face, coverage(d))
+        if edge:
+            win.over(face, coverage(d + edge))
+
+    r = Raster(w, h)
+    _band_render(r, w, h, int(math.ceil(border + 8)), draw, face)
+    return r.export()
+
+
 def _check_slices(name: str, im: Image.Image, border, tinted: bool):
     """Fail on a centre that is not one flat colour, or a stretched band that changes along the edge (tinted pieces
     exactly the same, baked pieces at most 6 levels per pixel, the brief's soft-band rule)."""
@@ -579,120 +684,6 @@ def _check_slices(name: str, im: Image.Image, border, tinted: bool):
                 raise ValueError(f"{name}: a stretched band changes by {step} levels along its edge (limit {limit})")
 
 
-# ---------------------------------------------------------------------------------------------- surfaces
-# Sprite px (PPU 200: 2 px = 1 unit at 1080p). The rule rectangle's corner must sit inside the band's chamfer:
-# PANEL_CUT <= (2 - sqrt 2) * PANEL_GOLD + 2 * PANEL_GAP (checked below), so the keystone's right angle shows.
-PANEL_CUT, PANEL_GOLD, PANEL_GAP, PANEL_RULE, PANEL_LEG = 14.0, 10.0, 4.5, 2.0, 16.0
-CARD_CUT, CARD_GOLD, CARD_GAP = 14.0, 10.0, 2.5
-if PANEL_CUT > (2 - math.sqrt(2)) * PANEL_GOLD + 2 * PANEL_GAP:
-    raise ValueError("The panel's rule corner would cross its gold band")
-CHIP_CUT, CHIP_RIM = 20.0, 5.0
-BUTTON_CUT, BUTTON_RIM = 18.0, 6.0
-RING_CUT = 24.0
-TRAY_CUT = 23.0
-
-
-def surface(spec: dict) -> Image.Image:
-    """Nine-sliced and horizontally sliced surfaces."""
-    name = spec["name"]
-    w, h = spec["size"]
-    if name in ("ui_panel_hud", "ui_section_panel", "ui_tab_bottom"):
-        # Black lacquer in the gold double rule with crimson keystones (roll.png HUD plates, shop.png sections).
-        return keystone_frame(w, h, cut=PANEL_CUT, gold=PANEL_GOLD, gap=PANEL_GAP, gap_rgb=LACQUER, rule=PANEL_RULE,
-                              face=LACQUER, leg=PANEL_LEG, leg_rgb=CRIMSON)
-    if name == "ui_paper_panel":
-        # Ivory in the same double rule (card.png's frames; the main menu's wordmark panel, paper dialogs).
-        return keystone_frame(w, h, cut=PANEL_CUT, gold=PANEL_GOLD, gap=PANEL_GAP, gap_rgb=LACQUER, rule=PANEL_RULE,
-                              face=IVORY, leg=PANEL_LEG, leg_rgb=CRIMSON)
-    if name in ("ui_card_controller", "ui_card_controller_compact", "ui_card_shop"):
-        return plain_frame(w, h, cut=CARD_CUT, gold=CARD_GOLD, gap=CARD_GAP, gap_rgb=LACQUER, face=IVORY)
-    if name == "ui_card_item":
-        # Consumables: a crimson gap under the gold band (concept: consumables and the shop's crimson accents).
-        return plain_frame(w, h, cut=8.0, gold=7.0, gap=3.0, gap_rgb=CRIMSON, face=IVORY)
-    if name == "ui_info_inset":
-        # A lacquer well with a fine old-gold rule (roll.png's score readouts).
-        return _well(w, h)
-    if name == "ui_slot_inventory":
-        return _slot(w, h)
-    # Achromatic, tinted by the game.
-    if name == "ui_chip_formula":
-        return plaque(w, h, cut=CHIP_CUT, rim=CHIP_RIM, line_at=7.5, line_w=1.6)
-    if name == "ui_button_bevel":
-        return plaque(w, h, cut=BUTTON_CUT, rim=BUTTON_RIM, line_at=9.0, line_w=1.8)
-    if name == "ui_topbar":
-        return plaque(w, h, cut=14.0, rim=4.0, inlay_at=4.0, inlay_w=3.0)
-    if name == "ui_stage_card":
-        return plaque(w, h, cut=18.0, rim=5.0, inlay_at=5.0, inlay_w=3.5, border=48.0)
-    if name == "ui_ring":
-        return plaque(w, h, cut=RING_CUT, rim=6.0, inlay_at=6.0, inlay_w=2.5, hollow=True, inner_w=2.0)
-    if name == "ui_dice_tray":
-        return plaque(w, h, cut=TRAY_CUT, rim=10.0, inlay_at=10.0, inlay_w=0.0, hollow=True, border=72.0, depth=80,
-                      lo=.50)
-    if name == "ui_section_header":
-        return section_header(w, h)
-    if name == "ui_card_frame_rarity":
-        return rarity_ring(w, h)
-    raise ValueError("Unimplemented sliced sprite: " + name)
-
-
-RING_BAND = (1.5, 4.0, 1.2)      # px: lacquer line, tinted band, lacquer line (the concept's thin inner rule, in the rarity colour)
-RARITY_RING_CUT = 8.0            # 4 units: the ring's corner stays on the card's ivory, inside the face's chamfer
-
-
-def rarity_ring(w: int, h: int) -> Image.Image:
-    """ui_card_frame_rarity (W13, CARD_TEMPLATE 6): the thin inner rule of the concept's cards, tinted by the rarity
-    colour (Ghost for goods), between two lacquer hairlines so a pale rarity still reads on ivory. Hollow, achromatic."""
-    box = (.5, .5, w - .5, h - .5)
-    pts = octagon(box, RARITY_RING_CUT)
-    a, b, c = RING_BAND
-
-    def draw(win: Raster):
-        d, _, _ = sd_poly_n(win.X, win.Y, pts)
-        win.over(K, band(d, 0.0, a + b + c))
-        win.over(WHITE, band(d, a, a + b))
-
-    r = Raster(w, h)
-    _band_render(r, w, h, 48, draw, None)
-    return r.export()
-
-
-def _well(w: int, h: int) -> Image.Image:
-    """ui_info_inset: deep lacquer with an old-gold hairline 1 px in and a bronze one inside it (no bevel: a recess)."""
-    box = (1.0, 1.0, w - 1.0, h - 1.0)
-    pts = octagon(box, 8.0)
-
-    def draw(win: Raster):
-        d, _, _ = sd_poly_n(win.X, win.Y, pts)
-        win.over(OLD_GOLD, coverage(d))
-        win.over(LACQUER_DEEP, coverage(d + 2.5))
-        win.over(BRONZE * .8, band(d, 4.5, 5.5))
-    r = Raster(w, h)
-    _band_render(r, w, h, 48, draw, LACQUER_DEEP)
-    return r.export()
-
-
-def _slot(w: int, h: int) -> Image.Image:
-    """ui_slot_inventory: a lacquer recess with an old-gold rule (empty card strips in play, cells in the shop)."""
-    box = (1.0, 1.0, w - 1.0, h - 1.0)
-    pts = octagon(box, 12.0)
-
-    def draw(win: Raster):
-        d, _, _ = sd_poly_n(win.X, win.Y, pts)
-        win.over(OLD_GOLD, coverage(d))
-        win.over(LACQUER, coverage(d + 3.0))
-        win.over(OLD_GOLD * .55, band(d, 6.0, 7.2))
-    r = Raster(w, h)
-    _band_render(r, w, h, 48, draw, LACQUER)
-    return r.export()
-
-
-def _aniso_coverage(d):
-    """Coverage for a distance measured in anisotropic display units: rescale by the local gradient."""
-    gy, gx = np.gradient(d, np.float32(1.0 / SS))
-    g = np.maximum(np.sqrt(gx * gx + gy * gy), 1e-3)
-    return coverage(d / g)
-
-
 def frame_insets_px(pixels: np.ndarray, border) -> tuple[int, int, int, int]:
     """GameApp.FrameInsets11 (left, bottom, right, top) in sprite px: along the middle row and column, within the slice
     border, the last pixel that is transparent (alpha < 128) or differs from the centre by more than 48 (sum of the
@@ -713,6 +704,144 @@ def frame_insets_px(pixels: np.ndarray, border) -> tuple[int, int, int, int]:
             inset(lambda i: up[h // 2, w - 1 - i], w, right), inset(lambda i: up[h - 1 - i, w // 2], h, top))
 
 
+def ring_insets_px(pixels: np.ndarray, border) -> tuple[int, int, int, int]:
+    """GameApp.Card11 RingInsets13 (left, bottom, right, top) in sprite px: the last opaque pixel inside the border."""
+    up = pixels[::-1]
+    h, w = up.shape[:2]
+
+    def inset(get, count, limit):
+        last = 0
+        for i in range(min(count // 2, int(round(limit)))):
+            if get(i)[3] >= 128:
+                last = i + 1
+        return last
+    left, bottom, right, top = border
+    return (inset(lambda i: up[h // 2, i], w, left), inset(lambda i: up[i, w // 2], h, bottom),
+            inset(lambda i: up[h // 2, w - 1 - i], w, right), inset(lambda i: up[h - 1 - i, w // 2], h, top))
+
+
+# ---------------------------------------------------------------------------------------------- surfaces
+# Sprite px (PPU 200: 2 px = 1 unit at 1080p). The rule rectangle's corner must sit inside the band's chamfer:
+# PANEL_CUT <= (2 - sqrt 2) * PANEL_GOLD + 2 * PANEL_GAP (checked below), so the keystone's right angle shows.
+PANEL_CUT, PANEL_GOLD, PANEL_GAP, PANEL_RULE, PANEL_LEG = 16.0, 13.0, 4.5, 2.5, 13.5
+CARD_CUT, CARD_GOLD, CARD_GAP = 16.0, 14.0, 3.0
+CHIP_CUT, CHIP_RIM = 20.0, 5.0
+BUTTON_CUT, BUTTON_RIM = 18.0, 6.0
+RING_CUT = 24.0
+TRAY_CUT = 23.0
+if PANEL_CUT > (2 - math.sqrt(2)) * PANEL_GOLD + 2 * PANEL_GAP:
+    raise ValueError("The panel's rule corner would cross its gold band")
+
+
+def surface(spec: dict) -> Image.Image:
+    """Nine-sliced and horizontally sliced surfaces."""
+    name = spec["name"]
+    w, h = spec["size"]
+    if name in ("ui_panel_hud", "ui_section_panel", "ui_tab_bottom"):
+        # Black lacquer in the gold double rule with crimson keystones (roll.png HUD plates, shop.png sections).
+        return keystone_frame(w, h, cut=PANEL_CUT, gold=PANEL_GOLD, gap=PANEL_GAP, gap_rgb=LACQUER, rule=PANEL_RULE,
+                              face=LACQUER, leg=PANEL_LEG, leg_rgb=CRIMSON)
+    if name == "ui_paper_panel":
+        # Ivory in the same double rule (card.png's frames; the main menu's wordmark panel, paper dialogs).
+        return keystone_frame(w, h, cut=PANEL_CUT, gold=PANEL_GOLD, gap=PANEL_GAP, gap_rgb=LACQUER, rule=PANEL_RULE,
+                              face=IVORY, leg=PANEL_LEG, leg_rgb=CRIMSON)
+    if name in ("ui_card_controller", "ui_card_controller_compact", "ui_card_shop"):
+        return plain_frame(w, h, cut=CARD_CUT, gold=CARD_GOLD, gap=CARD_GAP, gap_rgb=LACQUER, face=IVORY)
+    if name == "ui_card_item":
+        # Consumables: a crimson gap under the gold band (concept: consumables and the shop's crimson accents).
+        return plain_frame(w, h, cut=12.0, gold=10.0, gap=3.5, gap_rgb=CRIMSON, face=IVORY)
+    if name == "ui_info_inset":
+        return _well(w, h)
+    if name == "ui_slot_inventory":
+        return _slot(w, h)
+    if name == "ui_chip_label":
+        # Value badges (x gold or danger), the shop's 同款 tag (x panelLight), the dice style page's name chips: an ivory
+        # enamel chip with a lacquer hairline (it is tinted whole, so the hairline stays darker than any face).
+        return flat_tile(w, h, cut=12.0, face=IVORY, edge=3.0, edge_rgb=INK_LINE)
+    # Achromatic, tinted by the game.
+    if name == "ui_chip_formula":
+        return plaque(w, h, cut=CHIP_CUT, rim=CHIP_RIM, line_at=7.5, line_w=1.6)
+    if name == "ui_button_bevel":
+        return plaque(w, h, cut=BUTTON_CUT, rim=BUTTON_RIM, line_at=9.0, line_w=1.8)
+    if name == "ui_button_ghost":
+        # FlatButton's face (x Ghost): the double rule as an outline, the centre open.
+        return plaque(w, h, cut=BUTTON_CUT, rim=5.0, inlay_at=5.0, inlay_w=2.5, hollow=True, inner_w=2.0)
+    if name == "ui_frame_block":
+        return flat_tile(w, h, cut=10.0, face=WHITE)
+    if name == "ui_topbar":
+        return plaque(w, h, cut=14.0, rim=4.0, inlay_at=4.0, inlay_w=3.0)
+    if name == "ui_stage_card":
+        return plaque(w, h, cut=18.0, rim=5.0, inlay_at=5.0, inlay_w=3.5, border=48.0)
+    if name == "ui_ring":
+        return plaque(w, h, cut=RING_CUT, rim=6.0, inlay_at=6.0, inlay_w=2.5, hollow=True, inner_w=2.0)
+    if name == "ui_dice_tray":
+        return plaque(w, h, cut=TRAY_CUT, rim=10.0, hollow=True, border=72.0, depth=80, lo=.50)
+    if name == "ui_section_header":
+        return section_header(w, h)
+    if name == "ui_card_frame_rarity":
+        return rarity_ring(w, h)
+    if name in ("ui_progress_fill", "ui_progress_track"):
+        return progress_bar(w, h, name == "ui_progress_fill")
+    if name == "ui_tray_front":
+        return tray_front(w, h)
+    raise ValueError("Unimplemented sliced sprite: " + name)
+
+
+RING_BAND = (1.5, 5.0, 1.5)      # px: lacquer line, tinted band, lacquer line (the concept's thin inner rule, in the rarity colour)
+RARITY_RING_CUT = 9.0            # 4.5 units: the ring's corner stays on the card's ivory, inside the face's chamfer
+
+
+def rarity_ring(w: int, h: int) -> Image.Image:
+    """ui_card_frame_rarity (W13, CARD_TEMPLATE 6): the thin inner rule of the concept's cards, tinted by the rarity
+    colour (Ghost for goods), between two lacquer hairlines so a pale rarity still reads on ivory. Hollow, achromatic."""
+    pts = octagon((.5, .5, w - .5, h - .5), RARITY_RING_CUT)
+    a, b, c = RING_BAND
+
+    def draw(win: Raster):
+        d, _, _ = sd_poly_n(win.X, win.Y, pts)
+        win.over(K, band(d, 0.0, a + b + c))
+        win.over(WHITE, band(d, a, a + b))
+
+    r = Raster(w, h)
+    _band_render(r, w, h, 48, draw, None)
+    return r.export()
+
+
+def _well(w: int, h: int) -> Image.Image:
+    """ui_info_inset: deep lacquer with an old-gold hairline 1 px in and a bronze one inside it (no bevel: a recess)."""
+    pts = octagon((1.0, 1.0, w - 1.0, h - 1.0), 8.0)
+
+    def draw(win: Raster):
+        d, _, _ = sd_poly_n(win.X, win.Y, pts)
+        win.over(OLD_GOLD, coverage(d))
+        win.over(LACQUER_DEEP, coverage(d + 2.5))
+        win.over(BRONZE * .8, band(d, 4.5, 5.5))
+    r = Raster(w, h)
+    _band_render(r, w, h, 48, draw, LACQUER_DEEP)
+    return r.export()
+
+
+def _slot(w: int, h: int) -> Image.Image:
+    """ui_slot_inventory: a lacquer recess with an old-gold rule (empty card strips in play, cells in the shop)."""
+    pts = octagon((1.0, 1.0, w - 1.0, h - 1.0), 12.0)
+
+    def draw(win: Raster):
+        d, _, _ = sd_poly_n(win.X, win.Y, pts)
+        win.over(OLD_GOLD, coverage(d))
+        win.over(LACQUER, coverage(d + 3.0))
+        win.over(OLD_GOLD * .55, band(d, 6.0, 7.2))
+    r = Raster(w, h)
+    _band_render(r, w, h, 48, draw, LACQUER)
+    return r.export()
+
+
+def _aniso_coverage(d):
+    """Coverage for a distance measured in anisotropic display units: rescale by the local gradient."""
+    gy, gx = np.gradient(d, np.float32(1.0 / SS))
+    g = np.maximum(np.sqrt(gx * gx + gy * gy), 1e-3)
+    return coverage(d / g)
+
+
 _SPECS: dict[str, dict] = {}
 _RENDERED: dict[str, Image.Image] = {}
 
@@ -724,7 +853,7 @@ def spec_of(name: str) -> dict:
 
 
 def rendered(name: str) -> Image.Image:
-    """A sprite rendered once per run (the section header is sized from the section panel's drawn frame)."""
+    """A sprite rendered once per build (the section header is sized from the section panel's drawn frame)."""
     if name not in _RENDERED:
         _RENDERED[name] = render_sprite(spec_of(name))
     return _RENDERED[name]
@@ -741,11 +870,11 @@ def section_header(w: int, h: int) -> Image.Image:
     """Shop section caption (border 40/0/72/0, only sliced horizontally): a strip with a chevron right end (shop.png's
     crimson tabs), an engraved line along its edges, white so the caption tint colours it. Drawn in display units for
     its W14 height (0.5 units per px across, section_header_units() / 128 down): Unity scales only the height."""
-    SECTION_HEADER_UNITS = section_header_units()
+    H = section_header_units()
     r = Raster(w, h)
-    sx, sy = .5, SECTION_HEADER_UNITS / h
+    sx, sy = .5, H / h
     Xu, Yu = r.X * sx, r.Y * sy
-    W, H = w * sx, SECTION_HEADER_UNITS
+    W = w * sx
     top, bottom = .5, H - .5
     mid = (top + bottom) / 2
     tip = W - 3.0                      # the chevron's point, inside the 36-unit right cap
@@ -761,7 +890,47 @@ def section_header(w: int, h: int) -> Image.Image:
     return r.export()
 
 
-# ---------------------------------------------------------------------------------------------- wordmark
+def progress_bar(w: int, h: int, fill: bool) -> Image.Image:
+    """ui_progress_fill / _track (border 48/0/48/0, horizontal slices, drawn 7 units tall at 48/7 of their density): a bar
+    with pointed ends (the concept's formula banner ends in arrowheads). Designed in display units at that size (3.5 units
+    a cap, 7 units tall). The fill: white with a bright top band and a grey foot (a gold bar once tinted); the track: a
+    grey groove with a darker top lip (x 07191C in the code)."""
+    r = Raster(w, h)
+    k = 48.0 / 7.0                                     # GameApp UiKit.Progress: pixelsPerUnitMultiplier = 48 / h
+    sx, sy = 1.0 / (2 * k), 7.0 / h                    # units per sprite px across (caps) and down (stretched height)
+    Xu, Yu = r.X * sx, r.Y * sy
+    W, H = w * sx, 7.0
+    cap = 48 * sx
+    body = [(cap * .9, .25), (W - cap * .9, .25), (W - .2, H / 2), (W - cap * .9, H - .25), (cap * .9, H - .25), (.2, H / 2)]
+    d = sd_poly(Xu, Yu, body)
+    cov = _aniso_coverage(d)
+    if fill:
+        shade = np.where(Yu < H * .30, 1.0, np.where(Yu < H * .72, .92, .74)).astype(np.float32)
+        r.over(np.repeat(shade[..., None], 3, axis=2), cov)
+    else:
+        shade = np.where(Yu < H * .28, .50, .78).astype(np.float32)
+        r.over(np.repeat(shade[..., None], 3, axis=2), cov)
+    return r.export()
+
+
+def tray_front(w: int, h: int) -> Image.Image:
+    """ui_tray_front (512 x 160, border 40/0/40/0, drawn about 144 x 20 units under a locked die): a lacquer lip with a
+    gold top edge, the ends cut at 45 degrees in the caps. Designed in display units (0.5 across, 20/160 down)."""
+    r = Raster(w, h)
+    sx, sy = .5, 20.0 / h
+    Xu, Yu = r.X * sx, r.Y * sy
+    W, H = w * sx, 20.0
+    body = [(6.0, .5), (W - 6.0, .5), (W - .5, 6.0), (W - .5, H - .5), (.5, H - .5), (.5, 6.0)]
+    d = sd_poly(Xu, Yu, body)
+    cov = _aniso_coverage(d)
+    r.over(LACQUER, cov)
+    lip = np.clip(_aniso_coverage(d) - _aniso_coverage(d + 3.0), 0, 1) * (Yu < 7.0)
+    r.over(gold_band_rgb(np.clip((Yu - .5) / 3.0, 0, 1) * .55, np.zeros_like(Yu), -np.ones_like(Yu)), lip)
+    r.over(BRONZE * .9, np.clip(_aniso_coverage(d + 2.6) - _aniso_coverage(d + 3.6), 0, 1) * (Yu > 7.0))
+    return r.export()
+
+
+# ---------------------------------------------------------------------------------------------- dice, badges, icons
 def _die_layer(r: Raster, cx, cy, size, pips=(1, 2, 3), pip_rgb=None):
     """An ivory enamel die in three-quarter view with lacquer (or given) pips: top, left and right faces."""
     a = size * .5
@@ -770,7 +939,7 @@ def _die_layer(r: Raster, cx, cy, size, pips=(1, 2, 3), pip_rgb=None):
     right = [(cx, cy), (cx + a, cy - a * .5), (cx + a, cy + a * .6), (cx, cy + a * 1.1)]
     outline = [top[0], top[1], right[2], right[3], left[3], left[0]]
     d = sd_poly(r.X, r.Y, outline)
-    r.over(col("5A4020"), coverage(d - size * .025))
+    r.over(col("4A3418"), coverage(d - size * .03))
     shades = (col("FBF0DA"), col("E6D2AE"), col("CDB58C"))
     pip_rgb = pip_rgb or (col("15110D"),) * 3
     for face, shade, n, pc in zip((top, left, right), shades, pips, pip_rgb):
@@ -784,11 +953,363 @@ def _die_layer(r: Raster, cx, cy, size, pips=(1, 2, 3), pip_rgb=None):
                  6: [(.27, .22), (.27, .5), (.27, .78), (.73, .22), (.73, .5), (.73, .78)]}[n]
         for su, sv in spots:
             px, py = x0 + ux * su + vx * sv, y0 + uy * su + vy * sv
-            rr = size * .075
-            dd = np.hypot((r.X - px) / 1.0, (r.Y - py) / .78) - rr
+            dd = np.hypot((r.X - px) / 1.0, (r.Y - py) / .78) - size * .075
             r.over(pc, coverage(dd))
 
 
+def _medallion(r: Raster, size: int, field, cut_frac: float = .26):
+    """The enchantment badge's body: an octagonal medallion, lacquer outline, a gold moulding and an enamel field with a
+    soft sheen. Returns the field's signed distance (for the symbol's placement)."""
+    m = size * .05
+    pts = octagon((m, m, size - m, size - m), size * cut_frac)
+    d, nx, ny = sd_poly_n(r.X, r.Y, pts)
+    rim = size * .085
+    r.over(INK_LINE, coverage(d - size * .028))
+    r.over(gold_band_rgb(np.clip(-d / rim, 0, 1), nx, ny), coverage(d))
+    sheen = np.clip(1 - np.hypot(r.X - size * .38, r.Y - size * .34) / (size * .62), 0, 1)
+    fieldc = np.asarray(field, np.float32)[None, None, :] * (.86 + .26 * sheen[..., None])
+    r.over(np.clip(fieldc, 0, 1), coverage(d + rim))
+    r.over(INK_LINE, band(d, rim, rim + size * .012))
+    return d + rim
+
+
+def badge(name: str) -> Image.Image:
+    """badge_enchant_* (256 x 256, drawn 24-32 units on cards): octagonal medallions in a gold rim, the field keeps the
+    default badges' meaning colours (base +10 jade, x2 amethyst, roll +1 sapphire, slotless lacquer, submit +1 ivory)."""
+    S = 256
+    r = Raster(S, S)
+    X, Y = r.X, r.Y
+    c = S / 2
+    kind = name.rsplit("_", 1)[1]
+    field = {"base10": JADE, "mult2": AMETHYST, "roll1": SAPPHIRE, "slotless": LACQUER, "submit1": IVORY}[kind]
+    _medallion(r, S, field)
+    ink = 7.0
+    if kind == "base10":
+        d = np.minimum(sd_box(X, Y, (c - 20, c - 66, c + 20, c + 66)), sd_box(X, Y, (c - 66, c - 20, c + 66, c + 20)))
+        inked(r, d, IVORY, ink)
+    elif kind == "mult2":
+        k = math.sqrt(.5)
+        u, v = (X - c) * k + (Y - c) * k, -(X - c) * k + (Y - c) * k
+        d = np.minimum(sd_box(u, v, (-19, -70, 19, 70)), sd_box(u, v, (-70, -19, 70, 19)))
+        inked(r, d, IVORY, ink)
+    elif kind == "roll1":
+        cup = [(c - 52, c - 46), (c + 52, c - 46), (c + 36, c + 64), (c - 36, c + 64)]
+        d = sd_poly(X, Y, cup)
+        inked(r, d, IVORY, ink)
+        rim_band = sd_box(X, Y, (c - 60, c - 62, c + 60, c - 40))
+        inked(r, rim_band, GOLD_FLAT, ink)
+        r.over(col(PALETTE["blue"]), coverage(sd_circle(X, Y, c, c + 12, 15)))
+        r.over(INK_LINE, coverage(np.abs(sd_circle(X, Y, c, c + 12, 15)) - 2.5))
+    elif kind == "slotless":
+        # Four gold corner brackets: the frame of a slot with no slot inside (the default badge's idea).
+        L, T = 46, 16
+        d = np.full(X.shape, np.inf, np.float32)
+        for sx_ in (-1, 1):
+            for sy_ in (-1, 1):
+                x0, y0 = c + sx_ * 56, c + sy_ * 56
+                h_bar = sd_box(X, Y, (min(x0, x0 - sx_ * L), y0 - T / 2, max(x0, x0 - sx_ * L), y0 + T / 2))
+                v_bar = sd_box(X, Y, (x0 - T / 2, min(y0, y0 - sy_ * L), x0 + T / 2, max(y0, y0 - sy_ * L)))
+                d = np.minimum(d, np.minimum(h_bar, v_bar))
+        nx_, ny_ = normals(d)
+        r.over(INK_LINE, coverage(d - 4.0))
+        r.over(gold_fill(d, nx_, ny_, 6.0), coverage(d))
+    else:   # submit1: a ticket on the ivory field, two lines and a jade check
+        ticket = octagon((c - 70, c - 54, c + 70, c + 62), 14)
+        d = sd_poly(X, Y, ticket)
+        r.over(INK_LINE, coverage(np.abs(d) - 4.0))
+        for i, ww in enumerate((84, 60)):
+            r.over(INK_LINE, coverage(sd_box(X, Y, (c - 48, c - 32 + i * 24, c - 48 + ww, c - 22 + i * 24))))
+        check = [(c + 2, c + 30), (c + 22, c + 50), (c + 56, c + 8)]
+        dc = np.minimum(sd_segment(X, Y, *check[0], *check[1]), sd_segment(X, Y, *check[1], *check[2])) - 9
+        inked(r, dc, JADE, 4.0)
+    return r.export()
+
+
+def coin(size: int = 96) -> Image.Image:
+    """ui_icon_coin: a gold coin, lacquer rim line, a sunburst on its face and a crimson lozenge at the centre."""
+    r = Raster(size, size)
+    X, Y = r.X, r.Y
+    c = size / 2
+    d = sd_circle(X, Y, c, c, size * .45)
+    r.over(INK_LINE, coverage(d - size * .035))
+    nx, ny = normals(d)
+    r.over(gold_fill(d, nx, ny, size * .10), coverage(d))
+    inner = sd_circle(X, Y, c, c, size * .31)
+    r.over(col("8A6326"), coverage(np.abs(inner) - size * .012))
+    ang = np.arctan2(Y - c, X - c)
+    rays = (np.cos(ang * 16) > .55) & (inner < -size * .03) & (sd_circle(X, Y, c, c, size * .13) > 0)
+    r.over(col("F7D98A"), rays.astype(np.float32) * .55)
+    k = math.sqrt(.5)
+    lozenge = np.maximum(np.abs((X - c) * k + (Y - c) * k), np.abs(-(X - c) * k + (Y - c) * k)) - size * .085
+    r.over(INK_LINE, coverage(lozenge - size * .02))
+    r.over(CRIMSON, coverage(lozenge))
+    return r.export()
+
+
+def padlock(size: int, body_rgb=None) -> Image.Image:
+    """ui_icon_lock (256) and ui_tag_lock (128): a gold padlock with a lacquer keyhole and outline."""
+    r = Raster(size, size)
+    X, Y = r.X, r.Y
+    s = size / 256
+    shackle = sd_arc(X, Y, 128 * s, 108 * s, 50 * s, math.pi, 2 * math.pi, 24 * s)
+    legs = np.minimum(sd_box(X, Y, (66 * s, 108 * s, 90 * s, 140 * s)), sd_box(X, Y, (166 * s, 108 * s, 190 * s, 140 * s)))
+    sh = np.minimum(shackle, legs)
+    body = sd_poly(X, Y, octagon((44 * s, 124 * s, 212 * s, 236 * s), 18 * s))
+    whole = np.minimum(sh, body)
+    r.over(INK_LINE, coverage(whole - 10 * s))
+    nx, ny = normals(sh)
+    r.over(gold_fill(sh, nx, ny, 10 * s), coverage(sh))
+    r.over(INK_LINE, coverage(np.abs(body) - 3 * s) * coverage(sh))
+    nx, ny = normals(body)
+    r.over(gold_fill(body, nx, ny, 16 * s), coverage(body))
+    key = np.minimum(sd_circle(X, Y, 128 * s, 168 * s, 17 * s),
+                     sd_poly(X, Y, [(118 * s, 176 * s), (138 * s, 176 * s), (144 * s, 212 * s), (112 * s, 212 * s)]))
+    r.over(INK_LINE, coverage(key))
+    return r.export()
+
+
+def clock_tag(size: int = 128) -> Image.Image:
+    """ui_tag_clock (a stage-temporary die): an ivory dial in a gold octagon, lacquer hands, a crimson 12 o'clock mark and
+    a small gold loop on top."""
+    r = Raster(size, size)
+    X, Y = r.X, r.Y
+    s = size / 128
+    loop = np.abs(sd_circle(X, Y, 64 * s, 14 * s, 9 * s)) - 3.5 * s
+    oct_ = sd_poly(X, Y, octagon((10 * s, 22 * s, 118 * s, 126 * s), 30 * s))
+    r.over(INK_LINE, coverage(np.minimum(loop, oct_) - 5 * s))
+    nx, ny = normals(loop)
+    r.over(gold_fill(loop, nx, ny, 3 * s), coverage(loop))
+    d, nx, ny = sd_poly_n(X, Y, octagon((10 * s, 22 * s, 118 * s, 126 * s), 30 * s))
+    r.over(gold_band_rgb(np.clip(-d / (11 * s), 0, 1), nx, ny), coverage(d))
+    dial = sd_circle(X, Y, 64 * s, 74 * s, 38 * s)
+    r.over(INK_LINE, coverage(dial + 0))
+    r.over(IVORY, coverage(dial + 3 * s))
+    r.over(CRIMSON, coverage(sd_box(X, Y, (60 * s, 40 * s, 68 * s, 52 * s))))
+    hands = np.minimum(sd_segment(X, Y, 64 * s, 74 * s, 64 * s, 50 * s) - 4 * s,
+                       sd_segment(X, Y, 64 * s, 74 * s, 84 * s, 86 * s) - 4 * s)
+    r.over(INK_LINE, coverage(hands))
+    r.over(INK_LINE, coverage(sd_circle(X, Y, 64 * s, 74 * s, 6 * s)))
+    return r.export()
+
+
+def roll_cup(size: int = 256) -> Image.Image:
+    """ui_icon_roll: the dice cup, ivory enamel with a gold rim and a gold band, a blue pip (as the default cup has) and
+    a gold arc arrow above it (the throw)."""
+    r = Raster(size, size)
+    X, Y = r.X, r.Y
+    s = size / 256
+    cup = sd_poly(X, Y, [(70 * s, 104 * s), (196 * s, 104 * s), (178 * s, 226 * s), (88 * s, 226 * s)])
+    rim = sd_poly(X, Y, octagon((58 * s, 86 * s, 208 * s, 116 * s), 6 * s))
+    arrow_arc = sd_arc(X, Y, 128 * s, 112 * s, 92 * s, math.radians(196), math.radians(268), 14 * s)
+    head = sd_poly(X, Y, [(118 * s, 4 * s), (154 * s, 22 * s), (118 * s, 42 * s)])
+    arrow = np.minimum(arrow_arc, head)
+    r.over(INK_LINE, coverage(np.minimum(np.minimum(cup, rim), arrow) - 9 * s))
+    nx, ny = normals(arrow)
+    r.over(gold_fill(arrow, nx, ny, 6 * s), coverage(arrow))
+    r.over(IVORY, coverage(cup))
+    r.over(col("D8C4A0"), coverage(cup) * np.clip((X - 140 * s) / (60 * s), 0, 1))
+    band_ = sd_box(X, Y, (60 * s, 186 * s, 206 * s, 202 * s))
+    r.over(GOLD_FLAT * .92, coverage(np.maximum(band_, cup)))
+    nx, ny = normals(rim)
+    r.over(gold_fill(rim, nx, ny, 8 * s), coverage(rim))
+    pip = sd_circle(X, Y, 133 * s, 152 * s, 16 * s)
+    r.over(INK_LINE, coverage(pip - 3 * s))
+    r.over(col(PALETTE["blue"]), coverage(pip))
+    return r.export()
+
+
+def dice_view(size: int = 128) -> Image.Image:
+    """ui_icon_dice_view (查看骰子): an ivory die with lacquer pips and a gold magnifier over its corner."""
+    r = Raster(size, size)
+    X, Y = r.X, r.Y
+    s = size / 128
+    _die_layer(r, 52 * s, 50 * s, 72 * s, pips=(5, 2, 3),
+               pip_rgb=(col("15110D"), col(PALETTE["red"]), col(PALETTE["blue"])))
+    ring = sd_circle(X, Y, 82 * s, 80 * s, 24 * s)
+    handle = sd_segment(X, Y, 99 * s, 97 * s, 118 * s, 116 * s) - 8 * s
+    shape = np.minimum(ring, handle)
+    r.over(INK_LINE, coverage(shape - 5 * s))
+    r.over(col("CFE6EE"), coverage(ring) * .85)
+    lens_ring = np.abs(ring + 4 * s) - 4.5 * s
+    hd = np.minimum(lens_ring, handle)
+    nx, ny = normals(hd)
+    r.over(gold_fill(hd, nx, ny, 4 * s), coverage(hd))
+    r.over(WHITE, coverage(sd_circle(X, Y, 74 * s, 72 * s, 5 * s)) * .9)
+    return r.export()
+
+
+def crown(w: int = 192, h: int = 128) -> Image.Image:
+    """fx_score_crown (two times the target): a gold crown, three points topped with gold beads, a stepped base band
+    with a crimson lozenge; lacquer outline."""
+    r = Raster(w, h)
+    X, Y = r.X, r.Y
+    body = [(30, 98), (22, 34), (60, 64), (96, 14), (132, 64), (170, 34), (162, 98)]
+    d = sd_poly(X, Y, body)
+    base = sd_poly(X, Y, octagon((24, 92, 168, 118), 6))
+    beads = np.minimum(np.minimum(sd_circle(X, Y, 22, 30, 9), sd_circle(X, Y, 96, 12, 10)), sd_circle(X, Y, 170, 30, 9))
+    whole = np.minimum(np.minimum(d, base), beads)
+    r.over(INK_LINE, coverage(whole - 5))
+    for shape, bev in ((d, 9.0), (beads, 4.0), (base, 6.0)):
+        nx, ny = normals(shape)
+        r.over(gold_fill(shape, nx, ny, bev), coverage(shape))
+    r.over(INK_LINE, coverage(np.abs(base) - 1.6) * coverage(d + 1))
+    k = math.sqrt(.5)
+    loz = np.maximum(np.abs((X - 96) * k + (Y - 105) * k), np.abs(-(X - 96) * k + (Y - 105) * k)) - 9
+    r.over(INK_LINE, coverage(loz - 2))
+    r.over(CRIMSON, coverage(loz))
+    for cx_ in (54, 138):
+        r.over(col(PALETTE["rarityAdvanced"]), coverage(sd_circle(X, Y, cx_, 105, 4.5)))
+    return r.export()
+
+
+def gem(name: str, size: int = 128) -> Image.Image:
+    """W13 rarity gems (tinted): round (common), diamond (advanced), six-point star (rare); a faceted jewel, an ink line
+    round a light face whose brightest part is pure white (the tint itself) and whose facets are pale greys."""
+    r = Raster(size, size)
+    X, Y = r.X, r.Y
+    c = size / 2
+    if name == "ui_gem_common":
+        d = sd_circle(X, Y, c, c, size * .40)
+        table = sd_poly(X, Y, [(c + size * .2 * math.cos(math.pi / 8 + k * math.pi / 4),
+                                c + size * .2 * math.sin(math.pi / 8 + k * math.pi / 4)) for k in range(8)])
+        facets = [math.pi / 8 + k * math.pi / 4 for k in range(8)]
+    elif name == "ui_gem_advanced":
+        pts = [(c, c - size * .46), (c + size * .40, c), (c, c + size * .46), (c - size * .40, c)]
+        d = sd_poly(X, Y, pts)
+        table = sd_poly(X, Y, [(c, c - size * .20), (c + size * .17, c), (c, c + size * .20), (c - size * .17, c)])
+        facets = [-math.pi / 2, 0, math.pi / 2, math.pi]
+    else:
+        pts = star_pts(c, c + 2, size * .47, size * .24, 6)
+        d = sd_poly(X, Y, pts)
+        table = sd_poly(X, Y, [(c + size * .12 * math.cos(-math.pi / 2 + k * math.pi / 3),
+                                c + 2 + size * .12 * math.sin(-math.pi / 2 + k * math.pi / 3)) for k in range(6)])
+        facets = [-math.pi / 2 + k * math.pi / 3 for k in range(6)]
+    ink = size * .055
+    r.over(K, coverage(d - ink))
+    # Facets: the crown lighter toward the upper left, pale grey toward the lower right (the light of every frame).
+    shade = np.clip(.86 + .12 * (-(X - c) * .6 - (Y - c) * .8) / (size * .4), .74, 1.0)
+    r.over(np.repeat(shade[..., None], 3, axis=2), coverage(d))
+    lines = np.full(X.shape, np.inf, np.float32)
+    for a in facets:
+        lines = np.minimum(lines, sd_segment(X, Y, c + math.cos(a) * size * .12, c + math.sin(a) * size * .12,
+                                             c + math.cos(a) * size * .45, c + math.sin(a) * size * .45))
+    r.over(np.full(3, .66, np.float32), coverage(lines - size * .008) * coverage(d + size * .02) * (table > 0))
+    r.over(WHITE, coverage(table))
+    r.over(np.full(3, .70, np.float32), coverage(np.abs(table) - size * .008))
+    return r.export()
+
+
+def tinted_icon(name: str, w: int, h: int) -> Image.Image:
+    """The achromatic icons the game colours (UiKit tints them with the label colour): white shapes, grey detail."""
+    r = Raster(w, h)
+    X, Y = r.X, r.Y
+    if name == "ui_icon_arrow":
+        pts = [(28, 16), (50, 16), (76, 48), (50, 80), (28, 80), (54, 48)]
+        r.over(WHITE, coverage(sd_poly(X, Y, pts)))
+    elif name == "ui_icon_book":
+        left = sd_poly(X, Y, [(8, 26), (44, 20), (46, 78), (8, 82)])
+        right = sd_poly(X, Y, [(50, 20), (88, 26), (88, 82), (50, 78)])
+        pages = np.minimum(left, right)
+        r.over(WHITE, coverage(pages))
+        for i in range(4):
+            y = 36 + i * 10
+            for x0, x1 in ((15, 38), (56, 80)):
+                r.over(np.full(3, .55, np.float32), coverage(sd_segment(X, Y, x0, y, x1, y) - 1.6) * coverage(pages + 1))
+        r.over(np.full(3, .7, np.float32), coverage(sd_segment(X, Y, 48, 18, 48, 82) - 1.2))
+    elif name == "ui_icon_gear":
+        c = 48.0
+        ang = np.arctan2(Y - c, X - c)
+        rad = np.hypot(X - c, Y - c)
+        tooth = (np.cos(ang * 8) > .2)
+        outer = np.where(tooth, rad - 40, rad - 31)
+        d = np.maximum(outer, -(rad - 13))
+        r.over(WHITE, coverage(d))
+    elif name == "ui_icon_refresh":
+        d = sd_arc(X, Y, 128, 136, 82, math.radians(-50), math.radians(235), 30)
+        hx_, hy_ = 128 + 82 * math.cos(math.radians(-50)), 136 + 82 * math.sin(math.radians(-50))
+        head = sd_poly(X, Y, [(hx_ - 46, hy_ - 4), (hx_ + 36, hy_ - 30), (hx_ + 18, hy_ + 48)])
+        r.over(WHITE, coverage(np.minimum(d, head)))
+    elif name == "ui_pip_dot":
+        r.over(WHITE, coverage(sd_circle(X, Y, w / 2, h / 2, w * .44)))
+    elif name == "fx_score_spark":
+        # A deco sparkle: four long rays and four short ones, bold enough for its 20-unit size.
+        pts = []
+        for k in range(8):
+            a = -math.pi / 2 + k * math.pi / 4
+            ro = 30 if k % 2 == 0 else 16
+            pts.append((32 + ro * math.cos(a), 32 + ro * math.sin(a)))
+            a2 = a + math.pi / 8
+            pts.append((32 + 7.5 * math.cos(a2), 32 + 7.5 * math.sin(a2)))
+        r.over(WHITE, coverage(sd_poly(X, Y, pts)))
+    elif name == "fx_square_chip":
+        a = math.radians(12)
+        u = (X - 128) * math.cos(a) + (Y - 128) * math.sin(a)
+        v = -(X - 128) * math.sin(a) + (Y - 128) * math.cos(a)
+        d = sd_poly(u, v, octagon((-74, -74, 74, 74), 18))
+        r.over(WHITE, coverage(d))
+    elif name == "fx_arc_short":
+        d = sd_arc(X, Y, 210, 230, 160, math.radians(188), math.radians(262), 9)
+        ex_, ey_ = 210 + 160 * math.cos(math.radians(262)), 230 + 160 * math.sin(math.radians(262))
+        k = math.sqrt(.5)
+        loz = np.maximum(np.abs((X - ex_) * k + (Y - ey_) * k), np.abs(-(X - ex_) * k + (Y - ey_) * k)) - 13
+        r.over(WHITE, coverage(np.minimum(d, loz)))
+    else:
+        raise ValueError("Unimplemented tinted icon: " + name)
+    return r.export()
+
+
+def die_shadow(w: int = 256, h: int = 128) -> Image.Image:
+    """ui_die_shadow: a soft lacquer shadow, an ellipse that fades out (no hard edge)."""
+    r = Raster(w, h)
+    q = np.hypot((r.X - w / 2) / (w * .46), (r.Y - h / 2) / (h * .40))
+    a = np.clip(1 - q, 0, 1) ** 1.4 * .62
+    r.over(col(PALETTE["shadow"]), a)
+    return r.export()
+
+
+def card_back(w: int = 768, h: int = 1024) -> Image.Image:
+    """ui_card_back: black lacquer in the gold double rule with crimson keystones, gold rays from a central gold octagon
+    that holds an ivory die, and a fan at the top and the bottom (card.png's backs and title fans)."""
+    r = Raster(w, h)
+    X, Y = r.X, r.Y
+    pts = octagon((8, 8, w - 8, h - 8), 56)
+    d, nx, ny = sd_poly_n(X, Y, pts)
+    r.over(INK_LINE, coverage(d - 4))
+    r.over(LACQUER, coverage(d))
+    cx, cy = w / 2, h / 2
+    ang = np.arctan2(Y - cy, X - cx)
+    rays = (np.cos(ang * 24) > .86) & (np.hypot(X - cx, Y - cy) > 150)
+    r.over(col("6E5130"), rays.astype(np.float32) * coverage(d + 70) * .9)
+    r.over(gold_band_rgb(np.clip(-d / 30, 0, 1), nx, ny), band(d, 0, 30))
+    a = 8 + 30 + 14
+    rule = 7.0
+    rect_out = coverage(sd_box(X, Y, (a, a, w - a, h - a)))
+    rect_in = coverage(sd_box(X, Y, (a + rule, a + rule, w - a - rule, h - a - rule)))
+    tri, brace = keystone_parts(X, Y, w, h, a + rule, 64, rule)
+    r.over(CRIMSON, tri * rect_in)
+    r.over(GOLD_FLAT, np.clip(rect_out - rect_in, 0, 1))
+    r.over(GOLD_FLAT, brace * rect_in)
+    for fy, flip in ((a + rule + 2, 1), (h - a - rule - 2, -1)):
+        for i, wedge in enumerate(fan_wedges(cx, fy, 120.0, 22.0, 11, 0 if flip > 0 else math.pi,
+                                             math.pi if flip > 0 else 2 * math.pi, .3)):
+            rr = 1.0 if i % 2 == 0 else .72
+            q = [(cx + (px - cx) * (rr if j in (1, 2) else 1), fy + (py - fy) * (rr if j in (1, 2) else 1))
+                 for j, (px, py) in enumerate(wedge)]
+            win = around(r, q)
+            dd, wx, wy = sd_poly_n(win.X, win.Y, q)
+            win.over(gold_band_rgb(np.clip(-dd / 8, 0, 1) * .55, wx, wy), coverage(dd))
+    med = octagon((cx - 150, cy - 150, cx + 150, cy + 150), 62)
+    win = around(r, med, 10)
+    dm, mx, my = sd_poly_n(win.X, win.Y, med)
+    win.over(INK_LINE, coverage(dm - 6))
+    win.over(gold_band_rgb(np.clip(-dm / 24, 0, 1), mx, my), coverage(dm))
+    win.over(LACQUER, coverage(dm + 24))
+    win.over(GOLD_FLAT, band(dm, 32, 37))
+    _die_layer(win, cx, cy - 8, 150, pips=(1, 2, 3), pip_rgb=(col(PALETTE["red"]), col("15110D"), col(PALETTE["blue"])))
+    return r.export()
+
+
+# ---------------------------------------------------------------------------------------------- wordmark
 def _text_mask(r: Raster, text: str, font_path: Path, size_px: float, cx: float, cy: float, spacing: float = 0.0):
     """A glyph coverage mask at the raster's supersampled density, centred on (cx, cy)."""
     f = ImageFont.truetype(str(font_path), int(round(size_px * SS)))
@@ -805,14 +1326,6 @@ def _text_mask(r: Raster, text: str, font_path: Path, size_px: float, cx: float,
     return np.asarray(im, np.float32) / 255.0
 
 
-def around(r: Raster, pts, margin: float = 4.0) -> Raster:
-    """The window of a raster (origin 0) that holds a shape and its antialiasing: the same samples, fewer of them."""
-    xs, ys = [p[0] for p in pts], [p[1] for p in pts]
-    x0, y0 = max(0, int(math.floor(min(xs) - margin))), max(0, int(math.floor(min(ys) - margin)))
-    x1, y1 = min(r.w, int(math.ceil(max(xs) + margin))), min(r.h, int(math.ceil(max(ys) + margin)))
-    return r.window(x0, y0, max(1, x1 - x0), max(1, y1 - y0))
-
-
 def wordmark() -> Image.Image:
     """ui_wordmark_dicecraft (1440 x 400): 骰子构筑 in ZCOOL XiaoWei (CP3-2), polished gold letters on a black lacquer
     plaque in the gold double rule, stepped gold shoulders and a sunburst fan crown (card.png's 骰艺工坊 title plate)."""
@@ -820,7 +1333,6 @@ def wordmark() -> Image.Image:
     r = Raster(W, H)
     cx = W / 2
     plate = (200.0, 132.0, 1240.0, 344.0)
-    # Stepped shoulders: three gold bars each side, shortest outermost (ziggurat), bevelled like the frames.
     for side in (-1, 1):
         for i, (reach, top, bottom) in enumerate(((150, 186, 290), (104, 170, 306), (58, 154, 322))):
             x_in = plate[0] + 30 if side < 0 else plate[2] - 30
@@ -830,10 +1342,8 @@ def wordmark() -> Image.Image:
             w = around(r, pts)
             d, nx, ny = sd_poly_n(w.X, w.Y, pts)
             w.over(col("2A1E10"), coverage(d - 2.0))
-            t = np.clip(-d / 9.0, 0, 1)
-            w.over(gold_band_rgb(t, nx, ny), coverage(d))
-            w.over(LACQUER, coverage(d + 9.0))
-    # The sunburst crown behind the plaque's top edge: alternating long and short rays on a crimson half disc.
+            w.over(gold_band_rgb(np.clip(-d / 10.0, 0, 1), nx, ny), coverage(d))
+            w.over(LACQUER, coverage(d + 10.0))
     fx, fy = cx, plate[1] + 6
     for i, wedge in enumerate(fan_wedges(fx, fy, 128.0, 26.0, 15, math.pi, 2 * math.pi, .28)):
         rr = 1.0 if i % 2 == 0 else .74
@@ -842,50 +1352,62 @@ def wordmark() -> Image.Image:
         w = around(r, pts)
         d, nx, ny = sd_poly_n(w.X, w.Y, pts)
         w.over(col("2A1E10"), coverage(d - 1.5))
-        w.over(gold_band_rgb(np.clip(-d / 6.0, 0, 1), nx, ny), coverage(d))
+        w.over(gold_band_rgb(np.clip(-d / 6.0, 0, 1) * .55, nx, ny), coverage(d))
     w = around(r, [(fx - 34, fy - 34), (fx + 34, fy + 34)])
     d = sd_circle(w.X, w.Y, fx, fy, 30.0)
     w.over(col("2A1E10"), coverage(d - 2.0))
     w.over(CRIMSON, coverage(d))
     w.over(GOLD_FLAT, np.clip(coverage(d) - coverage(d + 2.5), 0, 1))
-    # The plaque: black lacquer in the double rule.
     pts = octagon(plate, 30.0)
     w = around(r, pts)
     d, nx, ny = sd_poly_n(w.X, w.Y, pts)
     w.over(col("2A1E10"), coverage(d - 2.5))
     w.over(LACQUER, coverage(d))
-    w.over(gold_band_rgb(np.clip(-d / 12.0, 0, 1), nx, ny), band(d, 0.0, 12.0))
-    w.over(GOLD_FLAT, band(d, 17.0, 20.0))
-    # An ivory die at the left inside the plaque, its pips lacquer, red and blue (the game's dice).
+    w.over(gold_band_rgb(np.clip(-d / 14.0, 0, 1), nx, ny), band(d, 0.0, 14.0))
+    w.over(GOLD_FLAT, band(d, 19.0, 22.0))
     dx, dy, ds = plate[0] + 118, plate[1] + 100, 118
     _die_layer(around(r, [(dx - ds * .6, dy - ds * .6), (dx + ds * .6, dy + ds * .65)]), dx, dy, ds, pips=(5, 3, 2),
                pip_rgb=(col("15110D"), col(PALETTE["red"]), col(PALETTE["blue"])))
-    # The letters: gold with a bronze rim, lit from the top (a vertical ramp).
-    w = around(r, [(plate[0] + 20, plate[1] + 20), (plate[2] - 20, plate[3] - 20)], 0)
+    w = around(r, [(plate[0] + 24, plate[1] + 24), (plate[2] - 24, plate[3] - 24)], 0)
     text = _text_mask(w, "骰子构筑", HEADING, 136.0, cx + 62, plate[1] + 104, spacing=10.0)
     rim = ndimage.grey_dilation(text, size=(9, 9))
     w.over(col("2A1E10"), rim)
     yy = np.clip((w.Y - (plate[1] + 40)) / 130.0, 0, 1)
-    w.over(_ramp(.95 - .62 * yy), text)
+    w.over(_ramp(.97 - .58 * yy), text)
     return r.export()
 
 
 # ---------------------------------------------------------------------------------------------- sprites
-# Phase 1 (coordinator's brief): the representative pieces below plus the frame variants that share their code; every
-# other referenced sprite falls back to the default theme until phase 2.
-PHASE1_NAMES = (
-    "ui_paper_panel", "ui_panel_hud", "ui_button_bevel", "ui_chip_formula", "ui_card_controller", "ui_section_panel",
-    "ui_section_header", "ui_dice_tray", "ui_ring", "ui_topbar", "ui_stage_card", "ui_wordmark_dicecraft",
-    # frame variants from the same generators, and the W13 ring every card shows (provisional until phase 2)
-    "ui_card_controller_compact", "ui_card_shop", "ui_card_item", "ui_info_inset", "ui_slot_inventory", "ui_tab_bottom",
-    "ui_card_frame_rarity",
-)
-
-
 def render_sprite(spec: dict) -> Image.Image:
     name = spec["name"]
+    w, h = spec["size"]
     if name == "ui_wordmark_dicecraft":
         return wordmark()
+    if name.startswith("badge_enchant_"):
+        return badge(name)
+    if name == "ui_icon_coin":
+        return coin(w)
+    if name == "ui_icon_lock":
+        return padlock(w)
+    if name == "ui_tag_lock":
+        return padlock(w)
+    if name == "ui_tag_clock":
+        return clock_tag(w)
+    if name == "ui_icon_roll":
+        return roll_cup(w)
+    if name == "ui_icon_dice_view":
+        return dice_view(w)
+    if name == "fx_score_crown":
+        return crown(w, h)
+    if name in ("ui_gem_common", "ui_gem_advanced", "ui_gem_rare"):
+        return gem(name, w)
+    if name in ("ui_icon_arrow", "ui_icon_book", "ui_icon_gear", "ui_icon_refresh", "ui_pip_dot", "fx_score_spark",
+                "fx_square_chip", "fx_arc_short"):
+        return tinted_icon(name, w, h)
+    if name == "ui_die_shadow":
+        return die_shadow(w, h)
+    if name == "ui_card_back":
+        return card_back(w, h)
     im = surface(spec)
     _check_slices(name, im, spec["border"], name in NEUTRAL_NAMES)
     return im
@@ -898,23 +1420,22 @@ def contract_sprites() -> list[dict]:
 
 # ---------------------------------------------------------------------------------------------- table
 TABLE_W, TABLE_H = 1920, 1080
-# The screen frame: concept pages close the whole screen in a gold double rule. Here a 4 px bevelled band, a lacquer
-# gap and a hairline, all within 7.5 px of the screen edge: outside the play layout (top bar from y 12, x 16) and the
-# shop's sections (16 px margins, y 12 to 1072).
-FRAME_BAND, FRAME_GAP, FRAME_RULE, FRAME_CUT = 4.0, 1.6, 1.2, 14.0
-FRAME_INSET = .5
+# The screen frame: concept pages close the whole screen in a gold double rule. A bevelled band, a lacquer gap and a
+# hairline, all within 7.7 px of the screen edge: outside the play layout (top bar from y 12, x 16) and the shop's
+# sections (16 px margins, y 12 to 1072).
+FRAME_BAND, FRAME_GAP, FRAME_RULE, FRAME_CUT = 4.8, 1.4, 1.2, 14.0
+FRAME_INSET = .3
 # THEME_SPEC 3.1: large decoration only where no play state puts interface, never cut by a straight line and never
 # inside a button's or panel's bounding rectangle. The action row (GameApp.Play11 L11 at 100 % and 150 % text): the main
 # button ends at x 1240 (1276 at 150 %), the end slot starts at 1496 and its qualified ring at 1492; the submit row ends
-# at y 942. The one rectangle free in every state is x 1276-1492, y 942-1080 (README, action row table); the fan keeps
-# 6 units inside it.
+# at y 942. The one rectangle free in every state is x 1276-1492, y 942-1080 (README, action row table).
 ACTION_FREE = (1276.0, 942.0, 1492.0, 1080.0)
 FAN_CX, FAN_BASE, FAN_R = 1384.0, 1066.0, 84.0
 # Bottom corner fans (roll.png's crimson and gold corner triangles): legs of 24 px in the frame's lower corners, clear of
 # the hint panel (x from 32, y to 1046) and the end button with its ring and step (x to 1892, y to 1044).
 CORNER_LEG = 24.0
 # Bounding rectangles (x, y, w, h) of the play screen's buttons and panels in any state or text size (L11 at 100 % and
-# 150 %, UiKit.Button's step, the qualified ring, the tray tabs), which decoration must stay out of.
+# 150 %, UiKit.Button's step, the qualified ring, the tray tabs, a card's 10-unit pop), which decoration stays out of.
 PLAY_RECTS = {
     "top bar": (16, 12, 1888, 72), "card row": (32, 86, 1448, 254), "stage card": (1496, 96, 392, 244),
     "tray": (32, 338, 1448, 390), "resources": (1496, 352, 392, 376), "submit row": (32, 740, 1448, 202),
@@ -954,14 +1475,7 @@ def corner_fans(r: Raster):
         for k in (1, 2, 3):
             ang = math.radians(90 * k / 4)
             ex, ey = x0 + sx * math.cos(ang) * CORNER_LEG * .72, y0 - math.sin(ang) * CORNER_LEG * .72
-            seg = _segment_sd(r.X, r.Y, x0, y0, ex, ey)
-            r.over(GOLD_FLAT, coverage(seg - .55) * coverage(d))
-
-
-def _segment_sd(X, Y, ax, ay, bx, by):
-    ex, ey = bx - ax, by - ay
-    t = np.clip(((X - ax) * ex + (Y - ay) * ey) / (ex * ex + ey * ey), 0, 1)
-    return np.hypot(X - (ax + ex * t), Y - (ay + ey * t)).astype(np.float32)
+            r.over(GOLD_FLAT, coverage(sd_segment(r.X, r.Y, x0, y0, ex, ey) - .55) * coverage(d))
 
 
 def fan_polygons():
@@ -986,20 +1500,19 @@ def hero_fan(r: Raster):
     plinth, (hx, hy), rays = fan_polygons()
     arc = sd_circle(X, Y, hx, hy, FAN_R + 5.0)
     half = Y - np.float32(hy)
-    outline = np.maximum(arc, half)                       # the closed half disc that holds the rays
+    outline = np.maximum(arc, half)
     r.over(col("2A1E10"), coverage(np.abs(outline) - 1.6) * coverage(half - 1.0))
     for ray in rays:
         d, nx, ny = sd_poly_n(X, Y, ray)
         r.over(col("2A1E10"), coverage(d - 1.2))
-        r.over(gold_band_rgb(np.clip(-d / 5.0, 0, 1), nx, ny), coverage(d))
+        r.over(gold_band_rgb(np.clip(-d / 5.0, 0, 1) * .55, nx, ny), coverage(d))
     r.over(GOLD_FLAT, coverage(np.abs(arc) - .9) * coverage(half))
     hub = sd_circle(X, Y, hx, hy, 20.0)
-    disc = np.maximum(hub, half)
-    r.over(CRIMSON, coverage(disc))
+    r.over(CRIMSON, coverage(np.maximum(hub, half)))
     r.over(GOLD_FLAT, coverage(np.abs(hub) - .9) * coverage(half))
     d, nx, ny = sd_poly_n(X, Y, plinth)
     r.over(col("2A1E10"), coverage(d - 1.5))
-    r.over(gold_band_rgb(np.clip(-d / 4.0, 0, 1), nx, ny), coverage(d))
+    r.over(gold_band_rgb(np.clip(-d / 4.0, 0, 1) * .55, nx, ny), coverage(d))
     r.over(LACQUER, coverage(d + 4.0))
 
 
@@ -1085,13 +1598,19 @@ def felt_tile() -> Image.Image:
 
 
 # ---------------------------------------------------------------------------------------------- palette report
+LABEL_FILL_HEX = IVORY_HEX    # ui_chip_label's face: the value and warning badges' host
+
+
 def palette_report(palette: dict | None = None) -> dict[str, float]:
     """Contrast numbers quoted in the README and asserted by the tests (WCAG 2 sRGB relative luminance)."""
-    p = dict(PALETTE, **W20X_TOKENS) if palette is None else palette
-    chip_face = LABEL_FILL_HEX
-    value_fill, warning_fill = drawn(chip_face, p.get("valueBadge", p["gold"])), drawn(chip_face, p["danger"])
+    p = dict(PALETTE, **W20X_TOKENS) if palette is None else dict(palette)
+    pending = dict(PENDING_TOKENS, **{k: v for k, v in p.items() if k in PENDING_TOKENS})
+    value_fill, warning_fill = drawn(LABEL_FILL_HEX, p.get("valueBadge", p["gold"])), drawn(LABEL_FILL_HEX, p["danger"])
     sec = lerp_hex(p["background"], p["panel"], .55)
     rim = lerp_hex(p["panel"], p["panelLight"], .55)
+    boss_key, boss_steps, boss_plate = label_on(p["boss"], p)
+    bs = pending["buttonSecondary"]
+    bs_key, bs_steps, bs_plate = label_on(bs, p)
     out = {
         "textColor/panel": contrast(p["textColor"], p["panel"]),
         "ink/paper": contrast(p["ink"], p["paper"]),
@@ -1100,26 +1619,34 @@ def palette_report(palette: dict | None = None) -> dict[str, float]:
         "textColor/felt": contrast(p["textColor"], p["felt"]),
         f"{best_label(p['primary'], p)[0]}/primary (label pick)": best_label(p["primary"], p)[1],
         f"{best_label(p['panelLight'], p)[0]}/panelLight (label pick)": best_label(p["panelLight"], p)[1],
-        f"{best_label(p['boss'], p)[0]}/boss (label pick)": best_label(p["boss"], p)[1],
         f"{best_label(p['pressure'], p)[0]}/pressure (label pick)": best_label(p["pressure"], p)[1],
         f"{best_label(p['gold'], p)[0]}/gold (label pick)": best_label(p["gold"], p)[1],
+        f"{boss_key}/boss plate {boss_plate} (LabelOn11, {boss_steps} steps)": contrast(p[boss_key], boss_plate),
+        "boss/felt (tray rings)": contrast(p["boss"], p["felt"]),
+        "boss/paper (stage card rings)": contrast(p["boss"], p["paper"]),
+        "ink/boss (tier bars on the emblem)": contrast(p["ink"], p["boss"]),
         "muted/panelLight (disabled button)": contrast(p["muted"], p["panelLight"]),
         "gold/panel": contrast(p["gold"], p["panel"]),
         "teal/panel": contrast(p["teal"], p["panel"]),
         "danger/paper": contrast(p["danger"], p["paper"]),
         "ghost/felt": contrast(p["ghost"], p["felt"]),
         "panel/felt (top bar edge)": contrast(p["panel"], p["felt"]),
-        f"secondary chip {sec}/felt": contrast(sec, p["felt"]),
-        f"textColor/secondary chip {sec}": contrast(p["textColor"], sec),
+        f"secondary chip today {sec}/felt": contrast(sec, p["felt"]),
+        f"buttonSecondary {bs}/felt (pending, W20Y)": contrast(bs, p["felt"]),
+        f"buttonSecondary {bs}/paper (pending, W20Y)": contrast(bs, p["paper"]),
+        f"{bs_key}/buttonSecondary (LabelOn11, {bs_steps} steps)": contrast(p[bs_key], bs_plate),
         f"tray rim {rim}/felt": contrast(rim, p["felt"]),
         "gold/panelLight (done vs unreached points)": contrast(p["gold"], p["panelLight"]),
         "valueBadge/danger badge dE00 (drawn)": ciede2000(lab(value_fill), lab(warning_fill)),
         "valueBadge/danger badge contrast (drawn)": contrast(value_fill, warning_fill),
         f"{best_label(value_fill, p)[0]}/valueBadge (drawn)": best_label(value_fill, p)[1],
         f"{best_label(warning_fill, p)[0]}/danger badge (drawn)": best_label(warning_fill, p)[1],
-        "primary/pressure dE00": de00(p["primary"], p["pressure"]),
         "primary/boss dE00": de00(p["primary"], p["boss"]),
+        "primary/boss plate as drawn dE00": de00(p["primary"], boss_plate),
         "pressure/boss dE00": de00(p["pressure"], p["boss"]),
+        "primary/pressure dE00": de00(p["primary"], p["pressure"]),
+        "red pip/boss dE00": de00(p["red"], p["boss"]),
+        "danger/boss dE00": de00(p["danger"], p["boss"]),
     }
     rar = ("rarityCommon", "rarityAdvanced", "rarityRare")
     for i, a in enumerate(rar):
@@ -1129,7 +1656,6 @@ def palette_report(palette: dict | None = None) -> dict[str, float]:
         out[f"primary/{a} dE00"] = de00(p["primary"], p[a])
     out["pressure saturation"] = colorsys.rgb_to_hsv(*(v / 255 for v in rgb8(p["pressure"])))[1]
     out["pressure hue (deg)"] = colorsys.rgb_to_hsv(*(v / 255 for v in rgb8(p["pressure"])))[0] * 360
-    # W20X: the section's centre (baked, x section), the crimson caption strips (white strip x caption).
     cell = drawn(LACQUER_HEX, p["section"])
     out["muted/section cell"] = contrast(p["muted"], cell)
     out["textColor/section cell"] = contrast(p["textColor"], cell)
@@ -1139,9 +1665,6 @@ def palette_report(palette: dict | None = None) -> dict[str, float]:
     return out
 
 
-LABEL_FILL_HEX = IVORY_HEX    # ui_chip_label's face (phase 2 bakes it ivory): the value and warning badges' host
-
-
 # ---------------------------------------------------------------------------------------------- build
 def theme_json() -> str:
     data = dict(THEME_META)
@@ -1149,8 +1672,16 @@ def theme_json() -> str:
     return json.dumps(data, ensure_ascii=False, indent=2) + "\n"
 
 
+def _review_module():
+    spec = importlib.util.spec_from_file_location("deco_review", Path(__file__).with_name("review_deco.py"))
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    return mod
+
+
 def build(output_root: Path = ROOT, names=None) -> list[Path]:
-    """Write the implemented sprites, the table and page scenes, the felt tile and theme.json."""
+    """Write the referenced contract sprites, the table and page scenes, the felt tile, theme.json, the preview and the
+    contact sheet (the last two drawn from the sprites just written)."""
     output_root = Path(output_root).resolve()
     if not output_root.is_relative_to(ROOT):
         raise ValueError("Output root must stay inside the deco worktree")
@@ -1168,8 +1699,7 @@ def build(output_root: Path = ROOT, names=None) -> list[Path]:
     check_felt_zones(table)          # fail before writing any exported art
     check_decoration_rects(table)
     specs = contract_sprites()
-    wanted = set(names or PHASE1_NAMES)
-    sprites: dict[str, Image.Image] = {}
+    wanted = set(names) if names else {s["name"] for s in specs}
     for spec in specs:
         if spec["name"] not in wanted:
             continue
@@ -1179,27 +1709,31 @@ def build(output_root: Path = ROOT, names=None) -> list[Path]:
             im = rendered(spec["name"])
         if im.mode != "RGBA" or list(im.size) != spec["size"]:
             raise ValueError("Contract mismatch: " + spec["name"])
-        sprites[spec["name"]] = im
         save(THEME / "UI" / (spec["name"] + ".png"), im)
     save(THEME / "Table/table_scene.png", table)
-    save(THEME / "Table/page_scene.png", page_scene())
+    page = page_scene()
+    save(THEME / "Table/page_scene.png", page)
     save(THEME / "Table/felt_tile.png", felt_tile())
     theme_path = output_root / THEME / "theme.json"
+    theme_path.parent.mkdir(parents=True, exist_ok=True)
     theme_path.write_text(theme_json(), encoding="utf-8", newline="\n")
     written.append(theme_path)
+    if names is None:
+        review = _review_module()
+        mock, sheet = review.build_outputs(output_root)
+        save(THEME / "preview.png", mock.resize((480, 270), Image.Resampling.LANCZOS))
+        save(REVIEW / "contact_sheet.png", sheet)
     return written
 
 
 if __name__ == "__main__":
     if "--report" in sys.argv:
         for k, v in palette_report().items():
-            print(f"{k:58s} {v:8.2f}")
+            print(f"{k:62s} {v:8.2f}")
     elif "--review" in sys.argv:
-        import importlib.util
-        spec_ = importlib.util.spec_from_file_location("deco_review", Path(__file__).with_name("review_deco.py"))
-        mod = importlib.util.module_from_spec(spec_)
-        spec_.loader.exec_module(mod)
-        mod.main(sys.argv[1:])
+        _review_module().main([a for a in sys.argv[1:] if a != "--review"])
+    elif "--card-review" in sys.argv:
+        _review_module().write_card_template_review()
     else:
         for p in build():
             print("DECO_WROTE", p.relative_to(ROOT).as_posix())
