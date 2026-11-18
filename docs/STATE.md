@@ -214,7 +214,13 @@
        - 按钮与筹码的边距回到默认（7 / 6 px），刻线只在角块里；
        - 46 项黑金测试、全量 380 项通过，两次重建一致，严格审计通过。
        - 覆盆子首领色比概念页的绯红与金更鲜艳，实机截图时判断。
-     - 两套的合并步骤（黑金 2b 完成后）：
+     - **合并完成**（2026-11-18）：
+       - 合并准备 agent 先把 `codex/v1.1`（`173b2be`）合并进两条分支，再让生成器把 `buttonSecondary` 写进 theme.json。黑金 `154ab2d`、`c167890`；彩绘玻璃 `66846f5`、`ff875af`。
+       - 两套都只有 theme.json 这一个发布文件变化；严格审计、套件测试（46 / 47）、全量（380 / 381）都通过。
+       - 协调者随后在 Unity 没有运行时合并：黑金 `6db37a8`，彩绘玻璃 `a940ad7`。合并后五套严格审计都是 AUDIT_OK。
+       - 两套 README 里“需要的决定”一节仍写着待定，协调者的决定以本文件为准。
+     - W20Z（子 agent，2026-11-18 开始，Unity 串行）：黑金与彩绘玻璃的 .meta；实机桌面图检查；两套的审查截图（1080p、720p，100% 与 150%，含禁用的二级按钮）及各项测量；四套已有风格逐像素不变；全量测试。
+     - 两套的合并步骤（记录）：
        1. 先把 `codex/v1.1` 合并进各自的分支（带进 W20Y 的代码与 50 张清单）；
        2. 在生成器里把 `buttonSecondary` 从待定列表移入色板，重建后测试；不能手改 theme.json，否则“与重新生成一致”的测试会失败；
        3. 合并进 `codex/v1.1`；
@@ -294,7 +300,8 @@
   - W20 彩绘玻璃子 agent：工作树 `wt-v11-glass`（分支 `codex/v1.1-glass`）里对应的 glass 路径。
   - 瑞士插画复核子 agent：已交付（2026-11-18）。
   - W20Y 子 agent：已释放（2026-11-18 交付）。没有运行中的 Unity 进程；`DiceChineseFallback.asset` 已还原；证据在 `evidence/v11/unity/`（未纳入版本库）与 `artifacts/cache/v11/w20y/`。
-  - 黑金 2b 子 agent（2026-11-18 开始）：工作树 `wt-v11-deco` 里的黑金路径。四项：首领色、`buttonSecondary` 在顶栏上的对比、禁用面色、按钮与筹码的边距。
+  - 黑金、彩绘玻璃的各个子 agent：都已交付并释放；两条分支已合并，工作树 `wt-v11-deco`、`wt-v11-glass` 不再写入。
+  - W20Z 子 agent：Unity 编辑器；`Resources/Themes/{deco,glass}/` 下的 .meta；`Tests/`（只扩充截图测试）；`docs/specs/v11/W20Z_REPORT.md`；本文件里它自己的段落与文件锁行。
   - W20Y2 子 agent：已释放（2026-11-18 交付）。没有运行中的 Unity 进程；`DiceChineseFallback.asset` 已还原；证据在 `evidence/v11/unity/`（未纳入版本库）与 `artifacts/cache/v11/w20y2/`。
   - 主 agent：`ArtSource/Art11/` 的生成（经 artgen 串行进行），以及 `docs/STATE.md`、`THEME_SPEC.md`（W20X 可改状态行与 §5，须列出）、`DEV_PLAN.md`、`CARD_TEMPLATE.md`、`SHOP_LAYOUT.md`。
 
