@@ -1,0 +1,141 @@
+{
+  "schema": "artgen-record-1",
+  "toolVersion": "artgen-1.2",
+  "jobId": "V11-SANCAI-C24",
+  "jobPath": "ArtSource/Art11/sancai/illustrations/C24/job.json",
+  "jobSha256": "76377140fbdaaf08c17a49e0d4f809fa88b27be4b111262fd9e6e1b221bd45e5",
+  "category": "illustration",
+  "revision": "r01",
+  "mode": "new",
+  "transparentRequired": true,
+  "content": {
+    "contentId": "C24",
+    "list": "controllers",
+    "displayName": "我是状元",
+    "configDescription": "仅计算红组时，红色有效1按4分组，与其他红4合组；其他计分不变。",
+    "configPath": "DicePrototype/Assets/Game/Data/P0Config.json",
+    "configSha256": "be01f53fafb0cd441acbf5341a813d5409931eb8bea6463c644af30698846151"
+  },
+  "styleKit": {
+    "path": "ArtSource/StyleKit/themes/sancai/style_kit.json",
+    "sha256": "a782bc0be1c2f8142d635e93c7b897fc619a4813b177edaf145c715cd02fe8c6",
+    "kitVersion": "theme-sancai-0.2",
+    "status": "PROPOSED (2026-11-17): anchors are crops of the four card illustrations on the user-chosen 唐三彩陶坊 concept page (ArtSource/StyleKit/themes/sancai/concepts/card.png); awaiting the user's review at checkpoint 3 with the first representative redraws."
+  },
+  "references": [
+    {
+      "index": 1,
+      "path": "ArtSource/StyleKit/themes/sancai/plates/illustration_plate_theme-sancai-0.1.png",
+      "sha256": "ec2beddf08039e823a15f011bc62f147c80b668c2944577ff286a0e061184e43",
+      "role": "STYLE PLATE: four card illustrations in the Tang sancai glazed-pottery style of this game, cropped from concept art and still standing on their cream crackle-glaze card backdrop. Copy their rendering exactly (sculpted glazed ceramic forms, glossy lead glaze with fine crackle, glaze pooling and runs, amber, green and cream glazes with cobalt and iron red, warm umber shadows). Do not copy their subjects, their layout, the crackle-glaze backdrop or the frame ornaments. The pip colours of the dice on the plate are not a style rule: pips follow the subject."
+    },
+    {
+      "index": 2,
+      "path": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c24.png",
+      "sha256": "cf64db14f1b82cb72d1ed0fbf5a9540672d46215b46b54bc4134de8f762949f2",
+      "role": "SUBJECT REFERENCE: the same card drawn in the game's default style. Keep its objects, their arrangement, the idea, and every colour that carries game information: dice pips keep the reference's colours (dark pips stay dark, in the darkest ink of reference image 1; red pips stay red; blue pips stay blue), coloured die faces keep their colour, gold stays gold, and glass or transparent parts stay transparent. Never colour neutral dark pips red or blue. Ignore everything else about its rendering (outlines, shading, halftone, exact shades) and draw it in the style of reference image 1."
+    }
+  ],
+  "prompt": {
+    "imagePromptPath": "ArtSource/Art11/sancai/illustrations/C24/r01/prompt.txt",
+    "imagePromptFileSha256": "94cef0651706d2fab172e649bdb20807a24aa788da8d855b55797d4c56b59331",
+    "agentRequestPath": "ArtSource/Art11/sancai/illustrations/C24/r01/codex-request.txt",
+    "agentRequestFileSha256": "e4eaf5a89d30a69df21d500172ba050d6c4ffe340b9daa56ecbbae3839b0cef7"
+  },
+  "codex": {
+    "command": [
+      "C:\\Users\\f\\AppData\\Local\\OpenAI\\Codex\\bin\\c38161ad8494f88c\\codex.exe"
+    ],
+    "version": "codex-cli 0.169.0-alpha.11.1",
+    "exitCode": 0,
+    "threadId": "01a1ece4-c0db-7082-8154-3ab1eaf1c3c9",
+    "sessionLog": "C:\\Users\\f\\.codex\\sessions\\2026\\11\\17\\rollout-2026-11-17T23-22-56-01a1ece4-c0db-7082-8154-3ab1eaf1c3c9.jsonl",
+    "agentModel": "gpt-6.2-sol",
+    "usage": {
+      "input_tokens": 41810,
+      "cached_input_tokens": 34048,
+      "cache_write_input_tokens": 0,
+      "output_tokens": 1244,
+      "reasoning_output_tokens": 393
+    },
+    "durationSeconds": 94.9,
+    "quotaUsedPercentFirst": 27.0,
+    "quotaUsedPercentLast": 27.0
+  },
+  "imageTool": {
+    "name": "image_gen.imagegen (Codex built-in)",
+    "modelSnapshot": "not exposed by the tool; OpenAI documents the built-in tool as gpt-image-2",
+    "generations": [
+      {
+        "id": "exec-db4e8abe-a093-49d7-9725-e2907460bb61",
+        "kind": "image_gen.generation",
+        "status": "completed",
+        "failure": null,
+        "revisedPrompt": "\nCreate ONE standalone card-theme illustration. Subject: a red scholar's hat with two broad wing flaps and a round knob on top sitting over a die, a blank unrolled scroll with a rod at each end spread behind them, short strokes above. Must keep: hat is red; dice pips coloured exactly as in the subject reference (dark pips stay dark, never recoloured red or blue).\nStyle: Match the STYLE PLATE (reference image 1) exactly: Tang-dynasty sancai glazed pottery. Every object is a sculpted, slightly chunky glazed ceramic piece in soft relief: thick glossy lead glaze with fine crackle (crazing) lines, softly rounded edges, glaze that pools in hollows and runs in a few drips, small bright specular highlights on the glaze, warm unglazed umber clay in the deepest shadows. Colour comes from the three sancai glazes (amber ochre, copper green and cream) with cobalt blue as the rare fourth glaze. Dice are cream-glazed cubes with crackle and deep, glossy dark umber pips; cobalt or iron-red pips only when the subject names blue or red pips. Three-quarter view from slightly above; light from the upper left.\nColour roles: Cream glaze #F0D7AA for lit surfaces and dice bodies, with #FBF0DC only for the brightest glaze highlights; amber ochre #D98E2B for gold, brass, coins, flames and warm accents; copper green #557A2C for leaves, rims and secondary areas; cobalt blue #2C4E9A for blue pips, water and blue objects; iron red #B5481E for red pips and red objects; umber #5A3614 for thin outlines, neutral pips and the deepest shadows. No other hues, no neon, no glow.\nComposition: One cohesive subject group of at most three objects, centred on a square canvas; the subject spans roughly 70 to 95 percent of the canvas width without touching the edges, with even transparent margin on every side; the silhouette must stay readable at 64 pixels. Two or three short glazed relief strokes are allowed when they express the effect. The card frame of the game draws its own backdrop, so the illustration has no background field at all.\nOutput: True transparent alpha background with no backdrop of any colour and no background shapes. A single finished illustration, not a sheet of variants.\nAvoid: text, letters, numbers, labels, prices, card frames, UI elements, a background tile, plaque or field, cloud-scroll frame ornaments, paper or coloured backdrop, ground scenery, checkerboard, photorealism, plastic 3D-render look, chrome, flat vector shapes without glaze, pixel art, neon glow, grunge, human characters, expressive faces.\n",
+        "transparentBackground": true,
+        "inputImages": [
+          {
+            "path": "E:\\agent_workspace\\gpt\\game2\\ArtSource\\StyleKit\\themes\\sancai\\plates\\illustration_plate_theme-sancai-0.1.png",
+            "sha256": "ec2beddf08039e823a15f011bc62f147c80b668c2944577ff286a0e061184e43"
+          },
+          {
+            "path": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Art\\Art071\\Illustrations\\illustration_c24.png",
+            "sha256": "cf64db14f1b82cb72d1ed0fbf5a9540672d46215b46b54bc4134de8f762949f2"
+          }
+        ],
+        "savedPath": "C:\\Users\\f\\.codex\\generated_images\\01a1ece4-c0db-7082-8154-3ab1eaf1c3c9\\exec-db4e8abe-a093-49d7-9725-e2907460bb61.png",
+        "generationId": "aa9d8b68-6ff3-4d19-909c-ab9938abac92"
+      }
+    ],
+    "runChecks": {
+      "imageCallCount": 1,
+      "generationCount": 1,
+      "callReferencedImagePaths": [
+        "E:/agent_workspace/gpt/game2/ArtSource/StyleKit/themes/sancai/plates/illustration_plate_theme-sancai-0.1.png",
+        "E:/agent_workspace/gpt/game2/DicePrototype/Assets/Art/Art071/Illustrations/illustration_c24.png"
+      ],
+      "modelInputImages": [
+        {
+          "path": "E:\\agent_workspace\\gpt\\game2\\ArtSource\\StyleKit\\themes\\sancai\\plates\\illustration_plate_theme-sancai-0.1.png",
+          "sha256": "ec2beddf08039e823a15f011bc62f147c80b668c2944577ff286a0e061184e43"
+        },
+        {
+          "path": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Art\\Art071\\Illustrations\\illustration_c24.png",
+          "sha256": "cf64db14f1b82cb72d1ed0fbf5a9540672d46215b46b54bc4134de8f762949f2"
+        }
+      ],
+      "transparentRequested": true,
+      "callPromptExact": true,
+      "revisedPromptExact": true
+    }
+  },
+  "output": {
+    "sourcePath": "C:\\Users\\f\\.codex\\generated_images\\01a1ece4-c0db-7082-8154-3ab1eaf1c3c9\\exec-db4e8abe-a093-49d7-9725-e2907460bb61.png",
+    "archivedPath": "ArtSource/Art11/sancai/illustrations/C24/r01/original.png",
+    "sha256": "7d9fd79a58a2a2bc0e62bb618ebc84fed460f27270d08aecf451427e4e89be20",
+    "copiedByteIdentical": true,
+    "dimensions": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alphaExtrema": [
+      0,
+      255
+    ],
+    "transparentShare": 0.4565,
+    "alphaBounds": [
+      39,
+      90,
+      1201,
+      1149
+    ],
+    "subjectWidthShare": 0.9266,
+    "subjectHeightShare": 0.8445,
+    "subjectAreaShare": 0.5116
+  },
+  "runValid": true,
+  "runProblems": [],
+  "status": "CANDIDATE: review pending",
+  "recordedUtc": "2026-11-18T04:24:31.935922+00:00"
+}
