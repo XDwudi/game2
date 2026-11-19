@@ -1,6 +1,6 @@
 # W20 彩绘玻璃 UI kit
 
-状态：**第二阶段完成，提交复核**（2026-11-18，分支 `codex/v1.1-glass`，起点 `codex/v1.1` `cd2fedb3`；第一阶段 `20d995da`，1b `67f1bfee`、`25d9e180`，协调者已接受 1b）。**合并准备**（2026-11-18）：本分支合并了 `codex/v1.1` `173b2be7`（含 W20Y `05044756`、W20Y2 `1361b9e5`），`buttonSecondary` 已写入 `theme.json`（W20Y 已合入），见“决定记录”末条。不是实机或美术 ACCEPTED：结论只覆盖“验收条件与结果”写明的方法，独立复核与实机由协调者安排。没有启动 Unity，没有用 GPT/Codex 生图，没有下载；没有改 C#、`.meta`、默认件、其他风格的件、字体或 `docs/STATE.md`。
+状态：**第二阶段完成，提交复核**（2026-11-18，分支 `codex/v1.1-glass`，起点 `codex/v1.1` `cd2fedb3`；第一阶段 `20d995da`，1b `67f1bfee`、`25d9e180`，协调者已接受 1b）。**合并准备**（2026-11-18）：本分支合并了 `codex/v1.1` `173b2be7`（含 W20Y `05044756`、W20Y2 `1361b9e5`），`buttonSecondary` 已写入 `theme.json`（W20Y 已合入），见“决定记录”末条。**W20Z2**（2026-11-19，在 `codex/v1.1` 上）：`panelLight` 64502F → 483A22，让禁用的二级按钮按画出来的面与可用的分得开（见“次要按钮”与“决定记录”末条）；只改了生成器的色板并重建。不是实机或美术 ACCEPTED：结论只覆盖“验收条件与结果”写明的方法，独立复核与实机由协调者安排。第二阶段与合并准备没有启动 Unity，没有用 GPT/Codex 生图，没有下载；没有改 C#、`.meta`、默认件、其他风格的件、字体或 `docs/STATE.md`（W20Z2 的实机截图见 `docs/specs/v11/W20Z_REPORT.md` 的 W20Z2 一节）。
 
 输入：`docs/specs/v11/THEME_SPEC.md` §2（含 `onFelt`、`valueBadge`、W20X 的 `buttonStep` / `buttonStepPrimary` / `section` / `caption` 与“乘色只会调暗”）、§3（可选的 `Table/page_scene.png`）、§3.1、§5；`PLAY_LAYOUT.md` §1/§8、`SHOP_LAYOUT.md` §2、`CARD_TEMPLATE.md` §3/§6；`tools/art_v11/theme_contract.json`（2026-11-18，94 张中有引用的 50 张）；`ArtSource/StyleKit/themes/glass/` 的五张概念页与 `style_kit.json`；唐三彩、爆彩漫画两套 kit 与黑金 kit（只读）的做法与检查；协调者对第一阶段与 1b 的复核、第二阶段的决定与“黑金的教训”（2026-11-18，见末节“决定记录”）。代码依据：`GameApp.Play11.cs`（`L11`、`TopBar11`、`DrawTray11`、`DrawActions11`、`SolidButton11`、`ApplyTableMood11`）、`GameApp.Play11Score.cs`（`Factors11`、`FormulaChip11`）、`GameApp.Play11Contrast.cs`（`FrameInsets11`、`LabelOn11`）、`GameApp.Card11.cs`、`GameApp.Shop14.cs`（`ShopButton14`）、`GameApp.V10.cs`、`UiKit.cs`、`Art07Felt.shader`（首领关压暗）。
 
@@ -76,14 +76,14 @@
 
 ## 色板与对比度
 
-WCAG 2 相对亮度；ΔE 为 CIE76，CIEDE2000 另注。`python tools/art_v11/glass/build_glass.py --report` 打印下列数字（`palette_report()`）。第二阶段只改了 `panelLight`（见“次要按钮”）；其余 23 个 token 与 W20X 四个键同第一阶段。
+WCAG 2 相对亮度；ΔE 为 CIE76，CIEDE2000 另注。`python tools/art_v11/glass/build_glass.py --report` 打印下列数字（`palette_report()`）。第二阶段与 W20Z2 只改了 `panelLight`（见“次要按钮”）；其余 23 个 token 与 W20X 四个键同第一阶段。
 
 | token | 值 | 选择理由 | 关键对比 |
 | --- | --- | --- | --- |
 | felt | 292833 | 概念页的石板（roll 骰区中位 292831） | onFelt 10.89，textColor 12.71 |
 | background | 121118 | 最深的石板：页底 | — |
 | panel | 1E2036 | 夜色玻璃：深色面板、顶栏、次要筹码 | textColor 13.97，muted 7.81；对桌面 1.10（靠金框分开） |
-| panelLight | **64502F**（第二阶段，原 6B5632） | 古铜：普通关牌签、未到的章节点、空道具环、停用的面、托盘边的混色、商店格子 | 字取 textColor 6.73；停用按钮上的 Muted 3.76；与原值 CIEDE2000 2.3 |
+| panelLight | **483A22**（W20Z2；第二阶段 64502F，原 6B5632） | 古铜：普通关牌签、未到的章节点、空道具环、停用的面、托盘边的混色、商店格子、选中的平面页签、设置滑条的底槽。W20Z2 在同一色相与饱和度（37.9°、0.53）里加深（L* 35.3 → 25.3），让停用的二级按钮转成象牙字的暗牌（“次要按钮”） | 字取 textColor 9.65（原 6.73）；停用按钮上的 Muted 5.39（原 3.76）；变弱的用处见“已知风险” |
 | paper / ink | F1DFC2 / 1B1720 | 羊皮纸与铅黑 | ink/paper 13.51 |
 | textColor / muted | F7EFDF / BEB4A6 | 大理石白、旧羊皮纸灰 | 见 panel |
 | gold | F0BE52 | 金：价格、金币、高亮 | 字取 ink 10.25；在 panel 上 9.27 |
@@ -131,11 +131,12 @@ AC8442 照协调者的决定保留，已写入 `theme.json`（W20Y 已合入）�
 | 面对 background 121118 | 5.48 | ≥3 满足 |
 | 面对 paper F1DFC2（卡面与商品行上的价格按钮） | 2.62 | ≥3 **不满足**：筹码自带黑铅条外框，铅条对羊皮纸 16:1，边界靠它（1b 已报告，协调者保留 AC8442） |
 | 字（LabelOn11 偏好 textColor，不到 4.5 时取最好的） | ink 5.15，0 步 | ≥4.95 满足 |
-| 停用的面 lerp(AC8442, panelLight, .25) = 9A773D 与可用的面 | CIEDE2000 **5.38** | ≥5 满足（panelLight 仍是 6B5632 时只有 4.64，所以加深了 panelLight） |
-| 停用的字 LabelOn11(9A773D, Muted) | Muted 只有 2.02，不到 4.5；改取 ink（4.27），仍不到 4.95，LabelOn11 把面往白调 2 步成 A48450，ink 5.04 | 字与可用的一样是 ink（**不同字色这一条不满足**） |
-| 实际画出的停用面 A48450 与可用的面 | CIEDE2000 **3.33** | 按画出来的面算 **不到 5** |
+| 停用的面 lerp(AC8442, panelLight, .25) = 93723A（W20Z2；第二阶段 9A773D）与可用的面 | CIEDE2000 7.57（第二阶段 5.38） | — |
+| 停用的字 LabelOn11(93723A, Muted) | Muted 只有 2.18，不到 4.5；三个候选都不到 4.95，加深（大理石白字）与调浅（铅黑字）都要 3 步，平手时加深：面加深 3 步成 7E6132，字 textColor 5.03（C# 的浮点；生成器按 8 位取整算 7E6232、4.99） | 字由铅黑换成大理石白：**不同字色满足** |
+| 实际画出的停用面与可用的面 | CIEDE2000 **15.12**（8 位取整 14.84；第二阶段 3.33，W20Z 实机 3.18） | 按画出来的面 **≥5 满足** |
+| 决定步数的对比（浮点，与 C# 一致） | 加深第 3 步 5.026、第 2 步 4.638；调浅第 2 步 4.708 | 离 4.95 都至少 0.07：加深 3 步、调浅至少 3 步，平手加深，分支稳定 |
 
-所以按协调者写的条件（lerp 的面差 ≥5，或字色不同）通过的是第一条：5.38。但 LabelOn11 会把停用面调亮 2 步，玩家看到的停用面与可用面只差 3.33，字都是 ink：停用态仍然不够明显（`review/secondary_states.png` 并排画了可用与停用，以及不设这个键时代码用的 191929 作对照：那里停用字是 Muted、可用字是 textColor，一眼可分）。要在画出来的面上也 ≥5，只靠色板做不到：停用面里 75 % 是 AC8442，ink 要 4.95 就必须把面调回 AC8442 的亮度；要让 LabelOn11 改选浅色字（字色不同），停用面的亮度要降到约 0.15，panelLight 得接近黑色，那就不是古铜了，空道具环、普通关牌签、托盘边都会变。办法见“需要的决定”第 2 条。
+第二阶段按协调者当时写的条件（lerp 的面差 ≥5，或字色不同）通过的是第一条：5.38。但 LabelOn11 会把那张停用面调亮 2 步，玩家看到的停用面与可用面只差 3.33（W20Z 实机 3.18），字都是 ink，停用态看不出来。W20Z2（协调者 2026-11-19，照黑金 2b 的做法）把条件改为按画出来的面：面差 ≥5，或字色不同；只调生成器的色板。办法与黑金相同：把 `panelLight` 在同一色相与饱和度里加深，让 25 % 混合后的停用面暗到 LabelOn11 走加深一支、改选大理石白字。483A22 是这一色相里决定步数的对比两边都离 4.95 至少 0.07 的最亮值（更亮一档 493B23 的加深第 3 步只有 5.010）；结果两条都满足：面差 15.12、字由铅黑换成大理石白。可用的面、字与 W20Z 量过的 buttonSecondary 对比（桌面 4.24、深色面板与顶栏 4.66、羊皮纸 2.62）都不变；停用面对羊皮纸由 2.68 升到约 4.4。代价是 panelLight 的其他用处变暗，见“已知风险”。示意 `review/secondary_states.png` 已按新值重画。
 
 ## 桌面（THEME_SPEC §3.1，第一阶段 1b，第二阶段未改）
 
@@ -150,7 +151,7 @@ AC8442 照协调者的决定保留，已写入 `theme.json`（W20Y 已合入）�
 - 两块石板（52–1460 × 374–720、32–1480 × 740–942）整块是 felt 色；外面紧挨的一圈像素没有 felt 色，金色双线从那里往外画。
 - 静区以外是铅条彩窗（一种铺满的纹理，没有版面形状）；按决定 A，彩窗可以在面板和卡牌栏下面（纹理，不是大装饰）。卡牌栏 0、3、5、7、10 张时露出的都是同一种彩窗（`review/card_rows.png`）。
 - **玫瑰窗**：中心 (1384, 1012)、半径 54，外接框 x 1330–1438、y 958–1066；行动行每个状态（9 个状态 × 100 % / 150 % 文字，含按钮台阶、焦点框与达标环）都空着的是 x 1279–1492、y 942–1080（`review/action_row.txt`，`ACTION_ROW_OK`），左右各留 51 / 54 px，上 16 px；外圈是一圈闭合的铅（测试沿 360 个方向检查）。page_scene 与 table_scene 在石板与金线之外只差玫瑰窗。
-- 托盘边（代码乘 lerp(panel, panelLight, .55)）：panelLight 加深后是 453A32（原 483E34），对 felt 1.32:1（原 1.39）；协调者决定托盘边保持现状，看得见的托盘边仍是静区外的金色双线（对彩窗与石板约 6.8:1）。
+- 托盘边（代码乘 lerp(panel, panelLight, .55)）：W20Z2 的 panelLight 483A22 下是 352E2B，对 felt 1.09:1（第二阶段 453A32、1.32，原 483E34、1.39）；协调者决定托盘边保持现状，看得见的托盘边仍是静区外的金色双线（对彩窗与石板约 6.8:1）。
 - 直接画在桌面上的字（`table_text_contrast.py glass`，非对局画面的背景 page_scene）：19 处中 **9 处低于 4.5:1**，最低 2.77（选关的预算行），`TABLE_TEXT_BELOW`。按协调者的决定，这些字由 W15 / W16 放到面板或标题条上，本包只报告数字。
 
 ## 文字空间（C# `FrameInsets11` 镜像，sprite px，左、下、右、上；PPU 200 时 2 px = 1 单位）
@@ -223,7 +224,7 @@ AC8442 照协调者的决定保留，已写入 `theme.json`（W20Y 已合入）�
 
 ## 测试（`tests/test_art_v11_glass.py`，47 项）
 
-清单（50 件、55 张 PNG）与尺寸、RGBA、不全透明；着色件 R=G=B、白色实面、开口件中心全透明；九宫格中心从边距线起纯色（20 件）、横向切片中段逐列相同（4 件）；拉伸边带（9 个着色件沿边不变，11 个烘焙件沿边逐像素 ≤6 级）；**装字的 16 件每一边不厚于默认**（协调者的规则）、框在边距内、分区标题条 / 托盘标签 / 数值角标的字高；150 % 两行提示余量 ≥5 单位；7 件的角是 45° 直切角、8 件框角有金星；按钮与筹码两端是两道斜边的尖头（60 / 72 / 80 单位高时不缩）；卡保留宝石玻璃条、面板的宝石玻璃只在四个角块；金框有高光且受光边更亮；标题条左端开口、右端尖头在中线上，进度条两端尖；内层件不出宿主轮廓（稀有度环、本关牌双环、托盘环、商店标题条）；带字面板的对比度；锁与小图标在真实尺寸与宿主上（含 buttonSecondary 面与乘字色的导航图标）；附魔章保留含义色与浅色符号；稀有度环带宽不超过默认、两侧铅线、对铅线 ≥3；宝石轮廓尖数、小尺寸可分、墨线与浅色切面；桌面尺寸、静区、石板整块 felt 色且外圈是金线、静区外是红蓝为主的彩窗、玫瑰窗是唯一的图形且在空处与外接矩形之外、外圈铅闭合；page_scene 是没有版面形状的同一种彩窗；felt_tile 无缝均匀；色板规则（AX-08、onFelt、pressure 警示色、稀有度、主按钮）；首领色（离 primary、红骰点、pressure ≥15，画出来的筹码也是）；buttonSecondary（已写入 `theme.json`，W20Y 已合入；值、对 felt / panel / background ≥3、字 ≥4.95、铅条对羊皮纸 ≥10）；停用的次要按钮可区分（面差 ≥5 或字色不同）；数值与警示角标；W20X 四个键；`theme.json` 结构（键名从 `ThemePalette.cs` 读取，可选键含 buttonSecondary；W20Y 的 buttonSecondary 须已声明、已写入）与生成一致；概念页 SHA 与来源表一致；字标用批准的标题字；两次完整重建逐字节一致且与交付件一致。
+清单（50 件、55 张 PNG）与尺寸、RGBA、不全透明；着色件 R=G=B、白色实面、开口件中心全透明；九宫格中心从边距线起纯色（20 件）、横向切片中段逐列相同（4 件）；拉伸边带（9 个着色件沿边不变，11 个烘焙件沿边逐像素 ≤6 级）；**装字的 16 件每一边不厚于默认**（协调者的规则）、框在边距内、分区标题条 / 托盘标签 / 数值角标的字高；150 % 两行提示余量 ≥5 单位；7 件的角是 45° 直切角、8 件框角有金星；按钮与筹码两端是两道斜边的尖头（60 / 72 / 80 单位高时不缩）；卡保留宝石玻璃条、面板的宝石玻璃只在四个角块；金框有高光且受光边更亮；标题条左端开口、右端尖头在中线上，进度条两端尖；内层件不出宿主轮廓（稀有度环、本关牌双环、托盘环、商店标题条）；带字面板的对比度；锁与小图标在真实尺寸与宿主上（含 buttonSecondary 面与乘字色的导航图标）；附魔章保留含义色与浅色符号；稀有度环带宽不超过默认、两侧铅线、对铅线 ≥3；宝石轮廓尖数、小尺寸可分、墨线与浅色切面；桌面尺寸、静区、石板整块 felt 色且外圈是金线、静区外是红蓝为主的彩窗、玫瑰窗是唯一的图形且在空处与外接矩形之外、外圈铅闭合；page_scene 是没有版面形状的同一种彩窗；felt_tile 无缝均匀；色板规则（AX-08、onFelt、pressure 警示色、稀有度、主按钮）；首领色（离 primary、红骰点、pressure ≥15，画出来的筹码也是）；buttonSecondary（已写入 `theme.json`，W20Y 已合入；值、对 felt / panel / background ≥3、字 ≥4.95、铅条对羊皮纸 ≥10）；停用的次要按钮可区分（W20Z2 起按 LabelOn11 调过的画出来的面：面差 ≥5 或字色不同，现在两条都满足、字是大理石白，决定步数的对比按浮点离 4.95 至少 0.05；panelLight 的关卡签字 ≥4.95 不调面、禁用 `UiKit.Button` 的 Muted ≥3）；数值与警示角标；W20X 四个键；`theme.json` 结构（键名从 `ThemePalette.cs` 读取，可选键含 buttonSecondary；W20Y 的 buttonSecondary 须已声明、已写入）与生成一致；概念页 SHA 与来源表一致；字标用批准的标题字；两次完整重建逐字节一致且与交付件一致。
 
 ## 验收条件与结果
 
@@ -238,7 +239,7 @@ AC8442 照协调者的决定保留，已写入 `theme.json`（W20Y 已合入）�
 | W20-05 | 色板：红蓝原值、AX-08、onFelt、pressure 警示色、稀有度亮度与离 primary 的距离、主按钮字 ≥4.95、角标、W20X 键；`theme.json` 结构 | 单测、`palette_report()` | 通过，数字见色板表 |
 | W20-06 | 黑金教训·文字空间：装字的件每边 ≤ 默认，完整表 | 单测、“文字空间”表 | 通过：16 件 0 边超出（1b 有 10 件超出，已改薄）；不装字的进度条两件厚于默认，已列出 |
 | W20-07 | 黑金教训·首领色：离 primary、红骰点、pressure 各 ≥15 CIEDE2000（画出来的筹码也是）；首领关示意 | 单测、`boss_stage.png` | 通过：43.07 / 22.86 / 25.20；筹码 22.86 |
-| W20-08 | 黑金教训·buttonSecondary：对 felt、paper、深色面板、顶栏的对比；停用面 ≥5 CIEDE2000 或字色不同 | 单测、`palette_report()` | 部分：felt 4.24、panel（面板与顶栏）4.66、background 5.48 满足；paper 2.62 不满足（已知，铅条外框 16:1）。停用：lerp 面差 5.38 满足所写条件；画出来的面（LabelOn11 调亮 2 步）只差 3.33、字同为 ink，见“需要的决定”第 2 条 |
+| W20-08 | 黑金教训·buttonSecondary：对 felt、paper、深色面板、顶栏的对比；停用面 ≥5 CIEDE2000 或字色不同（W20Z2 起按画出来的面） | 单测、`palette_report()` | 部分：felt 4.24、panel（面板与顶栏）4.66、background 5.48 满足；paper 2.62 不满足（已知，铅条外框 16:1）。停用（W20Z2，panelLight 483A22）：画出来的面加深 3 步成 7E6132，与可用面差 15.12，字换成大理石白 5.03，满足（第二阶段只按 lerp 面差 5.38 满足，画出来只差 3.33、字同为 ink） |
 | W20-09 | 两行提示 150 % 时字底余量 ≥5 单位 | 单测（离线估算） | 通过：15.0 单位（按 W20Xb 实测字块 13.2） |
 | W20-10 | 小图标在真实尺寸与宿主上可辨；锁 20×22 在 background 上 | 单测、接触表小图 | 通过（离线合成） |
 | W20-11 | 字标用 Noto Serif SC Black | 单测、接触表 | 通过 |
@@ -260,10 +261,11 @@ AC8442 照协调者的决定保留，已写入 `theme.json`（W20Y 已合入）�
 ## 已知风险
 
 - **面板变薄**：面板的金框从 1b 的 17 px（含宝石玻璃条）变成 6–7 px 的细金线，宝石玻璃只在四角。商店的分区、对局右栏的面板与提示框因此比 1b 朴素，接近第一阶段被退回时“细铜线”的样子，只是现在有彩窗桌面、宝石角片和金星；卡牌仍是完整的宝石条框（`text_room_frames.png`）。
-- **停用的次要按钮**：画出来只比可用的面浅一点（CIEDE2000 3.33），字同为 ink（见“次要按钮”）。
+- **停用的次要按钮**（W20Z2 已改）：第二阶段画出来只比可用的面浅一点（CIEDE2000 3.33，实机 3.18），字同为 ink；panelLight 483A22 后停用面是暗古铜、字是大理石白（15.12，见“次要按钮”）。
+- **panelLight 加深后变弱的用处**（W20Z2，64502F → 483A22）：普通关的关卡签与未到的章节点对顶栏、空道具环对深色面板 2.08 → 1.45；托盘边对桌面 1.32 → 1.09；商店空格的金线乘 panelLight 后对分区 1.42 → 1.10；选中的平面页签（手册等的 `ui_frame_block` × panelLight）与设置滑条的底槽对页底 2.44 → 1.70。变强的：关卡签的字 6.73 → 9.65，禁用 `UiKit.Button` 的 Muted 字 3.76 → 5.39，选中页签的金色字 4.47 → 6.40。与黑金 2b 同类的代价，实机截图里再看。
 - **danger 与 boss 同属宝石红**：B0281F 与 A8231B 只差 CIEDE2000 1.91（规则里没有这一条；数值角标对警示角标 43.6 满足）。
 - **商店分区标题条盖住分区上两角的宝石角片与金星**（W14 的版面让标题条从分区边框内侧开始；1b 也一样）。
-- **托盘边与空道具环**：panelLight 加深后托盘边略暗（对 felt 1.39 → 1.32），空道具环（× panelLight）对面板 2.28 → 2.08；看得见的托盘边仍是金色双线，空环有铅边。
+- **托盘边与空道具环**：panelLight 加深后托盘边变暗（对 felt 1.39 → 1.32，W20Z2 后 1.09），空道具环（× panelLight）对面板 2.28 → 2.08（W20Z2 后 1.45）；看得见的托盘边仍是金色双线，空环有铅边。
 - 面板的夜色面（L 0.016）比彩窗（中位 0.020）还暗，靠细金线和角片从彩窗里分出来；细金线在 720p 只有约 1.3 px。
 - 卡面四角的金星：七张卡时一排 28 颗，示意里读作框角装饰；实机再看。
 - 生成一次约 5 分钟（低优先级），测试会完整生成两次。
@@ -273,7 +275,7 @@ AC8442 照协调者的决定保留，已写入 `theme.json`（W20Y 已合入）�
 以下是提案，未经协调者采纳前不改实现：
 
 1. **面板的框（文字空间规则 vs. 1b 的宝石条）**：现在按规则交付细框（装字的件每边 ≤ 默认）。如果要保留 1b 的宝石玻璃条，暗面板与羊皮纸面板要回到 17 px（FrameInsets11 18 px，默认 6–10），四件超出默认 8–12 px；对照图 `review/text_room_frames.png`。选项：A 保持细框（交付状态）；B 面板恢复宝石条框，作为规则的例外（文字空间按用处核对：150 % 两行提示余 6.7 单位、商店标题条 57 单位）；C 只给对局右栏的 `ui_panel_hud` 例外，商店分区保持细框。
-2. **停用的次要按钮**：按所写条件（lerp 面差 ≥5）通过，但画出来只差 3.33、字同色。选项：A 接受；B 代码在 W20Y2 里给停用的 SolidButton11 换一种画法（例如面混入 50 % panelLight 或 background，让 LabelOn11 改选浅色字；或停用时不再调面）；C 换 buttonSecondary（与“面对 felt 与 paper 各 ≥3、字 ≥4.95”一样，单靠色板找不到同时满足的值，见 1b 的计算）。
+2. ~~**停用的次要按钮**：按所写条件（lerp 面差 ≥5）通过，但画出来只差 3.33、字同色。~~ 已由协调者在 W20Z2 决定（2026-11-19）：照黑金的办法调 panelLight，按画出来的面判断，见“决定记录”末条。
 3. **danger 与 boss 同色**（1.91）：A 接受（两者含义相近：错误与首领都是危险）；B danger 改成更暗或更紫的红，与 boss 拉开。
 
 ## 决定记录
@@ -295,4 +297,10 @@ AC8442 照协调者的决定保留，已写入 `theme.json`（W20Y 已合入）�
 
 - 在本工作树合并 `codex/v1.1`（W20Y `05044756`、W20Y2 `1361b9e5`、测试与文档）；本包路径之外有冲突就停下报告。→ 合并 `codex/v1.1` `173b2be7`（与黑金同一个点），合并提交 `66846f5c`，无冲突；合并没有改动本包的路径（`ArtSource/Art11/glass/` 下只改了 `illustrations/` 的 job.json，不属于本包）；`tools/art_v11/theme_contract.json` 没有变（仍是起点 `cd2fedb3` 重建的那份）。
 - 把 `buttonSecondary` 从待定移入生成器的色板，由 build 写进 `theme.json`（不手改）；示意与报告照样能画，标注从 “simulated” 改为 “buttonSecondary”；README 里待定的说法改为已写入 theme.json（W20Y 已合入）。→ `PENDING_TOKENS` 改名 `W20Y_TOKENS`，`theme_json()` 把它写在 W20X 四个键之后；`full_palette()` 去掉 `pending` 开关；`review_glass.palette_of()` 直接用 `theme.json` 的色板；`palette_report()` 的键去掉 “(pending)”，“(today's label)” 改为 “(the label before W20Y2)”（W20Y2 已合入）；`secondary_states.png` 的行标从 “simulated AC8442 / today's 191929, enabled / disabled” 改为 “buttonSecondary AC8442 / unset 191929, on / off”（写成 enabled 会比 260 px 的行标栏宽），`notes.txt` 里对应的 “sim / today” 改为 “buttonSecondary / unset”；`test_button_secondary` 直接读 `theme.json`，`test_theme_json_schema` 另要求 W20Y 已声明这个键、`theme.json` 已写入（仍是 47 项）。
-- 重建并验证。→ `build_glass.py`、`--review`、`--card-review`（BelowNormal；开跑前没有 `V072BatchTests.Run` 的 Unity）。交付件里只有 `theme.json` 变了（多一个键）；50 张件、`table_scene`、`page_scene`、`felt_tile` 与 `preview.png` 逐字节不变。重画的只有说明或标签文字变了的图：接触表、卡面复核图、25 张示意与 `notes.txt`（逐像素对比 HEAD：差异在文字行里；只有接触表的小图标排因为金币那格的标签变短而左移，“gear 34 x label” 移到上一排，图标与底色本身不变）；四张 `beside_*.png` 与 `action_row.txt` 不变。`theme_contract.py audit glass --strict`：`50 sprites shipped, 0 referenced defaults not overridden`，`AUDIT_OK`；玻璃单测 `Ran 47 tests in 606.214s`，`OK`；全量 `Ran 381 tests in 1185.235s`，`OK`（0 失败、0 错误、0 跳过；开跑前与跑完时都没有 `V072BatchTests.Run` 的 Unity）。
+- 重建并验证（合并准备）。→ `build_glass.py`、`--review`、`--card-review`（BelowNormal；开跑前没有 `V072BatchTests.Run` 的 Unity）。交付件里只有 `theme.json` 变了（多一个键）；50 张件、`table_scene`、`page_scene`、`felt_tile` 与 `preview.png` 逐字节不变。重画的只有说明或标签文字变了的图：接触表、卡面复核图、25 张示意与 `notes.txt`（逐像素对比 HEAD：差异在文字行里；只有接触表的小图标排因为金币那格的标签变短而左移，“gear 34 x label” 移到上一排，图标与底色本身不变）；四张 `beside_*.png` 与 `action_row.txt` 不变。`theme_contract.py audit glass --strict`：`50 sprites shipped, 0 referenced defaults not overridden`，`AUDIT_OK`；玻璃单测 `Ran 47 tests in 606.214s`，`OK`；全量 `Ran 381 tests in 1185.235s`，`OK`（0 失败、0 错误、0 跳过；开跑前与跑完时都没有 `V072BatchTests.Run` 的 Unity）。
+
+W20Z2（协调者 2026-11-19，在 `codex/v1.1` 上；W20Z 的实机截图证实停用的二级按钮画出来只差 3.18 CIEDE2000、字同为铅黑）：
+
+- 照黑金 2b 的办法调色板：按画出来的面，停用面与可用面至少差 5 CIEDE2000，或者字换色；保留 AX-08、关卡签的字与 W20Z 量过的 buttonSecondary 对比；报告变弱的用处；只改生成器的色板并重建，theme.json 由生成器写出。→ `PALETTE["panelLight"]` 64502F → 483A22（同一色相 37.9° 与饱和度 0.53，L* 35.3 → 25.3）。停用面 lerp = 93723A，LabelOn11(face, Muted) 加深 3 步成 7E6132（浮点，与 C# 一致；生成器的 8 位报告 7E6232），字换成大理石白 5.03（8 位 4.99），与可用面差 15.12（8 位 14.84）：两条都满足。决定步数的对比（浮点）：加深第 3 步 5.026、第 2 步 4.638，调浅第 2 步 4.708，离 4.95 都至少 0.07（黑金 2b 的标准）；更亮一档 493B23 的加深第 3 步只有 5.010。AX-08 三项不涉及 panelLight，不变；关卡签的字 textColor 9.65（原 6.73，0 步）；buttonSecondary 的可用面、字与对比（桌面 4.24、面板与顶栏 4.66、羊皮纸 2.62）不变。变弱的用处见“已知风险”。
+- 测试：`test_a_disabled_secondary_button_looks_disabled` 改为按 LabelOn11 调过、画出来的面判断（原来读的是调面前的 lerp 面，所以第二阶段的 5.38 能通过），并照黑金加上决定步数的余量（浮点 ≥0.05）、字换成大理石白、关卡签的字 ≥4.95 不调面、禁用 `UiKit.Button` 的 Muted ≥3；没有删测试、没有降阈值。
+- 重建：`build_glass.py`、`--review`、`--card-review`（BelowNormal；开跑前同一条命令确认没有 `V072BatchTests.Run` 的 Unity）。交付件里变的只有 `theme.json`（panelLight）与 `preview.png`（普通关牌签、托盘边、空道具环、章节点用 panelLight）；50 张件、`table_scene`、`page_scene`、`felt_tile` 逐字节不变。重画的示意：接触表与 `review/` 下 29 个文件（用到 panelLight 的合成，含 `secondary_states.png`、四张 `beside_*.png` 与 `notes.txt`）；`card_template_review.png` 不变。`theme_contract.py audit glass --strict`：`50 sprites shipped, 0 referenced defaults not overridden`、`AUDIT_OK`；`table_text_contrast.py glass` 与之前相同（19 处中 9 处低于 4.5:1，`TABLE_TEXT_BELOW`，归 W15 / W16）；玻璃单测 `Ran 47 tests in 625.475s`、`OK`。实机截图与全量测试见 `docs/specs/v11/W20Z_REPORT.md` 的 W20Z2 一节。

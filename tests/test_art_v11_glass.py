@@ -1027,17 +1027,49 @@ class GlassArtTests(unittest.TestCase):
         self.assertGreaterEqual(float(contrast(came, hex_rgb(p["paper"]))), 10.0)
 
     def test_a_disabled_secondary_button_looks_disabled(self):
-        # Coordinator (lesson from the deco kit): SolidButton11 draws a disabled face a quarter toward panelLight; that
-        # face must differ from the enabled one by 5 CIEDE2000 or more, or its label (W20Y2: LabelOn11(face, Muted)) must
-        # differ from the enabled label.
+        # Coordinator (lesson from the deco kit): SolidButton11 draws a disabled face a quarter toward panelLight, and its
+        # label is LabelOn11(face, Muted) (W20Y2), which writes its steps into the face. W20Z2 (2026-11-19): judged as drawn,
+        # after those steps - the disabled face differs from the enabled one by 5 CIEDE2000 or more, or it takes the other
+        # label (until W20Z2 the test read the lerp face before LabelOn11, 5.38, while the face as drawn was 3.18 from the
+        # enabled one with the same ink label). With panelLight 483A22 it does both, as deco 2b does: LabelOn11 deepens the
+        # face 3 steps under the marble-white label instead of lightening it under ink. The branch is nowhere near flipping:
+        # the deciding contrasts, unquantised as the C# Color holds them, stay 0.05 or more from 4.95, and lightening needs
+        # as many steps or more (a tie deepens). panelLight's other uses keep their rules: the normal stage tag's label at
+        # 4.95:1 without steps, the disabled UiKit.Button's Muted label at 3:1.
         p = self.palette
+        rgb = lambda k: np.array(hex_rgb(p[k]), dtype=np.float64)
         white = np.array((255, 255, 255), dtype=np.float64)
         on = np.array(hex_rgb(BUTTON_SECONDARY), dtype=np.float64)
-        off = lerp(on, hex_rgb(p["panelLight"]), .25)
-        on_label = label_on(white, on, p, preferred=np.array(hex_rgb(p["textColor"]), dtype=np.float64))[0]
-        off_label = label_on(white, off, p, preferred=np.array(hex_rgb(p["muted"]), dtype=np.float64))[0]
-        distinct = de00(on, np.rint(off)) >= 5.0 or not np.array_equal(on_label, off_label)
-        self.assertTrue(distinct, f"dE00 {de00(on, np.rint(off)):.2f}, labels {on_label} / {off_label}")
+        off_start = lerp(on, rgb("panelLight"), .25)
+        on_label, on_tint, _ = label_on(white, on, p, preferred=rgb("textColor"))
+        off_label, off_tint, off_steps = label_on(white, off_start, p, preferred=rgb("muted"))
+        on_face, off_face = tinted(white, on_tint), tinted(white, off_tint)
+        distinct = de00(on_face, off_face) >= 5.0 or not np.array_equal(on_label, off_label)
+        self.assertTrue(distinct, f"as drawn: dE00 {de00(on_face, off_face):.2f}, labels {on_label} / {off_label}")
+        self.assertGreaterEqual(de00(on_face, off_face), 5.0)
+        self.assertFalse(np.array_equal(on_label, off_label), "the disabled button takes the other label")
+        self.assertTrue(np.array_equal(off_label, rgb("textColor")), "deepened under the marble-white label")
+        self.assertGreaterEqual(float(contrast(off_label, off_face)), 4.95)
+
+        def exact(tint):
+            linear = channel(white) * channel(tint)
+            return np.where(linear <= .0031308, linear * 12.92, 1.055 * np.power(linear, 1 / 2.4) - .055) * 255
+
+        def trace(toward, label):
+            t, out = off_start / 255.0, []
+            for _ in range(12):
+                out.append(float(contrast(label, exact(t * 255.0))))
+                t = t + (np.asarray(toward, dtype=np.float64) - t) * .05
+            return out
+        deepen, lighten = trace((0, 0, 0), rgb("textColor")), trace((1, 1, 1), rgb("ink"))
+        self.assertGreater(off_steps, 0)
+        self.assertGreaterEqual(deepen[off_steps], 4.95 + .05)
+        self.assertLessEqual(deepen[off_steps - 1], 4.95 - .05)
+        self.assertLessEqual(lighten[off_steps - 1], 4.95 - .05, "lightening needs as many steps or more (a tie deepens)")
+        tag_label, _, tag_steps = label_on(white, rgb("panelLight"), p)
+        self.assertEqual(tag_steps, 0)
+        self.assertGreaterEqual(float(contrast(tag_label, tinted(white, rgb("panelLight")))), 4.95)
+        self.assertGreaterEqual(float(contrast(rgb("muted"), rgb("panelLight"))), 3.0)
 
     def test_value_and_warning_badges_stay_apart(self):
         # THEME_SPEC 2 valueBadge: a card's value badge (valueBadge, unset means gold) and its warning badge (danger) are

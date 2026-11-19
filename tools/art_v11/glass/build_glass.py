@@ -72,9 +72,12 @@ PALETTE = {
     "felt": "292833",         # the concept's slate floor (roll.png dice area median 292831; the plate's 2B2A33)
     "panel": "1E2036",        # night glass: dark panels, the top bar, secondary chips (light text on it)
     # Antique bronze: normal-stage tag, frame edges, empty item rings, disabled faces. Phase 2 deepened it a little (from
-    # 6B5632, CIEDE2000 2.3) so a disabled SolidButton11, lerp(buttonSecondary, panelLight, .25), differs from the enabled
-    # face by at least 5 CIEDE2000 (coordinator, lesson from the deco kit; README, "buttonSecondary").
-    "panelLight": "64502F",
+    # 6B5632 to 64502F) for the lerp face; W20Z2 (coordinator 2026-11-19, as deco 2b did) deepened it again, same hue and
+    # saturation (37.4 deg, 0.53), to 483A22 (L* 35.3 -> 25.3): a disabled SolidButton11, lerp(buttonSecondary, panelLight,
+    # .25) = 93723A, is now deepened 3 steps by LabelOn11(face, Muted) to 7E6132 under the marble-white label instead of
+    # lightened 2 steps under ink, so as drawn it differs from the enabled face by 15.1 CIEDE2000 (3.18 in the W20Z
+    # captures) and takes the other label (README, "buttonSecondary").
+    "panelLight": "483A22",
     "paper": "F1DFC2",        # parchment (concept 2.1 roll/select parchment F2D4B2, lifted for ink contrast)
     "ink": "1B1720",          # lead black: text on parchment
     "textColor": "F7EFDF",    # marble white: text on the dark panels
@@ -112,8 +115,9 @@ W20X_TOKENS = {
 # AC8442 (amber glass): label ink 5.15 (LabelOn11, >= 4.95), on felt 4.24, on panel (dark panels, top bar) 4.66, on the
 # background 5.48; on paper 2.62 - under 3:1, the chip's black lead outline gives the boundary on parchment (16:1). With
 # this palette no face reaches 3:1 on felt and on paper and also takes a 4.95 label. Disabled (a quarter toward
-# panelLight): 9A773D, 5.38 CIEDE2000 from the enabled face; LabelOn11(face, Muted) lightens it 2 steps to A48450 (3.33)
-# and picks ink like the enabled label (README, "buttonSecondary").
+# panelLight 483A22, W20Z2): 93723A; LabelOn11(face, Muted) deepens it 3 steps to 7E6132 under the marble-white label
+# (5.03:1), 15.1 CIEDE2000 from the enabled face (before W20Z2: 9A773D lightened 2 steps to A48450 under ink, 3.33;
+# README, "buttonSecondary").
 W20Y_TOKENS = {
     "buttonSecondary": "AC8442",
 }
