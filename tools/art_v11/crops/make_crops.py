@@ -136,6 +136,44 @@ OVERRIDES = {
                           "reads like the long tray of C79; this square keeps the bow, the die, most of the hull "
                           "and the oar, letterboxed"},
     },
+    # V1.1 W22i (docs/specs/v11/W22I_REPORT.md section 4): squares where the automatic one drops or slices a part that
+    # carries the card's identity. These styles draw no dark ink rim around a loose die, so the ink rule (step 3) took
+    # it for a motion stroke. Each square holds every opaque part of at least 2 % of the subject plus the 3 % margin
+    # (artifacts/cache/v11/w22i/tools/override_squares.py); a wide picture keeps its identity end (the new extension).
+    "sancai": {
+        "C76": {"x": 0.0534, "y": 0.0972, "size": 0.8700,
+                "reason": "the automatic square keeps the step and slices the bandaged die above it, the card's subject"},
+        "C81": {"x": 0.0358, "y": 0.0653, "size": 0.9346,
+                "reason": "the automatic square slices two of the dice tumbling out from under the hat"},
+        "C151": {"x": 0.0000, "y": 0.0000, "size": 1.0000,
+                 "reason": "the automatic square keeps the easel and drops the die standing at its foot"},
+        "I04": {"x": 0.0000, "y": 0.0000, "size": 0.9984,
+                "reason": "the automatic square keeps the magnet and drops the die it pulls up, the item's subject"},
+        "I05": {"x": 0.1100, "y": 0.0358, "size": 0.8732,
+                "reason": "the automatic square keeps the bell and drops the die it lures"},
+        "O05": {"x": 0.3203, "y": 0.0000, "size": 1.0000,
+                "reason": "1536x1024 stand: the square ends at the right, so the added extension with its fifth card "
+                          "(the service's subject) stays whole; the first card is cut instead"},
+    },
+    "deco": {
+        "C64": {"x": 0.0430, "y": 0.0558, "size": 0.8931,
+                "reason": "the automatic square drops one and slices the other of the two dice tumbling behind the knight"},
+        "C151": {"x": 0.0000, "y": 0.0000, "size": 1.0000,
+                 "reason": "the automatic square keeps the easel and slices the die standing at its foot"},
+        "I05": {"x": 0.1084, "y": 0.0422, "size": 0.8740,
+                "reason": "the automatic square keeps the bell and slices the die it lures"},
+        "O05": {"x": 0.3300, "y": 0.0000, "size": 1.0000,
+                "reason": "1536x1024 stand: the automatic square drops the added extension with its fifth card (the "
+                          "service's subject); this one ends at the right and cuts the first card instead"},
+        "O08": {"x": 0.3287, "y": 0.0000, "size": 1.0000,
+                "reason": "1536x1024 rack: the automatic square drops the wrench bolting on the new slot (the service's "
+                          "subject); this one ends at the right and cuts the first slots instead"},
+    },
+    "glass": {
+        "O05": {"x": 0.2962, "y": 0.0000, "size": 1.0000,
+                "reason": "1536x1024 stand: the automatic square cuts into the added extension with its fifth card (the "
+                          "service's subject); this one ends at the right so the extension stays whole"},
+    },
 }
 
 

@@ -1,7 +1,9 @@
-"""W13a compact icons: crop tables (provenance) and baked icons for the default and Swiss themes.
+"""W13a compact icons: crop tables (provenance) and baked icons for the default theme and the five styles.
 
 The committed tables and icons must be exactly what the script produces from the committed illustrations, so the
 script is run and its output compared byte for byte with them (and with a second run).
+V1.1 W22i: the five styles carry their whole sets (184 each; Swiss had its 7 trial redraws until then), with the
+per-style overrides of make_crops.OVERRIDES.
 """
 
 import importlib.util
@@ -26,9 +28,12 @@ ICONS = ROOT / "DicePrototype/Assets/Art/Art11/Icons"
 THEMES = {
     "default": {"source": "DicePrototype/Assets/Art/Art071/Illustrations",
                 "table": ROOT / "DicePrototype/Assets/Resources/IconCrops/default.json", "count": 184},
-    "swiss": {"source": "DicePrototype/Assets/Resources/Themes/swiss/Art",
-              "table": ROOT / "DicePrototype/Assets/Resources/IconCrops/swiss.json", "count": 7},
 }
+# V1.1 W22i: Swiss was 7 (its trial redraws); every style now ships the whole set.
+for _style in ("swiss", "sancai", "comic", "deco", "glass"):
+    THEMES[_style] = {"source": f"DicePrototype/Assets/Resources/Themes/{_style}/Art",
+                      "table": ROOT / f"DicePrototype/Assets/Resources/IconCrops/{_style}.json", "count": 184}
+STYLES = [theme for theme in THEMES if theme != "default"]
 CONTENT_LISTS = ("controllers", "consumables", "services", "diceUpgrades")
 TOP_KEYS = ["schema", "theme", "source", "generatedBy", "imageSize", "units", "crops"]
 REQUIRED = {"x", "y", "size", "confidence", "method"}
@@ -152,12 +157,15 @@ class CropTableTests(unittest.TestCase):
         self.assertEqual(default, set(self.files["default"]))
         self.assertEqual(default, self.config_ids & set(self.files["default"]))
         self.assertTrue(set(self.files["default"]) <= self.config_ids)
-        swiss = set(self.tables["swiss"]["crops"])
-        self.assertEqual(len(swiss), THEMES["swiss"]["count"])
-        self.assertEqual(swiss, set(self.files["swiss"]))
-        self.assertTrue(swiss <= default, "Swiss redraws replace default ids")
-        for crops in (default, swiss):
-            self.assertTrue(all(cid == cid.upper() for cid in crops))
+        self.assertTrue(all(cid == cid.upper() for cid in default))
+        # V1.1 W22i: every style, not Swiss alone (whose 7 trial redraws became the whole set).
+        for theme in STYLES:
+            with self.subTest(theme=theme):
+                crops = set(self.tables[theme]["crops"])
+                self.assertEqual(len(crops), THEMES[theme]["count"])
+                self.assertEqual(crops, set(self.files[theme]))
+                self.assertTrue(crops <= default, "a style's redraws replace default ids")
+                self.assertTrue(all(cid == cid.upper() for cid in crops))
 
     def test_squares_inside_the_real_images(self):
         for theme, table in self.tables.items():

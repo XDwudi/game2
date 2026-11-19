@@ -1,0 +1,17 @@
+{
+  "schema": "w22i-art-install-1",
+  "style": "default",
+  "generatedBy": "tools/art_v11/install_art.py",
+  "rule": "the latest rNN whose record.json has runValid true; original.png copied byte for byte after its sha256 was checked against the record's output.sha256",
+  "target": "DicePrototype/Assets/Art/Art11/Emblems",
+  "illustrations": [],
+  "emblems": [
+    {"family": "seal", "file": "emblem_seal.png", "revision": "r01", "sha256": "fb69b003a0984e6af873a56aab8717bf229c09bb07902277bd6f759b5fc499ed", "bytes": 1279366, "size": [1254, 1254], "record": "ArtSource/Art11/default/emblems/seal/r01/record.json"},
+    {"family": "constraint", "file": "emblem_constraint.png", "revision": "r01", "sha256": "1b21bf06d5138fbe0ebf27c9445c4d3ea13cca997d722fb4cc4e4e35d255d4a3", "bytes": 1291715, "size": [1254, 1254], "record": "ArtSource/Art11/default/emblems/constraint/r01/record.json"},
+    {"family": "multiplier", "file": "emblem_multiplier.png", "revision": "r01", "sha256": "bef4f6cfbc3f0470e7dfe167c296ac980d614ab255e5c4e560c4c91ef7b0c2c2", "bytes": 1136436, "size": [1254, 1254], "record": "ArtSource/Art11/default/emblems/multiplier/r01/record.json"},
+    {"family": "cards", "file": "emblem_cards.png", "revision": "r01", "sha256": "dc1cfc0183e55a2b241bf1c5f949f48f3cc9dee791a25a3ebfcf946e84ff4ee8", "bytes": 1177222, "size": [1254, 1254], "record": "ArtSource/Art11/default/emblems/cards/r01/record.json"},
+    {"family": "economy", "file": "emblem_economy.png", "revision": "r01", "sha256": "a899141a9b4d75aaeee2144e304376eaf2dd3dddbfe18013d0030bd63eb8fdf9", "bytes": 1224412, "size": [1254, 1254], "record": "ArtSource/Art11/default/emblems/economy/r01/record.json"},
+    {"family": "target", "file": "emblem_target.png", "revision": "r01", "sha256": "20047691fe6bbd6ed82103a600daf72aad7967141176cfcf3caa838354a83c0a", "bytes": 1275170, "size": [1254, 1254], "record": "ArtSource/Art11/default/emblems/target/r01/record.json"},
+    {"family": "final", "file": "emblem_final.png", "revision": "r01", "sha256": "34c251831362a0552da9854b8b3588f93f7141bee7d1523e7933ff96353489e5", "bytes": 1130507, "size": [1254, 1254], "record": "ArtSource/Art11/default/emblems/final/r01/record.json"}
+  ]
+}

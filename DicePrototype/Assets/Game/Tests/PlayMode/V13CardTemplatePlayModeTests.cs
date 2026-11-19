@@ -421,7 +421,9 @@ namespace DiceCraft.Tests
 
         /// <summary>CARD_TEMPLATE §7: the compact icon is the current theme's baked icon, then the default theme's, then the
         /// whole illustration; looked up once per (theme, id) and forgotten on a theme switch. The baked icons are imported
-        /// as 160-px sprites with mipmaps (trilinear), and the play row's compact cards draw them.</summary>
+        /// as 160-px sprites with mipmaps (trilinear), and the play row's compact cards draw them.
+        /// V1.1 (W22i): every style bakes all 184 icons, and a style with art of its own never shows another style's picture
+        /// (its icon, then its own illustration, then the default's: PLAY_W22I_02); Swiss's C01 is now its own icon.</summary>
         [UnityTest] public IEnumerator PLAY_V13_CompactIconsResolveThemeThenDefaultThenIllustration()
         {
             bool hadPreview=PlayerPrefs.HasKey(ThemeRegistry.PreviewKey);int previewValue=PlayerPrefs.GetInt(ThemeRegistry.PreviewKey,0);
@@ -435,7 +437,8 @@ namespace DiceCraft.Tests
                 var ids=app.Config.controllers.Select(c=>c.id).Concat(app.Config.consumables.Select(c=>c.id)).Concat(app.Config.services.Select(c=>c.id)).Concat(app.Config.diceUpgrades.Select(c=>c.id)).ToArray();
                 Assert.That(defaults.icons.Length,Is.EqualTo(ids.Length),"One default icon per card, item, service and face upgrade.");
                 CollectionAssert.AreEquivalent(ids.Select(id=>"icon_"+id),defaults.icons.Select(s=>s.name));
-                CollectionAssert.AreEquivalent(new[]{"icon_C08","icon_C139","icon_C34","icon_C39","icon_C46","icon_C50","icon_C56"},swiss.icons.Select(s=>s.name),"The Swiss theme bakes its seven redrawn illustrations.");
+                // V1.1 (W22i): was the seven trial redraws (C08, C139, C34, C39, C46, C50, C56); the whole set is installed now.
+                CollectionAssert.AreEquivalent(ids.Select(id=>"icon_"+id),swiss.icons.Select(s=>s.name),"The Swiss theme bakes all its 184 illustrations (W22i).");
                 foreach(var icon in defaults.icons.Concat(swiss.icons))
                 {
                     Assert.That(icon.texture.width==160&&icon.texture.height==160,Is.True,icon.name+" is "+icon.texture.width+"x"+icon.texture.height);
@@ -450,7 +453,9 @@ namespace DiceCraft.Tests
                 Assert.That(GameApp.CompactIconCacheCount13,Is.EqualTo(2));Icon("C39");Assert.That(GameApp.CompactIconCacheCount13,Is.EqualTo(2),"Cached per (theme, id).");
                 app.ApplyTheme11("swiss");Assert.That(GameApp.CompactIconCacheCount13,Is.Zero,"A theme switch empties the cache.");
                 Assert.That(Icon("C39"),Is.SameAs(Of(swiss,"C39")),"The current theme's icon first.");
-                Assert.That(Icon("C01"),Is.SameAs(Of(defaults,"C01")),"Then the default theme's.");
+                // V1.1 (W22i): was Of(defaults,"C01"), "Then the default theme's": Swiss has its own C01 icon now, and a style with art
+                // of its own never falls to the default icon (its own illustration comes first; PLAY_W22I_02).
+                Assert.That(Icon("C01"),Is.SameAs(Of(swiss,"C01")),"Swiss draws its own C01 icon (W22i).");
                 // Neither theme has an icon for C01 any more: the whole illustration.
                 app.compactIcons13=saved.Select(s=>new CompactIconSet13{theme=s.theme,icons=s.icons.Where(i=>i.name!="icon_C01").ToArray()}).ToArray();
                 app.ApplyTheme11("swiss");
