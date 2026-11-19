@@ -287,8 +287,9 @@ namespace DiceCraft
             }
             else if(PressureActive11)UiKit.Ring(card,"StageCardEdge11",5,5,w-18,h-20,UiKit.Pressure);
             float headerH=Mathf.Max(40,Line11(Body11(c?18:22)));
-            // Everything stays inside the innermost frame line: the boss rings' inner edge is about 13 units in from the
-            // top and left, 21 from the right and 23 from the bottom (W11b: the reward line used to sit on the bottom frame).
+            // Everything stays inside the innermost frame line: in the default style the boss rings' inner edge is about 13
+            // units in from the top and left, 21 from the right and 23 from the bottom (W11b: the reward line used to sit on
+            // the bottom frame). V1.1 (W20Z2): the reward line reads that line from the drawn frame and rings (StageCardInside11).
             var header=Surface11(card,"StageCardHeader11",14,14,inner,headerH,"ui_chip_formula",tint);
             string title;
             if(boss)
@@ -315,7 +316,14 @@ namespace DiceCraft
                 var body=UiKit.Text(box,"BossModifierText",ShortText11(s.stage.modifierId),colX,40,colW,40,20,LabelOn11(card,lifted?PaperMuted071:UiKit.Ink));
                 body.lineSpacing=-14;body.enableAutoSizing=false;
                 string loot=s.stage.stageIndex/3<s.cycles.Count?s.cycles[s.stage.stageIndex/3].lootKind:null;
-                var lootText=UiKit.Text(box,"BossLoot11",string.IsNullOrEmpty(loot)?"终局首领 · 通关即胜利":"通关奖励："+ShortText11(loot),0,0,inner,40,18,LabelOn11(card,lifted?PaperMuted071:Color.Lerp(UiKit.Ink,UiKit.Boss,.55f)));
+                // V1.1 (W20Z2): the reward line is a text line across the card like the title above it, so it starts at the
+                // title's indent (12 units into the content) instead of under the emblem's edge, and it keeps 2 units inside
+                // the innermost line the card draws, read from the drawn frame and the boss rings (StageCardInside11), on the
+                // left, the right and below; until W20Z2 it began at the content's edge, on the inner ring of wider rings.
+                var inside=StageCardInside11(card,boss&&!lifted,w,h);
+                float lootX=Mathf.Max(12,inside.xMin+2-14),lootW=Mathf.Max(40,Mathf.Min(inner,inside.xMax-2-14)-lootX);
+                float lootRoom=Mathf.Min(boxH,inside.yMax-2-top);
+                var lootText=UiKit.Text(box,"BossLoot11",string.IsNullOrEmpty(loot)?"终局首领 · 通关即胜利":"通关奖励："+ShortText11(loot),lootX,0,lootW,40,18,LabelOn11(card,lifted?PaperMuted071:Color.Lerp(UiKit.Ink,UiKit.Boss,.55f)));
                 lootText.lineSpacing=-14;lootText.enableAutoSizing=false;
                 // Measured layout: the reward line starts right under the name, effect and emblem (no gap held at the
                 // bottom); when the three do not fit, the reward line, then the effect, then the name step down toward
@@ -326,12 +334,12 @@ namespace DiceCraft
                 {
                     name.fontSize=nameSize;body.fontSize=bodySize;lootText.fontSize=lootSize;
                     // Two-line effect and reward texts break at the punctuation nearest their middle (no one-word last line).
-                    body.text=BalancedLines11(body,bodyText,colW);lootText.text=BalancedLines11(lootText,lootLine,inner);
+                    body.text=BalancedLines11(body,bodyText,colW);lootText.text=BalancedLines11(lootText,lootLine,lootW);
                     nameH=Mathf.Ceil(name.GetPreferredValues(name.text).y)+2;
                     bodyH=Mathf.Ceil(body.GetPreferredValues(body.text,colW,0).y)+2;
                     lootTop=Mathf.Max(4+emblemSize,nameH+bodyH)+6;
-                    lootH=Mathf.Ceil(lootText.GetPreferredValues(lootText.text,inner,0).y)+2;
-                    if(lootTop+lootH<=boxH)break;
+                    lootH=Mathf.Ceil(lootText.GetPreferredValues(lootText.text,lootW,0).y)+2;
+                    if(lootTop+lootH<=lootRoom)break;
                     if(lootSize>19.5f)lootSize=Mathf.Max(19.5f,lootSize-1);
                     else if(bodySize>19.5f)bodySize=Mathf.Max(19.5f,bodySize-1);
                     else if(nameSize>19.5f)nameSize=Mathf.Max(19.5f,nameSize-1);
@@ -339,7 +347,7 @@ namespace DiceCraft
                 }
                 name.rectTransform.sizeDelta=new Vector2(colW,nameH);
                 body.rectTransform.anchoredPosition=new Vector2(colX,-nameH);body.rectTransform.sizeDelta=new Vector2(colW,bodyH);
-                lootText.rectTransform.anchoredPosition=new Vector2(0,-lootTop);lootText.rectTransform.sizeDelta=new Vector2(inner,lootH);
+                lootText.rectTransform.anchoredPosition=new Vector2(lootX,-lootTop);lootText.rectTransform.sizeDelta=new Vector2(lootW,lootH);
                 var open=HitArea073(card,"BossModifierOpen",0,0,w-8,h-10,()=>{if(!IsBusy)ShowCycle10();});
                 Art07AttachTooltip(open,"boss-modifier",NameOf(s.stage.modifierId),Details11(s.stage.modifierId),lifted?"已解除":"本关生效",()=>{if(!IsBusy)ShowCycle10();});
                 return;
@@ -354,6 +362,25 @@ namespace DiceCraft
             string note=kind=="pressure"?(StageRisk11?"目标 ×1.5，过关金币 +5":"普通挑战，目标不变"):"提交栏 "+s.stage.capacity+" 格 · 每手掷 "+Session.InitialRolls+" 次";
             NoWrap11(UiKit.Text(card,"StageNote11",note,14,ty,inner,Line11(Body11(c?14:17)),Body11(c?14:17),LabelOn11(card,PaperMuted071)));
             HitArea073(card,"StageCardOpen11",0,0,w-8,h-10,()=>{if(!IsBusy)ShowCycle10();});
+        }
+        /// <summary>
+        /// V1.1 (W20Z2): the inside of the innermost line the stage card draws, in the card's units (x right, y down from its
+        /// top left): its own frame (FrameInsets11) and, when the boss frame is drawn, the bands of its two rings as drawn
+        /// (RingInsets13, the measure of an open ring's band), so text keeps off a style's thicker frame or rings.
+        /// </summary>
+        private static Rect StageCardInside11(RectTransform card,bool rings,float w,float h)
+        {
+            var frame=FrameInsets11(card.GetComponent<Image>());
+            float left=frame.x,top=frame.w,right=w-frame.z,bottom=h-frame.y;
+            if(rings)foreach(string name in new[]{"StageCardEdge11","StageCardEdgeInner11"})
+            {
+                var ring=card.Find(name)?.GetComponent<Image>();if(ring==null||!ring.gameObject.activeSelf)continue;
+                var r=ring.rectTransform;var band=RingInsets13(ring);
+                float x=r.anchoredPosition.x,y=-r.anchoredPosition.y;
+                left=Mathf.Max(left,x+band.x);top=Mathf.Max(top,y+band.w);
+                right=Mathf.Min(right,x+r.sizeDelta.x-band.z);bottom=Mathf.Min(bottom,y+r.sizeDelta.y-band.y);
+            }
+            return Rect.MinMaxRect(left,top,right,bottom);
         }
 
         // ---------------------------------------------------------------- dice tray (Tray11)

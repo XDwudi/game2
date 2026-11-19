@@ -389,7 +389,10 @@ namespace DiceCraft
                 // price button.
                 float room=content.yMax-textTop,textW=Mathf.Max(20,limit-tx);
                 var body=UiKit.Text(t,"ShortText11",text,tx,textTop,textW,Mathf.Max(1,room),Body11(18),LabelOn11(face,UiKit.Ink),TextAlignmentOptions.TopLeft);
-                body.lineSpacing=-16;
+                // V1.1 (W20Z2): the label is pooled by name on the card object, and the play row pools its cards by instance: a
+                // 150 % text card drawn on this object before (the tall branch above) left its auto-sizing on, so the mini card
+                // measured its short text at the text card's largest size and hid a text that fits at its own fixed size.
+                body.lineSpacing=-16;body.enableAutoSizing=false;
                 // W14 E2: a goods row's text that wraps breaks at its punctuation or a " · " ("Lv.0 → Lv.1 / ×2 → ×2.75")
                 // when that break still fits the row.
                 if(priced)

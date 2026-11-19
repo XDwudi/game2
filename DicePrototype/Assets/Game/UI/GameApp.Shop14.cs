@@ -536,7 +536,7 @@ namespace DiceCraft
             head.ForceMeshUpdate();float x=ShopPad14+head.textBounds.size.x+16;
             var cap=FitLine13(panel,"ControllerCapacity07",capacity,x,captionY,Mathf.Max(40,itemsX-x-16),18,LabelOn11(panel,UiKit.Muted),TextAlignmentOptions.MidlineLeft,false);
             cap.ForceMeshUpdate();x+=cap.textBounds.size.x+14;
-            FitLine13(panel,"OwnedControllersTitle",doomed.Count>0?"红框的卡会被祭坛摧毁，拖动可避开":"拖动调整顺序",x,captionY,Mathf.Max(40,itemsX-x-16),18,
+            var order=FitLine13(panel,"OwnedControllersTitle",doomed.Count>0?"红框的卡会被祭坛摧毁，拖动可避开":"拖动调整顺序",x,captionY,Mathf.Max(40,itemsX-x-16),18,
                 doomed.Count>0?CueOn11(panel,UiKit.Danger):LabelOn11(panel,UiKit.Muted),TextAlignmentOptions.MidlineLeft,false);
             float tileY=4+l.captionH+2;int shown=cards.Count>10?9:cards.Count;
             // One name size along the row (E3): the longest name decides.
@@ -560,7 +560,10 @@ namespace DiceCraft
             if(cards.Count>10)ShopButton14(panel,"AllControllers14","全部 "+cards.Count+" 张",ShopPad14+9*(BuildTileWidth14+4),tileY+(l.tileH-60)*.5f,BuildTileWidth14,60,ShowControllerOrder,!IsBusy,null,18);
             if(cards.Count==0)FitLine13(panel,"NoOwned","还没有装备卡牌，买下后出现在这里。",ShopPad14+8,tileY+(l.tileH-Line11(20))*.5f,Mathf.Max(40,itemsX-ShopPad14-24),20,LabelOn11(panel,UiKit.Muted),TextAlignmentOptions.MidlineLeft,false);
             // Items: 道具 1/3 over up to five cells.
-            FitLine13(panel,"OwnedItemsTitle","道具 "+ViewState.inventory.Count+(ViewState.debugWorkspace&&!CleanCapture11?"":"/"+ViewState.consumableSlots),itemsX,captionY,5*BuildItemSize14+24,18,LabelOn11(panel,UiKit.TextColor),TextAlignmentOptions.MidlineLeft,false);
+            var itemsTitle=FitLine13(panel,"OwnedItemsTitle","道具 "+ViewState.inventory.Count+(ViewState.debugWorkspace&&!CleanCapture11?"":"/"+ViewState.consumableSlots),itemsX,captionY,5*BuildItemSize14+24,18,LabelOn11(panel,UiKit.TextColor),TextAlignmentOptions.MidlineLeft,false);
+            // V1.1 (W20Z2): the caption row was placed at fixed offsets (4 units from the top, ShopPad14 from the left), inside
+            // the default frame but on a thicker one (deco's gold frame, comic's ink line): it keeps 2 units inside the drawn frame.
+            KeepRowInsideFrame14(panel,new[]{head,cap,order},itemsTitle);
             int itemSlots=Math.Min(5,Math.Max(ViewState.consumableSlots,ViewState.inventory.Count));float itemY=tileY+(l.tileH-BuildItemSize14)*.5f;
             for(int i=0;i<itemSlots;i++)
             {
@@ -572,6 +575,29 @@ namespace DiceCraft
                 Icon(button.transform,item.contentId,8,6,BuildItemSize14-16);
                 Art07AttachTooltip(button,item.instanceId,NameOf(item.contentId),Description(item.contentId),"出售获得 1 金币",()=>ShowOwned(item,true));
             }
+        }
+        /// <summary>
+        /// V1.1 (W20Z2): a row of labels drawn at fixed offsets keeps 2 units inside the drawn frame of its panel
+        /// (FrameInsets11), measured on the labels' glyph boxes (GlyphBox11): when a style's frame is thicker than the
+        /// offsets allow, the whole row moves down, and its leading labels right, by what their glyphs need. A row already
+        /// clear of the frame does not move, so the styles it fits keep it where it was.
+        /// </summary>
+        private static void KeepRowInsideFrame14(RectTransform panel,TextMeshProUGUI[] leading,params TextMeshProUGUI[] trailing)
+        {
+            const float clearance=2;
+            var frame=FrameInsets11(panel.GetComponent<Image>());
+            float down=0,right=0;bool first=true;
+            foreach(var label in leading.Concat(trailing))
+            {
+                if(label==null||!label.gameObject.activeSelf||!GlyphBox11(label,out var box))continue;
+                // The panel's units run down from its top; a label's pivot is its top left (UiKit.Rent).
+                var at=label.rectTransform.anchoredPosition;
+                down=Mathf.Max(down,frame.w+clearance-(-at.y+box.yMin));
+                if(first&&Array.IndexOf(leading,label)>=0){right=Mathf.Max(0,frame.x+clearance-(at.x+box.xMin));first=false;}
+            }
+            if(down<=0&&right<=0)return;
+            foreach(var label in leading)if(label!=null)label.rectTransform.anchoredPosition+=new Vector2(right,-down);
+            foreach(var label in trailing)if(label!=null)label.rectTransform.anchoredPosition+=new Vector2(0,-down);
         }
         /// <summary>A tile's hover: its enchantment and its sale price; a card bought in this shop and capped at the price
         /// paid says so (C98, RULES_DELTA 1.1 item 9).</summary>

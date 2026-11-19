@@ -53,7 +53,7 @@ namespace DiceCraft
             UiKit.FlatButton(p,"HandbookHands","牌型",24,76,476,60,()=>{handbookColors=false;handbookRules09=false;ShowHandbook();},true,!handbookColors&&!handbookRules09);
             UiKit.FlatButton(p,"HandbookColors","颜色与红组",514,76,476,60,()=>{handbookColors=true;handbookRules09=false;ShowHandbook();},true,handbookColors&&!handbookRules09);
             UiKit.FlatButton(p,"HandbookRules09","进阶规则",1004,76,476,60,()=>{handbookRules09=true;ShowHandbook();},true,handbookRules09);
-            UiKit.PaperFrame(p,"HandbookPaper",16,140,1472,732,UiKit.Paper);
+            var paper=UiKit.PaperFrame(p,"HandbookPaper",16,140,1472,732,UiKit.Paper);
             if(handbookRules09){DrawHandbookRules09(p);Canvas.ForceUpdateCanvases();return;}
             var preview=Session?.PreviewScoreRange()?.minimum;
             if(!handbookColors)
@@ -79,9 +79,25 @@ namespace DiceCraft
                 var selected=rows.FirstOrDefault(r=>r.handId==art07HandSelection)??rows[0];
                 art07HandSelection=selected.handId;
                 string requirement=selected.handId=="scatter"?"不可强化":$"至少提交 {selected.minimumDice} 颗 · 永久骰门槛 {Config.Hand(selected.handId).requirePermanentDice} · {selected.upgradeReason}";
-                var explanation=UiKit.Scroll(p,"HandbookSelectionScroll",24,772,1456,100,100);
-                var selection=UiKit.Text(explanation,"HandbookSelection",selected.displayName+"："+selected.condition+"\n"+requirement+"\n"+selected.formReason,0,0,1424,100,20,UiKit.Ink);
-                explanation.sizeDelta=new Vector2(explanation.sizeDelta.x,FitHeight(selection,100));
+                string explanationText=selected.displayName+"："+selected.condition+"\n"+requirement+"\n"+selected.formReason;
+                // V1.1 (W20Z2): the box was placed at fixed offsets (8 units in from the paper, its foot on the paper's edge).
+                // The explanation keeps 2 units inside the paper's drawn frame (FrameInsets11), measured on its glyph boxes
+                // (GlyphBox11): a style whose frame is wider than the offset moves the box right, and when the text runs past the
+                // box (enlarged text) the box ends 2 units above the drawn foot, so the clipped line is not drawn over the
+                // frame. A text that fits, in a style whose frame the offset clears, stays where it was.
+                var frame=FrameInsets11(paper.GetComponent<UnityEngine.UI.Image>());
+                float boxX=24,boxH=100,foot=140+732-frame.y-2;
+                var explanation=UiKit.Scroll(p,"HandbookSelectionScroll",boxX,772,1456,boxH,100);
+                var selection=UiKit.Text(explanation,"HandbookSelection",explanationText,0,0,1424,100,20,UiKit.Ink);
+                float shift=GlyphBox11(selection,out var glyphs)?Mathf.Max(0,16+frame.x+2-(boxX+glyphs.xMin)):0,contentH=FitHeight(selection,100);
+                if(contentH>boxH&&772+boxH>foot)boxH=Mathf.Max(40,foot-772);
+                if(shift>0||boxH<100)
+                {
+                    explanation=UiKit.Scroll(p,"HandbookSelectionScroll",boxX+shift,772,1456-shift,boxH,100);
+                    selection=UiKit.Text(explanation,"HandbookSelection",explanationText,0,0,1424,100,20,UiKit.Ink);
+                    contentH=FitHeight(selection,boxH);
+                }
+                explanation.sizeDelta=new Vector2(explanation.sizeDelta.x,contentH);
             }
             else
             {

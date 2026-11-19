@@ -81,6 +81,26 @@ namespace DiceCraft
             }
             return px/Mathf.Max(.0001f,image.pixelsPerUnit*image.pixelsPerUnitMultiplier);
         }
+        /// <summary>
+        /// V1.1 (W20Z2): the box of a label's drawn glyphs in the label's own layout coordinates (x right, y down from its
+        /// top left): TMP's character boxes of its visible characters, the boxes the W11b frame checks read. (TMP's
+        /// textBounds is wider: from the pen origin to the advance, and from the descender to the ascender line.) False when
+        /// the label draws no glyph.
+        /// </summary>
+        private static bool GlyphBox11(TMPro.TextMeshProUGUI label,out Rect box)
+        {
+            box=default;if(label==null)return false;
+            label.ForceMeshUpdate();var info=label.textInfo;var rect=label.rectTransform.rect;
+            float left=float.MaxValue,right=float.MinValue,top=float.MinValue,bottom=float.MaxValue;bool any=false;
+            for(int i=0;i<info.characterCount;i++)
+            {
+                var c=info.characterInfo[i];if(!c.isVisible||char.IsWhiteSpace(c.character))continue;
+                any=true;left=Mathf.Min(left,c.bottomLeft.x);right=Mathf.Max(right,c.topRight.x);top=Mathf.Max(top,c.topRight.y);bottom=Mathf.Min(bottom,c.bottomLeft.y);
+            }
+            if(!any)return false;
+            box=Rect.MinMaxRect(left-rect.xMin,rect.yMax-top,right-rect.xMin,rect.yMax-bottom);
+            return true;
+        }
         /// <summary>The text box of a label centred on a chip as the player sees it (W11b), in the chip's own layout coordinates
         /// (x right, y down from its top-left): as wide as the inside of the chip's drawn frame and as tall as the chip,
         /// centred on that inside, so a chip with a lip at its foot does not push its label onto the lip.</summary>
