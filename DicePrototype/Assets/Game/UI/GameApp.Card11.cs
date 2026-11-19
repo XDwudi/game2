@@ -53,19 +53,27 @@ namespace DiceCraft
             public float namePx;
         }
 
-        /// <summary>The compact icon of a content id: the current theme's baked icon, then the default theme's, then the
-        /// whole illustration (CARD_TEMPLATE §7). Cached per (theme, id); a theme switch empties the cache.</summary>
+        /// <summary>The compact icon of a content id (CARD_TEMPLATE §7). V1.1 (W22i): a style that has its own art never
+        /// shows another style's picture: the current style's baked icon, then its own whole illustration, and only when it
+        /// has neither the default style's icon, then the default illustration. Cached per (theme, id); a theme switch
+        /// empties the cache.</summary>
         private Sprite CompactIcon13(string id)
         {
-            string theme=ThemeId11,key=theme+"|"+id;
+            string theme=ThemeId11,key=theme+"|"+id,name="icon_"+id;
             if(compactIconCache13.TryGetValue(key,out var cached))return cached;
-            Sprite found=null;string name="icon_"+id;
-            foreach(string candidate in string.Equals(theme,GameTheme.DefaultId,StringComparison.OrdinalIgnoreCase)?new[]{theme}:new[]{theme,GameTheme.DefaultId})
+            Sprite IconOf(string candidate)
             {
                 var set=compactIcons13?.FirstOrDefault(s=>s!=null&&string.Equals(s.theme,candidate,StringComparison.OrdinalIgnoreCase));
-                found=set?.icons?.FirstOrDefault(s=>s!=null&&string.Equals(s.name,name,StringComparison.OrdinalIgnoreCase));
-                if(found!=null)break;
+                return set?.icons?.FirstOrDefault(s=>s!=null&&string.Equals(s.name,name,StringComparison.OrdinalIgnoreCase));
             }
+            Sprite found=null;
+            if(!string.Equals(theme,GameTheme.DefaultId,StringComparison.OrdinalIgnoreCase))
+            {
+                found=IconOf(theme);
+                if(found==null&&!string.IsNullOrEmpty(id)&&ThemeRegistry.Current!=null)found=ThemeRegistry.Current.ContentArt("illustration_"+id);
+            }
+            if(found==null)found=IconOf(GameTheme.DefaultId);
+            // ContentSprite071 asks the current style first; here the style has no art for the id, so it is the default's.
             if(found==null)found=ContentSprite071(id);
             compactIconCache13[key]=found;return found;
         }

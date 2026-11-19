@@ -539,25 +539,27 @@ namespace DiceCraft
             var order=FitLine13(panel,"OwnedControllersTitle",doomed.Count>0?"红框的卡会被祭坛摧毁，拖动可避开":"拖动调整顺序",x,captionY,Mathf.Max(40,itemsX-x-16),18,
                 doomed.Count>0?CueOn11(panel,UiKit.Danger):LabelOn11(panel,UiKit.Muted),TextAlignmentOptions.MidlineLeft,false);
             float tileY=4+l.captionH+2;int shown=cards.Count>10?9:cards.Count;
+            // V1.1 (W22i, W20Z2 finding): the row keeps 2 units inside the panel's drawn frame (BuildTileRow14).
+            var row=BuildTileRow14(panel,l.build.height,tileY,l.tileH);float tileX=row.x,tileH=row.y;
             // One name size along the row (E3): the longest name decides.
             var tiles=TileRow13(shown,(i,px)=>
             {
                 var owned=cards[i];
                 var face=new CardFace13{contentId=owned.definitionId,enchantment=owned.enchantmentId,ordinal=i+1,namePx=px};
-                return DrawCard13(panel,"Controller_"+owned.instanceId,ShopPad14+i*(BuildTileWidth14+4),tileY,BuildTileWidth14,l.tileH,face,CardSize13.Tile,()=>ShowController(owned,true),!IsBusy);
+                return DrawCard13(panel,"Controller_"+owned.instanceId,tileX+i*(BuildTileWidth14+4),tileY,BuildTileWidth14,tileH,face,CardSize13.Tile,()=>ShowController(owned,true),!IsBusy);
             });
             for(int i=0;i<shown;i++)
             {
                 var item=cards[i];bool altar=doomed.Contains(item.instanceId);var tile=tiles[i];
                 if(altar)
                 {
-                    UiKit.Outline(tile.transform,"AltarVictim09",1,1,BuildTileWidth14-2,l.tileH-2,UiKit.Danger,3);
+                    UiKit.Outline(tile.transform,"AltarVictim09",1,1,BuildTileWidth14-2,tileH-2,UiKit.Danger,3);
                     var name=tile.transform.Find("Name").GetComponent<TextMeshProUGUI>();name.color=CueOn11((Image)tile.targetGraphic,UiKit.Danger);
                 }
                 AttachControllerDrag(tile,item);
                 Art07AttachTooltip(tile,item.instanceId,NameOf(item.definitionId),ShortText11(item.definitionId),BuildTileTip14(item),()=>ShowController(item,true));
             }
-            if(cards.Count>10)ShopButton14(panel,"AllControllers14","全部 "+cards.Count+" 张",ShopPad14+9*(BuildTileWidth14+4),tileY+(l.tileH-60)*.5f,BuildTileWidth14,60,ShowControllerOrder,!IsBusy,null,18);
+            if(cards.Count>10)ShopButton14(panel,"AllControllers14","全部 "+cards.Count+" 张",tileX+9*(BuildTileWidth14+4),tileY+(tileH-60)*.5f,BuildTileWidth14,60,ShowControllerOrder,!IsBusy,null,18);
             if(cards.Count==0)FitLine13(panel,"NoOwned","还没有装备卡牌，买下后出现在这里。",ShopPad14+8,tileY+(l.tileH-Line11(20))*.5f,Mathf.Max(40,itemsX-ShopPad14-24),20,LabelOn11(panel,UiKit.Muted),TextAlignmentOptions.MidlineLeft,false);
             // Items: 道具 1/3 over up to five cells.
             var itemsTitle=FitLine13(panel,"OwnedItemsTitle","道具 "+ViewState.inventory.Count+(ViewState.debugWorkspace&&!CleanCapture11?"":"/"+ViewState.consumableSlots),itemsX,captionY,5*BuildItemSize14+24,18,LabelOn11(panel,UiKit.TextColor),TextAlignmentOptions.MidlineLeft,false);
@@ -598,6 +600,22 @@ namespace DiceCraft
             if(down<=0&&right<=0)return;
             foreach(var label in leading)if(label!=null)label.rectTransform.anchoredPosition+=new Vector2(right,-down);
             foreach(var label in trailing)if(label!=null)label.rectTransform.anchoredPosition+=new Vector2(0,-down);
+        }
+        /// <summary>
+        /// V1.1 (W22i; W20Z2 finding 2): the 我的构筑 tiles were placed at fixed offsets, ShopPad14 from the panel's left and
+        /// ShopFoot14 above its foot: inside the default frame, but on a thicker one (deco's gold frame, sancai's gold rim,
+        /// comic's ink line and shadow) their edges sat on the frame line. The row keeps 2 units inside the panel's drawn
+        /// frame (FrameInsets11, the W20Z2 measure): it moves right by what the first tile needs, and the tiles lose the
+        /// height the foot needs (their picture block shrinks with them, DrawTile13). A style whose frame leaves the room keeps
+        /// the row where and as tall as it was. Returns (left of the first tile, tile height), in panel units.
+        /// </summary>
+        private static Vector2 BuildTileRow14(RectTransform panel,float panelHeight,float top,float height)
+        {
+            const float clearance=2;
+            var frame=FrameInsets11(panel.GetComponent<Image>());// x left, y bottom, z right, w top
+            float left=Mathf.Max(ShopPad14,frame.x+clearance);
+            float tall=Mathf.Min(height,panelHeight-frame.y-clearance-top);
+            return new Vector2(left,Mathf.Max(1,tall));
         }
         /// <summary>A tile's hover: its enchantment and its sale price; a card bought in this shop and capped at the price
         /// paid says so (C98, RULES_DELTA 1.1 item 9).</summary>

@@ -43,7 +43,17 @@ namespace DiceCraft
         public bool IsDefault=>Id==DefaultId;
 
         private bool loaded;
-        private Dictionary<string,Sprite> templates,contentArt;
+        private Dictionary<string,Sprite> templates;
+        // V1.1 (W22i): a style ships 184 card illustrations and 7 boss emblems (about 200 MiB of textures), of which a screen
+        // draws a handful. Loading them all on the first switch took up to 0.55 s and kept every style's set once visited, so
+        // content art is loaded one picture at a time on its first use (Resources.Load) and released when another style
+        // becomes current (ThemeRegistry.Activate). A name the style has no picture for is remembered as null.
+        private Dictionary<string,Sprite> contentArt;
+        private string artFolder;
+        /// <summary>Tests only (CreateForTests): the theme that lends this one its content art.</summary>
+        private GameTheme artFrom;
+        /// <summary>The theme whose content art this one draws: itself, or the theme a test theme borrows it from.</summary>
+        internal GameTheme ArtSource=>artFrom??this;
         private Texture2D feltTile,tableScene,pageScene;
         private Sprite previewImage;
 
@@ -57,7 +67,7 @@ namespace DiceCraft
             if(string.IsNullOrEmpty(id)||id==DefaultId)throw new ArgumentException("A test theme needs its own id.",nameof(id));
             spritesFrom?.EnsureLoaded();
             return new GameTheme{Id=id,DisplayName=id,Description="",Order=1000,Preview=true,Palette=palette??new ThemePalette(),loaded=true,
-                templates=spritesFrom?.templates,contentArt=spritesFrom?.contentArt,feltTile=spritesFrom?.feltTile,tableScene=table,pageScene=page};
+                templates=spritesFrom?.templates,artFrom=spritesFrom,feltTile=spritesFrom?.feltTile,tableScene=table,pageScene=page};
         }
 
         internal static GameTheme FromFile(TextAsset file)
@@ -71,13 +81,14 @@ namespace DiceCraft
                 Description=data.description??"",Order=data.order,Preview=data.preview,Palette=ThemePalette.From(data.palette)};
         }
 
-        /// <summary>Loads this theme's sprites and textures on first use, so unused themes cost no memory.</summary>
+        /// <summary>Loads this theme's sprites and textures on first use, so unused themes cost no memory. Content art is not
+        /// loaded here: ContentArt loads each picture when it is first asked for (W22i).</summary>
         public void EnsureLoaded()
         {
             if(loaded)return;loaded=true;
             string root="Themes/"+Id+"/";
             templates=Index(Resources.LoadAll<Sprite>(root+"UI"));
-            contentArt=Index(Resources.LoadAll<Sprite>(root+"Art"));
+            artFolder=root+"Art/";
             feltTile=Resources.Load<Texture2D>(root+"Table/felt_tile");
             tableScene=Resources.Load<Texture2D>(root+"Table/table_scene");
             pageScene=Resources.Load<Texture2D>(root+"Table/page_scene");
@@ -93,14 +104,43 @@ namespace DiceCraft
 
         /// <summary>Theme override for a UiKit template, or null to use the default sprite.</summary>
         public Sprite Template(string name)=>name!=null&&templates!=null&&templates.TryGetValue(name,out var s)?s:null;
-        /// <summary>Theme override for a content sprite (for example illustration_C01), or null.</summary>
-        public Sprite ContentArt(string name)=>name!=null&&contentArt!=null&&contentArt.TryGetValue(name,out var s)?s:null;
+        /// <summary>Theme override for a content sprite (for example illustration_C01 or emblem_seal), or null. Loaded from
+        /// Resources/Themes/&lt;id&gt;/Art on the first ask and kept until another theme becomes current (W22i).</summary>
+        public Sprite ContentArt(string name)
+        {
+            if(string.IsNullOrEmpty(name))return null;
+            if(artFrom!=null)return artFrom.ContentArt(name);
+            if(artFolder==null)return null;
+            if(contentArt==null)contentArt=new Dictionary<string,Sprite>(StringComparer.OrdinalIgnoreCase);
+            if(contentArt.TryGetValue(name,out var sprite))return sprite;
+            sprite=Resources.Load<Sprite>(artFolder+name);
+            contentArt[name]=sprite;
+            return sprite;
+        }
+        /// <summary>V1.1 (W22i): unloads the content art this theme loaded (ThemeRegistry.Activate calls it for the theme that
+        /// stops being current). Each texture is unloaded; a sprite still held somewhere is loaded again on its next use.
+        /// Returns how many pictures were released.</summary>
+        internal int ReleaseContentArt()
+        {
+            if(contentArt==null)return 0;
+            int released=0;
+            foreach(var sprite in contentArt.Values)
+            {
+                if(sprite==null)continue;
+                var texture=sprite.texture;
+                if(texture!=null)Resources.UnloadAsset(texture);
+                released++;
+            }
+            contentArt.Clear();
+            return released;
+        }
         public Texture2D FeltTile=>feltTile;
         public Texture2D TableScene=>tableScene;
         /// <summary>V1.1 (W20X): the optional table picture of the non-play screens, or null (they then draw TableScene).</summary>
         public Texture2D PageScene=>pageScene;
         public Sprite PreviewImage=>previewImage;
         public int TemplateCount=>templates?.Count??0;
+        /// <summary>V1.1 (W22i): the content art names asked for since this theme became current (loaded or found missing).</summary>
         public int ContentArtCount=>contentArt?.Count??0;
         public IEnumerable<string> TemplateNames=>templates?.Keys??Enumerable.Empty<string>();
     }
@@ -111,6 +151,8 @@ namespace DiceCraft
         public const string PreferenceKey="v11.theme",PreviewKey="v11.themePreview";
         private static List<GameTheme> themes;
         public static GameTheme Current{get;private set;}
+        /// <summary>V1.1 (W22i): how many content pictures the last theme switch released.</summary>
+        public static int LastReleasedArt{get;private set;}
         public static event Action<GameTheme> Changed;
 
         public static IReadOnlyList<GameTheme> All{get{Ensure();return themes;}}
@@ -139,6 +181,10 @@ namespace DiceCraft
         {
             var theme=Find(id)??Find(GameTheme.DefaultId);
             theme.EnsureLoaded();
+            // V1.1 (W22i): the theme that stops being current gives back its content art; its UI sprites, tables and preview
+            // (a few MiB) stay, as before.
+            if(ReferenceEquals(pendingRelease,theme))pendingRelease=null;
+            if(Current!=null&&!ReferenceEquals(Current,theme))ScheduleRelease(Current);
             Current=theme;
             UiKit.Palette=theme.Palette;
             UiKit.ThemeTemplate=theme.IsDefault?null:(Func<string,Sprite>)theme.Template;
@@ -146,8 +192,41 @@ namespace DiceCraft
             return theme;
         }
 
+        private static GameTheme pendingRelease;
+        private static bool releaseHooked;
+        /// <summary>
+        /// V1.1 (W22i): the previous theme's pictures are released when the canvases next render, after the redraw that
+        /// follows the switch has given every visible image its new picture. Released at once, the pictures still on screen
+        /// came back: UGUI's Image.sprite setter compares the old sprite's texture with the new one, which loads a released
+        /// texture again, and nothing would release it after that.
+        /// </summary>
+        private static void ScheduleRelease(GameTheme previous)
+        {
+            // A second switch before the first was drawn: the theme waiting since then goes now (nothing shows it any more).
+            if(pendingRelease!=null&&!ReferenceEquals(pendingRelease,previous))Release(pendingRelease);
+            pendingRelease=previous;
+            if(!releaseHooked){Canvas.willRenderCanvases+=ReleasePending;releaseHooked=true;}
+        }
+        private static void ReleasePending()
+        {
+            Canvas.willRenderCanvases-=ReleasePending;releaseHooked=false;
+            var theme=pendingRelease;pendingRelease=null;
+            if(theme!=null)Release(theme);
+        }
+        /// <summary>Releases a theme's content art unless the current theme draws it (itself, or a test theme borrowing it).</summary>
+        private static void Release(GameTheme theme)
+        {
+            if(ReferenceEquals(theme,Current)||Current!=null&&ReferenceEquals(theme,Current.ArtSource))return;
+            LastReleasedArt=theme.ReleaseContentArt();
+        }
+
         /// <summary>Tests only: forget discovered themes and return UiKit to the default palette and sprites.</summary>
-        public static void ResetForTests(){themes=null;testThemes.Clear();Current=null;UiKit.Palette=null;UiKit.ThemeTemplate=null;}
+        public static void ResetForTests()
+        {
+            if(releaseHooked){Canvas.willRenderCanvases-=ReleasePending;releaseHooked=false;}
+            pendingRelease=null;
+            themes=null;testThemes.Clear();Current=null;UiKit.Palette=null;UiKit.ThemeTemplate=null;
+        }
 
         private static readonly HashSet<string> testThemes=new HashSet<string>(StringComparer.Ordinal);
         /// <summary>Tests only (W20X-02): offers a theme built in memory (GameTheme.CreateForTests) until it is unregistered.
