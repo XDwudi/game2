@@ -64,20 +64,21 @@ namespace DiceCraft.Tests
                     {
                         object face=GalleryVariant20Z2.Invoke(app,new object[]{"C21",rarity,0,1});
                         W11TextScale(100);
+                        // A label's state as set by the template: shown or hidden, a fixed size or the auto-sizing range.
+                        string line(TextMeshProUGUI t)=>t==null?"no label":(t.gameObject.activeSelf?"shown":"hidden")+", "+(t.enableAutoSizing?"auto-sized "+t.fontSizeMin.ToString("0.#",CultureInfo.InvariantCulture)+"-"+t.fontSizeMax.ToString("0.#",CultureInfo.InvariantCulture)+" px":"fixed "+t.fontSize.ToString("0.##",CultureInfo.InvariantCulture)+" px");
                         var fresh=(UnityEngine.UI.Button)DrawCard20Z2.Invoke(app,new object[]{probe,"Fresh",40f,40f,280f,117f,face,compact,null,true});
-                        var freshText=ShortText20Z2(fresh);
+                        var freshText=ShortText20Z2(fresh);string freshLine=line(freshText);
                         // The 150 % text card on the object that the mini card uses next: its short text is auto-sized (the state the
-                        // mini path used to inherit).
+                        // mini path used to inherit). Its line is read now: the mini card below redraws this same pooled label.
                         W11TextScale(150);
                         var tall=(UnityEngine.UI.Button)DrawCard20Z2.Invoke(app,new object[]{probe,"Reused",40f,400f,280f,244f,face,compact,null,true});
-                        var tallText=ShortText20Z2(tall);
+                        var tallText=ShortText20Z2(tall);string tallLine=line(tallText);
                         bool tallAuto=tallText!=null&&tallText.gameObject.activeSelf&&tallText.enableAutoSizing;
                         W11TextScale(100);
                         var reused=(UnityEngine.UI.Button)DrawCard20Z2.Invoke(app,new object[]{probe,"Reused",40f,400f,280f,117f,face,compact,null,true});
                         Assert.That(reused,Is.SameAs(tall),theme+": the mini card is drawn on the pooled object of the text card.");
                         var reusedText=ShortText20Z2(reused);
-                        string line(TextMeshProUGUI t)=>t==null?"no label":(t.gameObject.activeSelf?"shown":"hidden")+", "+t.fontSize.ToString("0.##",CultureInfo.InvariantCulture)+" px"+(t.enableAutoSizing?", auto-sized "+t.fontSizeMin.ToString("0.#",CultureInfo.InvariantCulture)+"-"+t.fontSizeMax.ToString("0.#",CultureInfo.InvariantCulture):", fixed size");
-                        report.Add(theme+": C21 mini card 100 % fresh: "+line(freshText)+"; the 150 % text card before: "+line(tallText)+"; the mini card on that object: "+line(reusedText));
+                        report.Add(theme+": C21 mini card 100 % fresh: "+freshLine+"; the 150 % text card on the pooled object: "+tallLine+"; then the mini card on that object: "+line(reusedText));
                         if(freshText==null||!freshText.gameObject.activeSelf)failures.Add(theme+": a fresh 100 % mini card does not show C21's short text (the check needs it to)");
                         if(!tallAuto)failures.Add(theme+": the 150 % text card did not auto-size its short text (the case this test reproduces)");
                         if(reusedText==null||!reusedText.gameObject.activeSelf){failures.Add(theme+": the mini card drawn where the text card was hides C21's short text");continue;}
