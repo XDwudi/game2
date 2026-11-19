@@ -1,0 +1,99 @@
+{
+  "tool": "artgen-1.2",
+  "candidate": "ArtSource/Art11/deco/illustrations/C90/r01/original.png",
+  "candidateSha256": "3df749491a0bce18558ec159272fddae76b46a1bbe9d3f7882216b39f826a97c",
+  "kitVersion": "theme-deco-0.2",
+  "category": "illustration",
+  "rangeSource": "the pinned anchors",
+  "lookTolerance": 0.03,
+  "anchors": [
+    {
+      "id": "C108",
+      "sha256": "dfc613b06fed7f7bea75fc7e3d757a42c9f316c68a3d5bd4818b5605ade1de53"
+    },
+    {
+      "id": "C117",
+      "sha256": "9b23dac1e30fff22fc11277f533a11a600cdc4a04e2b67c1a0afe53767da33b3"
+    },
+    {
+      "id": "I10",
+      "sha256": "baa43b9b87cddf90b6bc10d53a69c10ca4a58b08fb2e3ddc913f72828b6445a6"
+    },
+    {
+      "id": "U10",
+      "sha256": "f1e6a768f0f25f1a39154bbd5b62019358d4233b58dafb5ba5778e8c22632318"
+    }
+  ],
+  "indicators": {
+    "role.dark": {
+      "value": 0.0751,
+      "refMin": 0.5437,
+      "refMax": 0.6041,
+      "look": true
+    },
+    "role.ivory": {
+      "value": 0.1996,
+      "refMin": 0.0535,
+      "refMax": 0.2405,
+      "look": false
+    },
+    "role.coral": {
+      "value": 0.0507,
+      "refMin": 0.0382,
+      "refMax": 0.112,
+      "look": false
+    },
+    "role.cyan": {
+      "value": 0.0898,
+      "refMin": 0.0,
+      "refMax": 0.0477,
+      "look": true
+    },
+    "role.amber": {
+      "value": 0.1511,
+      "refMin": 0.0763,
+      "refMax": 0.1597,
+      "look": false
+    },
+    "role.other": {
+      "value": 0.4337,
+      "refMin": 0.0513,
+      "refMax": 0.1077,
+      "look": true
+    },
+    "transparentShare": {
+      "value": 0.5738,
+      "refMin": 0.0,
+      "refMax": 0.0,
+      "look": true
+    },
+    "subjectWidthShare": {
+      "value": 0.7791,
+      "refMin": 1.0,
+      "refMax": 1.0,
+      "look": true
+    },
+    "subjectHeightShare": {
+      "value": 0.8955,
+      "refMin": 1.0,
+      "refMax": 1.0,
+      "look": true
+    },
+    "lightFringeShare": {
+      "value": 0.2545,
+      "refMin": 0.0,
+      "refMax": 0.0,
+      "look": true
+    }
+  },
+  "lookFlags": [
+    "role.dark",
+    "role.cyan",
+    "role.other",
+    "transparentShare",
+    "subjectWidthShare",
+    "subjectHeightShare",
+    "lightFringeShare"
+  ],
+  "note": "Indicators locate drift for a human or independent reviewer. They are not pass/fail criteria."
+}

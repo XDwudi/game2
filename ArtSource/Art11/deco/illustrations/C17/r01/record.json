@@ -1,0 +1,141 @@
+{
+  "schema": "artgen-record-1",
+  "toolVersion": "artgen-1.2",
+  "jobId": "V11-DECO-C17",
+  "jobPath": "ArtSource/Art11/deco/illustrations/C17/job.json",
+  "jobSha256": "dcb1287e34352389308449b6e364d2a11ac04582e8e5a7f290cf998e21e803e4",
+  "category": "illustration",
+  "revision": "r01",
+  "mode": "new",
+  "transparentRequired": true,
+  "content": {
+    "contentId": "C17",
+    "list": "controllers",
+    "displayName": "小鬼当家",
+    "configDescription": "每颗有效1、2、3点的提交骰，点数贡献+6。",
+    "configPath": "DicePrototype/Assets/Game/Data/P0Config.json",
+    "configSha256": "be01f53fafb0cd441acbf5341a813d5409931eb8bea6463c644af30698846151"
+  },
+  "styleKit": {
+    "path": "ArtSource/StyleKit/themes/deco/style_kit.json",
+    "sha256": "e249fb78eab25f6f29bb2781394e4a8c51621ad51c41a6e6dc691cdbdcbd3ad0",
+    "kitVersion": "theme-deco-0.2",
+    "status": "PROPOSED (2026-11-17): anchors are crops of the four card illustrations on the user-chosen 黑金装饰艺术 concept page (ArtSource/StyleKit/themes/deco/concepts/card.png); awaiting the user's review at checkpoint 3 with the first representative redraws."
+  },
+  "references": [
+    {
+      "index": 1,
+      "path": "ArtSource/StyleKit/themes/deco/plates/illustration_plate_theme-deco-0.1.png",
+      "sha256": "5e2b3a906a7364dd69389bdfeecd187c2772cd7958274920f9af9f2dbd8078af",
+      "role": "STYLE PLATE: four card illustrations in the black-and-gold Art Deco style of this game, cropped from concept art and still standing on their black lacquer card backdrop with small crimson corner triangles. Copy their rendering exactly (polished gold with crisp specular bands, ivory enamel, glossy lacquer, deep crimson and teal enamel, elegant streamlined geometry, fanned gold rays). Do not copy their subjects, their layout, the black backdrop or the corner triangles. The pip colours of the dice on the plate are not a style rule: pips follow the subject."
+    },
+    {
+      "index": 2,
+      "path": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c17.png",
+      "sha256": "5e03b7fa8e19388c99837703b59da6e4eb6438b227ce423e3a50adbad9372b4e",
+      "role": "SUBJECT REFERENCE: the same card drawn in the game's default style. Keep its objects, their arrangement, the idea, and every colour that carries game information: dice pips keep the reference's colours (dark pips stay dark, in the darkest ink of reference image 1; red pips stay red; blue pips stay blue), coloured die faces keep their colour, gold stays gold, and glass or transparent parts stay transparent. Never colour neutral dark pips red or blue. Ignore everything else about its rendering (outlines, shading, halftone, exact shades) and draw it in the style of reference image 1."
+    }
+  ],
+  "prompt": {
+    "imagePromptPath": "ArtSource/Art11/deco/illustrations/C17/r01/prompt.txt",
+    "imagePromptFileSha256": "b7aece21cf085c0a325939f1b7e5ff63b2b09e5ddc266c845fb97eec0672e4a5",
+    "agentRequestPath": "ArtSource/Art11/deco/illustrations/C17/r01/codex-request.txt",
+    "agentRequestFileSha256": "cc0af4146e70053f0408ef4a2136c70d3369617c7aa6b9b99a100fb7eaf33df0"
+  },
+  "codex": {
+    "command": [
+      "C:\\Users\\f\\AppData\\Local\\OpenAI\\Codex\\bin\\c38161ad8494f88c\\codex.exe"
+    ],
+    "version": "codex-cli 0.169.0-alpha.11.1",
+    "exitCode": 0,
+    "threadId": "01a1efa2-070d-74c2-ba83-75ea7f48d642",
+    "sessionLog": "C:\\Users\\f\\.codex\\sessions\\2026\\11\\18\\rollout-2026-11-18T12-08-55-01a1efa2-070d-74c2-ba83-75ea7f48d642.jsonl",
+    "agentModel": "gpt-6.2-sol",
+    "usage": {
+      "input_tokens": 41131,
+      "cached_input_tokens": 34048,
+      "cache_write_input_tokens": 0,
+      "output_tokens": 924,
+      "reasoning_output_tokens": 210
+    },
+    "durationSeconds": 84.9,
+    "quotaUsedPercentFirst": 30.0,
+    "quotaUsedPercentLast": 30.0
+  },
+  "imageTool": {
+    "name": "image_gen.imagegen (Codex built-in)",
+    "modelSnapshot": "not exposed by the tool; OpenAI documents the built-in tool as gpt-image-2",
+    "generations": [
+      {
+        "id": "exec-146f8ae2-496a-43fa-84fe-e89282833ac7",
+        "kind": "image_gen.generation",
+        "status": "completed",
+        "failure": null,
+        "revisedPrompt": "Create ONE standalone card-theme illustration. Subject: a die showing three pips wearing an oversized folded paper crown, a toy spoon leaning against its side, short strokes on both sides. Must keep: die shows three pips (a low number); dice pips coloured exactly as in the subject reference (dark pips stay dark, never recoloured red or blue).\nStyle: Match the STYLE PLATE (reference image 1) exactly: 1920s Art Deco luxury object illustration. Polished gold and brass with crisp specular bands, glossy ivory enamel, black lacquer, and deep crimson and teal enamel inlays; elegant streamlined geometric forms with stepped and fanned motifs; precise thin gold edge lines; rich but restrained, like a jeweller's poster. Dice are ivory-enamel cubes with softly rounded edges and black-lacquer pips; crimson or teal pips only when the subject names red or blue pips. Three-quarter view from slightly above; soft studio light from the upper left with warm gold reflections.\nColour roles: Ivory #F8E5C6 for dice bodies and lit enamel; gold #D9A44E shaded with old gold #B7916B and bronze #785C3E for metal, rims, handles, coins and rays; crimson #7A120C for red pips and red enamel; deep teal #0E4A66 for blue pips, water and blue enamel; black lacquer #15110D only for dark lacquer parts, neutral pips and the deepest shadows. No other hues, no neon, no glow.\nComposition: One cohesive subject group of at most three objects, centred on a square canvas; the subject spans roughly 70 to 95 percent of the canvas width without touching the edges, with even transparent margin on every side; the silhouette must stay readable at 64 pixels. Two or three short fanned gold ray strokes are allowed when they express the effect. The card frame of the game draws its own backdrop, so the illustration has no background field at all.\nOutput: True transparent alpha background with no backdrop of any colour and no background shapes. A single finished illustration, not a sheet of variants.\nAvoid: text, letters, numbers, labels, prices, card frames, UI elements, a background field, a black backdrop panel, a sunburst backdrop, corner triangles, ground scenery, reflections of a floor, checkerboard, photorealism, plastic 3D-render look, chrome, pixel art, neon glow, grunge, human characters, expressive faces.",
+        "transparentBackground": true,
+        "inputImages": [
+          {
+            "path": "E:\\agent_workspace\\gpt\\game2\\ArtSource\\StyleKit\\themes\\deco\\plates\\illustration_plate_theme-deco-0.1.png",
+            "sha256": "5e2b3a906a7364dd69389bdfeecd187c2772cd7958274920f9af9f2dbd8078af"
+          },
+          {
+            "path": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Art\\Art071\\Illustrations\\illustration_c17.png",
+            "sha256": "5e03b7fa8e19388c99837703b59da6e4eb6438b227ce423e3a50adbad9372b4e"
+          }
+        ],
+        "savedPath": "C:\\Users\\f\\.codex\\generated_images\\01a1efa2-070d-74c2-ba83-75ea7f48d642\\exec-146f8ae2-496a-43fa-84fe-e89282833ac7.png",
+        "generationId": "a1e8f7b2-b773-4a65-9c60-11fe110457cc"
+      }
+    ],
+    "runChecks": {
+      "imageCallCount": 1,
+      "generationCount": 1,
+      "callReferencedImagePaths": [
+        "E:/agent_workspace/gpt/game2/ArtSource/StyleKit/themes/deco/plates/illustration_plate_theme-deco-0.1.png",
+        "E:/agent_workspace/gpt/game2/DicePrototype/Assets/Art/Art071/Illustrations/illustration_c17.png"
+      ],
+      "modelInputImages": [
+        {
+          "path": "E:\\agent_workspace\\gpt\\game2\\ArtSource\\StyleKit\\themes\\deco\\plates\\illustration_plate_theme-deco-0.1.png",
+          "sha256": "5e2b3a906a7364dd69389bdfeecd187c2772cd7958274920f9af9f2dbd8078af"
+        },
+        {
+          "path": "E:\\agent_workspace\\gpt\\game2\\DicePrototype\\Assets\\Art\\Art071\\Illustrations\\illustration_c17.png",
+          "sha256": "5e03b7fa8e19388c99837703b59da6e4eb6438b227ce423e3a50adbad9372b4e"
+        }
+      ],
+      "transparentRequested": true,
+      "callPromptExact": true,
+      "revisedPromptExact": true
+    }
+  },
+  "output": {
+    "sourcePath": "C:\\Users\\f\\.codex\\generated_images\\01a1efa2-070d-74c2-ba83-75ea7f48d642\\exec-146f8ae2-496a-43fa-84fe-e89282833ac7.png",
+    "archivedPath": "ArtSource/Art11/deco/illustrations/C17/r01/original.png",
+    "sha256": "c3ed89cdcbf69bba371ee0b63e1464c96365d0a368b0c47e834be76b6234e3c5",
+    "copiedByteIdentical": true,
+    "dimensions": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alphaExtrema": [
+      0,
+      255
+    ],
+    "transparentShare": 0.5505,
+    "alphaBounds": [
+      103,
+      100,
+      1158,
+      1162
+    ],
+    "subjectWidthShare": 0.8413,
+    "subjectHeightShare": 0.8469,
+    "subjectAreaShare": 0.4197
+  },
+  "runValid": true,
+  "runProblems": [],
+  "status": "CANDIDATE: review pending",
+  "recordedUtc": "2026-11-18T17:10:20.578054+00:00"
+}

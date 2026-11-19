@@ -1,0 +1,97 @@
+{
+  "schema": "artgen-record-1",
+  "toolVersion": "artgen-1.2",
+  "jobId": "V11-DECO-C102",
+  "jobPath": "ArtSource/Art11/deco/illustrations/C102/job.json",
+  "jobSha256": "4822a0633fd9e45e7063aafc4b0f99321910e95a4e094662c12daf7cbc4e3941",
+  "category": "illustration",
+  "revision": "r01",
+  "mode": "new",
+  "transparentRequired": true,
+  "content": {
+    "contentId": "C102",
+    "list": "controllers",
+    "displayName": "背水一战",
+    "configDescription": "本关最后一次提交机会时，整手得分×3。",
+    "configPath": "DicePrototype/Assets/Game/Data/P0Config.json",
+    "configSha256": "be01f53fafb0cd441acbf5341a813d5409931eb8bea6463c644af30698846151"
+  },
+  "styleKit": {
+    "path": "ArtSource/StyleKit/themes/deco/style_kit.json",
+    "sha256": "e249fb78eab25f6f29bb2781394e4a8c51621ad51c41a6e6dc691cdbdcbd3ad0",
+    "kitVersion": "theme-deco-0.2",
+    "status": "PROPOSED (2026-11-17): anchors are crops of the four card illustrations on the user-chosen 黑金装饰艺术 concept page (ArtSource/StyleKit/themes/deco/concepts/card.png); awaiting the user's review at checkpoint 3 with the first representative redraws."
+  },
+  "references": [
+    {
+      "index": 1,
+      "path": "ArtSource/StyleKit/themes/deco/plates/illustration_plate_theme-deco-0.1.png",
+      "sha256": "5e2b3a906a7364dd69389bdfeecd187c2772cd7958274920f9af9f2dbd8078af",
+      "role": "STYLE PLATE: four card illustrations in the black-and-gold Art Deco style of this game, cropped from concept art and still standing on their black lacquer card backdrop with small crimson corner triangles. Copy their rendering exactly (polished gold with crisp specular bands, ivory enamel, glossy lacquer, deep crimson and teal enamel, elegant streamlined geometry, fanned gold rays). Do not copy their subjects, their layout, the black backdrop or the corner triangles. The pip colours of the dice on the plate are not a style rule: pips follow the subject."
+    },
+    {
+      "index": 2,
+      "path": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c102.png",
+      "sha256": "96bc0f49a84248c8b33bc50921315e0e58a992a9c2ebdf358bc8dae9a0348eff",
+      "role": "SUBJECT REFERENCE: the same card drawn in the game's default style. Keep its objects, their arrangement, the idea, and every colour that carries game information: dice pips keep the reference's colours (dark pips stay dark, in the darkest ink of reference image 1; red pips stay red; blue pips stay blue), coloured die faces keep their colour, gold stays gold, and glass or transparent parts stay transparent. Never colour neutral dark pips red or blue. Ignore everything else about its rendering (outlines, shading, halftone, exact shades) and draw it in the style of reference image 1."
+    }
+  ],
+  "prompt": {
+    "imagePromptPath": "ArtSource/Art11/deco/illustrations/C102/r01/prompt.txt",
+    "imagePromptFileSha256": "bd649f63cd4e181f8f1291051ce73cdd07e3e7b32f0617fa18675702d3e8da65",
+    "agentRequestPath": "ArtSource/Art11/deco/illustrations/C102/r01/codex-request.txt",
+    "agentRequestFileSha256": "c85b690edb4954632030bec661492e50e4228034c97bd4f6df4b0850c6da309e"
+  },
+  "codex": {
+    "command": [
+      "C:\\Users\\f\\AppData\\Local\\OpenAI\\Codex\\bin\\c38161ad8494f88c\\codex.exe"
+    ],
+    "version": "codex-cli 0.169.0-alpha.11.1",
+    "exitCode": 1,
+    "threadId": "01a1ef4f-c617-7541-9e35-e97e7ec610ce",
+    "sessionLog": "C:\\Users\\f\\.codex\\sessions\\2026\\11\\18\\rollout-2026-11-18T10-39-05-01a1ef4f-c617-7541-9e35-e97e7ec610ce.jsonl",
+    "agentModel": "gpt-6.2-sol",
+    "usage": null,
+    "durationSeconds": 174.3,
+    "quotaUsedPercentFirst": null,
+    "quotaUsedPercentLast": null
+  },
+  "imageTool": {
+    "name": "image_gen.imagegen (Codex built-in)",
+    "modelSnapshot": "not exposed by the tool; OpenAI documents the built-in tool as gpt-image-2",
+    "generations": [],
+    "runChecks": {
+      "imageCallCount": 0,
+      "generationCount": 0,
+      "callReferencedImagePaths": null,
+      "modelInputImages": null,
+      "transparentRequested": false,
+      "callPromptExact": null,
+      "revisedPromptExact": null
+    }
+  },
+  "output": null,
+  "runValid": false,
+  "runProblems": [
+    "codex exited with 1",
+    "codex error event: {\"type\": \"error\", \"message\": \"Reconnecting... 2/5 (workspace routing discovery failed)\"}",
+    "codex error event: {\"type\": \"error\", \"message\": \"Reconnecting... 3/5 (workspace routing discovery failed)\"}",
+    "codex error event: {\"type\": \"error\", \"message\": \"Reconnecting... 4/5 (workspace routing discovery failed)\"}",
+    "codex error event: {\"type\": \"error\", \"message\": \"Reconnecting... 5/5 (workspace routing discovery failed)\"}",
+    "codex error event: {\"type\": \"error\", \"message\": \"Reconnecting... 1/5 (workspace routing discovery failed)\"}",
+    "codex error event: {\"type\": \"error\", \"message\": \"Reconnecting... 2/5 (workspace routing discovery failed)\"}",
+    "codex error event: {\"type\": \"error\", \"message\": \"Reconnecting... 3/5 (workspace routing discovery failed)\"}",
+    "codex error event: {\"type\": \"error\", \"message\": \"Reconnecting... 4/5 (workspace routing discovery failed)\"}",
+    "codex error event: {\"type\": \"error\", \"message\": \"Reconnecting... 5/5 (workspace routing discovery failed)\"}",
+    "codex error event: {\"type\": \"error\", \"message\": \"workspace routing discovery failed\"}",
+    "codex error event: {\"type\": \"turn.failed\", \"error\": {\"message\": \"workspace routing discovery failed\"}}",
+    "expected exactly one image call, found 0",
+    "expected exactly one image generation record, found 0",
+    "image call passed no referenced_image_paths: the style references were NOT used",
+    "a transparent background was not requested",
+    "the prompt actually used could not be verified",
+    "expected one generated image for the thread, found 0"
+  ],
+  "status": "INVALID_RUN: not eligible for review or use",
+  "recordedUtc": "2026-11-18T15:41:59.320979+00:00"
+}
