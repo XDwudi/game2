@@ -298,6 +298,15 @@
   - 验收 SE-01 至 SE-17；测试约 14 个文件、40–55 条断言改期望，另加一组 PlayMode 与一组 EditMode 测试；
   - 等用户回答：8 个决定项（Q1–Q8，各有推荐）与 15 条新写文字（§12）；
   - 协调者在审阅时决定（第 13 节）：徽记由 W15 在本关牌、商店顶栏、结算与整局结果一并接入，导入由插画安装包做；防双击（0.3 秒）与回车键采纳；失败标签用 `Danger`；两份都获批时 W16 先实施；第 9 节两处文档笔误已改（PLAY_LAYOUT §8 第 26 条、SHOP_LAYOUT §9 末行）。
+- W22i 插画装进游戏（子 agent，2026-11-19，Unity 串行）：**交协调者复核（VERIFYING）**；[报告](specs/v11/W22I_REPORT.md)。
+  - 提交 `0337f33b`（装好的插画、徽记、紧凑图标与裁切表，Bootstrap 的图标绑定，安装工具与清单，测试）、`9cc078cf`（按张懒加载、紧凑图标回落顺序、“我的构筑”格子、PlayMode 测试）、文档提交；源码冻结在 `9cc078cf`。
+  - 安装：`tools/art_v11/install_art.py` 对每个 id 与徽记族取记录有效的最新 rNN，核对 SHA-256 后逐字节复制：五套各 184 张插画 + 7 张徽记进 `Resources/Themes/<风格>/Art/`（瑞士 7 张试画被替换），默认 7 张徽记进 `Assets/Art/Art11/Emblems/`（没有绑定，问题 1）；清单在 `tools/art_v11/install_manifests/`。所选版本与本文件记的每次重画一致；962 个复制件与原图是同一个 blob，新增的 PNG blob 只有 919 张图标（37.5 MiB）。
+  - 导入：962 个 .meta 与瑞士试画的设置相同。发现：49 张非正方形图缩到 1024 后边长不是 4 的倍数，Unity 不压缩（多约 100 MiB），没改上限（问题 3）。
+  - 紧凑图标：五套各 184 张并绑定；32 px 审查发现 12 张自动裁切切掉或切开主体（唐三彩 C76、C81、C151、I04、I05、O05，黑金 C64、C151、I05、O05、O08，彩绘玻璃 O05），都用裁切覆写修正，没有改图（问题 5）；与默认相同的难读件（C33、C34、C107、C110、C111 等）只列出。回落顺序改为本风格图标 → 本风格插画 → 默认图标 → 默认插画。
+  - 我的构筑格子按 `FrameInsets11` 留 2 单位：唐三彩、漫画、黑金的格子矮 3.5、9、5.5 单位，默认、瑞士、彩绘玻璃不动；彩绘玻璃左下角饰与黑金楔角仍被第一个格子盖住一角（问题 2）。
+  - 加载：全部载入时首次切换最多 552 ms、每套 200.7–212.8 MiB 且一直留着，改为按张懒加载、换风格后释放：首次切换 97–222 ms，商店只载入画出的 4 张，换走的风格 0 张留下。紧凑图标六套随场景常驻 143.7 MiB（问题 4）。构建估计每个平台多约 1,146 MiB。
+  - 验证：缺图每套 0；W20X-05 逐像素默认风格 21 个画面在噪声外 0 变化；EditMode 2439/2439、PlayMode 1080p 与 720p 各 252/252（`nunit-20261119-101858`、`-105913`、`-113804`），绑定的 7,243 个文件与 HEAD 相同，`quality_check.py nunit` 都是 CHECKS_PASSED；Python 436/436；审查截图与总览在 `artifacts/cache/v11/w22i/`。
+  - 待协调者定（报告第 11 节）：① 默认徽记的绑定；② 彩绘玻璃角饰与黑金楔角；③ 49 张不压缩；④ 紧凑图标常驻；⑤ 12 张裁切覆写。
 - 2026-11-18 约 03:30 用量达到 5 小时上限，W20Y2、黑金第二阶段、彩绘玻璃第二阶段三个子 agent 同时中断。04:10 恢复后的处理：
   - W20Y2：上下文小，原 agent 接着做；它当时还没有提交或改动文件；
   - 黑金：第二阶段几乎做完但没提交（50 张件、测试、示意都在工作树里），原 agent 的上下文已超过 70 万 token。改派一个新 agent“收尾并核对”（重建一致性、README 数字、严格审计、全量测试、提交）；
@@ -398,7 +407,7 @@
   - 彩绘玻璃插画复核子 agent：已交付（2026-11-19）。
   - W15 方案子 agent：已交付（2026-11-19，`5fbb9e2`）。
   - W21 方案子 agent（2026-11-19 开始）：只写 `docs/specs/v11/FONTS_WRAP.md` 与 `artifacts/cache/v11/w21/spec/`；不改游戏文件，不启动 Unity。2026-11-19 凌晨第三次达到用量上限时与 W22i 一起中断；04:42 恢复后协调者只让 W22i 接着做，W21 暂停到 W22i 交还后再由原 agent 接着做（同时只跑一个重 agent，减少中途被打断）。
-  - W22i 插画安装子 agent（2026-11-19 开始，Unity 编辑器串行）：五套风格的 `Resources/Themes/<风格>/Art/`、`Resources/IconCrops/<风格>.json`、`Assets/Art/Art11/Icons/<风格>/`、默认风格徽记的新目录；`UI/Theme/GameTheme.cs`（只限加载）、`UI/GameApp.Card11.cs`（只限紧凑图标）、`UI/GameApp.Shop14.cs`（只限“我的构筑”卡牌格子）、`Editor/`、`Tests/`；`tools/art_v11/` 的安装工具与裁切覆写、`tests/` 的对应测试；`docs/specs/v11/W22I_REPORT.md`；本文件里它自己的段落与文件锁行。`ArtSource/` 只读。协调者在它跑 Unity 测试时不跑 artgen 与其他吃 CPU 的任务。
+  - W22i 插画安装子 agent：已释放（2026-11-19 交付，VERIFYING）。没有运行中的 Unity 进程；`DiceChineseFallback.asset` 已还原；证据在 `evidence/v11/unity/`（未纳入版本库）与 `artifacts/cache/v11/w22i/`。
   - W20Y2 子 agent：已释放（2026-11-18 交付）。没有运行中的 Unity 进程；`DiceChineseFallback.asset` 已还原；证据在 `evidence/v11/unity/`（未纳入版本库）与 `artifacts/cache/v11/w20y2/`。
   - 主 agent：`ArtSource/Art11/` 的生成（经 artgen 串行进行），以及 `docs/STATE.md`、`THEME_SPEC.md`（W20X 可改状态行与 §5，须列出）、`DEV_PLAN.md`、`CARD_TEMPLATE.md`、`SHOP_LAYOUT.md`。
 
