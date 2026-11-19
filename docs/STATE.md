@@ -343,6 +343,8 @@
   - W20Y 子 agent：已释放（2026-11-18 交付）。没有运行中的 Unity 进程；`DiceChineseFallback.asset` 已还原；证据在 `evidence/v11/unity/`（未纳入版本库）与 `artifacts/cache/v11/w20y/`。
   - 黑金、彩绘玻璃的各个子 agent：都已交付并释放；两条分支已合并，工作树 `wt-v11-deco`、`wt-v11-glass` 不再写入。
   - W20Z 子 agent：已释放（2026-11-18 交付）。没有运行中的 Unity 进程；`DiceChineseFallback.asset` 已还原；补拍用的临时测试文件已删除；证据在 `evidence/v11/unity/`（未纳入版本库）与 `artifacts/cache/v11/w20z/`。
+  - W20Z2 子 agent：Unity 编辑器；`UI/`（只限四项修复相关的代码）、`Tests/`；`tools/art_v11/{deco,glass}/` 及其输出（插画目录除外）；两套的测试；W20Z 报告新增一节；本文件里它自己的段落与文件锁行。
+  - 黑金插画复核子 agent：只读，只写 `artifacts/cache/v11/w22/deco-review/`。
   - W20Y2 子 agent：已释放（2026-11-18 交付）。没有运行中的 Unity 进程；`DiceChineseFallback.asset` 已还原；证据在 `evidence/v11/unity/`（未纳入版本库）与 `artifacts/cache/v11/w20y2/`。
   - 主 agent：`ArtSource/Art11/` 的生成（经 artgen 串行进行），以及 `docs/STATE.md`、`THEME_SPEC.md`（W20X 可改状态行与 §5，须列出）、`DEV_PLAN.md`、`CARD_TEMPLATE.md`、`SHOP_LAYOUT.md`。
 
