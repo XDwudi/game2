@@ -397,6 +397,7 @@
   - 黑金插画复核子 agent：已交付（2026-11-18）。
   - 彩绘玻璃插画复核子 agent：已交付（2026-11-19）。
   - W15 方案子 agent：已交付（2026-11-19，`5fbb9e2`）。
+  - W22i 插画安装子 agent（2026-11-19 开始，Unity 编辑器串行）：五套风格的 `Resources/Themes/<风格>/Art/`、`Resources/IconCrops/<风格>.json`、`Assets/Art/Art11/Icons/<风格>/`、默认风格徽记的新目录；`UI/Theme/GameTheme.cs`（只限加载）、`UI/GameApp.Card11.cs`（只限紧凑图标）、`UI/GameApp.Shop14.cs`（只限“我的构筑”卡牌格子）、`Editor/`、`Tests/`；`tools/art_v11/` 的安装工具与裁切覆写、`tests/` 的对应测试；`docs/specs/v11/W22I_REPORT.md`；本文件里它自己的段落与文件锁行。`ArtSource/` 只读。协调者在它跑 Unity 测试时不跑 artgen 与其他吃 CPU 的任务。
   - W20Y2 子 agent：已释放（2026-11-18 交付）。没有运行中的 Unity 进程；`DiceChineseFallback.asset` 已还原；证据在 `evidence/v11/unity/`（未纳入版本库）与 `artifacts/cache/v11/w20y2/`。
   - 主 agent：`ArtSource/Art11/` 的生成（经 artgen 串行进行），以及 `docs/STATE.md`、`THEME_SPEC.md`（W20X 可改状态行与 §5，须列出）、`DEV_PLAN.md`、`CARD_TEMPLATE.md`、`SHOP_LAYOUT.md`。
 
