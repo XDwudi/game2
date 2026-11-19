@@ -6,7 +6,7 @@
 
 - 默认风格内置在代码与场景里，就是 v0.73 以来的现有外观。其他风格放在 `DicePrototype/Assets/Resources/Themes/<风格 id>/`，启动时读取各自的 `theme.json`。
 - 风格只改外观：色板、界面贴图、卡牌插画、桌面贴图、设置页预览图。布局、动效、规则、存档六套共用。
-- 查找顺序：先找当前风格的同名文件，没有就用默认风格的同名件。贴图在第一次切到该风格时才加载。
+- 查找顺序：先找当前风格的同名文件，没有就用默认风格的同名件。贴图在第一次切到该风格时才加载；卡牌插画与徽记按张加载，换风格后释放（W22i，见 §3 表）。
 - 设置项：
   - 设置 → 画面 → 画面风格，点一次换到下一套，立即重绘当前画面，不写存档；
   - 选择记在系统设置 `v11.theme`；
@@ -77,7 +77,9 @@
 | 路径 | 内容 | 要求 |
 | --- | --- | --- |
 | `UI/<名称>.png` | 界面贴图，名称与默认件相同 | 与默认件**像素尺寸相同**，RGBA；九宫格边距、每单位像素沿用默认件（导入规则自动复制），所以边框必须画在默认件的边距带里 |
-| `Art/illustration_<内容 id>.png` | 卡牌插画（按 D1 每套重画） | 1254² RGBA，经 `artgen` 生成并有记录；导入上限 1024 |
+| `Art/illustration_<内容 id>.png` | 卡牌插画（按 D1 每套重画） | 1254² RGBA，经 `artgen` 生成并有记录；导入上限 1024。W22i（2026-11-19）起由 `tools/art_v11/install_art.py` 逐字节复制每张最后一次有效的版本，清单在 `tools/art_v11/install_manifests/`；运行时按张加载，换风格后在下一次重绘时释放上一套（不再整套 `LoadAll`） |
+| `Art/emblem_<族>.png` | 首领徽记（族：seal、constraint、multiplier、cards、economy、target、final） | 同插画；W22i 导入，接入由 W15 做；默认风格的 7 张在 `Assets/Art/Art11/Emblems/`，绑定由 W15 另设字段（`contentIcons` 必须正好是 184 张插画） |
+| 紧凑图标 `Assets/Art/Art11/Icons/<风格>/icon_<内容 id>.png` | 迷你卡与图块用的 160 px 图标，裁切表在 `Resources/IconCrops/<风格>.json` | `make_crops.py --theme` 生成；查找顺序：本风格图标 → 本风格整张插画 → 默认图标 → 默认插画，有自己插画的风格不显示别的风格的图（W22i） |
 | `Table/felt_tile.png` | 桌布平铺纹理 | 1024²，可无缝平铺 |
 | `Table/table_scene.png` | 整张桌面构图 | 1920×1080 |
 | `Table/page_scene.png` | 非对局画面的桌面（可选，W20X 起使用，`33d6d926` 实现；模态框跟随其下的画面，各画面用哪张见 [W20X 报告](W20X_REPORT.md) §3） | 1920×1080。不提供时所有画面都用 `table_scene`（现状）。对局画面和画着对局版面的画面（如结算背景）始终用 `table_scene` |
