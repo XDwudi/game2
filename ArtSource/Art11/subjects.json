@@ -429,10 +429,11 @@
     "C125": {
       "conflicts": [],
       "cues": [
-        "one face polished to a shine"
+        "one face polished to a shine",
+        "the polished face keeps the die's own cream colour with white glints, never yellow or gold (gold faces are a separate mechanic)"
       ],
       "mainObject": "polishing cloth and tin",
-      "notes": "Look-alikes: U01 (cloth only, no tin), C91 (cloth and sanding block). C125 keeps the open tin of polish.",
+      "notes": "Look-alikes: U01 (cloth only, no tin), C91 (cloth and sanding block). C125 keeps the open tin of polish. 2026-11-18 (coordinator, comic W22 review): the comic r01 painted the polished face yellow-gold, which reads as a gilded face (C117, I11, U06).",
       "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c125.png",
       "pictureSha256": "175a1214a744c29dcfe961e58448638f60d34ad287b461ff0b900d062f267109",
       "subject": "a cloth draped over a die rubbing its top face to a shine with a small sparkle, an open round tin of polish beside it"
@@ -849,11 +850,11 @@
     "C21": {
       "conflicts": [],
       "cues": [
-        "one extra drawer pulled out",
+        "exactly one drawer pulled out, never two (two open drawers read as +2, the effect of C22)",
         "drawer is empty"
       ],
       "mainObject": "case with one drawer out",
-      "notes": "Capacity look-alikes: C22 (pleated tray with two wings), I12 (sliding tray with dice and one extra empty compartment), C79 (row of compartments), O08 (card-slot rack with wrench). C21 keeps the handled case and no dice. I06 shares the name 增加提交 but is drawn as a ticket roll.",
+      "notes": "Capacity look-alikes: C22 (pleated tray with two wings), I12 (sliding tray with dice and one extra empty compartment), C79 (row of compartments), O08 (card-slot rack with wrench). C21 keeps the handled case and no dice. I06 shares the name 增加提交 but is drawn as a ticket roll. 2026-11-18 (coordinator, comic W22 review): the comic r01 pulled out two drawers, which reads as +2 like C22.",
       "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c21.png",
       "pictureSha256": "216371f3f00025bbf999cb92f482959859cb655efb5cd16ba40515aba173b2c9",
       "subject": "a carry case with a top handle and a front latch, one empty drawer pulled out from its lower side, short strokes at its upper left"
@@ -909,10 +910,11 @@
     "C27": {
       "conflicts": [],
       "cues": [
-        "exactly two dice joined as a pair"
+        "exactly two dice joined as a pair",
+        "the open ends of the sleeves are dark ink holes in the outline colour, never blue or red (a coloured opening reads as a coloured die face)"
       ],
       "mainObject": "two stitched die sleeves",
-      "notes": "Weak mismatch (not a conflict): the two tops show different pips (four and three), so they are not a pair of equal values; only the inner faces beside the stitches match (one pip each). The subject leaves faces free. Two-dice look-alikes: C80, C84, C143, C144, C106.",
+      "notes": "Weak mismatch (not a conflict): the two tops show different pips (four and three), so they are not a pair of equal values; only the inner faces beside the stitches match (one pip each). The subject leaves faces free. Two-dice look-alikes: C80, C84, C143, C144, C106. 2026-11-18 (coordinator, comic W22 review): the comic r01 lined the openings in navy blue, which reads as blue die faces at card size.",
       "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c27.png",
       "pictureSha256": "56b4904033149b7d0001beea253a4e8606c4c976033cb049d5052baf95b6d243",
       "subject": "two hollow die-shaped sleeves joined side by side by thick laced stitches between them, together forming one bow-tie shape, short strokes above and below"
@@ -1202,10 +1204,11 @@
     "C53": {
       "conflicts": [],
       "cues": [
-        "dice of different sizes on a spinning wheel"
+        "dice of different sizes on a spinning wheel",
+        "every die has dark pips except the one red single pip the reference shows; no blue pips"
       ],
       "mainObject": "wheel of uneven dice",
-      "notes": "Wheel panels are violet and blue in the default (decorative). Five small dice; keep them countable but the count is not functional.",
+      "notes": "Wheel panels are violet and blue in the default (decorative). Five small dice; keep them countable but the count is not functional. 2026-11-18 (coordinator, comic W22 review): the comic r01 gave one die blue pips, which reads as a blue die; the card has nothing to do with colour.",
       "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c53.png",
       "pictureSha256": "ede8c2931c371540f3015ce9daa0adfe52987c83272e1997c19915bf4dc147d5",
       "subject": "a spinning wheel on an A-frame stand with dice of different sizes clipped around it at uneven spacing, a round hub at the centre, curved motion strokes around the wheel"
@@ -1348,10 +1351,11 @@
       "conflicts": [],
       "cues": [
         "front die shows one pip",
-        "two echo copies repeat the die"
+        "two echo copies repeat the die",
+        "the echo copies are crisp see-through outlines; no haze, smoke or soft background around them"
       ],
       "mainObject": "die with echo copies",
-      "notes": "The single pip is red in the default (game red one-face; colour optional). The echoes are pale and see-through; their blue tint is not dice colour. Faint copies may be lost in opaque styles.",
+      "notes": "The single pip is red in the default (game red one-face; colour optional). The echoes are pale and see-through; their blue tint is not dice colour. Faint copies may be lost in opaque styles. 2026-11-18 (coordinator, comic W22 review): the comic r01 surrounded the echoes with a grey haze that reached every canvas edge.",
       "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c66.png",
       "pictureSha256": "574b4e0c28f6c45cd8ef29d466759d8178dac5ed71543ea50b0ca8432fd13531",
       "subject": "a small die showing one pip on its front, followed by two fading see-through copies of itself in a row behind it, curved strokes sweeping around them"
@@ -2009,10 +2013,11 @@
     "U01": {
       "conflicts": [],
       "cues": [
-        "only one face polished"
+        "only one face polished",
+        "the polished face keeps the die's own cream colour with white glints, never yellow or gold (gold faces are a separate mechanic)"
       ],
       "mainObject": "cloth polishing a die face",
-      "notes": "Look-alikes: C125 (cloth plus an open tin of polish), C91 (cloth plus sanding block). U01 has the cloth only.",
+      "notes": "Look-alikes: C125 (cloth plus an open tin of polish), C91 (cloth plus sanding block). U01 has the cloth only. 2026-11-18 (coordinator, comic W22 review): the comic r01 painted the polished face yellow-gold, which reads as a gilded face (C117, U06).",
       "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_u01.png",
       "pictureSha256": "e611b9f74bb32fc743f7815814ea5de4e31d2208423a8b0e15c7a18603e96c2f",
       "subject": "a cloth draped over a die, polishing one face to a shine, two sparkles above it"
