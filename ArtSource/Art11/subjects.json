@@ -380,13 +380,16 @@
         "smaller die beside it"
       ],
       "mainObject": "plane shaving a die",
-      "notes": "Look-alike U09 (file rasping a die top). 2026-11-18 (coordinator, deco W22 review): styleCues.deco added after the deco r01 review.",
+      "notes": "Look-alike U09 (file rasping a die top). 2026-11-18 (coordinator, deco W22 review): styleCues.deco added after the deco r01 review. 2026-11-19 (coordinator, glass W22 review): the glass r01 planed face and shavings are amber-gold, so the die reads as gilded. styleCues.glass added.",
       "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c121.png",
       "pictureSha256": "c4eb9aa4fd016b00aa5e6acd6c077d159f50463baf3c62752e5fc2ad852be163",
       "subject": "a hand plane shaving long curls off the top of a large die, a much smaller die sitting beside it, short strokes at the upper left",
       "styleCues": {
         "deco": [
           "in this style the worked face of the die stays ivory with dark pips; only the tool may be gold"
+        ],
+        "glass": [
+          "in this style the worked face of the die stays marble-white with dark pips, and the shavings are pale, never amber or gold; only the plane may be gold"
         ]
       }
     },
@@ -714,10 +717,15 @@
         "a red flower is being added"
       ],
       "mainObject": "red flower stitched on cloth",
-      "notes": "Cloth pattern is cloud swirls in the default (decorative). 2026-11-18 (coordinator, deco W22 review): the deco r01 drew a plain ivory die, so the red die was lost.",
+      "notes": "Cloth pattern is cloud swirls in the default (decorative). 2026-11-18 (coordinator, deco W22 review): the deco r01 drew a plain ivory die, so the red die was lost. 2026-11-19 (coordinator, glass W22 review): the glass r01 (stale) drew a marble-white die with dark pips, so the red die was lost. styleCues.glass added.",
       "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c146.png",
       "pictureSha256": "63ed58b85b53ec6c22fa45042d0d7064a3ecc4cdef5eb26ced3dc7e01db8b291",
-      "subject": "a folded piece of patterned cloth with a needle and red thread stitching a red flower onto it, a red die lying beside it"
+      "subject": "a folded piece of patterned cloth with a needle and red thread stitching a red flower onto it, a red die lying beside it",
+      "styleCues": {
+        "glass": [
+          "in this style the die is ruby-red glass all over with dark pips, never a marble-white die"
+        ]
+      }
     },
     "C147": {
       "conflicts": [],
@@ -835,7 +843,7 @@
         "beam is level"
       ],
       "mainObject": "level balance scale",
-      "notes": "Default is 1536x1024, not square. Default die bodies are red and blue with light pips; red and blue pips on light dice carry the same cue. Look-alike: C103 (tilted balance, three dice against a heap). 2026-11-18 (coordinator, sancai W22 review): the sancai r01 drew two cream dice with small red and blue pips, unreadable at 85 and 64 px; the card is about red against blue, so the whole die bodies carry the colour now. 2026-11-18 (coordinator, sancai r02 check): the sancai r02 still drew cream dice with red and blue pips; styleCues.sancai asks for coloured bodies. 2026-11-18 (coordinator, comic r02 check): the comic r02 still drew cream dice with coloured pips (as sancai did before its style cue), so the cue now names the wrong form it must avoid. 2026-11-18 (coordinator, deco W22 review): styleCues.deco added after the deco r01 review.",
+      "notes": "Default is 1536x1024, not square. Default die bodies are red and blue with light pips; red and blue pips on light dice carry the same cue. Look-alike: C103 (tilted balance, three dice against a heap). 2026-11-18 (coordinator, sancai W22 review): the sancai r01 drew two cream dice with small red and blue pips, unreadable at 85 and 64 px; the card is about red against blue, so the whole die bodies carry the colour now. 2026-11-18 (coordinator, sancai r02 check): the sancai r02 still drew cream dice with red and blue pips; styleCues.sancai asks for coloured bodies. 2026-11-18 (coordinator, comic r02 check): the comic r02 still drew cream dice with coloured pips (as sancai did before its style cue), so the cue now names the wrong form it must avoid. 2026-11-18 (coordinator, deco W22 review): styleCues.deco added after the deco r01 review. 2026-11-19 (coordinator, glass W22 review): the glass r01 drew marble dice with small red and blue pips, gone at card size. styleCues.glass added.",
       "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c18.png",
       "pictureSha256": "6f377e9ab3e0f7e4a50f6ea146a9fee14b85ec4f8cc380785874a0566b0a64d4",
       "subject": "a balance scale with its beam perfectly level, one red die in the left pan and one blue die in the right pan",
@@ -845,6 +853,9 @@
         ],
         "deco": [
           "in this style the red die's body is a clear bright red and the blue die's body a clear sky blue like the game's blue dice, never the kit's deep teal"
+        ],
+        "glass": [
+          "in this style the left die's body is ruby-red glass all over and the right die's body sky-blue glass all over, with light pips; never marble-white dice with red or blue pips"
         ]
       }
     },
@@ -937,13 +948,16 @@
         "the open ends of the sleeves are dark ink holes in the outline colour, never blue or red (a coloured opening reads as a coloured die face)"
       ],
       "mainObject": "two stitched die sleeves",
-      "notes": "Weak mismatch (not a conflict): the two tops show different pips (four and three), so they are not a pair of equal values; only the inner faces beside the stitches match (one pip each). The subject leaves faces free. Two-dice look-alikes: C80, C84, C143, C144, C106. 2026-11-18 (coordinator, comic W22 review): the comic r01 lined the openings in navy blue, which reads as blue die faces at card size. 2026-11-18 (coordinator, check of the stale sancai images): the sancai r01 glazed the openings amber; styleCues.sancai added.",
+      "notes": "Weak mismatch (not a conflict): the two tops show different pips (four and three), so they are not a pair of equal values; only the inner faces beside the stitches match (one pip each). The subject leaves faces free. Two-dice look-alikes: C80, C84, C143, C144, C106. 2026-11-18 (coordinator, comic W22 review): the comic r01 lined the openings in navy blue, which reads as blue die faces at card size. 2026-11-18 (coordinator, check of the stale sancai images): the sancai r01 glazed the openings amber; styleCues.sancai added. 2026-11-19 (coordinator, glass W22 review): the glass r01 (stale) openings are violet glass and read as pale violet faces at card size. styleCues.glass added.",
       "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c27.png",
       "pictureSha256": "56b4904033149b7d0001beea253a4e8606c4c976033cb049d5052baf95b6d243",
       "subject": "two hollow die-shaped sleeves joined side by side by thick laced stitches between them, together forming one bow-tie shape, short strokes above and below",
       "styleCues": {
         "sancai": [
           "in this style the open ends of the sleeves are deep dark-brown holes, as dark as the pips, never amber, honey, green or cobalt glaze (amber is this style's gold and would read as gold faces)"
+        ],
+        "glass": [
+          "in this style the open ends of the sleeves are near-black holes, never coloured glass (violet, blue or red openings read as coloured die faces)"
         ]
       }
     },
@@ -1154,10 +1168,15 @@
         "one red fin and one blue fin"
       ],
       "mainObject": "red-blue weather vane",
-      "notes": "Die pips are dark in the default; the fins carry the colour cue.",
+      "notes": "Die pips are dark in the default; the fins carry the colour cue. 2026-11-19 (coordinator, glass W22 review): the glass r01 has a semi-transparent grey field over 57 % of the canvas, a grey square on dark felt. styleCues.glass added.",
       "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c45.png",
       "pictureSha256": "f3f98d20374f7ac0de6b869c54d386019d4fae130faa26bd93756575ab7e02e4",
-      "subject": "a weather vane mounted on top of a die, its arm carrying one red fin and one blue fin, small curved wind strokes in red and blue around it"
+      "subject": "a weather vane mounted on top of a die, its arm carrying one red fin and one blue fin, small curved wind strokes in red and blue around it",
+      "styleCues": {
+        "glass": [
+          "in this style the background stays fully transparent: no mottled grey field, smoke, haze or glow anywhere around the subject"
+        ]
+      }
     },
     "C46": {
       "conflicts": [],
@@ -1197,10 +1216,15 @@
         "higher step is empty"
       ],
       "mainObject": "die on the second step",
-      "notes": "No place numbers on the podium. Pedestal look-alikes: C10, C50, C137.",
+      "notes": "No place numbers on the podium. Pedestal look-alikes: C10, C50, C137. 2026-11-19 (coordinator, glass W22 review): the glass r01 die shows four pips on top; the card counts fives. styleCues.glass added.",
       "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c49.png",
       "pictureSha256": "5b95e8f1c2a2264f619dedc98ffa5c2f3f6fa90aafe3e769d3d9a6247ce2d7ea",
-      "subject": "a two-step winner's podium with the higher step empty and a die showing five pips on top sitting on the lower step, two ribbons hanging from its front, short strokes above"
+      "subject": "a two-step winner's podium with the higher step empty and a die showing five pips on top sitting on the lower step, two ribbons hanging from its front, short strokes above",
+      "styleCues": {
+        "glass": [
+          "in this style the top face of the die on the lower step clearly shows five pips: four corners and a centre pip"
+        ]
+      }
     },
     "C50": {
       "conflicts": [],
@@ -1461,13 +1485,16 @@
         "spring compressed under the die (stored power)"
       ],
       "mainObject": "die on a compressed spring",
-      "notes": "Look-alike C05 (wind-up box with a key lifting a die). 2026-11-18 (coordinator, deco W22 review): styleCues.deco added after the deco r01 review.",
+      "notes": "Look-alike C05 (wind-up box with a key lifting a die). 2026-11-18 (coordinator, deco W22 review): styleCues.deco added after the deco r01 review. 2026-11-19 (coordinator, glass W22 review): the glass r01 spring is a stack of gold discs that reads as coins. styleCues.glass added.",
       "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c72.png",
       "pictureSha256": "ec279fe697046206e085a6f49c00961ead3b2e055afa386ddf7fa9dd58242eb7",
       "subject": "a die resting on a tightly compressed coil spring that stands on a heavy base, short strokes on both sides",
       "styleCues": {
         "deco": [
           "in this style the spring is a coil of dark steel wire, clearly a spring, never a stack of gold rings (that reads as coins)"
+        ],
+        "glass": [
+          "in this style the spring is a coil of dark steel wire, clearly a spring, never a stack of gold rings or discs (that reads as coins)"
         ]
       }
     },
@@ -1592,10 +1619,15 @@
         "four dice rising like steps"
       ],
       "mainObject": "boat with stepped dice",
-      "notes": "Default tops read one, two, three, four; keep if the style can, never as digits. Weak mismatch (not a conflict): a straight needs five dice unless C29 is held. Boat look-alike C08 (one die, an oar, empty hull).",
+      "notes": "Default tops read one, two, three, four; keep if the style can, never as digits. Weak mismatch (not a conflict): a straight needs five dice unless C29 is held. Boat look-alike C08 (one die, an oar, empty hull). 2026-11-19 (coordinator, glass W22 review): the glass r01 dice have cobalt and navy side faces with white pips and read as blue-sided. styleCues.glass added.",
       "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_c83.png",
       "pictureSha256": "8991003046e88d5476c32f507fd560d1795ac17463ab4f31a3d987744534a2d4",
-      "subject": "a small boat carrying four dice that rise like steps from the front to the back, a bamboo pole planted at the stern, water ripples and a splash around it"
+      "subject": "a small boat carrying four dice that rise like steps from the front to the back, a bamboo pole planted at the stern, water ripples and a splash around it",
+      "styleCues": {
+        "glass": [
+          "in this style all four dice are marble-white on every face with dark pips, their shaded sides pale grey, never cobalt, navy or blue glass (blue means a blue die)"
+        ]
+      }
     },
     "C84": {
       "conflicts": [],
@@ -1980,10 +2012,15 @@
         "one more card slot added at the end: four cards on the original stand and a fifth on a separate extension block bolted on at the right end, visibly offset from the stand"
       ],
       "mainObject": "card stand with an extension",
-      "notes": "Cards blank. Look-alike O08 (rack with a new slot bolted on by a wrench). 2026-11-18 (coordinator, Swiss W22 review): the Swiss r01 extension was only a seam and five equal cards stood level, so the added slot no longer read.",
+      "notes": "Cards blank. Look-alike O08 (rack with a new slot bolted on by a wrench). 2026-11-18 (coordinator, Swiss W22 review): the Swiss r01 extension was only a seam and five equal cards stood level, so the added slot no longer read. 2026-11-19 (coordinator, glass W22 review): the glass r01 extension is level with the stand; at 128 px it reads as five equal cards. styleCues.glass added.",
       "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_o05.png",
       "pictureSha256": "3fda040b236d6694ae9115c7981009f81590040b096308d251adcb7711909f04",
-      "subject": "a card display stand with blank cards standing in a row of clips, one more clip and card on a newly added extension at its end"
+      "subject": "a card display stand with blank cards standing in a row of clips, one more clip and card on a newly added extension at its end",
+      "styleCues": {
+        "glass": [
+          "in this style the extension block at the right end is clearly lower and narrower than the main stand, as in the default, so the fifth slot reads as added at card size"
+        ]
+      }
     },
     "O06": {
       "conflicts": [],
@@ -2060,10 +2097,15 @@
         "the polished face keeps the die's own cream colour with white glints, never yellow or gold (gold faces are a separate mechanic)"
       ],
       "mainObject": "cloth polishing a die face",
-      "notes": "Look-alikes: C125 (cloth plus an open tin of polish), C91 (cloth plus sanding block). U01 has the cloth only. 2026-11-18 (coordinator, comic W22 review): the comic r01 painted the polished face yellow-gold, which reads as a gilded face (C117, U06).",
+      "notes": "Look-alikes: C125 (cloth plus an open tin of polish), C91 (cloth plus sanding block). U01 has the cloth only. 2026-11-18 (coordinator, comic W22 review): the comic r01 painted the polished face yellow-gold, which reads as a gilded face (C117, U06). 2026-11-19 (coordinator, glass W22 review): the glass r01 (stale) glazed the polished face amber-gold and left a faint haze reaching the top edge. styleCues.glass added.",
       "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_u01.png",
       "pictureSha256": "e611b9f74bb32fc743f7815814ea5de4e31d2208423a8b0e15c7a18603e96c2f",
-      "subject": "a cloth draped over a die, polishing one face to a shine, two sparkles above it"
+      "subject": "a cloth draped over a die, polishing one face to a shine, two sparkles above it",
+      "styleCues": {
+        "glass": [
+          "in this style the polished face stays marble-white with white glints, never amber or gold glass; the background stays fully transparent: no mottled grey field, smoke, haze or glow anywhere around the subject"
+        ]
+      }
     },
     "U02": {
       "conflicts": [],
@@ -2071,13 +2113,16 @@
         "only one face roughened"
       ],
       "mainObject": "sanding block on a die",
-      "notes": "Part of the 'tool on the die's top face' family (U03, U04, U08, U09, U10, I11). U02 keeps the toothed block and grit. 2026-11-18 (coordinator, deco W22 review): styleCues.deco added after the deco r01 review.",
+      "notes": "Part of the 'tool on the die's top face' family (U03, U04, U08, U09, U10, I11). U02 keeps the toothed block and grit. 2026-11-18 (coordinator, deco W22 review): styleCues.deco added after the deco r01 review. 2026-11-19 (coordinator, glass W22 review): the glass r01 grit is gold stipple, so the face looks gold-dusted. styleCues.glass added.",
       "picture": "DicePrototype/Assets/Art/Art071/Illustrations/illustration_u02.png",
       "pictureSha256": "92b648b0f215962f63ca3ac86ee664a2daeb99d3cb7b406716b2ce3141b1f151",
       "subject": "a sanding block with a coarse toothed underside pressed onto the top face of a die, grit specks on that face only",
       "styleCues": {
         "deco": [
           "in this style the worked face of the die stays ivory with dark pips; only the tool may be gold; the grit is dark, never gold specks"
+        ],
+        "glass": [
+          "in this style the worked face of the die stays marble-white with dark pips; the grit is dark, never gold specks or stipple"
         ]
       }
     },
