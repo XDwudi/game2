@@ -53,6 +53,12 @@ namespace DiceCraft.Tests
     /// (W20Xb wrote to w20xb), label from DICECRAFT_W20XB_REVIEW_LABEL (default suite-&lt;UTC time&gt;), with checks.txt and the
     /// measurements as JSON. The test asserts that every capture and measurement was made; the measurements are for review,
     /// not judged here.
+    /// W20Z2 (2026-11-19): a filtered re-run for a later task, set by environment variables that a suite run leaves unset
+    /// (then the walk is the W20Z one): DICECRAFT_W20XB_REVIEW_THEMES, the styles (comma list, "default" allowed; default
+    /// sancai,comic,deco,glass); DICECRAFT_W20XB_REVIEW_SCREENS, the parts of the walk (comma list of capture numbers 01-15
+    /// and 20 for the settings pages, 30 for the gallery, "hints" for (1), "compact" for (3); default all); and
+    /// DICECRAFT_W20XB_REVIEW_ROOT, the output folder under artifacts/cache/v11 (default w20z). The checks at the end ask only
+    /// for what the filter ran.
     /// </summary>
     public sealed partial class GameplayPlayModeTests
     {
@@ -61,11 +67,24 @@ namespace DiceCraft.Tests
         private static readonly int[] ReviewText20Xb={100,150};
         private string reviewDir20Xb;
         private readonly List<string> reviewFiles20Xb=new List<string>();
+        /// <summary>W20Z2: the styles of this run (DICECRAFT_W20XB_REVIEW_THEMES, else ReviewThemes20Xb).</summary>
+        private string[] reviewThemes20Xb=ReviewThemes20Xb;
+        /// <summary>W20Z2: the parts of the walk this run makes (DICECRAFT_W20XB_REVIEW_SCREENS); null runs them all.</summary>
+        private HashSet<string> reviewScreens20Z2;
+        private bool ReviewWants20Z2(string part)=>reviewScreens20Z2==null||reviewScreens20Z2.Contains(part);
+        private static string[] ReviewList20Z2(string variable)
+        {
+            string value=Environment.GetEnvironmentVariable(variable);
+            if(string.IsNullOrWhiteSpace(value))return null;
+            var parts=value.Split(',').Select(p=>p.Trim()).Where(p=>p.Length>0).ToArray();
+            return parts.Length>0?parts:null;
+        }
 
-        /// <summary>W20Z: artifacts/cache/v11/w20z/&lt;size&gt;/&lt;name&gt;.</summary>
+        /// <summary>W20Z: artifacts/cache/v11/w20z/&lt;size&gt;/&lt;name&gt; (W20Z2: the folder w20z is DICECRAFT_W20XB_REVIEW_ROOT when set).</summary>
         private static string W20ZOutput(string name)
         {
-            string dir=Path.GetFullPath(Path.Combine(Application.dataPath,"..","..","artifacts","cache","v11","w20z",Screen.width+"x"+Screen.height,name));
+            string root=Environment.GetEnvironmentVariable("DICECRAFT_W20XB_REVIEW_ROOT");if(string.IsNullOrWhiteSpace(root))root="w20z";
+            string dir=Path.GetFullPath(Path.Combine(Application.dataPath,"..","..","artifacts","cache","v11",root.Trim(),Screen.width+"x"+Screen.height,name));
             Directory.CreateDirectory(dir);return dir;
         }
         private IEnumerator ReviewShot20Xb(string theme,int text,string screen,Transform root=null)
@@ -334,7 +353,7 @@ namespace DiceCraft.Tests
 
         private IEnumerator ReviewPlayState20Xb(string state,Action apply,bool roll,string secondary=null)
         {
-            foreach(string theme in ReviewThemes20Xb)foreach(int text in ReviewText20Xb)
+            foreach(string theme in reviewThemes20Xb)foreach(int text in ReviewText20Xb)
             {
                 yield return ReviewStyle20Xb(theme,text);
                 apply();yield return W11Settle();
@@ -362,7 +381,12 @@ namespace DiceCraft.Tests
         [UnityTest, Timeout(900000)] public IEnumerator PLAY_W20XB_E_ReviewCapturesOfSancaiComicDecoAndGlass()
         {
             Assert.That(Screen.width==1920&&Screen.height==1080||Screen.width==1280&&Screen.height==720,Is.True,"Capture at actual 1920x1080 or 1280x720.");
-            foreach(string theme in ReviewThemes20Xb)Assert.That(ThemeRegistry.Find(theme),Is.Not.Null,theme);
+            // W20Z2: a filtered run (styles, parts of the walk) when the environment asks for one; a suite run walks it all.
+            reviewThemes20Xb=ReviewList20Z2("DICECRAFT_W20XB_REVIEW_THEMES")??ReviewThemes20Xb;
+            var screens=ReviewList20Z2("DICECRAFT_W20XB_REVIEW_SCREENS");reviewScreens20Z2=screens!=null?new HashSet<string>(screens,StringComparer.Ordinal):null;
+            foreach(string theme in reviewThemes20Xb)Assert.That(ThemeRegistry.Find(theme),Is.Not.Null,theme);
+            // The gallery and the compact cards draw default first, then the styles.
+            var withDefault=new[]{"default"}.Concat(reviewThemes20Xb.Where(t=>t!="default")).ToArray();
             string label=Environment.GetEnvironmentVariable("DICECRAFT_W20XB_REVIEW_LABEL");
             if(string.IsNullOrWhiteSpace(label))label="suite-"+DateTime.UtcNow.ToString("yyyyMMdd-HHmmss");
             reviewDir20Xb=W20ZOutput(Path.Combine("review",label));reviewFiles20Xb.Clear();buttonCentres20Xb.Clear();reviewFailures20Xb.Clear();
@@ -375,11 +399,16 @@ namespace DiceCraft.Tests
             try
             {
                 PlayerPrefs.SetInt(ThemeRegistry.PreviewKey,1);GameApp.CleanCapture11=true;
-                // (6) The watch itself: a name the style has no sprite for is recorded (then forgotten).
-                app.ApplyTheme11(ReviewThemes20Xb[0]);WatchTemplates20Z(ReviewThemes20Xb[0]);Assert.That(UiKit.Template("w20z-no-such-sprite"),Is.Null);
-                Assert.That(fallbacks20Z[ReviewThemes20Xb[0]].Remove("w20z-no-such-sprite"),Is.True,"The watch records a name the style has no sprite for.");
+                // (6) The watch itself: a name the style has no sprite for is recorded (then forgotten). Default has no style
+                // lookup to watch, so the first other style of the run is used.
+                string watched=reviewThemes20Xb.FirstOrDefault(t=>t!="default");
+                if(watched!=null)
+                {
+                    app.ApplyTheme11(watched);WatchTemplates20Z(watched);Assert.That(UiKit.Template("w20z-no-such-sprite"),Is.Null);
+                    Assert.That(fallbacks20Z[watched].Remove("w20z-no-such-sprite"),Is.True,"The watch records a name the style has no sprite for.");
+                }
                 // The settings page, from the menu: the first tab and the 画面 tab.
-                foreach(string theme in ReviewThemes20Xb)foreach(int text in ReviewText20Xb)
+                if(ReviewWants20Z2("20"))foreach(string theme in reviewThemes20Xb)foreach(int text in ReviewText20Xb)
                 {
                     yield return ReviewStyle20Xb(theme,text);
                     Click("MenuSettings");yield return Art073Settle(.3f);yield return ReviewShot20Xb(theme,text,"20-settings");
@@ -388,27 +417,32 @@ namespace DiceCraft.Tests
                 }
                 // Stage select.
                 StartRun("72005");Assert.That(app.Session.State.phase,Is.EqualTo("StagePreview"));
-                foreach(string theme in ReviewThemes20Xb)foreach(int text in ReviewText20Xb){yield return ReviewStyle20Xb(theme,text);yield return ReviewShot20Xb(theme,text,"01-select");expectedShots++;}
+                if(ReviewWants20Z2("01"))foreach(string theme in reviewThemes20Xb)foreach(int text in ReviewText20Xb){yield return ReviewStyle20Xb(theme,text);yield return ReviewShot20Xb(theme,text,"01-select");expectedShots++;}
                 // The play screen. W20Z: the action row's secondary (取消选择, 重掷) measured as a buttonSecondary face on the felt.
-                yield return ReviewPlayState20Xb("02-play-selecting",()=>{W11Apply(W11Scene(W11Cards3,new[]{4,4,6,2,4},"bbbrb",2,true));app.Session.TogglePending(app.Session.State.dice[4].dieId);app.Refresh();},false,"Clear");
-                yield return ReviewPlayState20Xb("03-play-rolling",()=>W11Apply(W11Scene(W11Cards3,new[]{1,2,3,4,5},"bbbbb",0,false)),true);
-                yield return ReviewPlayState20Xb("04-play-boss",()=>W11Apply(W11Scene(new[]{"C39","C139","C34","C56","C08"},new[]{1,2,3,4,5},"bbrbb",0,false,stageIndex:8,modifier:"B02",target:"13500",score:"0",items:2)),false);
-                yield return ReviewPlayState20Xb("05-play-pressure",()=>W11Apply(W11Scene(new[]{"C39","C46","C50","C08"},new[]{5,5,3,5,1},"bbrbr",2,true,stageIndex:4,risk:true,target:"3000",score:"1240")),false,"Roll");
-                yield return ReviewPlayState20Xb("06-play-target-reached",()=>{W11Apply(W11Scene(W11Cards3,new[]{4,4,6,2,4},"bbbrb",2,true,target:"3000",score:"3240"));Assert.That(app.Session.State.stage.qualified,Is.True,"The target is reached.");},false);
-                yield return ReviewPlayState20Xb("07-play-ten-cards",()=>W11Apply(W13TenCards()),false);
-                expectedShots+=6*ReviewThemes20Xb.Length*ReviewText20Xb.Length;
-                // Over the ten-card play screen: a card's details and the handbook.
-                string firstCard=app.Session.State.controllers[0].instanceId;
-                foreach(string theme in ReviewThemes20Xb)foreach(int text in ReviewText20Xb)
+                int playStates=0;
+                if(ReviewWants20Z2("02")){playStates++;yield return ReviewPlayState20Xb("02-play-selecting",()=>{W11Apply(W11Scene(W11Cards3,new[]{4,4,6,2,4},"bbbrb",2,true));app.Session.TogglePending(app.Session.State.dice[4].dieId);app.Refresh();},false,"Clear");}
+                if(ReviewWants20Z2("03")){playStates++;yield return ReviewPlayState20Xb("03-play-rolling",()=>W11Apply(W11Scene(W11Cards3,new[]{1,2,3,4,5},"bbbbb",0,false)),true);}
+                if(ReviewWants20Z2("04")){playStates++;yield return ReviewPlayState20Xb("04-play-boss",()=>W11Apply(W11Scene(new[]{"C39","C139","C34","C56","C08"},new[]{1,2,3,4,5},"bbrbb",0,false,stageIndex:8,modifier:"B02",target:"13500",score:"0",items:2)),false);}
+                if(ReviewWants20Z2("05")){playStates++;yield return ReviewPlayState20Xb("05-play-pressure",()=>W11Apply(W11Scene(new[]{"C39","C46","C50","C08"},new[]{5,5,3,5,1},"bbrbr",2,true,stageIndex:4,risk:true,target:"3000",score:"1240")),false,"Roll");}
+                if(ReviewWants20Z2("06")){playStates++;yield return ReviewPlayState20Xb("06-play-target-reached",()=>{W11Apply(W11Scene(W11Cards3,new[]{4,4,6,2,4},"bbbrb",2,true,target:"3000",score:"3240"));Assert.That(app.Session.State.stage.qualified,Is.True,"The target is reached.");},false);}
+                if(ReviewWants20Z2("07")){playStates++;yield return ReviewPlayState20Xb("07-play-ten-cards",()=>W11Apply(W13TenCards()),false);}
+                expectedShots+=playStates*reviewThemes20Xb.Length*ReviewText20Xb.Length;
+                // Over the ten-card play screen: a card's details and the handbook (W20Z2: the ten cards are dealt here when the
+                // filter left 07 out).
+                if(ReviewWants20Z2("08")||ReviewWants20Z2("09"))
                 {
-                    yield return ReviewStyle20Xb(theme,text);
-                    Click("Controller_"+firstCard);yield return Art073Settle(.3f);yield return ReviewShot20Xb(theme,text,"08-card-details");IdentityClose20X();
-                    app.ShowHandbook();yield return Art073Settle(.3f);yield return ReviewShot20Xb(theme,text,"09-handbook");IdentityClose20X();
-                    expectedShots+=2;
+                    if(!ReviewWants20Z2("07")){W11Apply(W13TenCards());yield return W11Settle();}
+                    string firstCard=app.Session.State.controllers[0].instanceId;
+                    foreach(string theme in reviewThemes20Xb)foreach(int text in ReviewText20Xb)
+                    {
+                        yield return ReviewStyle20Xb(theme,text);
+                        if(ReviewWants20Z2("08")){Click("Controller_"+firstCard);yield return Art073Settle(.3f);yield return ReviewShot20Xb(theme,text,"08-card-details");IdentityClose20X();expectedShots++;}
+                        if(ReviewWants20Z2("09")){app.ShowHandbook();yield return Art073Settle(.3f);yield return ReviewShot20Xb(theme,text,"09-handbook");IdentityClose20X();expectedShots++;}
+                    }
                 }
                 // W20Z: the busy play screen. After a scored hand (so 上一手明细 is drawn) the app is made busy the way a throw makes
                 // it (Session.Busy and a redraw, as PLAY_W20Y2_01): 查看骰子 and 上一手明细 disabled, 跳过演出 the row's action.
-                foreach(string theme in ReviewThemes20Xb)foreach(int text in ReviewText20Xb)
+                if(ReviewWants20Z2("13"))foreach(string theme in reviewThemes20Xb)foreach(int text in ReviewText20Xb)
                 {
                     yield return ReviewStyle20Xb(theme,text);
                     W11Apply(IdentityWinningHand20X(3));yield return W11Settle();
@@ -431,7 +465,7 @@ namespace DiceCraft.Tests
                 }
                 // W20Z: a boss stage whose modifier enters the formula, B26 慢热 (the stage's first hand x0.5), with a blue and a red
                 // four locked and no cards: 基础分 x 一对 x2 x 慢热 x0.5, the boss factor right after the red hand factor.
-                foreach(string theme in ReviewThemes20Xb)foreach(int text in ReviewText20Xb)
+                if(ReviewWants20Z2("14"))foreach(string theme in reviewThemes20Xb)foreach(int text in ReviewText20Xb)
                 {
                     yield return ReviewStyle20Xb(theme,text);
                     W11Apply(W11Scene(new string[0],new[]{4,4,6,2,5},"brbbb",2,true,stageIndex:5,modifier:"B26",target:"4000",score:"0"));yield return W11Settle();
@@ -440,7 +474,7 @@ namespace DiceCraft.Tests
                     yield return W11bContrastPass(theme+" "+text+"% 14-play-boss-formula",contrastReport20Z,contrastFailures20Z);
                 }
                 // (1) Every action-row hint in the real label, on the selecting screen.
-                foreach(string theme in ReviewThemes20Xb)foreach(int text in ReviewText20Xb)
+                if(ReviewWants20Z2("hints"))foreach(string theme in reviewThemes20Xb)foreach(int text in ReviewText20Xb)
                 {
                     yield return ReviewStyle20Xb(theme,text);
                     W11Apply(W11Scene(W11Cards3,new[]{4,4,6,2,4},"bbbrb",2,true));yield return W11Settle();
@@ -471,7 +505,7 @@ namespace DiceCraft.Tests
                     finally{hint.text=original;hint.ForceMeshUpdate();}
                 }
                 // The stage settlement.
-                foreach(string theme in ReviewThemes20Xb)foreach(int text in ReviewText20Xb)
+                if(ReviewWants20Z2("10"))foreach(string theme in reviewThemes20Xb)foreach(int text in ReviewText20Xb)
                 {
                     yield return ReviewStyle20Xb(theme,text);yield return IdentityEndStage20X(3);yield return Art073Settle(.45f);
                     yield return ReviewShot20Xb(theme,text,"10-settlement");expectedShots++;
@@ -479,47 +513,56 @@ namespace DiceCraft.Tests
                 }
                 // The full shop. W20Z: its second-level buttons: the disabled price buttons on the paper cards (卡牌已满 10 张,
                 // 道具栏已满), a goods row's price button, the top bar's 查看本章 / 手册 / 设置, the shelf's 刷新.
-                yield return W14Load(W14ShopFixture(true));
-                var fullOffers=app.Session.State.shop.offers.Where(o=>string.IsNullOrEmpty(o.groupId)).ToArray();
-                string fullCard=fullOffers.First(o=>o.category=="controller").offerId,fullItem=fullOffers.First(o=>o.category=="consumable").offerId;
-                foreach(string theme in ReviewThemes20Xb)foreach(int text in ReviewText20Xb)
+                if(ReviewWants20Z2("11"))
                 {
-                    yield return ReviewStyle20Xb(theme,text);yield return ReviewShot20Xb(theme,text,"11-shop-full");expectedShots++;
-                    yield return MeasureSecondary20Z(theme,text,"full shop","card price","Buy_"+fullCard);
-                    yield return MeasureSecondary20Z(theme,text,"full shop","item price","Buy_"+fullItem);
-                    string goods=fullOffers.Where(o=>o.category=="hand_upgrade"||o.category=="color_upgrade"||o.category=="service"||o.category=="new_die"||o.category=="die_upgrade")
-                        .Select(o=>o.offerId).FirstOrDefault(id=>HasActive("Buy_"+id)&&Button("Buy_"+id).interactable);
-                    if(goods!=null)yield return MeasureSecondary20Z(theme,text,"full shop","goods row price","Buy_"+goods);
-                    yield return MeasureSecondary20Z(theme,text,"full shop","查看本章 (top bar)","ViewCycle");
-                    yield return MeasureSecondary20Z(theme,text,"full shop","手册 (top bar)","Handbook");
-                    yield return MeasureSecondary20Z(theme,text,"full shop","设置 (top bar)","Pause");
-                    yield return MeasureSecondary20Z(theme,text,"full shop","刷新 (shelf)","RefreshControllers");
-                    yield return W11bContrastPass(theme+" "+text+"% 11-shop-full",contrastReport20Z,contrastFailures20Z);
+                    yield return W14Load(W14ShopFixture(true));
+                    var fullOffers=app.Session.State.shop.offers.Where(o=>string.IsNullOrEmpty(o.groupId)).ToArray();
+                    string fullCard=fullOffers.First(o=>o.category=="controller").offerId,fullItem=fullOffers.First(o=>o.category=="consumable").offerId;
+                    foreach(string theme in reviewThemes20Xb)foreach(int text in ReviewText20Xb)
+                    {
+                        yield return ReviewStyle20Xb(theme,text);yield return ReviewShot20Xb(theme,text,"11-shop-full");expectedShots++;
+                        yield return MeasureSecondary20Z(theme,text,"full shop","card price","Buy_"+fullCard);
+                        yield return MeasureSecondary20Z(theme,text,"full shop","item price","Buy_"+fullItem);
+                        string goods=fullOffers.Where(o=>o.category=="hand_upgrade"||o.category=="color_upgrade"||o.category=="service"||o.category=="new_die"||o.category=="die_upgrade")
+                            .Select(o=>o.offerId).FirstOrDefault(id=>HasActive("Buy_"+id)&&Button("Buy_"+id).interactable);
+                        if(goods!=null)yield return MeasureSecondary20Z(theme,text,"full shop","goods row price","Buy_"+goods);
+                        yield return MeasureSecondary20Z(theme,text,"full shop","查看本章 (top bar)","ViewCycle");
+                        yield return MeasureSecondary20Z(theme,text,"full shop","手册 (top bar)","Handbook");
+                        yield return MeasureSecondary20Z(theme,text,"full shop","设置 (top bar)","Pause");
+                        yield return MeasureSecondary20Z(theme,text,"full shop","刷新 (shelf)","RefreshControllers");
+                        yield return W11bContrastPass(theme+" "+text+"% 11-shop-full",contrastReport20Z,contrastFailures20Z);
+                    }
                 }
                 // W20Z: the common shop, whose card and item price buttons can be used (the enabled half of the price pairs).
-                yield return W14Load(W14ShopFixture(false));
-                var commonOffers=app.Session.State.shop.offers.Where(o=>string.IsNullOrEmpty(o.groupId)).ToArray();
-                string commonCard=commonOffers.First(o=>o.category=="controller").offerId,commonItem=commonOffers.FirstOrDefault(o=>o.category=="consumable")?.offerId;
-                foreach(string theme in ReviewThemes20Xb)foreach(int text in ReviewText20Xb)
+                if(ReviewWants20Z2("15"))
                 {
-                    yield return ReviewStyle20Xb(theme,text);yield return ReviewShot20Xb(theme,text,"15-shop-common");expectedShots++;
-                    yield return MeasureSecondary20Z(theme,text,"common shop","card price","Buy_"+commonCard);
-                    if(commonItem!=null&&HasActive("Buy_"+commonItem))yield return MeasureSecondary20Z(theme,text,"common shop","item price","Buy_"+commonItem);
-                    yield return W11bContrastPass(theme+" "+text+"% 15-shop-common",contrastReport20Z,contrastFailures20Z);
+                    yield return W14Load(W14ShopFixture(false));
+                    var commonOffers=app.Session.State.shop.offers.Where(o=>string.IsNullOrEmpty(o.groupId)).ToArray();
+                    string commonCard=commonOffers.First(o=>o.category=="controller").offerId,commonItem=commonOffers.FirstOrDefault(o=>o.category=="consumable")?.offerId;
+                    foreach(string theme in reviewThemes20Xb)foreach(int text in ReviewText20Xb)
+                    {
+                        yield return ReviewStyle20Xb(theme,text);yield return ReviewShot20Xb(theme,text,"15-shop-common");expectedShots++;
+                        yield return MeasureSecondary20Z(theme,text,"common shop","card price","Buy_"+commonCard);
+                        if(commonItem!=null&&HasActive("Buy_"+commonItem))yield return MeasureSecondary20Z(theme,text,"common shop","item price","Buy_"+commonItem);
+                        yield return W11bContrastPass(theme+" "+text+"% 15-shop-common",contrastReport20Z,contrastFailures20Z);
+                    }
                 }
                 // The face pick, S2 (choose a face).
-                var pick=ShopBoundaryFixture();pick.shop.offers.Clear();AddBoundaryOffer(pick,"pick-gold","die_upgrade","U06");
-                yield return W14Load(pick);
-                string die=app.Session.State.dice.OrderBy(d=>d.createdSerial).First().dieId;
-                foreach(string theme in ReviewThemes20Xb)foreach(int text in ReviewText20Xb)
+                if(ReviewWants20Z2("12"))
                 {
-                    yield return ReviewStyle20Xb(theme,text);
-                    Click("Buy_pick-gold");yield return Art073Settle(.3f);Click("Target_"+die);yield return Art073Settle(.3f);
-                    yield return ReviewShot20Xb(theme,text,"12-facepick-s2");expectedShots++;
-                    Click("CancelFacePick14");yield return null;
+                    var pick=ShopBoundaryFixture();pick.shop.offers.Clear();AddBoundaryOffer(pick,"pick-gold","die_upgrade","U06");
+                    yield return W14Load(pick);
+                    string die=app.Session.State.dice.OrderBy(d=>d.createdSerial).First().dieId;
+                    foreach(string theme in reviewThemes20Xb)foreach(int text in ReviewText20Xb)
+                    {
+                        yield return ReviewStyle20Xb(theme,text);
+                        Click("Buy_pick-gold");yield return Art073Settle(.3f);Click("Target_"+die);yield return Art073Settle(.3f);
+                        yield return ReviewShot20Xb(theme,text,"12-facepick-s2");expectedShots++;
+                        Click("CancelFacePick14");yield return null;
+                    }
                 }
                 // The W13 card-gallery pages, in default too.
-                foreach(string theme in new[]{"default"}.Concat(ReviewThemes20Xb))foreach(int text in ReviewText20Xb)
+                if(ReviewWants20Z2("30"))foreach(string theme in withDefault)foreach(int text in ReviewText20Xb)
                 {
                     yield return ReviewStyle20Xb(theme,text);
                     for(int page=0;page<GameApp.CardGalleryPages13;page++)
@@ -536,7 +579,7 @@ namespace DiceCraft.Tests
                 var sizes=new[]{("mini 280x117",100,280f,117f),("mini 280x117",150,280f,117f),("text card 280x244",150,280f,244f)};
                 int passes=0;
                 bool Shown20Z(UnityEngine.UI.Button drawnCard){var body=drawnCard.transform.Find("ShortText11");return body!=null&&body.gameObject.activeSelf;}
-                foreach(string theme in new[]{"default"}.Concat(ReviewThemes20Xb))
+                if(ReviewWants20Z2("compact"))foreach(string theme in withDefault)
                 {
                     app.ApplyTheme11(theme);WatchTemplates20Z(theme);
                     foreach(var (size,text,w,h) in sizes)
@@ -583,7 +626,8 @@ namespace DiceCraft.Tests
                 if(hadPreview)PlayerPrefs.SetInt(ThemeRegistry.PreviewKey,previewValue);else PlayerPrefs.DeleteKey(ThemeRegistry.PreviewKey);
                 PlayerPrefs.SetString(ThemeRegistry.PreferenceKey,savedTheme);PlayerPrefs.Save();
                 // ---- The report.
-                checks.Add("W20Xb E / W20Z review captures, "+Screen.width+"x"+Screen.height+", label "+label+", HEAD "+IdentityHead20X()+", "+reviewFiles20Xb.Count+" captures, styles "+string.Join(", ",ReviewThemes20Xb));
+                checks.Add("W20Xb E / W20Z review captures, "+Screen.width+"x"+Screen.height+", label "+label+", HEAD "+IdentityHead20X()+", "+reviewFiles20Xb.Count+" captures, styles "+string.Join(", ",reviewThemes20Xb)+
+                    (reviewScreens20Z2==null?"":", parts "+string.Join(",",reviewScreens20Z2.OrderBy(s=>s,StringComparer.Ordinal))+" (W20Z2 filter)"));
                 checks.Add("");checks.Add("(1) Action-row hints against the hint panel's inner frame (canvas units; positive = inside; the glyph boxes of TMP):");
                 foreach(var h in hints)
                     checks.Add("  "+h.theme+" "+h.textPercent+"% '"+h.text+"' lines "+h.lines+" size "+F20Xb(h.fontSize)+": left "+F20Xb(h.left)+", right "+F20Xb(h.right)+", top "+F20Xb(h.top)+", bottom "+F20Xb(h.bottom)+(h.lines>=2?"; last line: bottom "+F20Xb(h.lastLineBottom)+", right "+F20Xb(h.lastLineRight):"")+(h.inside?"":"  OUTSIDE"));
@@ -629,7 +673,7 @@ namespace DiceCraft.Tests
                     checks.Add("  "+file+" ("+(textCounts20Z.TryGetValue(file,out int n)?n:0)+"): "+(issues.Count==0?"none":string.Join("; ",issues.Select(i=>i.kind+" "+i.path+" '"+i.text+"'"+(i.kind=="outside its frame"?" by "+F20Xb(i.outside)+" px on "+i.surface:"")))));
                 }
                 checks.Add("");checks.Add("(8) W11b label pass: "+contrastReport20Z.Count+" labels measured, "+contrastFailures20Z.Count+" under their minimum:");
-                foreach(string theme in ReviewThemes20Xb)checks.Add("  "+theme+": "+contrastReport20Z.Count(l=>l.StartsWith(theme+" ",StringComparison.Ordinal))+" labels, "+contrastFailures20Z.Count(l=>l.StartsWith(theme+" ",StringComparison.Ordinal))+" under");
+                foreach(string theme in reviewThemes20Xb)checks.Add("  "+theme+": "+contrastReport20Z.Count(l=>l.StartsWith(theme+" ",StringComparison.Ordinal))+" labels, "+contrastFailures20Z.Count(l=>l.StartsWith(theme+" ",StringComparison.Ordinal))+" under");
                 foreach(string line in contrastFailures20Z)checks.Add("  UNDER "+line);
                 File.WriteAllLines(Path.Combine(reviewDir20Xb,"checks.txt"),checks.Concat(new[]{"","PROBLEMS "+reviewFailures20Xb.Count}).Concat(reviewFailures20Xb));
                 File.WriteAllText(Path.Combine(reviewDir20Xb,"hints.json"),"["+string.Join(",\n",hints.Select(h=>JsonUtility.ToJson(h)))+"]\n");
@@ -643,18 +687,24 @@ namespace DiceCraft.Tests
                 File.WriteAllText(Path.Combine(reviewDir20Xb,"manifest.json"),JsonUtility.ToJson(manifest,true));
             }
             foreach(string line in checks.Take(12))TestContext.WriteLine(line);
+            // W20Z2: a filtered run is held to what it ran (without a filter every part runs and every check applies).
+            Assert.That(expectedShots,Is.GreaterThan(0),"The run made captures.");
             Assert.That(reviewFiles20Xb.Count,Is.EqualTo(expectedShots),"Every capture was made.");
-            Assert.That(hints.Count,Is.EqualTo(W11bHints.Length*ReviewThemes20Xb.Length*ReviewText20Xb.Length),"Every hint was measured.");
-            Assert.That(compact.Count,Is.EqualTo(3*(1+ReviewThemes20Xb.Length)),"Every compact size in default and the styles.");
-            Assert.That(compactCarry20Z.Count,Is.EqualTo(1+ReviewThemes20Xb.Length),"The pooled-label check in default and the styles.");
-            Assert.That(buttonCentres20Xb.Count,Is.GreaterThan(0));
-            foreach(string theme in ReviewThemes20Xb)foreach(int text in ReviewText20Xb)foreach(string role in new[]{"ViewDice","PreviousSubmission","card price"})
+            if(ReviewWants20Z2("hints"))Assert.That(hints.Count,Is.EqualTo(W11bHints.Length*reviewThemes20Xb.Length*ReviewText20Xb.Length),"Every hint was measured.");
+            if(ReviewWants20Z2("compact"))
+            {
+                Assert.That(compact.Count,Is.EqualTo(3*withDefault.Length),"Every compact size in default and the styles.");
+                Assert.That(compactCarry20Z.Count,Is.EqualTo(withDefault.Length),"The pooled-label check in default and the styles.");
+            }
+            if(new[]{"02","03","04","05","06","07"}.Any(ReviewWants20Z2))Assert.That(buttonCentres20Xb.Count,Is.GreaterThan(0));
+            var pairs=new List<string>();if(ReviewWants20Z2("13"))pairs.AddRange(new[]{"ViewDice","PreviousSubmission"});if(ReviewWants20Z2("11")&&ReviewWants20Z2("15"))pairs.Add("card price");
+            foreach(string theme in reviewThemes20Xb)foreach(int text in ReviewText20Xb)foreach(string role in pairs)
             {
                 var mine=secondaries20Z.Where(s=>s.theme==theme&&s.textPercent==text&&s.role==role).ToList();
                 Assert.That(mine.Any(s=>s.enabled)&&mine.Any(s=>!s.enabled),Is.True,theme+" "+text+"% "+role+": measured enabled and disabled.");
             }
-            Assert.That(bosses20Z.Count,Is.EqualTo(ReviewThemes20Xb.Length*ReviewText20Xb.Length),"The boss formula in every style and text size.");
-            Assert.That(contrastReport20Z.Count,Is.GreaterThan(0));
+            if(ReviewWants20Z2("14"))Assert.That(bosses20Z.Count,Is.EqualTo(reviewThemes20Xb.Length*ReviewText20Xb.Length),"The boss formula in every style and text size.");
+            if(new[]{"02","04","05","06","07","10","11","13","14","15"}.Any(ReviewWants20Z2))Assert.That(contrastReport20Z.Count,Is.GreaterThan(0));
             Assert.That(reviewFailures20Xb,Is.Empty,string.Join("\n",reviewFailures20Xb.Take(20)));
         }
     }

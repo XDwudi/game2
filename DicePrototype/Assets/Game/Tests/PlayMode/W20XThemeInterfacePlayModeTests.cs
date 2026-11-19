@@ -26,6 +26,12 @@ namespace DiceCraft.Tests
     /// tints. Reduced motion is on, so the felt draws its pictures unchanged. A frame-by-frame walk checks that the felt
     /// picture changes in the same frame as the screen between the shop and the play screen. Report:
     /// artifacts/cache/v11/w20x/&lt;size&gt;/w20x-02.txt.
+    ///
+    /// W20Z2 (2026-11-19): which styles ship a page_scene is read from the files, no longer assumed to be comic alone (deco
+    /// and glass ship one too, as THEME_SPEC §3 allows). A style has PageScene exactly when its folder holds
+    /// Table/page_scene.png, and every such style (comic, deco and glass today) goes through the real-style parts: its
+    /// tints against white and black copies of it (B), and its page_scene on the shop, the handbook over it and stage select,
+    /// its table_scene on the play screen, the handbook over it and the stage settlement (C).
     /// </summary>
     public sealed partial class GameplayPlayModeTests
     {
@@ -125,12 +131,13 @@ namespace DiceCraft.Tests
             }
             var expected=new Color32((byte)Mathf.RoundToInt(Channel(lo.r,hi.r,t0.r,t1.r,tp.r)),(byte)Mathf.RoundToInt(Channel(lo.g,hi.g,t0.g,t1.g,tp.g)),(byte)Mathf.RoundToInt(Channel(lo.b,hi.b,t0.b,t1.b,tp.b)),255);
             int delta=Math.Max(Math.Abs(expected.r-seen.r),Math.Max(Math.Abs(expected.g-seen.g),Math.Abs(expected.b-seen.b)));
-            string line=screen+" "+p.name+": tint #"+ColorUtility.ToHtmlStringRGB(tp)+", drawn "+C20X(seen)+", sprite x tint "+C20X(expected)+" (from "+C20X(lo)+" at #"+ColorUtility.ToHtmlStringRGB(t0)+" and "+C20X(hi)+" at #"+ColorUtility.ToHtmlStringRGB(t1)+"), largest channel difference "+delta;
+            // W20Z2: the line names the style it checks (the probe or a real style), now that more than one real style is read.
+            string line=screen+" ["+themes[0]+"] "+p.name+": tint #"+ColorUtility.ToHtmlStringRGB(tp)+", drawn "+C20X(seen)+", sprite x tint "+C20X(expected)+" (from "+C20X(lo)+" at #"+ColorUtility.ToHtmlStringRGB(t0)+" and "+C20X(hi)+" at #"+ColorUtility.ToHtmlStringRGB(t1)+"), largest channel difference "+delta;
             report.Add(line);if(delta>3)failures.Add(line);
             if(lo.r==hi.r&&lo.g==hi.g&&lo.b==hi.b)
             {
-                if(p.mayBeInk&&hi.r+hi.g+hi.b<=6)report.Add(screen+" "+p.name+": the sprite is ink at this point in every tint (drawn "+C20X(hi)+"); the tint value is checked, the pixel cannot show it");
-                else failures.Add(screen+" "+p.name+": the black and white styles drew the same pixel; the point does not show the tinted image");
+                if(p.mayBeInk&&hi.r+hi.g+hi.b<=6)report.Add(screen+" ["+themes[0]+"] "+p.name+": the sprite is ink at this point in every tint (drawn "+C20X(hi)+"); the tint value is checked, the pixel cannot show it");
+                else failures.Add(screen+" ["+themes[0]+"] "+p.name+": the black and white styles drew the same pixel; the point does not show the tinted image");
             }
         }
 
@@ -147,23 +154,36 @@ namespace DiceCraft.Tests
             string savedTheme=PlayerPrefs.GetString(ThemeRegistry.PreferenceKey,GameTheme.DefaultId);
             var report=new List<string>();var failures=new List<string>();
             Texture2D table=Solid20X(ProbeTable20X),page=Solid20X(ProbePage20X);
-            string[] probe={"w20x-probe","w20x-white","w20x-black"},comicSet={"comic","w20x-comic-white","w20x-comic-black"};
+            string[] probe={"w20x-probe","w20x-white","w20x-black"};
+            // W20Z2: the real styles that ship page_scene, each with its white and black copies ("w20x-<id>-white" / "-black").
+            var realSets=new List<string[]>();var withPage=new List<GameTheme>();
             try
             {
                 PlayerPrefs.SetInt(ThemeRegistry.PreviewKey,1);PlayerPrefs.SetInt("reduced",1);GameApp.CleanCapture11=true;
                 yield return LoadBootstrap();
-                var comic=ThemeRegistry.Find("comic");Assert.That(comic,Is.Not.Null);comic.EnsureLoaded();
                 ThemeRegistry.RegisterForTests(GameTheme.CreateForTests("w20x-probe",Tints20X(null,ProbeStep20X,ProbeStepPrimary20X,ProbeSection20X,ProbeCaption20X),table,page));
                 ThemeRegistry.RegisterForTests(GameTheme.CreateForTests("w20x-white",Tints20X(null,"FFFFFF"),table,page));
                 ThemeRegistry.RegisterForTests(GameTheme.CreateForTests("w20x-black",Tints20X(null,"000000"),table,page));
-                ThemeRegistry.RegisterForTests(GameTheme.CreateForTests("w20x-comic-white",Tints20X(comic.Palette,"FFFFFF"),comic.TableScene,comic.PageScene,comic));
-                ThemeRegistry.RegisterForTests(GameTheme.CreateForTests("w20x-comic-black",Tints20X(comic.Palette,"000000"),comic.TableScene,comic.PageScene,comic));
-                // Lazy loading: page_scene is read with the other table pictures when a style is first used; only comic ships one.
+                // Lazy loading: page_scene is read with the other table pictures when a style is first used. W20Z2: a style has
+                // one exactly when its folder holds Table/page_scene.png (THEME_SPEC §3: optional), read from the files.
+                string themesRoot=Path.Combine(Application.dataPath,"Resources","Themes");
+                var shipped=Directory.GetDirectories(themesRoot).Where(d=>File.Exists(Path.Combine(d,"Table","page_scene.png"))).Select(Path.GetFileName).OrderBy(id=>id,StringComparer.Ordinal).ToList();
                 foreach(var theme in ThemeRegistry.All.Where(t=>!t.Id.StartsWith("w20x",StringComparison.Ordinal)))
                 {
                     theme.EnsureLoaded();
-                    report.Add("style "+theme.Id+": page_scene "+(theme.PageScene!=null?theme.PageScene.width+"x"+theme.PageScene.height:"none")+", table_scene "+(theme.TableScene!=null?theme.TableScene.width+"x"+theme.TableScene.height:"the scene's own"));
-                    Assert.That(theme.PageScene!=null,Is.EqualTo(theme.Id=="comic"),theme.Id+" page_scene");
+                    bool file=!theme.IsDefault&&File.Exists(Path.Combine(themesRoot,theme.Id,"Table","page_scene.png"));
+                    report.Add("style "+theme.Id+": page_scene "+(theme.PageScene!=null?theme.PageScene.width+"x"+theme.PageScene.height:"none")+", table_scene "+(theme.TableScene!=null?theme.TableScene.width+"x"+theme.TableScene.height:"the scene's own")+"; Table/page_scene.png "+(file?"in its folder":"not in its folder"));
+                    Assert.That(theme.PageScene!=null,Is.EqualTo(file),theme.Id+" page_scene");
+                    if(file)withPage.Add(theme);
+                }
+                Assert.That(withPage.Select(t=>t.Id).OrderBy(id=>id,StringComparer.Ordinal),Is.EqualTo(shipped),"Every Table/page_scene.png belongs to a registered style.");
+                Assert.That(withPage,Is.Not.Empty,"At least one style ships page_scene (comic since W20X).");
+                report.Add("styles with page_scene (from the files): "+string.Join(", ",withPage.Select(t=>t.Id)));
+                foreach(var theme in withPage)
+                {
+                    ThemeRegistry.RegisterForTests(GameTheme.CreateForTests("w20x-"+theme.Id+"-white",Tints20X(theme.Palette,"FFFFFF"),theme.TableScene,theme.PageScene,theme));
+                    ThemeRegistry.RegisterForTests(GameTheme.CreateForTests("w20x-"+theme.Id+"-black",Tints20X(theme.Palette,"000000"),theme.TableScene,theme.PageScene,theme));
+                    realSets.Add(new[]{theme.Id,"w20x-"+theme.Id+"-white","w20x-"+theme.Id+"-black"});
                 }
 
                 // ---- A. Which picture each screen draws (the backdrop table), probe style; felt pixel at design (6, 540).
@@ -197,18 +217,18 @@ namespace DiceCraft.Tests
                 // ---- B. Tints as drawn at named points. Steps: on the run end, a secondary button and the primary 再开一局.
                 yield return IdentityEndStage20X(app.Config.stages.Length-1);Click("SettlementContinue");yield return WaitForIdle();
                 Assert.That(app.Session.State.phase,Is.EqualTo("RunWon"));yield return Expect("run end",false);
-                foreach(var set in new[]{probe,comicSet})
+                foreach(var set in new[]{probe}.Concat(realSets))
                 {
                     // 设置 / 暂停 is a secondary UiKit.Button, 再开一局 a primary one (UiKit.ActionButton).
                     const string secondary="Pause",primary="Again";
                     yield return TintPass20X("run end",set,new[]
                     {
-                        new TintPoint20X{name=secondary+"/Step (buttonStep)",target=()=>StepOf20X(Button(secondary)),key=()=>UiKit.ButtonStep,local=()=>StepPoint20X(StepOf20X(Button(secondary))),mayBeInk=set==comicSet},
-                        new TintPoint20X{name=primary+"/Step (buttonStepPrimary)",target=()=>StepOf20X(Button(primary)),key=()=>UiKit.ButtonStepPrimary,local=()=>StepPoint20X(StepOf20X(Button(primary))),mayBeInk=set==comicSet},
+                        new TintPoint20X{name=secondary+"/Step (buttonStep)",target=()=>StepOf20X(Button(secondary)),key=()=>UiKit.ButtonStep,local=()=>StepPoint20X(StepOf20X(Button(secondary))),mayBeInk=!ReferenceEquals(set,probe)},
+                        new TintPoint20X{name=primary+"/Step (buttonStepPrimary)",target=()=>StepOf20X(Button(primary)),key=()=>UiKit.ButtonStepPrimary,local=()=>StepPoint20X(StepOf20X(Button(primary))),mayBeInk=!ReferenceEquals(set,probe)},
                     },report,failures);
                 }
                 // The dice-style page's sample cells take section when a style sets it.
-                foreach(var set in new[]{probe,comicSet})
+                foreach(var set in new[]{probe}.Concat(realSets))
                 {
                     var cell=new TintPoint20X{name="StyleCell0 (section)",target=()=>FindActive<Image>("StyleCell0"),key=()=>UiKit.Section(Color.white),local=()=>new Vector2(24,100)};
                     foreach(string theme in set){app.ApplyTheme11(theme);app.ShowDiceStyleLegend073();yield return Art073Settle(.35f);
@@ -218,13 +238,13 @@ namespace DiceCraft.Tests
                 }
                 // The pool tab on the play screen (caption).
                 W11Apply(W11Scene(W11Cards3,new[]{4,4,6,2,4},"bbbrb",2,true));yield return W11Settle();
-                foreach(var set in new[]{probe,comicSet})
+                foreach(var set in new[]{probe}.Concat(realSets))
                     yield return TintPass20X("play",set,new[]{new TintPoint20X{name="PoolTab11 (caption)",target=()=>FindActive<Image>("PoolTab11"),key=()=>UiKit.Caption(UiKit.Panel),local=()=>new Vector2(50,10)}},report,failures);
                 // W20Xb item C: the tray's other two tabs take caption as well, the pool summary (a pool card in the build, the
                 // hand rolled) and the page tab (more than ten dice in the pool); the styles without caption keep Panel on all three.
                 W11Apply(W11Scene(new[]{"C70","C39","C139"},new[]{4,4,6,2,4,5,1,3,6,2,4,5},"bbbrbbrbbbrb",0,true));yield return W11Settle();
                 Assert.That(HasActive("PoolSummaryTab11"),Is.True,"The pool card draws the summary tab.");Assert.That(HasActive("PoolPageTab11"),Is.True,"Twelve dice page the pool.");
-                foreach(var set in new[]{probe,comicSet})
+                foreach(var set in new[]{probe}.Concat(realSets))
                     yield return TintPass20X("play, twelve dice and a pool card",set,new[]
                     {
                         new TintPoint20X{name="PoolSummaryTab11 (caption)",target=()=>FindActive<Image>("PoolSummaryTab11"),key=()=>UiKit.Caption(UiKit.Panel),local=()=>new Vector2(FindActive<Image>("PoolSummaryTab11").rectTransform.rect.width*.5f,10)},
@@ -242,7 +262,7 @@ namespace DiceCraft.Tests
                 }
                 // The shop's sections (section) and their header strips (caption).
                 yield return W14Load(W14ShopFixture(false));
-                foreach(var set in new[]{probe,comicSet})
+                foreach(var set in new[]{probe}.Concat(realSets))
                     yield return TintPass20X("shop",set,new[]
                     {
                         new TintPoint20X{name="ControllerShelf (section)",target=()=>FindActive<Image>("ControllerShelf"),key=()=>UiKit.Section(UiKit.Panel),local=()=>new Vector2(1100,300)},
@@ -265,16 +285,31 @@ namespace DiceCraft.Tests
                     Assert.That(FeltPicture20X(),Is.SameAs(ThemeRegistry.Current.TableScene!=null?(Texture)ThemeRegistry.Current.TableScene:authored),theme+": without page_scene the shop keeps table_scene.");
                 }
 
-                // ---- C. comic: its own page_scene on the shop and its table_scene on the play screen.
-                app.ApplyTheme11("comic");yield return Art073Settle(.3f);
-                Assert.That(FeltPicture20X(),Is.SameAs(comic.PageScene),"comic shop: page_scene");
-                var comicShop=Pixel20X(ScreenPixel20X(W14Main,new Vector2(6,540)));
-                Click("LeaveShop");yield return WaitForIdle();yield return Art073Settle(.3f);Assert.That(app.Session.State.phase,Is.EqualTo("StagePreview"));
-                Assert.That(FeltPicture20X(),Is.SameAs(comic.PageScene),"comic stage select: page_scene");
-                Click("StartStage");yield return WaitForIdle();yield return Art073Settle(.3f);
-                Assert.That(FeltPicture20X(),Is.SameAs(comic.TableScene),"comic play screen: table_scene");
-                var comicPlay=Pixel20X(ScreenPixel20X(W14Main,new Vector2(6,540)));
-                report.Add("comic felt pixel at (6, 540): shop "+C20X(comicShop)+" (page_scene), play "+C20X(comicPlay)+" (table_scene)");
+                // ---- C. Every real style that ships page_scene (W20Z2: from the files; comic, deco and glass today): its own
+                // page_scene on the shop, the handbook over it and stage select; its table_scene on the play screen, the handbook
+                // over it and the stage settlement. The felt pixel at design (6, 540) is reported on each screen.
+                foreach(var theme in withPage)
+                {
+                    yield return W14Load(W14ShopFixture(false));app.ApplyTheme11(theme.Id);
+                    IEnumerator Real(string screen,bool play)
+                    {
+                        yield return Art073Settle(.3f);yield return new WaitForEndOfFrame();
+                        var shown=FeltPicture20X();Texture expected=play?theme.TableScene:theme.PageScene;
+                        bool same=ReferenceEquals(shown,expected);
+                        if(!same)failures.Add(theme.Id+" "+screen+": _TableMap is "+(shown!=null?shown.name:"null")+", expected its "+(play?"table_scene":"page_scene"));
+                        if(app.PlayBackdrop11!=play)failures.Add(theme.Id+" "+screen+": PlayBackdrop11 is "+app.PlayBackdrop11);
+                        report.Add(theme.Id+" "+screen+": "+(play?"table_scene":"page_scene")+(same?" drawn":" NOT drawn")+", felt pixel at (6, 540) "+C20X(Pixel20X(ScreenPixel20X(W14Main,new Vector2(6,540)))));
+                    }
+                    yield return Real("shop",false);
+                    Click("Handbook");yield return Real("handbook over the shop",false);Click("CloseDialog");
+                    Click("LeaveShop");yield return WaitForIdle();Assert.That(app.Session.State.phase,Is.EqualTo("StagePreview"),theme.Id);
+                    yield return Real("stage select",false);
+                    Click("StartStage");yield return WaitForIdle();Assert.That(app.Session.State.phase,Is.EqualTo("HandReady"),theme.Id);
+                    yield return Real("play",true);
+                    app.ShowHandbook();yield return Real("handbook over the play screen",true);Click("CloseDialog");
+                    yield return IdentityEndStage20X(app.Session.State.stage.stageIndex);
+                    yield return Real("stage settlement",true);
+                }
 
                 // ---- D. No flash: frame by frame through shop -> stage select -> play and play -> settlement -> shop.
                 app.ApplyTheme11("w20x-probe");
@@ -309,7 +344,7 @@ namespace DiceCraft.Tests
             finally
             {
                 app.HideCardGallery13();GameApp.CleanCapture11=false;
-                foreach(string id in new[]{"w20x-probe","w20x-white","w20x-black","w20x-comic-white","w20x-comic-black"})ThemeRegistry.UnregisterForTests(id);
+                foreach(string id in new[]{"w20x-probe","w20x-white","w20x-black"}.Concat(realSets.SelectMany(set=>set.Skip(1))))ThemeRegistry.UnregisterForTests(id);
                 app.ApplyTheme11(GameTheme.DefaultId);
                 if(hadPreview)PlayerPrefs.SetInt(ThemeRegistry.PreviewKey,previewValue);else PlayerPrefs.DeleteKey(ThemeRegistry.PreviewKey);
                 PlayerPrefs.SetString(ThemeRegistry.PreferenceKey,savedTheme);PlayerPrefs.Save();
